@@ -77,7 +77,7 @@ You can edit those later if needed.
       %strong
         Language:
     %td
-      = f.select :language_label, Language.find_active.collect {|l| [l.name, l.iso_639_1]}
+      = f.select :language_label, Language.find_active.collect {|l| [l.source_form, l.iso_639_1]}
       %br
   %tr
     %td

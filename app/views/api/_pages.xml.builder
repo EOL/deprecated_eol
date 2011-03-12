@@ -9,24 +9,27 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/0.3",
   "xmlns:dwct" => "http://rs.tdwg.org/dwc/terms/",
   "xsi:schemaLocation" => "http://www.eol.org/transfer/content/0.3 http://services.eol.org/schema/content_0_3.xsd" do                                                                                                               
   
-  unless details_hash.blank?
+  unless taxon_concept.blank?
     xml.taxon do
-      xml.dc :identifier, details_hash['id']
-      xml.dwc :ScientificName, details_hash['scientific_name']
+      xml.dc :identifier, taxon_concept.id
+      xml.dwc :ScientificName, taxon_concept.entry.name.string
       
-      for common_name in details_hash["common_names"]
-        xml.commonName common_name['name_string'], 'xml:lang'.to_sym => common_name['iso_639_1']
+      if params[:common_names]
+        for tcn in taxon_concept.common_names
+          lang = tcn.language ? tcn.language.iso_639_1 : ''
+          xml.commonName tcn.name.string, 'xml:lang'.to_sym => lang
+        end
       end
       
-      unless details_hash['curated_hierarchy_entries'].blank?
+      unless taxon_concept.curated_hierarchy_entries.blank?
         xml.additionalInformation do
-          for entry in details_hash['curated_hierarchy_entries']
+          for entry in taxon_concept.curated_hierarchy_entries
             xml.dwct :Taxon do
               xml.dc :identifier, entry.identifier unless entry.identifier.blank?
               xml.dwct :taxonID, url_for(:controller => 'api', :action => 'hierarchy_entries', :id => entry.id, :only_path => false)
               xml.dwct :scientificName, entry.name.string
               xml.dwct :nameAccordingTo, entry.hierarchy.label
-              xml.dwct :taxonRank, entry.rank.label.firstcap unless entry.rank.nil?
+              xml.dwct :taxonRank, entry.rank.label.firstcap unless entry.rank.blank?
               
               canonical_form_words = entry.name.canonical_form.string.split(/ /)
               count_canonical_words = canonical_form_words.length
@@ -55,11 +58,11 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/0.3",
         end
       end
       
-      for object in details_hash["data_objects"]
-        if data_object_details
-          xml << render(:partial => 'data_object.xml.builder', :layout => false, :locals => { :object_hash => object, :minimal => false } )
+      for data_object in data_objects
+        if params[:details]
+          xml << render(:partial => 'data_object.xml.builder', :layout => false, :locals => { :data_object => data_object, :minimal => false } )
         else
-          xml << render(:partial => 'data_object.xml.builder', :layout => false, :locals => { :object_hash => object, :minimal => true } )
+          xml << render(:partial => 'data_object.xml.builder', :layout => false, :locals => { :data_object => data_object, :minimal => true } )
         end
       end
     end

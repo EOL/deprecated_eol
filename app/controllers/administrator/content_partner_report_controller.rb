@@ -319,13 +319,8 @@ class Administrator::ContentPartnerReportController < AdminController
     @partner_fullname = params[:partner_fullname]
 
     @page_header = 'Harvest Event Data Objects Stats'
-    arr = DataObject.generate_dataobject_stats(@harvest_id)
-      @stats = arr[0]
-      @data_types = arr[1]
-      @vetted_types = arr[2]
-      @total_data_objects = arr[3]
-      @total_taxa = arr[4]
-  end  
+    @data_objects, @total_taxa = DataObject.generate_dataobject_stats(@harvest_id)
+  end
 
 private
 

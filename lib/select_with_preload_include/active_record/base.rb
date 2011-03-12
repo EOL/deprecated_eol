@@ -15,9 +15,9 @@ module ActiveRecord
           else
             # EOL: adding an ability to cache all rows of a class when looking up by ID
             records = nil
-            if defined?(self::CACHE_ALL_ROWS) && self::CACHE_ALL_ROWS && primary_key.class == String
+            if defined?(self::CACHE_ALL_ROWS) && self::CACHE_ALL_ROWS && primary_key.class == String && $CACHE && RAILS_ENV != 'test'
               sql = construct_finder_sql(options).strip
-              if m = sql.match(/SELECT .*? FROM #{quoted_table_name} WHERE (.*)( *LIMIT ([0-9]+))?$/)
+              if m = sql.match(/SELECT .*? FROM #{quoted_table_name} WHERE (.*?)( *LIMIT ([0-9]+))?$/)
                 where_clause = m[1].strip
                 limit = m[3].nil? ? nil : m[3].to_i
                 if m = where_clause.match(/\(#{quoted_table_name}\.`#{primary_key}` = '?([0-9]+)'?\)/)
@@ -28,7 +28,8 @@ module ActiveRecord
                   lookup_ids = m.collect{ |i| i[0].to_i } unless m.empty?
                 end
                 if lookup_ids
-                  records = lookup_ids_from_cache(lookup_ids)
+                  records = lookup_ids_from_cache(lookup_ids, :limit => limit)
+                  records = nil if records.blank?
                 end
               end
             end
@@ -44,9 +45,16 @@ module ActiveRecord
           records
         end
         
-        def lookup_ids_from_cache(ids)
+        def lookup_ids_from_cache(ids, options={})
           chache_all_class_instances
-          ids.collect{ |id| cached("instance_id_#{id}"){ nil } }.compact
+          results = []
+          ids.each do |id|
+            if r = cached_read("instance_id_#{id}")
+              results << r
+              break if options[:limit] && results.length >= options[:limit]
+            end
+          end
+          results.compact
         end
         
         def chache_all_class_instances
@@ -60,7 +68,6 @@ module ActiveRecord
             true
           end
         end
-        
         
         def construct_finder_sql(options)
           scope = scope(:find)
@@ -103,4 +110,4 @@ module ActiveRecord
         end
     end
   end
-end  
+end

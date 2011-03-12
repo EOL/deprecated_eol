@@ -45,18 +45,13 @@ def bootstrap_toc
       'Characteristics',
       'General Description'
   ]
-  make_toc_children(TocItem.find_by_label('Description').id, description_labels, current_order)
+  make_toc_children(TocItem.find_by_translated(:label, 'Description').id, description_labels, current_order)
   current_order += description_labels.length+1
-  TocItem.gen(:label => 'Reproductive Behavior', :parent_id => 0, :view_order => current_order += 1)
-  TocItem.gen(:label => 'Conservation', :parent_id => 0, :view_order => current_order += 1)
-  TocItem.gen(:label => 'Evolution and Systematics', :parent_id => 0, :view_order => current_order += 1)
-  TocItem.gen(:label => 'Literature References', :parent_id => 0, :view_order => current_order += 1)
-  education = TocItem.gen(:label => 'Education', :parent_id => 0, :view_order => current_order += 1)
-  if ii = InfoItem.find_by_label('Education')
-    ii.toc_id = education.id
-    ii.save
-  end
-  relevance = TocItem.gen(:label => 'Relevance', :parent_id => 0, :view_order => current_order += 1)
+  TocItem.gen_if_not_exists(:label => 'Reproductive Behavior', :parent_id => 0, :view_order => current_order += 1)
+  TocItem.gen_if_not_exists(:label => 'Conservation', :parent_id => 0, :view_order => current_order += 1)
+  TocItem.gen_if_not_exists(:label => 'Evolution and Systematics', :parent_id => 0, :view_order => current_order += 1)
+  TocItem.gen_if_not_exists(:label => 'Literature References', :parent_id => 0, :view_order => current_order += 1)
+  relevance = TocItem.gen_if_not_exists(:label => 'Relevance', :parent_id => 0, :view_order => current_order += 1)
   relevance_labels = [
     'Harmful Blooms',
     'Relation to Humans',
@@ -72,16 +67,17 @@ end
 def make_toc_children(parent_id, labels, current_order)
   labels.each do |label|
     current_order += 1
-    TocItem.gen(:label => label, :parent_id => parent_id, :view_order => current_order)
+    TocItem.gen_if_not_exists(:label => label, :parent_id => parent_id, :view_order => current_order)
   end
 end
+
 
 
 #### Real work begins
 
 bootstrap_toc
 
-$CACHE.clear # We appear to be altering some of the cached classes here.  JRice 6/26/09
+
 
 # TODO - I am neglecting to set up agent content partners, curators, contacts, provided data types, or agreements.  For now.
 agent_col = Agent.catalogue_of_life
@@ -186,8 +182,8 @@ tc30.add_common_name_synonym(Factory.next(:common_name), :agent => agent_col, :l
 curator = build_curator(tc30, :username => 'test_curator', :password => 'password', :given_name => 'test', :family_name => 'curator') 
 
 #31 has unvetted and vetted videos, please don't change this one, needed for selenum test:         
-overv = TocItem.find_by_label('Overview')
-desc = TocItem.find_by_label('Description')
+overv = TocItem.find_by_translated(:label, 'Overview')
+desc = TocItem.find_by_translated(:label, 'Description')
 tc31 = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)], :id => 31, 
                   :depth => depth_now, 
                   :flash => [{}, {:vetted => Vetted.unknown}], 
@@ -221,8 +217,8 @@ add_comments_and_tags_to_reharvested_data_objects(tc31)
                     
 #32
 user = User.gen
-overv = TocItem.find_by_label('Overview')
-desc = TocItem.find_by_label('Description')
+overv = TocItem.find_by_translated(:label, 'Overview')
+desc = TocItem.find_by_translated(:label, 'Description')
 tc = build_taxon_concept(:id => 32, :toc => [{:toc_item => overv}, {:toc_item => overv}, {:toc_item => desc}], :comments => [{}])
 description_dato = tc.content_by_category(desc)[:data_objects].first
 description_dato.comment(user, 'First comment')
@@ -238,8 +234,8 @@ description_dato.comment(user, 'Tenth comment')
 description_dato.comment(user, 'Eleventh comment')
 description_dato.comment(user, 'Twelfth comment')
 
-DataObjectsInfoItem.gen(:data_object => tc.overview.first, :info_item => InfoItem.find_by_label("Cyclicity"))
-DataObjectsInfoItem.gen(:data_object => tc.overview.last, :info_item => InfoItem.find_by_label("Distribution"))
+DataObjectsInfoItem.gen(:data_object => tc.overview.first, :info_item => InfoItem.find_by_translated(:label, "Cyclicity"))
+DataObjectsInfoItem.gen(:data_object => tc.overview.last, :info_item => InfoItem.find_by_translated(:label, "Distribution"))
 
 
 
@@ -312,17 +308,17 @@ ContentPage.gen(:page_name => "curator_central", :title => "Curator central", :l
 # TODO - we need to build TopImages such that ancestors contain the images of their descendants
 
 # creating collection / mapping data
-image_collection_type = CollectionType.gen(:label => "Images")
-specimen_image_collection_type = CollectionType.gen(:label => "Specimen", :parent_id => image_collection_type.id)
-natural_image_collection_type = CollectionType.gen(:label => "Natural", :parent_id => image_collection_type.id)
+image_collection_type = CollectionType.gen_if_not_exists(:label => "Images")
+specimen_image_collection_type = CollectionType.gen_if_not_exists(:label => "Specimen", :parent_id => image_collection_type.id)
+natural_image_collection_type = CollectionType.gen_if_not_exists(:label => "Natural", :parent_id => image_collection_type.id)
 
-species_pages_collection_type = CollectionType.gen(:label => "Species Pages")
-molecular_species_pages_collection_type = CollectionType.gen(:label => "Molecular", :parent_id => species_pages_collection_type.id)
-novice_pages_collection_type = CollectionType.gen(:label => "Novice", :parent_id => species_pages_collection_type.id)
-expert_pages_collection_type = CollectionType.gen(:label => "Expert", :parent_id => species_pages_collection_type.id)
+species_pages_collection_type = CollectionType.gen_if_not_exists(:label => "Species Pages")
+molecular_species_pages_collection_type = CollectionType.gen_if_not_exists(:label => "Molecular", :parent_id => species_pages_collection_type.id)
+novice_pages_collection_type = CollectionType.gen_if_not_exists(:label => "Novice", :parent_id => species_pages_collection_type.id)
+expert_pages_collection_type = CollectionType.gen_if_not_exists(:label => "Expert", :parent_id => species_pages_collection_type.id)
 
-marine_theme_collection_type = CollectionType.gen(:label => "Marine")
-bugs_theme_collection_type = CollectionType.gen(:label => "Bugs")
+marine_theme_collection_type = CollectionType.gen_if_not_exists(:label => "Marine")
+bugs_theme_collection_type = CollectionType.gen_if_not_exists(:label => "Bugs")
 
 specimen_image_hierarchy = Hierarchy.gen(:label => 'AntWeb', :description => 'Currently AntWeb contains information on the ant faunas of several areas in the Nearctic and Malagasy biogeographic regions, and global coverage of all ant genera.', :outlink_uri => 'http://www.antweb.org/specimen.do?name=%%ID%%', :url => 'http://www.antweb.org/')
 CollectionTypesHierarchy.gen(:hierarchy => specimen_image_hierarchy, :collection_type => specimen_image_collection_type)
@@ -342,7 +338,7 @@ CollectionTypesHierarchy.gen(:hierarchy => molecular_species_pages_hierarchy, :c
 HierarchyEntry.gen(:hierarchy => molecular_species_pages_hierarchy, :name => kingdom.entry.name, :identifier => '13646', :taxon_concept => kingdom)
 HierarchyEntry.gen(:hierarchy => molecular_species_pages_hierarchy, :name => kingdom.entry.name, :identifier => '9551', :taxon_concept => kingdom)
 
-r = Rank.gen(:label => 'superkingdom', :rank_group_id => 0)
+r = Rank.gen_if_not_exists(:label => 'superkingdom', :rank_group_id => 0)
 
 ### Adding another hierarchy to test switching from one to another
 AgentContact.gen(:agent => Agent.ncbi, :agent_contact_role => AgentContactRole.primary)
@@ -361,7 +357,7 @@ opisthokonts_common_name   = Name.gen(:canonical_form => cf = CanonicalForm.gen(
                   :string => 'opisthokonts',
                   :italicized => '<i>opisthokonts</i>')
 opisthokonts = build_hierarchy_entry(0, kingdom, opisthokonts_name,
-            :rank_id => Rank.find_by_label('kingdom').id,
+            :rank_id => Rank.find_by_translated(:label, 'kingdom').id,
             :identifier => 33154,
             :parent_id => Hierarchy.ncbi.hierarchy_entries.last.id,
             :hierarchy => Hierarchy.ncbi )
@@ -401,11 +397,11 @@ bacteria.add_common_name_synonym("bacteria", :agent => agent_col, :language => e
 bacteria.add_common_name_synonym("bugs", :agent => agent_col, :language => english, :preferred => false)
 bacteria.add_common_name_synonym("grime", :agent => agent_col, :language => english, :preferred => false)
 bacteria.add_common_name_synonym("critters", :agent => agent_col, :language => english, :preferred => false)
-german  = Language.gen(:label => 'German', :iso_639_1 => 'de')
+german  = Language.gen_if_not_exists(:label => 'German', :iso_639_1 => 'de')
 bacteria.add_common_name_synonym("bakteria", :agent => agent_col, :language => german, :preferred => true)
 bacteria.add_common_name_synonym("die buggen", :agent => agent_col, :language => german, :preferred => false)
 bacteria.add_common_name_synonym("das greim", :agent => agent_col, :language => german, :preferred => false)
-french = Language.find_by_label('French') # Assumes French was defined in foundation
+french = Language.find_by_translated(:label, 'French') # Assumes French was defined in foundation
 bacteria.add_common_name_synonym("baseteir", :agent => agent_col, :language => french, :preferred => true)
 bacteria.add_common_name_synonym("le grimme", :agent => agent_col, :language => french, :preferred => false)
 bacteria.add_common_name_synonym("ler petit bugge", :agent => agent_col, :language => french, :preferred => false)

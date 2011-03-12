@@ -13,6 +13,7 @@ describe EolScenarios do
   before(:all) do
     truncate_all_tables # It is assumed you truncate the tables before you run these (well, before you expect them
                         # to work!)
+    $CACHE.clear
     EolScenario.load :bootstrap
   end
 

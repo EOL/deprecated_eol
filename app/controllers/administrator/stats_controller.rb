@@ -50,7 +50,7 @@ class Administrator::StatsController < AdminController
 
   def toc_breakdown
     @page_title = 'Table of Contents Breakdown'
-    @arr_toc = InfoItem.get_toc_breakdown
+    @all_toc_items = TocItem.find(:all, :include => [ :parent, :info_items ], :order => 'view_order')
   end
   
   def content_taxonomic

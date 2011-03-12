@@ -83,7 +83,7 @@
         %strong
           Page Language:
       %td
-        = f.select :language_abbr, Language.find_active.collect {|l| [l.name, l.iso_639_1]}
+        = f.select :language_abbr, Language.find_active.collect {|l| [l.source_form, l.iso_639_1]}
     %tr
       %td
         %strong

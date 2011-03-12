@@ -1,6 +1,7 @@
 class TocItem < SpeciesSchemaModel
-  CACHE_ALL_ROWS = true
   set_table_name 'table_of_contents'
+  CACHE_ALL_ROWS = true
+  uses_translations(:foreign_key => 'table_of_contents_id')
   acts_as_tree :order => 'view_order'
   
   attr_writer :has_content
@@ -27,59 +28,55 @@ class TocItem < SpeciesSchemaModel
   end
   
   def self.bhl
-    cached_find(:label, 'Biodiversity Heritage Library')
+    cached_find_translated(:label, 'Biodiversity Heritage Library')
   end
   def self.content_partners
-    cached_find(:label, 'Content Partners')
+    cached_find_translated(:label, 'Content Partners')
   end
   def self.name_and_taxonomy
-    cached('names_and_taxonomy') do
-      TocItem.find_or_create_by_label('Names and Taxonomy')
-    end
+    cached_find_translated(:label, 'Names and Taxonomy')
   end
   def self.related_names
-    cached_find(:label, 'Related Names')
+    cached_find_translated(:label, 'Related Names')
   end
   def self.synonyms
     cached('synonyms') do
-      TocItem.find_by_label_and_parent_id('Synonyms', self.name_and_taxonomy.id)
+      r = TocItem.find_all_by_parent_id(self.name_and_taxonomy.id).select{ |t| t.label == 'Synonyms' }
+      r.blank? ? nil : r[0]
     end
   end
   def self.common_names
     cached('common_names') do
-      TocItem.find_by_label_and_parent_id('Common Names', self.name_and_taxonomy.id)
+      r = TocItem.find_all_by_parent_id(self.name_and_taxonomy.id).select{ |t| t.label == 'Common Names' }
+      r.blank? ? nil : r[0]
     end
   end
   def self.page_statistics
-    $CACHE.fetch('toc_items/page_statistics') do
-      TocItem.find_or_create_by_label('Page Statistics')
-    end
+    cached_find_translated(:label, 'Page Statistics')
   end
   def self.content_summary
-    $CACHE.fetch('toc_items/content_summary') do
-      TocItem.find_or_create_by_label('Content Summary')
-    end
+    cached_find_translated(:label, 'Content Summary')
   end
   def self.overview
-    cached_find(:label, 'Overview')
+    cached_find_translated(:label, 'Overview')
   end
   def self.education
-    cached_find(:label, 'Education')
+    cached_find_translated(:label, 'Education')
   end
   def self.search_the_web
-    cached_find(:label, 'Search the Web')
+    cached_find_translated(:label, 'Search the Web')
   end
   def self.biomedical_terms
-    cached_find(:label, 'Biomedical Terms')
+    cached_find_translated(:label, 'Biomedical Terms')
   end
   def self.literature_references
-    cached_find(:label, 'Literature References')
+    cached_find_translated(:label, 'Literature References')
   end
   def self.nucleotide_sequences
-    cached_find(:label, 'Nucleotide Sequences')
+    cached_find_translated(:label, 'Nucleotide Sequences')
   end
   def self.wikipedia
-    cached_find(:label, 'Wikipedia')
+    cached_find_translated(:label, 'Wikipedia')
   end
   
   def object_count
@@ -101,7 +98,11 @@ class TocItem < SpeciesSchemaModel
   end
   
   def self.selectable_toc
-    TocItem.find_by_sql("SELECT toc.* FROM table_of_contents toc JOIN info_items ii ON (toc.id=ii.toc_id) WHERE toc.label NOT IN ('Wikipedia', 'Barcode') ORDER BY toc.label").uniq.collect {|c| [c.label, c.id] }
+    cached('selectable_toc') do
+      all = TocItem.find(:all, :include => [:info_items, :translations]).sort_by{ |toc| toc.label }
+      all.delete_if{ |toc| toc.info_items.empty? || ['Wikipedia', 'Barcode'].include?(toc.label) }
+      all.collect{ |c| [c.label, c.id] }
+    end
   end
 
   def wikipedia?
@@ -266,14 +267,3 @@ class TocItem < SpeciesSchemaModel
   end
   
 end
-
-# == Schema Info
-# Schema version: 20081020144900
-#
-# Table name: table_of_contents
-#
-#  id         :integer(2)      not null, primary key
-#  parent_id  :integer(2)      not null
-#  label      :string(255)     not null
-#  view_order :integer(1)      not null
-

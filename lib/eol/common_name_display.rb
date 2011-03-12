@@ -18,17 +18,25 @@ module EOL
  
     # NOTE - this uses TaxonConceptNames, not Synonyms.  For now, that's because TCN is a denormlized version of Synonyms.
     def self.find_by_taxon_concept_id(tc_id)
-      names = Name.find_by_sql([%q{
-        SELECT names.id name_id, names.string name_string,
-               l.label language_label, l.name language_name, l.id language_id, l.iso_639_1,
-               tcn.synonym_id synonym_id, tcn.preferred preferred,
-               tcn.vetted_id vetted_id
-        FROM taxon_concept_names tcn
-          JOIN names ON (tcn.name_id = names.id)
-          LEFT JOIN languages l ON (tcn.language_id = l.id)
-        WHERE tcn.taxon_concept_id = ? AND vern = 1
-      }, tc_id]).map {|n| EOL::CommonNameDisplay.new(n)}
-      EOL::CommonNameDisplay.group_by_name(names)
+      inc = [ :name, :language ]
+      sel = { :taxon_concept_names => [ :synonym_id, :preferred, :vetted_id ],
+              :names => :string,
+              :languages => [ :source_form, :iso_639_1 ]}
+      taxon_concept_names = TaxonConceptName.find_all_by_taxon_concept_id_and_vern(tc_id, 1, :select => sel, :include => inc)
+      display_names = taxon_concept_names.map do |tcn|
+        params = {}
+        params[:name_id] = tcn.name.id
+        params[:name_string] = tcn.name.string
+        params[:iso_639_1] = tcn.language.iso_639_1 rescue nil
+        params[:language_label] = tcn.language.label rescue nil
+        params[:language_name] = tcn.language.source_form rescue nil
+        params[:language_id] = tcn.language.id rescue nil
+        params[:synonym_id] = tcn.synonym_id
+        params[:preferred] = tcn.preferred
+        params[:vetted_id] = tcn.vetted_id
+        EOL::CommonNameDisplay.new(params)
+      end
+      EOL::CommonNameDisplay.group_by_name(display_names)
     end
 
     def self.group_by_name(names)
@@ -50,15 +58,15 @@ module EOL
     end
 
     def initialize(name)
-      @name_id        = name[:name_id].to_i
+      @name_id        = name[:name_id]
       @name_string    = name[:name_string]
       @iso_639_1      = name[:iso_639_1]
       @language_label = name[:language_label] || Language.unknown.label
       @language_name  = name[:language_name]
-      @language_id    = name[:language_id].to_i
-      @synonym_ids    = [name[:synonym_id].to_i]
+      @language_id    = name[:language_id]
+      @synonym_ids    = [name[:synonym_id]]
       @preferred      = name[:preferred].class == String ? name[:preferred].to_i > 0 : name[:preferred]
-      @vetted_id      = name[:vetted_id].to_i
+      @vetted_id      = name[:vetted_id]
       @sources        = get_sources
       @trusted        = trusted_by_agent?
       # TODO - the methods that set these are in taxa_helper.  Move the methods here.  (Or, better, to an Enumerable for CNDs.)

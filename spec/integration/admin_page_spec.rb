@@ -31,7 +31,7 @@ describe 'Admin Pages' do
     @changeable_object_type = ChangeableObjectType.gen()#id = 1 = data_object
     @action_history = ActionsHistory.gen(:object_id => @data_object.id, :action_with_object_id => @action_with_object.id, :changeable_object_type_id => @changeable_object_type.id)
     
-    @toc_item = TocItem.gen(:label => "sample label")
+    @toc_item = TocItem.gen_if_not_exists(:label => "sample label")
     @info_item = InfoItem.gen(:toc_id => @toc_item.id)
     
     @activity = Activity.gen(:name => "sample activity")

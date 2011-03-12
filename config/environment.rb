@@ -211,6 +211,8 @@ Rails::Initializer.run do |config|
   $MAX_TAXA_TO_EXPIRE_BEFORE_EXPIRING_ALL = 1024
 
   $SPECIAL_COMMUNITY_NAME = 'EOL Curators and Admins'
+  
+  APPLICATION_DEFAULT_LANGUAGE_ISO = 'en'
 
   if $USE_SQL_SESSION_MANAGEMENT
     config.action_controller.session_store = :active_record_store

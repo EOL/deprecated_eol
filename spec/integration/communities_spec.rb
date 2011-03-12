@@ -25,220 +25,198 @@ describe "Communities controller" do
     @community.focus.add(@tc2)
   end
 
-  describe '#index' do
+  it 'index should list all communities by name' do
+    visit communities_path
+    page.should have_content(@community.name)
+    page.should have_content(@community2.name)
+  end
 
-    it 'should list all communities by name' do
-      visit communities_path
-      page.should have_content(@community.name)
-      page.should have_content(@community2.name)
+  it 'index should link to creating a new community' do
+    visit communities_path
+    # TODO - Why is capybara'a "have_selector" not working?
+    page.body.should have_tag("a[href=#{new_community_path}]")
+  end
+
+  it 'should not allow non-logged-in users' do
+    login_as @user1
+    visit logout_path
+    get new_community_path
+    response.should be_redirect
+    response.body.should_not have_tag("input#community_name")
+  end
+
+  it 'should ask for the new community name and description' do
+    login_as @user1
+    visit new_community_path
+    page.body.should have_tag("input#community_name")
+    page.body.should have_tag("textarea#community_description")
+  end
+
+  it 'should create a community, add the user, and redirect to show on create' do
+    login_as @user1
+    visit new_community_path
+    fill_in('community_name', :with => 'Some New Name')
+    fill_in('community_description', :with => 'This is a long decription.')
+    click_button(@name_of_create_button)
+    current_path.should == community_path(Community.last)
+  end
+
+  it 'should show the community name and description' do
+    visit community_path(@community)
+    page.should have_content(@community.name)
+    page.should have_content(@community.description)
+  end
+
+  it 'should link to all of the community roles (including member count)' do
+    visit community_path(@community)
+    page.body.should have_tag('ul#community_roles') do
+      @community.roles.each do |role|
+        count = role.members.length # inefficient, but accurate
+        count = 'no' if count == 0
+        with_tag("li", :text => /#{role.title}.*#{count}/m) do
+          with_tag("a[href=#{community_role_path(@community, role)}]", :text => /#{role.title}/m)
+        end
+      end
+    end
+  end
+
+  it 'should link to all of the community members' do
+    visit community_path(@community)
+    page.body.should have_tag("ul#community_members") do
+      @community.members.each do |member|
+        user = member.user
+        with_tag("a[href=#{user_path(user)}]", :text => user.username)
+      end
+    end
+  end
+  
+  it 'should list each member\'s roles' do
+    visit community_path(@community)
+    page.body.should have_tag("ul#community_members") do
+      @community.members.each do |member|
+        user = member.user
+        member.roles.each do |role|
+          with_tag("li", :text => /#{user.username}.*#{role.title}/m)
+        end
+      end
+    end
+  end
+
+  it 'should show the "focus"' do
+    visit community_path(@community)
+    page.body.should have_tag('.focus') do
+      with_tag("a[href=#{taxon_concept_path(@tc1)}]")
+      with_tag("a[href=#{taxon_concept_path(@tc2)}]")
+    end
+  end
+
+  it 'should show the add role link' do
+    login_as @user1
+    visit community_path(@community)
+    page.body.should have_tag("a[href=#{new_community_role_path(@community)}]")
+  end
+
+  it 'should show edit and delete links' do
+    login_as @user1
+    visit community_path(@community)
+    page.body.should have_tag("a[href=#{edit_community_path(@community)}]")
+    page.body.should have_tag("a[href=#{community_path(@community)}]", :text => /delete/i)
+  end
+
+  it 'should show edit membership links' do
+    login_as @user1
+    visit community_path(@community)
+    page.body.should have_tag("a[href=#{community_member_path(@community, @member2)}]", :text => /edit/i)
+  end
+
+  it 'should show remove membership links' do
+    login_as @user1
+    visit community_path(@community)
+    # NOTE = this is doesn't test that the link is actually a DELETE... but that's fine, it checks the text:
+    page.body.should have_tag("a[href=#{community_member_path(@community, @member2)}]", :text => /remove/i)
+  end
+
+  it 'should show log in message when not logged in' do
+    visit('/logout')
+    visit community_path(@community)
+    page.body.should have_tag("#full-page-content") do # Make sure we're not looking at the header.
+      with_tag("a[href=#{login_path}]")
+    end
+  end
+
+  describe '(with member logged in)' do
+
+    before(:all) do
+      @community_with_membership_but_no_access = Community.gen
+      @user1.join_community(@community_with_membership_but_no_access)
+      login_as @user2
+      visit community_path(@community)
     end
 
-    it 'should link to creating a new community' do
-      visit communities_path
-      # TODO - Why is capybara'a "have_selector" not working?
-      page.body.should have_tag("a[href=#{new_community_path}]")
+    it 'should show leave link' do
+      page.body.should have_tag("a[href=#{leave_community_path(@community.id)}]")
+    end
+
+    it 'should NOT show the add role link' do
+      page.body.should_not have_tag("a[href=#{new_community_role_path(@community)}]")
+    end
+
+    it 'should NOT show edit and delete links' do
+      page.body.should_not have_tag("a[href=#{edit_community_path(@community)}]")
+      page.body.should_not have_tag("a[href=#{community_path(@community)}]", :text => /delete/i)
+      page.body.should_not have_tag("a[href=#{join_community_path(@community2.id)}]")
+    end
+
+    it 'should show NOT edit membership links' do
+      page.body.should_not have_tag("a[href=#{community_member_path(@community, @member2)}]", :text => /edit/i)
+    end
+
+    it 'should show NOT remove membership links' do
+      # NOTE = this is doesn't test that the link is actually a DELETE... but that's fine, it checks the text:
+      page.body.should_not have_tag("a[href=#{community_member_path(@community, @member2)}]", :text => /remove/i)
+    end
+
+    it 'should NOT show logged-in message' do
+      page.body.should_not have_tag("a[href=#{login_path}]", :text => /must be logged in/)
     end
 
   end
 
-  describe "#new" do
-
-    before(:each) do
-      login_as @user1
-    end
-
-    it 'should not allow non-logged-in users' do
-      visit logout_path
-      get new_community_path
-      response.should be_redirect
-      response.body.should_not have_tag("input#community_name")
-    end
-
-    it 'should ask for the new community name and description' do
-      visit new_community_path
-      page.body.should have_tag("input#community_name")
-      page.body.should have_tag("textarea#community_description")
-    end
-
-    it 'should create a community, add the user, and redirect to show on create' do
-      visit new_community_path
-      fill_in('community_name', :with => 'Some New Name')
-      fill_in('community_description', :with => 'This is a long decription.')
-      click_button(@name_of_create_button)
-      current_path.should == community_path(Community.last)
-    end
-
+  it 'should show join link and NOT edit or delete links when logged-in user is NOT a member' do
+    login_as @user1
+    visit community_path(@community2)
+    page.body.should have_tag("a[href=#{join_community_path(@community2.id)}]")
+    page.body.should_not have_tag("a[href=#{edit_community_path(@community)}]")
+    page.body.should_not have_tag("a[href=#{community_path(@community)}]", :text => /delete/i)
   end
 
-  describe '#show' do
-
-    it 'should show the community name and description' do
-      visit community_path(@community)
-      page.should have_content(@community.name)
-      page.should have_content(@community.description)
+  it 'should show their feed' do
+    login_as @user1
+    visit community_path(@community2)
+    page.body.should have_tag('ul.feed') do
+      with_tag('.feed_item .body', :text => @feed_body_1)
+      with_tag('.feed_item .body', :text => @feed_body_2)
+      with_tag('.feed_item .body', :text => @feed_body_3)
     end
-
-    it 'should link to all of the community roles (including member count)' do
-      visit community_path(@community)
-      page.body.should have_tag('ul#community_roles') do
-        @community.roles.each do |role|
-          count = role.members.length # inefficient, but accurate
-          count = 'no' if count == 0
-          with_tag("li", :text => /#{role.title}.*#{count}/m) do
-            with_tag("a[href=#{community_role_path(@community, role)}]", :text => /#{role.title}/m)
-          end
-        end
-      end
-    end
-
-    it 'should link to all of the community members' do
-      visit community_path(@community)
-      page.body.should have_tag("ul#community_members") do
-        @community.members.each do |member|
-          user = member.user
-          with_tag("a[href=#{user_path(user)}]", :text => user.username)
-        end
-      end
-    end
-    
-    it 'should list each member\'s roles' do
-      visit community_path(@community)
-      page.body.should have_tag("ul#community_members") do
-        @community.members.each do |member|
-          user = member.user
-          member.roles.each do |role|
-            with_tag("li", :text => /#{user.username}.*#{role.title}/m)
-          end
-        end
-      end
-    end
-
-    it 'should show the "focus"' do
-      visit community_path(@community)
-      page.body.should have_tag('.focus') do
-        with_tag("a[href=#{taxon_concept_path(@tc1)}]")
-        with_tag("a[href=#{taxon_concept_path(@tc2)}]")
-      end
-    end
-
-    describe '(with owner logged in)' do
-
-      before(:all) do
-        login_as @user1
-        visit community_path(@community)
-      end
-
-      it 'should show the add role link' do
-        page.body.should have_tag("a[href=#{new_community_role_path(@community)}]")
-      end
-
-      it 'should show edit and delete links' do
-        page.body.should have_tag("a[href=#{edit_community_path(@community)}]")
-        page.body.should have_tag("a[href=#{community_path(@community)}]", :text => /delete/i)
-      end
-
-      it 'should show edit membership links' do
-        page.body.should have_tag("a[href=#{community_member_path(@community, @member2)}]", :text => /edit/i)
-      end
-
-      it 'should show remove membership links' do
-        # NOTE = this is doesn't test that the link is actually a DELETE... but that's fine, it checks the text:
-        page.body.should have_tag("a[href=#{community_member_path(@community, @member2)}]", :text => /remove/i)
-      end
-
-    end
-
-    it 'should show log in message when not logged in' do
-      visit community_path(@community)
-      page.body.should have_tag("#full-page-content") do # Make sure we're not looking at the header.
-        with_tag("a[href=#{login_path}]")
-      end
-    end
-
-    describe '(with member logged in)' do
-
-      before(:all) do
-        @community_with_membership_but_no_access = Community.gen
-        @user1.join_community(@community_with_membership_but_no_access)
-        login_as @user2
-        visit community_path(@community)
-      end
-
-      it 'should show leave link' do
-        page.body.should have_tag("a[href=#{leave_community_path(@community.id)}]")
-      end
-
-      it 'should NOT show the add role link' do
-        page.body.should_not have_tag("a[href=#{new_community_role_path(@community)}]")
-      end
-
-      it 'should NOT show edit and delete links' do
-        page.body.should_not have_tag("a[href=#{edit_community_path(@community)}]")
-        page.body.should_not have_tag("a[href=#{community_path(@community)}]", :text => /delete/i)
-        page.body.should_not have_tag("a[href=#{join_community_path(@community2.id)}]")
-      end
-
-      it 'should show NOT edit membership links' do
-        page.body.should_not have_tag("a[href=#{community_member_path(@community, @member2)}]", :text => /edit/i)
-      end
-
-      it 'should show NOT remove membership links' do
-        # NOTE = this is doesn't test that the link is actually a DELETE... but that's fine, it checks the text:
-        page.body.should_not have_tag("a[href=#{community_member_path(@community, @member2)}]", :text => /remove/i)
-      end
-
-      it 'should NOT show logged-in message' do
-        page.body.should_not have_tag("a[href=#{login_path}]", :text => /must be logged in/)
-      end
-
-    end
-
-    describe '(with non-member logged in)' do
-
-      before(:all) do
-        login_as @user1
-      end
-
-      it 'should show join link and NOT edit or delete links when logged-in user is NOT a member' do
-        visit community_path(@community2)
-        page.body.should have_tag("a[href=#{join_community_path(@community2.id)}]")
-        page.body.should_not have_tag("a[href=#{edit_community_path(@community)}]")
-        page.body.should_not have_tag("a[href=#{community_path(@community)}]", :text => /delete/i)
-      end
-
-      it 'should show their feed' do
-        visit community_path(@community2)
-        page.body.should have_tag('ul.feed') do
-          with_tag('.feed_item .body', :text => @feed_body_1)
-          with_tag('.feed_item .body', :text => @feed_body_2)
-          with_tag('.feed_item .body', :text => @feed_body_3)
-        end
-      end
-
-      it 'should show an empty feed' do
-        visit community_path(@community3)
-        page.body.should have_tag('#activity', :text => /no activity/i)
-      end
-
-    end
-
   end
 
-  describe '#edit' do
+  it 'should show an empty feed' do
+    login_as @user1
+    visit community_path(@community3)
+    page.body.should have_tag('#activity', :text => /no activity/i)
+  end
 
-    it 'should not allow non-members' do
-      # NOTE - Capybara doesn't want you testing redirects.  It says "use a unit test".  Really.
-      get edit_community_path(@community)
-      response.should be_redirect
-    end
+  it 'edit should not allow non-members' do
+    # NOTE - Capybara doesn't want you testing redirects.  It says "use a unit test".  Really.
+    get edit_community_path(@community)
+    response.should be_redirect
+  end
 
-    it 'should allow editing of name and description (as community owner)' do
-      login_as @user1
-      visit edit_community_path(@community)
-      page.body.should have_tag("input#community_name")
-      page.body.should have_tag("textarea#community_description")
-    end
-
+  it 'edit should allow editing of name and description (as community owner)' do
+    login_as @user1
+    visit edit_community_path(@community)
+    page.body.should have_tag("input#community_name")
+    page.body.should have_tag("textarea#community_description")
   end
 
   it 'should allow non-members to join communities, then redirect to show' do

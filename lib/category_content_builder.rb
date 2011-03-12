@@ -31,7 +31,7 @@ class CategoryContentBuilder
   end
 
   def synonyms(options)
-    return {:items => TaxonConcept.synonyms(options[:taxon_concept].id)}
+    return {:items => options[:taxon_concept].synonyms}
   end
 
   def common_names(options)

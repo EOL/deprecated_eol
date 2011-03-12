@@ -121,8 +121,7 @@ class DataObjectsController < ApplicationController
     @comments = @data_object.all_comments.dup.paginate(:page => params[:page], :order => 'updated_at DESC', :per_page => Comment.per_page)
     @slim_container = true
     @revisions = @data_object.revisions.sort_by(&:created_at).reverse
-    @hierarchy_paths = get_harvested_paths
-    @taxon_concepts = @data_object.taxon_concepts(:published => :preferred)
+    @taxon_concepts = @data_object.get_taxon_concepts(:published => :preferred)
     @scientific_names = @taxon_concepts.inject({}) { |res, tc| res[tc.scientific_name] = { :common_name => tc.common_name, :taxon_concept_id => tc.id }; res }
     @image_source = get_image_source if @type == 'Image'
   end
@@ -179,15 +178,6 @@ protected
 
   def get_attribution
     current_user.log_activity(:showed_attributions_for_data_object_id, :value => @data_object.id)
-  end
-
-  # Every data object has hieararchy associated with it by data partner
-  # This method collects these hierarchy paths
-  def get_harvested_paths
-    @data_object.harvested_ancestries.map do |a|
-      { :path => a.map {|he| {:name => Name.find(he.name_id).string, :taxon_concept_id => he.taxon_concept_id } },
-        :published => a.last.published? }
-    end
   end
 
   def set_text_data_object_options

@@ -398,9 +398,9 @@ end
 
 Ref.class_eval do
   def add_identifier(type, identifier)
-    type = RefIdentifierType.find_by_label(type) || RefIdentifierType.gen(:label => type)
+    type = RefIdentifierType.find_by_label(type) || RefIdentifierType.gen_if_not_exists(:label => type)
     # TODO - I can take off the :ref => self, right?  For now, being safe.
-    self.ref_identifiers << RefIdentifier.gen(:ref_identifier_type => type, :identifier => identifier, :ref => self)
+    self.ref_identifiers << RefIdentifier.gen_if_not_exists(:ref_identifier_type => type, :identifier => identifier, :ref => self)
   end
 end
 
@@ -451,7 +451,7 @@ TaxonConcept.class_eval do
 
   # Add a specific toc item to this TC's toc:
   def add_toc_item(toc_item, options = {})
-    dato = DataObject.gen(:data_type => DataType.find_by_label('Text'))
+    dato = DataObject.gen(:data_type => DataType.find_by_translated(:label, 'Text'))
     if options[:vetted] == false
       dato.vetted = Vetted.untrusted
     end
@@ -475,9 +475,9 @@ TaxonConcept.class_eval do
 
   # Add a synonym to this TC.
   def add_scientific_name_synonym(name_string, options = {})
-    language  = Language.find_by_label("Scientific Name") # Note, this could be id 0
+    language  = Language.scientific # Note, this could be id 0
     preferred = false
-    relation = SynonymRelation.find_by_label("synonym")
+    relation = SynonymRelation.find_by_translated(:label, "synonym")
     name_obj = Name.find_by_clean_name(Name.prepare_clean_name name_string) || Name.gen(:canonical_form => canonical_form_object, :string => name_string, :italicized => name_string)
     Synonym.generate_from_name(name_obj, :agent => Agent.first, :preferred => preferred, :language => language,
                                :entry => entry, :relation => relation)

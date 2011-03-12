@@ -1,4 +1,6 @@
 class CollectionType < SpeciesSchemaModel
+  CACHE_ALL_ROWS = true
+  uses_translations
   acts_as_tree :order => 'lft'
   
   has_and_belongs_to_many :collections

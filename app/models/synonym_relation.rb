@@ -1,24 +1,17 @@
 class SynonymRelation < SpeciesSchemaModel
   CACHE_ALL_ROWS = true
+  uses_translations
   has_many :synonyms
 
   def self.synonym
-    cached_find(:label, 'Synonym')
+    cached_find_translated(:label, 'Synonym')
   end
   
   def self.common_name_ids
-    cached('common_name_ids') do
-       [SynonymRelation.find_or_create_by_label('common name').id,
-        SynonymRelation.find_or_create_by_label('genbank common name').id]
+    cached('common_names') do
+       [cached_find_translated(:label, 'common name'),
+        cached_find_translated(:label, 'genbank common name')].compact.collect{ |sr| sr.id }
     end
   end
 
 end
-# == Schema Info
-# Schema version: 20081020144900
-#
-# Table name: synonym_relations
-#
-#  id    :integer(2)      not null, primary key
-#  label :string(255)     not null
-

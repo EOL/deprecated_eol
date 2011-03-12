@@ -31,21 +31,24 @@ module ApiHelper
   end
   
   
-  def pages_json(details_hash, all_details = true)
+  def pages_json(taxon_concept, data_objects, all_details = true)
     return_hash = {}
-    return_hash['identifier'] = details_hash['id']
-    return_hash['scientificName'] = details_hash['scientific_name']
+    return_hash['identifier'] = taxon_concept.id
+    return_hash['scientificName'] = taxon_concept.entry.name.string
     
     return_hash['vernacularNames'] = []
-    for common_name in details_hash["common_names"]
-      return_hash['vernacularNames'] << {
-        'vernacularName' => common_name['name_string'],
-        'language'       => common_name['iso_639_1']
-      }
+    if params[:common_names]
+      for tcn in taxon_concept.common_names
+        lang = tcn.language ? tcn.language.iso_639_1 : ''
+        return_hash['vernacularNames'] << {
+          'vernacularName' => tcn.name.string,
+          'language'       => lang
+        }
+      end
     end
     
     return_hash['taxonConcepts'] = []
-    for entry in details_hash['curated_hierarchy_entries']
+    for entry in taxon_concept.curated_hierarchy_entries
       entry_hash = {
         'identifier'      => entry.id,
         'scientificName'  => entry.name.string,
@@ -56,58 +59,53 @@ module ApiHelper
     end
     
     return_hash['dataObjects'] = []
-    for object in details_hash["data_objects"]
-      return_hash['dataObjects'] << data_objects_json(object, all_details)
+    for data_object in data_objects
+      return_hash['dataObjects'] << data_objects_json(data_object, all_details)
     end
     return return_hash
   end
   
-  
-  def data_objects_json(details_hash, all_details = true)
+  def data_objects_json(data_object, all_details = true)
     return_hash = {}
-    return_hash['identifier']             = details_hash["guid"]
-    return_hash['dataType']               = details_hash["data_type"]
+    return_hash['identifier']             = data_object.guid
+    return_hash['dataType']               = data_object.data_type.schema_value
     return return_hash unless all_details == true
     
-    return_hash['mimeType']               = details_hash["mime_type"]
-    return_hash['created']                = details_hash["object_created_at"] unless details_hash["object_created_at"].blank?
-    return_hash['modified']               = details_hash["updated_at"] unless details_hash["updated_at"].blank?
-    return_hash['title']                  = details_hash["object_title"] unless details_hash["object_title"].blank?
-    return_hash['language']               = details_hash["language"] unless details_hash["language"].blank?
-    return_hash['license']                = details_hash["license"] unless details_hash["license"].blank?
-    return_hash['rights']                 = details_hash["rights_statement"] unless details_hash["rights_statement"].blank?
-    return_hash['rightsHolder']           = details_hash["rights_holder"] unless details_hash["rights_holder"].blank?
-    return_hash['bibliographicCitation']  = details_hash["bibliographic_citation"] unless details_hash["bibliographic_citation"].blank?
-    return_hash['source']                 = details_hash["source_url"] unless details_hash["source_url"].blank?
-    return_hash['subject']                = details_hash["subject"] unless details_hash["subject"].blank?
-    return_hash['description']            = details_hash["description"] unless details_hash["description"].blank?
-    return_hash['mediaURL']               = details_hash["object_url"] unless details_hash["object_url"].blank?
-    return_hash['eolMediaURL']            = DataObject.image_cache_path(details_hash["object_cache_url"], :large) unless details_hash["object_cache_url"].blank?
-    return_hash['eolThumbnailURL']        = DataObject.image_cache_path(details_hash["object_cache_url"], :medium) unless details_hash["object_cache_url"].blank?
-    return_hash['location']               = details_hash["location"] unless details_hash["location"].blank?
+    return_hash['mimeType']               = data_object.mime_type.label unless data_object.mime_type.blank?
+    return_hash['created']                = data_object.object_created_at unless data_object.object_created_at.blank?
+    return_hash['modified']               = data_object.object_modified_at unless data_object.object_modified_at.blank?
+    return_hash['title']                  = data_object.object_title unless data_object.object_title.blank?
+    return_hash['language']               = data_object.language.iso_639_1 unless data_object.language.blank?
+    return_hash['license']                = data_object.license.source_url unless data_object.license.blank?
+    return_hash['rights']                 = data_object.rights_statement unless data_object.rights_statement.blank?
+    return_hash['rightsHolder']           = data_object.rights_holder unless data_object.rights_holder.blank?
+    return_hash['bibliographicCitation']  = data_object.bibliographic_citation unless data_object.bibliographic_citation.blank?
+    return_hash['source']                 = data_object.source_url unless data_object.source_url.blank?
+    return_hash['subject']                = data_object.info_items[0].schema_value unless data_object.info_items.blank?
+    return_hash['description']            = data_object.description unless data_object.description.blank?
+    return_hash['mediaURL']               = data_object.object_url unless data_object.object_url.blank?
+    return_hash['eolMediaURL']            = DataObject.image_cache_path(data_object.object_cache_url, :orig) unless data_object.object_cache_url.blank?
+    return_hash['eolThumbnailURL']        = DataObject.image_cache_path(data_object.object_cache_url, :medium) unless data_object.object_cache_url.blank?
+    return_hash['location']               = data_object.location unless data_object.location.blank?
     
-    unless details_hash['latitude']=="0" && details_hash['longitude']=="0" && details_hash['altitude']=="0"
-      return_hash['latitude'] = details_hash['latitude'] unless details_hash['latitude']=="0"
-      return_hash['longitude'] = details_hash['longitude'] unless details_hash['longitude']=="0"
-      return_hash['altitude'] = details_hash['altitude'] unless details_hash['altitude']=="0"
+    unless data_object.latitude == 0 && data_object.longitude == 0 && data_object.altitude == 0
+      return_hash['latitude'] = data_object.latitude unless data_object.latitude == 0
+      return_hash['longitude'] = data_object.longitude unless data_object.longitude == 0
+      return_hash['altitude'] = data_object.altitude unless data_object.altitude == 0
     end
     
     return_hash['agents'] = []
-    unless details_hash["agents"].blank?
-      for agent in details_hash["agents"]
-        return_hash['agents'] << {
-          'full_name' => agent["full_name"],
-          'homepage'  => agent["homepage"],
-          'role'      => agent["role"].downcase
-        }
-      end
+    for ado in data_object.agents_data_objects
+      return_hash['agents'] << {
+        'full_name' => ado.agent.full_name,
+        'homepage'  => ado.agent.homepage,
+        'role'      => ado.agent_role.label.downcase
+      }
     end
     
     return_hash['references'] = []
-    unless details_hash["refs"].nil?
-      for ref in details_hash["refs"] 
-        return_hash['references'] << ref["full_reference"]
-      end
+    data_object.published_refs.each do |r|
+      return_hash['references'] << r.full_reference
     end
     
     return return_hash

@@ -301,8 +301,8 @@ describe User do
     end
 
     it 'should be able to mark all data objects invisible and unvetted' do
-      Vetted.gen(:label => 'Untrusted') unless Vetted.find_by_label('Untrusted')
-      Visibility.gen(:label => 'Invisible') unless Visibility.find_by_label('Invisible')
+      Vetted.gen_if_not_exists(:label => 'Untrusted') unless Vetted.find_by_translated(:label, 'Untrusted')
+      Visibility.gen_if_not_exists(:label => 'Invisible') unless Visibility.find_by_translated(:label, 'Invisible')
       @user.hide_all_submitted_datos
       @datos.each do |stored_dato|
         new_dato = DataObject.find(stored_dato.id) # we changed the values, so must re-load them. 

@@ -33,20 +33,19 @@ module ActiveRecord
       # I am going to try NOT doing anything with that option right now, to see if it works.  If not, however, I want to at
       # least have it passed in when we needed it, so the code can change later if needed.
       def cached_find(field, value, options = {})
-        if v = check_local_cache("#{field}_#{value}".to_sym)
-          return v
-        end
-        response = cached("#{field}/#{value}", options) do
+        cached("#{field}/#{value}", options) do
           send("find_by_#{field}", value)
         end
-        set_local_cache("#{field}_#{value}".to_sym, response)
-        response
       end
-
+      
+      def cached_read(key)
+        name = cached_name_for(key)
+        $CACHE.read(name)
+      end
+      
       def cached(key, options = {}, &block)
         name = cached_name_for(key)
         if $CACHE # Sometimes during tests, cache has not yet been initialized.
-          wrote_cache_key(name)
           $CACHE.fetch(name) do
             yield
           end
@@ -54,24 +53,7 @@ module ActiveRecord
           yield
         end
       end
-
-      # Store a list of all of the keys we create for this model (using these cache methods)... speeds up clearing.
-      def wrote_cache_key(key)
-        name = cached_name_for('cached_names')
-        keys = $CACHE.read(name) || []
-        return keys if keys.include? key
-        keys = keys + [key] # Can't use << or += here because Cache has frozen the array.
-        $CACHE.write(name, keys)
-      end
-
-      def clear_all_caches
-        keys = $CACHE.read(cached_name_for('cached_names')) || []
-        keys.each do |key|
-          $CACHE.delete(key)
-        end
-        $CACHE.write(TODO, keys)
-      end
-
+      
       def cached_name_for(key)
         "#{RAILS_ENV}/#{self.table_name}/#{key.underscore_non_word_chars}"[0..249]
       end
@@ -96,6 +78,99 @@ module ActiveRecord
       def reset_cached_instances
         if class_variable_defined?(:@@cached_instances)
           class_variable_set(:@@cached_instances, {})
+        end
+        if class_variable_defined?(:@@cached_all_instances)
+          class_variable_set(:@@cached_all_instances, false)
+        end
+      end
+      
+      def uses_translations(options={})
+        begin
+          translated_class = eval("Translated" + self.to_s)
+          has_many :translations, :class_name => translated_class.to_s, :foreign_key => options[:foreign_key]
+          const_set(:USES_TRANSLATIONS, true)
+          const_set(:TRANSLATION_CLASS, translated_class)
+          attr_accessor :current_translation_language
+          # creating attributes for the translated fields
+          # also creating a method Class.attribute(language_iso_code)
+          # which will return that attribute in the given language
+          if defined?(translated_class) && translated_class.table_exists?
+            translated_class.column_names.each do |a|
+              # the two columns that the translation will always have which shouldn't override the main class
+              unless a == 'id' || a == 'language_id'
+                attr_accessor "translated_#{a}".to_sym unless column_names.include?(a)
+              
+                define_method(a.to_sym) do |*args|
+                  return nil unless defined?(Language)
+                  language_iso = args[0] || current_translation_language || nil
+                  if language_iso == current_translation_language
+                    return eval("translated_#{a}")
+                  end
+                  language_id = Language.id_from_iso(language_iso)
+                  return nil if language_id.nil?
+                  if translations
+                    match = translations.select{|t| t.language_id == language_id }
+                    return nil if match.empty?
+                    return match[0][a]
+                  end
+                end
+              end
+            end
+          end
+          
+          define_method(:after_initialize) do
+            # Language was causing a recusvie loop because of the language lookup in the next method
+            set_translation_language
+          end
+          
+          define_method(:set_translation_language) do |*args|
+            language_iso = args[0] || APPLICATION_DEFAULT_LANGUAGE_ISO || nil
+            language_id = Language.id_from_iso(language_iso)
+            return nil if language_id.nil?
+            self.current_translation_language = language_iso
+            match = translations.select{|t| t.language_id == language_id }
+            unless match.empty?
+              # populate the translated attributes
+              match[0].attributes.each do |a, v|
+                # puts "SETTING #{self.class.class_name} #{a} to #{v}"
+                eval("self.translated_#{a} = v") unless a == 'id' || a == 'language_id' 
+              end
+            end
+          end
+          
+          self.class.send(:define_method, :find_by_translated) do |field, value, *args|
+            begin
+              language_iso = args[0] || APPLICATION_DEFAULT_LANGUAGE_ISO || nil
+              language_id = Language.id_from_iso(language_iso)
+              return nil if language_id.nil?
+              
+              table = self::TRANSLATION_CLASS.table_name
+              # find the record where the translated field is * and language is *
+              found = send("find", :first, :joins => :translations,
+                :conditions => "`#{table}`.`#{field}` = '#{value}' AND `#{table}`.`language_id` = #{language_id}")
+              
+              # if the default language wasn't chosen, swtich translated attributes to new language
+              if found
+                found.set_translation_language(language_iso) if language_iso != APPLICATION_DEFAULT_LANGUAGE_ISO
+              end
+              found
+            rescue => e
+              # Language may not be defined yet
+              puts e.message
+              pp e.backtrace
+            end
+          end
+          
+          self.class.send(:define_method, :cached_find_translated) do |field, value, *args|
+            language_iso = args[0] || APPLICATION_DEFAULT_LANGUAGE_ISO || nil
+            cached("#{field}/#{value}/#{language_iso}") do
+              find_by_translated(field, value, language_iso)
+            end
+          end
+          
+        rescue => e
+          puts e.message
+          pp e.backtrace
         end
       end
     end

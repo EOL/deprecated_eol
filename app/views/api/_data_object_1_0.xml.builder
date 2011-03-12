@@ -1,55 +1,53 @@
-unless object_hash.blank?
+unless data_object.blank?
   xml.dataObject do
-    xml.dataObjectID object_hash["guid"]
+    xml.dataObjectID data_object.guid
     if taxon_concept_id.blank?
-      xml.taxonConceptID object_hash["taxon_concept_id"] unless object_hash["taxon_concept_id"].blank?
+      xml.taxonConceptID data_object.first_taxon_concept.id unless data_object.first_taxon_concept.blank?
     else
       xml.taxonConceptID taxon_concept_id
     end
-    xml.dataType object_hash["data_type"]
+    xml.dataType data_object.data_type.schema_value
     
     unless minimal
-      xml.mimeType object_hash["mime_type"] unless object_hash["mime_type"].blank?
+      xml.mimeType data_object.mime_type.label unless data_object.mime_type.blank?
       
-      unless object_hash["agents"].nil?
-        for agent in object_hash["agents"]
-          xml.agent agent["full_name"], :homepage => agent["homepage"], :role => agent["role"].downcase
-        end
+      for ado in data_object.agents_data_objects
+        xml.agent ado.agent.full_name, :homepage => ado.agent.homepage, :role => ado.agent_role.label.downcase
       end
       
-      xml.dcterms :created, object_hash["object_created_at"] unless object_hash["object_created_at"].blank?
-      xml.dcterms :modified, object_hash["updated_at"] unless object_hash["updated_at"].blank?
-      xml.dc :title, object_hash["object_title"] unless object_hash["object_title"].blank?
-      xml.dc :language, object_hash["language"] unless object_hash["language"].blank?
-      xml.license object_hash["license"] unless object_hash["license"].blank?
-      xml.dc :rights, object_hash["rights_statement"] unless object_hash["rights_statement"].blank?
-      xml.dcterms :rightsHolder, object_hash["rights_holder"] unless object_hash["rights_holder"].blank?
-      xml.dcterms :bibliographicCitation, object_hash["bibliographic_citation"] unless object_hash["bibliographic_citation"].blank?
+      xml.dcterms :created, data_object.object_created_at unless data_object.object_created_at.blank?
+      xml.dcterms :modified, data_object.object_modified_at unless data_object.object_modified_at.blank?
+      xml.dc :title, data_object.object_title unless data_object.object_title.blank?
+      xml.dc :language, data_object.language.iso_639_1 unless data_object.language.blank?
+      xml.license data_object.license.source_url unless data_object.license.blank?
+      xml.dc :rights, data_object.rights_statement unless data_object.rights_statement.blank?
+      xml.dcterms :rightsHolder, data_object.rights_holder unless data_object.rights_holder.blank?
+      xml.dcterms :bibliographicCitation, data_object.bibliographic_citation unless data_object.bibliographic_citation.blank?
       # leaving out audience
-      xml.dc :source, object_hash["source_url"] unless object_hash["source_url"].blank?
+      xml.dc :source, data_object.source_url unless data_object.source_url.blank?
     end
     
-    xml.subject object_hash["subject"] unless object_hash["subject"].blank?
+    data_object.info_items.each do |ii|
+      xml.subject ii.schema_value unless ii.schema_value.blank?
+    end
     
     unless minimal
-      xml.dc :description, object_hash["description"] unless object_hash["description"].blank?
-      xml.mediaURL object_hash["object_url"] unless object_hash["object_url"].blank?
-      xml.mediaURL DataObject.image_cache_path(object_hash["object_cache_url"], :large) unless object_hash["object_cache_url"].blank?
-      xml.thumbnailURL object_hash["thumbnail_url"] unless object_hash["thumbnail_url"].blank?
-      xml.location object_hash["location"] unless object_hash["location"].blank?
+      xml.dc :description, data_object.description unless data_object.description.blank?
+      xml.mediaURL data_object.object_url unless data_object.object_url.blank?
+      xml.mediaURL DataObject.image_cache_path(data_object.object_cache_url, :orig) unless data_object.object_cache_url.blank?
+      xml.thumbnailURL data_object.thumbnail_url unless data_object.thumbnail_url.blank?
+      xml.location data_object.location unless data_object.location.blank?
       
-      unless object_hash['latitude']=="0" && object_hash['longitude']=="0" && object_hash['altitude']=="0"
+      unless data_object.latitude == 0 && data_object.longitude == 0 && data_object.altitude == 0
         xml.geo :Point do
-          xml.geo :lat, object_hash['latitude'] unless object_hash['latitude']=="0"
-          xml.geo :long, object_hash['longitude'] unless object_hash['longitude']=="0"
-          xml.geo :alt, object_hash['altitude'] unless object_hash['altitude']=="0"
+          xml.geo :lat, data_object.latitude unless data_object.latitude == 0
+          xml.geo :long, data_object.longitude unless data_object.longitude == 0
+          xml.geo :alt, data_object.altitude unless data_object.altitude == 0
         end
       end
       
-      unless object_hash["refs"].nil?
-        for ref in object_hash["refs"] 
-          xml.reference ref["full_reference"]
-        end
+      data_object.published_refs.each do |r|
+        xml.reference r.full_reference
       end
     end
   end

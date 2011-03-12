@@ -96,7 +96,7 @@ describe 'Data Object Page' do
       :object_cache_url => Factory.next(:image),
       :vetted => Vetted.trusted,
       :visibility => Visibility.visible)
-      dato_no_tc.taxon_concepts[0].published?.should be_false
+      dato_no_tc.get_taxon_concepts[0].published?.should be_false
       visit("/data_objects/#{dato_no_tc.id}")
       page_link = "/pages/#{tc.id}?image_id="
       page.body.should_not include(page_link)

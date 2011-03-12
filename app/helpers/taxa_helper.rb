@@ -211,7 +211,6 @@ module TaxaHelper
     unknown = Language.unknown
     # Build a hash with language label as key and an array of CommonNameDisplay objects as values
     names.each do |name|
-      language = {:id => name.language_id, :label => name.language_label, :name => name.language_name}
       k = name.language_label
       k = unknown.label if k.blank?
       names_by_language.key?(k) ? names_by_language[k] << name : names_by_language[k] = [name]

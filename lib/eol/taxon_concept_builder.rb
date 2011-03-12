@@ -142,7 +142,7 @@ module EOL
 
     def set_depth
       # Note that this assumes the ranks are *in order* which is ONLY true with foundation loaded!
-      @depth = @depth || Rank.find_by_label(@rank || 'species').id - 1 # This is an assumption...
+      @depth = @depth || Rank.find_by_translated(:label, @rank || 'species').id - 1 # This is an assumption...
     end
 
     def gen_he
@@ -168,7 +168,7 @@ module EOL
     def gen_other_names
       puts "** Enter: gen_other_names" if @debugging
       @common_names.each_with_index do |common_name, count|
-        language = (count != 0 && count == @common_names.size) ? Language.find_by_label("French") : Language.english
+        language = (count != 0 && count == @common_names.size) ? Language.find_by_translated(:label, "French") : Language.english
         @tc.add_common_name_synonym(common_name, :agent => Agent.col, :language => language)
       end
       @tc.add_scientific_name_synonym(@sname.string, Agent.col) unless @sname.nil?
@@ -319,7 +319,7 @@ module EOL
       puts "**** Enter: build_entry_in_hierarchy" if @debugging
       raise "Cannot build a HierarchyEntry without depth, TaxonConcept, and Name" unless @depth && @tc && @sname
       options[:hierarchy] ||= @hierarchy
-      options[:rank_id] ||= Rank.find_by_label(@rank).id rescue nil
+      options[:rank_id] ||= Rank.find_by_translated(:label, @rank).id rescue nil
       return build_hierarchy_entry(@depth, @tc, @sname, options)
     end
 
@@ -362,7 +362,7 @@ module EOL
 
     def default_toc_option
       toc = [{:toc_item => TocItem.overview, :description => "This is an overview of the <b>#{@canon}</b> hierarchy entry."},
-                       {:toc_item => TocItem.find_by_label('Description'), :description => "This is an description of the <b>#{@canon}</b> hierarchy entry."}]
+                       {:toc_item => TocItem.find_by_translated(:label, 'Description'), :description => "This is an description of the <b>#{@canon}</b> hierarchy entry."}]
       # Add more toc items:
       (2).times do
         toc << {} # Default values are applied below.

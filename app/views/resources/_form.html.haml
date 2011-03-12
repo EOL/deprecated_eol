@@ -108,7 +108,7 @@
       = f.text_field :rights_holder, :maxlength=>200, :size=>50 
     .form_item
       = f.label :language_id, 'Default Language:'
-      = f.select :language_id, Language.find_active.collect {|l| [l.name, l.id]}
+      = f.select :language_id, Language.find_active.collect {|l| [l.source_form, l.id]}
     .form_item
       = f.label :description, 'Description:'
       = f.text_area :description

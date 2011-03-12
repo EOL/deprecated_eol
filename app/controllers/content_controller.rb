@@ -72,30 +72,27 @@ class ContentController < ApplicationController
         :select => 'data_object_id',
         :conditions => "taxon_concept_id = #{taxon_concept.id} AND view_order<400").collect{|tci| tci.data_object_id}
 
-      data_objects = DataObject.details_for_objects(do_ids, :visible => true, :skip_metadata => true, :add_common_names => true)
+      data_objects = DataObject.find_all_by_id(do_ids,
+        :select => {
+          :data_objects => [ :guid, :object_cache_url ],
+          :names => :string },
+        :include => { :taxon_concepts => [ {:preferred_names => :name}, {:preferred_common_names => :name} ]})
+      
       data_objects.each do |data_object|
-        taxon_concept = data_object['taxon_concept_id']
-        title = data_object['scientific_name']
-        unless data_object['common_names'].blank?
-          common_name = nil
-          data_object['common_names'].each do |cn|
-            if cn.is_a?(Hash) && !cn['name'].blank?
-              common_name = cn['name']
-              break
-            end
-          end
-          title += ": #{common_name}" if common_name
+        taxon_concept = data_object.taxon_concepts[0]
+        title = taxon_concept.preferred_names[0].name.string
+        unless taxon_concept.preferred_common_names.blank?
+          title += ": #{taxon_concept.preferred_common_names[0].name.string}"
         end
         @items << {
           :title => title,
-          :link => data_object_url(data_object['id']),
-          :permalink => data_object_url(data_object['id']),
-          :guid => data_object['guid'],
-          :thumbnail => DataObject.image_cache_path(data_object['object_cache_url'], :medium),
-          :image => DataObject.image_cache_path(data_object['object_cache_url'], :orig),
+          :link => data_object_url(data_object.id),
+          :permalink => data_object_url(data_object.id),
+          :guid => data_object.guid,
+          :thumbnail => DataObject.image_cache_path(data_object.object_cache_url, :medium),
+          :image => DataObject.image_cache_path(data_object.object_cache_url, :orig),
         }
       end
-      # @items = @items.sort_by {|i| [i[:title], 5 - i[:data_rating].to_f]} 
       @items
     end
 

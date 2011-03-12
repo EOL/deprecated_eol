@@ -1,38 +1,39 @@
 class Rank < SpeciesSchemaModel
   CACHE_ALL_ROWS = true
+  uses_translations
   has_many :hierarchy_entries
   has_many :group_members, :class_name => 'Rank', :primary_key => 'rank_group_id', :foreign_key => 'rank_group_id', :conditions => 'rank_group_id!=0'
   
   def self.kingdom
-    cached_find(:label, 'kingdom')
+    cached_find_translated(:label, 'kingdom')
   end
   
   def self.phylum
-    cached_find(:label, 'phylum')
+    cached_find_translated(:label, 'phylum')
   end
   
   def self.class_rank
-    cached_find(:label, 'class')
+    cached_find_translated(:label, 'class')
   end
   
   def self.order
-    cached_find(:label, 'order')
+    cached_find_translated(:label, 'order')
   end
   
   def self.family
-    cached_find(:label, 'family')
+    cached_find_translated(:label, 'family')
   end
   
   def self.genus
-    cached_find(:label, 'genus')
+    cached_find_translated(:label, 'genus')
   end
   
   def self.species
-    cached_find(:label, 'species')
+    cached_find_translated(:label, 'species')
   end
   
   def self.subspecies
-    cached_find(:label, 'subspecies')
+    cached_find_translated(:label, 'subspecies')
   end
   
   
@@ -70,8 +71,9 @@ class Rank < SpeciesSchemaModel
   end
 
   def self.italicized_ids_sub
-    @@ids ||= cached('italicized') do 
-      Rank.find_by_sql("SELECT * FROM ranks WHERE label IN ('#{italicized_labels.join('\',\'')}')").map(&:id)
+    @@ids ||= cached('italicized') do
+      # the chosen labels are all in English
+      Rank.find_by_sql("SELECT r.* FROM ranks r JOIN translated_ranks rt ON (r.id=rt.rank_id) WHERE rt.label IN ('#{italicized_labels.join('\',\'')}') AND rt.language_id=#{Language.english.id}").map(&:id)
     end
   end
   

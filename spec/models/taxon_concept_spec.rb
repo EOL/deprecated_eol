@@ -23,8 +23,10 @@ describe TaxonConcept do
     load_foundation_cache
     @overview        = TocItem.overview
     @overview_text   = 'This is a test Overview, in all its glory'
-    @toc_item_2      = TocItem.gen(:view_order => 2)
-    @toc_item_3      = TocItem.gen(:view_order => 3)
+    $CACHE.clear
+    @toc_item_2      = TocItem.gen_if_not_exists(:view_order => 2, :label => "test toc item 2")
+    $CACHE.clear
+    @toc_item_3      = TocItem.gen_if_not_exists(:view_order => 3, :label => "test toc item 3")
     @canonical_form  = Factory.next(:species)
     @attribution     = Faker::Eol.attribution
     @common_name     = Faker::Eol.common_name.firstcap
@@ -92,9 +94,9 @@ describe TaxonConcept do
     @syn2 = Synonym.generate_from_name(@name_obj, :entry => @he2, :language => Language.english, :agent => @agent)
     @tcn2 = TaxonConceptName.find_by_synonym_id(@syn2.id)
   end
-  after :all do
-    truncate_all_tables
-  end
+  # after :all do
+  #   truncate_all_tables
+  # end
   
   it 'should capitalize the title (even if the name starts with a quote)' do
     good_title = %Q{"Good title"}
@@ -116,7 +118,7 @@ describe TaxonConcept do
   end
   
   it 'should show the common name from the current users language' do
-    lang = Language.gen(:label => 'Ancient Egyptian')
+    lang = Language.gen_if_not_exists(:label => 'Ancient Egyptian')
     user = User.gen(:language => lang)
     str  = 'Frebblebup'
     @taxon_concept.add_common_name_synonym(str, :agent => user.agent, :language => lang)
@@ -211,8 +213,8 @@ describe TaxonConcept do
   end
   
   it 'should be able to show videos' do
-    @taxon_concept.videos.should_not be_nil
-    @taxon_concept.videos.map(&:description).should only_include @video_1_text, @video_2_text, @video_3_text
+    @taxon_concept.video_data_objects.should_not be_nil
+    @taxon_concept.video_data_objects.map(&:description).should only_include @video_1_text, @video_2_text, @video_3_text
   end
   
   it 'should have visible comments that don\'t show invisible comments' do
@@ -260,10 +262,12 @@ describe TaxonConcept do
   
   # TODO - creating the CP -> Dato relationship is tricky. This should be made available elsewhere:
   it 'should show content partners THEIR preview items, but not OTHER content partner\'s preview items' do
-  
+    @taxon_concept.reload
+    @taxon_concept.current_user = nil
     original_cp    = Agent.gen
     another_cp     = Agent.gen
-    resource       = Resource.gen
+    cp_hierarchy   = Hierarchy.gen(:agent => original_cp)
+    resource       = Resource.gen(:hierarchy => cp_hierarchy)
     # Note this doesn't work without the ResourceAgentRole setting.  :\
     agent_resource = AgentsResource.gen(:agent_id => original_cp.id, :resource_id => resource.id,
                        :resource_agent_role_id => ResourceAgentRole.content_partner_upload_role.id)
@@ -282,19 +286,23 @@ describe TaxonConcept do
     TopConceptImage.delete_all(:taxon_concept_id => @taxon_concept.id,
                         :data_object_id => @taxon_concept.images.last.id)
     
-    $CACHE.delete("data_object/cached_images_for/#{@taxon_concept.id}")  # deleting the concept image cache
-    @taxon_concept.current_user = @taxon_concept.current_user #hack to expire cached images
+    @taxon_concept.reload
     @taxon_concept.images.length.should == how_many - 1 # Ensuring that we removed it...
-  
+    
     dato.visibility = Visibility.preview
     dato.save!
-  
+    
     DataObjectsHarvestEvent.delete_all(:data_object_id => dato.id)
-    dohe           = DataObjectsHarvestEvent.gen(:harvest_event => event, :data_object => dato)
+    DataObjectsHierarchyEntry.delete_all(:data_object_id => dato.id)
+    he = HierarchyEntry.gen(:hierarchy => cp_hierarchy, :taxon_concept => @taxon_concept)
+    DataObjectsHierarchyEntry.gen(:hierarchy_entry => he, :data_object => dato)
+    DataObjectsHarvestEvent.gen(:harvest_event => event, :data_object => dato)
+    HierarchyEntry.connection.execute("COMMIT")
     
     # Original should see it:
+    @taxon_concept.reload
     @taxon_concept.current_agent = original_cp
-    @taxon_concept.images.map {|i| i.id }.should include(dato.id)
+    @taxon_concept.images(:agent => original_cp).map {|i| i.id }.should include(dato.id)
   
     # Another CP should not:
     tc = TaxonConcept.find(@taxon_concept.id) # hack to reload the object and delete instance variables
@@ -315,6 +323,7 @@ describe TaxonConcept do
   end
   
   it 'should return images sorted by trusted, unknown, untrusted' do
+    @taxon_concept.reload
     @taxon_concept.current_user = @user
     trusted   = Vetted.trusted.id
     unknown   = Vetted.unknown.id
@@ -351,7 +360,7 @@ describe TaxonConcept do
   end
   
   it 'should return description as first toc item which accepts user submitted text' do
-    description_toc = TocItem.find_by_label('Description')
+    description_toc = TocItem.find_by_translated(:label, 'Description')
     InfoItem.gen(:toc_id => @overview.id)
     InfoItem.gen(:toc_id => description_toc.id)
     tc = build_taxon_concept(:images => [], :flash => [], :youtube => [], :comments => [], :bhl => [],
@@ -443,7 +452,7 @@ describe TaxonConcept do
   end
   
   it "add common name should mark first created name for a language as preferred automatically" do
-    language = Language.gen(:label => "Russian") 
+    language = Language.gen_if_not_exists(:label => "Russian") 
     weird_name = "Саблезубая сосиска"
     s = @taxon_concept.add_common_name_synonym(weird_name, :agent => @agent, :language => language)
     TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(@taxon_concept, language).size.should == 1
@@ -453,7 +462,7 @@ describe TaxonConcept do
     TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(@taxon_concept, language).size.should == 2
     TaxonConceptName.find_by_synonym_id(s.id).preferred?.should be_false
   end
-
+  
   it "add common name should not mark first created name as preffered for unknown language" do
     language = Language.unknown
     weird_name = "Саблезубая сосискаasdfasd"
@@ -461,7 +470,7 @@ describe TaxonConcept do
     TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(@taxon_concept, language).size.should == 1
     TaxonConceptName.find_by_synonym_id(s.id).preferred?.should be_false
   end
-
+  
   it "add common name should create new name object" do
     @name.class.should == Name
     @name.string.should == @name_string
@@ -482,7 +491,7 @@ describe TaxonConcept do
     syn_count = Synonym.count
     name_count = Name.count
     
-    syn = @taxon_concept.add_common_name_synonym(@name_string, :agent => Agent.find(@curator.agent_id), :language => Language.find_by_label("French"))
+    syn = @taxon_concept.add_common_name_synonym(@name_string, :agent => Agent.find(@curator.agent_id), :language => Language.gen_if_not_exists(:label => "French"))
     TaxonConceptName.count.should == tcn_count + 1
     Synonym.count.should == syn_count + 1
     Name.count.should == name_count  # name wasn't new
@@ -556,7 +565,7 @@ describe TaxonConcept do
     tc.respond_to?(:feed).should be_true
     tc.feed.should be_a EOL::Feed
   end
-
+  
   #
   # I'm all for pending tests, but in this case, they run SLOWLY, so it's best to comment them out:
   #

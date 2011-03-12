@@ -97,6 +97,9 @@ module EOL
         build_top_image
       elsif @type == 'Text'
         DataObjectsTableOfContent.gen(:data_object => @dato, :toc_item => @toc_item)
+        @toc_item.info_items.each do |ii|
+          DataObjectsInfoItem.gen(:data_object => @dato, :info_item => ii)
+        end
       end
     end
 
@@ -116,9 +119,9 @@ module EOL
 
     def dynamic_attributes(desc)
       options =
-        default_attributes.merge({:data_type   => DataType.find_by_label(@type),
+        default_attributes.merge({:data_type   => DataType.find_by_translated(:label, @type),
                                   :description => desc,
-                                  :mime_type   => MimeType.find_by_label(mime_types[@type] || mime_type[:default])
+                                  :mime_type   => MimeType.find_by_translated(:label, mime_types[@type] || mime_type[:default])
                                  })
       if @type == 'Image'
          options[:object_cache_url] ||= Factory.next(:image)
@@ -145,7 +148,7 @@ module EOL
     def find_agent_role(first_try)
       agent_role = first_try || 'Author'
       unless agent_role.class == AgentRole
-        agent_role = AgentRole.find_by_label(agent_role)
+        agent_role = AgentRole.find_by_translated(:label, agent_role)
         raise "Could not find an AgentRole matching '#{agent_role}'.  Was the foundation scenario loaded?" if
           agent_role.nil?
       end

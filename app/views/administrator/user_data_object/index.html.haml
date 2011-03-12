@@ -14,11 +14,11 @@ Click on a user to view the user's detailed profile, click on the species to vie
     = submit_tag 'Search'
     %br
     %br
-    - if @comments.nil? == false && @comments.size > 0
+    - if @users_data_objects.nil? == false && @users_data_objects.length > 0
       User-submitted text found:
-      = @comment_count
+      = @users_data_objects.total_entries
       %br
-      = will_paginate @comments
+      = will_paginate @users_data_objects
       %table.results_table{ :cellspacing => "0" }
         %tr
           %th
@@ -39,38 +39,35 @@ Click on a user to view the user's detailed profile, click on the species to vie
             Created
             %br
             Updated
-        - for comment in @comments
-          - column_class=cycle('odd','even')
-          - if (comment.taxon_concept_id) then
-            - concept = TaxonConcept.find(comment.taxon_concept_id)
+        - for udo in @users_data_objects
+          - row_class = cycle('odd','even')
+          - if udo.taxon_concept_id
+            - concept = TaxonConcept.find(udo.taxon_concept_id)
             - name = concept.quick_scientific_name(:italicized)
           - else
-            - name=""
-
-          - obj = DataObject.find(comment.data_object_id) rescue nil
-          - if(obj)
-            %tr{ :valign => "top" }
-              %td{ :class => column_class }
-                = link_to (comment.user.full_name,:controller=>'/administrator/user',:action=>'edit',:id=>comment.user_id)
-              %td{ :class => column_class }
-                = link_to name,{:controller=>'/taxa', :action=>:show, :id => comment.taxon_concept_id}
-              %td{ :class => column_class }
-                -#= link_to "Permalink",{:controller=>'/taxa', :action=>:show, :id => comment.taxon_concept_id,  :text_id => comment.data_object_id}
-                = link_to "Permalink",{:controller=>'/data_objects', :action=>:show, :id => comment.data_object_id}
-                %br
-                = h truncate(obj.description,500)
-              %td{ :class => column_class }
-                = @obj_toc_info.fetch("#{comment.data_object_id}",0)
-              %td{ :class => column_class }
-                = @obj_toc_info.fetch("e#{comment.data_object_id}",0)
-                %br
-                = h obj.published
-              %td{ :class => column_class }
-                = h format_date_time(obj.created_at,:format=>'short_no_tz')
-                %br
-                = h format_date_time(obj.updated_at,:format=>'short_no_tz')
-
+            - name = ""
+          %tr{ :valign => "top" }
+            %td{ :class => row_class }
+              = link_to udo.user.full_name, :controller => '/administrator/user', :action => 'edit' , :id => udo.user_id
+            %td{ :class => row_class }
+              = link_to name, :controller => '/taxa', :action => :show, :id => udo.taxon_concept_id
+            %td{ :class => row_class }
+              = link_to "Permalink", :controller => '/data_objects', :action => :show, :id => udo.data_object_id
+              %br
+              = h truncate(udo.data_object.description, 500)
+            %td{ :class => row_class }
+              = udo.data_object.toc_items[0].label
+            %td{ :class => row_class }
+              = udo.data_object.vetted.label
+              %br
+              = udo.data_object.visibility.label
+              %br
+              = h udo.data_object.published
+            %td{ :class => row_class }
+              = h format_date_time(udo.data_object.created_at, :format=>'short_no_tz')
+              %br
+              = h format_date_time(udo.data_object.updated_at, :format=>'short_no_tz')
       %br
-      = will_paginate @comments
+      = will_paginate @users_data_objects
     - else
-      No comments are available matching your search criteria.
+      No user-submitted data objects match your search criteria.

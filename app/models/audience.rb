@@ -2,6 +2,7 @@
 # data objects that are written for a younger audience when it's appropriate.
 class Audience < SpeciesSchemaModel
   CACHE_ALL_ROWS = true
+  uses_translations
   has_and_belongs_to_many :data_objects
 end
 # == Schema Info

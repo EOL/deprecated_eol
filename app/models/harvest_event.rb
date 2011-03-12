@@ -50,42 +50,44 @@ class HarvestEvent < SpeciesSchemaModel
     year = params[:year] || nil
     month = params[:month] || nil
     
-    if year || month
+    unless year || month
       year = Time.now.year if year.nil?
-      month = 0 if month.nil?
-      lower_date_range = "#{year}-#{month}-00"
-      if month == 0
-        upper_date = Time.local(year, 1) + 1.year
-        upper_date_range = "#{upper_date.year}-#{upper_date.month}-00"
-      else
-        upper_date = Time.local(year, month) + 1.month
-        upper_date_range = "#{upper_date.year}-#{upper_date.month}-00"
-      end
+      month = Time.now.month if month.nil?
     end
     
-    query = "SELECT ah.object_id data_object_id, awo.action_code action_code, u.id curator_user_id,
-    u.given_name, u.family_name, ah.updated_at, ah.user_id, ah.id actions_history_id, dt.label data_type_label,
-    do.object_cache_url, do.source_url, he.taxon_concept_id, n.string scientific_name
-    FROM #{ActionWithObject.full_table_name} awo
-    JOIN #{ActionsHistory.full_table_name} ah ON (ah.action_with_object_id=awo.id)
-    JOIN #{User.full_table_name} u ON (ah.user_id=u.id)
-    JOIN data_objects_harvest_events dohe ON (dohe.data_object_id=ah.object_id)
-    JOIN data_objects do ON (dohe.data_object_id=do.id)
-    JOIN data_types dt ON (do.data_type_id=dt.id)
-    LEFT JOIN (
-       data_objects_hierarchy_entries dohent
-       JOIN hierarchy_entries he ON (dohent.hierarchy_entry_id=he.id)
-       JOIN names n ON (he.name_id=n.id)
-      ) ON (do.id=dohent.data_object_id)
-    WHERE ah.changeable_object_type_id = #{ChangeableObjectType.data_object.id}
-    AND dohe.harvest_event_id = #{self.id}
-    AND awo.id in (#{ActionWithObject.trusted.id}, #{ActionWithObject.untrusted.id}, #{ActionWithObject.inappropriate.id}, #{ActionWithObject.delete.id})"
-    if lower_date_range
-      query += " AND ah.updated_at BETWEEN '#{lower_date_range}' AND '#{upper_date_range}'"
+    year = Time.now.year if year.nil?
+    month = 0 if month.nil?
+    lower_date_range = "#{year}-#{month}-00"
+    if month == 0
+      upper_date = Time.local(year, 1) + 1.year
+      upper_date_range = "#{upper_date.year}-#{upper_date.month}-00"
+    else
+      upper_date = Time.local(year, month) + 1.month
+      upper_date_range = "#{upper_date.year}-#{upper_date.month}-00"
     end
-    results = connection.execute(query).all_hashes
-    results.group_hashes_by!('actions_history_id')
-    results.sort{|a,b| b['actions_history_id'].to_i <=> a['actions_history_id'].to_i}
+    
+    date_condition = ""
+    if lower_date_range
+      date_condition = "AND actions_histories.updated_at BETWEEN '#{lower_date_range}' AND '#{upper_date_range}'"
+    end
+    
+    actions_histories = ActionsHistory.find(:all,
+      :joins => "JOIN #{DataObjectsHarvestEvent.full_table_name} dohe ON (actions_histories.object_id=dohe.data_object_id)",
+      :conditions => "actions_histories.action_with_object_id IN (#{ActionWithObject.trusted.id}, #{ActionWithObject.untrusted.id}, #{ActionWithObject.inappropriate.id}, #{ActionWithObject.delete.id}) AND actions_histories.changeable_object_type_id = #{ChangeableObjectType.data_object.id} AND dohe.harvest_event_id = 2 #{date_condition}",
+      :select => 'id')
+    
+    actions_histories = ActionsHistory.find_all_by_id(actions_histories.collect{ |ah| ah.id },
+      :include => [ :user, :comment, :action_with_object, :changeable_object_type,
+        { :data_object => { :hierarchy_entries => :name } } ],
+      :select => {
+        :actions_histories => :updated_at,
+        :users => [ :given_name, :family_name ],
+        :comments => :body,
+        :action_with_objects => :action_code,
+        :data_objects => [:object_cache_url, :source_url, :data_type_id ],
+        :hierarchy_entries => [ :published, :visibility_id, :taxon_concept_id ],
+        :names => :string })
+    actions_histories.sort_by{ |ah| Invert(ah.id) }
   end
   
 protected

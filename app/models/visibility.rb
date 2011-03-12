@@ -1,5 +1,6 @@
 class Visibility < SpeciesSchemaModel
   CACHE_ALL_ROWS = true
+  uses_translations
   has_many :data_objects
 
   def self.all_ids
@@ -7,26 +8,20 @@ class Visibility < SpeciesSchemaModel
       Visibility.all.collect {|v| v.id}
     end
   end
+  
   def self.visible
-    cached_find(:label, 'Visible')
+    cached_find_translated(:label, 'Visible')
   end
+  
   def self.preview
-    cached_find(:label, 'Preview')
+    cached_find_translated(:label, 'Preview')
   end
+  
   def self.inappropriate
-    cached_find(:label, 'Inappropriate')
+    cached_find_translated(:label, 'Inappropriate')
   end
   
   def self.invisible
-    cached('Invisible') do
-      invisible = Visibility.find_by_label('Invisible')
-      # The ID *must* be 0 (PHP hard-coded; it also makes /sense/).  If it's not, we fix it now:
-      if invisible.id != 0
-        Visibility.connection.execute("UPDATE visibilities SET id = 0 WHERE id = #{invisible.id}")
-        invisible = Visibility.find_by_label('Invisible')
-      end
-      invisible
-    end
+    cached_find_translated(:label, 'Invisible')
   end
-
 end

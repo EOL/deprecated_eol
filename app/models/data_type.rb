@@ -1,5 +1,6 @@
 class DataType < SpeciesSchemaModel
   CACHE_ALL_ROWS = true
+  uses_translations
   has_many :data_objects
   @@full_attribution_order = nil
   
@@ -21,35 +22,35 @@ class DataType < SpeciesSchemaModel
   end
   
   def self.text
-    cached_find(:label, 'Text')
+    cached_find_translated(:label, 'Text')
   end
   
   def self.image
-    cached_find(:label, 'Image')
+    cached_find_translated(:label, 'Image')
   end
   
   def self.sound
-    cached_find(:label, 'Sound')
+    cached_find_translated(:label, 'Sound')
   end
   
   def self.video
-    cached_find(:label, 'Video')
+    cached_find_translated(:label, 'Video')
   end
   
   def self.youtube
-    cached_find(:label, 'YouTube')
+    cached_find_translated(:label, 'YouTube')
   end
   
   def self.flash
-    cached_find(:label, 'Flash')
+    cached_find_translated(:label, 'Flash')
   end
   
   def self.gbif_image
-    cached_find(:label, 'GBIF Image')
+    cached_find_translated(:label, 'GBIF Image')
   end
   
   def self.iucn
-    cached_find(:label, 'IUCN')
+    cached_find_translated(:label, 'IUCN')
   end
   
   def self.image_type_ids
@@ -71,7 +72,7 @@ class DataType < SpeciesSchemaModel
 private
   def self.get_type_ids(which)
     cached("data_types/ids/#{which.join('+').gsub(' ','_')}") do
-      which.collect { |type| DataType.find_all_by_label(type) }.flatten.collect {|type| type.id }
+      which.collect { |type| DataType.cached_find_translated(:label, type) }.collect {|type| type.id }
     end
   end
 

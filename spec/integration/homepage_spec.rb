@@ -72,15 +72,15 @@ describe 'Home page' do
   it 'should have a language picker with all active languages' do
     en = Language.english
     # Let's add a new language to be sure it shows up:
-    Language.gen(:name => 'Supernal', :iso_639_1 => 'sp', :activated_on => 24.hours.ago )
+    Language.gen(:source_form => 'Supernal', :iso_639_1 => 'sp', :activated_on => 24.hours.ago )
     active = Language.find_active
-    active.map(&:name).should include('Supernal')
+    active.map(&:source_form).should include('Supernal')
     visit('/')
     # <a title=\"Language: en\" class=\"dropdown\">Language: en</a>
     body.should have_tag('a[title=?]', "Language: #{en.iso_639_1}")
     # <a href=\"http://example.org/set_language?language=sp&amp;return_to=%252F\" title=\"Supernal\">Supernal<em>(SP)</em></a>
     active.each {|language| body.should have_tag('a[href*=?]', /set_language.*language=#{language.iso_639_1}/,
-                                                 :text => /#{language.name}.*#{language.iso_639_1}/i)  }  
+                                                 :text => /#{language.source_form}.*#{language.iso_639_1}/i)  }  
   end
 
 

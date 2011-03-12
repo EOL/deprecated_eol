@@ -47,7 +47,7 @@
 %br
 %label{ :title => "Which language do you prefer?"[:language_preference], :for => "user_language_abbr" }
   = "Which language do you prefer?"[:language_preference]
-= f.select :language_abbr, Language.find_active.collect {|l| [l.name, l.iso_639_1]}
+= f.select :language_abbr, Language.find_active.collect {|l| [l.source_form, l.iso_639_1]}
 %br
 %br
 - if $ALLOW_USER_TO_CHANGE_CONTENT_LEVEL

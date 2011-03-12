@@ -266,7 +266,6 @@ class AccountController < ApplicationController
                                 :page => page, :per_page => @@objects_per_page)
     @curated_datos = DataObject.find(@latest_curator_actions.collect{|lca| lca[:object_id]},
                        :select => 'data_objects.id, data_objects.description, data_objects.object_cache_url, ' +
-                                  'vetted.label, visibilities.label, table_of_contents.label, ' +
                                   'hierarchy_entries.taxon_concept_id, hierarchy_entries.published, ' +
                                   'taxon_concepts.*, names.italicized' ,
                        :include => [ :vetted, :visibility, :toc_items,
@@ -288,7 +287,7 @@ class AccountController < ApplicationController
         # Hierarchy entries have not given us a published taxon concept so either the concept has been superceded
         # or its a user submitted data object, either way we go on a hunt for a published taxon concept with some
         # expensive queries.
-        tcs = dato.taxon_concepts(:published => :preferred)
+        tcs = dato.get_taxon_concepts(:published => :preferred)
         tc = tcs.detect{|item| item[:published] == 1}
         # We only add a preferred taxon concept id if we've found a published taxon concept.
         dato[:_preferred_taxon_concept_id] = tc.nil? ? nil : tc[:id]

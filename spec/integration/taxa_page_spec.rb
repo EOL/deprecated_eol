@@ -30,6 +30,7 @@ describe 'Taxa page (HTML)' do
     #RandomTaxon.delete_all # this should make us green again
     truncate_all_tables
     load_foundation_cache
+    $CACHE.clear
     Capybara.reset_sessions!
     HierarchiesContent.delete_all
 
@@ -118,8 +119,9 @@ describe 'Taxa page (HTML)' do
     @description_link = /and <a href="link">links<\/a>/
     @taxon_concept.add_user_submitted_text(:description => description, :vetted => true)
     @taxon_concept.add_user_submitted_text(:description => description, :vetted => true)
-
-    @toc_item_with_no_trusted_items = TocItem.gen(:label => 'Untrusted Stuff')
+    
+    $CACHE.clear
+    @toc_item_with_no_trusted_items = TocItem.gen_if_not_exists(:label => 'Untrusted Stuff')
     @taxon_concept.add_toc_item(@toc_item_with_no_trusted_items, :vetted => false)
 
     @curator       = build_curator(@taxon_concept)
@@ -127,194 +129,199 @@ describe 'Taxa page (HTML)' do
     # doesn't work, why?
     @taxon_concept.reload
     visit("/pages/#{@id}") # cache the response the taxon page gives before changes
-    @result        = page 
+    @result        = page
+    
+    @taxon_concept_with_unvetted_images = build_taxon_concept(:images => 
+      [{:vetted => Vetted.untrusted}, 
+       {:vetted => Vetted.unknown},
+       {}])
 
   end
 
-  after :all do
-    truncate_all_tables
-  end
+  # after :all do
+  #   truncate_all_tables
+  # end
   
   # This is kind of a baseline, did-the-page-actually-load test:
-    it 'should include the italicized name in the header' do
-      @result.body.should have_tag('div#page-title') do
-        with_tag('h1', :text => @scientific_name)
-      end
+  it 'should include the italicized name in the header' do
+    @result.body.should have_tag('div#page-title') do
+      with_tag('h1', :text => @scientific_name)
     end
+  end
   
-    it 'should show the common name if one exists' do
-      @result.body.should have_tag('div#page-title') do
-        with_tag('h2', :text => @common_name)
-      end
+  it 'should show the common name if one exists' do
+    @result.body.should have_tag('div#page-title') do
+      with_tag('h2', :text => @common_name)
     end
-      
-    it 'should NOT show a view/edit link after the common name when non-curator' do
-      @result.body.should have_tag('div#page-title') do
-        with_tag('h2') do
-          without_tag("span#curate-common-names")
-          without_tag("span", :text => /view\/edit/)
-        end
-      end
-    end
-      
-    it 'should not show the common name if none exists' do
-      tc = build_taxon_concept
-      visit("/pages/#{tc.id}")
-      body.should have_tag('div#page-title') do
-        with_tag('h2', :text => '')
-      end
-    end
-      
-    it 'should use supercedure to find taxon concept' do
-      superceded = TaxonConcept.gen(:supercedure_id => @id)
-      visit("/pages/#{superceded.id}")
-      current_path.should == "/pages/#{@id}"
-    end
-
-    it 'should show comments from superceded taxa' do
-      taxon1 = TaxonConcept.gen(:published => 1, :supercedure_id => 0)
-      taxon2 = TaxonConcept.gen(:supercedure_id => taxon1.id)
-      comment = Comment.gen(:parent_type => "TaxonConcept", :parent_id => taxon2.id, :body => "my comment...")
-      visit("comments/?tab=1&taxon_concept_id=#{taxon1.id}")
-      body.should include("my comment...")
-    end
-      
-    it 'should tell the user the page is missing if the page is... uhhh... missing' do
-      visit("/pages/#{TaxonConcept.missing_id}")
-    end
-      
-    it 'should tell the user the page is missing if the TaxonConcept is unpublished' do
-      unpublished = TaxonConcept.gen(:published => 0, :supercedure_id => 0)
-      visit("/pages/#{unpublished.id}")
-      body.should have_tag("div#page-title") do
-        with_tag('h1', :text => 'Sorry, the page you have requested does not exist.')
-      end
-    end
+  end
     
-    it 'should render when an object has no agents' do
-      taxon_concept = build_taxon_concept
-      first_image = taxon_concept.top_concept_images[0].data_object
-      first_agent_name = first_image.agents[0].full_name
-      
-      visit("/pages/#{taxon_concept.id}")
-      body.should have_tag("img.main-image")
-      body.should include(first_agent_name)  # verify the agent exists
-      
-      first_image.agents.each{|a| a.delete}
-      visit("/pages/#{taxon_concept.id}")
-      body.should have_tag("img.main-image")
-      body.should_not include(first_agent_name) # verify the agent is gone yet the page still loads
-    end
-      
-    # it 'should be able to ping the collection host' do
-    # end
-      
-    it 'should show the Overview text by default' do
-      visit("/pages/#{@id}")
-      body.should have_tag('div.cpc-header') do
-        with_tag('h3', :text => 'Overview')
-      end
-      body.should include(@overview_text)
-    end
-      
-    it 'should NOT show references for the overview text when there aren\'t any' do
-      Ref.delete_all
-      visit("/pages/#{@id}")
-      body.should_not have_tag('div.references')
-    end
-      
-    it 'should show references for the overview text (with URL and DOI identifiers ONLY) when present' do
-      full_ref = 'This is the reference text that should show up'
-      # TODO - When we add "helper" methods to Rails classes for testing, then "add_reference" could be
-      # extracted to do this:
-      url_identifier = 'some/url.html'
-      doi_identifier = '10.12355/foo/bar.baz.230'
-      bad_identifier = 'you should not see this identifier'
-      @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 1, :visibility => Visibility.visible)
-      # I heard you like RSpec, so we put a lot of tests in your test so you could spec while you're
-      # speccing.There are actually a lot of 'tests' in this test.  For one, we're testing that URLs will have http://
-      # added to them if they are blank.  We're also testing the regex that pulls DOIs out of potentially
-      # messy DOI identifiers:
-      ref.add_identifier('url', url_identifier)
-      ref.add_identifier('doi', "doi: #{doi_identifier}")
-      ref.add_identifier('bad', bad_identifier)
-      visit("/pages/#{@id}")
-      body.should have_tag('div.references')
-      body.should include(full_ref)
-      body.should have_tag("a[href=http://#{url_identifier}]")
-      body.should_not include(bad_identifier)
-      body.should have_tag("a[href=http://dx.doi.org/#{doi_identifier}]")
-    end
-      
-    it 'should NOT show references for the overview text when reference is invisible' do
-      full_ref = 'This is the reference text that should show up'
-      @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 1, :visibility => Visibility.invisible)
-      visit("/pages/#{@id}")
-      body.should_not have_tag('div.references')
-    end
-      
-    it 'should NOT show references for the overview text when reference is unpublished' do
-      full_ref = 'This is the reference text that should show up'
-      @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 0, :visibility => Visibility.visible)
-      visit("/pages/#{@id}")
-      body.should_not have_tag('div.references')
-    end
-      
-    it 'should allow html in user-submitted text' do
-      visit("/pages/#{@id}")
-      body.should match(@description_bold)
-      body.should match(@description_ital)
-      body.should match(@description_link)
-    end
-      
-    # I hate to do this, since it's SO SLOW, but:
-    it 'should render an "empty" page in authoritative mode' do
-      tc = build_taxon_concept(:common_names => [], :images => [], :toc => [], :flash => [], :youtube => [],
-                               :comments => [], :bhl => [])
-      visit("/pages/#{tc.id}?vetted=true")
-      body.should_not include('Internal Server Error')
-      body.should have_tag('h1') # Whatever, let's just prove that it renders.
-    end
-      
-    it 'should show common names with their trust levels in the Common Names toc item' do
-      visit("/pages/#{@taxon_concept.id}?category_id=#{@cnames_toc}")
-      body.should have_tag("div#common_names_wrapper") do
-        with_tag('td.trusted', :text => @common_name)
-        with_tag('td.unreviewed', :text => @unreviewed_name)
-        with_tag('td.untrusted', :text => @untrusted_name)
+  it 'should NOT show a view/edit link after the common name when non-curator' do
+    @result.body.should have_tag('div#page-title') do
+      with_tag('h2') do
+        without_tag("span#curate-common-names")
+        without_tag("span", :text => /view\/edit/)
       end
     end
-      
-    it 'should show the Catalogue of Life link in Content Partners' do
-      visit("/pages/#{@taxon_concept.id}?category_id=#{TocItem.content_partners.id}")
-      body.should include(@col_mapping.hierarchy.label)
+  end
+    
+  it 'should not show the common name if none exists' do
+    tc = build_taxon_concept
+    visit("/pages/#{tc.id}")
+    body.should have_tag('div#page-title') do
+      with_tag('h2', :text => '')
     end
-      
-    it 'should show the Catalogue of Life link in the header' do
-      visit("/pages/#{@taxon_concept.id}")
-      body.should include("recognized by <a href=\"#{@col_mapping.source_url}\"")
-    end
-      
-    it 'should show a Nucleotide Sequences table of content item if concept in NCBI and has identifier' do
-      # make an entry in NCBI for this concept and give it an identifier
-      sci_name = Name.gen(:string => Factory.next(:scientific_name))
-      entry = build_hierarchy_entry(0, @taxon_concept, sci_name,
-                  :identifier => 1234,
-                  :hierarchy => Hierarchy.ncbi )
+  end
+    
+  it 'should use supercedure to find taxon concept' do
+    superceded = TaxonConcept.gen(:supercedure_id => @id)
+    visit("/pages/#{superceded.id}")
+    current_path.should == "/pages/#{@id}"
+  end
   
-      visit("/pages/#{@taxon_concept.id}")
-      body.should include("Nucleotide Sequences")
+  it 'should show comments from superceded taxa' do
+    taxon1 = TaxonConcept.gen(:published => 1, :supercedure_id => 0)
+    taxon2 = TaxonConcept.gen(:supercedure_id => taxon1.id)
+    comment = Comment.gen(:parent_type => "TaxonConcept", :parent_id => taxon2.id, :body => "my comment...")
+    visit("comments/?tab=1&taxon_concept_id=#{taxon1.id}")
+    body.should include("my comment...")
+  end
+    
+  it 'should tell the user the page is missing if the page is... uhhh... missing' do
+    visit("/pages/#{TaxonConcept.missing_id}")
+  end
+    
+  it 'should tell the user the page is missing if the TaxonConcept is unpublished' do
+    unpublished = TaxonConcept.gen(:published => 0, :supercedure_id => 0)
+    visit("/pages/#{unpublished.id}")
+    body.should have_tag("div#page-title") do
+      with_tag('h1', :text => 'Sorry, the page you have requested does not exist.')
     end
+  end
   
-    it 'should show not a Nucleotide Sequences table of content item if concept in NCBI and does not have an identifier' do
-      # make an entry in NCBI for this concept and dont give it an identifier
-      sci_name = Name.gen
-      entry = build_hierarchy_entry(0, @taxon_concept, sci_name,
-                  :hierarchy => Hierarchy.ncbi )
-  
-      visit("/pages/#{@taxon_concept.id}")
-      body.should_not include("Nucleotide Sequences")
+  it 'should render when an object has no agents' do
+    taxon_concept = build_taxon_concept
+    first_image = taxon_concept.top_concept_images[0].data_object
+    first_agent_name = first_image.agents[0].full_name
+    
+    visit("/pages/#{taxon_concept.id}")
+    body.should have_tag("img.main-image")
+    body.should include(first_agent_name)  # verify the agent exists
+    
+    first_image.agents.each{|a| a.delete}
+    visit("/pages/#{taxon_concept.id}")
+    body.should have_tag("img.main-image")
+    body.should_not include(first_agent_name) # verify the agent is gone yet the page still loads
+  end
+    
+  # it 'should be able to ping the collection host' do
+  # end
+    
+  it 'should show the Overview text by default' do
+    visit("/pages/#{@id}")
+    body.should have_tag('div.cpc-header') do
+      with_tag('h3', :text => 'Overview')
     end
+    body.should include(@overview_text)
+  end
+    
+  it 'should NOT show references for the overview text when there aren\'t any' do
+    Ref.delete_all
+    visit("/pages/#{@id}")
+    body.should_not have_tag('div.references')
+  end
+    
+  it 'should show references for the overview text (with URL and DOI identifiers ONLY) when present' do
+    full_ref = 'This is the reference text that should show up'
+    # TODO - When we add "helper" methods to Rails classes for testing, then "add_reference" could be
+    # extracted to do this:
+    url_identifier = 'some/url.html'
+    doi_identifier = '10.12355/foo/bar.baz.230'
+    bad_identifier = 'you should not see this identifier'
+    @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 1, :visibility => Visibility.visible)
+    # I heard you like RSpec, so we put a lot of tests in your test so you could spec while you're
+    # speccing.There are actually a lot of 'tests' in this test.  For one, we're testing that URLs will have http://
+    # added to them if they are blank.  We're also testing the regex that pulls DOIs out of potentially
+    # messy DOI identifiers:
+    ref.add_identifier('url', url_identifier)
+    ref.add_identifier('doi', "doi: #{doi_identifier}")
+    ref.add_identifier('bad', bad_identifier)
+    visit("/pages/#{@id}")
+    body.should have_tag('div.references')
+    body.should include(full_ref)
+    body.should have_tag("a[href=http://#{url_identifier}]")
+    body.should_not include(bad_identifier)
+    body.should have_tag("a[href=http://dx.doi.org/#{doi_identifier}]")
+  end
+    
+  it 'should NOT show references for the overview text when reference is invisible' do
+    full_ref = 'This is the reference text that should show up'
+    @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 1, :visibility => Visibility.invisible)
+    visit("/pages/#{@id}")
+    body.should_not have_tag('div.references')
+  end
+    
+  it 'should NOT show references for the overview text when reference is unpublished' do
+    full_ref = 'This is the reference text that should show up'
+    @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 0, :visibility => Visibility.visible)
+    visit("/pages/#{@id}")
+    body.should_not have_tag('div.references')
+  end
+    
+  it 'should allow html in user-submitted text' do
+    visit("/pages/#{@id}")
+    body.should match(@description_bold)
+    body.should match(@description_ital)
+    body.should match(@description_link)
+  end
+    
+  # I hate to do this, since it's SO SLOW, but:
+  it 'should render an "empty" page in authoritative mode' do
+    tc = build_taxon_concept(:common_names => [], :images => [], :toc => [], :flash => [], :youtube => [],
+                             :comments => [], :bhl => [])
+    visit("/pages/#{tc.id}?vetted=true")
+    body.should_not include('Internal Server Error')
+    body.should have_tag('h1') # Whatever, let's just prove that it renders.
+  end
+    
+  it 'should show common names with their trust levels in the Common Names toc item' do
+    visit("/pages/#{@taxon_concept.id}?category_id=#{@cnames_toc}")
+    body.should have_tag("div#common_names_wrapper") do
+      with_tag('td.trusted', :text => @common_name)
+      with_tag('td.unreviewed', :text => @unreviewed_name)
+      with_tag('td.untrusted', :text => @untrusted_name)
+    end
+  end
+    
+  it 'should show the Catalogue of Life link in Content Partners' do
+    visit("/pages/#{@taxon_concept.id}?category_id=#{TocItem.content_partners.id}")
+    body.should include(@col_mapping.hierarchy.label)
+  end
+    
+  it 'should show the Catalogue of Life link in the header' do
+    visit("/pages/#{@taxon_concept.id}")
+    body.should include("recognized by <a href=\"#{@col_mapping.source_url}\"")
+  end
+    
+  it 'should show a Nucleotide Sequences table of content item if concept in NCBI and has identifier' do
+    # make an entry in NCBI for this concept and give it an identifier
+    sci_name = Name.gen(:string => Factory.next(:scientific_name))
+    entry = build_hierarchy_entry(0, @taxon_concept, sci_name,
+                :identifier => 1234,
+                :hierarchy => Hierarchy.ncbi )
+  
+    visit("/pages/#{@taxon_concept.id}")
+    body.should include("Nucleotide Sequences")
+  end
+  
+  it 'should show not a Nucleotide Sequences table of content item if concept in NCBI and does not have an identifier' do
+    # make an entry in NCBI for this concept and dont give it an identifier
+    sci_name = Name.gen
+    entry = build_hierarchy_entry(0, @taxon_concept, sci_name,
+                :hierarchy => Hierarchy.ncbi )
+  
+    visit("/pages/#{@taxon_concept.id}")
+    body.should_not include("Nucleotide Sequences")
+  end
   
   it 'should show the hierarchy descriptive label in the drop down if there is one' do
     col = Hierarchy.default
@@ -339,12 +346,12 @@ describe 'Taxa page (HTML)' do
       @non_browsable_hierarchy = Hierarchy.gen(:label => "NonBrowsable Hierarchy", :browsable => 0)
   
       # making entries for this concept in the new hierarchies
-      HierarchyEntry.gen(:hierarchy => @ncbi, :taxon_concept => @taxon_concept)
-      HierarchyEntry.gen(:hierarchy => @browsable_hierarchy, :taxon_concept => @taxon_concept)
-      HierarchyEntry.gen(:hierarchy => @non_browsable_hierarchy, :taxon_concept => @taxon_concept)
+      HierarchyEntry.gen(:hierarchy => @ncbi, :taxon_concept => @taxon_concept, :rank => Rank.species)
+      HierarchyEntry.gen(:hierarchy => @browsable_hierarchy, :taxon_concept => @taxon_concept, :rank => Rank.species)
+      HierarchyEntry.gen(:hierarchy => @non_browsable_hierarchy, :taxon_concept => @taxon_concept, :rank => Rank.species)
   
       # and another entry just in NCBI
-      HierarchyEntry.gen(:hierarchy => @ncbi)
+      HierarchyEntry.gen(:hierarchy => @ncbi, :rank => Rank.species)
       @user_with_default_hierarchy = User.gen(:default_hierarchy_id => Hierarchy.default.id)
       @user_with_ncbi_hierarchy    = User.gen(:default_hierarchy_id => @ncbi.id)
       @user_with_nil_hierarchy     = User.gen(:default_hierarchy_id => nil)
@@ -486,16 +493,12 @@ describe 'Taxa page (HTML)' do
   end
   
   it 'should show images on the page' do 
-    tc = build_taxon_concept(:images => 
-      [{:vetted => Vetted.untrusted}, 
-       {:vetted => Vetted.unknown},
-       {}])
-    unvetted_count = tc.images.select {|i| i.vetted? == false}.size
-    visit("/pages/#{tc.id}?vetted=true")
+    unvetted_count = @taxon_concept_with_unvetted_images.images.select {|i| i.vetted? == false}.size
+    visit("/pages/#{@taxon_concept_with_unvetted_images.id}?vetted=true")
     body_vetted = body
     body_vetted.should include "authoritative information"
     Capybara.reset_sessions!
-    visit("/pages/#{tc.id}?vetted=false")
+    visit("/pages/#{@taxon_concept_with_unvetted_images.id}?vetted=false")
     body_all = body
     body_all.should include "all information"
     dom_all = Nokogiri.HTML(body_all)
@@ -503,7 +506,7 @@ describe 'Taxa page (HTML)' do
     unvetted_count.should == 2 
     (dom_all.xpath("//div[@id='thumbnails']//img").size - dom_vetted.xpath("//div[@id='thumbnails']//img").size).should == unvetted_count
   end
-
+  
   it 'should show the activity feed' do
     @result.body.should have_tag('ul.feed') do
       with_tag('.feed_item .body', :text => @feed_body_1)
@@ -511,7 +514,7 @@ describe 'Taxa page (HTML)' do
       with_tag('.feed_item .body', :text => @feed_body_3)
     end
   end
-
+  
   it 'should show an empty feed' do
     visit("/pages/#{@exemplar.id}")
     page.body.should have_tag('#activity', :text => /no activity/i)

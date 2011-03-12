@@ -192,6 +192,7 @@ module ApplicationHelper
   # causing errors, go back in time to October 12th and grab the methods.
   
   def agent_logo(agent, size = "large", params={})
+    return nil if agent.blank?
     src = (agent.logo_cache_url != 0) ? agent.logo_url(size) : agent.logo_file_name
     return src if src.empty?
     project_name = hh(sanitize(agent.project_name))

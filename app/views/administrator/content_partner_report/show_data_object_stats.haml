@@ -13,20 +13,14 @@
   %br
     Total Data Objects:
     %strong
-      = number_with_delimiter(@total_data_objects.to_i, :delimiter => ",")
+      = number_with_delimiter(@data_objects.length, :delimiter => ",")
     &nbsp;&nbsp; | &nbsp;&nbsp;    
     Total Taxa:
     %strong
       = number_with_delimiter(@total_taxa.to_i, :delimiter => ",")
-
-
-  /%br
-  /  - visitors = @stats.keys.sort
-  /  - for remote in visitors      
-  /    = "| #{remote} "   
-
-  - @data_types.each do |data_type|
-    - if(@stats["#{data_type.label}"].to_i > 0)
+  - DataType.all.each do |data_type|
+    - objects_of_this_type = @data_objects.select{ |d| d.data_type == data_type }
+    - unless objects_of_this_type.empty?
       - color = "aqua"
     - else
       - color = "white"
@@ -36,19 +30,17 @@
           %strong
             = data_type.label  
       %tr
-        - @vetted_types.each do |vetted|
+        - Vetted.all.each do |vetted|
           %td
             = vetted.label  
         %td
           %strong
             Total          
       %tr
-        - @vetted_types.each do |vetted|
+        - Vetted.all.each do |vetted|
+          - objects_of_this_type_and_vetted = objects_of_this_type.select{ |d| d.vetted == vetted }
           %td{ :align => "right" }
-            - data_type_vetted = "#{data_type.label}_#{vetted.label}"
-            = number_with_delimiter(@stats["#{data_type_vetted}"].to_i, :delimiter => ",")
+            = number_with_delimiter(objects_of_this_type_and_vetted.length, :delimiter => ",")
         %td{ :align => "right" }
           %strong
-            = number_with_delimiter(@stats["#{data_type.label}"].to_i, :delimiter => ",")
-
-
+            = number_with_delimiter(objects_of_this_type.length, :delimiter => ",")

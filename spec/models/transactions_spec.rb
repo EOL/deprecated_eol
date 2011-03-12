@@ -25,8 +25,8 @@ describe 'RSpec Transactions' do
   #      therefore do NOT support transactions!
   #
   {
-    'Rails Database'   => [ User, ContentPage, Role ],
-    'Data Database'    => [ Visibility, Name, Agent ]
+    'Rails Database'   => [ ContentSection, ContentPage, Role ],
+    'Data Database'    => [ Visibility, Name, License ]
   
   }.each do |database, models|
 

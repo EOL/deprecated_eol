@@ -649,7 +649,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     start = per_page * (page - 1)
     last = start + per_page - 1
     data_object_ids_to_lookup = result[start..last].collect{|d| d.id}
-    result[start..last] = DataObject.details_for_objects(data_object_ids_to_lookup, :skip_refs => true, :add_common_names => true, :add_comments => true, :sort => 'id desc')
+    result[start..last] = DataObject.core_relationships.find_all_by_id(data_object_ids_to_lookup).sort_by{|d| Invert(d.id)}
     return result
   end
 
@@ -673,7 +673,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     return [] if data_object_ids.empty?
 
     data_object_ids_to_lookup = data_object_ids.collect{|d| d.data_object_id}
-    result = DataObject.details_for_objects(data_object_ids_to_lookup, :skip_refs => true, :add_common_names => true, :add_comments => true, :sort => 'id desc')
+    result = DataObject.core_relationships.find_all_by_id(data_object_ids_to_lookup).sort_by{|d| Invert(d.id)}
     return result
   end
 

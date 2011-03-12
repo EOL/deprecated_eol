@@ -43,7 +43,7 @@ describe Hierarchy do
     ncbi = Hierarchy.ncbi
     ncbi.label.should == "NCBI Taxonomy"
     all_ncbi = Hierarchy.all.select {|n| n.label == "NCBI Taxonomy"}.sort_by(&:hierarchy_group_version)
-    all_ncbi.size.should > 1
+    all_ncbi.size.should >= 1
     all_ncbi.last.hierarchy_group_version.should == ncbi.hierarchy_group_version #highest hierarchy_group_version
   end
 

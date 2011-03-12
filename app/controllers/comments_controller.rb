@@ -103,26 +103,16 @@ private
     if parent_name == 'data_object'
       comments = parent_object.all_comments
     else # "taxon_concept"
-      comments = current_model.find(:all)
+      t = TaxonConcept.find(parent_object.id, :include => [ :comments, {:superceded_taxon_concepts => :comments} ], 
+        :select => "taxon_concepts.id, taxon_concepts.supercedure_id, comments.*")  
 
-      #add comments from superceded taxa
-      comments_to_be_added = check_for_comments_from_superceded_taxa(parent_object.id) #add comments from other taxa where c.parent_id = tc.supercedure_id
-      comments_to_be_added.each do |comment|
-        concept = TaxonConcept.find_without_supercedure(comment['parent_id'])
-        scientific_name = concept.quick_scientific_name(:italicized)
-        if !scientific_name.nil?
-          comment['body'] += "\n {Comment originally for taxon: " << scientific_name << "}"
-        end
-        comments << comment
-      end
+      previous_comments = t.superceded_taxon_concepts.collect do |tc| 
+        tc.comments
+      end.flatten.compact                               
 
+      comments = t.comments + previous_comments
     end
     comments
-  end
-
-  def check_for_comments_from_superceded_taxa(parent_id)
-    taxon_concept_ids = TaxonConcept.find(:all, :select=>"id", :conditions => { :supercedure_id => parent_id })
-    comments_to_be_added = Comment.find(:all, :conditions => { :parent_type => "TaxonConcept", :parent_id => taxon_concept_ids })
   end
   
   def current_comments_visible

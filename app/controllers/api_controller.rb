@@ -15,6 +15,8 @@ class ApiController < ApplicationController
     params[:version] ||= "0.1"
     params[:common_names] ||= false
     params[:common_names] = false if params[:common_names] == '0'
+    params[:synonyms] ||= false
+    params[:synonyms] = false if params[:synonyms] == '0'
     params[:images] = 75 if params[:images].to_i > 75
     params[:videos] = 75 if params[:videos].to_i > 75
     params[:text] = 75 if params[:text].to_i > 75

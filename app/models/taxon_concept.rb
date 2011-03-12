@@ -40,8 +40,11 @@ class TaxonConcept < SpeciesSchemaModel
 
   has_one :taxon_concept_content
   has_one :taxon_concept_metric
-  
+ 
   has_and_belongs_to_many :data_objects
+
+  has_many :superceded_taxon_concepts, :class_name => TaxonConcept.to_s, :foreign_key => "supercedure_id"
+
 
   attr_accessor :includes_unvetted # true or false indicating if this taxon concept has any unvetted/unknown data objects
 

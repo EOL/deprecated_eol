@@ -14,6 +14,12 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/0.3",
       xml.dc :identifier, taxon_concept.id
       xml.dwc :ScientificName, taxon_concept.entry.name.string
       
+      if params[:synonyms]
+        for syn in taxon_concept.synonyms
+          relation = syn.synonym_relation ? syn.synonym_relation.label : ''
+          xml.synonym syn.name.string, 'relationship'.to_sym => relation
+        end
+      end
       if params[:common_names]
         for tcn in taxon_concept.common_names
           lang = tcn.language ? tcn.language.iso_639_1 : ''

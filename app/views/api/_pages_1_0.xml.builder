@@ -12,11 +12,12 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/1.0",
     xml.taxonConcept do
       xml.taxonConceptID details_hash['id']
       xml.dwc :scientificName, details_hash['scientific_name']
-      
+      for synonym in details_hash["synonyms"]
+        xml.synonym synonym['name_string'], 'relationship'.to_sym => synonym['relationship']
+      end      
       for common_name in details_hash["common_names"]
         xml.commonName common_name['name_string'], 'xml:lang'.to_sym => common_name['iso_639_1']
-      end
-      
+      end      
       unless details_hash['curated_hierarchy_entries'].blank?
         xml.additionalInformation do
           for entry in details_hash['curated_hierarchy_entries']

@@ -50,8 +50,8 @@ describe 'EOL APIs' do
                             {:toc_item => @description, :description => 'test uknown', :vetted => Vetted.unknown, :license => License.by_nc},
                             {:toc_item => @description, :description => 'test untrusted', :vetted => Vetted.untrusted, :license => License.cc}])
     @taxon_concept.add_common_name_synonym(Faker::Eol.common_name.firstcap, :agent => Agent.last, :language => Language.english)
-  
-  
+
+
     @object = DataObject.create(
       :guid                   => '803e5930803396d4f00e9205b6b2bf21',
       :identifier             => 'doid',
@@ -285,6 +285,21 @@ describe 'EOL APIs' do
   
     visit("/api/pages/#{@taxon_concept.id}?common_names=1")
     body.should include '<commonName'
+  end
+
+  it 'pages should be able to toggle synonyms' do
+    taxon = TaxonConcept.gen(:published => 1, :supercedure_id => 0)
+    hierarchy = Hierarchy.gen(:label => 'my hierarchy', :browsable => 1)
+    hierarchy_entry = HierarchyEntry.gen(:hierarchy => hierarchy, :taxon_concept => taxon)
+    name = Name.gen(:string => 'my synonym')
+    relation = SynonymRelation.find_or_create_by_label('not common name')
+    synonym = Synonym.gen(:hierarchy_entry => hierarchy_entry, :name => name, :synonym_relation => relation)
+    
+    visit("/api/pages/1.0/#{taxon.id}")
+    body.should_not include '<synonym'
+  
+    visit("/api/pages/1.0/#{taxon.id}?synonyms=1")
+    body.should include '<synonym'
   end
   
   it 'pages should be able to render a JSON response' do

@@ -33,12 +33,27 @@ class TaxonConcept < SpeciesSchemaModel
   has_many :google_analytics_partner_taxa
   has_many :collection_items, :as => :object
   has_many :preferred_common_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=1 AND taxon_concept_names.preferred=1'
+
+  has_many :all_synonyms, :class_name => Name.to_s,
+     :finder_sql => 'SELECT sr.label relationship, names.`string` name_string
+        FROM hierarchy_entries AS he
+        JOIN synonyms AS s ON he.id = s.hierarchy_entry_id
+        JOIN hierarchies AS h ON s.hierarchy_id = h.id
+        JOIN names ON s.name_id = names.id
+        JOIN synonym_relations sr ON s.synonym_relation_id = sr.id
+        WHERE s.synonym_relation_id NOT IN ( \'#{SynonymRelation.find_by_label("genbank common name", :select=>"id").id}\' ,
+                                             \'#{SynonymRelation.find_by_label("common name", :select=>"id").id}\' )
+        AND h.browsable=1 and he.taxon_concept_id = \'#{self.id}\''
+
   has_many :users_data_objects
 
   has_one :taxon_concept_content
   has_one :taxon_concept_metric
-  
+ 
   has_and_belongs_to_many :data_objects
+
+  has_many :superceded_taxon_concepts, :class_name => TaxonConcept.to_s, :foreign_key => "supercedure_id"
+
 
   attr_accessor :includes_unvetted # true or false indicating if this taxon concept has any unvetted/unknown data objects
 
@@ -969,13 +984,16 @@ class TaxonConcept < SpeciesSchemaModel
       data_object_hash = DataObject.details_for_objects(image_ids + non_image_ids, :skip_metadata => !options[:details])
     end
 
+    synonym = options[:synonyms].blank? ? [] : preferred_synonyms_hash
     common = options[:common_names].blank? ? [] : preferred_common_names_hash
+
     curated_hierarchy_entries = hierarchy_entries.delete_if{|he| he.hierarchy.browsable!=1 || he.published==0 || he.visibility_id!=Visibility.visible.id }
 
     details_hash = {  'data_objects'              => data_object_hash,
                       'id'                        => self.id,
                       'scientific_name'           => quick_scientific_name,
                       'common_names'              => common,
+                      'synonyms'                  => synonym,
                       'curated_hierarchy_entries' => curated_hierarchy_entries}
   end
 
@@ -1117,11 +1135,15 @@ class TaxonConcept < SpeciesSchemaModel
     return names_array
   end
 
-
-
-
-
-
+  def preferred_synonyms_hash  
+    synonyms = all_synonyms
+    names_array = []
+    for name in synonyms
+      name_hash = {'name_string' => name.name_string, 'relationship' => name.relationship}
+      names_array << name_hash unless names_array.include?(name_hash)
+    end
+    return names_array
+  end
 
   def all_common_names
     Name.find_by_sql(['SELECT names.string, l.iso_639_1 language_label, l.label, l.name

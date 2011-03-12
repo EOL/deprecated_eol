@@ -2,6 +2,10 @@
   %div{ :id => "comment_#{comment.id}" }
     %p{ :class => comment.visible? ? '' : ' class="invisible-comment"' }
       = allow_some_html(h(comment.body))
+      - if comment.parent_id != @taxon_concept.id
+        %br
+        = "{From a previous version of this page.}"
+        %br
   %h6
     - if comment.from_curator
       %img{ :src => "/images/icons/link-visited/star.gif", :height => "18", :alt => "curator", :width => "18" }

@@ -15,6 +15,8 @@ class ApiController < ApplicationController
     params[:version] ||= "0.1"
     params[:common_names] ||= false
     params[:common_names] = false if params[:common_names] == '0'
+    params[:synonyms] ||= false
+    params[:synonyms] = false if params[:synonyms] == '0'
     params[:images] = 75 if params[:images].to_i > 75
     params[:videos] = 75 if params[:videos].to_i > 75
     params[:text] = 75 if params[:text].to_i > 75
@@ -30,7 +32,7 @@ class ApiController < ApplicationController
     
     ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.env["REQUEST_URI"], :method => 'pages', :version => params[:version], :format => params[:format], :request_id => taxon_concept_id, :key => @key, :user_id => @user_id)
     
-    details_hash = taxon_concept.details_hash(:return_images_limit => params[:images].to_i, :return_videos_limit => params[:videos].to_i, :subjects => params[:subjects], :licenses => params[:licenses], :return_text_limit => params[:text].to_i, :details => params[:details], :vetted => params[:vetted], :common_names => params[:common_names])
+    details_hash = taxon_concept.details_hash(:return_images_limit => params[:images].to_i, :return_videos_limit => params[:videos].to_i, :subjects => params[:subjects], :licenses => params[:licenses], :return_text_limit => params[:text].to_i, :details => params[:details], :vetted => params[:vetted], :common_names => params[:common_names], :synonyms => params[:synonyms])
     
     if params[:format] == 'html'
       render(:partial => 'pages', :layout=>false, :locals => {:details_hash => details_hash, :data_object_details => true } )

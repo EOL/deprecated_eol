@@ -118,3 +118,48 @@ describe Float do
     138.249.ceil_to(2).should == 138.250
   end
 end
+
+describe 'Uses Translations' do
+  before(:all) do
+    truncate_all_tables
+    @en = Language.gen_if_not_exists(:iso_639_1 => 'en')
+    TranslatedLanguage.gen_if_not_exists(:label => 'English', :original_language_id => @en.id)
+    @fr = Language.gen_if_not_exists(:iso_639_1 => 'fr')
+    TranslatedLanguage.gen_if_not_exists(:label => 'French', :original_language_id => @fr.id)
+    @language = Language.gen()
+    @rank = Rank.gen()
+    @swahili = Language.gen(:iso_639_1 => 'sw')
+    @uberkingdom = Rank.gen()
+    TranslatedLanguage.gen_if_not_exists(:label => 'Swahili', :language_id => @en.id, :original_language_id => @swahili.id)
+    TranslatedLanguage.gen_if_not_exists(:label => 'French Swahili', :language_id => @fr.id, :original_language_id => @swahili.id)
+    # rank is only in Swahili - no English
+    TranslatedRank.gen_if_not_exists(:label => 'Swahili uberkingdom', :rank_id => @uberkingdom.id, :language_id => @swahili.id)
+    @hierarchy_entry = HierarchyEntry.gen()
+  end
+  
+  it 'should create methods for getting translated attributes' do
+    @language.public_methods.include?('label').should == true
+    @language.public_methods.include?('phonetic_label').should == true
+    @rank.public_methods.include?('label').should == true
+    @rank.public_methods.include?('phonetic_label').should == true
+    @hierarchy_entry.public_methods.include?('label').should == false
+    @hierarchy_entry.public_methods.include?('phonetic_label').should == false
+  end
+  
+  it 'should not have labels without translations' do
+    @language.label.should == nil
+    @rank.label.should == nil
+  end
+  
+  it 'should default to an English translation' do
+    @swahili.label.should == 'Swahili'
+    @swahili.label('en').should == 'Swahili'
+    @uberkingdom.label.should == nil  # this rank didn't have an English label
+    @uberkingdom.label('en').should == nil
+  end
+  
+  it 'should be able to return different translations' do
+    @swahili.label('fr').should == 'French Swahili'
+    @uberkingdom.label('sw').should == 'Swahili uberkingdom'
+  end
+end

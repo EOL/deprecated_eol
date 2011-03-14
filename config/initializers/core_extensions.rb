@@ -88,6 +88,7 @@ module ActiveRecord
         begin
           translated_class = eval("Translated" + self.to_s)
           has_many :translations, :class_name => translated_class.to_s, :foreign_key => options[:foreign_key]
+          default_scope :include => :translations
           const_set(:USES_TRANSLATIONS, true)
           const_set(:TRANSLATION_CLASS, translated_class)
           attr_accessor :current_translation_language
@@ -98,43 +99,50 @@ module ActiveRecord
             translated_class.column_names.each do |a|
               # the two columns that the translation will always have which shouldn't override the main class
               unless a == 'id' || a == 'language_id'
-                attr_accessor "translated_#{a}".to_sym unless column_names.include?(a)
-              
-                define_method(a.to_sym) do |*args|
-                  return nil unless defined?(Language)
-                  language_iso = args[0] || current_translation_language || nil
-                  if language_iso == current_translation_language
+                # if there is already an attribute with the same name as the translate attribute,
+                # then none of thise will happen
+                unless column_names.include?(a)
+                  attr_accessor "translated_#{a}".to_sym
+                  
+                  define_method(a.to_sym) do |*args|
+                    # this is a funny way to check for the Language model existing. defined? would fail
+                    # unless there was some reference to Language earlier in the application instance, thus
+                    # the additional check for the model, which will load the model definition
+                    language_exists = defined?(Language) || Language rescue nil
+                    return nil unless language_exists
+                    
+                    language_iso = args[0] || APPLICATION_DEFAULT_LANGUAGE_ISO || nil
+                    unless self.current_translation_language && language_iso == self.current_translation_language.iso_639_1
+                      l = Language.from_iso(language_iso)
+                      return nil if l.nil?
+                      # load the translated fields as attributes of the current model
+                      return nil unless set_translation_language(l)
+                    end
+                    
                     return eval("translated_#{a}")
-                  end
-                  language_id = Language.id_from_iso(language_iso)
-                  return nil if language_id.nil?
-                  if translations
-                    match = translations.select{|t| t.language_id == language_id }
-                    return nil if match.empty?
-                    return match[0][a]
                   end
                 end
               end
             end
           end
           
-          define_method(:after_initialize) do
-            # Language was causing a recusvie loop because of the language lookup in the next method
-            set_translation_language
-          end
-          
-          define_method(:set_translation_language) do |*args|
-            language_iso = args[0] || APPLICATION_DEFAULT_LANGUAGE_ISO || nil
-            language_id = Language.id_from_iso(language_iso)
-            return nil if language_id.nil?
-            self.current_translation_language = language_iso
-            match = translations.select{|t| t.language_id == language_id }
-            unless match.empty?
-              # populate the translated attributes
-              match[0].attributes.each do |a, v|
-                # puts "SETTING #{self.class.class_name} #{a} to #{v}"
-                eval("self.translated_#{a} = v") unless a == 'id' || a == 'language_id' 
-              end
+          # this method will search translations of this model whose language matches the parameter,
+          # and creates attributes of the model corresponding to the translated fields
+          define_method(:set_translation_language) do |language|
+            # language_iso = args[0] || APPLICATION_DEFAULT_LANGUAGE_ISO || nil
+            # return if language_iso == self.current_translation_language
+            # language_id = Language.id_from_iso(language_iso)
+            # return nil if language_id.nil?
+            return nil if language.class != Language
+            return true if language == self.current_translation_language
+            match = translations.select{|t| t.language_id == language.id }
+            return nil if match.empty?  # no translation in this language
+            
+            # populate the translated attributes
+            self.current_translation_language = language
+            match[0].attributes.each do |a, v|
+              # puts "SETTING #{self.class.class_name} #{a} to #{v}"
+              eval("self.translated_#{a} = v") unless a == 'id' || a == 'language_id' 
             end
           end
           

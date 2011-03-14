@@ -82,22 +82,10 @@ AgentDataType.gen_if_not_exists(:label => 'Image')
 AgentDataType.gen_if_not_exists(:label => 'Text')
 AgentDataType.gen_if_not_exists(:label => 'Video')
 
-AgentRole.gen_if_not_exists(:label => 'Animator')
 AgentRole.gen_if_not_exists(:label => 'Author')
-AgentRole.gen_if_not_exists(:label => 'Compiler')
-AgentRole.gen_if_not_exists(:label => 'Composer')
-AgentRole.gen_if_not_exists(:label => 'Creator')
-AgentRole.gen_if_not_exists(:label => 'Director')
-AgentRole.gen_if_not_exists(:label => 'Editor')
-AgentRole.gen_if_not_exists(:label => 'Illustrator')
 AgentRole.gen_if_not_exists(:label => 'Photographer')
-AgentRole.gen_if_not_exists(:label => 'Project')
-AgentRole.gen_if_not_exists(:label => 'Publisher')
-AgentRole.gen_if_not_exists(:label => 'Recorder')
-AgentRole.gen_if_not_exists(:label => 'Source')
-AgentRole.gen_if_not_exists(:label => 'Source Database')
-AgentRole.gen_if_not_exists(:label => 'Contact Person')
 AgentRole.gen_if_not_exists(:label => 'Contributor')
+AgentRole.gen_if_not_exists(:label => 'Source')
 
 AgentStatus.gen_if_not_exists(:label => 'Active')
 AgentStatus.gen_if_not_exists(:label => 'Archived')
@@ -130,36 +118,6 @@ second_ncbi.hierarchy_group_version = 2
 second_ncbi.save!
 
 
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Associations',          :label => 'Associations')
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Behaviour',             :label => 'Behaviour')
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#ConservationStatus',    :label => 'ConservationStatus')
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Cyclicity',             :label => 'Cyclicity')
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Cytology',              :label => 'Cytology')
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#DiagnosticDescription', :label => 'DiagnosticDescription')
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Diseases',              :label => 'Diseases')
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Dispersal',             :label => 'Dispersal')
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Evolution',             :label => 'Evolution')
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Genetics',              :label => 'Genetics')
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Growth',                :label => 'Growth')
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Habitat',               :label => 'Habitat')
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Legislation',           :label => 'Legislation')
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#LifeCycle',             :label => 'LifeCycle')
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#LifeExpectancy',        :label => 'LifeExpectancy')
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#LookAlikes',            :label => 'LookAlikes')
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Management',            :label => 'Management')
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Migration',             :label => 'Migration')
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#MolecularBiology',      :label => 'MolecularBiology')
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Morphology',            :label => 'Morphology')
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Physiology',            :label => 'Physiology')
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#PopulationBiology',     :label => 'PopulationBiology')
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Procedures',            :label => 'Procedures')
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Reproduction',          :label => 'Reproduction')
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#RiskStatement',         :label => 'RiskStatement')
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Size',                  :label => 'Size')
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Threats',               :label => 'Threats')
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Trends',                :label => 'Trends')
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TrophicStrategy',       :label => 'TrophicStrategy')
-InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Uses',                  :label => 'Uses')
 
 Language.gen_if_not_exists(:label => 'English', :iso_639_1 => 'en')
 Language.gen_if_not_exists(:label => 'French', :iso_639_1 => 'fr', :iso_639_2 => 'fre') # Bootstrap uses this, tests i18n
@@ -189,41 +147,12 @@ License.gen_if_not_exists(:title => 'cc-by-nc-sa 3.0',
                           :description => 'Some rights reserved',
                           :source_url => 'http://creativecommons.org/licenses/by-nc-sa/3.0/',
                           :logo_url => '/images/licenses/cc_by_nc_sa_small.png')
-License.gen_if_not_exists(:title => 'gnu-fdl',
-                          :description => 'Some rights reserved',
-                          :source_url => 'http://www.gnu.org/licenses/fdl.html',
-                          :logo_url => '/images/licenses/gnu_fdl_small.png',
-                          :show_to_content_partners => 0)
-License.gen_if_not_exists(:title => 'gnu-gpl',
-                          :description => 'Some rights reserved',
-                          :source_url => 'http://www.gnu.org/licenses/gpl.html',
-                          :logo_url => '/images/licenses/gnu_fdl_small.png',
-                          :show_to_content_partners => 0)
-License.gen_if_not_exists(:title => 'no license',
-                          :description => 'The material cannot be licensed',
-                          :show_to_content_partners => 0)
 
-MimeType.gen_if_not_exists(:label => 'audio/mpeg')
-MimeType.gen_if_not_exists(:label => 'audio/x-ms-wma')
-MimeType.gen_if_not_exists(:label => 'audio/x-pn-realaudio')
-MimeType.gen_if_not_exists(:label => 'audio/x-realaudio')
-MimeType.gen_if_not_exists(:label => 'audio/x-wav')
-MimeType.gen_if_not_exists(:label => 'image/bmp')
-MimeType.gen_if_not_exists(:label => 'image/gif')
 MimeType.gen_if_not_exists(:label => 'image/jpeg')
-MimeType.gen_if_not_exists(:label => 'image/png')
-MimeType.gen_if_not_exists(:label => 'image/svg+xml')
-MimeType.gen_if_not_exists(:label => 'image/tiff')
 MimeType.gen_if_not_exists(:label => 'text/html')
 MimeType.gen_if_not_exists(:label => 'text/plain')
-MimeType.gen_if_not_exists(:label => 'text/richtext')
-MimeType.gen_if_not_exists(:label => 'text/rtf')
-MimeType.gen_if_not_exists(:label => 'text/xml')
-MimeType.gen_if_not_exists(:label => 'video/mp4')
-MimeType.gen_if_not_exists(:label => 'video/mpeg')
-MimeType.gen_if_not_exists(:label => 'video/quicktime')
 MimeType.gen_if_not_exists(:label => 'video/x-flv')
-MimeType.gen_if_not_exists(:label => 'video/x-ms-wmv')
+
 
 # create_if_not_exists These don't exist yet, but will in the future:
 # create_if_not_exists NormalizedQualifier :label => 'Name'
@@ -241,18 +170,7 @@ ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'taxon_concept_name')
 ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'tag')
 ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'users_submitted_text')
 
-RefIdentifierType.gen_if_not_exists(:label => 'bici')
-RefIdentifierType.gen_if_not_exists(:label => 'coden')
-RefIdentifierType.gen_if_not_exists(:label => 'doi')
-RefIdentifierType.gen_if_not_exists(:label => 'eissn')
-RefIdentifierType.gen_if_not_exists(:label => 'handle')
-RefIdentifierType.gen_if_not_exists(:label => 'isbn')
-RefIdentifierType.gen_if_not_exists(:label => 'issn')
-RefIdentifierType.gen_if_not_exists(:label => 'lsid')
-RefIdentifierType.gen_if_not_exists(:label => 'oclc')
-RefIdentifierType.gen_if_not_exists(:label => 'sici')
 RefIdentifierType.gen_if_not_exists(:label => 'url')
-RefIdentifierType.gen_if_not_exists(:label => 'urn')
 
 iucn_hierarchy = Hierarchy.gen_if_not_exists(:label => 'IUCN')
 iucn_resource = Resource.gen_if_not_exists(:title => 'Initial IUCN Import', :hierarchy => iucn_hierarchy)
@@ -263,26 +181,7 @@ AgentsResource.gen_if_not_exists(:resource => iucn_resource, :agent => Agent.iuc
 # This is out of ourder, of course, because it depends on the IUCN resource.
 HarvestEvent.gen_if_not_exists(:resource_id => iucn_resource.id)
 
-ResourceAgentRole.gen_if_not_exists(:label => 'Administrative')
-ResourceAgentRole.gen_if_not_exists(:label => 'Data Administrator')
-ResourceAgentRole.gen_if_not_exists(:label => 'Data Host')
 ResourceAgentRole.gen_if_not_exists(:label => 'Data Supplier')        # content_partner_upload_role
-ResourceAgentRole.gen_if_not_exists(:label => 'System Administrator')
-ResourceAgentRole.gen_if_not_exists(:label => 'Technical Host')
-
-ResourceStatus.gen_if_not_exists(:label => 'Uploading')
-ResourceStatus.gen_if_not_exists(:label => 'Uploaded')
-ResourceStatus.gen_if_not_exists(:label => 'Upload Failed')
-ResourceStatus.gen_if_not_exists(:label => 'Moved to Content Server')
-ResourceStatus.gen_if_not_exists(:label => 'Validated')
-ResourceStatus.gen_if_not_exists(:label => 'Validation Failed')
-ResourceStatus.gen_if_not_exists(:label => 'Being Processed')
-ResourceStatus.gen_if_not_exists(:label => 'Processed')
-ResourceStatus.gen_if_not_exists(:label => 'Processing Failed')
-ResourceStatus.gen_if_not_exists(:label => 'Published')
-ResourceStatus.gen_if_not_exists(:label => 'Publish Pending')
-ResourceStatus.gen_if_not_exists(:label => 'Unpublish Pending')
-ResourceStatus.gen_if_not_exists(:label => 'Force Harvest')
 
 KnownPrivileges.create_all
 
@@ -343,70 +242,26 @@ UntrustReason.gen_if_not_exists(:label => 'Poor')
 UntrustReason.gen_if_not_exists(:label => 'Duplicate')
 UntrustReason.gen_if_not_exists(:label => 'Other')
 
-Vetted.gen_if_not_exists(:label => 'Unknown', :view_order => 2)    # This really wants an ID of 0, but only for PHP stuff.
+Vetted.gen_if_not_exists(:label => 'Unknown', :view_order => 2)
 Vetted.gen_if_not_exists(:label => 'Untrusted', :view_order => 3)
 Vetted.gen_if_not_exists(:label => 'Trusted', :view_order => 1)
 
 SynonymRelation.gen_if_not_exists(:label => "synonym")
 SynonymRelation.gen_if_not_exists(:label => "common name")
-SynonymRelation.gen_if_not_exists(:label => "acronym")
-SynonymRelation.gen_if_not_exists(:label => "anamorph")
-SynonymRelation.gen_if_not_exists(:label => "blast name")
-SynonymRelation.gen_if_not_exists(:label => "equivalent name")
-SynonymRelation.gen_if_not_exists(:label => "genbank acronym")
-SynonymRelation.gen_if_not_exists(:label => "genbank anamorph")
 SynonymRelation.gen_if_not_exists(:label => "genbank common name")
-SynonymRelation.gen_if_not_exists(:label => "genbank synonym")
-SynonymRelation.gen_if_not_exists(:label => "in-part")
-SynonymRelation.gen_if_not_exists(:label => "includes")
-SynonymRelation.gen_if_not_exists(:label => "misnomer")
-SynonymRelation.gen_if_not_exists(:label => "misspelling")
-SynonymRelation.gen_if_not_exists(:label => "teleomorph")
-SynonymRelation.gen_if_not_exists(:label => "ambiguous synonym")
-SynonymRelation.gen_if_not_exists(:label => "misapplied name")
-SynonymRelation.gen_if_not_exists(:label => "provisionally accepted name")
-SynonymRelation.gen_if_not_exists(:label => "accepted name")
-SynonymRelation.gen_if_not_exists(:label => "database artifact")
-SynonymRelation.gen_if_not_exists(:label => "other, see comments")
-SynonymRelation.gen_if_not_exists(:label => "orthographic variant (misspelling)")
-SynonymRelation.gen_if_not_exists(:label => "misapplied")
-SynonymRelation.gen_if_not_exists(:label => "rejected name")
-SynonymRelation.gen_if_not_exists(:label => "homonym (illegitimate)")
-SynonymRelation.gen_if_not_exists(:label => "pro parte")
-SynonymRelation.gen_if_not_exists(:label => "superfluous renaming (illegitimate)")
-SynonymRelation.gen_if_not_exists(:label => "nomen oblitum")
-SynonymRelation.gen_if_not_exists(:label => "junior synonym")
-SynonymRelation.gen_if_not_exists(:label => "unavailable, database artifact")
-SynonymRelation.gen_if_not_exists(:label => "unnecessary replacement")
-SynonymRelation.gen_if_not_exists(:label => "subsequent name/combination")
-SynonymRelation.gen_if_not_exists(:label => "unavailable, literature misspelling")
-SynonymRelation.gen_if_not_exists(:label => "original name/combination")
-SynonymRelation.gen_if_not_exists(:label => "unavailable, incorrect orig. spelling")
-SynonymRelation.gen_if_not_exists(:label => "junior homonym")
-SynonymRelation.gen_if_not_exists(:label => "homonym & junior synonym")
-SynonymRelation.gen_if_not_exists(:label => "unavailable, suppressed by ruling")
-SynonymRelation.gen_if_not_exists(:label => "unjustified emendation")
-SynonymRelation.gen_if_not_exists(:label => "unavailable, other")
-SynonymRelation.gen_if_not_exists(:label => "unavailable, nomen nudum")
-SynonymRelation.gen_if_not_exists(:label => "nomen dubium")
-SynonymRelation.gen_if_not_exists(:label => "invalidly published, other")
-SynonymRelation.gen_if_not_exists(:label => "invalidly published, nomen nudum")
-SynonymRelation.gen_if_not_exists(:label => "basionym")
-SynonymRelation.gen_if_not_exists(:label => "heterotypic synonym")
-SynonymRelation.gen_if_not_exists(:label => "homotypic synonym")
-SynonymRelation.gen_if_not_exists(:label => "unavailable name")
-SynonymRelation.gen_if_not_exists(:label => "valid name")
 
-Visibility.gen_if_not_exists(:label => 'Invisible') # This  wants an ID of 0, but will fix itself (see class)
+
+Visibility.gen_if_not_exists(:label => 'Invisible')
 Visibility.gen_if_not_exists(:label => 'Visible')
 Visibility.gen_if_not_exists(:label => 'Preview')
 Visibility.gen_if_not_exists(:label => 'Inappropriate')
-Visibility.gen_if_not_exists(:label => 'Visible')
 
 # The home-page doesn't render without random taxa.  Note that other scenarios, if they build legitimate RandomTaxa,
 # will need to DELETE these before they make their own!  But for foundation's purposes, this is required:
 RandomHierarchyImage.delete_all
-10.times { RandomHierarchyImage.gen(:hierarchy => default_hierarchy) }
+d = DataObject.gen
+he = HierarchyEntry.gen(:hierarchy => default_hierarchy)
+5.times { RandomHierarchyImage.gen(:hierarchy => default_hierarchy, :hierarchy_entry => he, :data_object => d) }
 
 # This prevents us from loading things twice, which it seems we were doing a lot!
 User.gen :username => 'foundation_already_loaded'

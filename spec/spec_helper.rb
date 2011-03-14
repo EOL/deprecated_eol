@@ -57,7 +57,15 @@ Spec::Runner.configure do |config|
     SpeciesSchemaModel.connection.decrement_open_transactions
     SpeciesSchemaModel.connection.execute("ROLLBACK #SpeciesSchemaModel")
   end
-
+  
+  config.before(:all) do
+    $THIS_SPEC_START_TIME = Time.now()
+  end
+  
+  config.after(:all) do
+    puts (Time.now() - $THIS_SPEC_START_TIME).round(2).to_s + " seconds" if $THIS_SPEC_START_TIME
+    $THIS_SPEC_START_TIME = nil
+  end
 end
 
 def reset_all_model_cached_instances

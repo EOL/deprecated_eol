@@ -2,16 +2,17 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Synonym do
   before(:all) do
+    truncate_all_tables
     load_foundation_cache
     @tc = build_taxon_concept
     @curator = build_curator(@tc)
     @another_curator = build_curator(@tc)
     @lang = Language.english
     # Certain ActionWithObjects and ChangeableObjectTypes need to exist for these to work (but they may already exist):
-    ActionWithObject.create(:action_code => 'trust') rescue nil
-    ActionWithObject.create(:action_code => 'untrust') rescue nil
-    ActionWithObject.create(:action_code => 'unreview') rescue nil
-    ChangeableObjectType.create(:ch_object_type => 'synonym') rescue nil
+    ActionWithObject.gen_if_not_exists(:action_code => 'trust')
+    ActionWithObject.gen_if_not_exists(:action_code => 'untrust')
+    ActionWithObject.gen_if_not_exists(:action_code => 'unreview')
+    ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'synonym')
   end
 
   describe "preferred=" do

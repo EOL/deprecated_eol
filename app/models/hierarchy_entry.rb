@@ -147,6 +147,12 @@ class HierarchyEntry < SpeciesSchemaModel
   def kingdom(hierarchy = nil)
     return ancestors(hierarchy).first rescue nil
   end
+  
+  def kingdom_entry
+    entry_ancestor_ids = flattened_ancestors.collect{ |f| f.ancestor_id }
+    entry_ancestor_ids << self.id
+    HierarchyEntry.find_by_id_and_parent_id(entry_ancestor_ids, 0)
+  end
 
   def smart_thumb
     return images.blank? ? nil : images.first.smart_thumb

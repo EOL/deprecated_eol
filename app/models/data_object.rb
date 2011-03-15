@@ -68,11 +68,11 @@ class DataObject < SpeciesSchemaModel
       :table_of_contents => '*',
       :licenses => '*' },
     :include => [:data_type, :mime_type, :language, :license, :vetted, :visibility, {:info_items => :toc_item},
-      {:hierarchy_entries => [:name, { :hierarchy => :agent }] }, {:agents_data_objects => [:agent, :agent_role]}]
+      {:hierarchy_entries => [:name, { :hierarchy => :agent }] }, {:agents_data_objects => [ { :agent => :user }, :agent_role]}]
   
   def self.sort_by_rating(data_objects)
     data_objects.sort_by do |obj|
-      toc_view_order = (obj.info_items.blank? || obj.info_items[0].toc_item.blank?) ? 0 : obj.info_items[0].toc_item.view_order
+      toc_view_order = (!obj.is_text? || obj.info_items.blank? || obj.info_items[0].toc_item.blank?) ? 0 : obj.info_items[0].toc_item.view_order
       vetted_view_order = obj.vetted.blank? ? 0 : obj.vetted.view_order
       visibility_view_order = 1
       visibility_view_order = 2 if obj.visibility_id == Visibility.preview.id
@@ -898,8 +898,8 @@ class DataObject < SpeciesSchemaModel
   
   def self.eager_load_image_metadata(data_object_ids)
     return nil if data_object_ids.blank?
-    add_include = [:comments, :agents_data_objects, { :users_data_objects => :user }]
-    add_select = { :users => '*', :comments => '*' }
+    add_include = [:all_comments, { :users_data_objects => :user }]
+    add_select = { :users => '*', :comments => [:parent_id, :visible_at] }
     objects = DataObject.core_relationships(:add_include => add_include, :add_select => add_select).find_all_by_id(data_object_ids)
     DataObject.sort_by_rating(objects)
   end

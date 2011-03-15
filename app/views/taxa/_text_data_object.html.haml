@@ -83,7 +83,7 @@
             :style => comments_style, :class => 'popup-link', |
             :alt => 'Curate this text'} |
       - if !@preview
-        = render :partial => '/comments/comment_icon', :locals => { :data_object_id => content_item.id, :title => "Comment on this text", :comments_count => content_item.all_comments.length, :alt => "Comment on this text", :comment_class => 'popup-link', :rel => '' }
+        = render :partial => '/comments/comment_icon', :locals => { :data_object_id => content_item.id, :title => "Comment on this text", :comments_count => content_item.visible_comments.length, :alt => "Comment on this text", :comment_class => 'popup-link', :rel => '' }
   .text-slidebox-border{:id => "text-comments-wrapper-#{content_item.id}", :style => "display:none;"}
     .text-slidebox-container.text-comment-div{:id => "text-comments-#{content_item.id}"}
       -# TODO - we re-use this indicator a lot.  Put it in a div that we can push around the page as needed.

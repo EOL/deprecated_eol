@@ -24,7 +24,13 @@
               = render(:partial => 'navigation/node_with_ancestry_page', :locals => { :hierarchy_entry => child, :expanded => true })
             - else
               %li
-                = render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => child })
+                -# = render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => child })
+                -# This is cheating here - I copied some code of out a partial and uesd it here. This is where children
+                -# taxa are rendered and it was much faster to keep the logic in this one partial rather than
+                -# rendering another one potentially thousands of times (saved 25 seconds locally for 5240)
+                - link_class = child.has_content? ? '' : 'light'
+                - name_string = @include_common_names ? child.common_name_in_language(@common_name_language).firstcap : child.italicized_name.firstcap
+                = link_to(name_string, {:controller => 'taxa', :action => 'show', :id => child.taxon_concept_id }, :class => [link_class].compact.join(' '))
 - else
   - ancestor = ancestors.shift
   %li

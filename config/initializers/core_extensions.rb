@@ -33,9 +33,17 @@ module ActiveRecord
       # I am going to try NOT doing anything with that option right now, to see if it works.  If not, however, I want to at
       # least have it passed in when we needed it, so the code can change later if needed.
       def cached_find(field, value, options = {})
-        cached("#{field}/#{value}", options) do
-          send("find_by_#{field}", value)
+        key = "#{field}/#{value}"
+        #look locally first then in Memcached
+        if $USE_LOCAL_CACHE_CLASSES && r = check_local_cache(key)
+          return r.dup
         end
+        
+        r = cached(key, options) do
+          r = send("find_by_#{field}", value, :include => options[:include])
+        end
+        set_local_cache(key, r)
+        r
       end
       
       def cached_read(key)

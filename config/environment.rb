@@ -209,7 +209,12 @@ Rails::Initializer.run do |config|
   $AGENT_ID_OF_DEFAULT_COMMON_NAME_SOURCE = 9448
 
   $MAX_TAXA_TO_EXPIRE_BEFORE_EXPIRING_ALL = 1024
-
+  
+  # for those class that are using CACHE_ALL_ROWS, when the row is looked up in memcached, retain that value
+  # in an array in a class variable. That way future lookups will read from local memory and will not require
+  # back and forth from Memcached
+  $USE_LOCAL_CACHE_CLASSES = true
+  
   if $USE_SQL_SESSION_MANAGEMENT
     config.action_controller.session_store = :active_record_store
   end

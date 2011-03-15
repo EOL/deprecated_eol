@@ -1,0 +1,20 @@
+%h2
+  Request Wikipedia article ingestion:
+%br
+EOL is now allowing curators to submit a revision of a Wikipedia page to be ingested into EOL as a vetted text object. To find the revision URL of a Wikipedia article first go to the article main page (e.g. 
+%a{:href => "http://en.wikipedia.org/w/index.php?title=Giraffe" }
+  http://en.wikipedia.org/w/index.php?title=Giraffe
+) and expand in the left hand menu the "Toolbox" menu item. You should now see the "Permanent link" item. Either copy the URL of that link, or click the link and copy the URL in your browser's address bar. The revision URL will look something like
+%a{:href => "http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069" }
+  http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069
+\.
+%br
+%br
+By entering a Wikipedia revision URL you are requesting that EOL ingests that particular revision as vetted. It will replace the current version of that article in EOL if we have it already.
+%form{:action => '/content/wikipedia', :method => 'post'}
+  %strong
+    Enter revision url: 
+  %input{:type => 'text', :name => 'revision_url', :size => 60}
+  %input{:type => 'submit', :value => 'Submit'}
+%i
+  (eg: http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)

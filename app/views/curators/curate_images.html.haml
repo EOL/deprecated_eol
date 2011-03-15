@@ -32,8 +32,8 @@
       %tr{ :id => "curation-item-#{data_object.id}" }
         %td{ :class => "overlay_link " + data_object.vetted.label.downcase }
           .curation-item
-            - taxon_concept = data_object.get_taxon_concepts(:published => :preferred).first
-            = dato_taxon_concept_link(:h5, taxon_concept, :dato_type => "image", :"dato_id" => data_object.id, :popup => true)
+            %h5
+              = link_to(data_object.first_concept_name, taxon_concept_path(data_object.first_hierarchy_entry.taxon_concept_id))
             - if common_name = data_object.first_concept_common_name
               %h6
                 = common_name.firstcap

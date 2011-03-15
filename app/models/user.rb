@@ -21,6 +21,7 @@ class User < parent_klass
   belongs_to :curator_hierarchy_entry, :class_name => "HierarchyEntry", :foreign_key => :curator_hierarchy_entry_id
   belongs_to :curator_verdict_by, :class_name => "User", :foreign_key => :curator_verdict_by_id
   has_many   :curators_evaluated, :class_name => "User", :foreign_key => :curator_verdict_by_id
+  has_many   :users_data_objects_ratings
   has_one    :user_info
 
   accepts_nested_attributes_for :user_info
@@ -580,7 +581,7 @@ class User < parent_klass
     vetted_clause = vetted_id.nil? ? "" : " AND vetted_id:#{vetted_id}"
     vetted_clause = "" if (vetted_id == 'all')
 
-    solr_query = "ancestor_id:#{hierarchy_entry.taxon_concept_id} AND published:1 AND data_type_id:#{DataType.image.id} AND visibility_id:#{Visibility.visible.id}"
+    solr_query = "ancestor_id:#{hierarchy_entry.taxon_concept_id} AND published:1 AND data_type_id:#{DataType.image.id} AND visibility_id:#{Visibility.visible.id} AND vetted_id:#{vetted_id}"
 
     unless options[:content_partner_id].blank?
       content_partner = ContentPartner.find(options[:content_partner_id].to_i)
@@ -592,26 +593,28 @@ class User < parent_klass
       end
     end
 
-    data_object_ids = EOL::Solr::SolrSearchDataObjects.images_for_concept(solr_query, :fields => 'data_object_id', :rows => 2000, :sort => 'created_at desc')
+    data_object_ids = EOL::Solr::SolrSearchDataObjects.images_for_concept(solr_query, :fields => 'data_object_id', :rows => 1500, :sort => 'created_at desc')
 
     return [] if data_object_ids.empty?
 
-    vetted_clause = vetted_id != 'all' ? " AND do.vetted_id = #{vetted_id}" : ""
-    result = DataObject.find_by_sql("SELECT do.id
-        FROM #{DataObject.full_table_name} do
-          LEFT JOIN #{UserIgnoredDataObject.full_table_name} uido ON (do.id = uido.data_object_id AND uido.user_id = #{self.id})
-        WHERE do.id IN (#{data_object_ids.join(',')})
-          AND uido.id IS NULL
-          #{vetted_clause}
-        GROUP BY do.guid
-        ORDER BY do.created_at DESC
-        LIMIT 0,1500");
-
     start = per_page * (page - 1)
     last = start + per_page - 1
-    data_object_ids_to_lookup = result[start..last].collect{|d| d.id}
-    result[start..last] = DataObject.core_relationships.find_all_by_id(data_object_ids_to_lookup).sort_by{|d| Invert(d.id)}
-    return result
+    data_object_ids_to_lookup = data_object_ids[start..last]
+    
+    add_include = [
+      :all_comments,
+      { :users_data_objects => :user },
+      :untrust_reasons,
+      :users_data_objects_ratings,
+      { :taxon_concepts => { :preferred_common_names => :name } } ]
+    add_select = {
+      :users => '*',
+      :comments => [ :parent_id, :visible_at, :user_id ],
+      :untrust_reasons => '*',
+      :users_data_objects_ratings => [ :user_id, :rating ] }
+    data_object_ids[start..last] = DataObject.core_relationships(:add_include => add_include,
+      :add_select => add_select).find_all_by_id(data_object_ids_to_lookup).sort_by{|d| Invert(d.id)}
+    return data_object_ids
   end
 
   def ignored_data_objects(options = {})

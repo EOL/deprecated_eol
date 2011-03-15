@@ -104,6 +104,10 @@ class SolrAPI
     end
     create(data)
   end
+  
+  def query_lucene(query, options = {})
+    EOL::Solr.query_lucene(self.server_url.to_s, query, options)
+  end
 
   private
 

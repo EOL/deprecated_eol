@@ -32,7 +32,7 @@
     .buttons.action-value
       = submit_tag "Save"
 .text_buttons
-  - comments = data_object.all_comments.select { |c| c.visible_at }
+  - comments = data_object.visible_comments
   - if comments.blank?
     - comment_tooltip = "No comments yet. "
   - else

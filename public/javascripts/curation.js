@@ -66,7 +66,7 @@ $(document).ready(function() {
     form.find('div.processing').show();
     submit = form.find(':submit');
     the_comment = form.find('textarea');
-    var reasons = $('.untrust_reason:checked').siblings().map(function(){return this.innerHTML}).get().join(",\n");
+    var reasons = form.find('.untrust_reason:checked').siblings().map(function(){return this.innerHTML}).get().join(",\n");
     if (reasons) {
       reasons = "Reasons to Untrust:\n\n" + reasons 
       form.find('.untrust_reasons_comment').attr('value', reasons);
@@ -94,6 +94,10 @@ $(document).ready(function() {
       },
       success: function(response) {
         $('#comment_button_link_' + response.args[0] + ' .span_block').html(response.args[4]);
+        // Show the Comments container if comments are submitted or vetted the dato as untrusted
+        if (form.find('.reason').siblings("input").attr("checked") || the_comment.val()) {
+          $('#comment_button_link_' + response.args[0]).click();
+        }
         form.find('.untrust_reasons_comment').attr('value', '');
         the_comment.val('');
         if (response.type == "text") {

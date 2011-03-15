@@ -30,6 +30,7 @@
 
     = render :partial => 'data_objects/curation', :locals => { :data_object => data_object, :div_style => div_style }
     .buttons.action-value
+      %br
       = submit_tag "Save"
 .text_buttons
   - comments = data_object.all_comments.select { |c| c.visible_at }

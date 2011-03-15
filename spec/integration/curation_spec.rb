@@ -235,7 +235,7 @@ describe 'Curation' do
     hierarchy_entry = HierarchyEntry.gen(:hierarchy => hierarchy, :taxon_concept => @taxon_concept)
     hierarchy_entry_child = HierarchyEntry.gen(:hierarchy => hierarchy, :parent => hierarchy_entry)
     make_all_nested_sets
-    
+    flatten_hierarchies
     @first_curator.can_curate?(hierarchy_entry_child).should == true
   end
   
@@ -247,8 +247,10 @@ describe 'Curation' do
     parent_entry_in_curator_hierarchy = HierarchyEntry.gen(:hierarchy => curator_hierarchy, :taxon_concept => @parent_hierarchy_entry.taxon_concept)
     entry_in_curator_hierarchy = HierarchyEntry.gen(:hierarchy => curator_hierarchy, :taxon_concept_id => @taxon_concept.id, :parent_id => parent_entry_in_curator_hierarchy.id)
     entry_not_in_curator_hierarchy = HierarchyEntry.gen(:hierarchy => @parent_hierarchy_entry.hierarchy, :parent => @taxon_concept.entry)
-    
+    flatten_hierarchies
     new_curator = build_curator(parent_entry_in_curator_hierarchy)
+    HierarchyEntry.connection.execute('COMMIT')
+    User.connection.execute('COMMIT')
     new_curator.can_curate?(entry_not_in_curator_hierarchy.taxon_concept).should == true
   end
 

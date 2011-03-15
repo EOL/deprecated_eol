@@ -49,15 +49,23 @@ module ActiveRecord
           chache_all_class_instances
           results = []
           ids.each do |id|
-            if r = cached_read("instance_id_#{id}")
-              results << r
-              break if options[:limit] && results.length >= options[:limit]
+            # look locally first then in Memcached
+            if $USE_LOCAL_CACHE_CLASSES && r = check_local_cache("instance_id_#{id}")
+              results << r.dup
+            else
+              r = cached_read("instance_id_#{id}")
+              if r
+                results << r
+                set_local_cache("instance_id_#{id}", r)
+              end
             end
+            break if options[:limit] && results.length >= options[:limit]
           end
           results.compact
         end
         
         def chache_all_class_instances
+          return true if check_local_cache("already_cached_all_instances")
           cached('instances_cached') do
             all_instances = find(:all)
             all_instances.each do |obj|
@@ -67,6 +75,7 @@ module ActiveRecord
             end
             true
           end
+          set_local_cache("already_cached_all_instances", true)
         end
         
         def construct_finder_sql(options)

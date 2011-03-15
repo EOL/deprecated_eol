@@ -213,7 +213,12 @@ Rails::Initializer.run do |config|
   $SPECIAL_COMMUNITY_NAME = 'EOL Curators and Admins'
   
   APPLICATION_DEFAULT_LANGUAGE_ISO = 'en'
-
+  
+  # for those class that are using CACHE_ALL_ROWS, when the row is looked up in memcached, retain that value
+  # in an array in a class variable. That way future lookups will read from local memory and will not require
+  # back and forth from Memcached
+  $USE_LOCAL_CACHE_CLASSES = true
+  
   if $USE_SQL_SESSION_MANAGEMENT
     config.action_controller.session_store = :active_record_store
   end

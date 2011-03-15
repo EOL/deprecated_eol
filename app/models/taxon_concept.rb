@@ -37,6 +37,7 @@ class TaxonConcept < SpeciesSchemaModel
   has_many :synonyms, :class_name => Synonym.to_s, :foreign_key => 'hierarchy_entry_id',
     :finder_sql => 'SELECT s.* FROM #{Synonym.full_table_name} s JOIN #{HierarchyEntry.full_table_name} he ON (he.id = s.hierarchy_entry_id) WHERE he.taxon_concept_id=\'#{id}\' AND s.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(",")})'
   has_many :users_data_objects
+  has_many :flattened_ancestors, :class_name => TaxonConceptsFlattened.to_s
 
   has_one :taxon_concept_content
   has_one :taxon_concept_metric
@@ -60,7 +61,7 @@ class TaxonConcept < SpeciesSchemaModel
       :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ],
       :licenses => :title,
       :table_of_contents => '*' },
-    :include => [{:hierarchy_entries => [:rank, { :name => :canonical_form }, :hierarchy, :hierarchies_content] }, { :data_objects => [:toc_items, :license] },
+    :include => [{:hierarchy_entries => [:rank, { :name => :canonical_form }, :hierarchy, :hierarchies_content] }, { :data_objects => [ { :toc_items => :info_items }, :license] },
       { :users_data_objects => { :data_object => :toc_items } }]
 
   def show_curator_controls?(user = nil)
@@ -97,16 +98,31 @@ class TaxonConcept < SpeciesSchemaModel
   # extra credit on their associated TC pages. This method returns an Array of those users.
   def curators
     return @curators unless @curators.nil?
-    users = User.find_all_by_curator_hierarchy_entry_id_and_curator_approved(all_ancestor_entry_ids, true, :include => {:curator_hierarchy_entry => :name})
-    unless in_hierarchy?(Hierarchy.default)
-      if entry_in_default = find_ancestor_in_hierarchy(Hierarchy.default)
-        users += entry_in_default.taxon_concept.curators
-      end
-    end
-    @curators = users
-    return users
+    users = User.find(:all,
+      :select => { :users => [ :id, :family_name, :given_name, :curator_hierarchy_entry_id, :curator_scope, :curator_approved ] },
+        :joins => "JOIN #{HierarchyEntry.full_table_name} he ON (he.id = users.curator_hierarchy_entry_id)",
+        :conditions => "he.taxon_concept_id IN (#{all_ancestor_taxon_concept_ids.join(',')})")
+    @curators = users.uniq
   end
   
+  def new_all_ancestor_entry_ids
+    all_ancestor_entry_ids = []
+    
+    
+    entries = HierarchyEntry.find_all_by_taxon_concept_id(self.id, :select => 'id, parent_id')
+    all_ancestor_entry_ids += entries.collect{|he| he.id }
+
+    # getting all the parents of entries in this concept, and the other entries in their concepts
+    while parents = HierarchyEntry.find_all_by_id(entries.collect{|he| he.parent_id}.uniq, :joins => 'JOIN hierarchy_entries he_concept USING (taxon_concept_id)', :select => 'hierarchy_entries.id, hierarchy_entries.parent_id, he_concept.id related_he_id', :conditions => "hierarchy_entries.id != 0")
+      break if parents.empty?
+      all_ancestor_entry_ids += parents.collect{|he| he.id }
+      all_ancestor_entry_ids += parents.collect{|he| he['related_he_id']}
+      entries = parents.dup
+      break if entries.collect{|he| he.parent_id} == [0]
+    end
+    return all_ancestor_entry_ids.uniq
+  end
+
   def all_ancestor_entry_ids
     all_ancestor_entry_ids = []
     entries = HierarchyEntry.find_all_by_taxon_concept_id(self.id, :select => 'id, parent_id')
@@ -467,7 +483,20 @@ class TaxonConcept < SpeciesSchemaModel
     return nil if h_entry.nil?
     return h_entry.kingdom(hierarchy)
   end
+  
+  def all_ancestor_taxon_concept_ids
+    return @complete_ancestor_concept_ids if @complete_ancestor_concept_ids
+    ancestor_concept_ids = TaxonConceptsFlattened.find_all_by_taxon_concept_id(id,
+      :select => 'ancestor_id').collect{ |tcf| tcf.ancestor_id } + [id]
+    @complete_ancestor_concept_ids = TaxonConceptsFlattened.find_all_by_taxon_concept_id(ancestor_concept_ids,
+      :select => 'ancestor_id').collect{ |tcf| tcf.ancestor_id } + [id]
+  end
 
+  # # general versions of the above methods for any hierarchy
+  # def find_ancestor_in_hierarchy(hierarchy)
+  #   entry_in_hierarchy = HierarchyEntry.find_by_taxon_concept_id_and_hierarchy_id(all_ancestor_taxon_concept_ids, hierarchy.id, :order => 'lft desc')
+  # end
+  
   # general versions of the above methods for any hierarchy
   def find_ancestor_in_hierarchy(hierarchy)
     hierarchy_entries.each do |entry|
@@ -698,8 +727,9 @@ class TaxonConcept < SpeciesSchemaModel
 
   def classification_attribution(hierarchy = nil)
     hierarchy ||= Hierarchy.default
-    return '' unless entry(hierarchy)
-    return entry(hierarchy).classification_attribution
+    e = entry(hierarchy)
+    return '' unless e
+    return e.classification_attribution
   end
 
   # This may throw an ActiveRecord::RecordNotFound exception if the TocItem's category_id doesn't exist.
@@ -1065,9 +1095,8 @@ class TaxonConcept < SpeciesSchemaModel
   end
   
   def text_toc_items_for_session(options={})
-    this_toc_objects = data_objects.select{ |d| d.data_type_id == DataType.text.id }
-    user_objects = users_data_objects.select{ |udo| udo.data_object.data_type_id == DataType.text.id }.
-      collect{ |udo| udo.data_object}
+    this_toc_objects = data_objects.select{ |d| d.is_text? }
+    user_objects = users_data_objects.select{ |udo| udo.data_object.is_text? }.collect{ |udo| udo.data_object}
     combined_objects = this_toc_objects | user_objects  # get the union of the two sets
     filtered_objects = DataObject.filter_list_for_user(combined_objects, :agent => options[:agent], :user => options[:user])
     return filtered_objects.collect{ |d| d.toc_items }.flatten.compact.uniq
@@ -1081,11 +1110,16 @@ class TaxonConcept < SpeciesSchemaModel
     
     # remove objects this user shouldn't see
     filtered_objects = DataObject.filter_list_for_user(combined_objects, :agent => options[:agent], :user => options[:user])
-    
-    add_include = [:comments, :agents_data_objects, :info_items, :toc_items, { :users_data_objects => :user }, 
-      { :refs => { :ref_identifiers => :ref_identifier_type } }, :all_comments]
-    add_select = { :refs => '*' , :ref_identifiers => '*', :users => '*', :comments => [:parent_id, :visible_at] }
-    
+
+    add_include = [:comments, :agents_data_objects, :info_items, :toc_items, { :users_data_objects => :user },
+      { :published_refs => { :ref_identifiers => :ref_identifier_type } }, :all_comments]
+    add_select = {
+      :refs => '*',
+      :ref_identifiers => '*',
+      :ref_identifier_types => '*',
+      :users => '*',
+      :comments => [:parent_id, :visible_at] }
+
     objects = DataObject.core_relationships(:add_include => add_include, :add_select => add_select).
         find_all_by_id(filtered_objects.collect{ |d| d.id })
     DataObject.sort_by_rating(objects)

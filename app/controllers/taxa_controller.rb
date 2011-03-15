@@ -79,7 +79,12 @@ class TaxaController < ApplicationController
                                     :status => :moved_permanently)) if taxon_concept.superceded_the_requested_id?
 
     #inc = [ { :data_objects => :refs }, { :users_data_object => :refs }, { :hierachy_entries => :refs } ]
-    @taxon_concept = TaxonConcept.core_relationships.find_by_id(taxon_concept.id)
+    inc = { :top_concept_images => :data_object }
+    sel = { :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ] }
+    @taxon_concept = TaxonConcept.core_relationships(:add_include => inc, :add_select => sel).find_by_id(taxon_concept.id)
+    if params[:action_name] == "update_common_names"
+      update_common_names
+    end
     if params[:category_id]
       params[:category_id] = nil if !TocItem.find_by_id(params[:category_id].to_i)
       @languages = build_language_list if is_common_names?(params[:category_id].to_i)

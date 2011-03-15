@@ -119,10 +119,6 @@ private
       toc << TocEntry.new(TocItem.search_the_web)
     end
 
-    if Ref.literature_references_for?(taxon_concept.id)
-      toc << TocEntry.new(TocItem.literature_references)
-    end
-
   end
 
   def user_allows_unvetted_items(options = {})

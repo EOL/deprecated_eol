@@ -28,55 +28,68 @@ class TocItem < SpeciesSchemaModel
   end
   
   def self.bhl
-    cached_find_translated(:label, 'Biodiversity Heritage Library')
+    InfoItem
+    cached_find(:label, 'Biodiversity Heritage Library', :include => [ :info_items, { :parent => :info_items } ])
   end
   def self.content_partners
-    cached_find_translated(:label, 'Content Partners')
+    InfoItem
+    cached_find(:label, 'Content Partners', :include => [ :info_items, { :parent => :info_items } ])
   end
   def self.name_and_taxonomy
-    cached_find_translated(:label, 'Names and Taxonomy')
+    InfoItem
+    cached_find(:label, 'Names and Taxonomy', :include => [ :info_items, { :parent => :info_items } ])
   end
   def self.related_names
-    cached_find_translated(:label, 'Related Names')
+    InfoItem
+    cached_find(:label, 'Related Names', :include => [ :info_items, { :parent => :info_items } ])
   end
   def self.synonyms
     cached('synonyms') do
-      r = TocItem.find_all_by_parent_id(self.name_and_taxonomy.id).select{ |t| t.label == 'Synonyms' }
+      r = TocItem.find_all_by_parent_id(self.name_and_taxonomy.id, :include => [ :info_items, { :parent => :info_items } ]).select{ |t| t.label == 'Synonyms' }
       r.blank? ? nil : r[0]
     end
   end
   def self.common_names
     cached('common_names') do
-      r = TocItem.find_all_by_parent_id(self.name_and_taxonomy.id).select{ |t| t.label == 'Common Names' }
+      r = TocItem.find_all_by_parent_id(self.name_and_taxonomy.id, :include => [ :info_items, { :parent => :info_items } ]).select{ |t| t.label == 'Common Names' }
       r.blank? ? nil : r[0]
     end
   end
   def self.page_statistics
-    cached_find_translated(:label, 'Page Statistics')
+    InfoItem
+    cached_find(:label, 'Page Statistics', :include => [ :info_items, { :parent => :info_items } ])
   end
   def self.content_summary
-    cached_find_translated(:label, 'Content Summary')
+    InfoItem
+    cached_find(:label, 'Content Summary', :include => [ :info_items, { :parent => :info_items } ])
   end
   def self.overview
-    cached_find_translated(:label, 'Overview')
+    InfoItem
+    cached_find(:label, 'Overview', :include => [ :info_items, { :parent => :info_items } ])
   end
   def self.education
-    cached_find_translated(:label, 'Education')
+    InfoItem
+    cached_find(:label, 'Education', :include => [ :info_items, { :parent => :info_items } ])
   end
   def self.search_the_web
-    cached_find_translated(:label, 'Search the Web')
+    InfoItem
+    cached_find(:label, 'Search the Web', :include => [ :info_items, { :parent => :info_items } ])
   end
   def self.biomedical_terms
-    cached_find_translated(:label, 'Biomedical Terms')
+    InfoItem
+    cached_find(:label, 'Biomedical Terms', :include => [ :info_items, { :parent => :info_items } ])
   end
   def self.literature_references
-    cached_find_translated(:label, 'Literature References')
+    InfoItem
+    cached_find(:label, 'Literature References', :include => [ :info_items, { :parent => :info_items } ])
   end
   def self.nucleotide_sequences
-    cached_find_translated(:label, 'Nucleotide Sequences')
+    InfoItem
+    cached_find(:label, 'Nucleotide Sequences', :include => [ :info_items, { :parent => :info_items } ])
   end
   def self.wikipedia
-    cached_find_translated(:label, 'Wikipedia')
+    InfoItem
+    cached_find(:label, 'Wikipedia', :include => [ :info_items, { :parent => :info_items } ])
   end
   
   def object_count

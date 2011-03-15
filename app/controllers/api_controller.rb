@@ -114,6 +114,12 @@ class ApiController < ApplicationController
     @page = 1 if @page < 1
     @per_page = 30
     
+    # we had a bunch of searches like "link:QLlHJCZzx" which were throwing errors
+    if @search_term.blank? || @search_term.match(/^link:[a-z]+$/i)
+      render(:partial => 'error.xml.builder', :locals => { :error => "Invalid search term: #{@search_term}" })
+      return
+    end
+    
     @results = TaxonConcept.search_with_pagination(@search_term, :page => @page, :per_page => @per_page, :type => :all, :lookup_trees => false, :exact => params[:exact])
     @last_page = (@results.total_entries/@per_page.to_f).ceil
     

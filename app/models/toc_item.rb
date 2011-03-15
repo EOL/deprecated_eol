@@ -31,19 +31,19 @@ class TocItem < SpeciesSchemaModel
     # because TocItems are cached with info_items already loaded, we need to have the InfoItem class loaded
     # before this block. The only way I could see was to just reference the model here, which removed those errors
     InfoItem
-    cached_find(:label, 'Biodiversity Heritage Library', :include => [ :info_items, { :parent => :info_items } ])
+    cached_find_translated(:label, 'Biodiversity Heritage Library', :include => [ :info_items, { :parent => :info_items } ])
   end
   def self.content_partners
     InfoItem
-    cached_find(:label, 'Content Partners', :include => [ :info_items, { :parent => :info_items } ])
+    cached_find_translated(:label, 'Content Partners', :include => [ :info_items, { :parent => :info_items } ])
   end
   def self.name_and_taxonomy
     InfoItem
-    cached_find(:label, 'Names and Taxonomy', :include => [ :info_items, { :parent => :info_items } ])
+    cached_find_translated(:label, 'Names and Taxonomy', :include => [ :info_items, { :parent => :info_items } ])
   end
   def self.related_names
     InfoItem
-    cached_find(:label, 'Related Names', :include => [ :info_items, { :parent => :info_items } ])
+    cached_find_translated(:label, 'Related Names', :include => [ :info_items, { :parent => :info_items } ])
   end
   def self.synonyms
     InfoItem
@@ -61,39 +61,39 @@ class TocItem < SpeciesSchemaModel
   end
   def self.page_statistics
     InfoItem
-    cached_find(:label, 'Page Statistics', :include => [ :info_items, { :parent => :info_items } ])
+    cached_find_translated(:label, 'Page Statistics', :include => [ :info_items, { :parent => :info_items } ])
   end
   def self.content_summary
     InfoItem
-    cached_find(:label, 'Content Summary', :include => [ :info_items, { :parent => :info_items } ])
+    cached_find_translated(:label, 'Content Summary', :include => [ :info_items, { :parent => :info_items } ])
   end
   def self.overview
     InfoItem
-    cached_find(:label, 'Overview', :include => [ :info_items, { :parent => :info_items } ])
+    cached_find_translated(:label, 'Overview', :include => [ :info_items, { :parent => :info_items } ])
   end
   def self.education
     InfoItem
-    cached_find(:label, 'Education', :include => [ :info_items, { :parent => :info_items } ])
+    cached_find_translated(:label, 'Education', :include => [ :info_items, { :parent => :info_items } ])
   end
   def self.search_the_web
     InfoItem
-    cached_find(:label, 'Search the Web', :include => [ :info_items, { :parent => :info_items } ])
+    cached_find_translated(:label, 'Search the Web', :include => [ :info_items, { :parent => :info_items } ])
   end
   def self.biomedical_terms
     InfoItem
-    cached_find(:label, 'Biomedical Terms', :include => [ :info_items, { :parent => :info_items } ])
+    cached_find_translated(:label, 'Biomedical Terms', :include => [ :info_items, { :parent => :info_items } ])
   end
   def self.literature_references
     InfoItem
-    cached_find(:label, 'Literature References', :include => [ :info_items, { :parent => :info_items } ])
+    cached_find_translated(:label, 'Literature References', :include => [ :info_items, { :parent => :info_items } ])
   end
   def self.nucleotide_sequences
     InfoItem
-    cached_find(:label, 'Nucleotide Sequences', :include => [ :info_items, { :parent => :info_items } ])
+    cached_find_translated(:label, 'Nucleotide Sequences', :include => [ :info_items, { :parent => :info_items } ])
   end
   def self.wikipedia
     InfoItem
-    cached_find(:label, 'Wikipedia', :include => [ :info_items, { :parent => :info_items } ])
+    cached_find_translated(:label, 'Wikipedia', :include => [ :info_items, { :parent => :info_items } ])
   end
   
   def object_count

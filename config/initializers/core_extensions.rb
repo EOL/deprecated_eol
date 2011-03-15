@@ -156,14 +156,20 @@ module ActiveRecord
           
           self.class.send(:define_method, :find_by_translated) do |field, value, *args|
             begin
-              language_iso = args[0] || APPLICATION_DEFAULT_LANGUAGE_ISO || nil
+              if args[0] && args[0].class == String && args[0].match(/^[a-z]{2}$/)
+                options_language_iso = args[0]
+              end
+              options_include = args.select{ |a| a && a.class == Hash && !a[:include].blank? }.shift
+              options_include = options_include[:include] unless options_include.blank?
+              language_iso = options_language_iso || APPLICATION_DEFAULT_LANGUAGE_ISO || nil
               language_id = Language.id_from_iso(language_iso)
               return nil if language_id.nil?
               
               table = self::TRANSLATION_CLASS.table_name
               # find the record where the translated field is * and language is *
               found = send("find", :first, :joins => :translations,
-                :conditions => "`#{table}`.`#{field}` = '#{value}' AND `#{table}`.`language_id` = #{language_id}")
+                :conditions => "`#{table}`.`#{field}` = '#{value}' AND `#{table}`.`language_id` = #{language_id}",
+                :include => options_include)
               
               # if the default language wasn't chosen, swtich translated attributes to new language
               if found
@@ -178,9 +184,13 @@ module ActiveRecord
           end
           
           self.class.send(:define_method, :cached_find_translated) do |field, value, *args|
-            language_iso = args[0] || APPLICATION_DEFAULT_LANGUAGE_ISO || nil
+            if args[0] && args[0].class == String && args[0].match(/^[a-z]{2}$/)
+              options_language_iso = args[0]
+            end
+            options_include = args.select{ |a| a && a.class == Hash && !a[:include].blank? }.shift
+            language_iso = options_language_iso || APPLICATION_DEFAULT_LANGUAGE_ISO || nil
             cached("#{field}/#{value}/#{language_iso}") do
-              find_by_translated(field, value, language_iso)
+              find_by_translated(field, value, language_iso, options_include)
             end
           end
           

@@ -218,7 +218,7 @@ describe 'EOL APIs' do
   end
   
   it 'pages should be able to take a | delimited list of licenses' do
-    visit("/api/pages/#{@taxon_concept.id}?images=0&text=3&licenses=cc-by-nc&details=1")
+    visit("/api/pages/#{@taxon_concept.id}?images=0&text=2&licenses=cc-by-nc&details=1")
     xml_response = Nokogiri.XML(body)
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 2
     

@@ -291,63 +291,6 @@ describe 'Curator Worklist' do
     body.should include("/pages/#{@child_entry.taxon_concept_id}")
   end
   
-  it "should be able to move the unreviewed image from active list to the ignored list and vice-versa" do
-    visit("/curators/curate_images?vetted_id=#{Vetted.unknown.id}")
-    body.should include(@lower_child_unreviewed_image.id.to_s)
-    visit("/user_ignored_data_objects/create?data_object_id=#{@lower_child_unreviewed_image.id.to_s}")
-    body.should include("OK")
-    commit_transactions 
-    visit("/curators/curate_images?vetted_id=#{Vetted.unknown.id}") 
-    body.should_not include(@lower_child_unreviewed_image.id.to_s)
-    visit("/curators/ignored_images")
-    body.should include(@lower_child_unreviewed_image.id.to_s)
-    visit("/user_ignored_data_objects/destroy?data_object_id=#{@lower_child_unreviewed_image.id.to_s}")
-    body.should include("OK")
-    commit_transactions 
-    visit("/curators/ignored_images")
-    body.should_not include(@lower_child_unreviewed_image.id.to_s)
-    visit("/curators/curate_images?vetted_id=#{Vetted.unknown.id}")
-    body.should include(@lower_child_unreviewed_image.id.to_s)
-  end
-  
-  it "should be able to move the untrusted image from active list to the ignored list and vice-versa" do
-    visit("/curators/curate_images?vetted_id=#{Vetted.untrusted.id}")
-    body.should include(@lower_child_untrusted_image.id.to_s)
-    visit("/user_ignored_data_objects/create?data_object_id=#{@lower_child_untrusted_image.id.to_s}")
-    body.should include("OK")
-    commit_transactions
-    visit("/curators/curate_images?vetted_id=#{Vetted.untrusted.id}")
-    body.should_not include(@lower_child_untrusted_image.id.to_s)
-    visit("/curators/ignored_images")
-    body.should include(@lower_child_untrusted_image.id.to_s)
-    visit("/user_ignored_data_objects/destroy?data_object_id=#{@lower_child_untrusted_image.id.to_s}")
-    body.should include("OK")
-    commit_transactions
-    visit("/curators/ignored_images")
-    body.should_not include(@lower_child_untrusted_image.id.to_s)
-    visit("/curators/curate_images?vetted_id=#{Vetted.untrusted.id}")
-    body.should include(@lower_child_untrusted_image.id.to_s)
-  end
-  
-  it "should be able to move the trusted image from active list to the ignored list and vice-versa" do
-    visit("/curators/curate_images?vetted_id=#{Vetted.trusted.id}")
-    body.should include(@lower_child_trusted_image.id.to_s)
-    visit("/user_ignored_data_objects/create?data_object_id=#{@lower_child_trusted_image.id.to_s}")
-    body.should include("OK")
-    commit_transactions
-    visit("/curators/curate_images?vetted_id=#{Vetted.trusted.id}")
-    body.should_not include(@lower_child_trusted_image.id.to_s)
-    visit("/curators/ignored_images")
-    body.should include(@lower_child_trusted_image.id.to_s)
-    visit("/user_ignored_data_objects/destroy?data_object_id=#{@lower_child_trusted_image.id.to_s}")
-    body.should include("OK")
-    commit_transactions
-    visit("/curators/ignored_images")
-    body.should_not include(@lower_child_trusted_image.id.to_s)
-    visit("/curators/curate_images?vetted_id=#{Vetted.trusted.id}")
-    body.should include(@lower_child_trusted_image.id.to_s)
-  end
-  
   it "should be able to rate the images" do
     visit("/curators/curate_images")
     body.should have_tag("li#user-rating-#{@lower_child_unreviewed_image.id.to_s}.current-rating", :text =>"Your Rating:\n0")

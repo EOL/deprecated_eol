@@ -393,19 +393,19 @@ module ApplicationHelper
   
   # display links to taxon concepts, if they are published. A message otherwise. 
   # NOTE: we assume all taxon concepts are either published or not
-  def dato_taxon_concept_link(a_tag, taxon_concept, opts = {})
+  def taxon_concept_link(taxon_concept = nil, options = {})
     capture_haml do
-      haml_tag a_tag do
-        if taxon_concept.published?
-          if opts[:dato_type].nil?
-            haml_concat link_to(taxon_concept.scientific_name, taxon_concept, :popup => !!opts[:popup])
-          else
-            options = { :"#{opts[:dato_type]}_id" => opts[:dato_id] }
-            haml_concat link_to(taxon_concept.scientific_name, taxon_concept_path(taxon_concept.id, options), :popup => !!opts[:popup])
-          end
+      taxon_concept_id = options[:taxon_concept_id] || taxon_concept.id
+      name_string = options[:name_string] || taxon_concept.scientific_name
+      if (taxon_concept && taxon_concept.published?) || taxon_concept_id
+        if options[:data_type].nil?
+          haml_concat link_to(name_string, taxon_concept, :popup => !!options[:popup])
         else
-          haml_concat "associated with a deprecated_page: '#{taxon_concept.scientific_name}'"
+          options = { :"#{options[:data_type]}_id" => options[:data_object_id] }
+          haml_concat link_to(name_string, taxon_concept_path(taxon_concept_id, options), :popup => !!options[:popup])
         end
+      else
+        haml_concat "associated with a deprecated_page: '#{name_string}'"
       end
     end
   end

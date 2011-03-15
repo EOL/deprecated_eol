@@ -1,8 +1,9 @@
-- taxon_concept = @data_object.get_taxon_concepts(:published => :preferred)[0]
-= dato_taxon_concept_link(:h3, taxon_concept, :dato_type => "image", :"dato_id" => @data_object.id, :popup => true)
-%p
-  %em
-    = taxon_concept.common_name
+%h3
+  = taxon_concept_link(nil, :data_type => "image", :data_object_id => @data_object.id, :popup => true, :name_string => @data_object.first_concept_name, :taxon_concept_id => @data_object.first_hierarchy_entry.taxon_concept_id)
+- if common_name = @data_object.first_concept_common_name
+  %p
+    %em
+      = common_name.firstcap
 .data_object_view
   = image_tag(@data_object.smart_image, :id => 'big-img')
   = render :partial => 'data_objects/attribution', :locals => {:data_object => @data_object, :skip_permalink => true}, :layout => @layout

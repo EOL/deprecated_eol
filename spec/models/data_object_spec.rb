@@ -95,14 +95,14 @@ describe DataObject do
     preview_do.visibility.should == Visibility.visible
     preview_do.vetted.should == Vetted.trusted
   end
-
+  
   it 'curation should set to unreviewed' do
     @data_object.curate(@user, :vetted_id => Vetted.untrusted.id)
     @data_object.untrusted?.should eql(true)
     @data_object.curate(@user, :vetted_id => Vetted.unknown.id)
     @data_object.unknown?.should eql(true)
   end
-
+  
   it 'curation should save a newly added curation comment with any curation action' do
     [Vetted.unknown.id, Vetted.untrusted.id, Vetted.trusted.id].each do |vetted_id|
       comments_count = @data_object.all_comments.size
@@ -111,23 +111,23 @@ describe DataObject do
       (@data_object.all_comments.size - comments_count).should == 1 
     end
   end
-
+  
   it 'curation should set to untrusted' do
     @data_object.curate(@user, :vetted_id => Vetted.untrusted.id)
     @data_object.untrusted?.should eql(true)
   end
-
+  
   it 'curation should set to trusted' do
     @data_object.curate(@user, :vetted_id => Vetted.trusted.id)
     @data_object.trusted?.should eql(true)
   end
-
+  
   it 'curation should set to untrusted and hidden' do
     @data_object.curate(@user, :vetted_id => Vetted.untrusted.id, :visibility_id => Visibility.invisible.id)
     @data_object.untrusted?.should eql(true)
     @data_object.invisible?.should eql(true)
   end
-
+  
   it 'curation should set untrust reasons' do
     @data_object.curate(@user, :vetted_id => Vetted.untrusted.id, :visibility_id => Visibility.visible.id, :untrust_reason_ids => [UntrustReason.misidentified.id, UntrustReason.poor.id, UntrustReason.other.id])
     @data_object.untrust_reasons.length.should eql(3)
@@ -138,7 +138,7 @@ describe DataObject do
     @data_object = DataObject.find(@data_object.id)
     @data_object.untrust_reasons.length.should eql(0)
   end
-
+  
   it 'curation should add comment when untrusting' do
     comment_count = @data_object.comments.length
     @data_object.curate(@user, :vetted_id => Vetted.untrusted.id, :visibility_id => Visibility.visible.id, :comment => 'new comment')
@@ -151,20 +151,20 @@ describe DataObject do
     d = DataObject.new
     d.data_rating.should eql(2.5)
   end
-
+  
   it 'ratings should create new rating' do
     UsersDataObjectsRating.count.should eql(0)
-
+  
     d = DataObject.gen
     u = User.gen
     d.rate(u,5)
-
+  
     UsersDataObjectsRating.count.should eql(1)
     d.data_rating.should eql(5.0)
     r = UsersDataObjectsRating.find_by_user_id_and_data_object_guid(u.id, d.guid)
     r.rating.should eql(5)
   end
-
+  
   it 'ratings should generate average rating' do
     d = DataObject.gen
     u1 = User.gen
@@ -179,22 +179,22 @@ describe DataObject do
     curator    = create_curator(taxon_concept)  
     text_dato  = taxon_concept.overview.last 
     image_dato = taxon_concept.images.last 
-
+  
     text_dato.rate(curator, 4)
     image_dato.rate(curator, 4)
- 
+   
     text_dato.data_rating.should eql(4.0)
     image_dato.data_rating.should eql(4.0)
-
+  
     new_text_dato  = DataObject.build_reharvested_dato(text_dato)
     new_image_dato = DataObject.build_reharvested_dato(image_dato)
-
+  
     new_text_dato.data_rating.should eql(4.0)
     new_image_dato.data_rating.should eql(4.0)
-
+  
     new_text_dato.rate(curator, 2)
     new_image_dato.rate(curator, 2)
-
+  
     new_text_dato.data_rating.should eql(2.0)
     new_image_dato.data_rating.should eql(2.0)
   end
@@ -229,11 +229,11 @@ describe DataObject do
     result['foo'].should    == ['bar', 'baz']
     result['boozer'].should == ['brimble']
   end
-
+  
   it 'tagging should create tag keys' do
     @dato.tag_keys.should == ['foo', 'boozer', 'foos']
   end
-
+  
   it 'tagging should create tag saving guid of the data_object into DataObjectTags' do
     count = DataObjectTags.count
     @dato.tag("key1", "value1", @user)
@@ -460,30 +460,58 @@ describe DataObject do
     DataObject.cache_path(:foo, :bar).should == :worked
   end
   
-  describe '#short_title' do
+  it 'should default to the object_title' do
+    dato = DataObject.gen(:object_title => 'Something obvious')
+    dato.short_title.should == 'Something obvious'
+  end
   
-    it 'should default to the object_title' do
-      dato = DataObject.gen(:object_title => 'Something obvious')
-      dato.short_title.should == 'Something obvious'
-    end
+  it 'should resort to the first line of the description if the object_title is empty' do
+    dato = DataObject.gen(:object_title => '', :description => "A long description\nwith multiple lines of stuff")
+    dato.short_title.should == "A long description"
+  end
   
-    it 'should resort to the first line of the description if the object_title is empty' do
-      dato = DataObject.gen(:object_title => '', :description => "A long description\nwith multiple lines of stuff")
-      dato.short_title.should == "A long description"
-    end
+  it 'should resort to the first 32 characters (plus three dots) if the decsription is too long and one-line' do
+    dato = DataObject.gen(:object_title => '', :description => "The quick brown fox jumps over the lazy dog, and now is the time for all good men to come to the aid of their country")
+    dato.short_title.should == "The quick brown fox jumps over t..."
+  end
   
-    it 'should resort to the first 32 characters (plus three dots) if the decsription is too long and one-line' do
-      dato = DataObject.gen(:object_title => '', :description => "The quick brown fox jumps over the lazy dog, and now is the time for all good men to come to the aid of their country")
-      dato.short_title.should == "The quick brown fox jumps over t..."
-    end
+  # TODO - ideally, this should be something like "Image of Procyon lotor", but that would be a LOT of work to extract
+  # froom the data_objects/show view (mainly because it builds links).
+  it 'should resort to the data type, if there is no description' do
+    dato = DataObject.gen(:object_title => '', :description => '', :data_type => DataType.image)
+    dato.short_title.should == "Image"
+  end
   
-    # TODO - ideally, this should be something like "Image of Procyon lotor", but that would be a LOT of work to extract
-    # froom the data_objects/show view (mainly because it builds links).
-    it 'should resort to the data type, if there is no description' do
-      dato = DataObject.gen(:object_title => '', :description => '', :data_type => DataType.image)
-      dato.short_title.should == "Image"
-    end
-  
+  it 'should update the Solr record when the object is curated' do
+    d = DataObject.gen(:vetted => Vetted.trusted, :visibility => Visibility.visible)
+    @solr = SolrAPI.new($SOLR_SERVER_DATA_OBJECTS)
+    @solr.delete_all_documents
+    @solr.build_data_object_index
+    response = @solr.query_lucene("data_object_id:#{d.id}")
+    data_object_hash = response['response']['docs'][0]
+    data_object_hash['vetted_id'][0].should == Vetted.trusted.id
+    data_object_hash['visibility_id'][0].should == Visibility.visible.id
+    
+    # Making it untrusted
+    d.curate(@user, :vetted_id => Vetted.untrusted.id)
+    response = @solr.query_lucene("data_object_id:#{d.id}")
+    curated_data_object_hash = response['response']['docs'][0]
+    curated_data_object_hash['vetted_id'][0].should == Vetted.untrusted.id
+    curated_data_object_hash['visibility_id'][0].should == Visibility.visible.id
+    
+    # Making it invisible
+    d.curate(@user, :visibility_id => Visibility.invisible.id)
+    response = @solr.query_lucene("data_object_id:#{d.id}")
+    curated_data_object_hash = response['response']['docs'][0]
+    curated_data_object_hash['vetted_id'][0].should == Vetted.untrusted.id
+    curated_data_object_hash['visibility_id'][0].should == Visibility.invisible.id
+    
+    # Making it trusted and visible
+    d.curate(@user, :vetted_id => Vetted.trusted.id, :visibility_id => Visibility.visible.id)
+    response = @solr.query_lucene("data_object_id:#{d.id}")
+    curated_data_object_hash = response['response']['docs'][0]
+    curated_data_object_hash['vetted_id'][0].should == Vetted.trusted.id
+    curated_data_object_hash['visibility_id'][0].should == Visibility.visible.id
   end
   
   it 'should have a feed' do

@@ -28,6 +28,8 @@ class TocItem < SpeciesSchemaModel
   end
   
   def self.bhl
+    # because TocItems are cached with info_items already loaded, we need to have the InfoItem class loaded
+    # before this block. The only way I could see was to just reference the model here, which removed those errors
     InfoItem
     cached_find(:label, 'Biodiversity Heritage Library', :include => [ :info_items, { :parent => :info_items } ])
   end
@@ -44,12 +46,14 @@ class TocItem < SpeciesSchemaModel
     cached_find(:label, 'Related Names', :include => [ :info_items, { :parent => :info_items } ])
   end
   def self.synonyms
+    InfoItem
     cached('synonyms') do
       r = TocItem.find_all_by_parent_id(self.name_and_taxonomy.id, :include => [ :info_items, { :parent => :info_items } ]).select{ |t| t.label == 'Synonyms' }
       r.blank? ? nil : r[0]
     end
   end
   def self.common_names
+    InfoItem
     cached('common_names') do
       r = TocItem.find_all_by_parent_id(self.name_and_taxonomy.id, :include => [ :info_items, { :parent => :info_items } ]).select{ |t| t.label == 'Common Names' }
       r.blank? ? nil : r[0]
@@ -112,7 +116,8 @@ class TocItem < SpeciesSchemaModel
   
   def self.selectable_toc
     cached('selectable_toc') do
-      all = TocItem.find(:all, :include => [:info_items, :translations]).sort_by{ |toc| toc.label }
+      InfoItem
+      all = TocItem.find(:all, :include => :info_items).sort_by{ |toc| toc.label }
       all.delete_if{ |toc| toc.info_items.empty? || ['Wikipedia', 'Barcode'].include?(toc.label) }
       all.collect{ |c| [c.label, c.id] }
     end

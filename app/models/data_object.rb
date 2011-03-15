@@ -34,6 +34,7 @@ class DataObject < SpeciesSchemaModel
   has_many :user_ignored_data_objects
   has_many :collection_items, :as => :object
   has_many :users_data_objects
+  has_many :users_data_objects_ratings, :foreign_key => 'data_object_guid', :primary_key => :guid
   has_many :all_comments, :class_name => Comment.to_s, :foreign_key => 'parent_id', :finder_sql => 'SELECT c.* FROM #{Comment.full_table_name} c JOIN #{DataObject.full_table_name} do ON (c.parent_id = do.id) WHERE do.guid=\'#{guid}\''
   
   # the select_with_include library doesn't allow to grab do.* one time, then do.id later on - but this would be a neat method,
@@ -706,8 +707,24 @@ class DataObject < SpeciesSchemaModel
         raise "Cannot set data object visibility id to #{visibility_id}"
       end
     end
-
     curator_activity_flag(user)
+    update_solr_index(opts)
+  end
+  
+  def update_solr_index(options)
+    return false if options[:vetted_id].blank? && options[:visibility_id].blank?
+    solr_connection = SolrAPI.new($SOLR_SERVER_DATA_OBJECTS)
+    # query Solr for the index record for this data object
+    response = solr_connection.query_lucene("data_object_id:#{id}")
+    data_object_hash = response['response']['docs'][0]
+    return false unless data_object_hash
+    modified_object_hash = data_object_hash.dup
+    modified_object_hash['vetted_id'] = [options[:vetted_id]] unless options[:vetted_id].blank?
+    modified_object_hash['visibility_id'] = [options[:visibility_id]] unless options[:visibility_id].blank?
+    # if some of the values have changed, post the updated record to Solr
+    if data_object_hash != modified_object_hash
+      solr_connection.create(modified_object_hash)
+    end
   end
 
   def curated?
@@ -1014,6 +1031,17 @@ class DataObject < SpeciesSchemaModel
   def first_taxon_concept
     sorted_entries = HierarchyEntry.sort_by_vetted(hierarchy_entries)
     sorted_entries[0].taxon_concept rescue nil
+  end
+  
+  def first_hierarchy_entry
+    sorted_entries = HierarchyEntry.sort_by_vetted(hierarchy_entries)
+    sorted_entries[0] rescue nil
+  end
+  
+  
+  def rating_from_user(u)
+    ratings_from_user = users_data_objects_ratings.select{ |udor| udor.user_id == u.id }
+    return ratings_from_user[0] unless ratings_from_user.blank?
   end
   
   def short_title

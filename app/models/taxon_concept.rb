@@ -96,11 +96,17 @@ class TaxonConcept < SpeciesSchemaModel
 
   # Curators are those users who have special permission to "vet" data objects associated with a TC, and thus get
   # extra credit on their associated TC pages. This method returns an Array of those users.
-  def curators
+  def curators(options={})
     return @curators unless @curators.nil?
+    sel = { :users => [ :id, :family_name, :given_name, :curator_hierarchy_entry_id, :curator_scope, :curator_approved ] }
+    inc = nil
+    if options[:add_names]
+      inc = { :curator_hierarchy_entry => :name }
+    end
     users = User.find(:all,
-      :select => { :users => [ :id, :family_name, :given_name, :curator_hierarchy_entry_id, :curator_scope, :curator_approved ] },
+      :select => sel,
         :joins => "JOIN #{HierarchyEntry.full_table_name} he ON (he.id = users.curator_hierarchy_entry_id)",
+        :include => inc,
         :conditions => "he.taxon_concept_id IN (#{all_ancestor_taxon_concept_ids.join(',')})")
     @curators = users.uniq
   end

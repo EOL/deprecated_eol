@@ -230,8 +230,12 @@ class TaxaController < ApplicationController
   end
 
   def images
-    @taxon_concept = find_taxon_concept
-    return if taxon_concept_invalid?(@taxon_concept)
+    taxon_concept = find_taxon_concept
+    return if taxon_concept_invalid?(taxon_concept)
+    inc = { :top_concept_images => :data_object }
+    sel = { :taxon_concepts => :supercedure_id,
+      :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ] }
+    @taxon_concept = TaxonConcept.core_relationships(:include => inc, :select => sel).find_by_id(taxon_concept.id)
     @taxon_concept.current_user = current_user
     @taxon_concept.current_agent = current_agent
     @image_page  = (params[:image_page] ||= 1).to_i
@@ -408,7 +412,7 @@ class TaxaController < ApplicationController
     @concept = find_taxon_concept
     return if taxon_concept_invalid?(@concept)
     @page_title = "Curators of #{@concept.title(@session_hierarchy)}"
-    @curators = @concept.curators
+    @curators = @concept.curators(:add_names => true)
     @curators.sort! do |a, b|
       if a.family_name.strip.blank? && b.family_name.strip.blank? # last names blank, sort by first
         a.given_name.strip <=> b.given_name.strip

@@ -49,7 +49,7 @@ Spec::Runner.configure do |config|
   # examples run within their own transactions for ALL 
   # active connections (works for ALL of our databases)
   config.before(:each) do
-    $CACHE.clear
+    $CACHE.clear if $CACHE
     # reset the class variables that cache certain instances
     reset_all_model_cached_instances
     SpeciesSchemaModel.connection.execute("START TRANSACTION #SpeciesSchemaModel")

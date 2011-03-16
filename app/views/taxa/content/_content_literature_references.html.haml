@@ -17,7 +17,7 @@
   - if defined? $REFERENCE_PARSING_ENABLED
     - column_class << ' biblio-entry' if $REFERENCE_PARSING_ENABLED
   - else
-    - parameter = SiteConfigurationOption.find_by_parameter('reference_parsing_enabled') 
+    - parameter = SiteConfigurationOption.reference_parsing_enabled
     - if parameter && parameter.value == 'true'
       - column_class << ' biblio-entry'
   

@@ -45,8 +45,8 @@ MSG
   end
 end
 
-def all_specs_except_selenium
-  FileList['spec/**'].inject([]) {|a,fl| a += FileList["#{fl}/*_spec.rb"] unless fl == 'spec/selenium'; a }
+def all_specs_except_selenium_and_scenarios
+  FileList['spec/**'].inject([]) {|a,fl| a += FileList["#{fl}/*_spec.rb"] unless fl == 'spec/selenium' || fl == 'spec/scenarios'; a }
 end
 
 Rake.application.instance_variable_get('@tasks').delete('default')
@@ -61,14 +61,14 @@ task :stats => "spec:statsetup"
 desc "Run all specs in spec directory (excluding plugin specs)"
 Spec::Rake::SpecTask.new(:spec => spec_prereq) do |t|
   t.spec_opts = ['--options', "\"#{RAILS_ROOT}/spec/spec.opts\""]
-  t.spec_files = all_specs_except_selenium
+  t.spec_files = all_specs_except_selenium_and_scenarios
 end
 
 namespace :spec do
   desc "Run all specs in spec directory with RCov (excluding plugin specs)"
   Spec::Rake::SpecTask.new(:rcov) do |t|
     t.spec_opts = ['--options', "\"#{RAILS_ROOT}/spec/spec.opts\""]
-    t.spec_files = all_specs_except_selenium
+    t.spec_files = all_specs_except_selenium_and_scenarios
     t.rcov = true
     t.rcov_opts = lambda do
       IO.readlines("#{RAILS_ROOT}/spec/rcov.opts").map {|l| l.chomp.split " "}.flatten

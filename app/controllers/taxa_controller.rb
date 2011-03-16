@@ -77,9 +77,17 @@ class TaxaController < ApplicationController
                                     :id => taxon_concept.id,
                                     :status => :moved_permanently)) if taxon_concept.superceded_the_requested_id?
 
-    #inc = [ { :data_objects => :refs }, { :users_data_object => :refs }, { :hierachy_entries => :refs } ]
-    inc = { :top_concept_images => :data_object }
-    sel = { :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ] }
+    inc = [
+      { :top_concept_images => :data_object },
+      { :last_curated_dates => :user },
+      { :hierarchy_entries => [ :synonyms, :published_refs ]},
+      { :data_objects => :published_refs }]
+    sel = {
+      :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ],
+      :last_curated_dates => '*',
+      :users => [ :given_name, :family_name ],
+      :synonyms => :synonym_relation_id,
+      :refs => :id }
     @taxon_concept = TaxonConcept.core_relationships(:add_include => inc, :add_select => sel).find_by_id(taxon_concept.id)
     if params[:action_name] == "update_common_names"
       update_common_names
@@ -380,21 +388,21 @@ class TaxaController < ApplicationController
     if defined? $REFERENCE_PARSING_ENABLED
       raise 'Reference parsing disabled' if !$REFERENCE_PARSING_ENABLED
     else
-      parameter = SiteConfigurationOption.find_by_parameter('reference_parsing_enabled')
+      parameter = SiteConfigurationOption.reference_parsing_enabled
       raise 'Reference parsing disabled' unless parameter && parameter.value == 'true'
     end
 
     if defined? $REFERENCE_PARSER_ENDPOINT
       endpoint = $REFERENCE_PARSER_ENDPOINT
     else
-      endpoint_param = SiteConfigurationOption.find_by_parameter('reference_parser_endpoint')
+      endpoint_param = SiteConfigurationOption.reference_parser_endpoint
       endpoint = endpoint_param.value
     end
 
     if defined? $REFERENCE_PARSER_PID
       pid = $REFERENCE_PARSER_PID
     else
-      pid_param = SiteConfigurationOption.find_by_parameter('reference_parser_pid')
+      pid_param = SiteConfigurationOption.reference_parser_pid
       pid = pid_param.value
     end
 

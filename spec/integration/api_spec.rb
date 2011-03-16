@@ -136,6 +136,9 @@ describe 'EOL APIs' do
     @test_hierarchy_entry_published = HierarchyEntry.gen(:hierarchy => @test_hierarchy, :identifier => 'Animalia', :parent_id => 0, :published => 1, :visibility_id => Visibility.visible.id, :rank => Rank.kingdom)
     @test_hierarchy_entry_unpublished = HierarchyEntry.gen(:hierarchy => @test_hierarchy, :identifier => 'Plantae', :parent_id => 0, :published => 0, :visibility_id => Visibility.invisible.id, :rank => Rank.kingdom)
     @second_test_hierarchy_entry = HierarchyEntry.gen(:hierarchy => @second_test_hierarchy, :identifier => 54321, :parent_id => 0, :published => 1, :visibility_id => Visibility.visible.id, :rank => Rank.kingdom)
+  end
+  
+  before(:each) do
     $CACHE.clear
     reset_all_model_cached_instances
   end
@@ -218,7 +221,7 @@ describe 'EOL APIs' do
   end
   
   it 'pages should be able to take a | delimited list of licenses' do
-    visit("/api/pages/#{@taxon_concept.id}?images=0&text=3&licenses=cc-by-nc&details=1")
+    visit("/api/pages/#{@taxon_concept.id}?images=0&text=2&licenses=cc-by-nc&details=1")
     xml_response = Nokogiri.XML(body)
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 2
     

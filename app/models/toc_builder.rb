@@ -81,16 +81,16 @@ private
       toc << TocEntry.new(TocItem.bhl)
     end
     
-    if TaxonConcept.related_names_for?(taxon_concept.id)
+    if taxon_concept.has_related_names?
       toc << TocEntry.new(TocItem.related_names)
     end
     
-    if TaxonConcept.synonyms_for?(taxon_concept.id)
+    if taxon_concept.has_synonyms?
       toc << TocEntry.new(TocItem.synonyms)
     end
     
     # Add common names content if there Common Names:
-    if TaxonConcept.common_names_for?(taxon_concept.id) || (!options[:user].nil? && options[:user].can_curate?(taxon_concept))
+    if taxon_concept.has_common_names? || (!options[:user].nil? && options[:user].can_curate?(taxon_concept))
       toc << TocEntry.new(TocItem.common_names)
     end
     
@@ -99,14 +99,13 @@ private
       toc << TocEntry.new(TocItem.content_summary)
     end
     
-    
     # Add Medical Concepts if there is a LigerCat tag cloud available:
     if !Resource.ligercat.nil? && HierarchyEntry.find_by_hierarchy_id_and_taxon_concept_id(Resource.ligercat.hierarchy.id, taxon_concept.id)
       toc << TocEntry.new(TocItem.biomedical_terms)
     end
     
     # Add Literature references entry if references exists
-    if Ref.literature_references_for?(taxon_concept.id)
+    if taxon_concept.has_literature_references?
       toc << TocEntry.new(TocItem.literature_references)
     end
     

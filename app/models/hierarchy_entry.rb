@@ -25,6 +25,8 @@ class HierarchyEntry < SpeciesSchemaModel
   
   has_and_belongs_to_many :data_objects
   has_and_belongs_to_many :refs
+  has_and_belongs_to_many :published_refs, :class_name => Ref.to_s, :join_table => 'hierarchy_entries_refs',
+    :association_foreign_key => 'ref_id', :conditions => 'published=1 AND visibility_id=#{Visibility.visible.id}'
 
   has_one :hierarchies_content
   has_one :hierarchy_entry_stat

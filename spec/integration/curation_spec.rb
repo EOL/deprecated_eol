@@ -129,25 +129,26 @@ describe 'Curation' do
   end
   
   it 'should say the page has citation (both lines)' do
-    @default_page.should include("This page has\n#{@taxon_concept.acting_curators.size}\nactive curators.")
-    @default_page.should have_tag('div#page-citation')
-  end
-  
-  it 'should show the proper number of curators' do
-    @default_page.should include("This page has\n#{@taxon_concept.acting_curators.size}\nactive curators.")
+    @taxon_concept.reload
+    visit("/pages/#{@taxon_concept.id}")
+    body.should include("This page has\n#{@taxon_concept.acting_curators.size}\nactive curators.")
+    body.should have_tag('div#page-citation')
   end
   
   it 'should change the number of curators if another curator curates an image' do
     num_curators = @taxon_concept.acting_curators.length
     curator = create_curator_for_taxon_concept(@taxon_concept)
+    @taxon_concept.reload
     @taxon_concept.acting_curators.length.should == num_curators + 1
     visit("/pages/#{@taxon_concept.id}")
     body.should include("This page has\n#{num_curators + 1}\nactive curators.")
   end
   
   it 'should change the number of curators if another curator curates a text object' do
+    @taxon_concept.reload
     num_curators = @taxon_concept.acting_curators.length
     curator = create_curator_for_taxon_concept(@taxon_concept)
+    @taxon_concept.reload
     @taxon_concept.acting_curators.length.should == num_curators + 1
     visit("/pages/#{@taxon_concept.id}")
     body.should include("This page has\n#{num_curators + 1}\nactive curators.")

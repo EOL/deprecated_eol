@@ -151,7 +151,7 @@ class Array
           if my_v.class == Hash
             my_v.each do |v_k, v_v|
               if v_k.to_sym == el_k
-                if v_v != Array
+                if v_v.class != Array
                   new_v_v = [v_v].add_element!(el_v)
                 else
                   new_v_v = v_v.add_element!(el_v)

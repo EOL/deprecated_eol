@@ -40,7 +40,7 @@
       - if act_curators_size > 0
         %li
           Last curated:
-          = LastCuratedDate.find(:last, :conditions => ["taxon_concept_id = ?", @taxon_concept]).last_curated.strftime("%d %b %Y")
+          = @taxon_concept.last_curated_dates.sort_by{ |lcd| Invert(lcd.id) }[0].last_curated.strftime("%d %b %Y")
     %br
 
 

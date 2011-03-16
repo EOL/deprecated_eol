@@ -14,7 +14,7 @@
   = "There is no #{status}#{ctnt_ptnr}content#{name}, please select another group to curate or change your source or vetting status criteria."
 - else
   %hr.thin
-  = "#{msg}Images are sorted by EOL import date, with newest items shown first."
+  = "#{msg}Images are sorted by EOL import date, with newest items shown first. There are #{@all_images_count} images in this work list."
   = will_paginate(@images_to_curate, :params => params)
   %table.results_table
     %tr

@@ -216,34 +216,15 @@ class ContentPartnerController < ApplicationController
 
   def agreement
 
-    # TO UPDATE THE CONTENT PARTNER AGREEMENT TEMPLATE AND ENSURE THAT EACH PREVIOUS CONTENT PARTNER GETS A NEW ONE WITH THE NEWLY UPDATED TEMPLATE,
-    # SET THEIR CURRENT CONTENT PARTNER AGREEMENT TO "IS_CURRENT=FALSE" --- This is done automatically when using the admin interface to edit
-    agreement_id=params[:agreement_id] || ""
-
-    # if we are calling this method from the content partner registry, the agent is currently logged in so use that one
-    if agent_logged_in? && params[:id].nil?
-      @agent=current_agent
-    else #otherwise, show the agreement from the agent ID passed into the querystring (and the specific agreement if passed in)
-      @agent=Agent.find(params[:id])
-    end
-
+    get_agent
+    
     unless @agent.ready_for_agreement?
       flash[:warning] = "The agreement for this partner is not available."
       redirect_to(:action => 'index')
       return
     end
 
-    # find their agreement
-    if agreement_id.empty? 
-      @agreement=@agent.agreement      
-      # if this is the first time they are viewing the agreement, create it from the default template
-      @agreement=ContentPartnerAgreement.create_new(:agent_id=>@agent.id) if @agreement.nil?
-      # update the number of views if the content partner is viewing it
-      @agreement.update_attributes(:number_of_views=>@agreement.number_of_views+=1,:last_viewed=>Time.now) if !current_agent.nil?
-    elsif current_user.is_admin?
-      @agreement=ContentPartnerAgreement.find_by_id_and_agent_id(params[:agreement_id],@agent.id,:order=>'created_at DESC')
-      @agreement=ContentPartnerAgreement.create_new(:agent_id=>@agent.id) if @agreement.nil?
-    end
+    find_or_create_agreement
 
     @primary_contact = @agent.primary_contact  
 
@@ -257,9 +238,14 @@ class ContentPartnerController < ApplicationController
   end
 
   def accept_agreement
-
-      return unless request.xhr?      
-
+    return unless request.xhr?
+    if params[:signed_by].blank?
+      render :update do |page|
+        page.replace_html 'acceptance', '<b>Please indicate acceptance by typing your name here:</b>'
+      end
+    else
+      get_agent      
+      find_or_create_agreement
       agreement=current_agent.agreement
       agreement.signed_by=params[:signed_by]
       agreement.signed_on_date=Time.now
@@ -267,11 +253,11 @@ class ContentPartnerController < ApplicationController
       agreement.save
 
       render :update do |page|
-        page.replace_html 'save-message', 'Agreement accepted at ' + Time.now.to_s
+        page.replace_html 'save-message', "Agreed to by #{params[:signed_by]} on #{Time.now.utc.strftime("%A, %B %d, %Y - %I:%M %p %Z")}"
       end
-
+    end
   end
-
+  
   # Contact crud methods
   # ------------------------------------------
 
@@ -439,6 +425,33 @@ class ContentPartnerController < ApplicationController
 
     def main_if_no_partner
       layout = (current_agent.nil? || action_name == "stats") ? 'main' : 'content_partner'
+    end
+    
+    def get_agent
+      # if we are calling this method from the content partner registry, the agent is currently logged in so use that one
+      if agent_logged_in? && params[:id].nil?
+        @agent=current_agent
+      else #otherwise, show the agreement from the agent ID passed into the querystring (and the specific agreement if passed in)
+        @agent=Agent.find(params[:id])
+      end
+    end
+    
+    def find_or_create_agreement
+      # TO UPDATE THE CONTENT PARTNER AGREEMENT TEMPLATE AND ENSURE THAT EACH PREVIOUS CONTENT PARTNER GETS A NEW ONE WITH THE NEWLY UPDATED TEMPLATE,
+      # SET THEIR CURRENT CONTENT PARTNER AGREEMENT TO "IS_CURRENT=FALSE" --- This is done automatically when using the admin interface to edit
+      agreement_id=params[:agreement_id] || ""
+      
+      # find their agreement
+      if agreement_id.empty? 
+        @agreement=@agent.agreement      
+        # if this is the first time they are viewing the agreement, create it from the default template
+        @agreement=ContentPartnerAgreement.create_new(:agent_id=>@agent.id) if @agreement.nil?
+        # update the number of views if the content partner is viewing it
+        @agreement.update_attributes(:number_of_views=>@agreement.number_of_views+=1,:last_viewed=>Time.now) if !current_agent.nil?
+      elsif current_user.is_admin?
+        @agreement=ContentPartnerAgreement.find_by_id_and_agent_id(params[:agreement_id],@agent.id,:order=>'created_at DESC')
+        @agreement=ContentPartnerAgreement.create_new(:agent_id=>@agent.id) if @agreement.nil?
+      end
     end
 
 end

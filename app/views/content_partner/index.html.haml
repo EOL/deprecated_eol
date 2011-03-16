@@ -40,18 +40,20 @@ the process is complete, you will be able to provide your data to the EOL.
           %br
       == #{link_to "Your agreement", {:action => "agreement"} , {:target=>"_new"}}, including additional provisions, is available for review and printing.
       %br
-      - if !current_agent.agreement_accepted?
-        - form_remote_tag :url => '/content_partner/accept_agreement' do
-          Please indicate acceptance by typing your name here:
-          = text_field_tag :signed_by,'',:size=>30
-          %br
-          %span#save-message
-            = submit_tag
-      - elsif !current_agent.agreement.nil?
-        Agreed to by
-        = current_agent.agreement.signed_by
-        on
-        = format_date_time(current_agent.agreement.signed_on_date)
+      #save-message
+        - if !current_agent.agreement_accepted?
+          - form_remote_tag :url => '/content_partner/accept_agreement' do
+            %span#acceptance
+              Please indicate acceptance by typing your name here:
+            = text_field_tag :signed_by,'',:size=>30
+            %br
+            %span
+              = submit_tag
+        - elsif !current_agent.agreement.nil?
+          Agreed to by
+          = current_agent.agreement.signed_by
+          on
+          = format_date_time(current_agent.agreement.signed_on_date)
   - if current_agent.ready_for_agreement?
     %h2{ :style => "margin-top: 20px;" }
       Tools

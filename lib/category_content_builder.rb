@@ -19,7 +19,7 @@ class CategoryContentBuilder
   def biodiversity_heritage_library(options)
     taxon_concept = options[:taxon_concept]
     name_ids = TaxonConceptName.find_all_by_taxon_concept_id_and_vern(taxon_concept, 0, :select => 'name_id').collect{|tcn| tcn.name_id}.uniq
-    page_ids = PageName.find_all_by_name_id(name_ids, :select => 'item_page_id', :limit => 750).collect{|pn| pn.item_page_id}.uniq
+    page_ids = PageName.find_all_by_name_id(name_ids, :select => 'item_page_id', :limit => 500).collect{|pn| pn.item_page_id}.uniq
     bhl_pages = ItemPage.core_relationships.find_all_by_id(page_ids)
     bhl_pages.delete_if{ |ip| ip.title_item.nil? || ip.title_item.publication_title.nil? }
     

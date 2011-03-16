@@ -5,26 +5,28 @@
 module ActiveRecord
   module AssociationPreload
     module ClassMethods
-      protected
-        # EOL: the only change to this method is to pass preload_options to child associations
-        def preload_associations(records, associations, preload_options={})
-          records = [records].flatten.compact
-          return if records.empty?
-          case associations
-          when Array then associations.each {|association| preload_associations(records, association, preload_options)}
-          when Symbol, String then preload_one_association(records, associations.to_sym, preload_options)
-          when Hash then
-            associations.each do |parent, child|
-              raise "parent must be an association name" unless parent.is_a?(String) || parent.is_a?(Symbol)
-              preload_associations(records, parent, preload_options)
-              reflection = reflections[parent]
-              parents = records.map {|record| record.send(reflection.name)}.flatten.compact
-              unless parents.empty?
-                parents.first.class.preload_associations(parents, child, preload_options)
-              end
+      # EOL: the only change to this method is to pass preload_options to child associations, and to make it public
+      def preload_associations(records, associations, preload_options={})
+        if preload_options[:select] && preload_options[:select].class == Hash
+          preload_options[:select] = select_statement_to_string(preload_options[:select])
+        end
+        records = [records].flatten.compact
+        return if records.empty?
+        case associations
+        when Array then associations.each {|association| preload_associations(records, association, preload_options)}
+        when Symbol, String then preload_one_association(records, associations.to_sym, preload_options)
+        when Hash then
+          associations.each do |parent, child|
+            raise "parent must be an association name" unless parent.is_a?(String) || parent.is_a?(Symbol)
+            preload_associations(records, parent, preload_options)
+            reflection = reflections[parent]
+            parents = records.map {|record| record.send(reflection.name)}.flatten.compact
+            unless parents.empty?
+              parents.first.class.preload_associations(parents, child, preload_options)
             end
           end
         end
+      end
 
       private
         def preload_has_and_belongs_to_many_association(records, reflection, preload_options={})

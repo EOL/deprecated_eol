@@ -31,6 +31,9 @@
                 - link_class = child.has_content? ? '' : 'light'
                 - name_string = @include_common_names ? child.common_name_in_language(@common_name_language).firstcap : child.italicized_name.firstcap
                 = link_to(name_string, {:controller => 'taxa', :action => 'show', :id => child.taxon_concept_id }, :class => [link_class].compact.join(' '))
+                - unless (@in_hierarchy && child.id == @hierarchy_entry.id) || child.number_of_descendants == 0
+                  %a.expand{ :href => "JavaScript:displayNode(#{child.id})" }
+                    +
 - else
   - ancestor = ancestors.shift
   %li

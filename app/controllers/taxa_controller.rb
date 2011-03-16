@@ -89,6 +89,32 @@ class TaxaController < ApplicationController
       :synonyms => :synonym_relation_id,
       :refs => :id }
     @taxon_concept = TaxonConcept.core_relationships(:add_include => inc, :add_select => sel).find_by_id(taxon_concept.id)
+    
+    
+    # inc = [
+    #   { :hierarchy_entries => [ :rank, { :name => :canonical_form }, :hierarchy, :hierarchies_content ] },
+    #   { :all_data_objects => [ { :toc_items => :info_items }, :license, :published_refs ] },
+    #   { :last_curated_dates => :user },
+    #   { :hierarchy_entries => [ :synonyms, :published_refs ] } ]
+    # sel = {
+    #   :taxon_concepts => '*',
+    #   :hierarchy_entries => [ :id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
+    #   :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
+    #   :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
+    #   :ranks => :label,
+    #   :names => :string,
+    #   :canonical_forms => :string,
+    #   :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ],
+    #   :licenses => :title,
+    #   :table_of_contents => '*',
+    #   :last_curated_dates => '*',
+    #   :users => [ :given_name, :family_name ],
+    #   :synonyms => :synonym_relation_id,
+    #   :refs => :id }
+    # @taxon_concept = TaxonConcept.core_relationships(:include => inc, :select => sel).find_by_id(taxon_concept.id)
+    
+    
+    
     if params[:action_name] == "update_common_names"
       update_common_names
     end

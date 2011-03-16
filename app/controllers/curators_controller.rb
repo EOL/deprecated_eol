@@ -35,6 +35,7 @@ class CuratorsController < ApplicationController
       :vetted_id => params[:vetted_id],
       :hierarchy_entry_id => session['curate_images_hierarchy_entry_id'],
       :page => params[:page], :per_page => 30)
+    @all_images_count = all_images.count
     @images_to_curate = all_images.paginate(:page => params[:page], :per_page => 30)
   end
 

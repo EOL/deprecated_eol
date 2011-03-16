@@ -625,7 +625,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     vetted_clause = vetted_id.nil? ? "" : " AND vetted_id:#{vetted_id}"
     vetted_clause = "" if (vetted_id == 'all')
 
-    solr_query = "ancestor_id:#{hierarchy_entry.taxon_concept_id} AND published:1 AND data_type_id:#{DataType.image.id} AND visibility_id:#{Visibility.visible.id} AND vetted_id:#{vetted_id}"
+    solr_query = "ancestor_id:#{hierarchy_entry.taxon_concept_id} AND published:1 AND data_type_id:#{DataType.image.id} AND visibility_id:#{Visibility.visible.id}#{vetted_clause}"
 
     unless options[:content_partner_id].blank?
       content_partner = ContentPartner.find(options[:content_partner_id].to_i)

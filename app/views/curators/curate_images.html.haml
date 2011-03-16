@@ -23,12 +23,12 @@
       %th{ :width => 368 }
         Actions
     - @images_to_curate.each do |data_object|
-      %tr{ :id => "undo-move-#{data_object.id}", :class => 'hide ' + data_object.vetted.label.downcase }
-        %td{ :colspan => 2 }
-          You moved the image to 
-          = link_to("your ignored list", {:controller => :curators, :action => :ignored_images, :hierarchy_entry_id => params[:hierarchy_entry_id]}) + "."
-          = "&nbsp;" * 5
-          %a{ :class => "undo-ignore-image" } Undo
+      / %tr{ :id => "undo-move-#{data_object.id}", :class => 'hide ' + data_object.vetted.label.downcase }
+      /   %td{ :colspan => 2 }
+      /     You moved the image to 
+      /     = link_to("your ignored list", {:controller => :curators, :action => :ignored_images, :hierarchy_entry_id => params[:hierarchy_entry_id]}) + "."
+      /     = "&nbsp;" * 5
+      /     %a{ :class => "undo-ignore-image" } Undo
       %tr{ :id => "curation-item-#{data_object.id}" }
         %td{ :class => "overlay_link " + data_object.vetted.label.downcase }
           .curation-item

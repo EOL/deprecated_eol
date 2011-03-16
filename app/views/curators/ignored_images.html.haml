@@ -1,52 +1,52 @@
-- if @name.blank? 
-  - name = ""
-  - msg = ""
-- else
-  - name = " for #{@name}"
-  - msg = "You are curating images #{name}. "
-- if @ignored_images.blank?
-  = "There is no ignored content#{name}, please select another group."
-- else
-  = "#{msg}Images are sorted by EOL import date, with newest items shown first."
-  %table.results_table
-    %tr
-      %th
-        Ignored image
-      %th{ :width => 368 }
-        Actions
-    - @ignored_images.each do |data_object|
-      %tr{ :id => "undo-move-#{data_object.id}", :class => 'hide ' + data_object.vetted.label.downcase }
-        %td{ :colspan => 2 }
-          You moved the image to 
-          = link_to("your active list", {:controller => :curators, :action => :curate_images, :hierarchy_entry_id => params[:hierarchy_entry_id]}) + "."
-          = "&nbsp;" * 5
-          %a{ :class => "undo-restore-image" } Undo
-      %tr{ :id => "curation-item-#{data_object.id}" }
-        %td{ :class => "overlay_link " + data_object.vetted.label.downcase }
-          %h5
-          - taxon_concept = data_object.get_taxon_concepts(:published => :preferred).first
-          %h5
-            = taxon_concept_link(taxon_concept, :data_type => "image", :data_object_id => data_object.id, :popup => true)
-          - if common_name = data_object.first_concept_common_name
-            %h6
-              = common_name.firstcap
-          = link_to(image_tag(DataObject.image_cache_path(data_object.object_cache_url, :medium), :class => 'curation-thumb'), {:action => 'curate_image', :data_object_id => data_object.id}, {:rel => '#overlay'})
-          - unless data_object.created_at.blank?
-            %em
-              = "Indexed on:"[]
-            = DateTime.parse(data_object.created_at.to_s).strftime("%B %d, %Y") rescue "N/A"
-            %br
-          - unless data_object.description.blank?
-            %h6
-              = "Description:"[]
-            = strip_tags(data_object.description)
-          - unless data_object.location.blank?
-            %h6
-              = "Location:"[]
-            = truncate(data_object.location, 48)
-        %td{ :class => data_object.vetted.label.downcase }
-          = render :partial => 'curation_tools', :locals => {:data_object => data_object, :comment_height => 3, :comment_width => 24, :ignored => true}
-  #overlay.overlay_worklist{:style => 'display:none'}
-    .content-wrap
-= javascript_include_tag 'curation_tools.js'
-= javascript_include_tag 'text-content.js'
+/ - if @name.blank? 
+/   - name = ""
+/   - msg = ""
+/ - else
+/   - name = " for #{@name}"
+/   - msg = "You are curating images #{name}. "
+/ - if @ignored_images.blank?
+/   = "There is no ignored content#{name}, please select another group."
+/ - else
+/   = "#{msg}Images are sorted by EOL import date, with newest items shown first."
+/   %table.results_table
+/     %tr
+/       %th
+/         Ignored image
+/       %th{ :width => 368 }
+/         Actions
+/     - @ignored_images.each do |data_object|
+/       %tr{ :id => "undo-move-#{data_object.id}", :class => 'hide ' + data_object.vetted.label.downcase }
+/         %td{ :colspan => 2 }
+/           You moved the image to 
+/           = link_to("your active list", {:controller => :curators, :action => :curate_images, :hierarchy_entry_id => params[:hierarchy_entry_id]}) + "."
+/           = "&nbsp;" * 5
+/           %a{ :class => "undo-restore-image" } Undo
+/       %tr{ :id => "curation-item-#{data_object.id}" }
+/         %td{ :class => "overlay_link " + data_object.vetted.label.downcase }
+/           %h5
+/           - taxon_concept = data_object.get_taxon_concepts(:published => :preferred).first
+/           %h5
+/             = taxon_concept_link(taxon_concept, :data_type => "image", :data_object_id => data_object.id, :popup => true)
+/           - if common_name = data_object.first_concept_common_name
+/             %h6
+/               = common_name.firstcap
+/           = link_to(image_tag(DataObject.image_cache_path(data_object.object_cache_url, :medium), :class => 'curation-thumb'), {:action => 'curate_image', :data_object_id => data_object.id}, {:rel => '#overlay'})
+/           - unless data_object.created_at.blank?
+/             %em
+/               = "Indexed on:"[]
+/             = DateTime.parse(data_object.created_at.to_s).strftime("%B %d, %Y") rescue "N/A"
+/             %br
+/           - unless data_object.description.blank?
+/             %h6
+/               = "Description:"[]
+/             = strip_tags(data_object.description)
+/           - unless data_object.location.blank?
+/             %h6
+/               = "Location:"[]
+/             = truncate(data_object.location, 48)
+/         %td{ :class => data_object.vetted.label.downcase }
+/           = render :partial => 'curation_tools', :locals => {:data_object => data_object, :comment_height => 3, :comment_width => 24, :ignored => true}
+/   #overlay.overlay_worklist{:style => 'display:none'}
+/     .content-wrap
+/ = javascript_include_tag 'curation_tools.js'
+/ = javascript_include_tag 'text-content.js'

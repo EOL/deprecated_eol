@@ -49,7 +49,7 @@ class User < parent_klass
   has_many :actions_histories_on_data_objects, :class_name => ActionsHistory.to_s,
              :conditions => "actions_histories.changeable_object_type_id = #{ChangeableObjectType.raw_data_object_id}"
   has_many :users_data_objects
-  has_many :user_ignored_data_objects
+  # has_many :user_ignored_data_objects
 
   attr_accessor :entered_password,:entered_password_confirmation,:curator_request
   attr_reader :full_name, :is_admin, :is_moderator
@@ -617,29 +617,29 @@ class User < parent_klass
     return data_object_ids
   end
 
-  def ignored_data_objects(options = {})
-    hierarchy_entry_id = options[:hierarchy_entry_id] || curator_hierarchy_entry_id
-    hierarchy_entry = HierarchyEntry.find(hierarchy_entry_id)
-    data_type_clause = options[:data_type_id].nil? ? '' : " AND do.data_type_id = #{options[:data_type_id]}"
-    
-    data_object_ids = DataObjectsHierarchyEntry.find_by_sql("SELECT dohe.data_object_id 
-        FROM #{DataObject.full_table_name} do
-          JOIN #{UserIgnoredDataObject.full_table_name} uido ON (do.id=uido.data_object_id)
-          JOIN #{DataObjectsHierarchyEntry.full_table_name} dohe ON (uido.data_object_id=dohe.data_object_id)
-          JOIN #{HierarchyEntry.full_table_name} he on (dohe.hierarchy_entry_id = he.id)
-          JOIN #{HierarchyEntry.full_table_name} he1 on (he.taxon_concept_id = he1.taxon_concept_id)
-        WHERE uido.user_id = #{self.id} 
-          AND he1.lft between #{hierarchy_entry.lft} and #{hierarchy_entry.rgt} 
-          #{data_type_clause}
-          AND he1.hierarchy_id = #{hierarchy_entry.hierarchy_id}
-          GROUP BY do.guid
-          ORDER BY do.created_at DESC");
-    return [] if data_object_ids.empty?
-    
-    data_object_ids_to_lookup = data_object_ids.collect{|d| d.data_object_id}
-    result = DataObject.core_relationships.find_all_by_id(data_object_ids_to_lookup).sort_by{|d| Invert(d.id)}
-    return result
-  end
+  # def ignored_data_objects(options = {})
+  #   hierarchy_entry_id = options[:hierarchy_entry_id] || curator_hierarchy_entry_id
+  #   hierarchy_entry = HierarchyEntry.find(hierarchy_entry_id)
+  #   data_type_clause = options[:data_type_id].nil? ? '' : " AND do.data_type_id = #{options[:data_type_id]}"
+  #   
+  #   data_object_ids = DataObjectsHierarchyEntry.find_by_sql("SELECT dohe.data_object_id 
+  #       FROM #{DataObject.full_table_name} do
+  #         JOIN #{UserIgnoredDataObject.full_table_name} uido ON (do.id=uido.data_object_id)
+  #         JOIN #{DataObjectsHierarchyEntry.full_table_name} dohe ON (uido.data_object_id=dohe.data_object_id)
+  #         JOIN #{HierarchyEntry.full_table_name} he on (dohe.hierarchy_entry_id = he.id)
+  #         JOIN #{HierarchyEntry.full_table_name} he1 on (he.taxon_concept_id = he1.taxon_concept_id)
+  #       WHERE uido.user_id = #{self.id} 
+  #         AND he1.lft between #{hierarchy_entry.lft} and #{hierarchy_entry.rgt} 
+  #         #{data_type_clause}
+  #         AND he1.hierarchy_id = #{hierarchy_entry.hierarchy_id}
+  #         GROUP BY do.guid
+  #         ORDER BY do.created_at DESC");
+  #   return [] if data_object_ids.empty?
+  #   
+  #   data_object_ids_to_lookup = data_object_ids.collect{|d| d.data_object_id}
+  #   result = DataObject.core_relationships.find_all_by_id(data_object_ids_to_lookup).sort_by{|d| Invert(d.id)}
+  #   return result
+  # end
 
   def uservoice_token
     return nil if $USERVOICE_ACCOUNT_KEY.blank?

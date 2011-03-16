@@ -51,17 +51,17 @@ describe 'Curator Worklist' do
     @first_child_untrusted_image = DataObject.find('11112')
     @first_child_trusted_image = DataObject.find('11113')
     
-    @first_child_unreviewed_ignored_image = UserIgnoredDataObject.create(:user => @curator, :data_object => DataObject.find('11114'))
-    @first_child_untrusted_ignored_image = UserIgnoredDataObject.create(:user => @curator, :data_object => DataObject.find('11115'))
-    @first_child_trusted_ignored_image = UserIgnoredDataObject.create(:user => @curator, :data_object => DataObject.find('11116'))
+    # @first_child_unreviewed_ignored_image = UserIgnoredDataObject.create(:user => @curator, :data_object => DataObject.find('11114'))
+    # @first_child_untrusted_ignored_image = UserIgnoredDataObject.create(:user => @curator, :data_object => DataObject.find('11115'))
+    # @first_child_trusted_ignored_image = UserIgnoredDataObject.create(:user => @curator, :data_object => DataObject.find('11116'))
     
     @lower_child_unreviewed_image = DataObject.find('21111')
     @lower_child_untrusted_image = DataObject.find('21112')
     @lower_child_trusted_image = DataObject.find('21113')
     
-    @lower_child_unreviewed_ignored_image = UserIgnoredDataObject.create(:user => @curator, :data_object => DataObject.find('21114'))
-    @lower_child_untrusted_ignored_image = UserIgnoredDataObject.create(:user => @curator, :data_object => DataObject.find('21115'))
-    @lower_child_trusted_ignored_image = UserIgnoredDataObject.create(:user => @curator, :data_object => DataObject.find('21116'))
+    # @lower_child_unreviewed_ignored_image = UserIgnoredDataObject.create(:user => @curator, :data_object => DataObject.find('21114'))
+    # @lower_child_untrusted_ignored_image = UserIgnoredDataObject.create(:user => @curator, :data_object => DataObject.find('21115'))
+    # @lower_child_trusted_ignored_image = UserIgnoredDataObject.create(:user => @curator, :data_object => DataObject.find('21116'))
     
     make_all_nested_sets
     flatten_hierarchies
@@ -223,47 +223,47 @@ describe 'Curator Worklist' do
     body.should include(@lower_child_trusted_image.id.to_s)
   end
   
-  it 'should be able to show ignored images regardless of vetted status' do
-    visit("/curators/ignored_images")
-    body.should include('Curator Central: Ignored Images')
-    body.should include(@first_child_unreviewed_ignored_image.data_object_id.to_s)
-    body.should include(@first_child_untrusted_ignored_image.data_object_id.to_s)
-    body.should include(@first_child_trusted_ignored_image.data_object_id.to_s)
-    body.should include(@lower_child_unreviewed_ignored_image.data_object_id.to_s)
-    body.should include(@lower_child_untrusted_ignored_image.data_object_id.to_s)
-    body.should include(@lower_child_trusted_ignored_image.data_object_id.to_s)
-  end
-  
-  it 'should be able to maintain the curator\'s session' do
-    visit("/curators/curate_images")
-    body.should include(@first_child_unreviewed_image.id.to_s)
-    body.should include(@lower_child_unreviewed_image.id.to_s)
-    visit("/curators/ignored_images")
-    body.should include(@first_child_unreviewed_ignored_image.data_object_id.to_s)
-    body.should include(@lower_child_unreviewed_ignored_image.data_object_id.to_s)
-    visit("/curators/curate_images?hierarchy_entry_id=#{@lower_child_entry.id}")
-    body.should_not include(@first_child_unreviewed_image.id.to_s)
-    body.should include(@lower_child_unreviewed_image.id.to_s)
-    visit("/curators/ignored_images?hierarchy_entry_id=#{@lower_child_entry.id}")
-    body.should_not include(@first_child_unreviewed_ignored_image.data_object_id.to_s)
-    body.should_not include(@first_child_untrusted_ignored_image.data_object_id.to_s)
-    body.should_not include(@first_child_trusted_ignored_image.data_object_id.to_s)
-    body.should include(@lower_child_unreviewed_ignored_image.data_object_id.to_s)
-    body.should include(@lower_child_untrusted_ignored_image.data_object_id.to_s)
-    body.should include(@lower_child_trusted_ignored_image.data_object_id.to_s)
-    visit("/curators/curate_images")
-    body.should_not include(@first_child_unreviewed_image.id.to_s)
-    body.should include(@lower_child_unreviewed_image.id.to_s)
-    visit("/curators/ignored_images")
-    body.should_not include(@first_child_unreviewed_ignored_image.data_object_id.to_s)
-    body.should include(@lower_child_unreviewed_ignored_image.data_object_id.to_s)
-  end
+  # it 'should be able to show ignored images regardless of vetted status' do
+  #   visit("/curators/ignored_images")
+  #   body.should include('Curator Central: Ignored Images')
+  #   body.should include(@first_child_unreviewed_ignored_image.data_object_id.to_s)
+  #   body.should include(@first_child_untrusted_ignored_image.data_object_id.to_s)
+  #   body.should include(@first_child_trusted_ignored_image.data_object_id.to_s)
+  #   body.should include(@lower_child_unreviewed_ignored_image.data_object_id.to_s)
+  #   body.should include(@lower_child_untrusted_ignored_image.data_object_id.to_s)
+  #   body.should include(@lower_child_trusted_ignored_image.data_object_id.to_s)
+  # end
+  # 
+  # it 'should be able to maintain the curator\'s session' do
+  #   visit("/curators/curate_images")
+  #   body.should include(@first_child_unreviewed_image.id.to_s)
+  #   body.should include(@lower_child_unreviewed_image.id.to_s)
+  #   visit("/curators/ignored_images")
+  #   body.should include(@first_child_unreviewed_ignored_image.data_object_id.to_s)
+  #   body.should include(@lower_child_unreviewed_ignored_image.data_object_id.to_s)
+  #   visit("/curators/curate_images?hierarchy_entry_id=#{@lower_child_entry.id}")
+  #   body.should_not include(@first_child_unreviewed_image.id.to_s)
+  #   body.should include(@lower_child_unreviewed_image.id.to_s)
+  #   visit("/curators/ignored_images?hierarchy_entry_id=#{@lower_child_entry.id}")
+  #   body.should_not include(@first_child_unreviewed_ignored_image.data_object_id.to_s)
+  #   body.should_not include(@first_child_untrusted_ignored_image.data_object_id.to_s)
+  #   body.should_not include(@first_child_trusted_ignored_image.data_object_id.to_s)
+  #   body.should include(@lower_child_unreviewed_ignored_image.data_object_id.to_s)
+  #   body.should include(@lower_child_untrusted_ignored_image.data_object_id.to_s)
+  #   body.should include(@lower_child_trusted_ignored_image.data_object_id.to_s)
+  #   visit("/curators/curate_images")
+  #   body.should_not include(@first_child_unreviewed_image.id.to_s)
+  #   body.should include(@lower_child_unreviewed_image.id.to_s)
+  #   visit("/curators/ignored_images")
+  #   body.should_not include(@first_child_unreviewed_ignored_image.data_object_id.to_s)
+  #   body.should include(@lower_child_unreviewed_ignored_image.data_object_id.to_s)
+  # end
   
   it 'should be able to give curators feedback about the sorting rationale' do
     visit("/curators/curate_images?hierarchy_entry_id=#{@lower_child_entry.id}&content_partner_id=#{@content_partner.id}&vetted_id=#{Vetted.unknown.id}")
     body.should include("Images are sorted by EOL import date, with newest items shown first.")
-    visit("/curators/ignored_images?hierarchy_entry_id=#{@lower_child_entry.id}&content_partner_id=#{@content_partner.id}&vetted_id=#{Vetted.unknown.id}")
-    body.should include("Images are sorted by EOL import date, with newest items shown first.")
+    # visit("/curators/ignored_images?hierarchy_entry_id=#{@lower_child_entry.id}&content_partner_id=#{@content_partner.id}&vetted_id=#{Vetted.unknown.id}")
+    # body.should include("Images are sorted by EOL import date, with newest items shown first.")
   end
   
   it 'should be able to give curators a warning message if content is not found' do
@@ -279,8 +279,8 @@ describe 'Curator Worklist' do
     body.should include("There is no Untrusted content for #{@species_name}, please select another group to curate or change your source or vetting status criteria.")
     visit("/curators/curate_images?content_partner_id=#{@content_partner_no_ctnt.id}&hierarchy_entry_id=#{@child_entry_no_ctnt.id}&vetted_id=#{Vetted.unknown.id}")
     body.should include("There is no Unreviewed #{@content_partner_name} content for #{@species_name}, please select another group to curate or change your source or vetting status criteria.")
-    visit("/curators/ignored_images?hierarchy_entry_id=#{@child_entry_no_ctnt.id}")
-    body.should include("There is no ignored content for #{@species_name}, please select another group.")
+    # visit("/curators/ignored_images?hierarchy_entry_id=#{@child_entry_no_ctnt.id}")
+    # body.should include("There is no ignored content for #{@species_name}, please select another group.")
   end
   
   it 'should be able to render the taxon name links to the species page with the same image' do
@@ -309,22 +309,22 @@ describe 'Curator Worklist' do
     body.should_not have_tag("li#user-rating-#{@lower_child_unreviewed_image.id.to_s}.current-rating", :text =>"Your Rating:\n5")
   end
   
-  it "should be able to rate the ignored images" do
-    visit("/curators/ignored_images")
-    body.should have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n0")
-    body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n1")
-    body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n2")
-    body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n3")
-    body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n4")
-    body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n5")
-    visit("/data_objects/rate/#{@first_child_unreviewed_ignored_image.data_object_id.to_s}?stars=3")
-    visit("/curators/ignored_images")
-    body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n0")
-    body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n1")
-    body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n2")
-    body.should have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n3")
-    body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n4")
-    body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n5")
-  end
+  # it "should be able to rate the ignored images" do
+  #   visit("/curators/ignored_images")
+  #   body.should have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n0")
+  #   body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n1")
+  #   body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n2")
+  #   body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n3")
+  #   body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n4")
+  #   body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n5")
+  #   visit("/data_objects/rate/#{@first_child_unreviewed_ignored_image.data_object_id.to_s}?stars=3")
+  #   visit("/curators/ignored_images")
+  #   body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n0")
+  #   body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n1")
+  #   body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n2")
+  #   body.should have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n3")
+  #   body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n4")
+  #   body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n5")
+  # end
   
 end

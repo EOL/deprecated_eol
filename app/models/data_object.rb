@@ -30,7 +30,7 @@ class DataObject < SpeciesSchemaModel
   has_many :untrust_reasons, :through => :data_objects_untrust_reasons
   has_many :data_objects_info_items
   has_many :info_items, :through => :data_objects_info_items
-  has_many :user_ignored_data_objects
+  # has_many :user_ignored_data_objects
   has_many :users_data_objects
   has_many :users_data_objects_ratings, :foreign_key => 'data_object_guid', :primary_key => :guid
   has_many :all_comments, :class_name => Comment.to_s, :foreign_key => 'parent_id', :finder_sql => 'SELECT c.* FROM #{Comment.full_table_name} c JOIN #{DataObject.full_table_name} do ON (c.parent_id = do.id) WHERE do.guid=\'#{guid}\''

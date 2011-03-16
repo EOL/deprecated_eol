@@ -36,9 +36,9 @@ class DataObject < SpeciesSchemaModel
   has_many :users_data_objects
   has_many :users_data_objects_ratings, :foreign_key => 'data_object_guid', :primary_key => :guid
   has_many :all_comments, :class_name => Comment.to_s, :foreign_key => 'parent_id', :finder_sql => 'SELECT c.* FROM #{Comment.full_table_name} c JOIN #{DataObject.full_table_name} do ON (c.parent_id = do.id) WHERE do.guid=\'#{guid}\''
-  
-  # the select_with_include library doesn't allow to grab do.* one time, then do.id later on - but this would be a neat method,
-  # has_many :versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :select => 'id'
+  # has_many :all_comments, :class_name => Comment.to_s, :through => :all_versions, :source => :comments, :primary_key => :guid
+  # # the select_with_include library doesn't allow to grab do.* one time, then do.id later on - but this would be a neat method,
+  # has_many :all_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :select => 'id, guid'
   
   has_and_belongs_to_many :hierarchy_entries
   has_and_belongs_to_many :audiences
@@ -88,6 +88,7 @@ class DataObject < SpeciesSchemaModel
   # TODO - this smells like a good place to use a Strategy pattern.  The user can have certain behaviour based
   # on their access.
   def self.filter_list_for_user(data_objects, options={})
+    return [] if data_objects.blank?
     visibility_ids = [Visibility.visible.id]
     vetted_ids = [Vetted.trusted.id, Vetted.unknown.id, Vetted.untrusted.id]
     show_preview = false
@@ -881,8 +882,16 @@ class DataObject < SpeciesSchemaModel
     show_unpublished = (options[:agent] || options[:user].is_curator? || options[:user].is_admin?)
     
     if options[:filter_hierarchy]
-      # taxon.top_images.collect{ |d| }
-      # taxon.top_unpublished_concept_images{ |d| }
+      # strict lookup
+      if entry_in_hierarchy = taxon_concept.entry(options[:filter_hierarchy], true)
+        HierarchyEntry.preload_associations(entry_in_hierarchy,
+          [ :top_images => :data_object ],
+          :select => { :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ] } )
+        image_data_objects = entry_in_hierarchy.top_images.collect{ |ti| ti.data_object }
+        if show_unpublished
+          image_data_objects += entry_in_hierarchy.top_unpublished_images.collect{ |ti| ti.data_object }
+        end
+      end
     else
       image_data_objects = taxon_concept.top_concept_images.collect{ |tci| tci.data_object }
       if show_unpublished

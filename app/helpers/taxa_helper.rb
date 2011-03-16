@@ -87,7 +87,7 @@ module TaxaHelper
             text = citable_logo(citable, logo_size, params)
             output_html << external_link_to(text, url, {:show_link_icon => false})
           else
-            output_html << citable_logo(agent, logo_size, params)
+            output_html << citable_logo(citable, logo_size, params)
           end
         end
       end

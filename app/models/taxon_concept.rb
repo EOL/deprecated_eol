@@ -38,7 +38,23 @@ class TaxonConcept < SpeciesSchemaModel
     :finder_sql => 'SELECT s.* FROM #{Synonym.full_table_name} s JOIN #{HierarchyEntry.full_table_name} he ON (he.id = s.hierarchy_entry_id) WHERE he.taxon_concept_id=\'#{id}\' AND s.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(",")})'
   has_many :users_data_objects
   has_many :flattened_ancestors, :class_name => TaxonConceptsFlattened.to_s
-
+  has_many :all_data_objects, :class_name => DataObject.to_s, :finder_sql => '
+      (SELECT do.id, do.data_type_id, do.vetted_id, do.visibility_id, do.published, do.guid, do.data_rating
+        FROM data_objects_taxon_concepts dotc
+        JOIN data_objects do ON (dotc.data_object_id=do.id)
+          WHERE dotc.taxon_concept_id=#{id}
+          AND do.data_type_id=#{DataType.image.id})
+      UNION
+      (SELECT do.id, do.data_type_id, do.vetted_id, do.visibility_id, do.published, do.guid, do.data_rating
+        FROM top_concept_images tci
+        JOIN data_objects do ON (tci.data_object_id=do.id)
+          WHERE tci.taxon_concept_id=#{id})
+      UNION
+      (SELECT do.id, do.data_type_id, do.vetted_id, do.visibility_id, do.published, do.guid, do.data_rating
+        FROM #{UsersDataObject.full_table_name} udo
+        JOIN data_objects do ON (udo.data_object_id=do.id)
+          WHERE udo.taxon_concept_id=#{id})'
+  
   has_one :taxon_concept_content
   has_one :taxon_concept_metric
  

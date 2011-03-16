@@ -50,6 +50,7 @@ describe 'Core Relationships' do
       [:a, {:b => :c}].add_element!({:b => :c}).should == [:a, {:b => :c}]
       [:a, {:b => :c}].add_element!({:b => :d}).should == [:a, {:b => [:c, :d]}]
       [:a, {:b => :c}].add_element!({:b => {:c => [:d, :e]}}).should == [:a, {:b => {:c => [:d, :e]}}]
+      [:a, {:b => :c}].add_element!([{:b => {:c => [:d, :e]}}, :f]).should == [:a, {:b => {:c => [:d, :e]}}, :f]
     end
   end
   

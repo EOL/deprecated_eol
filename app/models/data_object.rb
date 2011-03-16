@@ -917,9 +917,10 @@ class DataObject < SpeciesSchemaModel
   
   def self.eager_load_image_metadata(data_object_ids)
     return nil if data_object_ids.blank?
-    add_include = [:all_comments, { :users_data_objects => :user }]
-    add_select = { :users => '*', :comments => [:parent_id, :visible_at] }
-    objects = DataObject.core_relationships(:add_include => add_include, :add_select => add_select).find_all_by_id(data_object_ids)
+    add_include = [ :all_comments ]
+    add_select = { :comments => [ :parent_id, :visible_at ] }
+    except = [ :info_items ]
+    objects = DataObject.core_relationships(:except => except, :add_include => add_include, :add_select => add_select).find_all_by_id(data_object_ids)
     DataObject.sort_by_rating(objects)
   end
 

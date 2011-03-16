@@ -55,7 +55,8 @@ class TaxonConcept < SpeciesSchemaModel
       :taxon_concepts => '*',
       :hierarchy_entries => [ :id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
       :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
-      :hierarchies_content => [ :content_level, :image, :text, :child_image, :map ],
+      :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
+      :ranks => :label,
       :names => :string,
       :canonical_forms => :string,
       :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ],
@@ -150,15 +151,7 @@ class TaxonConcept < SpeciesSchemaModel
   # anything yet doesn't get a citation).  Also, curators should only get credit on the pages they actually edited,
   # not all of it's children.  (For example.)
   def acting_curators
-    # Single-database query using a thousandfold more efficient algorithm than doing things via cross-database join:
-    User.all(:joins => :last_curated_dates, :conditions => "last_curated_dates.last_curated >= '#{2.years.ago.to_s(:db)}' AND last_curated_dates.taxon_concept_id = #{self.id}").uniq
-  end
-  
-  # if curator is no longer able to curate the page, citation should still show up, so we grab all users wich had have curator activity in 2 last years on this page
-  def curator_has_citation
-    last_curated_dates = LastCuratedDate.find(:all, :conditions => ["taxon_concept_id = ? AND last_curated > ?", self.id, 2.years.ago.to_s(:db)])
-    user_ids = last_curated_dates.map { |a| a[:user_id] }.uniq
-    User.find(user_ids)
+    last_curated_dates.collect{ |lcd| lcd.user }.uniq
   end
 
   # The International Union for Conservation of Nature keeps a status for most known species, representing how endangered that
@@ -567,14 +560,6 @@ class TaxonConcept < SpeciesSchemaModel
 
     map = false if map and gbif_map_id == empty_map_id # The "if map" avoids unecessary db hits; keep it.
 
-    if !video then    
-      # to accomodate data_type => http://purl.org/dc/dcmitype/MovingImage = Video
-      with_video = DataObject.find_by_sql("Select data_objects.data_type_id
-      From data_objects_taxon_concepts Inner Join data_objects ON data_objects_taxon_concepts.data_object_id = data_objects.id
-      Where data_objects_taxon_concepts.taxon_concept_id = #{self.id} and data_objects.data_type_id IN (#{DataType.video.id}, #{DataType.flash.id}, #{DataType.youtube.id})")    
-      video = true if with_video.length > 0
-    end
-
     @has_media = {:images => images, :video  => video, :map    => map }
   end
 
@@ -690,24 +675,9 @@ class TaxonConcept < SpeciesSchemaModel
 
   def iucn
     return @iucn if !@iucn.nil?
-    # Notice that we use find_by, not find_all_by.  We require that only one match (or no match) is found.
-    # TODO - hack on [].flatten to handle two cases, which we currently have between prod and dev.  Fix this in the
-    # next iteration (any after 2.9):
-    iucn_objects = DataObject.find_by_sql("
-        SELECT do.*
-          FROM hierarchy_entries he
-            JOIN data_objects_hierarchy_entries dohe ON (he.id = dohe.hierarchy_entry_id)
-            JOIN data_objects do ON (dohe.data_object_id = do.id)
-        WHERE he.taxon_concept_id = #{self.id}
-          AND he.hierarchy_id IN (#{Hierarchy.iucn_hierarchies.collect{ |h| h.id }.join(',')})
-          AND he.published = 1
-          AND do.published = 1")
-
-    iucn_objects.sort! do |a,b|
-      b.id <=> a.id
-    end
-    my_iucn = iucn_objects[0] || nil
-
+    iucn_objects = data_objects.select{ |d| d.is_iucn? && d.published? }.sort_by{ |d| Invert(d.id) }
+    my_iucn = iucn_objects.empty? ? nil : DataObject.find(iucn_objects[0].id, :select => 'description, source_url')
+    
     temp_iucn = my_iucn.nil? ? DataObject.new(:source_url => 'http://www.iucnredlist.org/', :description => 'NOT EVALUATED') : my_iucn
     temp_iucn.instance_eval { def agent_url; return Agent.iucn.homepage; end }
     @iucn = temp_iucn
@@ -1003,45 +973,47 @@ class TaxonConcept < SpeciesSchemaModel
                          WHERE tcn.taxon_concept_id = ? AND vern = 0', id])
   end
 
-  def self.related_names_for?(taxon_concept_id)
-    has_parents = TaxonConcept.count_by_sql("SELECT 1
-                                      FROM hierarchy_entries he
-                                      JOIN hierarchies h ON (he.hierarchy_id=h.id)
-                                      WHERE he.taxon_concept_id=#{taxon_concept_id}
-                                      AND he.published=1
-                                      AND parent_id!=0
-                                      AND h.browsable=1
-                                      LIMIT 1") > 0
-    return true if has_parents
+  def has_related_names?
+    entries_with_parents = hierarchy_entries.select{ |he| he.hierarchy.browsable && he.parent_id != 0 && he.published == 1 }
+    return true unless entries_with_parents.empty?
 
     return TaxonConcept.count_by_sql("SELECT 1
                                       FROM hierarchy_entries he
                                       JOIN hierarchy_entries he_children ON (he.id=he_children.parent_id)
                                       JOIN hierarchies h ON (he_children.hierarchy_id=h.id)
-                                      WHERE he.taxon_concept_id=#{taxon_concept_id}
+                                      WHERE he.taxon_concept_id=#{id}
                                       AND h.browsable=1
                                       AND he_children.published=1
                                       LIMIT 1") > 0
   end
 
-  def self.synonyms_for?(taxon_concept_id)
-    return TaxonConcept.count_by_sql("SELECT 1
-                                      FROM hierarchy_entries he
-                                      JOIN hierarchies h ON (he.hierarchy_id=h.id)
-                                      JOIN synonyms s ON (he.id=s.hierarchy_entry_id)
-                                      WHERE he.taxon_concept_id=#{taxon_concept_id}
-                                      AND he.published=1
-                                      AND h.browsable=1
-                                      AND s.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})
-                                      LIMIT 1") > 0
+  def has_synonyms?
+    common_name_ids = SynonymRelation.common_name_ids
+    # this is pretty killer - I'm sure someone can improve it. If not empty
+    # the set of hierarchy entries whose synomyms are not common names
+    !hierarchy_entries.select do |he|
+      all_relation_ids = he.synonyms.collect{ |s| s.synonym_relation_id }.flatten.uniq
+      (all_relation_ids & common_name_ids).empty?
+    end.empty?
   end
 
-  def self.common_names_for?(taxon_concept_id)
-    return TaxonConcept.count_by_sql(['SELECT 1 FROM taxon_concept_names tcn 
-                                        WHERE taxon_concept_id = ? 
-                                          AND vern = 1 
-                                        LIMIT 1',taxon_concept_id]) > 0
+  def has_common_names?
+    common_name_ids = SynonymRelation.common_name_ids
+    # this is pretty killer - I'm sure someone can improve it. If not empty
+    # the set of hierarchy entries whose synomyms include common names
+    !hierarchy_entries.select do |he|
+      all_relation_ids = he.synonyms.collect{ |s| s.synonym_relation_id }.flatten.uniq
+      !(all_relation_ids & common_name_ids).empty?
+    end.empty?
   end
+  
+  def has_literature_references?
+    objects_with_references = data_objects.select{ |d| !d.published_refs.empty? }
+    return true unless objects_with_references.blank?
+    entries_with_references = hierarchy_entries.select{ |he| !he.published_refs.empty? }
+    return true unless entries_with_references.blank?
+  end
+  
 
   def add_common_name_synonym(name_string, options = {})
     agent     = options[:agent]

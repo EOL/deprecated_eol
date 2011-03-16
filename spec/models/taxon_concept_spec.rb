@@ -145,13 +145,14 @@ describe TaxonConcept do
     he.delete
   end
   
-  it 'should NOT have an IUCN conservation status even if it comes from another IUCN resource' do
+  # we just need something of DataType IUCN, which only the reasl IUCN can provide
+  it 'should have an IUCN conservation status even if it comes from another IUCN resource' do
     @taxon_concept = TaxonConcept.find(@taxon_concept.id)
     iucn_status = Factory.next(:iucn)
     (hierarchy, resource) = build_secondary_iucn_hierarchy_and_resource
     he = build_iucn_entry(@taxon_concept, iucn_status, :hierarchy => hierarchy,
                                                   :event => HarvestEvent.gen(:resource => resource))
-    @taxon_concept.iucn_conservation_status.should == 'NOT EVALUATED'
+    @taxon_concept.iucn_conservation_status.should == iucn_status
     he.delete
   end
   
@@ -312,14 +313,14 @@ describe TaxonConcept do
   end
   
   it "should have common names" do
-    TaxonConcept.common_names_for?(@taxon_concept.id).should == true
+    @taxon_concept.has_common_names?.should == true
   end
   
   it "should not have common names" do
     tc = build_taxon_concept(:toc=> [
       {:toc_item => TocItem.common_names}
     ])  
-    TaxonConcept.common_names_for?(tc.id).should == false
+    tc.has_common_names?.should == false
   end
   
   it 'should return images sorted by trusted, unknown, untrusted' do

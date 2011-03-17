@@ -72,7 +72,6 @@ class TaxonConcept < SpeciesSchemaModel
       :hierarchy_entries => [ :id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
       :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
       :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
-      :ranks => :label,
       :names => :string,
       :canonical_forms => :string,
       :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ],

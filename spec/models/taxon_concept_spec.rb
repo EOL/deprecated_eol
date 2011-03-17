@@ -104,6 +104,13 @@ describe TaxonConcept do
     tc = build_taxon_concept(:canonical_form => bad_title)
     tc.title.should =~ /#{good_title}/
   end
+
+  it 'should capitalize the title (even if the name starts with a quote)' do
+    good_title = %Q{"Good title"}
+    bad_title = good_title.downcase
+    tc = build_taxon_concept(:canonical_form => bad_title)
+    tc.title.should =~ /#{good_title}/
+  end
   
   it 'should have curators' do
     @taxon_concept.curators.map(&:id).should include(@curator.id)

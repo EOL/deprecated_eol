@@ -257,13 +257,13 @@ class DataObject < SpeciesSchemaModel
     unless all_params[:references].blank?
       all_params[:references].each do |reference|
         if reference.strip != ''
-          d.refs << Ref.new(:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible)
+          d.published_refs << Ref.new(:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible)
         end
       end
     end
 
-    # this will give it the elements it needs for attributions
-    d.users = [user]
+    # TODO - references aren't shown in the preview, because we would have to "fake" them, and we can't effectively.
+    d.users_data_objects = [UsersDataObject.new(:data_object => d, :taxon_concept => taxon_concept, :user => user)]
     d
   end
 
@@ -715,16 +715,19 @@ class DataObject < SpeciesSchemaModel
   def update_solr_index(options)
     return false if options[:vetted_id].blank? && options[:visibility_id].blank?
     solr_connection = SolrAPI.new($SOLR_SERVER_DATA_OBJECTS)
-    # query Solr for the index record for this data object
-    response = solr_connection.query_lucene("data_object_id:#{id}")
-    data_object_hash = response['response']['docs'][0]
-    return false unless data_object_hash
-    modified_object_hash = data_object_hash.dup
-    modified_object_hash['vetted_id'] = [options[:vetted_id]] unless options[:vetted_id].blank?
-    modified_object_hash['visibility_id'] = [options[:visibility_id]] unless options[:visibility_id].blank?
-    # if some of the values have changed, post the updated record to Solr
-    if data_object_hash != modified_object_hash
-      solr_connection.create(modified_object_hash)
+    begin
+      # query Solr for the index record for this data object
+      response = solr_connection.query_lucene("data_object_id:#{id}")
+      data_object_hash = response['response']['docs'][0]
+      return false unless data_object_hash
+      modified_object_hash = data_object_hash.dup
+      modified_object_hash['vetted_id'] = [options[:vetted_id]] unless options[:vetted_id].blank?
+      modified_object_hash['visibility_id'] = [options[:visibility_id]] unless options[:visibility_id].blank?
+      # if some of the values have changed, post the updated record to Solr
+      if data_object_hash != modified_object_hash
+        solr_connection.create(modified_object_hash)
+      end
+    rescue
     end
   end
 

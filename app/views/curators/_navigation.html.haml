@@ -7,8 +7,8 @@
     Tools
   %li
     = link_to 'Images Work List', {:action => 'curate_images', :hierarchy_entry_id => params[:hierarchy_entry_id]}, {:class => active_if_action_is('curate_images') }
-  %li
-    = link_to 'Ignored images', {:action => 'ignored_images', :hierarchy_entry_id => params[:hierarchy_entry_id]}, {:class => active_if_action_is('ignored_images') }
+  / %li
+  /   = link_to 'Ignored images', {:action => 'ignored_images', :hierarchy_entry_id => params[:hierarchy_entry_id]}, {:class => active_if_action_is('ignored_images') }
   %li
     = link_to 'Wikipedia Import', {:action => 'wiki_import', :hierarchy_entry_id => params[:hierarchy_entry_id]}, {:class => active_if_action_is('wiki_import') }
   %h3

@@ -4,20 +4,20 @@
   .image-rating.action-value
     -# TODO - This has a problem... it's not specific to the data object in question, so Ajax is not intelligent about updating the right values when it's changed.  It ALSO doesn't seem to work in this context: the images are not clickable... and I can't figure out why.  Help!
     = render :partial => '/data_objects/star_rating_hash', :locals => {:data_object => data_object, :show_controls => true}
-.clearbreak
-  %br
-- is_ignored = defined?(ignored) && ignored
-- is_ignored_class = is_ignored ? "is_ignored_true" : "is_ignored_false"
-.curation-section{ :class => is_ignored_class }
-  .credit-caption
-    = is_ignored ? "Ignored"[] : "Active"[] 
-  .action-value{ :id => "ignore-#{data_object.id}" }
-    - if is_ignored
-      %a= "Move to active list"[]
-    - else
-      %a= "Move to ignored list"[]
-    %span.info_msg
-  %hr.thin
+/ .clearbreak
+/   %br
+/ - is_ignored = defined?(ignored) && ignored
+/ - is_ignored_class = is_ignored ? "is_ignored_true" : "is_ignored_false"
+/ .curation-section{ :class => is_ignored_class }
+/   .credit-caption
+/     = is_ignored ? "Ignored"[] : "Active"[] 
+/   .action-value{ :id => "ignore-#{data_object.id}" }
+/     - if is_ignored
+/       %a= "Move to active list"[]
+/     - else
+/       %a= "Move to ignored list"[]
+/     %span.info_msg
+%hr.thin
 .clearbreak
   %br
 - div_style = 'display:none;'

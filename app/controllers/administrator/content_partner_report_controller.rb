@@ -263,7 +263,7 @@ class Administrator::ContentPartnerReportController < AdminController
     
     @content_partners_with_published_data = Agent.content_partners_with_published_data  
 
-    if(@agent_id == "All") then 
+    if @agent_id == "All"
       @partner_fullname = "All Curation"
       arr_dataobject_ids = []
     else
@@ -278,7 +278,7 @@ class Administrator::ContentPartnerReportController < AdminController
       @arr_dataobject_ids = arr[0]
       @arr_user_ids = arr[1]
 
-    if(@arr_dataobject_ids.length == 0) then 
+    if @arr_dataobject_ids.length == 0
       @arr_dataobject_ids = [1] #no data objects
     end
 
@@ -292,18 +292,18 @@ class Administrator::ContentPartnerReportController < AdminController
   def report_partner_objects_stats
     @page_header = 'Content Partner Data Objects Stats'
     
-    if(params[:agent_id]) then
+    if !params[:agent_id].blank? && params[:agent_id] != 0
       @agent_id = params[:agent_id]
       session[:form_agent_id] = params[:agent_id]
-    elsif(session[:form_agent_id]) then
+    elsif !session[:form_agent_id].blank? && session[:form_agent_id] != 0
       @agent_id = session[:form_agent_id]
     else
-      @agent_id = 1  
+      @agent_id = 1  # default
     end
     
     @content_partners_with_published_data = Agent.content_partners_with_published_data  
-    
-    if(@agent_id == "All") then @agent_id=1
+    if @agent_id == "All"
+      @agent_id = 1
     end
     partner = Agent.find(@agent_id, :select => 'full_name')
     @partner_fullname = partner.full_name

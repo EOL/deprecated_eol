@@ -394,11 +394,16 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     end
     self.save! unless self.validating
   end
+  
+  def clear_cached_user
+    $CACHE.delete("users/#{self.id}") if $CACHE
+  end
 
   def clear_curatorship updated_by, update_notes=""
     revoke_curatorship
     self.credentials = ""
     self.curator_scope = ""
+    self.credentials=""
     self.curator_verdict_at = Time.now
     self.curator_verdict_by = updated_by
     self.notes = "" if self.notes.nil?

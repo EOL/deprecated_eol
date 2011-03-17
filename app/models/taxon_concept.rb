@@ -1092,6 +1092,17 @@ class TaxonConcept < SpeciesSchemaModel
     this_toc_objects = data_objects.select{ |d| d.is_text? }
     user_objects = users_data_objects.select{ |udo| udo.data_object.is_text? }.collect{ |udo| udo.data_object}
     combined_objects = this_toc_objects | user_objects  # get the union of the two sets
+    
+    # this is a content partner, so we'll want o preload image contributors to prevent
+    # a bunch of queries later on in DataObject.filter_list_for_user
+    if options[:agent]
+      DataObject.preload_associations(combined_objects,
+        [ :hierarchy_entries => { :hierarchy => :agent } ],
+        :select => {
+          :hierarchy_entries => :hierarchy_id,
+          :agents => :id } )
+    end
+    
     filtered_objects = DataObject.filter_list_for_user(combined_objects, :agent => options[:agent], :user => options[:user])
     return filtered_objects.collect{ |d| d.toc_items }.flatten.compact.uniq
   end

@@ -75,6 +75,14 @@ class Hierarchy < SpeciesSchemaModel
   end
   
   def kingdoms(params = {})
+    # this is very hacky - another case where reading from the cache in development mode throws an error
+    # becuase several classes have not been loaded yet. The only fix is to somehow load them before reading
+    # from the cache
+    HierarchyEntry
+    Rank
+    HierarchiesContent
+    Name
+    CanonicalForm
     Hierarchy.cached("kingdoms_for_#{id}") do
       add_include = []
       add_select = {}

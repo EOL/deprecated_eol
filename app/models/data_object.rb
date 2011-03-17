@@ -77,13 +77,14 @@ class DataObject < SpeciesSchemaModel
       vetted_view_order = obj.vetted.blank? ? 0 : obj.vetted.view_order
       visibility_view_order = 1
       visibility_view_order = 2 if obj.visibility_id == Visibility.preview.id
+      inverted_rating = (obj.data_rating == 0) ? 0 : (1.0 / obj.data_rating)
 
       [obj.data_type_id,
        toc_view_order,
        visibility_view_order,
        vetted_view_order,
-       Invert(obj.data_rating)]
-    end.reverse
+       inverted_rating]
+    end
   end
   
   # TODO - this smells like a good place to use a Strategy pattern.  The user can have certain behaviour based

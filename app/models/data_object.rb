@@ -890,12 +890,30 @@ class DataObject < SpeciesSchemaModel
           :select => { :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ] } )
         image_data_objects = entry_in_hierarchy.top_images.collect{ |ti| ti.data_object }
         if show_unpublished
+          HierarchyEntry.preload_associations(entry_in_hierarchy,
+            [ :top_unpublished_images => :data_object ],
+            :select => { :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ] } )
           image_data_objects += entry_in_hierarchy.top_unpublished_images.collect{ |ti| ti.data_object }
         end
       end
     else
       image_data_objects = taxon_concept.top_concept_images.collect{ |tci| tci.data_object }
+      # this is a content partner, so we'll want o preload image contributors to prevent
+      # a bunch of queries later on in filter_list_for_user
+      if options[:agent]
+        DataObject.preload_associations(image_data_objects,
+          [ :hierarchy_entries => { :hierarchy => :agent } ],
+          :select => {
+            :hierarchy_entries => :hierarchy_id,
+            :agents => :id } )
+      end
       if show_unpublished
+        TaxonConcept.preload_associations(taxon_concept,
+          [ :top_unpublished_concept_images => { :data_object => { :hierarchy_entries => { :hierarchy => :agent } } } ],
+          :select => {
+            :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ],
+            :hierarchy_entries => :hierarchy_id,
+            :agents => :id } )
         image_data_objects += taxon_concept.top_unpublished_concept_images.collect{ |tci| tci.data_object }
       end
     end

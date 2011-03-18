@@ -37,13 +37,13 @@ class DataObject < SpeciesSchemaModel
   # has_many :all_comments, :class_name => Comment.to_s, :through => :all_versions, :source => :comments, :primary_key => :guid
   # # the select_with_include library doesn't allow to grab do.* one time, then do.id later on - but this would be a neat method,
   # has_many :all_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :select => 'id, guid'
-  
+
   has_and_belongs_to_many :hierarchy_entries
   has_and_belongs_to_many :audiences
   has_and_belongs_to_many :refs
   has_and_belongs_to_many :published_refs, :class_name => Ref.to_s, :join_table => 'data_objects_refs',
     :association_foreign_key => 'ref_id', :conditions => 'published=1 AND visibility_id=#{Visibility.visible.id}'
-    
+
   has_and_belongs_to_many :agents
   has_and_belongs_to_many :toc_items, :join_table => 'data_objects_table_of_contents', :association_foreign_key => 'toc_id'
   has_and_belongs_to_many :taxon_concepts
@@ -52,7 +52,7 @@ class DataObject < SpeciesSchemaModel
 
   named_scope :visible, lambda { { :conditions => { :visibility_id => Visibility.visible.id } }}
   named_scope :preview, lambda { { :conditions => { :visibility_id => Visibility.preview.id } }}
-  
+
   define_core_relationships :select => {
       :data_objects => '*',
       :agents => [:full_name, :acronym, :display_name, :homepage, :username, :logo_cache_url],
@@ -70,7 +70,7 @@ class DataObject < SpeciesSchemaModel
       :licenses => '*' },
     :include => [:data_type, :mime_type, :language, :license, :vetted, :visibility, {:info_items => :toc_item},
       {:hierarchy_entries => [:name, { :hierarchy => :agent }] }, {:agents_data_objects => [ { :agent => :user }, :agent_role]}]
-  
+
   def self.sort_by_rating(data_objects)
     data_objects.sort_by do |obj|
       toc_view_order = (!obj.is_text? || obj.info_items.blank? || obj.info_items[0].toc_item.blank?) ? 0 : obj.info_items[0].toc_item.view_order
@@ -85,7 +85,7 @@ class DataObject < SpeciesSchemaModel
        Invert(obj.data_rating)]
     end
   end
-  
+
   # TODO - this smells like a good place to use a Strategy pattern.  The user can have certain behaviour based
   # on their access.
   def self.filter_list_for_user(data_objects, options={})
@@ -93,7 +93,7 @@ class DataObject < SpeciesSchemaModel
     visibility_ids = [Visibility.visible.id]
     vetted_ids = [Vetted.trusted.id, Vetted.unknown.id, Vetted.untrusted.id]
     show_preview = false
-    
+
     # Show all vetted states unless there is a user that DOES NOT want to see vetted content
     # AND is not a curator of this clade (curators always see all content in their clade)
     # AND is not an admin (admins always see all content)
@@ -112,11 +112,11 @@ class DataObject < SpeciesSchemaModel
         vetted_ids = [Vetted.trusted.id]
       end
     end
-    
+
     if options[:toc_id] == TocItem.wikipedia
       show_preview = true
     end
-    
+
     # removing from the array the ones not mathching our criteria
     data_objects.compact.select do |d|
       # partners see all their PREVIEW or PUBLISHED objects
@@ -216,7 +216,7 @@ class DataObject < SpeciesSchemaModel
     comments_from_old_dato.map { |c| c.update_attribute :parent_id, d.id  }
 
     d.curator_activity_flag(user, all_params[:taxon_concept_id])
-    
+
     tc = TaxonConcept.find(all_params[:taxon_concept_id])
     udo = UsersDataObject.create(:user => user, :data_object => d, :taxon_concept => tc)
     d.users_data_objects << udo
@@ -354,26 +354,25 @@ class DataObject < SpeciesSchemaModel
 
   def rate(user, new_rating)
     existing_ratings = UsersDataObjectsRating.find_all_by_data_object_guid(guid)
-    users_current_ratings = existing_ratings.select{ |r| r.user_id == user.id }
+    users_current_ratings, other_ratings = existing_ratings.partition { |r| r.user_id == user.id }
 
-    # user has never rated this object
     if users_current_ratings.blank?
       UsersDataObjectsRating.create(:data_object_guid => guid, :user_id => user.id, :rating => new_rating)
     elsif users_current_ratings[0].rating != new_rating
-      # update existing rating with new value
       users_current_ratings[0].rating = new_rating
       users_current_ratings[0].save!
     end
-    
-    # collecting all ratings NOT from this user
-    all_rating_scores = existing_ratings.collect{ |r| (r.user_id==user.id) ? nil : r.rating }.compact
-    all_rating_scores << new_rating
-    
-    # not the to_f to get a float value, not an integer
-    self.data_rating = all_rating_scores.inject{ |sum, score| sum + score }.to_f / all_rating_scores.size
+
+    self.data_rating = (other_ratings.inject(0) { |sum, r| sum + r.rating } + new_rating).to_f / (other_ratings.size + 1)
     self.save!
   end
-  
+
+  def recalculate_rating
+    ratings = UsersDataObjectsRating.find_all_by_data_object_guid(guid)
+    self.data_rating = ratings.blank? ? 2.5 : ratings.inject(0) { |sum, r| sum + r.rating }.to_f / ratings.size
+    self.save!
+  end
+
   def rating_for_user(user)
     UsersDataObjectsRating.find_by_data_object_guid_and_user_id(guid, user.id)
   end
@@ -399,13 +398,13 @@ class DataObject < SpeciesSchemaModel
 
   def citable_data_supplier
     return nil if data_supplier_agent.blank?
-    EOL::Citable.new( :agent_id => data_supplier_agent.id, 
+    EOL::Citable.new( :agent_id => data_supplier_agent.id,
                                   :link_to_url => data_supplier_agent.homepage,
                                   :display_string => data_supplier_agent.full_name,
                                   :logo_cache_url => data_supplier_agent.logo_cache_url,
                                   :type => 'Supplier')
   end
-  
+
   def citable_entities
     citables = []
     agents_data_objects.each do |ado|
@@ -413,44 +412,44 @@ class DataObject < SpeciesSchemaModel
         citables << ado.agent.citable(ado.agent_role.label)
       end
     end
-    
+
     unless data_supplier_agent.blank?
       citables << citable_data_supplier
     end
-    
+
     unless rights_statement.blank?
       citables << EOL::Citable.new( :display_string => rights_statement,
                                     :type => 'Rights')
     end
-    
+
     unless rights_holder.blank?
       citables << EOL::Citable.new( :display_string => rights_holder,
                                     :type => 'Rights Holder')
     end
-    
+
     unless license.blank?
       citables << EOL::Citable.new( :link_to_url => license.source_url,
                                     :display_string => license.description,
                                     :logo_path => license.logo_url,
                                     :type => 'License')
     end
-    
+
     unless location.blank?
       citables << EOL::Citable.new( :display_string => location,
                                     :type => 'Location')
     end
-    
+
     unless source_url.blank?
       citables << EOL::Citable.new( :link_to_url => source_url,
                                     :display_string => 'View original data object',
                                     :type => 'Source URL')
     end
-    
+
     unless created_at.blank? || created_at == '0000-00-00 00:00:00'
       citables << EOL::Citable.new( :display_string => created_at.strftime("%B %d, %Y"),
                                     :type => 'Indexed')
     end
-    
+
     unless bibliographic_citation.blank?
       citables << EOL::Citable.new( :display_string => bibliographic_citation,
                                     :type => 'Citation')
@@ -506,17 +505,17 @@ class DataObject < SpeciesSchemaModel
     return DataType.text_type_ids.include?(data_type_id)
   end
   alias is_text? text?
-  
+
   def video?
     return DataType.video_type_ids.include?(data_type_id)
   end
   alias is_video? video?
-  
+
   def iucn?
     return data_type_id == DataType.iucn.id
   end
   alias is_iucn? iucn?
-  
+
 
   # Convenience.  TODO - Stop calling this.  Use ContentServer directly.
   def self.cache_path(cache_url, subdir)
@@ -677,10 +676,10 @@ class DataObject < SpeciesSchemaModel
     vetted_id = opts[:vetted_id]
     visibility_id = opts[:visibility_id]
 
-    raise "Curator should supply at least visibility or vetted information" unless (vetted_id || visibility_id) 
-    
+    raise "Curator should supply at least visibility or vetted information" unless (vetted_id || visibility_id)
+
     if vetted_id
-      opts[:comment] = opts[:comment].blank? ? nil : comment(user, opts[:comment]) 
+      opts[:comment] = opts[:comment].blank? ? nil : comment(user, opts[:comment])
       case vetted_id.to_i
       when Vetted.untrusted.id
         untrust(user, opts)
@@ -691,7 +690,7 @@ class DataObject < SpeciesSchemaModel
       else
         raise "Cannot set data object vetted id to #{vetted_id}"
       end
-      
+
     end
 
     if visibility_id
@@ -709,7 +708,7 @@ class DataObject < SpeciesSchemaModel
     curator_activity_flag(user)
     update_solr_index(opts)
   end
-  
+
   def update_solr_index(options)
     return false if options[:vetted_id].blank? && options[:visibility_id].blank?
     solr_connection = SolrAPI.new($SOLR_SERVER_DATA_OBJECTS)
@@ -780,7 +779,7 @@ class DataObject < SpeciesSchemaModel
   end
 
   def curator_activity_flag(user, taxon_concept_id = nil)
-    unless taxon_concept_id 
+    unless taxon_concept_id
       tc = taxon_concepts(:published => :preferred).first
       taxon_concept_id = tc.id if tc
     end
@@ -873,7 +872,7 @@ class DataObject < SpeciesSchemaModel
     end
     return return_objects
   end
-  
+
   def self.images_for_taxon_concept(taxon_concept, options = {})
     options[:user] ||= User.create_new
     if options[:filter_by_hierarchy] && !options[:hierarchy].nil?
@@ -881,7 +880,7 @@ class DataObject < SpeciesSchemaModel
     end
     # the user/agent has the ability to see some unpublished images, so create a UNION
     show_unpublished = (options[:agent] || options[:user].is_curator? || options[:user].is_admin?)
-    
+
     if options[:filter_hierarchy]
       # strict lookup
       if entry_in_hierarchy = taxon_concept.entry(options[:filter_hierarchy], true)
@@ -917,7 +916,7 @@ class DataObject < SpeciesSchemaModel
         image_data_objects += taxon_concept.top_unpublished_concept_images.collect{ |tci| tci.data_object }
       end
     end
-    
+
     # remove anything this agent/user should not have access to
     image_data_objects = DataObject.filter_list_for_user(image_data_objects, options)
     # make the list unique by DataObject.guid
@@ -927,22 +926,22 @@ class DataObject < SpeciesSchemaModel
       unique_image_objects << r if used_guids[r.guid].blank?
       used_guids[r.guid] = true
     end
-    
+
     return [] if unique_image_objects.empty?
-    
+
     # sort the remainder by our rating criteria
     unique_image_objects = DataObject.sort_by_rating(unique_image_objects)
-    
+
     # get the rest of the metadata for the selected page
     image_page  = (options[:image_page] ||= 1).to_i
     start       = $MAX_IMAGES_PER_PAGE * (image_page - 1)
     last        = start + $MAX_IMAGES_PER_PAGE - 1
-    
+
     objects_with_metadata = eager_load_image_metadata(unique_image_objects[start..last].collect {|r| r.id})
     unique_image_objects[start..last] = objects_with_metadata unless objects_with_metadata.blank?
     return unique_image_objects
   end
-  
+
   def self.eager_load_image_metadata(data_object_ids)
     return nil if data_object_ids.blank?
     add_include = [ :all_comments ]
@@ -967,7 +966,7 @@ class DataObject < SpeciesSchemaModel
     return nil if obj.blank?
     return obj[0]
   end
-  
+
 
   def self.tc_ids_from_do_ids(obj_ids)
     obj_tc_id = {} #same Hash.new
@@ -1029,50 +1028,50 @@ class DataObject < SpeciesSchemaModel
     user.track_curator_activity(self, 'data_object', 'hide')
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.hide
   end
-  
+
   def inappropriate(user)
     vetted_by = user
     update_attributes({:visibility_id => Visibility.inappropriate.id, :curated => true})
     user.track_curator_activity(self, 'data_object', 'inappropriate')
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.inappropriate
   end
-  
+
   def flickr_photo_id
     if matches = source_url.match(/flickr\.com\/photos\/.*?\/([0-9]+)\//)
       return matches[1]
     end
     nil
   end
-  
+
   def published_entries
     hierarchy_entries.select{ |he| he.published == 1 && he.visibility_id == Visibility.visible.id }
   end
-  
+
   def first_concept_name
     sorted_entries = HierarchyEntry.sort_by_vetted(hierarchy_entries)
     sorted_entries[0].name.string rescue nil
   end
-  
+
   def first_concept_common_name
     taxon_concepts[0].preferred_common_names[0].name.string rescue nil
   end
-  
+
   def first_taxon_concept
     sorted_entries = HierarchyEntry.sort_by_vetted(hierarchy_entries)
     sorted_entries[0].taxon_concept rescue nil
   end
-  
+
   def first_hierarchy_entry
     sorted_entries = HierarchyEntry.sort_by_vetted(hierarchy_entries)
     sorted_entries[0] rescue nil
   end
-  
-  
+
+
   def rating_from_user(u)
     ratings_from_user = users_data_objects_ratings.select{ |udor| udor.user_id == u.id }
     return ratings_from_user[0] unless ratings_from_user.blank?
   end
-  
+
   def short_title
     return object_title unless object_title.blank?
     # TODO - ideally, we should extract some of the logic from data_objects/show to make this "Image of Procyon Lotor".
@@ -1095,7 +1094,7 @@ private
     untrust_reasons_comment = opts[:untrust_reasons_comment]
     update_attributes({:vetted_id => Vetted.untrusted.id, :curated => true})
     DataObjectsUntrustReason.destroy_all(:data_object_id => id)
-    
+
     these_untrust_reasons = []
     if untrust_reason_ids
       untrust_reason_ids.each do |untrust_reason_id|

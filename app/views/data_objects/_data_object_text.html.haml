@@ -1,4 +1,4 @@
-- title = @data_object.data_objects_table_of_contents[0].toc_item.label
+- title = @data_object.data_objects_table_of_contents.blank? ? '' : @data_object.data_objects_table_of_contents[0].toc_item.label
 - subtitle = @data_object.subtitle_to_show
 
 %div{ :id => "data_object_content_text" }

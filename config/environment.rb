@@ -284,6 +284,8 @@ if defined?(PhusionPassenger)
   PhusionPassenger.on_event(:starting_worker_process) do |forked|
     if forked # We're in smart spawning mode.
       $CACHE = Rails.cache.clone
+      # see http://tinyurl.com/4dz7awo for the fix for those using the built-in Rails.cache
+      $CACHE.instance_variable_get(:@data).reset if $CACHE.class == ActiveSupport::Cache::MemCacheStore
     else
       # We're in conservative spawning mode. We don't need to do anything.
     end

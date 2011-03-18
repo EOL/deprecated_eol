@@ -922,6 +922,8 @@ class TaxonConcept < SpeciesSchemaModel
       options[:vetted] = [Vetted.trusted]
     elsif options[:vetted] == "2"  # everything except untrusted
       options[:vetted] = [Vetted.trusted, Vetted.unknown]
+    else
+      options[:vetted] = nil
     end
     
     return_data_objects = []

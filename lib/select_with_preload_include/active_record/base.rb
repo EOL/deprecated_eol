@@ -49,17 +49,22 @@ module ActiveRecord
           chache_all_class_instances
           results = []
           ids.each do |id|
-            # look locally first then in Memcached
-            if $USE_LOCAL_CACHE_CLASSES && r = check_local_cache("instance_id_#{id}")
-              results << r.dup
-            else
-              r = cached_read("instance_id_#{id}")
-              if r
-                results << r
-                set_local_cache("instance_id_#{id}", r)
-              end
+            # # look locally first then in Memcached
+            # if $USE_LOCAL_CACHE_CLASSES && r = check_local_cache("instance_id_#{id}")
+            #   results << r.dup
+            # else
+            #   r = cached_read("instance_id_#{id}")
+            #   if r
+            #     results << r
+            #     set_local_cache("instance_id_#{id}", r)
+            #   end
+            # end
+            # break if options[:limit] && results.length >= options[:limit]
+            
+            if r = cached_read("instance_id_#{id}")
+              results << r
+              break if options[:limit] && results.length >= options[:limit]
             end
-            break if options[:limit] && results.length >= options[:limit]
           end
           results.compact
         end

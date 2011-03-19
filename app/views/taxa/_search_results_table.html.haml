@@ -34,7 +34,5 @@
             = result['scientific_shown_as']
             - unless result['recognized_by'].blank?
               %span.recognized_by= "Taxon recognized by #{result['recognized_by']}"
-      -# end results.each
     = will_paginate(results)
-  - # /search_results
   %br

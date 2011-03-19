@@ -326,11 +326,11 @@ class TaxaController < ApplicationController
   # allow re-use of form parameters for setting the page subtitle (preferred common name).
   def update_common_names
     if @taxon_concept.is_curatable_by?(current_user)
-      if !params[:preferred_name_id].nil?
+      unless params[:preferred_name_id].nil?
         name = Name.find(params[:preferred_name_id])
         language = Language.find(params[:language_id])
-        @taxon_concept.add_common_name_synonym(name.string, :agent => current_user.agent, :language => language, :preferred => 1,
-                                    :vetted => Vetted.trusted)
+        @taxon_concept.add_common_name_synonym(name.string, :agent => current_user.agent, :language => language,
+                                               :preferred => 1, :vetted => Vetted.trusted)
         expire_taxa([@taxon_concept.id])
         @taxon_concept.subtitle = "<i>#{name.string}</i>"
       end

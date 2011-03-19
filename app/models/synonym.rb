@@ -116,14 +116,18 @@ private
 
   def create_taxon_concept_name
     vern = (language_id == 0 or language_id == Language.scientific.id) ? false : true
-    TaxonConceptName.create(:synonym_id => id, 
-                            :language_id => language_id,
-                            :name_id => name_id,
-                            :preferred => self.preferred,
-                            :source_hierarchy_entry_id => hierarchy_entry_id,
-                            :taxon_concept_id => hierarchy_entry.taxon_concept_id,
-                            :vetted_id => vetted_id,
-                            :vern => vern)
+    begin
+      TaxonConceptName.create(:synonym_id => id, 
+                              :language_id => language_id,
+                              :name_id => name_id,
+                              :preferred => self.preferred,
+                              :source_hierarchy_entry_id => hierarchy_entry_id,
+                              :taxon_concept_id => hierarchy_entry.taxon_concept_id,
+                              :vetted_id => vetted_id,
+                              :vern => vern)
+    rescue ActiveRecord::StatementInvalid
+      nil # Duplicate entry... but for WHATEVER reason, searching for it before hand with #exists? didn't work.  (WTF?)
+    end
   end
 
   def set_preferred_true_for_last_synonym

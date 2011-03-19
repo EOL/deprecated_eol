@@ -70,8 +70,8 @@ liger_cat_hierarchy = Hierarchy.gen_if_not_exists(:label          => 'LigerCat',
                                    :outlink_uri    => 'http://ligercat.ubio.org/eol/%%ID%%.cloud',
                                    :url            => 'http://ligercat.ubio.org',
                                    :agent_id => boa_agent.id)
-liget_cat_resource = Resource.gen_if_not_exists(:title => 'LigerCat resource')
-AgentsResource.gen(:resource => liget_cat_resource, :agent => boa_agent)
+liger_cat_resource = Resource.gen_if_not_exists(:title => 'LigerCat resource')
+AgentsResource.gen(:resource => liger_cat_resource, :agent => boa_agent)
 links = CollectionType.gen_if_not_exists(:label => "Links")
 lit   = CollectionType.gen_if_not_exists(:label => "Literature")
 CollectionTypesHierarchy.gen(:hierarchy => liger_cat_hierarchy, :collection_type => links)

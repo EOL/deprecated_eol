@@ -205,7 +205,12 @@ class UUID
     if state_file && File.size?(state_file) then
       next_sequence
     else
-      @mac = Mac.addr.gsub(/:|-/, '').hex & 0x7FFFFFFFFFFF
+      raw_mac = begin
+        Mac.addr
+      rescue RuntimeError
+        '00:0c:29:19:82:76' # EOL's "fake" MAC address, for use on virtual machines.
+      end
+      @mac = raw_mac.gsub(/:|-/, '').hex & 0x7FFFFFFFFFFF
       fail "Cannot determine MAC address from any available interface, tried with #{Mac.addr}" if @mac == 0
       @sequence = rand 0x10000
 

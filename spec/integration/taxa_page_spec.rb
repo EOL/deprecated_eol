@@ -109,19 +109,21 @@ describe 'Taxa page (HTML)' do
     $CACHE.clear
     @toc_item_with_no_trusted_items = TocItem.gen_if_not_exists(:label => 'Untrusted Stuff')
     @taxon_concept.add_toc_item(@toc_item_with_no_trusted_items, :vetted => false)
-
+    
     @curator       = build_curator(@taxon_concept)
     Comment.find_by_body(@comment_bad).hide User.last
-    # doesn't work, why?
-    @taxon_concept.reload
-    visit("/pages/#{@id}") # cache the response the taxon page gives before changes
-    @result        = page
     
     @taxon_concept_with_unvetted_images = build_taxon_concept(:images => 
       [{:vetted => Vetted.untrusted}, 
        {:vetted => Vetted.unknown},
        {}])
-
+    
+    make_all_nested_sets
+    flatten_hierarchies
+    
+    @taxon_concept.reload
+    visit("/pages/#{@id}") # cache the response the taxon page gives before changes
+    @result = page
   end
 
   # after :all do

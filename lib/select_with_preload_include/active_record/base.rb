@@ -60,6 +60,11 @@ module ActiveRecord
               end
             end
             break if options[:limit] && results.length >= options[:limit]
+            
+            # if r = cached_read("instance_id_#{id}")
+            #   results << r
+            #   break if options[:limit] && results.length >= options[:limit]
+            # end
           end
           results.compact
         end

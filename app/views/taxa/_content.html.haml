@@ -2,7 +2,7 @@
 %a{ :name => "center_content" }
 .cpc-header
   - unless @content.nil?
-    - toc_item = TocItem.find_by_label(@content[:category_name])
+    - toc_item = TocItem.find(@category_id, :include => :info_items, :select => { :table_of_contents => '*', :info_items => :id } )
     - if toc_item.allow_user_text?
       .multi_new_text_error{ :style => "display:none;" }
         Only one text object can be edited at a time.

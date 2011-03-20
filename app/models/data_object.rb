@@ -77,12 +77,13 @@ class DataObject < SpeciesSchemaModel
       vetted_view_order = obj.vetted.blank? ? 0 : obj.vetted.view_order
       visibility_view_order = 1
       visibility_view_order = 2 if obj.visibility_id == Visibility.preview.id
+      inverted_rating = obj.data_rating * -1
 
       [obj.data_type_id,
        toc_view_order,
        visibility_view_order,
        vetted_view_order,
-       Invert(obj.data_rating)]
+       inverted_rating]
     end
   end
 
@@ -374,7 +375,7 @@ class DataObject < SpeciesSchemaModel
   end
 
   def rating_for_user(user)
-    UsersDataObjectsRating.find_by_data_object_guid_and_user_id(guid, user.id)
+    users_data_objects_ratings.detect{ |udor| udor.user_id == user.id }
   end
 
   # Add a comment to this data object
@@ -904,7 +905,7 @@ class DataObject < SpeciesSchemaModel
           [ :hierarchy_entries => { :hierarchy => :agent } ],
           :select => {
             :hierarchy_entries => :hierarchy_id,
-            :agents => :id } )
+            :agents => [:id, :full_name, :acronym, :display_name, :homepage, :username, :logo_cache_url] } )
       end
       if show_unpublished
         TaxonConcept.preload_associations(taxon_concept,
@@ -912,7 +913,7 @@ class DataObject < SpeciesSchemaModel
           :select => {
             :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ],
             :hierarchy_entries => :hierarchy_id,
-            :agents => :id } )
+            :agents => [:id, :full_name, :acronym, :display_name, :homepage, :username, :logo_cache_url] } )
         image_data_objects += taxon_concept.top_unpublished_concept_images.collect{ |tci| tci.data_object }
       end
     end
@@ -939,6 +940,9 @@ class DataObject < SpeciesSchemaModel
 
     objects_with_metadata = eager_load_image_metadata(unique_image_objects[start..last].collect {|r| r.id})
     unique_image_objects[start..last] = objects_with_metadata unless objects_with_metadata.blank?
+    if options[:user] && options[:user].is_curator? && options[:user].can_curate?(options[:taxon])
+      DataObject.preload_associations(unique_image_objects[start..last], :users_data_objects_ratings, :conditions => "users_data_objects_ratings.user_id=#{options[:user].id}")
+    end
     return unique_image_objects
   end
 
@@ -955,9 +959,6 @@ class DataObject < SpeciesSchemaModel
     obj = DataObject.find_by_sql("SELECT do.* FROM data_objects do_old JOIN data_objects do ON (do_old.guid=do.guid) WHERE do_old.id=#{data_object_id} AND do.published=1 ORDER BY id desc LIMIT 1")
     return nil if obj.blank?
     return obj[0]
-  end
-  def latest_published_version
-    DataObject.latest_published_version_of_guid(guid)
   end
   def self.latest_published_version_of_guid(guid, options={})
     options[:return_only_id] ||= false

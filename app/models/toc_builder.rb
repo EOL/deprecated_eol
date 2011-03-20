@@ -95,7 +95,7 @@ private
     end
     
     # Add stats if there are any
-    unless TaxonConcept.entry_stats(taxon_concept.id).blank?
+    if taxon_concept.has_stats?
       toc << TocEntry.new(TocItem.content_summary)
     end
     

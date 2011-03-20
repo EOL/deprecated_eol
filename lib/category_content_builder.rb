@@ -31,7 +31,13 @@ class CategoryContentBuilder
   end
 
   def synonyms(options)
-    return {:items => options[:taxon_concept].synonyms}
+    TaxonConcept.preload_associations(options[:taxon_concept],
+      { :published_hierarchy_entries => [ :name, { :scientific_synonyms => [ :synonym_relation, :name ] } ] },
+      :select => {
+        :hierarchy_entries => [ :id, :name_id, :hierarchy_id, :taxon_concept_id ],
+        :names => [ :id, :string ],
+        :synonym_relations => [ :id, :label ] } )
+    return { :items => options[:taxon_concept] }
   end
 
   def common_names(options)
@@ -42,7 +48,7 @@ class CategoryContentBuilder
   end
 
   def content_summary(options)
-    hash = TaxonConcept.entry_stats(options[:taxon_concept].id)
+    hash = options[:taxon_concept].published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
     return {:items => hash}
   end
 

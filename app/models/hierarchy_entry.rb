@@ -32,12 +32,12 @@ class HierarchyEntry < SpeciesSchemaModel
   has_one :hierarchy_entry_stat
   
   define_core_relationships :select => {
-      :hierarchy_entries => [ :id, :identifier, :hierarchy_id, :parent_id, :lft, :rgt, :taxon_concept_id ],
+      :hierarchy_entries => [ :id, :identifier, :hierarchy_id, :parent_id, :lft, :rgt, :taxon_concept_id, :rank_id ],
       :ranks => :label,
       :names => [ :string, :italicized ],
       :canonical_forms => :string,
       :hierarchies_content => [ :content_level, :image, :text, :child_image ]},
-    :include => [{ :name => :canonical_form }, :rank, :hierarchies_content ]
+    :include => [ :name, :hierarchies_content ]
   
   def self.sort_by_lft(hierarchy_entries)
     hierarchy_entries.sort_by{ |he| he.lft }
@@ -106,7 +106,7 @@ class HierarchyEntry < SpeciesSchemaModel
     # TODO: reimplement completing a partial hierarchy with another curated hierarchy
     add_include = []
     add_select = {}
-    if params[:include_stats]
+    unless params[:include_stats].blank?
       add_include << :hierarchy_entry_stat
       add_select[:hierarchy_entry_stats] = '*'
     end
@@ -128,7 +128,7 @@ class HierarchyEntry < SpeciesSchemaModel
   def children(params = {})
     add_include = []
     add_select = {}
-    if params[:include_stats]
+    unless params[:include_stats].blank?
       add_include << :hierarchy_entry_stat
       add_select[:hierarchy_entry_stats] = '*'
     end

@@ -83,7 +83,7 @@
             = "&#169 #{image.rights_holder}."
             %br/
           = image.license.description
-        - unless image.license.logo_url.blank?
+        - unless image.license.blank? || image.license.logo_url.blank?
           = '&nbsp;&nbsp;'
           = link_to(image_tag(image.license.logo_url), image.license.source_url, :class => "external_link")
         %br/

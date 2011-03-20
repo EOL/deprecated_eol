@@ -44,6 +44,9 @@ module ActiveRecord
         end
         set_local_cache(key, r)
         r
+        # cached("#{field}/#{value}", options) do
+        #   send("find_by_#{field}", value, :include => options[:include])
+        # end
       end
       
       def cached_read(key)

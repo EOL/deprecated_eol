@@ -46,10 +46,8 @@ describe Hierarchy do
   it "returns all browsable hierarchies for a taxon concept" do
     taxon_concept = build_taxon_concept()
     hierarchies = Hierarchy.browsable_for_concept(taxon_concept)
-    hierarchies.size.should > 0
-    browsables = hierarchies.map {|h| h.browsable}.uniq
-    browsables.size.should == 1
-    browsables[0].should == 1
+    hierarchies.size.should == 1
+    hierarchies[0].id.should == Hierarchy.default.id
   end
 
   it "should return descriptive label, if exists, the label otherwise" do

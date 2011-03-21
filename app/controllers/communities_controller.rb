@@ -5,7 +5,7 @@ class CommunitiesController < ApplicationController
   before_filter :restrict_edit_and_delete, :only => [:edit, :update, :delete]
 
   def index
-    @communities = Community.paginate(:page => params[:page]) 
+    @communities = Community.paginate(:page => params[:page])
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @communities }

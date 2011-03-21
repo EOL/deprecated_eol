@@ -15,7 +15,7 @@
   - else
     = render :partial => 'members/index', :locals => {:i_am_in_this_community => i_am_in_this_community, :member_function => member_function, :non_member_function => non_member_function }
 .actions
-  - if not logged_in?
+  - if @member
     = "You must be"[]
     = link_to("logged in"[], login_path)
     = "to join communities."[]

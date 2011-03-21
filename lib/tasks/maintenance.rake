@@ -3,9 +3,11 @@ require 'zlib'
 namespace :dato do
   desc "Recalculate data object rating, if it is 0"
   task :recalculate_rating => :environment do
-    zero_rating_datos = DataObject.find_all_by_data_rating(0)
-    zero_rating_datos.each do |dato|
-      dato.recalculate_rating
+    zero_rating_datos = DataObject.find_by_sql("select id, guid, data_rating from data_objects where guid in (select distinct data_object_guid from #{UsersDataObjectsRating.full_table_name})")
+    DataObject.transaction do
+      zero_rating_datos.each do |dato|
+        dato.recalculate_rating
+      end
     end
   end
 end

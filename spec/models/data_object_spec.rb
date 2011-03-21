@@ -177,6 +177,7 @@ describe DataObject do
   it "should be able to recalculate rating" do
     d = DataObject.gen
     u1 = User.gen
+    u2 = User.gen
     d.data_rating.should == 2.5
     d.data_rating = 0
     d.save!
@@ -184,12 +185,13 @@ describe DataObject do
     d.recalculate_rating
     d.data_rating.should == 2.5
     d.rate(u1, 4)
-    d.data_rating.should == 4
+    d.rate(u2, 3)
+    d.data_rating.should == 3.5
     d.data_rating = 0
     d.save!
     d.data_rating.should == 0
     d.recalculate_rating
-    d.data_rating.should == 4
+    d.data_rating.should == 3.5
   end
 
   it 'ratings should show rating for old and new version of re-harvested dato' do

@@ -35,15 +35,6 @@ describe Community do
     c.add_default_roles
   end
 
-  it 'should be able to add a member' do
-    c = Community.gen
-    c.members.should be_blank
-    u = User.gen
-    u.member_of?(c).should be_false
-    c.add_member(u)
-    u.member_of?(c).should be_true
-  end
-
   it 'should be able to create the special community' do
     Community.delete_all(:name => $SPECIAL_COMMUNITY_NAME)
     Community.special.should be_nil
@@ -67,18 +58,9 @@ describe Community do
     community.members.should be_blank
     user = User.gen
     another_user = User.gen
-    community.add_member(user)
-    community.has_member?(user).should be_true
+    Member.create!(:user_id => user.id, :community_id => community.id)
+    community.reload.has_member?(user).should be_true
     community.has_member?(another_user).should_not be_true
-  end
-
-  it 'should be able to remove a member' do
-    community = Community.gen
-    user = User.gen
-    community.add_member(user)
-    community.has_member?(user).should be_true
-    community.remove_member(user)
-    community.has_member?(user).should_not be_true
   end
 
   it 'should have a #focus named "{name}\'s Focus"' do

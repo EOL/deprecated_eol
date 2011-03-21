@@ -16,6 +16,29 @@ describe Member do
     @has_role.add_privilege(@role_privilege)
   end
 
+  it "should be not able to create a member with the same user and community" do
+    expect { Member.create!(:user=> @user, :community => @community.id) }.to raise_error
+  end
+
+  it "should be able to create a member" do
+    user = User.gen
+    count = Member.count
+    member = Member.create!(:user_id => user.id, :community_id => @community.id)
+    (Member.count - count).should == 1
+    member.community.should == @community
+    member.user.should == user
+  end
+
+  it "should be able to destroy a member" do
+    user = User.gen
+    member = Member.create!(:user_id => user.id, :community_id => @community.id)
+    count = Member.count
+    member_id = member.id
+    member.destroy
+    (Member.count - count).should == -1
+    Member.find_by_id(member_id).should be_nil
+  end
+
   before(:each) do
     @member.roles = [@has_role]
     MemberPrivilege.delete_all(:member_id => @member.id)

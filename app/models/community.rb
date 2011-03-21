@@ -55,20 +55,6 @@ class Community < ActiveRecord::Base
     Role.add_defaults_to_community(self)
   end
 
-  # # Returns the new member.
-  # def add_member(user)
-  #   member = Member.create!(:user_id => user.id, :community_id => id)
-  #   members << member
-  #   member
-  # end
-
-  def remove_member(user)
-    member = Member.find_by_user_id_and_community_id(user.id, id)
-    raise "Couldn't find a member for this user"[:could_not_find_user] unless member
-    member.destroy
-    self.reload
-  end
-
   def has_member?(user)
     members.map {|m| m.user_id}.include?(user.id)
   end

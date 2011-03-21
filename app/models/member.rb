@@ -10,13 +10,13 @@ class Member < ActiveRecord::Base
   belongs_to :user
 
   has_many :member_privileges
- 
+
   has_and_belongs_to_many :roles
 
   validates_uniqueness_of :user_id, :scope => :community_id
 
   #TODO - named scopes for granted privileges and revoked privileges...
-
+  #TODO - not restful approach, try to make it restful/resourceful
   def add_role(role)
     self.roles << role unless has_role?(role)
   end

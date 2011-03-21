@@ -6,11 +6,19 @@ class MembersController < ApplicationController
   before_filter :restrict_delete, :only => [:delete]
 
   def index
-    @members = Member.paginate(:page => params[:page]) 
+    @members = Member.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @members }
+    end
+  end
+
+  def create
+    @current_member = Member.create!(:community_id => params[:community][:id], :user_id => current_user.id)
+    respond_to do |format|
+      format.html { redirect_to(@community, :notice => 'You have successfully became a member of the community.'[:you_added_a_member_from_the_community]) }
+      format.js { @community.members << @current_member }
     end
   end
 
@@ -38,7 +46,7 @@ class MembersController < ApplicationController
   end
 
   def destroy
-    @community.remove_member(@member)
+    @member.destroy
     respond_to do |format|
       format.html { redirect_to(@community, :notice => 'You have successfully removed this member from the community.'[:you_removed_the_member_from_the_community]) }
     end
@@ -67,16 +75,18 @@ class MembersController < ApplicationController
 private
 
   def load_community_and_current_member
-    @community = Community.find(params[:community_id])
-    @current_member = current_user.member_of(@community)
+    @member = params[:id] ? Member.find(params[:id]) : nil
+    @community = @member ? @member.community : Community.find(params[:community][:id])
+    @current_member = (@member && current_user.id == @member.user.id) ? @member : nil
+    # @community = Community.find(params[:community_id])
+    # @current_member = current_user.member_of(@community)
   end
 
   def load_member
-    @member = Member.find(params[:id] || params[:member_id])
-    unless @member && @member.community_id == @community.id
-      flash[:error] = "Cannot find a member with this id."[:cannot_find_member]
-      return redirect_to(@community)
-    end
+    # unless @member && @member.community_id == @community.id
+    #   flash[:error] = "Cannot find a member with this id."[:cannot_find_member]
+    #   return redirect_to(@community)
+    # end
   end
 
   def restrict_edit

@@ -75,7 +75,7 @@ class CommunitiesController < ApplicationController
   end
 
   def leave
-    @community.remove_member(current_user)
+    @current_member.destroy if @current_member
     respond_to do |format|
       format.html { redirect_to(@community, :notice => 'You have successfully left this community.'[:you_left_community]) }
     end
@@ -84,7 +84,6 @@ class CommunitiesController < ApplicationController
 private
 
   def load_community_and_dependent_vars
-    debugger if params[:id] !~ /^\d+$/
     @community = Community.find(params[:community_id] || params[:id])
     @members = @community.members # Because we pull in partials from the members controller.
     @current_member = current_user.member_of(@community)

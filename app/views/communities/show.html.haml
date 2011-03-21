@@ -21,17 +21,24 @@
     = "to join communities."[]
   - else
     %ul{:id => 'community_actions'}
-      %li{:id => 'join_community', :class => non_member_function}
-        = link_to("Join this community"[:join_community], join_community_path(@community.id))
-        = ajax_spinner
-      %li{:id => 'leave_community', :class => member_function}
-        = link_to("Leave this community"[:join_community], leave_community_path(@community.id))
-        = ajax_spinner
-      - if @current_member && @current_member.can?(Privilege.edit_delete_community)
-        %li{:id => 'edit_community', :class => member_function}
-          = link_to("Edit this community"[:edit_community], edit_community_path(@community))
-        %li{:id => 'delete_community', :class => member_function}
-          = link_to("Delete this community"[:delete_community], community_path(@community), :confirm => "Are you sure?"[], :method => :delete)
+      - if @current_member
+        %li{:id => 'leave_community', :class => member_function}
+          %form{ :method => 'post', :action => member_path(@current_member.id) }
+            %input{ :type => :hidden, :name => '_method', :value => 'delete' }
+            %input{ :type => :hidden, :name => 'member[id]', :value => @current_member.id }
+            %input{ :type => :submit, :name => 'submit', :value => 'Leave community' }
+          = ajax_spinner
+        - if @current_member.can?(Privilege.edit_delete_community)
+          %li{:id => 'edit_community', :class => member_function}
+            = link_to("Edit this community"[:edit_community], edit_community_path(@community))
+          %li{:id => 'delete_community', :class => member_function}
+            = link_to("Delete this community"[:delete_community], community_path(@community), :confirm => "Are you sure?"[], :method => :delete)
+      - else
+        %li{:id => 'join_community', :class => non_member_function}
+          %form{ :method => "post", :action => "/members" }
+            %input{ :type => :hidden, :name => "community[id]", :value => @community.id }
+            %input{ :type => :submit, :name => 'submit', :value => 'Join community' }
+          = ajax_spinner
 .focus
   %h3= "Taxa"[]
   - if @community.focus.nil?

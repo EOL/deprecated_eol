@@ -26,7 +26,7 @@ class Community < ActiveRecord::Base
 
   def self.create_special
     special = Community.special
-    if special.nil? 
+    if special.nil?
       special = Community.create(:name => $SPECIAL_COMMUNITY_NAME,
                                  :description => 'This is a special community for the curtors and admins of EOL.',
                                  :show_special_privileges => 1)
@@ -40,7 +40,7 @@ class Community < ActiveRecord::Base
     end
   end
 
-  # TODO - test 
+  # TODO - test
   # Adds the default roles, auto-joins the user to the community, and makes that person the owner.
   def initialize_as_created_by(user)
     new_roles = Role.add_defaults_to_community(self)
@@ -55,12 +55,12 @@ class Community < ActiveRecord::Base
     Role.add_defaults_to_community(self)
   end
 
-  # Returns the new member.
-  def add_member(user)
-    member = Member.create!(:user_id => user.id, :community_id => id)
-    members << member
-    member
-  end
+  # # Returns the new member.
+  # def add_member(user)
+  #   member = Member.create!(:user_id => user.id, :community_id => id)
+  #   members << member
+  #   member
+  # end
 
   def remove_member(user)
     member = Member.find_by_user_id_and_community_id(user.id, id)
@@ -73,7 +73,7 @@ class Community < ActiveRecord::Base
     members.map {|m| m.user_id}.include?(user.id)
   end
 
-private 
+private
 
   def attatch_focus
     # TODO - i18n

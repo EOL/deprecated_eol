@@ -22,7 +22,7 @@ describe 'Feeds' do
     after(:all) do
       truncate_all_tables
     end
-    
+
     it "should render: 'text', 'images', 'comments', 'all' feeds" do
       @feeds.each do |feed_url|
         visit("#{feed_url}#{@tc.id}")
@@ -30,7 +30,7 @@ describe 'Feeds' do
         body.should have_tag("feed")
       end
     end
-    
+
     it "should show information in a time descentind order" do
       @feeds.each do |feed_url|
         visit(feed_url)
@@ -38,13 +38,13 @@ describe 'Feeds' do
         dates.should == dates.sort.reverse
       end
     end
-    
+
     # this test is strange. the whole spec could use rewriting
     # it "should should only information about a specific species if species are selected" do
     #   #Brittle test, may be is should be removed...
-    #   # Wish we had a better way to see if all info is about the same species. 
+    #   # Wish we had a better way to see if all info is about the same species.
     #   # Picking species name from the title and mangle it to get a canonical name
-    #   
+    #
     #   res = request("/feeds/all/#{@tc.id}")
     #   titles =  Nokogiri.XML(res.body).xpath("//xmlns:title").map {|i| i.text.match /new\s+(image|text|comment|)\s+for\s+(.*)\s*$/i}
     #   titles = titles.select {|i| i}.map {|i| i[2].strip.split(/\s+/)[0..1].join(" ")}
@@ -67,9 +67,9 @@ describe 'Feeds' do
       body.should include(h @text[0].description)
       body.should include(h @images[0].description)
       #body.downcase.should include('new comment')
-      
+
       #visit("/feeds/all/")
-      #body.downcase.should include('new image')  don't get any images in first 100 results 
+      #body.downcase.should include('new image')  don't get any images in first 100 results
       #body.downcase.should include('new text')
       #body.downcase.should include('new comment')
     end
@@ -78,40 +78,40 @@ describe 'Feeds' do
 
 
   describe ': content partner curated data' do
-    before(:all) do   
+    before(:all) do
       truncate_all_tables
       load_foundation_cache
-      
+
       @agent = Agent.gen(:full_name => 'FishBase')
       @resource = Resource.gen(:title => "test resource")
       @agent_resource = AgentsResource.gen(:agent_id => @agent.id, :resource_id => @resource.id)
-      last_month = Time.now - 1.month      
+      last_month = Time.now - 1.month
       @harvest_event = HarvestEvent.gen(:resource_id => @resource.id, :published_at => last_month)
       @data_object = DataObject.gen(:published => 1, :vetted_id => Vetted.trusted.id)
       @data_objects_harvest_event = DataObjectsHarvestEvent.gen(:data_object_id => @data_object.id, :harvest_event_id => @harvest_event.id)
-      
+
       @taxon_concept = TaxonConcept.gen(:published => 1, :supercedure_id => 0)
       @data_objects_taxon_concept = DataObjectsTaxonConcept.gen(:data_object_id => @data_object.id, :taxon_concept_id => @taxon_concept.id)
 
       @action_with_object = ActionWithObject.gen_if_not_exists(:action_code => 'trusted')
       @changeable_object_type = ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'data_object')
-      @action_history = ActionsHistory.gen(:object_id => @data_object.id, :action_with_object_id => @action_with_object.id, :changeable_object_type_id => @changeable_object_type.id)     
-    end  
+      @action_history = ActionsHistory.gen(:object_id => @data_object.id, :action_with_object_id => @action_with_object.id, :changeable_object_type_id => @changeable_object_type.id)
+    end
 
-    it "should show feed with all curation activity for a content partner" do          
+    it "should show feed with all curation activity for a content partner" do
       visit("/feeds/partner_curation?agent_id=#{@agent.id}")
       body.should include "#{@agent.full_name} curation activity"
     end
 
-    it "should show feed for a month's curation activity for a content partner" do          
-      last_month = Time.now - 1.month      
+    it "should show feed for a month's curation activity for a content partner" do
+      last_month = Time.now - 1.month
       @report_year = last_month.year.to_s
       @report_month = last_month.month.to_s
-      @year_month   = @report_year + "_" + "%02d" % @report_month.to_i      
+      @year_month   = @report_year + "_" + "%02d" % @report_month.to_i
       visit("/feeds/partner_curation?agent_id=#{@agent.id}&year_month=#{URI.escape @year_month}")
       body.should include "#{@agent.full_name} curation activity"
     end
-  end      
+  end
 
 end
 

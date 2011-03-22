@@ -29,7 +29,7 @@ module ApplicationHelper
     return if text.nil?
     l = length - truncate_string.length
     text.length > length ? text[/\A.{#{l}}\w*\;?/m][/.*[\w\;]/m] + truncate_string : text
-  end  
+  end
 
   def format_date_time(inTime,params={})
     return '[blank]' if inTime.blank?
@@ -60,7 +60,7 @@ module ApplicationHelper
     end
     result
   end
-  
+
   def external_link_icon
     image_tag('external_link.png',{:alt => 'external link', :title => 'external link'})
   end
@@ -68,12 +68,12 @@ module ApplicationHelper
   def taxon_concept_comments_path(taxon_concept)
     return "/taxon_concepts/#{taxon_concept.id}/comments/"
   end
-       
+
   # format numbers with commas for digit separators
   def format_number_with_commas(st)
     st.to_s.gsub(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1,")
   end
-   
+
   # take an input string, split it up by spaces and return a comma delimited list of the words
   def meta_keywords(input_string,strip_html=true)
     keyword_list=''
@@ -82,7 +82,7 @@ module ApplicationHelper
     keyword_list.chop! if keyword_list.length>0
     return keyword_list
   end
-   
+
   # Link to a single stylesheet by first looking for a language version (stylesheet-<language>.css) or defaulting
   # to the provided stylesheet if the language version is not found.
   def eol_lang_main_stylesheet(stylesheet, options = {})
@@ -118,14 +118,14 @@ module ApplicationHelper
       end
       options[:header_message] = "Validation Error"[] unless options.include?(:header_message)
       options[:message] ||= "There were problems with the following fields:"[:validation_following_fields] unless options.include?(:message)
-      
+
       # <custom>
       # Invert the default error messages so we can look them up easily for translation
-      default_error_messages_inverted = ActiveRecord::Errors.default_error_messages.invert      
-      
+      default_error_messages_inverted = ActiveRecord::Errors.default_error_messages.invert
+
       # Translate error messages
-      error_messages = objects.map do |obj| 
-        obj.errors.map do |field, error| 
+      error_messages = objects.map do |obj|
+        obj.errors.map do |field, error|
           # Try translating the field name
           field = ActiveRecord::Base.human_attribute_name(field)[]
 
@@ -137,23 +137,23 @@ module ApplicationHelper
           #   Use this for Gibberish to translate with variables
           error_attributes = error.scan(/\d+/)
           error_default = error.gsub(/\d+/,"%d")
-          error_translate = error.gsub(/\d+/,"{n}") # 
+          error_translate = error.gsub(/\d+/,"{n}") #
           error_index = default_error_messages_inverted[error_default]
 
           error = error_translate["validation_#{error_index}".to_sym, *error_attributes]
-          
+
           if error =~ /^\^/
             error_display = error[1..-1]
           else
-            error_display =  "#{field == 'Base' ? '' : field} #{error}" 
+            error_display =  "#{field == 'Base' ? '' : field} #{error}"
           end
-          
+
           content_tag(:li,error_display)
         end
       end
-      
+
       # </custom>
-      
+
       contents = ''
       contents << content_tag(options[:header_tag] || :h2, options[:header_message]) unless options[:header_message].blank?
       contents << content_tag(:p, options[:message]) unless options[:message].blank?
@@ -164,7 +164,7 @@ module ApplicationHelper
       ''
     end
   end
-  
+
   def back_or_home(back_url)
     if back_url.blank?
       root_url
@@ -172,7 +172,7 @@ module ApplicationHelper
       URI.decode(back_url)
     end
   end
-  
+
   def random_image_thumb_partial(random_image, image_id_name = '', new_window = false)
     return_html=""
     unless random_image.nil?
@@ -190,15 +190,15 @@ module ApplicationHelper
 
   # NOTE - these next two methods replace older versions.  The old ones used "raw" html, these use haml.  If you find this is
   # causing errors, go back in time to October 12th and grab the methods.
-  
+
   def agent_logo(agent, size = "large", params={})
     return nil if agent.blank?
     src = (agent.logo_cache_url != 0) ? agent.logo_url(size) : agent.logo_file_name
     return src if src.empty?
     project_name = hh(sanitize(agent.project_name))
     capture_haml do
-      haml_tag :img, {:width => params[:width], :height => params[:height], 
-                      :src => src,  :border => 0, :alt => project_name, 
+      haml_tag :img, {:width => params[:width], :height => params[:height],
+                      :src => src,  :border => 0, :alt => project_name,
                       :title => project_name, :class => "agent_logo"}
     end
   end
@@ -212,11 +212,11 @@ module ApplicationHelper
       var_date = var_date - 1.month
       str = var_date.year.to_s + "_" + "%02d" % var_date.month.to_s
       arr << [var_date.strftime("%B %Y"), str]
-    end    
+    end
     return arr
   end
 
-  # TODO - change these methods to haml methods after conversion 
+  # TODO - change these methods to haml methods after conversion
   def external_link_to(*args, &block)
     #return text if link is blank
     return args[0] if args[1]==nil || args[1].blank?
@@ -232,7 +232,7 @@ module ApplicationHelper
     end
     link_to(args[0],args[1],html_options, &block)
   end
-  
+
   def random_image_linked_name(random_image, new_window = false)
     return_html=""
     unless random_image.nil?
@@ -254,7 +254,7 @@ module ApplicationHelper
     end
     text
   end
-  
+
   # render a version of the classification that allows you to choose a particular clade
   #
   # Usage:
@@ -275,10 +275,10 @@ module ApplicationHelper
   #
   def clade_selector field_name = 'selected-clade-id', options = {}
     if field_name.is_a?Hash
-      options = field_name 
+      options = field_name
       field_name = 'selected-clade-id' # If you change this default id, please also change it in navigation.js; sorry!
     end
-    options = { 
+    options = {
       :value => nil,
       :id => 'clade-selector',
       :visible => false,
@@ -325,7 +325,7 @@ module ApplicationHelper
 
   # class used for an image_button_group
   #
-  # when you say <%= group.image_button %> you're calling #image_button 
+  # when you say <%= group.image_button %> you're calling #image_button
   # on an instance of ImageButtonGroup
   #
   class ImageButtonGroup
@@ -355,7 +355,7 @@ module ApplicationHelper
     description = options[:agent_name] ? "From #{options[:agent_name]}" : ''
     "<img src=\"/images/icons/published.png\" alt=\"#{description}\" title=\"#{description}\" #{style} />"
   end
-  
+
   def tree_entry_text(he, selectable, div_id)
     begin
       name = he.italicized_name.firstcap
@@ -371,7 +371,7 @@ module ApplicationHelper
     selection_link += " &nbsp; " + expansion_link if he.number_of_descendants != 0
     selection_link
   end
-  
+
   @@TOOLTIP_GLOBAL_COUNT = 0
   def define_term(term)
     if glossary_term = GlossaryTerm.find_by_term(term)
@@ -390,8 +390,8 @@ module ApplicationHelper
                         :onclick => "javascript:window.location='#{url}';"}
     end
   end
-  
-  # display links to taxon concepts, if they are published. A message otherwise. 
+
+  # display links to taxon concepts, if they are published. A message otherwise.
   # NOTE: we assume all taxon concepts are either published or not
   def taxon_concept_link(taxon_concept = nil, options = {})
     capture_haml do

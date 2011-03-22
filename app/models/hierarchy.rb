@@ -1,12 +1,12 @@
 # Represents a version of the Tree of Life
 #
-# Because the tree changes as new species are discovered and other species are 
-# reclassified, etc, there's a Hierarchy object available for each version 
+# Because the tree changes as new species are discovered and other species are
+# reclassified, etc, there's a Hierarchy object available for each version
 # of the Tree of Life that's been imported, eg.
 #
 #   >> Hierarchy.all.map &:label
 #   => [
-#        "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007", 
+#        "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007",
 #        "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2008"
 #      ]
 #
@@ -21,19 +21,19 @@ class Hierarchy < SpeciesSchemaModel
 
 
   alias entries hierarchy_entries
-  
+
   def self.browsable_by_label
     cached('browsable_by_label') do
       Hierarchy.browsable.sort_by {|h| h.form_label }
     end
   end
-  
+
   def self.taxonomy_providers
     cached('taxonomy_providers') do
       ['Integrated Taxonomic Information System (ITIS)', 'CU*STAR Classification', 'NCBI Taxonomy', 'Index Fungorum', $DEFAULT_HIERARCHY_NAME].collect{|label| Hierarchy.find_by_label(label, :order => "hierarchy_group_version desc")}
     end
   end
-  
+
   def self.iucn_hierarchies
     cached('iucn_hierarchies') do
       Hierarchy.find_all_by_id(Agent.iucn.resources.collect{ |r| r.hierarchy_id })
@@ -58,22 +58,22 @@ class Hierarchy < SpeciesSchemaModel
       Hierarchy.find_by_label("NCBI Taxonomy", :order => "hierarchy_group_version desc")
     end
   end
-  
+
   def self.browsable_for_concept(taxon_concept)
     Hierarchy.find_by_sql("SELECT h.* FROM hierarchies h JOIN hierarchy_entries he ON (h.id = he.hierarchy_id) WHERE h.browsable = 1 AND he.taxon_concept_id=#{taxon_concept.id}")
   end
-  
+
   def form_label
     return descriptive_label unless descriptive_label.blank?
     return label
   end
-  
+
   def attribution
     citable_agent = agent.citable
     citable_agent.display_string = label # To change the name from just "Catalogue of Life"
     return citable_agent
   end
-  
+
   def kingdoms(params = {})
     # this is very hacky - another case where reading from the cache in development mode throws an error
     # becuase several classes have not been loaded yet. The only fix is to somehow load them before reading

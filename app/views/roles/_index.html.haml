@@ -1,18 +1,25 @@
 .community_roles
-  %h3= "Community Roles"[]
-  %ul#community_roles
-    - roles.each do |role|
-      %li
-        = link_to role.title, community_role_path(@community, role)
-        - if @community
-          - count = role.count
-          - if count <= 0
-            = '(no members)'[]
-          - elsif count == 1
-            = '(1 member)'[]
-          - else
-            = '({count} members)'[:members_count, role.count]
-          - if @current_member && @current_member.can?(Privilege.edit_delete_community)
-            = link_to("Delete"[], [@community, role], :method => :delete, :confirm => "Are you sure?"[])
+  %h2= "Community Roles"[]
+  - if roles.blank?
+    %p.result_empty
+      = "There are currently no roles for this community."[]
+      - if @current_member && @current_member.can?(Privilege.edit_delete_community)
+        = "#{ link_to('Add a role'[], new_community_role_path(@community)) } to control member privileges."[]
+  - else
+    %ul
+      - roles.each do |role|
+        %li
+          = link_to role.title, community_role_path(@community, role)
+          - if @community
+            - count = role.count
+            - if count <= 0
+              = '(no members)'[]
+            - elsif count == 1
+              = '(1 member)'[]
+            - else
+              = '({count} members)'[:members_count, role.count]
+            - if @current_member && @current_member.can?(Privilege.edit_delete_community)
+              = link_to("Delete"[], [@community, role], :method => :delete, :confirm => "Are you sure?"[])
   - if @current_member && @current_member.can?(Privilege.edit_delete_community)
+    %h3= 'Manage roles'[]
     = link_to("Add a role"[], new_community_role_path(@community))

@@ -1,22 +1,45 @@
 =# will_paginate @members # TODO - since this is in a partial, we may want to make this Ajaxy.
-%h3= "Community members:"[]
-%p{:id => 'left_message', :class => 'notice hidden'}= "You have left this community"[]
-%p{:id => 'joined_message', :class => 'notice hidden'}= "You have joined this community"[]
-%p{:id => 'community_problem', :class => 'notice hidden'}= "Sorry, there was an error."[]
-%ul{:id => 'community_members'}
-  - @members.each do |member|
-    - this_is_me = (member.user_id == current_user.id)
-    %li{:class => this_is_me ? member_function : nil}
-      = link_to member.user.username, member.user
-      = member.roles.map {|r| r.title}.sort.join(', ')
-      - if this_is_me
-        = "(you)"[]
-      - else # NOTE THE ELSE!!!!  You *cannot* edit yourself.
-        - if @current_member && @current_member.can_edit_members?
-          = link_to("Edit membership"[], community_member_path(@community, member))
-        - if @current_member && @current_member.can?(Privilege.remove_members)
-          = link_to("Remove membership"[], [@community, member], :method => :delete, :confirm => 'Are you sure?'[])
-  - if logged_in? && ! current_user.member_of?(@community)
-    %li{:class => member_function}
-      = link_to(current_user.username, current_user)
-      = "(you)"[]
+.community_members
+  %h2= "Community members"[]
+  -# TODO: Should the community be removed if the last member leaves?
+  - if @members.blank?
+    %p.result_empty
+      = "There are currently no members in this community."[]
+      - if not logged_in?
+        = "#{ link_to('Log in'[], login_path) } to join this community."[]
+      - elsif !@current_member
+        = link_to('Join this community'[:join_community], join_community_path(@community.id))
+
+  - else
+    %ul
+      - @members.each do |member|
+        - this_is_me = (member.user_id == current_user.id)
+        %li{:class => this_is_me ? member_function : nil}
+          = link_to member.user.username, member.user
+          = member.roles.map {|r| r.title}.sort.join(', ')
+          - if this_is_me
+            = "(you)"[]
+            = link_to('Leave this community'[:leave_community], leave_community_path(@community.id))
+          - else # NOTE THE ELSE!!!!  You *cannot* edit yourself.
+            - if @current_member && @current_member.can_edit_members?
+              = link_to("Edit membership"[], community_member_path(@community, member))
+            - if @current_member && @current_member.can?(Privilege.remove_members)
+              = link_to("Remove membership"[], [@community, member], :method => :delete, :confirm => 'Are you sure?'[])
+      -# why is logged in user name being added to member list if they are not a member?
+      -# if logged_in? && ! current_user.member_of?(@community)
+        -#%li{:class => member_function}
+          -#= link_to(current_user.username, current_user)
+          =#= "(you)"[]
+
+  .membership_actions
+    %h2= 'Get involved'[]
+    - if not logged_in?
+      = "You must be #{ link_to('logged in'[], login_path) } to join communities."[]
+    - elsif !@current_member
+      %p
+        = "You are not a member of this community."[]
+        = link_to('Join this community'[:join_community], join_community_path(@community.id))
+    - elsif @current_member
+      %p
+        = "You have been a member of this community since #{ @current_member.created_at }."[]
+        = link_to('Leave this community'[:leave_community], leave_community_path(@community.id), :confirm => "Are you sure?"[], :class => 'leave_community')

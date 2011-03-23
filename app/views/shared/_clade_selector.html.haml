@@ -31,7 +31,6 @@
         - kingdoms = hierarchy.kingdoms
         - ancestors = hierarchy_entry.ancestors
         - children = hierarchy_entry.children
-      
       - for kingdom in hierarchy.kingdoms
         %li{ :id => "value_#{kingdom.id}", :class => "value_#{kingdom.id} kingdom" }
           = tree_entry_text(kingdom, selectable_clade_level==0, id)

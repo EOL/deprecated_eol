@@ -23,7 +23,7 @@ describe 'Home page' do
     Capybara.reset_sessions!
     visit('/') # cache the response the homepage gives before changes
     @homepage_with_foundation = source #source in contrast with body returns html BEFORE any javascript
-    
+
   end
 
   after :all do
@@ -40,18 +40,14 @@ describe 'Home page' do
 
   it 'should include the search box, for names and tags (defaulting to names)' do
     @homepage_with_foundation.should have_tag('form') do
-      with_tag('.search_box') do
+      with_tag('#simple_search') do
         with_tag('input#q')
-      end
-      with_tag('div.search_options') do
-        with_tag('input[checked=?][value=?]', 'checked', 'text')
-        with_tag('input[value=?]', 'tag')
       end
     end
   end
 
-  it 'should include a "personal-space" div with login link and a create-account link, when not logged in' do
-    @homepage_with_foundation.should have_tag('div#personal-space') do
+  it 'should include a "user_container" div with login link and a create-account link, when not logged in' do
+    @homepage_with_foundation.should have_tag('div#user_container') do
       with_tag('a[href*=?]', /\/login/)
       with_tag('a[href*=?]', /\/register/)
     end
@@ -76,40 +72,29 @@ describe 'Home page' do
     active = Language.find_active
     active.map(&:source_form).should include('Supernal')
     visit('/')
-    # <a title=\"Language: en\" class=\"dropdown\">Language: en</a>
-    body.should have_tag('a[title=?]', "Language: #{en.iso_639_1}")
-    # <a href=\"http://example.org/set_language?language=sp&amp;return_to=%252F\" title=\"Supernal\">Supernal<em>(SP)</em></a>
+    body.should have_tag('a[title=?]', "Switch the site language to EN")
     active.each {|language| body.should have_tag('a[href*=?]', /set_language.*language=#{language.iso_639_1}/,
-                                                 :text => /#{language.source_form}.*#{language.iso_639_1}/i)  }  
+                                                 :text => /#{language.source_form}.*#{language.iso_639_1}/i)  }
   end
 
-
- it 'should have all the feedback links' do
-   content_section_tester('Feedback')
- end
-
- it 'should have all the press room links' do
-   content_section_tester('Press Room')
- end
-
-  it 'should have all the using-the-site links' do
-    content_section_tester('Using The Site')
-  end
-
-  it 'should have all the about-eol links' do
-    content_section_tester('About EOL')
+  it "should have 'What is EOL?', 'Press Room', 'Donate' links" do
+    visit('/')
+    ['.about|What is EOL?', '.press_room|Press Room', '.donate|Donate'].each do |link|
+      klass, link = link.split('|')
+      body.should have_tag("#secondary_navigation_container #{klass} a", link)
+    end
   end
 
   it 'should show six random taxa with the div IDs that the Flash needs' do
     Capybara.reset_sessions!
     6.times { RandomHierarchyImage.gen(:hierarchy => Hierarchy.default) }
     visit('/')
-    
+
     body.should have_tag('table#top-photos-table') do
       (1..6).to_a.each do |n|
-        with_tag("a#top_image_tag_#{n}_href") 
-        with_tag("img#top_image_tag_#{n}") 
-        with_tag("span#top_name_#{n}") 
+        with_tag("a#top_image_tag_#{n}_href")
+        with_tag("img#top_image_tag_#{n}")
+        with_tag("span#top_name_#{n}")
       end
     end
   end

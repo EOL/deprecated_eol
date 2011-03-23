@@ -82,7 +82,7 @@ describe 'Taxa page (HTML)' do
        # We want more than 10 images, to test pagination, but details don't matter:
        :images          => [{:object_cache_url => @image_1}, {:object_cache_url => @image_2},
                             {:object_cache_url => @image_3}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
-       :toc             => [{:toc_item => @overview, :description => @overview_text}, 
+       :toc             => [{:toc_item => @overview, :description => @overview_text},
                             {:toc_item => @toc_item_2}, {:toc_item => @toc_item_3}])
 
     # TODO - I am slowly trying to move all of those options over to methods, to make things clearer:
@@ -119,7 +119,7 @@ describe 'Taxa page (HTML)' do
     @description_link = /and <a href="link">links<\/a>/
     @taxon_concept.add_user_submitted_text(:description => description, :vetted => true)
     @taxon_concept.add_user_submitted_text(:description => description, :vetted => true)
-    
+
     $CACHE.clear
     @toc_item_with_no_trusted_items = TocItem.gen_if_not_exists(:label => 'Untrusted Stuff')
     @taxon_concept.add_toc_item(@toc_item_with_no_trusted_items, :vetted => false)
@@ -130,9 +130,9 @@ describe 'Taxa page (HTML)' do
     @taxon_concept.reload
     visit("/pages/#{@id}") # cache the response the taxon page gives before changes
     @result        = page
-    
-    @taxon_concept_with_unvetted_images = build_taxon_concept(:images => 
-      [{:vetted => Vetted.untrusted}, 
+
+    @taxon_concept_with_unvetted_images = build_taxon_concept(:images =>
+      [{:vetted => Vetted.untrusted},
        {:vetted => Vetted.unknown},
        {}])
 
@@ -141,20 +141,20 @@ describe 'Taxa page (HTML)' do
   # after :all do
   #   truncate_all_tables
   # end
-  
+
   # This is kind of a baseline, did-the-page-actually-load test:
   it 'should include the italicized name in the header' do
     @result.body.should have_tag('div#page-title') do
       with_tag('h1', :text => @scientific_name)
     end
   end
-  
+
   it 'should show the common name if one exists' do
     @result.body.should have_tag('div#page-title') do
       with_tag('h2', :text => @common_name)
     end
   end
-    
+
   it 'should NOT show a view/edit link after the common name when non-curator' do
     @result.body.should have_tag('div#page-title') do
       with_tag('h2') do
@@ -163,7 +163,7 @@ describe 'Taxa page (HTML)' do
       end
     end
   end
-    
+
   it 'should not show the common name if none exists' do
     tc = build_taxon_concept
     visit("/pages/#{tc.id}")
@@ -171,13 +171,13 @@ describe 'Taxa page (HTML)' do
       with_tag('h2', :text => '')
     end
   end
-    
+
   it 'should use supercedure to find taxon concept' do
     superceded = TaxonConcept.gen(:supercedure_id => @id)
     visit("/pages/#{superceded.id}")
     current_path.should == "/pages/#{@id}"
   end
-  
+
   it 'should show comments from superceded taxa' do
     taxon1 = TaxonConcept.gen(:published => 1, :supercedure_id => 0)
     taxon2 = TaxonConcept.gen(:supercedure_id => taxon1.id)
@@ -185,11 +185,11 @@ describe 'Taxa page (HTML)' do
     visit("comments/?tab=1&taxon_concept_id=#{taxon1.id}")
     body.should include("my comment...")
   end
-    
+
   it 'should tell the user the page is missing if the page is... uhhh... missing' do
     visit("/pages/#{TaxonConcept.missing_id}")
   end
-    
+
   it 'should tell the user the page is missing if the TaxonConcept is unpublished' do
     unpublished = TaxonConcept.gen(:published => 0, :supercedure_id => 0)
     visit("/pages/#{unpublished.id}")
@@ -197,25 +197,25 @@ describe 'Taxa page (HTML)' do
       with_tag('h1', :text => 'Sorry, the page you have requested does not exist.')
     end
   end
-  
+
   it 'should render when an object has no agents' do
     taxon_concept = build_taxon_concept
     first_image = taxon_concept.top_concept_images[0].data_object
     first_agent_name = first_image.agents[0].full_name
-    
+
     visit("/pages/#{taxon_concept.id}")
     body.should have_tag("img.main-image")
     body.should include(first_agent_name)  # verify the agent exists
-    
+
     first_image.agents.each{|a| a.delete}
     visit("/pages/#{taxon_concept.id}")
     body.should have_tag("img.main-image")
     body.should_not include(first_agent_name) # verify the agent is gone yet the page still loads
   end
-    
+
   # it 'should be able to ping the collection host' do
   # end
-    
+
   it 'should show the Overview text by default' do
     visit("/pages/#{@id}")
     body.should have_tag('div.cpc-header') do
@@ -223,13 +223,13 @@ describe 'Taxa page (HTML)' do
     end
     body.should include(@overview_text)
   end
-    
+
   it 'should NOT show references for the overview text when there aren\'t any' do
     Ref.delete_all
     visit("/pages/#{@id}")
     body.should_not have_tag('div.references')
   end
-    
+
   it 'should show references for the overview text (with URL and DOI identifiers ONLY) when present' do
     full_ref = 'This is the reference text that should show up'
     # TODO - When we add "helper" methods to Rails classes for testing, then "add_reference" could be
@@ -252,28 +252,28 @@ describe 'Taxa page (HTML)' do
     body.should_not include(bad_identifier)
     body.should have_tag("a[href=http://dx.doi.org/#{doi_identifier}]")
   end
-    
+
   it 'should NOT show references for the overview text when reference is invisible' do
     full_ref = 'This is the reference text that should show up'
     @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 1, :visibility => Visibility.invisible)
     visit("/pages/#{@id}")
     body.should_not have_tag('div.references')
   end
-    
+
   it 'should NOT show references for the overview text when reference is unpublished' do
     full_ref = 'This is the reference text that should show up'
     @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 0, :visibility => Visibility.visible)
     visit("/pages/#{@id}")
     body.should_not have_tag('div.references')
   end
-    
+
   it 'should allow html in user-submitted text' do
     visit("/pages/#{@id}")
     body.should match(@description_bold)
     body.should match(@description_ital)
     body.should match(@description_link)
   end
-    
+
   # I hate to do this, since it's SO SLOW, but:
   it 'should render an "empty" page in authoritative mode' do
     tc = build_taxon_concept(:common_names => [], :images => [], :toc => [], :flash => [], :youtube => [],
@@ -282,7 +282,7 @@ describe 'Taxa page (HTML)' do
     body.should_not include('Internal Server Error')
     body.should have_tag('h1') # Whatever, let's just prove that it renders.
   end
-    
+
   it 'should show common names with their trust levels in the Common Names toc item' do
     visit("/pages/#{@taxon_concept.id}?category_id=#{@cnames_toc}")
     body.should have_tag("div#common_names_wrapper") do
@@ -291,65 +291,65 @@ describe 'Taxa page (HTML)' do
       with_tag('td.untrusted', :text => @untrusted_name)
     end
   end
-    
+
   it 'should show the Catalogue of Life link in Content Partners' do
     visit("/pages/#{@taxon_concept.id}?category_id=#{TocItem.content_partners.id}")
     body.should include(@col_mapping.hierarchy.label)
   end
-    
+
   it 'should show the Catalogue of Life link in the header' do
     visit("/pages/#{@taxon_concept.id}")
     body.should include("recognized by <a href=\"#{@col_mapping.source_url}\"")
   end
-    
+
   it 'should show a Nucleotide Sequences table of content item if concept in NCBI and has identifier' do
     # make an entry in NCBI for this concept and give it an identifier
     sci_name = Name.gen(:string => Factory.next(:scientific_name))
     entry = build_hierarchy_entry(0, @taxon_concept, sci_name,
                 :identifier => 1234,
                 :hierarchy => Hierarchy.ncbi )
-  
+
     visit("/pages/#{@taxon_concept.id}")
     body.should include("Nucleotide Sequences")
   end
-  
+
   it 'should show not a Nucleotide Sequences table of content item if concept in NCBI and does not have an identifier' do
     # make an entry in NCBI for this concept and dont give it an identifier
     sci_name = Name.gen
     entry = build_hierarchy_entry(0, @taxon_concept, sci_name,
                 :hierarchy => Hierarchy.ncbi )
-  
+
     visit("/pages/#{@taxon_concept.id}")
     body.should_not include("Nucleotide Sequences")
   end
-  
+
   it 'should show the hierarchy descriptive label in the drop down if there is one' do
     col = Hierarchy.default
     @result.body.should match /value='#{col.id}'>\s*#{col.label}\s*<\/option>/ # selector default
-  
+
     col.descriptive_label = 'A DIFFERENT LABEL FOR TESTING'
     col.save!
     visit("/pages/#{@id}")
     body.should match /value='#{col.id}'>\s*#{col.descriptive_label}\s*<\/option>/ # selector default
-  
+
     col.descriptive_label = nil
     col.save!
   end
-  
+
   describe 'specified hierarchies' do
-  
+
     before(:all) do
       #creating an NCBI hierarchy and some others
       Hierarchy.delete_all("label = 'NCBI Taxonomy'") # Not sure why, but we end up with lots of these.
       @ncbi = Hierarchy.gen(:agent => Agent.ncbi, :label => "NCBI Taxonomy", :browsable => 1)
       @browsable_hierarchy = Hierarchy.gen(:label => "Browsable Hierarchy", :browsable => 1)
       @non_browsable_hierarchy = Hierarchy.gen(:label => "NonBrowsable Hierarchy", :browsable => 0)
-  
+
       # making entries for this concept in the new hierarchies
       HierarchyEntry.gen(:hierarchy => @ncbi, :taxon_concept => @taxon_concept, :rank => Rank.species)
       HierarchyEntry.gen(:hierarchy => @browsable_hierarchy, :taxon_concept => @taxon_concept, :rank => Rank.species)
       HierarchyEntry.gen(:hierarchy => @non_browsable_hierarchy, :taxon_concept => @taxon_concept, :rank => Rank.species)
-  
+
       # and another entry just in NCBI
       HierarchyEntry.gen(:hierarchy => @ncbi, :rank => Rank.species)
       @user_with_default_hierarchy = User.gen(:default_hierarchy_id => Hierarchy.default.id)
@@ -360,17 +360,17 @@ describe 'Taxa page (HTML)' do
       @ncbi_tc    = find_unique_tc(:not_in => Hierarchy.default, :in => @ncbi)
       @common_tc  = find_common_tc(:in => Hierarchy.default, :also_in => @ncbi)
     end
-  
+
     after(:each) do
       visit("/logout")
     end
-  
+
     it "should see 'not in hierarchy' message when the user doesn't specify a default hierarchy and page is not in default hierarchy" do
       login_as @user_with_nil_hierarchy
       visit("/pages/#{@ncbi_tc.id}")
       body.should match /Name not in\s*#{Hierarchy.default.label}/
     end
-  
+
     it "should set the class of the hierarchy select drop-down based on whether a hierarchy is in or out of that hierarchy" do
       login_as @user_with_ncbi_hierarchy
       visit("/pages/#{@ncbi_tc.id}")
@@ -379,7 +379,7 @@ describe 'Taxa page (HTML)' do
         with_tag('option.out', :text => /#{Hierarchy.default.label}/)
       end
     end
-  
+
     it "should recognize the browsable hierarchy attribute" do
       visit("/pages/#{@taxon_concept.id}")
       body.should have_tag('select.choose-hierarchy-select') do
@@ -389,7 +389,7 @@ describe 'Taxa page (HTML)' do
         without_tag('option', :text => /#{@non_browsable_hierarchy.label}/)
       end
     end
-  
+
     it "should attribute the default hierarchy when the user doesn't specify one and the page is in both hierarchies" do
       login_as @user_with_nil_hierarchy
       visit("/pages/#{@common_tc.id}")
@@ -400,7 +400,7 @@ describe 'Taxa page (HTML)' do
         with_tag('option[selected=selected]', :text => /#{Hierarchy.default.label}/)
       end
     end
-  
+
     it "should attribute the default hierarchy when the user has it as the default and page is in both hierarchies" do
       login_as @user_with_default_hierarchy
       visit("/pages/#{@common_tc.id}")
@@ -411,7 +411,7 @@ describe 'Taxa page (HTML)' do
         with_tag('option[selected=selected]', :text => /#{Hierarchy.default.label}/)
       end
     end
-  
+
     it "should use the label from the NCBI hierarchy when the user has it as the default and page is in both hierarchies" do
       login_as @user_with_ncbi_hierarchy
       visit("/pages/#{@common_tc.id}")
@@ -423,7 +423,7 @@ describe 'Taxa page (HTML)' do
       end
     end
   end
-  
+
   # # Red background/icon on untrusted videos
   # it "should show red background for untrusted video links"
   # it "should not show red background for trusted video links"
@@ -435,18 +435,18 @@ describe 'Taxa page (HTML)' do
   # it "should show green information button if trusted video plays"
   # it "should show red background for notes area if untrusted video plays"
   # it "should not show red background for notes area if trusted video plays"
-  # 
+  #
   # # LigerCat Medical Concepts Tag Cloud
   # it 'should link to LigerCat when the Medical Concepts content is displayed'
   #   # TODO - this will simply: 1) ensure the TC has a biomedical_terms toc item, 2) load that page with the
   #   # content_id for biomedical_terms, and 3) verify that the page includes the URL we expect.
-  #   
+  #
   # # permalinks for species comments
   # it 'should load comment with the id when comment_id is specified'
   # it 'should hide image when load comment'
   # it 'should have only comments tab active (blue dot)'
   # it 'should not show comment when another tab chosen'
-  # 
+  #
   # #image permalinks
   # it 'should load image as main image when image_id is specified'
   # it 'should switch current_user.vetted to false when image_id is specified and is a unknown or untrusted image'
@@ -457,7 +457,7 @@ describe 'Taxa page (HTML)' do
   # it 'should load hidden image via permalink when user is a curator of the page'
   # it 'should return 404 page when permalink image_id is specified for an image which has been removed'
   # it 'should load removed image via permalink when user is an admin'
-  # 
+  #
   # #text permalinks
   # it 'should switch selected TOC when text_id is specified and not on the default selected TOC'
   # it 'should current_user.vetted to false when permalink with text_id is specified for a text object which is unknown or untrusted'
@@ -467,46 +467,47 @@ describe 'Taxa page (HTML)' do
   # it 'should load hidden text via permalink when user is a curator of the page'
   # it 'should return 404 page when loading permalink for text which has been removed and user isn\'t an admin'
   # it 'should load removed text via permalink when user is an admin'
-  
+
   it 'should include the TocItem with only unvetted content in it' do
     Capybara.reset_sessions! #previous session influenced this spec
     visit("/pages/#{@id}")
     body.should have_tag('a', :text => /#{@toc_item_with_no_trusted_items.label}/)
   end
-  
+
   it 'should show info item label for the overview text when there isn\'t an object_title' do
     info_item_title = InfoItem.find(:last)
     data_object = @taxon_concept.overview.first
     DataObjectsInfoItem.gen(:data_object => data_object, :info_item => InfoItem.find(:last))
-  
+
     data_object.object_title = ""
     data_object.save!
     visit("/pages/#{@id}")
     body.should include(info_item_title.label)
-  
+
     # show object_title if it exists
     data_object.object_title = "Some Title"
     data_object.save!
     visit("/pages/#{@id}")
     body.should include(data_object.object_title)
-    body.should_not include(info_item_title.label)        
+    body.should_not include(info_item_title.label)
   end
-  
-  it 'should show images on the page' do 
-    unvetted_count = @taxon_concept_with_unvetted_images.images.select {|i| i.vetted? == false}.size
-    visit("/pages/#{@taxon_concept_with_unvetted_images.id}?vetted=true")
-    body_vetted = body
-    body_vetted.should include "authoritative information"
-    Capybara.reset_sessions!
-    visit("/pages/#{@taxon_concept_with_unvetted_images.id}?vetted=false")
-    body_all = body
-    body_all.should include "all information"
-    dom_all = Nokogiri.HTML(body_all)
-    dom_vetted = Nokogiri.HTML(body_vetted)
-    unvetted_count.should == 2 
-    (dom_all.xpath("//div[@id='thumbnails']//img").size - dom_vetted.xpath("//div[@id='thumbnails']//img").size).should == unvetted_count
-  end
-  
+
+  # TODO V2 design does not have this flag yet we have to revisit this test later
+  # it 'should show images on the page' do
+  #   unvetted_count = @taxon_concept_with_unvetted_images.images.select {|i| i.vetted? == false}.size
+  #   visit("/pages/#{@taxon_concept_with_unvetted_images.id}?vetted=true")
+  #   body_vetted = body
+  #   body_vetted.should include "authoritative information"
+  #   Capybara.reset_sessions!
+  #   visit("/pages/#{@taxon_concept_with_unvetted_images.id}?vetted=false")
+  #   body_all = body
+  #   body_all.should include "all information"
+  #   dom_all = Nokogiri.HTML(body_all)
+  #   dom_vetted = Nokogiri.HTML(body_vetted)
+  #   unvetted_count.should == 2
+  #   (dom_all.xpath("//div[@id='thumbnails']//img").size - dom_vetted.xpath("//div[@id='thumbnails']//img").size).should == unvetted_count
+  # end
+
   it 'should show the activity feed' do
     @result.body.should have_tag('ul.feed') do
       with_tag('.feed_item .body', :text => @feed_body_1)
@@ -514,7 +515,7 @@ describe 'Taxa page (HTML)' do
       with_tag('.feed_item .body', :text => @feed_body_3)
     end
   end
-  
+
   it 'should show an empty feed' do
     visit("/pages/#{@exemplar.id}")
     page.body.should have_tag('#activity', :text => /no activity/i)

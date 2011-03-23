@@ -77,12 +77,13 @@ class DataObject < SpeciesSchemaModel
       vetted_view_order = obj.vetted.blank? ? 0 : obj.vetted.view_order
       visibility_view_order = 1
       visibility_view_order = 2 if obj.visibility_id == Visibility.preview.id
+      inverted_rating = obj.data_rating * -1
 
       [obj.data_type_id,
        toc_view_order,
        visibility_view_order,
        vetted_view_order,
-       Invert(obj.data_rating)]
+       inverted_rating]
     end
   end
 
@@ -955,9 +956,6 @@ class DataObject < SpeciesSchemaModel
     obj = DataObject.find_by_sql("SELECT do.* FROM data_objects do_old JOIN data_objects do ON (do_old.guid=do.guid) WHERE do_old.id=#{data_object_id} AND do.published=1 ORDER BY id desc LIMIT 1")
     return nil if obj.blank?
     return obj[0]
-  end
-  def latest_published_version
-    DataObject.latest_published_version_of_guid(guid)
   end
   def self.latest_published_version_of_guid(guid, options={})
     options[:return_only_id] ||= false

@@ -42,7 +42,7 @@ class CategoryContentBuilder
   end
 
   def content_summary(options)
-    hash = TaxonConcept.entry_stats(options[:taxon_concept].id)
+    hash = options[:taxon_concept].published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
     return {:items => hash}
   end
 

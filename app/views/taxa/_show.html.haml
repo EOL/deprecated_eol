@@ -3,7 +3,7 @@
 - # default to regular page separator if we can't find a specific kingdom
 - page_separator="page-separator-kingdom"
 - if entry_in_col = @taxon_concept.find_ancestor_in_hierarchy(Hierarchy.default)
-  - page_separator="page-separator-#{entry_in_col.kingdom.canonical_form.string.downcase}"
+  - page_separator="page-separator-#{entry_in_col.kingdom_entry.name.string.downcase}"
 .page-separator{ :id => page_separator }
 #page-title
   - title_names_class =  (@taxon_concept.vetted_id != Vetted.trusted.id) ? "unvetted-title-names" : ""

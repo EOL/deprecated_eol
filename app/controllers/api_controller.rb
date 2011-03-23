@@ -23,7 +23,11 @@ class ApiController < ApplicationController
     params[:details] = 1 if params[:format] == 'html'
     
     begin
-      taxon_concept = TaxonConcept.core_relationships.find(taxon_concept_id)
+      inc = [ { :data_objects => :info_items }, { :top_concept_images => :data_object },
+        { :published_hierarchy_entries => { :name => :canonical_form } } ]
+      sel = { :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ],
+        :canonical_forms => :string }
+      taxon_concept = TaxonConcept.core_relationships(:add_include => inc, :add_seelct => sel).find(taxon_concept_id)
       raise if taxon_concept.blank? || !taxon_concept.published?
     rescue
       render(:partial => 'error.xml.builder', :locals => { :error => "Unknown identifier #{taxon_concept_id}" })
@@ -49,7 +53,7 @@ class ApiController < ApplicationController
                  :locals => { :taxon_concept => taxon_concept, :data_objects => data_objects, :params => params } )
         end
         format.json do
-          @return_hash = pages_json(taxon_concept, params[:details] != nil)
+          @return_hash = pages_json(taxon_concept, data_objects, params[:details] != nil)
           render :json => @return_hash, :callback => params[:callback]
         end
       end
@@ -143,8 +147,8 @@ class ApiController < ApplicationController
     @include_synonyms = false if params[:synonyms] == '0'
     
     begin
-      add_include = []
-      add_select = { :hierarchy_entries => '*' }
+      add_include = [ { :name => :canonical_form }]
+      add_select = { :hierarchy_entries => '*', :canonical_forms => :string }
       if @include_common_names
         add_include << { :common_names => [:name, :language] }
         add_select[:languages] = :iso_639_1

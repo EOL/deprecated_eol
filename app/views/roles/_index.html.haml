@@ -1,4 +1,4 @@
-.community_roles
+.community_roles_container
   %h2= "Community Roles"[]
   - if roles.blank?
     %p.result_empty
@@ -6,7 +6,7 @@
       - if @current_member && @current_member.can?(Privilege.edit_delete_community)
         = "#{ link_to('Add a role'[], new_community_role_path(@community)) } to control member privileges."[]
   - else
-    %ul
+    %ul#community_roles
       - roles.each do |role|
         %li
           = link_to role.title, community_role_path(@community, role)

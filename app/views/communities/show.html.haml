@@ -6,7 +6,7 @@
 - member_function = i_am_in_this_community ? 'member allowed' : 'member not_allowed'
 - non_member_function = i_am_in_this_community ? 'non_member not_allowed' : 'non_member allowed'
 = render :partial => 'members/index', :locals => {:i_am_in_this_community => i_am_in_this_community, :member_function => member_function, :non_member_function => non_member_function }
-.community_actions
+#community_actions_container
   - if @current_member && @current_member.can?(Privilege.edit_delete_community)
     %h2= 'Manage community'[]
     %ul
@@ -15,7 +15,7 @@
       %li{:class => "delete_community #{ member_function }" }
         = link_to("Delete this community"[:delete_community], community_path(@community), :confirm => "Are you sure?"[], :method => :delete)
 
-.community_focus
+#community_focus_container
   %h2= "Taxa"[]
   - if @community.focus.nil?
     = "This community has no focus list."[]

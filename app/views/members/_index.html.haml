@@ -1,5 +1,5 @@
 =# will_paginate @members # TODO - since this is in a partial, we may want to make this Ajaxy.
-.community_members
+#community_members_container
   %h2= "Community members"[]
   -# TODO: Should the community be removed if the last member leaves?
   - if @members.blank?
@@ -11,7 +11,7 @@
         = link_to('Join this community'[:join_community], join_community_path(@community.id))
 
   - else
-    %ul
+    %ul#community_members
       - @members.each do |member|
         - this_is_me = (member.user_id == current_user.id)
         %li{:class => this_is_me ? member_function : nil}

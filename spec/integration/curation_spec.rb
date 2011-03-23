@@ -7,7 +7,7 @@ def create_curator_for_taxon_concept(tc)
 end
 
 describe 'Curation' do
-  
+
   before(:all) do
     truncate_all_tables
     load_foundation_cache
@@ -64,12 +64,12 @@ describe 'Curation' do
     body.should have_tag('div#large-image-curator-button')
     body.should have_tag('div#curation-overlay')
   end
-  
+
   it 'should not have a curation panel when not logged in as a curator' do
     visit("/pages/#{@taxon_concept.id}")
     body.should_not have_tag('div#curation-overlay')
   end
-  
+
 
   it 'should expire taxon_concept from cache' do
     login_as(@first_curator)
@@ -78,19 +78,19 @@ describe 'Curation' do
     # visit(curate_data_object_path(@taxon_concept.images[0].id, :curator_activity_id => CuratorActivity.disapprove.id))
     visit("/data_objects/curate/#{@taxon_concept.images[0].id}?vetted_id=#{Vetted.trusted.id}")
   end
-  
+
   # --- taxa page curators list ---
-  
+
   it 'should show the curator list link' do
     @default_page.should include('Who can curate this page?')
   end
-  
+
   it 'should show the curator list link when there has been no activity' do
     LastCuratedDate.delete_all
     visit("/pages/#{@taxon_concept.id}")
     body.should include('Who can curate this page?')
   end
-  
+
   it 'should show the curator list' do
     visit("/pages/#{@taxon_concept.id}/curators")
     body.should include("The following are curators of")
@@ -99,36 +99,36 @@ describe 'Curation' do
     body.should include(@first_curator.family_name)
     body.should include(@first_curator.given_name)
   end
-  
+
   it 'should show an empty curators list on a page with no curators' do
     new_tc = build_taxon_concept
     new_tc.curators.each{|c| c.delete }
     visit("/pages/#{new_tc.id}/curators")
     body.should include("There are no curators of")
   end
-  
-  
+
+
   # --- page citation ---
-  
+
   it 'should confirm that the page doesn\'t have the citation if there is no active curator for the taxon_concept' do
     LastCuratedDate.delete_all
     visit("/pages/#{@taxon_concept.id}")
     body.should_not have_tag('div.number_of_active_curators')
   end
-  
+
   it 'should still have a page citation block when there are no curators' do
     LastCuratedDate.delete_all
     visit("/pages/#{@taxon_concept.id}")
     body.should have_tag('div#page-citation')
   end
-  
+
   it 'should say the page has citation (both lines)' do
     @taxon_concept.reload
     visit("/pages/#{@taxon_concept.id}")
     body.should include("This page has\n#{@taxon_concept.acting_curators.size}\nactive curators.")
     body.should have_tag('div#page-citation')
   end
-  
+
   it 'should change the number of curators if another curator curates an image' do
     num_curators = @taxon_concept.acting_curators.length
     curator = create_curator_for_taxon_concept(@taxon_concept)
@@ -137,7 +137,7 @@ describe 'Curation' do
     visit("/pages/#{@taxon_concept.id}")
     body.should include("This page has\n#{num_curators + 1}\nactive curators.")
   end
-  
+
   it 'should change the number of curators if another curator curates a text object' do
     @taxon_concept.reload
     num_curators = @taxon_concept.acting_curators.length
@@ -147,17 +147,17 @@ describe 'Curation' do
     visit("/pages/#{@taxon_concept.id}")
     body.should include("This page has\n#{num_curators + 1}\nactive curators.")
   end
-              
+
   it 'should have a link from N curators to the citation' do
     @default_page.should have_tag('a[href*=?]', /#citation/)
   end
-  
+
   it 'should have a link from name of curator to account page' do
     @default_page.should have_tag('div#page-citation') do
       with_tag('a[href*=?]', /\/account\/show\/#{@taxon_concept.acting_curators.first.id}/)
     end
   end
-  
+
   it 'should still have a curator name in citation after changing clade' do
     @default_page.should have_tag('div#page-citation', /#{@first_curator.family_name}/)
     uu = User.find(@first_curator.id)
@@ -167,10 +167,10 @@ describe 'Curation' do
     visit("/pages/#{@taxon_concept.id}")
     body.should have_tag('div#page-citation', /#{@first_curator.family_name}/)
   end
-  
-  
+
+
   # I wanted to use a describe() block here, but it was causing build_taxon_concept to fail for some odd reason...
-  
+
   it 'should display a "view/edit" link next to the common name in the header' do
     login_as(@first_curator)
     visit("/pages/#{@taxon_concept.id}")
@@ -181,7 +181,7 @@ describe 'Curation' do
     end
     visit('/logout')
   end
-  
+
   it 'should show a curator the ability to add a new common name' do
     login_as(@first_curator)
     visit("/pages/#{@taxon_concept.id}?category_id=#{@common_names_toc_id}")
@@ -189,7 +189,7 @@ describe 'Curation' do
     body.should have_tag("form.update_common_names")
     visit('/logout')
   end
-  
+
   it 'should show common name sources for curators' do
     @cname_page.should have_tag("div#common_names_wrapper") do
       # Curator link, because we added the common name with agents_synonyms:
@@ -197,7 +197,7 @@ describe 'Curation' do
     end
     visit('/logout')
   end
-  
+
   # Note that this is essentially the same test as in taxa_page_spec... but we're a curator, now... and it uses a separate
   # view, so it needs to be tested.
   it 'should show all common names trust levels' do
@@ -209,7 +209,7 @@ describe 'Curation' do
       with_tag('td.untrusted:nth-child(2)', :text => @untrusted_name)
     end
   end
-  
+
   it 'should show vetting drop-down for common names either NOT added by this curator or added by a CP' do
     @cname_page.should have_tag("div#common_names_wrapper") do
       with_tag("option", :text => 'Trusted')
@@ -217,20 +217,20 @@ describe 'Curation' do
       with_tag("option", :text => 'Untrusted')
     end
   end
-  
+
   it 'should show delete link for common names added by this curator' do
     @cname_page.should have_tag("div#common_names_wrapper") do
       with_tag("a[href^=/pages/#{@taxon_concept.id}/delete_common_name]", :text => /del/i)
     end
   end
-  
+
   it 'should not show editing common name environment if curator is not logged in' do
     visit("/logout")
     visit("/pages/#{@taxon_concept.id}?category_id=#{TocItem.common_names.id}")
     body.should_not have_tag("form#add_common_name")
     body.should_not have_tag("form.update_common_names")
   end
-  
+
   it 'should be able to curate a concept not in default hierarchy' do
     hierarchy = Hierarchy.gen
     hierarchy_entry = HierarchyEntry.gen(:hierarchy => hierarchy, :taxon_concept => @taxon_concept)
@@ -239,7 +239,7 @@ describe 'Curation' do
     flatten_hierarchies
     @first_curator.can_curate?(hierarchy_entry_child).should == true
   end
-  
+
   it 'should be able to curate a concept when curator hiearchy entry id not in default hierarchy' do
     # If a curator's curator_hierarchy_entry is not in the default hierarchy (think COL 2009 vs COL 2010)
     # and they curate Plants, when they are on a plant page not in their curator hierarchy we had a bug

@@ -19,12 +19,12 @@ describe 'Content Partners' do
     after :each do
       visit('/content_partner/logout')
     end
-  
+
     it 'home page of EOL should have desc-personal tag with "Hello [full_name]" and a logout link when logged in' do
       visit('/')
-      body.should have_tag('div#personal-space') do
+      body.should have_tag('div#user_container') do
         without_tag('a[href*=?]', /\/login/)
-        with_tag('div.desc-personal', :text => /Hello,?\s+#{@agent.full_name}/) do
+        with_tag('div#user_container', :text => /Logged in as #{@agent.full_name}/) do
           with_tag('a[href*=?]', /logout/)
         end
       end
@@ -38,12 +38,12 @@ describe 'Content Partners' do
     end
 
   end
-  
+
   it 'content partner should have a gallery' do
     agent = Agent.gen(:full_name => 'gallery_test_agent')
     cp = ContentPartner.gen(:agent => agent)
     image = build_data_object('Image', "the image description", :content_partner => cp)
-    
+
     # the data_object builder doesn't properly associate the image's taxon with the resource, so that's done here
     cp.agent.resources[0].harvest_events.each do |he|
       he.hierarchy_entries << image.hierarchy_entries[0]

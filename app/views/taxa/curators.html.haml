@@ -12,15 +12,15 @@
         The following are curators of
         = link_to(@concept.title(@session_hierarchy), :controller => :taxa, :action => :show, :id => @concept.id)
       %br
-      
-      
+
+
       %table.results_table
         %tr
           %th{:width => '200px'}
             = "Curator Name"[]
           %th
             = "Curator Clade"[]
-          
+
           - @curators.each do |u|
             - row_class = cycle('odd', 'even')
             %tr

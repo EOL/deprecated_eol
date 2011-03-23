@@ -1,43 +1,43 @@
 %ul#toc{ :style => "list-style:none;margin-left:-25px;padding-left:-25px;" }
   %li
-    = link_to 'Curator Central', {:action => 'index'}, {:class => active_if_action_is('index') }
+    = link_to 'Curator Central', { :action => 'index', :id => 'curator_central' }, { :class => active_if_action_is('index', 'curator_central') }
   %li
-    = link_to 'Your Curator Profile', {:action => 'profile'}, {:class => active_if_action_is('profile') }
+    = link_to 'Your Curator Profile', { :action => 'profile' }, { :class => active_if_action_is('profile') }
   %h3
     Tools
   %li
-    = link_to 'Images Work List', {:action => 'curate_images', :hierarchy_entry_id => params[:hierarchy_entry_id]}, {:class => active_if_action_is('curate_images') }
+    = link_to 'Images Work List', { :action => 'curate_images', :hierarchy_entry_id => params[:hierarchy_entry_id] }, { :class => active_if_action_is('curate_images') }
   / %li
-  /   = link_to 'Ignored images', {:action => 'ignored_images', :hierarchy_entry_id => params[:hierarchy_entry_id]}, {:class => active_if_action_is('ignored_images') }
+  /   = link_to 'Ignored images', { :action => 'ignored_images', :hierarchy_entry_id => params[:hierarchy_entry_id] }, { :class => active_if_action_is('ignored_images') }
   %li
-    = link_to 'Wikipedia Import', {:action => 'wiki_import', :hierarchy_entry_id => params[:hierarchy_entry_id]}, {:class => active_if_action_is('wiki_import') }
+    = link_to 'Wikipedia Import', { :action => 'wiki_import', :hierarchy_entry_id => params[:hierarchy_entry_id] }, { :class => active_if_action_is('wiki_import') }
   %h3
     Help
   %li
-    = link_to 'Instructions', {:controller => '/content/page', :action => 'curator_central'}, {:class => active_if_action_is('curator_central') }
+    = link_to 'Instructions', { :action => 'index', :id => 'curation' }, { :class => active_if_action_is('index', 'curation') }
   %li
-    = link_to 'Working With Wiki Content', {:controller => '/content/page', :action => 'curate_wiki'}, {:class => active_if_action_is('curate_wiki') }
+    = link_to 'Working With Wiki Content', { :action => 'index', :id => 'curate_wiki' }, { :class => active_if_action_is('index', 'curate_wiki') }
   %li
-    = link_to 'Curator To Do List', {:controller => '/content/page', :action => 'curator_todo'}, {:class => active_if_action_is('curator_todo') }
+    = link_to 'Curator To Do List', { :action => 'index', :id => 'curator_todo' }, { :class => active_if_action_is('index', 'curator_todo') }
   %li
-    = link_to 'Curation Standards', {:controller => '/content/page', :action => 'curation_standards'}, {:class => active_if_action_is('curation_standards') }
+    = link_to 'Curation Standards', { :action => 'index', :id => 'curation_standards' }, { :class => active_if_action_is('index', 'curation_standards') }
   /
     THESE ARE ALL TODO
     %li
-      = link_to 'Text', {:action => 'curate_text'}, {:class => active_if_action_is('curate_text') }
+      = link_to 'Text', { :action => 'curate_text' }, { :class => active_if_action_is('curate_text') }
     %li
-      = link_to 'Videos', {:action => 'curate_video'}, {:class => active_if_action_is('curate_video') }
+      = link_to 'Videos', { :action => 'curate_video' }, { :class => active_if_action_is('curate_video') }
     %li
-      = link_to 'Maps', {:action => 'curate_TODO'}, {:class => active_if_action_is('curate_TODO') }
+      = link_to 'Maps', { :action => 'curate_TODO' }, { :class => active_if_action_is('curate_TODO') }
     %li
-      = link_to 'Sounds', {:action => 'curate_TODO'}, {:class => active_if_action_is('curate_TODO') }
+      = link_to 'Sounds', { :action => 'curate_TODO' }, { :class => active_if_action_is('curate_TODO') }
     %li
-      = link_to 'Names', {:action => 'curate_TODO'}, {:class => active_if_action_is('curate_TODO') }
+      = link_to 'Names', { :action => 'curate_TODO' }, { :class => active_if_action_is('curate_TODO') }
   /
     -# These are also commented out, since I wasn't aware of their intention (and they seem wrong): TODO
     %h3
       Action History
     %li
-      = link_to 'Taxa curated', {:controller => '/content/page', :action => 'curator_central'}, {:class => active_if_action_is('curator_central') }
+      = link_to 'Taxa curated', { :controller => '/content/page', :action => 'curator_central' }, { :class => active_if_action_is('curator_central') }
     %li
-      = link_to 'Data curated', {:controller => '/content/page', :action => 'curate_wiki'}, {:class => active_if_action_is('curate_wiki') }
+      = link_to 'Data curated', { :controller => '/content/page', :action => 'curate_wiki' }, { :class => active_if_action_is('curate_wiki') }

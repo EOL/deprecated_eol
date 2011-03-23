@@ -14,7 +14,7 @@ class ContentController < ApplicationController
       @content = ContentPage.get_by_page_name_and_language_abbr('Home', current_user.language_abbr)
       raise "static page content not found" if @content.nil?
       @explore_taxa  = RandomHierarchyImage.random_set(6, @session_hierarchy, {:language => current_user.language, :size => :medium})
-      featured_taxa = TaxonConcept.exemplars # comment this out to make featured taxa go away on home page!     
+      featured_taxa = TaxonConcept.exemplars # comment this out to make featured taxa go away on home page!
       random_index = rand(featured_taxa.length)
       @featured_taxon = featured_taxa[random_index]
       # get top news items less then a predetermined number of weeks old
@@ -77,7 +77,7 @@ class ContentController < ApplicationController
           :data_objects => [ :guid, :object_cache_url ],
           :names => :string },
         :include => { :taxon_concepts => [ {:preferred_names => :name}, {:preferred_common_names => :name} ]})
-      
+
       data_objects.each do |data_object|
         taxon_concept = data_object.taxon_concepts[0]
         title = taxon_concept.preferred_names[0].name.string
@@ -176,17 +176,17 @@ class ContentController < ApplicationController
     if request.post? == false
       return_to = params[:return_to] || ''
       # grab default subject to select in list if it's passed in the querystring
-      @contact.contact_subject = ContactSubject.find_by_title(params[:default_subject]) if params[:default_subject].nil? == false   
+      @contact.contact_subject = ContactSubject.find_by_title(params[:default_subject]) if params[:default_subject].nil? == false
       @contact.name = params[:default_name] if params[:default_name].nil? == false
       @contact.email = params[:default_email] if params[:default_email].nil? == false
       return
-    end 
+    end
 
     @contact.ip_address = request.remote_ip
     @contact.user_id = current_user.id
     @contact.referred_page = return_to_url
 
-    if verify_recaptcha && @contact.save  
+    if verify_recaptcha && @contact.save
       Notifier.deliver_contact_us_auto_response(@contact)
       flash[:notice] = "Thank you for your feedback."[:thanks_for_feedback]
       current_user.log_activity(:sent_contact_us_id, :value => @contact.id)
@@ -215,7 +215,7 @@ class ContentController < ApplicationController
       Notifier.deliver_media_contact_auto_response(@contact)
       flash[:notice] = "Your message was sent."[:your_message_was_sent]
       current_user.log_activity(:sent_media_contact_us_id, :value => @contact.id)
-      redirect_back_or_default 
+      redirect_back_or_default
     else
       @verification_did_not_match = "The verification phrase you entered did not match."[:verification_phrase_did_not_match] if verify_recaptcha == false
     end
@@ -255,7 +255,7 @@ class ContentController < ApplicationController
     raise "content upload without id" if content_upload_id.blank?
 
     # if the id is not numeric, assume it's a link name
-    if content_upload_id.to_i == 0 
+    if content_upload_id.to_i == 0
       content_upload = ContentUpload.find_by_link_name(content_upload_id)
     else # assume the id passed is numeric and find it by ID
       content_upload = ContentUpload.find_by_id(content_upload_id)
@@ -292,7 +292,7 @@ class ContentController < ApplicationController
 
     donation = params[:donation]
 
-    @other_amount = donation[:amount].gsub(",", "").to_f 
+    @other_amount = donation[:amount].gsub(",", "").to_f
     @preset_amount = donation[:preset_amount]
 
     if @preset_amount.nil?
@@ -321,7 +321,7 @@ class ContentController < ApplicationController
         render :text => "All caches expired.", :layout => false
       else
         render :text => 'Clearing all caches not supported for this cache store.', :layout => false
-      end  
+      end
     else
       redirect_to root_url
     end
@@ -330,7 +330,7 @@ class ContentController < ApplicationController
   # conveninece page to expire all caches (except species pages) immediately (call with http://www.eol.org/expire_all)
   def expire_all
     if allowed_request
-      expire_non_species_caches  
+      expire_non_species_caches
       render :text => "Non-species page caches expired.", :layout => false
     else
       redirect_to root_url
@@ -386,7 +386,7 @@ class ContentController < ApplicationController
     else
       redirect_to root_url
     end
-  end  
+  end
 
   def wikipedia
     @revision_url = params[:revision_url]

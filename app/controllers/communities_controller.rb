@@ -5,7 +5,7 @@ class CommunitiesController < ApplicationController
   before_filter :restrict_edit_and_delete, :only => [:edit, :update, :delete]
 
   def index
-    @communities = Community.paginate(:page => params[:page]) 
+    @communities = Community.paginate(:page => params[:page])
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @communities }
@@ -14,14 +14,16 @@ class CommunitiesController < ApplicationController
 
   def show
     @feed_item = FeedItem.new(:feed_id => @community.id, :feed_type => @community.class.name)
+    @page_title = "Community: #{ @community.name }"
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @community }
     end
   end
 
+  # What is the difference between new and create?
   def new
-    @page_title = "New EOL Community"[]
+    @page_title = 'Create a new community'[]
     @community = Community.new
     respond_to do |format|
       format.html # new.html.erb
@@ -30,6 +32,7 @@ class CommunitiesController < ApplicationController
   end
 
   def edit
+    @page_title = 'Edit community'[]
   end
 
   def create

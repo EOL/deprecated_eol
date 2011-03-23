@@ -1,7 +1,8 @@
 - content_for :head do
-  = javascript_include_merged 'taxa-page-cached'
-  :javascript
-    if (!EOL) { EOL = {}; }
-    EOL.USE_EXTERNAL_LINK_POPUPS = #{$USE_EXTERNAL_LINK_POPUPS};
-    EOL.common_names_toc_id = #{TocItem.common_names.id || 0};
+  - if @taxon_concept
+    - if @taxon_concept.has_feed?
+      %link#content_rss{ :title => "Latest Content", :href => url_for(:controller => :feeds, :action => :all, :id => @taxon_concept.id), :rel => "alternate", :type => "application/rss+xml"}
+    - if (@taxon_concept.entry && @taxon_concept.entry.hierarchies_content && (@taxon_concept.entry.hierarchies_content.image != 0 || @taxon_concept.entry.hierarchies_content.child_image != 0))
+      %link#media_rss{ :title => "MediaRSS Feed", :href => "/content/mediarss/#{@taxon_concept.id}", :rel => "alternate", :type => "application/rss+xml" }
+
 = render :file => 'layouts/main'

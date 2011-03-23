@@ -2,6 +2,7 @@ class TaxaController < ApplicationController
 
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN   # if we happen to be on an SSL page, go back to http
   before_filter :set_session_hierarchy_variable, :only => [:show, :classification_attribution, :content, :curators]
+  after_filter :set_meta_description_and_keys
 
   # this is cheating because of mixing taxon and taxon concept use of the controller
   def index
@@ -22,18 +23,13 @@ class TaxaController < ApplicationController
     end
   end
 
-  # a quick way to test exception notifications, just raise the error!
-  def boom
-    raise "boom" 
-  end
-
   def search
     # remove colon from query, because it reserved for fields separation
     @colon_warning_flag = 0
     if params[:q]  =~ /:/
       @querystring = params[:q].gsub(':', '')
       @colon_warning_flag = 1
-    else 
+    else
       @querystring = params[:q] || params[:id]
     end
     @search_type = params[:search_type] || 'text'
@@ -52,7 +48,7 @@ class TaxaController < ApplicationController
 
   def found
     # update the search log if we are coming from the search page, to indicate the user got here from a search
-    update_logged_search :id => params[:search_id], :taxon_concept_id => params[:id] if params.key? :search_id 
+    update_logged_search :id => params[:search_id], :taxon_concept_id => params[:id] if params.key? :search_id
     current_user.log_activity(:clicked_on_search_result, :taxon_concept_id => params[:id])
     redirect_to taxon_concept_url(:id => params[:id])
   end
@@ -90,8 +86,8 @@ class TaxaController < ApplicationController
       :synonyms => :synonym_relation_id,
       :refs => :id }
     @taxon_concept = TaxonConcept.core_relationships(:add_include => inc, :add_select => sel).find_by_id(taxon_concept.id)
-    
-    
+
+
     # inc = [
     #   { :hierarchy_entries => [ :rank, { :name => :canonical_form }, :hierarchy, :hierarchies_content ] },
     #   { :all_data_objects => [ { :toc_items => :info_items }, :license, :published_refs ] },
@@ -113,9 +109,9 @@ class TaxaController < ApplicationController
     #   :synonyms => :synonym_relation_id,
     #   :refs => :id }
     # @taxon_concept = TaxonConcept.core_relationships(:include => inc, :select => sel).find_by_id(taxon_concept.id)
-    
-    
-    
+
+
+
     if params[:action_name] == "update_common_names"
       update_common_names
     end
@@ -160,9 +156,9 @@ class TaxaController < ApplicationController
     if current_user.expertise.to_s == 'expert'
       @scientific_results = results.paginate(:page => 1, :per_page => results.length + 1, :total_entries => results.length)
       @common_results = empty_paginated_set
-    else 
+    else
       @scientific_results = empty_paginated_set
-      @common_results = results.sort_by {|tc| tc['common_name'] }.paginate(:page => 1, :per_page => results.length + 1, :total_entries => results.length) 
+      @common_results = results.sort_by {|tc| tc['common_name'] }.paginate(:page => 1, :per_page => results.length + 1, :total_entries => results.length)
     end
     @suggested_results = empty_paginated_set
     @all_results = results
@@ -182,7 +178,7 @@ class TaxaController < ApplicationController
       current_user.log_activity(:text_search_on, :value => params[:q])
     end
     respond_to do |format|
-      format.html do 
+      format.html do
         redirect_to_taxa_page(@all_results) if (@all_results.length == 1 and not params[:page].to_i > 1)
       end
     end
@@ -216,7 +212,7 @@ class TaxaController < ApplicationController
     flash[:notice] = "Your preferences have been updated."[:your_preferences_have_been_updated] if params[:from_taxa_page].blank?
     store_location(EOLWebService.uri_remove_param(return_to_url, 'vetted')) if valid_return_to_url
     redirect_back_or_default
-  end  
+  end
 
   ################
   # AJAX CALLS
@@ -233,7 +229,7 @@ class TaxaController < ApplicationController
       @toc_item = TocEntry.new(@taxon_concept.tocitem_for_new_text, :has_content => false)
     end
 
-    @category_id = @toc_item.category_id    
+    @category_id = @toc_item.category_id
     get_content_variables(:ajax_update => true)
     current_user.log_activity(:viewed_toc_id, :value => toc_id, :taxon_concept_id => @taxon_concept.id)
   end
@@ -246,7 +242,7 @@ class TaxaController < ApplicationController
       return
     end
 
-    @taxon_concept = TaxonConcept.core_relationships(:only => [{:data_objects => :toc_items}, { :users_data_objects => { :data_object => :toc_items } }]).find(params[:id]) 
+    @taxon_concept = TaxonConcept.core_relationships(:only => [{:data_objects => :toc_items}, { :users_data_objects => { :data_object => :toc_items } }]).find(params[:id])
     @category_id   = params[:category_id].to_i
 
     @taxon_concept.current_agent = current_agent unless current_agent.nil?
@@ -304,7 +300,7 @@ class TaxaController < ApplicationController
      render :nothing => true
      return
    end
-    
+
     @data_object = DataObject.find(params[:data_object_id].to_i)
     current_user.log_activity(:viewed_video, :value => @data_object.object_cache_url)
     render :update do |page|
@@ -408,38 +404,38 @@ class TaxaController < ApplicationController
     current_user.log_activity(:published_wikipedia_article, :taxon_concept_id => tc.id)
     redirect_to redirect_url
   end
-  
+
   def lookup_reference
     ref = Ref.find(params[:ref_id].to_i)
     callback = params[:callback]
-    
+
     if defined? $REFERENCE_PARSING_ENABLED
       raise 'Reference parsing disabled' if !$REFERENCE_PARSING_ENABLED
     else
       parameter = SiteConfigurationOption.reference_parsing_enabled
       raise 'Reference parsing disabled' unless parameter && parameter.value == 'true'
     end
-    
+
     if defined? $REFERENCE_PARSER_ENDPOINT
       endpoint = $REFERENCE_PARSER_ENDPOINT
     else
       endpoint_param = SiteConfigurationOption.reference_parser_endpoint
       endpoint = endpoint_param.value
     end
-    
+
     if defined? $REFERENCE_PARSER_PID
       pid = $REFERENCE_PARSER_PID
     else
       pid_param = SiteConfigurationOption.reference_parser_pid
       pid = pid_param.value
     end
-    
+
     raise 'Invalid configuration' unless pid && endpoint
-    
+
     url = endpoint + "?pid=#{pid}&output=json&q=#{URI.escape(ref.full_reference)}&callback=#{callback}"
     render :text => Net::HTTP.get(URI.parse(url))
   end
-  
+
   def curators
     # if this is named taxon_concept then the RSS feeds will be added to the page
     # in Firefox those feeds are evaluated when the pages loads, so this should save some queries
@@ -492,7 +488,7 @@ private
 
     if params[:vet_flag] == "false"
       @video_collection = @videos
-    else 
+    else
       @video_collection = @default_videos unless @default_videos.blank?
     end
   end
@@ -580,7 +576,7 @@ private
   helper_method(:taxa_page_html_fragment_name)
 
   def show_taxa_html_can_be_cached?
-    return(allow_page_to_be_cached? and 
+    return(allow_page_to_be_cached? and
            params[:category_id].blank? and
            params[:image_id].blank?)
   end
@@ -661,7 +657,7 @@ private
     @taxon_concept.current_agent = current_agent
     @images = @taxon_concept.images
     @image_count = @taxon_concept.image_count
-    
+
     set_image_data
     set_text_data
 
@@ -676,7 +672,7 @@ private
   end
 
   # For regular users, a page is accessible only if the taxon_concept is published.
-  # If an agent is logged in, then it's only accessible if the taxon_concept is 
+  # If an agent is logged in, then it's only accessible if the taxon_concept is
   # referenced by the Agent's most recent harvest events
   def accessible_page?(taxon_concept)
     return false if taxon_concept.nil?      # TC wasn't found.
@@ -709,19 +705,19 @@ private
     singular   = querystring.singularize
     suggested_results_original = SearchSuggestion.find_all_by_term_and_active(singular, true, :order => 'sort_order') +
                                  SearchSuggestion.find_all_by_term_and_active(pluralized, true, :order => 'sort_order')
-    
+
     # bacteria has a singular bacterium and a plural bacterias so we need to search on the original term too
     if querystring != pluralized && querystring != singular
       suggested_results_original += SearchSuggestion.find_all_by_term_and_active(querystring, true, :order => 'sort_order')
     end
-    
+
     return [] if suggested_results_original.blank?
     suggested_results_query = suggested_results_original.select {|i| i.taxon_id.to_i > 0}.map {|i| 'taxon_concept_id:' + i.taxon_id}.join(' OR ')
     suggested_results_query = suggested_results_query.blank? ? "taxon_concept_id:0" : "(#{suggested_results_query})"
     suggested_results  = TaxonConcept.search_with_pagination(suggested_results_query, params)
     suggested_results_original = suggested_results_original.inject({}) {|res, sugg_search| res[sugg_search.taxon_id] = sugg_search; res}
-    suggested_results.each do |res| 
-      common_name = suggested_results_original[res['taxon_concept_id'][0].to_s].common_name 
+    suggested_results.each do |res|
+      common_name = suggested_results_original[res['taxon_concept_id'][0].to_s].common_name
       res['common_name'] = [common_name]
       res['preferred_common_name'] = common_name
     end
@@ -761,10 +757,17 @@ private
   def build_language_list
     @languages = Language.with_iso_639_1.map  do |lang|
       {
-        :label    => lang.label, 
-        :id       => lang.id, 
+        :label    => lang.label,
+        :id       => lang.id,
         :selected => lang.id == (current_user && current_user.language_id) ? "selected" : nil
       }
+    end
+  end
+
+  def set_meta_description_and_keys
+    if @taxon_concept
+      @meta_description = "#{@taxon_concept.title} (#{@taxon_concept.subtitle}) in Encyclopedia of Life"
+      @meta_keywords = @taxon_concept.title + " " + @taxon_concept.subtitle
     end
   end
 

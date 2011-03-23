@@ -4,7 +4,7 @@ ContentPage # TODO - figure out why this fails to autoload.  Look at http://kbal
 class ApplicationController < ActionController::Base
 
   include ContentPartnerAuthenticationModule # TODO -seriously?!?  You want all that cruft available to ALL controllers?!
-  
+
   if $EXCEPTION_NOTIFY || $ERROR_LOGGING
     include ExceptionNotifiable
     # Uncomment this line if you want to test exception notification and db error logging even on localhost calls.
@@ -119,7 +119,7 @@ class ApplicationController < ActionController::Base
   def return_to_url
     session[:return_to] || root_url
   end
-  
+
   # Set the page expertise and vetted defaults, get from querystring, update the session with this value if found
   def set_user_settings
     return if request.path =~ /logout$/
@@ -136,7 +136,7 @@ class ApplicationController < ActionController::Base
       end
     end
   end
-  
+
   def valid_return_to_url
     return_to_url != nil && return_to_url != login_url && return_to_url != register_url && return_to_url != logout_url && !url_for(:controller => 'content_partner', :action => 'login', :only_path => true).include?(return_to_url)
   end
@@ -157,7 +157,7 @@ class ApplicationController < ActionController::Base
   def redirect_back_or_default(default = root_url(:protocol => "http"))
     # be sure we aren't returning the login, register or logout page
     if valid_return_to_url
-      url = CGI.unescape(return_to_url) 
+      url = CGI.unescape(return_to_url)
       url = {:controller => url, :protocol => "http"} unless  url.match("://")
       redirect_to(url)
     else
@@ -166,7 +166,7 @@ class ApplicationController < ActionController::Base
     store_location(nil)
     return false
   end
-  
+
   # send user to the SSL version of the page (used in the account controller, can be used elsewhere)
   def redirect_to_ssl
     url_to_return = params[:return_to] ? CGI.unescape(params[:return_to]).strip : nil
@@ -199,7 +199,7 @@ class ApplicationController < ActionController::Base
     redirect_to url
 
   end
-  
+
   def redirect_to_http_if_https
     if request.ssl?
       redirect_to "http://" + request.host + request.request_uri
@@ -232,7 +232,7 @@ class ApplicationController < ActionController::Base
   def clear_all_caches
     $CACHE.clear
     remove_cached_feeds
-    remove_cached_list_of_taxon_concepts                                             
+    remove_cached_list_of_taxon_concepts
     if ActionController::Base.cache_store.class == ActiveSupport::Cache::MemCacheStore
       ActionController::Base.cache_store.clear
       return true
@@ -250,7 +250,7 @@ class ApplicationController < ActionController::Base
   # expire a list of taxa_ids specifed as an array, usually including its ancestors (optionally not)
   # NOTE - this is VERY slow because each taxon is expired individually.  But this is a limitation of memcached.  Unless we
   # want to keep an index of all of the memcached keys related to a given taxon, which itself would be confusing, this is not
-  # really possible.  
+  # really possible.
   def expire_taxa(taxa_ids)
     return if taxa_ids.nil?
     raise "Must be called with an array" unless taxa_ids.class == Array
@@ -370,7 +370,7 @@ class ApplicationController < ActionController::Base
   def clear_any_logged_in_session
     reset_session if logged_in?
   end
-  
+
 
   ###########
   # AUTHENTICATION/AUTHORIZATION METHODS
@@ -379,11 +379,11 @@ class ApplicationController < ActionController::Base
   def logged_in?
     return(logged_in_from_session? || logged_in_from_cookie?)
   end
-  
+
   def logged_in_from_session?
     !!session[:user_id]
   end
-  
+
   def logged_in_from_cookie?
     user = cookies[:user_auth_token] && User.find_by_remember_token(cookies[:user_auth_token])
     if user && user.remember_token?
@@ -392,7 +392,7 @@ class ApplicationController < ActionController::Base
       return true
     else
       return false
-    end    
+    end
   end
 
   def check_authentication
@@ -493,7 +493,7 @@ private
     expire_page( :controller => 'content', :action => 'tc_api' )
   end
 
-  # Rails cache (memcached, probably) version of the user, by id: 
+  # Rails cache (memcached, probably) version of the user, by id:
   def cached_user
     User # KNOWN BUG (in Rails): if you end up with "undefined class/module" errors in a fetch() call, you must call
          # that class beforehand.

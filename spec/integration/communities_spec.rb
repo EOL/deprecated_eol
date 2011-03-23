@@ -89,7 +89,7 @@ describe "Communities controller" do
       end
     end
   end
-  
+
   it 'should list each member\'s roles' do
     visit community_path(@community)
     page.body.should have_tag("ul#community_members") do
@@ -104,7 +104,7 @@ describe "Communities controller" do
 
   it 'should show the "focus"' do
     visit community_path(@community)
-    page.body.should have_tag('.focus') do
+    page.body.should have_tag('#community_focus_container') do
       with_tag("a[href=#{taxon_concept_path(@tc1)}]")
       with_tag("a[href=#{taxon_concept_path(@tc2)}]")
     end
@@ -139,7 +139,7 @@ describe "Communities controller" do
   it 'should show log in message when not logged in' do
     visit('/logout')
     visit community_path(@community)
-    page.body.should have_tag("#full-page-content") do # Make sure we're not looking at the header.
+    page.body.should have_tag("#user_container") do # Make sure we're not looking at the header.
       with_tag("a[href=#{login_path}]")
     end
   end

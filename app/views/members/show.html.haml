@@ -1,8 +1,8 @@
 - current_member_is_an_admin = @current_member && @current_member.can?(Privilege.grant_level_20_privileges)
-%h3
-  = link_to @member.user.username, @member.user
+%h1
+  = "#{ link_to @member.user.username, @member.user } member of #{ link_to(h(@community.name), @community) } "[]
 .roles
-  %h5= "Roles"[]
+  %h2= "Roles"[]
   %ul#roles
     - @member.roles.sort_by {|r| r.title }.each do |role|
       %li{:id => "role_#{role.id}"}
@@ -13,15 +13,16 @@
     - if current_member_is_an_admin
       - roles = (@community.roles - @member.roles).sort_by {|r| r.title }
       - if roles.blank?
-        %p= "This member has ALL of the roles available in this community!"[]
+        %p= "This member has all of the roles available in this community."[]
       - else
         - form_tag(add_role_to_member_path(@member)) do
+          %h3= 'Assign additional roles to this member'[]
           = hidden_field_tag :community_id, @community.id
           = collection_select(:member, :new_role_id, roles, :id, :title, :prompt => true)
           = submit_tag('Add Role'[])
 .privileges
-  %h5= "Special Privileges"[]
-  %p= "These are privileges which are granted specifically to this member, ragardless of the member's roles, and supercede any privilieges granted by roles."[:explain_member_privileges]
+  %h2= "Special Privileges"[]
+  %p= "These are privileges which are granted specifically to this member, regardless of the member's roles, and supercede any privilieges granted by roles."[:explain_member_privileges]
   - listed_privileges = []
   - if @member.member_privileges.blank?
     %p= "This member has no special privileges."[]
@@ -42,7 +43,8 @@
   .add
     - if current_member_is_an_admin
       - if listed_privileges.blank?
-        %p= "This member has ALL of the privileges in this community as special privileges!"[]
+        -# TODO: Is this right?
+        %p= "This member has all of the privileges in this community as special privileges."[]
       - else
         - form_tag(grant_privilege_to_member_path(@member)) do
           = hidden_field_tag :community_id, @community.id

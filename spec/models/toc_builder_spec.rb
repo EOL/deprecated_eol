@@ -28,7 +28,7 @@ describe TocBuilder do
       user.vetted = false
       
       # In order to get content_partners, we need a mapping realted to one of the tc's names.
-      HierarchyEntry.gen(:hierarchy => Hierarchy.last, :taxon_concept => TaxonConcept.last, :source_url => 'something') # Cheating.  I know that the last name built was created for this TC
+      HierarchyEntry.gen(:hierarchy => Hierarchy.default, :taxon_concept => tc, :source_url => 'something') # Cheating.  I know that the last name built was created for this TC
 
       # Literature References will be added if there is a reference to this TC:
       HierarchyEntriesRef.gen(:hierarchy_entry => tc.entry)

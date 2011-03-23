@@ -9,7 +9,7 @@ describe Comment do
     @tc_comment = @tc.comments[0]
     @text_comment = @tc.data_objects.select { |d| d.data_type.label == 'Text'  }.select { |t| !t.comments.blank? }.first.comments.first
     @image_comment = @tc.images.select { |i| !i.comments.blank? }.first.comments.first
-    @curator = @tc.curators[0]
+    @curator = User.find(@tc.curators[0])
     @non_curator = User.gen
   end
     

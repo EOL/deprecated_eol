@@ -42,8 +42,7 @@ class Ref < SpeciesSchemaModel
 
   # Determines whether or not the TaxonConcept has Literature References
   def self.literature_references_for?(taxon_concept_id)
-    # a. HE -> DOHE -> DO -> DOR -> R
-    # b. HE -> HER
+    # DataObject references
     ref_count = Ref.count_by_sql([
       "SELECT 1 FROM hierarchy_entries he 
                 JOIN data_objects_hierarchy_entries dohe ON (he.id=dohe.hierarchy_entry_id)
@@ -55,18 +54,24 @@ class Ref < SpeciesSchemaModel
                 AND do.visibility_id=?
                 AND refs.published=1
                 AND refs.visibility_id=?
-                LIMIT 1
-      UNION
-      SELECT 1 FROM hierarchy_entries he
+                LIMIT 1", taxon_concept_id, Visibility.visible.id, Visibility.visible.id])
+    return true if ref_count > 0
+    
+    # HierarchyEntry references
+    ref_count = Ref.count_by_sql([
+      "SELECT 1 FROM hierarchy_entries he
                 JOIN hierarchy_entries_refs her ON (he.id=her.hierarchy_entry_id)
                 JOIN refs ON (her.ref_id=refs.id)
                 WHERE he.taxon_concept_id=?
                 AND he.published=1
                 AND refs.published=1
                 AND refs.visibility_id=?
-                LIMIT 1
-      UNION
-      SELECT 1 FROM #{UsersDataObject.full_table_name} udo
+                LIMIT 1", taxon_concept_id, Visibility.visible.id])
+    return true if ref_count > 0
+    
+    # User DataObject references
+    ref_count = Ref.count_by_sql([
+      "SELECT 1 FROM #{UsersDataObject.full_table_name} udo
                 JOIN data_objects do ON (udo.data_object_id=do.id)
                 JOIN data_objects_refs dor ON (do.id=dor.data_object_id) 
                 JOIN refs ON (dor.ref_id=refs.id)
@@ -75,7 +80,7 @@ class Ref < SpeciesSchemaModel
                 AND do.visibility_id=?
                 AND refs.published=1
                 AND refs.visibility_id=?
-                LIMIT 1", taxon_concept_id, Visibility.visible.id, Visibility.visible.id, taxon_concept_id, Visibility.visible.id, taxon_concept_id, Visibility.visible.id, Visibility.visible.id])
+                LIMIT 1", taxon_concept_id, Visibility.visible.id, Visibility.visible.id])
     ref_count > 0
   end
 

@@ -23,6 +23,8 @@ class TaxonConcept < SpeciesSchemaModel
 
   has_many :feed_data_objects
   has_many :hierarchy_entries
+  has_many :published_hierarchy_entries, :class_name => HierarchyEntry.to_s,
+    :conditions => 'hierarchy_entries.published=1 AND hierarchy_entries.visibility_id=#{Visibility.visible.id}'
   has_many :top_concept_images
   has_many :top_unpublished_concept_images
   has_many :last_curated_dates
@@ -69,15 +71,16 @@ class TaxonConcept < SpeciesSchemaModel
   
   define_core_relationships :select => {
       :taxon_concepts => '*',
-      :hierarchy_entries => [ :id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
+      :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
       :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
       :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
       :names => :string,
+      :vetted => :view_order,
       :canonical_forms => :string,
       :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ],
       :licenses => :title,
       :table_of_contents => '*' },
-    :include => [{:hierarchy_entries => [:rank, { :name => :canonical_form }, :hierarchy, :hierarchies_content] }, { :data_objects => [ { :toc_items => :info_items }, :license] },
+    :include => [{ :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] }, { :data_objects => [ { :toc_items => :info_items }, :license] },
       { :users_data_objects => { :data_object => :toc_items } }]
 
   def show_curator_controls?(user = nil)
@@ -114,53 +117,13 @@ class TaxonConcept < SpeciesSchemaModel
   # extra credit on their associated TC pages. This method returns an Array of those users.
   def curators(options={})
     return @curators unless @curators.nil?
-    sel = { :users => [ :id, :family_name, :given_name, :curator_hierarchy_entry_id, :curator_scope, :curator_approved ] }
-    inc = nil
-    if options[:add_names]
-      inc = { :curator_hierarchy_entry => :name }
-    end
+    sel = { :users => [ :id ] }
     users = User.find(:all,
       :select => sel,
         :joins => "JOIN #{HierarchyEntry.full_table_name} he ON (he.id = users.curator_hierarchy_entry_id)",
-        :include => inc,
         :conditions => "he.taxon_concept_id IN (#{all_ancestor_taxon_concept_ids.join(',')})")
     @curators = users.uniq
   end
-  
-  def new_all_ancestor_entry_ids
-    all_ancestor_entry_ids = []
-    
-    
-    entries = HierarchyEntry.find_all_by_taxon_concept_id(self.id, :select => 'id, parent_id')
-    all_ancestor_entry_ids += entries.collect{|he| he.id }
-
-    # getting all the parents of entries in this concept, and the other entries in their concepts
-    while parents = HierarchyEntry.find_all_by_id(entries.collect{|he| he.parent_id}.uniq, :joins => 'JOIN hierarchy_entries he_concept USING (taxon_concept_id)', :select => 'hierarchy_entries.id, hierarchy_entries.parent_id, he_concept.id related_he_id', :conditions => "hierarchy_entries.id != 0")
-      break if parents.empty?
-      all_ancestor_entry_ids += parents.collect{|he| he.id }
-      all_ancestor_entry_ids += parents.collect{|he| he['related_he_id']}
-      entries = parents.dup
-      break if entries.collect{|he| he.parent_id} == [0]
-    end
-    return all_ancestor_entry_ids.uniq
-  end
-
-  def all_ancestor_entry_ids
-    all_ancestor_entry_ids = []
-    entries = HierarchyEntry.find_all_by_taxon_concept_id(self.id, :select => 'id, parent_id')
-    all_ancestor_entry_ids += entries.collect{|he| he.id }
-    
-    # getting all the parents of entries in this concept, and the other entries in their concepts
-    while parents = HierarchyEntry.find_all_by_id(entries.collect{|he| he.parent_id}.uniq, :joins => 'JOIN hierarchy_entries he_concept USING (taxon_concept_id)', :select => 'hierarchy_entries.id, hierarchy_entries.parent_id, he_concept.id related_he_id', :conditions => "hierarchy_entries.id != 0")
-      break if parents.empty?
-      all_ancestor_entry_ids += parents.collect{|he| he.id }
-      all_ancestor_entry_ids += parents.collect{|he| he['related_he_id']}
-      entries = parents.dup
-      break if entries.collect{|he| he.parent_id} == [0]
-    end
-    return all_ancestor_entry_ids.uniq
-  end
-  
 
   # Return the curators who actually get credit for what they have done (for example, a new curator who hasn't done
   # anything yet doesn't get a citation).  Also, curators should only get credit on the pages they actually edited,
@@ -302,11 +265,21 @@ class TaxonConcept < SpeciesSchemaModel
 
   # If *any* of the associated HEs are species or below, we consider this to be a species:
   def species_or_below?
-    hierarchy_entries.detect {|he| he.species_or_below? }
+    published_hierarchy_entries.detect {|he| he.species_or_below? }
   end
 
   def has_outlinks?
-    return true unless outlinks.empty?
+    return TaxonConcept.count_by_sql("SELECT 1
+      FROM hierarchy_entries he
+      JOIN hierarchies h ON (he.hierarchy_id = h.id)
+      WHERE he.taxon_concept_id = #{self.id}
+      AND he.published = 1
+      AND he.visibility_id = #{Visibility.visible.id}
+      AND h.browsable = 1
+      AND (
+        (he.source_url != '' AND he.source_url IS NOT NULL)
+        OR (he.identifier != '' AND he.identifier IS NOT NULL AND h.outlink_uri != '' AND h.outlink_uri IS NOT NULL))
+      LIMIT 1") > 0
   end
 
   def outlinks
@@ -350,7 +323,7 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def gbif_map_id
-    hierarchy_entries.each do |entry|
+    published_hierarchy_entries.each do |entry|
       return entry.identifier if entry.has_gbif_identifier?
     end
     return empty_map_id
@@ -378,10 +351,8 @@ class TaxonConcept < SpeciesSchemaModel
     raise "Error finding default hierarchy" if hierarchy.nil? # EOLINFRASTRUCTURE-848
     raise "Cannot find a HierarchyEntry with anything but a Hierarchy" unless hierarchy.is_a? Hierarchy
 
-    # get all hierarchy entries
-    select = {:hierarchy_entries => '*', :vetted => :view_order}
-    @all_entries ||= HierarchyEntry.sort_by_vetted(HierarchyEntry.find_all_by_taxon_concept_id(self.id, :select => select, :include => :vetted))
-    
+    @all_entries ||= HierarchyEntry.sort_by_vetted(published_hierarchy_entries)
+
     # we want ONLY the entry in this hierarchy
     if strict_lookup
       return @all_entries.detect{ |he| he.hierarchy_id == hierarchy.id } || nil
@@ -513,21 +484,19 @@ class TaxonConcept < SpeciesSchemaModel
   
   # general versions of the above methods for any hierarchy
   def find_ancestor_in_hierarchy(hierarchy)
-    hierarchy_entries.each do |entry|
+    if he = published_hierarchy_entries.detect {|he| he.hierarchy_id == hierarchy.id }
+      return he
+    end
+    published_hierarchy_entries.each do |entry|
       this_entry_in = entry.find_ancestor_in_hierarchy(hierarchy)
       return this_entry_in if this_entry_in
     end
     return nil
   end
 
-  def maps_to_hierarchy?(hierarchy)
-    return !find_ancestor_in_hierarchy(hierarchy).nil?
-  end
-
-  # TODO - this method should have a ? at the end of its name
   def in_hierarchy?(search_hierarchy = nil)
     return false unless search_hierarchy
-    entries = hierarchy_entries.detect {|he| he.hierarchy_id == search_hierarchy.id }
+    entries = published_hierarchy_entries.detect {|he| he.hierarchy_id == search_hierarchy.id }
     return entries.nil? ? false : true
   end
 
@@ -539,7 +508,7 @@ class TaxonConcept < SpeciesSchemaModel
   def col_entry
     return @col_entry unless @col_entry.nil?
     hierarchy_id = Hierarchy.default.id
-    return @col_entry = hierarchy_entries.detect{ |he| he.hierarchy_id == hierarchy_id }
+    return @col_entry = published_hierarchy_entries.detect{ |he| he.hierarchy_id == hierarchy_id }
   end
 
   def current_agent=(agent)
@@ -567,7 +536,7 @@ class TaxonConcept < SpeciesSchemaModel
     # TODO - JRice believes these rescues are bad.  They are--I assume--in here because sometimes there is no
     # hierarchies_content.  However, IF there is one AND we get some other errors, then A) we're not handling them,
     # and B) The value switches to false when it may have been true from a previous hierarchies_content.
-    hierarchy_entries.each do |entry|
+    published_hierarchy_entries.each do |entry|
       images = true if entry.hierarchies_content.image != 0 || entry.hierarchies_content.child_image != 0 rescue images
       video = true if entry.hierarchies_content.flash != 0 || entry.hierarchies_content.youtube != 0 rescue video
       map = true if entry.hierarchies_content.map != 0 rescue map
@@ -876,19 +845,6 @@ class TaxonConcept < SpeciesSchemaModel
     combined = {'parents' => grouped_parents, 'children' => grouped_children}
   end
 
-  def self.entry_stats(taxon_concept_id)
-    SpeciesSchemaModel.connection.execute("SELECT he.id, h.label hierarchy_label, hes.*, h.id hierarchy_id
-      FROM hierarchy_entries he
-      JOIN hierarchies h ON (he.hierarchy_id=h.id)
-      JOIN hierarchy_entry_stats hes ON (he.id=hes.hierarchy_entry_id)
-      WHERE he.taxon_concept_id=#{taxon_concept_id}
-      AND h.browsable=1
-      AND he.published=1
-      AND he.visibility_id=#{Visibility.visible.id}
-      GROUP BY h.id
-      ORDER BY h.label").all_hashes
-  end
-
   def data_objects_for_api(options = {})
     options[:images] ||= 3
     options[:videos] ||= 1
@@ -989,11 +945,22 @@ class TaxonConcept < SpeciesSchemaModel
                          FROM taxon_concept_names tcn JOIN names ON (tcn.name_id = names.id)
                          WHERE tcn.taxon_concept_id = ? AND vern = 0', id])
   end
+  
+  def has_stats?
+    HierarchyEntryStat.count_by_sql("SELECT 1
+      FROM hierarchy_entries he
+      JOIN hierarchies h ON (he.hierarchy_id = h.id)
+      JOIN hierarchy_entry_stats hes ON (he.id = hes.hierarchy_entry_id)
+      WHERE he.taxon_concept_id = #{self.id}
+      AND h.browsable = 1
+      AND he.published = 1
+      AND he.visibility_id = #{Visibility.visible.id}
+      LIMIT 1") > 0
+  end
 
   def has_related_names?
-    entries_with_parents = hierarchy_entries.select{ |he| he.hierarchy.browsable && he.parent_id != 0 && he.published == 1 }
+    entries_with_parents = published_hierarchy_entries.select{ |he| he.hierarchy.browsable && he.parent_id != 0 }
     return true unless entries_with_parents.empty?
-
     return TaxonConcept.count_by_sql("SELECT 1
                                       FROM hierarchy_entries he
                                       JOIN hierarchy_entries he_children ON (he.id=he_children.parent_id)
@@ -1005,30 +972,31 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def has_synonyms?
-    common_name_ids = SynonymRelation.common_name_ids
-    # this is pretty killer - I'm sure someone can improve it. If not empty
-    # the set of hierarchy entries whose synomyms are not common names
-    !hierarchy_entries.select do |he|
-      all_relation_ids = he.synonyms.collect{ |s| s.synonym_relation_id }.flatten.uniq
-      (all_relation_ids & common_name_ids).empty?
-    end.empty?
+    return TaxonConcept.count_by_sql("SELECT 1
+      FROM hierarchy_entries he
+      JOIN hierarchies h ON (he.hierarchy_id = h.id)
+      JOIN synonyms s ON (he.id = s.hierarchy_entry_id)
+      WHERE he.taxon_concept_id = #{self.id}
+      AND he.published = 1
+      AND h.browsable = 1
+      AND s.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})
+      LIMIT 1") > 0
   end
 
   def has_common_names?
-    common_name_ids = SynonymRelation.common_name_ids
-    # this is pretty killer - I'm sure someone can improve it. If not empty
-    # the set of hierarchy entries whose synomyms include common names
-    !hierarchy_entries.select do |he|
-      all_relation_ids = he.synonyms.collect{ |s| s.synonym_relation_id }.flatten.uniq
-      !(all_relation_ids & common_name_ids).empty?
-    end.empty?
+    return TaxonConcept.count_by_sql("SELECT 1
+      FROM hierarchy_entries he
+      JOIN hierarchies h ON (he.hierarchy_id = h.id)
+      JOIN synonyms s ON (he.id = s.hierarchy_entry_id)
+      WHERE he.taxon_concept_id = #{self.id}
+      AND he.published = 1
+      AND h.browsable = 1
+      AND s.synonym_relation_id IN (#{SynonymRelation.common_name_ids.join(',')})
+      LIMIT 1") > 0
   end
   
   def has_literature_references?
-    objects_with_references = data_objects.select{ |d| !d.published_refs.empty? }
-    return true unless objects_with_references.blank?
-    entries_with_references = hierarchy_entries.select{ |he| !he.published_refs.empty? }
-    return true unless entries_with_references.blank?
+    Ref.literature_references_for?(self.id)
   end
   
 
@@ -1152,7 +1120,7 @@ class TaxonConcept < SpeciesSchemaModel
   end
   
   def curated_hierarchy_entries
-    hierarchy_entries.select do |he|
+    published_hierarchy_entries.select do |he|
       he.hierarchy.browsable == 1 && he.published == 1 && he.visibility_id == Visibility.visible.id
     end
   end

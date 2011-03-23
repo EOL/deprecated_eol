@@ -75,43 +75,24 @@ class TaxaController < ApplicationController
                                     :status => :moved_permanently)) if taxon_concept.superceded_the_requested_id?
 
     inc = [
+      { :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] },
+      { :data_objects => { :toc_items => :info_items } },
       { :top_concept_images => :data_object },
       { :last_curated_dates => :user },
-      { :hierarchy_entries => [ :synonyms, :published_refs ]},
-      { :data_objects => :published_refs }]
+      { :users_data_objects => { :data_object => :toc_items } }]
     sel = {
+      :taxon_concepts => '*',
+      :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
+      :names => [ :string, :italicized, :canonical_form_id ],
+      :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
+      :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
+      :vetted => :view_order,
       :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ],
+      :table_of_contents => '*',
       :last_curated_dates => '*',
-      :users => [ :given_name, :family_name ],
-      :synonyms => :synonym_relation_id,
-      :refs => :id }
-    @taxon_concept = TaxonConcept.core_relationships(:add_include => inc, :add_select => sel).find_by_id(taxon_concept.id)
-
-
-    # inc = [
-    #   { :hierarchy_entries => [ :rank, { :name => :canonical_form }, :hierarchy, :hierarchies_content ] },
-    #   { :all_data_objects => [ { :toc_items => :info_items }, :license, :published_refs ] },
-    #   { :last_curated_dates => :user },
-    #   { :hierarchy_entries => [ :synonyms, :published_refs ] } ]
-    # sel = {
-    #   :taxon_concepts => '*',
-    #   :hierarchy_entries => [ :id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
-    #   :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
-    #   :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
-    #   :ranks => :label,
-    #   :names => :string,
-    #   :canonical_forms => :string,
-    #   :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ],
-    #   :licenses => :title,
-    #   :table_of_contents => '*',
-    #   :last_curated_dates => '*',
-    #   :users => [ :given_name, :family_name ],
-    #   :synonyms => :synonym_relation_id,
-    #   :refs => :id }
-    # @taxon_concept = TaxonConcept.core_relationships(:include => inc, :select => sel).find_by_id(taxon_concept.id)
-
-
-
+      :users => [ :given_name, :family_name ] }
+    @taxon_concept = TaxonConcept.core_relationships(:include => inc, :select => sel).find_by_id(taxon_concept.id)
+    
     if params[:action_name] == "update_common_names"
       update_common_names
     end
@@ -442,7 +423,8 @@ class TaxaController < ApplicationController
     @concept = find_taxon_concept
     return if taxon_concept_invalid?(@concept)
     @page_title = "Curators of #{@concept.title(@session_hierarchy)}"
-    @curators = @concept.curators(:add_names => true)
+    curators = @concept.curators(:add_names => true)
+    @curators = User.find_all_by_id(curators.collect{ |c| c.id }, :include => { :curator_hierarchy_entry => :name })
     @curators.sort! do |a, b|
       if a.family_name.strip.blank? && b.family_name.strip.blank? # last names blank, sort by first
         a.given_name.strip <=> b.given_name.strip
@@ -581,15 +563,12 @@ private
            params[:image_id].blank?)
   end
 
-  def find_selected_image_index(images,image_id)
-    images.each_with_index do |image,i|
-      # We're "normalizing" the ids, here, since we've already run this method on the input id:
-      lpvo = image.id
-      if obj = DataObject.latest_published_version_of(lpvo)
-        lpvo = obj.id
-      end
-      if lpvo == image_id
-        return i
+  def find_selected_image_index(images, image_id)
+    image_to_find = DataObject.find_by_id(image_id)
+    return nil if image_to_find.blank?
+    images.each_with_index do |image, index|
+      if image.guid == image_to_find.guid
+        return index
       end
     end
     return nil

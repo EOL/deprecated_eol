@@ -60,7 +60,9 @@ class Hierarchy < SpeciesSchemaModel
   end
   
   def self.browsable_for_concept(taxon_concept)
-    Hierarchy.find_by_sql("SELECT h.* FROM hierarchies h JOIN hierarchy_entries he ON (h.id = he.hierarchy_id) WHERE h.browsable = 1 AND he.taxon_concept_id=#{taxon_concept.id}")
+    Hierarchy.find_all_by_browsable(1, :select => { :hierarchies => [ :id, :label, :descriptive_label ] },
+      :joins => "JOIN hierarchy_entries ON hierarchies.id=hierarchy_entries.hierarchy_id",
+      :conditions => "hierarchy_entries.taxon_concept_id=#{taxon_concept.id}")
   end
   
   def form_label
@@ -86,7 +88,7 @@ class Hierarchy < SpeciesSchemaModel
     Hierarchy.cached("kingdoms_for_#{id}") do
       add_include = []
       add_select = {}
-      if params[:include_stats]
+      unless params[:include_stats].blank?
         add_include << :hierarchy_entry_stat
         add_select[:hierarchy_entry_stats] = '*'
       end

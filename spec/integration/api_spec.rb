@@ -136,6 +136,8 @@ describe 'EOL APIs' do
     @test_hierarchy_entry_published = HierarchyEntry.gen(:hierarchy => @test_hierarchy, :identifier => 'Animalia', :parent_id => 0, :published => 1, :visibility_id => Visibility.visible.id, :rank => Rank.kingdom)
     @test_hierarchy_entry_unpublished = HierarchyEntry.gen(:hierarchy => @test_hierarchy, :identifier => 'Plantae', :parent_id => 0, :published => 0, :visibility_id => Visibility.invisible.id, :rank => Rank.kingdom)
     @second_test_hierarchy_entry = HierarchyEntry.gen(:hierarchy => @second_test_hierarchy, :identifier => 54321, :parent_id => 0, :published => 1, :visibility_id => Visibility.visible.id, :rank => Rank.kingdom)
+    make_all_nested_sets
+    flatten_hierarchies
   end
   
   before(:each) do

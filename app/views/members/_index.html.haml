@@ -25,11 +25,6 @@
               = link_to("Edit membership"[], community_member_path(@community, member))
             - if @current_member && @current_member.can?(Privilege.remove_members)
               = link_to("Remove membership"[], [@community, member], :method => :delete, :confirm => 'Are you sure?'[])
-      -# why is logged in user name being added to member list if they are not a member?
-      -# if logged_in? && ! current_user.member_of?(@community)
-        -#%li{:class => member_function}
-          -#= link_to(current_user.username, current_user)
-          =#= "(you)"[]
 
   .membership_actions
     %h2= 'Get involved'[]

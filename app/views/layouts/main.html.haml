@@ -52,7 +52,7 @@
               %li
                 = link_to "Google Translate", {:controller => "/content", :action => "translate"}, {:title => "Use Google Translate widget to transform the site content into another language"}
 
-      #banner.header{ :role => "banner"}
+      #banner.header{ :role => "banner" }
         %h1
           %a{ :href => root_url, :title => "The Encyclopedia of Life (EOL) Web site home page"[] }
             = "Encyclopedia of Life"[:encyclopedia_of_life]
@@ -74,12 +74,12 @@
       %div#search_container
         = render :partial => "/layouts/search"
 
-      %div#account_container
+      %div#user_container
         - if logged_in? && $ALLOW_USER_LOGINS && !agent_logged_in?
           %h2= "Account Information"[]
           %p
             = "Logged in as #{current_user.given_name}"[]
-          %ul#account
+          %ul#user
             %li.profile= link_to "Profile"[], { :controller => "/account", :action => "profile", :data => { :user_id => current_user.id} }
             - if current_user.is_admin?
               %li.administration= link_to "Administration"[], { :controller => "/admin", :action => "index" }
@@ -88,10 +88,10 @@
             %li.sign_out= link_to "Sign Out"[], logout_url
         - elsif $ALLOW_USER_LOGINS && !agent_logged_in?
           %h2= "Login or Create Account"[]
-          %ul#account
+          %ul#user
             %li.login
               = link_to "Login"[:login], { :controller => "/account", :action => "login" }
-            %li.create_account
+            %li.create_user
               = link_to "Create Account"[:create_account], { :controller => "/account", :action => "signup" }
         - elsif $ALLOW_USER_LOGINS == false && @home_page.nil?
           %p
@@ -101,12 +101,13 @@
           %h2= "Content Partner Information"[]
           %p
             = "Logged in as #{current_agent.full_name}"[]
-          %ul#account_agent
+          %ul#user_agent
             %li.dashboard
               = link_to "Dashboard"[], { :controller => "/content_partner", :action => "index" }
             %li.sign_out
               = link_to "Sign Out"[], { :controller => "/content_partner", :action => "logout" }
 
+    -# "main" is an ARIA standard name
     #content_container.section{ :role => "main" }
       %a#content_target
       - unless flash.blank?

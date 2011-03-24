@@ -291,7 +291,7 @@ class TaxonConcept < SpeciesSchemaModel
         :hierarchies => [:label, :outlink_uri, :url],
         :resources => :title,
         :agents => [ :logo_cache_url, :full_name ],
-        :collection_types => [ :label, :parent_id ] },
+        :collection_types => [ :parent_id ] },
       :include => { :hierarchy => [:resource, :agent, :collection_types] })
     entries_for_this_concept.each do |he|
       next if used_hierarchies.include?(he.hierarchy)

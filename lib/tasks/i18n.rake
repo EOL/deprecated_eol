@@ -143,7 +143,7 @@ namespace :i18n do
     
     Dir.glob(File.join([lang_dir, "*"])).each do |file|
       file_name = File.split(file)[-1]
-      if file_name != en_file && file != tmp_file && file_name != File.split(en_yml)[-1] && file_name.match(/\b[a-z]{2}\.yml\b/)
+      if file_name != en_file && file != tmp_file && file_name != File.split(en_yml)[-1] && file_name.match(/^[a-z]{2}\.yml\b/)
         puts "loading file: " + file_name
         en = open(en_yml)
         lang = open(file)

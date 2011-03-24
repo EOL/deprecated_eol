@@ -1,6 +1,6 @@
 - form_tag "/pages/#{@taxon_concept.id}/add_common_name", :method => :post, :id => 'add_common_name' do
   %fieldset.standout
-    %legend Add a new common name
+    %legend=I18n.t("add_a_new_common_name")
     = hidden_field :name, "category_id", :value => params[:category_id]
     = label_tag :name_name_string, "Name"
     = text_field :name, :name_string, :size => 40, :maxlength => 300

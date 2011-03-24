@@ -2,40 +2,40 @@
   #page-separator-general
   #page-title
     %h1
-      Monthly Web Usage Statistics
+      =I18n.t("monthly_web_usage_statistics")
     %hr
   #page-content.clearfix
     #full-page-content
       %p
-        The following statistics represent usage of EOL pages containing data objects from the content partner
+        =I18n.t("the_following_statistics_repre")
         %strong
           = @partner.full_name
       %br
       %h3
-        Summary Statistics
+        =I18n.t("summary_statistics")
       - form_for :hello, :url => { :action => :stats } do |form|
-        Viewing statistics for the month of:
+        =I18n.t("viewing_statistics_for_the_mon")
         = select_tag "year_month", options_for_select(get_year_month_list , @year_month)
-        = submit_tag("Change")
+        = submit_tag(I18n.t("change"))
       %table.results_table{:style => 'width:90%' }
         %thead
           %tr{ :align => "center" }
             %th
             %th
-              Taxa Pages with
+              =I18n.t("taxa_pages_with")
               %br
-              Provider Content
+              =I18n.t("provider_content")
             %th
-              EOL Site
+              =I18n.t("eol_site")
             %th
-              Provider
+              =I18n.t("provider")
               %br
-              Percentage
+              =I18n.t("percentage")
         %tbody
           - @recs.each do |list|
             %tr
               %td.odd
-                Count of Taxa Pages
+                =I18n.t("count_of_taxa_pages")
               %td.odd{ :align => "right" }
                 = list.taxa_pages
               %td.odd{ :align => "right" }
@@ -45,7 +45,7 @@
                 \%
             %tr
               %td.even
-                Count of Taxa Pages that were viewed during the month
+                =I18n.t("count_of_taxa_pages_that_were_")
               %td.even{ :align => "right" }
                 = list.taxa_pages_viewed
               %td.even{ :align => "right" }
@@ -55,7 +55,7 @@
                 \%
             %tr
               %td.odd
-                Total Unique Page Views for the Month
+                =I18n.t("total_unique_page_views_for_th")
               %td.odd{ :align => "right" }
                 = list.unique_page_views
               %td.odd{ :align => "right" }
@@ -65,7 +65,7 @@
                 \%
             %tr
               %td.even
-                Total Page Views for the Month
+                =I18n.t("total_page_views_for_the_month")
               %td.even{ :align => "right" }
                 = list.page_views
               %td.even{ :align => "right" }
@@ -75,7 +75,7 @@
                 \%
             %tr
               %td.odd
-                Total Time on Pages for the Month (hours)
+                =I18n.t("total_time_on_pages_for_the_mo")
               %td.odd{ :align => "right" }
                 = list.timeonpage
               %td.odd{ :align => "right" }
@@ -86,27 +86,27 @@
       %br
       %br
       %h3
-        Taxa Page Statistics
+        =I18n.t("taxa_page_statistics")
       = will_paginate @posts
       %table.results_table{:style => 'width:90%' }
         %thead{ :align => "center" }
           %tr{ :align => "center" }
             %th
-              ID
+              =I18n.t("id")
             %th
-              Scientific Name
+              =I18n.t("scientific_name")
             %th
-              Total
+              =I18n.t("total")
               %br
-              Page Views
+              =I18n.t("page_views")
             %th
-              Total Unique
+              =I18n.t("total_unique")
               %br
-              Page Views
+              =I18n.t("page_views")
             %th
-              Total Time
+              =I18n.t("total_time")
               %br
-              On Page Seconds
+              =I18n.t("on_page_seconds")
         %tbody
           - count = 0
           - @posts.each do |post|

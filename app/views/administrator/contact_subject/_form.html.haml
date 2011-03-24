@@ -1,21 +1,21 @@
 = eol_lang_error_messages_for :contact_subject
 %br
-Edit the topic area and email addresses below and check the active box to show to users on the contact us page of the website.
+=I18n.t("edit_the_topic_area_and_email_")
 %strong
-  Topic area:
-(shown to the user)
+  =I18n.t("topic_area__")
+=I18n.t("_shown_to_the_user_")
 %br
 = f.text_field :title,{:size=>'70',:maxlength=>'250'}
 %br
 %br
 %strong
-  Email recipients:
-(separate multiple email addresses with commas)
+  =I18n.t("email_recipients_")
+=I18n.t("_separate_multiple_email_addre")
 = f.text_field :recipients,{:size=>'70',:maxlength=>'150'}
 %br
 %br
 %strong
-  Active:
+  =I18n.t("active_")
 = f.check_box :active
 %br
 %br

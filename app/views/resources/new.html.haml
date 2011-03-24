@@ -1,5 +1,5 @@
-%h1 Describing a New Resource
+%h1=I18n.t("describing_a_new_resource")
 = render :partial => 'form', :locals => {:button_label => 'Create Resource', :method => :post}
 %p
   %br/
-  = link_to 'Cancel', resources_path
+  = link_to I18n.t("cancel"), resources_path

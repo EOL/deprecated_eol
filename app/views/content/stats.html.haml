@@ -2,27 +2,27 @@
   #page-separator-general
   #page-title
     %h1
-      Statistics
+      =I18n.t("statistics")
     %hr
   #page-content.clearfix
     #full-page-content
       %p
-        The Encyclopedia of Life is an ongoing effort.  This page allows you to follow our progress with some overall statistics.
+        =I18n.t("the_encyclopedia_of_life_is_an")
       %br
       - unless @stats.blank?
         %table.results_table
           %tr
             %th
-              Statistic
+              =I18n.t("statistic")
             %th
-              Count
+              =I18n.t("count")
           %tr
             %td.odd
-              Total number of pages
+              =I18n.t("total_number_of_pages")
             %td.odd
               = number_with_delimiter(@stats.pages_incol+@stats.pages_not_incol)
           %tr
             %td.odd
-              Total number of filled in pages
+              =I18n.t("total_number_of_filled_in_page")
             %td.odd
               = number_with_delimiter(@stats.taxa_count)

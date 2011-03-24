@@ -4,147 +4,147 @@
   #page-separator-general
   #page-title
     %h1
-      EOL API: Pages
+      =I18n.t("eol_api__pages")
     %hr
   #page-content.clearfix
     #full-page-content
       = render(:partial=>'jump_to_nav')
       %h3
-        Request
+        =I18n.t("request")
       %p.indent
         %a{ :href => url }
           = url
       %h3
-        Parameters
+        =I18n.t("parameters")
       %table.results_table
         %tr
           %th
-            Name
+            =I18n.t("name")
           %th
-            Values
+            =I18n.t("values")
           %th
-            Default
+            =I18n.t("default")
           %th
-            Notes
+            =I18n.t("notes")
         %tr
           %td.odd.strong
-            images
+            =I18n.t("images_")
           %td.odd
             0-75
           %td.odd
             1
           %td.odd
-            limits the number of returned image objects
+            =I18n.t("limits_the_number_of_returned_")
         %tr
           %td.even.strong
-            videos
+            =I18n.t("videos_")
           %td.even
             0-75
           %td.even
             1
           %td.even
-            limits the number of returned video objects
+            =I18n.t("limits_the_number_of_returned__")
         %tr
           %td.odd.strong
-            text
+            =I18n.t("text")
           %td.odd
             0-75
           %td.odd
             1
           %td.odd
-            limits the number of returned text objects
+            =I18n.t("limits_the_number_of_returned___")
         %tr
           %td.even.strong
-            subjects
+            =I18n.t("subjects")
           %td.even
             %i
-              see notes
+              =I18n.t("see_notes")
           %td.even
-            TaxonBiology|GeneralDescription|Description
+            =I18n.t("taxonbiology_generaldescriptio")
           %td.even
-            a pipe | delimited list of SPM Info Item subject names or 'all' to get text in any subject 
+            =I18n.t("a_pipe___delimited_list_of_spm") 
         %tr
           %td.odd.strong
-            licenses
+            =I18n.t("licenses")
           %td.odd
-            cc-by, cc-by-nc, cc-by-sa, cc-by-nc-sa, pd [public domain], na [not applicable], all
+            =I18n.t("cc_by__cc_by_nc__cc_by_sa__cc_")
           %td.odd
-            all
+            =I18n.t("all")
           %td.odd
-            a pipe | delimited list of licenses or 'all' to get objects under any license. Licenses abbreviated cc- are all
-            = link_to "Creative Commons", "http://creativecommons.org/licenses/"
-            licenses. Visit their site for more information on the various licenses they offer
+            =I18n.t("a_pipe___delimited_list_of_lic")
+            = link_to I18n.t("creative_commons"), "http://creativecommons.org/licenses/"
+            =I18n.t("licenses__visit_their_site_for")
         %tr
           %td.even.strong
-            details
+            =I18n.t("details")
           %td.even
-            0 or 1
+            =I18n.t("0_or_1")
           %td.even
             0
           %td.even
-            expand all metadata for data objects
+            =I18n.t("expand_all_metadata_for_data_o")
         %tr
           %td.odd.strong
-            common_names
+            =I18n.t("common_names")
           %td.odd
-            0 or 1
+            =I18n.t("0_or_1")
           %td.odd
             0
           %td.odd
-            return common names for the page's taxon
+            =I18n.t("return_common_names_for_the_pa")
         %tr
           %td.even.strong
-            vetted
+            =I18n.t("vetted_")
           %td.even
-            0 or 1
+            =I18n.t("0_or_1")
           %td.even
             0
           %td.even
-            if vetted is 1 only 'trusted' content will be returned. The default is to return all content 
+            =I18n.t("if_vetted_is_1_only__trusted__") 
         %tr
           %td.odd.strong
-            format 
+            =I18n.t("format") 
           %td.odd
-            html, xml, json
+            =I18n.t("html__xml__json")
           %td.odd
-            html
+            =I18n.t("html")
           %td.odd
         %tr
           %td.even.strong
-            version 
+            =I18n.t("version") 
           %td.even
             0.4, 1.0
           %td.even
             0.4
           %td.even
-            version 1.0 uses fields from the latest version of the
-            = link_to 'Darwin Core', 'http://rs.tdwg.org/dwc/terms/index.htm'
-            schema
+            =I18n.t("version_1_0_uses_fields_from_t")
+            = link_to I18n.t("darwin_core"), 'http://rs.tdwg.org/dwc/terms/index.htm'
+            =I18n.t("schema")
       %br
       %h3
-        Description
+        =I18n.t("description")
       %p.indent
-        This method takes an EOL page identifier and returns the scientific name for that page, and optionally returns information about common names, media (text, images and videos), and references to the hierarchies which recognize the taxon described on the page.
+        =I18n.t("this_method_takes_an_eol_page_")
       %p.indent
-        The Darwin Core Taxon elements (dwct:Taxon) under additionalInformation include identifiers for nodes in hierarchies which EOL indexes. They contain a dc:identifier which is the unique ID for the taxon
+        =I18n.t("the_darwin_core_taxon_elements")
         %i
-          in the provider's database
-        \. For example for the Taxon element for a node in the ITIS hierarchy, the dc:identifier will be the ITIS TSN. The dwct:taxonID element contains the
+          =I18n.t("in_the_provider_s_database")
+        =I18n.t("__for_example_for_the_taxon_el")
         %i
-          EOL identifier
-        to be used in the
-        = link_to('hierarchy_entries', :action => 'hierarchy_entries')
-        API. There is no singular EOL taxonomic hierarchy, rather EOL indexes many hierarchies and compares them to figure out which nodes are referring to the same taxa. These taxon elements represent these hierarchy nodes, which is why there are potentially several of them for a given EOL page. Refer to the documentation on the
-        = link_to('hierarchy_entries', :action => 'hierarchy_entries')
-        API for more information.
+          =I18n.t("eol_identifier")
+        =I18n.t("to_be_used_in_the")
+        = link_to(I18n.t("hierarchy_entries"), :action => I18n.t("hierarchy_entries"))
+        =I18n.t("api__there_is_no_singular_eol_")
+        = link_to(I18n.t("hierarchy_entries"), :action => I18n.t("hierarchy_entries"))
+        =I18n.t("api_for_more_information")
       %p.indent
-        If the details parameter is not set then only the data object identifier, data type, and in the case of text objects subject, will be returned. The data type will be a value from the
-        = link_to 'Darwin Core', 'http://dublincore.org/documents/dcmi-type-vocabulary/'
-        resource type vocabulary. The text subject will be a value from the
-        = link_to 'Species Profile Model', 'http://rs.tdwg.org/ontology/voc/SPMInfoItems'
-        ontology of info items.
+        =I18n.t("if_the_details_parameter_is_no")
+        = link_to I18n.t("darwin_core"), 'http://dublincore.org/documents/dcmi-type-vocabulary/'
+        =I18n.t("resource_type_vocabulary__the_")
+        = link_to I18n.t("species_profile_model"), 'http://rs.tdwg.org/ontology/voc/SPMInfoItems'
+        =I18n.t("ontology_of_info_items")
       %h3
-        XML Response
+        =I18n.t("xml_response")
       .formatted_code<
         :escaped
           <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -291,7 +291,7 @@
               </dataObject>
           </response>
       %h3
-        JSON Response
+        =I18n.t("json_response")
       .formatted_code<
         :escaped
           {

@@ -1,15 +1,15 @@
 #logs
   %form#page-form{ :method => "post" }
-    Filter by day:
+    =I18n.t("filter_by_day_")
     - default_select = (@date == 'all') ? 'all' : @date.strftime("%d-%b-%Y")
     = select_tag :date, options_for_select([['--all--', 'all']] + @distinct_dates, default_select), {:onchange=>"javascript:$('#page-form').submit();"}
   %br
   - if @date == 'all'
-    Showing
+    =I18n.t("showing")
     %strong
-      ALL harvesting logs
+      =I18n.t("all_harvesting_logs")
   - elsif !@date.blank?
-    Showing processes from:
+    =I18n.t("showing_processes_from_")
     %strong
       = @date.strftime("%A, %B %d")
   %br
@@ -18,13 +18,13 @@
     %table.results_table{ :cellspacing => "0", :width => "100%" }
       %tr
         %th
-          ID
+          =I18n.t("id")
         %th
-          Process Name
+          =I18n.t("process_name")
         %th
-          Began
+          =I18n.t("began")
         %th
-          Completed
+          =I18n.t("completed")
       - for log in @logs
         - column_class=cycle('odd','even')
         %tr
@@ -41,4 +41,4 @@
   - elsif @logs.nil? == false && @logs.size == 0
     %br
     %i
-      No harvesting logs for this date
+      =I18n.t("no_harvesting_logs_for_this_da")

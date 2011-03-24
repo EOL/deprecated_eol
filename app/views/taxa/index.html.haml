@@ -1,7 +1,7 @@
 %h2
-  List of taxa harvested on 
+  =I18n.t("list_of_taxa_harvested_on") 
   = format_date(@harvest_event.began_at)
-* With data object
+=I18n.t("__with_data_object")
 - unless @taxa_contributed.blank?
   %form#pagination_form
     = will_paginate(@taxa_contributed)

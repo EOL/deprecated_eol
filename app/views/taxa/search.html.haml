@@ -4,10 +4,10 @@
 #page-content.clearfix
   #full-page-content
     - if @all_results.blank?
-      %h3 No search results were found
+      %h3=I18n.t("no_search_results_were_found")
     - else
       - if @colon_warning_flag == 1
-        %h2== Sorry, there is no result for "#{params[:q]}" with a colon. See result for "#{@querystring}".
+        
         %br
       = render :partial => 'search_results_table', :locals => {:title => 'Suggested Search Results', :results => @suggested_results }
       = render :partial => 'search_results_table', :locals => {:title => 'Common Names Search Results', :results => @common_results }

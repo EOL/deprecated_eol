@@ -4,52 +4,52 @@
   #page-separator-general
   #page-title
     %h1
-      EOL API: Search By Provider
+      =I18n.t("eol_api__search_by_provider")
     %hr
   #page-content.clearfix
     #full-page-content
       = render(:partial=>'jump_to_nav')
       %h3
-        Request
+        =I18n.t("request")
       %p.indent
         %a{ :href => url }
           = url
       %h3
-        Parameters
+        =I18n.t("parameters")
       %table.results_table
         %tr
           %th
-            Name
+            =I18n.t("name")
           %th
-            Values
+            =I18n.t("values")
           %th
-            Default
+            =I18n.t("default")
           %th
-            Notes
+            =I18n.t("notes")
         %tr
           %td.odd.strong
-            hierarchy_id
+            =I18n.t("hierarchy_id")
           %td.odd
             %i
-              any integer
+              =I18n.t("any_integer")
           %td.odd
             %i
-              none
+              =I18n.t("none")
           %td.odd
-            the ID of the provider's hierarchy you are searching within
+            =I18n.t("the_id_of_the_provider_s_hiera")
       %br
       %h3
-        Description
+        =I18n.t("description")
       %p.indent
-        This method takes an integer or string which is the unique identifier for a taxon from some provider's database, and a hierarchy_id which represents the provider and returns the EOL page ID for that taxon. For example using the
-        = link_to 'provider_hierarchies', :controller => 'api/docs', :action=>'provider_hierarchies'
+        =I18n.t("this_method_takes_an_integer_o")
+        = link_to I18n.t("provider_hierarchies"), :controller => 'api/docs', :action=>I18n.t("provider_hierarchies")
         API I can find out that the EOL hierarchy_id for the Integrated Taxonomic Information System (ITIS) is 107. I can then search EOL for the ITIS Taxonomic Serial Number (TSN) of 180542,
         %i
-          Ursus maritimus
-        , by calling 
+          =I18n.t("ursus_maritimus")
+        =I18n.t("__by_calling") 
         = link_to url, url
       %h3
-        XML Response
+        =I18n.t("xml_response")
       .formatted_code<
         :escaped
           <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -57,7 +57,7 @@
             <eol_page_id>11508631</eol_page_id>
           </results>
       %h3
-        JSON Response
+        =I18n.t("json_response")
       .formatted_code<
         :escaped
           [

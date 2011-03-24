@@ -1,6 +1,6 @@
 .text-comments-head
   %h3
-    Comments on
+    =I18n.t("comments_on")
     = @title
   %hr
 - if @type
@@ -8,7 +8,7 @@
 #comments-container
   - if current_objects.empty?
     %p
-      No comments have been left yet.
+      =I18n.t("no_comments_have_been_left_yet")
     #comments
       -# ...So when they add a comment, it will go here.
   - unless current_objects.empty?

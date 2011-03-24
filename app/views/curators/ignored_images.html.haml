@@ -18,7 +18,7 @@
 /       %tr{ :id => "undo-move-#{data_object.id}", :class => 'hide ' + data_object.vetted.label.downcase }
 /         %td{ :colspan => 2 }
 /           You moved the image to 
-/           = link_to("your active list", {:controller => :curators, :action => :curate_images, :hierarchy_entry_id => params[:hierarchy_entry_id]}) + "."
+/           = link_to(I18n.t("your_active_list"), {:controller => :curators, :action => :curate_images, :hierarchy_entry_id => params[:hierarchy_entry_id]}) + "."
 /           = "&nbsp;" * 5
 /           %a{ :class => "undo-restore-image" } Undo
 /       %tr{ :id => "curation-item-#{data_object.id}" }

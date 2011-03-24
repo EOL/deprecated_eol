@@ -4,17 +4,17 @@
       = external_link_to(image_tag('/images/ncbi.gif'),"http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=#{@content[:hierarchy_entry].identifier}&lvl=0", {:show_link_icon => false})
     %td{:valign => "top"}
       %span.smalltext
-        The mission of the
-        = external_link_to('National Center for Biotechnology Information', 'http://www.ncbi.nlm.nih.gov/', {:show_link_icon => false})
-        is to develop new information technologies to aid in the understanding of fundamental molecular and genetic processes that control health and disease.
+        =I18n.t("the_mission_of_the")
+        = external_link_to(I18n.t("national_center_for_biotechnol"), 'http://www.ncbi.nlm.nih.gov/', {:show_link_icon => false})
+        =I18n.t("is_to_develop_new_information_")
       %br
       %span.smalltext
-        The 
-        = external_link_to('NCBI Taxonomy', 'http://www.ncbi.nlm.nih.gov/sites/entrez?db=taxonomy', {:show_link_icon => false})
-        database contains the names of all organisms that are represented in the genetic databases with at least one nucleotide or protein sequence. You can
-        = link_to('browse EOL', url_for(settings_url))
-        using the NCBI Taxonomy.
+        =I18n.t("the_") 
+        = external_link_to(I18n.t("ncbi_taxonomy"), 'http://www.ncbi.nlm.nih.gov/sites/entrez?db=taxonomy', {:show_link_icon => false})
+        =I18n.t("database_contains_the_names_of")
+        = link_to(I18n.t("browse_eol"), url_for(settings_url))
+        =I18n.t("using_the_ncbi_taxonomy")
       %br
 %br
 %p{ :align => "center" }
-  = external_link_to "View protein and nucleotide sequences in NCBI", "http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=#{@content[:hierarchy_entry].identifier}&lvl=0"
+  = external_link_to I18n.t("view_protein_and_nucleotide_se"), "http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=#{@content[:hierarchy_entry].identifier}&lvl=0"

@@ -9,8 +9,8 @@
 #media-videos.wrapper-mc.clearfix
   #video-player
     - if @default_videos.blank? && @taxon_concept.has_video && params[:vet_flag] != "false"
-      No authoritative videos available.
-      = link_to 'View unvetted videos for this group.', {:action=>"show", :vet_flag=>"false"}
+      =I18n.t("no_authoritative_videos_availa")
+      = link_to I18n.t("view_unvetted_videos_for_this_"), {:action=>"show", :vet_flag=>"false"}
     - else
       =  I18n.t(:select_video) 
   
@@ -18,7 +18,7 @@
     
     - unless @video_collection.blank?
       .mc-header
-        %h3= "Videos"
+        
         %hr
     - else
       %span#left_top_text
@@ -53,11 +53,11 @@
         %hr
   - unless @video_collection.blank?
     .attribution_link{ :title => "More information", :style => "display: none" }    
-      = link_to('<span style="display:block;width:24px;height:25px;"></span>', |
+      = link_to(I18n.t("_span_style__display_block_wid"), |
         attribution_data_object_path(@video_collection[0]),                    |
         :id => 'video_attributions', :class => 'popup-link attribution-icon',  |
         :rel => "#video-attr-overlay",                                         |
         :alt => 'More information')                                            |
     #video-attr-overlay.overlay{:style=>"width:400px"}
       .contentWrap
-        Please wait, loading...
+        =I18n.t("please_wait_loading")

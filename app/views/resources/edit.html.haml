@@ -3,9 +3,9 @@
 - else
   -content_partner_id = 0
 
-%h1 Editing Resource
+%h1=I18n.t("editing_resource")
 = render :partial => 'form', :locals => { :button_label => 'Save Changes', :method => :put, :content_partner_id => content_partner_id }
 %p
   %br/
 
-= link_to 'Cancel', :back
+= link_to I18n.t("cancel"), :back

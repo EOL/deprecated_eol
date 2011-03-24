@@ -2,8 +2,8 @@
   .search_results{ :id => title.downcase.gsub(" ", "_")}
     %h3.search_result_subtitle= "#{title}"
     %p
-      == Results #{results.offset + 1} - #{results.offset + [results.per_page, results.total_entries].min} of
-      == #{results.total_entries} for
+      =I18n.t("results_var_results_offset___1", :var_results_offset___1 => results.offset + 1, :var_results_offset____results_per_page__results_total_entries__min => results.offset + [results.per_page, results.total_entries].min)
+      =I18n.t("var_results_total_entries_for", :var_results_total_entries => results.total_entries)
       %em= @querystring
     %table.results_table{ :cellspacing => "0", :summary => title, :style => "width:100%;" }
       %tr
@@ -33,7 +33,7 @@
               = link_to hh(best_scientific_name), found_url(:id => result['id']), :method=>:post
             = result['scientific_shown_as']
             - unless result['recognized_by'].blank?
-              %span.recognized_by= "Taxon recognized by #{result['recognized_by']}"
+              
       -# end results.each
     = will_paginate(results)
   - # /search_results

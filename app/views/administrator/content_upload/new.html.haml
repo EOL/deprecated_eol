@@ -6,13 +6,13 @@
     %tr
       %td
         %strong
-          File:
+          =I18n.t("file_")
       %td
         = f.file_field :attachment, :size=>50
         %br
-        (must be less than 10 MB in size, file will be stored as uploaded, i.e. no resizing of images will be performed)
+        =I18n.t("_must_be_less_than_10_mb_in_si")
   %br
   %br
   = cancel_button_goes_back(url_for(:action=>'index'))
   |
-  = f.submit 'Upload'
+  = f.submit I18n.t("upload")

@@ -1,15 +1,15 @@
 - rate_percentage = data_object.data_rating * 20
-Overall:
+=I18n.t("overall_")
 %span.inline-rating
   %ul.star-rating.small-star.average-rating
     %li.current-rating{:id => "average-rating-#{data_object.id}", :style => "width:#{rate_percentage}%;" }
-      Overall:
+      =I18n.t("overall_")
       = data_object.data_rating.to_s
-Your Rating:
+=I18n.t("your_rating_")
 %span.inline-rating
   %ul.star-rating.small-star.user-rating
     %li.current-rating{:id => "user-rating-#{data_object.id}", :style => "width:#{(r = data_object.rating_for_user(current_user)) ? r.rating * 20 : 0}%;" }
-      Your Rating:
+      =I18n.t("your_rating_")
       = (r = data_object.rating_for_user(current_user)) ? r.rating : 0
     %li
       = link_to('1', {:controller => 'data_objects', :action => 'rate', :id => data_object.id, :stars => 1}, :class => 'one-star', 'data-data_object_id' => data_object.id, 'data-data_type' => (data_object.image? ? 'image' : 'other'))

@@ -1,7 +1,7 @@
 #page-separator-general
 #page-title
   %h1
-    Automated Translation of EOL
+    =I18n.t("automated_translation_of_eol")
   %hr
 #page-content.clearfix
   #full-page-content
@@ -10,74 +10,74 @@
         window.location = 'http://translate.google.com/translate?hl=en&ie=UTF-8&u=#{@translate_url}&sl=en&tl=' + $('#language').val();
       }
     %p
-      Try Google Translate for any of the following languages.  Note that these are automated translations performed by Google software, so their accuracy is not confirmed or checked by anyone.
+      =I18n.t("try_google_translate_for_any_o")
     %br
-    View the EOL in: 
+    =I18n.t("view_the_eol_in_") 
     %select#language{ :name => "tl" }
       %option{ :value => "ar" }
-        Arabic
+        =I18n.t("arabic")
       %option{ :value => "bg" }
-        Bulgarian
+        =I18n.t("bulgarian")
       %option{ :value => "ca" }
-        Catalan
+        =I18n.t("catalan")
       %option{ :value => "zh-CN" }
-        Chinese
+        =I18n.t("chinese")
       %option{ :value => "hr" }
-        Croatian
+        =I18n.t("croatian")
       %option{ :value => "cs" }
-        Czech
+        =I18n.t("czech")
       %option{ :value => "da" }
-        Danish
+        =I18n.t("danish")
       %option{ :value => "nl" }
-        Dutch
+        =I18n.t("dutch")
       %option{ :value => "tl" }
-        Filipino
+        =I18n.t("filipino")
       %option{ :value => "fi" }
-        Finnish
+        =I18n.t("finnish")
       %option{ :value => "fr" }
-        French
+        =I18n.t("french")
       %option{ :value => "de" }
-        German
+        =I18n.t("german")
       %option{ :value => "el" }
-        Greek
+        =I18n.t("greek")
       %option{ :value => "iw" }
-        Hebrew
+        =I18n.t("hebrew")
       %option{ :value => "hi" }
-        Hindi
+        =I18n.t("hindi")
       %option{ :value => "id" }
-        Indonesian
+        =I18n.t("indonesian")
       %option{ :value => "it" }
-        Italian
+        =I18n.t("italian")
       %option{ :value => "ja" }
-        Japanese
+        =I18n.t("japanese")
       %option{ :value => "ko" }
-        Korean
+        =I18n.t("korean")
       %option{ :value => "lv" }
-        Latvian
+        =I18n.t("latvian")
       %option{ :value => "lt" }
-        Lithuanian
+        =I18n.t("lithuanian")
       %option{ :value => "no" }
-        Norwegian
+        =I18n.t("norwegian")
       %option{ :value => "pl" }
-        Polish
+        =I18n.t("polish")
       %option{ :value => "pt" }
-        Portuguese
+        =I18n.t("portuguese")
       %option{ :value => "ro" }
-        Romanian
+        =I18n.t("romanian")
       %option{ :value => "ru" }
-        Russian
+        =I18n.t("russian")
       %option{ :value => "sr" }
-        Serbian
+        =I18n.t("serbian")
       %option{ :value => "sk" }
-        Slovak
+        =I18n.t("slovak")
       %option{ :value => "sl" }
-        Slovenian
+        =I18n.t("slovenian")
       %option{ :value => "es" }
-        Spanish
+        =I18n.t("spanish")
       %option{ :value => "sv" }
-        Swedish
+        =I18n.t("swedish")
       %option{ :value => "uk" }
-        Ukrainian
+        =I18n.t("ukrainian")
       %option{ :value => "vi" }
-        Vietnamese    
+        =I18n.t("vietnamese")    
     %input.submit{ :type => "submit", :name => "submit", :onclick => "javascript:translate();", :value => "Go" }

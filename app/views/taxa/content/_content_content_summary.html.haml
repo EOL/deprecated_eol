@@ -20,27 +20,27 @@
       %th
     %tr
       %td.odd
-        \# of descendants
+        =I18n.t("_of_descendants")
       %td.odd
         = hierarchy_entry.hierarchy_entry_stat.total_children
     %tr
       %td.even
-        \# of trusted images
+        =I18n.t("_of_trusted_images")
       %td.even
         = hierarchy_entry.hierarchy_entry_stat.all_image_trusted
     %tr
       %td.odd
-        \# of unreviewed images
+        =I18n.t("_of_unreviewed_images")
       %td.odd
         = hierarchy_entry.hierarchy_entry_stat.all_image_untrusted
     %tr
       %td.even
-        \# of trusted text objects
+        =I18n.t("_of_trusted_text_objects")
       %td.even
         = hierarchy_entry.hierarchy_entry_stat.all_text_trusted
     %tr
       %td.odd
-        \# of unreviewed text objects
+        =I18n.t("_of_unreviewed_text_objects")
       %td.odd
         = hierarchy_entry.hierarchy_entry_stat.all_text_untrusted
   %br

@@ -9,23 +9,23 @@
       #partners
         - if @partners.nil? == false && @partners.size > 0
           %p
-            Encyclopedia of Life content partners serve authenticated species information through the EOL portal. After developing a joint commitment, the content partners work closely with the EOL component groups to make their data visible within EOL. Current content partners can 
-            = link_to 'log in', :controller=>'content_partner', :action=>'login'
-            to manage their information, and new content partners can
-            = link_to 'register', :controller=>'content_partner', :action=>'register'
-            or
-            = link_to 'learn more', :controller=>'content', :action=>'page', :id=>'help_build_eol'
-            about becoming involved.
+            =I18n.t("encyclopedia_of_life_content_p") 
+            = link_to I18n.t("log_in_"), :controller=>'content_partner', :action=>'login'
+            =I18n.t("to_manage_their_information__a")
+            = link_to I18n.t("register"), :controller=>'content_partner', :action=>I18n.t("register")
+            =I18n.t("or_")
+            = link_to I18n.t("learn_more_"), :controller=>'content', :action=>'page', :id=>'help_build_eol'
+            =I18n.t("about_becoming_involved")
           %br
           %p
-            Note that all of these partners maintain their own Web sites where you will find additional information not available through EOL. We urge you to click through to their sites to examine the richness of information each of them contains.
+            =I18n.t("note_that_all_of_these_partner")
           %br
           %table.results_table{ :width => "100%", :cellspacing => 0 }
             %tr
               %th
-                Partner
+                =I18n.t("partner")
               %th
-                Description
+                =I18n.t("description")
             - for partner in @partners
               - if partner.ready_for_agreement? 
                 - column_class = cycle('odd','even')
@@ -38,17 +38,17 @@
                   %td{ :class => column_class }
                     = partner.project_description
                     - if partner.show_mou_on_partner_page?
-                      = link_to("See #{partner.display_name} agreement", {:controller=>'content_partner', :action=>'agreement', :id=>partner.id}, {:target=>'_blank'})
+                      = link_to(I18n.t("see_var_partner_display_name_a", :var_partner_display_name => partner.display_name), {:controller=>'content_partner', :action=>'agreement', :id=>partner.id}, {:target=>'_blank'})
                       \.
                     - if partner.show_gallery_on_partner_page?
                       %br
-                      = link_to("See #{partner.display_name} gallery", {:controller=>'content_partner', :action=>'content', :id=>partner.content_partner.id})
+                      = link_to(I18n.t("see_var_partner_display_name_g", :var_partner_display_name => partner.display_name), {:controller=>'content_partner', :action=>'content', :id=>partner.content_partner.id})
                       \.
                     - if partner.show_stats_on_partner_page?
                       %br
-                      = link_to("See #{partner.display_name} usage statistics", {:controller=>'content_partner', :action=>'stats', :id=>partner.id})
+                      = link_to(I18n.t("see_var_partner_display_name_u", :var_partner_display_name => partner.display_name), {:controller=>'content_partner', :action=>'stats', :id=>partner.id})
                       \.
           %br
           = will_paginate @partners
         - elsif @partners.nil? == false && @partners.size == 0
-          No content partners are available.
+          =I18n.t("no_content_partners_are_availa")

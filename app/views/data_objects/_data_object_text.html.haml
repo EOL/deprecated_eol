@@ -9,7 +9,7 @@
     #text_object_body
       = @data_object.description.balance_tags
   - unless @data_object.refs.blank?
-    %h4 References
+    %h4=I18n.t("references")
     %ul
       - @data_object.refs.each do |ref|
         %li

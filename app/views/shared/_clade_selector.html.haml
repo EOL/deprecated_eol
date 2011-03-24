@@ -23,7 +23,7 @@
     - if show_clear
       %span#browser_clear
         %a{ :href => "#" }
-          [clear]
+          =I18n.t("_clear_")
   - div_display = ( visible == true || value ) ? 'block' : 'none'
   %div{ :id =>"#{id}-inner", :style => "display: #{div_display};" }
     %ul.tree

@@ -1,13 +1,13 @@
 %h1
-  Edit Glossary Term
+  =I18n.t("edit_glossary_term")
 %br
 - form_for :glossary_term, @glossary_term, :url => {:action => 'update', :id => params[:id]} do |f|
-  = f.label :label, "Term"
+  = f.label :label, I18n.t("term")
   = f.text_field :term, :size=>20
   %br
   %br
-  = f.label :label, "Definition"
+  = f.label :label, I18n.t("definition")
   = f.text_area :definition, :rows => 3, :cols => 50
   %br
   %br
-  = f.submit "Submit Term"
+  = f.submit I18n.t("submit_term")

@@ -6,13 +6,13 @@ All Hierarchies
 %table.results_table{:width => "100%", :cellspacing => "0"}
   %tr
     %th
-      = link_to 'Agent', {:order_by=>'agent'}
+      = link_to I18n.t("agent"), {:order_by=>'agent'}
     %th
-      = link_to 'Hierarchy', {:order_by=>'label'}
+      = link_to I18n.t("hierarchy"), {:order_by=>'label'}
     %th
-      = link_to 'Browsable', {:order_by=>'browsable'}
+      = link_to I18n.t("browsable"), {:order_by=>'browsable'}
     %th
-      Edit
+      =I18n.t("edit")
   - for hierarchy in @hierarchies
     - column_class=cycle('odd','even')
     %tr{:valign => "top"}
@@ -20,10 +20,10 @@ All Hierarchies
         = hierarchy['agent_name']
         - if hierarchy['content_partner_agent_id']
           %small
-            = "("+ link_to('partner page', { :controller => 'administrator/content_partner_report', :action => 'show', :id => hierarchy['content_partner_agent_id'] }) +")"
+            = "("+ link_to(I18n.t("partner_page"), { :controller => 'administrator/content_partner_report', :action => 'show', :id => hierarchy['content_partner_agent_id'] }) +")"
       %td{:class => column_class}
         - if hierarchy['agent_name'] == 'uBio'
-          This is a flat list of 10 million strings - not going to let you browse it
+          =I18n.t("this_is_a_flat_list_of_10_mill")
         -else
           = link_to(hierarchy.form_label, { :action => 'browse', :id => hierarchy.id })
           %br
@@ -34,7 +34,7 @@ All Hierarchies
         - browsable = '<strong>pending</strong>' if hierarchy.request_publish==true
         = browsable
       %td{:class => column_class}
-        = link_to("edit", {:action => 'edit', :id => hierarchy.id })
+        = link_to(I18n.t("edit_"), {:action => 'edit', :id => hierarchy.id })
 %br
 %br
 = will_paginate @hierarchies

@@ -1,10 +1,10 @@
-= link_to '[admin home]',:controller=>'/admin',:action=>'index'
+= link_to I18n.t("_admin_home_"),:controller=>'/admin',:action=>'index'
 - form_tag({:action=>'index'}, :method=>'get') do
-  Please note that some of these tools are in beta and may change over time or have bugs.
+  =I18n.t("please_note_that_some_of_these")
   %br
-  Select a tool and click 'Go':
+  =I18n.t("select_a_tool_and_click__go__")
   = select_tag(:report_url, options_for_select(@reports_list,@report_url))
-  = submit_tag 'Go'
+  = submit_tag I18n.t("go")
 .divider
 - unless @report_url.blank?
   = render :partial => '/shared/embed_external_page',:locals=>{:height=>'1000',:width=>'900',:url=>@report_url}

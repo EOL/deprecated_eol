@@ -4,57 +4,57 @@
   #page-separator-general
   #page-title
     %h1
-      EOL API: Search
+      =I18n.t("eol_api__search")
     %hr
   #page-content.clearfix
     #full-page-content
       = render(:partial=>'jump_to_nav')
       %h3
-        Request
+        =I18n.t("request")
       %p.indent
         %a{ :href => url }
           = url
       %h3
-        Parameters
+        =I18n.t("parameters")
       %table.results_table
         %tr
           %th
-            Name
+            =I18n.t("name")
           %th
-            Values
+            =I18n.t("values")
           %th
-            Default
+            =I18n.t("default")
           %th
-            Notes
+            =I18n.t("notes")
         %tr
           %td.odd.strong
-            page
+            =I18n.t("page_")
           %td.odd
             %i
-              any integer
+              =I18n.t("any_integer")
           %td.odd
             1
           %td.odd
         %tr
           %td.even.strong
-            exact
+            =I18n.t("exact")
           %td.even
-            0 or 1
+            =I18n.t("0_or_1")
           %td.even
             0
           %td.even
-            will find taxon pages if the preferred name or any synonym or common name exactly matches the search term
+            =I18n.t("will_find_taxon_pages_if_the_p")
       %br
       %h3
-        Description
+        =I18n.t("description")
       %p.indent
-        The XML search response implements the OpenSearch response format using Atom 1.0. See
-        = link_to 'http://www.opensearch.org/Specifications/OpenSearch/1.1', 'http://www.opensearch.org/Specifications/OpenSearch/1.1'
-        for the full OpenSearch specification
+        =I18n.t("the_xml_search_response_implem")
+        = link_to I18n.t("http___www_opensearch_org_spec"), I18n.t("http___www_opensearch_org_spec")
+        =I18n.t("for_the_full_opensearch_specif")
       %p.indent
-        There is currently no exact match parameter. Given the vast number of scientific and common names (nearly 20 million in total) it is a difficult task to provide a user with exactly the species they are hoping to find. For example there are several bird species of named Robin (American Robin, Alpine Robin, Smoky Robin), and several fish species named Robin, and taxonomist named Robin has named dozens of new species. We are continuously trying to improve the relevancy of our search results so expect some improvements to search ordering in the future.
+        =I18n.t("there_is_currently_no_exact_ma")
       %h3
-        XML Response
+        =I18n.t("xml_response")
       .formatted_code<
         :escaped
           <?xml version="1.0" encoding="UTF-8"?>
@@ -98,7 +98,7 @@
             </entry>
           </feed>
       %h3
-        JSON Response
+        =I18n.t("json_response")
       .formatted_code<
         :escaped
           {

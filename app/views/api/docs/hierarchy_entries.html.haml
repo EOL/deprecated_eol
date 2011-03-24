@@ -4,29 +4,29 @@
   #page-separator-general
   #page-title
     %h1
-      EOL API: Hierarchy Entries
+      =I18n.t("eol_api__hierarchy_entries")
     %hr
   #page-content.clearfix
     #full-page-content
       = render(:partial=>'jump_to_nav')
       %h3
-        Request
+        =I18n.t("request")
       %p.indent
         %a{ :href => url }
           = url
       %h3
-        Parameters
+        =I18n.t("parameters")
       %p.indent
         %i
-          none
+          =I18n.t("none")
       %h3
-        Description
+        =I18n.t("description")
       %p.indent
-        The Encyclopedia of Life does not have a singular taxonomic hierarchy upon which it creates its pages. Rather EOL indexes many hierarchies and compares them against each other. As a result any EOL page may relate to several nodes from various hierarchies. This API gives access to a single hierarchy and its internal relationships. Refer to the documentation on the pages API for information on accessing other hierarchies which correspond to a particular EOL page. The taxonConceptID field contains the EOL page identifier which can be used in the pages API.
+        =I18n.t("the_encyclopedia_of_life_does__")
       %p.indent
-        The JSON response for this method returns more information than the XML response. The JSON response includes several statistics about this node and its taxonomic descendants. For example there is a returned field "total_descendants" which list the number of nodes which are descendants of the given node according to this hierarchy; "total_trusted_text" includes the total number of unique text data objects linked to this taxon or any of its descendants.
+        =I18n.t("the_json_response_for_this_met")
       %h3
-        XML Response
+        =I18n.t("xml_response")
       .formatted_code<
         :escaped
           <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -104,7 +104,7 @@
               </dwc:Taxon>
           </dwr:DarwinRecordSet>
       %h3
-        JSON Response
+        =I18n.t("json_response")
       .formatted_code<
         :escaped
           {

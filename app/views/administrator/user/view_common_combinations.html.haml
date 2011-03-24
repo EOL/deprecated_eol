@@ -1,4 +1,4 @@
-List of activity combinations in a 5-min. duration
+=I18n.t("list_of_activity_combinations_")
 - if(@activity)
   = "for activity "
   %b
@@ -16,9 +16,9 @@ List of activity combinations in a 5-min. duration
     %table.results_table{ :cellspacing => "0" }
       %tr
         %th
-          Activity
+          =I18n.t("activity")
         %th
-          Count
+          =I18n.t("count")
       - @activities.each do |name,count|
         - column_class=cycle('odd','even')
         %tr{ :valign => "top" }            
@@ -31,4 +31,4 @@ List of activity combinations in a 5-min. duration
             = count
     %br
   - else
-    No record found matching your criteria.
+    =I18n.t("no_record_found_matching_your_")

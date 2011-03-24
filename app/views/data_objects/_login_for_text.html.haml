@@ -2,5 +2,5 @@
 %p
   %strong
     = I18n.t(:you_must_be) 
-    = link_to('logged in', login_path(:params => {:return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path}), {:class => 'login_link'} )
-    = I18n.t(:to_add_text) 
+    = link_to(I18n.t("logged_in_"), login_path(:params => {:return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path}), {:class => 'login_link'} )
+    = I18n.t(:to_add_text)

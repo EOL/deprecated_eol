@@ -5,11 +5,11 @@
   #full-page-content
     - if @curators.empty?
       %h3
-        There are no curators of
+        =I18n.t("there_are_no_curators_of")
         = link_to(@concept.title(@session_hierarchy), :controller => :taxa, :action => :show, :id => @concept.id)
     - else
       %h3
-        The following are curators of
+        =I18n.t("the_following_are_curators_of")
         = link_to(@concept.title(@session_hierarchy), :controller => :taxa, :action => :show, :id => @concept.id)
       %br
 

@@ -1,44 +1,44 @@
-All user-submitted texts on the website are shown below, sorted inversely by time created.
-Click on a user to view the user's detailed profile, click on the species to view the page where the text exists (use your browser back button to return here).
+=I18n.t("all_user_submitted_texts_on_th")
+=I18n.t("click_on_a_user_to_view_the_us")
 #comments
   - form_tag({:action=>'index'},:method=>'get') do
-    Select:
+    =I18n.t("select_")
     %select{ :name => "user_id" }
       %option
-        All
+        =I18n.t("all_")
       - for user in @user_list
         %option{ :value => user.id, :selected => @user_id.to_i == user.id }
           = h(user.family_name)
           = ", "
           = h(user.given_name)
-    = submit_tag 'Search'
+    = submit_tag I18n.t("search")
     %br
     %br
     - if @users_data_objects.nil? == false && @users_data_objects.length > 0
-      User-submitted text found:
+      =I18n.t("user_submitted_text_found_")
       = @users_data_objects.total_entries
       %br
       = will_paginate @users_data_objects
       %table.results_table{ :cellspacing => "0" }
         %tr
           %th
-            User
+            =I18n.t("user")
           %th
-            Species
+            =I18n.t("species")
           %th
-            Description
+            =I18n.t("description")
           %th
-            TOC
+            =I18n.t("toc")
           %th
-            Vetted
+            =I18n.t("vetted")
             %br
-            Visible
+            =I18n.t("visible_")
             %br
-            Published
+            =I18n.t("published")
           %th
-            Created
+            =I18n.t("created")
             %br
-            Updated
+            =I18n.t("updated")
         - for udo in @users_data_objects
           - row_class = cycle('odd','even')
           - if udo.taxon_concept_id
@@ -52,7 +52,7 @@ Click on a user to view the user's detailed profile, click on the species to vie
             %td{ :class => row_class }
               = link_to name, :controller => '/taxa', :action => :show, :id => udo.taxon_concept_id
             %td{ :class => row_class }
-              = link_to "Permalink", :controller => '/data_objects', :action => :show, :id => udo.data_object_id
+              = link_to I18n.t("permalink"), :controller => '/data_objects', :action => :show, :id => udo.data_object_id
               %br
               = h truncate(udo.data_object.description, 500)
             %td{ :class => row_class }
@@ -70,4 +70,4 @@ Click on a user to view the user's detailed profile, click on the species to vie
       %br
       = will_paginate @users_data_objects
     - else
-      No user-submitted data objects match your search criteria.
+      =I18n.t("no_user_submitted_data_objects")

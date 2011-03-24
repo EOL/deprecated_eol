@@ -31,7 +31,7 @@
         %td
           &nbsp;
         %td
-          = submit_tag 'Search'
+          = submit_tag I18n.t("search")
     -# Those input types of 'date' only work on HTML5-capable browsers, so we use jQuery Tools to fill in the gaps.  
     :javascript
       $(document).ready(function() {
@@ -48,28 +48,28 @@
     %br
     %br
     %p
-      = link_to "Add a new user",:action=>'new'
+      = link_to I18n.t("add_a_new_user"),:action=>'new'
       |
-      = link_to 'Export this list as CSV',{:action=>'index',:export=>'true',:start_date=>@start_date,:blank_dates=>@blank_dates,:end_date=>@end_date,:user_search_string=>@user_search_string}
+      = link_to I18n.t("export_this_list_as_csv"),{:action=>'index',:export=>'true',:start_date=>@start_date,:blank_dates=>@blank_dates,:end_date=>@end_date,:user_search_string=>@user_search_string}
     %br
     - if @users.nil? == false && @users.size > 0
-      A total of
+      =I18n.t("a_total_of")
       = @user_count
-      users were found matching your criteria.
+      =I18n.t("users_were_found_matching_your")
       %br
       = will_paginate @users
       %table.results_table{ :cellspacing => "0" }
         %tr
           %th
-            Username
+            =I18n.t("username")
           %th
-            Email
+            =I18n.t("email")
           %th
-            Name
+            =I18n.t("name")
           %th
-            Created At
+            =I18n.t("created_at")
           %th
-            Curator?
+            =I18n.t("curator_")
         - for user in @users
           - column_class=cycle('odd','even')
           %tr
@@ -86,4 +86,4 @@
       %br
       = will_paginate @users
     - else
-      No users are available matching your search criteria.
+      =I18n.t("no_users_are_available_matchin")

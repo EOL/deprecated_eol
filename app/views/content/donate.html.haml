@@ -15,19 +15,19 @@
         %br
         - form_for :donation, @donation,:html => {:class => "warning-warn invalid-invalid styleLabelOnErr"} do |f|
           = f.radio_button :preset_amount, "35"
-          US $35
+          =I18n.t("us__35")
           %br
           = f.radio_button :preset_amount, "50"
-          US $50
+          =I18n.t("us__50")
           %br
           = f.radio_button :preset_amount, "75"
-          US $75
+          =I18n.t("us__75")
           %br
           = f.radio_button :preset_amount, "100"
-          US $100
+          =I18n.t("us__100")
           %br
           = f.radio_button :preset_amount, "other"
-          Other: US$
+          =I18n.t("other__us_")
           = f.text_field :amount, {:size => 6, :maxlength => 6, :onfocus => "$('#donation_preset_amount_other').attr('checked', 'checked');"}
           %span#donation_amount_warn.error
           %br
@@ -37,7 +37,7 @@
         %br
         %p
           =  I18n.t(:contact_about_sponsorship_preamble) 
-          = link_to "secretariat@eol.org", "mailto:secretariat@eol.org"
+          = link_to I18n.t("secretariat_eol_org"), "mailto:secretariat@eol.org"
           =  I18n.t(:contact_about_sponsorship_or_by_phone) 
         %br
         %br
@@ -50,7 +50,7 @@
         %br
         %br
         = I18n.t(:the_amount_entered_was) 
-        \: US
+        =I18n.t("__us")
         = number_to_currency(@donation_amount)
         %br
         %br

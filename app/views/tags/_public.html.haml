@@ -4,7 +4,7 @@
     #data_object_tags
       %h1
         = image_tag 'icons/tag.gif'
-        Public Image Tags
+        =I18n.t("public_image_tags")
       - unless tags.empty?
         - for key in tag_keys(tags)
           .clear_both
@@ -13,10 +13,10 @@
                 = render :partial => 'tag_key_value', :locals => { :key => key, :value => value, :can_delete => false }
       - else
         %h2
-          This image has no public tags.
+          =I18n.t("this_image_has_no_public_tags")
       - if !logged_in? && $ALLOW_USER_LOGINS
         %br
         %h2
-          You must be
-          = link_to('logged in', login_path(:params => { :return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path}), {:class => "login_link"})
-          to add your own tags.
+          =I18n.t("you_must_be")
+          = link_to(I18n.t("logged_in_"), login_path(:params => { :return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path}), {:class => "login_link"})
+          =I18n.t("to_add_your_own_tags")

@@ -8,7 +8,7 @@
         %br
   %h6
     - if comment.from_curator
-      %img{ :src => "/images/icons/link-visited/star.gif", :height => "18", :alt => "curator", :width => "18" }
+      %img{ :src => "/images/icons/link-visited/star.gif", :height => "18", :alt => I18n.t("curator"), :width => "18" }
     %strong
       = comment.user.nil? ? 'Anonymous' : comment.user.username
     = comment.updated_at
@@ -16,12 +16,12 @@
       %span.invisible-comment{ :id => "vis_cmnt_#{comment.id}" }
         - if comment.visible?
           [
-          = link_to_remote('remove', :url => remove_comment_path(comment), :method  => :put, :confirm => 'Are you sure you want this hidden?', :failure => "alert('HTTP Error ' + request.status + '!');return(false);", :update  => {:success => "vis_cmnt_#{comment.id}", :failure => '' })
+          = link_to_remote(I18n.t("remove_"), :url => remove_comment_path(comment), :method  => :put, :confirm => I18n.t("are_you_sure_you_want_this_hid"), :failure => "alert('HTTP Error ' + request.status + '!');return(false);", :update  => {:success => "vis_cmnt_#{comment.id}", :failure => '' })
           ]
         - unless comment.visible?
-          THIS COMMENT IS NOT VISIBLE
+          =I18n.t("this_comment_is_not_visible")
           [
-          = link_to_remote 'make visible', :url     => make_visible_comment_path(comment), :method  => :put, :confirm => 'Are you sure you want this visible?', :failure => "alert('HTTP Error ' + request.status + '!');return(false);", :update  => "vis_cmnt_#{comment.id}"
+          = link_to_remote I18n.t("make_visible"), :url     => make_visible_comment_path(comment), :method  => :put, :confirm => I18n.t("are_you_sure_you_want_this_vis"), :failure => "alert('HTTP Error ' + request.status + '!');return(false);", :update  => "vis_cmnt_#{comment.id}"
           ]
         - else
           \&nbsp;

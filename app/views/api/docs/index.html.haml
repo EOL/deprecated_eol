@@ -3,69 +3,69 @@
   #page-separator-general
   #page-title
     %h1
-      EOL API
+      =I18n.t("eol_api")
     %hr
   #page-content.clearfix
     #full-page-content
       = render(:partial=>'jump_to_nav')
       %h3
-        Methods
+        =I18n.t("methods")
       %table.results_table
         %tr
           %th
-            Method
+            =I18n.t("method")
           %th
-            Description
+            =I18n.t("description")
         %tr
           %td.odd
-            = link_to 'ping', :controller => 'api/docs', :action=>'ping'
+            = link_to I18n.t("ping"), :controller => 'api/docs', :action=>I18n.t("ping")
           %td.odd
-            returns either a positive response (indicating APIs are functional), or returns a negative response or nothing at all (indicating APIs are not functional at that time).
+            =I18n.t("returns_either_a_positive_resp")
         %tr
           %td.even
-            = link_to 'search', :controller => 'api/docs', :action=>'search'
+            = link_to I18n.t("search_"), :controller => 'api/docs', :action=>I18n.t("search_")
           %td.even
-            given a value for a specific element (e.g. scientific name=Homo sapiens), returns a paginated list of the EOL pages containing the search term
+            =I18n.t("given_a_value_for_a_specific_e")
         %tr
           %td.odd
-            = link_to 'pages', :controller => 'api/docs', :action=>'pages'
+            = link_to I18n.t("pages_"), :controller => 'api/docs', :action=>I18n.t("pages_")
           %td.odd
-            takes an EOL page identifier and returns the scientific  name for that page, and optionally returns information about common  names, media (text, images and videos), and references to the  hierarchies which recognize the taxon described on the
+            =I18n.t("takes_an_eol_page_identifier_a")
         %tr
           %td.even
-            = link_to 'data_objects', :controller => 'api/docs', :action=>'data_objects'
+            = link_to I18n.t("data_objects"), :controller => 'api/docs', :action=>I18n.t("data_objects")
           %td.even
-            returns all metadata about a particular data object (text, image or video) indexed by EOL
+            =I18n.t("returns_all_metadata_about_a_p")
         %tr
           %td.odd
-            = link_to 'hierarchy_entries', :controller => 'api/docs', :action=>'hierarchy_entries'
+            = link_to I18n.t("hierarchy_entries"), :controller => 'api/docs', :action=>I18n.t("hierarchy_entries")
           %td.odd
-            gives access to a single hierarchy indexed by EOL and its internal relationships
+            =I18n.t("gives_access_to_a_single_hiera")
         %tr
           %td.even
-            = link_to 'provider_hierarchies', :controller => 'api/docs', :action=>'provider_hierarchies'
+            = link_to I18n.t("provider_hierarchies"), :controller => 'api/docs', :action=>I18n.t("provider_hierarchies")
           %td.even
-            lists the identifiers for all hierarchies supplied by content partners
+            =I18n.t("lists_the_identifiers_for_all_")
         %tr
           %td.odd
-            = link_to 'hierarchies', :controller => 'api/docs', :action=>'hierarchies'
+            = link_to I18n.t("hierarchies"), :controller => 'api/docs', :action=>I18n.t("hierarchies")
           %td.odd
-            given a hierarchy identifier, this method returns metadata about the hierarchy and lists the root taxa
+            =I18n.t("given_a_hierarchy_identifier__")
         %tr
           %td.even
-            = link_to 'search_by_provider', :controller => 'api/docs', :action=>'search_by_provider'
+            = link_to I18n.t("search_by_provider"), :controller => 'api/docs', :action=>I18n.t("search_by_provider")
           %td.even
-            get the EOL page IDs given a provider's hierarchy_id and the provider's own unique identifier
+            =I18n.t("get_the_eol_page_ids_given_a_p")
             %br
-            (e.g. search for the EOL page ID for the ITIS TSN 180542: 
+            =I18n.t("_e_g__search_for_the_eol_page_") 
             - url = url_for(:controller => '/api', :action => 'search_by_provider', :version => '1.0', :id => '180542', :hierarchy_id => 107, :only_path => false)
             = link_to url, url
             )
       %br
       %h3
-        Response Formats
+        =I18n.t("response_formats")
       %p.indent
-        All APIs return by default an XML response. The API methods may be called without a format extension to get the XML response, and adding an XML extension will give an identical response:
+        =I18n.t("all_apis_return_by_default_an_")
         .formatted_code<
           :escaped
             http://www.eol.org/api/search/Robin
@@ -73,18 +73,18 @@
           :escaped
             http://www.eol.org/api/search/Robin.xml
       %p.indent
-        Every method can also return a JSON response by adding a .json extension
+        =I18n.t("every_method_can_also_return_a")
         .formatted_code<
           :escaped
             http://www.eol.org/api/search/Robin.json
       %p.indent
-        \... and JSONP by adding a callback parameter
+        =I18n.t("____and_jsonp_by_adding_a_call")
         .formatted_code<
           :escaped
             http://www.eol.org/api/search/Robin.json?callback=some_neat_function
       %p#api_key_section.indent
-        You can identify yourself to EOL by adding your API key to your requests (login and generate your key in your preference page):
+        =I18n.t("you_can_identify_yourself_to_e")
         .formatted_code<
-          http://www.eol.org/api/search/Robin?key=1111111111111111111111111111111111
+          =I18n.t("http___www_eol_org_api_search_")
       %p.indent
-        Each method's documentation page has an example of both the XML and JSON formatted responses.
+        =I18n.t("each_method_s_documentation_pa")

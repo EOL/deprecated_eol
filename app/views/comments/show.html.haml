@@ -1,11 +1,11 @@
 %p
   %b
-    User:
+    =I18n.t("user_")
   = h @comment.user_id
 %p
   %b
-    Text:
+    =I18n.t("text_")
   = h @comment.text
-= link_to 'Edit', edit_comment_path(@comment)
+= link_to I18n.t("edit"), edit_comment_path(@comment)
 |
-= link_to 'Back', comments_path
+= link_to I18n.t("back"), comments_path

@@ -3,13 +3,13 @@
   - if @content_partner.nil?
     #page-title
       %h1
-        No content partner
+        =I18n.t("no_content_partner")
         %i
           = @content_partner.agent.full_name
   - else
     #page-title
       %h1
-        Pages with content contributed by
+        =I18n.t("pages_with_content_contributed")
         = @content_partner.agent.full_name
     %hr
     #page-content.clearfix
@@ -18,9 +18,9 @@
           %p
             %strong
               = @content_partner.agent.full_name
-            has contributed to a total of
+            =I18n.t("has_contributed_to_a_total_of")
             = @taxon_concepts_count
-            pages.
+            =I18n.t("pages")
           %br
           %p
             = @content_partner.description unless @content_partner.description.blank?
@@ -42,7 +42,7 @@
                 - if !tc['partner_source_url'].nil? && !tc['partner_source_url'].empty?
                   %small
                     (
-                    = external_link_to('view source page', tc['partner_source_url'])
+                    = external_link_to(I18n.t("view_source_page"), tc['partner_source_url'])
                     )
               - if last_cell
                 %tr

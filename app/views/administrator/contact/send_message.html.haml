@@ -1,25 +1,25 @@
-= link_to '[cancel]',:back
+= link_to I18n.t("_cancel_"),:back
 %br
-To send this user an email, enter the text below and click 'Send'.
+=I18n.t("to_send_this_user_an_email__en")
 %br
 - form_tag({:action=>'send_message'},:method=>'post') do
   %table
     %tr
       %td
         %strong
-          Name:
+          =I18n.t("name_")
       %td
         = text_field_tag :name,@name
     %tr
       %td
         %strong
-          Email:
+          =I18n.t("email_")
       %td
         = text_field_tag :email,@email
     %tr
       %td
         %strong
-          Message:
+          =I18n.t("message_")
       %td
         = text_area_tag :message,@message,:cols=>'60',:rows=>'20'
-  = submit_tag 'Send'
+  = submit_tag I18n.t("send")

@@ -29,7 +29,7 @@
       %meta{ :content => "NO-CACHE", "http-equiv" => "PRAGMA" }
 
     %link{ :href => "/favicon.ico", :rel => "shortcut icon", :type => "image/x-icon" }
-    %link{ :href => "/opensearchdescription.xml", :title => "Encyclopedia of Life", :rel => "search", :type => "application/opensearchdescription+xml" }
+    %link{ :href => "/opensearchdescription.xml", :title => I18n.t("encyclopedia_of_life"), :rel => "search", :type => "application/opensearchdescription+xml" }
 
     = yield :head
 
@@ -48,16 +48,16 @@
             %ul
               - Language.find_active.each do |language|
                 %li
-                  = link_to "#{language.source_form} <em>(#{language.display_code})</em>", set_language_url(:language => language.iso_639_1), :title => "Switch the site language to #{language.display_code}"
+                  = link_to I18n.t("var_language_source_form__em__", :var_language_source_form => language.source_form, :var_language_display_code => language.display_code), set_language_url(:language => language.iso_639_1), :title => "Switch the site language to #{language.display_code}"
               %li
-                = link_to "Google Translate", {:controller => "/content", :action => "translate"}, {:title => "Use Google Translate widget to transform the site content into another language"}
+                = link_to I18n.t("google_translate"), {:controller => "/content", :action => "translate"}, {:title => "Use Google Translate widget to transform the site content into another language"}
 
       #banner.header{ :role => "banner" }
         %h1
           %a{ :href => root_url, :title => I18n.t(:the_encyclopedia_of_life_eol_web_site_home_page)  }
             =  I18n.t(:encyclopedia_of_life) 
         %p#tagline
-          %q= "Imagine an electronic page for each species of organism on Earth..."
+          
           \- Edward O. Wilson
 
       - cache(:controller => "/content", :part => "secondary_navigation_" + current_user.language_abbr) do

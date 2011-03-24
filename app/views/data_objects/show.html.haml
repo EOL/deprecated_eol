@@ -1,7 +1,8 @@
 #page-title
   - type = @type
   - type = 'Video' if DataType.video_type_ids.include?(@data_object.data_type.id)
-  
+  %h1= I18n.t("var_type_permalink", :var_type => type)
+
   %h2
     - @taxon_concepts = @data_object.get_taxon_concepts(:published => :preferred)
     - if @taxon_concepts.blank?
@@ -9,7 +10,7 @@
     - else
       - if @taxon_concepts[0].published?
         - start_text = @revisions[0].id == @data_object.id ? 'belongs to ' : 'was connected to '
-        == ( #{start_text} the following page#{@taxon_concepts.size == 1 ? '' : 's'}: 
+        == ( #{start_text} the following page#{@taxon_concepts.size == 1 ? '' : 's'}:
         - @taxon_concepts.each_with_index do |tc, i|
           - comma = (i+1 == @taxon_concepts.size) ? '' : ', '
           - tc_label = tc.scientific_name
@@ -21,7 +22,7 @@
         - @taxon_concepts.each do |tc|
           - names = @taxon_concepts.map { |item| tc.scientific_name + (tc.common_name.blank? ? '' : ": <b>#{tc.common_name}</b>") }.uniq
           == associated with the deprecated page#{names.size == 1 ? '' : 's'}: '#{names.join("', '")}')
-      
+
 #page-content.clearfix
   #full-page-content
     #data_object_wrapper
@@ -49,29 +50,29 @@
           - else
             = render :partial => "data_objects/data_object_#{type.downcase}"
 
-      - if(@data_object.data_type.to_s.strip != 'Text')      
+      - if(@data_object.data_type.to_s.strip != 'Text')
         #data_object_description
-          .divider 
+          .divider
           %h3=I18n.t("description")
           = render :partial => 'description', :locals => { :data_object => @data_object }, :layout => @layout
           -#%br
 
       #data_object_attribution
-        .divider 
+        .divider
         %h3=I18n.t("attribution")
         = render :partial => 'attribution', :locals => { :data_object => @data_object }, :layout => @layout
-        %br      
+        %br
 
       - unless @data_object.published_entries.blank?
         #data_object_hierarchy
           .divider
-          
+            %h3= I18n.t(:hierarch_var_data_object_publi, :var_data_object_published_entries => (@data_object.published_entries == 1 ? 'y' : 'ies'))
           - @data_object.published_entries.each do |phe|
             = phe.ancestors.map { |he| link_to(he.name.string, taxon_concept_path(he.taxon_concept_id)) }.join(' > ')
             %br
       - if @revisions.size > 1
         #data_object_revisions
-          .divider 
+          .divider
           %h3=I18n.t("revisions")
           %ul
             - @revisions.each do |revision|

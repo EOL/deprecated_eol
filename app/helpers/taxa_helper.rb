@@ -187,7 +187,7 @@ module TaxaHelper
 
   def hierarchy_outlink_collection_types(hierarchy)
     links = []
-    hierarchy.collection_types.each do |collection_type|
+    hierarchy.collection_types.uniq.each do |collection_type|
       links << collection_type.materialized_path_labels
     end
     partner_label = hierarchy_or_resource_name(hierarchy)

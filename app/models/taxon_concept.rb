@@ -294,8 +294,9 @@ class TaxonConcept < SpeciesSchemaModel
         :hierarchy_entries => [:published, :visibility_id, :identifier, :source_url],
         :hierarchies => [:label, :outlink_uri, :url],
         :resources => :title,
-        :agents => [ :logo_cache_url, :full_name ] },
-      :include => { :hierarchy => [:resource, :agent] })
+        :agents => [ :logo_cache_url, :full_name ],
+        :collection_types => [ :label, :parent_id ] },
+      :include => { :hierarchy => [:resource, :agent, :collection_types] })
     entries_for_this_concept.each do |he|
       next if used_hierarchies.include?(he.hierarchy)
       next if he.published != 1 && he.visibility_id != Visibility.visible.id
@@ -1102,6 +1103,10 @@ class TaxonConcept < SpeciesSchemaModel
     objects = DataObject.core_relationships(:add_include => add_include, :add_select => add_select).
         find_all_by_id(filtered_objects.collect{ |d| d.id })
     DataObject.sort_by_rating(objects)
+    if options[:user] && options[:user].is_curator? && options[:user].can_curate?(options[:taxon])
+      DataObject.preload_associations(objects, :users_data_objects_ratings, :conditions => "users_data_objects_ratings.user_id=#{options[:user].id}")
+    end
+    objects
   end
   
   def video_data_objects(options = {})

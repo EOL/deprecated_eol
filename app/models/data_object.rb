@@ -375,7 +375,7 @@ class DataObject < SpeciesSchemaModel
   end
 
   def rating_for_user(user)
-    UsersDataObjectsRating.find_by_data_object_guid_and_user_id(guid, user.id)
+    users_data_objects_ratings.detect{ |udor| udor.user_id == user.id }
   end
 
   # Add a comment to this data object
@@ -905,7 +905,7 @@ class DataObject < SpeciesSchemaModel
           [ :hierarchy_entries => { :hierarchy => :agent } ],
           :select => {
             :hierarchy_entries => :hierarchy_id,
-            :agents => :id } )
+            :agents => [:id, :full_name, :acronym, :display_name, :homepage, :username, :logo_cache_url] } )
       end
       if show_unpublished
         TaxonConcept.preload_associations(taxon_concept,
@@ -913,7 +913,7 @@ class DataObject < SpeciesSchemaModel
           :select => {
             :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ],
             :hierarchy_entries => :hierarchy_id,
-            :agents => :id } )
+            :agents => [:id, :full_name, :acronym, :display_name, :homepage, :username, :logo_cache_url] } )
         image_data_objects += taxon_concept.top_unpublished_concept_images.collect{ |tci| tci.data_object }
       end
     end
@@ -940,6 +940,9 @@ class DataObject < SpeciesSchemaModel
 
     objects_with_metadata = eager_load_image_metadata(unique_image_objects[start..last].collect {|r| r.id})
     unique_image_objects[start..last] = objects_with_metadata unless objects_with_metadata.blank?
+    if options[:user] && options[:user].is_curator? && options[:user].can_curate?(options[:taxon])
+      DataObject.preload_associations(unique_image_objects[start..last], :users_data_objects_ratings, :conditions => "users_data_objects_ratings.user_id=#{options[:user].id}")
+    end
     return unique_image_objects
   end
 

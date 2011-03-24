@@ -6,11 +6,11 @@
     %p
       = f.text_field :title
   .privilieges
-    %h5= "Privileges"[]
+    %h5= I18n.t(:privileges) 
     %ul#role_privileges
       - @privileges.each do |privilege|
         %li
           = check_box_tag("privilege_#{privilege.id}")
           = label_tag privilege.name
   %p
-    = f.submit('Save'[])
+    = f.submit( I18n.t(:save) )

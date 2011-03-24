@@ -5,23 +5,23 @@ Content partner profiles can be updated below.  Only enter a new password to cha
 - form_for @agent, :url => { :action => 'edit_profile' },  :html => { :method => :post, :multipart => true, :class => "warning-warn invalid-invalid styleLabelOnErr" } do |f|
   %fieldset
     %legend
-      = "Account Information"[]
-    = f.label :username, "#{'Username'[]}"
+      = I18n.t(:account_information) 
+    = f.label :username, "#{ I18n.t(:username) }"
     = @agent.username
     %span#username_warn.error
-    = f.label :email, "#{'Email Address'[]} <span title='required'>*</span>"[]
+    = f.label :email, "#{ I18n.t(:email_address) } <span title='required'>*</span>"
     / agent_email ^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,6})$ false true //
     = f.text_field :email, :maxlength => 60, :size => 30
-    = f.label :password, "#{'Password'[]} (4-16 characters)"[]
+    = f.label :password, "#{I18n.t(:password)} #{I18n.t('4_16_characters')}" 
     = f.password_field :password, :maxlength => 16
     %span#password_warn.error{ :style => "display:none;" }
-      = "Passwords must match"[]
-    = f.label :password_confirmation, "Confirm Password"[]
+      = I18n.t(:passwords_must_match) 
+    = f.label :password_confirmation, I18n.t(:confirm_password) 
     = f.password_field :password_confirmation, :maxlength => 16
     %br
     %br
     %legend
-      = "Project Information"[]
+      = I18n.t(:project_information) 
     = f.label :project_name, 'Project Name <span title="required">*</span>'
     Please fill in the full name of the project or web site from which the information will come as you want it to be visible in the Encyclopedia of Life.  THIS INFORMATION WILL BE VISIBLE ON THE WEB SITE
     %br
@@ -62,5 +62,5 @@ Content partner profiles can be updated below.  Only enter a new password to cha
       Small:
       = agent_logo(@agent,"small")
     .button
-      = submit_tag "Update Profile"[] + ' &#187;'
+      = submit_tag I18n.t(:update_profile)  + ' &#187;'
     = link_to 'Cancel', :back

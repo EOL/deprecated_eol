@@ -9,11 +9,11 @@
     #photo-area-wrapper
       .photo_slider
         %h1
-          = "Explore"[]
+          = I18n.t(:explore) 
         .nav_buttons
           %span.more
             %a{ :href => "#", :onclick => "javascript:explore_more_taxa();return false;" }
-              = "more species"[:more_species]
+              =  I18n.t(:more_species) 
           %p.play
             %a{ :href => "#", :onclick => "javascript:toggle_explore_updates();return false;" }
               %img#play-button{ :src => "#{StaticEolAssetHost.asset_host_proc.call('png')}/images/homepage/pause.gif", :height => "28", :alt => "pause", :width => "27" }
@@ -25,7 +25,7 @@
         = @content.left_content
       #sidebar-b
         - unless @news_items.empty?
-          %h1= "What's New?"[]
+          %h1= I18n.t(:whats_new) 
           %ul.helplist
             - @news_items.each do |news_item|
               - if news_item.visible?
@@ -50,7 +50,7 @@
               = request.host + url_for(:action=>'news',:format=>'rss')
       #home-center-content
         - if @featured_taxon
-          %h1= "Featured"[]
+          %h1= I18n.t(:featured) 
           %table#featured-species-table{ :cellspacing => "0", :summary => "featured table" }
             %tr
               %td.image

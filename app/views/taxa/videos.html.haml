@@ -12,7 +12,7 @@
       No authoritative videos available.
       = link_to 'View unvetted videos for this group.', {:action=>"show", :vet_flag=>"false"}
     - else
-      = "Select a video to the right to begin playback."[:select_video]
+      =  I18n.t(:select_video) 
   
   #video-list.mc-info
     
@@ -29,10 +29,10 @@
       %br
       - if showing_unknown_video
         #unknown-video-warning-box
-          %span= "Items in yellow are not reviewed."[]
+          %span= I18n.t(:items_in_yellow_are_not_reviewed) 
       - if showing_untrusted_video
         #untrusted-video-warning-box
-          %span= "Items in red are not trusted."[]
+          %span= I18n.t(:items_in_red_are_not_trusted) 
       #video-collection
         %ul
           - for video in @video_collection

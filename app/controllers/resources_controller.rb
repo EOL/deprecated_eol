@@ -55,7 +55,7 @@ class ResourcesController < ApplicationController
       # WEB-1223: sometimes SPG is getting a duplicate entry, which is... weird.  I'm trying to
       # avoid the second one being created.
       if AgentsResource.find_by_resource_id_and_resource_agent_role_id(current_object.id, resource_role.id)
-        flash[:notice] = "Warning: you attempted to create a link from this resource to two agents. Only one allowed."[]
+        flash[:notice] = I18n.t(:warning_you_attempted_to_create_a_link_from_this_resource_to_two_agents_only_one_allowed) 
       else 
         AgentsResource.create(:resource_id => current_object.id,
                               :agent_id => current_agent.id,

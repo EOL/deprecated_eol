@@ -314,7 +314,7 @@ class ContentPartnerController < ApplicationController
     if @agent.save
       @agent.content_partner=ContentPartner.new
       self.current_agent = @agent
-      flash[:notice] = "Welcome"[]
+      flash[:notice] = I18n.t(:welcome) 
       # Send to first step (partner information)
       redirect_to(:action => 'index', :protocol => 'http://')
     end
@@ -328,7 +328,7 @@ class ContentPartnerController < ApplicationController
 
     agent = Agent.find_by_username(params[:username],:conditions=>conditions)
 
-    message = agent ? "{username} is already taken"[:username_taken, agent.username] : ""
+    message = agent ?  I18n.t(:username_taken , :username => agent.username)  : ""
 
     message="" if params[:username].empty?
 
@@ -400,7 +400,7 @@ class ContentPartnerController < ApplicationController
     return unless request.post?
 
     if @agent.update_attributes(params[:agent])
-      flash[:notice] = "Profile updated"[]
+      flash[:notice] = I18n.t(:profile_updated) 
       redirect_to(:action => 'index',:protocol=>'http://')
     end
   end

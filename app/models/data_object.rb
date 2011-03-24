@@ -579,7 +579,7 @@ class DataObject < SpeciesSchemaModel
 
   # This allows multiple values, eg: 'red, blue' or 'red blue'
   def tag(key, values, user)
-    raise "You must be logged in to add tags."[] unless user
+    raise I18n.t(:you_must_be_logged_in_to_add_tags)  unless user
     key = 'none' if key.blank?
     return unless values
     values = DataObjectTag.clean_values(values)

@@ -28,7 +28,7 @@ class MembersController < ApplicationController
   def update
     respond_to do |format|
       if @member.update_attributes(params[:member])
-        format.html { redirect_to(@member, :notice => 'Member was successfully updated.'[:updated_member]) }
+        format.html { redirect_to(@member, :notice =>  I18n.t(:updated_member) ) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -40,28 +40,28 @@ class MembersController < ApplicationController
   def destroy
     @community.remove_member(@member)
     respond_to do |format|
-      format.html { redirect_to(@community, :notice => 'You have successfully removed this member from the community.'[:you_removed_the_member_from_the_community]) }
+      format.html { redirect_to(@community, :notice =>  I18n.t(:you_removed_the_member_from_the_community) ) }
     end
   end
 
   def grant_privilege_to
     @member.grant_privilege Privilege.find(params[:member][:new_privilege_id])
-    redirect_to([@community, @member], :notice => 'Member was successfully updated.'[:updated_member])
+    redirect_to([@community, @member], :notice =>  I18n.t(:updated_member) )
   end
 
   def revoke_privilege_from
     @member.revoke_privilege Privilege.find(params[:member][:removed_privilege_id])
-    redirect_to([@community, @member], :notice => 'Member was successfully updated.'[:updated_member])
+    redirect_to([@community, @member], :notice =>  I18n.t(:updated_member) )
   end
 
   def add_role_to
     @member.add_role Role.find(params[:member][:new_role_id])
-    redirect_to([@community, @member], :notice => 'Member was successfully updated.'[:updated_member])
+    redirect_to([@community, @member], :notice =>  I18n.t(:updated_member) )
   end
 
   def remove_role_from
     @member.remove_role Role.find(params[:member][:removed_role_id])
-    redirect_to([@community, @member], :notice => 'Member was successfully updated.'[:updated_member])
+    redirect_to([@community, @member], :notice =>  I18n.t(:updated_member) )
   end
 
 private
@@ -74,7 +74,7 @@ private
   def load_member
     @member = Member.find(params[:id] || params[:member_id])
     unless @member && @member.community_id == @community.id
-      flash[:error] = "Cannot find a member with this id."[:cannot_find_member]
+      flash[:error] =  I18n.t(:cannot_find_member) 
       return redirect_to(@community)
     end
   end

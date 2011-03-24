@@ -188,11 +188,11 @@ class ContentController < ApplicationController
 
     if verify_recaptcha && @contact.save
       Notifier.deliver_contact_us_auto_response(@contact)
-      flash[:notice] = "Thank you for your feedback."[:thanks_for_feedback]
+      flash[:notice] =  I18n.t(:thanks_for_feedback) 
       current_user.log_activity(:sent_contact_us_id, :value => @contact.id)
       redirect_back_or_default
     else
-      @verification_did_not_match = "The verification phrase you entered did not match."[:verification_phrase_did_not_match] if verify_recaptcha == false
+      @verification_did_not_match =  I18n.t(:verification_phrase_did_not_match)  if verify_recaptcha == false
     end
 
   end
@@ -213,11 +213,11 @@ class ContentController < ApplicationController
 
     if verify_recaptcha && @contact.save
       Notifier.deliver_media_contact_auto_response(@contact)
-      flash[:notice] = "Your message was sent."[:your_message_was_sent]
+      flash[:notice] =  I18n.t(:your_message_was_sent) 
       current_user.log_activity(:sent_media_contact_us_id, :value => @contact.id)
       redirect_back_or_default
     else
-      @verification_did_not_match = "The verification phrase you entered did not match."[:verification_phrase_did_not_match] if verify_recaptcha == false
+      @verification_did_not_match =  I18n.t(:verification_phrase_did_not_match)  if verify_recaptcha == false
     end
 
   end
@@ -296,12 +296,12 @@ class ContentController < ApplicationController
     @preset_amount = donation[:preset_amount]
 
     if @preset_amount.nil?
-      flash.now[:error] = "Please select a donation amount."[:donation_error]
+      flash.now[:error] =  I18n.t(:donation_error) 
       return
     end
 
     if (@preset_amount == "other" && @other_amount == 0)
-      flash.now[:error] = "Please enter an amount using only numbers."[:donation_error2]
+      flash.now[:error] =  I18n.t(:donation_error2) 
       return
     end
 

@@ -23,7 +23,7 @@ class CommunitiesController < ApplicationController
 
   # What is the difference between new and create?
   def new
-    @page_title = 'Create a new community'[]
+    @page_title = I18n.t(:create_a_new_community) 
     @community = Community.new
     respond_to do |format|
       format.html # new.html.erb
@@ -32,7 +32,7 @@ class CommunitiesController < ApplicationController
   end
 
   def edit
-    @page_title = 'Edit community'[]
+    @page_title = I18n.t(:edit_community) 
   end
 
   def create
@@ -40,7 +40,7 @@ class CommunitiesController < ApplicationController
     respond_to do |format|
       if @community.save
         @community.initialize_as_created_by(current_user)
-        format.html { redirect_to(@community, :notice => 'Community was successfully created.'[:created_community]) }
+        format.html { redirect_to(@community, :notice =>  I18n.t(:created_community) ) }
         format.xml  { render :xml => @community, :status => :created, :location => @community }
       else
         format.html { render :action => "new" }
@@ -53,7 +53,7 @@ class CommunitiesController < ApplicationController
 
     respond_to do |format|
       if @community.update_attributes(params[:community])
-        format.html { redirect_to(@community, :notice => 'Community was successfully updated.'[:updated_community]) }
+        format.html { redirect_to(@community, :notice =>  I18n.t(:updated_community) ) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -73,14 +73,14 @@ class CommunitiesController < ApplicationController
   def join
     @community.add_member(current_user)
     respond_to do |format|
-      format.html { redirect_to(@community, :notice => 'You have successfully joined this community.'[:you_joined_community]) }
+      format.html { redirect_to(@community, :notice =>  I18n.t(:you_joined_community) ) }
     end
   end
 
   def leave
     @community.remove_member(current_user)
     respond_to do |format|
-      format.html { redirect_to(@community, :notice => 'You have successfully left this community.'[:you_left_community]) }
+      format.html { redirect_to(@community, :notice =>  I18n.t(:you_left_community) ) }
     end
   end
 

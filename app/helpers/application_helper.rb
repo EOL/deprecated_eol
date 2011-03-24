@@ -13,13 +13,13 @@ module ApplicationHelper
   # A little onclick magic to make Ajaxy-links work before the page is fully loaded.  JS in the application.js file will
   # handle all the rest after the page is fully loaded (because of the class added to the link).
   # Use it like this:
-  #   link_to("text"[], "#", :class => 'ajax_delay_click', :onclick => ajax_delay_click)
+  #   link_to( I18n.t(:text) , "#", :class => 'ajax_delay_click', :onclick => ajax_delay_click)
   def ajax_delay_click
     %Q{javascript:$(this).addClass('delayed_click');$('#ajax-indicator').fadeIn();return false;}
   end
 
   def ajax_spinner
-    image_tag("indicator_arrows_black.gif", :alt => "Please wait..."[:please_wait], :class => 'hidden spinner')
+    image_tag("indicator_arrows_black.gif", :alt =>  I18n.t(:please_wait) , :class => 'hidden spinner')
   end
 
   # truncate a string to the maxlength passed and then add "..." if truncated
@@ -86,7 +86,7 @@ module ApplicationHelper
   # Link to a single stylesheet by first looking for a language version (stylesheet-<language>.css) or defaulting
   # to the provided stylesheet if the language version is not found.
   def eol_lang_main_stylesheet(stylesheet, options = {})
-    current_language = Gibberish.current_language.to_s
+    current_language = I18n.locale
     language_stylesheet = "/languages/#{current_language}/#{stylesheet}.css"
 
     if File.exists?(File.join(RAILS_ROOT, "public", language_stylesheet))
@@ -116,8 +116,8 @@ module ApplicationHelper
           html[key] = 'errorExplanation'
         end
       end
-      options[:header_message] = "Validation Error"[] unless options.include?(:header_message)
-      options[:message] ||= "There were problems with the following fields:"[:validation_following_fields] unless options.include?(:message)
+      options[:header_message] = I18n.t(:validation_error)  unless options.include?(:header_message)
+      options[:message] ||=  I18n.t(:validation_following_fields)  unless options.include?(:message)
 
       # <custom>
       # Invert the default error messages so we can look them up easily for translation
@@ -383,7 +383,7 @@ module ApplicationHelper
   end
 
   def cancel_button_goes_back(url)
-    c = "Cancel"[]
+    c = I18n.t(:cancel) 
     url = back_or_home(url)
     capture_haml do
       haml_tag :input, {:id => "cancel", :type => 'button', :name => c, :value => c,

@@ -3,7 +3,7 @@
     #page-separator-general
     #page-title
       %h1
-        = "Exemplar Pages"[]
+        = I18n.t(:exemplar_pages) 
       %hr
     #page-content.clearfix
       #full-page-content
@@ -13,9 +13,9 @@
         %table.results_table{ :cellspacing => 0 }
           %tr
             %th
-              = "Image"[]
+              = I18n.t(:image) 
             %th
-              ="Name"[]
+              = I18n.t(:name) 
           - for exemplar in @exemplars
             - column_class = cycle('odd','even')
             %tr

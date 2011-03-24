@@ -1,6 +1,6 @@
 #page-separator-general
 #page-title
-  %h1= "Account Confirmation"[]
+  %h1= I18n.t(:account_confirmation) 
   %hr
 #page-content.clearfix
   / center page content
@@ -9,4 +9,4 @@
       Sorry, but the account confirmation was not successful.  Please check the link you received in your email and be sure the entire link was pasted into your browser's address bar.
     - else
       Thanks, your account confirmation is now complete and you may
-      == #{link_to 'login'[],:action=>'login'}.
+      == #{link_to I18n.t(:login) ,:action=>'login'}.

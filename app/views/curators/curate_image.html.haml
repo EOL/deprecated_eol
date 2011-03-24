@@ -9,7 +9,7 @@
   = render :partial => 'data_objects/attribution', :locals => {:data_object => @data_object, :skip_permalink => true}, :layout => @layout
   .description
     .credit-caption
-      = "Description"[]
+      = I18n.t(:description) 
     .action-value
       = @data_object.description
 /

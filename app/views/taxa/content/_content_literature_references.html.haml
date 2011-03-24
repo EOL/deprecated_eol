@@ -26,7 +26,7 @@
   %table.results_table{ :cellspacing => "0", :summary => "Literature References", :style => "table-layout:fixed; word-wrap:break-word; width:450px;" }
     %tr
       %th{ :scope => "col" }
-        = "References"[]
+        = I18n.t(:references) 
     - references.each do |ref|
       %tr
         %td{:class => column_class, :ref_id => ref.id}

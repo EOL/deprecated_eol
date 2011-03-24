@@ -75,7 +75,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       return true, user
     else
       user.invalid_login_attempt
-      return false, "Invalid login or password"[]
+      return false, I18n.t(:invalid_login_or_password) 
     end
   end
 
@@ -93,17 +93,17 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       end
     end
     if users.size > 1 # more than 1 email address with no matching passwords
-      return false, "The email address is not unique - you must enter a username"[]
+      return false, I18n.t(:the_email_address_is_not_unique_you_must_enter_a_username) 
     else  # no matches yet again :(
-      return false, "Invalid login or password"[]
+      return false, I18n.t(:invalid_login_or_password) 
     end
   end
 
   def self.fail_authentication_with_master_check(user_identifier)
     if self.active_on_master?(user_identifier)
-      return false, "Your account is registered but not ready for you to access. Please try again in five minutes."[:account_registered_but_not_ready_try_later]
+      return false,  I18n.t(:account_registered_but_not_ready_try_later) 
     else
-      return false, "Invalid login or password"[]
+      return false, I18n.t(:invalid_login_or_password) 
     end
   end
 
@@ -741,7 +741,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   def leave_community(community)
     member = Member.find_by_user_id_and_community_id(id, community.id)
-    raise "Couldn't find a member for this user"[:could_not_find_user] unless member
+    raise  I18n.t(:could_not_find_user)  unless member
     member.destroy
     self.reload
   end

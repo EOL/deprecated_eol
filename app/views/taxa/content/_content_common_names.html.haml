@@ -17,7 +17,7 @@
       - names    = language_names_pair[1]
       .title
         - if index == 0
-          = "Language:"[]
+          = I18n.t(:language) 
         == #{language}
       - if is_curator
         = render(:partial => 'taxa/content/content_language_common_names_curator', :locals => {:names => names}) 

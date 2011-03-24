@@ -4,7 +4,7 @@
       %tr.credit-line
         %td
           .credit-caption
-            = "Legend"[]
+            = I18n.t(:legend) 
         %td
           .credit-value
             = image_tag 'gbif_legend.gif', :title=>'GBIF Map Legend',:alt=>'GBIF Map Legend'
@@ -16,7 +16,7 @@
   - unless data_object.users_data_objects.blank? || data_object.users_data_objects[0].user.blank?
     .credit.supplier
       .credit-caption
-        = "Supplier"[]
+        = I18n.t(:supplier) 
       .credit-value
         = data_object.users_data_objects[0].user.given_name
         = data_object.users_data_objects[0].user.family_name
@@ -60,9 +60,9 @@
   - if (data_object.text? || data_object.image? || data_object.video?) && ! (defined?(skip_permalink) && skip_permalink)
     .credit.permalink
       .credit-caption
-        = "Permalink"[]
+        = I18n.t(:permalink) 
       .credit-value
-        = "Copy and paste in email or document"[]
+        = I18n.t(:copy_and_paste_in_email_or_document) 
         \:
         %br
         %form

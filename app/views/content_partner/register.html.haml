@@ -1,7 +1,7 @@
 = javascript_include_tag 'cp-passwords', 'validator'
 #page-separator-general
 #page-title
-  %h1= "Registration"[]
+  %h1= I18n.t(:registration) 
   %hr
 #page-content.clearfix
   #full-page-content
@@ -21,25 +21,25 @@
     - form_for @agent, :url => { :controller => '/content_partner', :action => 'register' }, :html => { :class => "warning-warn invalid-invalid styleLabelOnErr" } do |f|
       %fieldset
         %legend
-          = "Account Information"[]
+          = I18n.t(:account_information) 
         .form_item
-          = f.label :username, "#{'Username'[]} (4-16 characters) <span title='required'>*</span>"
+          = f.label :username, "#{ I18n.t(:username) } (4-16 characters) <span title='required'>*</span>"
           / agent_username ^[a-zA-Z0-9\-_]{4,16}$ false true //
           = f.text_field :username, :maxlength => 16, :onblur => "javascript:check_username()"
           %span#username_warn.error
         .form_item
-          = f.label :password, "#{'Password'[]} (4-16 characters) <span title='required'>*</span>"[]
+          = f.label :password, "#{ I18n.t(:password) } (4-16 characters) <span title='required'>*</span>"
           / agent_password ^[a-zA-Z0-9\-_]{4,16}$ false true //
           = f.password_field :password, :maxlength => 16
         .form_item
-          = f.label :password_confirmation, "Confirm Password"[]
+          = f.label :password_confirmation, I18n.t(:confirm_password) 
           / agent_password_confirmation ^[a-zA-Z0-9\-_]{4,16}$ false true //
           = f.password_field :password_confirmation, :maxlength => 16, :onblur => "javascript:check_passwords()"
           %span#password_warn.error
           %span#password_match.error{:style => 'display:none;'}
-            = "Passwords must match."[]
+            = I18n.t(:passwords_must_match) 
         .form_item
-          = f.label :email, "#{'Email Address'[]} <span title='required'>*</span>"[]
+          = f.label :email, "#{ I18n.t(:email_address) } <span title='required'>*</span>"
           / agent_email ^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,6})$ false true //
           = f.text_field :email, :maxlength => 75, :size => 50
         .form_item
@@ -50,7 +50,7 @@
             *
           \- required fields
         .button
-          = submit_tag "Register Now"[] + ' &#187;'
+          = submit_tag I18n.t(:register_now)  + ' &#187;'
         %br
-        = link_to 'Cancel'[:cancel], :action=>'login'
+        = link_to  I18n.t(:cancel) , :action=>'login'
     %br

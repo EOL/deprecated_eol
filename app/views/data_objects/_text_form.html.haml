@@ -1,5 +1,5 @@
 %span#missing_text_error.error{ :style => "display:none;" }
-  = "A Description must be entered."[]
+  = I18n.t(:a_description_must_be_entered) 
 %input{ :type => "hidden", :name => "taxon_concept_id", :value => @taxon_concept.id }
 %table
   %col.labels
@@ -30,7 +30,7 @@
     %td
       = select_tag("data_object[license_id]", options_for_select(@licenses,@selected_license))
       %br
-      = link_to "Read the EOL Licensing Policy"[],"/content/page/eol_licensing_policy",{:target=>'_blank'}
+      = link_to I18n.t(:read_the_eol_licensing_policy) ,"/content/page/eol_licensing_policy",{:target=>'_blank'}
   %tr
     %td
       - # TODO: Check why we're not using f.label :references and f.text_area :references
@@ -50,16 +50,16 @@
       - if @data_object.id
         %input#cancel_edit_text{ :type => "button", :value => "Cancel", :'data-data_object_id' => @data_object.id }
         &nbsp;
-      %input#preview_text{ :type => "button", :value => "Preview"[], :'data-preview_url' => url_for(:controller => 'data_objects', :action => 'preview') }
+      %input#preview_text{ :type => "button", :value => I18n.t(:preview) , :'data-preview_url' => url_for(:controller => 'data_objects', :action => 'preview') }
       &nbsp;
-      %input{ :type => "submit", :value => "Confirm"[] }
+      %input{ :type => "submit", :value => I18n.t(:confirm)  }
       &nbsp;
       %span#missing_text_error.error{ :style => "display:none;" }
-        = "Your content is empty--nothing to submit!"[]
+        = I18n.t(:your_content_is_emptynothing_to_submit) 
       &nbsp;
       %span#edit_text_spinner{ :style => "display:none;" }
         = image_tag('indicator_arrows_black.gif')
-        = "Please wait..."[]
+        = I18n.t(:please_wait) 
 - if @toc_id_empty
   -# This forces an update of the TOC (but only if we need to do it):
   :javascript

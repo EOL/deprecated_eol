@@ -12,7 +12,7 @@
 #content
   %form
     - if @content_uploads.blank?
-      = "No uploaded content is available."[]
+      = I18n.t(:no_uploaded_content_is_available) 
     - else
       = will_paginate @content_uploads
       %table.results_table{ :cellspacing => "0" }

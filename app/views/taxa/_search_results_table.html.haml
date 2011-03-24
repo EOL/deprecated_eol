@@ -7,9 +7,9 @@
       %em= @querystring
     %table.results_table{ :cellspacing => "0", :summary => title, :style => "width:100%;" }
       %tr
-        %th{ :style => "width:152px;" }= "Image"[]
-        %th{ :style => "width:50%;" }= "Common Name"[]
-        %th{ :style => "width:50%;" }= "Scientific Name"[]
+        %th{ :style => "width:152px;" }= I18n.t(:image) 
+        %th{ :style => "width:50%;" }= I18n.t(:common_name) 
+        %th{ :style => "width:50%;" }= I18n.t(:scientific_name) 
       - results.each do |result|
         - vetted_value = ''
         - vetted_value = '_unvetted'  if result['unknown']

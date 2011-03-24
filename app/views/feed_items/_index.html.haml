@@ -8,7 +8,7 @@
         = link_to('logged in', login_path(:params => {:return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path}), {:class => 'login_link'} )
         to post comments.
   - if feed.empty?
-    %p.empty= "No activity."[]
+    %p.empty= I18n.t(:no_activity) 
   - else
     %ul.feed
       -# TODO - paginate

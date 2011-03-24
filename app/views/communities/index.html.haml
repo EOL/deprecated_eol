@@ -1,12 +1,12 @@
 - if @communities.blank?
-  %p.result_empty= "There are no communities yet, be the first to #{ link_to("create an EOL community"[], new_community_path) }."[:communities_empty]
+  %p.result_empty=  I18n.t(:communities_empty, :var_link=>link_to(I18n.t(:create_an_eol_community), new_community_path) ) 
 - else
-  %h2= "Active communities"[:communities_index_header]
+  %h2=  I18n.t(:communities_index_header) 
   - paginated_section(@communities) do
     %ul#communities_index
       - @communities.each do |community|
         %li= link_to(h(community.name), community)
 .communities_actions
-  %h2= 'Build communities'[]
+  %h2= I18n.t(:build_communities) 
   %ul
-    %li.create_community= link_to("Create a community on EOL"[], new_community_path)
+    %li.create_community= link_to( I18n.t(:create_a_community_on_eol) , new_community_path)

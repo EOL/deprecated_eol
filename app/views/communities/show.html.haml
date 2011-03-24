@@ -8,19 +8,19 @@
 = render :partial => 'members/index', :locals => {:i_am_in_this_community => i_am_in_this_community, :member_function => member_function, :non_member_function => non_member_function }
 #community_actions_container
   - if @current_member && @current_member.can?(Privilege.edit_delete_community)
-    %h2= 'Manage community'[]
+    %h2= I18n.t(:manage_community) 
     %ul
       %li{ :class => "edit_community #{ member_function}" }
-        = link_to("Edit this community"[:edit_community], edit_community_path(@community))
+        = link_to( I18n.t(:edit_community) , edit_community_path(@community))
       %li{:class => "delete_community #{ member_function }" }
-        = link_to("Delete this community"[:delete_community], community_path(@community), :confirm => "Are you sure?"[], :method => :delete)
+        = link_to( I18n.t(:delete_community) , community_path(@community), :confirm => I18n.t(:are_you_sure) , :method => :delete)
 
 #community_focus_container
-  %h2= "Taxa"[]
+  %h2= I18n.t(:taxa) 
   - if @community.focus.nil?
-    = "This community has no focus list."[]
+    = I18n.t(:this_community_has_no_focus_list) 
   - elsif @community.focus.collection_items.empty?
-    = "This community has no focus items associated with it."[]
+    = I18n.t(:this_community_has_no_focus_items_associated_with_it) 
   - else
     = render :partial => "/collections/show", :locals => { :collection => @community.focus }
 = render :partial => 'feed_items/index', :locals => { :feed => @community.feed }

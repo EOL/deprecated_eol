@@ -3,8 +3,8 @@
 .collection
   - if editable
     .actions
-      = link_to "Delete"[], collection.community, :method => :delete, :confirm => "Are you sure?"[]
-      = link_to_function "Change Name"[], "EOL.show_collection_name_field()"
+      = link_to I18n.t(:delete) , collection.community, :method => :delete, :confirm => I18n.t(:are_you_sure) 
+      = link_to_function I18n.t(:change_name) , "EOL.show_collection_name_field()"
   .name
     %h3#current_name= h collection.name
     - if editable
@@ -13,15 +13,15 @@
           = form.text_field :name
   %p.owner
     - if collection.community_id 
-      = "for"[]
+      = I18n.t(:for) 
       = link_to collection.community.name, collection.community
     - elsif collection.user_id
-      = "by"[]
+      = I18n.t(:by) 
       = link_to collection.user.username, user_path(:user_id => collection.user)
     - else
-      = "(this collection is not attached to either a user or a community)"[]
+      = I18n.t(:this_collection_is_not_attached_to_either_a_user_or_a_community) 
     - if collection.published?
-      = "(This collection can be viewed by the public)"[]
+      = I18n.t(:this_collection_can_be_viewed_by_the_public) 
   .items
     - form_for(collection) do |form|
       - collection.collection_items.each do |item|

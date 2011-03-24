@@ -2,38 +2,38 @@
   $(document).ready(function() { $('#user_username').focus(); });
 #page-separator-general
 #page-title
-  %h1= "Login"[:login]
+  %h1=  I18n.t(:login) 
 #page-content.clearfix
   #full-page-content
     %div{ :style => "float: left; width: 550px;" }
       - form_for :user, :url => {:action => 'authenticate'} do |form|
         %fieldset
           %label{ :for => "user_username" }
-            == #{"Username or Email Address"[]}:
+            == #{ I18n.t(:username_or_email_address) }:
           = form.text_field 'username', :size => '16',:maxlength => '30'
           %br
           %br
           %label{ :for => "user_password" }
-            == #{"Password"[]}:
+            == #{ I18n.t(:password) }:
           = form.password_field 'password', :size => '16',:maxlength=>'30'
           &nbsp;&nbsp;
-          = link_to("Forgot password?"[], :action => 'forgot_password')
+          = link_to( I18n.t(:forgot_password) , :action => 'forgot_password')
           %br
           %br
-          %label{ :for => "remember_me" }= "Remember Me"[]
+          %label{ :for => "remember_me" }= I18n.t(:remember_me) 
           = check_box_tag 'remember_me'
-          = "check to stay logged in automatically for up to two weeks (do NOT use on public computers)"[:remember_me_message]
+          =  I18n.t(:remember_me_message) 
           %br
           %br
           %table{ :border => "0", :width => "500", :cellpadding => "20" }
             %tr
               %td{ :valign => "top" }
-                = submit_tag 'Login Now'[:login_now] + ' &#187;'
+                = submit_tag  I18n.t(:login_now)  + ' &#187;'
               %td{ :valign => "middle" }
-                = link_to("If you don't have an account, click here to register"[:click_here_to_register],:action=>'signup')
+                = link_to( I18n.t(:click_here_to_register) ,:action=>'signup')
             %tr
               %td{:colspan=>2}
                 %br
                 If you are a Content Partner please 
-                = link_to("login here"[], :action=>"login", :controller=>"content_partner")
+                = link_to( I18n.t(:login_here) , :action=>"login", :controller=>"content_partner")
                 = "."

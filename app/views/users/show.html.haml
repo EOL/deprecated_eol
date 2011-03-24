@@ -57,9 +57,9 @@
       = @user.credentials.blank? ? "None provided." : allow_some_html(@user.credentials)
   #communities
     %h3
-      = "EOL Communities"[]
+      = I18n.t(:eol_communities) 
     - if @user.members.blank?
-      %p= "This user has not yet joined any EOL communities."[:user_has_no_communities]
+      %p=  I18n.t(:user_has_no_communities) 
     - else
       %ul{:id => 'user_communities'}
       - @user.members.each do |member|

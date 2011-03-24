@@ -13,7 +13,7 @@
     - form_for :contact, @contact,:html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |f|
       %label{ :for => "contact_name", :title =>  I18n.t(:your_name)  }
         =  I18n.t(:your_name) 
-        %span{ :title => "required" }
+        %span{ :title => I18n.t("required_") }
           *
         %span.warn
           = "(" + I18n.t(:required)  + ")"
@@ -21,14 +21,14 @@
       %span#name_warn.error
       %label{ :for => "contact_email", :title => I18n.t(:your_email_address)  }
         = I18n.t(:your_email_address) 
-        %span{ :title => "required" }
+        %span{ :title => I18n.t("required_") }
           *
         %span.warn
           = "(" + I18n.t(:required)  + ")"
       = f.text_field :email, :size=>'50', :maxlength=>'250'
       %label{ :for => "contact_comments", :title => I18n.t(:comments)  }
         = I18n.t(:comments) 
-        %span{ :title => "required" }
+        %span{ :title => I18n.t("required_") }
           *
         %span.warn
           = "(" + I18n.t(:required)  + ")"
@@ -39,4 +39,4 @@
         =  I18n.t(:recaptcha) 
       = recaptcha_tags
       %br
-      = submit_tag I18n.t(:contact_us) 
+      = submit_tag I18n.t(:contact_us)

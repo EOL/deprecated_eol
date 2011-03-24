@@ -2,50 +2,50 @@
   = @agent.project_name
 %br
 %br
-Edit the agreement below or enter in a URL.  Be sure to leave all Ruby code in the template as is (code is identified by text in between &lt;% and %&gt;.  If a URL is entered (e.g. a full URL to a PDF), it will override the template.
+=I18n.t("edit_the_agreement_below_or_en")
 %br
 %br
 %strong
-  Created at:
+  =I18n.t("created_at__")
 = format_date_time(@agreement.created_at)
 %br
 %strong
-  Signed on:
+  =I18n.t("signed_on_")
 = format_date_time(@agreement.signed_on_date)
 %br
 %strong
-  Signed by:
+  =I18n.t("signed_by_")
 = @agreement.signed_by
 %br
 = eol_lang_error_messages_for :agreement
 - form_for :agreement,@agreement,:html=>{:id=>'page_form'} do |f|
   %strong
-    Agreement template:
+    =I18n.t("agreement_template_")
   %br
   = f.text_area :template, :cols => 85, :rows => 50
   %br
   %br
   %h3
-    OR
+    =I18n.t("or")
   %br
   %strong
-    Agreement URL (e.g. full or relative URL to a PDF or other file)
-  \- if entered, this overrides the template
+    =I18n.t("agreement_url__e_g__full_or_re")
+  =I18n.t("__if_entered__this_overrides_t")
   %br
-  If you need to upload a PDF to reference here, use the
-  = link_to 'upload content',:controller=>'administrator/content_upload',:action=>'index'
-  feature first, and then reference the file once it is uploaded.
+  =I18n.t("if_you_need_to_upload_a_pdf_to")
+  = link_to I18n.t("upload_content"),:controller=>'administrator/content_upload',:action=>'index'
+  =I18n.t("feature_first__and_then_refere")
   = f.text_field :mou_url,{:size=>'70',:maxlength=>'250'}
   %br
   %br
   = f.submit
   %br
-  = link_to 'Cancel', :back
+  = link_to I18n.t("cancel"), :back
 - unless @previous_agreements.empty?
   %br
   %h3
-    Previous Agreements
-  Click to view previous agreements:
+    =I18n.t("previous_agreements")
+  =I18n.t("click_to_view_previous_agreeme")
   %ul
     - for previous_agreement in @previous_agreements
       %li

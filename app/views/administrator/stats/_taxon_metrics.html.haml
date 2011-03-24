@@ -1,13 +1,13 @@
 %b
   = "Taxon Concept Stats"
-= link_to " &nbsp;&nbsp; species page>>",{:controller=>'/taxa', :action=>:show, :id => metric.taxon_concept_id}
+= link_to I18n.t("__nbsp__nbsp__species_page__"),{:controller=>'/taxa', :action=>:show, :id => metric.taxon_concept_id}
 %br
 %table.results_table
   %tr
     %th
-      Stat
+      =I18n.t("stat")
     %th
-      Value
+      =I18n.t("value")
   %tr
     %td.odd
       = "Text object"

@@ -60,7 +60,7 @@
           %br/
         - elsif image.unknown?
           %strong
-            Note:
+            =I18n.t("note")
           = I18n.t(:the_image_from_this_source_has_not_been_reviewed) 
           %br/
         - unless taxa_ids.blank?
@@ -74,7 +74,7 @@
             - elsif other_taxon_concept_index.nil?
               - other_taxon_concept_index = i
           - unless other_taxon_concept_index.nil?
-            Image of
+            =I18n.t("image_of")
             = link_to(taxa_names[other_taxon_concept_index], "/pages/#{taxa_ids[other_taxon_concept_index]}")
             %br/
         = I18n.t(:copyright) 
@@ -114,7 +114,7 @@
         
         - unless image.source_url.blank?
           = I18n.t(:original) 
-          = external_link_to('View image source', image.source_url, :class => 'source_url')
+          = external_link_to(I18n.t("view_image_source"), image.source_url, :class => 'source_url')
           %br/
         
         %br/

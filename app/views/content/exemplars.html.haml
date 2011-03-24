@@ -8,7 +8,7 @@
     #page-content.clearfix
       #full-page-content
         %p
-          The pages below show the kind of rich environment, with extensive information, to which all the species pages will eventually grow. The information on the exemplar pages has been authenticated (endorsed) by the scientists whose names are listed on these pages.
+          =I18n.t("the_pages_below_show_the_kind_")
         %br
         %table.results_table{ :cellspacing => 0 }
           %tr
@@ -23,4 +23,3 @@
                 = random_image_thumb_partial(exemplar)
               %td{ :class => column_class }
                 = random_image_linked_name(exemplar)
-

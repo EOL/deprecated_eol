@@ -12,7 +12,7 @@
           -# The style here is a one-shot, make the right-column-look-right fix (seemed silly to put in CSS):
           %td{ :valign => "top", :style => "padding-right:30px;width:350px;" }
             %h3= I18n.t(:account_information) 
-            %label Username:  (4 - 32 characters)
+            %label=I18n.t("username____4___32_characters_")
             = f.text_field :username, {:maxlength=>32, :onblur=>'javascript:check_username();'}
             %span#username_warn.error
             -# do not show open ide users for now
@@ -29,7 +29,7 @@
               %br
             %label{ :title => I18n.t(:please_enter_your_email_address) , :for => "user_email" }
               = I18n.t(:email_address) 
-              %span{ :title => "required" }
+              %span{ :title => I18n.t("required_") }
                 *
               %span.warn== (#{ I18n.t(:required) })
             = f.text_field :email, { :maxlength => 100, :size => 30, :onblur => 'javascript:check_email();'}
@@ -38,7 +38,7 @@
               %br
             %label{ :title => I18n.t(:please_enter_your_given_name) , :for => "user_given_name" }
               =  I18n.t(:given_name) 
-              %span{ :title => "required" }
+              %span{ :title => I18n.t("required_") }
                 *
               %span.warn== (#{ I18n.t(:required) })
             = f.text_field :given_name, { :maxlength => 30 }

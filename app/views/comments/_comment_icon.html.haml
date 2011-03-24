@@ -1,5 +1,5 @@
 .comment_button.comment-button-image{ :id => "comment_button_id_#{data_object_id}", :title => title }
-  = link_to "<span class='span_block'>#{comments_count}</span>", |
+  = link_to I18n.t("_span_class__span_block__var_c", :var_comments_count => comments_count), |
     "/data_objects/#{data_object_id}/comments", |
     {'data-data_object_id' => data_object_id, |
     :alt => alt, |

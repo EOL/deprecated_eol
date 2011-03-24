@@ -4,29 +4,29 @@
   #page-separator-general
   #page-title
     %h1
-      EOL API: Data Objects
+      =I18n.t("eol_api__data_objects")
     %hr
   #page-content.clearfix
     #full-page-content
       = render(:partial=>'jump_to_nav')
       %h3
-        Request
+        =I18n.t("request")
       %p.indent
         %a{ :href => url }
           = url
       %h3
-        Parameters
+        =I18n.t("parameters")
       %p.indent
         %i
-          none
+          =I18n.t("none")
       %h3
-        Description
+        =I18n.t("description")
       %p.indent
-        Given the identifier for a data object this API will return all metadata about the object as submitted to EOL by the contributing content partner. The content partner is cited in the first agent element and has the role of 'partner'.
+        =I18n.t("given_the_identifier_for_a_dat")
       %p.indent
-        Image objects will contain two mediaURL elements - the first being the URL of the image on the provider's website, and the second is the URL of the cached version of the media hosted on an EOL server. The EOL version of the image will have been resized (perserving the aspect ration) if the original image is larger than 460 pixels wide or 345 pixels in height.
+        =I18n.t("image_objects_will_contain_two")
       %h3
-        XML Response
+        =I18n.t("xml_response")
       .formatted_code<
         :escaped
           <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -65,7 +65,7 @@
             </taxon>
           </response>
       %h3
-        JSON Response
+        =I18n.t("json_response")
       .formatted_code<
         :escaped
           {

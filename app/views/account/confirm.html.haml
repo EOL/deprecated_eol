@@ -6,7 +6,7 @@
   / center page content
   #full-page-content
     - if @user.blank?
-      Sorry, but the account confirmation was not successful.  Please check the link you received in your email and be sure the entire link was pasted into your browser's address bar.
+      =I18n.t("sorry__but_the_account_confirm")
     - else
-      Thanks, your account confirmation is now complete and you may
+      =I18n.t("thanks__your_account_confirmat")
       == #{link_to I18n.t(:login) ,:action=>'login'}.

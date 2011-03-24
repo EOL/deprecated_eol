@@ -35,11 +35,11 @@
       %a#classification-attribution-button.popup-link.attribution-icon{ :rel => '#class-attr-overlay', :href => "#{@taxon_concept.id}/classification_attribution", :class => 'ajax_delay_click', :onclick => ajax_delay_click }
       #class-attr-overlay.overlay{:style=>"width:350px"}
         .contentWrap              
-          Please wait, loading...
+          =I18n.t("please_wait_loading")
       #nagivation-choose-hierarchy
         %h5
           #classification_whats_this
-            = link_to "What's this?", '/content/page/new_features#browser'
+            = link_to I18n.t("what_s_this__"), '/content/page/new_features#browser'
           = I18n.t(:classification) 
         - form_for :user, current_user, :url=>{:controller=>"settings"}, :html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |f|
           %select#user_default_hierarchy_id{ :name => 'user[default_hierarchy_id]', :class => 'choose-hierarchy-select', :onchange => "javascript:$(this).closest('form').submit();" }

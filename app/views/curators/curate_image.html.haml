@@ -13,7 +13,7 @@
     .action-value
       = @data_object.description
 /
-  Disabling this for now...
+  =I18n.t("disabling_this_for_now__")
   .curation
 /    = render :partial => 'curation_tools', :locals => {:data_object => @data_object, :comment_height => 7}
 = javascript_include_tag 'rating.js' # basically, I'm only using this to update after calling the ajax, below...

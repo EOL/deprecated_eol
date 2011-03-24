@@ -15,14 +15,14 @@
   %hr
 #page-content.clearfix
   #full-page-content
-    For comments about the project in general, please
-    = link_to 'visit the Forum','http://forum.eol.org', :target=>:new
-    \. You can help us by
-    = link_to 'suggesting or voting on features', :action=>'feedback'
+    =I18n.t("for_comments_about_the_project")
+    = link_to I18n.t("visit_the_forum"),'http://forum.eol.org', :target=>:new
+    =I18n.t("__you_can_help_us_by")
+    = link_to I18n.t("suggesting_or_voting_on_featur"), :action=>'feedback'
     - unless logged_in?
-      (register with EOL to track your suggestions)
-    \. To contact a specific individual on the EOL project, please see the list of
-    =link_to 'Component Leads', :action=>'page', :id=>'contact_eol'
+      =I18n.t("_register_with_eol_to_track_yo")
+    =I18n.t("__to_contact_a_specific_indivi")
+    =link_to I18n.t("component_leads"), :action=>'page', :id=>'contact_eol'
     \. For other needs, please use the form below.
                 
     = eol_lang_error_messages_for :contact
@@ -34,7 +34,7 @@
     - form_for :contact, @contact, :html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |f|
       %label{:for => "contact_name", :title =>  I18n.t(:your_name) }
         =  I18n.t(:your_name) 
-        %span{ :title => "required" }
+        %span{ :title => I18n.t("required_") }
           *
         %span.warn
           = "(" + I18n.t(:required)  + ")"
@@ -45,7 +45,7 @@
       = f.text_field :email, :size=>'50', :maxlength=>'250'
       %label{ :title => I18n.t(:topic_area)  }
         = I18n.t(:topic_area) 
-        %span{ :title => "required" }
+        %span{ :title => I18n.t("required_") }
           *
         %span.warn
           = "(" + I18n.t(:required)  + ")"
@@ -57,7 +57,7 @@
         = f.text_field :taxon_group
       %label{ :for => "contact_comments", :title => I18n.t(:comments)  }
         = I18n.t(:comments) 
-        %span{ :title => "required" }
+        %span{ :title => I18n.t("required_") }
           *
         %span.warn
           = "(" + I18n.t(:required)  + ")"

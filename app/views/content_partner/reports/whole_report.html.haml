@@ -2,7 +2,7 @@
   %h2
     = @sub_page_header
   - if @act_histories.empty?
-    Nothing To Report
+    =I18n.t("nothing_to_report")
   = will_paginate(@act_histories)
   %ul
     - for act_history in @act_histories
@@ -14,5 +14,5 @@
         = render :partial=> 'content_partner/reports/comments_report', :locals=>{:act_history => act_history,  :act_date => act_date, :current_act => current_act}
       - else
         %li
-          [an object was removed&mdash;the data was not recoverable]
+          =I18n.t("_an_object_was_removed_mdash_t")
   = will_paginate(@act_histories)

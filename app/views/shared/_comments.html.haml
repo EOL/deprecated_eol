@@ -6,7 +6,7 @@
       - if info != ''
         = info
         - if @title_label
-          on
+          =I18n.t("on")
           %span.item
             = @title_label
     - if @title != ''
@@ -15,7 +15,7 @@
           = @title
   - else
     %h2
-      Comments On
+      =I18n.t("comments_on_")
       %span.item
         = @title_label
         = @title
@@ -24,7 +24,7 @@
       = info == 'No entries found' ? '' : info
 - if comments.empty?
   %p#no-comments
-    No comments have been left yet.
+    =I18n.t("no_comments_have_been_left_yet")
 - else
   - paginated_section(comments, opts ) do
     %ul.comments

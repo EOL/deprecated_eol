@@ -4,37 +4,37 @@
     - if RAILS_ENV == 'development'
       %fieldset{ :style => "margin-top:-9px;" }
         %legend
-          Mine Report
+          =I18n.t("mine_report")
         - form_tag path_for_report + '/mine!' do
-          = submit_tag 'Mine this Report'
+          = submit_tag I18n.t("mine_this_report")
     -# date range selection
     %fieldset{ :style => RAILS_ENV == 'development' ? 'clear: right;' : 'margin-top:-9px;' }
       %legend
-        Date Range
+        =I18n.t("date_range")
       = render :partial => 'reports/calendar_range'
     -# additional options
     %fieldset{ :style => "clear: right;" }
       %legend
-        Options
+        =I18n.t("options")
       %p
         - if controller.is_a? Administrator::ReportsController
-          Filter by content partner:
+          =I18n.t("filter_by_content_partner_")
           - form_tag path_for_report, :method => :get do
             = select_tag 'agent', "<option value='all'>Show all information</option>" << options_from_collection_for_select( Agent.find(:all,:conditions=>'username !=""',:order=>'full_name'), 'id', 'shortened_full_name', params[:agent].to_i ), :onchange => "javascript:$(this).closest('form').submit();"
         - if @others_to_show
           - if @show_other
-            = link_to_report "Hide 'Other' Slice", :show_other => false
+            = link_to_report I18n.t("hide__other__slice"), :show_other => false
             - else
-            = link_to_report "Show 'Other' Slice", :show_other => nil
+            = link_to_report I18n.t("show__other__slice"), :show_other => nil
       %p
         %span
-          Per page:
+          =I18n.t("per_page_")
         - [5,10,25,50,100].each do |num|
           = link_to_report num, :per_page => num, :page => nil
       %p
-        Formats:
-        = link_to 'XML', path_for_report( :page => 'all', :format => 'xml' )
-        = link_to 'CSV', path_for_report( :page => 'all', :format => 'csv' )
+        =I18n.t("formats_")
+        = link_to I18n.t("xml"), path_for_report( :page => 'all', :format => 'xml' )
+        = link_to I18n.t("csv"), path_for_report( :page => 'all', :format => 'csv' )
   #usage_report_stats
     - unless @totals.empty?
       -#
@@ -48,9 +48,9 @@
       %table.results_table{ :cellspacing => "0" }
         %thead
           %th
-            Hits
+            =I18n.t("hits")
           %th
-            Percentage
+            =I18n.t("percentage")
           %th
             = @log_daily_class.unique_data_name
         - @totals.each do |total|
@@ -64,7 +64,7 @@
               = total.unique_data_to_s
               - if @log_daily_class.to_s=='DataObjectLogDaily'
                 %a{ :href => "#", :class => 'toggle-object'}
-                  [object]
+                  =I18n.t("_object_")
                 %div{ :id => "object_#{total.object_id}", :style => "border:1px solid black;display:none;" }
                   - if !total.object_url.blank?
                     %img{ :src => total.object_url }
@@ -76,14 +76,14 @@
         = will_paginate @totals
     - else
       %p
-        No data for selected period
+        =I18n.t("no_data_for_selected_period")
   -# don't show flash if there aren't any totals to display ... it'll just slow down the load time for the page
   - unless @totals.empty?
     #flashcontent
       %strong
-        You need to upgrade your Flash Player.
+        =I18n.t("you_need_to_upgrade_your_flash")
         %a{ :href => "http://get.adobe.com/flashplayer/", :targe => "_new" }
-          Click here to upgrade.
+          =I18n.t("click_here_to_upgrade")
     -# TODO refactor this to a partial OR try to get the ambling_chart method working, which is supposed to do this
     :javascript
       var so = new SWFObject("/amcharts/ampie.swf", "ampie", "700", "600", "8", "#FFFFFF");

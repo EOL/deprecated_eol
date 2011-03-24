@@ -5,16 +5,16 @@
   - if $COUNT_UNIQUE_VISITORS
     %tr
       %td.odd
-        Visitors
+        =I18n.t("visitors")
       %td.odd
-        As of
+        =I18n.t("as_of")
         = format_date_time(Time.now)
-        there were
+        =I18n.t("there_were")
         = @visitors.count
-        unique visitors
+        =I18n.t("unique_visitors")
   %tr
     %td.odd
-      Your IP Address
+      =I18n.t("your_ip_address")
     %td.odd
       = request.remote_ip
       (
@@ -22,90 +22,90 @@
       )
   %tr
     %td.even
-      Server IP Address
+      =I18n.t("server_ip_address")
     %td.even
       = $IP_ADDRESS_OF_SERVER
   %tr
     %td.odd
-      Rails environment
+      =I18n.t("rails_environment")
     %td.odd
       = ENV["RAILS_ENV"]
   %tr
     %td.even
-      Rails databases
+      =I18n.t("rails_databases")
     %td.even
-      Main:
+      =I18n.t("main_")
       = @config.database_configuration[ENV["RAILS_ENV"]]["database"] + ' @ ' + @config.database_configuration[ENV["RAILS_ENV"]]["host"]
       %br
-      Data:
+      =I18n.t("data_")
       = @config.database_configuration[ENV["RAILS_ENV"]+'_data']["database"] + ' @ ' + @config.database_configuration[ENV["RAILS_ENV"]+'_data']["host"]
       %br
-      Logging:
+      =I18n.t("logging_")
       = @config.database_configuration[ENV["RAILS_ENV"]+'_logging']["database"] + ' @ ' + @config.database_configuration[ENV["RAILS_ENV"]+'_logging']["host"]
       %br
       - unless @config.database_configuration['master_database'].nil?
-        * this does not necessarily mean the connections are being used, just that they are defined in the database.yml --- you must check the "config/environments/
+        =I18n.t("__this_does_not_necessarily_me")
         = ENV["RAILS_ENV"]
-        \.rb" file to see if the master connections are setup
+        =I18n.t("_rb__file_to_see_if_the_master")
         %br
-        Main Master:
+        =I18n.t("main_master_")
         = @config.database_configuration['master_database']["database"] + ' @ ' + @config.database_configuration['master_database']["host"]
         %br
       - unless @config.database_configuration['master_data_database'].nil?
-        Data Master:
+        =I18n.t("data_master_")
         = @config.database_configuration['master_data_database']["database"] + ' @ ' + @config.database_configuration['master_data_database']["host"]
         %br
   %tr
     %td.odd
-      Error Logging Active
+      =I18n.t("error_logging_active")
     %td.odd
       = $ERROR_LOGGING.to_s
   %tr
     %td.even
-      Web service base URL
+      =I18n.t("web_service_base_url")
     %td.even
       = $WEB_SERVICE_BASE_URL
   %tr
     %td.odd
-      Data Logging Active
+      =I18n.t("data_logging_active")
     %td.odd
       = $ENABLE_DATA_LOGGING.to_s
   %tr
     %td.even
-      Email Error Notification Active
+      =I18n.t("email_error_notification_activ")
     %td.even
       = $EXCEPTION_NOTIFY.to_s
   %tr
     %td.odd
-      Content Servers
+      =I18n.t("content_servers")
     %td.odd
       = $CONTENT_SERVERS.join(',')
   %tr
     %td.even
-      Allow user logins
+      =I18n.t("allow_user_logins")
     %td.even
       = $ALLOW_USER_LOGINS.to_s
   - if ActionController::Base.perform_caching
     %tr
       %td.odd
-        Fragment caching enabled
+        =I18n.t("fragment_caching_enabled")
       %td.odd
         %span#cache_clear_time
-          Home page cache last cleared on
+          =I18n.t("home_page_cache_last_cleared_o")
           = format_date_time($CACHE_CLEARED_LAST)
         %br
-        = link_to_remote '[clear entire cache store]', :url=>{:controller=>'/administrator/site', :action=>'clear_all'}, :confirm=>'Are you sure you want to clear the entire cache store?', :update=>'cache_clear_time'
+        = link_to_remote I18n.t("_clear_entire_cache_store_"), :url=>{:controller=>'/administrator/site', :action=>'clear_all'}, :confirm=>I18n.t("are_you_sure_you_want_to_clear"), :update=>'cache_clear_time'
         %br
-        = link_to_remote '[clear all non-species pages]', :url=>{:controller=>'/administrator/site', :action=>'expire_all'}, :update=>'cache_clear_time'
+        = link_to_remote I18n.t("_clear_all_non_species_pages_"), :url=>{:controller=>'/administrator/site', :action=>'expire_all'}, :update=>'cache_clear_time'
         %br
         %span#taxon_id_clear_time
-        Taxon ID:
+        =I18n.t("taxon_id_")
         = text_field_tag :taxon_id, '', {:size=>8}
-        = link_to_remote '[clear species page]', :url=>{:controller=>'/administrator/site', :action=>'expire'}, :update=>'taxon_id_clear_time', :with => "'taxon_id=' + $('taxon_id').value"
+        = link_to_remote I18n.t("_clear_species_page_"), :url=>{:controller=>'/administrator/site', :action=>'expire'}, :update=>'taxon_id_clear_time', :with => "'taxon_id=' + $('taxon_id').value"
         %br
     %tr
       %td.even
-        Cache Store
+        =I18n.t("cache_store")
       %td.even
         = ActionController::Base.cache_store.class
         %br
@@ -113,6 +113,6 @@
   - if $ENABLE_ANALYTICS
     %tr
       %td.even
-        Google analytics active
+        =I18n.t("google_analytics_active")
       %td.even
-        = link_to 'Google analytic results', 'http://www.google.com/analytics/home', {:target=>'_blank'}
+        = link_to I18n.t("google_analytic_results"), 'http://www.google.com/analytics/home', {:target=>'_blank'}

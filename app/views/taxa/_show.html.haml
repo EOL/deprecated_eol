@@ -32,8 +32,8 @@
       - else
         &nbsp;
     %span.page-status
-      Showing:
-      = current_user.expertise.to_s == 'expert' ? link_to('scientific names', taxon_concept_url(:id=>@taxon_concept.id) + '?expertise=middle',{:title=>'click to show common names'}) : link_to('common names', taxon_concept_url(:id=>@taxon_concept.id) + '?expertise=expert',{:title=>'click to show scientific names'})
+      =I18n.t("showing_")
+      = current_user.expertise.to_s == 'expert' ? link_to(I18n.t("scientific_names"), taxon_concept_url(:id=>@taxon_concept.id) + '?expertise=middle',{:title=>'click to show common names'}) : link_to('common names', taxon_concept_url(:id=>@taxon_concept.id) + '?expertise=expert',{:title=>'click to show scientific names'})
     %hr
 = render(:partial => 'mediacenter', :locals => {:current_user => current_user})
 #page-content-bgfaux
@@ -62,15 +62,15 @@
           - change_toc_url = url_for(:controller => 'taxa', :action => 'user_text_change_toc', :taxon_concept_id => @taxon_concept.id)
           - add_text_url = url_for(:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_concept.id, :toc_id => @new_text_tocitem_id)
           .add_text_button
-            = link_to("<span style='width:20px;height:20px;display:block;'></span>", add_text_url, :id => 'new_text_toc_button', 'data-change_toc_url' => change_toc_url, :title => "Add New Content")
-          = link_to("Add New Content", add_text_url, :id => 'new_text_toc_text', 'data-change_toc_url' => change_toc_url )
+            = link_to(I18n.t("_span_style__width_20px_height"), add_text_url, :id => 'new_text_toc_button', 'data-change_toc_url' => change_toc_url, :title => "Add New Content")
+          = link_to(I18n.t("add_new_content"), add_text_url, :id => 'new_text_toc_text', 'data-change_toc_url' => change_toc_url )
         %li.multi_new_text_error{ :style => "display:none;" }
           = I18n.t(:only_one_text_object_can_be_edited_at_a_time) 
       %hr
     #center-page-content
       = render :partial => 'content'
     #center-page-content-loading{ :style => "display:none;" }
-      = image_tag 'indicator_arrows_black.gif', :alt=>'Working...'
+      = image_tag 'indicator_arrows_black.gif', :alt=>I18n.t("working__")
     #right-page-content
       = render :partial => 'feed_items/index', :locals => {:feed => @taxon_concept.feed}
       = render :partial => 'internal_nav'

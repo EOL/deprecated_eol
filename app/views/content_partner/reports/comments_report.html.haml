@@ -2,7 +2,7 @@
   %h2
     = @sub_page_header
   - if @act_histories.empty?
-    Nothing To Report
+    =I18n.t("nothing_to_report")
   = will_paginate(@act_histories)
   %ul
     - for act_history in @act_histories

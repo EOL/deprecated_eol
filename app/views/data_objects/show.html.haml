@@ -1,11 +1,11 @@
 #page-title
   - type = @type
   - type = 'Video' if DataType.video_type_ids.include?(@data_object.data_type.id)
-  %h1== #{type} permalink. 
+  
   %h2
     - @taxon_concepts = @data_object.get_taxon_concepts(:published => :preferred)
     - if @taxon_concepts.blank?
-      ( stands alone )
+      =I18n.t("__stands_alone__")
     - else
       - if @taxon_concepts[0].published?
         - start_text = @revisions[0].id == @data_object.id ? 'belongs to ' : 'was connected to '
@@ -26,7 +26,7 @@
   #full-page-content
     #data_object_wrapper
       #data_object_status
-        %h3 Curation status
+        %h3=I18n.t("curation_status")
         - status = @data_object.vetted.label.downcase
         - bg_class = []
         - if status == 'unknown'
@@ -38,11 +38,11 @@
         - bg_class = bg_class.join(' ')
         - bg_class = nil if bg_class.blank?
         %p{ :class => bg_class }
-          == This #{type.downcase} object is
+          =I18n.t("this_var_type_downcase_object_", :var_type_downcase => type.downcase)
           %b= status_text
       #data_object_content
         .divider
-        %h3 Content
+        %h3=I18n.t("content")
         #data_object{ :class => bg_class }
           - if type == "Video"
             = render :partial => "/shared/show_video"
@@ -52,27 +52,27 @@
       - if(@data_object.data_type.to_s.strip != 'Text')      
         #data_object_description
           .divider 
-          %h3 Description
+          %h3=I18n.t("description")
           = render :partial => 'description', :locals => { :data_object => @data_object }, :layout => @layout
           -#%br
 
       #data_object_attribution
         .divider 
-        %h3 Attribution
+        %h3=I18n.t("attribution")
         = render :partial => 'attribution', :locals => { :data_object => @data_object }, :layout => @layout
         %br      
 
       - unless @data_object.published_entries.blank?
         #data_object_hierarchy
           .divider
-          %h3== Hierarch#{@data_object.published_entries == 1 ? 'y' : 'ies'} according to the supplier 
+          
           - @data_object.published_entries.each do |phe|
             = phe.ancestors.map { |he| link_to(he.name.string, taxon_concept_path(he.taxon_concept_id)) }.join(' > ')
             %br
       - if @revisions.size > 1
         #data_object_revisions
           .divider 
-          %h3 Revisions
+          %h3=I18n.t("revisions")
           %ul
             - @revisions.each do |revision|
               - revision_class = revision.created_at == @data_object.created_at ? 'current_revision' : nil
@@ -80,7 +80,7 @@
       - unless @comments.blank?
         #data_object_comments
           .divider
-          %h3 Comments
+          %h3=I18n.t("comments")
           #taxaCommentsWrap
             #commentsContain
               = render :partial => 'shared/comments', :locals => { :comments => @comments, :opts => { :params => {:anchor => "commentsContain"} }}

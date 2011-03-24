@@ -5,9 +5,9 @@
       = @content.title[@content.key]
     %hr
     %h2
-      PREVIEW ONLY -
+      =I18n.t("preview_only__")
       %a{ :href => "#", :onclick => "javascript:window.close();return false;" }
-        CLOSE THIS WINDOW TO RETURN TO EDIT WINDOW
+        =I18n.t("close_this_window_to_return_to")
   %div{ :id => @content.left_content == '' ? '' : 'page-content-bgfauxinside' }
     #page-content.clearfix
       #full-page-content

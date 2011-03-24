@@ -16,7 +16,7 @@
               =  I18n.t(:more_species) 
           %p.play
             %a{ :href => "#", :onclick => "javascript:toggle_explore_updates();return false;" }
-              %img#play-button{ :src => "#{StaticEolAssetHost.asset_host_proc.call('png')}/images/homepage/pause.gif", :height => "28", :alt => "pause", :width => "27" }
+              %img#play-button{ :src => "#{StaticEolAssetHost.asset_host_proc.call('png')}/images/homepage/pause.gif", :height => "28", :alt => I18n.t("pause"), :width => "27" }
         #photos_area
           - if @explore_taxa.nil? == false
             = render(:partial=>'explore_taxa')
@@ -42,11 +42,11 @@
                       = news_item.title
                     %div{ :id => "news_#{news_item.id}", :style => "display:none;" }
                       = news_item.body
-            %li= link_to "more news...",:action=>'news'
+            %li= link_to I18n.t("more_news__"),:action=>'news'
             %li
-              To subscribe via RSS, click
+              =I18n.t("to_subscribe_via_rss__click")
               = link_to image_tag('rss.png'), {:action=>'news',:format=>'rss'}
-              , or add this URL to your RSS reader: http://
+              =I18n.t("__or_add_this_url_to_your_rss_")
               = request.host + url_for(:action=>'news',:format=>'rss')
       #home-center-content
         - if @featured_taxon

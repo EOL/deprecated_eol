@@ -1,5 +1,5 @@
 %h1
-  Editing comment
+  =I18n.t("editing_comment")
 - form_for(@comment) do |f|
   = f.error_messages
   %p
@@ -11,7 +11,7 @@
     %br
     = f.text_field :text
   %p
-    = f.submit "Update"
-= link_to 'Show', @comment
+    = f.submit I18n.t("update")
+= link_to I18n.t("show"), @comment
 |
-= link_to 'Back', comments_path
+= link_to I18n.t("back"), comments_path

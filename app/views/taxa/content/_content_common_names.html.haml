@@ -3,7 +3,7 @@
 - if is_curator
   = render :partial => 'data_objects/curation_js'
   #common_names_error{ :style => "color:brown;text-align:center;padding-bottom:8px;display:none;" }
-    Sorry! There was an error sending the curation request; please try again later.
+    =I18n.t("sorry__there_was_an_error_send")
   #common_names_spinner{ :style => "text-align:right;float:right;" }
     = image_tag('indicator_arrows_black.gif', :style => 'display:none;')
 
@@ -24,4 +24,4 @@
       - else
         = render(:partial => 'taxa/content/content_language_common_names', :locals => {:names => names}) 
       - if index == 0 && is_curator
-        = render(:partial => 'taxa/content/content_common_names_insert', :locals => {:names => names}) 
+        = render(:partial => 'taxa/content/content_common_names_insert', :locals => {:names => names})

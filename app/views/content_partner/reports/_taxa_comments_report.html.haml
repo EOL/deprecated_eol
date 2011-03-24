@@ -1,18 +1,18 @@
 -# app/views/content_partner/reports/_comments_report.html.haml and app/views/content_partner/reports/_taxa_comments_report.html.haml are almost exactly the same thing... probably needs refacrtoring at a higher level.
 %li
   %p
-    Comment: "
+    =I18n.t("comment___")
     = truncate(allow_some_html(h(act_history.comment_body)), 300)
     "
     %br
     %i
       - if current_act == 'create'
-        added to the
+        =I18n.t("added_to_the")
         = act_history.comment_object.parent_type_name
-        on
+        =I18n.t("on")
         = link_to act_history.taxon_concept_name, {:controller => '/taxa', :action => 'show', :id => act_history.taxon_concept_id}, :target => "_blank"
-        by
+        =I18n.t("by")
         = curator_or_plain_username(act_history.user)
         = act_date
-        ago
+        =I18n.t("ago")
   %br

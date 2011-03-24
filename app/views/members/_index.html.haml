@@ -8,7 +8,7 @@
       - if not logged_in?
         = I18n.t(:link_to_join_this_community, :var_link=>link_to(I18n.t(:log_in), login_path)) 
       - elsif !@current_member  
-	= link_to( I18n.t(:join_community) , join_community_path(@community.id))
+  	= link_to( I18n.t(:join_community) , join_community_path(@community.id))
 
   - else
     %ul#community_members
@@ -38,3 +38,4 @@
       %p
         = I18n.t(:you_have_been_a_member_of_this_community_since_current_membercreated_at, :var_current_member_created_at=>@current_member.created_at) 
         = link_to( I18n.t(:leave_community) , leave_community_path(@community.id), :confirm => I18n.t(:are_you_sure) , :class => 'leave_community')
+

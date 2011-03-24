@@ -1,16 +1,16 @@
 %tr
   %td
     %strong
-      Description:
+      =I18n.t("description_")
   %td
     = f.text_field :description,{:size=>'40',:maxlength=>'100'}
     %br
-    (not shown on the website or link URL, for informational purposes only)
+    =I18n.t("_not_shown_on_the_website_or_l")
 %tr
   %td
     %strong
-      Link Name:
+      =I18n.t("link_name_")
   %td
     = f.text_field :link_name,{:size=>'40',:maxlength=>'70'}
     %br
-    (used to generate a friendly link for users, cannot contain spaces or special characters)
+    =I18n.t("_used_to_generate_a_friendly_l")

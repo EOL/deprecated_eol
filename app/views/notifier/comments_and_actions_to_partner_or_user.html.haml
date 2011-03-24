@@ -7,23 +7,23 @@
 = ""
 
 - if @agent_or_user.class == AgentContact  # the contact for a content partner
-  You are receiving this message because you are listed as a contact for an Encyclopedia of Life content partner.
-  For more detailed information, log in to your account in the EOL Content Partner Registry:
+  =I18n.t("you_are_receiving_this_message")
+  =I18n.t("for_more_detailed_information_")
   = url_for(:controller => 'content_partner', :action => 'login', :only_path => false, :host => $SITE_DOMAIN_OR_IP);
   = ""
-  Then go to USAGE REPORTS:
+  =I18n.t("then_go_to_usage_reports_")
   = url_for(:controller => 'content_partner', :action => 'reports', :only_path => false, :host => $SITE_DOMAIN_OR_IP);
   = ""
-  To turn off or change how often you receive these updates, log in to your account in the EOL Content Partner Registry and edit your profile (CONTACT INFORMATION:Change):
+  =I18n.t("to_turn_off_or_change_how_ofte")
   = url_for(:controller => 'content_partner', :action => 'edit_contact', :id => @agent_or_user.id, :only_path => false, :host => $SITE_DOMAIN_OR_IP);
   = ""
-  If you have trouble accessing your account please contact us for help:
+  =I18n.t("if_you_have_trouble_accessing_")
   = url_for(:controller => 'contact_us', :default_subject => 'Content Partner Support', :only_path => false, :host => $SITE_DOMAIN_OR_IP);
 - else  # a site user that has submitted content
-  To turn off or change how often you receive these updates, log in to EOL and go to your profile:
+  =I18n.t("to_turn_off_or_change_how_ofte_")
   = url_for(:controller => 'profile', :only_path => false, :host => $SITE_DOMAIN_OR_IP);
   = ""
-  If you have trouble accessing your account please contact us for help:
+  =I18n.t("if_you_have_trouble_accessing_")
   = url_for(:controller => 'contact_us', :default_subject => 'Technical problems (difficulties with the website, search tool or user accounts)', :only_path => false, :host => $SITE_DOMAIN_OR_IP);
 = ""
 = ""
@@ -33,9 +33,9 @@
 - unless @activity.blank? || @activity[:actions].blank?
   ======================================
   - if @activity[:actions].length > 1
-    Curator actions have affected data objects you submitted:
+    =I18n.t("curator_actions_have_affected_")
   - else
-    A curator action has affected a data object you submitted:
+    =I18n.t("a_curator_action_has_affected_")
   ======================================
   - for action in @activity[:actions]
     - data_object = action.data_object
@@ -57,9 +57,9 @@
 - unless @activity.blank? || @activity[:object_comments].blank?
   ======================================
   - if @activity[:object_comments].length > 1
-    Comments were left on data objects you submitted:
+    =I18n.t("comments_were_left_on_data_obj")
   - else
-    A comment was left on a data object you submitted:
+    =I18n.t("a_comment_was_left_on_a_data_o")
   ======================================
   - for comment in @activity[:object_comments]
     - data_object = comment.parent
@@ -81,9 +81,9 @@
 - unless @activity.blank? || @activity[:page_comments].blank?
   ======================================
   - if @activity[:page_comments].length > 1
-    Comments were left on the taxon page comments tab (may not apply specifically to your content):
+    =I18n.t("comments_were_left_on_the_taxo")
   - else
-    A comment was left on a taxon page comments tab (may not apply specifically to your content):
+    =I18n.t("a_comment_was_left_on_a_taxon_")
   ======================================
   - for comment in @activity[:page_comments]
     - taxon_concept = TaxonConcept.find(comment.parent_id)  # so we get superceded concepts
@@ -98,6 +98,6 @@
   = ""
 
 = ""
-Thank you.
+=I18n.t("thank_you_")
 = ""
 = "Encyclopedia of Life"

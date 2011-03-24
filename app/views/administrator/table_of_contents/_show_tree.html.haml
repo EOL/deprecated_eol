@@ -2,11 +2,11 @@
   %table.toc_editor{:cellspacing => '2px', :cellpadding => '2px', :border => '1px #cccccc'}
     %tr
       %th
-        TOC Entry
+        =I18n.t("toc_entry")
       %th
-        Info Items
+        =I18n.t("info_items")
       %th
-        Count
+        =I18n.t("count")
     - input_counter = 0
     - last_toc_chapter = TocItem.last_major_chapter
     - @whole_tree = TocItem.whole_tree
@@ -24,20 +24,20 @@
             = image_tag('arrow_blank.gif') + image_tag('arrow_blank.gif')
           - else
             %a{:href => '', :onclick => "javascript:toc_move_up(#{toc.id}, true); return false;"}><
-              = image_tag('arrow_way_up.gif', :alt => 'move to top', :title => 'move to top')
+              = image_tag('arrow_way_up.gif', :alt => I18n.t("move_to_top"), :title => I18n.t("move_to_top"))
             %a{:href => '', :onclick => "javascript:toc_move_up(#{toc.id}, false); return false;"}><
-              = image_tag('arrow_up.gif', :alt => 'move up', :title => 'move up')
+              = image_tag('arrow_up.gif', :alt => I18n.t("move_up"), :title => I18n.t("move_up"))
           - if toc.id == last_toc_chapter.id || (toc.is_sub? && @whole_tree[index+1] && @whole_tree[index+1].is_major?)
             = image_tag('arrow_blank.gif') + image_tag('arrow_blank.gif')
           - else
             %a{:href => '', :onclick => "javascript:toc_move_down(#{toc.id}, false); return false;"}><
-              = image_tag('arrow_down.gif', :alt => 'move down', :title => 'move down')
+              = image_tag('arrow_down.gif', :alt => I18n.t("move_down"), :title => I18n.t("move_down"))
             %a{:href => '', :onclick => "javascript:toc_move_down(#{toc.id}, true); return false;"}><
-              = image_tag('arrow_way_down.gif', :alt => 'move to bottom', :title => 'move to bottom')
+              = image_tag('arrow_way_down.gif', :alt => I18n.t("move_to_bottom"), :title => I18n.t("move_to_bottom"))
           %span{:id => "toc_label_#{toc.id}"}><
             = "&nbsp;" + toc.label + "&nbsp;"
             %a{:href => '', :onclick => %Q[javascript:toc_edit_label(#{toc.id}, "#{toc.label}"); return false;]}
-              = image_tag('pencil.png', :alt => 'edit', :title => 'edit', :style => 'float: right; margin: 0px;')
+              = image_tag('pencil.png', :alt => I18n.t("edit_"), :title => I18n.t("edit_"), :style => 'float: right; margin: 0px;')
         %td{:class => cell2_class, :valign => 'top'}
           - unless toc.info_items.empty?
             - toc.info_items.each do |ii|
@@ -53,7 +53,7 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             %input{:id => "input_#{input_counter}", :type => 'text', :size => '40'}
             %a{:href => '', :onclick => "javascript:toc_add_sub_chapter(#{add_to_id}, 'input_#{input_counter}'); return false;"}
-              Add sub-chapter
+              =I18n.t("add_sub_chapter")
       - if toc == @whole_tree.last
         %tr
           %td.major_ii{:valign => 'top', :colspan => 3}

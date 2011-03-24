@@ -12,7 +12,7 @@
   #page-content.clearfix
     #full-page-content
       %br
-      Please note that you will be required to click a link in a confirmation email sent to the email address you enter below - so you must provide a valid, working email address.
+      =I18n.t("please_note_that_you_will_be_r")
       = eol_lang_error_messages_for :user
       - form_for :user, :html => { :class => "warning-warn invalid-invalid styleLabelOnErr" } do |f|
         %fieldset
@@ -20,8 +20,8 @@
             %strong= @verification_did_not_match
           %label{ :title => I18n.t(:please_enter_your_username) , :for => "user_username" }
             = I18n.t(:username) 
-            (4 - 32 characters)
-            %span{ :title => "required" }
+            =I18n.t("_4___32_characters_")
+            %span{ :title => I18n.t("required_") }
               *
             %span.warn== (#{ I18n.t(:required) })
           / user_username ^[a-zA-Z0-9\-_]{4,32}$ false true //
@@ -29,15 +29,15 @@
           %span#username_warn.error
           %label{ :title => I18n.t(:please_enter_a_password) , :for => "user_entered_password" }
             = I18n.t(:password) 
-            (4 - 16 characters)
-            %span{ :title => "required" }
+            =I18n.t("4_16_characters")
+            %span{ :title => I18n.t("required_") }
               *
             %span.warn== (#{ I18n.t(:required)  })
           / user_entered_password .+ false true //
           = f.password_field :entered_password, { :maxlength => 16 }
           %label{ :title => I18n.t(:please_enter_the_password_again) , :for => "user_entered_password_confirmation" }
             = I18n.t(:confirm_password) 
-            %span{ :title => "required" }
+            %span{ :title => I18n.t("required_") }
               *
             %span.warn== (#{ I18n.t(:required) })
           / user_entered_password_confirmation .+ false true //
@@ -46,7 +46,7 @@
             = I18n.t(:passwords_must_match) 
           %label{ :title => I18n.t(:please_enter_your_email_address) , :for => "user_email" }
             = I18n.t(:email_address) 
-            %span{ :title => "required" }
+            %span{ :title => I18n.t("required_") }
               *
             %span.warn== (#{ I18n.t(:required) })
           / user_email ^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,6})$ false true //
@@ -54,7 +54,7 @@
           %span#email_warn.error
           %label{ :title =>  I18n.t(:please_enter_given_name) , :for => "user_given_name" }
             = I18n.t(:given_name) 
-            %span{ :title => "required" }
+            %span{ :title => I18n.t("required_") }
               *
             %span.warn== (#{ I18n.t(:required) })
           / user_given_name .+ false true //

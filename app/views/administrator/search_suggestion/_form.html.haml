@@ -1,91 +1,91 @@
 = eol_lang_error_messages_for :search_suggestion
 %br
-Enter in a search term users are searching for and then the resulting taxon/page ID they should be directed to as a suggestion for that search.  The taxon/page ID is found in the URL of the page
-you wish to direct them to (e.g. www.eol.org/pages/5 has a taxon/page ID of 5).  The page name and the first image will be collected if available and stored with the result.
-You can edit those later if needed.
+=I18n.t("enter_in_a_search_term_users_a")
+=I18n.t("you_wish_to_direct_them_to__e_")
+=I18n.t("you_can_edit_those_later_if_ne")
 %table
   %tr
     %td
       %strong
-        Search Term:
+        =I18n.t("search_term_")
       %br
-      trigger search term entered by the user
+      =I18n.t("trigger_search_term_entered_by")
     %td
       = f.text_field :term, {:size=>'50', :maxlength=>'250'}
   - if action_name != 'new'
     %tr
       %td
         %strong
-          Page Linked To:
+          =I18n.t("page_linked_to_")
         %br
-        the suggested page to direct users to
+        =I18n.t("the_suggested_page_to_direct_u")
       %td
         = link_to @search_suggestion.scientific_name, taxon_concept_url(:id=>@search_suggestion.taxon_id), :target=>'_blank'
     %tr
       %td
         %strong
-          Suggested Scientific Name:
+          =I18n.t("suggested_scientific_name_")
         %br
-        as shown to the user in the suggestion
+        =I18n.t("as_shown_to_the_user_in_the_su")
       %td
         = f.text_field :scientific_name,{:size=>'50',:maxlength=>'250'}
     %tr
       %td
         %strong
-          Suggested Common name:
+          =I18n.t("suggested_common_name_")
         %br
-        as shown to the user in the suggestion
+        =I18n.t("as_shown_to_the_user_in_the_su")
       %td
         = f.text_field :common_name,{:size=>'50',:maxlength=>'250'}
     %tr
       %td
         %strong
-          Suggested Image URL :
+          =I18n.t("suggested_image_url__")
         %br
-        shown to the user in the suggestion
+        =I18n.t("shown_to_the_user_in_the_sugge")
       %td
         = f.text_field :image_url,{:size=>'50',:maxlength=>'250'}
   %tr
     %td
       %strong
-        Suggested Result Page ID:
+        =I18n.t("suggested_result_page_id_")
     %td
       = f.text_field :taxon_id, {:size=>'10',:maxlength=>'70'}
       - if action_name != 'new'
-        = link_to_remote '[update names and image]',:url => {:action=>'update_names_and_image'}, :method => :post, :with => "'taxon_id=' + $('search_suggestion_taxon_id').value"
+        = link_to_remote I18n.t("_update_names_and_image_"),:url => {:action=>'update_names_and_image'}, :method => :post, :with => "'taxon_id=' + $('search_suggestion_taxon_id').value"
   %tr
     %td
       %strong
-        Notes (not shown to user):
+        =I18n.t("notes__not_shown_to_user__")
     %td
       = f.text_area :notes
   %tr
     %td
       %strong
-        Content Notes (not shown to user):
+        =I18n.t("content_notes__not_shown_to_us")
     %td
       = f.text_field :content_notes,{:size=>'50',:maxlength=>'250'}
   %tr
     %td
       %strong
-        Sort Order:
+        =I18n.t("sort_order_")
     %td
       = f.text_field :sort_order,{:size=>'3',:maxlength=>'3'}
-      (only if multiple suggestions for the same search term, sort is low-->high)
+      =I18n.t("_only_if_multiple_suggestions_")
   %tr
     %td
       %strong
-        Language:
+        =I18n.t("language")
     %td
       = f.select :language_label, Language.find_active.collect {|l| [l.source_form, l.iso_639_1]}
       %br
   %tr
     %td
       %strong
-        Active:
+        =I18n.t("active_")
     %td
       = f.check_box :active
-      \- must be checked to show to user
+      =I18n.t("__must_be_checked_to_show_to_u")
 %br
 %br
 = cancel_button_goes_back(return_to_url)

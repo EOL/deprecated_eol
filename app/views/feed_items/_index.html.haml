@@ -4,9 +4,9 @@
   - else
     %p
       %strong
-        You must be
-        = link_to('logged in', login_path(:params => {:return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path}), {:class => 'login_link'} )
-        to post comments.
+        =I18n.t("you_must_be")
+        = link_to(I18n.t("logged_in_"), login_path(:params => {:return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path}), {:class => 'login_link'} )
+        =I18n.t("to_post_comments")
   - if feed.empty?
     %p.empty= I18n.t(:no_activity) 
   - else
@@ -15,4 +15,3 @@
       - feed.each do |feed_item|
         %li.feed_item
           .body= h feed_item.body
-

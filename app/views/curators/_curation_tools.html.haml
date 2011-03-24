@@ -31,7 +31,7 @@
     = render :partial => 'data_objects/curation', :locals => { :data_object => data_object, :div_style => div_style }
     .buttons.action-value
       %br
-      = submit_tag "Save"
+      = submit_tag I18n.t("save")
 .text_buttons
   - comments = data_object.visible_comments
   - if comments.blank?
@@ -49,4 +49,4 @@
     -# TODO - we re-use this indicator a lot.  Put it in a CSS class.
     %p
       = image_tag 'indicator_arrows_black.gif'
-      = I18n.t(:please_wait) 
+      = I18n.t(:please_wait)

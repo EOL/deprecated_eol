@@ -4,11 +4,11 @@
   %fieldset
     %legend
       = I18n.t(:account_information) 
-    = f.label :username, "#{ I18n.t(:username) } (4-16 characters)<span title='required'>*</span>"
+    = f.label :username, I18n.t("var__i18n_t__username____4_16_", :var__i18n_t__username__ =>  I18n.t(:username) )
     / agent_username ^[a-zA-Z0-9\-_]{4,16}$ false true //
     = f.text_field :username, :maxlength => 16, :onblur => "javascript:check_username()"
     %span#username_warn.error
-    = f.label :email, "#{ I18n.t(:email_address) } <span title='required'>*</span>"
+    = f.label :email, I18n.t("var__i18n_t__email_address____", :var__i18n_t__email_address__ =>  I18n.t(:email_address) )
     / agent_email ^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,6})$ false true //
     = f.text_field :email, :maxlength => 60, :size => 30
     = f.label :password, "#{I18n.t(:password)} #{I18n.t('4_16_characters')}"

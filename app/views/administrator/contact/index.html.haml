@@ -1,10 +1,10 @@
-This area shows all submissions entered via the contact us or media contact pages.  To view entries, select the topic below or
-= link_to('export all of the entries as a CSV file', :action=>'export')
+=I18n.t("this_area_shows_all_submission")
+= link_to(I18n.t("export_all_of_the_entries_as_a"), :action=>'export')
 %br
 - form_tag({:action=>'index'},:method=>'get') do
   %select#contact_subject_id{ :name => "id" }
     %option{ :value => "*" }
-      All  (
+      =I18n.t("all___")
       = @all_contacts_count
       )
     - for subject in @subjects
@@ -14,17 +14,17 @@ This area shows all submissions entered via the contact us or media contact page
         = subject.contacts.count
         )
   %br
-  Search for messages containing:
+  =I18n.t("search_for_messages_containing")
   = text_field_tag(:comment_search_string,@comment_search_string)
-  = submit_tag 'Go'
+  = submit_tag I18n.t("go")
   .divider
     #contacts
       - if @contacts.nil? == false && @contacts.size > 0
         = @contacts_count
-        total comments have been submitted in
+        =I18n.t("total_comments_have_been_submi")
         = @subject
         - if @comment_search_string != ''
-          containing
+          =I18n.t("containing")
           = @comment_search_string
         \.
         %br
@@ -33,18 +33,18 @@ This area shows all submissions entered via the contact us or media contact page
         %table.results_table{ :cellspacing => "0" }
           %tr
             %th
-              Name
+              =I18n.t("name")
             %th
-              Email
+              =I18n.t("email")
             %th
-              Comments
+              =I18n.t("comments")
             - if @contact_subject_id == '*'
               %th
-                Topic
+                =I18n.t("topic")
             %th
-              Date
+              =I18n.t("date")
             %th
-              Taxon Group
+              =I18n.t("taxon_group")
           - for contact in @contacts
             - column_class=cycle('odd','even')
             %tr
@@ -64,10 +64,10 @@ This area shows all submissions entered via the contact us or media contact page
         %br
         = will_paginate @contacts
       - elsif @contacts.nil? == false && @contacts.size == 0
-        No comments are available for
+        =I18n.t("no_comments_are_available_for")
         = @subject
         - if @comment_search_string != ''
-          containing
+          =I18n.t("containing")
           = @comment_search_string
         \.
       - else

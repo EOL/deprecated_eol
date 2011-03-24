@@ -1,9 +1,9 @@
 = javascript_include_tag 'navigation'
 - unless @hierarchy
-  Select a hierarchy around which to organize content summaries:
+  =I18n.t("select_a_hierarchy_around_whic")
   %table.results_table
     %th
-      Browsable Hierarchies
+      =I18n.t("browsable_hierarchies")
     - @browsable_hierarchies.each do |h|
       - row_class = cycle("odd", "even")
       %tr

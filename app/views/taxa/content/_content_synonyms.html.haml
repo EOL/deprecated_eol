@@ -6,15 +6,15 @@
       %b
         = synonym.hierarchy.label
       %br
-      Preferred Name: 
+      =I18n.t("preferred_name_") 
       = synonym.hierarchy_entry.name.string
       - current_hierarchy_id = synonym.hierarchy_id
     %table.results_table
       %tr
         %th
-          Name
+          =I18n.t("name")
         %th
-          Relationship
+          =I18n.t("relationship")
       - for s in @content[:items]
         - next if s.hierarchy_id != current_hierarchy_id
         - row_class = cycle('odd', 'even')

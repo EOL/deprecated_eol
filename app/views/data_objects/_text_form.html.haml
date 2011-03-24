@@ -11,12 +11,12 @@
       = select_tag('data_objects_toc_category[toc_id]', options_for_select(@selectable_toc,@selected_toc), {'id' => 'data_objects_toc_category_toc_id', 'data-change_toc_url' => url_for(:controller => 'taxa', :action => 'user_text_change_toc')})
   %tr
     %td
-      = f.label :object_title, "Title (optional)"
+      = f.label :object_title, I18n.t("title__optional_")
     %td
       = f.text_field( :object_title )
   %tr
     %td
-      = f.label :description, "Text"
+      = f.label :description, I18n.t("text__")
     %td
       = f.text_area( :description, :size => "33x8" )
   %tr
@@ -34,7 +34,7 @@
   %tr
     %td
       - # TODO: Check why we're not using f.label :references and f.text_area :references
-      %label{ :for => 'references'} References
+      
     %td
       - refs = ''
       - @data_object.visible_references.each do |ref|
@@ -42,9 +42,9 @@
       = text_area_tag('references', @data_object.visible_references.map {|r| r.full_reference}.join("\n\n"), :size => "33x8" )
   %tr
     %td
-      %label NOTE
+      %label=I18n.t("note_")
     %td
-      After submitting your text entry it will appear with a yellow background until a curator marks it as trusted.
+      =I18n.t("after_submitting_your_text_ent")
   %tr
     %td{ :colspan => "2" }
       - if @data_object.id

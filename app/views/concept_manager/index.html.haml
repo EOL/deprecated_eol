@@ -1,26 +1,26 @@
 .container
   #control_panel
     #merge_concepts.control_subpanel
-      merge concepts
+      =I18n.t("merge_concepts")
     #split_concepts.control_subpanel
-      split into new concept
+      =I18n.t("split_into_new_concept")
   %br
   #left_panel.lookup_panel
-    TaxonConceptID:
+    =I18n.t("taxonconceptid_")
     %input#tc1{:type => 'text', :size => 30}
     %input{:type => 'button', :value => 'Lookup TC'}
     %br
-    HierarachyEntryID:
+    =I18n.t("hierarachyentryid_")
     %input#he1{:type => 'text', :size => 30}
     %input{:type => 'button', :value => 'Lookup HE'}
     %hr
     .entries
   #right_panel.lookup_panel
-    TaxonConceptID:
+    =I18n.t("taxonconceptid_")
     %input#tc2{:type => 'text', :size => 30}
     %input{:type => 'button', :value => 'Lookup TC'}
     %br
-    HierarachyEntryID:
+    =I18n.t("hierarachyentryid_")
     %input#he2{:type => 'text', :size => 30}
     %input{:type => 'button', :value => 'Lookup HE'}
     %hr

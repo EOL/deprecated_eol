@@ -3,25 +3,25 @@
 #instructions{ :style => "display:none;" }
   %ol
     %li
-      You should be comfortable with HTML before editing. Do not use unusual fonts or styles when editing or creating pages - use simple HTML and see current pages for examples.
+      =I18n.t("you_should_be_comfortable_with")
     %li
-      You can reference images with the HTML &lt;img&gt; tag, but they must exist at a URL already, such as from the originating website or a site such as Flickr.  There is no facility to upload images or other files for use directly in the pages.
+      =I18n.t("you_can_reference_images_with_")
     %li
-      Pages/items created in the "About EOL", "Press Room", "Using the Site" and "Feedback" sections will have links to them automatically created in the top navigation.
+      =I18n.t("pages_items_created_in_the__ab")
     %li
-      Pages/items created in the "Footer" section will have links to them automatically created in the footer.
+      =I18n.t("pages_items_created_in_the__fo")
     %li
-      Pages created in the "Other" section will not be added to any navigational menus -- you must link to these pages manually.
+      =I18n.t("pages_created_in_the__other__s")
     %li
-      Changes are made immediately after submitting the form - be sure to use the preview button before publishing!   Due to caching it may take up to an hour for changes to be seen for all users.
+      =I18n.t("changes_are_made_immediately_a")
     %li
-      If you make a mistake, use the "Archived Versions" drop-down menu to retrieve the previous version of the page.  You can then preview and publish to revert to the previous version.
+      =I18n.t("if_you_make_a_mistake__use_the")
     %li
-      If you need to upload an image or a PDF to reference in the page, use the
-      = link_to 'upload content',:controller=>'administrator/content_upload',:action=>'index'
-      feature first, and then reference the file once it is uploaded.
+      =I18n.t("if_you_need_to_upload_an_image")
+      = link_to I18n.t("upload_content"),:controller=>'administrator/content_upload',:action=>'index'
+      =I18n.t("feature_first__and_then_refere")
 %form#content_section_select
-  To administer site content, please select the section to work on:
+  =I18n.t("to_administer_site_content__pl")
   = collection_select(:content_section,:id,@content_sections,:id,:name,{})
 #content_page_list
   = render(:partial=>'content_page_list')

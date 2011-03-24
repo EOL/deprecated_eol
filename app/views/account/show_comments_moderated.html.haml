@@ -3,13 +3,13 @@
     %tr{ :align => "center" }
       %th
         %p
-          Comments Moderated
+          =I18n.t("comments_moderated")
       %td
-        \&nbsp;&nbsp;&nbsp;Moderator: 
+        =I18n.t("_nbsp__nbsp__nbsp_moderator_") 
         = h @user.given_name 
         = h @user.family_name 
         \&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        = link_to 'Back to profile',{:controller=>'/account', :action=>:show, :id => @user.id}
+        = link_to I18n.t("back_to_profile"),{:controller=>'/account', :action=>:show, :id => @user.id}
         
 - if @comments.nil? == false && @comments.size > 0
   - if(false)
@@ -22,17 +22,17 @@
     %thead{ :align => "center" }
       %tr{ :align => "center" }
         %th
-          Type
+          =I18n.t("type")
         %th
-          Activity
+          =I18n.t("activity")
         %th
-          Comment
+          =I18n.t("comment")
         %th
-          Visible
+          =I18n.t("visible_")
         %th
-          Created
+          =I18n.t("created")
         %th
-          Updated
+          =I18n.t("updated")
     %tbody
       - count = 0
       - @comments.each do |comment|

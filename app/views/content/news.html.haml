@@ -9,18 +9,18 @@
   #page-content.clearfix
     #full-page-content
       - form_tag({:action=>'news',:id=>''},:method=>'post') do
-        Search for news items containing:
+        =I18n.t("search_for_news_items_containi")
         = text_field_tag(:term_search_string,@term_search_string)
-        = submit_tag 'Search'
+        = submit_tag I18n.t("search")
       %br
       - if !@news_items.blank?
         = will_paginate @news_items
         %table.results_table{ :width => "100%", :cellspacing => "0" }
           %tr
             %th
-              Date
+              =I18n.t("date")
             %th
-              News Item
+              =I18n.t("news_item_")
           - for news_item in @news_items
             - if news_item.visible?
               - column_class=cycle('odd','even')
@@ -33,7 +33,7 @@
         %br
         = will_paginate @news_items
       - elsif !@news_item.blank?
-        = link_to 'all news', :action=>'news', :id=>''
+        = link_to I18n.t("all_news"), :action=>'news', :id=>''
         %br
         %br
         %strong
@@ -42,5 +42,5 @@
         = @news_item.title + "<br /> " unless @news_item.title.blank?
         = @news_item.body
       - else
-        No news items are available matching your search criteria.
+        =I18n.t("no_news_items_are_available_ma")
       = link_to image_tag('rss.png'), {:action=>controller.action_name, :format=>'rss'}

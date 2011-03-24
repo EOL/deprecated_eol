@@ -3,31 +3,31 @@
   and suggested values will be shown to users if they select the corresponding category and begin typing a few letters.
   %fieldset#new-public-tag
     %legend
-      Add New Tag Suggestion
-    (no spaces allowed in categories or values)
+      =I18n.t("add_new_tag_suggestion")
+    =I18n.t("_no_spaces_allowed_in_categori")
     - form_tag :action => 'create' do
       %label{ :for => "tag[key]" }
         %span
-          Category:
+          =I18n.t("category_")
         = text_field_tag 'tag[key]'
       %label{ :for => "tag[value]" }
         %span
-          Value:
+          =I18n.t("value_")
         = text_field_tag 'tag[value]'
-      = submit_tag 'Create'
+      = submit_tag I18n.t("create")
   %div
     %form#pagination_form
       = will_paginate @tags
     %table.results_table{ :cellspacing => "0" }
       %tr
         %th
-          Usage
+          =I18n.t("usage")
         %th
-          Category
+          =I18n.t("category")
         %th
-          Tag
+          =I18n.t("tag")
         %th
-          Delete
+          =I18n.t("delete_")
       - for tag in @tags
         - column_class=cycle('odd','even')
         %tr

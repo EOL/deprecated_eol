@@ -1,15 +1,15 @@
-This information will allow us to make contact with you.  It will not be visible on the EOL web site. You must have at least one contact.
-= link_to("Add New Contact", { :action => 'add_contact' })
+=I18n.t("this_information_will_allow_us")
+= link_to(I18n.t("add_new_contact"), { :action => 'add_contact' })
 %br
 = eol_lang_error_messages_for :agent
 %table.results_table{ :width => "100%" }
   %tr
     %th
-      Contacts
+      =I18n.t("contacts")
     %th
-      Role
+      =I18n.t("role")
     %th{ :style => "width: 100px;" }
-      Options
+      =I18n.t("options")
   %tbody
     - for contact in @agent_contacts
       - column_class=cycle('odd','even')
@@ -25,9 +25,9 @@ This information will allow us to make contact with you.  It will not be visible
         %td{ :class => column_class }
           = contact.agent_contact_role.label
         %td{ :class => column_class }
-          = link_to("Change", { :action => 'edit_contact', :id => contact })
+          = link_to(I18n.t("change"), { :action => 'edit_contact', :id => contact })
           \|
-          = link_to("Delete", { :action => 'del_contact', :id => contact }, :confirm => "Are you sure you want to delete this contact?")
+          = link_to(I18n.t("delete_"), { :action => 'del_contact', :id => contact }, :confirm => I18n.t("are_you_sure_you_want_to_delet"))
   %tbody
 - form_for @agent, :url => { :action => action_name }, :html => { :method => :post, :id => 'contacts_form' } do |f|
   %input#save_type{ :name => "save_type", :type => "hidden", :value => "stay" }

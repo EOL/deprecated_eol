@@ -5,13 +5,13 @@
         %td{ :width => '50%', :valign => 'top' }
           - unless @hierarchy_entry.nil?
             %b
-              Browsing Branch:
+              =I18n.t("browsing_branch_")
             - ancestors = @hierarchy_entry.ancestors(:include_stats => true)
             - hierarchy_entry = ancestors.pop
             = render(:partial => 'navigation/node_with_ancestry_stats', :locals => { :ancestors => ancestors, :hierarchy_entry => hierarchy_entry })
           %br
           %b
-            Hierarchy Roots:
+            =I18n.t("hierarchy_roots_")
           - for kingdom in @hierarchy.kingdoms
             %li.node.bold
               = render(:partial => 'navigation/node_name_stats', :locals => { :hierarchy_entry => kingdom, :node_class => 'bold' })
@@ -20,43 +20,43 @@
               %table.results_table.stats
                 %tr
                   %th
-                    Stat
+                    =I18n.t("stat")
                   %th
-                    Value
+                    =I18n.t("value")
                 %tr
                   %td.odd
-                    \# of taxa at this entry
+                    =I18n.t("_of_taxa_at_this_entry")
                   %td.odd.stats
                     = hierarchy_entry.hierarchy_entry_stat.total_children
                 %tr
                   %td.even
-                    \# of trusted images at this entry
+                    =I18n.t("_of_trusted_images_at_this_ent")
                   %td.even.stats
                     = hierarchy_entry.hierarchy_entry_stat.all_image_trusted
                 %tr
                   %td.odd
-                    \# of unreviewed images at this entry
+                    =I18n.t("_of_unreviewed_images_at_this_")
                   %td.odd.stats
                     = hierarchy_entry.hierarchy_entry_stat.all_image_untrusted
                 %tr
                   %td.even
-                    \% of children with images
+                    =I18n.t("_of_children_with_images")
                   %td.even.stats
                     = hierarchy_entry.hierarchy_entry_stat.pecent_with_images
                     \%
                 %tr
                   %td.odd
-                    \# of trusted text objects at this entry
+                    =I18n.t("_of_trusted_text_objects_at_th")
                   %td.odd.stats
                     = hierarchy_entry.hierarchy_entry_stat.all_text_trusted
                 %tr
                   %td.even
-                    \# of unreviewed text objects at this entry
+                    =I18n.t("_of_unreviewed_text_objects_at")
                   %td.even.stats
                     = hierarchy_entry.hierarchy_entry_stat.all_text_untrusted
                 %tr
                   %td.odd
-                    \% of children with text
+                    =I18n.t("_of_children_with_text")
                   %td.odd.stats
                     = hierarchy_entry.hierarchy_entry_stat.pecent_with_text
                     \%

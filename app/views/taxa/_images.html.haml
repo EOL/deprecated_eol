@@ -38,7 +38,7 @@
         #left-image-buttons
           %ul#large-image-button-group
             %li#large-image-attribution-button.attribution-icon{:title => "More information"}
-              = link_to '<span style="display:block;width:24px;height:25px;"></span>', |
+              = link_to I18n.t("_span_style__display_block_wid"), |
                 attribution_data_object_path(@images.first),                           |
                 :rel => "#attribution-overlay",                                        |
                 :id => "large-image-attribution-button-popup-link",                    |

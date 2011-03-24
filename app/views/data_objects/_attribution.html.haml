@@ -11,7 +11,7 @@
             %br
             Not all maps have occurrence information.
   - else !@preview
-    - if !:skip_permalink
+    - unless defined?(skip_permalink) && skip_permalink
       %a.attribution-icon.expand-text-attribution{ :href => "#", :title => "View full attribution details", :id => "tdo_#{data_object.id}", :style => "width: 25px; height: 25px" }
   - unless data_object.users_data_objects.blank? || data_object.users_data_objects[0].user.blank?
     .credit.supplier

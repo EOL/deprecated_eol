@@ -16,7 +16,7 @@ config.cache_classes = true
 # Set up the master database connection for writes using masochism plugin
 # NOTE: for this to work, you *must* also use config.cache_classes = true
 # (default for production)
-config.after_initialize do 
+config.after_initialize do
   ActiveReload::ConnectionProxy.setup_for ActiveRecord::Base, ActiveRecord::Base
   ActiveReload::ConnectionProxy.setup_for SpeciesSchemaModel, SpeciesSchemaModel
   ActiveReload::ConnectionProxy.setup_for LoggingModel, LoggingModel
@@ -40,8 +40,11 @@ config.cache_store = :memory_store
 
 
 config.log_level = :debug # :error
+# ActiveRecord::Base.logger = Logger.new(STDOUT)
+ActionController::Base.logger = Logger.new(STDOUT)
+# ActiveSupport::Cache::MemCacheStore.logger = Logger.new(STDOUT)
 
-$PARENT_CLASS_MUST_USE_MASTER = ActiveRecord::Base 
+$PARENT_CLASS_MUST_USE_MASTER = ActiveRecord::Base
 
 $EXCEPTION_NOTIFY=false # set to false to not be notified of exceptions via email in production mode (set email addresses below)
 $ENABLE_RECAPTCHA=false # set to true to enable recaptcha on registration and contact us form

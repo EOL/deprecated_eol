@@ -36,6 +36,7 @@ describe 'Content Partner Registry' do
     it 'should be able to view the edit resource page' do
       # TODO - why is it called content partner ID if it wants an agent ID?
       visit("/content_partner/resources/#{@resource.id}/edit?content_partner_id=#{@agent.id}")
+      require 'ruby-debug'; debugger
       body.should include("Logged in as #{@admin.given_name}")
       body.should include('Editing Resource')
       body.should include(@resource.accesspoint_url)

@@ -324,10 +324,13 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def gbif_map_id
-    published_hierarchy_entries.each do |entry|
-      return entry.identifier if entry.has_gbif_identifier?
+    return @gbif_map_id if @gbif_map_id
+    if h = Hierarchy.gbif
+      if he = HierarchyEntry.find_by_hierarchy_id_and_taxon_concept_id(h.id, self.id)
+        @gbif_map_id = he.identifier
+        return he.identifier
+      end
     end
-    return empty_map_id
   end
 
   def has_citation?
@@ -540,10 +543,9 @@ class TaxonConcept < SpeciesSchemaModel
     published_hierarchy_entries.each do |entry|
       images = true if entry.hierarchies_content.image != 0 || entry.hierarchies_content.child_image != 0 rescue images
       video = true if entry.hierarchies_content.flash != 0 || entry.hierarchies_content.youtube != 0 rescue video
-      map = true if entry.hierarchies_content.map != 0 rescue map
     end
 
-    map = false if map and gbif_map_id == empty_map_id # The "if map" avoids unecessary db hits; keep it.
+    map = true if gbif_map_id
 
     @has_media = {:images => images, :video  => video, :map    => map }
   end
@@ -1098,7 +1100,7 @@ class TaxonConcept < SpeciesSchemaModel
     objects = DataObject.core_relationships(:add_include => add_include, :add_select => add_select).
         find_all_by_id(filtered_objects.collect{ |d| d.id })
     DataObject.sort_by_rating(objects)
-    if options[:user] && options[:user].is_curator? && options[:user].can_curate?(options[:taxon])
+    if options[:user] && options[:user].is_curator? && options[:user].can_curate?(self)
       DataObject.preload_associations(objects, :users_data_objects_ratings, :conditions => "users_data_objects_ratings.user_id=#{options[:user].id}")
     end
     objects
@@ -1152,10 +1154,6 @@ private
     hierarchy_entries.each do |he|
       he.vet_synonyms(options)
     end
-  end
-
-  def empty_map_id
-    return 1
   end
 
   def get_default_content(toc_item)

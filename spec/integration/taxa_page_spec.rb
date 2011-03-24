@@ -481,12 +481,12 @@ describe 'Taxa page (HTML)' do
     data_object = @taxon_concept.overview.first
     data_object.info_items = [info_item]
     data_object.save
-    
+
     data_object.object_title = ""
     data_object.save!
     visit("/pages/#{@id}")
     body.should include(info_item.label)
-    
+
     # show object_title if it exists
     data_object.object_title = "Some Title"
     data_object.save!

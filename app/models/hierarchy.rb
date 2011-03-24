@@ -43,6 +43,10 @@ class Hierarchy < SpeciesSchemaModel
   def self.default
     cached_find(:label, $DEFAULT_HIERARCHY_NAME)
   end
+  
+  def self.gbif
+    cached_find(:label, 'GBIF Nub Taxonomy')
+  end
 
   # This is the first hierarchy we used, and we need it to serve "old" URLs (ie: /taxa/16222828 => Roenbergensis)
   def self.original

@@ -113,6 +113,7 @@ second_ncbi = Hierarchy.gen_if_not_exists(:agent => Agent.ncbi, :label => "NCBI 
 second_ncbi.hierarchy_group_id = 101
 second_ncbi.hierarchy_group_version = 2
 second_ncbi.save!
+Hierarchy.gen_if_not_exists(:agent => Agent.gen_if_not_exists(:full_name => 'GBIF'), :label => 'GBIF Nub Taxonomy', :browsable => 0)
 
 
 

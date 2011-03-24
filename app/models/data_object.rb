@@ -78,12 +78,13 @@ class DataObject < SpeciesSchemaModel
       visibility_view_order = 1
       visibility_view_order = 2 if obj.visibility_id == Visibility.preview.id
       inverted_rating = obj.data_rating * -1
-
+      inverted_id = obj.id * -1
       [obj.data_type_id,
        toc_view_order,
        visibility_view_order,
        vetted_view_order,
-       inverted_rating]
+       inverted_rating,
+       inverted_id]
     end
   end
   
@@ -942,7 +943,7 @@ class DataObject < SpeciesSchemaModel
     
     objects_with_metadata = eager_load_image_metadata(unique_image_objects[start..last].collect {|r| r.id})
     unique_image_objects[start..last] = objects_with_metadata unless objects_with_metadata.blank?
-    if options[:user] && options[:user].is_curator? && options[:user].can_curate?(options[:taxon])
+    if options[:user] && options[:user].is_curator? && options[:user].can_curate?(taxon_concept)
       DataObject.preload_associations(unique_image_objects[start..last], :users_data_objects_ratings, :conditions => "users_data_objects_ratings.user_id=#{options[:user].id}")
     end
     return unique_image_objects

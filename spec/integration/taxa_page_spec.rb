@@ -468,21 +468,22 @@ describe 'Taxa page (HTML)' do
   end
   
   it 'should show info item label for the overview text when there isn\'t an object_title' do
-    info_item_title = InfoItem.find(:last)
+    info_item = InfoItem.find(:first)
     data_object = @taxon_concept.overview.first
-    DataObjectsInfoItem.gen(:data_object => data_object, :info_item => InfoItem.find(:last))
-  
+    data_object.info_items = [info_item]
+    data_object.save
+
     data_object.object_title = ""
     data_object.save!
     visit("/pages/#{@id}")
-    body.should include(info_item_title.label)
-  
+    body.should include(info_item.label)
+
     # show object_title if it exists
     data_object.object_title = "Some Title"
     data_object.save!
     visit("/pages/#{@id}")
     body.should include(data_object.object_title)
-    body.should_not include(info_item_title.label)        
+    body.should_not include(info_item.label)
   end
   
   it 'should show images on the page' do 

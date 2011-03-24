@@ -234,7 +234,7 @@ module EOL
         puts "++ Add map!" if @debugging
         puts "GBIF hierarchy:" if @debugging
         pp gbif_hierarchy if @debugging
-        gbif_he = build_entry_in_hierarchy(:hierarchy => gbif_hierarchy, :map => true,
+        gbif_he = build_entry_in_hierarchy(:hierarchy => Hierarchy.gbif, :map => true,
                                            :identifier => @gbif_map_id)
         HarvestEventsHierarchyEntry.gen(:hierarchy_entry => gbif_he, :harvest_event => gbif_harvest_event)
       end

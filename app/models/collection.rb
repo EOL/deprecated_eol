@@ -59,9 +59,9 @@ class Collection < ActiveRecord::Base
 private
 
   def validate
-    errors.add(:user_id, "Must be associated with either a user or a community"[]) if
+    errors.add(:user_id, I18n.t(:must_be_associated_with_either_a_user_or_a_community) ) if
       self.community_id.nil? && self.user_id.nil?
-    errors.add(:user_id, "Cannot be associated with both a user and a community"[]) if
+    errors.add(:user_id, I18n.t(:cannot_be_associated_with_both_a_user_and_a_community) ) if
       ((! self.community_id.nil?) && (! self.user_id.nil?))
   end
 

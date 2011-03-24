@@ -6,10 +6,10 @@
   = hidden_field_tag "category_id", params[:category_id]
   %table.results_table{ :cellspacing => "0", :summary => "Common Names", :style => "width:100%"}
     %tr
-      %th{ :style => "width:7em" }= "Preferred"[]
-      %th{ :scope => "col" }= "Name"[]
-      %th{ :scope => "col" }= "Sources"[]
-      %th{ :style => "width:6em" }= "Curation"[]
+      %th{ :style => "width:7em" }= I18n.t(:preferred) 
+      %th{ :scope => "col" }= I18n.t(:name) 
+      %th{ :scope => "col" }= I18n.t(:sources) 
+      %th{ :style => "width:6em" }= I18n.t(:curation) 
     - names.each do |name|
       - column_class = "odd"
       - column_class += ' trusted' if name.trusted?
@@ -24,11 +24,11 @@
           = h name.string
         %td{ :class => column_class }
           - if name.sources.blank?
-            = "Multiple sources."[]
+            = I18n.t(:multiple_sources) 
           - else
             = citables_to_string(name.sources.map{|a| a.citable})
         %td{ :class => "#{column_class} vet_common_name", :style => "text-align:center;" }
           - if name.added_by_user?(current_user)
-            = link_to("DELETE"[], url_for(:controller => 'taxa', :action => 'delete_common_name', :category_id => @category_id, :taxon_concept_id => @taxon_concept.id, :synonym_ids => name.synonym_ids), :onclick => "javascript:if(!confirm('#{"Are you sure?"[]}')) { return false; }")
+            = link_to( I18n.t(:delete) , url_for(:controller => 'taxa', :action => 'delete_common_name', :category_id => @category_id, :taxon_concept_id => @taxon_concept.id, :synonym_ids => name.synonym_ids), :onclick => "javascript:if(!confirm('#{ I18n.t(:are_you_sure) }')) { return false; }")
           - else
             = render :partial => 'taxa/content/content_language_common_names_curator_vetting', :locals => {:language_id => name.language_id, :name_id => name.name_id, :vetted_id => name.vetted_id, :unique_id => name.unique_id}

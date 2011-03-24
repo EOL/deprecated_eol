@@ -1,10 +1,10 @@
 .community_roles_container
-  %h2= "Community Roles"[]
+  %h2= I18n.t(:community_roles) 
   - if roles.blank?
     %p.result_empty
-      = "There are currently no roles for this community."[]
+      = I18n.t(:there_are_currently_no_roles_for_this_community) 
       - if @current_member && @current_member.can?(Privilege.edit_delete_community)
-        = "#{ link_to('Add a role'[], new_community_role_path(@community)) } to control member privileges."[]
+        = I18n.t(:link_toadd_a_role_new_community_role_pathcommunity_to_control_member_privileges, :var_link =>link_to(I18n.t(:add_a_role), new_community_role_path(@community)) ) 
   - else
     %ul#community_roles
       - roles.each do |role|
@@ -13,13 +13,13 @@
           - if @community
             - count = role.count
             - if count <= 0
-              = '(no members)'[]
+              = I18n.t(:no_members) 
             - elsif count == 1
-              = '(1 member)'[]
+              = I18n.t('1_member') 
             - else
-              = '({count} members)'[:members_count, role.count]
+              =  I18n.t(:members_count , :count => role.count) 
             - if @current_member && @current_member.can?(Privilege.edit_delete_community)
-              = link_to("Delete"[], [@community, role], :method => :delete, :confirm => "Are you sure?"[])
+              = link_to( I18n.t(:delete) , [@community, role], :method => :delete, :confirm => I18n.t(:are_you_sure) )
   - if @current_member && @current_member.can?(Privilege.edit_delete_community)
-    %h3= 'Manage roles'[]
-    = link_to("Add a role"[], new_community_role_path(@community))
+    %h3= I18n.t(:manage_roles) 
+    = link_to( I18n.t(:add_a_role) , new_community_role_path(@community))

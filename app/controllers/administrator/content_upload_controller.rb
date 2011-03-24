@@ -19,7 +19,7 @@ class Administrator::ContentUploadController < AdminController
   def update
     @content_upload = ContentUpload.find(params[:id])  
     if @content_upload.update_attributes(params[:content_upload])
-      flash[:notice] = "The content was updated."[]
+      flash[:notice] = I18n.t(:the_content_was_updated) 
       redirect_to(:action => 'index')
     else
       render :action => 'edit'
@@ -36,7 +36,7 @@ class Administrator::ContentUploadController < AdminController
     if @content_upload.save
       @content_upload.update_attributes(:user_id => current_user.id, :attachment_extension => File.extname(@content_upload.attachment_file_name))
       upload_file(@content_upload)
-      flash[:notice] = "The file was uploaded."[]
+      flash[:notice] = I18n.t(:the_file_was_uploaded) 
       redirect_to(:action => 'index')
     else
       render :action => 'new'

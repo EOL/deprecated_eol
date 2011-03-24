@@ -1,6 +1,6 @@
 .curation-section
   .credit-caption
-    = "Rating"[]
+    = I18n.t(:rating) 
   .image-rating.action-value
     -# TODO - This has a problem... it's not specific to the data object in question, so Ajax is not intelligent about updating the right values when it's changed.  It ALSO doesn't seem to work in this context: the images are not clickable... and I can't figure out why.  Help!
     = render :partial => '/data_objects/star_rating_hash', :locals => {:data_object => data_object, :show_controls => true}
@@ -10,12 +10,12 @@
 / - is_ignored_class = is_ignored ? "is_ignored_true" : "is_ignored_false"
 / .curation-section{ :class => is_ignored_class }
 /   .credit-caption
-/     = is_ignored ? "Ignored"[] : "Active"[] 
+/     = is_ignored ? I18n.t(:ignored)  : I18n.t(:active)  
 /   .action-value{ :id => "ignore-#{data_object.id}" }
 /     - if is_ignored
-/       %a= "Move to active list"[]
+/       %a= I18n.t(:move_to_active_list) 
 /     - else
-/       %a= "Move to ignored list"[]
+/       %a= I18n.t(:move_to_ignored_list) 
 /     %span.info_msg
 %hr.thin
 .clearbreak
@@ -49,4 +49,4 @@
     -# TODO - we re-use this indicator a lot.  Put it in a CSS class.
     %p
       = image_tag 'indicator_arrows_black.gif'
-      = "Please wait..."[]
+      = I18n.t(:please_wait) 

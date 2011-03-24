@@ -1,7 +1,7 @@
 #page-separator-general
 
 #page-title
-  %h1= "Your Preferences"[]
+  %h1= I18n.t(:your_preferences) 
   %hr
 
 / center page content
@@ -13,5 +13,5 @@
         .button
           = cancel_button_goes_back(return_to_url)
           &nbsp;&nbsp;
-          = submit_tag 'Update Preferences'[]
+          = submit_tag I18n.t(:update_preferences) 
     %br

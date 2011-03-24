@@ -1,6 +1,6 @@
 %a.close-button{ :href => "#", :onclick => "javascript:$('#contribute-info').slideUp();return false;"}
-= "To submit a species photograph for"[]
+= I18n.t(:to_submit_a_species_photograph_for) 
 = @taxon_name
-= ", please send the photos to the"[]
-= link_to 'EOL Flickr Group'[], 'http://www.flickr.com/groups/encyclopedia_of_life/', :target=>'_blank'
-= "and follow the directions shown on thehomepage of that group."[]
+= I18n.t(:please_send_the_photos_to_the) 
+= link_to I18n.t(:eol_flickr_group) , 'http://www.flickr.com/groups/encyclopedia_of_life/', :target=>'_blank'
+= I18n.t(:and_follow_the_directions_shown_on_thehomepage_of_that_group) 

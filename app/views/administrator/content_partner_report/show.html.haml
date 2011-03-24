@@ -58,7 +58,7 @@
   = @agent.project_name
   is not ready for their agreement.
 %br/
-= "Content partner status:"[]
+= I18n.t(:content_partner_status) 
 = collection_select(:agent, :agent_status_id, @agent_status, :id, :label, {}, {:onchange => 'javascript:update_partner_status(' + @agent.id.to_s + ');'})
 %br/
 

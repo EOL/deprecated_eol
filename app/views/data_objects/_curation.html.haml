@@ -1,6 +1,6 @@
 .visibility.curation-section
   .label.credit-caption
-    = "Visibility"[]
+    = I18n.t(:visibility) 
   .options.action-value
     .option
       = radio_button_tag "visibility_id", Visibility.visible.id.to_s, data_object.visible?, { :id => ("#{data_object['id']}_visibility_id_" + Visibility.visible.id.to_s) }
@@ -13,7 +13,7 @@
       %label{:for => "#{data_object['id']}_visibility_id_" + Visibility.inappropriate.id.to_s} Permanently Remove      
 .vetted.curation-section
   .label.credit-caption
-    = "Vetted"[]
+    = I18n.t(:vetted) 
   .options.action-value
     .option.unreviewed
       = radio_button_tag "vetted_id", Vetted.unknown.id.to_s, data_object.unknown?, { :id => ("#{data_object['id']}_vetted_id_" + Vetted.unknown.id.to_s), :class =>"vetted_unknown" }
@@ -46,7 +46,7 @@
         %input{ :type => "hidden", :id => "#{data_object['id']}_untrust_reasons_comment", :class => "untrust_reasons_comment", :name => "untrust_reasons_comment" }
 .curation-section
   .label.credit-caption
-    = "Curation Comment"[]
+    = I18n.t(:curation_comment) 
   .options.action-value
     .comment
       = text_area_tag 'comment', nil, :class => 'curation-comment-box', :id => "#{data_object['id']}_curator_comment"

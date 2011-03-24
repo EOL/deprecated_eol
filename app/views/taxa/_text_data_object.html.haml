@@ -37,7 +37,7 @@
         = hh(subtitle)
     .content-attribution-area
       .attribution-header.text-area-header
-        = "Source and Additional Information"[]
+        = I18n.t(:source_and_additional_information) 
       = render :partial => 'data_objects/attribution', :locals => { :data_object => content_item }
     %br
     %div{:class => (content_item.vetted_id != Vetted.trusted.id ? "unvetted-background-text" : nil)}
@@ -89,12 +89,12 @@
       -# TODO - we re-use this indicator a lot.  Put it in a div that we can push around the page as needed.
       %p
         = image_tag 'indicator_arrows_black.gif'
-        = "Please wait..."[]
+        = I18n.t(:please_wait) 
   .text-slidebox-border{:id => "text-curation-wrapper-#{content_item.id}", :style => "display:none;"}
     .text-slidebox-container{:id => "text-curation-#{content_item.id}"}
       %p
         = image_tag 'indicator_arrows_black.gif'
-        = "Please wait..."[]
+        = I18n.t(:please_wait) 
 
   .divider
 - if @hide

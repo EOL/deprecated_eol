@@ -1,14 +1,14 @@
 =# will_paginate @members # TODO - since this is in a partial, we may want to make this Ajaxy.
 #community_members_container
-  %h2= "Community members"[]
+  %h2= I18n.t(:community_members) 
   -# TODO: Should the community be removed if the last member leaves?
   - if @members.blank?
     %p.result_empty
-      = "There are currently no members in this community."[]
+      = I18n.t(:there_are_currently_no_members_in_this_community) 
       - if not logged_in?
-        = "#{ link_to('Log in'[], login_path) } to join this community."[]
-      - elsif !@current_member
-        = link_to('Join this community'[:join_community], join_community_path(@community.id))
+        = I18n.t(:link_to_join_this_community, :var_link=>link_to(I18n.t(:log_in), login_path)) 
+      - elsif !@current_member  
+	= link_to( I18n.t(:join_community) , join_community_path(@community.id))
 
   - else
     %ul#community_members
@@ -18,23 +18,23 @@
           = link_to member.user.username, member.user
           = member.roles.map {|r| r.title}.sort.join(', ')
           - if this_is_me
-            = "(you)"[]
-            = link_to('Leave this community'[:leave_community], leave_community_path(@community.id))
+            = I18n.t(:you) 
+            = link_to( I18n.t(:leave_community) , leave_community_path(@community.id))
           - else # NOTE THE ELSE!!!!  You *cannot* edit yourself.
             - if @current_member && @current_member.can_edit_members?
-              = link_to("Edit membership"[], community_member_path(@community, member))
+              = link_to( I18n.t(:edit_membership) , community_member_path(@community, member))
             - if @current_member && @current_member.can?(Privilege.remove_members)
-              = link_to("Remove membership"[], [@community, member], :method => :delete, :confirm => 'Are you sure?'[])
+              = link_to( I18n.t(:remove_membership) , [@community, member], :method => :delete, :confirm => I18n.t(:are_you_sure) )
 
   .membership_actions
-    %h2= 'Get involved'[]
+    %h2= I18n.t(:get_involved) 
     - if not logged_in?
-      = "You must be #{ link_to('logged in'[], login_path) } to join communities."[]
+      = I18n.t(:you_must_be_link_tologged_in_login_path_to_join_communities, :var_link=>link_to(I18n.t(:log_in), login_path)) 
     - elsif !@current_member
       %p
-        = "You are not a member of this community."[]
-        = link_to('Join this community'[:join_community], join_community_path(@community.id))
+        = I18n.t(:you_are_not_a_member_of_this_community) 
+        = link_to( I18n.t(:join_community) , join_community_path(@community.id))
     - elsif @current_member
       %p
-        = "You have been a member of this community since #{ @current_member.created_at }."[]
-        = link_to('Leave this community'[:leave_community], leave_community_path(@community.id), :confirm => "Are you sure?"[], :class => 'leave_community')
+        = I18n.t(:you_have_been_a_member_of_this_community_since_current_membercreated_at, :var_current_member_created_at=>@current_member.created_at) 
+        = link_to( I18n.t(:leave_community) , leave_community_path(@community.id), :confirm => I18n.t(:are_you_sure) , :class => 'leave_community')

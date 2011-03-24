@@ -28,7 +28,7 @@
           return false;
         }
         if($('##{@parent.id}_comment_error').is(":visible")) $('##{@parent.id}_comment_error').hide();
-        $(this).val('#{"Please wait..."[]}');
+        $(this).val('#{ I18n.t(:please_wait) }');
         $(this).attr('disabled', 'disabled');
         $('##{submit_id}_spinner').fadeIn();
         var form = $(this).closest('form');

@@ -1,5 +1,5 @@
 .credit-title
-  = "Classification provided by"[]
+  = I18n.t(:classification_provided_by) 
 .credit-value
   - attributions = @taxon_concept.classification_attribution(@session_hierarchy).reverse
   - if attributions.blank?

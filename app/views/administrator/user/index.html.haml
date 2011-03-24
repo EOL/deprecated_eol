@@ -1,30 +1,30 @@
 = stylesheet_link_tag 'calendar'
-= "All web users registered in the system are shown below,  sorted inversely by time registered.  Note that the registration dates for users prior to EOL V2 (Jan 5, 2009) are not available.  Click on a username to edit that user."[:user_index_intro]
+=  I18n.t(:user_index_intro) 
 #users
   - form_tag({:action=>'index'},:method=>'get') do
     %table{:width => "100%"}
       %tr{:valign => 'top'}
         %td{:width => "30%"}
-          = "Search for users containing this in their username, name or email address."[]
+          = I18n.t(:search_for_users_containing_this_in_their_username_name_or_email_address) 
         %td
           = text_field_tag(:user_search_string,@user_search_string)
       %tr{:valign => 'top'}
         %td
-          = "who registered from"[]
+          = I18n.t(:who_registered_from) 
         %td
           %input{:type => 'date', :value => @start_date}
           -# TODO - I am cheating to get this to work.  This shouldn't be needed.
           = hidden_field_tag :start_date, @start_date
       %tr{:valign => 'top'}
         %td
-          = "to"[]
+          = I18n.t(:to) 
         %td
           %input{:type => 'date', :value => @end_date}
           -# TODO - I am cheating to get this to work.  This shouldn't be needed.
           = hidden_field_tag :end_date, @end_date
       %tr{:valign => 'top'}
         %td
-          = "Don't show unknown registered dates (V1 users, all prior to Jan 5, 2009)"[]
+          = I18n.t(:dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009) 
         %td
           = check_box_tag 'blank_dates', '1', @blank_dates
       %tr{:valign => 'top'}

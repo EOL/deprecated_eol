@@ -190,7 +190,7 @@ class TaxaController < ApplicationController
     end
     @user.attributes = params[:user]
     set_current_user(@user)
-    flash[:notice] = "Your preferences have been updated."[:your_preferences_have_been_updated] if params[:from_taxa_page].blank?
+    flash[:notice] =  I18n.t(:your_preferences_have_been_updated)  if params[:from_taxa_page].blank?
     store_location(EOLWebService.uri_remove_param(return_to_url, 'vetted')) if valid_return_to_url
     redirect_back_or_default
   end

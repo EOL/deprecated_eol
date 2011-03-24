@@ -1,7 +1,7 @@
 %table.results_table{ :cellspacing => "0", :summary => "Common Names", :style => "width:100%"}
   %tr
-    %th{ :scope => "col" }= "Name"[]
-    %th= "Sources"[]
+    %th{ :scope => "col" }= I18n.t(:name) 
+    %th= I18n.t(:sources) 
   - names.each do |name|
     - column_class = "odd"
     - column_class += ' trusted' if name.trusted?
@@ -9,13 +9,13 @@
     - column_class += ' unreviewed' if name.unreviewed?
     -# TODO - I don't think tds can have titles, officially, so this needs changing:
     - vetting_title = nil
-    - vetting_title = "Names in yellow are not reviewed."[] if name.unreviewed?
-    - vetting_title = "Names in red are not trusted."[] if name.untrusted?
+    - vetting_title = I18n.t(:names_in_yellow_are_not_reviewed)  if name.unreviewed?
+    - vetting_title = I18n.t(:names_in_red_are_not_trusted)  if name.untrusted?
     %tr
       %td{ :class => column_class, :title => vetting_title }
         = name.preferred ? "<strong>#{name.string}</strong>" : name.string
       %td{ :class => column_class, :style => "text-align:center;", :title => vetting_title }
         - if name.sources.blank?
-          = "Multiple sources."[]
+          = I18n.t(:multiple_sources) 
         - else
           = citables_to_string(name.sources.map{|a| a.citable})

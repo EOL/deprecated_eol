@@ -56,13 +56,13 @@
         Content Setting:
     %td
       = f.radio_button :expertise, "novice"
-      = "Information intended for beginners"[]
+      = I18n.t(:information_intended_for_beginners) 
       %br
       = f.radio_button :expertise, "middle"
-      = "Information for any audience"[]
+      = I18n.t(:information_for_any_audience) 
       %br
       = f.radio_button :expertise, "expert"
-      = "Information intended for experts"[]
+      = I18n.t(:information_intended_for_experts) 
       %br
   %tr
     %td
@@ -117,7 +117,7 @@
   %tr
     %td
       %strong
-        = "Credentials"[:credentials]
+        =  I18n.t(:credentials) 
         \:
     %td
       = f.text_area :credentials, :rows => 9, :cols => 60

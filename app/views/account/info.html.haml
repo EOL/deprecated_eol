@@ -1,6 +1,6 @@
 #page-separator-general
 #page-title
-  %h1= "Your Information"[]
+  %h1= I18n.t(:your_information) 
   %hr
 #page-content.clearfix
   #full-page-content
@@ -11,35 +11,35 @@
           %table#user_info
             %tr
               %td.label
-                = f.label "Age"[] + ":"
+                = f.label I18n.t(:age)  + ":"
               %td
                 = f.select(:age_range, options_for_select([["< 18", "< 18"], [">= 18", ">= 18"]]))
               %td
                 %span#age_range_warn.error
             %tr
               %td.label
-                = f.label "Primary Role"[] + ":"
+                = f.label I18n.t(:primary_role)  + ":"
               %td
                 = f.select(:user_primary_role_id, options_from_collection_for_select(UserPrimaryRole.all, :id, :name))
               %td
                 %span#user_primary_role_warn.error
             %tr
               %td.label
-                = f.label "Describe your areas of interest, separated by commas"[] + ":"
+                = f.label I18n.t(:describe_your_areas_of_interest_separated_by_commas)  + ":"
               %td.wide
                 = f.text_area(:areas_of_interest, :rows => 3)
               %td
                 %span#areas_of_interest_warn.error
             %tr
               %td.label
-                = f.label "Where did you hear about EOL?"[]
+                = f.label I18n.t(:where_did_you_hear_about_eol) 
               %td.wide
                 = f.text_field(:heard_of_eol)
               %td
                 %span#heard_of_eol_warn.error
             %tr
               %td.label
-                = f.label "Are you interested in learning how to contribute to EOL?"[]
+                = f.label I18n.t(:are_you_interested_in_learning_how_to_contribute_to_eol) 
               %td
                 = f.check_box(:interested_in_contributing) 
                 = f.label(:interested_in_contributing, "Yes")
@@ -47,7 +47,7 @@
                 %span#interested_in_contributing_warn.error
             %tr
               %td.label
-                = f.label "Are you interested in learning how to become a curator?"[]
+                = f.label I18n.t(:are_you_interested_in_learning_how_to_become_a_curator) 
               %td
                 = f.check_box(:interested_in_curating) 
                 = f.label(:interested_in_curating, "Yes")
@@ -55,7 +55,7 @@
                 %span#interested_in_curating_warn.error
             %tr
               %td.label
-                = f.label "Are you interested in becoming a member of the EOL Advisory Forum?"[]
+                = f.label I18n.t(:are_you_interested_in_becoming_a_member_of_the_eol_advisory_forum) 
               %td
                 = f.check_box(:interested_in_advisory_forum) 
                 = f.label(:interested_in_advisory_forum, "Yes")
@@ -63,7 +63,7 @@
                 %span#interested_in_advisory_forum_warn.error
             %tr
               %td.label
-                = f.label "Are you interested in getting updates when EOL announces new or updated services and APIs?"[]
+                = f.label I18n.t(:are_you_interested_in_getting_updates_when_eol_announces_new_or_updated_services_and_apis) 
               %td
                 = f.check_box(:interested_in_development) 
                 = f.label(:interested_in_development, "Yes")
@@ -71,7 +71,7 @@
                 %span#interested_in_development.error
             %tr
               %td.label
-                = f.label "Would you like your basic information included in the EOL member directory?"[]
+                = f.label I18n.t(:would_you_like_your_basic_information_included_in_the_eol_member_directory) 
               %td
                 = f.check_box(:show_information)
                 = f.label(:show_information, "Yes")

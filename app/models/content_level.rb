@@ -17,7 +17,7 @@ class ContentLevel
   # List of content level IDs on specific page banner to user
   def self.description_by_id(id)
     return case id.to_s
-      when '1' then "Minimal Page"[]
+      when '1' then I18n.t(:minimal_page) 
       else ''
     end
   end
@@ -27,9 +27,9 @@ class ContentLevel
     # list of content codes for drop-down menu
     list=Array.new
 
-    list << self.new('1',"All pages"[],"All pages"[])
-  #  list << self.new('2',"View only pages with at least a picture or piece of text"[],"Pages with pictures or text"[])
-    list << self.new('4',"Just those pages with pictures and text"[:just_pages_with_pictures_and_text],"Pages with pictures and text"[:pages_with_pictures_and_text])
+    list << self.new('1', I18n.t(:all_pages) , I18n.t(:all_pages) )
+  #  list << self.new('2', I18n.t(:view_only_pages_with_at_least_a_picture_or_piece_of_text) , I18n.t(:pages_with_pictures_or_text) )
+    list << self.new('4', I18n.t(:just_pages_with_pictures_and_text) , I18n.t(:pages_with_pictures_and_text) )
     
     return list
     

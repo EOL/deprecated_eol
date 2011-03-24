@@ -86,7 +86,7 @@ class Administrator::ContentPartnerReportController < AdminController
     if @agent.update_attributes(params[:agent])
 
       upload_logo(@agent) unless @agent.logo_file_name.blank?
-      flash[:notice] = "Profile updated"[]
+      flash[:notice] = I18n.t(:profile_updated) 
       redirect_to :action => 'show',:id=>@agent.id 
 
     end

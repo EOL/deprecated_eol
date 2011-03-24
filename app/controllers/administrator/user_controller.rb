@@ -127,7 +127,7 @@ class Administrator::UserController  < AdminController
        
    unless user_params[:entered_password].blank? && user_params[:entered_password_confirmation].blank?
       if user_params[:entered_password].length < 4 || user_params[:entered_password].length > 16
-         @user.errors.add_to_base("Password length must be between 4 and 16 characters."[:password_must_be_4to16_characters])
+         @user.errors.add_to_base( I18n.t(:password_must_be_4to16_characters) )
          render :action=>'edit'
          return
      end

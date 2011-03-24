@@ -1,7 +1,7 @@
 = javascript_include_tag 'users'
 #page-separator-general
 #page-title
-  %h1= "Your Preferences"[]
+  %h1= I18n.t(:your_preferences) 
   %hr
 #page-content.clearfix
   #full-page-content
@@ -11,50 +11,50 @@
         %tr
           -# The style here is a one-shot, make the right-column-look-right fix (seemed silly to put in CSS):
           %td{ :valign => "top", :style => "padding-right:30px;width:350px;" }
-            %h3= "Account Information"[]
+            %h3= I18n.t(:account_information) 
             %label Username:  (4 - 32 characters)
             = f.text_field :username, {:maxlength=>32, :onblur=>'javascript:check_username();'}
             %span#username_warn.error
             -# do not show open ide users for now
             %p{ :style => "padding-bottom:8pt;" }
               %br
-              = "Only enter new password if you wish to change."[:only_enter_new_password_if_needed]
-            %label{ :for => "entered_password" }== #{"New Password"[]} (4 - 16 characters)
+              =  I18n.t(:only_enter_new_password_if_needed) 
+            %label{ :for => "entered_password" }== #{ I18n.t(:new_password) } (4 - 16 characters)
             = f.password_field :entered_password, { :maxlength => 16, :autocomplete => 'off' }
-            %label{ :for => "password_confirmation" }= "Confirm New Password"[]
+            %label{ :for => "password_confirmation" }= I18n.t(:confirm_new_password) 
             = f.password_field :entered_password_confirmation, {:maxlength=>16, :onblur=>'javascript:check_passwords();', :autocomplete => 'off'}
             %span#password_warn.error
             %br
             %p
               %br
-            %label{ :title => "Please enter your email address"[], :for => "user_email" }
-              = "Email Address"[]
+            %label{ :title => I18n.t(:please_enter_your_email_address) , :for => "user_email" }
+              = I18n.t(:email_address) 
               %span{ :title => "required" }
                 *
-              %span.warn== (#{"Required"[]})
+              %span.warn== (#{ I18n.t(:required) })
             = f.text_field :email, { :maxlength => 100, :size => 30, :onblur => 'javascript:check_email();'}
             %span#email_warn.error
             %p
               %br
-            %label{ :title => "Please enter your given name"[], :for => "user_given_name" }
-              = "Given name"[:given_name]
+            %label{ :title => I18n.t(:please_enter_your_given_name) , :for => "user_given_name" }
+              =  I18n.t(:given_name) 
               %span{ :title => "required" }
                 *
-              %span.warn== (#{"Required"[]})
+              %span.warn== (#{ I18n.t(:required) })
             = f.text_field :given_name, { :maxlength => 30 }
-            %label{ :title => "Please enter your family name"[], :for => "user_family_name" }
-              = "Family name"[:family_name]
+            %label{ :title => I18n.t(:please_enter_your_family_name) , :for => "user_family_name" }
+              =  I18n.t(:family_name) 
             = f.text_field :family_name, { :maxlength => 30 }
             %p
               %br
-            %label{ :title => "Do you want to receive EOL notifications?"[], :for => "user_mailing_list" }
-              = "Do you want to receive EOL notifications?"[]
+            %label{ :title => I18n.t(:do_you_want_to_receive_eol_notifications) , :for => "user_mailing_list" }
+              = I18n.t(:do_you_want_to_receive_eol_notifications) 
             = f.check_box :mailing_list
-            = "Yes"[:yes_answer]
+            =  I18n.t(:yes_answer) 
             %p
               %br
-            %label{ :title => "If there are comments or curator actions on your contributions, how often would you like to receive email alerts?"[], :for => "user_email_reports_frequency_hours" }
-              = "If there are comments or curator actions on your contributions, how often would you like to receive email alerts?"[]
+            %label{ :title => I18n.t(:if_there_are_comments_or_curator_actions_on_your_contributions_how_often_would_you_like_to_receive_email_alerts) , :for => "user_email_reports_frequency_hours" }
+              = I18n.t(:if_there_are_comments_or_curator_actions_on_your_contributions_how_often_would_you_like_to_receive_email_alerts) 
             - select_options = [['Never', 0] , ['Daily', 1*24], ['Weekly', 7*24], ['Monthly', 30*24]]
             = f.select :email_reports_frequency_hours, select_options
             %br
@@ -62,13 +62,13 @@
           %td{ :valign => "top" }
             -#
               # All of this is disabled for now...
-              %h3= "Personal Information"[]
+              %h3= I18n.t(:personal_information) 
               %p{:style => "margin-bottom:2em;"}
-                = "Please help EOL understand the needs of its users.  Fill out this short form, describing"[]
-                = link_to('your information'[], url_for(:controller => :account, :action => :info), {:title => 'Your Information'[], :class => 'return_to'})
-                = "personal information; It takes less than one minute."[]
+                = I18n.t(:please_help_eol_understand_the_needs_of_its_users_fill_out_this_short_form_describing) 
+                = link_to( I18n.t(:your_information) , url_for(:controller => :account, :action => :info), {:title => I18n.t(:your_information) , :class => 'return_to'})
+                = I18n.t(:personal_information_it_takes_less_than_one_minute) 
             = render(:partial => 'taxa/set_content_settings', :locals => { :f => f })
             = render(:partial => 'curator_profile_settings', :locals => { :f => f })
       .button
-        = submit_tag 'Update Account'[]
+        = submit_tag I18n.t(:update_account) 
     = render(:partial => 'set_api_settings')

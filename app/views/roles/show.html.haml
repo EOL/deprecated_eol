@@ -1,7 +1,7 @@
 - current_user_is_admin = @current_member && @current_member.can?(Privilege.edit_delete_community)
 %h1
   = @role.title
-  = "in community"[]
+  = I18n.t(:in_community) 
   = link_to @community.name, @community
 - if current_user_is_admin
   .edit_name
@@ -9,27 +9,27 @@
       %p
         = text_field :role, :title
       %p
-        = submit_tag('Save'[])
+        = submit_tag( I18n.t(:save) )
 .privileges
-  %h2= "Privileges"[]
+  %h2= I18n.t(:privileges) 
   %ul
     - if current_user_is_admin
       - @privileges.each do |privilege|
         %li
           - if @role.can?(privilege)
             %span.applied= privilege.name
-            = link_to("Remove"[], remove_privilege_from_role_path(:privilege_id => privilege.id, :role_id => @role.id))
+            = link_to( I18n.t(:remove) , remove_privilege_from_role_path(:privilege_id => privilege.id, :role_id => @role.id))
           - else
             %span.unapplied= privilege.name
-            = link_to("Add"[], add_privilege_to_role_path(:privilege_id => privilege.id, :role_id => @role.id))
+            = link_to( I18n.t(:add) , add_privilege_to_role_path(:privilege_id => privilege.id, :role_id => @role.id))
     - else
       - @role.privileges.each do |privilege|
         %li= privilege.name
 .members
-  %h2= "Members"[]
+  %h2= I18n.t(:members) 
   %ul
     - if @role.members.blank?
-      = "There are no members with this role."[]
+      = I18n.t(:there_are_no_members_with_this_role) 
     - else
       - @role.members.each do |member|
         %li= member.user.username

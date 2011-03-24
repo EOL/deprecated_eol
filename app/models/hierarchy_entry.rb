@@ -192,14 +192,6 @@ class HierarchyEntry < SpeciesSchemaModel
     agents_roles += agents_hierarchy_entries
   end
 
-  def has_gbif_identifier?
-    return false unless hierarchies_content
-    return false unless hierarchies_content.map
-    return false if hierarchies_content.map == 0
-    return false if identifier.blank?
-    return true
-  end
-
   # Walk up the list of ancestors until you find a node that we can map to the specified hierarchy.
   def find_ancestor_in_hierarchy(hierarchy)
     he = self

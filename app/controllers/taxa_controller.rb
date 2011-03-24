@@ -92,7 +92,7 @@ class TaxaController < ApplicationController
       :last_curated_dates => '*',
       :users => [ :given_name, :family_name ] }
     @taxon_concept = TaxonConcept.core_relationships(:include => inc, :select => sel).find_by_id(taxon_concept.id)
-    
+
     if params[:action_name] == "update_common_names"
       update_common_names
     end

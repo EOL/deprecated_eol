@@ -7,16 +7,16 @@
       %em= @querystring
     %table.results_table{ :cellspacing => "0", :summary => title, :style => "width:100%;" }
       %tr
-        %th{ :style => "width:152px;" }= I18n.t(:image) 
-        %th{ :style => "width:50%;" }= I18n.t(:common_name) 
-        %th{ :style => "width:50%;" }= I18n.t(:scientific_name) 
+        %th{ :style => "width:152px;" }= I18n.t(:image)
+        %th{ :style => "width:50%;" }= I18n.t(:common_name)
+        %th{ :style => "width:50%;" }= I18n.t(:scientific_name)
       - results.each do |result|
         - vetted_value = ''
         - vetted_value = '_unvetted'  if result['unknown']
         - vetted_value = '_untrusted' if result['untrusted']
         - column_class = 'search_result_cell ' + cycle('odd', 'even') + vetted_value
         - best_scientific_name = result['best_matched_scientific_name']
-        - best_scientific_name = best_scientific_name[0] if best_scientific_name.class == Array
+        - best_scientific_name = best_scientific_name[0] if best_scientific_name.is_a?(Array)
         %tr
           %td{ :class => column_class }
             - unless result['top_image'].nil?
@@ -33,8 +33,6 @@
               = link_to hh(best_scientific_name), found_url(:id => result['id']), :method=>:post
             = result['scientific_shown_as']
             - unless result['recognized_by'].blank?
-              
-      -# end results.each
+              %span.recognized_by= I18n.t(:taxon_recognized_by, :var_recognized_by => result["recognized_by"])
     = will_paginate(results)
-  - # /search_results
   %br

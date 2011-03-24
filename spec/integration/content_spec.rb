@@ -12,11 +12,11 @@ describe 'MediaRSS Feed' do
     @original_content_server_list = $CONTENT_SERVERS
     $CONTENT_SERVERS = ['http://content1.eol.org']
   end
-  
+
   after(:all) do
     $CONTENT_SERVERS = @original_content_server_list
   end
-  
+
   it 'should generate a proper MediaRSS feed' do
     visit("/content/mediarss/#{@taxon_concept.id}")
     xml_response = Nokogiri.XML(body)
@@ -25,7 +25,7 @@ describe 'MediaRSS Feed' do
     xml_response.xpath('//channel/link').inner_text.should == url_for(:controller => "/", :only_path => false)
     xml_response.xpath('//channel/atom:link/@type').inner_text.should == 'application/rss+xml'
     xml_response.xpath('//channel/atom:link/@href').inner_text.should == url_for(:controller => 'content', :action => 'mediarss', :id => @taxon_concept.id)
-    
+
     @taxon_concept.top_concept_images.each do |tci|
       xml_response.xpath("//channel/item[guid='#{tci.data_object.guid}']").length.should == 1
       xml_response.xpath("//channel/item[guid='#{tci.data_object.guid}'][last()]/link").inner_text.should ==

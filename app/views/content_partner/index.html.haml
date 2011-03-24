@@ -38,7 +38,7 @@
         %p
           =I18n.t("important__your_agreement_is_o")
           %br
-      =I18n.t("var_link_to__your_agreement___", :var_link_to__your_agreement_____action_____agreement_ => link_to "Your agreement", {:action => "agreement")
+      = link_to(I18n.t(:your_agreement_), {:action => "agreement"} , {:target=>"_new"}) + I18n.t(:including_additional_provision)
       %br
       #save-message
         - if !current_agent.agreement_accepted?

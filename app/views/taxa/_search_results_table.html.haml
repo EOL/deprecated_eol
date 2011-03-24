@@ -29,7 +29,7 @@
           %td{ :class => column_class }
             .ancestor= result['ancestor_scientific']
             .parent= result['parent_scientific']
-            %div{:class => (result['parent_scientific'].blank? and result['ancestor_scientific'].blank?) ? '' : "result duplicate"}
+            %div{:class => (result['parent_scientific'].blank? && result['ancestor_scientific'].blank?) ? '' : "result duplicate"}
               = link_to hh(best_scientific_name), found_url(:id => result['id']), :method=>:post
             = result['scientific_shown_as']
             - unless result['recognized_by'].blank?

@@ -79,6 +79,7 @@
     <copyField source="common_name" dest="common_name_exact"/>
     <field name="rank_id" type="integer" indexed="true" stored="true" required="false" multiValued="true" />
     <field name="hierarchy_id" type="integer" indexed="true" stored="true" required="false" multiValued="true" />
+    <field name="ancestor_taxon_concept_id" type="integer" indexed="true" stored="true" required="false" multiValued="true" />
     <field name="top_image_id" type="integer" indexed="true" stored="true" required="false" multiValued="false" />
     <field name="vetted_id" type="integer" indexed="true" stored="true" required="true" />
     <field name="published" type="boolean" indexed="true" stored="true" required="true" />

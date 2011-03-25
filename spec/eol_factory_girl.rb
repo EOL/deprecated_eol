@@ -40,15 +40,21 @@ module EOL::FactoryGirlActiveRecordBaseExtensions
         end
       end
       if searchable_translation_attributes.blank?
+        # there are no fields which are to be translated
         found = self.find_existing_by_attributes(searchable_attributes)
         found = gen(searchable_attributes) if found.nil?
       else
+        # we need to create a translation
         # sometimes the default language is not set, so we set it here
         if !searchable_translation_attributes['language_id']
           l = Language.gen_if_not_exists(:iso_639_1 => APPLICATION_DEFAULT_LANGUAGE_ISO)
           searchable_translation_attributes['language_id'] = l.id
         end
-        associated_translation = self::TRANSLATION_CLASS.find_existing_by_attributes(searchable_translation_attributes)
+        
+        # only look up the translated values if they are supposed to be unique (default)
+        unless defined?(self::TRANSLATIONS_ARE_UNIQUE) && !self::TRANSLATIONS_ARE_UNIQUE
+          associated_translation = self::TRANSLATION_CLASS.find_existing_by_attributes(searchable_translation_attributes)
+        end
         associated_translation = self::TRANSLATION_CLASS.gen(searchable_translation_attributes) if associated_translation.nil?
         
         association_name = (factory_name == "language") ? "original_language" : factory_name

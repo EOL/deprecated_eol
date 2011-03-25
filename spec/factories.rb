@@ -307,7 +307,6 @@ Factory.define :agent_contact_role do |x|
 end
 
 Factory.define :agent_data_type do |x|
-  x.label { Factory.next(:string) }
 end
 
 Factory.define :agent_role do |x|
@@ -467,7 +466,11 @@ Factory.define :data_object do |dato|
   dato.mime_type              { MimeType.find_by_translated(:label, 'image/jpeg') || MimeType.gen_if_not_exists(:label => 'image/jpeg') }
   dato.object_title           ''
   dato.language               { Language.english }
-  dato.association            :license
+  dato.license                { License.find_by_title('cc-by 3.0') ||
+                                License.gen_if_not_exists(:title => 'cc-by 3.0',
+                                        :description => 'Some rights reserved',
+                                        :source_url => 'http://creativecommons.org/licenses/by/3.0/',
+                                        :logo_url => '/images/licenses/cc_by_small.png') }
   dato.rights_statement       ''
   dato.rights_holder          ''
   dato.bibliographic_citation ''
@@ -683,7 +686,6 @@ end
 
 Factory.define :license do |l|
   l.title                    'cc-by 3.0'
-  l.description              'Some rights reserved'
   l.source_url               'http://creativecommons.org/licenses/by/3.0/'
   l.version                  0
   l.logo_url                 '/images/licenses/cc_by_small.png'
@@ -791,7 +793,8 @@ Factory.define :resource do |r|
   r.title           'Testing Resource'
   r.subject         'Test Resource Subject'
   r.license         { License.find_by_title('cc-by 3.0') ||
-                      Factory(:license, :title => 'cc-by 3.0', :description => 'Some rights reserved',
+                      License.gen_if_not_exists(:title => 'cc-by 3.0',
+                                        :description => 'Some rights reserved',
                                         :source_url => 'http://creativecommons.org/licenses/by/3.0/',
                                         :logo_url => '/images/licenses/cc_by_small.png') }
   r.resource_status { ResourceStatus.find_by_translated(:label, 'Published') || ResourceStatus.gen_if_not_exists(:label => 'Published') }
@@ -951,6 +954,12 @@ Factory.define :translated_agent_contact_role do |r|
   r.label           { Factory.next(:string) }
 end
 
+Factory.define :translated_agent_data_type do |r|
+  r.association     :agent_data_type
+  r.language        { Language.english }
+  r.label           { Factory.next(:string) }
+end
+
 Factory.define :translated_agent_role do |r|
   r.association     :agent_role
   r.language        { Language.english }
@@ -991,6 +1000,12 @@ Factory.define :translated_language do |r|
   r.label           { Factory.next(:string) }
   r.original_language_id { |l| Language.gen(:iso_639_1 => l.label[0..1].downcase).id }
   r.language        { Language.english }
+end
+
+Factory.define :translated_license do |r|
+  r.association     :license
+  r.language        { Language.english }
+  r.description     { Factory.next(:string) }
 end
 
 Factory.define :translated_mime_type do |r|

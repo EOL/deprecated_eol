@@ -1,5 +1,11 @@
 class License < SpeciesSchemaModel
   CACHE_ALL_ROWS = true
+  uses_translations
+  # this is only used in testing. For some translted models we only want to create one instance for a particular
+  # label in a language. For example we only want one English DataType.image or one Rank.species. But other
+  # models like License is translating a description which isn't unique. We can have several Licences with
+  # description 'all rights reserved'. We need to know this when creating test data
+  TRANSLATIONS_ARE_UNIQUE = false
   has_many :data_objects
   has_many :resources
 
@@ -13,36 +19,22 @@ class License < SpeciesSchemaModel
   end
 
   def self.public_domain
-    License.find_by_title('public domain')
+    cached_find(:title, 'public domain')
   end
   
   def self.cc
-    License.find_by_title('cc-by 3.0')
+    cached_find(:title, 'cc-by 3.0')
   end
   
   def self.by_nc
-    License.find_by_title('cc-by-nc 3.0')
+    cached_find(:title, 'cc-by-nc 3.0')
   end
   
   def self.by_nc_sa
-    License.find_by_title('cc-by-nc-sa 3.0')
+    cached_find(:title, 'cc-by-nc-sa 3.0')
   end
   
   def self.by_sa
-    License.find_by_title('cc-by-sa 3.0')
+    cached_find(:title, 'cc-by-sa 3.0')
   end
-  
-
 end
-# == Schema Info
-# Schema version: 20081020144900
-#
-# Table name: licenses
-#
-#  id          :integer(2)      not null, primary key
-#  description :string(400)     not null
-#  logo_url    :string(255)     not null
-#  source_url  :string(255)     not null
-#  title       :string(255)     not null
-#  version     :string(6)       not null
-

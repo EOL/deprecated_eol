@@ -95,8 +95,8 @@ describe 'Search' do
       @dog_sci_name  = 'Canis lupus familiaris'
       @wolf_name     = 'Wolf'
       @wolf_sci_name = 'Canis lupus'
-      @dog  = build_taxon_concept(:scientific_name => @dog_sci_name, :common_names => [@domestic_name])
       @wolf = build_taxon_concept(:scientific_name => @wolf_sci_name, :common_names => [@wolf_name])
+      @dog  = build_taxon_concept(:scientific_name => @dog_sci_name, :common_names => [@domestic_name], :parent_hierarchy_entry_id => @wolf.hierarchy_entries.first.id)
       SearchSuggestion.gen(:taxon_id => @dog.id, :term => @dog_name, :scientific_name => @dog.scientific_name,
                            :common_name => @dog.common_name)
       SearchSuggestion.gen(:taxon_id => @wolf.id, :term => @dog_name, :scientific_name => @wolf.scientific_name,
@@ -110,7 +110,7 @@ describe 'Search' do
       
       # I'm only doing this so we get two results and not redirected.
       another = build_taxon_concept(:scientific_name => @tricky_search_suggestion)
-      
+      flatten_hierarchies
       recreate_indexes
       visit("/search?q=#{@tiger_name}")
       @tiger_search = body 

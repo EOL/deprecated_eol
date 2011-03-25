@@ -23,6 +23,7 @@ describe 'Solr API' do
       @data = {:common_name => ['Atlantic cod', 'Pacific cod'],
                :preferred_scientific_name => ['Gadus mohua'],
                :taxon_concept_id => ['1'],
+               :ancestor_taxon_concept_id => '3452345',
                :top_image_id => '123',
                :supercedure_id => 0, # This is not *required*, but the search specifies = 0, soooooo....
                :vetted_id => trusted.id,
@@ -44,7 +45,7 @@ describe 'Solr API' do
       res = @solr.build_solr_xml('add', @data)
       xml = Nokogiri::XML(res)  
       xml.xpath('/add/doc').should_not be_empty
-      [:top_image_id, :preferred_scientific_name, :taxon_concept_id, :common_name].each do |node|
+      [:top_image_id, :preferred_scientific_name, :taxon_concept_id, :common_name, :ancestor_taxon_concept_id].each do |node|
         test_xml(xml, node, @data[node])
       end
     end
@@ -52,6 +53,7 @@ describe 'Solr API' do
     it 'should add an index for a document on a call to #create' do
       res = @solr.create(@data)
       @solr.get_results("common_name:cod")['numFound'].should > 0
+      @solr.get_results("ancestor_taxon_concept_id:3452345")['numFound'].should > 0
     end
   end
 

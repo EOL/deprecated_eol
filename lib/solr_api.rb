@@ -69,6 +69,7 @@ class SolrAPI
                :preferred_scientific_name => [taxon_concept.scientific_name],
                :scientific_name => taxon_concept.all_scientific_names.map {|n| n.string },
                :taxon_concept_id => [taxon_concept.id],
+               :ancestor_taxon_concept_id => taxon_concept.flattened_ancestors.map {|a| a.ancestor_id },
                :vetted_id => taxon_concept.vetted_id,
                :published => taxon_concept.published,
                :supercedure_id => taxon_concept.supercedure_id,

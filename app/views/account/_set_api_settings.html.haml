@@ -1,6 +1,6 @@
 .divider
 %br
-%h3.preference-header= I18n.t(:request_an_api_key_optional) 
+%h3.preference-header= I18n.t(:request_an_api_key_optional)
 
 - api_docs_link = '/api/docs#api_key_section'
 - if current_user.api_key
@@ -8,14 +8,14 @@
     =I18n.t("your_key_is")
     %b= current_user.api_key
     %br
-    =I18n.t("make_sure_to") 
+    =I18n.t("make_sure_to")
     = link_to(I18n.t("add_it_to_your_api_calls"), api_docs_link)
 -else
   %form#form_api_key{ :method => "post", :action => user_path(current_user.id) }
     %input{ :name => "_method", :type => "hidden", :value=> "put" }
     %input{ :name => "generate_api_key", :type => "hidden", :value=> "true" }
-    - button_value = "Generate a key"
-    %p 
+    - button_value = I18n.t("generate_a_key")
+    %p
       =I18n.t("if_you_are_interested_in_using")
       =I18n.t("identify_your_application")
       = link_to(I18n.t("click_here_to_read_more"), api_docs_link)

@@ -1,21 +1,21 @@
 - if $ALLOW_CURATOR_SELF_REG
-  %h3= I18n.t(:curators) 
+  %h3= I18n.t(:curators)
   - unless @user.is_curator?
     %label{ :title => I18n.t(:do_you_want_to_be_a_curator) , :for => "user_curator_signup" }
-      = I18n.t(:do_you_want_to_be_a_curator) 
+      = I18n.t(:do_you_want_to_be_a_curator)
     = f.check_box :curator_request, {:id => "curator_request"}
-    =  I18n.t(:yes_answer) 
+    =  I18n.t(:yes_answer)
   #curator_request_options{ :style => ('display:none' unless @user.is_curator?) }
     - if @user.is_curator? # show them the clade they have selected
       %p
-        = @user.curator_approved ? "You are currently a curator of " : "You have requested curation of "
+        = @user.curator_approved ? I18n.t("you_are_currently_a_curator_of") : I18n.t("you_have_requested_curation_of")
         = link_to(@user.curator_hierarchy_entry.name, :controller => :taxa, :action => :show, :id => @user.curator_hierarchy_entry.taxon_concept_id)
         = link_to(image_tag('rss.png'), :controller => :feeds, :action => :all, :id => @user.curator_hierarchy_entry.taxon_concept_id)
       %p
-        =  I18n.t(:to_change_clade_preamble) 
+        =  I18n.t(:to_change_clade_preamble)
         = link_to( I18n.t(:contact_us) , "/contact_us?default_subject=Curator%20Support") + '.'
     - else
-      %span=  I18n.t(:curator_signup_message) 
+      %span=  I18n.t(:curator_signup_message)
     = render(:partial => 'curator_form', :locals => {:f => f})
     - if @user.curator_approved
       %p

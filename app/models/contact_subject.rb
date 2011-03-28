@@ -1,19 +1,8 @@
 # A kind of topic for any given Contact (q.v.).
 class ContactSubject < ActiveRecord::Base
-
+  CACHE_ALL_ROWS = true
+  uses_translations
   has_many :contacts
-  validates_presence_of :recipients,:title
+  validates_presence_of :recipients
   
 end
-# == Schema Info
-# Schema version: 20081020144900
-#
-# Table name: contact_subjects
-#
-#  id         :integer(4)      not null, primary key
-#  active     :boolean(1)      not null, default(TRUE)
-#  recipients :string(255)
-#  title      :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-

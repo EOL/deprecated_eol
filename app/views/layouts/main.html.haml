@@ -1,151 +1,154 @@
-!!! 5
-%html{ "xml:lang" => "en", :lang => "en", :xmlns => "http://www.w3.org/1999/xhtml" }
-  - # TODO: Should language be a variable? What happens when the content is not in English?
-  %head
-    %title
-      - # Accessibility tip: Page titles should be unique and meaningful to the page and include the site name.
-      - # Home page title can just be the site name.
-      - page_title =  I18n.t(:encyclopedia_of_life)
-      - if @page_title
-        - page_title =  "EOL: #{@page_title} - #{page_title}"
-      - elsif (@taxon_concept and not @taxon_concept.title(@session_hierarchy).blank?)
-        - page_title = "EOL: #{@taxon_concept.title(@session_hierarchy)} - #{page_title}"
-      &= strip_tags(page_title)
+- if $USE_OLD_MAIN_LAYOUT
+  = render :template => "/layouts/main_old"
+- else
+  !!! 5
+  %html{ "xml:lang" => "en", :lang => "en", :xmlns => "http://www.w3.org/1999/xhtml" }
+    - # TODO: Should language be a variable? What happens when the content is not in English?
+    %head
+      %title
+        - # Accessibility tip: Page titles should be unique and meaningful to the page and include the site name.
+        - # Home page title can just be the site name.
+        - page_title =  I18n.t(:encyclopedia_of_life)
+        - if @page_title
+          - page_title =  "EOL: #{@page_title} - #{page_title}"
+        - elsif (@taxon_concept and not @taxon_concept.title(@session_hierarchy).blank?)
+          - page_title = "EOL: #{@taxon_concept.title(@session_hierarchy)} - #{page_title}"
+        &= strip_tags(page_title)
 
-    %meta{ :charset => "utf-8" }
-    - # HTML4 charset declaration, might go when browsers catch up with html5
-    %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "Content-type" }
-    %meta{ :name => "verify-v1", :content => "mJIytYT6a+K1y+bCmD1wr1ge+4Q63O0YfTHCYWwkzaY=" }
-    - # Prevents generation of links to "smart tags"
-    %meta{ :name => "MSSmartTagsPreventParsing", :content => "true" }
-    - @meta_description ||= "The Encyclopedia of Life is an unprecedented effort to gather and share scientific knowledge about all living things in a single online resource, giving each of us a breathtaking view of our amazing world."
-    %meta{ :name => "description", :content => h(strip_tags("@meta_description")) }
+      %meta{ :charset => "utf-8" }
+      - # HTML4 charset declaration, might go when browsers catch up with html5
+      %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "Content-type" }
+      %meta{ :name => "verify-v1", :content => "mJIytYT6a+K1y+bCmD1wr1ge+4Q63O0YfTHCYWwkzaY=" }
+      - # Prevents generation of links to "smart tags"
+      %meta{ :name => "MSSmartTagsPreventParsing", :content => "true" }
+      - @meta_description ||= "The Encyclopedia of Life is an unprecedented effort to gather and share scientific knowledge about all living things in a single online resource, giving each of us a breathtaking view of our amazing world."
+      %meta{ :name => "description", :content => h(strip_tags("@meta_description")) }
 
-    - if @meta_keywords
-      %meta{ :name => "keywords", :content => meta_keywords(h(@meta_keywords)) }
+      - if @meta_keywords
+        %meta{ :name => "keywords", :content => meta_keywords(h(@meta_keywords)) }
 
-    - if @no_cache
-      %meta{ :content => "NO-CACHE", "http-equiv" => "CACHE-CONTROL" }
-      %meta{ :content => "NO-CACHE", "http-equiv" => "PRAGMA" }
+      - if @no_cache
+        %meta{ :content => "NO-CACHE", "http-equiv" => "CACHE-CONTROL" }
+        %meta{ :content => "NO-CACHE", "http-equiv" => "PRAGMA" }
 
-    %link{ :href => "/favicon.ico", :rel => "shortcut icon", :type => "image/x-icon" }
-    %link{ :href => "/opensearchdescription.xml", :title => I18n.t("encyclopedia_of_life"), :rel => "search", :type => "application/opensearchdescription+xml" }
+      %link{ :href => "/favicon.ico", :rel => "shortcut icon", :type => "image/x-icon" }
+      %link{ :href => "/opensearchdescription.xml", :title => I18n.t("encyclopedia_of_life"), :rel => "search", :type => "application/opensearchdescription+xml" }
 
-    = yield :head
+      = yield :head
 
-  %body{ :class => "#{h controller.controller_name} #{h controller.action_name}" }
-    #page
-      #controls_container
-        %ul#controls.menu
-          %li.skip_to_content
-            %a{ :href => "#content_target" }
-              = I18n.t(:skip_to_content)
-          -# TODO: just a question -- would it be good from accessability point of view to have easier access to language picker?
-          %li.language{ :title => "Choose which language you would like to view the site in, the currently selected language is #{I18n.locale}" }
-            = I18n.t(:language)
-            \:
-            = I18n.locale
-            %ul
-              - Language.find_active.each do |language|
+    %body{ :class => "#{h controller.controller_name} #{h controller.action_name}" }
+      #page
+        #controls_container
+          %ul#controls.menu
+            %li.skip_to_content
+              %a{ :href => "#content_target" }
+                = I18n.t(:skip_to_content)
+            -# TODO: just a question -- would it be good from accessability point of view to have easier access to language picker?
+            %li.language{ :title => "Choose which language you would like to view the site in, the currently selected language is #{I18n.locale}" }
+              = I18n.t(:language)
+              \:
+              = I18n.locale
+              %ul
+                - Language.find_active.each do |language|
+                  %li
+                    = link_to I18n.t("var_language_source_form__em__", :var_language_source_form => language.source_form, :var_language_display_code => language.display_code), set_language_url(:language => language.iso_639_1), :title => "Switch the site language to #{language.display_code}"
                 %li
-                  = link_to I18n.t("var_language_source_form__em__", :var_language_source_form => language.source_form, :var_language_display_code => language.display_code), set_language_url(:language => language.iso_639_1), :title => "Switch the site language to #{language.display_code}"
-              %li
-                = link_to I18n.t("google_translate"), {:controller => "/content", :action => "translate"}, {:title => "Use Google Translate widget to transform the site content into another language"}
+                  = link_to I18n.t("google_translate"), {:controller => "/content", :action => "translate"}, {:title => "Use Google Translate widget to transform the site content into another language"}
 
-      #banner.header{ :role => "banner" }
-        %h1
-          %a{ :href => root_url, :title => I18n.t(:the_encyclopedia_of_life_eol_web_site_home_page)  }
-            =  I18n.t(:encyclopedia_of_life)
-        %p#tagline
-          %q= I18n.t("imagine_an_electronic_page_for")
-          = I18n.t("__edward_o__wilson")
+        #banner.header{ :role => "banner" }
+          %h1
+            %a{ :href => root_url, :title => I18n.t(:the_encyclopedia_of_life_eol_web_site_home_page)  }
+              =  I18n.t(:encyclopedia_of_life)
+          %p#tagline
+            %q= I18n.t("imagine_an_electronic_page_for")
+            = I18n.t("__edward_o__wilson")
 
-      - cache(:controller => "/content", :part => "secondary_navigation_" + current_user.language_abbr) do
-        #secondary_navigation_container.nav{ :role => "navigation" }
-          %h2= I18n.t(:global_navigation)
-          %ul#secondary_navigation.menu
-            %li.about
-              = link_to I18n.t(:what_is_eol) , "/placeholder"
-            %li.press_room
-              = link_to I18n.t(:press_room) , "/placeholder"
-            %li.donate
-              = link_to I18n.t(:donate) , { :controller => "/content", :action => "donate" }
+        - cache(:controller => "/content", :part => "secondary_navigation_" + current_user.language_abbr) do
+          #secondary_navigation_container.nav{ :role => "navigation" }
+            %h2= I18n.t(:global_navigation)
+            %ul#secondary_navigation.menu
+              %li.about
+                = link_to I18n.t(:what_is_eol) , "/placeholder"
+              %li.press_room
+                = link_to I18n.t(:press_room) , "/placeholder"
+              %li.donate
+                = link_to I18n.t(:donate) , { :controller => "/content", :action => "donate" }
 
-      %div#search_container
-        = render :partial => "/layouts/search"
+        %div#search_container
+          = render :partial => "/layouts/search"
 
-      %div#user_container
-        - if logged_in? && $ALLOW_USER_LOGINS && !agent_logged_in?
-          %h2= I18n.t(:account_information)
-          %p
-            = I18n.t(:logged_in_as_current_usergiven_name, :var_current_user_given_name=>current_user.given_name)
-          %ul#user
-            %li.profile= link_to I18n.t(:profile) , { :controller => "/account", :action => "profile", :data => { :user_id => current_user.id} }
-            - if current_user.is_admin?
-              %li.administration= link_to I18n.t(:administration) , { :controller => "/admin", :action => "index" }
-            - if current_user.is_curator?
-              %li.curation= link_to I18n.t(:curation) , { :controller => "/content", :action => "page" }
-            %li.sign_out= link_to I18n.t(:sign_out) , logout_url
-        - elsif $ALLOW_USER_LOGINS && !agent_logged_in?
-          %h2= I18n.t(:login_or_create_account)
-          %ul#user
-            %li.login
-              = link_to  I18n.t(:login) , { :controller => "/account", :action => "login" }
-            %li.create_user
-              = link_to  I18n.t(:create_account) , { :controller => "/account", :action => "signup" }
-        - elsif $ALLOW_USER_LOGINS == false && @home_page.nil?
-          %p
-            =  I18n.t(:user_system_down)
-        - elsif agent_logged_in?
-          - #TODO should go avay when single account is implemented
-          %h2= I18n.t(:content_partner_information)
-          %p
-            = I18n.t(:logged_in_as_current_agentfull_name, :var_current_agent_full_name=>current_agent.full_name)
-          %ul#user_agent
-            %li.dashboard
-              = link_to I18n.t(:dashboard) , { :controller => "/content_partner", :action => "index" }
-            %li.sign_out
-              = link_to I18n.t(:sign_out) , { :controller => "/content_partner", :action => "logout" }
+        %div#user_container
+          - if logged_in? && $ALLOW_USER_LOGINS && !agent_logged_in?
+            %h2= I18n.t(:account_information)
+            %p
+              = I18n.t(:logged_in_as_current_usergiven_name, :var_current_user_given_name=>current_user.given_name)
+            %ul#user
+              %li.profile= link_to I18n.t(:profile) , { :controller => "/account", :action => "profile", :data => { :user_id => current_user.id} }
+              - if current_user.is_admin?
+                %li.administration= link_to I18n.t(:administration) , { :controller => "/admin", :action => "index" }
+              - if current_user.is_curator?
+                %li.curation= link_to I18n.t(:curation) , { :controller => "/content", :action => "page" }
+              %li.sign_out= link_to I18n.t(:sign_out) , logout_url
+          - elsif $ALLOW_USER_LOGINS && !agent_logged_in?
+            %h2= I18n.t(:login_or_create_account)
+            %ul#user
+              %li.login
+                = link_to  I18n.t(:login) , { :controller => "/account", :action => "login" }
+              %li.create_user
+                = link_to  I18n.t(:create_account) , { :controller => "/account", :action => "signup" }
+          - elsif $ALLOW_USER_LOGINS == false && @home_page.nil?
+            %p
+              =  I18n.t(:user_system_down)
+          - elsif agent_logged_in?
+            - #TODO should go avay when single account is implemented
+            %h2= I18n.t(:content_partner_information)
+            %p
+              = I18n.t(:logged_in_as_current_agentfull_name, :var_current_agent_full_name=>current_agent.full_name)
+            %ul#user_agent
+              %li.dashboard
+                = link_to I18n.t(:dashboard) , { :controller => "/content_partner", :action => "index" }
+              %li.sign_out
+                = link_to I18n.t(:sign_out) , { :controller => "/content_partner", :action => "logout" }
 
-    -# "main" is an ARIA standard name
-    #content_container.section{ :role => "main" }
-      %a#content_target
-      - unless flash.blank?
-        #flash_messages_container
-          - if flash[:notice]
-            .notice= flash[:notice]
-          - if flash[:warning]
-            .warning= flash[:warning]
-          - if flash[:error]
-            .error= flash[:error]
+      -# "main" is an ARIA standard name
+      #content_container.section{ :role => "main" }
+        %a#content_target
+        - unless flash.blank?
+          #flash_messages_container
+            - if flash[:notice]
+              .notice= flash[:notice]
+            - if flash[:warning]
+              .warning= flash[:warning]
+            - if flash[:error]
+              .error= flash[:error]
 
-      = yield(:content) || yield
+        = yield(:content) || yield
 
-    -# related_content_container is a placeholder to place complementary information
-    -#TODO figure out how many complementary sections we need
-    #related_content_container.aside{ :role => "complementary" }
-      = yield :related_content
+      -# related_content_container is a placeholder to place complementary information
+      -#TODO figure out how many complementary sections we need
+      #related_content_container.aside{ :role => "complementary" }
+        = yield :related_content
 
-    #footer_container.footer{ :role => "contentinfo" }
-      %h2= I18n.t(:further_information)
-      #tertiary_navigation_container.nav{ :role => "navigation" }
-        %ul#tertiary_navigation.menu
-          %li.feedback
-            = I18n.t(:feedback)
-            %ul
-              = render :partial => "layouts/menu_item", :locals => { :menu_items => ContentSection.find_pages_by_section("Feedback") }
-          %li.help
-            = I18n.t(:using_the_site)
-            %ul
-              = render :partial => "layouts/menu_item", :locals => { :menu_items => ContentSection.find_pages_by_section("Using the Site") }
+      #footer_container.footer{ :role => "contentinfo" }
+        %h2= I18n.t(:further_information)
+        #tertiary_navigation_container.nav{ :role => "navigation" }
+          %ul#tertiary_navigation.menu
+            %li.feedback
+              = I18n.t(:feedback)
+              %ul
+                = render :partial => "layouts/menu_item", :locals => { :menu_items => ContentSection.find_pages_by_section("Feedback") }
+            %li.help
+              = I18n.t(:using_the_site)
+              %ul
+                = render :partial => "layouts/menu_item", :locals => { :menu_items => ContentSection.find_pages_by_section("Using the Site") }
 
-          = render :partial => "layouts/footer_menu", :locals => { :menu_items => ContentSection.find_pages_by_section("Footer") }
+            = render :partial => "layouts/footer_menu", :locals => { :menu_items => ContentSection.find_pages_by_section("Footer") }
 
-      = ENV["APP_VERSION"] unless ENV["APP_VERSION"].blank?
+        = ENV["APP_VERSION"] unless ENV["APP_VERSION"].blank?
 
-    - if $ENABLE_ANALYTICS || true
-      :javascript
-        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-      :javascript
-        try { var pageTracker = _gat._getTracker("#{$GOOGLE_ANALYTICS_ID}"); pageTracker._trackPageview(); } catch(err) {}
+      - if $ENABLE_ANALYTICS || true
+        :javascript
+          var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+          document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        :javascript
+          try { var pageTracker = _gat._getTracker("#{$GOOGLE_ANALYTICS_ID}"); pageTracker._trackPageview(); } catch(err) {}

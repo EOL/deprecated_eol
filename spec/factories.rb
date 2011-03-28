@@ -256,7 +256,6 @@ Factory.sequence(:int    ){|n| n }
 #### Factories
 
 Factory.define :action_with_object do |awo|
-  awo.action_code { Factory.next(:string) }
 end
 
 Factory.define :actions_history do |ah|
@@ -378,14 +377,13 @@ Factory.define :community do |c|
 end
 
 Factory.define :contact do |c|
-  c.name        { Factory.next(:string) }
-  c.email       { Factory.next(:email) }
-  c.association :contact_subject
-  c.comments    %w( foo bar )
+  c.name            { Factory.next(:string) }
+  c.email           { Factory.next(:email) }
+  c.contact_subject { ContactSubject.gen_if_not_exists(:title => 'Anything') }
+  c.comments        %w( foo bar )
 end
 
 Factory.define :contact_subject do |cs|
-  cs.title      { Factory.next(:string) }
   cs.recipients { Factory.next(:string) }
   cs.active     true
   cs.created_at { 48.hours.ago }
@@ -714,8 +712,6 @@ Factory.define :name do |name|
 end
 
 Factory.define :news_item do |ni|
-  ni.body         { 'Test News Item Body' + Faker::Lorem.paragraph }
-  ni.title        { Faker::Lorem.words[rand(4) + 1].titleize }
   ni.display_date { 2.days.ago }
   ni.activated_on { 2.days.ago }
   ni.association  :user
@@ -948,6 +944,12 @@ Factory.define :top_unpublished_concept_image do |tui|
   tui.view_order  1
 end
 
+Factory.define :translated_action_with_object do |r|
+  r.association     :action_with_object
+  r.language        { Language.english }
+  r.action_code     { Factory.next(:string) }
+end
+
 Factory.define :translated_agent_contact_role do |r|
   r.association     :agent_contact_role
   r.language        { Language.english }
@@ -984,6 +986,12 @@ Factory.define :translated_collection_type do |r|
   r.label           { Factory.next(:string) }
 end
 
+Factory.define :translated_contact_subject do |r|
+  r.association     :contact_subject
+  r.language        { Language.english }
+  r.title           { Factory.next(:string) }
+end
+
 Factory.define :translated_data_type do |r|
   r.association     :data_type
   r.language        { Language.english }
@@ -1012,6 +1020,13 @@ Factory.define :translated_mime_type do |r|
   r.association     :mime_type
   r.language        { Language.english }
   r.label           { Factory.next(:string) }
+end
+
+Factory.define :translated_news_item do |r|
+  r.association     :news_item
+  r.language        { Language.english }
+  r.body            { 'Test News Item Body' + Faker::Lorem.paragraph }
+  r.title           { Faker::Lorem.words[rand(4) + 1].titleize }
 end
 
 Factory.define :translated_rank do |r|

@@ -84,7 +84,8 @@
           %td{ :class => column_class }
             = rec.given_name + " " + rec.family_name
           %td{ :class => column_class }
-            = rec.code
+            - if awo = ActionWithObject.find_by_id(rec.action_with_object_id)
+              = awo.action_code
           %td{ :class => column_class }
             - if(@arr_obj_tc_id["datatype#{rec.data_object_id}"])
               - if(@arr_obj_tc_id["datatype#{rec.data_object_id}"]=="text") then

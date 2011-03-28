@@ -47,6 +47,7 @@ ActionWithObject.gen_if_not_exists(:action_code => 'untrusted')
 ActionWithObject.gen_if_not_exists(:action_code => 'show')
 ActionWithObject.gen_if_not_exists(:action_code => 'hide')
 ActionWithObject.gen_if_not_exists(:action_code => 'inappropriate')
+ActionWithObject.gen_if_not_exists(:action_code => 'rate')
 ActionWithObject.gen_if_not_exists(:action_code => 'unreviewed')
 
 # create_if_not_exists We don't technically *need* all three of these, but it's nice to have for the menu.  There are more, but we don't currently use

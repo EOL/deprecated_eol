@@ -259,7 +259,7 @@ class AccountController < ApplicationController
     current_user.log_activity(:show_objects_curated_by_user_id, :value => params[:id])
     @latest_curator_actions = @user.actions_histories_on_data_objects.paginate_all_by_action_with_object_id(
                                 ActionWithObject.raw_curator_action_ids,
-                                :select => 'actions_histories.*, action_with_objects.action_code',
+                                :select => 'actions_histories.*',
                                 :order => 'actions_histories.updated_at DESC',
                                 :group => 'actions_histories.object_id',
                                 :include => [ :action_with_object ],
@@ -321,8 +321,8 @@ class AccountController < ApplicationController
     page = (params[:page] || 1).to_i
     @user = User.find(params[:id])
     current_user.log_activity(:show_species_comments_moderated_by_user_id, :value => params[:id])
-    @all_comments = @user.comments_curated
-    @comments = @all_comments.paginate(:page => page, :per_page => @@objects_per_page)
+    comment_curation_actions = @user.comment_curation_actions
+    @comment_curation_actions = comment_curation_actions.paginate(:page => page, :per_page => @@objects_per_page)
   end
 
 

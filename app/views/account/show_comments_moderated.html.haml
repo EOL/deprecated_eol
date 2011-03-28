@@ -11,13 +11,8 @@
         \&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         = link_to I18n.t("back_to_profile"),{:controller=>'/account', :action=>:show, :id => @user.id}
         
-- if @comments.nil? == false && @comments.size > 0
-  - if(false)
-    - @comment_ids.each do |comment|
-      = comment 
-      = @comment_ids.length
-      %br
-  = will_paginate @comments
+- if @comment_curation_actions.nil? == false && @comment_curation_actions.size > 0
+  = will_paginate @comment_curation_actions
   %table.results_table
     %thead{ :align => "center" }
       %tr{ :align => "center" }
@@ -35,32 +30,31 @@
           =I18n.t("updated")
     %tbody
       - count = 0
-      - @comments.each do |comment|
+      - @comment_curation_actions.each do |ah|
         - row_class = cycle('odd','even')
         - count += 1
-        - if (comment['parent_type'] = "TaxonConcept") then
-          - concept = TaxonConcept.find(comment['parent_id'])
+        - if ah.affected_comment.parent_type == "TaxonConcept"
+          - concept = TaxonConcept.find(ah.affected_comment.parent_id)
           - name = concept.quick_scientific_name(:italicized)
         - else
-          - name=""
-        
+          - name = ""
         %tr
           %td{ :class => row_class }
-            = comment['parent_type']
-            - if(name)
+            = ah.affected_comment.parent_type
+            - if name
               %br
-              = link_to name,{:controller=>'/taxa', :action=>:show, :id => comment['parent_id'] }
+              = link_to name, {:controller=>'/taxa', :action => :show, :id => ah.affected_comment.parent_id }
           %td{ :class => row_class }
-            = comment['action_code']
-            = h format_date_time(comment['action_time'],:format=>'short_no_tz')
+            = ah.action_with_object.action_code
+            = h format_date_time(ah.updated_at, :format=>'short_no_tz')
           %td{ :class => row_class }
-            = comment['body']
+            = ah.affected_comment.body
           %td{ :class => row_class }
-            = h format_date_time(comment['visible_at'],:format=>'short_no_tz')
+            = h format_date_time(ah.affected_comment.visible_at, :format=>'short_no_tz')
           %td{ :class => row_class }
-            = h format_date_time(comment['created_at'],:format=>'short_no_tz')
+            = h format_date_time(ah.affected_comment.created_at, :format=>'short_no_tz')
           %td{ :class => row_class }
-            = h format_date_time(comment['updated_at'],:format=>'short_no_tz')
+            = h format_date_time(ah.affected_comment.updated_at, :format=>'short_no_tz')
       %tr
         %td{ :colspan => "5" }
-          = will_paginate @comments
+          = will_paginate @comment_curation_actions

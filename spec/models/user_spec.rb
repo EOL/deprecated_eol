@@ -267,7 +267,7 @@ describe User do
   end
 
   it 'should create a new ActionsHistory pointing to the right object, user, type and action' do      
-    action = ActionWithObject.create(:action_code => 'hi')
+    action = ActionWithObject.gen_if_not_exists(:action_code => 'hi')
     obj    = ChangeableObjectType.create(:ch_object_type => 'name')
     name   = Name.gen
     @user.track_curator_activity(name, obj.ch_object_type, action.action_code)

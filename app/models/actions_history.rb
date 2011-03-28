@@ -10,7 +10,11 @@ class ActionsHistory < ActiveRecord::Base
   
   has_many :actions_histories_untrust_reasons
   has_many :untrust_reasons, :through => :actions_histories_untrust_reasons
+  
+  # use these associations carefully. They don't check the changeable object type, so you might try to grab a comment
+  # when you should have grabbed an object and it won't fail.
   belongs_to :data_object, :foreign_key => :object_id
+  belongs_to :affected_comment, :foreign_key => :object_id, :class_name => Comment.to_s
   
   validates_presence_of :user_id, :changeable_object_type_id, :action_with_object_id, :created_at 
     

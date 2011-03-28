@@ -83,7 +83,6 @@ class HarvestEvent < SpeciesSchemaModel
         :actions_histories => :updated_at,
         :users => [ :given_name, :family_name ],
         :comments => :body,
-        :action_with_objects => :action_code,
         :data_objects => [:object_cache_url, :source_url, :data_type_id ],
         :hierarchy_entries => [ :published, :visibility_id, :taxon_concept_id ],
         :names => :string })

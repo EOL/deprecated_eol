@@ -108,7 +108,7 @@ describe 'Home page' do
   end
 
   it 'should show "What\'s New" (plus news items), when news exists' do
-    NewsItem.gen(:title => 'Mars Attacks!')
+    NewsItem.gen_if_not_exists(:title => 'Mars Attacks!')
     visit('/')
     body.should include('What\'s New?')
     body.should include('Mars Attacks!')
@@ -121,7 +121,7 @@ describe 'Home page' do
   end
 
   it 'should have an RSS link (if there is news)' do
-    NewsItem.gen(:title => 'Mars Attacks!')
+    NewsItem.gen_if_not_exists(:title => 'Mars Attacks!')
     visit('/')
     body.should have_tag('a[href=?]', '/content/news?format=rss')
   end

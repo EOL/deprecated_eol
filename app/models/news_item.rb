@@ -1,8 +1,7 @@
 class NewsItem < ActiveRecord::Base
-  
+  uses_translations
   belongs_to :user
   
-  validates_presence_of :title, :if => Proc.new {|m| m.body.blank? }; validates_presence_of :body,  :if => Proc.new {|m| m.title.blank? }
   
   def visible?
     self.activated_on <= Time.now && self.active
@@ -23,18 +22,4 @@ class NewsItem < ActiveRecord::Base
   end
   
 end
-# == Schema Info
-# Schema version: 20081020144900
-#
-# Table name: news_items
-#
-#  id           :integer(4)      not null, primary key
-#  user_id      :integer(4)
-#  active       :boolean(1)      default(TRUE)
-#  body         :string(1500)    not null
-#  display_date :datetime
-#  title        :string(255)     default("")
-#  activated_on :datetime
-#  created_at   :datetime
-#  updated_at   :datetime
 

@@ -170,7 +170,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def self.curated_data_objects(arr_dataobject_ids, year, month, page, report_type)
     page = 1 if page == 0
     sql = "SELECT ah.object_id data_object_id, cot.ch_object_type,
-        awo.action_code code, u.given_name, u.family_name, ah.updated_at, ah.user_id
+        awo.id action_with_object_id, u.given_name, u.family_name, ah.updated_at, ah.user_id
       FROM action_with_objects awo
         JOIN actions_histories ah ON ah.action_with_object_id = awo.id
         JOIN changeable_object_types cot ON ah.changeable_object_type_id = cot.id
@@ -179,7 +179,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
         AND ah.object_id IN (" + arr_dataobject_ids * "," + ")"
     if(year.to_i > 0) then sql += " AND year(ah.updated_at) = #{year} AND month(ah.updated_at) = #{month} "
     end
-    sql += " AND awo.action_code in ('trusted', 'untrusted', 'inappropriate', 'delete') "
+    sql += " AND awo.id in (#{ActionWithObject.trusted.id}, #{ActionWithObject.untrusted.id}, #{ActionWithObject.inappropriate.id}, #{ActionWithObject.delete.id}) "
     sql += " ORDER BY ah.id Desc"
     if(report_type == "rss feed")
       self.find_by_sql [sql]
@@ -280,20 +280,16 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   # TODO - test
-  def comments_curated
-    connection.execute("
-      SELECT awo.action_code, ah.updated_at action_time, c.*
-      FROM actions_histories ah
-        JOIN action_with_objects awo ON (ah.action_with_object_id = awo.id)
-        JOIN comments c ON (ah.object_id = c.id)
-      WHERE ah.user_id=#{id}
-        AND ah.changeable_object_type_id=#{ChangeableObjectType.comment.id}
-        AND ah.action_with_object_id!=#{ActionWithObject.created.id}").all_hashes.uniq
+  def comment_curation_actions
+    ActionsHistory.find_all_by_user_id_and_changeable_object_type_id(id, ChangeableObjectType.comment.id,
+      :include => [ :action_with_object, :affected_comment ],
+      :select => { :actions_histories => '*', :comments => '*' },
+      :conditions => "action_with_object_id != #{ActionWithObject.created.id}")
   end
 
   # TODO - test
   def total_comments_curated
-    comments_curated.length
+    comment_curation_actions.length
   end
 
   # TODO - test
@@ -305,7 +301,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
         JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (ah.object_id = dotc.data_object_id)
       WHERE ah.user_id=#{id}
         AND ah.changeable_object_type_id=#{ChangeableObjectType.data_object.id}
-        AND awo.action_code!='rate'
+        AND awo.id!=#{ActionWithObject.rate.id}
       GROUP BY ah.object_id
       ORDER BY ah.updated_at DESC").uniq
   end
@@ -711,7 +707,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     comment_id = options[:comment] ? options[:comment].id : nil
     untrust_reasons = options[:untrust_reasons] || nil
     taxon_concept_id = options[:taxon_concept_id] || nil
-    action_with_object_id     = ActionWithObject.find_by_action_code(action).id
+    action_with_object_id     = ActionWithObject.find_by_translated(:action_code, action).id
     changeable_object_type_id = ChangeableObjectType.find_by_ch_object_type(changeable_object_type).id
     actions_history = ActionsHistory.create(
       :user_id                   => self.id,

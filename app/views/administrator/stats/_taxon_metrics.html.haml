@@ -1,5 +1,5 @@
 %b
-  = "Taxon Concept Stats"
+  =I18n.t("taxon_concept_stats")
 = link_to I18n.t("__nbsp__nbsp__species_page__"),{:controller=>'/taxa', :action=>:show, :id => metric.taxon_concept_id}
 %br
 %table.results_table
@@ -10,106 +10,106 @@
       =I18n.t("value")
   %tr
     %td.odd
-      = "Text object"
+      =I18n.t("text_object")
     %td.odd.stats
       = metric.text_trusted
   %tr
     %td.even
-      = "Image object"
+      =I18n.t("image_object")
     %td.even.stats
       = metric.image_trusted
   %tr
     %td.odd
-      = "Video object"
+      =I18n.t("video_object")
     %td.odd.stats
       = metric.video_trusted
   %tr
     %td.even
-      = "Flash video"
+      =I18n.t("flash_video")
     %td.even.stats
       = metric.flash_trusted
   %tr
     %td.odd
-      = "YouTube video"
+      =I18n.t("youtube_video")
     %td.odd.stats
       = metric.youtube_trusted
   %tr
     %td.even
-      = "Sound object"
+      =I18n.t("sound_object")
     %td.even.stats
       = metric.sound_trusted
   %tr
     %td.odd
-      = "Data object reference"
+      =I18n.t("data_object_reference")
     %td.odd.stats
       = metric.data_object_references
   %tr
     %td.even
-      = "Info item"
+      =I18n.t("info_item")
     %td.even.stats
       = metric.info_items
   %tr
     %td.odd
-      = "BHL publication"
+      =I18n.t("bhl_publication")
     %td.odd.stats
       = metric.BHL_publications
   %tr
     %td.even
-      = "Content partner"
+      =I18n.t("content_partner__")
     %td.even.stats
       = metric.content_partners
   %tr
     %td.odd
-      = "Outlink"
+      =I18n.t("outlink")
     %td.odd.stats
       = metric.outlinks
   %tr
     %td.even
-      = "GBIF map"
+      =I18n.t("gbif_map")
     %td.even.stats
       - if metric.has_GBIF_map?
-        = "available"
+        =I18n.t("available")
       - else
-        = "none"
+        =I18n.t("none")
   %tr
     %td.odd
-      = "Biomedical terms"
+      =I18n.t("biomedical_terms")
     %td.odd.stats
       - if metric.has_biomedical_terms?
-        = "available"
+        =I18n.t("available")
       - else
-        = "none"
+        =I18n.t("none")
   %tr
     %td.even
-      = "User-submitted text"
+      =I18n.t("user_submitted_text")
     %td.even.stats
       = metric.user_submitted_text
       - if metric.submitted_text_providers > 0
-        = " &nbsp;&nbsp; Providers:"
+        = " &nbsp;&nbsp; #{I18n.t("providers_")}"
         = metric.submitted_text_providers
   %tr
     %td.odd
-      = "Common name"
+      =I18n.t("common_name_")
     %td.odd.stats
       = metric.common_names
       - if metric.common_name_providers > 0
-        = " &nbsp;&nbsp; Providers:"
+        = " &nbsp;&nbsp; #{I18n.t("providers_")}"
         = metric.common_name_providers
   %tr
     %td.even
-      = "Synonym"
+      =I18n.t("synonym")
     %td.even.stats
       = metric.synonyms
       - if metric.synonym_providers > 0
-        = " &nbsp;&nbsp; Providers:"
+        = " &nbsp;&nbsp; #{I18n.t("providers_")}"
         = metric.synonym_providers
   %tr
     %td.odd
-      = "Page view"
+      =I18n.t("page_view")
     %td.odd.stats
       = metric.page_views
   %tr
     %td.even
-      = "Unique page view"
+      =I18n.t("unique_page_view")
     %td.even.stats
       = metric.unique_page_views

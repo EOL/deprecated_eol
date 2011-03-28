@@ -9,6 +9,7 @@ mkmf.log
 extconf.h
 .DS_Store
 tmp/metric_fu/scratch
+config/database.BKUP
 config/database.yml
 config/deploy
 config/deploy.rb
@@ -47,3 +48,5 @@ vendor/gems/nokogiri-1.4.2/ext/nokogiri/conftest.dSYM
 vendor/gems/*/.specification
 tags
 lib/tasks/google_translate.rake
+config/locales/en.yml
+

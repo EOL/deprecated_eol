@@ -1,8 +1,10 @@
 require 'ruby-debug'
 require 'haml'
 
-desc 'Tasks useful for internatiolization'
 
+
+
+desc 'Tasks useful for internatiolization'
 namespace :i18n do
   lang_dir = File.join([RAILS_ROOT, "config", "locales"])
   gibberish_lang_dir = File.join([RAILS_ROOT, "lang"])
@@ -143,7 +145,7 @@ namespace :i18n do
     
     Dir.glob(File.join([lang_dir, "*"])).each do |file|
       file_name = File.split(file)[-1]
-      if file_name != en_file && file != tmp_file && file_name != File.split(en_yml)[-1] && file_name.match(/^[a-z]{2}\.yml\b/)
+      if file_name != en_file && file != tmp_file && file_name != File.split(en_yml)[-1]
         puts "loading file: " + file_name
         en = open(en_yml)
         lang = open(file)
@@ -184,7 +186,7 @@ namespace :i18n do
   end
 
   desc 'task to generate a key based on a based argument'
-  task :generate_key, [:message] do |t, args|
+  task :generate_key do |t, args|
     
     def check_if_string_exists(string, en_yml)
       en = open(en_yml)
@@ -291,10 +293,12 @@ namespace :i18n do
       return output_str
     end
     
-    if (args.message)
-      puts "Key: " + process_string(args.message, en_yml)
+    string = ENV['string']
+
+    if (string)
+      puts "Key: " + process_string(string, en_yml)
     else
-      puts "Error: please use rake i18n:generate_key[\"hello world\"] to generate the i18n key."
+      puts "Error: please use rake i18n:generate_key string=\"hello world\" to generate the i18n key."
     end
   end
 

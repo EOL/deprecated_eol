@@ -1,10 +1,10 @@
 - if $ALLOW_CURATOR_SELF_REG
-  %h3= "Curators"[]
+  %h3= I18n.t(:curators) 
   - unless @user.is_curator?
-    %label{ :title => "Do you want to be a curator"[], :for => "user_curator_signup" }
-      = "Do you want to be a curator?"[]
+    %label{ :title => I18n.t(:do_you_want_to_be_a_curator) , :for => "user_curator_signup" }
+      = I18n.t(:do_you_want_to_be_a_curator) 
     = f.check_box :curator_request, {:id => "curator_request"}
-    = "Yes"[:yes_answer]
+    =  I18n.t(:yes_answer) 
   #curator_request_options{ :style => ('display:none' unless @user.is_curator?) }
     - if @user.is_curator? # show them the clade they have selected
       %p
@@ -12,11 +12,11 @@
         = link_to(@user.curator_hierarchy_entry.name, :controller => :taxa, :action => :show, :id => @user.curator_hierarchy_entry.taxon_concept_id)
         = link_to(image_tag('rss.png'), :controller => :feeds, :action => :all, :id => @user.curator_hierarchy_entry.taxon_concept_id)
       %p
-        = "If you would like to have your group assignment changed at any time, please"[:to_change_clade_preamble]
-        = link_to("contact us"[], "/contact_us?default_subject=Curator%20Support") + '.'[]
+        =  I18n.t(:to_change_clade_preamble) 
+        = link_to( I18n.t(:contact_us) , "/contact_us?default_subject=Curator%20Support") + '.'
     - else
-      %span= "To request curator privileges, you must select a clade at the Family level or lower as well as indicate your credentials below.  You will be notified via email if your application for curator privileges is accepted."[:curator_signup_message]
+      %span=  I18n.t(:curator_signup_message) 
     = render(:partial => 'curator_form', :locals => {:f => f})
     - if @user.curator_approved
       %p
-        = link_to 'View your curator profile', { :controller => :curators, :action => :profile }
+        = link_to I18n.t("view_your_curator_profile"), { :controller => :curators, :action => :profile }

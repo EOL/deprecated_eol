@@ -70,7 +70,7 @@ describe 'Curator Account Pages' do
     @show_datos_curated_path = "/account/show_objects_curated/#{@user.id}"
     @permalink_path = "/data_objects/#{@taxon_concept.images[0][:id]}"
     @taxon_page_path = "/pages/#{@taxon_concept[:id]}"
-    
+
     $CACHE.clear
   end
 
@@ -123,7 +123,7 @@ describe 'Curator Account Pages' do
   end
 
   it 'should show teaser views of descriptions on the show objects curated page' do
-    page.should_not have_content('I should have been truncated from teaser')
+    page.should_not have_content('I should have been stripped from teaser')
   end
 
   it 'should show data object permalinks on the show objects curated page' do

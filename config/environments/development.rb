@@ -34,14 +34,14 @@ if ENV['RAILS_ENV'] == 'development'
   ActiveSupport::Cache::MemCacheStore.logger = Logger.new(STDOUT)
 end
 
-$PARENT_CLASS_MUST_USE_MASTER = ActiveRecord::Base 
+$PARENT_CLASS_MUST_USE_MASTER = ActiveRecord::Base
 
 $LOG_USER_ACTIVITY = true
 
 $EXCEPTION_NOTIFY=true # set to false to not be notified of exceptions via email
-$ERROR_LOGGING=true # set to true to record uncaught application errors in sql database file 
+$ERROR_LOGGING=true # set to true to record uncaught application errors in sql database file
 
-$ENABLE_ANALYTICS=false 
+$ENABLE_ANALYTICS=false
 $ENABLE_RECAPTCHA=false # set to true to enable recaptcha on registration and contact us form
 
 #$WEB_SERVICE_TIMEOUT_SECONDS=20 # how many seconds to wait when calling a webservice before timing out and returning nil
@@ -58,14 +58,14 @@ $AGENT_ID_OF_DEFAULT_COMMON_NAME_SOURCE = Agent.first.id rescue nil # Because it
 
 #set up the master database connection for writes using masochism plugin
 #NOTE: for this to work, you *must* also use config.cache_classes = true (default for production)
-# config.after_initialize do 
+# config.after_initialize do
 #   ActiveReload::ConnectionProxy.setup_for ActiveReload::MasterDatabase, ActiveRecord::Base
-#   ActiveReload::ConnectionProxy.setup_for SpeciesSchemaWriter, SpeciesSchemaModel          
+#   ActiveReload::ConnectionProxy.setup_for SpeciesSchemaWriter, SpeciesSchemaModel
 # end
 
 # uncomment the line below if you want to use the minified/combined JS files from the asset packager for testing purposes
 # note that to create new combined asset files, use this rake task first: rake asset:packager:build_all
-#Synthesis::AssetPackage.merge_environments = ["development", "production"] 
+#Synthesis::AssetPackage.merge_environments = ["development", "production"]
 
 #This part of the code should stay at the bottom to ensure that www.eol.org - related settings override everything
 begin

@@ -4,98 +4,98 @@
   %tr
     %td
       %strong
-        Username:
+        =I18n.t("username_")
     %td
       = f.text_field :username, {:size => '50', :maxlength => '32'}
   %tr
     %td
       %strong
-        Password:
+        =I18n.t("password_")
     %td
       = f.password_field :entered_password, {:size => '50', :maxlength => '16', :autocomplete => 'off'}
   %tr
     %td
       %strong
-        Confirm Password:
+        =I18n.t("confirm_password_")
     %td
       = f.password_field :entered_password_confirmation, {:size => '50', :maxlength => '16', :autocomplete => 'off'}
   %tr
     %td
       %strong
-        Email:
+        =I18n.t("email_")
     %td
       = f.text_field :email, {:size => '50', :maxlength => '255'}
   %tr
     %td
       %strong
-        Given Name:
+        =I18n.t("given_name_")
     %td
       = f.text_field :given_name, {:size => '50', :maxlength => '255'}
   %tr
     %td
       %strong
-        Family Name:
+        =I18n.t("family_name_")
     %td
       = f.text_field :family_name, {:size => '50', :maxlength => '255'}
   - if @user.curator_approved
     %tr
       %td
         %strong
-          Profile:
+          =I18n.t("profile_")
       %td
-        = external_link_to('curator profile', :controller => '/account', :action => :show, :id => @user.id, :show_link_icon => false)
+        = external_link_to(I18n.t("curator_profile"), :controller => '/account', :action => :show, :id => @user.id, :show_link_icon => false)
   %tr
     %td
       %strong
-        Language:
+        =I18n.t("language")
     %td
       = f.select :language_abbr, Language.find_active.collect {|l| [l.source_form, l.iso_639_1]}
   %tr
     %td
       %strong
-        Content Setting:
+        =I18n.t("content_setting_")
     %td
       = f.radio_button :expertise, "novice"
-      = "Information intended for beginners"[]
+      = I18n.t(:information_intended_for_beginners) 
       %br
       = f.radio_button :expertise, "middle"
-      = "Information for any audience"[]
+      = I18n.t(:information_for_any_audience) 
       %br
       = f.radio_button :expertise, "expert"
-      = "Information intended for experts"[]
+      = I18n.t(:information_intended_for_experts) 
       %br
   %tr
     %td
       %strong
-        Only show authoritative content:
+        =I18n.t("only_show_authoritative_conten")
     %td
       = f.check_box :vetted
-      True
+      =I18n.t("true")
   %tr
     %td
       %strong
-        Request Mailing List:
+        =I18n.t("request_mailing_list_")
     %td
       = f.check_box :mailing_list
-      Yes
+      =I18n.t("yes_answer")
   %tr
     %td
       %strong
-        Active:
+        =I18n.t("active_")
     %td
       = f.check_box :active
-      True
+      =I18n.t("true")
       (
       = @user.failed_login_attempts
-      failed login attempts)- must be checked for user to log in
+      =I18n.t("failed_login_attempts___must_b")
   %tr
     %td
       %strong
-        Roles:
+        =I18n.t("roles_")
     %td
       #roles_toggle
         %a{ :href => "#roles", :onclick => "javascript:$('#roles').show();$('#roles_toggle').hide();return false;" }
-          [show roles]
+          =I18n.t("_show_roles_")
       #roles{ :style => "display:none;" }
         - Role.find(:all, :order => 'title').each do |role|
           = check_box_tag "user[role_ids][]", role.id, @user.roles.include?(role)
@@ -104,34 +104,34 @@
   %tr
     %td
       %strong
-        Curator of:
+        =I18n.t("curator_of_")
       %br
     %td
       = clade_selector 'user[curator_hierarchy_entry_id]', :value => @user.curator_hierarchy_entry_id
   %tr
     %td
       %strong
-        Curator scope:
+        =I18n.t("curator_scope_")
     %td
       = f.text_area :curator_scope, :rows => 3, :cols => 60
   %tr
     %td
       %strong
-        = "Credentials"[:credentials]
+        =  I18n.t(:credentials) 
         \:
     %td
       = f.text_area :credentials, :rows => 9, :cols => 60
   %tr
     %td
       %strong
-        Curator Approved:
+        =I18n.t("curator_approved_")
     %td
       = f.check_box :curator_approved
-      True
+      =I18n.t("true")
       - if !(@user.curator_verdict_by.blank? && @user.curator_verdict_at.blank?)
-        (Curator status changed by
+        =I18n.t("_curator_status_changed_by")
         = @user.curator_verdict_by.full_name
-        on
+        =I18n.t("on")
         = format_date_time(@user.curator_verdict_at)
         )
   %tr
@@ -139,24 +139,24 @@
   %tr
     %td
       %strong
-        Remove curatorship:
+        =I18n.t("remove_curatorship_")
     %td
       = check_box_tag :curator_denied
-      If checked and user is saved, then credentials, scope, approval and selected clade are all removed and user no longer shows up as a curator.  You should add a note below to indicate the reason.  No information is sent to the user.
+      =I18n.t("if_checked_and_user_is_saved__")
   %tr
     %td
       %strong
-        Admin notes (not visible to user):
+        =I18n.t("admin_notes__not_visible_to_us")
     %td
       = f.text_area :notes, :rows => 3, :cols => 60
   - unless @user.id.nil?
     %tr
       %td
         %strong
-          Created:
+          =I18n.t("created_")
         %br
         %strong
-          Updated:
+          =I18n.t("updated_")
       %td
         = format_date_time(@user.created_at)
         %br
@@ -164,13 +164,13 @@
   %tr
     %td
       %strong
-        Send email:
+        =I18n.t("send_email_")
     %td
       #email_toggle
         %a{ :href => "#email", :onclick => "javascript:$('#email').show();$('#email_toggle').hide();return false;" }
-          [show email message area]
+          =I18n.t("_show_email_message_area_")
       #email{ :style => "display:none;" }
-        Fill in a message below to send an email to this user from the site.  The message will be sent when you submit the form:
+        =I18n.t("fill_in_a_message_below_to_sen")
         %br
         = text_area_tag :message, @message, :cols => '60', :rows => '20'
 %br

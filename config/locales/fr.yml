@@ -1,0 +1,3649 @@
+fr:
+  ### EOL Web site translation template v.1.1
+  ### 
+  ### INSTRUCTIONS:
+  ### 
+  ### The file format looks like this:
+  ### 
+  ### #comment
+  ### key: phrase to be translated
+  ### 
+  ### Instructions:
+  ### 
+  ### 1. The formatting of the file is one phrase per line, with a
+  ### translated phrase and a "key" that is used in the code to refer to
+  ### that phrase.
+  ### 
+  ### 2. Comments are denoted with "#" at the start of the line.
+  ### 
+  ### 3. The key is always first on each line followed by a colon. The
+  ### phrase follows the colon. Keys shouldn't be changed of course.
+  ### 
+  ### 4. The key is usually the same as the phrase that needs to be
+  ### translated, in lowered case with underscores instead of spaces, except
+  ### when the phrase is quite long. In that case, the key has been
+  ### shortened and the phrase to be translated is shown *above* the key in
+  ### a comment.
+  ### 
+  ### 5. Some phrases have special brackets in them %{like this}. Please
+  ### leave those brackets and the text inside them *as is* in your
+  ### translations and just move them to the correct place in your translation.
+  ### DO NOT TRANSLATE THE TEXT INSIDE THE BRACKETS. The text
+  ### between the brackets is replaced dynamically by the code (if the text
+  ### inside the brackets also needs to be translated, it will have it's own
+  ### key elsewhere).
+  ### 
+  ### 6. In some cases, it's important that the translation is not longer
+  ### than the english (for example, text in the menu structure). These
+  ### special cases are denoted at the top of the file.
+  ### 
+  ### 7. Please don't add extra characters anywhere else in the file and use a standard
+  ###    text editor only (for Windows, try jEdit or TextPad, for Mac, try TextWrangler - 
+  ###     each of these software products are either free or have a free demo).
+  ###    Be sure to not change the format of the file - it should be a .YML extension
+  ###    and it should be saved as Unicode (UTF-8).
+  ###
+  ### So, basically just change the translations from French to that language! 
+  ### 
+  ### Also, please supply the text for your language for the
+  ### language selection menu that would be good (e.g. the menu that says
+  ### "English - EN, Francais - FR, Deutch - DE" etc.):
+  
+  #MENU
+  #English - EN: Your_language - 
+  
+  #EOL
+  #-------------------------------------------
+  encyclopedia_of_life: "Encyclopédie de la vie"
+  welcome_to_the_encyclopedia_of_life: "BIENVENUE A L'ENCYCLOPEDIE DE LA VIE"
+  
+  ####################
+  # TRANSLATIONS BELOW SHOULD NOT BE MUCH LONGER THAN THE ENGLISH
+  ####################
+  # Home Page
+  explore: "à découvrir"
+  related: "Lié"
+  featured: "recommandé"
+  popular: "Populaire"
+  home: "Accueil"
+  
+  # Menus
+  language: "Langue"
+  my_preferences: "Mes préférences"
+  about_eol: "Au sujet d'EOL"
+  profile_settings: "Votre Profil"
+  your_preferences: "Vos préférences"
+  preferences: "préférence"
+  feedback: "Contactez-nous"
+  press_room: "Presse"
+  forum: "Forum"
+  blog: "Blog"
+  survey: "Sondage"
+  media_contact: "Presse"
+  press_releases: "Communiqués de Presse"
+  publications: "Publications"
+  help: "Assistance"
+  screencasts: "Screencasts"
+  faqs: "FAQs"
+  using_the_site: "Plan d'accès"
+  who_we_are: "qui nous sommes"
+  institutional_partners: "Les partenaires"
+  technology_partners: "Partenaires Technologiques"
+  milestones: "Dates clés"
+  upcoming_events: "événements"
+  employment: "L'emploi"
+  donors: "Donneur"
+  newsletter: "Nouvelles"
+  project: "Projet"
+  description: "description"
+  item: "Objet"
+  project_page: "Site du partenaire"
+  terms_of_use: "Mentions légales"
+  contact_us: "Contactez-nous"
+  cancel: "Annuler"
+  #Comments and Corrections
+  comments_and_corrections: "Commentaires / annotations"
+  search: "Recherche"
+  search_results: "Résultats de recherche"
+  searching: "Cherchant"
+  advanced_search: "Recherche avançée"
+  # Term must have at least 3 characters.
+  searching_error: "Il faut avoir au moins 3 caractères."
+  more_species: "Plus d'espèces"
+  status: "L'état"
+  source: "source"
+  # source of %{title}
+  source_of: "Source de %{title}"
+  updated: "Mis à jour"
+  sources: "Sources"
+  type: "Type"
+  source_and_additional_information: "Source et information additionnelle"
+  
+  # Paging
+  # -------------------------------------------
+  back: "Retour"
+  next: "Suivant"
+  
+  ####################
+  # TRANSLATIONS BELOW CAN BE LONGER THAN THE ENGLISH IF NEEDED
+  ####################
+  
+  #Please select a topic area.
+  select_topic: "Choisissez un sujet"
+  your_message_was_sent: "Votre message a été envoyé"
+  #Sorry, but the search could not return any results at this time due to high demand. Please try a more specific search.
+  search_timed_out: "Votre recherche n'a pu renvoyer aucun résultats dû à une demande élevée. Veuillez essayer une recherche plus spécifique."
+  #Only the first %{num_results} search results containing %{search_string} are shown below - please try a more specific search term if you do not find what you are looking for.
+  too_many_search_results: "Les premiers %{num_results} resultats sont montrés pour '%{search_string}' - essayent svp une limite plus spécifique de recherche si vous ne trouvez pas ce que vous recherchez."
+  #The following %{num_results} search results contain %{search_string}.
+  num_results_shown: "Les %{num_results} résultats suivants de recherche sont montrés ci-dessous pour '%{search_string}'."
+  exemplar_pages: "Les pages exemplaires"
+  
+  # Authentication
+  # -------------------------------------------
+  hello_user: "Bonjour %{user}!"
+  you_are_not_logged_in: "Vous n'êtes pas entré"
+  #Please %{login} or %{create_an_account}
+  please_login_or_create_account: "Svp %{login} ou %{create_an_account}"
+  logout: "déconnectez"
+  login: "login"
+  register: "inscriptez"
+  create_account: "Créez un compte"
+  account_information: "L'Information De Compte"
+  username: "Nom d'utilisateur"
+  email_address: "courriel"
+  password: "Mot de passe"
+  confirm_password: "Confirmez le mot de passe"
+  required: "Requis"
+  given_name: "prénom"
+  family_name: "Nom de famille"
+  # Do you want to include?
+  detail_level: "Voulez-vous inclure?"
+  # Do you want to see?
+  content_level: "Voulez-vous voir?"
+  only_enter_new_password_if_needed: "Entrez un nouveau mot de passe si vous souhaitez le changer."
+  your_account: "Votre compte"
+  logged_in: "Vous avez entré avec succès."
+  registration: "Enregistrement"
+  register_now: "Registre Maintenant"
+  update_account: "Mise à jour - compte"
+  update_preferences: "Mise à jour - Preferences"
+  forgot_password: "Mot de passe oublié"
+  name_of_organism: "Nom d'espèce"
+  
+  #Which language do you prefer?
+  language_preference: "Quelle langue préférez-vous ?"
+  #If you don't have an account, click here to register
+  click_here_to_register: "Si vous n'avez pas un compte, clic ici à enregistrer"
+  
+  # Select a video to the right to begin playback.
+  select_video: "Choisissez une vidéo à droite."
+  #shown as «species name»
+  shown_as: "Montré comme"
+  #synonym of «species name»
+  synonym_of: "synonyme de"
+  
+  please_enter_a_username: "Veuillez écrire un nom d'utilisateur"
+  please_enter_a_password: "Veuillez entrer un mot de passe"
+  please_enter_the_password_again: "Veuillez entrer le mot de passe encore"
+  please_enter_your_email_address: "Veuillez écrire votre courriel"
+  passwords_must_match: "Les mots de passe doivent s'assortir"
+  please_enter_given_name: "Votre prénom"
+  please_enter_family_name: "Votre nom de famille"
+  do_you_want_to_receive_eol_notifications_by_email?: "Voulez-vous recevoir des avis d'EOL?"
+  yes_answer: "Oui"
+  
+  login: "login"
+  login_now: "login maintenant"
+  username_and_password: "nom d'utilisateur et mot de passe"
+  submit: "Sumis"
+  
+  #To sign up for a EOL notifications, please %{create_account}
+  sign_up_for_eol_notifications: "Pour s'engager pour des avis, svp %{create_account}"
+  topic_area: "Sujet"
+  your_name: "Votre nom"
+  your_email_address: "Votre courriel"
+  comments: "Commentaires"
+  
+  #For verification, please enter the characters you see below. Click the ? for assistance.
+  recaptcha: "Pour la vérification, écrivez svp les caractères que vous voyez ci-dessous. Cliquez ? pour l'aide."
+  #The verification phrase you entered did not match.
+  verification_phrase_did_not_match: "Le vérification que vous avez écrite ne s'est pas assortie."
+  
+  username_taken: "Le nom d'utilisateur %{username} est déjà pris"
+  passwords_must_match: "Les mots de passe doivent s'assortir"
+  new_password: "Nouveau mot de passe"
+  confirm_new_password: "Confirmez le nouveau mot de passe"
+  
+  # If you are not "%{user}", %{login} or %{create_account}.
+  if_you_are_not_user_please_login_or_create_account: "Si vous n'êtes pas %{user}, veuillez %{login} ou %{create_account}."
+  
+  # Only information that has comes from authoritative sources
+  view_only_vetted_content: "Seulement l'information qui a vient des sources bien fondées"
+  all_information: "Tous information"
+  information_intended_for_beginners: "L'information a prévu pour des débutants"
+  information_intended_for_experts: "L'information a prévu pour des experts"
+  information_for_any_audience: "L'information a prévu pour tous"
+  
+  minimal_page: "Page Minimale"
+  
+  all_pages: "Toutes les pages"
+  
+  pages_with_pictures_and_text: "Pages avec les images et le texte"
+  just_pages_with_pictures_and_text: "Seulement des pages avec les images et le texte"
+  
+  # Authentication flash notices
+  # -------------------------------------------
+  # Invalid login or password
+  invalid_login_or_password: "Ouverture ou mot de passe inadmissible"
+  # Thanks for registering!
+  thanks_for_registering: "Merci pour s'engager!"
+  # Your profile has been updated.
+  your_preferences_have_been_updated: "Votre profil a été mis à jour."
+  # You have been logged out.
+  you_have_been_logged_out: "Vous avez été déconnecté"
+  
+  
+  # Content / misc
+  # -------------------------------------------
+  image: "Image"
+  common_name: "Nom commun"
+  scientific_name: "Nom scientifique"
+  common_names: "Noms communs"
+  scientific_names: "Noms scientifiques"
+  find: "Recherche"
+  find_by_name: "Recherche à nom"
+  words: "Mots"
+  names: "Noms"
+  contains_your_term: "Contient votre terme"
+  exact_match_only: "Exactement le même"
+  all_names: "Tous les noms"
+  only_common_names: "Noms communs seulement"
+  only_scientific_names: "Noms scientifiques seulement"
+  no_search_results: "Votre recherche '%{search_string}' n'a trouvé aucune resultat."
+  page_curated_by: "Page éditée par"
+  help_me_find_more_species: "Je veux trouver plusiers espèces"
+  continue: "Continuez"
+  
+  # Thank you for your feedback.
+  thanks_for_feedback: "Merci pour votre contribution."
+  
+  # Link Buttons
+  bookmark: "Signet"
+  cite: "Citez"
+  
+  # Table of conents
+  table_of_contents: "Table des matières"
+  # IUCN Redlist Status
+  iucn_red_list_status: "L’état de conservation d’UICN"
+  
+  # sorry, we've encountered a problem
+  sorry: "Nous avons rencontré un problème"
+  # We've logged the problem and notified the system administrators.
+  problem: "Nous avons noté le problème et avons informé l'administrateur."
+  
+  # tabs to switch between taxonomic browsers
+  graphic: "Graphique"
+  text: "Texte"
+  classification: "Classification"
+  classification_provided_by: "Classification par"
+  
+  # Media center navigation tabs
+  # -------------------------------------------
+  images: "Images"
+  maps: "Cartes"
+  videos: "Videos"
+  sounds: "Chants"
+  content: "Contenu"
+  charts: "Diagrammes"
+  
+  # Media center image copyright information
+  # -------------------------------------------
+  author: "Auteur"
+  location: "Endroit"
+  name: "Nom"
+  taken: "Pris"
+  copyright: "droit d'auteur"
+  more_info: "Plus d'information"
+  license: "License"
+  
+  # Accessibility
+  # -------------------------------------------
+  skip_to_navigation: "Saut à la navigation"
+  skip_to_table_of_contents: "Saut à la table des matières"
+  skip_to_content: "Saut au contenu"
+  global_navigation: "Navigation Globale"
+  personal_space: "L'Espace Personnel"
+  external_links: "Liens Externes"
+  media_center_navigation: "Navigation Centrale de média"
+  choose_link_images: "Choisissez les images de lien"
+  choose_images: "Choisissez les images"
+  page_navigation: "Navigation de page"
+  
+  # Validation
+  # -------------------------------------------
+  # Validation Error
+  validation_error: "Erreur De Validation"
+  # There were problems with the following fields:
+  validation_following_fields: "Il y avait des problèmes avec les champs suivants:"
+  # «field» can't be blank
+  validation_blank: "ne peut pas être vide"
+  # «field» is too short (minimum is %{n} characters)
+  validation_too_short: "est trop court (le minimum est %{n} caractères)"
+  # «field» is not a valid e-mail address
+  validation_email: "est un courriel inadmissible"
+  
+  # «field» must be equal to %{n}
+  validation_equal_to: "doit être égal à %{n}"
+  # «field» is invalid
+  validation_invalid: "est inadmissible"
+  # «field» is the wrong length (should be %{n} characters)
+  validation_wrong_length: "est la longueur fausse (devraient être %{n} caractères)"
+  # «field» must be less than %{n}
+  validation_less_than: "doit être moins de %{n}"
+  # «field» doesn't match confirmation
+  validation_confirmation: "n'assortit pas la confirmation"
+  # «field» has already been taken
+  validation_taken: "a été déjà pris"
+  # «field» can't be empty
+  validation_empty: "ne peut pas être vide"
+  # «field» must be less than or equal to %{n}
+  validation_less_than_or_equal_to: "doivent être inférieur ou égal à %{n}"
+  # «field» must be accepted
+  validation_accepted: "doit être accepté"
+  # «field» is not a number
+  validation_not_a_number: "n'est pas un nombre"
+  # «field» must be odd
+  validation_odd: "doit être impair"
+  # «field» must be greater than %{n}
+  validation_greater_than: "doivent être plus grands que %{n}"
+  # «field» is not included in the list
+  validation_inclusion: "n'est pas inclus dans la liste"
+  # «field» must be even
+  validation_even: "doit être égal"
+  # «field» is too long (maximum is %{n} characters)
+  validation_too_long: "est trop long (le maximum est %{n} caractères)"
+  # «field» must be greater than or equal to %{n}
+  validation_greater_than_or_equal_to: "doivent être supérieur ou égal à %{n}"
+  # «field» is reserved
+  validation_exclusion: "est réservé"
+  
+  
+  donate: "Donate"
+  donation_confirmation: "Donation Confirmation"
+  enter_amount: "Enter amount"
+  #We appreciate your generous support of the Encyclopedia of Life. Please select the amount you wish to donate.
+  donation_message: "We appreciate your generous support of the Encyclopedia of Life. Please select the amount you wish to donate."
+  # Please select a donation amount.
+  donation_error: "Please select a donation amount."
+  # Please enter an amount using only numbers.
+  donation_error2: "Please enter an amount using only numbers."
+  please_confirm_your_donation_details: "Please confirm your donation details"
+  the_amount_entered_was: "The amount entered was"
+  thank_you_for_your_generous_support: "Thank you for your generous support"
+  #If this information is not correct, please %{go_back} to make changes
+  correct_donation_message: "If this information is not correct, please %{go_back} to make changes"
+  go_back: "go back"
+  thank_you: "Thank You"
+  #Thank you for supporting the Encyclopedia of Life.  Your information has been submitted and will be processed.
+  thanks_for_donation: "Thank you for supporting the Encyclopedia of Life.  Your information has been submitted and will be processed."
+  # Please %{return} to the EOL homepage
+  return_home: "Please %{return} to the EOL homepage"
+  return: "return"
+  
+  #Enter the email address or username (or both) you registered with to retrieve your password
+  forgot_password_message: "Enter the email address or username (or both) you registered with to retrieve your password"
+  #Sorry, but we could not locate your account
+  could_not_locate_account: "Sorry, but we could not locate your account."
+  #Sorry, but your email address is not unique - you must also specify a username.
+  must_specify_username_too: "Sorry, but your email address is not unique - you must also specify a username."
+  # A new password has been emailed to you at %{email}.
+  new_password_emailed: "A new password has been emailed to you at %{email}.."
+  #TODO change_my_password:
+  reset_password_instructions_emailed: "Check your email to reset your password"
+  cannot_find_user_or_email: "No matching accounts found"
+  user_password_updated_successfully: "Your password is updated"
+  expired_reset_password_link: "Expired link, you can generate it again"
+  #Sorry, a problem occurred updating your account - please try again later.
+  problem_updating_account: "Sorry, a problem occurred updating your account - please try again later."
+  taxon_group_of_interest: "Taxon group of interest"
+  suggested_results: "Suggested Results"
+  suggested_search_results_message: "Based on your search of '%{search_string}', you might be interested in the following species."
+  content_partners: "Content Partners"
+  
+  #Note that this page and the next confirmation page do not collect any personal information or credit card numbers and are thus not encrypted.  After confirming the amount you wish to donate, you will be directed to a secure page to enter in your payment information.  Charges will not be applied until you submit the page containing your personal information.
+  donation_security_message: "Note that this page and the next confirmation page do not collect any personal information or credit card numbers and are thus not encrypted.  After confirming the amount you wish to donate, you will be directed to a secure page to enter in your payment information.  Charges will not be applied until you submit the page containing your personal information."
+  #To request curator privileges, you must select a clade at the Family level or lower as well as indicate your credentials below.  You will be notified via email if your application for curator privileges is accepted.
+  #TODO curator_signup_message:
+  #TODO select_a_clade:
+  #TODO curators_only:
+  #strings found by rake tasks
+  
+  #/Users/dimus/code/eol/app/views/account/_curator_form.html.haml:6
+  #TODO curation_scope:
+  #/Users/dimus/code/eol/app/views/account/_curator_form.html.haml:12
+  #TODO credentials:
+  #/Users/dimus/code/eol/app/views/account/confirm.html.haml:3
+  #TODO account_confirmation:
+  #/Users/dimus/code/eol/app/views/account/confirmation_sent.html.haml:3
+  #TODO confirmation_sent:
+  #/Users/dimus/code/eol/app/views/account/login.html.haml:16
+  #TODO username_or_email_address:
+  #/Users/dimus/code/eol/app/views/account/login.html.haml:159
+  #TODO remember_me:
+  #/Users/dimus/code/eol/app/views/account/profile.html.haml:66
+  #TODO do_you_want_to_receive_eol_notifications:
+  #/Users/dimus/code/eol/app/views/account/profile.html.haml:74
+  #TODO curators:
+  #/Users/dimus/code/eol/app/views/account/profile.html.haml:77
+  #TODO do_you_want_to_be_a_curator:
+  #/Users/dimus/code/eol/app/views/account/profile.html.haml:84
+  #TODO curator_information:
+  #/Users/dimus/code/eol/app/views/account/signup.html.haml:72
+  #TODO do_you_want_to_receive_eol_notifications_by_email:
+  #/Users/dimus/code/eol/app/views/administrator/content_partner_report/edit_profile.html.erb:28
+  #TODO project_information:
+  #/Users/dimus/code/eol/app/views/content/donate.html.erb:43
+  #TODO to_process_your_donation_please_proceed:
+  #/Users/dimus/code/eol/app/views/content/donate.html.erb:48
+  #TODO proceed_to_checkout_page:
+  #/Users/dimus/code/eol/app/views/content/index.html.haml:127
+  #TODO whats_new:
+  #/Users/dimus/code/eol/app/views/content/tc_api.html.erb:6
+  #TODO taxon_concepts:
+  #/Users/dimus/code/eol/app/views/content_partner/_contact_form.html.erb:2
+  #TODO contact:
+  #/Users/dimus/code/eol/app/views/content_partner/forgot_password.html.erb:14
+  #TODO enter_the_username_or_project_name_you_registered_with_to_retrieve_your_password:
+  #/Users/dimus/code/eol/app/views/content_partner/forgot_password.html.erb:22
+  #TODO project_name:
+  #/Users/dimus/code/eol/app/views/data_objects/_attribution.html.haml:7
+  #TODO legend:
+  #/Users/dimus/code/eol/app/views/data_objects/_attribution.html.haml:36
+  #TODO permalink:
+  #/Users/dimus/code/eol/app/views/data_objects/_attribution.html.haml:38
+  #TODO copy_and_paste_in_email_or_document:
+  #/Users/dimus/code/eol/app/views/layouts/main.html.haml:181
+  #TODO authoritative_information:
+  #/Users/dimus/code/eol/app/views/layouts/main.html.haml:191
+  #TODO alternate_classification:
+  #/Users/dimus/code/eol/app/views/layouts/main.html.haml:195
+  #TODO filtered_information:
+  #/Users/dimus/code/eol/app/views/taxa/_image_collection.html.haml:18
+  #TODO items_in_yellow_are_not_reviewed:
+  #/Users/dimus/code/eol/app/views/taxa/_image_collection.html.haml:22
+  #TODO items_in_red_are_not_trusted:
+  #/Users/dimus/code/eol/app/views/taxa/_internal_nav.html.haml:3
+  #TODO contribute:
+  #/Users/dimus/code/eol/app/views/taxa/_internal_nav.html.haml:23
+  #TODO submit_an_image:
+  #/Users/dimus/code/eol/app/views/taxa/_internal_nav.html.haml:26
+  #TODO submit_text:
+  #/Users/dimus/code/eol/app/views/taxa/_internal_nav.html.haml:29
+  #TODO more_information_on_how_to_help:
+  #/Users/dimus/code/eol/app/views/taxa/_set_content_settings.html.haml:9
+  #TODO content_settings:
+  #/Users/dimus/code/eol/app/views/taxa/_set_content_settings.html.haml:11
+  #TODO learn_more_about_browse_classification_and_filtering:
+  #/Users/dimus/code/eol/app/views/taxa/_show.html.haml:69
+  #TODO only_one_text_object_can_be_edited_at_a_time:
+  #/Users/dimus/code/eol/app/views/taxa/content/_content_language_common_names_curator.html.haml:7
+  #TODO preferred:
+  #/Users/dimus/code/eol/app/views/taxa/content/_content_literature_references.html.haml:20
+  #TODO references:
+  #/Users/dimus/code/eol/app/views/taxa/content/_content_search_the_web.html.haml:14
+  #TODO by_scientific_name:
+  #/Users/dimus/code/eol/app/views/taxa/mediacenter/_tab_videos.html.haml:31
+  #TODO items_in_yellow_are_not_trusted:
+  #/Users/dimus/code/eol/app/views/account/login.html.haml:161
+  #TODO remember_me_message:
+  #/Users/dimus/code/eol/app/views/content/missing.html.erb:6
+  #TODO sorry_page_does_not_exist:
+  #/Users/dimus/code/eol/app/views/content/missing.html.erb:13
+  #TODO you_requested_a_page_that_does_not_exist:
+  #/Users/dimus/code/eol/app/views/content/missing.html.erb:14
+  #TODO if_you_followed_a_link_here_tell_the_author:
+  #/Users/dimus/code/eol/app/views/content_partner/login.html.erb:10
+  #TODO content_partner:
+  #/Users/dimus/code/eol/app/views/layouts/main.html.haml:162
+  #TODO user_system_down:
+  #/Users/dimus/code/eol/app/views/taxa/_set_content_settings.html.haml:27
+  #TODO classification_preference:
+  #/Users/dimus/code/eol/app/views/taxa/_set_content_settings.html.haml:33
+  #TODO secondary_hierarchy_preference:
+#TODO: Create a new community
+  #TODO: create_a_new_community:
+#TODO: Edit community
+  #TODO: edit_community:
+#TODO: Community was successfully created.
+  #TODO: created_community:
+#TODO: Community was successfully updated.
+  #TODO: updated_community:
+#TODO: You have successfully joined this community.
+  #TODO: you_joined_community:
+#TODO: You have successfully left this community.
+  #TODO: you_left_community:
+#TODO: Item was added to your Recently Collected items
+  #TODO: item_was_added_to_your_recently_collected_items:
+#TODO: Item was added to your Watched Items collection
+  #TODO: item_was_added_to_your_watched_items_collection:
+#TODO: Warning: you attempted to create a link from this resource to two agents. Only one allowed.
+  #TODO: warning_you_attempted_to_create_a_link_from_this_resource_to_two_agents_only_one_allowed:
+#TODO: Your information has been updated. Thank you for contributing to EOL.
+  #TODO: your_information_has_been_updated_thank_you_for_contributing_to_eol:
+#TODO: Password length must be between 4 and 16 characters.
+  #TODO: password_must_be_4to16_characters:
+#TODO:  NOTE: for security reasons, administrators cannot use the remember me feature.
+  #TODO: admin_remind_me_message:
+#TODO: You must be logged in to perform this action
+  #TODO: must_be_logged_in:
+#TODO: You are not authorized to perform this action.
+  #TODO: you_are_not_authorized_to_perform_this_action:
+#TODO: We apologize, but the user registration system is not currently available.  Please try again later.
+  #TODO: user_system_down:
+#TODO: Welcome
+  #TODO: welcome:
+#TODO: Profile updated
+  #TODO: profile_updated:
+#TODO: The content was updated.
+  #TODO: the_content_was_updated:
+#TODO: The file was uploaded.
+  #TODO: the_file_was_uploaded:
+#TODO: Member was successfully updated.
+  #TODO: updated_member:
+#TODO: You have successfully removed this member from the community.
+  #TODO: you_removed_the_member_from_the_community:
+#TODO: Cannot find a member with this id.
+  #TODO: cannot_find_member:
+#TODO: Role was successfully updated.
+  #TODO: role_was_successfully_updated:
+#TODO: Role was successfully removed.
+  #TODO: role_was_successfully_removed:
+#TODO: Must be associated with either a user or a community
+  #TODO: must_be_associated_with_either_a_user_or_a_community:
+#TODO: Cannot be associated with both a user and a community
+  #TODO: cannot_be_associated_with_both_a_user_and_a_community:
+#TODO: Unknown
+  #TODO: unknown:
+#TODO: The email address is not unique - you must enter a username
+  #TODO: the_email_address_is_not_unique_you_must_enter_a_username:
+#TODO: Your account is registered but not ready for you to access. Please try again in five minutes.
+  #TODO: account_registered_but_not_ready_try_later:
+#TODO: Couldn't find a member for this user
+  #TODO: could_not_find_user:
+#TODO: You must be logged in to add tags.
+  #TODO: you_must_be_logged_in_to_add_tags:
+#TODO: cannot be empty.
+  #TODO: cannot_be_empty:
+#TODO: must be less than 128 characters long.
+  #TODO: must_be_less_than_128_characters_long:
+#TODO: has already been taken.
+  #TODO: has_already_been_taken:
+#TODO: View only pages with at least a picture or piece of text
+  #TODO: view_only_pages_with_at_least_a_picture_or_piece_of_text:
+#TODO: Pages with pictures or text
+  #TODO: pages_with_pictures_or_text:
+#TODO: Please wait...
+  #TODO: please_wait:
+#TODO: hidden
+  #TODO: hidden:
+#TODO: unhide
+  #TODO: unhide:
+#TODO: Are you sure you want this visible again?
+  #TODO: are_you_sure_you_want_this_visible_again:
+#TODO: visible
+  #TODO: visible:
+#TODO: hide
+  #TODO: hide:
+#TODO: Are you sure you want this hidden again?
+  #TODO: are_you_sure_you_want_this_hidden_again:
+#TODO: Contact Errors
+  #TODO: contact_errors:
+#TODO: Update Profile
+  #TODO: update_profile:
+#TODO: Enter the username OR project name you registered with to retrieve your password:
+  #TODO: enter_the_username_or_project_name_you_registered_with_to_retrieve_your_password:
+#TODO: Project Name
+  #TODO: project_name:
+#TODO: Content Partner
+  #TODO: content_partner:
+#TODO: To begin the registration process, click here
+  #TODO: to_begin_the_registration_process_click_here:
+#TODO: Remember Me
+  #TODO: remember_me:
+#TODO: check to stay logged in automatically for up to two weeks (do NOT use on public computers)
+  #TODO: remember_me_message:
+#TODO: Contact
+  #TODO: contact:
+#TODO: Email
+  #TODO: email:
+#TODO: Homepage
+  #TODO: homepage:
+#TODO: Telephone
+  #TODO: telephone:
+#TODO: Mailing Address
+  #TODO: mailing_address:
+#TODO: Your Information
+  #TODO: your_information:
+#TODO: Age
+  #TODO: age:
+#TODO: Primary Role
+  #TODO: primary_role:
+#TODO: Describe your areas of interest, separated by commas
+  #TODO: describe_your_areas_of_interest_separated_by_commas:
+#TODO: Where did you hear about EOL?
+  #TODO: where_did_you_hear_about_eol:
+#TODO: Are you interested in learning how to contribute to EOL?
+  #TODO: are_you_interested_in_learning_how_to_contribute_to_eol:
+#TODO: Are you interested in learning how to become a curator?
+  #TODO: are_you_interested_in_learning_how_to_become_a_curator:
+#TODO: Are you interested in becoming a member of the EOL Advisory Forum?
+  #TODO: are_you_interested_in_becoming_a_member_of_the_eol_advisory_forum:
+#TODO: Are you interested in getting updates when EOL announces new or updated services and APIs?
+  #TODO: are_you_interested_in_getting_updates_when_eol_announces_new_or_updated_services_and_apis:
+#TODO: Would you like your basic information included in the EOL member directory?
+  #TODO: would_you_like_your_basic_information_included_in_the_eol_member_directory:
+#TODO: Please enter your given name
+  #TODO: please_enter_your_given_name:
+#TODO: Please enter your family name
+  #TODO: please_enter_your_family_name:
+#TODO: Do you want to receive EOL notifications?
+  #TODO: do_you_want_to_receive_eol_notifications:
+#TODO: If there are comments or curator actions on your contributions, how often would you like to receive email alerts?
+  #TODO: if_there_are_comments_or_curator_actions_on_your_contributions_how_often_would_you_like_to_receive_email_alerts:
+#TODO: Personal Information
+  #TODO: personal_information:
+#TODO: Please help EOL understand the needs of its users.  Fill out this short form, describing
+  #TODO: please_help_eol_understand_the_needs_of_its_users_fill_out_this_short_form_describing:
+#TODO: personal information; It takes less than one minute.
+  #TODO: personal_information_it_takes_less_than_one_minute:
+#TODO: Select a clade
+  #TODO: select_a_clade:
+#TODO: Curation Scope
+  #TODO: curation_scope:
+#TODO: If you would like to have your group assignment changed at any time, please
+  #TODO: to_change_clade_preamble:
+#TODO: Credentials
+  #TODO: credentials:
+#TODO: Curators
+  #TODO: curators:
+#TODO: Do you want to be a curator
+  #TODO: do_you_want_to_be_a_curator:
+#TODO: To request curator privileges, you must select a clade at the Family level or lower as well as indicate your credentials below.  You will be notified via email if your application for curator privileges is accepted.
+  #TODO: curator_signup_message:
+#TODO: Confirmation Sent
+  #TODO: confirmation_sent:
+#TODO: Please enter your username
+  #TODO: please_enter_your_username:
+#TODO: Do you want to receive EOL notifications by email?
+  #TODO: do_you_want_to_receive_eol_notifications_by_email:
+#TODO: Request an API key (optional)
+  #TODO: request_an_api_key_optional:
+#TODO: Account Confirmation
+  #TODO: account_confirmation:
+#TODO: Change Password
+  #TODO: change_my_password:
+#TODO: (4 - 16 characters)
+  #TODO: 4_16_characters:
+#TODO: Reset password
+  #TODO: reset_password:
+#TODO: Username or Email Address
+  #TODO: username_or_email_address:
+#TODO: login here
+  #TODO: login_here:
+#TODO: Please wait, loading...
+  #TODO: please_wait_loading:
+#TODO: Curator List
+  #TODO: curator_list:
+#TODO: Curator Name
+  #TODO: curator_name:
+#TODO: Curator Clade
+  #TODO: curator_clade:
+#TODO: view/edit common name
+  #TODO: viewedit_common_name:
+#TODO: Only one text object can be edited at a time.
+  #TODO: only_one_text_object_can_be_edited_at_a_time:
+#TODO: Images in yellow are not reviewed.
+  #TODO: images_in_yellow_are_not_reviewed:
+#TODO: Images in red are not trusted.
+  #TODO: images_in_red_are_not_trusted:
+#TODO: Page
+  #TODO: page:
+#TODO: Note:
+  #TODO: note:
+#TODO: The image from this source is not trusted.
+  #TODO: the_image_from_this_source_is_not_trusted:
+#TODO: The image from this source has not been reviewed.
+  #TODO: the_image_from_this_source_has_not_been_reviewed:
+#TODO: SUPPLIER:
+  #TODO: supplier:
+#TODO: ORIGINAL:
+  #TODO: original:
+#TODO: Items in yellow are not reviewed.
+  #TODO: items_in_yellow_are_not_reviewed:
+#TODO: Items in red are not trusted.
+  #TODO: items_in_red_are_not_trusted:
+#TODO: Content Settings
+  #TODO: content_settings:
+#TODO: Learn more about browse classification and filtering
+  #TODO: learn_more_about_browse_classification_and_filtering:
+#TODO: Which default browse classification would you prefer?
+  #TODO: classification_preference:
+#TODO: Which secondary browse classification would you prefer?
+  #TODO: secondary_hierarchy_preference:
+#TODO: Filter EOL based on your primary browse classification?
+  #TODO: filter_content_by_classification_preference:
+#TODO: Contribute
+  #TODO: contribute:
+#TODO: Submit an image
+  #TODO: submit_an_image:
+#TODO: Submit text
+  #TODO: submit_text:
+#TODO: More information on how to help
+  #TODO: more_information_on_how_to_help:
+#TODO: Curation
+  #TODO: curation:
+#TODO: Below is a list of partners, including content partners, with information on this taxon. Where possible the links will take you to the corresponding content on the given partner's website. The unique identifier for this taxon used by each partner is embedded in these links, and these identifiers are also accessible through the
+  #TODO: content_partners_intro:
+#TODO: EOL API
+  #TODO: eol_api:
+#TODO: Names in yellow are not reviewed.
+  #TODO: names_in_yellow_are_not_reviewed:
+#TODO: Names in red are not trusted.
+  #TODO: names_in_red_are_not_trusted:
+#TODO: Multiple sources.
+  #TODO: multiple_sources:
+#TODO: Preferred
+  #TODO: preferred:
+#TODO: DELETE
+  #TODO: delete:
+#TODO: Are you sure?
+  #TODO: are_you_sure:
+#TODO: View Discovered Bibliography in BHL
+  #TODO: view_discovered_bibliography_in_bhl:
+#TODO: by Scientific Name
+  #TODO: by_scientific_name:
+#TODO: References
+  #TODO: references:
+#TODO: Trusted
+  #TODO: trusted:
+#TODO: Unreviewed
+  #TODO: unreviewed:
+#TODO: Untrusted
+  #TODO: untrusted:
+#TODO: The following values represent the sum of different types of content for this taxon and all of its taxonomic descendants.
+  #TODO: the_following_values_represent_the_sum_of_different_types_of_content_for_this_taxon_and_all_of_its_taxonomic_descendants:
+#TODO: content has either been approved by an EOL curator or comes from a trusted provider.
+  #TODO: content_has_either_been_approved_by_an_eol_curator_or_comes_from_a_trusted_provider:
+#TODO: content has not yet been assessed by an EOL curator. Every taxonomic hierarchy is unique, so each browsable hierarchy is listed for comparison.
+  #TODO: content_has_not_yet_been_assessed_by_an_eol_curator_every_taxonomic_hierarchy_is_unique_so_each_browsable_hierarchy_is_listed_for_comparison:
+#TODO: Rating
+  #TODO: rating:
+#TODO: Ignored
+  #TODO: ignored:
+#TODO: Active
+  #TODO: active:
+#TODO: Move to active list
+  #TODO: move_to_active_list:
+#TODO: Move to ignored list
+  #TODO: move_to_ignored_list:
+#TODO: Indexed on:
+  #TODO: indexed_on:
+#TODO: member of
+  #TODO: member_of:
+#TODO: Roles
+  #TODO: roles:
+#TODO: Remove
+  #TODO: remove:
+#TODO: This member has all of the roles available in this community.
+  #TODO: this_member_has_all_of_the_roles_available_in_this_community:
+#TODO: Assign additional roles to this member
+  #TODO: assign_additional_roles_to_this_member:
+#TODO: Add Role
+  #TODO: add_role:
+#TODO: Special Privileges
+  #TODO: special_privileges:
+#TODO: These are privileges which are granted specifically to this member, regardless of the member's roles, and supercede any privilieges granted by roles.
+  #TODO: explain_member_privileges:
+#TODO: This member has no special privileges.
+  #TODO: this_member_has_no_special_privileges:
+#TODO: (revoked)
+  #TODO: revoked:
+#TODO: This member has all of the privileges in this community as special privileges.
+  #TODO: this_member_has_all_of_the_privileges_in_this_community_as_special_privileges:
+#TODO: Grant Privilege
+  #TODO: grant_privilege:
+#TODO: Revoke Privilege
+  #TODO: revoke_privilege:
+#TODO: Community members
+  #TODO: community_members:
+#TODO: There are currently no members in this community.
+  #TODO: there_are_currently_no_members_in_this_community:
+#TODO: %{var_link} to join this community.
+  #TODO: link_to_join_this_community:
+#TODO: Log in
+  #TODO: log_in:
+#TODO: Join this community
+  #TODO: join_community:
+#TODO: (you)
+  #TODO: you:
+#TODO: Leave this community
+  #TODO: leave_community:
+#TODO: Edit membership
+  #TODO: edit_membership:
+#TODO: Remove membership
+  #TODO: remove_membership:
+#TODO: Get involved
+  #TODO: get_involved:
+#TODO: You must be %{var_link} to join communities.
+  #TODO: you_must_be_link_tologged_in_login_path_to_join_communities:
+#TODO: You are not a member of this community.
+  #TODO: you_are_not_a_member_of_this_community:
+#TODO: You have been a member of this community since %{var_current_member_created_at}.
+  #TODO: you_have_been_a_member_of_this_community_since_current_membercreated_at:
+#TODO: No activity.
+  #TODO: no_activity:
+#TODO: Post
+  #TODO: post:
+#TODO: in community
+  #TODO: in_community:
+#TODO: Save
+  #TODO: save:
+#TODO: Privileges
+  #TODO: privileges:
+#TODO: Add
+  #TODO: add:
+#TODO: Members
+  #TODO: members:
+#TODO: There are no members with this role.
+  #TODO: there_are_no_members_with_this_role:
+#TODO: Roles for
+  #TODO: roles_for:
+#TODO: Community Roles
+  #TODO: community_roles:
+#TODO: There are currently no roles for this community.
+  #TODO: there_are_currently_no_roles_for_this_community:
+#TODO: %{var_link} to control member privileges.
+  #TODO: link_toadd_a_role_new_community_role_pathcommunity_to_control_member_privileges:
+#TODO: (no members)
+  #TODO: no_members:
+#TODO: (1 member)
+  #TODO: 1_member:
+#TODO: (%{count} members)
+  #TODO: members_count:
+#TODO: Manage roles
+  #TODO: manage_roles:
+#TODO: Add a role
+  #TODO: add_a_role:
+#TODO: No uploaded content is available.
+  #TODO: no_uploaded_content_is_available:
+#TODO: This area shows the most common user search terms, the number of times that search has been executed and some information about the number of results returned for that search term.  Click on the columns to sort by that column.  Click on a search term to see information about which result users clicked on (if any) after searching.
+  #TODO: search_log_report_intro:
+#TODO: Total searches:
+  #TODO: total_searches:
+#TODO: Total distinct searches:
+  #TODO: total_distinct_searches:
+#TODO: Search for terms containing:
+  #TODO: search_for_terms_containing:
+#TODO: Results per page:
+  #TODO: results_per_page:
+#TODO: Inverse sort
+  #TODO: inverse_sort:
+#TODO: Calculate averages (slow)
+  #TODO: calculate_averages_slow:
+#TODO: All web users registered in the system are shown below,  sorted inversely by time registered.  Note that the registration dates for users prior to EOL V2 (Jan 5, 2009) are not available.  Click on a username to edit that user.
+  #TODO: user_index_intro:
+#TODO: Search for users containing this in their username, name or email address.
+  #TODO: search_for_users_containing_this_in_their_username_name_or_email_address:
+#TODO: who registered from
+  #TODO: who_registered_from:
+#TODO: to
+  #TODO: to:
+#TODO: Don't show unknown registered dates (V1 users, all prior to Jan 5, 2009)
+  #TODO: dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009:
+#TODO: Instructions
+  #TODO: instructions:
+#TODO: Content partner status:
+  #TODO: content_partner_status:
+#TODO: Project Information
+  #TODO: project_information:
+#TODO: EOL Communities
+  #TODO: eol_communities:
+#TODO: This user has not yet joined any EOL communities.
+  #TODO: user_has_no_communities:
+#TODO: To submit a species photograph for
+  #TODO: to_submit_a_species_photograph_for:
+#TODO: , please send the photos to the
+  #TODO: please_send_the_photos_to_the:
+#TODO: EOL Flickr Group
+  #TODO: eol_flickr_group:
+#TODO: and follow the directions shown on thehomepage of that group.
+  #TODO: and_follow_the_directions_shown_on_thehomepage_of_that_group:
+#TODO: Change Name
+  #TODO: change_name:
+#TODO: for
+  #TODO: for:
+#TODO: by
+  #TODO: by:
+#TODO: (this collection is not attached to either a user or a community)
+  #TODO: this_collection_is_not_attached_to_either_a_user_or_a_community:
+#TODO: (This collection can be viewed by the public)
+  #TODO: this_collection_can_be_viewed_by_the_public:
+#TODO: Manage community
+  #TODO: manage_community:
+#TODO: Delete this community
+  #TODO: delete_community:
+#TODO: Taxa
+  #TODO: taxa:
+#TODO: This community has no focus list.
+  #TODO: this_community_has_no_focus_list:
+#TODO: This community has no focus items associated with it.
+  #TODO: this_community_has_no_focus_items_associated_with_it:
+#TODO: create an EOL community
+  #TODO: create_an_eol_community:
+#TODO: There are no communities yet, be the first to %{var_link}.
+  #TODO: communities_empty:
+#TODO: Active communities
+  #TODO: communities_index_header:
+#TODO: Build communities
+  #TODO: build_communities:
+#TODO: Create a community on EOL
+  #TODO: create_a_community_on_eol:
+#TODO: Create
+  #TODO: create:
+#TODO: There was an error saving this community.
+  #TODO: error_saving_community:
+#TODO: The following problems need to be fixed:
+  #TODO: these_problems_need_to_be_fixed:
+#TODO: Choose a name for your community:
+  #TODO: community_form_name_label:
+#TODO: Provide a short description of this community's purpose:
+  #TODO: community_form_description_label:
+#TODO: Visibility
+  #TODO: visibility:
+#TODO: Vetted
+  #TODO: vetted:
+#TODO: Curation Comment
+  #TODO: curation_comment:
+#TODO: You must be
+  #TODO: you_must_be:
+#TODO: to add text.
+  #TODO: to_add_text:
+#TODO: There was an error posting your text.
+  #TODO: there_was_an_error_posting_your_text:
+#TODO: Legend
+  #TODO: legend:
+#TODO: Permalink
+  #TODO: permalink:
+#TODO: Copy and paste in email or document
+  #TODO: copy_and_paste_in_email_or_document:
+#TODO: A Description must be entered.
+  #TODO: a_description_must_be_entered:
+#TODO: Read the EOL Licensing Policy
+  #TODO: read_the_eol_licensing_policy:
+#TODO: Preview
+  #TODO: preview:
+#TODO: Confirm
+  #TODO: confirm:
+#TODO: Your content is empty--nothing to submit!
+  #TODO: your_content_is_emptynothing_to_submit:
+#TODO: What's New?
+  #TODO: whats_new:
+#TODO: Sorry, the page you have requested does not exist.
+  #TODO: sorry_page_does_not_exist:
+#TODO: Sorry, but a problem has occurred - you have requested a page with an ID that does not exist, or was removed.
+  #TODO: you_requested_a_page_that_does_not_exist:
+#TODO: If you followed a link here, please tell the author of the page with that link that this URL is not valid.
+  #TODO: if_you_followed_a_link_here_tell_the_author:
+#TODO: You are an admin.  So, I will show you that the error was:
+  #TODO: you_are_an_admin_so_i_will_show_you_that_the_error_was:
+#TODO: We're sorry but an error has occurred. Please make one more attempt to perform your task. If the error persists, please send an email to error@eol.org along with the error message below and any other information you'd like to share with us. We are working hard to provide you with the best service possible and we appreciate your support. -- The EOL Team
+  #TODO: general_error_occurred:
+#TODO: Try your request again
+  #TODO: try_your_request_again:
+#TODO: If you would like to learn more about specific programs available for sponsorship, or would like to make a recurring gift, please contact the Encyclopedia of Life Secretariat at
+  #TODO: contact_about_sponsorship_preamble:
+#TODO: or by phone at (202)633-8730.
+  #TODO: contact_about_sponsorship_or_by_phone:
+#TODO: Privacy and Security Notice:
+  #TODO: privacy_and_security_notice:
+#TODO: Please note that this page and the next confirmation page do not collect any personal information or credit card numbers, and are therefore not encrypted. After confirming the amount you wish to donate, you will be directed to a secure page to enter in your payment information.  Charges to your credit card will not be applied until you submit the page containing your personal information.
+  #TODO: donation_privacy_notice:
+#TODO: To process your donation please proceed
+  #TODO: to_process_your_donation_please_proceed:
+#TODO: Proceed to Checkout Page
+  #TODO: proceed_to_checkout_page:
+#TODO: Select an Item from the Menu
+  #TODO: select_an_item_from_the_menu:
+#TODO: Search the site
+  #TODO: search_the_site:
+#TODO: The Encyclopedia of Life (EOL) Web site home page
+  #TODO: the_encyclopedia_of_life_eol_web_site_home_page:
+#TODO: What is EOL?
+  #TODO: what_is_eol:
+#TODO: Logged in as %{var_current_user_given_name}
+  #TODO: logged_in_as_current_usergiven_name:
+#TODO: Profile
+  #TODO: profile:
+#TODO: Administration
+  #TODO: administration:
+#TODO: Sign Out
+  #TODO: sign_out:
+#TODO: Login or Create Account
+  #TODO: login_or_create_account:
+#TODO: Content Partner Information
+  #TODO: content_partner_information:
+#TODO: Logged in as %{var_current_agent_full_name}
+  #TODO: logged_in_as_current_agentfull_name:
+#TODO: Dashboard
+  #TODO: dashboard:
+#TODO: Further information
+  #TODO: further_information:
+#TODO: This resource ID is not valid.
+  #TODO: this_resource_id_is_not_valid:
+#TODO: Invalid URL, sorry. Perhaps you want to see the
+  #TODO: invalid_url__sorry__perhaps_yo:
+#TODO: list of resources
+  #TODO: list_of_resources:
+#TODO: This area is used to notify EOL of a resource (i.e. data set) that is available for processing and
+  #TODO: this_area_is_used_to_notify_eo:
+#TODO: entry in the EOL database.  You can either upload
+  #TODO: entry_in_the_eol_database___yo:
+#TODO: your resource or place it on a public server and indicate its URL.  Currently, the resource files you provide must be in
+  #TODO: your_resource_or_place_it_on_a:
+#TODO: the
+  #TODO: the:
+#TODO: EOL Transfer Schema format
+  #TODO: eol_transfer_schema_format:
+#TODO: Use the 'Force' action to force your resource to be harvested tonight, regardless of its normal schedule. Note that you do not need to use this option when you first create your resource--it will be harvested tonight by default.
+  #TODO: use_the__force__action_to_forc:
+#TODO: You currently have no resources described.
+  #TODO: you_currently_have_no_resource:
+#TODO: Title
+  #TODO: title:
+#TODO: Dataset URL
+  #TODO: dataset_url:
+#TODO: Frequency
+  #TODO: frequency:
+#TODO: Actions
+  #TODO: actions:
+#TODO: RSS status
+  #TODO: rss_status:
+#TODO: Edit
+  #TODO: edit:
+#TODO: Force
+  #TODO: force:
+#TODO: Are you sure you want this resource harvested tonight?
+  #TODO: are_you_sure_you_want_this_res:
+#TODO: rss
+  #TODO: rss:
+#TODO: Description:
+  #TODO: description_:
+#TODO: Create a new resource description
+  #TODO: create_a_new_resource_descript:
+#TODO: Describing a New Resource
+  #TODO: describing_a_new_resource:
+#TODO: Editing Resource
+  #TODO: editing_resource:
+#TODO: This form is used to notify EOL of a resource that is available for processing.  You can either upload
+  #TODO: this_form_is_used_to_notify_eo:
+#TODO: your resource or place it on a public server and indicate it's URL, but you should not do both.  Providing a URL
+  #TODO: your_resource_or_place_it_on_a_:
+#TODO: is preferable since you can then schedule a regular interval for your data to be updated.
+  #TODO: is_preferable_since_you_can_th:
+#TODO: Currently, the resource must be in the EOL Transfer Schema format. <br />* indicates a required field.
+  #TODO: currently__the_resource_must_b:
+#TODO: Title: <span title="required">*</span>
+  #TODO: title___span_title__required__:
+#TODO: Indicate below the full URL (include 'http://') from which the resource can be downloaded:  <span title="required">*</span>
+  #TODO: indicate_below_the_full_url__i:
+#TODO: OR
+  #TODO: or:
+#TODO: Select a new file to upload below (gzip, tar or XML only): <span title="required">*</span>
+  #TODO: select_a_new_file_to_upload_be:
+#TODO: a file was previously uploaded for this resource:
+  #TODO: a_file_was_previously_uploaded:
+#TODO: Select a resource file to upload below (gzip, tar or XML only): <span title="required">*</span>
+  #TODO: select_a_resource_file_to_uplo:
+#TODO: Indicate below the full URL for a <a href="/content/darwin_core" target="_blank">Darwin Core Archive</a> associated with this resource (tar/gzip only)
+  #TODO: indicate_below_the_full_url_fo:
+#TODO: Taxonomic subject of data (e.g. birds, mammals, etc.): <span title="required">*</span>
+  #TODO: taxonomic_subject_of_data__e_g:
+#TODO: Date This Resource Was Created:  <span title="required">*</span>
+  #TODO: date_this_resource_was_created:
+#TODO: Frequency Resource should be updated (only if you are providing a URL):  <span title="required">*</span>
+  #TODO: frequency_resource_should_be_u:
+#TODO: Import once
+  #TODO: import_once:
+#TODO: Weekly
+  #TODO: weekly:
+#TODO: Monthly
+  #TODO: monthly:
+#TODO: Bi-Monthly
+  #TODO: bi_monthly:
+#TODO: Quarterly
+  #TODO: quarterly:
+#TODO: Default License: <span title="required">*</span>
+  #TODO: default_license___span_title__:
+#TODO: Default Rights Statement: 
+  #TODO: default_rights_statement__:
+#TODO: Default Rights Holder: 
+  #TODO: default_rights_holder__:
+#TODO: Default Language:
+  #TODO: default_language_:
+#TODO: User:
+  #TODO: user_:
+#TODO: Text:
+  #TODO: text_:
+#TODO: Comments on
+  #TODO: comments_on:
+#TODO: No comments have been left yet.
+  #TODO: no_comments_have_been_left_yet:
+#TODO: logged in
+  #TODO: logged_in_:
+#TODO: to post comments.
+  #TODO: to_post_comments:
+#TODO: Add a New Comment
+  #TODO: add_a_new_comment:
+#TODO: Post Comment
+  #TODO: post_comment:
+#TODO: Comment should not be empty.
+  #TODO: comment_should_not_be_empty:
+#TODO: curator
+  #TODO: curator:
+#TODO: remove
+  #TODO: remove_:
+#TODO: Are you sure you want this hidden?
+  #TODO: are_you_sure_you_want_this_hid:
+#TODO: THIS COMMENT IS NOT VISIBLE
+  #TODO: this_comment_is_not_visible:
+#TODO: make visible
+  #TODO: make_visible:
+#TODO: Are you sure you want this visible?
+  #TODO: are_you_sure_you_want_this_vis:
+#TODO: There was an error: you process did not succeed.
+  #TODO: there_was_an_error__you_proces:
+#TODO: New comment
+  #TODO: new_comment:
+#TODO: Editing comment
+  #TODO: editing_comment:
+#TODO: Update
+  #TODO: update:
+#TODO: Show
+  #TODO: show:
+#TODO: <span class='span_block'>%{var_comments_count}</span>
+  #TODO: _span_class__span_block__var_c:
+#TODO: merge concepts
+  #TODO: merge_concepts:
+#TODO: split into new concept
+  #TODO: split_into_new_concept:
+#TODO: TaxonConceptID:
+  #TODO: taxonconceptid_:
+#TODO: HierarachyEntryID:
+  #TODO: hierarachyentryid_:
+#TODO: Browsing Branch:
+  #TODO: browsing_branch_:
+#TODO: Hierarchy Roots:
+  #TODO: hierarchy_roots_:
+#TODO: Stat
+  #TODO: stat:
+#TODO: Value
+  #TODO: value:
+#TODO: # of taxa at this entry
+  #TODO: _of_taxa_at_this_entry:
+#TODO: # of trusted images at this entry
+  #TODO: _of_trusted_images_at_this_ent:
+#TODO: # of unreviewed images at this entry
+  #TODO: _of_unreviewed_images_at_this_:
+#TODO: % of children with images
+  #TODO: _of_children_with_images:
+#TODO: # of trusted text objects at this entry
+  #TODO: _of_trusted_text_objects_at_th:
+#TODO: # of unreviewed text objects at this entry
+  #TODO: _of_unreviewed_text_objects_at:
+#TODO: % of children with text
+  #TODO: _of_children_with_text:
+#TODO: Name not in
+  #TODO: name_not_in:
+#TODO: . Select an alternate hierarchy from the list above
+  #TODO: __select_an_alternate_hierarch:
+#TODO: cannot expand children
+  #TODO: cannot_expand_children:
+#TODO: expand all children
+  #TODO: expand_all_children:
+#TODO: percentage of descendants with images
+  #TODO: percentage_of_descendants_with:
+#TODO: percentage of descendants with text
+  #TODO: percentage_of_descendants_with_:
+#TODO: This information will allow us to make contact with you.  It will not be visible on the EOL web site. You must have at least one contact.
+  #TODO: this_information_will_allow_us:
+#TODO: Licensing Policy
+  #TODO: licensing_policy:
+#TODO: To the greatest extent possible, the Encyclopedia of Life promotes an open‐source, open‐access
+  #TODO: to_the_greatest_extent_possibl:
+#TODO: approach. Therefore, it requires that content providers (including the EOL’s core participants) serving
+  #TODO: approach__therefore__it_requir:
+#TODO: information through the EOL agree to the following provisions:
+  #TODO: information_through_the_eol_ag:
+#TODO: Content providers warrant and represent that the content they provide under this Agreement either is in the public domain, that they hold the rights, or that they have obtained the necessary permissions from the rights-holders to use, reproduce and disseminate the content for use in the Encyclopedia.
+  #TODO: content_providers_warrant_and_:
+#TODO: All information currently in the public domain will remain in the public domain. Neither the
+  #TODO: all_information_currently_in_t:
+#TODO: EOL nor the content providers will seek to assert any IPR over any public domain materials that
+  #TODO: eol_nor_the_content_providers_:
+#TODO: are made available through the EOL.
+  #TODO: are_made_available_through_the:
+#TODO: Content providers are required to adopt a
+  #TODO: content_providers_are_required:
+#TODO: Creative Commons
+  #TODO: creative_commons:
+#TODO: license for the information that
+  #TODO: license_for_the_information_th:
+#TODO: they serve through the EOL. Except for public‐domain content, the default and preferred
+  #TODO: they_serve_through_the_eol__ex:
+#TODO: license is CC‐BY (Attribution), which allows users to copy, transmit and reuse the information,
+  #TODO: license_is_cc_by__attribution_:
+#TODO: information is maintained.
+  #TODO: information_is_maintained:
+#TODO: Content providers who request some restrictions on re‐use of their information may select an
+  #TODO: content_providers_who_request_:
+#TODO: alternate Creative Commons license from the list below.  Details about each of these licenses is available on the
+  #TODO: alternate_creative_commons_lic:
+#TODO: website.
+  #TODO: website:
+#TODO: CC‐BY‐SA - Attribution‐ShareAlike
+  #TODO: cc_by_sa___attribution_shareal:
+#TODO: CC‐BY‐NC - Attribution‐NonCommercial
+  #TODO: cc_by_nc___attribution_noncomm:
+#TODO: CC‐BY‐NC‐SA - Attribution‐NonCommercial‐ShareAlike
+  #TODO: cc_by_nc_sa___attribution_nonc:
+#TODO: The EOL will provide attribution information for all content that it serves. EOL will also indicate
+  #TODO: the_eol_will_provide_attributi:
+#TODO: the Creative Commons license attached to each object (text, structured data, graphics,
+  #TODO: the_creative_commons_license_a:
+#TODO: I have read and understand the EOL Licensing Policy.
+  #TODO: i_have_read_and_understand_the:
+#TODO: %{var__i18n_t__username__} (4-16 characters)<span title='required'>*</span>
+  #TODO: var__i18n_t__username____4_16_:
+#TODO: %{var__i18n_t__email_address__} <span title='required'>*</span>
+  #TODO: var__i18n_t__email_address____:
+#TODO: This hierarchy has been proposed as an alternate browsing classification for EOL - Pending Admin approval
+  #TODO: this_hierarchy_has_been_propos:
+#TODO: Click to propose this hierarchy as an alternate browsing classification for EOL
+  #TODO: click_to_propose_this_hierarch:
+#TODO: Are you sure you want an admin to publish this hierarchy?
+  #TODO: are_you_sure_you_want_an_admin:
+#TODO: This page presents an overview of the process.  In order to complete the registration process, you must first enter in information about the project
+  #TODO: this_page_presents_an_overview:
+#TODO: as well as contact information for members of your project.  You must then agree to the licensing, attribution, roles and other terms and conditions.  Once
+  #TODO: as_well_as_contact_information:
+#TODO: the process is complete, you will be able to provide your data to the EOL.
+  #TODO: the_process_is_complete__you_w:
+#TODO: Partner Information
+  #TODO: partner_information:
+#TODO: Contact Information
+  #TODO: contact_information:
+#TODO: Agreements and Terms for Becoming a Content Partner
+  #TODO: agreements_and_terms_for_becom:
+#TODO: Step 1: Licensing Policy
+  #TODO: step_1__licensing_policy:
+#TODO: Step 2: Attribution Guidelines
+  #TODO: step_2__attribution_guidelines:
+#TODO: Step 3: Roles
+  #TODO: step_3__roles:
+#TODO: Step 4: Transfer Schema Overview
+  #TODO: step_4__transfer_schema_overvi:
+#TODO: Step 5: Transfer Schema Upload
+  #TODO: step_5__transfer_schema_upload:
+#TODO: IMPORTANT: Your agreement is out of date and has been updated. Your updated agreement is available via the link below.
+  #TODO: important__your_agreement_is_o:
+#TODO: %{var_link_to__your_agreement_____action_____agreement_} , {:target=>"_new"}}, including additional provisions, is available for review and printing.
+  #TODO: var_link_to__your_agreement___:
+#TODO: Please indicate acceptance by typing your name here:
+  #TODO: please_indicate_acceptance_by_:
+#TODO: Agreed to by
+  #TODO: agreed_to_by:
+#TODO: 
+  #TODO: on:
+#TODO: Tools
+  #TODO: tools:
+#TODO: Usage Reports
+  #TODO: usage_reports:
+#TODO: This form provides information about the project or other source of information.  Some of the information will be visible on the web site.
+  #TODO: this_form_provides_information:
+#TODO: - required fields
+  #TODO: __required_fields:
+#TODO: Project Name <span title="required">*</span>
+  #TODO: project_name__span_title__requ:
+#TODO: Please fill in the full name of the project or web site from which the information will come as you want it to be visible in the Encyclopedia of Life.  THIS INFORMATION WILL BE VISIBLE ON THE WEB SITE
+  #TODO: please_fill_in_the_full_name_o:
+#TODO: Display Name
+  #TODO: display_name:
+#TODO: This is optional.  If you enter a name here, it will be used instead of the 'Project Name' when shown on the website, otherwise the 'Project Name' will be used.  THIS INFORMATION WILL BE VISIBLE ON THE WEB SITE IF ENTERED
+  #TODO: this_is_optional___if_you_ente:
+#TODO: Project Abbreviation
+  #TODO: project_abbreviation:
+#TODO: Please fill in an abbreviated name for the project.  THIS INFORMATION WILL BE VISIBLE ON THE WEB SITE
+  #TODO: please_fill_in_an_abbreviated_:
+#TODO: Project URL
+  #TODO: project_url:
+#TODO: This will be used to link to your project from the website.
+  #TODO: this_will_be_used_to_link_to_y:
+#TODO: Project Description <span title="required">*</span>
+  #TODO: project_description__span_titl:
+#TODO: Describe the project as you would like it to appear on the Encyclopedia of Life web site.
+  #TODO: describe_the_project_as_you_wo:
+#TODO: Description of Data
+  #TODO: description_of_data:
+#TODO: Please provide us with a description of the type of information you have, how many items are available, what organisms they relate to, and whether they have been assembled or checked by qualified experts or by a knowledgeable community.  The information that you write here will NOT be visible on the web site.
+  #TODO: please_provide_us_with_a_descr:
+#TODO: Notes
+  #TODO: notes:
+#TODO: Enter in any other notes or comments about your project or content.
+  #TODO: enter_in_any_other_notes_or_co:
+#TODO: Project Logo
+  #TODO: project_logo:
+#TODO: Please select and upload a JPG, PNG or GIF image of approximately 100x100 pixels, and no larger than 500k.   We will create two logos, one with a maximum dimension of 100 pixels, and a smaller one depending on its location on the website.
+  #TODO: please_select_and_upload_a_jpg:
+#TODO: Current Logos:
+  #TODO: current_logos_:
+#TODO: Large:
+  #TODO: large_:
+#TODO: Small:
+  #TODO: small_:
+#TODO: Type of Content
+  #TODO: type_of_content:
+#TODO: Transfer Schema Upload
+  #TODO: transfer_schema_upload:
+#TODO: Now that you have accepted and are ready to use the EOL Transfer Schema format, you can indicate
+  #TODO: now_that_you_have_accepted_and:
+#TODO: where we can find these XML files in order to process them.  You can return to this site at any time
+  #TODO: where_we_can_find_these_xml_fi:
+#TODO: to indicate new datasets or updates of existing datasets.  To begin, click Save and Continue.
+  #TODO: to_indicate_new_datasets_or_up:
+#TODO: Transfer Schema Overview
+  #TODO: transfer_schema_overview:
+#TODO: In order to provide your content to the Encyclopedia of Life in an automated fashion, we request that
+  #TODO: in_order_to_provide_your_conte:
+#TODO: content partners use the EOL approved Transfer Schema, which is an XML file format containing
+  #TODO: content_partners_use_the_eol_a:
+#TODO: all of the information and meta-data required to move and update your data into the Encyclopedia of Life.
+  #TODO: all_of_the_information_and_met:
+#TODO: If you are unable to generate XML in this transfer schema format, we may not be able to efficiently index and display your content.
+  #TODO: if_you_are_unable_to_generate_:
+#TODO: We can assist you, so please
+  #TODO: we_can_assist_you__so_please:
+#TODO: If you are providing data to EOL via a
+  #TODO: if_you_are_providing_data_to_e:
+#TODO: LifeDesk
+  #TODO: lifedesk:
+#TODO: , this XML file will be created automatically when you generate your endpoint (Site Settings:EOL Partnership:Make Endpoint). LifeDesk users do not need to review the transfer schema documentation. Simply check the box below and proceed.
+  #TODO: __this_xml_file_will_be_create:
+#TODO: Darwin Core Archives
+  #TODO: darwin_core_archives:
+#TODO: In addition to the EOL transfer schema document, you may also provide a link to a
+  #TODO: in_addition_to_the_eol_transfe:
+#TODO: Darwin Core (DwC) archive file
+  #TODO: darwin_core__dwc__archive_file:
+#TODO: . Darwin Core is a set of standardized terms for describing biodiversity data. The Darwin Core archive is a format for storing these data in a spreadsheet-style format for easy sharing. You can find
+  #TODO: __darwin_core_is_a_set_of_stan:
+#TODO: more information here
+  #TODO: more_information_here:
+#TODO: about creating well-formed DwC archives. Also please refer to
+  #TODO: about_creating_well_formed_dwc:
+#TODO: Darwin Core terms list
+  #TODO: darwin_core_terms_list:
+#TODO: for more a complete reference about the Darwin Core standard.
+  #TODO: for_more_a_complete_reference_:
+#TODO: Download the EOL Transfer Schema Documentation
+  #TODO: download_the_eol_transfer_sche:
+#TODO: PDF
+  #TODO: pdf:
+#TODO: Download the EOL Transfer Schema Glossary
+  #TODO: download_the_eol_transfer_sche_:
+#TODO: I have read and understand the EOL Transfer Schema Documentation.
+  #TODO: i_have_read_and_understand_the_:
+#TODO: Roles & Conditions of Use
+  #TODO: roles___conditions_of_use:
+#TODO: In providing its content to EOL,
+  #TODO: in_providing_its_content_to_eo:
+#TODO: will:
+  #TODO: will_:
+#TODO: Provide its content via a format and interchange method compatible with the EOL.
+  #TODO: provide_its_content_via_a_form:
+#TODO: Provide data objects as-is with no warranty or claim of fitness for purpose.
+  #TODO: provide_data_objects_as_is_wit:
+#TODO: Respond to the originators of comments or feedback communicated to
+  #TODO: respond_to_the_originators_of_:
+#TODO: via the EOL regarding its content.
+  #TODO: via_the_eol_regarding_its_cont:
+#TODO: Work with the EOL to improve the quality of the provided data objects and reduce errors.
+  #TODO: work_with_the_eol_to_improve_t:
+#TODO: Comply with the Creative Commons licenses of any EOL content from other Content Partners that it may choose to use for its own purposes and to provide full attribution in the specified manner of the license.
+  #TODO: comply_with_the_creative_commo:
+#TODO: Be able to display the EOL logo on its web site.
+  #TODO: be_able_to_display_the_eol_log:
+#TODO: Allow EOL to provide names from partner's content to the
+  #TODO: allow_eol_to_provide_names_fro:
+#TODO: Global Names Index
+  #TODO: global_names_index:
+#TODO: website.  GNI collects names and provides links back to source projects, further increasing the visibility of
+  #TODO: website___gni_collects_names_a:
+#TODO: In handling the content provided by
+  #TODO: in_handling_the_content_provid:
+#TODO: , EOL will:
+  #TODO: __eol_will_:
+#TODO: Provide tools and methods to enable
+  #TODO: provide_tools_and_methods_to_e:
+#TODO: to provide its content to the EOL.
+  #TODO: to_provide_its_content_to_the_:
+#TODO: Cache
+  #TODO: cache:
+#TODO: 's data objects along with similar content from other sources on EOL's servers.
+  #TODO: _s_data_objects_along_with_sim:
+#TODO: Attribute all of
+  #TODO: attribute_all_of:
+#TODO: 's data objects according to its preferred Creative Commons licenses and in the manner specified by
+  #TODO: _s_data_objects_according_to_i:
+#TODO: Present or pass along
+  #TODO: present_or_pass_along:
+#TODO: 's data objects to others using web services (such as APIs) which will carry the same Creative Commons licenses and specified manner of attribution.
+  #TODO: _s_data_objects_to_others_usin:
+#TODO: Not encourage or answer requests to provide all or major components of
+  #TODO: not_encourage_or_answer_reques:
+#TODO: 's content to other data providers. Rather, such requests for re-usage will be forwarded to
+  #TODO: _s_content_to_other_data_provi:
+#TODO: Not alter the data objects provided; however EOL will enable annotations or comments to be added.
+  #TODO: not_alter_the_data_objects_pro:
+#TODO: Notify
+  #TODO: notify:
+#TODO: of any comments or feedback received about its data objects.
+  #TODO: of_any_comments_or_feedback_re:
+#TODO: Work with
+  #TODO: work_with:
+#TODO: to improve the quality of the provided data objects and reduce errors.
+  #TODO: to_improve_the_quality_of_the_:
+#TODO: of statistics about the usage of its data objects.
+  #TODO: of_statistics_about_the_usage_:
+#TODO: Enable
+  #TODO: enable:
+#TODO: to access content from the EOL and to use that content on
+  #TODO: to_access_content_from_the_eol:
+#TODO: 's own server or site according to the terms of the Creative Commons licenses for that content.
+  #TODO: _s_own_server_or_site_accordin:
+#TODO: EOL will show
+  #TODO: eol_will_show:
+#TODO: 's logo and project description on its list of Content Partners.
+  #TODO: _s_logo_and_project_descriptio:
+#TODO: EOL may elect at its sole discretion to present all, portions or none of any data objects provided by
+  #TODO: eol_may_elect_at_its_sole_disc:
+#TODO: and reserves the right to redact or remove any illegal, offensive, or objectionable content.
+  #TODO: and_reserves_the_right_to_reda:
+#TODO: I have read and agree to the Content Partner Roles Overview.
+  #TODO: i_have_read_and_agree_to_the_c:
+#TODO: Attribution Guidelines
+  #TODO: attribution_guidelines:
+#TODO: We will fully attribute each data object that you provide to your project as well as to any additional projects
+  #TODO: we_will_fully_attribute_each_d:
+#TODO: or individuals associated with the data object. You will submit your attribution information via the Transfer Schema. Note: The specific style and techniques employed for display of attribution for data objects may change as the EOL evolves.
+  #TODO: or_individuals_associated_with:
+#TODO: The following is an example of how your data objects will be attributed.  Changing your Partner Information (including logos) will change the basic attribution.  Note that each data object
+  #TODO: the_following_is_an_example_of:
+#TODO: you provide	may have additional licenses, authors, and other associated attributions as defined;
+  #TODO: you_provide_may_have_additiona:
+#TODO: the example below is only for reference and does not have real data - it is for illustrative purposes only.
+  #TODO: the_example_below_is_only_for_:
+#TODO: Download full information
+  #TODO: download_full_information:
+#TODO: on how attribution will be shown on data objects
+  #TODO: on_how_attribution_will_be_sho:
+#TODO: Characteristics
+  #TODO: characteristics:
+#TODO: SOURCE AND ADDITIONAL INFORMATION
+  #TODO: source_and_additional_informat:
+#TODO: Authors:
+  #TODO: authors_:
+#TODO: Some rights reserved
+  #TODO: some_rights_reserved:
+#TODO: Project:
+  #TODO: project_:
+#TODO: Facere quibusdam itaque et. Et facere at voluptatum commodi nostrum quod. Voluptatem sunt sit quae qui consectetur omnis vel inventore.
+  #TODO: facere_quibusdam_itaque_et__et:
+#TODO: Laborum est nulla aut molestiae est repellat incidunt dolor. Fuga unde et voluptatem commodi. Itaque recusandae officiis ut suscipit quidem odio incidunt. Occaecati sed distinctio odio et molestias sit quae quia. Voluptatem voluptatibus eveniet nam delectus quia ea iure.
+  #TODO: laborum_est_nulla_aut_molestia:
+#TODO: Et nihil enim qui sit magnam. Consequatur libero dolorem esse deserunt. Dolore rerum repellat maiores perferendis consequatur. Et veniam ex accusamus aut qui recusandae eum adipisci. Aspernatur laboriosam deleniti cumque eos non.
+  #TODO: et_nihil_enim_qui_sit_magnam__:
+#TODO: I have read and understand the EOL Attribution Guidelines.
+  #TODO: i_have_read_and_understand_the__:
+#TODO: No content partner
+  #TODO: no_content_partner:
+#TODO: Pages with content contributed by
+  #TODO: pages_with_content_contributed:
+#TODO: has contributed to a total of
+  #TODO: has_contributed_to_a_total_of:
+#TODO: pages.
+  #TODO: pages:
+#TODO: view source page
+  #TODO: view_source_page:
+#TODO: Add New Contact
+  #TODO: add_new_contact:
+#TODO: Contacts
+  #TODO: contacts:
+#TODO: Role
+  #TODO: role:
+#TODO: Options
+  #TODO: options:
+#TODO: Change
+  #TODO: change:
+#TODO: Delete
+  #TODO: delete_:
+#TODO: Are you sure you want to delete this contact?
+  #TODO: are_you_sure_you_want_to_delet:
+#TODO: Monthly Web Usage Statistics
+  #TODO: monthly_web_usage_statistics:
+#TODO: The following statistics represent usage of EOL pages containing data objects from the content partner
+  #TODO: the_following_statistics_repre:
+#TODO: Summary Statistics
+  #TODO: summary_statistics:
+#TODO: Viewing statistics for the month of:
+  #TODO: viewing_statistics_for_the_mon:
+#TODO: Taxa Pages with
+  #TODO: taxa_pages_with:
+#TODO: Provider Content
+  #TODO: provider_content:
+#TODO: EOL Site
+  #TODO: eol_site:
+#TODO: Provider
+  #TODO: provider:
+#TODO: Percentage
+  #TODO: percentage:
+#TODO: Count of Taxa Pages
+  #TODO: count_of_taxa_pages:
+#TODO: Count of Taxa Pages that were viewed during the month
+  #TODO: count_of_taxa_pages_that_were_:
+#TODO: Total Unique Page Views for the Month
+  #TODO: total_unique_page_views_for_th:
+#TODO: Total Page Views for the Month
+  #TODO: total_page_views_for_the_month:
+#TODO: Total Time on Pages for the Month (hours)
+  #TODO: total_time_on_pages_for_the_mo:
+#TODO: Taxa Page Statistics
+  #TODO: taxa_page_statistics:
+#TODO: ID
+  #TODO: id:
+#TODO: Total
+  #TODO: total:
+#TODO: Page Views
+  #TODO: page_views:
+#TODO: Total Unique
+  #TODO: total_unique:
+#TODO: Total Time
+  #TODO: total_time:
+#TODO: On Page Seconds
+  #TODO: on_page_seconds:
+#TODO: Specialist projects have content relevant to a species which may or may not be available directly on EOL species page. We
+  #TODO: specialist_projects_have_conte:
+#TODO: provide links to this information.  Indicate all categories of information users may find on your pages so we may organize
+  #TODO: provide_links_to_this_informat:
+#TODO: the links.
+  #TODO: the_links:
+#TODO: Text description
+  #TODO: text_description:
+#TODO: was added to
+  #TODO: was_added_to:
+#TODO: on "
+  #TODO: on__:
+#TODO: ago
+  #TODO: ago:
+#TODO: Mine Report
+  #TODO: mine_report:
+#TODO: Mine this Report
+  #TODO: mine_this_report:
+#TODO: Date Range
+  #TODO: date_range:
+#TODO: Filter by content partner:
+  #TODO: filter_by_content_partner_:
+#TODO: Hide 'Other' Slice
+  #TODO: hide__other__slice:
+#TODO: Show 'Other' Slice
+  #TODO: show__other__slice:
+#TODO: Per page:
+  #TODO: per_page_:
+#TODO: Formats:
+  #TODO: formats_:
+#TODO: XML
+  #TODO: xml:
+#TODO: CSV
+  #TODO: csv:
+#TODO: Hits
+  #TODO: hits:
+#TODO: [object]
+  #TODO: _object_:
+#TODO: No data for selected period
+  #TODO: no_data_for_selected_period:
+#TODO: You need to upgrade your Flash Player.
+  #TODO: you_need_to_upgrade_your_flash:
+#TODO: Click here to upgrade.
+  #TODO: click_here_to_upgrade:
+#TODO: The following statistics represent web page statistics for EOL pages containing your data objects.
+  #TODO: the_following_statistics_repre_:
+#TODO: It may take a minute for the report to appear - please be patient.
+  #TODO: it_may_take_a_minute_for_the_r:
+#TODO: This section allows you to view the latest monthly web page statistics for your content, as well
+  #TODO: this_section_allows_you_to_vie:
+#TODO: as comments and curation activity related to your content.  Use the navigation on the left to select the report.
+  #TODO: as_comments_and_curation_activ:
+#TODO: Nothing To Report
+  #TODO: nothing_to_report:
+#TODO: Viewing Partner:
+  #TODO: viewing_partner_:
+#TODO: we use a get so the values will be query strings (bookmarkable) and we nil out
+  #TODO: we_use_a_get_so_the_values_wil:
+#TODO: state_date and end_date in path_for_report so we don't end up with duplicate query strings
+  #TODO: state_date_and_end_date_in_pat:
+#TODO: From
+  #TODO: from:
+#TODO: To
+  #TODO: to_:
+#TODO: today
+  #TODO: today:
+#TODO: last month
+  #TODO: last_month:
+#TODO: this month
+  #TODO: this_month:
+#TODO: this year
+  #TODO: this_year:
+#TODO: Data Object Statistics
+  #TODO: data_object_statistics:
+#TODO: The following report shows the harvests that have completed with your data and the number of data objects for each harvest as well as the number of taxa affected.
+  #TODO: the_following_report_shows_the:
+#TODO: Comment: "
+  #TODO: comment___:
+#TODO: added to the
+  #TODO: added_to_the:
+#TODO: changed to
+  #TODO: changed_to:
+#TODO: You must upload a resource before viewing statistics.
+  #TODO: you_must_upload_a_resource_bef:
+#TODO: [an object was removed&mdash;the data was not recoverable]
+  #TODO: _an_object_was_removed_mdash_t:
+#TODO: for "
+  #TODO: for__:
+#TODO: was changed to "
+  #TODO: was_changed_to__:
+#TODO: " by
+  #TODO: __by:
+#TODO: Welcome:  This site allows people and projects who want their information to be shown on EOL species pages to register with us.   This process is designed for partners with structured data (data in databases).  We will gather some information,  create a license agreement, and  confirm  that your data are configured so that they can be easily acquired by EOL.  You must be authorized to make a licensing agreement, and you must have made agreements with the individuals who have contributed information to you.
+  #TODO: welcome___this_site_allows_peo:
+#TODO: Welcome:  This is the registration page for people and projects who want their information to be shown on EOL species
+  #TODO: welcome___this_is_the_registra:
+#TODO: pages to register with us.   If you just wish to register as an EOL user, please
+  #TODO: pages_to_register_with_us____i:
+#TODO: go to the user registration page
+  #TODO: go_to_the_user_registration_pa:
+#TODO: This process is designed for partners with structured data (data in databases).  We will gather some information,
+  #TODO: this_process_is_designed_for_p:
+#TODO: You must be authorized to make a licensing agreement, and you must have made agreements with the individuals who have
+  #TODO: you_must_be_authorized_to_make:
+#TODO: contributed information to you.
+  #TODO: contributed_information_to_you:
+#TODO: Note that the account you create below is for your project and may be shared amongst others in the project.
+  #TODO: note_that_the_account_you_crea:
+#TODO: %{var__i18n_t__username__} (4-16 characters) <span title='required'>*</span>
+  #TODO: var__i18n_t__username____4_16__:
+#TODO: %{var__i18n_t__password__} (4-16 characters) <span title='required'>*</span>
+  #TODO: var__i18n_t__password____4_16_:
+#TODO: Project Name <span title='required'>*</span>
+  #TODO: project_name__span_title__requ_:
+#TODO: required
+  #TODO: required_:
+#TODO: Thanks for contacting the Encyclopedia of Life project.  Your contact information has been passed on to the media contact.
+  #TODO: thanks_for_contacting_the_ency:
+#TODO: New EOL Donation
+  #TODO: new_eol_donation:
+#TODO: Comment:
+  #TODO: comment_:
+#TODO: Partner Description:
+  #TODO: partner_description_:
+#TODO: Thanks for registering with the Encyclopedia of Life.  In order to confirm your registration, please click the link below.  If your email
+  #TODO: thanks_for_registering_with_th:
+#TODO: program does not support following links, please copy and paste the entire address into your web browser and press "return".
+  #TODO: program_does_not_support_follo:
+#TODO: Thank you for contacting the Encyclopedia of Life project.  Your comments have been sent to the appropriate group.
+  #TODO: thank_you_for_contacting_the_e:
+#TODO: We appreciate your feedback.
+  #TODO: we_appreciate_your_feedback:
+#TODO: EOL Contact Us Form
+  #TODO: eol_contact_us_form:
+#TODO: The following content partner has now agreed to licensing, roles, and attribution:
+  #TODO: the_following_content_partner_:
+#TODO: You have indicated that you have forgotten your password.   A new password has been automatically generated for you and is shown below.  Please log into the website at http://www.eol.org/content_partner/login and then visit your profile page at http://www.eol.org/content_partner/profile to change your password.
+  #TODO: you_have_indicated_that_you_ha:
+#TODO: Your request has been approved and you will now have curator functions available to you for your approved clade and all of it's children.  For more information on curation and what functions are available to you, visit http://www.eol.org/content/page/curation
+  #TODO: your_request_has_been_approved:
+#TODO: This is an automated e-mail notification.
+  #TODO: this_is_an_automated_e_mail_no:
+#TODO: You can now check last month's web usage of your data in EOL.
+  #TODO: you_can_now_check_last_month_s:
+#TODO: Please login to your account in the EOL Content Partner registry to view your stats.
+  #TODO: please_login_to_your_account_i:
+#TODO: Login here: http://www.eol.org/content_partner/reports/login
+  #TODO: login_here__http___www_eol_org:
+#TODO: This is the link to your web stats:
+  #TODO: this_is_the_link_to_your_web_s:
+#TODO: Contact eli@eol.org for any comments.
+  #TODO: contact_eli_eol_org_for_any_co:
+#TODO: Thank you.
+  #TODO: thank_you_:
+#TODO: The following EOL user just changed their notification mailing list or email setting:
+  #TODO: the_following_eol_user_just_ch:
+#TODO: A request to reset your password has been made.
+  #TODO: a_request_to_reset_your_passwo:
+#TODO: If you did not make this request, simply ignore this email.
+  #TODO: if_you_did_not_make_this_reque:
+#TODO: If you did make this request just click the link below:
+  #TODO: if_you_did_make_this_request_j:
+#TODO: If the above URL does not work try copying and pasting it into your browser.
+  #TODO: if_the_above_url_does_not_work:
+#TODO: If you continue to have problem please feel free to contact us.
+  #TODO: if_you_continue_to_have_proble:
+#TODO: Thank you for your donation
+  #TODO: thank_you_for_your_donation:
+#TODO: You are receiving this message because you are listed as a contact for an Encyclopedia of Life content partner.
+  #TODO: you_are_receiving_this_message:
+#TODO: For more detailed information, log in to your account in the EOL Content Partner Registry:
+  #TODO: for_more_detailed_information_:
+#TODO: Then go to USAGE REPORTS:
+  #TODO: then_go_to_usage_reports_:
+#TODO: To turn off or change how often you receive these updates, log in to your account in the EOL Content Partner Registry and edit your profile (CONTACT INFORMATION:Change):
+  #TODO: to_turn_off_or_change_how_ofte:
+#TODO: If you have trouble accessing your account please contact us for help:
+  #TODO: if_you_have_trouble_accessing_:
+#TODO: To turn off or change how often you receive these updates, log in to EOL and go to your profile:
+  #TODO: to_turn_off_or_change_how_ofte_:
+#TODO: Curator actions have affected data objects you submitted:
+  #TODO: curator_actions_have_affected_:
+#TODO: A curator action has affected a data object you submitted:
+  #TODO: a_curator_action_has_affected_:
+#TODO: Comments were left on data objects you submitted:
+  #TODO: comments_were_left_on_data_obj:
+#TODO: A comment was left on a data object you submitted:
+  #TODO: a_comment_was_left_on_a_data_o:
+#TODO: Comments were left on the taxon page comments tab (may not apply specifically to your content):
+  #TODO: comments_were_left_on_the_taxo:
+#TODO: A comment was left on a taxon page comments tab (may not apply specifically to your content):
+  #TODO: a_comment_was_left_on_a_taxon_:
+#TODO: Welcome to the Encyclopedia of Life and thank you for registering!  To learn more about how to use the site, view the FAQ pages
+  #TODO: welcome_to_the_encyclopedia_of:
+#TODO: Enjoy exploring the diversity of Life.
+  #TODO: enjoy_exploring_the_diversity_:
+#TODO: Comments On
+  #TODO: comments_on_:
+#TODO: The information highlighted in yellow below has not been reviewed.
+  #TODO: the_information_highlighted_in:
+#TODO: [clear]
+  #TODO: _clear_:
+#TODO: The information highlighted in red below has been reviewed by a curator and is marked as not trusted.
+  #TODO: the_information_highlighted_in_:
+#TODO: The content could not be displayed.
+  #TODO: the_content_could_not_be_displ:
+#TODO: Species Curated
+  #TODO: species_curated:
+#TODO: &nbsp;&nbsp;&nbsp;Curator:
+  #TODO: _nbsp__nbsp__nbsp_curator_:
+#TODO: Back to profile
+  #TODO: back_to_profile:
+#TODO: Taxon ID
+  #TODO: taxon_id:
+#TODO: Username:  (4 - 32 characters)
+  #TODO: username____4___32_characters_:
+#TODO: faculty, staff, or graduate student status in a relevant university or college department
+  #TODO: faculty__staff__or_graduate_st:
+#TODO: authorship of a peer-reviewed publication (provide reference)
+  #TODO: authorship_of_a_peer_reviewed_:
+#TODO: member of a professional society
+  #TODO: member_of_a_professional_socie:
+#TODO: ... email sent!
+  #TODO: ____email_sent_:
+#TODO: FAILED... Could not find this user.  Sorry.
+  #TODO: failed____could_not_find_this_:
+#TODO: [go back]
+  #TODO: _go_back_:
+#TODO: [edit]
+  #TODO: _edit_:
+#TODO: Curator of
+  #TODO: curator_of:
+#TODO: " joined
+  #TODO: __joined:
+#TODO: Activity
+  #TODO: activity:
+#TODO: Objects Curated
+  #TODO: objects_curated:
+#TODO: Comments Moderated
+  #TODO: comments_moderated:
+#TODO: User-submitted text
+  #TODO: user_submitted_text:
+#TODO: View your curator profile
+  #TODO: view_your_curator_profile:
+#TODO: We have several accounts registered using that email address. Each account has its own password, and thus each needs to be reset.
+  #TODO: we_have_several_accounts_regis:
+#TODO: To clarify which accounts you want to reset the password for, please click on the username you intend to reset.  An email will then be sent to your email account, to ensure that you have access to the account. Please click on the link in the email to complete the password-resetting process.
+  #TODO: to_clarify_which_accounts_you_:
+#TODO: A confirmation email was sent to the email address you registered with.  Please check your email and follow the confirmation link to activate your account.
+  #TODO: a_confirmation_email_was_sent_:
+#TODO: &nbsp;&nbsp;&nbsp;Moderator:
+  #TODO: _nbsp__nbsp__nbsp_moderator_:
+#TODO: Comment
+  #TODO: comment:
+#TODO: Visible
+  #TODO: visible_:
+#TODO: Created
+  #TODO: created:
+#TODO: or
+  #TODO: or_:
+#TODO: Please note that you will be required to click a link in a confirmation email sent to the email address you enter below - so you must provide a valid, working email address.
+  #TODO: please_note_that_you_will_be_r:
+#TODO: (4 - 32 characters)
+  #TODO: _4___32_characters_:
+#TODO: Your key is
+  #TODO: your_key_is:
+#TODO: Make sure to
+  #TODO: make_sure_to:
+#TODO: add it to your API calls
+  #TODO: add_it_to_your_api_calls:
+#TODO: If you are interested in using the EOL API you can generate an API key to
+  #TODO: if_you_are_interested_in_using:
+#TODO: identify your application.
+  #TODO: identify_your_application:
+#TODO: Click here to read more
+  #TODO: click_here_to_read_more:
+#TODO: about adding a key to your API calls
+  #TODO: about_adding_a_key_to_your_api:
+#TODO: Sorry, but the account confirmation was not successful.  Please check the link you received in your email and be sure the entire link was pasted into your browser's address bar.
+  #TODO: sorry__but_the_account_confirm:
+#TODO: Thanks, your account confirmation is now complete and you may
+  #TODO: thanks__your_account_confirmat:
+#TODO: If you are a Content Partner please
+  #TODO: if_you_are_a_content_partner_p:
+#TODO: TOC
+  #TODO: toc:
+#TODO: Welcome to the EOL Administration Console.  Please select a function from the left-hand navigation.
+  #TODO: welcome_to_the_eol_administrat:
+#TODO: admin home
+  #TODO: admin_home:
+#TODO: Site CMS
+  #TODO: site_cms:
+#TODO: edit page contents
+  #TODO: edit_page_contents:
+#TODO: upload content
+  #TODO: upload_content:
+#TODO: edit search suggestions
+  #TODO: edit_search_suggestions:
+#TODO: edit EOL glossary
+  #TODO: edit_eol_glossary:
+#TODO: edit table of contents
+  #TODO: edit_table_of_contents:
+#TODO: News Items
+  #TODO: news_items:
+#TODO: edit news items
+  #TODO: edit_news_items:
+#TODO: Comments and Tags
+  #TODO: comments_and_tags:
+#TODO: edit tag suggestions
+  #TODO: edit_tag_suggestions:
+#TODO: view user comments
+  #TODO: view_user_comments:
+#TODO: view added text
+  #TODO: view_added_text:
+#TODO: view user activity
+  #TODO: view_user_activity:
+#TODO: DISABLED FOR NOW
+  #TODO: disabled_for_now:
+#TODO: view common activities
+  #TODO: view_common_activities:
+#TODO: Web Users
+  #TODO: web_users:
+#TODO: edit web users
+  #TODO: edit_web_users:
+#TODO: view curators
+  #TODO: view_curators:
+#TODO: Contact Us Functions
+  #TODO: contact_us_functions:
+#TODO: edit contact us topics
+  #TODO: edit_contact_us_topics:
+#TODO: view contact us submissions
+  #TODO: view_contact_us_submissions:
+#TODO: Technical Functions
+  #TODO: technical_functions:
+#TODO: general site admin
+  #TODO: general_site_admin:
+#TODO: view error log
+  #TODO: view_error_log:
+#TODO: add new user roles
+  #TODO: add_new_user_roles:
+#TODO: content partner details
+  #TODO: content_partner_details:
+#TODO: content partner hierarchies
+  #TODO: content_partner_hierarchies:
+#TODO: monthly notification
+  #TODO: monthly_notification:
+#TODO: Send email notification to all content partners   about the availability of the latest monthly web stats
+  #TODO: send_email_notification_to_all:
+#TODO: monthly published partners
+  #TODO: monthly_published_partners:
+#TODO: content partner curated data
+  #TODO: content_partner_curated_data:
+#TODO: content partner objects stats
+  #TODO: content_partner_objects_stats:
+#TODO: view harvesting log
+  #TODO: view_harvesting_log:
+#TODO: Statistics
+  #TODO: statistics:
+#TODO: page statistics and tools
+  #TODO: page_statistics_and_tools:
+#TODO: taxonomic summary of content
+  #TODO: taxonomic_summary_of_content:
+#TODO: search term reports
+  #TODO: search_term_reports:
+#TODO: table of contents breakdown
+  #TODO: table_of_contents_breakdown:
+#TODO: SPM category - objects count
+  #TODO: spm_category___objects_count:
+#TODO: SPM category - partner count
+  #TODO: spm_category___partner_count:
+#TODO: Data Usage Reports
+  #TODO: data_usage_reports:
+#TODO: Google Analytics (Google account and access required)
+  #TODO: google_analytics__google_accou:
+#TODO: All changes
+  #TODO: all_changes:
+#TODO: <span style="display:block;width:24px;height:25px;"></span>
+  #TODO: _span_style__display_block_wid:
+#TODO: Overall:
+  #TODO: overall_:
+#TODO: Your Rating:
+  #TODO: your_rating_:
+#TODO: <span style='width:20px;height:20px;display:block;'></span>
+  #TODO: _span_style__width_20px_height:
+#TODO: What's This?
+  #TODO: what_s_this_:
+#TODO: List of taxa harvested on
+  #TODO: list_of_taxa_harvested_on:
+#TODO: * With data object
+  #TODO: __with_data_object:
+#TODO: <span class="span_block"></span>
+  #TODO: _span_class__span_block____spa:
+#TODO: Retrieving comments, please wait...
+  #TODO: retrieving_comments__please_wa:
+#TODO: No search results were found
+  #TODO: no_search_results_were_found:
+#TODO: Results %{var_results_offset___1} - %{var_results_offset____results_per_page__results_total_entries__min} of
+  #TODO: results_var_results_offset___1:
+#TODO: %{var_results_total_entries} for
+  #TODO: var_results_total_entries_for:
+#TODO: There are no curators of
+  #TODO: there_are_no_curators_of:
+#TODO: The following are curators of
+  #TODO: the_following_are_curators_of:
+#TODO: Showing:
+  #TODO: showing_:
+#TODO: Add New Content
+  #TODO: add_new_content:
+#TODO: Working...
+  #TODO: working__:
+#TODO: Image of
+  #TODO: image_of:
+#TODO: View image source
+  #TODO: view_image_source:
+#TODO: No authoritative videos available.
+  #TODO: no_authoritative_videos_availa:
+#TODO: View unvetted videos for this group.
+  #TODO: view_unvetted_videos_for_this_:
+#TODO: This map is based on occurrence records available through GBIF and may not represent the entire taxon distribution
+  #TODO: this_map_is_based_on_occurrenc:
+#TODO: What's this?
+  #TODO: what_s_this__:
+#TODO: source unknown
+  #TODO: source_unknown:
+#TODO: EOL has the ability to filter its content by a classification (or hierarchy).  This allows you to change the
+  #TODO: eol_has_the_ability_to_filter_:
+#TODO: list of taxa shown in the classification browser on the right side of a species page and, optionally,
+  #TODO: list_of_taxa_shown_in_the_clas:
+#TODO: For instance, if you choose a classification containing only marine taxa and select the filtering option, then
+  #TODO: for_instance__if_you_choose_a_:
+#TODO: your view of EOL will only show those taxa and images recognized by the marine classification - an
+  #TODO: your_view_of_eol_will_only_sho:
+#TODO: Encyclopedia of Marine Life!  You can still search for any taxa using the search page.
+  #TODO: encyclopedia_of_marine_life___:
+#TODO: You can also choose two classifications if you wish, which will be seamlessly merged together as you browse this website - this feature may be useful for biologists and taxonomists.
+  #TODO: you_can_also_choose_two_classi:
+#TODO: Latest Changes
+  #TODO: latest_changes:
+#TODO: Curate content in this clade
+  #TODO: curate_content_in_this_clade:
+#TODO: This page has
+  #TODO: this_page_has:
+#TODO: active curator%{var_act_curators_size____1__________s__}
+  #TODO: active_curatorvar_act_curators:
+#TODO: Who can curate this page?
+  #TODO: who_can_curate_this_page_:
+#TODO: Last curated:
+  #TODO: last_curated_:
+#TODO: The mission of the
+  #TODO: the_mission_of_the:
+#TODO: National Center for Biotechnology Information
+  #TODO: national_center_for_biotechnol:
+#TODO: is to develop new information technologies to aid in the understanding of fundamental molecular and genetic processes that control health and disease.
+  #TODO: is_to_develop_new_information_:
+#TODO: The
+  #TODO: the_:
+#TODO: NCBI Taxonomy
+  #TODO: ncbi_taxonomy:
+#TODO: database contains the names of all organisms that are represented in the genetic databases with at least one nucleotide or protein sequence. You can
+  #TODO: database_contains_the_names_of:
+#TODO: browse EOL
+  #TODO: browse_eol:
+#TODO: using the NCBI Taxonomy.
+  #TODO: using_the_ncbi_taxonomy:
+#TODO: View protein and nucleotide sequences in NCBI
+  #TODO: view_protein_and_nucleotide_se:
+#TODO: Add a new common name
+  #TODO: add_a_new_common_name:
+#TODO: Preferred Name:
+  #TODO: preferred_name_:
+#TODO: Relationship
+  #TODO: relationship:
+#TODO: These terms are derived by searching the biomedical literature database,
+  #TODO: these_terms_are_derived_by_sea:
+#TODO: for the name "
+  #TODO: for_the_name__:
+#TODO: The results are analyzed with the
+  #TODO: the_results_are_analyzed_with_:
+#TODO: LigerCat
+  #TODO: ligercat:
+#TODO: tool, which
+  #TODO: tool__which:
+#TODO: builds the cloud from the most relevant Medical Subject Headings (
+  #TODO: builds_the_cloud_from_the_most:
+#TODO: MeSH
+  #TODO: mesh:
+#TODO: ). Each term's relative size indicates how many times it
+  #TODO: ___each_term_s_relative_size_i:
+#TODO: appears in the PubMed search results. Click on a term to access the full LigerCat cloud, with live PubMed search
+  #TODO: appears_in_the_pubmed_search_r:
+#TODO: capabilities.
+  #TODO: capabilities:
+#TODO: Terms provided by
+  #TODO: terms_provided_by:
+#TODO: PubMed
+  #TODO: pubmed:
+#TODO: . Clouds provided by the MBL
+  #TODO: __clouds_provided_by_the_mbl:
+#TODO: Biology of Aging project
+  #TODO: biology_of_aging_project:
+#TODO: Sorry! There was an error sending the curation request; please try again later.
+  #TODO: sorry__there_was_an_error_send:
+#TODO: The following bibliography has been generated by automated services. BHL uses taxonomic intelligence tools to locate, verify, and record scientific names located within the text of each digitized page in the BHL digital collection.
+  #TODO: the_following_bibliography_has:
+#TODO: BHL Summary
+  #TODO: bhl_summary:
+#TODO:  Page 
+  #TODO: _page_:
+#TODO: Content provided by the
+  #TODO: content_provided_by_the:
+#TODO: Biodiversity Heritage Library
+  #TODO: biodiversity_heritage_library:
+#TODO: Google
+  #TODO: google:
+#TODO: Google Images
+  #TODO: google_images:
+#TODO: Google Scholar
+  #TODO: google_scholar:
+#TODO: Yahoo
+  #TODO: yahoo:
+#TODO: Yahoo Images
+  #TODO: yahoo_images:
+#TODO: Vivisimo
+  #TODO: vivisimo:
+#TODO: # of descendants
+  #TODO: _of_descendants:
+#TODO: # of trusted images
+  #TODO: _of_trusted_images:
+#TODO: # of unreviewed images
+  #TODO: _of_unreviewed_images:
+#TODO: # of trusted text objects
+  #TODO: _of_trusted_text_objects:
+#TODO: # of unreviewed text objects
+  #TODO: _of_unreviewed_text_objects:
+#TODO: Parents:
+  #TODO: parents_:
+#TODO: Children:
+  #TODO: children_:
+#TODO: "%{var__taxon_concept_title__session_hierarchy_}". Encyclopedia of Life, available from "
+  #TODO: _var__taxon_concept_title__ses:
+#TODO: http://%{var__site_domain_or_ip}%{var_this_url}
+  #TODO: http___var__site_domain_or_ipv:
+#TODO: ". Accessed
+  #TODO: ___accessed:
+#TODO: Example:
+  #TODO: example_:
+#TODO: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Encyclopedia of Life, available from <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Accessed 15 Jan 2009.
+  #TODO: fisher__brian___pogonomyrmex_a:
+#TODO: Harvests for
+  #TODO: harvests_for:
+#TODO: NOTICE:
+  #TODO: notice_:
+#TODO: Please
+  #TODO: please:
+#TODO: publish
+  #TODO: publish:
+#TODO: this resource here ***
+  #TODO: this_resource_here____:
+#TODO: Harvest ID
+  #TODO: harvest_id:
+#TODO: Started
+  #TODO: started:
+#TODO: Completed
+  #TODO: completed:
+#TODO: Published
+  #TODO: published:
+#TODO: Action
+  #TODO: action:
+#TODO: Hierarchy
+  #TODO: hierarchy:
+#TODO: preview
+  #TODO: preview_:
+#TODO: currently published
+  #TODO: currently_published:
+#TODO: previously published
+  #TODO: previously_published:
+#TODO: rollback
+  #TODO: rollback:
+#TODO: Are you sure you want to revert to this harvest and delete all newer harvests?  This action is not reversible.
+  #TODO: are_you_sure_you_want_to_rever:
+#TODO: unpublished
+  #TODO: unpublished:
+#TODO: Are you sure you want to publish this harvest? This action is not reversible.
+  #TODO: are_you_sure_you_want_to_publi:
+#TODO: view this hierarchy
+  #TODO: view_this_hierarchy:
+#TODO: EOL API:
+  #TODO: eol_api_:
+#TODO: EOL API: Data Objects
+  #TODO: eol_api__data_objects:
+#TODO: Request
+  #TODO: request:
+#TODO: Parameters
+  #TODO: parameters:
+#TODO: none
+  #TODO: none:
+#TODO: Given the identifier for a data object this API will return all metadata about the object as submitted to EOL by the contributing content partner. The content partner is cited in the first agent element and has the role of 'partner'.
+  #TODO: given_the_identifier_for_a_dat:
+#TODO: Image objects will contain two mediaURL elements - the first being the URL of the image on the provider's website, and the second is the URL of the cached version of the media hosted on an EOL server. The EOL version of the image will have been resized (perserving the aspect ration) if the original image is larger than 460 pixels wide or 345 pixels in height.
+  #TODO: image_objects_will_contain_two:
+#TODO: XML Response
+  #TODO: xml_response:
+#TODO: JSON Response
+  #TODO: json_response:
+#TODO: Methods
+  #TODO: methods:
+#TODO: Method
+  #TODO: method:
+#TODO: ping
+  #TODO: ping:
+#TODO: returns either a positive response (indicating APIs are functional), or returns a negative response or nothing at all (indicating APIs are not functional at that time).
+  #TODO: returns_either_a_positive_resp:
+#TODO: search
+  #TODO: search_:
+#TODO: given a value for a specific element (e.g. scientific name=Homo sapiens), returns a paginated list of the EOL pages containing the search term
+  #TODO: given_a_value_for_a_specific_e:
+#TODO: pages
+  #TODO: pages_:
+#TODO: takes an EOL page identifier and returns the scientific  name for that page, and optionally returns information about common  names, media (text, images and videos), and references to the  hierarchies which recognize the taxon described on the
+  #TODO: takes_an_eol_page_identifier_a:
+#TODO: data_objects
+  #TODO: data_objects:
+#TODO: returns all metadata about a particular data object (text, image or video) indexed by EOL
+  #TODO: returns_all_metadata_about_a_p:
+#TODO: hierarchy_entries
+  #TODO: hierarchy_entries:
+#TODO: gives access to a single hierarchy indexed by EOL and its internal relationships
+  #TODO: gives_access_to_a_single_hiera:
+#TODO: provider_hierarchies
+  #TODO: provider_hierarchies:
+#TODO: lists the identifiers for all hierarchies supplied by content partners
+  #TODO: lists_the_identifiers_for_all_:
+#TODO: hierarchies
+  #TODO: hierarchies:
+#TODO: given a hierarchy identifier, this method returns metadata about the hierarchy and lists the root taxa
+  #TODO: given_a_hierarchy_identifier__:
+#TODO: search_by_provider
+  #TODO: search_by_provider:
+#TODO: get the EOL page IDs given a provider's hierarchy_id and the provider's own unique identifier
+  #TODO: get_the_eol_page_ids_given_a_p:
+#TODO: (e.g. search for the EOL page ID for the ITIS TSN 180542:
+  #TODO: _e_g__search_for_the_eol_page_:
+#TODO: Response Formats
+  #TODO: response_formats:
+#TODO: All APIs return by default an XML response. The API methods may be called without a format extension to get the XML response, and adding an XML extension will give an identical response:
+  #TODO: all_apis_return_by_default_an_:
+#TODO: Every method can also return a JSON response by adding a .json extension
+  #TODO: every_method_can_also_return_a:
+#TODO: ... and JSONP by adding a callback parameter
+  #TODO: ____and_jsonp_by_adding_a_call:
+#TODO: You can identify yourself to EOL by adding your API key to your requests (login and generate your key in your preference page):
+  #TODO: you_can_identify_yourself_to_e:
+#TODO: http://www.eol.org/api/search/Robin?key=1111111111111111111111111111111111
+  #TODO: http___www_eol_org_api_search_:
+#TODO: Each method's documentation page has an example of both the XML and JSON formatted responses.
+  #TODO: each_method_s_documentation_pa:
+#TODO: EOL API: Hierarchies
+  #TODO: eol_api__hierarchies:
+#TODO: The Encyclopedia of Life does not have a singular taxonomic hierarchy upon which it creates its pages. Rather EOL indexes many hierarchies and compares them against each other. This API list metadata about a hierarchy such as the provider name and source URL, as well as lists all the taxa which are the root taxa of the taxonomic tree
+  #TODO: the_encyclopedia_of_life_does_:
+#TODO: EOL API: Provider Hierarchies
+  #TODO: eol_api__provider_hierarchies:
+#TODO: This method will return references to all hierarchies supplied by EOL Content Partners. The response will include the label of the hierarchy and the EOL unique ID representing the hierarchy
+  #TODO: this_method_will_return_refere:
+#TODO: EOL API: Search
+  #TODO: eol_api__search:
+#TODO: Values
+  #TODO: values:
+#TODO: Default
+  #TODO: default:
+#TODO: page
+  #TODO: page_:
+#TODO: any integer
+  #TODO: any_integer:
+#TODO: exact
+  #TODO: exact:
+#TODO: 0 or 1
+  #TODO: 0_or_1:
+#TODO: will find taxon pages if the preferred name or any synonym or common name exactly matches the search term
+  #TODO: will_find_taxon_pages_if_the_p:
+#TODO: The XML search response implements the OpenSearch response format using Atom 1.0. See
+  #TODO: the_xml_search_response_implem:
+#TODO: http://www.opensearch.org/Specifications/OpenSearch/1.1
+  #TODO: http___www_opensearch_org_spec:
+#TODO: for the full OpenSearch specification
+  #TODO: for_the_full_opensearch_specif:
+#TODO: There is currently no exact match parameter. Given the vast number of scientific and common names (nearly 20 million in total) it is a difficult task to provide a user with exactly the species they are hoping to find. For example there are several bird species of named Robin (American Robin, Alpine Robin, Smoky Robin), and several fish species named Robin, and taxonomist named Robin has named dozens of new species. We are continuously trying to improve the relevancy of our search results so expect some improvements to search ordering in the future.
+  #TODO: there_is_currently_no_exact_ma:
+#TODO: EOL API: Ping
+  #TODO: eol_api__ping:
+#TODO: This method will either fail (in which case the EOL error page will most likely be returned) or return a message of Success. There are no other possible messages
+  #TODO: this_method_will_either_fail__:
+#TODO: EOL API: Pages
+  #TODO: eol_api__pages:
+#TODO: images
+  #TODO: images_:
+#TODO: limits the number of returned image objects
+  #TODO: limits_the_number_of_returned_:
+#TODO: videos
+  #TODO: videos_:
+#TODO: limits the number of returned video objects
+  #TODO: limits_the_number_of_returned__:
+#TODO: limits the number of returned text objects
+  #TODO: limits_the_number_of_returned___:
+#TODO: subjects
+  #TODO: subjects:
+#TODO: see notes
+  #TODO: see_notes:
+#TODO: TaxonBiology|GeneralDescription|Description
+  #TODO: taxonbiology_generaldescriptio:
+#TODO: a pipe | delimited list of SPM Info Item subject names or 'all' to get text in any subject
+  #TODO: a_pipe___delimited_list_of_spm:
+#TODO: licenses
+  #TODO: licenses:
+#TODO: cc-by, cc-by-nc, cc-by-sa, cc-by-nc-sa, pd [public domain], na [not applicable], all
+  #TODO: cc_by__cc_by_nc__cc_by_sa__cc_:
+#TODO: all
+  #TODO: all:
+#TODO: a pipe | delimited list of licenses or 'all' to get objects under any license. Licenses abbreviated cc- are all
+  #TODO: a_pipe___delimited_list_of_lic:
+#TODO: licenses. Visit their site for more information on the various licenses they offer
+  #TODO: licenses__visit_their_site_for:
+#TODO: details
+  #TODO: details:
+#TODO: expand all metadata for data objects
+  #TODO: expand_all_metadata_for_data_o:
+#TODO: return common names for the page's taxon
+  #TODO: return_common_names_for_the_pa:
+#TODO: vetted
+  #TODO: vetted_:
+#TODO: if vetted is 1 only 'trusted' content will be returned. The default is to return all content
+  #TODO: if_vetted_is_1_only__trusted__:
+#TODO: format
+  #TODO: format:
+#TODO: html, xml, json
+  #TODO: html__xml__json:
+#TODO: html
+  #TODO: html:
+#TODO: version
+  #TODO: version:
+#TODO: version 1.0 uses fields from the latest version of the
+  #TODO: version_1_0_uses_fields_from_t:
+#TODO: Darwin Core
+  #TODO: darwin_core:
+#TODO: schema
+  #TODO: schema:
+#TODO: This method takes an EOL page identifier and returns the scientific name for that page, and optionally returns information about common names, media (text, images and videos), and references to the hierarchies which recognize the taxon described on the page.
+  #TODO: this_method_takes_an_eol_page_:
+#TODO: The Darwin Core Taxon elements (dwct:Taxon) under additionalInformation include identifiers for nodes in hierarchies which EOL indexes. They contain a dc:identifier which is the unique ID for the taxon
+  #TODO: the_darwin_core_taxon_elements:
+#TODO: in the provider's database
+  #TODO: in_the_provider_s_database:
+#TODO: . For example for the Taxon element for a node in the ITIS hierarchy, the dc:identifier will be the ITIS TSN. The dwct:taxonID element contains the
+  #TODO: __for_example_for_the_taxon_el:
+#TODO: EOL identifier
+  #TODO: eol_identifier:
+#TODO: to be used in the
+  #TODO: to_be_used_in_the:
+#TODO: API. There is no singular EOL taxonomic hierarchy, rather EOL indexes many hierarchies and compares them to figure out which nodes are referring to the same taxa. These taxon elements represent these hierarchy nodes, which is why there are potentially several of them for a given EOL page. Refer to the documentation on the
+  #TODO: api__there_is_no_singular_eol_:
+#TODO: API for more information.
+  #TODO: api_for_more_information:
+#TODO: If the details parameter is not set then only the data object identifier, data type, and in the case of text objects subject, will be returned. The data type will be a value from the
+  #TODO: if_the_details_parameter_is_no:
+#TODO: resource type vocabulary. The text subject will be a value from the
+  #TODO: resource_type_vocabulary__the_:
+#TODO: Species Profile Model
+  #TODO: species_profile_model:
+#TODO: ontology of info items.
+  #TODO: ontology_of_info_items:
+#TODO: EOL API: Hierarchy Entries
+  #TODO: eol_api__hierarchy_entries:
+#TODO: The Encyclopedia of Life does not have a singular taxonomic hierarchy upon which it creates its pages. Rather EOL indexes many hierarchies and compares them against each other. As a result any EOL page may relate to several nodes from various hierarchies. This API gives access to a single hierarchy and its internal relationships. Refer to the documentation on the pages API for information on accessing other hierarchies which correspond to a particular EOL page. The taxonConceptID field contains the EOL page identifier which can be used in the pages API.
+  #TODO: the_encyclopedia_of_life_does__:
+#TODO: The JSON response for this method returns more information than the XML response. The JSON response includes several statistics about this node and its taxonomic descendants. For example there is a returned field "total_descendants" which list the number of nodes which are descendants of the given node according to this hierarchy; "total_trusted_text" includes the total number of unique text data objects linked to this taxon or any of its descendants.
+  #TODO: the_json_response_for_this_met:
+#TODO: EOL API: Search By Provider
+  #TODO: eol_api__search_by_provider:
+#TODO: hierarchy_id
+  #TODO: hierarchy_id:
+#TODO: the ID of the provider's hierarchy you are searching within
+  #TODO: the_id_of_the_provider_s_hiera:
+#TODO: This method takes an integer or string which is the unique identifier for a taxon from some provider's database, and a hierarchy_id which represents the provider and returns the EOL page ID for that taxon. For example using the
+  #TODO: this_method_takes_an_integer_o:
+#TODO: API I can find out that the EOL hierarchy_id for the Integrated Taxonomic Information System (ITIS) is 107. I can then search EOL for the ITIS Taxonomic Serial Number (TSN) of 180542,
+  #TODO: api_i_can_find_out_that_the_eo:
+#TODO: Ursus maritimus
+  #TODO: ursus_maritimus:
+#TODO: , by calling
+  #TODO: __by_calling:
+#TODO: Jump To:
+  #TODO: jump_to_:
+#TODO: Overview
+  #TODO: overview:
+#TODO: API Docs Home
+  #TODO: api_docs_home:
+#TODO: Ping
+  #TODO: ping_:
+#TODO: Pages
+  #TODO: pages__:
+#TODO: DataObjects
+  #TODO: dataobjects:
+#TODO: HierarchyEntries
+  #TODO: hierarchyentries:
+#TODO: Hierarchies
+  #TODO: hierarchies_:
+#TODO: ProviderHierarchies
+  #TODO: providerhierarchies:
+#TODO: SearchByProvider
+  #TODO: searchbyprovider:
+#TODO: Page not found
+  #TODO: page_not_found:
+#TODO: Disabling this for now...
+  #TODO: disabling_this_for_now__:
+#TODO: your ignored list
+  #TODO: your_ignored_list:
+#TODO: Curator Central
+  #TODO: curator_central:
+#TODO: Your Curator Profile
+  #TODO: your_curator_profile:
+#TODO: Images Work List
+  #TODO: images_work_list:
+#TODO: Ignored images
+  #TODO: ignored_images:
+#TODO: Wikipedia Import
+  #TODO: wikipedia_import:
+#TODO: Working With Wiki Content
+  #TODO: working_with_wiki_content:
+#TODO: Curator To Do List
+  #TODO: curator_to_do_list:
+#TODO: Curation Standards
+  #TODO: curation_standards:
+#TODO: THESE ARE ALL TODO
+  #TODO: these_are_all_todo:
+#TODO: Text
+  #TODO: text__:
+#TODO: Action History
+  #TODO: action_history:
+#TODO: Taxa curated
+  #TODO: taxa_curated:
+#TODO: Data curated
+  #TODO: data_curated:
+#TODO: your active list
+  #TODO: your_active_list:
+#TODO: Test.
+  #TODO: test:
+#TODO: Name:
+  #TODO: name_:
+#TODO: Sym:
+  #TODO: sym_:
+#TODO: Level:
+  #TODO: level_:
+#TODO: Type:
+  #TODO: type_:
+#TODO: Listing privileges
+  #TODO: listing_privileges:
+#TODO: Sym
+  #TODO: sym:
+#TODO: Level
+  #TODO: level:
+#TODO: Destroy
+  #TODO: destroy:
+#TODO: New privilege
+  #TODO: new_privilege:
+#TODO: Editing privilege
+  #TODO: editing_privilege:
+#TODO: You may upload static files for use in the CMS here (for example, PDFs, Word documents, images, etc.).  You should not
+  #TODO: you_may_upload_static_files_fo:
+#TODO: use this to upload content for species pages - it is for use only in non-species pages (such as employment ads, newsletters, MOUs, etc.).
+  #TODO: use_this_to_upload_content_for:
+#TODO: For PDFs such as MOUs and newsletter files, you may link to the "friendly URL" if you wish (which will automatically redirect to the
+  #TODO: for_pdfs_such_as_mous_and_news:
+#TODO: "full content URL").  For images which are embedded in a page and referenced with an &lt;img&gt; tag, you must use the "full content URL".
+  #TODO: _full_content_url_____for_imag:
+#TODO: The "full content URL" may show a different content server number each time you refresh the page (e.g. "content2.eol.org", "content3.eol.org", etc) - this is
+  #TODO: the__full_content_url__may_sho:
+#TODO: normal and any can be used when you create your links as they are all equivalent.
+  #TODO: normal_and_any_can_be_used_whe:
+#TODO: Note that it may take a few minutes after upload for the URLs to work since your file needs to propagate to the content servers.
+  #TODO: note_that_it_may_take_a_few_mi:
+#TODO: [add a new file]
+  #TODO: _add_a_new_file_:
+#TODO: Full Content URL
+  #TODO: full_content_url:
+#TODO: Friendly URL
+  #TODO: friendly_url:
+#TODO: Uploaded On
+  #TODO: uploaded_on:
+#TODO: By
+  #TODO: by_:
+#TODO: File:
+  #TODO: file_:
+#TODO: (must be less than 10 MB in size, file will be stored as uploaded, i.e. no resizing of images will be performed)
+  #TODO: _must_be_less_than_10_mb_in_si:
+#TODO: Upload
+  #TODO: upload:
+#TODO: File ID:
+  #TODO: file_id_:
+#TODO: Friendly URL:
+  #TODO: friendly_url_:
+#TODO: (for PDFs & docs)
+  #TODO: _for_pdfs___docs_:
+#TODO: http://%{var_request_domain}%{var__content_upload_attachment_url}
+  #TODO: http___var_request_domainvar__:
+#TODO: Content Server Full URL:
+  #TODO: content_server_full_url_:
+#TODO: (for images to reference)
+  #TODO: _for_images_to_reference_:
+#TODO: Content Type:
+  #TODO: content_type_:
+#TODO: File Size:
+  #TODO: file_size_:
+#TODO: Uploaded By:
+  #TODO: uploaded_by_:
+#TODO: Date uploaded:
+  #TODO: date_uploaded_:
+#TODO: (not shown on the website or link URL, for informational purposes only)
+  #TODO: _not_shown_on_the_website_or_l:
+#TODO: Link Name:
+  #TODO: link_name_:
+#TODO: (used to generate a friendly link for users, cannot contain spaces or special characters)
+  #TODO: _used_to_generate_a_friendly_l:
+#TODO: This page shows information about a specific search term and which results users clicked on after running the search.
+  #TODO: this_page_shows_information_ab:
+#TODO: Taxon Selected From Search Results
+  #TODO: taxon_selected_from_search_res:
+#TODO: Clicked Time
+  #TODO: clicked_time:
+#TODO: Search Term
+  #TODO: search_term:
+#TODO: Count
+  #TODO: count:
+#TODO: Page Results avg
+  #TODO: page_results_avg:
+#TODO: Suggested Results avg
+  #TODO: suggested_results_avg:
+#TODO: Common Name avg
+  #TODO: common_name_avg:
+#TODO: Sci. Name avg
+  #TODO: sci__name_avg:
+#TODO: The section is used to add new user roles.  New user roles are activated in the code, so that cannot be
+  #TODO: the_section_is_used_to_add_new:
+#TODO: renamed or deleted from this interface.
+  #TODO: renamed_or_deleted_from_this_i:
+#TODO: Add a new role
+  #TODO: add_a_new_role:
+#TODO: A total of
+  #TODO: a_total_of:
+#TODO: roles were found.
+  #TODO: roles_were_found:
+#TODO: Date Created
+  #TODO: date_created:
+#TODO: No roles are available.
+  #TODO: no_roles_are_available:
+#TODO: Title:
+  #TODO: title_:
+#TODO: User-activity report.  Select a specific user to see his activities sorted inversely by time created. Select 'All' to see all user activities.
+  #TODO: user_activity_report___select_:
+#TODO: Then click 'Search' to proceed (use your browser back button to return here).
+  #TODO: then_click__search__to_proceed:
+#TODO:  View list of most common activities.
+  #TODO: _view_list_of_most_common_acti:
+#TODO: All
+  #TODO: all_:
+#TODO: Activity:
+  #TODO: activity_:
+#TODO: User
+  #TODO: user:
+#TODO: Species
+  #TODO: species:
+#TODO: Detail
+  #TODO: detail:
+#TODO: Date
+  #TODO: date:
+#TODO: data object
+  #TODO: data_object:
+#TODO: news item
+  #TODO: news_item:
+#TODO: curated species of 
+  #TODO: curated_species_of_:
+#TODO: curated objects of 
+  #TODO: curated_objects_of_:
+#TODO: curator profile of 
+  #TODO: curator_profile_of_:
+#TODO: No record found matching your criteria.
+  #TODO: no_record_found_matching_your_:
+#TODO: List of activity combinations in a 5-min. duration
+  #TODO: list_of_activity_combinations_:
+#TODO: Add a new user
+  #TODO: add_a_new_user:
+#TODO: Export this list as CSV
+  #TODO: export_this_list_as_csv:
+#TODO: users were found matching your criteria.
+  #TODO: users_were_found_matching_your:
+#TODO: Created At
+  #TODO: created_at:
+#TODO: Curator?
+  #TODO: curator_:
+#TODO: No users are available matching your search criteria.
+  #TODO: no_users_are_available_matchin:
+#TODO: Common activities by logged in users.
+  #TODO: common_activities_by_logged_in:
+#TODO: Click on an activity to see the list of related activities conducted with that activity in a 5-min. duration {3-4 mins.}.
+  #TODO: click_on_an_activity_to_see_th:
+#TODO: Click
+  #TODO: click:
+#TODO: here
+  #TODO: here:
+#TODO: Edit the user details below.  You can send this user an email from the system by clicking 'show email message area' below and entering in the text of the email.  Only enter a new password if you wish to change it, otherwise leave it blank.
+  #TODO: edit_the_user_details_below___:
+#TODO: [login to the website as %{var__user_username}]
+  #TODO: _login_to_the_website_as_var__:
+#TODO: Are you sure you want to log into the website as this user?  If you do this, you will be logged out of the website as an administrator.
+  #TODO: are_you_sure_you_want_to_log_i:
+#TODO: Username:
+  #TODO: username_:
+#TODO: Password:
+  #TODO: password_:
+#TODO: Confirm Password:
+  #TODO: confirm_password_:
+#TODO: Email:
+  #TODO: email_:
+#TODO: Given Name:
+  #TODO: given_name_:
+#TODO: Family Name:
+  #TODO: family_name_:
+#TODO: Profile:
+  #TODO: profile_:
+#TODO: curator profile
+  #TODO: curator_profile:
+#TODO: Content Setting:
+  #TODO: content_setting_:
+#TODO: Only show authoritative content:
+  #TODO: only_show_authoritative_conten:
+#TODO: 
+  #TODO: true:
+#TODO: Request Mailing List:
+  #TODO: request_mailing_list_:
+#TODO: Active:
+  #TODO: active_:
+#TODO: failed login attempts)- must be checked for user to log in
+  #TODO: failed_login_attempts___must_b:
+#TODO: Roles:
+  #TODO: roles_:
+#TODO: [show roles]
+  #TODO: _show_roles_:
+#TODO: Curator of:
+  #TODO: curator_of_:
+#TODO: Curator scope:
+  #TODO: curator_scope_:
+#TODO: Curator Approved:
+  #TODO: curator_approved_:
+#TODO: (Curator status changed by
+  #TODO: _curator_status_changed_by:
+#TODO: Remove curatorship:
+  #TODO: remove_curatorship_:
+#TODO: If checked and user is saved, then credentials, scope, approval and selected clade are all removed and user no longer shows up as a curator.  You should add a note below to indicate the reason.  No information is sent to the user.
+  #TODO: if_checked_and_user_is_saved__:
+#TODO: Admin notes (not visible to user):
+  #TODO: admin_notes__not_visible_to_us:
+#TODO: Created:
+  #TODO: created_:
+#TODO: Updated:
+  #TODO: updated_:
+#TODO: Send email:
+  #TODO: send_email_:
+#TODO: [show email message area]
+  #TODO: _show_email_message_area_:
+#TODO: Fill in a message below to send an email to this user from the site.  The message will be sent when you submit the form:
+  #TODO: fill_in_a_message_below_to_sen:
+#TODO: Add a new topic area
+  #TODO: add_a_new_topic_area:
+#TODO: The following topic areas are available from the Contact Us page.  You may add or edit topic areas and their corresponding email addresses.  All changes are made immediately.
+  #TODO: the_following_topic_areas_are_:
+#TODO: Topic Area
+  #TODO: topic_area_:
+#TODO: Recipients
+  #TODO: recipients:
+#TODO: Edit the topic area and email addresses below and check the active box to show to users on the contact us page of the website.
+  #TODO: edit_the_topic_area_and_email_:
+#TODO: Topic area:
+  #TODO: topic_area__:
+#TODO: (shown to the user)
+  #TODO: _shown_to_the_user_:
+#TODO: Email recipients:
+  #TODO: email_recipients_:
+#TODO: (separate multiple email addresses with commas)
+  #TODO: _separate_multiple_email_addre:
+#TODO: Agent
+  #TODO: agent:
+#TODO: Browsable
+  #TODO: browsable:
+#TODO: partner page
+  #TODO: partner_page:
+#TODO: This is a flat list of 10 million strings - not going to let you browse it
+  #TODO: this_is_a_flat_list_of_10_mill:
+#TODO: edit
+  #TODO: edit_:
+#TODO: browse hierarchy
+  #TODO: browse_hierarchy:
+#TODO: Attribute
+  #TODO: attribute:
+#TODO: Label
+  #TODO: label:
+#TODO: This is the label that will be used for attribution
+  #TODO: this_is_the_label_that_will_be:
+#TODO: Descriptive Label
+  #TODO: descriptive_label:
+#TODO: This is the label that will appear in the hierarchy selector drop down list
+  #TODO: this_is_the_label_that_will_ap:
+#TODO: if this box is checked the hierarchy will be an option for users to browse EOL
+  #TODO: if_this_box_is_checked_the_hie:
+#TODO: Curated
+  #TODO: curated:
+#TODO: NOTE: only change this attribute if you are certain - unchecking this could cause serious homonym problems
+  #TODO: note__only_change_this_attribu:
+#TODO: Publish Requested
+  #TODO: publish_requested:
+#TODO: edit hierarchy
+  #TODO: edit_hierarchy:
+#TODO: This area shows all submissions entered via the contact us or media contact pages.  To view entries, select the topic below or
+  #TODO: this_area_shows_all_submission:
+#TODO: export all of the entries as a CSV file
+  #TODO: export_all_of_the_entries_as_a:
+#TODO: All  (
+  #TODO: all___:
+#TODO: Search for messages containing:
+  #TODO: search_for_messages_containing:
+#TODO: Go
+  #TODO: go:
+#TODO: total comments have been submitted in
+  #TODO: total_comments_have_been_submi:
+#TODO: containing
+  #TODO: containing:
+#TODO: Topic
+  #TODO: topic:
+#TODO: Taxon Group
+  #TODO: taxon_group:
+#TODO: No comments are available for
+  #TODO: no_comments_are_available_for:
+#TODO: [cancel]
+  #TODO: _cancel_:
+#TODO: To send this user an email, enter the text below and click 'Send'.
+  #TODO: to_send_this_user_an_email__en:
+#TODO: Message:
+  #TODO: message_:
+#TODO: Send
+  #TODO: send:
+#TODO: Click a username to view the user's detailed profile.  You may change the clade level curator permissions on the user profile pages.  If credentials are truncated, click to expand and show full credentials.
+  #TODO: click_a_username_to_view_the_u:
+#TODO: [export all curators as CSV]
+  #TODO: _export_all_curators_as_csv_:
+#TODO: Search for curators containing:
+  #TODO: search_for_curators_containing:
+#TODO: Only show unapproved curators 
+  #TODO: only_show_unapproved_curators_:
+#TODO: Only show curators with no clade selected
+  #TODO: only_show_curators_with_no_cla:
+#TODO: UserName
+  #TODO: username__:
+#TODO: Clade
+  #TODO: clade:
+#TODO: Approved?
+  #TODO: approved_:
+#TODO: 
+  #TODO: on:
+#TODO: N/A
+  #TODO: n_a:
+#TODO: All user-submitted texts on the website are shown below, sorted inversely by time created.
+  #TODO: all_user_submitted_texts_on_th:
+#TODO: Click on a user to view the user's detailed profile, click on the species to view the page where the text exists (use your browser back button to return here).
+  #TODO: click_on_a_user_to_view_the_us:
+#TODO: Select:
+  #TODO: select_:
+#TODO: User-submitted text found:
+  #TODO: user_submitted_text_found_:
+#TODO: No user-submitted data objects match your search criteria.
+  #TODO: no_user_submitted_data_objects:
+#TODO: All comments entered by users on the website are shown below, sorted inversely by time created.
+  #TODO: all_comments_entered_by_users_:
+#TODO: Click on a username to view that user's detailed profile, click on the data type to view the object commented on (use your browser back button to return here), click on "edit" to edit the comment or click on "delete" the permanently delete the comment.
+  #TODO: click_on_a_username_to_view_th:
+#TODO: Search for comments containing the text:
+  #TODO: search_for_comments_containing:
+#TODO: comments were found matching your criteria.
+  #TODO: comments_were_found_matching_y:
+#TODO: Created at
+  #TODO: created_at_:
+#TODO: [delete]
+  #TODO: _delete_:
+#TODO: This cannot be undone; are you sure?
+  #TODO: this_cannot_be_undone__are_you:
+#TODO: Edit the user's comment below.
+  #TODO: edit_the_user_s_comment_below:
+#TODO: Original object:
+  #TODO: original_object_:
+#TODO: Body:
+  #TODO: body_:
+#TODO: Created at:
+  #TODO: created_at__:
+#TODO: ID:
+  #TODO: id_:
+#TODO: Date:
+  #TODO: date_:
+#TODO: Exception:
+  #TODO: exception_:
+#TODO: URL:
+  #TODO: url_:
+#TODO: IP:
+  #TODO: ip_:
+#TODO: User agent:
+  #TODO: user_agent_:
+#TODO: User ID:
+  #TODO: user_id_:
+#TODO: Details:
+  #TODO: details_:
+#TODO: Filter by day:
+  #TODO: filter_by_day_:
+#TODO: Showing
+  #TODO: showing:
+#TODO: ALL errors
+  #TODO: all_errors:
+#TODO: Showing errors the error log for:
+  #TODO: showing_errors_the_error_log_f:
+#TODO: Exception
+  #TODO: exception:
+#TODO: URL
+  #TODO: url:
+#TODO: User agent
+  #TODO: user_agent:
+#TODO: No errors are available.
+  #TODO: no_errors_are_available:
+#TODO: This area is used to generate search suggestions for users by specifying a term that users are searching on and a page that they should
+  #TODO: this_area_is_used_to_generate_:
+#TODO: be directed to as a suggestion.  Suggested results always appear above other results.  You can have multiple suggestions for a given search term.
+  #TODO: be_directed_to_as_a_suggestion:
+#TODO: Add a new search suggestion
+  #TODO: add_a_new_search_suggestion:
+#TODO: terms were found matching your criteria.
+  #TODO: terms_were_found_matching_your:
+#TODO: Term
+  #TODO: term:
+#TODO: [search]
+  #TODO: _search_:
+#TODO: No search suggestions are available matching your search criteria.
+  #TODO: no_search_suggestions_are_avai:
+#TODO: Enter in a search term users are searching for and then the resulting taxon/page ID they should be directed to as a suggestion for that search.  The taxon/page ID is found in the URL of the page
+  #TODO: enter_in_a_search_term_users_a:
+#TODO: you wish to direct them to (e.g. www.eol.org/pages/5 has a taxon/page ID of 5).  The page name and the first image will be collected if available and stored with the result.
+  #TODO: you_wish_to_direct_them_to__e_:
+#TODO: You can edit those later if needed.
+  #TODO: you_can_edit_those_later_if_ne:
+#TODO: Search Term:
+  #TODO: search_term_:
+#TODO: trigger search term entered by the user
+  #TODO: trigger_search_term_entered_by:
+#TODO: Page Linked To:
+  #TODO: page_linked_to_:
+#TODO: the suggested page to direct users to
+  #TODO: the_suggested_page_to_direct_u:
+#TODO: Suggested Scientific Name:
+  #TODO: suggested_scientific_name_:
+#TODO: as shown to the user in the suggestion
+  #TODO: as_shown_to_the_user_in_the_su:
+#TODO: Suggested Common name:
+  #TODO: suggested_common_name_:
+#TODO: Suggested Image URL :
+  #TODO: suggested_image_url__:
+#TODO: shown to the user in the suggestion
+  #TODO: shown_to_the_user_in_the_sugge:
+#TODO: Suggested Result Page ID:
+  #TODO: suggested_result_page_id_:
+#TODO: [update names and image]
+  #TODO: _update_names_and_image_:
+#TODO: Notes (not shown to user):
+  #TODO: notes__not_shown_to_user__:
+#TODO: Content Notes (not shown to user):
+  #TODO: content_notes__not_shown_to_us:
+#TODO: Sort Order:
+  #TODO: sort_order_:
+#TODO: (only if multiple suggestions for the same search term, sort is low-->high)
+  #TODO: _only_if_multiple_suggestions_:
+#TODO: - must be checked to show to user
+  #TODO: __must_be_checked_to_show_to_u:
+#TODO: You should be comfortable with HTML before editing. Do not use unusual fonts or styles when editing or creating pages - use simple HTML and see current pages for examples.
+  #TODO: you_should_be_comfortable_with:
+#TODO: You can reference images with the HTML &lt;img&gt; tag, but they must exist at a URL already, such as from the originating website or a site such as Flickr.  There is no facility to upload images or other files for use directly in the pages.
+  #TODO: you_can_reference_images_with_:
+#TODO: Pages/items created in the "About EOL", "Press Room", "Using the Site" and "Feedback" sections will have links to them automatically created in the top navigation.
+  #TODO: pages_items_created_in_the__ab:
+#TODO: Pages/items created in the "Footer" section will have links to them automatically created in the footer.
+  #TODO: pages_items_created_in_the__fo:
+#TODO: Pages created in the "Other" section will not be added to any navigational menus -- you must link to these pages manually.
+  #TODO: pages_created_in_the__other__s:
+#TODO: Changes are made immediately after submitting the form - be sure to use the preview button before publishing!   Due to caching it may take up to an hour for changes to be seen for all users.
+  #TODO: changes_are_made_immediately_a:
+#TODO: If you make a mistake, use the "Archived Versions" drop-down menu to retrieve the previous version of the page.  You can then preview and publish to revert to the previous version.
+  #TODO: if_you_make_a_mistake__use_the:
+#TODO: If you need to upload an image or a PDF to reference in the page, use the
+  #TODO: if_you_need_to_upload_an_image:
+#TODO: feature first, and then reference the file once it is uploaded.
+  #TODO: feature_first__and_then_refere:
+#TODO: To administer site content, please select the section to work on:
+  #TODO: to_administer_site_content__pl:
+#TODO: Add a new page to this section
+  #TODO: add_a_new_page_to_this_section:
+#TODO: select an existing page to work with:
+  #TODO: select_an_existing_page_to_wor:
+#TODO: Page ID:
+  #TODO: page_id_:
+#TODO: shown to user as the title of page
+  #TODO: shown_to_user_as_the_title_of_:
+#TODO: Page Name:
+  #TODO: page_name_:
+#TODO: used for URLS - should be unique (except for translated pages); if not, URLs to page must use page ID
+  #TODO: used_for_urls___should_be_uniq:
+#TODO: Redirect to external URL:
+  #TODO: redirect_to_external_url_:
+#TODO: ONLY USE if this item is a placeholder for a navigational menu item to a specific URL that is not this page...in that case, enter URL instead of entering content below; otherwise leave this field blank
+  #TODO: only_use_if_this_item_is_a_pla:
+#TODO: Open in new window from menu:
+  #TODO: open_in_new_window_from_menu_:
+#TODO: - if checked, any links to this page will open in a new browser window
+  #TODO: __if_checked__any_links_to_thi:
+#TODO: - relative sort order in navigational menus (sort is low-->high)
+  #TODO: __relative_sort_order_in_navig:
+#TODO: Published:
+  #TODO: published_:
+#TODO: - must be checked in order to view
+  #TODO: __must_be_checked_in_order_to_:
+#TODO: Section:
+  #TODO: section_:
+#TODO: - only change to move page/item to a different section
+  #TODO: __only_change_to_move_page_ite:
+#TODO: URL to this page:
+  #TODO: url_to_this_page_:
+#TODO: /content/page/
+  #TODO: _content_page_:
+#TODO: Page Title Language Key:
+  #TODO: page_title_language_key_:
+#TODO: only used if page title is also in the language translation files, otherwise leave blank
+  #TODO: only_used_if_page_title_is_als:
+#TODO: Page Language:
+  #TODO: page_language_:
+#TODO: Last Updated:
+  #TODO: last_updated_:
+#TODO: Archived versions:
+  #TODO: archived_versions_:
+#TODO: Permanently delete this page
+  #TODO: permanently_delete_this_page:
+#TODO: Are you sure?  This action cannot be undone.
+  #TODO: are_you_sure___this_action_can:
+#TODO: Left content area:
+  #TODO: left_content_area_:
+#TODO: (HTML FORMAT, only enter if you wish to have a left column on the page, otherwise leave blank)
+  #TODO: _html_format__only_enter_if_yo:
+#TODO: Main content area:
+  #TODO: main_content_area_:
+#TODO: (HTML FORMAT)
+  #TODO: _html_format_:
+#TODO: PREVIEW ONLY -
+  #TODO: preview_only__:
+#TODO: CLOSE THIS WINDOW TO RETURN TO EDIT WINDOW
+  #TODO: close_this_window_to_return_to:
+#TODO: Glossary Terms
+  #TODO: glossary_terms:
+#TODO: Add a new term
+  #TODO: add_a_new_term:
+#TODO: for terms or definitions containing:
+  #TODO: for_terms_or_definitions_conta:
+#TODO: Definition
+  #TODO: definition:
+#TODO: Last Updated
+  #TODO: last_updated:
+#TODO: delete
+  #TODO: delete__:
+#TODO: Are you sure you want to permanently remove this term?
+  #TODO: are_you_sure_you_want_to_perma:
+#TODO: (glossary is empty)
+  #TODO: _glossary_is_empty_:
+#TODO: Add a New Term
+  #TODO: add_a_new_term_:
+#TODO: Submit Term
+  #TODO: submit_term:
+#TODO: Edit Glossary Term
+  #TODO: edit_glossary_term:
+#TODO: Year =
+  #TODO: year__:
+#TODO: Month =
+  #TODO: month__:
+#TODO: Auto email notifications were sent to:
+  #TODO: auto_email_notifications_were_:
+#TODO: [edit/view their profile]
+  #TODO: _edit_view_their_profile_:
+#TODO: [login to the content partner registry as %{var__agent_display_name}]
+  #TODO: _login_to_the_content_partner_:
+#TODO: Are you sure you want to log into the content partner registry as %{var__agent_display_name}?  If you do this, you will be logged out of the website as an administrator.
+  #TODO: are_you_sure_you_want_to_log_i_:
+#TODO: Click circles or checkmarks below to perform those actions (checkmark indicates action has already been performed):
+  #TODO: click_circles_or_checkmarks_be:
+#TODO: Are you sure you want to %{var__agent_show_on_partner_page_____hide_____show_} this partner on the content partner page?
+  #TODO: are_you_sure_you_want_to_var__:
+#TODO: content partners
+  #TODO: content_partners_:
+#TODO: page of website.
+  #TODO: page_of_website:
+#TODO: Are you sure you want to %{var__agent_show_mou_on_partner_page_____hide_____show_} this partner's MOU on the content partner page?
+  #TODO: are_you_sure_you_want_to_var___:
+#TODO: MOU on
+  #TODO: mou_on:
+#TODO: Are you sure you want to %{var__agent_show_gallery_on_partner_page_____hide_____show_} a link to this partner's gallery on the content partner page?
+  #TODO: are_you_sure_you_want_to_var____:
+#TODO: gallery on
+  #TODO: gallery_on:
+#TODO: Are you sure you want to %{var__agent_show_stats_on_partner_page_____hide_____show_} a link to this partner's statistics on the content partner page?
+  #TODO: are_you_sure_you_want_to_var_____:
+#TODO: statistics on
+  #TODO: statistics_on:
+#TODO: Are you sure you want to %{var__agent_vetted_____unvet_____vet_} this partner?  All of their uncurated data objects will become %{var__agent_vetted_____untrusted_____trusted_} immediately!
+  #TODO: are_you_sure_you_want_to_var______:
+#TODO: Are you sure you want to %{var__agent_auto_publish_____disable_____enable_} auto-publish for this partner?  If enabled, all data objects are immediately published when imported (i.e. no preview and further approval is required).
+  #TODO: are_you_sure_you_want_to_var_______:
+#TODO: is not ready for their agreement.
+  #TODO: is_not_ready_for_their_agreeme:
+#TODO: This partner's last action was
+  #TODO: this_partner_s_last_action_was:
+#TODO: Step
+  #TODO: step:
+#TODO: 1st View
+  #TODO: 1st_view:
+#TODO: Submission
+  #TODO: submission:
+#TODO: show %{var__agent_agent_contacts_count_to_s} contacts
+  #TODO: show_var__agent_agent_contacts:
+#TODO: None
+  #TODO: none_:
+#TODO: Licensing
+  #TODO: licensing:
+#TODO: Attribution
+  #TODO: attribution:
+#TODO: Agreement
+  #TODO: agreement:
+#TODO: [view agreement]
+  #TODO: _view_agreement_:
+#TODO: [edit agreement]
+  #TODO: _edit_agreement_:
+#TODO: Resources Associated With This Content Partner:
+  #TODO: resources_associated_with_this:
+#TODO: [edit resource]
+  #TODO: _edit_resource_:
+#TODO: [view harvests]
+  #TODO: _view_harvests_:
+#TODO: [view hierarchy]
+  #TODO: _view_hierarchy_:
+#TODO: This section is used to view registered content partners.  Click on a content partner to view details or click on a column
+  #TODO: this_section_is_used_to_view_r:
+#TODO: to sort by that column.
+  #TODO: to_sort_by_that_column:
+#TODO: [Export all content partners and their contacts]
+  #TODO: _export_all_content_partners_a:
+#TODO: Search for partner names containing:
+  #TODO: search_for_partner_names_conta:
+#TODO: Only show partners with unpublished content or no resources
+  #TODO: only_show_partners_with_unpubl:
+#TODO: Only show partners with this status:
+  #TODO: only_show_partners_with_this_s:
+#TODO: Partner
+  #TODO: partner:
+#TODO: Registered
+  #TODO: registered:
+#TODO: Steps
+  #TODO: steps:
+#TODO: Content partner has %{var_agent_resources_count} resources
+  #TODO: content_partner_has_var_agent_:
+#TODO: Status: unknown
+  #TODO: status__unknown:
+#TODO: Partner Information Completed
+  #TODO: partner_information_completed:
+#TODO: Contact Information Added
+  #TODO: contact_information_added:
+#TODO: All Terms Agreed To
+  #TODO: all_terms_agreed_to:
+#TODO: Agreement accepted
+  #TODO: agreement_accepted:
+#TODO: Vetted by EOL
+  #TODO: vetted_by_eol:
+#TODO: Shown on content partners page
+  #TODO: shown_on_content_partners_page:
+#TODO: Has unpublished or no resource
+  #TODO: has_unpublished_or_no_resource:
+#TODO: RSS updates of harvests
+  #TODO: rss_updates_of_harvests:
+#TODO: Recently harvested resources (last 20)
+  #TODO: recently_harvested_resources__:
+#TODO: Recently published resources (last 20)
+  #TODO: recently_published_resources__:
+#TODO: Harvested resources awaiting publication
+  #TODO: harvested_resources_awaiting_p:
+#TODO: Content partner profiles can be updated below.  Only enter a new password to change it.
+  #TODO: content_partner_profiles_can_b:
+#TODO: These notes were entered by the partner.
+  #TODO: these_notes_were_entered_by_th:
+#TODO: Admin Notes
+  #TODO: admin_notes:
+#TODO: Enter in any other notes or comments -- these will not be visible on the website or to the partner.
+  #TODO: enter_in_any_other_notes_or_co_:
+#TODO: Please select and upload a JPG, PNG or GIF image of approximately 100x100 pixels, and no larger than 500k.   We will create two logos, one with a maximum dimension of 100 pixels, and a smaller one depending on it's location on the website.
+  #TODO: please_select_and_upload_a_jpg_:
+#TODO: The following contacts were provided by the content partner when they registered.  Note that these email addresses are not
+  #TODO: the_following_contacts_were_pr:
+#TODO: associated with content partner login information.  To edit usernames, email addresses and passwords used by the content
+  #TODO: associated_with_content_partne:
+#TODO: partner to log in, please
+  #TODO: partner_to_log_in__please:
+#TODO: update their profile
+  #TODO: update_their_profile:
+#TODO: Web page
+  #TODO: web_page:
+#TODO: Address
+  #TODO: address:
+#TODO: Edit the agreement below or enter in a URL.  Be sure to leave all Ruby code in the template as is (code is identified by text in between &lt;% and %&gt;.  If a URL is entered (e.g. a full URL to a PDF), it will override the template.
+  #TODO: edit_the_agreement_below_or_en:
+#TODO: Signed on:
+  #TODO: signed_on_:
+#TODO: Signed by:
+  #TODO: signed_by_:
+#TODO: Agreement template:
+  #TODO: agreement_template_:
+#TODO: Agreement URL (e.g. full or relative URL to a PDF or other file)
+  #TODO: agreement_url__e_g__full_or_re:
+#TODO: - if entered, this overrides the template
+  #TODO: __if_entered__this_overrides_t:
+#TODO: If you need to upload a PDF to reference here, use the
+  #TODO: if_you_need_to_upload_a_pdf_to:
+#TODO: Previous Agreements
+  #TODO: previous_agreements:
+#TODO: Click to view previous agreements:
+  #TODO: click_to_view_previous_agreeme:
+#TODO: Visitors
+  #TODO: visitors:
+#TODO: As of
+  #TODO: as_of:
+#TODO: there were
+  #TODO: there_were:
+#TODO: unique visitors
+  #TODO: unique_visitors:
+#TODO: Your IP Address
+  #TODO: your_ip_address:
+#TODO: Server IP Address
+  #TODO: server_ip_address:
+#TODO: Rails environment
+  #TODO: rails_environment:
+#TODO: Rails databases
+  #TODO: rails_databases:
+#TODO: Main:
+  #TODO: main_:
+#TODO: Data:
+  #TODO: data_:
+#TODO: Logging:
+  #TODO: logging_:
+#TODO: * this does not necessarily mean the connections are being used, just that they are defined in the database.yml --- you must check the "config/environments/
+  #TODO: __this_does_not_necessarily_me:
+#TODO: .rb" file to see if the master connections are setup
+  #TODO: _rb__file_to_see_if_the_master:
+#TODO: Main Master:
+  #TODO: main_master_:
+#TODO: Data Master:
+  #TODO: data_master_:
+#TODO: Error Logging Active
+  #TODO: error_logging_active:
+#TODO: Web service base URL
+  #TODO: web_service_base_url:
+#TODO: Data Logging Active
+  #TODO: data_logging_active:
+#TODO: Email Error Notification Active
+  #TODO: email_error_notification_activ:
+#TODO: Content Servers
+  #TODO: content_servers:
+#TODO: Allow user logins
+  #TODO: allow_user_logins:
+#TODO: Fragment caching enabled
+  #TODO: fragment_caching_enabled:
+#TODO: Home page cache last cleared on
+  #TODO: home_page_cache_last_cleared_o:
+#TODO: [clear entire cache store]
+  #TODO: _clear_entire_cache_store_:
+#TODO: Are you sure you want to clear the entire cache store?
+  #TODO: are_you_sure_you_want_to_clear:
+#TODO: [clear all non-species pages]
+  #TODO: _clear_all_non_species_pages_:
+#TODO: Taxon ID:
+  #TODO: taxon_id_:
+#TODO: [clear species page]
+  #TODO: _clear_species_page_:
+#TODO: Cache Store
+  #TODO: cache_store:
+#TODO: Google analytics active
+  #TODO: google_analytics_active:
+#TODO: Google analytic results
+  #TODO: google_analytic_results:
+#TODO: Response
+  #TODO: response:
+#TODO: Amount
+  #TODO: amount:
+#TODO: 
+  #TODO: no:
+#TODO: Done already
+  #TODO: done_already:
+#TODO: The following users were presented with the survey pop-up window and responded to the request to take the survey as shown below:
+  #TODO: the_following_users_were_prese:
+#TODO: User Response
+  #TODO: user_response:
+#TODO: User ID
+  #TODO: user_id:
+#TODO: IP Address
+  #TODO: ip_address:
+#TODO: No survey responses are available.
+  #TODO: no_survey_responses_are_availa:
+#TODO: ALL harvesting logs
+  #TODO: all_harvesting_logs:
+#TODO: Showing processes from:
+  #TODO: showing_processes_from_:
+#TODO: Process Name
+  #TODO: process_name:
+#TODO: Began
+  #TODO: began:
+#TODO: No harvesting logs for this date
+  #TODO: no_harvesting_logs_for_this_da:
+#TODO: Table of Contents Editor
+  #TODO: table_of_contents_editor:
+#TODO: Please check with a member of the Biodiversity Informatics group before editing the table of contents. Some chapter names cannot be changed as the code look up certain chapters by label. InfoItems cannot be mapped in this interface - that must be done manually in the database.
+  #TODO: please_check_with_a_member_of_:
+#TODO: TOC Entry
+  #TODO: toc_entry:
+#TODO: Info Items
+  #TODO: info_items:
+#TODO: move to top
+  #TODO: move_to_top:
+#TODO: move up
+  #TODO: move_up:
+#TODO: move down
+  #TODO: move_down:
+#TODO: move to bottom
+  #TODO: move_to_bottom:
+#TODO: Add sub-chapter
+  #TODO: add_sub_chapter:
+#TODO:  &nbsp;&nbsp; species page>>
+  #TODO: __nbsp__nbsp__species_page__:
+#TODO: [admin home]
+  #TODO: _admin_home_:
+#TODO: Please note that some of these tools are in beta and may change over time or have bugs.
+  #TODO: please_note_that_some_of_these:
+#TODO: Select a tool and click 'Go':
+  #TODO: select_a_tool_and_click__go__:
+#TODO: Select a hierarchy around which to organize content summaries:
+  #TODO: select_a_hierarchy_around_whic:
+#TODO: Browsable Hierarchies
+  #TODO: browsable_hierarchies:
+#TODO: Use the form below to enter in tag suggestions.  Categories entered here will be shown to users in the tag "category" drop down menu,
+  #TODO: use_the_form_below_to_enter_in:
+#TODO: Add New Tag Suggestion
+  #TODO: add_new_tag_suggestion:
+#TODO: (no spaces allowed in categories or values)
+  #TODO: _no_spaces_allowed_in_categori:
+#TODO: Category:
+  #TODO: category_:
+#TODO: Value:
+  #TODO: value_:
+#TODO: Usage
+  #TODO: usage:
+#TODO: Category
+  #TODO: category:
+#TODO: Tag
+  #TODO: tag:
+#TODO: Are you sure you want to do this?  This cannot be undone
+  #TODO: are_you_sure_you_want_to_do_th:
+#TODO: This section is used to create news items.  News items are shown on the right part of the home page, as well as in an
+  #TODO: this_section_is_used_to_create:
+#TODO: RSS feed
+  #TODO: rss_feed:
+#TODO: and
+  #TODO: and:
+#TODO: news archive page
+  #TODO: news_archive_page:
+#TODO: page.  You must be comfortable with HTML if you wish to create hyperlinks or use formatting.
+  #TODO: page___you_must_be_comfortable:
+#TODO: Note that you can reference images with the HTML &lt;img&gt; tag, but they must exist at a URL, such as from the originating website or a site such as Flickr.  There is no
+  #TODO: note_that_you_can_reference_im:
+#TODO: facility to upload images for use directly in the news item.
+  #TODO: facility_to_upload_images_for_:
+#TODO: Search for items containing:
+  #TODO: search_for_items_containing_:
+#TODO: Add a new news item
+  #TODO: add_a_new_news_item:
+#TODO: items were found matching your criteria.
+  #TODO: items_were_found_matching_your:
+#TODO: Publish After (UTC)
+  #TODO: publish_after__utc_:
+#TODO: News Date
+  #TODO: news_date:
+#TODO: News Item
+  #TODO: news_item_:
+#TODO: No news items are available matching your search criteria.
+  #TODO: no_news_items_are_available_ma:
+#TODO: Edit the news item below.  HTML is allowed in both fields, and *either* title or the body is required.  For best results, just use the title and enter a short news item.  When creating hyperlinks to other sites, you can use
+  #TODO: edit_the_news_item_below___htm:
+#TODO: TinyURL
+  #TODO: tinyurl:
+#TODO: to create shorter URLs to conserve characters.
+  #TODO: to_create_shorter_urls_to_cons:
+#TODO: Note: The preview is not exact -- just use to check HTML formatting
+  #TODO: note__the_preview_is_not_exact:
+#TODO: News Item Date as shown to user (time only shown in RSS feed):
+  #TODO: news_item_date_as_shown_to_use:
+#TODO: News Item is visible on website after this time:
+  #TODO: news_item_is_visible_on_websit:
+#TODO: Note that all times are UTC (Greenwich Mean Time)
+  #TODO: note_that_all_times_are_utc__g:
+#TODO: Publish item based on time set above (uncheck to always hide)
+  #TODO: publish_item_based_on_time_set:
+#TODO: Created by:
+  #TODO: created_by_:
+#TODO: To submit text content for
+  #TODO: to_submit_text_content_for:
+#TODO: , please be sure you are logged into EOL and then click the
+  #TODO: __please_be_sure_you_are_logge:
+#TODO: icon near the table of contents on the left side of the page. You can also submit
+  #TODO: icon_near_the_table_of_content:
+#TODO: comments
+  #TODO: comments_:
+#TODO: about this species directly on the EOL site using the "Comments" tab near the images.
+  #TODO: about_this_species_directly_on:
+#TODO: Listing collections
+  #TODO: listing_collections:
+#TODO: Community
+  #TODO: community:
+#TODO: Special collection
+  #TODO: special_collection:
+#TODO: Public
+  #TODO: public:
+#TODO: Object type
+  #TODO: object_type:
+#TODO: Object
+  #TODO: object:
+#TODO: New collection
+  #TODO: new_collection:
+#TODO: Identify the Image
+  #TODO: identify_the_image:
+#TODO: This game requires you to match up photos with names.  To play, drag each name on top of the correct photo and drop it in place.
+  #TODO: this_game_requires_you_to_matc:
+#TODO: Attempts:
+  #TODO: attempts_:
+#TODO: Learn More
+  #TODO: learn_more:
+#TODO: How are species named?
+  #TODO: how_are_species_named_:
+#TODO: Species are named according to the rules of "binomial nomenclature", which means a species name has two parts: the "genus" and the "species".  The genus name tells us which grouping the species belongs to and thus how it is related to other similar species.  For example, the wolf is known as
+  #TODO: species_are_named_according_to:
+#TODO: Canis lupus
+  #TODO: canis_lupus:
+#TODO: , which means it belongs to the genus called "canis" and its species name is "lupus".  If you were to look at the genus
+  #TODO: __which_means_it_belongs_to_th:
+#TODO: Canis
+  #TODO: canis:
+#TODO: , you would discover that (1) the coyote (
+  #TODO: __you_would_discover_that__1__:
+#TODO: Canis latrans
+  #TODO: canis_latrans:
+#TODO: ) is in the same genus, (2) the domestic dog (
+  #TODO: __is_in_the_same_genus___2__th:
+#TODO: Canis lupus familiaris
+  #TODO: canis_lupus_familiaris:
+#TODO: ) is a "sub-species" of wolf, and (3) walking up the tree of life, you would find that all canis are in the class of "Mammalia", meaning they are all mammals.  Placing these species into groupings in an overall "tree of life" is part of what scientists called "taxonomists" get to do! When your browse the Encyclopedia of Life, you can use the "classification browser" on the right side of the species pages to browse the tree of life.
+  #TODO: __is_a__sub_species__of_wolf__:
+#TODO: Taxonomists also discover new species and then give them a new species name and possibly a new genus name if a home for it can't be found in any other existing group.  Scientists write names according to pre-established rules, but over the years, some names have been used more than once or have changed over time, which makes it harder to find what you are looking for.  Technology is helping us solve these problems and prevent from happening with new species by drawing the links between names and information.  The Encyclopedia of Life is built to allow all this information to be collected on one page regardless of the name being referred to, be it "Canis lupus", "wolf", "loup" or any other language you can think of.
+  #TODO: taxonomists_also_discover_new_:
+#TODO: My Tags
+  #TODO: my_tags:
+#TODO: You have not tagged this image yet.
+  #TODO: you_have_not_tagged_this_image:
+#TODO: Add Image Tags
+  #TODO: add_image_tags:
+#TODO: Separate tags with spaces; category is optional
+  #TODO: separate_tags_with_spaces__cat:
+#TODO: Add Tag
+  #TODO: add_tag:
+#TODO: Tag should not be empty.
+  #TODO: tag_should_not_be_empty:
+#TODO: Add this tag
+  #TODO: add_this_tag:
+#TODO: Public Image Tags
+  #TODO: public_image_tags:
+#TODO: This image has no public tags.
+  #TODO: this_image_has_no_public_tags:
+#TODO: to add your own tags.
+  #TODO: to_add_your_own_tags:
+#TODO: Please select a reason, and/or optionally leave a curation comment:
+  #TODO: please_select_a_reason__and_or:
+#TODO: ( stands alone )
+  #TODO: __stands_alone__:
+#TODO: Curation status
+  #TODO: curation_status:
+#TODO: This %{var_type_downcase} object is
+  #TODO: this_var_type_downcase_object_:
+#TODO: Revisions
+  #TODO: revisions:
+#TODO: No sounds yet
+  #TODO: no_sounds_yet:
+#TODO: Add a Comment:
+  #TODO: add_a_comment_:
+#TODO: Object Curation
+  #TODO: object_curation:
+#TODO: GBIF Map Legend
+  #TODO: gbif_map_legend:
+#TODO: Not all maps have occurrence information.
+  #TODO: not_all_maps_have_occurrence_i:
+#TODO: View full attribution details
+  #TODO: view_full_attribution_details:
+#TODO: EDIT
+  #TODO: edit__:
+#TODO: latest version of this article in Wikipedia
+  #TODO: latest_version_of_this_article:
+#TODO: PUBLISH
+  #TODO: publish_:
+#TODO: trust this article and replace current version
+  #TODO: trust_this_article_and_replace:
+#TODO: RECOMMEND
+  #TODO: recommend:
+#TODO: nominate another wikipedia article for ingestion
+  #TODO: nominate_another_wikipedia_art:
+#TODO: Title (optional)
+  #TODO: title__optional_:
+#TODO: NOTE
+  #TODO: note_:
+#TODO: After submitting your text entry it will appear with a yellow background until a curator marks it as trusted.
+  #TODO: after_submitting_your_text_ent:
+#TODO: No images for this taxon
+  #TODO: no_images_for_this_taxon:
+#TODO: EOL Glossary
+  #TODO: eol_glossary:
+#TODO: For comments about the project in general, please
+  #TODO: for_comments_about_the_project:
+#TODO: visit the Forum
+  #TODO: visit_the_forum:
+#TODO: . You can help us by
+  #TODO: __you_can_help_us_by:
+#TODO: suggesting or voting on features
+  #TODO: suggesting_or_voting_on_featur:
+#TODO: (register with EOL to track your suggestions)
+  #TODO: _register_with_eol_to_track_yo:
+#TODO: . To contact a specific individual on the EOL project, please see the list of
+  #TODO: __to_contact_a_specific_indivi:
+#TODO: Component Leads
+  #TODO: component_leads:
+#TODO: Request Wikipedia article ingestion:
+  #TODO: request_wikipedia_article_inge:
+#TODO: EOL is now allowing curators to submit a revision of a Wikipedia page to be ingested into EOL as a vetted text object. To find the revision URL of a Wikipedia article first go to the article main page (e.g.
+  #TODO: eol_is_now_allowing_curators_t:
+#TODO: http://en.wikipedia.org/w/index.php?title=Giraffe
+  #TODO: http___en_wikipedia_org_w_inde:
+#TODO: ) and expand in the left hand menu the "Toolbox" menu item. You should now see the "Permanent link" item. Either copy the URL of that link, or click the link and copy the URL in your browser's address bar. The revision URL will look something like
+  #TODO: __and_expand_in_the_left_hand_:
+#TODO: http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069
+  #TODO: http___en_wikipedia_org_w_inde_:
+#TODO: By entering a Wikipedia revision URL you are requesting that EOL ingests that particular revision as vetted. It will replace the current version of that article in EOL if we have it already.
+  #TODO: by_entering_a_wikipedia_revisi:
+#TODO: Enter revision url:
+  #TODO: enter_revision_url_:
+#TODO: (eg: http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)
+  #TODO: _eg__http___en_wikipedia_org_w:
+#TODO: pause
+  #TODO: pause:
+#TODO: more news...
+  #TODO: more_news__:
+#TODO: To subscribe via RSS, click
+  #TODO: to_subscribe_via_rss__click:
+#TODO: , or add this URL to your RSS reader: http://
+  #TODO: __or_add_this_url_to_your_rss_:
+#TODO: Return to the home page
+  #TODO: return_to_the_home_page:
+#TODO: Encyclopedia of Life content partners serve authenticated species information through the EOL portal. After developing a joint commitment, the content partners work closely with the EOL component groups to make their data visible within EOL. Current content partners can
+  #TODO: encyclopedia_of_life_content_p:
+#TODO: log in
+  #TODO: log_in_:
+#TODO: to manage their information, and new content partners can
+  #TODO: to_manage_their_information__a:
+#TODO: learn more
+  #TODO: learn_more_:
+#TODO: about becoming involved.
+  #TODO: about_becoming_involved:
+#TODO: Note that all of these partners maintain their own Web sites where you will find additional information not available through EOL. We urge you to click through to their sites to examine the richness of information each of them contains.
+  #TODO: note_that_all_of_these_partner:
+#TODO: See %{var_partner_display_name} agreement
+  #TODO: see_var_partner_display_name_a:
+#TODO: See %{var_partner_display_name} gallery
+  #TODO: see_var_partner_display_name_g:
+#TODO: See %{var_partner_display_name} usage statistics
+  #TODO: see_var_partner_display_name_u:
+#TODO: No content partners are available.
+  #TODO: no_content_partners_are_availa:
+#TODO: Sorry, this feature is not available.
+  #TODO: sorry__this_feature_is_not_ava:
+#TODO: Search for news items containing:
+  #TODO: search_for_news_items_containi:
+#TODO: all news
+  #TODO: all_news:
+#TODO: Darwin Core is a standardized set of terms for describing biodiversity data. The
+  #TODO: darwin_core_is_a_standardized_:
+#TODO: Biodiversity Information Standards (BIS)
+  #TODO: biodiversity_information_stand:
+#TODO: group formerly called the Taxonomic Databases Working Group (TDWG) recently ratified the latest version of Darwin Core as an official TDWG standard. Refer to the official
+  #TODO: group_formerly_called_the_taxo:
+#TODO: The Darwin Core archive is a format for storing these data in a spreadsheet-style format for easy sharing. You can find
+  #TODO: the_darwin_core_archive_is_a_f:
+#TODO: about creating well-formed DwC archives. Several large biodiversity projects are recommending the use of Darwin Core archives for the sharing of biodiversity information such as the
+  #TODO: about_creating_well_formed_dwc_:
+#TODO: Global Biodiversity Information Facility (GBIF)
+  #TODO: global_biodiversity_informatio:
+#TODO: Global Names Index (GNI)
+  #TODO: global_names_index__gni_:
+#TODO: and others An EOL sponsored content biodiversity information management system
+  #TODO: and_others_an_eol_sponsored_co:
+#TODO: LifeDesks
+  #TODO: lifedesks:
+#TODO: Encyclopedia of Life content partners can now contribute a
+  #TODO: encyclopedia_of_life_content_p_:
+#TODO: describing a taxonomic classification and related terms (such as taxonomic synonyms and common names). EOL will ingest these classifications and announce them to our administrators for review. Upon verification, the classifications will be made available as alternatives with which users can
+  #TODO: describing_a_taxonomic_classif:
+#TODO: browse EOL pages.
+  #TODO: browse_eol_pages:
+#TODO: Automated Translation of EOL
+  #TODO: automated_translation_of_eol:
+#TODO: Try Google Translate for any of the following languages.  Note that these are automated translations performed by Google software, so their accuracy is not confirmed or checked by anyone.
+  #TODO: try_google_translate_for_any_o:
+#TODO: View the EOL in:
+  #TODO: view_the_eol_in_:
+#TODO: Arabic
+  #TODO: arabic:
+#TODO: Bulgarian
+  #TODO: bulgarian:
+#TODO: Catalan
+  #TODO: catalan:
+#TODO: Chinese
+  #TODO: chinese:
+#TODO: Croatian
+  #TODO: croatian:
+#TODO: Czech
+  #TODO: czech:
+#TODO: Danish
+  #TODO: danish:
+#TODO: Dutch
+  #TODO: dutch:
+#TODO: Filipino
+  #TODO: filipino:
+#TODO: Finnish
+  #TODO: finnish:
+#TODO: French
+  #TODO: french:
+#TODO: German
+  #TODO: german:
+#TODO: Greek
+  #TODO: greek:
+#TODO: Hebrew
+  #TODO: hebrew:
+#TODO: Hindi
+  #TODO: hindi:
+#TODO: Indonesian
+  #TODO: indonesian:
+#TODO: Italian
+  #TODO: italian:
+#TODO: Japanese
+  #TODO: japanese:
+#TODO: Korean
+  #TODO: korean:
+#TODO: Latvian
+  #TODO: latvian:
+#TODO: Lithuanian
+  #TODO: lithuanian:
+#TODO: Norwegian
+  #TODO: norwegian:
+#TODO: Polish
+  #TODO: polish:
+#TODO: Portuguese
+  #TODO: portuguese:
+#TODO: Romanian
+  #TODO: romanian:
+#TODO: Russian
+  #TODO: russian:
+#TODO: Serbian
+  #TODO: serbian:
+#TODO: Slovak
+  #TODO: slovak:
+#TODO: Slovenian
+  #TODO: slovenian:
+#TODO: Spanish
+  #TODO: spanish:
+#TODO: Swedish
+  #TODO: swedish:
+#TODO: Ukrainian
+  #TODO: ukrainian:
+#TODO: Vietnamese
+  #TODO: vietnamese:
+#TODO: The Encyclopedia of Life is an ongoing effort.  This page allows you to follow our progress with some overall statistics.
+  #TODO: the_encyclopedia_of_life_is_an:
+#TODO: Statistic
+  #TODO: statistic:
+#TODO: Total number of pages
+  #TODO: total_number_of_pages:
+#TODO: Total number of filled in pages
+  #TODO: total_number_of_filled_in_page:
+#TODO: US $35
+  #TODO: us__35:
+#TODO: US $50
+  #TODO: us__50:
+#TODO: US $75
+  #TODO: us__75:
+#TODO: US $100
+  #TODO: us__100:
+#TODO: Other: US$
+  #TODO: other__us_:
+#TODO: secretariat@eol.org
+  #TODO: secretariat_eol_org:
+#TODO: : US
+  #TODO: __us:
+#TODO: The pages below show the kind of rich environment, with extensive information, to which all the species pages will eventually grow. The information on the exemplar pages has been authenticated (endorsed) by the scientists whose names are listed on these pages.
+  #TODO: the_pages_below_show_the_kind_:
+#TODO: API Terms of Use
+  #TODO: api_terms_of_use:
+#TODO: %{var_language_source_form} <em>(%{var_language_display_code})</em>
+  #TODO: var_language_source_form__em__:
+#TODO: Google Translate
+  #TODO: google_translate:
+#TODO: Latest Content
+  #TODO: latest_content:
+#TODO: MediaRSS Feed
+  #TODO: mediarss_feed:
+#TODO: Account Profile
+  #TODO: account_profile:
+#TODO: Contact Us
+  #TODO: contact_us_:
+#TODO: DASHBOARD
+  #TODO: dashboard_:
+#TODO: PARTNER INFORMATION
+  #TODO: partner_information_:
+#TODO: CONTACT INFORMATION
+  #TODO: contact_information_:
+#TODO: PARTNERING STEPS
+  #TODO: partnering_steps:
+#TODO: YOUR AGREEMENT
+  #TODO: your_agreement:
+#TODO: MANAGE RESOURCES
+  #TODO: manage_resources:
+#TODO: USAGE REPORTS
+  #TODO: usage_reports_:
+#TODO: Monthly Page Statistics
+  #TODO: monthly_page_statistics:
+#TODO: Data Object Harvested Statistics
+  #TODO: data_object_harvested_statisti:
+#TODO: Curation and Comments
+  #TODO: curation_and_comments:
+#TODO: Curation Activity
+  #TODO: curation_activity:
+#TODO: Comments on Data Objects
+  #TODO: comments_on_data_objects:
+#TODO: Comments on Taxa
+  #TODO: comments_on_taxa:

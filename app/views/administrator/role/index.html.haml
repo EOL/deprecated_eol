@@ -1,20 +1,20 @@
-The section is used to add new user roles.  New user roles are activated in the code, so that cannot be
-renamed or deleted from this interface.
+=I18n.t("the_section_is_used_to_add_new")
+=I18n.t("renamed_or_deleted_from_this_i")
 #roles
-  = link_to "Add a new role",:action=>'new'
+  = link_to I18n.t("add_a_new_role"),:action=>'new'
   %br
   %br
   - if !@roles.nil?
-    A total of
+    =I18n.t("a_total_of")
     = @roles.size
-    roles were found.
+    =I18n.t("roles_were_found")
     %br
     %table.results_table{ :cellspacing => "0" }
       %tr
         %th
-          Role
+          =I18n.t("role")
         %th
-          Date Created
+          =I18n.t("date_created")
       - for role in @roles
         - column_class=cycle('odd','even')
         %tr
@@ -23,4 +23,4 @@ renamed or deleted from this interface.
           %td{ :class => column_class }
             = format_date_time(role.created_at)
   - else
-    No roles are available.
+    =I18n.t("no_roles_are_available")

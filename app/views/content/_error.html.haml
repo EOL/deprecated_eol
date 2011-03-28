@@ -1,11 +1,10 @@
 .error
-  %p{:style => 'padding-bottom:2em;'}
-    = "We're sorry but an error has occurred. Please make one more attempt to perform your task. If the error persists, please send an email to error@eol.org along with the error message below and any other information you'd like to share with us. We are working hard to provide you with the best service possible and we appreciate your support. -- The EOL Team"[:general_error_occurred]
-    - if defined? Community && current_user.is_admin? and defined?(message)
-      %p{:style => 'padding:1em 0;'}
-        = "You are an admin.  So, I will show you that the error was:"[]
-      %code{:style => 'style:block;padding:2em;'}
+  %p{ :style => 'padding-bottom:2em;' }
+    =  I18n.t(:general_error_occurred)
+    - if defined?(Community) && current_user.is_admin? && defined?(message)
+      %p{ :style => 'padding:1em 0;' }
+        = I18n.t(:you_are_an_admin_so_i_will_show_you_that_the_error_was)
+      %code{ :stye => 'style:block;padding:2em;' }
         = message
   - unless defined?(supress_try_again_link)
-    %p
-      = link_to 'Try your request again'[], '#', {:onclick=>'javascript:window.location.reload();'}
+    %p= link_to I18n.t(:try_your_request_again) , '#', { :onclick=>'javascript:window.location.reload();' }

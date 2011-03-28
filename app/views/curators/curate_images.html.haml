@@ -19,14 +19,14 @@
   %table.results_table
     %tr
       %th
-        Image
+        =I18n.t("image")
       %th{ :width => 368 }
-        Actions
+        =I18n.t("actions")
     - @images_to_curate.each do |data_object|
       / %tr{ :id => "undo-move-#{data_object.id}", :class => 'hide ' + data_object.vetted.label.downcase }
       /   %td{ :colspan => 2 }
       /     You moved the image to 
-      /     = link_to("your ignored list", {:controller => :curators, :action => :ignored_images, :hierarchy_entry_id => params[:hierarchy_entry_id]}) + "."
+      /     = link_to(I18n.t("your_ignored_list"), {:controller => :curators, :action => :ignored_images, :hierarchy_entry_id => params[:hierarchy_entry_id]}) + "."
       /     = "&nbsp;" * 5
       /     %a{ :class => "undo-ignore-image" } Undo
       %tr{ :id => "curation-item-#{data_object.id}" }
@@ -40,16 +40,16 @@
             = link_to(image_tag(DataObject.image_cache_path(data_object.object_cache_url, :medium), :class => 'curation-thumb'), {:action => 'curate_image', :data_object_id => data_object.id}, {:rel => '#overlay'})
             - unless data_object.created_at.blank?
               %em
-                = "Indexed on:"[]
+                = I18n.t(:indexed_on) 
               = DateTime.parse(data_object.created_at.to_s).strftime("%B %d, %Y")
               %br
             - unless data_object.description.blank?
               %h6
-                = "Description:"[]
+                = I18n.t(:description) 
               = strip_tags(data_object.description).cleanup_for_presentation
             - unless data_object.location.blank?
               %h6 
-                = "Location:"[]
+                = I18n.t(:location) 
               - data_object_location = strip_tags(data_object.location).cleanup_for_presentation
               = truncate(data_object_location, 48)
         %td{ :class => data_object.vetted.label.downcase }

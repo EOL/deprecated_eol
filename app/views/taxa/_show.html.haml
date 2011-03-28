@@ -14,7 +14,7 @@
       = hh(@taxon_concept.subtitle(@session_hierarchy))
       - if current_user.can_curate?(@taxon_concept)
         %span#curate-common-names
-          = link_to("view/edit common name"[], "#center_content", :class => 'ajax_delay_click', :onclick => ajax_delay_click)
+          = link_to( I18n.t(:viewedit_common_name) , "#center_content", :class => 'ajax_delay_click', :onclick => ajax_delay_click)
     %hr
     - if !@taxon_concept.classification_attribution(@session_hierarchy).empty?
       %span.classification-attribution-name
@@ -26,14 +26,14 @@
   #post-info.clearfix
     %span.iucn-status
       - if @taxon_concept.iucn_conservation_status != ''
-        == #{"IUCN Red List Status"[]}:
+        == #{ I18n.t(:iucn_red_list_status) }:
         %span.iucn-status-value
           = external_link_to(@taxon_concept.iucn_conservation_status,@taxon_concept.iucn_conservation_status_url)
       - else
         &nbsp;
     %span.page-status
-      Showing:
-      = current_user.expertise.to_s == 'expert' ? link_to('scientific names', taxon_concept_url(:id=>@taxon_concept.id) + '?expertise=middle',{:title=>'click to show common names'}) : link_to('common names', taxon_concept_url(:id=>@taxon_concept.id) + '?expertise=expert',{:title=>'click to show scientific names'})
+      =I18n.t("showing_")
+      = current_user.expertise.to_s == 'expert' ? link_to(I18n.t("scientific_names"), taxon_concept_url(:id=>@taxon_concept.id) + '?expertise=middle',{:title=>'click to show common names'}) : link_to('common names', taxon_concept_url(:id=>@taxon_concept.id) + '?expertise=expert',{:title=>'click to show scientific names'})
     %hr
 = render(:partial => 'mediacenter', :locals => {:current_user => current_user})
 #page-content-bgfaux
@@ -43,7 +43,7 @@
       %input#current_content{ :name => "current_content", :type => "hidden", :value => @category_id }
       %input#canonical_form{ :name => "canonical_form", :type => "hidden", :value => strip_tags(@taxon_concept.entry.name.canonical_form.string) }
       %h4#toc-header.margin-header.left-margin-header
-        = "Table of Contents"[]
+        = I18n.t(:table_of_contents) 
       %ul#toc
         - unless @taxon_concept.table_of_contents(:vetted_only=>current_user.vetted).blank?
           - for item in @taxon_concept.table_of_contents(:vetted_only=>true)
@@ -62,15 +62,15 @@
           - change_toc_url = url_for(:controller => 'taxa', :action => 'user_text_change_toc', :taxon_concept_id => @taxon_concept.id)
           - add_text_url = url_for(:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_concept.id, :toc_id => @new_text_tocitem_id)
           .add_text_button
-            = link_to("<span style='width:20px;height:20px;display:block;'></span>", add_text_url, :id => 'new_text_toc_button', 'data-change_toc_url' => change_toc_url, :title => "Add New Content")
-          = link_to("Add New Content", add_text_url, :id => 'new_text_toc_text', 'data-change_toc_url' => change_toc_url )
+            = link_to(I18n.t("_span_style__width_20px_height"), add_text_url, :id => 'new_text_toc_button', 'data-change_toc_url' => change_toc_url, :title => "Add New Content")
+          = link_to(I18n.t("add_new_content"), add_text_url, :id => 'new_text_toc_text', 'data-change_toc_url' => change_toc_url )
         %li.multi_new_text_error{ :style => "display:none;" }
-          = "Only one text object can be edited at a time."[]
+          = I18n.t(:only_one_text_object_can_be_edited_at_a_time) 
       %hr
     #center-page-content
       = render :partial => 'content'
     #center-page-content-loading{ :style => "display:none;" }
-      = image_tag 'indicator_arrows_black.gif', :alt=>'Working...'
+      = image_tag 'indicator_arrows_black.gif', :alt=>I18n.t("working__")
     #right-page-content
       = render :partial => 'feed_items/index', :locals => {:feed => @taxon_concept.feed}
       = render :partial => 'internal_nav'

@@ -1,9 +1,9 @@
 .credit-title
-  = "Classification provided by"[]
+  = I18n.t(:classification_provided_by) 
 .credit-value
   - attributions = @taxon_concept.classification_attribution(@session_hierarchy).reverse
   - if attributions.blank?
-    source unknown
+    =I18n.t("source_unknown")
   - elsif attributions[0].display_string == @session_hierarchy.label
     = citables_to_string(attributions) + '<br />' + citables_to_icons(attributions)
   - else

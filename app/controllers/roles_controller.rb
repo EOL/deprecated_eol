@@ -52,7 +52,7 @@ class RolesController < ApplicationController
   def update
     respond_to do |format|
       if @role.update_attributes(params[:role])
-        format.html { redirect_to([@community, @role], :notice => 'Role was successfully updated.'[]) }
+        format.html { redirect_to([@community, @role], :notice => I18n.t(:role_was_successfully_updated) ) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -64,7 +64,7 @@ class RolesController < ApplicationController
   def destroy
     Role.destroy(@role.id)
     respond_to do |format|
-      format.html { redirect_to(@community, :notice => 'Role was successfully removed.'[]) }
+      format.html { redirect_to(@community, :notice => I18n.t(:role_was_successfully_removed) ) }
       format.xml  { head :ok }
     end
   end
@@ -72,7 +72,7 @@ class RolesController < ApplicationController
   def add_privilege
     respond_to do |format|
       if @role.add_privilege(Privilege.find(params[:privilege_id]))
-        format.html { redirect_to([@role.community, @role], :notice => 'Role was successfully updated.'[]) }
+        format.html { redirect_to([@role.community, @role], :notice => I18n.t(:role_was_successfully_updated) ) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -84,7 +84,7 @@ class RolesController < ApplicationController
   def remove_privilege
     respond_to do |format|
       if @role.remove_privilege(Privilege.find(params[:privilege_id]))
-        format.html { redirect_to([@role.community, @role], :notice => 'Role was successfully updated.'[]) }
+        format.html { redirect_to([@role.community, @role], :notice => I18n.t(:role_was_successfully_updated) ) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

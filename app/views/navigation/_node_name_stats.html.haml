@@ -3,16 +3,16 @@
   = hierarchy_entry.italicized_name.firstcap
 = link_to(external_link_icon, { :controller => '/taxa', :action => 'show', :id => hierarchy_entry.taxon_concept_id}, :target => '_blank' )
 - if hierarchy_entry.number_of_descendants > 0 && hierarchy_entry.number_of_descendants > 1000
-  = image_tag('arrow_down_gray.gif', :alt => 'cannot expand children', :title => 'cannot expand children')
+  = image_tag('arrow_down_gray.gif', :alt => I18n.t("cannot_expand_children"), :title => I18n.t("cannot_expand_children"))
 -elsif hierarchy_entry.number_of_descendants > 0
   %a{:href => '', :onclick => "javascript:update_browser_stats(#{hierarchy_entry.id}, 1); return false;"}
-    = image_tag('arrow_down.gif', :alt => 'expand all children', :title => 'expand all children')
+    = image_tag('arrow_down.gif', :alt => I18n.t("expand_all_children"), :title => I18n.t("expand_all_children"))
 - unless hierarchy_entry.hierarchy_entry_stat.blank?
   %small
     = hierarchy_entry.hierarchy_entry_stat.pecent_with_images
     \%
-    = image_tag('image.png', :alt => 'percentage of descendants with images', :title => 'percentage of descendants with images')
+    = image_tag('image.png', :alt => I18n.t("percentage_of_descendants_with"), :title => I18n.t("percentage_of_descendants_with"))
     &nbsp;&nbsp;
     = hierarchy_entry.hierarchy_entry_stat.pecent_with_text
     \%
-    = image_tag('text.png', :alt => 'percentage of descendants with text', :title => 'percentage of descendants with text')
+    = image_tag('text.png', :alt => I18n.t("percentage_of_descendants_with_"), :title => I18n.t("percentage_of_descendants_with_"))

@@ -1,32 +1,32 @@
 %p
-  You may upload static files for use in the CMS here (for example, PDFs, Word documents, images, etc.).  You should not
-  use this to upload content for species pages - it is for use only in non-species pages (such as employment ads, newsletters, MOUs, etc.).
-  For PDFs such as MOUs and newsletter files, you may link to the "friendly URL" if you wish (which will automatically redirect to the
-  "full content URL").  For images which are embedded in a page and referenced with an &lt;img&gt; tag, you must use the "full content URL".
-  The "full content URL" may show a different content server number each time you refresh the page (e.g. "content2.eol.org", "content3.eol.org", etc) - this is
-  normal and any can be used when you create your links as they are all equivalent.
-  Note that it may take a few minutes after upload for the URLs to work since your file needs to propagate to the content servers.
+  =I18n.t("you_may_upload_static_files_fo")
+  =I18n.t("use_this_to_upload_content_for")
+  =I18n.t("for_pdfs_such_as_mous_and_news")
+  =I18n.t("_full_content_url_____for_imag")
+  =I18n.t("the__full_content_url__may_sho")
+  =I18n.t("normal_and_any_can_be_used_whe")
+  =I18n.t("note_that_it_may_take_a_few_mi")
 %br
-= link_to('[add a new file]', :action => 'new')
+= link_to(I18n.t("_add_a_new_file_"), :action => 'new')
 %br
 #content
   %form
     - if @content_uploads.blank?
-      = "No uploaded content is available."[]
+      = I18n.t(:no_uploaded_content_is_available) 
     - else
       = will_paginate @content_uploads
       %table.results_table{ :cellspacing => "0" }
         %tr
           %th
-            Description
+            =I18n.t("description")
           %th
-            Full Content URL
+            =I18n.t("full_content_url")
           %th
-            Friendly URL
+            =I18n.t("friendly_url")
           %th
-            Uploaded On
+            =I18n.t("uploaded_on")
           %th
-            By
+            =I18n.t("by_")
         - for content in @content_uploads
           - column_class = cycle('odd', 'even')
           %tr

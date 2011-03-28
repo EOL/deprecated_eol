@@ -2,4 +2,4 @@
 - url = url_for(:controller => 'taxa', :action => 'vet_common_name', :taxon_concept_id => @taxon_concept.id, :language_id => language_id, :name_id => name_id, :unique_id => unique_id, :vetted_id => 'REPLACE_ME')
 -# I hate this.  Terribly ugly and slightly inefficient.  TODO - find a way to clean this up.
 - current_value = url.sub(/REPLACE_ME/, vetted_id.to_s)
-= select_tag(unique_id, options_for_select({'Trusted'[] => url.sub(/REPLACE_ME/, Vetted.trusted.id.to_s), 'Unreviewed'[] => url.sub(/REPLACE_ME/, Vetted.unknown.id.to_s), 'Untrusted'[] => url.sub(/REPLACE_ME/, Vetted.untrusted.id.to_s)}, current_value).gsub(/&amp;/, '&'))
+= select_tag(unique_id, options_for_select({ I18n.t(:trusted)  => url.sub(/REPLACE_ME/, Vetted.trusted.id.to_s), I18n.t(:unreviewed)  => url.sub(/REPLACE_ME/, Vetted.unknown.id.to_s), I18n.t(:untrusted)  => url.sub(/REPLACE_ME/, Vetted.untrusted.id.to_s)}, current_value).gsub(/&amp;/, '&'))

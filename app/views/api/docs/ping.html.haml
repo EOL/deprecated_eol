@@ -4,27 +4,27 @@
   #page-separator-general
   #page-title
     %h1
-      EOL API: Ping
+      =I18n.t("eol_api__ping")
     %hr
   #page-content.clearfix
     #full-page-content
       = render(:partial=>'jump_to_nav')
       %h3
-        Request
+        =I18n.t("request")
       %p.indent
         %a{ :href => url }
           = url
       %h3
-        Parameters
+        =I18n.t("parameters")
       %p.indent
         %i
-          none
+          =I18n.t("none")
       %h3
-        Description
+        =I18n.t("description")
       %p.indent
-        This method will either fail (in which case the EOL error page will most likely be returned) or return a message of Success. There are no other possible messages
+        =I18n.t("this_method_will_either_fail__")
       %h3
-        XML Response
+        =I18n.t("xml_response")
       .formatted_code<
         :escaped
           <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -32,7 +32,7 @@
             <message>Success</message>
           </response>
       %h3
-        JSON Response
+        =I18n.t("json_response")
       .formatted_code<
         :escaped
           {

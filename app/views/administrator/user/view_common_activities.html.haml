@@ -1,10 +1,10 @@
 %b
-  Common activities by logged in users. 
+  =I18n.t("common_activities_by_logged_in") 
 %br
-Click on an activity to see the list of related activities conducted with that activity in a 5-min. duration {3-4 mins.}.
+=I18n.t("click_on_an_activity_to_see_th")
 %br
-Click 
-= link_to "here", {:controller => 'administrator/user', :action => 'view_common_combinations'}
+=I18n.t("click") 
+= link_to I18n.t("here"), {:controller => 'administrator/user', :action => 'view_common_combinations'}
 to see all activity combinations in a 5-min. duration {3-4 mins.}.
 
 #comments    
@@ -13,9 +13,9 @@ to see all activity combinations in a 5-min. duration {3-4 mins.}.
     %table.results_table{ :cellspacing => "0" }
       %tr
         %th
-          Activity
+          =I18n.t("activity")
         %th
-          Count
+          =I18n.t("count")
       - @activities.each do |activity|
         - column_class=cycle('odd','even')
         %tr{ :valign => "top" }            
@@ -26,4 +26,4 @@ to see all activity combinations in a 5-min. duration {3-4 mins.}.
     %br
     = will_paginate @activities
   - else
-    No record found matching your criteria.
+    =I18n.t("no_record_found_matching_your_")

@@ -4,4 +4,4 @@
   - selected = params[:vetted_id] == 'all' ? 'all' : params[:vetted_id].to_i
   - options = [['All states', 'all']] + Vetted.all.collect{|v| [ (v.label == 'Unknown') ? 'Unreviewed' : v.label, v.id ] }
   = select_tag :vetted_id, options_for_select(options, selected)
-  = submit_tag 'Submit'
+  = submit_tag I18n.t("submit")

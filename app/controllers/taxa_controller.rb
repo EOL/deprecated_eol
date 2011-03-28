@@ -92,7 +92,7 @@ class TaxaController < ApplicationController
       :last_curated_dates => '*',
       :users => [ :given_name, :family_name ] }
     @taxon_concept = TaxonConcept.core_relationships(:include => inc, :select => sel).find_by_id(taxon_concept.id)
-    
+
     if params[:action_name] == "update_common_names"
       update_common_names
     end
@@ -190,7 +190,7 @@ class TaxaController < ApplicationController
     end
     @user.attributes = params[:user]
     set_current_user(@user)
-    flash[:notice] = "Your preferences have been updated."[:your_preferences_have_been_updated] if params[:from_taxa_page].blank?
+    flash[:notice] =  I18n.t(:your_preferences_have_been_updated)  if params[:from_taxa_page].blank?
     store_location(EOLWebService.uri_remove_param(return_to_url, 'vetted')) if valid_return_to_url
     redirect_back_or_default
   end

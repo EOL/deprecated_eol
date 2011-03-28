@@ -1,37 +1,37 @@
 = stylesheet_link_tag 'calendar'
-= "All web users registered in the system are shown below,  sorted inversely by time registered.  Note that the registration dates for users prior to EOL V2 (Jan 5, 2009) are not available.  Click on a username to edit that user."[:user_index_intro]
+=  I18n.t(:user_index_intro) 
 #users
   - form_tag({:action=>'index'},:method=>'get') do
     %table{:width => "100%"}
       %tr{:valign => 'top'}
         %td{:width => "30%"}
-          = "Search for users containing this in their username, name or email address."[]
+          = I18n.t(:search_for_users_containing_this_in_their_username_name_or_email_address) 
         %td
           = text_field_tag(:user_search_string,@user_search_string)
       %tr{:valign => 'top'}
         %td
-          = "who registered from"[]
+          = I18n.t(:who_registered_from) 
         %td
           %input{:type => 'date', :value => @start_date}
           -# TODO - I am cheating to get this to work.  This shouldn't be needed.
           = hidden_field_tag :start_date, @start_date
       %tr{:valign => 'top'}
         %td
-          = "to"[]
+          = I18n.t(:to) 
         %td
           %input{:type => 'date', :value => @end_date}
           -# TODO - I am cheating to get this to work.  This shouldn't be needed.
           = hidden_field_tag :end_date, @end_date
       %tr{:valign => 'top'}
         %td
-          = "Don't show unknown registered dates (V1 users, all prior to Jan 5, 2009)"[]
+          = I18n.t(:dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009) 
         %td
           = check_box_tag 'blank_dates', '1', @blank_dates
       %tr{:valign => 'top'}
         %td
           &nbsp;
         %td
-          = submit_tag 'Search'
+          = submit_tag I18n.t("search")
     -# Those input types of 'date' only work on HTML5-capable browsers, so we use jQuery Tools to fill in the gaps.  
     :javascript
       $(document).ready(function() {
@@ -48,28 +48,28 @@
     %br
     %br
     %p
-      = link_to "Add a new user",:action=>'new'
+      = link_to I18n.t("add_a_new_user"),:action=>'new'
       |
-      = link_to 'Export this list as CSV',{:action=>'index',:export=>'true',:start_date=>@start_date,:blank_dates=>@blank_dates,:end_date=>@end_date,:user_search_string=>@user_search_string}
+      = link_to I18n.t("export_this_list_as_csv"),{:action=>'index',:export=>'true',:start_date=>@start_date,:blank_dates=>@blank_dates,:end_date=>@end_date,:user_search_string=>@user_search_string}
     %br
     - if @users.nil? == false && @users.size > 0
-      A total of
+      =I18n.t("a_total_of")
       = @user_count
-      users were found matching your criteria.
+      =I18n.t("users_were_found_matching_your")
       %br
       = will_paginate @users
       %table.results_table{ :cellspacing => "0" }
         %tr
           %th
-            Username
+            =I18n.t("username")
           %th
-            Email
+            =I18n.t("email")
           %th
-            Name
+            =I18n.t("name")
           %th
-            Created At
+            =I18n.t("created_at")
           %th
-            Curator?
+            =I18n.t("curator_")
         - for user in @users
           - column_class=cycle('odd','even')
           %tr
@@ -86,4 +86,4 @@
       %br
       = will_paginate @users
     - else
-      No users are available matching your search criteria.
+      =I18n.t("no_users_are_available_matchin")

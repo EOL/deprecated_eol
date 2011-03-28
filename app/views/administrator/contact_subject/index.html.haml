@@ -1,21 +1,21 @@
 %br
-= link_to "Add a new topic area", :action => 'new'
+= link_to I18n.t("add_a_new_topic_area"), :action => 'new'
 %br
 #contact_us_topics
   - unless @contact_subjects.nil?
-    The following topic areas are available from the Contact Us page.  You may add or edit topic areas and their corresponding email addresses.  All changes are made immediately.
+    =I18n.t("the_following_topic_areas_are_")
     %br
     %br
     %table.results_table{ :cellspacing => "0" }
       %tr
         %th
-          Topic Area
+          =I18n.t("topic_area_")
         %th
-          Recipients
+          =I18n.t("recipients")
         %th
-          Active
+          =I18n.t("active")
         %th
-          Action
+          =I18n.t("action")
       - for contact_subject in @contact_subjects
         - column_class = cycle('odd', 'even')
         %tr
@@ -26,4 +26,4 @@
           %td{ :class => column_class }
             = h contact_subject.active
           %td{ :class => column_class }
-            = link_to "[edit]",:action=>'edit', :id=>contact_subject.id
+            = link_to I18n.t("_edit_"),:action=>'edit', :id=>contact_subject.id

@@ -1,37 +1,37 @@
 #errors
   %a{ :href => "javascript:history.back();" }
-    [go back]
+    =I18n.t("_go_back_")
   %br
   %br
   %strong
-    ID:
+    =I18n.t("id_")
   = @error.id
   %br
   %strong
-    Date:
+    =I18n.t("date_")
   = format_date_time(@error.created_at)
   %br
   %strong
-    Exception:
+    =I18n.t("exception_")
   = @error.exception_name
   %br
   %strong
-    URL:
+    =I18n.t("url_")
   = @error.url
   %br
   %strong
-    IP:
+    =I18n.t("ip_")
   = @error.ip_address
   %br
   %strong
-    User agent:
+    =I18n.t("user_agent_")
   = @error.user_agent
   %br
   %strong
-    User ID:
+    =I18n.t("user_id_")
   = @error.user_id
   %br
   %strong
-    Details:
+    =I18n.t("details_")
   %br
   = @error.backtrace.gsub(/\n/,"<br />")

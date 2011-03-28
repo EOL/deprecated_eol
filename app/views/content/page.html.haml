@@ -26,22 +26,22 @@
           %a{:name => 'wikipedia'}
           %br
           %h2
-            Request Wikipedia article ingestion:
+            =I18n.t("request_wikipedia_article_inge")
           %br
-          EOL is now allowing curators to submit a revision of a Wikipedia page to be ingested into EOL as a vetted text object. To find the revision URL of a Wikipedia article first go to the article main page (e.g. 
+          =I18n.t("eol_is_now_allowing_curators_t") 
           %a{:href => "http://en.wikipedia.org/w/index.php?title=Giraffe" }
-            http://en.wikipedia.org/w/index.php?title=Giraffe
-          ) and expand in the left hand menu the "Toolbox" menu item. You should now see the "Permanent link" item. Either copy the URL of that link, or click the link and copy the URL in your browser's address bar. The revision URL will look something like
+            =I18n.t("http___en_wikipedia_org_w_inde")
+          =I18n.t("__and_expand_in_the_left_hand_")
           %a{:href => "http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069" }
-            http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069
+            =I18n.t("http___en_wikipedia_org_w_inde_")
           \.
           %br
           %br
-          By entering a Wikipedia revision URL you are requesting that EOL ingests that particular revision as vetted. It will replace the current version of that article in EOL if we have it already.
+          =I18n.t("by_entering_a_wikipedia_revisi")
           %form{:action => '/content/wikipedia', :method => 'post'}
             %strong
-              Enter revision url: 
+              =I18n.t("enter_revision_url_") 
             %input{:type => 'text', :name => 'revision_url', :size => 60}
             %input{:type => 'submit', :value => 'Submit'}
           %i
-            (eg: http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)
+            =I18n.t("_eg__http___en_wikipedia_org_w")

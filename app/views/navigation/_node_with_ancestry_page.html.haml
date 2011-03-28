@@ -12,9 +12,9 @@
       %ul
         %li
           %span.message
-            Name not in
+            =I18n.t("name_not_in")
             = @session_hierarchy.label
-            \. Select an alternate hierarchy from the list above
+            =I18n.t("__select_an_alternate_hierarch")
     - else
       - children = hierarchy_entry.children(:include_common_names => @include_common_names, :common_name_language => @common_name_language, :node_class => node_class)
       - unless children.blank?

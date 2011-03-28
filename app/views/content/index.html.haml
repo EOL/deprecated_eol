@@ -9,14 +9,14 @@
     #photo-area-wrapper
       .photo_slider
         %h1
-          = "Explore"[]
+          = I18n.t(:explore) 
         .nav_buttons
           %span.more
             %a{ :href => "#", :onclick => "javascript:explore_more_taxa();return false;" }
-              = "more species"[:more_species]
+              =  I18n.t(:more_species) 
           %p.play
             %a{ :href => "#", :onclick => "javascript:toggle_explore_updates();return false;" }
-              %img#play-button{ :src => "#{StaticEolAssetHost.asset_host_proc.call('png')}/images/homepage/pause.gif", :height => "28", :alt => "pause", :width => "27" }
+              %img#play-button{ :src => "#{StaticEolAssetHost.asset_host_proc.call('png')}/images/homepage/pause.gif", :height => "28", :alt => I18n.t("pause"), :width => "27" }
         #photos_area
           - if @explore_taxa.nil? == false
             = render(:partial=>'explore_taxa')
@@ -25,7 +25,7 @@
         = @content.left_content
       #sidebar-b
         - unless @news_items.empty?
-          %h1= "What's New?"[]
+          %h1= I18n.t(:whats_new) 
           %ul.helplist
             - @news_items.each do |news_item|
               - if news_item.visible?
@@ -42,15 +42,15 @@
                       = news_item.title
                     %div{ :id => "news_#{news_item.id}", :style => "display:none;" }
                       = news_item.body
-            %li= link_to "more news...",:action=>'news'
+            %li= link_to I18n.t("more_news__"),:action=>'news'
             %li
-              To subscribe via RSS, click
+              =I18n.t("to_subscribe_via_rss__click")
               = link_to image_tag('rss.png'), {:action=>'news',:format=>'rss'}
-              , or add this URL to your RSS reader: http://
+              =I18n.t("__or_add_this_url_to_your_rss_")
               = request.host + url_for(:action=>'news',:format=>'rss')
       #home-center-content
         - if @featured_taxon
-          %h1= "Featured"[]
+          %h1= I18n.t(:featured) 
           %table#featured-species-table{ :cellspacing => "0", :summary => "featured table" }
             %tr
               %td.image

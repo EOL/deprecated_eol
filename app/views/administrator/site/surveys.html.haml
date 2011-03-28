@@ -1,34 +1,34 @@
-= link_to "[go back]",:back
+= link_to I18n.t("_go_back_"),:back
 #surveys
   %table.results_table{ :cellspacing => "0" }
     %tr
       %th
-        Response
+        =I18n.t("response")
       %th
-        Amount
+        =I18n.t("amount")
     %tr
       %td.odd
-        Yes
+        =I18n.t("yes_answer")
       %td.odd
         = @yes_surveys_count
     %tr
       %td.even
-        No
+        =I18n.t("no")
       %td.even
         = @no_surveys_count
     %tr
       %td.odd
-        Done already
+        =I18n.t("done_already")
       %td.odd
         = @done_surveys_count
     %tr
       %td.even
-        Total
+        =I18n.t("total")
       %td.even
         = @all_surveys_count
   %br
   - if @surveys.nil? == false && @surveys.size > 0
-    The following users were presented with the survey pop-up window and responded to the request to take the survey as shown below:
+    =I18n.t("the_following_users_were_prese")
     %br
     %br
     %form#pagination_form
@@ -36,15 +36,15 @@
     %table.results_table{ :cellspacing => "0" }
       %tr
         %th
-          User Response
+          =I18n.t("user_response")
         %th
-          User ID
+          =I18n.t("user_id")
         %th
-          IP Address
+          =I18n.t("ip_address")
         %th
-          Taxon ID
+          =I18n.t("taxon_id")
         %th
-          Date
+          =I18n.t("date")
       - for survey in @surveys
         - column_class=cycle('odd','even')
         %tr
@@ -61,4 +61,4 @@
     %form#pagination_form2
       = will_paginate @surveys
   - elsif @surveys.nil? == false && @surveys.size == 0
-    No survey responses are available.
+    =I18n.t("no_survey_responses_are_availa")

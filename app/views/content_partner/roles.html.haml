@@ -1,93 +1,93 @@
 = content_partner_step_navigation :page_header => @page_header
 %strong
-  Roles & Conditions of Use
+  =I18n.t("roles___conditions_of_use")
 %p{ :style => "margin: 10px 0 10px 0;" }
   In providing its content to EOL,
   = @agent.project_name
-  will:
+  =I18n.t("will_")
 %ul
   %li
-    Provide its content via a format and interchange method compatible with the EOL.
+    =I18n.t("provide_its_content_via_a_form")
   %li
-    Provide data objects as-is with no warranty or claim of fitness for purpose.
+    =I18n.t("provide_data_objects_as_is_wit")
   %li
-    Respond to the originators of comments or feedback communicated to
+    =I18n.t("respond_to_the_originators_of_")
     = @agent.project_name
-    via the EOL regarding its content.
+    =I18n.t("via_the_eol_regarding_its_cont")
   %li
-    Work with the EOL to improve the quality of the provided data objects and reduce errors.
+    =I18n.t("work_with_the_eol_to_improve_t")
   %li
-    Comply with the Creative Commons licenses of any EOL content from other Content Partners that it may choose to use for its own purposes and to provide full attribution in the specified manner of the license.
+    =I18n.t("comply_with_the_creative_commo")
   %li
-    Be able to display the EOL logo on its web site.
+    =I18n.t("be_able_to_display_the_eol_log")
   %li
-    Allow EOL to provide names from partner's content to the
+    =I18n.t("allow_eol_to_provide_names_fro")
     %a{ :href => "http://globalnames.org", :target => "_blank" }
-      Global Names Index
-    website.  GNI collects names and provides links back to source projects, further increasing the visibility of
+      =I18n.t("global_names_index")
+    =I18n.t("website___gni_collects_names_a")
     = @agent.project_name
     \.
 %p{ :style => "margin: 10px 0 10px 0;" }
-  In handling the content provided by
+  =I18n.t("in_handling_the_content_provid")
   = @agent.project_name
-  , EOL will:
+  =I18n.t("__eol_will_")
 %ul
   %li
-    Provide tools and methods to enable
+    =I18n.t("provide_tools_and_methods_to_e")
     = @agent.project_name
-    to provide its content to the EOL.
+    =I18n.t("to_provide_its_content_to_the_")
   %li
-    Cache
+    =I18n.t("cache")
     = @agent.project_name
-    's data objects along with similar content from other sources on EOL's servers.
+    =I18n.t("_s_data_objects_along_with_sim")
   %li
-    Attribute all of
+    =I18n.t("attribute_all_of")
     = @agent.project_name
-    's data objects according to its preferred Creative Commons licenses and in the manner specified by
+    =I18n.t("_s_data_objects_according_to_i")
     = @agent.project_name
     \.
   %li
-    Present or pass along
+    =I18n.t("present_or_pass_along")
     = @agent.project_name
-    's data objects to others using web services (such as APIs) which will carry the same Creative Commons licenses and specified manner of attribution.
+    =I18n.t("_s_data_objects_to_others_usin")
   %li
-    Not encourage or answer requests to provide all or major components of
+    =I18n.t("not_encourage_or_answer_reques")
     = @agent.project_name
-    's content to other data providers. Rather, such requests for re-usage will be forwarded to
+    =I18n.t("_s_content_to_other_data_provi")
     = @agent.project_name
     \.
   %li
-    Not alter the data objects provided; however EOL will enable annotations or comments to be added.
+    =I18n.t("not_alter_the_data_objects_pro")
   %li
-    Notify
+    =I18n.t("notify")
     = @agent.project_name
-    of any comments or feedback received about its data objects.
+    =I18n.t("of_any_comments_or_feedback_re")
   %li
-    Work with
+    =I18n.t("work_with")
     = @agent.project_name
-    to improve the quality of the provided data objects and reduce errors.
+    =I18n.t("to_improve_the_quality_of_the_")
   %li
-    Notify
+    =I18n.t("notify")
     = @agent.project_name
-    of statistics about the usage of its data objects.
+    =I18n.t("of_statistics_about_the_usage_")
   %li
-    Enable
+    =I18n.t("enable")
     = @agent.project_name
-    to access content from the EOL and to use that content on
+    =I18n.t("to_access_content_from_the_eol")
     = @agent.project_name
-    's own server or site according to the terms of the Creative Commons licenses for that content.
+    =I18n.t("_s_own_server_or_site_accordin")
   %li
-    EOL will show
+    =I18n.t("eol_will_show")
     = @agent.project_name
-    's logo and project description on its list of Content Partners.
+    =I18n.t("_s_logo_and_project_descriptio")
   %li
-    EOL may elect at its sole discretion to present all, portions or none of any data objects provided by
+    =I18n.t("eol_may_elect_at_its_sole_disc")
     = @agent.project_name
-    and reserves the right to redact or remove any illegal, offensive, or objectionable content.
+    =I18n.t("and_reserves_the_right_to_reda")
 = eol_lang_error_messages_for :content_partner, :header_message => nil, :message => nil
 - form_for @content_partner, :url => { :action => action_name }, :html => { :method => :post, :id => 'license_form' } do |f|
   = f.check_box :roles_accept
-  = f.label :roles_accept, "I have read and agree to the Content Partner Roles Overview.", :style => 'display: inline'
+  = f.label :roles_accept, I18n.t("i_have_read_and_agree_to_the_c"), :style => 'display: inline'
   = content_partner_save_type_hidden_field
 %br
 .button

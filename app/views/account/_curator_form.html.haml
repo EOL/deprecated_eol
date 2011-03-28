@@ -1,5 +1,5 @@
 - unless @user.is_curator?
-  %label{ :title => "Select a clade"[] }= "Select a clade"[]
+  %label{ :title => I18n.t(:select_a_clade)  }= I18n.t(:select_a_clade) 
 
   -# This is a hidden div that lets us clone the image_tag within it without worrying about it showing up *in addtion* to the copy (since the clone shares the original's class):
   #orig-clade-spinner{:style => 'display:none'}
@@ -8,23 +8,23 @@
     &nbsp;
     = clade_selector(options = { :selectable_clade_level => 3 })
 
-%label{ :title => "Curation Scope"[] }
-  = "Curation Scope"[]
+%label{ :title => I18n.t(:curation_scope)  }
+  = I18n.t(:curation_scope) 
 
 = %Q{Please note if the scope of your expertise is smaller than the clade you signed up for. For example: "Rodents of Borneo," or "Tri-trophic interactions," or "Conservation issues in fish." This will not limit your ability to curate, but will inform the EOL community.}[:please_note_expertise_smaller_than_scope]
 
-= "If you would like to have your group assignment changed at any time, please"[:to_change_clade_preamble]
-= link_to("contact us"[], "/contact_us?default_subject=Curator%20Support") + '.'[]
+=  I18n.t(:to_change_clade_preamble) 
+= link_to( I18n.t(:contact_us) , "/contact_us?default_subject=Curator%20Support") + '.'
 
 = f.text_area :curator_scope, { :rows => 3, :cols => 80 }
 
-%label{ :title => "Credentials"[], :for => "user_credentials" }= "Credentials"[]
+%label{ :title => I18n.t(:credentials) , :for => "user_credentials" }= I18n.t(:credentials) 
 
 Please state at least one specific credential from this list:
 
 %br
 %ol
-  %li faculty, staff, or graduate student status in a relevant university or college department
-  %li authorship of a peer-reviewed publication (provide reference)
-  %li member of a professional society
+  %li=I18n.t("faculty__staff__or_graduate_st")
+  %li=I18n.t("authorship_of_a_peer_reviewed_")
+  %li=I18n.t("member_of_a_professional_socie")
 = f.text_area :credentials, { :rows => 7, :cols => 80 }

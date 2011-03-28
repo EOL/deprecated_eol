@@ -1,17 +1,17 @@
-This section is used to view registered content partners.  Click on a content partner to view details or click on a column
-to sort by that column.  
-= link_to '[Export all content partners and their contacts]',{:action=>'export'}
+=I18n.t("this_section_is_used_to_view_r")
+=I18n.t("to_sort_by_that_column")  
+= link_to I18n.t("_export_all_content_partners_a"),{:action=>'export'}
 - form_tag({:action=>'index'},:method=>'get') do
-  Search for partner names containing: 
+  =I18n.t("search_for_partner_names_conta") 
   = text_field_tag(:partner_search_string,@partner_search_string)
   %br/
   = check_box_tag('only_show_agents_with_unpublished_content','1',@only_show_agents_with_unpublished_content)
-  Only show partners with unpublished content or no resources
+  =I18n.t("only_show_partners_with_unpubl")
   %br/
-  Only show partners with this status:
+  =I18n.t("only_show_partners_with_this_s")
   = select_tag(:agent_status_id, "<option value=''>All status types</option>" + options_from_collection_for_select(@agent_status, :id, :label,@agent_status_id.to_i)) 
   	
-  = submit_tag 'Search' 
+  = submit_tag I18n.t("search") 
   %br/
   %br/
   = will_paginate @agents
@@ -19,10 +19,10 @@ to sort by that column.
   %table.results_table{:width => "100%", :cellspacing => "0"}
     %tr
       %th
-        = link_to 'Partner',{:order_by=>'a.full_name ASC'}
+        = link_to I18n.t("partner"),{:order_by=>'a.full_name ASC'}
       %th
-        = link_to 'Registered',{:order_by=>'cp.created_at DESC'}
-      %th Steps
+        = link_to I18n.t("registered"),{:order_by=>'cp.created_at DESC'}
+      %th=I18n.t("steps")
     - for agent in @agents 
       - show=true
       - if (!agent.has_unpublished_content? && @only_show_agents_with_unpublished_content)
@@ -35,10 +35,10 @@ to sort by that column.
           %td{:width => "40%", :class => column_class}
             = link_to(agent.project_name, { :action => 'show', :id => agent.id })
             %br/
-            == Content partner has #{agent.resources.count} resources
+            =I18n.t("content_partner_has_var_agent_", :var_agent_resources_count => agent.resources.count)
             %br/
             - if agent.agent_status.blank?
-              Status: unknown
+              =I18n.t("status__unknown")
             - else
               = "Status: #{agent.agent_status.label}" 
               
@@ -48,25 +48,25 @@ to sort by that column.
             = 'Last action: ' + format_date(ContentPartner.find_by_agent_id(agent.id).last_action)
           %td{:class => column_class}          	
             = content_partner_check_box_image(agent.partner_complete_step?)
-            Partner Information Completed
+            =I18n.t("partner_information_completed")
             %br/
             = content_partner_check_box_image(agent.agent_contacts.any?)
-            Contact Information Added
+            =I18n.t("contact_information_added")
             %br/
             = content_partner_check_box_image(agent.terms_agreed_to?)
-            All Terms Agreed To
+            =I18n.t("all_terms_agreed_to")
             %br/
             = content_partner_check_box_image(agent.agreement_accepted?)
-            Agreement accepted        
+            =I18n.t("agreement_accepted")        
             %br/ 
             = content_partner_check_box_image(agent.vetted?)
-            Vetted by EOL
+            =I18n.t("vetted_by_eol")
             %br/ 
             = content_partner_check_box_image(agent.show_on_partner_page?)
-            Shown on content partners page   
+            =I18n.t("shown_on_content_partners_page")   
             %br/ 
             = content_partner_check_box_image(agent.has_unpublished_content?)
-            Has unpublished or no resource               
+            =I18n.t("has_unpublished_or_no_resource")               
   %br/
   %br/
   = will_paginate @agents
@@ -75,18 +75,18 @@ to sort by that column.
 	
   %br/
   %strong
-    RSS updates of harvests
+    =I18n.t("rss_updates_of_harvests")
   %br/
-  =	link_to(image_tag('rss.png',:alt=>'rss',:title=>'rss'), "http://services.eol.org/RSS_resource_monitor/process.php?f=1")
-  Recently harvested resources (last 20)	
+  =	link_to(image_tag('rss.png',:alt=>I18n.t("rss"),:title=>I18n.t("rss")), "http://services.eol.org/RSS_resource_monitor/process.php?f=1")
+  =I18n.t("recently_harvested_resources__")	
   %br/
-  =	link_to(image_tag('rss.png',:alt=>'rss',:title=>'rss'), "http://services.eol.org/RSS_resource_monitor/process.php?f=2")
-  Recently published resources (last 20)	
+  =	link_to(image_tag('rss.png',:alt=>I18n.t("rss"),:title=>I18n.t("rss")), "http://services.eol.org/RSS_resource_monitor/process.php?f=2")
+  =I18n.t("recently_published_resources__")	
   %br/
-  =	link_to(image_tag('rss.png',:alt=>'rss',:title=>'rss'), "http://services.eol.org/RSS_resource_monitor/process.php?f=3")
-  Harvested resources awaiting publication	
+  =	link_to(image_tag('rss.png',:alt=>I18n.t("rss"),:title=>I18n.t("rss")), "http://services.eol.org/RSS_resource_monitor/process.php?f=3")
+  =I18n.t("harvested_resources_awaiting_p")	
   %br/
-  =	link_to(image_tag('rss.png',:alt=>'rss',:title=>'rss'), "http://services.eol.org/RSS_resource_monitor/process.php?f=4")
+  =	link_to(image_tag('rss.png',:alt=>I18n.t("rss"),:title=>I18n.t("rss")), "http://services.eol.org/RSS_resource_monitor/process.php?f=4")
   Resources with harvest errors
 
   %br/

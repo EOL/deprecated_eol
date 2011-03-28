@@ -1,7 +1,7 @@
 #page-separator-general
 #page-title
   %h1
-    = "Media Contact"[]
+    = I18n.t(:media_contact) 
   %hr
 #page-content.clearfix
   #full-page-content
@@ -11,32 +11,32 @@
       %strong
         = @verification_did_not_match
     - form_for :contact, @contact,:html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |f|
-      %label{ :for => "contact_name", :title => "Your name (first and last) "[:your_name] }
-        = "Your name (first and last)"[:your_name]
-        %span{ :title => "required" }
+      %label{ :for => "contact_name", :title =>  I18n.t(:your_name)  }
+        =  I18n.t(:your_name) 
+        %span{ :title => I18n.t("required_") }
           *
         %span.warn
-          = "(" + "Required"[] + ")"
+          = "(" + I18n.t(:required)  + ")"
       = f.text_field :name, :size=>'50', :maxlength=>'250'
       %span#name_warn.error
-      %label{ :for => "contact_email", :title => "Your email address"[] }
-        = "Your email address"[]
-        %span{ :title => "required" }
+      %label{ :for => "contact_email", :title => I18n.t(:your_email_address)  }
+        = I18n.t(:your_email_address) 
+        %span{ :title => I18n.t("required_") }
           *
         %span.warn
-          = "(" + "Required"[] + ")"
+          = "(" + I18n.t(:required)  + ")"
       = f.text_field :email, :size=>'50', :maxlength=>'250'
-      %label{ :for => "contact_comments", :title => "Comments"[] }
-        = "Comments"[]
-        %span{ :title => "required" }
+      %label{ :for => "contact_comments", :title => I18n.t(:comments)  }
+        = I18n.t(:comments) 
+        %span{ :title => I18n.t("required_") }
           *
         %span.warn
-          = "(" + "Required"[] + ")"
+          = "(" + I18n.t(:required)  + ")"
       = f.text_area :comments
       %span#comments_warn.error
       %br
-      %label{ :title => "For verification, please enter the characters you see below.  Click the ? for assistance."[:recaptcha] }
-        = "For verification, please enter the characters you see below.  Click the ? for assistance."[:recaptcha]
+      %label{ :title =>  I18n.t(:recaptcha)  }
+        =  I18n.t(:recaptcha) 
       = recaptcha_tags
       %br
-      = submit_tag "Contact Us"[]
+      = submit_tag I18n.t(:contact_us)

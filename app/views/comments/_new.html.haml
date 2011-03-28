@@ -1,12 +1,12 @@
 - if !logged_in? && $ALLOW_USER_LOGINS
   %p
     %strong
-      You must be
-      = link_to('logged in', login_path(:params => {:return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path}), {:class => 'login_link'} )
-      to post comments.
+      =I18n.t("you_must_be")
+      = link_to(I18n.t("logged_in_"), login_path(:params => {:return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path}), {:class => 'login_link'} )
+      =I18n.t("to_post_comments")
 - elsif logged_in?
   %h2
-    Add a New Comment
+    =I18n.t("add_a_new_comment")
   - form_remote_for([@parent, @comment], :html => {:id => nil, :style => 'margin-top:0;'}) do |f|
     - comment_id = "comment_body_#{@parent.id}"
     - submit_id = "submit_comment_#{@parent.id}"
@@ -15,7 +15,7 @@
     %p
       %span.error{ :id => "#{@parent.id}_comment_error", :style => "display:none;" }
         Comment should not be empty.
-    = submit_tag('Post Comment', |
+    = submit_tag(I18n.t("post_comment"), |
       :id => submit_id, |
       :exception => 'alert("Yay");', |
       :class => 'post_comment')  |
@@ -28,7 +28,7 @@
           return false;
         }
         if($('##{@parent.id}_comment_error').is(":visible")) $('##{@parent.id}_comment_error').hide();
-        $(this).val('#{"Please wait..."[]}');
+        $(this).val('#{ I18n.t(:please_wait) }');
         $(this).attr('disabled', 'disabled');
         $('##{submit_id}_spinner').fadeIn();
         var form = $(this).closest('form');

@@ -1,11 +1,11 @@
 ="Subject: " + @contact.subject
 ="Name: " + @contact.name
 ="Email Address: " + @contact.email
-Comment:
+=I18n.t("comment_")
 =""
 = @contact.comment
 =""
-Partner Information
+=I18n.t("partner_information")
 ="--------------------------"
 ="ID#: " + @agent.id.to_s
 ="Username: " + @agent.username
@@ -14,5 +14,5 @@ Partner Information
 ="Project Name: " + @agent.project_name
 ="Project Abbreviation: " + @agent.project_abbreviation
 ="URL: " + @agent.url
-Partner Description:
+=I18n.t("partner_description_")
 = @agent.project_description

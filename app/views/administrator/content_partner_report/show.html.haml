@@ -10,75 +10,75 @@
 
 %h2
   = @agent.project_name
-= link_to '[go back]',:action => 'index'
+= link_to I18n.t("_go_back_"),:action => 'index'
 |
-= link_to '[edit/view their profile]',:action => 'edit_profile', :id => @agent.id
+= link_to I18n.t("_edit_view_their_profile_"),:action => 'edit_profile', :id => @agent.id
 |
-= link_to "[login to the content partner registry as #{@agent.display_name}]",{:action => 'login_as_agent', :id => @agent.id}, :confirm => "Are you sure you want to log into the content partner registry as #{@agent.display_name}?  If you do this, you will be logged out of the website as an administrator."
+= link_to I18n.t("_login_to_the_content_partner_", :var__agent_display_name => @agent.display_name),{:action => 'login_as_agent', :id => @agent.id}, :confirm => I18n.t("are_you_sure_you_want_to_log_i_", :var__agent_display_name => @agent.display_name)
 %br/
 
 - if @agent.ready_for_agreement?  
-  Click circles or checkmarks below to perform those actions (checkmark indicates action has already been performed):
+  =I18n.t("click_circles_or_checkmarks_be")
   %br/
-  = link_to_remote(content_partner_check_box_image(@agent.show_on_partner_page?, :id => 'show_on_cp_page_img'),  :url => { :action => 'show_on_partner_page', :id => @agent }, :confirm => "Are you sure you want to #{@agent.show_on_partner_page? ? 'hide' : 'show'} this partner on the content partner page?")
-  Show
+  = link_to_remote(content_partner_check_box_image(@agent.show_on_partner_page?, :id => 'show_on_cp_page_img'),  :url => { :action => 'show_on_partner_page', :id => @agent }, :confirm => I18n.t("are_you_sure_you_want_to_var__", :var__agent_show_on_partner_page_____hide_____show_ => @agent.show_on_partner_page? ? 'hide' : 'show'))
+  =I18n.t("show")
   = @agent.project_name
-  on
-  = link_to("content partners",:controller => '/content',:action => 'partners')
-  page of website.
+  =I18n.t("on")
+  = link_to(I18n.t("content_partners_"),:controller => '/content',:action => 'partners')
+  =I18n.t("page_of_website")
   %br/
-  = link_to_remote(content_partner_check_box_image(@agent.show_mou_on_partner_page?, :id => 'show_mou_on_cp_page_img'),  :url => { :action => 'show_mou_on_partner_page', :id => @agent }, :confirm => "Are you sure you want to #{@agent.show_mou_on_partner_page? ? 'hide' : 'show'} this partner's MOU on the content partner page?")
-  Show
+  = link_to_remote(content_partner_check_box_image(@agent.show_mou_on_partner_page?, :id => 'show_mou_on_cp_page_img'),  :url => { :action => 'show_mou_on_partner_page', :id => @agent }, :confirm => I18n.t("are_you_sure_you_want_to_var___", :var__agent_show_mou_on_partner_page_____hide_____show_ => @agent.show_mou_on_partner_page? ? 'hide' : 'show'))
+  =I18n.t("show")
   = "#{@agent.project_name.pluralize}"
-  MOU on
-  = link_to("content partners",:controller => '/content',:action => 'partners')
-  page of website.  
+  =I18n.t("mou_on")
+  = link_to(I18n.t("content_partners_"),:controller => '/content',:action => 'partners')
+  =I18n.t("page_of_website")  
   %br/
-  = link_to_remote(content_partner_check_box_image(@agent.show_gallery_on_partner_page?, :id => 'show_gallery_on_cp_page_img'),  :url => { :action => 'show_gallery_on_partner_page', :id => @agent }, :confirm => "Are you sure you want to #{@agent.show_gallery_on_partner_page? ? 'hide' : 'show'} a link to this partner's gallery on the content partner page?")
-  Show
+  = link_to_remote(content_partner_check_box_image(@agent.show_gallery_on_partner_page?, :id => 'show_gallery_on_cp_page_img'),  :url => { :action => 'show_gallery_on_partner_page', :id => @agent }, :confirm => I18n.t("are_you_sure_you_want_to_var____", :var__agent_show_gallery_on_partner_page_____hide_____show_ => @agent.show_gallery_on_partner_page? ? 'hide' : 'show'))
+  =I18n.t("show")
   = "#{@agent.project_name.pluralize}"
-  gallery on
-  = link_to("content partners",:controller => '/content',:action => 'partners')
-  page of website.
+  =I18n.t("gallery_on")
+  = link_to(I18n.t("content_partners_"),:controller => '/content',:action => 'partners')
+  =I18n.t("page_of_website")
   %br/
-  = link_to_remote(content_partner_check_box_image(@agent.show_stats_on_partner_page?, :id => 'show_stats_on_cp_page_img'),  :url => { :action => 'show_stats_on_partner_page', :id => @agent }, :confirm => "Are you sure you want to #{@agent.show_stats_on_partner_page? ? 'hide' : 'show'} a link to this partner's statistics on the content partner page?")
-  Show
+  = link_to_remote(content_partner_check_box_image(@agent.show_stats_on_partner_page?, :id => 'show_stats_on_cp_page_img'),  :url => { :action => 'show_stats_on_partner_page', :id => @agent }, :confirm => I18n.t("are_you_sure_you_want_to_var_____", :var__agent_show_stats_on_partner_page_____hide_____show_ => @agent.show_stats_on_partner_page? ? 'hide' : 'show'))
+  =I18n.t("show")
   = "#{@agent.project_name.pluralize}"
-  statistics on
-  = link_to("content partners",:controller => '/content',:action => 'partners')
-  page of website.
+  =I18n.t("statistics_on")
+  = link_to(I18n.t("content_partners_"),:controller => '/content',:action => 'partners')
+  =I18n.t("page_of_website")
   %br/
-  = link_to_remote(content_partner_check_box_image(@agent.vetted?, :id => 'vet_partner_img'),  :url => { :action => 'vet_partner', :id => @agent }, :confirm => "Are you sure you want to #{@agent.vetted? ? 'unvet' : 'vet'} this partner?  All of their uncurated data objects will become #{@agent.vetted? ? 'untrusted' : 'trusted'} immediately!")
+  = link_to_remote(content_partner_check_box_image(@agent.vetted?, :id => 'vet_partner_img'),  :url => { :action => 'vet_partner', :id => @agent }, :confirm => I18n.t("are_you_sure_you_want_to_var______", :var__agent_vetted_____unvet_____vet_ => @agent.vetted? ? 'unvet' : 'vet', :var__agent_vetted_____untrusted_____trusted_ => @agent.vetted? ? 'untrusted' : 'trusted'))
   = "Vet #{@agent.project_name} and update the status of all their uncurated data objects."
   %br/
-  = link_to_remote(content_partner_check_box_image(@agent.auto_publish?, :id => 'auto_publish_img'),  :url => { :action => 'auto_publish', :id => @agent }, :confirm => "Are you sure you want to #{@agent.auto_publish? ? 'disable' : 'enable'} auto-publish for this partner?  If enabled, all data objects are immediately published when imported (i.e. no preview and further approval is required).")
+  = link_to_remote(content_partner_check_box_image(@agent.auto_publish?, :id => 'auto_publish_img'),  :url => { :action => 'auto_publish', :id => @agent }, :confirm => I18n.t("are_you_sure_you_want_to_var_______", :var__agent_auto_publish_____disable_____enable_ => @agent.auto_publish? ? 'disable' : 'enable'))
   = "#{@agent.auto_publish? ? 'Disable' : 'Enable'} auto-publish for " + @agent.project_name + "." 
 
 - else
   = @agent.project_name
-  is not ready for their agreement.
+  =I18n.t("is_not_ready_for_their_agreeme")
 %br/
-= "Content partner status:"[]
+= I18n.t(:content_partner_status) 
 = collection_select(:agent, :agent_status_id, @agent_status, :id, :label, {}, {:onchange => 'javascript:update_partner_status(' + @agent.id.to_s + ');'})
 %br/
 
 - if !@agent.content_partner.last_action.blank?
-  This partner's last action was 
+  =I18n.t("this_partner_s_last_action_was") 
   = format_date_time(@agent.content_partner.last_action)
 
 %table.results_table{ :width => "100%" }
   %tr
     %th
-      Step
+      =I18n.t("step")
     %th
-      1st View
+      =I18n.t("1st_view")
     %th
-      Submission
+      =I18n.t("submission")
     %th
-      Status
+      =I18n.t("status")
   %tr
     %td.odd
-      Partner Information
+      =I18n.t("partner_information")
     %td.odd
       = content_partner_date(@agent.content_partner.partner_seen_step)
     %td.odd
@@ -87,19 +87,19 @@
       = @agent.content_partner.partner_complete_step? ? 'Complete' : 'Incomplete'
   %tr
     %td.even
-      Contact Information
+      =I18n.t("contact_information")
     %td.even
       = content_partner_date(@agent.content_partner.contacts_seen_step)
     %td.even
       = content_partner_date(@agent.content_partner.contacts_complete_step)
     %td.even
       - if @agent.agent_contacts.any?
-        = link_to "show #{@agent.agent_contacts.count.to_s} contacts", :action => 'show_contacts', :id => @agent.id.to_s
+        = link_to I18n.t("show_var__agent_agent_contacts", :var__agent_agent_contacts_count_to_s => @agent.agent_contacts.count.to_s), :action => 'show_contacts', :id => @agent.id.to_s
       - else
-        None
+        =I18n.t("none_")
   %tr
     %td.odd
-      Licensing
+      =I18n.t("licensing")
     %td.odd
       = content_partner_date(@agent.content_partner.licensing_seen_step)
     %td.odd
@@ -108,7 +108,7 @@
       = content_partner_check_box_image(@agent.content_partner.ipr_accept?)
   %tr
     %td.even
-      Attribution
+      =I18n.t("attribution")
     %td.even
       = content_partner_date(@agent.content_partner.attribution_seen_step)
     %td.even
@@ -117,7 +117,7 @@
       = content_partner_check_box_image(@agent.content_partner.attribution_accept?)
   %tr
     %td.odd
-      Roles
+      =I18n.t("roles")
     %td.odd
       = content_partner_date(@agent.content_partner.roles_seen_step)
     %td.odd
@@ -126,7 +126,7 @@
       = content_partner_check_box_image(@agent.content_partner.roles_accept?)
   %tr
     %td.even
-      Transfer Schema Overview
+      =I18n.t("transfer_schema_overview")
     %td.even
       = content_partner_date(@agent.content_partner.transfer_overview_seen_step)
     %td.even
@@ -135,7 +135,7 @@
       = content_partner_check_box_image(@agent.content_partner.transfer_schema_accept?)
   %tr
     %td.odd
-      Transfer Schema Upload
+      =I18n.t("transfer_schema_upload")
     %td.odd
       = content_partner_date(@agent.content_partner.transfer_upload_seen_step)
     %td.odd
@@ -145,37 +145,37 @@
   - if @agent.ready_for_agreement?  
     %tr
       %td.odd
-        Agreement
+        =I18n.t("agreement")
         %br/
-        = link_to('[view agreement]', {:controller => '/content_partner', :action => 'agreement', :id => @agent.id}, {:target => 'blank'})
+        = link_to(I18n.t("_view_agreement_"), {:controller => '/content_partner', :action => 'agreement', :id => @agent.id}, {:target => 'blank'})
         |
-        = link_to('[edit agreement]', :action => 'edit_agreement', :id => @agent.id)        
+        = link_to(I18n.t("_edit_agreement_"), :action => 'edit_agreement', :id => @agent.id)        
       %td.odd
-        N/A
+        =I18n.t("n_a")
       %td.odd
-        N/A
+        =I18n.t("n_a")
       %td.odd
         = @agreement_signed
 %br/
 %br/
 - if @agent.resources.count > 0
-  Resources Associated With This Content Partner:
+  =I18n.t("resources_associated_with_this")
   %br/
   %br/
   %table.results_table{ :width => "100%" }
     %tr
       %th
-        Title
+        =I18n.t("title")
       %th
-        Dataset URL
+        =I18n.t("dataset_url")
       %th
-        Frequency
+        =I18n.t("frequency")
       %th
-        Status
+        =I18n.t("status")
       %th
-        License
+        =I18n.t("license")
       %th
-        Actions
+        =I18n.t("actions")
     - for resource in @agent.resources
       - column_class = cycle('odd', 'even')
       %tr
@@ -190,14 +190,14 @@
         %td{:class => column_class}
           = h (resource.license.blank? ? "unspecified" : resource.license.title)
         %td{:class => column_class}
-          = link_to '[edit resource]', edit_resource_path(resource, :content_partner_id => @agent.id)
+          = link_to I18n.t("_edit_resource_"), edit_resource_path(resource, :content_partner_id => @agent.id)
           %br/
-          = link_to '[view harvests]', resource_harvest_events_url(resource, :content_partner_id => @agent.id)
+          = link_to I18n.t("_view_harvests_"), resource_harvest_events_url(resource, :content_partner_id => @agent.id)
           - if resource.dwc_hierarchy
             %br/
-            = link_to '[view hierarchy]', { :controller => 'hierarchy', :action => 'browse', :id => resource.dwc_hierarchy.id }
+            = link_to I18n.t("_view_hierarchy_"), { :controller => 'hierarchy', :action => 'browse', :id => resource.dwc_hierarchy.id }
           - elsif resource.hierarchy
             %br/
-            = link_to '[view hierarchy]', { :controller => 'hierarchy', :action => 'browse', :id => resource.hierarchy.id }
+            = link_to I18n.t("_view_hierarchy_"), { :controller => 'hierarchy', :action => 'browse', :id => resource.hierarchy.id }
 
 #message_area.message

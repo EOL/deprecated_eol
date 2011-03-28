@@ -1,15 +1,15 @@
 #errors
   %form#page-form{ :method => "post", :action => "/administrator/error_log/index" }
-    Filter by day:
+    =I18n.t("filter_by_day_")
     - default_select = (@date == 'all') ? 'all' : @date.strftime("%d-%b-%Y")
     = select_tag :date, options_for_select([['--select--', nil], ['--all--', 'all']] + @distinct_dates, default_select), {:onchange=>"javascript:$('#page-form').submit();"}
   %br
   - if @date == 'all'
-    Showing
+    =I18n.t("showing")
     %strong
-      ALL errors
+      =I18n.t("all_errors")
   - elsif !@date.blank?
-    Showing errors the error log for:
+    =I18n.t("showing_errors_the_error_log_f")
     %strong
       = @date.strftime("%A, %B %d")
   %br
@@ -18,15 +18,15 @@
     %table.results_table{ :cellspacing => "0", :width => "100%" }
       %tr
         %th
-          ID
+          =I18n.t("id")
         %th
-          Exception
+          =I18n.t("exception")
         %th
-          URL
+          =I18n.t("url")
         %th
-          User agent
+          =I18n.t("user_agent")
         %th
-          Date
+          =I18n.t("date")
       - for error in @errors
         - column_class=cycle('odd','even')
         %tr
@@ -45,4 +45,4 @@
   - elsif @errors.nil? == false && @errors.size == 0
     %br
     %i
-      No errors are available.
+      =I18n.t("no_errors_are_available")

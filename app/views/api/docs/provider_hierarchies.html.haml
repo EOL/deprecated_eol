@@ -4,27 +4,27 @@
   #page-separator-general
   #page-title
     %h1
-      EOL API: Provider Hierarchies
+      =I18n.t("eol_api__provider_hierarchies")
     %hr
   #page-content.clearfix
     #full-page-content
       = render(:partial=>'jump_to_nav')
       %h3
-        Request
+        =I18n.t("request")
       %p.indent
         %a{ :href => url }
           = url
       %h3
-        Parameters
+        =I18n.t("parameters")
       %p.indent
         %i
-          none
+          =I18n.t("none")
       %h3
-        Description
+        =I18n.t("description")
       %p.indent
-        This method will return references to all hierarchies supplied by EOL Content Partners. The response will include the label of the hierarchy and the EOL unique ID representing the hierarchy
+        =I18n.t("this_method_will_return_refere")
       %h3
-        XML Response
+        =I18n.t("xml_response")
       .formatted_code<
         :escaped
           <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -40,7 +40,7 @@
             <hierarchy id="599">Metalmark Moths of the World</hierarchy>
           </results>
       %h3
-        JSON Response
+        =I18n.t("json_response")
       .formatted_code<
         :escaped
           [

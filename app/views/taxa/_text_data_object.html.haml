@@ -26,9 +26,9 @@
   %div{:class => "content-article #{vetted_id_class(content_item)}", :id => "text_#{content_item.id}"}
     - if !content_item.users_data_objects.blank? && content_item.users_data_objects[0].user.id == current_user.id
       .multi_new_text_error{:style => "display:none;"}
-        Only one text object can be edited at a time.
+        =I18n.t("only_one_text_object_can_be_edited_at_a_time")
       .edit_text
-        = link_to("Edit", {:controller => :data_objects, :action => :edit, :type => :text, :id => content_item.id, :taxon_concept_id => @taxon_concept.id, :toc_id => @category_id}, :id => "edit_text_#{content_item.id}")
+        = link_to(I18n.t("edit"), {:controller => :data_objects, :action => :edit, :type => :text, :id => content_item.id, :taxon_concept_id => @taxon_concept.id, :toc_id => @category_id}, :id => "edit_text_#{content_item.id}")
       - if subtitle.blank? || (subtitle == category && hide_subtitle)
         %h1 &nbsp;
     
@@ -37,7 +37,7 @@
         = hh(subtitle)
     .content-attribution-area
       .attribution-header.text-area-header
-        = "Source and Additional Information"[]
+        = I18n.t(:source_and_additional_information) 
       = render :partial => 'data_objects/attribution', :locals => { :data_object => content_item }
     %br
     %div{:class => (content_item.vetted_id != Vetted.trusted.id ? "unvetted-background-text" : nil)}
@@ -45,7 +45,7 @@
     - unless content_item.published_refs.blank?
       .references
         .text-area-header.references-header
-          References
+          =I18n.t("references")
         %ul
           -# Checking to see if we should link references
           - ref_class = ''
@@ -77,7 +77,7 @@
           .spinner
             = image_tag('indicator_arrows_black.gif', :style => 'display:none;')
         #right_text_button.curate_button.curate-button-image{ :title => "Curate this text" }
-          = link_to '<span class="span_block"></span>', |
+          = link_to I18n.t("_span_class__span_block____spa"), |
             curation_data_object_path(content_item, :taxon_concept_id => @taxon_concept.id), |
             {'data-data_object_id' => content_item.id, |
             :style => comments_style, :class => 'popup-link', |
@@ -89,12 +89,12 @@
       -# TODO - we re-use this indicator a lot.  Put it in a div that we can push around the page as needed.
       %p
         = image_tag 'indicator_arrows_black.gif'
-        = "Please wait..."[]
+        = I18n.t(:please_wait) 
   .text-slidebox-border{:id => "text-curation-wrapper-#{content_item.id}", :style => "display:none;"}
     .text-slidebox-container{:id => "text-curation-#{content_item.id}"}
       %p
         = image_tag 'indicator_arrows_black.gif'
-        = "Please wait..."[]
+        = I18n.t(:please_wait) 
 
   .divider
 - if @hide

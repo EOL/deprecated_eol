@@ -1,22 +1,22 @@
-= link_to '[go back]',:action=>'show', :id=>params[:id]
+= link_to I18n.t("_go_back_"),:action=>'show', :id=>params[:id]
 %br/
 
-The following contacts were provided by the content partner when they registered.  Note that these email addresses are not
-associated with content partner login information.  To edit usernames, email addresses and passwords used by the content
-partner to log in, please
-=link_to 'update their profile',:action=>'edit_profile',:id=>@agent.id
+=I18n.t("the_following_contacts_were_pr")
+=I18n.t("associated_with_content_partne")
+=I18n.t("partner_to_log_in__please")
+=link_to I18n.t("update_their_profile"),:action=>'edit_profile',:id=>@agent.id
 
 
 %br/
 
 %table.results_table{:width => "100%"}
   %tr
-    %th Name
-    %th Type
-    %th Email
-    %th Web page
-    %th Telephone
-    %th Address
+    %th=I18n.t("name")
+    %th=I18n.t("type")
+    %th=I18n.t("email")
+    %th=I18n.t("web_page")
+    %th=I18n.t("telephone")
+    %th=I18n.t("address")
   - for contact in @contacts
     - column_class=cycle('odd','even')
     %tr

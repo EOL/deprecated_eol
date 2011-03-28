@@ -4,7 +4,7 @@
   - content_partner_id = 0
 
 %h2
-  Harvests for
+  =I18n.t("harvests_for")
   = @resource.title
 - unless @resource.resource_status == ResourceStatus.published
   %br
@@ -12,11 +12,11 @@
     - if current_user.is_admin?
       ***
       %strong
-        NOTICE:
-      Please
+        =I18n.t("notice_")
+      =I18n.t("please")
       %strong
-        = link_to "publish", edit_resource_path(@resource, :content_partner_id => content_partner_id)
-      this resource here ***
+        = link_to I18n.t("publish"), edit_resource_path(@resource, :content_partner_id => content_partner_id)
+      =I18n.t("this_resource_here____")
     - else
       This resource is not set as published by the administrator at this time.
 
@@ -26,19 +26,19 @@
     %thead
       %tr
         %th
-          Harvest ID
+          =I18n.t("harvest_id")
         %th
-          Started
+          =I18n.t("started")
         %th
-          Completed
+          =I18n.t("completed")
         %th
-          Published
+          =I18n.t("published")
         %th
-          Taxa
+          =I18n.t("taxa")
         %th
-          Action
+          =I18n.t("action")
         %th
-          Hierarchy
+          =I18n.t("hierarchy")
     %tbody
       - count = 0
       - for harvest_event in @harvest_events 
@@ -54,25 +54,25 @@
           %td{ :class => column_class }
             = harvest_event.published_at ? format_date_time(harvest_event.published_at) : "not published yet"
           %td{ :class => column_class }
-            = link_to 'preview', harvest_event_taxa_url(harvest_event)
+            = link_to I18n.t("preview_"), harvest_event_taxa_url(harvest_event)
           %td{ :class => column_class }
             - if harvest_event.published_at
               - if count == 1
-                currently published
+                =I18n.t("currently_published")
               - else
-                previously published
-              =# link_to "rollback", resource_harvest_event_url(@resource, harvest_event), :method => :put, :confirm => "Are you sure you want to revert to this harvest and delete all newer harvests?  This action is not reversible."
+                =I18n.t("previously_published")
+              =# link_to I18n.t("rollback"), resource_harvest_event_url(@resource, harvest_event), :method => :put, :confirm => I18n.t("are_you_sure_you_want_to_rever")
             - else
-              unpublished
-            =# current_user.is_admin? ? link_to("publish", resource_harvest_event_url(@resource, harvest_event), :method => :put, :confirm => "Are you sure you want to publish this harvest? This action is not reversible.") : "n/a"
+              =I18n.t("unpublished")
+            =# current_user.is_admin? ? link_to(I18n.t("publish"), resource_harvest_event_url(@resource, harvest_event), :method => :put, :confirm => I18n.t("are_you_sure_you_want_to_publi")) : "n/a"
           %td{ :class => column_class }
             - if count == 1 && h = harvest_event.resource.hierarchy
               - if current_user.is_admin?
-                = link_to('view this hierarchy', { :controller => 'administrator/hierarchy', :action => 'browse', :id => h.id })
+                = link_to(I18n.t("view_this_hierarchy"), { :controller => 'administrator/hierarchy', :action => 'browse', :id => h.id })
               - else
-                = link_to('view this hierarchy', { :controller => 'content_partner', :action => 'hierarchy', :id => h.id })
+                = link_to(I18n.t("view_this_hierarchy"), { :controller => 'content_partner', :action => 'hierarchy', :id => h.id })
   = will_paginate(@harvest_events)
 - if current_user.is_admin?
-  = link_to "[go back]", :controller => "/administrator/content_partner_report", :action => "show", :id  => content_partner_id
+  = link_to I18n.t("_go_back_"), :controller => "/administrator/content_partner_report", :action => "show", :id  => content_partner_id
 - else
-  = link_to "[go back]", resources_url
+  = link_to I18n.t("_go_back_"), resources_url

@@ -1,116 +1,117 @@
 :javascript
   function check_url() {
-    $.ajax({ url:'/resources/check_url', data: {url: $('#resource_accesspoint_url').val()}});		
+    $.ajax({ url:'/resources/check_url', data: {url: $('#resource_accesspoint_url').val()}});
   }
   function check_dwc_url() {
-    $.ajax({ url:'/resources/check_dwc_url', data: {url: $('#resource_dwc_archive_url').val()}});		
+    $.ajax({ url:'/resources/check_dwc_url', data: {url: $('#resource_dwc_archive_url').val()}});
   }
 = javascript_include_tag 'validator'
-- form_for(@resource, :method => method, :html => {  :multipart => true, :id => 'resource_form',:class => "warning-warn invalid-invalid styleLabelOnErr" } ) do |f| 
+- form_for(@resource, :method => method, :html => {  :multipart => true, :id => 'resource_form',:class => "warning-warn invalid-invalid styleLabelOnErr" } ) do |f|
   = f.error_messages
 
   %fieldset
     %p
-      This form is used to notify EOL of a resource that is available for processing.  You can either upload
-      your resource or place it on a public server and indicate it's URL, but you should not do both.  Providing a URL
-      is preferable since you can then schedule a regular interval for your data to be updated.
-      Currently, the resource must be in the EOL Transfer Schema format. <br />* indicates a required field.
+      =I18n.t("this_form_is_used_to_notify_eo")
+      =I18n.t("your_resource_or_place_it_on_a_")
+      =I18n.t("is_preferable_since_you_can_th")
+      =I18n.t("currently__the_resource_must_b")
     %br/
-    
-    - if (current_user.is_admin?)  
+
+    - if (current_user.is_admin?)
       - if ([ResourceStatus.processed, ResourceStatus.published].include? @resource.resource_status)
         = hidden_field_tag :publish, '0'
         = check_box_tag :publish, '1', (@resource.resource_status == ResourceStatus.published)
-        %label{:for => :publish, :style => "padding-left:1em;display:inline"} Publish this resource
+        %label{:for => :publish, :style => "padding-left:1em;display:inline"}= I18n.t("publish_this_resource")
         %br/
       = hidden_field_tag :auto_publish, '0'
       = check_box_tag :auto_publish, '1', @resource.auto_publish
-      %label{:for => :auto_publish, :style => "padding-left:1em;display:inline"} Auto-publish this resource (future harvest do not require preview)
+      %label{:for => :auto_publish, :style => "padding-left:1em;display:inline"}= I18n.t("auto_publish_this_resource__fu")
       %br/
       = hidden_field_tag :vetted, '0'
-      = check_box_tag :vetted, '1', @resource.vetted      
+      = check_box_tag :vetted, '1', @resource.vetted
       - if @resource.vetted
-        %label{:for => :vetted, :style => "padding-left:1em;display:inline"} Uncheck to unvet this entire resource (all uncurated data objects will be untrusted)
+        %label{:for => :vetted, :style => "padding-left:1em;display:inline"}= I18n.t("uncheck_to_unvet_this_entire_r")
       - else
-        %label{:for => :vetted, :style => "padding-left:1em;display:inline"} Vet this entire resource (all uncurated data objects will be trusted)   
+        %label{:for => :vetted, :style => "padding-left:1em;display:inline"}= I18n.t("vet_this_entire_resource__all_")
       %br/
       %br/
-                  
+
     .form_item
-      = f.label :title, 'Title: <span title="required">*</span>'
+      = f.label :title, I18n.t("title___span_title__required__")
       / resource_title ^.{1,200}$ false true //
-      = f.text_field :title, :maxlength=>200, :size=>50 
+      = f.text_field :title, :maxlength=>200, :size=>50
     .form_item
       = f.label :accesspoint_url, 'Indicate below the full URL (include \'http://\') from which the resource can be downloaded:  <span title="required">*</span>'
       = f.text_field :accesspoint_url, :maxlength=>200, :size=>60 , :onblur=>'javascript:check_url();'
       %br
-      OR
+      =I18n.t("or")
       %br
       %span.error{:id => 'url_warn'}
       - unless @resource.dataset_file_name.blank?
-        = f.label :dataset, 'Select a new file to upload below (gzip, tar or XML only): <span title="required">*</span>'
+        = f.label :dataset, I18n.t("select_a_new_file_to_upload_be")
         = f.file_field :dataset, :size => 60
         %br
         %span.error
-          a file was previously uploaded for this resource:
+          =I18n.t("a_file_was_previously_uploaded")
           %strong
             = @resource.dataset_file_name
-      
+
       - if (@resource.dataset_file_name.blank?)
-        = f.label :dataset, 'Select a resource file to upload below (gzip, tar or XML only): <span title="required">*</span>'
+        = f.label :dataset, I18n.t("select_a_resource_file_to_uplo")
         = f.file_field :dataset, :size => 60
-        
+
     .form_item
-      = f.label :dwc_archive_url, 'Indicate below the full URL for a <a href="/content/darwin_core" target="_blank">Darwin Core Archive</a> associated with this resource (tar/gzip only)'
+      = f.label :dwc_archive_url, I18n.t("indicate_below_the_full_url_fo")
       = f.text_field :dwc_archive_url, :maxlength=>200, :size=>60 , :onblur=>'javascript:check_dwc_url();'
-      %span.error{:id => 'dwc_url_warn'}    
-    .form_item  
-      = f.label :subject, 'Taxonomic subject of data (e.g. birds, mammals, etc.): <span title="required">*</span>'
+      %span.error{:id => 'dwc_url_warn'}
+    .form_item
+      = f.label :subject, I18n.t("taxonomic_subject_of_data__e_g")
       / resource_subject ^.{1,200}$ false true //
-      = f.text_field :subject, :maxlength=>200, :size=>50 
+      = f.text_field :subject, :maxlength=>200, :size=>50
     .form_item
-      = f.label :resource_created_at, 'Date This Resource Was Created:  <span title="required">*</span>'
-      = f.date_select :resource_created_at, :start_year => Time.now.year - 10, :end_year => Time.now.year
+      = f.label :resource_created_at, I18n.t("date_this_resource_was_created")
+      = f.date_select(:resource_created_at, :order => [:day,:month,:year], :start_year => (Time.now.year - 10), :end_year => Time.now.year)
+      = f.date_select(:resource_created_at, :order => [:day,:month,:year], :start_year => (Time.now.year - 10), :end_year => Time.now.year)
     .form_item
-      = f.label :refresh_period_hours, 'Frequency Resource should be updated (only if you are providing a URL):  <span title="required">*</span>'
-    
+      = f.label :refresh_period_hours, I18n.t("frequency_resource_should_be_u")
+
       %table
         %tr
           %td{:width => "125"}
             = f.radio_button :refresh_period_hours, 0
-            Import once          
+            =I18n.t("import_once")
           %td{:width => "125"}
             = f.radio_button :refresh_period_hours, 7 * 24
-            Weekly
+            =I18n.t("weekly")
           %td{:width => "125"}
             = f.radio_button :refresh_period_hours, 30 * 24
-            Monthly
+            =I18n.t("monthly")
           %td{:width => "125"}
             = f.radio_button :refresh_period_hours, 60 * 24
-            Bi-Monthly
+            =I18n.t("bi_monthly")
           %td{:width => "125"}
             = f.radio_button :refresh_period_hours, 91 * 24
-            Quarterly
-    .form_item 
-      = f.label :license, 'Default License: <span title="required">*</span>'
+            =I18n.t("quarterly")
+    .form_item
+      = f.label :license, I18n.t("default_license___span_title__")
       %table
         %tr
           - License.find_all_by_show_to_content_partners(true).each do |license|
-            = cycle('</tr><tr>', '', '', '') 
+            = cycle('</tr><tr>', '', '', '')
             %td{:width => "125"}
               = f.radio_button :license_id, license.id
               = external_link_to(license.title,license.source_url)
     .form_item
-      = f.label :rights_statement, 'Default Rights Statement: '
-      = f.text_field :rights_statement, :maxlength=>400, :size=>70 
+      = f.label :rights_statement, I18n.t("default_rights_statement__")
+      = f.text_field :rights_statement, :maxlength=>400, :size=>70
     .form_item
-      = f.label :rights_holder, 'Default Rights Holder: '
-      = f.text_field :rights_holder, :maxlength=>200, :size=>50 
+      = f.label :rights_holder, I18n.t("default_rights_holder__")
+      = f.text_field :rights_holder, :maxlength=>200, :size=>50
     .form_item
-      = f.label :language_id, 'Default Language:'
+      = f.label :language_id, I18n.t("default_language_")
       = f.select :language_id, Language.find_active.collect {|l| [l.source_form, l.id]}
     .form_item
-      = f.label :description, 'Description:'
+      = f.label :description, I18n.t("description_")
       = f.text_area :description
 
     -# admin needs to know which content partner to return to
@@ -118,8 +119,7 @@
       = hidden_field_tag(:content_partner_id, @content_partner.id)
     - elsif !current_agent.blank? && cp = current_agent.content_partner
       = hidden_field_tag(:content_partner_id, cp.id)
-    
+
     #form_validation_error
       %br/
   = f.submit button_label
-

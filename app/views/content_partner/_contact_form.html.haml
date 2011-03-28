@@ -1,34 +1,34 @@
 %fieldset
   %legend
-    = "Contact"[]
+    = I18n.t(:contact) 
   .form_item
     %label
       %span
         *
-      \- required fields
+      =I18n.t("__required_fields")
   .form_item
-    = f.label :given_name, "Given Name"[] + ' <span title="required">*</span>'
+    = f.label :given_name, I18n.t(:given_name)  + ' <span title="required">*</span>'
     = f.text_field :given_name, :maxlength => 100, :size=> 40
   .form_item
-    = f.label :family_name, "Family name"[:family_name] + ' <span title="required">*</span>'
+    = f.label :family_name,  I18n.t(:family_name)  + ' <span title="required">*</span>'
     = f.text_field :family_name, :maxlength => 100, :size=> 40
   .form_item
-    = f.label :email, "Email"[]  + ' <span title="required">*</span>'
+    = f.label :email, I18n.t(:email)   + ' <span title="required">*</span>'
     = f.text_field :email, :maxlength => 75, :size=> 50
   .form_item
-    = f.label :homepage, "Homepage"[]
+    = f.label :homepage, I18n.t(:homepage) 
     = f.text_field :homepage, :maxlength => 250, :size=> 50
   .form_item
-    = f.label :telephone, "Telephone"[]
+    = f.label :telephone, I18n.t(:telephone) 
     = f.text_field :telephone, :maxlength => 30
   .form_item
-    = f.label :address, "Mailing Address"[]
+    = f.label :address, I18n.t(:mailing_address) 
     = f.text_area :address, {:rows=>5}
   .form_item
-    = f.label :agent_contact_role_id, "Role"
+    = f.label :agent_contact_role_id, I18n.t("role")
     = f.collection_select :agent_contact_role_id, @agent_contact_roles, :id, :label
   .form_item
-    = f.label :email_reports_frequency_hours, "If there are comments or curator actions on your contributions, how often would you like to receive email alerts?"
+    = f.label :email_reports_frequency_hours, I18n.t("if_there_are_comments_or_curator_actions_on_your_contributions_how_often_would_you_like_to_receive_email_alerts")
     - select_options = [['Never', 0] , ['Daily', 1*24], ['Weekly', 7*24], ['Monthly', 30*24]]
     = f.select :email_reports_frequency_hours, select_options
   = content_partner_save_type_hidden_field

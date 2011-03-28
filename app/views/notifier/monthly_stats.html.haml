@@ -1,15 +1,15 @@
 ="Dear #{@contact['full_name']},"
 =""
-This is an automated e-mail notification.
-You can now check last month's web usage of your data in EOL.
+=I18n.t("this_is_an_automated_e_mail_no")
+=I18n.t("you_can_now_check_last_month_s")
 =""
-Please login to your account in the EOL Content Partner registry to view your stats.
-Login here: http://www.eol.org/content_partner/reports/login
+=I18n.t("please_login_to_your_account_i")
+=I18n.t("login_here__http___www_eol_org")
 =""
-This is the link to your web stats:
+=I18n.t("this_is_the_link_to_your_web_s")
 = "http://" + @SITE_DOMAIN_OR_IP + "/content_partner/reports/monthly_page_stats?agent_id=" + @contact["agent_id"] + "&month=" + @month + "&year=" + @year
 =""
-Contact eli@eol.org for any comments.
-Thank you.
+=I18n.t("contact_eli_eol_org_for_any_co")
+=I18n.t("thank_you_")
 =""
 = "-Encyclopedia of Life"

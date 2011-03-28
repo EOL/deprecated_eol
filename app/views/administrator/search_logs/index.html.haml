@@ -1,48 +1,48 @@
 %p
-  = "This area shows the most common user search terms, the number of times that search has been executed and some information about the number of results returned for that search term.  Click on the columns to sort by that column.  Click on a search term to see information about which result users clicked on (if any) after searching."[:search_log_report_intro]
+  =  I18n.t(:search_log_report_intro) 
 #content_page
   %br
-  = "Total searches:"[]
+  = I18n.t(:total_searches) 
   = @search_totals.num_searches
   | 
-  = "Total distinct searches:"[]
+  = I18n.t(:total_distinct_searches) 
   = @search_totals.distinct_searches
   %br
   - form_tag({:action => 'index'}, :method => 'get', :id => 'form1') do
     %div{:style => 'padding:4pt 2em;'}
-      = "Search for terms containing:"[]
+      = I18n.t(:search_for_terms_containing) 
       = text_field_tag(:search_string, @search_string)
     %div{:style => 'padding:4pt 2em;'}
-      = "Results per page:"[]
+      = I18n.t(:results_per_page) 
       = select_tag(:per_page, options_for_select([['10', 10], ['30', '30'], ['50', '50'], ['100', '100'], ['200', '200']], params[:per_page] || "30"), :onchange => "javascript:$('#form1').submit();")
     %div{:style => 'padding:4pt 2em;'}
       = check_box_tag :reverse, "true", @reverse, {:onclick =>"javascript:$('#form1').submit();"}
-      = "Inverse sort"[]
+      = I18n.t(:inverse_sort) 
     %div{:style => 'padding:4pt 2em;'}
       = check_box_tag :averages, "true", @averages, {:onclick =>"javascript:$('#form1').submit();"}
-      = "Calculate averages (slow)"[]
+      = I18n.t(:calculate_averages_slow) 
     .buttons{:style => 'margin:1em 6em;'}
-      = submit_tag 'Update'
+      = submit_tag I18n.t("update")
     = hidden_field_tag :order, @order
     = will_paginate @search_report
     
     %table.results_table
       %tr
         %th
-          = link_to 'Search Term', {:order => 'search_term'}
+          = link_to I18n.t("search_term"), {:order => 'search_term'}
         %th
-          = link_to 'Type', {:order => 'search_type'}
+          = link_to I18n.t("type"), {:order => 'search_type'}
         %th
-          = link_to 'Count', {:order => 'frequency', :reverse => 'true'}
+          = link_to I18n.t("count"), {:order => 'frequency', :reverse => 'true'}
         - if @averages
           %th
-            = link_to 'Page Results avg', {:order => 'results_avg'}
+            = link_to I18n.t("page_results_avg"), {:order => 'results_avg'}
           %th
-            = link_to 'Suggested Results avg', {:order => 'suggested_results_avg'}
+            = link_to I18n.t("suggested_results_avg"), {:order => 'suggested_results_avg'}
           %th
-            = link_to 'Common Name avg', {:order => 'common_name_avg'}
+            = link_to I18n.t("common_name_avg"), {:order => 'common_name_avg'}
           %th
-            = link_to 'Sci. Name avg', {:order => 'scientific_name_avg'}
+            = link_to I18n.t("sci__name_avg"), {:order => 'scientific_name_avg'}
       - @search_report.each do |row|
         - column_class=cycle('odd', 'even')
         %tr

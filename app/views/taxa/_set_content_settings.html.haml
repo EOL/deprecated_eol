@@ -9,32 +9,32 @@
     }
   }
 %h3.preference-header
-  = "Content Settings"[]
+  = I18n.t(:content_settings) 
 %a{ :href => "#", :onclick => "javascript:$('#filtering_help').slideDown();return false;" }
-  = "Learn more about browse classification and filtering"[]
+  = I18n.t(:learn_more_about_browse_classification_and_filtering) 
 #filtering_help{ :style => "display:none;" }
   %p
-    EOL has the ability to filter its content by a classification (or hierarchy).  This allows you to change the
+    =I18n.t("eol_has_the_ability_to_filter_")
     list of taxa shown in the classification browser on the right side of a species page and, optionally,
     create a filter for EOL based on this classification.
     %br
     %br
-    For instance, if you choose a classification containing only marine taxa and select the filtering option, then
-    your view of EOL will only show those taxa and images recognized by the marine classification - an
-    Encyclopedia of Marine Life!  You can still search for any taxa using the search page.
+    =I18n.t("for_instance__if_you_choose_a_")
+    =I18n.t("your_view_of_eol_will_only_sho")
+    =I18n.t("encyclopedia_of_marine_life___")
     /
       %br
       %br
-      You can also choose two classifications if you wish, which will be seamlessly merged together as you browse this website - this feature may be useful for biologists and taxonomists.
+      =I18n.t("you_can_also_choose_two_classi")
 %br
-%label{ :title => "Which default browse classification would you prefer?"[:classification_preference], :for => "user_default_hierarchy_id" }
-  = "Which default browse classification would you prefer?"[:classification_preference]
+%label{ :title =>  I18n.t(:classification_preference) , :for => "user_default_hierarchy_id" }
+  =  I18n.t(:classification_preference) 
 = f.select :default_hierarchy_id, [['-- always use default --', nil]] + Hierarchy.find_all_by_browsable(1).sort_by{|h| h.form_label}.collect {|h| [h.form_label, h.id]},{},{:onchange => 'javascript:auto_check_filter_box_if_needed();'}
 %br
 %br
 - if $ALLOW_SECOND_HIERARCHY
-  %label{ :for => "user_secondary_hierarchy_id", :title => "Which secondary browse classification would you prefer?"[:secondary_hierarchy_preference]}
-    = "Which secondary browse classification would you prefer?"[:classification_preference]
+  %label{ :for => "user_secondary_hierarchy_id", :title =>  I18n.t(:secondary_hierarchy_preference) }
+    =  I18n.t(:classification_preference) 
   = f.select :secondary_hierarchy_id, [['-- none --', nil]] + Hierarchy.browsable_by_label.collect {|h| [h.label, h.id]}
   %br
   %br
@@ -43,27 +43,27 @@
     %td{ :style => "padding-right:1em;" }
       = f.check_box :filter_content_by_hierarchy
     %td
-      = f.label :filter_content_by_hierarchy, 'Filter EOL based on your primary browse classification?'[:filter_content_by_classification_preference]
+      = f.label :filter_content_by_hierarchy,  I18n.t(:filter_content_by_classification_preference) 
 %br
-%label{ :title => "Which language do you prefer?"[:language_preference], :for => "user_language_abbr" }
-  = "Which language do you prefer?"[:language_preference]
+%label{ :title =>  I18n.t(:language_preference) , :for => "user_language_abbr" }
+  =  I18n.t(:language_preference) 
 = f.select :language_abbr, Language.find_active.collect {|l| [l.source_form, l.iso_639_1]}
 %br
 %br
 - if $ALLOW_USER_TO_CHANGE_CONTENT_LEVEL
-  %label{ :title => "Do you want to see?"[:content_level], :for => "user_content_level" }
-    = "Do you want to see?"[:content_level]
+  %label{ :title =>  I18n.t(:content_level) , :for => "user_content_level" }
+    =  I18n.t(:content_level) 
   - ContentLevel.find.each do |content_level|
     = f.radio_button :content_level,content_level.id
     = content_level.name
     %br
   %br
 - else
-  %label{ :title => "Do you want to see?"[:content_level] }
-    = "Do you want to see?"[:content_level]
+  %label{ :title =>  I18n.t(:content_level)  }
+    =  I18n.t(:content_level) 
   %label{ :for => "user_vetted_true" }
     = f.radio_button :vetted, "true"
-    = "Only information that comes from authoritative sources"[:view_only_vetted_content]
+    =  I18n.t(:view_only_vetted_content) 
   %label{ :for => "user_vetted_false" }
     = f.radio_button :vetted, "false"
-    = "All information"[]
+    = I18n.t(:all_information)

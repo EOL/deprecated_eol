@@ -3,32 +3,32 @@
   %tr
     %td
       %strong
-        Type:
+        =I18n.t("type_")
     %td
       = @comment.parent_type_name
   %tr
     %td
       %strong
-        Description:
+        =I18n.t("description_")
     %td
       = link_to (truncate(@comment.parent_name),@comment.parent_url)
   - if @comment.image_comment?
     %tr
       %td
         %strong
-          Original object:
+          =I18n.t("original_object_")
       %td
         = image_tag(@comment.parent_image_url)
   %tr
     %td{ :valign => "top" }
       %strong
-        Body:
+        =I18n.t("body_")
     %td
       = f.text_area :body,{:cols=>50}
   %tr
     %td
       %strong
-        Created at:
+        =I18n.t("created_at__")
     %td
       = @comment.created_at
 %br

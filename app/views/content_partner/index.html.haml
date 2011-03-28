@@ -1,34 +1,34 @@
-This page presents an overview of the process.  In order to complete the registration process, you must first enter in information about the project
-as well as contact information for members of your project.  You must then agree to the licensing, attribution, roles and other terms and conditions.  Once
-the process is complete, you will be able to provide your data to the EOL.
+=I18n.t("this_page_presents_an_overview")
+=I18n.t("as_well_as_contact_information")
+=I18n.t("the_process_is_complete__you_w")
 #content_partner_edit_area
   %h2
-    Profile
+    =I18n.t("profile")
   %ul.status
     %li
       = content_partner_check_box_image(current_agent.content_partner.partner_complete_step?)
-      = link_to("Partner Information", url_for(:action => 'partner'))
+      = link_to(I18n.t("partner_information"), url_for(:action => 'partner'))
     %li
       = content_partner_check_box_image(current_agent.agent_contacts.any?)
-      = link_to("Contact Information", url_for(:action => 'contacts'))
+      = link_to(I18n.t("contact_information"), url_for(:action => 'contacts'))
   %h2{ :style => "margin-top: 20px;" }
-    Agreements and Terms for Becoming a Content Partner
+    =I18n.t("agreements_and_terms_for_becom")
   %ul.status
     %li
       = content_partner_check_box_image(current_agent.content_partner.ipr_accept?)
-      = link_to("Step 1: Licensing Policy", url_for(:action => 'licensing'))
+      = link_to(I18n.t("step_1__licensing_policy"), url_for(:action => 'licensing'))
     %li
       = content_partner_check_box_image(current_agent.content_partner.attribution_accept?)
-      = link_to("Step 2: Attribution Guidelines", url_for(:action => 'attribution'))
+      = link_to(I18n.t("step_2__attribution_guidelines"), url_for(:action => 'attribution'))
     %li
       = content_partner_check_box_image(current_agent.content_partner.roles_accept?)
-      = link_to("Step 3: Roles", url_for(:action => 'roles'))
+      = link_to(I18n.t("step_3__roles"), url_for(:action => 'roles'))
     %li
       = content_partner_check_box_image(current_agent.content_partner.transfer_schema_accept?)
-      = link_to("Step 4: Transfer Schema Overview", url_for(:action => 'transfer_overview'))
+      = link_to(I18n.t("step_4__transfer_schema_overvi"), url_for(:action => 'transfer_overview'))
     %li
       = content_partner_check_box_image(current_agent.content_partner.transfer_upload_complete_step?)
-      = link_to("Step 5: Transfer Schema Upload", url_for(:action => 'transfer_upload'))
+      = link_to(I18n.t("step_5__transfer_schema_upload"), url_for(:action => 'transfer_upload'))
   - unless current_agent.ready_for_agreement?
     %br
     = content_tag(:button, 'Continue &#187;', :onclick => "javascript:window.location='/content_partner/partner';")
@@ -36,27 +36,27 @@ the process is complete, you will be able to provide your data to the EOL.
     #special-announcement
       - if current_agent.agreement_expired?
         %p
-          IMPORTANT: Your agreement is out of date and has been updated. Your updated agreement is available via the link below.
+          =I18n.t("important__your_agreement_is_o")
           %br
-      == #{link_to "Your agreement", {:action => "agreement"} , {:target=>"_new"}}, including additional provisions, is available for review and printing.
+      = link_to(I18n.t(:your_agreement_), {:action => "agreement"} , {:target=>"_new"}) + I18n.t(:including_additional_provision)
       %br
       #save-message
         - if !current_agent.agreement_accepted?
           - form_remote_tag :url => '/content_partner/accept_agreement' do
             %span#acceptance
-              Please indicate acceptance by typing your name here:
+              =I18n.t("please_indicate_acceptance_by_")
             = text_field_tag :signed_by,'',:size=>30
             %br
             %span
               = submit_tag
         - elsif !current_agent.agreement.nil?
-          Agreed to by
+          =I18n.t("agreed_to_by")
           = current_agent.agreement.signed_by
-          on
+          =I18n.t("on")
           = format_date_time(current_agent.agreement.signed_on_date)
   - if current_agent.ready_for_agreement?
     %h2{ :style => "margin-top: 20px;" }
-      Tools
+      =I18n.t("tools")
     %ul.status
       %li
-        = link_to("Usage Reports", url_for(:action => 'reports'))
+        = link_to(I18n.t("usage_reports"), url_for(:action => 'reports'))

@@ -3,21 +3,21 @@
 - form_for @agent, :url => { :action => 'profile' }, :html => { :class => "warning-warn invalid-invalid styleLabelOnErr", :method => 'post' } do |f|
   %fieldset
     %legend
-      = "Account Information"[]
-    = f.label :username, "#{'Username'[]} (4-16 characters)<span title='required'>*</span>"
+      = I18n.t(:account_information) 
+    = f.label :username, I18n.t("var__i18n_t__username____4_16_", :var__i18n_t__username__ =>  I18n.t(:username) )
     / agent_username ^[a-zA-Z0-9\-_]{4,16}$ false true //
     = f.text_field :username, :maxlength => 16, :onblur => "javascript:check_username()"
     %span#username_warn.error
-    = f.label :email, "#{'Email Address'[]} <span title='required'>*</span>"[]
+    = f.label :email, I18n.t("var__i18n_t__email_address____", :var__i18n_t__email_address__ =>  I18n.t(:email_address) )
     / agent_email ^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,6})$ false true //
     = f.text_field :email, :maxlength => 60, :size => 30
-    = f.label :password, "#{'Password'[]} (4-16 characters)"[]
+    = f.label :password, "#{I18n.t(:password)} #{I18n.t('4_16_characters')}"
     = f.password_field :password, :maxlength => 16, :onblur => "javascript:check_passwords()"
     %span#password_warn.error
     %span#password_match.error{ :style => 'display:none;' }
-      = "Passwords must match"[]
-    = f.label :password_confirmation, "Confirm Password"[]
+      = I18n.t(:passwords_must_match) 
+    = f.label :password_confirmation, I18n.t(:confirm_password) 
     = f.password_field :password_confirmation, :maxlength => 16, :onblur => "javascript:check_passwords()"
     %br
     .button
-      = submit_tag "Update Profile"[] + ' &#187;'
+      = submit_tag I18n.t(:update_profile)  + ' &#187;'

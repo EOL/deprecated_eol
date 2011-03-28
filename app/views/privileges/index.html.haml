@@ -1,18 +1,18 @@
-%h1 Listing privileges
+%h1=I18n.t("listing_privileges")
 %table
   %tr
-    %th Name
-    %th Sym
-    %th Level
-    %th Type
+    %th=I18n.t("name")
+    %th=I18n.t("sym")
+    %th=I18n.t("level")
+    %th=I18n.t("type")
   - @privileges.each do |privilege|
   %tr
     %td= h privilege.name
     %td= h privilege.sym
     %td= h privilege.level
     %td= h privilege.type
-    %td= link_to 'Show', privilege
-    %td= link_to 'Edit', edit_privilege_path(privilege)
-    %td= link_to 'Destroy', privilege, :confirm => 'Are you sure?', :method => :delete
+    %td= link_to I18n.t("show"), privilege
+    %td= link_to I18n.t("edit"), edit_privilege_path(privilege)
+    %td= link_to I18n.t("destroy"), privilege, :confirm => I18n.t("are_you_sure"), :method => :delete
 %br/
-= link_to 'New privilege', new_privilege_path
+= link_to I18n.t("new_privilege"), new_privilege_path

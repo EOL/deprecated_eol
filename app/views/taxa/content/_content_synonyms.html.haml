@@ -5,14 +5,14 @@
       %b
         = he.hierarchy.label
       %br
-      Preferred Name:
+      =I18n.t("preferred_name_")
       = he.name.string
     %table.results_table
       %tr
         %th
-          Name
+          =I18n.t("name")
         %th
-          Relationship
+          =I18n.t("relationship")
       - for s in he.scientific_synonyms
         - row_class = cycle('odd', 'even')
         %tr

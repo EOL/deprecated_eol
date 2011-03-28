@@ -5,112 +5,112 @@
     %tr
       %td{ :width => "120" }
         %strong
-          Page ID:
+          =I18n.t("page_id_")
       %td
         = @page.id
     %tr
       %td
         %strong
-          Title:
+          =I18n.t("title_")
       %td
         = f.text_field :title, {:size=>'50',:maxlength=>'100'}
         %br
-        shown to user as the title of page
+        =I18n.t("shown_to_user_as_the_title_of_")
     - if @page.content_section.name != 'Home Page'
       %tr
         %td
           %strong
-            Page Name:
+            =I18n.t("page_name_")
         %td
           = f.text_field :page_name, {:size=>'50',:maxlength=>'100'}
           %br
-          used for URLS - should be unique (except for translated pages); if not, URLs to page must use page ID
+          =I18n.t("used_for_urls___should_be_uniq")
       %tr
         %td
           %strong
-            Redirect to external URL:
+            =I18n.t("redirect_to_external_url_")
         %td
           = f.text_field :url, {:size=>'50',:maxlength=>'200'}
           %br
-          ONLY USE if this item is a placeholder for a navigational menu item to a specific URL that is not this page...in that case, enter URL instead of entering content below; otherwise leave this field blank
+          =I18n.t("only_use_if_this_item_is_a_pla")
       %tr
         %td
           %strong
-            Open in new window from menu:
+            =I18n.t("open_in_new_window_from_menu_")
         %td
           = f.check_box :open_in_new_window
-          \- if checked, any links to this page will open in a new browser window
+          =I18n.t("__if_checked__any_links_to_thi")
       %tr
         %td
           %strong
-            Sort Order:
+            =I18n.t("sort_order_")
         %td
           = f.text_field :sort_order, {:size=>'2',:maxlength=>'2'}
-          \- relative sort order in navigational menus (sort is low-->high)
+          =I18n.t("__relative_sort_order_in_navig")
       %tr
         %td
           %strong
-            Published:
+            =I18n.t("published_")
         %td
           = f.check_box :active
-          \- must be checked in order to view
+          =I18n.t("__must_be_checked_in_order_to_")
       %tr
         %td
           %strong
-            Section:
+            =I18n.t("section_")
         %td
           = f.collection_select :content_section_id,ContentSection.find(:all, :order=>'name'),:id,:name
-          \- only change to move page/item to a different section
+          =I18n.t("__only_change_to_move_page_ite")
       %tr
         %td
           %strong
-            URL to this page:
+            =I18n.t("url_to_this_page_")
         %td
-          = link_to('/content/page/' + @page.id.to_s,{:controller=>'/content',:action=>'page',:id=>@page.id},:target=>'_blank')
+          = link_to(I18n.t("_content_page_") + @page.id.to_s,{:controller=>'/content',:action=>'page',:id=>@page.id},:target=>'_blank')
           - if @page.page_name != 'New Page'
-            OR
-            = link_to('/content/page/' + @page.page_url,{:controller=>'/content',:action=>'page',:id=>@page.page_url},:target=>'_blank')
+            =I18n.t("or")
+            = link_to(I18n.t("_content_page_") + @page.page_url,{:controller=>'/content',:action=>'page',:id=>@page.page_url},:target=>'_blank')
     %tr
       %td
         %strong
-          Page Title Language Key:
+          =I18n.t("page_title_language_key_")
       %td
         = f.text_field :language_key, {:size=>'50',:maxlength=>'100'}
         %br
-        only used if page title is also in the language translation files, otherwise leave blank
+        =I18n.t("only_used_if_page_title_is_als")
     %tr
       %td
         %strong
-          Page Language:
+          =I18n.t("page_language_")
       %td
         = f.select :language_abbr, Language.find_active.collect {|l| [l.source_form, l.iso_639_1]}
     %tr
       %td
         %strong
-          Last Updated:
+          =I18n.t("last_updated_")
       %td
-        = "#{format_date_time(@page.created_at)} by #{@page.user ? @page.user.full_name : 'Unknown'[]}"
+        = "#{format_date_time(@page.created_at)} by #{@page.user ? @page.user.full_name : I18n.t(:unknown) }"
     - if @page.content_page_archives.size != 0
       %tr
         %td
           %strong
-            Archived versions:
+            =I18n.t("archived_versions_")
         %td
           = collection_select(:content_page_archive,:id,@page.content_page_archives,:id,:archived_by,{:prompt=>'--retrieve page created on--'})
     - if @page.content_section.name != 'Home Page'
       %tr
         %td{ :colspan => "2" }
-          = link_to "Permanently delete this page", {:action=>'destroy',:id=>@page.id}, :confirm => "Are you sure?  This action cannot be undone.", :method => :delete
+          = link_to I18n.t("permanently_delete_this_page"), {:action=>'destroy',:id=>@page.id}, :confirm => I18n.t("are_you_sure___this_action_can"), :method => :delete
   %br
   %strong
-    Left content area:
-  (HTML FORMAT, only enter if you wish to have a left column on the page, otherwise leave blank)
+    =I18n.t("left_content_area_")
+  =I18n.t("_html_format__only_enter_if_yo")
   %br
   = f.text_area :left_content,{:cols=>'75',:rows=>'30'}
   %br
   %strong
-    Main content area:
-  (HTML FORMAT)
+    =I18n.t("main_content_area_")
+  =I18n.t("_html_format_")
   %br
   = f.text_area :main_content,{:cols=>'75',:rows=>'65'}
   %br

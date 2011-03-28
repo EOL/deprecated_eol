@@ -1,5 +1,5 @@
 %h1
-  New comment
+  =I18n.t("new_comment")
 - form_for(@comment) do |f|
   = f.error_messages
   %p
@@ -7,5 +7,5 @@
     %br
     = f.text_field :text
   %p
-    = f.submit "Create"
-= link_to 'Back', comments_path
+    = f.submit I18n.t("create")
+= link_to I18n.t("back"), comments_path

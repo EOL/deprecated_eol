@@ -2,21 +2,21 @@
   .search_results{ :id => title.downcase.gsub(" ", "_")}
     %h3.search_result_subtitle= "#{title}"
     %p
-      == Results #{results.offset + 1} - #{results.offset + [results.per_page, results.total_entries].min} of
-      == #{results.total_entries} for
+      =I18n.t("results_var_results_offset___1", :var_results_offset___1 => results.offset + 1, :var_results_offset____results_per_page__results_total_entries__min => results.offset + [results.per_page, results.total_entries].min)
+      =I18n.t("var_results_total_entries_for", :var_results_total_entries => results.total_entries)
       %em= @querystring
     %table.results_table{ :cellspacing => "0", :summary => title, :style => "width:100%;" }
       %tr
-        %th{ :style => "width:152px;" }= "Image"[]
-        %th{ :style => "width:50%;" }= "Common Name"[]
-        %th{ :style => "width:50%;" }= "Scientific Name"[]
+        %th{ :style => "width:152px;" }= I18n.t(:image)
+        %th{ :style => "width:50%;" }= I18n.t(:common_name)
+        %th{ :style => "width:50%;" }= I18n.t(:scientific_name)
       - results.each do |result|
         - vetted_value = ''
         - vetted_value = '_unvetted'  if result['unknown']
         - vetted_value = '_untrusted' if result['untrusted']
         - column_class = 'search_result_cell ' + cycle('odd', 'even') + vetted_value
         - best_scientific_name = result['best_matched_scientific_name']
-        - best_scientific_name = best_scientific_name[0] if best_scientific_name.class == Array
+        - best_scientific_name = best_scientific_name[0] if best_scientific_name.is_a?(Array)
         %tr
           %td{ :class => column_class }
             - unless result['top_image'].nil?
@@ -29,12 +29,10 @@
           %td{ :class => column_class }
             .ancestor= result['ancestor_scientific']
             .parent= result['parent_scientific']
-            %div{:class => (result['parent_scientific'].blank? and result['ancestor_scientific'].blank?) ? '' : "result duplicate"}
+            %div{:class => (result['parent_scientific'].blank? && result['ancestor_scientific'].blank?) ? '' : "result duplicate"}
               = link_to hh(best_scientific_name), found_url(:id => result['id']), :method=>:post
             = result['scientific_shown_as']
             - unless result['recognized_by'].blank?
-              %span.recognized_by= "Taxon recognized by #{result['recognized_by']}"
-      -# end results.each
+              %span.recognized_by= I18n.t(:taxon_recognized_by, :var_recognized_by => result["recognized_by"])
     = will_paginate(results)
-  - # /search_results
   %br

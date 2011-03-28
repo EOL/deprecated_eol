@@ -2,18 +2,18 @@
   %p
     = act_history.data_object_type_label
     - if act_history.data_object_type_label == 'Text'
-      for "
+      =I18n.t("for__")
       = act_history.toc_label
       "
-    on "
+    =I18n.t("on__")
     = link_to act_history.taxon_concept_name, {:controller => '/taxa', :action => 'show', :id => act_history.taxon_concept_id}, :target => "_blank"
     "
-    was changed to "
+    =I18n.t("was_changed_to__")
     = current_act
-    " by
+    =I18n.t("__by")
     = curator_or_plain_username(act_history.user)
     = act_date
-    ago
+    =I18n.t("ago")
     - if act_history.data_object_type_label == 'Image'
       %br
       = image_tag act_history.data_object.smart_thumb,  :alt => hh(act_history.taxon_concept_name)

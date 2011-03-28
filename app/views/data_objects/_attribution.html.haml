@@ -4,19 +4,19 @@
       %tr.credit-line
         %td
           .credit-caption
-            = "Legend"[]
+            = I18n.t(:legend)
         %td
           .credit-value
-            = image_tag 'gbif_legend.gif', :title=>'GBIF Map Legend',:alt=>'GBIF Map Legend'
+            = image_tag 'gbif_legend.gif', :title=>I18n.t("gbif_map_legend"),:alt=>I18n.t("gbif_map_legend")
             %br
-            Not all maps have occurrence information.
+            =I18n.t("not_all_maps_have_occurrence_i")
   - else !@preview
     - unless defined?(skip_permalink) && skip_permalink
-      %a.attribution-icon.expand-text-attribution{ :href => "#", :title => "View full attribution details", :id => "tdo_#{data_object.id}", :style => "width: 25px; height: 25px" }
+      %a.attribution-icon.expand-text-attribution{ :href => "#", :title => I18n.t("view_full_attribution_details"), :id => "tdo_#{data_object.id}", :style => "width: 25px; height: 25px" }
   - unless data_object.users_data_objects.blank? || data_object.users_data_objects[0].user.blank?
     .credit.supplier
       .credit-caption
-        = "Supplier"[]
+        = I18n.t(:supplier)
       .credit-value
         = data_object.users_data_objects[0].user.given_name
         = data_object.users_data_objects[0].user.family_name
@@ -34,10 +34,10 @@
   - if data_object.in_wikipedia?
     .credit.show
       .credit-caption
-        EDIT
+        =I18n.t("edit__")
       .credit-value
         - edit_link = EOLWebService.uri_remove_param(data_object.source_url, 'oldid') + "&action=edit"
-        = external_link_to("latest version of this article in Wikipedia", edit_link)
+        = external_link_to(I18n.t("latest_version_of_this_article"), edit_link)
       .footer
     - if @taxon_concept && @taxon_concept.show_curator_controls?
       - if data_object.visibility_id == Visibility.preview.id
@@ -46,23 +46,23 @@
           = hidden_field_tag "category_id", params[:category_id]
           .credit.show
             .credit-caption
-              PUBLISH
+              =I18n.t("publish_")
             .credit-value
               %a{:href=>'', :onclick =>"javascript:$('#wikipedia_publish_form').submit(); return false;"}
-                trust this article and replace current version
+                =I18n.t("trust_this_article_and_replace")
             .footer
       .credit.show
         .credit-caption
-          RECOMMEND
+          =I18n.t("recommend")
         .credit-value
-          = link_to "nominate another wikipedia article for ingestion", :controller => 'content', :action => 'page', :id => 'curator_central', :anchor => 'wikipedia'
+          = link_to I18n.t("nominate_another_wikipedia_art"), :controller => 'content', :action => 'page', :id => 'curator_central', :anchor => 'wikipedia'
         .footer
   - if (data_object.text? || data_object.image? || data_object.video?) && ! (defined?(skip_permalink) && skip_permalink)
     .credit.permalink
       .credit-caption
-        = "Permalink"[]
+        = I18n.t(:permalink)
       .credit-value
-        = "Copy and paste in email or document"[]
+        = I18n.t(:copy_and_paste_in_email_or_document)
         \:
         %br
         %form

@@ -1,6 +1,6 @@
 = javascript_include_tag 'videos', 'popup' # The attribution popup is the only one here, but... we still need it to work!
 - showing_untrusted_video = false
-- showing_unknown_video = false 
+- showing_unknown_video = false
 - unless @video_collection.nil?
   - @video_collection.each do |video|
     - showing_untrusted_video = true if video.untrusted?
@@ -9,16 +9,16 @@
 #media-videos.wrapper-mc.clearfix
   #video-player
     - if @default_videos.blank? && @taxon_concept.has_video && params[:vet_flag] != "false"
-      No authoritative videos available.
-      = link_to 'View unvetted videos for this group.', {:action=>"show", :vet_flag=>"false"}
+      =I18n.t("no_authoritative_videos_availa")
+      = link_to I18n.t("view_unvetted_videos_for_this_"), {:action=>"show", :vet_flag=>"false"}
     - else
-      = "Select a video to the right to begin playback."[:select_video]
-  
+      =  I18n.t(:select_video)
+
   #video-list.mc-info
-    
+
     - unless @video_collection.blank?
       .mc-header
-        %h3= "Videos"
+        %h3= I18n.t("videos")
         %hr
     - else
       %span#left_top_text
@@ -29,10 +29,10 @@
       %br
       - if showing_unknown_video
         #unknown-video-warning-box
-          %span= "Items in yellow are not reviewed."[]
+          %span= I18n.t(:items_in_yellow_are_not_reviewed)
       - if showing_untrusted_video
         #untrusted-video-warning-box
-          %span= "Items in red are not trusted."[]
+          %span= I18n.t(:items_in_red_are_not_trusted)
       #video-collection
         %ul
           - for video in @video_collection
@@ -52,12 +52,12 @@
         %span#video-notes
         %hr
   - unless @video_collection.blank?
-    .attribution_link{ :title => "More information", :style => "display: none" }    
-      = link_to('<span style="display:block;width:24px;height:25px;"></span>', |
+    .attribution_link{ :title => "More information", :style => "display: none" }
+      = link_to(I18n.t("_span_style__display_block_wid"), |
         attribution_data_object_path(@video_collection[0]),                    |
         :id => 'video_attributions', :class => 'popup-link attribution-icon',  |
         :rel => "#video-attr-overlay",                                         |
         :alt => 'More information')                                            |
     #video-attr-overlay.overlay{:style=>"width:400px"}
       .contentWrap
-        Please wait, loading...
+        =I18n.t("please_wait_loading")

@@ -3,14 +3,14 @@
   var todays_date = '#{Date.today}';
 = javascript_include_tag 'admin-news-item.js'
 %br
-Edit the news item below.  HTML is allowed in both fields, and *either* title or the body is required.  For best results, just use the title and enter a short news item.  When creating hyperlinks to other sites, you can use
-= link_to 'TinyURL', 'http://www.tinyurl.com', :target => '_blank'
-to create shorter URLs to conserve characters.
+=I18n.t("edit_the_news_item_below___htm")
+= link_to I18n.t("tinyurl"), 'http://www.tinyurl.com', :target => '_blank'
+=I18n.t("to_create_shorter_urls_to_cons")
 %table
   %tr
     %td{ :valign => "top" }
       %strong
-        Title:
+        =I18n.t("title_")
       %br
       %span#title_remaining_length
     %td
@@ -18,7 +18,7 @@ to create shorter URLs to conserve characters.
   %tr
     %td{ :valign => "top" }
       %strong
-        Body:
+        =I18n.t("body_")
       %br
       %span#body_remaining_length
     %td
@@ -26,34 +26,34 @@ to create shorter URLs to conserve characters.
   %tr
     %td{ :valign => "top" }
       %strong
-        Preview
+        =I18n.t("preview")
     %td
       #previewed_news_item{:style => 'width:500px'}
       %br
       %i
-        Note: The preview is not exact -- just use to check HTML formatting
+        =I18n.t("note__the_preview_is_not_exact")
   %tr
     %td
       %strong
-        News Item Date as shown to user (time only shown in RSS feed):
+        =I18n.t("news_item_date_as_shown_to_use")
     %td
       = f.datetime_select :display_date
   %tr
     %td{ :valign => "top" }
       %strong
-        News Item is visible on website after this time:
+        =I18n.t("news_item_is_visible_on_websit")
     %td
       = f.datetime_select :activated_on
       %br
-      Note that all times are UTC (Greenwich Mean Time)
+      =I18n.t("note_that_all_times_are_utc__g")
       %br
       = f.check_box :active
-      Publish item based on time set above (uncheck to always hide)
+      =I18n.t("publish_item_based_on_time_set")
   - if (controller.action_name != 'new' && controller.action_name != 'create') && @news_item.user.nil? == false
     %tr
       %td
         %strong
-          Created by:
+          =I18n.t("created_by_")
       %td
         = @news_item.user.username + " (" + @news_item.user.given_name + ")"
   - else

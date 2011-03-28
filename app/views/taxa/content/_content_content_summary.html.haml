@@ -1,9 +1,9 @@
 %p
-  = "The following values represent the sum of different types of content for this taxon and all of its taxonomic descendants."[]
-  = define_term('Trusted'[])
-  = "content has either been approved by an EOL curator or comes from a trusted provider."[]
-  = define_term('Unreviewed'[])
-  = "content has not yet been assessed by an EOL curator. Every taxonomic hierarchy is unique, so each browsable hierarchy is listed for comparison."[]
+  = I18n.t(:the_following_values_represent_the_sum_of_different_types_of_content_for_this_taxon_and_all_of_its_taxonomic_descendants) 
+  = define_term( I18n.t(:trusted) )
+  = I18n.t(:content_has_either_been_approved_by_an_eol_curator_or_comes_from_a_trusted_provider) 
+  = define_term( I18n.t(:unreviewed) )
+  = I18n.t(:content_has_not_yet_been_assessed_by_an_eol_curator_every_taxonomic_hierarchy_is_unique_so_each_browsable_hierarchy_is_listed_for_comparison) 
 %br
 %br
 -# sorting the results to put the stats for preferred hierarchy first
@@ -20,27 +20,27 @@
       %th
     %tr
       %td.odd
-        \# of descendants
+        =I18n.t("_of_descendants")
       %td.odd
         = hierarchy_entry.hierarchy_entry_stat.total_children
     %tr
       %td.even
-        \# of trusted images
+        =I18n.t("_of_trusted_images")
       %td.even
         = hierarchy_entry.hierarchy_entry_stat.all_image_trusted
     %tr
       %td.odd
-        \# of unreviewed images
+        =I18n.t("_of_unreviewed_images")
       %td.odd
         = hierarchy_entry.hierarchy_entry_stat.all_image_untrusted
     %tr
       %td.even
-        \# of trusted text objects
+        =I18n.t("_of_trusted_text_objects")
       %td.even
         = hierarchy_entry.hierarchy_entry_stat.all_text_trusted
     %tr
       %td.odd
-        \# of unreviewed text objects
+        =I18n.t("_of_unreviewed_text_objects")
       %td.odd
         = hierarchy_entry.hierarchy_entry_stat.all_text_untrusted
   %br

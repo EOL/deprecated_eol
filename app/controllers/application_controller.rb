@@ -29,7 +29,12 @@ class ApplicationController < ActionController::Base
 
   helper_method :logged_in?, :current_url, :current_user, :return_to_url, :current_agent, :agent_logged_in?,
     :allow_page_to_be_cached?
-  around_filter :set_current_language
+
+  before_filter :set_locale
+
+  def set_locale
+    I18n.locale = current_user.language_abbr
+  end
 
   # TODO - test
   def self.access_control(sym)
@@ -58,12 +63,12 @@ class ApplicationController < ActionController::Base
   end
 
   def must_be_logged_in
-    flash[:warning] = "You must be logged in to perform this action"[:must_be_logged_in]
+    flash[:warning] =  I18n.t(:must_be_logged_in) 
     return redirect_to(login_path)
   end
 
   def access_denied
-    flash[:warning] = "You are not authorized to perform this action."[]
+    flash[:warning] = I18n.t(:you_are_not_authorized_to_perform_this_action) 
     return redirect_to(root_path)
   end
 
@@ -427,25 +432,22 @@ class ApplicationController < ActionController::Base
 
   # call this method if someone is not supposed to get a controller or action when user accounts are disabled
   def accounts_not_available
-    flash[:warning] = "We apologize, but the user registration system is not currently available.  Please try again later."[:user_system_down]
+    flash[:warning] =  I18n.t(:user_system_down) 
     redirect_to root_url
   end
 
   # A user is not authorized for the particular controller based on the rights for the roles they are in
   def access_denied
-    flash.now[:warning] = "You are not authorized to perform this action."[]
+    flash.now[:warning] = I18n.t(:you_are_not_authorized_to_perform_this_action) 
     request.env["HTTP_REFERER"] ? (redirect_to :back) : (redirect_to root_url)
   end
 
   # Set the current language
   def set_language
     language = params[:language].to_s
-    languages = Gibberish.languages.map { |l| l.to_s } + ["en"]
-    if languages.include?(language)
       alter_current_user do |user|
         user.language = Language.find_by_iso_639_1(language)
       end
-    end
     return_to = (params[:return_to].blank? ? root_url : params[:return_to])
     redirect_to return_to
   end
@@ -551,12 +553,6 @@ private
 
   def clear_old_sessions
     CGI::Session::ActiveRecordStore::Session.destroy_all( ['updated_at <?', $SESSION_EXPIRY_IN_SECONDS.seconds.ago] )
-  end
-
-  # Set language around filter
-  def set_current_language
-    current_user.language = Language.english if current_user.language.nil? or current_user.language_abbr == ""
-    Gibberish.use_language(current_user.language_abbr) { yield }
   end
 
   def log_search params

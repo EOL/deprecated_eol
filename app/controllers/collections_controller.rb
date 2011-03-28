@@ -84,7 +84,7 @@ class CollectionsController < ApplicationController
     object = find_collectable_item(params['type'], params['id'])
     @collection.add(object)
     respond_to do |format|
-      format.html { redirect_to(@collection, :notice => 'Item was added to your Recently Collected items'[]) }
+      format.html { redirect_to(@collection, :notice => I18n.t(:item_was_added_to_your_recently_collected_items) ) }
     end
   end
 
@@ -94,7 +94,7 @@ class CollectionsController < ApplicationController
     object = find_collectable_item(params['type'], params['id'])
     @collection.add(object)
     respond_to do |format|
-      format.html { redirect_to(@collection, :notice => 'Item was added to your Watched Items collection'[]) }
+      format.html { redirect_to(@collection, :notice => I18n.t(:item_was_added_to_your_watched_items_collection) ) }
     end
   end
 

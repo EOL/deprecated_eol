@@ -1,18 +1,18 @@
 #internal-nav
   %h4.margin-header.right-margin-header
-    = "Contribute"[]
+    = I18n.t(:contribute) 
   %ul#contribute.bulletlist
     %li
       %a{ :href => "/taxa/show_popup?name=contribute_photos&taxon_name=#{@taxon_concept.entry.name.canonical_form.string}", :class => 'show_popup' }
-        = "Submit an image"[]
+        = I18n.t(:submit_an_image) 
     %li
       %a{ :href => "/taxa/show_popup?name=contribute_text&taxon_name=#{@taxon_concept.entry.name.canonical_form.string}", :class => 'show_popup' }
-        = "Submit text"[]
+        = I18n.t(:submit_text) 
     %li
       %a{ :href => "/content/page/help_build_eol" }
-        = "More information on how to help"[]
+        = I18n.t(:more_information_on_how_to_help) 
     %li
-      = link_to("Latest Changes", :controller => :feeds, :action => :all, :id => @taxon_concept.id)
+      = link_to(I18n.t("latest_changes"), :controller => :feeds, :action => :all, :id => @taxon_concept.id)
       = link_to(image_tag('rss.png'), :controller => :feeds, :action => :all, :id => @taxon_concept.id)
   - # bulletlist
   %br
@@ -21,31 +21,31 @@
   - all_curators = @taxon_concept.curators.size
   - if all_curators > 0
     %h4.margin-header.right-margin-header
-      = "Curation"[]
+      = I18n.t(:curation) 
     %ul#contribute.bulletlist
       - if @taxon_concept.show_curator_controls?
         %li.strong
-          = link_to("Curate content in this clade", :controller => :curators, :action => :curate_images, :hierarchy_entry_id => @taxon_concept.entry.id)
+          = link_to(I18n.t("curate_content_in_this_clade"), :controller => :curators, :action => :curate_images, :hierarchy_entry_id => @taxon_concept.entry.id)
       - act_curators_size = @taxon_concept.acting_curators.size
       - if act_curators_size > 0
         %li
           %a{ :href => "#citation" }
-            This page has
+            =I18n.t("this_page_has")
             = act_curators_size
-            == active curator#{act_curators_size == 1 ? "." : "s."}
+            =I18n.t("active_curatorvar_act_curators", :var_act_curators_size____1__________s__ => act_curators_size == 1 ? "." : "s.")
       %li
         %a{ :href => page_curators_path(@taxon_concept.id)}
-          Who can curate this page?
+          =I18n.t("who_can_curate_this_page_")
       - if act_curators_size > 0
         %li
-          Last curated:
+          =I18n.t("last_curated_")
           = @taxon_concept.last_curated_dates.sort_by{ |lcd| Invert(lcd.id) }[0].last_curated.strftime("%d %b %Y")
     %br
   
   
   - if @random_taxa
     %h4.margin-header.right-margin-header
-      = "Explore"[]
+      = I18n.t(:explore) 
     %table#related-species-table{:cellspacing => "0", :summary => "top species"}
       - @random_taxa.each do |taxa_link|
         %tr

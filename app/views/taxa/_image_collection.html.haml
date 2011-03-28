@@ -15,8 +15,8 @@
       %a{ :id => "thumb-#{image.id}", :href => "/data_objects/#{image.id}", :class => vetted_id_class(image) }
         %span
           - vetting_title = nil
-          - vetting_title = "Images in yellow are not reviewed."[] if image.unknown?
-          - vetting_title = "Images in red are not trusted."[] if image.untrusted?
+          - vetting_title = I18n.t(:images_in_yellow_are_not_reviewed)  if image.unknown?
+          - vetting_title = I18n.t(:images_in_red_are_not_trusted)  if image.untrusted?
           = image_tag image.smart_thumb, :alt => hh(image['scientific_name']), :title => vetting_title
         %ul{:"data-data_object_id" => image.id}
           = render(:partial=>'data_object_states', :locals => {:dato => image})
@@ -24,23 +24,23 @@
 
   %div{ :class => "mc-navigation#{!show_next_image_page_button && @taxon_concept.length_of_images < $MAX_IMAGES_PER_PAGE  ? ' no-pagination' : ''}" }
     %p.hide
-      = "Page navigation"[]
+      = I18n.t(:page_navigation) 
     - if (@image_page ||= 1) > 1
-      %a{ :href => url_for(:action => 'images', :taxon_concept_id => @taxon_concept.id, :image_page => @image_page - 1), :title => "Back"[], :onclick => ajax_delay_click }
+      %a{ :href => url_for(:action => 'images', :taxon_concept_id => @taxon_concept.id, :image_page => @image_page - 1), :title => I18n.t(:back) , :onclick => ajax_delay_click }
         %span#back
-          = "Back"[]
+          = I18n.t(:back) 
     - else
       %span#noback
 
     - if @taxon_concept.length_of_images > $MAX_IMAGES_PER_PAGE
       
       %span#pages
-        = "Page"[]
+        = I18n.t(:page) 
         = @image_page
     - if show_next_image_page_button
-      %a{ :href => url_for(:action => 'images', :taxon_concept_id => @taxon_concept.id, :image_page => @image_page + 1), :title => "Next"[], :onclick => ajax_delay_click, :class => 'ajax_delay_click' }
+      %a{ :href => url_for(:action => 'images', :taxon_concept_id => @taxon_concept.id, :image_page => @image_page + 1), :title => I18n.t(:next) , :onclick => ajax_delay_click, :class => 'ajax_delay_click' }
         %span#next
-          = "Next"[]
+          = I18n.t(:next) 
     %hr
 
   #notes-container
@@ -55,13 +55,13 @@
       %div{:id => "mc-notes-#{image.id}", :class => mc_class}
         - if image.untrusted?
           %strong
-            = "Note:"[]
-          = "The image from this source is not trusted."[]
+            = I18n.t(:note) 
+          = I18n.t(:the_image_from_this_source_is_not_trusted) 
           %br/
         - elsif image.unknown?
           %strong
-            Note:
-          = "The image from this source has not been reviewed."[]
+            =I18n.t("note")
+          = I18n.t(:the_image_from_this_source_has_not_been_reviewed) 
           %br/
         - unless taxa_ids.blank?
           - other_taxon_concept_index = nil
@@ -74,10 +74,10 @@
             - elsif other_taxon_concept_index.nil?
               - other_taxon_concept_index = i
           - unless other_taxon_concept_index.nil?
-            Image of
+            =I18n.t("image_of")
             = link_to(taxa_names[other_taxon_concept_index], "/pages/#{taxa_ids[other_taxon_concept_index]}")
             %br/
-        = 'COPYRIGHT:'[]
+        = I18n.t(:copyright) 
         - unless image.license.blank?
           - unless image.rights_holder.blank?
             = "&#169 #{image.rights_holder}."
@@ -89,7 +89,7 @@
         %br/
 
         - if data_supplier && !data_supplier.full_name.blank?
-          = 'SUPPLIER:'[]
+          = I18n.t(:supplier) 
           - if data_supplier.homepage.blank?
             = data_supplier.full_name
           - else
@@ -113,8 +113,8 @@
 
         
         - unless image.source_url.blank?
-          = 'ORIGINAL:'[]
-          = external_link_to('View image source', image.source_url, :class => 'source_url')
+          = I18n.t(:original) 
+          = external_link_to(I18n.t("view_image_source"), image.source_url, :class => 'source_url')
           %br/
         
         %br/

@@ -1,66 +1,66 @@
 %br
-Content partner profiles can be updated below.  Only enter a new password to change it.
+=I18n.t("content_partner_profiles_can_b")
 = eol_lang_error_messages_for :agent
 = javascript_include_tag 'validator'
 - form_for @agent, :url => { :action => 'edit_profile' },  :html => { :method => :post, :multipart => true, :class => "warning-warn invalid-invalid styleLabelOnErr" } do |f|
   %fieldset
     %legend
-      = "Account Information"[]
-    = f.label :username, "#{'Username'[]}"
+      = I18n.t(:account_information) 
+    = f.label :username, "#{ I18n.t(:username) }"
     = @agent.username
     %span#username_warn.error
-    = f.label :email, "#{'Email Address'[]} <span title='required'>*</span>"[]
+    = f.label :email, I18n.t("var__i18n_t__email_address____", :var__i18n_t__email_address__ =>  I18n.t(:email_address) )
     / agent_email ^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,6})$ false true //
     = f.text_field :email, :maxlength => 60, :size => 30
-    = f.label :password, "#{'Password'[]} (4-16 characters)"[]
+    = f.label :password, "#{I18n.t(:password)} #{I18n.t('4_16_characters')}" 
     = f.password_field :password, :maxlength => 16
     %span#password_warn.error{ :style => "display:none;" }
-      = "Passwords must match"[]
-    = f.label :password_confirmation, "Confirm Password"[]
+      = I18n.t(:passwords_must_match) 
+    = f.label :password_confirmation, I18n.t(:confirm_password) 
     = f.password_field :password_confirmation, :maxlength => 16
     %br
     %br
     %legend
-      = "Project Information"[]
-    = f.label :project_name, 'Project Name <span title="required">*</span>'
-    Please fill in the full name of the project or web site from which the information will come as you want it to be visible in the Encyclopedia of Life.  THIS INFORMATION WILL BE VISIBLE ON THE WEB SITE
+      = I18n.t(:project_information) 
+    = f.label :project_name, I18n.t("project_name__span_title__requ")
+    =I18n.t("please_fill_in_the_full_name_o")
     %br
     = f.text_field :project_name, :maxlength => 100, :size=>50
-    = f.label :project_abbreviation, "Project Abbreviation"
-    Please fill in an abbreviated name for the project.  THIS INFORMATION WILL BE VISIBLE ON THE WEB SITE
+    = f.label :project_abbreviation, I18n.t("project_abbreviation")
+    =I18n.t("please_fill_in_an_abbreviated_")
     %br
     = f.text_field :project_abbreviation, :maxlength => 20
-    = f.label :display_name, "Display Name"
-    This is optional.  If you enter a name here, it will be used instead of the 'Project Name' when shown on the website, otherwise the 'Project Name' will be used.  THIS INFORMATION WILL BE VISIBLE ON THE WEB SITE IF ENTERED
+    = f.label :display_name, I18n.t("display_name")
+    =I18n.t("this_is_optional___if_you_ente")
     %br
     = f.text_field :display_name, :size=>50, :maxlength => 100
-    = f.label :url, "Project URL"
-    This will be used to link to your project from the website.
+    = f.label :url, I18n.t("project_url")
+    =I18n.t("this_will_be_used_to_link_to_y")
     %br
     = f.text_field :url, :maxlength => 250, :size=>50
-    = f.label :project_description, 'Project Description <span title="required">*</span>'
-    Describe the project as you would like it to appear on the Encyclopedia of Life web site.
+    = f.label :project_description, I18n.t("project_description__span_titl")
+    =I18n.t("describe_the_project_as_you_wo")
     = f.text_area :project_description, :cols => 70, :rows => 10
-    = f.label :description_of_data, "Description of Data"
-    Please provide us with a description of the type of information you have, how many items are available, what organisms they relate to, and whether they have been assembled or checked by qualified experts or by a knowledgeable community.  The information that you write here will NOT be visible on the web site.
+    = f.label :description_of_data, I18n.t("description_of_data")
+    =I18n.t("please_provide_us_with_a_descr")
     = f.text_area :description_of_data, :cols => 70, :rows => 10
-    = f.label :notes, "Notes"
-    These notes were entered by the partner.
+    = f.label :notes, I18n.t("notes")
+    =I18n.t("these_notes_were_entered_by_th")
     = f.text_area :notes, :cols => 70, :rows => 10
-    = f.label :admin_notes, "Admin Notes"
-    Enter in any other notes or comments -- these will not be visible on the website or to the partner.
+    = f.label :admin_notes, I18n.t("admin_notes")
+    =I18n.t("enter_in_any_other_notes_or_co_")
     = f.text_area :admin_notes, :cols => 70, :rows => 10
-    = f.label :logo, "Project Logo"
-    Please select and upload a JPG, PNG or GIF image of approximately 100x100 pixels, and no larger than 500k.   We will create two logos, one with a maximum dimension of 100 pixels, and a smaller one depending on it's location on the website.
+    = f.label :logo, I18n.t("project_logo")
+    =I18n.t("please_select_and_upload_a_jpg_")
     = f.file_field :logo, :size=>60
     - unless @agent.logo_url.blank?
       %br
-      Current Logos:
+      =I18n.t("current_logos_")
       %br
-      Large:
+      =I18n.t("large_")
       = agent_logo(@agent,"large")
-      Small:
+      =I18n.t("small_")
       = agent_logo(@agent,"small")
     .button
-      = submit_tag "Update Profile"[] + ' &#187;'
-    = link_to 'Cancel', :back
+      = submit_tag I18n.t(:update_profile)  + ' &#187;'
+    = link_to I18n.t("cancel"), :back

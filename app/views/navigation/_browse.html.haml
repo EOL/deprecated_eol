@@ -3,13 +3,13 @@
   %ul#hierarchy_browser_list.branch
     - unless @hierarchy_entry.nil?
       %b
-        Browsing Branch:
+        =I18n.t("browsing_branch_")
       - ancestors = @hierarchy_entry.ancestors
       - hierarchy_entry = ancestors.pop
       = render(:partial => 'navigation/node_with_ancestry', :locals => { :ancestors => ancestors, :hierarchy_entry => hierarchy_entry })
     %br
     %b
-      Hierarchy Roots:
+      =I18n.t("hierarchy_roots_")
     - for kingdom in @hierarchy.kingdoms
       %li.node.bold
         = render(:partial => 'navigation/node_name', :locals => { :hierarchy_entry => kingdom, :node_class => 'bold' })

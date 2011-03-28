@@ -2,17 +2,17 @@
   #page-separator-general
   #page-title
     %h1
-      = "Sorry, the page you have requested does not exist."[:sorry_page_does_not_exist]
+      =  I18n.t(:sorry_page_does_not_exist) 
     %hr
   #page-content.clearfix
     #full-page-content
-      = "Sorry, but a problem has occurred - you have requested a page with an ID that does not exist, or was removed."[:you_requested_a_page_that_does_not_exist]
-      = "If you followed a link here, please tell the author of the page with that link that this URL is not valid."[:if_you_followed_a_link_here_tell_the_author]
+      =  I18n.t(:you_requested_a_page_that_does_not_exist) 
+      =  I18n.t(:if_you_followed_a_link_here_tell_the_author) 
       - if @message and current_user.is_admin?
         %p{:style => 'padding:1em 0;'}
-          = "You are an admin.  So, I will show you that the error was:"[]
+          = I18n.t(:you_are_an_admin_so_i_will_show_you_that_the_error_was) 
         %code{:style => 'style:block;padding:2em;'}
           = @message
       %br
       %br
-      = link_to 'Return to the home page', root_url
+      = link_to I18n.t("return_to_the_home_page"), root_url

@@ -4,13 +4,13 @@
       = allow_some_html(h(comment.body))
       - if @taxon_concept && comment.parent_id != @taxon_concept.id
         %br
-        = "{From a previous version of this page.}"
+        =I18n.t("from_a_previous_version_of_thi")
         %br
   %h6
     - if comment.from_curator
       %img{ :src => "/images/icons/link-visited/star.gif", :height => "18", :alt => I18n.t("curator"), :width => "18" }
     %strong
-      = comment.user.nil? ? 'Anonymous' : comment.user.username
+      = comment.user.nil? ? I18n.t("anonymous") : comment.user.username
     = comment.updated_at
     - if (current_user.is_moderator? || current_user.can_curate?(comment))
       %span.invisible-comment{ :id => "vis_cmnt_#{comment.id}" }

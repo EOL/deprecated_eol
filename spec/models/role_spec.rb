@@ -39,7 +39,7 @@ describe Role do
   it 'should generate a set of roles on a given community' do
     @community.roles.should == []
     Role.add_defaults_to_community(@community)
-    @community.roles.map {|r| r.title}.sort.should == ['Content Manager', 'Member Services Manager','Owner']
+    @community.roles.map {|r| r.title}.sort.should == ['Content Manager', 'Owner']
   end
 
   it 'should #count the number of members with the role' do

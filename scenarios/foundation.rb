@@ -257,6 +257,7 @@ Visibility.gen_if_not_exists(:label => 'Visible')
 Visibility.gen_if_not_exists(:label => 'Preview')
 Visibility.gen_if_not_exists(:label => 'Inappropriate')
 
+FeedItemType.create_defaults
 TaskState.create_default
 
 # The home-page doesn't render without random taxa.  Note that other scenarios, if they build legitimate RandomTaxa,

@@ -69,6 +69,40 @@ class DataType < SpeciesSchemaModel
     ids = [DataType.text.id]
   end
 
+  def simple_type
+    case label
+    when 'Image', 'GBIF Image'
+      I18n.t("image")
+    when 'Text'
+      I18n.t("text_object")
+    when 'Sound'
+      I18n.t("sound_file")
+    when 'Video', 'YouTube', 'Flash'
+      I18n.t("video")
+    when 'IUCN'
+      I18n.t("iucn_entry")
+    else
+      I18n.t("data_object")
+    end
+  end
+
+  def simple_type_with_article
+    case label
+    when 'Image', 'GBIF Image'
+      I18n.t("an_image")
+    when 'Text'
+      I18n.t("a_text_object")
+    when 'Sound'
+      I18n.t("a_sound_file")
+    when 'Video', 'YouTube', 'Flash'
+      I18n.t("a_video")
+    when 'IUCN'
+      I18n.t("an_iucn_entry")
+    else
+      I18n.t("a_data_object")
+    end
+  end
+
 private
   def self.get_type_ids(which)
     cached("data_types/ids/#{which.join('+').gsub(' ','_')}") do

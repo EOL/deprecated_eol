@@ -20,7 +20,7 @@
         %h2
           =I18n.t("you_must_be")
           = link_to I18n.t("logged_in_"), login_path(:params => { :return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path })
-          to add your own tags.
+          =I18n.t("to_add_your_own_tags") 
           
     - if logged_in?
       #add_data_object_tags{ :style => "" }

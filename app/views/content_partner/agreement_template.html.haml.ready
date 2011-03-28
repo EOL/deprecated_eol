@@ -20,7 +20,7 @@
     %p
       The Encyclopedia of Life and
       = agent.project_name
-      agree to work together to develop and share critical biodiversity content to aid in assembling the Encyclopedia of Life.  The Encyclopedia of Life will have access to data objects provided by
+      agree to work together to develop and share critical biodiversity content to aid in assembling the Encyclopedia of Life. The Encyclopedia of Life will have access to data objects provided by
       = agent.project_name
       and
       = agent.project_name
@@ -32,7 +32,7 @@
       The Encyclopedia of Life (EOL) is an informal consortium of organizations dedicated to building an on-line Encyclopedia of Life composed of content-rich multi-media species pages for all of the presently known species on Earth. The cornerstone institutions of the EOL are listed at
       %a{ :href => "http://www.eol.org/content/page/institutional_partners", :target => "_blank" }
         http://www.eol.org/content/page/institutional_partners
-      \.  Currently, the EOL is composed of five working groups:
+      \. Currently, the EOL is composed of five working groups:
     %ul
       %li
         %em
@@ -69,7 +69,7 @@
       %li
         Content providers are required to adopt a Creative Commons license for the information subject to copyright that they serve through the EOL. The default and preferred license is CC-BY (Attribution), which allows users to copy, transmit and reuse the information, and to remix or adapt the information, as long as attribution regarding the source of the information is maintained.
       %li
-        Content providers who request some restrictions on re-use of their information may select an alternate Creative Commons license:  CC-BY-SA (Attribution-ShareAlike), CC-BY-NC (Attribution-NonCommercial) or CC-BY-NC-SA (Attribution-NonCommercial-ShareAlike).
+        Content providers who request some restrictions on re-use of their information may select an alternate Creative Commons license: CC-BY-SA (Attribution-ShareAlike), CC-BY-NC (Attribution-NonCommercial) or CC-BY-NC-SA (Attribution-NonCommercial-ShareAlike).
       %li
         The EOL will provide attribution information for all content that it serves. EOL will also indicate the Creative Commons license attached to each object (text, structured data, graphics, multimedia, etc.).
     %p
@@ -82,11 +82,11 @@
     %p
       EOL intends to provide attribution for all provided content in the manner specified by
       = agent.project_name
-      \.  The methodology EOL uses to attribute the content provided by
+      \. The methodology EOL uses to attribute the content provided by
       = agent.project_name
       is fundamentally based on multi-level text strings and/or logos at the level of individual data objects.
       = agent.project_name
-      will submit attribution information via the Transfer Schema.  Note:  The specific style and techniques employed for display of attribution for data objects may change as the EOL evolves.
+      will submit attribution information via the Transfer Schema. Note: The specific style and techniques employed for display of attribution for data objects may change as the EOL evolves.
         
     %h2
       Roles and Conditions of Use
@@ -172,7 +172,7 @@
         and reserves the right to redact or remove any illegal, offensive, or objectionable content.
         
     %p
-      The parties do not intend to create a legal partnership, principal/agent, or joint venture relationship and nothing in this agreement shall be construed as creating such a relationship between the parties.  Neither party may incur any obligation on behalf of the other.
+      The parties do not intend to create a legal partnership, principal/agent, or joint venture relationship and nothing in this agreement shall be construed as creating such a relationship between the parties. Neither party may incur any obligation on behalf of the other.
     %p
       This agreement is non-exclusive, and in no way restricts either EOL or
       = agent.project_name
@@ -181,7 +181,7 @@
       This agreement and the obligations set forth herein shall be subject to available funding and nothing in this agreement creates any financial obligation on the part of either party.
     %p
       = agent.project_name
-      agrees that it shall not use the names or logos of EOL or any EOL cornerstone institution in any manner or through any medium without EOL’s or the EOL cornerstone institution’s prior, written consent.  Upon the expiration or termination of this Agreement,
+      agrees that it shall not use the names or logos of EOL or any EOL cornerstone institution in any manner or through any medium without EOL’s or the EOL cornerstone institution’s prior, written consent. Upon the expiration or termination of this Agreement,
       = agent.project_name
       shall immediately cease to use the names or logos of EOL or any EOL cornerstone institution and shall not exploit in any manner its association with EOL or any EOL cornerstone institution unless otherwise agreed to in writing by EOL or any EOL cornerstone institution at the time of such expiration or termination.
     %p

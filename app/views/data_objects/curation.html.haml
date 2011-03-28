@@ -16,4 +16,4 @@
     = render :partial => 'curation', :locals => { :data_object => @data_object }
     .buttons.action-value
       = submit_tag I18n.t("save")
-      %input.cancel-button{ :type => "button", :value => "Cancel" }
+      %input.cancel-button{ :type => "button", :value => I18n.t("cancel") }

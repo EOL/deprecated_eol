@@ -41,7 +41,7 @@
       / resource_title ^.{1,200}$ false true //
       = f.text_field :title, :maxlength=>200, :size=>50
     .form_item
-      = f.label :accesspoint_url, 'Indicate below the full URL (include \'http://\') from which the resource can be downloaded:  <span title="required">*</span>'
+      = f.label :accesspoint_url, I18n.t("indicate_below_the_full_url__i_")
       = f.text_field :accesspoint_url, :maxlength=>200, :size=>60 , :onblur=>'javascript:check_url();'
       %br
       =I18n.t("or")

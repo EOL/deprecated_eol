@@ -7,9 +7,9 @@
       - # Home page title can just be the site name.
       - page_title =  I18n.t(:encyclopedia_of_life)
       - if @page_title
-        - page_title =  "EOL: #{@page_title} - #{page_title}"
+        - page_title =   I18n.t("eol__")+"#{@page_title} - #{page_title}"
       - elsif (@taxon_concept and not @taxon_concept.title(@session_hierarchy).blank?)
-        - page_title = "EOL: #{@taxon_concept.title(@session_hierarchy)} - #{page_title}"
+        - page_title =  I18n.t("eol__")+"#{@taxon_concept.title(@session_hierarchy)} - #{page_title}"
       &= strip_tags(page_title)
 
     %meta{ :charset => "utf-8" }
@@ -41,16 +41,16 @@
             %a{ :href => "#content_target" }
               = I18n.t(:skip_to_content)
           -# TODO: just a question -- would it be good from accessability point of view to have easier access to language picker?
-          %li.language{ :title => "Choose which language you would like to view the site in, the currently selected language is #{I18n.locale}" }
+          %li.language{ :title => I18n.t("choose_which_language_you_woul", :var_i18n_locale => I18n.locale) }
             = I18n.t(:language)
             \:
             = I18n.locale
             %ul
               - Language.find_active.each do |language|
                 %li
-                  = link_to I18n.t("var_language_source_form__em__", :var_language_source_form => language.source_form, :var_language_display_code => language.display_code), set_language_url(:language => language.iso_639_1), :title => "Switch the site language to #{language.display_code}"
+                  = link_to I18n.t("var_language_source_form__em__", :var_language_source_form => language.source_form, :var_language_display_code => language.display_code), set_language_url(:language => language.iso_639_1), :title => I18n.t("switch_the_site_language_to_va", :var_language_display_code => language.display_code)
               %li
-                = link_to I18n.t("google_translate"), {:controller => "/content", :action => "translate"}, {:title => "Use Google Translate widget to transform the site content into another language"}
+                = link_to I18n.t("google_translate"), {:controller => "/content", :action => "translate"}, {:title => I18n.t("use_google_translate_widget_to")}
 
       #banner.header{ :role => "banner" }
         %h1

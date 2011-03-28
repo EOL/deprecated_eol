@@ -14,7 +14,7 @@
     = f.text_area :body, :rows => length, :cols => 50, :id => comment_id
     %p
       %span.error{ :id => "#{@parent.id}_comment_error", :style => "display:none;" }
-        Comment should not be empty.
+        =I18n.t("comment_should_not_be_empty")
     = submit_tag(I18n.t("post_comment"), |
       :id => submit_id, |
       :exception => 'alert("Yay");', |

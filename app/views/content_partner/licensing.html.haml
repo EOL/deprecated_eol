@@ -18,8 +18,8 @@
       =I18n.t("creative_commons")
     =I18n.t("license_for_the_information_th")
     =I18n.t("they_serve_through_the_eol__ex")
-    license is CC‐BY (Attribution), which allows users to copy, transmit and reuse the information,
-    and to remix or adapt the information, as long as attribution regarding the source of the
+    =I18n.t("license_is_cc_by__attribution_")
+    =I18n.t("and_to_remix_or_adapt_the_info")
     =I18n.t("information_is_maintained")
   %li{ :style => "margin-bottom: 10px;" }
     =I18n.t("content_providers_who_request_")
@@ -36,8 +36,7 @@
         =I18n.t("cc_by_nc_sa___attribution_nonc")
   %li{ :style => "margin-bottom: 10px;" }
     =I18n.t("the_eol_will_provide_attributi")
-    the Creative Commons license attached to each object (text, structured data, graphics,
-    multimedia, etc.).
+    =I18n.t("the_creative_commons_license_a_")
 = eol_lang_error_messages_for :content_partner, :header_message => nil, :message => nil
 - form_for @content_partner, :url => { :action => action_name }, :html => { :method => :post, :id => 'license_form' } do |f|
   = f.check_box :ipr_accept

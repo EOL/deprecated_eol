@@ -35,15 +35,15 @@
 .text_buttons
   - comments = data_object.visible_comments
   - if comments.blank?
-    - comment_tooltip = "No comments yet. "
+    - comment_tooltip = I18n.t("no_comments_yet__")
   - else
     - curator_comments = data_object.all_comments.select { |c| c.user_id == current_user.id && c.visible_at }
-    - tooltip = "#{comments.size} comment#{comments.size == 1 ? '' : 's'}. "
+    - tooltip = I18n.t("var_comments_size_commentvar_c", :var_comments_size => comments.size, :var_comments_size____1_________s_ => comments.size == 1 ? '' : 's')
     - if curator_comments.blank? 
       - comment_tooltip = tooltip
     - else
-      - comment_tooltip = tooltip +  "#{curator_comments.size} #{curator_comments.size == 1 ? 'is' : 'are'} yours. "
-  = render :partial => '/comments/comment_icon', :locals => { :data_object_id => data_object.id, :title => comment_tooltip + "Add a comment.", :comments_count => comments.size, :alt => "Comment on this #{data_object.data_type.label}", :comment_class => 'popup-link', :rel => '' }
+      - comment_tooltip = tooltip + I18n.t("var_curator_comments_size_var_", :var_curator_comments_size => curator_comments.size, :var_curator_comments_size____1____is_____are_ => curator_comments.size == 1 ? 'is' : 'are')
+  = render :partial => '/comments/comment_icon', :locals => { :data_object_id => data_object.id, :title => comment_tooltip + I18n.t("add_a_comment"), :comments_count => comments.size, :alt => I18n.t("comment_on_this_var_data_objec", :var_data_object_data_type_label => data_object.data_type.label), :comment_class => 'popup-link', :rel => '' }
 .text-slidebox-border{:id => "text-comments-wrapper-#{data_object.id}", :style => "display:none;"}
   .text-slidebox-container.text-comment-div{:id => "text-comments-#{data_object.id}"}
     -# TODO - we re-use this indicator a lot.  Put it in a CSS class.

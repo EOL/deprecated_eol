@@ -1,10 +1,10 @@
 =I18n.t("eol_contact_us_form")
 ="--------------------------"
-="Name: " + @contact.name
-="Email: " + @contact.email
-="Subject: " + @contact.contact_subject.title
+=I18n.t("name___") + @contact.name
+=I18n.t("email__") + @contact.email
+=I18n.t("subject___") + @contact.contact_subject.title
 - if(@contact.taxon_group)
-  ="Taxon Group: " + @contact.taxon_group
-="Comments: "
+  =I18n.t("taxon_group__") + @contact.taxon_group
+=I18n.t("comments__")
 =""
 = @contact.comments

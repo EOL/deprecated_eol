@@ -39,7 +39,7 @@
           %td{ :align => "center" }
             = h frequency(resource.refresh_period_hours)
           %td
-            = h (resource.license.blank? ? "unspecified" : resource.license.title)
+            = h (resource.license.blank? ? I18n.t("unspecified") : resource.license.title)
           %td
             %span{ :id => "status_#{resource.id}" }
               = h resource.status_label

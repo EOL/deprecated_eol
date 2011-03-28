@@ -1,14 +1,14 @@
 - # I'm not using views well here because I don't want HAML to add newlines anywhere
 - case actions_history.action_with_object
 - when ActionWithObject.trusted
-  - action_text = "has trusted your image"
+  - action_text = I18n.t("has_trusted_your_image")
 - when ActionWithObject.untrusted
-  - action_text = "has untrusted your image"
+  - action_text = I18n.t("has_untrusted_your_image")
 - when ActionWithObject.inappropriate
-  - action_text = "has hidden your image"
+  - action_text = I18n.t("has_hidden_your_image")
 - else
-  - action_text = "has curated your image"
+  - action_text = I18n.t("has_curated_your_image")
 - profile_link = url_for(:controller => :account, :action => :show, :id => actions_history.user.id, :only_path => false)
 - data_object_link = url_for(:controller => :data_objects, :action => actions_history.data_object.id, :only_path => false)
 - comment = actions_history.comment.nil? ? "" : ":\n#{actions_history.comment.body}"
-= "Encyclopedia of Life curator <a href='#{profile_link}'>#{actions_history.user.full_name}</a> #{action_text} on the <a href='#{data_object_link}'>EOL site</a>#{comment}"
+= I18n.t("encyclopedia_of_life_curator__", :var_profile_link => profile_link, :var_actions_history_user_full_name => actions_history.user.full_name, :var_action_text => action_text, :var_data_object_link => data_object_link, :var_comment => comment)

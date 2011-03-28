@@ -40,12 +40,12 @@
             - if agent.agent_status.blank?
               =I18n.t("status__unknown")
             - else
-              = "#{I18n.t("status__")} #{agent.agent_status.label}" 
+              = "#{I18n.t(:status__)} #{agent.agent_status.label}" 
               
           %td{:class => column_class}
-            = "#{I18n.t("registered_")}" + format_date(agent.created_at)
+            = "#{I18n.t(:registered_)}" + format_date(agent.created_at)
             %br/
-            = "#{I18n.t("last_action__")}" + format_date(ContentPartner.find_by_agent_id(agent.id).last_action)
+            = "#{I18n.t(:last_action__)}" + format_date(ContentPartner.find_by_agent_id(agent.id).last_action)
           %td{:class => column_class}          	
             = content_partner_check_box_image(agent.partner_complete_step?)
             =I18n.t("partner_information_completed")

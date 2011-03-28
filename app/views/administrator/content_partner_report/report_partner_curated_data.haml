@@ -10,10 +10,10 @@
 
     =I18n.t("this_report_is_also_available_")
     - if(@year_month == "All")
-      /= link_to " I18n.t("_see_feeds"),{:controller=>'/feeds', :action=>:partner_curation, :agent_id => @agent_id}
+      /= link_to " I18n.t(:_see_feeds),{:controller=>'/feeds', :action=>:partner_curation, :agent_id => @agent_id}
       = link_to image_tag('rss.png'), {:controller => '/feeds', :action => :partner_curation, :agent_id => @agent_id}
     - else
-      /= link_to I18n.t("_see_feeds"),{:controller=>'/feeds', :action=>:partner_curation, :agent_id => @agent_id ,:year => @report_year, :month => @report_month}
+      /= link_to I18n.t(:_see_feeds),{:controller=>'/feeds', :action=>:partner_curation, :agent_id => @agent_id ,:year => @report_year, :month => @report_month}
       = link_to image_tag('rss.png'), {:controller => '/feeds', :action => :partner_curation, :agent_id => @agent_id,:year => @report_year, :month => @report_month }
 
   - form_for :hello, :url => { :action => :report_partner_curated_data } do |form|

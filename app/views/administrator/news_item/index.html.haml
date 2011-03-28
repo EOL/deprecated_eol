@@ -37,7 +37,7 @@
             %td{ :class => column_class }
               = h format_date_time(news_item.activated_on,:format=>'short_no_tz')
               %br
-              = h "#{I18n.t("_published_")}" if news_item.visible?
+              = h "#{I18n.t(:_published_)}" if news_item.visible?
             %td{ :class => column_class }
               = h format_date(news_item.display_date)
             %td{ :class => column_class }

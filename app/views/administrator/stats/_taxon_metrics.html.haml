@@ -85,7 +85,7 @@
     %td.even.stats
       = metric.user_submitted_text
       - if metric.submitted_text_providers > 0
-        = " &nbsp;&nbsp; #{I18n.t("providers_")}"
+        = " &nbsp;&nbsp; #{I18n.t(:providers_)}"
         = metric.submitted_text_providers
   %tr
     %td.odd
@@ -93,7 +93,7 @@
     %td.odd.stats
       = metric.common_names
       - if metric.common_name_providers > 0
-        = " &nbsp;&nbsp; #{I18n.t("providers_")}"
+        = " &nbsp;&nbsp; #{I18n.t(:providers_)}"
         = metric.common_name_providers
   %tr
     %td.even
@@ -101,7 +101,7 @@
     %td.even.stats
       = metric.synonyms
       - if metric.synonym_providers > 0
-        = " &nbsp;&nbsp; #{I18n.t("providers_")}"
+        = " &nbsp;&nbsp; #{I18n.t(:providers_)}"
         = metric.synonym_providers
   %tr
     %td.odd

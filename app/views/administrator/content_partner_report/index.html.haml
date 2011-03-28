@@ -40,12 +40,12 @@
             - if agent.agent_status.blank?
               =I18n.t("status__unknown")
             - else
-              = "Status: #{agent.agent_status.label}" 
+              = "#{I18n.t(:status__)} #{agent.agent_status.label}" 
               
           %td{:class => column_class}
-            = 'Registered:' + format_date(agent.created_at)
+            = "#{I18n.t(:registered_)}" + format_date(agent.created_at)
             %br/
-            = 'Last action: ' + format_date(ContentPartner.find_by_agent_id(agent.id).last_action)
+            = "#{I18n.t(:last_action__)}" + format_date(ContentPartner.find_by_agent_id(agent.id).last_action)
           %td{:class => column_class}          	
             = content_partner_check_box_image(agent.partner_complete_step?)
             =I18n.t("partner_information_completed")
@@ -87,6 +87,5 @@
   =I18n.t("harvested_resources_awaiting_p")	
   %br/
   =	link_to(image_tag('rss.png',:alt=>I18n.t("rss"),:title=>I18n.t("rss")), "http://services.eol.org/RSS_resource_monitor/process.php?f=4")
-  Resources with harvest errors
-
+  =I18n.t("resources_with_harvest_errors")
   %br/

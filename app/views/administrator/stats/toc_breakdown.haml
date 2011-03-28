@@ -1,18 +1,18 @@
 #report_from_eol
   %h2    
     = @page_header 
-  This is the breakdown of chapters, sub-chapters and its corresponding Species Profile Model category.
+  =I18n.t("this_is_the_breakdown_of_chapt")
   %br
-    *Please take note that Wikipedia, Education and Barcode are EOL internal subjects and not part of the SPM.
+    =I18n.t("_please_take_note_that_wikiped")
   %table.results_table
     %thead{ :align => "center" }
       %tr{ :align => "center" }
         %th
-          Major heading
+          =I18n.t("major_heading")
         %th
-          Sub heading
+          =I18n.t("sub_heading")
         %th
-          SPM Category
+          =I18n.t("spm_category")
     %tbody
       - @all_toc_items.each do |toc|
         - row_class = cycle('odd','even')

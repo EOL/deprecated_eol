@@ -3,4 +3,4 @@
   = link_to(I18n.t("add_a_new_page_to_this_section"),:action=>'create', :id=>@content_section_id)
   =I18n.t("or_")
 =I18n.t("select_an_existing_page_to_wor")
-= collection_select(:content_pages,:id,@content_pages,:id,:title_with_language,{:prompt=>'--select page to work with--'})
+= collection_select(:content_pages,:id,@content_pages,:id,:title_with_language,{:prompt=>I18n.t("__select_page_to_work_with__")})

@@ -1723,7 +1723,7 @@ en:
   please_state_at_least_one_spec: "Please state at least one specific credential from this list:"
   please_note_expertise_smaller_than_scope: "Please note if the scope of your expertise is smaller than the clade you signed up for. For example: \"Rodents of Borneo,\" or \"Tri-trophic interactions,\" or \"Conservation issues in fish.\" This will not limit your ability to curate, but will inform the EOL community."
   none_provided: "None provided."
-   __select_page_to_work_with__: "--select page to work with--"
+  __select_page_to_work_with__: "--select page to work with--"
   preview_changes: "Preview Changes"
   publish_changes: "Publish Changes"
   status__: "Status: "

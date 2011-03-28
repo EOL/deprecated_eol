@@ -1,8 +1,8 @@
-="Dear " + @user.full_name + ","
+= I18n.t("dear_") + @user.full_name + ","
 =""
 - name = @user.curator_hierarchy_entry.nil? ? '' : @user.curator_hierarchy_entry.name
-="Thank you for requesting curator privileges for " + name  + "."
+=I18n.t("thank_you_for_requesting_curat") + name  + "."
 =""
 =I18n.t("your_request_has_been_approved")
 =""
-="- The Encyclopedia of Life Team"
+=I18n.t("__the_encyclopedia_of_life_tea")

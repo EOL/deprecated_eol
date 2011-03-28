@@ -1,9 +1,9 @@
 - type_to_send_permalinks_for = [DataType.image.id, DataType.text.id] + DataType.video_type_ids
 
 - if @agent_or_user.class == AgentContact
-  = "Dear #{@agent_or_user.full_name} on behalf of #{@agent_or_user.agent.full_name},"
+  =I18n.t("dear_var__agent_or_user_full_n", :var__agent_or_user_full_name => @agent_or_user.full_name, :var__agent_or_user_agent_full_name => @agent_or_user.agent.full_name) 
 - else
-  = "Dear #{@agent_or_user.full_name},"
+  = I18n.t("dear_var__agent_or_user_full_n_", :var__agent_or_user_full_name => @agent_or_user.full_name)
 = ""
 
 - if @agent_or_user.class == AgentContact  # the contact for a content partner
@@ -24,7 +24,7 @@
   = url_for(:controller => 'profile', :only_path => false, :host => $SITE_DOMAIN_OR_IP);
   = ""
   =I18n.t("if_you_have_trouble_accessing_")
-  = url_for(:controller => 'contact_us', :default_subject => 'Technical problems (difficulties with the website, search tool or user accounts)', :only_path => false, :host => $SITE_DOMAIN_OR_IP);
+  = url_for(:controller => 'contact_us', :default_subject => I18n.t("technical_problems__difficulti"), :only_path => false, :host => $SITE_DOMAIN_OR_IP);
 = ""
 = ""
 
@@ -48,7 +48,7 @@
     = "    #{taxon_concept.entry.name.string}"
     - if url
       = "    #{url}"
-    = "    #{action.action_with_object.action_code} by #{action['curator_username']}"
+    = I18n.t("____var_action_action_with_obj", :var_action_action_with_object_action_code => action.action_with_object.action_code, :var_action__curator_username__ => action['curator_username'])
     = "  -----"
     = ""
   = ""
@@ -72,7 +72,7 @@
     = "    #{taxon_concept.entry.name.string}"
     - if url
       = "    #{url}"
-    = "    From user #{comment['commenter_username']}: #{comment.body.strip}"
+    = I18n.t("____from_user_var_comment__com", :var_comment__commenter_username__ => comment['commenter_username'], :var_comment_body_strip => comment.body.strip)
     = "  -----"
     = ""
   = ""
@@ -92,7 +92,7 @@
     = "  #{date}"
     = "    #{taxon_concept.entry.name.string}"
     = "    #{url}"
-    = "    From user #{comment['commenter_username']}: #{comment.body.strip}"
+    = I18n.t("____from_user_var_comment__com", :var_comment__commenter_username__ => comment['commenter_username'], :var_comment_body_strip => comment.body.strip)
     = "  --------"
     = ""
   = ""
@@ -100,4 +100,4 @@
 = ""
 =I18n.t("thank_you_")
 = ""
-= "Encyclopedia of Life"
+= I18n.t("encyclopedia_of_life")

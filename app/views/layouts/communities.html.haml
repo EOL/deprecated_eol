@@ -1,5 +1,5 @@
 - content_for :content do
   %h1
-    = @page_title || 'Communities'
+    = @page_title || I18n.t("communities")
   = yield
 = render :file => 'layouts/main'

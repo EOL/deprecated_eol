@@ -4,7 +4,7 @@
   -content_partner_id = 0
 
 %h1=I18n.t("editing_resource")
-= render :partial => 'form', :locals => { :button_label => 'Save Changes', :method => :put, :content_partner_id => content_partner_id }
+= render :partial => 'form', :locals => { :button_label => I18n.t("save_changes"), :method => :put, :content_partner_id => content_partner_id }
 %p
   %br/
 

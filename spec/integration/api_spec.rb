@@ -121,14 +121,17 @@ describe 'EOL APIs' do
     @dog_sci_name  = 'Canis lupus familiaris'
     @wolf_name     = 'Wolf'
     @wolf_sci_name = 'Canis lupus'
-    @dog  = build_taxon_concept(:scientific_name => @dog_sci_name, :common_names => [@domestic_name])
     @wolf = build_taxon_concept(:scientific_name => @wolf_sci_name, :common_names => [@wolf_name])
+    @dog  = build_taxon_concept(:scientific_name => @dog_sci_name, :common_names => [@domestic_name], :parent_hierarchy_entry_id => @wolf.hierarchy_entries.first.id)
+    @dog2  = build_taxon_concept(:scientific_name => "Canis dog", :common_names => "doggy")
+    
+    
     SearchSuggestion.gen(:taxon_id => @dog.id, :term => @dog_name, :scientific_name => @dog.scientific_name,
                          :common_name => @dog.common_name)
     SearchSuggestion.gen(:taxon_id => @wolf.id, :term => @dog_name, :scientific_name => @wolf.scientific_name,
                          :common_name => @wolf.common_name)
+    flatten_hierarchies
     recreate_indexes
-
 
     # Provider Hierarchies
     @test_hierarchy = Hierarchy.gen(:label => 'Some test hierarchy', :browsable => 1)
@@ -306,7 +309,7 @@ describe 'EOL APIs' do
 
     visit("/api/pages/1.0/#{taxon.id}")
     body.should_not include '<synonym'
-
+    
     visit("/api/pages/1.0/#{taxon.id}?synonyms=1")
     body.should include '<synonym'
   end
@@ -577,6 +580,35 @@ describe 'EOL APIs' do
     visit("/api/search/Canis.json?exact=1")
     response_object = JSON.parse(body)
     response_object['results'].length.should == 0
+  end
+
+  it 'search Dog without filter should have multiple results' do
+    visit("/api/search/Dog.json")
+    response_object = JSON.parse(body)
+    response_object['results'][0]['title'].should == @dog_sci_name
+    response_object['results'][1]['title'].should == "Canis dog"
+    response_object['results'].length.should == 2
+  end
+
+  it 'search should be able to filter by string' do
+    visit("/api/search/Dog.json?filter_by_string=Canis%20lupus")
+    response_object = JSON.parse(body)
+    response_object['results'][0]['title'].should == @dog_sci_name
+    response_object['results'].length.should == 1
+  end
+
+  it 'search should be able to filter by taxon_concept_id' do
+    visit("/api/search/Dog.json?filter_by_taxon_concept_id=#{@wolf.id}")
+    response_object = JSON.parse(body)
+    response_object['results'][0]['title'].should == @dog_sci_name
+    response_object['results'].length.should == 1
+  end
+
+  it 'search should be able to filter by hierarchy_entry_id' do
+    visit("/api/search/Dog.json?filter_by_hierarchy_entry_id=@wolf.hierarchy_entries.first.id")
+    response_object = JSON.parse(body)
+    response_object['results'][0]['title'].should == @dog_sci_name
+    response_object['results'].length.should == 1
   end
 
   it 'search should take api key and save it to the log' do

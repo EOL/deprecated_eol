@@ -117,6 +117,16 @@ class ApiController < ApplicationController
     @page = params[:page].to_i || 1
     @page = 1 if @page < 1
     @per_page = 30
+
+    if(!params[:filter_by_taxon_concept_id] || params[:filter_by_taxon_concept_id]=='')
+      params[:filter_by_taxon_concept_id]=false
+    end    
+    if(!params[:filter_by_hierarchy_entry_id] || params[:filter_by_hierarchy_entry_id]=='')
+      params[:filter_by_hierarchy_entry_id]=false
+    end
+    if(!params[:filter_by_string] || params[:filter_by_string]=='')
+      params[:filter_by_string]=false
+    end
     
     # we had a bunch of searches like "link:QLlHJCZzx" which were throwing errors
     if @search_term.blank? || @search_term.match(/^link:[a-z]+$/i)
@@ -124,7 +134,12 @@ class ApiController < ApplicationController
       return
     end
     
-    @results = TaxonConcept.search_with_pagination(@search_term, :page => @page, :per_page => @per_page, :type => :all, :lookup_trees => false, :exact => params[:exact])
+    @results = TaxonConcept.search_with_pagination(@search_term, :page => @page, :per_page => @per_page, :type => :all, :lookup_trees => false, :exact => params[:exact], 
+      :filter_by_taxon_concept_id => params[:filter_by_taxon_concept_id], 
+      :filter_by_hierarchy_entry_id => params[:filter_by_hierarchy_entry_id],
+      :filter_by_string => params[:filter_by_string]
+      )
+    
     @last_page = (@results.total_entries/@per_page.to_f).ceil
     
     ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.env["REQUEST_URI"], :method => 'search', :version => params[:version], :format => params[:format], :request_id => @search_term, :key => @key, :user_id => @user_id)

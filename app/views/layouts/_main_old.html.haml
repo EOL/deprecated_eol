@@ -44,14 +44,14 @@
   %body{ :id => "#{h controller.controller_name}-page" }
     %ul.hide
       %li
-        %a{ :href => "#global-navigation", :title => "Skip to navigation"[] }
-          = "Skip to navigation"[]
+        %a{ :href => "#global-navigation", :title => "Skip to navigation" }
+          = "Skip to navigation"
       %li
-        %a{ :href => "#toc", :title => "Skip to table of contents"[] }
-          = "Skip to table of contents"[]
+        %a{ :href => "#toc", :title => "Skip to table of contents" }
+          = "Skip to table of contents"
       %li
-        %a{ :href => "#center-page-content", :title => "Skip to content"[] }
-          = "Skip to content"[]
+        %a{ :href => "#center-page-content", :title => "Skip to content" }
+          = "Skip to content"
     %hr
     #container
       #header
@@ -61,18 +61,18 @@
         %hr
         - cache(:controller => '/content', :part => 'top_nav_' + current_user.language_abbr) do
           %p.hide
-            = "Global Navigation"[]
+            = "Global Navigation"
           %ul#global-navigation
             %li
-              %a{ :href => root_url, :title => "Home"[] }
-                = "Home"[]
+              %a{ :href => root_url, :title => "Home" }
+                = "Home"
             %li
-              = link_to('Preferences'[], settings_url, {:title => 'Preferences'[], :class => 'return_to'})
+              = link_to('Preferences', settings_url, {:title => 'Preferences', :class => 'return_to'})
             %li
-              %a.dropdown{ :title => "#{"Language"[]}: #{Gibberish.current_language}" }
-                = "Language"[]
+              %a.dropdown{ :title => "#{"Language"}: #{I18n.locale}" }
+                = "Language"
                 \:
-                = Gibberish.current_language
+                = I18n.locale
               %ul.uppercase
                 - Language.find_active.each do |language|
                   %li
@@ -80,23 +80,23 @@
                 %li
                   = link_to 'Google Translate', {:controller => '/content', :action => 'translate'}, {:class => 'return_to', :title => 'Google Translate'}
             %li
-              %a#feedback.dropdown{ :title => "Feedback"[] }
-                = "Feedback"[]
+              %a#feedback.dropdown{ :title => "Feedback" }
+                = "Feedback"
               %ul.uppercase
                 = render :partial => 'layouts/menu_item', :locals => {:menu_items => ContentSection.find_pages_by_section('Feedback')}
             %li
-              %a#press_room.dropdown{ :title => "Press Room"[] }
-                = "Press Room"[]
+              %a#press_room.dropdown{ :title => "Press Room" }
+                = "Press Room"
               %ul.uppercase
                 = render :partial => 'layouts/menu_item', :locals => {:menu_items => ContentSection.find_pages_by_section('Press Room')}
             %li
-              %a#using_the_site.dropdown{ :title => "Using The Site"[] }
-                = "Using The Site"[]
+              %a#using_the_site.dropdown{ :title => "Using The Site" }
+                = "Using The Site"
               %ul.uppercase
                 = render :partial => 'layouts/menu_item', :locals => {:menu_items => ContentSection.find_pages_by_section('Using the Site')}
             %li.last
-              %a#about_eol.last.dropdown{ :title => "About EOL"[] }
-                = "About EOL"[]
+              %a#about_eol.last.dropdown{ :title => "About EOL" }
+                = "About EOL"
               %ul.uppercase
                 = render :partial => 'layouts/menu_item', :locals => {:menu_items => ContentSection.find_pages_by_section('About EOL')}
           %hr
@@ -104,7 +104,7 @@
         #ajax-indicator.ajax-indicator{ :style => "display:none;" }
           = image_tag('indicator_arrows_black.gif', :alt => 'loading', :title => 'loading')
         %p.hide
-          = "Personal Space"[]
+          = "Personal Space"
         #personal-space
           - if @home_page
             %span.quote
@@ -115,23 +115,23 @@
               %p
                 %strong
                   - if current_user.is_curator?
-                    = link_to("Hello {user}"[:hello_user, current_user.given_name], {:controller => '/account', :action => 'show', :id => current_user.id}, {:class => 'return_to'})
+                    = link_to("Hello #{current_user.given_name}", {:controller => '/account', :action => 'show', :id => current_user.id}, {:class => 'return_to'})
                   - else
-                    = "Hello {user}"[:hello_user, current_user.given_name]
+                    = "Hello #{current_user.given_name}"
 
                 = @home_page.nil? ? "</p><p>" : " | "
-                = link_to("admin"[],{:controller => '/admin',:action => 'index'}) + " | " if current_user.is_admin?
+                = link_to("admin",{:controller => '/admin',:action => 'index'}) + " | " if current_user.is_admin?
                 - if current_user.is_curator?
                   = link_to("curators", {:controller => '/content', :action => 'page', :id => 'curator_central'})
                   |
-                = link_to("your preferences"[:your_preferences], {:controller => '/account', :action => 'profile'}, {:class => 'return_to'})
+                = link_to("your preferences", {:controller => '/account', :action => 'profile'}, {:class => 'return_to'})
                 |
-                = link_to("logout"[:logout], logout_url, {:class => 'return_to'})
+                = link_to("logout", logout_url, {:class => 'return_to'})
           - elsif $ALLOW_USER_LOGINS && !agent_logged_in?
             %p
-              = link_to("login"[:login], {:controller => '/account', :action => 'login'}, {:class => 'return_to'})
+              = link_to("login", {:controller => '/account', :action => 'login'}, {:class => 'return_to'})
               |
-              = link_to("create an account"[:create_account], {:controller => '/account', :action => 'signup'}, {:class => 'return_to'})
+              = link_to("create an account", {:controller => '/account', :action => 'signup'}, {:class => 'return_to'})
           - elsif $ALLOW_USER_LOGINS == false && @home_page.nil?
             %p
               = "We apologize, but the user registration system is not currently available.  Please try again later."[:user_system_down]
@@ -139,11 +139,11 @@
             .desc-personal
               %p
                 %strong
-                  = "Hello {user}"[:hello_user, current_agent.full_name]
+                  = "Hello #{current_agent.full_name}"
                 = @home_page.nil? ? "</p><p>" : " | "
-                = link_to("dashboard"[],:controller => '/content_partner',:action => 'index')
+                = link_to("dashboard",:controller => '/content_partner',:action => 'index')
                 |
-                = link_to("logout"[:logout], {:controller => '/content_partner',:action => 'logout'},  {:class => 'return_to'})
+                = link_to("logout", {:controller => '/content_partner',:action => 'logout'},  {:class => 'return_to'})
           %hr
         #quick-search
           = render :partial => "/layouts/search_field"
@@ -152,9 +152,9 @@
           .page-mode
 
             - if current_user.vetted
-              - current_mode="authoritative information"[];change_mode="all information"[];set_vetted="false"
+              - current_mode="authoritative information";change_mode="all information";set_vetted="false"
             - else  
-              - current_mode="all information"[];change_mode="authoritative information"[];set_vetted="true"
+              - current_mode="all information";change_mode="authoritative information";set_vetted="true"
 
             Showing:
             %a{ :href => "#{current_url}?vetted=#{set_vetted}", :title => "click to show #{change_mode}" }
@@ -162,11 +162,11 @@
             %br
             - if (current_user.default_hierarchy_id.to_s != Hierarchy.default.id.to_s && !current_user.default_hierarchy_id.blank?)
               %a{ :href => url_for(settings_url), :title => "using #{current_user.selected_default_hierarchy}, click to change" }
-                = "Alternate classification"[]
+                = "Alternate classification"
               %br
             - if current_user.filter_content_by_hierarchy
               %a{ :href => url_for(settings_url), :title => "click to change settings" }
-                = "Filtered information"[]
+                = "Filtered information"
               %br
       - # a div to wrap *just* the rendered template, so it's easy to update the whole template via Ajax calls, if needed
       #content
@@ -175,19 +175,19 @@
         = render :partial => 'layouts/footer_menu', :locals => {:menu_items => ContentSection.find_pages_by_section('Footer')}
         = ENV['APP_VERSION'] unless ENV['APP_VERSION'].blank?
         - if flash[:warning] || flash[:error]
-          = link_to('Show warning message'[], '#', :id => 'show-flash', :rel => '#flash-bad')
+          = link_to('Show warning message', '#', :id => 'show-flash', :rel => '#flash-bad')
         - elsif flash[:notice]
-          = link_to('Show status message'[], '#', :id => 'show-flash', :rel => '#flash-good')
+          = link_to('Show status message', '#', :id => 'show-flash', :rel => '#flash-good')
     - if flash[:notice]
       #flash-good{ :style => "display: block" }
         = flash[:notice]
         .note
-          = "(esc key hides this message)"[]
+          = "(esc key hides this message)"
     - elsif flash[:warning] || flash[:error]
       #flash-bad{ :style => "display: block" }
         = (flash[:warning] || '') + (flash[:error] || '')
         .note
-          = "(esc key hides this message)"[]
+          = "(esc key hides this message)"
     - if flash[:notice] || flash[:warning] || flash[:error]
       - flash[:notice] = flash[:warning] = flash[:error] = nil
       :javascript

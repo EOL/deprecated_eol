@@ -46,7 +46,7 @@ namespace :solr do
   # TODO - when we have other indexes, we may want sub-tasks to do TCs, Tags, images, and whatever else...
   task :build => 'solr:start' do
     require 'solr_api'
-    solr = SolrAPI.new
+    solr = SolrAPI.new($SOLR_SERVER, $SOLR_TAXON_CONCEPTS_CORE)
     puts "** Deleting all existing entries..."
     solr.delete_all_documents
     puts "** Creating indexes..."
@@ -81,5 +81,13 @@ namespace :solr do
       f.write("</elevate>\n")
     end
   end
+  
+  desc 'Rebuild the site_search index'
+  task :rebuild_site_search => :environment do
+    solr_api = SolrAPI.new($SOLR_SERVER, $SOLR_SITE_SEARCH_CORE)
+    builder = EOL::Solr::SiteSearchCoreRebuilder.new(solr_api)
+    builder.begin_rebuild
+  end
+  
   
 end

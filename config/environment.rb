@@ -180,8 +180,10 @@ Rails::Initializer.run do |config|
   $WEB_SERVICE_BASE_URL = '' # web service is used for importing content partners' data
 
 
-  $SOLR_SERVER = 'http://localhost:8983/solr/taxon_concepts'
-  $SOLR_SERVER_DATA_OBJECTS = 'http://localhost:8983/solr/data_objects'
+  $SOLR_SERVER = 'http://localhost:8983/solr/'
+  $SOLR_TAXON_CONCEPTS_CORE = 'taxon_concepts'
+  $SOLR_DATA_OBJECTS_CORE = 'data_objects'
+  $SOLR_SITE_SEARCH_CORE = 'site_search'
   $SOLR_DIR    = File.join(RAILS_ROOT, 'solr', 'solr')
   
   ### These next few values are declared in the eol:site_configurations table. They are also declared here

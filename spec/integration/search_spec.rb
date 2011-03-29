@@ -12,7 +12,7 @@ def animal_kingdom
 end
 
 def recreate_indexes
-  solr = SolrAPI.new
+  solr = SolrAPI.new($SOLR_SERVER, $SOLR_TAXON_CONCEPTS_CORE)
   solr.delete_all_documents
   solr.build_indexes
 end

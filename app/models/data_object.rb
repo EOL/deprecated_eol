@@ -712,7 +712,7 @@ class DataObject < SpeciesSchemaModel
 
   def update_solr_index(options)
     return false if options[:vetted_id].blank? && options[:visibility_id].blank?
-    solr_connection = SolrAPI.new($SOLR_SERVER_DATA_OBJECTS)
+    solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
     begin
       # query Solr for the index record for this data object
       response = solr_connection.query_lucene("data_object_id:#{id}")

@@ -19,8 +19,8 @@ describe 'Solr API' do
     before(:all) do
       Vetted.gen(:label => 'Trusted') unless Vetted.trusted
       trusted = Vetted.trusted
-      @solr = SolrAPI.new
-      @data = {:common_name => ['Atlantic cod', 'Pacific cod'],
+      @solr = SolrAPI.new($SOLR_SERVER, $SOLR_TAXON_CONCEPTS_CORE)
+      @data = { :common_name => ['Atlantic cod', 'Pacific cod'],
                :preferred_scientific_name => ['Gadus mohua'],
                :taxon_concept_id => ['1'],
                :ancestor_taxon_concept_id => '3452345',
@@ -31,9 +31,9 @@ describe 'Solr API' do
     end
 
     it 'should connect to solr server from environment' do
-      @solr.server_url.host.should == 'localhost'
-      config_solr_path = $SOLR_SERVER.sub(/^.*?\/solr/, '/solr')
-      @solr.server_url.path.should == config_solr_path
+      @solr.action_uri.host.should == 'localhost'
+      config_solr_path = ($SOLR_SERVER + $SOLR_TAXON_CONCEPTS_CORE).sub(/^.*?\/solr/, '/solr')
+      @solr.action_uri.path.should == config_solr_path
     end
 
     it 'should be able to run search on the server' do
@@ -55,20 +55,77 @@ describe 'Solr API' do
       @solr.get_results("common_name:cod")['numFound'].should > 0
       @solr.get_results("ancestor_taxon_concept_id:3452345")['numFound'].should > 0
     end
-  end
 
+    it 'should be able to send hashes as CSV file' do
+      csv_path = File.join(RAILS_ROOT, 'public', 'files', 'solr_import_file.csv')
+      File.unlink(csv_path)
+      File.exists?(csv_path).should == false
+      
+      @solr.delete_all_documents
+      @solr.get_results("*:*")['numFound'].should == 0
+      res = @solr.send_attributes({ 123 => { :vetted_id => 3, :published => 1 },
+                                    456 => { :vetted_id => 2, :published => 0, :nonsense => 'anything' } })
+      # send attributes will create a CSV file to send to Solr
+      File.exists?(csv_path).should == true
+      File.open(csv_path, "r") do |f|
+        line = f.gets
+        # first line should include the valid fields sent
+        line.should match('vetted_id')
+        line.should match('published')
+        # first line should also include fields in the schema NOT sent
+        line.should match('supercedure_id')
+        line.should match('preferred_scientific_name')
+        # first line should NOT include the invalid fields
+        line.should_not match('nonsense')
+      end
+      
+      # now run a few searches to make sure the content made it to Solr
+      @solr.get_results("*:*")['numFound'].should == 2
+      @solr.get_results("published:true")['numFound'].should == 1
+      @solr.get_results("published:false")['numFound'].should == 1
+    end
+  end
 
   describe ': DataObjects' do
     before(:all) do
-      @solr = SolrAPI.new($SOLR_SERVER_DATA_OBJECTS)
+      @solr = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
       @solr.delete_all_documents
     end
-
+  
     it 'should create the data object index' do
       @taxon_concept = build_taxon_concept(:images => [{:guid => 'a509ebdb2fc8083f3a33ea17985bae72', :visibility_id => Visibility.preview.id}])
       @data_object = DataObject.last
       @solr.build_data_object_index([@data_object])
       @solr.get_results("data_object_id:#{@data_object.id}")['numFound'].should == 1
+    end
+  end
+  
+  describe ': SiteSearch' do
+    before(:all) do
+      TaxonConcept.delete_all
+      HierarchyEntry.delete_all
+      Synonym.delete_all
+      @solr = SolrAPI.new($SOLR_SERVER, $SOLR_SITE_SEARCH_CORE)
+      @solr.delete_all_documents
+      @scientific_name = "Amanita muscaria"
+      @common_name = "Fly agaric"
+      @test_taxon_concept = build_taxon_concept(:scientific_name => @scientific_name, :common_names => [@common_name])
+      TaxonConcept.connection.execute("commit")
+    end
+    
+    it 'should start with an empty core' do
+      @solr.delete_all_documents
+      @solr.get_results("*:*")['numFound'].should == 0
+    end
+    
+    it 'should rebuild the core' do
+      builder = EOL::Solr::SiteSearchCoreRebuilder.new(@solr)
+      builder.begin_rebuild
+      # one for the scientific name, one for the synonym the builder creates, and one for the common name
+      @solr.get_results("*:*")['numFound'].should == 3
+      @solr.get_results("resource_id:#{@test_taxon_concept.id}")['numFound'].should == 3
+      @solr.get_results("keyword:#{URI.escape(@scientific_name)}")['numFound'].should == 2
+      @solr.get_results("keyword:#{URI.escape(@common_name)}")['numFound'].should == 1
     end
   end
 end

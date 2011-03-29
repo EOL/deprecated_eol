@@ -1,4 +1,4 @@
-<h1>Editing task_name</h1>
+<h1><%= I18n.t("editing_task_name") %></h1>
 
 <% form_for(@task_name) do |f| %>
   <%= f.error_messages %>
@@ -12,9 +12,9 @@
     <%= f.text_field :frequency %>
   </p>
   <p>
-    <%= f.submit 'Update' %>
+    <%= f.submit I18n.t("update") %>
   </p>
 <% end %>
 
-<%= link_to 'Show', @task_name %> |
-<%= link_to 'Back', task_names_path %>
+<%= link_to I18n.t("show"), @task_name %> |
+<%= link_to I18n.t("back"), task_names_path %>

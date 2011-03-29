@@ -9,7 +9,7 @@ class Administrator::ContactController < AdminController
 
   def index
    
-   @page_title = 'Contact Us Submissions'
+   @page_title = I18n.t("contact_us_submissions")
    @subjects=ContactSubject.find(:all,:order=>'title')
    @contact_subject_id=params[:id]
    @comment_search_string=params[:comment_search_string] || ''
@@ -29,17 +29,17 @@ class Administrator::ContactController < AdminController
  
  def send_message
  
-   @page_title = 'Send Contact Email'
+   @page_title = I18n.t("send_contact_email")
    @name=params[:name]
    @email=params[:email]
    @message=params[:message]
  
   if request.post? && !@message.blank? && !@email.blank?
     Notifier.deliver_user_message(@name,@email,@message)
-    flash[:notice]='The message was sent.'
+    flash[:notice]= I18n.t("the_message_was_sent")
     redirect_to :controller=>'/administrator/contact',:action=>'index'  
   elsif request.post?
-    flash[:error]='Please enter a message and email address.'  
+    flash[:error]= I18n.t("please_enter_a_message_and_ema") 
   end
    
  end

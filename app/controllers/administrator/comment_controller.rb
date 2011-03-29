@@ -8,7 +8,7 @@ class Administrator::CommentController  < AdminController
  
   def index
  
-    @page_title = 'User Comments'
+    @page_title = I18n.t("user_comments")
     @term_search_string=params[:term_search_string] || ''
     search_string_parameter='%' + @term_search_string + '%' 
     @comments=Comment.paginate(:conditions=>['body like ?',search_string_parameter],:order=>'created_at desc',:include=>:user,:page => params[:page])
@@ -18,7 +18,7 @@ class Administrator::CommentController  < AdminController
 
   def edit
 
-    @page_title = 'Edit Comment'
+    @page_title = I18n.t("edit_comment")
     store_location(referred_url) if request.get?    
     @comment = Comment.find(params[:id])
   
@@ -29,7 +29,7 @@ class Administrator::CommentController  < AdminController
     @comment = Comment.find(params[:id])
     
     if @comment.update_attributes(params[:comment])
-      flash[:notice] = 'The comment was successfully updated.'
+      flash[:notice] = I18n.t("the_comment_was_successfully_u")
       redirect_back_or_default(url_for(:action=>'index'))
     else
       render :action => 'edit' 

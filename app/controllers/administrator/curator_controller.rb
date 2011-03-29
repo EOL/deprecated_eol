@@ -7,7 +7,7 @@ class Administrator::CuratorController < AdminController
   access_control :web_users
 
   def index
-    @page_title = 'Curators'
+    @page_title = I18n.t("curators")
     @user_search_string=params[:user_search_string] || ''
     search_string_parameter='%' + @user_search_string + '%'
     @only_unapproved=EOLConvert.to_boolean(params[:only_unapproved])

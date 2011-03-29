@@ -5,7 +5,7 @@ class Administrator::HarvestingLogController < AdminController
   access_control :content_partners
   
   def index
-    @page_title = 'Harvesting Processes Log'
+    @page_title = I18n.t("harvesting_processes_log")
     unless params[:date].blank?
       if params[:date] == 'all'
         @date = 'all'

@@ -6,7 +6,7 @@ class Administrator::TableOfContentsController < AdminController
   access_control :site_cms
   
   def index
-    @page_title = 'Table of Contents'
+    @page_title = I18n.t("table_of_contents")
   end
   
   def show_tree

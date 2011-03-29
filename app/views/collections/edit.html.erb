@@ -1,4 +1,4 @@
-<h1>Editing collection</h1>
+<h1><%= I18n.t("editing_collection") %></h1>
 
 <% form_for(@collection) do |f| %>
   <%= f.error_messages %>
@@ -32,9 +32,9 @@
     <%= f.text_field :object_id %>
   </p>
   <p>
-    <%= f.submit 'Update' %>
+    <%= f.submit I18n.t("update") %>
   </p>
 <% end %>
 
-<%= link_to 'Show', @collection %> |
-<%= link_to 'Back', collections_path %>
+<%= link_to I18n.t("show"), @collection %> |
+<%= link_to I18n.t("back"), collections_path %>

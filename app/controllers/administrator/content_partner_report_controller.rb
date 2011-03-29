@@ -11,7 +11,7 @@ class Administrator::ContentPartnerReportController < AdminController
   access_control :content_partners
   
   def index
-    @page_title = 'Content Partners'
+    @page_title = I18n.t("content_partners")
     @partner_search_string=params[:partner_search_string] || ''
     @only_show_agents_with_unpublished_content=EOLConvert.to_boolean(params[:only_show_agents_with_unpublished_content])
     @agent_status=AgentStatus.find(:all,:order=>'label')
@@ -55,7 +55,7 @@ class Administrator::ContentPartnerReportController < AdminController
   end
   
   def show
-    @page_title = 'Content Partner Detail'
+    @page_title = I18n.t("content_partner_detail")
     @agent = Agent.find_by_id(params[:id])
     if @agent.blank?
       redirect_to :action=>'index' 
@@ -73,14 +73,14 @@ class Administrator::ContentPartnerReportController < AdminController
   
   def show_contacts
     @agent=Agent.find(params[:id],:include=>:agent_contacts)
-    @page_title = "Content Partner Contacts - #{@agent.project_name}"
+    @page_title = I18n.t("content_partner_contacts___var", :var__agent_project_name => @agent.project_name)
     @contacts=@agent.agent_contacts
   end
 
   def edit_profile
 
     @agent=Agent.find(params[:id],:include=>:content_partner)   
-    @page_title = "Edit Profile: #{@agent.display_name}"
+    @page_title = I18n.t("edit_profile__var__agent_displ", :var__agent_display_name => @agent.display_name)
     return unless request.post?
 
     if @agent.update_attributes(params[:agent])
@@ -108,7 +108,7 @@ class Administrator::ContentPartnerReportController < AdminController
   
   def edit_agreement
     
-    @page_title = 'Edit Content Partner Agreement'
+    @page_title = I18n.t("edit_content_partner_agreement")
     @agent=Agent.find(params[:id])
 
     # if we are posting, create the new agreement
@@ -116,7 +116,7 @@ class Administrator::ContentPartnerReportController < AdminController
       agreement=params[:agreement].merge(:agent_id=>@agent.id)
       @agreement=ContentPartnerAgreement.create_new(agreement)
       if @agreement.valid?
-        flash[:notice]='Content partner agreement was updated.'
+        flash[:notice]= I18n.t("content_partner_agreement_was_")
         redirect_to :action=>'show',:id=>params[:id]
         return
       end
@@ -212,7 +212,7 @@ class Administrator::ContentPartnerReportController < AdminController
   end 
   
   def report_monthly_published_partners
-    @page_title = 'Published Content Partners'
+    @page_title = I18n.t("published_content_partners")
     @year_month_list = get_year_month_list()
     if(params[:year_month]) then
       params[:year], params[:month] = params[:year_month].split("_") if params[:year_month]    

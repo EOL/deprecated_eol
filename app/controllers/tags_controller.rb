@@ -20,7 +20,7 @@ class TagsController < ApplicationController
     if logged_in? and params.include? :tag and params[:tag].include? :value
       begin
         @data_object.tag params[:tag][:key], params[:tag][:value], current_user
-        flash[:notice] = 'New tag was successfully created'
+        flash[:notice] = I18n.t("new_tag_was_successfully_creat")
         current_user.log_activity(:created_tag_on_data_object_id, :value => @data_object.id)
       rescue EOL::Exceptions::FailedToCreateTag => e
         flash[:notice] = e.message
@@ -58,7 +58,7 @@ class TagsController < ApplicationController
         @my_tag = @tags.find {|t| current_user &&  t.user_id == current_user.id }
         if @my_tag
           @my_tag.destroy
-          flash[:notice] = "Successfully removed tag #{ params[:id] }"
+          flash[:notice] = I18n.t("successfully_removed_tag_var__", :var__params__id__ =>  params[:id] )
           redirect_to request.referer ? :back : data_object_tags_path(@data_object.id)
           current_user.log_activity(:deleted_tag_on_data_object_id, :value => @data_object.id)
         else

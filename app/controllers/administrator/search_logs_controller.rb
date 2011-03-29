@@ -9,7 +9,7 @@ class Administrator::SearchLogsController < AdminController
   access_control :usage_reports
 
   def index
-    @page_title = 'Search Term Reports'
+    @page_title = I18n.t("search_term_reports_")
     @search_string = params[:search_string]
     @order         = params[:order] || "frequency"
     @reverse       = params[:reverse]
@@ -20,7 +20,7 @@ class Administrator::SearchLogsController < AdminController
   end
 
   def show
-    @page_title = 'Search Term Detail Report'
+    @page_title = I18n.t("search_term_detail_report")
     @search_term = params[:id]
     @frequency = SearchLog.count(:conditions=>["search_term=?",@search_term])
     @clicked_taxa = SearchLog.find_by_sql(["select distinct(taxon_concept_id),count(taxon_concept_id) as frequency from search_logs where search_term=? GROUP BY taxon_concept_id ORDER BY frequency desc",@search_term])

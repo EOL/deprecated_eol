@@ -7,12 +7,12 @@ class Administrator::ContentUploadController < AdminController
   access_control :site_cms
 
   def index
-    @page_title = 'Uploaded Content'
+    @page_title = I18n.t("uploaded_content")
     @content_uploads = ContentUpload.paginate(:order => 'created_at desc', :page => params[:page])
   end
    
   def edit
-    @page_title = 'Edit Upload' 
+    @page_title = I18n.t("edit_upload") 
     @content_upload = ContentUpload.find(params[:id])
   end
 
@@ -27,7 +27,7 @@ class Administrator::ContentUploadController < AdminController
   end
 
   def new
-    @page_title = 'New Upload'
+    @page_title = I18n.t("new_upload")
     @content_upload = ContentUpload.new
   end
 

@@ -7,7 +7,7 @@ class HarvestEventsController < ApplicationController
   layout :choose_layout
 
   def index
-    @page_title = 'Content Partner Reports'
+    @page_title = I18n.t("content_partner_reports")
     @page_header = 'Edit Resource' # This is weird, but the separate layouts use separate variable names...
     page = params[:page] || 1
     @harvest_events = HarvestEvent.paginate_by_resource_id(@resource.id, :page => page, :order => "id desc")

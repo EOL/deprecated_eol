@@ -394,11 +394,11 @@ class ContentController < ApplicationController
     @error = false
     if current_user.curator_approved
       if matches = @revision_url.match(/^http:\/\/en\.wikipedia\.org\/w\/index\.php\?title=(.*?)&oldid=([0-9]{9})$/i)
-        flash[:notice] = "Wikipedia article #{matches[1]} revision #{matches[2]} will be harvested tonight"
+        flash[:notice] = I18n.t("wikipedia_article_var_matches_", :var_matches_1_ => matches[1], :var_matches_2_ => matches[2])
         WikipediaQueue.create(:revision_id => matches[2], :user_id => current_user.id)
         redirect_to :action => 'page', :id => 'curator_central'
       else
-        flash[:notice] = "Revision URL must match http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*"
+        flash[:notice] = I18n.t("revision_url_must_match_http__")
         @revision_url = nil
         redirect_to :action => 'page', :id => 'curator_central'
       end
@@ -406,7 +406,7 @@ class ContentController < ApplicationController
   end
 
   def glossary
-    @page_title = "EOL Glossary"
+    @page_title = I18n.t("eol_glossary")
   end
 
 end

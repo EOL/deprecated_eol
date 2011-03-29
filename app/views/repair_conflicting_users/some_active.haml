@@ -1,23 +1,16 @@
 - @name.strip!
-= "Dear #{@name[0..0].capitalize}#{@name[1..-1]}, "
+= I18n.t("dear_var__name_0__0__capitaliz_", :var__name_0__0__capitalize => @name[0..0].capitalize, :var__name_1___1_ => @name[1..-1])
 
-Thank you for your interest and participation in the Encyclopedia of Life (www.eol.org). As EOL grows, our support team is
-working to ensure you have the best user experience possible. 
+=I18n.t("thank_you_for_your_interest_an")
 
-We have recently identified an issue that we'd like to bring to your attention. After reviewing our registration lists, our
-records indicate that your username is linked to several Encyclopedia of Life accounts only one of which is active. This may
-have occurred because you registered a number of times and then activated one or more accounts separately. 
+=I18n.t("we_have_recently_identified_an__")
 
-In order to make sure that each account is associated with a unique username, we will delete the inactive accounts associated
-with your username. 
+=I18n.t("in_order_to_make_sure_that_eac")
 
-But don't worry - your primary account is still active with EOL. The only difference is that you may need to update your
-password and your preferences if the various accounts linked to your email had different passwords and preferences. You can
-reset your password if needed by going to https://eol.org/account/forgot_password or by clicking 'Forgot password?' on the
-EOL login page. You can edit your settings anytime by logging in and clicking on the "Your Preferences" link. 
+=I18n.t("but_don_t_worry___your_primary")
 
-We hope you will continue to use EOL and all it has to offer. 
+=I18n.t("we_hope_you_will_continue_to_u")
 
-Thanks for your time, 
+=I18n.t("thanks_for_your_time")
 
-The EOL Team 
+=I18n.t("the_eol_team") 

@@ -9,7 +9,7 @@ class Administrator::SearchSuggestionController < AdminController
   access_control :site_cms
   
   def index
-    @page_title = 'Search Suggestions'
+    @page_title = I18n.t("search_suggestions")
     @term_search_string = params[:term_search_string] || ''
     search_string_parameter = '%' + @term_search_string + '%' 
     # let us go back to a page where we were
@@ -22,13 +22,13 @@ class Administrator::SearchSuggestionController < AdminController
   end
 
   def new
-    @page_title = 'New Search Suggestion'
+    @page_title = I18n.t("new_search_suggestion")
     @search_suggestion = SearchSuggestion.new
     store_location(referred_url) if request.get?    
   end
 
   def edit
-    @page_title = 'Edit Search Suggestion'
+    @page_title = I18n.t("edit_search_suggestion")
     @search_suggestion = SearchSuggestion.find(params[:id])
     store_location(referred_url) if request.get?    
   end
@@ -37,7 +37,7 @@ class Administrator::SearchSuggestionController < AdminController
     @search_suggestion = SearchSuggestion.new(params[:search_suggestion])
     @search_suggestion.scientific_name, @search_suggestion.common_name, @search_suggestion.image_url = get_names_and_image(params[:search_suggestion][:taxon_id])
     if @search_suggestion.save
-      flash[:notice] = 'The search suggestion was successfully created.'
+      flash[:notice] = I18n.t("the_search_suggestion_was_succ")
       redirect_back_or_default(url_for(:action => 'index'))
     else
       render :action => "new" 
@@ -47,7 +47,7 @@ class Administrator::SearchSuggestionController < AdminController
   def update
     @search_suggestion = SearchSuggestion.find(params[:id])
     if @search_suggestion.update_attributes(params[:search_suggestion])
-      flash[:notice] = 'The search suggestion was successfully updated.'
+      flash[:notice] = I18n.t("the_search_suggestion_was_succ_")
       redirect_back_or_default(url_for(:action => 'index'))
     else
       render :action => "edit" 

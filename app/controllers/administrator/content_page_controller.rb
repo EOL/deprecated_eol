@@ -7,7 +7,7 @@ class Administrator::ContentPageController < AdminController
   access_control :site_cms
   
  def index
-   @page_title = 'Edit Page Contents'
+   @page_title = I18n.t("edit_page_contents_")
    @content_sections = ContentSection.find(:all, :order => 'name')
    @content_section_id = params[:content_section_id] || @content_sections[0].id
    @content_section = ContentSection.find(@content_section_id)
@@ -26,9 +26,9 @@ class Administrator::ContentPageController < AdminController
    if new_page.valid?
      ContentPageArchive.backup(current_page) # backup old page
      expire_menu_caches(new_page)
-     flash[:notice] = 'Content has been updated.'
+     flash[:notice] = I18n.t("content_has_been_updated")
    else
-     flash[:error] = 'Some required fields were not entered (you must enter a title, and content OR a URL).'
+     flash[:error] = I18n.t("some_required_fields_were_not_")
    end
    redirect_to :action => 'index', :content_section_id => new_page.content_section.id, :content_page_id => new_page.id
  end

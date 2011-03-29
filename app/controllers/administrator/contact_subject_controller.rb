@@ -8,21 +8,21 @@ class Administrator::ContactSubjectController < AdminController
   
  def index
    
-   @page_title = 'Contact Us Topics'
+   @page_title = I18n.t("contact_us_topics")
    @contact_subjects = ContactSubject.find(:all,:order => 'title')
    
  end
  
  def edit
  
-   @page_title = 'Edit Contact Us Topic'
+   @page_title = I18n.t("edit_contact_us_topic")
    @contact_subject = ContactSubject.find(params[:id])
    
  end
  
  def new
      
-   @page_title = 'New Contact Us Topic'
+   @page_title = I18n.t("new_contact_us_topic")
    @contact_subject = ContactSubject.new
      
  end
@@ -31,7 +31,7 @@ class Administrator::ContactSubjectController < AdminController
   
    @contact_subject = ContactSubject.new(params[:contact_subject])
    if @contact_subject.save
-     flash[:notice] = "The new topic was created."
+     flash[:notice] = I18n.t("the_new_topic_was_created")
      redirect_to :action => 'index'
    else
      render :action => 'new'
@@ -43,7 +43,7 @@ class Administrator::ContactSubjectController < AdminController
    
    @contact_subject = ContactSubject.find(params[:id])
    if @contact_subject.update_attributes(params[:contact_subject])
-      flash[:notice] = "The topic was updated."     
+      flash[:notice] = I18n.t("the_topic_was_updated")     
       redirect_to :action => 'index' 
    else
       render :action => 'edit'

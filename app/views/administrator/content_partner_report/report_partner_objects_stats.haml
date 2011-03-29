@@ -20,7 +20,7 @@
         %option{ :value => cp.id, :selected => @agent_id.to_i == cp.id }
           = cp.full_name
 
-    = submit_tag("Change")
+    = submit_tag(I18n.t(:change))
   
   /%br
   /  Harvest Events:
@@ -37,7 +37,7 @@
         %th
           =I18n.t("resource")
         %th
-          =18n.t("harvest_id")
+          =I18n.t("harvest_id")
         %th
           =I18n.t("started")
         %th

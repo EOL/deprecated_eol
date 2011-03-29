@@ -13,7 +13,7 @@ class CommunitiesController < ApplicationController
   end
 
   def show
-    @feed_item = FeedItem.new(:feed_id => @community.id, :feed_type => @community.class.name)
+    @feed_item = FeedItem.new_for(:feed => @community, :user => current_user)
     @page_title = "Community: #{ @community.name }"
     respond_to do |format|
       format.html # show.html.erb

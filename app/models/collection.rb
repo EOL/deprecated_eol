@@ -1,7 +1,7 @@
 class Collection < ActiveRecord::Base
 
   belongs_to :user
-  belongs_to :community
+  belongs_to :community # These are focus lists
 
   has_many :collection_items
   alias :items :collection_items
@@ -27,20 +27,33 @@ class Collection < ActiveRecord::Base
     end
   end
 
+  def is_focus_list?
+    community_id
+  end
+
   def add(what)
+    name = "something"
     case what.class.name
     when "TaxonConcept"
       collection_items << CollectionItem.create(:object_type => "TaxonConcept", :object_id => what.id, :name => what.scientific_name)
+      name = what.scientific_name
     when "User"
       collection_items << CollectionItem.create(:object_type => "User", :object_id => what.id, :name => what.full_name)
+      name = what.username
     when "DataObject"
       collection_items << CollectionItem.create(:object_type => "DataObject", :object_id => what.id, :name => what.short_title)
+      name = what.data_type.simple_type_with_article
     when "Community"
       collection_items << CollectionItem.create(:object_type => "Community", :object_id => what.id, :name => what.name)
+      name = what.name
     when "Collection"
       collection_items << CollectionItem.create(:object_type => "Collection", :object_id => what.id, :name => what.name)
+      name = what.name
     else
       raise EOL::Exceptions::InvalidCollectionItemType.new("I cannot create a collection item from a #{what.class.name}")
+    end
+    if is_focus_list?
+      community.feed.post(I18n.t("community_watching_note", :name => name), :feed_item_type_id => FeedItemType.content_update.id, :subject_id => what.id, :subject_type => what.class.name)
     end
     what # Convenience.  Allows us to chain this command and continue using the object passed in.
   end

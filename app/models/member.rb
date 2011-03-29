@@ -19,6 +19,10 @@ class Member < ActiveRecord::Base
 
   def add_role(role)
     self.roles << role unless has_role?(role)
+    if user.respond_to? :username
+      community.feed.post(I18n.t("user_became_role_note", :username => user.username, :role => role.title), :feed_item_type_id => FeedItemType.content_update.id, :user_id => user.id)
+    end
+    self.roles
   end
 
   def remove_role(role)

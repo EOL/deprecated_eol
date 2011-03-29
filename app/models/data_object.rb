@@ -365,6 +365,7 @@ class DataObject < SpeciesSchemaModel
     end
 
     self.data_rating = (other_ratings.inject(0) { |sum, r| sum + r.rating } + new_rating).to_f / (other_ratings.size + 1)
+    feed.post(I18n.t("dato_rating_note", :username => user.username, :rating => new_rating), :feed_item_type_id => FeedItemType.curator_activity.id, :user_id => user.id)
     self.save!
   end
 
@@ -1067,7 +1068,7 @@ class DataObject < SpeciesSchemaModel
     sorted_entries[0] rescue nil
   end
 
-
+  # TODO - check this against rating_for_user ... why the difference?
   def rating_from_user(u)
     ratings_from_user = users_data_objects_ratings.select{ |udor| udor.user_id == u.id }
     return ratings_from_user[0] unless ratings_from_user.blank?
@@ -1088,6 +1089,7 @@ private
     DataObjectsUntrustReason.destroy_all(:data_object_id => id)
     user.track_curator_activity(self, 'data_object', 'trusted', :comment => opts[:comment], :taxon_concept_id => opts[:taxon_concept_id])
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.approve
+    feed.post(I18n.t("dato_trusted_note", :username => user.username, :type => data_type.simple_type), :feed_item_type_id => FeedItemType.curator_activity.id, :user_id => user.id)
   end
 
   def untrust(user, opts = {})
@@ -1117,4 +1119,5 @@ private
     user.track_curator_activity(self, 'data_object', 'unreviewed', :comment => opts[:comment], :taxon_concept_id => opts[:taxon_concept_id])
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.unreviewed
   end
+  
 end

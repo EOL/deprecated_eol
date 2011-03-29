@@ -5,7 +5,7 @@ class FeedItemsController < ApplicationController
   def index
     if logged_in?
       # TODO - the thumbnail_url should be the user's thumbnail.
-      @feed_item = FeedItem.new(:feed_id => @feed_source.id, :feed_type => @feed_source.class.name)
+      @feed_item = FeedItem.new_for(:feed => @feed_source, :user => current_user)
     end
     respond_to do |format|
       format.html # index.html.erb
@@ -24,17 +24,6 @@ class FeedItemsController < ApplicationController
     end
   end
 
-  # GET /feed_items/new
-  # GET /feed_items/new.xml
-  def new
-    @feed_item = FeedItem.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @feed_item }
-    end
-  end
-
   # GET /feed_items/1/edit
   def edit
     @feed_item = FeedItem.find(params[:id])
@@ -43,7 +32,8 @@ class FeedItemsController < ApplicationController
   # POST /feed_items
   # POST /feed_items.xml
   def create
-    @feed_item = FeedItem.new(params[:feed_item], :user_id => current_user.id)
+    params[:feed_item][:user] = current_user
+    @feed_item = FeedItem.new_for(params[:feed_item])
 
     respond_to do |format|
       if @feed_item.save

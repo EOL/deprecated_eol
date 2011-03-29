@@ -33,7 +33,7 @@ class Role < ActiveRecord::Base
   # member of the returned array is the owner.
   def self.add_defaults_to_community(community)
     raise "You didn't specify a community" unless community
-    default_roles = {'Owner' => 20, 'Member Services Manager' => 10, 'Content Manager' => 1}
+    default_roles = {'Owner' => 20, 'Content Manager' => 1}
     new_roles = []
     default_roles.keys.each do |key|
       unless self.exists?(['title = ? and community_id = ?', key, community.id])

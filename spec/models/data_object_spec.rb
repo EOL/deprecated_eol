@@ -540,4 +540,18 @@ describe DataObject do
     dato.feed.should be_a EOL::Feed
   end
 
+  it 'should post a note to the feed when a curator rates the object' do
+    @image_dato.rate(@user, 3)
+    @image_dato.feed.last.body.should =~ /(rating|rated)/
+    @image_dato.feed.last.feed_item_type.should == FeedItemType.curator_activity
+    @image_dato.feed.last.user.should == @user
+  end
+
+  it 'should post a note to the feed when a curator trusts the object' do
+    @image_dato.curate(@user, :vetted_id => Vetted.trusted.id)
+    @image_dato.feed.last.body.should =~ /trusted/
+    @image_dato.feed.last.feed_item_type.should == FeedItemType.curator_activity
+    @image_dato.feed.last.user.should == @user
+  end
+
 end

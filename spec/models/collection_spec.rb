@@ -166,6 +166,11 @@ describe Collection do
 
   end
 
+  it 'should know when it is a focus list' do
+    @collection.is_focus_list?.should_not be_true
+    @community.focus.is_focus_list?.should be_true
+  end
+
   it 'should be able to find published collections in a search'
 
   it 'should NOT be able to find UN-published collections in a search'

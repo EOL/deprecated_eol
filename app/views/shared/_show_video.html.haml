@@ -2,26 +2,25 @@
 
 -# for video/mp4
 - if @data_object.mime_type == MimeType.mp4
-  %embed{ :src => "/flvplayer.swf", :pluginspage => "http://www.macromedia.com/go/getflashplayer", :type => "application/x-shockwave-flash", :height => "335", :flashvars => "file=#{@data_object.video_url}&displayheight=335&usefullscreen=false&autostart=true&usecaptions=false", :width => "425" }
+  %embed{ :src => "/flvplayer.swf", :pluginspage => "http://www.macromedia.com/go/getflashplayer", :type => "application/x-shockwave-flash", :height => "335", :flashvars => "file=#{@video_url}&displayheight=335&usefullscreen=false&autostart=true&usecaptions=false", :width => "425" }
     
 -# for video/x-ms-wmv and video/mpeg
 - if @data_object.mime_type == MimeType.wmv || @data_object.mime_type == MimeType.mpeg
   %OBJECT{ :ID => "MediaPlayer", :WIDTH => "425", :HEIGHT => "355", :CLASSID => "CLSID:22D6F312-B0F6-11D0-94AB-0080C74C7E95", :STANDBY => "Loading Windows Media Player components...", :TYPE => "application/x-oleobject" }
-    %PARAM{ :NAME => "FileName", :VALUE => "#{@data_object.video_url}" }
+    %PARAM{ :NAME => "FileName", :VALUE => "#{@video_url}" }
     %PARAM{ :name => "autostart", :VALUE => "true" }
     %PARAM{ :name => "ShowControls", :VALUE => "true" }
     %PARAM{ :name => "ShowStatusBar", :value => "true" }
     %PARAM{ :name => "ShowDisplay", :VALUE => "true" }
-    %EMBED{ :TYPE => "application/x-mplayer2" , :SRC => "#{@data_object.video_url}", :NAME => "MediaPlayer", :WIDTH => "425", :HEIGHT => "355", :ShowControls => "1", :ShowStatusBar=>"1", :ShowDisplay => "1", :autostart => "1" }
+    %EMBED{ :TYPE => "application/x-mplayer2" , :SRC => "#{@video_url}", :NAME => "MediaPlayer", :WIDTH => "425", :HEIGHT => "355", :ShowControls => "1", :ShowStatusBar=>"1", :ShowDisplay => "1", :autostart => "1" }
 
 -# video/quicktime
 - if @data_object.mime_type == MimeType.mov
   %OBJECT{ :classid=>"clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B", :codebase=>"http://www.apple.com/qtactivex/qtplugin.cab", :height=>"355", :width=>"425" }
-    %PARAM{ :name=>"src", :value=>"#{@data_object.video_url}" }
+    %PARAM{ :name=>"src", :value=>"#{@video_url}" }
     %PARAM{ :name=>"autoplay", :value=>"true" }
     %PARAM{ :name=>"type", :value=>"video/quicktime", :height=>"355", :width=>"425" }
-    %EMBED{ :src=>"#{@data_object.video_url}", :height=>"355", :width=>"425", :autoplay=>"true", :type=>"video/quicktime", :pluginspage=>"http://www.apple.com/quicktime/download/" }
-
+    %EMBED{ :src=>"#{@video_url}", :height=>"355", :width=>"425", :autoplay=>"true", :type=>"video/quicktime", :pluginspage=>"http://www.apple.com/quicktime/download/" }
 
 -# video/x-flv
 - if @data_object.data_type == DataType.flash || @data_object.data_type == DataType.youtube

@@ -27,17 +27,25 @@ module TaxaHelper
     citable_entities = citables.clone # so we can be destructive.
     citable_entities = [citable_entities] unless citable_entities.class == Array # Allows us to pass in a single agent, if needed.
     citable_entities = [citable_entities[0]] if params[:only_first]
+
     display_strings = citable_entities.collect do |citable|
       if citable.user
         link_to_url = url_for :controller => :account, :action => :show, :id => citable.user.id, :popup => true
-      else
-        link_to_url = params[:url] || citable.link_to_url
+      else      
+        if params[:url]
+          link_to_url = params[:url]
+        elsif citable.respond_to?('link_to_url')
+          link_to_url = citable.link_to_url
+        end
       end
-      params[:linked] ? external_link_to(allow_some_html(citable.display_string),
-                                         link_to_url,
-                                         {:show_link_icon => params[:show_link_icon]}) :
-                        allow_some_html(citable.display_string)
+
+      if citable.respond_to?('display_string')
+        params[:linked] ? external_link_to(allow_some_html(citable.display_string),
+                                           link_to_url,
+                                           {:show_link_icon => params[:show_link_icon]}) : allow_some_html(citable.display_string)
+      end
     end
+    
     final_string = display_strings.join(', ')
     final_string += ', et al.' if params[:only_first] && citables.length > 1
     return final_string
@@ -145,6 +153,16 @@ module TaxaHelper
     trust = ''
     trust = 'unknown' if video.unknown?
     trust = 'untrusted' if video.untrusted?
+
+    if video.license.respond_to?('description')
+      license_text = video.license.description || ''
+    end  
+    if video.license.respond_to?('logo_url')
+      license_logo = video.license.logo_url || ''
+    end  
+    if video.license.respond_to?('source_url')
+      license_link = video.license.source_url || ''
+    end
     
     return "{author: '"               + escape_javascript(citables_to_string(video.authors)) +
            "', nameString: '"         + escape_javascript(video.first_concept_name.to_s) +
@@ -152,9 +170,9 @@ module TaxaHelper
            "', location: '"           + escape_javascript(video.location || '') +
            "', info_url: '"           + escape_javascript(video.source_url || '') +
            "', field_notes: '"        + escape_javascript(video.description || '') +
-           "', license_text: '"       + escape_javascript(video.license.description || '') +
-           "', license_logo: '"       + escape_javascript(video.license.logo_url || '') +
-           "', license_link: '"       + escape_javascript(video.license.source_url || '') +
+           "', license_text: '"       + escape_javascript(license_text) +
+           "', license_logo: '"       + escape_javascript(license_logo) +
+           "', license_link: '"       + escape_javascript(license_link) +
            "', title:'"               + escape_javascript(video.object_title) +
            "', video_type:'"          + escape_javascript(video.data_type.label) +
            "', video_trusted:'"       + escape_javascript(video.vetted_id.to_s) +
@@ -163,12 +181,11 @@ module TaxaHelper
            "', video_supplier_name:'" + escape_javascript(data_supplier_name.to_s) +
            "', video_supplier_url:'"  + escape_javascript(data_supplier_url.to_s) +
            "', video_supplier_icon:'" + escape_javascript(data_supplier_icon.to_s) +
-           "', video_url:'"           + escape_javascript(video.video_url.to_s || video.object_url || '') +
+           "', video_url:'"           + escape_javascript('') +
            "', data_object_id:'"      + escape_javascript(video.id.to_s) +
            "', mime_type_id:'"        + escape_javascript(video.mime_type_id.to_s) +
            "', object_cache_url:'"    + escape_javascript(video.object_cache_url.to_s) +
            "', taxon_concept_id:'#{taxon_concept_id}'}"
-
   end
   
   def reformat_specialist_projects(projects)

@@ -74,7 +74,7 @@ describe 'Login' do
     login_as(user)
     visit('/')
     body.should_not include_text('curators')
-    body.should_not include_text("/account/show/")
+    body.should_not include_text("/curators/profile/")
   end
 
   describe "as a curator" do
@@ -83,7 +83,7 @@ describe 'Login' do
       curator = build_curator(HierarchyEntry.gen, :username => 'test_curator')
       login_as(curator)
       body.should include_text("curators")
-      body.should include_text("/account/show/")
+      body.should include_text("/curators/profile/")
     end
   end
 

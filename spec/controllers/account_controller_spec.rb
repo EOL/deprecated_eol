@@ -41,7 +41,7 @@ describe AccountController do
     user = User.gen(:username => 'johndoe', :email => 'johndoe@example.com')
     user.save!
     new_password = "newpass"
-    session[:user] = :user
+    session[:user] = user
     session[:user_id] = user.id
     old_hashed_password = User.find(user).hashed_password
     post :profile, "user" => {"id" => user.id, "entered_password" => new_password, "entered_password_confirmation" => new_password}
@@ -54,7 +54,7 @@ describe AccountController do
     user.save!
     new_password = "newpass"
     old_hashed_password = User.find(user).hashed_password
-    session[:user] = :user
+    session[:user] = user
     session[:user_id] = user.id
     post :profile, "user" => {"id" => user.id, "entered_password" => new_password, "entered_password_confirmation" => new_password}
     User.find(user).hashed_password.should_not == old_hashed_password

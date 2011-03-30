@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 require 'solr_api'
 def recreate_indexes
-  solr = SolrAPI.new
+  solr = SolrAPI.new($SOLR_SERVER, $SOLR_TAXON_CONCEPTS_CORE)
   solr.delete_all_documents
   solr.build_indexes
 end
@@ -582,11 +582,11 @@ describe 'EOL APIs' do
     response_object['results'].length.should == 0
   end
 
-  it 'search Dog without filter should have multiple results' do
+  it 'search should search without a filter and get multiple results' do
     visit("/api/search/Dog.json")
     response_object = JSON.parse(body)
-    response_object['results'][0]['title'].should == @dog_sci_name
-    response_object['results'][1]['title'].should == "Canis dog"
+    response_object['results'][0]['title'].should == "Canis dog"
+    response_object['results'][1]['title'].should == @dog_sci_name
     response_object['results'].length.should == 2
   end
 

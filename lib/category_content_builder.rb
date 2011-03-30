@@ -36,7 +36,7 @@ class CategoryContentBuilder
       :select => {
         :hierarchy_entries => [ :id, :name_id, :hierarchy_id, :taxon_concept_id ],
         :names => [ :id, :string ],
-        :synonym_relations => [ :id, :label ] } )
+        :synonym_relations => [ :id ] } )
     return { :items => options[:taxon_concept] }
   end
 

@@ -287,6 +287,12 @@ class ApiController < ApplicationController
     end
   end
   
+  def ping_host
+    respond_to do |format|
+      format.json { render :json => { 'response' => { 'host' => request.host, 'port' => request.port } } }
+    end
+  end
+  
   def check_version
     return if params[:controller] == 'api/docs'
     if ['ping','pages','data_objects','hierarchy_entries','search','synonyms','provider_hierarchies','search_by_provider'].include? action_name

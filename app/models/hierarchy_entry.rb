@@ -18,9 +18,9 @@ class HierarchyEntry < SpeciesSchemaModel
   has_many :top_unpublished_images
   has_many :synonyms
   has_many :scientific_synonyms, :class_name => Synonym.to_s,
-      :conditions => "synonyms.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})"
+      :conditions => 'synonyms.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(",")})'
   has_many :common_names, :class_name => Synonym.to_s,
-      :conditions => "synonyms.synonym_relation_id IN (#{SynonymRelation.common_name_ids.join(',')})"
+      :conditions => 'synonyms.synonym_relation_id IN (#{SynonymRelation.common_name_ids.join(",")})'
   has_many :flattened_ancestors, :class_name => HierarchyEntriesFlattened.to_s
   
   has_and_belongs_to_many :data_objects

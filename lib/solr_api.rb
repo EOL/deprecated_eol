@@ -1,39 +1,183 @@
 require 'net/http'
 require 'uri'
 require 'json'
+require 'nokogiri'
 
 class SolrAPI
-  attr_reader  :server_url
-
-  def initialize(server_url = nil)
-    server_url ||= $SOLR_SERVER
-    @server_url = URI.parse(server_url)
+  attr_reader :server_url
+  attr_reader :core
+  attr_reader :primary_key
+  attr_reader :schema_hash
+  attr_reader :file_delimiter
+  attr_reader :multi_value_delimiter
+  attr_reader :csv_path
+  attr_reader :action_url
+  attr_reader :action_uri
+  
+  def self.text_filter(t)
+    return '' unless t.is_utf8?
+    text = t.clone
+    text.gsub!(/;/, ' ')
+    text.gsub!(/×/, ' ')
+    text.gsub!(/"/, ' ')
+    text.gsub!(/'/, ' ')
+    text.gsub!(/\|/, ' ')
+    text.gsub!(/\n/, ' ')
+    text.gsub!(/\r/, ' ')
+    text.gsub!(/\t/, ' ')
+    while text.match(/  /)
+      text.gsub!(/  /, ' ')
+    end
+    text.strip
   end
-
+  
+  def self.ping(server_url, core = nil)
+    begin
+      test_connection = SolrAPI.new(server_url, core)
+    rescue
+      return false
+    end
+    # returns true if a connection was made the the schema loaded
+    !test_connection.schema_hash.blank?
+  end
+  
+  
+  def initialize(server_url = nil, core = nil)
+    @server_url = server_url
+    @core = core
+    @server_url ||= $SOLR_SERVER
+    # make sure it ends with a slash
+    @server_url += '/' unless @server_url[-1,1] == '/'
+    
+    @action_url = @server_url + @core.to_s
+    # this one should NOT end in a slash
+    @action_url = @action_url[0...-1] if @action_url[-1,1] == '/'
+    @action_uri = URI.parse(action_url)
+    
+    @file_delimiter = '|'
+    @multi_value_delimiter = ';'
+    @csv_path = File.join(RAILS_ROOT, 'public', 'files', 'solr_import_file.csv')
+    load_schema
+  end
+  
+  def load_schema
+    schema_xml = SolrAPI.xml_get(@action_url + "/admin/file/?file=schema.xml")
+    @primary_key = nil
+    if pk = schema_xml.xpath('//uniqueKey').inner_text
+      @primary_key = pk
+    end
+    @primary_key = nil if @primary_key.blank?
+    
+    # create empty hash that maps to each field name. The elements will be an array if the field is multi-valued
+    @schema_hash = {}
+    schema_xml.xpath('//fields/field').each do |field|
+      field_name = field['name']
+      multi_value = field['multiValued']
+      
+      if field['multiValued']
+        @schema_hash[field_name.to_sym] = []
+      else
+        @schema_hash[field_name.to_sym] = ''
+      end
+    end
+  end
+  
+  def swap(from_core, to_core)
+    SolrAPI.http_get(@action_url + "/admin/cores/?action=SWAP&core=#{from_core}&other=#{to_core}")
+  end
+  
+  def reload(core)
+    SolrAPI.http_get(@action_url + "/admin/cores/?action=RELOAD&core=#{core}")
+  end
+  
   def delete_all_documents
-    data = '<delete><query>*:*</query></delete>' 
-    post('update', data)
+    post_xml('update', '<delete><query>*:*</query></delete>')
     commit
+    optimize
   end
-
-  def get_results(query)
-    res = get(query)
+  
+  def commit
+    post_xml('update', '<commit />')
+  end
+  
+  def optimize
+    post_xml('update', '<optimize />')
+  end
+  
+  def get_results(q)
+    res = query(q)
     res = JSON.load res.body
     res['response']
   end
-
-  def commit
-    post('update', '<commit />')
-  end
-
-  # See the solr_api library spec for some examples.
-  def create(ruby_data)
-    solr_xml = build_solr_xml('add', ruby_data)
-    post('update', solr_xml)
+  
+  
+  # objects_hash should either be an array (if there is no primary key) or a hash indexed by the primary key
+  # objects_hash = [ { :attr1 => :val11, :attr2 => :val21 }, { :attr1 => :val12, :attr2 => :val22 }]
+  # or
+  # objects_hash = { 1234 => { :attr1 => :val11, :attr2 => :val21 }, 522 => { :attr1 => :val12, :attr2 => :val22 } }
+  def send_attributes(objects_hash, stream_file = true)
+    # Currently I can't determine a reliable way to get a URL for the file for streaming.
+    # If the app isn't running, there cannot be a URL as there is no web server to serve the file.
+    # If the app is running, rake doesn't know about the request therefore it can't know the proper port
+    stream_file = false # if RAILS_ENV == 'test'
+    
+    File.open(@csv_path, 'w') do |f|
+      if @primary_key
+        f.puts(@primary_key + @file_delimiter + @schema_hash.keys.join(@file_delimiter))
+      else
+        f.puts(@schema_hash.keys.join(@file_delimiter))
+      end
+      
+      objects_hash = SolrAPI.array_to_hash(objects_hash) if objects_hash.class == Array
+      objects_hash.each do |primary_key, object_fields|
+        this_row_values = []
+        # every row gets the primary key if it exists
+        this_row_values << primary_key if @primary_key
+        
+        # get the valid fields from the given set of objects to index
+        # looping through @schema_hash to make sure we get the fields in the same order for every row
+        @schema_hash.each do |field, field_type|
+          # this object has this attribute
+          if value = object_fields[field]
+            # the field is multi-values
+            if field_type.class == Array
+              raise "Multi-value fields must be arrays (#{@action_url} :: #{field})" if value.class != Array
+              this_row_values << value.join(@multi_value_delimiter)
+            else
+              raise "Non multi-value fields cannot be arrays (#{@action_url} :: #{field})" if value.class == Array
+              this_row_values << value
+            end
+          else
+            # default value is empty string
+            this_row_values << ""
+          end
+        end
+        f.puts(this_row_values.join(@file_delimiter))
+      end
+    end
+    
+    fields = { 'separator' => file_delimiter, 'stream.contentType' => 'text/plain;charset=utf-8' }
+    if stream_file
+      # NOT THE LACK OF A PORT HERE
+      fields['stream.url'] = 'http://' + $IP_ADDRESS_OF_SERVER + '/files/solr_import_file.csv'
+    else
+      fields['stream.file'] = @csv_path
+    end
+    @schema_hash.select{ |field, field_type| field_type.class == Array }.each do |field, field_type|
+      fields["f.#{field}.split"] = true
+      fields["f.#{field}.separator"] = @multi_value_delimiter
+    end
+    SolrAPI.post_fields(@action_url + "/update/csv", fields)
     commit
   end
-
-  def query
+  
+  # See the solr_api library spec for some examples.
+  # This uses XML to send the data so it should only be used for small amounts of data.
+  # Larger dataset should be sent using send_attributes which uses the CSV import mechanism
+  def create(ruby_data)
+    solr_xml = build_solr_xml('add', ruby_data)
+    post_xml('update', solr_xml)
+    commit
   end
   
   # Takes an array of hashes. Each hash has only string or array of strings values. Array is converted into an xml ready
@@ -61,29 +205,27 @@ class SolrAPI
 
   # This method creates indexes based on the *actual* TaxonConcept instances passed in as an argument (enumerable).
   def build_indexes(taxon_concepts = nil)
-    taxon_concepts ||= TaxonConcept.all
-    data = []
+    taxon_concepts ||= TaxonConcept.all(:include => [ { :taxon_concept_names => :name }, :flattened_ancestors ] )
+    data = {}
     taxon_concepts.each do |taxon_concept|
       images = taxon_concept.images
-      data << {:common_name => taxon_concept.all_common_names.map {|n| n.string },
+      data[taxon_concept.id] = {:common_name => taxon_concept.all_common_names.map {|n| n.string },
                :preferred_scientific_name => [taxon_concept.scientific_name],
                :scientific_name => taxon_concept.all_scientific_names.map {|n| n.string },
-               :taxon_concept_id => [taxon_concept.id],
                :ancestor_taxon_concept_id => taxon_concept.flattened_ancestors.map {|a| a.ancestor_id },
                :vetted_id => taxon_concept.vetted_id,
                :published => taxon_concept.published,
                :supercedure_id => taxon_concept.supercedure_id,
-               :top_image_id => images.blank? ? '' : taxon_concept.images.first.id }
+               :top_image_id => images.blank? ? [] : [taxon_concept.images.first.id] }
     end
-    create(data)
+    send_attributes(data)
   end
   
   def build_data_object_index(data_objects = nil)
     data_objects ||= DataObject.all
-    data = []
+    data = {}
     data_objects.each do |data_object|
       this_object_hash = {}
-      this_object_hash[:data_object_id] = data_object.id
       this_object_hash[:guid] = data_object.guid
       this_object_hash[:data_type_id] = data_object.data_type_id
       this_object_hash[:vetted_id] = data_object.vetted_id
@@ -93,7 +235,7 @@ class SolrAPI
       this_object_hash[:description] = data_object.description
       this_object_hash[:created_at] = data_object.created_at.solr_timestamp
       if concept = data_object.linked_taxon_concept
-        this_object_hash[:taxon_concept_id] = concept.id
+        this_object_hash[:taxon_concept_id] = [concept.id]
         this_object_hash[:ancestor_id] = concept.ancestors.map {|a| a.id}
       end
       if harvest_events = data_object.harvest_events
@@ -101,26 +243,55 @@ class SolrAPI
           this_object_hash[:resource_id] = harvest_events.last.resource_id
         end
       end
-      data << this_object_hash
+      data[data_object.id] = this_object_hash
     end
-    create(data)
+    send_attributes(data)
   end
   
-  def query_lucene(query, options = {})
-    EOL::Solr.query_lucene(self.server_url.to_s, query, options)
+  def query_lucene(q, options = {})
+    EOL::Solr.query_lucene(@action_url, q, options)
   end
-
+  
+  
+  
+  
+  
+  
   private
-
-  def post(method, data) 
-    request = Net::HTTP::Post.new(@server_url.path + "/#{method}")
-    request.body = data
-    request.content_type = 'application/xml'
-    response = Net::HTTP.start(@server_url.host, @server_url.port) {|http| http.request(request) }
+  
+  def self.http_get(url)
+    Net::HTTP.get(URI.parse(url))
   end
-
-  def get(query)
-    response = Net::HTTP.start(@server_url.host, @server_url.port) {|http| http.get(@server_url.path + "/select/?q=*:*&version=2.2&start=0&rows=10&indent=on&wt=json") }
-    response
+  
+  def self.json_get(url)
+    JSON.parse(http_get(url))
+  end
+  
+  def self.xml_get(url)
+    Nokogiri.XML(http_get(url))
+  end
+  
+  def self.post_fields(url, fields)
+    Net::HTTP.post_form(URI.parse(url), fields)
+  end
+  
+  def get_port
+    ping_host_response = SolrAPI.json_get('/api/ping_host')
+  end
+  
+  def self.array_to_hash(array)
+    i = -1
+    Hash[array.collect{ |v| [i+=1, v] }]
+  end
+  
+  def query(query)
+    response = Net::HTTP.start(@action_uri.host, @action_uri.port) {|http| http.get(@action_url + "/select/?q=#{query}&version=2.2&start=0&rows=10&indent=on&wt=json") }
+  end
+  
+  def post_xml(method, xml)
+    request = Net::HTTP::Post.new(@action_url + "/#{method}")
+    request.body = xml
+    request.content_type = 'application/xml'
+    response = Net::HTTP.start(@action_uri.host, @action_uri.port) {|http| http.request(request) }
   end
 end

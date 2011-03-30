@@ -18,6 +18,7 @@ describe User do
     User.delete_all
     @user = User.gen :username => 'KungFuPanda', :password => @password
     @user.should_not be_a_new_record
+    FeedItemType.gen_if_not_exists(:name => 'content update')
   end
 
   it "should generate a random hexadecimal key" do

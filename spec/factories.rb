@@ -551,6 +551,10 @@ Factory.define :feed_item do |fi|
   fi.body 'some important notification here'
 end
 
+Factory.define :feed_item_type do |fit|
+  fit.name { Factory.next(:string) }
+end
+
 Factory.define :glossary_term do |gt|
   gt.term       { Faker::Lorem.words[rand(4) + 1].titleize }
   gt.definition { Faker::Lorem.paragraph }

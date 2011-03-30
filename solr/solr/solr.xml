@@ -3,5 +3,6 @@
     <cores adminPath="/admin/cores">
         <core name="taxon_concepts" instanceDir="./cores/taxon_concepts/" dataDir="./data/taxon_concepts"/>
         <core name="data_objects" instanceDir="./cores/data_objects/" dataDir="./data/data_objects"/>
+        <core name="site_search" instanceDir="./cores/site_search/" dataDir="./data/site_search"/>
     </cores>
 </solr>

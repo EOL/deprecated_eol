@@ -504,7 +504,7 @@ describe DataObject do
 
   it 'should update the Solr record when the object is curated' do
     d = DataObject.gen(:vetted => Vetted.trusted, :visibility => Visibility.visible)
-    @solr = SolrAPI.new($SOLR_SERVER_DATA_OBJECTS)
+    @solr = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
     @solr.delete_all_documents
     @solr.build_data_object_index
     response = @solr.query_lucene("data_object_id:#{d.id}")

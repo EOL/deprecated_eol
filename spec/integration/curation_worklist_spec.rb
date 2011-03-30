@@ -66,7 +66,7 @@ describe 'Curator Worklist' do
     make_all_nested_sets
     flatten_hierarchies
     
-    @solr = SolrAPI.new($SOLR_SERVER_DATA_OBJECTS)
+    @solr = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
     @solr.delete_all_documents
     @solr.build_data_object_index
   end

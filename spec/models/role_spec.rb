@@ -2,7 +2,9 @@ require 'spec_helper'
 
 describe Role do
 
-  before(:each) do
+  before(:all) do
+    truncate_all_tables
+    load_foundation_cache
     SpecialCollection.create_all
     @special = Community.gen
     Community.stub!(:special).and_return(@special)
@@ -11,6 +13,7 @@ describe Role do
     @new_priv = Privilege.gen
     @role = Role.gen
     @community = Community.gen
+    FeedItemType.gen_if_not_exists(:name => 'content update')
   end
 
   before(:each) do

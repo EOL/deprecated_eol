@@ -117,7 +117,7 @@ class TaxonConcept < SpeciesSchemaModel
   # extra credit on their associated TC pages. This method returns an Array of those users.
   def curators(options={})
     return @curators unless @curators.nil?
-    sel = { :users => [ :id ] }
+    sel = { :users => [ :id, :username ] }
     users = User.find(:all,
       :select => sel,
         :joins => "JOIN #{HierarchyEntry.full_table_name} he ON (he.id = users.curator_hierarchy_entry_id)",

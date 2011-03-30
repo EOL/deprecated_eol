@@ -135,9 +135,9 @@ describe Community do
     community.feed.last.subject.should == tc
   end
 
-  it 'should post a note to the feed when a data object is added to the focus list' do
+  it 'should post a note to the feed when an image is added to the focus list' do
     community = Community.gen
-    dato = DataObject.gen
+    dato = DataObject.gen(:data_type => DataType.image)
     community.focus.add dato
     community.feed.last.body.should =~ /is.*watching an image/i
     community.feed.last.feed_item_type.should == FeedItemType.content_update

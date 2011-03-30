@@ -19,4 +19,4 @@
     = render(:partial => 'curator_form', :locals => {:f => f})
     - if @user.curator_approved
       %p
-        = link_to I18n.t("view_your_curator_profile"), { :controller => :curators, :action => :profile }
+        = link_to I18n.t("view_your_curator_profile"), { :controller => :curators, :action => :profile, :id => @user.id }

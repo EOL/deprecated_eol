@@ -42,12 +42,12 @@
         - column_class=cycle('odd','even')
         %tr{ :id => "row_#{user.id}" }
           %td{ :class => column_class }
-            = link_to(user.username, :controller => 'administrator/user', :action=>'edit',:id=>user.id)
+            = link_to user.username, { :controller => :user, :action => :edit, :id => user.id }
             - if user.curator_approved
               %br
               %small
                 (
-                = link_to(I18n.t("curator_profile"), :controller => '/account', :action => :show, :id => user.id)
+                = link_to(I18n.t("curator_profile"), { :controller => '/curators', :action => :profile, :id => user.id }
                 )
           %td{ :class => column_class }
             .toggle-credentials.linky

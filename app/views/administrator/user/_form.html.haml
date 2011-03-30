@@ -43,7 +43,7 @@
         %strong
           =I18n.t("profile_")
       %td
-        = external_link_to(I18n.t("curator_profile"), :controller => '/account', :action => :show, :id => @user.id, :show_link_icon => false)
+        = external_link_to(I18n.t("curator_profile"), :controller => '/curators', :action => :profile, :id => @user.id, :show_link_icon => false)
   %tr
     %td
       %strong

@@ -554,4 +554,40 @@ describe DataObject do
     @image_dato.feed.last.user.should == @user
   end
 
+  it 'should post a note to the feed (with reasons) when a curator untrusts the object' do
+    @image_dato.curate(@user, :vetted_id => Vetted.untrusted.id, :untrust_reasons_comment => 'testing the comments')
+    @image_dato.feed.last.body.should =~ /untrusted/
+    @image_dato.feed.last.body.should =~ /testing the comments/
+    @image_dato.feed.last.feed_item_type.should == FeedItemType.curator_activity
+    @image_dato.feed.last.user.should == @user
+  end
+
+  it 'should post a note to the feed when a curator "unreviews" the object' do
+    @image_dato.curate(@user, :vetted_id => Vetted.unknown.id)
+    @image_dato.feed.last.body.should =~ /marked.*as unreviewed/
+    @image_dato.feed.last.feed_item_type.should == FeedItemType.curator_activity
+    @image_dato.feed.last.user.should == @user
+  end
+
+  it 'should post a note to the feed when a curator marks the object as invisible' do
+    @image_dato.curate(@user, :visibility_id => Visibility.invisible.id)
+    @image_dato.feed.last.body.should =~ /hid an image/i
+    @image_dato.feed.last.feed_item_type.should == FeedItemType.curator_activity
+    @image_dato.feed.last.user.should == @user
+  end
+
+  it 'should post a note to the feed when a curator marks the object as inappropriate' do
+    @image_dato.curate(@user, :visibility_id => Visibility.inappropriate.id)
+    @image_dato.feed.last.body.should =~ /marked an image as inappropriate/i
+    @image_dato.feed.last.feed_item_type.should == FeedItemType.curator_activity
+    @image_dato.feed.last.user.should == @user
+  end
+
+  it 'should post a note to the feed when a curator shows the object' do
+    @image_dato.curate(@user, :visibility_id => Visibility.visible.id)
+    @image_dato.feed.last.body.should =~ /made this image visible/i
+    @image_dato.feed.last.feed_item_type.should == FeedItemType.curator_activity
+    @image_dato.feed.last.user.should == @user
+  end
+
 end

@@ -125,13 +125,10 @@ describe 'EOL APIs' do
     @dog  = build_taxon_concept(:scientific_name => @dog_sci_name, :common_names => [@domestic_name], :parent_hierarchy_entry_id => @wolf.hierarchy_entries.first.id)
     @dog2  = build_taxon_concept(:scientific_name => "Canis dog", :common_names => "doggy")
     
-    
     SearchSuggestion.gen(:taxon_id => @dog.id, :term => @dog_name, :scientific_name => @dog.scientific_name,
                          :common_name => @dog.common_name)
     SearchSuggestion.gen(:taxon_id => @wolf.id, :term => @dog_name, :scientific_name => @wolf.scientific_name,
                          :common_name => @wolf.common_name)
-    flatten_hierarchies
-    recreate_indexes
 
     # Provider Hierarchies
     @test_hierarchy = Hierarchy.gen(:label => 'Some test hierarchy', :browsable => 1)
@@ -141,6 +138,7 @@ describe 'EOL APIs' do
     @second_test_hierarchy_entry = HierarchyEntry.gen(:hierarchy => @second_test_hierarchy, :identifier => 54321, :parent_id => 0, :published => 1, :visibility_id => Visibility.visible.id, :rank => Rank.kingdom)
     make_all_nested_sets
     flatten_hierarchies
+    recreate_indexes
   end
 
   before(:each) do

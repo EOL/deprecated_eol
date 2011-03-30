@@ -110,6 +110,7 @@ describe 'Search' do
       
       # I'm only doing this so we get two results and not redirected.
       another = build_taxon_concept(:scientific_name => @tricky_search_suggestion)
+      make_all_nested_sets
       flatten_hierarchies
       recreate_indexes
       visit("/search?q=#{@tiger_name}")
@@ -129,13 +130,11 @@ describe 'Search' do
     end
     
     it 'should show a list of possible results (linking to /found) if more than 1 match is found  (also for pages/searchterm)' do
-    
       body = @tiger_search
       body.should have_tag('td', :text => @tiger_name)
       body.should have_tag('td', :text => @tiger_lilly_name)
       body.should have_tag('a[href*=?]', %r{/found/#{@tiger_lilly.id}})
       body.should have_tag('a[href*=?]', %r{/found/#{@tiger.id}})
-    
     end
     
     it 'should paginate' do
@@ -225,7 +224,7 @@ describe 'Search' do
       new_image_dato.tag("key-new", "value-new", user)
       
       visit('/search?q=value-old&search_type=tag')
-      body.should include(taxon_concept.scientific_name)
+      body.should include(taxon_concept.scientific_name.gsub("&","&amp;"))
     end
   
     # REMOVE AFTER PAGINATION IMPLEMENTING TODO

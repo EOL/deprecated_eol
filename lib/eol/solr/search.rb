@@ -1,9 +1,12 @@
+# For debugging, a helpful query to get back ALL results:
+#
+# open($SOLR_SERVER + $SOLR_TAXON_CONCEPTS_CORE + '/select/?version=2.2&indent=on&wt=json&q=' + CGI.escape(%Q[{!lucene} *:* AND published:1 AND supercedure_id:0])).read
 module EOL
   module Solr
 
     module Search
-      # Returns an array of result hashes, using will_paginate.  Don't use paginate_all_by_solr directly, as that will either fail
-      # or cause duplicate queries.
+      # Returns an array of result hashes, using will_paginate.  Don't use paginate_all_by_solr directly, as that will either
+      # fail or cause duplicate queries.
       # TODO - use a class rather than a class variable for search_results_for
       def search_with_pagination(query, options = {})
         options[:page]        ||= 1

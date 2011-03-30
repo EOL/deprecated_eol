@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    This defines the extension for defining EOL data objects as extensions to a Taxon core object.
+    This will be used by EOL content partners who will use the IPT to export their data to a format
+    that can be ingested into EOL.
+-->
+<extension xmlns="http://ipt.gbif.org/extension/"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://ipt.gbif.org/extension/ http://gbrds.gbif.org/resources/schemas/extension.xsd"
+            title="EOL ContentSchema 2.0"
+            name="EOL ContentSchema 2.0"
+            namespace="http://www.eol.org/transfer/content/2.0/">
+
+    <property name="identifier"
+              namespace="http://purl.org/dc/terms/"
+              qualName="http://purl.org/dc/terms/identifier"
+              required="true"/>
+
+    <property name="type"
+              namespace="http://purl.org/dc/terms/"
+              qualName="http://purl.org/dc/terms/type"
+              thesaurus="http://purl.org/dc/dcmitype/"
+              required="true"/>
+
+    <!-- mrtg:subtype -->
+    <property name="subtype"
+              namespace="http://purl.org/dc/terms/"
+              qualName="http://purl.org/dc/terms/type"/>
+
+    <property name="title"
+              namespace="http://purl.org/dc/terms/"
+              qualName="http://purl.org/dc/terms/title"/>
+
+    <!-- mrtg:accessURL -->
+    <property name="mediaURL"
+              namespace="http://purl.org/dc/terms/"
+              qualName="http://purl.org/dc/terms/source"/>
+
+    <!-- mrtg:variant / AccessPoint -->
+    <property name="thumbnailURL"
+              namespace="http://purl.org/dc/terms/"
+              qualName="http://purl.org/dc/terms/source"/>
+
+    <!-- mrtg:furtherInformationURL, eol:source -->
+    <property name="furtherInformationURL"
+              namespace="http://purl.org/dc/terms/"
+              qualName="http://purl.org/dc/terms/source"/>
+
+    <!-- xmp:CreateDate -->
+    <property name="created"
+              namespace="http://purl.org/dc/terms/"
+              qualName="http://purl.org/dc/terms/created"/>
+
+    <property name="modified"
+              namespace="http://purl.org/dc/terms/"
+              qualName="http://purl.org/dc/terms/modified"/>
+
+    <!-- mrtg:date vailable -->
+    <property name="available"
+              namespace="http://purl.org/dc/terms/"
+              qualName="http://purl.org/dc/terms/available"/>
+
+    <!-- mrtg:language -->
+    <property name="language"
+              namespace="http://purl.org/dc/terms/"
+              qualName="http://purl.org/dc/terms/language"
+              thesaurus="http://www.loc.gov/standards/iso639-2/langhome.html"/>
+
+    <!-- mrtg:metadataLanguage -->
+    <property name="metadataLanguage"
+              namespace="http://purl.org/dc/terms/"
+              qualName="http://purl.org/dc/terms/language"
+              thesaurus="http://www.loc.gov/standards/iso639-2/langhome.html"/>
+
+    <!-- mrtg:providerManagedID -->
+    <property name="providerManagedID"
+              namespace="http://purl.org/dc/terms/"
+              qualName="http://purl.org/dc/terms/identifier"/>
+
+    <property name="rating"
+              namespace="http://ns.adobe.com/xap/1.0/"
+              qualName="http://ns.adobe.com/xap/1.0/rating"/>
+
+    <!-- mrtg:licenseURL -->
+    <property name="license"
+              namespace="http://purl.org/dc/terms/"
+              qualName="http://purl.org/dc/terms/license"
+              thesaurus="http://creativecommons.org/licenses/"
+              required="true"/>
+
+    <!-- mrtg:copyright statement -->
+    <property name="rights"
+              namespace="http://purl.org/dc/terms/"
+              qualName="http://purl.org/dc/terms/rights"
+              required="true"/>
+
+    <!-- mrtg:copyright owner -->
+    <property name="rightsHolder"
+              namespace="http://purl.org/dc/terms/"
+              qualName="http://purl.org/dc/terms/rightsHolder"
+              required="true"/>
+
+    <property name="bibliographicCitation"
+              namespace="http://purl.org/dc/terms/"
+              qualName="http://purl.org/dc/terms/bibliographicCitation"/>
+
+    <property name="audience"
+              namespace="http://purl.org/dc/terms/"
+              qualName="http://purl.org/dc/terms/audience"/>
+
+    <!-- SPM or EOL -->
+    <property name="subject"
+              namespace="http://purl.org/dc/terms/"
+              qualName="http://purl.org/dc/terms/subject"/>
+
+    <property name="publisher"
+              namespace="http://purl.org/dc/terms/"
+              qualName="http://purl.org/dc/terms/publisher"/>
+
+    <property name="contributor"
+              namespace="http://purl.org/dc/terms/"
+              qualName="http://purl.org/dc/terms/contributor"/>
+
+    <property name="creator"
+              namespace="http://purl.org/dc/terms/"
+              qualName="http://purl.org/dc/terms/creator"/>
+
+    <property name="provider"
+              namespace="http://purl.org/dc/terms/"
+              qualName="http://purl.org/dc/terms/publisher"/>
+
+    <!-- mrtg:description -->
+    <property name="description"
+              namespace="http://purl.org/dc/terms/"
+              qualName="http://purl.org/dc/terms/description"/>
+
+    <!-- mrtg:caption -->
+    <!-- do we need both caption and description? -->
+    <property name="caption"
+              namespace="http://purl.org/dc/terms/"
+              qualName="http://purl.org/dc/terms/description"/>
+
+    <!-- mrtg:description -->
+    <property name="locality"
+              namespace="http://rs.tdwg.org/dwc/terms/"
+              qualName="http://rs.tdwg.org/dwc/terms/locality"/>
+
+    <property name="latitude"
+              namespace="http://www.w3.org/2003/01/geo/wgs84_pos#"
+              qualName="http://www.w3.org/2003/01/geo/wgs84_pos#lat"/>
+
+    <property name="longitude"
+              namespace="http://www.w3.org/2003/01/geo/wgs84_pos#"
+              qualName="http://www.w3.org/2003/01/geo/wgs84_pos#long"/>
+
+    <property name="altitude"
+              namespace="http://www.w3.org/2003/01/geo/wgs84_pos#"
+              qualName="http://www.w3.org/2003/01/geo/wgs84_pos#alt"/>
+
+    <property name="reference"
+              namespace="http://www.eol.org/transfer/content/0.3/"
+              qualName="http://www.eol.org/transfer/content/0.3/reference"/>
+
+    <property name="referenceDOI"
+              namespace="http://purl.org/dc/terms/"
+              qualName="http://purl.org/dc/terms/identifier"/>
+
+    <property name="referenceURL"
+              namespace="http://purl.org/dc/terms/"
+              qualName="http://purl.org/dc/terms/source"/>
+</extension>

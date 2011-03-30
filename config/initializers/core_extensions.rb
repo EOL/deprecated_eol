@@ -201,7 +201,8 @@ module ActiveRecord
           puts e.message
           pp e.backtrace
         end
-      end
+      end  # end uses_translations
+      
     end
   end
 end

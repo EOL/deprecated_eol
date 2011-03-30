@@ -35,7 +35,7 @@ describe "Content Partner Taxa Comments" do
   it "should show content partner page" do
     login_content_partner_capybara(:username => @agent.username, :password => @pass)
     visit('/content_partner')
-    body.should include "Logged in as"
+    body.should include "Hello"
   end
 
   it "should render taxa comments page" do

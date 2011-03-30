@@ -1,5 +1,7 @@
 class CommunitiesController < ApplicationController
-
+  
+  layout 'v2/communities'
+  
   before_filter :load_community_and_dependent_vars, :except => [:index, :new, :create]
   before_filter :must_be_logged_in, :except => [:index, :show]
   before_filter :restrict_edit_and_delete, :only => [:edit, :update, :delete]

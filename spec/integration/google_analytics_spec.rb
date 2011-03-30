@@ -30,7 +30,7 @@ describe "Google Analytics Stats Page" do
   it "should show content partner page" do
     login_content_partner_capybara(:username => @agent.username, :password => @pass)
     visit('/content_partner')
-    body.should include "Logged in"
+    body.should include "Hello"
   end
 
   it "should render monthly_page_stats page" do

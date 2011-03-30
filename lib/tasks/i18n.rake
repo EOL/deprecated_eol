@@ -10,8 +10,8 @@ namespace :i18n do
   tmp_file = File.join([lang_dir, "tmp.yml"])
   en_yml = File.join([lang_dir, "en.yml"])
   trans_tmp = File.join([lang_dir, "translation_template.yml"])
-  
-  
+
+
   desc 'convert old yml language files from Gibberish format to support i18n '
   task :convert_yml do
     Dir.glob(File.join([gibberish_lang_dir,"*"])).each do |file|
@@ -33,13 +33,13 @@ namespace :i18n do
             tmp.write lang+":\n"
 	    tmp.write "  "+line.gsub('{','%{')
             while (!cur_file.eof? && line = cur_file.readline)
-              tmp.write "  " + line.gsub('{','%{')            
-            end            
+              tmp.write "  " + line.gsub('{','%{')
+            end
             tmp.close
             cur_file.close
-            File.rename(tmp_file,File.join([lang_dir, lang + ".yml"]))            
+            File.rename(tmp_file,File.join([lang_dir, lang + ".yml"]))
             puts " --Converted successfully :)"
-	  end 
+	  end
         end
       else
         #File.delete file
@@ -57,7 +57,7 @@ namespace :i18n do
     if File.exist?(en_yml)
       en = open(en_yml)
       write_type = 'a'
-      en_content = ''    
+      en_content = ''
       en.read.each do |line|
         if line.match(/^\s\s([\w_?]*):\s/)
           en_content << line.strip + "\n"
@@ -66,16 +66,16 @@ namespace :i18n do
       en.close
       new_keys  = YAML.load(en_content)
       puts "en.yml file exist and available contents are loaded"
-    else       
+    else
       write_type='w'
       named_keys << "en:\n"
       puts "New en.yml file will be created"
     end
 
-    #loop on each file in the app folder 
+    #loop on each file in the app folder
     Dir.glob(File.join([RAILS_ROOT, "app", "**", "*"])).each do |file|
-      if file.match(/(erb|haml|rb)$/) 
-        tmp = open(tmp_file, 'w') 
+      if file.match(/(erb|haml|rb)$/)
+        tmp = open(tmp_file, 'w')
         puts "File: " + file + "\n"
         open(file).read.each_with_index do |line, count|
           begin
@@ -89,7 +89,7 @@ namespace :i18n do
               value = wmatch[1][1..-2]
               key = wmatch[0].match(/\[\s*:[\w_]*\s*(\]|,)/).to_s.gsub(/(\[|\]|,|\s|:)+/,"")
 	      if wmatch[0].match(/\[\s*:[\w_]*\s*,/)
-                params= wmatch[0].split(":"+key)[-1][0..-2]                
+                params= wmatch[0].split(":"+key)[-1][0..-2]
                 param_keys = value.scan(/\{[\w_]*\}/)
                 param_values = params.strip.split(",")
                 params=""
@@ -97,14 +97,14 @@ namespace :i18n do
                   params+=" , :%s => %s"  % [ param_keys[i].strip[1..-2], param_values[i+1].strip ]
                 end
                 value = value.gsub('{','%{')
-              end                         
+              end
               puts "KEY= "+key+"----VALUE="+value
               found=true
-            end       
+            end
             if found==true && key.length==0
                found=false
             end
-            if found==true 
+            if found==true
               line = line.gsub(wmatch[0], " I18n.t(:%s%s) " % [key,params])
 	      if(!new_keys.key?(key))
                 new_keys[key] = value
@@ -117,7 +117,7 @@ namespace :i18n do
         tmp.close
         File.rename(tmp_file,file+"")
       end
-    end        
+    end
     en = open(en_yml,write_type)
     named_keys.each do |line|
       en.write(line)
@@ -130,8 +130,8 @@ namespace :i18n do
     puts "load english as a template"
     en = open(en_yml)
     puts "loaded"
-    
-    en_content = ''    
+
+    en_content = ''
     en.read.each do |line|
       if line.match(/^\s\s([\w_?]*):\s/)
         en_content << line.strip
@@ -140,14 +140,14 @@ namespace :i18n do
     end
     en.close
     en_data = YAML.load(en_content)
-    
+
     Dir.glob(File.join([lang_dir, "*"])).each do |file|
       file_name = File.split(file)[-1]
       if file_name != en_file && file != tmp_file && file_name != File.split(en_yml)[-1] && file_name.match(/^[a-z]{2}\.yml\b/)
         puts "loading file: " + file_name
         en = open(en_yml)
         lang = open(file)
-        
+
         lang_content = ''
         lang.read.each do |line|
           if line.match(/^\s\s([\w_?]*):\s/)
@@ -155,7 +155,7 @@ namespace :i18n do
             lang_content << "\n"
           end
         end
-        data = YAML.load(lang_content)        
+        data = YAML.load(lang_content)
         lang.close
 
         if data
@@ -164,7 +164,7 @@ namespace :i18n do
             key = line.match(/^\s\s([\w_?]*):\s/)
             if key
               key = key[1] if key
-              if !data[key]  and key != nil           
+              if !data[key]  and key != nil
                 to_be_translated_content << "#TODO: "
                 to_be_translated_content << en_data[key].gsub("\n", " ") if en_data[key]
                 to_be_translated_content << "\n"
@@ -174,7 +174,7 @@ namespace :i18n do
           end
         end
         en.close
-        puts "appending changes to " + file_name     
+        puts "appending changes to " + file_name
         lang = open(file, 'a')
         lang.write to_be_translated_content
         lang.close
@@ -185,7 +185,7 @@ namespace :i18n do
 
   desc 'task to generate a key based on a based argument'
   task :generate_key, [:message] do |t, args|
-    
+
     def check_if_string_exists(string, en_yml)
       en = open(en_yml)
       en.read.each do |line|
@@ -215,7 +215,7 @@ namespace :i18n do
       end
       return key
     end
-    
+
     def generate_key(string_value)
       string_array = string_value.split('')
       return_string = ''
@@ -250,7 +250,7 @@ namespace :i18n do
       end
       return return_string
     end
-    
+
     def write_to_en_yml_file(en_yml, key, value)
       en_file = open(en_yml, 'a')
       en_file.write "  " + key + ": \"" + value.gsub("\"", "\\\"") + "\"\n"
@@ -290,7 +290,7 @@ namespace :i18n do
 
       return output_str
     end
-    
+
     if (args.message)
       puts "Key: " + process_string(args.message, en_yml)
     else

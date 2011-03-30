@@ -36,7 +36,7 @@ describe 'Content Partner Registry' do
     it 'should be able to view the edit resource page' do
       # TODO - why is it called content partner ID if it wants an agent ID?
       visit("/content_partner/resources/#{@resource.id}/edit?content_partner_id=#{@agent.id}")
-      body.should include("Logged in as #{@admin.given_name}")
+      body.should include("Hello #{@admin.given_name}")
       body.should include('Editing Resource')
       body.should include(@resource.accesspoint_url)
     end
@@ -44,7 +44,7 @@ describe 'Content Partner Registry' do
     it 'should be able to view the harvest events' do
       # TODO - why is it called content partner ID if it wants an agent ID?
       visit("/content_partner/resources/#{@resource.id}/harvest_events?content_partner_id=#{@agent.id}")
-      body.should include("Logged in as #{@admin.given_name}")
+      body.should include("Hello #{@admin.given_name}")
       body.should include("Harvests for\n#{@agent.full_name}")
       body.should have_tag('td.odd', :text => /#{@harvest_event.id}/)
     end
@@ -52,7 +52,7 @@ describe 'Content Partner Registry' do
     it 'should be able to view the taxa harvested' do
       # TODO - why is it called content partner ID if it wants an agent ID?
       visit("/harvest_events/#{@harvest_event.id}/taxa")
-      body.should include("Logged in as #{@admin.given_name}")
+      body.should include("Hello #{@admin.given_name}")
       body.should include("List of taxa harvested")
       body.should include(@harvested_taxon_concept.entry.name.canonical_form.string)
     end
@@ -60,7 +60,7 @@ describe 'Content Partner Registry' do
     it 'should be able to view the resource hierarchy' do
       # TODO - why is it called content partner ID if it wants an agent ID?
       visit("/administrator/hierarchy/browse/#{@hierarchy.id}")
-      body.should include("Logged in as #{@admin.given_name}")
+      body.should include("Hello #{@admin.given_name}")
       body.should include("Hierarchy Roots:")
       body.should include("edit hierarchy")
       body.should include(@harvested_taxon_concept.entry.name.string)
@@ -80,7 +80,7 @@ describe 'Content Partner Registry' do
 
     it 'should be able to view the edit resource page' do
       visit("/content_partner/resources/#{@resource.id}/edit")
-      body.should include("Logged in as #{@agent.full_name}")
+      body.should include("Hello #{@agent.full_name}")
       body.should include('Editing Resource')
       body.should include(@resource.accesspoint_url)
     end
@@ -88,7 +88,7 @@ describe 'Content Partner Registry' do
     it 'should be able to view the harvest events' do
       # TODO - why is it called content partner ID if it wants an agent ID?
       visit("/content_partner/resources/#{@resource.id}/harvest_events")
-      body.should include("Logged in as #{@agent.full_name}")
+      body.should include("Hello #{@agent.full_name}")
       body.should include("Harvests for\n#{@agent.full_name}")
       body.should have_tag('td.odd', :text => /#{@harvest_event.id}/)
     end
@@ -96,7 +96,7 @@ describe 'Content Partner Registry' do
     it 'should be able to view the taxa harvested' do
       # TODO - why is it called content partner ID if it wants an agent ID?
       visit("/harvest_events/#{@harvest_event.id}/taxa")
-      body.should include("Logged in as #{@agent.full_name}")
+      body.should include("Hello #{@agent.full_name}")
       body.should include("List of taxa harvested")
       body.should include(@harvested_taxon_concept.entry.name.canonical_form.string)
     end
@@ -104,7 +104,7 @@ describe 'Content Partner Registry' do
     it 'should be able to view the resource hierarchy' do
       # TODO - why is it called content partner ID if it wants an agent ID?
       visit("/content_partner/hierarchy/#{@hierarchy.id}")
-      body.should include("Logged in as #{@agent.full_name}")
+      body.should include("Hello #{@agent.full_name}")
       body.should include("Click to propose this hierarchy as an alternate browsing classification for EOL")
       body.should include("Hierarchy Roots:")
       body.should include(@harvested_taxon_concept.entry.name.string)

@@ -1,93 +1,92 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html>
     <head>
-        <title>EOL Content Partner Agreement</title>
+        <title><%=  I18n.t("eol_content_partner_agreement") %></title>
     </head>
     <style type="text/css" media="screen">
         body {font-family: Arial, "MS Trebuchet", sans-serif;}
     </style>
     <body>
 
-        <h1>Content Partner Agreement</h1>
+        <h1><%= I18n.t("content_partner_agreement") %></h1>
         <h1><%=@agent.project_name%></h1>
 
-		<p>Created on <%=format_date_time(@agreement.created_at)%></p>
+		<p><%= I18n.t("created_on_") %> <%=format_date_time(@agreement.created_at)%></p>
 
-        <h2>Introduction</h2>
-        <p>The Encyclopedia of Life and <%= @agent.project_name %> agree to work together to develop and share critical biodiversity content to aid in assembling the Encyclopedia of Life.  The Encyclopedia of Life will have access to data objects provided by <%= @agent.project_name %> and <%= @agent.project_name %> will have access to the resources of the Encyclopedia of Life, including species pages, scanned literature, and informatics tools in accordance with the terms listed below.</p>
-
-        <h2>The Parties</h2>
-        <p>The Encyclopedia of Life (EOL) is an informal consortium of organizations dedicated to building an on-line Encyclopedia of Life composed of content-rich multi-media species pages for all of the presently known species on Earth. The cornerstone institutions of the EOL are listed at <a href="http://www.eol.org/content/page/institutional_partners" target="_blank">http://www.eol.org/content/page/institutional_partners</a>.  Currently, the EOL is composed of five working groups: </p>
+        <h2><%= I18n.t("introduction") %></h2>
+        <p><%= I18n.t("the_encyclopedia_of_life_and_v", :var__agent_project_name => @agent.project_name, :var__agent_project_name => @agent.project_name, :var__agent_project_name => @agent.project_name) %> </p>
+        <h2><%= I18n.t("the_parties") %></h2>
+        <p><%= I18n.t("the_encyclopedia_of_life__eol__") %></p>
 
         <ul>
-            <li><em>Species Pages Group</em> - defines the composition of information on species pages; works with the scientific community to identify potential sources of information (such as the Content Partner) for the species pages and to authenticate the information on the species pages; establishes licensing agreements with data providers.</li>
-            <li><em>Biodiversity Informatics Group</em> - conceptualizes and prepares the software needed to host and to search the species pages; applies taxonomic intelligence to the scientific names on the species pages and in the literature.</li>
-            <li><em>Scanning and Digitization Group</em> - working with the Biodiversity Heritage Library, a consortium of many of the world's largest natural history libraries, digitizes and marks up the world's biodiversity literature.</li>
-            <li><em>Education and Outreach Group</em> - exploits the EOL's potential by exploring and promoting its educational uses.</li>
-            <li><em>Biodiversity Synthesis Group</em> - holds synthesis meetings to help reach taxonomic consensus on  megadiverse groups; develops tools for analyzing and synthesizing information across species pages.</li>
+            <li><em><%= I18n.t("species_pages_group") %></em> - <%= I18n.t("defines_the_composition_of_inf") %></li>
+            <li><em><%= I18n.t("biodiversity_informatics_group") %></em> - <%= I18n.t("conceptualizes_and_prepares_th") %></li>
+            <li><em><%= I18n.t("scanning_and_digitization_grou") %></em> - <%= I18n.t("working_with_the_biodiversity_") %></li>
+            <li><em><%= I18n.t("education_and_outreach_group") %></em> - <%= I18n.t("exploits_the_eol_s_potential_b") %></li>
+            <li><em><%= I18n.t("biodiversity_synthesis_group") %></em> - <%= I18n.t("holds_synthesis_meetings_to_he") %></li>
         </ul>
         
         <p><%= @agent.project_description %></p>
         
-        <h2>Content Licensing</h2>
-        <p>To the greatest extent possible, the Encyclopedia of Life promotes an open-source, open-access approach. Therefore, it requires that content providers (including the EOL's core participants) serving information through the EOL agree to the following provisions:</p>
+        <h2><%=  I18n.t("content_licensing") %></h2>
+        <p><%= I18n.t("to_the_greatest_extent_possibl_") %></p>
         
         <ol>
-            <li>Content providers warrant and represent that the content they provide under this Agreement either is in the public domain, that they hold the rights, or that they have obtained the necessary permissions from the rights-holders to use, reproduce and disseminate the content for use in the Encyclopedia, and that the content providers will hold EOL and the members of the EOL consortium harmless in the event of a claim arising from the submitted content.</li>
-            <li>All information currently in the public domain will remain in the public domain. Neither the EOL nor the content providers will seek to assert any IPR over any public domain materials that are made available through the EOL.</li>
-            <li>Content providers are required to adopt a Creative Commons license for the information subject to copyright that they serve through the EOL. The default and preferred license is CC-BY (Attribution), which allows users to copy, transmit and reuse the information, and to remix or adapt the information, as long as attribution regarding the source of the information is maintained.</li>
-            <li>Content providers who request some restrictions on re-use of their information may select an alternate Creative Commons license:  CC-BY-SA (Attribution-ShareAlike), CC-BY-NC (Attribution-NonCommercial) or CC-BY-NC-SA (Attribution-NonCommercial-ShareAlike).</li>
-            <li>The EOL will provide attribution information for all content that it serves. EOL will also indicate the Creative Commons license attached to each object (text, structured data, graphics, multimedia, etc.).</li>
+            <li><%= I18n.t("content_providers_warrant_and__") %></li>
+            <li><%= I18n.t("all_information_currently_in_t_") %></li>
+            <li><%= I18n.t("content_providers_are_required_") %></li>
+            <li><%= I18n.t("content_providers_who_request__") %></li>
+            <li><%= I18n.t("the_eol_will_provide_attributi_") %></li>
         </ol>
 
-        <p>Full information about the Creative Commons licensing can be found at <a href="http://www.creativecommons.org" target="_blank">http://www.creativecommons.org</a>. 
+        <p><%= I18n.t("full_information_about_the_cre") %> <a href="http://www.creativecommons.org" target="_blank">http://www.creativecommons.org</a>. 
         
-        <h2>Content Attribution</h2>
+        <h2><%= I18n.t("content_attribution") %></h2>
 
-        <p>EOL intends to provide attribution for all provided content in the manner specified by <%= @agent.project_name %>.  The methodology EOL uses to attribute the content provided by <%= @agent.project_name %> is fundamentally based on multi-level text strings and/or logos at the level of individual data objects.  <%= @agent.project_name %> will submit attribution information via the Transfer Schema.  Note:  The specific style and techniques employed for display of attribution for data objects may change as the EOL evolves. </p>
-        
-        <h2>Roles and Conditions of Use</h2>
-        
-        <p>In providing its content to EOL, <%= @agent.project_name %> will:</p>
+        <p><%=  I18n.t("eol_intends_to_provide_attribu", :var__agent_project_name => @agent.project_name, :var__agent_project_name => @agent.project_name, :var__agent_project_name => @agent.project_name) %></p>
 
-        <ul>
-            <li>Provide its content via a format and interchange method compatible with the EOL.</li>
-            <li>Provide data objects as-is with no warranty or claim of fitness for purpose.</li>
-            <li>Respond to the originators of comments or feedback communicated to <%= @agent.project_name %> via the EOL regarding its content.</li>
-            <li>Work with the EOL to improve the quality of the provided data objects and reduce errors.</li>
-            <li>Comply with the Creative Commons licenses of any EOL content from other Content Partners that it may choose to use for its own purposes and to provide full attribution in the specified manner of the license.</li>        
-            <li>Be able to display the EOL logo on its web site.</li>
-        </ul>
+        <h2><%= I18n.t("roles_and_conditions_of_use") %></h2>
         
-        <p>In handling the content provided by <%= @agent.project_name %>, EOL will:</p>
+        <p><%= I18n.t("in_providing_its_content_to_eo_", :var__agent_project_name => @agent.project_name) %></p>
 
         <ul>
-            <li>Provide tools and methods to enable <%= @agent.project_name %> to provide its content to the EOL.</li>
-            <li>Cache <%= @agent.project_name %>'s data objects along with similar content from other sources on EOL's servers.</li>
-            <li>Attribute all of <%= @agent.project_name %>'s data objects according to its preferred Creative Commons licenses and in the manner specified by <%= @agent.project_name %>.</li>
-            <li>Present or pass along <%= @agent.project_name %>'s data objects to others using web services (such as APIs) which will carry the same Creative Commons licenses and specified manner of attribution.</li>
-            <li>Refer all requests for re-usage of <%= @agent.project_name %>'s content to <%= @agent.project_name %>.</li>
-            <li>Not alter the data objects provided; however EOL will enable annotations or comments to be added.</li>
-            <li>Notify <%= @agent.project_name %> of any comments or feedback received about its data objects.</li>
-            <li>Work with <%= @agent.project_name %> to improve the quality of the provided data objects and reduce errors.</li>
-            <li>Notify <%= @agent.project_name %> of statistics about the usage of its data objects.</li>
-            <li>Enable <%= @agent.project_name %> to access content from the EOL and to use that content on <%= @agent.project_name %>'s own server or site according to the terms of the Creative Commons licenses, if any, for that content.</li>
-            <li>Show <%= @agent.project_name %>'s logo and project description on its list of data partners.</li>
-            <li>Post on the EOL site a statement designating an agent for receiving notice of any content alleged to violate copyright or other rights; remove any content upon receiving such notice or upon otherwise discovering infringing content.</li>
-            <li>EOL may elect at its sole discretion to present all, portions or none of any data objects provided by <%= @agent.project_name %> and reserves the right to redact or remove any illegal, offensive, or objectionable content.</li>
+            <li><%= I18n.t("provide_its_content_via_a_form") %></li>
+            <li><%= I18n.t("provide_data_objects_as_is_wit") %></li>
+            <li><%= I18n.t("respond_to_the_originators_of__", :var__agent_project_name => @agent.project_name) %></li>
+            <li><%= I18n.t("work_with_the_eol_to_improve_t") %></li>
+            <li><%= I18n.t("comply_with_the_creative_commo") %></li>  
+            <li><%= I18n.t("be_able_to_display_the_eol_log") %></li>
         </ul>
         
-        <p>The parties do not intend to create a legal partnership, principal/agent, or joint venture relationship and nothing in this agreement shall be construed as creating such a relationship between the parties.  Neither party may incur any obligation on behalf of the other.</p>
+        <p><%= I18n.t("in_handling_the_content_provid_", :var__agent_project_name => @agent.project_name) %></p>
 
-        <p>This agreement is non-exclusive, and in no way restricts either EOL or <%= @agent.project_name %> from participating in similar activities or arrangements with other public or private initiatives, organizations, or individuals.</p>
+        <ul>
+            <li><%= I18n.t("provide_tools_and_methods_to_e_", :var__agent_project_name => @agent.project_name %></li>
+            <li><%= I18n.t("cache_var__agent_project_name_", :var__agent_project_name => @agent.project_name) %></li>
+            <li><%= I18n.t("attribute_all_of_var__agent_pr", :var__agent_project_name => @agent.project_name, :var__agent_project_name => @agent.project_name) %></li>
+            <li><%= I18n.t("present_or_pass_along_var__age", :var__agent_project_name => @agent.project_name) %></li>
+            <li><%= I18n.t("refer_all_requests_for_re_usag", :var__agent_project_name => @agent.project_name, :var__agent_project_name => @agent.project_name) %></li>
+            <li><%= I18n.t("not_alter_the_data_objects_pro") %></li>
+            <li><%= I18n.t("notify_var__agent_project_name", :var__agent_project_name => @agent.project_name) %></li>
+            <li><%= I18n.t("work_with_var__agent_project_n", :var__agent_project_name => @agent.project_name) %></li>
+            <li><%= I18n.t("notify_var__agent_project_name_", :var__agent_project_name => @agent.project_name) %></li>
+            <li><%= I18n.t("enable_var__agent_project_name", :var__agent_project_name => @agent.project_name, :var__agent_project_name => @agent.project_name) %></li>
+            <li><%= I18n.t("show_var__agent_project_name_s", :var__agent_project_name => @agent.project_name) %></li>
+            <li><%= I18n.t("post_on_the_eol_site_a_stateme") %></li>
+            <li><%= I18n.t("eol_may_elect_at_its_sole_disc_", :var__agent_project_name => @agent.project_name) %></li>
+        </ul>
+        
+        <p><%= I18n.t("the_parties_do_not_intend_to_c") %></p>
 
-        <p>This agreement and the obligations set forth herein shall be subject to available funding and nothing in this agreement creates any financial obligation on the part of either party.</p>
+        <p><%= I18n.t("this_agreement_is_non_exclusiv", :var__agent_project_name => @agent.project_name) %></p>
+
+        <p><%= I18n.t("this_agreement_and_the_obligat") %></p>
         
-        <p><%= @agent.project_name %> agrees that it shall not use the names or logos of EOL or any EOL cornerstone institution in any manner or through any medium without EOL’s or the EOL cornerstone institution’s prior, written consent.  Upon the expiration or termination of this Agreement, <%= @agent.project_name %> shall immediately cease to use the names or logos of EOL or any EOL cornerstone institution and shall not exploit in any manner its association with EOL or any EOL cornerstone institution unless otherwise agreed to in writing by EOL or any EOL cornerstone institution at the time of such expiration or termination.</p>
+        <p><%= I18n.t("var__agent_project_name_agrees", :var__agent_project_name => @agent.project_name, :var_agent_project_name => agent.project_name) %></p>
         
-        <p>Either Party may amend or modify this Agreement by notifying the other Party in writing and with the prior written agreement of the other Party. Either Party may withdraw from the Agreement by providing written notification to the other Party 90 days in advance of withdrawal. Should <%= @agent.project_name %> withdraw from the agreement, EOL will remove <%= @agent.project_name %> content within one month.</p>
+        <p><%= I18n.t("_either_party_may_amend_or_mod", :var__agent_project_name => @agent.project_name, :var__agent_project_name => @agent.project_name) %></p>
         
-        <h2>Contact Information</h2>
+        <h2><%= I18n.t("contact_information") %></h2>
         
         <table width="100%">
             <tr valign="top">
@@ -95,17 +94,17 @@
                     <strong><%= @agent.project_name %></strong><br />
 					          <%= @primary_contact.homepage %><br />
                     <%= @primary_contact.full_name %><br />
-                    E-mail: <%= mail_to @primary_contact.email %><br />
-                    Phone: <%= @primary_contact.telephone %><br />
+                    <%= I18n.t("e_mail_") %> <%= mail_to @primary_contact.email %><br />
+                    <%= I18n.t("phone_") %> <%= @primary_contact.telephone %><br />
                 </td>                    
                 <td width="50%">
-                    <strong>Encyclopedia of Life</strong><br />
+                    <strong><%= I18n.t("encyclopedia_of_life") %></strong><br />
                     <a href="http://www.eol.org">www.eol.org</a><br />
-                    Cynthia Parr, Species Pages Director<br />
-                    E-mail: <%=mail_to 'parrc@si.edu'%><br />
-                    Phone: 202.633.8730<br />
+                    <%= I18n.t("cynthia_parr__species_pages_di") %><br />
+                    <%= I18n.t("e_mail_") %> <%=mail_to 'parrc@si.edu'%><br />
+                    <%= I18n.t("phone_") %> 202.633.8730<br />
                     <br />
-                    On behalf of the Smithsonian Institution, representing the EOL for purposes of the day-to-day administration of this Agreement. 
+                    <%= I18n.t("on_behalf_of_the_smithsonian_i") %>
                 </td>
             </tr>
         </table>

@@ -27,7 +27,6 @@
     %EMBED{:src => "#{@data_object.video_url}", :controller => "true", :height => "300", :width => "450",
             :autoplay => "true", :type => "video/quicktime", :pluginspage => "http://www.apple.com/quicktime/download/"}
 
-
 -# video/x-flv
 - if @data_object.data_type == DataType.flash || @data_object.data_type == DataType.youtube
   = render :partial => "/shared/video_flash"

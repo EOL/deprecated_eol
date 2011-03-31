@@ -569,7 +569,10 @@ class DataObject < SpeciesSchemaModel
   end
 
   def video_url
-    if data_type.label == 'Flash'
+    if !object_cache_url.blank? && !object_url.blank?
+      filename_extension = File.extname(object_url)
+      return ContentServer.cache_path(object_cache_url) + filename_extension
+    elsif data_type.label == 'Flash'
       return has_object_cache_url? ? ContentServer.cache_path(object_cache_url) + '.flv' : ''
     else
       return object_url

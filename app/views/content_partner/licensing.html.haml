@@ -3,27 +3,18 @@
   =I18n.t("licensing_policy")
 %p{ :style => "margin: 10px 0 10px 0;" }
   =I18n.t("to_the_greatest_extent_possibl")
-  =I18n.t("approach__therefore__it_requir")
-  =I18n.t("information_through_the_eol_ag")
 %ol
   %li{ :style => "margin-bottom: 10px;" }
     =I18n.t("content_providers_warrant_and_")
   %li{ :style => "margin-bottom: 10px;" }
     =I18n.t("all_information_currently_in_t")
-    =I18n.t("eol_nor_the_content_providers_")
-    =I18n.t("are_made_available_through_the")
   %li{ :style => "margin-bottom: 10px;" }
     =I18n.t("content_providers_are_required")
     %a{ :href => "http://creativecommons.org/licenses/by/3.0/" }
       =I18n.t("creative_commons")
     =I18n.t("license_for_the_information_th")
-    =I18n.t("they_serve_through_the_eol__ex")
-    =I18n.t("license_is_cc_by__attribution_")
-    =I18n.t("and_to_remix_or_adapt_the_info")
-    =I18n.t("information_is_maintained")
   %li{ :style => "margin-bottom: 10px;" }
     =I18n.t("content_providers_who_request_")
-    =I18n.t("alternate_creative_commons_lic")
     %a{ :href => "http://creativecommons.org/about/licenses", :target => "_blank" }
       =I18n.t("creative_commons")
     =I18n.t("website")
@@ -36,7 +27,6 @@
         =I18n.t("cc_by_nc_sa___attribution_nonc")
   %li{ :style => "margin-bottom: 10px;" }
     =I18n.t("the_eol_will_provide_attributi")
-    =I18n.t("the_creative_commons_license_a_")
 = eol_lang_error_messages_for :content_partner, :header_message => nil, :message => nil
 - form_for @content_partner, :url => { :action => action_name }, :html => { :method => :post, :id => 'license_form' } do |f|
   = f.check_box :ipr_accept

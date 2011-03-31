@@ -707,7 +707,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     comment_id = options[:comment] ? options[:comment].id : nil
     untrust_reasons = options[:untrust_reasons] || nil
     taxon_concept_id = options[:taxon_concept_id] || nil
-    action_with_object_id     = ActionWithObject.find_by_translated(:action_code, action).id
+    action_with_object_id     = ActionWithObject.find_by_translated(:action_code, action.to_s).id
     changeable_object_type_id = ChangeableObjectType.find_by_ch_object_type(changeable_object_type).id
     actions_history = ActionsHistory.create(
       :user_id                   => self.id,

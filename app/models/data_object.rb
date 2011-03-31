@@ -1018,24 +1018,15 @@ class DataObject < SpeciesSchemaModel
   end
 
   def show(user)
-    vetted_by = user
-    update_attributes({:visibility_id => Visibility.visible.id, :curated => true})
-    user.track_curator_activity(self, 'data_object', 'show')
-    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.show
+    set_visibility(user, Visibility.visible.id, :show, I18n.t("dato_shown_note", :username => user.username, :type => data_type.simple_type))
   end
 
   def hide(user)
-    vetted_by = user
-    update_attributes({:visibility_id => Visibility.invisible.id, :curated => true})
-    user.track_curator_activity(self, 'data_object', 'hide')
-    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.hide
+    set_visibility(user, Visibility.invisible.id, :hide, I18n.t("dato_hidden_note", :username => user.username, :a_type => data_type.simple_type_with_article))
   end
 
   def inappropriate(user)
-    vetted_by = user
-    update_attributes({:visibility_id => Visibility.inappropriate.id, :curated => true})
-    user.track_curator_activity(self, 'data_object', 'inappropriate')
-    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.inappropriate
+    set_visibility(user, Visibility.inappropriate.id, :inappropriate, I18n.t("dato_inappropriate_note", :username => user.username, :a_type => data_type.simple_type_with_article))
   end
 
   def flickr_photo_id
@@ -1111,6 +1102,9 @@ private
     end
     user.track_curator_activity(self, 'data_object', 'untrusted', :comment => opts[:comment], :untrust_reasons => these_untrust_reasons, :taxon_concept_id => opts[:taxon_concept_id])
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.disapprove
+    note = I18n.t("dato_untrusted_note", :username => user.username, :type => data_type.simple_type)
+    note += "  #{untrust_reasons_comment}" unless untrust_reasons_comment.blank?
+    feed.post(note, :feed_item_type_id => FeedItemType.curator_activity.id, :user_id => user.id)
   end
 
   def unreviewed(user, opts = {})
@@ -1118,6 +1112,15 @@ private
     DataObjectsUntrustReason.destroy_all(:data_object_id => id)
     user.track_curator_activity(self, 'data_object', 'unreviewed', :comment => opts[:comment], :taxon_concept_id => opts[:taxon_concept_id])
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.unreviewed
+    feed.post(I18n.t("dato_unreviewed_note", :username => user.username, :type => data_type.simple_type), :feed_item_type_id => FeedItemType.curator_activity.id, :user_id => user.id)
   end
   
+  def set_visibility(user, visibility_id, verb, note)
+    vetted_by = user
+    update_attributes({:visibility_id => visibility_id, :curated => true})
+    user.track_curator_activity(self, 'data_object', verb)
+    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.send(verb)
+    feed.post(note, :feed_item_type_id => FeedItemType.curator_activity.id, :user_id => user.id)
+  end
+
 end

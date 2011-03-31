@@ -1,5 +1,5 @@
 # Confusing model that needs to be replaced with Solr.  Actually, text searches end up using
-# TaxonConcept#quick_search
+# EOL::Solr::Search
 #
 # For testing this, I did the following:
 #

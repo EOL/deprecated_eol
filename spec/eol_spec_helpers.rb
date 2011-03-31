@@ -442,7 +442,7 @@ TaxonConcept.class_eval do
                                         }
                                        }, options[:user])
     if options[:vetted]
-      curator = self.curators.first
+      curator = User.find(self.curators.first) # Curators array doesn't return "full" user objects...
       curator ||= User.first
       dato.curate(curator, :vetted_id => Vetted.trusted.id)
     end

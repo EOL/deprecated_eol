@@ -19,6 +19,25 @@ module EOL
         else # This was just a raw string, we need to make a query out of it:
           querystring = prepare_querystring(clean_query, options)
         end
+
+        if options[:filter_by_taxon_concept_id]
+          @tc_id = options[:filter_by_taxon_concept_id]
+        end        
+        if options[:filter_by_hierarchy_entry_id]
+          @hierarchy_entry = HierarchyEntry.find_by_id(options[:filter_by_hierarchy_entry_id],:select=>'taxon_concept_id')          
+          if @hierarchy_entry != nil
+            @tc_id = @hierarchy_entry.taxon_concept_id
+          end
+        end
+        if options[:filter_by_string]
+          @results = TaxonConcept.search_with_pagination(options[:filter_by_string], 
+            :page => 1, :per_page => 1, :type => :all, :lookup_trees => false, :exact => true)
+          @tc_id = @results[0]['id']
+        end
+        if @tc_id
+          querystring << " AND ancestor_taxon_concept_id:#{@tc_id}"
+        end
+
         res  = solr_search(querystring, options)
         data = EOL::SearchResultsCollection.new(res['response']['docs'],
                                                 options.merge(:total_results => res['response']['numFound'],

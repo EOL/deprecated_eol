@@ -1,6 +1,7 @@
 %h3
   = taxon_concept_link(nil, :data_type => "image", :data_object_id => @data_object.id, :name_string => @data_object.first_concept_name, :taxon_concept_id => @data_object.first_hierarchy_entry.taxon_concept_id, :popup => true)
-- if common_name = @data_object.first_concept_common_name
+- common_name = @data_object.taxon_concepts[0].subtitle(@session_hierarchy) unless @data_object.taxon_concepts[0].nil?
+- if common_name
   %p
     %em
       = common_name.firstcap

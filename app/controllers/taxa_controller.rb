@@ -285,13 +285,6 @@ class TaxaController < ApplicationController
    end
 
     @data_object = DataObject.find(params[:data_object_id].to_i)
-    
-    if(@data_object.object_cache_url != "")
-      # local video access
-      filename_extension = File.extname("#{@data_object.object_url}")
-      #@video_url = DataObject.cache_path(@object_cache_url) + @filename_extension      
-      @video_url = ContentServer.cache_path(@data_object.object_cache_url, $CONTENT_SERVER_CONTENT_PATH) + filename_extension
-    end
 
     current_user.log_activity(:viewed_video, :value => @data_object.object_cache_url)
     render :update do |page|

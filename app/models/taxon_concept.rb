@@ -548,15 +548,6 @@ class TaxonConcept < SpeciesSchemaModel
       images = true if entry.hierarchies_content.image != 0 || entry.hierarchies_content.child_image != 0 rescue images
       video = true if entry.hierarchies_content.flash != 0 || entry.hierarchies_content.youtube != 0 rescue video
     end
-
-    if !video then    
-      # to accomodate data_type => http://purl.org/dc/dcmitype/MovingImage = Video
-      with_video = data_objects.find(:all,
-      :conditions => "data_type_id IN (#{DataType.video.id}, #{DataType.flash.id}, #{DataType.youtube.id})",
-      :select => "data_type_id")          
-
-      video = true if with_video.length > 0
-    end
     
     map = true if gbif_map_id
     @has_media = {:images => images, :video  => video, :map    => map }

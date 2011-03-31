@@ -1057,10 +1057,6 @@ class DataObject < SpeciesSchemaModel
     sorted_entries[0].name.string rescue nil
   end
 
-  def first_concept_common_name
-    taxon_concepts[0].preferred_common_names[0].name.string rescue nil
-  end
-
   def first_taxon_concept
     sorted_entries = HierarchyEntry.sort_by_vetted(hierarchy_entries)
     sorted_entries[0].taxon_concept rescue nil

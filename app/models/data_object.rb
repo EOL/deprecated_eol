@@ -400,11 +400,18 @@ class DataObject < SpeciesSchemaModel
 
   def citable_data_supplier
     return nil if data_supplier_agent.blank?
-    EOL::Citable.new( :agent_id => data_supplier_agent.id,
-                                  :link_to_url => data_supplier_agent.homepage,
-                                  :display_string => data_supplier_agent.full_name,
-                                  :logo_cache_url => data_supplier_agent.logo_cache_url,
-                                  :type => 'Supplier')
+    # NOTE - this fixes a (slightly strange) bug that we were having on staging. TODO - this is indicative of missing fields
+    # in a pre-loaded model.  Find it and fix it.
+    # IFF the data_supplier_agent is cached and is missing the attributes we need...
+    unless data_supplier_agent.respond_to?(:homepage) && data_supplier_agent.respond_to?(:full_name) &&
+           data_supplier_agent.respond_to?(:logo_cache_url)
+      Agent.find(data_supplier_agent.id)
+    end
+    EOL::Citable.new(:agent_id => data_supplier_agent.id,
+                     :link_to_url => data_supplier_agent.homepage,
+                     :display_string => data_supplier_agent.full_name,
+                     :logo_cache_url => data_supplier_agent.logo_cache_url,
+                     :type => 'Supplier')
   end
 
   def citable_entities

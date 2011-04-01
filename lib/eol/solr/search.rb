@@ -1,6 +1,6 @@
 # For debugging, a helpful query to get back ALL results:
 #
-# open($SOLR_SERVER + $SOLR_TAXON_CONCEPTS_CORE + '/select/?version=2.2&indent=on&wt=json&q=' + CGI.escape(%Q[{!lucene} *:* AND published:1 AND supercedure_id:0])).read
+# puts JSON.load(open($SOLR_SERVER + $SOLR_TAXON_CONCEPTS_CORE + '/select/?version=2.2&indent=on&wt=json&q=' + CGI.escape(%Q[{!lucene} *:* AND published:1 AND supercedure_id:0])).read)["response"]["docs"].map {|e| "#{e['taxon_concept_id']}: sci=#{e['scientific_name'][0]}+com=#{e['common_name'][0]}" }.sort.join("\n")
 module EOL
   module Solr
 
@@ -23,22 +23,25 @@ module EOL
           querystring = prepare_querystring(clean_query, options)
         end
 
-        if options[:filter_by_taxon_concept_id]
-          @tc_id = options[:filter_by_taxon_concept_id]
-        end        
-        if options[:filter_by_hierarchy_entry_id]
-          @hierarchy_entry = HierarchyEntry.find_by_id(options[:filter_by_hierarchy_entry_id],:select=>'taxon_concept_id')          
-          if @hierarchy_entry != nil
-            @tc_id = @hierarchy_entry.taxon_concept_id
+        tc_id = if options[:filter_by_taxon_concept_id]
+          options[:filter_by_taxon_concept_id]
+        elsif options[:filter_by_hierarchy_entry_id]
+          hierarchy_entry = HierarchyEntry.find_by_id(options[:filter_by_hierarchy_entry_id],:select=>'taxon_concept_id')
+          if hierarchy_entry != nil
+            hierarchy_entry.taxon_concept_id
+          else 
+            nil
           end
-        end
-        if options[:filter_by_string]
-          @results = TaxonConcept.search_with_pagination(options[:filter_by_string], 
+        elsif options[:filter_by_string]
+          results = TaxonConcept.search_with_pagination(options[:filter_by_string], 
             :page => 1, :per_page => 1, :type => :all, :lookup_trees => false, :exact => true)
-          @tc_id = @results[0]['id']
+          results[0]['id']
+        else
+          nil
         end
-        if @tc_id
-          querystring << " AND ancestor_taxon_concept_id:#{@tc_id}"
+
+        if tc_id
+          querystring << " AND ancestor_taxon_concept_id:#{tc_id}"
         end
 
         res  = solr_search(querystring, options)
@@ -86,7 +89,6 @@ module EOL
         offset = (page - 1) * limit
         url << '&start=' << URI.encode(offset.to_s)
         url << '&rows='  << URI.encode(limit.to_s)
-        #puts 'URA solr' + url
         res = open(url).read
         JSON.load res
       end

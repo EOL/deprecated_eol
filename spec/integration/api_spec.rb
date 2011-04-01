@@ -1,11 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 require 'solr_api'
-def recreate_indexes
-  solr = SolrAPI.new($SOLR_SERVER, $SOLR_TAXON_CONCEPTS_CORE)
-  solr.delete_all_documents
-  solr.build_indexes
-end
 
 def check_api_key(url, user)
   visit(url)
@@ -138,7 +133,7 @@ describe 'EOL APIs' do
     @second_test_hierarchy_entry = HierarchyEntry.gen(:hierarchy => @second_test_hierarchy, :identifier => 54321, :parent_id => 0, :published => 1, :visibility_id => Visibility.visible.id, :rank => Rank.kingdom)
     make_all_nested_sets
     flatten_hierarchies
-    recreate_indexes
+    recreate_solr_indexes
   end
 
   before(:each) do
@@ -603,7 +598,7 @@ describe 'EOL APIs' do
   end
 
   it 'search should be able to filter by hierarchy_entry_id' do
-    visit("/api/search/Dog.json?filter_by_hierarchy_entry_id=@wolf.hierarchy_entries.first.id")
+    visit("/api/search/Dog.json?filter_by_hierarchy_entry_id=#{@wolf.hierarchy_entries.first.id}")
     response_object = JSON.parse(body)
     response_object['results'][0]['title'].should == @dog_sci_name
     response_object['results'].length.should == 1

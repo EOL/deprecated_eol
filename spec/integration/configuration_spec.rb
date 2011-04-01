@@ -1,12 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-def recreate_indexes
-  solr = SolrAPI.new($SOLR_SERVER, $SOLR_TAXON_CONCEPTS_CORE)
-  solr.delete_all_documents
-  solr.build_indexes
-end
-
-
 describe 'Configuration' do
   before :all do
     truncate_all_tables
@@ -15,7 +8,7 @@ describe 'Configuration' do
     @tiger_name = 'Tiger'
     @taxon_concept = build_taxon_concept(:common_names => [@tiger_name])
     
-    recreate_indexes
+    recreate_solr_indexes
   end
   
   after :each do

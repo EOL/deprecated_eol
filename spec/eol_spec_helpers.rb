@@ -72,6 +72,12 @@ module EOL
         end
       end
 
+      def recreate_solr_indexes
+        solr = SolrAPI.new($SOLR_SERVER, $SOLR_TAXON_CONCEPTS_CORE)
+        solr.delete_all_documents
+        solr.build_indexes
+      end
+
       def reset_auto_increment_on_tables_with_tinyint_primary_keys
         EOL::DB.reset_auto_increment_on_tables_with_tinyint_primary_keys
       end

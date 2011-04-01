@@ -1,0 +1,108 @@
+module EOL
+  class ScenarioLoader
+
+    attr_reader :name
+
+    def initialize(name, all_connections)
+      @name = name
+      @all_connections = all_connections
+      @we_have_already_cached_this_scenario = false
+    end
+
+    # This is the method you likely want to call.
+    def load_with_caching
+      if !@we_have_already_cached_this_scenario && cached_files_are_stale?
+        load_and_cache
+      elsif @we_have_already_cached_this_scenario && is_the_data_in_the_database?
+        puts "** WARNING: You attempted to load the #{@name} scenario twice, here."
+        puts "**          Please remove the call or truncate tables, first."
+      else
+        @all_connections.each do |conn|
+          load_cache_for_connection(conn)
+        end
+      end
+      @we_have_already_cached_this_scenario = true
+    end
+
+    private
+
+    def cached_files_are_stale?
+      last_modified = File.mtime(File.join(RAILS_ROOT, 'scenarios', "#{@name}.rb"))
+      last_compile = time_the_dumps_were_taken
+      return true if !last_compile
+      return last_compile < last_modified
+    end
+
+    def load_and_cache
+      EolScenario.load @name
+      remember_that_this_is_loaded
+      create_cache
+    end
+
+    def is_the_data_in_the_database?
+      User.find_by_username("#{@name}_already_loaded")
+    end
+
+    def load_cache_for_connection(conn)
+      mysqldump_path = mysqldump_path_for_connection(conn)
+      IO.readlines(mysqldump_path).to_s.split(/;\s*[\r\n]+/).each do |cmd|
+        if cmd =~ /\w/m # Only run commands with text in them.  :)  A few were "\n\n".
+          conn.execute cmd.strip
+        end
+      end
+    end
+
+    # the last time the dumps were taken
+    def time_the_dumps_were_taken
+      last_compiled = nil
+      @all_connections.each do |conn|
+        mysqldump_path = mysqldump_path_for_connection(conn)
+        if File.exists?(mysqldump_path)
+          this_dump_modified = File.mtime(mysqldump_path)
+          if !last_compiled || this_dump_modified < last_compiled # We want the earliest change.
+            last_compiled = File.mtime(mysqldump_path)
+          end
+        end
+      end
+      last_compiled
+    end
+
+    def remember_that_this_is_loaded
+      User.gen :username => "we_loaded_#{@name}"[0..31]
+    end
+
+    def create_cache
+      @all_connections.each do |conn|
+        tables = tables_to_export_from_connection(conn)
+        mysql_config = conn.config
+        mysql_params = conn.command_line_parameters
+        mysqldump_cmd = $MYSQLDUMP_COMPLETE_PATH + " #{mysql_params} --compact --no-create-info #{conn.config[:database]} #{tables.join(' ')}"
+        result = `#{mysqldump_cmd}`
+        # the next two lines will vastly speed up the import
+        result = "SET AUTOCOMMIT = 0;\nSET FOREIGN_KEY_CHECKS=0;\nUSE `#{conn.config[:database]}`;\n" +
+                  result +
+                 "SET FOREIGN_KEY_CHECKS = 1;\nCOMMIT;\nSET AUTOCOMMIT = 1;\n"
+        result.gsub!(/INSERT/, 'INSERT IGNORE')
+        mysqldump_path = mysqldump_path_for_connection(conn)
+        File.open(mysqldump_path, 'w') {|f| f.write(result) }
+        @we_have_already_cached_this_scenario = true
+      end
+    end
+
+    # No sense in exporting empty tables...
+    def tables_to_export_from_connection(conn)
+      tables = []
+      conn.tables.each do |table|
+        next if table == 'schema_migrations'
+        count_rows = conn.execute("SELECT 1 FROM #{table} LIMIT 1")
+        tables << table if count_rows.num_rows > 0
+      end
+      tables
+    end
+
+    def mysqldump_path_for_connection(conn)
+      mysqldump_path = File.join(RAILS_ROOT, 'tmp', "#{conn.config[:database]}_for_#{@name}_scenario.sql")
+    end
+
+  end
+end

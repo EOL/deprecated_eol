@@ -241,75 +241,15 @@ module EOL
         find_or_build_harvest_event(Resource.iucn)
       end
       
-      def foundation_needs_building?
-        # get the time when the foundation was last modified
-        foundation_last_modified = File.mtime(File.join(RAILS_ROOT, 'scenarios', "foundation.rb"))
-        
-        # get the last time the dumps were taken
-        foundation_last_compiled = nil
-        all_connections.each do |conn|
-          mysqldump_path = File.join(RAILS_ROOT, 'tmp', "#{conn.config[:database]}_dump.sql")
-          if File.exists?(mysqldump_path)
-            this_dump_modified = File.mtime(mysqldump_path)
-            if !foundation_last_compiled || this_dump_modified > foundation_last_compiled
-              foundation_last_compiled = File.mtime(mysqldump_path)
-            end
-          end
-        end
-        
-        return true if !foundation_last_compiled
-        return foundation_last_compiled < foundation_last_modified
+      def load_foundation_cache
+        load_scenario_with_caching(:foundation)
       end
-      
-      def load_foundation_cache(truncate = false)
-        #truncate_all_tables if truncate
-        if $FOUNDATION_ALREADY_LOADED.blank? && foundation_needs_building?
-          EolScenario.load :foundation
-          
-          all_connections.each do |conn|
-            tables_to_export = []
-            conn.tables.each do |table|
-              next if table == 'schema_migrations'
-              count_rows = conn.execute("SELECT 1 FROM #{table} LIMIT 1")
-              tables_to_export << table if count_rows.num_rows > 0
-            end
-            
-            mysql_config = conn.config
-            mysql_params = conn.command_line_parameters
-            mysqldump_cmd = $MYSQLDUMP_COMPLETE_PATH + " #{mysql_params} --compact --no-create-info #{conn.config[:database]} #{tables_to_export.join(' ')}"
-            #puts "+" * 80
-            #puts mysqldump_cmd
-            result = `#{mysqldump_cmd}`
-            # the next two lines will vastly speed up the import
-            result = "SET AUTOCOMMIT = 0;\nSET FOREIGN_KEY_CHECKS=0;\nUSE `#{conn.config[:database]}`;\n" + result
-            result += "SET FOREIGN_KEY_CHECKS = 1;\nCOMMIT;\nSET AUTOCOMMIT = 1;\n"
-            result.gsub!(/INSERT/, 'INSERT IGNORE')
-            # write the dump to /tmp
-            mysqldump_path = File.join(RAILS_ROOT, 'tmp', "#{conn.config[:database]}_dump.sql")
-            File.open(mysqldump_path, 'w') {|f| f.write(result) }
-            $FOUNDATION_ALREADY_LOADED = true
-          end
-        else
-          $CACHE.clear
-          if $FOUNDATION_ALREADY_LOADED && User.find_by_username('foundation_already_loaded')
-            puts "** WARNING: You attempted to load the foundation scenario twice, here.  Please fix it."
-            return
-          end
-          
-          all_connections.each do |conn|
-            mysqldump_path = File.join(RAILS_ROOT, 'tmp', "#{conn.config[:database]}_dump.sql")
-            IO.readlines(mysqldump_path).to_s.split(/;\s*[\r\n]+/).each do |cmd|
-              if cmd =~ /\w/m # Only run commands with text in them.  :)  A few were "\n\n".
-                conn.execute cmd.strip
-              end
-            end
-            # mysql_params = conn.command_line_parameters
-            # mysqlimport_cmd = "mysql #{mysql_params} < #{mysqldump_path}"
-            # #puts mysqlimport_cmd
-            # result = `#{mysqlimport_cmd}`
-          end
-        end
-        $FOUNDATION_ALREADY_LOADED = true
+
+      def load_scenario_with_caching(name)
+        loader = EOL::ScenarioLoader.new(name, all_connections)
+        # TODO - this may want to check if it NEEDS loading, here, and then truncate the tables before proceeding, if it
+        # does.
+        loader.load_with_caching
       end
       
     end

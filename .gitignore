@@ -8,7 +8,6 @@ eol-solr.pid
 mkmf.log
 extconf.h
 .DS_Store
-tmp/metric_fu/scratch
 config/database.yml
 config/deploy
 config/deploy.rb
@@ -36,6 +35,8 @@ tmp/sass-cache/*
 tmp/sessions/*
 tmp/sockets/*
 tmp/*.sql
+tmp/*_test_info.yml
+tmp/metric_fu/scratch
 vendor/eol_org
 vendor/gems/json-1.1.6/ext/json/ext/generator/Makefile
 vendor/gems/json-1.1.6/ext/json/ext/parser/Makefile

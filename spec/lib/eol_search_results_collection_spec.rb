@@ -4,14 +4,15 @@ describe EOL::SearchResultsCollection do
 
   before(:all) do
     truncate_all_tables
-    EolScenario.load :search_with_duplicates
+    load_scenario_with_caching :search_with_duplicates
     flatten_hierarchies
     
-    @tc_id                   = SearchScenarioResults.tc_id
-    @new_common_name         = SearchScenarioResults.new_common_name
-    @taxon_concept           = SearchScenarioResults.taxon_concept
-    @duplicate_taxon_concept = SearchScenarioResults.duplicate_taxon_concept
-    @query_results           = SearchScenarioResults.query_results
+    results = EOL::TestInfo.load('search_with_duplicates')
+    @tc_id                   = results[:tc_id]
+    @new_common_name         = results[:new_common_name]
+    @taxon_concept           = results[:taxon_concept]
+    @duplicate_taxon_concept = results[:duplicate_taxon_concept]
+    @query_results           = results[:query_results]
 
     @common_collection = EOL::SearchResultsCollection.new(@query_results, :querystring => 'tiger', :type => :common)
     @tc_result         = @common_collection.find {|r| r["id"] == @tc_id }    

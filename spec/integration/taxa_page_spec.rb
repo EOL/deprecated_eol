@@ -27,78 +27,31 @@ describe 'Taxa page (HTML)' do
 
   before(:all) do
 
-    #RandomTaxon.delete_all # this should make us green again
     truncate_all_tables
-    load_foundation_cache
-    $CACHE.clear
+    load_scenario_with_caching(:testy)
+    testy = EOL::TestInfo.load('testy')
     Capybara.reset_sessions!
     HierarchiesContent.delete_all
 
-    # Long list of items to test:
-    begin
-      @exemplar        = build_taxon_concept(:id => 910093) # That ID is one of the (hard-coded) exemplars.
-    rescue
-      #there's already a tc with that id
-    end
-    @parent          = build_taxon_concept(:images => [], :toc => []) # Somewhat empty, to speed things up.
-    @overview        = TocItem.overview
+    @exemplar        = testy[:exemplar]
+    @overview        = testy[:overview]
     @cnames_toc      = TocItem.common_names.id
-    @overview_text   = 'This is a test Overview, in all its glory'
-    # TODO - add a reference to the text object
-    @toc_item_2      = TocItem.gen(:view_order => 2)
-    @toc_item_3      = TocItem.gen(:view_order => 3)
-    @canonical_form  = Factory.next(:species)
-    @attribution     = Faker::Eol.attribution
-    @common_name     = Faker::Eol.common_name.firstcap
-    @unreviewed_name = Faker::Eol.common_name.firstcap
-    @untrusted_name  = Faker::Eol.common_name.firstcap
-    @scientific_name = "#{@canonical_form} #{@attribution}"
-    @italicized      = "<i>#{@canonical_form}</i> #{@attribution}"
-    @iucn_status     = Factory.next(:iucn)
-    @map_text        = 'Test Map'
-    @image_1         = Factory.next(:image)
-    @image_2         = Factory.next(:image)
-    @image_3         = Factory.next(:image)
-    @video_1_text    = 'First Test Video'
-    @video_2_text    = 'Second Test Video'
-    @video_3_text    = 'YouTube Test Video'
-    @comment_1       = 'This is totally awesome'
-    @comment_bad     = 'This is totally inappropriate'
-    @comment_2       = 'And I can comment multiple times'
-    @user            = User.gen
-
-    @taxon_concept   = build_taxon_concept(
-       :parent_hierarchy_entry_id => @parent.hierarchy_entries.first.id,
-       :rank            => 'species',
-       :canonical_form  => @canonical_form,
-       :attribution     => @attribution,
-       :scientific_name => @scientific_name,
-       :italicized      => @italicized,
-       :iucn_status     => @iucn_status,
-       :map             => {:description => @map_text},
-       :flash           => [{:description => @video_1_text}, {:description => @video_2_text}],
-       :youtube         => [{:description => @video_3_text}],
-       :comments        => [{:user => @user, :body => @comment_1},{:user => @user, :body => @comment_bad},{:user => @user, :body => @comment_2}],
-       # We want more than 10 images, to test pagination, but details don't matter:
-       :images          => [{:object_cache_url => @image_1}, {:object_cache_url => @image_2},
-                            {:object_cache_url => @image_3}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
-       :toc             => [{:toc_item => @overview, :description => @overview_text},
-                            {:toc_item => @toc_item_2}, {:toc_item => @toc_item_3}])
-
-    # TODO - I am slowly trying to move all of those options over to methods, to make things clearer:
-    @taxon_concept.add_common_name_synonym(@common_name, :agent => Agent.last, :language => Language.english,
-                                           :vetted => Vetted.trusted, :preferred => true)
-    @taxon_concept.add_common_name_synonym(@unreviewed_name, :agent => Agent.last, :language => Language.english,
-                                           :vetted => Vetted.unknown, :preferred => false)
-    @taxon_concept.add_common_name_synonym(@untrusted_name, :agent => Agent.last, :language => Language.english,
-                                           :vetted => Vetted.untrusted, :preferred => false)
-    @child1        = build_taxon_concept(:parent_hierarchy_entry_id => @taxon_concept.hierarchy_entries.first.id)
-    @child2        = build_taxon_concept(:parent_hierarchy_entry_id => @taxon_concept.hierarchy_entries.first.id)
-    @id            = @taxon_concept.id
-
-    @taxon_concept.feed.post @feed_body_1 = "Something"
-    @taxon_concept.feed.post @feed_body_2 = "Something Else"
-    @taxon_concept.feed.post @feed_body_3 = "Something More"
+    @overview_text   = testy[:overview_text]
+    @common_name     = testy[:common_name]
+    @scientific_name = testy[:scientific_name]
+    @italicized      = testy[:italicized]
+    @iucn_status     = testy[:iucn_status]
+    @map_text        = testy[:map_text]
+    @comment_bad     = testy[:comment_bad]
+    @taxon_concept   = testy[:taxon_concept]
+    @child1          = testy[:child1]
+    @child2          = testy[:child2]
+    @id              = testy[:id]
+    @feed_body_1     = testy[:feed_body_1]
+    @feed_body_2     = testy[:feed_body_2]
+    @feed_body_3     = testy[:feed_body_3]
+    @nameless        = testy[:taxon_concept_with_no_common_names]
+    @empty           = testy[:empty_taxon_concept]
 
     # This is kind of confusing, but basically the next six lines will cause us to ping a host:
     @ping_url      = 'TEST_with_%ID%'
@@ -120,17 +73,12 @@ describe 'Taxa page (HTML)' do
     @taxon_concept.add_user_submitted_text(:description => description, :vetted => true)
     @taxon_concept.add_user_submitted_text(:description => description, :vetted => true)
 
-    $CACHE.clear
+    $CACHE.clear # TODO -why?  This is expensive.
     @toc_item_with_no_trusted_items = TocItem.gen_if_not_exists(:label => 'Untrusted Stuff')
     @taxon_concept.add_toc_item(@toc_item_with_no_trusted_items, :vetted => false)
     
     @curator       = build_curator(@taxon_concept)
     Comment.find_by_body(@comment_bad).hide User.last
-    
-    @taxon_concept_with_unvetted_images = build_taxon_concept(:images => 
-      [{:vetted => Vetted.untrusted}, 
-       {:vetted => Vetted.unknown},
-       {}])
     
     make_all_nested_sets
     flatten_hierarchies
@@ -167,8 +115,7 @@ describe 'Taxa page (HTML)' do
   end
   
   it 'should not show the common name if none exists' do
-    tc = build_taxon_concept
-    visit("/pages/#{tc.id}")
+    visit("/pages/#{@nameless.id}")
     body.should have_tag('div#page-title') do
       with_tag('h2', :text => '')
     end
@@ -201,7 +148,7 @@ describe 'Taxa page (HTML)' do
   end
   
   it 'should render when an object has no agents' do
-    taxon_concept = build_taxon_concept
+    taxon_concept = build_taxon_concept # Drat.  ...But we need to delete things from it, so it would be wrong to keep it.
     first_image = taxon_concept.top_concept_images[0].data_object
     first_agent_name = first_image.agents[0].full_name
   
@@ -214,9 +161,6 @@ describe 'Taxa page (HTML)' do
     body.should have_tag("img.main-image")
     body.should_not include(first_agent_name) # verify the agent is gone yet the page still loads
   end
-  
-  # it 'should be able to ping the collection host' do
-  # end
   
   it 'should show the Overview text by default' do
     visit("/pages/#{@id}")
@@ -276,11 +220,8 @@ describe 'Taxa page (HTML)' do
     body.should match(@description_link)
   end
   
-  # I hate to do this, since it's SO SLOW, but:
   it 'should render an "empty" page in authoritative mode' do
-    tc = build_taxon_concept(:common_names => [], :images => [], :toc => [], :flash => [], :youtube => [],
-                             :comments => [], :bhl => [])
-    visit("/pages/#{tc.id}?vetted=true")
+    visit("/pages/#{@empty.id}?vetted=true")
     body.should_not include('Internal Server Error')
     body.should have_tag('h1') # Whatever, let's just prove that it renders.
   end
@@ -288,9 +229,9 @@ describe 'Taxa page (HTML)' do
   it 'should show common names with their trust levels in the Common Names toc item' do
     visit("/pages/#{@taxon_concept.id}?category_id=#{@cnames_toc}")
     body.should have_tag("div#common_names_wrapper") do
-      with_tag('td.trusted', :text => @common_name)
+      with_tag('td.trusted',    :text => @common_name)
       with_tag('td.unreviewed', :text => @unreviewed_name)
-      with_tag('td.untrusted', :text => @untrusted_name)
+      with_tag('td.untrusted',  :text => @untrusted_name)
     end
   end
   
@@ -306,7 +247,7 @@ describe 'Taxa page (HTML)' do
   
   it 'should show a Nucleotide Sequences table of content item if concept in NCBI and has identifier' do
     # make an entry in NCBI for this concept and give it an identifier
-    sci_name = Name.gen(:string => Factory.next(:scientific_name))
+    sci_name = Name.gen(:string => Factory.next(:scientific_name) + 'tps') # A little more to make sure it's unique.
     entry = build_hierarchy_entry(0, @taxon_concept, sci_name,
                 :identifier => 1234,
                 :hierarchy => Hierarchy.ncbi )
@@ -494,22 +435,6 @@ describe 'Taxa page (HTML)' do
     body.should include(data_object.object_title)
     body.should_not include(info_item.label)
   end
-  
-  # TODO V2 design does not have this flag yet we have to revisit this test later
-  # it 'should show images on the page' do
-  #   unvetted_count = @taxon_concept_with_unvetted_images.images.select {|i| i.vetted? == false}.size
-  #   visit("/pages/#{@taxon_concept_with_unvetted_images.id}?vetted=true")
-  #   body_vetted = body
-  #   body_vetted.should include "authoritative information"
-  #   Capybara.reset_sessions!
-  #   visit("/pages/#{@taxon_concept_with_unvetted_images.id}?vetted=false")
-  #   body_all = body
-  #   body_all.should include "all information"
-  #   dom_all = Nokogiri.HTML(body_all)
-  #   dom_vetted = Nokogiri.HTML(body_vetted)
-  #   unvetted_count.should == 2
-  #   (dom_all.xpath("//div[@id='thumbnails']//img").size - dom_vetted.xpath("//div[@id='thumbnails']//img").size).should == unvetted_count
-  # end
   
   it 'should show the activity feed' do
     @result.body.should have_tag('ul.feed') do

@@ -5,11 +5,6 @@ describe Role do
   before(:all) do
     truncate_all_tables
     load_foundation_cache
-    SpecialCollection.create_all
-    @special = Community.gen
-    Community.stub!(:special).and_return(@special)
-    @curator = Role.gen(:title => $CURATOR_ROLE_NAME, :community_id => @special.id)
-    @admin = Role.gen(:title => $ADMIN_ROLE_NAME, :community_id => @special.id)
     @new_priv = Privilege.gen
     @role = Role.gen
     @community = Community.gen
@@ -25,12 +20,14 @@ describe Role do
     r.valid?.should_not be_true
   end
   
+  # Technically, this tests what's in foundation.  But still.
   it 'should find the special community role with $CURATOR_ROLE_NAME' do
-    Role.curator.should == @curator
+    Role.curator.title.should == $CURATOR_ROLE_NAME
   end
 
+  # Technically, this tests what's in foundation.  But still.
   it 'should find the special community role with $ADMIN_ROLE_NAME' do
-    Role.administrator.should == @admin
+    Role.administrator.title.should == $ADMIN_ROLE_NAME
   end
 
   it 'should add a privilege' do

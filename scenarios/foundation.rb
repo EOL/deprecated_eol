@@ -4,12 +4,7 @@ $CACHE.clear # because we are resetting everything!  Sometimes, say, iucn is set
 old_cache_value = $CACHE.clone
 $CACHE = nil
 
-if User.find_by_username('foundation_already_loaded')
-  puts "** WARNING: You attempted to load the foundation scenario twice, here.  Please fix it."
-else
-# I AM NOT INDENTING THIS BLOCK (it seemed overkill)
-
-# These are two of the most important rows in the database now
+# These are two of the most important rows in the database now; translated tables will fail without these.
 e = Language.gen_if_not_exists(:iso_639_1 => 'en')
 TranslatedLanguage.gen_if_not_exists(:label => 'English', :original_language_id => e.id)
 
@@ -268,10 +263,5 @@ d = DataObject.gen
 he = HierarchyEntry.gen(:hierarchy => default_hierarchy)
 5.times { RandomHierarchyImage.gen(:hierarchy => default_hierarchy, :hierarchy_entry => he, :data_object => d) }
 
-# This prevents us from loading things twice, which it seems we were doing a lot!
-User.gen :username => 'foundation_already_loaded'
-
 $CACHE = old_cache_value.clone
 $CACHE.clear
-
-end # THIS WAS NOT INDENTED.  It was an 'if' over almost the whole file, and didn't make sense to.

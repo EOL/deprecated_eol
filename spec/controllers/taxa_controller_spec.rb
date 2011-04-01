@@ -11,14 +11,15 @@ describe TaxaController do
 
     before(:all) do
       truncate_all_tables
-      EolScenario.load :search_with_duplicates
-      @tc_id                   = SearchScenarioResults.tc_id
-      @new_common_name         = SearchScenarioResults.new_common_name
-      @ancestor_concept        = SearchScenarioResults.ancestor_concept
-      @parent_concept          = SearchScenarioResults.parent_concept
-      @taxon_concept           = SearchScenarioResults.taxon_concept
-      @duplicate_taxon_concept = SearchScenarioResults.duplicate_taxon_concept
-      @query_results           = SearchScenarioResults.query_results
+      load_scenario_with_caching :search_with_duplicates
+      results = EOL::TestInfo.load('search_with_duplicates')
+      @tc_id                   = results[:tc_id]
+      @new_common_name         = results[:new_common_name]
+      @ancestor_concept        = results[:ancestor_concept]
+      @parent_concept          = results[:parent_concept]
+      @taxon_concept           = results[:taxon_concept]
+      @duplicate_taxon_concept = results[:duplicate_taxon_concept]
+      @query_results           = results[:query_results]
 
       # We call it with our bogus results:
       @common_collection = EOL::SearchResultsCollection.new(@query_results, :querystring => 'tiger', :type => :common)

@@ -14,7 +14,7 @@ class CuratorsController < ApplicationController
   end
 
   def profile
-    @user = User.find(current_user.id)
+    @user = params[:id].nil? ? User.find(current_user.id) : User.find(params[:id])
     @user.log_activity(:viewed_curator_profile)
     @user_submitted_text_count = UsersDataObject.count(:conditions=>['user_id = ?', params[:id]])
     redirect_back_or_default unless @user.curator_approved

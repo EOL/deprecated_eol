@@ -9,7 +9,7 @@
         = h @user.given_name 
         = h @user.family_name  
         \&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-        = link_to I18n.t("back_to_profile"),{:controller=>'/account', :action=>:show, :id => @user.id}
+        = link_to I18n.t("back_to_profile"), { :controller => '/curators', :action => :profile, :id => @user.id }
          
 - if @taxon_concept_ids.nil? == false && @taxon_concept_ids.size > 0
   = will_paginate @taxon_concept_ids 
@@ -35,7 +35,7 @@
             = id 
           %td{ :class => row_class }
             %i
-              = link_to name,{:controller=>'/taxa', :action=>:show, :id => id} 
+              = link_to name,{ :controller => :taxa, :action => :show, :id => id } 
 
       %tr
         %td{ :colspan => "5" }

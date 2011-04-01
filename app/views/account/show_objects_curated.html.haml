@@ -9,7 +9,7 @@
         = h @user.given_name
         = h @user.family_name
         \&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        = link_to I18n.t("back_to_profile"),{:controller=>'/account', :action=>:show, :id => @user.id}
+        = link_to I18n.t("back_to_profile"), { :controller => :curators, :action => :profile, :id => @user.id }
 
 - unless @latest_curator_actions.nil? || @latest_curator_actions.blank?
   = will_paginate @latest_curator_actions
@@ -41,7 +41,7 @@
             = h format_date_time(ah.updated_at, :format => :short_no_tz)
           %td{ :class => row_class }
             - unless dato[:_preferred_taxon_concept_id].nil?
-              = link_to dato[:_preferred_name_italicized], {:controller => '/taxa', :action => :show, :id => dato[:_preferred_taxon_concept_id]}
+              = link_to dato[:_preferred_name_italicized], { :controller => :taxa, :action => :show, :id => dato[:_preferred_taxon_concept_id] }
             - else
               = dato[:_preferred_name_italicized]
           %td{ :class => row_class }

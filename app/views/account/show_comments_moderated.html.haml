@@ -9,7 +9,10 @@
         = h @user.given_name 
         = h @user.family_name 
         \&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        = link_to I18n.t("back_to_profile"),{:controller=>'/account', :action=>:show, :id => @user.id}
+        - if @user.curator_approved
+          = link_to I18n.t("back_to_profile"), { :controller => :curators, :action => :profile, :id => @user.id }
+        -else
+          = link_to I18n.t("back_to_profile"), { :controller=> :account, :action=>:show, :id => @user.id }
         
 - if @comment_curation_actions.nil? == false && @comment_curation_actions.size > 0
   = will_paginate @comment_curation_actions
@@ -43,7 +46,7 @@
             = ah.affected_comment.parent_type
             - if name
               %br
-              = link_to name, {:controller=>'/taxa', :action => :show, :id => ah.affected_comment.parent_id }
+              = link_to name, { :controller => :taxa, :action => :show, :id => ah.affected_comment.parent_id }
           %td{ :class => row_class }
             = ah.action_with_object.action_code
             = h format_date_time(ah.updated_at, :format=>'short_no_tz')

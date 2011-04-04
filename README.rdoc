@@ -43,14 +43,38 @@ Note that many of these steps require root access on your machine.  You have bee
 them as "sudo" on a Mac/Linux or as an administrator on Windows (there, I acknowledged the existence of
 Windows).
 
+=== CHEATING ON UBUNTU
+
+The following set of commands is *pretty* much all I needed to do to get up and running on Ubuntu 10.10.
+Your mileage may, of course, vary:
+
+  1. sudo apt-get install ruby1.8-dev ruby1.8 ri1.8 rdoc1.8 irb1.8 rubygems
+  2. sudo apt-get install libreadline-ruby1.8 libruby1.8 libopenssl-ruby
+  3. sudo apt-get install libxslt-dev libxml2-dev
+  4. sudo apt-get install git
+  5. ssh-keygen -t rsa -c "jrice@eol.org"
+  6. cat .ssh/id_rsa.pub                   # ...and put that in your github account.
+  7. git clone git@github.com:EncyclopediaOfLife/eol.git eol
+  8. sudo gem install rails -v 2.3.8
+  9. sudo gem install rspec rspec-rails ruby-debug
+  10. sudo apt-get install rake libxml2
+  11. sudo apt-get install mysql-server libmysqlclient-dev   # It asked for the pw three times, here...
+  12. sudo gem install will_paginate sanitize mysql daemons optiflag  # Last two are required by Solr
+  13. sudo gem install capybara -v=0.3.9
+  14. rake gems:refresh_specs
+  15. rake db:migrate ; rake db:migrate RAILS_ENV=test ; rake db:migrate RAILS_ENV=test_master
+  16. sudo apt-get install memcached
+  17. sudo vim /etc/apt/sources.list   # ... and uncomment the lines for the canonical source.
+  18. sudo apt-get update
+  19. sudo apt-get install sun-java6-jre sun-java6-plugin
+
+TODO - Could we specific all of those gems (at least) in the test.rb environment and use gems:install RAILS_ENV=test ?
+
 === FIRST THINGS FIRST
 
 1. Install Ruby and the Rails framework on your local machine (www.ruby-lang.org and www.rubyonrails.org).
 2. Install MySQL on your local machine (www.mysql.com).
 3. Get the code from the public repository (http://repository.eol.org/eol) or GitHub.
-
-Next, continue with the following sections:  "INSTALLING REQUIRED GEMS", "SETTING UP THE DATABASES",
-"INSTALLING AND RUNNING MEMCACHED", and "WATCHING IT COME TO LIFE"
 
 === SOLR
 

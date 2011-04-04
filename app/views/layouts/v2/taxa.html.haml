@@ -22,10 +22,12 @@
 
     #content_navigation_container
       %ul#content_navigation
-
-        @content_navigation_items.each do |item|
-          - is_active = item.active?(params)
-          %li{ :role => is_active, :class => is_active }= link_to I18n.t(item.translatable_string, item.url(@taxon_page))
+        -# TODO: Implement @content_navigation_items (this logic potentially applies to all types of navigation e.g. global, footer, profile)
+        -# TODO: We need to know which item is currently selected and apply class.
+        -# TODO: We need to get translatable string of content item.
+        -# @content_navigation_items.each do |item|
+          -# is_active = item.active?(params)
+          %li{ :class => is_active }= link_to I18n.t(item.translatable_string, item.url(@taxon_page))
           -# %li= link_to I18n.t(:overview), '/placeholder_link'
           -# %li= link_to I18n.t(:topics, :count => @topics_count), '/placeholder_link'
           -# %li= link_to I18n.t(:media, :count => @media_count), '/placeholder_link'

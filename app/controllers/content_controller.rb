@@ -1,5 +1,6 @@
 class ContentController < ApplicationController
 
+  layout 'v2/main'
   include ActionView::Helpers::SanitizeHelper
 
   caches_page :tc_api
@@ -188,7 +189,7 @@ class ContentController < ApplicationController
 
     if verify_recaptcha && @contact.save
       Notifier.deliver_contact_us_auto_response(@contact)
-      flash[:notice] =  I18n.t(:thanks_for_feedback) 
+      flash[:notice] =  I18n.t(:thanks_for_feedback)
       current_user.log_activity(:sent_contact_us_id, :value => @contact.id)
       redirect_back_or_default
     else
@@ -213,7 +214,7 @@ class ContentController < ApplicationController
 
     if verify_recaptcha && @contact.save
       Notifier.deliver_media_contact_auto_response(@contact)
-      flash[:notice] =  I18n.t(:your_message_was_sent) 
+      flash[:notice] =  I18n.t(:your_message_was_sent)
       current_user.log_activity(:sent_media_contact_us_id, :value => @contact.id)
       redirect_back_or_default
     else
@@ -296,12 +297,12 @@ class ContentController < ApplicationController
     @preset_amount = donation[:preset_amount]
 
     if @preset_amount.nil?
-      flash.now[:error] =  I18n.t(:donation_error) 
+      flash.now[:error] =  I18n.t(:donation_error)
       return
     end
 
     if (@preset_amount == "other" && @other_amount == 0)
-      flash.now[:error] =  I18n.t(:donation_error2) 
+      flash.now[:error] =  I18n.t(:donation_error2)
       return
     end
 

@@ -1,0 +1,6 @@
+- menu_items.each do |menu_item|
+  %li
+    = link_to I18n.t(menu_item.key, :default=> menu_item.title), (menu_item.url.blank? ? "/content/page/" + menu_item.page_url : menu_item.url)
+- if params[:controller] == 'api/docs'
+  %li
+    = link_to I18n.t("api_terms_of_use"), :controller => '/content', :action => 'page', :id => 'api_terms'

@@ -6,12 +6,12 @@
     %title
       - # Accessibility tip: Page titles should be unique and meaningful to the page and include the site name.
       - # Home page title can just be the site name.
-      - page_title =  I18n.t(:encyclopedia_of_life)
-      - if @page_title
-        - page_title =  "EOL: #{@page_title} - #{page_title}"
-      - elsif (@taxon_concept and not @taxon_concept.title(@session_hierarchy).blank?)
-        - page_title = "EOL: #{@taxon_concept.title(@session_hierarchy)} - #{page_title}"
-      &= strip_tags(page_title)
+      - head_title =  I18n.t(:encyclopedia_of_life)
+      - if @head_title ||= @page_title
+        - head_title =  "EOL: #{@head_title} - #{head_title}"
+      - elsif (@taxon_concept && !@taxon_concept.title(@session_hierarchy).blank?)
+        - head_title = "EOL: #{@taxon_concept.title(@session_hierarchy)} - #{head_title}"
+      &= strip_tags(head_title)
 
     %meta{ :charset => "utf-8" }
     - # HTML4 charset declaration, might go when browsers catch up with html5

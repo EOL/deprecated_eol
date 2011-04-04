@@ -1099,11 +1099,10 @@ class TaxonConcept < SpeciesSchemaModel
 
     objects = DataObject.core_relationships(:add_include => add_include, :add_select => add_select).
         find_all_by_id(filtered_objects.collect{ |d| d.id })
-    DataObject.sort_by_rating(objects)
     if options[:user] && options[:user].is_curator? && options[:user].can_curate?(self)
       DataObject.preload_associations(objects, :users_data_objects_ratings, :conditions => "users_data_objects_ratings.user_id=#{options[:user].id}")
     end
-    objects
+    DataObject.sort_by_rating(objects)
   end
   
   def video_data_objects(options = {})

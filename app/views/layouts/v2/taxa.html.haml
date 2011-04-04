@@ -22,13 +22,10 @@
 
     #content_navigation_container
       %ul#content_navigation
-        -# TODO: Implement @content_navigation_items and helper methods (this logic potentially applies to all types of navigation e.g. global, footer, profile)
-        -# TODO: We need to know which item is currently selected and apply class @see current_page? in url_helper.rb
-        -# Do we need a link if tab is current page @see link_to_unless_current in url_helper.rb
-        -# TODO: We need to get translatable string of content item.
-        -# @content_navigation_items.each do |item|
-          -# current_page_class = (item.current_page?(params)) ? 'current_page' : '';
-          %li{ :class => current_page_class }= link_to I18n.t(item.translatable_string, item.url(@taxon_page))
+
+        @content_navigation_items.each do |item|
+          - is_active = item.active?(params)
+          %li{ :role => is_active, :class => is_active }= link_to I18n.t(item.translatable_string, item.url(@taxon_page))
           -# %li= link_to I18n.t(:overview), '/placeholder_link'
           -# %li= link_to I18n.t(:topics, :count => @topics_count), '/placeholder_link'
           -# %li= link_to I18n.t(:media, :count => @media_count), '/placeholder_link'

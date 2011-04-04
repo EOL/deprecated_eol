@@ -35,7 +35,6 @@ Hint: start with the TaxonConcept model.  Everything stems from there.
 
 === INSTALLATION
 
-
 To get things up and running, these are the steps you need to take.  If you actually run 
 through this process, please update this list with any changes you notice being necessary!
 
@@ -50,14 +49,14 @@ Your mileage may, of course, vary:
 
   1. sudo apt-get install ruby1.8-dev ruby1.8 ri1.8 rdoc1.8 irb1.8 rubygems
   2. sudo apt-get install libreadline-ruby1.8 libruby1.8 libopenssl-ruby
-  3. sudo apt-get install libxslt-dev libxml2-dev
+  3. sudo apt-get install libxml2 libxslt-dev libxml2-dev
   4. sudo apt-get install git
   5. ssh-keygen -t rsa -c "jrice@eol.org"
   6. cat .ssh/id_rsa.pub                   # ...and put that in your github account.
   7. git clone git@github.com:EncyclopediaOfLife/eol.git eol
   8. sudo gem install rails -v 2.3.8
   9. sudo gem install rspec rspec-rails ruby-debug
-  10. sudo apt-get install rake libxml2
+  10. sudo apt-get install rake
   11. sudo apt-get install mysql-server libmysqlclient-dev   # It asked for the pw three times, here...
   12. sudo gem install will_paginate sanitize mysql daemons optiflag  # Last two are required by Solr
   13. sudo gem install capybara -v=0.3.9
@@ -67,14 +66,22 @@ Your mileage may, of course, vary:
   17. sudo vim /etc/apt/sources.list   # ... and uncomment the lines for the canonical source.
   18. sudo apt-get update
   19. sudo apt-get install sun-java6-jre sun-java6-plugin
+  20. ...set up your configuration.  This is, of course, a long story.  Read on.
 
 TODO - Could we specific all of those gems (at least) in the test.rb environment and use gems:install RAILS_ENV=test ?
 
 === FIRST THINGS FIRST
 
-1. Install Ruby and the Rails framework on your local machine (www.ruby-lang.org and www.rubyonrails.org).
-2. Install MySQL on your local machine (www.mysql.com).
-3. Get the code from the public repository (http://repository.eol.org/eol) or GitHub.
+Things you need:
+
+  1. Ruby 1.8     ...Won't work with 1.9.
+  2. Rails 2.3.8  ...No other version will do!
+  2. MySQL (server)
+  3. libxml
+  4. rake
+  5. The following gems: will_paginate sanitize mysql daemons optiflag capybara
+  6. memcached
+  7. Java         ...to run Solr.
 
 === SOLR
 
@@ -94,56 +101,22 @@ integration, or...) environments, specify the RAILS_ENV:
 
   rake solr:build RAILS_ENV=test
 
-=== INSTALLING REQUIRED GEMS
-
-The following gems are required on your local machine for development but NOT deployment (deployment gems
-should always be frozen into the project):
-
-1. ZenTest
-sudo gem install ruby-debug
-3. piston
-
-If you are on a Mac, you will also need ruby-growl. ... well, if you want to run autotest, you will.
-
-Plugins required to run the site in production should be frozen into the vendor folder as is the version of
-Rails the app depends on.
-
-
-
-To install required gems:
-  sudo gem install nokogiri
-
-  rake gems         # This could give you some errors...
-  rake gems:build   # if there are gems that aren't installed or you got that big error...
-  rake gems:install # if there were gems that are STILL missing...
-  # please manually install gems that are still missing or failed to install.
-
-==== INSTALLING NEW GEMS
-
-If you want to add a new gem to the project, please:
-
-1. Add the config.gem line to the config/environment.rb file.
-2. Install the gem using "rake gems:install".
-3. Unpack the gem into the vendor directory with "rake gems:unpack".
-4. Be sure to "svn add" the new directories that were created.
-
-
 === SETTING UP THE DATABASES
 
 1. Setup the config/database.yml
 
    a. Copy "config/database.sample.yml" to "config/database.yml"
-   b. Create/update the appropriate entries for your development and test environments
-   c. For development purposes, the +demo+, +integration+, and +production+ environments may be removed
-   d. For production purposes, set the "master_database" to the master database for the core rails database and the "master_data_database" to the master database for the data database (see more info below in the "READ/WRITE SPLITTING" topic)
+   b. Create/update the appropriate entries for your development, test, and test_master environments.
+   c. For development purposes, the +demo+, +integration+, and +production+ environments may be removed.
+   d. For production purposes, set the "master_database" to the master database for the core rails database and
+      the "master_data_database" to the master database for the data database (see more info below in the
+      "READ/WRITE SPLITTING" topic)
 
 2. Installing and running memcached
 
 This project doesn't run without memcached.  The reason for this is that no other caching mechanism seems to properly
 persist Ruby objects.  If you *really* need to run some other caching system, modify your
-config/environments/development.rb to use what you prefer, but beware of "Stack level too deep" errors, which will
-occur if object serialization failed. You may need to find all of the "$CACHE" calls in the code and use YAML to
-serialize and restore the objects being stored.
+config/environments/development.rb to use what you prefer, but you're on your own.
 
 To install memcached on OSX with MacPorts already on the system is quite easy:
 
@@ -155,28 +128,49 @@ To install memcached on OSX with MacPorts already on the system is quite easy:
 That's it!  Memcached is now running and will work for development.  Be mindful of this--it may require periodic
 restarting or flushing (from a Rails console, you can just type "$CACHE.clear").
 
-If you don't have MacPorts (or don't trust it), you will need to find another way to install and launch memcached,
-and that is beyond the scope of this document (but plenty of tutorials exist online).
-
 Note that you do NOT need to install the "memcache" Ruby gem.
 
 
-3. Run the following rake commands:
+3. Create the tables.  Here's a handy list of commands:
 
-  rake eol:db:create:all           # Note the "EOL".  This keeps bad things from happening.  Please use it.
-  rake eol:db:create:all RAILS_ENV=test
-  rake db:migrate
-  rake db:migrate RAILS_ENV=test
-  rake truncate
-  rake scenarios:load NAME=bootstrap #Be sure you installed memcached according to the step 2
+  mysql -u root
 
-  # Your "URL" (or an alternative) will be provided to you privately if needed.  Most developers who will not run code in production can skip this one.
+  drop database eol_data_development ;
+  drop database eol_development;
+  drop database eol_logging_development;
+  drop database eol_data_test;
+  drop database eol_test;
+  drop database eol_logging_test;
+  drop database eol_test_master;
+  drop database eol_data_test_master;
+  drop database eol_logging_test_master;
+
+  create database eol_data_development character set = utf8 collate = utf8_general_ci;
+  create database eol_development character set = utf8 collate = utf8_general_ci;
+  create database eol_logging_development character set = utf8 collate = utf8_general_ci;
+  create database eol_data_test character set = utf8 collate = utf8_general_ci;
+  create database eol_test character set = utf8 collate = utf8_general_ci;
+  create database eol_logging_test character set = utf8 collate = utf8_general_ci;
+  create database eol_test_master character set = utf8 collate = utf8_general_ci;
+  create database eol_data_test_master character set = utf8 collate = utf8_general_ci;
+  create database eol_logging_test_master character set = utf8 collate = utf8_general_ci;
+
+  quit;
+
+  rake db:migrate ; rake db:migrate RAILS_ENV=test ; rake db:migrate RAILS_ENV=test_master
+
+=== PRIVATE CONFIG FILES:
+
+Your "URL" (or an alternative) will be provided to you privately if needed.  Most developers who will not run code in production can skip this one.
+
   rake eol:site_specific repo=URL
 
 === WATCHING IT COME TO LIFE
 
 Run the following two commands:
   
+  rake truncate
+  rake scenarios:load NAME=bootstrap
   rake solr:start
   script/server
 
@@ -184,16 +178,11 @@ Go to http://localhost:3000 and see stuff.
 
 == TESTING
 
-We're using RSpec for our testing (see the spec/ directory).  Run 'rake spec' (or 'rake specdoc' for specdoc output)
+We're using RSpec for our testing (see the spec/ directory).  Run 'rake' or 'rake spec' (or 'rake specdoc' for specdoc output)
 
-Note that Solr must be running in the test RAILS_ENV before tests will pass:
+=== TROUBLESHOOTING
 
-  rake solr:stop RAILS_ENV=test
-  rake solr:start RAILS_ENV=test
-
-Also note that the solr:stop command works even if the server was started in the development environment.
-
-=== Possible error: "You haven't loaded the foundation scenario, and tried to build a TaxonConcept with no vetted id."
+Possible error: "You haven't loaded the foundation scenario, and tried to build a TaxonConcept with no vetted id."
 
 If you get this error, you may need to point your code to the correct version of mysqldump.
 
@@ -203,23 +192,25 @@ Create config/environments/local.rb (this will be ignored by revision control), 
 
 (But make sure that the path you use here is *really* a working version of mysqldump.)
 
-=== Test Logins
+=== LOGINS
 
-admin user
-username: admin
-password: admin
+The following accounts are set up by the "bootstrap" scenario, so you can usually get into them:
 
-content partner
-username: test_cp
-password: test password
+  Admin user
+    username: admin
+    password: admin
 
-user
-username: test_user2
-password: password
+  Content partner
+    username: test_cp
+    password: test password
 
-curator of Animalia (page #11 ATM)
-username: test_curator
-password: password
+  User
+    username: test_user2
+    password: password
+
+  Curator of Animalia (page #11 ATM)
+    username: test_curator
+    password: password
 
 === Additional tests
 
@@ -239,17 +230,13 @@ Content Partner, and should be visibile only to her.
 
 The EOL code base uses metric_fu to evaluate the overall code quality.
 
-==== Metric_fu is Not Included
-
 To use Metric Fu, you must install the gem YOURSELF.  It is the team's opinion
 that metric-fu, and it's various dependencies, are system level tools (like
 ruby-debug) and should not be checked into the code base.
 
-==== Use
-
   rake metrics:all # Runs metrics on EOL
 
-  The results end up in HTML. Start with tmp/metric_fu/output/index.html
+The results end up in HTML. Start with tmp/metric_fu/output/index.html
 
 == MULTI-DATABASE AND MASTER/SLAVE DATABASES SETUP
 
@@ -577,7 +564,7 @@ particular environment by adding the following line to your "config/environments
 
   Synthesis::AssetPackage.merge_environments = ["development", "production"]
 
-== TAXONCONCEPT ATTRIBUTION NOTES
+== TAXON CONCEPT ATTRIBUTION NOTES
 
 To get attribution for a given taxon concept ID:
 
@@ -610,12 +597,3 @@ to today).
 
 The URLS placed into the site map file are based on 'BASEURL/XXX' where XXX is a valid published, trusted taxon
 concept ID pulled from the specified environment.
-
-== DOCUMENTATION
-
-We're not keeping the docs in the svn repo, so you'll have to generate them on your own.  We recommend
-installing the allison gem, after which you can run this command:
-
-  template=`allison --path` rake doc:reapp
-
-...Just remove the template bit, if you don't care to have the pretty formatting.

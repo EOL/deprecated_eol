@@ -80,7 +80,7 @@ module EOL
     end
 
     def feeds_listening_to_this_item
-      user_watch_collections_listening + community_focus_lists_listening
+      user_watch_collections_listening + community_focus_lists_listening + collection_feeds
     end
 
     def user_watch_collections_listening
@@ -92,6 +92,9 @@ module EOL
       []
     end
 
+    def collection_feeds
+      []
+    end
 
   end
 end

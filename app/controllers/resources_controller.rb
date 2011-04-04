@@ -83,10 +83,10 @@ class ResourcesController < ApplicationController
       if current_user && current_user.is_admin?
         if params[:publish] == '1' and current_object.resource_status == ResourceStatus.processed
           current_object.resource_status = ResourceStatus.publish_pending
-          flash[:notice] = "Resource is scheduled to be published"
+          flash[:notice] = I18n.t("resource_is_scheduled_to_be_pu")
         elsif params[:publish] == '0' and current_object.resource_status == ResourceStatus.published
           current_object.resource_status = ResourceStatus.unpublish_pending
-          flash[:notice] = "Resource is scheduled to be unpublished"
+          flash[:notice] = I18n.t("resource_is_scheduled_to_be_un")
         end
 
         if params[:auto_publish]=='1'

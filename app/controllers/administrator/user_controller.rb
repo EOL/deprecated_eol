@@ -8,7 +8,7 @@ class Administrator::UserController  < AdminController
 
   def index
 
-    @page_title = 'Web Users'
+    @page_title = I18n.t("web_users")
     
     @user_search_string = params[:user_search_string] || ''
     search_string_parameter = '%' + @user_search_string + '%' 
@@ -87,11 +87,11 @@ class Administrator::UserController  < AdminController
   def edit
     store_location(referred_url) if request.get?    
     @user=User.find(params[:id])
-    @page_title = "Edit #{@user.username}"
+    @page_title = I18n.t("edit_var__user_username", :var__user_username => @user.username)
   end
   
   def new  
-    @page_title = 'New User'
+    @page_title = I18n.t("new_user")
     store_location(referred_url) if request.get?
     @user=User.create_new
   end
@@ -108,7 +108,7 @@ class Administrator::UserController  < AdminController
     
     if @user.save
       @user.approve_to_curate_by_user(EOLConvert.to_boolean(params[:user][:curator_approved]), current_user)
-      flash[:notice] = "The new user was created."
+      flash[:notice] = I18n.t("the_new_user_was_created")
       redirect_back_or_default(url_for(:action=>'index'))
     else
       render :action=>'new'
@@ -140,7 +140,7 @@ class Administrator::UserController  < AdminController
       else
         @user.approve_to_curate_by_user(EOLConvert.to_boolean(user_params[:curator_approved]), current_user)
       end
-      flash[:notice] = "The user was updated."
+      flash[:notice] = I18n.t("the_user_was_updated")
       redirect_back_or_default(url_for(:action=>'index'))
     else
       render :action=>'edit'
@@ -176,14 +176,14 @@ class Administrator::UserController  < AdminController
       if !user.blank?
         reset_session
         set_current_user(user)
-        flash[:notice] = "You have been logged in as #{user.username}"
+        flash[:notice] = I18n.t("you_have_been_logged_in_as_var", :var_user_username => user.username)
         redirect_to root_url
       end
       return      
   end  
   
   def view_user_activity
-    @page_title = 'User Activity'     
+    @page_title = I18n.t("user_activity") 
     @user_id=params[:user_id] || ''
     @user_list=User.users_with_activity_log    
     @activity_id=params[:activity_id] || 'All'
@@ -193,7 +193,7 @@ class Administrator::UserController  < AdminController
   end
 
   def view_common_activities
-    @page_title = 'Common User Activity'     
+    @page_title = I18n.t("common_user_activity") 
     page = params[:page] || 1
     @activities = ActivityLog.most_common_activities(page)
   end
@@ -201,7 +201,7 @@ class Administrator::UserController  < AdminController
   def view_common_combinations
     start = Time.now
     activity_id = params[:activity_id]    
-    @page_title = 'Common User Activity'     
+    @page_title = I18n.t("common_user_activity") 
     @activities = ActivityLog.most_common_combinations(activity_id)
     if(activity_id)      
       @activity = Activity.find(activity_id)  

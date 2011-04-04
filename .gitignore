@@ -8,6 +8,8 @@ eol-solr.pid
 mkmf.log
 extconf.h
 .DS_Store
+tmp/metric_fu/scratch
+config/database.BKUP
 config/database.yml
 config/deploy
 config/deploy.rb

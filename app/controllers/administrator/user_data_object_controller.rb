@@ -7,7 +7,7 @@ class Administrator::UserDataObjectController < AdminController
   access_control :web_users
 
   def index
-    @page_title = 'User Submitted Text' 
+    @page_title = I18n.t("user_submitted_text_") 
     @user_id = params[:user_id] || 'All'
     @user_list = User.users_with_submitted_text 
     

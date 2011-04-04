@@ -35,7 +35,7 @@ class TaxaController < ApplicationController
       @querystring = params[:q] || params[:id]
     end
     @search_type = params[:search_type] || 'text'
-    @page_title  = "EOL Search: #{@querystring}"
+    @page_title  = I18n.t("eol_search__var__querystring", :var__querystring => @querystring)
     @parent_search_log_id = params[:search_log_id] || 0 # Keeps track of searches done immediately after other searches
     log_search(request)
     if @search_type == 'google'
@@ -344,7 +344,7 @@ class TaxaController < ApplicationController
                                      :vetted => Vetted.trusted)
         current_user.log_activity(:added_common_name, :value => params[:name][:name_string], :taxon_concept_id => tc.id)
       else
-        flash[:error] = "User #{current_user.full_name} does not have enough privileges to add a common name to the taxon"
+        flash[:error] = I18n.t("user_var_current_user_full_nam", :var_current_user_full_name => current_user.full_name)
       end
       expire_taxa([tc.id])
     end
@@ -424,7 +424,7 @@ class TaxaController < ApplicationController
     # in Firefox those feeds are evaluated when the pages loads, so this should save some queries
     @concept = find_taxon_concept
     return if taxon_concept_invalid?(@concept)
-    @page_title = "Curators of #{@concept.title(@session_hierarchy)}"
+    @page_title = I18n.t("curators_of_var__concept_title", :var__concept_title__session_hierarchy_ => @concept.title(@session_hierarchy))
     curators = @concept.curators(:add_names => true)
     @curators = User.find_all_by_id(curators.collect{ |c| c.id }, :include => { :curator_hierarchy_entry => :name })
     @curators.sort! do |a, b|
@@ -581,7 +581,7 @@ private
     if(params[:image_id])
       latest_published_image = DataObject.latest_published_version_of(params[:image_id].to_i)
       unless latest_published_image
-        flash[:warning] = "Image not found"
+        flash[:warning] = I18n.t("image_not_found")
         return
       end
       image_id = latest_published_image.id
@@ -595,7 +595,7 @@ private
         selected_image_index = find_selected_image_index(@images,image_id)
       end
       unless selected_image_index
-        flash[:warning] = "Image is no longer available"
+        flash[:warning] = I18n.t("image_is_no_longer_available")
         return
       end
       params[:image_page] = @image_page = ((selected_image_index+1) / $MAX_IMAGES_PER_PAGE.to_f).ceil
@@ -627,7 +627,7 @@ private
           current_user.save if logged_in?
         end
       else
-        flash[:warning] = "Text is no longer available"
+        flash[:warning] = I18n.t("text_is_no_longer_available")
       end
     end
   end

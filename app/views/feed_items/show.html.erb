@@ -1,23 +1,23 @@
 <p>
-  <b>Body:</b>
+  <b><%= I18n.t("body_") %></b>
   <%=h @feed_item.body %>
 </p>
 
 <p>
-  <b>Parent type:</b>
+  <b><%= I18n.t("parent_type_") %></b>
   <%=h @feed_item.parent_type %>
 </p>
 
 <p>
-  <b>Parent:</b>
+  <b><%= I18n.t("parent_") %></b>
   <%=h @feed_item.parent_id %>
 </p>
 
 <p>
-  <b>User:</b>
+  <b><%= I18n.t("user_") %></b>
   <%=h @feed_item.user_id %>
 </p>
 
 
-<%= link_to 'Edit', edit_feed_item_path(@feed_item) %> |
-<%= link_to 'Back', feed_items_path %>
+<%= link_to I18n.t("edit"), edit_feed_item_path(@feed_item) %> |
+<%= link_to I18n.t("back"), feed_items_path %>

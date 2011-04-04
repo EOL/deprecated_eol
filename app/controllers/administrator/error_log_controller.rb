@@ -7,7 +7,7 @@ class Administrator::ErrorLogController < AdminController
   access_control :technical
 
   def index
-    @page_title = 'Error Log'
+    @page_title = I18n.t("error_log")
     if params[:date]
       if params[:date] == 'all'
         @date = 'all'
@@ -30,7 +30,7 @@ class Administrator::ErrorLogController < AdminController
   end
  
   def show
-    @page_title = 'Error Log Detail'
+    @page_title = I18n.t("error_log_detail")
     @error = ErrorLog.find(params[:id])
   end
  

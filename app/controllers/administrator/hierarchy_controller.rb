@@ -21,7 +21,7 @@ class Administrator::HierarchyController < AdminController
       else
         order_by = 'a.full_name, h.id'
     end
-    @page_title = 'Hierarchies'
+    @page_title = I18n.t("hierarchies_")
     @hierarchies = Hierarchy.paginate_by_sql("SELECT h.*, a.full_name agent_name, cp.agent_id content_partner_agent_id FROM hierarchies h LEFT JOIN agents a ON (h.agent_id=a.id) LEFT JOIN content_partners cp ON (a.id=cp.agent_id) ORDER BY #{order_by}", :page=>page)
   end
   
@@ -46,7 +46,7 @@ class Administrator::HierarchyController < AdminController
       if @hierarchy.update_attributes(params[:hierarchy])
         # if there were changes to what was browsable we want those changes immediately visible
         $CACHE.delete('hierarchies/browsable_by_label')
-        flash[:notice] = "Hierarchy updated"
+        flash[:notice] = I18n.t("hierarchy_updated")
         redirect_to :action => 'index', :id => @hierarchy.id 
       end
     end

@@ -1,14 +1,14 @@
-<h1>Listing collections</h1>
+<h1><%= I18n.t("listing_collections") %></h1>
 
 <table>
   <tr>
-    <th>Name</th>
-    <th>Community</th>
-    <th>User</th>
-    <th>Special collection</th>
-    <th>Public</th>
-    <th>Object type</th>
-    <th>Object</th>
+    <th><%= I18n.t("name") %></th>
+    <th><%= I18n.t("community") %></th>
+    <th><%= I18n.t("user") %></th>
+    <th><%= I18n.t("special_collection") %></th>
+    <th><%= I18n.t("public") %></th>
+    <th><%= I18n.t("object_type") %></th>
+    <th><%= I18n.t("object") %></th>
   </tr>
 
 <% @collections.each do |collection| %>
@@ -20,13 +20,13 @@
     <td><%=h collection.public %></td>
     <td><%=h collection.object_type %></td>
     <td><%=h collection.object_id %></td>
-    <td><%= link_to 'Show', collection %></td>
-    <td><%= link_to 'Edit', edit_collection_path(collection) %></td>
-    <td><%= link_to 'Destroy', collection, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to I18n.t("show"), collection %></td>
+    <td><%= link_to I18n.t("edit"), edit_collection_path(collection) %></td>
+    <td><%= link_to I18n.t("destroy"), collection, :confirm => I18n.t("are_you_sure"), :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New collection', new_collection_path %>
+<%= link_to I18n.t("new_collection"), new_collection_path %>

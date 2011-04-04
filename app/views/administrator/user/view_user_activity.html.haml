@@ -91,13 +91,13 @@
                 - if(!activity.value.nil?)
                   - toc = TocItem.find(activity.value) rescue nil
                   - if(!toc.nil?)
-                    = "TOC: " + toc.label
+                    = "#{I18n.t(:toc__)}" + toc.label
                     - if(toc.parent_id > 0)
                       - toc2 = TocItem.find(toc.parent_id) rescue nil
                       - if(!toc2.nil?)
                         = " -- " + toc2.label
                   - else
-                    = "TOC: no longer available"
+                    =I18n.t("toc__no_longer_available")
                     
               - if(value_as_hierarchy_entry_id.include? activity.activity_id)
                 - if(!activity.value.nil?)
@@ -109,7 +109,7 @@
 
               - if(value_as_viewed_page_of_images.include? activity.activity_id)
                 - if(!activity.value.nil?)
-                  = "thumbnail page: " + activity.value
+                  = "#{I18n.t(:thumbnail_page__)}" + activity.value
 
               - if(value_as_news_items_id.include? activity.activity_id)
                 - if(!activity.value.nil?)

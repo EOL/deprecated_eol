@@ -23,7 +23,7 @@ class CuratorsController < ApplicationController
   # TODO - we need to link to this.  :)  There should be a hierarchy_entry_id provided, when we do.  We want each TC page to
   # have a link (for curators), using "an appropriate clade" for the hierarchy_entry_id.
   def curate_images
-    @page_title += ": Curate Images"
+    @page_title += ": " + I18n.t("curate_images")
     published_resources
     session['curate_images_hierarchy_entry_id'] = params['hierarchy_entry_id'] if params['hierarchy_entry_id']
     session['curate_images_hierarchy_entry_id'] = nil if session['curate_images_hierarchy_entry_id'].blank?
@@ -47,7 +47,7 @@ class CuratorsController < ApplicationController
   end
 
   # def ignored_images
-  #   @page_title += ": Ignored Images"
+  #   @page_title += ": " + I18n.t("ignored_images_")
   #   session['ignored_images_hierarchy_entry_id'] = params['hierarchy_entry_id'] if params['hierarchy_entry_id']
   #   session['ignored_images_hierarchy_entry_id'] = nil if session['ignored_images_hierarchy_entry_id'].blank?
   #   @name = params['hierarchy_entry_id'].blank? ? '' : Name.find_by_id(HierarchyEntry.find_by_id(params['hierarchy_entry_id'], :select => 'name_id').name_id)

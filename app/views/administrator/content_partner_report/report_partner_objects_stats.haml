@@ -4,14 +4,14 @@
     / Content Partner Curated Data
   %p
     - if(@agent_id != "All")
-      Below is the list of harvest events for 
+      =I18n.t("below_is_the_list_of_harvest_e") 
       %strong
         = link_to(@partner_fullname + ".", { :action => 'show', :id => @agent_id })
       %br      
-      Clicking on the Harvest ID will bring you to the Data Objects Stats for that harvest.
+      =I18n.t("clicking_on_the_harvest_id_wil")
 
   - form_for :hello, :url => { :action => :report_partner_objects_stats } do |form|
-    Viewing Partner:
+    =I18n.t("viewing_partner_")
     / working ok = select_tag :agent_id, options_from_collection_for_select(  @content_partners_with_published_data, :id, :full_name, @agent_id.to_i )
     
     %select{ :name => "agent_id" }
@@ -20,7 +20,7 @@
         %option{ :value => cp.id, :selected => @agent_id.to_i == cp.id }
           = cp.full_name
 
-    = submit_tag("Change")
+    = submit_tag(I18n.t(:change))
   
   /%br
   /  Harvest Events:
@@ -35,15 +35,15 @@
         %th
           
         %th
-          Resource
+          =I18n.t("resource")
         %th
-          Harvest ID
+          =I18n.t("harvest_id")
         %th
-          Started
+          =I18n.t("started")
         %th
-          Completed
+          =I18n.t("completed")
         %th
-          Published
+          =I18n.t("published")
 
     %tbody
       - count = @cur_page.to_i

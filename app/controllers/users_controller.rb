@@ -30,11 +30,11 @@ class UsersController < ApplicationController
         end
       end
       if worked
-        flash[:notice] = "User #{@user.username} was successfully updated."
+        flash[:notice] = I18n.t("user_var__user_username_was_su", :var__user_username => @user.username)
         format.html { redirect_to :controller => :account, :action => :profile, :anchor => anchor }
         format.json  { render @user.to_json } 
       else
-        flash[:error] = "User #{@user.username} was not updated."
+        flash[:error] = I18n.t("user_var__user_username_was_no", :var__user_username => @user.username)
         format.html { render :controller => :account, :action => :profile }
         format.json  { render @user.errors.to_json, :status => :unprocessable_entity }
       end

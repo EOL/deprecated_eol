@@ -18,7 +18,7 @@ private
  end      
 
  def set_layout_variables
-   @page_title = 'EOL Administration Console'
+   @page_title = I18n.t("eol_administration_console")
    @navigation_partial = '/admin/navigation'
  end
 

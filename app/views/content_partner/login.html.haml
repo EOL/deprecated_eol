@@ -15,7 +15,7 @@
     =I18n.t("welcome___this_site_allows_peo")
     %br
     %br
-    %p== #{link_to( I18n.t(:to_begin_the_registration_process_click_here) ,:action=>'register')}, or if you have previously registered, enter your login information below.  Note that this is a project level login.
+    %p== #{link_to( I18n.t(:to_begin_the_registration_process_click_here) ,:action=>'register')}, #{I18n.t(:or_if_you_have_previously_regi)}
     %div{ :style => "float: left; width: 550px;" }
       - form_for :agent do |form|
         %fieldset

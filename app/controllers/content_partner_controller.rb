@@ -219,7 +219,7 @@ class ContentPartnerController < ApplicationController
     get_agent
     
     unless @agent.ready_for_agreement?
-      flash[:warning] = "The agreement for this partner is not available."
+      flash[:warning] = I18n.t("the_agreement_for_this_partner")
       redirect_to(:action => 'index')
       return
     end
@@ -269,7 +269,7 @@ class ContentPartnerController < ApplicationController
     return unless request.post?
 
     if @agent_contact.save
-      flash[:notice] = "Contact created"
+      flash[:notice] = I18n.t("contact_created")
       handle_save_type(:stay => { :action => 'edit_contact', :id => @agent_contact.id }, :next => { :action => 'contacts' })      
     end
   end
@@ -282,7 +282,7 @@ class ContentPartnerController < ApplicationController
     return unless request.post?
 
     if @agent_contact.update_attributes(params[:agent_contact])
-      flash[:notice] = "Contact updated"
+      flash[:notice] = I18n.t("contact_updated")
       handle_save_type(:stay => { :action => 'edit_contact', :id => @agent_contact.id }, :next => { :action => 'contacts' })      
     end
   end
@@ -293,9 +293,9 @@ class ContentPartnerController < ApplicationController
 
     if current_agent.agent_contacts.count > 1
       @agent_contact.destroy
-      flash[:notice] = "Contact deleted"
+      flash[:notice] = I18n.t("contact_deleted")
     else
-      flash[:error] = "You must have at least one contact"
+      flash[:error] = I18n.t("you_must_have_at_least_one_con")
     end
 
     redirect_to :action => 'contacts'
@@ -352,10 +352,10 @@ class ContentPartnerController < ApplicationController
         self.current_agent.remember_me
         cookies[:agent_auth_token] = { :value => self.current_agent.remember_token , :expires => self.current_agent.remember_token_expires_at }
       end
-      flash[:notice] = "Logged in successfully as #{self.current_agent.full_name}"
+      flash[:notice] = I18n.t("logged_in_successfully_as_var_", :var_self_current_agent_full_name => self.current_agent.full_name)
       redirect_to(:action=>'index',:protocol=>'http://')
     else
-      flash.now[:error] = 'Either your content partner login credentials are incorrect or your account was inactivated.  If you are trying to login as an EOL user or curator, use the login link at the top of the page.'
+      flash.now[:error] = I18n.t("either_your_content_partner_lo")
     end
   end
 
@@ -366,7 +366,7 @@ class ContentPartnerController < ApplicationController
     cookies.delete :agent_auth_token
     reset_session   
     session[:agent_id] = nil
-    flash[:notice] = "You have been logged out."
+    flash[:notice] = I18n.t("you_have_been_logged_out")
 
     store_location(params[:return_to])
     redirect_back_or_default
@@ -385,10 +385,10 @@ class ContentPartnerController < ApplicationController
     if @agent
       new_password = @agent.reset_password!
       Notifier.deliver_agent_forgot_password_email(@agent, new_password)
-      flash[:notice] = "A new password has been emailed to you at {email}."[:new_password_emailed, @agent.email]
+      flash[:notice] = I18n.t("new_password_emailed", :var_email=> @agent.email)  
       redirect_to(:action => 'login')
     else
-      flash[:error] = "Unknown username or project name"
+      flash[:error] = I18n.t("unknown_username_or_project_na")
       redirect_to(:action => 'forgot_password')
     end    
   end

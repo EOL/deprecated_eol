@@ -1,7 +1,7 @@
 %h2
-  New content partners for the month
+  =I18n.t("new_content_partners_for_the_m")
 %p
-  This is a list of first-time published content partners for the month.
+  =I18n.t("this_is_a_list_of_first_time_p")
 %ol
   - form_for :hello, :url => { :action => :report_monthly_published_partners } do |form|
     %table.results_table
@@ -18,9 +18,9 @@
     %thead{ :align => "center" }
       %tr{ :align => "center" }
         %th
-          ID
+          =I18n.t("id")
         %th
-          Content Partner
+          =I18n.t("content_partner")
     %tbody
       - count = 0
       - @published_agents.each do |agent|

@@ -46,7 +46,7 @@
           - if @search_string.blank?
             =I18n.t("_glossary_is_empty_")
           - else
-            = "no results for \"#{@search_string}\""
+            = "#{I18n.t(:no_results_for)} \"#{@search_string}\""
         %br
           &nbsp;
 = will_paginate @glossary_terms

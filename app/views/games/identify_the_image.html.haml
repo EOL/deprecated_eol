@@ -1,9 +1,9 @@
 #page-separator-general
 #page-title
   %h1
-    Identify the Image
+    =I18n.t("identify_the_image")
   %hr
-  %p=Sorry, this game is not currently working.
+  %p=I18n.t("sorry__this_game_is_not_curren")
   /
     %script{ :type => "text/javascript" }
       var attempts=0;
@@ -39,19 +39,19 @@
       }
       else
       {
-      $('game_feedback').innerHTML='SORRY - TRY AGAIN!'
+      $('game_feedback').innerHTML='#{I18n.t(:sorry___try_again)}'
       }
       }
       
       function game_over()
       {
       Element.remove('names');
-      $('game_feedback').innerHTML='GAME OVER'
-      final_results='<h2>Results</h2>';
-      final_results+='Number of attempts: ' + attempts + '<br />';
-      final_results+='Number of images: ' + correct + '<br />';
-      final_results+='Final score: ' + Math.round((correct/attempts) * 100) + '<br />';
-      = "final_results+='<br />Now click on the names to learn more about the species or <a href=\"#{request.request_uri}\">play again</a>!';"
+      $('game_feedback').innerHTML='#{I18n.t(:game_over)}'
+      final_results='<h2>#{I18n.t(:results)}</h2>';
+      final_results+='#{I18n.t(:number_of_attempts)}: ' + attempts + '<br />';
+      final_results+='#{I18n.t(:number_of_images)}: ' + correct + '<br />';
+      final_results+='#{I18n.t(:final_score)}: ' + Math.round((correct/attempts) * 100) + '<br />';
+      = "final_results+='<br />#{ I18n.t(:now_click_on_the_names_to_lear)} <a href=\"#{request.request_uri}\">#{I18n.t(:play_again)}</a>!';"
       $('game_results').innerHTML=final_results;
       }
       

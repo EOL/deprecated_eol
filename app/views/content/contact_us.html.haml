@@ -72,4 +72,4 @@
       = submit_tag I18n.t(:contact_us) 
       %br
       %br
-      = "To sign up for EOL notifications, please {create_account}"[:sign_up_for_eol_notifications,link_to( I18n.t(:create_account) , register_url)]
+      =I18n.t(:sign_up_for_eol_notifications, :var_create_account=>link_to( I18n.t(:create_account) , register_url))

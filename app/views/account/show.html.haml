@@ -60,4 +60,4 @@
   #credentials
     %h3
       =I18n.t("credentials")
-    = @user.credentials.blank? ? "None provided." : allow_some_html(@user.credentials)
+    = @user.credentials.blank? ? I18n.t("none_provided") : allow_some_html(@user.credentials)

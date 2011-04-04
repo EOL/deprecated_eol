@@ -15,7 +15,7 @@ class Administrator::GlossaryController < AdminController
     @order = params[:order_by] || 'term'
     @search_string = params[:search_string] || ''
     @search_string.strip!
-    @page_title = 'EOL Glossary'
+    @page_title = I18n.t("eol_glossary")
     unless @search_string.blank?
       @glossary_terms = GlossaryTerm.find_by_sql("SELECT * FROM glossary_terms WHERE term LIKE '%#{@search_string}%' OR definition LIKE '%#{@search_string}%'").paginate(:page => @page)
     else
@@ -25,10 +25,10 @@ class Administrator::GlossaryController < AdminController
   
   def create
     if params[:glossary_term][:term].blank?
-      flash[:error] = 'Term cannot be left blank'
+      flash[:error] = I18n.t("term_cannot_be_left_blank")
       redirect_to :action => 'index'
     elsif GlossaryTerm.find_by_term(params[:glossary_term][:term])
-      flash[:error] = "`#{params[:glossary_term][:term]}` is already defined"
+      flash[:error] = I18n.t("_is_already_defined", :var_term => params[:glossary_term][:term] )
       redirect_to :action => 'index'
     else
       GlossaryTerm.create(params[:glossary_term])
@@ -37,14 +37,14 @@ class Administrator::GlossaryController < AdminController
   end
   
   def edit
-    @page_title = 'EOL Glossary'
+    @page_title = I18n.t("eol_glossary")
     @glossary_term = GlossaryTerm.find(params[:id])
   end
   
   def update
     @glossary_term = GlossaryTerm.find(params[:id])
     if @glossary_term.update_attributes(params[:glossary_term])
-      flash[:notice] = 'The glossary term was successfully updated.'
+      flash[:notice] = I18n.t("the_glossary_term_was_successf")
       redirect_to :action => 'index'
     else
       render :action => 'edit' 

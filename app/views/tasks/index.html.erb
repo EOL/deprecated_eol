@@ -1,12 +1,12 @@
-<h1>Listing tasks</h1>
+<h1><%= I18n.t("listing_tasks") %></h1>
 
 <table>
   <tr>
-    <th>Task name</th>
-    <th>Task state</th>
-    <th>Owner user</th>
-    <th>Created by user</th>
-    <th>Expires on</th>
+    <th><%= I18n.t("task_name")  %></th>
+    <th><%= I18n.t("task_state") %></th>
+    <th><%= I18n.t("owner_user") %></th>
+    <th><%= I18n.t("created_by_user") %></th>
+    <th><%= I18n.t("expires_on") %></th>
   </tr>
 
 <% @tasks.each do |task| %>
@@ -16,13 +16,13 @@
     <td><%=h task.owner_user_id %></td>
     <td><%=h task.created_by_user_id %></td>
     <td><%=h task.expires_on %></td>
-    <td><%= link_to 'Show', task %></td>
-    <td><%= link_to 'Edit', edit_task_path(task) %></td>
-    <td><%= link_to 'Destroy', task, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to I18n.t("show"),  task %></td>
+    <td><%= link_to I18n.t("edit"), edit_task_path(task) %></td>
+    <td><%= link_to I18n.t("destroy"), task, :confirm =>  I18n.t("are_you_sure"), :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New task', new_task_path %>
+<%= link_to I18n.t("new_task"), new_task_path %>

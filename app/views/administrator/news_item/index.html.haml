@@ -5,7 +5,6 @@
 = link_to I18n.t("news_archive_page"),:controller=>'/content',:action=>'news'
 =I18n.t("page___you_must_be_comfortable")
 =I18n.t("note_that_you_can_reference_im")
-=I18n.t("facility_to_upload_images_for_")
 #news
   - form_tag({:action=>'index'},:method=>'get') do
     =I18n.t("search_for_items_containing_")
@@ -37,7 +36,7 @@
             %td{ :class => column_class }
               = h format_date_time(news_item.activated_on,:format=>'short_no_tz')
               %br
-              = h "(PUBLISHED)" if news_item.visible?
+              = h "#{I18n.t(:_published_)}" if news_item.visible?
             %td{ :class => column_class }
               = h format_date(news_item.display_date)
             %td{ :class => column_class }

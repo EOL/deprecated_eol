@@ -9,24 +9,24 @@ class Administrator::RoleController < AdminController
   access_control :technical
 
   def index
-    @page_title = 'Roles'
+    @page_title = I18n.t(I18n.t("roles"))
     @roles=Role.find(:all,:order=>'title')
   end
 
   def new
-    @page_title = 'New Role'
+    @page_title = I18n.t("new_role")
     @role = Role.new
   end
 
   def edit
-    @page_title = 'Edit Role'
+    @page_title = I18n.t("edit_role")
     @role = Role.find(params[:id])
   end
 
   def create
     @role = Role.new(params[:role])
     if @role.save
-      flash[:notice] = 'The role was successfully created.'
+      flash[:notice] = I18n.t("the_role_was_successfully_crea")
       redirect_to :action=>'index' 
     else
       render :action => 'new' 
@@ -36,7 +36,7 @@ class Administrator::RoleController < AdminController
   def update
     @role = Role.find(params[:id])
     if @role.update_attributes(params[:role])
-      flash[:notice] = 'The role was successfully updated.'
+      flash[:notice] = I18n.t("the_role_was_successfully_upda")
       redirect_to :action=>'index' 
     else
       render :action => 'edit' 

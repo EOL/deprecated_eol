@@ -12,9 +12,6 @@
   %fieldset
     %p
       =I18n.t("this_form_is_used_to_notify_eo")
-      =I18n.t("your_resource_or_place_it_on_a_")
-      =I18n.t("is_preferable_since_you_can_th")
-      =I18n.t("currently__the_resource_must_b")
     %br/
 
     - if (current_user.is_admin?)
@@ -41,7 +38,7 @@
       / resource_title ^.{1,200}$ false true //
       = f.text_field :title, :maxlength=>200, :size=>50
     .form_item
-      = f.label :accesspoint_url, 'Indicate below the full URL (include \'http://\') from which the resource can be downloaded:  <span title="required">*</span>'
+      = f.label :accesspoint_url, I18n.t("indicate_below_the_full_url__i_")
       = f.text_field :accesspoint_url, :maxlength=>200, :size=>60 , :onblur=>'javascript:check_url();'
       %br
       =I18n.t("or")

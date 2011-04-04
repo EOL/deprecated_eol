@@ -5,16 +5,16 @@
   - name = ""
   - msg = ""
 - else
-  - name = " for #{@name}"
-  - msg = "You are curating images #{name}. "
+  - name =  I18n.t("_for_var__name", :var__name => @name)
+  - msg = I18n.t("you_are_curating_images_var_na", :var_name => name)
 - if @images_to_curate.blank?
-  - status = @status.blank? ? "" : ((@status == 'all') ? "" : (@status == 'Unknown') ? "Unreviewed " : "#{@status} ")
+  - status = @status.blank? ? "" : ((@status == 'all') ? "" : (@status == 'Unknown') ? I18n.t("unreviewed_") : "#{@status} ")
   - ctnt_ptnr = @ctnt_ptnr.blank? ? "" : "#{@ctnt_ptnr} "
   %hr.thin
-  = "There is no #{status}#{ctnt_ptnr}content#{name}, please select another group to curate or change your source or vetting status criteria."
+  =I18n.t("there_is_no_var_statusvar_ctnt", :var_status => status, :var_ctnt_ptnr => ctnt_ptnr, :var_name => name)
 - else
   %hr.thin
-  = "#{msg}Images are sorted by EOL import date, with newest items shown first. There are #{@all_images_count} images in this work list."
+  =I18n.t("var_msgimages_are_sorted_by_eo", :var_msg => msg, :var__all_images_count => @all_images_count)
   = will_paginate(@images_to_curate, :params => params)
   %table.results_table
     %tr

@@ -16,9 +16,9 @@
   - license_attribution_html += " #{@data_object.license.description}" unless @data_object.license.description.blank? 
 - source = ''
 - if @data_object.sources.length == 1
-  - source = "(Source: #{@data_object.sources.first.full_name})"
+  - source = "(#{I18n.t(:source)}: #{@data_object.sources.first.full_name})"
 - elsif @data_object.sources.length > 1
-  - source = "(Sources: #{@data_object.sources.collect {|src| src.full_name}.join(', ')})"
+  - source = "(#{I18n.t(:source)}: #{@data_object.sources.collect {|src| src.full_name}.join(', ')})"
 
 %h2
   = title
@@ -26,4 +26,4 @@
   %h2
     = subtitle
 %p
-  = "#{license_attribution_html} by #{citables_to_string(@data_object.authors.map{|a| a.citable})} #{source}"
+  = I18n.t("var_license_attribution_html_b", :var_license_attribution_html => license_attribution_html, :var_citables_to_string__data_object_authors_map__a__a_citable => citables_to_string(@data_object.authors.map{|a| a.citable, :var_source => source)

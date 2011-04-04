@@ -9,7 +9,7 @@
       =I18n.t("__stands_alone__")
     - else
       - if @taxon_concepts[0].published?
-        - start_text = @revisions[0].id == @data_object.id ? 'belongs to ' : 'was connected to '
+        - start_text = @revisions[0].id == @data_object.id ? I18n.t("belongs_to_") : I18n.t("was_connected_to")
         == ( #{start_text} the following page#{@taxon_concepts.size == 1 ? '' : 's'}:
         - @taxon_concepts.each_with_index do |tc, i|
           - comma = (i+1 == @taxon_concepts.size) ? '' : ', '

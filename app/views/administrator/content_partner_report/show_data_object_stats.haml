@@ -2,20 +2,20 @@
   %h2    
     = @page_header 
 
-  Content Partner:
+  =I18n.t("content_partner_")
   %strong
     = @partner_fullname    
   &nbsp;&nbsp; | &nbsp;&nbsp;
-  Harvest ID:
+  =I18n.t("harvest_id_")
   %strong
     = @harvest_id  
 
   %br
-    Total Data Objects:
+    =I18n.t("total_data_objects_")
     %strong
       = number_with_delimiter(@data_objects.length, :delimiter => ",")
     &nbsp;&nbsp; | &nbsp;&nbsp;    
-    Total Taxa:
+    =I18n.t("total_taxa_")
     %strong
       = number_with_delimiter(@total_taxa.to_i, :delimiter => ",")
   - DataType.all.each do |data_type|
@@ -35,7 +35,7 @@
             = vetted.label  
         %td
           %strong
-            Total          
+            =I18n.t("total")          
       %tr
         - Vetted.all.each do |vetted|
           - objects_of_this_type_and_vetted = objects_of_this_type.select{ |d| d.vetted == vetted }

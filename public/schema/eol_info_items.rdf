@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<rdf:RDF
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:dcterms="http://purl.org/dc/terms/"
+  xml:base="http://www.eol.org/voc/table_of_contents"
+  xmlns="http://www.eol.org/voc/table_of_contents#">
+  
+  <owl:Ontology rdf:about="http://rs.tdwg.org/voc/table_of_contents">
+    <dc:title>EOL Biodiversity Subjects Ontology</dc:title>
+    <dc:creator>Patrick Leary</dc:creator>
+    <dc:publisher>Encyclopedia of Life</dc:publisher>
+    <dcterms:issued>2010-12-28</dcterms:issued>
+    <dc:description>A controlled vocabulary of subject used to define organisms</dc:description>
+    <owl:versionInfo>0.1</owl:versionInfo>
+  </owl:Ontology>
+  
+  <owl:Class rdf:ID="Development">
+    <rdfs:label>Development</rdfs:label>
+    <dc:title>Development</dc:title>
+    <dc:description></dc:description>
+    <rdfs:isDefinedBy rdf:resource="http://www.eol.org/voc/table_of_contents"/>
+  </owl:Class>
+  
+  <owl:Class rdf:ID="IdentificationResources">
+    <rdfs:label>Identification Resources</rdfs:label>
+    <dc:title>Identification Resources</dc:title>
+    <dc:description></dc:description>
+    <rdfs:isDefinedBy rdf:resource="http://www.eol.org/voc/table_of_contents"/>
+  </owl:Class>
+  
+  <owl:Class rdf:ID="SystematicsOrPhylogenetics">
+    <rdfs:label>Systematics or Phylogenetics</rdfs:label>
+    <dc:title>Systematics or Phylogenetics</dc:title>
+    <dc:description></dc:description>
+    <rdfs:isDefinedBy rdf:resource="http://www.eol.org/voc/table_of_contents"/>
+  </owl:Class>
+  
+  <owl:Class rdf:ID="FossilHistory">
+    <rdfs:label>Fossil History</rdfs:label>
+    <dc:title>Fossil History</dc:title>
+    <dc:description></dc:description>
+    <rdfs:isDefinedBy rdf:resource="http://www.eol.org/voc/table_of_contents"/>
+  </owl:Class>
+  
+  <owl:Class rdf:ID="FunctionalAdaptations">
+    <rdfs:label>Functional Adaptations</rdfs:label>
+    <dc:title>Functional Adaptations</dc:title>
+    <dc:description></dc:description>
+    <rdfs:isDefinedBy rdf:resource="http://www.eol.org/voc/table_of_contents"/>
+  </owl:Class>
+  
+  <owl:Class rdf:ID="Barcode">
+    <rdfs:label>Barcode</rdfs:label>
+    <dc:title>Barcode</dc:title>
+    <dc:description></dc:description>
+    <rdfs:isDefinedBy rdf:resource="http://www.eol.org/voc/table_of_contents"/>
+  </owl:Class>
+  
+  <owl:Class rdf:ID="Genome">
+    <rdfs:label>Genome</rdfs:label>
+    <dc:title>Genome</dc:title>
+    <dc:description></dc:description>
+    <rdfs:isDefinedBy rdf:resource="http://www.eol.org/voc/table_of_contents"/>
+  </owl:Class>
+  
+  <owl:Class rdf:ID="Education">
+    <rdfs:label>Education</rdfs:label>
+    <dc:title>Education</dc:title>
+    <dc:description></dc:description>
+    <rdfs:isDefinedBy rdf:resource="http://www.eol.org/voc/table_of_contents"/>
+  </owl:Class>
+  
+  <owl:Class rdf:ID="EducationResources">
+    <rdfs:label>Education Resources</rdfs:label>
+    <dc:title>Education Resources</dc:title>
+    <dc:description></dc:description>
+    <rdfs:isDefinedBy rdf:resource="http://www.eol.org/voc/table_of_contents"/>
+  </owl:Class>
+  
+  <owl:Class rdf:ID="CitizenScience">
+    <rdfs:label>Citizen Science</rdfs:label>
+    <dc:title>Citizen Science</dc:title>
+    <dc:description></dc:description>
+    <rdfs:isDefinedBy rdf:resource="http://www.eol.org/voc/table_of_contents"/>
+  </owl:Class>
+  
+   
+</rdf:RDF>

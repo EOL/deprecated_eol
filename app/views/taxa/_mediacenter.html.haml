@@ -18,7 +18,7 @@
             %a#maps-link{ :href => "/taxa/maps/#{@taxon_concept.id}", :title => "Maps"[], :class => 'ajax_delay_click', :onclick => ajax_delay_click }
               = "Maps"[]
               %span
-        - if @taxon_concept.has_video
+        - if @taxon_concept.show_video_tab
           %li#videos
             %a{ :href => "/taxa/videos/#{@taxon_concept.id}", :title => "Videos"[], :class => 'ajax_delay_click', :onclick => ajax_delay_click }
               = "Videos"[]

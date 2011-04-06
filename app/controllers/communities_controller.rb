@@ -1,7 +1,7 @@
 class CommunitiesController < ApplicationController
-  
+
   layout 'v2/communities'
-  
+
   before_filter :load_community_and_dependent_vars, :except => [:index, :new, :create]
   before_filter :must_be_logged_in, :except => [:index, :show]
   before_filter :restrict_edit_and_delete, :only => [:edit, :update, :delete]
@@ -23,9 +23,8 @@ class CommunitiesController < ApplicationController
     end
   end
 
-  # What is the difference between new and create?
   def new
-    @page_title = I18n.t(:create_a_new_community) 
+    @page_title = I18n.t(:create_a_new_community)
     @community = Community.new
     respond_to do |format|
       format.html # new.html.erb
@@ -34,7 +33,7 @@ class CommunitiesController < ApplicationController
   end
 
   def edit
-    @page_title = I18n.t(:edit_community) 
+    @page_title = I18n.t(:edit_community)
   end
 
   def create

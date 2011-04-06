@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-    This defines the extension for defining EOL data objects as extensions to a Taxon core object.
-    This will be used by EOL content partners who will use the IPT to export their data to a format
-    that can be ingested into EOL.
--->
 <extension xmlns="http://ipt.gbif.org/extension/"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://ipt.gbif.org/extension/ http://gbrds.gbif.org/resources/schemas/extension.xsd"
-            title="EOL ContentSchema 2.0"
-            name="EOL ContentSchema 2.0"
-            namespace="http://www.eol.org/transfer/content/2.0/">
+            title="EOL Agents Extension 1.0"
+            name="EOL Agents Extension 1.0"
+            namespace="http://www.eol.org/schema/agents/2.0/">
 
-    <property name="identifier"
+    <property name="agentID"
               namespace="http://purl.org/dc/terms/"
               qualName="http://purl.org/dc/terms/identifier"/>
 
@@ -39,12 +34,32 @@
               namespace="http://xmlns.com/foaf/0.1/"
               qualName="http://xmlns.com/foaf/0.1/img"/>
 
+    <property name="project"
+              namespace="http://xmlns.com/foaf/0.1/"
+              qualName="http://xmlns.com/foaf/0.1/name"/>
+
+    <property name="organization"
+              namespace="http://xmlns.com/foaf/0.1/"
+              qualName="http://xmlns.com/foaf/0.1/name"/>
+
     <property name="accountName"
               namespace="http://xmlns.com/foaf/0.1/"
               qualName="http://xmlns.com/foaf/0.1/accountName"/>
 
-    <!-- for potentially connecting with Flickr -->
+    <property name="openid"
+              namespace="http://xmlns.com/foaf/0.1/"
+              qualName="http://xmlns.com/foaf/0.1/openid"/>
+
+    <!-- for connecting with Flickr -->
     <property name="yahooChatID"
               namespace="http://xmlns.com/foaf/0.1/"
               qualName="http://xmlns.com/foaf/0.1/yahooChatID"/>
+
+    <property name="role"
+              namespace=""
+              qualName=""/>
+
+    <property name="mediaResourceID"
+                namespace="http://purl.org/dc/terms/"
+                qualName="http://purl.org/dc/terms/identifier"/>
 </extension>

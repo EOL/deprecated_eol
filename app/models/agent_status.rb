@@ -2,13 +2,13 @@
 class AgentStatus < SpeciesSchemaModel
   uses_translations
   has_many :content_partners
-    
+
   def self.active
     cached_find_translated(:label, 'Active')
-  end 
+  end
 
   def self.inactive
     cached_find_translated(:label, 'Inactive')
-  end 
-  
+  end
+
 end

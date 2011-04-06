@@ -186,11 +186,14 @@ SpecialCollection.create_all
 
 Community.create_special
 
-TocItem.gen_if_not_exists(:label => 'Overview', :view_order => 1)
-description = TocItem.gen_if_not_exists(:label => 'Description', :view_order => 2)
-TocItem.gen_if_not_exists(:label => 'Nucleotide Sequences', :view_order => 3, :parent_id => description.id)
-ecology_and_distribution = TocItem.gen_if_not_exists(:label => 'Ecology and Distribution', :view_order => 4)
-TocItem.gen_if_not_exists(:label => 'Wikipedia', :view_order => 5)
+overview = TocItem.gen_if_not_exists(:label => 'Overview', :view_order => 1)
+TocItem.gen_if_not_exists(:label => 'Brief Summary', :view_order => 2, :parent_id => overview.id)
+TocItem.gen_if_not_exists(:label => 'Comprehensive Description', :view_order => 2, :toc_item => overview.id)
+description = TocItem.gen_if_not_exists(:label => 'Description', :view_order => 3)
+TocItem.gen_if_not_exists(:label => 'Nucleotide Sequences', :view_order => 4, :parent_id => description.id)
+ecology_and_distribution = TocItem.gen_if_not_exists(:label => 'Ecology and Distribution', :view_order => 5)
+TocItem.gen_if_not_exists(:label => 'Distribution', :view_order => 6, :parent_id => ecology_and_distribution.id)
+TocItem.gen_if_not_exists(:label => 'Wikipedia', :view_order => 7)
 #--
 names_and_taxonomy = TocItem.gen_if_not_exists(:label => 'Names and Taxonomy', :view_order => 50)
 TocItem.gen_if_not_exists(:label => 'Related Names', :view_order => 51, :parent_id => names_and_taxonomy.id)
@@ -202,6 +205,7 @@ TocItem.gen_if_not_exists(:label => 'Content Summary', :view_order => 58, :paren
 #--
 TocItem.gen_if_not_exists(:label => 'Biodiversity Heritage Library', :view_order => 61)
 ref_and_info = TocItem.gen_if_not_exists(:label => 'References and More Information', :view_order => 62)
+
 
 # Note that in all these "children", the view_order resets.  ...That reflects the real DB.
 TocItem.gen_if_not_exists(:label => 'Literature References', :view_order => 64, :parent_id => ref_and_info.id)
@@ -255,6 +259,7 @@ Visibility.gen_if_not_exists(:label => 'Inappropriate')
 
 FeedItemType.create_defaults
 TaskState.create_default
+TaxonContentSection.create_default
 
 # The home-page doesn't render without random taxa.  Note that other scenarios, if they build legitimate RandomTaxa,
 # will need to DELETE these before they make their own!  But for foundation's purposes, this is required:

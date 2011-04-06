@@ -1,10 +1,10 @@
 class InternationalizeRemainingDataTables < EOL::DataMigration
   # skipping glossary, licenses
-  
+
   def self.up
     english = Language.english
     # we need to use SQL to get some numeric types we want (smallint)
-    
+
     # === AgentDataType
     execute("CREATE TABLE `translated_agent_data_types` (
       `id` int NOT NULL auto_increment,
@@ -21,8 +21,8 @@ class InternationalizeRemainingDataTables < EOL::DataMigration
       end
     end
     remove_column :agent_data_types, :label
-    
-    
+
+
     # === License
     execute("CREATE TABLE `translated_licenses` (
       `id` int NOT NULL auto_increment,
@@ -39,12 +39,12 @@ class InternationalizeRemainingDataTables < EOL::DataMigration
       end
     end
     remove_column :licenses, :description
-    
+
   end
 
   def self.down
     english = Language.english
-    
+
     # === AgentContactRole
     execute('ALTER TABLE `agent_data_types` ADD `label` varchar(100) character set ascii NOT NULL AFTER `id`')
     if english
@@ -56,8 +56,8 @@ class InternationalizeRemainingDataTables < EOL::DataMigration
     end
     add_index :agent_data_types, :label, :name => 'label'
     drop_table :translated_agent_data_types
-    
-    
+
+
     # === License
     execute('ALTER TABLE `licenses` ADD `description` varchar(100) NOT NULL AFTER `title`')
     if english
@@ -68,6 +68,6 @@ class InternationalizeRemainingDataTables < EOL::DataMigration
       end
     end
     drop_table :translated_licenses
-    
+
   end
 end

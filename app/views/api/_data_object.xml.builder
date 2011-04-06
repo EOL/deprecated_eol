@@ -45,5 +45,10 @@ unless data_object.blank?
         xml.reference r.full_reference
       end
     end
+    
+    xml.additionalInformation do
+      xml.vettedStatus data_object.vetted.label
+      xml.dataRating data_object.data_rating
+    end
   end
 end

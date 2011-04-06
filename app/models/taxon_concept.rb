@@ -110,7 +110,28 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def common_names
-    TaxonConceptName.find_all_by_taxon_concept_id_and_vern(self.id, 1)
+    tcn = TaxonConceptName.find_all_by_taxon_concept_id_and_vern(self.id, 1, :include => [ :name, :language ],
+      :select => {:taxon_concept_names => [ :preferred, :vetted_id ], :names => :string, :languages => '*'})
+    sorted_names = TaxonConceptName.sort_by_language_and_name(tcn)
+    duplicate_check = {}
+    name_languages = {}
+    # remove duplicate names in the same language
+    sorted_names.each_with_index do |tcn, index|
+      lang = tcn.language.blank? ? '' : tcn.language.iso_639_1
+      duplicate_check[lang] ||= []
+      sorted_names[index] = nil if duplicate_check[lang].include?(tcn.name.string)
+      duplicate_check[lang] << tcn.name.string
+      name_languages[tcn.name.string] = lang
+    end
+    
+    # now removing anything without a language if it exists with a language
+    sorted_names.each_with_index do |tcn, index|
+      next if tcn.nil?
+      lang = tcn.language.blank? ? '' : tcn.language.iso_639_1
+      sorted_names[index] = nil if lang.blank? && !name_languages[tcn.name.string].blank?
+    end
+    
+    sorted_names.compact
   end
 
   # Curators are those users who have special permission to "vet" data objects associated with a TC, and thus get

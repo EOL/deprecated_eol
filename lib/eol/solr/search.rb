@@ -1,9 +1,12 @@
+# For debugging, a helpful query to get back ALL results:
+#
+# puts JSON.load(open($SOLR_SERVER + $SOLR_TAXON_CONCEPTS_CORE + '/select/?version=2.2&indent=on&wt=json&q=' + CGI.escape(%Q[{!lucene} *:* AND published:1 AND supercedure_id:0])).read)["response"]["docs"].map {|e| "#{e['taxon_concept_id']}: sci=#{e['scientific_name'][0]}+com=#{e['common_name'][0]}" }.sort.join("\n")
 module EOL
   module Solr
 
     module Search
-      # Returns an array of result hashes, using will_paginate.  Don't use paginate_all_by_solr directly, as that will either fail
-      # or cause duplicate queries.
+      # Returns an array of result hashes, using will_paginate.  Don't use paginate_all_by_solr directly, as that will either
+      # fail or cause duplicate queries.
       # TODO - use a class rather than a class variable for search_results_for
       def search_with_pagination(query, options = {})
         options[:page]        ||= 1
@@ -20,22 +23,20 @@ module EOL
           querystring = prepare_querystring(clean_query, options)
         end
 
+        tc_id = nil
         if options[:filter_by_taxon_concept_id]
-          @tc_id = options[:filter_by_taxon_concept_id]
-        end        
-        if options[:filter_by_hierarchy_entry_id]
-          @hierarchy_entry = HierarchyEntry.find_by_id(options[:filter_by_hierarchy_entry_id],:select=>'taxon_concept_id')          
-          if @hierarchy_entry != nil
-            @tc_id = @hierarchy_entry.taxon_concept_id
-          end
-        end
-        if options[:filter_by_string]
-          @results = TaxonConcept.search_with_pagination(options[:filter_by_string], 
+          tc_id = options[:filter_by_taxon_concept_id]
+        elsif options[:filter_by_hierarchy_entry_id]
+          hierarchy_entry = HierarchyEntry.find_by_id(options[:filter_by_hierarchy_entry_id],:select=>'taxon_concept_id')
+          tc_id = (hierarchy_entry.blank?) ? nil : hierarchy_entry.taxon_concept_id
+        elsif options[:filter_by_string]
+          results = TaxonConcept.search_with_pagination(options[:filter_by_string], 
             :page => 1, :per_page => 1, :type => :all, :lookup_trees => false, :exact => true)
-          @tc_id = @results[0]['id']
+          tc_id = results[0]['id'].to_i
         end
-        if @tc_id
-          querystring << " AND ancestor_taxon_concept_id:#{@tc_id}"
+
+        if tc_id
+          querystring << " AND ancestor_taxon_concept_id:#{tc_id}"
         end
 
         res  = solr_search(querystring, options)
@@ -83,7 +84,6 @@ module EOL
         offset = (page - 1) * limit
         url << '&start=' << URI.encode(offset.to_s)
         url << '&rows='  << URI.encode(limit.to_s)
-        #puts 'URA solr' + url
         res = open(url).read
         JSON.load res
       end

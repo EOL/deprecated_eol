@@ -1,5 +1,6 @@
 = render(:partial=>'uservoice')
-- url = url_for(:controller => '/api', :action => 'search_by_provider', :version => '1.0', :id => '180542', :hierarchy_id => 107, :only_path => false)
+- itis = Hierarchy.find_by_label('Integrated Taxonomic Information System (ITIS)', :order => 'id desc')
+- url = url_for(:controller => '/api', :action => 'search_by_provider', :version => '1.0', :id => '180542', :hierarchy_id => itis.id, :only_path => false)
 #content
   #page-separator-general
   #page-title
@@ -36,14 +37,18 @@
             %i
               none
           %td.odd
-            the ID of the provider's hierarchy you are searching within
+            the ID of the provider's hierarchy you are searching within. Check
+            = link_to 'provider_hierarchies', :controller => 'api/docs', :action => 'provider_hierarchies'
+            for valid IDs
       %br
       %h3
         Description
       %p.indent
         This method takes an integer or string which is the unique identifier for a taxon from some provider's database, and a hierarchy_id which represents the provider and returns the EOL page ID for that taxon. For example using the
-        = link_to 'provider_hierarchies', :controller => 'api/docs', :action=>'provider_hierarchies'
-        API I can find out that the EOL hierarchy_id for the Integrated Taxonomic Information System (ITIS) is 107. I can then search EOL for the ITIS Taxonomic Serial Number (TSN) of 180542,
+        = link_to 'provider_hierarchies', :controller => 'api/docs', :action => 'provider_hierarchies'
+        API I can find out that the EOL hierarchy_id for the Integrated Taxonomic Information System (ITIS) is
+        = itis.id
+        \. I can then search EOL for the ITIS Taxonomic Serial Number (TSN) of 180542,
         %i
           Ursus maritimus
         , by calling 

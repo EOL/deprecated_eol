@@ -40,10 +40,13 @@ module ApiHelper
     if params[:common_names]
       for tcn in taxon_concept.common_names
         lang = tcn.language ? tcn.language.iso_639_1 : ''
-        return_hash['vernacularNames'] << {
+        common_name_hash = {
           'vernacularName' => tcn.name.string,
           'language'       => lang
         }
+        preferred = (tcn.preferred == 1) ? true : nil
+        common_name_hash['eol_preferred'] = preferred unless preferred.blank?
+        return_hash['vernacularNames'] << common_name_hash
       end
     end
     
@@ -107,6 +110,9 @@ module ApiHelper
     data_object.published_refs.each do |r|
       return_hash['references'] << r.full_reference
     end
+    
+    return_hash['vettedStatus'] = data_object.vetted.label unless data_object.vetted.blank?
+    return_hash['dataRating'] =  data_object.data_rating
     
     return return_hash
   end

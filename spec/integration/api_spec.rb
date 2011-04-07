@@ -612,7 +612,7 @@ describe 'EOL APIs' do
   end
 
   it 'search should be able to filter by hierarchy_entry_id' do
-    visit("/api/search/Dog.json?filter_by_hierarchy_entry_id=@wolf.hierarchy_entries.first.id")
+    visit("/api/search/Dog.json?filter_by_hierarchy_entry_id=#{@wolf.hierarchy_entries.first.id}")
     response_object = JSON.parse(body)
     response_object['results'][0]['title'].should == @dog_sci_name
     response_object['results'].length.should == 1

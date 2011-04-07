@@ -11,4 +11,5 @@
   <SyndicationRight>open</SyndicationRight>  
   <Query role="example" searchTerms="Giraffe"/> 
   <Url type="application/rss+xml" template="http://www.eol.org/api/search/{searchTerms}"/>
+  <Url type="text/html" template="http://www.eol.org/search?q={searchTerms}"/>
 </OpenSearchDescription>

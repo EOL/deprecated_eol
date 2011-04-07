@@ -1,5 +1,5 @@
 = render(:partial=>'uservoice')
-- url = url_for(:controller => '/api', :action => 'hierarchies', :version => '1.0', :id => '529', :only_path => false)
+- url = url_for(:controller => '/api', :action => 'hierarchies', :version => '1.0', :id => Hierarchy.default.id, :only_path => false)
 #content
   #page-separator-general
   #page-title

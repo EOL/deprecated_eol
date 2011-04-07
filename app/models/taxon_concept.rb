@@ -923,6 +923,7 @@ class TaxonConcept < SpeciesSchemaModel
     # get the images
     if options[:images].to_i > 0
       image_data_objects = top_concept_images.collect{ |tci| tci.data_object }.compact
+      image_data_objects = DataObject.filter_list_for_user(image_data_objects)
       # remove non-matching vetted and license values
       image_data_objects.delete_if do |d|
         (options[:vetted] && !options[:vetted].include?(d.vetted)) ||
@@ -936,6 +937,7 @@ class TaxonConcept < SpeciesSchemaModel
     # get the rest
     if options[:text].to_i > 0 || options[:videos].to_i
       non_image_objects = data_objects.select{ |d| !d.is_image? }
+      non_image_objects = DataObject.filter_list_for_user(non_image_objects)
       non_image_objects.delete_if do |d|
         (options[:vetted] && !options[:vetted].include?(d.vetted)) ||
         (options[:licenses] && !options[:licenses].include?(d.license)) ||
@@ -957,7 +959,8 @@ class TaxonConcept < SpeciesSchemaModel
         end
       end
     end
-    data_objects = DataObject.core_relationships.find_all_by_id(return_data_objects.collect{ |d| d.id })
+    data_objects = DataObject.core_relationships(:add_include => :published_refs, :add_select => { :refs => :full_reference }).
+      find_all_by_id(return_data_objects.collect{ |d| d.id })
     # set flash and youtube types to video, iucn to text
     data_objects.each do |d|
       d.data_type = DataType.video if d.is_video?

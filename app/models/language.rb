@@ -15,8 +15,8 @@ class Language < SpeciesSchemaModel
     Language.find_by_sql("select * from languages where iso_639_1 != ''") 
   end
   
-  def self.from_iso(iso_code, params={})
-    cached_find(:iso_639_1, iso_code)
+  def self.from_iso(iso, params={})
+    cached_find(:iso_639_1, iso)
   end
   
   def self.id_from_iso(iso_code)
@@ -37,7 +37,10 @@ class Language < SpeciesSchemaModel
   end
   
   def display_code
-    iso_639_1.upcase
+    iso_code.upcase
   end
-
+  
+  def iso_code
+    iso_639_1
+  end
 end

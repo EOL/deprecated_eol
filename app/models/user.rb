@@ -57,6 +57,16 @@ class User < parent_klass
   def self.generate_key
     Digest::SHA1.hexdigest(rand(10**30).to_s + Time.now.to_f.to_s)
   end
+  
+  def self.sort_by_name(users)
+    users.sort_by do |u|
+      given = u.given_name.blank? ? u.family_name : u.given_name.strip
+      family = u.family_name.blank? ? u.given_name : u.family_name.strip
+      [family.downcase,
+       given.downcase,
+       u.username.downcase]
+    end
+  end
 
   def validate
 

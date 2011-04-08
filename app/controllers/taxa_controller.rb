@@ -428,19 +428,7 @@ class TaxaController < ApplicationController
     @page_title = "Curators of #{@concept.title(@session_hierarchy)}"
     curators = @concept.curators(:add_names => true)
     @curators = User.find_all_by_id(curators.collect{ |c| c.id }, :include => { :curator_hierarchy_entry => :name })
-    @curators.sort! do |a, b|
-      if a.family_name.strip.blank? && b.family_name.strip.blank? # last names blank, sort by first
-        a.given_name.strip <=> b.given_name.strip
-      elsif a.family_name.strip.blank?                            # A.last blank, sort A.first to B.last
-        a.given_name.strip <=> b.family_name.strip
-      elsif b.family_name.strip.blank?                            # B last name blank, sort B.first to A.last
-        a.family_name.strip <=> b.given_name.strip
-      elsif a.family_name.strip == b.family_name.strip            # sort last
-        a.given_name.strip <=> b.given_name.strip
-      else                                                        # then sort first
-        a.family_name.strip <=> b.family_name.strip
-      end
-    end
+    @curators = User.sort_by_name(@curators)
   end
 
 private

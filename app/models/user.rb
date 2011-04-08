@@ -651,6 +651,9 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     last = start + per_page - 1
     data_object_ids_to_lookup = data_object_ids[start..last]
     
+    # We should not have to do it if the solr index get updated after every content import. Created a ticket WEB-2180 for this.
+    data_object_ids_to_lookup.collect! {|dato_id| DataObject.latest_published_version_id(dato_id) }.compact!
+    
     add_include = [
       :all_comments,
       { :users_data_objects => :user },

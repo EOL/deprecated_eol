@@ -961,6 +961,13 @@ class DataObject < SpeciesSchemaModel
     return nil if obj.blank?
     return obj[0]
   end
+  
+  def self.latest_published_version_id(data_object_id)
+    latest_data_object = DataObject.find_by_sql("SELECT do.id FROM data_objects do_old JOIN data_objects do ON (do_old.guid=do.guid) WHERE do_old.id=#{data_object_id} AND do.published=1 ORDER BY id desc LIMIT 1")
+    return nil if latest_data_object.blank?
+    return latest_data_object[0].id
+  end
+  
   def self.latest_published_version_of_guid(guid, options={})
     options[:return_only_id] ||= false
     select = (options[:return_only_id]) ? 'id' : '*'

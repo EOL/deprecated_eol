@@ -2,7 +2,7 @@
 #
 #   TODO add a description here of what actually gets created!
 #
-#   This description block can be viewed (as well as other information 
+#   This description block can be viewed (as well as other information
 #   about this scenario) by running:
 #     $ rake scenarios:show NAME=bootstrap
 #

@@ -117,6 +117,7 @@ class TaxonConcept < SpeciesSchemaModel
     quick_common_names(taxon_concept_ids, hierarchy)
   end
 
+  # TODO - this will now be called on ALL taxon pages.  Eep!  Make this more efficient:
   def common_names
     TaxonConceptName.find_all_by_taxon_concept_id_and_vern(self.id, 1)
   end
@@ -463,11 +464,6 @@ class TaxonConcept < SpeciesSchemaModel
     return hierarchies
   end
 
-
-  def test
-    return nil
-  end
-
   def entry_in_hierarchy(hierarchy)
     raise "Hierarchy does not exist" if hierarchy.nil?
     raise "Cannot find a HierarchyEntry with anything but a Hierarchy" unless hierarchy.is_a? Hierarchy
@@ -719,6 +715,20 @@ class TaxonConcept < SpeciesSchemaModel
     end
   end
 
+  # TODO - we only want PUBLISHED hierarchies, here:
+  def classifications
+    hierarchy_entries.map do |entry|
+      { :name => entry.hierarchy.agent.citable.display_string,
+        :kingdom => entry.kingdom,
+        :parent => entry.parent
+      }
+    end
+  end
+
+  def media
+    images + video_data_objects
+  end
+
   def images(options = {})
     # set hierarchy to filter images by
     if self.current_user.filter_content_by_hierarchy && self.current_user.default_hierarchy_valid?
@@ -752,9 +762,7 @@ class TaxonConcept < SpeciesSchemaModel
     return @subtitle unless @subtitle.nil?
     hierarchy ||= Hierarchy.default
     subtitle = quick_common_name(nil, hierarchy)
-    #subtitle = quick_scientific_name(:canonical, hierarchy) if subtitle.empty?  # no longer showing the canonical form
     subtitle = '' if subtitle.upcase == "[DATA MISSING]"
-    subtitle = "<i>#{subtitle}</i>" unless subtitle.empty? or subtitle =~ /<i>/
     @subtitle = subtitle
   end
 
@@ -1142,6 +1150,28 @@ class TaxonConcept < SpeciesSchemaModel
     published_hierarchy_entries.select do |he|
       he.hierarchy.browsable == 1 && he.published == 1 && he.visibility_id == Visibility.visible.id
     end
+  end
+
+  def top_communities
+    communities[0..2]
+  end
+
+  def communities
+    @communities ||= collection_items.map {|i| i.collection.community_id.nil? ? nil : i.collection.community }.compact
+  end
+
+  # TODO - This is terribly inefficient and shoud probably do most of the work via direct SQL or something...
+  def top_collections
+    collections = collection_items.map {|ci| ci.collection }.sort do |a,b|
+      if a.community_id.nil?
+        1
+      elsif b.community_id.nil?
+        -1
+      else
+        a.community_id <=> b.community_id
+      end
+    end
+    return collections[0..2]
   end
 
 private

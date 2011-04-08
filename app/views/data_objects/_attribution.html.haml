@@ -1,70 +1,17 @@
-%div{ :class => "attribution #{data_object.id}" }
+%ul{ :class => "attribution #{data_object.id}" }
   - if data_object.map?
-    %table{ :cellspacing => "0", :width => "100%", :cellpadding => "0" }
-      %tr.credit-line
-        %td
-          .credit-caption
-            = I18n.t(:legend)
-        %td
-          .credit-value
-            = image_tag 'gbif_legend.gif', :title=>I18n.t("gbif_map_legend"),:alt=>I18n.t("gbif_map_legend")
-            %br
-            =I18n.t("not_all_maps_have_occurrence_i")
-  - else !@preview
-    - unless defined?(skip_permalink) && skip_permalink
-      %a.attribution-icon.expand-text-attribution{ :href => "#", :title => I18n.t("view_full_attribution_details"), :id => "tdo_#{data_object.id}", :style => "width: 25px; height: 25px" }
-  - unless data_object.users_data_objects.blank? || data_object.users_data_objects[0].user.blank?
-    .credit.supplier
-      .credit-caption
+    -# TODO
+  - if data_object.added_by_user?
+    %li
+      %em
         = I18n.t(:supplier)
-      .credit-value
-        = data_object.users_data_objects[0].user.given_name
-        = data_object.users_data_objects[0].user.family_name
-      .footer
-  - citables = data_object.citable_entities
-  - unless citables.blank?
-    - citables.each do |citable|
-      %div{ :class => "credit #{citable.type.gsub(/ /,'').strip.downcase}" }
-        .credit-caption
-          = citable.type
-        .credit-value
-          = citables_to_string(citable)
-          = citables_to_icons(citable)
-        .footer
+      = data_object.users_data_objects[0].user.given_name
+      = data_object.users_data_objects[0].user.family_name
+  - data_object.citable_entities.each do |citable|
+    %li
+      %em
+        = citable.type
+      = citables_to_string(citable)
+      = citables_to_icons(citable)
   - if data_object.in_wikipedia?
-    .credit.show
-      .credit-caption
-        =I18n.t("edit__")
-      .credit-value
-        - edit_link = EOLWebService.uri_remove_param(data_object.source_url, 'oldid') + "&action=edit"
-        = external_link_to(I18n.t("latest_version_of_this_article"), edit_link)
-      .footer
-    - if @taxon_concept && @taxon_concept.show_curator_controls?
-      - if data_object.visibility_id == Visibility.preview.id
-        - form_tag "/pages/#{@taxon_concept.id}/publish_wikipedia_article", :method => :put, :id => 'wikipedia_publish_form', :class => 'wikipedia_publish_form' do
-          = hidden_field_tag "data_object_id", data_object.id
-          = hidden_field_tag "category_id", params[:category_id]
-          .credit.show
-            .credit-caption
-              =I18n.t("publish_")
-            .credit-value
-              %a{:href=>'', :onclick =>"javascript:$('#wikipedia_publish_form').submit(); return false;"}
-                =I18n.t("trust_this_article_and_replace")
-            .footer
-      .credit.show
-        .credit-caption
-          =I18n.t("recommend")
-        .credit-value
-          = link_to I18n.t("nominate_another_wikipedia_art"), :controller => 'content', :action => 'page', :id => 'curator_central', :anchor => 'wikipedia'
-        .footer
-  - if (data_object.text? || data_object.image? || data_object.video?) && ! (defined?(skip_permalink) && skip_permalink)
-    .credit.permalink
-      .credit-caption
-        = I18n.t(:permalink)
-      .credit-value
-        = I18n.t(:copy_and_paste_in_email_or_document)
-        \:
-        %br
-        %form
-          %input{ :size => data_object.text? ? '45' : '35', :type => "text", :value => "http://#{$SITE_DOMAIN_OR_IP}/data_objects/#{data_object.id}", :onclick => "this.select();" }
-      .footer
+    -# TODO ... putting an edit link here is wrong.  Don't do it.

@@ -1,0 +1,12 @@
+#image_summary_container
+  %h2= I18n.t(:images)
+  %img{ :src => (@images[0].smart_image unless (@images.nil? || @images.blank? || @images[0].blank? || @images[0].object_cache_url.blank?))}
+  #image_summary_thumbnails_container
+    %ul
+      - @images[0..3].each do |image|
+        %li
+          -# TODO - These alt/title attributes are useless in terms of accessibility.  What we idaelly want is a description provided by the content partner, describing what is in the image.
+          %a{ :id => "image_summary_thumb_#{image.id}", :href => "/data_objects/#{image.id}", :class => vetted_id_class(image) }
+            - name = hh(image['scientific_name'])
+            - name ||= hh(@taxon_concept.scientific_name)
+            = image_tag image.smart_thumb, :alt => I18n.t(:image_alt_text, :vetting => image.vetted.to_s_with_article, :name => name)

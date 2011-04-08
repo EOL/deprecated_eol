@@ -1,0 +1,13 @@
+- position ||= 'header'
+- cache(:controller => "/content", :part => "global_navigation_#{position}_#{current_user.language_abbr}") do
+  %div.nav{:id => "global_navigation_#{position}_container", :role => "navigation" }
+    - if position == 'header'
+      %h2= I18n.t(:global_navigation)
+    %ul.menu{:id => "global_navigation_#{position}"}
+      %li.about
+        = link_to I18n.t(:what_is_eol) , "/placeholder"
+      %li.press_room
+        = link_to I18n.t(:press_room) , "/placeholder"
+      %li.donate
+        = link_to I18n.t(:donate) , { :controller => "/content", :action => "donate" }
+

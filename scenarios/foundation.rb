@@ -114,13 +114,13 @@ second_ncbi.hierarchy_group_version = 2
 second_ncbi.save!
 Hierarchy.gen_if_not_exists(:agent => Agent.gen_if_not_exists(:full_name => 'GBIF'), :label => 'GBIF Nub Taxonomy', :browsable => 0)
 
-
-
 Language.gen_if_not_exists(:label => 'English', :iso_639_1 => 'en')
 Language.gen_if_not_exists(:label => 'French', :iso_639_1 => 'fr', :iso_639_2 => 'fre') # Bootstrap uses this, tests i18n
-Language.gen_if_not_exists(:label => 'Scientific Name', :iso_639_1 => '')
-Language.gen_if_not_exists(:label => 'Unknown', :iso_639_1 => '')
+sci_name = Language.gen_if_not_exists(:label => 'Scientific Name', :iso_639_1 => '')
+unknown  = Language.gen_if_not_exists(:label => 'Unknown', :iso_639_1 => '')
 
+sci_name.update_attribute(:activated_on, nil)
+unknown.update_attribute(:activated_on, nil)
 
 License.gen_if_not_exists(:title => 'public domain',
                           :description => 'No rights reserved',
@@ -259,7 +259,6 @@ Visibility.gen_if_not_exists(:label => 'Inappropriate')
 
 FeedItemType.create_defaults
 TaskState.create_default
-TaxonContentSection.create_default
 
 # The home-page doesn't render without random taxa.  Note that other scenarios, if they build legitimate RandomTaxa,
 # will need to DELETE these before they make their own!  But for foundation's purposes, this is required:

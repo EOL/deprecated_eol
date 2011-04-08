@@ -1082,6 +1082,10 @@ class DataObject < SpeciesSchemaModel
     st.truncate(32)
   end
 
+  def added_by_user?
+    users_data_objects && users_data_objects[0] && ! users_data_objects[0].user.blank?
+  end
+
 private
 
   def trust(user, opts = {})
@@ -1123,7 +1127,7 @@ private
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.unreviewed
     feed.post(I18n.t("dato_unreviewed_note", :username => user.username, :type => data_type.simple_type), :feed_item_type_id => FeedItemType.curator_activity.id, :user_id => user.id)
   end
-  
+
   def set_visibility(user, visibility_id, verb, note)
     vetted_by = user
     update_attributes({:visibility_id => visibility_id, :curated => true})

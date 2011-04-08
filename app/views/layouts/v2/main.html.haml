@@ -1,5 +1,6 @@
 !!! XML
 !!! 5
+-# TODO - We need to apply I18n to all of the :title attributes here.
 %html{ "xml:lang" => I18n.locale, :lang => I18n.locale, :xmlns => "http://www.w3.org/1999/xhtml" }
   %head
     %title
@@ -43,12 +44,11 @@
           -# TODO: just a question -- would it be good from accessability point of view to have easier access to language picker?
           %li.language{ :title => "Choose which language you would like to view the site in, the currently selected language is #{I18n.locale}" }
             = I18n.t(:language)
-            \:
-            = I18n.locale
+            = I18n.locale.to_s.upcase
             %ul
               - Language.find_active.each do |language|
                 %li
-                  = link_to I18n.t("var_language_source_form__em__", :var_language_source_form => language.source_form, :var_language_display_code => language.display_code), set_language_url(:language => language.iso_639_1), :title => "Switch the site language to #{language.display_code}"
+                  = link_to I18n.t(:language_menu_item, :name => language.label, :abbr => language.display_code), set_language_url(:language => language.iso_639_1), :title => "Switch the site language to #{language.display_code}"
               %li
                 = link_to I18n.t("google_translate"), {:controller => "/content", :action => "translate"}, {:title => "Use Google Translate widget to transform the site content into another language"}
 
@@ -56,20 +56,8 @@
         %h1
           %a{ :href => root_url, :title => I18n.t(:the_encyclopedia_of_life_eol_web_site_home_page)  }
             =  I18n.t(:encyclopedia_of_life)
-        %p#tagline
-          %q= I18n.t("imagine_an_electronic_page_for")
-          = I18n.t("__edward_o__wilson")
 
-      - cache(:controller => "/content", :part => "secondary_navigation_" + current_user.language_abbr) do
-        #secondary_navigation_container.nav{ :role => "navigation" }
-          %h2= I18n.t(:global_navigation)
-          %ul#secondary_navigation.menu
-            %li.about
-              = link_to I18n.t(:what_is_eol) , "/placeholder"
-            %li.press_room
-              = link_to I18n.t(:press_room) , "/placeholder"
-            %li.donate
-              = link_to I18n.t(:donate) , { :controller => "/content", :action => "donate" }
+      = render :partial => '/layouts/v2/global_navigation'
 
       %div#search_container
         = render :partial => "/layouts/v2/search"
@@ -127,12 +115,14 @@
       = yield :related_content
 
     #footer_container.footer{ :role => "contentinfo" }
-      %h2= I18n.t(:further_information)
-      #tertiary_navigation_container.nav{ :role => "navigation" }
-        %ul#tertiary_navigation.menu
-          = render :partial => "layouts/v2/footer_menu", :locals => { :menu_items => ContentSection.find_pages_by_section("Footer") }
-
-      = ENV["APP_VERSION"] unless ENV["APP_VERSION"].blank?
+      %h2= I18n.t(:site_information)
+      %p{:title => I18n.t(:application_version_title)}
+        = I18n.t(:encyclopedia_of_life)
+        - if ENV["APP_VERSION"].blank?
+          = I18n.t(:development_version_name)
+        - else
+          = ENV["APP_VERSION"]
+      = render :partial => '/layouts/v2/global_navigation', :locals => {:position => :footer}
 
     - if $ENABLE_ANALYTICS || true
       :javascript

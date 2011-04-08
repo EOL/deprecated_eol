@@ -530,7 +530,32 @@ private
     add_page_view_log_entry
 
     @taxon_concept.current_user = current_user
+    # TODO - move all of this section stuff!
+    @section_name = params[:section_name].blank? ? :overview : params[:section_name]
     @image_id = params[:image_id]
+
+    # TODO - These counts are fake, for the demo, so they need to be added to TaxonConcept.  ie:
+    #   {:name => I18n.t(:community, :count => @taxon_concept.communities.count), :count => @taxon_concept.communities.count...
+    @content_sections = [
+      # TODO - the active checks; counts; generalizing the duplication
+      # NOTE - the "url" is required because the :name is translated and may change.
+      {:name => I18n.t(:overview), :count => nil, :active => @section_name == :overview, :url => :overview},
+      {:name => I18n.t(:detail), :count => nil, :active => @section_name == :detail, :url => :detail},
+      {:name => I18n.t(:media_with_count, :count => @taxon_concept.media.count), :count => @taxon_concept.media.count, :active => @section_name == :media, :url => :media},
+      {:name => I18n.t(:maps_with_count, :count => 12), :count => 12, :active => @section_name == :maps, :url => :maps},
+      {:name => I18n.t(:classifications_with_count, :count => @taxon_concept.classifications.count), :count => @taxon_concept.classifications.count, :active => @section_name == :classifications,
+        :url => :classifications},
+      {:name => I18n.t(:collections_with_count, :count => 4), :count => 4, :active => @section_name == :collections,
+        :url => :collections},
+      {:name => I18n.t(:communities_with_count, :count => 0), :count => 0, :active => @section_name == :communities,
+        :url => :communities},
+      {:name => I18n.t(:tools_with_count, :count => 23), :count => 23, :active => @section_name == :tools, :url => :tools},
+      {:name => I18n.t(:updates_with_count, :count => 698), :count => 698, :active => @section_name == :updates,
+        :url => :updates}
+    ]
+
+    # TODO - This will have a count in it!  We need a nice way to know the title without much work.  :\
+    @current_section = @content_sections.find {|s| s[:active] }
 
     unless show_taxa_html_can_be_cached? &&
         fragment_exist?(:controller => 'taxa', :part => taxa_page_html_fragment_name)

@@ -10,21 +10,21 @@ class Language < SpeciesSchemaModel
   def self.scientific
     cached_find_translated(:label, 'Scientific Name')
   end
-  
+
   def self.with_iso_639_1
-    Language.find_by_sql("select * from languages where iso_639_1 != ''") 
+    Language.find_by_sql("select * from languages where iso_639_1 != ''")
   end
-  
+
   def self.from_iso(iso, params={})
     cached_find(:iso_639_1, iso)
   end
-  
+
   def self.find_by_iso_exclusive_scope(iso)
     with_exclusive_scope do
       find_by_iso_639_1(iso)
     end
   end
-  
+
   def self.id_from_iso(iso_code)
     cached("id_from_iso_#{iso_code}") do
       # NOT using ActiveRecord here because I want to avoid the after_initialize callback
@@ -41,11 +41,11 @@ class Language < SpeciesSchemaModel
   def self.unknown
     @@unknown_language ||= cached_find_translated(:label, "Unknown")
   end
-  
+
   def display_code
     iso_code.upcase
   end
-  
+
   def iso_code
     iso_639_1
   end

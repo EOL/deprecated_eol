@@ -9,21 +9,21 @@ class Vetted < SpeciesSchemaModel
   def self.untrusted
     cached_find_translated(:label, 'Untrusted')
   end
-  
+
   def self.trusted
     cached_find_translated(:label, 'Trusted')
   end
-  
+
   def self.unknown
     cached_find_translated(:label, 'Unknown')
   end
 
-  def self.trusted_ids  
+  def self.trusted_ids
     self.trusted.id.to_s
   end
-  
+
   def self.untrusted_ids
-    [self.untrusted.id,self.unknown.id].join(',') 
+    [self.untrusted.id,self.unknown.id].join(',')
   end
 
   def sort_weight
@@ -32,10 +32,17 @@ class Vetted < SpeciesSchemaModel
   end
 
   def to_action
-    return 'unreviewed' if label.downcase == 'unknown'
-    return label.downcase
+    return 'unreviewed' if id == Vetted.unknown.id
+    return 'untrusted' if id == Vetted.untrusted.id
+    return 'trusted' if id == Vetted.trusted.id
   end
-  
+
+  def to_s_with_article
+    return I18n.t(:unreviewed_with_article) if id == Vetted.unknown.id
+    return I18n.t(:untrusted_with_article) if id == Vetted.untrusted.id
+    return I18n.t(:trusted_with_article) if id == Vetted.trusted.id
+  end
+
 private
 
   def vetted_weight
@@ -43,5 +50,5 @@ private
       ENV['RAILS_ENV'] =~ /test/ # Set it every time, because it changes a lot in the test env!
     @@vetted_weight ||= {Vetted.trusted.id => 1, Vetted.unknown.id => 2, Vetted.untrusted.id => 3}
   end
- 
+
 end

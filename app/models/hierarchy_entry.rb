@@ -4,13 +4,13 @@ class HierarchyEntry < SpeciesSchemaModel
 
   acts_as_tree :order => 'lft'
 
-  belongs_to :hierarchy 
+  belongs_to :hierarchy
   belongs_to :name
-  belongs_to :rank 
+  belongs_to :rank
   belongs_to :taxon_concept
   belongs_to :vetted
   belongs_to :visibility
-  
+
   has_many :agents_hierarchy_entries
   has_many :agents, :finder_sql => 'SELECT * FROM agents JOIN agents_hierarchy_entries ahe ON (agents.id = ahe.agent_id)
                                       WHERE ahe.hierarchy_entry_id = #{id} ORDER BY ahe.view_order'
@@ -22,7 +22,7 @@ class HierarchyEntry < SpeciesSchemaModel
   has_many :common_names, :class_name => Synonym.to_s,
       :conditions => 'synonyms.synonym_relation_id IN (#{SynonymRelation.common_name_ids.join(",")})'
   has_many :flattened_ancestors, :class_name => HierarchyEntriesFlattened.to_s
-  
+
   has_and_belongs_to_many :data_objects
   has_and_belongs_to_many :refs
   has_and_belongs_to_many :published_refs, :class_name => Ref.to_s, :join_table => 'hierarchy_entries_refs',
@@ -30,26 +30,26 @@ class HierarchyEntry < SpeciesSchemaModel
 
   has_one :hierarchies_content
   has_one :hierarchy_entry_stat
-  
+
   define_core_relationships :select => {
       :hierarchy_entries => [ :id, :identifier, :hierarchy_id, :parent_id, :lft, :rgt, :taxon_concept_id, :rank_id ],
       :names => [ :string, :italicized ],
       :canonical_forms => :string,
       :hierarchies_content => [ :content_level, :image, :text, :child_image ]},
     :include => [ :name, :hierarchies_content ]
-  
+
   def self.sort_by_lft(hierarchy_entries)
     hierarchy_entries.sort_by{ |he| he.lft }
   end
-  
+
   def self.sort_by_name(hierarchy_entries)
     hierarchy_entries.sort_by{ |he| he.name.string.downcase }
   end
-  
+
   def self.sort_by_common_name(hierarchy_entries, language)
     hierarchy_entries.sort_by{ |he| he.common_name_in_language(language).downcase }
   end
-  
+
   def self.sort_by_vetted(hierarchy_entries)
     hierarchy_entries.sort_by do |he|
       vetted_view_order = he.vetted.blank? ? 0 : he.vetted.view_order
@@ -59,11 +59,11 @@ class HierarchyEntry < SpeciesSchemaModel
        he.id]
     end
   end
-  
+
   def italicized_name
     species_or_below? ? name.italicized : name.string
   end
-  
+
   def canonical_form
     return name.canonical_form
   end
@@ -75,12 +75,12 @@ class HierarchyEntry < SpeciesSchemaModel
   end
 
   def rank_label
-    rank.nil? ? "taxon" : rank.label
+    rank.nil? ? I18n.t(:taxon) : rank.label
   end
 
   # Returns true if the specified user has access to the TaxonConcept that this HierarchyEntry belongs to
   # (because curators have access to pages, not really specific HierarchyEntry instances.  This is confusing
-  # because users have a HierarchyEntry that their 
+  # because users have a HierarchyEntry that their
   def is_curatable_by? user
     return taxon_concept.is_curatable_by?(user)
   end
@@ -113,17 +113,17 @@ class HierarchyEntry < SpeciesSchemaModel
       add_include << {:taxon_concept => {:preferred_common_names => :name}}
       add_select[:taxon_concept_names] = :language_id
     end
-    
+
     ancestor_ids = flattened_ancestors.collect{ |f| f.ancestor_id }
     ancestor_ids << self.id
     ancestors = HierarchyEntry.core_relationships(:add_include => add_include, :add_select => add_select).find_all_by_id(ancestor_ids)
     @ancestors = HierarchyEntry.sort_by_lft(ancestors)
   end
-  
+
   def ancestors_as_string(delimiter = "|")
     ancestors.collect{ |he| he.name.string }.join(delimiter)
   end
-  
+
   def children(params = {})
     add_include = []
     add_select = {}
@@ -135,7 +135,7 @@ class HierarchyEntry < SpeciesSchemaModel
       add_include << {:taxon_concept => {:preferred_common_names => :name}}
       add_select[:taxon_concept_names] = :language_id
     end
-    
+
     vis = [Visibility.visible.id, Visibility.preview.id]
     c = HierarchyEntry.core_relationships(:add_include => add_include, :add_select => add_select).find_all_by_hierarchy_id_and_parent_id_and_visibility_id(hierarchy_id, id, vis)
     if params[:include_common_names]
@@ -148,7 +148,7 @@ class HierarchyEntry < SpeciesSchemaModel
   def kingdom(hierarchy = nil)
     return ancestors(hierarchy).first rescue nil
   end
-  
+
   def kingdom_entry
     entry_ancestor_ids = flattened_ancestors.collect{ |f| f.ancestor_id }
     entry_ancestor_ids << self.id
@@ -230,7 +230,7 @@ class HierarchyEntry < SpeciesSchemaModel
       end
     end
   end
-  
+
   def split_from_concept
     result = connection.execute("SELECT he2.id, he2.taxon_concept_id FROM hierarchy_entries he JOIN hierarchy_entries he2 USING (taxon_concept_id) WHERE he.id=#{self.id}").all_hashes
     unless result.empty?
@@ -239,11 +239,11 @@ class HierarchyEntry < SpeciesSchemaModel
       if entries_in_concept > 1
         # create a new empty concept
         new_taxon_concept = TaxonConcept.create(:published => self.published, :vetted_id => self.vetted_id, :supercedure_id => 0, :split_from => 0)
-        
+
         # set the concept of this entry to the new concept
         self.taxon_concept_id = new_taxon_concept.id
         self.save!
-        
+
         # update references to this entry to use new concept id
         connection.execute("UPDATE IGNORE taxon_concept_names SET taxon_concept_id=#{new_taxon_concept.id} WHERE source_hierarchy_entry_id=#{self.id}");
         connection.execute("UPDATE IGNORE hierarchy_entries he JOIN random_hierarchy_images rhi ON (he.id=rhi.hierarchy_entry_id) SET rhi.taxon_concept_id=he.taxon_concept_id WHERE he.taxon_concept_id=#{self.id}")
@@ -252,20 +252,20 @@ class HierarchyEntry < SpeciesSchemaModel
     end
     return false
   end
-  
+
   def number_of_descendants
     rgt - lft - 1
   end
-  
+
   def has_content?
     return false unless hierarchies_content  # this should really only happen during testing, and even that'
     hierarchies_content.content_level > 1
   end
-  
+
   def is_leaf?
     return (rgt-lft == 1)
   end
-  
+
   def common_name_in_language(language)
     preferred_in_language = taxon_concept.preferred_common_names.select{|tcn| tcn.language_id == language.id}
     return name.string if preferred_in_language.blank?

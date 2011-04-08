@@ -1,0 +1,13 @@
+#classification_summary_container
+  %h2= I18n.t(:classification_summary_header_with_count, :count => @taxon_concept.classifications.length)
+  %ul
+    - @taxon_concept.classifications.each do |classification|
+      %li
+        = classification[:name]
+        %ul
+          -# TODO - If we're on a Kingdom page, we don't want two hard-coded entries, here:
+          %li{:title => classification[:kingdom].rank_label}
+            = classification[:kingdom].italicized_name
+            %ul
+              %li{:title => classification[:parent].rank_label}
+                = classification[:parent].italicized_name

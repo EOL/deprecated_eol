@@ -1,0 +1,13 @@
+#community_summary_container
+  %h2
+    - count = @taxon_concept.communities.count
+    = I18n.t(:community_summary_title_with_count, :count => count)
+    - if count > 1
+      = link_to(I18n.t(:see_all), taxon_concept_communities_path(:taxon_concept_id => @taxon_concept.id), :title => I18n.t(:see_all_communities_with_count, :count => count))
+  %ul
+    - @taxon_concept.top_communities.each do |community|
+      %li
+        %em= community.name
+        = I18n.t(:other_collection_items_with_count, :count => community.focus.collection_items.count) + I18n.t(:punctuation_comma)
+        = I18n.t(:members_with_count, :count => community.members.count)
+

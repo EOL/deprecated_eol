@@ -9,7 +9,7 @@
       - if current_act == 'create'
         =I18n.t("added_to_the")
         = act_history.comment_object.parent_type_name
-        =I18n.t("on")
+        =I18n.t("__on")
         = link_to act_history.taxon_concept_name, {:controller => '/taxa', :action => 'show', :id => act_history.taxon_concept_id}, :target => "_blank"
         =I18n.t("by")
         = curator_or_plain_username(act_history.user)

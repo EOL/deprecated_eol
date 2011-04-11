@@ -23,7 +23,7 @@
   = link_to_remote(content_partner_check_box_image(@agent.show_on_partner_page?, :id => 'show_on_cp_page_img'),  :url => { :action => 'show_on_partner_page', :id => @agent }, :confirm => I18n.t("are_you_sure_you_want_to_var__", :var__agent_show_on_partner_page_____hide_____show_ => @agent.show_on_partner_page? ? 'hide' : 'show'))
   =I18n.t("show")
   = @agent.project_name
-  =I18n.t("on")
+  =I18n.t("__on")
   = link_to(I18n.t("content_partners_"),:controller => '/content',:action => 'partners')
   =I18n.t("page_of_website")
   %br/

@@ -50,7 +50,7 @@
         - elsif !current_agent.agreement.nil?
           =I18n.t("agreed_to_by")
           = current_agent.agreement.signed_by
-          =I18n.t("on")
+          =I18n.t("__on")
           = format_date_time(current_agent.agreement.signed_on_date)
   - if current_agent.ready_for_agreement?
     %h2{ :style => "margin-top: 20px;" }

@@ -13,7 +13,7 @@
     - vetting_title = I18n.t(:names_in_red_are_not_trusted)  if name.untrusted?
     %tr
       %td{ :class => column_class, :title => vetting_title }
-        = name.preferred ? "<strong>#{name.string}</strong>" : name.string
+        = (name.preferred.to_i == 1 ? TRUE : FALSE) ? "<strong>#{name.string}</strong>" : name.string
       %td{ :class => column_class, :style => "text-align:center;", :title => vetting_title }
         - if name.sources.blank?
           = I18n.t(:multiple_sources) 

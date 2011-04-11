@@ -42,21 +42,22 @@ describe 'I18n' do
       return YAML.load(file_content)      
     end
     
-    def get_missing_keys_count(file_path, en_keys, missing_keys)
+    def get_missing_keys_count(file_path, en_keys, missing_keys, en_yml_keys)
       # returns number of missing keys at the langauge file comparing with the en file                        
       missing_count = 0
       lang_yml = load_yml_file(file_path)
       for i in (0..en_keys.length-1)      
         key = en_keys[i]   
-        if (!lang_yml[key]) or lang_yml[key] == ''
+        if ((!lang_yml[key]) or lang_yml[key] == '') 
           missing_count = missing_count + 1
-          missing_keys << "  " + key + "\n" 
+          missing_keys << "  " + key + ": \"" + en_yml_keys[key]  + "\"\n" 
         end
       end
       return missing_count
     end
     
     en_keys = load_en_keys(en_yml)
+    en_yml_keys = load_yml_file(en_yml)
     error_message = ''
     missing_keys = ''
     
@@ -66,7 +67,7 @@ describe 'I18n' do
         missing_keys << "\n\n" if missing_keys != ''        
         missing_keys << file_name + ": \n"
                 
-        missing_count = get_missing_keys_count(file, en_keys, missing_keys)
+        missing_count = get_missing_keys_count(file, en_keys, missing_keys, en_yml_keys)
         if (missing_count > 0)
           error_message = error_message + "\n" if error_message != ''
           error_message = error_message + missing_count.to_s + " missing keys in " + file_name          

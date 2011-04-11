@@ -798,7 +798,8 @@ Factory.define :resource do |r|
                                         :source_url => 'http://creativecommons.org/licenses/by/3.0/',
                                         :logo_url => '/images/licenses/cc_by_small.png') }
   r.resource_status { ResourceStatus.find_by_translated(:label, 'Published') || ResourceStatus.gen_if_not_exists(:label => 'Published') }
-  r.accesspoint_url 'http://services.eol.org/eol_php_code/tests/fixtures/files/test_resource.xml' # Won't work without a real, live URL for an XML file
+  #r.accesspoint_url 'http://services.eol.org/eol_php_code/tests/fixtures/files/test_resource.xml' # Won't work without a real, live URL for an XML file
+  r.accesspoint_url 'http://localhost:3000/test_resource.xml' #for users having proxy on internet connections
   r.association :hierarchy
 end
 

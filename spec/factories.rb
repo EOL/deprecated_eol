@@ -1,6 +1,6 @@
 # REMINDER: default model factories, eg. :user, should *only* generate required field s
 #
-# If you want a model loaded up with all kinds of goodies, make a different generator, 
+# If you want a model loaded up with all kinds of goodies, make a different generator,
 # eg. :admin_user
 
 require 'factory_girl'
@@ -13,8 +13,8 @@ module Faker
   class Eol
     class << self
 
-      def iucn 
-        @rand_iucn ||= 
+      def iucn
+        @rand_iucn ||=
           ["Extinct (EX)",
            "Data Deficient (DD)",
            "Endangered (EN)",
@@ -59,7 +59,7 @@ module Faker
            200810061235291, 200810061204473, 200810061220593, 200810061247769, 200810061244546, 200810061223997, 200810061266983,
            200810061209409, 200810061288809, 200810061290506, 200810061223649, 200810061240716, 200810061234907, 200810061204262,
            200810061295992, 200810061271122, 200810061218963, 200810061248056, 200810061275954, 200810061214325, 200810061244427,
-           200810061230338, 200810061219522, 200810061271459, 200810061228261, 200810061265370]  
+           200810061230338, 200810061219522, 200810061271459, 200810061228261, 200810061265370]
 
         @rand_maps.rand
       end
@@ -127,7 +127,7 @@ end
 
 # Not unique:
 Factory.sequence(:flash) do |n|
-  @seq_flash = 
+  @seq_flash =
     [200811131313601, 200811131321659, 200811131394659, 200811131367814, 200811131351121, 200811131388288, 200811131382797,
      200811131390600, 200811131333916, 200811131393000, 200811131347554, 200811131354820, 200811131391764, 200811131316882,
      200811131328300, 200811131392039, 200811131350808, 200811131333809, 200811131349975, 200811131317614, 200811131356003,
@@ -144,7 +144,7 @@ end
 
 # Not unique:
 Factory.sequence(:map) do |n|
-  @seq_map = 
+  @seq_map =
     [200810061219436, 200810061209958, 200810061282237, 200810061249555, 200810061295422, 200810061292832, 200810061231652,
      200810061214882, 200810061250755, 200810061227362, 200810061280963, 200810061298041, 200810061213284, 200810061290224,
      200810061293016, 200810061218537, 200810061224789, 200810061224342, 200810061264532, 200810061216335, 200810061294639,
@@ -155,7 +155,7 @@ Factory.sequence(:map) do |n|
      200810061235291, 200810061204473, 200810061220593, 200810061247769, 200810061244546, 200810061223997, 200810061266983,
      200810061209409, 200810061288809, 200810061290506, 200810061223649, 200810061240716, 200810061234907, 200810061204262,
      200810061295992, 200810061271122, 200810061218963, 200810061248056, 200810061275954, 200810061214325, 200810061244427,
-     200810061230338, 200810061219522, 200810061271459, 200810061228261, 200810061265370]  
+     200810061230338, 200810061219522, 200810061271459, 200810061228261, 200810061265370]
   @seq_map[n % @seq_map.length]
 end
 
@@ -198,7 +198,7 @@ end
 Factory.sequence(:guid) do |n|
   @guids = ['3a117abf96e7fe8793ef87b14d166d5f', 'a509ebdb2fc8083f3a33ea17985bad42']
   pick = @guids[n % @guids.length]
-  (n / @guids.length).times { pick.succ! }  
+  (n / @guids.length).times { pick.succ! }
   pick
 end
 
@@ -241,17 +241,17 @@ Factory.sequence(:attribution) do |n|
 end
 
 Factory.sequence(:string ){|n| "unique#{ n }string" }
-Factory.sequence(:email  ){|n| "bob#{n}@smith.com" }
+Factory.sequence(:email ){|n| "bob#{n}@smith.com" }
 # Faker names are frequently unique, but let's just make absolutely sure:
 Factory.sequence(:species) do |n|
   s = Factory.next(:scientific_name)
-  while (Name.find_by_string(s)) do 
+  while (Name.find_by_string(s)) do
     s = Factory.next(:scientific_name)
-  end 
+  end
   s
 end
-Factory.sequence(:title  ){|n| "#{n} " + Faker::Lorem.words(rand(3)+1).map(&:titleize).join(' ') }
-Factory.sequence(:int    ){|n| n }
+Factory.sequence(:title ){|n| "#{n} " + Faker::Lorem.words(rand(3)+1).map(&:titleize).join(' ') }
+Factory.sequence(:int ){|n| n }
 
 #### Factories
 
@@ -262,44 +262,44 @@ Factory.define :actions_history do |ah|
   ah.association :user
   ah.association :action_with_object
   ah.association :changeable_object_type
-  #ah.id 
+  #ah.id
   #ah.user_id
   #ah.object_id
   #ah.changeable_object_type_id 1 #data_object
   #ah.action_with_object_id 4 #trusted
-  ah.created_at                   { 5.days.ago }
-  ah.updated_at                   { 5.days.ago }
+  ah.created_at { 5.days.ago }
+  ah.updated_at { 5.days.ago }
 end
 
 
 
 Factory.define :agent do |agent|
-  agent.created_at      { 5.days.ago }
-  agent.homepage        ''
-  agent.full_name       { Factory.next(:first_name) << ' ' << Factory.next(:last_name) }
-  agent.username                  do |a|
+  agent.created_at { 5.days.ago }
+  agent.homepage ''
+  agent.full_name { Factory.next(:first_name) << ' ' << Factory.next(:last_name) }
+  agent.username do |a|
     attempt = a.full_name.gsub(/^(.)[^ ]+ (.*)$/, "\\1_\\2").downcase[0..15]
     while(Agent.find_by_username(attempt)) do
       attempt.succ!
     end
     attempt
   end
-  agent.email           { Factory.next(:email) }
+  agent.email { Factory.next(:email) }
   agent.hashed_password { Digest::MD5.hexdigest('test password') }
-  agent.agent_status    { AgentStatus.find_by_translated(:label, 'Active') || AgentStatus.gen_if_not_exists(:label => 'Active') }
+  agent.agent_status { AgentStatus.find_by_translated(:label, 'Active') || AgentStatus.gen_if_not_exists(:label => 'Active') }
 end
 
 Factory.define :agent_contact do |ac|
   ac.association :agent
   ac.association :agent_contact_role
-  ac.given_name  { Factory.next(:string) }
+  ac.given_name { Factory.next(:string) }
   ac.family_name { Factory.next(:string) }
-  ac.full_name   {|a| "#{a.given_name} #{a.family_name}" }
-  ac.email       {|a| "#{a.given_name}.#{a.family_name}@example.com".downcase }
-  ac.homepage    'http://whatever.org'
-  ac.address     '1234 Doesntmatter St'
-  ac.title       'Call me SIR'
-  ac.telephone   '555-222-1111'
+  ac.full_name {|a| "#{a.given_name} #{a.family_name}" }
+  ac.email {|a| "#{a.given_name}.#{a.family_name}@example.com".downcase }
+  ac.homepage 'http://whatever.org'
+  ac.address '1234 Doesntmatter St'
+  ac.title 'Call me SIR'
+  ac.telephone '555-222-1111'
 end
 
 Factory.define :agent_contact_role do |x|
@@ -318,19 +318,19 @@ Factory.define :agents_data_object do |ado|
   ado.association :data_object
   ado.association :agent
   ado.association :agent_role
-  ado.view_order  0
+  ado.view_order 0
 end
 
 Factory.define :agents_hierarchy_entry do |ahe|
   ahe.association :agent
   ahe.association :agent_role
   ahe.association :hierarchy_entry
-  ahe.view_order  2
+  ahe.view_order 2
 end
 
 Factory.define :agents_resource do |ar|
-  ar.association         :agent
-  ar.association         :resource
+  ar.association :agent
+  ar.association :resource
   ar.resource_agent_role { ResourceAgentRole.content_partner_upload_role ||
                            ResourceAgentRole.gen_if_not_exists(:label => 'Data Supplier') }
 end
@@ -343,16 +343,16 @@ Factory.define :canonical_form do |cform|
 end
 
 Factory.define :collection do |l|
-  l.name                  { Factory.next(:string) }
-  l.published             false
+  l.name { Factory.next(:string) }
+  l.published false
   l.special_collection_id nil
-  l.association           :user
+  l.association :user
 end
 
 Factory.define :collection_type do |ct|
-  ct.parent_id  0
-  ct.lft        0
-  ct.rgt        0
+  ct.parent_id 0
+  ct.lft 0
+  ct.rgt 0
 end
 
 Factory.define :collection_types_hierarchy do |cth|
@@ -363,29 +363,29 @@ end
 # NOTE - the Comment model has some validations on it (create/update/etc) that will fail if you don't have a loaded
 # database, so don't expect this factory to work in all situations.
 Factory.define :comment do |x|
-  x.association  :parent, :factory => :data_object
-  x.parent_type  'data_object'
-  x.body         { Faker::Lorem.paragraph }
-  x.association  :user
+  x.association :parent, :factory => :data_object
+  x.parent_type 'data_object'
+  x.body { Faker::Lorem.paragraph }
+  x.association :user
   x.from_curator false
 end
 
 Factory.define :community do |c|
-  c.name        { Faker::Lorem.words.join(' ').titleize }
+  c.name { Faker::Lorem.words.join(' ').titleize }
   c.description { Faker::Lorem.paragraph }
   c.show_special_privileges false
 end
 
 Factory.define :contact do |c|
-  c.name            { Factory.next(:string) }
-  c.email           { Factory.next(:email) }
+  c.name { Factory.next(:string) }
+  c.email { Factory.next(:email) }
   c.contact_subject { ContactSubject.gen_if_not_exists(:title => 'Anything') }
-  c.comments        %w( foo bar )
+  c.comments %w( foo bar )
 end
 
 Factory.define :contact_subject do |cs|
   cs.recipients { Factory.next(:string) }
-  cs.active     true
+  cs.active true
   cs.created_at { 48.hours.ago }
   cs.updated_at { 48.hours.ago }
 end
@@ -393,45 +393,45 @@ end
 Factory.define :content_page do |cp|
   cp.association :content_section
   cp.language_abbr 'en'
-  cp.title         'Test Content Page'
-  cp.page_name     {|c| c.title }
-  cp.left_content  {|c| "<h3>This is Left Content in a #{c.title}</h3>" }
-  cp.main_content  {|c| "<h1>Main Content for #{c.title} ROCKS!</h1>" }
-  cp.sort_order    1
-  cp.url           '' # This would imply that the content was external.
+  cp.title 'Test Content Page'
+  cp.page_name {|c| c.title }
+  cp.left_content {|c| "<h3>This is Left Content in a #{c.title}</h3>" }
+  cp.main_content {|c| "<h1>Main Content for #{c.title} ROCKS!</h1>" }
+  cp.sort_order 1
+  cp.url '' # This would imply that the content was external.
   cp.last_update_user_id 1 # This *should* be the admin, and we don't *really* care otherwise.
 end
 
 Factory.define :content_partner do |cp|
-  cp.auto_publish                         false
-  cp.association                          :agent
-  cp.description                          'Our Testing Content Partner'
-  cp.description_of_data                  'Civil Protection!'
-  cp.created_at                           { 5.days.ago }
-  cp.partner_seen_step                    { 5.days.ago }
-  cp.partner_complete_step                { 5.days.ago }
-  cp.contacts_seen_step                   { 5.days.ago }
-  cp.contacts_complete_step               { 5.days.ago }
-  cp.licensing_seen_step                  { 5.days.ago }
-  cp.licensing_complete_step              { 5.days.ago }
-  cp.attribution_seen_step                { 5.days.ago }
-  cp.attribution_complete_step            { 5.days.ago }
-  cp.roles_seen_step                      { 5.days.ago }
-  cp.roles_complete_step                  { 5.days.ago }
-  cp.transfer_overview_seen_step          { 5.days.ago }
-  cp.transfer_overview_complete_step      { 5.days.ago }
-  cp.transfer_upload_seen_step            { 5.days.ago }
-  cp.transfer_upload_complete_step        { 5.days.ago }
-  cp.specialist_overview_seen_step        { 5.days.ago }
-  cp.specialist_overview_complete_step    { 5.days.ago }
-  cp.specialist_formatting_seen_step      { 5.days.ago }
-  cp.specialist_formatting_complete_step  { 5.days.ago }
-  cp.ipr_accept                           true
-  cp.attribution_accept                   true
-  cp.roles_accept                         true
-  cp.transfer_schema_accept               true
-  cp.show_on_partner_page                 true
-  cp.vetted                               false
+  cp.auto_publish false
+  cp.association :agent
+  cp.description 'Our Testing Content Partner'
+  cp.description_of_data 'Civil Protection!'
+  cp.created_at { 5.days.ago }
+  cp.partner_seen_step { 5.days.ago }
+  cp.partner_complete_step { 5.days.ago }
+  cp.contacts_seen_step { 5.days.ago }
+  cp.contacts_complete_step { 5.days.ago }
+  cp.licensing_seen_step { 5.days.ago }
+  cp.licensing_complete_step { 5.days.ago }
+  cp.attribution_seen_step { 5.days.ago }
+  cp.attribution_complete_step { 5.days.ago }
+  cp.roles_seen_step { 5.days.ago }
+  cp.roles_complete_step { 5.days.ago }
+  cp.transfer_overview_seen_step { 5.days.ago }
+  cp.transfer_overview_complete_step { 5.days.ago }
+  cp.transfer_upload_seen_step { 5.days.ago }
+  cp.transfer_upload_complete_step { 5.days.ago }
+  cp.specialist_overview_seen_step { 5.days.ago }
+  cp.specialist_overview_complete_step { 5.days.ago }
+  cp.specialist_formatting_seen_step { 5.days.ago }
+  cp.specialist_formatting_complete_step { 5.days.ago }
+  cp.ipr_accept true
+  cp.attribution_accept true
+  cp.roles_accept true
+  cp.transfer_schema_accept true
+  cp.show_on_partner_page true
+  cp.vetted false
 end
 
 Factory.define :content_section do |cs|
@@ -458,42 +458,42 @@ Factory.define :curator_data_object_log do |cdol|
 end
 
 Factory.define :data_object do |dato|
-  dato.guid                   { Factory.next(:guid) }
-  dato.identifier             ''
-  dato.data_type              { DataType.first || DataType.gen_if_not_exists(:label => 'Image') }
-  dato.mime_type              { MimeType.find_by_translated(:label, 'image/jpeg') || MimeType.gen_if_not_exists(:label => 'image/jpeg') }
-  dato.object_title           ''
-  dato.language               { Language.english }
-  dato.license                { License.find_by_title('cc-by 3.0') ||
+  dato.guid { Factory.next(:guid) }
+  dato.identifier ''
+  dato.data_type { DataType.first || DataType.gen_if_not_exists(:label => 'Image') }
+  dato.mime_type { MimeType.find_by_translated(:label, 'image/jpeg') || MimeType.gen_if_not_exists(:label => 'image/jpeg') }
+  dato.object_title ''
+  dato.language { Language.english }
+  dato.license { License.find_by_title('cc-by 3.0') ||
                                 License.gen_if_not_exists(:title => 'cc-by 3.0',
                                         :description => 'Some rights reserved',
                                         :source_url => 'http://creativecommons.org/licenses/by/3.0/',
                                         :logo_url => '/images/licenses/cc_by_small.png') }
-  dato.rights_statement       ''
-  dato.rights_holder          ''
+  dato.rights_statement ''
+  dato.rights_holder ''
   dato.bibliographic_citation ''
-  dato.source_url             ''
-  dato.description            'Test Data Object'
-  dato.object_url             ''
-  dato.object_cache_url       ''
-  dato.thumbnail_url          ''
-  dato.thumbnail_cache_url    ''
-  dato.location               ''
-  dato.latitude               0
-  dato.longitude              0
-  dato.altitude               0
-  dato.object_created_at      { 5.days.ago }
-  dato.object_modified_at     { 2.days.ago }
-  dato.created_at             { 5.days.ago }
-  dato.updated_at             { 3.days.ago }
-  dato.data_rating            2.5
-  dato.vetted                 { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'trusted') }
-  dato.visibility             { Visibility.visible || Visibility.gen_if_not_exists(:label => 'visible') }
-  dato.published              true
+  dato.source_url ''
+  dato.description 'Test Data Object'
+  dato.object_url ''
+  dato.object_cache_url ''
+  dato.thumbnail_url ''
+  dato.thumbnail_cache_url ''
+  dato.location ''
+  dato.latitude 0
+  dato.longitude 0
+  dato.altitude 0
+  dato.object_created_at { 5.days.ago }
+  dato.object_modified_at { 2.days.ago }
+  dato.created_at { 5.days.ago }
+  dato.updated_at { 3.days.ago }
+  dato.data_rating 2.5
+  dato.vetted { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'trusted') }
+  dato.visibility { Visibility.visible || Visibility.gen_if_not_exists(:label => 'visible') }
+  dato.published true
 end
 
 Factory.define :data_object_tag do |x|
-  x.key   { Factory.next(:string) }
+  x.key { Factory.next(:string) }
   x.value { Factory.next(:string) }
 end
 
@@ -506,8 +506,8 @@ end
 Factory.define :data_objects_harvest_event do |dohe|
   dohe.association :harvest_event
   dohe.association :data_object
-  dohe.guid        { s = ''; 32.times { s += ((0..9).to_a.map{|n| n.to_s} + %w{a b c d e f}).rand }; s } # ICK!
-  dohe.status      { Status.inserted || Status.gen_if_not_exists(:label => 'inserted') }
+  dohe.guid { s = ''; 32.times { s += ((0..9).to_a.map{|n| n.to_s} + %w{a b c d e f}).rand }; s } # ICK!
+  dohe.status { Status.inserted || Status.gen_if_not_exists(:label => 'inserted') }
 end
 
 Factory.define :data_objects_table_of_content do |dato|
@@ -543,11 +543,11 @@ Factory.define :feed_data_object do |fdo|
   fdo.association :taxon_concept
   fdo.association :data_object
   fdo.association :data_type
-  fdo.created_at      { 2.hours.ago }
+  fdo.created_at { 2.hours.ago }
 end
 
 Factory.define :feed_item do |fi|
-  fi.association  :feed, :factory => :user
+  fi.association :feed, :factory => :user
   fi.body 'some important notification here'
 end
 
@@ -556,7 +556,7 @@ Factory.define :feed_item_type do |fit|
 end
 
 Factory.define :glossary_term do |gt|
-  gt.term       { Faker::Lorem.words[rand(4) + 1].titleize }
+  gt.term { Faker::Lorem.words[rand(4) + 1].titleize }
   gt.definition { Faker::Lorem.paragraph }
   gt.created_at { 2.hours.ago }
   gt.updated_at nil
@@ -564,7 +564,7 @@ end
 
 Factory.define :harvest_event do |he|
   he.association :resource
-  he.began_at     { 5.hours.ago }
+  he.began_at { 5.hours.ago }
   he.completed_at { 4.hours.ago }
   he.published_at { 3.hours.ago }
 end
@@ -572,86 +572,86 @@ end
 Factory.define :harvest_events_hierarchy_entry do |hehe|
   hehe.association :harvest_event
   hehe.association :hierarchy_entry
-  hehe.guid        ''
+  hehe.guid ''
   hehe.association :status
 end
 
 Factory.define :harvest_process_log do |hpl|
   hpl.process_name { Faker::Lorem.words[rand(4) + 1].titleize }
-  hpl.began_at     { 2.hours.ago }
+  hpl.began_at { 2.hours.ago }
   hpl.completed_at { 1.hours.ago }
 end
 
 
 Factory.define :hierarchy do |hierarchy|
-  hierarchy.label                   "A nested structure of divisions related to their probable evolutionary descent"
-  hierarchy.url                     ''
+  hierarchy.label "A nested structure of divisions related to their probable evolutionary descent"
+  hierarchy.url ''
   hierarchy.hierarchy_group_version 0
-  hierarchy.hierarchy_group_id      0
-  hierarchy.description             ''
-  hierarchy.indexed_on              { 5.hours.ago }
-  hierarchy.association             :agent
-  hierarchy.browsable               0
-  hierarchy.complete                1
+  hierarchy.hierarchy_group_id 0
+  hierarchy.description ''
+  hierarchy.indexed_on { 5.hours.ago }
+  hierarchy.association :agent
+  hierarchy.browsable 0
+  hierarchy.complete 1
 end
 
 Factory.define :hierarchies_content do |hc|
-  hc.association     :hierarchy_entry
-  hc.text                     0
-  hc.text_unpublished         0
-  hc.image                    0
-  hc.image_unpublished        0
-  hc.child_image              0
-  hc.child_image_unpublished  0
-  hc.flash                    0
-  hc.youtube                  0
-  hc.map                      0
-  hc.content_level            1
-  hc.image_object_id          0 # the preferred image for that hierarchy_entry, but probably not used (still, accurate in production)
+  hc.association :hierarchy_entry
+  hc.text 0
+  hc.text_unpublished 0
+  hc.image 0
+  hc.image_unpublished 0
+  hc.child_image 0
+  hc.child_image_unpublished 0
+  hc.flash 0
+  hc.youtube 0
+  hc.map 0
+  hc.content_level 1
+  hc.image_object_id 0 # the preferred image for that hierarchy_entry, but probably not used (still, accurate in production)
 end
 
 Factory.define :hierarchy_entry do |he|
-  he.guid           { Factory.next(:guid) }
-  he.identifier     ''
-  he.source_url     ''
-  he.association    :name
-  he.association    :rank
-  he.parent_id      0
-  he.association    :hierarchy
-  he.rank_id        184
-  he.ancestry       ''
-  he.lft            1
-  he.rgt            2
-  he.depth          2
-  he.association    :taxon_concept
-  he.vetted         { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
-  he.published      1
-  he.visibility  { Visibility.visible || Visibility.gen_if_not_exists(:label => 'Visible') }
-  he.created_at     Time.now
-  he.updated_at     Time.now
+  he.guid { Factory.next(:guid) }
+  he.identifier ''
+  he.source_url ''
+  he.association :name
+  he.association :rank
+  he.parent_id 0
+  he.association :hierarchy
+  he.rank_id 184
+  he.ancestry ''
+  he.lft 1
+  he.rgt 2
+  he.depth 2
+  he.association :taxon_concept
+  he.vetted { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
+  he.published 1
+  he.visibility { Visibility.visible || Visibility.gen_if_not_exists(:label => 'Visible') }
+  he.created_at Time.now
+  he.updated_at Time.now
 end
 
 Factory.define :hierarchy_entry_stat do |hes|
-  hes.association         :hierarchy_entry
-  hes.text_trusted        { rand(1000) }
-  hes.text_untrusted      { rand(1000) }
-  hes.image_trusted       { rand(1000) }
-  hes.image_untrusted     { rand(1000) }
-  hes.bhl                 { rand(1000) }
-  hes.all_text_trusted    { rand(1000) }
-  hes.all_text_untrusted  { rand(1000) }
-  hes.have_text           { rand(1000) }
-  hes.all_image_trusted   { rand(1000) }
+  hes.association :hierarchy_entry
+  hes.text_trusted { rand(1000) }
+  hes.text_untrusted { rand(1000) }
+  hes.image_trusted { rand(1000) }
+  hes.image_untrusted { rand(1000) }
+  hes.bhl { rand(1000) }
+  hes.all_text_trusted { rand(1000) }
+  hes.all_text_untrusted { rand(1000) }
+  hes.have_text { rand(1000) }
+  hes.all_image_trusted { rand(1000) }
   hes.all_image_untrusted { rand(1000) }
-  hes.have_images         { rand(1000) }
-  hes.all_bhl             { rand(1000) }
-  hes.total_children      { rand(1000) }
+  hes.have_images { rand(1000) }
+  hes.all_bhl { rand(1000) }
+  hes.total_children { rand(1000) }
 end
 
 
 Factory.define :info_item do |ii|
   ii.schema_value 'http://rs.tdwg.org/ontology/voc/ThisWontWork.JustForTesting'
-  ii.toc_id       0
+  ii.toc_id 0
 end
 
 Factory.define :ip_address do |ip|
@@ -663,63 +663,63 @@ end
 Factory.define :item_page do |ip|
   ip.association :title_item
   ip.page_type ''
-  ip.year        '1999'
-  ip.volume      '2'
-  ip.issue       '42'
-  ip.prefix      'Page'
-  ip.number      '6'
-  ip.url         'http://www.biodiversitylibrary.org/page/ThisWontWork.JustTesting'
+  ip.year '1999'
+  ip.volume '2'
+  ip.issue '42'
+  ip.prefix 'Page'
+  ip.number '6'
+  ip.url 'http://www.biodiversitylibrary.org/page/ThisWontWork.JustTesting'
 end
 
 Factory.define :language do |l|
-  l.source_form  ''
-  l.iso_639_1    ''
-  l.iso_639_2    ''
-  l.iso_639_3    ''
+  l.source_form ''
+  l.iso_639_1 ''
+  l.iso_639_2 ''
+  l.iso_639_3 ''
   l.activated_on { 24.hours.ago }
-  l.sort_order   { Factory.next(:int) % 128 }
+  l.sort_order { Factory.next(:int) % 128 }
 end
 
 Factory.define :last_curated_date do |l|
-  l.association  :user
-  l.association  :taxon_concept
+  l.association :user
+  l.association :taxon_concept
   l.last_curated { 1.minute.ago }
 end
 
 Factory.define :license do |l|
-  l.title                    'cc-by 3.0'
-  l.source_url               'http://creativecommons.org/licenses/by/3.0/'
-  l.version                  0
-  l.logo_url                 '/images/licenses/cc_by_small.png'
+  l.title 'cc-by 3.0'
+  l.source_url 'http://creativecommons.org/licenses/by/3.0/'
+  l.version 0
+  l.logo_url '/images/licenses/cc_by_small.png'
   l.show_to_content_partners true
 end
 
 Factory.define :member do |m|
   m.association :user
-  m.association :community 
+  m.association :community
 end
 
 Factory.define :mime_type do |mt|
 end
 
 Factory.define :name do |name|
-  name.association         :canonical_form
-  name.string              { Factory.next(:species) }
-  name.clean_name          { |n| Name.prepare_clean_name(n.string) }
-  name.canonical_verified  0 # I don't know that Rails ever uses this...
+  name.association :canonical_form
+  name.string { Factory.next(:species) }
+  name.clean_name { |n| Name.prepare_clean_name(n.string) }
+  name.canonical_verified 0 # I don't know that Rails ever uses this...
   name.italicized_verified 0 # I don't know that Rails ever uses this...
-  # The italicized can NEVER be blank.  Even for common names.  ...Not that you can trust it for common names, but
+  # The italicized can NEVER be blank. Even for common names. ...Not that you can trust it for common names, but
   # some names are both vernacular *and* scientific, so we're enforcing the presence of the value.
   # The strip at the end handles strings that are only two words; it is useless with three or more.
-  name.italicized          {|n| n.string.split[0] == n.string ? "<i>#{n.string}</i>" : ('<i>' + n.string.split[0..1].join(' ') + '</i> ' +  n.string.split[2..-1].join(' ')).strip }
-  name.namebank_id         0
+  name.italicized {|n| n.string.split[0] == n.string ? "<i>#{n.string}</i>" : ('<i>' + n.string.split[0..1].join(' ') + '</i> ' + n.string.split[2..-1].join(' ')).strip }
+  name.namebank_id 0
 end
 
 Factory.define :news_item do |ni|
   ni.display_date { 2.days.ago }
   ni.activated_on { 2.days.ago }
-  ni.association  :user
-  ni.active       1
+  ni.association :user
+  ni.active 1
 end
  
 Factory.define :changeable_object_type do |ot|
@@ -740,25 +740,25 @@ end
 
 Factory.define :publication_title do |pt|
   pt.short_title 'hello'
-  pt.author      'bob'
+  pt.author 'bob'
   pt.call_number ''
-  pt.end_year    ''
-  pt.start_year  ''
-  pt.language    ''
+  pt.end_year ''
+  pt.start_year ''
+  pt.language ''
   pt.marc_leader ''
   pt.abbreviation ''
   pt.marc_bib_id ''
-  pt.title       'Test Publication Title'
-  pt.details     'Nifty Titles Are Our Business'
-  pt.url         'http://publication.titles.te.st'
+  pt.title 'Test Publication Title'
+  pt.details 'Nifty Titles Are Our Business'
+  pt.url 'http://publication.titles.te.st'
 end
 
 Factory.define :random_hierarchy_image do |rhi|
-  rhi.association   :data_object
-  rhi.name          { "<i>#{ Factory.next(:species) }</i> Factory TestFramework" }
-  rhi.association   :taxon_concept
-  rhi.association   :hierarchy_entry
-  rhi.association   :hierarchy
+  rhi.association :data_object
+  rhi.name { "<i>#{ Factory.next(:species) }</i> Factory TestFramework" }
+  rhi.association :taxon_concept
+  rhi.association :hierarchy_entry
+  rhi.association :hierarchy
 end
 
 # I *don't* think these all actually relate to the rank_id's found elsewhere here. If so, we should change them to associations.
@@ -767,10 +767,10 @@ Factory.define :rank do |r|
 end
 
 Factory.define :ref do |r|
-  r.full_reference  { Factory.next(:string) }
-  r.user_submitted  0
-  r.visibility      { Visibility.visible || Vvisibility.gen_if_not_exists(:label => 'visible') }
-  r.published       1
+  r.full_reference { Factory.next(:string) }
+  r.user_submitted 0
+  r.visibility { Visibility.visible || Vvisibility.gen_if_not_exists(:label => 'visible') }
+  r.published 1
 end
 
 Factory.define :hierarchy_entries_ref do |her|
@@ -779,7 +779,7 @@ Factory.define :hierarchy_entries_ref do |her|
 end
 
 Factory.define :ref_identifier do |ri|
-  ri.identifier  { Factory.next(:string) }
+  ri.identifier { Factory.next(:string) }
   ri.association :ref_identifier_type
   ri.association :ref
 end
@@ -789,17 +789,17 @@ Factory.define :ref_identifier_type do |rit|
 end
 
 Factory.define :resource do |r|
-  r.auto_publish    false
-  r.title           'Testing Resource'
-  r.subject         'Test Resource Subject'
-  r.license         { License.find_by_title('cc-by 3.0') ||
+  r.auto_publish false
+  r.title 'Testing Resource'
+  r.subject 'Test Resource Subject'
+  r.license { License.find_by_title('cc-by 3.0') ||
                       License.gen_if_not_exists(:title => 'cc-by 3.0',
                                         :description => 'Some rights reserved',
                                         :source_url => 'http://creativecommons.org/licenses/by/3.0/',
                                         :logo_url => '/images/licenses/cc_by_small.png') }
   r.resource_status { ResourceStatus.find_by_translated(:label, 'Published') || ResourceStatus.gen_if_not_exists(:label => 'Published') }
-  #r.accesspoint_url 'http://services.eol.org/eol_php_code/tests/fixtures/files/test_resource.xml' # Won't work without a real, live URL for an XML file
-  r.accesspoint_url 'http://localhost:3000/test_resource.xml' #for users having proxy on internet connections
+  r.accesspoint_url 'http://services.eol.org/eol_php_code/tests/fixtures/files/test_resource.xml' # Won't work without a real, live URL for an XML file
+  #r.accesspoint_url 'http://localhost:3000/test_resource.xml' #for users having proxy on internet connections
   r.association :hierarchy
 end
 
@@ -814,32 +814,32 @@ Factory.define :role do |r|
 end
 
 Factory.define :roles_user do |ru|
-  ru.association  :user
-  ru.association  :role
+  ru.association :user
+  ru.association :role
 end
 
 Factory.define :search_suggestion do |ss|
-  ss.term            'searchterm'
+  ss.term 'searchterm'
   ss.scientific_name 'TestSearchTerm ScientificName'
-  ss.common_name     'TestSearchTerm CommonName'
-  ss.language_label  'en'
-  ss.image_url       '/images/eol_logo_header.png'
-  ss.taxon_id        1 
-  ss.sort_order      1
-  ss.active          1
-  ss.created_at      { 48.hours.ago }
+  ss.common_name 'TestSearchTerm CommonName'
+  ss.language_label 'en'
+  ss.image_url '/images/eol_logo_header.png'
+  ss.taxon_id 1
+  ss.sort_order 1
+  ss.active 1
+  ss.created_at { 48.hours.ago }
 end
 
 Factory.define :service_type do |s|
 end
 
 Factory.define :site_configuration_option do |sco|
-  sco.parameter       { Factory.next(:string) }
-  sco.value           { true }
+  sco.parameter { Factory.next(:string) }
+  sco.value { true }
 end
 
 Factory.define :special_collection do |sc|
-  sc.name             { Factory.next(:string) }
+  sc.name { Factory.next(:string) }
 end
 
 Factory.define :status do |s|
@@ -849,20 +849,20 @@ Factory.define :synonym_relation do |sr|
 end
 
 Factory.define :synonym do |s|
-  s.association      :name
+  s.association :name
   s.synonym_relation { SynonymRelation.find_by_translated(:label, 'Synonym') ||
                          SynonymRelation.gen_if_not_exists(:label => 'Synonym') }
-  s.language         { Language.english }
-  s.association      :hierarchy_entry
-  s.hierarchy_id     { |syn| syn.hierarchy_entry ? syn.hierarchy_entry.hierarchy.id : Hierarchy.default.id }
-  s.preferred        1
-  s.published        1
-  s.vetted           { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
+  s.language { Language.english }
+  s.association :hierarchy_entry
+  s.hierarchy_id { |syn| syn.hierarchy_entry ? syn.hierarchy_entry.hierarchy.id : Hierarchy.default.id }
+  s.preferred 1
+  s.published 1
+  s.vetted { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
 end
 
 Factory.define :task do |t|
   t.association :task_name
-  t.task_state  { TaskState.waiting }
+  t.task_state { TaskState.waiting }
   t.association :owner_user, :factory => :user
   t.association :created_by_user, :factory => :user
   t.association :target, :factory => :data_object
@@ -879,219 +879,219 @@ Factory.define :task_state do |tn|
 end
 
 Factory.define :taxon_concept do |tc|
-  tc.vetted         { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
-  tc.published      1
-  tc.vetted_id      0
+  tc.vetted { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
+  tc.published 1
+  tc.vetted_id 0
   tc.supercedure_id 0
-  tc.split_from     0
+  tc.split_from 0
 end
 
-# We may want the default to actually have some content.  Not sure.
+# We may want the default to actually have some content. Not sure.
 Factory.define :taxon_concept_content do |tcc|
   tcc.association :taxon_concept
-  tcc.text                     0
-  tcc.text_unpublished         0
-  tcc.image                    0
-  tcc.image_unpublished        0
-  tcc.child_image              0
-  tcc.child_image_unpublished  0
-  tcc.flash                    0
-  tcc.youtube                  0
-  tcc.map                      0
-  tcc.content_level            1
-  tcc.image_object_id          0 # the preferred image for that hierarchy_entry, but probably not used (still, accurate in production)
+  tcc.text 0
+  tcc.text_unpublished 0
+  tcc.image 0
+  tcc.image_unpublished 0
+  tcc.child_image 0
+  tcc.child_image_unpublished 0
+  tcc.flash 0
+  tcc.youtube 0
+  tcc.map 0
+  tcc.content_level 1
+  tcc.image_object_id 0 # the preferred image for that hierarchy_entry, but probably not used (still, accurate in production)
 end
 
 Factory.define :taxon_concept_name do |tcn|
-  tcn.preferred              true
-  tcn.vern                   false
+  tcn.preferred true
+  tcn.vern false
   tcn.source_hierarchy_entry_id {|he| Factory(:hierarchy_entry).id } # Does this work?
-  tcn.language               { Language.english }
-  tcn.association            :name
-  tcn.association            :taxon_concept
+  tcn.language { Language.english }
+  tcn.association :name
+  tcn.association :taxon_concept
 end
 
 Factory.define :title_item do |ti|
-  ti.association  :publication_title
-  ti.bar_code     '73577357735742'
+  ti.association :publication_title
+  ti.bar_code '73577357735742'
   ti.marc_item_id 'i11604463' # I don't know what this is, but hey.
-  ti.call_number  'QK1 .H38'
-  ti.volume_info  '1864 v. 3'
-  ti.url          'http://www.biodiversitylibrary.org/item/ThisWontWork.OnlyTesting'
+  ti.call_number 'QK1 .H38'
+  ti.volume_info '1864 v. 3'
+  ti.url 'http://www.biodiversitylibrary.org/item/ThisWontWork.OnlyTesting'
 end
 
 Factory.define :toc_item do |ti|
-  ti.parent_id   0
-  ti.view_order  { Factory.next(:int) + 1 } # The plus-one keeps this away from Overview, which should always be 1.
+  ti.parent_id 0
+  ti.view_order { Factory.next(:int) + 1 } # The plus-one keeps this away from Overview, which should always be 1.
 end
 
 Factory.define :top_image do |ti|
   ti.association :hierarchy_entry
   ti.association :data_object
-  ti.view_order  1                 # Perhaps this should be in a sequence, but I don't want to figure out how to persist the same HE
+  ti.view_order 1 # Perhaps this should be in a sequence, but I don't want to figure out how to persist the same HE
 end
 
 Factory.define :top_unpublished_image do |tui|
   tui.association :hierarchy_entry
   tui.association :data_object
-  tui.view_order  1 # Again, this should be sequential, but...
+  tui.view_order 1 # Again, this should be sequential, but...
 end
 
 Factory.define :top_concept_image do |ti|
   ti.association :taxon_concept
   ti.association :data_object
-  ti.view_order  1
+  ti.view_order 1
 end
 
 Factory.define :top_unpublished_concept_image do |tui|
   tui.association :taxon_concept
   tui.association :data_object
-  tui.view_order  1
+  tui.view_order 1
 end
 
 Factory.define :translated_action_with_object do |r|
-  r.association     :action_with_object
-  r.language        { Language.english }
-  r.action_code     { Factory.next(:string) }
+  r.association :action_with_object
+  r.language { Language.english }
+  r.action_code { Factory.next(:string) }
 end
 
 Factory.define :translated_agent_contact_role do |r|
-  r.association     :agent_contact_role
-  r.language        { Language.english }
-  r.label           { Factory.next(:string) }
+  r.association :agent_contact_role
+  r.language { Language.english }
+  r.label { Factory.next(:string) }
 end
 
 Factory.define :translated_agent_data_type do |r|
-  r.association     :agent_data_type
-  r.language        { Language.english }
-  r.label           { Factory.next(:string) }
+  r.association :agent_data_type
+  r.language { Language.english }
+  r.label { Factory.next(:string) }
 end
 
 Factory.define :translated_agent_role do |r|
-  r.association     :agent_role
-  r.language        { Language.english }
-  r.label           { Factory.next(:string) }
+  r.association :agent_role
+  r.language { Language.english }
+  r.label { Factory.next(:string) }
 end
 
 Factory.define :translated_agent_status do |r|
-  r.association     :agent_status
-  r.language        { Language.english }
-  r.label           { Factory.next(:string) }
+  r.association :agent_status
+  r.language { Language.english }
+  r.label { Factory.next(:string) }
 end
 
 Factory.define :translated_audience do |r|
-  r.association     :audience
-  r.language        { Language.english }
-  r.label           { Factory.next(:string) }
+  r.association :audience
+  r.language { Language.english }
+  r.label { Factory.next(:string) }
 end
 
 Factory.define :translated_collection_type do |r|
-  r.association     :collection_type
-  r.language        { Language.english }
-  r.label           { Factory.next(:string) }
+  r.association :collection_type
+  r.language { Language.english }
+  r.label { Factory.next(:string) }
 end
 
 Factory.define :translated_contact_subject do |r|
-  r.association     :contact_subject
-  r.language        { Language.english }
-  r.title           { Factory.next(:string) }
+  r.association :contact_subject
+  r.language { Language.english }
+  r.title { Factory.next(:string) }
 end
 
 Factory.define :translated_data_type do |r|
-  r.association     :data_type
-  r.language        { Language.english }
-  r.label           { Factory.next(:string) }
+  r.association :data_type
+  r.language { Language.english }
+  r.label { Factory.next(:string) }
 end
 
 Factory.define :translated_info_item do |r|
-  r.association     :info_item
-  r.language        { Language.english }
-  r.label           { Factory.next(:string) }
+  r.association :info_item
+  r.language { Language.english }
+  r.label { Factory.next(:string) }
 end
 
 Factory.define :translated_language do |r|
-  r.label           { Factory.next(:string) }
+  r.label { Factory.next(:string) }
   r.original_language_id { |l| Language.gen(:iso_639_1 => l.label[0..1].downcase).id }
-  r.language        { Language.english }
+  r.language { Language.english }
 end
 
 Factory.define :translated_license do |r|
-  r.association     :license
-  r.language        { Language.english }
-  r.description     { Factory.next(:string) }
+  r.association :license
+  r.language { Language.english }
+  r.description { Factory.next(:string) }
 end
 
 Factory.define :translated_mime_type do |r|
-  r.association     :mime_type
-  r.language        { Language.english }
-  r.label           { Factory.next(:string) }
+  r.association :mime_type
+  r.language { Language.english }
+  r.label { Factory.next(:string) }
 end
 
 Factory.define :translated_news_item do |r|
-  r.association     :news_item
-  r.language        { Language.english }
-  r.body            { 'Test News Item Body' + Faker::Lorem.paragraph }
-  r.title           { Faker::Lorem.words[rand(4) + 1].titleize }
+  r.association :news_item
+  r.language { Language.english }
+  r.body { 'Test News Item Body' + Faker::Lorem.paragraph }
+  r.title { Faker::Lorem.words[rand(4) + 1].titleize }
 end
 
 Factory.define :translated_rank do |r|
-  r.association     :rank
-  r.language        { Language.english }
-  r.label           { Factory.next(:string) }
+  r.association :rank
+  r.language { Language.english }
+  r.label { Factory.next(:string) }
 end
 
 Factory.define :translated_resource_agent_role do |r|
-  r.association     :resource_agent_role
-  r.language        { Language.english }
-  r.label           { Factory.next(:string) }
+  r.association :resource_agent_role
+  r.language { Language.english }
+  r.label { Factory.next(:string) }
 end
 
 Factory.define :translated_resource_status do |r|
-  r.association     :resource_status
-  r.language        { Language.english }
-  r.label           { Factory.next(:string) }
+  r.association :resource_status
+  r.language { Language.english }
+  r.label { Factory.next(:string) }
 end
 
 Factory.define :translated_service_type do |r|
-  r.association     :service_type
-  r.language        { Language.english }
-  r.label           { Factory.next(:string) }
+  r.association :service_type
+  r.language { Language.english }
+  r.label { Factory.next(:string) }
 end
 
 Factory.define :translated_status do |r|
-  r.association     :status
-  r.language        { Language.english }
-  r.label           { Factory.next(:string) }
+  r.association :status
+  r.language { Language.english }
+  r.label { Factory.next(:string) }
 end
 
 Factory.define :translated_synonym_relation do |r|
-  r.association     :synonym_relation
-  r.language        { Language.english }
-  r.label           { Factory.next(:string) }
+  r.association :synonym_relation
+  r.language { Language.english }
+  r.label { Factory.next(:string) }
 end
 
 Factory.define :translated_toc_item do |r|
   r.table_of_contents_id { |t| TocItem.gen().id }
-  r.language        { Language.english }
-  r.label           { Factory.next(:string) }
+  r.language { Language.english }
+  r.label { Factory.next(:string) }
 end
 
 Factory.define :translated_untrust_reason do |r|
-  r.association     :untrust_reason
-  r.language        { Language.english }
-  r.label           { Factory.next(:string) }
+  r.association :untrust_reason
+  r.language { Language.english }
+  r.label { Factory.next(:string) }
 end
 
 Factory.define :translated_vetted do |r|
-  r.association     :vetted
-  r.language        { Language.english }
-  r.label           { Factory.next(:string) }
+  r.association :vetted
+  r.language { Language.english }
+  r.label { Factory.next(:string) }
 end
 
 Factory.define :translated_visibility do |r|
-  r.association     :visibility
-  r.language        { Language.english }
-  r.label           { Factory.next(:string) }
+  r.association :visibility
+  r.language { Language.english }
+  r.label { Factory.next(:string) }
 end
 
 Factory.define :untrust_reason do |ur|
@@ -1101,35 +1101,35 @@ end
 
 Factory.define :user do |u|
   u.default_taxonomic_browser 'text'
-  u.expertise                 'middle'
-  u.remote_ip                 { "123.45.67.1#{rand(10)}" }
-  u.content_level             2
-  u.email                     { Factory.next(:email) }
-  u.default_hierarchy_id      nil
-  u.given_name                { Factory.next(:first_name) }
-  u.family_name               { Factory.next(:last_name) }
-  u.agent_id                  {|user| Factory(:agent, :full_name => "#{user.given_name} #{user.family_name}").id }
-  u.flash_enabled             true
-  u.language                  { Language.english }
-  u.mailing_list              true
-  u.vetted                    false
-  u.username                  do |user|
+  u.expertise 'middle'
+  u.remote_ip { "123.45.67.1#{rand(10)}" }
+  u.content_level 2
+  u.email { Factory.next(:email) }
+  u.default_hierarchy_id nil
+  u.given_name { Factory.next(:first_name) }
+  u.family_name { Factory.next(:last_name) }
+  u.agent_id {|user| Factory(:agent, :full_name => "#{user.given_name} #{user.family_name}").id }
+  u.flash_enabled true
+  u.language { Language.english }
+  u.mailing_list true
+  u.vetted false
+  u.username do |user|
     attempt = "#{user.given_name[0..0]}_#{user.family_name[0..9]}".gsub(/\s/, '_').downcase
     while(User.find_by_username(attempt)) do
       attempt.succ!
     end
     attempt
   end
-  u.active                    true
-  u.password                  'test password'
-  u.entered_password          'test password'
-  u.curator_hierarchy_entry   nil
-  u.curator_approved          false
-  u.curator_verdict_by_id     nil
-  u.curator_verdict_at        nil
-  u.curator_scope             ''
-  u.password_reset_token      nil
-  u.password_reset_token_expires_at  nil
+  u.active true
+  u.password 'test password'
+  u.entered_password 'test password'
+  u.curator_hierarchy_entry nil
+  u.curator_approved false
+  u.curator_verdict_by_id nil
+  u.curator_verdict_at nil
+  u.curator_scope ''
+  u.password_reset_token nil
+  u.password_reset_token_expires_at nil
 end
 
 Factory.define :users_data_object do |u|
@@ -1186,7 +1186,7 @@ Factory.define :google_analytics_partner_taxon do |g|
   g.association :taxon_concept
   g.association :agent
   g.year { Factory.next :year }
-  g.month { Factory.next :month }  
+  g.month { Factory.next :month }
 end
 
 Factory.define :activity do |a|

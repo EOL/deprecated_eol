@@ -184,7 +184,7 @@ protected
     @selectable_toc = TocItem.selectable_toc
     toc = TocItem.find(params[:toc_id])
     @selected_toc = [toc.label, toc.id]
-    @languages = Language.find_by_sql("SELECT * FROM languages WHERE iso_639_1!='' ORDER BY label").collect {|c| [c.label.truncate(30), c.id] }
+    @languages = Language.find_by_sql("SELECT * FROM languages WHERE iso_639_1!=''").collect {|c| [c.label.truncate(30), c.id] }
     @licenses = License.valid_for_user_content
   end
 

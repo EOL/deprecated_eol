@@ -530,24 +530,27 @@ class TaxonConcept < SpeciesSchemaModel
     @has_media[:video]
   end
 
+  def show_video_tab
+    # checks logged-in user and/or logged-in content partner and also considers the existence of un-published videos, if Video tab is to be displayed
+    return (video_data_objects.length > 0 ? true : false)
+  end
+
   def has_map
     available_media if @has_media.nil?
     @has_media[:map]
   end
 
   def available_media
+    # This method disregards whether there is a logged-in user or none
     images = video = map = false
-    # TODO - JRice believes these rescues are bad.  They are--I assume--in here because sometimes there is no
-    # hierarchies_content.  However, IF there is one AND we get some other errors, then A) we're not handling them,
-    # and B) The value switches to false when it may have been true from a previous hierarchies_content.
     published_hierarchy_entries.each do |entry|
-      images = true if entry.hierarchies_content.image != 0 || entry.hierarchies_content.child_image != 0 rescue images
-      video = true if entry.hierarchies_content.flash != 0 || entry.hierarchies_content.youtube != 0 rescue video
+        next if entry.hierarchies_content.blank?
+        images = true if entry.hierarchies_content.image != 0 || entry.hierarchies_content.child_image != 0
+        video = true if entry.hierarchies_content.flash != 0 || entry.hierarchies_content.youtube != 0
+        break if images && video
     end
-
     map = true if gbif_map_id
-
-    @has_media = {:images => images, :video  => video, :map    => map }
+    @has_media = {:images => images, :video => video, :map => map}
   end
 
   def has_name?

@@ -48,14 +48,14 @@ class TocItem < SpeciesSchemaModel
   def self.synonyms
     InfoItem
     cached('synonyms') do
-      r = TocItem.find_all_by_parent_id(self.name_and_taxonomy.id, :include => [ :info_items, { :parent => :info_items } ]).select{ |t| t.label == 'Synonyms' }
+      r = TocItem.find_all_by_parent_id(self.name_and_taxonomy.id, :include => [ :info_items, { :parent => :info_items } ]).select{ |t| t.label('en') == 'Synonyms' }
       r.blank? ? nil : r[0]
     end
   end
   def self.common_names
     InfoItem
     cached('common_names') do
-      r = TocItem.find_all_by_parent_id(self.name_and_taxonomy.id, :include => [ :info_items, { :parent => :info_items } ]).select{ |t| t.label == 'Common Names' }
+      r = TocItem.find_all_by_parent_id(self.name_and_taxonomy.id, :include => [ :info_items, { :parent => :info_items } ]).select{ |t| t.label('en') == 'Common Names' }
       r.blank? ? nil : r[0]
     end
   end
@@ -111,20 +111,20 @@ class TocItem < SpeciesSchemaModel
   end
 
   def allow_user_text?
-    self.info_items.length > 0 && !["Wikipedia", "Barcode"].include?(self.label)
+    self.info_items.length > 0 && !["Wikipedia", "Barcode"].include?(self.label('en'))
   end
   
   def self.selectable_toc
     cached('selectable_toc') do
       InfoItem
       all = TocItem.find(:all, :include => :info_items).sort_by{ |toc| toc.label }
-      all.delete_if{ |toc| toc.info_items.empty? || ['Wikipedia', 'Barcode'].include?(toc.label) }
+      all.delete_if{ |toc| toc.info_items.empty? || ['Wikipedia', 'Barcode'].include?(toc.label('en')) }
       all.collect{ |c| [c.label, c.id] }
     end
   end
 
   def wikipedia?
-    self.label == "Wikipedia" 
+    self.label('en') == "Wikipedia" 
   end
   
   def self.roots

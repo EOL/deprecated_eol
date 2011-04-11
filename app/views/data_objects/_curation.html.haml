@@ -17,14 +17,14 @@
   .options.action-value
     .option.unreviewed
       = radio_button_tag "vetted_id", Vetted.unknown.id.to_s, data_object.unknown?, { :id => ("#{data_object['id']}_vetted_id_" + Vetted.unknown.id.to_s), :class =>"vetted_unknown" }
-      %label{:for => "#{data_object['id']}_vetted_id_" + Vetted.unknown.id.to_s}= I18n.t("unreviewed")
+      %label{:for => "#{data_object['id']}_vetted_id_" + Vetted.unknown.id.to_s}= Vetted.unknown.label
     .option.trust
       = radio_button_tag "vetted_id", Vetted.trusted.id.to_s, data_object.trusted?, { :id => ("#{data_object['id']}_vetted_id_" + Vetted.trusted.id.to_s), :class =>"vetted_trusted" }
-      %label{:for => "#{data_object['id']}_vetted_id_"  + Vetted.trusted.id.to_s}= I18n.t("trusted")
+      %label{:for => "#{data_object['id']}_vetted_id_"  + Vetted.trusted.id.to_s}= Vetted.trusted.label
 
     .option.untrust
       = radio_button_tag "vetted_id", Vetted.untrusted.id.to_s, data_object.untrusted?, { :id => ("#{data_object['id']}_vetted_id_" + Vetted.untrusted.id.to_s), :class =>"vetted_untrusted" }
-      %label{:for => "#{data_object['id']}_vetted_id_" + Vetted.untrusted.id.to_s}= I18n.t("untrusted")
+      %label{:for => "#{data_object['id']}_vetted_id_" + Vetted.untrusted.id.to_s}= Vetted.untrusted.label
       - div_style = data_object.untrusted? ? '' :  'display:none;'
       .reason{ :style => div_style, :id => "reason_#{data_object.id}" }
         / = "Please select a reason, and optionally leave a curation comment to explain your decision:"

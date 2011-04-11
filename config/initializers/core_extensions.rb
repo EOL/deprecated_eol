@@ -98,11 +98,13 @@ module ActiveRecord
       def uses_translations(options={})
         begin
           translated_class = eval("Translated" + self.to_s)
+          
           has_many :translations, :class_name => translated_class.to_s, :foreign_key => options[:foreign_key]
           default_scope :include => :translations
           const_set(:USES_TRANSLATIONS, true)
           const_set(:TRANSLATION_CLASS, translated_class)
           attr_accessor :current_translation_language
+          
           # creating attributes for the translated fields
           # also creating a method Class.attribute(language_iso_code)
           # which will return that attribute in the given language
@@ -115,6 +117,9 @@ module ActiveRecord
                 unless column_names.include?(a)
                   attr_accessor "translated_#{a}".to_sym
                   
+                  # creating a method with the name of the translated attribute. For example
+                  # if we translated label, we're making
+                  # def label(language_iso)
                   define_method(a.to_sym) do |*args|
                     # this is a funny way to check for the Language model existing. defined? would fail
                     # unless there was some reference to Language earlier in the application instance, thus
@@ -122,8 +127,8 @@ module ActiveRecord
                     language_exists = defined?(Language) || Language rescue nil
                     return nil unless language_exists
                     
-                    language_iso = args[0] || APPLICATION_DEFAULT_LANGUAGE_ISO || nil
-                    unless self.current_translation_language && language_iso == self.current_translation_language.iso_639_1
+                    language_iso = args[0] || I18n.locale.to_s || APPLICATION_DEFAULT_LANGUAGE_ISO || nil
+                    unless self.current_translation_language && language_iso == self.current_translation_language.iso_code
                       l = Language.from_iso(language_iso)
                       return nil if l.nil?
                       # load the translated fields as attributes of the current model
@@ -139,15 +144,20 @@ module ActiveRecord
           
           # this method will search translations of this model whose language matches the parameter,
           # and creates attributes of the model corresponding to the translated fields
+          # def set_translation_language(language_iso)
           define_method(:set_translation_language) do |language|
-            # language_iso = args[0] || APPLICATION_DEFAULT_LANGUAGE_ISO || nil
-            # return if language_iso == self.current_translation_language
-            # language_id = Language.id_from_iso(language_iso)
-            # return nil if language_id.nil?
             return nil if language.class != Language
             return true if language == self.current_translation_language
             match = translations.select{|t| t.language_id == language.id }
-            return nil if match.empty?  # no translation in this language
+            
+            # no translation in this language to fallback to the default language
+            if match.empty?
+              if language.iso_639_1 != APPLICATION_DEFAULT_LANGUAGE_ISO
+                return set_translation_language(Language.from_iso(APPLICATION_DEFAULT_LANGUAGE_ISO))
+              else
+                return nil
+              end
+            end
             
             # populate the translated attributes
             self.current_translation_language = language
@@ -157,6 +167,7 @@ module ActiveRecord
             end
           end
           
+          # def self.find_by_translated(field, value, language_iso, :include => {})
           self.class.send(:define_method, :find_by_translated) do |field, value, *args|
             begin
               if args[0] && args[0].class == String && args[0].match(/^[a-z]{2}$/)
@@ -164,8 +175,8 @@ module ActiveRecord
               end
               options_include = args.select{ |a| a && a.class == Hash && !a[:include].blank? }.shift
               options_include = options_include[:include] unless options_include.blank?
-              language_iso = options_language_iso || APPLICATION_DEFAULT_LANGUAGE_ISO || nil
-              language_id = Language.id_from_iso(language_iso)
+              search_language_iso = options_language_iso || APPLICATION_DEFAULT_LANGUAGE_ISO || nil
+              language_id = Language.id_from_iso(search_language_iso)
               return nil if language_id.nil?
               
               table = self::TRANSLATION_CLASS.table_name
@@ -173,12 +184,6 @@ module ActiveRecord
               found = send("find", :first, :joins => :translations,
                 :conditions => "`#{table}`.`#{field}` = '#{value}' AND `#{table}`.`language_id` = #{language_id}",
                 :include => options_include)
-              
-              # if the default language wasn't chosen, swtich translated attributes to new language
-              if found
-                found.set_translation_language(language_iso) if language_iso != APPLICATION_DEFAULT_LANGUAGE_ISO
-              end
-              found
             rescue => e
               # Language may not be defined yet
               puts e.message
@@ -186,6 +191,7 @@ module ActiveRecord
             end
           end
           
+          # def self.cached_find_translated(field, value, language_iso, :include => {})
           self.class.send(:define_method, :cached_find_translated) do |field, value, *args|
             if args[0] && args[0].class == String && args[0].match(/^[a-z]{2}$/)
               options_language_iso = args[0]

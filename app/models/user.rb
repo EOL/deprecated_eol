@@ -649,11 +649,9 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
     start = per_page * (page - 1)
     last = start + per_page - 1
-    data_object_ids_to_lookup = data_object_ids[start..last]
-    
-    # We should not have to do it if the solr index get updated after every content import. Created a ticket WEB-2180 for this.
-    data_object_ids_to_lookup.collect! {|dato_id| DataObject.latest_published_version_id(dato_id) }.compact!
-    
+    data_object_ids_to_lookup = data_object_ids[start..last].clone
+    data_object_ids_to_lookup = DataObject.latest_published_version_ids_of_do_ids(data_object_ids_to_lookup)
+
     add_include = [
       :all_comments,
       { :users_data_objects => :user },
@@ -662,11 +660,20 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       { :taxon_concepts => { :preferred_common_names => :name } } ]
     add_select = {
       :users => '*',
+      :names => [ :string ],
+      :taxon_concept_names => [ :language_id ],
       :comments => [ :parent_id, :visible_at, :user_id ],
       :untrust_reasons => '*',
       :users_data_objects_ratings => [ :user_id, :rating ] }
-    data_object_ids[start..last] = DataObject.core_relationships(:add_include => add_include,
+    core_data = DataObject.core_relationships(:add_include => add_include,
       :add_select => add_select).find_all_by_id(data_object_ids_to_lookup).sort_by{|d| Invert(d.id)}
+    core_data.each do |data_object|
+      if index = data_object_ids[start..last].index(data_object.id)
+        data_object_ids[index] = data_object
+      end
+    end
+    data_object_ids = data_object_ids.collect{|do_or_id| (do_or_id.class == DataObject) ? do_or_id : nil }
+    
     return data_object_ids
   end
 

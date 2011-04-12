@@ -23,6 +23,7 @@
       %th{ :width => 368 }
         =I18n.t("actions")
     - @images_to_curate.each do |data_object|
+      - next if data_object.nil?
       / %tr{ :id => "undo-move-#{data_object.id}", :class => 'hide ' + data_object.vetted.label.downcase }
       /   %td{ :colspan => 2 }
       /     You moved the image to 
@@ -34,7 +35,7 @@
           .curation-item
             %h5
               = taxon_concept_link(nil, :data_type => "image", :data_object_id => data_object.id, :name_string => data_object.first_concept_name, :taxon_concept_id => data_object.first_hierarchy_entry.taxon_concept_id, :popup => true)
-            - common_name = data_object.taxon_concepts[0].subtitle(@session_hierarchy) unless data_object.taxon_concepts[0].nil?
+            - common_name = data_object.taxon_concepts[0].preferred_common_name_in_language(current_user.language) unless data_object.taxon_concepts[0].nil?
             - if common_name
               %h6
                 = common_name.firstcap

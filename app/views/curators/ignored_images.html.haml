@@ -27,7 +27,7 @@
 /           - taxon_concept = data_object.get_taxon_concepts(:published => :preferred).first
 /           %h5
 /             = taxon_concept_link(taxon_concept, :data_type => "image", :data_object_id => data_object.id, :popup => true)
-/           - common_name = data_object.taxon_concepts[0].subtitle(@session_hierarchy) unless data_object.taxon_concepts[0].nil?
+/           - common_name = data_object.taxon_concepts[0].preferred_common_name_in_language(current_user.language) unless data_object.taxon_concepts[0].nil?
 /           - if common_name
 /             %h6
 /               = common_name.firstcap

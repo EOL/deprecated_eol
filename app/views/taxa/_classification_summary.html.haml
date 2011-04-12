@@ -8,6 +8,7 @@
           -# TODO - If we're on a Kingdom page, we don't want two hard-coded entries, here:
           %li{:title => classification[:kingdom].rank_label}
             = classification[:kingdom].italicized_name
-            %ul
-              %li{:title => classification[:parent].rank_label}
-                = classification[:parent].italicized_name
+            - unless classification[:parent].nil?
+              %ul
+                %li{:title => classification[:parent].rank_label}
+                  = classification[:parent].italicized_name

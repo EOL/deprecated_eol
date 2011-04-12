@@ -134,4 +134,8 @@ testy[:he2]  ||= build_hierarchy_entry(1, testy[:taxon_concept], testy[:name_obj
 testy[:syn2] = Synonym.generate_from_name(testy[:name_obj], :entry => testy[:he2], :language => Language.english, :agent => testy[:agent])
 testy[:tcn2] = TaxonConceptName.find_by_synonym_id(testy[:syn2].id)
 
+testy[:superceded_taxon_concept] = TaxonConcept.gen(:supercedure_id => testy[:id])
+testy[:unpublished_taxon_concept] = TaxonConcept.gen(:published => 0, :supercedure_id => 0)
+
+
 EOL::TestInfo.save('testy', testy)

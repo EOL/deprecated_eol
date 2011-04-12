@@ -3,14 +3,21 @@ module EOL
 
     include Enumerable
 
-    def self.find(feed)
-      Feed.new(feed)
+    def self.find(feed, options = {})
+      Feed.new(feed, options)
     end
 
-    def initialize(feed)
-      @klass = feed.class.name
-      @id    = feed.id
-      @feed  = FeedItem.find(:all, :conditions => ['feed_type = ? AND feed_id = ?', @klass, @id])
+    def initialize(source, options = {})
+      @source = source
+      @klass  = source.class.name
+      @id     = source.id
+      @feed   = FeedItem.find(:all, :conditions => ['feed_type = ? AND feed_id = ?', @klass, @id])
+      # TODO - digest these
+      if options[:follow_children].nil? || options[:follow_children]
+        include_the_users_watch_collection if this_is_a_user_feed?
+        include_the_community_focus_collection if this_is_a_community_feed?
+      end
+      # TODO - recurse over hierarchies...
     end
 
     # This is the main method for actually adding a post to the feed.  Takes a body by default; other values optional.
@@ -18,7 +25,6 @@ module EOL
       values = {:feed_type => @klass, :feed_id => @id, :body => body}.merge(options)
       if item = FeedItem.create(values)
         @feed << item
-        propagate(body, options)
       else
         raise "Unable to create a feed item"
       end
@@ -35,6 +41,18 @@ module EOL
     # Don't use this unless you know what you're doing; use #post instead.
     def << item
       @feed << item
+    end
+
+    def +(other)
+      if other.is_a? Array
+        @feed += other
+      else # assume it's a Feed
+        @feed += other.items
+      end
+    end
+
+    def items
+      @feed
     end
 
     def count
@@ -69,31 +87,28 @@ module EOL
       @feed.nil?
     end
 
-    private
+  private
 
-    def propagate(body, options)
-      options.delete(:feed_id)   # Because these will be incorrect and must be recalculated.
-      options.delete(:feed_type) # Because these will be incorrect and must be recalculated.
-      feeds_listening_to_this_item.each do |listener_feed|
-        listener_feed.post(body, options)
+    def this_is_a_community_feed?
+      @klass == 'Community'
+    end
+
+    def this_is_a_user_feed?
+      @klass == 'User'
+    end
+
+    def include_the_community_focus_collection
+      include_followed_items(:focus)
+    end
+
+    def include_the_users_watch_collection
+      include_followed_items(:watch_collection)
+    end
+
+    def include_followed_items(type)
+      @source.send(type).collection_items.each do |item|
+        @feed += item.object.feed(:follow_children => false).items if item.object.respond_to?(:feed)
       end
-    end
-
-    def feeds_listening_to_this_item
-      user_watch_collections_listening + community_focus_lists_listening + collection_feeds
-    end
-
-    def user_watch_collections_listening
-      # TODO - this needs to be streamlined.
-      CollectionItem.find(:all, :conditions => {:object_type => @klass, :object_id => @id}).map {|ci| ci.collection.user.feed }
-    end
-
-    def community_focus_lists_listening
-      []
-    end
-
-    def collection_feeds
-      []
     end
 
   end

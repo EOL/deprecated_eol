@@ -1,7 +1,7 @@
 module EOL
   module Feedable
-    def feed
-      @feed_cache ||= EOL::Feed.find(self)
+    def feed(options = {})
+      @feed_cache ||= EOL::Feed.find(self, options)
     end
     def reload(*args)
       @feed_cache = nil

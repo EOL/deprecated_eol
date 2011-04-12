@@ -116,6 +116,7 @@ Hierarchy.gen_if_not_exists(:agent => Agent.gen_if_not_exists(:full_name => 'GBI
 
 Language.gen_if_not_exists(:label => 'English', :iso_639_1 => 'en')
 Language.gen_if_not_exists(:label => 'French', :iso_639_1 => 'fr', :iso_639_2 => 'fre') # Bootstrap uses this, tests i18n
+Language.gen_if_not_exists(:label => 'Arabic', :iso_639_1 => 'ar') # For testing Arabic, obviously.
 sci_name = Language.gen_if_not_exists(:label => 'Scientific Name', :iso_639_1 => '')
 unknown  = Language.gen_if_not_exists(:label => 'Unknown', :iso_639_1 => '')
 

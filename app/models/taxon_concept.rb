@@ -148,9 +148,11 @@ class TaxonConcept < SpeciesSchemaModel
 
   # Returns true if the specified user has access to this TaxonConcept.
   def is_curatable_by? user
-    return false unless user.curator_approved
-    return false unless user.curator_hierarchy_entry_id
-    curators.include?(user)
+    if user
+      return false unless user.curator_approved
+      return false unless user.curator_hierarchy_entry_id
+      curators.include?(user)
+    end
   end
 
   # Return a list of data objects associated with this TC's Overview toc (returns nil if it doesn't have one)

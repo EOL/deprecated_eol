@@ -388,7 +388,13 @@ class DataObject < SpeciesSchemaModel
 
   # Test whether a user has curator rights on this object
   def is_curatable_by? user
-    taxon_concepts.collect {|tc| tc.is_curatable_by?(user) }.include?(true)
+    # normally at this point, taxon_concepts shouldn't be blank
+    # caused by some data problem, this hack is needed to curate object(s) like: e.g. http://www.eol.org/pages/913235?text_id=7655133
+    if !taxon_concepts.blank?
+      taxon_concepts.collect {|tc| tc.is_curatable_by?(user) }.include?(true)
+    else
+      return (user.nil? ? false : true)
+    end
   end
 
   # Find the Agent (only one) that supplied this data object to EOL.

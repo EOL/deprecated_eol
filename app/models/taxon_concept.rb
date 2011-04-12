@@ -105,6 +105,14 @@ class TaxonConcept < SpeciesSchemaModel
     quick_common_name(hierarchy)
   end
 
+  def preferred_common_name_in_language(language)
+    common_names = preferred_common_names.select do |preferred_common_name|
+      preferred_common_name.language_id == language.id
+    end
+    return common_names[0].name.string unless common_names.blank?
+    return nil
+  end
+
   def self.common_names_for_concepts(taxon_concept_ids, hierarchy = nil)
     quick_common_names(taxon_concept_ids, hierarchy)
   end

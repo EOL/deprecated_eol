@@ -971,10 +971,10 @@ class DataObject < SpeciesSchemaModel
     return obj[0]
   end
   
-  def self.latest_published_version_id(data_object_id)
-    latest_data_object = DataObject.find_by_sql("SELECT do.id FROM data_objects do_old JOIN data_objects do ON (do_old.guid=do.guid) WHERE do_old.id=#{data_object_id} AND do.published=1 ORDER BY id desc LIMIT 1")
-    return nil if latest_data_object.blank?
-    return latest_data_object[0].id
+  def self.latest_published_version_ids_of_do_ids(data_object_ids)
+    latest_published_version_ids = DataObject.find_by_sql("SELECT do.id FROM data_objects do_old JOIN data_objects do ON (do_old.guid=do.guid) WHERE do.id IN (#{data_object_ids.collect{|doi| doi}.join(', ')}) AND do.published=1")
+    latest_published_version_ids.collect!{|data_object| (data_object.id)}.uniq!
+    latest_published_version_ids
   end
   
   def self.latest_published_version_of_guid(guid, options={})

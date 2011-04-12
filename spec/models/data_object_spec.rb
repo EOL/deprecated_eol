@@ -50,6 +50,8 @@ describe DataObject do
     @image_dato    = @taxon_concept.images.last
 
     @dato = DataObject.gen(:description => 'That <b>description has unclosed <i>html tags')
+    DataObjectsTaxonConcept.gen(:taxon_concept_id => @taxon_concept.id, :data_object_id => @data_object.id)
+    DataObjectsTaxonConcept.gen(:taxon_concept_id => @taxon_concept.id, :data_object_id => @dato.id)
     @tag1 = DataObjectTag.gen(:key => 'foo',    :value => 'bar')
     @tag2 = DataObjectTag.gen(:key => 'foo',    :value => 'baz')
     @tag3 = DataObjectTag.gen(:key => 'boozer', :value => 'brimble')

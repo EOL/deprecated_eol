@@ -668,7 +668,7 @@ class TaxonConcept < SpeciesSchemaModel
     iucn_objects = data_objects.select{ |d| d.is_iucn? && d.published? }.sort_by{ |d| Invert(d.id) }
     my_iucn = iucn_objects.empty? ? nil : DataObject.find(iucn_objects[0].id, :select => 'description, source_url')
     
-    temp_iucn = my_iucn.nil? ? DataObject.new(:source_url => 'http://www.iucnredlist.org/', :description => 'NOT EVALUATED') : my_iucn
+    temp_iucn = my_iucn.nil? ? DataObject.new(:source_url => 'http://www.iucnredlist.org/', :description => I18n.t("not_evaluated")) : my_iucn
     temp_iucn.instance_eval { def agent_url; return Agent.iucn.homepage; end }
     @iucn = temp_iucn
     return @iucn

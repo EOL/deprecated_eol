@@ -404,7 +404,7 @@ class DataObject < SpeciesSchemaModel
                                   :link_to_url => data_supplier_agent.homepage,
                                   :display_string => data_supplier_agent.full_name,
                                   :logo_cache_url => data_supplier_agent.logo_cache_url,
-                                  :type => 'Supplier')
+                                  :type => I18n.t("supplier_"))
   end
 
   def citable_entities
@@ -421,40 +421,40 @@ class DataObject < SpeciesSchemaModel
 
     unless rights_statement.blank?
       citables << EOL::Citable.new( :display_string => rights_statement,
-                                    :type => 'Rights')
+                                    :type => I18n.t("rights"))
     end
 
     unless rights_holder.blank?
       citables << EOL::Citable.new( :display_string => rights_holder,
-                                    :type => 'Rights Holder')
+                                    :type => I18n.t("rights_holder"))
     end
 
     unless license.blank?
       citables << EOL::Citable.new( :link_to_url => license.source_url,
                                     :display_string => license.description,
                                     :logo_path => license.logo_url,
-                                    :type => 'License')
+                                    :type => I18n.t("license"))
     end
 
     unless location.blank?
       citables << EOL::Citable.new( :display_string => location,
-                                    :type => 'Location')
+                                    :type => I18n.t("location_"))
     end
 
     unless source_url.blank?
       citables << EOL::Citable.new( :link_to_url => source_url,
                                     :display_string => 'View original data object',
-                                    :type => 'Source URL')
+                                    :type => I18n.t("source_url"))
     end
 
     unless created_at.blank? || created_at == '0000-00-00 00:00:00'
       citables << EOL::Citable.new( :display_string => created_at.strftime("%B %d, %Y"),
-                                    :type => 'Indexed')
+                                    :type => I18n.t("indexed"))
     end
 
     unless bibliographic_citation.blank?
       citables << EOL::Citable.new( :display_string => bibliographic_citation,
-                                    :type => 'Citation')
+                                    :type => I18n.t("citation"))
     end
 
     citables

@@ -39,7 +39,7 @@
       #controls_container
         %ul#controls.menu
           %li.skip_to_content
-            %a{ :href => "#content_target" }
+            %a{ :href => "#content" }
               = I18n.t(:skip_to_content)
         %ul#language_selector
           -# TODO: Make this so that currently selected language always appears first in list.
@@ -99,9 +99,8 @@
             %li.sign_out
               = link_to I18n.t(:sign_out) , { :controller => "/content_partner", :action => "logout" }
 
-    -# "main" is an ARIA standard name
     #content_container.section{ :role => "main" }
-      %a#content_target
+      %a#content
       - unless flash.blank?
         #flash_messages_container
           - if flash[:notice]

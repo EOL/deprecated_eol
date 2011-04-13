@@ -25,6 +25,7 @@ class TaxaController < ApplicationController
     end
   end
 
+  # TODO: Move search to its own controller?
   def search
     # remove colon from query, because it reserved for fields separation
     @colon_warning_flag = 0
@@ -46,6 +47,7 @@ class TaxaController < ApplicationController
     else
       search_text
     end
+    render :layout => 'v2/search'
   end
 
   def found

@@ -53,6 +53,18 @@ describe Name do
       name.italicized.should == '<i>Blue jay</i>'
     end
 
+    it "should be able to modify existing common name if clean name matches" do
+      count = Name.count
+      name1 = Name.create_common_name("Blue \t  jay.") # Note the addition of whitespace, which should be stripped
+      clean_string1 = Name.prepare_clean_name("Blue \t  jay.")
+      name1.string.should == 'Blue jay.'
+      name2 = Name.create_common_name("Blue \t  jay")  # Note the addition of whitespace, which should be stripped
+      clean_string2 = Name.prepare_clean_name("Blue \t  jay")
+      name2.string.should == 'Blue jay'
+      clean_string1.should == clean_string2
+      Name.count.should == count + 1                   # Note we added 2 names(i.e. name1 & name2) but still count should increase by 1
+    end
+
     it 'should create a canonical form when one does not already exist' do
       Name.delete_all(:clean_name => 'smurf')
       CanonicalForm.delete_all(:string => 'smurf')

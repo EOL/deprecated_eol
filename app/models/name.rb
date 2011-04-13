@@ -75,7 +75,11 @@ class Name < SpeciesSchemaModel
     return nil if name_string.blank?
     
     common_name = Name.find_by_string(name_string)
-    return common_name unless common_name.blank?
+    if !common_name.blank?
+      common_name_to_edit = common_name unless name_string == common_name.string
+      common_name.update_attribute(:string, name_string) unless common_name_to_edit.blank?
+      return common_name
+    end
     
     common_name = Name.new
     common_name.string = name_string

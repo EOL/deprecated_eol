@@ -95,7 +95,7 @@ class TaxaController < ApplicationController
       :last_curated_dates => '*',
       :users => [ :given_name, :family_name ] }
     @taxon_concept = TaxonConcept.core_relationships(:include => inc, :select => sel).find_by_id(taxon_concept.id)
-    
+
     if params[:action_name] == "update_common_names"
       update_common_names
     end
@@ -441,7 +441,9 @@ private
   end
 
   def update_user_content_level
-    current_user.content_level = params[:content_level] if ['1','2','3','4'].include?(params[:content_level])
+    alter_current_user do |user|
+      user.content_level = params[:content_level] if ['1','2','3','4'].include?(params[:content_level])
+    end
   end
 
   def add_page_view_log_entry
@@ -577,8 +579,9 @@ private
 
       selected_image_index = find_selected_image_index(@images,image_id)
       if selected_image_index.nil?
-        current_user.vetted = false
-        current_user.save if logged_in?
+        alter_current_user do |user|
+          user.vetted = false
+        end
 
         @taxon_concept.current_user = current_user
         selected_image_index = find_selected_image_index(@images,image_id)
@@ -612,8 +615,9 @@ private
         @category_id = show_category_id
 
         if current_user.vetted && (@selected_text.untrusted? || @selected_text.unknown?)
-          current_user.vetted = false
-          current_user.save if logged_in?
+          alter_current_user do |user|
+            user.vetted = false
+          end
         end
       else
         flash[:warning] = "Text is no longer available"

@@ -578,8 +578,8 @@ describe 'EOL APIs' do
   it 'search should search without a filter and get multiple results' do
     visit("/api/search/Dog.json")
     response_object = JSON.parse(body)
-    response_object['results'][0]['title'].should == "Canis dog"
-    response_object['results'][1]['title'].should == @dog_sci_name
+    response_object['results'][0]['title'].should == @dog_sci_name
+    response_object['results'][1]['title'].should == "Canis dog"
     response_object['results'].length.should == 2
   end
 

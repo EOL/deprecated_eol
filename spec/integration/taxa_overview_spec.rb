@@ -36,9 +36,6 @@ describe 'Taxa overview' do
     it 'should show the preferred common name and common names count in the content header' do
       should have_tag('div#content_header_container p', /^(#{@testy[:common_name]})(\n|.)*?(#{@testy[:taxon_concept].common_names.count})/)
     end
-    it 'should show a featured image' do
-      should have_tag("#image_summary_container img.featured[src$=#{@testy[:taxon_concept].images[0].smart_image[25..-1]}]")
-    end
     it 'should show a gallery of four images' do
       body.should have_tag("div#image_summary_gallery_container") do
         with_tag("img[src$=#{@testy[:taxon_concept].images[0].smart_thumb[25..-1]}]")
@@ -48,7 +45,7 @@ describe 'Taxa overview' do
       end
       should_not have_tag("img[src$=#{@testy[:taxon_concept].images[4].smart_thumb[25..-1]}]")
     end
-    it 'should have descriptive text alternatives for images in gallery' do
+    it 'should have sanitized descriptive text alternatives for images in gallery' do
       should have_tag('div#image_summary_gallery_container img[alt^=?]', /(\w+\s){8}/, { :count => 4 })
     end
     it 'should show overview text' do

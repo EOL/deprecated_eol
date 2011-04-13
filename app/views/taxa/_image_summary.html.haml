@@ -1,10 +1,15 @@
 #image_summary_container
   %h2= I18n.t(:images)
-  %img{ :class => "featured #{vetted_id_class(@images[0])}", :src => (@images[0].smart_image unless (@images.nil? || @images.blank? || @images[0].blank? || @images[0].object_cache_url.blank?))}
   #image_summary_gallery_container
     %ul
       - @images[0..3].each do |image|
         %li
-          -# TODO - These alt/title attributes are useless in terms of accessibility.  What we ideally want is a description provided by the content partner, describing what is in the image.
+          - # TODO: These alt/title attributes are useless in terms of accessibility.
+          - # We can include the image description but its not always going to make sense or be short enough
+          - # ideally we need a short description provided by the content partner, describing what is in the image.
+          - unless image.description.blank?
+            - alt = Sanitize.clean(image.description, :remove_contents => %w[table script])
+            - alt.split[0..20].join(' ') + '...' if image.description.length > 125
+          - alt ||= I18n.t(:image_alt_text, :vetted_status_with_article => image.vetted.to_s_with_article, :scientific_name => hh(@taxon_concept.scientific_name(nil,false)))
           %a{ :data => { :image_id => image.id }, :href => "/data_objects/#{image.id}", :class => vetted_id_class(image) }
-            = image_tag image.smart_thumb, :alt => I18n.t(:image_alt_text, :vetting => image.vetted.to_s_with_article, :name => hh(@taxon_concept.scientific_name(nil,false)))
+            = image_tag image.smart_thumb, :alt => alt

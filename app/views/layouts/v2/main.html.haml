@@ -41,21 +41,25 @@
           %li.skip_to_content
             %a{ :href => "#content_target" }
               = I18n.t(:skip_to_content)
-          -# TODO: just a question -- would it be good from accessability point of view to have easier access to language picker?
-          %li.language{ :title => "Choose which language you would like to view the site in, the currently selected language is #{I18n.locale}" }
-            = I18n.t(:language)
-            = I18n.locale.to_s.upcase
-            %ul
-              - Language.find_active.each do |language|
-                %li
-                  = link_to I18n.t(:language_menu_item, :name => language.label, :abbr => language.display_code), set_language_url(:language => language.iso_639_1), :title => "Switch the site language to #{language.display_code}"
+        %ul#language_selector
+          -# TODO: Make this so that currently selected language always appears first in list.
+          - Language.find_active.each do |language|
+            -# TODO: Is this conditional statement robust?
+            - if language.iso_639_1 == I18n.locale.to_s
+              %li{ :class => 'current_language', :title => I18n.t(:selected_language_advisory_information) }
+                = I18n.t(:language_menu_item, :language_label => language.label, :language_abbr => language.display_code)
+            - else
               %li
-                = link_to I18n.t("google_translate"), {:controller => "/content", :action => "translate"}, {:title => "Use Google Translate widget to transform the site content into another language"}
+                = link_to I18n.t(:language_menu_item, :language_label => language.label, :language_abbr => language.display_code),
+                    set_language_url(:language => language.iso_639_1),
+                    { :title => I18n.t(:switch_language_advisory_information, :language_label => language.label) }
+          %li
+            = link_to I18n.t(:google_translate), { :controller => "/content", :action => "translate" },
+              { :title => I18n.t(:google_translate_advisory_information) }
 
       #banner.header{ :role => "banner" }
-        %h1
-          %a{ :href => root_url, :title => I18n.t(:the_encyclopedia_of_life_eol_web_site_home_page)  }
-            =  I18n.t(:encyclopedia_of_life)
+        %a{ :href => root_url, :title => I18n.t(:home_page_link_advisory_text)  }
+          =  I18n.t(:encyclopedia_of_life)
 
       = render :partial => '/layouts/v2/global_navigation'
 

@@ -29,7 +29,7 @@
   .membership_actions
     %h2= I18n.t(:get_involved)
     - if not logged_in?
-      = I18n.t(:you_must_be_link_tologged_in_login_path_to_join_communities, :var_link=>link_to(I18n.t(:log_in), login_path))
+      =I18n.t(:login_to_join_communities), login_path))
     - elsif !@current_member
       %p
         = I18n.t(:you_are_not_a_member_of_this_community)

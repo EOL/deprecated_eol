@@ -16,12 +16,13 @@
         %span
           = " &mdash; "
           = @current_section[:name]
-      %p{:title => I18n.t(:common_names)}
-        - subtitle = @taxon_concept.subtitle(@session_hierarchy)
-        - unless subtitle.blank?
+      - subtitle = @taxon_concept.subtitle(@session_hierarchy)
+      - unless subtitle.blank?
+        %p{:title => I18n.t(:preferred_common_name_advisory_information)}
           = hh(subtitle)
-        - common_name_count = @taxon_concept.common_names.count
-        = link_to(I18n.t(:common_names_with_count, :count => common_name_count))
+      - common_name_count = @taxon_concept.common_names.count
+      = link_to(I18n.t(:common_names_with_count, :count => common_name_count), '/placeholder_link',
+          { :title => I18n.t(:see_all_common_names_advisory_information) })
 
     #section_navigation_container
       %h2= I18n.t(:section_navigation)

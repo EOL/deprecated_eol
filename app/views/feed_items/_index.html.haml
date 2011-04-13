@@ -4,10 +4,8 @@
     = render :partial => 'feed_items/form', :locals => {:feed => feed} # Important to specify feed_items folder
   - else
     %p
-      %strong
-        =I18n.t("you_must_be")
-        = link_to(I18n.t("logged_in_"), login_path(:params => {:return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path}), {:class => 'login_link'} )
-        =I18n.t("to_post_comments")
+      = link_to(I18n.t(:login_to_add_comments),
+        login_path(:params => {:return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path}))
   - if feed.empty?
     %p.empty= I18n.t(:no_activity)
   - else

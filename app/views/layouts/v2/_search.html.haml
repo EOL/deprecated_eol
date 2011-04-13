@@ -1,8 +1,9 @@
 %form{ :id => "simple_search", :action => search_url, :method => "get", :role => "search" }
   %h2= I18n.t(:search_the_site)
 
-  %label{ :for => :q }= I18n.t("search")
-  %input#q{ :type => "text", :name => "q", :value => (params[:q] || ""), :maxlength => "250" }
+  %label{ :for => :q }= I18n.t(:search)
+  %input#q{ :type => "text", :name => "q", :value => (params[:q] || ""), :maxlength => "250",
+    :title => I18n.t(:search_input_advisory_information) }
   %input{ :type => "submit", :name => "search", :value => I18n.t(:search)  }
 
   - if @logged_search_id

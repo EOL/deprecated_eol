@@ -102,6 +102,10 @@ testy[:taxon_concept].overview[0].add_ref('A published visible reference with a 
 testy[:taxon_concept].overview[0].add_ref('A published visible reference with a URL identifier for testing.',
   1, Visibility.visible).add_identifier('url', 'some/url.html')
 
+# Image descriptions
+# TODO: add some html tags to image description so can test sanitize of alt tags
+#testy[:taxon_concept].images[0].description.insert(0,'<i>Italics</i><script>Script content.</script>')
+
 # Feeds:
 testy[:taxon_concept].feed.post testy[:feed_body_1] = "Something"
 testy[:taxon_concept].feed.post testy[:feed_body_2] = "Something Else"

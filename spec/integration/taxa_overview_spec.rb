@@ -27,34 +27,72 @@ describe 'Taxa overview' do
   context 'when taxon has all expected data' do
     before { visit("pages/#{@testy[:id]}") }
     subject { body }
+    # WARNING: Regarding use of subject, if you are using with_tag you must specify body.should... due to bug.
+    # @see https://rspec.lighthouseapp.com/projects/5645/tickets/878-problem-using-with_tag
+
     it 'should show the taxon name and section name in the content header' do
-      should have_tag('div#content_header_container') do
-        with_tag('h1', /^(#{@testy[:scientific_name]})(\n|.)*?(#{@section})$/is)
-      end
+      should have_tag('div#content_header_container h1', /^(#{@testy[:scientific_name]})(\n|.)*?(#{@section})$/i)
     end
     it 'should show the preferred common name and common names count in the content header' do
-      should have_tag('div#content_header_container') do
-        with_tag('p', /^(#{@testy[:common_name]})(\n|.)*?(#{@testy[:taxon_concept].common_names.count})/)
+      should have_tag('div#content_header_container p', /^(#{@testy[:common_name]})(\n|.)*?(#{@testy[:taxon_concept].common_names.count})/)
+    end
+    it 'should show a featured image' do
+      should have_tag("#image_summary_container img.featured[src$=#{@testy[:taxon_concept].images[0].smart_image[25..-1]}]")
+    end
+    it 'should show a gallery of four images' do
+      body.should have_tag("div#image_summary_gallery_container") do
+        with_tag("img[src$=#{@testy[:taxon_concept].images[0].smart_thumb[25..-1]}]")
+        with_tag("img[src$=#{@testy[:taxon_concept].images[1].smart_thumb[25..-1]}]")
+        with_tag("img[src$=#{@testy[:taxon_concept].images[2].smart_thumb[25..-1]}]")
+        with_tag("img[src$=#{@testy[:taxon_concept].images[3].smart_thumb[25..-1]}]")
+      end
+      should_not have_tag("img[src$=#{@testy[:taxon_concept].images[4].smart_thumb[25..-1]}]")
+    end
+    it 'should have descriptive text alternatives for images in gallery' do
+      should have_tag('div#image_summary_gallery_container img[alt^=?]', /(\w+\s){8}/, { :count => 4 })
+    end
+    it 'should show overview text' do
+      should have_tag('div#text_summary_container', /This is a test Overview, in all its glory/)
+    end
+    it 'should show info item label when text object title does not exist'
+    it 'should show overview text references' do
+      should have_tag('div#text_summary_container div.references_container li',
+        /A published visible reference for testing./)
+    end
+    it 'should show doi identifiers for references' do
+      body.should have_tag('div#text_summary_container div.references_container li',
+        /A published visible reference with a DOI identifier for testing./) do
+        with_tag('a', /dx\.doi\.org/)
       end
     end
-    it 'should show text'
-    it 'should show info item label when text object title does not exist'
-    it 'should show text references'
-    it 'should show doi identifiers for references'
-    it 'should show url identifiers for references'
-    it 'should not show inappropriate identifiers for references'
-    it 'should not show unpublished references'
-    it 'should not show invisible references'
-    it 'should show images'
+    it 'should show url identifiers for references' do
+      body.should have_tag('div#text_summary_container div.references_container li',
+        /A published visible reference with a URL identifier for testing./) do
+        with_tag('a', /url\.html/)
+      end
+    end
+    it 'should not show invalid identifiers for references' do
+      body.should have_tag('div#text_summary_container div.references_container li',
+        /A published visible reference with an invalid identifier for testing./) do
+        without_tag('a', /invalid identifier/)
+      end
+    end
+    it 'should not show invisible references' do
+      should_not have_tag('div#text_summary_container div.references_container li',
+        /A published invisible reference for testing./)
+    end
+    it 'should not show unpublished references' do
+      should_not have_tag('div#text_summary_container div.references_container li',
+        /An unpublished visible reference for testing./)
+    end
     it 'should show classifications'
-    it 'should show the '
     it 'should show collections'
     it 'should show communities'
     it 'should show the activity feed' do
-      should have_tag('ul.feed') do
-        with_tag('.feed_item .body', :text => @testy[:feed_body_1])
-        with_tag('.feed_item .body', :text => @testy[:feed_body_2])
-        with_tag('.feed_item .body', :text => @testy[:feed_body_3])
+      body.should have_tag('ul.feed') do
+        with_tag('.feed_item .body', @testy[:feed_body_1])
+        with_tag('.feed_item .body', @testy[:feed_body_2])
+        with_tag('.feed_item .body', @testy[:feed_body_3])
       end
     end
     it 'should show curators'
@@ -64,9 +102,7 @@ describe 'Taxa overview' do
     before { visit("/pages/#{@testy[:taxon_concept_with_no_common_names].id}") }
     subject { body }
     it 'should show common name count as 0 in the content header' do
-      should have_tag('div#content_header_container') do
-        with_tag('p', /^(#{@testy[:taxon_concept_with_no_common_names].common_names.count})/)
-      end
+      should have_tag('div#content_header_container p', /^(#{@testy[:taxon_concept_with_no_common_names].common_names.count})/)
     end
   end
 
@@ -83,7 +119,7 @@ describe 'Taxa overview' do
     before { visit("/pages/#{@testy[:exemplar].id}") }
     subject { body }
     it 'should show an empty feed' do
-      should have_tag('#feed_items_container p.empty', :text => /no activity/i)
+      should have_tag('#feed_items_container p.empty', /no activity/i)
     end
   end
 

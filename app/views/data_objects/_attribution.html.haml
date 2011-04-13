@@ -1,16 +1,15 @@
-%ul{ :class => "attribution #{data_object.id}" }
+%dl{ :data => { :object_id => data_object.id } }
   - if data_object.map?
     -# TODO
   - if data_object.added_by_user?
-    %li
-      %em
-        = I18n.t(:supplier)
+    %dt= I18n.t(:supplier)
+    %dd
       = data_object.users_data_objects[0].user.given_name
       = data_object.users_data_objects[0].user.family_name
   - data_object.citable_entities.each do |citable|
-    %li
-      %em
-        = citable.type
+    %dt= citable.type
+    %dd
+      - #TODO: The following renders a tags with target='_blank' which is bad for accessibility. We should remove or at least provide some warning.
       = citables_to_string(citable)
       = citables_to_icons(citable)
   - if data_object.in_wikipedia?

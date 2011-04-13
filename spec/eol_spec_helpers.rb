@@ -7,13 +7,13 @@ module EOL
       # get or set a variable that's stored on the spec (the describe block)
       # so it's cached between examples
       #
-      # obviously, be careful with this one ... only use this if 
-      # it makes sense to use this.  a good example is caching data 
-      # that you want to access in multiple examples but which is 
+      # obviously, be careful with this one ... only use this if
+      # it makes sense to use this.  a good example is caching data
+      # that you want to access in multiple examples but which is
       # expensive to create.
       #
-      # before(:all) blocks can help with this too, except any database 
-      # modifications that happen in before(:all) blocks will happen 
+      # before(:all) blocks can help with this too, except any database
+      # modifications that happen in before(:all) blocks will happen
       # OUTSIDE the scope of transactions ... which is bad
       #
       def spec_variable name, value = :unset
@@ -25,8 +25,8 @@ module EOL
       end
 
       def login_content_partner(options = {})
-        f = request('/content_partner/login', :params => { 
-            'agent[username]' => options[:username], 
+        f = request('/content_partner/login', :params => {
+            'agent[username]' => options[:username],
             'agent[password]' => options[:password],
             'remember_me' => options[:remember_me] || '' })
       end
@@ -61,7 +61,7 @@ module EOL
         EOL::DB.all_connections
       end
 
-      # call truncate_all_tables but make sure it only 
+      # call truncate_all_tables but make sure it only
       # happens once in the Process
       def truncate_all_tables_once
         unless $truncated_all_tables_once
@@ -104,7 +104,7 @@ module EOL
           puts "-- Truncated #{count} tables in #{conn.instance_eval { @config[:database] }}." if options[:verbose]
         end
       end
-      
+
       # truncates all tables in all databases
       def truncate_all_logging_tables options = { }
         options[:verbose] ||= false
@@ -116,8 +116,8 @@ module EOL
           end
         end
       end
-      
-      
+
+
       def build_data_object(type, desc, options = {})
         dato_builder = EOL::DataObjectBuilder.new(type, desc, options)
         dato_builder.dato
@@ -172,7 +172,7 @@ module EOL
         tc = nil # scope
         if entry.class == TaxonConcept
           tc    = entry
-          entry = tc.entry 
+          entry = tc.entry
         end
         tc ||= entry.taxon_concept
         options = {
@@ -196,7 +196,7 @@ module EOL
 
       # Create a data object in the IUCN hierarchy. Can take options for :hierarchy and :event, both of which default to the usual IUCN
       # values (which will be created if they don't exist already). Can also take :depth, though I'm not sure that matters much yet.  :name
-      # is another option (note this is a Name *object*, not a string); it will default to the TaxonConcept's first name.  
+      # is another option (note this is a Name *object*, not a string); it will default to the TaxonConcept's first name.
       #
       # Returns the data object built.
       def build_iucn_entry(tc, status, options = {})
@@ -204,7 +204,7 @@ module EOL
         options[:event]     ||= iucn_harvest_event
         options[:depth]     ||= 3 # Arbitrary, really.
         options[:name]      ||= tc.taxon_concept_names.first.name
-        iucn_he = build_hierarchy_entry(options[:depth], tc, options[:name], :hierarchy => options[:hierarchy]) 
+        iucn_he = build_hierarchy_entry(options[:depth], tc, options[:name], :hierarchy => options[:hierarchy])
         HarvestEventsHierarchyEntry.gen(:hierarchy_entry => iucn_he, :harvest_event => options[:event])
         build_data_object('IUCN', status, :hierarchy_entry => iucn_he, :published => 1)
       end
@@ -214,7 +214,7 @@ module EOL
       end
 
       def find_or_build_resource(title, options = {})
-        first_try = Resource.find_by_title(title) 
+        first_try = Resource.find_by_title(title)
         return first_try unless first_try.nil?
         resource = Resource.gen(:title => title)
         if options[:agent]
@@ -246,7 +246,7 @@ module EOL
       def iucn_harvest_event
         find_or_build_harvest_event(Resource.iucn)
       end
-      
+
       def load_foundation_cache
         load_scenario_with_caching(:foundation)
       end
@@ -257,7 +257,7 @@ module EOL
         # does.
         loader.load_with_caching
       end
-      
+
     end
   end
 end
@@ -292,8 +292,8 @@ def DataObject.build_reharvested_dato(dato)
   :vetted                 => dato.vetted,
   :visibility             => dato.visibility,
   :published              => true
-  )                                                      
-  
+  )
+
   #   2c) data_objects_table_of_contents
   if dato.text?
     old_dotoc = DataObjectsTableOfContent.find_by_data_object_id(dato.id)
@@ -315,7 +315,7 @@ def DataObject.build_reharvested_dato(dato)
                  :taxon_concept_id => dato.hierarchy_entries.first.taxon_concept_id)
   end
   # TODO - this could also handle tags, info items, and refs.
-  # 3) unpublish old version 
+  # 3) unpublish old version
   dato.published = false
   dato.save!
   return new_dato
@@ -338,7 +338,7 @@ end
 # largely read-only, so the methods have *no use* in production.  Therefore, we monkey-patch them here (TODO - move
 # these to a separate file) in order to have these methods available ONLY when we're testing. This keeps us from
 # worrying about the methods screwing things up in production: they don't exist.
-# 
+#
 # Please *try* and KEEP THESE ALPHABETICAL for now.  When we have too many, we'll break them up into files, but that
 # will make loading much more complicated.
 
@@ -407,7 +407,7 @@ TaxonConcept.class_eval do
     FeedDataObject.gen(:taxon_concept => self, :data_object => dato, :data_type => dato.data_type)
     DataObjectsTaxonConcept.gen(:taxon_concept => self, :data_object => dato)
   end
-  
+
   # Add a specific toc item to this TC's toc:
   def add_data_object(dato, options = {})
     if dato.data_type_id == DataType.text.id
@@ -434,5 +434,12 @@ TaxonConcept.class_eval do
   # of Life specifically, which may present a problem later.
   def canonical_form_object
     CanonicalForm.find(entry.name.canonical_form_id) # Yuck.  But true.
+  end
+end
+
+DataObject.class_eval do
+  def add_ref(full_reference, published, visibility)
+    self.refs << ref = Ref.gen(:full_reference => full_reference, :published => published, :visibility => visibility)
+    ref
   end
 end

@@ -1,14 +1,19 @@
 #classification_summary_container
-  %h2= I18n.t(:classification_summary_header_with_count, :count => @taxon_concept.classifications.length)
+  - count = @taxon_concept.classifications.length
+  %h2= I18n.t(:classification_summary_header_with_count, :count => count)
+  - if count > 1
+    = link_to(I18n.t(:see_all_classifications_with_count_html, :count => count), '/placeholder_link')
   %ul
     - @taxon_concept.classifications.each do |classification|
       %li
         = classification[:name]
         %ul
+          -# TODO: Find out whether links on kingdom and genus should be going to taxon pages or specific hierarchy entries for the classification (is the latter even an option?)
+          -# TODO: Provide more descriptive title attributes, e.g. what happens when a rank is null, blank or will it just say 'taxon' if rank is missing?
           -# TODO - If we're on a Kingdom page, we don't want two hard-coded entries, here:
-          %li{:title => classification[:kingdom].rank_label}
-            = classification[:kingdom].italicized_name
+          %li
+            = link_to(classification[:kingdom].italicized_name, { :controller => 'taxa', :action => 'show', :id => classification[:kingdom].taxon_concept_id }, { :title => classification[:kingdom].rank_label })
             - unless classification[:parent].nil?
               %ul
-                %li{:title => classification[:parent].rank_label}
-                  = classification[:parent].italicized_name
+                %li
+                  = link_to(classification[:parent].italicized_name, { :controller => 'taxa', :action => 'show', :id => classification[:parent].taxon_concept_id }, { :title => classification[:parent].rank_label })

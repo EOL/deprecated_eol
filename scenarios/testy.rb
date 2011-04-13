@@ -88,6 +88,20 @@ testy[:taxon_concept].add_common_name_synonym(testy[:unreviewed_name], :agent =>
                                               :vetted => Vetted.unknown, :preferred => false)
 testy[:taxon_concept].add_common_name_synonym(testy[:untrusted_name], :agent => agent, :language => Language.english,
                                               :vetted => Vetted.untrusted, :preferred => false)
+# References for overview text object
+testy[:taxon_concept].overview[0].add_ref('A published visible reference for testing.',
+  1, Visibility.visible)
+testy[:taxon_concept].overview[0].add_ref('A published invisible reference for testing.',
+  1, Visibility.invisible)
+testy[:taxon_concept].overview[0].add_ref('An unpublished visible reference for testing.',
+  0, Visibility.visible)
+testy[:taxon_concept].overview[0].add_ref('A published visible reference with an invalid identifier for testing.',
+  1, Visibility.visible).add_identifier('invalid', 'An invalid reference identifier.')
+testy[:taxon_concept].overview[0].add_ref('A published visible reference with a DOI identifier for testing.',
+  1, Visibility.visible).add_identifier('doi', '10.12355/foo/bar.baz.230')
+testy[:taxon_concept].overview[0].add_ref('A published visible reference with a URL identifier for testing.',
+  1, Visibility.visible).add_identifier('url', 'some/url.html')
+
 # Feeds:
 testy[:taxon_concept].feed.post testy[:feed_body_1] = "Something"
 testy[:taxon_concept].feed.post testy[:feed_body_2] = "Something Else"

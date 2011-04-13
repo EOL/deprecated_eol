@@ -1,9 +1,8 @@
 #collection_summary_container
-  %h2
-    - count = 7
-    = I18n.t(:collection_summary_title_with_count, :count => count)
-    - if count > 1
-      = link_to(I18n.t(:see_all), taxon_concept_collections_path(:taxon_concept_id => @taxon_concept.id), :title => I18n.t(:see_all_collections_with_count, :count => count))
+  - count = 7
+  %h2= I18n.t(:collection_summary_title_with_count, :count => count)
+  - if count > 1
+    = link_to(I18n.t(:see_all_collections_with_count_html, :count => count), taxon_concept_collections_path(:taxon_concept_id => @taxon_concept.id))
   %ul
     - @taxon_concept.top_collections.each do |collection|
       %li

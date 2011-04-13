@@ -62,7 +62,7 @@ module ApplicationHelper
   end
 
   def external_link_icon
-    image_tag('external_link.png',{:alt => 'external link', :title => 'external link'})
+    image_tag('external_link.png',{ :alt => I18n.t(:external_link_icon_alt_text) })
   end
 
   def taxon_concept_comments_path(taxon_concept)
@@ -225,7 +225,9 @@ module ApplicationHelper
     html_options[:class] ||= ''
     html_options[:class] += ' external_link'
     html_options[:class] += ' external_link_popup' if $USE_EXTERNAL_LINK_POPUPS
+    # TODO - use of target=_blank is bad for accessibility are we sure we want this? target was deprecated for xhtml but is back in html5
     html_options[:target] = '_blank' # YOU WERE HERE ... make sure this works.
+    html_options[:title] ||= I18n.t(:target_blank_advisory_information)
 
     if html_options[:show_link_icon].nil? || html_options.delete(:show_link_icon) == true
       args[0] += " #{external_link_icon}"
@@ -383,7 +385,7 @@ module ApplicationHelper
   end
 
   def cancel_button_goes_back(url)
-    c = I18n.t(:cancel) 
+    c = I18n.t(:cancel)
     url = back_or_home(url)
     capture_haml do
       haml_tag :input, {:id => "cancel", :type => 'button', :name => c, :value => c,

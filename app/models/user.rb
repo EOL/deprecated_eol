@@ -37,6 +37,16 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   before_save :check_curator_status
 
+  def self.sort_by_name(users)
+    users.sort_by do |u|
+      given = u.given_name.blank? ? u.family_name : u.given_name.strip
+      family = u.family_name.blank? ? u.given_name : u.family_name.strip
+      [family.downcase,
+       given.downcase,
+       u.username.downcase]
+    end
+  end
+
   accepts_nested_attributes_for :user_info
 
   @email_format_re = %r{^(?:[_\+a-z0-9-]+)(\.[_\+a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$}i

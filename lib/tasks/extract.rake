@@ -138,11 +138,16 @@ namespace :i18n do
         if !entry.value.empty?    
           entry.line = entry.line.gsub("\\"+entry.value,entry.value)
           if entry.line.gsub(entry.value,"xxxx").match(/==\s*xxxx/)
-            entry.line = entry.line.sub(/==\s*/,"")
+            entry.line = entry.line.sub(/==\s*/,"")            
+          elsif entry.line.gsub(entry.value,"xxxx").match(/\"xxxx\"/) || entry.line.gsub(entry.value,"xxxx").match(/'xxxx'/)
+            entry.line = entry.line.gsub("\""+entry.value+"\"",entry.value).gsub("'"+entry.value+"'",entry.value)
+            entry.is_plain_text=false
           end 
-          file_content << entry.line.gsub(entry.value, process_string(entry.value, en_yml, entry.is_plain_text)) + "\n"
+          entry.line =  entry.line.gsub(entry.value, process_string(entry.value, en_yml, entry.is_plain_text)) + "\n"          
+          file_content << entry.line
         else
-           file_content << handle(entry.line,en_yml) + "\n"
+           entry.line =  handle(entry.line,en_yml) + "\n"
+           file_content << entry.line
         end
       end
       return file_content
@@ -267,7 +272,7 @@ namespace :i18n do
 
     def modify_views(en_yml)
       Dir.glob(File.join([RAILS_ROOT, "app", "views", "**", "*"])).each do |file|
-        #file = "/website/app/views/account/profile.html.haml"
+        #file = "/EOL/20110412/eol/app/views/taxa/videos.html.haml"
         if file.match(/(\.html.haml)$/)          
           puts "\n## "+file
           begin

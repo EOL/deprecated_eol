@@ -66,7 +66,7 @@ if defined? Haml
           end
           result_array[index].value = new_value
           result_array[index].is_plain_text=true
-          if !line.empty?            
+          if !new_line.empty?            
             result_array[index].line = load_spaces(result_array[index].ident) + new_line
           end
         end

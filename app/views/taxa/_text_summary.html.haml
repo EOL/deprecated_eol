@@ -1,5 +1,6 @@
 #text_summary_container
   %h2= I18n.t(:overview_text_title)
+  = link_to(I18n.t(:read_full_entry), '/placeholder_link')
   - content = @taxon_concept.content_by_category(TocItem.overview.id)
   - unless content[:data_objects].nil?
     - content[:data_objects].each do |content_item|

@@ -25,16 +25,19 @@ describe 'Taxa overview' do
   end
 
   context 'when taxon has all expected data' do
-    before { visit("pages/#{@testy[:id]}") }
+    before(:all) { visit("pages/#{@testy[:id]}") }
     subject { body }
     # WARNING: Regarding use of subject, if you are using with_tag you must specify body.should... due to bug.
     # @see https://rspec.lighthouseapp.com/projects/5645/tickets/878-problem-using-with_tag
 
-    it 'should show the taxon name and section name in the content header' do
+    it 'should show the taxon name and section name in the content header area' do
       should have_tag('div#content_header_container h1', /^(#{@testy[:scientific_name]})(\n|.)*?(#{@section})$/i)
     end
-    it 'should show the preferred common name and common names count in the content header' do
-      should have_tag('div#content_header_container p', /^(#{@testy[:common_name]})(\n|.)*?(#{@testy[:taxon_concept].common_names.count})/)
+    it 'should show the preferred common name in the content header area' do
+      should have_tag('div#content_header_container p', /^#{@testy[:common_name]}/)
+    end
+    it 'should show a link to common names with count' do
+      should have_tag('div#content_header_container a', /^#{@testy[:taxon_concept].common_names.count}/)
     end
     it 'should show a gallery of four images' do
       body.should have_tag("div#image_summary_gallery_container") do
@@ -45,8 +48,11 @@ describe 'Taxa overview' do
       end
       should_not have_tag("img[src$=#{@testy[:taxon_concept].images[4].smart_thumb[25..-1]}]")
     end
-    it 'should have sanitized descriptive text alternatives for images in gallery' do
-      should have_tag('div#image_summary_gallery_container img[alt^=?]', /(\w+\s){8}/, { :count => 4 })
+    it 'should have sanitized descriptive text alternatives for images in gallery'
+      # TODO - figure out how to add html to testy image description so can test sanitaztion of alt tags
+      # should have_tag('div#image_summary_gallery_container img[alt^=?]', /(\w+\s){5}/, { :count => 4 })
+    it 'should show IUCN Red List status' do
+      should have_tag('div#iucn_status_container a', /.+/)
     end
     it 'should show overview text' do
       should have_tag('div#text_summary_container', /This is a test Overview, in all its glory/)
@@ -96,9 +102,9 @@ describe 'Taxa overview' do
   end
 
   context 'when taxon does not have any common names' do
-    before { visit("/pages/#{@testy[:taxon_concept_with_no_common_names].id}") }
+    before(:all) { visit("/pages/#{@testy[:taxon_concept_with_no_common_names].id}") }
     subject { body }
-    it 'should show common name count as 0 in the content header' do
+    it 'should show common name count as 0 in the content header area' do
       should have_tag('div#content_header_container p', /^(#{@testy[:taxon_concept_with_no_common_names].common_names.count})/)
     end
   end
@@ -113,7 +119,7 @@ describe 'Taxa overview' do
   end
 
   context 'when taxon does not have any data' do
-    before { visit("/pages/#{@testy[:exemplar].id}") }
+    before(:all) { visit("/pages/#{@testy[:exemplar].id}") }
     subject { body }
     it 'should show an empty feed' do
       should have_tag('#feed_items_container p.empty', /no activity/i)
@@ -121,7 +127,7 @@ describe 'Taxa overview' do
   end
 
   context 'when taxon supercedes another concept' do
-    before { visit("/pages/#{@testy[:superceded_taxon_concept].id}") }
+    before(:all) { visit("/pages/#{@testy[:superceded_taxon_concept].id}") }
     it 'should use supercedure to find taxon if user visits the other concept' do
       current_path.should == "/pages/#{@testy[:id]}"
     end
@@ -132,7 +138,7 @@ describe 'Taxa overview' do
   end
 
   context 'when taxon is unpublished' do
-    before { visit("/pages/#{@testy[:unpublished_taxon_concept].id}") }
+    before(:all) { visit("/pages/#{@testy[:unpublished_taxon_concept].id}") }
     subject { body }
     it 'should show unauthorised user an error message in the content header' do
       should have_tag('h1', /^Sorry.*?does not exist/)
@@ -140,7 +146,7 @@ describe 'Taxa overview' do
   end
 
   context 'when taxon does not exist' do
-    before { visit("/pages/#{TaxonConcept.missing_id}") }
+    before(:all) { visit("/pages/#{TaxonConcept.missing_id}") }
     subject { body }
     it 'should show an error message in the content header' do
       should have_tag('h1', /^Sorry.*?does not exist/)

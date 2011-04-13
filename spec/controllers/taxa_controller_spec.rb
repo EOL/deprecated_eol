@@ -26,9 +26,10 @@ describe TaxaController do
     end
 
     describe 'with duplicates' do
-
       integrate_views # Note I am NOT using RackBox for these examples; faster.
-
+      before { hijack_search_for_tiger }
+      subject { response }
+      debugger
       it 'should show the source hierarchy on the duplicates' do
         hijack_search_for_tiger
         response.should have_tag('span.recognized_by', :text => "Taxon recognized by #{@taxon_concept.entry.hierarchy.label}")

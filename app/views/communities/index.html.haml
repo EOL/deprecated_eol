@@ -1,7 +1,7 @@
+%h2=  I18n.t(:communities_index_header)
 - if @communities.blank?
-  %p.empty=  I18n.t(:communities_empty, :create_community_link => link_to(I18n.t(:create_an_eol_community), new_community_path) )
+  %p.empty=  I18n.t(:communities_index_empty)
 - else
-  %h2=  I18n.t(:communities_index_header)
   - paginated_section(@communities) do
     %ul#communities_index
       - @communities.each do |community|
@@ -9,7 +9,7 @@
 .communities_actions
   %h2= I18n.t(:build_communities)
   %ul
-    - if logged_in?
-      %li.create_community= link_to( I18n.t(:create_a_community_on_eol) , new_community_path)
-    - else
-      %li= link_to(I18n.t(:login_to_create_community), login_path(:params => { :return_to => new_community_path }))
+    - if !logged_in?
+      - return_to = new_community_path
+      - title = I18n.t(:create_a_community_login_advisory)
+    %li.create_community= link_to( I18n.t(:create_a_community) , new_community_path(:return_to => return_to), :title => title)

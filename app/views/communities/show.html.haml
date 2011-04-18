@@ -1,4 +1,4 @@
-%p#description= h @community.description
+%p#community_description= h @community.description
 - roles = @community.roles
 = render :partial => 'roles/index', :locals => {:roles => roles}
 - i_am_in_this_community = current_user.member_of?(@community)
@@ -8,7 +8,7 @@
 = render :partial => 'members/index', :locals => {:i_am_in_this_community => i_am_in_this_community, :member_function => member_function, :non_member_function => non_member_function }
 #community_actions_container
   - if @current_member && @current_member.can?(Privilege.edit_delete_community)
-    %h2= I18n.t(:manage_community) 
+    %h2= I18n.t(:manage_community)
     %ul
       %li{ :class => "edit_community #{ member_function}" }
         = link_to( I18n.t(:edit_community) , edit_community_path(@community))
@@ -16,11 +16,11 @@
         = link_to( I18n.t(:delete_community) , community_path(@community), :confirm => I18n.t(:are_you_sure) , :method => :delete)
 
 #community_focus_container
-  %h2= I18n.t(:taxa) 
+  %h2= I18n.t(:taxa)
   - if @community.focus.nil?
-    = I18n.t(:this_community_has_no_focus_list) 
+    = I18n.t(:this_community_has_no_focus_list)
   - elsif @community.focus.collection_items.empty?
-    = I18n.t(:this_community_has_no_focus_items_associated_with_it) 
+    = I18n.t(:this_community_has_no_focus_items_associated_with_it)
   - else
     = render :partial => "/collections/show", :locals => { :collection => @community.focus }
 = render :partial => 'feed_items/index', :locals => { :feed => @community.feed }

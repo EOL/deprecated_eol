@@ -28,12 +28,11 @@
 
   .membership_actions
     %h2= I18n.t(:get_involved)
-    - if not logged_in?
-      =I18n.t(:login_to_join_communities), login_path))
-    - elsif !@current_member
-      %p
-        = I18n.t(:you_are_not_a_member_of_this_community)
-        = link_to( I18n.t(:join_community) , join_community_path(@community.id))
+    - if !logged_in?
+      - return_to = join_community_path(@community.id)
+      - title = I18n.t(:join_community_login_required_advisory)
+    - if !logged_in? || !@current_member
+      =link_to(I18n.t(:join_community), join_community_path(@community.id, :return_to => return_to), :title => title)
     - elsif @current_member
       %p
         = I18n.t(:you_have_been_a_member_of_this_community_since_current_membercreated_at, :var_current_member_created_at=>@current_member.created_at)

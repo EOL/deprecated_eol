@@ -67,7 +67,7 @@
         = render :partial => "/layouts/v2/search"
 
       %div#user_container
-        - if logged_in? && $ALLOW_USER_LOGINS && !agent_logged_in?
+        - if logged_in?
           %h2= I18n.t(:account_information)
           %p
             = I18n.t(:logged_in_as_current_usergiven_name, :var_current_user_given_name=>current_user.given_name)

@@ -63,12 +63,12 @@ class ApplicationController < ActionController::Base
   end
 
   def must_be_logged_in
-    flash[:warning] =  I18n.t(:must_be_logged_in) 
-    return redirect_to(login_path)
+    flash[:warning] =  I18n.t(:must_be_logged_in)
+    return redirect_to(login_path(:return_to => params[:return_to]))
   end
 
   def access_denied
-    flash[:warning] = I18n.t(:you_are_not_authorized_to_perform_this_action) 
+    flash[:warning] = I18n.t(:you_are_not_authorized_to_perform_this_action)
     return redirect_to(root_path)
   end
 
@@ -432,13 +432,13 @@ class ApplicationController < ActionController::Base
 
   # call this method if someone is not supposed to get a controller or action when user accounts are disabled
   def accounts_not_available
-    flash[:warning] =  I18n.t(:user_system_down) 
+    flash[:warning] =  I18n.t(:user_system_down)
     redirect_to root_url
   end
 
   # A user is not authorized for the particular controller based on the rights for the roles they are in
   def access_denied
-    flash.now[:warning] = I18n.t(:you_are_not_authorized_to_perform_this_action) 
+    flash.now[:warning] = I18n.t(:you_are_not_authorized_to_perform_this_action)
     request.env["HTTP_REFERER"] ? (redirect_to :back) : (redirect_to root_url)
   end
 

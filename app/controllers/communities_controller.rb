@@ -24,7 +24,7 @@ class CommunitiesController < ApplicationController
   end
 
   def new
-    @page_title = I18n.t(:create_a_new_community)
+    @page_title = I18n.t(:create_a_community)
     @community = Community.new
     respond_to do |format|
       format.html # new.html.erb
@@ -72,9 +72,13 @@ class CommunitiesController < ApplicationController
   end
 
   def join
-    @community.add_member(current_user)
-    respond_to do |format|
-      format.html { redirect_to(@community, :notice =>  I18n.t(:you_joined_community) ) }
+    if @community.has_member?(current_user)
+      redirect_to(@community, :notice =>  I18n.t(:already_member_of_community) )
+    else
+      @community.add_member(current_user)
+      respond_to do |format|
+        format.html { redirect_to(@community, :notice =>  I18n.t(:you_joined_community) ) }
+      end
     end
   end
 

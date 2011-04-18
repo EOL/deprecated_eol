@@ -190,8 +190,10 @@ class TaxaController < ApplicationController
       @user.expertise = current_user.expertise.to_s
       return
     end
-    @user.attributes = params[:user]
-    set_current_user(@user)
+    alter_current_user do |u|
+      u.update_attributes(params[:user])
+    end
+    @user = current_user
     flash[:notice] = "Your preferences have been updated."[:your_preferences_have_been_updated] if params[:from_taxa_page].blank?
     store_location(EOLWebService.uri_remove_param(return_to_url, 'vetted')) if valid_return_to_url
     redirect_back_or_default

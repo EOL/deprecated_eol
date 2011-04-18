@@ -428,14 +428,14 @@ describe 'Taxa page (HTML)' do
     end
     visit("/pages/#{@id}")
     body.should include(info_item.label)
-    
+
     # show object_title if it exists
     overviews.each do |data_object|
       data_object.object_title = "Some Title"
       data_object.save!
     end
     visit("/pages/#{@id}")
-    
+
     body.should include(overviews.first.object_title)
     body.should_not include(info_item.label)
   end

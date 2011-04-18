@@ -196,10 +196,10 @@ class AccountController < ApplicationController
     unset_auto_managed_password
     if password_looks_like_it_changed?
       unless password_length_okay?
-        @user.errors.add_to_base("Password length must be between 4 and 16 characters."[:password_must_be_4to16_characters])
+        current_user.errors.add_to_base("Password length must be between 4 and 16 characters."[:password_must_be_4to16_characters])
         return
       end
-      @user.password = user_params[:entered_password]
+      current_user.password = user_params[:entered_password]
     end
 
     # The UI would not allow this, but a hacker might try to grant curator permissions to themselves in this manner.

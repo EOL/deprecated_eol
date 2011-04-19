@@ -23,7 +23,7 @@
       - common_name_count = @taxon_concept.common_names.count
       - if common_name_count > 0
         = link_to(I18n.t(:common_names_with_count, :count => common_name_count), '/placeholder_link',
-            { :title => I18n.t(:see_all_common_names_advisory_information) })
+            { :title => I18n.t(:common_names_advisory_information) })
       - else
         %p= I18n.t(:common_names_with_count, :count => common_name_count)
     #section_navigation_container

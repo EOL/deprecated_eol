@@ -668,11 +668,11 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     core_data = DataObject.core_relationships(:add_include => add_include,
       :add_select => add_select).find_all_by_id(data_object_ids_to_lookup).sort_by{|d| Invert(d.id)}
     core_data.each do |data_object|
-      if index = data_object_ids[start..last].index(data_object.id)
+      if index = data_object_ids.index(data_object.id)
         data_object_ids[index] = data_object
       end
     end
-    data_object_ids = data_object_ids.collect{|do_or_id| (do_or_id.class == DataObject) ? do_or_id : nil }
+    data_object_ids[start..last].collect!{|do_or_id| (do_or_id.class == DataObject) ? do_or_id : nil }
     
     return data_object_ids
   end

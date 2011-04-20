@@ -69,7 +69,7 @@ describe 'User Profile' do
     it 'should show an empty feed' do
       @lonely_user = User.gen
       visit(user_path(@lonely_user))
-      page.body.should have_tag('#activity', :text => /no activity/i)
+      page.body.should have_tag('#feed_items_container', :text => /no activity/i)
     end
 
   end

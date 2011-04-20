@@ -1,17 +1,4 @@
-#page-separator-general
-
-#page-title
-  %h1= I18n.t(:your_preferences) 
-  %hr
-
-/ center page content
-#page-content.clearfix
-  #full-page-content
-    - form_for :user, :html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |f|
-      %fieldset
-        = render(:partial=>'set_content_settings',:locals=>{:f=>f})				
-        .button
-          = cancel_button_goes_back(return_to_url)
-          &nbsp;&nbsp;
-          = submit_tag I18n.t(:update_preferences) 
-    %br
+- form_for :user, :html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |f|
+  = render(:partial=>'set_content_settings',:locals=>{:f=>f})
+  = cancel_button_goes_back(return_to_url)
+  = submit_tag I18n.t(:update_preferences)

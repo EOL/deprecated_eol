@@ -1,0 +1,6 @@
+- content_for :content do
+  #content_header_container
+    %h1= @page_title
+  #content
+    = yield
+= render :file => 'layouts/v2/main'

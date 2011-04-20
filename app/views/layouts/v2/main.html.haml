@@ -47,12 +47,12 @@
             -# TODO: Is this conditional statement robust?
             - if language.iso_639_1 == I18n.locale.to_s
               %li{ :class => 'current_language', :title => I18n.t(:selected_language_advisory_information) }
-                = I18n.t(:language_menu_item, :language_label => language.label, :language_abbr => language.display_code)
+                = I18n.t(:language_menu_item, :language_label => language.source_form, :language_abbr => language.display_code)
             - else
               %li
-                = link_to I18n.t(:language_menu_item, :language_label => language.label, :language_abbr => language.display_code),
+                = link_to I18n.t(:language_menu_item, :language_label => language.source_form, :language_abbr => language.display_code),
                     set_language_url(:language => language.iso_639_1),
-                    { :title => I18n.t(:switch_language_advisory_information, :language_label => language.label) }
+                    { :title => I18n.t(:switch_language_advisory_information, :language_label => language.source_form) }
           %li
             = link_to I18n.t(:google_translate), { :controller => "/content", :action => "translate" },
               { :title => I18n.t(:google_translate_advisory_information) }

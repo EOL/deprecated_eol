@@ -103,8 +103,8 @@ describe TaxonConcept do
     @taxon_concept.current_user = nil
   end
 
-  it 'should have a default IUCN conservation status of NOT EVALUATED' do
-    @empty_taxon_concept.iucn_conservation_status.should == 'NOT EVALUATED'
+  it 'should have a default IUCN conservation status of "Not evaluated"' do
+    @empty_taxon_concept.iucn_conservation_status.should match(/not evaluated/i)
   end
 
   it 'should have an IUCN conservation status' do
@@ -122,7 +122,7 @@ describe TaxonConcept do
   end
 
   it 'should not use an unpublished IUCN status' do
-    @bad_iucn_tc.iucn_conservation_status.should == 'NOT EVALUATED'
+    @bad_iucn_tc.iucn_conservation_status.should match(/not evaluated/i)
   end
 
   it 'should be able to list its ancestors (by convention, ending with itself)' do
@@ -379,7 +379,7 @@ describe TaxonConcept do
   end
 
   it "add common name should mark first created name for a language as preferred automatically" do
-    language = Language.gen_if_not_exists(:label => "Russian") 
+    language = Language.gen_if_not_exists(:label => "Russian")
     weird_name = "Саблезубая сосиска"
     s = @taxon_concept.add_common_name_synonym(weird_name, :agent => @agent, :language => language)
     TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(@taxon_concept, language).size.should == 1
@@ -390,7 +390,7 @@ describe TaxonConcept do
     TaxonConceptName.find_by_synonym_id(s.id).preferred?.should be_false
   end
 
-  it "add common name should not mark first created name as preffered for unknown language" do
+  it "add common name should not mark first created name as preferred for unknown language" do
     language = Language.unknown
     weird_name = "Саблезубая сосискаasdfasd"
     s = @taxon_concept.add_common_name_synonym(weird_name, :agent => @agent, :language => language)

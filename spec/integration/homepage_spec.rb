@@ -34,10 +34,6 @@ describe 'Home page' do
     @homepage_with_foundation.should include('EOL')
   end
 
-  it "should have Edward O. Wilson's quote" do
-    @homepage_with_foundation.should include('Imagine an electronic page for each species of organism on Earth')
-  end
-
   it 'should include the search box, for names and tags (defaulting to names)' do
     @homepage_with_foundation.should have_tag('form') do
       with_tag('#simple_search') do
@@ -72,16 +68,23 @@ describe 'Home page' do
     active = Language.find_active
     active.map(&:source_form).should include('Supernal')
     visit('/')
-    body.should have_tag('a[title=?]', "Switch the site language to EN")
-    active.each {|language| body.should have_tag('a[href*=?]', /set_language.*language=#{language.iso_639_1}/,
-                                                 :text => /#{language.source_form}.*#{language.iso_639_1}/i)  }
+    active.each do |language|
+      if language.iso_639_1 == I18n.locale.to_s
+        body.should have_tag('ul#language_selector li', :text => /#{language.source_form}.*#{language.iso_639_1}.*/i) do
+          without_tag('a')
+        end
+      else
+        body.should have_tag('a[href*=?]', /set_language.*language=#{language.iso_639_1}/,
+                              :text => /#{language.source_form}.*#{language.iso_639_1}.*/i)
+      end
+    end
   end
 
-  it "should have 'What is EOL?', 'Press Room', 'Donate' links" do
+  it "should have 'Help', 'What is EOL?', 'EOL News', 'Donate' links" do
     visit('/')
-    ['.about|What is EOL?', '.press_room|Press Room', '.donate|Donate'].each do |link|
+    ['.help|Help', '.about|What is EOL?', '.news|EOL News', '.donate|Donate'].each do |link|
       klass, link = link.split('|')
-      body.should have_tag("#secondary_navigation_container #{klass} a", link)
+      body.should have_tag("#global_navigation_header_container #{klass} a", link)
     end
   end
 

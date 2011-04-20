@@ -1,4 +1,4 @@
-require 'spec_helper' 
+require 'spec_helper'
 
 def test_list_of_items(instance)
   posts = []
@@ -21,10 +21,10 @@ describe "FeedItems" do
     test_list_of_items(@user)
   end
 
-  it 'should NOT allow adding an item to a feed for a user when NOT logged in' do
+  it 'should require log in to add an item to a feed' do
     visit feed_items_path(:type => 'User', :id => @user.id)
     page.body.should_not have_tag('input#feed_item_body')
-    page.body.should have_tag('a.login_link')
+    page.body.should have_tag('a[href=?]', /\/login.*/)
   end
 
   it 'should allow adding an item to a feed for a user when logged in' do

@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper' 
+require File.dirname(__FILE__) + '/../spec_helper'
 require File.dirname(__FILE__) + '/../../lib/eol_data'
 class EOL::NestedSet; end
 EOL::NestedSet.send :extend, EOL::Data
@@ -70,14 +70,14 @@ describe 'Search' do
       flatten_hierarchies
       recreate_solr_indexes
       visit("/search?q=#{@tiger_name}")
-      @tiger_search = body 
+      @tiger_search = body
     end
 
     it 'should redirect to species page if only 1 possible match is found (also for pages/searchterm)' do
       visit("/search?q=#{@panda_name}")
       current_path.should == "/pages/#{@panda.id}"
       visit("/search/#{@panda_name}")
-      current_path.should == "/pages/#{@panda.id}"    
+      current_path.should == "/pages/#{@panda.id}"
     end
 
     it 'should redirect to search page if a string is passed to a species page' do
@@ -143,7 +143,7 @@ describe 'Search' do
     it 'should show only common names which include whole search query' do
       visit("/search?q=#{URI.escape @tiger_lilly_name}")
       # should find only common names which have 'tiger lilly' in the name
-      # we have only one such record in the test, so it redirects directly 
+      # we have only one such record in the test, so it redirects directly
       # to the species page
       current_path.should == "/pages/#{@tiger_lilly.id}"
     end
@@ -157,7 +157,7 @@ describe 'Search' do
       body = @tiger_search
       body.should include "td class='search_result_cell odd"
       body.should include "td class='search_result_cell even"
-    end 
+    end
 
     it 'should show "shown as" for scientific matches that hit a synonym.' do
       visit("/search?q=#{@plantain_synonym.split[0]}")
@@ -223,7 +223,7 @@ describe 'Search' do
       visit('/search?search_type=tag&q=value')
       body.should match /(odd|even)[^_]/
       body.should match /(odd|even)_untrusted/
-      body.should match /(odd|even)_unvetted/    
+      body.should match /(odd|even)_unvetted/
     end
 
     # WHEN WE HAVE PAGINATION FOR TAGS (TODO):
@@ -234,15 +234,15 @@ describe 'Search' do
     #     results_per_page = 10
     #     extra_results    = 3
     #     number_of_taxa   = results_per_page + extra_results
-    #     
+    #
     #     number_of_taxa.times do
     #       taxon_concept = build_taxon_concept(:images => [{}])
     #       image_dato    = taxon_concept.images.last
     #       image_dato.tag("key", "value", user)
     #     end
-    #         
+    #
     #     assert_tag_results(:num_results_on_this_page => results_per_page)
-    #     assert_tag_results(:num_results_on_this_page => extra_results, :page => 2)    
+    #     assert_tag_results(:num_results_on_this_page => extra_results, :page => 2)
     #   end
 
   end

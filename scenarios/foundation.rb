@@ -5,7 +5,7 @@ old_cache_value = $CACHE.clone
 $CACHE = nil
 
 # These are two of the most important rows in the database now; translated tables will fail without these.
-e = Language.gen_if_not_exists(:iso_639_1 => 'en')
+e = Language.gen_if_not_exists(:iso_639_1 => 'en', :source_form => 'English')
 TranslatedLanguage.gen_if_not_exists(:label => 'English', :original_language_id => e.id)
 
 # This ensures the main menu is complete, with at least one (albeit bogus) item in each section:
@@ -114,11 +114,11 @@ second_ncbi.hierarchy_group_version = 2
 second_ncbi.save!
 Hierarchy.gen_if_not_exists(:agent => Agent.gen_if_not_exists(:full_name => 'GBIF'), :label => 'GBIF Nub Taxonomy', :browsable => 0)
 
-Language.gen_if_not_exists(:label => 'English', :iso_639_1 => 'en')
-Language.gen_if_not_exists(:label => 'French', :iso_639_1 => 'fr', :iso_639_2 => 'fre') # Bootstrap uses this, tests i18n
-Language.gen_if_not_exists(:label => 'Arabic', :iso_639_1 => 'ar') # For testing Arabic, obviously.
-sci_name = Language.gen_if_not_exists(:label => 'Scientific Name', :iso_639_1 => '')
-unknown  = Language.gen_if_not_exists(:label => 'Unknown', :iso_639_1 => '')
+Language.gen_if_not_exists(:label => 'English', :iso_639_1 => 'en', :source_form => 'English')
+Language.gen_if_not_exists(:label => 'French', :iso_639_1 => 'fr', :iso_639_2 => 'fre', :source_form => 'Français') # Bootstrap uses this, tests i18n
+Language.gen_if_not_exists(:label => 'Arabic', :iso_639_1 => 'ar', :source_form => 'العربية') # For testing Arabic, obviously.
+sci_name = Language.gen_if_not_exists(:label => 'Scientific Name', :iso_639_1 => '', :source_form => 'Scientific Name')
+unknown  = Language.gen_if_not_exists(:label => 'Unknown', :iso_639_1 => '', :source_form => 'Unknown')
 
 sci_name.update_attribute(:activated_on, nil)
 unknown.update_attribute(:activated_on, nil)

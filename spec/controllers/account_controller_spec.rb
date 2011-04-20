@@ -7,7 +7,7 @@ describe AccountController do
     SpecialCollection.gen(:name => 'Focus')
     Community.create_special
   end
-  
+
   # "POST /account/forgot_password
   it "should deliver the signup email" do
     user = User.gen(:username => 'johndoe', :email => 'johndoe@example.com')
@@ -49,7 +49,7 @@ describe AccountController do
     User.find(user).hashed_password.should == User.hash_password(new_password)
   end
 
-  it "should unset password wrongly remembered by a broswer" do
+  it "should unset password wrongly remembered by a browser" do
     user = User.gen(:username => 'johndoe', :email => 'johndoe@example.com')
     user.save!
     new_password = "newpass"

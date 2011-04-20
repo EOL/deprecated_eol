@@ -32,7 +32,7 @@ describe 'Data Object Page' do
       :object_cache_url => Factory.next(:image),
       :vetted => Vetted.trusted,
       :visibility => Visibility.visible)
-      @dato_untrusted = build_data_object('Image', 'removed', 
+      @dato_untrusted = build_data_object('Image', 'removed',
       :num_comments => 0,
       :object_cache_url => Factory.next(:image),
       :vetted => Vetted.untrusted,
@@ -44,32 +44,37 @@ describe 'Data Object Page' do
       page.status_code.should == 200
     end
 
-    it "should show metainformation about data_object" do
+    it "should show data object attribution" do
+      visit("/data_objects/#{@image.id}")
+      body.should have_tag('dl#attribution[data-object_id=?]', "#{@image.id}")
+    end
+
+    it "should show the permalink" do
       visit("/data_objects/#{@image.id}")
       page.should have_content("Permalink")
-      find(:css, ".credit-value input").value.should == "http://#{$SITE_DOMAIN_OR_IP}/data_objects/#{@image.id}"
+      body.should have_tag('dd', :text => "http://#{$SITE_DOMAIN_OR_IP}/data_objects/#{@image.id}")
     end
-    
+
     it "should show image description for image objects" do
       visit("/data_objects/#{@image.id}")
       body.should include('<h3>Description</h3>')
       body.should include("<div class='description #{@image.id}'>")
       body.should include @image.description
     end
-    
+
     it "should not show comments section if there are no comments" do
       visit("/data_objects/#{@dato_no_comments.id}")
       page.status_code.should == 200
       page.should have_no_xpath("//div[@id='commentsContain']")
     end
-    
+
     it "should not show pagination if there are less than 10 comments" do
       visit("/data_objects/#{@dato_comments_no_pagination.id}")
       page.status_code.should == 200
       page.should have_xpath("//div[@id='commentsContain']")
       page.should have_no_xpath("//div[@id='commentsContain']/div[@id='pagination']")
     end
-    
+
     it "should show pagination if there are more than 10 comments" do
       visit("/data_objects/#{@dato_comments_with_pagination.id}")
       page.status_code.should == 200
@@ -102,7 +107,7 @@ describe 'Data Object Page' do
       page.body.should_not include(page_link)
       page.body.should include("associated with the deprecated page")
     end
-    
+
     it 'should show the activity feed' do
       visit("/data_objects/#{@image.id}")
       page.body.should have_tag('ul.feed') do
@@ -114,7 +119,7 @@ describe 'Data Object Page' do
 
     it 'should show an empty feed' do
       visit("/data_objects/#{@dato_untrusted.id}")
-      page.body.should have_tag('#activity', :text => /no activity/i)
+      page.body.should have_tag('#feed_items_container', :text => /no activity/i)
     end
 
   end

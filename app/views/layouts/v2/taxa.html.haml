@@ -32,7 +32,7 @@
         - @content_sections.each do |section|
           %li{:class => section[:active] ? 'active' : nil }
             = link_to(section[:name], url_for(:controller => :taxa, :action => :show, :section_name => section[:url]))
-
-    = yield
+    #content
+      = yield
 
 = render :file => 'layouts/v2/main'

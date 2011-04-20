@@ -119,7 +119,7 @@ describe 'EOL APIs' do
     @wolf = build_taxon_concept(:scientific_name => @wolf_sci_name, :common_names => [@wolf_name])
     @dog  = build_taxon_concept(:scientific_name => @dog_sci_name, :common_names => [@domestic_name], :parent_hierarchy_entry_id => @wolf.hierarchy_entries.first.id)
     @dog2  = build_taxon_concept(:scientific_name => "Canis dog", :common_names => "doggy")
-    
+
     SearchSuggestion.gen(:taxon_id => @dog.id, :term => @dog_name, :scientific_name => @dog.scientific_name,
                          :common_name => @dog.common_name)
     SearchSuggestion.gen(:taxon_id => @wolf.id, :term => @dog_name, :scientific_name => @wolf.scientific_name,
@@ -302,7 +302,7 @@ describe 'EOL APIs' do
 
     visit("/api/pages/1.0/#{taxon.id}")
     body.should_not include '<synonym'
-    
+
     visit("/api/pages/1.0/#{taxon.id}?synonyms=1")
     body.should include '<synonym'
   end
@@ -578,8 +578,8 @@ describe 'EOL APIs' do
   it 'search should search without a filter and get multiple results' do
     visit("/api/search/Dog.json")
     response_object = JSON.parse(body)
-    response_object['results'][0]['title'].should == @dog_sci_name
-    response_object['results'][1]['title'].should == "Canis dog"
+    response_object['results'][0]['title'].should match(/(#{@dog_sci_name}|Canis dog)/)
+    response_object['results'][1]['title'].should match(/(#{@dog_sci_name}|Canis dog)/)
     response_object['results'].length.should == 2
   end
 

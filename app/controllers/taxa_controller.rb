@@ -47,7 +47,6 @@ class TaxaController < ApplicationController
     else
       search_text
     end
-    render :layout => 'v2/search'
   end
 
   def found
@@ -148,6 +147,7 @@ class TaxaController < ApplicationController
     @suggested_results = empty_paginated_set
     @all_results = results
     current_user.log_activity(:tag_search_on, :value => params[:q])
+    render(:layout => 'v2/search')
   end
 
   def search_text
@@ -164,7 +164,11 @@ class TaxaController < ApplicationController
     end
     respond_to do |format|
       format.html do
-        redirect_to_taxa_page(@all_results) if (@all_results.length == 1 and not params[:page].to_i > 1)
+        if (@all_results.length == 1 and not params[:page].to_i > 1)
+          redirect_to_taxa_page(@all_results)
+        else
+          render(:layout => 'v2/search')
+        end
       end
     end
   end
@@ -190,6 +194,8 @@ class TaxaController < ApplicationController
     unless request.post? # first time on page, get current settings
       # set expertise to a string so it will be picked up in web page controls
       @user.expertise = current_user.expertise.to_s
+      @page_title = I18n.t(:your_preferences)
+      render(:layout => 'v2/basic')
       return
     end
     @user.attributes = params[:user]
@@ -430,6 +436,7 @@ class TaxaController < ApplicationController
     curators = @concept.curators(:add_names => true)
     @curators = User.find_all_by_id(curators.collect{ |c| c.id }, :include => { :curator_hierarchy_entry => :name })
     @curators = User.sort_by_name(@curators)
+    render(:layout => 'v2/basic')
   end
 
 private

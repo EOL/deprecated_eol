@@ -407,9 +407,9 @@ class DataObject < SpeciesSchemaModel
   def citable_data_supplier
     return nil if data_supplier_agent.blank?
     EOL::Citable.new( :agent_id => data_supplier_agent.id,
-                                  :link_to_url => data_supplier_agent.homepage,
-                                  :display_string => data_supplier_agent.full_name,
-                                  :logo_cache_url => data_supplier_agent.logo_cache_url,
+                                  :link_to_url => (data_supplier_agent.homepage?)? data_supplier_agent.homepage : "",
+                                  :display_string => (data_supplier_agent.full_name?)? data_supplier_agent.full_name : "",
+                                  :logo_cache_url => (data_supplier_agent.logo_cache_url?)? data_supplier_agent.logo_cache_url : "",
                                   :type => 'Supplier')
   end
 

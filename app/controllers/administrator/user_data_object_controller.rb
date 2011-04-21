@@ -13,6 +13,7 @@ class Administrator::UserDataObjectController < AdminController
     @users_data_objects = UsersDataObject.paginate(:conditions => conditions,
       :order => 'id desc',
       :select => {
+        :table_of_contents => :label,
         :users_data_objects => :taxon_concept_id,
         :users => [ :given_name, :family_name ],
         :data_objects => [ :description, :created_at, :updated_at, :published ] },

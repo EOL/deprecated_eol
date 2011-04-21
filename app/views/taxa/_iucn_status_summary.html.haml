@@ -6,4 +6,4 @@
     %dl
       %dt= I18n.t(:iucn_red_list_status_html)
       %dd= link_to(@taxon_concept.iucn_conservation_status, @taxon_concept.iucn_conservation_status_url,
-        :title => :iucn_red_list_status_advisory_information)
+        :title => I18n.t(:iucn_red_list_status_advisory_information))

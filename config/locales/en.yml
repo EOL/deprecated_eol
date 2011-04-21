@@ -910,7 +910,7 @@ en:
   it_may_take_a_minute_for_the_r: "It may take a minute for the report to appear - please be patient."
   iucn_entry: "IUCN entry"
   iucn_red_list_status: "IUCN Red List Status"
-  iucn_red_list_status_html: "<acronym title=\"International Union for Conservation of Nature\">IUCN</acronym> Red List Status"
+  iucn_red_list_status_html: "<abbr title=\"International Union for Conservation of Nature\">IUCN</abbr> Red List Status"
   iucn_red_list_status_advisory_information: "This link will take you to the IUCN Web site where you can find more information on the IUCN Red List of Threatened Species."
   japanese: "Japanese"
   join_community: "Join this community"

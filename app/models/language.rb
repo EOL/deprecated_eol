@@ -19,6 +19,12 @@ class Language < SpeciesSchemaModel
     cached_find(:iso_639_1, iso)
   end
   
+  def self.find_by_iso_exclusive_scope(iso)
+    with_exclusive_scope do
+      find_by_iso_639_1(iso)
+    end
+  end
+  
   def self.id_from_iso(iso_code)
     cached("id_from_iso_#{iso_code}") do
       # NOT using ActiveRecord here because I want to avoid the after_initialize callback

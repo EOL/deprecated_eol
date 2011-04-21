@@ -73,8 +73,8 @@ describe 'FlickrApi' do
     rsp['stat'].should == 'ok'
     rsp['comments']['comment'].last['authorname'].downcase.should == 'EncyclopediaOfLife'.downcase
     rsp['comments']['comment'].last['author'].should == '59129167@N06'
-    rsp['comments']['comment'].last['datecreate'].should == '1297202869'
-    rsp['comments']['comment'].last['_content'].should == 'test comment'
+    rsp['comments']['comment'].last['datecreate'].should == '1302715809'
+    rsp['comments']['comment'].last['_content'].should == 'This comment is used for testing the EOL codebase'
 
     # this time with a minimum date
     rsp = @flickr_api.photos_comments_get_list(5416503569, Time.now.to_i)

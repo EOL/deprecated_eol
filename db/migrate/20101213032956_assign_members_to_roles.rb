@@ -15,6 +15,7 @@ class AssignMembersToRoles < ActiveRecord::Migration
     roles.each do |role|
       users = RolesUser.find_all_by_role_id(role.id).map {|ru| ru.user }
       users.each do |user|
+        next if user.nil?
         next if @@completed_user_ids.include? user.id
         member = nil
         begin
@@ -38,7 +39,6 @@ class AssignMembersToRoles < ActiveRecord::Migration
     # NOTE - Theoretically, there could be new communities with members that have no roles/privs, but we don't care about
     # that, since it's more likely this migration will be run on a pre-community version of the site.
     self.join_special_community(:first, $CURATOR_ROLE_NAME, 'Curator')
-    self.join_special_community(:first, 'Moderator', 'Moderator')
     self.join_special_community(:all, 'admin%', 'Administrator')
     Role.destroy_all('community_id IS NULL') # We don't want these any more.
     drop_table :roles_users

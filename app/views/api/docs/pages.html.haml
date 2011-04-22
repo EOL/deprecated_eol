@@ -28,7 +28,7 @@
             =I18n.t("notes")
         %tr
           %td.odd.strong
-            =I18n.t("images_")
+            images
           %td.odd
             0-75
           %td.odd
@@ -37,7 +37,7 @@
             =I18n.t("limits_the_number_of_returned_")
         %tr
           %td.even.strong
-            =I18n.t("videos_")
+            videos
           %td.even
             0-75
           %td.even
@@ -46,7 +46,7 @@
             =I18n.t("limits_the_number_of_returned__")
         %tr
           %td.odd.strong
-            =I18n.t("text")
+            text
           %td.odd
             0-75
           %td.odd
@@ -55,28 +55,28 @@
             =I18n.t("limits_the_number_of_returned___")
         %tr
           %td.even.strong
-            =I18n.t("subjects")
+            subjects
           %td.even
             %i
               =I18n.t("see_notes")
           %td.even
-            =I18n.t("taxonbiology_generaldescriptio")
+            TaxonBiology|GeneralDescription|Description
           %td.even
             =I18n.t("a_pipe___delimited_list_of_spm") 
         %tr
           %td.odd.strong
-            =I18n.t("licenses")
+            licenses
           %td.odd
-            =I18n.t("cc_by__cc_by_nc__cc_by_sa__cc_")
+            = "cc-by, cc-by-nc, cc-by-sa, cc-by-nc-sa, pd ["+ I18n.t("public_domain") +"], na ["+ I18n.t("not_applicable") +"], all"
           %td.odd
-            =I18n.t("all")
+            all
           %td.odd
             =I18n.t("a_pipe___delimited_list_of_lic")
             = link_to I18n.t("creative_commons"), "http://creativecommons.org/licenses/"
             =I18n.t("licenses__visit_their_site_for")
         %tr
           %td.even.strong
-            =I18n.t("details")
+            details
           %td.even
             =I18n.t("0_or_1")
           %td.even
@@ -85,7 +85,7 @@
             =I18n.t("include_all_metadata")
         %tr
           %td.odd.strong
-            =I18n.t("common_names")
+            common_names
           %td.odd
             =I18n.t("0_or_1")
           %td.odd
@@ -94,7 +94,7 @@
             =I18n.t("return_common_names_for_the_pa")
         %tr
           %td.even.strong
-            =I18n.t("vetted_")
+            vetted
           %td.even
             =I18n.t("0_1_or_2")
           %td.even
@@ -102,13 +102,13 @@
           %td.even
             =I18n.t("if_vetted_is_1_only__trusted__") 
         %tr
-          %td.even.strong
-            =I18n.t("version") 
-          %td.even
+          %td.odd.strong
+            version
+          %td.odd
             0.4, 1.0
-          %td.even
+          %td.odd
             0.4
-          %td.even
+          %td.odd
             =I18n.t("version_1_0_uses_fields_from_t")
             = link_to I18n.t("darwin_core"), 'http://rs.tdwg.org/dwc/terms/index.htm'
             =I18n.t("schema")
@@ -125,9 +125,9 @@
         %i
           =I18n.t("eol_identifier")
         =I18n.t("to_be_used_in_the")
-        = link_to(I18n.t("hierarchy_entries"), :action => I18n.t("hierarchy_entries"))
+        = link_to("hierarchy_entries", :action => "hierarchy_entries")
         =I18n.t("api__there_is_no_singular_eol_")
-        = link_to(I18n.t("hierarchy_entries"), :action => I18n.t("hierarchy_entries"))
+        = link_to("hierarchy_entries", :action => "hierarchy_entries")
         =I18n.t("api_for_more_information")
       %p.indent
         =I18n.t("if_the_details_parameter_is_no")

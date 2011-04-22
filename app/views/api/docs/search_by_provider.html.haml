@@ -1,5 +1,6 @@
 = render(:partial=>'uservoice')
-- url = url_for(:controller => '/api', :action => 'search_by_provider', :version => '1.0', :id => '180542', :hierarchy_id => 107, :only_path => false)
+- itis = Hierarchy.find_by_label('Integrated Taxonomic Information System (ITIS)', :order => 'id desc')
+- url = url_for(:controller => '/api', :action => 'search_by_provider', :version => '1.0', :id => '180542', :hierarchy_id => itis.id, :only_path => false)
 #content
   #page-separator-general
   #page-title
@@ -37,13 +38,15 @@
               =I18n.t("none")
           %td.odd
             =I18n.t("the_id_of_the_provider_s_hiera")
+            = link_to 'provider_hierarchies', :controller => 'api/docs', :action => 'provider_hierarchies'
+            =I18n.t("for_valid_ids")
       %br
       %h3
         =I18n.t("description")
       %p.indent
         =I18n.t("this_method_takes_an_integer_o")
         = link_to I18n.t("provider_hierarchies"), :controller => 'api/docs', :action=>I18n.t("provider_hierarchies")
-        =I18n.t("api_i_can_find_out_that_the_eo")
+        =I18n.t("api_i_can_find_out_that_the_eo", :itis_id => itis.id)
         %i
           =I18n.t("ursus_maritimus")
         =I18n.t("__by_calling") 

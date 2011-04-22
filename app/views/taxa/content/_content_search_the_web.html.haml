@@ -22,12 +22,12 @@
               = external_link_to(I18n.t("google"), "http://www.google.com/search?q=" + blind_outlink_parameter_scientific, :show_link_icon=>true)
         %tr
           %td.even{:height => "60", :width => "100"}
-            = external_link_to(image_tag('agent_icons/google.gif'), 'http://images.google.com/images?q=' + blind_outlink_parameter, :show_link_icon => false)
+            = external_link_to(image_tag('agent_icons/google.gif'), 'http://www.google.com/images?q=' + blind_outlink_parameter, :show_link_icon => false)
           %td.even
-            = external_link_to(I18n.t("google_images"), "http://images.google.com/search?q=" + blind_outlink_parameter, :show_link_icon => true)
+            = external_link_to(I18n.t("google_images"), "http://www.google.com/images?q=" + blind_outlink_parameter, :show_link_icon => true)
           - if show_both
             %td.even
-              = external_link_to(I18n.t("google_images"), "http://images.google.com/search?q=" + blind_outlink_parameter_scientific, :show_link_icon => true)
+              = external_link_to(I18n.t("google_images"), "http://www.google.com/images?q=" + blind_outlink_parameter_scientific, :show_link_icon => true)
         %tr
           %td.odd{:height => "60", :width => "100"}
             = external_link_to(image_tag('agent_icons/google.gif'), 'http://scholar.google.com/scholar?q=' + blind_outlink_parameter, :show_link_icon => false)

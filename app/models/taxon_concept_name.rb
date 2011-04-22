@@ -7,6 +7,15 @@ class TaxonConceptName < SpeciesSchemaModel
   belongs_to :synonym
   belongs_to :taxon_concept
   belongs_to :vetted
+  
+  def self.sort_by_language_and_name(taxon_concept_names)
+    taxon_concept_names.sort_by do |tcn|
+      language_iso = tcn.language.blank? ? '' : tcn.language.iso_639_1
+      [language_iso,
+       tcn.preferred * -1,
+       tcn.name.string]
+    end
+  end
 
   def vet(vet_obj, by_whom)
     raw_update_attribute(:vetted_id, vet_obj.id)

@@ -23,21 +23,16 @@ module EOL
           querystring = prepare_querystring(clean_query, options)
         end
 
-        tc_id = if options[:filter_by_taxon_concept_id]
-          options[:filter_by_taxon_concept_id]
+        tc_id = nil
+        if options[:filter_by_taxon_concept_id]
+          tc_id = options[:filter_by_taxon_concept_id]
         elsif options[:filter_by_hierarchy_entry_id]
           hierarchy_entry = HierarchyEntry.find_by_id(options[:filter_by_hierarchy_entry_id],:select=>'taxon_concept_id')
-          if hierarchy_entry != nil
-            hierarchy_entry.taxon_concept_id
-          else 
-            nil
-          end
+          tc_id = (hierarchy_entry.blank?) ? nil : hierarchy_entry.taxon_concept_id
         elsif options[:filter_by_string]
           results = TaxonConcept.search_with_pagination(options[:filter_by_string], 
             :page => 1, :per_page => 1, :type => :all, :lookup_trees => false, :exact => true)
-          results[0]['id']
-        else
-          nil
+          tc_id = results[0]['id'].to_i
         end
 
         if tc_id

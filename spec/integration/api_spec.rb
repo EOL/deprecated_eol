@@ -45,6 +45,7 @@ describe 'EOL APIs' do
                             {:toc_item => @description, :description => 'test uknown', :vetted => Vetted.unknown, :license => License.by_nc},
                             {:toc_item => @description, :description => 'test untrusted', :vetted => Vetted.untrusted, :license => License.cc}])
     @taxon_concept.add_common_name_synonym(Faker::Eol.common_name.firstcap, :agent => Agent.last, :language => Language.english)
+    @taxon_concept.add_common_name_synonym(Faker::Eol.common_name.firstcap, :agent => Agent.last, :language => Language.english)
 
     d = DataObject.last
     d.license = License.by_nc
@@ -99,11 +100,13 @@ describe 'EOL APIs' do
     @hierarchy_entry = HierarchyEntry.gen(:identifier => '123abc', :hierarchy => @hierarchy, :name => @name, :published => 1, :rank => @rank)
 
     name = Name.create(:string => 'Some critter')
-    relation = SynonymRelation.gen_if_not_exists(:label => 'genbank common name')
     relation = SynonymRelation.gen_if_not_exists(:label => 'common name')
     language = Language.gen_if_not_exists(:label => 'english', :iso_639_1 => 'en')
-    @common_name = Synonym.gen(:hierarchy_entry => @hierarchy_entry, :name => name, :synonym_relation => relation, :language => language)
-
+    @common_name1 = Synonym.gen(:hierarchy_entry => @hierarchy_entry, :name => name, :synonym_relation => relation, :language => language)
+    name = Name.create(:string => 'Some jabberwocky')
+    @common_name2 = Synonym.gen(:hierarchy_entry => @hierarchy_entry, :name => name, :synonym_relation => relation, :language => language)
+    
+    
     canonical_form = CanonicalForm.create(:string => 'Dus bus')
     name = Name.create(:canonical_form => @canonical_form, :string => 'Dus bus Linnaeus 1776')
     relation = SynonymRelation.gen_if_not_exists(:label => 'not common name')
@@ -134,6 +137,8 @@ describe 'EOL APIs' do
     make_all_nested_sets
     flatten_hierarchies
     recreate_solr_indexes
+    visit("/api/pages/#{@taxon_concept.id}")
+    @default_pages_body = body
   end
 
   before(:each) do
@@ -164,8 +169,7 @@ describe 'EOL APIs' do
   end
 
   it 'pages should show one data object per category' do
-    visit("/api/pages/#{@taxon_concept.id}")
-    xml_response = Nokogiri.XML(body)
+    xml_response = Nokogiri.XML(@default_pages_body)
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"]').length.should == 1
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 1
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 1
@@ -247,6 +251,13 @@ describe 'EOL APIs' do
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 1
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject/xmlns:mimeType').length.should == 2
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject/dc:description').length.should == 2
+    
+    images = @taxon_concept.images
+    # and they should still contain vetted and rating info
+    xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"][last()]/xmlns:additionalInformation/xmlns:vettedStatus').
+      inner_text.should == images.first.vetted.label
+    xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"][last()]/xmlns:additionalInformation/xmlns:dataRating').
+      inner_text.should == images.first.data_rating.to_s
   end
 
   it 'pages should not filter vetted objects by default' do
@@ -257,7 +268,7 @@ describe 'EOL APIs' do
     data_object.vetted_id.should == Vetted.untrusted.id
   end
 
-  it 'pages should filter out all be vetted objects' do
+  it 'pages should filter out all non-trusted objects' do
     visit("/api/pages/#{@taxon_concept.id}?images=0&text=10&videos=0&details=1&vetted=1")
     xml_response = Nokogiri.XML(body)
     last_guid = xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"][last()]/dc:identifier').inner_text
@@ -272,26 +283,30 @@ describe 'EOL APIs' do
     data_object = DataObject.find_by_guid(last_guid, :order => 'id desc')
     data_object.vetted_id.should == Vetted.unknown.id
   end
-
-
-  # # This was used for the North American EOL demo - not sure its still needed
-  # it 'should be able to render an HTML version of the page' do
-  #   visit("/api/pages/#{@taxon_concept.id}?subjects=Distribution&text=2&format=html")
-  #   body.should include '<html'
-  #   body.should include '</html>'
-  #   body.should match /<title>\s*EOL API:\s*#{@taxon_concept.entry.name.string}/
-  #   body.should include @object.description
-  #   body.should include ContentServer.cache_url_to_path(@taxon_concept.images[0].object_cache_url)
-  # end
-
+  
   it 'pages should be able to toggle common names' do
-    visit("/api/pages/#{@taxon_concept.id}")
-    body.should_not include '<commonName'
-
+    @default_pages_body.should_not include '<commonName'
+  
     visit("/api/pages/#{@taxon_concept.id}?common_names=1")
     body.should include '<commonName'
   end
-
+  
+  it 'pages should show which common names are preferred' do
+    visit("/api/pages/#{@taxon_concept.id}?common_names=1")
+    xml_response = Nokogiri.XML(body)
+    xml_response.xpath('//xmlns:taxon/xmlns:commonName[1]/@eol_preferred').inner_text.should == 'true'
+    xml_response.xpath('//xmlns:taxon/xmlns:commonName[2]/@eol_preferred').inner_text.should == ''
+  end
+  
+  it 'pages should show data object vetted status and rating by default' do
+    xml_response = Nokogiri.XML(@default_pages_body)
+    images = @taxon_concept.images
+    xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"][last()]/xmlns:additionalInformation/xmlns:vettedStatus').
+      inner_text.should == images.first.vetted.label
+    xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"][last()]/xmlns:additionalInformation/xmlns:dataRating').
+      inner_text.should == images.first.data_rating.to_s
+  end
+  
   it 'pages should be able to toggle synonyms' do
     taxon = TaxonConcept.gen(:published => 1, :supercedure_id => 0)
     hierarchy = Hierarchy.gen(:label => 'my hierarchy', :browsable => 1)
@@ -442,15 +457,6 @@ describe 'EOL APIs' do
     xml_response.xpath('//xmlns:dataObject/xmlns:mediaURL[2]').inner_text.gsub(/\//, '').should include(@object.object_cache_url.to_s)
   end
 
-  # another HTML view I'm commenting out because it probably isn't needed anymore
-  # it 'data objects should be able to render an HTML version of the page' do
-  #   visit("/api/data_objects/#{@object.guid}?format=html")
-  #   body.should include '<html'
-  #   body.should include '</html>'
-  #   body.should match /<title>\s*EOL API:\s*#{@object.taxon_concepts(:published => :strict)[0].entry.name.string}/
-  #   body.should include @object.description
-  # end
-
   it 'data objects should be able to toggle common names' do
     visit("/api/data_objects/#{@object.guid}")
     body.should_not include '<commonName'
@@ -485,9 +491,9 @@ describe 'EOL APIs' do
     xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dwc:scientificName").inner_text.should == @name.string
     xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dwc:taxonRank").inner_text.downcase.should == @rank.label
     xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dwc:nameAccordingTo").inner_text.should == @hierarchy.label
-    xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dwc:vernacularName").inner_text.should == @common_name.name.string
-    xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dwc:vernacularName/@xml:lang").inner_text.should == @common_name.language.iso_639_1
-    xml_response.xpath("//dwc:vernacularName").length.should == 1
+    xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dwc:vernacularName[1]").inner_text.should == @common_name1.name.string
+    xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dwc:vernacularName[1]/@xml:lang").inner_text.should == @common_name1.language.iso_639_1
+    xml_response.xpath("//dwc:vernacularName").length.should == 2
     xml_response.xpath("//dwc:Taxon[dwc:taxonomicStatus='not common name']").length.should == 1
   end
 
@@ -501,7 +507,7 @@ describe 'EOL APIs' do
   it 'hierarchy_entries should be able to filter out synonyms' do
     visit("/api/hierarchy_entries/#{@hierarchy_entry.id}?synonyms=0")
     xml_response = Nokogiri.XML(body)
-    xml_response.xpath("//dwc:vernacularName").length.should == 1
+    xml_response.xpath("//dwc:vernacularName").length.should == 2
     xml_response.xpath("//dwc:Taxon[dwc:taxonomicStatus='not common name']").length.should == 0
   end
 
@@ -522,7 +528,7 @@ describe 'EOL APIs' do
     xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/xmlns:Rank/@code').inner_text.should == @rank.tcs_code
     xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/xmlns:TaxonRelationships/xmlns:TaxonRelationship[1]/xmlns:ToTaxonConcept/@ref').inner_text.should include(@synonym.id.to_s)
     xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/xmlns:TaxonRelationships/xmlns:TaxonRelationship[1]/@type').inner_text.should == 'has synonym'
-    xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/xmlns:TaxonRelationships/xmlns:TaxonRelationship[2]/xmlns:ToTaxonConcept/@ref').inner_text.should include(@common_name.id.to_s)
+    xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/xmlns:TaxonRelationships/xmlns:TaxonRelationship[2]/xmlns:ToTaxonConcept/@ref').inner_text.should include(@common_name1.id.to_s)
     xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/xmlns:TaxonRelationships/xmlns:TaxonRelationship[2]/@type').inner_text.should == 'has vernacular'
   end
 
@@ -542,20 +548,20 @@ describe 'EOL APIs' do
   end
 
   it 'synonyms should show all information for common names in TCS format' do
-    visit("/api/synonyms/#{@common_name.id}")
+    visit("/api/synonyms/#{@common_name1.id}")
     xml_response = Nokogiri.XML(body)
-    xml_response.xpath('//xmlns:TaxonNames/xmlns:TaxonName/@id').inner_text.should == "n#{@common_name.name.id}"
-    xml_response.xpath('//xmlns:TaxonNames/xmlns:TaxonName/xmlns:Simple').inner_text.should == @common_name.name.string
+    xml_response.xpath('//xmlns:TaxonNames/xmlns:TaxonName/@id').inner_text.should == "n#{@common_name1.name.id}"
+    xml_response.xpath('//xmlns:TaxonNames/xmlns:TaxonName/xmlns:Simple').inner_text.should == @common_name1.name.string
     # canonical form not included for common names
     xml_response.xpath('//xmlns:TaxonNames/xmlns:TaxonName/xmlns:CanonicalName/xmlns:Simple').inner_text.should == ""
-    xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/@id').inner_text.should == "s#{@common_name.id}"
-    xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/xmlns:Name').inner_text.should == "#{@common_name.name.string}"
+    xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/@id').inner_text.should == "s#{@common_name1.id}"
+    xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/xmlns:Name').inner_text.should == "#{@common_name1.name.string}"
     xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/xmlns:Name/@scientific').inner_text.should == "false"
-    xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/xmlns:Name/@language').inner_text.should == @common_name.language.iso_639_1
+    xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/xmlns:Name/@language').inner_text.should == @common_name1.language.iso_639_1
   end
 
   it 'synonyms should take api key and save it to the log' do
-    check_api_key("/api/synonyms/#{@common_name.id}?key=#{@user.api_key}", @user)
+    check_api_key("/api/synonyms/#{@common_name1.id}?key=#{@user.api_key}", @user)
   end
 
   it 'search should do a contains search by default' do

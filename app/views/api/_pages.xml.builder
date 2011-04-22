@@ -23,7 +23,11 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/0.3",
       if params[:common_names]
         for tcn in taxon_concept.common_names
           lang = tcn.language ? tcn.language.iso_639_1 : ''
-          xml.commonName tcn.name.string, 'xml:lang'.to_sym => lang
+          preferred = (tcn.preferred == 1) ? true : nil
+          attributes = {}
+          attributes['xml:lang'.to_sym] = lang unless lang.blank?
+          attributes[:eol_preferred] = preferred unless preferred.blank?
+          xml.commonName tcn.name.string, attributes
         end
       end
       

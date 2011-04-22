@@ -29,7 +29,6 @@
         :escaped
           <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
           <results>
-            <hierarchy id="107">Integrated Taxonomic Information System (ITIS)</hierarchy>
             <hierarchy id="121">AntWeb (Ant Species)</hierarchy>
             <hierarchy id="123">WORMS Species Information (Marine Species)</hierarchy>
             <hierarchy id="143">FishBase (Fish Species)</hierarchy>
@@ -37,17 +36,14 @@
             <hierarchy id="441">NCBI Taxonomy</hierarchy>
             <hierarchy id="529">Species 2000 &amp; ITIS Catalogue of Life: Annual Checklist 2010</hierarchy>
             <hierarchy id="596">Index Fungorum</hierarchy>
-            <hierarchy id="599">Metalmark Moths of the World</hierarchy>
+            <hierarchy id="627">Integrated Taxonomic Information System (ITIS)</hierarchy>
+            <hierarchy id="683">Metalmark Moths of the World</hierarchy>
           </results>
       %h3
         =I18n.t("json_response")
       .formatted_code<
         :escaped
           [
-              {
-                  "label":"Integrated Taxonomic Information System (ITIS)",
-                  "id":107
-              },
               {
                   "label":"AntWeb (Ant Species)",
                   "id":121
@@ -77,7 +73,11 @@
                   "id":596
               },
               {
+                  "label":"Integrated Taxonomic Information System (ITIS)",
+                  "id":627
+              },
+              {
                   "label":"Metalmark Moths of the World",
-                  "id":599
+                  "id":683
               }
           ]

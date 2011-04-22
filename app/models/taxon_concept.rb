@@ -119,7 +119,28 @@ class TaxonConcept < SpeciesSchemaModel
 
   # TODO - this will now be called on ALL taxon pages.  Eep!  Make this more efficient:
   def common_names
-    TaxonConceptName.find_all_by_taxon_concept_id_and_vern(self.id, 1)
+    tcn = TaxonConceptName.find_all_by_taxon_concept_id_and_vern(self.id, 1, :include => [ :name, :language ],
+      :select => {:taxon_concept_names => [ :preferred, :vetted_id ], :names => :string, :languages => '*'})
+    sorted_names = TaxonConceptName.sort_by_language_and_name(tcn)
+    duplicate_check = {}
+    name_languages = {}
+    # remove duplicate names in the same language
+    sorted_names.each_with_index do |tcn, index|
+      lang = tcn.language.blank? ? '' : tcn.language.iso_639_1
+      duplicate_check[lang] ||= []
+      sorted_names[index] = nil if duplicate_check[lang].include?(tcn.name.string)
+      duplicate_check[lang] << tcn.name.string
+      name_languages[tcn.name.string] = lang
+    end
+    
+    # now removing anything without a language if it exists with a language
+    sorted_names.each_with_index do |tcn, index|
+      next if tcn.nil?
+      lang = tcn.language.blank? ? '' : tcn.language.iso_639_1
+      sorted_names[index] = nil if lang.blank? && !name_languages[tcn.name.string].blank?
+    end
+    
+    sorted_names.compact
   end
 
   # Curators are those users who have special permission to "vet" data objects associated with a TC, and thus get
@@ -910,6 +931,7 @@ class TaxonConcept < SpeciesSchemaModel
     # get the images
     if options[:images].to_i > 0
       image_data_objects = top_concept_images.collect{ |tci| tci.data_object }.compact
+      image_data_objects = DataObject.filter_list_for_user(image_data_objects)
       # remove non-matching vetted and license values
       image_data_objects.delete_if do |d|
         (options[:vetted] && !options[:vetted].include?(d.vetted)) ||
@@ -923,6 +945,7 @@ class TaxonConcept < SpeciesSchemaModel
     # get the rest
     if options[:text].to_i > 0 || options[:videos].to_i
       non_image_objects = data_objects.select{ |d| !d.is_image? }
+      non_image_objects = DataObject.filter_list_for_user(non_image_objects)
       non_image_objects.delete_if do |d|
         (options[:vetted] && !options[:vetted].include?(d.vetted)) ||
         (options[:licenses] && !options[:licenses].include?(d.license)) ||
@@ -944,7 +967,8 @@ class TaxonConcept < SpeciesSchemaModel
         end
       end
     end
-    data_objects = DataObject.core_relationships.find_all_by_id(return_data_objects.collect{ |d| d.id })
+    data_objects = DataObject.core_relationships(:add_include => :published_refs, :add_select => { :refs => :full_reference }).
+      find_all_by_id(return_data_objects.collect{ |d| d.id })
     # set flash and youtube types to video, iucn to text
     data_objects.each do |d|
       d.data_type = DataType.video if d.is_video?

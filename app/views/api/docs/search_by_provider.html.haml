@@ -29,7 +29,7 @@
             =I18n.t("notes")
         %tr
           %td.odd.strong
-            =I18n.t("hierarchy_id")
+            hierarchy_id
           %td.odd
             %i
               =I18n.t("any_integer")
@@ -45,7 +45,7 @@
         =I18n.t("description")
       %p.indent
         =I18n.t("this_method_takes_an_integer_o")
-        = link_to I18n.t("provider_hierarchies"), :controller => 'api/docs', :action=>I18n.t("provider_hierarchies")
+        = link_to("provider_hierarchies", :action => "provider_hierarchies")
         =I18n.t("api_i_can_find_out_that_the_eo", :itis_id => itis.id)
         %i
           =I18n.t("ursus_maritimus")

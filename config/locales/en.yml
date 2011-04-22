@@ -1,4 +1,5 @@
 en:
+  0_or_1: "0 or 1"
   0_1_or_2: "0, 1 or 2"
   1_member: "(1 member)"
   1st_view: "1st View"
@@ -1129,6 +1130,7 @@ en:
   no_survey_responses_are_availa: "No survey responses are available."
   not_all_maps_have_occurrence_i: "Not all maps have occurrence information."
   not_alter_the_data_objects_pro: "Not alter the data objects provided; however EOL will enable annotations or comments to be added."
+  not_applicable: "not applicable"
   not_encourage_or_answer_reques: "Not encourage or answer requests to provide all or major components of"
   not_evaluated: "Not evaluated"
   note: "Note:"
@@ -1354,6 +1356,7 @@ en:
   provide_tools_and_methods_to_e_: "Provide tools and methods to enable %{var__agent_project_name} to provide its content to the EOL."
   public_image_tags: "Public Image Tags"
   public: "Public"
+  public_domain: "public domain"
   publish_after__utc_: "Publish After (UTC)"
   publish_changes: "Publish Changes"
   published_content_partners: "Published Content Partners"

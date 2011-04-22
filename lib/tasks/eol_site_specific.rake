@@ -10,7 +10,7 @@ namespace :eol do
     else
       puts <<HELP_MSG
 
-Usage: 
+Usage:
 
 #to create site-specific files:
 rake eol:site_specific repo=uri_to_repository
@@ -23,7 +23,7 @@ HELP_MSG
       exit
     end
   end
-  
+
   desc 'creates soft links to site-specific files'
   task :site_specific => :checkout_repository do
     puts "Adding links to site-specific files..."
@@ -33,7 +33,12 @@ HELP_MSG
         dir =  File.dirname file_link
         FileUtils::mkdir_p(dir) unless FileTest.exists?(dir)
         FileUtils::rm file_link if FileTest.exists?(file_link)
-        FileUtils::ln_s file, file_link
+        begin
+          FileUtils::ln_s file, file_link
+        rescue => e
+          puts "** WARING:"
+          puts e.message
+        end
         puts ' ' * 5  + file_link
       end
     end
@@ -47,7 +52,7 @@ HELP_MSG
         if FileTest::file? file
           file_link = RAILS_ROOT + file.gsub(site_dir,'')
           begin
-            FileUtils::rm file_link 
+            FileUtils::rm file_link
           rescue SystemCallError
             puts 'WARNING: Could not find file ' + file
           end

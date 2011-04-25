@@ -1563,6 +1563,7 @@ en:
   sorry___try_again: "SORRY - TRY AGAIN!"
   sort_order_: "Sort Order:"
   sound_file: "Sound File"
+  sound_thumbnail_alt_text: "This is %{vetted_status_with_article} audio recording of %{scientific_name}"
   sound_object: "Sound object"
   sounds: "Sounds"
   source_and_additional_information: "Source and Additional Information"

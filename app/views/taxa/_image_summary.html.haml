@@ -1,6 +1,0 @@
-#media_summary
-  %h2= I18n.t(:media)
-  #media_summary_gallery
-    %ul
-      - @media[0..3].each do |item|
-        = render :partial => "media_thumbnail", :locals => {:item => item, :default_alt_text => :image_thumbnail_alt_text, :image => item.smart_thumb}

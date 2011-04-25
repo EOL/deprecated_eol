@@ -1,3 +1,12 @@
+- if item.video?
+  - default_alt_text = :video_thumbnail_alt_text
+  - image = 'right_arrow.gif'
+- if item.sound?
+  - default_alt_text = :sound_thumbnail_alt_text
+  - image = 'right_arrow.gif'
+- else
+  - default_alt_text = :image_thumbnail_alt_text
+  - image = item.smart_thumb
 %li
   - # TODO: These alt/title attributes are useless in terms of accessibility.
   - # We can include the item description but its not always going to make sense or be short enough

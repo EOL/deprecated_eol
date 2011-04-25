@@ -173,7 +173,7 @@ class HierarchyEntry < SpeciesSchemaModel
 
     # its possible that the hierarchy is not associated with an agent
     if hierarchy && hierarchy.agent
-      citable_agent =  hierarchy.agent.citable
+      citable_agent =  (hierarchy.agent.homepage?) ? hierarchy.agent.citable : Agent.find(hierarchy.agent).citable
       citable_agent.display_string = hierarchy.label # To change the name from just "Catalogue of Life"
       attribution << citable_agent
     end

@@ -444,9 +444,9 @@ class Agent < SpeciesSchemaModel
   def citable(role_label = 'author')
     EOL::Citable.new( :agent_id => id,
                       :user => user,
-                      :link_to_url => (homepage?)? homepage : "",
-                      :display_string => (full_name?)? full_name : "",
-                      :logo_cache_url => (logo_cache_url?)? logo_cache_url : "",
+                      :link_to_url => homepage,
+                      :display_string => full_name,
+                      :logo_cache_url => logo_cache_url,
                       :type => role_label)
   end
 

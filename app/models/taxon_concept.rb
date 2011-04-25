@@ -390,9 +390,10 @@ class TaxonConcept < SpeciesSchemaModel
     raise "Error finding default hierarchy" if hierarchy.nil? # EOLINFRASTRUCTURE-848
     raise "Cannot find a HierarchyEntry with anything but a Hierarchy" unless hierarchy.is_a? Hierarchy
 
-    #@all_entries ||= HierarchyEntry.sort_by_vetted(published_hierarchy_entries)
-    select = {:hierarchy_entries => '*', :vetted => :view_order}
-    @all_entries ||= HierarchyEntry.sort_by_vetted(HierarchyEntry.find_all_by_taxon_concept_id(self.id, :select => select, :include => :vetted))
+    @all_entries ||= HierarchyEntry.sort_by_vetted(published_hierarchy_entries)
+    if @all_entries.blank?
+      @all_entries = HierarchyEntry.sort_by_vetted(hierarchy_entries)
+    end
 
     # we want ONLY the entry in this hierarchy
     if strict_lookup

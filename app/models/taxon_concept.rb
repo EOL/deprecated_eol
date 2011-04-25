@@ -388,6 +388,9 @@ class TaxonConcept < SpeciesSchemaModel
     raise "Cannot find a HierarchyEntry with anything but a Hierarchy" unless hierarchy.is_a? Hierarchy
 
     @all_entries ||= HierarchyEntry.sort_by_vetted(published_hierarchy_entries)
+    if @all_entries.blank?
+      @all_entries = HierarchyEntry.sort_by_vetted(hierarchy_entries)
+    end
 
     # we want ONLY the entry in this hierarchy
     if strict_lookup

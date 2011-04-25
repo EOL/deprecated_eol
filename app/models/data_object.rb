@@ -402,6 +402,12 @@ class DataObject < SpeciesSchemaModel
     # this is a bit of a shortcut = the hierarchy's agent should be the same as the agent
     # that contributed the resource. DataObject should only live in a single hierarchy
     @data_supplier_agent ||= hierarchy_entries[0].hierarchy.agent rescue nil
+    if !@data_supplier_agent.blank?
+      if (!@data_supplier_agent.homepage?)
+        @data_supplier_agent = Agent.find_by_id(@data_supplier_agent.id)
+      end
+    end
+    return @data_supplier_agent
   end
 
   def citable_data_supplier

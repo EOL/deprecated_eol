@@ -31,4 +31,15 @@ describe 'Community Activity' do
     end
   end
 
+  it 'should have a bunch of comments on communities' do
+    user_comments = []
+    curator_comments = []
+    @activity[:communities].each do |community|
+      community.feed.each do |item|
+        user_comments << item.body if item.feed_item_type == FeedItemType.user_comment
+        curator_comments << item.body if item.feed_item_type == FeedItemType.curator_comment
+      end
+    end
+  end
+
 end

@@ -1,0 +1,8 @@
+= will_paginate @media
+%ul#media
+  - @media.each do |item|
+    - if item.video?
+      = render :partial => "media_thumbnail", :locals => {:item => item, :default_alt_text => :video_thumbnail_alt_text, :image => 'right_arrow.gif'}
+    - else
+      = render :partial => "media_thumbnail", :locals => {:item => item, :default_alt_text => :image_thumbnail_alt_text, :image => item.smart_thumb}
+= will_paginate @media

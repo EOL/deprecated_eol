@@ -67,7 +67,7 @@ class TaxonConcept < SpeciesSchemaModel
 
   attr_accessor :includes_unvetted # true or false indicating if this taxon concept has any unvetted/unknown data objects
 
-  attr_reader :has_media, :length_of_images
+  attr_reader :has_media, :length_of_images, :length_of_videos, :length_of_sounds
 
   define_core_relationships :select => {
       :taxon_concepts => '*',
@@ -132,14 +132,14 @@ class TaxonConcept < SpeciesSchemaModel
       duplicate_check[lang] << tcn.name.string
       name_languages[tcn.name.string] = lang
     end
-    
+
     # now removing anything without a language if it exists with a language
     sorted_names.each_with_index do |tcn, index|
       next if tcn.nil?
       lang = tcn.language.blank? ? '' : tcn.language.iso_639_1
       sorted_names[index] = nil if lang.blank? && !name_languages[tcn.name.string].blank?
     end
-    
+
     sorted_names.compact
   end
 
@@ -369,18 +369,6 @@ class TaxonConcept < SpeciesSchemaModel
     return false
   end
 
-  # TODO - I believe these methods are obsolete (the more_* methods)
-  # TODO = $MAX_IMAGES_PER_PAGE really should BE an int.
-  def more_images
-    return @length_of_images > $MAX_IMAGES_PER_PAGE.to_i if @length_of_images
-    return images.length > $MAX_IMAGES_PER_PAGE.to_i # This is expensive.  I hope you called #images first!
-  end
-
-  def more_videos
-    return @length_of_videos > $MAX_IMAGES_PER_PAGE.to_i if @length_of_videos
-    return video_data_objects.length > $MAX_IMAGES_PER_PAGE.to_i # This is expensive.  I hope you called #videos first!
-  end
-
   # Singleton method to fetch the Hierarchy Entry, used for taxonomic relationships
   def entry(hierarchy = nil, strict_lookup = false)
     hierarchy ||= Hierarchy.default
@@ -550,21 +538,19 @@ class TaxonConcept < SpeciesSchemaModel
     @current_agent = agent
   end
 
-  def has_images
-    available_media if @has_media.nil?
-    @has_media[:images]
-  end
-
+  # TODO - we won't need this, soon.  Delete it.  (ATM it's still used in an old videos partial)
   def has_video
     available_media if @has_media.nil?
     @has_media[:video]
   end
 
+  # TODO - we won't need this, soon.  Delete it.  (ATM it's still used in an old mediacenter partial)
   def show_video_tab
     # checks logged-in user and/or logged-in content partner and also considers the existence of un-published videos, if Video tab is to be displayed
-    return (video_data_objects.length > 0 ? true : false)
+    return (videos.length > 0 ? true : false)
   end
 
+  # TODO - we won't need this, soon.  Delete it.  (ATM it's still used in an old mediacenter partial)
   def has_map
     available_media if @has_media.nil?
     @has_media[:map]
@@ -750,7 +736,7 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def media
-    images + video_data_objects
+    DataObject.sort_by_rating(images + videos + sounds).compact
   end
 
   def images(options = {})
@@ -896,6 +882,7 @@ class TaxonConcept < SpeciesSchemaModel
   def data_objects_for_api(options = {})
     options[:images] ||= 3
     options[:videos] ||= 1
+    # TODO - sounds for API
     options[:text] ||= 1
     if options[:subjects]
       options[:text_subjects] = options[:subjects].split("|")
@@ -1153,24 +1140,17 @@ class TaxonConcept < SpeciesSchemaModel
     DataObject.sort_by_rating(objects)
   end
 
-  def video_data_objects(options = {})
-    usr = current_user
-    if options[:unvetted]
-      usr = current_user.clone
-      usr.vetted = false
-    end
-
-    video_objects = data_objects.select{ |d| DataType.video_type_ids.include?(d.data_type_id) }
-    filtered_objects = DataObject.filter_list_for_user(video_objects, :agent => @current_agent, :user => usr)
-
-    add_include = [:agents_data_objects, :all_comments]
-    add_select = { :comments => [:parent_id, :visible_at] }
-
-    objects = DataObject.core_relationships(:add_include => add_include, :add_select => add_select).
-        find_all_by_id(filtered_objects.collect{ |d| d.id })
-    videos = DataObject.sort_by_rating(objects)
+  def videos(options = {})
+    videos = filter_data_objects_by_type(options.merge({:data_type_ids => DataType.video_type_ids}))
     @length_of_videos = videos.length # cached, so we don't have to query this again.
-    return videos
+    videos
+  end
+  alias :video_data_objects :videos
+
+  def sounds(options = {})
+    sounds = filter_data_objects_by_type(options.merge({:data_type_ids => DataType.sound_type_ids}))
+    @length_of_sounds = sounds.length # cached, so we don't have to query this again.
+    sounds
   end
 
   def curated_hierarchy_entries
@@ -1202,6 +1182,27 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
 private
+
+  # You must pass in the :data_type_ids option for this to work.  Use DataObject.FOO_type_ids for the value.  eg:
+  #   videos = filter_data_objects_by_type(:data_type_ids => DataObject.video_type_ids)
+  def filter_data_objects_by_type(options = {})
+    usr = current_user
+    if options[:unvetted]
+      usr = current_user.clone
+      usr.vetted = false
+    end
+
+    objects = data_objects.select{ |d| options[:data_type_ids].include?(d.data_type_id) }
+    filtered_objects = DataObject.filter_list_for_user(objects, :agent => @current_agent, :user => usr)
+
+    add_include = [:agents_data_objects, :all_comments]
+    add_select = { :comments => [:parent_id, :visible_at] }
+
+    objects = DataObject.core_relationships(:add_include => add_include, :add_select => add_select).
+        find_all_by_id(filtered_objects.collect{ |d| d.id })
+    objects = DataObject.sort_by_rating(objects)
+    return objects
+  end
 
   def vet_taxon_concept_names(options = {})
     raise "Missing :language_id" unless options[:language_id]

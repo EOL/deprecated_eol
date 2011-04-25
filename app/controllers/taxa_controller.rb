@@ -70,20 +70,65 @@ class TaxaController < ApplicationController
       return
     end
 
-    taxon_concept = find_taxon_concept || return
-    return if taxon_concept_invalid?(taxon_concept)
+    @taxon_concept = find_taxon_concept || return
+    return if taxon_concept_invalid?(@taxon_concept)
     return redirect_to(params.merge(:controller => 'taxa',
                                     :action => 'show',
-                                    :id => taxon_concept.id,
-                                    :status => :moved_permanently)) if taxon_concept.superceded_the_requested_id?
+                                    :id => @taxon_concept.id,
+                                    :status => :moved_permanently)) if @taxon_concept.superceded_the_requested_id?
 
-    inc = [
+    # TODO - move all of this section stuff!
+    @section = params[:section].blank? ? :overview : params[:section].to_sym
+    # TODO - knowing the names of all the tabs probably doesn't belong here.  Move it.
+    @section = :overview unless [:overview, :detail, :media, :maps, :classifications, :collections, :communities,
+      :tools, :updates].include?(@section)
+    @image_id = params[:image_id] # TODO - this feature needs to change.
+
+    # TODO - These counts are fake, for the demo, so they need to be added to TaxonConcept.  ie:
+    #   {:name => I18n.t(:community, :count => @taxon_concept.communities.count), :count => @taxon_concept.communities.count...
+    @content_sections = [
+      # TODO - the active checks; counts; generalizing the duplication
+      # NOTE - the "url" is required because the :name is translated and may change.
+      {:name => I18n.t(:overview), :count => nil, :active => @section == :overview, :url => :overview},
+      {:name => I18n.t(:detail), :count => nil, :active => @section == :detail, :url => :detail},
+      {:name => I18n.t(:media_with_count, :count => @taxon_concept.media.count), :count => @taxon_concept.media.count, :active => @section == :media, :url => :media},
+      {:name => I18n.t(:maps_with_count, :count => 12), :count => 12, :active => @section == :maps, :url => :maps},
+      {:name => I18n.t(:classifications_with_count, :count => @taxon_concept.classifications.count), :count => @taxon_concept.classifications.count, :active => @section == :classifications,
+        :url => :classifications},
+      {:name => I18n.t(:collections_with_count, :count => 4), :count => 4, :active => @section == :collections,
+        :url => :collections},
+      {:name => I18n.t(:communities_with_count, :count => 0), :count => 0, :active => @section == :communities,
+        :url => :communities},
+      {:name => I18n.t(:tools_with_count, :count => 23), :count => 23, :active => @section == :tools, :url => :tools},
+      {:name => I18n.t(:updates_with_count, :count => 698), :count => 698, :active => @section == :updates,
+        :url => :updates}
+    ]
+
+    add_page_view_log_entry
+    update_user_content_level
+    @taxon_concept.current_user = current_user
+
+    # TODO - This will have a count in it!  We need a nice way to know the title without much work.  :\
+    @current_section = @content_sections.find {|s| s[:active] }
+    @can_be_cached =  show_taxa_html_can_be_cached?
+
+    case @section
+    when :media
+      show_taxon_media_tab
+    else
+      show_taxon_overview_tab
+    end
+
+  end
+
+  def show_taxon_media_tab
+    includes = [
       { :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] },
       { :data_objects => { :toc_items => :info_items } },
       { :top_concept_images => :data_object },
       { :last_curated_dates => :user },
       { :users_data_objects => { :data_object => :toc_items } }]
-    sel = {
+    selects = {
       :taxon_concepts => '*',
       :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
       :names => [ :string, :italicized, :canonical_form_id ],
@@ -94,7 +139,37 @@ class TaxaController < ApplicationController
       :table_of_contents => '*',
       :last_curated_dates => '*',
       :users => [ :given_name, :family_name ] }
-    @taxon_concept = TaxonConcept.core_relationships(:include => inc, :select => sel).find_by_id(taxon_concept.id)
+    @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
+
+    @media = @taxon_concept.media.paginate(:page => params[:page], :per_page => $MAX_IMAGES_PER_PAGE)
+
+    current_user.log_activity(:viewed_taxon_concept_media, :taxon_concept_id => @taxon_concept.id)
+
+    respond_to do |format|
+      format.html {}
+    end
+
+  end
+
+  def show_taxon_overview_tab
+    includes = [
+      { :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] },
+      { :data_objects => { :toc_items => :info_items } },
+      { :top_concept_images => :data_object },
+      { :last_curated_dates => :user },
+      { :users_data_objects => { :data_object => :toc_items } }]
+    selects = {
+      :taxon_concepts => '*',
+      :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
+      :names => [ :string, :italicized, :canonical_form_id ],
+      :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
+      :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
+      :vetted => :view_order,
+      :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ],
+      :table_of_contents => '*',
+      :last_curated_dates => '*',
+      :users => [ :given_name, :family_name ] }
+    @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
 
     if params[:action_name] == "update_common_names"
       update_common_names
@@ -116,13 +191,27 @@ class TaxaController < ApplicationController
 
     @feed_item = FeedItem.new(:feed_id => @taxon_concept.id, :feed_type => @taxon_concept.class.name)
 
-    current_user.log_activity(:viewed_taxon_concept, :taxon_concept_id => @taxon_concept.id)
+    current_user.log_activity(:viewed_taxon_concept_overview, :taxon_concept_id => @taxon_concept.id)
 
     respond_to do |format|
-      format.html do
-        show_taxa_html
-      end
+      format.html {}
     end
+
+    # TODO - a lot of this work does not need to be done when we're caching the page.
+    @taxon_concept.current_agent = current_agent
+    @media = @taxon_concept.media
+
+    set_selected_text_item
+
+    @category_id = show_category_id # need to be an instant var as we use it in several views and they use
+                                    # variables with that name from different methods in different cases
+
+    @new_text_tocitem_id = get_new_text_tocitem_id(@category_id)
+
+    get_content_variables unless
+    @category_id.nil? ||
+    @taxon_concept.table_of_contents(:vetted_only=>@taxon_concept.current_user.vetted).blank?
+    @random_taxa = RandomHierarchyImage.random_set(5, @session_hierarchy, {:language => current_user.language, :size => :small})
 
   end
 
@@ -253,10 +342,10 @@ class TaxaController < ApplicationController
   def images
     taxon_concept = find_taxon_concept
     return if taxon_concept_invalid?(taxon_concept)
-    inc = { :top_concept_images => :data_object }
-    sel = { :taxon_concepts => :supercedure_id,
+    includes = { :top_concept_images => :data_object }
+    selects = { :taxon_concepts => :supercedure_id,
       :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ] }
-    @taxon_concept = TaxonConcept.core_relationships(:include => inc, :select => sel).find_by_id(taxon_concept.id)
+    @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(taxon_concept.id)
     @taxon_concept.current_user = current_user
     @taxon_concept.current_agent = current_agent
     @image_page  = (params[:image_page] ||= 1).to_i
@@ -264,7 +353,7 @@ class TaxaController < ApplicationController
     last         = start + $MAX_IMAGES_PER_PAGE - 1
     @images      = @taxon_concept.images(:image_page => @image_page)[start..last]
     @image_count = @taxon_concept.image_count
-    set_image_data
+    set_selected_image
     current_user.log_activity(:viewed_page_of_images, :value => @image_page, :taxon_concept_id => @taxon_concept.id)
     render :partial => "images"
   end
@@ -533,53 +622,13 @@ private
     redirect_to search_path(:id => params[:id])
   end
 
-  def show_taxa_html
-
-    update_user_content_level
-    add_page_view_log_entry
-
-    @taxon_concept.current_user = current_user
-    # TODO - move all of this section stuff!
-    @section_name = params[:section_name].blank? ? :overview : params[:section_name]
-    @image_id = params[:image_id]
-
-    # TODO - These counts are fake, for the demo, so they need to be added to TaxonConcept.  ie:
-    #   {:name => I18n.t(:community, :count => @taxon_concept.communities.count), :count => @taxon_concept.communities.count...
-    @content_sections = [
-      # TODO - the active checks; counts; generalizing the duplication
-      # NOTE - the "url" is required because the :name is translated and may change.
-      {:name => I18n.t(:overview), :count => nil, :active => @section_name == :overview, :url => :overview},
-      {:name => I18n.t(:detail), :count => nil, :active => @section_name == :detail, :url => :detail},
-      {:name => I18n.t(:media_with_count, :count => @taxon_concept.media.count), :count => @taxon_concept.media.count, :active => @section_name == :media, :url => :media},
-      {:name => I18n.t(:maps_with_count, :count => 12), :count => 12, :active => @section_name == :maps, :url => :maps},
-      {:name => I18n.t(:classifications_with_count, :count => @taxon_concept.classifications.count), :count => @taxon_concept.classifications.count, :active => @section_name == :classifications,
-        :url => :classifications},
-      {:name => I18n.t(:collections_with_count, :count => 4), :count => 4, :active => @section_name == :collections,
-        :url => :collections},
-      {:name => I18n.t(:communities_with_count, :count => 0), :count => 0, :active => @section_name == :communities,
-        :url => :communities},
-      {:name => I18n.t(:tools_with_count, :count => 23), :count => 23, :active => @section_name == :tools, :url => :tools},
-      {:name => I18n.t(:updates_with_count, :count => 698), :count => 698, :active => @section_name == :updates,
-        :url => :updates}
-    ]
-
-    # TODO - This will have a count in it!  We need a nice way to know the title without much work.  :\
-    @current_section = @content_sections.find {|s| s[:active] }
-
-    unless show_taxa_html_can_be_cached? &&
-        fragment_exist?(:controller => 'taxa', :part => taxa_page_html_fragment_name)
-      failure = set_taxa_page_instance_vars
-      return false if failure
-    end # end get full page since we couldn't read from cache
-
-    render :template => '/taxa/show_cached' if allow_page_to_be_cached? and not params[:category_id] # if caching is allowed, see if fragment exists using this template
+  def taxa_page_cache_fragment_name
+    return {
+      :controller => '/taxa',
+      :part => "page_#{@taxon_concept.id}_#{@section}_#{@taxon_concept.current_user.taxa_page_cache_str}_#{@taxon_concept.show_curator_controls?}"
+    }
   end
-
-  def taxa_page_html_fragment_name
-    current_user = @taxon_concept.current_user
-    return "page_#{params[:id]}_#{current_user.taxa_page_cache_str}_#{@taxon_concept.show_curator_controls?}"
-  end
-  helper_method(:taxa_page_html_fragment_name)
+  helper_method(:taxa_page_cache_fragment_name)
 
   def show_taxa_html_can_be_cached?
     return(allow_page_to_be_cached? and
@@ -599,7 +648,7 @@ private
   end
 
   # Image ID could have been superceded (by, say, a newer version of the same image), so we need to normalize it.
-  def set_image_data
+  def set_selected_image
     if(params[:image_id])
       latest_published_image = DataObject.latest_published_version_of(params[:image_id].to_i)
       unless latest_published_image
@@ -631,7 +680,7 @@ private
     end
   end
 
-  def set_text_data
+  def set_selected_text_item
     if(params[:text_id])
       text_id = params[:text_id].to_i
 
@@ -652,26 +701,6 @@ private
         flash[:warning] = I18n.t("text_is_no_longer_available")
       end
     end
-  end
-
-  # TODO - this smells like bad architecture.  The name of the method alone implies that we're doing something
-  # wrong.  We really need some classes or helpers to take care of these details.
-  def set_taxa_page_instance_vars
-    @taxon_concept.current_agent = current_agent
-    @images = @taxon_concept.images
-    @image_count = @taxon_concept.image_count
-
-    set_image_data
-    set_text_data
-
-    @category_id = show_category_id # need to be an instant var as we use it in several views and they use
-                                    # variables with that name from different methods in different cases
-
-    @new_text_tocitem_id = get_new_text_tocitem_id(@category_id)
-
-    get_content_variables unless
-      @category_id.nil? || @taxon_concept.table_of_contents(:vetted_only=>@taxon_concept.current_user.vetted).blank?
-    @random_taxa = RandomHierarchyImage.random_set(5, @session_hierarchy, {:language => current_user.language, :size => :small})
   end
 
   # For regular users, a page is accessible only if the taxon_concept is published.

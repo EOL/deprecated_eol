@@ -40,7 +40,7 @@ describe 'Taxa overview' do
       should have_tag('div#content_header_container a', /^#{@testy[:taxon_concept].common_names.count}/)
     end
     it 'should show a gallery of four images' do
-      body.should have_tag("div#image_summary_gallery_container") do
+      body.should have_tag("div#media_summary_gallery") do
         with_tag("img[src$=#{@testy[:taxon_concept].images[0].smart_thumb[25..-1]}]")
         with_tag("img[src$=#{@testy[:taxon_concept].images[1].smart_thumb[25..-1]}]")
         with_tag("img[src$=#{@testy[:taxon_concept].images[2].smart_thumb[25..-1]}]")
@@ -50,7 +50,7 @@ describe 'Taxa overview' do
     end
     it 'should have sanitized descriptive text alternatives for images in gallery'
       # TODO - figure out how to add html to testy image description so can test sanitaztion of alt tags
-      # should have_tag('div#image_summary_gallery_container img[alt^=?]', /(\w+\s){5}/, { :count => 4 })
+      # should have_tag('div#media_summary_gallery img[alt^=?]', /(\w+\s){5}/, { :count => 4 })
     it 'should show IUCN Red List status' do
       should have_tag('div#iucn_status_container a', /.+/)
     end

@@ -1,0 +1,10 @@
+%li
+  - # TODO: These alt/title attributes are useless in terms of accessibility.
+  - # We can include the item description but its not always going to make sense or be short enough
+  - # ideally we need a short description provided by the content partner, describing what is in the item.
+  - alt = item.object_title
+  - alt = truncate(item.description.sub(/\.\s\s.*$/, '.'), 150) if alt.blank?
+  - alt = I18n.t(default_alt_text, :vetted_status_with_article => item.vetted.to_s_with_article, :scientific_name => hh(@taxon_concept.scientific_name(nil,false))) if alt.blank?
+  - alt = Sanitize.clean(alt, :remove_contents => %w[table script])
+  %a{ :data => { :data_object_id => item.id }, :href => "/data_objects/#{item.id}", :class => vetted_id_class(item) }
+    = image_tag image, :alt => alt

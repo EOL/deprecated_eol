@@ -1,3 +1,4 @@
+-# TODO - this partial is no longer used.  remove it.  (But it's used in the old version, right?)
 :javascript
   var selected_image_id = #{@selected_image_id || 'null'};
 -# TODO - this should be done with merging.
@@ -45,7 +46,7 @@
                 :class => 'popup-link', :title => "More information"                   |
               #attribution-overlay.overlay{:style=>"width:400px"}
                 .contentWrap
-                  = I18n.t(:please_wait_loading) 
+                  = I18n.t(:please_wait_loading)
             = render :partial => 'data_object_states', :locals => {:dato => @images.first}
             %li#photosynth-message
         #right-image-buttons
@@ -59,18 +60,18 @@
                 = popup_link 'curator', curation_data_object_path(@images.first, :taxon_concept_id => @taxon_concept.id), :title => 'Curate image', :rel => '#curation-overlay'
                 #curation-overlay.overlay{:style=>"width:364px"}
                   .contentWrap
-                    = I18n.t(:please_wait_loading) 
+                    = I18n.t(:please_wait_loading)
             #large-image-tagging-button{:title => "Tag image"}
               = popup_link 'tagging', data_object_tags_path(@images.first), :title => 'Tag image', :rel => '#tagging-overlay'
               #tagging-overlay.overlay{:style=>"width:530px"}
                 .contentWrap
-                  = I18n.t(:please_wait_loading) 
+                  = I18n.t(:please_wait_loading)
             #large-image-comment-button.hide
               - @images[0..$MAX_IMAGES_PER_PAGE-1].each do |image|
                 = render :partial => '/comments/comment_icon', :locals => { :data_object_id => image.id, :title => "Comment on this image", :comments_count => image.visible_comments.length, :alt => "Comment on this image", :comment_class => 'popup-link', :rel => "#comment-overlay" }
               #comment-overlay.overlay{:style=>"width:460px"}
                 .contentWrap
-                  = I18n.t(:please_wait_loading) 
+                  = I18n.t(:please_wait_loading)
         - if @taxon_concept.show_curator_controls?
           #image-ratings
             - @images[0..$MAX_IMAGES_PER_PAGE-1].each do |image|
@@ -79,7 +80,7 @@
     #image-thumbnails.mc-info
       .mc-header
         %h3
-          = I18n.t(:images) 
+          = I18n.t(:images)
           - if @image_count
             %small
               = "(#{@image_count})"

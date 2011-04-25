@@ -520,6 +520,11 @@ class DataObject < SpeciesSchemaModel
   end
   alias is_text? text?
 
+  def sound?
+    return DataType.sound_type_ids.include?(data_type_id)
+  end
+  alias is_sound? sound?
+
   def video?
     return DataType.video_type_ids.include?(data_type_id)
   end
@@ -573,6 +578,8 @@ class DataObject < SpeciesSchemaModel
   def original_image
     thumb_or_object(nil)
   end
+
+  # TODO - we will probably need a sound_url.
 
   def video_url
     if !object_cache_url.blank? && !object_url.blank?
@@ -976,13 +983,13 @@ class DataObject < SpeciesSchemaModel
     return nil if obj.blank?
     return obj[0]
   end
-  
+
   def self.latest_published_version_ids_of_do_ids(data_object_ids)
     latest_published_version_ids = DataObject.find_by_sql("SELECT do.id FROM data_objects do_old JOIN data_objects do ON (do_old.guid=do.guid) WHERE do.id IN (#{data_object_ids.collect{|doi| doi}.join(', ')}) AND do.published=1")
     latest_published_version_ids.collect!{|data_object| (data_object.id)}.uniq!
     latest_published_version_ids
   end
-  
+
   def self.latest_published_version_of_guid(guid, options={})
     options[:return_only_id] ||= false
     select = (options[:return_only_id]) ? 'id' : '*'

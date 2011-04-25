@@ -1,0 +1,9 @@
+= render(:partial => 'image_summary')
+= render(:partial => 'iucn_status_summary')
+= render(:partial => 'text_summary')
+= render(:partial => 'classification_summary')
+= render(:partial => 'collection_summary')
+= render(:partial => 'communities_summary')
+= render(:partial => 'feed_items/index', :locals => {:feed => @taxon_concept.feed})
+- # TODO: List of curators for a page needs to be switched to V2 design
+= render(:partial => 'curator_citation')

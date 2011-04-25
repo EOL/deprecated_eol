@@ -31,7 +31,7 @@
       %ul#section_navigation
         - @content_sections.each do |section|
           %li{:class => section[:active] ? 'active' : nil }
-            = link_to(section[:name], url_for(:controller => :taxa, :action => :show, :section_name => section[:url]))
+            = link_to(section[:name], url_for(:controller => :taxa, :action => :show, :section => section[:url]))
     #content
       = yield
 

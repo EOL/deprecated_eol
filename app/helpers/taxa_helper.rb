@@ -18,7 +18,7 @@ module TaxaHelper
       else nil
     end
   end
-  
+
   def citables_to_string(citables, params={})
     return '' if citables.nil? or citables.blank? or citables.class == String
     params[:linked] = true if params[:linked].nil?
@@ -43,7 +43,7 @@ module TaxaHelper
     final_string += ', et al.' if params[:only_first] && citables.length > 1
     return final_string
   end
-  
+
   def citables_to_icons(original_citables, params={})
     return '' if original_citables.nil? or original_citables.blank? or original_citables.class == String
     params[:linked] = true if params[:linked].nil?
@@ -53,17 +53,17 @@ module TaxaHelper
     params[:separator] ||= "&nbsp;"
     params[:last_separator] ||= params[:separator]
     params[:taxon_concept] ||= false
-    
+
     is_default_col = false
     if(params[:taxon_concept] && @session_hierarchy == Hierarchy.default && params[:taxon_concept].col_entry)
       is_default_col = true
     end
-    
+
     citables = original_citables.clone # so we can be destructive.
     citables = [citables] unless citables.class == Array # Allows us to pass in a single agent, if needed.
-    
+
     output_html = []
-    
+
     citables.each do |citable|
       url = ''
       url = citable.link_to_url.strip unless citable.link_to_url.blank?
@@ -74,11 +74,11 @@ module TaxaHelper
           url = outlink[:outlink_url]
         end
       end
-      
-      logo_size = (citable.agent_id == Agent.catalogue_of_life.id ? "large" : "small") # CoL gets their logo big     
+
+      logo_size = (citable.agent_id == Agent.catalogue_of_life.id ? "large" : "small") # CoL gets their logo big
       if citable.logo_cache_url.blank? && citable.logo_path.blank?
         params[:url] = url
-        output_html << citables_to_string(citable) if params[:show_text_if_no_icon] 
+        output_html << citables_to_string(citable) if params[:show_text_if_no_icon]
       else
         if params[:only_show_col_icon] && !is_default_col # if we are only asked to show the logo if it's COL and the current agent is *not* COL, then show text
           params[:url] = url
@@ -97,9 +97,9 @@ module TaxaHelper
       # stich the last two elements together with the "last separator" column before joining if there is more than 1 element and the last separator is different
       output_html[output_html.size-2] = output_html[output_html.size-2] + params[:last_separator] + output_html.pop
 		end
-    return output_html.compact.join(params[:separator]) 
+    return output_html.compact.join(params[:separator])
   end
-  
+
   def citable_logo(citable, size = "large", params={})
     src = nil
     if !citable.logo_cache_url.blank?
@@ -110,26 +110,15 @@ module TaxaHelper
     return src if src.blank?
     project_name = hh(sanitize(citable.display_string))
     capture_haml do
-      haml_tag :img, {:width => params[:width], :height => params[:height], 
-                      :src => src,  :border => 0, :alt => project_name, 
+      haml_tag :img, {:width => params[:width], :height => params[:height],
+                      :src => src,  :border => 0, :alt => project_name,
                       :title => project_name, :class => "agent_logo"}
     end
   end
-    
+
   def we_have_css_for_kingdom?(kingdom)
     return false if kingdom.nil?
     return $KINGDOM_IDs.include?(kingdom.id.to_s)
-  end
-  
-  def show_next_image_page_button
-    if params[:image_page].blank?
-      show_next_image_page_button = @taxon_concept.more_images 
-    else
-      image_page = (params[:image_page] ||= 1).to_i
-      start       = $MAX_IMAGES_PER_PAGE * (image_page - 1)
-      last        = start + $MAX_IMAGES_PER_PAGE - 1
-      show_next_image_page_button = (@taxon_concept.images.length > (last + 1))
-    end
   end
 
   # TODO - this would be useless if we put all these things into a view and show/hide the div.  Which we should:
@@ -146,7 +135,7 @@ module TaxaHelper
     trust = ''
     trust = 'unknown' if video.unknown?
     trust = 'untrusted' if video.untrusted?
-    
+
     return "{author: '"               + escape_javascript(citables_to_string(video.authors.collect{ |a| a.citable })) +
            "', nameString: '"         + escape_javascript(video.first_concept_name.to_s) +
            "', collection: '"         + escape_javascript(citables_to_string(video.sources.collect{ |a| a.citable })) +
@@ -171,7 +160,7 @@ module TaxaHelper
            "', taxon_concept_id:'#{taxon_concept_id}'}"
 
   end
-  
+
   def reformat_specialist_projects(projects)
     max_columns = 2
     num_mappings = projects.size
@@ -216,7 +205,7 @@ module TaxaHelper
       k = unknown.label if k.blank?
       names_by_language.key?(k) ? names_by_language[k] << name : names_by_language[k] = [name]
     end
-    remove_duplicate_names(names_by_language)    
+    remove_duplicate_names(names_by_language)
     results = []
     # Put preferred first
     results << [pref.label, names_by_language.delete(pref.label)] if names_by_language.key?(pref.label)
@@ -231,7 +220,7 @@ module TaxaHelper
 # A *little* weird to have private methods in the helper, but these really help clean up the code for the methods
 # that are public, and, indeed, should never be called outside of this class.
 private
-  
+
   def search_by_page_href(link_page)
     lparams = params.clone
     lparams["page"] = link_page

@@ -323,18 +323,18 @@ describe TaxonConcept do
     tc.has_common_names?.should == false
   end
   
-  it 'should return images sorted by trusted, unknown, untrusted' do
+  it 'should return images sorted by trusted, unknown, untrusted but preview mode first' do
     @taxon_concept.reload
     @taxon_concept.current_user = @user
     trusted   = Vetted.trusted.id
     unknown   = Vetted.unknown.id
     untrusted = Vetted.untrusted.id
-    @taxon_concept.images.map {|i| i.vetted_id }.should == [trusted, trusted, trusted, unknown, untrusted]
+    @taxon_concept.images.map {|i| i.vetted_id }.should == [untrusted, trusted, trusted, trusted, unknown]
   end
   
-  it 'should sort the vetted images by data rating' do
+  it 'should sort the vetted images by data rating but preview mode first' do
     @taxon_concept.current_user = @user
-    @taxon_concept.images[0..2].map(&:object_cache_url).should == [@image_3, @image_2, @image_1]
+    @taxon_concept.images[0..3].map(&:object_cache_url).should == [@image_untrusted, @image_3, @image_2, @image_1]
   end
   
   it 'should create a common name as a preferred common name, if there are no other common names for the taxon' do

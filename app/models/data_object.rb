@@ -75,8 +75,8 @@ class DataObject < SpeciesSchemaModel
     data_objects.sort_by do |obj|
       toc_view_order = (!obj.is_text? || obj.info_items.blank? || obj.info_items[0].toc_item.blank?) ? 0 : obj.info_items[0].toc_item.view_order
       vetted_view_order = obj.vetted.blank? ? 0 : obj.vetted.view_order
-      visibility_view_order = 1
-      visibility_view_order = 2 if obj.visibility_id == Visibility.preview.id
+      visibility_view_order = 2
+      visibility_view_order = 1 if obj.visibility_id == Visibility.preview.id
       inverted_rating = obj.data_rating * -1
       inverted_id = obj.id * -1
       [obj.data_type_id,

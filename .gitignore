@@ -5,6 +5,8 @@ t
 *.swp
 *eol_org.rb
 *~
+public/files/solr_import_file.csv
+tmp/*yml
 eol-solr.pid
 mkmf.log
 extconf.h

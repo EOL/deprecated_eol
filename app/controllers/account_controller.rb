@@ -205,12 +205,13 @@ class AccountController < ApplicationController
 
     current_user.log_activity(:updated_profile)
 
-    if @user.update_attributes(user_params)
-      user_changed_mailing_list_settings(old_user,@user) if (old_user.mailing_list != @user.mailing_list) || (old_user.email != @user.email)
-      set_current_user(@user)
-      flash[:notice] =  I18n.t(:your_preferences_have_been_updated) 
-      redirect_back_or_default
+    alter_current_user do |user|
+      user.update_attributes(user_params)
     end
+    @user = current_user
+    user_changed_mailing_list_settings(old_user,@user) if (old_user.mailing_list != @user.mailing_list) || (old_user.email != @user.email)
+    flash[:notice] =  I18n.t(:your_preferences_have_been_updated)
+    redirect_back_or_default
 
   end
 

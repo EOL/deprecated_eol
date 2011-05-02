@@ -13,6 +13,45 @@ module EOL
         SpeciesSchemaModel.connection.execute sql
       end
     end
+    
+    # this should really only be used in places where our two main databases are expected to be separate and we're having problems
+    # now that we merged them. For example in database migrations
+    def self.toggle_eol_data_connections(switch_to_connection = :eol_data)
+      if switch_to_connection == :eol_data
+        db_name_in_environment = RAILS_ENV + '_data'
+        master_connect = :data
+      else
+        db_name_in_environment = RAILS_ENV
+        master_connect = :eol
+      end
+      
+      SpeciesSchemaModel.establish_connection SpeciesSchemaModel.configurations[db_name_in_environment]
+      
+      eol_data_models = [
+        Agent, AgentContact, AgentContactRole, AgentDataType, AgentProvidedDataType, AgentRole, AgentStatus, AgentsDataObject,
+        AgentsHierarchyEntry, AgentsResource, AgentsSynonym, Audience, CanonicalForm, CollectionType, CollectionTypesHierarchy,
+        ContentPartner, ContentPartnerAgreement, DataObject, DataObjectsHarvestEvent, DataObjectsHierarchyEntry, DataObjectsInfoItem,
+        DataObjectsRef, DataObjectsTableOfContent, DataObjectsTaxonConcept, DataObjectsUntrustReason, DataType, FeedDataObject,
+        GlossaryTerm, GoogleAnalyticsPageStat, GoogleAnalyticsPartnerSummary, GoogleAnalyticsPartnerTaxon, GoogleAnalyticsSummary,
+        HarvestEvent, HarvestEventsHierarchyEntry, HarvestProcessLog, HierarchiesContent, Hierarchy, HierarchyEntriesFlattened,
+        HierarchyEntriesRef, HierarchyEntry, HierarchyEntryStat, InfoItem, ItemPage, Language, License, MimeType, Name, PageName,
+        PageStatsTaxon, PublicationTitle, RandomHierarchyImage, Rank, Ref, RefIdentifier, RefIdentifierType, Resource, ResourceAgentRole,
+        ResourceStatus, ServiceType, Status, Synonym, SynonymRelation, TaxonConcept, TaxonConceptContent, TaxonConceptMetric,
+        TaxonConceptName, TaxonConceptsFlattened, TitleItem, TocItem, TopConceptImage, TopImage, TopUnpublishedConceptImage,
+        TopUnpublishedImage, TranslatedAgentContactRole, TranslatedAgentDataType, TranslatedAgentRole, TranslatedAgentStatus,
+        TranslatedAudience, TranslatedCollectionType, TranslatedDataType, TranslatedInfoItem, TranslatedLanguage, TranslatedLicense,
+        TranslatedMimeType, TranslatedRank, TranslatedRefIdentifierType, TranslatedResourceAgentRole, TranslatedResourceStatus,
+        TranslatedServiceType, TranslatedStatus, TranslatedSynonymRelation, TranslatedTocItem, TranslatedUntrustReason, TranslatedVetted,
+        TranslatedVisibility, UntrustReason, Vetted, Visibility, WikipediaQueue]
+      
+      eol_data_models.each do |klass|
+        begin
+          klass.reset_database_name
+        rescue
+          "Couldn't switch #{klass.to_s}"
+        end
+      end
+    end
 
 
     module Create

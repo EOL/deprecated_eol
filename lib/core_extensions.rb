@@ -288,6 +288,10 @@ module ActiveRecord
         adapter.instance_eval { @config }
       end
       
+      def reset_database_name
+        @database_name = nil
+      end
+      
       # returns the name of the database for this ActiveRecord::Base
       def database_name
         @database_name ||= self.connection.execute('select database()').fetch_row[0]

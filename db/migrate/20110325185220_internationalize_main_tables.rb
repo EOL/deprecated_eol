@@ -1,5 +1,6 @@
 class InternationalizeMainTables < ActiveRecord::Migration
   def self.up
+    EOL::DB::toggle_eol_data_connections(:eol_data)
     english = Language.english
     # we need to use SQL to get some numeric types we want (smallint)
     
@@ -58,9 +59,11 @@ class InternationalizeMainTables < ActiveRecord::Migration
     end
     remove_column :news_items, :body
     remove_column :news_items, :title
+    EOL::DB::toggle_eol_data_connections(:eol)
   end
 
   def self.down
+    EOL::DB::toggle_eol_data_connections(:eol_data)
     english = Language.english
     
     # === ActionWithObject
@@ -99,5 +102,6 @@ class InternationalizeMainTables < ActiveRecord::Migration
       end
     end
     drop_table :translated_news_items
+    EOL::DB::toggle_eol_data_connections(:eol)
   end
 end

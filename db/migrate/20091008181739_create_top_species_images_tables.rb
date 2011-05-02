@@ -1,6 +1,7 @@
 class CreateTopSpeciesImagesTables < EOL::DataMigration
   
   def self.up
+    EOL::DB::toggle_eol_data_connections(:eol_data)
     execute("create table top_species_images like top_images")
     execute("create table top_unpublished_species_images like top_unpublished_images")
     
@@ -34,6 +35,7 @@ class CreateTopSpeciesImagesTables < EOL::DataMigration
       execute("INSERT INTO top_species_images (SELECT ti.* FROM hierarchy_entries he JOIN top_images ti ON (he.id=ti.hierarchy_entry_id) WHERE he.rank_id IN (#{rank_ids.join(',')}))")
       execute("INSERT INTO top_unpublished_species_images (SELECT tui.* FROM hierarchy_entries he JOIN top_unpublished_images tui ON (he.id=tui.hierarchy_entry_id) WHERE he.rank_id IN (#{rank_ids.join(',')}))")
     end
+    EOL::DB::toggle_eol_data_connections(:eol)
   end
   
   def self.down

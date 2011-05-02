@@ -1,5 +1,6 @@
 class MoveGeneralDescriptionToBeFirstUnderDescription < ActiveRecord::Migration
   def self.up
+    EOL::DB::toggle_eol_data_connections(:eol_data)
     description = TocItem.find_by_label('Description')
     if description
       descriptions = TocItem.find_all_by_parent_id(description.id)
@@ -27,6 +28,7 @@ class MoveGeneralDescriptionToBeFirstUnderDescription < ActiveRecord::Migration
       puts "...I am going to assume you are in development or testing mode and haven't run the foundation scenario."
       puts "IF YOU GOT THIS MESSAGE ON STAGING OR IN PRODUCTION, something went seriously wrong.  Ask JRice."
     end
+    EOL::DB::toggle_eol_data_connections(:eol)
   end
 
   def self.down

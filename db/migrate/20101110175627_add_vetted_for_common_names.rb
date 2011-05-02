@@ -1,5 +1,6 @@
 class AddVettedForCommonNames <  EOL::DataMigration
   def self.up
+    EOL::DB::toggle_eol_data_connections(:eol_data)
     begin
       add_column :synonyms, :vetted_id, :integer, :default => 0
     rescue => e
@@ -12,7 +13,7 @@ class AddVettedForCommonNames <  EOL::DataMigration
       puts "** WARNING (non-fatal):"
       puts e.message
     end
-    trusted = Vetted.find_by_label('trusted') || 1 # Because in, day, RAILS_ENV=test, there won't be one...  :\
+    trusted = Vetted.find_by_label('trusted') || 1 # Because in, say, RAILS_ENV=test, there won't be one...  :\
     users_db = User.connection.config[:database]
     # Yup, this is a cross-database join.  But it's only one, so it's mostly harmless, and I want to be *absolutely* sure
     # that the agents have users (meaning: they are curators) in these cases.
@@ -33,6 +34,7 @@ class AddVettedForCommonNames <  EOL::DataMigration
     ChangeableObjectType.create(:ch_object_type => 'synonym')
     ChangeableObjectType.create(:ch_object_type => 'taxon_concept_name')
     ActionWithObject.create(:action_code => 'unreviewed')
+    EOL::DB::toggle_eol_data_connections(:eol)
   end
 
   def self.down

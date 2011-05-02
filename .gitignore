@@ -19,6 +19,7 @@ config/environments/staging_test.rb
 config/environments/local.*
 config/remi-deploy.rb
 config/systems/
+db/*_structure.sql
 db/schema.rb
 doc/app
 lang/tmp.yml

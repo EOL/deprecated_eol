@@ -2,6 +2,7 @@ class InternationalizeRemainingDataTables < EOL::DataMigration
   # skipping glossary, licenses
 
   def self.up
+    EOL::DB::toggle_eol_data_connections(:eol_data)
     english = Language.english
     # we need to use SQL to get some numeric types we want (smallint)
 
@@ -39,10 +40,11 @@ class InternationalizeRemainingDataTables < EOL::DataMigration
       end
     end
     remove_column :licenses, :description
-
+    EOL::DB::toggle_eol_data_connections(:eol)
   end
 
   def self.down
+    EOL::DB::toggle_eol_data_connections(:eol_data)
     english = Language.english
 
     # === AgentContactRole
@@ -68,6 +70,6 @@ class InternationalizeRemainingDataTables < EOL::DataMigration
       end
     end
     drop_table :translated_licenses
-
+    EOL::DB::toggle_eol_data_connections(:eol)
   end
 end

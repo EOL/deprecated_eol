@@ -2,6 +2,7 @@ class ChangeUsersDataObjectsRatings < ActiveRecord::Migration
   #to change old existing data
   
   def self.up
+    EOL::DB::toggle_eol_data_connections(:eol_data)
     execute "update users_data_objects_ratings u join #{DataObject.full_table_name} d on d.id=u.data_object_id set data_object_guid = d.guid"
     execute "delete from users_data_objects_ratings where data_object_guid = ''"
     val = execute "select data_object_guid, user_id from users_data_objects_ratings group by data_object_guid, user_id having count(*) > 1"
@@ -14,6 +15,7 @@ class ChangeUsersDataObjectsRatings < ActiveRecord::Migration
     end
     add_index :users_data_objects_ratings, [:data_object_guid, :user_id], :name => 'idx_users_data_objects_ratings_1', :unique => true
     #remove_column :users_data_objects_ratings, :data_object_id
+    EOL::DB::toggle_eol_data_connections(:eol)
   end
 
   def self.down

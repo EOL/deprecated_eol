@@ -19,6 +19,7 @@ describe User do
     @user = User.gen :username => 'KungFuPanda', :password => @password
     @user.should_not be_a_new_record
     FeedItemType.gen_if_not_exists(:name => 'content update')
+    FeedItemType.gen_if_not_exists(:name => 'User Comment')
   end
 
   it "should generate a random hexadecimal key" do

@@ -24,8 +24,8 @@ module EOL
     def post(body, options = {})
       values = {:feed_item_type_id => FeedItemType.user_comment.id, :feed_type => @klass, :feed_id => @id,
         :body => body}.merge(options)
-      # Make this a curator comment if it should be one:
-      if @source.respond_to?(:is_curatable_by?) && options[:user_id]
+      # Make this a curator comment if it should be one (and the type wasn't already specified):
+      if @source.respond_to?(:is_curatable_by?) && options[:user_id] && !options[:feed_item_type_id]
         values[:feed_item_type_id] = FeedItemType.curator_comment.id if @source.is_curatable_by? User.find(options[:user_id])
       end
       if item = FeedItem.create(values)

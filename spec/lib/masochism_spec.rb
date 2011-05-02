@@ -8,7 +8,6 @@ describe 'Masochism' do
   # this is not in the before all because we loop through this array to CREATE tests
   connections_to_test = [
     { :abstract_model => ActiveRecord::Base, :database_suffix => '', :test_model => Comment},
-    { :abstract_model => SpeciesSchemaModel, :database_suffix => 'data', :test_model => TaxonConcept},
     { :abstract_model => LoggingModel, :database_suffix => 'logging', :test_model => Activity}]
     
   describe ': test_master setup' do
@@ -31,12 +30,10 @@ describe 'Masochism' do
       # close existing mysql connections as we'll reconnect below.
       # trying to avoid a MySQL max_user_connections error
       ActiveRecord::Base.connection.disconnect!
-      SpeciesSchemaModel.connection.disconnect!
       LoggingModel.connection.disconnect!
       
       # set up the proper master database
       ActiveReload::ConnectionProxy.setup_for ActiveReload::MasterDatabase, ActiveRecord::Base
-      ActiveReload::ConnectionProxy.setup_for SpeciesSchemaWriter, SpeciesSchemaModel
       ActiveReload::ConnectionProxy.setup_for LoggingWriter, LoggingModel
     end
     
@@ -46,12 +43,10 @@ describe 'Masochism' do
       
       # close master connections to avoid a MySQL max_user_connections error
       ActiveRecord::Base.with_master { ActiveRecord::Base.connection.disconnect! }
-      SpeciesSchemaModel.with_master { SpeciesSchemaModel.connection.disconnect! }
       LoggingModel.with_master { LoggingModel.connection.disconnect! }
       
       # revert back to proper slave databases
       ActiveReload::ConnectionProxy.setup_for ActiveRecord::Base, ActiveRecord::Base
-      ActiveReload::ConnectionProxy.setup_for SpeciesSchemaModel, SpeciesSchemaModel
       ActiveReload::ConnectionProxy.setup_for LoggingModel, LoggingModel
     end
     

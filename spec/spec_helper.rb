@@ -49,13 +49,6 @@ Spec::Runner.configure do |config|
     $CACHE.clear if $CACHE
     # reset the class variables that cache certain instances
     reset_all_model_cached_instances
-    SpeciesSchemaModel.connection.execute("START TRANSACTION #SpeciesSchemaModel")
-    SpeciesSchemaModel.connection.increment_open_transactions
-  end
-
-  config.after(:each) do
-    SpeciesSchemaModel.connection.decrement_open_transactions
-    SpeciesSchemaModel.connection.execute("ROLLBACK #SpeciesSchemaModel")
   end
   
   config.before(:all) do

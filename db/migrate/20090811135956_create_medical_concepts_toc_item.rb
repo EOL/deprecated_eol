@@ -1,5 +1,6 @@
 class CreateMedicalConceptsTocItem < ActiveRecord::Migration
   def self.up
+    EOL::DB::toggle_eol_data_connections(:eol_data)
     references = TocItem.find_by_label('References and More Information')
     if references 
       children   = TocItem.find_all_by_parent_id(references.id)
@@ -30,7 +31,7 @@ class CreateMedicalConceptsTocItem < ActiveRecord::Migration
       puts "** I am assuming you are NOT running this in PRODUCTION (or staging or the like)."
       puts "** If you ARE IN PRODUCTION, this is a big problem.  Contact a developer for information."
     end
-
+    EOL::DB::toggle_eol_data_connections(:eol)
   end
 
   def self.down

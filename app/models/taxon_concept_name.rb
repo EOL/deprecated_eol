@@ -1,6 +1,6 @@
 class TaxonConceptName < SpeciesSchemaModel
 
-  set_primary_keys :name_id, :taxon_concept_id, :source_hierarchy_entry_id
+  set_primary_keys :taxon_concept_id, :name_id, :source_hierarchy_entry_id, :language_id
 
   belongs_to :language
   belongs_to :name

@@ -45,8 +45,9 @@ describe DataObject do
     @already_built_tc = true
 
     @taxon_concept = TaxonConcept.last || build_taxon_concept
-    @user          = @taxon_concept.acting_curators.to_a.last
-    @data_object   = @taxon_concept.add_user_submitted_text(:user => @user)
+    @curator       = create_curator(@taxon_concept)
+    @another_curator = create_curator(@taxon_concept)
+    @data_object   = @taxon_concept.add_user_submitted_text(:user => @curator)
     @image_dato    = @taxon_concept.images.last
 
     @dato = DataObject.gen(:description => 'That <b>description has unclosed <i>html tags')

@@ -25,13 +25,12 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   has_many :actions_histories_on_data_objects, :class_name => ActionsHistory.to_s,
              :conditions => "actions_histories.changeable_object_type_id = #{ChangeableObjectType.raw_data_object_id}"
   has_many :users_data_objects
-  # has_many :user_ignored_data_objects
   has_many :collection_items, :as => :object
   has_many :collections
   has_many :google_analytics_partner_summaries
   has_many :google_analytics_partner_taxa
   has_many :resources, :through => :content_partner
-  
+
   has_one :content_partner
   has_one :user_info
   belongs_to :default_hierarchy, :class_name => Hierarchy.to_s, :foreign_key => :default_hierarchy_id
@@ -69,13 +68,13 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   validates_format_of :email, :with => @email_format_re
 
   validates_confirmation_of :entered_password
-  
+
   has_attached_file :logo,
     :path => $LOGO_UPLOAD_DIRECTORY,
     :url => $LOGO_UPLOAD_PATH,
     :default_url => "/images/blank.gif"
-  
-  validates_attachment_content_type :logo, 
+
+  validates_attachment_content_type :logo,
     :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'],
     :message => "image is not a valid image type", :if => :partner_step?
   validates_attachment_size :logo, :in => 0..0.5.megabyte
@@ -100,7 +99,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       return true, user
     else
       user.invalid_login_attempt
-      return false, I18n.t(:invalid_login_or_password) 
+      return false, I18n.t(:invalid_login_or_password)
     end
   end
 
@@ -118,17 +117,17 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       end
     end
     if users.size > 1 # more than 1 email address with no matching passwords
-      return false, I18n.t(:the_email_address_is_not_unique_you_must_enter_a_username) 
+      return false, I18n.t(:the_email_address_is_not_unique_you_must_enter_a_username)
     else  # no matches yet again :(
-      return false, I18n.t(:invalid_login_or_password) 
+      return false, I18n.t(:invalid_login_or_password)
     end
   end
 
   def self.fail_authentication_with_master_check(user_identifier)
     if self.active_on_master?(user_identifier)
-      return false,  I18n.t(:account_registered_but_not_ready_try_later) 
+      return false,  I18n.t(:account_registered_but_not_ready_try_later)
     else
-      return false, I18n.t(:invalid_login_or_password) 
+      return false, I18n.t(:invalid_login_or_password)
     end
   end
 
@@ -407,7 +406,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     end
     self.save! unless self.validating
   end
-  
+
   def clear_cached_user
     $CACHE.delete("users/#{self.id}") if $CACHE
   end
@@ -670,7 +669,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       end
     end
     data_object_ids[start..last].collect!{|do_or_id| (do_or_id.class == DataObject) ? do_or_id : nil }
-    
+
     return data_object_ids
   end
 
@@ -744,7 +743,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     reload_if_stale
     self.members.select {|m| m.community_id == community.id}.first
   end
-  
+
   # override the logo_url column in the database to contruct the path on the content server
   def logo_url(size = 'large')
     ContentServer.agent_logo_path(self.attributes['logo_cache_url'], size)

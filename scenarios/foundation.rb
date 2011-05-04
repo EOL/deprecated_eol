@@ -32,6 +32,7 @@ CuratorActivity.gen_if_not_exists(:code => 'inappropriate')
 CuratorActivity.gen_if_not_exists(:code => 'approve')
 CuratorActivity.gen_if_not_exists(:code => 'disapprove')
 CuratorActivity.gen_if_not_exists(:code => 'unreviewed')
+CuratorActivity.gen_if_not_exists(:code => 'add_association')
 
 # what one can do with a data_object
 ActionWithObject.gen_if_not_exists(:action_code => 'create')
@@ -44,6 +45,7 @@ ActionWithObject.gen_if_not_exists(:action_code => 'hide')
 ActionWithObject.gen_if_not_exists(:action_code => 'inappropriate')
 ActionWithObject.gen_if_not_exists(:action_code => 'rate')
 ActionWithObject.gen_if_not_exists(:action_code => 'unreviewed')
+ActionWithObject.gen_if_not_exists(:action_code => 'add_association')
 
 # create_if_not_exists We don't technically *need* all three of these, but it's nice to have for the menu.  There are more, but we don't currently use
 # them.  create_if_not_exists Once we do, they should get added here.
@@ -173,6 +175,7 @@ ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'synonym')
 ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'taxon_concept_name')
 ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'tag')
 ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'users_submitted_text')
+ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'curated_data_objects_hierarchy_entry')
 
 RefIdentifierType.gen_if_not_exists(:label => 'url')
 

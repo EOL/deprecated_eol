@@ -1102,6 +1102,20 @@ class DataObject < SpeciesSchemaModel
     users_data_objects && users_data_objects[0] && ! users_data_objects[0].user.blank?
   end
 
+  def add_curated_relationship(user, hierarchy_entry)
+    #TODO = DataObjectsHierarchyEntry.exists?(:hierarchy_entry_id => hierarchy_entry.id, :data_object_id => self.id)
+    # ... this wasn't working for us, so we went old-school:
+    exists = DataObjectsHierarchyEntry.find_by_hierarchy_entry_id_and_data_object_id(hierarchy_entry.id, self.id)
+    unless exists
+      DataObjectsHierarchyEntry.create(:hierarchy_entry_id => hierarchy_entry.id, :data_object_id => self.id)
+    end
+    cdohe = CuratedDataObjectsHierarchyEntry.create(:added => true, :hierarchy_entry_id => hierarchy_entry.id,
+                                                    :data_object_id => self.id, :user_id => user.id)
+    CuratorDataObjectLog.create(:data_object => self, :user => user,
+                                :curator_activity => CuratorActivity.add_association)
+    user.track_curator_activity(cdohe, 'curated_data_objects_hierarchy_entry', 'add_association')
+  end
+
 private
 
   def trust(user, opts = {})

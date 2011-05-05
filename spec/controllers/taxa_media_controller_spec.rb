@@ -12,6 +12,8 @@ describe TaxaController do
   before(:all) do
     truncate_all_tables
     load_scenario_with_caching :media_heavy
+    # TODO - why do I need this?
+    Community.create_special
     @data = EOL::TestInfo.load('media_heavy')
     @first_image = @data[:taxon_concept].images.first
     @first_video = @data[:taxon_concept].videos.first

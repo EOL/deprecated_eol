@@ -99,6 +99,7 @@ module EOL
           end
           puts "-- Truncated #{count} tables in #{conn.instance_eval { @config[:database] }}." if options[:verbose]
         end
+        $CACHE.clear # ...These values are all now void, so...
       end
 
       # truncates all tables in all databases

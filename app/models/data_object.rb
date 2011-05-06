@@ -1102,7 +1102,7 @@ class DataObject < SpeciesSchemaModel
     users_data_objects && users_data_objects[0] && ! users_data_objects[0].user.blank?
   end
 
-  def add_curated_relationship(user, hierarchy_entry)
+  def add_curated_association(user, hierarchy_entry)
     #TODO = DataObjectsHierarchyEntry.exists?(:hierarchy_entry_id => hierarchy_entry.id, :data_object_id => self.id)
     # ... this wasn't working for us, so we went old-school:
     exists = DataObjectsHierarchyEntry.find_by_hierarchy_entry_id_and_data_object_id(hierarchy_entry.id, self.id)

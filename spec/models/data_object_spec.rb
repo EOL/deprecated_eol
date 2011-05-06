@@ -75,7 +75,10 @@ describe DataObject do
       DataObjectTags.gen(:data_object_tag => @tag, :data_object => @dato, :user => User.gen)
     end
 
-    @num_lcd       = LastCuratedDate.count
+    @num_lcd = LastCuratedDate.count
+    @hierarchy_entry = HierarchyEntry.gen
+    @image_dato.add_curated_association(@curator, @hierarchy_entry)
+    @image_dato.add_curated_association(@another_curator, @hierarchy_entry)
   end
 
   it 'should be able to replace wikipedia articles' do

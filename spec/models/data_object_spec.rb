@@ -10,45 +10,19 @@ def set_content_variables
   @dato = DataObject.gen(:data_type => DataType.find_by_translated(:label, 'flash'), :object_cache_url => @big_int)
 end
 
-def create_user_text_object
-  taxon_concept = TaxonConcept.last ||
-                  build_taxon_concept(:rank => 'kingdom', :canonical_form => 'Animalia',
-                                      :common_names => ['Animals'])
-  toc_item = TocItem.gen({:label => 'Overview'})
-  params = {
-    :taxon_concept_id => taxon_concept.id,
-    :data_objects_toc_category => { :toc_id => toc_item.id}
-  }
-
-  do_params = {
-    :license_id => License.find_by_title('cc-by-nc 3.0').id,
-    :language_id => Language.find_by_translated(:label, 'English').id,
-    :description => 'a new text object',
-    :object_title => 'new title'
-  }
-
-  params[:data_object] = do_params
-
-  params[:references] = ['foo','bar']
-
-  DataObject.create_user_text(params, User.gen)
-end
-
 describe DataObject do
 
   before(:all) do
     truncate_all_tables
-    load_foundation_cache # Just so we have DataType IDs and the like.
-    unless @already_built_tc
-      build_taxon_concept
-    end
-    @already_built_tc = true
 
-    @taxon_concept = TaxonConcept.last || build_taxon_concept
-    @curator       = create_curator(@taxon_concept)
-    @another_curator = create_curator(@taxon_concept)
-    @data_object   = @taxon_concept.add_user_submitted_text(:user => @curator)
-    @image_dato    = @taxon_concept.images.last
+    load_scenario_with_caching(:testy)
+    @testy = EOL::TestInfo.load('testy')
+    @taxon_concept = @testy[:taxon_concept]
+
+    @curator         = @testy[:curator]
+    @another_curator = create_curator
+    @data_object     = @taxon_concept.add_user_submitted_text(:user => @curator)
+    @image_dato      = @taxon_concept.images.last
 
     @dato = DataObject.gen(:description => 'That <b>description has unclosed <i>html tags')
     DataObjectsTaxonConcept.gen(:taxon_concept_id => @taxon_concept.id, :data_object_id => @data_object.id)
@@ -79,6 +53,7 @@ describe DataObject do
     @hierarchy_entry = HierarchyEntry.gen
     @image_dato.add_curated_association(@curator, @hierarchy_entry)
     @image_dato.add_curated_association(@another_curator, @hierarchy_entry)
+    @last_log_entry_after_adding_association = CuratorDataObjectLog.last
   end
 
   it 'should be able to replace wikipedia articles' do
@@ -103,53 +78,53 @@ describe DataObject do
   end
 
   it 'curation should set to unreviewed' do
-    @data_object.curate(@user, :vetted_id => Vetted.untrusted.id)
+    @data_object.curate(@curator, :vetted_id => Vetted.untrusted.id)
     @data_object.untrusted?.should eql(true)
-    @data_object.curate(@user, :vetted_id => Vetted.unknown.id)
+    @data_object.curate(@curator, :vetted_id => Vetted.unknown.id)
     @data_object.unknown?.should eql(true)
   end
 
   it 'curation should save a newly added curation comment with any curation action' do
     [Vetted.unknown.id, Vetted.untrusted.id, Vetted.trusted.id].each do |vetted_id|
       comments_count = @data_object.all_comments.size
-      @data_object.curate(@user, :vetted_id => vetted_id, :comment => 'new smart comment')
+      @data_object.curate(@curator, :vetted_id => vetted_id, :comment => 'new smart comment')
       @data_object.reload  # comments get eager loaded and cached
       (@data_object.all_comments.size - comments_count).should == 1
     end
   end
 
   it 'curation should set to untrusted' do
-    @data_object.curate(@user, :vetted_id => Vetted.untrusted.id)
+    @data_object.curate(@curator, :vetted_id => Vetted.untrusted.id)
     @data_object.untrusted?.should eql(true)
   end
 
   it 'curation should set to trusted' do
-    @data_object.curate(@user, :vetted_id => Vetted.trusted.id)
+    @data_object.curate(@curator, :vetted_id => Vetted.trusted.id)
     @data_object.trusted?.should eql(true)
   end
 
   it 'curation should set to untrusted and hidden' do
-    @data_object.curate(@user, :vetted_id => Vetted.untrusted.id, :visibility_id => Visibility.invisible.id)
+    @data_object.curate(@curator, :vetted_id => Vetted.untrusted.id, :visibility_id => Visibility.invisible.id)
     @data_object.untrusted?.should eql(true)
     @data_object.invisible?.should eql(true)
   end
 
   it 'curation should set untrust reasons' do
-    @data_object.curate(@user, :vetted_id => Vetted.untrusted.id, :visibility_id => Visibility.visible.id, :untrust_reason_ids => [UntrustReason.misidentified.id, UntrustReason.poor.id, UntrustReason.other.id])
+    @data_object.curate(@curator, :vetted_id => Vetted.untrusted.id, :visibility_id => Visibility.visible.id, :untrust_reason_ids => [UntrustReason.misidentified.id, UntrustReason.poor.id, UntrustReason.other.id])
     @data_object.untrust_reasons.length.should eql(3)
-    @data_object.curate(@user, :vetted_id => Vetted.untrusted.id, :visibility_id =>  Visibility.visible.id, :untrust_reason_ids => [UntrustReason.misidentified.id, UntrustReason.poor.id])
+    @data_object.curate(@curator, :vetted_id => Vetted.untrusted.id, :visibility_id =>  Visibility.visible.id, :untrust_reason_ids => [UntrustReason.misidentified.id, UntrustReason.poor.id])
     @data_object = DataObject.find(@data_object.id)
     @data_object.untrust_reasons.length.should eql(2)
-    @data_object.curate(@user, :vetted_id => Vetted.trusted.id, :visibility_id => Visibility.visible.id)
+    @data_object.curate(@curator, :vetted_id => Vetted.trusted.id, :visibility_id => Visibility.visible.id)
     @data_object = DataObject.find(@data_object.id)
     @data_object.untrust_reasons.length.should eql(0)
   end
 
   it 'curation should add comment when untrusting' do
     comment_count = @data_object.comments.length
-    @data_object.curate(@user, :vetted_id => Vetted.untrusted.id, :visibility_id => Visibility.visible.id, :comment => 'new comment')
+    @data_object.curate(@curator, :vetted_id => Vetted.untrusted.id, :visibility_id => Visibility.visible.id, :comment => 'new comment')
     @data_object.comments.length.should eql(comment_count + 1)
-    @data_object.curate(@user, :vetted_id => Vetted.untrusted.id, :visibility_id => Visibility.visible.id, :untrust_reasons_comment => 'comment generated from untrust reasons')
+    @data_object.curate(@curator, :vetted_id => Vetted.untrusted.id, :visibility_id => Visibility.visible.id, :untrust_reasons_comment => 'comment generated from untrust reasons')
     @data_object.comments.length.should eql(comment_count + 2)
   end
 
@@ -201,13 +176,11 @@ describe DataObject do
   end
 
   it 'ratings should show rating for old and new version of re-harvested dato' do
-    taxon_concept = TaxonConcept.last || build_taxon_concept
-    curator    = create_curator
-    text_dato  = taxon_concept.overview.last
-    image_dato = taxon_concept.images.last
+    text_dato  = @taxon_concept.overview.last
+    image_dato = @taxon_concept.images.last
 
-    text_dato.rate(curator, 4)
-    image_dato.rate(curator, 4)
+    text_dato.rate(@another_curator, 4)
+    image_dato.rate(@another_curator, 4)
 
     text_dato.data_rating.should eql(4.0)
     image_dato.data_rating.should eql(4.0)
@@ -218,8 +191,8 @@ describe DataObject do
     new_text_dato.data_rating.should eql(4.0)
     new_image_dato.data_rating.should eql(4.0)
 
-    new_text_dato.rate(curator, 2)
-    new_image_dato.rate(curator, 2)
+    new_text_dato.rate(@another_curator, 2)
+    new_image_dato.rate(@another_curator, 2)
 
     new_text_dato.data_rating.should eql(2.0)
     new_image_dato.data_rating.should eql(2.0)
@@ -262,7 +235,7 @@ describe DataObject do
 
   it 'tagging should create tag saving guid of the data_object into DataObjectTags' do
     count = DataObjectTags.count
-    @dato.tag("key1", "value1", @user)
+    @dato.tag("key1", "value1", @curator)
     DataObjectTags.count.should == count + 1
     DataObjectTags.last.data_object_guid.should == @dato.guid
   end
@@ -274,26 +247,24 @@ describe DataObject do
   end
 
   it 'tagging should show up public and private tags for old and new version of dato after re-harvesting' do
-    curator       = build_curator(@taxon_concept)
     count         = DataObjectTags.count
 
-    @image_dato.tag("key-private-old", "value-private-old", @user)
-    @image_dato.tag("key-old", "value-old", curator)
+    @image_dato.tag("key-private-old", "value-private-old", @curator)
+    @image_dato.tag("key-old", "value-old", @another_curator)
     new_image_dato = DataObject.build_reharvested_dato(@image_dato)
-    new_image_dato.tag("key-private_new", "value-private-new", @user)
-    new_image_dato.tag("key-new", "value-new", curator)
+    new_image_dato.tag("key-private_new", "value-private-new", @curator)
+    new_image_dato.tag("key-new", "value-new", @another_curator)
 
     DataObjectTags.count.should == count + 4
     @image_dato.public_tags.size.should == 4
-    @user.tags_for(@image_dato).size.should == 2
+    @curator.tags_for(@image_dato).size.should == 2
   end
 
   it 'tagging should mark tags as public if added by a curator' do
     commit_transactions # We're looking at curators, here, we need cross-database joins.
-    curator = build_curator(@taxon_concept)
     @taxon_concept.reload
     @image_dato.reload
-    @image_dato.tag 'color', 'blue', curator
+    @image_dato.tag 'color', 'blue', @another_curator
     dotag = DataObjectTag.find_by_key_and_value('color', 'blue')
     DataObjectTag.find_by_key_and_value('color', 'blue').is_public.should be_true
   end
@@ -388,10 +359,10 @@ describe DataObject do
   end
 
   it 'should create a new LastCuratedDate pointing to the right TC and user' do
-    @data_object.curator_activity_flag(@user, @taxon_concept.id)
+    @data_object.curator_activity_flag(@curator, @taxon_concept.id)
     LastCuratedDate.count.should == @num_lcd + 1
     LastCuratedDate.last.taxon_concept_id.should == @taxon_concept.id
-    LastCuratedDate.last.user_id.should == @user.id
+    LastCuratedDate.last.user_id.should == @curator.id
   end
 
   it 'should do nothing if the current user cannot curate this DataObject' do
@@ -404,7 +375,7 @@ describe DataObject do
     current_count = @num_lcd
     [Vetted.trusted.id, Vetted.untrusted.id].each do |vetted_method|
       [Visibility.invisible.id, Visibility.visible.id, Visibility.inappropriate.id].each do |visibility_method|
-        @image_dato.curate(@user, :vetted_id => vetted_method, :visibility_id => visibility_method)
+        @image_dato.curate(@curator, :vetted_id => vetted_method, :visibility_id => visibility_method)
         LastCuratedDate.count.should == (current_count += 1)
       end
     end
@@ -418,14 +389,14 @@ describe DataObject do
                         :language_id => Language.english.id},
        :taxon_concept_id => @taxon_concept.id,
        :data_objects_toc_category => {:toc_id => TocItem.overview.id}},
-      @user)
+      @curator)
     LastCuratedDate.count.should == @num_lcd + 1
   end
 
   it 'should set a last curated date when a curator updates a text object' do
     # I tried gen here, but it wasn't working (JRice)
     UsersDataObject.create(:data_object_id => @data_object.id,
-                           :user_id => @user.id)
+                           :user_id => @curator.id)
     DataObject.update_user_text(
       {:data_object => {:description => "fun!",
                         :title => 'funnerer',
@@ -434,7 +405,7 @@ describe DataObject do
        :id => @data_object.id,
        :taxon_concept_id => @taxon_concept.id,
        :data_objects_toc_category => {:toc_id => TocItem.overview.id}},
-      @user)
+      @curator)
     LastCuratedDate.count.should == @num_lcd + 1
   end
 
@@ -519,21 +490,21 @@ describe DataObject do
     data_object_hash['visibility_id'][0].should == Visibility.visible.id
 
     # Making it untrusted
-    d.curate(@user, :vetted_id => Vetted.untrusted.id)
+    d.curate(@curator, :vetted_id => Vetted.untrusted.id)
     response = @solr.query_lucene("data_object_id:#{d.id}")
     curated_data_object_hash = response['response']['docs'][0]
     curated_data_object_hash['vetted_id'][0].should == Vetted.untrusted.id
     curated_data_object_hash['visibility_id'][0].should == Visibility.visible.id
 
     # Making it invisible
-    d.curate(@user, :visibility_id => Visibility.invisible.id)
+    d.curate(@curator, :visibility_id => Visibility.invisible.id)
     response = @solr.query_lucene("data_object_id:#{d.id}")
     curated_data_object_hash = response['response']['docs'][0]
     curated_data_object_hash['vetted_id'][0].should == Vetted.untrusted.id
     curated_data_object_hash['visibility_id'][0].should == Visibility.invisible.id
 
     # Making it trusted and visible
-    d.curate(@user, :vetted_id => Vetted.trusted.id, :visibility_id => Visibility.visible.id)
+    d.curate(@curator, :vetted_id => Vetted.trusted.id, :visibility_id => Visibility.visible.id)
     response = @solr.query_lucene("data_object_id:#{d.id}")
     curated_data_object_hash = response['response']['docs'][0]
     curated_data_object_hash['vetted_id'][0].should == Vetted.trusted.id
@@ -547,53 +518,103 @@ describe DataObject do
   end
 
   it 'should post a note to the feed when a curator rates the object' do
-    @image_dato.rate(@user, 3)
+    @image_dato.rate(@curator, 3)
     @image_dato.feed.last.body.should =~ /(rating|rated)/
     @image_dato.feed.last.feed_item_type.should == FeedItemType.curator_activity
-    @image_dato.feed.last.user.should == @user
+    @image_dato.feed.last.user.should == @curator
   end
 
   it 'should post a note to the feed when a curator trusts the object' do
-    @image_dato.curate(@user, :vetted_id => Vetted.trusted.id)
+    @image_dato.curate(@curator, :vetted_id => Vetted.trusted.id)
     @image_dato.feed.last.body.should =~ /trusted/
     @image_dato.feed.last.feed_item_type.should == FeedItemType.curator_activity
-    @image_dato.feed.last.user.should == @user
+    @image_dato.feed.last.user.should == @curator
   end
 
   it 'should post a note to the feed (with reasons) when a curator untrusts the object' do
-    @image_dato.curate(@user, :vetted_id => Vetted.untrusted.id, :untrust_reasons_comment => 'testing the comments')
+    @image_dato.curate(@curator, :vetted_id => Vetted.untrusted.id, :untrust_reasons_comment => 'testing the comments')
     @image_dato.feed.last.body.should =~ /untrusted/
     @image_dato.feed.last.body.should =~ /testing the comments/
     @image_dato.feed.last.feed_item_type.should == FeedItemType.curator_activity
-    @image_dato.feed.last.user.should == @user
+    @image_dato.feed.last.user.should == @curator
   end
 
   it 'should post a note to the feed when a curator "unreviews" the object' do
-    @image_dato.curate(@user, :vetted_id => Vetted.unknown.id)
+    @image_dato.curate(@curator, :vetted_id => Vetted.unknown.id)
     @image_dato.feed.last.body.should =~ /marked.*as unreviewed/
     @image_dato.feed.last.feed_item_type.should == FeedItemType.curator_activity
-    @image_dato.feed.last.user.should == @user
+    @image_dato.feed.last.user.should == @curator
   end
 
   it 'should post a note to the feed when a curator marks the object as invisible' do
-    @image_dato.curate(@user, :visibility_id => Visibility.invisible.id)
+    @image_dato.curate(@curator, :visibility_id => Visibility.invisible.id)
     @image_dato.feed.last.body.should =~ /hid an image/i
     @image_dato.feed.last.feed_item_type.should == FeedItemType.curator_activity
-    @image_dato.feed.last.user.should == @user
+    @image_dato.feed.last.user.should == @curator
   end
 
   it 'should post a note to the feed when a curator marks the object as inappropriate' do
-    @image_dato.curate(@user, :visibility_id => Visibility.inappropriate.id)
+    @image_dato.curate(@curator, :visibility_id => Visibility.inappropriate.id)
     @image_dato.feed.last.body.should =~ /marked an image as inappropriate/i
     @image_dato.feed.last.feed_item_type.should == FeedItemType.curator_activity
-    @image_dato.feed.last.user.should == @user
+    @image_dato.feed.last.user.should == @curator
   end
 
   it 'should post a note to the feed when a curator shows the object' do
-    @image_dato.curate(@user, :visibility_id => Visibility.visible.id)
+    @image_dato.curate(@curator, :visibility_id => Visibility.visible.id)
     @image_dato.feed.last.body.should =~ /made this image visible/i
     @image_dato.feed.last.feed_item_type.should == FeedItemType.curator_activity
-    @image_dato.feed.last.user.should == @user
+    @image_dato.feed.last.user.should == @curator
+  end
+
+  it 'should add an entry in curated_data_objects_hierarchy_entries when a curator adds an association' do
+    cdohe = CuratedDataObjectsHierarchyEntry.last # NOTE ... perhaps this is presumtuous, but I think not.
+    cdohe.should_not == nil
+    cdohe.hierarchy_entry_id.should == @hierarchy_entry.id
+    cdohe.data_object_id.should == @image_dato.id
+    cdohe.added.should be_true
+  end
+
+  it 'should add an entry to the curator activity log when a curator adds an association' do
+    type = ChangeableObjectType.curated_data_objects_hierarchy_entry
+    type.should_not == nil
+    action = ActionWithObject.add_association
+    action.should_not == nil
+    curator_action = CuratorActivity.add_association
+    curator_action.should_not == nil
+    @last_log_entry_after_adding_association.user.should == @another_curator
+    @last_log_entry_after_adding_association.data_object.should == @image_dato
+    @last_log_entry_after_adding_association.curator_activity.should == curator_action
+    last_action = ActionsHistory.last
+    last_action.action_with_object.should == action
+    last_action.changeable_object_type.should == type
+    last_action.user.should == @another_curator
+  end
+
+  it 'should add an entry to curated_data_objects_hierarchy_entries when a curator removes an association' do
+    cdohe_count = CuratedDataObjectsHierarchyEntry.count(:conditions => "hierarchy_entry_id = #{@hierarchy_entry.id}")
+    @image_dato.remove_curated_association(@another_curator, @hierarchy_entry)
+    CuratedDataObjectsHierarchyEntry.count(:conditions => "hierarchy_entry_id = #{@hierarchy_entry.id}").should ==
+        cdohe_count + 1
+    cdohe = CuratedDataObjectsHierarchyEntry.last
+    cdohe.added.should be_false
+    cdohe.data_object_id.should == @image_dato.id
+    cdohe.hierarchy_entry_id.should == @hierarchy_entry.id
+  end
+
+  it '#published_entries should read data_objects_hierarchy_entries' do
+    @data_object.should_receive(:hierarchy_entries).and_return([])
+    @data_object.published_entries.should == []
+  end
+
+  it '#published_entries should use the last curated_data_objects_hierarchy_entries entry' do
+    # Yeah, I really do want to try this three times to make sure it toggles properly.
+    @image_dato.remove_curated_association(@another_curator, @hierarchy_entry)
+    @image_dato.published_entries.should_not include(@hierarchy_entry)
+    @image_dato.add_curated_association(@another_curator, @hierarchy_entry)
+    @image_dato.published_entries.should include(@hierarchy_entry)
+    @image_dato.remove_curated_association(@another_curator, @hierarchy_entry)
+    @image_dato.published_entries.should_not include(@hierarchy_entry)
   end
 
 end

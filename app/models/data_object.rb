@@ -679,21 +679,11 @@ class DataObject < SpeciesSchemaModel
     else
       @taxon_concepts = tc
     end
+    @taxon_concepts
   end
 
   def linked_taxon_concept
-    if created_by_user?
-      @taxon_concept ||= taxon_concept_for_users_text
-    else
-      @taxon_concept ||= TaxonConcept.find_by_sql(["
-        SELECT tc.*
-        FROM data_objects_hierarchy_entries dohe
-        JOIN hierarchy_entries he ON (dohe.hierarchy_entry_id=he.id)
-        JOIN taxon_concepts tc ON (he.taxon_concept_id=tc.id)
-        WHERE dohe.data_object_id=?
-        ORDER BY tc.id -- DataObject#taxon_concepts
-      ", id])[0]
-    end
+    get_taxon_concepts.first
   end
 
   def curate(user, opts)
@@ -1065,8 +1055,19 @@ class DataObject < SpeciesSchemaModel
     nil
   end
 
+  def curated_hierarchy_entries
+    entries = Set.new(hierarchy_entries)
+    CuratedDataObjectsHierarchyEntry.find_by_sql(
+      "SELECT * FROM curated_data_objects_hierarchy_entries WHERE id IN
+         (SELECT max(id) FROM curated_data_objects_hierarchy_entries GROUP BY hierarchy_entry_id)").each do |cdohe|
+      entries << cdohe.hierarchy_entry if cdohe.added?
+      entries.reject {|e| e.id == cdohe.hierarchy_entry_id}
+    end
+    entries.to_a
+  end
+
   def published_entries
-    hierarchy_entries.select{ |he| he.published == 1 && he.visibility_id == Visibility.visible.id }
+    curated_hierarchy_entries.select{ |he| he.published == 1 && he.visibility_id == Visibility.visible.id }
   end
 
   def first_concept_name
@@ -1103,20 +1104,22 @@ class DataObject < SpeciesSchemaModel
   end
 
   def add_curated_association(user, hierarchy_entry)
-    #TODO = DataObjectsHierarchyEntry.exists?(:hierarchy_entry_id => hierarchy_entry.id, :data_object_id => self.id)
-    # ... this wasn't working for us, so we went old-school:
-    exists = DataObjectsHierarchyEntry.find_by_hierarchy_entry_id_and_data_object_id(hierarchy_entry.id, self.id)
-    unless exists
-      DataObjectsHierarchyEntry.create(:hierarchy_entry_id => hierarchy_entry.id, :data_object_id => self.id)
-    end
-    cdohe = CuratedDataObjectsHierarchyEntry.create(:added => true, :hierarchy_entry_id => hierarchy_entry.id,
-                                                    :data_object_id => self.id, :user_id => user.id)
-    CuratorDataObjectLog.create(:data_object => self, :user => user,
-                                :curator_activity => CuratorActivity.add_association)
-    user.track_curator_activity(cdohe, 'curated_data_objects_hierarchy_entry', 'add_association')
+    create_curated_association_and_log(user, hierarchy_entry, true, :add_association)
+  end
+
+  def remove_curated_association(user, hierarchy_entry)
+    create_curated_association_and_log(user, hierarchy_entry, false, :remove_association)
   end
 
 private
+
+  def create_curated_association_and_log(user, hierarchy_entry, added, action)
+    cdohe = CuratedDataObjectsHierarchyEntry.create(:added => added, :hierarchy_entry_id => hierarchy_entry.id,
+                                                    :data_object_id => self.id, :user_id => user.id)
+    CuratorDataObjectLog.create(:data_object => self, :user => user,
+                                :curator_activity => CuratorActivity.send(action))
+    user.track_curator_activity(cdohe, 'curated_data_objects_hierarchy_entry', action.to_s)
+  end
 
   def trust(user, opts = {})
     update_attributes({:vetted_id => Vetted.trusted.id, :curated => true})

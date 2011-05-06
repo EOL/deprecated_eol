@@ -27,6 +27,10 @@ module EOL
     private
 
     def cached_files_are_stale?
+      @all_connections.each do |conn|
+        # If there's no file at all, call it 'stale':
+        return true unless File.exists?(mysqldump_path_for_connection(conn))
+      end
       last_modified = File.mtime(File.join(RAILS_ROOT, 'scenarios', "#{@name}.rb"))
       last_compile = time_the_dumps_were_taken
       return true if !last_compile

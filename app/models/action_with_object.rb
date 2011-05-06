@@ -53,5 +53,8 @@ class ActionWithObject < ActiveRecord::Base
   def self.add_association
     cached_find_translated(:action_code, 'add_association')
   end
-end
 
+  def self.remove_association
+    cached_find_translated(:action_code, 'remove_association')
+  end
+end

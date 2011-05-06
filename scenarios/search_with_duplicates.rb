@@ -74,5 +74,4 @@ results[:query_results] = [
   "taxon_concept_id"=>[27]}
 ]
 
-debugger
 EOL::TestInfo.save('search_with_duplicates', results)

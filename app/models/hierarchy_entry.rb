@@ -271,4 +271,5 @@ class HierarchyEntry < SpeciesSchemaModel
     return name.string if preferred_in_language.blank?
     preferred_in_language[0].name.string.firstcap
   end
+
 end

@@ -1057,11 +1057,12 @@ class DataObject < SpeciesSchemaModel
 
   def curated_hierarchy_entries
     entries = Set.new(hierarchy_entries)
-    CuratedDataObjectsHierarchyEntry.find_by_sql(
-      "SELECT * FROM curated_data_objects_hierarchy_entries WHERE id IN
-         (SELECT max(id) FROM curated_data_objects_hierarchy_entries GROUP BY hierarchy_entry_id)").each do |cdohe|
-      entries << cdohe.hierarchy_entry if cdohe.added?
-      entries.reject {|e| e.id == cdohe.hierarchy_entry_id}
+    CuratedDataObjectsHierarchyEntry.find_all_by_data_object_id(self.id).sort_by(&:id).each do |cdohe|
+      if cdohe.added?
+        entries << cdohe.hierarchy_entry
+      else
+        entries.reject! {|e| e.id == cdohe.hierarchy_entry_id}
+      end
     end
     entries.to_a
   end

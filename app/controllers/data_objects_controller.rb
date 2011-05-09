@@ -4,7 +4,7 @@ class DataObjectsController < ApplicationController
   layout proc { |c| c.request.xhr? ? false : "main" }
 
   before_filter :load_data_object, :except => [:index, :new, :create, :preview]
-  before_filter :curator_only, :only => [:rate, :curate]
+  before_filter :curator_only, :only => [:rate, :curate, :remove_association]
 
   def create
     params[:references] = params[:references].split("\n") unless params[:references].blank?
@@ -76,7 +76,7 @@ class DataObjectsController < ApplicationController
   def new
     if(logged_in?)
       @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
-      @selected_license = [License.by_nc.title,License.by_nc.id]        
+      @selected_license = [License.by_nc.title,License.by_nc.id]
       @selected_language = [current_user.language.label,current_user.language.id]
       @toc_id_empty = params[:toc_id] == 'none'
       if (@toc_id_empty)
@@ -117,6 +117,7 @@ class DataObjectsController < ApplicationController
 
   def show
     get_attribution
+    @feed_item = FeedItem.new
     @type = @data_object.data_type.label
     @comments = @data_object.all_comments.dup.paginate(:page => params[:page], :order => 'updated_at DESC', :per_page => Comment.per_page)
     @slim_container = true
@@ -137,8 +138,8 @@ class DataObjectsController < ApplicationController
   #
   # UI for curating a data object
   #
-  # This is a GET, so there's no real reason to check to see 
-  # whether or not the current_user can_curate the object - 
+  # This is a GET, so there's no real reason to check to see
+  # whether or not the current_user can_curate the object -
   # we leave that to the #curate method
   #
   def curation
@@ -148,17 +149,17 @@ class DataObjectsController < ApplicationController
   def curate
     old_untrust_reason_ids = @data_object.untrust_reasons.collect { |ur| ur.id.to_s }
     opts = {
-      :vetted_id => params[:vetted_id], 
-      :visibility_id => params[:visibility_id], 
-      :untrust_reason_ids => params[:untrust_reasons], 
-      :comment => params[:comment], 
-      :taxon_concept_id => params[:taxon_concept_id], 
+      :vetted_id => params[:vetted_id],
+      :visibility_id => params[:visibility_id],
+      :untrust_reason_ids => params[:untrust_reasons],
+      :comment => params[:comment],
+      :taxon_concept_id => params[:taxon_concept_id],
       :untrust_reasons_comment => old_untrust_reason_ids == params[:untrust_reasons] ? [] : params[:untrust_reasons_comment]
     }
     @data_object.curate(current_user, opts)
     expire_data_object(@data_object.id)
     current_user.log_activity(:curated_data_object_id, :value => @data_object.id)
-    
+
     comments_count = @data_object.all_comments.select(&:visible?).size
     respond_to do |format|
       format.html {redirect_to request.referer ? :back : '/'}
@@ -168,6 +169,11 @@ class DataObjectsController < ApplicationController
         render :text => { :type => type, :args => [@data_object.id, @data_object.visibility_id, @data_object.vetted_id, @data_object.vetted.label, comments_count] }.to_json
       }
     end
+  end
+
+  def remove_association
+    @data_object.remove_curated_association(current_user, HierarchyEntry.find(params[:hierarchy_entry_id]))
+    redirect_to data_object_path(@data_object)
   end
 
 protected
@@ -196,8 +202,9 @@ protected
       @data_object.smart_medium_thumb
     when 'original'
       @data_object.original_image
-    else 
+    else
       @data_object.smart_image
     end
   end
+
 end

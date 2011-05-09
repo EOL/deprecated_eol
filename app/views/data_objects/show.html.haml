@@ -69,13 +69,19 @@
         %h3=I18n.t("attribution")
         = render :partial => 'attribution', :locals => { :data_object => @data_object }, :layout => @layout
 
-      - unless @data_object.published_entries.blank?
-        #data_object_hierarchy
-          .divider
-            %h3= I18n.t(:hierarch_var_data_object_publi, :var_data_object_published_entries => (@data_object.published_entries == 1 ? 'y' : 'ies'))
-          - @data_object.published_entries.each do |phe|
-            = phe.ancestors.map { |he| link_to(he.name.string, taxon_concept_path(he.taxon_concept_id)) }.join(' > ')
-            %br
+      #data_object_hierarchy
+        .divider
+          %h3= I18n.t(:hierarch_var_data_object_publi, :var_data_object_published_entries => (@data_object.published_entries == 1 ? 'y' : 'ies'))
+        - if @data_object.published_entries.blank?
+          %p= I18n.t(:data_object_not_associated_with_any_hierarchies)
+        - else
+          %ul#associations
+            - @data_object.published_entries.each do |phe|
+              %li
+                %ul
+                  - phe.ancestors.each do |he|
+                    %li= link_to(he.name.string, taxon_concept_path(he.taxon_concept_id))
+                = link_to I18n.t(:remove_data_object_association), remove_association_path(:id => @data_object.id, :hierarchy_entry_id => phe.hierarchy_entry_id)
       - if @revisions.size > 1
         #data_object_revisions
           .divider

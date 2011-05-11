@@ -186,15 +186,22 @@ namespace :i18n do
   end
 
   desc 'task to generate a key based on a based argument'
-  task :generate_key, [:message] do |t, args|
+  task :generate_key do |t, args|
     def check_if_string_exists(string, en_yml)
       en = open(en_yml)
+      en_content = '' 
       en.read.each do |line|
         if line.match(/^\s\s([\w_?]*):\s/)
-          if (line.split(': "')[1].rstrip == string.gsub("\"", "\\\"")+'"')
-            return line.split(': "')[0].strip
-            exit
-          end
+          en_content << line.strip
+          en_content << "\n"
+        end
+      end
+      en.close
+      en_data = YAML.load(en_content)
+      en_data.each do |key, value|
+        if value==string
+          return key
+          exit
         end
       end
       return ''
@@ -228,7 +235,16 @@ namespace :i18n do
             return_string << string_array[i].downcase
           else
             if (string_array[i]!='#' and string_array[i]!='{' and string_array[i]!='}' and string_array[i]!='%')
-              return_string << '_'
+              case string_array[i]
+                when ':'
+                  return_string << '_colon'
+                when '.'
+                  return_string << '_dot'
+                when ','
+                  return_string << '_comma'
+                else
+                  return_string << '_'
+              end
             end
           end
         end
@@ -292,8 +308,8 @@ namespace :i18n do
       return output_str
     end
 
-    if (args.message)
-      puts "Key: " + process_string(args.message, en_yml)
+    if (ENV['string'])
+      puts "Key: " + process_string(ENV['string'], en_yml)
     else
       puts "Error: please use rake i18n:generate_key string=\"hello world\" to generate the i18n key."
     end

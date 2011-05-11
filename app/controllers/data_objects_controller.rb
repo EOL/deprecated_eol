@@ -4,7 +4,7 @@ class DataObjectsController < ApplicationController
   layout proc { |c| c.request.xhr? ? false : "main" }
 
   before_filter :load_data_object, :except => [:index, :new, :create, :preview]
-  before_filter :curator_only, :only => [:rate, :curate, :remove_association]
+  before_filter :curator_only, :only => [:rate, :curate, :add_association, :remove_association]
 
   def create
     params[:references] = params[:references].split("\n") unless params[:references].blank?
@@ -176,7 +176,22 @@ class DataObjectsController < ApplicationController
     redirect_to data_object_path(@data_object)
   end
 
+  def add_assocation
+    @name = params[:add_association]
+    # TODO - handle the case where they didn't enter a name at all.
+    @entries = entries_for_name(@name)
+    if @entries.length == 1
+      @data_object.add_curated_association(current_user, @entries.first)
+      redirect_to data_object_path(@data_object)
+    end
+  end
+
 protected
+
+  def entries_for_name(name)
+    # TODO - This should use search, not Name.
+    Name.find_by_string(name).hierarchy_entries
+  end
 
   def load_data_object
     @data_object ||= DataObject.find(params[:id])

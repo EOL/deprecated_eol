@@ -10,11 +10,20 @@ describe 'Data Object Page' do
 
   describe "#show" do
     before(:all) do
-      @tc = build_taxon_concept(:images => [:object_cache_url => Factory.next(:image)], :toc => []) # Somewhat empty, to speed things up.
+      # Somewhat empty, to speed things up:
+      @tc = build_taxon_concept(:images => [:object_cache_url => Factory.next(:image)], :toc => [])
+      @another_name = 'Whatever'
+      @another_tc = build_taxon_concept(:images => [], :toc => [], :scientific_name => @another_name)
+      @single_name = 'Singularus namicus'
+      @singular_tc = build_taxon_concept(:images => [], :toc => [], :scientific_name => @single_name)
+      @singular_he = @singular_tc.entry
+      @curator = build_curator(@tc)
       @image = @tc.data_objects.select { |d| d.data_type.label == "Image" }[0]
       @image.feed.post @feed_body_1 = "Something"
       @image.feed.post @feed_body_2 = "Something Else"
       @image.feed.post @feed_body_3 = "Something More"
+      @extra_he = @another_tc.entry
+      @image.add_curated_association(@curator, @extra_he)
 
       # Build data_object without comments
       @dato_no_comments = build_data_object('Image', 'No comments',
@@ -121,6 +130,26 @@ describe 'Data Object Page' do
     it 'should show an empty feed' do
       visit("/data_objects/#{@dato_untrusted.id}")
       page.body.should have_tag('#feed_items_container', :text => /no activity/i)
+    end
+
+    it 'should allow a curator to remove an association' do
+      login_as @curator
+      visit("/data_objects/#{@image.id}")
+      page.body.should have_tag('ul#associations') do
+        with_tag('a', :text => 'Remove association')
+      end
+      page.body.should have_tag('a', :text => @another_name)
+      click_link "remove_association_#{@extra_he.id}"
+      page.body.should_not have_tag('a', :text => @another_name)
+    end
+
+    it 'should allow a curator to add an association where the name matches exactly one hierarchy entry' do
+      login_as @curator
+      visit("/data_objects/#{@image.id}")
+      page.body.should_not have_tag('a', :text => @single_name)
+      fill_in 'add_association', :with => @single_name
+      click_button 'Add'
+      page.body.should have_tag('a', :text => @single_name)
     end
 
   end

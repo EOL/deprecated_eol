@@ -1,5 +1,5 @@
 # If you aren't sure what a comment is, perhaps you should re-think your career using Rails.  :)
-# 
+#
 # Comments are polymorphically related to either a TaxonConcept or a DataObject.
 #
 # Comments can be hidden (by curators).
@@ -25,7 +25,7 @@ class Comment < ActiveRecord::Base
   def self.for_feeds(type = :all, taxon_concept_id = nil, max_results = 50)
     return [] if taxon_concept_id.nil?
     min_date = 30.days.ago.strftime('%Y-%m-%d')
-    comments_hash = SpeciesSchemaModel.connection.execute("
+    comments_hash = SpeciesSchemaModel.connection.execute(ActiveRecord::Base.sanitize_sql_array(["
       ( SELECT c.id, c.body description, he_children.taxon_concept_id, 'Comment' data_type_label, c.created_at, n.string scientific_name
         FROM hierarchy_entries he_parent
           JOIN hierarchy_entries he_children
@@ -34,13 +34,17 @@ class Comment < ActiveRecord::Base
                 AND he_parent.hierarchy_id=he_children.hierarchy_id)
           JOIN names n ON (he_children.name_id=n.id)
           JOIN data_objects_hierarchy_entries dohe ON (he_children.id=dohe.hierarchy_entry_id)
+          LEFT JOIN curated_data_objects_hierarchy_entries cdohe ON
+            (dohe.data_object_id = cdohe.data_object_id
+              AND dohe.hierarchy_entry_id = cdohe.hierarchy_entry_id
+              AND cdohe.added = ?)
           JOIN data_objects do ON (dohe.data_object_id=do.id)
           JOIN data_objects do1 ON (do.guid=do1.guid)
           JOIN #{Comment.full_table_name} c ON(c.parent_id=do.id)
-        WHERE he_parent.taxon_concept_id=#{taxon_concept_id}
+        WHERE he_parent.taxon_concept_id = ?
         AND do1.published=1
         AND c.parent_type='DataObject'
-        AND c.created_at > '#{min_date}'
+        AND c.created_at > ?
       ) UNION (
         SELECT c.id, c.body description, he_children.taxon_concept_id, 'Comment' data_type_label, c.created_at, n.string scientific_name
         FROM hierarchy_entries he_parent
@@ -51,9 +55,9 @@ class Comment < ActiveRecord::Base
           JOIN names n ON (he_children.name_id=n.id)
           JOIN #{Comment.full_table_name} c
             ON(c.parent_id=he_children.taxon_concept_id AND c.parent_type='TaxonConcept')
-        WHERE he_parent.taxon_concept_id=#{taxon_concept_id}
-        AND c.created_at > '#{min_date}'
-      )").all_hashes.uniq
+        WHERE he_parent.taxon_concept_id = ?
+        AND c.created_at > ?
+      )", true, taxon_concept_id, min_date, taxon_concept_id, min_date])).all_hashes.uniq
 
     comments_hash.sort! do |a, b|
       b['created_at'] <=> a['created_at']
@@ -100,7 +104,7 @@ class Comment < ActiveRecord::Base
         d.image? ? d.smart_thumb : ''
      else ''
     end
-    return return_url    
+    return return_url
   end
 
   # the url of the parent object (taxon concept or data object)
@@ -110,7 +114,7 @@ class Comment < ActiveRecord::Base
      when 'DataObject'   then "/data_objects/#{self.parent_id}"
      else ''
     end
-    return return_url    
+    return return_url
   end
 
   # A friendly version of the parent name (e.g. "Image", "Taxon Concept", etc.)
@@ -119,7 +123,7 @@ class Comment < ActiveRecord::Base
   # methods instead.
   def parent_type_name
     return_name = case self.parent_type
-     when 'TaxonConcept' then 
+     when 'TaxonConcept' then
         'page'
      when 'DataObject' then
         d=DataObject.find_by_id(self.parent_id)
@@ -158,10 +162,10 @@ class Comment < ActiveRecord::Base
 
   def curator_activity_flag
     if is_curatable_by?(user)
-      LastCuratedDate.create(:user_id => user.id, 
-        :taxon_concept_id => taxon_concept_id, 
+      LastCuratedDate.create(:user_id => user.id,
+        :taxon_concept_id => taxon_concept_id,
         :last_curated => Time.now)
-    end    
+    end
   end
 
   def taxon_concept_id
@@ -191,31 +195,4 @@ private
   end
 
 end
-
-# == Schema Info
-# Schema version: 20081002192244
-#
-# Table name: comments
-#
-#  id          :integer(4)      not null, primary key
-#  parent_id   :integer(4)      not null
-#  user_id     :integer(4)
-#  body        :text            not null
-#  parent_type :string(255)     not null
-#  created_at  :datetime
-#  updated_at  :datetime
-#  visible_at  :datetime
-# == Schema Info
-# Schema version: 20081020144900
-#
-# Table name: comments
-#
-#  id          :integer(4)      not null, primary key
-#  parent_id   :integer(4)      not null
-#  user_id     :integer(4)
-#  body        :text            not null
-#  parent_type :string(255)     not null
-#  created_at  :datetime
-#  updated_at  :datetime
-#  visible_at  :datetime
 

@@ -626,17 +626,6 @@ class DataObject < SpeciesSchemaModel
     DataObjectTags.public_tags_for_data_object self
   end
 
-  # Names of taxa associated with this image
-  def taxa_names_taxon_concept_ids
-    results = SpeciesSchemaModel.connection.execute("SELECT n.string, he.taxon_concept_id
-        FROM data_objects_hierarchy_entries dohe
-        JOIN hierarchy_entries he ON (dohe.hierarchy_entry_id=he.id)
-        JOIN names n ON (he.name_id=n.id)
-        WHERE dohe.data_object_id = #{id}").all_hashes
-
-    results.map{|r| {:taxon_name => r['string'], :taxon_concept_id => r['taxon_concept_id']}}
-  end
-
   # returns a hash in the format { 'tag_key' => ['value1','value2'] }
   def tags_hash
     tags.inject({}) do |all,this|
@@ -650,10 +639,8 @@ class DataObject < SpeciesSchemaModel
     tags.map {|t| t.key }.uniq
   end
 
-  # TODO: Make documentation rdoc compatible
-  # Return taxon concepts directly associated with this Dato.
-  # default - returns all taxon concepts
-  # options:
+  # TODO - wow, this is expensive (IFF you pass in :published) ... we should really consider optimizing this, since
+  # it's actually used quite often. ...and in some cases, just to get the ID of the first one.  Ouch.
   # :published -> :strict - return only published taxon concepts
   # :published -> :preferred - same as above, but returns unpublished taxon concepts if no published ones are found
   def get_taxon_concepts(opts = {})
@@ -661,23 +648,11 @@ class DataObject < SpeciesSchemaModel
     if created_by_user?
       @taxon_concepts = [taxon_concept_for_users_text]
     else
-      query = "
-        SELECT distinct tc.*
-        FROM hierarchy_entries he
-        JOIN taxon_concepts tc on he.taxon_concept_id = tc.id
-        JOIN data_objects_hierarchy_entries dh on dh.hierarchy_entry_id = he.id
-        WHERE dh.data_object_id = ?
-        ORDER BY tc.id -- DataObject#taxon_concepts(true)"
-      @taxon_concepts = TaxonConcept.find_by_sql([query, id])
+      @taxon_concepts = taxon_concepts
     end
-    tc, tc_with_supercedure = @taxon_concepts.partition {|item| item.supercedure_id == 0}
-    # find is aliased to recursive method to find taxon_concept without supercedure_id
-    tc += tc_with_supercedure.map {|item| TaxonConcept.find(item.id)}.compact
     if opts[:published]
-      published, unpublished = tc.partition {|item| item.published?}
+      published, unpublished = @taxon_concepts.partition {|item| TaxonConcept.find(item.id).published?}
       @taxon_concepts = (!published.empty? || opts[:published] == :strict) ? published : unpublished
-    else
-      @taxon_concepts = tc
     end
     @taxon_concepts
   end

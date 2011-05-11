@@ -21,13 +21,13 @@ class ActionsHistory < ActiveRecord::Base
   def taxon_concept_name
     case changeable_object_type_id
       when ChangeableObjectType.data_object.id:
-        data_object.taxa_names_taxon_concept_ids[0][:taxon_name]
+        data_object.get_taxon_concepts.first.entry.name.string
       when ChangeableObjectType.comment.id:
         if comment_object.parent_type == 'TaxonConcept'
           comment_parent.scientific_name
         elsif comment_object.parent_type == 'DataObject'
           if comment_parent.user.nil?
-            comment_parent.taxa_names_taxon_concept_ids[0][:taxon_name]
+            comment_parent.get_taxon_concepts.first.entry.name.string
           else
             comment_parent.taxon_concept_for_users_text.name
           end
@@ -46,7 +46,7 @@ class ActionsHistory < ActiveRecord::Base
   def taxon_concept_id
     case changeable_object_type_id
       when ChangeableObjectType.data_object.id:
-        data_object.taxa_names_taxon_concept_ids[0][:taxon_concept_id]
+        data_object.get_taxon_concepts.first.id
       when ChangeableObjectType.comment.id:
         if comment_object.parent_type == 'TaxonConcept'
           comment_parent.id

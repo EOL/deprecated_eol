@@ -96,7 +96,7 @@ class AccountController < ApplicationController
     cookies.delete :user_auth_token
     reset_session
     store_location(params[:return_to])
-    flash[:notice] =  I18n.t(:you_have_been_logged_out) 
+    flash[:notice] =  I18n.t(:you_have_been_logged_out)
     redirect_back_or_default
   end
 
@@ -111,13 +111,13 @@ class AccountController < ApplicationController
         @users.each do |user_with_forgotten_pass|
           Notifier.deliver_forgot_password_email(user_with_forgotten_pass, request.port)
         end
-        flash[:notice] =  I18n.t(:reset_password_instructions_emailed) 
+        flash[:notice] =  I18n.t(:reset_password_instructions_emailed)
         redirect_to root_url(:protocol => "http")  # need protocol for flash to survive
       elsif @users.size > 1
         render :action => 'multiple_users_with_forgotten_password'
         return
       else
-        flash.now[:notice] =  I18n.t(:cannot_find_user_or_email) 
+        flash.now[:notice] =  I18n.t(:cannot_find_user_or_email)
       end
     end
   end
@@ -167,7 +167,7 @@ class AccountController < ApplicationController
     end
     if it_worked
       current_user.log_activity(:updated_info)
-      flash[:notice] = I18n.t(:your_information_has_been_updated_thank_you_for_contributing_to_eol) 
+      flash[:notice] = I18n.t(:your_information_has_been_updated_thank_you_for_contributing_to_eol)
       redirect_back_or_default
     end
   end
@@ -218,7 +218,7 @@ class AccountController < ApplicationController
     if User.unique_user?(username) || (logged_in? && current_user.username == username)
       message = ""
     else
-      message =  I18n.t(:username_taken , :name => username) 
+      message =  I18n.t(:username_taken , :name => username)
     end
 
     render :update do |page|
@@ -234,7 +234,7 @@ class AccountController < ApplicationController
     if User.unique_email?(email) || (logged_in? && current_user.email == email)
       message = ""
     else
-      message =  I18n.t(:username_taken , :email => email) 
+      message =  I18n.t(:username_taken , :email => email)
     end
 
     render :update do |page|
@@ -271,6 +271,9 @@ class AccountController < ApplicationController
       dato = @curated_datos.detect {|item| item[:id] == ah[:object_id]}
       # We use nested include of hierarchy entries, taxon concept and names as a first cheap
       # attempt to retrieve a scientific name.
+      # TODO - dato.hierarchy_entries does not account for associations created by (or untrusted by) curators.  That
+      # said, this whole method is too much code in a controller and should be re-written, so we are not (right now)
+      # going to fix this.  Please create the data in a model and display it in the view.
       dato.hierarchy_entries.each do |he|
         # TODO: Check to see if this is using eager loading or not!
         if he.taxon_concept.published == 1 then
@@ -345,7 +348,7 @@ private
   end
 
   def go_to_forgot_password(user)
-    flash[:notice] =  I18n.t(:expired_reset_password_link) 
+    flash[:notice] =  I18n.t(:expired_reset_password_link)
     delete_password_reset_token(user)
     redirect_to :action => "forgot_password", :protocol => "http"
   end
@@ -361,12 +364,12 @@ private
 
   def successful_login(user, remember_me)
     set_current_user(user)
-    notice_message =  I18n.t(:logged_in) 
+    notice_message =  I18n.t(:logged_in)
     if remember_me && !user.is_admin?
       user.remember_me
       cookies[:user_auth_token] = { :value => user.remember_token , :expires => user.remember_token_expires_at }
     elsif remember_me && user.is_admin?
-      notice_message +=  I18n.t(:admin_remind_me_message) 
+      notice_message +=  I18n.t(:admin_remind_me_message)
     end
     flash[:notice] = notice_message
     if user.is_admin? && ( session[:return_to].nil? || session[:return_to].empty?) # if we're an admin we STILL would love a return, thank you very much!

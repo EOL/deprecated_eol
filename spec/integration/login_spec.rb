@@ -61,7 +61,7 @@ describe 'Login' do
     greetings = "Logged in as #{user.given_name}"
     login_as(user)
     visit('/')
-    body.should have_tag('div#user_container') do
+    body.should have_tag('#header') do
       with_tag('p', :text => /#{greetings}/)
     end
     visit('/logout')

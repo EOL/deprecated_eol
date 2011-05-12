@@ -20,11 +20,11 @@ describe 'Content Partners' do
       visit('/content_partner/logout')
     end
 
-    it 'home page of EOL should have desc-personal tag with "Hello [full_name]" and a logout link when logged in' do
+    it 'home page of EOL should have "logged in as [full_name]" and a logout link when logged in' do
       visit('/')
-      body.should have_tag('div#user_container') do
+      body.should have_tag('#header') do
         without_tag('a[href*=?]', /\/login/)
-        with_tag('div#user_container', :text => /Logged in as #{@agent.full_name}/) do
+        with_tag('#header', :text => /Logged in as #{@agent.full_name}/) do
           with_tag('a[href*=?]', /logout/)
         end
       end

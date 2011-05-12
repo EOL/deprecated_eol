@@ -1,9 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 shared_examples_for "all accounts" do
-  it "should behave like all users" do
-
-  end
+  it "should behave like all users"
 end
 
 describe "Non Curator Account Pages" do

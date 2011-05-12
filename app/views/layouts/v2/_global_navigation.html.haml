@@ -1,15 +1,18 @@
-- position ||= 'header'
+- position ||= :header
 - cache(:controller => "/content", :part => "global_navigation_#{position}_#{current_user.language_abbr}") do
-  %div.nav{:id => "global_navigation_#{position}_container", :role => "navigation" }
-    - if position == 'header'
-      %h2= I18n.t(:global_navigation)
-    %ul.menu{:id => "global_navigation_#{position}"}
-      %li.help
+  %div{ :role => "navigation" }
+    - if position == :header
+      %h2.screenreader_accessible= I18n.t(:global_navigation)
+    %ul.nav
+      %li
         = link_to I18n.t(:help) , "/placeholder"
-      %li.about
+      %li
         = link_to I18n.t(:what_is_eol) , "/placeholder"
-      %li.news
+      %li
         = link_to I18n.t(:eol_news) , "/placeholder"
-      %li.donate
+      %li
         = link_to I18n.t(:donate) , { :controller => "/content", :action => "donate" }
+      - if position == :footer
+        %li
+          = link_to I18n.t(:contact_us_link), "/placholder"
 

@@ -61,8 +61,8 @@ namespace :i18n do
       write_type = 'a'
       en_content = ''
       en.read.each do |line|
-        if line.match(/^\s\s([\w_?]*):\s/)
-          en_content << line.strip + "\n"
+        if line.match(/^\s\s(\s*)([\w_?]*):\s/)
+          en_content << line + "\n"
         end
       end
       en.close
@@ -135,8 +135,8 @@ namespace :i18n do
 
     en_content = ''
     en.read.each do |line|
-      if line.match(/^\s\s([\w_?]*):\s/)
-        en_content << line.strip
+      if line.match(/^\s\s(\s*)([\w_?]*):\s/)
+        en_content << line
         en_content << "\n"
       end
     end
@@ -152,8 +152,8 @@ namespace :i18n do
 
         lang_content = ''
         lang.read.each do |line|
-          if line.match(/^\s\s([\w_?]*):\s/)
-            lang_content << line.strip
+          if line.match(/^\s\s(\s*)([\w_?]*):\s/)
+            lang_content << line
             lang_content << "\n"
           end
         end
@@ -163,7 +163,7 @@ namespace :i18n do
         if data
           to_be_translated_content = ''
           en.read.each do |line|
-            key = line.match(/^\s\s([\w_?]*):\s/)
+            key = line.match(/^\s\s(\s*)([\w_?]*):\s/)
             if key
               key = key[1] if key
               if !data[key]  and key != nil
@@ -191,8 +191,8 @@ namespace :i18n do
       en = open(en_yml)
       en_content = '' 
       en.read.each do |line|
-        if line.match(/^\s\s([\w_?]*):\s/)
-          en_content << line.strip
+        if line.match(/^\s\s(\s*)([\w_?]*):\s/)
+          en_content << line
           en_content << "\n"
         end
       end
@@ -211,8 +211,8 @@ namespace :i18n do
       en = open(en_yml)
       en_content = ''
       en.read.each do |line|
-        if line.match(/^\s\s([\w_?]*):\s/)
-          en_content << line.strip
+        if line.match(/^\s\s(\s*)([\w_?]*):\s/)
+          en_content << line
           en_content << "\n"
         end
       end
@@ -322,8 +322,8 @@ namespace :i18n do
       read_file = open(file_path)
       file_content = ''
       read_file.read.each do |line|
-        if line.match(/^\s\s([\w_?]*):\s/)
-          file_content << line.strip
+        if line.match(/^\s\s(\s*)([\w_?]*):\s/)
+          file_content << line
           file_content << "\n"
         end
 

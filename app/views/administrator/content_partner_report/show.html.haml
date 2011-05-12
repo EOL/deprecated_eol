@@ -21,50 +21,33 @@
   =I18n.t("click_circles_or_checkmarks_be")
   %br/
   = link_to_remote(content_partner_check_box_image(@agent.show_on_partner_page?, :id => 'show_on_cp_page_img'),  :url => { :action => 'show_on_partner_page', :id => @agent }, :confirm => I18n.t("are_you_sure_you_want_to_var__", :var__agent_show_on_partner_page_____hide_____show_ => @agent.show_on_partner_page? ? 'hide' : 'show'))
-  =I18n.t("show")
-  = @agent.project_name
-  =I18n.t("on")
-  = link_to(I18n.t("content_partners_"),:controller => '/content',:action => 'partners')
-  =I18n.t("page_of_website")
+  =I18n.t("show_project_on_partner_page_of_website" ,:project_name => @agent.project_name, :partner_link => link_to(I18n.t("content_partners_"),:controller => '/content',:action => 'partners'))  
   %br/
   = link_to_remote(content_partner_check_box_image(@agent.show_mou_on_partner_page?, :id => 'show_mou_on_cp_page_img'),  :url => { :action => 'show_mou_on_partner_page', :id => @agent }, :confirm => I18n.t("are_you_sure_you_want_to_var___", :var__agent_show_mou_on_partner_page_____hide_____show_ => @agent.show_mou_on_partner_page? ? 'hide' : 'show'))
-  =I18n.t("show")
-  = "#{@agent.project_name.pluralize}"
-  =I18n.t("mou_on")
-  = link_to(I18n.t("content_partners_"),:controller => '/content',:action => 'partners')
-  =I18n.t("page_of_website")  
+  =I18n.t("show_project_mou_on_partner_page_of_website" ,:project_name => "#{@agent.project_name.pluralize}", :partner_link => link_to(I18n.t("content_partners_"),:controller => '/content',:action => 'partners'))
+
   %br/
   = link_to_remote(content_partner_check_box_image(@agent.show_gallery_on_partner_page?, :id => 'show_gallery_on_cp_page_img'),  :url => { :action => 'show_gallery_on_partner_page', :id => @agent }, :confirm => I18n.t("are_you_sure_you_want_to_var____", :var__agent_show_gallery_on_partner_page_____hide_____show_ => @agent.show_gallery_on_partner_page? ? 'hide' : 'show'))
-  =I18n.t("show")
-  = "#{@agent.project_name.pluralize}"
-  =I18n.t("gallery_on")
-  = link_to(I18n.t("content_partners_"),:controller => '/content',:action => 'partners')
-  =I18n.t("page_of_website")
+  =I18n.t("show_project_gallery_on_partner_page_of_website" ,:project_name => "#{@agent.project_name.pluralize}", :partner_link => link_to(I18n.t("content_partners_"),:controller => '/content',:action => 'partners'))
   %br/
   = link_to_remote(content_partner_check_box_image(@agent.show_stats_on_partner_page?, :id => 'show_stats_on_cp_page_img'),  :url => { :action => 'show_stats_on_partner_page', :id => @agent }, :confirm => I18n.t("are_you_sure_you_want_to_var_____", :var__agent_show_stats_on_partner_page_____hide_____show_ => @agent.show_stats_on_partner_page? ? 'hide' : 'show'))
-  =I18n.t("show")
-  = "#{@agent.project_name.pluralize}"
-  =I18n.t("statistics_on")
-  = link_to(I18n.t("content_partners_"),:controller => '/content',:action => 'partners')
-  =I18n.t("page_of_website")
+  =I18n.t("show_project_statistics_on_partner_page_of_website", :project_name => "#{@agent.project_name.pluralize}", :partner_link => link_to(I18n.t("content_partners_"),:controller => '/content',:action => 'partners'))
   %br/
   = link_to_remote(content_partner_check_box_image(@agent.vetted?, :id => 'vet_partner_img'),  :url => { :action => 'vet_partner', :id => @agent }, :confirm => I18n.t("are_you_sure_you_want_to_var______", :var__agent_vetted_____unvet_____vet_ => @agent.vetted? ? 'unvet' : 'vet', :var__agent_vetted_____untrusted_____trusted_ => @agent.vetted? ? 'untrusted' : 'trusted'))
-  = "Vet #{@agent.project_name} and update the status of all their uncurated data objects."
+  = I18n.t("vet_project_and_update_the_status_of_all_their_uncurated_data_objects", :project => @agent.project_name)
   %br/
   = link_to_remote(content_partner_check_box_image(@agent.auto_publish?, :id => 'auto_publish_img'),  :url => { :action => 'auto_publish', :id => @agent }, :confirm => I18n.t("are_you_sure_you_want_to_var_______", :var__agent_auto_publish_____disable_____enable_ => @agent.auto_publish? ? 'disable' : 'enable'))
   = "#{@agent.auto_publish? ? 'Disable' : 'Enable'} auto-publish for " + @agent.project_name + "." 
 
 - else
-  = @agent.project_name
-  =I18n.t("is_not_ready_for_their_agreeme")
+  =I18n.t("project_is_not_ready_for_their_agreement", :project => @agent.project_name)
 %br/
 = I18n.t(:content_partner_status) 
 = collection_select(:agent, :agent_status_id, @agent_status, :id, :label, {}, {:onchange => 'javascript:update_partner_status(' + @agent.id.to_s + ');'})
 %br/
 
 - if !@agent.content_partner.last_action.blank?
-  =I18n.t("this_partner_s_last_action_was") 
-  = format_date_time(@agent.content_partner.last_action)
+  =I18n.t("this_partner_s_last_action_was", :date => format_date_time(@agent.content_partner.last_action))
 
 %table.results_table{ :width => "100%" }
   %tr
@@ -84,7 +67,7 @@
     %td.odd
       = content_partner_date(@agent.content_partner.partner_complete_step)
     %td.odd
-      = @agent.content_partner.partner_complete_step? ? 'Complete' : 'Incomplete'
+      = @agent.content_partner.partner_complete_step? ? I18n.t("complete") : I18n.t("incomplete")
   %tr
     %td.even
       =I18n.t("contact_information")
@@ -141,7 +124,7 @@
     %td.odd
       = content_partner_date(@agent.content_partner.transfer_upload_complete_step)
     %td.odd
-      = @agent.content_partner.transfer_upload_complete_step? ? 'Viewed'  : 'Not viewed'
+      = @agent.content_partner.transfer_upload_complete_step? ? I18n.t("viewed")  : I18n.t("not_viewed")
   - if @agent.ready_for_agreement?  
     %tr
       %td.odd

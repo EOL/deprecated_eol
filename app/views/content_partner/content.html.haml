@@ -9,18 +9,13 @@
   - else
     #page-title
       %h1
-        =I18n.t("pages_with_content_contributed")
-        = @content_partner.agent.full_name
+        =I18n.t("pages_with_content_contributed_by_partner", :partner => @content_partner.agent.full_name)
     %hr
     #page-content.clearfix
       #full-page-content
         #content_partner_stats
           %p
-            %strong
-              = @content_partner.agent.full_name
-            =I18n.t("has_contributed_to_a_total_of")
-            = @taxon_concepts_count
-            =I18n.t("pages")
+            =I18n.t("has_contributed_to_a_total_of_count_pages", :name => @content_partner.agent.full_name,  :count => @taxon_concepts_count)
           %br
           %p
             = @content_partner.description unless @content_partner.description.blank?

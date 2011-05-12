@@ -37,20 +37,12 @@
             %i
               =I18n.t("none")
           %td.odd
-            =I18n.t("the_id_of_the_provider_s_hiera")
-            = link_to 'provider_hierarchies', :controller => 'api/docs', :action => 'provider_hierarchies'
-            =I18n.t("for_valid_ids")
+            =I18n.t("the_id_of_the_provider_s_hiera", :link => link_to('provider_hierarchies', :controller => 'api/docs', :action => 'provider_hierarchies'))
       %br
       %h3
         =I18n.t("description")
       %p.indent
-        =I18n.t("this_method_takes_an_integer_o")
-        = link_to("provider_hierarchies", :action => "provider_hierarchies")
-        =I18n.t("api_i_can_find_out_that_the_eo", :itis_id => itis.id)
-        %i
-          =I18n.t("ursus_maritimus")
-        =I18n.t("__by_calling") 
-        = link_to url, url
+        =I18n.t("this_method_takes_an_integer_or_string", :link_provider => link_to("provider_hierarchies", :action => "provider_hierarchies"), :link_url => link_to(url, url))
       %h3
         =I18n.t("xml_response")
       .formatted_code<

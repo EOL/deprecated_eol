@@ -2,9 +2,7 @@
 %strong
   =I18n.t("roles___conditions_of_use")
 %p{ :style => "margin: 10px 0 10px 0;" }
-  = I18n.t("in_providing_its_content_to_eo")
-  = @agent.project_name
-  =I18n.t("will_")
+  = I18n.t("in_providing_its_content_to_eo_", :var__agent_project_name => @agent.project_name)
 %ul
   %li
     =I18n.t("provide_its_content_via_a_form")
@@ -21,69 +19,34 @@
   %li
     =I18n.t("be_able_to_display_the_eol_log")
   %li
-    =I18n.t("allow_eol_to_provide_names_fro")
-    %a{ :href => "http://globalnames.org", :target => "_blank" }
-      =I18n.t("global_names_index")
-    =I18n.t("website___gni_collects_names_a")
-    = @agent.project_name
-    \.
-%p{ :style => "margin: 10px 0 10px 0;" }
-  =I18n.t("in_handling_the_content_provid")
-  = @agent.project_name
-  =I18n.t("__eol_will_")
+    =I18n.t("allow_eol_to_provide_names_from", :link => I18n.t("global_names_index"), :project => @agent.project_name)
+%p{ :style => "margin: 10px 0 10px 0;" }  
+  =I18n.t("in_handling_the_content_provid_", :var__agent_project_name => @agent.project_name)
 %ul
   %li
-    =I18n.t("provide_tools_and_methods_to_e")
-    = @agent.project_name
-    =I18n.t("to_provide_its_content_to_the_")
+    =I18n.t("provide_tools_and_methods_to_e_", :var__agent_project_name => @agent.project_name)
   %li
-    =I18n.t("cache")
-    = @agent.project_name
-    =I18n.t("_s_data_objects_along_with_sim")
+    =I18n.t("cache_var__agent_project_name_", :var__agent_project_name => @agent.project_name)
   %li
-    =I18n.t("attribute_all_of")
-    = @agent.project_name
-    =I18n.t("_s_data_objects_according_to_i")
-    = @agent.project_name
-    \.
+    =I18n.t("attribute_all_of_var__agent_pr" ,:var__agent_project_name => @agent.project_name, :var__agent_project_name => @agent.project_name)
   %li
-    =I18n.t("present_or_pass_along")
-    = @agent.project_name
-    =I18n.t("_s_data_objects_to_others_usin")
+    =I18n.t("present_or_pass_along_var__age", :var__agent_project_name => @agent.project_name)
   %li
-    =I18n.t("not_encourage_or_answer_reques")
-    = @agent.project_name
-    =I18n.t("_s_content_to_other_data_provi")
-    = @agent.project_name
-    \.
+    =I18n.t("not_encourage_or_answer_request", :projecta => @agent.project_name , :projectb => @agent.project_name)
   %li
     =I18n.t("not_alter_the_data_objects_pro")
   %li
-    =I18n.t("notify")
-    = @agent.project_name
-    =I18n.t("of_any_comments_or_feedback_re")
+    =I18n.t("notify_var__agent_project_name", :var__agent_project_name => @agent.project_name)
   %li
-    =I18n.t("work_with")
-    = @agent.project_name
-    =I18n.t("to_improve_the_quality_of_the_")
+    =I18n.t("work_with_var__agent_project_n", :project => @agent.project_name)
   %li
-    =I18n.t("notify")
-    = @agent.project_name
-    =I18n.t("of_statistics_about_the_usage_")
+    =I18n.t("notify_var__agent_project_name_", :var__agent_project_name => @agent.project_name)
   %li
-    =I18n.t("enable")
-    = @agent.project_name
-    =I18n.t("to_access_content_from_the_eol")
-    = @agent.project_name
-    =I18n.t("_s_own_server_or_site_accordin")
+    =I18n.t("enable_var__agent_project_name", :var__agent_project_name=> @agent.project_name)
   %li
-    =I18n.t("eol_will_show")
-    = @agent.project_name
-    =I18n.t("_s_logo_and_project_descriptio")
+    =I18n.t("eol_will_show_project_logo_and_description", :project => @agent.project_name)
   %li
-    =I18n.t("eol_may_elect_at_its_sole_disc")
-    = @agent.project_name
-    =I18n.t("and_reserves_the_right_to_reda")
+    =I18n.t("eol_may_elect_at_its_sole_disc", :var__agent_project_name => @agent.project_name)
 = eol_lang_error_messages_for :content_partner, :header_message => nil, :message => nil
 - form_for @content_partner, :url => { :action => action_name }, :html => { :method => :post, :id => 'license_form' } do |f|
   = f.check_box :roles_accept

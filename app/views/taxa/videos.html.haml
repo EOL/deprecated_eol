@@ -53,7 +53,7 @@
         %hr
   - unless @video_collection.blank?
     .attribution_link{ :title => "More information", :style => "display: none" }
-      = link_to(I18n.t("_span_style__display_block_wid"), |
+      = link_to("<span style='display:block;width:24px;height:25px;'></span>", |
         attribution_data_object_path(@video_collection[0]),                    |
         :id => 'video_attributions', :class => 'popup-link attribution-icon',  |
         :rel => "#video-attr-overlay",                                         |

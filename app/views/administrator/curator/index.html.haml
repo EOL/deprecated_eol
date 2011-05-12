@@ -14,7 +14,7 @@
     %br
     %br
   - if @users.nil? == false && @users.size > 0
-    =I18n.t("a_total_of")
+    =I18n.t("a_total_of_users_were_found_matching_your", :count => @user_count)
     = @user_count
     =I18n.t("users_were_found_matching_your")
     %br

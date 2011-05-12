@@ -17,9 +17,7 @@
     %li
       =I18n.t("if_you_make_a_mistake__use_the")
     %li
-      =I18n.t("if_you_need_to_upload_an_image")
-      = link_to I18n.t("upload_content"),:controller=>'administrator/content_upload',:action=>'index'
-      =I18n.t("feature_first__and_then_refere")
+      =I18n.t("if_you_need_to_upload_an_image", :link => link_to(I18n.t("upload_content"),:controller=>'administrator/content_upload',:action=>'index'))
 %form#content_section_select
   =I18n.t("to_administer_site_content__pl")
   = collection_select(:content_section,:id,@content_sections,:id,:name,{})

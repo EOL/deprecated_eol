@@ -1,9 +1,7 @@
 = link_to I18n.t("_go_back_"),:action=>'show', :id=>params[:id]
 %br/
 
-=I18n.t("the_following_contacts_were_pr")
-=link_to I18n.t("update_their_profile"),:action=>'edit_profile',:id=>@agent.id
-
+=I18n.t("the_following_contacts_were_pr", :update_profile_link => link_to(I18n.t("update_their_profile"),:action=>'edit_profile',:id=>@agent.id))
 
 %br/
 

@@ -1,9 +1,5 @@
-=I18n.t("this_section_is_used_to_create")
-= link_to I18n.t("rss_feed"),:controller=>'/content',:action=>'news',:format=>'rss'
-=I18n.t("and")
-=I18n.t("the")
-= link_to I18n.t("news_archive_page"),:controller=>'/content',:action=>'news'
-=I18n.t("page___you_must_be_comfortable")
+=I18n.t("this_section_is_used_to_create", :rss_link => link_to(I18n.t("rss_feed"),:controller=>'/content',:action=>'news',:format=>'rss'), :news_archive => link_to(I18n.t("news_archive_page"),:controller=>'/content',:action=>'news'))
+=I18n.t("you_must_be_comfortable")
 =I18n.t("note_that_you_can_reference_im")
 #news
   - form_tag({:action=>'index'},:method=>'get') do
@@ -15,9 +11,7 @@
     %br
     %br
     - if @news_items.nil? == false && @news_items.size > 0
-      =I18n.t("a_total_of")
-      = @news_items_count
-      =I18n.t("items_were_found_matching_your")
+      =I18n.t("a_total_of_items_were_found_matching_your_criteria", :count => @news_items_count)
       %br
       = will_paginate @news_items
       %table.results_table{ :cellspacing => "0" }

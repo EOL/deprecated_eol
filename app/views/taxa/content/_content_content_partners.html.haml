@@ -1,6 +1,5 @@
 %p
-  =  I18n.t(:content_partners_intro) 
-  = link_to I18n.t(:eol_api) , url_for(:controller => 'api', :action => 'docs', :only_path => false)
+  =  I18n.t(:content_partners_intro, :link => link_to(I18n.t(:eol_api) , url_for(:controller => 'api', :action => 'docs', :only_path => false))
 %br
 %br
 

@@ -1,11 +1,6 @@
 #resources
   %p
-    =I18n.t("this_area_is_used_to_notify_eo")
-    =I18n.t("entry_in_the_eol_database___yo")
-    =I18n.t("your_resource_or_place_it_on_a")
-    =I18n.t("the")
-    = link_to I18n.t("eol_transfer_schema_format"),:controller=>'content_partner',:action=>'transfer_overview'
-    \.
+    =I18n.t("this_area_is_used_to_notify_eo", :link => link_to(I18n.t("eol_transfer_schema_format"),:controller=>'content_partner',:action=>'transfer_overview'))
   %p
     =I18n.t("use_the__force__action_to_forc")
   - if current_objects.empty?

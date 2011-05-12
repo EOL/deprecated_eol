@@ -55,5 +55,4 @@
   .content-attribution-area
     .attribution-header.text-area-header= I18n.t(:source_and_additional_information) 
     %span.source 
-      =I18n.t("content_provided_by_the") 
-      = external_link_to(I18n.t("biodiversity_heritage_library"),"http://www.biodiversitylibrary.org/")
+      =I18n.t("content_provided_by_the_link", :link =>external_link_to(I18n.t("biodiversity_heritage_library"),"http://www.biodiversitylibrary.org/"))

@@ -48,10 +48,7 @@
             %span
               = submit_tag
         - elsif !current_agent.agreement.nil?
-          =I18n.t("agreed_to_by")
-          = current_agent.agreement.signed_by
-          =I18n.t("on")
-          = format_date_time(current_agent.agreement.signed_on_date)
+          =I18n.t("agreed_to_by_agent_on_date", :agent=> current_agent.agreement.signed_by, :date=> format_date_time(current_agent.agreement.signed_on_date))          
   - if current_agent.ready_for_agreement?
     %h2{ :style => "margin-top: 20px;" }
       =I18n.t("tools")

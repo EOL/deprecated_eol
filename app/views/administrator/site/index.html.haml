@@ -7,18 +7,14 @@
       %td.odd
         =I18n.t("visitors")
       %td.odd
-        =I18n.t("as_of")
-        = format_date_time(Time.now)
-        =I18n.t("there_were")
-        = @visitors.count
-        =I18n.t("unique_visitors")
+        =I18n.t("as_of_time_there_were_unique_visitors", :time => format_date_time(Time.now) , :count => @visitors.count)
   %tr
     %td.odd
       =I18n.t("your_ip_address")
     %td.odd
       = request.remote_ip
       (
-      = "internal IP address" if @allowed_ip
+      =I18n.t("internal_ip_address") if @allowed_ip
       )
   %tr
     %td.even
@@ -44,9 +40,7 @@
       = @config.database_configuration[ENV["RAILS_ENV"]+'_logging']["database"] + ' @ ' + @config.database_configuration[ENV["RAILS_ENV"]+'_logging']["host"]
       %br
       - unless @config.database_configuration['master_database'].nil?
-        =I18n.t("__this_does_not_necessarily_me")
-        = ENV["RAILS_ENV"]
-        =I18n.t("_rb__file_to_see_if_the_master")
+        =I18n.t("this_does_not_necessarily_mean", :env => ENV["RAILS_ENV"]
         %br
         =I18n.t("main_master_")
         = @config.database_configuration['master_database']["database"] + ' @ ' + @config.database_configuration['master_database']["host"]
@@ -91,8 +85,7 @@
         =I18n.t("fragment_caching_enabled")
       %td.odd
         %span#cache_clear_time
-          =I18n.t("home_page_cache_last_cleared_o")
-          = format_date_time($CACHE_CLEARED_LAST)
+          =I18n.t("home_page_cache_last_cleared_on", :date => format_date_time($CACHE_CLEARED_LAST))
         %br
         = link_to_remote I18n.t("_clear_entire_cache_store_"), :url=>{:controller=>'/administrator/site', :action=>'clear_all'}, :confirm=>I18n.t("are_you_sure_you_want_to_clear"), :update=>'cache_clear_time'
         %br

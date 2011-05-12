@@ -6,8 +6,7 @@
 #page-content.clearfix
   #full-page-content
     -# TODO - i18n
-    =I18n.t("welcome___this_is_the_registra")
-    == #{link_to I18n.t("go_to_the_user_registration_pa"),register_url}.
+    =I18n.t("welcome___this_is_the_registra" ,: link =>link_to(18n.t("go_to_the_user_registration_pa"),register_url) )   
     =I18n.t("_this_process_is_designed_for_")
     %br
     %br

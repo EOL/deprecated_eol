@@ -3,9 +3,7 @@
   var todays_date = '#{Date.today}';
 = javascript_include_tag 'admin-news-item.js'
 %br
-=I18n.t("edit_the_news_item_below___htm")
-= link_to I18n.t("tinyurl"), 'http://www.tinyurl.com', :target => '_blank'
-=I18n.t("to_create_shorter_urls_to_cons")
+=I18n.t("edit_the_news_item_below___htm", :link => link_to(I18n.t("tinyurl"), 'http://www.tinyurl.com', :target => '_blank'))
 %table
   %tr
     %td{ :valign => "top" }

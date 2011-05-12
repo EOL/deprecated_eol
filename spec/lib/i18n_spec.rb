@@ -16,7 +16,7 @@ describe 'I18n' do
       en_keys = Array.new
       key_count = 0
       en.read.each do |line|
-        key = line.match(/^\s\s([\w_?]*):\s/)
+        key = line.match(/^\s\s(\s*)([\w_?]*):\s/)
         if key
           key = key[1] if key
           if key
@@ -34,8 +34,8 @@ describe 'I18n' do
       read_file = open(file_path)
       file_content = ''
       read_file.read.each do |line|
-        if line.match(/^\s\s([\w_?]*):\s/)
-          file_content << line.strip
+        if line.match(/^\s\s(\s*)([\w_?]*):\s/)
+          file_content << line
           file_content << "\n"
         end
         
@@ -325,14 +325,14 @@ describe 'I18n' do
   it 'check all keys in the code have entries in the en.yml file' do
     
     def load_yml_file(file_path)
+      first_line = true
       read_file = open(file_path)
       file_content = ''
       read_file.read.each do |line|
-        if line.match(/^\s\s([\w_?]*):\s/)
-          file_content << line.strip
+        if line.match(/^\s\s(\s*)([\w_?]*):\s/)
+          file_content << line
           file_content << "\n"
         end
-
       end
       read_file.close
       return YAML.load(file_content)

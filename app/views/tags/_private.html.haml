@@ -18,9 +18,7 @@
             =I18n.t("you_have_not_tagged_this_image")
       - elsif $ALLOW_USER_LOGINS
         %h2
-          =I18n.t("you_must_be")
-          = link_to I18n.t("logged_in_"), login_path(:params => { :return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path })
-          =I18n.t("to_add_your_own_tags") 
+          =I18n.t("you_must_be_logged_in_to_add_tags", :loggin_link => link_to(I18n.t("logged_in_"), login_path(:params => { :return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path })))
           
     - if logged_in?
       #add_data_object_tags{ :style => "" }

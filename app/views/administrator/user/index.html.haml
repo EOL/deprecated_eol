@@ -53,9 +53,7 @@
       = link_to I18n.t("export_this_list_as_csv"),{:action=>'index',:export=>'true',:start_date=>@start_date,:blank_dates=>@blank_dates,:end_date=>@end_date,:user_search_string=>@user_search_string}
     %br
     - if @users.nil? == false && @users.size > 0
-      =I18n.t("a_total_of")
-      = @user_count
-      =I18n.t("users_were_found_matching_your")
+      =I18n.t("a_total_of_users_were_found_matching_your", :count => @user_count)
       %br
       = will_paginate @users
       %table.results_table{ :cellspacing => "0" }

@@ -3,11 +3,7 @@
     = @page_header 
   %p
     - if(@agent_id != "All")
-      =I18n.t("the_list_represents_the_curati")
-      %strong
-        = link_to(@partner_fullname, { :action => 'show', :id => @agent_id })
-      =I18n.t("_s_data_objects")
-
+      =I18n.t("the_list_represents_the_curation_activity", :link => link_to(@partner_fullname, { :action => 'show', :id => @agent_id }))
     =I18n.t("this_report_is_also_available_")
     - if(@year_month == "All")
       /= link_to " I18n.t(:_see_feeds),{:controller=>'/feeds', :action=>:partner_curation, :agent_id => @agent_id}

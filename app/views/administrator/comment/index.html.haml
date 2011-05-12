@@ -9,9 +9,7 @@
     %br
     %br
     - if @comments.nil? == false && @comments.size > 0
-      =I18n.t("a_total_of")
-      = @comment_count
-      =I18n.t("comments_were_found_matching_y")
+      =I18n.t("a_total_of_comment_were_found_matching_your_criteria", :count => @comment_count)
       %br
       = will_paginate @comments
       %table.results_table{ :cellspacing => "0" }

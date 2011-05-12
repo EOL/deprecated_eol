@@ -30,9 +30,7 @@
       - if act_curators_size > 0
         %li
           %a{ :href => "#citation" }
-            =I18n.t("this_page_has")
-            = act_curators_size
-            =I18n.t("active_curatorvar_act_curators", :var_act_curators_size____1__________s__ => act_curators_size == 1 ? "." : "s.")
+            =I18n.t("this_page_has_active_curators", :count => act_curators_size)
       %li
         %a{ :href => page_curators_path(@taxon_concept.id)}
           =I18n.t("who_can_curate_this_page_")

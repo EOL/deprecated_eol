@@ -7,19 +7,9 @@
     %br
     %i
       - if current_act == 'create'
-        =I18n.t("added_to_the")
-        = act_history.comment_object.parent_type_name
+        =I18n.t("added_to_the_comment", :comment => act_history.comment_object.parent_type_name)        
       - elsif current_act == 'hide' || 'show'
-        =I18n.t("changed_to")
-        "
-        = current_act
-        "
-      =I18n.t("on")
-      "
-      = link_to act_history.taxon_concept_name, {:controller => '/taxa', :action => 'show', :id => act_history.taxon_concept_id}, :target => "_blank"
-      "
-      =I18n.t("by")
-      = curator_or_plain_username(act_history.user)
-      = act_date
-      =I18n.t("ago")
+        =I18n.t("changed_to_act", :act=> current_act)
+      =I18n.t("on_taxon_by_user_date_ago", :taxon=> link_to(act_history.taxon_concept_name, {:controller => '/taxa', :action => 'show', :id => act_history.taxon_concept_id}, :target => "_blank"),:user=>curator_or_plain_username(act_history.user), :date=>act_date)
+      
   %br

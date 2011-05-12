@@ -1,9 +1,7 @@
 - if !logged_in? && $ALLOW_USER_LOGINS
   %p
     %strong
-      =I18n.t("you_must_be")
-      = link_to(I18n.t("logged_in_"), login_path(:params => {:return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path}), {:class => 'login_link'} )
-      =I18n.t("to_post_comments")
+      =I18n.t("you_must_be_logged_in_to_post_comments", :logged_in_link => link_to(I18n.t("logged_in_"), login_path(:params => {:return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path}), {:class => 'login_link'} ))
 - elsif logged_in?
   %h2
     =I18n.t("add_a_new_comment")

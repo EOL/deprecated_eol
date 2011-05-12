@@ -9,13 +9,7 @@
       #partners
         - if @partners.nil? == false && @partners.size > 0
           %p
-            =I18n.t("encyclopedia_of_life_content_p") 
-            = link_to I18n.t("log_in_"), :controller=>'content_partner', :action=>'login'
-            =I18n.t("to_manage_their_information__a")
-            = link_to I18n.t("register"), :controller=>'content_partner', :action=>I18n.t("register")
-            =I18n.t("or_")
-            = link_to I18n.t("learn_more_"), :controller=>'content', :action=>'page', :id=>'help_build_eol'
-            =I18n.t("about_becoming_involved")
+            =I18n.t("encyclopedia_of_life_content_p", :login => link_to(I18n.t("log_in_"), :controller=>'content_partner', :action=>'login'), :register => link_to(I18n.t("register"), :controller=>'content_partner', :action=register), :learn_more =>  link_to(I18n.t("learn_more_"), :controller=>'content', :action=>'page', :id=>'help_build_eol'))            
           %br
           %p
             =I18n.t("note_that_all_of_these_partner")

@@ -14,9 +14,7 @@
     %br
     %br
   - if @users.nil? == false && @users.size > 0
-    =I18n.t("a_total_of")
-    = @user_count
-    =I18n.t("users_were_found_matching_your")
+    =I18n.t("a_total_of_users_were_found_matching_your", :count => @user_count)
     %br
     %form
       = will_paginate @users
@@ -35,7 +33,7 @@
         %th
           =I18n.t("remove")
         %th
-          =I18n.t("on")
+          =I18n.t("_on_")
         %th
           =I18n.t("by_")
       - for user in @users

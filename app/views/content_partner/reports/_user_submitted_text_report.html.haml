@@ -1,17 +1,4 @@
 %li
   %p
-    =I18n.t("text_description")
-    "
-    = truncate(act_history.udo_parent_text.description, 30)
-    "
-    =I18n.t("was_added_to")
-    "
-    = act_history.udo_parent_text.toc_items[0].label
-    "
-    =I18n.t("on__")
-    = link_to act_history.taxon_concept_name, {:controller => '/taxa', :action => 'show', :id => act_history.taxon_concept_id}, :target => "_blank"
-    "
-    =I18n.t("by")
-    = curator_or_plain_username(act_history.user)
-    = act_date
-    =I18n.t("ago")
+    =I18n.t("text_description_was_added", :text=> truncate(act_history.udo_parent_text.description, 30),:toc=> act_history.udo_parent_text.toc_items[0].label,:link => link_to(act_history.taxon_concept_name, {:controller => '/taxa', :action => 'show', :id => act_history.taxon_concept_id}, :target => "_blank"),:user => curator_or_plain_username(act_history.user), :date => act_date)
+    

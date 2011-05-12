@@ -4,9 +4,7 @@
     / Content Partner Curated Data
   %p
     - if(@agent_id != "All")
-      =I18n.t("below_is_the_list_of_harvest_e") 
-      %strong
-        = link_to(@partner_fullname + ".", { :action => 'show', :id => @agent_id })
+      =I18n.t("below_is_the_list_of_harvest_e" ,:link => link_to(@partner_fullname + ".", { :action => 'show', :id => @agent_id }))      
       %br      
       =I18n.t("clicking_on_the_harvest_id_wil")
 

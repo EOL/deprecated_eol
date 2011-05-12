@@ -11,14 +11,14 @@ namespace :i18n do
   en_yml = File.join([lang_dir, "en.yml"])
 
   desc 'Extract row text from haml code'
-  task :extract_text  => :environment do
+  task :extract_text => :environment do
   include ActionView::Helpers
 
-    def replace_line(line, value, en_yml) 
-      if !value.empty? && value.gsub(/#\{.+\}/,"").match(/[a-zA-Z]/)                
-        line = line.gsub(value,process_string(value[1..-2],en_yml,false))   
+    def replace_line(line, value, en_yml)
+      if !value.empty? && value.gsub(/#\{.+\}/,"").match(/[a-zA-Z]/)
+        line = line.gsub(value,process_string(value[1..-2],en_yml,false))
       end
-      return line 
+      return line
     end
    
 
@@ -30,11 +30,11 @@ namespace :i18n do
           value = text[0].strip
           line = replace_line(line,value,en_yml)
         end
-        if confirm = result.match(/:confirm\s*=>\s*(("[^"]+")|('[^']+'))/)          
+        if confirm = result.match(/:confirm\s*=>\s*(("[^"]+")|('[^']+'))/)
           value = confirm[0].gsub(/:confirm\s*=>\s*/,"").strip
           line = replace_line(line,value,en_yml)
-        end        
-      end  
+        end
+      end
       #image_tag
       if tag = line.match(/image_tag[\w]*\s*\(?/)
         if result = line.match(/:title\s*=>\s*(("[^"]+")|('[^']+'))/)
@@ -45,8 +45,8 @@ namespace :i18n do
           value = result[0].gsub(/:alt\s*=>\s*/,"").strip
           line = replace_line(line,value,en_yml)
         end
-      end     
-      #%a %img %link %span  %label
+      end
+      #%a %img %link %span %label
       if tag = line.match(/(%a|%img|%link|%span|%label)[\#\.\{\s]/)
         if result = line.match(/:alt\s*=>\s*(("[^"]+")|('[^']+'))/)
           value = result[0].gsub(/:alt\s*=>\s*/,"").strip
@@ -57,18 +57,18 @@ namespace :i18n do
           line = replace_line(line,value,en_yml)
         end
       end
-      #submit_tag  f.submit
-      if tag = line.match(/=\s*(submit_tag|f.submit)\s*\(?/)    
-        if line.split(tag[0]).length > 1 
+      #submit_tag f.submit
+      if tag = line.match(/=\s*(submit_tag|f.submit)\s*\(?/)
+        if line.split(tag[0]).length > 1
           result = line.split(tag[0])[1]
           if text = result.match(/^(("[^"]+")|('[^']+'))/)
             value = text[0].strip
             line = replace_line(line,value,en_yml)
           end
-          if confirm = result.match(/:confirm\s*=>\s*(("[^"]+")|('[^']+'))/)         
+          if confirm = result.match(/:confirm\s*=>\s*(("[^"]+")|('[^']+'))/)
             value = confirm[0].gsub(/:confirm\s*=>\s*/,"").strip
             line = replace_line(line,value,en_yml)
-          end        
+          end
         end
       end
       #f.label
@@ -80,7 +80,7 @@ namespace :i18n do
             line = replace_line(line,value.gsub("xxx","\"").gsub("yyy","\'"),en_yml)
           end
         end
-      end      
+      end
       return line
     end #end handle
 
@@ -115,9 +115,9 @@ namespace :i18n do
         if entry.line == "-#" && entry.value == "-#"
           next
         end
-        if sline.empty?           
+        if sline.empty?
           file_content << entry.line + "\n"
-          next 
+          next
         end
         #javascript or %style
         if skip == true
@@ -128,25 +128,30 @@ namespace :i18n do
             skip = false
           end
         end
-        if sline.match(/^(:javascript)/)  || sline.match(/^(%style)/)  || sline.match(/^(%script)/)
+        if sline.match(/^(:javascript)/) || sline.match(/^(%style)/) || sline.match(/^(%script)/)
           skip = true
           file_content << entry.line + "\n"
           parent_ident = entry.ident
           next
         end
         #Value exist
-        if !entry.value.empty?    
+        if !entry.value.empty?
           entry.line = entry.line.gsub("\\"+entry.value,entry.value)
           if entry.line.gsub(entry.value,"xxxx").match(/==\s*xxxx/)
             entry.line = entry.line.sub(/==\s*/,"")
-          end 
-          file_content << entry.line.gsub(entry.value, process_string(entry.value, en_yml, entry.is_plain_text)) + "\n"
+          elsif entry.line.gsub(entry.value,"xxxx").match(/\"xxxx\"/) || entry.line.gsub(entry.value,"xxxx").match(/'xxxx'/)
+            entry.line = entry.line.gsub("\""+entry.value+"\"",entry.value).gsub("'"+entry.value+"'",entry.value)
+            entry.is_plain_text=false
+          end
+          entry.line = entry.line.gsub(entry.value, process_string(entry.value, en_yml, entry.is_plain_text)) + "\n"
+          file_content << entry.line
         else
-           file_content << handle(entry.line,en_yml) + "\n"
+           entry.line = handle(entry.line,en_yml) + "\n"
+           file_content << entry.line
         end
       end
       return file_content
-    end  
+    end
     
 
 
@@ -174,7 +179,7 @@ namespace :i18n do
       end
       en.close
       en_data = YAML.load(en_content)
-      while en_data[key]  do
+      while en_data[key] do
         key << '_'
       end
       return key
@@ -186,7 +191,7 @@ namespace :i18n do
       for i in (0..string_array.length-1)
         if (i==string_array.length-1 and string_array[i]==".")
           #puts 'escaping last . in the line'
-        else  
+        else
           if (string_array[i].match(/[a-zA-Z0-9]/))
             return_string << string_array[i].downcase
           else
@@ -217,15 +222,15 @@ namespace :i18n do
   
     def write_to_en_yml_file(en_yml, key, value)
       en_file = open(en_yml, 'a')
-      en_file.write "  " + key + ": \"" + value.gsub("\"", "\\\"") + "\"\n"
+      en_file.write " " + key + ": \"" + value.gsub("\"", "\\\"") + "\"\n"
       en_file.close
     end
 
-    def process_string(string_value, en_yml, is_plain_text) 
+    def process_string(string_value, en_yml, is_plain_text)
       key_array = Array.new
       variable_array = Array.new
       
-      output_string = string_value      
+      output_string = string_value
       hash_count = 0
       if (string_value.include? '#{')
         temp_array = string_value.split('#{')
@@ -247,13 +252,13 @@ namespace :i18n do
       output_str=""
       if is_plain_text
         output_str = "="
-      end 
+      end
       output_str << 'I18n.t("' + string_key + '"'
       for i in (1..hash_count)
-        output_str << ', :'  + key_array[i] + ' => ' + variable_array[i]
+        output_str << ', :' + key_array[i] + ' => ' + variable_array[i]
       end
       
-      output_str << ')'      
+      output_str << ')'
       
       return output_str
     end
@@ -267,12 +272,12 @@ namespace :i18n do
 
     def modify_views(en_yml)
       Dir.glob(File.join([RAILS_ROOT, "app", "views", "**", "*"])).each do |file|
-        #file = "/website/app/views/account/profile.html.haml"
-        if file.match(/(\.html.haml)$/)          
+        #file = "/EOL/20110412/eol/app/views/taxa/videos.html.haml"
+        if file.match(/(\.html.haml)$/)
           puts "\n## "+file
           begin
             file_content = process_file(file, en_yml)
-          rescue 
+          rescue
             puts "======== File Parsing Error: Haml code error, parsing skiped=========="
           end
           begin
@@ -296,4 +301,3 @@ namespace :i18n do
   end
 
 end
-

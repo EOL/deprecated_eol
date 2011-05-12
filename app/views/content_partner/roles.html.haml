@@ -9,9 +9,7 @@
   %li
     =I18n.t("provide_data_objects_as_is_wit")
   %li
-    =I18n.t("respond_to_the_originators_of_")
-    = @agent.project_name
-    =I18n.t("via_the_eol_regarding_its_cont")
+    =I18n.t("respond_to_the_originators_of_", :project => @agent.project_name)
   %li
     =I18n.t("work_with_the_eol_to_improve_t")
   %li

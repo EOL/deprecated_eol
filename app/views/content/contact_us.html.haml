@@ -16,7 +16,7 @@
 #page-content.clearfix
   #full-page-content
     =I18n.t("for_comments_about_the_project", :visit_the_forum => link_to(I18n.t("visit_the_forum"),'http://forum.eol.org', :target=>:new))
-    =I18n.t("__you_can_help_us_by", :suggestion => link_to(I18n.t("suggesting_or_voting_on_featur"), :action=>'feedback'))
+    =I18n.t("you_can_help_us_by", :suggestion_link => link_to(I18n.t("suggesting_or_voting_on_featur"), :action=>'feedback'))
     - unless logged_in?
       =I18n.t("_register_with_eol_to_track_yo")
     \.

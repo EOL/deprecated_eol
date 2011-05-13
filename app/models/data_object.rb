@@ -21,6 +21,7 @@ class DataObject < SpeciesSchemaModel
   has_many :top_concept_images
   has_many :agents_data_objects
   has_many :data_objects_hierarchy_entries
+  has_many :curated_data_objects_hierarchy_entries
   has_many :comments, :as => :parent
   has_many :data_objects_harvest_events
   has_many :harvest_events, :through => :data_objects_harvest_events
@@ -1030,16 +1031,9 @@ class DataObject < SpeciesSchemaModel
     nil
   end
 
+  # Note: the uniq may be overkill, but I figured it couldn't hurt that much and might be helpful.
   def curated_hierarchy_entries
-    entries = Set.new(hierarchy_entries)
-    CuratedDataObjectsHierarchyEntry.find_all_by_data_object_id(self.id).sort_by(&:id).each do |cdohe|
-      if cdohe.added?
-        entries << cdohe.hierarchy_entry
-      else
-        entries.reject! {|e| e.id == cdohe.hierarchy_entry_id}
-      end
-    end
-    entries.to_a
+    (hierarchy_entries + curated_data_objects_hierarchy_entries.map {|c| c.hierarchy_entry }).uniq
   end
 
   def published_entries
@@ -1080,21 +1074,25 @@ class DataObject < SpeciesSchemaModel
   end
 
   def add_curated_association(user, hierarchy_entry)
-    create_curated_association_and_log(user, hierarchy_entry, true, :add_association)
+    cdohe = CuratedDataObjectsHierarchyEntry.create(:hierarchy_entry_id => hierarchy_entry.id,
+                                                    :data_object_id => self.id, :user_id => user.id)
+    log_association(cdohe, user, hierarchy_entry, :add_association)
   end
 
   def remove_curated_association(user, hierarchy_entry)
-    create_curated_association_and_log(user, hierarchy_entry, false, :remove_association)
+    cdohe = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(id, hierarchy_entry.id)
+    raise EOL::Exceptions::ObjectNotFound if cdohe.nil?
+    raise EOL::Exceptions::WrongCurator.new("user did not create this association") unless cdohe.user_id = user.id
+    cdohe.destroy
+    log_association(cdohe, user, hierarchy_entry, :remove_association)
   end
 
 private
 
-  def create_curated_association_and_log(user, hierarchy_entry, added, action)
-    cdohe = CuratedDataObjectsHierarchyEntry.create(:added => added, :hierarchy_entry_id => hierarchy_entry.id,
-                                                    :data_object_id => self.id, :user_id => user.id)
+  def log_association(object, user, hierarchy_entry, action)
     CuratorDataObjectLog.create(:data_object => self, :user => user,
                                 :curator_activity => CuratorActivity.send(action))
-    user.track_curator_activity(cdohe, 'curated_data_objects_hierarchy_entry', action.to_s)
+    user.track_curator_activity(object, 'curated_data_objects_hierarchy_entry', action.to_s)
   end
 
   def trust(user, opts = {})

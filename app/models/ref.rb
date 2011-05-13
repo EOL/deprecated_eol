@@ -12,10 +12,9 @@ class Ref < SpeciesSchemaModel
     refs = Ref.find_by_sql([
       " SELECT refs.* FROM hierarchy_entries he
                   JOIN data_objects_hierarchy_entries dohe ON (he.id = dohe.hierarchy_entry_id)
-                  LEFT JOIN curated_data_objects_hierarchy_entries cdohe ON
+                  JOIN curated_data_objects_hierarchy_entries cdohe ON
                     (dohe.data_object_id = cdohe.data_object_id
-                      AND dohe.hierarchy_entry_id = cdohe.hierarchy_entry_id
-                      AND cdohe.added = ?)
+                      AND dohe.hierarchy_entry_id = cdohe.hierarchy_entry_id)
                   JOIN data_objects do ON (dohe.data_object_id = do.id)
                   JOIN data_objects_refs dor ON (do.id = dor.data_object_id)
                   JOIN refs ON (dor.ref_id = refs.id)
@@ -41,7 +40,7 @@ class Ref < SpeciesSchemaModel
                   AND do.published=1
                   AND do.visibility_id=?
                   AND refs.published=1
-                  AND refs.visibility_id=?", true, taxon_concept_id, Visibility.visible.id, Visibility.visible.id, taxon_concept_id, Visibility.visible.id, taxon_concept_id, Visibility.visible.id, Visibility.visible.id])
+                  AND refs.visibility_id=?", taxon_concept_id, Visibility.visible.id, Visibility.visible.id, taxon_concept_id, Visibility.visible.id, taxon_concept_id, Visibility.visible.id, Visibility.visible.id])
   end
 
   # Determines whether or not the TaxonConcept has Literature References
@@ -50,10 +49,9 @@ class Ref < SpeciesSchemaModel
     ref_count = Ref.count_by_sql([
       "SELECT 1 FROM hierarchy_entries he
                 JOIN data_objects_hierarchy_entries dohe ON (he.id=dohe.hierarchy_entry_id)
-                LEFT JOIN curated_data_objects_hierarchy_entries cdohe ON
+                JOIN curated_data_objects_hierarchy_entries cdohe ON
                   (dohe.data_object_id = cdohe.data_object_id
-                    AND dohe.hierarchy_entry_id = cdohe.hierarchy_entry_id
-                    AND cdohe.added = ?)
+                    AND dohe.hierarchy_entry_id = cdohe.hierarchy_entry_id)
                 JOIN data_objects do ON (dohe.data_object_id=do.id)
                 JOIN data_objects_refs dor ON (do.id=dor.data_object_id)
                 JOIN refs ON (dor.ref_id=refs.id)
@@ -62,7 +60,7 @@ class Ref < SpeciesSchemaModel
                 AND do.visibility_id=?
                 AND refs.published=1
                 AND refs.visibility_id=?
-                LIMIT 1", true, taxon_concept_id, Visibility.visible.id, Visibility.visible.id])
+                LIMIT 1", taxon_concept_id, Visibility.visible.id, Visibility.visible.id])
     return true if ref_count > 0
 
     # HierarchyEntry references

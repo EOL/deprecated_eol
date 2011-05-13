@@ -34,10 +34,9 @@ class Comment < ActiveRecord::Base
                 AND he_parent.hierarchy_id=he_children.hierarchy_id)
           JOIN names n ON (he_children.name_id=n.id)
           JOIN data_objects_hierarchy_entries dohe ON (he_children.id=dohe.hierarchy_entry_id)
-          LEFT JOIN curated_data_objects_hierarchy_entries cdohe ON
+          JOIN curated_data_objects_hierarchy_entries cdohe ON
             (dohe.data_object_id = cdohe.data_object_id
-              AND dohe.hierarchy_entry_id = cdohe.hierarchy_entry_id
-              AND cdohe.added = ?)
+              AND dohe.hierarchy_entry_id = cdohe.hierarchy_entry_id)
           JOIN data_objects do ON (dohe.data_object_id=do.id)
           JOIN data_objects do1 ON (do.guid=do1.guid)
           JOIN #{Comment.full_table_name} c ON(c.parent_id=do.id)
@@ -57,7 +56,7 @@ class Comment < ActiveRecord::Base
             ON(c.parent_id=he_children.taxon_concept_id AND c.parent_type='TaxonConcept')
         WHERE he_parent.taxon_concept_id = ?
         AND c.created_at > ?
-      )", true, taxon_concept_id, min_date, taxon_concept_id, min_date])).all_hashes.uniq
+      )", taxon_concept_id, min_date, taxon_concept_id, min_date])).all_hashes.uniq
 
     comments_hash.sort! do |a, b|
       b['created_at'] <=> a['created_at']

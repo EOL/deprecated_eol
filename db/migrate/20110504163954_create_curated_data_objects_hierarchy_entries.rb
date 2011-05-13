@@ -6,10 +6,12 @@ class CreateCuratedDataObjectsHierarchyEntries < ActiveRecord::Migration
       `data_object_id` int(10) unsigned NOT NULL,
       `hierarchy_entry_id` int(10) unsigned NOT NULL,
       `user_id` int(10) unsigned NOT NULL,
-      `added` tinyint(1) DEFAULT 0,
       `created_at` datetime,
       `updated_at` datetime
     ) ENGINE=MyISAM DEFAULT CHARSET=utf8"
+    execute('CREATE INDEX data_object_id ON curated_data_objects_hierarchy_entries(data_object_id)')
+    execute('CREATE INDEX data_object_id_hierarchy_entry_id ON curated_data_objects_hierarchy_entries(data_object_id,
+            hierarchy_entry_id)')
     ChangeableObjectType.create(:ch_object_type => 'curated_data_objects_hierarchy_entry')
     awo = ActionWithObject.create
     TranslatedActionWithObject.create(:action_with_object_id => awo.id,

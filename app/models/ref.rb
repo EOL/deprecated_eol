@@ -12,7 +12,7 @@ class Ref < SpeciesSchemaModel
     refs = Ref.find_by_sql([
       " SELECT refs.* FROM hierarchy_entries he
                   JOIN data_objects_hierarchy_entries dohe ON (he.id = dohe.hierarchy_entry_id)
-                  JOIN curated_data_objects_hierarchy_entries cdohe ON
+                  LEFT JOIN curated_data_objects_hierarchy_entries cdohe ON
                     (dohe.data_object_id = cdohe.data_object_id
                       AND dohe.hierarchy_entry_id = cdohe.hierarchy_entry_id)
                   JOIN data_objects do ON (dohe.data_object_id = do.id)
@@ -49,7 +49,7 @@ class Ref < SpeciesSchemaModel
     ref_count = Ref.count_by_sql([
       "SELECT 1 FROM hierarchy_entries he
                 JOIN data_objects_hierarchy_entries dohe ON (he.id=dohe.hierarchy_entry_id)
-                JOIN curated_data_objects_hierarchy_entries cdohe ON
+                LEFT JOIN curated_data_objects_hierarchy_entries cdohe ON
                   (dohe.data_object_id = cdohe.data_object_id
                     AND dohe.hierarchy_entry_id = cdohe.hierarchy_entry_id)
                 JOIN data_objects do ON (dohe.data_object_id=do.id)

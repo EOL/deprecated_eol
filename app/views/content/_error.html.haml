@@ -1,7 +1,8 @@
 .error
   %p{ :style => 'padding-bottom:2em;' }
     =  I18n.t(:general_error_occurred)
-    - if defined?(Community) && current_user.is_admin? && defined?(message)
+    -# Extra tests because errors can be caused by weird things:
+    - if defined?(Community) && !Community.special.nil? && current_user.is_admin? && defined?(message)
       %p{ :style => 'padding:1em 0;' }
         = I18n.t(:you_are_an_admin_so_i_will_show_you_that_the_error_was)
       %code{ :stye => 'style:block;padding:2em;' }

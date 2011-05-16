@@ -262,7 +262,7 @@ ar:
   click_to_view_previous_agreeme: "Click to view previous agreements:"
   close_this_window_to_return_to: "CLOSE THIS WINDOW TO RETURN TO EDIT WINDOW"
   __clouds_provided_by_the_mbl: ". Clouds provided by the MBL"
-  collection_summary_title_with_count:
+  collections_summary_title_with_count:
     one: "موجودة في المجموعة رقم %{count}"
     other: "موجودة في %{count} مجموعات"
   collections_with_count:

@@ -162,6 +162,10 @@ class TaxonConcept < SpeciesSchemaModel
     last_curated_dates.collect{ |lcd| lcd.user }.uniq
   end
 
+  def top_acting_curators
+    acting_curators[0..2]
+  end
+
   # The International Union for Conservation of Nature keeps a status for most known species, representing how endangered that
   # species is.  This will default to "unknown" for species that are not being tracked.
   def iucn_conservation_status

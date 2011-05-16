@@ -1,0 +1,11 @@
+#curators
+  - count = curators.count
+  %h2= I18n.t(:curators_summary_header_with_count, :count => count)
+  %ul
+    - curators.each do |curator|
+      %li
+        = link_to image_tag("img_person_50.jpg", :alt => I18n.t(:user_profile_image_alt_text, :user_family_name => h(curator.family_name), :user_given_name => h(curator.given_name))),
+          { :controller => '/account', :action => 'show' }
+        %p
+          %strong= "#{curator.given_name}"
+        %p.meta Expertise goes here.

@@ -42,11 +42,8 @@ en:
   add_a_new_topic_area: "Add a new topic area"
   add_a_new_user: "Add a new user"
   add_a_role: "Add a role"
-<<<<<<< HEAD
   add_contact: "Add Contact"
   added_to_the: "added to the"
-=======
->>>>>>> 6f54bdeafc73b492ad6f8fd28b64db1ee3ac0591
   add_image_tags: "Add Image Tags"
   add_it_to_your_api_calls: "add it to your API calls"
   add_new_contact: "Add New Contact"
@@ -435,12 +432,8 @@ en:
   curator_of_: "Curator of:"
   curator_of: "Curator of"
   curator_profile: "curator profile"
-<<<<<<< HEAD
   curator_profile_menu: "Curator Profile"
-  curator_profile_of_: "curator profile of "
-=======
   curator_profile_of_: "curator profile of %{name}"
->>>>>>> 6f54bdeafc73b492ad6f8fd28b64db1ee3ac0591
   curator_scope_: "Curator scope:"
   curators: "Curators"
   curator_signup_message: "To request curator privileges, you must select a clade at the Family level or lower as well as indicate your credentials below.  You will be notified via email if your application for curator privileges is accepted."
@@ -858,12 +851,8 @@ en:
   initial_email_address__: "Initial email address: "
   initial_mail_setting__: "Initial mail setting: "
   in_order_to_make_sure_that_eac: "In order to make sure that each account is associated with a unique username, we will delete the inactive accounts associated with your username."
-<<<<<<< HEAD
   in_order_to_provide_your_conte: "In order to provide your content to the Encyclopedia of Life in an automated fashion, we request that content partners use the EOL approved Transfer Schema, which is an XML file format containing all of the information and meta-data required to move and update your data into the Encyclopedia of Life. If you are unable to generate XML in this transfer schema format, we may not be able to efficiently index and display your content. We can assist you, so please"
   in_providing_its_content_to_eo: "In providing its content to EOL,"
-=======
-  in_order_to_provide_your_conte: "In order to provide your content to the Encyclopedia of Life in an automated fashion, we request that %{contact_us_link}."
->>>>>>> 6f54bdeafc73b492ad6f8fd28b64db1ee3ac0591
   in_providing_its_content_to_eo_: "In providing its content to EOL, %{var__agent_project_name} will:"
   instructions: "Instructions"
   internal_ip_address: "internal IP address"

@@ -91,7 +91,7 @@ def wait_for_insert_delayed(&block)
 end
 
 def read_test_file(filename)
-  csv_obj = CSV.open(File.expand_path(File.dirname("__FILE__") + "../../spec/csv_files/" + filename), "r", "\t")
+  csv_obj = CSV.open(File.expand_path(RAILS_ROOT + "/spec/csv_files/" + filename), "r", "\t")
   field_names = []
   field_name = ''
   csv_obj.each_with_index do |fields, i|

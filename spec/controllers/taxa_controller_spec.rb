@@ -11,6 +11,7 @@ describe TaxaController do
 
     before(:all) do
       truncate_all_tables
+      Language.create_english
       load_scenario_with_caching :search_with_duplicates
       results = EOL::TestInfo.load('search_with_duplicates')
       @tc_id                   = results[:tc_id]

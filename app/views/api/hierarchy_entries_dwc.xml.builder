@@ -58,7 +58,7 @@ xml.dwr :DarwinRecordSet,
     end
     
     for agent_role in @hierarchy_entry.agents_roles
-      xml.dwc :nameAccordingTo, agent_role.agent.display_name
+      xml.dwc :nameAccordingTo, agent_role.agent.full_name
     end
   end
   

@@ -184,7 +184,7 @@ class HierarchyEntry < SpeciesSchemaModel
 
     # its possible that the hierarchy is not associated with an agent
     if h_agent = hierarchy.agent
-      h_agent.full_name = h_agent.display_name = hierarchy.label # To change the name from just "Catalogue of Life"
+      h_agent.full_name = hierarchy.label # To change the name from just "Catalogue of Life"
       role = AgentRole.source
       agents_roles << AgentsHierarchyEntry.new(:hierarchy_entry => self, :agent => h_agent, :agent_role => role, :view_order => 0)
     end

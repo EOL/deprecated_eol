@@ -162,12 +162,6 @@ def load_old_foundation_data
   RefIdentifierType.gen_if_not_exists(:label => 'sici')
   RefIdentifierType.gen_if_not_exists(:label => 'urn')
 
-  ResourceAgentRole.gen_if_not_exists(:label => 'Administrative')
-  ResourceAgentRole.gen_if_not_exists(:label => 'Data Administrator')
-  ResourceAgentRole.gen_if_not_exists(:label => 'Data Host')
-  ResourceAgentRole.gen_if_not_exists(:label => 'System Administrator')
-  ResourceAgentRole.gen_if_not_exists(:label => 'Technical Host')
-
   ResourceStatus.gen_if_not_exists(:label => 'Uploading')
   ResourceStatus.gen_if_not_exists(:label => 'Uploaded')
   ResourceStatus.gen_if_not_exists(:label => 'Upload Failed')
@@ -243,15 +237,18 @@ load_old_foundation_data
 
 # TODO - I am neglecting to set up agent content partners, curators, contacts, provided data types, or agreements.  For now.
 agent_col = Agent.catalogue_of_life
-resource = Resource.gen(:title => 'Bootstrapper', :resource_status => ResourceStatus.published, :hierarchy => Hierarchy.find_by_label('Species 2000 & ITIS Catalogue of Life: Annual Checklist 2010'))
+agent_col.user ||= User.gen
+agent_col.user.content_partner ||= ContentPartner.gen
+resource = Resource.gen(:title => 'Bootstrapper', :resource_status => ResourceStatus.published,
+  :hierarchy => Hierarchy.find_by_label('Species 2000 & ITIS Catalogue of Life: Annual Checklist 2010'),
+  :content_partner => agent_col.user.content_partner)
 event    = HarvestEvent.gen(:resource => resource)
-AgentsResource.gen(:agent => agent_col, :resource => resource,
-                   :resource_agent_role => ResourceAgentRole.content_partner_upload_role)
 
 gbif_agent = Agent.gen(:full_name => "Global Biodiversity Information Facility (GBIF)")
 #gbif_agent = Agent.find_by_full_name('Global Biodiversity Information Facility (GBIF)');
-gbif_cp    = ContentPartner.gen :vetted => true, :agent => gbif_agent
-AgentContact.gen(:agent => gbif_agent, :agent_contact_role => AgentContactRole.primary)
+gbif_agent.user ||= User.gen
+gbif_cp    = ContentPartner.gen :vetted => true, :user => gbif_agent.user
+ContentPartnerContact.gen(:content_partner => gbif_cp, :contact_role => ContactRole.primary)
 gbif_hierarchy = Hierarchy.gen(:agent => gbif_agent, :label => "GBIF Nub Taxonomy")
 
 kingdom = build_taxon_concept(:rank => 'kingdom', :canonical_form => 'Animalia', :event => event)
@@ -401,9 +398,8 @@ DataObjectsInfoItem.gen(:data_object => tc.overview.last, :info_item => InfoItem
 
 
 # create a content_partner that we can log in as for testing (user:password = testcp:testcp)
-a = Agent.gen(:username => 'testcp', :password => 'testcp', :password_confirmation => 'testcp', :full_name => 'Test Content Partner', :display_name => 'Test Content Partner')
-ac = AgentContact.gen(:agent => a, :agent_contact_role => AgentContactRole.primary)
-cp = ContentPartner.gen(:agent => a,
+cp_user = User.gen(:username => 'testcp', :password => 'testcp', :given_name => 'Ralph', :family_name => 'Wiggum', :display_name => 'Test Content Partner')
+cp = ContentPartner.gen(:user => cp_user,
                         :partner_seen_step => '2009-10-21 10:00:00',
                         :partner_complete_step => '2009-10-21 10:00:00',
                         :contacts_seen_step => '2009-10-21 10:00:00',
@@ -429,6 +425,7 @@ cp = ContentPartner.gen(:agent => a,
                         :transfer_schema_accept => true,
                         :auto_publish => false,
                         :vetted => true)
+ac = ContentPartnerContact.gen(:content_partner => cp, :contact_role => ContactRole.primary)
 
 
 
@@ -436,12 +433,12 @@ cp = ContentPartner.gen(:agent => a,
        # Give it a new name:
 name   = Name.gen(:canonical_form => tc.canonical_form_object)#, :string => n = Factory.next(:scientific_name),
                   # :italicized     => "<i>#{n}</i> #{Factory.next(:attribution)}")
-agent2 = Agent.gen :username => 'test_cp'
-cp     = ContentPartner.gen :vetted => true, :agent => agent2
-cont   = AgentContact.gen :agent => agent2, :agent_contact_role => AgentContactRole.primary
-r2     = Resource.gen(:title => 'Test ContentPartner import', :resource_status => ResourceStatus.processed)
+agent2 = Agent.gen 
+agent2.user ||= User.gen(:agent => agent2, :username => 'test_cp')
+cp     = ContentPartner.gen :vetted => true, :user => agent2.user
+cont   = ContentPartnerContact.gen :content_partner => cp, :contact_role => ContactRole.primary
+r2     = Resource.gen(:title => 'Test ContentPartner import', :resource_status => ResourceStatus.processed, :content_partner => cp)
 ev2    = HarvestEvent.gen(:resource => r2)
-ar     = AgentsResource.gen(:agent => agent2, :resource => r2, :resource_agent_role => ResourceAgentRole.content_partner_upload_role)
 hier   = Hierarchy.gen :agent => agent2
 he     = build_hierarchy_entry 0, tc, name, :hierarchy => hier
 img    = build_data_object('Image', "This should only be seen by ContentPartner #{cp.description}",
@@ -501,8 +498,11 @@ HierarchyEntry.gen(:hierarchy => molecular_species_pages_hierarchy, :name => kin
 
 r = Rank.gen_if_not_exists(:label => 'superkingdom', :rank_group_id => 0)
 
+
 ### Adding another hierarchy to test switching from one to another
-AgentContact.gen(:agent => Agent.ncbi, :agent_contact_role => AgentContactRole.primary)
+Agent.ncbi.user ||= User.gen(:agent => Agent.ncbi)
+Agent.ncbi.user.content_partner ||= ContentPartner.gen(:user => Agent.ncbi.user)
+ContentPartnerContact.gen(:content_partner => Agent.ncbi.user.content_partner, :contact_role => ContactRole.primary)
 
 eukaryota = build_taxon_concept(:rank => 'superkingdom',
                                 :canonical_form => 'Eukaryota',
@@ -615,9 +615,9 @@ end
   date = n.month.ago
   year = date.year
   month = date.month
-  GoogleAnalyticsPartnerSummary.gen(:year => year, :month => month, :agent => Agent.catalogue_of_life)
+  GoogleAnalyticsPartnerSummary.gen(:year => year, :month => month, :user => Agent.catalogue_of_life.user)
   GoogleAnalyticsSummary.gen(:year => year, :month => month)  
   GoogleAnalyticsPageStat.gen(:year => year, :month => month, :taxon_concept => tc30 )    
-  GoogleAnalyticsPartnerTaxon.gen(:year => year, :month => month, :taxon_concept => tc30, :agent => Agent.catalogue_of_life )
+  GoogleAnalyticsPartnerTaxon.gen(:year => year, :month => month, :taxon_concept => tc30, :user => Agent.catalogue_of_life.user )
 end
 

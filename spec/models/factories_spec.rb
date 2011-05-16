@@ -4,7 +4,6 @@ describe Factory do
 
   before :all do
     truncate_all_tables
-    reset_auto_increment_on_tables_with_tinyint_primary_keys
     load_foundation_cache
   end
 
@@ -22,7 +21,7 @@ describe Factory do
      CuratorDataObjectLog, Hierarchy, HierarchyEntry,
      TaxonConcept, PageName, PublicationTitle, InfoItem,
      Contact, ContactSubject, ResourceStatus, RefIdentifierType, Audience,
-     AgentDataType, AgentContactRole, ServiceType, ActionWithObject, ChangeableObjectType, 
+     ContactRole, ServiceType, ActionWithObject, ChangeableObjectType, 
      GoogleAnalyticsSummary, GoogleAnalyticsPartnerSummary, GoogleAnalyticsPageStat, GoogleAnalyticsPartnerTaxon].uniq
   end
 

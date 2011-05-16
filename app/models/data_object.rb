@@ -57,7 +57,7 @@ class DataObject < SpeciesSchemaModel
 
   define_core_relationships :select => {
       :data_objects => '*',
-      :agents => [:full_name, :acronym, :display_name, :homepage, :username, :logo_cache_url],
+      :agents => [:full_name, :homepage, :logo_cache_url],
       :agents_data_objects => :view_order,
       :names => :string,
       :hierarchy_entries => [ :published, :visibility_id, :taxon_concept_id ],
@@ -121,7 +121,7 @@ class DataObject < SpeciesSchemaModel
     # removing from the array the ones not mathching our criteria
     data_objects.compact.select do |d|
       # partners see all their PREVIEW or PUBLISHED objects
-      if options[:agent] && d.data_supplier_agent.id == options[:agent].id
+      if options[:user] && options[:user].is_content_partner? && d.data_supplier_agent.id == options[:user].agent.id
         if (d.visibility_id == Visibility.preview.id) || d.published == true
           true
         end
@@ -903,7 +903,7 @@ class DataObject < SpeciesSchemaModel
       options[:filter_hierarchy] = options[:hierarchy]
     end
     # the user/agent has the ability to see some unpublished images, so create a UNION
-    show_unpublished = (options[:agent] || options[:user].is_curator? || options[:user].is_admin?)
+    show_unpublished = (options[:user].is_content_partner? || options[:user].is_curator? || options[:user].is_admin?)
 
     if options[:filter_hierarchy]
       # strict lookup
@@ -923,12 +923,12 @@ class DataObject < SpeciesSchemaModel
       image_data_objects = taxon_concept.top_concept_images.collect{ |tci| tci.data_object }
       # this is a content partner, so we'll want o preload image contributors to prevent
       # a bunch of queries later on in filter_list_for_user
-      if options[:agent]
+      if options[:user].is_content_partner?
         DataObject.preload_associations(image_data_objects,
           [ :hierarchy_entries => { :hierarchy => :agent } ],
           :select => {
             :hierarchy_entries => :hierarchy_id,
-            :agents => [:id, :full_name, :acronym, :display_name, :homepage, :username, :logo_cache_url] } )
+            :agents => [:id, :full_name, :homepage, :logo_cache_url] } )
       end
       if show_unpublished
         TaxonConcept.preload_associations(taxon_concept,
@@ -936,7 +936,7 @@ class DataObject < SpeciesSchemaModel
           :select => {
             :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ],
             :hierarchy_entries => :hierarchy_id,
-            :agents => [:id, :full_name, :acronym, :display_name, :homepage, :username, :logo_cache_url] } )
+            :agents => [:id, :full_name, :homepage, :logo_cache_url] } )
         image_data_objects += taxon_concept.top_unpublished_concept_images.collect{ |tci| tci.data_object }
       end
     end

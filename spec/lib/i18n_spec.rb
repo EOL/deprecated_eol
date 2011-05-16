@@ -1,5 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
-require File.join([RAILS_ROOT,"vendor","plugins","haml_i18n","haml_parser"])
+# require File.join([RAILS_ROOT,"vendor","plugins","haml_i18n","haml_parser"])
 
 describe 'I18n' do
   

@@ -203,7 +203,7 @@ class TaxonConcept < SpeciesSchemaModel
   def table_of_contents(options = {})
     if @table_of_contents.nil?
       tb = TocBuilder.new
-      @table_of_contents = tb.toc_for(self, :agent => @current_agent, :user => current_user, :agent_logged_in => options[:agent_logged_in])
+      @table_of_contents = tb.toc_for(self, :user => current_user, :agent_logged_in => options[:agent_logged_in])
     end
     @table_of_contents
   end
@@ -537,11 +537,6 @@ class TaxonConcept < SpeciesSchemaModel
     return @col_entry = published_hierarchy_entries.detect{ |he| he.hierarchy_id == hierarchy_id }
   end
 
-  def current_agent=(agent)
-    @images = nil
-    @current_agent = agent
-  end
-
   # TODO - we won't need this, soon.  Delete it.  (ATM it's still used in an old videos partial)
   def has_video
     available_media if @has_media.nil?
@@ -753,7 +748,7 @@ class TaxonConcept < SpeciesSchemaModel
     perform_filter = !filter_hierarchy.nil?
 
     image_page = (options[:image_page] ||= 1).to_i
-    images = DataObject.images_for_taxon_concept(self, :user => self.current_user, :agent => @current_agent, :filter_by_hierarchy => perform_filter, :hierarchy => filter_hierarchy, :image_page => image_page)
+    images = DataObject.images_for_taxon_concept(self, :user => self.current_user, :filter_by_hierarchy => perform_filter, :hierarchy => filter_hierarchy, :image_page => image_page)
     @length_of_images = images.length # Caching this because the call to #images is expensive and we don't want to do it twice.
 
     return images
@@ -1106,7 +1101,7 @@ class TaxonConcept < SpeciesSchemaModel
 
     # this is a content partner, so we'll want o preload image contributors to prevent
     # a bunch of queries later on in DataObject.filter_list_for_user
-    if options[:agent]
+    if options[:user] && options[:user].is_content_partner?
       DataObject.preload_associations(combined_objects,
         [ :hierarchy_entries => { :hierarchy => :agent } ],
         :select => {
@@ -1114,7 +1109,7 @@ class TaxonConcept < SpeciesSchemaModel
           :agents => :id } )
     end
 
-    filtered_objects = DataObject.filter_list_for_user(combined_objects, :agent => options[:agent], :user => options[:user])
+    filtered_objects = DataObject.filter_list_for_user(combined_objects, :user => options[:user])
     return filtered_objects.collect{ |d| d.toc_items }.flatten.compact.uniq
   end
 
@@ -1125,7 +1120,7 @@ class TaxonConcept < SpeciesSchemaModel
     combined_objects = this_toc_objects | user_objects  # get the union of the two sets
 
     # remove objects this user shouldn't see
-    filtered_objects = DataObject.filter_list_for_user(combined_objects, :agent => options[:agent], :user => options[:user])
+    filtered_objects = DataObject.filter_list_for_user(combined_objects, :user => options[:user])
 
     add_include = [:comments, :agents_data_objects, :info_items, :toc_items, { :users_data_objects => :user },
       { :published_refs => { :ref_identifiers => :ref_identifier_type } }, :all_comments]
@@ -1197,7 +1192,7 @@ private
     end
 
     objects = data_objects.select{ |d| options[:data_type_ids].include?(d.data_type_id) }
-    filtered_objects = DataObject.filter_list_for_user(objects, :agent => @current_agent, :user => usr)
+    filtered_objects = DataObject.filter_list_for_user(objects, :user => usr)
 
     add_include = [:agents_data_objects, :all_comments]
     add_select = { :comments => [:parent_id, :visible_at] }
@@ -1234,7 +1229,7 @@ private
     result = {
       :content_type  => 'text',
       :category_name => toc_item.label,
-      :data_objects  => text_objects_for_toc_item(toc_item, :agent => @current_agent, :user => current_user)
+      :data_objects  => text_objects_for_toc_item(toc_item, :user => current_user)
     }
     # TODO = this should not be hard-coded! IDEA = use partials.  Then we have variables and they can be dynamically changed.
     # NOTE: I tried to dynamically alter data_objects directly, below, but they didn't

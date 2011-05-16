@@ -17,8 +17,9 @@ describe 'Admin Pages' do
     @report_year = last_month.year.to_s
     @report_month = last_month.month.to_s
     @year_month   = @report_year + "_" + "%02d" % @report_month.to_i
-    @resource = Resource.gen(:title => "FishBase Resource")
-    @agent_resource = AgentsResource.gen(:agent_id => @agent.id, :resource_id => @resource.id)
+    @resource_user = User.gen(:agent => @agent)
+    @content_parnter = ContentPartner.gen(:user => @resource_user)
+    @resource = Resource.gen(:title => "FishBase Resource", :content_partner => @content_parnter)
     @harvest_event = HarvestEvent.gen(:resource_id => @resource.id, :published_at => last_month)
     
     @data_object = DataObject.gen(:published => 1, :vetted_id => Vetted.trusted.id)
@@ -128,7 +129,7 @@ describe 'Admin Pages' do
     visit("/administrator/content_partner_report/report_monthly_published_partners", :method => :post, :params => {:year_month => @year_month}) 
     body.should have_tag("form[action=/administrator/content_partner_report/report_monthly_published_partners]")
     body.should include "New content partners for the month"
-    body.should include @agent.full_name
+    body.should include @content_parnter.user.full_name
   end
   
   it "should show report_partner_curated_data page" do
@@ -142,7 +143,7 @@ describe 'Admin Pages' do
     visit("/administrator/content_partner_report/report_partner_curated_data", :method => :post, :params => {:agent_id => @agent.id})  
     body.should have_tag("form[action=/administrator/content_partner_report/report_partner_curated_data]")
     body.should include "Curation activity:"
-    body.should include @agent.full_name      
+    body.should include @content_parnter.user.full_name
   end
 
   it "should get data from a form and display a month's curation activity" do
@@ -150,7 +151,7 @@ describe 'Admin Pages' do
     visit("/administrator/content_partner_report/report_partner_curated_data", :method => :post, :params => {:agent_id => @agent.id, :year_month => @year_month})  
     body.should have_tag("form[action=/administrator/content_partner_report/report_partner_curated_data]")
     body.should include "Curation activity:"
-    body.should include @agent.full_name
+    body.should include @content_parnter.user.full_name
   end
   
   #TODO: report not working in master branch

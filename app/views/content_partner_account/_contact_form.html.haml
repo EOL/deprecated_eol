@@ -1,0 +1,33 @@
+%fieldset
+  %legend
+    = I18n.t(:contact) 
+  .form_item
+    %label
+      %span
+        *
+      =I18n.t("__required_fields")
+  .form_item
+    = f.label :given_name, I18n.t(:given_name)  + " <span title='#{I18n.t(:required)}'>*</span>"
+    = f.text_field :given_name, :maxlength => 100, :size=> 40
+  .form_item
+    = f.label :family_name,  I18n.t(:family_name)  + " <span title='#{I18n.t(:required)}'>*</span>"
+    = f.text_field :family_name, :maxlength => 100, :size=> 40
+  .form_item
+    = f.label :email, I18n.t(:email)   + " <span title='#{I18n.t(:required)}'>*</span>"
+    = f.text_field :email, :maxlength => 75, :size=> 50
+  .form_item
+    = f.label :homepage, I18n.t(:homepage) 
+    = f.text_field :homepage, :maxlength => 250, :size=> 50
+  .form_item
+    = f.label :telephone, I18n.t(:telephone) 
+    = f.text_field :telephone, :maxlength => 30
+  .form_item
+    = f.label :address, I18n.t(:mailing_address) 
+    = f.text_area :address, {:rows=>5}
+  .form_item
+    = f.label :contact_role_id, I18n.t("role")
+    = f.collection_select :contact_role_id, ContactRole.all, :id, :label
+  .form_item
+    = f.label :email_reports_frequency_hours, I18n.t("if_there_are_comments_or_curator_actions_on_your_contributions_how_often_would_you_like_to_receive_email_alerts")
+    - select_options = [[I18n.t("never"), 0] , [I18n.t("daily"), 1*24], [I18n.t("weekly"), 7*24], [I18n.t("monthly"), 30*24]]
+    = f.select :email_reports_frequency_hours, select_options

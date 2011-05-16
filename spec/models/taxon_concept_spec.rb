@@ -1,9 +1,10 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 def build_secondary_iucn_hierarchy_and_resource
-  another_iucn_resource  = Resource.gen(:title  => 'Another IUCN')
+  Agent.iucn.user ||= User.gen(:agent => Agent.iucn)
+  Agent.iucn.user.content_partner ||= ContentPartner.gen(:user => Agent.iucn.user)
+  another_iucn_resource  = Resource.gen(:title  => 'Another IUCN', :content_partner => Agent.iucn.user.content_partner)
   another_iucn_hierarchy = Hierarchy.gen(:label => 'Another IUCN')
-  AgentsResource.gen(:agent => Agent.iucn, :resource => another_iucn_resource)
   return [another_iucn_hierarchy, another_iucn_resource]
 end
 
@@ -201,13 +202,13 @@ describe TaxonConcept do
   it 'should show content partners THEIR preview items, but not OTHER content partner\'s preview items' do
     @taxon_concept.reload
     @taxon_concept.current_user = nil
-    original_cp    = Agent.gen
-    another_cp     = Agent.gen
-    cp_hierarchy   = Hierarchy.gen(:agent => original_cp)
-    resource       = Resource.gen(:hierarchy => cp_hierarchy)
-    # Note this doesn't work without the ResourceAgentRole setting.  :\
-    agent_resource = AgentsResource.gen(:agent_id => original_cp.id, :resource_id => resource.id,
-                       :resource_agent_role_id => ResourceAgentRole.content_partner_upload_role.id)
+    primary_user = User.gen
+    ContentPartner.gen(:user => primary_user)
+    different_user = User.gen
+    ContentPartner.gen(:user => different_user)
+    
+    cp_hierarchy   = Hierarchy.gen(:agent => primary_user.agent)
+    resource       = Resource.gen(:hierarchy => cp_hierarchy, :content_partner => primary_user.content_partner)
     event          = HarvestEvent.gen(:resource => resource)
     # Note this *totally* doesn't work if you don't add it to top_unpublished_images!
     TopUnpublishedImage.gen(:hierarchy_entry => @taxon_concept.entry,
@@ -216,7 +217,7 @@ describe TaxonConcept do
                             :data_object     => @taxon_concept.images.last)
     how_many = @taxon_concept.images.length
     how_many.should > 2
-    dato            = @taxon_concept.images.last  # Let's grab the last one...
+    dato = @taxon_concept.images.last  # Let's grab the last one...
     # ... And remove it from top images:
     TopImage.delete_all(:hierarchy_entry_id => @taxon_concept.entry.id,
                         :data_object_id => @taxon_concept.images.last.id)
@@ -225,7 +226,8 @@ describe TaxonConcept do
 
     @taxon_concept.reload
     @taxon_concept.images.length.should == how_many - 1 # Ensuring that we removed it...
-
+    
+    # object must be in preview mode for the Content Partner to have exclusive access
     dato.visibility = Visibility.preview
     dato.save!
 
@@ -238,14 +240,13 @@ describe TaxonConcept do
 
     # Original should see it:
     @taxon_concept.reload
-    @taxon_concept.current_agent = original_cp
-    @taxon_concept.images(:agent => original_cp).map {|i| i.id }.should include(dato.id)
+    @taxon_concept.current_user = primary_user
+    @taxon_concept.images(:user => primary_user).map {|i| i.id }.should include(dato.id)
 
     # Another CP should not:
     tc = TaxonConcept.find(@taxon_concept.id) # hack to reload the object and delete instance variables
-    tc.current_agent = another_cp
+    tc.current_user = different_user
     tc.images.map {|i| i.id }.should_not include(dato.id)
-
   end
 
   it "should have common names" do
@@ -258,7 +259,6 @@ describe TaxonConcept do
 
   it 'should return images sorted by trusted, unknown, untrusted but preview mode first' do
     @taxon_concept.reload
-    @taxon_concept.current_user = @user
     trusted   = Vetted.trusted.id
     unknown   = Vetted.unknown.id
     untrusted = Vetted.untrusted.id

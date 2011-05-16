@@ -17,12 +17,13 @@ All Hierarchies
     - column_class=cycle('odd','even')
     %tr{:valign => "top"}
       %td{:width => "40%", :class => column_class}
-        = hierarchy['agent_name']
-        - if hierarchy['content_partner_agent_id']
+        - if hierarchy.user_or_agent
+          = hierarchy.user_or_agent.full_name
+        - if hierarchy.resource && hierarchy.resource.content_partner
           %small
-            = "("+ link_to(I18n.t("partner_page"), { :controller => 'administrator/content_partner_report', :action => 'show', :id => hierarchy['content_partner_agent_id'] }) +")"
+            = "("+ link_to(I18n.t("partner_page"), { :controller => 'administrator/content_partner_report', :action => 'show', :id => hierarchy.resource.content_partner.id }) +")"
       %td{:class => column_class}
-        - if hierarchy['agent_name'] == 'uBio'
+        - if hierarchy.user_or_agent_or_label_name == 'uBio'
           =I18n.t("this_is_a_flat_list_of_10_mill")
         -else
           = link_to(hierarchy.form_label, { :action => 'browse', :id => hierarchy.id })

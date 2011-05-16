@@ -1,12 +1,8 @@
 require 'net/http'
 require 'uri'
 class ResourcesController < ApplicationController
-
-  # Opened for a malicious administrator who enters url by hand
-  before_filter :resource_must_belong_to_agent, :except => [:index, :create, :new], :unless => :is_user_admin?
-  before_filter :agent_login_required, :agent_must_be_agreeable, :unless => :is_user_admin?
-
-  layout 'content_partner'
+  before_filter :check_authentication
+  layout 'user_profile'
   
   make_resourceful do
 
@@ -14,23 +10,22 @@ class ResourcesController < ApplicationController
 
     response_for :create, :update do |format|
       format.html do
-        @content_partner = ContentPartner.find(params[:content_partner_id])
+        @content_partner = params[:content_partner_id] ? ContentPartner.find(params[:content_partner_id]) : current_user.content_partner
         redirect_url = current_user.is_admin? ? { :controller => 'administrator/content_partner_report', :action => 'show', :id => @content_partner.agent.id} : resources_url
         redirect_to redirect_url
       end
     end
+    
+    before :create do
+      current_object.content_partner_id = current_user.content_partner.id
+    end
 
-    # TODO - it is supremely LAME that we keep calling these things CPs when they are Agents.  It has bitten me twice in as
-    # many days.  We should fix this.  Is the code *above* correct?  I don't know!  This is confusing.
     before :new do
-      @content_partner = params[:content_partner_id] ? Agent.find(params[:content_partner_id]) : current_agent
+      @content_partner = params[:content_partner_id] ? ContentPartner.find(params[:content_partner_id]) : current_user.content_partner
     end
 
     before :edit do
-      if params[:content_partner_id]
-        @agent = Agent.find(params[:content_partner_id])
-        @content_partner = @agent.content_partner
-      end
+      @content_partner = params[:content_partner_id] ? ContentPartner.find(params[:content_partner_id]) : current_user.content_partner
       @page_header = 'Resources'
     end
 
@@ -50,18 +45,6 @@ class ResourcesController < ApplicationController
     after :create do
       current_object.accesspoint_url.strip! if current_object.accesspoint_url
       current_object.dwc_archive_url.strip! if current_object.dwc_archive_url
-      resource_role = ResourceAgentRole.content_partner_upload_role
-      # associate this uploaded resource with the current agent and the role of "data provider"
-      # WEB-1223: sometimes SPG is getting a duplicate entry, which is... weird.  I'm trying to
-      # avoid the second one being created.
-      if AgentsResource.find_by_resource_id_and_resource_agent_role_id(current_object.id, resource_role.id)
-        flash[:notice] = I18n.t(:warning_you_attempted_to_create_a_link_from_this_resource_to_two_agents_only_one_allowed) 
-      else 
-        AgentsResource.create(:resource_id => current_object.id,
-                              :agent_id => current_agent.id,
-                              :resource_agent_role_id => resource_role.id)
-      end
-
       # call to file uploading web service 
       status = current_object.upload_resource_to_content_master('http://' + $IP_ADDRESS_OF_SERVER + ":" + request.port.to_s)
       current_object.resource_status = status
@@ -173,8 +156,9 @@ private
   def current_objects
     # we always want to read the latest resources from the master database
     # to avoid replication lag problems
-    @current_objects ||= Agent.with_master do
-      current_agent.resources.clone
+    @current_objects ||= Resource.with_master do
+      content_partner = params[:content_partner_id] ? ContentPartner.find(params[:content_partner_id]) : current_user.content_partner
+      content_partner.resources.clone
     end
     return @current_objects
   end

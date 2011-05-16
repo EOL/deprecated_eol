@@ -7,10 +7,9 @@ class Resource < SpeciesSchemaModel
   belongs_to :language
   belongs_to :resource_status
   belongs_to :hierarchy
+  belongs_to :content_partner
   belongs_to :dwc_hierarchy, :foreign_key => 'dwc_hierarchy_id', :class_name => "Hierarchy"
 
-  has_many :agents, :through => :agents_resources
-  has_many :agents_resources
   has_many :harvest_events
 
   has_attached_file :dataset,
@@ -28,13 +27,13 @@ class Resource < SpeciesSchemaModel
   # trying to change it to memcache got error after reload a page
   def self.iucn
     cached('iucn') do
-      Agent.iucn.resources.last
+      Agent.iucn.user.content_partner.resources.last
     end
   end
 
   def self.ligercat
     cached('ligercat') do
-      Agent.boa.resources[0]
+      Agent.boa.user.content_partner.resources[0]
     end
   end
 
@@ -53,6 +52,10 @@ class Resource < SpeciesSchemaModel
     HarvestEvent.find(:first, :conditions => ["published_at IS NOT NULL AND completed_at IS NOT NULL AND resource_id = ?", id],
                               :limit => 1,
                               :order => 'published_at desc')
+  end
+  
+  def latest_harvest_event
+    HarvestEvent.find(:first, :limit => 1, :order => 'id desc')
   end
 
   def all_harvest_events

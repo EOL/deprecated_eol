@@ -277,41 +277,31 @@ Factory.define :agent do |agent|
   agent.created_at      { 5.days.ago }
   agent.homepage        ''
   agent.full_name       { Factory.next(:first_name) << ' ' << Factory.next(:last_name) }
-  agent.username                  do |a|
-    attempt = a.full_name.gsub(/^(.)[^ ]+ (.*)$/, "\\1_\\2").downcase[0..15]
-    while(Agent.find_by_username(attempt)) do
-      attempt.succ!
-    end
-    attempt
-  end
-  agent.email           { Factory.next(:email) }
-  agent.hashed_password { Digest::MD5.hexdigest('test password') }
-  agent.agent_status    { AgentStatus.find_by_translated(:label, 'Active') || AgentStatus.gen_if_not_exists(:label => 'Active') }
 end
 
-Factory.define :agent_contact do |ac|
-  ac.association :agent
-  ac.association :agent_contact_role
-  ac.given_name  { Factory.next(:string) }
-  ac.family_name { Factory.next(:string) }
-  ac.full_name   {|a| "#{a.given_name} #{a.family_name}" }
-  ac.email       {|a| "#{a.given_name}.#{a.family_name}@example.com".downcase }
-  ac.homepage    'http://whatever.org'
-  ac.address     '1234 Doesntmatter St'
-  ac.title       'Call me SIR'
-  ac.telephone   '555-222-1111'
+Factory.define :content_partner_contact do |cpc|
+  cpc.association :content_partner
+  cpc.association :contact_role
+  cpc.given_name  { Factory.next(:string) }
+  cpc.family_name { Factory.next(:string) }
+  cpc.full_name   {|a| "#{a.given_name} #{a.family_name}" }
+  cpc.email       {|a| "#{a.given_name}.#{a.family_name}@example.com".downcase }
+  cpc.homepage    'http://whatever.org'
+  cpc.address     '1234 Doesntmatter St'
+  cpc.title       'Call me SIR'
+  cpc.telephone   '555-222-1111'
 end
 
-Factory.define :agent_contact_role do |x|
+Factory.define :contact_role do |x|
 end
 
-Factory.define :agent_data_type do |x|
+Factory.define :content_partner_data_type do |x|
 end
 
 Factory.define :agent_role do |x|
 end
 
-Factory.define :agent_status do |as|
+Factory.define :content_partner_status do |cps|
 end
 
 Factory.define :agents_data_object do |ado|
@@ -326,13 +316,6 @@ Factory.define :agents_hierarchy_entry do |ahe|
   ahe.association :agent_role
   ahe.association :hierarchy_entry
   ahe.view_order  2
-end
-
-Factory.define :agents_resource do |ar|
-  ar.association         :agent
-  ar.association         :resource
-  ar.resource_agent_role { ResourceAgentRole.content_partner_upload_role ||
-                           ResourceAgentRole.gen_if_not_exists(:label => 'Data Supplier') }
 end
 
 Factory.define :audience do |a|
@@ -404,7 +387,7 @@ end
 
 Factory.define :content_partner do |cp|
   cp.auto_publish                         false
-  cp.association                          :agent
+  cp.association                          :user
   cp.description                          'Our Testing Content Partner'
   cp.description_of_data                  'Civil Protection!'
   cp.created_at                           { 5.days.ago }
@@ -432,6 +415,7 @@ Factory.define :content_partner do |cp|
   cp.transfer_schema_accept               true
   cp.show_on_partner_page                 true
   cp.vetted                               false
+  cp.content_partner_status               { ContentPartnerStatus.find_by_translated(:label, 'Active') || ContentPartnerStatus.gen_if_not_exists(:label => 'Active') }
 end
 
 Factory.define :content_section do |cs|
@@ -800,9 +784,7 @@ Factory.define :resource do |r|
   r.resource_status { ResourceStatus.find_by_translated(:label, 'Published') || ResourceStatus.gen_if_not_exists(:label => 'Published') }
   r.accesspoint_url 'http://services.eol.org/eol_php_code/tests/fixtures/files/test_resource.xml' # Won't work without a real, live URL for an XML file
   r.association :hierarchy
-end
-
-Factory.define :resource_agent_role do |rar|
+  r.association :content_partner
 end
 
 Factory.define :resource_status do |rs|
@@ -954,14 +936,14 @@ Factory.define :translated_action_with_object do |r|
   r.action_code     { Factory.next(:string) }
 end
 
-Factory.define :translated_agent_contact_role do |r|
-  r.association     :agent_contact_role
+Factory.define :translated_contact_role do |r|
+  r.association     :contact_role
   r.language        { Language.english }
   r.label           { Factory.next(:string) }
 end
 
-Factory.define :translated_agent_data_type do |r|
-  r.association     :agent_data_type
+Factory.define :translated_content_partner_data_type do |r|
+  r.association     :content_partner_data_type
   r.language        { Language.english }
   r.label           { Factory.next(:string) }
 end
@@ -972,8 +954,8 @@ Factory.define :translated_agent_role do |r|
   r.label           { Factory.next(:string) }
 end
 
-Factory.define :translated_agent_status do |r|
-  r.association     :agent_status
+Factory.define :translated_content_partner_status do |r|
+  r.association     :content_partner_status
   r.language        { Language.english }
   r.label           { Factory.next(:string) }
 end
@@ -1035,12 +1017,6 @@ end
 
 Factory.define :translated_rank do |r|
   r.association     :rank
-  r.language        { Language.english }
-  r.label           { Factory.next(:string) }
-end
-
-Factory.define :translated_resource_agent_role do |r|
-  r.association     :resource_agent_role
   r.language        { Language.english }
   r.label           { Factory.next(:string) }
 end
@@ -1164,7 +1140,7 @@ end
 Factory.define :google_analytics_partner_summary do |g|
   g.year { Factory.next :year }
   g.month { Factory.next :month }
-  g.association :agent
+  g.association :user
   g.taxa_pages rand(1000)
   g.taxa_pages_viewed rand(100)
   g.page_views rand(10000)
@@ -1183,7 +1159,7 @@ end
 
 Factory.define :google_analytics_partner_taxon do |g|
   g.association :taxon_concept
-  g.association :agent
+  g.association :user
   g.year { Factory.next :year }
   g.month { Factory.next :month }  
 end

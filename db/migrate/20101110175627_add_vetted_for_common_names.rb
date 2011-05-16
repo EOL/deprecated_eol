@@ -14,7 +14,7 @@ class AddVettedForCommonNames <  EOL::DataMigration
       puts e.message
     end
     trusted = Vetted.find_by_label('trusted') || 1 # Because in, say, RAILS_ENV=test, there won't be one...  :\
-    users_db = User.connection.config[:database]
+    users_db = UsersDataObject.connection.config[:database]
     # Yup, this is a cross-database join.  But it's only one, so it's mostly harmless, and I want to be *absolutely* sure
     # that the agents have users (meaning: they are curators) in these cases.
     Synonym.connection.execute(

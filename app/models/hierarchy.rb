@@ -21,6 +21,14 @@ class Hierarchy < SpeciesSchemaModel
 
 
   alias entries hierarchy_entries
+  
+  def self.sort_by_user_or_agent_name(hierarchies)
+    hierarchies.sort_by do |h|
+      [ h.request_publish ? 0 : 1,
+        h.browsable * -1,
+        h.user_or_agent_or_label_name ]
+    end
+  end
 
   def self.browsable_by_label
     cached('browsable_by_label') do
@@ -108,6 +116,24 @@ class Hierarchy < SpeciesSchemaModel
       else
         HierarchyEntry.sort_by_name(k)
       end
+    end
+  end
+  
+  def user_or_agent
+    if resource && resource.content_partner && resource.content_partner.user
+      resource.content_partner.user
+    elsif agent
+      agent
+    else
+      nil
+    end
+  end
+  
+  def user_or_agent_or_label_name
+    if user_or_agent
+      user_or_agent.full_name
+    else
+      label
     end
   end
 end

@@ -16,10 +16,9 @@ describe 'Curator Worklist' do
 
     @taxon_concept = build_taxon_concept()
     @curator = create_curator_for_taxon_concept(@taxon_concept)
-    @resource = Resource.gen()
-    @supplier_agent = Agent.gen()
-    @content_partner = ContentPartner.gen(:agent => @supplier_agent, :description => 'For testing curator worklist')
-    AgentsResource.gen(:resource => @resource, :agent => @supplier_agent, :resource_agent_role => ResourceAgentRole.content_partner_upload_role)
+    @supplier_user = User.gen()
+    @content_partner = ContentPartner.gen(:user => @supplier_user, :description => 'For testing curator worklist')
+    @resource = Resource.gen(:content_partner => @content_partner)
     @testing_harvest_event = HarvestEvent.gen(:resource => @resource)
 
     @ancestor_entry = @taxon_concept.hierarchy_entries[0]
@@ -41,11 +40,10 @@ describe 'Curator Worklist' do
                                     {:id => '21116', :vetted => Vetted.trusted, :event => @testing_harvest_event}])
     
     # Agent, Content Partner and Hierarchy entry with no image content associated with them.
-    @supplier_agent_no_ctnt = Agent.gen()
-    @content_partner_no_ctnt = ContentPartner.gen(:agent => @supplier_agent_no_ctnt, :description => 'For testing curator worklist')
-    @content_partner_name = Agent.find_by_id(ContentPartner.find_by_id(@content_partner_no_ctnt.id, :select=>'agent_id').agent_id, :select => 'full_name').full_name
-    @child_entry_no_ctnt = HierarchyEntry.gen(:parent_id => @child_entry.id, :hierarchy_id => @ancestor_entry.hierarchy_id)
-    @species_name = Name.find_by_id(HierarchyEntry.find_by_id(@child_entry_no_ctnt.id, :select => 'name_id').name_id)
+    @supplier_user_no_content = User.gen()
+    @content_partner_no_content = ContentPartner.gen(:user => @supplier_user_no_content, :description => 'For testing curator worklist')
+    @child_entry_no_content = HierarchyEntry.gen(:parent_id => @child_entry.id, :hierarchy_id => @ancestor_entry.hierarchy_id)
+    @species_name = Name.find_by_id(HierarchyEntry.find_by_id(@child_entry_no_content.id, :select => 'name_id').name_id)
 
     @first_child_unreviewed_image = DataObject.find('11111')
     @first_child_untrusted_image = DataObject.find('11112')
@@ -267,19 +265,19 @@ describe 'Curator Worklist' do
   end
   
   it 'should be able to give curators a warning message if content is not found' do
-    visit("/curators/curate_images?content_partner_id=#{@content_partner_no_ctnt.id}")
-    body.should include("There is no #{@content_partner_name} content, please select another group to curate or change your source or vetting status criteria.")
-    visit("/curators/curate_images?hierarchy_entry_id=#{@child_entry_no_ctnt.id}")
+    visit("/curators/curate_images?content_partner_id=#{@content_partner_no_content.id}")
+    body.should include("There is no #{@content_partner_no_content.user.full_name} content, please select another group to curate or change your source or vetting status criteria.")
+    visit("/curators/curate_images?hierarchy_entry_id=#{@child_entry_no_content.id}")
     body.should include("There is no content for #{@species_name}, please select another group to curate or change your source or vetting status criteria.")
     visit("/curators/curate_images?vetted_id=#{Vetted.trusted.id}")
     body.should include("There is no Trusted content, please select another group to curate or change your source or vetting status criteria.")
-    visit("/curators/curate_images?content_partner_id=#{@content_partner_no_ctnt.id}&vetted_id=#{Vetted.trusted.id}")
-    body.should include("There is no Trusted #{@content_partner_name} content, please select another group to curate or change your source or vetting status criteria.")
-    visit("/curators/curate_images?hierarchy_entry_id=#{@child_entry_no_ctnt.id}&vetted_id=#{Vetted.untrusted.id}")
+    visit("/curators/curate_images?content_partner_id=#{@content_partner_no_content.id}&vetted_id=#{Vetted.trusted.id}")
+    body.should include("There is no Trusted #{@content_partner_no_content.user.full_name} content, please select another group to curate or change your source or vetting status criteria.")
+    visit("/curators/curate_images?hierarchy_entry_id=#{@child_entry_no_content.id}&vetted_id=#{Vetted.untrusted.id}")
     body.should include("There is no Untrusted content for #{@species_name}, please select another group to curate or change your source or vetting status criteria.")
-    visit("/curators/curate_images?content_partner_id=#{@content_partner_no_ctnt.id}&hierarchy_entry_id=#{@child_entry_no_ctnt.id}&vetted_id=#{Vetted.unknown.id}")
-    body.should include("There is no Unreviewed #{@content_partner_name} content for #{@species_name}, please select another group to curate or change your source or vetting status criteria.")
-    # visit("/curators/ignored_images?hierarchy_entry_id=#{@child_entry_no_ctnt.id}")
+    visit("/curators/curate_images?content_partner_id=#{@content_partner_no_content.id}&hierarchy_entry_id=#{@child_entry_no_content.id}&vetted_id=#{Vetted.unknown.id}")
+    body.should include("There is no Unreviewed #{@content_partner_no_content.user.full_name} content for #{@species_name}, please select another group to curate or change your source or vetting status criteria.")
+    # visit("/curators/ignored_images?hierarchy_entry_id=#{@child_entry_no_content.id}")
     # body.should include("There is no ignored content for #{@species_name}, please select another group.")
   end
   

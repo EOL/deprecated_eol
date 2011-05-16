@@ -108,16 +108,16 @@ describe 'Taxa overview' do
       should have_tag('#content .article p:nth-child(2)', /^(#{@testy[:taxon_concept_with_no_common_names].common_names.count})/)
     end
   end
-
+  
   # @see 'should render when an object has no agents' in old taxa page spec
   context 'when taxon image does not have an agent' do
     it 'should still render the image'
   end
-
+  
   context 'when taxon text exists but it does not have any references' do
     it 'should not show references container'
   end
-
+  
   context 'when taxon does not have any data' do
     before(:all) { visit("/pages/#{@testy[:exemplar].id}") }
     subject { body }
@@ -125,7 +125,7 @@ describe 'Taxa overview' do
       should have_tag('#feed_items_container p.empty', /no activity/i)
     end
   end
-
+  
   context 'when taxon supercedes another concept' do
     before(:all) { visit("/pages/#{@testy[:superceded_taxon_concept].id}") }
     it 'should use supercedure to find taxon if user visits the other concept' do
@@ -136,7 +136,7 @@ describe 'Taxa overview' do
     # comment = Comment.gen(:parent_type => "TaxonConcept", :parent_id => @testy[:superceded_taxon_concept].id, :body => "Comment from superceded taxon concept.")
     it 'should show comments from superceded taxa'
   end
-
+  
   context 'when taxon is unpublished' do
     before(:all) { visit("/pages/#{@testy[:unpublished_taxon_concept].id}") }
     subject { body }
@@ -144,7 +144,7 @@ describe 'Taxa overview' do
       should have_tag('h1', /^Sorry.*?does not exist/)
     end
   end
-
+  
   context 'when taxon does not exist' do
     before(:all) { visit("/pages/#{TaxonConcept.missing_id}") }
     subject { body }

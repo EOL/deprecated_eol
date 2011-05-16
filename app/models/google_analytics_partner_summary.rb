@@ -1,38 +1,28 @@
 class GoogleAnalyticsPartnerSummary < SpeciesSchemaModel
-  belongs_to :agent
-  set_primary_keys :year, :month, :agent_id
+  belongs_to :user
+  set_primary_keys :year, :month, :user_id
   
-  
-  def self.summary(agent_id, report_year, report_month)
-    query = "Select 
-    google_analytics_partner_summaries.taxa_pages taxa_pages,
-    google_analytics_partner_summaries.taxa_pages_viewed taxa_pages_viewed,
-    google_analytics_partner_summaries.unique_page_views unique_page_views,   
-    google_analytics_partner_summaries.page_views,
-    format(google_analytics_partner_summaries.time_on_page/60/60,2) `timeonpage`,
-    
-    google_analytics_summaries.taxa_pages eol_taxa_pages,
-    google_analytics_summaries.taxa_pages_viewed eol_taxa_pages_viewed,  
-    google_analytics_summaries.unique_pageviews as unique_pageviews,
-    google_analytics_summaries.pageviews,
-    format(google_analytics_summaries.time_on_pages/60/60,0) `timeonpages`
-    
-    ,format(google_analytics_partner_summaries.taxa_pages/google_analytics_summaries.taxa_pages * 100,2)             as p_taxa_pages
-    ,format(google_analytics_partner_summaries.taxa_pages_viewed/google_analytics_summaries.taxa_pages_viewed*100,2) as p_taxa_pages_viewed
-    ,format(google_analytics_partner_summaries.unique_page_views/google_analytics_summaries.unique_pageviews*100,2)  as p_unique_page_views
-    ,format(google_analytics_partner_summaries.page_views/google_analytics_summaries.pageviews*100,2)                as p_page_views
-    ,format((google_analytics_partner_summaries.time_on_page/60/60)/(google_analytics_summaries.time_on_pages/60/60)*100,2)    as p_timeonpage
-    
-    From google_analytics_partner_summaries
-    Inner Join google_analytics_summaries ON 
-    google_analytics_partner_summaries.`year` = google_analytics_summaries.`year` AND 
-    google_analytics_partner_summaries.`month` = google_analytics_summaries.`month`
-    Where
-    google_analytics_partner_summaries.agent_id = ? AND
-    google_analytics_partner_summaries.`year` = ? AND
-    google_analytics_partner_summaries.`month` = ?"
-    
-    self.find_by_sql [query, agent_id, report_year, report_month]    
+  def time_on_page_in_hours
+    time_on_page.to_f / 60.0 / 60.0
   end
   
+  def percent_overall_taxa_pages(google_analytics_summary)
+    (taxa_pages.to_f / google_analytics_summary.taxa_pages.to_f) * 100.0
+  end
+  
+  def percent_overall_taxa_pages_viewed(google_analytics_summary)
+    (taxa_pages_viewed.to_f / google_analytics_summary.taxa_pages_viewed.to_f) * 100.0
+  end
+  
+  def percent_overall_unique_page_views(google_analytics_summary)
+    (unique_page_views.to_f / google_analytics_summary.unique_pageviews.to_f) * 100.0
+  end
+  
+  def percent_overall_page_views(google_analytics_summary)
+    (page_views.to_f / google_analytics_summary.pageviews.to_f) * 100.0
+  end
+  
+  def percent_overall_time_on_page_in_hours(google_analytics_summary)
+    (time_on_page_in_hours / google_analytics_summary.time_on_pages_in_hours) * 100.0
+  end
 end

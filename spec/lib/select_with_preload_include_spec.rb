@@ -7,15 +7,9 @@ describe 'Select with Preload Include' do
     @taxon_concept = build_taxon_concept()
     @last_data_object = DataObject.last
     @last_agent = Agent.last
+    @last_user = User.last
     @dohe = DataObjectsHarvestEvent.last
-    ContentPartner.gen(:agent => @last_agent)
-    # Vetted::CACHE_ALL_ROWS = false
-    # Language::CACHE_ALL_ROWS = false
-  end
-  
-  after :all do
-    # Vetted::CACHE_ALL_ROWS = true
-    # Language::CACHE_ALL_ROWS = true
+    ContentPartner.gen(:user => @last_user)
   end
   
   it 'should be able to select .*' do
@@ -330,8 +324,8 @@ describe 'Select with Preload Include' do
     DataObject.last.vetted.taxon_concepts.last.hierarchy_entries.last.refs.last.ref_identifiers[0].ref_identifier_type_id?.should == true
   end
   
-  # I disabled caching all classes in the test environment due to complications.
-  # /lib/select_with_preload_include/active_record/base.rb says that caching only works if RAILS_ENV != 'test'
+  # # I disabled caching all classes in the test environment due to complications.
+  # # /lib/select_with_preload_include/active_record/base.rb says that caching only works if RAILS_ENV != 'test'
   # it 'should cache class instances' do
   #   $CACHE.clear
   #   Rank.delete(1)

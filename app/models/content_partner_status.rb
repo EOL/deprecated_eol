@@ -1,5 +1,5 @@
-# Enumerated list of statuses for an Agent.  For now, mainly distinguishing between active, archived, and pending agents.
-class AgentStatus < SpeciesSchemaModel
+# Enumerated list of statuses for an ContentPartner.  For now, mainly distinguishing between active, archived, and pending agents.
+class ContentPartnerStatus < SpeciesSchemaModel
   uses_translations
   has_many :content_partners
 
@@ -10,5 +10,4 @@ class AgentStatus < SpeciesSchemaModel
   def self.inactive
     cached_find_translated(:label, 'Inactive')
   end
-
 end

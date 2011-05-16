@@ -20,7 +20,7 @@ xml.DataSet "xmlns" => "http://www.tdwg.org/schemas/tcs/1.01",
           xml.NameSources do
             for agent_role in @synonym.agents_roles
               xml.NameSource do
-                xml.Simple agent_role.agent.display_name
+                xml.Simple agent_role.agent.full_name
                 xml.Role agent_role.agent_role.label
               end
             end

@@ -1,0 +1,42 @@
+= javascript_include_tag 'users'
+= eol_lang_error_messages_for :user if request.post?
+- @page_header ||= I18n.t("manage_your_profile")
+- content_for :content do
+  #page-separator-general
+  #page-title
+    %h1
+      = @page_header
+    %hr
+  #page-content.clearfix
+    #page-content-bgfauxinside
+      #full-page-content
+        #left-pane
+          %ul#toc.content_partner
+            %li
+              = link_to I18n.t("account_information_menu"), { :controller => 'new_account', :action => 'profile' }, :class => "#{(params[:controller] == 'new_account' && params[:action] == 'profile') ? 'active' : ''} toc_item"
+            %li
+              = link_to I18n.t("personal_profile_menu"), { :controller => 'new_account', :action => 'personal_profile' }, :class => "#{params[:action] == 'personal_profile' ? 'active' : ''} toc_item"
+            %li
+              = link_to I18n.t("site_settings_menu"), { :controller => 'new_account', :action => 'site_settings' }, :class => "#{params[:action] == 'site_settings' ? 'active' : ''} toc_item"
+            %li
+              = link_to I18n.t("curator_profile_menu"), { :controller => 'curator_account', :action => 'profile' }, :class => "#{(params[:controller] == 'curator_account' && params[:action] == 'profile') ? 'active' : ''} toc_item"
+            %li
+              = link_to I18n.t("content_partner_profile_menu"), { :controller => 'content_partner_account', :action => 'dashboard' }, :class => "#{(params[:controller] == 'content_partner_account' && params[:action] == 'dashboard') ? 'active' : ''} toc_item"
+              - if params[:controller] == 'content_partner_account' || params[:controller] == 'resources'
+                %li
+                  = link_to I18n.t("partner_information_"), { :controller => 'content_partner_account', :action => 'profile' }, :class => "#{(params[:controller] == 'content_partner_account' && params[:action] == 'profile') ? 'active' : ''} nested toc_item"
+                %li
+                  = link_to I18n.t("contact_information_"), { :controller => 'content_partner_account', :action => 'contacts' }, :class => "#{(params[:controller] == 'content_partner_account' && ['contacts', 'add_contact'].include?(params[:action])) ? 'active' : ''} nested toc_item"
+                %li
+                  - in_parter_steps = (params[:controller] == 'content_partner_account' && ['licensing', 'attribution', 'roles', 'transfer_overview', 'transfer_upload'].include?(params[:action]))
+                  = link_to I18n.t("partnering_steps"), { :controller => 'content_partner_account', :action => 'licensing' }, :class => "#{in_parter_steps ? 'active' : ''} nested toc_item"
+                - if current_user.content_partner && current_user.content_partner.ready_for_agreement?
+                  %li
+                    = link_to I18n.t("your_agreement"), { :controller => 'content_partner_account', :action => "agreement"}, :class => 'nested toc_item', :target=>"_new"
+                  %li
+                    = link_to I18n.t("manage_resources"), resources_url, :class => "#{params[:controller] == 'resources' ? 'active' : ''} nested toc_item"
+        #right-pane
+          #main_area
+            = yield
+          #message_area.message
+= render :file => 'layouts/main'

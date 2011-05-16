@@ -23,7 +23,7 @@
           = h(contact.telephone) + "<br />" unless contact.telephone.blank?
           = h(contact.address) + "<br />" unless contact.address.blank?
         %td{ :class => column_class }
-          = contact.agent_contact_role.label
+          = contact.contact_role.label
         %td{ :class => column_class }
           = link_to(I18n.t("change"), { :action => 'edit_contact', :id => contact })
           \|

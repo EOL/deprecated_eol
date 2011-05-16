@@ -127,7 +127,7 @@ module ApplicationHelper
       error_messages = objects.map do |obj|
         obj.errors.map do |field, error|
           # Try translating the field name
-          field = ActiveRecord::Base.human_attribute_name(field)[]
+          field = I18n.t(ActiveRecord::Base.human_attribute_name(field))
 
           # Make two versions of the error message:
           #   Example: is too short (minimum 3 characters)
@@ -195,7 +195,7 @@ module ApplicationHelper
     return nil if agent.blank?
     src = (agent.logo_cache_url != 0) ? agent.logo_url(size) : agent.logo_file_name
     return src if src.empty?
-    project_name = hh(sanitize(agent.project_name))
+    project_name = hh(sanitize(agent.full_name))
     capture_haml do
       haml_tag :img, {:width => params[:width], :height => params[:height],
                       :src => src,  :border => 0, :alt => project_name,

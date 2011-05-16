@@ -5,6 +5,7 @@
 # Note that email is NOT a unique field: one email address is allowed to have multiple accounts.
 # NOTE this inherist from MASTER.  All queries against a user need to be up-to-date, since this contains config information
 # which can change quickly.  There is a similar clause in the execute() method in the connection proxy for masochism.
+
 class User < $PARENT_CLASS_MUST_USE_MASTER
 
   include EOL::Feedable
@@ -28,7 +29,11 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   # has_many :user_ignored_data_objects
   has_many :collection_items, :as => :object
   has_many :collections
-
+  has_many :google_analytics_partner_summaries
+  has_many :google_analytics_partner_taxa
+  has_many :resources, :through => :content_partner
+  
+  has_one :content_partner
   has_one :user_info
   # I wish these worked, but they need runtime evaluation.
   #has_one :watch_collection, :class_name => 'Collection', :conditions => { :special_collection_id => SpecialCollection.watch.id }
@@ -64,6 +69,16 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   validates_format_of :email, :with => @email_format_re
 
   validates_confirmation_of :entered_password
+  
+  has_attached_file :logo,
+    :path => $LOGO_UPLOAD_DIRECTORY,
+    :url => $LOGO_UPLOAD_PATH,
+    :default_url => "/images/blank.gif"
+  
+  validates_attachment_content_type :logo, 
+    :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'],
+    :message => "image is not a valid image type", :if => :partner_step?
+  validates_attachment_size :logo, :in => 0..0.5.megabyte
 
   attr_accessor :entered_password, :entered_password_confirmation, :curator_request
 
@@ -489,9 +504,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     has_special_role?(Role.administrator)
   end
 
-  # TODO - whaaa?  Seriously?  All CPs are admins?  ...We should change this.
   def is_content_partner?
-    has_special_role?(Role.administrator)
+    content_partner ? true : false
   end
 
   def curator_attempted?
@@ -635,7 +649,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
     unless options[:content_partner_id].blank?
       content_partner = ContentPartner.find(options[:content_partner_id].to_i)
-      resource_clause = content_partner.agent.resources.collect{|r| r.id}.join(" OR resource_id:")
+      resource_clause = content_partner.resources.collect{|r| r.id}.join(" OR resource_id:")
       if resource_clause.blank?
         solr_query << " AND resource_id:0"  # This will return nothing, when the content partner has no resources
       else
@@ -770,6 +784,11 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def member_of(community)
     reload_if_stale
     self.members.select {|m| m.community_id == community.id}.first
+  end
+  
+  # override the logo_url column in the database to contruct the path on the content server
+  def logo_url(size = 'large')
+    ContentServer.agent_logo_path(self.attributes['logo_cache_url'], size)
   end
 
 private

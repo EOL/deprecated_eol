@@ -1,0 +1,36 @@
+= render :partial => 'steps'
+%strong
+  =I18n.t("licensing_policy")
+%p{ :style => "margin: 10px 0 10px 0;" }
+  =I18n.t("to_the_greatest_extent_possibl")
+%ol
+  %li{ :style => "margin-bottom: 10px;" }
+    =I18n.t("content_providers_warrant_and_")
+  %li{ :style => "margin-bottom: 10px;" }
+    =I18n.t("all_information_currently_in_t")
+  %li{ :style => "margin-bottom: 10px;" }
+    =I18n.t("content_providers_are_required")
+    %a{ :href => "http://creativecommons.org/licenses/by/3.0/" }
+      =I18n.t("creative_commons")
+    =I18n.t("license_for_the_information_th")
+  %li{ :style => "margin-bottom: 10px;" }
+    =I18n.t("content_providers_who_request_")
+    %a{ :href => "http://creativecommons.org/about/licenses", :target => "_blank" }
+      =I18n.t("creative_commons")
+    =I18n.t("website")
+    %ul.helplist
+      %li
+        =I18n.t("cc_by_sa___attribution_shareal")
+      %li
+        =I18n.t("cc_by_nc___attribution_noncomm")
+      %li
+        =I18n.t("cc_by_nc_sa___attribution_nonc")
+  %li{ :style => "margin-bottom: 10px;" }
+    =I18n.t("the_eol_will_provide_attributi")
+- form_for @user.content_partner, :url => { :action => action_name }, :html => { :method => :post, :id => 'step_form' } do |f|
+  = f.check_box :ipr_accept
+  = f.label :ipr_accept, I18n.t("i_have_read_and_understand_the"), :style => 'display: inline'
+  = hidden_field_tag :save_type, "next"
+  %br
+= content_tag(:button, 'Save', :onclick => "$('#save_type').val('save'); $('#step_form').submit();")
+= content_tag(:button, 'Save &amp; Continue &#187;', :onclick => "$('#save_type').val('next'); $('#step_form').submit();")

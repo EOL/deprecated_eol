@@ -5,40 +5,43 @@
       %h1
         =I18n.t("no_content_partner")
         %i
-          = @content_partner.agent.full_name
+          = @content_partner.user.full_name
   - else
     #page-title
       %h1
-        =I18n.t("pages_with_content_contributed_by_partner", :partner => @content_partner.agent.full_name)
+        =I18n.t("pages_with_content_contributed_by_partner", :partner => @content_partner.user.full_name)
     %hr
     #page-content.clearfix
       #full-page-content
         #content_partner_stats
           %p
-            =I18n.t("has_contributed_to_a_total_of_count_pages", :name => @content_partner.agent.full_name,  :count => @taxon_concepts_count)
+            =I18n.t("has_contributed_to_a_total_of_count_pages", :name => @content_partner.user.full_name,  :count => @taxon_concepts_count)
           %br
           %p
             = @content_partner.description unless @content_partner.description.blank?
-        = will_paginate @taxon_concepts
-        %table#content-partners-species
-          %tr
-            - @taxon_concepts.each_with_index do |tc, i|
-              - classname='image'
-              - if i % 6 == 5
-                - classname+='-last'
-                - last_cell = true
-              %td{ :class => classname }
-                %a{ :href => "/pages/#{tc['id']}" }
-                  %img{ :src => tc['image_src'], :border => "0" }
-                %br
-                %div{ :id => "top_name_#{i}" }
+        - if @taxon_concepts
+          = will_paginate @taxon_concepts
+          %table#content-partners-species
+            %tr
+              - @taxon_concepts.each_with_index do |tc, i|
+                - classname='image'
+                - if i % 6 == 5
+                  - classname+='-last'
+                  - last_cell = true
+                %td{ :class => classname }
                   %a{ :href => "/pages/#{tc['id']}" }
-                    = tc['name_string']
-                - if !tc['partner_source_url'].nil? && !tc['partner_source_url'].empty?
-                  %small
-                    (
-                    = external_link_to(I18n.t("view_source_page"), tc['partner_source_url'])
-                    )
-              - if last_cell
-                %tr
-        = will_paginate @taxon_concepts
+                    %img{ :src => tc['image_src'], :border => "0" }
+                  %br
+                  %div{ :id => "top_name_#{i}" }
+                    %a{ :href => "/pages/#{tc['id']}" }
+                      = tc['name_string']
+                  - if !tc['partner_source_url'].nil? && !tc['partner_source_url'].empty?
+                    %small
+                      (
+                      = external_link_to(I18n.t("view_source_page"), tc['partner_source_url'])
+                      )
+                - if last_cell
+                  %tr
+          = will_paginate @taxon_concepts
+        - else
+          No Contributed Content

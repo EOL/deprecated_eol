@@ -25,7 +25,7 @@
         =I18n.t("all_")
       - for cp in @content_partners_with_published_data
         %option{ :value => cp.id, :selected => @agent_id.to_i == cp.id }
-          = cp.full_name
+          = cp.user.full_name
     = submit_tag("Change")      
     %br
     =I18n.t("for_the_month_of_")    

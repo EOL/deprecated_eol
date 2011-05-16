@@ -12,15 +12,20 @@ class Administrator::ContentPartnerReportController < AdminController
   
   def index
     @page_title = I18n.t("content_partners")
-    @partner_search_string=params[:partner_search_string] || ''
-    @only_show_agents_with_unpublished_content=EOLConvert.to_boolean(params[:only_show_agents_with_unpublished_content])
-    @agent_status=AgentStatus.find(:all,:order=>'label')
-    @agent_status_id=params[:agent_status_id] || AgentStatus.active.id
+    @partner_search_string = params[:partner_search_string] || ''
+    @only_show_agents_with_unpublished_content = EOLConvert.to_boolean(params[:only_show_agents_with_unpublished_content])
+    @agent_status = AgentStatus.find(:all, :order => 'label')
+    @agent_status_id = params[:agent_status_id] || AgentStatus.active.id
     where_clause = (@agent_status_id.blank? ? '' : "agent_status_id=#{@agent_status_id} AND ")
-    search_string_parameter='%' + @partner_search_string + '%' 
-    page=params[:page] || '1'
-    order_by=params[:order_by] || 'full_name ASC'
-    @agents = Agent.paginate_by_sql(["select a.id,a.full_name,a.agent_status_id,partner_complete_step,show_on_partner_page,cp.vetted,cp.created_at from agents a inner join content_partners cp on cp.agent_id=a.id WHERE #{where_clause} full_name like ? ORDER BY #{order_by}",search_string_parameter],:page=>page)
+    search_string_parameter = '%' + @partner_search_string + '%' 
+    page = params[:page] || '1'
+    order_by = params[:order_by] || 'full_name ASC'
+    @agents = Agent.paginate_by_sql(["
+      SELECT a.id, a.full_name, a.agent_status_id, partner_complete_step, show_on_partner_page, cp.vetted, cp.created_at
+      FROM agents a
+      JOIN content_partners cp on cp.agent_id=a.id
+      WHERE #{where_clause} full_name like ?
+      ORDER BY #{order_by}", search_string_parameter],:page => page)
   end
 
   def export
@@ -78,32 +83,24 @@ class Administrator::ContentPartnerReportController < AdminController
   end
 
   def edit_profile
-
-    @agent=Agent.find(params[:id],:include=>:content_partner)   
-    @page_title = I18n.t("edit_profile__var__agent_displ", :var__agent_display_name => @agent.display_name)
-    return unless request.post?
-
-    if @agent.update_attributes(params[:agent])
-
-      upload_logo(@agent) unless @agent.logo_file_name.blank?
-      flash[:notice] = I18n.t(:profile_updated) 
-      redirect_to :action => 'show',:id=>@agent.id 
-
-    end
-      
+    # @agent = Agent.find(params[:id], :include => :content_partner)
+    # @page_title = I18n.t("edit_profile__var__agent_displ", :var__agent_display_name => @agent.display_name)
+    # return unless request.post?
+    # 
+    # if @agent.update_attributes(params[:agent])
+    #   upload_logo(@agent) unless @agent.logo_file_name.blank?
+    #   flash[:notice] = I18n.t(:profile_updated) 
+    #   redirect_to :action => 'show',:id=>@agent.id 
+    # end
   end
   
-  def login_as_agent
-      
-    @agent=Agent.find_by_id(params[:id])   
-    
-    if !@agent.blank?
+  def login_as_user
+    @user = User.find_by_id(params[:id])
+    if !@user.blank?
       reset_session
-      self.current_agent=@agent
-      redirect_to :controller=>'/content_partner',:action=>'index'
+      self.current_user = @user
+      redirect_to root_url
     end
-    return
-      
   end
   
   def edit_agreement
@@ -226,7 +223,7 @@ class Administrator::ContentPartnerReportController < AdminController
       @year_month   = @report_year + "_" + "%02d" % @report_month.to_i
     end        
     page = params[:page] || 1
-    @published_agents = Agent.published_agent(@report_year, @report_month, page)    
+    @published_content_partners = ContentPartner.partners_published_in_month(@report_year, @report_month)
   end
 
 
@@ -252,31 +249,30 @@ class Administrator::ContentPartnerReportController < AdminController
       @year_month   = @report_year + "_" + "%02d" % @report_month.to_i
     end
 
-    if(params[:agent_id]) then
-      @agent_id = params[:agent_id]
-      session[:form_agent_id] = params[:agent_id]
-    elsif(session[:form_agent_id]) then
-      @agent_id = session[:form_agent_id]
+    if(params[:content_partner_id]) then
+      @content_partner_id = params[:content_partner_id]
+      session[:form_content_partner_id] = params[:content_partner_id]
+    elsif(session[:form_content_partner_id]) then
+      @content_partner_id = session[:form_content_partner_id]
     else
-      @agent_id = "All"
+      @content_partner_id = "All"
     end
     
-    @content_partners_with_published_data = Agent.content_partners_with_published_data  
+    @content_partners_with_published_data = ContentPartner.with_published_data
 
-    if @agent_id == "All"
+    if @content_partner_id == "All"
       @partner_fullname = "All Curation"
       arr_dataobject_ids = []
     else
-      agent = Agent.find(@agent_id)
-      @partner_fullname = agent.full_name
-      @latest_harvest_event = agent.latest_harvest_event
-      @latest_harvest_id = @latest_harvest_event.id
-      arr_dataobject_ids = HarvestEvent.data_object_ids_from_harvest(@latest_harvest_id)
-    end        
+      content_partner = ContentPartner.find(@content_partner_id)
+      @partner_fullname = content_partner_id.user.full_name
+      latest_harvest_event = content_partner.resources.first.latest_harvest_event
+      arr_dataobject_ids = HarvestEvent.data_object_ids_from_harvest(latest_harvest_event.id)
+    end
 
     arr = User.curated_data_object_ids(arr_dataobject_ids, @report_year, @report_month, @agent_id)
-      @arr_dataobject_ids = arr[0]
-      @arr_user_ids = arr[1]
+    @arr_dataobject_ids = arr[0]
+    @arr_user_ids = arr[1]
 
     if @arr_dataobject_ids.length == 0
       @arr_dataobject_ids = [1] #no data objects

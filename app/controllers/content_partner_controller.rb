@@ -1,24 +1,24 @@
 class ContentPartnerController < ApplicationController
-  before_filter :agent_login_required, :except => [:login, :register, :check_username, :forgot_password, :agreement, :content, :stats]
+  before_filter :user_login_required, :except => [:login, :register, :check_username, :forgot_password, :agreement, :content, :stats]
   before_filter :accounts_not_available unless $ALLOW_USER_LOGINS  
   helper_method :current_agent, :agent_logged_in?
 
   layout :main_if_no_partner
 
   if $USE_SSL_FOR_LOGIN 
-    before_filter :redirect_to_ssl, :only=>[:login,:register,:profile]
+    before_filter :redirect_to_ssl, :only => [:login,:register,:profile]
   end
 
   # Dashboard
   def index
-    @page_header='Content Partner Dashboard'    
+    @page_header='Content Partner Dashboard'
   end
 
   def content
     page = params[:page] || '1'
     per_page = 36
     @content_partner = ContentPartner.find(params[:id].to_i)
-    @content_partner ||= current_agent.content_partner unless current_agent.nil?
+    @content_partner ||= current_user.content_partner unless current_user.nil?
     taxon_concept_results = @content_partner.nil? ? nil : @content_partner.concepts_for_gallery(page.to_i, per_page)
     if taxon_concept_results.nil?
       @taxon_concepts = nil
@@ -74,7 +74,7 @@ class ContentPartnerController < ApplicationController
     @agent = current_agent
     @content_partner=@agent.content_partner
     @content_partner.step  = :contacts
-    @agent_contacts = @agent.agent_contacts.find(:all, :include => :agent_contact_role)
+    @agent_contacts = @agent.agent_contacts.find(:all, :include => :contact_role)
 
     return unless request.post?
 
@@ -85,61 +85,6 @@ class ContentPartnerController < ApplicationController
 
   end
 
-  def licensing
-    @page_header='Partnering Steps'
-    @agent = current_agent
-    @content_partner=@agent.content_partner
-    @content_partner.step  = :licensing
-
-    return unless request.post?
-
-    if @content_partner.update_attributes(params[:content_partner])
-      @content_partner.log_completed_step! 
-      handle_save_type(:stay => { :action => action_name }, :next => { :action => 'attribution' })
-    end
-  end
-
-  def attribution
-    @page_header='Partnering Steps'
-    @agent = current_agent
-    @content_partner=@agent.content_partner
-    @content_partner.step  = :attribution   
-
-    return unless request.post?
-
-    if @content_partner.update_attributes(params[:content_partner])
-      @content_partner.log_completed_step!
-      handle_save_type(:stay => { :action => action_name }, :next => { :action => 'roles' })      
-    end
-  end
-
-  def roles
-    @page_header='Partnering Steps'
-    @agent = current_agent
-    @content_partner=@agent.content_partner
-    @agent.content_partner.step  = :roles
-
-    return unless request.post?
-
-    if @content_partner.update_attributes(params[:content_partner])
-      @content_partner.log_completed_step!
-      handle_save_type(:stay => { :action => action_name }, :next => { :action => 'transfer_overview' })      
-    end
-  end
-
-  def transfer_overview
-    @page_header='Partnering Steps'
-    @agent = current_agent
-    @content_partner = @agent.content_partner
-    @content_partner.step  = :transfer_overview
-
-    return unless request.post?
-
-    if @content_partner.update_attributes(params[:content_partner])
-      @content_partner.log_completed_step!
-      handle_save_type(:stay => { :action => action_name }, :next => { :action => 'transfer_upload' })      
-    end
-  end
 
   def transfer_upload
     @page_header='Partnering Steps'
@@ -154,38 +99,6 @@ class ContentPartnerController < ApplicationController
       handle_save_type(:stay => { :action => action_name }, :next => @agent.ready_for_agreement? ? resources_url : { :action => 'index' })      
     end    
   end
-
-  # NOT BEING USED FOR NOW (but there is a field for this in the DB, so until we're ready to migrate that away, we're keeping
-  # it here.
-  def specialist_overview
-    @page_header='Specialist Project Overview'
-    @agent = current_agent
-    @content_partner = @agent.content_partner    
-    @agent.content_partner.step  = :specialist_overview
-
-    return unless request.post?
-
-    if @content_partner.update_attributes(params[:content_partner])
-      @content_partner.log_completed_step!    
-      handle_save_type(:stay => { :action => action_name }, :next => { :action => 'specialist_formatting' })      
-    end    
-  end
-
-  # NOT BEING USED FOR NOW
-  def specialist_formatting
-    @page_header='Specialist Project Formatting'    
-    @agent = current_agent
-    @content_partner = @agent.content_partner    
-    @agent.content_partner.step  = :specialist_formatting
-
-    return unless request.post?
-
-    if @content_partner.update_attributes(params[:content_partner])
-      @content_partner.log_completed_step!
-      handle_save_type(:stay => { :action => action_name }, :next => { :action => 'index' })      
-    end
-
-  end  
 
   def hierarchy
     @page_header = 'Manage Resources'
@@ -264,7 +177,7 @@ class ContentPartnerController < ApplicationController
   def add_contact
     @page_header='Add Contact'
     @agent_contact = current_agent.agent_contacts.build(params[:agent_contact])
-    @agent_contact_roles = AgentContactRole.find(:all)
+    @contact_roles = ContactRole.find(:all)
 
     return unless request.post?
 
@@ -277,7 +190,7 @@ class ContentPartnerController < ApplicationController
   def edit_contact
     @page_header='Edit Contact'
     @agent_contact = current_agent.agent_contacts.find(params[:id])
-    @agent_contact_roles = AgentContactRole.find(:all)
+    @contact_roles = ContactRole.find(:all)
 
     return unless request.post?
 
@@ -299,98 +212,6 @@ class ContentPartnerController < ApplicationController
     end
 
     redirect_to :action => 'contacts'
-  end
-
-  # Public authentication methods
-  # ------------------------------------------
-
-  def register
-    @agent = Agent.new(params[:agent])
-
-    return unless request.post?
-
-    @agent.agent_status = AgentStatus.active
-
-    if @agent.save
-      @agent.content_partner=ContentPartner.new
-      self.current_agent = @agent
-      flash[:notice] = I18n.t(:welcome) 
-      # Send to first step (partner information)
-      redirect_to(:action => 'index', :protocol => 'http://')
-    end
-
-  end
-
-  def check_username
-
-    conditions=''
-    conditions='id != ' + current_agent.id.to_s unless current_agent.nil?
-
-    agent = Agent.find_by_username(params[:username],:conditions=>conditions)
-
-    message = agent ?  I18n.t(:username_taken , :username => agent.username)  : ""
-
-    message="" if params[:username].empty?
-
-    render :update do |page|      
-      page.replace_html 'username_warn', message
-    end
-
-  end
-
-  def login
-
-    redirect_to(:controller => '/content_partner', :action => 'index', :protocol => 'http://') and return if agent_logged_in?    
-    return unless request.post?
-
-    # log out any logged in web user to avoid any funny conflicts
-    reset_session
-
-    self.current_agent = Agent.authenticate(params[:agent][:username], params[:agent][:password])
-    if agent_logged_in?
-      if params[:remember_me] == "1"
-        self.current_agent.remember_me
-        cookies[:agent_auth_token] = { :value => self.current_agent.remember_token , :expires => self.current_agent.remember_token_expires_at }
-      end
-      flash[:notice] = I18n.t("logged_in_successfully_as_var_", :var_self_current_agent_full_name => self.current_agent.full_name)
-      redirect_to(:action=>'index',:protocol=>'http://')
-    else
-      flash.now[:error] = I18n.t("either_your_content_partner_lo")
-    end
-  end
-
-  def logout
-    params[:return_to] = nil unless params[:return_to] =~ /\A[%2F\/]/ # Whitelisting redirection to our own site, relative paths.
-
-    self.current_agent.forget_me if agent_logged_in?
-    cookies.delete :agent_auth_token
-    reset_session   
-    session[:agent_id] = nil
-    flash[:notice] = I18n.t("you_have_been_logged_out")
-
-    store_location(params[:return_to])
-    redirect_back_or_default
-  end
-
-  def forgot_password
-    return unless request.post?
-
-    if params[:username] == '' # if user did not supply a username, just look by project
-      @agent = Agent.find_by_full_name(params[:project_name])
-    elsif params[:project_name] == '' # if user did not supply a project name, just look by username
-      @agent = Agent.find_by_username(params[:username],true)
-    else # otherwise look by both
-      @agent = Agent.find_by_username_and_full_name(params[:username], params[:project_name])
-    end
-    if @agent
-      new_password = @agent.reset_password!
-      Notifier.deliver_agent_forgot_password_email(@agent, new_password)
-      flash[:notice] = I18n.t("new_password_emailed", :var_email=> @agent.email)  
-      redirect_to(:action => 'login')
-    else
-      flash[:error] = I18n.t("unknown_username_or_project_na")
-      redirect_to(:action => 'forgot_password')
-    end    
   end
 
   def profile
@@ -425,15 +246,6 @@ class ContentPartnerController < ApplicationController
 
     def main_if_no_partner
       layout = (current_agent.nil? || action_name == "stats") ? 'main' : 'content_partner'
-    end
-    
-    def get_agent
-      # if we are calling this method from the content partner registry, the agent is currently logged in so use that one
-      if agent_logged_in? && params[:id].nil?
-        @agent=current_agent
-      else #otherwise, show the agreement from the agent ID passed into the querystring (and the specific agreement if passed in)
-        @agent=Agent.find(params[:id])
-      end
     end
     
     def find_or_create_agreement

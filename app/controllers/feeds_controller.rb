@@ -107,18 +107,18 @@ class FeedsController < ApplicationController
 
 
   def partner_curation()
-    agent_id = params[:agent_id] || nil
+    user_id = params[:user_id] || nil
     year = params[:year] || nil
     month = params[:month] || nil
     
-    agent = Agent.find(agent_id)
-    latest_harvest_event = agent.latest_harvest_event
+    user = User.find(user_id)
+    latest_harvest_event = user.content_partner.resources.first.latest_harvest_event rescue nil
     
     actions_histories = latest_harvest_event.curated_data_objects(:year => year, :month => month)
     
-    @feed_url = url_for(:controller => 'feeds', :action => 'partner_curation', :agent_id => agent_id, :month => month, :year => year)
+    @feed_url = url_for(:controller => 'feeds', :action => 'partner_curation', :user_id => user_id, :month => month, :year => year)
     @feed_link = "http://www.eol.org"
-    @feed_title = agent.full_name + " curation activity"
+    @feed_title = user.full_name + " curation activity"
     
     @feed_entries = []
     actions_histories.each do |ah|

@@ -82,9 +82,9 @@ describe 'Feeds' do
       truncate_all_tables
       load_foundation_cache
 
-      @agent = Agent.gen(:full_name => 'FishBase')
-      @resource = Resource.gen(:title => "test resource")
-      @agent_resource = AgentsResource.gen(:agent_id => @agent.id, :resource_id => @resource.id)
+      @user = User.gen(:given_name => 'FishBase')
+      @content_partner = ContentPartner.gen(:user => @user)
+      @resource = Resource.gen(:title => "test resource", :content_partner => @content_partner)
       last_month = Time.now - 1.month
       @harvest_event = HarvestEvent.gen(:resource_id => @resource.id, :published_at => last_month)
       @data_object = DataObject.gen(:published => 1, :vetted_id => Vetted.trusted.id)
@@ -99,8 +99,8 @@ describe 'Feeds' do
     end
 
     it "should show feed with all curation activity for a content partner" do
-      visit("/feeds/partner_curation?agent_id=#{@agent.id}")
-      body.should include "#{@agent.full_name} curation activity"
+      visit("/feeds/partner_curation?user_id=#{@user.id}")
+      body.should include "#{@user.full_name} curation activity"
     end
 
     it "should show feed for a month's curation activity for a content partner" do
@@ -108,8 +108,8 @@ describe 'Feeds' do
       @report_year = last_month.year.to_s
       @report_month = last_month.month.to_s
       @year_month   = @report_year + "_" + "%02d" % @report_month.to_i
-      visit("/feeds/partner_curation?agent_id=#{@agent.id}&year_month=#{URI.escape @year_month}")
-      body.should include "#{@agent.full_name} curation activity"
+      visit("/feeds/partner_curation?user_id=#{@user.id}&year_month=#{URI.escape @year_month}")
+      body.should include "#{@user.full_name} curation activity"
     end
   end
 

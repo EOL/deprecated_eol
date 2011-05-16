@@ -4,12 +4,12 @@ describe Agent do
 
   before(:all) do
     truncate_all_tables
-    @iucn_agent     = Agent.iucn
-    @iucn_agent   ||= Agent.gen(:full_name => 'IUCN')
-    @iucn_resource1 = Resource.gen()
-    @iucn_resource2 = Resource.gen()
-    AgentsResource.gen(:agent => @iucn_agent, :resource => @iucn_resource1)
-    AgentsResource.gen(:agent => @iucn_agent, :resource => @iucn_resource2)
+    iucn_agent = Agent.iucn || Agent.gen(:full_name => 'IUCN')
+    iucn_user = User.gen(:agent => iucn_agent)
+    iucn_content_partner = ContentPartner.gen(:user => iucn_user)
+    
+    @iucn_resource1 = Resource.gen(:content_partner => iucn_content_partner)
+    @iucn_resource2 = Resource.gen(:content_partner => iucn_content_partner)
   end
 
   # TODO - test this model!  Sheesh.

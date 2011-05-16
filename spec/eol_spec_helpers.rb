@@ -78,10 +78,6 @@ module EOL
         solr.build_indexes
       end
 
-      def reset_auto_increment_on_tables_with_tinyint_primary_keys
-        EOL::DB.reset_auto_increment_on_tables_with_tinyint_primary_keys
-      end
-
       # truncates all tables in all databases
       def truncate_all_tables options = { }
         options[:verbose] ||= false
@@ -216,10 +212,8 @@ module EOL
       def find_or_build_resource(title, options = {})
         first_try = Resource.find_by_title(title)
         return first_try unless first_try.nil?
-        resource = Resource.gen(:title => title)
-        if options[:agent]
-          AgentsResource.gen(:agent => options[:agent], :resource => resource)
-        end
+        options[:content_partner] ||= ContentPartner.gen
+        resource = Resource.gen(:title => title, :content_partner => options[:content_partner])
         return resource
       end
 
@@ -236,7 +230,7 @@ module EOL
       end
 
       def default_harvest_event
-        find_or_build_harvest_event(find_or_build_resource('Test Framework Import', :agent => Agent.last))
+        find_or_build_harvest_event(find_or_build_resource('Test Framework Import', :content_partner => ContentPartner.last))
       end
 
       def gbif_harvest_event

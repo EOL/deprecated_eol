@@ -16,11 +16,11 @@ class InternationalizeRemainingDataTables < EOL::DataMigration
       PRIMARY KEY (`id`),
       UNIQUE (`agent_data_type_id`, `language_id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8")
-    if english
-      AgentDataType.all.each do |r|
-        TranslatedAgentDataType.create(:agent_data_type_id => r.id, :language_id => english.id, :label => r.label)
-      end
-    end
+    # if english
+    #   AgentDataType.all.each do |r|
+    #     TranslatedAgentDataType.create(:agent_data_type_id => r.id, :language_id => english.id, :label => r.label)
+    #   end
+    # end
     remove_column :agent_data_types, :label
 
 

@@ -4,19 +4,23 @@
 class ContentPartner < SpeciesSchemaModel
 
   include EOL::Feedable
-  belongs_to :agent
-
-  unless defined? STEPS
-    STEPS = [:partner, :contacts, :licensing, :attribution, :roles, :transfer_overview, :transfer_upload, :specialist_overview, :specialist_formatting] 
-    STEPS.each { |s| define_method("#{s}_step?") { self.step.to_s == s.to_s }}
-  end
-
-  attr_reader :step
+  belongs_to :user
+  belongs_to :content_partner_status
+  
+  has_many :content_partner_provided_data_types, :dependent => :destroy
+  has_many :content_partner_data_types, :through => :content_partner_provided_data_types
+  has_many :resources
+  has_many :content_partner_contacts, :dependent => :destroy
+  has_many :google_analytics_partner_summaries
+  has_many :google_analytics_partner_taxa
+  has_many :content_partner_agreements
+  
+  #STEPS = [:partner, :contacts, :licensing, :attribution, :roles, :transfer_overview, :transfer_upload, :specialist_overview, :specialist_formatting] 
 
   # Alias some partner fields so we can use validation helpers
   alias_attribute :project_description, :description
   
-  validate :validate_atleast_one_contact, :if => :contacts_step?
+  #validate :validate_atleast_one_contact, :if => :contacts_step?
   # REMOVE VALIDATION FOR THESE STEPS TO ALLOW PEOPLE TO 'UNACCEPT', Peter Mangiafico, Sep 12, 2008
   #validate :validate_ipr_acceptance, :if => :licensing_step?  
   #validate :validate_attribution_acceptance, :if => :attribution_step?
@@ -25,46 +29,14 @@ class ContentPartner < SpeciesSchemaModel
   # Callbacks
   before_save :blank_not_null_fields
   
-  def self.find_by_full_name(full_name)
-    content_partners = ContentPartner.find_by_sql([%Q{
-        SELECT cp.*
-        FROM agents a
-        JOIN content_partners cp ON (a.id=cp.agent_id)
-        WHERE a.full_name=? }, full_name])
-    
-    return nil if content_partners.nil?
-    content_partners[0]
-  end
-  
-  def self.find_harvested_by_full_name(full_name)
-    content_partners = ContentPartner.find_by_sql([%Q{
-        SELECT cp.*
-        FROM agents a
-        JOIN content_partners cp ON (a.id=cp.agent_id)
-        JOIN agents_resources ar ON (a.id=ar.agent_id)
-        JOIN resources r ON (ar.resource_id=r.id)
-        JOIN harvest_events he ON (r.id=he.resource_id)
-        WHERE a.full_name=? }, full_name])
-    
-    return nil if content_partners.nil?
-    content_partners[0]
-  end
-  
   def concepts_for_gallery(page, per_page)
     page = page - 1
-    partner_resources = Resource.find_by_sql(%Q{
-        SELECT
-        r.*
-        FROM agents_resources ar
-        JOIN resources r ON (ar.resource_id=r.id)
-        WHERE ar.agent_id=#{agent_id}
-        AND ar.resource_agent_role_id=#{ResourceAgentRole.content_partner_upload_role.id}})
     
-    return nil if partner_resources.nil?
-    harvest_event_ids = partner_resources.collect{|r| r.latest_published_harvest_event.id || nil }
+    return nil if resources.nil?
+    harvest_event_ids = resources.collect{|r| r.latest_published_harvest_event.id || nil }
     return nil if harvest_event_ids.empty?
     
-    all_hierarchy_entry_ids = SpeciesSchemaModel.connection.select_values(%Q{
+    all_hierarchy_entry_ids = connection.select_values(%Q{
         SELECT hierarchy_entry_id
         FROM harvest_events_hierarchy_entries hehe
         WHERE hehe.harvest_event_id IN (#{harvest_event_ids.join(',')})}).uniq.reverse
@@ -72,7 +44,7 @@ class ContentPartner < SpeciesSchemaModel
     
     start_index = page*per_page
     end_index = start_index + per_page
-    sorted_hierarchy_entries = SpeciesSchemaModel.connection.execute("
+    sorted_hierarchy_entries = connection.execute("
         SELECT he.id hierarchy_entry_id, he.source_url, n.string scientific_name
         FROM hierarchy_entries he
         JOIN names n on (he.name_id=n.id)
@@ -87,7 +59,7 @@ class ContentPartner < SpeciesSchemaModel
       if i >= start_index && i < end_index 
         
         entry = sorted_hierarchy_entries[i-start_index]
-        name_and_image = SpeciesSchemaModel.connection.execute("SELECT he.taxon_concept_id, n.string, do.object_cache_url
+        name_and_image = connection.execute("SELECT he.taxon_concept_id, n.string, do.object_cache_url
           FROM hierarchy_entries he
           JOIN names n ON (he.name_id=n.id)
           LEFT JOIN (
@@ -110,21 +82,19 @@ class ContentPartner < SpeciesSchemaModel
     all_concepts
   end
   
-  # has this agent submitted data_objects which are currently published
+  # has this partner submitted data_objects which are currently published
   def has_published_resources?
     has_resources = SpeciesSchemaModel.connection.execute(%Q{
         SELECT 1
-        FROM agents a
-        JOIN agents_resources ar ON (a.id=ar.agent_id)
-        JOIN harvest_events he ON (ar.resource_id=he.resource_id)
-        WHERE ar.agent_id=#{agent_id} AND he.published_at IS NOT NULL LIMIT 1}).all_hashes
+        FROM resources r
+        JOIN harvest_events he ON (r.id = he.resource_id)
+        WHERE r.content_partner_id=#{id} AND he.published_at IS NOT NULL LIMIT 1}).all_hashes
     return !has_resources.empty?
   end
   
   def data_objects_actions_history
-    
     latest_published_harvest_event_ids = []
-    agent.resources.each do |r|
+    resources.each do |r|
       if he = r.latest_published_harvest_event
         latest_published_harvest_event_ids << he.id
       end
@@ -148,7 +118,7 @@ class ContentPartner < SpeciesSchemaModel
   
   def comments_actions_history    
     latest_published_harvest_event_ids = []
-    agent.resources.each do |r|
+    resources.each do |r|
       if he = r.latest_published_harvest_event
         latest_published_harvest_event_ids << he.id
       end
@@ -172,7 +142,7 @@ class ContentPartner < SpeciesSchemaModel
 
   def taxa_comments_actions_history
     latest_published_harvest_event_ids = []
-    agent.resources.each do |r|
+    resources.each do |r|
       if he = r.latest_published_harvest_event
         latest_published_harvest_event_ids << he.id
       end
@@ -192,13 +162,84 @@ class ContentPartner < SpeciesSchemaModel
       b.created_at <=> a.created_at
     end
   end
+
+  def self.with_published_data
+    published_partner_ids = connection.select_values("SELECT r.content_partner_id
+    FROM resources r
+    JOIN harvest_events he ON (r.id = he.resource_id)
+    WHERE he.published_at IS NOT NULL")
+    ContentPartner.find_all_by_id(published_partner_ids)
+  end
+
+  def all_harvest_events
+    all_harvest_events = []
+    resources.each do |r|
+      if he = r.harvest_events
+        all_harvest_events += he
+      end
+    end
+  end
+  
+  # Returns true if the Agent's latest harvest contains this taxon_concept or taxon_concept id (the raw ID is
+  # preferred)
+  def latest_unpublished_harvest_contains?(taxon_concept_id)
+    taxon_concept_id = taxon_concept_id.id if taxon_concept_id.class == TaxonConcept
+    resources.each do |resource|
+      event = resource.latest_unpublished_harvest_event
+      if event # They do HAVE an unpublished event
+        tc = TaxonConcept.find_by_sql([%q{
+          SELECT tc.id
+          FROM taxon_concepts tc
+            JOIN hierarchy_entries he ON (tc.id = he.taxon_concept_id)
+            JOIN harvest_events_hierarchy_entries hehe ON (he.id = hehe.hierarchy_entry_id)
+          WHERE hehe.harvest_event_id = ?
+            AND tc.id = ?
+        }, event.id, taxon_concept_id])
+        return true unless tc.blank?
+      end
+    end
+
+    # we looked at ALL resources and found none applicable
+    return false
+  end
+
+  def self.partners_published_in_month(year, month)
+    start_time = Time.mktime(year, month)
+    end_time = Time.mktime(year, month) + 1.month
+    
+    previously_published_partner_ids = connection.select_values("SELECT r.content_partner_id
+      FROM resources r
+      JOIN harvest_events he ON (r.id = he.resource_id)
+      WHERE he.published_at < '#{start_time.mysql_timestamp}'")
+    
+    published_partner_ids = connection.select_values("SELECT r.content_partner_id
+      FROM resources r
+      JOIN harvest_events he ON (r.id = he.resource_id)
+      WHERE he.published_at BETWEEN '#{start_time.mysql_timestamp}' AND '#{end_time.mysql_timestamp}'")
+    ContentPartner.find_all_by_id(published_partner_ids - previously_published_partner_ids)
+  end
+  
+  def has_unpublished_content?
+    result=false
+    self.resources.each do |resource|
+      result=(resource.resource_status==ResourceStatus.published)
+    end
+    return !result
+  end
+
+  def primary_contact
+    self.content_partner_contacts.detect {|c| c.contact_role_id == ContactRole.primary.id } || self.content_partner_contacts.first
+  end
   
   # the date of the last action taken (the last time a contact was updated, or a step was viewed, or a resource was added/edited/published)
   def last_action
-    dates_to_compare=[self.partner_seen_step,self.partner_complete_step,self.contacts_seen_step,self.contacts_complete_step,self.licensing_seen_step,self.licensing_complete_step,self.attribution_seen_step,self.attribution_complete_step,self.roles_seen_step,self.roles_complete_step,self.transfer_overview_seen_step,self.transfer_overview_complete_step,self.transfer_upload_seen_step,self.transfer_upload_complete_step]
+    dates_to_compare = [self.partner_seen_step, self.partner_complete_step, self.contacts_seen_step, self.contacts_complete_step,
+                        self.licensing_seen_step, self.licensing_complete_step, self.attribution_seen_step, self.attribution_complete_step, 
+                        self.roles_seen_step, self.roles_complete_step, self.transfer_overview_seen_step, self.transfer_overview_complete_step,
+                        self.transfer_upload_seen_step, self.transfer_upload_complete_step]
     resources=self.agent.resources.compact!
     if resources
-      dates_to_compare << resources.sort_by{ |m| m.created_at }[0].created_at 
+      dates_to_compare << resources.sort_by{ |m| m.created_at }[0].created_at
     end
     dates_to_compare.compact!
     if dates_to_compare
@@ -208,32 +249,29 @@ class ContentPartner < SpeciesSchemaModel
     end
   end
   
-  def step=(new_step)
-    @step = new_step.to_sym
-    
-    # Store when the user has first 'seen' this step
-    seen_method = "#{step}_seen_step"
-    if !self.send("#{seen_method}?") && !new_record?
-      update_attribute(seen_method, Time.now.utc)
+  # Store when the user has first 'seen' this step
+  def log_seen_step!(step)
+    step_method = "#{step}_seen_step"
+    if self.respond_to?(step_method)
+      self.update_attribute(step_method.to_sym, Time.now.utc)
     end
   end
     
   # This was in a callback but just caused too many issues.
-  def log_completed_step!
-    step_method = "#{@step}_complete_step"
+  def log_completed_step!(step)
+    step_method = "#{step}_complete_step"
     if self.respond_to?(step_method)
-      #self.send("#{step_method}=", Time.now.utc)
       self.update_attribute(step_method.to_sym, Time.now.utc)
     end
-    if self.agent.ready_for_agreement? && eol_notified_of_acceptance.nil?
-       Notifier::deliver_agent_is_ready_for_agreement(self.agent, $CONTENT_PARTNER_REGISTRY_EMAIL_ADDRESS)
-       self.update_attribute(:eol_notified_of_acceptance,Time.now.utc)
+    if self.ready_for_agreement? && eol_notified_of_acceptance.nil?
+       Notifier::deliver_agent_is_ready_for_agreement(self.user, $CONTENT_PARTNER_REGISTRY_EMAIL_ADDRESS)
+       self.update_attribute(:eol_notified_of_acceptance, Time.now.utc)
     end  
   end
   
   # Called when contact_step? is true
   def validate_atleast_one_contact
-    errors.add_to_base('You must have at least one contact') unless self.agent.agent_contacts.any?
+    errors.add_to_base('You must have at least one contact') unless self.content_partner_contacts.any?
   end
 
   # Called when licensing_step? is true
@@ -266,17 +304,52 @@ class ContentPartner < SpeciesSchemaModel
   def transfer_schema_accept?
     EOLConvert.to_boolean(transfer_schema_accept)
   end
+  
+  def terms_agreed_to?
+    ipr_accept? && attribution_accept? && roles_accept?
+  end
 
+  def ready_for_agreement?
+    content_partner_contacts.any? && partner_complete_step? && terms_agreed_to?
+  end
+  
+  def agreement
+    current_agreements = content_partner_agreements.select{ |cpa| cpa.is_current == true }
+    return nil if current_agreements.empty?
+    current_agreements[0]
+  end
+  
+  def previous_agreement
+    previous_agreements = content_partner_agreements.select{ |cpa| cpa.is_current == false }
+    return nil if previous_agreements.empty?
+    previous_agreements[0]
+  end
+  
+  # returns true or false to indicate if current agreement has expired
+  def agreement_expired?
+    # if we've got an old agreement, we must have a new one --- check to see if it's been signed, if not - we have an expired agreement
+    if previous_agreement 
+      return true if agreement && agreement.signed_by.blank?
+    end  
+    false
+  end
+  
+  def agreement_accepted?
+    agreement && !agreement.signed_by.blank?
+  end
+  
   # vet or unvet entire content partner (0 = unknown, 1 = vet)
   def set_vetted_status(vetted) 
     set_to_state = EOLConvert.to_boolean(vetted) ? Vetted.trusted.id : Vetted.unknown.id
-    SpeciesSchemaModel.connection.execute("
-      UPDATE agents_resources ar
-      JOIN harvest_events he ON (ar.resource_id=he.resource_id)
-      JOIN data_objects_harvest_events dohe ON (he.id=dohe.harvest_event_id)
-      JOIN data_objects do ON (dohe.data_object_id=do.id)
+    connection.execute("
+      UPDATE resources r
+      JOIN harvest_events he ON (r.id = he.resource_id)
+      JOIN data_objects_harvest_events dohe ON (he.id = dohe.harvest_event_id)
+      JOIN data_objects do ON (dohe.data_object_id = do.id)
       SET do.vetted_id = #{set_to_state}
-      WHERE ar.agent_id=#{self.agent.id} AND do.curated = 0")
+      WHERE r.content_partner_id = #{self.id}
+      AND do.curated = 0
+      AND do.vetted_id != #{set_to_state}")
     self.vetted = vetted
   end
 
@@ -287,6 +360,4 @@ class ContentPartner < SpeciesSchemaModel
     self.description_of_data ||= ""
     self.description ||=""
   end
-
 end
-

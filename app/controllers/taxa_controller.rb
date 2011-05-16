@@ -9,7 +9,7 @@ class TaxaController < ApplicationController
   # this is cheating because of mixing taxon and taxon concept use of the controller
   def index
     # you need to be a content partner OR ADMIN and logged in to get here
-    if current_agent.nil? && !current_user.is_admin?
+    if !current_user.is_content_partner? && !current_user.is_admin?
       return redirect_to(root_url)
     end
 
@@ -198,7 +198,6 @@ class TaxaController < ApplicationController
     end
 
     # TODO - a lot of this work does not need to be done when we're caching the page.
-    @taxon_concept.current_agent = current_agent
     @media = @taxon_concept.media
 
     set_selected_text_item
@@ -302,7 +301,6 @@ class TaxaController < ApplicationController
 
   def user_text_change_toc
     @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
-    @taxon_concept.current_agent = current_agent unless current_agent.nil?
     @taxon_concept.current_user = current_user
 
     if (params[:data_objects_toc_category] && (toc_id = params[:data_objects_toc_category][:toc_id]))
@@ -327,7 +325,6 @@ class TaxaController < ApplicationController
     @taxon_concept = TaxonConcept.core_relationships(:only => [{:data_objects => :toc_items}, { :users_data_objects => { :data_object => :toc_items } }]).find(params[:id])
     @category_id   = params[:category_id].to_i
 
-    @taxon_concept.current_agent = current_agent unless current_agent.nil?
     @taxon_concept.current_user  = current_user
     @curator = @taxon_concept.current_user.can_curate?(@taxon_concept)
 
@@ -349,7 +346,6 @@ class TaxaController < ApplicationController
       :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ] }
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(taxon_concept.id)
     @taxon_concept.current_user = current_user
-    @taxon_concept.current_agent = current_agent
     @image_page  = (params[:image_page] ||= 1).to_i
     start        = $MAX_IMAGES_PER_PAGE * (@image_page - 1)
     last         = start + $MAX_IMAGES_PER_PAGE - 1
@@ -370,7 +366,6 @@ class TaxaController < ApplicationController
     @taxon_concept = find_taxon_concept
     return if taxon_concept_invalid?(@taxon_concept)
     @taxon_concept.current_user = current_user
-    @taxon_concept.current_agent = current_agent
     @video_collection = videos_to_show
     render :layout => false
   end
@@ -544,7 +539,7 @@ private
   end
 
   def add_page_view_log_entry
-    PageViewLog.create(:user => current_user, :agent => current_agent, :taxon_concept => @taxon_concept)
+    PageViewLog.create(:user => current_user, :agent => current_user.agent, :taxon_concept => @taxon_concept)
   end
 
   def get_new_text_tocitem_id(category_id)

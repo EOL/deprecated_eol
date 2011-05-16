@@ -74,9 +74,9 @@ module ContentPartnerAuthenticationModule
     end
   end
 
-  def upload_logo(agent)
-    parameters='function=partner_image&file_path=http://' + $IP_ADDRESS_OF_SERVER + ":" + request.port.to_s + $LOGO_UPLOAD_PATH + agent.id.to_s + "."  + agent.logo_file_name.split(".")[-1]
-    response = EOLWebService.call(:parameters=>parameters)
+  def upload_logo(user)
+    parameters = 'function=partner_image&file_path=http://' + $IP_ADDRESS_OF_SERVER + ":" + request.port.to_s + $LOGO_UPLOAD_PATH + user.id.to_s + "."  + user.logo_file_name.split(".")[-1]
+    response = EOLWebService.call(:parameters => parameters)
     if response.blank?
       ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "content partner logo upload service failed") if $ERROR_LOGGING
     else
@@ -86,7 +86,7 @@ module ContentPartnerAuthenticationModule
         ErrorLog.create(:url => $WEB_SERVICE_BASE_URL, :exception_name => error, :backtrace => parameters) if $ERROR_LOGGING
       elsif response["response"].key? "file_prefix"
         file_prefix = response["response"]["file_prefix"]
-        agent.update_attribute(:logo_cache_url,file_prefix) # store new url to logo on content server
+        user.update_attribute(:logo_cache_url, file_prefix) # store new url to logo on content server
       elsif response["response"].key? "error"
         error = response["response"]["error"]
         ErrorLog.create(:url => $WEB_SERVICE_BASE_URL, :exception_name => error, :backtrace => parameters) if $ERROR_LOGGING

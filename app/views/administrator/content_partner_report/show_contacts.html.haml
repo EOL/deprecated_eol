@@ -19,7 +19,7 @@
     - column_class=cycle('odd','even')
     %tr
       %td{:width => "30%", :class => column_class}= h contact.full_name
-      %td{:class => column_class}= h contact.agent_contact_role.label 
+      %td{:class => column_class}= h contact.contact_role.label 
       %td{:class => column_class}= mail_to contact.email 
       %td{:class => column_class}= h contact.homepage
       %td{:class => column_class}= h contact.telephone

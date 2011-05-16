@@ -47,45 +47,45 @@ ActionWithObject.gen_if_not_exists(:action_code => 'unreviewed')
 
 # create_if_not_exists We don't technically *need* all three of these, but it's nice to have for the menu.  There are more, but we don't currently use
 # them.  create_if_not_exists Once we do, they should get added here.
-AgentContactRole.gen_if_not_exists(:label => 'Primary Contact')
-AgentContactRole.gen_if_not_exists(:label => 'Administrative Contact')
-AgentContactRole.gen_if_not_exists(:label => 'Technical Contact')
+ContactRole.gen_if_not_exists(:label => 'Primary Contact')
+ContactRole.gen_if_not_exists(:label => 'Administrative Contact')
+ContactRole.gen_if_not_exists(:label => 'Technical Contact')
 
-Agent.gen_if_not_exists(:full_name => 'IUCN')
-ContentPartner.gen_if_not_exists(:agent => Agent.iucn)
-AgentContact.gen_if_not_exists(:agent => Agent.iucn, :agent_contact_role => AgentContactRole.primary)
-Agent.gen_if_not_exists(:full_name => 'Catalogue of Life', :logo_cache_url => '219000', :homepage => 'http://www.catalogueoflife.org/')
-ContentPartner.gen_if_not_exists(:agent => Agent.catalogue_of_life)
-AgentContact.gen_if_not_exists(:agent => Agent.catalogue_of_life, :agent_contact_role => AgentContactRole.primary)
+iucn_agent = Agent.gen_if_not_exists(:full_name => 'IUCN')
+iucn_user = User.gen_if_not_exists(:display_name => 'IUCN', :agent => iucn_agent)
+iucn_content_parter = ContentPartner.gen_if_not_exists(:user => iucn_user)
+ContentPartnerContact.gen_if_not_exists(:content_partner => iucn_content_parter, :contact_role => ContactRole.primary)
+
+col_agent = Agent.gen_if_not_exists(:full_name => 'Catalogue of Life', :logo_cache_url => '219000', :homepage => 'http://www.catalogueoflife.org/')
+col_user = User.gen_if_not_exists(:display_name => 'Catalogue of Life', :agent => col_agent)
+col_content_partner = ContentPartner.gen_if_not_exists(:user => col_user)
+ContentPartnerContact.gen_if_not_exists(:content_partner => col_content_partner, :contact_role => ContactRole.primary)
+
 Agent.gen_if_not_exists(:full_name => 'National Center for Biotechnology Information', :acronym => 'NCBI', :logo_cache_url => '921800', :homepage => 'http://www.ncbi.nlm.nih.gov/')
 
 
 boa_agent = Agent.gen_if_not_exists(:full_name => 'Biology of Aging', :logo_cache_url => '318700')
-liger_cat_hierarchy = Hierarchy.gen_if_not_exists(:label          => 'LigerCat',
+boa_user = User.gen_if_not_exists(:display_name => 'Biology of Aging', :logo_cache_url => '318700', :agent => boa_agent)
+boa_content_partner = ContentPartner.gen_if_not_exists(:user => boa_user)
+boa_hierarchy = Hierarchy.gen_if_not_exists(:label => 'LigerCat',
                                    :description    => 'LigerCat Biomedical Terms Tag Cloud',
                                    :outlink_uri    => 'http://ligercat.ubio.org/eol/%%ID%%.cloud',
                                    :url            => 'http://ligercat.ubio.org',
                                    :agent_id => boa_agent.id)
-liger_cat_resource = Resource.gen_if_not_exists(:title => 'LigerCat resource')
-AgentsResource.gen(:resource => liger_cat_resource, :agent => boa_agent)
+boa_resource = Resource.gen_if_not_exists(:title => 'LigerCat resource', :content_partner => boa_content_partner)
 links = CollectionType.gen_if_not_exists(:label => "Links")
 lit   = CollectionType.gen_if_not_exists(:label => "Literature")
-CollectionTypesHierarchy.gen(:hierarchy => liger_cat_hierarchy, :collection_type => links)
-CollectionTypesHierarchy.gen(:hierarchy => liger_cat_hierarchy, :collection_type => lit)
-
-AgentDataType.gen_if_not_exists(:label => 'Audio')
-AgentDataType.gen_if_not_exists(:label => 'Image')
-AgentDataType.gen_if_not_exists(:label => 'Text')
-AgentDataType.gen_if_not_exists(:label => 'Video')
+CollectionTypesHierarchy.gen(:hierarchy => boa_hierarchy, :collection_type => links)
+CollectionTypesHierarchy.gen(:hierarchy => boa_hierarchy, :collection_type => lit)
 
 AgentRole.gen_if_not_exists(:label => 'Author')
 AgentRole.gen_if_not_exists(:label => 'Photographer')
 AgentRole.gen_if_not_exists(:label => 'Contributor')
 AgentRole.gen_if_not_exists(:label => 'Source')
 
-AgentStatus.gen_if_not_exists(:label => 'Active')
-AgentStatus.gen_if_not_exists(:label => 'Archived')
-AgentStatus.gen_if_not_exists(:label => 'Pending')
+ContentPartnerStatus.gen_if_not_exists(:label => 'Active')
+ContentPartnerStatus.gen_if_not_exists(:label => 'Archived')
+ContentPartnerStatus.gen_if_not_exists(:label => 'Pending')
 
 Audience.gen_if_not_exists(:label => 'Children')
 Audience.gen_if_not_exists(:label => 'Expert users')
@@ -171,15 +171,12 @@ ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'users_submitted_text'
 RefIdentifierType.gen_if_not_exists(:label => 'url')
 
 iucn_hierarchy = Hierarchy.gen_if_not_exists(:label => 'IUCN')
-iucn_resource = Resource.gen_if_not_exists(:title => 'Initial IUCN Import', :hierarchy => iucn_hierarchy)
+iucn_resource = Resource.gen_if_not_exists(:title => 'Initial IUCN Import', :hierarchy => iucn_hierarchy, :content_partner => iucn_content_parter)
 iucn_agent = Agent.iucn
 raise "IUCN is nil" if iucn_agent.nil?
-AgentsResource.gen_if_not_exists(:resource => iucn_resource, :agent => Agent.iucn)
 
 # This is out of ourder, of course, because it depends on the IUCN resource.
 HarvestEvent.gen_if_not_exists(:resource_id => iucn_resource.id)
-
-ResourceAgentRole.gen_if_not_exists(:label => 'Data Supplier')        # content_partner_upload_role
 
 KnownPrivileges.create_all
 

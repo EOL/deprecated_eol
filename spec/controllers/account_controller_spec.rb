@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe AccountController do
   before(:all) do
     truncate_all_tables
-    ResourceAgentRole.gen_if_not_exists(:label => 'Administrative')
+    Language.create_english
     SpecialCollection.gen(:name => 'Focus')
     Community.create_special
   end

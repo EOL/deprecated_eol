@@ -27,7 +27,7 @@ class CuratorsController < ApplicationController
     published_resources
     session['curate_images_hierarchy_entry_id'] = params['hierarchy_entry_id'] if params['hierarchy_entry_id']
     session['curate_images_hierarchy_entry_id'] = nil if session['curate_images_hierarchy_entry_id'].blank?
-    @ctnt_ptnr = params[:content_partner_id].blank? ? '' : Agent.find_by_id(ContentPartner.find_by_id(params[:content_partner_id], :select=>'agent_id').agent_id, :select => 'full_name').full_name
+    @content_partner = params[:content_partner_id] ? ContentPartner.find(params[:content_partner_id]) : nil
     @status = params[:vetted_id].blank? ? '' : ((params[:vetted_id] == 'all') ? "all" : Vetted.find_by_id(params[:vetted_id]).label)
     @name = params['hierarchy_entry_id'].blank? ? '' : Name.find_by_id(HierarchyEntry.find_by_id(params['hierarchy_entry_id'], :select => 'name_id').name_id)
     current_user.log_activity(:viewed_images_to_curate)
@@ -83,11 +83,7 @@ private
   end
   
   def published_resources
-    resources = Resource.find_by_sql('SELECT r.id FROM resources r JOIN harvest_events he ON (he.resource_id=r.id) WHERE he.published_at IS NOT NULL').uniq!
-    agents_resources = AgentsResource.find_all_by_resource_id(resources, :select => 'agent_id').collect{|a| a.agent_id}
-    agents = Agent.find_all_by_id(agents_resources, :select => 'id').collect{|a| a.id}.join(', ')
-    all_published_resources = agents.empty? ? [] : ContentPartner.find_by_sql("SELECT cp.id, a.full_name FROM content_partners cp JOIN agents a ON cp.agent_id = a.id WHERE a.id IN (#{agents})").collect{|cp| [cp['full_name'], cp.id]}.sort{|a,b| a[0].downcase<=>b[0].downcase}
-    @published_resources = all_published_resources
+    @published_resources = ContentPartner.with_published_data.collect{ |cp| [ cp.user.full_name, cp.id ] }.sort_by{ |arr| arr[0].downcase }
   end
   
   def get_page_content

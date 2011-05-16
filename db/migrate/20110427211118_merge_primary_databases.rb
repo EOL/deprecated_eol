@@ -3,7 +3,7 @@ class MergePrimaryDatabases < EOL::DataMigration
     # this is a legacy table that needs to be removed - there was a naming conflict with a table in eol_*
     drop_table :collections
     
-    eol_database = User.database_name
+    eol_database = UsersDataObject.database_name
     eol_data_database = LegacySpeciesSchemaModel.database_name
     tables_in_eol_data = DataObject.connection.select_values("SHOW TABLES FROM #{eol_data_database}")
     tables_in_eol_data.each do |table|
@@ -37,7 +37,7 @@ class MergePrimaryDatabases < EOL::DataMigration
       'top_unpublished_concept_images_tmp', 'top_unpublished_images', 'top_unpublished_images_tmp', 'top_unpublished_species_images',
       'untrust_reasons', 'vetted', 'visibilities', 'wikipedia_queue']
     
-    eol_database = User.database_name
+    eol_database = UsersDataObject.database_name
     eol_data_database = LegacySpeciesSchemaModel.database_name
     tables_in_eol = User.connection.select_values("SHOW TABLES FROM #{eol_database}")
     eol_data_tables.each do |table|

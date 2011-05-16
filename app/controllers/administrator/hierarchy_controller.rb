@@ -13,16 +13,18 @@ class Administrator::HierarchyController < AdminController
   def index
     page = params[:page] || '1'
     order = params[:order_by] || 'agent'
+
+    @page_title = I18n.t("hierarchies_")
+    hierarchies = Hierarchy.find(:all, :include => [ :agent, { :resource => { :content_partner => :user } } ])
     case order
       when 'label'
-        order_by = 'CONCAT_WS(" ", h.descriptive_label, h.label), h.id'
+        hierarchies = hierarchies.sort_by{ |h| h.form_label }
       when 'browsable'
-        order_by = 'h.request_publish DESC, h.browsable DESC, a.full_name, h.id'
+        hierarchies = Hierarchy.sort_by_user_or_agent_name(hierarchies)
       else
-        order_by = 'a.full_name, h.id'
-    end
-    @page_title = I18n.t("hierarchies_")
-    @hierarchies = Hierarchy.paginate_by_sql("SELECT h.*, a.full_name agent_name, cp.agent_id content_partner_agent_id FROM hierarchies h LEFT JOIN agents a ON (h.agent_id=a.id) LEFT JOIN content_partners cp ON (a.id=cp.agent_id) ORDER BY #{order_by}", :page=>page)
+        hierarchies = hierarchies.sort_by{ |h| h.user_or_agent_or_label_name }
+      end
+    @hierarchies = hierarchies.paginate(:page => page)
   end
   
   def browse

@@ -67,8 +67,7 @@
       = f.text_field :subject, :maxlength=>200, :size=>50
     .form_item
       = f.label :resource_created_at, I18n.t("date_this_resource_was_created")
-      = f.date_select(:resource_created_at, :order => [:day,:month,:year], :start_year => (Time.now.year - 10), :end_year => Time.now.year)
-      = f.date_select(:resource_created_at, :order => [:day,:month,:year], :start_year => (Time.now.year - 10), :end_year => Time.now.year)
+      = f.date_select(:resource_created_at, :order => [:day,:month,:year], :start_year => (Time.now.year - 10), :end_year => Time.now.year, :use_month_numbers => true)
     .form_item
       = f.label :refresh_period_hours, I18n.t("frequency_resource_should_be_u")
 

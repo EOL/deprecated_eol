@@ -26,12 +26,7 @@ class HarvestEvent < SpeciesSchemaModel
   end
   
   def content_partner
-    resource.agents_resources.each do |ar|
-      if ar.resource_agent_role == ResourceAgentRole.content_partner_upload_role
-        return ar.agent.content_partner
-      end
-    end
-    return nil
+    resource.content_partner
   end
 
   def taxa_contributed(he_id)

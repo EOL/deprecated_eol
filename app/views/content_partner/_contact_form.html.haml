@@ -25,8 +25,8 @@
     = f.label :address, I18n.t(:mailing_address) 
     = f.text_area :address, {:rows=>5}
   .form_item
-    = f.label :agent_contact_role_id, I18n.t("role")
-    = f.collection_select :agent_contact_role_id, @agent_contact_roles, :id, :label
+    = f.label :contact_role_id, I18n.t("role")
+    = f.collection_select :contact_role_id, @contact_roles, :id, :label
   .form_item
     = f.label :email_reports_frequency_hours, I18n.t("if_there_are_comments_or_curator_actions_on_your_contributions_how_often_would_you_like_to_receive_email_alerts")
     - select_options = [[I18n.t("never"), 0] , [I18n.t("daily"), 1*24], [I18n.t("weekly"), 7*24], [I18n.t("monthly"), 30*24]]

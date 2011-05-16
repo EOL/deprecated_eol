@@ -9,9 +9,9 @@
   - msg = I18n.t("you_are_curating_images_var_na", :var_name => name)
 - if @images_to_curate.blank?
   - status = @status.blank? ? "" : ((@status == 'all') ? "" : (@status == 'Unknown') ? I18n.t("unreviewed_") : "#{@status} ")
-  - ctnt_ptnr = @ctnt_ptnr.blank? ? "" : "#{@ctnt_ptnr} "
+  - content_partner = @content_partner ? "#{@content_partner.user.full_name} " : ""
   %hr.thin
-  =I18n.t("there_is_no_var_statusvar_ctnt", :var_status => status, :var_ctnt_ptnr => ctnt_ptnr, :var_name => name)
+  =I18n.t("there_is_no_var_statusvar_ctnt", :var_status => status, :var_content_partner => content_partner, :var_name => name)
 - else
   %hr.thin
   =I18n.t("var_msgimages_are_sorted_by_eo", :var_msg => msg, :var__all_images_count => @all_images_count)

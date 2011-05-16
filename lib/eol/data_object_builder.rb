@@ -66,8 +66,8 @@ module EOL
   private
 
     def build_agent_relation
-      if not @event.nil? and not @event.resource.nil? and not @event.resource.agents.blank?
-        @agent ||= @event.resource.agents.first
+      unless @event.nil? || @event.resource.nil? || @event.resource.content_partner.blank? || @event.resource.content_partner.user.agent.blank?
+        @agent ||= @event.resource.content_partner.user.agent
       end
       @agent ||= Agent.last # Sheesh, they screwed up!  Let's assume they want the most recent agent...
       @agent ||= Agent.gen  # Wow, they have, like, nothing ready.  We have to create one.  Ick.
@@ -167,15 +167,10 @@ module EOL
     end
 
     def build_new_harvest_event
-      agent_resource = @content_partner.agent.agents_resources.detect do |ar|
-        ar.resource_agent_role_id == ResourceAgentRole.content_partner_upload_role.id
+      if @content_partner.resources.blank?
+        @content_partner.resources << Resource.gen(:content_partner => @content_partner)
       end
-      if agent_resource.nil?
-        @agent = @content_partner.agent
-        agent_resource = AgentsResource.gen(:agent => @agent,
-                                            :resource_agent_role => ResourceAgentRole.content_partner_upload_role)
-      end
-      @event = HarvestEvent.gen(:resource => agent_resource.resource)
+      @event = HarvestEvent.gen(:resource => @content_partner.resources.first)
     end
 
     # I want to set these once, but I *dont* want them to be a class variable, so that they foundation scenario

@@ -1,0 +1,11 @@
+= render :partial => 'steps'
+%strong
+  =I18n.t("transfer_schema_upload")
+%br
+%p
+  =I18n.t("now_that_you_have_accepted_and")
+- form_for @user.content_partner, :url => { :action => action_name }, :html => { :method => :post, :id => 'step_form' } do |f|
+  = hidden_field_tag :save_type, "next"
+  %br
+= content_tag(:button, 'Save', :onclick => "$('#save_type').val('save'); $('#step_form').submit();")
+= content_tag(:button, 'Save &amp; Continue &#187;', :onclick => "$('#save_type').val('next'); $('#step_form').submit();")

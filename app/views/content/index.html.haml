@@ -1,61 +1,55 @@
-:javascript
-  var png_host = '#{StaticEolAssetHost.asset_host_proc.call("png")}'
-= javascript_include_tag 'content-index'
 - if @cached_fragment
   = @cached_fragment
 - else
   - cache({:controller=>"content", :part => 'home_' + current_user.content_page_cache_str}) do
-    #page-separator-general
-    #photo-area-wrapper
-      .photo_slider
-        %h1
-          = I18n.t(:explore) 
-        .nav_buttons
-          %span.more
-            %a{ :href => "#", :onclick => "javascript:explore_more_taxa();return false;" }
-              =  I18n.t(:more_species) 
-          %p.play
-            %a{ :href => "#", :onclick => "javascript:toggle_explore_updates();return false;" }
-              %img#play-button{ :src => "#{StaticEolAssetHost.asset_host_proc.call('png')}/images/homepage/pause.gif", :height => "28", :alt => I18n.t("pause"), :width => "27" }
-        #photos_area
-          - if @explore_taxa.nil? == false
-            = render(:partial=>'explore_taxa')
-    #home-content-wrap
-      #sidebar-a
-        = @content.left_content
-      #sidebar-b
-        - unless @news_items.empty?
-          %h1= I18n.t(:whats_new) 
-          %ul.helplist
-            - @news_items.each do |news_item|
-              - if news_item.visible?
-                %li
-                  %strong= format_date(news_item.display_date)
-                  \-
-                - if news_item.title.blank?
-                  = news_item.body
-                - else
-                  - if news_item.body.blank?
-                    = news_item.title
-                  - else
-                    %a{ :href => "#", :onclick => "javascript:$('#news_#{news_item.id}').slideDown();return false;" }
-                      = news_item.title
-                    %div{ :id => "news_#{news_item.id}", :style => "display:none;" }
-                      = news_item.body
-            %li= link_to I18n.t("more_news__"),:action=>'news'
-            %li
-              =I18n.t("to_subscribe_via_rss__click")
-              = link_to image_tag('rss.png'), {:action=>'news',:format=>'rss'}
-              =I18n.t("__or_add_this_url_to_your_rss_")
-              = request.host + url_for(:action=>'news',:format=>'rss')
-      #home-center-content
-        - if @featured_taxon
-          %h1= I18n.t(:featured) 
-          %table#featured-species-table{ :cellspacing => "0", :summary => "featured table" }
-            %tr
-              %td.image
-                = random_image_thumb_partial(@featured_taxon)
-            %tr
-              %td
-                = random_image_linked_name(@featured_taxon)
-        = @content.main_content
+    .article.stats
+      -#TODO: Figure out how stats content is going to be generated e.g. static + count or editable from CMS?
+      %h3= I18n.t(:currently_in_eol)
+      %ul
+        %li.taxon
+          %dl
+            %dd 534,315
+            %dt= I18n.t(:taxa)
+          = link_to I18n.t(:what_is_a_taxon), "/placeholder"
+        %li.contributors
+          %dl
+            %dd 3,154
+            %dt= I18n.t(:contributors_like_you)
+          = link_to I18n.t(:learn_how_to_join), "/placeholder"
+        %li.communities
+          %dl
+            %dd 861
+            %dt= I18n.t(:communities)
+          = link_to I18n.t(:learn_how_to_interact), "/placeholder"
+        %li.images
+          %dl
+            %dd 753,234
+            %dt= I18n.t(:images)
+          = link_to I18n.t(:browse_gallery), "/placeholder"
+        %li.partners
+          %dl
+            %dd 324
+            %dt= I18n.t(:content_partners)
+          = link_to I18n.t(:learn_about_content_partners), "/placeholder"
+    .article.community
+      -#TODO: Build this properly from database - currently static placeholder
+      %h3= I18n.t(:community_activity)
+      %ul
+        - 5.times do
+          %li
+            = link_to image_tag("v2/temporary_for_mockup/img_person_50.jpg", :alt => "Person Name"), "#"
+            .details
+              %p
+                %strong John
+                added
+                = link_to "4 photos", "#"
+                to
+                = link_to "Canis", "#"
+              %p.meta 5 minutes ago
+    -#TODO make this a partial? Its repeated in header?
+    .join
+      %p= I18n.t(:join_eol_community_html)
+      %p.button= link_to I18n.t(:join_eol_button_html), { :controller => "/account", :action => "signup" }
+      %p
+        = I18n.t(:already_a_member)
+        = link_to I18n.t(:sign_in), { :controller => "/account", :action => "login" }

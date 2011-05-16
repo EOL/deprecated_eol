@@ -1,0 +1,364 @@
+/*
+----------------------------------------
+Tantek Celik's Whitepsace Reset
+     Author:  	Tantek Celik, Shane Riley
+    Version:  	(CC) 2010 Some Rights Reserved - http://creativecommons.org/licenses/by/2.0
+Description:	Resets default styling of common browsers to a common base
+----------------------------------------
+*/
+ul, ol {
+  list-style: none; }
+
+h1, h2, h3, h4, h5, h6, pre, code {
+  font-size: 1em; }
+
+ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, body, html, p, blockquote, fieldset, input, dl, dt, dd {
+  margin: 0;
+  padding: 0; }
+
+a img, :link img, :visited img, fieldset {
+  border: none; }
+
+address {
+  font-style: normal; }
+
+header, section, article, nav, footer, hgroup {
+  display: block; }
+
+body {
+  font: normal 12px Helvetica, Arial, sans-serif;
+  color: #27282b;
+  border-top: 32px solid #0a0f13;
+  background: #0a0f13 url("/images/v2/bg_stars.png") repeat; }
+
+a {
+  color: #195184; }
+
+.site_column, body > #header .section, body > #header .thumbnails ul, body > #header .thumbnails .term p, body > #footer .section, #content .section {
+  width: 940px;
+  padding: 0 10px;
+  margin: 0 auto; }
+
+.join {
+  font-weight: bold;
+  text-align: center; }
+  .join p {
+    padding: 0 0 5px 0; }
+    .join p.button {
+      padding: 15px 0 20px 0; }
+      .join p.button a {
+        padding: 10px 24px;
+        overflow: visible;
+        font: bold 16px Helvetica, Arial, sans-serif;
+        color: white;
+        text-decoration: none;
+        text-shadow: 0 1px 1px #333333;
+        border: 1px solid #3270a7;
+        background-color: #255491;
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#408ebf, endColorstr=#255491);
+        background-image: -moz-linear-gradient(100% 100% 90deg, #255491, #408ebf);
+        background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#408ebf), to(#255491)); }
+  .join a {
+    color: inherit; }
+
+body > #header {
+  position: relative;
+  height: 563px;
+  color: white;
+  border-top: 1px solid #202427;
+  border-bottom: 1px solid #ccd4dd;
+  background: transparent url("/images/v2/bg_home_earth.png") 50% 100% no-repeat; }
+  body > #header a {
+    color: white; }
+  body > #header .section {
+    position: relative;
+    height: 563px; }
+    body > #header .section ul.nav {
+      position: absolute;
+      right: 0;
+      top: -25px;
+      z-index: 1; }
+      body > #header .section ul.nav li {
+        display: inline;
+        padding: 0 0 0 7px;
+        text-transform: uppercase; }
+        body > #header .section ul.nav li:before {
+          padding: 0 7px 0 0;
+          font-size: 16px;
+          vertical-align: -2px;
+          content: "•";
+          list-style: disc;
+          color: #4c5155; }
+        body > #header .section ul.nav li:first-of-type:before {
+          display: none; }
+        body > #header .section ul.nav li a {
+          text-decoration: none; }
+    body > #header .section .language {
+      position: absolute;
+      left: 0;
+      top: -27px;
+      z-index: 1;
+      font-size: 11px;
+      text-transform: uppercase; }
+      body > #header .section .language a {
+        display: block;
+        text-decoration: none; }
+      body > #header .section .language p {
+        padding: 1px;
+        border: 1px solid #444749; }
+        body > #header .section .language p a {
+          padding: 1px 5px 1px 18px;
+          background: transparent url("/images/v2/icon_dropdown.png") 5px 6px no-repeat; }
+          body > #header .section .language p a span {
+            display: block;
+            padding: 0 0 0 5px;
+            border-left: 1px solid #444749; }
+      body > #header .section .language ul {
+        display: none;
+        position: absolute;
+        left: 0;
+        top: 100%;
+        z-index: 5;
+        width: 100%;
+        background: #0a0f13; }
+        body > #header .section .language ul li {
+          padding: 2px 5px;
+          border: 1px solid #444749;
+          border-top: none; }
+  body > #header h1 {
+    position: absolute;
+    left: 40px;
+    top: 40px;
+    z-index: 1; }
+    body > #header h1 a {
+      display: block;
+      width: 157px;
+      height: 99px;
+      text-indent: -8685px;
+      overflow: hidden;
+      background: transparent url("/images/v2/logo_index.png") 0 0 no-repeat; }
+  body > #header h2 {
+    position: absolute;
+    left: 0;
+    top: 180px;
+    z-index: 1;
+    width: 100%;
+    font-size: 39px;
+    font-weight: 200;
+    text-align: center; }
+  body > #header form {
+    position: absolute;
+    left: 298px;
+    top: 295px;
+    z-index: 1;
+    padding: 4px;
+    -moz-border-radius: 180px;
+    border-radius: 180px;
+    background: rgba(255, 255, 255, 0.5); }
+    body > #header form .text {
+      float: left;
+      margin: 0 5px 0 0;
+      -moz-border-radius: 180px;
+      border-radius: 180px;
+      background-color: #fefeff;
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#ccd2d7, endColorstr=#fefeff);
+      background-image: -moz-linear-gradient(100% 100% 90deg, #fefeff, #ccd2d7);
+      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccd2d7), to(#fefeff));
+      -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+      -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.6); }
+    body > #header form input[type="text"] {
+      width: 274px;
+      height: 28px;
+      padding: 6px 5px 6px 38px;
+      font-size: 18px;
+      line-height: 140%;
+      color: #394651;
+      outline: none;
+      border: none;
+      background: transparent url("/images/v2/icon_search.png") 9px 50% no-repeat; }
+    body > #header form input[type="submit"] {
+      float: left;
+      min-width: 40px;
+      min-height: 40px;
+      overflow: visible;
+      font-size: 13px;
+      line-height: 38px;
+      font-weight: bold;
+      text-transform: uppercase;
+      border: none;
+      -moz-border-radius: 180px;
+      border-radius: 180px;
+      background-color: #ccd2d7;
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#fefeff, endColorstr=#ccd2d7);
+      background-image: -moz-linear-gradient(100% 100% 90deg, #ccd2d7, #fefeff);
+      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fefeff), to(#ccd2d7));
+      -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+      -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.6); }
+  body > #header .join {
+    position: absolute;
+    right: 40px;
+    top: 55px;
+    z-index: 2; }
+  body > #header .thumbnails {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+    width: 100%;
+    padding: 10px 0 0 0;
+    background: transparent url("/images/v2/bg_home_thumbnails.png") repeat;
+    background: rgba(255, 255, 255, 0.5); }
+    body > #header .thumbnails ul {
+      position: relative;
+      top: 1px;
+      z-index: 2; }
+      body > #header .thumbnails ul li {
+        float: left;
+        padding: 0 0 10px 0;
+        margin: 0 20px 0 0; }
+        body > #header .thumbnails ul li img {
+          display: block;
+          padding: 5px;
+          background: transparent url("/images/v2/bg_home_thumbnails.png") repeat;
+          background: rgba(255, 255, 255, 0.4); }
+        body > #header .thumbnails ul li.last {
+          margin: 0; }
+        body > #header .thumbnails ul li:hover {
+          background: transparent url("/images/v2/icon_home-thumb_active.png") 50% 100% no-repeat; }
+          body > #header .thumbnails ul li:hover img {
+            background: rgba(255, 255, 255, 0.6); }
+    body > #header .thumbnails .term {
+      clear: both;
+      position: relative;
+      z-index: 1;
+      padding: 2px 0;
+      border: 1px solid white;
+      border-width: 1px 0;
+      background: #e5e8eb; }
+      body > #header .thumbnails .term p {
+        font-weight: bold;
+        color: #28323a; }
+body > #footer {
+  overflow: hidden;
+  padding: 20px 0 30px 0;
+  background: #394651; }
+  body > #footer .copyright {
+    float: left; }
+    body > #footer .copyright h3 {
+      padding: 0 0 5px 0; }
+      body > #footer .copyright h3 a {
+        display: block;
+        width: 41px;
+        height: 18px;
+        text-indent: -8685px;
+        overflow: hidden;
+        background: transparent url("/images/v2/logo_footer.png") 0 0 no-repeat; }
+    body > #footer .copyright p {
+      font-size: 10px;
+      font-weight: bold;
+      color: #6f7e8b; }
+  body > #footer ul.nav {
+    float: right; }
+    body > #footer ul.nav li {
+      display: inline;
+      padding: 0 0 0 7px;
+      text-transform: uppercase; }
+      body > #footer ul.nav li:before {
+        padding: 0 7px 0 0;
+        font-size: 16px;
+        vertical-align: -2px;
+        content: "•";
+        list-style: disc;
+        color: #6f7e8b; }
+      body > #footer ul.nav li:first-of-type:before {
+        display: none; }
+      body > #footer ul.nav li a {
+        color: white;
+        text-decoration: none; }
+  body > #footer ul.social_media {
+    clear: both;
+    float: right; }
+    body > #footer ul.social_media li {
+      float: left;
+      padding: 0 0 0 10px; }
+      body > #footer ul.social_media li a {
+        display: block;
+        width: 25px;
+        height: 25px;
+        text-indent: -8685px;
+        overflow: hidden;
+        background: transparent url("/images/v2/icon_social-media.png") 0 0 no-repeat; }
+        body > #footer ul.social_media li a.rss {
+          background-position: 0 100%; }
+
+#content {
+  overflow: hidden;
+  background: white; }
+  #content .section {
+    padding: 30px 10px; }
+    #content .section h3 {
+      padding: 0 0 15px 40px;
+      font-size: 16px; }
+    #content .section .stats {
+      float: left;
+      width: 520px;
+      padding: 0 40px 0 0; }
+      #content .section .stats li {
+        clear: both;
+        overflow: hidden;
+        padding: 10px 20px 10px 40px;
+        border-top: 1px solid #e5e8eb; }
+        #content .section .stats li a {
+          float: left;
+          margin: 17px 0 0 0; }
+        #content .section .stats li dl {
+          float: left;
+          width: 145px;
+          padding: 3px 10px 3px 80px; }
+        #content .section .stats li dd {
+          font-size: 30px; }
+        #content .section .stats li dt {
+          font-size: 14px;
+          font-weight: bold;
+          color: #394651; }
+        #content .section .stats li.taxon dl {
+          background: transparent url("/images/v2/icon_taxon.png") 0 0 no-repeat; }
+        #content .section .stats li.contributors dl {
+          background: transparent url("/images/v2/icon_contributors.png") 0 2px no-repeat; }
+        #content .section .stats li.communities dl {
+          background: transparent url("/images/v2/icon_communities.png") 0 50% no-repeat; }
+        #content .section .stats li.images dl {
+          background: transparent url("/images/v2/icon_images.png") 0 0 no-repeat; }
+        #content .section .stats li.partners dl {
+          background: transparent url("/images/v2/icon_partners.png") 0 50% no-repeat; }
+    #content .section .community {
+      float: right;
+      width: 380px;
+      margin: 0 0 20px 0; }
+      #content .section .community h3 {
+        border-bottom: 1px solid #e5e8eb; }
+      #content .section .community ul {
+        padding: 20px 0 10px 40px;
+        border-bottom: 1px solid #e5e8eb; }
+      #content .section .community li {
+        overflow: hidden;
+        padding: 0 0 10px 0; }
+        #content .section .community li img {
+          float: left;
+          margin: 0 10px 0 0; }
+        #content .section .community li .details {
+          overflow: hidden;
+          padding: 3px 0 0 0; }
+        #content .section .community li p {
+          line-height: 140%; }
+          #content .section .community li p.meta {
+            font-size: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #82919e; }
+    #content .section .join {
+      float: right;
+      width: 380px;
+      margin: 0 0 30px 0; }

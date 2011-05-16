@@ -9,9 +9,7 @@
     %br
     %br
     - if @search_suggestions.nil? == false && @search_suggestions.size > 0
-      =I18n.t("a_total_of")
-      = @search_suggestions_count
-      =I18n.t("terms_were_found_matching_your")
+      =I18n.t("a_total_of_terms_were_found_matching_your", :count => @search_suggestions_count)
       %br
       = will_paginate @search_suggestions
       %table.results_table{ :cellspacing => "0" }

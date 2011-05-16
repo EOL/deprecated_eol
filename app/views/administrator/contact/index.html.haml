@@ -1,12 +1,9 @@
-=I18n.t("this_area_shows_all_submission")
-= link_to(I18n.t("export_all_of_the_entries_as_a"), :action=>'export')
+=I18n.t("this_area_shows_all_submission", :link => link_to(I18n.t("export_all_of_the_entries_as_a"), :action=>'export'))
 %br
 - form_tag({:action=>'index'},:method=>'get') do
   %select#contact_subject_id{ :name => "id" }
     %option{ :value => "*" }
-      =I18n.t("all___")
-      = @all_contacts_count
-      )
+      =I18n.t("all_count" , :count => @all_contacts_count)      
     - for subject in @subjects
       %option{ :value => subject.id, :selected => subject.id.to_s == @contact_subject_id }
         = subject.title
@@ -20,16 +17,11 @@
   .divider
     #contacts
       - if @contacts.nil? == false && @contacts.size > 0
-        = @contacts_count
-        =I18n.t("total_comments_have_been_submi")
-        = @subject
+        =I18n.t("total_comments_have_been_submitted" ,:count => @contacts_count ,:string => @subject )
         - if @comment_search_string != ''
-          =I18n.t("containing")
-          = @comment_search_string
-        \.
+          =I18n.t("containing_value" , :value => @comment_search_string)        
         %br
         %br
-        = will_paginate @contacts
         %table.results_table{ :cellspacing => "0" }
           %tr
             %th
@@ -64,12 +56,9 @@
         %br
         = will_paginate @contacts
       - elsif @contacts.nil? == false && @contacts.size == 0
-        =I18n.t("no_comments_are_available_for")
-        = @subject
+        =I18n.t("no_comments_are_available_for_subject", :subject => @subject)
         - if @comment_search_string != ''
-          =I18n.t("containing")
-          = @comment_search_string
-        \.
+          =I18n.t("containing_value", :value => @comment_search_string)        
       - else
         / TODO - *seriously?!*
         %br

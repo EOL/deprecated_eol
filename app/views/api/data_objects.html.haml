@@ -2,7 +2,7 @@
   %head
     %title
       =I18n.t("eol_api_")
-      = @details_hash['guid'] || 'page not found'
+      = @details_hash['guid'] || I18n.t("page_not_found")
     = stylesheet_link_tag 'api'
   %body
     - unless @details_hash.blank?

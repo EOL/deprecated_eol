@@ -36,9 +36,7 @@
         %br
         %br
         %p
-          =  I18n.t(:contact_about_sponsorship_preamble) 
-          = link_to I18n.t("secretariat_eol_org"), "mailto:secretariat@eol.org"
-          =  I18n.t(:contact_about_sponsorship_or_by_phone) 
+          =  I18n.t(:contact_about_sponsorship_preamble, :email => link_to(secretariat@eol.org, "mailto:secretariat@eol.org"))
         %br
         %br
         %p
@@ -49,9 +47,7 @@
         \:
         %br
         %br
-        = I18n.t(:the_amount_entered_was) 
-        =I18n.t("__us")
-        = number_to_currency(@donation_amount)
+        = I18n.t(:the_amount_entered_was, :number => number_to_currency(@donation_amount))                
         %br
         %br
         = I18n.t(:to_process_your_donation_please_proceed) 

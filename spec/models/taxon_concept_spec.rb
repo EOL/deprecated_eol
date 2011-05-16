@@ -257,12 +257,12 @@ describe TaxonConcept do
     @tc_with_no_common_names.has_common_names?.should == false
   end
 
-  it 'should return images sorted by trusted, unknown, untrusted' do
+  it 'should return images sorted by trusted, unknown, untrusted but preview mode first' do
     @taxon_concept.reload
     trusted   = Vetted.trusted.id
     unknown   = Vetted.unknown.id
     untrusted = Vetted.untrusted.id
-    @taxon_concept.images.map {|i| i.vetted_id }.uniq.should == [trusted, unknown, untrusted]
+    @taxon_concept.images.map {|i| i.vetted_id }.uniq.should == [untrusted, trusted, unknown]
   end
 
   it 'should sort the vetted images by data rating' do

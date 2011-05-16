@@ -30,14 +30,14 @@ describe 'Taxa overview' do
     # WARNING: Regarding use of subject, if you are using with_tag you must specify body.should... due to bug.
     # @see https://rspec.lighthouseapp.com/projects/5645/tickets/878-problem-using-with_tag
 
-    it 'should show the taxon name and section name in the content header area' do
-      should have_tag('div#content_header_container h1', /^(#{@testy[:scientific_name]})(\n|.)*?(#{@section})$/i)
+    it 'should show the taxon name and section name' do
+      should have_tag('#content h1', /^(#{@testy[:scientific_name]})(\n|.)*?(#{@section})$/i)
     end
-    it 'should show the preferred common name in the content header area' do
-      should have_tag('div#content_header_container p', /^#{@testy[:common_name]}/)
+    it 'should show the preferred common name' do
+      should have_tag('#content .article p:nth-child(2)', /^#{@testy[:common_name]}/)
     end
     it 'should show a link to common names with count' do
-      should have_tag('div#content_header_container a', /^#{@testy[:taxon_concept].common_names.count}/)
+      should have_tag('#content .article a:nth-child(3)', /^#{@testy[:taxon_concept].common_names.count}/)
     end
     it 'should show a gallery of four images' do
       body.should have_tag("div#media_summary_gallery") do
@@ -104,8 +104,8 @@ describe 'Taxa overview' do
   context 'when taxon does not have any common names' do
     before(:all) { visit("/pages/#{@testy[:taxon_concept_with_no_common_names].id}") }
     subject { body }
-    it 'should show common name count as 0 in the content header area' do
-      should have_tag('div#content_header_container p', /^(#{@testy[:taxon_concept_with_no_common_names].common_names.count})/)
+    it 'should show common name count as 0' do
+      should have_tag('#content .article p:nth-child(2)', /^(#{@testy[:taxon_concept_with_no_common_names].common_names.count})/)
     end
   end
   

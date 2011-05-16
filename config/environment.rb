@@ -46,7 +46,7 @@ Rails::Initializer.run do |config|
   config.gem 'will_paginate'
   config.gem 'composite_primary_keys'
   config.gem 'fastercsv'
-  config.gem 'haml'
+  config.gem 'haml', :version => '3.1.1'
   config.gem 'macaddr'
   config.gem 'uuid'
   config.gem 'ezcrypto'
@@ -55,6 +55,7 @@ Rails::Initializer.run do |config|
   config.gem 'email_spec'
   config.gem 'jrails'
   config.gem 'invert'
+  config.gem 'sass', :version => '3.1.1'
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,
@@ -122,10 +123,10 @@ Rails::Initializer.run do |config|
   # TODO - Remove all references to "content levels" here and in the code --- this is all not required anymore
   ################
   $DEFAULT_CONTENT_LEVEL = "1" # default content level for types of pages shown to user (1..4)
-  			   # 1 == all names
-  			   # 2 == any page which has content, including aggregated from children
-  			   # 3 == only pages that have at least once piece of content tied directly to them
-  			   # 4 == only pages that have a picture and a piece of text tied directly to them
+           # 1 == all names
+           # 2 == any page which has content, including aggregated from children
+           # 3 == only pages that have at least once piece of content tied directly to them
+           # 4 == only pages that have a picture and a piece of text tied directly to them
   $VALID_CONTENT_LEVEL = 1 # level that pages must be greater than or equal to for links to be created in the flash classification browser
   $ALLOW_USER_TO_CHANGE_CONTENT_LEVEL = false # if set to true, user can change their content level
   $ALLOW_SECOND_HIERARCHY = false # if true, the user can pick a second filter hierarchy (confusing but powerful)

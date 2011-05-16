@@ -27,12 +27,12 @@ describe 'User Profile' do
 
   it 'should allow change of filter content hierarchy' do
     visit('/settings')
-    body.should include('login')
+    body.should have_tag('#header a[href*=?]', /login/)
     body.should include('Filter EOL')
     body.should have_tag('input#user_filter_content_by_hierarchy')
     login_as @user
     visit('/settings')
-    body.should_not include('login')
+    body.should_not have_tag('#header a[href*=?]', /login/)
     body.should include('Filter EOL')
     body.should have_tag('input#user_filter_content_by_hierarchy')
   end

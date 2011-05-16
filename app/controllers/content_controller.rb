@@ -1,6 +1,6 @@
 class ContentController < ApplicationController
 
-  layout 'v2/main'
+  layout 'v2/basic'
   include ActionView::Helpers::SanitizeHelper
 
   caches_page :tc_api

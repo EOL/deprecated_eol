@@ -1,0 +1,4 @@
+
+1. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/layouts/task_states.html.erb line:7 found: ">TaskStates: "
+2. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/layouts/task_names.html.erb line:7 found: ">TaskNames: "
+3. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/layouts/tasks.html.erb line:7 found: ">Tasks: "

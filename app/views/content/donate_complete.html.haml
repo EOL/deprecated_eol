@@ -9,6 +9,5 @@
       =  I18n.t(:thanks_for_donation)
     %br
     %br
-    = I18n.t("please")
-    = link_to(I18n.t(:return), :controller => 'content', :action=>'index')
-    = I18n.t("to_the_eol_homepage")
+    = I18n.t("please_return_to_eol_homepage", :return_link =>link_to(I18n.t(:return), :controller => 'content', :action=>'index'))
+

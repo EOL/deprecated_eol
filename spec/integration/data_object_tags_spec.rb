@@ -35,14 +35,14 @@ describe 'Data Object Tags' do
   it 'should show up public and private tags for old and new version of dato after re-harvesting' do
     login_as(@user1)
     visit('/')
-    body.should_not include_text('login')
+    body.should_not have_tag('#header a[href*=?]', /login/)
     visit("/data_objects/#{@new_image_dato.id}/tags")
     body.should have_tag('a', :text => /key-private-old:value-private-old/, :count => 2)
     body.should have_tag('a', :text => /key-public-old:value-public-old/, :count => 1)
     body.should have_tag('a', :text => /key-private-new:value-private-new/, :count => 2)
     body.should have_tag('a', :text => /key-public-new:value-public-new/, :count => 1)
   end
- 
+
   it 'should not show private tags without login' do
     visit('/')
     body.should include_text('login')
@@ -50,6 +50,6 @@ describe 'Data Object Tags' do
     body.should have_tag('a', :text => /key-private-old:value-private-old/, :count => 1)
     body.should have_tag('a', :text => /key-public-old:value-public-old/, :count => 1)
     body.should have_tag('a', :text => /key-private-new:value-private-new/, :count => 1)
-    body.should have_tag('a', :text => /key-public-new:value-public-new/, :count => 1)    
+    body.should have_tag('a', :text => /key-public-new:value-public-new/, :count => 1)
   end
 end

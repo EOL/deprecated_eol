@@ -32,9 +32,7 @@
     =I18n.t("agreement_url__e_g__full_or_re")
   =I18n.t("__if_entered__this_overrides_t")
   %br
-  =I18n.t("if_you_need_to_upload_a_pdf_to")
-  = link_to I18n.t("upload_content"),:controller=>'administrator/content_upload',:action=>'index'
-  =I18n.t("feature_first__and_then_refere")
+  =I18n.t("if_you_need_to_upload_a_pdf_to" ,:link => link_to(I18n.t("upload_content"),:controller=>'administrator/content_upload',:action=>'index') 
   = f.text_field :mou_url,{:size=>'70',:maxlength=>'250'}
   %br
   %br

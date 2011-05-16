@@ -1,0 +1,44 @@
+@import "whitespace-reset"
+
+= border-radius($radius)
+  -moz-border-radius: $radius
+  border-radius: $radius
+= border-top-right-radius($radius)
+  -moz-border-radius-topright: $radius
+  border-top-right-radius: $radius
+= border-top-left-radius($radius)
+  -moz-border-radius-topleft: $radius
+  border-top-left-radius: $radius
+= border-bottom-right-radius($radius)
+  -moz-border-radius-bottomright: $radius
+  border-bottom-right-radius: $radius
+= border-bottom-left-radius($radius)
+  -moz-border-radius-bottomleft: $radius
+  border-bottom-left-radius: $radius
+= box-shadow($arguments)
+  -webkit-box-shadow: $arguments
+  -moz-box-shadow: $arguments
+  box-shadow: $arguments
+= opacity($val)
+  opacity: $val
+  filter: alpha(opacity=$val*100)
+= gradient-bg($color1, $color2)
+  background-color: $color2
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#{$color1}, endColorstr=#{$color2})
+  background-image: -moz-linear-gradient(100% 100% 90deg, $color2, $color1)
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($color1), to($color2))
+= gradient-bg-horizontal($color1, $color2)
+  background-color: $color2
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1, startColorstr=#{$color1}, endColorstr=#{$color2})
+  background-image: -moz-linear-gradient(100% 100% 180deg, $color2, $color1)
+  background-image: -webkit-gradient(linear, left center, right center, from($color1), to($color2))
+
+= button($from: #408ebf, $to: #255491)
+  padding: 10px 24px
+  overflow: visible
+  font: bold 16px Helvetica, Arial, sans-serif
+  color: #ffffff
+  text-decoration: none
+  text-shadow: 0 1px 1px #333333
+  border: 1px solid #3270a7
+  +gradient-bg($from, $to)

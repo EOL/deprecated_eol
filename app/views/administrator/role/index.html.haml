@@ -4,9 +4,7 @@
   %br
   %br
   - if !@roles.nil?
-    =I18n.t("a_total_of")
-    = @roles.size
-    =I18n.t("roles_were_found")
+    =I18n.t("a_total_of_roles_were_found", :count => @roles.size)
     %br
     %table.results_table{ :cellspacing => "0" }
       %tr

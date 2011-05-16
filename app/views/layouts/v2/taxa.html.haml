@@ -10,29 +10,25 @@
     -# TODO - if we want to indicate vetted status here then for accessibility we will need
     -# a translatable vetted status (trusted, untrusted, not vetted) that is accessible
     -# to assistive technologies e.g. as part of h1 value or perhaps in a title attribute
-    #content_header_container
-      %h1
-        = hh(@taxon_concept.title(@session_hierarchy))
-        %span
-          = " &mdash; "
-          = @current_section[:name]
-      - preferred_common_name = @taxon_concept.subtitle(@session_hierarchy)
-      - unless preferred_common_name.blank?
-        %p{:title => I18n.t(:preferred_common_name_advisory_information)}
-          = hh(preferred_common_name)
-      - common_name_count = @taxon_concept.common_names.count
-      - if common_name_count > 0
-        = link_to(I18n.t(:common_names_with_count, :count => common_name_count), '/placeholder_link',
-            { :title => I18n.t(:common_names_advisory_information) })
-      - else
-        %p= I18n.t(:common_names_with_count, :count => common_name_count)
-    #section_navigation_container
-      %h2= I18n.t(:section_navigation)
-      %ul#section_navigation
-        - @content_sections.each do |section|
-          %li{:class => section[:active] ? 'active' : nil }
-            = link_to(section[:name], url_for(:controller => :taxa, :action => :show, :section => section[:url]))
-    #content
-      = yield
+    %h1
+      = hh(@taxon_concept.title(@session_hierarchy))
+      %span
+        = " &mdash; "
+        = @current_section[:name]
+    - preferred_common_name = @taxon_concept.subtitle(@session_hierarchy)
+    - unless preferred_common_name.blank?
+      %p{:title => I18n.t(:preferred_common_name_advisory_information)}
+        = hh(preferred_common_name)
+    - common_name_count = @taxon_concept.common_names.count
+    - if common_name_count > 0
+      = link_to I18n.t(:common_names_with_count, :count => common_name_count), '/placeholder_link',
+        { :title => I18n.t(:common_names_advisory_information) }
+    - else
+      %p= I18n.t(:common_names_with_count, :count => common_name_count)
+    %ul.nav
+      - @content_sections.each do |section|
+        %li{:class => section[:active] ? 'active' : nil }
+          = link_to section[:name], url_for(:controller => :taxa, :action => :show, :section => section[:url])
+    = yield
 
-= render :file => 'layouts/v2/main'
+= render :file => 'layouts/v2/application'

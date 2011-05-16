@@ -70,7 +70,7 @@
         =I18n.t("only_show_authoritative_conten")
     %td
       = f.check_box :vetted
-      =I18n.t("true")
+      =I18n.t("_true_")
   %tr
     %td
       %strong
@@ -84,7 +84,7 @@
         =I18n.t("active_")
     %td
       = f.check_box :active
-      =I18n.t("true")
+      =I18n.t("_true_")
       (
       = @user.failed_login_attempts
       =I18n.t("failed_login_attempts___must_b")
@@ -127,13 +127,9 @@
         =I18n.t("curator_approved_")
     %td
       = f.check_box :curator_approved
-      =I18n.t("true")
+      =I18n.t("_true_")
       - if !(@user.curator_verdict_by.blank? && @user.curator_verdict_at.blank?)
-        =I18n.t("_curator_status_changed_by")
-        = @user.curator_verdict_by.full_name
-        =I18n.t("on")
-        = format_date_time(@user.curator_verdict_at)
-        )
+        =I18n.t("_curator_status_changed_by", :user => @user.curator_verdict_by.full_name, :date => format_date_time(@user.curator_verdict_at))        
   %tr
     %td{ :colspan => "2" }
   %tr

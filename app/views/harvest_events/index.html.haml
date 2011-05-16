@@ -4,8 +4,7 @@
   - content_partner_id = 0
 
 %h2
-  =I18n.t("harvests_for")
-  = @resource.title
+  =I18n.t("harvests_for", :resource => @resource.title)
 - unless @resource.resource_status == ResourceStatus.published
   %br
   %div

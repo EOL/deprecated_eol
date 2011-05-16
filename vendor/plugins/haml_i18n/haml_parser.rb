@@ -34,7 +34,7 @@ if defined? Haml
         end
       end
     end
-    
+
     public
     def parse_tag(line)
       tag_name, attributes, attributes_hash, object_ref, nuke_outer_whitespace,
@@ -42,13 +42,13 @@ if defined? Haml
       if !value.empty? && value.gsub(/&[a-z]{1,6};/," ").match(/[a-zA-Z]/) && !value.match(/I18n\./) && !value.gsub("=","").strip.match(/^(h\s|h\(|hh\()/)
         new_value = ""
         new_line = ""
-        if line.gsub(value,"xxxx").match(/=\s*xxxx/)             
+        if line.gsub(value,"xxxx").match(/=\s*xxxx/)
           if value.strip.match(/^(=)/)
             new_value = value.strip[1..-1].strip
           elsif value.strip.match(/^('|")/)
             new_value= value.strip[1..-2]
           end
-        else               
+        else
           new_value = value
           if line.sub("%"+tag_name+" ","").strip == value.strip
             new_line = line.sub("%"+tag_name+" ","%"+tag_name)
@@ -57,7 +57,7 @@ if defined? Haml
         if !new_value.gsub(/#\{.+\}/,"").match(/[a-zA-Z]/)
           new_value = ""
         end
- 
+
         if !new_value.empty?
           if result_array.length > 1
             index=-2
@@ -66,7 +66,7 @@ if defined? Haml
           end
           result_array[index].value = new_value
           result_array[index].is_plain_text=true
-          if !new_line.empty?            
+          if !new_line.empty?
             result_array[index].line = load_spaces(result_array[index].ident) + new_line
           end
         end
@@ -74,19 +74,19 @@ if defined? Haml
       [tag_name, attributes, attributes_hash, object_ref, nuke_outer_whitespace,
           nuke_inner_whitespace, action, value]
     end
-   
+
     def load_spaces(count)
       result=""
       for i in 1..count
-        result+=" " 
+        result+=" "
       end
       return result
     end
 
     def result_array
-      return @result_array
+      return @result_array || []
     end
-    
+
     class Entry
       attr_accessor :line, :value, :ident, :is_plain_text
       def initialize(line)
@@ -145,11 +145,11 @@ if defined? Haml
         else
           Line.new text.strip, text.lstrip.chomp, text, index, self, false
         end
-      
-      entry = Entry.new(line.full)     
+
+      entry = Entry.new(line.full)
       entry.value = (text == :eod) ? "-#" : ""
       result_array << entry
-      
+
       # `flat?' here is a little outdated,
       # so we have to manually check if either the previous or current line
       # closes the flat block,
@@ -167,7 +167,7 @@ if defined? Haml
 
       @next_line = line
     end
-   
+
     def handle_multiline(line)
       return unless is_multiline?(line.text)
       line.text.slice!(-1)
@@ -183,7 +183,7 @@ if defined? Haml
       un_next_line new_line
       resolve_newlines
     end
-    
+
     def handle_ruby_multiline(text)
       text = text.rstrip
       return text unless is_ruby_multiline?(text)
@@ -201,6 +201,6 @@ if defined? Haml
     end
 
 
-   
+
   end
 end

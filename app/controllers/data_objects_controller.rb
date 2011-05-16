@@ -176,7 +176,7 @@ class DataObjectsController < ApplicationController
     redirect_to data_object_path(@data_object)
   end
 
-  def add_assocation
+  def add_association
     @name = params[:add_association]
     # TODO - handle the case where they didn't enter a name at all.
     @entries = entries_for_name(@name)

@@ -15,7 +15,5 @@
         %h2
           =I18n.t("this_image_has_no_public_tags")
       - if !logged_in? && $ALLOW_USER_LOGINS
-        %br
-        %h2
-          =I18n.t("you_must_be_logged_in_to_add_tags", :loggin_link =>link_to(I18n.t("logged_in_"), login_path(:params => { :return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path}), {:class => "login_link"}))
+        %p= I18n.t("you_must_be_logged_in_to_add_tags", :loggin_link =>link_to(I18n.t("logged_in_"), login_path(:params => { :return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path}), {:class => "login_link"}))
 

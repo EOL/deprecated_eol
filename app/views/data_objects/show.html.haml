@@ -85,6 +85,7 @@
                   = link_to I18n.t(:remove_data_object_association), remove_association_path(:id => @data_object.id, :hierarchy_entry_id => phe.id), :id => "remove_association_#{phe.id}"
         - if current_user.can_curate?(@data_object)
           - form_tag({:controller => 'data_objects', :action => 'add_association'}) do
+            = hidden_field_tag 'id', @data_object.id
             = label_tag 'add_association', I18n.t(:add_association_label_colon)
             = text_field_tag 'add_association'
             = submit_tag I18n.t(:add_association_submit_button)

@@ -54,6 +54,7 @@ describe 'Curator Account Pages' do
                                                      :description => @text,
                                                      :vetted => Vetted.unknown },] )
     @credentials = 'This has a <a href="linky">link</a> <b>this is bold<br />as is this</b> and <script type="text/javascript">alert("hi");</script>'
+    @non_curator = User.gen
     @user = build_curator(@taxon_concept, :credentials => @credentials)
     @taxon_concept.images[0].curate(@user, { :vetted_id => Vetted.trusted.id })
     @taxon_concept.images[1].curate(@user, { :vetted_id => Vetted.untrusted.id })
@@ -65,54 +66,61 @@ describe 'Curator Account Pages' do
     @taxon_page_path = "/pages/#{@taxon_concept[:id]}"
     account_show_path = "/account/show/#{@user.id}"
     visit(account_show_path)
+    @page = page
+    @body = body
+    visit(@show_datos_curated_path)
+    @objects_curated_page = page
+    @objects_curated_body = body
+  end
+
+  it "should redirect back or to default when visit account page" do
+    visit("/account/show/#{@non_curator.id}")
+    current_path.should_not == "/account/show/#{@non_curator.id}"
   end
 
   it 'should allow bold font style in credentials text on account page' do
-    body.should have_tag('div#credentials b')
+    @body.should have_tag('div#credentials b')
   end
 
   it 'should allow hyperlinks in credentials text on account page' do
-    body.should have_tag('a[href="linky"]')
+    @body.should have_tag('a[href="linky"]')
   end
 
   it 'should allow line breaks in credentials text on account page' do
-    body.should have_tag('div#credentials br')
+    @body.should have_tag('div#credentials br')
   end
 
   it 'should not allow dynamic script in credentials text on account page' do
-    body.should_not have_tag('script', :text => 'alert("hi");')
+    @body.should_not have_tag('script', :text => 'alert("hi");')
   end
 
   it 'should show the number of data objects curated with hyperlink on account page' do
-    body.should have_tag('div#activity') do
+    @body.should have_tag('div#activity') do
       with_tag('a', :attributes => { :href => @show_datos_curated_path }, :text => @total_datos_curated)
     end
   end
 
-  it 'should allow visitor to go to the data objects curated page from the account page' do
-    find(:xpath, '//a[@href="' + @show_datos_curated_path + '"]').click
-  end
 
   it 'should strip most html tags from descriptions on the show objects curated page' do
-    body.should have_tag('td.description')
-    body.should_not have_tag('td.description script')
-    body.should_not have_tag('td.description table')
-    body.should_not have_tag('td.description div')
-    body.should_not have_tag('td.description p')
-    page.should_not have_content('I should have been stripped from teaser')
-    body.should have_tag('td.description i')
+    @objects_curated_body.should have_tag('td.description')
+    @objects_curated_body.should_not have_tag('td.description script')
+    @objects_curated_body.should_not have_tag('td.description table')
+    @objects_curated_body.should_not have_tag('td.description div')
+    @objects_curated_body.should_not have_tag('td.description p')
+    @objects_curated_page.should_not have_content('I should have been stripped from teaser')
+    @objects_curated_body.should have_tag('td.description i')
   end
 
   it 'should show teaser views of descriptions on the show objects curated page' do
-    page.should_not have_content('I should have been stripped from teaser')
+    @objects_curated_page.should_not have_content('I should have been stripped from teaser')
   end
 
   it 'should show data object permalinks on the show objects curated page' do
-    body.should have_tag('td.description a', :attributes => { :href => @permalink_path }, :text => "Permalink")
+    @objects_curated_body.should have_tag('td.description a', :attributes => { :href => @permalink_path }, :text => "Permalink")
   end
 
   it 'should show scientific names with hyperlinks on the show objects curated page' do
-    body.should have_tag('table#show_objects_curated a', :attributes => { :href => @taxon_page_path }) do
+    @objects_curated_body.should have_tag('table#show_objects_curated a', :attributes => { :href => @taxon_page_path }) do
       with_tag('i', :text => @taxon_concept.hierarchy_entries.first.name[:canonical])
     end
   end

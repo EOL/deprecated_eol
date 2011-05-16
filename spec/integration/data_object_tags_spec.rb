@@ -5,6 +5,7 @@ require 'nokogiri'
 
 describe 'Data Object Tags' do
   before(:all) do
+    truncate_all_tables
     load_foundation_cache
     Capybara.reset_sessions!
     taxon_concept = build_taxon_concept(:images => [{}])
@@ -29,6 +30,8 @@ describe 'Data Object Tags' do
   end
 
   def create_user username
+    user = User.find_by_username(username)
+    return user if user
     User.gen :username => username
   end
 

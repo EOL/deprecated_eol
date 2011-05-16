@@ -60,12 +60,6 @@
             %br
             %br
           %td{ :valign => "top" }
-            -# All of this is disabled for now...
-              %h3= I18n.t(:personal_information)
-            -# %p{:style => "margin-bottom:2em;"}
-              = I18n.t(:please_help_eol_understand_the_needs_of_its_users_fill_out_this_short_form_describing)
-              = link_to( I18n.t(:your_information) , url_for(:controller => :account, :action => :info), {:title => I18n.t(:your_information) , :class => 'return_to'})
-              = I18n.t(:personal_information_it_takes_less_than_one_minute)
             = render(:partial => 'taxa/set_content_settings', :locals => { :f => f })
             = render(:partial => 'curator_profile_settings', :locals => { :f => f })
       .button

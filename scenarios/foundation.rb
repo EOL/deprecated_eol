@@ -1,8 +1,11 @@
 # sets up a basic foundation - enough data to run the application, but no content
+truncate_all_tables(:skip_empty_tables => false) # We do this to make sure the IDs on all of the tables start at 1.
 
-$CACHE.clear # because we are resetting everything!  Sometimes, say, iucn is set.
-old_cache_value = $CACHE.clone
-$CACHE = nil
+old_cache_value = nil
+if $CACHE
+  $CACHE.clear # because we are resetting everything!  Sometimes, say, iucn is set.
+  old_cache_value = $CACHE.clone
+end
 
 # These are two of the most important rows in the database now; translated tables will fail without these.
 e = Language.gen_if_not_exists(:iso_639_1 => 'en', :source_form => 'English')
@@ -270,5 +273,5 @@ d = DataObject.gen
 he = HierarchyEntry.gen(:hierarchy => default_hierarchy)
 5.times { RandomHierarchyImage.gen(:hierarchy => default_hierarchy, :hierarchy_entry => he, :data_object => d) }
 
-$CACHE = old_cache_value.clone
+$CACHE = old_cache_value.clone if old_cache_value
 $CACHE.clear

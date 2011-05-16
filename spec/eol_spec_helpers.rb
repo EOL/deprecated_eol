@@ -79,7 +79,8 @@ module EOL
       end
 
       # truncates all tables in all databases
-      def truncate_all_tables options = { }
+      def truncate_all_tables(options = {})
+        options[:skip_empty_tables] = true if options[:skip_empty_tables].nil?
         options[:verbose] ||= false
         all_connections.each do |conn|
           count = 0
@@ -88,18 +89,21 @@ module EOL
               count += 1
               if conn.respond_to? :with_master
                 conn.with_master do
-                  count_rows = conn.execute("SELECT 1 FROM #{table} LIMIT 1")
-                  conn.execute "TRUNCATE TABLE `#{table}`" if count_rows.num_rows > 0
+                  truncate_table(conn, table, options[:skip_empty_tables])
                 end
               else
-                count_rows = conn.execute("SELECT 1 FROM #{table} LIMIT 1")
-                conn.execute "TRUNCATE TABLE `#{table}`" if count_rows.num_rows > 0
+                truncate_table(conn, table, options[:skip_empty_tables])
               end
             end
           end
           puts "-- Truncated #{count} tables in #{conn.instance_eval { @config[:database] }}." if options[:verbose]
         end
-        $CACHE.clear # ...These values are all now void, so...
+        $CACHE.clear if $CACHE # ...These values are all now void, so...
+      end
+
+      def truncate_table(conn, table, skip_if_empty)
+        run_command = skip_if_empty ? conn.execute("SELECT 1 FROM #{table} LIMIT 1").num_rows > 0 : true
+        conn.execute "TRUNCATE TABLE `#{table}`" if run_command
       end
 
       # truncates all tables in all databases

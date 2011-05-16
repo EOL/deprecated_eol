@@ -8,6 +8,15 @@ require 'spec/scenario_helpers'
 # This gives us the ability to build taxon concepts:
 include EOL::Spec::Helpers
 
+# Sadly, it looks like the special community stuff is getting removed for this scenario, soooo:
+begin
+  Community.special # Raises an exception if it's missing.
+rescue
+  KnownPrivileges.create_all
+  SpecialCollection.create_all
+  Community.create_special
+end
+
 results = {}
 
 results[:panda_name] = 'panda'

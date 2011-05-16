@@ -36,7 +36,7 @@ class DataObject < SpeciesSchemaModel
   has_many :collection_items, :as => :object
   has_many :users_data_objects
   has_many :users_data_objects_ratings, :foreign_key => 'data_object_guid', :primary_key => :guid
-  has_many :all_comments, :class_name => Comment.to_s, :foreign_key => 'parent_id', :finder_sql => 'SELECT c.* FROM #{Comment.full_table_name} c JOIN #{DataObject.full_table_name} do ON (c.parent_id = do.id) WHERE do.guid=\'#{guid}\''
+  has_many :all_comments, :class_name => Comment.to_s, :foreign_key => 'parent_id', :finder_sql => 'SELECT c.* FROM #{Comment.full_table_name} c JOIN #{DataObject.full_table_name} do ON (c.parent_id = do.id) WHERE do.guid=\'#{guid}\' AND c.parent_type = \'DataObject\''
   # has_many :all_comments, :class_name => Comment.to_s, :through => :all_versions, :source => :comments, :primary_key => :guid
   # # the select_with_include library doesn't allow to grab do.* one time, then do.id later on - but this would be a neat method,
   # has_many :all_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :select => 'id, guid'

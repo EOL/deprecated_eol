@@ -41,7 +41,7 @@ end
 
 describe 'Search' do
 
-  describe '(text)' do
+#   describe '(text)' do
 
     before :all do
       truncate_all_tables
@@ -171,60 +171,63 @@ describe 'Search' do
       body.should have_tag('h3', :text => 'No search results were found')
     end
 
-  end
+# end
 
-  describe '(tags)' do
+  # TODO _ get rid of these, I think: we won't keep tags in V2, and if we do, it will be handled VERY
+  # differently.
 
-    it 'should find tags' do
-      taxon_concept = build_taxon_concept(:images => [{}])
-      image_dato   = taxon_concept.images.last
-      user = User.gen :username => 'username', :password => 'password'
-      image_dato.tag("key-old", "value-old", user)
-      # during reharvesting this object will be recreated with the same guid and different id
-      # it should still find all tags because it uses guid, not id for finding relevant information
-      new_image_dato = DataObject.build_reharvested_dato(image_dato)
-      new_image_dato.tag("key-new", "value-new", user)
-
-      visit('/search?q=value-old&search_type=tag')
-      body.should include(taxon_concept.scientific_name.gsub("&","&amp;"))
-    end
-
-    # REMOVE AFTER PAGINATION IMPLEMENTING TODO
-    it 'should show > 10 tags' do
-      user   = User.gen :username => 'username', :password => 'password'
-      all_tc = []
-      number_of_taxa  = 12
-
-      number_of_taxa.times do
-        taxon_concept = build_taxon_concept(:images => [{}])
-        image_dato    = taxon_concept.images.last
-        image_dato.tag("key", "value", user)
-        all_tc << taxon_concept.scientific_name
-      end
-
-      visit('/search?search_type=tag&q=value')
-      for tc_name in all_tc
-        body.should include(tc_name.gsub("&","&amp;"))
-      end
-    end
-
-    it 'should show unvetted status for tag search' do
-      user   = User.gen :username => 'username', :password => 'password'
-      all_tc = []
-      vetted_methods  = ['untrusted', 'unknown', 'trusted']
-
-      vetted_methods.each do |v_method|
-        taxon_concept = build_taxon_concept(:images => [{}], :vetted => v_method)
-        image_dato    = taxon_concept.images.last
-        image_dato.tag("key", "value", user)
-        all_tc << taxon_concept.scientific_name
-      end
-
-      visit('/search?search_type=tag&q=value')
-      body.should match /(odd|even)[^_]/
-      body.should match /(odd|even)_untrusted/
-      body.should match /(odd|even)_unvetted/
-    end
+#  describe '(tags)' do
+#
+#    it 'should find tags' do
+#      taxon_concept = build_taxon_concept(:images => [{}])
+#      image_dato   = taxon_concept.images.last
+#      user = User.gen :username => 'username', :password => 'password'
+#      image_dato.tag("key-old", "value-old", user)
+#      # during reharvesting this object will be recreated with the same guid and different id
+#      # it should still find all tags because it uses guid, not id for finding relevant information
+#      new_image_dato = DataObject.build_reharvested_dato(image_dato)
+#      new_image_dato.tag("key-new", "value-new", user)
+#
+#      visit('/search?q=value-old&search_type=tag')
+#      body.should include(taxon_concept.scientific_name.gsub("&","&amp;"))
+#    end
+#
+#    # REMOVE AFTER PAGINATION IMPLEMENTING TODO
+#    it 'should show > 10 tags' do
+#      user   = User.gen :username => 'username', :password => 'password'
+#      all_tc = []
+#      number_of_taxa  = 12
+#
+#      number_of_taxa.times do
+#        taxon_concept = build_taxon_concept(:images => [{}])
+#        image_dato    = taxon_concept.images.last
+#        image_dato.tag("key", "value", user)
+#        all_tc << taxon_concept.scientific_name
+#      end
+#
+#      visit('/search?search_type=tag&q=value')
+#      for tc_name in all_tc
+#        body.should include(tc_name.gsub("&","&amp;"))
+#      end
+#    end
+#
+#    it 'should show unvetted status for tag search' do
+#      user   = User.gen :username => 'username', :password => 'password'
+#      all_tc = []
+#      vetted_methods  = ['untrusted', 'unknown', 'trusted']
+#
+#      vetted_methods.each do |v_method|
+#        taxon_concept = build_taxon_concept(:images => [{}], :vetted => v_method)
+#        image_dato    = taxon_concept.images.last
+#        image_dato.tag("key", "value", user)
+#        all_tc << taxon_concept.scientific_name
+#      end
+#
+#      visit('/search?search_type=tag&q=value')
+#      body.should match /(odd|even)[^_]/
+#      body.should match /(odd|even)_untrusted/
+#      body.should match /(odd|even)_unvetted/
+#    end
 
     # WHEN WE HAVE PAGINATION FOR TAGS (TODO):
     #
@@ -245,6 +248,6 @@ describe 'Search' do
     #     assert_tag_results(:num_results_on_this_page => extra_results, :page => 2)
     #   end
 
-  end
+#  end
 
 end

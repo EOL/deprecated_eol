@@ -16,17 +16,21 @@ class Community < ActiveRecord::Base
   cattr_reader :per_page
   @@per_page = 30
 
-  validates_presence_of :name, :message => I18n.t(:cannot_be_empty) 
-  validates_length_of :name, :maximum => 127, :message => I18n.t(:must_be_less_than_128_characters_long) 
-  validates_uniqueness_of :name, :message => I18n.t(:has_already_been_taken) 
+  validates_presence_of :name, :message => I18n.t(:cannot_be_empty)
+  validates_length_of :name, :maximum => 127, :message => I18n.t(:must_be_less_than_128_characters_long)
+  validates_uniqueness_of :name, :message => I18n.t(:has_already_been_taken)
 
   def self.special
-    cached_find(:name, $SPECIAL_COMMUNITY_NAME)
+    special = cached_find(:name, $SPECIAL_COMMUNITY_NAME)
+    raise "Special Community is missing. Perhaps you forgot to load it?" if special.nil? # For tests.
+    special
   end
 
   def self.create_special
-    special = Community.special
-    if special.nil? 
+    special = nil
+    begin
+      special = Community.special
+    rescue
       special = Community.create(:name => $SPECIAL_COMMUNITY_NAME,
                                  :description => 'This is a special community for the curtors and admins of EOL.',
                                  :show_special_privileges => 1)
@@ -40,7 +44,7 @@ class Community < ActiveRecord::Base
     end
   end
 
-  # TODO - test 
+  # TODO - test
   # Adds the default roles, auto-joins the user to the community, and makes that person the owner.
   def initialize_as_created_by(user)
     new_roles = Role.add_defaults_to_community(self)
@@ -75,7 +79,7 @@ class Community < ActiveRecord::Base
     members.map {|m| m.user_id}.include?(user.id)
   end
 
-private 
+private
 
   def attatch_focus
     # TODO - i18n

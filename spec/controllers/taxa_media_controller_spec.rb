@@ -20,7 +20,6 @@ describe TaxaController do
   it 'should show the media tab' do
     # TODO - we do eventually want this to be /pages/1/media, without a question mark:
     get_media_tab
-    debugger
     response.should have_tag('h1', :text => /media/i)
   end
 

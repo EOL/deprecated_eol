@@ -8,6 +8,7 @@ if $CACHE
 end
 
 # These are two of the most important rows in the database now; translated tables will fail without these.
+debugger
 e = Language.gen_if_not_exists(:iso_639_1 => 'en', :source_form => 'English')
 TranslatedLanguage.gen_if_not_exists(:label => 'English', :original_language_id => e.id)
 

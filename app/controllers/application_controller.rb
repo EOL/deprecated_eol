@@ -55,8 +55,19 @@ class ApplicationController < ActionController::Base
     else
       logger.error "*" * 76
       logger.error "** EXCEPTION: (uncaught) #{e.message}"
-      logger.error "   " + e.backtrace[0..11].map {|t| t.gsub(/#{RAILS_ROOT}/, '.')}.join("\n   ")
-      logger.error "   [...#{e.backtrace.length - 12} more lines omitted]" if e.backtrace.length > 12
+      lines_shown = 0
+      index = 0
+      e.backtrace.map {|t| t.gsub(/#{RAILS_ROOT}/, '.')}.each do |trace|
+        if trace =~ /\.?\/(usr|vendor).*:/
+          logger.error "       (#{trace})"
+        else
+          logger.error "   #{trace}"
+          lines_shown += 1
+        end
+        index += 1
+        break if lines_shown > 12
+      end
+      logger.error "   [...#{e.backtrace.length - index} more lines omitted]" if lines_shown > 12
       logger.error "\n\n"
       render :layout => 'main', :template => "content/error"
     end

@@ -2,20 +2,20 @@
 
 # require File.dirname(__FILE__) + '/../spec_helper'
 # require 'nokogiri'
-# 
+#
 # require File.dirname(__FILE__) + '/../../lib/eol_data'
 # class EOL::NestedSet; end
 # EOL::NestedSet.send :extend, EOL::Data
-# 
+#
 # def stub_solr
 #   TaxonConcept.stub!(:search_with_pagination).and_return(
 #     [{"common_name"=>[@search_term], "top_image_id"=>66, "preferred_scientific_name"=>[@search_term],
 #       "published"=>[true], "scientific_name"=>[@search_term], "supercedure_id"=>[0], "vetted_id"=>[1],
 #       "taxon_concept_id"=>[25]}])
 # end
-# 
+#
 # describe 'Taxa page XML' do
-# 
+#
 #   before(:all) do
 #     truncate_all_tables # Please don't nest this in an "if find 910093" block; there is something else that
 #                         # causes this to fail, and I've wasted enough time figuring out this fixed it to dig
@@ -64,7 +64,7 @@
 #                          :images          => [{:object_cache_url => @image_1}, {:object_cache_url => @image_2},
 #                                               {:object_cache_url => @image_3},
 #                                               {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
-#                          :toc             => [{:toc_item => @overview, :description => @overview_text}, 
+#                          :toc             => [{:toc_item => @overview, :description => @overview_text},
 #                                               {:toc_item => @toc_item_2}, {:toc_item => @toc_item_3}])
 #     @child1        = build_taxon_concept(:parent_hierarchy_entry_id => @taxon_concept.hierarchy_entries.first.id)
 #     @child2        = build_taxon_concept(:parent_hierarchy_entry_id => @taxon_concept.hierarchy_entries.first.id)
@@ -73,48 +73,48 @@
 #     @curator       = build_curator(@taxon_concept)
 #     Comment.find_by_body(@comment_bad).hide User.last
 #   end
-# 
+#
 #   after :all do
 #     truncate_all_tables
 #   end
-# 
+#
 # #  describe 'single taxon' do
 # #
-# #    # that doesn't work now for some reason, if will be, replace "Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)" for "@taxon_concept_xml" everywhere 
+# #    # that doesn't work now for some reason, if will be, replace "Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)" for "@taxon_concept_xml" everywhere
 # #    # before(:all) do
 # #    #   # Saves us time if we only make these requests once, so we can test the results multiple times:
 # #    #   @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)
 # #    # end
 # #
 # #    it 'should serve valid XML on call to /pages/NNN.xml' do
-# #      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)  
+# #      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)
 # #      @taxon_concept_xml.xpath('/taxon-page').should_not be_empty
 # #    end
 # #
 # #    it 'should serve the TaxonConcept with ID NNN on call to /pages/NNN.xml' do
-# #      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)  
+# #      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)
 # #      @taxon_concept_xml.xpath('/taxon-page/id').first.content.should == @id.to_s
 # #    end
 # #
 # #    it 'should include canonical-form on call to /pages/NNN.xml' do
-# #      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)  
+# #      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)
 # #      @taxon_concept_xml.xpath('/taxon-page/canonical-form').first.content.should == @canonical_form
 # #    end
-# #    
+# #
 # #    it 'should include common-names on call to /pages/NNN.xml' do
-# #      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)  
+# #      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)
 # #      @taxon_concept_xml.xpath('/taxon-page/common-names/item').map { |cn|
 # #        cn.xpath('string').first.content
 # #      }.should == @taxon_concept.all_common_names.map(&:string)
 # #    end
 # #
 # #    it 'should include iucn-conservation-status on call to /pages/NNN.xml' do
-# #      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)  
+# #      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)
 # #      @taxon_concept_xml.xpath('/taxon-page/iucn-conservation-status').first.content.should == @iucn_status
 # #    end
 # #
 # #    it 'should include scientific-name on call to /pages/NNN.xml' do
-# #      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)  
+# #      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)
 # #      @taxon_concept_xml.xpath('/taxon-page/scientific-name').first.content.should == @italicized
 # #    end
 # #
@@ -124,44 +124,44 @@
 # #    end
 # #
 # #    it 'should include table-of-contents on call to /pages/NNN.xml' do
-# #      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)  
+# #      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)
 # #      @taxon_concept_xml.xpath('/taxon-page/table-of-contents/item').map { |ti|
 # #        ti.xpath('label').first.content
 # #      }.should == @taxon_concept.toc.map(&:label)
 # #    end
 # #
 # #    it 'should include ancestors on call to /pages/NNN.xml' do
-# #      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)  
+# #      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)
 # #      @taxon_concept_xml.xpath('//ancestors/taxon-page/id').map { |i| i.content }.should ==
 # #        @taxon_concept.ancestors.map {|a| a.id.to_s }
 # #    end
 # #
 # #    # Sorted because order is irrelevant.
 # #    it 'should include children on call to /pages/NNN.xml' do
-# #      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)  
+# #      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)
 # #      @taxon_concept_xml.xpath('//children/taxon-page/id').map { |i| i.content }.sort.should ==
 # #        @taxon_concept.children.map {|a| a.id.to_s }.sort
 # #    end
 # #
 # #    # Sorted because order is irrelevant.
 # #    it 'should include curators on call to /pages/NNN.xml' do
-# #      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)  
+# #      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)
 # #      @taxon_concept_xml.xpath('//curators/user/id').map { |i| i.content }.sort.should ==
 # #        @taxon_concept.curators.map {|c| c.id.to_s }.sort
 # #    end
 # #
 # #    it 'should include comments/count on call to /pages/NNN.xml' do
-# #      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)  
+# #      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)
 # #      @taxon_concept_xml.xpath('//comments/count').first.content.should == @taxon_concept.comments.length.to_s
 # #    end
 # #
 # #    it 'should include images/count on call to /pages/NNN.xml' do
-# #      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)  
+# #      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)
 # #      @taxon_concept_xml.xpath('//images/count').first.content.should == @taxon_concept.images.length.to_s
 # #    end
 # #
 # #   it 'should include videos/count on call to /pages/NNN.xml' do
-# #     @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)  
+# #     @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)
 # #      @taxon_concept_xml.xpath('//videos/count').first.content.should == @taxon_concept.videos.length.to_s
 # #   end
 # #
@@ -192,7 +192,7 @@
 # #    end
 # #
 # #  end
-# #  
+# #
 # #  # Sure, I could test pagination on videos, but I'm going out on a limb and claiming that if one works, the other
 # #  # will, too.
 # #  describe 'videos' do
@@ -210,25 +210,24 @@
 # #    end
 # #
 # #  end
-# 
+#
 #   describe('caching') do
-# 
+#
 #     before(:all) do
 #       @old_cache_val = ActionController::Base.perform_caching
 #       ActionController::Base.perform_caching = true
-#       $CACHE.clear
 #     end
 #     after(:all) do
 #       ActionController::Base.perform_caching = @old_cache_val
 #     end
-# 
+#
 # #    it 'should cache XML on call to /pages/NNN.xml' do
 # #      # I need to do this to ensure we can capture the to_xml call (to_s is called in the controller in this case):
 # #      TaxonConcept.should_receive(:find).with(@id).at_least(1).times.and_return(@taxon_concept)
 # #      @taxon_concept.should_receive(:to_xml).exactly(1).times.and_return(
 # #        %Q{<?xml version="1.0" encoding="UTF-8"?>\n<taxon-page>Not Empty</taxon-page>\n}
 # #      )
-# #      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)  
+# #      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)
 # #      @taxon_concept_xml.xpath('//taxon-page').should_not be_empty
 # #      @taxon_concept_xml.xpath('//taxon-page').should_not be_empty
 # #    end
@@ -255,23 +254,23 @@
 # #      Nokogiri::XML(RackBox.request("/search.xml?q=#{@search_term}").body).xpath('//common-results').should_not
 # #        be_empty
 # #    end
-# 
+#
 #   end
-# 
+#
 #   describe 'search' do
-# 
+#
 #     before(:all) do
 #       EOL::NestedSet.make_all_nested_sets
 #       stub_solr
 #       visit("/search.xml?q=#{@search_term}")
 #       @search_xml = Nokogiri::XML(body)
 #     end
-# 
+#
 #     it 'should be valid XML' do
 #       @search_xml.xpath('//common-results').should_not be_empty
 #       @search_xml.xpath('//scientific-results').should_not be_empty
 #     end
-# 
+#
 #     it 'should have the ID of our expected TC as a result' do
 #       #<results>
 #       #  <common-results type="array">
@@ -280,50 +279,50 @@
 #       #        <id type="integer">25</id>
 #       @search_xml.xpath('//results/common-results/common-result/common-result/id').should_not be_empty
 #     end
-# 
+#
 #   end
-# 
+#
 #   describe 'empty search' do
-# 
+#
 #     before(:all) do
 #       EOL::NestedSet.make_all_nested_sets
 #       stub_solr
 #     end
-# 
+#
 #     it 'should be valid XML with empty result set for no parameter or non-result searches' do
 #       visit("/search.xml")
 #       search_xml = Nokogiri::XML(body)
 #       search_xml.xpath('//results').should_not be_empty
 #       search_xml.xpath('//scientific-results').should be_empty
 #       search_xml.xpath('//common-results').should be_empty
-# 
+#
 #       visit("/search.xml?q=bogusness")
 #       search_xml = Nokogiri::XML(body)
 #       search_xml.xpath('//results').should_not be_empty
-# 
+#
 #     end
-# 
+#
 #   end
-#   
+#
 #   describe 'exemplars' do
-# 
+#
 #     before(:all) do
 #       EOL::NestedSet.make_all_nested_sets
 #       visit("/exemplars.xml")
 #       @exemplar_xml = Nokogiri::XML(body)
 #     end
-# 
+#
 #     it 'should be valid XML' do
 #       @exemplar_xml.xpath('//taxon-pages').should_not be_empty
 #     end
-# 
+#
 #     it 'should have the ID of our expected TC as a result' do
 #       # @exemplar_xml.xpath('//taxon-pages/taxon-page/id').should_not be_empty
 #       # @exemplar_xml.xpath('//taxon-pages/taxon-page/id').first.content.should == @exemplar.id.to_s
 #       @exemplar_xml.xpath('//taxon-pages/taxon-page/taxon-concept-id').should_not be_empty
 #       @exemplar_xml.xpath('//taxon-pages/taxon-page/taxon-concept-id').first.content.should == @exemplar.id.to_s
 #     end
-# 
+#
 #   end
-# 
+#
 # end

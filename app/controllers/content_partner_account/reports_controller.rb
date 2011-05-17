@@ -1,13 +1,13 @@
 class ContentPartnerAccount::ReportsController < ContentPartnerAccountController
   before_filter :check_authentication
   layout 'user_profile'
-    
+
   def index
     @page_header = I18n.t("usage_reports")
     content_partner = ContentPartner.find_by_user_id(current_user.id)
     @no_resources = !content_partner.has_published_resources?
-  end  
-  
+  end
+
   def page_stats
     @page_header = I18n.t("usage_reports")
     content_partner = ContentPartner.find_by_user_id(current_user.id)
@@ -19,7 +19,7 @@ class ContentPartnerAccount::ReportsController < ContentPartnerAccountController
     @report_date = "#{report_year}_#{report_month}"
     @report_type = :page_stats
   end
-  
+
   def monthly_page_stats
     @page_header = I18n.t("usage_reports")
     page = params[:page] || 1
@@ -49,23 +49,23 @@ class ContentPartnerAccount::ReportsController < ContentPartnerAccountController
       @user_id = session[:form_user_id]
     else
       @user_id = current_user.id
-    end    
-    
+    end
+
     if(@year_month <= "2009_11") then
       temp = page_stats
       @report_date = @year_month
       @user_id = params[:user_id]
       render :action => "page_stats"
     end
-    
+
     @content_partners_with_published_data = ContentPartner.with_published_data
     @content_partner = ContentPartner.find_by_user_id(@user_id)
     @partner_summary = GoogleAnalyticsPartnerSummary.find_by_user_id_and_year_and_month(@user_id, @report_year, @report_month)
     @overall_summary = GoogleAnalyticsSummary.find_by_year_and_month(@report_year, @report_month)
-    
+
     @posts = GoogleAnalyticsPageStat.page_summary(@user_id, @report_year, @report_month, page)
   end
-  
+
   def data_object_stats
     @page_header = I18n.t("usage_reports")
     content_partner = ContentPartner.find_by_user_id(current_user.id)
@@ -73,19 +73,19 @@ class ContentPartnerAccount::ReportsController < ContentPartnerAccountController
     @agent_id = current_agent.id
     @report_type = :data_object_stats
   end
-  
+
   def no_resources
   end
-  
+
   def admin_whole_report
     @page_header = I18n.t("usage_reports")
     @act_histories = ActionsHistory.paginate(:page => params[:page] || 1, :per_page => params[:per_page] || "25", :order => 'created_at DESC')
     @sub_page_header  = 'Changing of objects status and comments'
     @report_type      = :admin_whole_report
-    
+
     render :template => 'content_partner/reports/whole_report'
   end
-  
+
   #part below is for a content partner
   def whole_report
     @page_header = I18n.t("usage_reports")
@@ -95,7 +95,7 @@ class ContentPartnerAccount::ReportsController < ContentPartnerAccountController
     @sub_page_header  = 'Changing of objects status and comments'
     @report_type      = :whole_report
   end
-  
+
   def comments_report
     @page_header = I18n.t("usage_reports")
     content_partner   = ContentPartner.find_by_user_id(current_user.id)
@@ -111,7 +111,7 @@ class ContentPartnerAccount::ReportsController < ContentPartnerAccountController
     @sub_page_header  = 'Comments on Taxa'
     @report_type      = :taxa_comments_report
   end
-  
+
   def statuses_report
     @page_header = I18n.t("usage_reports")
     content_partner   = ContentPartner.find_by_user_id(current_user.id)

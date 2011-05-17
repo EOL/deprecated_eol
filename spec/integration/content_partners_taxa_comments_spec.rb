@@ -9,7 +9,7 @@ describe "Content Partner Taxa Comments" do
     @user = User.gen(:username => 'anything')
     @user.password = 'whatevs'
     @user.save
-    
+
     @content_partner = ContentPartner.gen(:user => @user)
     @resource = Resource.gen(:title => "test resource", :content_partner => @content_partner)
     last_month = Time.now - 1.month
@@ -20,11 +20,11 @@ describe "Content Partner Taxa Comments" do
     @comment = Comment.gen(:parent_id => @taxon_concept.id, :parent_type => 'TaxonConcept', :user_id => @user.id, :body => "Comment for the taxon", :created_at => last_month, :visible_at => last_month)
     @action_history = ActionsHistory.gen(:object_id => @comment.id, :changeable_object_type_id => ChangeableObjectType.find_by_ch_object_type('comment').id, :user_id => @user.id)
   end
-  
+
   after(:all) do
     truncate_all_tables
   end
-  
+
   before(:each) do
     login_as(@user)
   end
@@ -32,9 +32,9 @@ describe "Content Partner Taxa Comments" do
   after(:each) do
     visit('/logout')
   end
-  
+
   it "should render taxa comments page" do
-    visit("/content_partner_account/reports/taxa_comments_report")
+    visit("/content_partner/reports/taxa_comments_report")
     body.should include "Comments on Taxa"
     body.should include @comment.body
     body.should include @action_history.taxon_concept_name

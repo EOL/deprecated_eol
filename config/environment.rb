@@ -282,8 +282,6 @@ if ENV['BLEAK']
   require 'bleak_house'
 end
 
-puts "*" * 120
-puts "Setting CACHE"
 $CACHE = Rails.cache
 
 # Taken right from http://tinyurl.com/3xzen6z

@@ -73,7 +73,6 @@ describe 'Taxa page (HTML)' do
     @taxon_concept.add_user_submitted_text(:description => description, :vetted => true)
     @taxon_concept.add_user_submitted_text(:description => description, :vetted => true)
 
-    $CACHE.clear # TODO -why?  This is expensive.
     @toc_item_with_no_trusted_items = TocItem.gen_if_not_exists(:label => 'Untrusted Stuff')
     @taxon_concept.add_toc_item(@toc_item_with_no_trusted_items, :vetted => false)
 

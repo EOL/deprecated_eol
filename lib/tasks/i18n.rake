@@ -2,8 +2,6 @@ require 'ruby-debug'
 require 'haml'
 
 
-
-
 desc 'Tasks useful for internatiolization'
 namespace :i18n do
   lang_dir = File.join([RAILS_ROOT, "config", "locales"])
@@ -421,8 +419,8 @@ namespace :i18n do
 
   end
 
-  task (:list_static_strings => :environment) do
-  desc 'list all static strings in the db tables'
+  desc 'list db strings for translation by twiki'
+  task (:list_db_strings => :environment) do
     en_strings = "en:\n"
     label_tables = ['translated_agent_roles',
                     'translated_audiences',

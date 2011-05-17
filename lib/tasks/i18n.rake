@@ -33,7 +33,7 @@ namespace :i18n do
           else
             tmp = open(tmp_file, 'w')
             tmp.write lang+":\n"
-	    tmp.write "  "+line.gsub('{','%{')
+	   				tmp.write "  "+line.gsub('{','%{')
             while (!cur_file.eof? && line = cur_file.readline)
               tmp.write "  " + line.gsub('{','%{')
             end
@@ -421,5 +421,66 @@ namespace :i18n do
 
   end
 
+  task (:list_static_strings => :environment) do
+  desc 'list all static strings in the db tables'
+    en_strings = "en:\n"
+    label_tables = ['translated_agent_roles',
+                    'translated_audiences',
+                    'translated_collection_types',
+                    'translated_contact_roles',
+                    'translated_content_partner_statuses',
+                    'translated_data_types',
+                    'translated_info_items',
+                    'translated_languages',
+                    'translated_ranks',
+                    'translated_resource_statuses',
+                    'translated_service_types',
+                    'translated_statuses',
+                    'translated_synonym_relations',
+                    'translated_table_of_contents',
+                    'translated_untrust_reasons',
+                    'translated_vetted',
+                    'translated_visibilities',
+                    'translated_visibilities'] 
+    
+    title_tables = ['translated_contact_subjects',
+                    'translated_news_items']
+    
+    description_tables = ['translated_licenses']
 
+    action_code_tables = ['translated_action_with_objects']
+
+    label_tables.each do |table|
+      results = ActiveRecord::Base.connection.execute("select id, label from " + table)
+      results.each do |row|
+        en_strings << "  " + table + "__label__" + row[0] + ": \"" + row[1].gsub("\"", "\\\"") + "\"\n"  
+      end
+    end
+
+    title_tables.each do |table|
+      results = ActiveRecord::Base.connection.execute("select id, title from " + table)
+      results.each do |row|
+        en_strings << "  " + table + "__title__" + row[0] + ": \"" + row[1].gsub("\"", "\\\"") + "\"\n"
+      end
+    end
+
+    description_tables.each do |table|
+      results = ActiveRecord::Base.connection.execute("select id, description from " + table)
+      results.each do |row|
+        en_strings << "  " + table + "__description__" + row[0] + ": \"" + row[1].gsub("\"", "\\\"") + "\"\n"
+      end
+    end
+
+    action_code_tables.each do |table|
+      results = ActiveRecord::Base.connection.execute("select id, action_code from " + table)
+      results.each do |row|
+        en_strings << "  " + table + "__action_code__" + row[0] + ": \"" + row[1].gsub("\"", "\\\"") + "\"\n"
+      end
+    end
+
+    en_file = File.join([RAILS_ROOT, "config", "locales" , "en-db.yml"])
+    en_data = open(en_file, 'w')
+    en_data.write en_strings
+    en_data.close
+  end
 end

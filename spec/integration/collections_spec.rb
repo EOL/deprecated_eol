@@ -92,7 +92,7 @@ describe "Collections controller" do
 
       describe "(NOT editable)" do
 
-        before(:all) do 
+        before(:all) do
           visit logout_url
           visit collection_path(@show_collection)
         end
@@ -158,14 +158,6 @@ describe "Collections controller" do
 
     it 'should NOT allow users WITHOUT privileges to remove collection items'
 
-    it 'should NOT allow users to rename or delete "task" collections' do
-      login_as @user
-      visit community_path(@user.task_collection)
-      page.body.should_not have_tag("a[href=?]", collection_path(@user.task_collection), :text => /delete/i)
-      page.body.should_not have_tag("a", :text => /change name/i)
-      page.body.should_not have_tag("input#collection_name")
-    end
-
     it 'should NOT allow users to rename or delete "watch" collections' do
       login_as @user
       visit community_path(@user.watch_collection)
@@ -173,9 +165,6 @@ describe "Collections controller" do
       page.body.should_not have_tag("a", :text => /change name/i)
       page.body.should_not have_tag("input#collection_name")
     end
-
-    # TODO... we don't have tasks yet.
-    it 'should allow users to add tasks to their task collection'
 
   end
 

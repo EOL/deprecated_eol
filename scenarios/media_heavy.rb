@@ -8,6 +8,8 @@ require 'spec/scenario_helpers'
 # This gives us the ability to build taxon concepts:
 include EOL::Spec::Helpers
 
+Community.special # raises an error if foundation wasn't loaded properly.
+
 data = {}
 
 data[:canonical_form] = 'Copious picturesqus'

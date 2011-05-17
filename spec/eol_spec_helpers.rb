@@ -248,6 +248,13 @@ module EOL
 
       def load_foundation_cache
         load_scenario_with_caching(:foundation)
+        # test some basic assumptions here; helpful to avoid SERIOUS problems in testing.
+        foundation_fail = "Foundation Scenario failed to load properly. Please rm tmp/*sql and tmp/*yml and try again"
+        raise foundation_fail unless Vetted.trusted
+        raise foundation_fail unless Vetted.unknown
+        raise foundation_fail unless Vetted.untrusted
+        Community.special # Throws its own error
+        # TODO - anything else we should test for here...
       end
 
       def load_scenario_with_caching(name)

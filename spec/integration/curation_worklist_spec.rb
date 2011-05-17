@@ -84,7 +84,7 @@ describe 'Curator Worklist' do
   end
 
   it 'should show a list of unreviewed images in the curator\'s clade when curator visits the worklist' do
-    visit('/curators/curate_images')
+    visit("/curators/curate_images?hierarchy_entry_id=#{@taxon_concept.hierarchy_entries.first.id}")
     body.should include('Curator Central')
     body.should include(curate_data_object_path @first_child_unreviewed_image)
     body.should include(curate_data_object_path @lower_child_unreviewed_image)
@@ -106,7 +106,7 @@ describe 'Curator Worklist' do
   end
   
   it 'should be able to filter images by content partner' do
-    visit("/curators/curate_images?content_partner_id=#{@content_partner.id}")
+    visit("/curators/curate_images?hierarchy_entry_id=#{@taxon_concept.hierarchy_entries.first.id}&content_partner_id=#{@content_partner.id}")
     body.should include(curate_data_object_path @lower_child_unreviewed_image)
     body.should_not include(curate_data_object_path @first_child_unreviewed_image)
     body.should_not include(curate_data_object_path @first_child_untrusted_image)
@@ -116,7 +116,7 @@ describe 'Curator Worklist' do
   end
   
   it 'should be able to filter images by vetted status' do
-    visit("/curators/curate_images?vetted_id=#{Vetted.unknown.id}")
+    visit("/curators/curate_images?hierarchy_entry_id=#{@taxon_concept.hierarchy_entries.first.id}&vetted_id=#{Vetted.unknown.id}")
     body.should include(curate_data_object_path @first_child_unreviewed_image)
     body.should include(curate_data_object_path @lower_child_unreviewed_image)
     body.should_not include(curate_data_object_path @first_child_untrusted_image)
@@ -282,7 +282,7 @@ describe 'Curator Worklist' do
   end
   
   it 'should be able to render the taxon name links to the species page with the same image' do
-    visit("/curators/curate_images")
+    visit("/curators/curate_images?hierarchy_entry_id=#{@taxon_concept.hierarchy_entries.first.id}")
     body.should include("/pages/#{@child_entry.taxon_concept_id}")
     body.should include("/curators/curate_image?data_object_id=#{@first_child_unreviewed_image.id.to_s}")
     visit("/curators/curate_image?data_object_id=#{@first_child_unreviewed_image.id.to_s}")

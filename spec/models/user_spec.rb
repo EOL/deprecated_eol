@@ -172,7 +172,7 @@ describe User do
   end
 
   it 'should fail validation if a curator requests a new account without either a scope or a clade' do
-    user = User.create_new(:curator_request => true, :curator_scope => nil, :curator_hierarchy_entry => nil)
+    user = User.create_new(:curator_request => true, :curator_scope => nil)
     user.valid?.should_not be_true
   end
 
@@ -206,28 +206,22 @@ describe User do
 
     before(:all) do
       @he = bogus_hierarchy_entry
-      @curator = User.gen(:curator_hierarchy_entry => @he)
+      @curator = User.gen()
     end
 
     before(:each) do
-      @curator.curator_hierarchy_entry = @he
       @curator.approve_to_curate
       @curator.save!
     end
 
-    it 'should delegate can_curate? to the object passed in' do
+    it 'should NOT delegate can_curate? to the object passed in' do
       model = mock_model(DataObject)
-      model.should_receive(:is_curatable_by?).with(@curator).and_return(true)
+      model.should_not_receive(:is_curatable_by?).with(@curator)
       @curator.can_curate? model
     end
 
     it 'should return false if asked to curate when curator not approved' do
       @curator.curator_approved = false
-      @curator.can_curate?(@he).should be_false
-    end
-
-    it 'should return false if asked to curate when curator has no clade' do
-      @curator.curator_hierarchy_entry = nil
       @curator.can_curate?(@he).should be_false
     end
 

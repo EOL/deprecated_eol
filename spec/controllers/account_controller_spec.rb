@@ -6,6 +6,7 @@ describe AccountController do
     Language.create_english
     SpecialCollection.gen(:name => 'Focus')
     Community.create_special
+    FeedItemType.create_defaults
   end
 
   # "POST /account/forgot_password

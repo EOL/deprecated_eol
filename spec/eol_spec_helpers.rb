@@ -173,7 +173,6 @@ module EOL
         tc ||= entry.taxon_concept
         options = {
           :vetted                  => true,
-          :curator_hierarchy_entry => entry,
           :curator_approved        => true,
           :curator_scope           => ''
         }.merge(options)
@@ -184,7 +183,8 @@ module EOL
         options[:curator_verdict_at] ||= 48.hours.ago
 
         curator = User.gen(options)
-
+        curator.approve_to_curate
+        
         # A curator isn't credited until she actually DOES something, which is handled thusly:
         curator.last_curated_dates << LastCuratedDate.gen(:taxon_concept => tc, :user => curator)
         return curator

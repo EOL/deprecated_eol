@@ -20,7 +20,6 @@
             = I18n.t(:curator_name) 
           %th
             = I18n.t(:curator_clade) 
-
           - @curators.each do |u|
             - row_class = cycle('odd', 'even')
             %tr
@@ -31,8 +30,6 @@
                   - else
                     = "#{u.family_name.strip}, #{u.given_name.strip}"
               %td{:class => row_class}
-                %a{:href => taxon_concept_path(u.curator_hierarchy_entry.taxon_concept_id)}<
-                  = u.curator_hierarchy_entry.name.string
                 - unless u.curator_scope.strip.blank?
                   %br
                   = u.curator_scope

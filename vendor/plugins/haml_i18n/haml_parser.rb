@@ -84,7 +84,7 @@ if defined? Haml
     end
 
     def result_array
-      return @result_array || []
+      return @result_array
     end
 
     class Entry

@@ -23,7 +23,7 @@ describe "Google Analytics Stats Page" do
   after(:all) do
     truncate_all_tables
   end
-  
+
   before(:each) do
     login_as(@user)
   end
@@ -33,8 +33,8 @@ describe "Google Analytics Stats Page" do
   end
 
   it "should render monthly_page_stats page" do
-    visit("/content_partner_account/reports/monthly_page_stats")
-    body.should have_tag("form[action=/content_partner_account/reports/monthly_page_stats]")
+    visit("/content_partner/reports/monthly_page_stats")
+    body.should have_tag("form[action=/content_partner/reports/monthly_page_stats]")
     body.should include @summary.pageviews.to_s
     body.should include @partner_summary.page_views.to_s
     body.should include @page_stats.unique_page_views.to_s
@@ -49,8 +49,8 @@ describe "Google Analytics Stats Page" do
     page_stats = GoogleAnalyticsPageStat.gen(:year => year, :month => month, :taxon_concept => @taxon_concept )
     partner_taxa = GoogleAnalyticsPartnerTaxon.gen(:year => year, :month => month, :taxon_concept => @taxon_concept, :user => @user )
 
-    visit('/content_partner_account/reports/monthly_page_stats', :method => :post, :params => {:year_month => "#{year}_#{month}", :user_id => @user.id})
-    body.should have_tag("form[action=/content_partner_account/reports/monthly_page_stats]")
+    visit('/content_partner/reports/monthly_page_stats', :method => :post, :params => {:year_month => "#{year}_#{month}", :user_id => @user.id})
+    body.should have_tag("form[action=/content_partner/reports/monthly_page_stats]")
     body.should include summary.pageviews.to_s
     body.should include partner_summary.page_views.to_s
     body.should include page_stats.unique_page_views.to_s

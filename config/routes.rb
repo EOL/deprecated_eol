@@ -117,7 +117,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'content_partner/reports', :controller => 'content_partner_account/reports', :action => 'index'
   map.connect 'content_partner/reports/login', :controller => 'content_partner_account', :action => 'login'
   map.connect 'content_partner/reports/:action', :controller => 'content_partner_account/reports'
-  map.connect 'content_partner/content/:id', :controller => 'content_partner_account', :action => 'content', :requirements => { :id => /.*/}
+  map.connect 'content_partner/content/:id', :controller => 'content_partner', :action => 'content', :requirements => { :id => /.*/}
   map.connect 'content_partner/stats/:id', :controller => 'content_partner_account', :action => 'stats', :requirements => { :id => /.*/}
 
   map.connect 'administrator/reports',         :controller => 'administrator/reports', :action => 'index'

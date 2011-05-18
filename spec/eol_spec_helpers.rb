@@ -247,6 +247,7 @@ module EOL
       end
 
       def load_foundation_cache
+        reset_all_model_cached_instances
         load_scenario_with_caching(:foundation)
         # test some basic assumptions here; helpful to avoid SERIOUS problems in testing.
         foundation_fail = "Foundation Scenario failed to load properly. Please rm tmp/*sql and tmp/*yml and try again"

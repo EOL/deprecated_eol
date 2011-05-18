@@ -64,6 +64,10 @@ Spec::Rake::SpecTask.new(:spec => spec_prereq) do |t|
   t.spec_files = all_specs_except_selenium_and_scenarios
 end
 
+Rake::Task["spec"].enhance do
+  Rake::Task["check_i18n"].invoke
+end
+
 namespace :spec do
   desc "Run all specs in spec directory with RCov (excluding plugin specs)"
   Spec::Rake::SpecTask.new(:rcov) do |t|

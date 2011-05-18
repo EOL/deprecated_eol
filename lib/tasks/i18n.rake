@@ -422,57 +422,67 @@ namespace :i18n do
   desc 'list db strings for translation by twiki'
   task (:list_db_strings => :environment) do
     en_strings = "en:\n"
-    label_tables = ['translated_agent_roles',
-                    'translated_audiences',
-                    'translated_collection_types',
-                    'translated_contact_roles',
-                    'translated_content_partner_statuses',
-                    'translated_data_types',
-                    'translated_info_items',
-                    'translated_languages',
-                    'translated_ranks',
-                    'translated_resource_statuses',
-                    'translated_service_types',
-                    'translated_statuses',
-                    'translated_synonym_relations',
-                    'translated_table_of_contents',
-                    'translated_untrust_reasons',
-                    'translated_vetted',
-                    'translated_visibilities',
-                    'translated_visibilities'] 
+    label_tables = [['translated_agent_roles', 'agent_role_id'],
+                    ['translated_audiences','audience_id'],
+                    ['translated_collection_types', 'collection_type_id'],
+                    ['translated_contact_roles', 'contact_role_id'],
+                    ['translated_content_partner_statuses', 'content_partner_status_id'],
+                    ['translated_data_types', 'data_type_id'],
+                    ['translated_info_items', 'info_item_id'],
+                    ['translated_languages', 'original_language_id'],
+                    ['translated_ranks', 'rank_id'],
+                    ['translated_resource_statuses', 'resource_status_id'],
+                    ['translated_service_types', 'service_type_id'],
+                    ['translated_statuses', 'status_id'],
+                    ['translated_synonym_relations', 'synonym_relation_id'],
+                    ['translated_table_of_contents', 'table_of_contents_id'],
+                    ['translated_untrust_reasons', 'untrust_reason_id'],
+                    ['translated_vetted', 'vetted_id'],
+                    ['translated_visibilities', 'visibility_id']] 
     
-    title_tables = ['translated_contact_subjects',
-                    'translated_news_items']
-    
-    description_tables = ['translated_licenses']
 
-    action_code_tables = ['translated_action_with_objects']
+    title_body_tables = [['translated_news_items', 'news_item_id']]
+    
+    title_tables = [['translated_contact_subjects', 'contact_subject_id']]
+    
+    description_tables = [['translated_licenses', 'license_id']]
+
+    action_code_tables = [['translated_action_with_objects', 'action_with_object_id']]
 
     label_tables.each do |table|
-      results = ActiveRecord::Base.connection.execute("select id, label from " + table)
+      results = ActiveRecord::Base.connection.execute("select #{table[1]}, label from #{table[0]} where language_id=1")
       results.each do |row|
-        en_strings << "  " + table + "__label__" + row[0] + ": \"" + row[1].gsub("\"", "\\\"") + "\"\n"  
+        en_strings << "  #{table[0]}__label__#{table[1]}__#{row[0]}: \"" + row[1].gsub("\"", "\\\"") + "\"\n"  
       end
     end
 
     title_tables.each do |table|
-      results = ActiveRecord::Base.connection.execute("select id, title from " + table)
+      results = ActiveRecord::Base.connection.execute("select #{table[1]}, title from #{table[0]} where language_id=1")
       results.each do |row|
-        en_strings << "  " + table + "__title__" + row[0] + ": \"" + row[1].gsub("\"", "\\\"") + "\"\n"
+        en_strings << "  #{table[0]}__title__#{table[1]}__#{row[0]}: \"" + row[1].gsub("\"", "\\\"") + "\"\n"
       end
     end
 
-    description_tables.each do |table|
-      results = ActiveRecord::Base.connection.execute("select id, description from " + table)
+    title_body_tables.each do |table|
+      results = ActiveRecord::Base.connection.execute("select #{table[1]}, title, body from #{table[0]} where language_id=1")
       results.each do |row|
-        en_strings << "  " + table + "__description__" + row[0] + ": \"" + row[1].gsub("\"", "\\\"") + "\"\n"
+        en_strings << "  #{table[0]}__title__#{table[1]}__#{row[0]}: \"" + row[1].gsub("\"", "\\\"") + "\"\n"
+        en_strings << "  #{table[0]}__body__#{table[1]}__#{row[0]}: \"" + row[2].gsub("\"", "\\\"") + "\"\n"
+      end
+    end
+
+
+    description_tables.each do |table|
+      results = ActiveRecord::Base.connection.execute("select #{table[1]}, description from #{table[0]} where language_id=1")
+      results.each do |row|
+        en_strings << "  #{table[0]}__description__#{table[1]}__#{row[0]}: \"" + row[1].gsub("\"", "\\\"") + "\"\n"
       end
     end
 
     action_code_tables.each do |table|
-      results = ActiveRecord::Base.connection.execute("select id, action_code from " + table)
+      results = ActiveRecord::Base.connection.execute("select #{table[1]}, action_code from #{table[0]}")
       results.each do |row|
-        en_strings << "  " + table + "__action_code__" + row[0] + ": \"" + row[1].gsub("\"", "\\\"") + "\"\n"
+        en_strings << "  #{table[0]}__action_code__#{table[1]}__#{row[0]}: \"" + row[1].gsub("\"", "\\\"") + "\"\n"
       end
     end
 
@@ -480,5 +490,77 @@ namespace :i18n do
     en_data = open(en_file, 'w')
     en_data.write en_strings
     en_data.close
+  end
+
+  desc 'Task to import db translations in db'
+  task (:import_db_translations => :environment) do
+    def load_language_keys(lang_abbr)
+      temp_yml = YAML.load_file(File.join([RAILS_ROOT, "config", "locales", lang_abbr + "-db.yml"]))
+      return temp_yml[lang_abbr]
+    end
+    
+    def get_languages
+      # returns array of language abbriviations for those a pattern of *-dt.yml
+      Dir.chdir(File.join([RAILS_ROOT, "config", "locales"]))
+      files = Dir.glob(File.join("**", "*-db.yml"))
+
+      return_lang = Array.new
+      files.each do |file|
+        lang_abbr = File.split(file)[-1].gsub("-db.yml", "").downcase
+        return_lang << lang_abbr if lang_abbr != 'en' 
+      end
+
+      return return_lang
+    end
+
+    def get_lang_id_by_lang_abbr(lang_abbr)
+      results = ActiveRecord::Base.connection.execute("select id from languages where iso_639_1='" + lang_abbr + "'")
+      if (results.num_rows== 0)
+        return 0
+      else
+        return results.fetch_row[0]
+      end
+    end
+
+    def insert_or_update_db_value(table_name, column_name, identity_column_name, lang_id, field_id, column_value)
+      results = ActiveRecord::Base.connection.execute("select * from #{table_name} where #{identity_column_name}=#{field_id} and language_id=#{lang_id};")
+      query = ""
+      if (results.num_rows== 0)
+        # new record
+        query = "insert into #{table_name} (#{identity_column_name}, language_id, #{column_name}) values (#{field_id}, #{lang_id}, '" + column_value.gsub("'", "\'") + "')"
+      else
+        query = "update #{table_name} set #{column_name}='" + column_value.gsub("'", "\'") + "'
+                  where #{identity_column_name} = #{field_id}
+                  and language_id=#{lang_id};"
+
+      end
+
+      ActiveRecord::Base.connection.execute(query)
+    end
+
+    en_keys = load_language_keys('en')
+    
+    translated_languages = get_languages
+
+    translated_languages.each do |lang|
+      lang_id = get_lang_id_by_lang_abbr(lang)
+      if (lang_id != 0)
+        puts "processing " + lang + " file"
+        lang_keys = load_language_keys(lang)
+        en_keys.each do |key, value|
+          if (lang_keys[key])
+            table_name = key.split("__")[0]
+            column_name = key.split("__")[1]
+            identity_column_name = key.split("__")[2]
+            field_id = key.split("__")[3]
+
+            insert_or_update_db_value(table_name, column_name, identity_column_name, lang_id, field_id, lang_keys[key])
+          end
+        end
+      end
+    end
+
+
+
   end
 end

@@ -51,6 +51,12 @@ ContactRole.gen_if_not_exists(:label => 'Primary Contact')
 ContactRole.gen_if_not_exists(:label => 'Administrative Contact')
 ContactRole.gen_if_not_exists(:label => 'Technical Contact')
 
+KnownPrivileges.create_all
+
+SpecialCollection.create_all
+
+Community.create_special
+
 iucn_agent = Agent.gen_if_not_exists(:full_name => 'IUCN')
 iucn_user = User.gen_if_not_exists(:display_name => 'IUCN', :agent => iucn_agent)
 iucn_content_parter = ContentPartner.gen_if_not_exists(:user => iucn_user)
@@ -177,12 +183,6 @@ raise "IUCN is nil" if iucn_agent.nil?
 
 # This is out of ourder, of course, because it depends on the IUCN resource.
 HarvestEvent.gen_if_not_exists(:resource_id => iucn_resource.id)
-
-KnownPrivileges.create_all
-
-SpecialCollection.create_all
-
-Community.create_special
 
 overview = TocItem.gen_if_not_exists(:label => 'Overview', :view_order => 1)
 TocItem.gen_if_not_exists(:label => 'Brief Summary', :view_order => 2, :parent_id => overview.id)

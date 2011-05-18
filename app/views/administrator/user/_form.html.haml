@@ -104,13 +104,6 @@
   %tr
     %td
       %strong
-        =I18n.t("curator_of_")
-      %br
-    %td
-      = clade_selector 'user[curator_hierarchy_entry_id]', :value => @user.curator_hierarchy_entry_id
-  %tr
-    %td
-      %strong
         =I18n.t("curator_scope_")
     %td
       = f.text_area :curator_scope, :rows => 3, :cols => 60

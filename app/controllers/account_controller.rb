@@ -45,8 +45,6 @@ class AccountController < ApplicationController
       return
     end
 
-    set_curator_clade(params)
-
     # create a new user with the defaults and then update with the user entered values on the signup form
     @user = User.create_new(params[:user])
 
@@ -201,8 +199,6 @@ class AccountController < ApplicationController
     # The UI would not allow this, but a hacker might try to grant curator permissions to themselves in this manner.
     user_params.delete(:curator_approved) unless is_user_admin?
 
-    set_curator_clade(params)
-
     current_user.log_activity(:updated_profile)
 
     alter_current_user do |user|
@@ -251,7 +247,7 @@ class AccountController < ApplicationController
     @user = User.find(params[:id])
     current_user.log_activity(:show_user_id, :value => params[:id])
     @user_submitted_text_count = UsersDataObject.count(:conditions=>['user_id = ?',params[:id]])
-    redirect_back_or_default unless @user.curator_approved
+    redirect_back_or_default unless @user.is_curator?
   end
 
   def show_objects_curated
@@ -383,15 +379,6 @@ private
   def failed_login(message)
     flash[:warning] = message
     redirect_to :action => 'login'
-  end
-
-  def set_curator_clade(params)
-    # Remove hierachy association if they selected one but then changed their minds.
-    if params['selected-clade-id'.to_sym] != nil && params['selected-clade-id'.to_sym] != ''
-      params[:user][:curator_hierarchy_entry_id] = params['selected-clade-id'.to_sym]
-    end
-    # Remove the pseudo-column before creating the real record.
-    params[:user].delete :curator
   end
 
   # this method is called if a user changes their mailing list or email address settings

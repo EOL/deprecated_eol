@@ -53,45 +53,46 @@ class TurnContentPartnersIntoUsers < ActiveRecord::Migration
     execute "ALTER TABLE google_analytics_partner_taxa ADD `user_id` int unsigned NOT NULL AFTER `agent_id`"
     
     
-    # for each ContentPartner
-    ContentPartner.find(:all, :include => { :agent => :user }).each do |cp|
-      if cp.agent.nil?
-        # every ContentPartner needs an agent, otherwise it is useless
-        ContentPartner.delete(cp.id)
-        next
-      end
-      
-      # partner doesn't already have a user
-      if cp.agent.user.nil?
-        new_user_username = cp.agent.username
-        new_user_password = cp.agent.password
-        
-        existing_user = User.find_by_username(cp.agent.username)
-        if existing_user
-          # same password so add to existing user
-          if existing_user.hashed_password == cp.agent.hashed_password
-            self.update_content_partners_user(cp, existing_user)
-            next
-          else # a user exists with the same username but different password, so create a new user
-            # TODO: decide how to treat this case
-            new_user_username = "newuser_" + cp.id
-            new_user_password = User.hash_password("newuser_password_" + cp.id)
-          end
-        end
-        new_user = User.create(
-          :first_name => cp.agent.full_name,
-          :email => cp.agent.email,
-          :username => new_user_username,
-          :hashed_password => new_user_password,
-          :created_at => cp.agent.created_at,
-          :email_reports_frequency_hours => cp.agent.email_reports_frequency_hours,
-          :last_report_email => cp.agent.last_report_email)
-        self.update_content_partners_user(cp, new_user)
-      else
-        # partner already has a user
-        self.update_content_partners_user(cp, cp.agent.user)
-      end
-    end
+    # # for each ContentPartner
+    # ContentPartner.find(:all, :include => { :agent => :user }).each do |cp|
+    #   cp_agent = Agent.find_by_id(cp.agent_id)
+    #   if cp_agent.nil?
+    #     # every ContentPartner needs an agent, otherwise it is useless
+    #     ContentPartner.delete(cp.id)
+    #     next
+    #   end
+    #   
+    #   # partner doesn't already have a user
+    #   if cp_agent.user.nil?
+    #     new_user_username = cp_agent.username
+    #     new_user_password = cp_agent.password
+    #     
+    #     existing_user = User.find_by_username(cp_agent.username)
+    #     if existing_user
+    #       # same password so add to existing user
+    #       if existing_user.hashed_password == cp_agent.hashed_password
+    #         self.update_content_partners_user(cp, existing_user)
+    #         next
+    #       else # a user exists with the same username but different password, so create a new user
+    #         # TODO: decide how to treat this case
+    #         new_user_username = "newuser_" + cp.id
+    #         new_user_password = User.hash_password("newuser_password_" + cp.id)
+    #       end
+    #     end
+    #     new_user = User.create(
+    #       :first_name => cp_agent.full_name,
+    #       :email => cp_agent.email,
+    #       :username => new_user_username,
+    #       :hashed_password => new_user_password,
+    #       :created_at => cp_agent.created_at,
+    #       :email_reports_frequency_hours => cp_agent.email_reports_frequency_hours,
+    #       :last_report_email => cp_agent.last_report_email)
+    #     self.update_content_partners_user(cp, new_user)
+    #   else
+    #     # partner already has a user
+    #     self.update_content_partners_user(cp, cp_agent.user)
+    #   end
+    # end
     
     # AgentsResources went away as we only used one role. So now there is a content_partner_id in Resource
     # ResourceAgentRoles - same, we only used one role

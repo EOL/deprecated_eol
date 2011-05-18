@@ -147,12 +147,7 @@ class TaxonConcept < SpeciesSchemaModel
   # extra credit on their associated TC pages. This method returns an Array of those users.
   def curators(options={})
     return @curators unless @curators.nil?
-    sel = { :users => [ :id, :username ] }
-    users = User.find(:all,
-      :select => sel,
-        :joins => "JOIN #{HierarchyEntry.full_table_name} he ON (he.id = users.curator_hierarchy_entry_id)",
-        :conditions => "he.taxon_concept_id IN (#{all_ancestor_taxon_concept_ids.join(',')})")
-    @curators = users.uniq
+    @curators = User.find_all_by_curator_approved(true, :select => { :users => [ :id, :username ] })
   end
 
   # Return the curators who actually get credit for what they have done (for example, a new curator who hasn't done
@@ -176,8 +171,7 @@ class TaxonConcept < SpeciesSchemaModel
   def is_curatable_by? user
     if user
       return false unless user.curator_approved
-      return false unless user.curator_hierarchy_entry_id
-      curators.include?(user)
+      true
     end
   end
 

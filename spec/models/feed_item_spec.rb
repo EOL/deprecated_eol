@@ -29,6 +29,7 @@ describe FeedItem do
   end
 
   it 'should create a Curator Comment if a curator comments on the taxon' do
+    @curator.approve_to_curate
     item = FeedItem.new_for(:feed => @tc, :user => @curator)
     item.feed_item_type.should == FeedItemType.curator_comment
   end

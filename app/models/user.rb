@@ -10,7 +10,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   include EOL::Feedable
 
-  belongs_to :curator_hierarchy_entry, :class_name => "HierarchyEntry", :foreign_key => :curator_hierarchy_entry_id
   belongs_to :curator_verdict_by, :class_name => "User", :foreign_key => :curator_verdict_by_id
   belongs_to :language
   belongs_to :agent
@@ -35,12 +34,13 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   
   has_one :content_partner
   has_one :user_info
+  belongs_to :default_hierarchy, :class_name => Hierarchy.to_s, :foreign_key => :default_hierarchy_id
   # I wish these worked, but they need runtime evaluation.
   #has_one :watch_collection, :class_name => 'Collection', :conditions => { :special_collection_id => SpecialCollection.watch.id }
   #has_one :inbox_collection, :class_name => 'Collection', :conditions => { :special_collection_id => SpecialCollection.inbox.id }
   #has_one :task_collection, :class_name => 'Collection', :conditions => { :special_collection_id => SpecialCollection.task.id }
 
-  before_save :check_curator_status
+  before_save :check_credentials
 
   def self.sort_by_name(users)
     users.sort_by do |u|
@@ -261,8 +261,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       if(credentials.blank?)
         errors.add_to_base "You must indicate your credentials and area of expertise to request curator privileges."
       end
-      if(curator_scope.blank? && curator_hierarchy_entry.blank?)
-        errors.add_to_base "You must either select a clade or indicate your scope to request curator privileges."
+      if(curator_scope.blank?)
+        errors.add_to_base "You must indicate your scope to request curator privileges."
       end
     end
   end
@@ -353,10 +353,10 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   # object might be a data object or taxon concept
   def can_curate? object
     return false unless curator_approved
-    return false unless curator_hierarchy_entry
     return false unless object
     raise "Don't know how to curate object of type #{ object.class }" unless object.respond_to?:is_curatable_by?
-    object.is_curatable_by? self
+    # object.is_curatable_by? self
+    true
   end
   alias is_curator_for? can_curate?
 
@@ -375,13 +375,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   # Grants rights to their currently-selected HE.
   def approve_to_curate
-    approve_to_curate_clade curator_hierarchy_entry
-  end
-
-  # Grants rights to a specific clade.
-  def approve_to_curate_clade clade
-    clade = clade.id if clade.is_a? HierarchyEntry
-    self.curator_hierarchy_entry_id = clade
     self.curator_approved = true
     grant_special_role(Role.curator)
   end
@@ -392,7 +385,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def revoke_curatorship
-    self.curator_hierarchy_entry = nil
     self.curator_approved = false
     if special
       special.remove_role(Role.curator)
@@ -508,12 +500,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     content_partner ? true : false
   end
 
-  def curator_attempted?
-    !curator_hierarchy_entry.nil?
-  end
-
   def is_curator?
-    return (has_special_role?(Role.curator) && !curator_hierarchy_entry.blank?)
+    has_special_role?(Role.curator)
   end
 
   def selected_default_hierarchy
@@ -531,13 +519,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     return !vetted
   end
 
-  def check_curator_status
+  def check_credentials
     credentials = '' if credentials.nil?
-    if curator_hierarchy_entry.blank?
-      revoke_curatorship
-    else
-      approve_to_curate
-    end
   end
 
   def tags_are_public_for_data_object?(data_object)
@@ -639,7 +622,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def images_to_curate(options = {})
     page = options[:page].blank? ? 1 : options[:page].to_i
     per_page = options[:per_page].blank? ? 30 : options[:per_page].to_i
-    hierarchy_entry_id = options[:hierarchy_entry_id] || curator_hierarchy_entry_id
+    hierarchy_entry_id = options[:hierarchy_entry_id] || Hierarchy.default.kingdoms[0].id
     hierarchy_entry = HierarchyEntry.find(hierarchy_entry_id)
     vetted_id = options[:vetted_id].nil? ? Vetted.unknown.id : options[:vetted_id]
     vetted_clause = vetted_id.nil? ? "" : " AND vetted_id:#{vetted_id}"
@@ -690,30 +673,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     
     return data_object_ids
   end
-
-  # def ignored_data_objects(options = {})
-  #   hierarchy_entry_id = options[:hierarchy_entry_id] || curator_hierarchy_entry_id
-  #   hierarchy_entry = HierarchyEntry.find(hierarchy_entry_id)
-  #   data_type_clause = options[:data_type_id].nil? ? '' : " AND do.data_type_id = #{options[:data_type_id]}"
-  # 
-  #   data_object_ids = DataObjectsHierarchyEntry.find_by_sql("SELECT dohe.data_object_id
-  #       FROM #{DataObject.full_table_name} do
-  #         JOIN #{UserIgnoredDataObject.full_table_name} uido ON (do.id=uido.data_object_id)
-  #         JOIN #{DataObjectsHierarchyEntry.full_table_name} dohe ON (uido.data_object_id=dohe.data_object_id)
-  #         JOIN #{HierarchyEntry.full_table_name} he on (dohe.hierarchy_entry_id = he.id)
-  #         JOIN #{HierarchyEntry.full_table_name} he1 on (he.taxon_concept_id = he1.taxon_concept_id)
-  #       WHERE uido.user_id = #{self.id}
-  #         AND he1.lft between #{hierarchy_entry.lft} and #{hierarchy_entry.rgt}
-  #         #{data_type_clause}
-  #         AND he1.hierarchy_id = #{hierarchy_entry.hierarchy_id}
-  #         GROUP BY do.guid
-  #         ORDER BY do.created_at DESC");
-  #   return [] if data_object_ids.empty?
-  # 
-  #   data_object_ids_to_lookup = data_object_ids.collect{|d| d.data_object_id}
-  #   result = DataObject.core_relationships.find_all_by_id(data_object_ids_to_lookup).sort_by{|d| Invert(d.id)}
-  #   return result
-  # end
 
   def uservoice_token
     return nil if $USERVOICE_ACCOUNT_KEY.blank?

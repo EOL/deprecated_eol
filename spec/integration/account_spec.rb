@@ -20,6 +20,7 @@ describe "Non Curator Account Pages" do
   it_should_behave_like "all accounts"
 
   it "should redirect back or to default when visit account page" do
+    @user.revoke_curatorship
     _redirect = current_path.empty? ? "/" : current_path
     visit("/account/show/#{@user.id}")
     current_path.should == _redirect

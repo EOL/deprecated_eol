@@ -1080,7 +1080,7 @@ Factory.define :user do |u|
   u.remote_ip                 { "123.45.67.1#{rand(10)}" }
   u.content_level             2
   u.email                     { Factory.next(:email) }
-  u.default_hierarchy_id      nil
+  u.default_hierarchy         { Hierarchy.first || Hierarchy.gen }
   u.given_name                { Factory.next(:first_name) }
   u.family_name               { Factory.next(:last_name) }
   u.agent_id                  {|user| Factory(:agent, :full_name => "#{user.given_name} #{user.family_name}").id }
@@ -1098,7 +1098,6 @@ Factory.define :user do |u|
   u.active                    true
   u.password                  'test password'
   u.entered_password          'test password'
-  u.curator_hierarchy_entry   nil
   u.curator_approved          false
   u.curator_verdict_by_id     nil
   u.curator_verdict_at        nil

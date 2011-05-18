@@ -26,9 +26,9 @@ class FeedItem < ActiveRecord::Base
         nil
       end
     end
-    added_by = options.delete(:user)
-    options[:user_id] = added_by.id
-    can_curate = added_by.can_curate? feed
+    added_by_user = options.delete(:user)
+    options[:user_id] = added_by_user.id
+    can_curate = added_by_user.is_curator?
     options[:feed_item_type_id] = can_curate ? FeedItemType.curator_comment.id : FeedItemType.user_comment.id
     self.new(options)
   end

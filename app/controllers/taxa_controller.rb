@@ -520,7 +520,7 @@ class TaxaController < ApplicationController
     return if taxon_concept_invalid?(@concept)
     @page_title = I18n.t("curators_of_var__concept_title", :var__concept_title__session_hierarchy_ => @concept.title(@session_hierarchy))
     curators = @concept.curators(:add_names => true)
-    @curators = User.find_all_by_id(curators.collect{ |c| c.id }, :include => { :curator_hierarchy_entry => :name })
+    @curators = User.find_all_by_id(curators.collect{ |c| c.id })
     @curators = User.sort_by_name(@curators)
     render(:layout => 'v2/basic')
   end

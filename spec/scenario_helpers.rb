@@ -66,9 +66,9 @@ def add_comments_and_tags_to_reharvested_data_objects(tc)
   invis_image.hide user
 end
 
-def create_curator(tc)
-  curator_for_tc = User.gen(:username => 'curator_for_tc', :password => 'password')
-  curator_for_tc.approve_to_curate_clade tc.entry
-  curator_for_tc.save!
-  return curator_for_tc
+def create_curator
+  curator = User.gen(:username => 'curator_for_tc', :password => 'password')
+  curator.approve_to_curate
+  curator.save!
+  return curator
 end

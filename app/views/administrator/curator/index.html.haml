@@ -27,8 +27,6 @@
         %th
           =I18n.t("name")
         %th
-          =I18n.t("clade")
-        %th
           =I18n.t("approved_")
         %th
           =I18n.t("remove")
@@ -54,16 +52,11 @@
               = allow_some_html(user.credentials)
           %td{ :class => column_class }
             = h user.full_name
-          %td{ :class => column_class }
-            = user.curator_hierarchy_entry.name unless user.curator_hierarchy_entry.blank?
           - form_id = "user_curator_#{user.id}"
           %td{ :class => column_class }
-            - if !user.curator_hierarchy_entry.blank?
-              - form_tag('/administrator/user/toggle_curator', :id => form_id, :method => 'get') do
-                %input{ :name => "id", :type => "hidden", :value => user.id }
-                = check_box_tag('curator_approved', user.curator_approved, user.curator_approved)
-            - else
-              =I18n.t("n_a")
+            - form_tag('/administrator/user/toggle_curator', :id => form_id, :method => 'get') do
+              %input{ :name => "id", :type => "hidden", :value => user.id }
+              = check_box_tag('curator_approved', user.curator_approved, user.curator_approved)
           %td{ :class => column_class }
             = link_to I18n.t("remove_"), {:controller => 'administrator/user', :action => :clear_curatorship, :id => user.id}, {:class => :remove_link}
           %td{ :class => column_class, :id => "#{form_id}_at" }

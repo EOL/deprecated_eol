@@ -198,7 +198,7 @@ describe DataObject do
 
   it 'ratings should show rating for old and new version of re-harvested dato' do
     taxon_concept = TaxonConcept.last || build_taxon_concept
-    curator    = create_curator(taxon_concept)
+    curator    = create_curator
     text_dato  = taxon_concept.overview.last
     image_dato = taxon_concept.images.last
 

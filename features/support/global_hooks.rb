@@ -23,7 +23,6 @@ member.save!
 curator = User.create(:username => 'cucumber_curator', :given_name => 'Cuke', :entered_password => 'cucumber_curator', :entered_password_confirmation => 'cucumber_curator', :email => 'cucumber_curator@example.com', :active => true)
 curator.password = 'cucumber_curator'
 curator.curator_approved = true
-curator.curator_hierarchy_entry_id = 33311700
 curator.save!
 
 

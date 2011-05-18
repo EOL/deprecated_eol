@@ -441,7 +441,8 @@ namespace :i18n do
                     ['translated_visibilities', 'visibility_id']] 
     
 
-    title_body_tables = [['translated_news_items', 'news_item_id']]
+    title_body_tables = [#['translated_news_items', 'news_item_id']
+                        ]
     
     title_tables = [['translated_contact_subjects', 'contact_subject_id']]
     

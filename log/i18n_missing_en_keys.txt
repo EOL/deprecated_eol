@@ -36,5 +36,3 @@ views/content_partner_account/transfer_overview.html.haml: __darwin_core_is_a_se
 views/content_partner_account/transfer_overview.html.haml: more_information_here
 views/content_partner_account/transfer_overview.html.haml: darwin_core_terms_list
 views/content_partner_account/transfer_overview.html.haml: for_more_a_complete_reference_
-views/curator_account/profile.html.haml: you_are_currently_a_curator_of
-views/curator_account/profile.html.haml: you_have_requested_curation_of

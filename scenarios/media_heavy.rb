@@ -8,9 +8,6 @@ require 'spec/scenario_helpers'
 # This gives us the ability to build taxon concepts:
 include EOL::Spec::Helpers
 
-puts "*" * 100
-puts "Community special: #{Community.special.id}"
-
 data = {}
 
 data[:canonical_form] = 'Copious picturesqus'

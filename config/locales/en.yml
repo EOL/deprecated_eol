@@ -8,7 +8,6 @@ en:
   about_adding_a_key_to_your_api: "%{click_here_link_to_read_more} about adding a key to your API calls"
   about_creating_well_formed_dwc: "about creating well-formed DwC archives. Also please refer to"
   about_eol: "About EOL"
-  ___accessed: "\". Accessed"
   account_confirmation: "Account Confirmation"
   account_information: "Account Information"
   account_information_menu: "Account Information"
@@ -783,7 +782,6 @@ en:
   html: "html"
   html__xml__json: "html, xml, json"
   http___var_request_domainvar__: "http://%{var_request_domain}%{var__content_upload_attachment_url}"
-  http___var__site_domain_or_ipv: "http://%{var__site_domain_or_ip}%{var_this_url}"
   identify_the_image: "Identify the Image"
   id____: "ID: "
   id___: "ID#: "
@@ -1169,6 +1167,7 @@ en:
   page_name_: "Page Name:"
   page_navigation: "Page navigation"
   page_not_found: "Page not found"
+  page_reference: "\"%{title}\". Encyclopedia of Life, available from \"<a href=\"http://%{domain_or_ip}%{this_url}\" target=\"_blank\">http://%{domain_or_ip}%{this_url}</a>\". Accessed #{date}"
   page_: "page"
   _page_: " Page "
   page: "Page"
@@ -1908,7 +1907,6 @@ en:
   var_link_to__your_agreement___: "%{var_link_to__your_agreement_____action_____agreement_} , {:target=>\"_new\"}}, including additional provisions, is available for review and printing."
   var_msgimages_are_sorted_by_eo: "%{var_msg}Images are sorted by EOL import date, with newest items shown first. There are %{var__all_images_count} images in this work list."
   var_results_total_entries_for: "%{var_results_total_entries} for"
-  _var__taxon_concept_title__ses: "\"%{var__taxon_concept_title__session_hierarchy_}\". Encyclopedia of Life, available from \""
   var_type_permalink: "%{var_type} permalink."
   verification_phrase_did_not_match: "The verification phrase you entered did not match."
   version_1_0_uses_fields_from_the_latest_version: "version 1.0 uses fields from the latest version of the %{link} schema"
@@ -2113,6 +2111,4 @@ en:
   eol_may_elect_at_its_sole_disc: "EOL may elect at its sole discretion to present all, portions or none of any data objects provided by %{var__agent_project_name} and reserves the right to redact or remove any illegal, offensive, or objectionable content."
   view_contact_us_submissions: "view contact us submissions"
   community: "Community"
-
-
 

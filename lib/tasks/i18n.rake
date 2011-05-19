@@ -453,22 +453,22 @@ namespace :i18n do
     label_tables.each do |table|
       results = ActiveRecord::Base.connection.execute("select #{table[1]}, label from #{table[0]} where language_id=1")
       results.each do |row|
-        en_strings << "  #{table[0]}__label__#{table[1]}__#{row[0]}: \"" + row[1].gsub("\"", "\\\"") + "\"\n"  
+        en_strings << "  #{table[0]}__label__#{table[1]}__#{row[0]}: \"" + row[1].gsub("\"", "\\\"").gsub("\n", "\\n") + "\"\n"  
       end
     end
 
     title_tables.each do |table|
       results = ActiveRecord::Base.connection.execute("select #{table[1]}, title from #{table[0]} where language_id=1")
       results.each do |row|
-        en_strings << "  #{table[0]}__title__#{table[1]}__#{row[0]}: \"" + row[1].gsub("\"", "\\\"") + "\"\n"
+        en_strings << "  #{table[0]}__title__#{table[1]}__#{row[0]}: \"" + row[1].gsub("\"", "\\\"").gsub("\n", "\\n") + "\"\n"
       end
     end
 
     title_body_tables.each do |table|
       results = ActiveRecord::Base.connection.execute("select #{table[1]}, title, body from #{table[0]} where language_id=1")
       results.each do |row|
-        en_strings << "  #{table[0]}__title__#{table[1]}__#{row[0]}: \"" + row[1].gsub("\"", "\\\"") + "\"\n"
-        en_strings << "  #{table[0]}__body__#{table[1]}__#{row[0]}: \"" + row[2].gsub("\"", "\\\"") + "\"\n"
+        en_strings << "  #{table[0]}__title__#{table[1]}__#{row[0]}: \"" + row[1].gsub("\"", "\\\"").gsub("\n", "\\n") + "\"\n"
+        en_strings << "  #{table[0]}__body__#{table[1]}__#{row[0]}: \"" + row[2].gsub("\"", "\\\"").gsub("\n", "\\n") + "\"\n"
       end
     end
 
@@ -476,14 +476,14 @@ namespace :i18n do
     description_tables.each do |table|
       results = ActiveRecord::Base.connection.execute("select #{table[1]}, description from #{table[0]} where language_id=1")
       results.each do |row|
-        en_strings << "  #{table[0]}__description__#{table[1]}__#{row[0]}: \"" + row[1].gsub("\"", "\\\"") + "\"\n"
+        en_strings << "  #{table[0]}__description__#{table[1]}__#{row[0]}: \"" + row[1].gsub("\"", "\\\"").gsub("\n", "\\n") + "\"\n"
       end
     end
 
     action_code_tables.each do |table|
       results = ActiveRecord::Base.connection.execute("select #{table[1]}, action_code from #{table[0]}")
       results.each do |row|
-        en_strings << "  #{table[0]}__action_code__#{table[1]}__#{row[0]}: \"" + row[1].gsub("\"", "\\\"") + "\"\n"
+        en_strings << "  #{table[0]}__action_code__#{table[1]}__#{row[0]}: \"" + row[1].gsub("\"", "\\\"").gsub("\n", "\\n") + "\"\n"
       end
     end
 
@@ -523,22 +523,30 @@ namespace :i18n do
       end
     end
 
+    def clean_basic_injection(value)
+      return value.gsub(/\\/, '\&\&').gsub(/'/, "''").gsub('--', '- -')
+    end
+
+    def escape_new_line(value)
+      return value.gsub("\n", "\\n");
+    end
+    
     def insert_or_update_db_value(table_name, column_name, identity_column_name, lang_id, field_id, column_value)
       results = ActiveRecord::Base.connection.execute("select * from #{table_name} where #{identity_column_name}=#{field_id} and language_id=#{lang_id};")
       query = ""
       if (results.num_rows== 0)
         # new record
-        query = "insert into #{table_name} (#{identity_column_name}, language_id, #{column_name}) values (#{field_id}, #{lang_id}, '" + column_value.gsub("'", "\'") + "')"
+        query = "insert into #{table_name} (#{identity_column_name}, language_id, #{column_name}) values (#{field_id}, #{lang_id}, '" + escape_new_line(clean_basic_injection(column_value.gsub)) + "')"
       else
-        query = "update #{table_name} set #{column_name}='" + column_value.gsub("'", "\'") + "'
+        query = "update #{table_name} set #{column_name}='" + escape_new_line(clean_basic_injection(column_value)) + "'
                   where #{identity_column_name} = #{field_id}
                   and language_id=#{lang_id};"
 
       end
-
+      
       ActiveRecord::Base.connection.execute(query)
     end
-
+    
     en_keys = load_language_keys('en')
     
     translated_languages = get_languages

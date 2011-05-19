@@ -39,6 +39,8 @@ ActionController::Routing::Routes.draw do |map|
                                                     :autocomplete_for_tag_key => :get },
                                    :member => { :autocomplete_for_tag_value => :get }
   end
+  map.remove_association 'data_objects/:id/remove_association/:hierarchy_entry_id', :controller => 'data_objects', :action => 'remove_association'
+
   map.resources :tags, :collection => { :search => :get }
 
   map.settings 'settings', :controller => 'taxa', :action=>'settings'
@@ -112,15 +114,12 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'search.:format', :controller => 'taxa', :action => 'search'
   map.found   'found/:id',      :controller => 'taxa', :action => 'found'
 
-  map.connect 'content_partner/reports', :controller => 'content_partner/reports', :action => 'index'
-  map.connect 'content_partner/reports/login', :controller => 'content_partner', :action => 'login'
-  map.connect 'content_partner/reports/:action', :controller => 'content_partner/reports'
+  map.connect 'content_partner/reports', :controller => 'content_partner_account/reports', :action => 'index'
+  map.connect 'content_partner/reports/login', :controller => 'content_partner_account', :action => 'login'
+  map.connect 'content_partner/reports/:action', :controller => 'content_partner_account/reports'
   map.connect 'content_partner/content/:id', :controller => 'content_partner', :action => 'content', :requirements => { :id => /.*/}
-  map.connect 'content_partner/stats/:id', :controller => 'content_partner', :action => 'stats', :requirements => { :id => /.*/}
+  map.connect 'content_partner/stats/:id', :controller => 'content_partner_account', :action => 'stats', :requirements => { :id => /.*/}
 
-  # map.connect 'content_partner/reports',         :controller => 'content_partner/reports', :action => 'index'
-  # map.connect 'content_partner/reports/:report', :controller => 'content_partner/reports', :action => 'catch_all',
-  #                                                :requirements => { :report => /.*/ }
   map.connect 'administrator/reports',         :controller => 'administrator/reports', :action => 'index'
   map.connect 'monthly_stats_email',         :controller => 'administrator/content_partner_report', :action => 'monthly_stats_email'
   map.connect 'administrator/reports/:action', :controller => 'administrator/reports'

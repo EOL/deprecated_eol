@@ -87,13 +87,13 @@ describe User do
   it 'should authenticate existing user with correct email address and password, returning true and user back' do
     success, user=User.authenticate( @user.email, @password )
     success.should be_true
-    user.id.should == @user.id  
+    user.id.should == @user.id
   end
 
   it 'should return false as first return value for non-existing user' do
     success, message=User.authenticate('idontexistATALL', @password)
     success.should be_false
-    message.should == 'Invalid login or password'    
+    message.should == 'Invalid login or password'
   end
 
   it 'should return false as first return value for user with incorrect password' do
@@ -102,8 +102,8 @@ describe User do
     message.should == 'Invalid login or password'
   end
 
-  it 'should return url for the reset password email' do 
-    user = User.gen(:username => 'johndoe', :email => 'johndoe@example.com') 
+  it 'should return url for the reset password email' do
+    user = User.gen(:username => 'johndoe', :email => 'johndoe@example.com')
     user.password_reset_url(80).should match /http[s]?:\/\/.+\/account\/reset_password\//
     user.password_reset_url(3000).should match /http[s]?:\/\/.+:3000\/account\/reset_password\//
     user = User.find(user.id)
@@ -262,7 +262,7 @@ describe User do
 
   end
 
-  it 'should create a new ActionsHistory pointing to the right object, user, type and action' do      
+  it 'should create a new ActionsHistory pointing to the right object, user, type and action' do
     action = ActionWithObject.gen_if_not_exists(:action_code => 'hi')
     obj    = ChangeableObjectType.create(:ch_object_type => 'name')
     name   = Name.gen
@@ -301,7 +301,7 @@ describe User do
       Visibility.gen_if_not_exists(:label => 'Invisible') unless Visibility.find_by_translated(:label, 'Invisible')
       @user.hide_all_submitted_datos
       @datos.each do |stored_dato|
-        new_dato = DataObject.find(stored_dato.id) # we changed the values, so must re-load them. 
+        new_dato = DataObject.find(stored_dato.id) # we changed the values, so must re-load them.
         new_dato.vetted.should == Vetted.untrusted
         new_dato.visibility.should == Visibility.invisible
       end
@@ -326,11 +326,10 @@ describe User do
       @inactive_user.activate
     end
 
-    it 'should create a "watch", "inbox", and "task" collection' do
+    it 'should create a "watch", "inbox" collection' do
       @inactive_user.activate
       @inactive_user.watch_collection.should_not be_nil
       @inactive_user.inbox_collection.should_not be_nil
-      @inactive_user.task_collection.should_not be_nil
     end
 
   end

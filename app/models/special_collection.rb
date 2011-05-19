@@ -5,7 +5,6 @@ class SpecialCollection < ActiveRecord::Base
   def self.create_all
     self.create(:name => 'Focus')
     self.create(:name => 'Inbox')
-    self.create(:name => 'Task')
     self.create(:name => 'Watch')
   end
 
@@ -15,10 +14,6 @@ class SpecialCollection < ActiveRecord::Base
 
   def self.inbox
     cached_find(:name, 'Inbox')
-  end
-
-  def self.task
-    cached_find(:name, 'Task')
   end
 
   def self.watch

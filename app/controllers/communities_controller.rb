@@ -92,7 +92,6 @@ class CommunitiesController < ApplicationController
 private
 
   def load_community_and_dependent_vars
-    debugger if params[:id] !~ /^\d+$/
     @community = Community.find(params[:community_id] || params[:id])
     @members = @community.members # Because we pull in partials from the members controller.
     @current_member = current_user.member_of(@community)

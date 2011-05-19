@@ -144,10 +144,6 @@ describe Collection do
       @users_collection.editable_by?(@someone_else).should_not be_true
     end
 
-    it 'should NOT be editable if a task collection' do
-      @owner.task_collection.editable_by?(@owner).should_not be_true
-    end
-
     it 'should NOT be editable if a watch collection' do
       @owner.watch_collection.editable_by?(@owner).should_not be_true
     end

@@ -1,54 +1,70 @@
 
-1. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/api/docs/search.html.haml line:31 found: page
-2. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/api/docs/search.html.haml line:40 found: exact
-3. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/api/docs/search.html.haml line:51 found: =I18n.t("the_xml_search_response_implements", :link => link_to ("http://www.opensearch.org/Specifications/OpenSearch/1.1", "http://www.opensearch.org/Specifications/OpenSearch/1.1"))
-4. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/api/docs/pages.html.haml line:31 found: images
-5. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/api/docs/pages.html.haml line:40 found: videos
-6. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/api/docs/pages.html.haml line:49 found: text
-7. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/api/docs/pages.html.haml line:68 found: licenses
-8. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/api/docs/pages.html.haml line:72 found: all
-9. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/api/docs/pages.html.haml line:79 found: details
-10. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/api/docs/pages.html.haml line:88 found: common_names
-11. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/api/docs/pages.html.haml line:97 found: vetted
-12. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/api/docs/pages.html.haml line:106 found: version
-13. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/api/docs/pages.html.haml line:120 found: =I18n.t("for_example_for_the_taxon_el", :link => link_to("hierarchy_entries", :action => "hierarchy_entries"))
-14. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/api/docs/pages.html.haml line:121 found: =I18n.t("there_is_no_singular_eol", :link =>link_to("hierarchy_entries", :action => "hierarchy_entries"))
-15. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/api/docs/hierarchy_entries.html.haml line:32 found: common_names
-16. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/api/docs/hierarchy_entries.html.haml line:34 found: 0 or 1
-17. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/api/docs/hierarchy_entries.html.haml line:41 found: synonyms
-18. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/api/docs/hierarchy_entries.html.haml line:43 found: 0 or 1
-19. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/api/docs/search_by_provider.html.haml line:32 found: hierarchy_id
-20. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/api/docs/search_by_provider.html.haml line:40 found: =I18n.t("the_id_of_the_provider_s_hiera", :link => link_to('provider_hierarchies', :controller => 'api/docs', :action => 'provider_hierarchies'))
-21. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/api/docs/search_by_provider.html.haml line:45 found: =I18n.t("this_method_takes_an_integer_or_string", :link_provider => link_to("provider_hierarchies", :action => "provider_hierarchies"), :link_url => link_to(url, url))
-22. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/layouts/_footer_menu.html.haml line:5 found: = link_to 'API Terms of Use', :controller => '/content', :action => 'page', :id => 'api_terms'
-23. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/layouts/main.html.haml line:25 found: %link#content_rss{ :title => 'Latest Content', :href => url_for(:controller => :feeds, :action => :all, :id => @taxon_concept.id), :rel => "alternate", :type => "application/rss+xml"}
-24. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/layouts/main.html.haml line:27 found: %link#media_rss{ :title => 'MediaRSS Feed', :href => "/content/mediarss/#{@taxon_concept.id}", :rel => "alternate", :type => "application/rss+xml" }
-25. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/layouts/main.html.haml line:37 found: %link{ :href => "/opensearchdescription.xml", :title => "Encyclopedia of Life", :rel => "search", :type => "application/opensearchdescription+xml" }
-26. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/layouts/main.html.haml line:85 found: = link_to 'Google Translate', {:controller => '/content', :action => 'translate'}, {:class => 'return_to', :title => 'Google Translate'}
-27. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/layouts/main.html.haml line:109 found: = image_tag('indicator_arrows_black.gif', :alt => 'loading', :title => 'loading')
-28. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/layouts/main.html.haml line:115 found: "Imagine an electronic page for each species of organism on Earth..."
-29. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/layouts/main.html.haml line:116 found: \- Edward O. Wilson
-30. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/layouts/main.html.haml line:129 found: = link_to("curators", {:controller => '/content', :action => 'page', :id => 'curator_central'})
-31. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/layouts/main.html.haml line:163 found: Showing:
-32. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/layouts/main.html.haml line:164 found: %a{ :href => "#{current_url}?vetted=#{set_vetted}", :title => "click to show #{change_mode}" }
-33. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/layouts/main.html.haml line:168 found: %a{ :href => url_for(settings_url), :title => "using #{current_user.selected_default_hierarchy}, click to change" }
-34. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/layouts/main.html.haml line:172 found: %a{ :href => url_for(settings_url), :title => "click to change settings" }
-35. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/layouts/_search_field.html.haml line:13 found: Names
-36. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/layouts/_search_field.html.haml line:15 found: Tags
-37. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/layouts/_search_field.html.haml line:17 found: Full-text
-38. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/taxa/content/_content_biomedical_terms.html.haml line:2 found: =I18n.t("these_terms_are_derived_by_searching", :link => external_link_to('PubMed', 'http://pubmed.gov') , :scientific_name => @taxon_concept.quick_scientific_name)
-39. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/games/identify_the_image.html.haml line:75 found: This game requires you to match up photos with names.  To play, drag each name on top of the correct photo and drop it in place.
-40. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/games/identify_the_image.html.haml line:80 found: Attempts:
-41. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/games/identify_the_image.html.haml line:104 found: Learn More
-42. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/games/identify_the_image.html.haml line:106 found: How are species named?
-43. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/games/identify_the_image.html.haml line:110 found: Species are named according to the rules of "binomial nomenclature", which means a species name has two parts: the "genus" and the "species".  The genus name tells us which grouping the species belongs to and thus how it is related to other similar species.  For example, the wolf is known as
-44. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/games/identify_the_image.html.haml line:111 found: = link_to 'Canis lupus', taxon_concept_url(:id=>328607)
-45. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/games/identify_the_image.html.haml line:112 found: , which means it belongs to the genus called "canis" and its species name is "lupus".  If you were to look at the genus
-46. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/games/identify_the_image.html.haml line:113 found: = link_to 'Canis', taxon_concept_url(:id=>14460)
-47. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/games/identify_the_image.html.haml line:114 found: , you would discover that (1) the coyote (
-48. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/games/identify_the_image.html.haml line:115 found: = link_to 'Canis latrans', taxon_concept_url(:id=>328608)
-49. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/games/identify_the_image.html.haml line:116 found: ) is in the same genus, (2) the domestic dog (
-50. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/games/identify_the_image.html.haml line:117 found: = link_to 'Canis lupus familiaris', taxon_concept_url(:id=>1228387)
-51. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/games/identify_the_image.html.haml line:118 found: ) is a "sub-species" of wolf, and (3) walking up the tree of life, you would find that all canis are in the class of "Mammalia", meaning they are all mammals.  Placing these species into groupings in an overall "tree of life" is part of what scientists called "taxonomists" get to do! When your browse the Encyclopedia of Life, you can use the "classification browser" on the right side of the species pages to browse the tree of life.
-52. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/games/identify_the_image.html.haml line:121 found: Taxonomists also discover new species and then give them a new species name and possibly a new genus name if a home for it can't be found in any other existing group.  Scientists write names according to pre-established rules, but over the years, some names have been used more than once or have changed over time, which makes it harder to find what you are looking for.  Technology is helping us solve these problems and prevent from happening with new species by drawing the links between names and information.  The Encyclopedia of Life is built to allow all this information to be collected on one page regardless of the name being referred to, be it "Canis lupus", "wolf", "loup" or any other language you can think of.
-53. /home/kimomicho/work/eol_website_2011_05_03/eol/app/views/data_objects/show.html.haml line:32 found: %dd= "http://#{$SITE_DOMAIN_OR_IP}/data_objects/#{@data_object.id}"
+1. /home/jrice/code/eol/app/views/api/docs/search_by_provider.html.haml line:32 found: hierarchy_id
+2. /home/jrice/code/eol/app/views/api/docs/search_by_provider.html.haml line:40 found: =I18n.t("the_id_of_the_provider_s_hiera", :link => link_to('provider_hierarchies', :controller => 'api/docs', :action => 'provider_hierarchies'))
+3. /home/jrice/code/eol/app/views/api/docs/search_by_provider.html.haml line:45 found: =I18n.t("this_method_takes_an_integer_or_string", :link_provider => link_to("provider_hierarchies", :action => "provider_hierarchies"), :link_url => link_to(url, url))
+4. /home/jrice/code/eol/app/views/api/docs/hierarchy_entries.html.haml line:32 found: common_names
+5. /home/jrice/code/eol/app/views/api/docs/hierarchy_entries.html.haml line:34 found: 0 or 1
+6. /home/jrice/code/eol/app/views/api/docs/hierarchy_entries.html.haml line:41 found: synonyms
+7. /home/jrice/code/eol/app/views/api/docs/hierarchy_entries.html.haml line:43 found: 0 or 1
+8. /home/jrice/code/eol/app/views/api/docs/pages.html.haml line:31 found: images
+9. /home/jrice/code/eol/app/views/api/docs/pages.html.haml line:40 found: videos
+10. /home/jrice/code/eol/app/views/api/docs/pages.html.haml line:49 found: text
+11. /home/jrice/code/eol/app/views/api/docs/pages.html.haml line:68 found: licenses
+12. /home/jrice/code/eol/app/views/api/docs/pages.html.haml line:72 found: all
+13. /home/jrice/code/eol/app/views/api/docs/pages.html.haml line:79 found: details
+14. /home/jrice/code/eol/app/views/api/docs/pages.html.haml line:88 found: common_names
+15. /home/jrice/code/eol/app/views/api/docs/pages.html.haml line:97 found: vetted
+16. /home/jrice/code/eol/app/views/api/docs/pages.html.haml line:106 found: version
+17. /home/jrice/code/eol/app/views/api/docs/pages.html.haml line:120 found: =I18n.t("for_example_for_the_taxon_el", :link => link_to("hierarchy_entries", :action => "hierarchy_entries"))
+18. /home/jrice/code/eol/app/views/api/docs/pages.html.haml line:121 found: =I18n.t("there_is_no_singular_eol", :link =>link_to("hierarchy_entries", :action => "hierarchy_entries"))
+19. /home/jrice/code/eol/app/views/api/docs/search.html.haml line:31 found: page
+20. /home/jrice/code/eol/app/views/api/docs/search.html.haml line:40 found: exact
+21. /home/jrice/code/eol/app/views/api/docs/search.html.haml line:51 found: =I18n.t("the_xml_search_response_implements", :link => link_to ("http://www.opensearch.org/Specifications/OpenSearch/1.1", "http://www.opensearch.org/Specifications/OpenSearch/1.1"))
+22. /home/jrice/code/eol/app/views/data_objects/show.html.haml line:32 found: %dd= "http://#{$SITE_DOMAIN_OR_IP}/data_objects/#{@data_object.id}"
+23. /home/jrice/code/eol/app/views/content_partner_account/dashboard.html.haml line:64 found: You are not currently a content partner.
+24. /home/jrice/code/eol/app/views/content_partner/content.html.haml line:47 found: No Contributed Content
+25. /home/jrice/code/eol/app/views/taxa/content/_content_biomedical_terms.html.haml line:2 found: =I18n.t("these_terms_are_derived_by_searching", :link => external_link_to('PubMed', 'http://pubmed.gov') , :scientific_name => @taxon_concept.quick_scientific_name)
+26. /home/jrice/code/eol/app/views/content/donate.html.haml line:39 found: =  I18n.t(:contact_about_sponsorship_preamble, :email => link_to('secretariat@eol.org', "mailto:secretariat@eol.org"))
+27. /home/jrice/code/eol/app/views/content/index.html.haml line:40 found: = link_to image_tag("v2/temporary_for_mockup/img_person_50.jpg", :alt => "Person Name"), "#"
+28. /home/jrice/code/eol/app/views/content/index.html.haml line:43 found: %strongJohn
+29. /home/jrice/code/eol/app/views/content/index.html.haml line:44 found: added
+30. /home/jrice/code/eol/app/views/content/index.html.haml line:45 found: = link_to "4 photos", "#"
+31. /home/jrice/code/eol/app/views/content/index.html.haml line:46 found: to
+32. /home/jrice/code/eol/app/views/content/index.html.haml line:47 found: = link_to "Canis", "#"
+33. /home/jrice/code/eol/app/views/content/index.html.haml line:48 found: %p.meta 5 minutes ago
+34. /home/jrice/code/eol/app/views/games/identify_the_image.html.haml line:75 found: This game requires you to match up photos with names.  To play, drag each name on top of the correct photo and drop it in place.
+35. /home/jrice/code/eol/app/views/games/identify_the_image.html.haml line:80 found: Attempts:
+36. /home/jrice/code/eol/app/views/games/identify_the_image.html.haml line:104 found: Learn More
+37. /home/jrice/code/eol/app/views/games/identify_the_image.html.haml line:106 found: How are species named?
+38. /home/jrice/code/eol/app/views/games/identify_the_image.html.haml line:110 found: Species are named according to the rules of "binomial nomenclature", which means a species name has two parts: the "genus" and the "species".  The genus name tells us which grouping the species belongs to and thus how it is related to other similar species.  For example, the wolf is known as
+39. /home/jrice/code/eol/app/views/games/identify_the_image.html.haml line:111 found: = link_to 'Canis lupus', taxon_concept_url(:id=>328607)
+40. /home/jrice/code/eol/app/views/games/identify_the_image.html.haml line:112 found: , which means it belongs to the genus called "canis" and its species name is "lupus".  If you were to look at the genus
+41. /home/jrice/code/eol/app/views/games/identify_the_image.html.haml line:113 found: = link_to 'Canis', taxon_concept_url(:id=>14460)
+42. /home/jrice/code/eol/app/views/games/identify_the_image.html.haml line:114 found: , you would discover that (1) the coyote (
+43. /home/jrice/code/eol/app/views/games/identify_the_image.html.haml line:115 found: = link_to 'Canis latrans', taxon_concept_url(:id=>328608)
+44. /home/jrice/code/eol/app/views/games/identify_the_image.html.haml line:116 found: ) is in the same genus, (2) the domestic dog (
+45. /home/jrice/code/eol/app/views/games/identify_the_image.html.haml line:117 found: = link_to 'Canis lupus familiaris', taxon_concept_url(:id=>1228387)
+46. /home/jrice/code/eol/app/views/games/identify_the_image.html.haml line:118 found: ) is a "sub-species" of wolf, and (3) walking up the tree of life, you would find that all canis are in the class of "Mammalia", meaning they are all mammals.  Placing these species into groupings in an overall "tree of life" is part of what scientists called "taxonomists" get to do! When your browse the Encyclopedia of Life, you can use the "classification browser" on the right side of the species pages to browse the tree of life.
+47. /home/jrice/code/eol/app/views/games/identify_the_image.html.haml line:121 found: Taxonomists also discover new species and then give them a new species name and possibly a new genus name if a home for it can't be found in any other existing group.  Scientists write names according to pre-established rules, but over the years, some names have been used more than once or have changed over time, which makes it harder to find what you are looking for.  Technology is helping us solve these problems and prevent from happening with new species by drawing the links between names and information.  The Encyclopedia of Life is built to allow all this information to be collected on one page regardless of the name being referred to, be it "Canis lupus", "wolf", "loup" or any other language you can think of.
+48. /home/jrice/code/eol/app/views/layouts/v2/application.html.haml line:52 found: %spanLanguage: EN
+49. /home/jrice/code/eol/app/views/layouts/v2/application.html.haml line:101 found: %li= link_to image_tag("v2/temporary_for_mockup/img_home-thumbs_#{i + 1}.jpg", :alt => "Thumbnail #{i}"), "#"
+50. /home/jrice/code/eol/app/views/layouts/v2/application.html.haml line:102 found: %li.last= link_to image_tag("v2/temporary_for_mockup/img_home-thumbs_6.jpg", :alt => "Thumbnail 6"), "#"
+51. /home/jrice/code/eol/app/views/layouts/v2/application.html.haml line:105 found: %pCanis lupus Linnaeus, 1758
+52. /home/jrice/code/eol/app/views/layouts/v2/application.html.haml line:130 found: %li= link_to "Twitter", "#", :class => "twitter"
+53. /home/jrice/code/eol/app/views/layouts/v2/application.html.haml line:131 found: %li= link_to "RSS", "#", :class => "rss"
+54. /home/jrice/code/eol/app/views/layouts/_search_field.html.haml line:13 found: Names
+55. /home/jrice/code/eol/app/views/layouts/_search_field.html.haml line:15 found: Tags
+56. /home/jrice/code/eol/app/views/layouts/_search_field.html.haml line:17 found: Full-text
+57. /home/jrice/code/eol/app/views/layouts/_footer_menu.html.haml line:5 found: = link_to 'API Terms of Use', :controller => '/content', :action => 'page', :id => 'api_terms'
+58. /home/jrice/code/eol/app/views/layouts/main.html.haml line:25 found: %link#content_rss{ :title => 'Latest Content', :href => url_for(:controller => :feeds, :action => :all, :id => @taxon_concept.id), :rel => "alternate", :type => "application/rss+xml"}
+59. /home/jrice/code/eol/app/views/layouts/main.html.haml line:27 found: %link#media_rss{ :title => 'MediaRSS Feed', :href => "/content/mediarss/#{@taxon_concept.id}", :rel => "alternate", :type => "application/rss+xml" }
+60. /home/jrice/code/eol/app/views/layouts/main.html.haml line:37 found: %link{ :href => "/opensearchdescription.xml", :title => "Encyclopedia of Life", :rel => "search", :type => "application/opensearchdescription+xml" }
+61. /home/jrice/code/eol/app/views/layouts/main.html.haml line:85 found: = link_to 'Google Translate', {:controller => '/content', :action => 'translate'}, {:class => 'return_to', :title => 'Google Translate'}
+62. /home/jrice/code/eol/app/views/layouts/main.html.haml line:109 found: = image_tag('indicator_arrows_black.gif', :alt => 'loading', :title => 'loading')
+63. /home/jrice/code/eol/app/views/layouts/main.html.haml line:115 found: "Imagine an electronic page for each species of organism on Earth..."
+64. /home/jrice/code/eol/app/views/layouts/main.html.haml line:116 found: \- Edward O. Wilson
+65. /home/jrice/code/eol/app/views/layouts/main.html.haml line:129 found: = link_to("curators", {:controller => '/content', :action => 'page', :id => 'curator_central'})
+66. /home/jrice/code/eol/app/views/layouts/main.html.haml line:163 found: Showing:
+67. /home/jrice/code/eol/app/views/layouts/main.html.haml line:164 found: %a{ :href => "#{current_url}?vetted=#{set_vetted}", :title => "click to show #{change_mode}" }
+68. /home/jrice/code/eol/app/views/layouts/main.html.haml line:168 found: %a{ :href => url_for(settings_url), :title => "using #{current_user.selected_default_hierarchy}, click to change" }
+69. /home/jrice/code/eol/app/views/layouts/main.html.haml line:172 found: %a{ :href => url_for(settings_url), :title => "click to change settings" }

@@ -15,7 +15,7 @@ describe 'Content Partners' do
     cp.resources.first.harvest_events.each do |he|
       he.hierarchy_entries << image.hierarchy_entries[0]
     end
-    
+
     visit("/content_partner/content/#{cp.id}")
     body.should have_tag('div#content_partner_stats', :text => /#{cp.user.full_name}\s+has contributed to a total of\s+1\s+pages/)
     body.should include("pages/#{image.hierarchy_entries[0].taxon_concept.id}")

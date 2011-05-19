@@ -36,4 +36,8 @@ class ChangeableObjectType < ActiveRecord::Base
     cached_find(:ch_object_type, 'users_submitted_text')
   end
 
+  def self.curated_data_objects_hierarchy_entry
+    cached_find(:ch_object_type, 'curated_data_objects_hierarchy_entry')
+  end
+
 end

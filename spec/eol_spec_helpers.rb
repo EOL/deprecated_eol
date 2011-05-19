@@ -79,7 +79,8 @@ module EOL
       end
 
       # truncates all tables in all databases
-      def truncate_all_tables options = { }
+      def truncate_all_tables(options = {})
+        options[:skip_empty_tables] = true if options[:skip_empty_tables].nil?
         options[:verbose] ||= false
         all_connections.each do |conn|
           count = 0
@@ -88,17 +89,21 @@ module EOL
               count += 1
               if conn.respond_to? :with_master
                 conn.with_master do
-                  count_rows = conn.execute("SELECT 1 FROM #{table} LIMIT 1")
-                  conn.execute "TRUNCATE TABLE `#{table}`" if count_rows.num_rows > 0
+                  truncate_table(conn, table, options[:skip_empty_tables])
                 end
               else
-                count_rows = conn.execute("SELECT 1 FROM #{table} LIMIT 1")
-                conn.execute "TRUNCATE TABLE `#{table}`" if count_rows.num_rows > 0
+                truncate_table(conn, table, options[:skip_empty_tables])
               end
             end
           end
           puts "-- Truncated #{count} tables in #{conn.instance_eval { @config[:database] }}." if options[:verbose]
         end
+        $CACHE.clear if $CACHE # ...These values are all now void, so...
+      end
+
+      def truncate_table(conn, table, skip_if_empty)
+        run_command = skip_if_empty ? conn.execute("SELECT 1 FROM #{table} LIMIT 1").num_rows > 0 : true
+        conn.execute "TRUNCATE TABLE `#{table}`" if run_command
       end
 
       # truncates all tables in all databases
@@ -243,7 +248,15 @@ module EOL
       end
 
       def load_foundation_cache
+        reset_all_model_cached_instances
         load_scenario_with_caching(:foundation)
+        # test some basic assumptions here; helpful to avoid SERIOUS problems in testing.
+        foundation_fail = "Foundation Scenario failed to load properly. Please rm tmp/*sql and tmp/*yml and try again"
+        raise foundation_fail unless Vetted.trusted
+        raise foundation_fail unless Vetted.unknown
+        raise foundation_fail unless Vetted.untrusted
+        Community.special # Throws its own error
+        # TODO - anything else we should test for here...
       end
 
       def load_scenario_with_caching(name)

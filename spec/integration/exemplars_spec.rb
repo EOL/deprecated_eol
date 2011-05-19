@@ -9,7 +9,6 @@ describe 'Home page' do
     @old_cache_val = ActionController::Base.perform_caching
     ActionController::Base.perform_caching = true
     ActionController::Base.cache_store = :memory_store
-    $CACHE.clear
     @taxon_concept = build_taxon_concept(:id => 910093) # That ID is one of the (hard-coded) exemplars.
     visit('/content/exemplars') # cache the response the homepage gives before changes
     @body = body

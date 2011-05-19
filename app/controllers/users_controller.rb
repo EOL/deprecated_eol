@@ -34,6 +34,9 @@ class UsersController < ApplicationController
       dato = @curated_datos.detect {|item| item[:id] == ah[:object_id]}
       # We use nested include of hierarchy entries, taxon concept and names as a first cheap
       # attempt to retrieve a scientific name.
+      # TODO - dato.hierarchy_entries does not account for associations created by (or untrusted by) curators.  That
+      # said, this whole method is too much code in a controller and should be re-written, so we are not (right now)
+      # going to fix this.  Please create the data in a model and display it in the view.
       dato.hierarchy_entries.each do |he|
         # TODO: Check to see if this is using eager loading or not!
         if he.taxon_concept.published == 1 then

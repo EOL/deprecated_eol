@@ -69,13 +69,26 @@
         %h3=I18n.t("attribution")
         = render :partial => 'attribution', :locals => { :data_object => @data_object }, :layout => @layout
 
-      - unless @data_object.published_entries.blank?
-        #data_object_hierarchy
-          .divider
-            %h3= I18n.t(:hierarch_var_data_object_publi, :var_data_object_published_entries => (@data_object.published_entries == 1 ? 'y' : 'ies'))
-          - @data_object.published_entries.each do |phe|
-            = phe.ancestors.map { |he| link_to(he.name.string, taxon_concept_path(he.taxon_concept_id)) }.join(' > ')
-            %br
+      #data_object_hierarchy
+        .divider
+          %h3= I18n.t(:hierarch_var_data_object_publi, :var_data_object_published_entries => (@data_object.published_entries == 1 ? 'y' : 'ies'))
+        - if @data_object.published_entries.blank?
+          %p= I18n.t(:data_object_not_associated_with_any_hierarchies)
+        - else
+          %ul#associations
+            - @data_object.published_entries.each do |phe|
+              %li
+                %ul
+                  - phe.ancestors.each do |he|
+                    %li= link_to(he.name.string, taxon_concept_path(he.taxon_concept_id))
+                - if current_user.can_curate?(@data_object)
+                  = link_to I18n.t(:remove_data_object_association), remove_association_path(:id => @data_object.id, :hierarchy_entry_id => phe.id), :id => "remove_association_#{phe.id}"
+        - if current_user.can_curate?(@data_object)
+          - form_tag({:controller => 'data_objects', :action => 'add_association'}) do
+            = hidden_field_tag 'id', @data_object.id
+            = label_tag 'add_association', I18n.t(:add_association_label_colon)
+            = text_field_tag 'add_association'
+            = submit_tag I18n.t(:add_association_submit_button)
       - if @revisions.size > 1
         #data_object_revisions
           .divider

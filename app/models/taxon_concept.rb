@@ -788,25 +788,6 @@ class TaxonConcept < SpeciesSchemaModel
     taxon_concept_content.content_level
   end
 
-  # Gets an Array of TaxonConcept given DataObjects or their IDs
-  #
-  # this goes data_objects => data_objects_taxa => taxa => hierarchy_entries => taxon_concepts
-  def self.from_data_objects *objects_or_ids
-    ids = objects_or_ids.map {|o| if   o.is_a? DataObject
-                                  then o.id
-                                  else o.to_i end }
-    return [] if ids.nil? or ids.empty? # Fix for EOLINFRASTRUCTURE-808
-    sql = "SELECT tc.*
-    FROM taxon_concepts tc
-    JOIN hierarchy_entries he ON (tc.id = he.taxon_concept_id)
-    JOIN data_objects_hierarchy_entries dohe ON (dohe.hierarchy_entry_id = he.id)
-    JOIN data_objects do ON (do.id = dohe.data_object_id)
-    WHERE do.id IN (#{ ids.join(', ') })
-      AND tc.supercedure_id = 0
-      AND tc.published = 1"
-    TaxonConcept.find_by_sql(sql).uniq
-  end
-
   def self.from_taxon_concepts(taxon_concept_ids,page)
     if(taxon_concept_ids.length > 0) then
     query="Select taxon_concepts.id taxon_concept_id, taxon_concepts.supercedure_id, taxon_concepts.published, vetted.label vetted_label

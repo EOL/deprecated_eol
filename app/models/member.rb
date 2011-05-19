@@ -10,7 +10,7 @@ class Member < ActiveRecord::Base
   belongs_to :user
 
   has_many :member_privileges
- 
+
   has_and_belongs_to_many :roles
 
   validates_uniqueness_of :user_id, :scope => :community_id
@@ -22,7 +22,7 @@ class Member < ActiveRecord::Base
     feeds_exist = defined?(FeedItem) || FeedItem rescue nil
     # v2staging was getting migration failures because this method is called in a migration before the FeedItem table is created
     return unless feeds_exist
-    if user.respond_to? :username
+    if user.respond_to?(:username) && community
       community.feed.post(I18n.t("user_became_role_note", :username => user.username, :role => role.title), :feed_item_type_id => FeedItemType.content_update.id, :user_id => user.id)
     end
     self.roles

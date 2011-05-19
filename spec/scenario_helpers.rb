@@ -7,26 +7,26 @@ include EOL::Spec::Helpers
 # Add some comments for testing re-harvesting preserves such things:
 def add_comments_and_tags_to_reharvested_data_objects(tc)
   user = User.first
-  
+
   # 1) create comments on text (and all the same for image)
   #   1a) one is visible, second with visible_at = NULL
   text_dato = tc.overview.first # TODO - this doesn't seem to ACTAULLY be the overview.  Fix it?
   text_dato.comment(user, 'this is a comment applied to the old overview')
   invis_comment = text_dato.comment(user, 'this is an invisible comment applied to the old overview')
   invis_comment.hide user
-  
+
   image_dato = tc.images.first
   image_dato.comment(user, 'this is a comment applied to the old image')
   invis_image = image_dato.comment(user, 'this is an invisible comment applied to the old image')
   invis_image.hide user
-  
+
   #   1b) add tags
   image_dato.tag('color', 'yellow', user)
   image_dato.tag('length', 'long', user)
 
   # 2) create new dato with the same guid
   new_text_dato = DataObject.build_reharvested_dato(text_dato)
-  new_image_dato = DataObject.build_reharvested_dato(image_dato)  
+  new_image_dato = DataObject.build_reharvested_dato(image_dato)
 
   #   2a) add tag
   new_image_dato.tag('color', 'green', user)

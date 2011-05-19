@@ -50,8 +50,6 @@ describe 'User Profile' do
 
     it 'should show their "like" list'
 
-    it 'should show their "task" list'
-
     it 'should show all of their specific lists'
 
     it 'should show their feed' do

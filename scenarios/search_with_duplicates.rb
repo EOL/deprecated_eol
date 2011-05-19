@@ -2,7 +2,7 @@
 #
 #   TODO add a description here of what actually gets created!
 #
-#   This description block can be viewed (as well as other information 
+#   This description block can be viewed (as well as other information
 #   about this scenario) by running:
 #     $ rake scenarios:show NAME=bootstrap
 #
@@ -73,6 +73,5 @@ results[:query_results] = [
   "vetted_id"=>[2],
   "taxon_concept_id"=>[27]}
 ]
-
 
 EOL::TestInfo.save('search_with_duplicates', results)

@@ -256,7 +256,7 @@ en:
   click_to_view_previous_agreeme: "Click to view previous agreements:"
   close_this_window_to_return_to: "CLOSE THIS WINDOW TO RETURN TO EDIT WINDOW"
   clouds_provided_by_the_mbl: "Clouds provided by the MBL %{link}."
-  collection_summary_title_with_count:
+  collections_summary_header_with_count:
     one: "Present in %{count} collection"
     other: "Present in %{count} collections"
   collections_with_count:
@@ -300,7 +300,9 @@ en:
   community_form_name_label: "Choose a name for your community:"
   community_members: "Community members"
   community_roles: "Community Roles"
-  community_summary_title_with_count: "Belongs to %{count} communities"
+  communities_summary_header_with_count:
+    one: "Belongs to %{count} community"
+    other: "Belongs to %{count} communities"
   community__var___community_nam: "Community: %{var___community_name_}"
   community_watching_note: "The community is now watching %{name}."
   completed: "Completed"
@@ -432,6 +434,7 @@ en:
   curator_of_: "Curator of:"
   curator_of: "Curator of"
   curator_profile: "curator profile"
+  curator_profile_image_alt_text: "Profile picture for curator %{user_given_name} %{user_family_name}"
   curator_profile_menu: "Curator Profile"
   curator_profile_of_: "curator profile of %{name}"
   curator_scope_: "Curator scope:"
@@ -440,6 +443,9 @@ en:
   curators_of_var__concept_title: "Curators of %{var__concept_title__session_hierarchy_}"
   _curator_status_changed_by: "(Curator status changed by %{user} on %{date})"
   curator_to_do_list: "Curator To Do List"
+  curators_summary_header_with_count:
+    one: %{count} Curator
+    other: %{count} Curators
   current_logos_: "Current Logos:"
   currently_in_eol: "Currently in the Encyclopedia of Life"
   currently_published: "currently published"
@@ -917,6 +923,7 @@ en:
   level_: "Level:"
   level: "Level"
   license: "License"
+  license_icon_alt_text: "This data is licensed as %{license}"
   licenses: "licenses"
   licenses__visit_their_site_for: "licenses. Visit their site for more information on the various licenses they offer"
   licensing: "Licensing"
@@ -1167,7 +1174,6 @@ en:
   outlink: "Outlink"
   overall_: "Overall:"
   overview: "Overview"
-  overview_text_title: "Overview"
   owner_user_: "Owner user:"
   owner_user: "Owner user"
   page_id_: "Page ID:"
@@ -1323,7 +1329,6 @@ en:
   rails_environment: "Rails environment"
   rating: "Rating"
   read_the_eol_licensing_policy: "Read the EOL Licensing Policy"
-  read_full_entry: "Read full entry"
   recaptcha: "For verification, please enter the characters you see below.  Click the ? for assistance."
   recently_harvested_resources__: "Recently harvested resources (last 20)"
   recently_published_resources__: "Recently published resources (last 20)"
@@ -1511,6 +1516,7 @@ en:
   sound_thumbnail_alt_text: "This is %{vetted_status_with_article} audio recording of %{scientific_name}"
   sound_object: "Sound object"
   sounds: "Sounds"
+  source_information_link: "source information"
   source_and_additional_information: "Source and Additional Information"
   source_and_additional_informat: "SOURCE AND ADDITIONAL INFORMATION"
   source: "Source"
@@ -1616,6 +1622,8 @@ en:
   text: "text"
   text__: "Text"
   text_: "Text:"
+  text_summary_header: "Overview"
+  text_summary_more_link: "Read full entry"
   thanks_for_contacting_the_ency: "Thanks for contacting the Encyclopedia of Life project.  Your contact information has been passed on to the media contact."
   thanks_for_donation: "Thank you for supporting the Encyclopedia of Life.  Your information has been submitted and will be processed."
   thanks_for_feedback: "Thank you for your feedback."

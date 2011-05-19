@@ -175,9 +175,16 @@ class TaxonConcept < SpeciesSchemaModel
     end
   end
 
+  # Return select data objects that reflect a summary of all text content for this TaxonConcept
+  def summary_text
+    toc_items = [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution]
+    options = { :required => true, :limit => 1 }
+    return text_objects_for_toc_items(toc_items, options)
+  end
+
   # Return a list of data objects associated with this TC's Overview toc (returns nil if it doesn't have one)
   def overview
-    return text_objects_for_toc_item(TocItem.overview)
+    return text_objects_for_toc_items(TocItem.overview)
   end
 
   # The scientific name for a TC will be italicized if it is a species (or below) and will include attribution and varieties, etc:
@@ -1107,14 +1114,30 @@ class TaxonConcept < SpeciesSchemaModel
     return filtered_objects.collect{ |d| d.toc_items }.flatten.compact.uniq
   end
 
-  def text_objects_for_toc_item(toc_item, options={})
-    this_toc_objects = data_objects.select{ |d| d.toc_items && d.toc_items.include?(toc_item) }
-    user_objects = users_data_objects.select{ |udo| udo.data_object.toc_items && udo.data_object.toc_items.include?(toc_item) }.
-      collect{ |udo| udo.data_object}
-    combined_objects = this_toc_objects | user_objects  # get the union of the two sets
+  # options
+  #   :required will return the next available text object if no text is returned by toc_items
+  #   :limit returns a subset of objects for each toc_item
+  def text_objects_for_toc_items(toc_item_objects, options={})
+    toc_item_objects = [toc_item_objects] unless toc_item_objects.is_a?(Array)
+    text = data_objects.find_all{ |t| t.data_type_id == DataType.text.id }
+    text += users_data_objects.find_all{ |udo| udo.data_object.data_type_id == DataType.text.id }.
+              collect{ |udo| udo.data_object }
+    # remove datos this user shouldn't see
+    text = DataObject.filter_list_for_user(text, :user => options[:user])
+    text = DataObject.sort_by_rating(text)
 
-    # remove objects this user shouldn't see
-    filtered_objects = DataObject.filter_list_for_user(combined_objects, :user => options[:user])
+    datos_to_load = []
+    toc_item_objects.each do |toc_item|
+      items = text.select{ |t| ! t.toc_items && t.toc_items.include?(toc_item) }
+      unless items.blank?
+        case options[:limit]
+          when 1 then datos_to_load << items unless items.blank?
+          when nil? then datos_to_load += items
+          else datos_to_load += items[0..options[:limit]]
+        end
+      end
+    end
+    datos_to_load << text[0] if datos_to_load.blank? && options[:required]
 
     add_include = [:comments, :agents_data_objects, :info_items, :toc_items, { :users_data_objects => :user },
       { :published_refs => { :ref_identifiers => :ref_identifier_type } }, :all_comments]
@@ -1126,11 +1149,13 @@ class TaxonConcept < SpeciesSchemaModel
       :comments => [:parent_id, :visible_at] }
 
     objects = DataObject.core_relationships(:add_include => add_include, :add_select => add_select).
-        find_all_by_id(filtered_objects.collect{ |d| d.id })
+        find_all_by_id(datos_to_load.collect{ |d| d.id })
     if options[:user] && options[:user].is_curator? && options[:user].can_curate?(self)
       DataObject.preload_associations(objects, :users_data_objects_ratings, :conditions => "users_data_objects_ratings.user_id=#{options[:user].id}")
     end
-    DataObject.sort_by_rating(objects)
+
+    objects
+
   end
 
   def videos(options = {})
@@ -1223,7 +1248,7 @@ private
     result = {
       :content_type  => 'text',
       :category_name => toc_item.label,
-      :data_objects  => text_objects_for_toc_item(toc_item, :user => current_user)
+      :data_objects  => text_objects_for_toc_items(toc_item, :user => current_user)
     }
     # TODO = this should not be hard-coded! IDEA = use partials.  Then we have variables and they can be dynamically changed.
     # NOTE: I tried to dynamically alter data_objects directly, below, but they didn't

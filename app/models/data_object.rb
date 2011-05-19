@@ -419,6 +419,11 @@ class DataObject < SpeciesSchemaModel
                                   :type =>I18n.t("supplier_"))
   end
 
+  def citable_rights_holder
+    return nil if rights_holder.blank?
+    EOL::Citable.new( :display_string => rights_holder, :type => I18n.t("rights_holder"))
+  end
+
   def citable_entities
     citables = []
     agents_data_objects.each do |ado|
@@ -437,8 +442,7 @@ class DataObject < SpeciesSchemaModel
     end
 
     unless rights_holder.blank?
-      citables << EOL::Citable.new( :display_string => rights_holder,
-                                    :type => I18n.t("rights_holder"))
+      citables << citable_rights_holder
     end
 
     unless license.blank?
@@ -470,6 +474,26 @@ class DataObject < SpeciesSchemaModel
     end
 
     citables
+  end
+
+  def best_agents_to_cite
+    role_order = [ AgentRole.author, AgentRole.photographer, AgentRole.source,
+                   AgentRole.editor, AgentRole.contributor ]
+    role_order.each do |role|
+      best_agents = agents_data_objects.find_all{|ado| ado.agent_role_id == role.id && ado.agent}
+      break unless best_agents.empty?
+    end
+
+    # If we don't have an agent yet then we just return the first one we can find
+    best_agents = agents_data_objects.find_all{|ado| ado.agent_role && ado.agent}
+
+    citable_agents = []
+    best_agents.each do |ado|
+      if ado.agent_role && ado.agent
+        citable_agents << ado.agent.citable(ado.agent_role.label)
+      end
+    end
+    citable_agents
   end
 
   # Find all of the authors associated with this data object, including those that we dynamically add elsewhere

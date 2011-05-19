@@ -1,6 +1,6 @@
 #collections
   - count = 7
-  %h2= I18n.t(:collections_summary_title_with_count, :count => count)
+  %h2= I18n.t(:collections_summary_header_with_count, :count => count)
   - if count > 1
     = link_to(I18n.t(:see_all_collections_with_count_html, :count => count), taxon_concept_collections_path(:taxon_concept_id => @taxon_concept.id))
   %ul

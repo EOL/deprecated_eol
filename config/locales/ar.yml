@@ -262,7 +262,7 @@ ar:
   click_to_view_previous_agreeme: "Click to view previous agreements:"
   close_this_window_to_return_to: "CLOSE THIS WINDOW TO RETURN TO EDIT WINDOW"
   __clouds_provided_by_the_mbl: ". Clouds provided by the MBL"
-  collections_summary_title_with_count:
+  collections_summary_header_with_count:
     one: "موجودة في المجموعة رقم %{count}"
     other: "موجودة في %{count} مجموعات"
   collections_with_count:
@@ -304,7 +304,9 @@ ar:
   community_form_name_label: "Choose a name for your المجتمع:"
   community_members: "المجتمع members"
   community_roles: "المجتمع Roles"
-  community_summary_title_with_count: "ينتمي إلى المجتمعات %{count}"
+  communities_summary_header_with_count:
+    one: "ينتمي إلى المجتمعات %{count}"
+    other: "ينتمي إلى المجتمعات %{count}"
   community__var___community_nam: "المجتمع: %{var___community_name_}"
   community_watching_note: "The المجتمع is now watching %{name}."
   completed: "Completed"
@@ -1190,7 +1192,6 @@ ar:
   outlink: "Outlink"
   overall_: "Overall:"
   overview: "نظرة عامة"
-  overview_text_title: "نظرة عامة"
   owner_user_: "Owner user:"
   owner_user: "Owner user"
   page_id_: "Page ID:"
@@ -1646,6 +1647,7 @@ ar:
   text: "text"
   text__: "Text"
   text_: "Text:"
+  text_summary_header: "نظرة عامة"
   thanks_for_contacting_the_ency: "Thanks for contacting the Encyclopedia of Life project.  Your contact information has been passed on to the وسائل الاعلام contact."
   thanks_for_donation: "Thank you for supporting the Encyclopedia of Life.  Your information has been submitted and will be processed."
   thanks_for_feedback: "Thank you for your feedback."

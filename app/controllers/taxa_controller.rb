@@ -79,7 +79,7 @@ class TaxaController < ApplicationController
 
     # TODO - move all of this section stuff!
     @section = params[:section].blank? ? :overview : params[:section].to_sym
-    # TODO - knowing the names of all the tabs probably doesn't belong here.  Move it.
+    # TODO - knowing the names of all the tabs probably doesn't belong here. Move it.
     @section = :overview unless [:overview, :detail, :media, :maps, :classifications, :collections, :communities,
       :tools, :updates].include?(@section)
     @image_id = params[:image_id] # TODO - this feature needs to change.
@@ -168,49 +168,17 @@ class TaxaController < ApplicationController
       :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ],
       :table_of_contents => '*',
       :last_curated_dates => '*',
-      :users => [ :given_name, :family_name ] }
+      :users => [ :given_name, :family_name, :logo_cache_url ] }
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
 
-    if params[:action_name] == "update_common_names"
-      update_common_names
-    end
-    if params[:category_id]
-      params[:category_id] = nil if !TocItem.find_by_id(params[:category_id].to_i)
-      @languages = build_language_list if is_common_names?(params[:category_id].to_i)
-    end
-
-    @concept_browsable_hierarchies = Hierarchy.browsable_for_concept(@taxon_concept)
-    @all_browsable_hierarchies = Hierarchy.browsable_by_label
-
-    # there is where we can set it to ALL hierarchies, or only for this node
-    @hierarchies_to_offer = @all_browsable_hierarchies.dup
-    # add the user's hierarchy in case the current concept is it
-    # we'll need to default the list to the user's hierarchy no matter what
-    @hierarchies_to_offer << @session_hierarchy
-    @hierarchies_to_offer = @hierarchies_to_offer.uniq.sort_by{|h| h.form_label}
-
-    @feed_item = FeedItem.new(:feed_id => @taxon_concept.id, :feed_type => @taxon_concept.class.name)
+    @summary_text = @taxon_concept.summary_text
+    @media = @taxon_concept.media
 
     current_user.log_activity(:viewed_taxon_concept_overview, :taxon_concept_id => @taxon_concept.id)
 
     respond_to do |format|
       format.html {}
     end
-
-    # TODO - a lot of this work does not need to be done when we're caching the page.
-    @media = @taxon_concept.media
-
-    set_selected_text_item
-
-    @category_id = show_category_id # need to be an instant var as we use it in several views and they use
-                                    # variables with that name from different methods in different cases
-
-    @new_text_tocitem_id = get_new_text_tocitem_id(@category_id)
-
-    get_content_variables unless
-    @category_id.nil? ||
-    @taxon_concept.table_of_contents(:vetted_only=>@taxon_concept.current_user.vetted).blank?
-    @random_taxa = RandomHierarchyImage.random_set(5, @session_hierarchy, {:language => current_user.language, :size => :small})
 
   end
 

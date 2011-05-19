@@ -1,6 +1,6 @@
 #communities
   - count = @taxon_concept.communities.count
-  %h2= I18n.t(:community_summary_title_with_count, :count => count)
+  %h2= I18n.t(:communities_summary_header_with_count, :count => count)
   - if count > 1
     = link_to(I18n.t(:see_all_communities_with_count_html, :count => count), taxon_concept_communities_path(:taxon_concept_id => @taxon_concept.id))
   %ul

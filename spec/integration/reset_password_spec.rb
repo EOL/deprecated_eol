@@ -34,7 +34,7 @@ describe 'account/reset_password' do
 
   it 'should show form' do
     visit("/account/reset_password/#{@user.password_reset_token}")
-    body.should have_tag('form#form_reset_password') do |f|
+    body.should have_tag('form') do |f|
       f.should have_tag('input#user_entered_password')
       f.should have_tag('input#user_entered_password_confirmation')
       f.should have_tag('input[type=submit]')

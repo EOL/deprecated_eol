@@ -5,9 +5,7 @@
     = link_to I18n.t("_edit_"), profile_path
   #about
     %h1
-      = h @user.given_name
-      &nbsp;
-      = h @user.family_name
+      = h @user.full_name
     - if @user.is_curator?
       %p
         = @user.curator_scope
@@ -28,25 +26,22 @@
             %td
               =I18n.t("objects_curated")
             %td
-              = link_to @user.total_data_objects_curated,{:controller=>'/account', :action=>:show_objects_curated, :id => @user.id}
-
+              = link_to @user.total_data_objects_curated, { :controller => 'users', :action => :objects_curated, :id => @user.id }
           %tr{ :class => cycle('odd','even', :name => 'account') }
             %td
               =I18n.t("comments_moderated")
             %td
-              = link_to @user.total_comments_curated,{:controller=>'/account', :action=>:show_comments_moderated, :id => @user.id}
-
+              = link_to @user.total_comments_curated, { :controller => 'users', :action => :comments_moderated, :id => @user.id }
           %tr{ :class => cycle('odd','even', :name => 'account') }
             %td
               =I18n.t("species_curated")
             %td
-              = link_to @user.total_species_curated,{:controller=>'/account', :action=>:show_species_curated, :id => @user.id}
-
+              = link_to @user.total_species_curated, { :controller => 'users', :action => :species_curated, :id => @user.id }
           %tr{ :class => cycle('odd','even', :name => 'account') }
             %td
               =I18n.t("user_submitted_text")
             %td
-              = link_to @user_submitted_text_count,{:controller=>'administrator/user_data_object', :action=>:index, :user_id => @user.id}
+              = link_to @user_submitted_text_count, { :controller => 'administrator/user_data_object', :action => :index, :user_id => @user.id }
     #credentials
       %h3
         =I18n.t("credentials")

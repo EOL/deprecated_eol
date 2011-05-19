@@ -18,7 +18,7 @@ if (!EOL.expand_clade_behavior) {
         // TODO - This is EXTREMELY inefficient in that it re-loads the current page with a given node expanded and then grabs
         // the entire tree from the resulting HTML and puts in place of the existing one.  This is really ugly.  Needs to be
         // fixed ASAP. Note that this special functionality of load() is ONLY available with load() (not with, say, $.ajax()).
-        var tree_path = '#'+EOL.clade_selector_id+'-inner ul.tree'
+        var tree_path = '#'+EOL.clade_selector_id+'-inner ul.tree';
         EOL.clade_behavior_needs_load = 'yes';
         $(tree_path).load($(this).attr('href') + ' ' + tree_path, // special syntax to grab *part* of a response.
           '', // data.  We don't want to send any.  Careful not to use an object {} here, the request w/ become a POST.
@@ -40,9 +40,9 @@ function displayNode(id) {
 
 // call remote function to show the selected node in the text-based navigational tree view
 function displayNode(id, for_selection) {
-  url = '/navigation/show_tree_view'
+  url = '/navigation/show_tree_view';
   if(for_selection) {
-    url = '/navigation/show_tree_view_for_selection'
+    url = '/navigation/show_tree_view_for_selection';
   }
   $.ajax({
     url: url,
@@ -92,23 +92,7 @@ $(document).ready(function() {
     clear_clade_of_clade_selector();
     return false;
   });
-  // Show the clade browser if the checkbox is checked:
-  var curator_request = $('input#curator_request');
-  if (curator_request.length > 0) {
-    if($('input#curator_request').attr('checked')) {
-      $("#curator_request_options").slideDown();
-    } else {
-      $("#curator_request_options").slideUp();
-    }
-  }
-  // Click to show/hide the clade browser:
-  $('input#curator_request').click(function() {
-    if($(this).attr('checked')) {
-      $("#curator_request_options").slideDown();
-    } else {
-      $("#curator_request_options").slideUp();
-    }
-  });
+  
   EOL.expand_clade_behavior();
 });
 

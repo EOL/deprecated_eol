@@ -4,30 +4,7 @@ shared_examples_for "all accounts" do
   it "should behave like all users"
 end
 
-describe "Non Curator Account Pages" do
-
-  before(:all) do
-    truncate_all_tables
-    load_foundation_cache
-    Capybara.reset_sessions!
-    user_options = {
-      :username => 'account_spec',
-      :password => 'password'
-    }
-    @user = User.gen(user_options)
-  end
-
-  it_should_behave_like "all accounts"
-
-  it "should redirect back or to default when visit account page" do
-    @user.revoke_curatorship
-    _redirect = current_path.empty? ? "/" : current_path
-    visit("/account/show/#{@user.id}")
-    current_path.should == _redirect
-  end
-end
-
-describe 'Curator Account Pages' do
+describe 'Account Pages' do
 
   before(:all) do
     truncate_all_tables
@@ -66,7 +43,7 @@ describe 'Curator Account Pages' do
     @taxon_concept.overview[0].curate(@user, { :vetted_id => Vetted.trusted.id })
     @taxon_concept.overview[1].curate(@user, { :vetted_id => Vetted.untrusted.id })
     @total_datos_curated = 4
-    @show_datos_curated_path = "/account/show_objects_curated/#{@user.id}"
+    @show_datos_curated_path = "/users/objects_curated/#{@user.id}"
     @permalink_path = "/data_objects/#{@taxon_concept.images[0][:id]}"
     @taxon_page_path = "/pages/#{@taxon_concept[:id]}"
 
@@ -76,7 +53,7 @@ describe 'Curator Account Pages' do
   it_should_behave_like "all accounts"
 
   it "should show account page" do
-    _account_show_path = "/account/show/#{@user.id}"
+    _account_show_path = "/users/#{@user.id}"
     visit(_account_show_path)
     current_path.should == _account_show_path
   end

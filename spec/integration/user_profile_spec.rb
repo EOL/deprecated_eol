@@ -25,13 +25,9 @@ describe 'User Profile' do
     visit('/logout')
   end
 
-  it 'should allow change of filter content hierarchy' do
-    visit('/settings')
-    body.should have_tag('#header a[href*=?]', /login/)
-    body.should include('Filter EOL')
-    body.should have_tag('input#user_filter_content_by_hierarchy')
+  it 'should allow users to change filter content hierarchy' do
     login_as @user
-    visit('/settings')
+    visit('/account/site_settings')
     body.should_not have_tag('#header a[href*=?]', /login/)
     body.should include('Filter EOL')
     body.should have_tag('input#user_filter_content_by_hierarchy')
@@ -39,7 +35,7 @@ describe 'User Profile' do
 
   it 'should generate api key' do
     login_as @user
-    visit('/settings')
+    visit('/account/site_settings')
     body.should include('Generate a key')
     click_button("Generate a key")
     body.should_not include("Generate a key")

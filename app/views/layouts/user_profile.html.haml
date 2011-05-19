@@ -1,5 +1,5 @@
-= javascript_include_tag 'users'
-= eol_lang_error_messages_for :user if request.post?
+- content_for :head do
+  = javascript_include_tag 'users'
 - @page_header ||= I18n.t("manage_your_profile")
 - content_for :content do
   #page-separator-general
@@ -13,11 +13,11 @@
         #left-pane
           %ul#toc.content_partner
             %li
-              = link_to I18n.t("account_information_menu"), { :controller => 'new_account', :action => 'profile' }, :class => "#{(params[:controller] == 'new_account' && params[:action] == 'profile') ? 'active' : ''} toc_item"
+              = link_to I18n.t("account_information_menu"), { :controller => 'account', :action => 'profile' }, :class => "#{(params[:controller] == 'account' && params[:action] == 'profile') ? 'active' : ''} toc_item"
             %li
-              = link_to I18n.t("personal_profile_menu"), { :controller => 'new_account', :action => 'personal_profile' }, :class => "#{params[:action] == 'personal_profile' ? 'active' : ''} toc_item"
+              = link_to I18n.t("personal_profile_menu"), { :controller => 'account', :action => 'personal_profile' }, :class => "#{params[:action] == 'personal_profile' ? 'active' : ''} toc_item"
             %li
-              = link_to I18n.t("site_settings_menu"), { :controller => 'new_account', :action => 'site_settings' }, :class => "#{params[:action] == 'site_settings' ? 'active' : ''} toc_item"
+              = link_to I18n.t("site_settings_menu"), { :controller => 'account', :action => 'site_settings' }, :class => "#{params[:action] == 'site_settings' ? 'active' : ''} toc_item"
             %li
               = link_to I18n.t("curator_profile_menu"), { :controller => 'curator_account', :action => 'profile' }, :class => "#{(params[:controller] == 'curator_account' && params[:action] == 'profile') ? 'active' : ''} toc_item"
             %li
@@ -37,6 +37,8 @@
                     = link_to I18n.t("manage_resources"), resources_url, :class => "#{params[:controller] == 'resources' ? 'active' : ''} nested toc_item"
         #right-pane
           #main_area
+            = eol_lang_error_messages_for :user
+            = eol_lang_error_messages_for :content_partner
             = yield
           #message_area.message
 = render :file => 'layouts/main'

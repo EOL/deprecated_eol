@@ -1,0 +1,57 @@
+%table.results_table
+  %thead{ :align => "center" }
+    %tr{ :align => "center" }
+      %th
+        %p
+          =I18n.t("objects_curated")
+      %td
+        =I18n.t("_nbsp__nbsp__nbsp_curator_")
+        = h @user.full_name  
+        \&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+        = link_to I18n.t("back_to_profile"), { :controller => 'users', :action => :show, :id => @user.id }
+
+- unless @latest_curator_actions.nil? || @latest_curator_actions.blank?
+  = will_paginate @latest_curator_actions
+  %table#show_objects_curated.results_table
+    %thead
+      %tr
+        %th
+          =I18n.t("toc")
+        %th
+          =I18n.t("activity")
+        %th
+          =I18n.t("scientific_name")
+        %th
+          =I18n.t("vetted")
+        %th
+          =I18n.t("visible_")
+        %th
+          =I18n.t("description")
+    %tbody
+      - @latest_curator_actions.each do |ah|
+        - dato = @curated_datos.find{|items| items.id == ah[:object_id]}
+        - row_class = cycle('odd','even')
+        %tr
+          %td{ :class => row_class }
+            - unless dato.toc_items.nil? || dato.toc_items.blank?
+              = dato.toc_items[0][:label]
+          %td{ :class => row_class }
+            = ah.action_with_object.action_code.capitalize
+            = h format_date_time(ah.updated_at, :format => :short_no_tz)
+          %td{ :class => row_class }
+            - unless dato[:_preferred_taxon_concept_id].nil?
+              = link_to dato[:_preferred_name_italicized], { :controller => :taxa, :action => :show, :id => dato[:_preferred_taxon_concept_id] }
+            - else
+              = dato[:_preferred_name_italicized]
+          %td{ :class => row_class }
+            = dato.vetted.label
+          %td{ :class => row_class }
+            = dato.visibility.label
+          %td{ :class => row_class + ' description' }
+            - unless dato.object_cache_url.blank?
+              - url = DataObject.image_cache_path(dato.object_cache_url, :small)
+              - img = '<img src="' + url + '">'
+              = link_to img, { :controller => '/data_objects', :action => :show, :id => ah[:object_id] }
+            = dato[:_description_teaser]
+            = link_to I18n.t("permalink"), { :controller => '/data_objects', :action => :show, :id => ah[:object_id] }
+  = will_paginate @latest_curator_actions

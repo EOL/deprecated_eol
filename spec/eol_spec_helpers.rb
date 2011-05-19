@@ -174,7 +174,8 @@ module EOL
         options = {
           :vetted                  => true,
           :curator_approved        => true,
-          :curator_scope           => ''
+          :curator_scope           => 'scope',
+          :credentials             => 'creds'
         }.merge(options)
 
         # These two do "extra work", so I didn't want to use the merge on these (because they would be calculated even

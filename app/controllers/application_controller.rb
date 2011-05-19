@@ -55,8 +55,19 @@ class ApplicationController < ActionController::Base
     else
       logger.error "*" * 76
       logger.error "** EXCEPTION: (uncaught) #{e.message}"
-      logger.error "   " + e.backtrace[0..11].map {|t| t.gsub(/#{RAILS_ROOT}/, '.')}.join("\n   ")
-      logger.error "   [...#{e.backtrace.length - 12} more lines omitted]" if e.backtrace.length > 12
+      lines_shown = 0
+      index = 0
+      e.backtrace.map {|t| t.gsub(/#{RAILS_ROOT}/, '.')}.each do |trace|
+        if trace =~ /\.?\/(usr|vendor).*:/
+          logger.error "       (#{trace})"
+        else
+          logger.error "   #{trace}"
+          lines_shown += 1
+        end
+        index += 1
+        break if lines_shown > 12
+      end
+      logger.error "   [...#{e.backtrace.length - index} more lines omitted]" if lines_shown > 12
       logger.error "\n\n"
       render :layout => 'main', :template => "content/error"
     end
@@ -365,9 +376,10 @@ class ApplicationController < ActionController::Base
     user = current_user
     user = User.find(user.id) if user.frozen? # Since we're modifying it, we can't use the one from memcached.
     yield(user)
-    user.save! if logged_in?
+    user.save if logged_in?
     $CACHE.delete("users/#{session[:user_id]}")
     set_current_user(user)
+    user
   end
 
   # this method is used as a before_filter when user logins are disabled to ensure users who may have had a previous
@@ -386,7 +398,15 @@ class ApplicationController < ActionController::Base
   end
 
   def logged_in_from_session?
-    !!session[:user_id]
+    if session[:user_id]
+      if u = cached_user
+        return true
+      else
+        # I had a problem when switching environments when my session use didn't exist, and this should help fix that
+        session[:user_id] = nil
+      end
+    end
+    return false
   end
 
   def logged_in_from_cookie?
@@ -499,7 +519,7 @@ private
   def cached_user
     User # KNOWN BUG (in Rails): if you end up with "undefined class/module" errors in a fetch() call, you must call
          # that class beforehand.
-    $CACHE.fetch("users/#{session[:user_id]}") { User.find(session[:user_id]) }
+    $CACHE.fetch("users/#{session[:user_id]}") { User.find(session[:user_id]) rescue nil }
   end
 
   # Having a *temporary* logged in user, as opposed to reading the user from the cache, lets us change some values

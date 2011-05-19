@@ -27,6 +27,10 @@ module EOL
     private
 
     def cached_files_are_stale?
+      @all_connections.each do |conn|
+        # If there's no file at all, call it 'stale':
+        return true unless File.exists?(mysqldump_path_for_connection(conn))
+      end
       last_modified = File.mtime(File.join(RAILS_ROOT, 'scenarios', "#{@name}.rb"))
       last_compile = time_the_dumps_were_taken
       return true if !last_compile
@@ -34,6 +38,7 @@ module EOL
     end
 
     def load_and_cache
+      puts "&& Creating #{@name} cache.  Please be patient."
       EolScenario.load @name
       remember_that_this_is_loaded
       create_cache
@@ -94,8 +99,8 @@ module EOL
       tables = []
       conn.tables.each do |table|
         next if table == 'schema_migrations'
-        count_rows = conn.execute("SELECT 1 FROM #{table} LIMIT 1")
-        tables << table if count_rows.num_rows > 0
+        count_rows = conn.execute("SELECT 1 FROM #{table} LIMIT 1").num_rows
+        tables << table if count_rows > 0
       end
       tables
     end

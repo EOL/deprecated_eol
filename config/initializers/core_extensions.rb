@@ -12,7 +12,7 @@ class String
     return name.downcase.gsub(@@normalization_regex, '').gsub(@@tag_regex, '').gsub(@@spaces_regex, ' ')
     return name.downcase.gsub(@@normalization_regex, '').gsub(@@spaces_regex, ' ')
   end
-  
+
   def strip_italics
     self.gsub(/<\/?i>/i, "")
   end
@@ -30,30 +30,27 @@ module ActiveRecord
     class << self
 
       # options is there so that we can pass in the :serialize => true option in the cases where we were using Yaml...
-      # I am going to try NOT doing anything with that option right now, to see if it works.  If not, however, I want to at
-      # least have it passed in when we needed it, so the code can change later if needed.
+      # I am going to try NOT doing anything with that option right now, to see if it works.  If not, however, I want
+      # to at least have it passed in when we needed it, so the code can change later if needed.
       def cached_find(field, value, options = {})
         key = "#{field}/#{value}"
         #look locally first then in Memcached
         if $USE_LOCAL_CACHE_CLASSES && r = check_local_cache(key)
           return r.dup
         end
-        
+
         r = cached(key, options) do
           r = send("find_by_#{field}", value, :include => options[:include])
         end
         set_local_cache(key, r)
         r
-        # cached("#{field}/#{value}", options) do
-        #   send("find_by_#{field}", value, :include => options[:include])
-        # end
       end
-      
+
       def cached_read(key)
         name = cached_name_for(key)
         $CACHE.read(name)
       end
-      
+
       def cached(key, options = {}, &block)
         name = cached_name_for(key)
         if $CACHE # Sometimes during tests, cache has not yet been initialized.
@@ -64,11 +61,11 @@ module ActiveRecord
           yield
         end
       end
-      
+
       def cached_name_for(key)
         "#{RAILS_ENV}/#{self.table_name}/#{key.underscore_non_word_chars}"[0..249]
       end
-      
+
       def check_local_cache(key)
         initialize_cached_instances
         if local_cache = class_variable_get(:@@cached_instances)
@@ -94,17 +91,17 @@ module ActiveRecord
           class_variable_set(:@@cached_all_instances, false)
         end
       end
-      
+
       def uses_translations(options={})
         begin
           translated_class = eval("Translated" + self.to_s)
-          
+
           has_many :translations, :class_name => translated_class.to_s, :foreign_key => options[:foreign_key]
           default_scope :include => :translations
           const_set(:USES_TRANSLATIONS, true)
           const_set(:TRANSLATION_CLASS, translated_class)
           attr_accessor :current_translation_language
-          
+
           # creating attributes for the translated fields
           # also creating a method Class.attribute(language_iso_code)
           # which will return that attribute in the given language
@@ -116,7 +113,7 @@ module ActiveRecord
                 # then none of thise will happen
                 unless column_names.include?(a)
                   attr_accessor "translated_#{a}".to_sym
-                  
+
                   # creating a method with the name of the translated attribute. For example
                   # if we translated label, we're making
                   # def label(language_iso)
@@ -126,7 +123,7 @@ module ActiveRecord
                     # the additional check for the model, which will load the model definition
                     language_exists = defined?(Language) || Language rescue nil
                     return nil unless language_exists
-                    
+
                     language_iso = args[0] || I18n.locale.to_s || APPLICATION_DEFAULT_LANGUAGE_ISO || nil
                     unless self.current_translation_language && language_iso == self.current_translation_language.iso_code
                       l = Language.from_iso(language_iso)
@@ -134,14 +131,14 @@ module ActiveRecord
                       # load the translated fields as attributes of the current model
                       return nil unless set_translation_language(l)
                     end
-                    
+
                     return eval("translated_#{a}")
                   end
                 end
               end
             end
           end
-          
+
           # this method will search translations of this model whose language matches the parameter,
           # and creates attributes of the model corresponding to the translated fields
           # def set_translation_language(language_iso)
@@ -149,7 +146,7 @@ module ActiveRecord
             return nil if language.class != Language
             return true if language == self.current_translation_language
             match = translations.select{|t| t.language_id == language.id }
-            
+
             # no translation in this language to fallback to the default language
             if match.empty?
               if language.iso_639_1 != APPLICATION_DEFAULT_LANGUAGE_ISO
@@ -158,15 +155,15 @@ module ActiveRecord
                 return nil
               end
             end
-            
+
             # populate the translated attributes
             self.current_translation_language = language
             match[0].attributes.each do |a, v|
               # puts "SETTING #{self.class.class_name} #{a} to #{v}"
-              eval("self.translated_#{a} = v") unless a == 'id' || a == 'language_id' 
+              eval("self.translated_#{a} = v") unless a == 'id' || a == 'language_id'
             end
           end
-          
+
           # def self.find_by_translated(field, value, language_iso, :include => {})
           self.class.send(:define_method, :find_by_translated) do |field, value, *args|
             begin
@@ -178,7 +175,7 @@ module ActiveRecord
               search_language_iso = options_language_iso || APPLICATION_DEFAULT_LANGUAGE_ISO || nil
               language_id = Language.id_from_iso(search_language_iso)
               return nil if language_id.nil?
-              
+
               table = self::TRANSLATION_CLASS.table_name
               # find the record where the translated field is * and language is *
               found = send("find", :first, :joins => :translations,
@@ -190,7 +187,7 @@ module ActiveRecord
               pp e.backtrace
             end
           end
-          
+
           # def self.cached_find_translated(field, value, language_iso, :include => {})
           self.class.send(:define_method, :cached_find_translated) do |field, value, *args|
             if args[0] && args[0].class == String && args[0].match(/^[a-z]{2}$/)
@@ -202,13 +199,13 @@ module ActiveRecord
               find_by_translated(field, value, language_iso, options_include)
             end
           end
-          
+
         rescue => e
           puts e.message
           pp e.backtrace
         end
       end  # end uses_translations
-      
+
     end
   end
 end

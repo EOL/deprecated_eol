@@ -2,7 +2,8 @@
   $(document).ready(function() { $('#user_username').focus(); });
 #page-separator-general
 #page-title
-  %h1=  I18n.t(:login) 
+  %h1
+    = I18n.t(:login)
 #page-content.clearfix
   #full-page-content
     %div{ :style => "float: left; width: 550px;" }
@@ -20,19 +21,13 @@
           = link_to( I18n.t(:forgot_password) , :action => 'forgot_password')
           %br
           %br
+          = link_to( I18n.t(:click_here_to_register) ,:action=>'signup')
+          %br
+          %br
+          %br
           %label{ :for => "remember_me" }= I18n.t(:remember_me) 
           = check_box_tag 'remember_me'
           =  I18n.t(:remember_me_message) 
           %br
           %br
-          %table{ :border => "0", :width => "500", :cellpadding => "20" }
-            %tr
-              %td{ :valign => "top" }
-                = submit_tag  I18n.t(:login_now)  + ' &#187;'
-              %td{ :valign => "middle" }
-                = link_to( I18n.t(:click_here_to_register) ,:action=>'signup')
-            %tr
-              %td{:colspan=>2}
-                %br
-                =I18n.t("if_you_are_a_content_partner_p",:login_here_link => link_to( I18n.t(:login_here) , :action=>"login", :controller=>"content_partner")) 
-                
+          = submit_tag  I18n.t(:login_now)  + ' &#187;'

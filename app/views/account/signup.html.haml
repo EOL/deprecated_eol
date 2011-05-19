@@ -74,9 +74,7 @@
             %br
             %br
             #curator_request_options{ :style => "display:none;" }
-              %span
-                =  I18n.t(:curator_signup_message) 
-              = render(:partial=>'curator_form',:locals=>{ :f => f })
+              = render(:partial => '/curator_account/curator_form', :locals=>{ :f => f })
           - if $ENABLE_RECAPTCHA
             :javascript
               var RecaptchaOptions = { theme : 'clean'};

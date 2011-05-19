@@ -18,8 +18,4 @@ describe SpecialCollection do
     SpecialCollection.watch.should_not be_nil
   end
 
-  it 'should have a "task" method' do
-    SpecialCollection.task.should_not be_nil
-  end
-
 end

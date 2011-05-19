@@ -7,7 +7,7 @@ require 'capybara/rails'
 require 'capybara/dsl'
 
 
-load 'composite_primary_keys/fixtures.rb' 
+load 'composite_primary_keys/fixtures.rb'
 require 'csv'
 
 # just enough infrastructure to get 'assert_select' to work
@@ -34,43 +34,43 @@ Spec::Runner.configure do |config|
   include EOL::Data # this gives us access to methods that clean up our data (ie: lft/rgt values)
   include EOL::DB   # this gives us access to methods that handle transactions
   include EOL::Spec::Helpers
-  
+
   config.include EOL::Spec::Matchers
   config.include(EmailSpec::Helpers)
   config.include(EmailSpec::Matchers)
   config.include(Capybara, :type => :integration)
 
-  # taken from use_db/lib/override_test_case.rb
-  #
-  # these before and after blocks make sure that spec 
-  # examples run within their own transactions for ALL 
-  # active connections (works for ALL of our databases)
-  config.before(:each) do
+  config.after(:each) do
     $CACHE.clear if $CACHE
     # reset the class variables that cache certain instances
     reset_all_model_cached_instances
   end
-  
+
+  # taken from use_db/lib/override_test_case.rb
+  #
+  # these before and after blocks make sure that spec
+  # examples run within their own transactions for ALL
+  # active connections (works for ALL of our databases)
   config.before(:all) do
     $THIS_SPEC_START_TIME = Time.now()
   end
-  
   config.after(:all) do
     puts (Time.now() - $THIS_SPEC_START_TIME).round(2).to_s + " seconds" if $THIS_SPEC_START_TIME
     $THIS_SPEC_START_TIME = nil
   end
+
 end
 
 def reset_all_model_cached_instances
-  Dir.foreach("#{RAILS_ROOT}/app/models") do |model_path|
+  $ALL_MODELS ||= Dir.foreach("#{RAILS_ROOT}/app/models").map do |model_path|
     if m = model_path.match(/^(([a-z]+_)*[a-z]+)\.rb$/)
-      model_name = m[1]
-      begin
-        klass = model_name.camelcase.constantize
-        klass.reset_cached_instances
-      rescue
-      end
+      m[1].camelcase.constantize
+    else
+      nil
     end
+  end.compact
+  $ALL_MODELS.each do |model|
+    model.reset_cached_instances rescue nil
   end
 end
 
@@ -87,7 +87,7 @@ def wait_for_insert_delayed(&block)
     sleep(0.2)
     retry if countdown > 0
     raise e
-  end 
+  end
 end
 
 def read_test_file(filename)

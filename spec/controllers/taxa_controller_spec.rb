@@ -28,7 +28,7 @@ describe TaxaController do
 
     describe 'with duplicates' do
 
-      integrate_views # Note I am NOT using RackBox for these examples; faster.
+      integrate_views
 
       it 'should show the source hierarchy on the duplicates' do
         hijack_search_for_tiger

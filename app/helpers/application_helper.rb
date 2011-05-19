@@ -127,7 +127,7 @@ module ApplicationHelper
       error_messages = objects.map do |obj|
         obj.errors.map do |field, error|
           # Try translating the field name
-          field = I18n.t(ActiveRecord::Base.human_attribute_name(field))
+          field = ActiveRecord::Base.human_attribute_name(field)
 
           # Make two versions of the error message:
           #   Example: is too short (minimum 3 characters)
@@ -139,8 +139,9 @@ module ApplicationHelper
           error_default = error.gsub(/\d+/,"%d")
           error_translate = error.gsub(/\d+/,"{n}") #
           error_index = default_error_messages_inverted[error_default]
-
-          error = error_translate["validation_#{error_index}".to_sym, *error_attributes]
+          
+          # TODO: Gibberish translation which doesn't work anymore
+          # error = error_translate["validation_#{error_index}".to_sym, *error_attributes]
 
           if error =~ /^\^/
             error_display = error[1..-1]

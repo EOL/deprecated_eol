@@ -1,0 +1,27 @@
+.divider
+%br
+%h3.preference-header= I18n.t(:request_an_api_key_optional)
+
+- api_docs_link = '/api/docs#api_key_section'
+- if current_user.api_key
+  %p#profile_api_key
+    =I18n.t("your_key_is", :key => current_user.api_key)
+    %br
+<<<<<<< HEAD
+    =I18n.t("make_sure_to", :link_add_it_to_your_api_calls => link_to(I18n.t("add_it_to_your_api_calls"), api_docs_link))
+=======
+    =I18n.t("make_sure_to", :link_add_it_to_your_api_calls=>link_to(I18n.t("add_it_to_your_api_calls"), api_docs_link))
+>>>>>>> WIP - massive failures, but Patrick may have the solution.  I think everything else is green.  Ish.
+-else
+  %form#form_api_key{ :method => "post", :action => user_path(current_user.id) }
+    %input{ :name => "_method", :type => "hidden", :value=> "put" }
+    %input{ :name => "generate_api_key", :type => "hidden", :value=> "true" }
+    - button_value = I18n.t("generate_a_key")
+    %p
+      =I18n.t("if_you_are_interested_in_using")
+      =I18n.t("about_adding_a_key_to_your_api", :click_here_link_to_read_more => link_to(I18n.t("click_here_to_read_more"), api_docs_link))
+    %br
+    %br
+    %input{ :type => "submit", :name => "submit", :value => button_value }
+
+

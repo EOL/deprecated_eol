@@ -1,6 +1,24 @@
 $(document).ready(function() {
   $("#user_entered_password").attr("value", "");
   $("#user_entered_password_confirmation").attr("value", "");
+  
+  // Show the clade browser if the checkbox is checked:
+  var curator_request = $('input#curator_request');
+  if (curator_request.length > 0) {
+    if($('input#curator_request').attr('checked')) {
+      $("#curator_request_options").slideDown();
+    } else {
+      $("#curator_request_options").slideUp();
+    }
+  }
+  // Click to show/hide the clade browser:
+  $('input#curator_request').click(function() {
+    if($(this).attr('checked')) {
+      $("#curator_request_options").slideDown();
+    } else {
+      $("#curator_request_options").slideUp();
+    }
+  });
 });
 // ajax call to determine if username is unique
 function check_username() {

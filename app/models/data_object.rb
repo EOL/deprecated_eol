@@ -21,6 +21,7 @@ class DataObject < SpeciesSchemaModel
   has_many :top_concept_images
   has_many :agents_data_objects
   has_many :data_objects_hierarchy_entries
+  has_many :curated_data_objects_hierarchy_entries
   has_many :comments, :as => :parent
   has_many :data_objects_harvest_events
   has_many :harvest_events, :through => :data_objects_harvest_events
@@ -35,7 +36,7 @@ class DataObject < SpeciesSchemaModel
   has_many :collection_items, :as => :object
   has_many :users_data_objects
   has_many :users_data_objects_ratings, :foreign_key => 'data_object_guid', :primary_key => :guid
-  has_many :all_comments, :class_name => Comment.to_s, :foreign_key => 'parent_id', :finder_sql => 'SELECT c.* FROM #{Comment.full_table_name} c JOIN #{DataObject.full_table_name} do ON (c.parent_id = do.id) WHERE do.guid=\'#{guid}\''
+  has_many :all_comments, :class_name => Comment.to_s, :foreign_key => 'parent_id', :finder_sql => 'SELECT c.* FROM #{Comment.full_table_name} c JOIN #{DataObject.full_table_name} do ON (c.parent_id = do.id) WHERE do.guid=\'#{guid}\' AND c.parent_type = \'DataObject\''
   # has_many :all_comments, :class_name => Comment.to_s, :through => :all_versions, :source => :comments, :primary_key => :guid
   # # the select_with_include library doesn't allow to grab do.* one time, then do.id later on - but this would be a neat method,
   # has_many :all_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :select => 'id, guid'
@@ -650,17 +651,6 @@ class DataObject < SpeciesSchemaModel
     DataObjectTags.public_tags_for_data_object self
   end
 
-  # Names of taxa associated with this image
-  def taxa_names_taxon_concept_ids
-    results = SpeciesSchemaModel.connection.execute("SELECT n.string, he.taxon_concept_id
-        FROM data_objects_hierarchy_entries dohe
-        JOIN hierarchy_entries he ON (dohe.hierarchy_entry_id=he.id)
-        JOIN names n ON (he.name_id=n.id)
-        WHERE dohe.data_object_id = #{id}").all_hashes
-
-    results.map{|r| {:taxon_name => r['string'], :taxon_concept_id => r['taxon_concept_id']}}
-  end
-
   # returns a hash in the format { 'tag_key' => ['value1','value2'] }
   def tags_hash
     tags.inject({}) do |all,this|
@@ -674,10 +664,8 @@ class DataObject < SpeciesSchemaModel
     tags.map {|t| t.key }.uniq
   end
 
-  # TODO: Make documentation rdoc compatible
-  # Return taxon concepts directly associated with this Dato.
-  # default - returns all taxon concepts
-  # options:
+  # TODO - wow, this is expensive (IFF you pass in :published) ... we should really consider optimizing this, since
+  # it's actually used quite often. ...and in some cases, just to get the ID of the first one.  Ouch.
   # :published -> :strict - return only published taxon concepts
   # :published -> :preferred - same as above, but returns unpublished taxon concepts if no published ones are found
   def get_taxon_concepts(opts = {})
@@ -685,39 +673,17 @@ class DataObject < SpeciesSchemaModel
     if created_by_user?
       @taxon_concepts = [taxon_concept_for_users_text]
     else
-      query = "
-        SELECT distinct tc.*
-        FROM hierarchy_entries he
-        JOIN taxon_concepts tc on he.taxon_concept_id = tc.id
-        JOIN data_objects_hierarchy_entries dh on dh.hierarchy_entry_id = he.id
-        WHERE dh.data_object_id = ?
-        ORDER BY tc.id -- DataObject#taxon_concepts(true)"
-      @taxon_concepts = TaxonConcept.find_by_sql([query, id])
+      @taxon_concepts = taxon_concepts
     end
-    tc, tc_with_supercedure = @taxon_concepts.partition {|item| item.supercedure_id == 0}
-    # find is aliased to recursive method to find taxon_concept without supercedure_id
-    tc += tc_with_supercedure.map {|item| TaxonConcept.find(item.id)}.compact
     if opts[:published]
-      published, unpublished = tc.partition {|item| item.published?}
+      published, unpublished = @taxon_concepts.partition {|item| TaxonConcept.find(item.id).published?}
       @taxon_concepts = (!published.empty? || opts[:published] == :strict) ? published : unpublished
-    else
-      @taxon_concepts = tc
     end
+    @taxon_concepts
   end
 
   def linked_taxon_concept
-    if created_by_user?
-      @taxon_concept ||= taxon_concept_for_users_text
-    else
-      @taxon_concept ||= TaxonConcept.find_by_sql(["
-        SELECT tc.*
-        FROM data_objects_hierarchy_entries dohe
-        JOIN hierarchy_entries he ON (dohe.hierarchy_entry_id=he.id)
-        JOIN taxon_concepts tc ON (he.taxon_concept_id=tc.id)
-        WHERE dohe.data_object_id=?
-        ORDER BY tc.id -- DataObject#taxon_concepts
-      ", id])[0]
-    end
+    get_taxon_concepts.first
   end
 
   def curate(user, opts)
@@ -1089,8 +1055,13 @@ class DataObject < SpeciesSchemaModel
     nil
   end
 
+  # Note: the uniq may be overkill, but I figured it couldn't hurt that much and might be helpful.
+  def curated_hierarchy_entries
+    (hierarchy_entries + curated_data_objects_hierarchy_entries.map {|c| c.hierarchy_entry }).uniq
+  end
+
   def published_entries
-    hierarchy_entries.select{ |he| he.published == 1 && he.visibility_id == Visibility.visible.id }
+    curated_hierarchy_entries.select{ |he| he.published == 1 && he.visibility_id == Visibility.visible.id }
   end
 
   def first_concept_name
@@ -1126,7 +1097,27 @@ class DataObject < SpeciesSchemaModel
     users_data_objects && users_data_objects[0] && ! users_data_objects[0].user.blank?
   end
 
+  def add_curated_association(user, hierarchy_entry)
+    cdohe = CuratedDataObjectsHierarchyEntry.create(:hierarchy_entry_id => hierarchy_entry.id,
+                                                    :data_object_id => self.id, :user_id => user.id)
+    log_association(cdohe, user, hierarchy_entry, :add_association)
+  end
+
+  def remove_curated_association(user, hierarchy_entry)
+    cdohe = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(id, hierarchy_entry.id)
+    raise EOL::Exceptions::ObjectNotFound if cdohe.nil?
+    raise EOL::Exceptions::WrongCurator.new("user did not create this association") unless cdohe.user_id = user.id
+    cdohe.destroy
+    log_association(cdohe, user, hierarchy_entry, :remove_association)
+  end
+
 private
+
+  def log_association(object, user, hierarchy_entry, action)
+    CuratorDataObjectLog.create(:data_object => self, :user => user,
+                                :curator_activity => CuratorActivity.send(action))
+    user.track_curator_activity(object, 'curated_data_objects_hierarchy_entry', action.to_s)
+  end
 
   def trust(user, opts = {})
     update_attributes({:vetted_id => Vetted.trusted.id, :curated => true})

@@ -1,0 +1,12 @@
+#page-separator-general
+#page-title
+  %h1= I18n.t(:account_confirmation) 
+  %hr
+#page-content.clearfix
+  / center page content
+  #full-page-content
+    - if @user.blank?
+      =I18n.t("sorry__but_the_account_confirm")
+    - else
+      =I18n.t("thanks__your_account_confirmat")
+      == #{link_to I18n.t(:login) ,:action=>'login'}.

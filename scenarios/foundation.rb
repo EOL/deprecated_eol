@@ -1,8 +1,11 @@
 # sets up a basic foundation - enough data to run the application, but no content
+truncate_all_tables(:skip_empty_tables => false) # We do this to make sure the IDs on all of the tables start at 1.
 
-$CACHE.clear # because we are resetting everything!  Sometimes, say, iucn is set.
-old_cache_value = $CACHE.clone
-$CACHE = nil
+old_cache_value = nil
+if $CACHE
+  $CACHE.clear # because we are resetting everything!  Sometimes, say, iucn is set.
+  old_cache_value = $CACHE.clone
+end
 
 # These are two of the most important rows in the database now; translated tables will fail without these.
 e = Language.gen_if_not_exists(:iso_639_1 => 'en', :source_form => 'English')
@@ -32,6 +35,8 @@ CuratorActivity.gen_if_not_exists(:code => 'inappropriate')
 CuratorActivity.gen_if_not_exists(:code => 'approve')
 CuratorActivity.gen_if_not_exists(:code => 'disapprove')
 CuratorActivity.gen_if_not_exists(:code => 'unreviewed')
+CuratorActivity.gen_if_not_exists(:code => 'add_association')
+CuratorActivity.gen_if_not_exists(:code => 'remove_association')
 
 # what one can do with a data_object
 ActionWithObject.gen_if_not_exists(:action_code => 'create')
@@ -44,6 +49,8 @@ ActionWithObject.gen_if_not_exists(:action_code => 'hide')
 ActionWithObject.gen_if_not_exists(:action_code => 'inappropriate')
 ActionWithObject.gen_if_not_exists(:action_code => 'rate')
 ActionWithObject.gen_if_not_exists(:action_code => 'unreviewed')
+ActionWithObject.gen_if_not_exists(:action_code => 'add_association')
+ActionWithObject.gen_if_not_exists(:action_code => 'remove_association')
 
 # create_if_not_exists We don't technically *need* all three of these, but it's nice to have for the menu.  There are more, but we don't currently use
 # them.  create_if_not_exists Once we do, they should get added here.
@@ -51,10 +58,9 @@ ContactRole.gen_if_not_exists(:label => 'Primary Contact')
 ContactRole.gen_if_not_exists(:label => 'Administrative Contact')
 ContactRole.gen_if_not_exists(:label => 'Technical Contact')
 
+# Cannot create users without special collection:
 KnownPrivileges.create_all
-
 SpecialCollection.create_all
-
 Community.create_special
 
 iucn_agent = Agent.gen_if_not_exists(:full_name => 'IUCN')
@@ -173,6 +179,7 @@ ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'synonym')
 ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'taxon_concept_name')
 ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'tag')
 ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'users_submitted_text')
+ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'curated_data_objects_hierarchy_entry')
 
 RefIdentifierType.gen_if_not_exists(:label => 'url')
 
@@ -256,7 +263,6 @@ Visibility.gen_if_not_exists(:label => 'Preview')
 Visibility.gen_if_not_exists(:label => 'Inappropriate')
 
 FeedItemType.create_defaults
-TaskState.create_default
 
 # The home-page doesn't render without random taxa.  Note that other scenarios, if they build legitimate RandomTaxa,
 # will need to DELETE these before they make their own!  But for foundation's purposes, this is required:
@@ -265,5 +271,5 @@ d = DataObject.gen
 he = HierarchyEntry.gen(:hierarchy => default_hierarchy)
 5.times { RandomHierarchyImage.gen(:hierarchy => default_hierarchy, :hierarchy_entry => he, :data_object => d) }
 
-$CACHE = old_cache_value.clone
+$CACHE = old_cache_value.clone if old_cache_value
 $CACHE.clear

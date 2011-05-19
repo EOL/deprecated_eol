@@ -25,7 +25,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   has_many :actions_histories_on_data_objects, :class_name => ActionsHistory.to_s,
              :conditions => "actions_histories.changeable_object_type_id = #{ChangeableObjectType.raw_data_object_id}"
   has_many :users_data_objects
-  # has_many :user_ignored_data_objects
   has_many :collection_items, :as => :object
   has_many :collections
   has_many :google_analytics_partner_summaries
@@ -38,7 +37,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   # I wish these worked, but they need runtime evaluation.
   #has_one :watch_collection, :class_name => 'Collection', :conditions => { :special_collection_id => SpecialCollection.watch.id }
   #has_one :inbox_collection, :class_name => 'Collection', :conditions => { :special_collection_id => SpecialCollection.inbox.id }
-  #has_one :task_collection, :class_name => 'Collection', :conditions => { :special_collection_id => SpecialCollection.task.id }
 
   before_save :check_credentials
 
@@ -230,13 +228,16 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       User.count(:conditions => ['email = ?', email]) == 0
     end
   end
-
+  
+  def curator_request
+    return true unless curator_scope.blank? && credentials.blank?
+  end
+  
   def activate
     self.update_attributes(:active => true)
     Notifier.deliver_welcome_registration(self)
     build_watch_collection
     build_inbox_collection
-    build_task_collection
   end
 
   def build_watch_collection
@@ -245,10 +246,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   def build_inbox_collection
     Collection.create(:name => "#{self.username.titleize}'s Inbox Collection", :special_collection_id => SpecialCollection.inbox.id, :user_id => self.id)
-  end
-
-  def build_task_collection
-    Collection.create(:name => "#{self.username.titleize}'s Tasks", :special_collection_id => SpecialCollection.task.id, :user_id => self.id)
   end
 
   def password
@@ -463,12 +460,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def inbox_collection
     collection = Collection.find_by_user_id_and_special_collection_id(self.id, SpecialCollection.inbox.id)
     collection ||= build_inbox_collection
-    collection
-  end
-
-  def task_collection
-    collection = Collection.find_by_user_id_and_special_collection_id(self.id, SpecialCollection.task.id)
-    collection ||= build_task_collection
     collection
   end
 

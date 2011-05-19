@@ -105,8 +105,8 @@ describe 'EOL APIs' do
     @common_name1 = Synonym.gen(:hierarchy_entry => @hierarchy_entry, :name => name, :synonym_relation => relation, :language => language)
     name = Name.create(:string => 'Some jabberwocky')
     @common_name2 = Synonym.gen(:hierarchy_entry => @hierarchy_entry, :name => name, :synonym_relation => relation, :language => language)
-    
-    
+
+
     canonical_form = CanonicalForm.create(:string => 'Dus bus')
     name = Name.create(:canonical_form => @canonical_form, :string => 'Dus bus Linnaeus 1776')
     relation = SynonymRelation.gen_if_not_exists(:label => 'not common name')
@@ -139,11 +139,6 @@ describe 'EOL APIs' do
     recreate_solr_indexes
     visit("/api/pages/#{@taxon_concept.id}")
     @default_pages_body = body
-  end
-
-  before(:each) do
-    $CACHE.clear
-    reset_all_model_cached_instances
   end
 
   it 'ping should show success message' do
@@ -251,7 +246,7 @@ describe 'EOL APIs' do
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 1
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject/xmlns:mimeType').length.should == 2
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject/dc:description').length.should == 2
-    
+
     images = @taxon_concept.images
     # and they should still contain vetted and rating info
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"][last()]/xmlns:additionalInformation/xmlns:vettedStatus').
@@ -283,21 +278,21 @@ describe 'EOL APIs' do
     data_object = DataObject.find_by_guid(last_guid, :order => 'id desc')
     data_object.vetted_id.should == Vetted.unknown.id
   end
-  
+
   it 'pages should be able to toggle common names' do
     @default_pages_body.should_not include '<commonName'
-  
+
     visit("/api/pages/#{@taxon_concept.id}?common_names=1")
     body.should include '<commonName'
   end
-  
+
   it 'pages should show which common names are preferred' do
     visit("/api/pages/#{@taxon_concept.id}?common_names=1")
     xml_response = Nokogiri.XML(body)
     xml_response.xpath('//xmlns:taxon/xmlns:commonName[1]/@eol_preferred').inner_text.should == 'true'
     xml_response.xpath('//xmlns:taxon/xmlns:commonName[2]/@eol_preferred').inner_text.should == ''
   end
-  
+
   it 'pages should show data object vetted status and rating by default' do
     xml_response = Nokogiri.XML(@default_pages_body)
     images = @taxon_concept.images
@@ -306,7 +301,7 @@ describe 'EOL APIs' do
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"][last()]/xmlns:additionalInformation/xmlns:dataRating').
       inner_text.should == images.first.data_rating.to_s
   end
-  
+
   it 'pages should be able to toggle synonyms' do
     taxon = TaxonConcept.gen(:published => 1, :supercedure_id => 0)
     hierarchy = Hierarchy.gen(:label => 'my hierarchy', :browsable => 1)

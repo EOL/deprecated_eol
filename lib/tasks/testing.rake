@@ -68,3 +68,10 @@ task :spechtml do
   puts cmd
   puts `#{ cmd }`
 end
+
+desc 'Run several checks on the validity of I18n tools, such as missing values, hard-coded strings, and the like.'
+task :check_i18n => :environment do
+  require File.join(RAILS_ROOT, 'lib', 'eol', 'check_i18n_files')
+  EOL::CheckI18nFiles.new
+end
+

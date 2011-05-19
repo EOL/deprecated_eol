@@ -7,6 +7,7 @@ describe Community do
     @description = "Valid description"
     SpecialCollection.create_all
     FeedItemType.create_defaults
+    load_foundation_cache # Needs data_type info.
   end
 
   it 'should validate the name' do
@@ -47,7 +48,7 @@ describe Community do
 
   it 'should be able to create the special community' do
     Community.delete_all(:name => $SPECIAL_COMMUNITY_NAME)
-    Community.special.should be_nil
+    lambda { Community.special }.should raise_error
     Community.create_special
     Community.special.should_not be_nil
     Community.special.name.should == $SPECIAL_COMMUNITY_NAME

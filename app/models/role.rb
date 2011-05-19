@@ -5,7 +5,7 @@
 # like a lot of duplicates in the roles table.  But each community has full control of that role, so they are in fact
 # separate entities.  See Role#add_defaults_to_community.
 class Role < ActiveRecord::Base
-  
+
   belongs_to :community
 
   has_and_belongs_to_many :privileges
@@ -51,7 +51,7 @@ class Role < ActiveRecord::Base
   end
 
   def remove_privilege(priv)
-    privileges.delete(priv)    
+    privileges.delete(priv)
   end
 
   def can?(priv)

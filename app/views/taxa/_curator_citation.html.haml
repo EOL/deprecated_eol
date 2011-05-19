@@ -7,11 +7,8 @@
       = "Editor."
     - elsif curators.size > 1
       = "Editors."
-  =I18n.t("_var__taxon_concept_title__ses", :var__taxon_concept_title__session_hierarchy_ => @taxon_concept.title(@session_hierarchy))
-  %a{ :href => this_url = url_for(:controller=>'/taxa', :action=>'show', :id=>@taxon_concept.id), :target => "_blank" }><
-    =I18n.t("http___var__site_domain_or_ipv", :var__site_domain_or_ip => $SITE_DOMAIN_OR_IP, :var_this_url => this_url)
-  =I18n.t("___accessed")
-  == #{Time.now.strftime("%d %b %Y")}.
+  - this_url = url_for(:controller=>'/taxa', :action=>'show', :id=>@taxon_concept.id)
+  = I18n.t(:page_reference, :title => @taxon_concept.title(@session_hierarchy), :domain_or_ip => $SITE_DOMAIN_OR_IP, :this_url => this_url, :date => Time.now.strftime("%d %b %Y"))
 
   /
     =I18n.t("example_")

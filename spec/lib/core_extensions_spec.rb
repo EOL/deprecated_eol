@@ -5,44 +5,44 @@ describe String do
     it "should remove undesired characters" do
       ':;,.()[]!?*_\\/"\''.normalize.should == ''
     end
-    
+
     it "should remove multiple spaces, tabs" do
       "a a  a   a    a".normalize.should == "a a a a a"
       "a\ta\t a\t\ta".normalize.should == "a a a a"
     end
-    
+
     it "should remove tags" do
       "<i>a</i> a <>        <><>".normalize.should == "a a "
     end
-    
+
     it "should covert ascii to lower case" do
       "ABCDEFG".normalize.should == "abcdefg"
     end
-    
-    it "should do all substitutions together" do 
+
+    it "should do all substitutions together" do
       "abc<\t        i>a</i>:; ,.(Laddnda\t   )[]!?*_\\dd  \t  dd/\"'".normalize.should == "abca laddnda dd dd"
     end
   end
-  
+
   describe 'balance tags' do
     it 'should prepend tags' do
       '</div></div>'.balance_tags.should == '<div><div></div></div>'
       '<div></div></div>'.balance_tags.should == '<div><div></div></div>'
       '<div></div></div><div>'.balance_tags.should == '<div><div></div></div><div></div>'
     end
-    
+
     it 'should balance tags with attributes' do
       '<div class="ok"></div></div>'.balance_tags.should == '<div><div class="ok"></div></div>'
       '<div id="23"></div></div><div alt="text">'.balance_tags.should == '<div><div id="23"></div></div><div alt="text"></div>'
     end
-    
+
     it 'should balance divs before p tags' do
       '</div></p>'.balance_tags.should == '<p><div></div></p>'
       '<p></div></p>'.balance_tags.should == '<div><p></div></p>'
       '</p><p></div></p>'.balance_tags.should == '<p><div></p><p></div></p>'
     end
   end
-  
+
   describe "cleanup_for_presentation" do
     it "should remove long underscore lines" do
       "____".cleanup_for_presentation.should == "____"
@@ -60,13 +60,13 @@ describe Array do
     arr.length.should == 1
     arr[0]['id'].should == 2
   end
-  
+
   it 'should group objects by an attribute' do
     obj = DataObject.gen
     obj2 = obj.clone
     obj2.id = 99999
     arr = [obj2, obj]
-    
+
     grouped_arr = arr.group_objects_by('guid')
     grouped_arr.length.should == 1
     grouped_arr[0].id.should == obj2.id
@@ -82,14 +82,14 @@ describe Hash do
     # this is what I thought was a bug - I've duplicated the array but the values are still identical
     # Even though dup_h is changed, according to Rails it shoul have changes h as well. Enter deepcopy
     dup_h.should == h
-    
+
     h = {:a => [:b, :c]}
     dup_h = h.clone
     h.should == dup_h
     dup_h[:a].reject!{|v| v == :b }
     # same with clone
     dup_h.should == h
-    
+
     h = {:a => [:b, :c]}
     # now create a deep copy instead of clone or dup
     dup_h = h.deepcopy
@@ -99,9 +99,6 @@ describe Hash do
     dup_h.should == {:a => [:c]}
     h.should == {:a => [:b, :c]}
   end
-end
-
-describe 'ActiveRecord::Base' do
 end
 
 describe Float do
@@ -121,7 +118,10 @@ end
 
 describe 'Uses Translations' do
   before(:all) do
-    truncate_all_tables
+    Language.delete_all
+    TranslatedLanguage.delete_all
+    Rank.delete_all
+    TranslatedRank.delete_all
     @en = Language.gen_if_not_exists(:iso_639_1 => 'en')
     TranslatedLanguage.gen_if_not_exists(:label => 'English', :original_language_id => @en.id)
     @fr = Language.gen_if_not_exists(:iso_639_1 => 'fr')
@@ -136,7 +136,7 @@ describe 'Uses Translations' do
     TranslatedRank.gen_if_not_exists(:label => 'Swahili uberkingdom', :rank_id => @uberkingdom.id, :language_id => @swahili.id)
     @hierarchy_entry = HierarchyEntry.gen()
   end
-  
+
   it 'should create methods for getting translated attributes' do
     @language.public_methods.include?('label').should == true
     @language.public_methods.include?('phonetic_label').should == true
@@ -145,19 +145,19 @@ describe 'Uses Translations' do
     @hierarchy_entry.public_methods.include?('label').should == false
     @hierarchy_entry.public_methods.include?('phonetic_label').should == false
   end
-  
+
   it 'should not have labels without translations' do
     @language.label.should == nil
     @rank.label.should == nil
   end
-  
+
   it 'should default to an English translation' do
     @swahili.label.should == 'Swahili'
     @swahili.label('en').should == 'Swahili'
     @uberkingdom.label.should == nil  # this rank didn't have an English label
     @uberkingdom.label('en').should == nil
   end
-  
+
   it 'should be able to return different translations' do
     @swahili.label('fr').should == 'French Swahili'
     @uberkingdom.label('sw').should == 'Swahili uberkingdom'

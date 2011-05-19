@@ -32,13 +32,30 @@
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1, startColorstr=#{$color1}, endColorstr=#{$color2})
   background-image: -moz-linear-gradient(100% 100% 180deg, $color2, $color1)
   background-image: -webkit-gradient(linear, left center, right center, from($color1), to($color2))
+= gradient-bg-horizontal($color1, $color2)
+  background-color: $color2
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1, startColorstr=#{$color1}, endColorstr=#{$color2})
+  background-image: -moz-linear-gradient(100% 100% 180deg, $color2, $color1)
+  background-image: -webkit-gradient(linear, left center, right center, from($color1), to($color2))
 
-= button($from: #408ebf, $to: #255491)
-  padding: 10px 24px
+= button($from: #ffffff, $to: #d7dde1)
+  padding: 7px 10px
   overflow: visible
-  font: bold 16px Helvetica, Arial, sans-serif
-  color: #ffffff
+  font: bold 1.08em Helvetica, Arial, sans-serif
+  color: #394651
+  text-transform: lowercase
   text-decoration: none
-  text-shadow: 0 1px 1px #333333
-  border: 1px solid #3270a7
+  border: 1px solid #939a9f
+  +border-radius(3px)
   +gradient-bg($from, $to)
+  cursor: pointer
+  &:hover
+    +gradient_bg(saturate($from + #111111, 10%), saturate($to + #111111, 10%))
+  &:active
+    +gradient-bg($from, $to)
+= textarea
+  padding: 8px
+  font: normal 1em Helvetica, Arial, sans-serif
+  color: #394651
+  border: 1px solid #cad3db
+  +gradient-bg(#f0f4f7, #ffffff)

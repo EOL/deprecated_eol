@@ -23,7 +23,7 @@ describe "FeedItems" do
 
   it 'should require log in to add an item to a feed' do
     visit feed_items_path(:type => 'User', :id => @user.id)
-    page.body.should_not have_tag('input#feed_item_body')
+    page.body.should_not have_tag('textarea#feed_item_body')
     page.body.should have_tag('a[href=?]', /\/login.*/)
   end
 

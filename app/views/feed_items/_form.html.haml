@@ -6,6 +6,6 @@
       = f.error_messages
       = f.hidden_field :feed_type
       = f.hidden_field :feed_id
-      = f.text_area :body, :cols => 30, :rows => 3
+      = f.text_field :body, :cols => 30, :rows => 3
     %fieldset.actions
       = f.submit I18n.t(:post_comment)

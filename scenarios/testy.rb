@@ -154,5 +154,7 @@ testy[:tcn2] = TaxonConceptName.find_by_synonym_id(testy[:syn2].id)
 testy[:superceded_taxon_concept] = TaxonConcept.gen(:supercedure_id => testy[:id])
 testy[:unpublished_taxon_concept] = TaxonConcept.gen(:published => 0, :supercedure_id => 0)
 
+testy[:before_all_check] = User.gen(:username => 'testy_scenario')
+
 
 EOL::TestInfo.save('testy', testy)

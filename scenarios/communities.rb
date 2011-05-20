@@ -42,6 +42,6 @@ communities[:community].focus.add(communities[:tc2])
 
 # Empty community, no feeds
 communities[:empty_community] = Community.gen
-
+communities[:before_all_check] = User.gen(:username => 'communities_scenario')
 
 EOL::TestInfo.save('communities', communities)

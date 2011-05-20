@@ -3,14 +3,12 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Collection do
 
   before(:all) do
-    truncate_all_tables
-    load_foundation_cache
-    @taxon_concept_1 = build_taxon_concept
-    @taxon_concept_2 = build_taxon_concept
-    @user = User.gen
-    @community = Community.gen
-    @collection = Collection.gen
-    @data_object = DataObject.gen
+    # so this part of the before :all runs only once
+    unless User.find_by_username('collections_scenario')
+      truncate_all_tables
+      load_scenario_with_caching(:collections)
+    end
+    @test_data = EOL::TestInfo.load('collections')
   end
 
   describe 'validations' do
@@ -25,17 +23,17 @@ describe Collection do
     end
 
     it 'should be valid when only a community ID is specified' do
-      l = Collection.new(:name => 'whatever', :community_id => @community.id)
+      l = Collection.new(:name => 'whatever', :community_id => @test_data[:community].id)
       l.valid?.should be_true
     end
 
     it 'should be valid when only a user ID is specified' do
-      l = Collection.new(:name => 'whatever', :user_id => @user.id)
+      l = Collection.new(:name => 'whatever', :user_id => @test_data[:user].id)
       l.valid?.should be_true
     end
 
     it 'should be INVALID when a user AND a community are specified' do
-      l = Collection.new(:name => 'whatever', :user_id => @user.id, :community_id => @community.id)
+      l = Collection.new(:name => 'whatever', :user_id => @test_data[:user].id, :community_id => @test_data[:community].id)
       l.valid?.should_not be_true
     end
 
@@ -45,26 +43,26 @@ describe Collection do
     end
 
     it 'should be INVALID when the name is identical within the scope of a user' do
-      Collection.gen(:name => 'A name', :user_id => @user.id)
-      l = Collection.new(:name => 'A name', :user_id => @user.id)
+      Collection.gen(:name => 'A name', :user_id => @test_data[:user].id)
+      l = Collection.new(:name => 'A name', :user_id => @test_data[:user].id)
       l.valid?.should_not be_true
     end
 
     it 'should be valid when the same name is used by another user' do
       Collection.gen(:name => 'Another name', :user_id => @another_user.id)
-      l = Collection.new(:name => 'Another name', :user_id => @user.id)
+      l = Collection.new(:name => 'Another name', :user_id => @test_data[:user].id)
       l.valid?.should be_true
     end
 
     it 'should be INVALID when the name is identical within the scope of ALL communities' do
       Collection.gen(:name => 'Something new', :community_id => @another_community.id, :user_id => nil)
-      l = Collection.new(:name => 'Something new', :community_id => @community.id)
+      l = Collection.new(:name => 'Something new', :community_id => @test_data[:community].id)
       l.valid?.should_not be_true
     end
 
     it 'should be INVALID when a community already has a collection' do
-      Collection.gen(:name => 'ka-POW!', :community_id => @community.id, :user_id => nil)
-      l = Collection.new(:name => 'Entirely different', :community_id => @community.id)
+      Collection.gen(:name => 'ka-POW!', :community_id => @test_data[:community].id, :user_id => nil)
+      l = Collection.new(:name => 'Entirely different', :community_id => @test_data[:community].id)
       l.valid?.should_not be_true
     end
 
@@ -72,32 +70,32 @@ describe Collection do
 
   it 'should be able to add TaxonConcept collection items' do
     collection = Collection.gen
-    collection.add(@taxon_concept_1)
-    collection.collection_items.last.object.should == @taxon_concept_1
+    collection.add(@test_data[:taxon_concept_1])
+    collection.collection_items.last.object.should == @test_data[:taxon_concept_1]
   end
 
   it 'should be able to add User collection items' do
     collection = Collection.gen
-    collection.add(@user)
-    collection.collection_items.last.object.should == @user
+    collection.add(@test_data[:user])
+    collection.collection_items.last.object.should == @test_data[:user]
   end
 
   it 'should be able to add DataObject collection items' do
     collection = Collection.gen
-    collection.add(@data_object)
-    collection.collection_items.last.object.should == @data_object
+    collection.add(@test_data[:data_object])
+    collection.collection_items.last.object.should == @test_data[:data_object]
   end
 
   it 'should be able to add Community collection items' do
     collection = Collection.gen
-    collection.add(@community)
-    collection.collection_items.last.object.should == @community
+    collection.add(@test_data[:community])
+    collection.collection_items.last.object.should == @test_data[:community]
   end
 
   it 'should be able to add Collection collection items' do
     collection = Collection.gen
-    collection.add(@collection)
-    collection.collection_items.last.object.should == @collection
+    collection.add(@test_data[:community])
+    collection.collection_items.last.object.should == @test_data[:community]
   end
 
   it 'should NOT be able to add Agent items' do # Really, we don't care about Agents, per se, just "anything else".
@@ -109,13 +107,13 @@ describe Collection do
 
     it 'should create the community' do
       collection = Collection.gen
-      collection.add(@taxon_concept_1)
-      collection.add(@taxon_concept_2)
-      collection.add(@user)
+      collection.add(@test_data[:taxon_concept_1])
+      collection.add(@test_data[:taxon_concept_2])
+      collection.add(@test_data[:user])
       community = collection.create_community
-      community.focus.collection_items.map {|li| li.object }.include?(@taxon_concept_1).should be_true
-      community.focus.collection_items.map {|li| li.object }.include?(@taxon_concept_2).should be_true
-      community.focus.collection_items.map {|li| li.object }.include?(@user).should be_true
+      community.focus.collection_items.map {|li| li.object }.include?(@test_data[:taxon_concept_1]).should be_true
+      community.focus.collection_items.map {|li| li.object }.include?(@test_data[:taxon_concept_2]).should be_true
+      community.focus.collection_items.map {|li| li.object }.include?(@test_data[:user]).should be_true
     end
 
   end
@@ -163,8 +161,8 @@ describe Collection do
   end
 
   it 'should know when it is a focus list' do
-    @collection.is_focus_list?.should_not be_true
-    @community.focus.is_focus_list?.should be_true
+    @test_data[:collection].is_focus_list?.should_not be_true
+    @test_data[:community].focus.is_focus_list?.should be_true
   end
 
   it 'should be able to find published collections in a search'

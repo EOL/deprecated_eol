@@ -14,9 +14,11 @@ end
 describe 'Taxa overview' do
 
   before(:all) do
-
-    truncate_all_tables
-    load_scenario_with_caching(:testy)
+    # so this part of the before :all runs only once
+    unless User.find_by_username('testy_scenario')
+      truncate_all_tables
+      load_scenario_with_caching(:testy)
+    end
     @testy = EOL::TestInfo.load('testy')
     Capybara.reset_sessions!
     HierarchiesContent.delete_all

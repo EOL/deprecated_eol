@@ -3,48 +3,46 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe "Collections controller" do
 
   before(:all) do
-    truncate_all_tables
-    load_foundation_cache
+    # so this part of the before :all runs only once
+    unless User.find_by_username('collections_scenario')
+      truncate_all_tables
+      load_scenario_with_caching(:collections)
+    end
     Capybara.reset_sessions!
-    @user = User.gen
-    @user2 = User.gen # This user is very likeable.
-    @taxon_concept = build_taxon_concept(:images => [{}]) # One image
-    @image = @taxon_concept.images.first
-    @community = Community.gen
-    @collection = Collection.gen
+    @test_data = EOL::TestInfo.load('collections')
   end
 
   describe "(logged in)" do
 
     before(:all) do
-      login_as @user
+      login_as @test_data[:user]
     end
 
     describe "should allow users to watch" do
 
       it 'taxa' do
-        visit watch_path(:type => 'TaxonConcept', :id => @taxon_concept.id)
-        @user.watch_collection.items.map {|li| li.object }.include?(@taxon_concept).should be_true
+        visit watch_path(:type => 'TaxonConcept', :id => @test_data[:taxon_concept].id)
+        @test_data[:user].watch_collection.items.map {|li| li.object }.include?(@test_data[:taxon_concept]).should be_true
       end
 
       it 'data objects' do
-        visit watch_path(:type => 'DataObject', :id => @image.id)
-        @user.watch_collection.items.map {|li| li.object }.include?(@image).should be_true
+        visit watch_path(:type => 'DataObject', :id => @test_data[:taxon_concept].images.first.id)
+        @test_data[:user].watch_collection.items.map {|li| li.object }.include?(@test_data[:taxon_concept].images.first).should be_true
       end
 
       it 'communities' do
-        visit watch_path(:type => 'Community', :id => @community.id)
-        @user.watch_collection.items.map {|li| li.object }.include?(@community).should be_true
+        visit watch_path(:type => 'Community', :id => @test_data[:community].id)
+        @test_data[:user].watch_collection.items.map {|li| li.object }.include?(@test_data[:community]).should be_true
       end
 
       it 'collections' do
-        visit watch_path(:type => 'Collection', :id => @collection.id)
-        @user.watch_collection.items.map {|li| li.object }.include?(@collection).should be_true
+        visit watch_path(:type => 'Collection', :id => @test_data[:collection].id)
+        @test_data[:user].watch_collection.items.map {|li| li.object }.include?(@test_data[:collection]).should be_true
       end
 
       it 'users' do
-        visit watch_path(:type => 'User', :id => @user2.id)
-        @user.watch_collection.items.map {|li| li.object }.include?(@user2).should be_true
+        visit watch_path(:type => 'User', :id => @test_data[:user2].id)
+        @test_data[:user].watch_collection.items.map {|li| li.object }.include?(@test_data[:user2]).should be_true
       end
 
     end
@@ -52,28 +50,28 @@ describe "Collections controller" do
     describe "should allow users to collect" do
 
       it 'taxa' do
-        visit collect_path(:type => 'TaxonConcept', :id => @taxon_concept.id)
-        @user.inbox_collection.items.map {|li| li.object }.include?(@taxon_concept).should be_true
+        visit collect_path(:type => 'TaxonConcept', :id => @test_data[:taxon_concept].id)
+        @test_data[:user].inbox_collection.items.map {|li| li.object }.include?(@test_data[:taxon_concept]).should be_true
       end
 
       it 'data objects' do
-        visit collect_path(:type => 'DataObject', :id => @image.id)
-        @user.inbox_collection.items.map {|li| li.object }.include?(@image).should be_true
+        visit collect_path(:type => 'DataObject', :id => @test_data[:taxon_concept].images.first.id)
+        @test_data[:user].inbox_collection.items.map {|li| li.object }.include?(@test_data[:taxon_concept].images.first).should be_true
       end
 
       it 'communities' do
-        visit collect_path(:type => 'Community', :id => @community.id)
-        @user.inbox_collection.items.map {|li| li.object }.include?(@community).should be_true
+        visit collect_path(:type => 'Community', :id => @test_data[:community].id)
+        @test_data[:user].inbox_collection.items.map {|li| li.object }.include?(@test_data[:community]).should be_true
       end
 
       it 'collections' do
-        visit collect_path(:type => 'Collection', :id => @collection.id)
-        @user.inbox_collection.items.map {|li| li.object }.include?(@collection).should be_true
+        visit collect_path(:type => 'Collection', :id => @test_data[:collection].id)
+        @test_data[:user].inbox_collection.items.map {|li| li.object }.include?(@test_data[:collection]).should be_true
       end
 
       it 'users' do
-        visit collect_path(:type => 'User', :id => @user2.id)
-        @user.inbox_collection.items.map {|li| li.object }.include?(@user2).should be_true
+        visit collect_path(:type => 'User', :id => @test_data[:user2].id)
+        @test_data[:user].inbox_collection.items.map {|li| li.object }.include?(@test_data[:user2]).should be_true
       end
 
     end
@@ -85,7 +83,7 @@ describe "Collections controller" do
         @show_collection = Collection.gen(:user => @show_user)
         @show_items = []
         @show_items[0] = @show_collection.add(@shown_taxon_concept = build_taxon_concept(:images => [{}]))
-        @show_items[1] = @show_collection.add(@shown_image = @taxon_concept.images.first)
+        @show_items[1] = @show_collection.add(@shown_image = @test_data[:taxon_concept].images.first)
         @show_items[2] = @show_collection.add(@shown_community = Community.gen)
         @show_items[3] = @show_collection.add(@shown_collection = Collection.gen)
       end
@@ -159,9 +157,9 @@ describe "Collections controller" do
     it 'should NOT allow users WITHOUT privileges to remove collection items'
 
     it 'should NOT allow users to rename or delete "watch" collections' do
-      login_as @user
-      visit community_path(@user.watch_collection)
-      page.body.should_not have_tag("a[href=?]", collection_path(@user.watch_collection), :text => /delete/i)
+      login_as @test_data[:user]
+      visit community_path(@test_data[:user].watch_collection)
+      page.body.should_not have_tag("a[href=?]", collection_path(@test_data[:user].watch_collection), :text => /delete/i)
       page.body.should_not have_tag("a", :text => /change name/i)
       page.body.should_not have_tag("input#collection_name")
     end

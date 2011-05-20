@@ -24,11 +24,7 @@ db/schema.rb
 doc/app
 lang/tmp.yml
 log/*.log
-log/i18n_missing_keys.txt
-log/i18n_missing_en_keys.txt
-log/hard_coded_html_erb.txt
-log/hard_coded_controllers.txt
-log/hard_coded_html_haml.txt
+log/*.txt
 public/feeds
 public/javascripts/*-cached_packaged.js
 public/opensearch.xml

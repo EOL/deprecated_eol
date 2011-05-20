@@ -27,6 +27,8 @@ testy[:empty_taxon_concept] =
 
 testy[:overview]        = TocItem.overview
 testy[:overview_text]   = 'This is a test Overview, in all its glory'
+testy[:brief_summary]   = TocItem.brief_summary
+testy[:brief_summary_text] = 'This is a test brief summary.'
 testy[:toc_item_2]      = TocItem.gen_if_not_exists(:view_order => 2, :label => "test toc item 2")
 testy[:toc_item_3]      = TocItem.gen_if_not_exists(:view_order => 3, :label => "test toc item 3")
 testy[:canonical_form]  = Factory.next(:species) + 'tsty'
@@ -73,6 +75,7 @@ tc = build_taxon_concept(
                        {:object_cache_url => testy[:image_unknown_trust], :vetted => Vetted.unknown},
                        {}, {}, {}, {}, {}, {}], # We want more than 10 images, to test pagination, but the details don't mattr
   :toc             => [{:toc_item => testy[:overview], :description => testy[:overview_text]},
+                       {:toc_item => testy[:brief_summary], :description => testy[:brief_summary_text]},
                        {:toc_item => testy[:toc_item_2]}, {:toc_item => testy[:toc_item_3]}]
 )
 testy[:id]            = tc.id

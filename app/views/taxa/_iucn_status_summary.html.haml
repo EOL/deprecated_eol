@@ -1,7 +1,7 @@
 - # TODO: Find out what this should look like for V2, e.g. should we show 'not evaluated'.
 - # Also is the iucn_conservation_status ever blank or nil? Looks like it returns 'not evaluated' if empty?
 - unless @taxon_concept.iucn_conservation_status.blank?
-  #iucn_status_container
+  #iucn_status
     %h2= I18n.t(:threat_status_header)
     %dl
       %dt= I18n.t(:iucn_red_list_status_html)

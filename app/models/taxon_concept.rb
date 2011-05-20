@@ -1108,16 +1108,20 @@ class TaxonConcept < SpeciesSchemaModel
     text = DataObject.filter_list_for_user(text, :user => options[:user])
     text = DataObject.sort_by_rating(text)
 
+    return nil if text.empty? || text.nil?
+
     datos_to_load = []
     toc_item_objects.each do |toc_item|
-      items = text.select{ |t| t.toc_items && t.toc_items.include?(toc_item) }
-      unless items.blank?
-        if options[:limit].nil? || options[:limit].to_i == 0
-          datos_to_load += items
-        elsif options[:limit].to_i == 1
-          datos_to_load << items[0]
-        elsif options[:limit].to_i > 1
-          datos_to_load += items[0..options[:limit].to_i]
+      unless toc_item.nil?
+        items = text.select{ |t| t.toc_items && t.toc_items.include?(toc_item) }
+        unless items.blank? || items.nil?
+          if options[:limit].nil? || options[:limit].to_i == 0
+            datos_to_load += items
+          elsif options[:limit].to_i == 1
+            datos_to_load << items[0]
+          elsif options[:limit].to_i > 1
+            datos_to_load += items[0..options[:limit].to_i]
+          end
         end
       end
     end

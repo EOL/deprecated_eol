@@ -58,29 +58,7 @@ describe 'Curation' do
 
   context "on taxon overview" do
 
-    it 'should not show curation button when not logged in (obsolete?)'
-
-    it 'should show curation (contribute?) button on taxon overview when logged in as curator'
-
-    it 'should not have a curation panel when not logged in as a curator (obsolete?)'
-
-    it 'should show the curator list link (obsolete?)'
-
-    it 'should show the curator list link when there has been no activity (obsolete?)'
-
-    it 'should confirm that the page doesn\'t have the citation if there is no active curator for the taxon_concept' do
-      LastCuratedDate.delete_all
-      visit("/pages/#{@taxon_concept.id}")
-      body.should_not have_tag('div.number_of_active_curators')
-    end
-
-    it 'should still have a page citation block when there are no curators' do
-      LastCuratedDate.delete_all
-      visit("/pages/#{@taxon_concept.id}")
-      body.should have_tag('div#page-citation')
-    end
-
-    it 'should say the page has citation (obsolete?)'
+    it 'should show a list of acting curators with a photo, curator name and expertise'
 
     it 'should change the curator count if another curator curates an image'
       #num_curators = @taxon_concept.acting_curators.length
@@ -89,7 +67,6 @@ describe 'Curation' do
       #@taxon_concept.acting_curators.length.should == num_curators + 1
       #visit("/pages/#{@taxon_concept.id}")
       #body.should have_tag('h2', :text => /#{num_curators + 1} curators/i)
-
 
     it 'should change the number of curators if another curator curates a text object'
       #@taxon_concept.reload
@@ -100,12 +77,24 @@ describe 'Curation' do
       #visit("/pages/#{@taxon_concept.id}")
       #body.should have_tag('h2', :text => /#{num_curators + 1} curators/i)
 
-    it 'should have a link from N curators to the citation (obsolete?)'
-
     it 'should have a link from name of curator to account page'
       #@default_page.should have_tag('div#curators_container') do
         #with_tag('a[href*=?]', /\/account\/show\/#{@taxon_concept.acting_curators.first.id}/)
       #end
+
+    it 'should not show curation button when not logged in (obsolete?)'
+
+    it 'should show curation (contribute?) button on taxon overview when logged in as curator'
+
+    it 'should not have a curation panel when not logged in as a curator (obsolete?)'
+
+    it 'should show the curator list link (obsolete?)'
+
+    it 'should show the curator list link when there has been no activity (obsolete?)'
+
+    it 'should say the page has citation (obsolete?)'
+
+    it 'should have a link from N curators to the citation (obsolete?)'
 
     it 'should still have a curator name in citation after changing clade (obsolete?)'
       #@default_page.should have_tag('div#page-citation', /#{@first_curator.family_name}/)

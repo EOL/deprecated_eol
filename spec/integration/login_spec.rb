@@ -47,44 +47,23 @@ describe 'Login' do
     user.reload.remember_token.should_not be_blank
   end
 
-  it 'should say hello to the user after logging in' do
+  it 'should indicate to user that they are logged in' do
     user = User.gen :username => 'charliebrown'
-    visit('/')
-    body.should_not include_text("Logged in as #{ user.given_name }")
+    visit('/profile')
+    body.should_not have_tag('.desc-personal', /#{user.given_name}/)
     login_as(user)
-    visit('/')
-    body.should include_text("Logged in as #{ user.given_name }")
+    visit('/profile')
+    body.should have_tag('.desc-personal', /#{user.given_name}/)
   end
 
   it 'should be able to logout user' do
     user = User.gen :username => 'johndoe'
-    greetings = "Logged in as #{user.given_name}"
     login_as(user)
-    visit('/')
-    body.should have_tag('#header') do
-      with_tag('p', :text => /#{greetings}/)
-    end
+    visit('/profile')
+    body.should have_tag('.desc-personal', /#{user.given_name}/)
     visit('/logout')
-    visit('/')
-    body.should_not have_tag('p', :text => /#{greetings}/)
-  end
-
-  it 'should not show the curator link and name must not have hyperlink to profile page' do
-    user = User.gen :username => 'charliebrown'
-    login_as(user)
-    visit('/')
-    body.should_not include_text('Curation')
-    body.should include_text("Logged in as")
-  end
-
-  describe "as a curator" do
-
-    it "should show the curator link and name must have hyperlink to profile page" do
-      curator = build_curator(HierarchyEntry.gen, :username => 'test_curator')
-      login_as(curator)
-      body.should include_text("Curation")
-      body.should include_text("Logged in as")
-    end
+    visit('/profile')
+    body.should_not have_tag('.desc-personal', /#{user.given_name}/)
   end
 
 end

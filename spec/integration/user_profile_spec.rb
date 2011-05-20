@@ -53,17 +53,17 @@ describe 'User Profile' do
     it 'should show all of their specific lists'
 
     it 'should show their feed' do
-      page.body.should have_tag('ul.feed') do
-        with_tag('.feed_item .body', :text => @feed_body_1)
-        with_tag('.feed_item .body', :text => @feed_body_2)
-        with_tag('.feed_item .body', :text => @feed_body_3)
+      page.body.should have_tag('#feed_items') do
+        with_tag('.details', :text => @feed_body_1)
+        with_tag('.details', :text => @feed_body_2)
+        with_tag('.details', :text => @feed_body_3)
       end
     end
 
     it 'should show an empty feed' do
       @lonely_user = User.gen
       visit(user_path(@lonely_user))
-      page.body.should have_tag('#feed_items_container', :text => /no activity/i)
+      page.body.should have_tag('#feed_items', :text => /no activity/i)
     end
 
   end

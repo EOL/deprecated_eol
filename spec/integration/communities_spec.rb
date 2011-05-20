@@ -97,17 +97,17 @@ describe "Communities" do
     context 'visiting show community with feeds' do
       before(:all) { visit community_path(@test_data[:community]) }
       it 'should show feed items' do
-        body.should have_tag('ul.feed') do
-          with_tag('.feed_item .body', :text => @test_data[:feed_body_1])
-          with_tag('.feed_item .body', :text => @test_data[:feed_body_2])
-          with_tag('.feed_item .body', :text => @test_data[:feed_body_3])
+        body.should have_tag('#feed_items') do
+          with_tag('.details', :text => @test_data[:feed_body_1])
+          with_tag('.details', :text => @test_data[:feed_body_2])
+          with_tag('.details', :text => @test_data[:feed_body_3])
         end
       end
     end
     context 'visiting show community with empty feed' do
       before(:all) { visit community_path(@test_data[:empty_community]) }
       it 'should show empty feed message' do
-        body.should have_tag('#feed_items_container', :text => /no activity/i)
+        body.should have_tag('#feed_items', :text => /no activity/i)
       end
     end
   end
@@ -186,11 +186,11 @@ describe "Communities" do
       end
     end
   end
-  
+
   describe 'community member without community administration privileges' do
     before(:all) { login_as @test_data[:user_community_member] }
     it_should_behave_like 'community member'
-  
+
     context 'visiting show community' do
       before(:all) { visit community_path(@test_data[:community]) }
       subject { body }
@@ -223,11 +223,11 @@ describe "Communities" do
       end
     end
   end
-  
+
   describe 'community member with community administration privileges' do
     before(:all) { login_as @test_data[:user_community_administrator] }
     it_should_behave_like 'community member'
-  
+
     context 'visiting show community' do
       before(:all) { visit community_path(@test_data[:community]) }
       subject { body }

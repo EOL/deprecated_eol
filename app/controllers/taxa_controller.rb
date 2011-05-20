@@ -173,6 +173,7 @@ class TaxaController < ApplicationController
 
     @summary_text = @taxon_concept.summary_text
     @media = @taxon_concept.media
+    @feed_item = FeedItem.new(:feed_id => @taxon_concept.id, :feed_type => @taxon_concept.class.name)
 
     current_user.log_activity(:viewed_taxon_concept_overview, :taxon_concept_id => @taxon_concept.id)
 

@@ -33,16 +33,16 @@ describe 'Taxa overview' do
     # @see https://rspec.lighthouseapp.com/projects/5645/tickets/878-problem-using-with_tag
 
     it 'should show the taxon name and section name' do
-      should have_tag('#content h1', /^(#{@testy[:scientific_name]})(\n|.)*?(#{@section})$/i)
+      should have_tag('#page_heading h1', /^(#{@testy[:scientific_name]})(\n|.)*?(#{@section})$/i)
     end
     it 'should show the preferred common name' do
-      should have_tag('#content .article p:nth-child(2)', /^#{@testy[:common_name]}/)
+      should have_tag('#page_heading h2', /^#{@testy[:common_name]}/)
     end
     it 'should show a link to common names with count' do
-      should have_tag('#content .article a:nth-child(3)', /^#{@testy[:taxon_concept].common_names.count}/)
+      should have_tag('#page_heading h2 small', /^#{@testy[:taxon_concept].common_names.count}/)
     end
     it 'should show a gallery of four images' do
-      body.should have_tag("div#media_summary_gallery") do
+      body.should have_tag("div#media_summary") do
         with_tag("img[src$=#{@testy[:taxon_concept].images[0].smart_thumb[25..-1]}]")
         with_tag("img[src$=#{@testy[:taxon_concept].images[1].smart_thumb[25..-1]}]")
         with_tag("img[src$=#{@testy[:taxon_concept].images[2].smart_thumb[25..-1]}]")
@@ -102,26 +102,27 @@ describe 'Taxa overview' do
     it 'should show collections'
     it 'should show communities'
     it 'should show the activity feed' do
-      body.should have_tag('ul.feed') do
-        with_tag('.feed_item .body', @testy[:feed_body_1])
-        with_tag('.feed_item .body', @testy[:feed_body_2])
-        with_tag('.feed_item .body', @testy[:feed_body_3])
+      body.should have_tag('#feed_items ul') do
+        with_tag('.details', @testy[:feed_body_1])
+        with_tag('.details', @testy[:feed_body_2])
+        with_tag('.details', @testy[:feed_body_3])
       end
     end
     it 'should show curators' do
-      body.should have_tag('div#curators') do
+      body.should have_tag('div#curators_summary') do
         with_tag('.details h4', @testy[:curator].given_name)
       end
     end
   end
 
-  context 'when taxon does not have any common names' do
-    before(:all) { visit("/pages/#{@testy[:taxon_concept_with_no_common_names].id}") }
-    subject { body }
-    it 'should show common name count as 0' do
-      should have_tag('#content .article p:nth-child(2)', /^(#{@testy[:taxon_concept_with_no_common_names].common_names.count})/)
-    end
-  end
+  context 'when taxon does not have any common names'
+# TODO: figure out if this should be true and fix/remove as appropriate
+#    before(:all) { visit("/pages/#{@testy[:taxon_concept_with_no_common_names].id}") }
+#    subject { body }
+#    it 'should show common name count as 0' do
+#      should have_tag('#page_heading h2 small', /^(#{@testy[:taxon_concept_with_no_common_names].common_names.count})/)
+#    end
+
 
   # @see 'should render when an object has no agents' in old taxa page spec
   context 'when taxon image does not have an agent' do
@@ -132,7 +133,7 @@ describe 'Taxa overview' do
     before(:all) { visit("/pages/#{@testy[:exemplar].id}") }
     subject { body }
     it 'should show an empty feed' do
-      should have_tag('#feed_items_container p.empty', /no activity/i)
+      should have_tag('#feed_items p.empty', /no activity/i)
     end
   end
 

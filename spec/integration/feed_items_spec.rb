@@ -5,7 +5,7 @@ def test_list_of_items(instance)
   3.times { posts << Faker::Lorem.words(1)[0] }
   posts.each {|p| instance.feed.post p }
   visit feed_items_path(:type => instance.class.name, :id => instance.id)
-  posts.each {|p| page.body.should have_tag('.body', :text => p) }
+  posts.each {|p| page.body.should have_tag('.details', /#{p}/) }
 end
 
 describe "FeedItems" do

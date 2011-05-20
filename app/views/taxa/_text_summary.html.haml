@@ -1,14 +1,16 @@
 #text_summary.article.copy
   - unless @summary_text.nil?
     - @summary_text.each do |dato|
-      - subtitle = dato.subtitle_to_show
-      - subtitle = dato.toc_items[0].label if subtitle.empty?
-      %div{:class => vetted_id_class(dato), :data => { :text_id =>  dato.id } }
-        .header
-          %h3= hh(subtitle)
-          = link_to(I18n.t(:text_summary_more_link), '/placeholder')
-        - # TODO: If our text data object does not contain p tags can we add them?
-        - # Without them the text block does not have any semantic meaning.
-        = dato.description.balance_tags
-        .attribution
-          = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => dato }
+      - unless dato.description.empty? || dato.description.nil?
+        - subtitle = dato.subtitle_to_show
+        - subtitle = dato.toc_items[0].label if subtitle.empty?
+        %div{:class => vetted_id_class(dato), :data => { :text_id =>  dato.id } }
+          .header
+            %h3= hh(subtitle)
+            = link_to(I18n.t(:text_summary_more_link), '/placeholder')
+          - # TODO: If our text data object does not contain p tags can we add them?
+          - # Without them the text block does not have any semantic meaning.
+          = dato.description.balance_tags
+          .attribution
+            = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => dato }
+        - break

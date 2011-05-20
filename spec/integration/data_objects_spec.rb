@@ -117,16 +117,16 @@ describe 'Data Object Page' do
 
   it 'should show the activity feed' do
     visit("/data_objects/#{@image.id}")
-    page.body.should have_tag('ul.feed') do
-      with_tag('.feed_item .body', :text => @feed_body_1)
-      with_tag('.feed_item .body', :text => @feed_body_2)
-      with_tag('.feed_item .body', :text => @feed_body_3)
+    page.body.should have_tag('#feed_items ul') do
+      with_tag('.details', :text => @feed_body_1)
+      with_tag('.details', :text => @feed_body_2)
+      with_tag('.details', :text => @feed_body_3)
     end
   end
 
   it 'should show an empty feed' do
     visit("/data_objects/#{@dato_untrusted.id}")
-    page.body.should have_tag('#feed_items_container', :text => /no activity/i)
+    page.body.should have_tag('#feed_items', :text => /no activity/i)
   end
 
   it 'should allow a curator to remove an association' do

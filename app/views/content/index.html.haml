@@ -1,55 +1,57 @@
-- if @cached_fragment
-  = @cached_fragment
-- else
-  - cache({:controller=>"content", :part => 'home_' + current_user.content_page_cache_str}) do
-    .article.stats
-      -#TODO: Figure out how stats content is going to be generated e.g. static + count or editable from CMS?
-      %h3= I18n.t(:currently_in_eol)
-      %ul
-        %li.taxon
-          %dl
-            %dd 534,315
-            %dt= I18n.t(:taxa)
-          = link_to I18n.t(:what_is_a_taxon), "/placeholder"
-        %li.contributors
-          %dl
-            %dd 3,154
-            %dt= I18n.t(:contributors_like_you)
-          = link_to I18n.t(:learn_how_to_join), "/placeholder"
-        %li.communities
-          %dl
-            %dd 861
-            %dt= I18n.t(:communities)
-          = link_to I18n.t(:learn_how_to_interact), "/placeholder"
-        %li.images
-          %dl
-            %dd 753,234
-            %dt= I18n.t(:images)
-          = link_to I18n.t(:browse_gallery), "/placeholder"
-        %li.partners
-          %dl
-            %dd 324
-            %dt= I18n.t(:content_partners)
-          = link_to I18n.t(:learn_about_content_partners), "/placeholder"
-    .article.community
-      -#TODO: Build this properly from database - currently static placeholder
-      %h3= I18n.t(:community_activity)
-      %ul
-        - 5.times do
-          %li
-            = link_to image_tag("v2/temporary_for_mockup/img_person_50.jpg", :alt => "Person Name"), "#"
-            .details
-              %p
-                %strong John
-                added
-                = link_to "4 photos", "#"
-                to
-                = link_to "Canis", "#"
-              %p.meta 5 minutes ago
-    -#TODO make this a partial? Its repeated in header?
-    .join
-      %p= I18n.t(:join_eol_community_html)
-      %p.button= link_to I18n.t(:join_eol_button_html), { :controller => "/account", :action => "signup" }
-      %p
-        = I18n.t(:already_a_member)
-        = link_to I18n.t(:sign_in), { :controller => "/account", :action => "login" }
+#content
+  .section
+    - if @cached_fragment
+      = @cached_fragment
+    - else
+      - cache({:controller=>"content", :part => 'home_' + current_user.content_page_cache_str}) do
+        .article.stats
+          -#TODO: Figure out how stats content is going to be generated e.g. static + count or editable from CMS?
+          %h3= I18n.t(:currently_in_eol)
+          %ul
+            %li.taxon
+              %dl
+                %dd 534,315
+                %dt= I18n.t(:taxa)
+              = link_to I18n.t(:what_is_a_taxon), "/placeholder"
+            %li.contributors
+              %dl
+                %dd 3,154
+                %dt= I18n.t(:contributors_like_you)
+              = link_to I18n.t(:learn_how_to_join), "/placeholder"
+            %li.communities
+              %dl
+                %dd 861
+                %dt= I18n.t(:communities)
+              = link_to I18n.t(:learn_how_to_interact), "/placeholder"
+            %li.images
+              %dl
+                %dd 753,234
+                %dt= I18n.t(:images)
+              = link_to I18n.t(:browse_gallery), "/placeholder"
+            %li.partners
+              %dl
+                %dd 324
+                %dt= I18n.t(:content_partners)
+              = link_to I18n.t(:learn_about_content_partners), "/placeholder"
+        .article.community
+          -#TODO: Build this properly from database - currently static placeholder
+          %h3= I18n.t(:community_activity)
+          %ul
+            - 5.times do
+              %li
+                = link_to image_tag("v2/temporary_for_mockup/img_person_50.jpg", :alt => "Person Name"), "#"
+                .details
+                  %p
+                    %strong John
+                    added
+                    = link_to "4 photos", "#"
+                    to
+                    = link_to "Canis", "#"
+                  %p.meta 5 minutes ago
+        -#TODO make this a partial? Its repeated in header?
+        .join
+          %p= I18n.t(:join_eol_community_html)
+          %p.button= link_to I18n.t(:join_eol_button_html), { :controller => "/account", :action => "signup" }
+          %p
+            = I18n.t(:already_a_member)
+            = link_to I18n.t(:sign_in), { :controller => "/account", :action => "login" }

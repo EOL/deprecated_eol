@@ -59,6 +59,8 @@ $SOLR_DATA_OBJECTS_CORE = 'data_objects'
 $SOLR_SITE_SEARCH_CORE = 'site_search'
 $SOLR_DIR    = File.join(RAILS_ROOT, 'solr', 'solr')
 
+$SKIP_URL_VALIDATIONS = true
+
 config.gem 'faker'
 config.gem "remi-rspec-custom-matchers", :lib => false
 config.gem "remi-indifferent-variable-hash", :lib => false

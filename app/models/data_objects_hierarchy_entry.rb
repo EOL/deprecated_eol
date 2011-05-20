@@ -4,5 +4,7 @@ class DataObjectsHierarchyEntry < SpeciesSchemaModel
 
   belongs_to :data_object
   belongs_to :hierarchy_entry
+  belongs_to :vetted
+  belongs_to :visibility
 
 end

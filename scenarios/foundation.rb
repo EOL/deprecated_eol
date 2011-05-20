@@ -1,5 +1,5 @@
 # sets up a basic foundation - enough data to run the application, but no content
-truncate_all_tables(:skip_empty_tables => false) # We do this to make sure the IDs on all of the tables start at 1.
+truncate_all_tables(:skip_empty_tables => false) rescue nil # We do this to make sure the IDs on all of the tables start at 1.
 
 old_cache_value = nil
 if $CACHE
@@ -187,6 +187,7 @@ iucn_hierarchy = Hierarchy.gen_if_not_exists(:label => 'IUCN')
 iucn_resource = Resource.gen_if_not_exists(:title => 'Initial IUCN Import', :hierarchy => iucn_hierarchy, :content_partner => iucn_content_parter)
 iucn_agent = Agent.iucn
 raise "IUCN is nil" if iucn_agent.nil?
+raise "IUCN Resource is nil" if iucn_resource.nil?
 
 # This is out of ourder, of course, because it depends on the IUCN resource.
 HarvestEvent.gen_if_not_exists(:resource_id => iucn_resource.id)

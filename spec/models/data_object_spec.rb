@@ -588,6 +588,12 @@ describe DataObject do
     last_action.user.should == @curator
   end
 
+  it 'should trust associations added by curators' do
+    cdohe = CuratedDataObjectsHierarchyEntry.find_by_hierarchy_entry_id_and_data_object_id(@hierarchy_entry.id,
+                                                                                           @image_dato.id)
+    cdohe.vetted.should == Vetted.trusted
+  end
+
   it 'should remove the entry in curated_data_objects_hierarchy_entries when a curator removes their association' do
     cdohe_count = CuratedDataObjectsHierarchyEntry.count(:conditions => "hierarchy_entry_id = #{@hierarchy_entry.id}")
     @image_dato.remove_curated_association(@another_curator, @hierarchy_entry)

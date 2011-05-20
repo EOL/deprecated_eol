@@ -85,6 +85,20 @@ class HierarchyEntry < SpeciesSchemaModel
     return taxon_concept.is_curatable_by?(user)
   end
 
+  # Returns true IFF this HE was included in a set of HEs because a curator added the association.  See
+  # DataObject.published_entries
+  def by_curated_association?
+    @associated_by_curator
+  end
+
+  def associated_by_curator=(who)
+    @associated_by_curator = who
+  end
+
+  def associated_by_curator
+    @associated_by_curator
+  end
+
   def species_or_below?
     return false if rank_id == 0  # this was causing a lookup for rank id=0, so I'm trying to save queries here
     return Rank.italicized_ids.include?(rank_id)

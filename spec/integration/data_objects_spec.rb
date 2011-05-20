@@ -47,7 +47,6 @@ describe 'Data Object Page' do
 
   it "should render" do
     visit("/data_objects/#{@image.id}")
-    debugger
     page.status_code.should == 200
   end
 

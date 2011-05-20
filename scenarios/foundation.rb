@@ -1,5 +1,5 @@
 # sets up a basic foundation - enough data to run the application, but no content
-truncate_all_tables(:skip_empty_tables => false) # We do this to make sure the IDs on all of the tables start at 1.
+truncate_all_tables(:skip_empty_tables => false) rescue nil # We do this to make sure the IDs on all of the tables start at 1.
 
 old_cache_value = nil
 if $CACHE

@@ -1099,6 +1099,7 @@ class TaxonConcept < SpeciesSchemaModel
   #   :required will return the next available text object if no text is returned by toc_items
   #   :limit returns a subset of objects for each toc_item
   def text_objects_for_toc_items(toc_item_objects, options={})
+
     toc_item_objects = [toc_item_objects] unless toc_item_objects.is_a?(Array)
     text = data_objects.find_all{ |t| t.data_type_id == DataType.text.id }
     text += users_data_objects.find_all{ |udo| udo.data_object.data_type_id == DataType.text.id }.
@@ -1109,16 +1110,20 @@ class TaxonConcept < SpeciesSchemaModel
 
     datos_to_load = []
     toc_item_objects.each do |toc_item|
-      items = text.select{ |t| ! t.toc_items && t.toc_items.include?(toc_item) }
+      items = text.select{ |t| t.toc_items && t.toc_items.include?(toc_item) }
       unless items.blank?
-        case options[:limit]
-          when 1 then datos_to_load << items unless items.blank?
-          when nil? then datos_to_load += items
-          else datos_to_load += items[0..options[:limit]]
+        if options[:limit].nil? || options[:limit].to_i == 0
+          datos_to_load += items
+        elsif options[:limit].to_i == 1
+          datos_to_load << items[0]
+        elsif options[:limit].to_i > 1
+          datos_to_load += items[0..options[:limit].to_i]
         end
       end
     end
     datos_to_load << text[0] if datos_to_load.blank? && options[:required]
+
+    return nil if datos_to_load.empty?
 
     add_include = [:comments, :agents_data_objects, :info_items, :toc_items, { :users_data_objects => :user },
       { :published_refs => { :ref_identifiers => :ref_identifier_type } }, :all_comments]

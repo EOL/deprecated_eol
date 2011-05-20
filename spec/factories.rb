@@ -512,6 +512,8 @@ end
 Factory.define :data_objects_hierarchy_entry do |dohe|
   dohe.association :hierarchy_entry
   dohe.association :data_object
+  dohe.vetted      { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
+  dohe.visibility  { Visibility.visible || Visibility.gen_if_not_exists(:label => 'Visible') }
 end
 
 Factory.define :data_objects_taxon_concept do |fdo|

@@ -71,17 +71,18 @@
 
       #data_object_hierarchy
         .divider
-          %h3= I18n.t(:hierarch_var_data_object_publi, :var_data_object_published_entries => (@data_object.published_entries == 1 ? 'y' : 'ies'))
+          %h3= I18n.t(:in_this_data_object_by_type, :type => @data_object.data_type.simple_type)
         - if @data_object.published_entries.blank?
           %p= I18n.t(:data_object_not_associated_with_any_hierarchies)
         - else
           %ul#associations
             - @data_object.published_entries.each do |phe|
+              -# TODO - curation tools: visibility and vettedness
               %li
-                %ul
-                  - phe.ancestors.each do |he|
-                    %li= link_to(he.name.string, taxon_concept_path(he.taxon_concept_id))
-                - if current_user.can_curate?(@data_object)
+                -# NOTE: this is actually a link to the TC.  It ostensibily uses the name from the HE rather than
+                -# the TC, but in actuallity, that's what the TC does /anyway/, so this is fine (and faster):
+                = link_to(phe.name.string, taxon_concept_path(phe.taxon_concept_id))
+                - if phe.by_curated_association? && phe.associated_by_curator.id == current_user.id
                   = link_to I18n.t(:remove_data_object_association), remove_association_path(:id => @data_object.id, :hierarchy_entry_id => phe.id), :id => "remove_association_#{phe.id}"
         - if current_user.can_curate?(@data_object)
           - form_tag({:controller => 'data_objects', :action => 'add_association'}) do

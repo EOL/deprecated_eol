@@ -1055,9 +1055,13 @@ class DataObject < SpeciesSchemaModel
     nil
   end
 
-  # Note: the uniq may be overkill, but I figured it couldn't hurt that much and might be helpful.
+  # TODO - we need to make sure that the user_id of curated_dohe is added to the HE...
   def curated_hierarchy_entries
-    (hierarchy_entries + curated_data_objects_hierarchy_entries.map {|c| c.hierarchy_entry }).uniq
+    hierarchy_entries + curated_data_objects_hierarchy_entries.map do |cdohe|
+      he = cdohe.hierarchy_entry
+      he.associated_by_curator = cdohe.user
+      he
+    end
   end
 
   def published_entries
@@ -1099,7 +1103,9 @@ class DataObject < SpeciesSchemaModel
 
   def add_curated_association(user, hierarchy_entry)
     cdohe = CuratedDataObjectsHierarchyEntry.create(:hierarchy_entry_id => hierarchy_entry.id,
-                                                    :data_object_id => self.id, :user_id => user.id)
+                                                    :data_object_id => self.id, :user_id => user.id,
+                                                    :vetted_id => Vetted.trusted.id,
+                                                    :visibility_id => Visibility.visible.id)
     log_association(cdohe, user, hierarchy_entry, :add_association)
   end
 

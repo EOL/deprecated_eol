@@ -1,12 +1,17 @@
-#communities
+#communities_summary.article.half.list
   - count = @taxon_concept.communities.count
-  %h2= I18n.t(:communities_summary_header_with_count, :count => count)
-  - if count > 1
-    = link_to(I18n.t(:see_all_communities_with_count_html, :count => count), taxon_concept_communities_path(:taxon_concept_id => @taxon_concept.id))
+  .header
+    %h3= I18n.t(:communities_summary_header_with_count, :count => count)
+    - if count > 1
+      = link_to(I18n.t(:see_all_communities_with_count_html, :count => count), taxon_concept_communities_path(:taxon_concept_id => @taxon_concept.id))
   %ul
     - @taxon_concept.top_communities.each do |community|
       %li
-        %em= community.name
-        = I18n.t(:other_collection_items_with_count, :count => community.focus.collection_items.count) + I18n.t(:punctuation_comma)
-        = I18n.t(:members_with_count, :count => community.members.count)
+        - #TODO: Do communities have images? If so put them here, also do we have good alt text from users?
+        = link_to image_tag('images/v2/icon_communities_tab.png', :alt => '')
+        .details
+          %h4= community.name
+          %p
+            = I18n.t(:other_community_items_with_count, :count => community.focus.collection_items.count) + I18n.t(:punctuation_comma)
+            = I18n.t(:members_with_count, :count => community.members.count)
 

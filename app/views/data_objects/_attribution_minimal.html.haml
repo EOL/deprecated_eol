@@ -7,4 +7,5 @@
     = link_to image_tag(data_object.license.logo_url, :alt => I18n.t(:license_icon_alt_text, :license => data_object.license.title)), data_object.license.source_url
     %p
       = citables_to_string(attribution, :linked => false)
+      &mdash;
       = link_to I18n.t(:source_information_link), { :controller => '/data_objects', :action => :show, :id => data_object.id }

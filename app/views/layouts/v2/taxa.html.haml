@@ -5,30 +5,40 @@
     - if (@taxon_concept.entry && @taxon_concept.entry.hierarchies_content && (@taxon_concept.entry.hierarchies_content.image != 0 || @taxon_concept.entry.hierarchies_content.child_image != 0))
       %link#media_rss{ :title => I18n.t("mediarss_feed"), :href => "/content/mediarss/#{@taxon_concept.id}", :rel => "alternate", :type => "application/rss+xml" }
 
-- content_for :content do
-  .article{ :role => 'article' }
-    -# TODO - if we want to indicate vetted status here then for accessibility we will need
-    -# a translatable vetted status (trusted, untrusted, not vetted) that is accessible
-    -# to assistive technologies e.g. as part of h1 value or perhaps in a title attribute
-    %h1
-      = hh(@taxon_concept.title(@session_hierarchy))
-      %span
-        = " &mdash; "
-        = @current_section[:name]
-    - preferred_common_name = @taxon_concept.subtitle(@session_hierarchy)
-    - unless preferred_common_name.blank?
-      %p{:title => I18n.t(:preferred_common_name_advisory_information)}
-        = hh(preferred_common_name)
-    - common_name_count = @taxon_concept.common_names.count
-    - if common_name_count > 0
-      = link_to I18n.t(:common_names_with_count, :count => common_name_count), '/placeholder_link',
-        { :title => I18n.t(:common_names_advisory_information) }
-    - else
-      %p= I18n.t(:common_names_with_count, :count => common_name_count)
-    %ul.nav
-      - @content_sections.each do |section|
-        %li{:class => section[:active] ? 'active' : nil }
-          = link_to section[:name], url_for(:controller => :taxa, :action => :show, :section => section[:url])
-    = yield
+- content_for :main do
+  #page_heading.with_nav
+    .site_column
+      .hgroup
+        -# TODO - if we want to indicate vetted status here then for accessibility we will need
+        -# a translatable vetted status (trusted, untrusted, not vetted) that is accessible
+        -# to assistive technologies e.g. as part of h1 value or perhaps in a title attribute
+        %h1
+          = hh(@taxon_concept.title(@session_hierarchy))
+          %span
+            = " &mdash; "
+            = @current_section[:name]
+        - preferred_common_name = @taxon_concept.subtitle(@session_hierarchy)
+        - unless preferred_common_name.blank?
+          %h2{:title => I18n.t(:preferred_common_name_advisory_information)}
+            = hh(preferred_common_name)
+            - common_name_count = @taxon_concept.common_names.count
+            - if common_name_count > 0
+              %small= link_to I18n.t(:common_names_with_count, :count => common_name_count), '/placeholder_link',
+                { :title => I18n.t(:common_names_advisory_information) }
+            - else
+              %small= I18n.t(:common_names_with_count, :count => common_name_count)
+      .page_actions
+        - # TODO: Make these links functional
+        %ul
+          %li= link_to I18n.t(:add_to_my_collection_button), "/placeholder", :class => "button"
+          %li= link_to I18n.t(:contribute_to_page_button), "/placeholder", :class => "button"
+      %ul.nav
+        - @content_sections.each do |section|
+          %li{:class => section[:active] ? 'active' : nil }
+            = link_to section[:name], url_for(:controller => :taxa, :action => :show, :section => section[:url])
+
+  #content
+    .site_column
+      = yield
 
 = render :file => 'layouts/v2/application'

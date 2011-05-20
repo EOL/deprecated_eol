@@ -1,12 +1,13 @@
-#classification_summary
+#classification_summary.article.classifications
   - count = @taxon_concept.classifications.length
-  %h2= I18n.t(:classification_summary_header_with_count, :count => count)
-  - if count > 1
-    = link_to(I18n.t(:see_all_classifications_with_count_html, :count => count), '/placeholder_link')
+  .header
+    %h3= I18n.t(:classification_summary_header_with_count, :count => count)
+    - if count > 1
+      = link_to(I18n.t(:see_all_classifications_with_count_html, :count => count), '/placeholder_link')
   %ul
     - @taxon_concept.classifications.each do |classification|
       %li
-        = classification[:name]
+        %h4= classification[:name]
         %ul
           -# TODO: Find out whether links on kingdom and genus should be going to taxon pages or specific hierarchy entries for the classification (is the latter even an option?)
           -# TODO: Provide more descriptive title attributes, e.g. what happens when a rank is null, blank or will it just say 'taxon' if rank is missing?

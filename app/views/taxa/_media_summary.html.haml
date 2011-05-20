@@ -1,6 +1,7 @@
-#media_summary
-  %h2= I18n.t(:media)
-  #media_summary_gallery
-    %ul
-      - @media[0..3].each do |item|
-        = render :partial => "media_thumbnail", :locals => {:item => item}
+#media_summary.gallery
+  %h3= I18n.t(:media)
+  - # TODO: Accessible JS for image gallery
+  %ul.thumbnails
+    - @media[0..3].each do |item|
+      = render :partial => "media_thumbnail", :locals => {:item => item}
+  %p.all= link_to I18n.t(:see_all_media_link), "/placeholder"

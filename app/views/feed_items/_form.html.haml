@@ -1,8 +1,9 @@
-- form_for(@feed_item) do |f|
-  = f.error_messages
-  = f.hidden_field :feed_type
-  = f.hidden_field :feed_id
-  %p
+- form_for(@feed_item, :html => { :class => "comment"}) do |f|
+  %fieldset
+    = image_tag 'images/v2/icon_people_tabs.png', :alt => ""
+    = f.error_messages
+    = f.hidden_field :feed_type
+    = f.hidden_field :feed_id
     = f.text_field :body
-  %p
-    = f.submit I18n.t(:post)
+  %fieldset.actions
+    = f.submit I18n.t(:post_comment)

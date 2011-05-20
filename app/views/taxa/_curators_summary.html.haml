@@ -1,11 +1,12 @@
-#curators
+#curators_summary.article.list
   - count = curators.count
-  %h2= I18n.t(:curators_summary_header_with_count, :count => count)
+  .header
+    %h3= I18n.t(:curators_summary_header_with_count, :count => count)
   %ul
     - curators.each do |curator|
       %li
-        = link_to image_tag(curator.logo_url('small'), :alt => I18n.t(:curator_profile_image_alt_text, :user_family_name => h(curator.family_name), :user_given_name => h(curator.given_name))),
+        = link_to image_tag(curator.logo_url('small'), :alt => I18n.t(:profile_image_alt_text_curator, :user_family_name => h(curator.family_name), :user_given_name => h(curator.given_name))),
           { :controller => '/account', :action => 'show' }
         .details
-          %h4= link_to curator.given_name, { :controller => '/account', :action => 'show' }
-        -# TODO: %p.meta= "#{curator.expertise}"
+          %h4= link_to h(curator.given_name), { :controller => '/account', :action => 'profile', :data => { :user_id => curator.id}  }
+          -# TODO: %p.meta= h(curator.expertise)

@@ -32,66 +32,72 @@
     %link{ :href => "/favicon.ico", :rel => "shortcut icon", :type => "image/x-icon" }
     %link{ :href => "/opensearchdescription.xml", :title => I18n.t("encyclopedia_of_life"), :rel => "search", :type => "application/opensearchdescription+xml" }
 
-    = stylesheet_link_tag "application", "accessibility"
+    - if @home_page
+      = stylesheet_link_tag "home", "accessibility"
+    - else
+      = stylesheet_link_tag "application", "accessibility"
+
     = javascript_include_tag "jquery-1.6.1.min", "rails", "application", "jquery.cycle.all.min"
 
     = yield :head
 
   %body
     %ul#controls.screenreader_accessible
-      %li= link_to I18n.t(:skip_to_content), '#content'
+      %li= link_to I18n.t(:skip_to_content), '#main'
     #header
       .section
         %h1= link_to I18n.t(:encyclopedia_of_life), root_url, { :title => I18n.t(:home_page_link_advisory_information) }
         = render :partial => '/layouts/v2/global_navigation'
-        .language
-          %p{ :title => I18n.t(:selected_language_advisory_information) }
-            -# FIXME: Fix this so it gets currently selected language easily from controller?
-            -# FIXME: Where should this link go? To separate 'select language' page?
-            - link_to "#" do
-              %span Language: EN
-          %ul
-            - Language.find_active.each do |language|
+        .actions
+          .language
+            %p{ :title => I18n.t(:selected_language_advisory_information) }
+              -# FIXME: Fix this so it gets currently selected language easily from controller?
+              -# FIXME: Where should this link go? To separate 'select language' page?
+              - link_to "#" do
+                %span Language: EN
+            %ul
+              - Language.find_active.each do |language|
+                %li
+                  = link_to I18n.t(:language_menu_item, :language_label => language.source_form, :language_abbr => language.display_code),
+                    set_language_url(:language => language.iso_639_1),
+                    { :title => I18n.t(:switch_language_advisory_information, :language_label => language.source_form) }
               %li
-                = link_to I18n.t(:language_menu_item, :language_label => language.source_form, :language_abbr => language.display_code),
-                  set_language_url(:language => language.iso_639_1),
-                  { :title => I18n.t(:switch_language_advisory_information, :language_label => language.source_form) }
-            %li
-              = link_to I18n.t(:google_translate), { :controller => "/content", :action => "translate" },
-                { :title => I18n.t(:google_translate_advisory_information) }
+                = link_to I18n.t(:google_translate), { :controller => "/content", :action => "translate" },
+                  { :title => I18n.t(:google_translate_advisory_information) }
+          - if ! @home_page
+            %p.print
+              - link_to "/placeholder" do
+                %span= I18n.t(:print_this_page_link)
+        - if @home_page
+          %h2= I18n.t(:global_access_tagline)
         = render :partial => "/layouts/v2/search"
+        - #TODO: Figure out what the home page user info should look like, and non home page join should look like
         - if logged_in?
-          %h2.screenreader_accessible= I18n.t(:account_information)
-          %p
-            = I18n.t(:logged_in_as_current_usergiven_name, :var_current_user_given_name => current_user.given_name)
-          %ul
-            %li= link_to I18n.t(:profile) , { :controller => "/account", :action => "profile", :data => { :user_id => current_user.id} }
-            - if current_user.is_admin?
-              %li= link_to I18n.t(:administration) , { :controller => "/admin", :action => "index" }
-            - if current_user.is_curator?
-              %li= link_to I18n.t(:curation) , { :controller => "/content", :action => "page" }
-            %li= link_to I18n.t(:sign_out) , logout_url
+          - if ! @home_page
+            .session
+              %h2.screenreader_accessible= I18n.t(:account_information)
+              = image_tag(current_user.logo_url('small'), :alt => I18n.t(:profile_image_alt_text_member, :user_family_name => h(current_user.family_name), :user_given_name => h(current_user.given_name)))
+              .details
+                %p
+                  %strong= h(current_user.given_name)
+                  -#TODO: %br/= h(current_user.expertise)
+                %p.user_links
+                  = link_to I18n.t(:profile) , { :controller => "/account", :action => 'profile', :data => { :user_id => current_user.id} }
+                  &bull;
+                  = link_to I18n.t(:sign_out) , logout_url
         - elsif $ALLOW_USER_LOGINS && !agent_logged_in?
-          .join
-            %h3.screenreader_accessible= I18n.t(:login_or_create_account)
-            %p= I18n.t(:join_eol_community_html)
-            %p.button= link_to I18n.t(:join_eol_button_html), { :controller => "/account", :action => "signup" }
-            %p
-              = I18n.t(:already_a_member)
-              = link_to I18n.t(:sign_in), { :controller => "/account", :action => "login" }
+          - if @home_page
+            .join
+              %h3.screenreader_accessible= I18n.t(:login_or_create_account)
+              %p= I18n.t(:join_eol_community_html)
+              %p.button= link_to I18n.t(:join_eol_button_html), { :controller => "/account", :action => "signup" }
+              %p
+                = I18n.t(:already_a_member)
+                = link_to I18n.t(:sign_in), { :controller => "/account", :action => "login" }
         - elsif $ALLOW_USER_LOGINS == false && @home_page.nil?
-          %p
-            =  I18n.t(:user_system_down)
-        - elsif agent_logged_in?
-          - #TODO should go away when single account is implemented
-          %h3.screenreader_accessible= I18n.t(:content_partner_information)
-          %p
-            = I18n.t(:logged_in_as_current_agentfull_name, :var_current_agent_full_name=>current_agent.full_name)
-          %ul
-            %li= link_to I18n.t(:dashboard) , { :controller => "/content_partner", :action => "index" }
-            %li= link_to I18n.t(:sign_out) , { :controller => "/content_partner", :action => "logout" }
-
-        %h2= I18n.t(:global_access_tagline)
+          .session
+            %p
+              =  I18n.t(:user_system_down)
 
       - if @home_page
         -# TODO: Convert to partial or something, and assign to proper controller variables - currently static placeholder.
@@ -104,7 +110,7 @@
           .term
             %p Canis lupus Linnaeus, 1758
 
-    #content
+    #main
       .section{ :role => "main" }
         - unless flash.blank?
           #messages
@@ -115,19 +121,21 @@
             - if flash[:error]
               .error= flash[:error]
 
-        = yield :content
+        = yield :main
 
     #footer{ :role => "contentinfo" }
       .section
         %h2.screenreader_accessible= I18n.t(:site_information)
         .copyright
-          %h3= link_to I18n.t(:encyclopedia_of_life), root_url
-          - if ENV["APP_VERSION"].blank?
-            %p{ :title => I18n.t(:application_version_advisory_information) }= I18n.t(:development_version_name)
-          - else
-            = ENV["APP_VERSION"]
+          %h6= link_to I18n.t(:encyclopedia_of_life), root_url
+          %p{ :title => I18n.t(:application_version_advisory_information) }
+            - if ENV["APP_VERSION"].blank?
+              = I18n.t(:development_version_name)
+            - else
+              = ENV["APP_VERSION"]
         = render :partial => '/layouts/v2/global_navigation', :locals => { :position => :footer }
         %ul.social_media
+          - #TODO: Add functional social media links.
           %li= link_to "Twitter", "#", :class => "twitter"
           %li= link_to "RSS", "#", :class => "rss"
 

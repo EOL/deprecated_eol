@@ -2,8 +2,6 @@
 - # Also is the iucn_conservation_status ever blank or nil? Looks like it returns 'not evaluated' if empty?
 - unless @taxon_concept.iucn_conservation_status.blank?
   #iucn_status
-    %h2= I18n.t(:threat_status_header)
-    %dl
-      %dt= I18n.t(:iucn_red_list_status_html)
-      %dd= link_to(@taxon_concept.iucn_conservation_status, @taxon_concept.iucn_conservation_status_url,
+    %h3= I18n.t(:threat_status_header_colon)
+    %p= link_to(@taxon_concept.iucn_conservation_status, @taxon_concept.iucn_conservation_status_url,
         :title => I18n.t(:iucn_red_list_status_advisory_information))

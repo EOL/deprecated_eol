@@ -1,12 +1,16 @@
-#collections
+#collections_summary.article.half.list.clear
   - count = 7
-  %h2= I18n.t(:collections_summary_header_with_count, :count => count)
-  - if count > 1
-    = link_to(I18n.t(:see_all_collections_with_count_html, :count => count), taxon_concept_collections_path(:taxon_concept_id => @taxon_concept.id))
+  .header
+    %h3= I18n.t(:collections_summary_header_with_count, :count => count)
+    - if count > 1
+      = link_to(I18n.t(:see_all_collections_with_count_html, :count => count), taxon_concept_collections_path(:taxon_concept_id => @taxon_concept.id))
   %ul
     - @taxon_concept.top_collections.each do |collection|
       %li
-        %em= collection.name
-        - count = collection.collection_items.count - 1
-        = I18n.t(:other_collection_items_with_count, :count => count)
+        - #TODO: Do collections have images? If so put them here, also do we have good alt text from users?
+        = link_to image_tag('images/v2/icon_collections_tab.png', :alt => '')
+        .details
+          %h4= collection.name
+          - count = collection.collection_items.count - 1
+          %p= I18n.t(:other_collection_items_with_count, :count => count)
 

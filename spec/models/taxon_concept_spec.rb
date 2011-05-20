@@ -159,7 +159,7 @@ describe TaxonConcept do
   it 'should be able to show a table of contents' do
     # Tricky, tricky. See, we add special things to the TOC like "Common Names" and "Search the Web", when they are appropriate.  I
     # could test for those here, but that seems the perview of TocItem.  So, I'm only checking the first three elements:
-    @taxon_concept.toc[0..2].should == [@overview, @toc_item_2, @toc_item_3]
+    @taxon_concept.toc[0..3].should == [@overview, @testy[:brief_summary], @toc_item_2, @toc_item_3]
   end
 
   # TODO - this is failing, but low-priority, I added a bug for it: EOLINFRASTRUCTURE-657
@@ -206,7 +206,7 @@ describe TaxonConcept do
     ContentPartner.gen(:user => primary_user)
     different_user = User.gen
     ContentPartner.gen(:user => different_user)
-    
+
     cp_hierarchy   = Hierarchy.gen(:agent => primary_user.agent)
     resource       = Resource.gen(:hierarchy => cp_hierarchy, :content_partner => primary_user.content_partner)
     event          = HarvestEvent.gen(:resource => resource)
@@ -226,7 +226,7 @@ describe TaxonConcept do
 
     @taxon_concept.reload
     @taxon_concept.images.length.should == how_many - 1 # Ensuring that we removed it...
-    
+
     # object must be in preview mode for the Content Partner to have exclusive access
     dato.visibility = Visibility.preview
     dato.save!

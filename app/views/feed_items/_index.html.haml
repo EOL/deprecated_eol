@@ -1,16 +1,28 @@
-#feed_items_container
-  %h2= I18n.t(:recent_updates)
+#feed_items.article.list.updates
+  .header
+    %h3= I18n.t(:recent_updates)
+  - if feed.empty?
+    %p.empty= I18n.t(:no_activity)
+  - else
+    %ul
+      -# TODO - paginate
+      - feed.each do |feed_item|
+        %li
+          - #TODO: Need to put images e.g. user profiles etc, also do we have good alt text from users?
+          = link_to image_tag('images/v2/icon_people_tab.png', :alt => '')
+          .details
+            - # TODO: Something like:
+            - # %p
+            - #   %strong John
+            - #   added
+            - #   = link_to "4 photos", "#"
+            - # %p Head Mycologist
+            - # %p.meta 5 minutes ago
+            %p= h feed_item.body
   - if logged_in?
     = render :partial => 'feed_items/form', :locals => {:feed => feed} # Important to specify feed_items folder
   - else
     %p
       = link_to(I18n.t(:login_to_add_comments),
         login_path(:params => {:return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path}))
-  - if feed.empty?
-    %p.empty= I18n.t(:no_activity)
-  - else
-    %ul.feed
-      -# TODO - paginate
-      - feed.each do |feed_item|
-        %li.feed_item
-          .body= h feed_item.body
+

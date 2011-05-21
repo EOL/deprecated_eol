@@ -5,6 +5,6 @@
   = render(:partial => 'collections_summary')
   = render(:partial => 'communities_summary')
 #sidebar
-  = render(:partial => 'classification_summary')
+  = render(:partial => 'classifications_summary')
   = render(:partial => 'curators_summary', :locals => {:curators => @taxon_concept.top_acting_curators})
   = render(:partial => 'feed_items/index', :locals => {:feed => @taxon_concept.feed})

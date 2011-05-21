@@ -240,7 +240,7 @@ ar:
     other: "%{count} التصنيفات"
   classification_preference: "Which default browse تصنيف would you prefer?"
   classification_provided_by: "تصنيف provided by"
-  classification_summary_header_with_count:
+  classifications_summary_header_with_count:
     one: "وافق الجزء من %{count} تصنيف"
     other: "%{count} جزء من التصنيفات المعتمدة"
   _clear_all_non_species_pages_: "[clear all non-species pages]"

@@ -2,9 +2,15 @@
   position: absolute
   left: -999em
 
-.screenreader_accessible, #header .screenreader_accessible
+.assistive, #header .assistive
   +screenreader-accessible
 
+/**
+ * Temporary placement of needed CSS for V2
+ * I don't want to edit/add to HashRocket's SASS files until they are done making changes
+ * so I am temporarily adding some CSS here needed for V2 demo. This CSS should be integrated
+ * into HashRocket SASS if it is still needed when design work is complete.
+ */
 #iucn_status
   margin-bottom: 20px
   h3, p
@@ -16,3 +22,16 @@
     img
       float: left
       margin: 2px 10px 0 0
+
+#classifications_summary
+  li
+    overflow: hidden
+    li
+      p
+        font-weight: bold
+        float: left
+      li
+        p
+          padding-left: 23px !important
+          margin-left: 10px
+          background: transparent url('/images/v2/icon_classification_arrow.png') 0 0 no-repeat

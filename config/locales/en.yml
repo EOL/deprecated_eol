@@ -235,7 +235,7 @@ en:
   classification_preference: "Which default browse classification would you prefer?"
   classification_preference_advisory_information: "Select a classification from the drop down select box, the content of the site will then be organised by the classification you choose."
   classification_provided_by: "Classification provided by"
-  classification_summary_header_with_count:
+  classifications_summary_header_with_count:
     one: "Part of %{count} approved classification"
     other: "Part of %{count} approved classifications"
   _clear_all_non_species_pages_: "[clear all non-species pages]"

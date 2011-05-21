@@ -2,7 +2,7 @@
 - cache(:controller => "/content", :part => "global_navigation_#{position}_#{current_user.language_abbr}") do
   %div{ :role => "navigation" }
     - if position == :header
-      %h2.screenreader_accessible= I18n.t(:global_navigation)
+      %h2.assistive= I18n.t(:global_navigation)
     %ul.nav
       %li
         = link_to I18n.t(:help) , "/placeholder"

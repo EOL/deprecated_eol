@@ -1,11 +1,11 @@
-#classification_summary.article.classifications
+#classifications_summary.article.classifications
   - count = @taxon_concept.classifications.length
   .header
-    %h3= I18n.t(:classification_summary_header_with_count, :count => count)
+    %h3= I18n.t(:classifications_summary_header_with_count, :count => count)
     - if count > 1
       = link_to(I18n.t(:see_all_classifications_with_count_html, :count => count), '/placeholder_link')
   %ul
-    - @taxon_concept.classifications.each do |classification|
+    - @taxon_concept.classifications[0..1].each do |classification|
       %li
         %h4= classification[:name]
         %ul
@@ -13,8 +13,10 @@
           -# TODO: Provide more descriptive title attributes, e.g. what happens when a rank is null, blank or will it just say 'taxon' if rank is missing?
           -# TODO - If we're on a Kingdom page, we don't want two hard-coded entries, here:
           %li
-            = link_to(classification[:kingdom].italicized_name, { :controller => 'taxa', :action => 'show', :id => classification[:kingdom].taxon_concept_id }, { :title => classification[:kingdom].rank_label })
+            %p
+              = link_to(classification[:kingdom].italicized_name, { :controller => 'taxa', :action => 'show', :id => classification[:kingdom].taxon_concept_id }, { :title => classification[:kingdom].rank_label })
             - unless classification[:parent].nil?
               %ul
                 %li
-                  = link_to(classification[:parent].italicized_name, { :controller => 'taxa', :action => 'show', :id => classification[:parent].taxon_concept_id }, { :title => classification[:parent].rank_label })
+                  %p
+                    = link_to(classification[:parent].italicized_name, { :controller => 'taxa', :action => 'show', :id => classification[:parent].taxon_concept_id }, { :title => classification[:parent].rank_label })

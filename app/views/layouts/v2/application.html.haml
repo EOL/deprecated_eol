@@ -42,7 +42,7 @@
     = yield :head
 
   %body
-    %ul#controls.screenreader_accessible
+    %ul#controls.assistive
       %li= link_to I18n.t(:skip_to_content), '#main'
     #header
       .section
@@ -75,7 +75,7 @@
         - if logged_in?
           - if ! @home_page
             .session
-              %h2.screenreader_accessible= I18n.t(:account_information)
+              %h2.assistive= I18n.t(:account_information)
               = image_tag(current_user.logo_url('small'), :alt => I18n.t(:profile_image_alt_text_member, :user_family_name => h(current_user.family_name), :user_given_name => h(current_user.given_name)))
               .details
                 %p
@@ -88,7 +88,7 @@
         - elsif $ALLOW_USER_LOGINS && !agent_logged_in?
           - if @home_page
             .join
-              %h3.screenreader_accessible= I18n.t(:login_or_create_account)
+              %h3.assistive= I18n.t(:login_or_create_account)
               %p= I18n.t(:join_eol_community_html)
               %p.button= link_to I18n.t(:join_eol_button_html), { :controller => "/account", :action => "signup" }
               %p
@@ -101,7 +101,7 @@
 
       - if @home_page
         -# TODO: Convert to partial or something, and assign to proper controller variables - currently static placeholder.
-        %h3.screenreader_accessible= I18n.t(:explore)
+        %h3.assistive= I18n.t(:explore)
         .thumbnails
           %ul
             - 5.times do |i|
@@ -125,7 +125,7 @@
 
     #footer{ :role => "contentinfo" }
       .section
-        %h2.screenreader_accessible= I18n.t(:site_information)
+        %h2.assistive= I18n.t(:site_information)
         .copyright
           %h6= link_to I18n.t(:encyclopedia_of_life), root_url
           %p{ :title => I18n.t(:application_version_advisory_information) }

@@ -4,7 +4,8 @@ class CommunitiesController < ApplicationController
 
   before_filter :load_community_and_dependent_vars, :except => [:index, :new, :create]
   before_filter :must_be_logged_in, :except => [:index, :show]
-  before_filter :restrict_edit_and_delete, :only => [:edit, :update, :delete]
+  before_filter :restrict_edit, :only => [:edit, :update]
+  before_filter :restrict_delete, :only => [:delete]
 
   def index
     @communities = Community.paginate(:page => params[:page])
@@ -96,9 +97,14 @@ private
     @current_member = current_user.member_of(@community)
   end
 
-  def restrict_edit_and_delete
+  def restrict_edit
     @current_member ||= current_user.member_of(@community)
-    raise EOL::Exceptions::SecurityViolation unless @current_member && @current_member.can?(Privilege.edit_delete_community)
+    raise EOL::Exceptions::SecurityViolation unless @current_member && @current_member.can?(Privilege.edit_community)
+  end
+
+  def restrict_delete
+    @current_member ||= current_user.member_of(@community)
+    raise EOL::Exceptions::SecurityViolation unless @current_member && @current_member.can?(Privilege.delete_community)
   end
 
   def must_be_logged_in

@@ -1,11 +1,11 @@
 class CreateStartingCommunityPrivileges < ActiveRecord::Migration
 
   def self.up
-    KnownPrivileges.create_all
+    Privilege.create_all
   end
 
   def self.down
-    KnownPrivileges.symbols.each {|s| Privilege.delete_all(:sym => s) }
+    # Nothing to do.  Deleting all of the privs is NOT desirable; an error is not appropriate.
   end
 
 end

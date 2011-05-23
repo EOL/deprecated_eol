@@ -1,7 +1,7 @@
-- current_user_is_admin = @current_member && @current_member.can?(Privilege.edit_delete_community)
+- current_user_is_admin = @current_member && @current_member.can?(Privilege.edit_community)
 %h1
   = @role.title
-  = I18n.t(:in_community) 
+  = I18n.t(:in_community)
   = link_to @community.name, @community
 - if current_user_is_admin
   .edit_name
@@ -11,7 +11,7 @@
       %p
         = submit_tag( I18n.t(:save) )
 .privileges
-  %h2= I18n.t(:privileges) 
+  %h2= I18n.t(:privileges)
   %ul
     - if current_user_is_admin
       - @privileges.each do |privilege|
@@ -26,10 +26,10 @@
       - @role.privileges.each do |privilege|
         %li= privilege.name
 .members
-  %h2= I18n.t(:members) 
+  %h2= I18n.t(:members)
   %ul
     - if @role.members.blank?
-      = I18n.t(:there_are_no_members_with_this_role) 
+      = I18n.t(:there_are_no_members_with_this_role)
     - else
       - @role.members.each do |member|
         %li= member.user.username

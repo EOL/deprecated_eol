@@ -228,11 +228,11 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       User.count(:conditions => ['email = ?', email]) == 0
     end
   end
-  
+
   def curator_request
     return true unless curator_scope.blank? && credentials.blank?
   end
-  
+
   def activate
     self.update_attributes(:active => true)
     Notifier.deliver_welcome_registration(self)
@@ -475,7 +475,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   def is_moderator?
     return false if special.nil?
-    special.can?(Privilege.show_hide_comments)
+    special.can?(Privilege.hide_comments)
   end
 
   def has_special_role?(role)

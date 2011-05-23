@@ -8,7 +8,7 @@ class RolesController < ApplicationController
   before_filter :load_all_privileges, :only => [:show, :new]
 
   def index
-    @roles = Role.paginate(:page => params[:page]) 
+    @roles = Role.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -97,7 +97,7 @@ private
 
   def restrict_access
     @current_member ||= current_user.member_of(@community)
-    raise EOL::Exceptions::SecurityViolation unless @current_member && @current_member.can?(Privilege.edit_delete_community)
+    raise EOL::Exceptions::SecurityViolation unless @current_member && @current_member.can?(Privilege.edit_community)
   end
 
   def load_community_and_dependent_vars

@@ -59,7 +59,7 @@ ContactRole.gen_if_not_exists(:label => 'Administrative Contact')
 ContactRole.gen_if_not_exists(:label => 'Technical Contact')
 
 # Cannot create users without special collection:
-KnownPrivileges.create_all
+Privilege.create_defaults
 SpecialCollection.create_all
 Community.create_special
 

@@ -718,8 +718,6 @@ Factory.define :page_name do |pn|
 end
 
 Factory.define :privilege do |p|
-  p.name { Factory.next(:string) }
-  p.sym {|priv| KnownPrivileges.string_to_symbol(priv.name) }
   p.level 10
   p.special false
 end
@@ -997,6 +995,12 @@ Factory.define :translated_news_item do |r|
   r.language        { Language.english }
   r.body            { 'Test News Item Body' + Faker::Lorem.paragraph }
   r.title           { Faker::Lorem.words[rand(4) + 1].titleize }
+end
+
+Factory.define :translated_privilege do |r|
+  r.association     :privilege
+  r.language        { Language.english }
+  r.name            { Factory.next(:string).gsub(/[^A-Za-z0-9]/, ' ') }
 end
 
 Factory.define :translated_rank do |r|

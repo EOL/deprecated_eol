@@ -1,4 +1,4 @@
-- current_user_is_admin = @current_member && @current_member.can?(Privilege.edit_delete_community)
+- current_user_is_admin = @current_member && @current_member.can?(Privilege.edit_community)
 - form_for([@community, @role]) do |f|
   .title
     %p
@@ -6,7 +6,7 @@
     %p
       = f.text_field :title
   .privilieges
-    %h5= I18n.t(:privileges) 
+    %h5= I18n.t(:privileges)
     %ul#role_privileges
       - @privileges.each do |privilege|
         %li

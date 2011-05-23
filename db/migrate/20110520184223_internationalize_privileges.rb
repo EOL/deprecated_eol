@@ -24,14 +24,18 @@ class InternationalizePrivileges < ActiveRecord::Migration
     english = Language.find_by_iso_exclusive_scope('en')
     execute('ALTER TABLE `privileges` ADD `name` varchar(255) default "" AFTER `id`') rescue nil
     execute('ALTER TABLE `privileges` ADD `sym` varchar(255) default "" AFTER `id`') rescue nil
-    if english
-      TranslatedPrivilege.find_all_by_language_id(english.id).each do |r|
-        old_r = Privilege.find(r.privilege_id)
-        old_r.name = r.name
-        old_r.save
+    begin
+      if english
+        TranslatedPrivilege.find_all_by_language_id(english.id).each do |r|
+          old_r = Privilege.find(r.privilege_id)
+          old_r.name = r.name
+          old_r.save
+        end
       end
+    rescue
+      # no nothing, nothing to change here
     end
-    add_index :privileges, :name, :name => 'name'
-    drop_table :translated_privileges
+    add_index :privileges, :name, :name => 'name' rescue nil
+    drop_table :translated_privileges rescue nil
   end
 end

@@ -1,6 +1,7 @@
 .error
   %p{ :style => 'padding-bottom:2em;' }
-    =  I18n.t(:general_error_occurred)
+    -# TODO: That email addy should be in the config file, not here:
+    =  I18n.t(:general_error_occurred, :email => 'error@eol.org')
     -# Extra tests because errors can be caused by weird things:
     - begin
       - if current_user && current_user.is_admin? && defined?(message)

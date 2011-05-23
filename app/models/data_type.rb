@@ -75,44 +75,19 @@ class DataType < SpeciesSchemaModel
     ids = [DataType.text.id]
   end
 
+  # Not all unique data types DISPLAY with their label... translations come from the DB on the labels we know we
+  # like:
   def simple_type
-    case label
-    when 'Image', 'GBIF Image'
-      I18n.t("image")
-    when 'Text'
-      I18n.t("text_object")
-    when 'Sound'
-      I18n.t("sound_file")
-    when 'Video', 'YouTube', 'Flash'
-      I18n.t("video")
-    when 'IUCN'
-      I18n.t("iucn_entry")
+    if image_type_ids.include? id
+      DataType.image.label
+    elsif text_type_ids.include? id
+      DataType.text.label
+    elsif sound_type_ids.include? id
+      DataType.sound.label
+    elsif video_type_ids.include? id
+      DataType.video.label
     else
-      I18n.t("data_object")
-    end
-  end
-
-  def simple_type_with_article
-    case label
-    when 'Image', 'GBIF Image'
-      I18n.t("an_image")
-    when 'Text'
-      I18n.t("a_text_object")
-    when 'Sound'
-      I18n.t("a_sound_file")
-    when 'Video', 'YouTube', 'Flash'
-      I18n.t("a_video")
-    when 'IUCN'
-      I18n.t("an_iucn_entry")
-    else
-      I18n.t("a_data_object")
-    end
-  end
-
-private
-  def self.get_type_ids(which)
-    cached("data_types/ids/#{which.join('+').gsub(' ','_')}") do
-      which.collect { |type| DataType.cached_find_translated(:label, type) }.collect {|type| type.id }
+      label # We'll have to use whatever we have.
     end
   end
 

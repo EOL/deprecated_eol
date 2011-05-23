@@ -6,7 +6,7 @@
     %p.result_empty
       = I18n.t(:there_are_currently_no_members_in_this_community)
       - if not logged_in?
-        = I18n.t(:link_to_join_this_community, :var_link=>link_to(I18n.t(:log_in), login_path))
+        = I18n.t(:link_to_join_this_community, :link=>link_to(I18n.t(:log_in), login_path))
       - elsif !@current_member
     = link_to( I18n.t(:join_community) , join_community_path(@community.id))
 
@@ -18,7 +18,7 @@
           = link_to member.user.username, member.user
           = member.roles.map {|r| r.title}.sort.join(', ')
           - if this_is_me
-            = I18n.t(:you)
+            = I18n.t(:you_in_parens)
             = link_to( I18n.t(:leave_community) , leave_community_path(@community.id))
           - else # NOTE THE ELSE!!!!  You *cannot* edit yourself.
             - if @current_member && @current_member.can_edit_members?
@@ -35,6 +35,6 @@
       =link_to(I18n.t(:join_community), join_community_path(@community.id, :return_to => return_to), :title => title)
     - elsif @current_member
       %p
-        = I18n.t(:you_have_been_a_member_of_this_community_since_current_membercreated_at, :var_current_member_created_at=>@current_member.created_at)
+        = I18n.t(:you_have_been_a_member_of_this_community_since, :when => @current_member.created_at)
         = link_to( I18n.t(:leave_community) , leave_community_path(@community.id), :confirm => I18n.t(:are_you_sure) , :class => 'leave_community')
 

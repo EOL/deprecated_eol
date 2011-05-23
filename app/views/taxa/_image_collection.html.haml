@@ -25,10 +25,11 @@
   %div{ :class => "mc-navigation#{@taxon_concept.length_of_images < $MAX_IMAGES_PER_PAGE  ? ' no-pagination' : ''}" }
     %p.hide
       = I18n.t(:page_navigation)
-    - if (@image_page ||= 1) > 1
-      %a{ :href => url_for(:action => 'images', :taxon_concept_id => @taxon_concept.id, :image_page => @image_page - 1), :title => I18n.t(:back) , :onclick => ajax_delay_click }
-        %span#back
-          = I18n.t(:back)
+    -# NOTE: I commented this out while working on I18n stuff.  The key was stupid and I don't think we'll be using this view, anyway:
+      - if (@image_page ||= 1) > 1
+        %a{ :href => url_for(:action => 'images', :taxon_concept_id => @taxon_concept.id, :image_page => @image_page - 1), :title => '' , :onclick => ajax_delay_click }
+          %span#back
+            = ''
     - else
       %span#noback
 

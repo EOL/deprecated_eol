@@ -20,7 +20,7 @@ class Collection < ActiveRecord::Base
 
   def editable_by?(user)
     return false if special_collection_id # None of the special lists may be edited.
-    if user_id 
+    if user_id
       return user.id == user_id # Owned by this user?
     else
       return user.member_of(community).can?(Privilege.edit_delete_community)
@@ -42,7 +42,7 @@ class Collection < ActiveRecord::Base
       name = what.username
     when "DataObject"
       collection_items << CollectionItem.create(:object_type => "DataObject", :object_id => what.id, :name => what.short_title)
-      name = what.data_type.simple_type_with_article
+      name = what.data_type.simple_type
     when "Community"
       collection_items << CollectionItem.create(:object_type => "Community", :object_id => what.id, :name => what.name)
       name = what.name
@@ -53,7 +53,7 @@ class Collection < ActiveRecord::Base
       raise EOL::Exceptions::InvalidCollectionItemType.new("I cannot create a collection item from a #{what.class.name}")
     end
     if is_focus_list?
-      community.feed.post(I18n.t("community_watching_note", :name => name), :feed_item_type_id => FeedItemType.content_update.id, :subject_id => what.id, :subject_type => what.class.name)
+      community.feed.post(I18n.t("community_watching_this_note", :name => name), :feed_item_type_id => FeedItemType.content_update.id, :subject_id => what.id, :subject_type => what.class.name)
     end
     what # Convenience.  Allows us to chain this command and continue using the object passed in.
   end

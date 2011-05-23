@@ -92,7 +92,7 @@
               %p= I18n.t(:join_eol_community_html)
               %p.button= link_to I18n.t(:join_eol_button_html), { :controller => "/account", :action => "signup" }
               %p
-                = I18n.t(:already_a_member)
+                = I18n.t(:already_a_member_question)
                 = link_to I18n.t(:sign_in), { :controller => "/account", :action => "login" }
         - elsif $ALLOW_USER_LOGINS == false && @home_page.nil?
           .session

@@ -37,17 +37,12 @@ class Vetted < SpeciesSchemaModel
     return 'trusted' if id == Vetted.trusted.id
   end
 
-  def to_s_with_article
-    return I18n.t(:unreviewed_with_article) if id == Vetted.unknown.id
-    return I18n.t(:untrusted_with_article) if id == Vetted.untrusted.id
-    return I18n.t(:trusted_with_article) if id == Vetted.trusted.id
-  end
-
 private
 
+  # TODO - this should be in the DB.
   def vetted_weight
     @@vetted_weight = {Vetted.trusted.id => 1, Vetted.unknown.id => 2, Vetted.untrusted.id => 3} if
-      ENV['RAILS_ENV'] =~ /test/ # Set it every time, because it changes a lot in the test env!
+      ENV['RAILS_ENV'] =~ /test/ # Set it every time, because the IDs change a lot in the test env!
     @@vetted_weight ||= {Vetted.trusted.id => 1, Vetted.unknown.id => 2, Vetted.untrusted.id => 3}
   end
 

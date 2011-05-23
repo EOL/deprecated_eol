@@ -1,4 +1,4 @@
-%p 
+%p
 - unless @content[:items]['parents'].blank?
   %b
     =I18n.t("parents_")
@@ -24,7 +24,7 @@
   %br
 - unless @content[:items]['children'].blank?
   %b
-    =I18n.t("children_")
+    =I18n.t("children_colon")
   %br
   %table.results_table
     %tr

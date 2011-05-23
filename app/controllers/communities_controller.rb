@@ -16,7 +16,7 @@ class CommunitiesController < ApplicationController
 
   def show
     @feed_item = FeedItem.new_for(:feed => @community, :user => current_user)
-    @page_title = I18n.t("community__var___community_nam", :var___community_name_ =>  @community.name )
+    @page_title = I18n.t(:community_page_title, :name => @community.name )
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @community }

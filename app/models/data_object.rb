@@ -1041,11 +1041,11 @@ class DataObject < SpeciesSchemaModel
   end
 
   def hide(user)
-    set_visibility(user, Visibility.invisible.id, :hide, I18n.t("dato_hidden_note", :username => user.username, :a_type => data_type.simple_type_with_article))
+    set_visibility(user, Visibility.invisible.id, :hide, I18n.t("dato_hidden_note", :username => user.username, :type => data_type.simple_type))
   end
 
   def inappropriate(user)
-    set_visibility(user, Visibility.inappropriate.id, :inappropriate, I18n.t("dato_inappropriate_note", :username => user.username, :a_type => data_type.simple_type_with_article))
+    set_visibility(user, Visibility.inappropriate.id, :inappropriate, I18n.t("dato_inappropriate_note", :username => user.username, :type => data_type.simple_type))
   end
 
   def flickr_photo_id

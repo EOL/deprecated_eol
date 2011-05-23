@@ -7,11 +7,11 @@
       %tbody
         %tr
           %th
-            = I18n.t(:project) 
+            = I18n.t(:project)
           %th
-            = I18n.t(:search) 
+            = I18n.t(:search)
           - if show_both
-            %th= I18n.t(:by_scientific_name) 
+            %th= I18n.t(:by_scientific_name_table_header)
         %tr
           %td.odd{:height => "60", :width => "100"}
             = external_link_to(image_tag('agent_icons/google.gif'), 'http://www.google.com/search?q=' + blind_outlink_parameter, :show_link_icon => false)

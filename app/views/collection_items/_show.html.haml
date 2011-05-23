@@ -5,7 +5,7 @@
   .details
     %h3= collection_item.name
     - #TODO: Show common name for taxon description for image, expertise for person etc...
-    %p= collection_item_link_to(collection_item)
+    %p= collection_item_view_type_link_to(collection_item)
   %span.icon= I18n.t(:collection_item_type_with_label, :type => type)
   .comment
     -#FIXME: get proper comment

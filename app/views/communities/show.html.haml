@@ -1,26 +1,53 @@
-%p#community_description= h @community.description
-- roles = @community.roles
-= render :partial => 'roles/index', :locals => {:roles => roles}
-- i_am_in_this_community = current_user.member_of?(@community)
--# TODO: Understand what member and non_member business is about?
-- member_function = i_am_in_this_community ? 'member allowed' : 'member not_allowed'
-- non_member_function = i_am_in_this_community ? 'non_member not_allowed' : 'non_member allowed'
-= render :partial => 'members/index', :locals => {:i_am_in_this_community => i_am_in_this_community, :member_function => member_function, :non_member_function => non_member_function }
-#community_actions_container
-  - if @current_member && @current_member.can?(Privilege.edit_delete_community)
-    %h2= I18n.t(:manage_community)
-    %ul
-      %li{ :class => "edit_community #{ member_function}" }
-        = link_to( I18n.t(:edit_community) , edit_community_path(@community))
-      %li{:class => "delete_community #{ member_function }" }
-        = link_to( I18n.t(:delete_community) , community_path(@community), :confirm => I18n.t(:are_you_sure) , :method => :delete)
+#tabs_sidebar
+  -#FIXME: active tab needs to be functional, and counts real, move to controller(?)
+  %ul.tabs
+    %li.active= link_to I18n.t(:newsfeed), "/placeholder"
+    %li= link_to I18n.t(:members_with_count, :count => 23), "/placeholder"
+    %li= link_to I18n.t(:collections_with_count, :count => 6), "/placeholder"
+    %li= link_to I18n.t(:pending_members_with_count, :count => 2), "/placeholder"
+    %li= link_to I18n.t(:pending_collections_with_count, :count => 3), "/placeholder"
 
-#community_focus_container
-  %h2= I18n.t(:taxa)
-  - if @community.focus.nil?
-    = I18n.t(:this_community_has_no_focus_list)
-  - elsif @community.focus.collection_items.empty?
-    = I18n.t(:this_community_has_no_focus_items_associated_with_it)
+#sidebar
+  .collection_list
+    %h3= I18n.t(:community_focus)
+    - if @community.focus.nil?
+      %p= I18n.t(:this_community_has_no_focus_list)
+    - elsif @community.focus.collection_items.empty?
+      %p= I18n.t(:this_community_has_no_focus_items_associated_with_it)
+    - else
+      %ul
+        - @community.focus.collection_items[0..5].each do |item|
+          %li= collection_item_name_link_to(item)
+  .collection_list
+    %h3= I18n.t(:endorsed_collections)
+    -# FIXME: make this functional
+    %ul
+      - 3.times do
+        %li= link_to "Poisonous Mushrooms", "#"
+
+#community.main_container
+  -# FIXME: contents should change depending on active tab - move these to controller (?)
+  - active = true
+  - if active
+    = render :partial => 'feed_items/index', :locals => { :feed => @community.feed, :form_position => :before_header, :header => I18n.t(:newsfeed), :allow_filter => true }
   - else
-    = render :partial => "/collections/show", :locals => { :collection => @community.focus }
-= render :partial => 'feed_items/index', :locals => { :feed => @community.feed }
+    - #FIXME: move all this extra stuff to appropriate tab show
+    - roles = @community.roles
+    = render :partial => 'roles/index', :locals => {:roles => roles}
+    - i_am_in_this_community = current_user.member_of?(@community)
+    -# TODO: Understand what member and non_member business is about?
+    - member_function = i_am_in_this_community ? 'member allowed' : 'member not_allowed'
+    - non_member_function = i_am_in_this_community ? 'non_member not_allowed' : 'non_member allowed'
+    = render :partial => 'members/index', :locals => {:i_am_in_this_community => i_am_in_this_community, :member_function => member_function, :non_member_function => non_member_function }
+
+    - if @current_member && @current_member.can?(Privilege.edit_delete_community)
+      %h2= I18n.t(:manage_community)
+      %ul
+        %li{ :class => "edit_community #{ member_function}" }
+          = link_to( I18n.t(:edit_community) , edit_community_path(@community))
+        %li{:class => "delete_community #{ member_function }" }
+          = link_to( I18n.t(:delete_community) , community_path(@community), :confirm => I18n.t(:are_you_sure) , :method => :delete)
+
+
+
+

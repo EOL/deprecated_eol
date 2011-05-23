@@ -1,6 +1,7 @@
 - editable = collection.editable_by?(current_user)
 - #TODO refer to older commit e.g. 5f64447fe0c1ac9b78c3 when need to reimplement editable actions and forms
 #tabs_sidebar
+  -#FIXME: active tab needs to be functional, and counts real, move to controller(?)
   %ul.tabs.with_icons
     %li.active.total= link_to I18n.t(:total_items_with_count, :count => 37), "/placeholder"
     %li.taxa= link_to I18n.t(:taxa_with_count, :count => 23), "/placeholder"
@@ -9,7 +10,7 @@
     %li.communities= link_to I18n.t(:communities_with_count, :count => 3), "/placeholder"
     %li.people= link_to I18n.t(:people_with_count, :count => 3), "/placeholder"
     %li.collections= link_to I18n.t(:collections_with_count, :count => 3), "/placeholder"
-  -#TODO: Make this sort functional
+  -#FIXME: Make this sort functional
   %form(action="" method="post")
     %fieldset
       %dl
@@ -34,6 +35,7 @@
           -#TODO: %p= collection.user.expertise
 
 #collections.main_container
+  -# FIXME: contents should change depending on active tab
   - form_for(collection) do |form|
     - collection.collection_items.each do |item|
       = render :partial => 'collection_items/show', :locals => { :collection_item => item, :editable => editable }

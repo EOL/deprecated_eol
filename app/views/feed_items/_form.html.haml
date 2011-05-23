@@ -1,4 +1,8 @@
-- unless @feed_item.nil?
+-if logged_in?
+  %p
+    = link_to(I18n.t(:login_to_add_comments),
+      login_path(:params => {:return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path}))
+- elsif ! @feed_item.nil?
   - form_for(@feed_item, :html => { :class => "comment"}) do |f|
     %fieldset
       - #TODO: Change image to be current user thumbnail or something...
@@ -6,6 +10,6 @@
       = f.error_messages
       = f.hidden_field :feed_type
       = f.hidden_field :feed_id
-      = f.text_field :body, :cols => 30, :rows => 3
+      = f.text_area :body, :cols => 30, :rows => 3
     %fieldset.actions
       = f.submit I18n.t(:post_comment)

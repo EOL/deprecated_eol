@@ -1,15 +1,31 @@
+- form_position ||= :after_items
+- header ||= I18n.t(:recent_updates)
+- allow_filter ||= false
 #feed_items.article.list.updates
-  .header
-    %h3= I18n.t(:recent_updates)
+  - if form_position == :before_header
+    = render :partial => 'feed_items/form', :locals => {:feed => feed}
+  .header.heading
+    %h3= header
+    -# FIXME: Make this sort functional
+    - if allow_filter
+      %form.filter(action="" method="post")
+        %fieldset
+          %dl
+            %dt
+              %label= I18n.t(:filter_feeds_label)
+            %dd
+              %select
+                %option= I18n.t(:filter_feeds_all_option)
+          %input{:type => "submit", :value => I18n.t(:filter_feeds_button)}
   - if feed.empty?
     %p.empty= I18n.t(:no_activity)
   - else
-    %ul
+    %ul.feed
       -# TODO - paginate
       - feed.each do |feed_item|
         %li
           - #TODO: Need to put images e.g. user profiles etc, also do we have good alt text from users?
-          = link_to image_tag('images/v2/icon_people_tab.png', :alt => '')
+          = link_to image_tag('/images/v2/icon_people_tabs.png', :alt => '')
           .details
             - # TODO: Something like:
             - # %p
@@ -19,10 +35,5 @@
             - # %p Head Mycologist
             - # %p.meta 5 minutes ago
             %p= h feed_item.body
-  - if logged_in?
-    = render :partial => 'feed_items/form', :locals => {:feed => feed} # Important to specify feed_items folder
-  - else
-    %p
-      = link_to(I18n.t(:login_to_add_comments),
-        login_path(:params => {:return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path}))
-
+  - if form_position == :after_items
+    = render :partial => 'feed_items/form', :locals => {:feed => feed}

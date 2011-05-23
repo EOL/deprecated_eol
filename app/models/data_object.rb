@@ -1045,7 +1045,7 @@ class DataObject < SpeciesSchemaModel
   end
 
   def inappropriate(user)
-    set_visibility(user, Visibility.inappropriate.id, :inappropriate, I18n.t("dato_inappropriate_note", :username => user.username, :type => data_type.simple_type))
+    set_visibility(user, Visibility.inappropriate.id, :inappropriate, I18n.t(:dato_inappropriate_note, :username => user.username, :type => data_type.simple_type))
   end
 
   def flickr_photo_id

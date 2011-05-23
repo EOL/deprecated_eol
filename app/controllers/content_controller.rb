@@ -297,12 +297,12 @@ class ContentController < ApplicationController
     @preset_amount = donation[:preset_amount]
 
     if @preset_amount.nil?
-      flash.now[:error] =  I18n.t(:donation_error)
+      flash.now[:error] =  I18n.t(:donation_error_no_amount)
       return
     end
 
     if (@preset_amount == "other" && @other_amount == 0)
-      flash.now[:error] =  I18n.t(:donation_error2)
+      flash.now[:error] =  I18n.t(:donation_error_only_numbers)
       return
     end
 
@@ -395,11 +395,11 @@ class ContentController < ApplicationController
     @error = false
     if current_user.curator_approved
       if matches = @revision_url.match(/^http:\/\/en\.wikipedia\.org\/w\/index\.php\?title=(.*?)&oldid=([0-9]{9})$/i)
-        flash[:notice] = I18n.t("wikipedia_article_var_matches_", :var_matches_1_ => matches[1], :var_matches_2_ => matches[2])
+        flash[:notice] = I18n.t(:wikipedia_article_will_be_harvested_tonight, :article => matches[1], :rev => matches[2])
         WikipediaQueue.create(:revision_id => matches[2], :user_id => current_user.id)
         redirect_to :action => 'page', :id => 'curator_central'
       else
-        flash[:notice] = I18n.t("revision_url_must_match_http__")
+        flash[:notice] = I18n.t(:wikipedia_revisions_must_match_pattern_error)
         @revision_url = nil
         redirect_to :action => 'page', :id => 'curator_central'
       end

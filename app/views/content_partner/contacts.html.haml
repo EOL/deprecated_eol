@@ -27,7 +27,7 @@
         %td{ :class => column_class }
           = link_to(I18n.t("change"), { :action => 'edit_contact', :id => contact })
           \|
-          = link_to(I18n.t("delete_"), { :action => 'del_contact', :id => contact }, :confirm => I18n.t("are_you_sure_you_want_to_delet"))
+          = link_to(I18n.t(:delete_firstcap), { :action => 'del_contact', :id => contact }, :confirm => I18n.t("are_you_sure_you_want_to_delet"))
   %tbody
 - form_for @agent, :url => { :action => action_name }, :html => { :method => :post, :id => 'contacts_form' } do |f|
   %input#save_type{ :name => "save_type", :type => "hidden", :value => "stay" }

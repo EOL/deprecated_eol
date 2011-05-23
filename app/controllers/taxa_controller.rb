@@ -36,7 +36,7 @@ class TaxaController < ApplicationController
       @querystring = params[:q] || params[:id]
     end
     @search_type = params[:search_type] || 'text'
-    @page_title  = I18n.t("eol_search__var__querystring", :var__querystring => @querystring)
+    @page_title  = I18n.t(:search_by_term_page_title, :term => @querystring)
     @parent_search_log_id = params[:search_log_id] || 0 # Keeps track of searches done immediately after other searches
     log_search(request)
     if @search_type == 'google'
@@ -407,7 +407,7 @@ class TaxaController < ApplicationController
                                      :vetted => Vetted.trusted)
         current_user.log_activity(:added_common_name, :value => params[:name][:name_string], :taxon_concept_id => tc.id)
       else
-        flash[:error] = I18n.t("user_var_current_user_full_nam", :var_current_user_full_name => current_user.full_name)
+        flash[:error] = I18n.t(:insufficient_privileges_to_add_common_name)
       end
       expire_taxa([tc.id])
     end
@@ -487,7 +487,7 @@ class TaxaController < ApplicationController
     # in Firefox those feeds are evaluated when the pages loads, so this should save some queries
     @concept = find_taxon_concept
     return if taxon_concept_invalid?(@concept)
-    @page_title = I18n.t("curators_of_var__concept_title", :var__concept_title__session_hierarchy_ => @concept.title(@session_hierarchy))
+    @page_title = I18n.t(:curators_of_taxon_page_title, :taxon => @concept.title(@session_hierarchy))
     curators = @concept.curators(:add_names => true)
     @curators = User.find_all_by_id(curators.collect{ |c| c.id })
     @curators = User.sort_by_name(@curators)

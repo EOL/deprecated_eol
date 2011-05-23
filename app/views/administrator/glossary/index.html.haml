@@ -6,12 +6,12 @@
 - form_tag({:action=>'index'},:method=>'post') do
   %strong
     =I18n.t("search")
-  =I18n.t("for_terms_or_definitions_conta") 
+  =I18n.t("for_terms_or_definitions_conta")
   = text_field_tag(:search_string, @search_string)
   = submit_tag I18n.t("search")
-  
-  
-  
+
+
+
 = will_paginate @glossary_terms
 %table.results_table{:width => "100%", :cellspacing => "0"}
   %tr
@@ -37,7 +37,7 @@
       %td{:class => column_class, :width => '70px'}
         = link_to I18n.t("edit_"), :action => I18n.t("edit_"), :id => glossary_term.id
         |
-        = link_to I18n.t("delete__"), {:action => 'destroy',:id => glossary_term.id}, :confirm => I18n.t("are_you_sure_you_want_to_perma"), :method => :delete
+        = link_to I18n.t(:delete), {:action => 'destroy',:id => glossary_term.id}, :confirm => I18n.t("are_you_sure_you_want_to_perma"), :method => :delete
   - if @glossary_terms.empty?
     %tr
       %td{:colspan => 5, :align => 'center', :class => 'odd'}

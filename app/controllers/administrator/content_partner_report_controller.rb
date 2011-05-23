@@ -7,9 +7,9 @@ class Administrator::ContentPartnerReportController < AdminController
   helper :resources
 
   helper_method :current_agent, :agent_logged_in?
-  
+
   access_control :content_partners
-  
+
   def index
     @page_title = I18n.t("content_partners")
     @partner_search_string = params[:partner_search_string] || ''
@@ -17,7 +17,7 @@ class Administrator::ContentPartnerReportController < AdminController
     @agent_status = AgentStatus.find(:all, :order => 'label')
     @agent_status_id = params[:agent_status_id] || AgentStatus.active.id
     where_clause = (@agent_status_id.blank? ? '' : "agent_status_id=#{@agent_status_id} AND ")
-    search_string_parameter = '%' + @partner_search_string + '%' 
+    search_string_parameter = '%' + @partner_search_string + '%'
     page = params[:page] || '1'
     order_by = params[:order_by] || 'full_name ASC'
     @agents = Agent.paginate_by_sql(["
@@ -39,14 +39,14 @@ class Administrator::ContentPartnerReportController < AdminController
           if agent.created_at.blank?
             created_at=''
           else
-            created_at=agent.created_at.strftime("%m/%d/%y - %I:%M %p %Z") 
+            created_at=agent.created_at.strftime("%m/%d/%y - %I:%M %p %Z")
           end if
           if agent.agent_status.blank?
             agent_status = 'unknown'
           else
             agent_status = agent.agent_status.label
           end
-          row << [agent.project_name,agent.created_at,agent.resources.count,agent_status,agent.id]       
+          row << [agent.project_name,agent.created_at,agent.resources.count,agent_status,agent.id]
           agent.agent_contacts.each do |contact|
             row << ['',contact.agent_contact_role.label,contact.title + ' ' + contact.full_name,contact.email,contact.telephone,contact.address,contact.homepage]
           end
@@ -56,17 +56,17 @@ class Administrator::ContentPartnerReportController < AdminController
      report.rewind
      send_data(report.read,:type=>'text/csv; charset=iso-8859-1; header=present',:filename => 'EOL_content_partners_export_' + Time.now.strftime("%m_%d_%Y-%I%M%p") + '.csv', :disposition =>'attachment', :encoding => 'utf8')
      return false
-    
+
   end
-  
+
   def show
     @page_title = I18n.t("content_partner_detail")
     @agent = Agent.find_by_id(params[:id])
     if @agent.blank?
-      redirect_to :action=>'index' 
+      redirect_to :action=>'index'
       return
     end
-    @agent_status=AgentStatus.find(:all,:order=>'label')    
+    @agent_status=AgentStatus.find(:all,:order=>'label')
     @agent.content_partner=ContentPartner.new if @agent.content_partner.nil?
     @current_agreement=ContentPartnerAgreement.find_by_agent_id_and_is_current(@agent.id,true,:order=>'created_at DESC')
     if @current_agreement == nil || @current_agreement.signed_by.blank?
@@ -75,25 +75,17 @@ class Administrator::ContentPartnerReportController < AdminController
       @agreement_signed='Accepted by ' + @current_agreement.signed_by + '<br /> on ' + @current_agreement.signed_on_date.to_s
     end
   end
-  
+
   def show_contacts
     @agent=Agent.find(params[:id],:include=>:agent_contacts)
-    @page_title = I18n.t("content_partner_contacts___var", :var__agent_project_name => @agent.project_name)
+    @page_title = I18n.t(:content_partner_contacts_page_title, :name => @agent.project_name)
     @contacts=@agent.agent_contacts
   end
 
   def edit_profile
-    # @agent = Agent.find(params[:id], :include => :content_partner)
-    # @page_title = I18n.t("edit_profile__var__agent_displ", :var__agent_display_name => @agent.display_name)
-    # return unless request.post?
-    # 
-    # if @agent.update_attributes(params[:agent])
-    #   upload_logo(@agent) unless @agent.logo_file_name.blank?
-    #   flash[:notice] = I18n.t(:profile_updated) 
-    #   redirect_to :action => 'show',:id=>@agent.id 
-    # end
+    # TODO
   end
-  
+
   def login_as_user
     @user = User.find_by_id(params[:id])
     if !@user.blank?
@@ -102,9 +94,9 @@ class Administrator::ContentPartnerReportController < AdminController
       redirect_to root_url
     end
   end
-  
+
   def edit_agreement
-    
+
     @page_title = I18n.t("edit_content_partner_agreement")
     @agent=Agent.find(params[:id])
 
@@ -129,9 +121,9 @@ class Administrator::ContentPartnerReportController < AdminController
     # find previous agreements
     @previous_agreements=ContentPartnerAgreement.find_all_by_agent_id_and_is_current(@agent.id,false,:order=>'created_at DESC')
     @primary_contact=@agent.primary_contact
-        
-  end  
-  
+
+  end
+
   def show_on_partner_page
     @agent = Agent.find(params[:id])
     @agent.content_partner.toggle!(:show_on_partner_page)
@@ -145,22 +137,22 @@ class Administrator::ContentPartnerReportController < AdminController
 
     render_check_or_uncheck('show_mou_on_cp_page_img', @agent.show_mou_on_partner_page?)
   end
-  
+
   def show_gallery_on_partner_page
     @agent = Agent.find(params[:id])
     @agent.content_partner.toggle!(:show_gallery_on_partner_page)
-    
+
     render_check_or_uncheck('show_gallery_on_cp_page_img', @agent.show_gallery_on_partner_page?)
   end
-  
+
   def show_stats_on_partner_page
     @agent = Agent.find(params[:id])
     @agent.content_partner.toggle!(:show_stats_on_partner_page)
-    
+
     render_check_or_uncheck('show_stats_on_cp_page_img', @agent.show_stats_on_partner_page?)
   end
-  
-  
+
+
   def vet_partner
     @agent = Agent.find(params[:id])
     @agent.content_partner.toggle!(:vetted)
@@ -174,7 +166,7 @@ class Administrator::ContentPartnerReportController < AdminController
     @agent.save!
     render :nothing=>true
   end
-  
+
   def auto_publish
     @agent = Agent.find(params[:id])
     @agent.content_partner.toggle!(:auto_publish)
@@ -182,37 +174,37 @@ class Administrator::ContentPartnerReportController < AdminController
     render_check_or_uncheck('auto_publish_img', @agent.auto_publish?)
   end
 
-  def monthly_stats_email    
+  def monthly_stats_email
     last_month = Time.now - 1.month
     @year = last_month.year.to_s
     @month = last_month.month.to_s
-       
+
     Agent.content_partners_contact_info(@month,@year).each do |recipient|
       Notifier.deliver_monthly_stats(recipient,@month,@year)
     end
-    
+
     #for testing the query result
-    @rset = Agent.content_partners_contact_info(@month,@year)    
+    @rset = Agent.content_partners_contact_info(@month,@year)
   end
-  
-  def get_year_month_list()    
+
+  def get_year_month_list()
     arr=[]
     start="2008_01"
     str=""
     var_date = Time.now
-    while( start != str)      
+    while( start != str)
       str = var_date.year.to_s + "_" + "%02d" % var_date.month.to_s
       arr << str
       var_date = var_date - 1.month
-    end    
+    end
     return arr
-  end 
-  
+  end
+
   def report_monthly_published_partners
     @page_title = I18n.t("published_content_partners")
     @year_month_list = get_year_month_list()
     if(params[:year_month]) then
-      params[:year], params[:month] = params[:year_month].split("_") if params[:year_month]    
+      params[:year], params[:month] = params[:year_month].split("_") if params[:year_month]
       @report_year  = params[:year].to_i
       @report_month = params[:month].to_i
       @year_month   = params[:year] + "_" + "%02d" % params[:month].to_i
@@ -221,7 +213,7 @@ class Administrator::ContentPartnerReportController < AdminController
       @report_year = last_month.year.to_s
       @report_month = last_month.month.to_s
       @year_month   = @report_year + "_" + "%02d" % @report_month.to_i
-    end        
+    end
     page = params[:page] || 1
     @published_content_partners = ContentPartner.partners_published_in_month(@report_year, @report_month)
   end
@@ -238,7 +230,7 @@ class Administrator::ContentPartnerReportController < AdminController
       @year_month = session[:form_year_month]
     end
     if(@year_month) then
-      params[:year], params[:month] = @year_month.split("_")    
+      params[:year], params[:month] = @year_month.split("_")
       @report_year  = params[:year].to_i
       @report_month = params[:month].to_i
       @year_month   = params[:year] + "_" + "%02d" % params[:month].to_i
@@ -257,7 +249,7 @@ class Administrator::ContentPartnerReportController < AdminController
     else
       @content_partner_id = "All"
     end
-    
+
     @content_partners_with_published_data = ContentPartner.with_published_data
 
     if @content_partner_id == "All"
@@ -287,7 +279,7 @@ class Administrator::ContentPartnerReportController < AdminController
 
   def report_partner_objects_stats
     @page_header = 'Content Partner Data Objects Stats'
-    
+
     if !params[:agent_id].blank? && params[:agent_id] != 0
       @agent_id = params[:agent_id]
       session[:form_agent_id] = params[:agent_id]
@@ -296,8 +288,8 @@ class Administrator::ContentPartnerReportController < AdminController
     else
       @agent_id = 1  # default
     end
-    
-    @content_partners_with_published_data = Agent.content_partners_with_published_data  
+
+    @content_partners_with_published_data = Agent.content_partners_with_published_data
     if @agent_id == "All"
       @agent_id = 1
     end
@@ -305,7 +297,7 @@ class Administrator::ContentPartnerReportController < AdminController
     @partner_fullname = partner.full_name
 
     page = params[:page] || 1
-    @partner_harvest_events = Agent.resources_harvest_events(@agent_id, page)        
+    @partner_harvest_events = Agent.resources_harvest_events(@agent_id, page)
 
     @cur_page = (page.to_i - 1) * 30
   end

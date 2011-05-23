@@ -1,6 +1,19 @@
 - content_for :main do
-  %h1
-    = @page_title || I18n.t("communities")
-  = yield
+  #page_heading.with_image
+    .site_column
+      .hgroup
+        - if @community
+          -#FIXME what of already a member? what happens to button?
+          = link_to I18n.t(:join_community_button), "/placeholder", :class => "button"
+          -#FIXME: Change this to community image - can we get decent alt text for this, otherwise leave blank image doesn't convey anthing useful.
+          = image_tag '/images/v2/icon_communities_tabs.png', :alt => ""
+          %h1= h @community.name
+          -#TODO %p= @community.description or updated date
+        - else
+          %h1= @page_title || I18n.t(:communities)
+
+  #content
+    .site_column
+      = yield
 
 = render :file => 'layouts/v2/application'

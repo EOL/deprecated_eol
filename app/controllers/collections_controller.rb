@@ -8,6 +8,8 @@ class CollectionsController < ApplicationController
   before_filter :find_parent, :only => [:index, :show]
   before_filter :find_parent_for_current_user_only, :except => [:index, :show, :collect, :watch]
 
+  layout 'v2/collections'
+
   # NOTE - I haven't really implemented this one yet.
   def index
     @collections = Collection.all
@@ -27,6 +29,7 @@ class CollectionsController < ApplicationController
 
   # NOTE - I haven't really implemented this one yet.
   def new
+    @page_title = I18n.t(:create_a_collection)
     @collection = Collection.new
     respond_to do |format|
       format.html # new.html.erb
@@ -36,6 +39,7 @@ class CollectionsController < ApplicationController
 
   # NOTE - I haven't really implemented this one yet.
   def edit
+    @page_title = I18n.t(:edit_collection)
     @collection = Collection.find(params[:id])
   end
 

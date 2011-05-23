@@ -23,16 +23,20 @@ describe "Members controller (within a community)" do
     @member.grant_privilege(@privilege1)
     @member.grant_privilege(@privilege2)
     @member.revoke_privilege(@revoked_privilege)
+    visit logout_path
     visit community_members_path(@community)
     @community_nonmembers_page = page
+    login_as @member
+    visit community_member_path(@community, @member)
+    @community_member_page = page
     login_as @admin
     visit community_member_path(@community, @member)
     @community_admin_page = page
-    visit community_member_path(@community, @member)
-    @community_member_page = page
   end
 
   it 'nonmembers should list members of a community' do
+    puts @community_nonmembers_page.body
+    debugger
     @community_nonmembers_page.should have_content(@admin.username)
     @community_nonmembers_page.should have_content(@user.username)
     @community_nonmembers_page.should_not have_content(@nonmember.username)

@@ -1,2 +1,2 @@
-module Mobile::ContentHelper
+module Mobile::ContentsHelper
 end

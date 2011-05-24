@@ -594,14 +594,18 @@ private
   end
   
   def check_if_mobile
-    if mobile_request?
+    if mobile_request? && !(request.request_uri.to_s.include? "\/mobile\/")
       #TODO Silvio - think about something better than just redirect to mobile index page
+      # like translating a full page url to mobile page url and vice versa
+      puts "------------------------------------------------------ Redirecting to mobile ------------------------------------------------------"
       redirect_to '/mobile/contents'
+    else
+      puts "------------------------------------------------------ Not redirecting ------------------------------------------------------"
     end
   end
   
   def mobile_request?
-    false #TODO Silvio - detect mobile devices
+    true #TODO Silvio - detect mobile devices
   end
   helper_method :mobile_request?
   

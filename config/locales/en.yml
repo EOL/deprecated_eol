@@ -1417,7 +1417,7 @@ en:
   romanian: "Romanian"
   rss_feed: "RSS feed"
   rss: "rss"
-  rss_abbr_html: "<abbr title=\"Really Simple Syndication\">RSS</>"
+  rss_abbr_html: "<abbr title=\"Really Simple Syndication\">RSS</abbr>"
   rss_status: "RSS status"
   rss_updates_of_harvests: "RSS updates of harvests"
   russian: "Russian"

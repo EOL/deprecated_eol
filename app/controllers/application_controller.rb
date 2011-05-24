@@ -612,4 +612,5 @@ private
   end
   helper_method :mobile_request?
   
+  
 end

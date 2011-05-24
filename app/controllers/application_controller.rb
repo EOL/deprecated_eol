@@ -19,6 +19,8 @@ class ApplicationController < ActionController::Base
       true
     end
   end
+  
+  before_filter :check_if_mobile
 
   prepend_before_filter :redirect_to_http_if_https
   prepend_before_filter :set_session
@@ -31,7 +33,7 @@ class ApplicationController < ActionController::Base
     :allow_page_to_be_cached?
 
   before_filter :set_locale
-
+  
   def set_locale
     I18n.locale = current_user.language_abbr
   end
@@ -582,5 +584,17 @@ private
   def update_logged_search params
     Search.update_log(params)
   end
-
+  
+  def check_if_mobile
+    if mobile_request?
+      #TODO Silvio - think about something better than just redirect to mobile index page
+      redirect_to '/mobile/contents'
+    end
+  end
+  
+  def mobile_request?
+    false #TODO Silvio - detect mobile devices
+  end
+  helper_method :mobile_request?
+  
 end

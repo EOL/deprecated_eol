@@ -593,19 +593,22 @@ private
     Search.update_log(params)
   end
   
+  # TODO Set and check session if a mobile user wants to see the full page 
+  # TODO Delete notices when everything works
   def check_if_mobile
     if mobile_request? && !(request.request_uri.to_s.include? "\/mobile\/")
-      #TODO Silvio - think about something better than just redirect to mobile index page
-      # like translating a full page url to mobile page url and vice versa
-      puts "------------------------------------------------------ Redirecting to mobile ------------------------------------------------------"
+      puts "------------------------------- NOTICE -------- Redirecting to /mobile --------------------------"
       redirect_to '/mobile/contents'
+    elsif mobile_request? && (request.request_uri.to_s.include? "\/mobile\/")
+      puts "------------------------------- NOTICE -------- Already on /mobile ------------------------------"
     else
-      puts "------------------------------------------------------ Not redirecting ------------------------------------------------------"
+      #puts "------------------------------ NOTICE -------- Not mobile request ------------------------------"
     end
   end
   
   def mobile_request?
-    true #TODO Silvio - detect mobile devices
+    request.env["HTTP_USER_AGENT"] && request.env["HTTP_USER_AGENT"][/(iPhone|iPod|iPad|Android|IEMobile)/]
+    # true # During mobile app development uncomment this line to force mobile views
   end
   helper_method :mobile_request?
   

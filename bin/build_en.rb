@@ -52,6 +52,8 @@ list = Set.new()
   views/taxa/_text_summary.html.haml
   views/layouts/v2/basic.html.haml
   views/layouts/v2/communities.html.haml
+  views/layouts/v2/application.html.haml
+  views/layouts/v2/collections.html.haml
   views/layouts/v2/taxa.html.haml
 
 ].compact.each do |dir|

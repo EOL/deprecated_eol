@@ -127,22 +127,10 @@ describe "Collections controller" do
           page.body.should have_tag("a[href=?]", collection_path(@shown_collection))
         end
 
-        it 'should have a select box for each collection item' do
-          page.body.should have_tag("input#collection_items[type=checkbox][value=?]", @show_collection.items.first.id)
-        end
+        # setting to pending need to check and implement 'editable' mockups
+        it 'should allow users to delete specific collections'
 
-        # NOTE - this is just a view test.  We should actually delete a collection, but that requires JS.
-        it 'should allow users to delete specific collections' do
-          page.body.should have_tag("a[href=?]", collection_path(@show_collection), :text => /delete/i)
-        end
-
-        # NOTE - this is just a view test.  We should actually rename the collection, but that requires JS.
-        it 'should allow users to edit the name of specific collections' do
-          page.body.should have_tag(".actions") do
-            with_tag('a', :text => 'Change Name')
-          end
-          page.body.should have_tag("input#collection_name")
-        end
+        it 'should allow users to edit the name of specific collections'
 
       end
 

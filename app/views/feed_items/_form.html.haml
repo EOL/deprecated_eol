@@ -1,4 +1,4 @@
--if logged_in?
+- if ! logged_in?
   %p
     = link_to(I18n.t(:login_to_add_comments),
       login_path(:params => {:return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path}))

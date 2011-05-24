@@ -482,7 +482,7 @@ en:
   date_this_resource_was_created: "Date This Resource Was Created:  <span title=\"required\">*</span>"
   date_updated: "Date Updated"
   date_uploaded_: "Date uploaded:"
-  dato_hidden_note: "%{username} hid %{a_type}."
+  dato_hidden_note: "%{username} hid %{type}."
   dato_inappropriate_note: "%{username} marked this %{type} as inappropriate."
   dato_rating_note: "%{username} gave this a rating of %{rating}."
   dato_shown_note: "%{username} made this %{type} visible."

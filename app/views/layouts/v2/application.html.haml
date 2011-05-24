@@ -80,9 +80,10 @@
               .details
                 %p
                   %strong= h(current_user.given_name)
-                  -#TODO: %br/= h(current_user.expertise)
+                  %br/
+                  = h(current_user.credentials)
                 %p.user_links
-                  = link_to I18n.t(:profile) , { :controller => "/account", :action => 'profile', :data => { :user_id => current_user.id} }
+                  = link_to I18n.t(:profile) , user_path(current_user.id)
                   &bull;
                   = link_to I18n.t(:sign_out) , logout_url
         - elsif $ALLOW_USER_LOGINS && !agent_logged_in?

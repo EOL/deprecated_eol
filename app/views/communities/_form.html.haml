@@ -1,10 +1,10 @@
 - form_for(@community) do |f|
-  %p
+  %fieldset
     = f.error_messages :header_message =>  I18n.t(:error_saving_community) , |
       :message =>  I18n.t(:these_problems_need_to_be_fixed)  |
-    = f.label :name,  I18n.t(:community_form_name_label) 
+    = f.label :name,  I18n.t(:community_form_name_label)
     = f.text_field :name
-    = f.label :description,  I18n.t(:community_form_description_label) 
+    = f.label :description,  I18n.t(:community_form_description_label)
     = f.text_area :description
-  - submit_label ||= I18n.t(:save) 
+  - submit_label ||= I18n.t(:save)
   = submit_tag(submit_label)

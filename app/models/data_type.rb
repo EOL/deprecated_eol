@@ -78,13 +78,13 @@ class DataType < SpeciesSchemaModel
   # Not all unique data types DISPLAY with their label... translations come from the DB on the labels we know we
   # like:
   def simple_type
-    if image_type_ids.include? id
+    if DataType.image_type_ids.include? id
       DataType.image.label
-    elsif text_type_ids.include? id
+    elsif DataType.text_type_ids.include? id
       DataType.text.label
-    elsif sound_type_ids.include? id
+    elsif DataType.sound_type_ids.include? id
       DataType.sound.label
-    elsif video_type_ids.include? id
+    elsif DataType.video_type_ids.include? id
       DataType.video.label
     else
       label # We'll have to use whatever we have.

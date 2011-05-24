@@ -30,9 +30,9 @@
           = link_to image_tag('/images/v2/icon_communities_tabs.png', :alt => ""), collection.community
           %h4= link_to collection.community.name, collection.community
         - elsif collection.user_id
-          = link_to image_tag collection.user.logo_url, user_path(:user_id => collection.user)
-          %h4= link_to collection.user.username, user_path(:user_id => collection.user)
-          -#TODO: %p= collection.user.expertise
+          = link_to image_tag(collection.user.logo_url, :alt => ''), user_path(collection.user_id)
+          %h4= link_to collection.user.full_name, user_path(collection.user_id)
+          %p= collection.user.credentials
 
 #collections.main_container
   -# FIXME: contents should change depending on active tab

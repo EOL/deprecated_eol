@@ -33,44 +33,48 @@ describe "Communities" do
       subject { body }
       it 'should show the community name and description' do
         should have_tag('h1', /.*?#{@test_data[:community].name}/)
-        should have_tag('p#community_description', /.*?#{@test_data[:community].description}/)
+        should have_tag('#page_heading', /#{@test_data[:community].description}/)
       end
-      it 'should link to community roles' do
-        body.should have_tag('ul#community_roles') do
-          @test_data[:community].roles.each do |role|
-            with_tag("a[href=#{community_role_path(@test_data[:community], role)}]", :text => /#{role.title}/m)
-          end
-        end
-      end
-      it 'should show count of members with any given role' do
-        body.should have_tag('ul#community_roles') do
-          @test_data[:community].roles.each do |role|
-            count = role.members.length
-            count = 'no' if count == 0
-            with_tag("li", :text => /#{role.title}.*#{count}/m)
-          end
-        end
-      end
-      it 'should link to all of the community members' do
-        body.should have_tag("ul#community_members") do
-          @test_data[:community].members.each do |member|
-            user = member.user
-            with_tag("a[href=#{user_path(user)}]", :text => user.username)
-          end
-        end
-      end
-      it 'should show each member\'s roles' do
-        body.should have_tag("ul#community_members") do
-          @test_data[:community].members.each do |member|
-            user = member.user
-            member.roles.each do |role|
-              with_tag("li", :text => /#{user.username}.*#{role.title}/m)
-            end
-          end
-        end
-      end
+      it 'should link to community roles'
+# maybe but not on default show tab
+#        body.should have_tag('ul#community_roles') do
+#          @test_data[:community].roles.each do |role|
+#            with_tag("a[href=#{community_role_path(@test_data[:community], role)}]", :text => /#{role.title}/m)
+#          end
+#        end
+
+      it 'should show count of members with any given role'
+# maybe but not on default show tab
+#        body.should have_tag('ul#community_roles') do
+#          @test_data[:community].roles.each do |role|
+#            count = role.members.length
+#            count = 'no' if count == 0
+#            with_tag("li", :text => /#{role.title}.*#{count}/m)
+#          end
+#        end
+
+      it 'should link to all of the community members'
+# maybe but not on default show tab
+#        body.should have_tag("ul#community_members") do
+#          @test_data[:community].members.each do |member|
+#            user = member.user
+#            with_tag("a[href=#{user_path(user)}]", :text => user.username)
+#          end
+#        end
+
+      it 'should show each member\'s roles'
+# maybe but not on default show tab
+#        body.should have_tag("ul#community_members") do
+#          @test_data[:community].members.each do |member|
+#            user = member.user
+#            member.roles.each do |role|
+#              with_tag("li", :text => /#{user.username}.*#{role.title}/m)
+#            end
+#          end
+#        end
+
       it 'should show the taxon concepts the community is focused upon' do
-        body.should have_tag('#community_focus_container') do
+        body.should have_tag('#sidebar') do
           with_tag("a[href=#{taxon_concept_path(@test_data[:tc1])}]")
           with_tag("a[href=#{taxon_concept_path(@test_data[:tc2])}]")
         end
@@ -119,12 +123,13 @@ describe "Communities" do
     context 'visiting show community' do
       before(:all) { visit community_path(@test_data[:community]) }
       subject { body }
-      it 'should not show join community link' do
-        should_not have_tag("a[href=?]", /#{join_community_path(@test_data[:community].id)}.*/)
-      end
-      it 'should show leave community link' do
-        should have_tag("a[href=?]", /#{leave_community_path(@test_data[:community].id)}.*/)
-      end
+      it 'should not show join community link'
+        # probably but not defined in design yet
+        # should_not have_tag("a[href=?]", /#{join_community_path(@test_data[:community].id)}.*/)
+      it 'should show leave community link'
+        # probably but not sure where yet...?
+        # should have_tag("a[href=?]", /#{leave_community_path(@test_data[:community].id)}.*/)
+
     end
   end
 
@@ -146,7 +151,7 @@ describe "Communities" do
     context 'visiting show community' do
       before(:all) { visit community_path(@test_data[:community]) }
       it 'should show a link to join the community' do
-        body.should have_tag("#community_members_container") do
+        body.should have_tag("#page_heading") do
           with_tag("a[href=?]", /#{join_community_path(@test_data[:community].id)}\?return_to=.*/)
         end
       end
@@ -167,13 +172,10 @@ describe "Communities" do
       end
       it 'should allow user to join community' do
         @test_data[:user_non_member].member_of?(@test_data[:community]).should_not be_true
-        should have_tag("a[href=#{join_community_path(@test_data[:community].id)}]")
+        should have_tag("a[href=?]", /#{join_community_path(@test_data[:community].id)}.*/)
         visit(join_community_path(@test_data[:community].id))
         @test_data[:user_non_member].reload
         @test_data[:user_non_member].member_of?(@test_data[:community]).should be_true
-        body.should have_tag("ul#community_members") do
-          with_tag("li.member a[href=#{user_path(@test_data[:user_non_member])}]", :text => @test_data[:user_non_member].username)
-        end
         # Clean up - we have tested that a non member can join, we now make them leave
         @test_data[:user_non_member].leave_community(@test_data[:community])
         @test_data[:user_non_member].member_of?(@test_data[:community]).should_not be_true
@@ -214,9 +216,6 @@ describe "Communities" do
         visit(leave_community_path(@test_data[:community].id))
         @test_data[:user_community_member].reload
         @test_data[:user_community_member].member_of?(@test_data[:community]).should_not be_true
-        body.should have_tag("ul#community_members") do
-          without_tag("li.allowed a[href=#{user_path(@test_data[:user_community_member])}]", :text => @test_data[:user_community_member].username)
-        end
         # Clean up - we have tested that a member can leave a community, now we make them join back
         @test_data[:user_community_member].join_community(@test_data[:community])
         @test_data[:user_community_member].member_of?(@test_data[:community]).should be_true
@@ -231,21 +230,22 @@ describe "Communities" do
     context 'visiting show community' do
       before(:all) { visit community_path(@test_data[:community]) }
       subject { body }
-      it 'should show an add role link' do
-        should have_tag("a[href=#{new_community_role_path(@test_data[:community])}]")
-      end
-      it 'should show an edit community link' do
-        should have_tag("a[href=#{edit_community_path(@test_data[:community])}]")
-      end
-      it 'should show delete community link' do
-        should have_tag("a[href=#{community_path(@test_data[:community])}]", :text => /delete/i)
-      end
-      it 'should show edit membership links' do
-        should have_tag("a[href=#{community_member_path(@test_data[:community], @test_data[:community_member])}]", :text => /edit/i)
-      end
-      it 'should show remove membership links' do
-        should have_tag("a[href=#{community_member_path(@test_data[:community], @test_data[:community_member])}]", :text => /remove/i)
-      end
+      # Setting to pending until we know what actions will be available on default show tab
+      it 'should show an add role link'
+#        should have_tag("a[href=#{new_community_role_path(@test_data[:community])}]")
+#      end
+      it 'should show an edit community link'
+#        should have_tag("a[href=#{edit_community_path(@test_data[:community])}]")
+#      end
+      it 'should show delete community link'
+#        should have_tag("a[href=#{community_path(@test_data[:community])}]", :text => /delete/i)
+#      end
+      it 'should show edit membership links'
+#        should have_tag("a[href=#{community_member_path(@test_data[:community], @test_data[:community_member])}]", :text => /edit/i)
+#      end
+      it 'should show remove membership links'
+#        should have_tag("a[href=#{community_member_path(@test_data[:community], @test_data[:community_member])}]", :text => /remove/i)
+#      end
     end
     context 'visiting edit community' do
       before(:all) { visit edit_community_path(@test_data[:community]) }

@@ -140,7 +140,7 @@ describe Community do
     community = Community.gen
     dato = DataObject.gen(:data_type => DataType.image)
     community.focus.add dato
-    community.feed.last.body.should =~ /is.*watching an image/i
+    community.feed.last.body.should =~ /is.*watching this Image/i
     community.feed.last.feed_item_type.should == FeedItemType.content_update
     community.feed.last.subject.should == dato
   end

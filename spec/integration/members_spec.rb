@@ -25,34 +25,33 @@ describe "Members controller (within a community)" do
     @member.revoke_privilege(@revoked_privilege)
     visit logout_path
     visit community_members_path(@community)
-    @community_nonmembers_page = page
+    @community_nonmembers_page = page.body
     login_as @member
     visit community_member_path(@community, @member)
-    @community_member_page = page
+    @community_member_page = page.body
     login_as @admin
     visit community_member_path(@community, @member)
-    @community_admin_page = page
+    @community_admin_page = page.body
   end
 
   it 'nonmembers should list members of a community' do
-    debugger
-    @community_nonmembers_page.should have_content(@admin.username)
-    @community_nonmembers_page.should have_content(@user.username)
-    @community_nonmembers_page.should_not have_content(@nonmember.username)
+    @community_nonmembers_page.should have_tag('#community_members', :text => /#{@admin.username}/)
+    @community_nonmembers_page.should have_tag('#community_members', :text => /#{@user.username}/)
+    @community_nonmembers_page.should_not have_tag('#community_members', :text => /#{@nonmember.username}/)
   end
 
   it 'admins should (still) have a link to the user\'s page' do
-    @community_admin_page.body.should have_tag("a[href=#{user_path(@user)}]")
+    @community_admin_page.should have_tag("a[href=#{user_path(@user)}]")
   end
 
   it 'admins should have an grant-role drop-down' do
-    @community_admin_page.body.should have_tag('.roles .add') do
+    @community_admin_page.should have_tag('.roles .add') do
       with_tag('select#member_new_role_id')
     end
   end
 
   it 'admins should list a member\'s roles with remove links' do
-    @community_admin_page.body.should have_tag('ul#roles') do
+    @community_admin_page.should have_tag('ul#roles') do
       [@role1, @role2].each do |role|
         with_tag('li', :text => /#{role.title}/) do
           with_tag("a[href*=remove_role]", :text => /remove/i)
@@ -62,7 +61,7 @@ describe "Members controller (within a community)" do
   end
 
   it 'admins should list a member\'s privilegs with revoke links' do
-    @community_admin_page.body.should have_tag('ul#privileges') do
+    @community_admin_page.should have_tag('ul#privileges') do
       with_tag('li', :text => /#{@privilege1.name}/) do
         with_tag("a[href*=revoke_privilege_from]", :text => /remove/i)
       end
@@ -73,19 +72,19 @@ describe "Members controller (within a community)" do
   end
 
   it 'admins should have a grant privilege drop-down' do
-    @community_admin_page.body.should have_tag('.privileges .add') do
+    @community_admin_page.should have_tag('.privileges .add') do
       with_tag('select#member_new_privilege_id')
     end
   end
 
   it 'admins should have a revoke privilege drop-down' do
-    @community_admin_page.body.should have_tag('.privileges .add') do
+    @community_admin_page.should have_tag('.privileges .add') do
       with_tag('select#member_removed_privilege_id')
     end
   end
 
   it 'admins should list a member\'s revoked privilegs with restore links' do
-    @community_admin_page.body.should have_tag('ul#privileges') do
+    @community_admin_page.should have_tag('ul#privileges') do
       with_tag('li', :text => /#{@revoked_privilege.name}.*revoked/im) do
         with_tag("a[href*=grant_privilege]", :text => /remove/i)
       end
@@ -94,19 +93,18 @@ describe "Members controller (within a community)" do
 
   it 'admins should be able to manage the community' do
     # Add Privilege:
+    privs = Privilege.find(:all, :conditions => { :special => false }).map(&:name)
     visit community_member_path(@community, @member)
-    priv_name = Privilege.find_by_special(:first, false)
-    select priv_name, :from => 'member_new_privilege_id'
+    select privs.first, :from => 'member_new_privilege_id'
     click 'Grant Privilege'
     page.body.should have_tag('ul#privileges') do
-      with_tag('li', :text => /#{priv_name}/)
+      with_tag('li', :text => /#{privs.first}/)
     end
     # 'should be able to revoke privileges' do
-    priv_name = Privilege.find_by_special(:first, false)
-    select priv_name, :from => 'member_removed_privilege_id'
+    select privs[1], :from => 'member_removed_privilege_id'
     click 'Revoke Privilege'
     page.body.should have_tag('ul#privileges') do
-      with_tag('li', :text => /#{priv_name}/)
+      with_tag('li', :text => /#{privs[1]}/)
     end
     # 'should be able to add a role' do
     select @role3.title, :from => 'member_new_role_id'
@@ -121,11 +119,11 @@ describe "Members controller (within a community)" do
   it 'should be able to remove a role'
 
   it 'members should have a link to the user\'s page' do
-    @community_member_page.body.should have_tag("a[href=#{user_path(@user)}]")
+    @community_member_page.should have_tag("a[href=#{user_path(@user)}]")
   end
 
   it 'members should list a member\'s roles' do
-    @community_member_page.body.should have_tag('ul#roles') do
+    @community_member_page.should have_tag('ul#roles') do
       with_tag('li', :text => @role1.title)
       with_tag('li', :text => @role2.title)
       without_tag('li', :text => @role3.title)
@@ -134,7 +132,7 @@ describe "Members controller (within a community)" do
   end
 
   it 'members should list a member\'s privilegs (including revoked)' do
-    @community_member_page.body.should have_tag('ul#privileges') do
+    @community_member_page.should have_tag('ul#privileges') do
       with_tag('li', :text => @privilege1.name)
       with_tag('li', :text => @privilege2.name)
       with_tag('li', :text => /#{@revoked_privilege.name}.*revoked/im)
@@ -142,19 +140,19 @@ describe "Members controller (within a community)" do
   end
 
   it 'members should NOT have a grant privilege drop-down' do
-    @community_member_page.body.should have_tag('.privileges .add') do
+    @community_member_page.should have_tag('.privileges .add') do
       without_tag('select#member_new_privilege_id')
     end
   end
 
   it 'members should NOT have a revoke privilege drop-down' do
-    @community_member_page.body.should have_tag('.privileges .add') do
+    @community_member_page.should have_tag('.privileges .add') do
       without_tag('select#member_removed_privilege_id')
     end
   end
 
   it 'members should NOT have a grant role drop-down' do
-    @community_member_page.body.should have_tag('.privileges .add') do
+    @community_member_page.should have_tag('.privileges .add') do
       without_tag('select#member_new_role_id')
     end
   end

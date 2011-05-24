@@ -35,7 +35,6 @@ describe "Members controller (within a community)" do
   end
 
   it 'nonmembers should list members of a community' do
-    puts @community_nonmembers_page.body
     debugger
     @community_nonmembers_page.should have_content(@admin.username)
     @community_nonmembers_page.should have_content(@user.username)

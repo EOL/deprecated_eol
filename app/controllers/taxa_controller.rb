@@ -168,7 +168,7 @@ class TaxaController < ApplicationController
       :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ],
       :table_of_contents => '*',
       :last_curated_dates => '*',
-      :users => [ :given_name, :family_name, :logo_cache_url ] }
+      :users => [ :given_name, :family_name, :logo_cache_url, :credentials ] }
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
 
     @summary_text = @taxon_concept.summary_text

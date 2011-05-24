@@ -137,8 +137,8 @@
         = render :partial => '/layouts/v2/global_navigation', :locals => { :position => :footer }
         %ul.social_media
           - #TODO: Add functional social media links.
-          %li= link_to "Twitter", "#", :class => "twitter"
-          %li= link_to "RSS", "#", :class => "rss"
+          %li= link_to I18n.t(:twitter), "/placeholder", :class => "twitter"
+          %li= link_to I18n.t(:rss_abbr_html), "/placeholder", :class => "rss"
 
     - if $ENABLE_ANALYTICS || true
       :javascript

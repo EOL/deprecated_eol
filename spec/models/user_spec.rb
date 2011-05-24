@@ -7,19 +7,28 @@ def bogus_hierarchy_entry
                         :visibility_id => 1, :source_url => 'foo', :hierarchy_id => 1)
 end
 
+def rebuild_convenience_method_data
+  @user = User.gen
+  @descriptions = ['these', 'do not really', 'matter much'].sort
+  @datos = @descriptions.map {|d| DataObject.gen(:description => d) }
+  @dato_ids = @datos.map{|d| d.id}.sort
+  @datos.each {|dato| UsersDataObject.create(:user_id => @user.id, :data_object_id => dato.id) }
+end
+
 describe User do
 
   before(:all) do
     @password = 'dragonmaster'
-    # We don't need foundation (which is expensive), but we do need curation permissions:
-    KnownPrivileges.create_all
-    SpecialCollection.create_all
-    Community.create_special
-    User.delete_all
+    load_foundation_cache
     @user = User.gen :username => 'KungFuPanda', :password => @password
     @user.should_not be_a_new_record
     FeedItemType.gen_if_not_exists(:name => 'content update')
     FeedItemType.gen_if_not_exists(:name => 'User Comment')
+    @special = Community.special
+    @admin = User.gen(:username => 'MisterAdminToYouBuddy')
+    @admin.join_community(@special)
+    @he = bogus_hierarchy_entry
+    @curator = User.gen()
   end
 
   it "should generate a random hexadecimal key" do
@@ -202,64 +211,49 @@ describe User do
     User.create_new( :username => @user.username ).save.should be_false
   end
 
-  describe('(curator user)') do
-
-    before(:all) do
-      @he = bogus_hierarchy_entry
-      @curator = User.gen()
-    end
-
-    before(:each) do
-      @curator.approve_to_curate
-      @curator.save!
-    end
-
-    it 'should NOT delegate can_curate? to the object passed in' do
-      model = mock_model(DataObject)
-      model.should_not_receive(:is_curatable_by?).with(@curator)
-      @curator.can_curate? model
-    end
-
-    it 'should return false if asked to curate when curator not approved' do
-      @curator.curator_approved = false
-      @curator.can_curate?(@he).should be_false
-    end
-
-    it 'should return false if asked to curate ... nothing' do
-      @curator.can_curate?(nil).should be_false
-    end
-
-    it 'should raise an error if asked to curate something non-curatable' do
-      lambda { @curator.can_curate?("a String").should be_false }.should raise_error
-    end
-
-    it 'should allow curator rights to be revoked' do
-      Role.gen(:title => 'Curator') rescue nil
-      @curator.is_curator?.should be_true
-      @curator.clear_curatorship(User.gen, 'just because')
-      @curator.reload
-      @curator.is_curator?.should be_false
-    end
-
+  it '(curator user) should NOT delegate can_curate? to the object passed in' do
+    @curator.approve_to_curate
+    @curator.save!
+    model = mock_model(DataObject)
+    model.should_not_receive(:is_curatable_by?).with(@curator)
+    @curator.can_curate? model
   end
 
-  describe("(in the special community)") do
+  it '(curator user) should return false if asked to curate when curator not approved' do
+    @curator.approve_to_curate
+    @curator.save!
+    @curator.curator_approved = false
+    @curator.can_curate?(@he).should be_false
+  end
 
-    before(:all) do
-      @special = Community.gen
-      Community.stub!(:special).and_return(@special)
-      @admin = User.gen(:username => 'MisterAdminToYouBuddy')
-      @admin.join_community(@special)
-    end
+  it '(curator user) should return false if asked to curate ... nothing' do
+    @curator.approve_to_curate
+    @curator.save!
+    @curator.can_curate?(nil).should be_false
+  end
 
-    it 'should be a member of the special community' do
-      @admin.member_of?(@special).should be_true
-    end
+  it '(curator user) should raise an error if asked to curate something non-curatable' do
+    @curator.approve_to_curate
+    @curator.save!
+    lambda { @curator.can_curate?("a String").should be_false }.should raise_error
+  end
 
-    it '#member_of should return a member of the special community' do
-      @admin.member_of(@special).should be_a(Member)
-    end
+  it '(curator user) should allow curator rights to be revoked' do
+    @curator.approve_to_curate
+    @curator.save!
+    Role.gen(:title => 'Curator') rescue nil
+    @curator.is_curator?.should be_true
+    @curator.clear_curatorship(User.gen, 'just because')
+    @curator.reload
+    @curator.is_curator?.should be_false
+  end
 
+  it '(in the special community) should be a member of the special community' do
+    @admin.member_of?(@special).should be_true
+  end
+
+  it '(in the special community) #member_of should return a member of the special community' do
+    @admin.member_of(@special).should be_a(Member)
   end
 
   it 'should create a new ActionsHistory pointing to the right object, user, type and action' do
@@ -273,93 +267,70 @@ describe User do
     ActionsHistory.last.action_with_object_id.should     == action.id
   end
 
-  describe 'convenience methods (NOT used in production code)' do
-
-    # Okay, I could load foundation here and build a taxon concept... but that's heavy for what are really very
-    # simple tests, so I'm doing a little more work here to save significant amounts of time running these tests:
-    before(:each) do
-      User.delete_all
-      UsersDataObject.delete_all
-      DataObject.delete_all
-      @user = User.gen
-      @descriptions = ['these', 'do not really', 'matter much'].sort
-      @datos = @descriptions.map {|d| DataObject.gen(:description => d) }
-      @dato_ids = @datos.map{|d| d.id}.sort
-      @datos.each {|dato| UsersDataObject.create(:user_id => @user.id, :data_object_id => dato.id) }
-    end
-
-    it 'should return all of the data objects for the user' do
-      @user.all_submitted_datos.map {|d| d.id }.should == @dato_ids
-    end
-
-    it 'should return all data objects descriptions' do
-      @user.all_submitted_dato_descriptions.sort.should == @descriptions
-    end
-
-    it 'should be able to mark all data objects invisible and unvetted' do
-      Vetted.gen_if_not_exists(:label => 'Untrusted') unless Vetted.find_by_translated(:label, 'Untrusted')
-      Visibility.gen_if_not_exists(:label => 'Invisible') unless Visibility.find_by_translated(:label, 'Invisible')
-      @user.hide_all_submitted_datos
-      @datos.each do |stored_dato|
-        new_dato = DataObject.find(stored_dato.id) # we changed the values, so must re-load them.
-        new_dato.vetted.should == Vetted.untrusted
-        new_dato.visibility.should == Visibility.invisible
-      end
-    end
-
+  it 'convenience methods should return all of the data objects for the user' do
+    rebuild_convenience_method_data
+    @user.all_submitted_datos.map {|d| d.id }.should == @dato_ids
   end
 
-  describe '#activate' do
-
-    before(:each) do
-      @inactive_user = User.gen(:active => false)
-    end
-
-    it 'should set the active boolean' do
-      @inactive_user.active?.should_not be_true
-      @inactive_user.activate
-      @inactive_user.active?.should be_true
-    end
-
-    it 'should send a notification' do
-      Notifier.should_receive(:deliver_welcome_registration).with(@inactive_user).and_return(true)
-      @inactive_user.activate
-    end
-
-    it 'should create a "watch", "inbox" collection' do
-      @inactive_user.activate
-      @inactive_user.watch_collection.should_not be_nil
-      @inactive_user.inbox_collection.should_not be_nil
-    end
-
+  it 'convenience methods should return all data objects descriptions' do
+    rebuild_convenience_method_data
+    @user.all_submitted_dato_descriptions.sort.should == @descriptions
   end
 
-  describe 'community membership' do
-
-    it 'should be able to join a community' do
-      community = Community.gen
-      community.members.should be_blank
-      @user.join_community(community)
-      @user.members.map {|m| m.community_id}.should include(community.id)
+  it 'convenience methods should be able to mark all data objects invisible and unvetted' do
+    rebuild_convenience_method_data
+    Vetted.gen_if_not_exists(:label => 'Untrusted') unless Vetted.find_by_translated(:label, 'Untrusted')
+    Visibility.gen_if_not_exists(:label => 'Invisible') unless Visibility.find_by_translated(:label, 'Invisible')
+    @user.hide_all_submitted_datos
+    @datos.each do |stored_dato|
+      new_dato = DataObject.find(stored_dato.id) # we changed the values, so must re-load them.
+      new_dato.vetted.should == Vetted.untrusted
+      new_dato.visibility.should == Visibility.invisible
     end
+  end
 
-    it 'should be able to answer member_of?' do
-      community = Community.gen
-      @user.member_of?(community).should_not be_true
-      another_user = User.gen
-      community.add_member(@user)
-      @user.member_of?(community).should be_true
-      another_user.member_of?(community).should_not be_true
-    end
+  it 'should set the active boolean' do
+    inactive_user = User.gen(:active => false)
+    inactive_user.active?.should_not be_true
+    inactive_user.activate
+    inactive_user.active?.should be_true
+  end
 
-    it 'should be able to leave a community' do
-      community = Community.gen
-      community.add_member(@user)
-      @user.member_of?(community).should be_true
-      @user.leave_community(community)
-      @user.member_of?(community).should_not be_true
-    end
+  it 'should send a notification' do
+    inactive_user = User.gen(:active => false)
+    Notifier.should_receive(:deliver_welcome_registration).with(inactive_user).and_return(true)
+    inactive_user.activate
+  end
 
+  it 'should create a "watch", "inbox" collection' do
+    inactive_user = User.gen(:active => false)
+    inactive_user.activate
+    inactive_user.watch_collection.should_not be_nil
+    inactive_user.inbox_collection.should_not be_nil
+  end
+
+  it 'community membership should be able to join a community' do
+    community = Community.gen
+    community.members.should be_blank
+    @user.join_community(community)
+    @user.members.map {|m| m.community_id}.should include(community.id)
+  end
+
+  it 'community membership should be able to answer member_of?' do
+    community = Community.gen
+    @user.member_of?(community).should_not be_true
+    another_user = User.gen
+    community.add_member(@user)
+    @user.member_of?(community).should be_true
+    another_user.member_of?(community).should_not be_true
+  end
+
+  it 'community membership should be able to leave a community' do
+    community = Community.gen
+    community.add_member(@user)
+    @user.member_of?(community).should be_true
+    @user.leave_community(community)
+    @user.member_of?(community).should_not be_true
   end
 
   it 'should have a feed' do

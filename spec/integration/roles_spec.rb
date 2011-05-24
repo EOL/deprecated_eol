@@ -10,9 +10,9 @@ describe "Roles controller (within a community)" do
     @admin = User.gen
     @community.initialize_as_created_by(@admin)
     @role = Role.gen(:community => @community)
-    @privilege1 = Privilege.gen
-    @privilege2 = Privilege.gen
-    @non_privilege = Privilege.gen
+    @privilege1 = TranslatedPrivilege.gen.privilege
+    @privilege2 = TranslatedPrivilege.gen.privilege
+    @non_privilege = TranslatedPrivilege.gen.privilege
     @role.privileges = [@privilege1, @privilege2]
     @role.save!
     @has_role = User.gen.join_community(@community)

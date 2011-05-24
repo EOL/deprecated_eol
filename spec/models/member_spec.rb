@@ -10,9 +10,9 @@ describe Member do
     @member = Member.gen(:user => @user, :community => @community)
     @has_role = Role.gen
     @new_role = Role.gen
-    @has_privilege = Privilege.gen
-    @new_privilege = Privilege.gen
-    @role_privilege = Privilege.gen
+    @has_privilege = TranslatedPrivilege.gen.privilege
+    @new_privilege = TranslatedPrivilege.gen.privilege
+    @role_privilege = TranslatedPrivilege.gen.privilege
     @has_role.add_privilege(@role_privilege)
   end
 
@@ -47,7 +47,7 @@ describe Member do
   end
 
   it 'should have multiple privileges assigned to it (and identify if it #has_privilege?)' do
-    second_priv = Privilege.gen
+    second_priv = TranslatedPrivilege.gen.privilege
     @member.has_privilege?(@new_privilege).should_not be_true
     @member.grant_privileges([@new_privilege, second_priv])
     @member.has_privilege?(@new_privilege).should be_true
@@ -77,7 +77,7 @@ describe Member do
     end
 
     it 'should return false when a privilege has NOT been assigned to a member or his roles' do
-      priv = Privilege.gen
+      priv = TranslatedPrivilege.gen.privilege
       @member.can?(priv).should_not be_true
     end
 
@@ -94,7 +94,7 @@ describe Member do
   end
 
   it 'should list all privileges (except revoked)' do
-    new_priv = Privilege.gen
+    new_priv = TranslatedPrivilege.gen.privilege
     @member.revoke_privilege(new_priv)
     @member.all_sorted_privileges.map {|p| p.name}.should == [@has_privilege, @role_privilege].map {|p| p.name}.sort
   end
@@ -105,7 +105,7 @@ describe Member do
   end
 
   it 'should remove a privilege from member_privileges if it is revoked when the user has that special privilege' do
-    new_priv = Privilege.gen
+    new_priv = TranslatedPrivilege.gen.privilege
     @member.grant_privilege(new_priv)
     @member.member_privileges.map {|mp| mp.privilege }.include?(new_priv).should be_true
     @member.revoke_privilege(new_priv)
@@ -113,7 +113,7 @@ describe Member do
   end
 
   it 'should remove a privilege from member_privileges if it is granted when the user had that privilege revoked' do
-    new_priv = Privilege.gen
+    new_priv = TranslatedPrivilege.gen.privilege
     @member.revoke_privilege(new_priv)
     @member.member_privileges.map {|mp| mp.privilege }.include?(new_priv).should be_true
     @member.grant_privilege(new_priv)

@@ -1,67 +1,43 @@
 require 'spec_helper'
 
 describe Privilege do
-  
+
   before(:all) do
     truncate_all_tables
     load_foundation_cache
   end
-  
-  before(:each) do
-    @valid_attributes = {
-      :name => "value for name",
-      :sym => "value for sym",
-      :level => 1,
-      :type => "value for type"
-    }
+
+  it '#create_defaults should create some defaults' do
+    priv = Privilege.last
+    Privilege.should_receive(:create).at_least(10).times.and_return(priv) # Doesn't matter what it returns as long as it has an ID...
+    TranslatedPrivilege.should_receive(:create).at_least(10).times.and_return(nil)
+    Privilege.create_defaults
   end
 
-  it "should create a new instance given valid attributes" do
-    Privilege.create!(@valid_attributes)
+  it 'should return ALL of the privileges associated with a special community (sorted by name)' do
+    privs = Privilege.all_for_community(Community.special)
+    privs.should_not be_empty
+    Privilege.all.sort_by(&:name).should == privs
   end
 
-  it 'should be invalid if the name is not unique' do
-    Privilege.gen(:name => @valid_attributes[:name])
-    p = Privilege.new(@valid_attributes)
-    p.valid?.should_not be_true
-  end
-
-  it 'should list all non-special privileges for a non-special community, sorted by name' do
+  it 'should return all of the non-special privileges associated with a non-special community (sorted by name)' do
     c = Community.gen
-    Privilege.delete_all
-    privs = []
-    3.times { privs << Privilege.gen }
-    Privilege.gen(:special => true)
-    Privilege.all_for_community(c).map {|p| p.name}.sort.should == privs.map {|p| p.name}.sort
-  end
-
-  it 'should list *all* privileges for special communities (sorted by name)' do
-    c = Community.gen(:show_special_privileges => true)
-    return_val = [Privilege.gen, Privilege.gen].sort_by {|p| p.name}
-    Privilege.should_receive(:all).and_return return_val
-    Privilege.all_for_community(c).should == return_val
-  end
-
-  it 'should use #cached_find if sent a method known by KnownPrivileges' do
-    KnownPrivileges.should_receive(:symbols).and_return [:known]
-    Privilege.should_receive(:cached_find).with(:sym, 'known').and_return(true)
-    Privilege.known.should be_true
-  end
-
-  it 'should know about all member-editing privileges' do
-    KnownPrivileges.create_all
-    member_editing = Privilege.member_editing_privileges
-    member_editing.include?(Privilege.grant_level_20_privileges).should be_true
-    member_editing.include?(Privilege.revoke_level_20_privileges).should be_true
-    member_editing.include?(Privilege.grant_level_10_privileges).should be_true
-    member_editing.include?(Privilege.revoke_level_10_privileges).should be_true
-  end
-
-  it 'none of the member editing privilieges should be nil' do
-    KnownPrivileges.create_all
-    Privilege.member_editing_privileges.each do |p|
-      p.should_not be_nil
+    privs = Privilege.all_for_community(c)
+    privs.should_not be_empty
+    privs.each do |p|
+      p.special.should_not be_true
     end
+    privs.sort_by(&:name).should == privs
+  end
+
+  it 'should make methods based on each new priv name' do
+    p = TranslatedPrivilege.gen(:name => 'humblenevitt').privilege
+    p.save!
+    Privilege.humblenevitt.id.should == p.id
+  end
+
+  it 'should know about member-editing privs' do # I don't much care if they change, but they must exist:
+    Privilege.member_editing_privileges.length.should >= 1
   end
 
 end

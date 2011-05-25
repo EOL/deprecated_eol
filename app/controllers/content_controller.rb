@@ -7,6 +7,7 @@ class ContentController < ApplicationController
 
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN
   before_filter :set_session_hierarchy_variable, :only => [:index, :explore_taxa, :replace_single_explore_taxa]
+  before_filter :redirect_if_curator , :only => [:page]
 
   def index
     @home_page = true

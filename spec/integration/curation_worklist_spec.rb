@@ -233,15 +233,15 @@ describe 'Curator Worklist' do
   # end
   # 
   it 'should be able to maintain the curator\'s session' do
-    visit("/curators/curate_images?vetted_id=#{Vetted.trusted.id}")
-    body.should include(@first_child_trusted_image.id.to_s)
-    body.should include(@lower_child_trusted_image.id.to_s)
+    visit("/curators/curate_images?hierarchy_entry_id=#{@taxon_concept.hierarchy_entries.first.id}&vetted_id=#{Vetted.trusted.id}")
+    body.should include(curate_data_object_path @lower_child_trusted_image)
+    body.should include(curate_data_object_path @first_child_trusted_image)
     body.should_not include("There is no Trusted content for #{@species_name}, please select another group to curate or change your source or vetting status criteria.")
     visit("/curators/curate_images?hierarchy_entry_id=#{@child_entry_no_content.id}")
     body.should include("There is no content for #{@species_name}, please select another group to curate or change your source or vetting status criteria.")
     visit("/curators/curate_images?vetted_id=#{Vetted.trusted.id}")
-    body.should_not include(@first_child_trusted_image.id.to_s)
-    body.should_not include(@lower_child_trusted_image.id.to_s)
+    body.should_not include(curate_data_object_path @lower_child_trusted_image)
+    body.should_not include(curate_data_object_path @first_child_trusted_image)
     body.should include("There is no Trusted content for #{@species_name}, please select another group to curate or change your source or vetting status criteria.")
   #   visit("/curators/curate_images")
   #   body.should include(@first_child_unreviewed_image.id.to_s)
@@ -277,10 +277,6 @@ describe 'Curator Worklist' do
   it 'should be able to give curators a warning message if content is not found' do
     visit("/curators/curate_images?content_partner_id=#{@content_partner_no_content.id}")
     body.should include("There is no #{@content_partner_no_content.user.full_name} content, please select another group to curate or change your source or vetting status criteria.")
-    visit("/curators/curate_images?hierarchy_entry_id=#{@child_entry_no_content.id}")
-    body.should include("There is no content for #{@species_name}, please select another group to curate or change your source or vetting status criteria.")
-    visit("/curators/curate_images?vetted_id=#{Vetted.trusted.id}")
-    body.should include("There is no Trusted content, please select another group to curate or change your source or vetting status criteria.")
     visit("/curators/curate_images?content_partner_id=#{@content_partner_no_content.id}&vetted_id=#{Vetted.trusted.id}")
     body.should include("There is no Trusted #{@content_partner_no_content.user.full_name} content, please select another group to curate or change your source or vetting status criteria.")
     visit("/curators/curate_images?hierarchy_entry_id=#{@child_entry_no_content.id}&vetted_id=#{Vetted.untrusted.id}")

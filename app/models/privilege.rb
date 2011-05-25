@@ -49,7 +49,14 @@ class Privilege < ActiveRecord::Base
     hash.keys.each do |key|
       priv = Privilege.create(:level => hash[key], :special => special)
       # TODO - we really should change Language#english to Language#default and have it set in a config file.
-      TranslatedPrivilege.create(:name => key, :privilege_id => priv.id, :language_id => Language.english.id)
+      # TODO - this is stupid, but migrations break because Language (the model) doesn't point to the right DB when
+      # this runs, so it is undefined after recreating the DB (in which case we hardly need it anyway):
+      begin
+        TranslatedPrivilege.create(:name => key, :privilege_id => priv.id, :language_id => Language.english.id)
+      rescue ActiveRecord::StatementInvalid => e
+        priv.name = key
+        priv.save!
+      end
     end
   end
 

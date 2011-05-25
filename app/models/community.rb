@@ -40,7 +40,14 @@ class Community < ActiveRecord::Base
     special_roles.keys.each do |key|
       role = Role.find(:first, :conditions => ['title = ? and community_id = ?', key, special.id])
       role ||= Role.create(:community_id => special.id, :title => key)
-      role.privileges = Privilege.find(:all, :conditions => ["level <= ? and special = ?", special_roles[key], true])
+      # TODO - we really should change Language#english to Language#default and have it set in a config file.
+      # TODO - this is stupid, but migrations break because Language (the model) doesn't point to the right DB when
+      # this runs, so it is undefined after recreating the DB (in which case we hardly need it anyway):
+      begin
+        role.privileges = Privilege.find(:all, :conditions => ["level <= ? and special = ?", special_roles[key], true])
+      rescue ActiveRecord::StatementInvalid => e
+        # Do nothing; this should only happen when developers recreate the databases and thus it hardly matters now.
+      end
     end
   end
 

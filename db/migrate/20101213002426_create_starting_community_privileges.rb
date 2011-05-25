@@ -1,7 +1,7 @@
 class CreateStartingCommunityPrivileges < ActiveRecord::Migration
 
   def self.up
-    Privilege.create_all
+    Privilege.create_defaults
   end
 
   def self.down

@@ -11,6 +11,10 @@ eol-solr.pid
 mkmf.log
 extconf.h
 .DS_Store
+db/development_structure.sql
+log/hard_coded_html_haml.txt
+log/i18n_missing_en_keys.txt
+log/i18n_missing_keys.txt
 config/database.yml
 config/deploy
 config/deploy.rb

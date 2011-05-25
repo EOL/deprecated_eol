@@ -76,7 +76,7 @@ tc = build_taxon_concept(
                        {}, {}, {}, {}, {}, {}], # We want more than 10 images, to test pagination, but the details don't mattr
   :toc             => [{:toc_item => testy[:overview], :description => testy[:overview_text]},
                        {:toc_item => testy[:brief_summary], :description => testy[:brief_summary_text]},
-                       {:toc_item => testy[:toc_item_2]}, {:toc_item => testy[:toc_item_3]}]
+                       {:toc_item => testy[:toc_item_2]}, {:toc_item => testy[:toc_item_3]}, {:toc_item => testy[:toc_item_3]}]
 )
 testy[:id]            = tc.id
 testy[:taxon_concept] = TaxonConcept.find(testy[:id]) # This just makes *sure* everything is loaded...

@@ -198,6 +198,32 @@ describe TaxonConcept do
     results.first.description.should == @overview_text
   end
 
+  it 'should return available text objects for given toc items in order of preference and rating' do
+    given_toc_items = [@testy[:toc_item_2], @testy[:brief_summary]]
+    results = @taxon_concept.text_objects_for_toc_items(given_toc_items)
+    results.each do |text|
+      text.data_type_id.should == DataType.text.id
+      diff = text.toc_items - given_toc_items
+      diff.should be_empty
+    end
+  end
+
+  it 'should return at least one text object even if none of the given toc items are found if option required is true' do
+    given_toc_items = [TocItem.wikipedia]
+    results = @taxon_concept.text_objects_for_toc_items(given_toc_items)
+    results.should be_nil
+    results = @taxon_concept.text_objects_for_toc_items(given_toc_items, :required => true)
+    results.first.data_type_id.should == DataType.text.id
+  end
+
+  it 'should return a subset of text objects for each given toc item if option limit is set' do
+    given_toc_items = [@testy[:toc_item_2], @testy[:toc_item_3]]
+    results = @taxon_concept.text_objects_for_toc_items(given_toc_items)
+    results.count.should == 3
+    results = @taxon_concept.text_objects_for_toc_items(given_toc_items, :limit => 1)
+    results.count.should == 2
+  end
+
   # TODO - creating the CP -> Dato relationship is tricky. This should be made available elsewhere:
   it 'should show content partners THEIR preview items, but not OTHER content partner\'s preview items' do
     @taxon_concept.reload

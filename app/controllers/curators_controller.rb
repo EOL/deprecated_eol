@@ -29,7 +29,8 @@ class CuratorsController < ApplicationController
     session['curate_images_hierarchy_entry_id'] = nil if session['curate_images_hierarchy_entry_id'].blank?
     @content_partner = params[:content_partner_id] ? ContentPartner.find(params[:content_partner_id]) : nil
     @status = params[:vetted_id].blank? ? '' : ((params[:vetted_id] == 'all') ? "all" : Vetted.find_by_id(params[:vetted_id]).label)
-    @name = params['hierarchy_entry_id'].blank? ? '' : Name.find_by_id(HierarchyEntry.find_by_id(params['hierarchy_entry_id'], :select => 'name_id').name_id)
+    he_id = params['hierarchy_entry_id'].blank? ? session['curate_images_hierarchy_entry_id'] : params['hierarchy_entry_id']
+    @name = he_id.blank? ? '' : Name.find_by_id(HierarchyEntry.find_by_id(he_id, :select => 'name_id').name_id)
     current_user.log_activity(:viewed_images_to_curate)
     all_images = current_user.images_to_curate(
       :content_partner_id => params[:content_partner_id],

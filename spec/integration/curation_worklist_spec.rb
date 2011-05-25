@@ -232,7 +232,17 @@ describe 'Curator Worklist' do
   #   body.should include(@lower_child_trusted_ignored_image.data_object_id.to_s)
   # end
   # 
-  # it 'should be able to maintain the curator\'s session' do
+  it 'should be able to maintain the curator\'s session' do
+    visit("/curators/curate_images?vetted_id=#{Vetted.trusted.id}")
+    body.should include(@first_child_trusted_image.id.to_s)
+    body.should include(@lower_child_trusted_image.id.to_s)
+    body.should_not include("There is no Trusted content for #{@species_name}, please select another group to curate or change your source or vetting status criteria.")
+    visit("/curators/curate_images?hierarchy_entry_id=#{@child_entry_no_content.id}")
+    body.should include("There is no content for #{@species_name}, please select another group to curate or change your source or vetting status criteria.")
+    visit("/curators/curate_images?vetted_id=#{Vetted.trusted.id}")
+    body.should_not include(@first_child_trusted_image.id.to_s)
+    body.should_not include(@lower_child_trusted_image.id.to_s)
+    body.should include("There is no Trusted content for #{@species_name}, please select another group to curate or change your source or vetting status criteria.")
   #   visit("/curators/curate_images")
   #   body.should include(@first_child_unreviewed_image.id.to_s)
   #   body.should include(@lower_child_unreviewed_image.id.to_s)
@@ -255,7 +265,7 @@ describe 'Curator Worklist' do
   #   visit("/curators/ignored_images")
   #   body.should_not include(@first_child_unreviewed_ignored_image.data_object_id.to_s)
   #   body.should include(@lower_child_unreviewed_ignored_image.data_object_id.to_s)
-  # end
+  end
   
   it 'should be able to give curators feedback about the sorting rationale' do
     visit("/curators/curate_images?hierarchy_entry_id=#{@lower_child_entry.id}&content_partner_id=#{@content_partner.id}&vetted_id=#{Vetted.unknown.id}")

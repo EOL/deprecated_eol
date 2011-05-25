@@ -660,7 +660,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
         data_object_ids[index] = data_object
       end
     end
-    data_object_ids[start..last].collect!{|do_or_id| (do_or_id.class == DataObject) ? do_or_id : nil }
+    data_object_ids.collect!{|do_or_id| (do_or_id.class == DataObject) ? do_or_id : nil }
 
     return data_object_ids
   end

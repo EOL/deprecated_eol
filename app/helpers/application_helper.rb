@@ -10,6 +10,12 @@ module ApplicationHelper
   include ActionView::Helpers::UrlHelper
   include ActionView::Helpers::SanitizeHelper
 
+  def resource_is_active(resource)
+    if controller.controller_name == resource
+      'active'
+    end
+  end
+
   # A little onclick magic to make Ajaxy-links work before the page is fully loaded.  JS in the application.js file will
   # handle all the rest after the page is fully loaded (because of the class added to the link).
   # Use it like this:
@@ -139,7 +145,7 @@ module ApplicationHelper
           error_default = error.gsub(/\d+/,"%d")
           error_translate = error.gsub(/\d+/,"{n}") #
           error_index = default_error_messages_inverted[error_default]
-          
+
           # TODO: Gibberish translation which doesn't work anymore
           # error = error_translate["validation_#{error_index}".to_sym, *error_attributes]
 

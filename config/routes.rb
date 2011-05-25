@@ -30,10 +30,10 @@ ActionController::Routing::Routes.draw do |map|
       :controller => 'resources', :action => 'force_harvest'
 
   map.resources :comments, :member => { :make_visible => :put, :remove => :put }
-	map.resources :random_images
+  map.resources :random_images
   # TODO - the curate member method is not working when you use the url_for method and its derivatives.  Instead, the default
   # url of "/data_objects/curate/:id" works.  Not sure why.
-	map.resources :data_objects, :member => { :curate => :put, :curation => :get, :attribution => :get } do |data_objects|
+  map.resources :data_objects, :member => { :curate => :put, :curation => :get, :attribution => :get } do |data_objects|
     data_objects.resources :comments
     data_objects.resources :tags,  :collection => { :public => :get, :private => :get, :add_category => :post,
                                                     :autocomplete_for_tag_key => :get },
@@ -42,8 +42,6 @@ ActionController::Routing::Routes.draw do |map|
   map.remove_association 'data_objects/:id/remove_association/:hierarchy_entry_id', :controller => 'data_objects', :action => 'remove_association'
 
   map.resources :tags, :collection => { :search => :get }
-
-  map.settings 'settings', :controller => 'taxa', :action=>'settings'
 
   map.connect 'boom', :controller => 'content', :action => 'error'
 
@@ -62,30 +60,37 @@ ActionController::Routing::Routes.draw do |map|
     account.user_info 'user_info', :action => 'info'
   end
 
-  # TODO - we would like to make this all restful.
-  map.resources :taxon
-  map.taxon 'taxa/:id',  :controller => 'taxa', :action => 'taxa', :requirements => { :id => /\d+/ }
+  # Taxa nested resources with pages as alias
+  map.resources :taxa, :as => :pages do |taxa|
+    taxa.resource :overviews, :only => [:show], :controller => "/taxa/overviews"
+    taxa.resource :media, :only => [:show], :controller => "/taxa/media"
+  end
+  # Named routes
+  map.settings 'settings', :controller => 'taxa', :action => 'settings'
   map.taxon_concept 'pages/:id', :controller => 'taxa', :action => 'show'
+  map.page_curators 'pages/:id/curators', :controller => 'taxa', :action => 'curators'
 
-  map.connect 'pages/:id',
-              :controller => 'taxa', :action => 'show'
-  map.connect 'pages/:id.:format',
-              :controller => 'taxa', :action => 'show'
-  map.classification_attribution 'pages/:id/classification_attribution',
-              :controller => 'taxa', :action => 'classification_attribution'
-  map.page_curators 'pages/:id/curators',
-              :controller => 'taxa', :action => 'curators'
-  map.connect 'pages/:taxon_concept_id/images/:page.:format',
-              :controller => 'data_objects', :action => 'index',
-              :requirements => { :taxon_concept_id => /\d+/, :page => /\d+/ }
-  map.connect 'pages/:taxon_concept_id/images/:page.:format',
-              :controller => 'data_objects', :action => 'index',
-              :requirements => { :taxon_concept_id => /\d+/, :page => /\d+/ }
-  map.connect 'pages/:taxon_concept_id/videos/:page.:format',
-              :controller => 'data_objects', :action => 'index',
-              :requirements => { :taxon_concept_id => /\d+/, :page => /\d+/ }
-  map.connect 'pages/:id/best_images.:format', :controller => 'content', :action => 'best_images'
-  map.connect '/pages/:taxon_concept_id/:action', :controller => 'taxa'
+#  # TODO - we would like to make this all restful.
+#  map.resources :taxon
+#  map.taxon 'taxa/:id',  :controller => 'taxa', :action => 'taxa', :requirements => { :id => /\d+/ }
+#
+#  map.connect 'pages/:id',
+#              :controller => 'taxa', :action => 'show'
+#  map.connect 'pages/:id.:format',
+#              :controller => 'taxa', :action => 'show'
+#  map.classification_attribution 'pages/:id/classification_attribution',
+#              :controller => 'taxa', :action => 'classification_attribution'
+#  map.connect 'pages/:taxon_concept_id/images/:page.:format',
+#              :controller => 'data_objects', :action => 'index',
+#              :requirements => { :taxon_concept_id => /\d+/, :page => /\d+/ }
+#  map.connect 'pages/:taxon_concept_id/images/:page.:format',
+#              :controller => 'data_objects', :action => 'index',
+#              :requirements => { :taxon_concept_id => /\d+/, :page => /\d+/ }
+#  map.connect 'pages/:taxon_concept_id/videos/:page.:format',
+#              :controller => 'data_objects', :action => 'index',
+#              :requirements => { :taxon_concept_id => /\d+/, :page => /\d+/ }
+#  map.connect 'pages/:id/best_images.:format', :controller => 'content', :action => 'best_images'
+#  map.connect '/pages/:taxon_concept_id/:action', :controller => 'taxa'
 
   map.set_language 'set_language', :controller => 'application', :action => 'set_language'
 

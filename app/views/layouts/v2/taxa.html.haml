@@ -16,7 +16,7 @@
           = hh(@taxon_concept.title(@session_hierarchy))
           %span
             = " &mdash; "
-            = @current_section[:name]
+            = I18n.t(:overview)
         - preferred_common_name = @taxon_concept.subtitle(@session_hierarchy)
         - unless preferred_common_name.blank?
           %h2{:title => I18n.t(:preferred_common_name_advisory_information)}
@@ -33,9 +33,15 @@
           %li= link_to I18n.t(:add_to_my_collection_button), "/placeholder", :class => "button"
           %li= link_to I18n.t(:contribute_to_page_button), "/placeholder", :class => "button"
       %ul.nav
-        - @content_sections.each do |section|
-          %li{:class => section[:active] ? 'active' : nil }
-            = link_to section[:name], url_for(:controller => :taxa, :action => :show, :section => section[:url])
+        %li{:class => resource_is_active('overviews')}= link_to I18n.t(:overview), taxon_overviews_path(@taxon_concept.id)
+        %li{:class => resource_is_active('detail')}= link_to I18n.t(:detail), '/placeholder'
+        %li{:class => resource_is_active('media')}= link_to I18n.t(:media_with_count, :count => @taxon_concept.media.count), taxon_media_path(@taxon_concept.id)
+        %li{:class => resource_is_active('maps')}= link_to I18n.t(:maps_with_count, :count => 12), '/placeholder'
+        %li{:class => resource_is_active('classifications')}= link_to I18n.t(:classifications_with_count, :count => @taxon_concept.classifications.count), '/placeholder'
+        %li{:class => resource_is_active('collections')}= link_to I18n.t(:collections_with_count, :count => 4), '/placeholder'
+        %li{:class => resource_is_active('communities')}= link_to I18n.t(:communities_with_count, :count => 0), '/placeholder'
+        %li{:class => resource_is_active('tools')}= link_to I18n.t(:tools_with_count, :count => 23), '/placeholder'
+        %li{:class => resource_is_active('updates')}= link_to I18n.t(:updates_with_count, :count => 698), '/placeholder'
 
   #content
     .site_column

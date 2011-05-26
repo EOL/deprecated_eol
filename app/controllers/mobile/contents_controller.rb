@@ -1,4 +1,4 @@
-class Mobile::ContentsController < ApplicationController
+class Mobile::ContentsController < Mobile::MobileController
   
   def index  
     

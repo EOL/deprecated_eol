@@ -62,124 +62,40 @@ class TaxaController < ApplicationController
     redirect_to(params.merge(:controller => 'taxa', :action => 'show', :id => HierarchyEntry.find(params[:id]).taxon_concept_id))
   end
 
-  # Main taxon_concept view
-  def show
+  # If you want this to redirect to search, call (do_the_search && return if this_request_is_really_a_search) before this.
+  def find_taxon_concept
+    tc_id = params[:id].to_i
+    tc_id = params[:taxon_id].to_i if tc_id == 0
+    tc_id = params[:taxon_concept_id].to_i if tc_id == 0
+    redirect_to_missing_page_on_error do
+      TaxonConcept.find(tc_id)
+    end
+  end
 
+  def taxon_concept_invalid?(tc)
+    redirect_to_missing_page_on_error do
+      raise "TaxonConcept not found" if tc.nil?
+      raise "Page not accessible" unless accessible_page?(tc)
+    end
+  end
+
+  def prepare_taxon_concept
+    @taxon_concept = find_taxon_concept || return
+    return if taxon_concept_invalid?(@taxon_concept)
+    redirect_to taxon_overviews_path(@taxon_concept),
+        (params.merge(:status => :moved_permanently)) and return false if @taxon_concept.superceded_the_requested_id?
+    # Otherwise we're good to go so we perform some additional common functions
+    add_page_view_log_entry
+    update_user_content_level
+    true
+  end
+
+  def show
     if this_request_is_really_a_search
       do_the_search
       return
     end
-
-    @taxon_concept = find_taxon_concept || return
-    return if taxon_concept_invalid?(@taxon_concept)
-    return redirect_to(params.merge(:controller => 'taxa',
-                                    :action => 'show',
-                                    :id => @taxon_concept.id,
-                                    :status => :moved_permanently)) if @taxon_concept.superceded_the_requested_id?
-
-    # TODO - move all of this section stuff!
-    @section = params[:section].blank? ? :overview : params[:section].to_sym
-    # TODO - knowing the names of all the tabs probably doesn't belong here. Move it.
-    @section = :overview unless [:overview, :detail, :media, :maps, :classifications, :collections, :communities,
-      :tools, :updates].include?(@section)
-    @image_id = params[:image_id] # TODO - this feature needs to change.
-
-    # TODO - These counts are fake, for the demo, so they need to be added to TaxonConcept.  ie:
-    #   {:name => I18n.t(:community, :count => @taxon_concept.communities.count), :count => @taxon_concept.communities.count...
-    @content_sections = [
-      # TODO - the active checks; counts; generalizing the duplication
-      # NOTE - the "url" is required because the :name is translated and may change.
-      {:name => I18n.t(:overview), :count => nil, :active => @section == :overview, :url => :overview},
-      {:name => I18n.t(:detail), :count => nil, :active => @section == :detail, :url => :detail},
-      {:name => I18n.t(:media_with_count, :count => @taxon_concept.media.count), :count => @taxon_concept.media.count, :active => @section == :media, :url => :media},
-      {:name => I18n.t(:maps_with_count, :count => 12), :count => 12, :active => @section == :maps, :url => :maps},
-      {:name => I18n.t(:classifications_with_count, :count => @taxon_concept.classifications.count), :count => @taxon_concept.classifications.count, :active => @section == :classifications,
-        :url => :classifications},
-      {:name => I18n.t(:collections_with_count, :count => 4), :count => 4, :active => @section == :collections,
-        :url => :collections},
-      {:name => I18n.t(:communities_with_count, :count => 0), :count => 0, :active => @section == :communities,
-        :url => :communities},
-      {:name => I18n.t(:tools_with_count, :count => 23), :count => 23, :active => @section == :tools, :url => :tools},
-      {:name => I18n.t(:updates_with_count, :count => 698), :count => 698, :active => @section == :updates,
-        :url => :updates}
-    ]
-
-    add_page_view_log_entry
-    update_user_content_level
-    @taxon_concept.current_user = current_user
-
-    # TODO - This will have a count in it!  We need a nice way to know the title without much work.  :\
-    @current_section = @content_sections.find {|s| s[:active] }
-    @can_be_cached =  show_taxa_html_can_be_cached?
-
-    case @section
-    when :media
-      show_taxon_media_tab
-    else
-      show_taxon_overview_tab
-    end
-
-  end
-
-  def show_taxon_media_tab
-    includes = [
-      { :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] },
-      { :data_objects => { :toc_items => :info_items } },
-      { :top_concept_images => :data_object },
-      { :last_curated_dates => :user },
-      { :users_data_objects => { :data_object => :toc_items } }]
-    selects = {
-      :taxon_concepts => '*',
-      :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
-      :names => [ :string, :italicized, :canonical_form_id ],
-      :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
-      :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
-      :vetted => :view_order,
-      :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ],
-      :table_of_contents => '*',
-      :last_curated_dates => '*',
-      :users => [ :given_name, :family_name ] }
-    @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
-
-    @media = @taxon_concept.media.paginate(:page => params[:page], :per_page => $MAX_IMAGES_PER_PAGE)
-
-    current_user.log_activity(:viewed_taxon_concept_media, :taxon_concept_id => @taxon_concept.id)
-
-    respond_to do |format|
-      format.html {}
-    end
-
-  end
-
-  def show_taxon_overview_tab
-    includes = [
-      { :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] },
-      { :data_objects => { :toc_items => :info_items } },
-      { :top_concept_images => :data_object },
-      { :last_curated_dates => :user },
-      { :users_data_objects => { :data_object => :toc_items } }]
-    selects = {
-      :taxon_concepts => '*',
-      :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
-      :names => [ :string, :italicized, :canonical_form_id ],
-      :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
-      :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
-      :vetted => :view_order,
-      :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ],
-      :table_of_contents => '*',
-      :last_curated_dates => '*',
-      :users => [ :given_name, :family_name, :logo_cache_url, :credentials ] }
-    @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
-
-    @summary_text = @taxon_concept.summary_text
-    @media = @taxon_concept.media
-    @feed_item = FeedItem.new(:feed_id => @taxon_concept.id, :feed_type => @taxon_concept.class.name)
-
-    current_user.log_activity(:viewed_taxon_concept_overview, :taxon_concept_id => @taxon_concept.id)
-
-    respond_to do |format|
-      format.html {}
-    end
+    return redirect_to(taxon_overviews_path(params[:id]))
 
   end
 
@@ -535,21 +451,7 @@ private
     return videos
   end
 
-  # If you want this to redirect to search, call (do_the_search && return if this_request_is_really_a_search) before this.
-  def find_taxon_concept
-    tc_id = params[:id].to_i
-    tc_id = params[:taxon_concept_id].to_i if tc_id == 0
-    redirect_to_missing_page_on_error do
-      TaxonConcept.find(tc_id)
-    end
-  end
 
-  def taxon_concept_invalid?(tc)
-    redirect_to_missing_page_on_error do
-      raise "TaxonConcept not found" if tc.nil?
-      raise "Page not accessible" unless accessible_page?(tc)
-    end
-  end
 
   def redirect_to_missing_page_on_error(&block)
     begin
@@ -581,7 +483,9 @@ private
   end
 
   def this_request_is_really_a_search
-    params[:id].to_i == 0
+    tc_id = params[:id].to_i
+    tc_id = params[:taxon_id].to_i if tc_id == 0
+    tc_id == 0
   end
 
   def do_the_search

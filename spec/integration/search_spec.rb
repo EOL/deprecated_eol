@@ -75,14 +75,14 @@ describe 'Search' do
 
     it 'should redirect to species page if only 1 possible match is found (also for pages/searchterm)' do
       visit("/search?q=#{@panda_name}")
-      current_path.should == "/pages/#{@panda.id}"
+      current_path.should match /\/pages\/#{@panda.id}/
       visit("/search/#{@panda_name}")
-      current_path.should == "/pages/#{@panda.id}"
+      current_path.should match /\/pages\/#{@panda.id}/
     end
 
     it 'should redirect to search page if a string is passed to a species page' do
       visit("/pages/#{@panda_name}")
-      current_path.should == "/pages/#{@panda.id}"
+      current_path.should match /\/pages\/#{@panda.id}/
     end
 
     it 'should show a list of possible results (linking to /found) if more than 1 match is found  (also for pages/searchterm)' do
@@ -145,7 +145,7 @@ describe 'Search' do
       # should find only common names which have 'tiger lilly' in the name
       # we have only one such record in the test, so it redirects directly
       # to the species page
-      current_path.should == "/pages/#{@tiger_lilly.id}"
+      current_path.should match /\/pages\/#{@tiger_lilly.id}/
     end
 
     it 'should return preferred common name as "shown" name' do

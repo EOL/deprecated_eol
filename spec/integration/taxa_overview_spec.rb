@@ -115,7 +115,7 @@ describe 'Taxa overview' do
     end
   end
 
-  context 'when taxon does not have any common names'
+#  context 'when taxon does not have any common names'
 # TODO: figure out if this should be true and fix/remove as appropriate
 #    before(:all) { visit("/pages/#{@testy[:taxon_concept_with_no_common_names].id}") }
 #    subject { body }
@@ -140,7 +140,7 @@ describe 'Taxa overview' do
   context 'when taxon supercedes another concept' do
     before(:all) { visit("/pages/#{@testy[:superceded_taxon_concept].id}") }
     it 'should use supercedure to find taxon if user visits the other concept' do
-      current_path.should == "/pages/#{@testy[:id]}"
+      current_path.should match /\/pages\/#{@testy[:id]}/
     end
     # not sure about this one for overview page, should comments show in recent updates feeds?
     # we can use testy[:superceded_taxon_concept] i.e:

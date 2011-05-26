@@ -1,5 +1,5 @@
 = will_paginate @media
 %ul#media
   - @media.each do |item|
-    = render :partial => "media_thumbnail", :locals => {:item => item}
+    = render :partial => "taxa/media_thumbnail", :locals => {:item => item}
 = will_paginate @media

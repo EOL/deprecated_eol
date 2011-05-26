@@ -46,7 +46,7 @@ MSG
 end
 
 def all_specs_except_selenium_and_scenarios
-  FileList['spec/**'].inject([]) {|a,fl| a += FileList["#{fl}/*_spec.rb"] unless fl == 'spec/selenium' || fl == 'spec/scenarios'; a }
+  FileList['spec/**/*_spec.rb'].exclude(/spec\/selenium|spec\/scenarios/)
 end
 
 Rake.application.instance_variable_get('@tasks').delete('default')

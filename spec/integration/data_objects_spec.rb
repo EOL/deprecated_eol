@@ -143,19 +143,23 @@ describe 'Data Object Page' do
   # NOTE - I wanted to see how it "felt" to write longer individual tests.  These run faster, but how does it
   # actually work in practice?  This is an experiment.
   # The first thing I have to say about it is that the name is obnoxiously long.
-  it 'should allow a curator to add an association where the name matches exactly one hierarchy entry, and then only that curator may remove it' do
+  it 'should allow a curator to add an association...' do
     login_as @curator
     visit("/data_objects/#{@image.id}")
+    xpect 'the page does not yet have our association'
     page.body.should_not have_tag('a', :text => @single_name)
     fill_in 'add_association', :with => @single_name
     click_button 'Add'
     remove_path = remove_association_path(:id => @image.id, :hierarchy_entry_id => @singular_he.id)
+    xpect 'the page now has our association'
     page.body.should have_tag('a', :text => @single_name)
+    xpect 'the page has a link to remove the association'
     # NOTE: this wasn't working when we used :href as an argument to #have_tag, so we're using XPath-y syntax:
     page.body.should have_tag('a[href=?]', remove_path)
     visit('/logout')
     login_as @another_curator
     visit("/data_objects/#{@image.id}")
+    xpect 'the page does NOT have a link to remove the association after logging out'
     page.body.should_not have_tag('a[href=?]', remove_path)
   end
 

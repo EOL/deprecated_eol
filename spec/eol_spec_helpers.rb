@@ -1,6 +1,9 @@
 require 'lib/eol_data'
 require 'nokogiri'
 
+require 'spec/runner/formatter/base_text_formatter'
+
+
 module EOL
   module Spec
     module Helpers
@@ -190,7 +193,7 @@ module EOL
 
         curator = User.gen(options)
         curator.approve_to_curate
-        
+
         # A curator isn't credited until she actually DOES something, which is handled thusly:
         curator.last_curated_dates << LastCuratedDate.gen(:taxon_concept => tc, :user => curator)
         return curator
@@ -264,6 +267,13 @@ module EOL
         # TODO - this may want to check if it NEEDS loading, here, and then truncate the tables before proceeding, if it
         # does.
         loader.load_with_caching
+      end
+
+      def xpect(what)
+        $EOL_EXPECTATION_COUNT ||= 0
+        $EOL_EXPECTATION_COUNT += 1
+        $EOL_CURRENT_EXPECTATIONS ||= []
+        $EOL_CURRENT_EXPECTATIONS << what
       end
 
     end

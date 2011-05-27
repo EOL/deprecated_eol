@@ -187,7 +187,7 @@ namespace :i18n do
   task :generate_key do |t, args|
     def check_if_string_exists(string, en_yml)
       en = open(en_yml)
-      en_content = '' 
+      en_content = ''
       en.read.each do |line|
         if line.match(/^\s\s(\s*)([\w_?]*):\s/)
           en_content << line
@@ -328,7 +328,7 @@ namespace :i18n do
       end
       read_file.close
       return YAML.load(file_content)
-    end    
+    end
 
     def get_all_files_in_app
       Dir.chdir(File.join([RAILS_ROOT, "app"]))
@@ -346,7 +346,7 @@ namespace :i18n do
         return keys
       else
         # ignore the first item in the array, from the second item, each will start with the key
-        keys_count = 0        
+        keys_count = 0
         for i in (1..temp_keys.size-1)
           if temp_keys[i].match (/^(\s*\()/) # matchs I18n.t(xxxx)
             if temp_keys[i].strip != '(' # to avoid error from nested I18n.t
@@ -370,22 +370,22 @@ namespace :i18n do
             keys_count = keys_count + 1
           end
         end
-        
+
         return keys
-      end          
-      
+      end
+
     end
 
     def drop_keys_from_yml_file(yml_container, keys)
       keys.each do |key|
         if (yml_container[key])
-         yml_container.delete(key) 
+         yml_container.delete(key)
         end
       end
 
       return yml_container
     end
-    
+
     en_yml_keys = load_yml_file(en_yml)
 
     all_files = get_all_files_in_app
@@ -397,12 +397,12 @@ namespace :i18n do
 
       file_used_keys = get_keys(file_content)
       if file_used_keys.size > 0
-        en_yml_keys = drop_keys_from_yml_file(en_yml_keys, file_used_keys)    
+        en_yml_keys = drop_keys_from_yml_file(en_yml_keys, file_used_keys)
       end
     end
-    
+
     not_used_keys = ''
-    
+
     en_yml_keys.each do |key, value|
       not_used_keys << "\n" if not_used_keys != ''
       not_used_keys << key.to_s
@@ -438,34 +438,36 @@ namespace :i18n do
                     ['translated_table_of_contents', 'table_of_contents_id'],
                     ['translated_untrust_reasons', 'untrust_reason_id'],
                     ['translated_vetted', 'vetted_id'],
-                    ['translated_visibilities', 'visibility_id']] 
-    
+                    ['translated_visibilities', 'visibility_id']]
+
 
     title_body_tables = [#['translated_news_items', 'news_item_id']
                         ]
-    
+
     title_tables = [['translated_contact_subjects', 'contact_subject_id']]
-    
+
     description_tables = [['translated_licenses', 'license_id']]
 
     action_code_tables = [['translated_action_with_objects', 'action_with_object_id']]
 
+    en_id = Language.english.id
+
     label_tables.each do |table|
-      results = ActiveRecord::Base.connection.execute("select #{table[1]}, label from #{table[0]} where language_id=1")
+      results = ActiveRecord::Base.connection.execute("select #{table[1]}, label from #{table[0]} where language_id=#{en_id}")
       results.each do |row|
-        en_strings << "  #{table[0]}__label__#{table[1]}__#{row[0]}: \"" + row[1].gsub("\"", "\\\"").gsub("\n", "\\n") + "\"\n"  
+        en_strings << "  #{table[0]}__label__#{table[1]}__#{row[0]}: \"" + row[1].gsub("\"", "\\\"").gsub("\n", "\\n") + "\"\n"
       end
     end
 
     title_tables.each do |table|
-      results = ActiveRecord::Base.connection.execute("select #{table[1]}, title from #{table[0]} where language_id=1")
+      results = ActiveRecord::Base.connection.execute("select #{table[1]}, title from #{table[0]} where language_id=#{en_id}")
       results.each do |row|
         en_strings << "  #{table[0]}__title__#{table[1]}__#{row[0]}: \"" + row[1].gsub("\"", "\\\"").gsub("\n", "\\n") + "\"\n"
       end
     end
 
     title_body_tables.each do |table|
-      results = ActiveRecord::Base.connection.execute("select #{table[1]}, title, body from #{table[0]} where language_id=1")
+      results = ActiveRecord::Base.connection.execute("select #{table[1]}, title, body from #{table[0]} where language_id=#{en_id}")
       results.each do |row|
         en_strings << "  #{table[0]}__title__#{table[1]}__#{row[0]}: \"" + row[1].gsub("\"", "\\\"").gsub("\n", "\\n") + "\"\n"
         en_strings << "  #{table[0]}__body__#{table[1]}__#{row[0]}: \"" + row[2].gsub("\"", "\\\"").gsub("\n", "\\n") + "\"\n"
@@ -474,14 +476,14 @@ namespace :i18n do
 
 
     description_tables.each do |table|
-      results = ActiveRecord::Base.connection.execute("select #{table[1]}, description from #{table[0]} where language_id=1")
+      results = ActiveRecord::Base.connection.execute("select #{table[1]}, description from #{table[0]} where language_id=#{en_id}")
       results.each do |row|
         en_strings << "  #{table[0]}__description__#{table[1]}__#{row[0]}: \"" + row[1].gsub("\"", "\\\"").gsub("\n", "\\n") + "\"\n"
       end
     end
 
     action_code_tables.each do |table|
-      results = ActiveRecord::Base.connection.execute("select #{table[1]}, action_code from #{table[0]}")
+      results = ActiveRecord::Base.connection.execute("select #{table[1]}, action_code from #{table[0]} where language_id=#{en_id}")
       results.each do |row|
         en_strings << "  #{table[0]}__action_code__#{table[1]}__#{row[0]}: \"" + row[1].gsub("\"", "\\\"").gsub("\n", "\\n") + "\"\n"
       end
@@ -499,7 +501,7 @@ namespace :i18n do
       temp_yml = YAML.load_file(File.join([RAILS_ROOT, "config", "locales", lang_abbr + "-db.yml"]))
       return temp_yml[lang_abbr]
     end
-    
+
     def get_languages
       # returns array of language abbriviations for those a pattern of *-dt.yml
       Dir.chdir(File.join([RAILS_ROOT, "config", "locales"]))
@@ -508,7 +510,7 @@ namespace :i18n do
       return_lang = Array.new
       files.each do |file|
         lang_abbr = File.split(file)[-1].gsub("-db.yml", "").downcase
-        return_lang << lang_abbr if lang_abbr != 'en' 
+        return_lang << lang_abbr if lang_abbr != 'en'
       end
 
       return return_lang
@@ -530,7 +532,7 @@ namespace :i18n do
     def escape_new_line(value)
       return value.gsub("\n", "\\n");
     end
-    
+
     def insert_or_update_db_value(table_name, column_name, identity_column_name, lang_id, field_id, column_value)
       results = ActiveRecord::Base.connection.execute("select * from #{table_name} where #{identity_column_name}=#{field_id} and language_id=#{lang_id};")
       query = ""
@@ -543,12 +545,12 @@ namespace :i18n do
                   and language_id=#{lang_id};"
 
       end
-      
+
       ActiveRecord::Base.connection.execute(query)
     end
-    
+
     en_keys = load_language_keys('en')
-    
+
     translated_languages = get_languages
 
     translated_languages.each do |lang|

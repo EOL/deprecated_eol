@@ -583,8 +583,8 @@ private
 
   def clear_old_sessions
     CGI::Session::ActiveRecordStore::Session.destroy_all( ['updated_at <?', $SESSION_EXPIRY_IN_SECONDS.seconds.ago] )
-  end
-
+  end
+  
   def log_search params
     Search.log(params, request, current_user) if EOL.allowed_user_agent?(request.user_agent)
   end

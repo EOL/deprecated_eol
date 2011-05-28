@@ -1,0 +1,12 @@
+!!! Strict
+%html{html_attrs}
+  %head
+    %meta{:charset => "UTF-8"}/
+    %title= "Mobile EOL"
+    = stylesheet_link_tag "/stylesheets/jqtouch.css", "/stylesheets/jqtouch-theme.css"
+    = javascript_include_tag "/javascripts/jquery-1.4.2.min.js", "/javascripts/jqtouch.js"
+  %body
+    #jqt
+      = yield
+
+      

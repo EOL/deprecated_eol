@@ -11,8 +11,6 @@ describe 'Mobile' do
     open_session # Opens a new session instance
     headers = {"User-Agent" => "iPhone"}
     request_via_redirect(:get, '/', {}, headers) # Allows you to make an HTTP request and follow any subsequent redirects.
-    puts "----------------------------------------------- current_path: #{current_path} ------------------"
-    puts "----------------------------------------------- path: #{path} ------------------"
     assert_equal '/mobile/contents', path
   end
   

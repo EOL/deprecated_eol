@@ -1177,7 +1177,7 @@ class TaxonConcept < SpeciesSchemaModel
 
   # TODO - This is terribly inefficient and shoud probably do most of the work via direct SQL or something...
   def top_collections
-    collections = collection_items.map {|ci| ci.collection }.sort do |a,b|
+    collections = collection_items.map {|ci| ci.collection }.compact.sort do |a,b|
       if a.community_id.nil?
         1
       elsif b.community_id.nil?

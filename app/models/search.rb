@@ -6,7 +6,7 @@
 #   params = {:search_language => '*', :search_type => 'text', :content_level => '1', :q => 'cod' }
 #   class FakeRequest ; def remote_ip ; return '128.0.0.1' ; end ; def user_agent; return 'foo' ; end ; def
 #   request_uri ; return 'whatever' ; end ; end
-#   @search = Search.new(params,FakeRequest.new,User.create_new,nil) 
+#   @search = Search.new(params,FakeRequest.new,User.create_new,nil)
 #
 # Works.
 #
@@ -23,18 +23,18 @@ class Search
     @search_string = params[:q]
     @search_type = EOLConvert.get_search_type(params[:search_type])
     @search_language=params[:search_language]
-    @parent_search_log_id = params[:search_log_id] || ''    
+    @parent_search_log_id = params[:search_log_id] || ''
     @searching=true
     @current_page = set_current_page(params[:page])
     if execute_search # execute a full search
-      search(params, request, current_user, current_agent) 
+      search(params, request, current_user, current_agent)
     else # only do the suggested search
       suggested_search
       Search.log({:search_term=>@search_string,:search_type=>@search_type,:parent_search_log_id=>@parent_search_log_id},request,current_user)
     end
   end
-  
-  # Returns an integer indicating the current page number. By default this method 
+
+  # Returns an integer indicating the current page number. By default this method
   # will return 1, indicating the first page
   def set_current_page(page_param)
     page = page_param.to_i
@@ -43,7 +43,7 @@ class Search
     end
     page
   end
-  
+
   # Hard coded return results
   def per_page
     10
@@ -58,11 +58,11 @@ class Search
       results[index_start_offset, per_page] # Will never return out of bound errors
     end
   end
-  
+
   def start_offset
     (@current_page - 1) * per_page
   end
-  
+
   def total_pages
     tp = (@maximum / per_page)
     if (@maximum % per_page) != 0
@@ -182,7 +182,7 @@ class Search
       end
     else
       invalid_search
-    end    
+    end
   end
 
   def search_results_by_ids(scientific = true, search_results = [], language = Language.english, vetted = true)
@@ -301,7 +301,7 @@ class Search
   def tag_search(params,current_user=nil)
     @suggested_searches = [] # There are no suggestions for tags.  Could be one day, though... but this is to generalize.
     if @search_string
-      split_tags = @search_string.split(/[,\s]/).map(&:strip).select {|t| !t.blank?}  
+      split_tags = @search_string.split(/[,\s]/).map(&:strip).select {|t| !t.blank?}
       tags = split_tags.inject([]) do |all,this|
         if this.include?':'
           key, value = this.split(':')
@@ -324,7 +324,7 @@ class Search
       data_objects = DataObject.search_by_tags tags, options
     else
       data_objects = []
-    end        
+    end
     results = []
     taxon_concept_ids = []
     user        = options[:user_id] ? User.find(options[:user_id]) : nil
@@ -335,22 +335,22 @@ class Search
         data_object.get_taxon_concepts(:published => :strict).each do |taxon_concept|
           unless taxon_concept_ids.include?(taxon_concept.id)
             taxon_concept_ids << taxon_concept.id
-            results << [taxon_concept, data_object] if (!vetted_only || taxon_concept.vetted_id == Vetted.trusted.id) && taxon_concept.published == 1 && taxon_concept.supercedure_id == 0           
+            results << [taxon_concept, data_object] if (!vetted_only || taxon_concept.vetted_id == Vetted.trusted.id) && taxon_concept.published == 1 && taxon_concept.supercedure_id == 0
           end
         end
       end
     end
-    
+
     # sorting by scientific_name without <i>
     results_sort = results.sort_by {|a| a[0].scientific_name.gsub(/<\/?[^>]*>/,  "")}
 
     # that commented out, because not allows more than 10 tags to show up
     # results  = page_range(results)
     @maximum = results.length
-    @search_results = {:common => [], :scientific => [], :errors => [], :tags => results_sort}    
+    @search_results = {:common => [], :scientific => [], :errors => [], :tags => results_sort}
   end
-  
-  # look for user's search term in suggested searches:  
+
+  # look for user's search term in suggested searches:
   def suggested_search
     @suggested_searches = SearchSuggestion.find_all_by_term_and_active(@search_string,true,:order=>'sort_order') if
       @search_type == 'text'
@@ -365,7 +365,7 @@ class Search
   end
 
   def count_stub_pages
-    @scientific_name_results.find_all {|result| result['content_level'].to_i < 2 }.size + 
+    @scientific_name_results.find_all {|result| result['content_level'].to_i < 2 }.size +
       @common_name_results.find_all   {|result| result['content_level'].to_i < 2 }.size +
       @tag_results.find_all           {|result| result[0].content_level < 2}.size
   end
@@ -401,7 +401,7 @@ class Search
                                current_user)
     @logged_search_id = logged_search.nil? ? '' : logged_search.id
   end
-  
+
   # Shortcut to avoid setting a whole bunch of instance variables when they don't matter anyway.
   def log_empty_search(request, current_user)
     Search.log({:search_term=>@search_string,

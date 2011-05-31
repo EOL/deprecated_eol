@@ -93,13 +93,6 @@ class TaxonConcept < SpeciesSchemaModel
     @show_curator_controls
   end
 
-  def tocitem_for_new_text
-    table_of_contents.each do |toc|
-      return TocItem.find(toc.category_id) if toc.allow_user_text?
-    end
-    TocItem.find(:first, :joins => :info_items)
-  end
-
   # The common name will defaut to the current user's language.
   def common_name(hierarchy = nil)
     quick_common_name(hierarchy)
@@ -175,18 +168,6 @@ class TaxonConcept < SpeciesSchemaModel
     end
   end
 
-  # Return select data objects that reflect a summary of all text content for this TaxonConcept
-  def summary_text
-    toc_items = [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution]
-    options = { :required => true, :limit => 1 }
-    return text_objects_for_toc_items(toc_items, options)
-  end
-
-  # Return a list of data objects associated with this TC's Overview toc (returns nil if it doesn't have one)
-  def overview
-    return text_objects_for_toc_items(TocItem.overview)
-  end
-
   # The scientific name for a TC will be italicized if it is a species (or below) and will include attribution and varieties, etc:
   def scientific_name(hierarchy = nil, italicize = true)
     hierarchy ||= Hierarchy.default
@@ -200,6 +181,20 @@ class TaxonConcept < SpeciesSchemaModel
     self.quick_scientific_names(taxon_concept_ids, hierarchy)
   end
 
+  # If you just call "comments", you are actually getting comments that should really be invisible.  This method gets around this,
+  # and didn't see appropriate to do with a named_scpope:
+  def visible_comments(user = @current_user)
+    return comments if user and user.is_moderator?
+    comments.find_all {|comment| comment.visible? }
+  end
+
+  def tocitem_for_new_text
+    table_of_contents.each do |toc|
+      return TocItem.find(toc.category_id) if toc.allow_user_text?
+    end
+    TocItem.find(:first, :joins => :info_items)
+  end
+
   # pull list of categories for given taxon_concept_id
   def table_of_contents(options = {})
     if @table_of_contents.nil?
@@ -210,11 +205,124 @@ class TaxonConcept < SpeciesSchemaModel
   end
   alias :toc :table_of_contents
 
-  # If you just call "comments", you are actually getting comments that should really be invisible.  This method gets around this,
-  # and didn't see appropriate to do with a named_scpope:
-  def visible_comments(user = @current_user)
-    return comments if user and user.is_moderator?
-    comments.find_all {|comment| comment.visible? }
+  # Extracts user filtered text objects from taxon concept data objects and user data objects
+  # Assumes current user if option[:user] is nil
+  def text(options={})
+    options[:user] ||= current_user
+    text_datos = data_objects.select{ |d| d.is_text? }
+    text_user_objects = users_data_objects.select{ |udo| udo.data_object.is_text? }.collect{ |udo| udo.data_object}
+    combined_objects = text_datos | text_user_objects  # get the union of the two sets
+
+    # if this is a content partner, we preload associations to prevent
+    # a bunch of queries later on in DataObject.filter_list_for_user
+    if options[:user] && options[:user].is_content_partner?
+      DataObject.preload_associations(combined_objects,
+        [ :hierarchy_entries => { :hierarchy => :agent } ],
+        :select => {
+          :hierarchy_entries => :hierarchy_id,
+          :agents => :id } )
+    end
+    DataObject.filter_list_for_user(combined_objects, :user => options[:user])
+  end
+
+  def text_toc_items_for_session(options={})
+    text_objects = text(options)
+    return text_objects.collect{ |d| d.toc_items }.flatten.compact.uniq
+  end
+
+  # options
+  #   :required will return the next available text object if no text is returned by toc_items
+  #   :limit returns a subset of objects for each toc_item
+  def text_objects_for_toc_items(toc_items, options={})
+
+    text_objects = text
+
+    return nil if text_objects.empty? || text_objects.nil?
+    toc_items = [toc_items] unless toc_items.is_a?(Array)
+    text_objects = DataObject.sort_by_rating(text_objects)
+
+    datos_to_load = []
+    toc_items.each do |toc_item|
+      unless toc_item.nil?
+        items = text_objects.select{ |t| t.toc_items && t.toc_items.include?(toc_item) }
+        unless items.blank? || items.nil?
+          if options[:limit].nil? || options[:limit].to_i == 0
+            datos_to_load += items
+          elsif options[:limit].to_i == 1
+            datos_to_load << items[0]
+          elsif options[:limit].to_i > 1
+            datos_to_load += items[0..options[:limit].to_i]
+          end
+        end
+      end
+    end
+    datos_to_load << text_objects[0] if datos_to_load.blank? && options[:required]
+
+    return nil if datos_to_load.empty?
+
+    add_include = [:comments, :agents_data_objects, :info_items, :toc_items, { :users_data_objects => :user },
+      { :published_refs => { :ref_identifiers => :ref_identifier_type } }, :all_comments]
+    add_select = {
+      :refs => '*',
+      :ref_identifiers => '*',
+      :ref_identifier_types => '*',
+      :users => '*',
+      :comments => [:parent_id, :visible_at] }
+
+    objects = DataObject.core_relationships(:add_include => add_include, :add_select => add_select).
+        find_all_by_id(datos_to_load.collect{ |d| d.id })
+    if options[:user] && options[:user].is_curator? && options[:user].can_curate?(self)
+      DataObject.preload_associations(objects, :users_data_objects_ratings, :conditions => "users_data_objects_ratings.user_id=#{options[:user].id}")
+    end
+
+    objects
+
+  end
+
+  # Return a list of data objects associated with this TC's Overview toc (returns nil if it doesn't have one)
+  def overview
+    return text_objects_for_toc_items(TocItem.overview)
+  end
+
+  # Returns special content, if exists, for given toc items
+  def special_content_for_toc_items(toc_items)
+    return unless toc_items
+    toc_items = [toc_items] unless toc_items.is_a?(Array)
+    special_content = []
+    toc_items.each do |toc_item|
+      ccb = CategoryContentBuilder.new
+      if ccb.can_handle?(toc_item)
+        special_content << ccb.content_for(toc_item, :taxon_concept => self)
+      end
+    end
+    special_content
+  end
+
+  # Returns harvested text objects, user submitted object and special content for given toc items
+  def details_for_toc_items(toc_items)
+    text_objects = text_objects_for_toc_items(toc_items)
+    text_object_toc_items = text_objects.collect{ |d| d.toc_items }.flatten.compact.uniq
+    details = []
+    text_object_toc_items.each do |toc_item|
+      detail = {
+        :content_type  => 'text',
+        :toc_item => toc_item,
+        :data_objects  => text_objects.collect{ |d| d if d.toc_items.include?(toc_item) }.compact
+      }
+      details << detail
+    end
+    details += special_content_for_toc_items(toc_items)
+  end
+
+  # This may throw an ActiveRecord::RecordNotFound exception if the TocItem's category_id doesn't exist.
+  def content_by_category(category_id, options = {})
+    toc_item = TocItem.find(category_id) # Note: this "just works" even if category_id *is* a TocItem.
+    ccb = CategoryContentBuilder.new
+    if ccb.can_handle?(toc_item)
+      ccb.content_for(toc_item, :vetted => current_user.vetted, :taxon_concept => self)
+    else
+      get_default_content(toc_item)
+    end
   end
 
   # Get a list of TaxonConcept models that are ancestors to this one.
@@ -714,17 +822,6 @@ class TaxonConcept < SpeciesSchemaModel
     return e.classification_attribution
   end
 
-  # This may throw an ActiveRecord::RecordNotFound exception if the TocItem's category_id doesn't exist.
-  def content_by_category(category_id, options = {})
-    toc_item = TocItem.find(category_id) # Note: this "just works" even if category_id *is* a TocItem.
-    ccb = CategoryContentBuilder.new
-    if ccb.can_handle?(toc_item)
-      ccb.content_for(toc_item, :vetted => current_user.vetted, :taxon_concept => self)
-    else
-      get_default_content(toc_item)
-    end
-  end
-
   # TODO - we only want PUBLISHED hierarchies, here:
   def classifications
     hierarchy_entries.map do |entry|
@@ -1074,78 +1171,6 @@ class TaxonConcept < SpeciesSchemaModel
     TaxonConcept.connection.execute("UPDATE IGNORE top_unpublished_concept_images he SET taxon_concept_id=#{id1} WHERE taxon_concept_id=#{id2}");
     TaxonConcept.connection.execute("UPDATE IGNORE hierarchy_entries he JOIN random_hierarchy_images rhi ON (he.id=rhi.hierarchy_entry_id) SET rhi.taxon_concept_id=he.taxon_concept_id WHERE he.taxon_concept_id=#{id2}");
     return true
-  end
-
-  def text_toc_items_for_session(options={})
-    this_toc_objects = data_objects.select{ |d| d.is_text? }
-    user_objects = users_data_objects.select{ |udo| udo.data_object.is_text? }.collect{ |udo| udo.data_object}
-    combined_objects = this_toc_objects | user_objects  # get the union of the two sets
-
-    # this is a content partner, so we'll want o preload image contributors to prevent
-    # a bunch of queries later on in DataObject.filter_list_for_user
-    if options[:user] && options[:user].is_content_partner?
-      DataObject.preload_associations(combined_objects,
-        [ :hierarchy_entries => { :hierarchy => :agent } ],
-        :select => {
-          :hierarchy_entries => :hierarchy_id,
-          :agents => :id } )
-    end
-
-    filtered_objects = DataObject.filter_list_for_user(combined_objects, :user => options[:user])
-    return filtered_objects.collect{ |d| d.toc_items }.flatten.compact.uniq
-  end
-
-  # options
-  #   :required will return the next available text object if no text is returned by toc_items
-  #   :limit returns a subset of objects for each toc_item
-  def text_objects_for_toc_items(toc_item_objects, options={})
-
-    toc_item_objects = [toc_item_objects] unless toc_item_objects.is_a?(Array)
-    text = data_objects.find_all{ |t| t.data_type_id == DataType.text.id }
-    text += users_data_objects.find_all{ |udo| udo.data_object.data_type_id == DataType.text.id }.
-              collect{ |udo| udo.data_object }
-    # remove datos this user shouldn't see
-    text = DataObject.filter_list_for_user(text, :user => options[:user])
-    text = DataObject.sort_by_rating(text)
-
-    return nil if text.empty? || text.nil?
-
-    datos_to_load = []
-    toc_item_objects.each do |toc_item|
-      unless toc_item.nil?
-        items = text.select{ |t| t.toc_items && t.toc_items.include?(toc_item) }
-        unless items.blank? || items.nil?
-          if options[:limit].nil? || options[:limit].to_i == 0
-            datos_to_load += items
-          elsif options[:limit].to_i == 1
-            datos_to_load << items[0]
-          elsif options[:limit].to_i > 1
-            datos_to_load += items[0..options[:limit].to_i]
-          end
-        end
-      end
-    end
-    datos_to_load << text[0] if datos_to_load.blank? && options[:required]
-
-    return nil if datos_to_load.empty?
-
-    add_include = [:comments, :agents_data_objects, :info_items, :toc_items, { :users_data_objects => :user },
-      { :published_refs => { :ref_identifiers => :ref_identifier_type } }, :all_comments]
-    add_select = {
-      :refs => '*',
-      :ref_identifiers => '*',
-      :ref_identifier_types => '*',
-      :users => '*',
-      :comments => [:parent_id, :visible_at] }
-
-    objects = DataObject.core_relationships(:add_include => add_include, :add_select => add_select).
-        find_all_by_id(datos_to_load.collect{ |d| d.id })
-    if options[:user] && options[:user].is_curator? && options[:user].can_curate?(self)
-      DataObject.preload_associations(objects, :users_data_objects_ratings, :conditions => "users_data_objects_ratings.user_id=#{options[:user].id}")
-    end
-
-    objects
-
   end
 
   def videos(options = {})

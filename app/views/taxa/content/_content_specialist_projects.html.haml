@@ -1,6 +1,6 @@
-- outlinks = @content[:outlinks]
+- outlinks = content[:outlinks]
 - unless outlinks.blank?
-  - projects_rows, num_columns = reformat_specialist_projects(outlinks) 
+  - projects_rows, num_columns = reformat_specialist_projects(outlinks)
   %table.results_table{:cellspacing => "0"}
     %tr
       - num_columns.times do

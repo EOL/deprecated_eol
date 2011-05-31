@@ -1,9 +1,10 @@
+- feed_item ||= @feed_item
 - if ! logged_in?
   %p
     = link_to(I18n.t(:login_to_add_comments),
       login_path(:params => {:return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path}))
-- elsif ! @feed_item.nil?
-  - form_for(@feed_item, :html => { :class => "comment"}) do |f|
+- elsif ! feed_item.nil?
+  - form_for(feed_item, :html => { :class => "comment"}) do |f|
     %fieldset
       - #TODO: Change image to be current user thumbnail or something...
       = image_tag current_user.logo_url('small'), :alt => I18n.t(:profile_image_alt_text_member, :user_family_name => h(current_user.family_name), :user_given_name => h(current_user.given_name))

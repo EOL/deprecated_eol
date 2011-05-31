@@ -1,11 +1,9 @@
 %p
   =  I18n.t(:content_partners_intro, :link => link_to(I18n.t(:eol_api) , url_for(:controller => 'api', :action => 'docs', :only_path => false))
-%br
-%br
 
-- outlinks = @content[:outlinks]
+- outlinks = content[:outlinks]
 - unless outlinks.blank?
-  - projects_rows, num_columns = reformat_specialist_projects(outlinks) 
+  - projects_rows, num_columns = reformat_specialist_projects(outlinks)
   %table.results_table{:cellspacing => "0"}
     %tr
       - num_columns.times do

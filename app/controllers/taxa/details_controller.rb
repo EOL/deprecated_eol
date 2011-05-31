@@ -1,4 +1,4 @@
-class Taxa::MediaController < TaxaController
+class Taxa::DetailsController < TaxaController
 
   layout 'v2/taxa'
 
@@ -8,7 +8,6 @@ class Taxa::MediaController < TaxaController
     includes = [
       { :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] },
       { :data_objects => { :toc_items => :info_items } },
-      { :top_concept_images => :data_object },
       { :last_curated_dates => :user },
       { :users_data_objects => { :data_object => :toc_items } }]
     selects = {
@@ -21,14 +20,16 @@ class Taxa::MediaController < TaxaController
       :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ],
       :table_of_contents => '*',
       :last_curated_dates => '*',
-      :users => [ :given_name, :family_name ] }
+      :users => [ :given_name, :family_name, :logo_cache_url ] }
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
 
-    @media = @taxon_concept.media.paginate(:page => params[:page], :per_page => $MAX_IMAGES_PER_PAGE)
+    @details = @taxon_concept.details_for_toc_items(ContentTable.details.toc_items)
 
-    @assistive_section_header = I18n.t(:assistive_media_header)
+    @toc = TocBuilder.new.toc_for_toc_items(@details.collect{|d| d[:toc_item]})
 
-    current_user.log_activity(:viewed_taxon_concept_media, :taxon_concept_id => @taxon_concept.id)
+    @assistive_section_header = I18n.t(:assistive_details_header)
+
+    current_user.log_activity(:viewed_taxon_concept_details, :taxon_concept_id => @taxon_concept.id)
+
   end
-
 end

@@ -82,9 +82,9 @@ class TaxaController < ApplicationController
   def prepare_taxon_concept
     @taxon_concept = find_taxon_concept || return
     return if taxon_concept_invalid?(@taxon_concept)
-    redirect_to taxon_overviews_path(@taxon_concept),
-        (params.merge(:status => :moved_permanently)) and return false if @taxon_concept.superceded_the_requested_id?
-    # Otherwise we're good to go so we perform some additional common functions
+    redirect_to taxon_concept_path(@taxon_concept, params.merge(:status => :moved_permanently).
+        except(:controller, :action, :id, :taxon_id)) and return false if @taxon_concept.superceded_the_requested_id?
+    # Otherwise we're good to go so we perform some additional functions common to all tabs and return true
     add_page_view_log_entry
     update_user_content_level
     true

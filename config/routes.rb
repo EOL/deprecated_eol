@@ -64,33 +64,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :taxa, :as => :pages do |taxa|
     taxa.resource :overviews, :only => [:show], :controller => "/taxa/overviews"
     taxa.resource :media, :only => [:show], :controller => "/taxa/media"
+    taxa.resource :details, :only => [:show], :controller => "/taxa/details"
   end
   # Named routes
   map.settings 'settings', :controller => 'taxa', :action => 'settings'
   map.taxon_concept 'pages/:id', :controller => 'taxa', :action => 'show'
   map.page_curators 'pages/:id/curators', :controller => 'taxa', :action => 'curators'
-
-#  # TODO - we would like to make this all restful.
-#  map.resources :taxon
-#  map.taxon 'taxa/:id',  :controller => 'taxa', :action => 'taxa', :requirements => { :id => /\d+/ }
-#
-#  map.connect 'pages/:id',
-#              :controller => 'taxa', :action => 'show'
-#  map.connect 'pages/:id.:format',
-#              :controller => 'taxa', :action => 'show'
-#  map.classification_attribution 'pages/:id/classification_attribution',
-#              :controller => 'taxa', :action => 'classification_attribution'
-#  map.connect 'pages/:taxon_concept_id/images/:page.:format',
-#              :controller => 'data_objects', :action => 'index',
-#              :requirements => { :taxon_concept_id => /\d+/, :page => /\d+/ }
-#  map.connect 'pages/:taxon_concept_id/images/:page.:format',
-#              :controller => 'data_objects', :action => 'index',
-#              :requirements => { :taxon_concept_id => /\d+/, :page => /\d+/ }
-#  map.connect 'pages/:taxon_concept_id/videos/:page.:format',
-#              :controller => 'data_objects', :action => 'index',
-#              :requirements => { :taxon_concept_id => /\d+/, :page => /\d+/ }
-#  map.connect 'pages/:id/best_images.:format', :controller => 'content', :action => 'best_images'
-#  map.connect '/pages/:taxon_concept_id/:action', :controller => 'taxa'
 
   map.set_language 'set_language', :controller => 'application', :action => 'set_language'
 

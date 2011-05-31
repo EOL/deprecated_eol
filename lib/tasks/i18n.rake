@@ -10,6 +10,7 @@ namespace :i18n do
   tmp_file = File.join([lang_dir, "tmp.yml"])
   en_yml = File.join([lang_dir, "en.yml"])
   trans_tmp = File.join([lang_dir, "translation_template.yml"])
+  excluded_tables = ["translated_mime_types", "translated_news_items"]
 
 
   desc 'convert old yml language files from Gibberish format to support i18n '
@@ -422,73 +423,53 @@ namespace :i18n do
   desc 'list db strings for translation by twiki'
   task (:list_db_strings => :environment) do
     en_strings = "en:\n"
-    label_tables = [['translated_agent_roles', 'agent_role_id'],
-                    ['translated_audiences','audience_id'],
-                    ['translated_collection_types', 'collection_type_id'],
-                    ['translated_contact_roles', 'contact_role_id'],
-                    ['translated_content_partner_statuses', 'content_partner_status_id'],
-                    ['translated_data_types', 'data_type_id'],
-                    ['translated_info_items', 'info_item_id'],
-                    ['translated_languages', 'original_language_id'],
-                    ['translated_ranks', 'rank_id'],
-                    ['translated_resource_statuses', 'resource_status_id'],
-                    ['translated_service_types', 'service_type_id'],
-                    ['translated_statuses', 'status_id'],
-                    ['translated_synonym_relations', 'synonym_relation_id'],
-                    ['translated_table_of_contents', 'table_of_contents_id'],
-                    ['translated_untrust_reasons', 'untrust_reason_id'],
-                    ['translated_vetted', 'vetted_id'],
-                    ['translated_visibilities', 'visibility_id']]
-
-
-    title_body_tables = [#['translated_news_items', 'news_item_id']
-                        ]
-
-    title_tables = [['translated_contact_subjects', 'contact_subject_id']]
-
-    description_tables = [['translated_licenses', 'license_id']]
-
-    action_code_tables = [['translated_action_with_objects', 'action_with_object_id']]
-
     en_id = Language.english.id
-
-    label_tables.each do |table|
-      results = ActiveRecord::Base.connection.execute("select #{table[1]}, label from #{table[0]} where language_id=#{en_id}")
-      results.each do |row|
-        en_strings << "  #{table[0]}__label__#{table[1]}__#{row[0]}: \"" + row[1].gsub("\"", "\\\"").gsub("\n", "\\n") + "\"\n"
+    
+    all_models = Dir.foreach("#{RAILS_ROOT}/app/models").map do |model_path|
+      if m = model_path.match(/translate/) && model_path.match(/^(([a-z]+_)*[a-z]+)\.rb$/)
+        m[1].camelcase.constantize
+      else
+        nil
+      end
+    end.compact
+    all_tables = {}
+    all_models.each do |model|      
+      begin
+        if excluded_tables.include?(model.table_name)
+          puts "Excluding: " + model.table_name
+        else
+          cols = model.column_names.dup
+          all_tables[model.table_name] = {}
+          cols.delete("id")
+          cols.delete("language_id")
+          all_tables[model.table_name][:associations] = cols.grep(/_id$/)
+          cols.delete_if {|c| c =~ /_id$/ }
+          cols.delete_if {|c| c =~ /^phonetic_/ }
+          all_tables[model.table_name][:translatable] = cols
+        end        
+      rescue ActiveRecord::StatementInvalid => e
+        puts "** You seem to have a missing table:"
+        puts e.message
       end
     end
-
-    title_tables.each do |table|
-      results = ActiveRecord::Base.connection.execute("select #{table[1]}, title from #{table[0]} where language_id=#{en_id}")
-      results.each do |row|
-        en_strings << "  #{table[0]}__title__#{table[1]}__#{row[0]}: \"" + row[1].gsub("\"", "\\\"").gsub("\n", "\\n") + "\"\n"
+    all_tables.each do |table|
+      table_name = table[0]
+      foreign_key = all_tables[table_name][:associations].to_s        
+      translatable = ""
+      all_tables[table_name][:translatable].each do |field|
+        translatable << ", " if translatable != ""
+        translatable << field
       end
+      puts "select #{foreign_key}, #{translatable} from #{table_name} where language_id=#{en_id}"
+      results = ActiveRecord::Base.connection.execute("select #{foreign_key}, #{translatable} from #{table_name} where language_id=#{en_id}")
+      results.each_hash do |row|
+        all_tables[table_name][:translatable].each do |field|
+          en_strings << "  #{table_name}__#{field}__#{foreign_key}__#{row[foreign_key]}: \"" + row[field].gsub("\"", "\\\"").gsub("\n", "\\n") + "\"\n"
+        end
+      end      
     end
-
-    title_body_tables.each do |table|
-      results = ActiveRecord::Base.connection.execute("select #{table[1]}, title, body from #{table[0]} where language_id=#{en_id}")
-      results.each do |row|
-        en_strings << "  #{table[0]}__title__#{table[1]}__#{row[0]}: \"" + row[1].gsub("\"", "\\\"").gsub("\n", "\\n") + "\"\n"
-        en_strings << "  #{table[0]}__body__#{table[1]}__#{row[0]}: \"" + row[2].gsub("\"", "\\\"").gsub("\n", "\\n") + "\"\n"
-      end
-    end
-
-
-    description_tables.each do |table|
-      results = ActiveRecord::Base.connection.execute("select #{table[1]}, description from #{table[0]} where language_id=#{en_id}")
-      results.each do |row|
-        en_strings << "  #{table[0]}__description__#{table[1]}__#{row[0]}: \"" + row[1].gsub("\"", "\\\"").gsub("\n", "\\n") + "\"\n"
-      end
-    end
-
-    action_code_tables.each do |table|
-      results = ActiveRecord::Base.connection.execute("select #{table[1]}, action_code from #{table[0]} where language_id=#{en_id}")
-      results.each do |row|
-        en_strings << "  #{table[0]}__action_code__#{table[1]}__#{row[0]}: \"" + row[1].gsub("\"", "\\\"").gsub("\n", "\\n") + "\"\n"
-      end
-    end
-
+    
+    puts "Writing to en-db.yml"
     en_file = File.join([RAILS_ROOT, "config", "locales" , "en-db.yml"])
     en_data = open(en_file, 'w')
     en_data.write en_strings
@@ -548,7 +529,7 @@ namespace :i18n do
 
       ActiveRecord::Base.connection.execute(query)
     end
-
+    
     en_keys = load_language_keys('en')
 
     translated_languages = get_languages
@@ -570,8 +551,6 @@ namespace :i18n do
         end
       end
     end
-
-
 
   end
 end

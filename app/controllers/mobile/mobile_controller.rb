@@ -3,5 +3,4 @@
 class Mobile::MobileController < ApplicationController
   layout "#{RAILS_ROOT}/app/views/mobile/layouts/main_mobile.html.erb"
   
-  
 end

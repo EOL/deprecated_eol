@@ -182,7 +182,10 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':id', :id => /[A-Za-z0-9% ]+/,  :controller => 'taxa', :action => 'search'  # if text, then go to the search page
   
   ## Mobile app namespace routes
+<<<<<<< HEAD
   map.mobile 'mobile', :controller => 'mobile/contents'
+=======
+>>>>>>> 2feb0f0629aac624e7722b1d511c31c3e5c44ffd
   map.namespace :mobile do |mobile|
     mobile.resources :contents
   end 

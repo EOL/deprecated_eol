@@ -39,7 +39,7 @@ Spec::Runner.configure do |config|
   config.include(EmailSpec::Helpers)
   config.include(EmailSpec::Matchers)
   config.include(Capybara, :type => :integration)
-  
+
   # before running any spec, especially when running them individually, we'll want to truncate the database
   truncate_all_tables
 
@@ -47,19 +47,6 @@ Spec::Runner.configure do |config|
     $CACHE.clear if $CACHE
     # reset the class variables that cache certain instances
     reset_all_model_cached_instances
-  end
-
-  # taken from use_db/lib/override_test_case.rb
-  #
-  # these before and after blocks make sure that spec
-  # examples run within their own transactions for ALL
-  # active connections (works for ALL of our databases)
-  config.before(:all) do
-    $THIS_SPEC_START_TIME = Time.now()
-  end
-  config.after(:all) do
-    puts (Time.now() - $THIS_SPEC_START_TIME).round(2).to_s + " seconds" if $THIS_SPEC_START_TIME
-    $THIS_SPEC_START_TIME = nil
   end
 
 end

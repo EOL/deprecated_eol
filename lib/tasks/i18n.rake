@@ -2,8 +2,6 @@ require 'ruby-debug'
 require 'haml'
 
 
-
-
 desc 'Tasks useful for internatiolization'
 namespace :i18n do
   lang_dir = File.join([RAILS_ROOT, "config", "locales"])
@@ -12,6 +10,7 @@ namespace :i18n do
   tmp_file = File.join([lang_dir, "tmp.yml"])
   en_yml = File.join([lang_dir, "en.yml"])
   trans_tmp = File.join([lang_dir, "translation_template.yml"])
+  excluded_tables = ["translated_mime_types", "translated_news_items"]
 
 
   desc 'convert old yml language files from Gibberish format to support i18n '
@@ -33,7 +32,7 @@ namespace :i18n do
           else
             tmp = open(tmp_file, 'w')
             tmp.write lang+":\n"
-	    tmp.write "  "+line.gsub('{','%{')
+	   				tmp.write "  "+line.gsub('{','%{')
             while (!cur_file.eof? && line = cur_file.readline)
               tmp.write "  " + line.gsub('{','%{')
             end
@@ -189,7 +188,7 @@ namespace :i18n do
   task :generate_key do |t, args|
     def check_if_string_exists(string, en_yml)
       en = open(en_yml)
-      en_content = '' 
+      en_content = ''
       en.read.each do |line|
         if line.match(/^\s\s(\s*)([\w_?]*):\s/)
           en_content << line
@@ -330,7 +329,7 @@ namespace :i18n do
       end
       read_file.close
       return YAML.load(file_content)
-    end    
+    end
 
     def get_all_files_in_app
       Dir.chdir(File.join([RAILS_ROOT, "app"]))
@@ -348,7 +347,7 @@ namespace :i18n do
         return keys
       else
         # ignore the first item in the array, from the second item, each will start with the key
-        keys_count = 0        
+        keys_count = 0
         for i in (1..temp_keys.size-1)
           if temp_keys[i].match (/^(\s*\()/) # matchs I18n.t(xxxx)
             if temp_keys[i].strip != '(' # to avoid error from nested I18n.t
@@ -372,22 +371,22 @@ namespace :i18n do
             keys_count = keys_count + 1
           end
         end
-        
+
         return keys
-      end          
-      
+      end
+
     end
 
     def drop_keys_from_yml_file(yml_container, keys)
       keys.each do |key|
         if (yml_container[key])
-         yml_container.delete(key) 
+         yml_container.delete(key)
         end
       end
 
       return yml_container
     end
-    
+
     en_yml_keys = load_yml_file(en_yml)
 
     all_files = get_all_files_in_app
@@ -399,12 +398,12 @@ namespace :i18n do
 
       file_used_keys = get_keys(file_content)
       if file_used_keys.size > 0
-        en_yml_keys = drop_keys_from_yml_file(en_yml_keys, file_used_keys)    
+        en_yml_keys = drop_keys_from_yml_file(en_yml_keys, file_used_keys)
       end
     end
-    
+
     not_used_keys = ''
-    
+
     en_yml_keys.each do |key, value|
       not_used_keys << "\n" if not_used_keys != ''
       not_used_keys << key.to_s
@@ -421,5 +420,137 @@ namespace :i18n do
 
   end
 
+  desc 'list db strings for translation by twiki'
+  task (:list_db_strings => :environment) do
+    en_strings = "en:\n"
+    en_id = Language.english.id
+    
+    all_models = Dir.foreach("#{RAILS_ROOT}/app/models").map do |model_path|
+      if m = model_path.match(/translate/) && model_path.match(/^(([a-z]+_)*[a-z]+)\.rb$/)
+        m[1].camelcase.constantize
+      else
+        nil
+      end
+    end.compact
+    all_tables = {}
+    all_models.each do |model|      
+      begin
+        if excluded_tables.include?(model.table_name)
+          puts "Excluding: " + model.table_name
+        else
+          cols = model.column_names.dup
+          all_tables[model.table_name] = {}
+          cols.delete("id")
+          cols.delete("language_id")
+          all_tables[model.table_name][:associations] = cols.grep(/_id$/)
+          cols.delete_if {|c| c =~ /_id$/ }
+          cols.delete_if {|c| c =~ /^phonetic_/ }
+          all_tables[model.table_name][:translatable] = cols
+        end        
+      rescue ActiveRecord::StatementInvalid => e
+        puts "** You seem to have a missing table:"
+        puts e.message
+      end
+    end
+    all_tables.each do |table|
+      table_name = table[0]
+      foreign_key = all_tables[table_name][:associations].to_s        
+      translatable = ""
+      all_tables[table_name][:translatable].each do |field|
+        translatable << ", " if translatable != ""
+        translatable << field
+      end
+      puts "select #{foreign_key}, #{translatable} from #{table_name} where language_id=#{en_id}"
+      results = ActiveRecord::Base.connection.execute("select #{foreign_key}, #{translatable} from #{table_name} where language_id=#{en_id}")
+      results.each_hash do |row|
+        all_tables[table_name][:translatable].each do |field|
+          en_strings << "  #{table_name}__#{field}__#{foreign_key}__#{row[foreign_key]}: \"" + row[field].gsub("\"", "\\\"").gsub("\n", "\\n") + "\"\n"
+        end
+      end      
+    end
+    
+    puts "Writing to en-db.yml"
+    en_file = File.join([RAILS_ROOT, "config", "locales" , "en-db.yml"])
+    en_data = open(en_file, 'w')
+    en_data.write en_strings
+    en_data.close
+  end
 
+  desc 'Task to import db translations in db'
+  task (:import_db_translations => :environment) do
+    def load_language_keys(lang_abbr)
+      temp_yml = YAML.load_file(File.join([RAILS_ROOT, "config", "locales", lang_abbr + "-db.yml"]))
+      return temp_yml[lang_abbr]
+    end
+
+    def get_languages
+      # returns array of language abbriviations for those a pattern of *-dt.yml
+      Dir.chdir(File.join([RAILS_ROOT, "config", "locales"]))
+      files = Dir.glob(File.join("**", "*-db.yml"))
+
+      return_lang = Array.new
+      files.each do |file|
+        lang_abbr = File.split(file)[-1].gsub("-db.yml", "").downcase
+        return_lang << lang_abbr if lang_abbr != 'en'
+      end
+
+      return return_lang
+    end
+
+    def get_lang_id_by_lang_abbr(lang_abbr)
+      results = ActiveRecord::Base.connection.execute("select id from languages where iso_639_1='" + lang_abbr + "'")
+      if (results.num_rows== 0)
+        return 0
+      else
+        return results.fetch_row[0]
+      end
+    end
+
+    def clean_basic_injection(value)
+      return value.gsub(/\\/, '\&\&').gsub(/'/, "''").gsub('--', '- -')
+    end
+
+    def escape_new_line(value)
+      return value.gsub("\n", "\\n");
+    end
+
+    def insert_or_update_db_value(table_name, column_name, identity_column_name, lang_id, field_id, column_value)
+      results = ActiveRecord::Base.connection.execute("select * from #{table_name} where #{identity_column_name}=#{field_id} and language_id=#{lang_id};")
+      query = ""
+      if (results.num_rows== 0)
+        # new record
+        query = "insert into #{table_name} (#{identity_column_name}, language_id, #{column_name}) values (#{field_id}, #{lang_id}, '" + escape_new_line(clean_basic_injection(column_value.gsub)) + "')"
+      else
+        query = "update #{table_name} set #{column_name}='" + escape_new_line(clean_basic_injection(column_value)) + "'
+                  where #{identity_column_name} = #{field_id}
+                  and language_id=#{lang_id};"
+
+      end
+
+      ActiveRecord::Base.connection.execute(query)
+    end
+    
+    en_keys = load_language_keys('en')
+
+    translated_languages = get_languages
+
+    translated_languages.each do |lang|
+      lang_id = get_lang_id_by_lang_abbr(lang)
+      if (lang_id != 0)
+        puts "processing " + lang + " file"
+        lang_keys = load_language_keys(lang)
+        en_keys.each do |key, value|
+          if (lang_keys[key])
+            table_name = key.split("__")[0]
+            column_name = key.split("__")[1]
+            identity_column_name = key.split("__")[2]
+            field_id = key.split("__")[3]
+
+            insert_or_update_db_value(table_name, column_name, identity_column_name, lang_id, field_id, lang_keys[key])
+          end
+        end
+      end
+    end
+
+  end
 end

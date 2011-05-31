@@ -12,19 +12,16 @@ class Privilege < ActiveRecord::Base
   def self.create_defaults
     # These are for communities:
     create_all_for_type({
-      'Delete Community' => 20,
+      'Delete Community' => 20,           # admins only
       'Grant level 20 Privileges' => 20,
       'Revoke level 20 Privileges' => 20,
-      'Edit Community' => 15,
-      'Add members' => 10,
-      'Remove members' => 10,
+      'Edit Community' => 15, # admin
+      'Add members' => 10, # some communities will allow users to add themselves; others by admin
+      'Remove members' => 10, # admin
       'Grant level 10 Privileges' => 10,
       'Revoke level 10 Privileges' => 10,
-      'Track User Identities' => 10,
-      'Edit Collections' => 5,
-      'Endorse Collections' => 5,
-      'Create Newsfeed Posts' => 5,
-      'Invite Users' => 5
+      'Edit Collections' => 5, # admins
+      'Endorse Collections' => 5 # admins
     })
     # These are for the special community (only; they are not available to others):
     create_all_for_type({

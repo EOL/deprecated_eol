@@ -1,3 +1,4 @@
 --colour
---format specdoc
 --loadby path
+--require spec/expectation_formatter.rb
+--format ExpectationFormatter

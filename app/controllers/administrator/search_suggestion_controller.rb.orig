@@ -6,8 +6,13 @@ class Administrator::SearchSuggestionController < AdminController
 
   helper :resources
 
+<<<<<<< HEAD
   access_control :site_cms
+  
+=======
+  access_control :DEFAULT => 'Administrator - Site CMS'
 
+>>>>>>> 220c154... Errr... finishing up more for WEB-2227 ...I hadn't run the migrations, last commit.)
   def index
     @page_title = I18n.t("search_suggestions")
     @term_search_string = params[:term_search_string] || ''

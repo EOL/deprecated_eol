@@ -27,8 +27,6 @@ You can edit those later if needed.
         Suggested Result Page ID:
     %td
       = f.text_field :taxon_id, {:size=>'10',:maxlength=>'70'}
-      - if action_name != 'new'
-        = link_to_remote '[update names and image]',:url => {:action=>'update_names_and_image'}, :method => :post, :with => "'taxon_id=' + $('search_suggestion_taxon_id').value"
   %tr
     %td
       %strong

@@ -20,6 +20,33 @@
         =I18n.t("the_suggested_page_to_direct_users_to_link")
       %td
         = link_to @search_suggestion.scientific_name, taxon_concept_url(:id=>@search_suggestion.taxon_id), :target=>'_blank'
+<<<<<<< HEAD
+    %tr
+      %td
+        %strong
+          =I18n.t("suggested_scientific_name_")
+        %br
+        =I18n.t("as_shown_to_the_user_in_the_su")
+      %td
+        = f.text_field :scientific_name,{:size=>'50',:maxlength=>'250'}
+    %tr
+      %td
+        %strong
+          =I18n.t("suggested_common_name_")
+        %br
+        =I18n.t("as_shown_to_the_user_in_the_su")
+      %td
+        = f.text_field :common_name,{:size=>'50',:maxlength=>'250'}
+    %tr
+      %td
+        %strong
+          =I18n.t("suggested_image_url__")
+        %br
+        =I18n.t("shown_to_the_user_in_the_sugge")
+      %td
+        = f.text_field :image_url,{:size=>'50',:maxlength=>'250'}
+=======
+>>>>>>> 7ff8323... WEB-2227 ... search suggestions no longer have common name, scientific name, image id.
   %tr
     %td
       %strong

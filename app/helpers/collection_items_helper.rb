@@ -52,5 +52,27 @@ module CollectionItemsHelper
     else
     end
   end
+  
+  def collection_item_icon(item)
+    case item.object_type
+    when 'TaxonConcept'
+      taxon_concept = TaxonConcept.find(item['object_id'])
+      if thumb = taxon_concept.smart_medium_thumb
+        image_tag(thumb, :alt => '', :class => 'thumb_90_90')
+      else
+        image_tag '/images/v2/icon_taxa_tabs.png', :alt => ''
+      end
+    when 'DataObject'
+      image_tag '/images/v2/icon_taxa_tabs.png', :alt => ''
+    when 'Community'
+      image_tag '/images/v2/icon_taxa_tabs.png', :alt => ''
+    when 'User'
+      image_tag '/images/v2/icon_taxa_tabs.png', :alt => ''
+    when 'Collection'
+      image_tag '/images/v2/icon_taxa_tabs.png', :alt => ''
+    else
+      image_tag '/images/v2/icon_taxa_tabs.png', :alt => ''
+    end
+  end
 
 end

@@ -8,7 +8,7 @@ class CreateCuratedDataObjectsHierarchyEntries < ActiveRecord::Migration
       `user_id` int(10) unsigned NOT NULL,
       `created_at` datetime,
       `updated_at` datetime
-    ) ENGINE=MyISAM DEFAULT CHARSET=utf8"
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8"
     execute('CREATE INDEX data_object_id ON curated_data_objects_hierarchy_entries(data_object_id)')
     execute('CREATE INDEX data_object_id_hierarchy_entry_id ON curated_data_objects_hierarchy_entries(data_object_id,
             hierarchy_entry_id)')

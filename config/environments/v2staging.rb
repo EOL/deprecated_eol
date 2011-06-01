@@ -33,11 +33,14 @@ config.cache_classes = true
 # (default for production)
 config.after_initialize do 
   ActiveReload::ConnectionProxy.setup_for ActiveReload::MasterDatabase, ActiveRecord::Base
-  ActiveReload::ConnectionProxy.setup_for SpeciesSchemaWriter, SpeciesSchemaModel
+  ActiveReload::ConnectionProxy.setup_for SpeciesSchemaModel, SpeciesSchemaModel
   ActiveReload::ConnectionProxy.setup_for LoggingWriter, LoggingModel
+  ActiveReload::ConnectionProxy.setup_for LegacySpeciesSchemaModel, LegacySpeciesSchemaModel
   $PARENT_CLASS_MUST_USE_MASTER = ActiveReload::MasterDatabase
 end
 $LOGGING_READ_FROM_MASTER = true
+
+config.log_level = :debug # :error
 
 # set to true to force users to use SSL for the login and signup pages 
 $USE_SSL_FOR_LOGIN = false

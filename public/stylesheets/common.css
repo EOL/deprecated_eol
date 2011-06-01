@@ -36,7 +36,7 @@ body, html {
 a {
   color: #195184; }
 
-.site_column, body > #header .section, body > #footer .section, .thumbnails ul, .thumbnails .term p {
+.site_column, body > #header .section, body > #footer .section, .thumbnails ul {
   width: 940px;
   padding: 0 10px;
   margin: 0 auto; }
@@ -102,6 +102,7 @@ body > #header .section {
           background: transparent url("/images/v2/icon_paper.png") 5px 2px no-repeat; }
     body > #header .section .actions .language {
       float: left;
+      position: relative;
       margin: 0 10px 0 0; }
       body > #header .section .actions .language a {
         background: transparent url("/images/v2/icon_dropdown.png") 5px 6px no-repeat; }
@@ -117,6 +118,8 @@ body > #header .section {
           padding: 2px 5px;
           border: 1px solid #444749;
           border-top: none; }
+        body > #header .section .actions .language ul a {
+          background: transparent; }
 body > #header form {
   position: relative;
   z-index: 2;
@@ -233,6 +236,7 @@ body > #footer {
     top: 1px;
     z-index: 2; }
     .thumbnails ul li {
+      position: relative;
       float: left;
       padding: 0 0 10px 0;
       margin: 0 20px 0 0; }
@@ -255,6 +259,9 @@ body > #footer {
     border-top: 1px solid white;
     border-bottom: 1px solid #93a4b0;
     background: #e5e8eb; }
+    .thumbnails .term .site_column, .thumbnails .term body > #header .section, body > #header .thumbnails .term .section, .thumbnails .term body > #footer .section, body > #footer .thumbnails .term .section, .thumbnails .term ul {
+      width: 960px;
+      padding: 0; }
     .thumbnails .term p {
       font-weight: bold;
       color: #28323a; }

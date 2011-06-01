@@ -85,6 +85,10 @@ class Community < ActiveRecord::Base
   def has_member?(user)
     members.map {|m| m.user_id}.include?(user.id)
   end
+  
+  def logo_url(size = 'large')
+    logo_cache_url.blank? ? "v2/icon_communities_tabs.png" : ContentServer.agent_logo_path(logo_cache_url, size)
+  end
 
 private
 

@@ -1,3 +1,15 @@
+class AgentContactRole < SpeciesSchemaModel
+end
+
+class TranslatedAgentContactRole < SpeciesSchemaModel
+end
+
+class AgentStatus < SpeciesSchemaModel
+end
+
+class TranslatedAgentStatus < SpeciesSchemaModel
+end
+
 class InternationalizeDataTables < EOL::DataMigration
   # skipping glossary, licenses
 
@@ -184,42 +196,6 @@ class InternationalizeDataTables < EOL::DataMigration
       end
     end
     remove_column :ranks, :label
-
-
-    # # === RefIdentifierType
-    # execute("CREATE TABLE `translated_ref_identifier_types` (
-    #   `id` int NOT NULL auto_increment,
-    #   `ref_identifier_type_id` smallint unsigned NOT NULL,
-    #   `language_id` smallint unsigned NOT NULL,
-    #   `label` varchar(300) NOT NULL,
-    #   `phonetic_label` varchar(300) default NULL,
-    #   PRIMARY KEY (`id`),
-    #   UNIQUE (`ref_identifier_type_id`, `language_id`)
-    # ) ENGINE=InnoDB DEFAULT CHARSET=utf8")
-    # if english
-    #   RefIdentifierType.all.each do |r|
-    #     TranslatedRefIdentifierType.create(:ref_identifier_type_id => r.id, :language_id => english.id, :label => r.label)
-    #   end
-    # end
-    # remove_column :ref_identifier_types, :label
-
-
-    # === ResourceAgentRole
-    execute("CREATE TABLE `translated_resource_agent_roles` (
-      `id` int NOT NULL auto_increment,
-      `resource_agent_role_id` tinyint unsigned NOT NULL,
-      `language_id` smallint unsigned NOT NULL,
-      `label` varchar(300) NOT NULL,
-      `phonetic_label` varchar(300) default NULL,
-      PRIMARY KEY (`id`),
-      UNIQUE (`resource_agent_role_id`, `language_id`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8")
-    if english
-      ResourceAgentRole.all.each do |r|
-        TranslatedResourceAgentRole.create(:resource_agent_role_id => r.id, :language_id => english.id, :label => r.label)
-      end
-    end
-    remove_column :resource_agent_roles, :label
 
 
     # === ResourceStatus
@@ -500,31 +476,6 @@ class InternationalizeDataTables < EOL::DataMigration
     end
     add_index :ranks, :label, :name => 'label'
     drop_table :translated_ranks
-
-
-    # # === RefIdentifierType
-    # execute('ALTER TABLE `ref_identifier_types` ADD `label` varchar(100) NOT NULL AFTER `id`')
-    # if english
-    #   TranslatedRefIdentifierType.find_all_by_language_id(english.id).each do |r|
-    #     old_r = RefIdentifierType.find(r.ref_identifier_type_id)
-    #     old_r.label = r.label
-    #     old_r.save
-    #   end
-    # end
-    # add_index :ref_identifier_types, :label, :name => 'label'
-    # drop_table :translated_ref_identifier_types
-
-    # === ResourceAgentRole
-    execute('ALTER TABLE `resource_agent_roles` ADD `label` varchar(100) NOT NULL AFTER `id`')
-    if english
-      TranslatedResourceAgentRole.find_all_by_language_id(english.id).each do |r|
-        old_r = ResourceAgentRole.find(r.resource_agent_role_id)
-        old_r.label = r.label
-        old_r.save
-      end
-    end
-    add_index :resource_agent_roles, :label, :name => 'label'
-    drop_table :translated_resource_agent_roles
 
 
     # === ResourceStatus

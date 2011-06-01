@@ -5,8 +5,7 @@
         - if @community && ! @community.id.nil?
           -#FIXME what if already a member? what happens to button?
           = link_to I18n.t(:join_community_button), join_community_path(@community.id, :return_to => communities_path(@community.id)), :class => "button"
-          -#FIXME: Change this to community image - can we get decent alt text for this, otherwise leave blank image doesn't convey anthing useful.
-          = image_tag '/images/v2/icon_communities_tabs.png', :alt => ""
+          = image_tag @community.logo_url, :width => 89, :hieght => 89, :border => 1, :alt => ""
           %h1= h @community.name
           %p= h @community.description
         - else

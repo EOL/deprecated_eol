@@ -22,8 +22,7 @@
     %h3= I18n.t(:endorsed_collections)
     -# FIXME: make this functional
     %ul
-      - 3.times do
-        %li= link_to "Poisonous Mushrooms", "#"
+      %li= link_to Collection.last.name, "#"
 
 #community.main_container
   -# FIXME: contents should change depending on active tab - move these to controller (?)

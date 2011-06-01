@@ -739,9 +739,20 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   # override the logo_url column in the database to contruct the path on the content server
   def logo_url(size = 'large')
     url = self.attributes['logo_cache_url']
+    # TEMP !!!
+    # THIS IS ONLY FOR THE DEMO!!!
+    # TEMP !!!
+    case id % 3
+    when 0
+      url = 'v2/temporary_for_mockup/user_john.jpg'
+    when 1
+      url = 'v2/temporary_for_mockup/user_bill.jpg'
+    when 2
+      url = 'v2/temporary_for_mockup/user_sarah.jpg'
+    end
     # TODO: Change this to the actual default icon when/if its provided by HashRocket.
     # TODO: What about different sizes of default icon?
-    url.blank? ? "v2/icon_people_tabs.png" : ContentServer.agent_logo_path(url, size)
+    # TEMP !!! TEMP !!!  REmoved this: url.blank? ? "v2/icon_people_tabs.png" : ContentServer.agent_logo_path(url, size)
   end
 
 private

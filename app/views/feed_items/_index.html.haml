@@ -1,7 +1,6 @@
 - form_position ||= :after_items
 - header ||= I18n.t(:recent_updates)
 - allow_filter ||= false
-- debugger
 #feed_items.article.list.updates
   - if form_position == :before_header
     = render :partial => 'feed_items/form', :locals => {:feed => feed}

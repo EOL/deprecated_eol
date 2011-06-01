@@ -37,17 +37,46 @@
           -#TODO: Build this properly from database - currently static placeholder
           %h3= I18n.t(:community_activity)
           %ul
-            - 5.times do
-              %li
-                = link_to image_tag("v2/temporary_for_mockup/img_person_50.jpg", :alt => "Person Name"), "#"
-                .details
-                  %p
-                    %strong John
-                    added
-                    = link_to "4 photos", "#"
-                    to
-                    = link_to "Canis", "#"
-                  %p.meta 5 minutes ago
+            %li
+              = link_to image_tag("v2/temporary_for_mockup/user_john.jpg", :alt => "John"), "#"
+              .details
+                %p
+                  %strong John
+                  added
+                  = link_to "4 photos", "pages/328607"
+                  to
+                  = link_to "Canis", "pages/328607"
+                %p.meta 5 minutes ago
+            %li
+              = link_to image_tag("v2/temporary_for_mockup/user_sarah.jpg", :alt => "Sarah"), "#"
+              .details
+                %p
+                  %strong Sarah
+                  commented on the
+                  = link_to "Distribution section", "pages/1061748"
+                  of
+                  = link_to "Pinus strobus", "pages/1061748"
+                %p.meta 6 minutes ago
+            %li
+              = link_to image_tag("v2/temporary_for_mockup/user_bill.jpg", :alt => "Bill"), "#"
+              .details
+                %p
+                  %strong Bill
+                  updated the
+                  = link_to "Overview section", "pages/2866150"
+                  of
+                  = link_to "Aminata muscaria", "pages/2866150"
+                %p.meta 6 minutes ago
+            %li
+              = link_to image_tag("v2/temporary_for_mockup/user_sarah.jpg", :alt => "Sarah"), "#"
+              .details
+                %p
+                  %strong Sarah
+                  added
+                  = link_to "2 photos", "pages/1061748"
+                  to
+                  = link_to "Pinus strobus", "pages/1061748"
+                %p.meta 11 minutes ago
         -#TODO make this a partial? Its repeated in header?
         .join
           %p= I18n.t(:join_eol_community_html)

@@ -54,9 +54,9 @@ describe 'User Profile' do
 
     it 'should show their feed' do
       page.body.should have_tag('#feed_items') do
-        with_tag('.details', :text => @feed_body_1)
-        with_tag('.details', :text => @feed_body_2)
-        with_tag('.details', :text => @feed_body_3)
+        with_tag('.details', :text => /#{@feed_body_1}/)
+        with_tag('.details', :text => /#{@feed_body_2}/)
+        with_tag('.details', :text => /#{@feed_body_3}/)
       end
     end
 

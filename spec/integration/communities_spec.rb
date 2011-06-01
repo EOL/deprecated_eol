@@ -102,9 +102,9 @@ describe "Communities" do
       before(:all) { visit community_path(@test_data[:community]) }
       it 'should show feed items' do
         body.should have_tag('#feed_items') do
-          with_tag('.details', :text => @test_data[:feed_body_1])
-          with_tag('.details', :text => @test_data[:feed_body_2])
-          with_tag('.details', :text => @test_data[:feed_body_3])
+          with_tag('.details', :text => /#{@test_data[:feed_body_1]}/)
+          with_tag('.details', :text => /#{@test_data[:feed_body_2]}/)
+          with_tag('.details', :text => /#{@test_data[:feed_body_3]}/)
         end
       end
     end

@@ -103,9 +103,9 @@ describe 'Taxa overview' do
     it 'should show communities'
     it 'should show the activity feed' do
       body.should have_tag('#feed_items ul') do
-        with_tag('.details', @testy[:feed_body_1])
-        with_tag('.details', @testy[:feed_body_2])
-        with_tag('.details', @testy[:feed_body_3])
+        with_tag('.details', /#{@testy[:feed_body_1]}/)
+        with_tag('.details', /#{@testy[:feed_body_2]}/)
+        with_tag('.details', /#{@testy[:feed_body_3]}/)
       end
     end
     it 'should show curators' do

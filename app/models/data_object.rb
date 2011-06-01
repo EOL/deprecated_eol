@@ -345,13 +345,8 @@ class DataObject < SpeciesSchemaModel
 
   #----- end of user submitted text --------
 
-  def subtitle_to_show
-    if object_title.blank? && !info_items.blank?
-      subtitle = info_items.first.label
-    else
-      subtitle = object_title
-    end
-    return subtitle
+  def object_title_or_info_item_label
+    object_title.blank? && !info_items.blank? ? info_items.first.label : object_title
   end
 
   def rate(user, new_rating)

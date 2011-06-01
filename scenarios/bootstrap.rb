@@ -2,7 +2,7 @@
 #
 #   TODO add a description here of what actually gets created!
 #
-#   This description block can be viewed (as well as other information 
+#   This description block can be viewed (as well as other information
 #   about this scenario) by running:
 #     $ rake scenarios:show NAME=bootstrap
 #
@@ -293,13 +293,13 @@ tc.images.first.comment(u, 'Twelveth comment')
 
 # Seventh Taxon (sign of the apocolypse?) should be a child of fifth and be "empty", other than common names:
 tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
-                         :depth => depth_now, 
-                         :images => [], 
-                         :toc => [], 
-                         :flash => [], 
-                         :youtube => [], 
+                         :depth => depth_now,
+                         :images => [],
+                         :toc => [],
+                         :flash => [],
+                         :youtube => [],
                          :comments => [],
-                         :bhl => [], 
+                         :bhl => [],
                          :event => event,
                          :vetted => 'untrusted')
 tc.add_common_name_synonym('Tiger lilly', :agent => agent_col, :language => Language.english)
@@ -312,11 +312,11 @@ tc.add_common_name_synonym('Tiger-eye lilly', :agent => agent_col, :language => 
 
 # Eighth Taxon (now we're just getting greedy) should be the same as Seven, but with BHL:
 tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
-                         :depth => depth_now, 
-                         :images => [], 
-                         :toc => [], 
-                         :flash => [], 
-                         :youtube => [], 
+                         :depth => depth_now,
+                         :images => [],
+                         :toc => [],
+                         :flash => [],
+                         :youtube => [],
                          :comments => [],
                          :event => event,
                          :vetted => 'unknown')
@@ -326,44 +326,44 @@ tc.add_common_name_synonym('Tiger', :agent => agent_col, :language => Language.e
 build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [], :bhl => [], :event => event,
                     :depth => depth_now, :images => [], :toc => [], :flash => [], :youtube => [], :comments => [])
 
-#30 has unvetted images and videos, overview and description TOC, please don't change this one, needed for selenum tests:         
+#30 has unvetted images and videos, overview and description TOC, please don't change this one, needed for selenum tests:
 tc30 = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
-                    :depth    => depth_now, 
-                    :images   => :testing, 
-                    :flash    => [{:vetted   => Vetted.untrusted}], 
-                    :youtube  => [{:vetted   => Vetted.untrusted}], 
-                    :comments => [], 
-                    :bhl      => [], 
+                    :depth    => depth_now,
+                    :images   => :testing,
+                    :flash    => [{:vetted   => Vetted.untrusted}],
+                    :youtube  => [{:vetted   => Vetted.untrusted}],
+                    :comments => [],
+                    :bhl      => [],
                     :event    => event)
-                    
-tc30.add_common_name_synonym(Factory.next(:common_name), :agent => agent_col, :language => Language.english)
-curator = build_curator(tc30, :username => 'test_curator', :password => 'password', :given_name => 'test', :family_name => 'curator') 
 
-#31 has unvetted and vetted videos, please don't change this one, needed for selenum test:         
+tc30.add_common_name_synonym(Factory.next(:common_name), :agent => agent_col, :language => Language.english)
+curator = build_curator(tc30, :username => 'test_curator', :password => 'password', :given_name => 'test', :family_name => 'curator')
+
+#31 has unvetted and vetted videos, please don't change this one, needed for selenum test:
 overv = TocItem.find_by_translated(:label, 'Overview')
 desc = TocItem.find_by_translated(:label, 'Description')
 tc31 = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)],
-                  :depth => depth_now, 
-                  :flash => [{}, {:vetted => Vetted.unknown}], 
-                  :youtube => [{:vetted => Vetted.unknown}, 
-                               {:vetted => Vetted.untrusted}], 
+                  :depth => depth_now,
+                  :flash => [{}, {:vetted => Vetted.unknown}],
+                  :youtube => [{:vetted => Vetted.unknown},
+                               {:vetted => Vetted.untrusted}],
                   :comments => [],
-                  :bhl => [], 
-                  :event => event, 
+                  :bhl => [],
+                  :event => event,
                   :toc => [{
-                    :toc_item => overv, 
+                    :toc_item => overv,
                     :description => 'overview text for re-harvest'
-                    }, 
+                    },
                     {
-                    :toc_item => desc, 
+                    :toc_item => desc,
                     :description => 'description text for re-harvest'
                     }],
                   :images => [{
                     :description => '1st image description for re-harvest'
                     }]
 )
-                    
-curator_for_tc31 = build_curator(tc31, :username => 'curator_for_tc', :password => 'password') 
+
+curator_for_tc31 = build_curator(tc31, :username => 'curator_for_tc', :password => 'password')
 
 text_dato = tc31.overview.first # TODO - this doesn't seem to ACTAULLY be the overview.  Fix it?
 image_dato = tc31.images.first
@@ -372,7 +372,7 @@ text_dato.rate(curator_for_tc31, 1)
 image_dato.rate(curator_for_tc31, 1)
 # create new dato with the same guid and comments on new version
 add_comments_and_tags_to_reharvested_data_objects(tc31)
-                    
+
 #32
 user = User.gen
 overv = TocItem.find_by_translated(:label, 'Overview')
@@ -380,7 +380,7 @@ desc = TocItem.find_by_translated(:label, 'Description')
 tc = build_taxon_concept(:toc => [{:toc_item => overv}, {:toc_item => overv}, {:toc_item => desc}], :comments => [{}])
 description_dato = tc.content_by_category(desc)[:data_objects].first
 description_dato.comment(user, 'First comment')
-description_dato.comment(user, 'Second comment')  
+description_dato.comment(user, 'Second comment')
 description_dato.comment(user, 'Third comment')
 description_dato.comment(user, 'Forth comment')
 description_dato.comment(user, 'Fifth comment')
@@ -433,7 +433,7 @@ ac = ContentPartnerContact.gen(:content_partner => cp, :contact_role => ContactR
        # Give it a new name:
 name   = Name.gen(:canonical_form => tc.canonical_form_object)#, :string => n = Factory.next(:scientific_name),
                   # :italicized     => "<i>#{n}</i> #{Factory.next(:attribution)}")
-agent2 = Agent.gen 
+agent2 = Agent.gen
 agent2.user ||= User.gen(:agent => agent2, :username => 'test_cp')
 cp     = ContentPartner.gen :vetted => true, :user => agent2.user
 cont   = ContentPartnerContact.gen :content_partner => cp, :contact_role => ContactRole.primary
@@ -530,7 +530,7 @@ TaxonConceptName.gen(:preferred => true, :vern => false, :source_hierarchy_entry
 4.times do
   parent_id = Hierarchy.ncbi.hierarchy_entries.last.id
   depth = Hierarchy.ncbi.hierarchy_entries.last.depth + 1
-  
+
   2.times do
     sci_name = Factory.next(:scientific_name)
     c_name = Factory.next(:common_name)
@@ -572,7 +572,7 @@ bacteria.add_scientific_name_synonym('microbia')
 4.times do
   parent_id = Hierarchy.ncbi.hierarchy_entries.last.id
   depth = Hierarchy.ncbi.hierarchy_entries.last.depth + 1
-  
+
   sci_name = Factory.next(:scientific_name)
   c_name = Factory.next(:common_name)
   build_taxon_concept(:rank => '',
@@ -597,6 +597,10 @@ HierarchyEntry.all.each do |he|
   RandomHierarchyImage.gen(:hierarchy => he.hierarchy, :taxon_concept => he.taxon_concept, :hierarchy_entry => he, :data_object => he.taxon_concept.images[0]) if !he.taxon_concept.images[0].nil?
 end
 
+# NOTE: the join table between this and toc items will end up with a lot of orphans in it, but I don't really care for now.
+ContentTable.delete_all
+ContentTable.create_details
+
 make_all_nested_sets
 rebuild_collection_type_nested_set
 flatten_hierarchies
@@ -616,8 +620,8 @@ end
   year = date.year
   month = date.month
   GoogleAnalyticsPartnerSummary.gen(:year => year, :month => month, :user => Agent.catalogue_of_life.user)
-  GoogleAnalyticsSummary.gen(:year => year, :month => month)  
-  GoogleAnalyticsPageStat.gen(:year => year, :month => month, :taxon_concept => tc30 )    
+  GoogleAnalyticsSummary.gen(:year => year, :month => month)
+  GoogleAnalyticsPageStat.gen(:year => year, :month => month, :taxon_concept => tc30 )
   GoogleAnalyticsPartnerTaxon.gen(:year => year, :month => month, :taxon_concept => tc30, :user => Agent.catalogue_of_life.user )
 end
 

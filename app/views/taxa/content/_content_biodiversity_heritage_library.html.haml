@@ -8,22 +8,22 @@
           =I18n.t("the_following_bibliography_has")
         %br
         %a#bhl_link{ :href => "", :name => "bhl_link", :target => "_blank" }
-          = I18n.t(:view_discovered_bibliography_in_bhl) 
+          = I18n.t(:view_discovered_bibliography_in_bhl)
         = external_link_icon
   :javascript
     $(document).ready(function() {
       $('#bhl_link').attr('href', '#{external_link_url}?url=' + encodeURI('http://www.biodiversitylibrary.org/name/' + $('#canonical_form').val()));
     });
-  - unless @content[:items].empty?
+  - unless content[:items].empty?
     -# if more than one publication, create a table of anchor links
-    - if @content[:items].collect {|item_page| item_page.publication_title }.uniq.size > 1
+    - if content[:items].collect {|item_page| item_page.publication_title }.uniq.size > 1
       .divider
       %table.results_table{ :cellspacing => "0", :summary => "TOC" }
         %tr
           %th
             =I18n.t("bhl_summary")
         - bhl_page_title = ''
-        - @content[:items].each_with_index do  |item_page, index|
+        - content[:items].each_with_index do  |item_page, index|
           - unless bhl_page_title == item_page.publication_title
             - bhl_page_title = item_page.publication_title
             - column_class = cycle('odd','even')
@@ -36,9 +36,9 @@
                   = hh(item_page.title_item.publication_title.details)
     %br
     - bhl_page_title = ''
-    - @content[:items].each_with_index do |item_page, index|
+    - content[:items].each_with_index do |item_page, index|
       - if item_page.publication_title != bhl_page_title
-        - unless item_page == @content[:items].first
+        - unless item_page == content[:items].first
           %br
           .divider
         - bhl_page_title = item_page.publication_title
@@ -53,6 +53,6 @@
       %br
   .divider
   .content-attribution-area
-    .attribution-header.text-area-header= I18n.t(:source_and_additional_information) 
-    %span.source 
+    .attribution-header.text-area-header= I18n.t(:source_and_additional_information)
+    %span.source
       =I18n.t("content_provided_by_the_link", :link =>external_link_to(I18n.t("biodiversity_heritage_library"),"http://www.biodiversitylibrary.org/"))

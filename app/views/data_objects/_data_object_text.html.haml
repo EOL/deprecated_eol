@@ -1,21 +1,27 @@
-- title = @data_object.data_objects_table_of_contents.blank? ? '' : @data_object.data_objects_table_of_contents[0].toc_item.label
-- subtitle = @data_object.subtitle_to_show
-
-%div{ :id => "data_object_content_text" }
-  #text_object_title
-    %h2= title
-    - if subtitle
-      %h3= subtitle
-    #text_object_body
-      = @data_object.description.balance_tags
-  - unless @data_object.refs.blank?
-    %h4=I18n.t("references")
-    %ul
-      - @data_object.refs.each do |ref|
-        %li
-          = ref.full_reference.balance_tags
-          - ref.ref_identifiers.each do |identifier|
-            -# we do not show identifier unless we know how to handle them:
-            - next unless identifier.display?
-            &emsp;
-            = external_link_to(identifier.identifier, identifier.link_to_identifier)
+- data_object ||= @data_object
+- unless data_object.nil? || data_object.description.empty? || data_object.description.blank?
+  - show_category = true if show_category.nil?
+  - show_attribution = true if show_attribution.nil?
+  - show_references = true if show_references.nil?
+  - category_title ||= data_object.data_objects_table_of_contents.blank? ? '' : data_object.data_objects_table_of_contents[0].toc_item.label
+  %h4= category_title if show_category
+  .article
+    %h5= data_object.object_title
+    - if show_attribution
+      .attribution
+        = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => data_object }
+    = data_object.description.balance_tags
+    - if show_references && ! data_object.refs.blank?
+      .references
+        - if defined? $REFERENCE_PARSING_ENABLED
+          - ref_class = 'biblio-entry' if $REFERENCE_PARSING_ENABLED
+        - else
+          - parameter = SiteConfigurationOption.find_by_parameter('reference_parsing_enabled')
+          - ref_class = 'biblio-entry' if parameter && parameter.value == 'true'
+        - data_object.published_refs.each do |ref|
+          %li{:class => ref_class, :ref_id => ref.id}
+            = ref.full_reference.balance_tags
+            - ref.ref_identifiers.each do |identifier|
+              - next unless identifier.display?
+              &emsp;
+              = external_link_to(identifier.identifier, identifier.link_to_identifier)

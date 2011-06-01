@@ -33,7 +33,7 @@ class Role < ActiveRecord::Base
   # member of the returned array is the owner.
   def self.add_defaults_to_community(community)
     raise "You didn't specify a community" unless community
-    default_roles = {'Owner' => 20, 'Content Manager' => 1}
+    default_roles = {'Admin' => 20}
     new_roles = []
     default_roles.keys.each do |key|
       unless self.exists?(['title = ? and community_id = ?', key, community.id])
@@ -49,8 +49,8 @@ class Role < ActiveRecord::Base
         new_roles.last.save!
       end
     end
-    community.roles += new_roles
-    new_roles.sort {|a,b| b.privileges.length <=> a.privileges.length }
+    community.roles += new_roles unless new_roles.empty?
+    community.roles.sort {|a,b| b.privileges.length <=> a.privileges.length }
   end
 
   def add_privilege(priv)

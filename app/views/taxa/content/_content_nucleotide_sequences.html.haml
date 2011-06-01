@@ -1,7 +1,7 @@
 %table{ :cellspacing => "5", :border => "0", :width => "100%", :cellpadding => "5" }
   %tr
     %td{ :align => "center", :valign => "top", :width => "20%" }
-      = external_link_to(image_tag('/images/ncbi.gif'),"http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=#{@content[:hierarchy_entry].identifier}&lvl=0", {:show_link_icon => false})
+      = external_link_to(image_tag('/images/ncbi.gif'),"http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=#{content[:hierarchy_entry].identifier}&lvl=0", {:show_link_icon => false})
     %td{:valign => "top"}
       %span.smalltext
         =I18n.t("the_mission_of_the", :link => external_link_to(I18n.t("national_center_for_biotechnol"), 'http://www.ncbi.nlm.nih.gov/', {:show_link_icon => false}))
@@ -11,7 +11,7 @@
       %br
 %br
 %p{ :align => "center" }
-  = external_link_to I18n.t("view_protein_and_nucleotide_se"), "http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=#{@content[:hierarchy_entry].identifier}&lvl=0"
+  = external_link_to I18n.t("view_protein_and_nucleotide_se"), "http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=#{content[:hierarchy_entry].identifier}&lvl=0"
 
 
 

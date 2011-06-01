@@ -17,7 +17,15 @@
           %th
             =I18n.t("term")
           %th
-            =I18n.t("taxon_suggested")
+<<<<<<< HEAD
+            =I18n.t("scientific_name")
+          %th
+            =I18n.t("common_name")
+          %th
+            =I18n.t("image")
+=======
+            Taxon Suggested
+>>>>>>> 220c154... Errr... finishing up more for WEB-2227 ...I hadn't run the migrations, last commit.)
           %th
             =I18n.t("action")
         - for search_suggestion in @search_suggestions
@@ -29,7 +37,13 @@
               - tc = TaxonConcept.find(search_suggestion.taxon_id)
               = link_to tc.quick_scientific_name(:canonical), taxon_concept_url(:id=>tc.id), :target=>'_blank'
             %td{ :class => column_class }
+<<<<<<< HEAD
+              = link_to I18n.t("_search_"), taxon_concept_url(:id=>search_suggestion.taxon_id), :target=>'_blank'
+              %br
               = link_to I18n.t("_delete_"), {:action=>'destroy', :id=>search_suggestion.id}, :confirm => I18n.t("this_cannot_be_undone__are_you"), :method => :delete
+=======
+              = link_to '[delete]', {:action=>'destroy', :id=>search_suggestion.id}, :confirm => 'This cannot be undone; are you sure?', :method => :delete
+>>>>>>> 220c154... Errr... finishing up more for WEB-2227 ...I hadn't run the migrations, last commit.)
       %br
       = will_paginate @search_suggestions
     - else

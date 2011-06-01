@@ -1,7 +1,0 @@
-- if @content
-  - pname = "taxa/content/content_#{@content[:content_type]}"
-  = render(:partial => pname)
-#insert_text_popup.popup.insert_text{:style => 'display:none;'}
-  %a.close-button
-  #insert_text_popup_content.popup-content
-    = I18n.t(:please_wait_loading)

@@ -9,6 +9,8 @@ class TocItem < SpeciesSchemaModel
   has_many :info_items, :foreign_key => :toc_id
 
   has_and_belongs_to_many :data_objects, :join_table => 'data_objects_table_of_contents', :foreign_key => 'toc_id'
+  has_and_belongs_to_many :content_tables, :join_table => 'content_table_items', :foreign_key => 'toc_id'
+
 
   @@reserved_toc_labels = ['Biodiversity Heritage Library', 'Content Partners', 'Names and Taxonomy', 'Related Names', 'Synonyms', 'Common Names', 'Page Statistics', 'Content Summary', 'Education', 'Barcode', 'Wikipedia', 'Search the Web', 'Biomedical Terms', 'Literature References', 'Nucleotide Sequences']
 
@@ -107,6 +109,10 @@ class TocItem < SpeciesSchemaModel
     InfoItem
     cached_find_translated(:label, 'Distribution', :include => [ :info_items, { :parent => :info_items } ])
   end
+  def self.find_by_en_label(label)
+    InfoItem
+    cached_find_translated(:label, label, :include => [ :info_items, { :parent => :info_items } ])
+  end
 
   def object_count
     counts = TocItem.toc_object_counts
@@ -116,7 +122,6 @@ class TocItem < SpeciesSchemaModel
   def label_as_method_name
     label.gsub(/\W/, '_').downcase
   end
-
 
   def is_child?
     !(self.parent_id.nil? or self.parent_id == 0)

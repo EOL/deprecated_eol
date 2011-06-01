@@ -1,5 +1,9 @@
 class TocBuilder
 
+  def toc_for_toc_items(toc_items)
+    sort_toc(add_empty_parents(convert_toc_items_to_toc_entries(toc_items)))
+  end
+
   def toc_for(taxon_concept, options = {})
     toc = get_normal_text_toc_entries_for_taxon(taxon_concept, options)
     add_special_toc_entries_to_toc_based_on_tc_id(toc, taxon_concept, options)
@@ -23,7 +27,7 @@ private
     end
     return new_toc
   end
-  
+
   # Iterate over the TOC finding elements that are children.
   # Done in two passes to avoid modifying an array during iteration
   def add_empty_parents(toc)
@@ -70,50 +74,50 @@ private
   end
 
   def add_special_toc_entries_to_toc_based_on_tc_id(toc, taxon_concept, options)
-    
+
     # Add specialist projects if there are entries in the mappings table for this name:
     if taxon_concept.has_outlinks?
       toc << TocEntry.new(TocItem.content_partners)
     end
-    
+
     # Add BHL content if there are corresponding page_names
     if PageName.page_names_for?(taxon_concept.id)
       toc << TocEntry.new(TocItem.bhl)
     end
-    
+
     if taxon_concept.has_related_names?
       toc << TocEntry.new(TocItem.related_names)
     end
-    
+
     if taxon_concept.has_synonyms?
       toc << TocEntry.new(TocItem.synonyms)
     end
-    
+
     # Add common names content if there Common Names:
     if taxon_concept.has_common_names? || (!options[:user].nil? && options[:user].can_curate?(taxon_concept))
       toc << TocEntry.new(TocItem.common_names)
     end
-    
+
     # Add stats if there are any
     if taxon_concept.has_stats?
       toc << TocEntry.new(TocItem.content_summary)
     end
-    
+
     # Add Medical Concepts if there is a LigerCat tag cloud available:
     if !Resource.ligercat.nil? && HierarchyEntry.find_by_hierarchy_id_and_taxon_concept_id(Resource.ligercat.hierarchy.id, taxon_concept.id)
       toc << TocEntry.new(TocItem.biomedical_terms)
     end
-    
+
     # Add Literature references entry if references exists
     if taxon_concept.has_literature_references?
       toc << TocEntry.new(TocItem.literature_references)
     end
-    
+
     # Add Nucleotide Sequences entry if NCBI has a page for this concept
     if entry = TaxonConcept.find_entry_in_hierarchy(taxon_concept.id, Hierarchy.ncbi.id)
       toc << TocEntry.new(TocItem.nucleotide_sequences) if entry.identifier != ''
     end
-    
+
     if user_allows_unvetted_items(options)
       toc << TocEntry.new(TocItem.search_the_web)
     end
@@ -124,5 +128,5 @@ private
     return(false) if options[:user].blank?
     return true if options[:user] and not options[:user].vetted
   end
-  
+
 end

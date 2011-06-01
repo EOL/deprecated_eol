@@ -1,0 +1,10 @@
+- contents = @details.collect{|d| d if d[:toc_item].id == category.category_id}.compact
+- unless contents.empty?
+  %h4= category.label
+  - contents.each do |content|
+    - if content[:data_objects]
+      - content[:data_objects].each do |dato|
+        = render :partial => 'data_objects/data_object_text', :locals => { :data_object => dato, :show_category => false }
+        = render :partial => "feed_items/form", :locals => { :feed_item => FeedItem.new(:feed_id => dato.id, :feed_type => dato.class.name) }
+    - else
+      = render :partial => "taxa/content/content_#{content[:content_type]}", :locals => { :content => content } rescue nil

@@ -1,12 +1,12 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe TocBuilder do
-  
+
   before(:all) do
     truncate_all_tables
     load_foundation_cache
   end
-  
+
   describe '#toc_for' do
 
     it "should build a typical list of toc entries" do
@@ -23,10 +23,10 @@ describe TocBuilder do
         :images => [],  # this just speeds things up
         :comments => [] # this also speeds things up a bit.
       )
-      
+
       user = User.create_new
       user.vetted = false
-      
+
       # In order to get content_partners, we need a mapping realted to one of the tc's names.
       HierarchyEntry.gen(:hierarchy => Hierarchy.default, :taxon_concept => tc, :source_url => 'something') # Cheating.  I know that the last name built was created for this TC
 
@@ -35,7 +35,7 @@ describe TocBuilder do
 
       # Just asserting an assumption about label ordering.
       tb = TocBuilder.new
-      
+
       toc = tb.toc_for(tc, :user => user)
       toc[0].label.should == "Overview"
       toc[1].label.should == "Names and Taxonomy"
@@ -51,5 +51,5 @@ describe TocBuilder do
     end
 
   end
-    
+
 end

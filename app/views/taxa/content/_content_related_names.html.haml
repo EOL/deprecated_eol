@@ -1,5 +1,5 @@
 %p
-- unless @content[:items]['parents'].blank?
+- unless content[:items]['parents'].blank?
   %b
     =I18n.t("parents_")
   %br
@@ -9,7 +9,7 @@
         =I18n.t("name")
       %th
         =I18n.t("sources")
-    - @content[:items]['parents'].each do |key, related_hash|
+    - content[:items]['parents'].each do |key, related_hash|
       - row_class = cycle('odd', 'even')
       %tr
         %td{:class => row_class, :valign => 'top'}
@@ -22,7 +22,7 @@
               %hr.results
   %br
   %br
-- unless @content[:items]['children'].blank?
+- unless content[:items]['children'].blank?
   %b
     =I18n.t("children_colon")
   %br
@@ -32,7 +32,7 @@
         =I18n.t("name")
       %th
         =I18n.t("sources")
-    - @content[:items]['children'].each do |key, related_hash|
+    - content[:items]['children'].each do |key, related_hash|
       - row_class = cycle('odd', 'even')
       %tr
         %td{:class => row_class, :valign => 'top'}

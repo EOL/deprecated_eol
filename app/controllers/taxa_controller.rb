@@ -82,9 +82,9 @@ class TaxaController < ApplicationController
   def prepare_taxon_concept
     @taxon_concept = find_taxon_concept || return
     return if taxon_concept_invalid?(@taxon_concept)
-    redirect_to taxon_overviews_path(@taxon_concept),
-        (params.merge(:status => :moved_permanently)) and return false if @taxon_concept.superceded_the_requested_id?
-    # Otherwise we're good to go so we perform some additional common functions
+    redirect_to taxon_concept_path(@taxon_concept, params.merge(:status => :moved_permanently).
+        except(:controller, :action, :id, :taxon_id)) and return false if @taxon_concept.superceded_the_requested_id?
+    # Otherwise we're good to go so we perform some additional functions common to all tabs and return true
     add_page_view_log_entry
     update_user_content_level
     true
@@ -618,11 +618,6 @@ private
     suggested_results_query = suggested_results_query.blank? ? "taxon_concept_id:0" : "(#{suggested_results_query})"
     suggested_results  = TaxonConcept.search_with_pagination(suggested_results_query, params)
     suggested_results_original = suggested_results_original.inject({}) {|res, sugg_search| res[sugg_search.taxon_id] = sugg_search; res}
-    suggested_results.each do |res|
-      common_name = suggested_results_original[res['taxon_concept_id'][0].to_s].common_name
-      res['common_name'] = [common_name]
-      res['preferred_common_name'] = common_name
-    end
     suggested_results
   end
 

@@ -19,7 +19,7 @@ describe Role do
     r = Role.new(:title => '')
     r.valid?.should_not be_true
   end
-  
+
   # Technically, this tests what's in foundation.  But still.
   it 'should find the special community role with $CURATOR_ROLE_NAME' do
     Role.curator.title.should == $CURATOR_ROLE_NAME
@@ -36,10 +36,10 @@ describe Role do
     @role.privileges.include?(@new_priv).should be_true
   end
 
-  it 'should generate a set of roles on a given community' do
+  it 'should generate the admin role on a given community' do
     @community.roles.should == []
     Role.add_defaults_to_community(@community)
-    @community.roles.map {|r| r.title}.sort.should == ['Content Manager', 'Owner']
+    @community.roles.map {|r| r.title}.sort.should == ['Admin']
   end
 
   it 'should #count the number of members with the role' do

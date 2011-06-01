@@ -26,6 +26,11 @@
         =I18n.t("suggested_result_page_id_")
     %td
       = f.text_field :taxon_id, {:size=>'10',:maxlength=>'70'}
+<<<<<<< HEAD
+      - if action_name != 'new'
+        = link_to_remote I18n.t("_update_names_and_image_"),:url => {:action=>'update_names_and_image'}, :method => :post, :with => "'taxon_id=' + $('search_suggestion_taxon_id').value"
+=======
+>>>>>>> 220c154... Errr... finishing up more for WEB-2227 ...I hadn't run the migrations, last commit.)
   %tr
     %td
       %strong

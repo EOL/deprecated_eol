@@ -1,19 +1,17 @@
 %p
-  = I18n.t(:the_following_values_represent_the_sum_of_different_types_of_content_for_this_taxon_and_all_of_its_taxonomic_descendants) 
+  = I18n.t(:the_following_values_represent_the_sum_of_different_types_of_content_for_this_taxon_and_all_of_its_taxonomic_descendants)
   = define_term( I18n.t(:trusted) )
-  = I18n.t(:content_has_either_been_approved_by_an_eol_curator_or_comes_from_a_trusted_provider) 
+  = I18n.t(:content_has_either_been_approved_by_an_eol_curator_or_comes_from_a_trusted_provider)
   = define_term( I18n.t(:unreviewed) )
-  = I18n.t(:content_has_not_yet_been_assessed_by_an_eol_curator_every_taxonomic_hierarchy_is_unique_so_each_browsable_hierarchy_is_listed_for_comparison) 
-%br
-%br
+  = I18n.t(:content_has_not_yet_been_assessed_by_an_eol_curator_every_taxonomic_hierarchy_is_unique_so_each_browsable_hierarchy_is_listed_for_comparison)
+
 -# sorting the results to put the stats for preferred hierarchy first
-- selected_hierarchy_stat_entries = @content[:items].select{ |he| he.hierarchy_id == @session_hierarchy.id }
-- @content[:items] -= selected_hierarchy_stat_entries
-- selected_hierarchy_stat_entries.each{ |he| @content[:items].unshift(he) }
-- for hierarchy_entry in @content[:items]
+- selected_hierarchy_stat_entries = content[:items].select{ |he| he.hierarchy_id == @session_hierarchy.id }
+- content[:items] -= selected_hierarchy_stat_entries
+- selected_hierarchy_stat_entries.each{ |he| content[:items].unshift(he) }
+- for hierarchy_entry in content[:items]
   %strong
     = hierarchy_entry.hierarchy.label
-  %br
   %table.results_table
     %tr
       %th
@@ -43,4 +41,3 @@
         =I18n.t("_of_unreviewed_text_objects")
       %td.odd
         = hierarchy_entry.hierarchy_entry_stat.all_text_untrusted
-  %br

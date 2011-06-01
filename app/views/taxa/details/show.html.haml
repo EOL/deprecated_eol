@@ -1,0 +1,26 @@
+- roots = @toc.collect{|t| t unless t.is_child?}.compact
+- unless roots.empty?
+  #taxonomy
+    %ul
+      - for root in roots
+        %li<
+          = render :partial => 'category_content', :locals => { :category => root }
+          - children = @toc.collect{|t| t if t.parent_id == root.category_id}.compact
+          - unless children.empty?
+            %ul
+              - for child in children
+                %li<
+                  = render :partial => 'category_content', :locals => { :category => child }
+  #sidebar
+    %h3= I18n.t(:table_of_contents)
+    %ul
+      - for root in roots
+        %li<
+          = root.label
+          - children = @toc.collect{|t| t if t.parent_id == root.category_id}.compact
+          - unless children.empty?
+            %ul
+              - for child in children
+                %li<
+                  = child.label
+

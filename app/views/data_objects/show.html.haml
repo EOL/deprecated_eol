@@ -55,7 +55,7 @@
           - if type == "Video"
             = render :partial => "/shared/show_video"
           - else
-            = render :partial => "data_objects/data_object_#{type.downcase}"
+            = render :partial => "data_objects/data_object_#{type.downcase}", :locals => { :show_category_title => true }
 
       - if(@data_object.data_type.to_s.strip != 'Text')
         #data_object_description

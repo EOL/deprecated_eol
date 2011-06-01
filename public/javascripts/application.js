@@ -1,12 +1,32 @@
 $(function() {
-  (function($ss) {
-    $ss.find(".images").cycle({
-      speed: 500,
-      timeout: 0,
-      pagerAnchorBuilder: function(idx) {
-        return $ss.selector + " .thumbnails a:eq(" + idx + ")";
-      }
+  $(".thumbnails li").hover(function() {
+    var $e = $(this),
+        $thumbs = $e.closest(".thumbnails"),
+        margin = $thumbs.find("li").eq(0).outerWidth(true) - $e.outerWidth();
+        direction = ($e.index() > $thumbs.find("li").length / 2 - 1) ? "right" : "left",
+        pos = $e.position();
+    pos.right = $thumbs.find("ul").width() - $e.outerWidth() - pos.left + margin;
+    $thumbs.find(".term p").css({
+      margin: 0,
+      textAlign: direction
+    }).css("margin-" + direction, pos[direction]).text($e.find("img").attr("alt"));
+  }).eq(0).mouseover();
+
+  $(".heading form.filter").find(":submit").hide().end().find("select")
+    .change(function() {
+      $(this).closest("form").submit();
     });
+
+  (function($ss) {
+    if ("cycle" in $.fn) {
+      $ss.find(".images").cycle({
+        speed: 500,
+        timeout: 0,
+        pagerAnchorBuilder: function(idx) {
+          return $ss.selector + " .thumbnails a:eq(" + idx + ")";
+        }
+      });
+    }
     $ss.find(".thumbnails a").click(function() {
       var $e = $(this).closest("li");
       $e.closest("ul").find(".active").removeClass("active");
@@ -14,6 +34,31 @@ $(function() {
       return false;
     });
   })($(".gallery"));
+
+  (function($language) {
+    $language.find("p a").click(function() {
+      var $e = $(this),
+          $ul = $e.closest($language.selector).find("ul");
+      if ($ul.is(":visible")) {
+        $ul.hide();
+        return false;
+      }
+      $ul.show();
+      $(document).click(function(e) {
+        if (!$(e.target).closest($language.selector).length) {
+          $language.find("ul").hide();
+          $(this).unbind(e);
+        }
+      });
+      return false;
+    });
+
+    // Remove once language links wired up
+    $language.find("ul a").click(function() {
+      $(this).closest("ul").hide();
+      return false;
+    });
+  })($(".language"));
 
   $("input[placeholder]").each(function() {
     var $e = $(this),

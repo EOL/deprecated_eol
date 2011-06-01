@@ -20,6 +20,25 @@ form
       +button
       padding: 3px 10px
       font-size: .92em
+  .heading &.filter
+    float: right
+    label
+      text-transform: uppercase
+      color: #828d33
+    dl
+      display: inline
+      dt
+        display: inline
+        padding: 0 5px 0 0
+      dd
+        display: inline
+        padding: 0
+        select
+          margin: 0 5px 0 0
+    input[type="submit"]
+      +button
+      padding: 3px 10px
+      font-size: .92em
 
 .main_container
   overflow: hidden
@@ -147,6 +166,19 @@ ul.tabs
           color: #27282b
           &:hover
             text-decoration: underline
+  &.updates
+    blockquote
+      line-height: 140%
+    p
+      padding: 0 0 4px 0
+      &.meta
+        font-size: .75em
+        font-weight: bold
+        text-transform: uppercase
+        color: #82919e
+    .details
+      img
+        float: none
 
 body
   > #header
@@ -159,11 +191,15 @@ body
       .actions
         top: -25px
         p
-          border: none
+          border-color: #616b74
           a span
             border-color: #616b74
-      .language, p.print
-        background: #394651
+        .language, p.print
+          background: #394651
+          ul
+            background: #394651
+            li
+              border-color: #616b74
       .session
         position: absolute
         width: 100%
@@ -371,49 +407,16 @@ body
     h3
       float: left
       padding: 5px 0 0 0
-    form.filter
-      float: right
-      label
-        text-transform: uppercase
-        color: #828d33
-      dl
-        display: inline
-        dt
-          display: inline
-          padding: 0 5px 0 0
-        dd
-          display: inline
-          padding: 0
-          select
-            margin: 0 5px 0 0
-      input[type="submit"]
-        +button
-        padding: 3px 10px
-        font-size: .92em
-  ul.feed
+  .article.updates
+    padding: 0 0 25px 0
     li
       overflow: hidden
       padding: 20px
       border-top: 1px solid #d4dce2
-    a.avatar
-      float: left
-      margin: 0 10px 0 0
-      img
-        border: 1px solid #394651
-    .details
-      overflow: hidden
-      padding: 5px 0 0 0
-      line-height: 130%
-      p
-        padding: 0 0 5px 0
-        &.meta
-          font-size: .75em
-          font-weight: bold
-          text-transform: uppercase
-          color: #82919e
-      img
-        margin: 0 8px 0 0
-        border: 1px solid #394651
+      .details
+        img
+          margin: 0 8px 0 0
+          border: 1px solid #394651
 
 #taxonomy
   float: left
@@ -427,8 +430,10 @@ body
       float: left
       position: relative
       width: 430px
-      height: 310px
+      height: 360px
       overflow: hidden
+      .image
+        background: #ffffff
     ul.thumbnails
       float: right
       width: 100px
@@ -496,15 +501,6 @@ body
             font-weight: normal
             background: transparent url("/images/v2/icon_classification_arrow.png") 0 0 no-repeat
     .updates
-      blockquote
-        line-height: 140%
-      p
-        padding: 0 0 4px 0
-        &.meta
-          font-size: .75em
-          font-weight: bold
-          text-transform: uppercase
-          color: #82919e
       form.comment
         padding: 20px 10px 0 10px
         margin: 0 -10px
@@ -517,3 +513,76 @@ body
           padding: 0 0 0 60px
           input[type="submit"]
             padding: 6px 15px
+
+#collections
+  .collections
+    padding: 0 0 30px 0
+    .heading
+      overflow: hidden
+      margin: 0 0 10px 0
+      h3
+        float: left
+        padding: 5px 0 0 0
+    .article
+      clear: both
+      overflow: hidden
+      padding: 1px
+      margin: 0 0 10px 0
+      border: 1px solid #cad3db
+      background: #f3f7fa
+      .header
+        padding: 2px
+        margin: 0 0 10px 0
+        color: #aeb7bf
+        border: 1px solid #cad3db
+        background: #394651
+        a
+          float: none
+          text-transform: capitalize
+          text-decoration: none
+        img
+          float: left
+          margin: 0 10px 0 0
+          border: 1px solid #93a4b0
+        h4
+          padding: 5px 0 0 0
+          font-size: 1.16em
+          a
+            color: #ffffff
+        p
+          font-size: .83em
+      ul
+        padding: 0 0 0 15px
+        li
+          float: left
+          padding: 0 25px 15px 0
+          font-size: 1.16em
+          a
+            display: block
+            padding: 6px 0 9px 45px
+            color: #394651
+            text-decoration: none
+          &.taxa
+            a
+              background: transparent url("/images/v2/icon_taxa_tabs.png") 0 0 no-repeat
+          &.videos
+            a
+              padding-left: 38px
+              background: transparent url("/images/v2/icon_videos_tabs.png") 0 0 no-repeat
+          &.images
+            a
+              background: transparent url("/images/v2/icon_images_tabs.png") 0 0 no-repeat
+          &.communities
+            a
+              background: transparent url("/images/v2/icon_communities_tabs.png") 0 6px no-repeat
+          &.people
+            a
+              background: transparent url("/images/v2/icon_people_tabs.png") 0 0 no-repeat
+          &.collections
+            a
+              padding-left: 38px
+              background: transparent url("/images/v2/icon_collections_tabs.png") 0 0 no-repeat
+          &.sounds
+            a
+              padding-left: 32px
+              background: transparent url("/images/v2/icon_sounds_tabs.png") 0 2px no-repeat

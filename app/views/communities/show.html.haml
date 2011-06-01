@@ -22,7 +22,7 @@
     %h3= I18n.t(:endorsed_collections)
     -# FIXME: make this functional
     %ul
-      %li= link_to Collection.last.name, "#"
+      %li= link_to Collection.last.name, collection_url(Collection.last)
 
 #community.main_container
   -# FIXME: contents should change depending on active tab - move these to controller (?)

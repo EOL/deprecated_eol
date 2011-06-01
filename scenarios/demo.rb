@@ -152,7 +152,7 @@ species.keys.sort.each do |which|
       :images => imgs
     )
   end
-  taxa << tc
+  taxa << tc if species[which].has_key?(:summary)
 end
 
 # Special: we want to ensure that TC 1 is really called "Animalia".  A little harsh, but:

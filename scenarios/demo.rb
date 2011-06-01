@@ -41,11 +41,11 @@ species = {
     :depth => 1,
     :sci => 'Plantae',
     :common => 'Plants'},
-  2861424 => { :depth => 5, :sci => 'Amanitaceae' },
-  7160 => { :depth => 5, :sci => 'Nephropoidea' },
-  89513 => { :depth => 5, :sci => 'Haramonas' },
-  14460 => { :depth => 5, :sci => 'Canis', :common => 'Wolf' },
-  14031 => { :depth => 5, :sci => 'Pinus ', :common => 'Pine' },
+  2861424 => { :depth => 5, :parent => 5559, :sci => 'Amanitaceae' },
+  7160 => { :depth => 5, :parent => 1, :sci => 'Nephropoidea' },
+  89513 => { :depth => 5, :parent => 3352, :sci => 'Haramonas' },
+  14460 => { :depth => 5, :parent => 1, :sci => 'Canis', :common => 'Wolf' },
+  14031 => { :depth => 5, :parent => 281, :sci => 'Pinus ', :common => 'Pine' },
   49148 => { :depth => 5, :parent => 1, :sci => 'Anochetus' },
   2866150 => { :parent => 2861424,
     :sci => 'Amanita muscaria',
@@ -154,6 +154,7 @@ species.keys.sort.each do |which|
       :id => which,
       :parent_hierarchy_entry_id => parent,
       :canonical_form => species[which][:sci],
+      :attribution => species[which][:attribution] || '',
       :common_names => commons,
       :depth => species[which][:depth] || 6,
       :flash => [{}],
@@ -162,6 +163,11 @@ species.keys.sort.each do |which|
     )
   end
   taxa << tc if species[which].has_key?(:summary)
+  if species[which][:depth] == 1
+    entry = tc.entry
+    entry.parent_id = 0 # I hope this makes it NOT under animalia!
+    entry.save!
+  end
 end
 
 # Special: we want to ensure that TC 1 is really called "Animalia".  A little harsh, but:
@@ -183,6 +189,9 @@ community_name = 'Endangered Species of Montana'
 community = Community.find_by_name(community_name)
 community ||= Community.gen(:name => community_name, :description => 'This is a community intended to showcase the newest features of Version 2 for the EOL website.', :logo_cache_url => 2000)
 community.initialize_as_created_by(community_owner)
+com_col = community.focus
+com_col.logo_cache_url = 2000
+com_col.save!
 
 collection_owner = User.find(community_owner.id + 1)
 collection_owner.logo_cache_url = 1005
@@ -230,7 +239,6 @@ community.feed.post "#{concerned.username} commented on #{community_name}: Could
 include the endangered species listed in the latest publication from IUCN?", :user_id => concerned.id, :thumbnail_url => concerned.logo_cache_url
 
 User.find(:all, :conditions => 'logo_cache_url IS NULL').each do |user|
-  puts next_image
   user.logo_cache_url = next_image
   user.save
 end

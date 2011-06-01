@@ -13,6 +13,15 @@ include EOL::Data
 # This gives us the ability to build taxon concepts:
 include EOL::Spec::Helpers
 
+
+def next_image
+  @total_test_images = 8
+  @image_number ||= 4
+  @image_number = (@image_number + 1) % @total_test_images
+  1000 + @image_number
+end
+
+
 # We need to build the taxa, if they don't exist:
 taxa = []
 
@@ -166,15 +175,17 @@ obj.clean_name = 'animalia'
 obj.italicized = '<i>Animalia</i>'
 obj.save!
 
-# TODO - add images to all of the users. logo_cache_url
 community_owner = User.first
+community_owner.logo_cache_url = 1003
+community_owner.save
+
 community_name = 'Endangered Species of Montana'
 community = Community.find_by_name(community_name)
 community ||= Community.gen(:name => community_name, :description => 'This is a community intended to showcase the newest features of Version 2 for the EOL website.', :logo_cache_url => 2000)
 community.initialize_as_created_by(community_owner)
 
 collection_owner = User.find(community_owner.id + 1)
-collection_owner.logo_cache_url = 1003
+collection_owner.logo_cache_url = 1005
 collection_owner.save
 
 collection_name  = 'New Species from the Census of Marine Life'
@@ -217,6 +228,12 @@ community.feed.post "#{loud_user.username} commented on #{community_name}: My si
 community, but she's on vacation this week.", :user_id => loud_user.id, :thumbnail_url => loud_user.logo_cache_url
 community.feed.post "#{concerned.username} commented on #{community_name}: Could we please expand this collection to
 include the endangered species listed in the latest publication from IUCN?", :user_id => concerned.id, :thumbnail_url => concerned.logo_cache_url
+
+User.find(:all, :conditions => 'logo_cache_url IS NULL').each do |user|
+  puts next_image
+  user.logo_cache_url = next_image
+  user.save
+end
 
 
 make_all_nested_sets

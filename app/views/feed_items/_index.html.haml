@@ -35,6 +35,6 @@
             - #   = link_to "4 photos", "#"
             - # %p Head Mycologist
             %p= h feed_item.body
-            %p.meta= time_ago_in_words(feed_item.updated_at)
+            %p.meta= I18n.t(:time_ago, :time_passed => time_ago_in_words(feed_item.updated_at))
   - if form_position == :after_items
     = render :partial => 'feed_items/form', :locals => {:feed => feed}

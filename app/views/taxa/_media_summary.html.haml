@@ -2,7 +2,7 @@
   %h3.assistive= I18n.t(:media)
   .images
     .image
-      = image_tag @media.first.smart_image, :alt => ""
+      = image_tag @media.first.original_image, :alt => ""
       .attribution
         %p= @media.first.object_title unless @media.first.object_title.empty?
         = render :partial => "data_objects/attribution_minimal", :locals => {:data_object => @media.first}

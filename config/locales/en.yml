@@ -70,6 +70,7 @@ en:
   after_submitting_your_text_ent: "After submitting your text entry it will appear with a yellow background until a curator marks it as trusted."
   age: "Age"
   agent: "Agent"
+  time_ago: "%{time_passed} ago"
   agreed_to_by_agent_on_date: "Agreed to by %{agent} on %{date}"
   agreement_accepted: "Agreement accepted"
   agreement: "Agreement"

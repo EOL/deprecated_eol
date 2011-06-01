@@ -1,7 +1,7 @@
 - type = collection_item_get_type(collection_item)
 %div{:class => "collection #{type}"}
   - #FIXME: get proper image from collection_item
-  = image_tag '/images/v2/icon_taxa_tabs.png', :alt => ''
+  = collection_item_icon(collection_item)
   .details
     %h3= collection_item.name
     - #TODO: Show common name for taxon description for image, expertise for person etc...

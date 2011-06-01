@@ -14,9 +14,9 @@
           -# TODO - If we're on a Kingdom page, we don't want two hard-coded entries, here:
           %li
             %p
-              = link_to(classification[:kingdom].italicized_name, { :controller => 'taxa', :action => 'show', :id => classification[:kingdom].taxon_concept_id }, { :title => classification[:kingdom].rank_label })
+              = link_to(classification[:kingdom].italicized_name, taxon_overviews_url(classification[:kingdom].taxon_concept_id), { :title => classification[:kingdom].rank_label })
             - unless classification[:parent].nil?
               %ul
                 %li
                   %p
-                    = link_to(classification[:parent].italicized_name, { :controller => 'taxa', :action => 'show', :id => classification[:parent].taxon_concept_id }, { :title => classification[:parent].rank_label })
+                    = link_to(classification[:parent].italicized_name, taxon_overviews_url(classification[:parent].taxon_concept_id), { :title => classification[:parent].rank_label })

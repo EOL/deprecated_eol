@@ -25,8 +25,8 @@
       - feed.each do |feed_item|
         %li
           - #TODO: Need to put images e.g. user profiles etc, also do we have good alt text from users?
-          -# TODO: We're assuming every one of these is from a user.  Safe for now, but....
-          = link_to image_tag(feed_item.user.logo_url, :width => 50, :height => 50, :alt => ''), user_url(feed_item.user)
+          - if feed_item.user
+            = link_to image_tag(feed_item.user.logo_url, :width => 50, :height => 50, :alt => ''), user_url(feed_item.user)
           .details
             - # TODO: Something like:
             - # %p

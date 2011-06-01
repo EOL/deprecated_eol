@@ -8,6 +8,18 @@
  * so I am temporarily adding some CSS here needed for V2 demo. This CSS should be integrated
  * into HashRocket SASS if it is still needed when design work is complete.
  */
+#media_summary .image {
+  height: 360px; }
+  #media_summary .image img {
+    max-width: 430px;
+    max-height: 310px; }
+  #media_summary .image .attribution {
+    position: absolute;
+    bottom: 0;
+    left: 0; }
+    #media_summary .image .attribution img {
+      margin-top: 0; }
+
 #iucn_status {
   margin-bottom: 20px; }
   #iucn_status h3, #iucn_status p {

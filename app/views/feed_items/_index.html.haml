@@ -1,6 +1,7 @@
 - form_position ||= :after_items
 - header ||= I18n.t(:recent_updates)
 - allow_filter ||= false
+- debugger
 #feed_items.article.list.updates
   - if form_position == :before_header
     = render :partial => 'feed_items/form', :locals => {:feed => feed}
@@ -28,13 +29,13 @@
           - if feed_item.user
             = link_to image_tag(feed_item.logo_url, :width => 50, :height => 50, :alt => ''), user_url(feed_item.user)
           .details
-            - # TODO: Something like:
+            - # TODO: Instead of feed.body something like:
             - # %p
             - #   %strong John
             - #   added
             - #   = link_to "4 photos", "#"
             - # %p Head Mycologist
-            - # %p.meta 5 minutes ago
             %p= h feed_item.body
+            %p.meta= time_ago_in_words(feed_item.updated_at)
   - if form_position == :after_items
     = render :partial => 'feed_items/form', :locals => {:feed => feed}

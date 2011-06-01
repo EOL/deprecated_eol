@@ -1,6 +1,11 @@
 #media_summary.gallery
-  %h3= I18n.t(:media)
-  - # TODO: Accessible JS for image gallery
+  %h3.assistive= I18n.t(:media)
+  .images
+    .image
+      = image_tag @media.first.smart_image, :alt => ""
+      .attribution
+        %p= @media.first.object_title unless @media.first.object_title.empty?
+        = render :partial => "data_objects/attribution_minimal", :locals => {:data_object => @media.first}
   %ul.thumbnails
     - @media[0..3].each do |item|
       = render :partial => "taxa/media_thumbnail", :locals => {:item => item}

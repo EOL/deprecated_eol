@@ -13,7 +13,12 @@ class ContentServer
   def self.agent_logo_path(url, size = nil)
     return self.blank if url.blank?
     logo_size = (size == "large") ? "_large.png" : "_small.png"
-    "#{self.next}#{$CONTENT_SERVER_AGENT_LOGOS_PATH}#{url}#{logo_size}"
+    if $CONTENT_SERVER_AGENT_LOGOS_PATH =~ /^http/
+      "#{$CONTENT_SERVER_AGENT_LOGOS_PATH}#{url}#{logo_size}"
+    else
+      "#{self.next}#{$CONTENT_SERVER_AGENT_LOGOS_PATH}#{url}#{logo_size}"
+    end
+    
   end
 
   def self.cache_path(cache_url, subdir = $CONTENT_SERVER_CONTENT_PATH)

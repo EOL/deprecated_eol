@@ -147,6 +147,9 @@ community ||= Community.gen(:name => community_name, :description => 'This is a 
 community.initialize_as_created_by(community_owner)
 
 collection_owner = User.find(community_owner.id + 1)
+collection_owner.logo_cache_url = 1003
+collection_owner.save
+
 collection_name  = 'New Species from the Census of Marine Life'
 endorsed_collection = Collection.find_by_name(collection_name)
 endorsed_collection ||= Collection.gen(:user => collection_owner, :name => collection_name, :logo_cache_url => 3000)

@@ -7,12 +7,11 @@
     - #TODO: Show common name for taxon description for image, expertise for person etc...
     %p= collection_item_view_type_link_to(collection_item)
   %span.icon= I18n.t(:collection_item_type_with_label, :type => type)
-  .comment
-    -#FIXME: get proper comment
-    %p This is the primary mushroom I'll be focusing on this month.
+  / .comment
+  /   -#FIXME: get proper comment
+  /   %p collection_item
   %p.meta
     - #TODO: Format date
     - date = collection_item.created_at
-    - #TODO: Get proper person name
-    - name = link_to "Bill Brasky", "#"
-    = I18n.t(:added_date_by, :date => date, :name => name)
+    %br
+    = I18n.t(:added_date, :date => date)

@@ -32,5 +32,9 @@ class FeedItem < ActiveRecord::Base
     options[:feed_item_type_id] = can_curate ? FeedItemType.curator_comment.id : FeedItemType.user_comment.id
     self.new(options)
   end
+  
+  def logo_url(size = 'large')
+    thumbnail_url.blank? ? "v2/icon_contributors.png" : ContentServer.agent_logo_path(thumbnail_url, size)
+  end
 
 end

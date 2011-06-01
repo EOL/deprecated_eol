@@ -143,13 +143,13 @@ end
 community_owner = User.first
 community_name = 'Endangered Species of Montana'
 community = Community.find_by_name(community_name)
-community ||= Community.gen(:name => community_name, :description => 'This is a community intended to showcase the newest features of Version 2 for the EOL website.')
+community ||= Community.gen(:name => community_name, :description => 'This is a community intended to showcase the newest features of Version 2 for the EOL website.', :logo_cache_url => 2000)
 community.initialize_as_created_by(community_owner)
 
 collection_owner = User.find(community_owner.id + 1)
 collection_name  = 'New Species from the Census of Marine Life'
 endorsed_collection = Collection.find_by_name(collection_name)
-endorsed_collection ||= Collection.gen(:user => collection_owner, :name => collection_name)
+endorsed_collection ||= Collection.gen(:user => collection_owner, :name => collection_name, :logo_cache_url => 3000)
 
 # Empty the two collections:
 community.focus.collection_items.each do |ci|
@@ -160,21 +160,30 @@ endorsed_collection.collection_items.each do |ci|
 end
 
 loud_user = User.find(community_owner.id + 2)
+loud_user.logo_cache_url = 1001
+loud_user.save
 happy_user = User.find(community_owner.id + 3)
+happy_user.logo_cache_url = 1002
+happy_user.save
 concerned = User.find(community_owner.id + 4)
+concerned.logo_cache_url = 1003
+concerned.save
 
 # Now build them up again:
 taxa.each do |tc|
   community.focus.add tc
   endorsed_collection.add tc
-  tc.feed.post "#{loud_user.username} commented on #{tc.quick_scientific_name(:canonical)}: This is one of my favorite species; I am excited to see how this page grows.", :user_id => loud_user.id
-  tc.feed.post "#{happy_user.username} commented on #{tc.quick_scientific_name(:canonical)}: Beautiful!", :user_id => happy_user.id
-  tc.feed.post "#{concerned.username} commented on #{tc.quick_scientific_name(:canonical)}: We could really use a few more images of this in its natural habitat.", :user_id => concerned.id
+  tc.feed.post "#{loud_user.username} commented on #{tc.quick_scientific_name(:canonical)}: This is one of my favorite species; I am excited to see how this page grows.",
+    :user_id => loud_user.id, :thumbnail_url => loud_user.logo_cache_url
+  tc.feed.post "#{happy_user.username} commented on #{tc.quick_scientific_name(:canonical)}: Beautiful!",
+    :user_id => happy_user.id, :thumbnail_url => happy_user.logo_cache_url
+  tc.feed.post "#{concerned.username} commented on #{tc.quick_scientific_name(:canonical)}: We could really use a few more images of this in its natural habitat.",
+    :user_id => concerned.id, :thumbnail_url => concerned.logo_cache_url
 end
 
 community.feed.post "#{happy_user.username} commented on #{community_name}: I cannot tell you how excited I am about
-this community! Let's make a difference!", :user_id => happy_user.id
+this community! Let's make a difference!", :user_id => happy_user.id, :thumbnail_url => happy_user.logo_cache_url
 community.feed.post "#{loud_user.username} commented on #{community_name}: My sister would like to join this
-community, but she's on vacation this week.", :user_id => loud_user.id
+community, but she's on vacation this week.", :user_id => loud_user.id, :thumbnail_url => loud_user.logo_cache_url
 community.feed.post "#{concerned.username} commented on #{community_name}: Could we please expand this collection to
-include the endangered species listed in the latest publication from IUCN?", :user_id => concerned.id
+include the endangered species listed in the latest publication from IUCN?", :user_id => concerned.id, :thumbnail_url => concerned.logo_cache_url

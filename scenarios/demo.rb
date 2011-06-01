@@ -6,10 +6,140 @@
 #
 # Please be very, very careful loading scenarios against large databases.
 
-taxa_ids_to_use = [2866150, 17924149, 921737, 328607, 1061748, 491753]
-taxa_ids_to_use = [1, 8, 9, 12, 14, 16] if RAILS_ENV =~ /devel/ # If you're running this after bootstrap, you want these.
-taxa = taxa_ids_to_use.map {|id| TaxonConcept.find(id)}
+require 'spec/eol_spec_helpers'
+require 'spec/scenario_helpers'
+# This gives us the ability to recalculate some DB values:
+include EOL::Data
+# This gives us the ability to build taxon concepts:
+include EOL::Spec::Helpers
 
+# We need to build the taxa, if they don't exist:
+taxa = []
+
+species = {
+  5559 => {
+    :sci => 'Fungi',
+    :common => 'Mushrooms, sac fungi, lichens, yeast, molds, rusts, etc.'},
+  1 => {
+    :sci => 'Animalia',
+    :common => 'Animals'},
+  3352 => {
+    :sci => 'Chromista'},
+  281 => {
+    :sci => 'Plantae',
+    :common => 'Plants'},
+  2866150 => { :parent => 5559,
+    :sci => 'Amanita muscaria',
+    :common => 'Fly Agaric',
+    :imgs => [201008242207638, 201101141341094, 201101141330049, 201101141305714],
+    :summary => '<p>Commonly known as the fly agaric or fly Amanita, Amanita muscaria is a mycorrhizal basidiomycete
+    fungus that contains several toxic, psychoactive compounds. Amanita muscaria is the typical “toadstool” mushroom,
+    bearing white gills and white warts on its variably colored cap and growing typically in clusters near conifers
+  or hardwoods throughout the northern hemisphere</p><p>The name fly agaric comes from its use as a control for pesky flies. The old practice was to soaking pieces of
+  the mushroom in a saucer of milk to attract flies. The flies would drink the tainted milk, become intoxicated, and
+  fly into walls to their death.</p>'},
+  17924149 => { :parent => 1,
+    :sci => 'Dinochelus ausubeli',
+    :common => "Ausubel's Mighty Claws Lobster",
+    :imgs => [201012041086784, 201009280303944],
+    :summary => 'Dinochelus ausubeli is a new species of deepwater lobster (family Nephropidae) first collected in
+    2007 from the Philippine Sea off the island of Luzon and was formally described in 2010. The species is so
+  distinct that it was not only described as a new species but placed in a newly erected genus as well (Dinochelus).
+    "Dinochelus" is derived from the Greek dinos, meaning "terrible", and chela, meaning "claw", an allusion to the
+  massive, spinose major claw. The specific epithet ausubeli honors Jesse Ausubel, an enthusiastic sponsor of the
+  Census of Marine Life, a major effort to document marine life in the first decade of the 21st century. (Ahyong et al. 2010)'},
+  921737 => { :parent => 3352,
+    :sci => 'Haramonas dimorpha',
+    :imgs => [200812102137415, 200812102183535],
+    :summary => 'Haramonas (ha-ra-moan-ass) dimorpha, large raphidophyte, with two emergent flagella, anterior
+    flagellum beats with an undulating pattern, posterior flagellum trails. Many small green or yellow green
+  plastids. No eyespot. Phase contrast microscopy.'},
+  328607 => { :parent => 1,
+    :sci => 'Canis lupus',
+    :common => 'Wolf',
+    :imgs => [200908250179632, 200905130150563, 200905130192503, 200907241171232],
+    :summary => %q{<p>Gray wolves usually live in packs, led by an "alpha pair." The pack includes some of the alpha
+    pair's offspring and may include some unrelated wolves. A pack's territory can be as large as 13,000 square km.
+    Howling probably helps advertise who "owns" a particular piece of territory. When pups are born, the mother stays
+  near them for the first three weeks, and her mate and others in the pack bring food to her. The pups are weaned
+    when they about nine weeks old. As adults, they may travel as far as 72 km a day with their pack and run as fast
+      as 70 km per hour.</p><p>
+        Adaptation: This transparent view of the wolf braincase shows how the brain is situated within. The large
+        feature projecting from the front of the brain is the olfactory lobe, an important center related to the
+        sense of smell.</p>}},
+  1061748 => { :parent => 281,
+    :sci => 'Pinus strobus',
+    :common => 'Eastern white pine',
+    :imgs => [201105312325504, 201102040505636, 201102040570574, 201105132311043],
+    :summary => '<p>Pinus strobus, the Eastern White Pine, is characterized by fascicles of 5 fine needles with a
+    nonpersistent bundle sheath, and relatively soft, unarmed, elongate seed cones whose scales are spread at
+  maturity. The native range of eastern white pine stretches from southeastern Manitoba to Newfoundland in Canada and
+  from Minnesota and Iowa eastward to Maine and Pennsylvania, with a southward Appalachian extension to Tennessee and
+  Georgia and isolated occurrences in western Kentucky, Illinois, and Indiana. The species also has become
+  naturalized from plantings, both within its historical range and elsewhere, including portions of Europe, Asia, New
+  Zealand, and Australia. A related taxon in portions of southern Mexico and Guatemala is sometimes treated as Pinus
+  strobus var. chiapensis, but more often as a distinct species, Pinus chiapensis.
+</p><p>
+  Natural stands of Pinus strobus occur in a variety of habitats, ranging from dune forests to bogs and mixed
+  conifer/hardwood forests. The species also colonizes old fields and other former agricultural lands that are
+  reverting back to forests. It has been planted extensively in plantations and is also used to revegetate mine
+  spoils. The species also is cultivated commonly as a shade and ornamental tree
+</p><p>
+  Eastern White Pine is an important timber tree for the production of softwood lumber. The wood is used for
+  construction, cabinetry and furniture-making, handcrafts, and various other woodworking. Native American tribes
+  used it extensively for various medicinal properties and it is an important food source for wildlife. The long
+  history of cultivation has led to the development of numerous cultivars and forms. The species is affected by the
+  exotic white pine blister rust Cronartium ribicola, an important pathogen of timber trees in the white pine group
+  in temperate North America.</p>'},
+  491753 => { :parent => 1,
+    :sci => 'Anochetus mayri',
+    :imgs => [200901131343523, 200901131383455, 200901131367550, 201012100375791],
+    :summary => 'Anochetus are presumably predators, using their snapping mandibles much like their larger relatives,
+    Odontomachus. However, there are few direct observations. "A. mayri is found mostly in forests under stones, in
+    moss on rocks or logs, in rotten twigs on the forest floor, or in larger bodies of rotten wood. The workers and
+    queen feign death, and are difficult to see (Brown 1978)." There appear to be two distinct forms in the Atlantic
+    lowlands of Costa Rica, one of which may be more arboreal (see below).'}
+}
+
+animalia_entry = TaxonConcept.find(1).entry.id
+overv = TocItem.find_by_translated(:label, 'Brief Summary')
+
+species.keys.sort.each do |which|
+  tc = nil
+  begin
+    tc = TaxonConcept.find(which)
+    puts "** FOUND #{species[which][:sci]} (#{which})..."
+  rescue => e
+    puts e.message
+    parent = species[which].has_key?(:parent) ?
+      TaxonConcept.find(species[which][:parent]).entry.id :
+      animalia_entry
+    desc = species[which].has_key?(:summary) ?
+      species[which][:summary] :
+      'Just a placeholder text for the description of this species'
+    imgs = []
+    if species[which].has_key? :imgs
+      species[which][:imgs].each do |i|
+        imgs << {:object_cache_url => i}
+      end
+    end
+    commons = [species[which][:common]].compact
+    puts "** Building #{species[which][:sci]}..."
+    tc = build_taxon_concept(
+      :id => which,
+      :parent_hierarchy_entry_id => parent,
+      :canonical_form => species[which][:sci],
+      :common_names => commons,
+      :depth => 5,
+      :flash => [{}],
+      :toc => [{ :toc_item => overv, :description => desc }],
+      :images => imgs
+    )
+  end
+  taxa << tc
+end
+
+# TODO - add images to all of the users. logo_cache_url
 community_owner = User.first
 community_name = 'Endangered Species of Montana'
 community = Community.find_by_name(community_name)
@@ -41,3 +171,10 @@ taxa.each do |tc|
   tc.feed.post "#{happy_user.username} commented on #{tc.quick_scientific_name(:canonical)}: Beautiful!", :user_id => happy_user.id
   tc.feed.post "#{concerned.username} commented on #{tc.quick_scientific_name(:canonical)}: We could really use a few more images of this in its natural habitat.", :user_id => concerned.id
 end
+
+community.feed.post "#{happy_user.username} commented on #{community_name}: I cannot tell you how excited I am about
+this community! Let's make a difference!", :user_id => happy_user.id
+community.feed.post "#{loud_user.username} commented on #{community_name}: My sister would like to join this
+community, but she's on vacation this week.", :user_id => loud_user.id
+community.feed.post "#{concerned.username} commented on #{community_name}: Could we please expand this collection to
+include the endangered species listed in the latest publication from IUCN?", :user_id => concerned.id

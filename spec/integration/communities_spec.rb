@@ -73,10 +73,9 @@ describe "Communities" do
 #          end
 #        end
 
-      it 'should show the taxon concepts the community is focused upon' do
+      it 'should show the collection the community is focused upon' do
         body.should have_tag('#sidebar') do
-          with_tag("a[href=#{taxon_concept_path(@test_data[:tc1])}]")
-          with_tag("a[href=#{taxon_concept_path(@test_data[:tc2])}]")
+          with_tag("a[href=#{collection_path(@test_data[:community].focus.id)}]", :text => /#{@test_data[:community].focus.name}/)
         end
       end
     end

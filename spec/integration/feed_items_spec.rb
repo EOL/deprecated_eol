@@ -21,11 +21,8 @@ describe "FeedItems" do
     test_list_of_items(@user)
   end
 
-  it 'should require log in to add an item to a feed' do
-    visit feed_items_path(:type => 'User', :id => @user.id)
-    page.body.should_not have_tag('textarea#feed_item_body')
-    page.body.should have_tag('a[href=?]', /\/login.*/)
-  end
+  it 'should require log in to add an item to a feed'
+    # should allow anonymous user to submit form but before posting should require login/sign up
 
   it 'should allow adding an item to a feed for a user when logged in' do
     login_as @user

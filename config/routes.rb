@@ -159,7 +159,13 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/index', :controller => 'content', :action => 'index'
   map.connect ':id', :id => /\d+/,  :controller => 'taxa', :action => 'show' # only a number passed in to the root of the web, then assume a specific taxon concept ID
   map.connect ':id', :id => /[A-Za-z0-9% ]+/,  :controller => 'taxa', :action => 'search'  # if text, then go to the search page
-
+  
+  ## Mobile app namespace routes
+  map.mobile 'mobile', :controller => 'mobile/contents'
+  map.namespace :mobile do |mobile|
+    mobile.resources :contents
+  end 
+  
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'

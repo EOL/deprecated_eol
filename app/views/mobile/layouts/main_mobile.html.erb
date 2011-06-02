@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>EOL Mobile development layout</title>
+  <meta name="description" content="EOL Mobile development layout" />
+  <meta name="keywords" content= "eol mobile Encyclopedia of Life" /> 
+  <meta name="authors" content= "Silvio Relli" />
+</head>
+
+<body>
+    <header>
+        <a class="logo" href="/"><%= image_tag("/images/v2/logo_index.png") %><h1>Encyclopedia of Life</h1></a>
+        <nav>
+            <a href="/">Home</a>
+			<a href="">Page X</a>
+			<a href="">Page Y</a>
+        </nav>
+    </header>
+    
+    <div id='container'>
+        <%= yield %>
+    </div>
+</body>
+</html>

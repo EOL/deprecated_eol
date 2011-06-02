@@ -19,6 +19,8 @@ class ApplicationController < ActionController::Base
       true
     end
   end
+  
+  before_filter :check_if_mobile
 
   prepend_before_filter :redirect_to_http_if_https
   prepend_before_filter :set_session
@@ -31,7 +33,7 @@ class ApplicationController < ActionController::Base
     :allow_page_to_be_cached?
 
   before_filter :set_locale
-
+  
   def set_locale
     I18n.locale = current_user.language_abbr
   end
@@ -582,7 +584,7 @@ private
   def clear_old_sessions
     CGI::Session::ActiveRecordStore::Session.destroy_all( ['updated_at <?', $SESSION_EXPIRY_IN_SECONDS.seconds.ago] )
   end
-
+  
   def log_search params
     Search.log(params, request, current_user) if EOL.allowed_user_agent?(request.user_agent)
   end
@@ -590,5 +592,24 @@ private
   def update_logged_search params
     Search.update_log(params)
   end
-
+  
+  # TODO Set and check session if a mobile user wants to see the full page 
+  # TODO Delete notices when everything works
+  def check_if_mobile
+    if mobile_request? && !(request.request_uri.to_s.include? "\/mobile\/")
+      puts "------------------------------- NOTICE -------- Redirecting to /mobile --------------------------"
+      redirect_to '/mobile/contents'
+    elsif mobile_request? && (request.request_uri.to_s.include? "\/mobile\/")
+      puts "------------------------------- NOTICE -------- Already on /mobile ------------------------------"
+    else
+      #puts "------------------------------ NOTICE -------- Not mobile request ------------------------------"
+    end
+  end
+  
+  def mobile_request?
+    request.env["HTTP_USER_AGENT"] && request.env["HTTP_USER_AGENT"][/(iPhone|iPod|iPad|Android|IEMobile)/]
+    # true # During mobile app development uncomment this line to force mobile views
+  end
+  helper_method :mobile_request?
+  
 end

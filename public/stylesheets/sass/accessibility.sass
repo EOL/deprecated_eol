@@ -53,14 +53,6 @@ body
           margin-left: 10px
           background: transparent url('/images/v2/icon_classification_arrow.png') 0 0 no-repeat
 
-/** TEMPORARY FIX: We share the feed_items partial across many places but HR CSS classes assume it is not
-  * shared so we have to duplicate style here override the mixing of two CSS classes 'header' and 'heading'.
-  * We need a better solution to this long term. Either don't share the header in the HAML partial or apply
-  * a single CSS class for feed item header.
-  */
-#community
-  .header
-
 /**
   * TEMPORARY FIX: Forcing image sizes for V2 demo.
   */

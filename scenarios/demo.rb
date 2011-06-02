@@ -185,7 +185,7 @@ community_owner = User.first
 community_owner.logo_cache_url = 1003
 community_owner.save
 
-community_name = 'Endangered Species of Montana'
+community_name = 'Citizen Scientists of Montana'
 community = Community.find_by_name(community_name)
 community ||= Community.gen(:name => community_name, :description => 'This is a community intended to showcase the newest features of Version 2 for the EOL website.', :logo_cache_url => 2000)
 community.initialize_as_created_by(community_owner)

@@ -41,8 +41,22 @@
     margin-left: 10px;
     background: transparent url("/images/v2/icon_classification_arrow.png") 0 0 no-repeat; }
 
-.thumb_90_90 {
+#collections_summary ul li > a > img, #communities_summary ul li > a > img {
+  width: 50px;
+  height: 50px; }
+
+#page_heading.with_image .hgroup img {
   max-width: 90px;
   max-height: 90px;
   width: expression(this.width > 90 ? "90px" : true);
   height: expression(this.height > 90 ? "90px" : true); }
+
+#collections.main_container .taxon > img {
+  max-width: 90px;
+  max-height: 90px;
+  width: expression(this.width > 90 ? "90px" : true);
+  height: expression(this.height > 90 ? "90px" : true); }
+
+ul.feed li > a > img {
+  width: 50px;
+  height: 50px; }

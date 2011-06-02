@@ -26,7 +26,7 @@
         %li
           - #TODO: Need to put images e.g. user profiles etc, also do we have good alt text from users?
           - if feed_item.user
-            = link_to image_tag(feed_item.user.logo_url, :width => 50, :height => 50, :alt => ''), user_url(feed_item.user)
+            = link_to image_tag(feed_item.user.logo_url, :alt => ''), user_url(feed_item.user)
           - elsif feed_item.subject_type == 'TaxonConcept'
             - tc = TaxonConcept.find(feed_item.subject_id)
             - if thumb = tc.smart_thumb

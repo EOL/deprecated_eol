@@ -11,6 +11,15 @@
  * so I am temporarily adding some CSS here needed for V2 demo. This CSS should be integrated
  * into HashRocket SASS if it is still needed when design work is complete.
  */
+= max90x90
+  max-width: 90px
+  max-height: 90px
+  width: expression(this.width > 90 ? "90px" : true)
+  height: expression(this.height > 90 ? "90px" : true)
+= size50x50
+  width: 50px
+  height: 50px
+
 #media_summary
   .image
     height: 360px
@@ -47,9 +56,25 @@
           padding-left: 23px !important
           margin-left: 10px
           background: transparent url('/images/v2/icon_classification_arrow.png') 0 0 no-repeat
+#collections_summary, #communities_summary
+  ul
+    li
+      >a
+        >img
+          +size50x50
+#page_heading
+  &.with_image
+    .hgroup
+      img
+        +max90x90
+#collections
+  &.main_container
+    .taxon>img
+      +max90x90
+ul.feed
+  li
+    >a
+      >img
+        +size50x50
 
-.thumb_90_90
-  max-width: 90px
-  max-height: 90px
-  width: expression(this.width > 90 ? "90px" : true)
-  height: expression(this.height > 90 ? "90px" : true)
+

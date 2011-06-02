@@ -52,13 +52,13 @@ module CollectionItemsHelper
     else
     end
   end
-  
+
   def collection_item_icon(item)
     case item.object_type
     when 'TaxonConcept'
       taxon_concept = TaxonConcept.find(item['object_id'])
       if thumb = taxon_concept.smart_medium_thumb
-        image_tag(thumb, :alt => '', :class => 'thumb_90_90')
+        image_tag(thumb, :alt => '')
       else
         image_tag '/images/v2/icon_taxa_tabs.png', :alt => ''
       end

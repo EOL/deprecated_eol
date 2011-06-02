@@ -8,7 +8,7 @@
     - @taxon_concept.top_collections.each do |collection|
       %li
         - #TODO: Do collections have images? If so put them here, also do we have good alt text from users?
-        = link_to image_tag(collection.logo_url, :width => 50, :height => 50, :alt => ''), collection_url(collection)
+        = link_to image_tag(collection.logo_url, :alt => ''), collection_url(collection)
         .details
           %h4= collection.name
           - count = collection.collection_items.count - 1

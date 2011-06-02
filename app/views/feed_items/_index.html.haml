@@ -1,10 +1,11 @@
 - form_position ||= :after_items
 - header ||= I18n.t(:recent_updates)
+- header_style ||= 'header'
 - allow_filter ||= false
 #feed_items.article.list.updates
   - if form_position == :before_header
     = render :partial => 'feed_items/form', :locals => {:feed => feed}
-  .header.heading
+  %div{:class => header_style}
     %h3= header
     -# FIXME: Make this sort functional
     - if allow_filter

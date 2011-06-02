@@ -16,8 +16,7 @@
       %p= I18n.t(:this_community_has_no_focus_items_associated_with_it)
     - else
       %ul
-        - @community.focus.collection_items[0..5].each do |item|
-          %li= collection_item_name_link_to(item)
+        %li= link_to @community.focus.name, collection_path(@community.focus.id)
   .collection_list
     %h3= I18n.t(:endorsed_collections)
     -# FIXME: make this functional
@@ -28,7 +27,7 @@
   -# FIXME: contents should change depending on active tab - move these to controller (?)
   - active = true
   - if active
-    = render :partial => 'feed_items/index', :locals => { :feed => @community.feed, :form_position => :before_header, :header => I18n.t(:newsfeed), :allow_filter => true }
+    = render :partial => 'feed_items/index', :locals => { :feed => @community.feed, :form_position => :before_header, :header => I18n.t(:newsfeed), :header_style => 'heading', :allow_filter => true }
   - else
     - #FIXME: move all this extra stuff to appropriate tab show
     - roles = @community.roles

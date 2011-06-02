@@ -11,27 +11,23 @@
  * so I am temporarily adding some CSS here needed for V2 demo. This CSS should be integrated
  * into HashRocket SASS if it is still needed when design work is complete.
  */
-= max90x90
-  max-width: 90px
-  max-height: 90px
-  width: expression(this.width > 90 ? "90px" : true)
-  height: expression(this.height > 90 ? "90px" : true)
-= size50x50
-  width: 50px
-  height: 50px
-
-#media_summary
-  .image
-    height: 360px
-    img
-      max-width: 430px
-      max-height: 310px
-    .attribution
-      position: absolute
-      bottom: 0
-      left: 0
-      img
-        margin-top: 0
+.join
+  abbr
+    border: none
+body
+  >#header
+    h1
+      z-index: 100 /* otherwise .session div prevents clicking on logo */
+    .section
+      .session
+        .join
+          float: right
+          text-align: right
+          color: #fff
+          p
+            line-height: 1.4em
+          a
+            color: #90bce4
 #iucn_status
   margin-bottom: 20px
   h3, p
@@ -56,7 +52,46 @@
           padding-left: 23px !important
           margin-left: 10px
           background: transparent url('/images/v2/icon_classification_arrow.png') 0 0 no-repeat
-#collections_summary, #communities_summary
+
+/** TEMPORARY FIX: We share the feed_items partial across many places but HR CSS classes assume it is not
+  * shared so we have to duplicate style here override the mixing of two CSS classes 'header' and 'heading'.
+  * We need a better solution to this long term. Either don't share the header in the HAML partial or apply
+  * a single CSS class for feed item header.
+  */
+#community
+  .header
+
+/**
+  * TEMPORARY FIX: Forcing image sizes for V2 demo.
+  */
+= max90x90
+  max-width: 90px
+  max-height: 90px
+  width: expression(this.width > 90 ? "90px" : true)
+  height: expression(this.height > 90 ? "90px" : true)
+= size50x50
+  width: 50px
+  height: 50px
+
+#media_summary
+  .image
+    height: 360px
+    text-align: center
+    img
+      max-width: 430px
+      max-height: 310px
+    .attribution
+      position: absolute
+      bottom: 0
+      left: 0
+      img
+        margin-top: 0
+ul.feed
+  li
+    >a
+      >img
+        +size50x50
+#collections_summary, #communities_summary, .collection_contributors
   ul
     li
       >a
@@ -71,10 +106,5 @@
   &.main_container
     .taxon>img
       +max90x90
-ul.feed
-  li
-    >a
-      >img
-        +size50x50
 
 

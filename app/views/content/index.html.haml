@@ -77,10 +77,5 @@
                   to
                   = link_to "Pinus strobus", "pages/1061748"
                 %p.meta 11 minutes ago
-        -#TODO make this a partial? Its repeated in header?
         .join
-          %p= I18n.t(:join_eol_community_html)
-          %p.button= link_to I18n.t(:join_eol_button_html), { :controller => "/account", :action => "signup" }
-          %p
-            = I18n.t(:already_a_member_question)
-            = link_to I18n.t(:sign_in), { :controller => "/account", :action => "login" }
+          = render :partial => 'shared/join_eol', :locals => {:join_style => 'button'}

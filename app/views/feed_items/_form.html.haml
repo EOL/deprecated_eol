@@ -1,9 +1,7 @@
 - feed_item ||= @feed_item
-- if ! logged_in?
-  %p
-    = link_to(I18n.t(:login_to_add_comments),
-      login_path(:params => {:return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path}))
-- elsif ! feed_item.nil?
+- # FIXME: When a user is not logged in we need to let them fill in the form then redirect them to login/sign up,
+- # let them login/signup, then auto post their comment and redirect them back to wherever the form was
+- if ! feed_item.nil?
   - form_for(feed_item, :html => { :class => "comment"}) do |f|
     %fieldset
       - #TODO: Change image to be current user thumbnail or something...

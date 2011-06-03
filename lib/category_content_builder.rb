@@ -3,11 +3,10 @@ class CategoryContentBuilder
 
   def content_for(toc_item, options)
     sub_name = toc_item.label_as_method_name # TODO - i18n (this won't work without labels like the methods below)
-    content = {
-      :toc_item => toc_item,
-      :content_type  => sub_name
-    }
-    content.merge! self.send(sub_name, options)
+    content = self.send(sub_name, options)
+    return nil if content.nil? || content.reject{|k,v| v.nil? || v.empty?}.empty?
+    content[:toc_item] = toc_item
+    content[:content_type]  = sub_name
     content
   end
 

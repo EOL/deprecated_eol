@@ -11,7 +11,7 @@ module ApplicationHelper
   include ActionView::Helpers::SanitizeHelper
 
   def resource_is_active(resource)
-    if controller.controller_name == resource
+    if controller.controller_path == resource
       'active'
     end
   end

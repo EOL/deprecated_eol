@@ -23,6 +23,13 @@
         %p
   #content
     .site_column
+      #tabs_sidebar
+        %ul.tabs
+          %li{:class => resource_is_active('communities/newsfeeds')}= link_to I18n.t(:newsfeed), community_newsfeeds_path(@community.id)
+          %li{:class => resource_is_active('communities/contributors')}= link_to I18n.t(:members_with_count, :count => 23), "/placeholder"
+          %li{:class => resource_is_active('communities/collections')}= link_to I18n.t(:collections_with_count, :count => 6), community_collections_path(@community.id)
+          %li{:class => resource_is_active('communities/pending_members')}= link_to I18n.t(:pending_members_with_count, :count => 2), "/placeholder"
+          %li{:class => resource_is_active('communities/pending_collections')}= link_to I18n.t(:pending_collections_with_count, :count => 3), "/placeholder"
       = yield
 
 = render :file => 'layouts/v2/application'

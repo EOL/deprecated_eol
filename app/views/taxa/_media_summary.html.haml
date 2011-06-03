@@ -1,12 +1,26 @@
 #media_summary.gallery
   %h3.assistive= I18n.t(:media)
   .images
-    .image
-      = image_tag @media.first.original_image, :alt => ""
-      .attribution
-        %p= @media.first.object_title unless @media.first.object_title.empty?
-        = render :partial => "data_objects/attribution_minimal", :locals => {:data_object => @media.first}
-  %ul.thumbnails
     - @media[0..3].each do |item|
-      = render :partial => "taxa/media_thumbnail", :locals => {:item => item}
+      - if item.video?
+        - default_alt_text = :video_thumbnail_alt_text
+        - thumbnail = 'v2/temporary_for_mockup/video_thumb.png'
+      - elsif item.sound?
+        - default_alt_text = :sound_thumbnail_alt_text
+        - thumbnail = 'right_arrow.gif'
+      - else
+        - default_alt_text = :image_thumbnail_alt_text
+        - thumbnail = item.smart_medium_thumb
+      - # TODO: These alt/title attributes are useless in terms of accessibility.
+      - # We can include the item description but its not always going to make sense or be short enough
+      - # ideally we need a short description provided by the content partner, describing what is in the item.
+      - alt = item.object_title
+      - alt = truncate(item.description.sub(/\.\s\s.*$/, '.'), 150) if alt.blank?
+      - alt = I18n.t(default_alt_text, :vetted_status => item.vetted.label, :scientific_name => hh(@taxon_concept.scientific_name(nil,false))) if alt.blank?
+      - alt = Sanitize.clean(alt, :remove_contents => %w[table script])
+      .image
+        %img{:src => item.original_image, :alt => alt, :data => { :data_object_id => item.id, :thumb => thumbnail }}
+        .attribution
+          %p= item.object_title unless item.object_title.empty?
+          = render :partial => "data_objects/attribution_minimal", :locals => {:data_object => item}
   %p.all= link_to I18n.t(:see_all_media_link), "/placeholder"

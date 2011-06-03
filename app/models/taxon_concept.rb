@@ -292,7 +292,8 @@ class TaxonConcept < SpeciesSchemaModel
     toc_items.each do |toc_item|
       ccb = CategoryContentBuilder.new
       if ccb.can_handle?(toc_item)
-        special_content << ccb.content_for(toc_item, :taxon_concept => self)
+        content = ccb.content_for(toc_item, :taxon_concept => self)
+        special_content << content unless content.nil?
       end
     end
     special_content
@@ -311,7 +312,8 @@ class TaxonConcept < SpeciesSchemaModel
       }
       details << detail
     end
-    details += special_content_for_toc_items(toc_items)
+    special_content = special_content_for_toc_items(toc_items)
+    details += special_content unless special_content.empty?
   end
 
   # This may throw an ActiveRecord::RecordNotFound exception if the TocItem's category_id doesn't exist.

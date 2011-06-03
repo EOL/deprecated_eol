@@ -1,43 +1,30 @@
-%p
-  = I18n.t(:the_following_values_represent_the_sum_of_different_types_of_content_for_this_taxon_and_all_of_its_taxonomic_descendants)
-  = define_term( I18n.t(:trusted) )
-  = I18n.t(:content_has_either_been_approved_by_an_eol_curator_or_comes_from_a_trusted_provider)
-  = define_term( I18n.t(:unreviewed) )
-  = I18n.t(:content_has_not_yet_been_assessed_by_an_eol_curator_every_taxonomic_hierarchy_is_unique_so_each_browsable_hierarchy_is_listed_for_comparison)
-
--# sorting the results to put the stats for preferred hierarchy first
+%p= I18n.t(:content_summary_introduction_html, :glossary_term_trusted => define_term(I18n.t(:trusted)), :glossary_term_unreviewed => define_term(I18n.t(:unreviewed)))
+- # sorting the results to put the stats for preferred hierarchy first
 - selected_hierarchy_stat_entries = content[:items].select{ |he| he.hierarchy_id == @session_hierarchy.id }
 - content[:items] -= selected_hierarchy_stat_entries
 - selected_hierarchy_stat_entries.each{ |he| content[:items].unshift(he) }
 - for hierarchy_entry in content[:items]
-  %strong
-    = hierarchy_entry.hierarchy.label
-  %table.results_table
-    %tr
-      %th
-      %th
-    %tr
-      %td.odd
-        =I18n.t("_of_descendants")
-      %td.odd
-        = hierarchy_entry.hierarchy_entry_stat.total_children
-    %tr
-      %td.even
-        =I18n.t("_of_trusted_images")
-      %td.even
-        = hierarchy_entry.hierarchy_entry_stat.all_image_trusted
-    %tr
-      %td.odd
-        =I18n.t("_of_unreviewed_images")
-      %td.odd
-        = hierarchy_entry.hierarchy_entry_stat.all_image_untrusted
-    %tr
-      %td.even
-        =I18n.t("_of_trusted_text_objects")
-      %td.even
-        = hierarchy_entry.hierarchy_entry_stat.all_text_trusted
-    %tr
-      %td.odd
-        =I18n.t("_of_unreviewed_text_objects")
-      %td.odd
-        = hierarchy_entry.hierarchy_entry_stat.all_text_untrusted
+  %table{:summary =>  I18n.t(:content_summary_table_summary)}
+    %caption= I18n.t(:content_summary_table_caption, :taxon_name => hh(@taxon_concept.title(@session_hierarchy)), :hierarchy_label => hierarchy_entry.hierarchy.label)
+    %colgroup
+    %colgroup.count
+    %thead
+      %tr
+        %th= I18n.t(:content_summary_table_type_status_column_header)
+        %th= I18n.t(:content_summary_table_count_column_header)
+    %tbody
+      %tr.odd
+        %td= I18n.t(:content_summary_table_type_descendants_row)
+        %td= hierarchy_entry.hierarchy_entry_stat.total_children
+      %tr.even
+        %td= I18n.t(:content_summary_table_type_trusted_images_row)
+        %td= hierarchy_entry.hierarchy_entry_stat.all_image_trusted
+      %tr.odd
+        %td= I18n.t(:content_summary_table_type_unreviewed_images_row)
+        %td= hierarchy_entry.hierarchy_entry_stat.all_image_untrusted
+      %tr.even
+        %td= I18n.t(:content_summary_table_type_trusted_text_row)
+        %td= hierarchy_entry.hierarchy_entry_stat.all_text_trusted
+      %tr.odd
+        %td= I18n.t(:content_summary_table_type_unreviewed_text_row)
+        %td= hierarchy_entry.hierarchy_entry_stat.all_text_untrusted

@@ -1,10 +1,20 @@
-- contents = @details.collect{|d| d if d[:toc_item].id == category.category_id}.compact
-- unless contents.empty?
-  %h4= category.label
-  - contents.each do |content|
-    - if content[:data_objects]
-      - content[:data_objects].each do |dato|
-        = render :partial => 'data_objects/data_object_text', :locals => { :data_object => dato, :show_category => false }
-        = render :partial => "feed_items/form", :locals => { :feed_item => FeedItem.new(:feed_id => dato.id, :feed_type => dato.class.name) }
-    - else
-      = render :partial => "taxa/content/content_#{content[:content_type]}", :locals => { :content => content } rescue nil
+- content.each do |item|
+  - if item[:data_objects]
+    - item[:data_objects].each do |dato|
+      = render :partial => 'data_objects/data_object_text', :locals => { :data_object => dato, :show_category => false }
+      .average_rating
+        .rating.four
+          %p 4 of 5
+        %p article rated by 23 people
+      .rating
+        %ul
+          %li.current_rating_3
+          - 5.times do |i|
+            %li{:title => "#{i + 1} of 5"}= link_to "#{i + 1} of 5", "#", :class => "star_#{i + 1}"
+        %p your rating
+      .meta
+        %p= link_to "see all 45 comments for this article", "#"
+        %p= link_to "curate this article", "#"
+      = render :partial => "feed_items/form", :locals => { :feed_item => FeedItem.new(:feed_id => dato.id, :feed_type => dato.class.name) }
+  - else
+    = render :partial => "taxa/content/content_#{item[:content_type]}", :locals => { :content => item } rescue nil

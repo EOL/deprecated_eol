@@ -1,26 +1,32 @@
-- roots = @toc.collect{|t| t unless t.is_child?}.compact
-- unless roots.empty?
-  #taxonomy
-    %ul
-      - for root in roots
-        %li<
-          = render :partial => 'category_content', :locals => { :category => root }
-          - children = @toc.collect{|t| t if t.parent_id == root.category_id}.compact
-          - unless children.empty?
-            %ul
-              - for child in children
-                %li<
-                  = render :partial => 'category_content', :locals => { :category => child }
-  #sidebar
-    %h3= I18n.t(:table_of_contents)
-    %ul
-      - for root in roots
-        %li<
-          = root.label
-          - children = @toc.collect{|t| t if t.parent_id == root.category_id}.compact
-          - unless children.empty?
-            %ul
-              - for child in children
-                %li<
-                  = child.label
+= content_for :head do
+  = javascript_include_tag "taxonomy"
 
+- roots = @toc.collect{|t| t unless t.is_child?}.compact
+#taxonomy_detail
+  - unless roots.empty?
+    #sidebar
+      = image_tag @exemplar_image
+      %h3= I18n.t(:table_of_contents)
+      - for root in roots
+        .section
+          %h4= root.label
+          - children = @toc.collect{|t| t if t.parent_id == root.category_id}.compact
+          - unless children.empty?
+            %ul
+              - for child in children
+                %li<
+                  = link_to child.label, '/placeholder'
+    #main
+      - for root in roots
+        - root_content = @details.collect{|d| d if d[:toc_item].id == root.category_id}.compact
+        - children = @toc.collect{|t| t if t.parent_id == root.category_id}.compact
+        - unless root_content.empty? && children.empty?
+          %h2= root.label
+          .section
+            = render :partial => 'category_content', :locals => { :content => root_content }
+            - unless children.empty?
+              - for child in children
+                - child_content = @details.collect{|d| d if d[:toc_item].id == child.category_id}.compact
+                - unless child_content.empty?
+                  %h3= child.label
+                  = render :partial => 'category_content', :locals => { :content => child_content }

@@ -4,11 +4,13 @@
   - show_attribution = true if show_attribution.nil?
   - show_references = true if show_references.nil?
   - category_title ||= data_object.data_objects_table_of_contents.blank? ? '' : data_object.data_objects_table_of_contents[0].toc_item.label
-  %h4= category_title if show_category
+  - if show_category && ! category_title.empty
+    %h3= category_title
   .article
-    %h5= data_object.object_title
+    - unless data_object.object_title.empty?
+      %h4= data_object.object_title
     - if show_attribution
-      .attribution
+      .meta.attribution
         = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => data_object }
     = data_object.description.balance_tags
     - if show_references && ! data_object.refs.blank?

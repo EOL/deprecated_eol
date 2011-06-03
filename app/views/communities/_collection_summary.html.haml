@@ -1,0 +1,24 @@
+.article
+  .header
+    = link_to image_tag(collection.logo_url, :alt => collection.name), collections_path(collection.id)
+    %h4= link_to collection.name, collections_path(collection.id)
+    %p
+      = I18n.t(:created_time_ago, :time_passed => time_ago_in_words(collection.created_at))
+      %br/
+      = I18n.t(:last_updated_time_ago, :time_passed => time_ago_in_words(collection.updated_at))
+  %ul
+    - # FIXME: These counts need to be proper, and only shown if count > 0
+    - if collection.taxa.count > 0
+      %li.taxa= link_to I18n.t(:taxa_with_count, :count => @community.focus.taxa.count), "/placeholder"
+    - if 23 > 0
+      %li.images= link_to I18n.t(:images_with_count, :count => 23), "/placeholder"
+    - if 3 > 0
+      %li.videos= link_to I18n.t(:videos_with_count, :count => 3), "/placeholder"
+    - if 4 > 0
+      %li.sounds= link_to I18n.t(:sounds_with_count, :count => 4), "/placeholder"
+    - if 8 > 0
+      %li.communities= link_to I18n.t(:communities_with_count, :count => 8), "/placeholder"
+    - if 15 > 0
+      %li.people= link_to I18n.t(:people_with_count, :count => 15), "placeholder"
+    - if 5 > 0
+      %li.collections= link_to I18n.t(:collections_with_count, :count => 5), "/placeholder"

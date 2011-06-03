@@ -1,7 +1,5 @@
 class Taxa::DetailsController < TaxaController
 
-  layout 'v2/taxa'
-
   def show
     return if ! prepare_taxon_concept || @taxon_concept.nil?
 
@@ -26,6 +24,8 @@ class Taxa::DetailsController < TaxaController
     @details = @taxon_concept.details_for_toc_items(ContentTable.details.toc_items)
 
     @toc = TocBuilder.new.toc_for_toc_items(@details.collect{|d| d[:toc_item]})
+
+    @exemplar_image = 'FIXME'
 
     @assistive_section_header = I18n.t(:assistive_details_header)
 

@@ -69,9 +69,16 @@ form.comment
     float: left
     width: 370px
     +textarea
+    margin: 0
   fieldset.actions
     clear: both
-    padding: 0 0 0 70px
+    padding: 0 0 0 62px
+    label
+      float: right
+    input[type="submit"]
+      margin: 0 10px 0 0
+    a
+      font-weight: bold
 ul.tabs
   margin: 0 0 20px 0
   li
@@ -179,6 +186,81 @@ ul.tabs
     .details
       img
         float: none
+
+= star
+  position: absolute
+  top: 0
+  left: 0
+  height: 13px
+  font-size: 0
+  text-indent: -8685px
+  overflow: hidden
+.rating
+  ul,
+  ul a:hover,
+  ul a:active,
+  ul a:focus
+    background: transparent url("/images/v2/icon_stars.png") 0 100% repeat-x
+  ul
+    float: left
+    position: relative
+    width: 80px
+    height: 13px
+    margin: 0 5px 0 0
+    overflow: hidden
+    list-style: none
+    background-position: 0 0
+    li
+      display: inline
+      @for $i from 1 through 5
+        &.current_rating_#{$i}
+          +star
+          width: 20% * $i
+          background: transparent url("/images/v2/icon_stars.png") 0 100% repeat-x
+    a
+      +star
+      &:hover, &:active, &:focus
+        background-position: 0 100%
+      @for $i from 1 through 5
+        &.star_#{$i}
+          width: 20% * $i
+          z-index: 7 - $i
+  ul:hover
+    @for $i from 1 through 5
+      li.current_rating_#{$i}
+        width: 0
+  p
+    float: left
+    font-size: .83em
+    font-weight: bold
+
+.average_rating
+  font-size: .83em
+  font-weight: bold
+  p
+    float: left
+  .rating
+    float: left
+    width: 80px
+    height: 13px
+    background: transparent url("/images/v2/icon_stars.png") 0 0 repeat-x
+    p
+      height: 13px
+      font-size: 0
+      text-indent: -8685px
+      background: transparent url("/images/v2/icon_stars.png") 0 50% repeat-x
+    &.one
+      p
+        width: 20%
+    &.two
+      p
+        width: 40%
+    &.three
+      p
+        width: 60%
+    &.four
+      p
+        width: 80%
 
 body
   > #header
@@ -586,3 +668,85 @@ body
             a
               padding-left: 32px
               background: transparent url("/images/v2/icon_sounds_tabs.png") 0 2px no-repeat
+
+#taxonomy_detail
+  #sidebar
+    float: left
+    width: 220px
+    padding: 0 20px 20px 20px
+    margin: 0 20px 0 0
+    border-bottom: 1px solid #ccd399
+    background: #f1f4dc
+    img
+      display: block
+      margin: 0 -20px 20px -20px
+    h4
+      padding: 0 0 8px 0
+      font-size: .83em
+      text-transform: uppercase
+      color: #667309
+    ul
+      padding: 0 0 0 10px
+      li
+        padding: 0 0 8px 0
+        font-weight: bold
+      a
+        text-decoration: none
+        color: #394651
+  #main
+    overflow: hidden
+    h2
+      padding: 10px 20px
+      margin: 0 0 20px 0
+      text-transform: uppercase
+      color: #828d33
+      border: 1px solid #ccd399
+      border-width: 1px 0
+      background: #f1f4dc
+    h3
+      padding: 20px
+      margin: 0 0 40px 0
+      font-size: 2.16em
+      border: 1px solid #ccd399
+      border-width: 1px 0
+      background: #f1f4dc
+    h4
+      padding: 0 0 8px 0
+      font-size: 1.5em
+    .article
+      padding: 0 20px 40px 20px
+      + .article
+        padding-top: 40px
+        border-top: 1px solid #d4dce2
+      .meta
+        clear: both
+        padding: 0 0 20px 0
+        overflow: hidden
+        font-size: .92em
+        img
+          float: left
+          margin: 0 10px 0 0
+        p
+          float: left
+          + p
+            display: list-item
+            margin: 0 0 0 25px
+            list-style: disc
+      > p
+        padding: 0 0 15px 0
+        line-height: 170%
+      .average_rating
+        float: left
+        padding: 0 40px 0 0
+        margin: 0 0 20px 0
+      > .rating
+        margin: 0 0 20px 0
+      a.button
+        padding: 7px 20px
+        font-size: 1em
+    form.comment
+      padding: 0 15px 0 0
+      textarea
+        width: 522px
+      input[type="submit"]
+        padding: 7px 20px

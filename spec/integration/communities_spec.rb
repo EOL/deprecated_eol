@@ -90,11 +90,11 @@ describe "Communities" do
         body.should have_tag("input#community_name")
         body.should have_tag("textarea#community_description")
       end
-      it 'should create a community, add the user, and redirect to show on create' do
+      it 'should create a community, add the user, and redirect to community default view' do
         fill_in('community_name', :with => 'Some New Name')
         fill_in('community_description', :with => 'This is a long decription.')
         click_button(@test_data[:name_of_create_button])
-        current_path.should == community_path(Community.last)
+        current_path.should match /#{community_path(Community.last)}/
       end
     end
     context 'visiting show community with feeds' do

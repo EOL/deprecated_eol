@@ -15,8 +15,8 @@
           %li
             %p
               = link_to(classification[:kingdom].italicized_name, taxon_overviews_url(classification[:kingdom].taxon_concept_id), { :title => classification[:kingdom].rank_label })
-            - unless classification[:parent].nil?
+            - unless classification[:parent].nil? || classification[:parent].parent.nil?
               %ul
                 %li
                   %p
-                    = link_to(classification[:parent].italicized_name, taxon_overviews_url(classification[:parent].taxon_concept_id), { :title => classification[:parent].rank_label })
+                    = link_to(classification[:parent].parent.italicized_name, taxon_overviews_url(classification[:parent].parent.taxon_concept_id), { :title => classification[:parent].parent.rank_label })

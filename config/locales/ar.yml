@@ -1345,7 +1345,7 @@ ar:
   publish_requested: "Publish Requested"
   publish_this_resource: "Publish this resource"
   pubmed: "PubMed"
-  punctuation_comma: ", "
+  punctuation_comma: ","
   quarterly: "Quarterly"
   rails_databases: "Rails databases"
   rails_environment: "Rails environment"

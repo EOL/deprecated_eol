@@ -1,10 +1,3 @@
-- content_for :head do
-  - if @taxon_concept
-    - if @taxon_concept.has_feed?
-      %link#content_rss{ :title => I18n.t("latest_content"), :href => url_for(:controller => :feeds, :action => :all, :id => @taxon_concept.id), :rel => "alternate", :type => "application/rss+xml"}
-    - if (@taxon_concept.entry && @taxon_concept.entry.hierarchies_content && (@taxon_concept.entry.hierarchies_content.image != 0 || @taxon_concept.entry.hierarchies_content.child_image != 0))
-      %link#media_rss{ :title => I18n.t("mediarss_feed"), :href => "/content/mediarss/#{@taxon_concept.id}", :rel => "alternate", :type => "application/rss+xml" }
-
 - content_for :main do
   #page_heading.with_nav
     .site_column
@@ -12,8 +5,9 @@
         -# TODO - if we want to indicate vetted status here then for accessibility we will need
         -# a translatable vetted status (trusted, untrusted, not vetted) that is accessible
         -# to assistive technologies e.g. as part of h1 value or perhaps in a title attribute
-        %h1<
-          = hh(@taxon_concept.title(@session_hierarchy))
+        %h1
+          %i<
+            = hh(@taxon_concept.title_canonical(@session_hierarchy))
           %span.assistive<
             = " &mdash; "
             = @assistive_section_header

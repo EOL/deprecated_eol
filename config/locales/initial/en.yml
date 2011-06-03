@@ -242,7 +242,7 @@ en:
   wikipedia_revisions_must_match_pattern_error: Revision URL must match http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
   you_are_an_admin_so_i_will_show_you_that_the_error_was: "You are an admin.  So, I will show you that the error was:"
   selected_language_advisory_information: This is the currently selected language.
-  punctuation_comma: ", "
+  punctuation_comma: ","
   members_count_in_parens:
     one: (one member)
     other: (%{count} members)

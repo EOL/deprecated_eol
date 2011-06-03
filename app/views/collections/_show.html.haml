@@ -27,7 +27,7 @@
     %ul
       %li
         - if collection.community_id
-          = link_to image_tag(collection.logo_url, :alt => ""), collection.community
+          = link_to image_tag(collection.community.logo_url, :alt => ""), collection.community
           %h4= link_to collection.community.name, collection.community
         - elsif collection.user_id
           = link_to image_tag(collection.user.logo_url, :alt => ''), user_path(collection.user_id)

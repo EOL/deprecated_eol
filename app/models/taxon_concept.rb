@@ -864,6 +864,14 @@ class TaxonConcept < SpeciesSchemaModel
     return '' if entry.nil?
     @title = entry.italicized_name.firstcap
   end
+  
+  # title and sub-title depend on expertise level of the user that is passed in (default to novice if none specified)
+  def title_canonical(hierarchy = nil)
+    return @title_canonical unless @title_canonical.nil?
+    return '' if entry.nil?
+    @title_canonical = entry.canonical_form.string.firstcap
+  end
+  
 
   def subtitle(hierarchy = nil)
     return @subtitle unless @subtitle.nil?

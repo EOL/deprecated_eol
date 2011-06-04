@@ -33,7 +33,7 @@ describe 'Taxa overview' do
     # @see https://rspec.lighthouseapp.com/projects/5645/tickets/878-problem-using-with_tag
 
     it 'should show the taxon name and section name' do
-      should have_tag('#page_heading h1', /^(#{@testy[:scientific_name]})(\n|.)*?(#{@section})$/i)
+      should have_tag('#page_heading h1', /(#{@testy[:taxon_concept].title_canonical})(\n|.)*?(#{@section})/i)
     end
     it 'should show the preferred common name' do
       should have_tag('#page_heading h2', /^#{@testy[:common_name]}/)

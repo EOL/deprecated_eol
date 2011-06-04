@@ -301,16 +301,18 @@ class TaxonConcept < SpeciesSchemaModel
 
   # Returns harvested text objects, user submitted object and special content for given toc items
   def details_for_toc_items(toc_items)
-    text_objects = text_objects_for_toc_items(toc_items)
-    text_object_toc_items = text_objects.collect{ |d| d.toc_items }.flatten.compact.uniq
     details = []
-    text_object_toc_items.each do |toc_item|
-      detail = {
-        :content_type  => 'text',
-        :toc_item => toc_item,
-        :data_objects  => text_objects.collect{ |d| d if d.toc_items.include?(toc_item) }.compact
-      }
-      details << detail
+    text_objects = text_objects_for_toc_items(toc_items)
+    if text_objects
+      text_object_toc_items = text_objects.collect{ |d| d.toc_items }.flatten.compact.uniq
+      text_object_toc_items.each do |toc_item|
+        detail = {
+          :content_type  => 'text',
+          :toc_item => toc_item,
+          :data_objects  => text_objects.collect{ |d| d if d.toc_items.include?(toc_item) }.compact
+        }
+        details << detail
+      end
     end
     special_content = special_content_for_toc_items(toc_items)
     details += special_content unless special_content.empty?
@@ -866,14 +868,14 @@ class TaxonConcept < SpeciesSchemaModel
     return '' if entry.nil?
     @title = entry.italicized_name.firstcap
   end
-  
+
   # title and sub-title depend on expertise level of the user that is passed in (default to novice if none specified)
   def title_canonical(hierarchy = nil)
     return @title_canonical unless @title_canonical.nil?
     return '' if entry.nil?
     @title_canonical = entry.canonical_form.string.firstcap
   end
-  
+
 
   def subtitle(hierarchy = nil)
     return @subtitle unless @subtitle.nil?

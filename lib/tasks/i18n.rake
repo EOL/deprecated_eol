@@ -10,7 +10,7 @@ namespace :i18n do
   tmp_file = File.join([lang_dir, "tmp.yml"])
   en_yml = File.join([lang_dir, "en.yml"])
   trans_tmp = File.join([lang_dir, "translation_template.yml"])
-  excluded_tables = ["translated_mime_types", "translated_news_items"]
+  excluded_tables = ["translated_mime_types"]
 
 
   desc 'convert old yml language files from Gibberish format to support i18n '

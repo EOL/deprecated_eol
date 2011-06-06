@@ -37,7 +37,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :random_images
   # TODO - the curate member method is not working when you use the url_for method and its derivatives.  Instead, the default
   # url of "/data_objects/curate/:id" works.  Not sure why.
-  map.resources :data_objects, :member => { :curate => :put, :curation => :get, :attribution => :get } do |data_objects|
+  map.resources :data_objects, :member => { :curate => :put, :curation => :get, :attribution => :get, :rate => :get } do |data_objects|
     data_objects.resources :comments
     data_objects.resources :tags,  :collection => { :public => :get, :private => :get, :add_category => :post,
                                                     :autocomplete_for_tag_key => :get },

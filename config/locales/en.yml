@@ -432,6 +432,7 @@ en:
   credentials: "Credentials"
   croatian: "Croatian"
   csv: "CSV"
+  curate_this_text: "curate this article"
   curate_content_in_this_clade: "Curate content in this clade"
   curated: "Curated"
   curated_objects_of_: "curated objects of %{name}"
@@ -1384,6 +1385,7 @@ en:
   rails_databases: "Rails databases"
   rails_environment: "Rails environment"
   rating: "Rating"
+  rating_of_total: "%{rating} of %{total}"
   read_the_eol_licensing_policy: "Read the EOL Licensing Policy"
   recaptcha: "For verification, please enter the characters you see below.  Click the ? for assistance."
   recently_harvested_resources__: "Recently harvested resources (last 20)"
@@ -1501,6 +1503,9 @@ en:
   see_all_collections_with_count_html:
     one: "See the <span class=\"assistive\">%{count} collection in which this taxon appears.</span>"
     other: "See all <span class=\"assistive\">%{count} collections in which this taxon appears.</span>"
+  see_all_comments_with_count_for_text:
+    one: "see the %{count} comment for this article"
+    other: "see all %{count} comments for this article"
   see_all_communities_with_count_html:
     one: "See the <span class=\"assistive\">%{count} community that focus on this taxon.</span>"
     other: "See all <span class=\"assistive\">%{count} communities that focus on this taxon.</span>"
@@ -1692,7 +1697,14 @@ en:
   text: "text"
   text__: "Text"
   text_: "Text:"
+  text_average_rating_of_total: "The average rating for this article is %{rating} of %{total}."
+  text_more_about: "read more about this article"
+  text_rate_advisory_information: "Change your rating of this article to %{rating} of total %{total}"
+  text_rated_by_count_people:
+    one: "Article rated by %{count} person"
+    other: "Article rated by %{count} people"
   text_summary_more_link: "Read full entry"
+  text_your_rating_advisory_information: "Your current rating of this article is %{rating}."
   thanks_for_contacting_the_ency: "Thanks for contacting the Encyclopedia of Life project.  Your contact information has been passed on to the media contact."
   thanks_for_donation: "Thank you for supporting the Encyclopedia of Life.  Your information has been submitted and will be processed."
   thanks_for_feedback: "Thank you for your feedback."
@@ -2151,6 +2163,7 @@ en:
   your_name: "Your name (first and last)"
   your_preferences_have_been_updated: "Your preferences have been updated."
   your_preferences: "Your Preferences"
+  your_rating: "Your rating"
   your_rating_: "Your Rating:"
   your_request_has_been_approved: "Your request has been approved and you will now have curator functions available to you for your approved clade and all of it's children.  For more information on curation and what functions are available to you, visit http://www.eol.org/content/page/curation"
   you_should_be_comfortable_with: "You should be comfortable with HTML before editing. Do not use unusual fonts or styles when editing or creating pages - use simple HTML and see current pages for examples."

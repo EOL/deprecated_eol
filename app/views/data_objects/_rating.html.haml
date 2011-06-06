@@ -1,0 +1,21 @@
+- type ||= data_object.data_type.label.downcase
+- total = 5
+- average_rating = data_object.data_rating || 0
+- user_rating = data_object.rating_from_user(current_user).rating if data_object.rating_from_user(current_user)
+- user_rating ||= 0
+.average_rating
+  .rating
+    %p{:style => "width: #{average_rating * 20}%"}<
+      = I18n.t("#{type}_average_rating_of_total", :rating => average_rating, :total => total)
+  %p= I18n.t("#{type}_rated_by_count_people", :count => data_object.users_data_objects_ratings.count)
+.rating
+  - #TODO: Restructure the HTML so it makes more sense for screenreaders.
+  %ul
+    %li{:title => I18n.t("#{type}_your_rating_advisory_information", :rating => user_rating), :class => "current_rating_#{user_rating}"}
+    - total.times do |i|
+      - rating = i + 1
+      %li
+        = link_to I18n.t(:rating_of_total, :rating => i + 1, :total => total),
+          rate_data_object_path(data_object, :stars => rating, :return_to => current_url), :class => "star_#{rating}",
+          :title => I18n.t("#{type}_rate_advisory_information", :rating => rating, :total => total)
+  %p= I18n.t(:your_rating)

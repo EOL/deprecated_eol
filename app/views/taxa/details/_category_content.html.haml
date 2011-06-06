@@ -3,19 +3,11 @@
     - item[:data_objects].each do |dato|
       .article
         = render :partial => 'data_objects/data_object_text', :locals => { :data_object => dato }
-        .average_rating
-          .rating.four
-            %p 4 of 5
-          %p article rated by 23 people
-        .rating
-          %ul
-            %li.current_rating_3
-            - 5.times do |i|
-              %li{:title => "#{i + 1} of 5"}= link_to "#{i + 1} of 5", "#", :class => "star_#{i + 1}"
-          %p your rating
+        = render :partial => 'data_objects/rating', :locals => { :data_object => dato }
         .meta
-          %p= link_to "see all 45 comments for this article", "#"
-          %p= link_to "curate this article", "#"
+          %p= link_to I18n.t(:see_all_comments_with_count_for_text, :count => dato.all_comments.count), data_object_path(dato)
+          - # TODO: Should this link be visible if user is not a curator? Where does the link go?
+          %p= link_to I18n.t(:curate_this_text), '#'
         = render :partial => "feed_items/form", :locals => { :feed_item => FeedItem.new(:feed_id => dato.id, :feed_type => dato.class.name) }
   - else
     .article

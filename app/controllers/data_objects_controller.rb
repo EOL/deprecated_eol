@@ -4,7 +4,8 @@ class DataObjectsController < ApplicationController
   layout proc { |c| c.request.xhr? ? false : "main" }
 
   before_filter :load_data_object, :except => [:index, :new, :create, :preview]
-  before_filter :curator_only, :only => [:rate, :curate, :add_association, :remove_association]
+  before_filter :login_required, :only => [:rate]
+  before_filter :curator_only, :only => [:curate, :add_association, :remove_association]
 
   def create
     params[:references] = params[:references].split("\n") unless params[:references].blank?
@@ -104,14 +105,27 @@ class DataObjectsController < ApplicationController
   end
 
   def rate
-    @data_object.rate(current_user,params[:stars].to_i)
 
-    expire_data_object(@data_object.id)
-    current_user.log_activity(:rated_data_object_id, :value => @data_object.id)
+    if session[:submitted_data]
+      stars = session[:submitted_data][:stars]
+      return_to = session[:submitted_data][:return_to]
+      session.delete(:submitted_data)
+    end
+
+    stars ||= params[:stars]
+    return_to ||= params[:return_to]
+
+    store_location(return_to)
+
+    if stars.to_i > 0
+      @data_object.rate(current_user, stars.to_i)
+      expire_data_object(@data_object.id)
+      current_user.log_activity(:rated_data_object_id, :value => @data_object.id)
+    end
 
     respond_to do |format|
-      format.html {redirect_to request.referer ? :back : '/'} #todo, complete later
-      format.js {render :action => 'rate.rjs'}
+      format.html { redirect_back_or_default }
+      # format.js {render :action => 'rate.rjs'} #TODO
     end
   end
 

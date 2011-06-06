@@ -117,7 +117,7 @@ class DataObjectsController < ApplicationController
 
   def show
     get_attribution
-    @feed_item = FeedItem.new
+    @feed_item = FeedItem.new(:feed_id => @data_object.id, :feed_type => @data_object.class.name)
     @type = @data_object.data_type.label
     @comments = @data_object.all_comments.dup.paginate(:page => params[:page], :order => 'updated_at DESC', :per_page => Comment.per_page)
     @slim_container = true
@@ -145,32 +145,6 @@ class DataObjectsController < ApplicationController
   def curation
   end
 
-  # PUT /data_objects/1/curate
-  def curate
-    old_untrust_reason_ids = @data_object.untrust_reasons.collect { |ur| ur.id.to_s }
-    opts = {
-      :vetted_id => params[:vetted_id],
-      :visibility_id => params[:visibility_id],
-      :untrust_reason_ids => params[:untrust_reasons],
-      :comment => params[:comment],
-      :taxon_concept_id => params[:taxon_concept_id],
-      :untrust_reasons_comment => old_untrust_reason_ids == params[:untrust_reasons] ? [] : params[:untrust_reasons_comment]
-    }
-    @data_object.curate(current_user, opts)
-    expire_data_object(@data_object.id)
-    current_user.log_activity(:curated_data_object_id, :value => @data_object.id)
-
-    comments_count = @data_object.all_comments.select(&:visible?).size
-    respond_to do |format|
-      format.html {redirect_to request.referer ? :back : '/'}
-      format.js {
-        type = 'image'
-        type = 'text' if @data_object.text?
-        render :text => { :type => type, :args => [@data_object.id, @data_object.visibility_id, @data_object.vetted_id, @data_object.vetted.label, comments_count] }.to_json
-      }
-    end
-  end
-
   def remove_association
     @data_object.remove_curated_association(current_user, HierarchyEntry.find(params[:hierarchy_entry_id]))
     redirect_to data_object_path(@data_object)
@@ -184,6 +158,22 @@ class DataObjectsController < ApplicationController
       @data_object.add_curated_association(current_user, @entries.first)
       redirect_to data_object_path(@data_object)
     end
+  end
+
+  def curate_associations
+    @data_object.published_entries.each do |phe|
+      all_params = { :vetted_id => params["vetted_id_#{phe.id}"],
+                     :visibility_id => params["visibility_id_#{phe.id}"],
+                     :curation_comment => params["curation_comment_#{phe.id}"],
+                     :untrust_reason_ids => params["untrust_reasons_#{phe.id}"],
+                     :untrust_reasons_comment => params["untrust_reasons_comment_#{phe.id}"],
+                     :curate_vetted_status => phe.vetted_id != params["vetted_id_#{phe.id}"].to_i,
+                     :curate_visibility_status => phe.visibility_id != params["visibility_id_#{phe.id}"].to_i,
+                     :curation_comment_status => !params["curation_comment_#{phe.id}"].blank?,
+                     }
+      @data_object.curate_association(current_user, phe, all_params)
+    end
+    redirect_to data_object_path(@data_object)
   end
 
 protected

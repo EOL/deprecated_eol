@@ -56,7 +56,7 @@
             = render :partial => "/shared/show_video"
           - else
             = render :partial => "data_objects/data_object_#{type.downcase}", :locals => { :show_category_title => true }
-
+        = render :partial => 'star_rating_hash', :locals => { :data_object => @data_object, :show_controls => true }
       - if(@data_object.data_type.to_s.strip != 'Text')
         #data_object_description
           .divider
@@ -75,16 +75,8 @@
         - if @data_object.published_entries.blank?
           %p= I18n.t(:data_object_not_associated_with_any_hierarchies)
         - else
-          %ul#associations
-            - @data_object.published_entries.each do |phe|
-              -# TODO - curation tools: visibility and vettedness
-              %li
-                -# NOTE: this is actually a link to the TC.  It ostensibily uses the name from the HE rather than
-                -# the TC, but in actuallity, that's what the TC does /anyway/, so this is fine (and faster):
-                = link_to(phe.name.string, taxon_concept_path(phe.taxon_concept_id))
-                - if phe.by_curated_association? && phe.associated_by_curator.id == current_user.id
-                  = link_to I18n.t(:remove_data_object_association), remove_association_path(:id => @data_object.id, :hierarchy_entry_id => phe.id), :id => "remove_association_#{phe.id}"
-        - if current_user.can_curate?(@data_object)
+          = render :partial => 'data_objects/curation', :locals => { :data_object => @data_object }
+        - if current_user.is_curator?
           - form_tag({:controller => 'data_objects', :action => 'add_association'}) do
             = hidden_field_tag 'id', @data_object.id
             = label_tag 'add_association', I18n.t(:add_association_label_colon)

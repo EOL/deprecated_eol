@@ -681,43 +681,6 @@ class DataObject < SpeciesSchemaModel
     get_taxon_concepts.first
   end
 
-  def curate(user, opts)
-    vetted_id = opts[:vetted_id]
-    visibility_id = opts[:visibility_id]
-
-    raise "Curator should supply at least visibility or vetted information" unless (vetted_id || visibility_id)
-
-    if vetted_id
-      opts[:comment] = opts[:comment].blank? ? nil : comment(user, opts[:comment])
-      case vetted_id.to_i
-      when Vetted.untrusted.id
-        untrust(user, opts)
-      when Vetted.trusted.id
-        trust(user, opts)
-      when Vetted.unknown.id
-        unreviewed(user)
-      else
-        raise "Cannot set data object vetted id to #{vetted_id}"
-      end
-
-    end
-
-    if visibility_id
-      case visibility_id.to_i
-      when Visibility.visible.id
-        show(user)
-      when Visibility.invisible.id
-        hide(user)
-      when Visibility.inappropriate.id
-        inappropriate(user)
-      else
-        raise "Cannot set data object visibility id to #{visibility_id}"
-      end
-    end
-    curator_activity_flag(user)
-    update_solr_index(opts)
-  end
-
   def update_solr_index(options)
     return false if options[:vetted_id].blank? && options[:visibility_id].blank?
     solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
@@ -735,40 +698,6 @@ class DataObject < SpeciesSchemaModel
       end
     rescue
     end
-  end
-
-  def curated?
-    curated
-  end
-
-  def visible?
-    visibility_id == Visibility.visible.id
-  end
-
-  def invisible?
-    visibility_id == Visibility.invisible.id
-  end
-
-  def inappropriate?
-    visibility_id == Visibility.inappropriate.id
-  end
-
-  def untrusted?
-    vetted_id == Vetted.untrusted.id
-  end
-
-  def unknown?
-    vetted_id == Vetted.unknown.id
-  end
-
-  def vetted?
-    vetted_id == Vetted.trusted.id
-  end
-  alias is_vetted? vetted?
-  alias trusted? vetted?
-
-  def preview?
-    visibility_id == Visibility.preview.id
   end
 
   def in_wikipedia?
@@ -1003,13 +932,16 @@ class DataObject < SpeciesSchemaModel
     return obj_tc_id
   end
 
-  # using object.untrust_reasons.include? was firing off a query every time. This is faster
-  def untrust_reasons_include?(untrust_reason)
-    @untrust_reasons_cached ||= untrust_reasons
-    return true if @untrust_reasons_cached.index(untrust_reason)
-    return false
+  def untrust_reasons(hierarchy_entry)
+    if hierarchy_entry.associated_by_curator
+      object_id = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id_and_user_id(id,hierarchy_entry.id,hierarchy_entry.associated_by_curator).id
+      action_history = ActionsHistory.find_all_by_object_id_and_changeable_object_type_id_and_action_with_object_id(object_id, ChangeableObjectType.curated_data_objects_hierarchy_entry.id, ActionWithObject.untrusted.id).last
+      action_history ? action_history.untrust_reasons.collect{|ahur| ahur.untrust_reason_id} : []
+    else
+      action_history = ActionsHistory.find_all_by_object_id_and_changeable_object_type_id_and_action_with_object_id(id, ChangeableObjectType.data_object.id, ActionWithObject.untrusted.id).last
+      action_history ? action_history.untrust_reasons.collect{|ahur| ahur.untrust_reason_id} : []
+    end
   end
-
 
   def self.generate_dataobject_stats(harvest_event_id)
     ids = connection.select_values("SELECT do.id
@@ -1031,18 +963,6 @@ class DataObject < SpeciesSchemaModel
     [data_objects, total_taxa]
   end
 
-  def show(user)
-    set_visibility(user, Visibility.visible.id, :show, I18n.t("dato_shown_note", :username => user.username, :type => data_type.simple_type))
-  end
-
-  def hide(user)
-    set_visibility(user, Visibility.invisible.id, :hide, I18n.t("dato_hidden_note", :username => user.username, :type => data_type.simple_type))
-  end
-
-  def inappropriate(user)
-    set_visibility(user, Visibility.inappropriate.id, :inappropriate, I18n.t(:dato_inappropriate_note, :username => user.username, :type => data_type.simple_type))
-  end
-
   def flickr_photo_id
     if matches = source_url.match(/flickr\.com\/photos\/.*?\/([0-9]+)\//)
       return matches[1]
@@ -1055,12 +975,14 @@ class DataObject < SpeciesSchemaModel
     hierarchy_entries + curated_data_objects_hierarchy_entries.map do |cdohe|
       he = cdohe.hierarchy_entry
       he.associated_by_curator = cdohe.user
+      he.vetted_id = cdohe.vetted_id
+      he.visibility_id = cdohe.visibility_id
       he
     end
   end
 
   def published_entries
-    curated_hierarchy_entries.select{ |he| he.published == 1 && he.visibility_id == Visibility.visible.id }
+    curated_hierarchy_entries.select{ |he| he.published == 1 }
   end
 
   def first_concept_name
@@ -1112,60 +1034,28 @@ class DataObject < SpeciesSchemaModel
     log_association(cdohe, user, hierarchy_entry, :remove_association)
   end
 
+  def curate_association(user, hierarchy_entry, all_params)
+    if all_params[:curate_vetted_status] || all_params[:curate_visibility_status] || all_params[:curation_comment_status]
+      if hierarchy_entry.associated_by_curator
+        cdohe = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(id, hierarchy_entry.id)
+        all_params[:changeable_object_type] = 'curated_data_objects_hierarchy_entry'
+        cdohe.curate(user, all_params)
+      else
+        dohe = DataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(id, hierarchy_entry.id)
+        all_params[:changeable_object_type] = 'curated_data_objects_hierarchy_entry'
+        dohe.curate(user, all_params)
+      end
+      curator_activity_flag(user)
+      #update_solr_index(opts)
+    end
+  end
+
 private
 
   def log_association(object, user, hierarchy_entry, action)
     CuratorDataObjectLog.create(:data_object => self, :user => user,
                                 :curator_activity => CuratorActivity.send(action))
     user.track_curator_activity(object, 'curated_data_objects_hierarchy_entry', action.to_s)
-  end
-
-  def trust(user, opts = {})
-    update_attributes({:vetted_id => Vetted.trusted.id, :curated => true})
-    DataObjectsUntrustReason.destroy_all(:data_object_id => id)
-    user.track_curator_activity(self, 'data_object', 'trusted', :comment => opts[:comment], :taxon_concept_id => opts[:taxon_concept_id])
-    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.approve
-    feed.post(I18n.t("dato_trusted_note", :username => user.username, :type => data_type.simple_type), :feed_item_type_id => FeedItemType.curator_activity.id, :user_id => user.id)
-  end
-
-  def untrust(user, opts = {})
-    untrust_reason_ids = opts[:untrust_reason_ids].is_a?(Array) ? opts[:untrust_reason_ids] : []
-    untrust_reasons_comment = opts[:untrust_reasons_comment]
-    update_attributes({:vetted_id => Vetted.untrusted.id, :curated => true})
-    DataObjectsUntrustReason.destroy_all(:data_object_id => id)
-
-    these_untrust_reasons = []
-    if untrust_reason_ids
-      untrust_reason_ids.each do |untrust_reason_id|
-        ur = UntrustReason.find(untrust_reason_id)
-        these_untrust_reasons << ur
-        untrust_reasons << ur
-      end
-    end
-    unless untrust_reasons_comment.blank?
-      comment(user, untrust_reasons_comment)
-    end
-    user.track_curator_activity(self, 'data_object', 'untrusted', :comment => opts[:comment], :untrust_reasons => these_untrust_reasons, :taxon_concept_id => opts[:taxon_concept_id])
-    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.disapprove
-    note = I18n.t("dato_untrusted_note", :username => user.username, :type => data_type.simple_type)
-    note += "  #{untrust_reasons_comment}" unless untrust_reasons_comment.blank?
-    feed.post(note, :feed_item_type_id => FeedItemType.curator_activity.id, :user_id => user.id)
-  end
-
-  def unreviewed(user, opts = {})
-    update_attributes({:vetted_id => Vetted.unknown.id, :curated => true})
-    DataObjectsUntrustReason.destroy_all(:data_object_id => id)
-    user.track_curator_activity(self, 'data_object', 'unreviewed', :comment => opts[:comment], :taxon_concept_id => opts[:taxon_concept_id])
-    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.unreviewed
-    feed.post(I18n.t("dato_unreviewed_note", :username => user.username, :type => data_type.simple_type), :feed_item_type_id => FeedItemType.curator_activity.id, :user_id => user.id)
-  end
-
-  def set_visibility(user, visibility_id, verb, note)
-    vetted_by = user
-    update_attributes({:visibility_id => visibility_id, :curated => true})
-    user.track_curator_activity(self, 'data_object', verb)
-    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.send(verb)
-    feed.post(note, :feed_item_type_id => FeedItemType.curator_activity.id, :user_id => user.id)
   end
 
 end

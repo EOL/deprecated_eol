@@ -149,7 +149,7 @@ describe 'Data Object Page' do
     xpect 'the page does not yet have our association'
     page.body.should_not have_tag('a', :text => @single_name)
     fill_in 'add_association', :with => @single_name
-    click_button 'Add'
+    click_button 'add new association'
     remove_path = remove_association_path(:id => @image.id, :hierarchy_entry_id => @singular_he.id)
     xpect 'the page now has our association'
     page.body.should have_tag('a', :text => @single_name)

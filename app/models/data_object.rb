@@ -1042,7 +1042,7 @@ class DataObject < SpeciesSchemaModel
         cdohe.curate(user, all_params)
       else
         dohe = DataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(id, hierarchy_entry.id)
-        all_params[:changeable_object_type] = 'curated_data_objects_hierarchy_entry'
+        all_params[:changeable_object_type] = 'data_object'
         dohe.curate(user, all_params)
       end
       curator_activity_flag(user)

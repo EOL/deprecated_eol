@@ -643,7 +643,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     add_include = [
       :all_comments,
       { :users_data_objects => :user },
-      :untrust_reasons,
       :users_data_objects_ratings,
       { :taxon_concepts => { :preferred_common_names => :name } } ]
     add_select = {
@@ -651,7 +650,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       :names => [ :string ],
       :taxon_concept_names => [ :language_id ],
       :comments => [ :parent_id, :visible_at, :user_id ],
-      :untrust_reasons => '*',
       :users_data_objects_ratings => [ :user_id, :rating ] }
     core_data = DataObject.core_relationships(:add_include => add_include,
       :add_select => add_select).find_all_by_id(data_object_ids_to_lookup).sort_by{|d| Invert(d.id)}

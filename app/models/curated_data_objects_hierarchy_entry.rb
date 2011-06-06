@@ -1,5 +1,7 @@
 class CuratedDataObjectsHierarchyEntry < SpeciesSchemaModel
 
+  include EOL::CuratableAssociation
+
   belongs_to :user
   belongs_to :data_object
   belongs_to :hierarchy_entry

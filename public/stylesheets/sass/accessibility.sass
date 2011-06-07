@@ -88,6 +88,9 @@ body
 = size35x35
   width: 35px
   height: 35px
+= size90x90
+  width: 90px
+  height: 90px
 
 #media_summary
   img
@@ -98,6 +101,10 @@ ul.feed
     >a
       >img
         +size50x50
+#header
+  .session
+    img
+      +size50x50
 #collections_summary, #communities_summary, .collection_contributors
   ul
     li
@@ -116,6 +123,11 @@ ul.feed
     .hgroup
       img
         +max90x90
+#page_heading
+  &.profile
+    .hgroup
+      img
+        +size90x90
 #collections
   &.main_container
     .taxon>img

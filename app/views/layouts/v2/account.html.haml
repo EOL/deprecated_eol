@@ -1,0 +1,22 @@
+- content_for :main do
+  #page_heading.profile
+    .site_column
+      - if @user && @user.id
+        = link_to I18n.t(:edit_my_profile), "#", :class => "button"
+        .hgroup
+          = image_tag @user.logo_url, :alt => "#{@user.given_name} #{@user.family_name}"
+          %h1= "#{@user.given_name} #{@user.family_name}"
+          - # FIXME: This shouldn't be credentials
+          %h2= @user.credentials
+  #content
+    .site_column
+      #tabs_sidebar
+        - if @user && @user.id
+          %ul.tabs
+            %li{:class => resource_is_active('account/newsfeeds')}= link_to I18n.t(:newsfeed), account_newsfeeds_path
+            %li{:class => resource_is_active('account/info')}= link_to I18n.t(:my_info), '/placeholder'
+            %li{:class => resource_is_active('account/activity')}= link_to I18n.t(:my_activity), '/placeholder'
+            %li{:class => resource_is_active('account/collections')}= link_to I18n.t(:collections_with_count, :count => @user.collections.count), account_collections_path
+      = yield
+
+= render :file => 'layouts/v2/application'

@@ -54,6 +54,10 @@ ActionController::Routing::Routes.draw do |map|
                                     :action => 'reset_specific_users_password'
 
   map.resources :users, :has_many => [:collections]
+  map.resource :account, :controller => 'account', :only => [:show] do |acc|
+    acc.resource :newsfeeds, :only => [:show], :controller => "account/newsfeeds"
+    acc.resource :collections, :only => [:show], :controller => "account/collections"
+  end
   # TODO - I don't like this.  Why don't we just use restful routes here with the 'users' above?
   # WIP - I have created a users conrtroller.  These should move there.
   map.with_options(:controller => 'account') do |account|

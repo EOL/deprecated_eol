@@ -1,0 +1,43 @@
+#sidebar
+  .taxa_list
+    %h3= I18n.t(:most_visited_taxa)
+    %ul
+      - # FIXME
+      - 5.times do
+        %li
+          = link_to image_tag('FIXME'), "#"
+          %p= link_to "Amanita muscaria", "#"
+
+#collections.main_container
+  - unless @collection_items.empty?
+    .section.collections
+      .heading
+        %h3= I18n.t(:collected_items_with_count, :count => 22)
+        = link_to I18n.t(:what_is_this_question), "#"
+      .article
+        %ul
+          - # FIXME
+          %li.taxa= link_to "23 taxa", "#"
+          %li.images= link_to "3 images", "#"
+          %li.videos= link_to "3 videos", "#"
+          %li.sounds= link_to "1 sound", "#"
+          %li.communities= link_to "3 communities", "#"
+          %li.people= link_to "23 people", "#"
+          %li.collections= link_to "2 collections", "#"
+  - unless @collections.empty?
+    .section.collections
+      .heading
+        %h3= I18n.t(:collections_with_count, :count => @collections.size)
+        - #FIXME filter form
+        %form.filter(action="" method="post")
+          %fieldset
+            %dl
+              %dt
+                %label Sort By
+              %dd
+                %select
+                  %option Newest
+                  %option Oldest
+            %input(type="submit" value="Filter")
+      - @collections.each do |collection|
+        = render :partial => 'collections/collection_summary', :locals => { :collection => collection }

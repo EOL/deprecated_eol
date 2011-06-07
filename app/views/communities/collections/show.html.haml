@@ -20,10 +20,10 @@
   .section.collections
     .heading
       %h3= I18n.t(:community_focus)
-    = render :partial => 'communities/collection_summary', :locals => { :collection => @community.focus }
+    = render :partial => 'collections/collection_summary', :locals => { :collection => @community.focus }
   .section.collections
     .heading
-      %h3= I18n.t(:endorsed_collections_with_count, :count => @community.endorsed_collections.count)
+      %h3= I18n.t(:endorsed_collections_with_count, :count => @community.endorsed_collections.size)
       - # FIXME: Need a proper filter form
       %form.filter(action="" method="post")
         %fieldset
@@ -36,4 +36,4 @@
                 %option Oldest
           %input(type="submit" value="Filter")
     - @community.endorsed_collections.each do |collection|
-      = render :partial => 'communities/collection_summary', :locals => { :collection => collection }
+      = render :partial => 'collections/collection_summary', :locals => { :collection => collection }

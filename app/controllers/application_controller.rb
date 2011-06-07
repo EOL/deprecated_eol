@@ -140,8 +140,8 @@ class ApplicationController < ActionController::Base
   # store a given URL (defaults to current) in case we need to redirect back later
   def store_location(url = url_for(:controller => controller_name, :action => action_name))
     # It's possible to create a redirection attack with a redirect to data: protocol... and possibly others, so:
-    # Whitelisting redirection to our own site, relative paths.
-    url = nil unless url =~ /\A[%2F\/]/
+    # Whitelisting redirection to our own site and relative paths.
+    url = nil unless url =~ /\A([%2F\/]|#{root_url})/
     session[:return_to] = url
   end
 

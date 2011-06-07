@@ -462,17 +462,17 @@ ul.tabs {
       padding-left: 20px;
       font-size: 1.14em; }
     ul.tabs li.taxa a {
-      background: transparent url("/images/icon_taxa_tabs.png") 9px 6px no-repeat; }
+      background: transparent url("/images/v2/icon_taxa_tabs.png") 9px 6px no-repeat; }
     ul.tabs li.videos a {
-      background: transparent url("/images/icon_videos_tabs.png") 11px 10px no-repeat; }
+      background: transparent url("/images/v2/icon_videos_tabs.png") 11px 10px no-repeat; }
     ul.tabs li.images a {
-      background: transparent url("/images/icon_images_tabs.png") 7px 8px no-repeat; }
+      background: transparent url("/images/v2/icon_images_tabs.png") 7px 8px no-repeat; }
     ul.tabs li.communities a {
-      background: transparent url("/images/icon_communities_tabs.png") 8px 16px no-repeat; }
+      background: transparent url("/images/v2/icon_communities_tabs.png") 8px 16px no-repeat; }
     ul.tabs li.people a {
-      background: transparent url("/images/icon_people_tabs.png") 9px 10px no-repeat; }
+      background: transparent url("/images/v2/icon_people_tabs.png") 9px 10px no-repeat; }
     ul.tabs li.collections a {
-      background: transparent url("/images/icon_collections_tabs.png") 12px 9px no-repeat; }
+      background: transparent url("/images/v2/icon_collections_tabs.png") 12px 9px no-repeat; }
   ul.tabs.with_icons li {
     font-size: 1.16em; }
     ul.tabs.with_icons li a {
@@ -538,7 +538,7 @@ ul.tabs {
 .rating ul a:hover,
 .rating ul a:active,
 .rating ul a:focus {
-  background: transparent url("/images/icon_stars.png") 0 100% repeat-x; }
+  background: transparent url("/images/v2/icon_stars.png") 0 100% repeat-x; }
 .rating ul {
   float: left;
   position: relative;
@@ -559,7 +559,7 @@ ul.tabs {
       text-indent: -8685px;
       overflow: hidden;
       width: 20%;
-      background: transparent url("/images/icon_stars.png") 0 100% repeat-x; }
+      background: transparent url("/images/v2/icon_stars.png") 0 100% repeat-x; }
     .rating ul li.current_rating_2 {
       position: absolute;
       top: 0;
@@ -569,7 +569,7 @@ ul.tabs {
       text-indent: -8685px;
       overflow: hidden;
       width: 40%;
-      background: transparent url("/images/icon_stars.png") 0 100% repeat-x; }
+      background: transparent url("/images/v2/icon_stars.png") 0 100% repeat-x; }
     .rating ul li.current_rating_3 {
       position: absolute;
       top: 0;
@@ -579,7 +579,7 @@ ul.tabs {
       text-indent: -8685px;
       overflow: hidden;
       width: 60%;
-      background: transparent url("/images/icon_stars.png") 0 100% repeat-x; }
+      background: transparent url("/images/v2/icon_stars.png") 0 100% repeat-x; }
     .rating ul li.current_rating_4 {
       position: absolute;
       top: 0;
@@ -589,7 +589,7 @@ ul.tabs {
       text-indent: -8685px;
       overflow: hidden;
       width: 80%;
-      background: transparent url("/images/icon_stars.png") 0 100% repeat-x; }
+      background: transparent url("/images/v2/icon_stars.png") 0 100% repeat-x; }
     .rating ul li.current_rating_5 {
       position: absolute;
       top: 0;
@@ -599,7 +599,7 @@ ul.tabs {
       text-indent: -8685px;
       overflow: hidden;
       width: 100%;
-      background: transparent url("/images/icon_stars.png") 0 100% repeat-x; }
+      background: transparent url("/images/v2/icon_stars.png") 0 100% repeat-x; }
   .rating ul a {
     position: absolute;
     top: 0;
@@ -649,12 +649,12 @@ ul.tabs {
     float: left;
     width: 80px;
     height: 13px;
-    background: transparent url("/images/icon_stars.png") 0 0 repeat-x; }
+    background: transparent url("/images/v2/icon_stars.png") 0 0 repeat-x; }
     .average_rating .rating p {
       height: 13px;
       font-size: 0;
       text-indent: -8685px;
-      background: transparent url("/images/icon_stars.png") 0 50% repeat-x; }
+      background: transparent url("/images/v2/icon_stars.png") 0 50% repeat-x; }
     .average_rating .rating.one p {
       width: 20%; }
     .average_rating .rating.two p {
@@ -884,11 +884,11 @@ body > #header {
     font-size: 0.83em;
     text-align: right; }
   #collections .collection.taxon span.icon {
-    background: transparent url("/images/icon_taxa_tabs.png") 0 0 no-repeat; }
+    background: transparent url("/images/v2/icon_taxa_tabs.png") 0 0 no-repeat; }
   #collections .collection.image span.icon {
-    background: transparent url("/images/icon_images_tabs.png") 0 0 no-repeat; }
+    background: transparent url("/images/v2/icon_images_tabs.png") 0 0 no-repeat; }
   #collections .collection.person span.icon {
-    background: transparent url("/images/icon_people_tabs.png") 0 0 no-repeat; }
+    background: transparent url("/images/v2/icon_people_tabs.png") 0 0 no-repeat; }
 
 #community {
   padding: 20px; }
@@ -997,7 +997,7 @@ body > #header {
           padding: 0 0 0 23px;
           margin: 0 0 0 10px;
           font-weight: normal;
-          background: transparent url("/images/icon_classification_arrow.png") 0 0 no-repeat; }
+          background: transparent url("/images/v2/icon_classification_arrow.png") 0 0 no-repeat; }
     #taxonomy + #sidebar .updates form.comment {
       padding: 20px 10px 0 10px;
       margin: 0 -10px;
@@ -1066,22 +1066,22 @@ body > #header {
           color: #394651;
           text-decoration: none; }
         #collections .collections .article ul li.taxa a {
-          background: transparent url("/images/icon_taxa_tabs.png") 0 0 no-repeat; }
+          background: transparent url("/images/v2/icon_taxa_tabs.png") 0 0 no-repeat; }
         #collections .collections .article ul li.videos a {
           padding-left: 38px;
-          background: transparent url("/images/icon_videos_tabs.png") 0 0 no-repeat; }
+          background: transparent url("/images/v2/icon_videos_tabs.png") 0 0 no-repeat; }
         #collections .collections .article ul li.images a {
-          background: transparent url("/images/icon_images_tabs.png") 0 0 no-repeat; }
+          background: transparent url("/images/v2/icon_images_tabs.png") 0 0 no-repeat; }
         #collections .collections .article ul li.communities a {
-          background: transparent url("/images/icon_communities_tabs.png") 0 6px no-repeat; }
+          background: transparent url("/images/v2/icon_communities_tabs.png") 0 6px no-repeat; }
         #collections .collections .article ul li.people a {
-          background: transparent url("/images/icon_people_tabs.png") 0 0 no-repeat; }
+          background: transparent url("/images/v2/icon_people_tabs.png") 0 0 no-repeat; }
         #collections .collections .article ul li.collections a {
           padding-left: 38px;
-          background: transparent url("/images/icon_collections_tabs.png") 0 0 no-repeat; }
+          background: transparent url("/images/v2/icon_collections_tabs.png") 0 0 no-repeat; }
         #collections .collections .article ul li.sounds a {
           padding-left: 32px;
-          background: transparent url("/images/icon_sounds_tabs.png") 0 2px no-repeat; }
+          background: transparent url("/images/v2/icon_sounds_tabs.png") 0 2px no-repeat; }
 
 #sidebar .taxa_list h3 {
   padding: 0 0 35px 0; }

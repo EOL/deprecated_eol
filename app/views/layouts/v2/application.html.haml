@@ -33,9 +33,10 @@
     %link{ :href => "/opensearchdescription.xml", :title => I18n.t("encyclopedia_of_life"), :rel => "search", :type => "application/opensearchdescription+xml" }
 
     - if @home_page
-      = stylesheet_link_tag "home", "accessibility"
+      = eol_lang_main_stylesheet 'home', :media => "all"
     - else
-      = stylesheet_link_tag "application", "accessibility"
+      = eol_lang_main_stylesheet 'application', :media => "all"
+    = eol_lang_main_stylesheet 'accessibility', :media => "all"
 
     = javascript_include_tag "jquery-1.6.1.min", "rails", "application", "jquery.cycle.all.min"
 

@@ -1,0 +1,129 @@
+= screenreader-accessible
+  position: absolute
+  right: -999em
+
+.assistive, #header .assistive
+  +screenreader-accessible
+
+/**
+ * Temporary placement of needed CSS for V2
+ * I don't want to edit/add to HashRocket's SASS files until they are done making changes
+ * so I am temporarily adding some CSS here needed for V2 demo. This CSS should be integrated
+ * into HashRocket SASS if it is still needed when design work is complete.
+ */
+.join
+  abbr
+    border: none
+body
+  >#header
+    .section
+      h1
+        z-index: 2 /* otherwise .session div prevents clicking on logo */
+      .actions
+        z-index: 5 /* otherwise language list goes behind logo */
+      .session
+        .join
+          float: left
+          text-align: left
+          color: #fff
+          p
+            line-height: 1.4em
+          a
+            color: #90bce4
+#iucn_status
+  margin-bottom: 20px
+  h3, p
+    display: inline
+
+#text_summary
+  .attribution
+    font-size: 0.92em
+    img
+      float: right
+      margin: 2px 0 0 10px
+
+#classifications_summary
+  li
+    overflow: hidden
+    li
+      p
+        font-weight: bold
+        float: right
+      li
+        p
+          padding-right: 23px !important
+          margin-right: 10px
+          background: transparent url('/languages/ar/images/icon_classification_arrow.png') right 0 no-repeat
+#taxonomy_detail
+  .article
+    .description
+      padding: 0 0 15px 0
+      line-height: 170%
+  table
+    margin: 20px 0
+    width: 100%
+    caption
+      padding: 10px
+      border-top: 1px solid #ccc
+      border-bottom: 1px solid #666
+    colgroup.count
+      width: 20%
+    thead
+      text-align: right
+      tr
+        border-bottom: 1px solid #ccc
+    .odd
+      background-color: #eee
+/**
+  * TEMPORARY FIX: Forcing image sizes for V2 demo.
+  */
+= max90x90
+  max-width: 90px
+  max-height: 90px
+  width: expression(this.width > 90 ? "90px" : true)
+  height: expression(this.height > 90 ? "90px" : true)
+= size50x50
+  width: 50px
+  height: 50px
+
+#media_summary
+  .image
+    height: 360px
+    text-align: center
+    img
+      max-width: 430px
+      max-height: 310px
+    .attribution
+      text-align: right
+      position: absolute
+      bottom: 0
+      right: 0
+      img
+        margin-top: 0
+ul.feed
+  li
+    >a
+      >img
+        +size50x50
+#collections_summary, #communities_summary, .collection_contributors
+  ul
+    li
+      >a
+        >img
+          +size50x50
+#collections
+  .collections
+    .article
+      >.header
+        >a
+          >img
+            +size50x50
+#page_heading
+  &.with_image
+    .hgroup
+      img
+        +max90x90
+#collections
+  &.main_container
+    .taxon>img
+      +max90x90

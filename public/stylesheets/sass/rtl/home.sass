@@ -1,0 +1,166 @@
+@import "common"
+
+.join
+  font-weight: bold
+  text-align: center
+  p
+    padding: 0 0 5px 0
+    &.button
+      padding: 15px 0 20px 0
+      a
+        padding: 10px 24px
+        overflow: visible
+        font: bold 16px Helvetica, Arial, sans-serif
+        color: #ffffff
+        text-decoration: none
+        text-shadow: 0 1px 1px #333333
+        border: 1px solid #3270a7
+        +gradient-bg(#408ebf, #255491)
+        &:hover
+          +gradient_bg(saturate(#408ebf + #111111, 10%), saturate(#255491 + #111111, 10%))
+        &:active
+          +gradient-bg(#408ebf, #255491)
+  a
+    color: inherit
+
+body
+  border-color: #0a0f13
+  background: #0a0f13 url("/images/v2/bg_stars.png") repeat
+  > #header
+    position: relative
+    height: 563px
+    color: #ffffff
+    border-top: 1px solid #202427
+    border-bottom: 1px solid #ccd4dd
+    background: transparent url("/images/v2/bg_home_earth.png") 50% 100% no-repeat
+    .section
+      position: relative
+      height: 268px
+      padding: 295px 0 0 0
+      @extend .site_column
+    h1
+      right: 40px
+      top: 40px
+      a
+        width: 157px
+        height: 99px
+        background-image: url("/images/v2/logo_index.png")
+    h2
+      position: absolute
+      right: 0
+      top: 180px
+      z-index: 1
+      width: 100%
+      font-size: 3.25em
+      font-weight: 200
+      text-align: center
+    form
+      width: 363px
+      padding: 4px
+      +border-radius(180px)
+      background: rgba(255, 255, 255, .5)
+      .text
+        margin: 0 0 0 5px
+        +box-shadow(0 0 4px rgba(0, 0, 0, .6))
+      input[type="text"]
+        width: 274px
+        height: 28px
+        font-size: 1.5em        
+        background: transparent url("/images/v2/icon_search_home.png") 286px 50% no-repeat
+      input[type="submit"]
+        min-width: 40px
+        min-height: 40px
+        font-size: 1.08em
+        line-height: 38px
+        +box-shadow(0 0 4px rgba(0, 0, 0, .6))
+    .join
+      position: absolute
+      left: 40px
+      top: 55px
+      z-index: 2
+    .thumbnails
+      position: absolute
+      right: 0
+      bottom: 0
+      z-index: 1
+      width: 100%
+      background: transparent url("/images/v2/bg_home_thumbnails.png") repeat
+      background: rgba(255, 255, 255, .5)
+      .term
+        border-bottom-color: #ffffff
+
+#content
+  overflow: hidden
+  background: #ffffff
+  .section
+    @extend .site_column
+    padding: 30px 0 0 10px
+    h3
+      padding: 0 40px 15px 0
+      font-size: 1.33em
+    .stats
+      float: right
+      width: 520px
+      padding: 0 0 0 40px
+      li
+        clear: both
+        overflow: hidden
+        padding: 10px 40px 10px 20px
+        border-top: 1px solid #e5e8eb
+        a
+          float: right
+          margin: 17px 0 0 0
+        dl
+          float: right
+          width: 145px
+          padding: 3px 80px 3px 10px
+        dd
+          font-size: 2.5em
+        dt
+          font-size: 1.16em
+          font-weight: bold
+          color: #394651
+        &.taxon
+          dl
+            background: transparent url("/images/v2/icon_taxon.png") right 0 no-repeat
+        &.contributors
+          dl
+            background: transparent url("/images/v2/icon_contributors.png") right 2px no-repeat
+        &.communities
+          dl
+            background: transparent url("/images/v2/icon_communities.png") right 50% no-repeat
+        &.images
+          dl
+            background: transparent url("/images/v2/icon_images.png") right 0 no-repeat
+        &.partners
+          dl
+            background: transparent url("/images/v2/icon_partners.png") right 50% no-repeat
+    .community
+      float: left
+      width: 380px
+      margin: 0 0 20px 0
+      h3
+        border-bottom: 1px solid #e5e8eb
+      ul
+        padding: 20px 40px 10px 0
+        border-bottom: 1px solid #e5e8eb
+      li
+        overflow: hidden
+        padding: 0 0 10px 0
+        img
+          float: right
+          margin: 0 0 0 10px
+        .details
+          overflow: hidden
+          padding: 3px 0 0 0
+        p
+          line-height: 140%
+          &.meta
+            font-size: .83em
+            font-weight: bold
+            text-transform: uppercase
+            color: #82919e
+    .join
+      float: left
+      width: 380px
+      margin: 0 0 30px 0

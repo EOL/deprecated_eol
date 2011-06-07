@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<schema name="hierarchy_entry_relationships" version="1.0">
+  
+   <!-- define data types -->
+   <types>
+     <fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
+     <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true" omitNorms="true"/>
+     <fieldType name="integer" class="solr.IntField" omitNorms="true"/>
+     <fieldType name="long" class="solr.LongField" omitNorms="true"/>
+     <fieldType name="float" class="solr.FloatField" omitNorms="true"/>
+     <fieldType name="double" class="solr.DoubleField" omitNorms="true"/>
+
+     <fieldType name="sint" class="solr.SortableIntField" sortMissingLast="true" omitNorms="true"/>
+     <fieldType name="slong" class="solr.SortableLongField" sortMissingLast="true" omitNorms="true"/>
+     <fieldType name="sfloat" class="solr.SortableFloatField" sortMissingLast="true" omitNorms="true"/>
+     <fieldType name="sdouble" class="solr.SortableDoubleField" sortMissingLast="true" omitNorms="true"/>
+     <fieldType name="date" class="solr.DateField" sortMissingLast="true" omitNorms="true"/>
+     <fieldType name="random" class="solr.RandomSortField" indexed="true" />
+  </types>
+  
+  
+  <!-- begin data schema -->
+  <fields>
+
+    <field name="hierarchy_entry_id_1" type="integer" indexed="true" stored="true" required="true" />
+    <field name="taxon_concept_id_1" type="integer" indexed="true" stored="true" required="true" />
+    <field name="hierarchy_id_1" type="integer" indexed="true" stored="true" required="true" />
+    <field name="visibility_id_1" type="integer" indexed="true" stored="true" required="true" />
+    
+    <field name="hierarchy_entry_id_2" type="integer" indexed="true" stored="true" required="true" />
+    <field name="taxon_concept_id_2" type="integer" indexed="true" stored="true" required="true" />
+    <field name="hierarchy_id_2" type="integer" indexed="true" stored="true" required="true" />
+    <field name="visibility_id_2" type="integer" indexed="true" stored="true" required="true" />
+    
+    <field name="same_concept" type="boolean" indexed="true" stored="true" required="true" />
+
+    <field name="relationship" type="string" indexed="true" stored="true" required="true" />
+    <field name="confidence" type="float" indexed="true" stored="true" required="true" />
+  </fields>
+  
+  
+  <!-- force uniqueness -->
+  <uniqueKey></uniqueKey>
+  
+  
+  <!-- default unqualified search field -->
+  <defaultSearchField>hierarchy_entry_id_1</defaultSearchField>
+</schema>

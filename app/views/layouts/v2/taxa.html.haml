@@ -31,7 +31,7 @@
         %li{:class => resource_is_active('detail')}= link_to I18n.t(:detail), taxon_details_path(@taxon_concept.id)
         %li{:class => resource_is_active('media')}= link_to I18n.t(:media_with_count, :count => @taxon_concept.media.count), taxon_media_path(@taxon_concept.id)
         %li{:class => resource_is_active('maps')}= link_to I18n.t(:maps_with_count, :count => 12), '/placeholder'
-        %li{:class => resource_is_active('nomenclature')}= link_to I18n.t(:nomenclature), '/placeholder'
+        %li{:class => resource_is_active('nomenclature')}= link_to I18n.t(:names), '/placeholder'
         %li{:class => resource_is_active('literature')}= link_to I18n.t(:literature), '/placeholder'
         %li{:class => resource_is_active('resources')}= link_to I18n.t(:resources), '/placeholder'
         %li{:class => resource_is_active('community')}= link_to I18n.t(:community), '/placeholder'

@@ -7,42 +7,72 @@
             namespace="http://www.eol.org/schema/reference_extension/1.0/">
 
     <property name="referenceID"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/bibliographicCitation"/>
+              namespace="http://www.eol.org/schema/reference#"
+              qualName="http://www.eol.org/schema/reference#referenceId"
+              required="true"/>
 
-    <property name="full_reference"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/bibliographicCitation"/>
+    <property name="fullReference"
+              namespace="http://www.eol.org/schema/reference#"
+              qualName="http://www.eol.org/schema/reference#fullReference"/>
+
+    <property name="authorList"
+              namespace="http://www.eol.org/schema/reference#"
+              qualName="http://www.eol.org/schema/reference#authorList"/>
+
+    <property name="editorList"
+              namespace="http://www.eol.org/schema/reference#"
+              qualName="http://www.eol.org/schema/reference#editorList"/>
+
+    <property name="created"
+              namespace="http://www.eol.org/schema/reference#"
+              qualName="http://www.eol.org/schema/reference#created"/>
+
+    <property name="title"
+              namespace="http://www.eol.org/schema/reference#"
+              qualName="http://www.eol.org/schema/reference#title"/>
+
+    <property name="pages"
+              namespace="http://www.eol.org/schema/reference#"
+              qualName="http://www.eol.org/schema/reference#pages"/>
+
+    <property name="pagesStart"
+              namespace="http://www.eol.org/schema/reference#"
+              qualName="http://www.eol.org/schema/reference#pagesStart"/>
+
+    <property name="pageEnd"
+              namespace="http://www.eol.org/schema/reference#"
+              qualName="http://www.eol.org/schema/reference#pageEnd"/>
+
+    <property name="volume"
+              namespace="http://www.eol.org/schema/reference#"
+              qualName="http://www.eol.org/schema/reference#volume"/>
+
+    <property name="edition"
+              namespace="http://www.eol.org/schema/reference#"
+              qualName="http://www.eol.org/schema/reference#edition"/>
+
+    <property name="publisher"
+              namespace="http://www.eol.org/schema/reference#"
+              qualName="http://www.eol.org/schema/reference#publisher"/>
+
+    <property name="language"
+              namespace="http://www.eol.org/schema/reference#"
+              qualName="http://www.eol.org/schema/reference#language"/>
+
+    <property name="uri"
+              namespace="http://www.eol.org/schema/reference#"
+              qualName="http://www.eol.org/schema/reference#uri"/>
 
     <property name="doi"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/identifier"/>
-
-    <property name="issn"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/identifier"/>
+              namespace="http://www.eol.org/schema/reference#"
+              qualName="http://www.eol.org/schema/reference#doi"/>
 
     <property name="isbn"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/identifier"/>
+              namespace="http://www.eol.org/schema/reference#"
+              qualName="http://www.eol.org/schema/reference#isbn"/>
 
-    <property name="handle"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/identifier"/>
+    <property name="issn"
+              namespace="http://www.eol.org/schema/reference#"
+              qualName="http://www.eol.org/schema/reference#issn"/>
 
-    <property name="oclc"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/identifier"/>
-
-    <property name="source"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/source"/>
-
-    <property name="taxonID"
-              namespace="http://rs.tdwg.org/dwc/terms/"
-              qualName="http://rs.tdwg.org/dwc/terms/taxonID"/>
-
-    <property name="mediaResourceID"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/identifier"/>
 </extension>

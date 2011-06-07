@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY resource "http://www.eol.org/schema/transfer#" >
+    <!ENTITY subjects "http://www.eol.org/schema/subjects#" >
+]>
+
+<rdf:RDF xmlns="&subjects;"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+   xmlns:resource="http://www.eol.org/schema/transfer#"
+   xmlns:subjects="http://www.eol.org/schema/subjects#"
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   
+  <owl:Ontology rdf:about="&subjects;">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+  </owl:Ontology>
+  
+  <resource:Subject rdf:ID="Development">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+  </resource:Subject>
+  
+  <resource:Subject rdf:ID="IdentificationResources">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+  </resource:Subject>
+  
+  <resource:Subject rdf:ID="SystematicsOrPhylogenetics">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+  </resource:Subject>
+  
+  <resource:Subject rdf:ID="FossilHistory">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+  </resource:Subject>
+  
+  <resource:Subject rdf:ID="FunctionalAdaptations">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+  </resource:Subject>
+  
+  <resource:Subject rdf:ID="Barcode">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+  </resource:Subject>
+  
+  <resource:Subject rdf:ID="Genome">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+  </resource:Subject>
+  
+  <resource:Subject rdf:ID="Education">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+  </resource:Subject>
+  
+  <resource:Subject rdf:ID="EducationResources">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+  </resource:Subject>
+  
+  <resource:Subject rdf:ID="CitizenScience">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+  </resource:Subject>
+</rdf:RDF>

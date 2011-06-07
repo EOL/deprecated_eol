@@ -67,19 +67,9 @@ body > #header .section .session .join {
 /*
  * TEMPORARY FIX: Forcing image sizes for V2 demo.
  */
-#media_summary .image {
-  height: 360px;
-  text-align: center; }
-  #media_summary .image img {
-    max-width: 430px;
-    max-height: 310px; }
-  #media_summary .image .attribution {
-    text-align: left;
-    position: absolute;
-    bottom: 0;
-    left: 0; }
-    #media_summary .image .attribution img {
-      margin-top: 0; }
+#media_summary img {
+  max-width: 430px;
+  max-height: 310px; }
 
 ul.feed li > a > img {
   width: 50px;
@@ -104,3 +94,7 @@ ul.feed li > a > img {
   max-height: 90px;
   width: expression(this.width > 90 ? "90px" : true);
   height: expression(this.height > 90 ? "90px" : true); }
+
+#sidebar .collection_list img {
+  width: 35px;
+  height: 35px; }

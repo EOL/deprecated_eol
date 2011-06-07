@@ -7,12 +7,16 @@
       %p= I18n.t(:this_community_has_no_focus_items_associated_with_it)
     - else
       %ul
-        %li= link_to @community.focus.name, collection_path(@community.focus.id)
+        %li
+          = link_to image_tag(@community.focus.logo_url('small')), collection_path(@community.focus)
+          = link_to @community.focus.name, collection_path(@community.focus)
   .collection_list
     %h3= I18n.t(:endorsed_collections)
     -# FIXME: make this functional
     %ul
-      %li= link_to Collection.last.name, collection_url(Collection.last)
+      %li
+        = link_to image_tag(Collection.last.logo_url('small')), collection_path(Collection.last)
+        = link_to Collection.last.name, collection_url(Collection.last)
 
 #community.main_container
   = render :partial => 'feed_items/index', :locals => { :feed => @community.feed, :form_position => :before_header, :header => I18n.t(:newsfeed), :header_style => 'heading', :allow_filter => true }

@@ -85,21 +85,14 @@ body
 = size50x50
   width: 50px
   height: 50px
+= size35x35
+  width: 35px
+  height: 35px
 
 #media_summary
-  .image
-    height: 360px
-    text-align: center
-    img
-      max-width: 430px
-      max-height: 310px
-    .attribution
-      text-align: left
-      position: absolute
-      bottom: 0
-      left: 0
-      img
-        margin-top: 0
+  img
+    max-width: 430px
+    max-height: 310px
 ul.feed
   li
     >a
@@ -127,5 +120,8 @@ ul.feed
   &.main_container
     .taxon>img
       +max90x90
-
+#sidebar
+  .collection_list
+    img
+      +size35x35
 

@@ -31,6 +31,20 @@ $(function() {
       $gallery.find(".thumbnails").html(thumbs.join(""));
       $gallery.find(".thumbnails li").eq(0).addClass("active");
     });
+
+    var loading_complete = $ss.find(".image").length;
+    $ss.find(".image > img").each(function() {
+      this.onload = function() {
+        if (!--loading_complete) {
+          var h = $ss.find(".images").height();
+          h -= parseInt($ss.find(".image").css("padding-bottom"), 10);
+          $ss.find(".image > img").each(function() {
+            $(this).css("top", (h / 2 - this.height / 2) + "px");
+          });
+        };
+      };
+    });
+
     $ss.find(".thumbnails").delegate("a", "click", function() {
       var $e = $(this).closest("li");
       $e.closest("ul").find(".active").removeClass("active");

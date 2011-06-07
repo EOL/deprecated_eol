@@ -102,7 +102,7 @@ class Community < ActiveRecord::Base
 
   def endorsed_collections
     # FIXME: This just using the community focus collection it should be endorsed collections
-    [focus]
+    [focus, Collection.last]
   end
 
 private

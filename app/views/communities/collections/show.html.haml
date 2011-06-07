@@ -24,16 +24,6 @@
   .section.collections
     .heading
       %h3= I18n.t(:endorsed_collections_with_count, :count => @community.endorsed_collections.size)
-      - # FIXME: Need a proper filter form
-      %form.filter(action="" method="post")
-        %fieldset
-          %dl
-            %dt
-              %label Sort By
-            %dd
-              %select
-                %option Newest
-                %option Oldest
-          %input(type="submit" value="Filter")
+      = render :partial => 'shared/sort_by_date_form'
     - @community.endorsed_collections.each do |collection|
       = render :partial => 'collections/collection_summary', :locals => { :collection => collection }

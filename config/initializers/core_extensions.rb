@@ -95,7 +95,6 @@ module ActiveRecord
       def uses_translations(options={})
         begin
           translated_class = eval("Translated" + self.to_s)
-
           has_many :translations, :class_name => translated_class.to_s, :foreign_key => options[:foreign_key]
           default_scope :include => :translations
           const_set(:USES_TRANSLATIONS, true)
@@ -113,7 +112,7 @@ module ActiveRecord
                 # then none of thise will happen
                 unless column_names.include?(a)
                   attr_accessor "translated_#{a}".to_sym
-
+			
                   # creating a method with the name of the translated attribute. For example
                   # if we translated label, we're making
                   # def label(language_iso)

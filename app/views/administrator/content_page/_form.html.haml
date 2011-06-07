@@ -59,7 +59,7 @@
           %strong
             =I18n.t("section_")
         %td
-          = f.collection_select :content_section_id,ContentSection.find(:all, :order=>'name'),:id,:name
+          = f.collection_select :content_section_id,ContentSection.find(:all),:id,:name
           =I18n.t("__only_change_to_move_page_ite")
       %tr
         %td

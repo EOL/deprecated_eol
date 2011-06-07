@@ -8,7 +8,7 @@ class Administrator::ContentPageController < AdminController
   
  def index
    @page_title = I18n.t("edit_page_contents_")
-   @content_sections = ContentSection.find(:all, :order => 'name')
+   @content_sections = ContentSection.find(:all)
    @content_section_id = params[:content_section_id] || @content_sections[0].id
    @content_section = ContentSection.find(@content_section_id)
    # get the content pages for the selected section or the first section

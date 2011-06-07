@@ -12,18 +12,26 @@ e = Language.gen_if_not_exists(:iso_639_1 => 'en', :source_form => 'English')
 TranslatedLanguage.gen_if_not_exists(:label => 'English', :original_language_id => e.id)
 
 # This ensures the main menu is complete, with at least one (albeit bogus) item in each section:
+ContentSection.gen_if_not_exists(:name => 'Home Page')
+ContentSection.gen_if_not_exists(:name => 'About EOL')
+ContentSection.gen_if_not_exists(:name => 'Feedback')
+ContentSection.gen_if_not_exists(:name => 'Using the Site')
+ContentSection.gen_if_not_exists(:name => 'Press Room')
+ContentSection.gen_if_not_exists(:name => 'Footer')
+
+
 ContentPage.gen_if_not_exists(:title => 'Home',
-  :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Home Page'))
+  :language_abbr => 'en', :content_section => ContentSection.find_by_translated(:name, 'Home Page'))
 ContentPage.gen_if_not_exists(:title => 'Who We Are',
-  :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'About EOL'))
+  :language_abbr => 'en', :content_section => ContentSection.find_by_translated(:name, 'About EOL'))
 ContentPage.gen_if_not_exists(:title => 'Contact Us',
-  :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Feedback'))
+  :language_abbr => 'en', :content_section => ContentSection.find_by_translated(:name, 'Feedback'))
 ContentPage.gen_if_not_exists(:title => 'Screencasts',
-  :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Using the Site'))
+  :language_abbr => 'en', :content_section => ContentSection.find_by_translated(:name, 'Using the Site'))
 ContentPage.gen_if_not_exists(:title => 'Press Releases',
-  :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Press Room'))
+  :language_abbr => 'en', :content_section => ContentSection.find_by_translated(:name, 'Press Room'))
 ContentPage.gen_if_not_exists(:title => 'Terms Of Use',
-  :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Footer'))
+  :language_abbr => 'en', :content_section => ContentSection.gen_if_not_exists(:name => 'Footer'))
 
 ContactSubject.gen_if_not_exists(:title => 'Media Contact', :recipients=>'test@test.com', :active=>true)
 

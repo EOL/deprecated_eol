@@ -278,7 +278,6 @@ Factory.define :agent do |agent|
   agent.homepage        ''
   agent.full_name       { Factory.next(:first_name) << ' ' << Factory.next(:last_name) }
 end
-
 Factory.define :content_partner_contact do |cpc|
   cpc.association :content_partner
   cpc.association :contact_role
@@ -419,8 +418,14 @@ Factory.define :content_partner do |cp|
 end
 
 Factory.define :content_section do |cs|
-  cs.name { Factory.next(:string) }
-  cs.language_key 'en'
+  #cs.name { Factory.next(:string) }
+  #cs.language_key 'en'
+end
+
+Factory.define :translated_content_section do |cs|
+  cs.association     :content_section
+  cs.language        { Language.english }
+  cs.name          { Factory.next(:string) }
 end
 
 Factory.define :content_upload do |cu|

@@ -16,26 +16,34 @@ describe Taxa::MediaController do
 
   describe 'GET show' do
 
+    it 'should instantiate the taxon concept' do
+      do_show
+      assigns[:taxon_concept].should be_a(TaxonConcept)
+    end
     it 'should instantiate an Array of DataObjects' do
       do_show
-      assigns(:media).should be_a(Array)
-      assigns(:media).first.should be_a(DataObject)
+      assigns[:media].should be_a(Array)
+      assigns[:media].first.should be_a(DataObject)
     end
     it 'should include images in the instantiated Array of DataObjects' do
       do_show
-      assigns(:media).include?(@first_image).should be_true
+      assigns[:media].include?(@first_image).should be_true
     end
 
     it 'should include videos in the instantiated Array of DataObjects' do
       get :show, :taxon_id => @data[:taxon_concept_id], :page => 2
-      assigns(:media).include?(@first_video).should be_true
+      assigns[:media].include?(@first_video).should be_true
     end
     it 'should include sounds in the instantiated Array of DataObjects'
     it 'should paginate instantiated Array of DataObjects' do
       do_show
-      assigns(:media).should be_a(WillPaginate::Collection)
+      assigns[:media].should be_a(WillPaginate::Collection)
     end
     it 'should sort media by rating'
+    it 'should instantiate an assistive header' do
+      do_show
+      assigns[:assistive_section_header].should be_a(String)
+    end
   end
 
 end

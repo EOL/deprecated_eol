@@ -33,7 +33,7 @@ describe 'Taxa overview' do
     # @see https://rspec.lighthouseapp.com/projects/5645/tickets/878-problem-using-with_tag
 
     it 'should show the taxon name and section name' do
-      should have_tag('#page_heading h1', /^(#{@testy[:scientific_name]})(\n|.)*?(#{@section})$/i)
+      should have_tag('#page_heading h1', /(#{@testy[:taxon_concept].title_canonical})(\n|.)*?(#{@section})/i)
     end
     it 'should show the preferred common name' do
       should have_tag('#page_heading h2', /^#{@testy[:common_name]}/)
@@ -43,15 +43,15 @@ describe 'Taxa overview' do
     end
     it 'should show a gallery of four images' do
       body.should have_tag("div#media_summary") do
-        with_tag("img[src$=#{@testy[:taxon_concept].images[0].smart_medium_thumb[25..-1]}]")
-        with_tag("img[src$=#{@testy[:taxon_concept].images[1].smart_medium_thumb[25..-1]}]")
-        with_tag("img[src$=#{@testy[:taxon_concept].images[2].smart_medium_thumb[25..-1]}]")
-        with_tag("img[src$=#{@testy[:taxon_concept].images[3].smart_medium_thumb[25..-1]}]")
+        with_tag("img[src$=#{@testy[:taxon_concept].images[0].original_image[25..-1]}]")
+        with_tag("img[src$=#{@testy[:taxon_concept].images[1].original_image[25..-1]}]")
+        with_tag("img[src$=#{@testy[:taxon_concept].images[2].original_image[25..-1]}]")
+        with_tag("img[src$=#{@testy[:taxon_concept].images[3].original_image[25..-1]}]")
       end
-      should_not have_tag("img[src$=#{@testy[:taxon_concept].images[4].smart_medium_thumb[25..-1]}]")
+      should_not have_tag("img[src$=#{@testy[:taxon_concept].images[4].original_image[25..-1]}]")
     end
     it 'should have sanitized descriptive text alternatives for images in gallery'
-      # TODO - figure out how to add html to testy image description so can test sanitaztion of alt tags
+      # TODO: add html to testy image description so can test sanitization of alt tags
       # should have_tag('div#media_summary_gallery img[alt^=?]', /(\w+\s){5}/, { :count => 4 })
     it 'should show IUCN Red List status' do
       should have_tag('div#iucn_status a', /.+/)

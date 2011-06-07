@@ -1,3 +1,4 @@
+- show_source_link ||= false
 - if data_object.added_by_user?
   - attribution = data_object.users_data_objects[0].user.given_name + data_object.users_data_objects[0].user.family_name
 - else
@@ -5,7 +6,8 @@
   - attribution = attribution.nil? ? data_object.best_agents_to_cite : [attribution]
   - unless attribution.nil?
     = link_to image_tag(data_object.license.logo_url, :alt => I18n.t(:license_icon_alt_text, :license => data_object.license.title)), data_object.license.source_url
-    %p
+    %p<
       = citables_to_string(attribution, :linked => false)
-      &mdash;
-      = link_to I18n.t(:source_information_link), { :controller => '/data_objects', :action => :show, :id => data_object.id }
+      - if show_source_link
+        &mdash;
+        = link_to I18n.t(:source_information_link), { :controller => '/data_objects', :action => :show, :id => data_object.id }

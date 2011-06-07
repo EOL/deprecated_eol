@@ -7,8 +7,12 @@ ActionController::Routing::Routes.draw do |map|
   # Communities, Privileges, Roles, Feeds:
   map.resources :feed_items
   map.resources :privileges
+  # Communities nested resources
   # TODO - these member methods want to be :put. Capybara, however, always uses :get, so in the interests of simple tests:
-  map.resources :communities, :has_many => [:collections, :members, :roles], :member => { 'join' => :get, 'leave' => :get }
+  map.resources :communities, :has_many => [:members, :roles], :member => { 'join' => :get, 'leave' => :get } do |community|
+    community.resource :newsfeeds, :only => [:show], :controller => "/communities/newsfeeds"
+    community.resource :collections, :only => [:show], :controller => "/communities/collections"
+  end
   map.resources :members, :member => {
     'grant_privilege_to' => :post, 'revoke_privilege_from' => :delete,
     'add_role_to' => :post, 'remove_role_from' => :delete }
@@ -33,7 +37,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :random_images
   # TODO - the curate member method is not working when you use the url_for method and its derivatives.  Instead, the default
   # url of "/data_objects/curate/:id" works.  Not sure why.
-  map.resources :data_objects, :member => { :curate => :put, :curation => :get, :attribution => :get } do |data_objects|
+  map.resources :data_objects, :member => { :curate => :put, :curation => :get, :attribution => :get, :rate => :get } do |data_objects|
     data_objects.resources :comments
     data_objects.resources :tags,  :collection => { :public => :get, :private => :get, :add_category => :post,
                                                     :autocomplete_for_tag_key => :get },
@@ -159,13 +163,13 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/index', :controller => 'content', :action => 'index'
   map.connect ':id', :id => /\d+/,  :controller => 'taxa', :action => 'show' # only a number passed in to the root of the web, then assume a specific taxon concept ID
   map.connect ':id', :id => /[A-Za-z0-9% ]+/,  :controller => 'taxa', :action => 'search'  # if text, then go to the search page
-  
+
   ## Mobile app namespace routes
   map.mobile 'mobile', :controller => 'mobile/contents'
   map.namespace :mobile do |mobile|
     mobile.resources :contents
-  end 
-  
+  end
+
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'

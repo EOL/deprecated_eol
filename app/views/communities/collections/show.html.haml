@@ -1,0 +1,39 @@
+#sidebar
+  .collection_contributors
+    %h3= I18n.t(:founder)
+    %ul
+      %li
+        = link_to image_tag(@community.founder.user.logo_url, :alt => @community.founder.user.given_name), user_path(@community.founder.user.id)
+        %h4= link_to @community.founder.user.given_name, user_path(@community.founder.user.id)
+        - # FIXME: This shouldn't be credentials.
+        %p= @community.founder.user.credentials
+  .collection_contributors
+    %h3= I18n.t(:most_active_members)
+    %ul
+      - @community.top_active_members.each do |member|
+        %li
+          = link_to image_tag(member.user.logo_url, :alt => member.user.given_name), user_path(member.user.id)
+          %h4= link_to member.user.given_name, user_path(member.user.id)
+          - # FIXME: This shouldn't be credentials.
+          %p= member.user.credentials
+#collections.main_container
+  .section.collections
+    .heading
+      %h3= I18n.t(:community_focus)
+    = render :partial => 'communities/collection_summary', :locals => { :collection => @community.focus }
+  .section.collections
+    .heading
+      %h3= I18n.t(:endorsed_collections_with_count, :count => @community.endorsed_collections.count)
+      - # FIXME: Need a proper filter form
+      %form.filter(action="" method="post")
+        %fieldset
+          %dl
+            %dt
+              %label Sort By
+            %dd
+              %select
+                %option Newest
+                %option Oldest
+          %input(type="submit" value="Filter")
+    - @community.endorsed_collections.each do |collection|
+      = render :partial => 'communities/collection_summary', :locals => { :collection => collection }

@@ -1,54 +1,43 @@
-.visibility.curation-section
-  .label.credit-caption
-    = I18n.t(:visibility)
-  .options.action-value
-    .option
-      = radio_button_tag "visibility_id", Visibility.visible.id.to_s, data_object.visible?, { :id => ("#{data_object['id']}_visibility_id_" + Visibility.visible.id.to_s) }
-      %label{:for => "#{data_object['id']}_visibility_id_" + Visibility.visible.id.to_s}= I18n.t("show_to_all_users")
-    .option
-      = radio_button_tag "visibility_id", Visibility.invisible.id.to_s, data_object.invisible?, { :id => ("#{data_object['id']}_visibility_id_" + Visibility.invisible.id.to_s) }
-      %label{:for => "#{data_object['id']}_visibility_id_" + Visibility.invisible.id.to_s}= I18n.t("hide_for_all_except_curators")
-    .option
-      = radio_button_tag "visibility_id", Visibility.inappropriate.id.to_s, data_object.inappropriate?, { :id => ("#{data_object['id']}_visibility_id_" + Visibility.inappropriate.id.to_s) }
-      %label{:for => "#{data_object['id']}_visibility_id_" + Visibility.inappropriate.id.to_s}= I18n.t("permanently_remove")
-.vetted.curation-section
-  .label.credit-caption
-    = I18n.t(:vetted)
-  .options.action-value
-    .option.unreviewed
-      = radio_button_tag "vetted_id", Vetted.unknown.id.to_s, data_object.unknown?, { :id => ("#{data_object['id']}_vetted_id_" + Vetted.unknown.id.to_s), :class =>"vetted_unknown" }
-      %label{:for => "#{data_object['id']}_vetted_id_" + Vetted.unknown.id.to_s}= Vetted.unknown.label
-    .option.trust
-      = radio_button_tag "vetted_id", Vetted.trusted.id.to_s, data_object.trusted?, { :id => ("#{data_object['id']}_vetted_id_" + Vetted.trusted.id.to_s), :class =>"vetted_trusted" }
-      %label{:for => "#{data_object['id']}_vetted_id_"  + Vetted.trusted.id.to_s}= Vetted.trusted.label
-
-    .option.untrust
-      = radio_button_tag "vetted_id", Vetted.untrusted.id.to_s, data_object.untrusted?, { :id => ("#{data_object['id']}_vetted_id_" + Vetted.untrusted.id.to_s), :class =>"vetted_untrusted" }
-      %label{:for => "#{data_object['id']}_vetted_id_" + Vetted.untrusted.id.to_s}= Vetted.untrusted.label
-      - div_style = data_object.untrusted? ? '' :  'display:none;'
-      .reason{ :style => div_style, :id => "reason_#{data_object.id}" }
-        / = "Please select a reason, and optionally leave a curation comment to explain your decision:"
-        %b=I18n.t("please_select_a_reason__and_or")
-        .option
-          = check_box_tag 'untrust_reasons[]', UntrustReason.misidentified.id.to_s, data_object.untrust_reasons_include?(UntrustReason.misidentified), {:id => "#{data_object['id']}_untrust_reason_misidentified", :class => "untrust_reason misidentified"}
-          %label{ :for => "#{data_object['id']}_untrust_reason_misidentified"}= I18n.t("misidentified")
-        .option
-          = check_box_tag 'untrust_reasons[]', UntrustReason.incorrect.id.to_s, data_object.untrust_reasons_include?(UntrustReason.incorrect), {:id => "#{data_object['id']}_untrust_reason_incorrect", :class => "untrust_reason incorrect"}
-          %label{ :for => "#{data_object['id']}_untrust_reason_incorrect"}= I18n.t("incorrect_misleading_informati")
-        .option
-          = check_box_tag 'untrust_reasons[]', UntrustReason.poor.id.to_s, data_object.untrust_reasons_include?(UntrustReason.poor), {:id => "#{data_object['id']}_untrust_reason_poor", :class => "untrust_reason poor"}
-          %label{ :for => "#{data_object['id']}_untrust_reason_poor"}= I18n.t("poor_writing_image_sound_quali")
-        .option
-          = check_box_tag 'untrust_reasons[]', UntrustReason.duplicate.id.to_s, data_object.untrust_reasons_include?(UntrustReason.duplicate), {:id => "#{data_object['id']}_untrust_reason_duplicate", :class => "untrust_reason duplicate"}
-          %label{ :for => "#{data_object['id']}_untrust_reason_duplicate"}= I18n.t("redundant_duplicate")
-        .option
-          = check_box_tag 'untrust_reasons[]', UntrustReason.other.id.to_s, data_object.untrust_reasons_include?(UntrustReason.other), {:id => "#{data_object['id']}_untrust_reason_other", :class => "untrust_reason other"}
-          %label{ :for => "#{data_object['id']}_untrust_reason_other"}= I18n.t("other")
-
-        %input{ :type => "hidden", :id => "#{data_object['id']}_untrust_reasons_comment", :class => "untrust_reasons_comment", :name => "untrust_reasons_comment" }
-.curation-section
-  .label.credit-caption
-    = I18n.t(:curation_comment)
-  .options.action-value
-    .comment
-      = text_area_tag 'comment', nil, :class => 'curation-comment-box', :id => "#{data_object['id']}_curator_comment"
+- form_tag({:controller => 'data_objects', :action => 'curate_associations'}) do
+  = hidden_field_tag 'id', data_object.id
+  %ul#associations
+    - data_object.published_entries.each do |phe|
+      %li
+        -# NOTE: this is actually a link to the TC.  It ostensibily uses the name from the HE rather than
+        -# the TC, but in actuallity, that's what the TC does /anyway/, so this is fine (and faster):
+        - if (phe.visibility_id == Visibility.visible.id && !current_user.is_curator?) || current_user.is_curator?
+          = link_to(phe.name.string, taxon_concept_path(phe.taxon_concept_id))
+          = phe.vetted.label unless current_user.is_curator?
+        - if current_user.is_curator?
+          - if phe.by_curated_association? && phe.associated_by_curator.id == current_user.id
+            = link_to I18n.t(:remove_data_object_association), remove_association_path(:id => data_object.id, :hierarchy_entry_id => phe.id), :id => "remove_association_#{phe.id}"
+          - vetted_selected = phe.vetted_id.to_i
+          - options = Vetted.all.collect{|v| [ (v.label == 'Unknown') ? 'Unreviewed' : v.label, v.id ] }
+          = select_tag "vetted_id_#{phe.id}", options_for_select(options, vetted_selected)
+          - visibility_selected = phe.visibility_id.to_i
+          - options = Visibility.all.collect{|v| [ v.label, v.id ] }.delete_if { |x| x == [ Visibility.preview.label, Visibility.preview.id ] }
+          = select_tag "visibility_id_#{phe.id}", options_for_select(options, visibility_selected)
+          %br
+          - untrusted_reasons = (vetted_selected == Vetted.untrusted.id.to_i) ? data_object.untrust_reasons(phe) : []
+          .reason{ :id => "reason_#{phe.id}" }
+            %b=I18n.t("please_select_a_reason__and_or")
+            .option
+              = check_box_tag "untrust_reasons_#{phe.id}[]", UntrustReason.misidentified.id.to_s, untrusted_reasons.include?(UntrustReason.misidentified.id), {:id => "#{phe.id}_untrust_reason_misidentified", :class => "untrust_reason misidentified"}
+              %label{ :for => "#{phe.id}_untrust_reason_misidentified"}= I18n.t("misidentified")
+            .option
+              = check_box_tag "untrust_reasons_#{phe.id}[]", UntrustReason.incorrect.id.to_s, untrusted_reasons.include?(UntrustReason.incorrect.id), {:id => "#{phe.id}_untrust_reason_incorrect", :class => "untrust_reason incorrect"}
+              %label{ :for => "#{phe.id}_untrust_reason_incorrect"}= I18n.t("incorrect_misleading_informati")
+            .option
+              = check_box_tag "untrust_reasons_#{phe.id}[]", UntrustReason.poor.id.to_s, untrusted_reasons.include?(UntrustReason.poor.id), {:id => "#{phe.id}_untrust_reason_poor", :class => "untrust_reason poor"}
+              %label{ :for => "#{phe.id}_untrust_reason_poor"}= I18n.t("poor_writing_image_sound_quali")
+            .option
+              = check_box_tag "untrust_reasons_#{phe.id}[]", UntrustReason.duplicate.id.to_s, untrusted_reasons.include?(UntrustReason.duplicate.id), {:id => "#{phe.id}_untrust_reason_duplicate", :class => "untrust_reason duplicate"}
+              %label{ :for => "#{phe.id}_untrust_reason_duplicate"}= I18n.t("redundant_duplicate")
+            .option
+              = check_box_tag "untrust_reasons_#{phe.id}[]", UntrustReason.other.id.to_s, untrusted_reasons.include?(UntrustReason.other.id), {:id => "#{phe.id}_untrust_reason_other", :class => "untrust_reason other"}
+              %label{ :for => "#{phe.id}_untrust_reason_other"}= I18n.t("other")
+            %input{ :type => "hidden", :id => "untrust_reasons_comment_#{phe.id}", :class => "untrust_reasons_comment", :name => "untrust_reasons_comment_#{phe.id}" }
+          = I18n.t(:curation_comment)
+          = text_area_tag "curation_comment_#{phe.id}", nil, :rows => 3, :cols => 30 
+          %hr.thin
+    = submit_tag I18n.t(:save_cutated_association_submit_button) if current_user.is_curator?

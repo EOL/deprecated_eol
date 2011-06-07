@@ -85,9 +85,24 @@ class Community < ActiveRecord::Base
   def has_member?(user)
     members.map {|m| m.user_id}.include?(user.id)
   end
-  
+
   def logo_url(size = 'large')
     logo_cache_url.blank? ? "v2/icon_communities_tabs.png" : ContentServer.agent_logo_path(logo_cache_url, size)
+  end
+
+  def top_active_members
+    # FIXME: This is just getting the top 3 members not the most active
+    members[0..3]
+  end
+
+  def founder
+    # FIXME: This is just getting the first member not the founder (can we get founder from feed - who created this community?).
+    members[0]
+  end
+
+  def endorsed_collections
+    # FIXME: This just using the community focus collection it should be endorsed collections
+    [focus]
   end
 
 private

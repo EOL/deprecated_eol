@@ -1,26 +1,22 @@
 class AccountController < ApplicationController
-  before_filter :check_authentication, :except => [ :login, :register, :authenticate, :logout, :signup, :check_username, 
+  before_filter :check_authentication, :except => [ :login, :register, :authenticate, :logout, :signup, :check_username,
     :check_email, :confirmation_sent, :confirm, :forgot_password, :reset_specific_users_password, :reset_password ]
   before_filter :go_to_home_page_if_logged_in, :only => [ :login, :register, :signup, :authenticate]
   layout :main_if_not_logged_in
-  
-  def login
-    # It's possible to create a redirection attack with a redirect to data: protocol... and possibly others, so:
-    # Whitelisting redirection to our own site, relative paths.
-    params[:return_to] = nil unless params[:return_to] =~ /\A[%2F\/]/
 
+  def login
     # Makes no sense to bounce them back to the login page in the rare case they clicked "login" twice:
     params[:return_to] = nil if params[:return_to] =~ /login/
     store_location(params[:return_to]) unless params[:return_to].blank? # store the page we came from so we can return there if it's passed in the URL
   end
-  
+
   def authenticate
     # reset the agent session in case there are any content partners logged in to avoid any funny things
     user_params = params[:user]
     remember_me = EOLConvert.to_boolean(params[:remember_me])
     password_authentication(user_params[:username],user_params[:password],remember_me)
   end
-  
+
   def signup
     unless request.post? && params[:user]
       current_user.id = nil
@@ -56,10 +52,10 @@ class AccountController < ApplicationController
       @verification_did_not_match =  I18n.t(:verification_phrase_did_not_match)  unless verify_recaptcha
     end
   end
-  
+
   def confirmation_sent
   end
-  
+
   # users come here from the activation email they receive
   def confirm
     params[:id] ||= ''
@@ -72,7 +68,7 @@ class AccountController < ApplicationController
       @user.activate
     end
   end
-  
+
   def logout
     # Whitelisting redirection to our own site, relative paths.
     params[:return_to] = nil unless params[:return_to] =~ /\A[%2F\/]/
@@ -82,8 +78,8 @@ class AccountController < ApplicationController
     flash[:notice] =  I18n.t(:you_have_been_logged_out)
     redirect_back_or_default
   end
-  
-  
+
+
   def forgot_password
     if params[:user] && request.post?
       user = params[:user]
@@ -105,7 +101,7 @@ class AccountController < ApplicationController
       end
     end
   end
-  
+
   def reset_specific_users_password
     user = User.find(params[:id])
     if user
@@ -133,7 +129,7 @@ class AccountController < ApplicationController
       go_to_forgot_password(nil)
     end
   end
-  
+
   def info
     @user = User.find(current_user.id)
     @user_info = @user.user_info
@@ -155,7 +151,7 @@ class AccountController < ApplicationController
       redirect_back_or_default
     end
   end
-  
+
   def profile
     @page_header = I18n.t("account_settings")
     @user = User.find(current_user.id)
@@ -181,7 +177,7 @@ class AccountController < ApplicationController
     end
     @user = User.find(current_user.id)
   end
-  
+
   def personal_profile
     @page_header = I18n.t("personal_profile_menu")
     if params[:user] && request.post?
@@ -193,7 +189,7 @@ class AccountController < ApplicationController
     end
     @user = User.find(current_user.id)
   end
-  
+
   def site_settings
     @page_header = I18n.t("site_settings_menu")
     @user = User.find(current_user.id)
@@ -211,7 +207,7 @@ class AccountController < ApplicationController
       flash[:notice] =  I18n.t(:your_preferences_have_been_updated)
     end
   end
-  
+
   # AJAX call to check if name is unique from signup page
   def check_username
     username = params[:username] || ""
@@ -231,7 +227,7 @@ class AccountController < ApplicationController
     if User.unique_email?(email) || (logged_in? && current_user.email == email)
       message = ""
     else
-      message =  I18n.t(:username_taken , :name => email) 
+      message =  I18n.t(:username_taken , :name => email)
     end
     render :update do |page|
       page.replace_html 'email_warn', message
@@ -242,21 +238,21 @@ private
   def main_if_not_logged_in
     layout = current_user.username.nil? ? 'main' : 'user_profile'
   end
-  
+
   def password_length_okay?
     return !(params[:user][:entered_password].length < 4 || params[:user][:entered_password].length > 16)
   end
-  
+
   def delete_password_reset_token(user)
     user.update_attributes(:password_reset_token => nil, :password_reset_token_expires_at => nil) if user
   end
-  
+
   def go_to_forgot_password(user)
     flash[:notice] =  I18n.t(:expired_reset_password_link)
     delete_password_reset_token(user)
     redirect_to :action => "forgot_password", :protocol => "http"
   end
-  
+
   # Change password parameters when they are set automatically by an autofil password management of a browser (known behavior of Firefox for example)
   def unset_auto_managed_password
     password = params[:user][:entered_password].strip
@@ -264,7 +260,7 @@ private
       params[:user][:entered_password] = ''
     end
   end
-  
+
   def password_authentication(username, password, remember_me)
     success, message_or_user = User.authenticate(username, password)
     if success

@@ -16,9 +16,11 @@
     border: none
 body
   >#header
-    h1
-      z-index: 100 /* otherwise .session div prevents clicking on logo */
     .section
+      h1
+        z-index: 2 /* otherwise .session div prevents clicking on logo */
+      .actions
+        z-index: 5 /* otherwise language list goes behind logo */
       .session
         .join
           float: right
@@ -52,7 +54,26 @@ body
           padding-left: 23px !important
           margin-left: 10px
           background: transparent url('/images/v2/icon_classification_arrow.png') 0 0 no-repeat
-
+#taxonomy_detail
+  .article
+    .description
+      padding: 0 0 15px 0
+      line-height: 170%
+  table
+    margin: 20px 0
+    width: 100%
+    caption
+      padding: 10px
+      border-top: 1px solid #ccc
+      border-bottom: 1px solid #666
+    colgroup.count
+      width: 20%
+    thead
+      text-align: left
+      tr
+        border-bottom: 1px solid #ccc
+    .odd
+      background-color: #eee
 /**
   * TEMPORARY FIX: Forcing image sizes for V2 demo.
   */
@@ -73,6 +94,7 @@ body
       max-width: 430px
       max-height: 310px
     .attribution
+      text-align: left
       position: absolute
       bottom: 0
       left: 0
@@ -89,6 +111,13 @@ ul.feed
       >a
         >img
           +size50x50
+#collections
+  .collections
+    .article
+      >.header
+        >a
+          >img
+            +size50x50
 #page_heading
   &.with_image
     .hgroup

@@ -60,7 +60,9 @@ en:
   create_a_collection: Create a collection
   dato_shown_note: "%{username} made this %{type} visible."
   error_page_header: Sorry, we have encountered a problem
-  see_all_collections_with_count_html: See all <span class="assistive">%{count} collections in which this taxon appears.</span>
+  see_all_collections_with_count_html:
+    one: See the <span class="assistive">%{count} collection in which this taxon appears.</span>
+    other: See all <span class="assistive">%{count} collections in which this taxon appears.</span>
   search_the_site: Search the site
   user_system_down: We apologize, but the user registration system is not currently available.  Please try again later.
   dato_hidden_note: "%{username} hid %{type}."
@@ -78,7 +80,9 @@ en:
     other: "%{count} taxa"
   recent_updates: Recent updates
   delete_allcaps: DELETE
-  see_all_classifications_with_count_html: See all <span class="assistive">%{count} approved classifications in which this taxon appears.</span>
+  see_all_classifications_with_count_html:
+    one: See the <span class="assistive">%{count} approved classification in which this taxon appears.</span>
+    other: See all <span class="assistive">%{count} approved classifications in which this taxon appears.</span>
   license: License
   print_this_page_link: Print this page
   filter_feeds_button: Filter
@@ -115,7 +119,9 @@ en:
   could_not_find_user: Couldn't find a member for this user
   cannot_be_associated_with_both_a_user_and_a_community: Cannot be associated with both a user and a community
   newsfeed: Newsfeed
-  see_all_communities_with_count_html: See all <span class="assistive">%{count} communities that focus on this taxon.</span>
+  see_all_communities_with_count_html:
+    one: See the <span class="assistive">%{count} community that focus on this taxon.</span>
+    other: See all <span class="assistive">%{count} communities that focus on this taxon.</span>
   text_summary_more_link: Read full entry
   get_involved: Get involved
   maps_with_count:
@@ -192,7 +198,9 @@ en:
   donation_error_only_numbers: Please enter an amount using only numbers.
   source_information_link: source information
   wikipedia_article_will_be_harvested_tonight: Wikipedia article %{article} revision %{rev} will be harvested tonight
-  media_with_count: "%{count} Media"
+  media_with_count:
+    one: "%{count} Media"
+    other: "%{count} Media"
   collections_with_count:
     one: "%{count} Collection"
     other: "%{count} Collections"
@@ -244,7 +252,7 @@ en:
   selected_language_advisory_information: This is the currently selected language.
   punctuation_comma: ","
   members_count_in_parens:
-    one: (one member)
+    one: (%{count} member)
     other: (%{count} members)
   updated_community: Community was successfully updated.
   the_email_address_is_not_unique_you_must_enter_a_username: The email address is not unique - you must enter a username

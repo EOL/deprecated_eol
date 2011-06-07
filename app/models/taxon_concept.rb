@@ -260,9 +260,10 @@ class TaxonConcept < SpeciesSchemaModel
 
     return nil if datos_to_load.empty?
 
-    add_include = [:comments, :agents_data_objects, :info_items, :toc_items, { :users_data_objects => :user },
+    add_include = [:users_data_objects_ratings, :comments, :agents_data_objects, :info_items, :toc_items, { :users_data_objects => :user },
       { :published_refs => { :ref_identifiers => :ref_identifier_type } }, :all_comments]
     add_select = {
+      :users_data_objects_ratings => '*',
       :refs => '*',
       :ref_identifiers => '*',
       :ref_identifier_types => '*',
@@ -292,7 +293,8 @@ class TaxonConcept < SpeciesSchemaModel
     toc_items.each do |toc_item|
       ccb = CategoryContentBuilder.new
       if ccb.can_handle?(toc_item)
-        special_content << ccb.content_for(toc_item, :taxon_concept => self)
+        content = ccb.content_for(toc_item, :taxon_concept => self)
+        special_content << content unless content.nil?
       end
     end
     special_content
@@ -300,18 +302,21 @@ class TaxonConcept < SpeciesSchemaModel
 
   # Returns harvested text objects, user submitted object and special content for given toc items
   def details_for_toc_items(toc_items)
-    text_objects = text_objects_for_toc_items(toc_items)
-    text_object_toc_items = text_objects.collect{ |d| d.toc_items }.flatten.compact.uniq
     details = []
-    text_object_toc_items.each do |toc_item|
-      detail = {
-        :content_type  => 'text',
-        :toc_item => toc_item,
-        :data_objects  => text_objects.collect{ |d| d if d.toc_items.include?(toc_item) }.compact
-      }
-      details << detail
+    text_objects = text_objects_for_toc_items(toc_items)
+    if text_objects
+      text_object_toc_items = text_objects.collect{ |d| d.toc_items }.flatten.compact.uniq
+      text_object_toc_items.each do |toc_item|
+        detail = {
+          :content_type  => 'text',
+          :toc_item => toc_item,
+          :data_objects  => text_objects.collect{ |d| d if d.toc_items.include?(toc_item) }.compact
+        }
+        details << detail
+      end
     end
-    details += special_content_for_toc_items(toc_items)
+    special_content = special_content_for_toc_items(toc_items)
+    details += special_content unless special_content.empty?
   end
 
   # This may throw an ActiveRecord::RecordNotFound exception if the TocItem's category_id doesn't exist.
@@ -864,14 +869,14 @@ class TaxonConcept < SpeciesSchemaModel
     return '' if entry.nil?
     @title = entry.italicized_name.firstcap
   end
-  
+
   # title and sub-title depend on expertise level of the user that is passed in (default to novice if none specified)
   def title_canonical(hierarchy = nil)
     return @title_canonical unless @title_canonical.nil?
     return '' if entry.nil?
     @title_canonical = entry.canonical_form.string.firstcap
   end
-  
+
 
   def subtitle(hierarchy = nil)
     return @subtitle unless @subtitle.nil?

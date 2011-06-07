@@ -16,9 +16,8 @@ class CommunitiesController < ApplicationController
   end
 
   def show
-    @feed_item = FeedItem.new_for(:feed => @community, :user => current_user)
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { redirect_to(community_newsfeeds_path(params[:id])) }
       format.xml  { render :xml => @community }
     end
   end

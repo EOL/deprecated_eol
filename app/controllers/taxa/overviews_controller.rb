@@ -1,7 +1,5 @@
 class Taxa::OverviewsController < TaxaController
 
-  layout 'v2/taxa'
-
   def show
     return if ! prepare_taxon_concept || @taxon_concept.nil?
 

@@ -1,10 +1,14 @@
-- contents = @details.collect{|d| d if d[:toc_item].id == category.category_id}.compact
-- unless contents.empty?
-  %h4= category.label
-  - contents.each do |content|
-    - if content[:data_objects]
-      - content[:data_objects].each do |dato|
-        = render :partial => 'data_objects/data_object_text', :locals => { :data_object => dato, :show_category => false }
+- content.each do |item|
+  - if item[:data_objects]
+    - item[:data_objects].each do |dato|
+      .article
+        = render :partial => 'data_objects/data_object_text', :locals => { :data_object => dato }
+        = render :partial => 'data_objects/rating', :locals => { :data_object => dato }
+        .meta
+          %p= link_to I18n.t(:see_all_comments_with_count_for_text, :count => dato.all_comments.count), data_object_path(dato)
+          - # TODO: Should this link be visible if user is not a curator? Where does the link go?
+          %p= link_to I18n.t(:curate_this_text), '#'
         = render :partial => "feed_items/form", :locals => { :feed_item => FeedItem.new(:feed_id => dato.id, :feed_type => dato.class.name) }
-    - else
-      = render :partial => "taxa/content/content_#{content[:content_type]}", :locals => { :content => content } rescue nil
+  - else
+    .article
+      = render :partial => "taxa/content/content_#{item[:content_type]}", :locals => { :content => item } rescue nil

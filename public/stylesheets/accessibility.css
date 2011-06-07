@@ -11,8 +11,10 @@
 .join abbr {
   border: none; }
 
-body > #header h1 {
-  z-index: 100; }
+body > #header .section h1 {
+  z-index: 2; }
+body > #header .section .actions {
+  z-index: 5; }
 body > #header .section .session .join {
   float: right;
   text-align: right;
@@ -43,6 +45,25 @@ body > #header .section .session .join {
     margin-left: 10px;
     background: transparent url("/images/v2/icon_classification_arrow.png") 0 0 no-repeat; }
 
+#taxonomy_detail .article .description {
+  padding: 0 0 15px 0;
+  line-height: 170%; }
+#taxonomy_detail table {
+  margin: 20px 0;
+  width: 100%; }
+  #taxonomy_detail table caption {
+    padding: 10px;
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #666666; }
+  #taxonomy_detail table colgroup.count {
+    width: 20%; }
+  #taxonomy_detail table thead {
+    text-align: left; }
+    #taxonomy_detail table thead tr {
+      border-bottom: 1px solid #cccccc; }
+  #taxonomy_detail table .odd {
+    background-color: #eeeeee; }
+
 /*
  * TEMPORARY FIX: Forcing image sizes for V2 demo.
  */
@@ -53,6 +74,7 @@ body > #header .section .session .join {
     max-width: 430px;
     max-height: 310px; }
   #media_summary .image .attribution {
+    text-align: left;
     position: absolute;
     bottom: 0;
     left: 0; }
@@ -64,6 +86,10 @@ ul.feed li > a > img {
   height: 50px; }
 
 #collections_summary ul li > a > img, #communities_summary ul li > a > img, .collection_contributors ul li > a > img {
+  width: 50px;
+  height: 50px; }
+
+#collections .collections .article > .header > a > img {
   width: 50px;
   height: 50px; }
 

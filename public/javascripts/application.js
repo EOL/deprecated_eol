@@ -18,6 +18,25 @@ $(function() {
     });
 
   (function($ss) {
+    $ss.each(function() {
+      var $gallery = $(this),
+          thumbs = [];
+      $("<ul />", { "class": "thumbnails" }).insertBefore($gallery.find("p.all"));
+      $gallery.find(".image > img").each(function() {
+        var $e = $(this);
+        thumbs.push("<li><a href=\"#\"><img src=\"" +
+                    $e.attr("data-thumb") + "\" alt=\"" + $e.attr("alt") +
+                    "\" /></a></li>");
+      });
+      $gallery.find(".thumbnails").html(thumbs.join(""));
+      $gallery.find(".thumbnails li").eq(0).addClass("active");
+    });
+    $ss.find(".thumbnails").delegate("a", "click", function() {
+      var $e = $(this).closest("li");
+      $e.closest("ul").find(".active").removeClass("active");
+      $e.addClass("active");
+      return false;
+    });
     if ("cycle" in $.fn) {
       $ss.find(".images").cycle({
         speed: 500,
@@ -27,12 +46,6 @@ $(function() {
         }
       });
     }
-    $ss.find(".thumbnails a").click(function() {
-      var $e = $(this).closest("li");
-      $e.closest("ul").find(".active").removeClass("active");
-      $e.addClass("active");
-      return false;
-    });
   })($(".gallery"));
 
   (function($language) {

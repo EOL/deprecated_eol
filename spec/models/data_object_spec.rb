@@ -127,98 +127,98 @@ describe DataObject do
 #    @data_object.comments.length.should eql(comment_count + 2)
 #  end
 #
-#  it 'ratings should have a default rating of 2.5' do
-#    d = DataObject.new
-#    d.data_rating.should eql(2.5)
-#  end
-#
-#  it 'ratings should create new rating' do
-#    UsersDataObjectsRating.count.should eql(0)
-#
-#    d = DataObject.gen
-#    u = User.gen
-#    d.rate(u,5)
-#
-#    UsersDataObjectsRating.count.should eql(1)
-#    d.data_rating.should eql(5.0)
-#    r = UsersDataObjectsRating.find_by_user_id_and_data_object_guid(u.id, d.guid)
-#    r.rating.should eql(5)
-#  end
-#
-#  it 'ratings should generate average rating' do
-#    d = DataObject.gen
-#    u1 = User.gen
-#    u2 = User.gen
-#    d.rate(u1,4)
-#    d.rate(u2,2)
-#    d.data_rating.should eql(3.0)
-#  end
-#
-#  it "should be able to recalculate rating" do
-#    d = DataObject.gen
-#    u1 = User.gen
-#    u2 = User.gen
-#    d.data_rating.should == 2.5
-#    d.data_rating = 0
-#    d.save!
-#    d.data_rating.should == 0
-#    d.recalculate_rating
-#    d.data_rating.should == 2.5
-#    d.rate(u1, 4)
-#    d.rate(u2, 3)
-#    d.data_rating.should == 3.5
-#    d.data_rating = 0
-#    d.save!
-#    d.data_rating.should == 0
-#    d.recalculate_rating
-#    d.data_rating.should == 3.5
-#  end
-#
-#  it 'ratings should show rating for old and new version of re-harvested dato' do
-#    text_dato  = @taxon_concept.overview.last
-#    image_dato = @taxon_concept.images.last
-#
-#    text_dato.rate(@another_curator, 4)
-#    image_dato.rate(@another_curator, 4)
-#
-#    text_dato.data_rating.should eql(4.0)
-#    image_dato.data_rating.should eql(4.0)
-#
-#    new_text_dato  = DataObject.build_reharvested_dato(text_dato)
-#    new_image_dato = DataObject.build_reharvested_dato(image_dato)
-#
-#    new_text_dato.data_rating.should eql(4.0)
-#    new_image_dato.data_rating.should eql(4.0)
-#
-#    new_text_dato.rate(@another_curator, 2)
-#    new_image_dato.rate(@another_curator, 2)
-#
-#    new_text_dato.data_rating.should eql(2.0)
-#    new_image_dato.data_rating.should eql(2.0)
-#  end
-#
-#  it 'ratings should verify uniqueness of pair guid/user in users_data_objects_ratings' do
-#    UsersDataObjectsRating.count.should eql(0)
-#    d = DataObject.gen
-#    u = User.gen
-#    d.rate(u,5)
-#    UsersDataObjectsRating.count.should eql(1)
-#    d.rate(u,1)
-#    UsersDataObjectsRating.count.should eql(1)
-#  end
-#
-#  it 'ratings should update existing rating' do
-#    d = DataObject.gen
-#    u = User.gen
-#    d.rate(u,1)
-#    d.rate(u,5)
-#    d.data_rating.should eql(5.0)
-#    UsersDataObjectsRating.count.should eql(1)
-#    r = UsersDataObjectsRating.find_by_user_id_and_data_object_guid(u.id, d.guid)
-#    r.rating.should eql(5)
-#  end
-#
-#
+ it 'ratings should have a default rating of 2.5' do
+   d = DataObject.new
+   d.data_rating.should eql(2.5)
+ end
+
+ it 'ratings should create new rating' do
+   UsersDataObjectsRating.count.should eql(0)
+
+   d = DataObject.gen
+   u = User.gen
+   d.rate(u,5)
+
+   UsersDataObjectsRating.count.should eql(1)
+   d.data_rating.should eql(5.0)
+   r = UsersDataObjectsRating.find_by_user_id_and_data_object_guid(u.id, d.guid)
+   r.rating.should eql(5)
+ end
+
+ it 'ratings should generate average rating' do
+   d = DataObject.gen
+   u1 = User.gen
+   u2 = User.gen
+   d.rate(u1,4)
+   d.rate(u2,2)
+   d.data_rating.should eql(3.0)
+ end
+
+ it "should be able to recalculate rating" do
+   d = DataObject.gen
+   u1 = User.gen
+   u2 = User.gen
+   d.data_rating.should == 2.5
+   d.data_rating = 0
+   d.save!
+   d.data_rating.should == 0
+   d.recalculate_rating
+   d.data_rating.should == 2.5
+   d.rate(u1, 4)
+   d.rate(u2, 3)
+   d.data_rating.should == 3.5
+   d.data_rating = 0
+   d.save!
+   d.data_rating.should == 0
+   d.recalculate_rating
+   d.data_rating.should == 3.5
+ end
+
+ it 'ratings should show rating for old and new version of re-harvested dato' do
+   text_dato  = @taxon_concept.overview.last
+   image_dato = @taxon_concept.images.last
+
+   text_dato.rate(@another_curator, 4)
+   image_dato.rate(@another_curator, 4)
+
+   text_dato.data_rating.should eql(4.0)
+   image_dato.data_rating.should eql(4.0)
+
+   new_text_dato  = DataObject.build_reharvested_dato(text_dato)
+   new_image_dato = DataObject.build_reharvested_dato(image_dato)
+
+   new_text_dato.data_rating.should eql(4.0)
+   new_image_dato.data_rating.should eql(4.0)
+
+   new_text_dato.rate(@another_curator, 2)
+   new_image_dato.rate(@another_curator, 2)
+
+   new_text_dato.data_rating.should eql(2.0)
+   new_image_dato.data_rating.should eql(2.0)
+ end
+
+ it 'ratings should verify uniqueness of pair guid/user in users_data_objects_ratings' do
+   UsersDataObjectsRating.count.should eql(0)
+   d = DataObject.gen
+   u = User.gen
+   d.rate(u,5)
+   UsersDataObjectsRating.count.should eql(1)
+   d.rate(u,1)
+   UsersDataObjectsRating.count.should eql(1)
+ end
+
+ it 'ratings should update existing rating' do
+   d = DataObject.gen
+   u = User.gen
+   d.rate(u,1)
+   d.rate(u,5)
+   d.data_rating.should eql(5.0)
+   UsersDataObjectsRating.count.should eql(1)
+   r = UsersDataObjectsRating.find_by_user_id_and_data_object_guid(u.id, d.guid)
+   r.rating.should eql(5)
+ end
+
+
 #  # TODO - DataObject.search_by_tag needs testing, but comments in the file suggest it will be changed significantly.
 #  # TODO - DataObject.search_by_tags needs testing, but comments in the file suggest it will be changed significantly.
 #
@@ -591,7 +591,7 @@ describe DataObject do
   it 'should trust associations added by curators' do
     cdohe = CuratedDataObjectsHierarchyEntry.find_by_hierarchy_entry_id_and_data_object_id(@hierarchy_entry.id,
                                                                                            @image_dato.id)
-    cdohe.vetted.should == Vetted.trusted
+    cdohe.trusted?.should eql(true)
   end
 
   it 'should remove the entry in curated_data_objects_hierarchy_entries when a curator removes their association' do
@@ -603,6 +603,10 @@ describe DataObject do
                                                                                            @image_dato.id)
     cdohe.should == nil
   end
+
+  it '#untrust_reasons should return the untrust reasons'
+
+  it '#curate_association should curate given association'
 
   it '#published_entries should read data_objects_hierarchy_entries' do
     @data_object.should_receive(:hierarchy_entries).and_return([])

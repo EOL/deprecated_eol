@@ -4,169 +4,162 @@
             xsi:schemaLocation="http://ipt.gbif.org/extension/ http://gbrds.gbif.org/resources/schemas/extension.xsd"
             title="EOL Media Extension 1.0"
             name="EOL Media Extension 1.0"
-            namespace="http://www.eol.org/schema/media/1.0/">
+            namespace="http://www.eol.org/schema/transfer#">
 
     <property name="mediaResourceID"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/identifier"
+              namespace="http://www.eol.org/schema/transfer#"
+              qualName="http://www.eol.org/schema/transfer#mediaResourceID"
               required="true"/>
 
     <property name="type"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/type"
+              namespace="http://www.eol.org/schema/transfer#"
+              qualName="http://www.eol.org/schema/transfer#type"
               thesaurus="http://purl.org/dc/dcmitype/"
               required="true"/>
 
     <!-- mrtg:subtype -->
     <property name="subtype"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/type"/>
+              namespace="http://www.eol.org/schema/transfer#"
+              qualName="http://www.eol.org/schema/transfer#subtype"/>
 
     <property name="title"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/title"/>
+              namespace="http://www.eol.org/schema/transfer#"
+              qualName="http://www.eol.org/schema/transfer#title"/>
+
+    <property name="mimeType"
+              namespace="http://www.eol.org/schema/transfer#"
+              qualName="http://www.eol.org/schema/transfer#mimeType"/>
 
     <!-- mrtg:accessURL -->
-    <property name="mediaURL"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/source"/>
+    <property name="fileURL"
+              namespace="http://www.eol.org/schema/transfer#"
+              qualName="http://www.eol.org/schema/transfer#fileURL"/>
 
     <!-- mrtg:variant / AccessPoint -->
     <property name="thumbnailURL"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/source"/>
+              namespace="http://www.eol.org/schema/transfer#"
+              qualName="http://www.eol.org/schema/transfer#thumbnailURL"/>
 
     <!-- mrtg:furtherInformationURL, eol:source -->
-    <property name="furtherInformationURL"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/source"/>
+    <property name="additionalInformationURL"
+              namespace="http://www.eol.org/schema/transfer#"
+              qualName="http://www.eol.org/schema/transfer#additionalInformationURL"/>
 
     <!-- xmp:CreateDate -->
     <property name="created"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/created"/>
+              namespace="http://www.eol.org/schema/transfer#"
+              qualName="http://www.eol.org/schema/transfer#created"/>
 
     <property name="modified"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/modified"/>
+              namespace="http://www.eol.org/schema/transfer#"
+              qualName="http://www.eol.org/schema/transfer#modified"/>
 
     <!-- mrtg:date vailable -->
     <property name="available"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/available"/>
+              namespace="http://www.eol.org/schema/transfer#"
+              qualName="http://www.eol.org/schema/transfer#available"/>
 
     <!-- mrtg:language -->
     <property name="language"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/language"
+              namespace="http://www.eol.org/schema/transfer#"
+              qualName="http://www.eol.org/schema/transfer#language"
               thesaurus="http://www.loc.gov/standards/iso639-2/langhome.html"/>
 
     <!-- mrtg:metadataLanguage -->
     <property name="metadataLanguage"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/language"
+              namespace="http://www.eol.org/schema/transfer#"
+              qualName="http://www.eol.org/schema/transfer#metadataLanguage"
               thesaurus="http://www.loc.gov/standards/iso639-2/langhome.html"/>
 
     <!-- mrtg:providerManagedID -->
-    <property name="providerManagedID"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/identifier"/>
+    <property name="providerManagedIdentifier"
+              namespace="http://www.eol.org/schema/transfer#"
+              qualName="http://www.eol.org/schema/transfer#providerManagedIdentifier"/>
 
     <!-- http://partners.adobe.com/public/developer/en/xmp/sdk/XMPspecification.pdf -->
     <!-- A rating of the media resources, provided by users or editors, with -1 defining 'rejected', '0' defining 'unrated', and '1' (worst) to '5' (best). -->
     <property name="rating"
-              namespace="http://ns.adobe.com/xap/1.0/"
-              qualName="http://ns.adobe.com/xap/1.0/rating"/>
+              namespace="http://www.eol.org/schema/transfer#"
+              qualName="http://www.eol.org/schema/transfer#rating"/>
 
     <!-- mrtg:licenseURL -->
     <property name="license"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/license"
+              namespace="http://www.eol.org/schema/transfer#"
+              qualName="http://www.eol.org/schema/transfer#license"
               thesaurus="http://creativecommons.org/licenses/"
               required="true"/>
 
     <!-- mrtg:copyright statement -->
     <property name="rights"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/rights"
+              namespace="http://www.eol.org/schema/transfer#"
+              qualName="http://www.eol.org/schema/transfer#rights"
               required="true"/>
 
     <!-- mrtg:copyright owner -->
     <property name="rightsHolder"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/rightsHolder"
+              namespace="http://www.eol.org/schema/transfer#"
+              qualName="http://www.eol.org/schema/transfer#rightsHolder"
               required="true"/>
 
     <property name="bibliographicCitation"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/bibliographicCitation"/>
+              namespace="http://www.eol.org/schema/transfer#"
+              qualName="http://www.eol.org/schema/transfer#bibliographicCitation"/>
 
     <property name="audience"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/audience"/>
+              namespace="http://www.eol.org/schema/transfer#"
+              qualName="http://www.eol.org/schema/transfer#audience"/>
 
     <!-- SPM or EOL -->
     <property name="subject"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/subject"/>
+              namespace="http://www.eol.org/schema/transfer#"
+              qualName="http://www.eol.org/schema/transfer#subject"/>
 
     <property name="publisher"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/publisher"/>
+              namespace="http://www.eol.org/schema/transfer#"
+              qualName="http://www.eol.org/schema/transfer#publisher"/>
 
     <property name="contributor"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/contributor"/>
+              namespace="http://www.eol.org/schema/transfer#"
+              qualName="http://www.eol.org/schema/transfer#contributor"/>
 
     <property name="creator"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/creator"/>
-
-    <property name="provider"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/publisher"/>
+              namespace="http://www.eol.org/schema/transfer#"
+              qualName="http://www.eol.org/schema/transfer#creator"/>
 
     <!-- mrtg:description -->
     <property name="description"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/description"/>
+              namespace="http://www.eol.org/schema/transfer#"
+              qualName="http://www.eol.org/schema/transfer#description"/>
 
-    <!-- mrtg:caption -->
-    <!-- do we need both caption and description? -->
-    <property name="caption"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/description"/>
-
-    <!-- mrtg:description -->
     <property name="locality"
-              namespace="http://rs.tdwg.org/dwc/terms/"
-              qualName="http://rs.tdwg.org/dwc/terms/locality"/>
+              namespace="http://www.eol.org/schema/transfer#"
+              qualName="http://www.eol.org/schema/transfer#locality"/>
 
     <property name="latitude"
-              namespace="http://www.w3.org/2003/01/geo/wgs84_pos#"
-              qualName="http://www.w3.org/2003/01/geo/wgs84_pos#lat"/>
+              namespace="http://www.eol.org/schema/transfer#"
+              qualName="http://www.eol.org/schema/transfer#latitude"/>
 
     <property name="longitude"
-              namespace="http://www.w3.org/2003/01/geo/wgs84_pos#"
-              qualName="http://www.w3.org/2003/01/geo/wgs84_pos#long"/>
+              namespace="http://www.eol.org/schema/transfer#"
+              qualName="http://www.eol.org/schema/transfer#longitude"/>
 
     <property name="altitude"
-              namespace="http://www.w3.org/2003/01/geo/wgs84_pos#"
-              qualName="http://www.w3.org/2003/01/geo/wgs84_pos#alt"/>
+              namespace="http://www.eol.org/schema/transfer#"
+              qualName="http://www.eol.org/schema/transfer#altitude"/>
 
     <property name="reference"
-              namespace="http://www.eol.org/transfer/content/0.3/"
-              qualName="http://www.eol.org/transfer/content/0.3/reference"/>
+              namespace="http://www.eol.org/schema/reference#"
+              qualName="http://www.eol.org/schema/reference#fullReference"/>
 
     <property name="referenceDOI"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/identifier"/>
+              namespace="http://www.eol.org/schema/reference#"
+              qualName="http://www.eol.org/schema/reference#doi"/>
 
     <property name="referenceURL"
-              namespace="http://purl.org/dc/terms/"
-              qualName="http://purl.org/dc/terms/source"/>
+              namespace="http://www.eol.org/schema/reference#"
+              qualName="http://www.eol.org/schema/reference#uri"/>
 
     <property name="taxonID"
               namespace="http://rs.tdwg.org/dwc/terms/"
-              qualName="http://rs.tdwg.org/dwc/terms/taxonID"/>
+              qualName="http://rs.tdwg.org/dwc/terms/relatedResourceID"/>
 </extension>

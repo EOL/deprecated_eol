@@ -1,0 +1,240 @@
+@import "mixins"
+
+body
+  font: normal 12px Helvetica, Arial, sans-serif
+  color: #394651
+  border-top: 32px solid #28323a
+  direction: rtl    
+body, html
+  background: #394651
+
+a
+  color: #195184
+
+.site_column
+  width: 940px
+  padding: 0 0 0 10px
+  margin: 0 auto
+
+body
+  > #header
+    a
+      color: #ffffff
+    h1
+      position: absolute
+      right: 0
+      top: 20px
+      z-index: 1
+      a
+        display: block
+        width: 125px
+        height: 78px
+        text-indent: -8685px
+        text-decoration: none
+        overflow: hidden
+        background: transparent url("/images/v2/logo.png") 0 0 no-repeat
+    .section
+      position: relative
+      @extend .site_column
+      ul.nav
+        position: absolute
+        left: 0
+        top: -25px
+        z-index: 1
+        li
+          display: inline
+          padding: 0 7px 0 0 
+          text-transform: uppercase
+          &:before
+            padding: 0 0 0 7px
+            font-size: 1.33em
+            vertical-align: -2px
+            content: "•"
+            list-style: disc
+            color: #4c5155
+          &:first-of-type
+            &:before
+              display: none
+          a
+            text-decoration: none
+      .actions
+        position: absolute
+        right: 0
+        top: -27px
+        z-index: 1
+        font-size: .92em
+        text-transform: uppercase
+        a
+          display: block
+          text-decoration: none
+        p
+          padding: 1px
+          border: 1px solid #444749
+          a
+            padding: 1px 18px 1px 5px
+            span
+              display: block
+              padding: 0 5px 0 0 
+              border-right: 1px solid #444749
+          &.print
+            float: right
+            a
+              background: transparent url("/images/v2/icon_paper.png") 111px 2px no-repeat
+        .language
+          float: right
+          position: relative
+          margin: 0 0 0 10px
+          a
+            background: transparent url("/images/v2/icon_dropdown.png") 98px 6px no-repeat
+          ul
+            display: none
+            position: absolute
+            right: 0
+            top: 100%
+            z-index: 5
+            width: 100%
+            background: #0a0f13
+            li
+              padding: 2px 5px
+              border: 1px solid #444749
+              border-top: none
+            a
+              background: transparent
+    form
+      position: relative
+      z-index: 2
+      width: 268px
+      margin: 0 auto
+      padding: 43px 0 0 0
+      label
+        position: absolute
+        right: -9999px
+      .text
+        float: right
+        margin: 0 0 0 10px
+        +border-radius(180px)
+        +gradient-bg(#ccd2d7, #fefeff)
+      input[type="text"]
+        width: 175px
+        height: 18px
+        padding: 6px 38px 6px 5px
+        font-size: 1.16em
+        line-height: 140%
+        color: #394651
+        outline: none
+        border: none
+        background: transparent url("/images/v2/icon_search.png") 190px 50% no-repeat
+      input[type="submit"]
+        float: right
+        min-width: 30px
+        min-height: 30px
+        overflow: visible
+        font-size: .83em
+        line-height: 28px
+        font-weight: bold
+        text-transform: uppercase
+        border: none
+        +border-radius(180px)
+        +gradient-bg(#fefeff, #ccd2d7)
+        &:hover
+          +gradient_bg(saturate(#fefeff + #111111, 10%), saturate(#ccd2d7 + #111111, 10%))
+        &:active
+          +gradient-bg(#fefeff, #ccd2d7)
+  > #footer
+    overflow: hidden
+    padding: 20px 0 30px 0
+    background: #394651
+    .section
+      @extend .site_column
+    .copyright
+      float: right
+      h6
+        padding: 0 0 5px 0
+        a
+          display: block
+          width: 41px
+          height: 18px
+          text-indent: -8685px
+          text-decoration: none
+          overflow: hidden
+          background: transparent url("/images/v2/logo_footer.png") 0 0 no-repeat
+      p
+        font-size: .83em
+        font-weight: bold
+        color: #6f7e8b
+    ul.nav
+      float: left
+      margin: 0 0 20px 0
+      li
+        display: inline
+        padding: 0 7px 0 0 
+        text-transform: uppercase
+        &:before
+          padding: 0 0 0 7px
+          font-size: 1.33em
+          vertical-align: -2px
+          content: "•"
+          list-style: disc
+          color: #6f7e8b
+        &:first-of-type
+          &:before
+            display: none
+        a
+          color: #ffffff
+          text-decoration: none
+    ul.social_media
+      clear: both
+      float: left
+      li
+        float: right
+        padding: 0 10px 0 0 
+        a
+          display: block
+          width: 25px
+          height: 25px
+          text-indent: -8685px
+          text-decoration: none
+          overflow: hidden
+          background: transparent url("/images/v2/icon_social-media.png") 0 0 no-repeat
+          &.rss
+            background-position: 0 100%
+
+
+.thumbnails
+  padding: 10px 0 0 0
+  background: transparent url("/images/v2/bg_thumbnails.png") 0 0 repeat-x
+  ul
+    position: relative
+    top: 1px
+    z-index: 2
+    @extend .site_column
+    li
+      position: relative
+      float: right
+      padding: 0 0 10px 0
+      margin: 0 0 0 20px
+      img
+        display: block
+        padding: 5px
+        background: transparent url("/images/v2/bg_home_thumbnails.png") repeat
+        background: rgba(255, 255, 255, .4)
+      &.last
+        margin: 0
+      &:hover
+        background: transparent url("/images/v2/icon_home-thumb_active.png") 50% 100% no-repeat
+        img
+          background: rgba(255, 255, 255, .6)
+  .term
+    clear: both
+    position: relative
+    z-index: 1
+    padding: 2px 0
+    border-top: 1px solid #ffffff
+    border-bottom: 1px solid #93a4b0
+    background: #e5e8eb
+    .site_column
+      width: 960px
+      padding: 0
+    p
+      font-weight: bold
+      color: #28323a

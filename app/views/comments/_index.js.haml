@@ -1,5 +1,7 @@
 - add_wrapper ||= false
 - outer_div_options = add_wrapper ? { :id => 'taxaCommentsWrap' } : {}
+- body_div_name = 'taxa-comments-wrapper' unless outer_div_options.blank?
 %div{outer_div_options}
   #commentsContain
-    = render :partial => 'index_contents.js', :locals => { :body_div_name => body_div_name }
+    .commentWrap{ :id => body_div_name }
+      = render :partial => 'index_contents.js', :locals => { :body_div_name => body_div_name }

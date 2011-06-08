@@ -23,7 +23,7 @@ class CommentsController < ApplicationController
 
     response_for :create do |format|
       format.js do
-        replace_div = params[:body_div_name].blank? ? 'commentsContain' : params[:body_div_name]
+        replace_div = params[:body_div_name].blank? ? 'image-comments-wrapper' : params[:body_div_name]
         begin
           params[:page] = (parent_object.visible_comments(current_user).length.to_f / Comment.per_page.to_f).ceil
           params[:page] = 1 if params[:page] <= 0
@@ -51,7 +51,7 @@ class CommentsController < ApplicationController
         render :partial => (params[:page].blank? || params[:body_div_name].start_with?('text')) ? 'index.js' : 'index_contents.js',
                :locals => {
                  :add_wrapper => !params[:tab].blank?,
-                 :body_div_name => params[:body_div_name].blank? ? 'commentsContain' : params[:body_div_name]
+                 :body_div_name => params[:body_div_name].blank? ? 'image-comments-wrapper' : params[:body_div_name]
                }
       }
     end

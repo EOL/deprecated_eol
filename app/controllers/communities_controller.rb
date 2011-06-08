@@ -17,7 +17,7 @@ class CommunitiesController < ApplicationController
 
   def show
     respond_to do |format|
-      format.html { redirect_to(community_newsfeeds_path(params[:id])) }
+      format.html { redirect_to(community_newsfeed_path(params[:id] || params[:community_id])) }
       format.xml  { render :xml => @community }
     end
   end

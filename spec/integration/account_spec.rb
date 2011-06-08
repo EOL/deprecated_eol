@@ -58,35 +58,35 @@ describe 'Account Pages' do
 
   it_should_behave_like "all accounts"
 
-  it "should show account page" do
-    _account_show_path = "/users/#{@user.id}"
-    visit(_account_show_path)
-    current_path.should == _account_show_path
-  end
+  it "should show account page"
+#    _account_show_path = "/users/#{@user.id}"
+#    visit(_account_show_path)
+#    current_path.should == _account_show_path
 
-  it 'should allow bold font style in credentials text on account page' do
-    @body.should have_tag('div#credentials b')
-  end
 
-  it 'should allow hyperlinks in credentials text on account page' do
-    @body.should have_tag('a[href="linky"]')
-  end
+  it 'should allow bold font style in credentials text on account page'
+    #@body.should have_tag('div#credentials b')
 
-  it 'should allow line breaks in credentials text on account page' do
-    @body.should have_tag('div#credentials br')
-  end
 
-  it 'should not allow dynamic script in credentials text on account page' do
-    @body.should_not have_tag('script', :text => 'alert("hi");')
-  end
+  it 'should allow hyperlinks in credentials text on account page'
+    #@body.should have_tag('a[href="linky"]')
+
+
+  it 'should allow line breaks in credentials text on account page'
+    #@body.should have_tag('div#credentials br')
+
+
+  it 'should not allow dynamic script in credentials text on account page'
+    #@body.should_not have_tag('script', :text => 'alert("hi");')
+
 
   it 'should show the number of data objects curated with hyperlink on account page'
   #   @body.should have_tag('div#activity') do
   #     with_tag('a', :attributes => { :href => @show_datos_curated_path }, :text => @total_datos_curated)
   #   end
   # end
-  # 
-  # 
+  #
+  #
   it 'should strip most html tags from descriptions on the show objects curated page'
   #   @objects_curated_body.should have_tag('td.description')
   #   @objects_curated_body.should_not have_tag('td.description script')
@@ -104,7 +104,7 @@ describe 'Account Pages' do
   it 'should show data object permalinks on the show objects curated page'
   #   @objects_curated_body.should have_tag('td.description a', :attributes => { :href => @permalink_path }, :text => "Permalink")
   # end
-  # 
+  #
   it 'should show scientific names with hyperlinks on the show objects curated page'
   #   @objects_curated_body.should have_tag('table#show_objects_curated a', :attributes => { :href => @taxon_page_path }) do
   #     with_tag('i', :text => @taxon_concept.hierarchy_entries.first.name[:canonical])

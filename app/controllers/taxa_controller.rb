@@ -25,6 +25,14 @@ class TaxaController < ApplicationController
     end
   end
 
+  def show
+    if this_request_is_really_a_search
+      do_the_search
+      return
+    end
+    return redirect_to(taxon_overview_path(params[:id]))
+  end
+
   # TODO: Move search to its own controller?
   def search
     # remove colon from query, because it reserved for fields separation
@@ -77,26 +85,6 @@ class TaxaController < ApplicationController
       raise "TaxonConcept not found" if tc.nil?
       raise "Page not accessible" unless accessible_page?(tc)
     end
-  end
-
-  def prepare_taxon_concept
-    @taxon_concept = find_taxon_concept || return
-    return if taxon_concept_invalid?(@taxon_concept)
-    redirect_to taxon_concept_path(@taxon_concept, params.merge(:status => :moved_permanently).
-        except(:controller, :action, :id, :taxon_id)) and return false if @taxon_concept.superceded_the_requested_id?
-    # Otherwise we're good to go so we perform some additional functions common to all tabs and return true
-    add_page_view_log_entry
-    update_user_content_level
-    true
-  end
-
-  def show
-    if this_request_is_really_a_search
-      do_the_search
-      return
-    end
-    return redirect_to(taxon_overviews_path(params[:id]))
-
   end
 
   def classification_attribution
@@ -412,6 +400,17 @@ class TaxaController < ApplicationController
 
 private
 
+  def instantiate_taxon_concept
+    @taxon_concept = find_taxon_concept
+  end
+
+  def redirect_if_invalid
+    redirect_to_missing_page_on_error do
+      raise "TaxonConcept not found" if @taxon_concept.nil?
+      raise "Page not accessible" unless accessible_page?(@taxon_concept)
+    end
+  end
+
   def get_content_variables(options = {})
     @content = @taxon_concept.content_by_category(@category_id, :current_user => current_user)
     @whats_this = WhatsThis.get_url_for_name(@content[:category_name])
@@ -450,8 +449,6 @@ private
     videos = @taxon_concept.video_data_objects(:unvetted => true) unless @default_videos.blank?
     return videos
   end
-
-
 
   def redirect_to_missing_page_on_error(&block)
     begin

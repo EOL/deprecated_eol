@@ -19,6 +19,7 @@ describe 'User Profile' do
     @user.feed.post @feed_body_1 = "Something"
     @user.feed.post @feed_body_2 = "Something Else"
     @user.feed.post @feed_body_3 = "Something More"
+    @watch_collection = @user.collections.find_by_special_collection_id(SpecialCollection.find_by_name('Watch').id)
   end
 
   after(:each) do
@@ -42,15 +43,11 @@ describe 'User Profile' do
     body.should include("Your key is")
   end
 
-  describe '#show' do
+  describe 'newsfeed' do
 
     before(:each) do
-      visit(user_path(@user))
+      visit(user_newsfeed_path(@user))
     end
-
-    it 'should show their "like" list'
-
-    it 'should show all of their specific lists'
 
     it 'should show their feed' do
       page.body.should have_tag('#feed_items') do
@@ -66,6 +63,15 @@ describe 'User Profile' do
       page.body.should have_tag('#feed_items', :text => /no activity/i)
     end
 
+  end
+
+  describe 'collections' do
+    before(:each) do
+      visit(user_collections_path(@user))
+    end
+    it 'should show their watch collection' do
+      page.body.should have_tag('#collections', /#{@watch_collection.name}/)
+    end
   end
 
 end

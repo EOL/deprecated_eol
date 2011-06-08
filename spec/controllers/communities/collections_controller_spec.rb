@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
-def do_show
-  get :show, :community_id => @collections[:community].id.to_i
+def do_index
+  get :index, :community_id => @collections[:community].id.to_i
 end
 
 describe Communities::CollectionsController do
@@ -14,11 +14,13 @@ describe Communities::CollectionsController do
 
   describe 'GET show' do
 
-    it "should load the community instance through the communities controller" do
+    it "should instantiate the community" do
       do_show
       assigns[:community].should be_a(Community)
     end
 
+    it "should load a community's focus collection"
+    it "should load a community's endorsed collections"
   end
 
 end

@@ -1,21 +1,16 @@
 class UsersController < ApplicationController
 
-  layout 'main'
-  @@objects_per_page = 20
-  
-  def show
-    @user = User.find(params[:id])
-    @feed_item = FeedItem.new(:feed_id => @user.id, :feed_type => @user.class.name)
+  before_filter :instantiate_user
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @user }
-    end
+  layout 'v2/users'
+  @@objects_per_page = 20
+
+  def show
+    redirect_to user_newsfeed_path(params[:id] || params[:user_id])
   end
-  
+
   def objects_curated
     page = (params[:page] || 1).to_i
-    @user = User.find(params[:id])
     current_user.log_activity(:show_objects_curated_by_user_id, :value => params[:id])
     @latest_curator_actions = @user.actions_histories_on_data_objects.paginate_all_by_action_with_object_id(
                                 ActionWithObject.raw_curator_action_ids,
@@ -72,20 +67,22 @@ class UsersController < ApplicationController
 
     end
   end
-  
+
   def species_curated
     page = (params[:page] || 1).to_i
-    @user = User.find(params[:id])
     current_user.log_activity(:show_species_curated_by_user_id, :value => params[:id])
     @taxon_concept_ids = @user.taxon_concept_ids_curated.paginate(:page => page, :per_page => @@objects_per_page)
   end
 
   def comments_moderated
     page = (params[:page] || 1).to_i
-    @user = User.find(params[:id])
     current_user.log_activity(:show_species_comments_moderated_by_user_id, :value => params[:id])
     comment_curation_actions = @user.comment_curation_actions
     @comment_curation_actions = comment_curation_actions.paginate(:page => page, :per_page => @@objects_per_page)
   end
 
+private
+  def instantiate_user
+    @user = User.find(params[:id] || params[:user_id])
+  end
 end

@@ -16,15 +16,16 @@
     = data_object.description.balance_tags
   - if show_references && ! data_object.refs.blank?
     .references
-      - if defined? $REFERENCE_PARSING_ENABLED
-        - ref_class = 'biblio-entry' if $REFERENCE_PARSING_ENABLED
-      - else
-        - parameter = SiteConfigurationOption.find_by_parameter('reference_parsing_enabled')
-        - ref_class = 'biblio-entry' if parameter && parameter.value == 'true'
-      - data_object.published_refs.each do |ref|
-        %li{:class => ref_class, :ref_id => ref.id}
-          = ref.full_reference.balance_tags
-          - ref.ref_identifiers.each do |identifier|
-            - next unless identifier.display?
-            &emsp;
-            = external_link_to(identifier.identifier, identifier.link_to_identifier)
+      %ul
+        - if defined? $REFERENCE_PARSING_ENABLED
+          - ref_class = 'biblio-entry' if $REFERENCE_PARSING_ENABLED
+        - else
+          - parameter = SiteConfigurationOption.find_by_parameter('reference_parsing_enabled')
+          - ref_class = 'biblio-entry' if parameter && parameter.value == 'true'
+        - data_object.published_refs.each do |ref|
+          %li{:class => ref_class, :ref_id => ref.id}
+            = ref.full_reference.balance_tags
+            - ref.ref_identifiers.each do |identifier|
+              - next unless identifier.display?
+              &emsp;
+              = external_link_to(identifier.identifier, identifier.link_to_identifier)

@@ -10,8 +10,9 @@ ActionController::Routing::Routes.draw do |map|
   # Communities nested resources
   # TODO - these member methods want to be :put. Capybara, however, always uses :get, so in the interests of simple tests:
   map.resources :communities, :has_many => [:members, :roles], :member => { 'join' => :get, 'leave' => :get } do |community|
-    community.resource :newsfeeds, :only => [:show], :controller => "/communities/newsfeeds"
-    community.resource :collections, :only => [:show], :controller => "/communities/collections"
+    community.resource :newsfeed, :only => [:show], :controller => "communities/newsfeeds"
+    community.resources :collections, :only => [:index], :controller => "communities/collections"
+    community.resources :collections, :except => [:index]
   end
   map.resources :members, :member => {
     'grant_privilege_to' => :post, 'revoke_privilege_from' => :delete,
@@ -49,15 +50,16 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect 'boom', :controller => 'content', :action => 'error'
 
+  map.resources :users do |user|
+    user.resource :newsfeed, :only => [:show], :controller => "users/newsfeeds"
+    user.resource :activity, :only => [:show], :controller => "users/activities"
+    user.resources :collections, :only => [:index], :controller => "users/collections"
+    user.resources :collections, :except => [:index]
+  end
+
   map.reset_specific_users_password 'account/reset_specific_users_password',
                                     :controller => 'account',
                                     :action => 'reset_specific_users_password'
-
-  map.resources :users, :has_many => [:collections]
-  map.resource :account, :controller => 'account', :only => [:show] do |acc|
-    acc.resource :newsfeeds, :only => [:show], :controller => "account/newsfeeds"
-    acc.resource :collections, :only => [:show], :controller => "account/collections"
-  end
   # TODO - I don't like this.  Why don't we just use restful routes here with the 'users' above?
   # WIP - I have created a users conrtroller.  These should move there.
   map.with_options(:controller => 'account') do |account|
@@ -70,7 +72,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # Taxa nested resources with pages as alias
   map.resources :taxa, :as => :pages do |taxa|
-    taxa.resource :overviews, :only => [:show], :controller => "/taxa/overviews"
+    taxa.resource :overview, :only => [:show], :controller => "/taxa/overviews"
     taxa.resource :media, :only => [:show], :controller => "/taxa/media"
     taxa.resource :details, :only => [:show], :controller => "/taxa/details"
   end

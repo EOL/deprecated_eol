@@ -9,7 +9,7 @@
   %ul
     - # FIXME: These counts need to be proper, and only shown if count > 0
     - if collection.taxa.count > 0
-      %li.taxa= link_to I18n.t(:taxa_with_count, :count => @community.focus.taxa.count), "/placeholder"
+      %li.taxa= link_to I18n.t(:taxa_with_count, :count => collection.taxa.count), "/placeholder"
     - if 23 > 0
       %li.images= link_to I18n.t(:images_with_count, :count => 23), "/placeholder"
     - if 3 > 0

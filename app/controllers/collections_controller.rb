@@ -2,6 +2,7 @@
 #
 # You could come here looking at a Community's Collection.
 # You could come here looking at a (specified) User's Collection. (index and show only)
+#     UPDATE: user collections index is now in users/collections
 # And you could come here without either of those (implying the current_user's Collection).
 class CollectionsController < ApplicationController
 

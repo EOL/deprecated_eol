@@ -11,7 +11,7 @@ class TaxonConcept
   end
 end
 
-describe 'Taxa overview' do
+describe 'Taxa page' do
 
   before(:all) do
     # so this part of the before :all runs only once
@@ -26,7 +26,7 @@ describe 'Taxa overview' do
 
   end
 
-  context 'when taxon has all expected data' do
+  context 'overview when taxon has all expected data' do
     before(:all) { visit("pages/#{@testy[:id]}") }
     subject { body }
     # WARNING: Regarding use of subject, if you are using with_tag you must specify body.should... due to bug.
@@ -64,40 +64,6 @@ describe 'Taxa overview' do
       should have_tag('h3', @testy[:brief_summary].label)
     end
 
-# TODO: Move reference tests to taxa detail spec - references will not be shown on overview page.
-#    it 'should show overview text references' do
-#      should have_tag('div#text_summary_container div.references_container li',
-#        /A published visible reference for testing./)
-#    end
-#    it 'should show doi identifiers for references' do
-#      body.should have_tag('div#text_summary_container div.references_container li',
-#        /A published visible reference with a DOI identifier for testing./) do
-#        with_tag('a', /dx\.doi\.org/)
-#      end
-#    end
-#    it 'should show url identifiers for references' do
-#      body.should have_tag('div#text_summary_container div.references_container li',
-#        /A published visible reference with a URL identifier for testing./) do
-#        with_tag('a', /url\.html/)
-#      end
-#    end
-#    it 'should not show invalid identifiers for references' do
-#      body.should have_tag('div#text_summary_container div.references_container li',
-#        /A published visible reference with an invalid identifier for testing./) do
-#        without_tag('a', /invalid identifier/)
-#      end
-#    end
-#    it 'should not show invisible references' do
-#      should_not have_tag('div#text_summary_container div.references_container li',
-#        /A published invisible reference for testing./)
-#    end
-#    it 'should not show unpublished references' do
-#      should_not have_tag('div#text_summary_container div.references_container li',
-#        /An unpublished visible reference for testing./)
-#    end
-#
-#    it 'should not show references container if references do not exist'
-
     it 'should show classifications'
     it 'should show collections'
     it 'should show communities'
@@ -111,6 +77,41 @@ describe 'Taxa overview' do
     it 'should show curators' do
       body.should have_tag('div#curators_summary') do
         with_tag('.details h4', @testy[:curator].given_name)
+      end
+    end
+  end
+
+  context 'details when taxon has all expected data' do
+    before(:all) { visit("pages/#{@testy[:id]}/details") }
+    subject { body }
+    it 'should show text references' do
+      should have_tag('.references', /A published visible reference for testing./)
+    end
+    it 'should show doi identifiers for references' do
+      body.should have_tag('.references', /A published visible reference with a DOI identifier for testing./) do
+        with_tag('a', /dx\.doi\.org/)
+      end
+    end
+    it 'should show url identifiers for references' do
+      body.should have_tag('.references', /A published visible reference with a URL identifier for testing./) do
+        with_tag('a', /url\.html/)
+      end
+    end
+    it 'should not show invalid identifiers for references' do
+      body.should have_tag('.references', /A published visible reference with an invalid identifier for testing./) do
+        without_tag('a', /invalid identifier/)
+      end
+    end
+    it 'should not show invisible references' do
+      should_not have_tag('.references', /A published invisible reference for testing./)
+    end
+    it 'should not show unpublished references' do
+      should_not have_tag('.references', /An unpublished visible reference for testing./)
+    end
+
+    it 'should not show references container if references do not exist' do
+      body.should have_tag('.section .article:nth-child(3)', /brief summary/) do
+        without_tag('.references')
       end
     end
   end
@@ -130,17 +131,19 @@ describe 'Taxa overview' do
   end
 
   context 'when taxon does not have any data' do
-    before(:all) { visit("/pages/#{@testy[:exemplar].id}") }
-    subject { body }
-    it 'should show an empty feed' do
-      should have_tag('#feed_items p.empty', /no activity/i)
+    it 'overview should show an empty feed' do
+      visit("/pages/#{@testy[:exemplar].id}")
+      body.should have_tag('#feed_items p.empty', /no activity/i)
     end
+    it 'details should show what???'
   end
 
   context 'when taxon supercedes another concept' do
-    before(:all) { visit("/pages/#{@testy[:superceded_taxon_concept].id}") }
     it 'should use supercedure to find taxon if user visits the other concept' do
-      current_path.should match /\/pages\/#{@testy[:id]}/
+      #visit("/pages/#{@testy[:superceded_taxon_concept].id}")
+      #current_path.should match /\/pages\/#{@testy[:id]}/
+      visit("/pages/#{@testy[:superceded_taxon_concept].id}/details")
+      current_path.should match /\/pages\/#{@testy[:id]}\/details/
     end
     # not sure about this one for overview page, should comments show in recent updates feeds?
     # we can use testy[:superceded_taxon_concept] i.e:
@@ -149,17 +152,19 @@ describe 'Taxa overview' do
   end
 
   context 'when taxon is unpublished' do
-    before(:all) { visit("/pages/#{@testy[:unpublished_taxon_concept].id}") }
-    subject { body }
     it 'should show unauthorised user an error message in the content header' do
-      should have_tag('h1', /^Sorry.*?does not exist/)
+      visit("/pages/#{@testy[:unpublished_taxon_concept].id}")
+      body.should have_tag('h1', /^Sorry.*?does not exist/)
+      visit("/pages/#{@testy[:unpublished_taxon_concept].id}/details")
+      body.should have_tag('h1', /^Sorry.*?does not exist/)
     end
   end
 
   context 'when taxon does not exist' do
-    before(:all) { visit("/pages/#{TaxonConcept.missing_id}") }
-    subject { body }
     it 'should show an error message in the content header' do
+      visit("/pages/#{TaxonConcept.missing_id}")
+      should have_tag('h1', /^Sorry.*?does not exist/)
+      visit("/pages/#{TaxonConcept.missing_id}/details")
       should have_tag('h1', /^Sorry.*?does not exist/)
     end
   end

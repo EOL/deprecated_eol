@@ -4,10 +4,6 @@ class AccountController < ApplicationController
   before_filter :go_to_home_page_if_logged_in, :only => [ :login, :register, :signup, :authenticate]
   layout :main_if_not_logged_in
 
-  def show
-    redirect_to account_newsfeeds_path
-  end
-
   def login
     # Makes no sense to bounce them back to the login page in the rare case they clicked "login" twice:
     params[:return_to] = nil if params[:return_to] =~ /login/

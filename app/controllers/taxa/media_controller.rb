@@ -1,7 +1,9 @@
 class Taxa::MediaController < TaxaController
 
+  before_filter :instantiate_taxon_concept, :redirect_if_superceded, :redirect_if_invalid
+  before_filter :add_page_view_log_entry, :update_user_content_level
+
   def show
-    return if ! prepare_taxon_concept || @taxon_concept.nil?
 
     includes = [
       { :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] },
@@ -29,4 +31,10 @@ class Taxa::MediaController < TaxaController
     current_user.log_activity(:viewed_taxon_concept_media, :taxon_concept_id => @taxon_concept.id)
   end
 
+private
+
+  def redirect_if_superceded
+    redirect_to taxon_media_path(@taxon_concept, params.merge(:status => :moved_permanently).
+        except(:controller, :action, :id, :taxon_id)) and return false if @taxon_concept.superceded_the_requested_id?
+  end
 end

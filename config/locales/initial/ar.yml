@@ -92,7 +92,7 @@ ar:
     other: "%{count} أصنوفة"
   recent_updates: "تحديثات جديدة"
   delete_allcaps: "حذف"
-  see_all_classifications_with_count_html: "عرض جميع التصنيفات<span class="assistive">%{count} المعترف بها والتي تظهر بها هذه الأصنوفة <span/>"
+  see_all_classifications_with_count_html:
     one: "عرض <span class="assistive">التصنيف المعترف بها والذى تظهر به هذه الأصنوفة <span/>"
 	two: "عرض <span class="assistive">التصنيفين المعترف بهما والذين تظهر بهما هذه الأصنوفة <span/>"
 	three_to_ten: "عرض جميع التصنيفات<span class="assistive">%{count} المعترف بها والتي تظهر بها هذه الأصنوفة <span/>"

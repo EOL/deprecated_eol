@@ -79,7 +79,7 @@ class ContentPartnerAccount::ReportsController < ContentPartnerAccountController
 
   def admin_whole_report
     @page_header = I18n.t("usage_reports")
-    @act_histories = ActionsHistory.paginate(:page => params[:page] || 1, :per_page => params[:per_page] || "25", :order => 'created_at DESC')
+    @act_histories = CuratorActivityLog.paginate(:page => params[:page] || 1, :per_page => params[:per_page] || "25", :order => 'created_at DESC')
     @sub_page_header  = 'Changing of objects status and comments'
     @report_type      = :admin_whole_report
 

@@ -18,7 +18,7 @@ describe "Content Partner Taxa Comments" do
     @hierarchy_entry = HierarchyEntry.gen(:taxon_concept_id => @taxon_concept.id)
     @harvest_event_hierarchy_entry = HarvestEventsHierarchyEntry.gen(:harvest_event_id => @harvest_event.id, :hierarchy_entry_id => @hierarchy_entry.id, :status_id => 1)
     @comment = Comment.gen(:parent_id => @taxon_concept.id, :parent_type => 'TaxonConcept', :user_id => @user.id, :body => "Comment for the taxon", :created_at => last_month, :visible_at => last_month)
-    @action_history = ActionsHistory.gen(:object_id => @comment.id, :changeable_object_type_id => ChangeableObjectType.find_by_ch_object_type('comment').id, :user_id => @user.id)
+    @action_history = CuratorActivityLog.gen(:object_id => @comment.id, :changeable_object_type_id => ChangeableObjectType.find_by_ch_object_type('comment').id, :user_id => @user.id)
   end
 
   after(:all) do

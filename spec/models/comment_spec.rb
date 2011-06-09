@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe Comment do 
+describe Comment do
 
   before(:all) do
     truncate_all_tables
@@ -12,7 +12,7 @@ describe Comment do
     @curator = User.find(@tc.curators[0])
     @non_curator = User.gen
   end
-    
+
   # for_feeds
   it 'should find text data objects for feeds' do
     res = Comment.for_feeds(:comments, @tc.id)
@@ -68,7 +68,7 @@ describe Comment do
   it "should be true for TaxonConcept comment" do
     @tc_comment.taxa_comment?.should be_true
   end
-  
+
   it "should be false for non TaxonConcept comment" do
     @image_comment.taxa_comment?.should be_false
   end
@@ -77,16 +77,16 @@ describe Comment do
   it "should be true for Image comment" do
     @image_comment.image_comment?.should be_true
   end
-  
+
   it "should be false for non Image comment" do
     @tc_comment.image_comment?.should be_false
   end
-  
+
   # text_comment
   it "should be true for Text comment" do
     @text_comment.text_comment?.should be_true
   end
-  
+
   it "should be false for non Text comment" do
     @image_comment.text_comment?.should be_false
   end
@@ -138,15 +138,15 @@ describe Comment do
     @tc_comment.visible_at = nil
     @tc_comment.vetted_by.should_not == @curator
     @tc_comment.save
-    audit_count = ActionsHistory.count
+    audit_count = CuratorActivityLog.count
     @tc_comment.visible?.should be_false
     @tc_comment.show(@curator)
     @tc_comment.visible?.should be_true
     @tc_comment.vetted_by.should == @curator
-    (ActionsHistory.count - audit_count).should == 1
-    ActionsHistory.last.user.should == @curator
-  end 
-    
+    (CuratorActivityLog.count - audit_count).should == 1
+    CuratorActivityLog.last.user.should == @curator
+  end
+
   # hide
   it "should add curator who vetted object, log curator activity, and make comment visible" do
     @tc.comments.delete_all
@@ -154,13 +154,13 @@ describe Comment do
     @tc_comment.visible_at = 1.day.ago
     @tc_comment.vetted_by.should_not == @curator
     @tc_comment.save
-    audit_count = ActionsHistory.count
+    audit_count = CuratorActivityLog.count
     @tc_comment.visible?.should be_true
     @tc_comment.hide(@curator)
     @tc_comment.visible?.should be_false
     @tc_comment.vetted_by.should == @curator
-    (ActionsHistory.count - audit_count).should == 1
-    ActionsHistory.last.user.should == @curator
+    (CuratorActivityLog.count - audit_count).should == 1
+    CuratorActivityLog.last.user.should == @curator
   end
 
   # curator_activity_flag

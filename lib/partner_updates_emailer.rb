@@ -1,7 +1,7 @@
 # Used to generate (daily, weekly, monthly) emails to partners and users submitting content with lists of
 # comments and curator actions on their objects or pages containing their objects
 module PartnerUpdatesEmailer
-  
+
   def self.send_email_updates
     # checking everythingin the last (email_reports_frequency_hours - 1 hour) because the script
     # will run for a few minutes and if we check at the same time each day with a strict
@@ -9,19 +9,19 @@ module PartnerUpdatesEmailer
     # 23.9 hours ago, not 24 horus ago for example
     agent_contacts_ready = AgentContact.find(:all, :conditions => "last_report_email IS NULL OR DATE_ADD(last_report_email, INTERVAL email_reports_frequency_hours - 1 HOUR) <= UTC_TIMESTAMP()", :include => [{:agent => :content_partner}])
     users_ready = User.find(:all, :joins => :users_data_objects, :conditions => "last_report_email IS NULL OR DATE_ADD(last_report_email, INTERVAL email_reports_frequency_hours - 1 HOUR) <= UTC_TIMESTAMP()", :group => 'users.id', :readonly => false)
-    
+
     agent_contact_frequencies = agent_contacts_ready.collect{|p| p.email_reports_frequency_hours}
     user_frequencies = users_ready.collect{|p| p.email_reports_frequency_hours}
-    
+
     all_frequencies = agent_contact_frequencies | user_frequencies
-    
+
     for frequency_hours in all_frequencies
       all_activity = self.all_activity_since_hour(frequency_hours)
       self.send_emails_to_partners(all_activity[:partner_activity], agent_contacts_ready, frequency_hours)
       self.send_emails_to_users(all_activity[:user_activity], users_ready, frequency_hours)
     end
   end
-  
+
   def self.send_emails_to_partners(partner_activity, agent_contacts, frequency_hours)
     partner_activity.each do |partner_id, activity|
       agents_for_this_partner = agent_contacts.select{|ac| !ac.agent.content_partner.nil? && ac.email_reports_frequency_hours == frequency_hours && ac.agent.content_partner.id == partner_id}
@@ -32,7 +32,7 @@ module PartnerUpdatesEmailer
       end
     end
   end
-  
+
   def self.send_emails_to_users(user_activity, users, frequency_hours)
     user_activity.each do |user_id, activity|
       user_to_update = users.select{|u| u.email_reports_frequency_hours == frequency_hours && u.id == user_id}
@@ -43,12 +43,12 @@ module PartnerUpdatesEmailer
       end
     end
   end
-  
-  
+
+
   def self.all_activity_since_hour(number_of_hours = 24)
     actions = self.all_actions_since_hour(number_of_hours)
     comments = self.all_comments_since_hour(number_of_hours)
-    
+
     partner_activity = {}
     actions[:partner_actions].each do |id, a|
       partner_activity[id] ||= { :actions => [], :object_comments => [], :page_comments => [] }
@@ -62,7 +62,7 @@ module PartnerUpdatesEmailer
       partner_activity[id] ||= { :actions => [], :object_comments => [], :page_comments => [] }
       partner_activity[id][:page_comments] = c
     end
-    
+
     user_activity = {}
     actions[:user_actions].each do |id, a|
       user_activity[id] ||= { :actions => [], :object_comments => [], :page_comments => [] }
@@ -76,25 +76,25 @@ module PartnerUpdatesEmailer
       user_activity[id] ||= { :actions => [], :object_comments => [], :page_comments => [] }
       user_activity[id][:page_comments] = c
     end
-    
+
     return { :partner_activity => partner_activity, :user_activity => user_activity }
   end
-  
+
   def self.all_actions_since_hour(number_of_hours = 24)
     all_action_ids = SpeciesSchemaModel.connection.select_values("
       SELECT id
-      FROM #{ActionsHistory.full_table_name} 
+      FROM #{CuratorActivityLog.full_table_name}
       WHERE DATE_ADD(created_at, INTERVAL #{number_of_hours} HOUR) >= UTC_TIMESTAMP()
       AND action_with_object_id IN (#{ActionWithObject.trusted.id}, #{ActionWithObject.untrusted.id}, #{ActionWithObject.inappropriate.id})")
-    
+
     partner_actions = {}
     user_actions = {}
-    
+
     unless all_action_ids.empty?
       # Curator Actions on objects submitted by Content Partners
-      result = ActionsHistory.find_by_sql("
+      result = CuratorActivityLog.find_by_sql("
         SELECT ah.*, u.username curator_username, cp.id content_partner_id
-        FROM #{ActionsHistory.full_table_name} ah
+        FROM #{CuratorActivityLog.full_table_name} ah
         JOIN #{User.full_table_name} u ON (ah.user_id=u.id)
         LEFT JOIN (
           #{DataObject.full_table_name} do
@@ -113,10 +113,10 @@ module PartnerUpdatesEmailer
         partner_actions[partner_id] ||= []
         partner_actions[partner_id] << r
       end
-      
+
       # Curator Actions on text submitted by Users
-      result = ActionsHistory.find_by_sql("
-        SELECT ah.*, u.username curator_username, u.id user_id FROM #{ActionsHistory.full_table_name} ah
+      result = CuratorActivityLog.find_by_sql("
+        SELECT ah.*, u.username curator_username, u.id user_id FROM #{CuratorActivityLog.full_table_name} ah
         JOIN #{User.full_table_name} uc ON (ah.user_id=uc.id)
         LEFT JOIN (
           #{DataObject.full_table_name} do
@@ -133,16 +133,16 @@ module PartnerUpdatesEmailer
         user_actions[user_id] << r
       end
     end
-    
+
     return { :partner_actions => partner_actions, :user_actions => user_actions }
   end
-  
+
   def self.all_comments_since_hour(number_of_hours = 24)
     all_comment_ids = SpeciesSchemaModel.connection.select_values("SELECT id FROM #{Comment.full_table_name} WHERE DATE_ADD(created_at, INTERVAL #{number_of_hours} HOUR) >= UTC_TIMESTAMP()")
-    
+
     partner_comments = { :objects => {}, :pages => {} }
     user_comments = { :objects => {}, :pages => {} }
-    
+
     unless all_comment_ids.empty?
       # Comments left on objects submitted by Content Partners
       result = Comment.find_by_sql("
@@ -165,7 +165,7 @@ module PartnerUpdatesEmailer
         partner_comments[:objects][partner_id] ||= []
         partner_comments[:objects][partner_id] << r
       end
-      
+
       # Comments left on pages with objects submitted by Content Partners
       result = Comment.find_by_sql("
         SELECT c.*, u.username commenter_username, cp.id content_partner_id FROM #{Comment.full_table_name} c
@@ -186,9 +186,9 @@ module PartnerUpdatesEmailer
         partner_comments[:pages][partner_id] ||= []
         partner_comments[:pages][partner_id] << r
       end
-      
-      
-      
+
+
+
       # Comments left on text submitted by Users
       result = Comment.find_by_sql("
         SELECT c.*, uc.username commenter_username, u.id user_id FROM #{Comment.full_table_name} c
@@ -207,7 +207,7 @@ module PartnerUpdatesEmailer
         user_comments[:objects][user_id] ||= []
         user_comments[:objects][user_id] << r
       end
-      
+
       # Comments left on pages with text submitted by Users
       result = Comment.find_by_sql("
         SELECT c.*, uc.username commenter_username, u.id user_id FROM #{Comment.full_table_name} c
@@ -227,7 +227,7 @@ module PartnerUpdatesEmailer
         user_comments[:pages][user_id] << r
       end
     end
-    
+
     return { :partner_comments => partner_comments, :user_comments => user_comments }
   end
 end

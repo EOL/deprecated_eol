@@ -1,9 +1,9 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe ActionsHistory do
+describe CuratorActivityLog do
   truncate_all_tables
   load_foundation_cache
-    
+
   describe '#new_actions_histories' do
 
     before(:all) do
@@ -12,13 +12,13 @@ describe ActionsHistory do
       @dato_text     = DataObject.gen(:data_type_id =>
                                       DataType.text_type_ids.first)
       @user          = @taxon_concept.acting_curators.to_a.last
-      @num_ah        = ActionsHistory.count
+      @num_ah        = CuratorActivityLog.count
     end
 
     after(:all) do
       truncate_all_tables
     end
-    
+
     it 'should set an actions history when a curator untrusts a data object'
     #   comment_body = 'This is a bad image'
     #   untrust_reasons = [UntrustReason.misidentified.id, UntrustReason.incorrect.id]
@@ -28,28 +28,28 @@ describe ActionsHistory do
     #              :taxon_concept_id => @taxon_concept.id,
     #              :visibility_id => Visibility.invisible.id }
     #   @dato_image.curate(@user, :vetted_id =>  params[:vetted_id], :visibility_id => params[:visibility_id], :untrust_reason_ids => params[:untrust_reasons], :comment => params[:comment], :taxon_concept_id => params[:taxon_concept_id])
-    #   
-    #   ah = ActionsHistory.find_by_user_id_and_object_id_and_action_with_object_id(@user.id, @dato_image.id, ActionWithObject.untrusted.id, :include => [:comment, :untrust_reasons])
+    #
+    #   ah = CuratorActivityLog.find_by_user_id_and_object_id_and_action_with_object_id(@user.id, @dato_image.id, ActionWithObject.untrusted.id, :include => [:comment, :untrust_reasons])
     #   ah.should_not == nil
     #   ah.comment.body.should == comment_body
-    #   
+    #
     #   saved_untrust_reason_ids = ah.untrust_reasons.collect{|ur| ur.id}
     #   untrust_reasons.each do |ur|
     #     saved_untrust_reason_ids.include?(ur).should == true
     #   end
-    #   
+    #
     # end
-    
+
     it 'should set an actions history when a curator curates this data object'
-    #   current_count = ActionsHistory.count
+    #   current_count = CuratorActivityLog.count
     #   [Vetted.trusted.id, Vetted.untrusted.id].each do |vetted_method|
     #     [Visibility.invisible.id, Visibility.visible.id, Visibility.inappropriate.id].each do |visibility_method|
     #       @dato_image.curate(@user, :vetted_id => vetted_method, :visibility_id => visibility_method)
-    #       ActionsHistory.count.should == (current_count += 2)
+    #       CuratorActivityLog.count.should == (current_count += 2)
     #     end
     #   end
     # end
-    
+
     it 'should set an actions history when a curator creates a new text object' do
       DataObject.create_user_text(
         {:data_object => {:description => "fun!",
@@ -59,9 +59,9 @@ describe ActionsHistory do
          :taxon_concept_id => @taxon_concept.id,
          :data_objects_toc_category => {:toc_id => TocItem.overview.id}},
         @user)
-      ActionsHistory.count.should == @num_ah + 1
+      CuratorActivityLog.count.should == @num_ah + 1
     end
-    
+
     it 'should set an actions history when a curator updates a text object' do
       # I tried gen here, but it wasn't working (JRice)
       UsersDataObject.create(:data_object_id => @dato_image.id,
@@ -75,18 +75,18 @@ describe ActionsHistory do
          :taxon_concept_id => @taxon_concept.id,
          :data_objects_toc_category => {:toc_id => TocItem.overview.id}},
         @user)
-      ActionsHistory.count.should == @num_ah + 1
+      CuratorActivityLog.count.should == @num_ah + 1
     end
-    
+
     it 'should set an actions history when one creates, hides, or shows a comment' do
       @dato_image.comment(@user, "My test text")
-      ActionsHistory.count.should                          == (@num_ah += 1)
+      CuratorActivityLog.count.should                          == (@num_ah += 1)
       comment = @dato_image.comment(@user, "My test comment")
-      ActionsHistory.count.should                          == (@num_ah += 1)
+      CuratorActivityLog.count.should                          == (@num_ah += 1)
       comment = @dato_image.comment(@user, "My test comment")
-      ActionsHistory.count.should                          == (@num_ah += 1)
+      CuratorActivityLog.count.should                          == (@num_ah += 1)
     end
-        
+
   end
-  
+
 end

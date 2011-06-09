@@ -1,6 +1,6 @@
 # This appears to track curator activies and creating comments, but TODO - review this.  There is some redundancy with
 # LastCurateDate, for example... and I'm not convinced this is either efficient or comprehensive.
-class ActionsHistory < ActiveRecord::Base
+class CuratorActivityLog < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :changeable_object_type

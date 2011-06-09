@@ -4,7 +4,7 @@ class DataObjectsController < ApplicationController
   layout proc { |c| c.request.xhr? ? false : "main" }
 
   before_filter :load_data_object, :except => [:index, :new, :create, :preview]
-  before_filter :login_required, :only => [:rate]
+  before_filter :allow_login_then_submit, :only => [:rate]
   before_filter :curator_only, :only => [:curate, :add_association, :remove_association]
 
   def create

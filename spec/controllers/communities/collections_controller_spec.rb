@@ -12,14 +12,19 @@ describe Communities::CollectionsController do
     @collections = EOL::TestInfo.load('collections')
   end
 
-  describe 'GET show' do
+  describe 'GET index' do
 
     it "should instantiate the community" do
-      do_show
+      do_index
       assigns[:community].should be_a(Community)
+      assigns[:community].id.should == @collections[:community].id
     end
 
-    it "should load a community's focus collection"
+    it "should load a community's focus collection" do
+      do_index
+      assigns[:community].focus.should be_a(Collection)
+    end
+
     it "should load a community's endorsed collections"
   end
 

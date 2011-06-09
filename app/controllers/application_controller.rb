@@ -75,11 +75,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def login_required
+  def allow_login_then_submit
     unless logged_in?
+      # TODO: Can we delete the submitted data if the user doesn't login or signup?
+      session[:submitted_data] = params
       # FIXME: Using current_url doesn't always work, e.g. feed_items create action url is feed_items with POST
       # but redirect will be a GET so current url '/feed_items' will got to action index not create.
-      session[:submitted_data] = params
       redirect_to login_path(:return_to => current_url)
     end
   end

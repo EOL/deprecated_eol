@@ -92,6 +92,7 @@ private
 
   def load_community_and_dependent_vars
     @community = Community.find(params[:community_id] || params[:id])
+    # TODO: Should we have a redirect to error page here if @community is not found i.e. nil?
     @members = @community.members # Because we pull in partials from the members controller.
     @current_member = current_user.member_of(@community)
   end

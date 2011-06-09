@@ -14,9 +14,10 @@ describe Communities::NewsfeedsController do
 
   describe 'GET show' do
 
-    it "should load the community instance through the communities controller" do
+    it "should instantiate the community" do
       do_show
       assigns[:community].should be_a(Community)
+      assigns[:community].id.should == @communities[:community].id
     end
     it "should instantiate a feed item for the community and current user" do
       do_show

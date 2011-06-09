@@ -24,7 +24,8 @@ collections[:taxon_concept_2] = build_taxon_concept
 collections[:user] = User.gen
 collections[:user2] = User.gen
 collections[:community] = Community.gen
-collections[:collection] = Collection.gen
+collections[:collection] = Collection.gen(:user => collections[:user])
+collections[:collection_oldest] = Collection.gen(:user => collections[:user], :created_at => collections[:collection].created_at - 86400)
 collections[:data_object] = DataObject.gen
 collections[:taxon_concept] = build_taxon_concept(:images => [{}]) # One image
 

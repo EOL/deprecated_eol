@@ -114,6 +114,8 @@ describe 'Taxa page' do
         without_tag('.references')
       end
     end
+
+    it 'should allow user to rate a text object first then login to complete the action'
   end
 
 #  context 'when taxon does not have any common names'
@@ -163,9 +165,9 @@ describe 'Taxa page' do
   context 'when taxon does not exist' do
     it 'should show an error message in the content header' do
       visit("/pages/#{TaxonConcept.missing_id}")
-      should have_tag('h1', /^Sorry.*?does not exist/)
+      body.should have_tag('h1', /Sorry.*?does not exist/)
       visit("/pages/#{TaxonConcept.missing_id}/details")
-      should have_tag('h1', /^Sorry.*?does not exist/)
+      body.should have_tag('h1', /Sorry.*?does not exist/)
     end
   end
 

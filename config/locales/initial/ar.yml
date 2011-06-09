@@ -70,9 +70,9 @@ ar:
   error_page_header: "عفوًا، طرأت مشكلة"
   see_all_collections_with_count_html: 
     one: "عرض <span class="assistive">المجموعة التي تظهر بها هذه الأصنوفة.</span>"
-	two: "عرض <span class="assistive">المجموعتين التين تظهر بهما هذه الأصنوفة.</span>"
-	three_to_ten: "عرض كل المجموعات <span class="assistive">%{count} التي تظهر بها هذه الأصنوفة .</span>"
-	other: "عرض كل المجموعات <span class="assistive">%{count} التي تظهر بها هذه الأصنوفة .</span>"
+    two: "عرض <span class="assistive">المجموعتين التين تظهر بهما هذه الأصنوفة.</span>"
+    three_to_ten: "عرض كل المجموعات <span class="assistive">%{count} التي تظهر بها هذه الأصنوفة .</span>"
+    other: "عرض كل المجموعات <span class="assistive">%{count} التي تظهر بها هذه الأصنوفة .</span>"
   search_the_site: "أبحث في الموقع"
   user_system_down: "عفوًا، نظام تسجيل المستخدم غير متاح حاليًا. يرجى المحاولة لاحقًا."
   dato_hidden_note: "%{username} أخفى %{type}"
@@ -94,9 +94,9 @@ ar:
   delete_allcaps: "حذف"
   see_all_classifications_with_count_html:
     one: "عرض <span class="assistive">التصنيف المعترف بها والذى تظهر به هذه الأصنوفة <span/>"
-	two: "عرض <span class="assistive">التصنيفين المعترف بهما والذين تظهر بهما هذه الأصنوفة <span/>"
-	three_to_ten: "عرض جميع التصنيفات<span class="assistive">%{count} المعترف بها والتي تظهر بها هذه الأصنوفة <span/>"
-	other: "عرض جميع التصنيفات<span class="assistive">%{count} المعترف بها والتي تظهر بها هذه الأصنوفة <span/>"
+    two: "عرض <span class="assistive">التصنيفين المعترف بهما والذين تظهر بهما هذه الأصنوفة <span/>"
+    three_to_ten: "عرض جميع التصنيفات<span class="assistive">%{count} المعترف بها والتي تظهر بها هذه الأصنوفة <span/>"
+    other: "عرض جميع التصنيفات<span class="assistive">%{count} المعترف بها والتي تظهر بها هذه الأصنوفة <span/>"
   license: "الرخصة"
   print_this_page_link: "طباعة الصفحة"
   filter_feeds_button: "تنقية"
@@ -143,9 +143,9 @@ ar:
   newsfeed: "آخر الأخبار"
   see_all_communities_with_count_html: 
     one: "عرض <span class="assistive">المجموعة التي تركز على هذه الأصنوفة.</span>"
-	two: "عرض <span class="assistive">المجموعتين التين تركزان على هذه الأصنوفة.</span>"
-	three_to_ten: "عرض جميع المجموعات <span class="assistive">%{count} التيتركز على هذه الأصنوفة.</span>"
-	other: "عرض جميع المجموعات <span class="assistive">%{count} التيتركز على هذه الأصنوفة.</span>"
+    two: "عرض <span class="assistive">المجموعتين التين تركزان على هذه الأصنوفة.</span>"
+    three_to_ten: "عرض جميع المجموعات <span class="assistive">%{count} التيتركز على هذه الأصنوفة.</span>"
+    other: "عرض جميع المجموعات <span class="assistive">%{count} التيتركز على هذه الأصنوفة.</span>"
   text_summary_more_link: "الإطلاع على المشاركة بأكملها"
   get_involved: "شارك"
   maps_with_count: 
@@ -164,9 +164,9 @@ ar:
   invalid_login_or_password: "خطأ في تسجيل الدخول أو كلمة السر"
   other_community_items_with_count: 
     one: "موضوع أخر"
-	two: "موضوعان أخران"
-	three_to_ten: "%{count} موضوعات أخرى"
-	other: "%{count} موضوع أخر"
+    two: "موضوعان أخران"
+    three_to_ten: "%{count} موضوعات أخرى"
+    other: "%{count} موضوع أخر"
   curator_activity: "نشاط المشرف"
   sound_thumbnail_alt_text: "هذا التسجيل الصوتي %{vetted_status} خاص بـ %{scientific_name}"
   development_version_name: "نسخة التطوير V2 - غير مخصصة للاستخدام العام"
@@ -184,8 +184,8 @@ ar:
   collections_summary_header_with_count: 
     one: "متواجد في مجموعة واحدة"
     two: "متواجد في مجموعتين"
-	three_to_ten: "متواجد في %{count} مجموعات"
-	other: "متواجد في %{count} مجموعة"
+    three_to_ten: "متواجد في %{count} مجموعات"
+    other: "متواجد في %{count} مجموعة"
   image_is_no_longer_available: "الصورة غير متاحة حاليًا"
   sign_in: "تسجيل الدخول"
   common_names_with_count: 

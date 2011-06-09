@@ -1026,10 +1026,10 @@ class DataObject < SpeciesSchemaModel
   def untrust_reasons(hierarchy_entry)
     if hierarchy_entry.associated_by_curator
       object_id = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id_and_user_id(id,hierarchy_entry.id,hierarchy_entry.associated_by_curator).id
-      action_history = ActionsHistory.find_all_by_object_id_and_changeable_object_type_id_and_action_with_object_id(object_id, ChangeableObjectType.curated_data_objects_hierarchy_entry.id, ActionWithObject.untrusted.id).last
+      action_history = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_action_with_object_id(object_id, ChangeableObjectType.curated_data_objects_hierarchy_entry.id, ActionWithObject.untrusted.id).last
       action_history ? action_history.untrust_reasons.collect{|ahur| ahur.untrust_reason_id} : []
     else
-      action_history = ActionsHistory.find_all_by_object_id_and_changeable_object_type_id_and_action_with_object_id(id, ChangeableObjectType.data_object.id, ActionWithObject.untrusted.id).last
+      action_history = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_action_with_object_id(id, ChangeableObjectType.data_object.id, ActionWithObject.untrusted.id).last
       action_history ? action_history.untrust_reasons.collect{|ahur| ahur.untrust_reason_id} : []
     end
   end

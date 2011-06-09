@@ -256,15 +256,15 @@ describe User do
     @admin.member_of(@special).should be_a(Member)
   end
 
-  it 'should create a new ActionsHistory pointing to the right object, user, type and action' do
+  it 'should create a new CuratorActivityLog pointing to the right object, user, type and action' do
     action = ActionWithObject.gen_if_not_exists(:action_code => 'hi')
     obj    = ChangeableObjectType.create(:ch_object_type => 'name')
     name   = Name.gen
     @user.track_curator_activity(name, obj.ch_object_type, action.action_code)
-    ActionsHistory.last.user_id.should                   == @user.id
-    ActionsHistory.last.object_id.should                 == name.id
-    ActionsHistory.last.changeable_object_type_id.should == obj.id
-    ActionsHistory.last.action_with_object_id.should     == action.id
+    CuratorActivityLog.last.user_id.should                   == @user.id
+    CuratorActivityLog.last.object_id.should                 == name.id
+    CuratorActivityLog.last.changeable_object_type_id.should == obj.id
+    CuratorActivityLog.last.action_with_object_id.should     == action.id
   end
 
   it 'convenience methods should return all of the data objects for the user' do

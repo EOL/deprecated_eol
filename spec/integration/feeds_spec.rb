@@ -95,7 +95,7 @@ describe 'Feeds' do
 
       @action_with_object = ActionWithObject.gen_if_not_exists(:action_code => 'trusted')
       @changeable_object_type = ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'data_object')
-      @action_history = ActionsHistory.gen(:object_id => @data_object.id, :action_with_object_id => @action_with_object.id, :changeable_object_type_id => @changeable_object_type.id)
+      @action_history = CuratorActivityLog.gen(:object_id => @data_object.id, :action_with_object_id => @action_with_object.id, :changeable_object_type_id => @changeable_object_type.id)
     end
 
     it "should show feed with all curation activity for a content partner" do

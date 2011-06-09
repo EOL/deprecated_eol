@@ -582,7 +582,7 @@ describe DataObject do
     @last_log_entry_after_adding_association.user.should == @curator
     @last_log_entry_after_adding_association.data_object.should == @image_dato
     @last_log_entry_after_adding_association.curator_activity.should == curator_action
-    last_action = ActionsHistory.last
+    last_action = CuratorActivityLog.last
     last_action.action_with_object.should == action
     last_action.changeable_object_type.should == type
     last_action.user.should == @curator

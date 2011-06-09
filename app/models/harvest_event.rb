@@ -16,7 +16,7 @@ class HarvestEvent < SpeciesSchemaModel
     query = "Select dohe.data_object_id
     From harvest_events he
     Join data_objects_harvest_events dohe ON he.id = dohe.harvest_event_id
-    Where he.id = #{harvest_event_id}"    
+    Where he.id = #{harvest_event_id}"
     rset = self.find_by_sql [query]
     arr=[]
     for fld in rset
@@ -24,7 +24,7 @@ class HarvestEvent < SpeciesSchemaModel
     end
     return arr
   end
-  
+
   def content_partner
     resource.content_partner
   end
@@ -40,16 +40,16 @@ class HarvestEvent < SpeciesSchemaModel
          GROUP BY he.taxon_concept_id
          ORDER BY (dohe.data_object_id IS NULL), n.string")
   end
-  
+
   def curated_data_objects(params = {})
     year = params[:year] || nil
     month = params[:month] || nil
-    
+
     unless year || month
       year = Time.now.year if year.nil?
       month = Time.now.month if month.nil?
     end
-    
+
     year = Time.now.year if year.nil?
     month = 0 if month.nil?
     lower_date_range = "#{year}-#{month}-00"
@@ -60,18 +60,18 @@ class HarvestEvent < SpeciesSchemaModel
       upper_date = Time.local(year, month) + 1.month
       upper_date_range = "#{upper_date.year}-#{upper_date.month}-00"
     end
-    
+
     date_condition = ""
     if lower_date_range
       date_condition = "AND actions_histories.updated_at BETWEEN '#{lower_date_range}' AND '#{upper_date_range}'"
     end
-    
-    actions_histories = ActionsHistory.find(:all,
+
+    actions_histories = CuratorActivityLog.find(:all,
       :joins => "JOIN #{DataObjectsHarvestEvent.full_table_name} dohe ON (actions_histories.object_id=dohe.data_object_id)",
       :conditions => "actions_histories.action_with_object_id IN (#{ActionWithObject.trusted.id}, #{ActionWithObject.untrusted.id}, #{ActionWithObject.inappropriate.id}, #{ActionWithObject.delete.id}) AND actions_histories.changeable_object_type_id = #{ChangeableObjectType.data_object.id} AND dohe.harvest_event_id = 2 #{date_condition}",
       :select => 'id')
-    
-    actions_histories = ActionsHistory.find_all_by_id(actions_histories.collect{ |ah| ah.id },
+
+    actions_histories = CuratorActivityLog.find_all_by_id(actions_histories.collect{ |ah| ah.id },
       :include => [ :user, :comment, :action_with_object, :changeable_object_type,
         { :data_object => { :hierarchy_entries => :name } } ],
       :select => {
@@ -83,7 +83,7 @@ class HarvestEvent < SpeciesSchemaModel
         :names => :string })
     actions_histories.sort_by{ |ah| Invert(ah.id) }
   end
-  
+
 protected
 
   def remove_related_data_objects

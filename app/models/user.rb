@@ -22,7 +22,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   has_many :comments
   has_many :last_curated_dates
   has_many :actions_histories
-  has_many :actions_histories_on_data_objects, :class_name => ActionsHistory.to_s,
+  has_many :actions_histories_on_data_objects, :class_name => CuratorActivityLog.to_s,
              :conditions => "actions_histories.changeable_object_type_id = #{ChangeableObjectType.raw_data_object_id}"
   has_many :users_data_objects
   has_many :collection_items, :as => :object
@@ -305,7 +305,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   # TODO - test
   def comment_curation_actions
-    ActionsHistory.find_all_by_user_id_and_changeable_object_type_id(id, ChangeableObjectType.comment.id,
+    CuratorActivityLog.find_all_by_user_id_and_changeable_object_type_id(id, ChangeableObjectType.comment.id,
       :include => [ :action_with_object, :affected_comment ],
       :select => { :actions_histories => '*', :comments => '*' },
       :conditions => "action_with_object_id != #{ActionWithObject.created.id}")
@@ -693,7 +693,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     taxon_concept_id = options[:taxon_concept_id] || nil
     action_with_object_id     = ActionWithObject.find_by_translated(:action_code, action.to_s).id
     changeable_object_type_id = ChangeableObjectType.find_by_ch_object_type(changeable_object_type).id
-    actions_history = ActionsHistory.create(
+    actions_history = CuratorActivityLog.create(
       :user_id                   => self.id,
       :object_id                 => object.id,
       :changeable_object_type_id => changeable_object_type_id,
@@ -740,7 +740,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def logo_url(size = 'large')
     logo_cache_url.blank? ? "v2/logos/user_default.png" : ContentServer.agent_logo_path(logo_cache_url, size)
   end
-  
+
 private
 
   # set the defaults on this user object

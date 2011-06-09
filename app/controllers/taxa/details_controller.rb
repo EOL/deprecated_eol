@@ -38,7 +38,6 @@ class Taxa::DetailsController < TaxaController
 private
 
   def redirect_if_superceded
-    debugger
     redirect_to taxon_details_path(@taxon_concept, params.merge(:status => :moved_permanently).
         except(:controller, :action, :id, :taxon_id)) and return false if @taxon_concept.superceded_the_requested_id?
   end

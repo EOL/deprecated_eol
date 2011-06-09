@@ -72,9 +72,9 @@ ActionController::Routing::Routes.draw do |map|
 
   # Taxa nested resources with pages as alias
   map.resources :taxa, :as => :pages do |taxa|
-    taxa.resource :overview, :only => [:show], :controller => "/taxa/overviews"
-    taxa.resource :media, :only => [:show], :controller => "/taxa/media"
-    taxa.resource :details, :only => [:show], :controller => "/taxa/details"
+    taxa.resource :overview, :only => [:show], :controller => "taxa/overviews"
+    taxa.resource :media, :only => [:show], :controller => "taxa/media"
+    taxa.resource :details, :only => [:show], :controller => "taxa/details"
   end
   # Named routes
   map.settings 'settings', :controller => 'taxa', :action => 'settings'

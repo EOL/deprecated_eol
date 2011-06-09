@@ -1,0 +1,106 @@
+.assistive, #header .assistive {
+  position: absolute;
+  right: -999em; }
+
+/*
+ * Temporary placement of needed CSS for V2
+ * I don't want to edit/add to HashRocket's SASS files until they are done making changes
+ * so I am temporarily adding some CSS here needed for V2 demo. This CSS should be integrated
+ * into HashRocket SASS if it is still needed when design work is complete.
+ */
+.join abbr {
+  border: none; }
+
+body > #header .section h1 {
+  z-index: 2; }
+body > #header .section .actions {
+  z-index: 5; }
+body > #header .section .session .join {
+  float: left;
+  text-align: left;
+  color: white; }
+  body > #header .section .session .join p {
+    line-height: 1.4em; }
+  body > #header .section .session .join a {
+    color: #90bce4; }
+
+#iucn_status {
+  margin-bottom: 20px; }
+  #iucn_status h3, #iucn_status p {
+    display: inline; }
+
+#text_summary .attribution {
+  font-size: 0.92em; }
+  #text_summary .attribution img {
+    float: right;
+    margin: 2px 0 0 10px; }
+
+#classifications_summary li {
+  overflow: hidden; }
+  #classifications_summary li li p {
+    font-weight: bold;
+    float: right; }
+  #classifications_summary li li li p {
+    padding-right: 23px !important;
+    margin-right: 10px;
+    background: transparent url("/languages/ar/images/icon_classification_arrow.png") right 0 no-repeat; }
+
+#taxonomy_detail .article .description {
+  padding: 0 0 15px 0;
+  line-height: 170%; }
+#taxonomy_detail table {
+  margin: 20px 0;
+  width: 100%; }
+  #taxonomy_detail table caption {
+    padding: 10px;
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #666666; }
+  #taxonomy_detail table colgroup.count {
+    width: 20%; }
+  #taxonomy_detail table thead {
+    text-align: right; }
+    #taxonomy_detail table thead tr {
+      border-bottom: 1px solid #cccccc; }
+  #taxonomy_detail table .odd {
+    background-color: #eeeeee; }
+
+/*
+ * TEMPORARY FIX: Forcing image sizes for V2 demo.
+ */
+#media_summary .image {
+  height: 360px;
+  text-align: center; }
+  #media_summary .image img {
+    max-width: 430px;
+    max-height: 310px; }
+  #media_summary .image .attribution {
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 0; }
+    #media_summary .image .attribution img {
+      margin-top: 0; }
+
+ul.feed li > a > img {
+  width: 50px;
+  height: 50px; }
+
+#collections_summary ul li > a > img, #communities_summary ul li > a > img, .collection_contributors ul li > a > img {
+  width: 50px;
+  height: 50px; }
+
+#collections .collections .article > .header > a > img {
+  width: 50px;
+  height: 50px; }
+
+#page_heading.with_image .hgroup img {
+  max-width: 90px;
+  max-height: 90px;
+  width: expression(this.width > 90 ? "90px" : true);
+  height: expression(this.height > 90 ? "90px" : true); }
+
+#collections.main_container .taxon > img {
+  max-width: 90px;
+  max-height: 90px;
+  width: expression(this.width > 90 ? "90px" : true);
+  height: expression(this.height > 90 ? "90px" : true); }

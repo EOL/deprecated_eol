@@ -15,4 +15,7 @@
       - if position == :footer
         %li
           = link_to I18n.t(:contact_us_link), "/placholder"
+      - if mobile_agent_request?
+        %li
+          = link_to_remote "Mobile site", :url => enable_mobile_contents_path, :method => :post
 

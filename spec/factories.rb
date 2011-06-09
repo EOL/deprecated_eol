@@ -753,7 +753,7 @@ end
 Factory.define :ref do |r|
   r.full_reference  { Factory.next(:string) }
   r.user_submitted  0
-  r.visibility      { Visibility.visible || Vvisibility.gen_if_not_exists(:label => 'visible') }
+  r.visibility      { Visibility.visible || Visibility.gen_if_not_exists(:label => 'visible') }
   r.published       1
 end
 

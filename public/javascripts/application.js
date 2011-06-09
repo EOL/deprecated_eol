@@ -83,7 +83,7 @@ $(function() {
     // Remove once language links wired up
     $language.find("ul a").click(function() {
       $(this).closest("ul").hide();
-      return false;
+      return true;
     });
   })($(".language"));
 

@@ -626,7 +626,7 @@ en:
   email_recipients_: "Email recipients:"
   ____email_sent_: "... email sent!"
   enable_var__agent_project_name: "Enable %{var__agent_project_name} to access content from the EOL and to use that content on %{var__agent_project_name}'s own server or site according to the terms of the Creative Commons licenses, if any, for that content."
-  encyclopedia_of_life_curator__: "Encyclopedia of Life curator <a href='%{var_profile_link}'>%{var_actions_history_user_full_name}</a> %{var_action_text} on the <a href='%{var_data_object_link}'>EOL site</a>%{var_comment}"
+  eol_curator_activity_email_message: "Encyclopedia of Life curator <a href='%{profile_url}'>%{curator_full_name}</a> %{action} on the <a href='%{data_object_url}'>EOL site</a>%{comment}"
   _encyclopedia_of_life: "-Encyclopedia of Life"
   encyclopedia_of_life: "Encyclopedia of Life"
   endorsed_collections: "Endorsed collections"

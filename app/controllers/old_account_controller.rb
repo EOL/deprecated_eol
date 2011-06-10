@@ -96,7 +96,7 @@ class OldAccountController < ApplicationController
     cookies.delete :user_auth_token
     reset_session
     store_location(params[:return_to])
-    flash[:notice] =  I18n.t(:you_have_been_logged_out) 
+    flash[:notice] =  I18n.t(:you_have_been_logged_out)
     redirect_back_or_default
   end
 
@@ -111,13 +111,13 @@ class OldAccountController < ApplicationController
         @users.each do |user_with_forgotten_pass|
           Notifier.deliver_forgot_password_email(user_with_forgotten_pass, request.port)
         end
-        flash[:notice] =  I18n.t(:reset_password_instructions_emailed) 
+        flash[:notice] =  I18n.t(:reset_password_instructions_emailed)
         redirect_to root_url(:protocol => "http")  # need protocol for flash to survive
       elsif @users.size > 1
         render :action => 'multiple_users_with_forgotten_password'
         return
       else
-        flash.now[:notice] =  I18n.t(:cannot_find_user_or_email) 
+        flash.now[:notice] =  I18n.t(:cannot_find_user_or_email)
       end
     end
   end
@@ -167,7 +167,7 @@ class OldAccountController < ApplicationController
     end
     if it_worked
       current_user.log_activity(:updated_info)
-      flash[:notice] = I18n.t(:your_information_has_been_updated_thank_you_for_contributing_to_eol) 
+      flash[:notice] = I18n.t(:your_information_has_been_updated_thank_you_for_contributing_to_eol)
       redirect_back_or_default
     end
   end
@@ -218,7 +218,7 @@ class OldAccountController < ApplicationController
     if User.unique_user?(username) || (logged_in? && current_user.username == username)
       message = ""
     else
-      message =  I18n.t(:username_taken , :name => username) 
+      message =  I18n.t(:username_taken , :name => username)
     end
 
     render :update do |page|
@@ -234,7 +234,7 @@ class OldAccountController < ApplicationController
     if User.unique_email?(email) || (logged_in? && current_user.email == email)
       message = ""
     else
-      message =  I18n.t(:username_taken , :email => email) 
+      message =  I18n.t(:username_taken , :email => email)
     end
 
     render :update do |page|
@@ -254,11 +254,11 @@ class OldAccountController < ApplicationController
     page = (params[:page] || 1).to_i
     @user = User.find(params[:id])
     current_user.log_activity(:show_objects_curated_by_user_id, :value => params[:id])
-    @latest_curator_actions = @user.actions_histories_on_data_objects.paginate_all_by_action_with_object_id(
+    @latest_curator_actions = @user.curator_activity_logs_on_data_objects.paginate_all_by_action_with_object_id(
                                 ActionWithObject.raw_curator_action_ids,
-                                :select => 'actions_histories.*',
-                                :order => 'actions_histories.updated_at DESC',
-                                :group => 'actions_histories.object_id',
+                                :select => 'curator_activity_logs.*',
+                                :order => 'curator_activity_logs.updated_at DESC',
+                                :group => 'curator_activity_logs.object_id',
                                 :include => [ :action_with_object ],
                                 :page => page, :per_page => @@objects_per_page)
     @curated_datos = DataObject.find(@latest_curator_actions.collect{|lca| lca[:object_id]},
@@ -345,7 +345,7 @@ private
   end
 
   def go_to_forgot_password(user)
-    flash[:notice] =  I18n.t(:expired_reset_password_link) 
+    flash[:notice] =  I18n.t(:expired_reset_password_link)
     delete_password_reset_token(user)
     redirect_to :action => "forgot_password", :protocol => "http"
   end
@@ -361,12 +361,12 @@ private
 
   def successful_login(user, remember_me)
     set_current_user(user)
-    notice_message =  I18n.t(:logged_in) 
+    notice_message =  I18n.t(:logged_in)
     if remember_me && !user.is_admin?
       user.remember_me
       cookies[:user_auth_token] = { :value => user.remember_token , :expires => user.remember_token_expires_at }
     elsif remember_me && user.is_admin?
-      notice_message +=  I18n.t(:admin_remind_me_message) 
+      notice_message +=  I18n.t(:admin_remind_me_message)
     end
     flash[:notice] = notice_message
     if user.is_admin? && ( session[:return_to].nil? || session[:return_to].empty?) # if we're an admin we STILL would love a return, thank you very much!

@@ -1,6 +1,6 @@
 class ChangeableObjectType < ActiveRecord::Base
 
-  has_many :actions_histories
+  has_many :curator_activity_logs
 
   validates_presence_of   :ch_object_type
   validates_uniqueness_of :ch_object_type

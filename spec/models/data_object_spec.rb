@@ -52,7 +52,6 @@ describe DataObject do
     @num_lcd = LastCuratedDate.count
     @hierarchy_entry = HierarchyEntry.gen
     @image_dato.add_curated_association(@curator, @hierarchy_entry)
-    @last_log_entry_after_adding_association = CuratorDataObjectLog.last
   end
 
 #  it 'should be able to replace wikipedia articles' do
@@ -579,9 +578,6 @@ describe DataObject do
     action.should_not == nil
     curator_action = CuratorActivity.add_association
     curator_action.should_not == nil
-    @last_log_entry_after_adding_association.user.should == @curator
-    @last_log_entry_after_adding_association.data_object.should == @image_dato
-    @last_log_entry_after_adding_association.curator_activity.should == curator_action
     last_action = CuratorActivityLog.last
     last_action.action_with_object.should == action
     last_action.changeable_object_type.should == type

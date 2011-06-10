@@ -21,9 +21,9 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   has_many :tags, :class_name => DataObjectTag.to_s, :through => :data_object_tags, :source => :data_object_tag
   has_many :comments
   has_many :last_curated_dates
-  has_many :actions_histories
-  has_many :actions_histories_on_data_objects, :class_name => CuratorActivityLog.to_s,
-             :conditions => "actions_histories.changeable_object_type_id = #{ChangeableObjectType.raw_data_object_id}"
+  has_many :curator_activity_logs
+  has_many :curator_activity_logs_on_data_objects, :class_name => CuratorActivityLog.to_s,
+             :conditions => "curator_activity_logs.changeable_object_type_id = #{ChangeableObjectType.raw_data_object_id}"
   has_many :users_data_objects
   has_many :collection_items, :as => :object
   has_many :collections
@@ -170,7 +170,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     if(arr_dataobject_ids.length > 0 or agent_id == 'All') then
       sql = "SELECT ah.object_id data_object_id, ah.user_id
         FROM action_with_objects awo
-          JOIN actions_histories ah ON ah.action_with_object_id = awo.id
+          JOIN curator_activity_logs ah ON ah.action_with_object_id = awo.id
           JOIN changeable_object_types cot ON ah.changeable_object_type_id = cot.id
           JOIN users u ON ah.user_id = u.id
         WHERE cot.ch_object_type = 'data_object' "
@@ -195,7 +195,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     sql = "SELECT ah.object_id data_object_id, cot.ch_object_type,
         awo.id action_with_object_id, u.given_name, u.family_name, ah.updated_at, ah.user_id
       FROM action_with_objects awo
-        JOIN actions_histories ah ON ah.action_with_object_id = awo.id
+        JOIN curator_activity_logs ah ON ah.action_with_object_id = awo.id
         JOIN changeable_object_types cot ON ah.changeable_object_type_id = cot.id
         JOIN users u ON ah.user_id = u.id
       WHERE cot.ch_object_type = 'data_object'
@@ -270,25 +270,13 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     return_value
   end
 
-  # TODO - test.  And move this (and many of the following methods) to their own module.
-  def objects_vetted
-    # TODO - use eager loading to avoid the #map
-    CuratorDataObjectLog.find_all_by_user_id_and_curator_activity_id( id, CuratorActivity.approve ).map(&:object)
-  end
-
-  # TODO - test
-  def total_objects_vetted
-    # TODO - this needs to become a simple COUNT query
-    CuratorDataObjectLog.find_all_by_user_id_and_curator_activity_id( id, CuratorActivity.approve ).length
-  end
-
-  # TODO - test
+  # TODO
   # get the total objects curated for a particular curator activity type
   def total_objects_curated_by_action(action)
     curator_activity_id = CuratorActivity.send action+'!'
     if !curator_activity_id.nil?
-      # TODO - change this to a #count.
-      CuratorDataObjectLog.find_all_by_user_id_and_curator_activity_id( id, curator_activity_id ).length
+      # TODO
+      raise "Unimplemented"
     else
       return 0
     end
@@ -296,16 +284,16 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   # TODO - test
   def total_data_objects_curated
-      return actions_histories_on_data_objects.count(
+      return curator_activity_logs_on_data_objects.count(
               :conditions => "action_with_object_id IN (#{ActionWithObject.raw_curator_action_ids.join(",")})",
-              :group => 'actions_histories.object_id').count
+              :group => 'curator_activity_logs.object_id').count
   end
 
   # TODO - test
   def comment_curation_actions
     CuratorActivityLog.find_all_by_user_id_and_changeable_object_type_id(id, ChangeableObjectType.comment.id,
       :include => [ :action_with_object, :affected_comment ],
-      :select => { :actions_histories => '*', :comments => '*' },
+      :select => { :curator_activity_logs => '*', :comments => '*' },
       :conditions => "action_with_object_id != #{ActionWithObject.created.id}")
   end
 
@@ -318,7 +306,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def taxon_concept_ids_curated
     connection.select_values("
       SELECT dotc.taxon_concept_id
-      FROM actions_histories ah
+      FROM curator_activity_logs ah
         JOIN action_with_objects awo ON (ah.action_with_object_id = awo.id)
         JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (ah.object_id = dotc.data_object_id)
       WHERE ah.user_id=#{id}
@@ -691,7 +679,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     taxon_concept_id = options[:taxon_concept_id] || nil
     action_with_object_id     = ActionWithObject.find_by_translated(:action_code, action.to_s).id
     changeable_object_type_id = ChangeableObjectType.find_by_ch_object_type(changeable_object_type).id
-    actions_history = CuratorActivityLog.create(
+    curator_activity_log = CuratorActivityLog.create(
       :user_id                   => self.id,
       :object_id                 => object.id,
       :changeable_object_type_id => changeable_object_type_id,
@@ -703,7 +691,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     )
     if untrust_reasons
       untrust_reasons.each do |ur|
-        actions_history.untrust_reasons << ur
+        curator_activity_log.untrust_reasons << ur
       end
     end
   end

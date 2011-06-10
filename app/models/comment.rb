@@ -9,7 +9,7 @@ class Comment < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :parent, :polymorphic => true
-  has_one :actions_history
+  has_one :curator_activity_log
 
   # I *do not* have any idea why Time.now wasn't working (I assume it was a time-zone thing), but this works:
   named_scope :visible, lambda { { :conditions => ['visible_at <= ?', 0.seconds.from_now] } }

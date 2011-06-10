@@ -1,6 +1,6 @@
 module EOL
   module CuratableAssociation
-    
+
     def curate(user, opts)
       vetted_id = opts[:vetted_id]
       visibility_id = opts[:visibility_id]
@@ -38,7 +38,7 @@ module EOL
           end
         end
       end
-      
+
       # TODO: This adds curation comment as a feeditem to the data object, but it should be added to the associations.
       if opts[:curation_comment_status]
         data_object.feed.post(curation_comment, :feed_item_type_id => FeedItemType.curator_comment.id, :user_id => user.id)
@@ -104,7 +104,7 @@ module EOL
       if untrust_reason_ids
         untrust_reason_ids.each do |untrust_reason_id|
           ur = UntrustReason.find(untrust_reason_id)
-          # this is used to save the untrust reasons in the actions_histories_untrust_reasons table via track_curator_activity method
+          # this is used to save the untrust reasons in the untrust_reasons table via track_curator_activity method
           these_untrust_reasons << ur
         end
         # TODO: This should be changed to show the proper labels using Ajax/JQuery
@@ -132,10 +132,10 @@ module EOL
       user.track_curator_activity(curator_activity_object(changeable_object_type), changeable_object_type, verb)
       #data_object.feed.post(note, :feed_item_type_id => FeedItemType.curator_activity.id, :user_id => user.id)
     end
-    
+
     def curator_activity_object(changeable_object_type)
-      changeable_object_type == 'data_object' ? data_object : self 
+      changeable_object_type == 'data_object' ? data_object : self
     end
-    
+
   end
 end

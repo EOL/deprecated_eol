@@ -63,25 +63,25 @@ class HarvestEvent < SpeciesSchemaModel
 
     date_condition = ""
     if lower_date_range
-      date_condition = "AND actions_histories.updated_at BETWEEN '#{lower_date_range}' AND '#{upper_date_range}'"
+      date_condition = "AND curator_activity_logs.updated_at BETWEEN '#{lower_date_range}' AND '#{upper_date_range}'"
     end
 
-    actions_histories = CuratorActivityLog.find(:all,
-      :joins => "JOIN #{DataObjectsHarvestEvent.full_table_name} dohe ON (actions_histories.object_id=dohe.data_object_id)",
-      :conditions => "actions_histories.action_with_object_id IN (#{ActionWithObject.trusted.id}, #{ActionWithObject.untrusted.id}, #{ActionWithObject.inappropriate.id}, #{ActionWithObject.delete.id}) AND actions_histories.changeable_object_type_id = #{ChangeableObjectType.data_object.id} AND dohe.harvest_event_id = 2 #{date_condition}",
+    curator_activity_logs = CuratorActivityLog.find(:all,
+      :joins => "JOIN #{DataObjectsHarvestEvent.full_table_name} dohe ON (curator_activity_logs.object_id=dohe.data_object_id)",
+      :conditions => "curator_activity_logs.action_with_object_id IN (#{ActionWithObject.trusted.id}, #{ActionWithObject.untrusted.id}, #{ActionWithObject.inappropriate.id}, #{ActionWithObject.delete.id}) AND curator_activity_logs.changeable_object_type_id = #{ChangeableObjectType.data_object.id} AND dohe.harvest_event_id = 2 #{date_condition}",
       :select => 'id')
 
-    actions_histories = CuratorActivityLog.find_all_by_id(actions_histories.collect{ |ah| ah.id },
+    curator_activity_logs = CuratorActivityLog.find_all_by_id(curator_activity_logs.collect{ |ah| ah.id },
       :include => [ :user, :comment, :action_with_object, :changeable_object_type,
         { :data_object => { :hierarchy_entries => :name } } ],
       :select => {
-        :actions_histories => :updated_at,
+        :curator_activity_logs => :updated_at,
         :users => [ :given_name, :family_name ],
         :comments => :body,
         :data_objects => [:object_cache_url, :source_url, :data_type_id ],
         :hierarchy_entries => [ :published, :visibility_id, :taxon_concept_id ],
         :names => :string })
-    actions_histories.sort_by{ |ah| Invert(ah.id) }
+    curator_activity_logs.sort_by{ |ah| Invert(ah.id) }
   end
 
 protected

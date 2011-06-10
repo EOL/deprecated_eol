@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   layout 'main'
   @@objects_per_page = 20
-  
+
   def show
     @user = User.find(params[:id])
     @feed_item = FeedItem.new(:feed_id => @user.id, :feed_type => @user.class.name)
@@ -12,16 +12,16 @@ class UsersController < ApplicationController
       format.xml  { render :xml => @user }
     end
   end
-  
+
   def objects_curated
     page = (params[:page] || 1).to_i
     @user = User.find(params[:id])
     current_user.log_activity(:show_objects_curated_by_user_id, :value => params[:id])
-    @latest_curator_actions = @user.actions_histories_on_data_objects.paginate_all_by_action_with_object_id(
+    @latest_curator_actions = @user.curator_activity_logs_on_data_objects.paginate_all_by_action_with_object_id(
                                 ActionWithObject.raw_curator_action_ids,
-                                :select => 'actions_histories.*',
-                                :order => 'actions_histories.updated_at DESC',
-                                :group => 'actions_histories.object_id',
+                                :select => 'curator_activity_logs.*',
+                                :order => 'curator_activity_logs.updated_at DESC',
+                                :group => 'curator_activity_logs.object_id',
                                 :include => [ :action_with_object ],
                                 :page => page, :per_page => @@objects_per_page)
     @curated_datos = DataObject.find(@latest_curator_actions.collect{|lca| lca[:object_id]},
@@ -72,7 +72,7 @@ class UsersController < ApplicationController
 
     end
   end
-  
+
   def species_curated
     page = (params[:page] || 1).to_i
     @user = User.find(params[:id])

@@ -4,7 +4,7 @@ describe CuratorActivityLog do
   truncate_all_tables
   load_foundation_cache
 
-  describe '#new_actions_histories' do
+  describe '#new_curator_activity_logs' do
 
     before(:all) do
       @taxon_concept = build_taxon_concept

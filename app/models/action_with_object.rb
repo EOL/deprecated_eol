@@ -1,9 +1,9 @@
 class ActionWithObject < ActiveRecord::Base
   CACHE_ALL_ROWS = true
   uses_translations
-  has_many :actions_histories
+  has_many :curator_activity_logs
 
-  # Helper to provide consistent calculation of curator actions when using actions_histories_on_data_objects
+  # Helper to provide consistent calculation of curator actions when using curator_activity_logs_on_data_objects
   # association
   def self.raw_curator_action_ids
         [ trusted.id,

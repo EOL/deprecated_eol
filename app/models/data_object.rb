@@ -1053,8 +1053,6 @@ class DataObject < SpeciesSchemaModel
 private
 
   def log_association(object, user, hierarchy_entry, action)
-    CuratorDataObjectLog.create(:data_object => self, :user => user,
-                                :curator_activity => CuratorActivity.send(action))
     user.track_curator_activity(object, 'curated_data_objects_hierarchy_entry', action.to_s)
   end
 

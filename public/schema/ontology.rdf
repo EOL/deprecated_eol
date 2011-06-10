@@ -59,10 +59,10 @@
     <rdfs:range>
       <owl:Class>
         <owl:unionOf rdf:parseType="Collection">
-          <owl:Class rdf:about="&resource;StillImage"/>
-          <owl:Class rdf:about="&resource;MovingImage"/>
-          <owl:Class rdf:about="&resource;Sound"/>
-          <owl:Class rdf:about="&resource;Text"/>
+          <owl:Class rdf:about="&resource;StillImageSubtype"/>
+          <owl:Class rdf:about="&resource;MovingImageSubtype"/>
+          <owl:Class rdf:about="&resource;SoundSubtype"/>
+          <owl:Class rdf:about="&resource;TextSubtype"/>
           <owl:Class rdf:about="&resource;DatasetSubtype"/>
         </owl:unionOf>
       </owl:Class>

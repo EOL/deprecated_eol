@@ -5,7 +5,7 @@ module EOL
       connections << [SpeciesSchemaWriter, LoggingWriter] if RAILS_ENV == 'production'
       connections.map {|c| c.connection}
     end
-    
+
     # this should really only be used in places where our two main databases are expected to be separate and we're having problems
     # now that we merged them. For example in database migrations
     def self.toggle_eol_data_connections(switch_to_connection = :eol_data)
@@ -16,14 +16,14 @@ module EOL
         db_name_in_environment = RAILS_ENV
         master_connect = :eol
       end
-      
+
       SpeciesSchemaModel.establish_connection SpeciesSchemaModel.configurations[db_name_in_environment]
-      
+
       eol_data_models = [
         'Agent', 'AgentContact', 'AgentContactRole', 'AgentDataType', 'AgentProvidedDataType', 'AgentRole', 'AgentStatus', 'AgentsDataObject',
         'AgentsHierarchyEntry', 'AgentsResource', 'AgentsSynonym', 'Audience', 'CanonicalForm', 'CollectionType', 'CollectionTypesHierarchy',
         'ContentPartner', 'ContentPartnerAgreement', 'DataObject', 'DataObjectsHarvestEvent', 'DataObjectsHierarchyEntry', 'DataObjectsInfoItem',
-        'DataObjectsRef', 'DataObjectsTableOfContent', 'DataObjectsTaxonConcept', 'DataObjectsUntrustReason', 'DataType', 'FeedDataObject',
+        'DataObjectsRef', 'DataObjectsTableOfContent', 'DataObjectsTaxonConcept', 'DataType', 'FeedDataObject',
         'GlossaryTerm', 'GoogleAnalyticsPageStat', 'GoogleAnalyticsPartnerSummary', 'GoogleAnalyticsPartnerTaxon', 'GoogleAnalyticsSummary',
         'HarvestEvent', 'HarvestEventsHierarchyEntry', 'HarvestProcessLog', 'HierarchiesContent', 'Hierarchy', 'HierarchyEntriesFlattened',
         'HierarchyEntriesRef', 'HierarchyEntry', 'HierarchyEntryStat', 'InfoItem', 'ItemPage', 'Language', 'License', 'MimeType', 'Name', 'PageName',
@@ -35,7 +35,7 @@ module EOL
         'TranslatedMimeType', 'TranslatedRank', 'TranslatedRefIdentifierType', 'TranslatedResourceAgentRole', 'TranslatedResourceStatus',
         'TranslatedServiceType', 'TranslatedStatus', 'TranslatedSynonymRelation', 'TranslatedTocItem', 'TranslatedUntrustReason', 'TranslatedVetted',
         'TranslatedVisibility', 'UntrustReason', 'Vetted', 'Visibility', 'WikipediaQueue']
-      
+
       eol_data_models.each do |class_name|
         begin
           klass = class_name.constantize
@@ -105,7 +105,7 @@ module EOL
     end
 
   end
-    
+
   module Data
 
     # for each Hierarchy, make the nested sets for that Hierarchy via #make_nested_set
@@ -114,8 +114,8 @@ module EOL
         make_nested_set hierarchy
       end
     end
-    
-    # grabs the top-level HierarchyEntry nodes of a given Hierarchy and assigns proper 
+
+    # grabs the top-level HierarchyEntry nodes of a given Hierarchy and assigns proper
     # lft/rgt IDs to them and their children via #assign_id
     def make_nested_set hierarchy
       next_range_id = 1
@@ -133,7 +133,7 @@ module EOL
       return next_range_id
     end
 
-    # assigns the proper lft/right IDs to a HierarchyEntry given the current 'next_range_id' 
+    # assigns the proper lft/right IDs to a HierarchyEntry given the current 'next_range_id'
     # and calls #make_nested_set_recursion to assign_id for the entry's children
     def assign_id entry, next_range_id
       entry.lft = next_range_id
@@ -144,9 +144,9 @@ module EOL
       entry.save!
       return next_range_id
     end
-    
-    
-    
+
+
+
     # for each Hierarchy, make the nested sets for that Hierarchy via #make_nested_set
     def flatten_hierarchies
       root_he = HierarchyEntry.new
@@ -155,8 +155,8 @@ module EOL
         flatten_hierarchies_recursion(root_he, hierarchy)
       end
     end
-    
-    # grabs the top-level HierarchyEntry nodes of a given Hierarchy and assigns proper 
+
+    # grabs the top-level HierarchyEntry nodes of a given Hierarchy and assigns proper
     # lft/rgt IDs to them and their children via #assign_id
     def flatten_hierarchies_recursion(node, hierarchy, parents=[])
       parents.each do |p|
@@ -168,10 +168,10 @@ module EOL
         flatten_hierarchies_recursion(child_node, hierarchy, child_parents)
       end
     end
-    
-    
-    
-    
+
+
+
+
     def rebuild_collection_type_nested_set
       CollectionType.find(:all).each do |ct|
         ct.lft = ct.rgt = 0
@@ -182,30 +182,30 @@ module EOL
         nested_set_value = rebuild_collection_type_nested_set_assign(ct, nested_set_value)
       end
     end
-    
+
     def rebuild_collection_type_nested_set_assign(ct, nested_set_value)
       ct.lft = nested_set_value
       ct.save!
       nested_set_value += 1
-      
+
       CollectionType.find_all_by_parent_id(ct.id).each do |child_ct|
         nested_set_value = rebuild_collection_type_nested_set_assign(child_ct, nested_set_value)
       end
-      
+
       ct.rgt = nested_set_value
       ct.save!
       nested_set_value += 1
-      
+
       return nested_set_value
     end
-    
+
   end
 
   module Print
-    
+
     # prints out HierarchyEntry notes for a given Hierarchy ID, displaying depths, eg:
     #
-    #  $ ./script/console 
+    #  $ ./script/console
     #  Loading development environment (Rails 2.1.1)
     #  >> require 'eol_data'
     #  => ["EOL"]
@@ -236,6 +236,6 @@ module EOL
       puts "#{ "\t" * he.depth }[#{he.id}] #{he.name} [#{he.lft} -> #{he.rgt}]"
       he.children.each {|child| print_he(child) }
     end
-    
+
   end
 end

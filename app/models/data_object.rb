@@ -28,8 +28,6 @@ class DataObject < SpeciesSchemaModel
   has_many :data_object_tags, :class_name => DataObjectTags.to_s
   has_many :tags, :class_name => DataObjectTag.to_s, :through => :data_object_tags, :source => :data_object_tag
   has_many :data_objects_table_of_contents
-  has_many :data_objects_untrust_reasons
-  has_many :untrust_reasons, :through => :data_objects_untrust_reasons
   has_many :data_objects_info_items
   has_many :info_items, :through => :data_objects_info_items
   has_many :taxon_concept_exemplar_images

@@ -1,7 +1,7 @@
 class DataObjectsController < ApplicationController
 
   # No layout for Ajax calls.  Everthing else uses main:
-  layout proc { |c| c.request.xhr? ? false : "main" }
+  layout proc { |c| c.request.xhr? ? false : "v2/data" }
 
   before_filter :load_data_object, :except => [:index, :new, :create, :preview]
   before_filter :allow_login_then_submit, :only => [:rate]
@@ -130,6 +130,7 @@ class DataObjectsController < ApplicationController
   end
 
   def show
+    @page_title = "TODO: We need a sensible title here"
     get_attribution
     @feed_item = FeedItem.new(:feed_id => @data_object.id, :feed_type => @data_object.class.name)
     @type = @data_object.data_type.label

@@ -88,6 +88,91 @@ class DataObject < SpeciesSchemaModel
     end
   end
 
+  def self.custom_sort(data_objects, sort_by)
+    data_objects.sort_by do |obj|
+      vetted_view_order = obj.vetted.blank? ? 0 : obj.vetted.view_order
+      inverted_rating = obj.data_rating * -1
+      inverted_id = obj.id * -1
+
+      if sort_by == "newest" 
+        [inverted_id, obj.data_type_id, vetted_view_order, inverted_rating]
+      elsif sort_by == "rating" 
+        [inverted_rating, obj.data_type_id, vetted_view_order, inverted_id]
+      elsif sort_by == "vetted" 
+        [vetted_view_order, inverted_rating, inverted_id, obj.data_type_id]
+      elsif sort_by == "data_type" 
+        [obj.data_type_id, vetted_view_order, inverted_rating, inverted_id]
+      elsif sort_by == "default" 
+        [vetted_view_order, inverted_rating, inverted_id]
+      end  
+    
+    end
+  end
+
+  def self.custom_filter(data_objects, filter_by_type, filter_by_status)
+
+    # filter by type
+    allowed_data_types = []
+    if filter_by_type["all"]
+      allowed_data_types = [DataType.image.id, DataType.sound.id, DataType.video.id, DataType.flash.id, DataType.youtube.id]
+    else
+      if filter_by_type["image"] then allowed_data_types << DataType.image.id end
+      if filter_by_type["audio"] then allowed_data_types << DataType.sound.id end
+      if filter_by_type["video"] 
+        allowed_data_types << DataType.video.id 
+        allowed_data_types << DataType.flash.id
+        allowed_data_types << DataType.youtube.id
+      end
+      
+      if filter_by_type["photosynth"] then allowed_data_types << DataType.image.id end
+      
+      # this means if all data types are not checked, then there is no filter for data types
+      if allowed_data_types.length == 0
+        allowed_data_types = [DataType.image.id, DataType.sound.id, DataType.video.id, DataType.flash.id, DataType.youtube.id]
+      end
+    end
+    data_objects.delete_if { |key, value| !allowed_data_types.include?(key.data_type_id) }
+
+    # filter by status
+    allowed_visibility_status = []
+    allowed_visibility_status = [Visibility.visible.id, Visibility.invisible.id, Visibility.preview.id]
+    
+    allowed_vetted_status = []
+    if filter_by_status["all"]
+      allowed_vetted_status = [Vetted.trusted.id, Vetted.unknown.id, Vetted.untrusted.id]
+      allowed_visibility_status << Visibility.inappropriate.id
+    else
+      if filter_by_status["trusted"] then allowed_vetted_status << Vetted.trusted.id end
+      if filter_by_status["untrusted"] then allowed_vetted_status << Vetted.untrusted.id end
+      if filter_by_status["unreviewed"] then allowed_vetted_status << Vetted.unknown.id end
+      if filter_by_status["inappropriate"] then allowed_visibility_status << Visibility.inappropriate.id end
+      # this means if all statuses are not checked, then there is no filter for statuses  
+      if allowed_vetted_status.length == 0 and allowed_visibility_status.length == 3
+        allowed_vetted_status = [Vetted.trusted.id, Vetted.unknown.id, Vetted.untrusted.id]
+        allowed_visibility_status << Visibility.inappropriate.id
+      end
+    end
+       
+    temp = []
+    data_objects.each do |object|
+      if allowed_vetted_status.include?(object.vetted_id) then temp << object end      
+    end
+    data_objects = temp
+
+    temp = []
+    data_objects.each do |object|
+      if allowed_visibility_status.include?(object.visibility_id) then temp << object end
+    end
+    data_objects = temp
+    
+    if filter_by_type["photosynth"] && !filter_by_type["image"]
+      data_objects.delete_if { |key, value| key.data_type_id == DataType.image.id && key.source_url[0..20] != "http://photosynth.net" }
+    end
+    
+    return data_objects
+  end
+
+
   # TODO - this smells like a good place to use a Strategy pattern.  The user can have certain behaviour based
   # on their access.
   def self.filter_list_for_user(data_objects, options={})

@@ -6,7 +6,7 @@ class OldAccountController < ApplicationController
     :show_objects_curated, :show_species_curated, :show_comments_moderated]
   before_filter :accounts_not_available unless $ALLOW_USER_LOGINS
   if $USE_SSL_FOR_LOGIN
-    before_filter :redirect_to_ssl, :only=>[:login, :authenticate, :signup, :info, :profile, :reset_password]
+    before_filter :redirect_to_ssl, :only => [:login, :authenticate, :signup, :info, :profile, :reset_password]
   end
 
   layout 'main'
@@ -176,7 +176,7 @@ class OldAccountController < ApplicationController
 
     # grab logged in user
     @user = User.find(current_user.id)
-    old_user=@user.clone
+    old_user = @user.clone
 
     unless request.post? # first time on page, get current settings
       # set expertise to a string so it will be picked up in web page controls
@@ -246,7 +246,7 @@ class OldAccountController < ApplicationController
   def show
     @user = User.find(params[:id])
     current_user.log_activity(:show_user_id, :value => params[:id])
-    @user_submitted_text_count = UsersDataObject.count(:conditions=>['user_id = ?',params[:id]])
+    @user_submitted_text_count = UsersDataObject.count(:conditions => ['user_id = ?',params[:id]])
     redirect_back_or_default unless @user.is_curator?
   end
 
@@ -254,12 +254,12 @@ class OldAccountController < ApplicationController
     page = (params[:page] || 1).to_i
     @user = User.find(params[:id])
     current_user.log_activity(:show_objects_curated_by_user_id, :value => params[:id])
-    @latest_curator_actions = @user.curator_activity_logs_on_data_objects.paginate_all_by_action_with_object_id(
-                                ActionWithObject.raw_curator_action_ids,
+    @latest_curator_actions = @user.curator_activity_logs_on_data_objects.paginate_all_by_activity_id(
+                                Activity.raw_curator_action_ids,
                                 :select => 'curator_activity_logs.*',
                                 :order => 'curator_activity_logs.updated_at DESC',
                                 :group => 'curator_activity_logs.object_id',
-                                :include => [ :action_with_object ],
+                                :include => [ :activity ],
                                 :page => page, :per_page => @@objects_per_page)
     @curated_datos = DataObject.find(@latest_curator_actions.collect{|lca| lca[:object_id]},
                        :select => 'data_objects.id, data_objects.description, data_objects.object_cache_url, ' +

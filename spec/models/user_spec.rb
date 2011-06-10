@@ -257,14 +257,14 @@ describe User do
   end
 
   it 'should create a new CuratorActivityLog pointing to the right object, user, type and action' do
-    action = ActionWithObject.gen_if_not_exists(:action_code => 'hi')
+    action = Activity.gen_if_not_exists(:name => 'hi')
     obj    = ChangeableObjectType.create(:ch_object_type => 'name')
     name   = Name.gen
-    @user.track_curator_activity(name, obj.ch_object_type, action.action_code)
+    @user.track_curator_activity(name, obj.ch_object_type, action.name)
     CuratorActivityLog.last.user_id.should                   == @user.id
     CuratorActivityLog.last.object_id.should                 == name.id
     CuratorActivityLog.last.changeable_object_type_id.should == obj.id
-    CuratorActivityLog.last.action_with_object_id.should     == action.id
+    CuratorActivityLog.last.activity_id.should               == action.id
   end
 
   it 'convenience methods should return all of the data objects for the user' do

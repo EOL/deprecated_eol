@@ -255,24 +255,17 @@ Factory.sequence(:int    ){|n| n }
 
 #### Factories
 
-Factory.define :action_with_object do |awo|
+Factory.define :activity do |a|
+  a.name { Factory.next(:string) }
 end
 
-Factory.define :curator_activity_log do |ah|
-  ah.association :user
-  ah.association :action_with_object
-  ah.association :changeable_object_type
-  #ah.id
-  #ah.user_id
-  #ah.object_id
-  #ah.changeable_object_type_id 1 #data_object
-  #ah.action_with_object_id 4 #trusted
-  ah.created_at                   { 5.days.ago }
-  ah.updated_at                   { 5.days.ago }
+Factory.define :activity_log do |al|
+  al.association :taxon_concept
+  al.association :activity
+  al.association :user
+  al.value { Factory.next(:string) }
+  al.created_at { 12.hours.ago }
 end
-
-
-
 Factory.define :agent do |agent|
   agent.created_at      { 5.days.ago }
   agent.homepage        ''
@@ -433,6 +426,14 @@ end
 
 Factory.define :curator_activity do |ca|
   ca.code { Factory.next(:string) }
+end
+
+Factory.define :curator_activity_log do |ah|
+  ah.association :user
+  ah.association :activity
+  ah.association :changeable_object_type
+  ah.created_at                   { 5.days.ago }
+  ah.updated_at                   { 5.days.ago }
 end
 
 Factory.define :data_object do |dato|
@@ -658,12 +659,6 @@ Factory.define :language do |l|
   l.iso_639_3    ''
   l.activated_on { 24.hours.ago }
   l.sort_order   { Factory.next(:int) % 128 }
-end
-
-Factory.define :last_curated_date do |l|
-  l.association  :user
-  l.association  :taxon_concept
-  l.last_curated { 1.minute.ago }
 end
 
 Factory.define :license do |l|
@@ -903,12 +898,6 @@ Factory.define :top_unpublished_concept_image do |tui|
   tui.view_order  1
 end
 
-Factory.define :translated_action_with_object do |r|
-  r.association     :action_with_object
-  r.language        { Language.english }
-  r.action_code     { Factory.next(:string) }
-end
-
 Factory.define :translated_contact_role do |r|
   r.association     :contact_role
   r.language        { Language.english }
@@ -1140,16 +1129,4 @@ Factory.define :google_analytics_partner_taxon do |g|
   g.association :user
   g.year { Factory.next :year }
   g.month { Factory.next :month }
-end
-
-Factory.define :activity do |a|
-  a.name { Factory.next(:string) }
-end
-
-Factory.define :activity_log do |al|
-  al.association :taxon_concept
-  al.association :activity
-  al.association :user
-  al.value { Factory.next(:string) }
-  al.created_at { 12.hours.ago }
 end

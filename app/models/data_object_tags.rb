@@ -17,9 +17,6 @@ class DataObjectTags < ActiveRecord::Base
   belongs_to :data_object
   belongs_to :data_object_tag
   belongs_to :user
-    
-  after_create :curator_activity_flag
-  after_update :curator_activity_flag
 
   validates_presence_of :data_object_id, :data_object_tag_id
   validates_uniqueness_of :data_object_tag_id, :scope => [ :data_object_id, :user_id ]
@@ -37,20 +34,20 @@ class DataObjectTags < ActiveRecord::Base
     end
   end
 
-  named_scope :private_tags, :conditions => 'user_id IS NOT NULL', :include => :data_object_tag  
+  named_scope :private_tags, :conditions => 'user_id IS NOT NULL', :include => :data_object_tag
   named_scope :private_tags_for, lambda {|user|{ :conditions => ['user_id = ?', user.id], :include => :data_object_tag }}
-  
-  named_scope :tags_with_usage_count, :select => "data_object_guid, data_object_tag_id, count(user_id) as usage_count", 
+
+  named_scope :tags_with_usage_count, :select => "data_object_guid, data_object_tag_id, count(user_id) as usage_count",
                                       :group => 'data_object_tag_id'
   named_scope :search_by_tag,  lambda{|tag|{  :conditions => ['data_object_tag_id = ?', tag.id] }}
   #named_scope :search_by_tags_or, lambda{|tags|{ :conditions => "data_object_tag_id IN (#{tags.map(&:id).join(',')})" }}
 
   # named_scope :search_by_tags_and, lambda{|tags|{ :conditions => tags.map {|t| "data_object_tag_id = #{t.id}" }.join(' AND ') }}
   # SELECT * FROM t1 WHERE column1 = (SELECT column1 FROM t2);
-  def self.search_by_tags_or(tags, user_id = nil) 
+  def self.search_by_tags_or(tags, user_id = nil)
     sql = "SELECT dt.*, count(dt.id) do_count, MAX(t.is_public) is_public
-            FROM data_object_tags t 
-              JOIN data_object_data_object_tags dt 
+            FROM data_object_tags t
+              JOIN data_object_data_object_tags dt
                 ON (t.id = dt.data_object_tag_id)
             WHERE
               dt.data_object_tag_id in (#{tags.map(&:id).join(',')})
@@ -100,25 +97,6 @@ class DataObjectTags < ActiveRecord::Base
     # we have have been passed some tags that has .is_public set but they aren't actually *used* anywhere so they weren't returned by tags_with_usage_count
     public_tags = ( public_tags + tags.select {|t| t.is_public? } ).uniq
   end
-  
-  def curator_activity_flag
-    if data_object.is_curatable_by?(user)
-      LastCuratedDate.create(:user_id          => user.id, 
-                             :taxon_concept_id => data_object.get_taxon_concepts(:published => :preferred)[0].id, 
-                             :last_curated     => Time.now)
-    end    
-  end
 
 end
-
-# == Schema Info
-# Schema version: 20081020144900
-#
-# Table name: data_object_data_object_tags
-#
-#  id                 :integer(4)      not null, primary key
-#  data_object_id     :integer(4)      not null
-#  data_object_tag_id :integer(4)      not null
-#  user_id            :integer(4)
-#  data_object_guid   :varchar(32)     not null
 

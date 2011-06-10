@@ -194,8 +194,6 @@ module EOL
         curator = User.gen(options)
         curator.approve_to_curate
 
-        # A curator isn't credited until she actually DOES something, which is handled thusly:
-        curator.last_curated_dates << LastCuratedDate.gen(:taxon_concept => tc, :user => curator)
         return curator
       end
 

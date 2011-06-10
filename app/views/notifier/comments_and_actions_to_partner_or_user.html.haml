@@ -1,7 +1,7 @@
 - type_to_send_permalinks_for = [DataType.image.id, DataType.text.id] + DataType.video_type_ids
 
 - if @agent_or_user.class == AgentContact
-  =I18n.t("dear_var__agent_or_user_full_n", :var__agent_or_user_full_name => @agent_or_user.full_name, :var__agent_or_user_agent_full_name => @agent_or_user.agent.full_name) 
+  =I18n.t("dear_var__agent_or_user_full_n", :var__agent_or_user_full_name => @agent_or_user.full_name, :var__agent_or_user_agent_full_name => @agent_or_user.agent.full_name)
 - else
   = I18n.t("dear_var__agent_or_user_full_n_", :var__agent_or_user_full_name => @agent_or_user.full_name)
 = ""
@@ -48,7 +48,7 @@
     = "    #{taxon_concept.entry.name.string}"
     - if url
       = "    #{url}"
-    = I18n.t("____var_action_action_with_obj", :var_action_action_with_object_action_code => action.action_with_object.action_code, :var_action__curator_username__ => action['curator_username'])
+    = I18n.t(:action_taken_by_curator_for_email, :action => action.activity.name, :by => action['curator_username'])
     = "  -----"
     = ""
   = ""

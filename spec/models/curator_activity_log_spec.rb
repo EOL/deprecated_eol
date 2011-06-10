@@ -29,7 +29,7 @@ describe CuratorActivityLog do
     #              :visibility_id => Visibility.invisible.id }
     #   @dato_image.curate(@user, :vetted_id =>  params[:vetted_id], :visibility_id => params[:visibility_id], :untrust_reason_ids => params[:untrust_reasons], :comment => params[:comment], :taxon_concept_id => params[:taxon_concept_id])
     #
-    #   ah = CuratorActivityLog.find_by_user_id_and_object_id_and_action_with_object_id(@user.id, @dato_image.id, ActionWithObject.untrusted.id, :include => [:comment, :untrust_reasons])
+    #   ah = CuratorActivityLog.find_by_user_id_and_object_id_and_activity_id(@user.id, @dato_image.id, Activity.untrusted.id, :include => [:comment, :untrust_reasons])
     #   ah.should_not == nil
     #   ah.comment.body.should == comment_body
     #

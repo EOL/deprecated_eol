@@ -27,7 +27,7 @@ class TaxonConcept < SpeciesSchemaModel
     :conditions => 'hierarchy_entries.published=1 AND hierarchy_entries.visibility_id=#{Visibility.visible.id}'
   has_many :top_concept_images
   has_many :top_unpublished_concept_images
-  has_many :last_curated_dates
+  has_many :curator_activity_logs
   has_many :taxon_concept_names
   has_many :comments, :as => :parent
   has_many :names, :through => :taxon_concept_names
@@ -147,7 +147,7 @@ class TaxonConcept < SpeciesSchemaModel
   # anything yet doesn't get a citation).  Also, curators should only get credit on the pages they actually edited,
   # not all of it's children.  (For example.)
   def acting_curators
-    last_curated_dates.collect{ |lcd| lcd.user }.uniq
+    curator_activity_logs.collect{ |lcd| lcd.user }.uniq
   end
 
   def top_acting_curators

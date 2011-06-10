@@ -2,10 +2,10 @@
 %li
   %p
     =I18n.t("comment___")
-    = truncate(allow_some_html(h(act_history.comment_body)), 300)
+    = truncate(allow_some_html(h(curator_log.comment_body)), 300)
     "
     %br
     %i
       - if current_act == 'create'
-        =I18n.t("added_to_the_comment_on_date_by", :comment => act_history.comment_object.parent_type_name, :link => link_to(act_history.taxon_concept_name, {:controller => '/taxa', :action => 'show', :id => act_history.taxon_concept_id}, :target => "_blank") , :user=> curator_or_plain_username(act_history.user), :date => act_date)
+        =I18n.t("added_to_the_comment_on_date_by", :comment => curator_log.comment_object.parent_type_name, :link => link_to(curator_log.taxon_concept_name, {:controller => '/taxa', :action => 'show', :id => curator_log.taxon_concept_id}, :target => "_blank") , :user=> curator_or_plain_username(curator_log.user), :date => act_date)
   %br

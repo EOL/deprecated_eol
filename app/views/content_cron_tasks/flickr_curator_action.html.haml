@@ -1,10 +1,10 @@
 - # I'm not using views well here because I don't want HAML to add newlines anywhere
-- case curator_activity_log.action_with_object
-- when ActionWithObject.trusted
+- case curator_activity_log.activity
+- when Activity.trusted
   - action_text = I18n.t("has_trusted_your_image")
-- when ActionWithObject.untrusted
+- when Activity.untrusted
   - action_text = I18n.t("has_untrusted_your_image")
-- when ActionWithObject.inappropriate
+- when Activity.inappropriate
   - action_text = I18n.t("has_hidden_your_image")
 - else
   - action_text = I18n.t("has_curated_your_image")

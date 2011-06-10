@@ -85,8 +85,8 @@ describe 'Account Pages' do
   #     with_tag('a', :attributes => { :href => @show_datos_curated_path }, :text => @total_datos_curated)
   #   end
   # end
-  # 
-  # 
+  #
+  #
   it 'should strip most html tags from descriptions on the show objects curated page'
   #   @objects_curated_body.should have_tag('td.description')
   #   @objects_curated_body.should_not have_tag('td.description script')
@@ -104,7 +104,7 @@ describe 'Account Pages' do
   it 'should show data object permalinks on the show objects curated page'
   #   @objects_curated_body.should have_tag('td.description a', :attributes => { :href => @permalink_path }, :text => "Permalink")
   # end
-  # 
+  #
   it 'should show scientific names with hyperlinks on the show objects curated page'
   #   @objects_curated_body.should have_tag('table#show_objects_curated a', :attributes => { :href => @taxon_page_path }) do
   #     with_tag('i', :text => @taxon_concept.hierarchy_entries.first.name[:canonical])

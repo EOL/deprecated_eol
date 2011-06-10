@@ -2,7 +2,6 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 def create_curator_for_taxon_concept(tc)
  curator = build_curator(tc)
- tc.images.last.curator_activity_flag curator, tc.id
  return curator
 end
 
@@ -93,7 +92,7 @@ describe 'Curator Worklist' do
   #   body.should_not include(curate_data_object_path @first_child_trusted_image)
   #   body.should_not include(curate_data_object_path @lower_child_trusted_image)
   # end
-  # 
+  #
   it 'should be able to filter images by hierarchy entry id'
   #   visit("/curators/curate_images?hierarchy_entry_id=#{@lower_child_entry.id}")
   #   body.should include('Curator Central')
@@ -104,7 +103,7 @@ describe 'Curator Worklist' do
   #   body.should_not include(curate_data_object_path @first_child_trusted_image)
   #   body.should_not include(curate_data_object_path @lower_child_trusted_image)
   # end
-  # 
+  #
   it 'should be able to filter images by content partner'
   #   visit("/curators/curate_images?hierarchy_entry_id=#{@taxon_concept.hierarchy_entries.first.id}&content_partner_id=#{@content_partner.id}")
   #   body.should include(curate_data_object_path @lower_child_unreviewed_image)
@@ -114,7 +113,7 @@ describe 'Curator Worklist' do
   #   body.should_not include(curate_data_object_path @first_child_trusted_image)
   #   body.should_not include(curate_data_object_path @lower_child_trusted_image)
   # end
-  # 
+  #
   it 'should be able to filter images by vetted status'
   #   visit("/curators/curate_images?hierarchy_entry_id=#{@taxon_concept.hierarchy_entries.first.id}&vetted_id=#{Vetted.unknown.id}")
   #   body.should include(curate_data_object_path @first_child_unreviewed_image)
@@ -138,7 +137,7 @@ describe 'Curator Worklist' do
   #   body.should include(curate_data_object_path @lower_child_trusted_image)
   #   body.should include(curate_data_object_path @first_child_trusted_image)
   # end
-  # 
+  #
   it 'should be able to filter images by hierarchy entry id and content partner'
   #   visit("/curators/curate_images?hierarchy_entry_id=#{@lower_child_entry.id}&content_partner_id=#{@content_partner.id}")
   #   body.should_not include(curate_data_object_path @first_child_unreviewed_image)
@@ -148,7 +147,7 @@ describe 'Curator Worklist' do
   #   body.should_not include(curate_data_object_path @first_child_trusted_image)
   #   body.should_not include(curate_data_object_path @lower_child_trusted_image)
   # end
-  # 
+  #
   it 'should be able to filter images by hierarchy entry id and vetted status'
   #   visit("/curators/curate_images?hierarchy_entry_id=#{@lower_child_entry.id}&vetted_id=#{Vetted.unknown.id}")
   #   body.should_not include(curate_data_object_path @first_child_unreviewed_image)
@@ -172,7 +171,7 @@ describe 'Curator Worklist' do
   #   body.should_not include(curate_data_object_path @first_child_trusted_image)
   #   body.should include(curate_data_object_path @lower_child_trusted_image)
   # end
-  # 
+  #
   it 'should be able to filter images by content partner and vetted status'
   #   visit("/curators/curate_images?content_partner_id=#{@content_partner.id}&vetted_id=#{Vetted.unknown.id}")
   #   body.should_not include(curate_data_object_path @first_child_unreviewed_image)
@@ -196,7 +195,7 @@ describe 'Curator Worklist' do
   #   body.should_not include(curate_data_object_path @first_child_trusted_image)
   #   body.should include(curate_data_object_path @lower_child_trusted_image)
   # end
-  # 
+  #
   it 'should be able to filter images by hierarchy entry id, content partner and vetted status'
   #   visit("/curators/curate_images?hierarchy_entry_id=#{@lower_child_entry.id}&content_partner_id=#{@content_partner.id}&vetted_id=#{Vetted.unknown.id}")
   #   body.should_not include(curate_data_object_path @first_child_unreviewed_image)
@@ -220,7 +219,7 @@ describe 'Curator Worklist' do
   #   body.should_not include(curate_data_object_path @first_child_trusted_image)
   #   body.should include(curate_data_object_path @lower_child_trusted_image)
   # end
-  # 
+  #
   # # it 'should be able to show ignored images regardless of vetted status' do
   # #   visit("/curators/ignored_images")
   # #   body.should include('Curator Central: Ignored Images')
@@ -266,14 +265,14 @@ describe 'Curator Worklist' do
   # #   body.should_not include(@first_child_unreviewed_ignored_image.data_object_id.to_s)
   # #   body.should include(@lower_child_unreviewed_ignored_image.data_object_id.to_s)
   # end
-  # 
+  #
   it 'should be able to give curators feedback about the sorting rationale'
   #   visit("/curators/curate_images?hierarchy_entry_id=#{@lower_child_entry.id}&content_partner_id=#{@content_partner.id}&vetted_id=#{Vetted.unknown.id}")
   #   body.should include("Images are sorted by EOL import date, with newest items shown first.")
   #   # visit("/curators/ignored_images?hierarchy_entry_id=#{@lower_child_entry.id}&content_partner_id=#{@content_partner.id}&vetted_id=#{Vetted.unknown.id}")
   #   # body.should include("Images are sorted by EOL import date, with newest items shown first.")
   # end
-  
+
   it 'should be able to give curators a warning message if content is not found' do
     visit("/curators/curate_images?content_partner_id=#{@content_partner_no_content.id}")
     body.should include("There is no  #{@content_partner_no_content.user.full_name} content, please select another group to curate or change your source or vetting status criteria.")
@@ -286,7 +285,7 @@ describe 'Curator Worklist' do
     # visit("/curators/ignored_images?hierarchy_entry_id=#{@child_entry_no_content.id}")
     # body.should include("There is no ignored content for #{@species_name}, please select another group.")
   end
-  
+
   it 'should be able to render the taxon name links to the species page with the same image'
   #   visit("/curators/curate_images?hierarchy_entry_id=#{@taxon_concept.hierarchy_entries.first.id}")
   #   body.should include("/pages/#{@child_entry.taxon_concept_id}")
@@ -294,7 +293,7 @@ describe 'Curator Worklist' do
   #   visit("/curators/curate_image?data_object_id=#{@first_child_unreviewed_image.id.to_s}")
   #   body.should include("/pages/#{@child_entry.taxon_concept_id}")
   # end
-  # 
+  #
   it "should be able to rate the images"
   #   visit("/curators/curate_images")
   #   body.should have_tag("li#user-rating-#{@lower_child_unreviewed_image.id.to_s}.current-rating", :text =>"Your Rating:\n0")
@@ -312,7 +311,7 @@ describe 'Curator Worklist' do
   #   body.should_not have_tag("li#user-rating-#{@lower_child_unreviewed_image.id.to_s}.current-rating", :text =>"Your Rating:\n4")
   #   body.should_not have_tag("li#user-rating-#{@lower_child_unreviewed_image.id.to_s}.current-rating", :text =>"Your Rating:\n5")
   # end
-  # 
+  #
   # # it "should be able to rate the ignored images" do
   # #   visit("/curators/ignored_images")
   # #   body.should have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n0")

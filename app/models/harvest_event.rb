@@ -68,11 +68,11 @@ class HarvestEvent < SpeciesSchemaModel
 
     curator_activity_logs = CuratorActivityLog.find(:all,
       :joins => "JOIN #{DataObjectsHarvestEvent.full_table_name} dohe ON (curator_activity_logs.object_id=dohe.data_object_id)",
-      :conditions => "curator_activity_logs.action_with_object_id IN (#{ActionWithObject.trusted.id}, #{ActionWithObject.untrusted.id}, #{ActionWithObject.inappropriate.id}, #{ActionWithObject.delete.id}) AND curator_activity_logs.changeable_object_type_id = #{ChangeableObjectType.data_object.id} AND dohe.harvest_event_id = 2 #{date_condition}",
+      :conditions => "curator_activity_logs.activity_id IN (#{Activity.trusted.id}, #{Activity.untrusted.id}, #{Activity.inappropriate.id}, #{Activity.delete.id}) AND curator_activity_logs.changeable_object_type_id = #{ChangeableObjectType.data_object.id} AND dohe.harvest_event_id = 2 #{date_condition}",
       :select => 'id')
 
     curator_activity_logs = CuratorActivityLog.find_all_by_id(curator_activity_logs.collect{ |ah| ah.id },
-      :include => [ :user, :comment, :action_with_object, :changeable_object_type,
+      :include => [ :user, :comment, :activity, :changeable_object_type,
         { :data_object => { :hierarchy_entries => :name } } ],
       :select => {
         :curator_activity_logs => :updated_at,

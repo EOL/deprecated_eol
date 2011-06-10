@@ -40,7 +40,6 @@ describe DataObject do
       DataObjectTags.gen(:data_object_tag => @tag, :data_object => @dato, :user => User.gen)
     end
 
-    @num_lcd = LastCuratedDate.count
     @hierarchy_entry = HierarchyEntry.gen
     @image_dato.add_curated_association(@curator, @hierarchy_entry)
 
@@ -327,12 +326,10 @@ describe DataObject do
   it 'should add an entry to the curator activity log when a curator adds an association' do
     type = ChangeableObjectType.curated_data_objects_hierarchy_entry
     type.should_not == nil
-    action = ActionWithObject.add_association
+    action = Activity.add_association
     action.should_not == nil
-    curator_action = CuratorActivity.add_association
-    curator_action.should_not == nil
     last_action = CuratorActivityLog.last
-    last_action.action_with_object.should == action
+    last_action.activity.should == action
     last_action.changeable_object_type.should == type
     last_action.user.should == @curator
   end

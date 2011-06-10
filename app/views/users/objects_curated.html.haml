@@ -6,8 +6,8 @@
           =I18n.t("objects_curated")
       %td
         =I18n.t("_nbsp__nbsp__nbsp_curator_")
-        = h @user.full_name  
-        \&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+        = h @user.full_name
+        \&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         = link_to I18n.t("back_to_profile"), { :controller => 'users', :action => :show, :id => @user.id }
 
 - unless @latest_curator_actions.nil? || @latest_curator_actions.blank?
@@ -36,7 +36,7 @@
             - unless dato.toc_items.nil? || dato.toc_items.blank?
               = dato.toc_items[0][:label]
           %td{ :class => row_class }
-            = ah.action_with_object.action_code.capitalize
+            = ah.activity.name.capitalize
             = h format_date_time(ah.updated_at, :format => :short_no_tz)
           %td{ :class => row_class }
             - unless dato[:_preferred_taxon_concept_id].nil?

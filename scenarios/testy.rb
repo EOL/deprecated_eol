@@ -109,8 +109,6 @@ testy[:taxon_concept].overview[0].add_ref('A published visible reference with a 
 testy[:taxon_concept].feed.post testy[:feed_body_1] = "Something"
 testy[:taxon_concept].feed.post testy[:feed_body_2] = "Something Else"
 testy[:taxon_concept].feed.post testy[:feed_body_3] = "Something More"
-# Curators aren't recognized until they actually DO something, which is here:
-LastCuratedDate.gen(:user => testy[:curator], :taxon_concept => testy[:taxon_concept])
 # And we want one comment that the world cannot see:
 Comment.find_by_body(testy[:comment_bad]).hide User.last
 testy[:user] = User.gen

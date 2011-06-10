@@ -163,23 +163,6 @@ describe Comment do
     CuratorActivityLog.last.user.should == @curator
   end
 
-  # curator_activity_flag
-  it "should add a curator activity flag if comment is created by curator" do
-    activity_flag_count = LastCuratedDate.count
-    @tc_comment.user = @curator
-    @tc_comment.save
-    @tc_comment.reload.curator_activity_flag
-    (LastCuratedDate.count - activity_flag_count).should == 1
-  end
-
-  it "should not add a curator activity flag if comment is created by non-curator" do
-    activity_flag_count = LastCuratedDate.count
-    @tc_comment.user = @non_curator
-    @tc_comment.save
-    @tc_comment.reload.curator_activity_flag
-    (LastCuratedDate.count - activity_flag_count).should == 0
-  end
-
   # taxon_concept_id
   it "should return TaxonConcept id for different types of comments" do
     @tc_comment.taxon_concept_id.should == @tc.id

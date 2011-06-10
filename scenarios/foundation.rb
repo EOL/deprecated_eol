@@ -27,30 +27,19 @@ ContentPage.gen_if_not_exists(:title => 'Terms Of Use',
 
 ContactSubject.gen_if_not_exists(:title => 'Media Contact', :recipients=>'test@test.com', :active=>true)
 
-CuratorActivity.gen_if_not_exists(:code => 'delete')
-CuratorActivity.gen_if_not_exists(:code => 'update')
-CuratorActivity.gen_if_not_exists(:code => 'show')
-CuratorActivity.gen_if_not_exists(:code => 'hide')
-CuratorActivity.gen_if_not_exists(:code => 'inappropriate')
-CuratorActivity.gen_if_not_exists(:code => 'approve')
-CuratorActivity.gen_if_not_exists(:code => 'disapprove')
-CuratorActivity.gen_if_not_exists(:code => 'unreviewed')
-CuratorActivity.gen_if_not_exists(:code => 'add_association')
-CuratorActivity.gen_if_not_exists(:code => 'remove_association')
-
 # what one can do with a data_object
-ActionWithObject.gen_if_not_exists(:action_code => 'create')
-ActionWithObject.gen_if_not_exists(:action_code => 'update')     #?
-ActionWithObject.gen_if_not_exists(:action_code => 'delete')
-ActionWithObject.gen_if_not_exists(:action_code => 'trusted')
-ActionWithObject.gen_if_not_exists(:action_code => 'untrusted')
-ActionWithObject.gen_if_not_exists(:action_code => 'show')
-ActionWithObject.gen_if_not_exists(:action_code => 'hide')
-ActionWithObject.gen_if_not_exists(:action_code => 'inappropriate')
-ActionWithObject.gen_if_not_exists(:action_code => 'rate')
-ActionWithObject.gen_if_not_exists(:action_code => 'unreviewed')
-ActionWithObject.gen_if_not_exists(:action_code => 'add_association')
-ActionWithObject.gen_if_not_exists(:action_code => 'remove_association')
+Activity.gen_if_not_exists(:name => 'create')
+Activity.gen_if_not_exists(:name => 'update')     #?
+Activity.gen_if_not_exists(:name => 'delete')
+Activity.gen_if_not_exists(:name => 'trusted')
+Activity.gen_if_not_exists(:name => 'untrusted')
+Activity.gen_if_not_exists(:name => 'show')
+Activity.gen_if_not_exists(:name => 'hide')
+Activity.gen_if_not_exists(:name => 'inappropriate')
+Activity.gen_if_not_exists(:name => 'rate')
+Activity.gen_if_not_exists(:name => 'unreviewed')
+Activity.gen_if_not_exists(:name => 'add_association')
+Activity.gen_if_not_exists(:name => 'remove_association')
 
 # create_if_not_exists We don't technically *need* all three of these, but it's nice to have for the menu.  There are more, but we don't currently use
 # them.  create_if_not_exists Once we do, they should get added here.

@@ -215,8 +215,6 @@ class DataObject < SpeciesSchemaModel
     comments_from_old_dato = Comment.find(:all, :conditions => {:parent_id => dato.id, :parent_type => 'DataObject'})
     comments_from_old_dato.map { |c| c.update_attribute :parent_id, d.id  }
 
-    d.curator_activity_flag(user, all_params[:taxon_concept_id])
-
     tc = TaxonConcept.find(all_params[:taxon_concept_id])
     udo = UsersDataObject.create(:user => user, :data_object => d, :taxon_concept => tc)
     d.users_data_objects << udo
@@ -312,7 +310,6 @@ class DataObject < SpeciesSchemaModel
     end
 
     dato.save!
-    dato.curator_activity_flag(user, all_params[:taxon_concept_id])
     raise "Unable to build a UsersDataObject if user is nil" if user.nil?
     raise "Unable to build a UsersDataObject if DataObject is nil" if dato.nil?
     raise "Unable to build a UsersDataObject if taxon_concept_id is missing" if all_params[:taxon_concept_id].blank?
@@ -714,19 +711,6 @@ class DataObject < SpeciesSchemaModel
     self.save!
   end
 
-  def curator_activity_flag(user, taxon_concept_id = nil)
-    unless taxon_concept_id
-      tc = taxon_concepts(:published => :preferred).first
-      taxon_concept_id = tc.id if tc
-    end
-    return if (taxon_concept_id == nil || taxon_concept_id == 0)
-    if user and user.can_curate_taxon_concept_id? taxon_concept_id
-        LastCuratedDate.create(:user_id => user.id,
-          :taxon_concept_id => taxon_concept_id,
-          :last_curated => Time.now)
-    end
-  end
-
   def visible_references(options = {})
     @all_refs ||= refs.delete_if {|r| r.published != 1 || r.visibility_id != Visibility.visible.id}
   end
@@ -933,11 +917,11 @@ class DataObject < SpeciesSchemaModel
   def untrust_reasons(hierarchy_entry)
     if hierarchy_entry.associated_by_curator
       object_id = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id_and_user_id(id,hierarchy_entry.id,hierarchy_entry.associated_by_curator).id
-      action_history = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_action_with_object_id(object_id, ChangeableObjectType.curated_data_objects_hierarchy_entry.id, ActionWithObject.untrusted.id).last
-      action_history ? action_history.untrust_reasons.collect{|ahur| ahur.untrust_reason_id} : []
+      log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_action_id(object_id, ChangeableObjectType.curated_data_objects_hierarchy_entry.id, Activity.untrusted.id).last
+      log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
     else
-      action_history = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_action_with_object_id(id, ChangeableObjectType.data_object.id, ActionWithObject.untrusted.id).last
-      action_history ? action_history.untrust_reasons.collect{|ahur| ahur.untrust_reason_id} : []
+      log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_action_id(id, ChangeableObjectType.data_object.id, Activity.untrusted.id).last
+      log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
     end
   end
 
@@ -1043,8 +1027,8 @@ class DataObject < SpeciesSchemaModel
         all_params[:changeable_object_type] = 'data_object'
         dohe.curate(user, all_params)
       end
-      curator_activity_flag(user)
-      #update_solr_index(opts)
+      # TODO - this will need to be re-designed:
+      # update_solr_index(opts)
     end
   end
 

@@ -31,7 +31,7 @@ describe 'Curating Associations' do
         @dohe.curate(@another_curator, { :vetted_id => vetted_method,
                                          :visibility_id => visibility_method,
                                          :untrust_reason_ids => untrust_reason_ids,
-                                         :curate_vetted_status => true, 
+                                         :curate_vetted_status => true,
                                          :curate_visibility_status => true,
                                          :curation_comment => 'test curation comment.',
                                          :curation_comment_status => true,
@@ -55,7 +55,7 @@ describe 'Curating Associations' do
         @cdohe.curate(@another_curator, { :vetted_id => vetted_method,
                                           :visibility_id => visibility_method,
                                           :untrust_reason_ids => untrust_reason_ids,
-                                          :curate_vetted_status => true, 
+                                          :curate_vetted_status => true,
                                           :curate_visibility_status => true,
                                           :curation_comment => 'test curation comment.',
                                           :curation_comment_status => true,
@@ -71,18 +71,18 @@ describe 'Curating Associations' do
 
   it 'should add untrust reasons comment and save untrust reasons when curated as untrusted' do
     feeditems_count = FeedItem.count
-    ahur_count = ActionsHistoriesUntrustReason.count
     # curate association in dohe
     @dohe.vetted_id = Vetted.trusted.id
+    CuratorActivityLog.delete_all
     untrust_reason_ids = [ UntrustReason.misidentified.id, UntrustReason.incorrect.id ]
     @dohe.curate(@another_curator, { :vetted_id => Vetted.untrusted.id,
                                      :untrust_reason_ids => untrust_reason_ids,
                                      :curate_vetted_status => true,
                                      :changeable_object_type => 'data_object'
                                      })
+    CuratorActivityLog.last.untrust_reasons.map(&:id).sort.should == untrust_reason_ids.sort
     @dohe.untrusted?.should eql(true)
     FeedItem.count.should == (feeditems_count += 1)
-    ActionsHistoriesUntrustReason.count.should == (ahur_count += 2)
     # curate association in cdohe
     @cdohe.vetted_id = Vetted.trusted.id
     untrust_reason_ids = [ UntrustReason.duplicate.id, UntrustReason.poor.id ]
@@ -93,7 +93,7 @@ describe 'Curating Associations' do
                                       })
     @cdohe.untrusted?.should eql(true)
     FeedItem.count.should == (feeditems_count + 1)
-    ActionsHistoriesUntrustReason.count.should == (ahur_count + 2)
+    CuratorActivityLog.last.untrust_reasons.map(&:id).sort.should == untrust_reason_ids.sort
   end
 
   it 'should add a curation comment to an association' do

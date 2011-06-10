@@ -92,7 +92,7 @@ class ContentPartner < SpeciesSchemaModel
     return !has_resources.empty?
   end
 
-  def data_objects_actions_history
+  def data_objects_curator_activity_log
     latest_published_harvest_event_ids = []
     resources.each do |r|
       if he = r.latest_published_harvest_event
@@ -116,7 +116,7 @@ class ContentPartner < SpeciesSchemaModel
     end
   end
 
-  def comments_actions_history
+  def comments_curator_activity_log
     latest_published_harvest_event_ids = []
     resources.each do |r|
       if he = r.latest_published_harvest_event
@@ -140,7 +140,7 @@ class ContentPartner < SpeciesSchemaModel
     end
   end
 
-  def taxa_comments_actions_history
+  def taxa_comments_curator_activity_log
     latest_published_harvest_event_ids = []
     resources.each do |r|
       if he = r.latest_published_harvest_event

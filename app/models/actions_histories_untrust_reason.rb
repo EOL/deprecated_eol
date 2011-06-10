@@ -2,7 +2,7 @@
 # why a curator made a particular change
 class ActionsHistoriesUntrustReason < ActiveRecord::Base
 
-  belongs_to :actions_history
+  belongs_to :curator_activity_log
   belongs_to :untrust_reason
 
 end

@@ -2,7 +2,7 @@ require 'recent_content_collector'
 require 'partner_updates_emailer'
 
 class ContentCronTasksController < ApplicationController
-  
+
   def send_curator_action_emails
     parameter = SiteConfigurationOption.find_by_parameter('email_actions_to_curators')
     if parameter && parameter.value == 'true'
@@ -12,7 +12,7 @@ class ContentCronTasksController < ApplicationController
       render :text => "Not configured to send emails"
     end
   end
-  
+
   def submit_flickr_comments
     @flickr_api = FlickrApi.new(:api_key => FLICKR_API_KEY, :secret => FLICKR_SECRET, :auth_token => FLICKR_TOKEN)
     comments = RecentContentCollector::flickr_comments(24)
@@ -24,12 +24,13 @@ class ContentCronTasksController < ApplicationController
     end
     render :text => "Comments sent to Flickr"
   end
-  
+
   def submit_flickr_curator_actions
     @flickr_api = FlickrApi.new(:api_key => FLICKR_API_KEY, :secret => FLICKR_SECRET, :auth_token => FLICKR_TOKEN)
-    actions_histories = RecentContentCollector::flickr_curator_actions(24)
-    actions_histories.each do |ah|
-      text = render_to_string(:template => "/content_cron_tasks/flickr_curator_action", :locals => {:actions_history => ah})
+    curator_activity_logs = RecentContentCollector::flickr_curator_actions(24)
+    curator_activity_logs.each do |ah|
+      text = render_to_string(:template => "/content_cron_tasks/flickr_curator_action", :locals =>
+                              {:curator_activity_log => ah})
       if text
         @flickr_api.photos_add_comment(ah.data_object.flickr_photo_id, text)
       end

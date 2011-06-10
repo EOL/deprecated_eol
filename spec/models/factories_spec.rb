@@ -11,17 +11,17 @@ describe Factory do
 
   # this isn't actually *all* model classes yet.
   #
-  # for right now, i'm adding models in here, a few at a time, to make sure 
+  # for right now, i'm adding models in here, a few at a time, to make sure
   # that the factories are implemented well
   #
   def self.model_classes
    [ MimeType, AgentRole, DataType, Agent, ContentPartner, CuratorActivity,
      LastCuratedDate, Language, License, Visibility, Vetted, DataType, Role, User,
      ItemPage, DataObjectTag, DataObjectTags, DataObject,
-     CuratorDataObjectLog, Hierarchy, HierarchyEntry,
+     Hierarchy, HierarchyEntry,
      TaxonConcept, PageName, PublicationTitle, InfoItem,
      Contact, ContactSubject, ResourceStatus, RefIdentifierType, Audience,
-     ContactRole, ServiceType, ActionWithObject, ChangeableObjectType, 
+     ContactRole, ServiceType, ActionWithObject, ChangeableObjectType,
      GoogleAnalyticsSummary, GoogleAnalyticsPartnerSummary, GoogleAnalyticsPageStat, GoogleAnalyticsPartnerTaxon].uniq
   end
 
@@ -37,7 +37,7 @@ describe Factory do
   def self.factories_defined
     factories = File.read(File.join(RAILS_ROOT, 'spec', 'factories.rb')).grep(/^Factory.define :(.*) do/){ |x| $1.to_sym }
     puts factories.inspect
-    factories.map {|name| 
+    factories.map {|name|
       begin
         [ name, name.to_s.classify.constantize ]
       rescue NameError
@@ -52,9 +52,9 @@ describe Factory do
   # q: what in the world does this do
   #
   # a: this makes sure that our factories work!  eventually this should
-  #    run *all* of our factories.  right now, we have an array of 
-  #    models (see #model_classes above) and, for each of those models, 
-  #    we run its generator 3 times.  we specify that each of the 3 generated 
+  #    run *all* of our factories.  right now, we have an array of
+  #    models (see #model_classes above) and, for each of those models,
+  #    we run its generator 3 times.  we specify that each of the 3 generated
   #    models should be valid and 3 additional database records should exist.
   #
   #    why do we generate *3*?  all factories should be runnable multiple times.

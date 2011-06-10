@@ -258,7 +258,7 @@ Factory.sequence(:int    ){|n| n }
 Factory.define :action_with_object do |awo|
 end
 
-Factory.define :actions_history do |ah|
+Factory.define :curator_activity_log do |ah|
   ah.association :user
   ah.association :action_with_object
   ah.association :changeable_object_type
@@ -433,12 +433,6 @@ end
 
 Factory.define :curator_activity do |ca|
   ca.code { Factory.next(:string) }
-end
-
-Factory.define :curator_data_object_log do |cdol|
-  cdol.association :data_object
-  cdol.association :user
-  cdol.association :curator_activity
 end
 
 Factory.define :data_object do |dato|

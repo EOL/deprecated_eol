@@ -1,7 +1,7 @@
 class UntrustReason < SpeciesSchemaModel
   CACHE_ALL_ROWS = true
   uses_translations
-  has_many :actions_histories_untrust_reasons
+  has_many :curator_activity_logs
 
   def self.misidentified
     cached_find_translated(:label, 'Misidentified')

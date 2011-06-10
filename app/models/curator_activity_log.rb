@@ -1,10 +1,8 @@
-# This appears to track curator activies and creating comments, but TODO - review this.  There is some redundancy with
-# LastCurateDate, for example... and I'm not convinced this is either efficient or comprehensive.
 class CuratorActivityLog < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :changeable_object_type
-  belongs_to :action_with_object
+  belongs_to :activity
   belongs_to :comment
   belongs_to :taxon_concept
 
@@ -15,7 +13,7 @@ class CuratorActivityLog < ActiveRecord::Base
   belongs_to :data_object, :foreign_key => :object_id
   belongs_to :affected_comment, :foreign_key => :object_id, :class_name => Comment.to_s
 
-  validates_presence_of :user_id, :changeable_object_type_id, :action_with_object_id, :created_at
+  validates_presence_of :user_id, :changeable_object_type_id, :activity_id, :created_at
 
   def taxon_concept_name
     case changeable_object_type_id

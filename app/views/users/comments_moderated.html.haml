@@ -5,11 +5,11 @@
         %p
           =I18n.t("comments_moderated")
       %td
-        =I18n.t("_nbsp__nbsp__nbsp_moderator_") 
-        = h @user.full_name  
-        \&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+        =I18n.t("_nbsp__nbsp__nbsp_moderator_")
+        = h @user.full_name
+        \&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         = link_to I18n.t("back_to_profile"), { :controller => 'users', :action => :show, :id => @user.id }
-        
+
 - if @comment_curation_actions.nil? == false && @comment_curation_actions.size > 0
   = will_paginate @comment_curation_actions
   %table.results_table
@@ -44,7 +44,7 @@
               %br
               = link_to name, { :controller => :taxa, :action => :show, :id => ah.affected_comment.parent_id }
           %td{ :class => row_class }
-            = ah.action_with_object.action_code
+            = ah.activity.name
             = h format_date_time(ah.updated_at, :format=>'short_no_tz')
           %td{ :class => row_class }
             = ah.affected_comment.body

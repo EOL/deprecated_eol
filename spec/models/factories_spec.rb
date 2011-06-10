@@ -15,13 +15,13 @@ describe Factory do
   # that the factories are implemented well
   #
   def self.model_classes
-   [ MimeType, AgentRole, DataType, Agent, ContentPartner, CuratorActivity,
-     LastCuratedDate, Language, License, Visibility, Vetted, DataType, Role, User,
+   [ MimeType, AgentRole, DataType, Agent, ContentPartner,
+     Language, License, Visibility, Vetted, DataType, Role, User,
      ItemPage, DataObjectTag, DataObjectTags, DataObject,
      Hierarchy, HierarchyEntry,
      TaxonConcept, PageName, PublicationTitle, InfoItem,
      Contact, ContactSubject, ResourceStatus, RefIdentifierType, Audience,
-     ContactRole, ServiceType, ActionWithObject, ChangeableObjectType,
+     ContactRole, ServiceType, Activity, ChangeableObjectType,
      GoogleAnalyticsSummary, GoogleAnalyticsPartnerSummary, GoogleAnalyticsPageStat, GoogleAnalyticsPartnerTaxon].uniq
   end
 

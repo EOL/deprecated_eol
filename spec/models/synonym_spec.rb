@@ -8,10 +8,10 @@ describe Synonym do
     @curator = build_curator(@tc)
     @another_curator = build_curator(@tc)
     @lang = Language.english
-    # Certain ActionWithObjects and ChangeableObjectTypes need to exist for these to work (but they may already exist):
-    ActionWithObject.gen_if_not_exists(:action_code => 'trust')
-    ActionWithObject.gen_if_not_exists(:action_code => 'untrust')
-    ActionWithObject.gen_if_not_exists(:action_code => 'unreview')
+    # Certain Activity and ChangeableObjectTypes need to exist for these to work (but they may already exist):
+    Activity.gen_if_not_exists(:name => 'trust')
+    Activity.gen_if_not_exists(:name => 'untrust')
+    Activity.gen_if_not_exists(:name => 'unreview')
     ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'synonym')
   end
 

@@ -1,6 +1,6 @@
 #report_from_eol
-  %h2    
-    = @page_header 
+  %h2
+    = @page_header
   %p
     - if(@agent_id != "All")
       =I18n.t("the_list_represents_the_curation_activity", :link => link_to(@partner_fullname, { :action => 'show', :id => @agent_id }))
@@ -15,16 +15,16 @@
   - form_for :hello, :url => { :action => :report_partner_curated_data } do |form|
     =I18n.t("viewing_partner_")
     / working ok = select_tag :agent_id, options_from_collection_for_select(  @content_partners_with_published_data, :id, :full_name, @agent_id.to_i )
-    
+
     %select{ :name => "agent_id" }
       %option
         =I18n.t("all_")
       - for cp in @content_partners_with_published_data
         %option{ :value => cp.id, :selected => @agent_id.to_i == cp.id }
           = cp.user.full_name
-    = submit_tag("Change")      
+    = submit_tag("Change")
     %br
-    =I18n.t("for_the_month_of_")    
+    =I18n.t("for_the_month_of_")
     /= select_tag "year_month", options_for_select(@year_month_list,@year_month)
 
     %select{ :name => "year_month" }
@@ -58,7 +58,7 @@
     %thead{ :align => "center" }
       %tr{ :align => "center" }
         %th
-          
+
         %th
           =I18n.t("curator__")
         %th
@@ -80,8 +80,8 @@
           %td{ :class => column_class }
             = rec.given_name + " " + rec.family_name
           %td{ :class => column_class }
-            - if awo = ActionWithObject.find_by_id(rec.action_with_object_id)
-              = awo.action_code
+            - if act = Activity.find_by_id(rec.activity_id)
+              = act.name
           %td{ :class => column_class }
             - if(@arr_obj_tc_id["datatype#{rec.data_object_id}"])
               - if(@arr_obj_tc_id["datatype#{rec.data_object_id}"]=="text") then

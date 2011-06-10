@@ -8,7 +8,7 @@ class Taxa::DetailsController < TaxaController
     includes = [
       { :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] },
       { :data_objects => { :toc_items => :info_items } },
-      { :last_curated_dates => :user },
+      { :curator_activity_logs => :user },
       { :users_data_objects => { :data_object => :toc_items } }]
     selects = {
       :taxon_concepts => '*',
@@ -19,7 +19,7 @@ class Taxa::DetailsController < TaxaController
       :vetted => :view_order,
       :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ],
       :table_of_contents => '*',
-      :last_curated_dates => '*',
+      :curator_activity_logs => '*',
       :users => [ :given_name, :family_name, :logo_cache_url ] }
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
 

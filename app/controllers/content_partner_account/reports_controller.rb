@@ -79,7 +79,7 @@ class ContentPartnerAccount::ReportsController < ContentPartnerAccountController
 
   def admin_whole_report
     @page_header = I18n.t("usage_reports")
-    @act_histories = CuratorActivityLog.paginate(:page => params[:page] || 1, :per_page => params[:per_page] || "25", :order => 'created_at DESC')
+    @curator_logs = CuratorActivityLog.paginate(:page => params[:page] || 1, :per_page => params[:per_page] || "25", :order => 'created_at DESC')
     @sub_page_header  = 'Changing of objects status and comments'
     @report_type      = :admin_whole_report
 
@@ -90,8 +90,8 @@ class ContentPartnerAccount::ReportsController < ContentPartnerAccountController
   def whole_report
     @page_header = I18n.t("usage_reports")
     content_partner   = ContentPartner.find_by_user_id(current_user.id)
-    act_histories     = (content_partner.comments_curator_activity_log + content_partner.data_objects_curator_activity_log).sort{|a,b| b.updated_at <=> a.updated_at}
-    @act_histories    = act_histories.paginate(:page => params[:page] || 1, :per_page => params[:per_page] || "25")
+    curator_logs     = (content_partner.comments_curator_activity_log + content_partner.data_objects_curator_activity_log).sort{|a,b| b.updated_at <=> a.updated_at}
+    @curator_logs    = curator_logs.paginate(:page => params[:page] || 1, :per_page => params[:per_page] || "25")
     @sub_page_header  = 'Changing of objects status and comments'
     @report_type      = :whole_report
   end
@@ -99,7 +99,7 @@ class ContentPartnerAccount::ReportsController < ContentPartnerAccountController
   def comments_report
     @page_header = I18n.t("usage_reports")
     content_partner   = ContentPartner.find_by_user_id(current_user.id)
-    @act_histories    = content_partner.comments_curator_activity_log.paginate(:page => params[:page] || 1, :per_page => params[:per_page] || "25")
+    @curator_logs    = content_partner.comments_curator_activity_log.paginate(:page => params[:page] || 1, :per_page => params[:per_page] || "25")
     @sub_page_header  = 'Changing of comments'
     @report_type      = :comments_report
   end
@@ -107,7 +107,7 @@ class ContentPartnerAccount::ReportsController < ContentPartnerAccountController
   def taxa_comments_report
     @page_header = I18n.t("usage_reports")
     content_partner   = ContentPartner.find_by_user_id(current_user.id)
-    @act_histories    = content_partner.taxa_comments_curator_activity_log.paginate(:page => params[:page] || 1, :per_page => params[:per_page] || "25")
+    @curator_logs    = content_partner.taxa_comments_curator_activity_log.paginate(:page => params[:page] || 1, :per_page => params[:per_page] || "25")
     @sub_page_header  = 'Comments on Taxa'
     @report_type      = :taxa_comments_report
   end
@@ -115,7 +115,7 @@ class ContentPartnerAccount::ReportsController < ContentPartnerAccountController
   def statuses_report
     @page_header = I18n.t("usage_reports")
     content_partner   = ContentPartner.find_by_user_id(current_user.id)
-    @act_histories    = content_partner.data_objects_curator_activity_log.paginate(:page => params[:page] || 1, :per_page => params[:per_page] || "25")
+    @curator_logs    = content_partner.data_objects_curator_activity_log.paginate(:page => params[:page] || 1, :per_page => params[:per_page] || "25")
     @sub_page_header  = 'Changing of objects status'
     @report_type      = :statuses_report
   end

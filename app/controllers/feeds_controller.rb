@@ -140,7 +140,7 @@ class FeedsController < ApplicationController
 
     curator_link = url_for(:controller => 'account', :action => 'show', :id => curator_activity_log.user_id, :only_path => false)
     date_string = curator_activity_log.updated_at.strftime("%d-%b-%Y") + " at " + curator_activity_log.updated_at.strftime("%I:%M%p")
-    content = "#{curator_activity_log.action_with_object.action_code.capitalize} by <a href='#{curator_link}'>#{curator_activity_log.user.full_name}</a> last #{date_string}<br/>"
+    content = "#{curator_activity_log.activity.name.capitalize} by <a href='#{curator_link}'>#{curator_activity_log.user.full_name}</a> last #{date_string}<br/>"
     if curator_activity_log.comment
       content += "Comment: #{curator_activity_log.comment.body}<br/>"
     end

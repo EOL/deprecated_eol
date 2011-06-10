@@ -28,10 +28,6 @@ describe 'Admin Pages' do
     @taxon_concept = TaxonConcept.gen(:published => 1, :supercedure_id => 0)
     @data_objects_taxon_concept = DataObjectsTaxonConcept.gen(:data_object_id => @data_object.id, :taxon_concept_id => @taxon_concept.id)
 
-    @action_with_object = ActionWithObject.gen_if_not_exists(:action_code => 'trust')
-    @changeable_object_type = ChangeableObjectType.gen()
-    @action_history = CuratorActivityLog.gen(:object_id => @data_object.id, :action_with_object_id => @action_with_object.id, :changeable_object_type_id => @changeable_object_type.id)
-
     @toc_item = TocItem.gen_if_not_exists(:label => "sample label")
     @info_item = InfoItem.gen(:toc_id => @toc_item.id)
 

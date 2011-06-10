@@ -16,7 +16,7 @@ class Comment < ActiveRecord::Base
 
   before_create :set_visible_at, :set_from_curator
 
-  after_create  :curator_activity_flag, :track_create
+  after_create  :track_create
 
   validates_presence_of :body, :user
 
@@ -157,14 +157,6 @@ class Comment < ActiveRecord::Base
   # Pagination uses this method to check for a default pagination size:
   def self.per_page
     10
-  end
-
-  def curator_activity_flag
-    if is_curatable_by?(user)
-      LastCuratedDate.create(:user_id => user.id,
-        :taxon_concept_id => taxon_concept_id,
-        :last_curated => Time.now)
-    end
   end
 
   def taxon_concept_id

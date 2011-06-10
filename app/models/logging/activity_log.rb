@@ -4,7 +4,7 @@ class ActivityLog < LoggingModel
   belongs_to :user
 
   def self.log(act_symbol, options = {})
-    if $LOG_USER_ACTIVITY 
+    if $LOG_USER_ACTIVITY
       user = options[:user]
       raise "You cannot log activity without a :user option" unless user
       raise "You cannot log activity without an activity argument (first arg)" unless act_symbol
@@ -22,33 +22,33 @@ class ActivityLog < LoggingModel
     else
       sql="Select activity_id id From activity_logs where user_id = ? "
       rset = ActivityLog.find_by_sql([sql, user_id])
-    end            
+    end
     obj_ids = Array.new
     rset.each do |rec|
-      obj_ids << rec.id      
-    end    
-    return obj_ids      
+      obj_ids << rec.id
+    end
+    return obj_ids
   end
 
-  def self.user_activity(user_id, activity_id, page)      
+  def self.user_activity(user_id, activity_id, page)
     query="Select * From activity_logs al Where 1=1 "
-    if(user_id != 'All') then  
-      query << " AND al.user_id = ? "       
+    if(user_id != 'All') then
+      query << " AND al.user_id = ? "
     end
-    if(activity_id != 'All') then        
-      query << " AND al.activity_id = ? "   
+    if(activity_id != 'All') then
+      query << " AND al.activity_id = ? "
     end
-    query << " order by al.id desc "          
-    if    (user_id == 'All' and activity_id == 'All') then self.paginate_by_sql [query], :page => page, :per_page => 30 
-    elsif (user_id != 'All' and activity_id != 'All') then self.paginate_by_sql [query, user_id, activity_id], :page => page, :per_page => 30 
+    query << " order by al.id desc "
+    if    (user_id == 'All' and activity_id == 'All') then self.paginate_by_sql [query], :page => page, :per_page => 30
+    elsif (user_id != 'All' and activity_id != 'All') then self.paginate_by_sql [query, user_id, activity_id], :page => page, :per_page => 30
     elsif (user_id != 'All' and activity_id == 'All') then self.paginate_by_sql [query, user_id], :page => page, :per_page => 30
     elsif (user_id == 'All' and activity_id != 'All') then self.paginate_by_sql [query, activity_id], :page => page, :per_page => 30
-    end     
+    end
   end
 
   def self.most_common_activities(page)
     query="SELECT COUNT(a.id) count, a.name, a.id FROM activities a JOIN activity_logs al ON a.id = al.activity_id GROUP BY a.name ORDER BY Count(a.id) desc"
-    self.paginate_by_sql [query], :page => page, :per_page => 30 
+    self.paginate_by_sql [query], :page => page, :per_page => 30
   end
 
   def self.most_common_combinations(activity_id)
@@ -58,7 +58,7 @@ class ActivityLog < LoggingModel
     rset = ActivityLog.find_by_sql([sql])
     rset.each do |rec|
       monitored_activity = start_user_monitoring(rec.user_id,monitored_activity)
-    end    
+    end
 
     counts = Hash.new
     monitored_activity.each do |records|
@@ -72,13 +72,13 @@ class ActivityLog < LoggingModel
     return counts
   end
 
-  def self.start_user_monitoring(user_id,monitored_activity)      
+  def self.start_user_monitoring(user_id,monitored_activity)
     sql="SELECT a.name, al.created_at FROM activity_logs al JOIN activities a ON al.activity_id = a.id WHERE al.user_id = #{user_id} "
     sql += " ORDER BY al.created_at ASC"
     arr = LoggingModel.connection.execute(sql).all_hashes
     arr.each do |rec|
       next_activities = get_subsequent_activities_for_a_duration(rec['name'],rec['created_at'],arr,user_id)
-      monitored_activity << next_activities        
+      monitored_activity << next_activities
     end
     return monitored_activity
   end
@@ -89,16 +89,16 @@ private
     activities = Array.new
     start_saving=false
     arr.each do |rec|
-      if(name == rec['name'] and created_at == rec['created_at']) 
-        start_saving=true 
-      end        
+      if(name == rec['name'] and created_at == rec['created_at'])
+        start_saving=true
+      end
       if(start_saving) then
         end_time = get_time_after_some_minutes(created_at,5)
         if(rec['created_at'] <= end_time) then
-          if(!activities.include?(rec['name'])) 
-            activities << rec['name'] 
-          end            
-        else break                
+          if(!activities.include?(rec['name']))
+            activities << rec['name']
+          end
+        else break
         end
       end
     end
@@ -108,8 +108,8 @@ private
   def self.get_time_after_some_minutes(time,minutes)
     time = Time.parse(time)
     time = time + minutes*60
-    #"2010-10-08 11:11:56"    
-    return time.strftime("%Y-%m-%d %H:%M:%S") 
+    #"2010-10-08 11:11:56"
+    return time.strftime("%Y-%m-%d %H:%M:%S")
   end
 
 end

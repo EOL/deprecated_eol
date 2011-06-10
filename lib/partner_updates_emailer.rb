@@ -85,7 +85,7 @@ module PartnerUpdatesEmailer
       SELECT id
       FROM #{CuratorActivityLog.full_table_name}
       WHERE DATE_ADD(created_at, INTERVAL #{number_of_hours} HOUR) >= UTC_TIMESTAMP()
-      AND action_with_object_id IN (#{ActionWithObject.trusted.id}, #{ActionWithObject.untrusted.id}, #{ActionWithObject.inappropriate.id})")
+      AND activity_id IN (#{Activity.trusted.id}, #{Activity.untrusted.id}, #{Activity.inappropriate.id})")
 
     partner_actions = {}
     user_actions = {}

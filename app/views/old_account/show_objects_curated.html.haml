@@ -37,7 +37,7 @@
             - unless dato.toc_items.nil? || dato.toc_items.blank?
               = dato.toc_items[0][:label]
           %td{ :class => row_class }
-            = ah.action_with_object.action_code.capitalize
+            = ah.activity.name.capitalize
             = h format_date_time(ah.updated_at, :format => :short_no_tz)
           %td{ :class => row_class }
             - unless dato[:_preferred_taxon_concept_id].nil?

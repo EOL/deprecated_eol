@@ -20,7 +20,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   has_many :data_object_tags, :class_name => DataObjectTags.to_s
   has_many :tags, :class_name => DataObjectTag.to_s, :through => :data_object_tags, :source => :data_object_tag
   has_many :comments
-  has_many :last_curated_dates
   has_many :curator_activity_logs
   has_many :curator_activity_logs_on_data_objects, :class_name => CuratorActivityLog.to_s,
              :conditions => "curator_activity_logs.changeable_object_type_id = #{ChangeableObjectType.raw_data_object_id}"
@@ -170,16 +169,16 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     obj_ids = []
     user_ids = []
     if(arr_dataobject_ids.length > 0 or agent_id == 'All') then
-      sql = "SELECT ah.object_id data_object_id, ah.user_id
-        FROM action_with_objects awo
-          JOIN curator_activity_logs ah ON ah.action_with_object_id = awo.id
-          JOIN changeable_object_types cot ON ah.changeable_object_type_id = cot.id
-          JOIN users u ON ah.user_id = u.id
+      sql = "SELECT cal.object_id data_object_id, cal.user_id
+        FROM #{LoggingModel.database_name}.activities acts
+          JOIN curator_activity_logs cal ON cal.activity_id = acts.id
+          JOIN changeable_object_types cot ON cal.changeable_object_type_id = cot.id
+          JOIN users u ON cal.user_id = u.id
         WHERE cot.ch_object_type = 'data_object' "
       if(agent_id != 'All') then
-        sql += " AND ah.object_id IN (" + arr_dataobject_ids * "," + ")"
+        sql += " AND cal.object_id IN (" + arr_dataobject_ids * "," + ")"
       end
-      if(year.to_i > 0) then sql += " AND year(ah.updated_at) = #{year} AND month(ah.updated_at) = #{month} "
+      if(year.to_i > 0) then sql += " AND year(cal.updated_at) = #{year} AND month(cal.updated_at) = #{month} "
       end
       rset = User.find_by_sql([sql])
       rset.each do |post|
@@ -194,18 +193,18 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   # TODO - test
   def self.curated_data_objects(arr_dataobject_ids, year, month, page, report_type)
     page = 1 if page == 0
-    sql = "SELECT ah.object_id data_object_id, cot.ch_object_type,
-        awo.id action_with_object_id, u.given_name, u.family_name, ah.updated_at, ah.user_id
-      FROM action_with_objects awo
-        JOIN curator_activity_logs ah ON ah.action_with_object_id = awo.id
-        JOIN changeable_object_types cot ON ah.changeable_object_type_id = cot.id
-        JOIN users u ON ah.user_id = u.id
+    sql = "SELECT cal.object_id data_object_id, cot.ch_object_type,
+        acts.id activity_id, u.given_name, u.family_name, cal.updated_at, cal.user_id
+      FROM #{LoggingModel.database_name}.activities acts
+        JOIN curator_activity_logs cal ON cal.activity_id = acts.id
+        JOIN changeable_object_types cot ON cal.changeable_object_type_id = cot.id
+        JOIN users u ON cal.user_id = u.id
       WHERE cot.ch_object_type = 'data_object'
-        AND ah.object_id IN (" + arr_dataobject_ids * "," + ")"
-    if(year.to_i > 0) then sql += " AND year(ah.updated_at) = #{year} AND month(ah.updated_at) = #{month} "
+        AND cal.object_id IN (" + arr_dataobject_ids * "," + ")"
+    if(year.to_i > 0) then sql += " AND year(cal.updated_at) = #{year} AND month(cal.updated_at) = #{month} "
     end
-    sql += " AND awo.id in (#{ActionWithObject.trusted.id}, #{ActionWithObject.untrusted.id}, #{ActionWithObject.inappropriate.id}, #{ActionWithObject.delete.id}) "
-    sql += " ORDER BY ah.id Desc"
+    sql += " AND acts.id in (#{Activity.trusted.id}, #{Activity.untrusted.id}, #{Activity.inappropriate.id}, #{Activity.delete.id}) "
+    sql += " ORDER BY cal.id Desc"
     if(report_type == "rss feed")
       self.find_by_sql [sql]
     else
@@ -273,9 +272,10 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   # TODO
+  # NOTE - this is currently ONLY used in an exported (CSV) report for admins... so... LOW priority.
   # get the total objects curated for a particular curator activity type
   def total_objects_curated_by_action(action)
-    curator_activity_id = CuratorActivity.send action+'!'
+    curator_activity_id = Activity.send action # approve may not work... looking into it TODO
     if !curator_activity_id.nil?
       # TODO
       raise "Unimplemented"
@@ -287,16 +287,16 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   # TODO - test
   def total_data_objects_curated
       return curator_activity_logs_on_data_objects.count(
-              :conditions => "action_with_object_id IN (#{ActionWithObject.raw_curator_action_ids.join(",")})",
+              :conditions => "activity_id IN (#{Activity.raw_curator_action_ids.join(",")})",
               :group => 'curator_activity_logs.object_id').count
   end
 
   # TODO - test
   def comment_curation_actions
     CuratorActivityLog.find_all_by_user_id_and_changeable_object_type_id(id, ChangeableObjectType.comment.id,
-      :include => [ :action_with_object, :affected_comment ],
+      :include => [ :activity, :affected_comment ],
       :select => { :curator_activity_logs => '*', :comments => '*' },
-      :conditions => "action_with_object_id != #{ActionWithObject.created.id}")
+      :conditions => "activity_id != #{Activity.create.id}")
   end
 
   # TODO - test
@@ -308,14 +308,14 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def taxon_concept_ids_curated
     connection.select_values("
       SELECT dotc.taxon_concept_id
-      FROM curator_activity_logs ah
-        JOIN action_with_objects awo ON (ah.action_with_object_id = awo.id)
-        JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (ah.object_id = dotc.data_object_id)
-      WHERE ah.user_id=#{id}
-        AND ah.changeable_object_type_id=#{ChangeableObjectType.data_object.id}
-        AND awo.id!=#{ActionWithObject.rate.id}
-      GROUP BY ah.object_id
-      ORDER BY ah.updated_at DESC").uniq
+      FROM curator_activity_logs cal
+        JOIN #{LoggingModel.database_name}.activities acts ON (cal.activity_id = acts.id)
+        JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (cal.object_id = dotc.data_object_id)
+      WHERE cal.user_id=#{id}
+        AND cal.changeable_object_type_id=#{ChangeableObjectType.data_object.id}
+        AND acts.id!=#{Activity.rate.id}
+      GROUP BY cal.object_id
+      ORDER BY cal.updated_at DESC").uniq
   end
 
   # TODO - test
@@ -491,9 +491,9 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def last_curator_activity
-    lcd = LastCuratedDate.find_by_user_id(id, :order => 'last_curated DESC', :limit => 1)
-    return nil if lcd.nil?
-    return lcd.last_curated
+    last = CuratorActivityLog.find_by_user_id(id, :order => 'created_at DESC', :limit => 1)
+    return nil if last.nil?
+    return last.created_at
   end
 
   def show_unvetted?
@@ -679,13 +679,13 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     comment_id = options[:comment] ? options[:comment].id : nil
     untrust_reasons = options[:untrust_reasons] || nil
     taxon_concept_id = options[:taxon_concept_id] || nil
-    action_with_object_id     = ActionWithObject.find_by_translated(:action_code, action.to_s).id
+    activity_id     = Activity.find_by_name(action.to_s).id
     changeable_object_type_id = ChangeableObjectType.find_by_ch_object_type(changeable_object_type).id
     curator_activity_log = CuratorActivityLog.create(
       :user_id                   => self.id,
       :object_id                 => object.id,
       :changeable_object_type_id => changeable_object_type_id,
-      :action_with_object_id     => action_with_object_id,
+      :activity_id               => activity_id,
       :comment_id                => comment_id,
       :taxon_concept_id          => taxon_concept_id,
       :created_at                => Time.now,

@@ -63,7 +63,7 @@ $(function() {
   })($(".gallery"));
 
   (function($language) {
-    $language.find("p a").click(function() {
+    $language.find("p a").accessibleClick(function() {
       var $e = $(this),
           $ul = $e.closest($language.selector).find("ul");
       if ($ul.is(":visible")) {
@@ -80,11 +80,6 @@ $(function() {
       return false;
     });
 
-    // Remove once language links wired up
-    $language.find("ul a").click(function() {
-      $(this).closest("ul").hide();
-      return true;
-    });
   })($(".language"));
 
   $("input[placeholder]").each(function() {
@@ -97,3 +92,21 @@ $(function() {
     });
   });
 });
+
+(function($) {
+  $.fn.accessibleClick = function(key_codes, cb) {
+    if ("join" in key_codes) { key_codes.push(13); }
+    else if (typeof key_codes === "function") { cb = key_codes; }
+    else { return this; }
+    return this.each(function() {
+      $(this).click(function(e) {
+        if (!e.keyCode && e.layerY > 0) { return cb.apply(this); }
+        else { return false; }
+      }).keyup(function(e) {
+        if (e.keyCode === 13 || $.inArray(e.keyCode, key_codes) !== -1) {
+          return cb.apply(this);
+        }
+      });
+    });
+  };
+})(jQuery);

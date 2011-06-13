@@ -87,7 +87,7 @@ module EOL
         options[:verbose] ||= false
         all_connections.each do |conn|
           count = 0
-          conn.tables.each   do |table|
+          conn.tables.each do |table|
             unless table == 'schema_migrations'
               count += 1
               if conn.respond_to? :with_master

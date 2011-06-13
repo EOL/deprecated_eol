@@ -2,6 +2,10 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 describe Administrator::ContentPartnerReportController do
   before(:all) do
     load_foundation_cache
+    @admin = User.gen(:username => "admin", :password => "admin")
+    @admin.approve_to_administrate
+    @admin.save!
+    
   end
 
   it "should send monthly report email" do
@@ -11,11 +15,8 @@ describe Administrator::ContentPartnerReportController do
     Notifier.should_receive(:deliver_monthly_stats).with({:username=>"johndoe", :email=>"johndoe@example.com", :full_name=>"John Doe"}, last_month.month.to_s, last_month.year.to_s)
     # when
 
-    admin = User.gen(:username => "admin", :password => "admin")
-    admin.approve_to_administrate
-    admin.save!
-    session[:user] = admin
-    session[:user_id] = admin.id
+    session[:user] = @admin
+    session[:user_id] = @admin.id
 
     get :monthly_stats_email
   end

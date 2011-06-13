@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
-def do_index
+def collections_do_index
   get :index, :community_id => @collections[:community].id.to_i
 end
 
@@ -15,13 +15,13 @@ describe Communities::CollectionsController do
   describe 'GET index' do
 
     it "should instantiate the community" do
-      do_index
+      collections_do_index
       assigns[:community].should be_a(Community)
       assigns[:community].id.should == @collections[:community].id
     end
 
     it "should load a community's focus collection" do
-      do_index
+      collections_do_index
       assigns[:community].focus.should be_a(Collection)
     end
 

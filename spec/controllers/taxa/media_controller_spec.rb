@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
-def do_show
+def media_do_show
   get :show, :taxon_id => @data[:taxon_concept_id]
 end
 
@@ -17,31 +17,31 @@ describe Taxa::MediaController do
   describe 'GET show' do
 
     it 'should instantiate the taxon concept' do
-      do_show
+      media_do_show
       assigns[:taxon_concept].should be_a(TaxonConcept)
     end
     it 'should instantiate an Array of DataObjects' do
-      do_show
+      media_do_show
       assigns[:media].should be_a(Array)
       assigns[:media].first.should be_a(DataObject)
     end
     it 'should include images in the instantiated Array of DataObjects' do
-      do_show
+      media_do_show
       assigns[:media].include?(@first_image).should be_true
     end
 
     it 'should include videos in the instantiated Array of DataObjects' do
-      do_show
+      media_do_show
       assigns[:media].include?(@first_video).should be_true
     end
     it 'should include sounds in the instantiated Array of DataObjects'
     it 'should paginate instantiated Array of DataObjects' do
-      do_show
+      media_do_show
       assigns[:media].should be_a(WillPaginate::Collection)
     end
     
     it 'should filter by type:images and status:trusted' do
-      do_show
+      media_do_show
       orig_length = assigns[:media].length
       filter_by_type = {}
       filter_by_type["image"] = true
@@ -57,7 +57,7 @@ describe Taxa::MediaController do
     end
 
     it 'should filter by type:videos' do
-      do_show
+      media_do_show
       orig_length = assigns[:media].length
       filter_by_type = {}
       filter_by_type["video"] = true
@@ -69,19 +69,19 @@ describe Taxa::MediaController do
     end
 
     it 'should sort media by rating' do
-      do_show
+      media_do_show
       sorted_data = DataObject.custom_sort(assigns[:media], "rating")
       sorted_data.first.data_rating.should >= sorted_data.last.data_rating
     end
     
     it 'should sort media by newest' do
-      do_show
+      media_do_show
       sorted_data = DataObject.custom_sort(assigns[:media], "newest")
       sorted_data.first.id.should >= sorted_data.last.id
     end    
     
     it 'should instantiate an assistive header' do
-      do_show
+      media_do_show
       assigns[:assistive_section_header].should be_a(String)
     end
   end

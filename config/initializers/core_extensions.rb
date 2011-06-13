@@ -91,6 +91,52 @@ module ActiveRecord
           class_variable_set(:@@cached_all_instances, false)
         end
       end
+      
+      def index_with_solr(options={})
+        # remove any existing callbacks in case we want to redefine the index fields
+        remove_index_with_solr
+        
+        after_save :add_to_index
+        before_destroy :remove_from_index
+        options[:keywords] ||= []
+        options[:full_text] ||= []
+        
+        define_method(:remove_from_index) do
+          solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_SITE_SEARCH_CORE)
+          solr_connection.delete_by_query("resource_type:#{self.class.to_s} AND resource_id:#{self.id}")
+        end
+
+        define_method(:add_to_index) do
+          remove_from_index
+          solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_SITE_SEARCH_CORE)
+          params = {}
+          params['resource_type'] = self.class.to_s
+          params['resource_id'] = self.id
+          params['language'] = Language.english.iso_code
+          
+          options[:keywords].each do |field_or_method|
+            if self.class.column_names.include? field_or_method
+              params['keyword_type'] = field_or_method
+              params['keyword'] = self[field_or_method]
+              solr_connection.create(params)
+            elsif self.respond_to?(field_or_method)
+              params['keyword_type'] = field_or_method
+              params['keyword'] = self.method(field_or_method).call
+              solr_connection.create(params)
+            else
+              raise "There is no field or method `#{field_or_method}` on #{self.class.to_s}"
+            end
+          end
+        end
+      end
+      
+      def remove_index_with_solr
+        # these methods may not exist yet and that's OK
+        remove_method :add_to_index rescue nil
+        remove_method :remove_from_index rescue nil
+        self.after_save.delete_if{ |callback| callback.method == :add_to_index}
+        self.before_destroy.delete_if{ |callback| callback.method == :remove_from_index}
+      end
 
       def uses_translations(options={})
         begin

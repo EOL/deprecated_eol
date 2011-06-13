@@ -56,7 +56,8 @@ class SolrAPI
     
     @file_delimiter = '|'
     @multi_value_delimiter = ';'
-    @csv_path = File.join(RAILS_ROOT, 'public', 'files', 'solr_import_file.csv')
+    csv_path_random_bit = 10.times.map{ rand(10) }.join
+    @csv_path = File.join(RAILS_ROOT, 'public', 'files', "solr_import_file_#{csv_path_random_bit}.csv")
     load_schema
   end
   
@@ -96,6 +97,20 @@ class SolrAPI
     optimize
   end
   
+  def delete_by_id(id, options = {})
+    options[:optimize] ||= false
+    post_xml('update', "<delete><id>#{id}</id></delete>")
+    commit
+    optimize if options[:optimize]
+  end
+  
+  def delete_by_query(query, options = {})
+    options[:optimize] ||= false
+    post_xml('update', "<delete><query>#{query}</query></delete>")
+    commit
+    optimize if options[:optimize]
+  end
+  
   def commit
     post_xml('update', '<commit />')
   end
@@ -115,7 +130,7 @@ class SolrAPI
   # objects_hash = [ { :attr1 => :val11, :attr2 => :val21 }, { :attr1 => :val12, :attr2 => :val22 }]
   # or
   # objects_hash = { 1234 => { :attr1 => :val11, :attr2 => :val21 }, 522 => { :attr1 => :val12, :attr2 => :val22 } }
-  def send_attributes(objects_hash, stream_file = true)
+  def send_attributes(objects_hash, stream_file = true, delete_on_finish = true)
     # Currently I can't determine a reliable way to get a URL for the file for streaming.
     # If the app isn't running, there cannot be a URL as there is no web server to serve the file.
     # If the app is running, rake doesn't know about the request therefore it can't know the proper port
@@ -169,6 +184,7 @@ class SolrAPI
     end
     SolrAPI.post_fields(@action_url + "/update/csv", fields)
     commit
+    File.delete(@csv_path) if delete_on_finish
   end
   
   # See the solr_api library spec for some examples.

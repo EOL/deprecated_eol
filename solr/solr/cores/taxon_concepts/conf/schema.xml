@@ -63,20 +63,31 @@
          <filter class="solr.TrimFilterFactory"/>
        </analyzer>
      </fieldType>
+     
+     <fieldType name="textSpell" class="solr.TextField" positionIncrementGap="100" >
+       <analyzer>
+         <tokenizer class="solr.StandardTokenizerFactory"/>
+         <filter class="solr.LowerCaseFilterFactory"/>
+         <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+       </analyzer>
+     </fieldType>
   </types>
   
   <!-- begin data schema -->
   <fields>
     <field name="taxon_concept_id" type="integer" indexed="true" stored="true" required="true" />
     <field name="preferred_scientific_name" type="text" indexed="true" stored="true" required="false" multiValued="true" />
-    <field name="preferred_scientific_name_exact" type="text" indexed="true" stored="true" required="false" multiValued="true" />
+    <field name="preferred_scientific_name_exact" type="text" indexed="true" stored="true" required="false" multiValued="true"/>
     <copyField source="preferred_scientific_name" dest="preferred_scientific_name_exact"/>
     <field name="scientific_name" type="text" indexed="true" stored="true" required="false" multiValued="true" />
-    <field name="scientific_name_exact" type="textExact" indexed="true" stored="true" required="false" multiValued="true" />
+    <field name="scientific_name_exact" type="textExact" indexed="true" stored="true" required="false" multiValued="true"/>
     <copyField source="scientific_name" dest="scientific_name_exact"/>
     <field name="common_name" type="text" indexed="true" stored="true" required="false" multiValued="true" />
-    <field name="common_name_exact" type="textExact" indexed="true" stored="true" required="false" multiValued="true" />
+    <field name="common_name_exact" type="textExact" indexed="true" stored="true" required="false" multiValued="true"/>
     <copyField source="common_name" dest="common_name_exact"/>
+    <field name="autocomplete" type="textSpell" indexed="true" stored="true" required="false" multiValued="true" />
+    <copyField source="common_name" dest="autocomplete"/>
+    <copyField source="scientific_name" dest="autocomplete"/>
     <field name="rank_id" type="integer" indexed="true" stored="true" required="false" multiValued="true" />
     <field name="hierarchy_id" type="integer" indexed="true" stored="true" required="false" multiValued="true" />
     <field name="ancestor_taxon_concept_id" type="integer" indexed="true" stored="true" required="false" multiValued="true" />

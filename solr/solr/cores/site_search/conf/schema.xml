@@ -49,6 +49,14 @@
                 <filter class="solr.TrimFilterFactory"/>
             </analyzer>
         </fieldType>
+        
+        <fieldType name="textSpell" class="solr.TextField" positionIncrementGap="100" >
+          <analyzer>
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+          </analyzer>
+        </fieldType>
     </types>
     
     <!-- begin schema -->
@@ -57,6 +65,8 @@
         <field name="keyword" type="text" indexed="true" stored="true" required="true" multiValued="true"/>
         <field name="keyword_exact" type="textExact" indexed="true" stored="true" required="true" multiValued="true"/>
         <copyField source="keyword" dest="keyword_exact"/>
+        <field name="autocomplete" type="textSpell" indexed="true" stored="true" required="false" multiValued="true" />
+        <copyField source="keyword" dest="autocomplete"/>
         <field name="full_text" type="text" indexed="true" stored="true" required="false"/>
         <field name="language" type="string" indexed="true" stored="true" required="true"/>
         <field name="resource_type" type="string" indexed="true" stored="true" required="true"/>

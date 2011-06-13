@@ -57,17 +57,16 @@ describe 'Solr API' do
     end
 
     it 'should be able to send hashes as CSV file' do
-      csv_path = File.join(RAILS_ROOT, 'public', 'files', 'solr_import_file.csv')
-      File.unlink(csv_path)
-      File.exists?(csv_path).should == false
+      File.unlink(@solr.csv_path) if File.exists?(@solr.csv_path)
+      File.exists?(@solr.csv_path).should == false
       
       @solr.delete_all_documents
       @solr.get_results("*:*")['numFound'].should == 0
       res = @solr.send_attributes({ 123 => { :vetted_id => 3, :published => 1 },
-                                    456 => { :vetted_id => 2, :published => 0, :nonsense => 'anything' } })
+                                    456 => { :vetted_id => 2, :published => 0, :nonsense => 'anything' } }, true, false)
       # send attributes will create a CSV file to send to Solr
-      File.exists?(csv_path).should == true
-      File.open(csv_path, "r") do |f|
+      File.exists?(@solr.csv_path).should == true
+      File.open(@solr.csv_path, "r") do |f|
         line = f.gets
         # first line should include the valid fields sent
         line.should match('vetted_id')
@@ -83,6 +82,8 @@ describe 'Solr API' do
       @solr.get_results("*:*")['numFound'].should == 2
       @solr.get_results("published:true")['numFound'].should == 1
       @solr.get_results("published:false")['numFound'].should == 1
+      
+      File.unlink(@solr.csv_path) if File.exists?(@solr.csv_path)
     end
   end
 

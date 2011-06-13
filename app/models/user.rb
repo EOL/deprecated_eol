@@ -40,16 +40,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   before_save :check_credentials
 
-  def self.sort_by_name(users)
-    users.sort_by do |u|
-      given = u.given_name.blank? ? u.family_name : u.given_name.strip
-      family = u.family_name.blank? ? u.given_name : u.family_name.strip
-      [family.downcase,
-       given.downcase,
-       u.username.downcase]
-    end
-  end
-
   accepts_nested_attributes_for :user_info
 
   @email_format_re = %r{^(?:[_\+a-z0-9-]+)(\.[_\+a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$}i
@@ -77,8 +67,20 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'],
     :message => "image is not a valid image type", :if => :partner_step?
   validates_attachment_size :logo, :in => 0..0.5.megabyte
+  
+  index_with_solr :keywords => [:username, :full_name]
 
   attr_accessor :entered_password, :entered_password_confirmation, :curator_request
+
+  def self.sort_by_name(users)
+    users.sort_by do |u|
+      given = u.given_name.blank? ? u.family_name : u.given_name.strip
+      family = u.family_name.blank? ? u.given_name : u.family_name.strip
+      [family.downcase,
+       given.downcase,
+       u.username.downcase]
+    end
+  end
 
   # create a new user using default attributes and then update with supplied parameters
   def self.create_new options = {}

@@ -112,7 +112,7 @@ module ActiveRecord
           params = {}
           params['resource_type'] = self.class.to_s
           params['resource_id'] = self.id
-          params['language'] = Language.english.iso_code
+          params['language'] = 'en'
           
           options[:keywords].each do |field_or_method|
             if self.class.column_names.include? field_or_method

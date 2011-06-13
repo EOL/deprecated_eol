@@ -1,100 +1,83 @@
-#page-title
-  - type = @type
-  - type = 'Video' if DataType.video_type_ids.include?(@data_object.data_type.id)
-  -# TODO: Provide a more informative title e.g. object title or data object type of referred taxon name
-  -# e.g. if clicked on data object from taxon page pass the referring taxon page in to use in title
-  -# this provides the user with an association to their previous page.
-  %h1= I18n.t("var_type_permalink", :var_type => type)
+- type = @type
+- type = 'Video' if DataType.video_type_ids.include?(@data_object.data_type.id)
+-# TODO: Provide a more informative title e.g. object title or data object type of referred taxon name
+-# e.g. if clicked on data object from taxon page pass the referring taxon page in to use in title
+-# this provides the user with an association to their previous page.
 
-  %h2
-    - @taxon_concepts = @data_object.get_taxon_concepts(:published => :preferred)
-    - if @taxon_concepts.blank?
-      =I18n.t("__stands_alone__")
+#permalink
+  .ratings
+    
+    = render :partial => 'rating', :locals => { :data_object => @data_object, :type => type.downcase, :show_controls => true }
+  .media
+    - if type == "Video"
+      = render :partial => "/shared/show_video"
     - else
-      - if @taxon_concepts[0].published?
-        - start_text = @revisions[0].id == @data_object.id ? I18n.t("belongs_to_") : I18n.t("was_connected_to")
-        == ( #{start_text} the following page#{@taxon_concepts.size == 1 ? '' : 's'}:
-        - @taxon_concepts.each_with_index do |tc, i|
-          - comma = (i+1 == @taxon_concepts.size) ? '' : ', '
-          - tc_label = tc.scientific_name
-          - tc_label += ": <b>#{tc.common_name}</b>" unless tc.common_name.blank?
-          - opts = { :"#{@type.downcase}_id" => @data_object.id }
-          = link_to(tc_label, taxon_concept_path(tc.id, opts)) + comma
-        )
+      = render :partial => "data_objects/data_object_#{type.downcase}", :locals => { :show_category_title => true }
+  %ul.sizes
+    - if @data_object.data_type_id == DataType.image.id
+      - {:small => 1, :medium => 2, :large => 4, :original => 8}.each do |size, multiplier|
+        %li
+          - link_to data_object_path(@data_object.id, :params => {:image_size => size}) do
+            %strong= size
+            = "#{400 * multiplier}x#{300 * multiplier}"
+
+  /%ul.sizes
+  /  - {:small => 1, :medium => 2, :large => 4, :original => 8}.each do |label, multiplier|
+  /    %li
+  /      = link_to "" do
+  /        %strong= label.to_s
+  /        = "#{400 * multiplier}x#{300 * multiplier}"
+
+  #main
+    .article.copy
+      .header
+        %h3 Description
+      %p 
+        = render :partial => 'description', :locals => { :data_object => @data_object }, :layout => @layout
+
+    .article.list.updates
+      = render(:partial => 'feed_items/index', :locals => {:feed => @data_object.feed})
+    
+  #sidebar
+    .article.source
+      .header
+        %h3 Source Information
+      /= image_tag "icon_cc.png", :alt => "CC by-sa"
+      /%p== &copy; Noah Siegel
+      /%p Some rights reserved
+      /%p
+      /  Supplier:
+      /  = link_to "Mushroom Observer", "#"
+      /%p Photographer: Noah Siegel
+      /%p= link_to "View image source", "#"
+      
+      = render :partial => 'attribution', :locals => { :data_object => @data_object }, :layout => @layout
+       
+    .article.list
+      .header
+        /%h3 In This Image
+        %h3= I18n.t(:in_this_data_object_by_type, :type => @data_object.data_type.simple_type)
+        
+    
+
+      - if @data_object.published_entries.blank?
+        %p= I18n.t(:data_object_not_associated_with_any_hierarchies)
       - else
-        - @taxon_concepts.each do |tc|
-          - names = @taxon_concepts.map { |item| tc.scientific_name + (tc.common_name.blank? ? '' : ": <b>#{tc.common_name}</b>") }.uniq
-          == associated with the deprecated page#{names.size == 1 ? '' : 's'}: '#{names.join("', '")}')
+        = render :partial => 'data_objects/curation', :locals => { :data_object => @data_object }
+      - if current_user.is_curator?
+        - form_tag({:controller => 'data_objects', :action => 'add_association'}) do
+          = hidden_field_tag 'id', @data_object.id
+          = label_tag 'add_association', I18n.t(:add_association_label_colon)
+          = text_field_tag 'add_association'
+          = submit_tag I18n.t(:add_association_submit_button)
 
-  - if (@data_object.text? || @data_object.image? || @data_object.video?) && ! (defined?(skip_permalink) && skip_permalink)
-    %dl
-      %dt= I18n.t(:permalink)
-      %dd= "http://#{$SITE_DOMAIN_OR_IP}/data_objects/#{@data_object.id}"
-#page-content.clearfix
-  #full-page-content
-    #data_object_wrapper
-      #data_object_status
-        %h3=I18n.t("curation_status")
-        - status = @data_object.vetted.label.downcase
-        - bg_class = []
-        - if status == 'unknown'
-          - bg_class << 'unknown-text'
-          - status_text = 'not reviewed'
-        - else
-          - bg_class << 'untrusted-text' if status == 'untrusted'
-          - status_text = status
-        - bg_class = bg_class.join(' ')
-        - bg_class = nil if bg_class.blank?
-        %p{ :class => bg_class }
-          =I18n.t("this_var_type_downcase_object_", :var_type_downcase => type.downcase)
-          %b= status_text
-      #data_object_content
-        .divider
-        %h3=I18n.t("content")
-        #data_object{ :class => bg_class }
-          - if type == "Video"
-            = render :partial => "/shared/show_video"
-          - else
-            = render :partial => "data_objects/data_object_#{type.downcase}", :locals => { :show_category_title => true }
-        = render :partial => 'star_rating_hash', :locals => { :data_object => @data_object, :show_controls => true }
-      - if(@data_object.data_type.to_s.strip != 'Text')
-        #data_object_description
-          .divider
-          %h3=I18n.t("description")
-          = render :partial => 'description', :locals => { :data_object => @data_object }, :layout => @layout
-          -#%br
+    .article.list
+      .header
+        %h3=I18n.t("revisions")
 
-      #data_object_attribution
-        .divider
-        %h3=I18n.t("attribution")
-        = render :partial => 'attribution', :locals => { :data_object => @data_object }, :layout => @layout
+      %ul
+        - @revisions.each do |revision|
+          - revision_class = revision.created_at == @data_object.created_at ? 'current_revision' : nil
+          %li= link_to(revision.created_at, data_object_path(revision.id))
 
-      #data_object_hierarchy
-        .divider
-          %h3= I18n.t(:in_this_data_object_by_type, :type => @data_object.data_type.simple_type)
-        - if @data_object.published_entries.blank?
-          %p= I18n.t(:data_object_not_associated_with_any_hierarchies)
-        - else
-          = render :partial => 'data_objects/curation', :locals => { :data_object => @data_object }
-        - if current_user.is_curator?
-          - form_tag({:controller => 'data_objects', :action => 'add_association'}) do
-            = hidden_field_tag 'id', @data_object.id
-            = label_tag 'add_association', I18n.t(:add_association_label_colon)
-            = text_field_tag 'add_association'
-            = submit_tag I18n.t(:add_association_submit_button)
-      - if @revisions.size > 1
-        #data_object_revisions
-          .divider
-          %h3=I18n.t("revisions")
-          %ul
-            - @revisions.each do |revision|
-              - revision_class = revision.created_at == @data_object.created_at ? 'current_revision' : nil
-              %li{ :class => revision_class }= link_to(revision.created_at, data_object_path(revision.id))
-      - unless @comments.blank?
-        #data_object_comments
-          .divider
-          %h3=I18n.t("comments")
-          #taxaCommentsWrap
-            #commentsContain
-              = render :partial => 'shared/comments', :locals => { :comments => @comments, :opts => { :params => {:anchor => "commentsContain"} }}
-      = render :partial => 'feed_items/index', :locals => {:feed => @data_object.feed}
+

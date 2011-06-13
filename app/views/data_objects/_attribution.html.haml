@@ -2,13 +2,13 @@
   - if data_object.map?
     -# TODO
   - if data_object.added_by_user?
-    %dt= I18n.t(:supplier)
-    %dd
+    %p
+      = I18n.t(:supplier)
       = data_object.users_data_objects[0].user.given_name
       = data_object.users_data_objects[0].user.family_name
   - data_object.citable_entities.each do |citable|
-    %dt= citable.type
-    %dd
+    %p
+      = "#{citable.type}: "
       - #TODO: The following renders a tags with target='_blank' which is bad for accessibility. We should remove or at least provide some warning.
       = citables_to_string(citable)
       = citables_to_icons(citable)

@@ -21,7 +21,7 @@
   - if feed.empty?
     %p.empty= I18n.t(:no_activity)
   - else
-    %ul.feed
+    %ul
       -# TODO - paginate
       - feed.each do |feed_item|
         %li

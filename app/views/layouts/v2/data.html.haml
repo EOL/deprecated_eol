@@ -2,7 +2,26 @@
   #page_heading.with_nav
     .site_column
       .hgroup
-        %h1= @page_title
+        %h1
+          - @taxon_concepts = @data_object.get_taxon_concepts(:published => :preferred)
+          - if @taxon_concepts.blank?
+            =I18n.t("__stands_alone__")
+          - else
+            - if @taxon_concepts[0].published?
+              - start_text = @revisions[0].id == @data_object.id ? I18n.t("belongs_to_") : I18n.t("was_connected_to")
+              /== ( #{start_text} the following page#{@taxon_concepts.size == 1 ? '' : 's'}:
+              - @taxon_concepts.each_with_index do |tc, i|
+                - comma = (i+1 == @taxon_concepts.size) ? '' : ', '
+                - tc_label = tc.scientific_name
+                - tc_label += ": <b>#{tc.common_name}</b>" unless tc.common_name.blank?
+                - opts = { :"#{@type.downcase}_id" => @data_object.id }
+                = link_to(tc_label, taxon_concept_path(tc.id, opts)) + comma
+              /)
+            - else
+              - @taxon_concepts.each do |tc|
+                - names = @taxon_concepts.map { |item| tc.scientific_name + (tc.common_name.blank? ? '' : ": <b>#{tc.common_name}</b>") }.uniq
+                == associated with the deprecated page#{names.size == 1 ? '' : 's'}: '#{names.join("', '")}')
+        
         - #TODO: We need citable rights holder here, should probably move conditionals from attribution minimal partial to model
         %h2<
           = render :partial => 'owner', :locals => { :data_object => @data_object }

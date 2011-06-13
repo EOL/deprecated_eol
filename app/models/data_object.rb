@@ -507,6 +507,14 @@ class DataObject < SpeciesSchemaModel
 
   def citable_entities
     citables = []
+
+    unless license.blank?
+      citables << EOL::Citable.new( :link_to_url => license.source_url,
+                                    :display_string => license.description,
+                                    :logo_path => license.logo_url,
+                                    :type => I18n.t("license"))
+    end
+
     agents_data_objects.each do |ado|
       if ado.agent_role && ado.agent
         citables << ado.agent.citable(ado.agent_role.label)
@@ -525,13 +533,14 @@ class DataObject < SpeciesSchemaModel
     unless rights_holder.blank?
       citables << citable_rights_holder
     end
-
-    unless license.blank?
-      citables << EOL::Citable.new( :link_to_url => license.source_url,
-                                    :display_string => license.description,
-                                    :logo_path => license.logo_url,
-                                    :type => I18n.t("license"))
-    end
+    
+    # this section was moved to top
+    # unless license.blank?
+    #   citables << EOL::Citable.new( :link_to_url => license.source_url,
+    #                                 :display_string => license.description,
+    #                                 :logo_path => license.logo_url,
+    #                                 :type => I18n.t("license"))
+    # end
 
     unless location.blank?
       citables << EOL::Citable.new( :display_string => location,

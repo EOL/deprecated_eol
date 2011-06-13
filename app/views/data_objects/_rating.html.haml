@@ -4,10 +4,12 @@
 - user_rating = data_object.rating_from_user(current_user).rating if data_object.rating_from_user(current_user)
 - user_rating ||= 0
 .average_rating
+  %h5 
+    = "#{type.capitalize} rating"
   .rating
     %p{:style => "width: #{average_rating * 20}%"}<
       = I18n.t("#{type}_average_rating_of_total", :rating => average_rating, :total => total)
-  %p= I18n.t("#{type}_rated_by_count_people", :count => data_object.users_data_objects_ratings.count)
+  %p= I18n.t("rated_by_count_people", :count => data_object.users_data_objects_ratings.count)
 .rating
   - #TODO: Restructure the HTML so it makes more sense for screenreaders.
   %ul

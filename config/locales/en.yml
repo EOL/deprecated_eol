@@ -1404,6 +1404,9 @@ en:
   quarterly: "Quarterly"
   rails_databases: "Rails databases"
   rails_environment: "Rails environment"
+  rated_by_count_people:
+    one: "from %{count} person"
+    other: "from %{count} people"
   rating: "Rating"
   rating_of_total: "%{rating} of %{total}"
   read_the_eol_licensing_policy: "Read the EOL Licensing Policy"

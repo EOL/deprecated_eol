@@ -33,7 +33,7 @@ module TaxaHelper
         link_to_url = params[:url] || citable.link_to_url
       end
 
-      params[:linked] ? link_to (allow_some_html(citable.display_string), link_to_url) :
+      params[:linked] ? link_to(allow_some_html(citable.display_string), link_to_url) :
                         allow_some_html(citable.display_string)
     end
     final_string = display_strings.join(', ')

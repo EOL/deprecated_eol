@@ -256,7 +256,6 @@ Factory.sequence(:int    ){|n| n }
 #### Factories
 
 Factory.define :activity do |a|
-  a.name { Factory.next(:string) }
 end
 
 Factory.define :activity_log do |al|
@@ -898,6 +897,12 @@ Factory.define :top_unpublished_concept_image do |tui|
   tui.view_order  1
 end
 
+Factory.define :translated_activity do |a|
+  a.association :activity
+  a.language    { Language.english }
+  a.name        { Factory.next(:string) }
+end
+
 Factory.define :translated_contact_role do |r|
   r.association     :contact_role
   r.language        { Language.english }
@@ -1040,6 +1045,7 @@ end
 Factory.define :untrust_reason do |ur|
   ur.updated_at Time.now
   ur.created_at Time.now
+  ur.class_name { Factory.next(:string) }
 end
 
 Factory.define :user do |u|

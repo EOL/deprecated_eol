@@ -80,6 +80,7 @@ describe 'Curating Associations' do
                                      :curate_vetted_status => true,
                                      :changeable_object_type => 'data_object'
                                      })
+    commit_transactions # There are cross-database joins, here.
     CuratorActivityLog.last.untrust_reasons.map(&:id).sort.should == untrust_reason_ids.sort
     @dohe.untrusted?.should eql(true)
     FeedItem.count.should == (feeditems_count += 1)
@@ -91,6 +92,7 @@ describe 'Curating Associations' do
                                       :curate_vetted_status => true,
                                       :changeable_object_type => 'curated_data_objects_hierarchy_entry'
                                       })
+    commit_transactions # There are cross-database joins, here.
     @cdohe.untrusted?.should eql(true)
     FeedItem.count.should == (feeditems_count + 1)
     CuratorActivityLog.last.untrust_reasons.map(&:id).sort.should == untrust_reason_ids.sort

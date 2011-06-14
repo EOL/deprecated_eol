@@ -679,9 +679,9 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     comment_id = options[:comment] ? options[:comment].id : nil
     untrust_reasons = options[:untrust_reasons] || nil
     taxon_concept_id = options[:taxon_concept_id] || nil
-    activity_id     = Activity.find_by_name(action.to_s).id
+    activity_id     = Activity.send(action.to_sym).id
     changeable_object_type_id = ChangeableObjectType.find_by_ch_object_type(changeable_object_type).id
-    curator_activity_log = CuratorActivityLog.create(
+    curator_activity_log = CuratorActivityLog.new(
       :user_id                   => self.id,
       :object_id                 => object.id,
       :changeable_object_type_id => changeable_object_type_id,
@@ -691,6 +691,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       :created_at                => Time.now,
       :updated_at                => Time.now
     )
+    curator_activity_log.save!
     if untrust_reasons
       untrust_reasons.each do |ur|
         curator_activity_log.untrust_reasons << ur

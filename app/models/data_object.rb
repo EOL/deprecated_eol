@@ -94,18 +94,18 @@ class DataObject < SpeciesSchemaModel
       inverted_rating = obj.data_rating * -1
       inverted_id = obj.id * -1
 
-      if sort_by == "newest" 
+      if sort_by == "newest"
         [inverted_id, obj.data_type_id, vetted_view_order, inverted_rating]
-      elsif sort_by == "rating" 
+      elsif sort_by == "rating"
         [inverted_rating, obj.data_type_id, vetted_view_order, inverted_id]
-      elsif sort_by == "vetted" 
+      elsif sort_by == "vetted"
         [vetted_view_order, inverted_rating, inverted_id, obj.data_type_id]
-      elsif sort_by == "data_type" 
+      elsif sort_by == "data_type"
         [obj.data_type_id, vetted_view_order, inverted_rating, inverted_id]
-      elsif sort_by == "default" 
+      elsif sort_by == "default"
         [vetted_view_order, inverted_rating, inverted_id]
-      end  
-    
+      end
+
     end
   end
 
@@ -118,14 +118,14 @@ class DataObject < SpeciesSchemaModel
     else
       if filter_by_type["image"] then allowed_data_types << DataType.image.id end
       if filter_by_type["audio"] then allowed_data_types << DataType.sound.id end
-      if filter_by_type["video"] 
-        allowed_data_types << DataType.video.id 
+      if filter_by_type["video"]
+        allowed_data_types << DataType.video.id
         allowed_data_types << DataType.flash.id
         allowed_data_types << DataType.youtube.id
       end
-      
+
       if filter_by_type["photosynth"] then allowed_data_types << DataType.image.id end
-      
+
       # this means if all data types are not checked, then there is no filter for data types
       if allowed_data_types.length == 0
         allowed_data_types = [DataType.image.id, DataType.sound.id, DataType.video.id, DataType.flash.id, DataType.youtube.id]
@@ -136,7 +136,7 @@ class DataObject < SpeciesSchemaModel
     # filter by status
     allowed_visibility_status = []
     allowed_visibility_status = [Visibility.visible.id, Visibility.invisible.id, Visibility.preview.id]
-    
+
     allowed_vetted_status = []
     if filter_by_status["all"]
       allowed_vetted_status = [Vetted.trusted.id, Vetted.unknown.id, Vetted.untrusted.id]
@@ -146,16 +146,16 @@ class DataObject < SpeciesSchemaModel
       if filter_by_status["untrusted"] then allowed_vetted_status << Vetted.untrusted.id end
       if filter_by_status["unreviewed"] then allowed_vetted_status << Vetted.unknown.id end
       if filter_by_status["inappropriate"] then allowed_visibility_status << Visibility.inappropriate.id end
-      # this means if all statuses are not checked, then there is no filter for statuses  
+      # this means if all statuses are not checked, then there is no filter for statuses
       if allowed_vetted_status.length == 0 and allowed_visibility_status.length == 3
         allowed_vetted_status = [Vetted.trusted.id, Vetted.unknown.id, Vetted.untrusted.id]
         allowed_visibility_status << Visibility.inappropriate.id
       end
     end
-       
+
     temp = []
     data_objects.each do |object|
-      if allowed_vetted_status.include?(object.vetted_id) then temp << object end      
+      if allowed_vetted_status.include?(object.vetted_id) then temp << object end
     end
     data_objects = temp
 
@@ -164,11 +164,11 @@ class DataObject < SpeciesSchemaModel
       if allowed_visibility_status.include?(object.visibility_id) then temp << object end
     end
     data_objects = temp
-    
+
     if filter_by_type["photosynth"] && !filter_by_type["image"]
       data_objects.delete_if { |key, value| key.data_type_id == DataType.image.id && key.source_url[0..20] != "http://photosynth.net" }
     end
-    
+
     return data_objects
   end
 
@@ -430,8 +430,12 @@ class DataObject < SpeciesSchemaModel
 
   #----- end of user submitted text --------
 
-  def object_title_or_info_item_label
-    object_title.blank? && !info_items.blank? ? info_items.first.label : object_title
+  def best_title
+    return object_title unless object_title.blank?
+    return toc_items.first.label unless toc_items.blank?
+    taxon_concepts = get_taxon_concepts(:published => :preferred)
+    return taxon_concepts.first.title_canonical(@session_hierarchy) unless taxon_concepts.first.blank?
+    return data_type.label
   end
 
   def rate(user, new_rating)
@@ -533,14 +537,6 @@ class DataObject < SpeciesSchemaModel
     unless rights_holder.blank?
       citables << citable_rights_holder
     end
-    
-    # this section was moved to top
-    # unless license.blank?
-    #   citables << EOL::Citable.new( :link_to_url => license.source_url,
-    #                                 :display_string => license.description,
-    #                                 :logo_path => license.logo_url,
-    #                                 :type => I18n.t("license"))
-    # end
 
     unless location.blank?
       citables << EOL::Citable.new( :display_string => location,

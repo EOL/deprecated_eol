@@ -130,32 +130,15 @@ class DataObjectsController < ApplicationController
   end
 
   def show
-    @page_title = page_title
+    @page_title = @data_object.best_title
     get_attribution
     @feed_item = FeedItem.new(:feed_id => @data_object.id, :feed_type => @data_object.class.name)
-    @type = @data_object.data_type.label
     @comments = @data_object.all_comments.dup.paginate(:page => params[:page], :order => 'updated_at DESC', :per_page => Comment.per_page)
     @slim_container = true
     @revisions = @data_object.revisions.sort_by(&:created_at).reverse
     @taxon_concepts = @data_object.get_taxon_concepts(:published => :preferred)
     @scientific_names = @taxon_concepts.inject({}) { |res, tc| res[tc.scientific_name] = { :common_name => tc.common_name, :taxon_concept_id => tc.id }; res }
-    @image_source = get_image_source if @type == 'Image'
-  end
-
-  def page_title
-    @taxon_concepts = @data_object.get_taxon_concepts(:published => :preferred)
-    if @taxon_concepts[0].published?
-      @taxon_concepts.each do |t|
-        tc_label = t.scientific_name
-        tc_label += ": #{t.common_name}" unless t.common_name.blank?
-      end
-    else
-      @taxon_concepts.each do |t|
-        names = @taxon_concepts.map { |item| t.scientific_name + (t.common_name.blank? ? '' : ": <b>#{t.common_name}</b>") }.uniq
-        tc_label = "associated with the deprecated page#{names.size == 1 ? '' : 's'}: '#{names.join("', '")}')"
-      end
-    end
-    return tc_label ||= ""
+    @image_source = get_image_source if @data_object.is_image?
   end
 
   # GET /data_objects/1/attribution

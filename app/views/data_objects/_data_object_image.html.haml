@@ -1,1 +1,3 @@
-%img{ :src => @image_source, :alt => @taxon_concepts.map { |tc| tc.scientific_name }.compact.uniq.sort.join(', ') }
+- src ||= @image_source
+- alt ||= nil
+= image_tag src, :alt => alt

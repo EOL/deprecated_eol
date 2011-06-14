@@ -1,17 +1,6 @@
 - data_object ||= @data_object
-- #TODO: Show TOC item(s)
 - unless data_object.nil? || data_object.description.empty? || data_object.description.blank?
-  - show_attribution = true if show_attribution.nil?
   - show_references = true if show_references.nil?
-  - show_read_more = true if show_read_more.nil?
-  - type ||= data_object.data_type.label.downcase
-  - unless data_object.object_title.empty?
-    %h4= data_object.object_title
-  - if show_attribution
-    .meta.attribution
-      = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => data_object }
-      - if show_read_more
-        %p= link_to I18n.t("#{type}_more_about"), data_object_path(data_object)
   .description
     = data_object.description.balance_tags
   - if show_references && ! data_object.refs.blank?

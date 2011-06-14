@@ -3,4 +3,6 @@
 %ul#media
   - @media.each do |item|
     = render :partial => "taxa/media_thumbnail", :locals => {:item => item}
+    - if item.data_type.id == DataType.image.id
+      = link_to I18n.t("set_as_exemplar"), :action => :set_as_exemplar, :taxon_concept_id => @taxon_concept.id, :data_object_id => item.id
 = will_paginate @media

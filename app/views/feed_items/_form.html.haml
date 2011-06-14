@@ -12,3 +12,5 @@
       = f.text_area :body, :cols => 30, :rows => 3
     %fieldset.actions
       = f.submit I18n.t(:post_comment)
+      - # FIXME: Where would an appropriate cancel button go? Referrer? Current page?
+      = link_to I18n.t(:cancel), "/placeholder", :class => "cancel"

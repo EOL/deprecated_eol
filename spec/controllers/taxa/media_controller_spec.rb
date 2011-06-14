@@ -13,6 +13,12 @@ describe Taxa::MediaController do
     @first_image = @data[:taxon_concept].images.first
     @first_video = @data[:taxon_concept].videos.first
   end
+  
+  it 'should set an image as exemplar' do
+    @taxon_concept.get_exemplar_image.should_not == @taxon_concept.images.last.id
+    controller.set_exemplar_image(@taxon_concept.id, @taxon_concept.images.last.id)
+    @taxon_concept.get_exemplar_image.should == @taxon_concept.images.last.id
+  end
 
   describe 'GET show' do
 

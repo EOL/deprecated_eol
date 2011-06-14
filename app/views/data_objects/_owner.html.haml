@@ -1,7 +1,14 @@
+- # owner basically means choose someone responsible for this object
 - linked ||= false
 - if data_object.added_by_user?
   - attribution = data_object.users_data_objects[0].user.given_name + data_object.users_data_objects[0].user.family_name
 - else
-  - attribution = data_object.citable_rights_holder
-  - attribution = attribution.nil? ? data_object.best_agents_to_cite : [attribution]
-  = citables_to_string(attribution, :linked => linked)
+  - if data_object.rights_holder.blank?
+    - owner, user = data_object.owner
+  - else
+    - owner = "&copy; #{data_object.rights_holder}"
+  - unless owner.blank?
+    - if linked && !user.blank? && ! user.id.blank?
+      = link_to owner, user_path(user)
+    - else
+      = owner

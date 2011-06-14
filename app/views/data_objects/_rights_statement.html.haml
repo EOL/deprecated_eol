@@ -1,0 +1,6 @@
+- data_object ||= @data_object
+- unless data_object.blank?
+  - rights = data_object.rights_statement
+  - rights = data_object.license.description if rights.blank? && ! data_object.license.blank?
+  - unless rights.blank?
+    %p{:title => I18n.t(:rights_statement)}= "#{rights}"

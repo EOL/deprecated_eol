@@ -28,6 +28,11 @@ class Taxa::MediaController < TaxaController
     current_user.log_activity(:viewed_taxon_concept_media, :taxon_concept_id => @taxon_concept.id)
   end
   
+  def set_as_exemplar
+    TaxonConceptExemplarImage.set_exemplar(params[:taxon_concept_id], params[:data_object_id])
+    redirect_to taxon_media_path params[:taxon_concept_id]
+  end
+
 private
   def sort_filter_media(media)
     @sort_by = params[:sort_by] || "default"

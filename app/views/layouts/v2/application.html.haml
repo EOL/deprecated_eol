@@ -114,15 +114,6 @@
 
     #central
       .section{ :role => "main" }
-        - unless flash.blank?
-          #messages
-            - if flash[:notice]
-              .notice= flash[:notice]
-            - if flash[:warning]
-              .warning= flash[:warning]
-            - if flash[:error]
-              .error= flash[:error]
-
         = yield :main
 
     #footer{ :role => "contentinfo" }

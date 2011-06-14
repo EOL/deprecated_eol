@@ -1,16 +1,16 @@
-%dl#attribution{ :data => { :object_id => data_object.id } }
-  - if data_object.map?
-    -# TODO
+- data_object ||= @data_object
+- unless data_object.blank?
+  - en_type ||= data_object.data_type.label('en').downcase
   - if data_object.added_by_user?
     %p
-      = I18n.t(:supplier)
+      = I18n.t(:supplier_with_colon)
       = data_object.users_data_objects[0].user.given_name
       = data_object.users_data_objects[0].user.family_name
-  - data_object.citable_entities.each do |citable|
-    %p
-      = "#{citable.type}: "
-      - #TODO: The following renders a tags with target='_blank' which is bad for accessibility. We should remove or at least provide some warning.
-      = citables_to_string(citable)
-      = citables_to_icons(citable)
-  - if data_object.in_wikipedia?
-    -# TODO ... putting an edit link here is wrong.  Don't do it.
+  - else
+    = render :partial => 'license'
+    - unless data_object.rights_holder.blank?
+      %p{:title => I18n.t(:rights_holder)}= "&copy; #{data_object.rights_holder}"
+    = render :partial => 'rights_statement'
+    = render :partial => 'agents'
+    - unless data_object.source_url.blank?
+      %p= link_to I18n.t("view_#{en_type}_source"), data_object.source_url

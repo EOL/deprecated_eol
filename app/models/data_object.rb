@@ -119,14 +119,14 @@ class DataObject < SpeciesSchemaModel
     else
       if filter_by_type["image"] then allowed_data_types << DataType.image.id end
       if filter_by_type["audio"] then allowed_data_types << DataType.sound.id end
-      if filter_by_type["video"] 
-        allowed_data_types << DataType.video.id 
+      if filter_by_type["video"]
+        allowed_data_types << DataType.video.id
         allowed_data_types << DataType.flash.id
         allowed_data_types << DataType.youtube.id
       end
-      
+
       if filter_by_type["photosynth"] then allowed_data_types << DataType.image.id end
-      
+
       # this means if all data types are not checked, then there is no filter for data types
       if allowed_data_types.length == 0
         allowed_data_types = [DataType.image.id, DataType.sound.id, DataType.video.id, DataType.flash.id, DataType.youtube.id]
@@ -137,7 +137,7 @@ class DataObject < SpeciesSchemaModel
     # filter by status
     allowed_visibility_status = []
     allowed_visibility_status = [Visibility.visible.id, Visibility.invisible.id, Visibility.preview.id]
-    
+
     allowed_vetted_status = []
     if filter_by_status["all"]
       allowed_vetted_status = [Vetted.trusted.id, Vetted.unknown.id, Vetted.untrusted.id]
@@ -147,16 +147,16 @@ class DataObject < SpeciesSchemaModel
       if filter_by_status["untrusted"] then allowed_vetted_status << Vetted.untrusted.id end
       if filter_by_status["unreviewed"] then allowed_vetted_status << Vetted.unknown.id end
       if filter_by_status["inappropriate"] then allowed_visibility_status << Visibility.inappropriate.id end
-      # this means if all statuses are not checked, then there is no filter for statuses  
+      # this means if all statuses are not checked, then there is no filter for statuses
       if allowed_vetted_status.length == 0 and allowed_visibility_status.length == 3
         allowed_vetted_status = [Vetted.trusted.id, Vetted.unknown.id, Vetted.untrusted.id]
         allowed_visibility_status << Visibility.inappropriate.id
       end
     end
-       
+
     temp = []
     data_objects.each do |object|
-      if allowed_vetted_status.include?(object.vetted_id) then temp << object end      
+      if allowed_vetted_status.include?(object.vetted_id) then temp << object end
     end
     data_objects = temp
 
@@ -165,11 +165,11 @@ class DataObject < SpeciesSchemaModel
       if allowed_visibility_status.include?(object.visibility_id) then temp << object end
     end
     data_objects = temp
-    
+
     if filter_by_type["photosynth"] && !filter_by_type["image"]
       data_objects.delete_if { |key, value| key.data_type_id == DataType.image.id && key.source_url[0..20] != "http://photosynth.net" }
     end
-    
+
     return data_objects
   end
 
@@ -431,8 +431,12 @@ class DataObject < SpeciesSchemaModel
 
   #----- end of user submitted text --------
 
-  def object_title_or_info_item_label
-    object_title.blank? && !info_items.blank? ? info_items.first.label : object_title
+  def best_title
+    return object_title unless object_title.blank?
+    return toc_items.first.label unless toc_items.blank?
+    taxon_concepts = get_taxon_concepts(:published => :preferred)
+    return taxon_concepts.first.title_canonical(@session_hierarchy) unless taxon_concepts.first.blank?
+    return data_type.label
   end
 
   def rate(user, new_rating)
@@ -534,14 +538,6 @@ class DataObject < SpeciesSchemaModel
     unless rights_holder.blank?
       citables << citable_rights_holder
     end
-    
-    # this section was moved to top
-    # unless license.blank?
-    #   citables << EOL::Citable.new( :link_to_url => license.source_url,
-    #                                 :display_string => license.description,
-    #                                 :logo_path => license.logo_url,
-    #                                 :type => I18n.t("license"))
-    # end
 
     unless location.blank?
       citables << EOL::Citable.new( :display_string => location,
@@ -567,24 +563,24 @@ class DataObject < SpeciesSchemaModel
     citables
   end
 
-  def best_agents_to_cite
+  # 'owner' chooses someone responsible for this data object in order of preference
+  def owner
+    # rights holder is preferred
+    return rights_holder, nil unless rights_holder.blank?
+
+    # otherwise choose agents ordered by preferred role
     role_order = [ AgentRole.author, AgentRole.photographer, AgentRole.source,
                    AgentRole.editor, AgentRole.contributor ]
     role_order.each do |role|
-      best_agents = agents_data_objects.find_all{|ado| ado.agent_role_id == role.id && ado.agent}
-      break unless best_agents.empty?
+      best_ado = agents_data_objects.find_all{|ado| ado.agent_role_id == role.id && ado.agent}
+      break unless best_ado.empty?
     end
 
-    # If we don't have an agent yet then we just return the first one we can find
-    best_agents = agents_data_objects.find_all{|ado| ado.agent_role && ado.agent}
+    # if we don't have any agents with the preferred roles then just pick one
+    best_ado = agents_data_objects.find_all{|ado| ado.agent_role && ado.agent}
 
-    citable_agents = []
-    best_agents.each do |ado|
-      if ado.agent_role && ado.agent
-        citable_agents << ado.agent.citable(ado.agent_role.label)
-      end
-    end
-    citable_agents
+    return best_ado.first.agent.full_name, best_ado.first.agent.user
+
   end
 
   # Find all of the authors associated with this data object, including those that we dynamically add elsewhere

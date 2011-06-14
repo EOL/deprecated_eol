@@ -1,0 +1,4 @@
+- data_object ||= @data_object
+- unless data_object.blank?
+  - data_object.agents_data_objects.each do |ado|
+    %p= "#{ado.agent_role.label}: #{ado.agent.full_name}"

@@ -111,10 +111,6 @@ class TaxonConcept < SpeciesSchemaModel
     quick_common_names(taxon_concept_ids, hierarchy)
   end
 
-  def set_exemplar_image(data_object_id)
-    TaxonConceptExemplarImage.set_exemplar(self.id, data_object_id)
-  end
-
   def get_exemplar_image
     exemplar = TaxonConceptExemplarImage.find_by_taxon_concept_id(self.id)
     return nil unless exemplar

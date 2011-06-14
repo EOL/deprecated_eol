@@ -30,7 +30,7 @@ class TaxaController < ApplicationController
       do_the_search
       return
     end
-    return redirect_to(taxon_overview_path(params[:id]))
+    return redirect_to taxon_overview_path(params[:id])
   end
 
   # TODO: Move search to its own controller?
@@ -254,7 +254,7 @@ class TaxaController < ApplicationController
     @data_object = DataObject.find(params[:data_object_id].to_i)
     current_user.log_activity(:viewed_video, :value => @data_object.object_cache_url)
     render :update do |page|
-      page.replace_html 'video-player', :partial => 'shared/show_video'
+      page.replace_html 'video-player', :partial => 'data_objects/data_object_video'
     end
   end
 
@@ -596,7 +596,8 @@ private
   helper_method(:search_fragment_name)
 
   def redirect_to_taxa_page(result_set)
-    redirect_to :controller => 'taxa', :action => 'show', :id => result_set.first['id']
+    flash[:notice] = I18n.t(:flash_notice_redirected_from_search_html, :search_string => @querystring)
+    redirect_to taxon_overview_path(result_set.first['id'])
   end
 
   def get_suggested_search_results(querystring)

@@ -4,7 +4,6 @@ class Taxa::OverviewsController < TaxaController
   before_filter :add_page_view_log_entry, :update_user_content_level
 
   def show
-
     includes = [
       { :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] },
       { :data_objects => { :toc_items => :info_items } },

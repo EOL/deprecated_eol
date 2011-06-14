@@ -47,7 +47,7 @@ body > #header h1 {
   position: absolute;
   left: 0;
   top: 20px;
-  z-index: 1; }
+  z-index: 2; }
   body > #header h1 a {
     display: block;
     width: 125px;

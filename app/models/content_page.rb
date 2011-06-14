@@ -2,13 +2,17 @@
 # objects associated with it.  These pages are static content *or* links to external resources, and can be edited by
 # administrators.
 class ContentPage < $PARENT_CLASS_MUST_USE_MASTER
-  
+  CACHE_ALL_ROWS = true
   uses_translations
+  
   belongs_to :content_section
+  belongs_to :content_page, :class_name => ContentPage.to_s, :foreign_key => 'parent_content_page_id'
+  
   #has_many :content_page_archives, :order => 'created_at DESC', :limit => 15
   belongs_to :user, :foreign_key => 'last_update_user_id'
   
-  validates_presence_of :content_section_id, :page_name
+  #validates_presence_of :content_section_id 
+  validates_presence_of :page_name
   before_save :remove_underscores_from_page_name
   
   def self.get_by_page_name_and_language_abbr(page_name, language_abbr)

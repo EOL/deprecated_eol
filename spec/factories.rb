@@ -373,7 +373,7 @@ Factory.define :contact_subject do |cs|
 end
 
 Factory.define :content_page do |cp|
-  cp.association :content_section
+  #cp.association :content_section
   cp.page_name   'Test Content Page'
   cp.sort_order    1
   cp.last_update_user_id 1 # This *should* be the admin, and we don't *really* care otherwise.

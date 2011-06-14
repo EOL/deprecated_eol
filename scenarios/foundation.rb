@@ -19,13 +19,12 @@ ContentSection.gen_if_not_exists(:name => 'Using the Site')
 ContentSection.gen_if_not_exists(:name => 'Press Room')
 ContentSection.gen_if_not_exists(:name => 'Footer')
 
-puts ContentSection.find_by_id(2).name
-
-ContentPage.gen_if_not_exists(:page_name => 'Home', :title => 'Home',
+ContentPage.gen_if_not_exists(:page_name => 'Home', :title => 'Home', 
   :content_section => ContentSection.gen_if_not_exists(:name => 'Home Page'))
 ContentPage.gen_if_not_exists(:page_name => 'Who We Are', :title => 'Who We Are',
-  :content_section => ContentSection.find_by_id(2))
-break
+  :content_section => ContentSection.gen_if_not_exists(:name => 'About EOL'))
+ContentPage.gen_if_not_exists(:page_name => 'Working Group', :title => 'Working Group', 
+  :parent_content_page => ContentPage.gen_if_not_exists(:page_name => 'Who We Are'))
 ContentPage.gen_if_not_exists(:page_name => 'Contact Us', :title => 'Contact Us',
   :content_section => ContentSection.gen_if_not_exists(:name => 'Feedback'))
 ContentPage.gen_if_not_exists(:page_name => 'Screencasts', :title => 'Screencasts',

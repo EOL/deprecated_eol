@@ -4,8 +4,8 @@ class ContentSection < ActiveRecord::Base
       
    has_many :content_pages, :order=>'sort_order', :conditions=>'active=1'   
    
-   # helper method to retrieve a language key equivalent to the section name if none is supplied in the database
-   def key
+  # helper method to retrieve a language key equivalent to the section name if none is supplied in the database
+  def key
     if self.language_key == '' || self.language_key.nil?
       return self.name.gsub(' ','_').downcase.to_sym
     else

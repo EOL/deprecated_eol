@@ -23,24 +23,21 @@ module TaxaHelper
     return '' if citables.nil? or citables.blank? or citables.class == String
     params[:linked] = true if params[:linked].nil?
     params[:only_first] ||= false
-    params[:show_link_icon] = true if params[:show_link_icon].nil?
     citable_entities = citables.clone # so we can be destructive.
     citable_entities = [citable_entities] unless citable_entities.class == Array # Allows us to pass in a single agent, if needed.
     citable_entities = [citable_entities[0]] if params[:only_first]
     display_strings = citable_entities.collect do |citable|
       if citable.user
-        link_to_url = url_for :controller => :account, :action => :show, :id => citable.user.id, :popup => true
+        link_to_url = user_path(citable.user)
       else
         link_to_url = params[:url] || citable.link_to_url
       end
 
-      params[:linked] ? external_link_to(allow_some_html(citable.display_string),
-                                         link_to_url,
-                                         {:show_link_icon => params[:show_link_icon]}) :
+      params[:linked] ? link_to (allow_some_html(citable.display_string), link_to_url) :
                         allow_some_html(citable.display_string)
     end
     final_string = display_strings.join(', ')
-    final_string += ', et al.' if params[:only_first] && citables.length > 1
+    final_string = I18n.t(:names_et_al, :names => final_string) if params[:only_first] && citables.length > 1
     return final_string
   end
 
@@ -96,7 +93,7 @@ module TaxaHelper
     if output_html.size > 1 && params[:last_separator] != params[:separator]
       # stich the last two elements together with the "last separator" column before joining if there is more than 1 element and the last separator is different
       output_html[output_html.size-2] = output_html[output_html.size-2] + params[:last_separator] + output_html.pop
-		end
+    end
     return output_html.compact.join(params[:separator])
   end
 

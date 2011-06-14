@@ -23,5 +23,5 @@
         .attribution
           - unless item.object_title.empty?
             %p= item.object_title
-          = render :partial => "data_objects/attribution_minimal", :locals => {:data_object => item, :show_source_link => true}
+          = render :partial => "data_objects/attribution_minimal", :locals => {:data_object => item, :linked => true}
   %p.all= link_to I18n.t(:see_all_media_link), taxon_media_path(@taxon_concept.id)

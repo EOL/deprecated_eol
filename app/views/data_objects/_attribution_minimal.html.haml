@@ -1,7 +1,7 @@
-- show_source_link ||= false
-= link_to image_tag(data_object.license.logo_url, :alt => I18n.t(:license_icon_alt_text, :license => data_object.license.title)), data_object.license.source_url
+- linked ||= false
+= render :partial => 'data_objects/license', :locals => { :data_object => data_object }
 %p<
-  = render :partial => 'data_objects/owner', :locals => { :data_object => data_object }
-  - if show_source_link
+  = render :partial => 'data_objects/owner', :locals => { :data_object => data_object, :linked => true }
+  - if linked
     &mdash;
-    = link_to I18n.t(:source_information_link), { :controller => '/data_objects', :action => :show, :id => data_object.id }
+    = link_to I18n.t(:source_information_link), data_object_path(data_object)

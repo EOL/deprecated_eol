@@ -562,24 +562,24 @@ class DataObject < SpeciesSchemaModel
     citables
   end
 
-  def best_agents_to_cite
+  # 'owner' chooses someone responsible for this data object in order of preference
+  def owner
+    # rights holder is preferred
+    return rights_holder, nil unless rights_holder.blank?
+
+    # otherwise choose agents ordered by preferred role
     role_order = [ AgentRole.author, AgentRole.photographer, AgentRole.source,
                    AgentRole.editor, AgentRole.contributor ]
     role_order.each do |role|
-      best_agents = agents_data_objects.find_all{|ado| ado.agent_role_id == role.id && ado.agent}
-      break unless best_agents.empty?
+      best_ado = agents_data_objects.find_all{|ado| ado.agent_role_id == role.id && ado.agent}
+      break unless best_ado.empty?
     end
 
-    # If we don't have an agent yet then we just return the first one we can find
-    best_agents = agents_data_objects.find_all{|ado| ado.agent_role && ado.agent}
+    # if we don't have any agents with the preferred roles then just pick one
+    best_ado = agents_data_objects.find_all{|ado| ado.agent_role && ado.agent}
 
-    citable_agents = []
-    best_agents.each do |ado|
-      if ado.agent_role && ado.agent
-        citable_agents << ado.agent.citable(ado.agent_role.label)
-      end
-    end
-    citable_agents
+    return best_ado.first.agent.full_name, best_ado.first.agent.user
+
   end
 
   # Find all of the authors associated with this data object, including those that we dynamically add elsewhere

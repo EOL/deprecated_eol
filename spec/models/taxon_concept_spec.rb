@@ -520,6 +520,12 @@ describe TaxonConcept do
     tc.respond_to?(:feed).should be_true
     tc.feed.should be_a EOL::Feed
   end
+  
+  it 'should set the exemplar image' do
+    @taxon_concept.get_exemplar_image.should_not == @taxon_concept.images.last.id
+    @taxon_concept.set_exemplar_image(@taxon_concept.images.last.id)
+    @taxon_concept.get_exemplar_image.should == @taxon_concept.images.last.id
+  end
 
   #
   # I'm all for pending tests, but in this case, they run SLOWLY, so it's best to comment them out:

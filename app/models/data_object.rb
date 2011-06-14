@@ -32,6 +32,7 @@ class DataObject < SpeciesSchemaModel
   has_many :untrust_reasons, :through => :data_objects_untrust_reasons
   has_many :data_objects_info_items
   has_many :info_items, :through => :data_objects_info_items
+  has_many :taxon_concept_exemplar_images
   # has_many :user_ignored_data_objects
   has_many :collection_items, :as => :object
   has_many :users_data_objects
@@ -94,17 +95,17 @@ class DataObject < SpeciesSchemaModel
       inverted_rating = obj.data_rating * -1
       inverted_id = obj.id * -1
 
-      if sort_by == "newest" 
+      if sort_by == "newest"
         [inverted_id, obj.data_type_id, vetted_view_order, inverted_rating]
-      elsif sort_by == "rating" 
+      elsif sort_by == "rating"
         [inverted_rating, obj.data_type_id, vetted_view_order, inverted_id]
-      elsif sort_by == "vetted" 
+      elsif sort_by == "vetted"
         [vetted_view_order, inverted_rating, inverted_id, obj.data_type_id]
-      elsif sort_by == "data_type" 
+      elsif sort_by == "data_type"
         [obj.data_type_id, vetted_view_order, inverted_rating, inverted_id]
-      elsif sort_by == "default" 
-        [vetted_view_order, inverted_rating, inverted_id]
-      end  
+      elsif sort_by == "default"
+        []
+      end
     
     end
   end

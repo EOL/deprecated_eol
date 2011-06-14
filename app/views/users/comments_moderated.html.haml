@@ -29,31 +29,31 @@
           =I18n.t("updated")
     %tbody
       - count = 0
-      - @comment_curation_actions.each do |ah|
+      - @comment_curation_actions.each do |curation_action|
         - row_class = cycle('odd','even')
         - count += 1
-        - if ah.affected_comment.parent_type == "TaxonConcept"
-          - concept = TaxonConcept.find(ah.affected_comment.parent_id)
+        - if curation_action.affected_comment.parent_type == "TaxonConcept"
+          - concept = TaxonConcept.find(curation_action.affected_comment.parent_id)
           - name = concept.quick_scientific_name(:italicized)
         - else
           - name = ""
         %tr
           %td{ :class => row_class }
-            = ah.affected_comment.parent_type
+            = curation_action.affected_comment.parent_type
             - if name
               %br
-              = link_to name, { :controller => :taxa, :action => :show, :id => ah.affected_comment.parent_id }
+              = link_to name, { :controller => :taxa, :action => :show, :id => curation_action.affected_comment.parent_id }
           %td{ :class => row_class }
-            = ah.activity.name
-            = h format_date_time(ah.updated_at, :format=>'short_no_tz')
+            = curation_action.activity.name
+            = h format_date_time(curation_action.updated_at, :format=>'short_no_tz')
           %td{ :class => row_class }
-            = ah.affected_comment.body
+            = curation_action.affected_comment.body
           %td{ :class => row_class }
-            = h format_date_time(ah.affected_comment.visible_at, :format=>'short_no_tz')
+            = h format_date_time(curation_action.affected_comment.visible_at, :format=>'short_no_tz')
           %td{ :class => row_class }
-            = h format_date_time(ah.affected_comment.created_at, :format=>'short_no_tz')
+            = h format_date_time(curation_action.affected_comment.created_at, :format=>'short_no_tz')
           %td{ :class => row_class }
-            = h format_date_time(ah.affected_comment.updated_at, :format=>'short_no_tz')
+            = h format_date_time(curation_action.affected_comment.updated_at, :format=>'short_no_tz')
       %tr
         %td{ :colspan => "5" }
           = will_paginate @comment_curation_actions

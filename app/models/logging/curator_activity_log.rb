@@ -6,7 +6,7 @@ class CuratorActivityLog < LoggingModel
   belongs_to :comment
   belongs_to :taxon_concept
 
-  has_and_belongs_to_many :untrust_reasons
+  has_and_belongs_to_many :untrust_reasons, :join_table => "#{UntrustReason.configurations[RAILS_ENV]['database']}.curator_activity_logs_untrust_reasons"
 
   # use these associations carefully. They don't check the changeable object type, so you might try to grab a comment
   # when you should have grabbed an object and it won't fail.

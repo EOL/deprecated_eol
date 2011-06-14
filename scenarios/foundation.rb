@@ -19,19 +19,21 @@ ContentSection.gen_if_not_exists(:name => 'Using the Site')
 ContentSection.gen_if_not_exists(:name => 'Press Room')
 ContentSection.gen_if_not_exists(:name => 'Footer')
 
+puts ContentSection.find_by_id(2).name
 
-ContentPage.gen_if_not_exists(:title => 'Home',
-  :language_abbr => 'en', :content_section => ContentSection.find_by_translated(:name, 'Home Page'))
-ContentPage.gen_if_not_exists(:title => 'Who We Are',
-  :language_abbr => 'en', :content_section => ContentSection.find_by_translated(:name, 'About EOL'))
-ContentPage.gen_if_not_exists(:title => 'Contact Us',
-  :language_abbr => 'en', :content_section => ContentSection.find_by_translated(:name, 'Feedback'))
-ContentPage.gen_if_not_exists(:title => 'Screencasts',
-  :language_abbr => 'en', :content_section => ContentSection.find_by_translated(:name, 'Using the Site'))
-ContentPage.gen_if_not_exists(:title => 'Press Releases',
-  :language_abbr => 'en', :content_section => ContentSection.find_by_translated(:name, 'Press Room'))
-ContentPage.gen_if_not_exists(:title => 'Terms Of Use',
-  :language_abbr => 'en', :content_section => ContentSection.gen_if_not_exists(:name => 'Footer'))
+ContentPage.gen_if_not_exists(:page_name => 'Home', :title => 'Home',
+  :content_section => ContentSection.gen_if_not_exists(:name => 'Home Page'))
+ContentPage.gen_if_not_exists(:page_name => 'Who We Are', :title => 'Who We Are',
+  :content_section => ContentSection.find_by_id(2))
+break
+ContentPage.gen_if_not_exists(:page_name => 'Contact Us', :title => 'Contact Us',
+  :content_section => ContentSection.gen_if_not_exists(:name => 'Feedback'))
+ContentPage.gen_if_not_exists(:page_name => 'Screencasts', :title => 'Screencasts',
+  :content_section => ContentSection.gen_if_not_exists(:name => 'Using the Site'))
+ContentPage.gen_if_not_exists(:page_name => 'Press Releases', :title => 'Press Releases',
+  :content_section => ContentSection.gen_if_not_exists(:name => 'Press Room'))
+ContentPage.gen_if_not_exists(:page_name => 'Terms Of Use', :title => 'Terms Of Use',
+  :content_section => ContentSection.gen_if_not_exists(:name => 'Footer'))
 
 ContactSubject.gen_if_not_exists(:title => 'Media Contact', :recipients=>'test@test.com', :active=>true)
 

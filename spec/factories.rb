@@ -374,15 +374,22 @@ end
 
 Factory.define :content_page do |cp|
   cp.association :content_section
-  cp.language_abbr 'en'
-  cp.title         'Test Content Page'
-  cp.page_name     {|c| c.title }
-  cp.left_content  {|c| "<h3>This is Left Content in a #{c.title}</h3>" }
-  cp.main_content  {|c| "<h1>Main Content for #{c.title} ROCKS!</h1>" }
+  cp.page_name   'Test Content Page'
   cp.sort_order    1
-  cp.url           '' # This would imply that the content was external.
   cp.last_update_user_id 1 # This *should* be the admin, and we don't *really* care otherwise.
 end
+
+Factory.define :translated_content_page do |tcp|
+  tcp.association       :content_page
+  tcp.language          { Language.english }
+  tcp.title             'Test Content Page'
+  tcp.left_content      {|c| "<h3>This is Left Content in a #{c.title}</h3>" }
+  tcp.main_content      {|c| "<h1>Main Content for #{c.title} ROCKS!</h1>" }
+  tcp.meta_keywords     {|c| "keywords for #{c.title}"}
+  tcp.meta_description  {|c| "description for #{c.title}"}
+  tcp.url               '' # This would imply that the content was external.
+end
+
 
 Factory.define :content_partner do |cp|
   cp.auto_publish                         false
@@ -425,7 +432,7 @@ end
 Factory.define :translated_content_section do |cs|
   cs.association     :content_section
   cs.language        { Language.english }
-  cs.name          { Factory.next(:string) }
+  cs.name            { Factory.next(:string) }
 end
 
 Factory.define :content_upload do |cu|

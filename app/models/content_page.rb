@@ -3,14 +3,12 @@
 # administrators.
 class ContentPage < $PARENT_CLASS_MUST_USE_MASTER
   
+  uses_translations
   belongs_to :content_section
-  has_many :content_page_archives, :order => 'created_at DESC', :limit => 15
+  #has_many :content_page_archives, :order => 'created_at DESC', :limit => 15
   belongs_to :user, :foreign_key => 'last_update_user_id'
   
-  validates_presence_of :main_content, :if => :url_and_left_content_is_blank?
-  validates_presence_of :url, :if => :content_is_blank?
-
-  validates_presence_of :content_section_id, :page_name, :title
+  validates_presence_of :content_section_id, :page_name
   before_save :remove_underscores_from_page_name
   
   def self.get_by_page_name_and_language_abbr(page_name, language_abbr)
@@ -27,22 +25,6 @@ class ContentPage < $PARENT_CLASS_MUST_USE_MASTER
     return language_page
   end
   
-  def title_with_language
-    title + " (" + language_abbr + ")"
-  end
-  
-  def url_and_left_content_is_blank?
-    self.url.blank? && self.left_content.blank?
-  end
-
-  def content_is_blank?
-    self.main_content.blank? && self.left_content.blank?
-  end
-
-  def left_content_is_blank?
-    self.left_content.blank?
-  end
-  
   def remove_underscores_from_page_name
     self.page_name.gsub!('_', ' ')
   end
@@ -56,10 +38,6 @@ class ContentPage < $PARENT_CLASS_MUST_USE_MASTER
     end
   end
 
-  def page_url
-    return self.page_name.gsub(' ', '_').downcase
-  end
-  
   # name to use for cached fragment
   def fragment_name
     self.content_section.key.to_s + "_" + self.key.to_s 

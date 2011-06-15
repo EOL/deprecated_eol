@@ -11,16 +11,7 @@
     %li.people= link_to I18n.t(:people_with_count, :count => 3), "/placeholder"
     %li.collections= link_to I18n.t(:collections_with_count, :count => 3), "/placeholder"
   -#FIXME: Make this sort functional
-  %form(action="" method="post")
-    %fieldset
-      %dl
-        %dt
-          %label= I18n.t(:sort_items_label)
-        %dd
-          %select
-            %option= I18n.t(:sort_items_by_newest_option)
-    %fieldset.actions
-      %input{:type => "submit", :value => I18n.t(:sort_items_button)}
+  = render :partial => 'shared/sort_by_date_form'
 #sidebar
   .collection_contributors
     %h3= I18n.t(:collected_by)

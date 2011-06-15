@@ -1,6 +1,27 @@
-= render :partial => "media_sort_filter"
-= will_paginate @media
-%ul#media
-  - @media.each do |item|
-    = render :partial => "taxa/media_thumbnail", :locals => {:item => item}
-= will_paginate @media
+#media_list
+  #sidebar
+    = image_tag @exemplar_image
+    %h3= I18n.t(:media)
+    = render :partial => "media_sort_filter"
+  #main
+    .header
+      - # FIXME: Need proper numbers for these
+      %h3= I18n.t(:displaying_numerical_range, :start_number => 1, :end_number => 4)
+      = link_to I18n.t(:see_next_with_count, :count => 12)
+      - # TODO - ? = link_to I18n.t(:see_previous_with_count, :count => 12), "/placeholder"
+    - # Replace or configure this? = will_paginate @media
+    %ul
+      - @media.each do |item|
+        %li
+          = render :partial => "taxa/media_thumbnail", :locals => {:item => item}
+          .average_rating
+            - total = 5
+            - average_rating = item.data_rating
+            .rating
+              %p{:style => "width: #{average_rating * 20}%"}<
+                = I18n.t("average_rating_value_of_total", :rating => average_rating, :total => total)
+          %p.flag{:class => vetted_id_class(item)}= item.vetted.label
+          - # FIXME: make functional and button needs to change to in my collection if in collection:
+          = link_to I18n.t(:add_to_my_collection_button), '/placeholder' , :class => 'button'
+          - # = link_to I18n.t(:in_my_collection_button), '/placeholder' , :class => 'button'
+    - # Replace or configure this? = will_paginate @media

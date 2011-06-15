@@ -24,10 +24,11 @@ class Taxa::MediaController < TaxaController
       :users => [ :given_name, :family_name ] }
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
     @media = sort_filter_media(@taxon_concept.media)
+    @exemplar_image = 'FIXME'
     @assistive_section_header = I18n.t(:assistive_media_header)
     current_user.log_activity(:viewed_taxon_concept_media, :taxon_concept_id => @taxon_concept.id)
   end
-  
+
 private
   def sort_filter_media(media)
     @sort_by = params[:sort_by] || "default"
@@ -36,10 +37,10 @@ private
     @filter_by_type_video = params[:filter_by_type_video] || false
     @filter_by_type_audio = params[:filter_by_type_audio] || false
     @filter_by_type_photosynth = params[:filter_by_type_photosynth] || false
-    
+
     # this is for default
     if !params[:sort_by] then @filter_by_type_all = true end
-      
+
     filter_by_type = {}
     filter_by_type["all"] = @filter_by_type_all
     filter_by_type["image"] = @filter_by_type_image

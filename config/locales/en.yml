@@ -1789,6 +1789,9 @@ en:
   text_more_about: "read more about this article"
   text_rating: "Article rating"
   text_summary_more_link: "Read full entry"
+  text_with_count:
+    one: "%{count} Article"
+    other: "%{count} Articles"
   text_your_rating_advisory_information: "Your current rating of this article is %{rating}."
   thanks_for_contacting_the_ency: "Thanks for contacting the Encyclopedia of Life project.  Your contact information has been passed on to the media contact."
   thanks_for_donation: "Thank you for supporting the Encyclopedia of Life.  Your information has been submitted and will be processed."

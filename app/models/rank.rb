@@ -36,6 +36,15 @@ class Rank < SpeciesSchemaModel
     cached_find_translated(:label, 'subspecies')
   end
   
+  def self.english_rank_labels_to_translate
+    [ 'class', 'division', 'f', 'fam', 'family', 'form', 'forma', 'gen', 'genus', 'infraorder',
+      'infraspecies', 'kingdom', 'nothogenus', 'nothospecies', 'nothosubspecies', 'nothovariety',
+      'order', 'phylum', 'sect', 'section', 'series', 'sp', 'species', 'sub-family', 'subclass',
+      'subdivision', 'subfamily', 'subgen', 'subgenus', 'subkingdom', 'suborder', 'subphylum',
+      'subsection', 'subseries', 'subsp', 'subspecies', 'subtribe', 'superfamily', 'superphylum',
+      'tribe', 'unranked', 'var', 'varietas', 'variety']
+  end
+  
   def self.italicized_labels
     ['?var',          'binomial',      'biovar',
      'Espéce',        'especie',       '',

@@ -1,0 +1,18 @@
+- data_object ||= @data_object
+- unless data_object.blank?
+  - # How many, if any of these options do we need?
+  - visible ||= true
+  - inappropriate ||= false
+  - invisible ||= false
+  - preview ||= false
+  - entries = data_object.published_entries.collect{|e| e if (visible && Visibility.visible == e.visibility) || (inappropriate && Visibility.inappropriate == e.visibility) || (invisible && Visibility.invisible == e.visibility) || (preview && Visibility.preview == e.visibility)}
+  - if entries.blank?
+    %p= I18n.t(:data_object_not_associated_with_any_hierarchies)
+  - else
+    %ul.review_status
+      - entries.each do |entry|
+        - en_status = entry.vetted.label('en').downcase
+        - status = entry.vetted == Vetted.unknown ? I18n.t(:unreviewed) : entry.vetted.label
+        %li
+          %p{:class => en_status}= status
+          = link_to entry.name.string, taxon_overview_path(entry.taxon_concept_id)

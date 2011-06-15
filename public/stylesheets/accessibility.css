@@ -8,6 +8,13 @@
  * so I am temporarily adding some CSS here needed for V2 demo. This CSS should be integrated
  * into HashRocket SASS if it is still needed when design work is complete.
  */
+#permalink form.review_status fieldset.reasons label {
+  margin-right: 8px;
+  line-height: 1.5em; }
+#permalink #sidebar ul.review_status p.unknown {
+  border: 1px solid #677682;
+  background: #8695a1; }
+
 #taxonomy_detail .average_rating h5 {
   display: inline;
   text-transform: lowercase; }

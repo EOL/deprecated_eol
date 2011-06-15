@@ -1,11 +1,11 @@
 - content.each do |item|
   - if item[:data_objects]
     - item[:data_objects].each do |dato|
-      - type_en = dato.data_type.label('en').downcase
+      - en_type = dato.data_type.label('en').downcase.strip
       .article.copy
         .meta.attribution
           = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => dato }
-          %p= link_to I18n.t("#{type_en}_more_about"), data_object_path(dato)
+          %p= link_to I18n.t("#{en_type}_more_about"), data_object_path(dato)
         - unless dato.object_title.blank?
           %h4= dato.object_title
         = render :partial => 'data_objects/data_object_text', :locals => { :data_object => dato }

@@ -1,0 +1,7 @@
+- # this partial smells fishy, why don't we have an associations controller?
+- data_object ||= @data_object
+- form_tag({:controller => 'data_objects', :action => 'add_association'}) do
+  = hidden_field_tag 'id', data_object.id
+  = label_tag 'add_association', I18n.t(:add_association_label_colon)
+  = text_field_tag 'add_association'
+  = submit_tag I18n.t(:add_association_submit_button)

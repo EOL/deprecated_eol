@@ -1,0 +1,64 @@
+- data_object ||= @data_object
+- unless data_object.blank?
+  - # How many, if any of these options do we need?
+  - visible ||= true
+  - inappropriate ||= false
+  - invisible ||= false
+  - preview ||= false
+  - entries = data_object.published_entries.collect{|e| e if (visible && Visibility.visible == e.visibility) || (inappropriate && Visibility.inappropriate == e.visibility) || (invisible && Visibility.invisible == e.visibility) || (preview && Visibility.preview == e.visibility)}.compact
+  - if entries.blank?
+    %p= I18n.t(:data_object_not_associated_with_any_hierarchies)
+  - else
+    - form_tag({:controller => 'data_objects', :action => 'curate_associations'}, {:class => 'review_status'}) do
+      = hidden_field_tag 'id', data_object.id
+      - entries.each do |entry|
+        %fieldset
+          %legend= link_to entry.name.string, taxon_overview_path(entry.taxon_concept_id)
+          - if entry.by_curated_association? && entry.associated_by_curator.id == current_user.id
+            %p
+              = link_to I18n.t(:remove_data_object_association), remove_association_path(:id => data_object.id, :hierarchy_entry_id => entry.id), :id => "remove_association_#{entry.id}"
+          - # TODO - modify HashRocket permalink.js to use our form element ids
+          - visibility_selected = entry.visibility_id.to_i
+          - visibilities = Visibility.all.collect{|v| [ v.label, v.id ] unless v == Visibility.preview }.compact.sort
+          = select_tag "visibility_id_#{entry.id}", options_for_select(visibilities, visibility_selected)
+          = I18n.t(:and_between_form_items)
+          - vetted_selected = entry.vetted_id.to_i
+          - statuses = Vetted.all.collect{|v| [ v == Vetted.unknown ? I18n.t(:unreviewed) : v.label, v.id ] }.compact.sort
+          = select_tag "vetted_id_#{entry.id}", options_for_select(statuses, vetted_selected)
+          - unless entry.hierarchy.agent.blank?
+            %p
+              = I18n.t(:supplier_colon)
+              - if entry.hierarchy.agent.homepage.blank?
+                = #{entry.hierarchy.agent.full_name}
+              - else
+                = link_to entry.hierarchy.agent.full_name, entry.hierarchy.agent.homepage
+          - untrusted_reasons = (vetted_selected == Vetted.untrusted.id.to_i) ? data_object.untrust_reasons(entry) : []
+          %fieldset.reasons
+            %legend= I18n.t(:untrust_reason_fieldset_legend)
+
+            %label{ :for => "#{entry.id}_untrust_reason_misidentified"}
+              = I18n.t(:untrust_reason_misidentified)
+              = check_box_tag "untrust_reasons_#{entry.id}[]", UntrustReason.misidentified.id.to_s, untrusted_reasons.include?(UntrustReason.misidentified.id), {:id => "#{entry.id}_untrust_reason_misidentified"}
+
+            %label{ :for => "#{entry.id}_untrust_reason_incorrect"}
+              = I18n.t(:untrust_reason_incorrect)
+              = check_box_tag "untrust_reasons_#{entry.id}[]", UntrustReason.incorrect.id.to_s, untrusted_reasons.include?(UntrustReason.incorrect.id), {:id => "#{entry.id}_untrust_reason_incorrect"}
+
+            %label{ :for => "#{entry.id}_untrust_reason_duplicate"}
+              = I18n.t(:untrust_reason_duplicate)
+              = check_box_tag "untrust_reasons_#{entry.id}[]", UntrustReason.duplicate.id.to_s, untrusted_reasons.include?(UntrustReason.duplicate.id), {:id => "#{entry.id}_untrust_reason_duplicate"}
+
+            %label{ :for => "#{entry.id}_untrust_reason_poor"}
+              = I18n.t(:untrust_reason_poor_quality)
+              = check_box_tag "untrust_reasons_#{entry.id}[]", UntrustReason.poor.id.to_s, untrusted_reasons.include?(UntrustReason.poor.id), {:id => "#{entry.id}_untrust_reason_poor"}
+
+            %label{ :for => "#{entry.id}_untrust_reason_other"}
+              = I18n.t(:untrust_reason_other)
+              = check_box_tag "untrust_reasons_#{entry.id}[]", UntrustReason.other.id.to_s, untrusted_reasons.include?(UntrustReason.other.id), {:id => "#{entry.id}_untrust_reason_other"}
+
+            %input{ :type => "hidden", :id => "untrust_reasons_comment_#{entry.id}", :name => "untrust_reasons_comment_#{entry.id}" }
+
+          %label.assistive{:for => "curation_comment_#{entry.id}"}= I18n.t(:curation_comment)
+          = text_area_tag "curation_comment_#{entry.id}", nil, :rows => 4, :cols => 60, :placeholder => I18n.t(:curation_reason_placeholder)
+      %fieldset.actions
+        = submit_tag I18n.t(:curated_association_update_button)

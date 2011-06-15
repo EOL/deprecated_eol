@@ -1,4 +1,7 @@
-- en_type ||= @data_object.data_type.label('en').downcase
+= content_for :head do
+  = javascript_include_tag "permalink"
+
+- en_type ||= @data_object.data_type.label('en').downcase.strip
 - en_type = 'video' if DataType.video_type_ids.include?(@data_object.data_type.id)
 - copy = @data_object.is_text? ? 'copy' : nil
 #permalink
@@ -30,28 +33,26 @@
     .article.source
       .header
         %h3= I18n.t(:source_information_header)
-      = render :partial => 'attribution', :locals => { :data_object => @data_object }
+      = render :partial => 'attribution'
     .article.list
       .header
         %h3= I18n.t("associated_with_#{en_type}_header")
-      - if @data_object.published_entries.blank?
-        %p= I18n.t(:data_object_not_associated_with_any_hierarchies)
-      - else
-        = render :partial => 'data_objects/curation', :locals => { :data_object => @data_object }
+        - if current_user.is_curator?
+          = link_to I18n.t(:add_new_association_link), '/placeholder'
+          - # TODO: Where does the add association link go? Or we show form (not here) as in: = render :partial => 'associations_new'
       - if current_user.is_curator?
-        - form_tag({:controller => 'data_objects', :action => 'add_association'}) do
-          = hidden_field_tag 'id', @data_object.id
-          = label_tag 'add_association', I18n.t(:add_association_label_colon)
-          = text_field_tag 'add_association'
-          = submit_tag I18n.t(:add_association_submit_button)
-
+        = render :partial => 'associations_curation'
+      - else
+        = render :partial => 'associations_index'
     - unless @revisions.blank?
       .article.list
         .header
-          %h3=I18n.t("revisions")
+          %h3= I18n.t(:revisions)
         %ul
           - @revisions.each do |revision|
-            - revision_class = revision.created_at == @data_object.created_at ? 'current_revision' : nil
-            %li= link_to(revision.created_at, data_object_path(revision.id))
+            - if revision.created_at == @data_object.created_at
+              %li= revision.created_at
+            - else
+              %li= link_to revision.created_at, data_object_path(revision.id)
 
 

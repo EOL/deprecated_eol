@@ -1,4 +1,4 @@
-- en_type ||= data_object.data_type.label('en').downcase
+- en_type ||= data_object.data_type.label('en').downcase.strip
 - total = 5
 - average_rating = data_object.data_rating || 0
 - user_rating = data_object.rating_from_user(current_user).rating if data_object.rating_from_user(current_user)

@@ -1,6 +1,7 @@
 #text_summary.article.copy
   - unless @summary_text.nil?
     - @summary_text.each do |dato|
+      - en_type = dato.data_type.label('en').downcase.strip
       - unless dato.description.empty? || dato.description.nil?
         %div{:class => vetted_id_class(dato), :data => { :text_id =>  dato.id } }
           .header
@@ -9,6 +10,7 @@
           - # TODO: If our text data object does not contain p tags can we add them?
           - # Without them the text block does not have any semantic meaning.
           = dato.description.balance_tags
-          .attribution
+          .attribution.meta
             = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => dato }
+            %p= link_to I18n.t("#{en_type}_more_about"), data_object_path(dato)
         - break

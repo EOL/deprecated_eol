@@ -1,53 +1,67 @@
 - form_tag({:action => 'show'}, :method => 'get') do
-  %table
-    %tr
-      %td
-        = I18n.t("sort_by")
-    %tr
-      %td
-        %select{ :name => "sort_by", :onclick => "javascript:test()" }
-          %option{ :value => 'default', :selected => @sort_by == 'default' }
-          %option{ :value => 'newest', :selected => @sort_by == 'newest' }
-            = I18n.t("sort_items_by_newest_option")
-          %option{ :value => 'rating', :selected => @sort_by == 'rating' }
-            = I18n.t("sort_items_by_rating_option")
-          %option{ :value => 'vetted', :selected => @sort_by == 'vetted' }
-            = I18n.t("sort_items_by_vetted_status_option")
-          %option{ :value => 'data_type', :selected => @sort_by == 'data_type' }
-            = I18n.t("sort_items_by_data_type_option")
-    %tr
-      %td
-        = I18n.t("filter_by_type")
-    %tr
-      %td
-        %input{ :type=>"checkbox", :name=>"filter_by_type_all", :checked=>@filter_by_type_all, :onclick => "filter_by_type_all_clicked()" }
-        = I18n.t("filter_by_type_all_option")      
-        %input{ :type=>"checkbox", :name=>"filter_by_type_image", :checked=>@filter_by_type_image }
-        = I18n.t("filter_by_type_images_option")
-        %input{ :type=>"checkbox", :name=>"filter_by_type_video", :checked=>@filter_by_type_video }
-        = I18n.t("filter_by_type_videos_option")
-        %input{ :type=>"checkbox", :name=>"filter_by_type_audio", :checked=>@filter_by_type_audio }
-        = I18n.t("filter_by_type_audio_option")
-        %input{ :type=>"checkbox", :name=>"filter_by_type_photosynth", :checked=>@filter_by_type_photosynth }
-        = I18n.t("filter_by_type_photosynths_option")
-    %tr
-      %td
-        = submit_tag I18n.t("filter_media")
-    %tr
-      %td
-        = I18n.t("filter_by_status")
-    %tr
-      %td
-        %input{ :type=>"checkbox", :name=>"filter_by_status_all", :checked=>@filter_by_status_all }
-        = I18n.t("filter_by_status_all_option")
-        %input{ :type=>"checkbox", :name=>"filter_by_status_trusted", :checked=>@filter_by_status_trusted }
-        = I18n.t("filter_by_status_trusted_option")
-        %input{ :type=>"checkbox", :name=>"filter_by_status_unreviewed", :checked=>@filter_by_status_unreviewed }
-        = I18n.t("filter_by_status_unreviewed_option")
-        %input{ :type=>"checkbox", :name=>"filter_by_status_untrusted", :checked=>@filter_by_status_untrusted }
-        = I18n.t("filter_by_status_untrusted_option")
-        %input{ :type=>"checkbox", :name=>"filter_by_status_inappropriate", :checked=>@filter_by_status_inappropriate }
-        = I18n.t("filter_by_status_inappropriate_option")
-    %tr
-      %td
-        = submit_tag I18n.t("filter_media")
+  %fieldset
+    %dl
+      %dt
+        %label{:for => 'sort_by'}= I18n.t(:sort_by)
+      %dd
+        - selected = params[:sort_by].nil? ? :default : params[:sort_by].to_sym
+        - sort_options = {}
+        - [:default, :newest, :rating, :vetted, :data_type].each{|opt| sort_options[I18n.t("sort_by_#{opt}_option")] = opt }
+        = select_tag :sort_by, options_for_select(sort_options, selected)
+
+  %fieldset
+    %dl
+      %dt
+        %label= I18n.t(:filter_by_type)
+      %dd
+        %ul
+          %li
+            %label
+              %input{ :type=>"checkbox", :name=>"filter_by_type_all", :checked=>@filter_by_type_all }
+              = I18n.t("filter_by_type_all_option")
+          %li
+            %label
+              %input{ :type=>"checkbox", :name=>"filter_by_type_image", :checked=>@filter_by_type_image }
+              = I18n.t("filter_by_type_images_option")
+          %li
+            %label
+              %input{ :type=>"checkbox", :name=>"filter_by_type_video", :checked=>@filter_by_type_video }
+              = I18n.t("filter_by_type_videos_option")
+          %li
+            %label
+              %input{ :type=>"checkbox", :name=>"filter_by_type_audio", :checked=>@filter_by_type_audio }
+              = I18n.t("filter_by_type_audio_option")
+          %li
+            %label
+              %input{ :type=>"checkbox", :name=>"filter_by_type_photosynth", :checked=>@filter_by_type_photosynth }
+              = I18n.t("filter_by_type_photosynths_option")
+
+  - if current_user.is_curator?
+    %fieldset
+      %dl
+        %dt
+          %label= I18n.t(:filter_by_status)
+        %dd
+          %ul
+            %li
+              %label
+                %input{ :type=>"checkbox", :name=>"filter_by_status_all", :checked=>@filter_by_status_all }
+                = I18n.t("filter_by_status_all_option")
+            %li
+              %label
+                %input{ :type=>"checkbox", :name=>"filter_by_status_trusted", :checked=>@filter_by_status_trusted }
+                = I18n.t("filter_by_status_trusted_option")
+            %li
+              %label
+                %input{ :type=>"checkbox", :name=>"filter_by_status_unreviewed", :checked=>@filter_by_status_unreviewed }
+                = I18n.t("filter_by_status_unreviewed_option")
+            %li
+              %label
+                %input{ :type=>"checkbox", :name=>"filter_by_status_untrusted", :checked=>@filter_by_status_untrusted }
+                = I18n.t("filter_by_status_untrusted_option")
+            %li
+              %label
+                %input{ :type=>"checkbox", :name=>"filter_by_status_inappropriate", :checked=>@filter_by_status_inappropriate }
+                = I18n.t("filter_by_status_inappropriate_option")
+  %fieldset.actions
+    = submit_tag I18n.t(:filter_media)

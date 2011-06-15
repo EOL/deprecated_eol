@@ -104,7 +104,7 @@ class DataObject < SpeciesSchemaModel
       elsif sort_by == "data_type"
         [obj.data_type_id, vetted_view_order, inverted_rating, inverted_id]
       elsif sort_by == "default"
-        []
+        [vetted_view_order, inverted_rating, inverted_id]
       end
     
     end

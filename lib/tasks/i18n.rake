@@ -464,6 +464,12 @@ namespace :i18n do
       results = ActiveRecord::Base.connection.execute("select #{foreign_key}, #{translatable} from #{table_name} where language_id=#{en_id}")
       results.each_hash do |row|
         all_tables[table_name][:translatable].each do |field|
+          
+          # if we are in the Ranks table, ignore any rows not in our translation whitelist
+          if table_name == 'translated_ranks' && field == 'label'
+            lookup_rank_label = row[field].downcase.gsub(/\.$/, '')  # remove trailing periods
+            next unless Rank.english_rank_labels_to_translate.include?(lookup_rank_label)
+          end
           en_strings << "  #{table_name}__#{field}__#{foreign_key}__#{row[foreign_key]}: \"" + row[field].gsub("\"", "\\\"").gsub("\n", "\\n") + "\"\n"
         end
       end      

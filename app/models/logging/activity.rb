@@ -14,10 +14,15 @@ class Activity < LoggingModel
       # Doing this with raw sql to override the LoggingModel's default of using INSERT DELAYED
       act = Activity.new()
       act.save! # NOTE: #create wasn't working; the ID wasn't being set correctly.  Second time this has been a prob.
-      if transact = TranslatedActivity.find_by_language_id_and_name(Language.english.id, key)
-        transact.update_attributes(:activity_id, act.id)
-      else
-        TranslatedActivity.connection.execute(ActiveRecord::Base.sanitize_sql_array(['INSERT INTO translated_activities (name, activity_id, language_id) VALUES (?, ?, ?)', key, act.id, Language.english.id]))
+      begin
+        if transact = TranslatedActivity.find_by_language_id_and_name(Language.english.id, key)
+          transact.update_attributes(:activity_id, act.id)
+        else
+          TranslatedActivity.connection.execute(ActiveRecord::Base.sanitize_sql_array(['INSERT INTO translated_activities (name, activity_id, language_id) VALUES (?, ?, ?)', key, act.id, Language.english.id]))
+        end
+      rescue => e
+        # We're in a migration; Activity wasn't translated yet.
+        Activity.connection.execute(ActiveRecord::Base.sanitize_sql_array(['INSERT INTO activities (name) VALUES (?)', key]))
       end
       return Activity.cached_find_translated(:name, key)
     end

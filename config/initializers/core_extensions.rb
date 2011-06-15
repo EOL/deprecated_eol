@@ -91,29 +91,39 @@ module ActiveRecord
           class_variable_set(:@@cached_all_instances, false)
         end
       end
-      
+
       def index_with_solr(options={})
         # remove any existing callbacks in case we want to redefine the index fields
         remove_index_with_solr
-        
+
         after_save :add_to_index
         before_destroy :remove_from_index
         options[:keywords] ||= []
         options[:full_text] ||= []
-        
+
         define_method(:remove_from_index) do
-          solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_SITE_SEARCH_CORE)
+          begin
+            solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_SITE_SEARCH_CORE)
+          rescue Errno::ECONNREFUSED => e
+            puts "** WARNING: Solr connection failed."
+            return nil
+          end
           solr_connection.delete_by_query("resource_type:#{self.class.to_s} AND resource_id:#{self.id}")
         end
 
         define_method(:add_to_index) do
           remove_from_index
-          solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_SITE_SEARCH_CORE)
+          begin
+            solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_SITE_SEARCH_CORE)
+          rescue Errno::ECONNREFUSED => e
+            puts "** WARNING: Solr connection failed."
+            return nil
+          end
           params = {}
           params['resource_type'] = self.class.to_s
           params['resource_id'] = self.id
           params['language'] = 'en'
-          
+
           options[:keywords].each do |field_or_method|
             if self.class.column_names.include? field_or_method
               params['keyword_type'] = field_or_method
@@ -129,7 +139,7 @@ module ActiveRecord
           end
         end
       end
-      
+
       def remove_index_with_solr
         # these methods may not exist yet and that's OK
         remove_method :add_to_index rescue nil

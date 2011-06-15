@@ -8,12 +8,19 @@ class MoveActionWithObjectToActivity < ActiveRecord::Migration
     end
     # First, create (or find) entries in activities for each of the existing ActionWithObject entries.
     actions.keys.each do |id|
-      actions[id][:activity] = Activity.find_or_create(actions[id][:name])
+      # if it exists, move on
+      c = Activity.connection.execute("select count(*) from activities where name = '#{actions[id][:name]}'").
+            all_hashes.first.values.first.to_i
+      unless c > 0
+        # otherwise, insert it
+        foo = Activity.connection.execute("insert into activities (name) values ('#{actions[id][:name]}')")
+      end
+      actions[id][:activity] = Activity.find_by_sql("select * from activities where name = '#{actions[id][:name]}'").first
     end
     # Now update the curator_activity_logs to use the new ids where the old ones were before
-    add_column :curator_activity_logs, :activity_id, :integer
+    add_column :curator_activity_logs, :activity_id, :integer rescue nil
     actions.keys.each do |id|
-      CuratorActivityLog.connection.execute(ActiveRecord::Base.sanitize_sql_array([
+      SpeciesSchemaModel.connection.execute(ActiveRecord::Base.sanitize_sql_array([
         "UPDATE curator_activity_logs SET activity_id = ? WHERE action_with_object_id = ?",
         actions[id][:activity].id, id ]))
     end

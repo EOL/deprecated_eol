@@ -3,7 +3,7 @@ class InternationalizeMainTables < ActiveRecord::Migration
     EOL::DB::toggle_eol_data_connections(:eol_data)
     english = Language.english
     # we need to use SQL to get some numeric types we want (smallint)
-    
+
     # === ActionWithObject
     execute("CREATE TABLE `translated_action_with_objects` (
       `id` int NOT NULL auto_increment,
@@ -15,13 +15,16 @@ class InternationalizeMainTables < ActiveRecord::Migration
       UNIQUE (`action_with_object_id`, `language_id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8")
     if english
-      ActionWithObject.all.each do |r|
-        TranslatedActionWithObject.create(:action_with_object_id => r.id, :language_id => english.id, :action_code => r.action_code)
-      end
+      execute("
+        INSERT INTO translated_action_with_objects
+          (action_with_object_id, language_id, action_code)
+        SELECT id, #{english.id}, action_code
+          FROM action_with_objects
+      ")
     end
     remove_column :action_with_objects, :action_code
-    
-    
+
+
     # === ContactSubject
     execute("CREATE TABLE `translated_contact_subjects` (
       `id` int NOT NULL auto_increment,
@@ -38,8 +41,8 @@ class InternationalizeMainTables < ActiveRecord::Migration
       end
     end
     remove_column :contact_subjects, :title
-    
-    
+
+
     # === NewsItem
     execute("CREATE TABLE `translated_news_items` (
       `id` int NOT NULL auto_increment,
@@ -65,7 +68,7 @@ class InternationalizeMainTables < ActiveRecord::Migration
   def self.down
     EOL::DB::toggle_eol_data_connections(:eol_data)
     english = Language.english
-    
+
     # === ActionWithObject
     execute('ALTER TABLE `action_with_objects` ADD `action_code` varchar(255) NOT NULL AFTER `id`')
     if english
@@ -76,8 +79,8 @@ class InternationalizeMainTables < ActiveRecord::Migration
       end
     end
     drop_table :translated_action_with_objects
-    
-    
+
+
     # === ContactSubject
     execute('ALTER TABLE `contact_subjects` ADD `title` varchar(255) NOT NULL AFTER `id`')
     if english
@@ -88,8 +91,8 @@ class InternationalizeMainTables < ActiveRecord::Migration
       end
     end
     drop_table :translated_contact_subjects
-    
-    
+
+
     # === NewsItem
     execute('ALTER TABLE `news_items` ADD `body` varchar(1500) NOT NULL AFTER `id`')
     execute('ALTER TABLE `news_items` ADD `title` varchar(255) default \'\' AFTER `body`')

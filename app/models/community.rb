@@ -19,9 +19,9 @@ class Community < ActiveRecord::Base
   validates_presence_of :name, :message => I18n.t(:cannot_be_empty)
   validates_length_of :name, :maximum => 127, :message => I18n.t(:must_be_less_than_128_characters_long)
   validates_uniqueness_of :name, :message => I18n.t(:has_already_been_taken)
-  
+
   index_with_solr :keywords => [:name, :description]
-  
+
   def self.special
     special = cached_find(:name, $SPECIAL_COMMUNITY_NAME)
     raise "Special Community is missing. Perhaps you forgot to load it?" if special.nil? # For tests.

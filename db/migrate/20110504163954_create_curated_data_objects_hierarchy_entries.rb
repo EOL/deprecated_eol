@@ -19,19 +19,9 @@ class CreateCuratedDataObjectsHierarchyEntries < ActiveRecord::Migration
       # Sigh.  We're in an empty DB.
     end
     ChangeableObjectType.create(:ch_object_type => 'curated_data_objects_hierarchy_entry')
-    ActionWithObject.reset_column_information # Fixes problems when running ALL migrations.
-    awo = ActionWithObject.create
-    TranslatedActionWithObject.create(:action_with_object_id => awo.id,
-                                      :language_id => en_id,
-                                      :action_code => 'add_association',
-                                      :phonetic_action_code => 'add_association')
-    CuratorActivity.create(:code => 'add_association')
-    awo = ActionWithObject.create
-    TranslatedActionWithObject.create(:action_with_object_id => awo.id,
-                                      :language_id => en_id,
-                                      :action_code => 'remove_association',
-                                      :phonetic_action_code => 'remove_association')
-    CuratorActivity.create(:code => 'remove_association')
+    Activity.new(:name => 'add_association').save!
+    awo = Activity.create
+    Activity.new(:name => 'remove_association').save!
   end
 
   def self.down

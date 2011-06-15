@@ -33,7 +33,7 @@ class AddVettedForCommonNames <  EOL::DataMigration
     );
     ChangeableObjectType.create(:ch_object_type => 'synonym')
     ChangeableObjectType.create(:ch_object_type => 'taxon_concept_name')
-    ActionWithObject.create(:action_code => 'unreviewed')
+    ActiveRecord::Base.connection.execute("INSERT INTO action_with_objects (action_code) VALUES ('unreviewed')")
     EOL::DB::toggle_eol_data_connections(:eol)
   end
 

@@ -1,9 +1,10 @@
 class AddClassNameToUntrustReasons < ActiveRecord::Migration
   def self.up
     add_column :untrust_reasons, :class_name, :string, :limit => 32
-    UntrustReason.all.each do |reason|
-      reason.class_name = reason.label.downcase
-      reason.save!
+    TranslatedUntrustReason.all.each do |tur|
+      ur = tur.untrust_reason
+      ur.class_name = tur.label.downcase
+      ur.save!
     end
     # Technically, this only needs to go through English, but I don't mind:
     TranslatedUntrustReason.all.each do |tur|

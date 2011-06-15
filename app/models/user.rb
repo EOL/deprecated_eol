@@ -171,7 +171,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     if(arr_dataobject_ids.length > 0 or agent_id == 'All') then
       sql = "SELECT cal.object_id data_object_id, cal.user_id
         FROM #{LoggingModel.database_name}.activities acts
-          JOIN curator_activity_logs cal ON cal.activity_id = acts.id
+          JOIN #{LoggingModel.database_name}.curator_activity_logs cal ON cal.activity_id = acts.id
           JOIN changeable_object_types cot ON cal.changeable_object_type_id = cot.id
           JOIN users u ON cal.user_id = u.id
         WHERE cot.ch_object_type = 'data_object' "
@@ -196,7 +196,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     sql = "SELECT cal.object_id data_object_id, cot.ch_object_type,
         acts.id activity_id, u.given_name, u.family_name, cal.updated_at, cal.user_id
       FROM #{LoggingModel.database_name}.activities acts
-        JOIN curator_activity_logs cal ON cal.activity_id = acts.id
+        JOIN #{LoggingModel.database_name}.curator_activity_logs cal ON cal.activity_id = acts.id
         JOIN changeable_object_types cot ON cal.changeable_object_type_id = cot.id
         JOIN users u ON cal.user_id = u.id
       WHERE cot.ch_object_type = 'data_object'

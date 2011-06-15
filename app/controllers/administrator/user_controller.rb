@@ -184,10 +184,10 @@ class Administrator::UserController  < AdminController
 
   def view_user_activity
     @page_title = I18n.t(:user_activity_page_title)
-    @user_id=params[:user_id] || ''
-    @user_list=User.users_with_activity_log
-    @activity_id=params[:activity_id] || 'All'
-    @activity_list=Activity.find(:all, :order=>'name')
+    @user_id = params[:user_id] || ''
+    @user_list = User.users_with_activity_log
+    @activity_id = params[:activity_id] || 'All'
+    @activity_list = Activity.all.sort_by {|a| a.name }
     page = params[:page] || 1
     @activities = ActivityLog.user_activity(@user_id, @activity_id, page)
   end

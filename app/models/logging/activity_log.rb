@@ -72,8 +72,9 @@ class ActivityLog < LoggingModel
     return counts
   end
 
+  # TODO - This is only going to work for English.  :\
   def self.start_user_monitoring(user_id,monitored_activity)
-    sql="SELECT a.name, al.created_at FROM activity_logs al JOIN activities a ON al.activity_id = a.id WHERE al.user_id = #{user_id} "
+    sql="SELECT ta.name, al.created_at FROM activity_logs al JOIN activities a ON al.activity_id = a.id JOIN translated_activities ta ON (a.id = ta.activity_id AND ta.language_id = #{Language.english.id}) WHERE al.user_id = #{user_id} "
     sql += " ORDER BY al.created_at ASC"
     arr = LoggingModel.connection.execute(sql).all_hashes
     arr.each do |rec|

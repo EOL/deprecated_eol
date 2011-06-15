@@ -31,7 +31,7 @@ describe 'Admin Pages' do
     @toc_item = TocItem.gen_if_not_exists(:label => "sample label")
     @info_item = InfoItem.gen(:toc_id => @toc_item.id)
 
-    @activity = Activity.gen(:name => "sample activity")
+    @activity = Activity.gen_if_not_exists(:name => "sample activity")
     @user_with_activity = User.gen(:given_name => "John", :family_name => "Doe")
     @activity_log = ActivityLog.gen(:user_id => @user_with_activity.id, :activity_id => @activity.id)
   end

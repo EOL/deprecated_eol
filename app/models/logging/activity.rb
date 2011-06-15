@@ -12,8 +12,13 @@ class Activity < LoggingModel
       return act
     else
       # Doing this with raw sql to override the LoggingModel's default of using INSERT DELAYED
-      act = Activity.create()
-      TranslatedActivity.connection.execute(ActiveRecord::Base.sanitize_sql_array(['INSERT INTO translated_activities (name, activity_id, language_id) VALUES (?, ?, ?)', key, act.id, Language.english.id]))
+      act = Activity.new()
+      act.save! # NOTE: #create wasn't working; the ID wasn't being set correctly.  Second time this has been a prob.
+      if transact = TranslatedActivity.find_by_language_id_and_name(Language.english.id, key)
+        transact.update_attributes(:activity_id, act.id)
+      else
+        TranslatedActivity.connection.execute(ActiveRecord::Base.sanitize_sql_array(['INSERT INTO translated_activities (name, activity_id, language_id) VALUES (?, ?, ?)', key, act.id, Language.english.id]))
+      end
       return Activity.cached_find_translated(:name, key)
     end
   end
@@ -34,6 +39,11 @@ class Activity < LoggingModel
   # Since delete is normally a reserved word, the method missing won't work for it (all the time):
   def self.delete
     act = self.cached_find_translated(:name, 'delete')
+  end
+
+  # Since create is normally a reserved word, the method missing won't work for it (all the time):
+  def self.update
+    act = self.cached_find_translated(:name, 'update')
   end
 
   # Helper to provide consistent calculation of curator actions when using curator_activity_logs_on_data_objects

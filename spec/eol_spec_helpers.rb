@@ -194,6 +194,8 @@ module EOL
         curator = User.gen(options)
         curator.approve_to_curate
 
+        CuratorActivityLog.gen(:user => curator, :taxon_concept => tc)
+
         return curator
       end
 

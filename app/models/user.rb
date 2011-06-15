@@ -308,7 +308,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def taxon_concept_ids_curated
     connection.select_values("
       SELECT dotc.taxon_concept_id
-      FROM curator_activity_logs cal
+      FROM #{CuratorActivityLog.database_name}.curator_activity_logs cal
         JOIN #{LoggingModel.database_name}.activities acts ON (cal.activity_id = acts.id)
         JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (cal.object_id = dotc.data_object_id)
       WHERE cal.user_id=#{id}

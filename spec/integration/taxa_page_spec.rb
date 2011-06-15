@@ -23,7 +23,6 @@ describe 'Taxa page' do
     Capybara.reset_sessions!
     HierarchiesContent.delete_all
     @section = 'overview'
-
   end
 
   context 'overview when taxon has all expected data' do

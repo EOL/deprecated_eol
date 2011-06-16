@@ -22,3 +22,49 @@
 	background: url("/images/v2/icon_partners.png") no-repeat scroll 0 2px transparent;
 	background-position:95%;
 }
+
+#searchwrapper {
+	width:310px;
+	height:40px;
+	background-image:url("/images/mobile/searchbox_trasp2.png");
+	background-repeat:no-repeat;
+	padding:0px;
+	margin:0px;
+	left:8px;
+	position:relative;
+}
+
+#searchlabel{
+	position:relative;
+	top:8px;
+	left:10px;
+}
+ 
+#searchwrapper form { display:inline ; }
+ 
+.searchbox {
+	border:0px;
+	background-color:transparent;
+	position:absolute;
+	top:4px;
+	left:9px;
+	width:256px;
+	height:28px;
+/*	color:#979797; */
+	color:#C1D72E;
+	font-size:16px;
+}
+ 
+.searchbox_submit {
+	border:0px;
+	background-color:transparent;
+	position:absolute;
+	top:4px;
+	left:265px;
+	width:32px;
+	height:28px;
+}
+
+#jqt h2 {
+	color:#C1D72E;
+}

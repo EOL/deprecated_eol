@@ -6,22 +6,22 @@ ar:
   eol_news: "أخبار موسوعة الحياة"
   source_url: "رابط المصدر"
   you_have_been_a_member_of_this_community_since: "أنت عضو في هذا المجتمع منذ %{since}."
-  communities_with_count: 
+  communities_with_count:
     one: "مجتمع واحد"
     two: "مجتمعان"
     three_to_ten: "%{count} مجتمعات"
     other: "%{count} مجتمع"
   edit_membership: "تعديل العضوية"
   added_date_by: "أضيف في %{date} من قبل %{name}"
-  location_: "الموقع"
+  location: "الموقع"
   curators_of_taxon_page_title: "المشرفون على %{taxon}"
-  pending_members_with_count: 
+  pending_members_with_count:
     one: "عضو واحد في الانتظار"
     two: "عضوين في الانتظار"
     three_to_ten: "%{count} أعضاء في الانتظار"
     other: "%{count} عضو في الانتظار"
   community_members: "أعضاء المجتمع"
-  members_with_count: 
+  members_with_count:
     one: "مساهم واحد"
     two: "مساهمان"
     three_to_ten: "%{count} مساهمين"
@@ -53,7 +53,7 @@ ar:
   profile: "الصفحة الشخصية"
   search_placeholder: "البحث في موسوعة الحياة..."
   what_is_eol: "ما هي موسوعة الحياة؟"
-  images_with_count: 
+  images_with_count:
     one: "صورة واحدة"
     two: "صورتان"
     three_to_ten: "%{count} صور"
@@ -68,7 +68,7 @@ ar:
   create_a_collection: "إنشاء مجموعة"
   dato_shown_note: "%{username} أظهر %{type} ."
   error_page_header: "عفوًا، طرأت مشكلة"
-  see_all_collections_with_count_html: 
+  see_all_collections_with_count_html:
     one: "عرض <span class=\"assistive\">المجموعة التي تظهر بها هذه الأصنوفة.</span>"
     two: "عرض <span class=\"assistive\">المجموعتين التين تظهر بهما هذه الأصنوفة.</span>"
     three_to_ten: "عرض كل المجموعات <span class=\"assistive\">%{count} التي تظهر بها هذه الأصنوفة .</span>"
@@ -85,7 +85,7 @@ ar:
   dato_untrusted_note: "%{username} صنف ذلك %{type} كغير موثوق به"
   license_icon_alt_text: "هذه البيانات مرخصة كـ %{license}"
   delete_community: "إلغاء المجتمع"
-  taxa_with_count: 
+  taxa_with_count:
     one: "أصنوفة واحدة"
     two: "أصنوفتين"
     three_to_ten: "%{count} أصنوفات"
@@ -108,25 +108,25 @@ ar:
   content_update: "تحديث المحتوى"
   select_topic: "يرجى أختيار مجال موضوع"
   sort_items_button: "ترتيب"
-  total_items_with_count: 
+  total_items_with_count:
     one: "موضوع واحد"
     two: "موضوعان"
     three_to_ten: "%{count} موضوعات"
     other: "%{count} موضوع"
-  communities_summary_header_with_count: 
+  communities_summary_header_with_count:
     one: "ينتمي إلى مجتمع واحد"
     two: "ينتمي إلى مجتمعان"
     three_to_ten: "ينتمي إلى %{count} مجتمعات"
     other: "ينتمي إلى %{count} مجتمع"
   explore: "استكشف"
   citation: "الإقتباس"
-  people_with_count: 
+  people_with_count:
     one: "شخص واحد"
     two: "شخصان"
     three_to_ten: "%{count} أشخاص"
     other: "%{count} شخص"
   community_roles: "أدوار المجتمع"
-  other_collection_items_with_count: 
+  other_collection_items_with_count:
     one: "موضوع آخر"
     two: "موضوعان آخران"
     three_to_ten: "%{count} موضوعات أخرى"
@@ -141,14 +141,14 @@ ar:
   could_not_find_user: "لم يتم العثور على عضو لهذا المستخدم"
   cannot_be_associated_with_both_a_user_and_a_community: "لا يمكن أن يكون مرتبطًا بمستخدم ومجتمع"
   newsfeed: "آخر الأخبار"
-  see_all_communities_with_count_html: 
+  see_all_communities_with_count_html:
     one: "عرض <span class=\"assistive\">المجموعة التي تركز على هذه الأصنوفة.</span>"
     two: "عرض <span class=\"assistive\">المجموعتين التين تركزان على هذه الأصنوفة.</span>"
     three_to_ten: "عرض جميع المجموعات <span class=\"assistive\">%{count} التيتركز على هذه الأصنوفة.</span>"
     other: "عرض جميع المجموعات <span class=\"assistive\">%{count} التيتركز على هذه الأصنوفة.</span>"
   text_summary_more_link: "الإطلاع على المشاركة بأكملها"
   get_involved: "شارك"
-  maps_with_count: 
+  maps_with_count:
     one: "خريطة واحدة"
     two: "خريطتان"
     three_to_ten: "%{count} خرائط"
@@ -162,7 +162,7 @@ ar:
   unknown: "غير معروف"
   application_version_advisory_information: "نسخة التطبيق"
   invalid_login_or_password: "خطأ في تسجيل الدخول أو كلمة السر"
-  other_community_items_with_count: 
+  other_community_items_with_count:
     one: "موضوع أخر"
     two: "موضوعان أخران"
     three_to_ten: "%{count} موضوعات أخرى"
@@ -171,7 +171,7 @@ ar:
   sound_thumbnail_alt_text: "هذا التسجيل الصوتي %{vetted_status} خاص بـ %{scientific_name}"
   development_version_name: "نسخة التطوير V2 - غير مخصصة للاستخدام العام"
   search_by_term_page_title: "بحث في موسوعة الحياة: %{term}"
-  curators_summary_header_with_count: 
+  curators_summary_header_with_count:
     one: "مشرف واحد"
     two: "مشرفان"
     three_to_ten: "%{count} مشرفين"
@@ -181,14 +181,14 @@ ar:
   collection_item_type_with_label: "النوع: %{type}"
   you_joined_community: "لقد إنضممت للمجتمع بنجاح"
   must_be_logged_in: "يجب تسجيل الدخول لتنفيذ هذه الخطوة"
-  collections_summary_header_with_count: 
+  collections_summary_header_with_count:
     one: "متواجد في مجموعة واحدة"
     two: "متواجد في مجموعتين"
     three_to_ten: "متواجد في %{count} مجموعات"
     other: "متواجد في %{count} مجموعة"
   image_is_no_longer_available: "الصورة غير متاحة حاليًا"
   sign_in: "تسجيل الدخول"
-  common_names_with_count: 
+  common_names_with_count:
     one: "أسم شائع واحد"
     two: "أسمان شائعان"
     three_to_ten: "%{count} أسماء شائعة"
@@ -200,7 +200,7 @@ ar:
   join_community_login_required_advisory: "سيُطلب منك تسجيل الدخول قبل الإنضمام إلى المجتمع"
   just_pages_with_pictures_and_text: "الصفحات التي تضم صور ونصوص فقط"
   login_or_create_account: "تسجيل الدخول أو إنشاء حساب"
-  tools_with_count: 
+  tools_with_count:
     one: "أداة واحدة"
     two: "أداتان"
     three_to_ten: "%{count} أدوات"
@@ -213,7 +213,7 @@ ar:
   search_input_advisory_information: "أدخل الأسماء الشائعة أو العلمية للكائنات الحية التي تود معرفة المزيد عنها، على سبيل المثال، أدخل طماطم."
   content_partners: "شركاء المحتوى"
   link_to_join_this_community: "يجب أن تكون <a href='%{link}'> بتسجيل الدخول </a> للإنضمام إلى هذا المجتمع."
-  classifications_with_count: 
+  classifications_with_count:
     one: "تصنيف واحد"
     two: "تصنيفان"
     three_to_ten: "%{count} تصنيفات"
@@ -228,17 +228,17 @@ ar:
   leave_community: "مغادرة المجتمع"
   sort_items_label: "رتب العناصر وفقًا لـ"
   your_preferences: "تفضيلاتك"
-  videos_with_count: 
+  videos_with_count:
     one: "مقطع فيديو واحد"
     two: "مقطعان فيديو"
     three_to_ten: "%{count} مقاطع فيديو"
     other: "%{count} مقطع فيديو"
-  collections_with_count: 
+  collections_with_count:
     one: "مجموعة واحدة"
     two: "مجموعتان"
     three_to_ten: "%{count} مجموعات"
     other: "%{count} مجموعة"
-  media_with_count: 
+  media_with_count:
     one: "وسيلة وسائطية واحدة"
     two: "وسيلتان وسائطتان"
     three_to_ten: "%{count} وسائل وسائطية"
@@ -263,7 +263,7 @@ ar:
   you_must_be_logged_in_to_add_tags: "يجب أن تقوم بتسجيل الدخول لإضافة علامات"
   language_menu_item: "%{language_label} <abbr>(%{language_abbr})</abbr>"
   media: "الوسائط"
-  updates_with_count: 
+  updates_with_count:
     one: "تحديث واحد"
     two: "تحديثان"
     three_to_ten: "%{count} تحديثات"
@@ -272,7 +272,7 @@ ar:
   filter_feeds_all_option: "تحديثات آخر الأخبار"
   your_preferences_have_been_updated: "تم تحديث تفضيلاتك"
   try_your_request_again: "حاول تنفيذ طلبك مرة أخرى"
-  supplier_: "المُورِّد"
+  supplier: "المُورِّد"
   view_only_pages_with_at_least_a_picture_or_piece_of_text: "عرض الصفحات التي تضم صورة أو جزء من نص"
   login_to_add_comments: "قم بتسجيل الدخول لإضافة تعليق"
   are_you_sure: "هل أنت متأكد؟"
@@ -282,13 +282,13 @@ ar:
   pages_with_pictures_and_text: "الصفحات التي تضم صور ونص"
   all_pages: "جميع الصفحات"
   user_became_role_note: "%{username} أصبح %{role}."
-  pending_collections_with_count: 
+  pending_collections_with_count:
     one: "مجموعة واحدة في الانتظار"
     two: "مجموعتان في الإنتظار"
     three_to_ten: "%{count} مجموعات في الانتظار"
     other: "%{count} مجموعة في الانتظار"
   this_community_has_no_focus_items_associated_with_it: "لا يضم هذا المجتمع عناصر اهتمام مرتبطة به"
-  classifications_summary_header_with_count: 
+  classifications_summary_header_with_count:
     one: "جزء من تصنيف معترف به"
     two: "جزء من تصنيفان معترف بهما"
     three_to_ten: "جزء من %{count} تصنيفات معترف بها"
@@ -304,7 +304,7 @@ ar:
   has_already_been_taken: "مستخدم مسبقًا"
   the_email_address_is_not_unique_you_must_enter_a_username: "البريد الإلكتروني مستخدم مسبقًا - يجب إدخال أسم المستخدم"
   updated_community: "تم تحديث المجتمع بنجاح"
-  members_count_in_parens: 
+  members_count_in_parens:
     one: "(عضو واحد)"
     two: "(عضوان)"
     three_to_ten: "(%{count} أعضاء)"

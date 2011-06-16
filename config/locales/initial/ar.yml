@@ -120,7 +120,7 @@ ar:
   endorsed_collections_with_count:
     one: "%{count} Endorsed collection"
     other: "%{count} Endorsed collections"
-  eol__: "EOL:"
+  eol_colon: "EOL:"
   eol_glossary: "قائمة مصطلحات موسوعة الحياة"
   eol_news: "أخبار موسوعة الحياة"
   error_page_header: "عفوًا، طرأت مشكلة"
@@ -211,7 +211,7 @@ ar:
   link_to_add_role_to_community_to_control_privs: "%{link} للتحكم في امتيازات الأعضاء"
   link_to_join_this_community: "يجب أن تكون <a href='%{link}'> بتسجيل الدخول </a> للإنضمام إلى هذا المجتمع."
   literature: Literature
-  location_: الموقع
+  location: الموقع
   log_in: "تسجيل الدخول"
   login: login
   login_or_create_account: "تسجيل الدخول أو إنشاء حساب"
@@ -355,7 +355,7 @@ ar:
     other: "%{count} Sounds"
   source_information_link: "معلومات المصدر"
   source_url: "رابط المصدر"
-  supplier_: المُورِّد
+  supplier: المُورِّد
   switch_language_advisory_information: "تغيير لغة الموقع إلى %{language_label}"
   table_of_contents: "Table of Contents"
   taxa: الأصنوفات

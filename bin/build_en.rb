@@ -1,8 +1,10 @@
-#!/usr/local/env ruby
+#!/usr/local/env ruby -KU
 
 require 'ruby-debug'
 require 'set'
+require 'ya2yaml'
 require 'yaml'
+require 'yaml/encoding'
 
 def create_initial_file(lang, list, master = {})
 
@@ -32,7 +34,7 @@ def create_initial_file(lang, list, master = {})
   end
 
   File.open(target, "w") do |f|
-    f.write(new_hash.to_yaml)
+    f.write(new_hash.ya2yaml)
   end
 
   puts "  ...done."
@@ -168,8 +170,6 @@ list << "license_public_domain"
 @bad_keys = ["efault_alt_text", "18n", "change_rating_to_", "your_current_rating_", "sort_by_", "license_"]
 
 en_master = create_initial_file('en', list)
-
 create_initial_file('ar', list, en_master)
-
 create_initial_file('qqq', list, "DONT")
 

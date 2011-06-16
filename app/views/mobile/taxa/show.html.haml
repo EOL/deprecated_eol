@@ -1,0 +1,10 @@
+#taxonomy
+  = render(:partial => 'taxa/media_summary')
+  = render(:partial => 'taxa/iucn_status_summary')
+  = render(:partial => 'taxa/text_summary')
+  = render(:partial => 'taxa/collections_summary')
+  = render(:partial => 'taxa/communities_summary')
+#sidebar
+  = render(:partial => 'taxa/classifications_summary')
+  = render(:partial => 'taxa/curators_summary', :locals => {:curators => @taxon_concept.top_acting_curators})
+  = render(:partial => 'feed_items/index', :locals => {:feed => @taxon_concept.feed})

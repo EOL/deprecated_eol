@@ -173,8 +173,9 @@ ActionController::Routing::Routes.draw do |map|
   map.mobile 'mobile', :controller => 'mobile/contents'
   map.namespace :mobile do |mobile|
     mobile.resources :contents, :collection => {:enable => :post, :disable => :post}
-  end
-
+    mobile.resources :taxa
+  end 
+  
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'

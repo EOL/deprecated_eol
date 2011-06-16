@@ -31,7 +31,7 @@ ar:
   classifications_summary_header_with_count:
     one: "جزء من تصنيف معترف به"
     other: "جزء من %{count} تصنيف معترف به"
-    three_to_ten: "جزء من %{count} تصنيفات معترف بها"
+    few: "جزء من %{count} تصنيفات معترف بها"
     two: "جزء من تصنيفان معترف بهما"
   collected_by: "قام بجمعه"
   collected_items_with_count:
@@ -42,29 +42,29 @@ ar:
   collections_summary_header_with_count:
     one: "متواجد في مجموعة واحدة"
     other: "متواجد في %{count} مجموعة"
-    three_to_ten: "متواجد في %{count} مجموعات"
+    few: "متواجد في %{count} مجموعات"
     two: "متواجد في مجموعتين"
   collections_with_count:
     one: "مجموعة واحدة"
     other: "%{count} مجموعة"
-    three_to_ten: "%{count} مجموعات"
+    few: "%{count} مجموعات"
     two: مجموعتان
   common_names_advisory_information: "الأسماء الشائعة المرتبطة بتلك الأصنوفة"
   common_names_with_count:
     one: "أسم شائع واحد"
     other: "%{count} أسم شائع"
-    three_to_ten: "%{count} أسماء شائعة"
+    few: "%{count} أسماء شائعة"
     two: "أسمان شائعان"
   communities: المجتمعات
   communities_summary_header_with_count:
     one: "ينتمي إلى مجتمع واحد"
     other: "ينتمي إلى %{count} مجتمع"
-    three_to_ten: "ينتمي إلى %{count} مجتمعات"
+    few: "ينتمي إلى %{count} مجتمعات"
     two: "ينتمي إلى مجتمعان"
   communities_with_count:
     one: "مجتمع واحد"
     other: "%{count} مجتمع"
-    three_to_ten: "%{count} مجتمعات"
+    few: "%{count} مجتمعات"
     two: مجتمعان
   community: "عرض المجتمع"
   community_activity: "نشاط المجتمع"
@@ -99,7 +99,7 @@ ar:
   curators_summary_header_with_count:
     one: "مشرف واحد"
     other: "%{count} مشرف"
-    three_to_ten: "%{count} مشرفين"
+    few: "%{count} مشرفين"
     two: مشرفان
   currently_in_eol: "حاليًا في موسوعة الحياة"
   dashboard: Dashboard
@@ -162,7 +162,7 @@ ar:
   images_with_count:
     one: "صورة واحدة"
     other: "%{count} صورة"
-    three_to_ten: "%{count} صور"
+    few: "%{count} صور"
     two: صورتان
   in_my_collection_button: "In my collection"
   indexed: مفهرس
@@ -221,23 +221,23 @@ ar:
   maps_with_count:
     one: "خريطة واحدة"
     other: "%{count} خريطة"
-    three_to_ten: "%{count} خرائط"
+    few: "%{count} خرائط"
     two: خريطتان
   media: الوسائط
   media_with_count:
     one: "وسيلة وسائطية واحدة"
     other: "%{count} وسيلة وسائطية"
-    three_to_ten: "%{count} وسائل وسائطية"
+    few: "%{count} وسائل وسائطية"
     two: "وسيلتان وسائطتان"
   members_count_in_parens:
     one: "(عضو واحد)"
     other: "(%{count} عضو)"
-    three_to_ten: "(%{count} أعضاء)"
+    few: "(%{count} أعضاء)"
     two: (عضوان)
   members_with_count:
     one: "مساهم واحد"
     other: "%{count} مساهم"
-    three_to_ten: "%{count} مساهمين"
+    few: "%{count} مساهمين"
     two: مساهمان
   minimal_page: "صفحة صغرى"
   most_active_members: "Most active members"
@@ -255,12 +255,12 @@ ar:
   other_collection_items_with_count:
     one: "موضوع آخر"
     other: "%{count} موضوع أخر"
-    three_to_ten: "%{count} موضوعات أخرى"
+    few: "%{count} موضوعات أخرى"
     two: "موضوعان آخران"
   other_community_items_with_count:
     one: "موضوع أخر"
     other: "%{count} موضوع أخر"
-    three_to_ten: "%{count} موضوعات أخرى"
+    few: "%{count} موضوعات أخرى"
     two: "موضوعان أخران"
   overview: "نظرة عامة"
   pages_with_pictures_and_text: "الصفحات التي تضم صور ونص"
@@ -268,17 +268,17 @@ ar:
   pending_collections_with_count:
     one: "مجموعة واحدة في الانتظار"
     other: "%{count} مجموعة في الانتظار"
-    three_to_ten: "%{count} مجموعات في الانتظار"
+    few: "%{count} مجموعات في الانتظار"
     two: "مجموعتان في الإنتظار"
   pending_members_with_count:
     one: "عضو واحد في الانتظار"
     other: "%{count} عضو في الانتظار"
-    three_to_ten: "%{count} أعضاء في الانتظار"
+    few: "%{count} أعضاء في الانتظار"
     two: "عضوين في الانتظار"
   people_with_count:
     one: "شخص واحد"
     other: "%{count} شخص"
-    three_to_ten: "%{count} أشخاص"
+    few: "%{count} أشخاص"
     two: شخصان
   personal_space: "Personal Space"
   post_comment: "إضافة تعليق"
@@ -307,12 +307,12 @@ ar:
   see_all_classifications_with_count_html:
     one: "عرض <span class=\"assistive\">التصنيف المعترف بها والذى تظهر به هذه الأصنوفة <span/>"
     other: "عرض جميع التصنيفات<span class=\"assistive\">%{count} المعترف بها والتي تظهر بها هذه الأصنوفة <span/>"
-    three_to_ten: "عرض جميع التصنيفات<span class=\"assistive\">%{count} المعترف بها والتي تظهر بها هذه الأصنوفة <span/>"
+    few: "عرض جميع التصنيفات<span class=\"assistive\">%{count} المعترف بها والتي تظهر بها هذه الأصنوفة <span/>"
     two: "عرض <span class=\"assistive\">التصنيفين المعترف بهما والذين تظهر بهما هذه الأصنوفة <span/>"
   see_all_collections_with_count_html:
     one: "عرض <span class=\"assistive\">المجموعة التي تظهر بها هذه الأصنوفة.</span>"
     other: "عرض كل المجموعات <span class=\"assistive\">%{count} التي تظهر بها هذه الأصنوفة .</span>"
-    three_to_ten: "عرض كل المجموعات <span class=\"assistive\">%{count} التي تظهر بها هذه الأصنوفة .</span>"
+    few: "عرض كل المجموعات <span class=\"assistive\">%{count} التي تظهر بها هذه الأصنوفة .</span>"
     two: "عرض <span class=\"assistive\">المجموعتين التين تظهر بهما هذه الأصنوفة.</span>"
   see_all_comments_with_count_for_text:
     one: "see the %{count} comment for this article"
@@ -320,7 +320,7 @@ ar:
   see_all_communities_with_count_html:
     one: "عرض <span class=\"assistive\">المجموعة التي تركز على هذه الأصنوفة.</span>"
     other: "عرض جميع المجموعات <span class=\"assistive\">%{count} التيتركز على هذه الأصنوفة.</span>"
-    three_to_ten: "عرض جميع المجموعات <span class=\"assistive\">%{count} التيتركز على هذه الأصنوفة.</span>"
+    few: "عرض جميع المجموعات <span class=\"assistive\">%{count} التيتركز على هذه الأصنوفة.</span>"
     two: "عرض <span class=\"assistive\">المجموعتين التين تركزان على هذه الأصنوفة.</span>"
   see_all_media_link: "عرض جميع الوسائط"
   see_next_with_count:
@@ -362,7 +362,7 @@ ar:
   taxa_with_count:
     one: "أصنوفة واحدة"
     other: "%{count} أصنوفة"
-    three_to_ten: "%{count} أصنوفات"
+    few: "%{count} أصنوفات"
     two: أصنوفتين
   taxon: أصنوفة
   text_summary_more_link: "الإطلاع على المشاركة بأكملها"
@@ -378,7 +378,7 @@ ar:
   total_items_with_count:
     one: "موضوع واحد"
     other: "%{count} موضوع"
-    three_to_ten: "%{count} موضوعات"
+    few: "%{count} موضوعات"
     two: موضوعان
   trusted: Trusted
   try_your_request_again: "حاول تنفيذ طلبك مرة أخرى"
@@ -397,7 +397,7 @@ ar:
   videos_with_count:
     one: "مقطع فيديو واحد"
     other: "%{count} مقطع فيديو"
-    three_to_ten: "%{count} مقاطع فيديو"
+    few: "%{count} مقاطع فيديو"
     two: "مقطعان فيديو"
   view_only_pages_with_at_least_a_picture_or_piece_of_text: "عرض الصفحات التي تضم صورة أو جزء من نص"
   what_is_a_taxon: "ما هي الأصنوفة؟"

@@ -1,378 +1,318 @@
---- 
-ar: 
-  license_cc_by_nc_3_0: Creative Commons Attribution Non Commercial 3.0 (CC BY-NC 3.0)
-  content_summary_introduction_html: The following values represent the sum of different types of content for this taxon and all of its taxonomic descendants. %{glossary_term_trusted} content has either been approved by an EOL curator or comes from a trusted provider. %{glossary_term_unreviewed} content has not yet been assessed by an EOL curator. Every taxonomic hierarchy is unique, so each browsable hierarchy is listed for comparison.
-  change_rating_to_2_of_5: Change rating to 2 of 5
-  media: Media
-  common_names_with_count: 
-    one: "%{count} common name"
-    other: "%{count} common names"
-  created_time_ago: Created %{time_passed} ago
-  home_page_link_advisory_information: This link will take you to the home page of the Encyclopedia Of Life Web site
-  founder: Founder
-  communities: Communities
-  you_are_not_authorized_to_perform_this_action: You are not authorized to perform this action.
-  communities_summary_header_with_count: 
-    one: Belongs to %{count} community
-    other: Belongs to %{count} communities
-  twitter: Twitter
-  edit_my_profile: Edit my profile
-  minimal_page: Minimal Page
-  location_: Location
-  text_with_count: 
-    one: "%{count} Article"
-    other: "%{count} Articles"
-  sort_by_default_option: Default
-  item_was_added_to_your_recently_collected_items: Item was added to your Recently Collected items
-  cancel: Cancel
-  your_rating: Your rating
-  learn_about_content_partners: Learn about our content partners
-  you_in_parens: (you)
-  license_cc_by_nc_sa_3_0: Creative Commons Attribution Non Commercial Share Alike 3.0 (CC BY-NC-SA 3.0)
-  filter_by_status_all_option: all statuses
-  license_gnu_gpl: GNU General Public License (GNU GPL)
-  get_involved: Get involved
-  content_update: Content Update
-  curators_summary_header_with_count: 
-    one: "%{count} Curator"
-    other: "%{count} Curators"
-  collection_item_type_with_label: "Type: %{type}"
-  help: Help
-  google_translate: Google Translate
-  general_error_occurred: We're sorry but an error has occurred. Please make one more attempt to perform your task. If the error persists, please send an email to %{email} along with the error message below and any other information you'd like to share with us. We are working hard to provide you with the best service possible and we appreciate your support. -- The EOL Team
-  community_roles: Community Roles
-  admin: admin
-  add_to_my_collection_button: Add to my collection
-  see_next_with_count: 
-    one: See next %{count}
-    other: See next %{count}
-  must_be_associated_with_either_a_user_or_a_community: Must be associated with either a user or a community
-  image_thumbnail_alt_text: This %{vetted_status} image is of %{scientific_name}
-  content_summary_table_count_column_header: Count
-  global_access_tagline: Global access to knowledge about life on Earth.
-  contributors_like_you: Contributors like you
-  filtered_information: Filtered information
-  license_cc_by_sa_2_0: Creative Commons Attribution Share Alike 2.0 (CC BY-SA 2.0)
-  filter_by_type_all_option: all types
-  images_with_count: 
-    one: "%{count} image"
-    other: "%{count} images"
-  delete_community: Delete this community
-  images: Images
-  show_status_message: Show status message
-  filter_feeds_all_option: Updates from all feeds
-  my_info: My info
-  leave_community: Leave this community
-  community_activity: Community Activity
-  filter_by_type_photosynths_option: photosynths
-  login_or_create_account: Login or Create Account
-  unreviewed: Unreviewed
-  source_url: Source URL
-  home: Home
-  filter_by_status: Filter by status
-  remove_membership: Remove membership
-  filter_feeds_label: Show
-  contribute_to_page_button: Contribute to this page
-  license_cc_by_sa_2_5: Creative Commons Attribution Share Alike 2.5 (CC BY-SA 2.5)
-  what_is_a_taxon: What is a taxon?
-  invalid_login_or_password: Invalid login or password
-  edit_community: Edit community
-  browse_gallery: Browse our gallery
-  text_summary_more_link: Read full entry
-  could_not_find_user: Couldn't find a member for this user
-  manage_roles: Manage roles
-  account_registered_but_not_ready_try_later: Your account is registered but not ready for you to access. Please try again in five minutes.
-  personal_space: Personal Space
-  my_activity: My activity
-  pages_with_pictures_and_text: Pages with pictures and text
-  dato_rating_note: "%{username} gave this a rating of %{rating}."
-  last_updated_time_ago: Last updated %{time_passed} ago
-  video_thumbnail_alt_text: This %{vetted_status} video is of %{scientific_name}
-  curator_activity: Curator Activity
-  donation_error_only_numbers: Please enter an amount using only numbers.
-  your_current_rating_2_of_5: "Your current rating: 2 of 5"
-  account_information: Account Information
-  what_is_this_question: What's this?
-  license: License
-  most_visited_taxa: Most visited taxa
-  license_cc_by_2_0: Creative Commons Attribution 2.0 (CC BY 2.0)
-  filter_by_type_videos_option: videos
+ar:
+  link_to_add_role_to_community_to_control_privs: "%{link} للتحكم في امتيازات الأعضاء"
+  community_watching_this_note: "يقوم المجتمع بمشاهدة هذا %{name}."
+  no_activity: "لم يتم تسجيل نشاط"
+  image_thumbnail_alt_text: "هذه الصورة%{vetted_status} خاصة بـ %{scientific_name}"
+  eol_news: "أخبار موسوعة الحياة"
+  source_url: "رابط المصدر"
+  you_have_been_a_member_of_this_community_since: "أنت عضو في هذا المجتمع منذ %{since}."
   communities_with_count: 
-    one: "%{count} Community"
-    other: "%{count} Communities"
-  resources: Resources
-  learn_how_to_join: Learn how you can join
-  pending_collections_with_count: 
-    one: "%{count} pending collection"
-    other: "%{count} pending collections"
-  rights_holder: Rights Holder
-  rated_by_count_people: 
-    one: from %{count} person
-    other: from %{count} people
-  added_date: Added %{date}
-  skip_to_content: Skip to content
-  table_of_contents: Table of Contents
-  join_community: Join this community
-  see_previous_with_count: 
-    one: See previous %{count}
-    other: See previous %{count}
-  press_room: Press Room
-  punctuation_comma: ","
-  show_warning_message: Show warning message
-  you_must_be_logged_in_to_add_tags: You must be logged in to add tags.
-  already_a_member_question: Already a member?
-  source_information_link: source information
-  average_rating_value_of_total: "Average rating: %{rating} of %{total}"
-  in_my_collection_button: In my collection
-  endorsed_collections_with_count: 
-    one: "%{count} Endorsed collection"
-    other: "%{count} Endorsed collections"
-  filter_by_status_untrusted_option: untrusted
-  esc_key_hides_this_message: (esc key hides this message)
-  you_left_community: You have successfully left this community.
-  using_the_site: Using The Site
-  just_pages_with_pictures_and_text: Just those pages with pictures and text
-  newsfeed: Newsfeed
-  must_be_less_than_128_characters_long: must be less than 128 characters long.
-  community_focus: Community focus
-  profile_image_alt_text_member: Profile picture for member %{user_given_name} %{user_family_name}
-  license_cc_by_2_5: Creative Commons Attribution 2.5 (CC BY 2.5)
-  license_cc_by_nc_sa_1_0: Creative Commons Attribution Non Commercial Share Alike 1.0 (CC BY-NC-SA 1.0)
-  edit_membership: Edit membership
-  item_was_added_to_your_watched_items_collection: Item was added to your Watched Items collection
-  sort_by_data_type_option: Data type
-  sign_in: Sign in
-  dashboard: Dashboard
-  your_current_rating_0_of_5: "Your current rating: 0 of 5"
-  sort_by_newest_option: Newest
-  license_not_applicable: License not applicable
-  license_cc_by_sa: Creative Commons Attribution Share Alike (CC BY-SA)
-  go: Go
-  user_comment: User Comment
-  about_eol: About EOL
-  link_to_join_this_community: You must be <a href='%{link}'>logged in</a> to join this community.
-  login: login
-  assistive_details_header: Details
-  set_as_exemplar: Set as exemplar
-  there_are_currently_no_roles_for_this_community: There are currently no roles for this community.
-  development_version_name: V2 DEVELOPMENT VERSION - not for public use
-  see_all_classifications_with_count_html: 
-    one: See the <span class="assistive">%{count} approved classification in which this taxon appears.</span>
-    other: See all <span class="assistive">%{count} approved classifications in which this taxon appears.</span>
-  recent_updates: Recent updates
-  search_placeholder: Search EOL ...
-  manage_community: Manage community
-  filter_by_type: Filter by type
-  iucn_red_list_status_advisory_information: This link will take you to the International Union for Conservation of Nature (IUCN) Web site where you can find more information on the IUCN Red List of Threatened Species.
-  roles: Roles
-  unknown: Unknown
-  cannot_be_associated_with_both_a_user_and_a_community: Cannot be associated with both a user and a community
-  sign_out: Sign Out
-  nomenclature: Nomenclature
-  filter_by_type_audio_option: audio
-  license_cc_by_nc_sa: Creative Commons Attribution Non Commercial Share Alike (CC BY-NC-SA)
-  verification_phrase_did_not_match: The verification phrase you entered did not match.
-  change_rating_to_5_of_5: Change rating to 5 of 5
-  your_current_rating_5_of_5: "Your current rating: 5 of 5"
-  delete_allcaps: DELETE
-  license_gnu_fdl: GNU Free Documentation License (GNU FDL)
-  sounds_with_count: 
-    one: "%{count} Sound"
-    other: "%{count} Sounds"
-  sort_by_button: Sort
-  hello_user: Hello %{user}
-  license_cc_by_sa_3_0: Creative Commons Attribution Share Alike 3.0 (CC BY-SA 3.0)
-  see_all_media_link: See all media
-  content_summary_table_type_descendants_row: Number of descendants
-  create_a_community: Create a community
-  user_system_down: We apologize, but the user registration system is not currently available.  Please try again later.
-  eol__: "EOL:"
-  community_members: Community members
-  all_information: All information
-  leave_a_comment: Leave a comment
-  not_evaluated: Not evaluated
-  content_summary_table_summary: This table contains counts of different types of content separated by content state.
-  learn_how_to_interact: Learn how you can interact
-  join_eol_button_html: Join <abbr title="Encyclopedia of Life">EOL</abbr> now
-  eol_news: EOL News
-  community_watching_this_note: The community is now watching this %{name}.
-  user_became_role_note: "%{username} became a %{role}."
-  join_eol_community_html: Become part of the <abbr title="Encyclopedia of Life">EOL</abbr> community!
-  join_community_button: Join this community
-  your_preferences: Your Preferences
-  join_community_login_required_advisory: You will be asked to login before joining this community
-  assistive_overview_header: Overview
-  sort_by_label: Sort by
-  search_field_label: Search EOL
-  explore: Explore
-  updated_community: Community was successfully updated.
-  add_a_role: Add a role
-  filter_feeds_button: Filter
-  feedback: Feedback
-  no_activity: No activity.
-  content_summary_table_type_trusted_images_row: Number of trusted images
-  change_rating_to_3_of_5: Change rating to 3 of 5
-  sort_by_rating_option: Rating
-  skip_to_table_of_contents: Skip to table of contents
-  search_the_site: Search the site
-  literature: Literature
-  has_already_been_taken: has already been taken.
-  you_joined_community: You have successfully joined this community.
-  rss_abbr_html: <abbr title="Really Simple Syndication">RSS</abbr>
-  license_cc_by: Creative Commons Attribution (CC BY)
-  total_items_with_count: 
-    one: "%{count} item"
-    other: "%{count} total items"
-  wikipedia_revisions_must_match_pattern_error: Revision URL must match http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
-  are_you_sure: Are you sure?
-  license_cc_by_3_0: Creative Commons Attribution 3.0 (CC BY 3.0)
-  displaying_numerical_range: Displaying %{start_number} &mdash; %{end_number}
-  classifications_summary_header_with_count: 
-    one: Part of %{count} approved classification
-    other: Part of %{count} approved classifications
-  collections_with_count: 
-    one: "%{count} Collection"
-    other: "%{count} Collections"
-  your_message_was_sent: Your message was sent.
-  see_all_collections_with_count_html: 
-    one: See the <span class="assistive">%{count} collection in which this taxon appears.</span>
-    other: See all <span class="assistive">%{count} collections in which this taxon appears.</span>
-  filter_by_status_inappropriate_option: inappropriate
-  license_cc_by_nc_2_0: Creative Commons Attribution Non Commercial 2.0 (CC BY-NC 2.0)
-  content_summary_table_type_status_column_header: Content type and status
-  select_topic: Please select a topic area
-  global_navigation: Global Navigation
-  selected_language_advisory_information: This is the currently selected language.
-  preferences: Preferences
-  media_with_count: 
-    one: "%{count} Media"
-    other: "%{count} Media"
-  collections_summary_header_with_count: 
-    one: Present in %{count} collection
-    other: Present in %{count} collections
-  other_community_items_with_count: 
-    one: "%{count} other item"
-    other: "%{count} other items"
-  sort_by_oldest_option: Oldest
-  citation: Citation
-  you_have_been_a_member_of_this_community_since: You have been a member of this community since %{since}.
-  thanks_for_feedback: Thank you for your feedback.
-  other_collection_items_with_count: 
-    one: "%{count} other item"
-    other: "%{count} other items"
-  created_community: Community was successfully created.
-  rights: Rights
-  skip_to_navigation: Skip to navigation
-  license_all_rights_reserved: All rights reserved
-  sort_by: Sort by
-  curate_this_text: curate this article
-  detail: Detail
-  collected_items_with_count: 
-    one: "%{count} collected item"
-    other: "%{count} collected items"
-  profile: Profile
-  threat_status_header_colon: "Threat status:"
-  members_count_in_parens: 
-    one: (%{count} member)
-    other: (%{count} members)
-  license_cc_by_nc_sa_2_0: Creative Commons Attribution Non Commercial Share Alike 2.0 (CC BY-NC-SA 2.0)
-  common_names_advisory_information: Common names associated with this taxon.
-  sort_by_vetted_option: Vetted status
-  license_cc_by_nc_2_5: Creative Commons Attribution Non Commercial 2.5 (CC BY-NC 2.5)
-  alternate_classification: Alternate classification
-  content_summary_table_type_unreviewed_text_row: Number of unreviewed text items
-  cannot_be_empty: cannot be empty.
-  filter_by_status_unreviewed_option: unreviewed
-  no_members_in_parens: (no members)
-  language_menu_item: "%{language_label} <abbr>(%{language_abbr})</abbr>"
-  view_only_pages_with_at_least_a_picture_or_piece_of_text: View only pages with at least a picture or piece of text
-  license_cc_by_sa_1_0: Creative Commons Attribution Share Alike 1.0 (CC BY-SA 1.0)
-  overview: Overview
-  filter_media: filter media
-  donate: Donate
-  log_in: Log in
-  taxa: Taxa
-  videos_with_count: 
-    one: "%{count} video"
-    other: "%{count} videos"
-  encyclopedia_of_life: Encyclopedia of Life
-  the_email_address_is_not_unique_you_must_enter_a_username: The email address is not unique - you must enter a username
-  license_cc_by_nc_sa_2_5: Creative Commons Attribution Non Commercial Share Alike 2.5 (CC BY-NC-SA 2.5)
-  license_public_domain: Public Domain
-  already_member_of_community: You are already a member of this community.
-  authoritative_information: authoritative information
-  see_all_communities_with_count_html: 
-    one: See the <span class="assistive">%{count} community that focus on this taxon.</span>
-    other: See all <span class="assistive">%{count} communities that focus on this taxon.</span>
-  try_your_request_again: Try your request again
-  you_are_an_admin_so_i_will_show_you_that_the_error_was: "You are an admin.  So, I will show you that the error was:"
-  collections: Collections
-  your_current_rating_3_of_5: "Your current rating: 3 of 5"
-  search_input_advisory_information: Enter common or scientific names of living organisms that you would like to know more about, for example try entering tomato.
-  logout: Logout
-  currently_in_eol: Currently in the Encyclopedia of Life
+    one: "مجتمع واحد"
+    two: "مجتمعان"
+    three_to_ten: "%{count} مجتمعات"
+    other: "%{count} مجتمع"
+  edit_membership: "تعديل العضوية"
+  added_date_by: "أضيف في %{date} من قبل %{name}"
+  location_: "الموقع"
+  curators_of_taxon_page_title: "المشرفون على %{taxon}"
   pending_members_with_count: 
-    one: "%{count} pending member"
-    other: "%{count} pending members"
-  content_summary_table_type_trusted_text_row: Number of trusted text items
-  must_be_logged_in: You must be logged in to perform this action.
-  filter_by_type_images_option: images
-  preferred_common_name_advisory_information: This is the preferred common name for this taxon.
-  profile_image_alt_text_curator: Profile picture for curator %{user_given_name} %{user_family_name}
-  print_this_page_link: Print this page
-  trusted: Trusted
-  create_account: create an account
-  taxon: taxon
-  filter_by_status_trusted_option: trusted
-  language: "Language:"
-  see_all_comments_with_count_for_text: 
-    one: see the %{count} comment for this article
-    other: see all %{count} comments for this article
-  content_summary_table_type_unreviewed_images_row: Number of unreviewed images
-  contact_us_link: Contact us
-  wikipedia_article_will_be_harvested_tonight: Wikipedia article %{article} revision %{rev} will be harvested tonight
-  supplier_: Supplier
-  sound_thumbnail_alt_text: This %{vetted_status} audio recording is of %{scientific_name}
-  create_a_collection: Create a collection
-  switch_language_advisory_information: Switch the site language to %{language_label}
-  link_to_add_role_to_community_to_control_privs: "%{link} to control member privileges."
-  change_rating_to_4_of_5: Change rating to 4 of 5
-  your_current_rating_4_of_5: "Your current rating: 4 of 5"
-  people_with_count: 
-    one: "%{count} person"
-    other: "%{count} people"
-  pages_with_pictures_or_text: Pages with pictures or text
-  edit_collection: Edit collection
-  error_page_header: Sorry, we have encountered a problem
-  collected_by: Collected by
-  time_ago: "%{time_passed} ago"
-  content_summary_table_caption: A summary of content associated with %{taxon_name} and it's descendants in %{hierarchy_label}
-  site_information: Site information
-  assistive_media_header: Media
-  content_partners: Content Partners
-  user_left_community_note: "%{username} left the community."
-  eol_glossary: EOL Glossary
-  user_joined_community_note: "%{username} joined the community."
-  change_rating_to_1_of_5: Change rating to 1 of 5
-  your_current_rating_1_of_5: "Your current rating: 1 of 5"
+    one: "عضو واحد في الانتظار"
+    two: "عضوين في الانتظار"
+    three_to_ten: "%{count} أعضاء في الانتظار"
+    other: "%{count} عضو في الانتظار"
+  community_members: "أعضاء المجتمع"
   members_with_count: 
-    one: "%{count} contributor"
-    other: "%{count} contributors"
-  google_translate_advisory_information: Use Google Translate widget to transform the site content into another language.
-  donation_error_no_amount: Please select a donation amount.
-  maps_with_count: 
-    one: "%{count} Map"
-    other: "%{count} Maps"
+    one: "مساهم واحد"
+    two: "مساهمان"
+    three_to_ten: "%{count} مساهمين"
+    other: "%{count} مساهم"
+  already_member_of_community: "أنت عضو في هذا المجتمع"
+  dato_unreviewed_note: "%{username} صنف هذا %{type} كغير مراجع"
+  user_joined_community_note: "%{username} إنضم إلى المجتمع"
+  thanks_for_feedback: "شكرًا لآرائكم"
+  global_navigation: "التصفح العالمي"
+  community_focus: "محور اهتمام المجتمع"
+  collections: "المجموعات"
+  contribute_to_page_button: "ساهم في تلك الصفحة"
+  insufficient_privileges_to_add_common_name: "لا تمتلك الامتيازات اللازمة لإضافة إسم شائع لتلك الأصنوفة"
+  minimal_page: "صفحة صغرى"
+  community_activity: "نشاط المجتمع"
+  general_error_occurred: "عفوًا، طرأ خلل ما. يرجى إعادة محاولة تنفيذ هذه الخطوة. وفي حال استمرار الخلل، يرجى إرسال رسالة إلكترونية إلى % {email} مُرفق بها رسالة العطل التالية وأي معلومات تود مشاركتها. نحن نعمل جاهدين لتقديم أفضل خدمة ممكنة ونقدر دعمكم. فريق عمل موسوعة الحياة."
+  sort_items_by_newest_option: "الأحدث"
+  dato_inappropriate_note: "%{username} صنف ذلك %{type} كغير مناسب"
+  manage_community: "إدارة المجتمع"
+  edit_collection: "تعديل المجموعة"
+  account_registered_but_not_ready_try_later: "تم تسجيل الحساب ولكنه غير جاهز لتسجيل الدخول. يرجى المحاولة مرة أخرى خلال خمس دقائق."
+  join_eol_button_html: "أنضم إلى <abbr title=\"Encyclopedia of Life\">EOL</abbr> الآن"
+  manage_roles: "إدارة الأدوار"
+  must_be_associated_with_either_a_user_or_a_community: "يجب أن يكون مرتبط بمستخدم أو بمجتمع"
+  eol_glossary: "قائمة مصطلحات موسوعة الحياة"
+  google_translate_advisory_information: "استخدم أداة ترجمة جوجل لتحويل محتوى الموقع إلى لغة أخرى"
+  verification_phrase_did_not_match: "عبارة التعريف التي أدخلتها لم تتطابق"
+  sign_out: "تسجيل الخروج"
+  profile: "الصفحة الشخصية"
+  search_placeholder: "البحث في موسوعة الحياة..."
+  what_is_eol: "ما هي موسوعة الحياة؟"
+  images_with_count: 
+    one: "صورة واحدة"
+    two: "صورتان"
+    three_to_ten: "%{count} صور"
+    other: "%{count} صورة"
+  go: "بحث"
+  preferred_common_name_advisory_information: "هذا هو الأسم الشائع المفضل لتلك الأصنوفة"
+  mediarss_feed: "خدمة تحديثات RSS الوسائطية"
+  latest_content: "المحتوى الأحدث"
+  community: "عرض المجتمع"
+  overview: "نظرة عامة"
+  profile_image_alt_text_curator: "الصورة الشخصية للمشرف %{user_given_name} %{user_family_name}"
+  create_a_collection: "إنشاء مجموعة"
+  dato_shown_note: "%{username} أظهر %{type} ."
+  error_page_header: "عفوًا، طرأت مشكلة"
+  see_all_collections_with_count_html: 
+    one: "عرض <span class=\"assistive\">المجموعة التي تظهر بها هذه الأصنوفة.</span>"
+    two: "عرض <span class=\"assistive\">المجموعتين التين تظهر بهما هذه الأصنوفة.</span>"
+    three_to_ten: "عرض كل المجموعات <span class=\"assistive\">%{count} التي تظهر بها هذه الأصنوفة .</span>"
+    other: "عرض كل المجموعات <span class=\"assistive\">%{count} التي تظهر بها هذه الأصنوفة .</span>"
+  search_the_site: "أبحث في الموقع"
+  user_system_down: "عفوًا، نظام تسجيل المستخدم غير متاح حاليًا. يرجى المحاولة لاحقًا."
+  dato_hidden_note: "%{username} أخفى %{type}"
+  user_left_community_note: "%{username} ترك المجتمع"
+  filter_feeds_label: "إظهار"
+  curator_comment: "تعليق المشرف"
+  add_to_my_collection_button: "أضف إلى مجموعتي"
+  dato_trusted_note: "%{username} صنف ذلك %{type} كموثوق به"
+  learn_how_to_interact: "اكتشف كيف يمكنك أن تتفاعل"
+  dato_untrusted_note: "%{username} صنف ذلك %{type} كغير موثوق به"
+  license_icon_alt_text: "هذه البيانات مرخصة كـ %{license}"
+  delete_community: "إلغاء المجتمع"
   taxa_with_count: 
-    one: "%{count} taxon"
-    other: "%{count} taxa"
-  curator_comment: Curator Comment
-  community: Community
-  what_is_eol: What is EOL?
-  post_comment: Post Comment
-  there_are_currently_no_members_in_this_community: There are currently no members in this community.
-  license_cc_by_nc: Creative Commons Attribution Non Commercial (CC BY-NC)
-  most_active_members: Most active members
-  indexed: Indexed
-  all_pages: All pages
-  application_version_advisory_information: Application version
+    one: "أصنوفة واحدة"
+    two: "أصنوفتين"
+    three_to_ten: "%{count} أصنوفات"
+    other: "%{count} أصنوفة"
+  recent_updates: "تحديثات جديدة"
+  delete_allcaps: "حذف"
+  see_all_classifications_with_count_html:
+    one: "عرض <span class=\"assistive\">التصنيف المعترف بها والذى تظهر به هذه الأصنوفة <span/>"
+    two: "عرض <span class=\"assistive\">التصنيفين المعترف بهما والذين تظهر بهما هذه الأصنوفة <span/>"
+    three_to_ten: "عرض جميع التصنيفات<span class=\"assistive\">%{count} المعترف بها والتي تظهر بها هذه الأصنوفة <span/>"
+    other: "عرض جميع التصنيفات<span class=\"assistive\">%{count} المعترف بها والتي تظهر بها هذه الأصنوفة <span/>"
+  license: "الرخصة"
+  print_this_page_link: "طباعة الصفحة"
+  filter_feeds_button: "تنقية"
+  communities: "المجتمعات"
+  post_comment: "إضافة تعليق"
+  create_a_community: "إنشاء مجتمع"
+  not_evaluated: "لم يتم تقييمه"
+  google_translate: "ترجمة جوجل"
+  content_update: "تحديث المحتوى"
+  select_topic: "يرجى أختيار مجال موضوع"
+  sort_items_button: "ترتيب"
+  total_items_with_count: 
+    one: "موضوع واحد"
+    two: "موضوعان"
+    three_to_ten: "%{count} موضوعات"
+    other: "%{count} موضوع"
+  communities_summary_header_with_count: 
+    one: "ينتمي إلى مجتمع واحد"
+    two: "ينتمي إلى مجتمعان"
+    three_to_ten: "ينتمي إلى %{count} مجتمعات"
+    other: "ينتمي إلى %{count} مجتمع"
+  explore: "استكشف"
+  citation: "الإقتباس"
+  people_with_count: 
+    one: "شخص واحد"
+    two: "شخصان"
+    three_to_ten: "%{count} أشخاص"
+    other: "%{count} شخص"
+  community_roles: "أدوار المجتمع"
+  other_collection_items_with_count: 
+    one: "موضوع آخر"
+    two: "موضوعان آخران"
+    three_to_ten: "%{count} موضوعات أخرى"
+    other: "%{count} موضوع أخر"
+  there_are_currently_no_members_in_this_community: "لا يوجد حاليًا أي أعضاء بهذا المجتمع"
+  currently_in_eol: "حاليًا في موسوعة الحياة"
+  rights_holder: "صاحب حقوق الملكية"
+  donate: "تبرع"
+  home_page_link_advisory_information: "سينقلك هذا الرابط إلى الصفحة الرئيسية لموسوعة الحياة"
+  must_be_less_than_128_characters_long: "يجب أن يكون أقل من 128 حرف ورقم"
+  created_community: "تم إنشاء المجتمع بنجاح"
+  could_not_find_user: "لم يتم العثور على عضو لهذا المستخدم"
+  cannot_be_associated_with_both_a_user_and_a_community: "لا يمكن أن يكون مرتبطًا بمستخدم ومجتمع"
+  newsfeed: "آخر الأخبار"
+  see_all_communities_with_count_html: 
+    one: "عرض <span class=\"assistive\">المجموعة التي تركز على هذه الأصنوفة.</span>"
+    two: "عرض <span class=\"assistive\">المجموعتين التين تركزان على هذه الأصنوفة.</span>"
+    three_to_ten: "عرض جميع المجموعات <span class=\"assistive\">%{count} التيتركز على هذه الأصنوفة.</span>"
+    other: "عرض جميع المجموعات <span class=\"assistive\">%{count} التيتركز على هذه الأصنوفة.</span>"
+  text_summary_more_link: "الإطلاع على المشاركة بأكملها"
+  get_involved: "شارك"
+  maps_with_count: 
+    one: "خريطة واحدة"
+    two: "خريطتان"
+    three_to_ten: "%{count} خرائط"
+    other: "%{count} خريطة"
+  browse_gallery: "تصفح معرض الصور"
+  rights: "الحقوق"
+  edit_community: "تعديل مجتمع"
+  remove_membership: "إلغاء العضوية"
+  image_not_found: "لا توجد صورة"
+  help: "المساعدة"
+  unknown: "غير معروف"
+  application_version_advisory_information: "نسخة التطبيق"
+  invalid_login_or_password: "خطأ في تسجيل الدخول أو كلمة السر"
+  other_community_items_with_count: 
+    one: "موضوع أخر"
+    two: "موضوعان أخران"
+    three_to_ten: "%{count} موضوعات أخرى"
+    other: "%{count} موضوع أخر"
+  curator_activity: "نشاط المشرف"
+  sound_thumbnail_alt_text: "هذا التسجيل الصوتي %{vetted_status} خاص بـ %{scientific_name}"
+  development_version_name: "نسخة التطوير V2 - غير مخصصة للاستخدام العام"
+  search_by_term_page_title: "بحث في موسوعة الحياة: %{term}"
+  curators_summary_header_with_count: 
+    one: "مشرف واحد"
+    two: "مشرفان"
+    three_to_ten: "%{count} مشرفين"
+    other: "%{count} مشرف"
+  item_was_added_to_your_recently_collected_items: "تم إضافة العنصر للعناصر التي جمعتها مؤخرًا"
+  this_community_has_no_focus_list: "لا توجد قائمة اهتمامات لهذا المجتمع"
+  collection_item_type_with_label: "النوع: %{type}"
+  you_joined_community: "لقد إنضممت للمجتمع بنجاح"
+  must_be_logged_in: "يجب تسجيل الدخول لتنفيذ هذه الخطوة"
+  collections_summary_header_with_count: 
+    one: "متواجد في مجموعة واحدة"
+    two: "متواجد في مجموعتين"
+    three_to_ten: "متواجد في %{count} مجموعات"
+    other: "متواجد في %{count} مجموعة"
+  image_is_no_longer_available: "الصورة غير متاحة حاليًا"
+  sign_in: "تسجيل الدخول"
+  common_names_with_count: 
+    one: "أسم شائع واحد"
+    two: "أسمان شائعان"
+    three_to_ten: "%{count} أسماء شائعة"
+    other: "%{count} أسم شائع"
+  account_information: "بيانات الحساب"
+  switch_language_advisory_information: "تغيير لغة الموقع إلى %{language_label}"
+  your_message_was_sent: "تم إرسال الرسالة"
+  endorsed_collections: "المجموعات المعترف بها"
+  join_community_login_required_advisory: "سيُطلب منك تسجيل الدخول قبل الإنضمام إلى المجتمع"
+  just_pages_with_pictures_and_text: "الصفحات التي تضم صور ونصوص فقط"
+  login_or_create_account: "تسجيل الدخول أو إنشاء حساب"
+  tools_with_count: 
+    one: "أداة واحدة"
+    two: "أداتان"
+    three_to_ten: "%{count} أدوات"
+    other: "%{count} أداة"
+  no_members_in_parens: "(لا يوجد أعضاء)"
+  what_is_a_taxon: "ما هي الأصنوفة؟"
+  log_in: "تسجيل الدخول"
+  contributors_like_you: "مساهمين مثلك"
+  taxa: "الأصنوفات"
+  search_input_advisory_information: "أدخل الأسماء الشائعة أو العلمية للكائنات الحية التي تود معرفة المزيد عنها، على سبيل المثال، أدخل طماطم."
+  content_partners: "شركاء المحتوى"
+  link_to_join_this_community: "يجب أن تكون <a href='%{link}'> بتسجيل الدخول </a> للإنضمام إلى هذا المجتمع."
+  classifications_with_count: 
+    one: "تصنيف واحد"
+    two: "تصنيفان"
+    three_to_ten: "%{count} تصنيفات"
+    other: "%{count} تصنيف"
+  pages_with_pictures_or_text: "الصفحات التي تضم صور أو نص"
+  detail: "تفاصيل"
+  join_community: "انضم لهذا المجتمع"
+  encyclopedia_of_life: "موسوعة الحياة"
+  see_all_media_link: "عرض جميع الوسائط"
+  profile_image_alt_text_member: "الصورة الشخصية للعضو %{user_given_name} %{user_family_name}"
+  contact_us_link: "اتصل بنا"
+  leave_community: "مغادرة المجتمع"
+  sort_items_label: "رتب العناصر وفقًا لـ"
+  your_preferences: "تفضيلاتك"
+  videos_with_count: 
+    one: "مقطع فيديو واحد"
+    two: "مقطعان فيديو"
+    three_to_ten: "%{count} مقاطع فيديو"
+    other: "%{count} مقطع فيديو"
+  collections_with_count: 
+    one: "مجموعة واحدة"
+    two: "مجموعتان"
+    three_to_ten: "%{count} مجموعات"
+    other: "%{count} مجموعة"
+  media_with_count: 
+    one: "وسيلة وسائطية واحدة"
+    two: "وسيلتان وسائطتان"
+    three_to_ten: "%{count} وسائل وسائطية"
+    other: "%{count} وسيلة وسائطية"
+  wikipedia_article_will_be_harvested_tonight: "ستضاف الليلة المراجعة %{rev} لمقال ويكبيديا %{article}"
+  source_information_link: "معلومات المصدر"
+  donation_error_only_numbers: "يرجى ادخال القيمة بالأرقام فقط"
+  iucn_red_list_status_advisory_information: "سيحولك هذا الرابط للموقع الإلكتروني الخاص بالاتحاد الدولي للحفاظ على الطبيعة (IUCN) حيث يمكنك اكتشاف المزيد من المعلومات حول القائمة الحمراء للأنواع المهددة بالإنقراض."
+  join_community_button: "انضم لهذا المجتمع"
+  roles: "الأدوار"
+  skip_to_content: "انتقل إلى المحتوي"
+  dato_rating_note: "تقييم %{username} لهذا هو %{rating}."
+  item_was_added_to_your_watched_items_collection: "تم إضافة العنصر لمجموعة العناصر المشاهَدة"
+  you_are_not_authorized_to_perform_this_action: "أنت غير مخول لتنفيذ تلك الخطوة"
+  threat_status_header_colon: "حالة التهديد:"
+  text_is_no_longer_available: "النص غير متاح"
+  already_a_member_question: "هل أنت عضو؟"
+  you_left_community: "لقد غادرت المجتمع بنجاح"
+  add_a_role: "إضافة دور"
+  you_in_parens: "أنت"
+  join_eol_community_html: "انضم لمجتمع <abbr title=\"Encyclopedia of Life\">EOL</abbr>!"
+  you_must_be_logged_in_to_add_tags: "يجب أن تقوم بتسجيل الدخول لإضافة علامات"
+  language_menu_item: "%{language_label} <abbr>(%{language_abbr})</abbr>"
+  media: "الوسائط"
+  updates_with_count: 
+    one: "تحديث واحد"
+    two: "تحديثان"
+    three_to_ten: "%{count} تحديثات"
+    other: "%{count} تحديث"
+  learn_about_content_partners: "تعرف على شركاء المحتوى"
+  filter_feeds_all_option: "تحديثات آخر الأخبار"
+  your_preferences_have_been_updated: "تم تحديث تفضيلاتك"
+  try_your_request_again: "حاول تنفيذ طلبك مرة أخرى"
+  supplier_: "المُورِّد"
+  view_only_pages_with_at_least_a_picture_or_piece_of_text: "عرض الصفحات التي تضم صورة أو جزء من نص"
+  login_to_add_comments: "قم بتسجيل الدخول لإضافة تعليق"
+  are_you_sure: "هل أنت متأكد؟"
+  there_are_currently_no_roles_for_this_community: "لا توجد أدوار لهذا المجتمع حاليًا"
+  video_thumbnail_alt_text: "مقطع الفيديو هذا %{vetted_status} لـ %{scientific_name}"
+  global_access_tagline: "إمكانية عالمية للوصول إلى معلومات حول الحياة على كوكب الأرض"
+  pages_with_pictures_and_text: "الصفحات التي تضم صور ونص"
+  all_pages: "جميع الصفحات"
+  user_became_role_note: "%{username} أصبح %{role}."
+  pending_collections_with_count: 
+    one: "مجموعة واحدة في الانتظار"
+    two: "مجموعتان في الإنتظار"
+    three_to_ten: "%{count} مجموعات في الانتظار"
+    other: "%{count} مجموعة في الانتظار"
+  this_community_has_no_focus_items_associated_with_it: "لا يضم هذا المجتمع عناصر اهتمام مرتبطة به"
+  classifications_summary_header_with_count: 
+    one: "جزء من تصنيف معترف به"
+    two: "جزء من تصنيفان معترف بهما"
+    three_to_ten: "جزء من %{count} تصنيفات معترف بها"
+    other: "جزء من %{count} تصنيف معترف به"
+  selected_language_advisory_information: "هذه هي اللغة المختارة حاليًا"
+  you_are_an_admin_so_i_will_show_you_that_the_error_was: "أنت مشرف. لذلك، سأعرض عليك الخطأ"
+  wikipedia_revisions_must_match_pattern_error: "يجب أن يتوافق العنوان الإلكتروني لنسخة المراجعة مع http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*"
+  indexed: "مفهرس"
+  donation_error_no_amount: "يرجى اختيار قيمة التبرع"
+  cannot_be_empty: "لا يمكن أن يكون خاليًا"
+  search_field_label: "البحث في موسوعة الحياة"
+  common_names_advisory_information: "الأسماء الشائعة المرتبطة بتلك الأصنوفة"
+  has_already_been_taken: "مستخدم مسبقًا"
+  the_email_address_is_not_unique_you_must_enter_a_username: "البريد الإلكتروني مستخدم مسبقًا - يجب إدخال أسم المستخدم"
+  updated_community: "تم تحديث المجتمع بنجاح"
+  members_count_in_parens: 
+    one: "(عضو واحد)"
+    two: "(عضوان)"
+    three_to_ten: "(%{count} أعضاء)"
+    other: "(%{count} عضو)"
+  punctuation_comma: "،"
+  site_information: "معلومات عن الموقع"
+  taxon: "أصنوفة"
+  user_comment: "تعليق المستخدم"
+  images: "الصور"
+  learn_how_to_join: "تعرف على كيفية الإنضمام إلى"
+  collected_by: "قام بجمعه"

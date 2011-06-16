@@ -1,18 +1,48 @@
 #index
   .toolbar
-    %h1 EOL Mobile
+    =link_to image_tag("/images/v2/logo_index.png", :height => '32')
+    %h1.home_mobile Home
     =link_to_remote "Full site", :url  => disable_mobile_contents_path, :method => :post, :html => { :class  => "button flip" }
-
+  
+  %h2 Taxa  
+  %ul.rounded
+    %li.arrow= link_to "Nihileri voluptasus", mobile_taxon_path(9)
+    %li.arrow= link_to "Dignissimosii inutes", mobile_taxon_path(10)
+    
+  .article.stats
+    %h2= I18n.t(:currently_in_eol)
+    %ul
+      %li.taxon
+        %dl
+          %dd 1,915,247
+          %dt= I18n.t(:taxa)
+        = link_to I18n.t(:what_is_a_taxon), "#content1"
+      %li.contributors
+        %dl
+          %dd 3,154
+          %dt= I18n.t(:contributors_like_you)
+        = link_to I18n.t(:learn_how_to_join), "#content1"
+      %li.communities
+        %dl
+          %dd 861
+          %dt= I18n.t(:communities)
+        = link_to I18n.t(:learn_how_to_interact), "#content1"
+      %li.images
+        %dl
+          %dd 753,234
+          %dt= I18n.t(:images)
+        = link_to I18n.t(:browse_gallery), "#content1"
+      %li.partners
+        %dl
+          %dd 324
+          %dt= I18n.t(:content_partners)
+        = link_to I18n.t(:learn_about_content_partners), "#content1"
+  
   %h2 Static contents
   %ul.rounded
     %li.arrow= link_to "Explore", "#content1"
     %li.arrow= link_to "Announcements", "#content2"
     %li.arrow= link_to "Featured", "#content3"
-  
-  %h2 Taxa  
-  %ul.rounded
-    %li.arrow= link_to "Nihileri voluptasus", mobile_taxon_path(9)
-    %li.arrow= link_to "Dignissimosii inutes", "#callback"
     
 #content1
   .toolbar
@@ -35,10 +65,8 @@
   %p Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus
   %p Author name
 
-#callback
-  .toolbar
-    %h1 AJAX w/Callback
-    =link_to "Home", "#home", :class => "back"
+#taxa
+  %p loading
   
 :javascript
   $(document).ready(function() {
@@ -46,16 +74,3 @@
     setTimeout(scrollTo,200,0,1);
   });
 
-:javascript
-  $('#callback').bind('pageAnimationEnd', function(e, info){
-      // Make sure the data hasn't already been loaded (we'll set 'loaded' to true a couple lines further down)
-      if (!$(this).data('loaded')) {
-          // Append a placeholder in case the remote HTML takes its sweet time making it back
-          // Then, overwrite the "Loading" placeholder text with the remote HTML
-          $(this).append($('<div>Loading</div>').load('#{mobile_taxon_path(10)} .info', function() {        
-              // Set the 'loaded' var to true so we know not to reload
-              // the HTML next time the #callback div animation ends
-              $(this).parent().data('loaded', true);  
-          }));
-      }
-  });

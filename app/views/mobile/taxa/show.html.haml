@@ -1,18 +1,18 @@
-#get
+#taxa_content
   .toolbar
-    %h1 Cippalippa
-    =link_to "Home", "#home", :class => "back"
-  .info
-    Cippalippa bu bu bu
-  .info
-    #taxonomy
-      = render(:partial => 'taxa/media_summary')
-      = render(:partial => 'taxa/iucn_status_summary')
-      = render(:partial => 'taxa/text_summary')
-      = render(:partial => 'taxa/collections_summary')
-      = render(:partial => 'taxa/communities_summary')
-    #sidebar
-      = render(:partial => 'taxa/classifications_summary')
-      = render(:partial => 'taxa/curators_summary', :locals => {:curators => @taxon_concept.top_acting_curators})
-      = render(:partial => 'feed_items/index', :locals => {:feed => @taxon_concept.feed})
-
+    %h1 Taxa show
+    =link_to "Home", "/mobile/contents", :class => "back", :rel => "external"
+  #first_image
+    %img{:src => @media.first.original_image}
+    =render(:partial => 'taxa/text_summary')
+    
+  / #taxonomy
+  /   = render(:partial => 'taxa/media_summary')
+  /   = render(:partial => 'taxa/iucn_status_summary')
+  /   = render(:partial => 'taxa/text_summary')
+  /   = render(:partial => 'taxa/collections_summary')
+  /   = render(:partial => 'taxa/communities_summary')
+  / #sidebar
+  /   = render(:partial => 'taxa/classifications_summary')
+  /   = render(:partial => 'taxa/curators_summary', :locals => {:curators => @taxon_concept.top_acting_curators})
+  /   = render(:partial => 'feed_items/index', :locals => {:feed => @taxon_concept.feed})

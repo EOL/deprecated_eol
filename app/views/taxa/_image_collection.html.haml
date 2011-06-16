@@ -91,7 +91,7 @@
         %br/
 
         - if data_supplier && !data_supplier.full_name.blank?
-          = I18n.t(:supplier)
+          = I18n.t(:supplier_allcaps)
           - if data_supplier.homepage.blank?
             = data_supplier.full_name
           - else

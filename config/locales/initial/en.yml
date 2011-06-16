@@ -17,7 +17,7 @@ en:
   twitter: Twitter
   edit_my_profile: Edit my profile
   minimal_page: Minimal Page
-  location_: Location
+  location: Location
   text_with_count:
     one: "%{count} Article"
     other: "%{count} Articles"
@@ -185,7 +185,7 @@ en:
   content_summary_table_type_descendants_row: Number of descendants
   create_a_community: Create a community
   user_system_down: We apologize, but the user registration system is not currently available.  Please try again later.
-  eol__: "EOL:"
+  eol_colon: "EOL:"
   community_members: Community members
   all_information: All information
   leave_a_comment: Leave a comment
@@ -330,7 +330,7 @@ en:
   content_summary_table_type_unreviewed_images_row: Number of unreviewed images
   contact_us_link: Contact us
   wikipedia_article_will_be_harvested_tonight: Wikipedia article %{article} revision %{rev} will be harvested tonight
-  supplier_: Supplier
+  supplier: Supplier
   sound_thumbnail_alt_text: This %{vetted_status} audio recording is of %{scientific_name}
   create_a_collection: Create a collection
   switch_language_advisory_information: Switch the site language to %{language_label}

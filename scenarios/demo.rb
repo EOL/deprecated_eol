@@ -262,12 +262,15 @@ community, but she's on vacation this week.", :user_id => loud_user.id, :thumbna
 community.feed.post "#{concerned.username} commented on #{community_name}: Could we please expand this collection to
 include the endangered species listed in the latest publication from IUCN?", :user_id => concerned.id, :thumbnail_url => concerned.logo_cache_url
 
-User.find(:all, :conditions => 'logo_cache_url IS NULL').each do |user|
+users = User.find(:all, :conditions => 'logo_cache_url IS NULL')
+puts "Updating #{users.length} users..."
+users.each_with_index do |user, i|
+  puts "  #{i}" if (i % 10 == 0)
   user.logo_cache_url = next_image
   user.save
 end
 
-
+puts "Re-indexing.  Hang on, almost there."
 make_all_nested_sets
 rebuild_collection_type_nested_set
 flatten_hierarchies

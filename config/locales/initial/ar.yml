@@ -1,7 +1,7 @@
 # Messages for Arabic (العربية)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
-ar: 
+ar:
   account_information: بيانات الحساب
   account_registered_but_not_ready_try_later: تم تسجيل الحساب ولكنه غير جاهز لتسجيل الدخول. يرجى المحاولة مرة أخرى خلال خمس دقائق.
   add_a_role: إضافة دور
@@ -15,7 +15,7 @@ ar:
   cannot_be_associated_with_both_a_user_and_a_community: لا يمكن أن يكون مرتبطًا بمستخدم ومجتمع
   cannot_be_empty: لا يمكن أن يكون خاليًا
   citation: الإقتباس
-  classifications_summary_header_with_count: 
+  classifications_summary_header_with_count:
     few: جزء من %{count} تصنيفات معترف بها
     one: جزء من تصنيف معترف به
     other: جزء من %{count} تصنيف معترف به
@@ -23,29 +23,29 @@ ar:
   collected_by: قام بجمعه
   collection_item_type_with_label: "النوع: %{type}"
   collections: المجموعات
-  collections_summary_header_with_count: 
+  collections_summary_header_with_count:
     few: متواجد في %{count} مجموعات
     one: متواجد في مجموعة واحدة
     other: متواجد في %{count} مجموعة
     two: متواجد في مجموعتين
-  collections_with_count: 
+  collections_with_count:
     few: "%{count} مجموعات"
     one: مجموعة واحدة
     other: "%{count} مجموعة"
     two: مجموعتان
   common_names_advisory_information: الأسماء الشائعة المرتبطة بتلك الأصنوفة
-  common_names_with_count: 
+  common_names_with_count:
     few: "%{count} أسماء شائعة"
     one: أسم شائع واحد
     other: "%{count} أسم شائع"
     two: أسمان شائعان
   communities: المجتمعات
-  communities_summary_header_with_count: 
+  communities_summary_header_with_count:
     few: ينتمي إلى %{count} مجتمعات
     one: ينتمي إلى مجتمع واحد
     other: ينتمي إلى %{count} مجتمع
     two: ينتمي إلى مجتمعان
-  communities_with_count: 
+  communities_with_count:
     few: "%{count} مجتمعات"
     one: مجتمع واحد
     other: "%{count} مجتمع"
@@ -67,7 +67,7 @@ ar:
   created_community: تم إنشاء المجتمع بنجاح
   curator_activity: نشاط المشرف
   curator_comment: تعليق المشرف
-  curators_summary_header_with_count: 
+  curators_summary_header_with_count:
     few: "%{count} مشرفين"
     one: مشرف واحد
     other: "%{count} مشرف"
@@ -85,6 +85,7 @@ ar:
   edit_community: تعديل مجتمع
   edit_membership: تعديل العضوية
   encyclopedia_of_life: موسوعة الحياة
+  eol_colon: EOL
   eol_glossary: قائمة مصطلحات موسوعة الحياة
   eol_news: أخبار موسوعة الحياة
   error_page_header: عفوًا، طرأت مشكلة
@@ -104,7 +105,7 @@ ar:
   home_page_link_advisory_information: سينقلك هذا الرابط إلى الصفحة الرئيسية لموسوعة الحياة
   image_thumbnail_alt_text: هذه الصورة%{vetted_status} خاصة بـ %{scientific_name}
   images: الصور
-  images_with_count: 
+  images_with_count:
     few: "%{count} صور"
     one: صورة واحدة
     other: "%{count} صورة"
@@ -128,28 +129,28 @@ ar:
   license: الرخصة
   link_to_add_role_to_community_to_control_privs: "%{link} للتحكم في امتيازات الأعضاء"
   link_to_join_this_community: يجب أن تكون <a href='%{link}'> بتسجيل الدخول </a> للإنضمام إلى هذا المجتمع.
-  location_: الموقع
+  location: الموقع
   log_in: تسجيل الدخول
   login_or_create_account: تسجيل الدخول أو إنشاء حساب
   manage_community: إدارة المجتمع
   manage_roles: إدارة الأدوار
-  maps_with_count: 
+  maps_with_count:
     few: "%{count} خرائط"
     one: خريطة واحدة
     other: "%{count} خريطة"
     two: خريطتان
   media: الوسائط
-  media_with_count: 
+  media_with_count:
     few: "%{count} وسائل وسائطية"
     one: وسيلة وسائطية واحدة
     other: "%{count} وسيلة وسائطية"
     two: وسيلتان وسائطتان
-  members_count_in_parens: 
+  members_count_in_parens:
     few: (%{count} أعضاء)
     one: (عضو واحد)
     other: (%{count} عضو)
     two: (عضوان)
-  members_with_count: 
+  members_with_count:
     few: "%{count} مساهمين"
     one: مساهم واحد
     other: "%{count} مساهم"
@@ -162,12 +163,12 @@ ar:
   no_activity: لم يتم تسجيل نشاط
   no_members_in_parens: (لا يوجد أعضاء)
   not_evaluated: لم يتم تقييمه
-  other_collection_items_with_count: 
+  other_collection_items_with_count:
     few: "%{count} موضوعات أخرى"
     one: موضوع آخر
     other: "%{count} موضوع أخر"
     two: موضوعان آخران
-  other_community_items_with_count: 
+  other_community_items_with_count:
     few: "%{count} موضوعات أخرى"
     one: موضوع أخر
     other: "%{count} موضوع أخر"
@@ -175,17 +176,17 @@ ar:
   overview: نظرة عامة
   pages_with_pictures_and_text: الصفحات التي تضم صور ونص
   pages_with_pictures_or_text: الصفحات التي تضم صور أو نص
-  pending_collections_with_count: 
+  pending_collections_with_count:
     few: "%{count} مجموعات في الانتظار"
     one: مجموعة واحدة في الانتظار
     other: "%{count} مجموعة في الانتظار"
     two: مجموعتان في الإنتظار
-  pending_members_with_count: 
+  pending_members_with_count:
     few: "%{count} أعضاء في الانتظار"
     one: عضو واحد في الانتظار
     other: "%{count} عضو في الانتظار"
     two: عضوين في الانتظار
-  people_with_count: 
+  people_with_count:
     few: "%{count} أشخاص"
     one: شخص واحد
     other: "%{count} شخص"
@@ -206,17 +207,17 @@ ar:
   search_input_advisory_information: أدخل الأسماء الشائعة أو العلمية للكائنات الحية التي تود معرفة المزيد عنها، على سبيل المثال، أدخل طماطم.
   search_placeholder: البحث في موسوعة الحياة...
   search_the_site: أبحث في الموقع
-  see_all_classifications_with_count_html: 
+  see_all_classifications_with_count_html:
     few: عرض جميع التصنيفات<span class="assistive">%{count} المعترف بها والتي تظهر بها هذه الأصنوفة <span/>
     one: عرض <span class="assistive">التصنيف المعترف بها والذى تظهر به هذه الأصنوفة <span/>
     other: عرض جميع التصنيفات<span class="assistive">%{count} المعترف بها والتي تظهر بها هذه الأصنوفة <span/>
     two: عرض <span class="assistive">التصنيفين المعترف بهما والذين تظهر بهما هذه الأصنوفة <span/>
-  see_all_collections_with_count_html: 
+  see_all_collections_with_count_html:
     few: عرض كل المجموعات <span class="assistive">%{count} التي تظهر بها هذه الأصنوفة .</span>
     one: عرض <span class="assistive">المجموعة التي تظهر بها هذه الأصنوفة.</span>
     other: عرض كل المجموعات <span class="assistive">%{count} التي تظهر بها هذه الأصنوفة .</span>
     two: عرض <span class="assistive">المجموعتين التين تظهر بهما هذه الأصنوفة.</span>
-  see_all_communities_with_count_html: 
+  see_all_communities_with_count_html:
     few: عرض جميع المجموعات <span class="assistive">%{count} التيتركز على هذه الأصنوفة.</span>
     one: عرض <span class="assistive">المجموعة التي تركز على هذه الأصنوفة.</span>
     other: عرض جميع المجموعات <span class="assistive">%{count} التيتركز على هذه الأصنوفة.</span>
@@ -231,10 +232,10 @@ ar:
   sound_thumbnail_alt_text: هذا التسجيل الصوتي %{vetted_status} خاص بـ %{scientific_name}
   source_information_link: معلومات المصدر
   source_url: رابط المصدر
-  supplier_: المُورِّد
+  supplier: المُورِّد
   switch_language_advisory_information: تغيير لغة الموقع إلى %{language_label}
   taxa: الأصنوفات
-  taxa_with_count: 
+  taxa_with_count:
     few: "%{count} أصنوفات"
     one: أصنوفة واحدة
     other: "%{count} أصنوفة"
@@ -246,7 +247,7 @@ ar:
   there_are_currently_no_members_in_this_community: لا يوجد حاليًا أي أعضاء بهذا المجتمع
   there_are_currently_no_roles_for_this_community: لا توجد أدوار لهذا المجتمع حاليًا
   threat_status_header_colon: "حالة التهديد:"
-  total_items_with_count: 
+  total_items_with_count:
     few: "%{count} موضوعات"
     one: موضوع واحد
     other: "%{count} موضوع"
@@ -261,7 +262,7 @@ ar:
   user_system_down: عفوًا، نظام تسجيل المستخدم غير متاح حاليًا. يرجى المحاولة لاحقًا.
   verification_phrase_did_not_match: عبارة التعريف التي أدخلتها لم تتطابق
   video_thumbnail_alt_text: مقطع الفيديو هذا %{vetted_status} لـ %{scientific_name}
-  videos_with_count: 
+  videos_with_count:
     few: "%{count} مقاطع فيديو"
     one: مقطع فيديو واحد
     other: "%{count} مقطع فيديو"

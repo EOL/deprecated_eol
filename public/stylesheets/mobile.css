@@ -1,0 +1,24 @@
+#jqt .toolbar h1.home_mobile{
+	left: 100px;
+}
+
+#jqt .article.stats ul li.taxon dl{
+	background: url("/images/v2/icon_taxon.png") no-repeat scroll 0 2px transparent;
+	background-position:95%;
+}
+#jqt .article.stats ul li.contributors dl{
+	background: url("/images/v2/icon_contributors.png") no-repeat scroll 0 2px transparent;
+	background-position:95%;
+}
+#jqt .article.stats ul li.communities dl{
+	background: url("/images/v2/icon_communities.png") no-repeat scroll 0 2px transparent;
+	background-position:95%;
+}
+#jqt .article.stats ul li.images dl{
+	background: url("/images/v2/icon_images.png") no-repeat scroll 0 2px transparent;
+	background-position:95%;
+}
+#jqt .article.stats ul li.partners dl{
+	background: url("/images/v2/icon_partners.png") no-repeat scroll 0 2px transparent;
+	background-position:95%;
+}

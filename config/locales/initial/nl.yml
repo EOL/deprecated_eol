@@ -43,18 +43,18 @@ nl:
     one: Aanwezig in één collectie
     other: Aanwezig in %{count} collecties
   collections_with_count: 
-    one: "Eén collectie"
+    one: Eén collectie
     other: "%{count} collecties"
   common_names_advisory_information: Triviale namen die gekoppeld zijn aan dit taxon.
   common_names_with_count: 
-    one: "Eén triviale naam"
+    one: Eén triviale naam
     other: "%{count} triviale namen"
   communities: Gemeenschappen
   communities_summary_header_with_count: 
     one: Hoort bij één gemeenschap
     other: Hoort bij %{count} gemeenschappen
   communities_with_count: 
-    one: "Eén gemeenschap"
+    one: Eén gemeenschap
     other: "%{count} gemeenschappen"
   community: Gemeenschap
   community_activity: Activiteit in de gemeenschap
@@ -82,7 +82,7 @@ nl:
   curator_activity: Curatoractiviteit
   curator_comment: Opmerking van curator
   curators_summary_header_with_count: 
-    one: "Eén curator"
+    one: Eén curator
     other: "%{count} curatoren"
   currently_in_eol: Momenteel in de Encyclopedia of Life
   dashboard: Dashboard
@@ -278,7 +278,7 @@ nl:
   see_all_media_link: Alle media bekijken
   see_next_with_count: 
     one: Zie volgende}
-    other: ie volgende %{count}
+    other: Zie volgende %{count}
   see_previous_with_count: 
     one: Zie vorige}
     other: Zie vorige %{count}

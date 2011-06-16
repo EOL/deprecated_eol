@@ -4,6 +4,12 @@
     %h1.home_mobile Home
     =link_to_remote "Full site", :url  => disable_mobile_contents_path, :method => :post, :html => { :class  => "button flip" }
   
+  #searchwrapper
+    %form{:action => ""}
+    %input.searchbox#searchfield{:type => "text", :name => "s", :value => ""}
+    %input.searchbox_submit{:type => "image", :src => "/images/mobile/button_trasp.png"}
+    %label#searchlabel{:for => "searchfield"} Search EOL...
+  
   %h2 Taxa  
   %ul.rounded
     %li.arrow= link_to "Nihileri voluptasus", mobile_taxon_path(9)
@@ -69,8 +75,21 @@
   %p loading
   
 :javascript
+  // Hide address bar
   $(document).ready(function() {
-    //window.scrollTo(0, 1);
     setTimeout(scrollTo,200,0,1);
   });
 
+  //loop through all text inputs, password inputs and textarea
+  var inputs = $('input[type="text"], textarea, input[type="password"]');
+  // remove label on focus
+  inputs.focus(function(){
+    $('label[for="'+$(this).attr('id')+'"]').hide();
+  });
+  inputs.blur(function(){
+    var that = $(this);
+    if (that.val() == ""){
+      $('label[for="'+that.attr('id')+'"]').show();
+    }
+  });
+  inputs.blur();

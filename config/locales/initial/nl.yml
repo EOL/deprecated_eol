@@ -34,27 +34,27 @@ nl:
   change_rating_to_5_of_5: Waardering naar 5 van 5 wijzigen
   citation: Referentie
   classifications_summary_header_with_count: 
-    one: Deel van %{count} goedgekeurde classificatie
-    other: Part of %{count} goedgekeurde classificaties
+    one: Deel van één goedgekeurde classificatie
+    other: Deel van %{count} goedgekeurde classificaties
   collected_by: Verzameld door
   collection_item_type_with_label: "Type: %{type}"
   collections: Verzamelingen
   collections_summary_header_with_count: 
-    one: Aanwezig in %{count} collectie
+    one: Aanwezig in één collectie
     other: Aanwezig in %{count} collecties
   collections_with_count: 
-    one: "%{count} Verzameling"
-    other: "%{count} Verzamelingen"
+    one: "Eén collectie"
+    other: "%{count} collecties"
   common_names_advisory_information: Triviale namen die gekoppeld zijn aan dit taxon.
   common_names_with_count: 
-    one: "%{count} triviale naam"
+    one: "Eén triviale naam"
     other: "%{count} triviale namen"
   communities: Gemeenschappen
   communities_summary_header_with_count: 
-    one: Hoort bij %{count} gemeenschap
+    one: Hoort bij één gemeenschap
     other: Hoort bij %{count} gemeenschappen
   communities_with_count: 
-    one: "%{count} gemeenschap"
+    one: "Eén gemeenschap"
     other: "%{count} gemeenschappen"
   community: Gemeenschap
   community_activity: Activiteit in de gemeenschap
@@ -82,7 +82,7 @@ nl:
   curator_activity: Curatoractiviteit
   curator_comment: Opmerking van curator
   curators_summary_header_with_count: 
-    one: "%{count} curator"
+    one: "Eén curator"
     other: "%{count} curatoren"
   currently_in_eol: Momenteel in de Encyclopedia of Life
   dashboard: Dashboard

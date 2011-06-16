@@ -1,0 +1,215 @@
+# Messages for Serbian Cyrillic ekavian (‪Српски (ћирилица)‬)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Rancher
+sr-EC: 
+  account_information: Подаци о налогу
+  account_registered_but_not_ready_try_later: Ваш налог је отворен, али још увек није спреман. Покушајте поново за неколико минута.
+  add_a_role: Додај улогу
+  add_to_my_collection_button: Додај у моју збирку
+  all_pages: Све странице
+  already_a_member_question: Имате налог?
+  already_member_of_community: Већ сте члан ове заједнице.
+  application_version_advisory_information: Издање програма
+  are_you_sure: Јесте ли сигурни?
+  browse_gallery: Прегледајте нашу галерију
+  cannot_be_associated_with_both_a_user_and_a_community: Не може бити повезано и са корисником и са заједницом
+  cannot_be_empty: не може бити празно.
+  citation: Цитат
+  classifications_summary_header_with_count: 
+    other: једне=Део %{count} одобрене класификације
+  collected_by: Скупио
+  collection_item_type_with_label: "Врста: %{type}"
+  collections: Збирке
+  collections_summary_header_with_count: 
+    other: једној=Доступно у %{count} збирци
+  collections_with_count: 
+    other: једна=%{count} збирка
+  common_names_advisory_information: Обични називи повезани с овим таксоном.
+  common_names_with_count: 
+    other: један=%{count} обичан назив
+  communities: Заједнице
+  communities_summary_header_with_count: 
+    other: једној=Припада %{count} заједници
+  communities_with_count: 
+    other: једна=%{count} заједница
+  community: Заједница
+  community_activity: Активност заједнице
+  community_focus: Приоритет заједнице
+  community_members: Чланови заједнице
+  community_roles: Улоге у заједници
+  community_watching_this_note: Заједница сада надгледа %{name}.
+  contact_us_link: Контакт
+  content_partners: Партнери
+  content_update: Ажурирање садржаја
+  contribute_to_page_button: Доприносите овој страници
+  contributors_like_you: Доприносиоци као ви
+  could_not_find_user: Члан није пронађен за овог корисника
+  create_a_collection: Направи збирку
+  create_a_community: Направи заједницу
+  created_community: Заједница је направљена.
+  curator_activity: Активност кустоса
+  curator_comment: Коментар кустоса
+  curators_summary_header_with_count: 
+    other: један=%{count} кустос
+  currently_in_eol: Тренутно на Енциклопедији живота
+  dato_rating_note: "%{username} даде оцену %{rating}."
+  delete_allcaps: ОБРИШИ
+  delete_community: Обриши ову заједницу
+  detail: Детаљи
+  development_version_name: РАЗВОЈНО ИЗДАЊЕ 2 – није за јавно коришћење
+  donate: Приложи
+  donation_error_no_amount: Изаберите износ који желите да приложите.
+  donation_error_only_numbers: Унесите износ користећи само бројеве.
+  edit_collection: Уреди збирку
+  edit_community: Уреди заједницу
+  edit_membership: Уреди чланство
+  encyclopedia_of_life: Енциклопедија живота
+  eol_glossary: Речник
+  eol_news: Вести
+  error_page_header: Наишли смо на проблем
+  explore: Истражи
+  filter_feeds_all_option: Ажурирања од свих довода
+  filter_feeds_button: Филтер
+  filter_feeds_label: Прикажи
+  general_error_occurred: Дошло је до грешке. Молимо вас да покушате поново. Ако се грешка понови, пошаљите поруку на %{email} заједно са садржајем грешке и с било којим податком који би нам могао бити од користи. Напорно радимо да бисмо пружили што боље искуство нашим корисницима. – EOL тим
+  get_involved: Укључи се
+  global_access_tagline: Глобални приступ знању о животу на Земљи.
+  global_navigation: Глобална навигација
+  go: Иди
+  google_translate: Гугл преводилац
+  google_translate_advisory_information: Користите Гуглов преводилац да преведете страницу на други језик.
+  has_already_been_taken: је заузето.
+  help: Помоћ
+  home_page_link_advisory_information: Ова веза одвешће вас до почетне странице Енциклопедије живота
+  image_thumbnail_alt_text: "%{vetted_status} слика је из %{scientific_name}"
+  images: Слике
+  images_with_count: 
+    other: једна=%{count} слика
+  indexed: Пописано
+  invalid_login_or_password: Неисправно корисничко име или лозинка
+  item_was_added_to_your_recently_collected_items: Ставка је додата у ваш списак скупљених ставки
+  item_was_added_to_your_watched_items_collection: Ставка је додата у ваш списак надгледаних ставки
+  iucn_red_list_status_advisory_information: Ова веза одвешће вас до сајта Међународног савеза за очување природе (IUCN) где можете пронаћи црвену листу о угроженим врстама.
+  join_community: Придружите се овој заједници
+  join_community_button: Придружите се овој заједници
+  join_community_login_required_advisory: Питаћемо вас да се пријавите пре него што се придружите овој заједници
+  join_eol_button_html: Придружите се <abbr title="Енциклопедији живота">EOL</abbr>
+  join_eol_community_html: Постаните део <abbr title="Енциклопедије живота">EOL</abbr>!
+  just_pages_with_pictures_and_text: Само оне странице са сликама и текстом
+  language_menu_item: "%{language_label} <abbr>(%{language_abbr})</abbr>"
+  learn_about_content_partners: Сазнајте више о нашим партнерима
+  learn_how_to_interact: Сазнајте како можете узајамно деловати
+  learn_how_to_join: Сазнајте како да се придружите
+  leave_community: Напусти ову заједницу
+  license: Лиценца
+  license_cc_by_nc_3_0: Кријејтив комонс Ауторство-Некомерцијално 3.0 (CC BY-NC 3.0)
+  link_to_add_role_to_community_to_control_privs: "%{link} за управљање овлашћењима члана."
+  link_to_join_this_community: Морате бити <a href='%{link}'>пријављени</a> да бисте се придружили овој заједници.
+  location_: Локација
+  log_in: Пријава
+  login_or_create_account: Пријавите се или отворите налог
+  manage_community: Управљање заједницом
+  manage_roles: Управљај улогама
+  maps_with_count: 
+    other: једна=%{count} мапа
+  media: Датотеке
+  media_with_count: 
+    other: једна=%{count} датотека
+  members_count_in_parens: 
+    other: један=(%{count} члан)
+  members_with_count: 
+    other: један=%{count} доприносилац
+  minimal_page: Најмања страница
+  must_be_associated_with_either_a_user_or_a_community: Мора бити повезано с корисником или заједницом
+  must_be_less_than_128_characters_long: мора имати мање од 128 знакова.
+  must_be_logged_in: Морате бити пријављени да бисте извршили ову радњу.
+  newsfeed: Новости
+  no_activity: Нема активности.
+  no_members_in_parens: (нема чланова)
+  not_evaluated: Неоцењено
+  other_collection_items_with_count: 
+    other: једна=%{count} друга ставка
+  other_community_items_with_count: 
+    other: једна=%{count} друга ставка
+  overview: Преглед
+  pages_with_pictures_and_text: Странице са сликама и текстом
+  pages_with_pictures_or_text: Странице са сликама и текстом
+  pending_collections_with_count: 
+    other: једна=%{count} збирка на чекању
+  pending_members_with_count: 
+    other: један=%{count} члан чека
+  people_with_count: 
+    other: једна=%{count} особа
+  post_comment: Постави коментар
+  preferred_common_name_advisory_information: Ово је пожељни обичан назив за овај таксон.
+  print_this_page_link: Одштампај ову страницу
+  profile: Профил
+  profile_image_alt_text_curator: Слика профила кустоса %{user_given_name} %{user_family_name}
+  profile_image_alt_text_member: Слика профила члана %{user_given_name} %{user_family_name}
+  punctuation_comma: ","
+  recent_updates: Скорашња ажурирања
+  remove_membership: Уклони чланство
+  rights: Права
+  rights_holder: Носилац права
+  roles: Улоге
+  search_field_label: Претрага
+  search_input_advisory_information: Унесите обичне или научне називе живих организама о којима желите да сазнате.
+  search_placeholder: Претражи…
+  search_the_site: Претражите сајт
+  see_all_classifications_with_count_html: 
+    other: једна=Погледајте <span class="assistive">%{count} одобрену класификацију у којој се појављује овај таксон.</span>
+  see_all_collections_with_count_html: 
+    other: једна=Погледајте <span class="assistive">%{count} збирку у којој се појављује таксон.</span>
+  see_all_communities_with_count_html: 
+    other: једну=Погледајте <span class="assistive">%{count} заједницу која је усредсређена на овај таксон.</span>
+  see_all_media_link: Погледајте све датотеке
+  select_topic: Изаберите жељену тему
+  selected_language_advisory_information: Овај језик је тренутно изабран.
+  sign_in: Пријава
+  sign_out: Одјава
+  site_information: Подаци о сајту
+  skip_to_content: Прескочи на садржај
+  sound_thumbnail_alt_text: "%{vetted_status} звучни запис је из %{scientific_name}"
+  source_information_link: подаци о извору
+  source_url: Изворна адреса
+  supplier_: Добављач
+  switch_language_advisory_information: Промени језик у %{language_label}
+  taxa: Таксони
+  taxa_with_count: 
+    other: један=%{count} таксон
+  taxon: таксон
+  text_summary_more_link: Прочитај цео унос
+  thanks_for_feedback: Хвала вам на повратној информацији.
+  the_email_address_is_not_unique_you_must_enter_a_username: Е-адреса није јединствена. Морате унети корисничко име
+  there_are_currently_no_members_in_this_community: Тренутно нема чланова у овој заједници.
+  there_are_currently_no_roles_for_this_community: Тренутно нема улога у овој заједници.
+  threat_status_header_colon: "Стање претње:"
+  total_items_with_count: 
+    other: једна=%{count} ставка
+  try_your_request_again: Пробајте поново
+  unknown: Непознато
+  updated_community: Заједница је ажурирана.
+  user_became_role_note: "%{username} постаде %{role}."
+  user_comment: Кориснички коментар
+  user_joined_community_note: "%{username} се придружи заједници."
+  user_left_community_note: "%{username} напусти заједницу."
+  user_system_down: Жао нам је, отварање налога тренутно није могуће. Покушајте касније.
+  verification_phrase_did_not_match: Потврдна реч коју сте унели се не поклапа.
+  video_thumbnail_alt_text: "%{vetted_status} видео снимак је из %{scientific_name}"
+  videos_with_count: 
+    other: један=%{count} видео снимак
+  view_only_pages_with_at_least_a_picture_or_piece_of_text: Прегледај само странице са сликом или с мало текста
+  what_is_a_taxon: Шта је таксон?
+  what_is_eol: Шта је EOL?
+  wikipedia_article_will_be_harvested_tonight: Чланак на Википедији %{article} измена %{rev} биће измењен вечерас
+  wikipedia_revisions_must_match_pattern_error: Адреса измене се мора поклапати са http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
+  you_are_an_admin_so_i_will_show_you_that_the_error_was: "Ви сте администратор. Грешка:"
+  you_are_not_authorized_to_perform_this_action: Немате овлашћења да извршите ову радњу.
+  you_have_been_a_member_of_this_community_since: Члан сте ове заједнице од %{since}.
+  you_in_parens: (ви)
+  you_joined_community: Придружили сте се заједници.
+  you_left_community: Напустили сте ову заједницу.
+  you_must_be_logged_in_to_add_tags: Морате бити пријављени да бисте додавали ознаке.
+  your_message_was_sent: Порука је послата.
+  your_preferences: Поставке

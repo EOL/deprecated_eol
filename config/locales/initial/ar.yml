@@ -1,423 +1,282 @@
-ar:
-  about_eol: "About EOL"
-  account_information: "بيانات الحساب"
-  account_registered_but_not_ready_try_later: "تم تسجيل الحساب ولكنه غير جاهز لتسجيل الدخول. يرجى المحاولة مرة أخرى خلال خمس دقائق."
-  add_a_role: "إضافة دور"
-  add_to_my_collection_button: "أضف إلى مجموعتي"
-  added_date: "Added %{date}"
-  admin: admin
-  all_information: "All information"
-  all_pages: "جميع الصفحات"
-  already_a_member_question: "هل أنت عضو؟"
-  already_member_of_community: "أنت عضو في هذا المجتمع"
-  alternate_classification: "Alternate classification"
-  application_version_advisory_information: "نسخة التطبيق"
-  are_you_sure: "هل أنت متأكد؟"
-  assistive_details_header: Details
-  assistive_media_header: Media
-  assistive_overview_header: Overview
-  authoritative_information: "authoritative information"
-  average_rating_value_of_total: "Average rating: %{rating} of %{total}"
-  browse_gallery: "تصفح معرض الصور"
-  cancel: Cancel
-  cannot_be_associated_with_both_a_user_and_a_community: "لا يمكن أن يكون مرتبطًا بمستخدم ومجتمع"
-  cannot_be_empty: "لا يمكن أن يكون خاليًا"
-  change_rating_to_1_of_5: "Change rating to 1 of 5"
-  change_rating_to_2_of_5: "Change rating to 2 of 5"
-  change_rating_to_3_of_5: "Change rating to 3 of 5"
-  change_rating_to_4_of_5: "Change rating to 4 of 5"
-  change_rating_to_5_of_5: "Change rating to 5 of 5"
+# Messages for Arabic (العربية)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+ar: 
+  account_information: بيانات الحساب
+  account_registered_but_not_ready_try_later: تم تسجيل الحساب ولكنه غير جاهز لتسجيل الدخول. يرجى المحاولة مرة أخرى خلال خمس دقائق.
+  add_a_role: إضافة دور
+  add_to_my_collection_button: أضف إلى مجموعتي
+  all_pages: جميع الصفحات
+  already_a_member_question: هل أنت عضو؟
+  already_member_of_community: أنت عضو في هذا المجتمع
+  application_version_advisory_information: نسخة التطبيق
+  are_you_sure: هل أنت متأكد؟
+  browse_gallery: تصفح معرض الصور
+  cannot_be_associated_with_both_a_user_and_a_community: لا يمكن أن يكون مرتبطًا بمستخدم ومجتمع
+  cannot_be_empty: لا يمكن أن يكون خاليًا
   citation: الإقتباس
-  classifications_summary_header_with_count:
-    one: "جزء من تصنيف معترف به"
-    other: "جزء من %{count} تصنيف معترف به"
-    three_to_ten: "جزء من %{count} تصنيفات معترف بها"
-    two: "جزء من تصنيفان معترف بهما"
-  collected_by: "قام بجمعه"
-  collected_items_with_count:
-    one: "%{count} collected item"
-    other: "%{count} collected items"
+  classifications_summary_header_with_count: 
+    few: جزء من %{count} تصنيفات معترف بها
+    one: جزء من تصنيف معترف به
+    other: جزء من %{count} تصنيف معترف به
+    two: جزء من تصنيفان معترف بهما
+  collected_by: قام بجمعه
   collection_item_type_with_label: "النوع: %{type}"
   collections: المجموعات
-  collections_summary_header_with_count:
-    one: "متواجد في مجموعة واحدة"
-    other: "متواجد في %{count} مجموعة"
-    three_to_ten: "متواجد في %{count} مجموعات"
-    two: "متواجد في مجموعتين"
-  collections_with_count:
-    one: "مجموعة واحدة"
+  collections_summary_header_with_count: 
+    few: متواجد في %{count} مجموعات
+    one: متواجد في مجموعة واحدة
+    other: متواجد في %{count} مجموعة
+    two: متواجد في مجموعتين
+  collections_with_count: 
+    few: "%{count} مجموعات"
+    one: مجموعة واحدة
     other: "%{count} مجموعة"
-    three_to_ten: "%{count} مجموعات"
     two: مجموعتان
-  common_names_advisory_information: "الأسماء الشائعة المرتبطة بتلك الأصنوفة"
-  common_names_with_count:
-    one: "أسم شائع واحد"
+  common_names_advisory_information: الأسماء الشائعة المرتبطة بتلك الأصنوفة
+  common_names_with_count: 
+    few: "%{count} أسماء شائعة"
+    one: أسم شائع واحد
     other: "%{count} أسم شائع"
-    three_to_ten: "%{count} أسماء شائعة"
-    two: "أسمان شائعان"
+    two: أسمان شائعان
   communities: المجتمعات
-  communities_summary_header_with_count:
-    one: "ينتمي إلى مجتمع واحد"
-    other: "ينتمي إلى %{count} مجتمع"
-    three_to_ten: "ينتمي إلى %{count} مجتمعات"
-    two: "ينتمي إلى مجتمعان"
-  communities_with_count:
-    one: "مجتمع واحد"
+  communities_summary_header_with_count: 
+    few: ينتمي إلى %{count} مجتمعات
+    one: ينتمي إلى مجتمع واحد
+    other: ينتمي إلى %{count} مجتمع
+    two: ينتمي إلى مجتمعان
+  communities_with_count: 
+    few: "%{count} مجتمعات"
+    one: مجتمع واحد
     other: "%{count} مجتمع"
-    three_to_ten: "%{count} مجتمعات"
     two: مجتمعان
-  community: "عرض المجتمع"
-  community_activity: "نشاط المجتمع"
-  community_focus: "محور اهتمام المجتمع"
-  community_members: "أعضاء المجتمع"
-  community_roles: "أدوار المجتمع"
-  community_watching_this_note: "يقوم المجتمع بمشاهدة هذا %{name}."
-  contact_us_link: "اتصل بنا"
-  content_partners: "شركاء المحتوى"
-  content_summary_introduction_html: "The following values represent the sum of different types of content for this taxon and all of its taxonomic descendants. %{glossary_term_trusted} content has either been approved by an EOL curator or comes from a trusted provider. %{glossary_term_unreviewed} content has not yet been assessed by an EOL curator. Every taxonomic hierarchy is unique, so each browsable hierarchy is listed for comparison."
-  content_summary_table_caption: "A summary of content associated with %{taxon_name} and it's descendants in %{hierarchy_label}"
-  content_summary_table_count_column_header: Count
-  content_summary_table_summary: "This table contains counts of different types of content separated by content state."
-  content_summary_table_type_descendants_row: "Number of descendants"
-  content_summary_table_type_status_column_header: "Content type and status"
-  content_summary_table_type_trusted_images_row: "Number of trusted images"
-  content_summary_table_type_trusted_text_row: "Number of trusted text items"
-  content_summary_table_type_unreviewed_images_row: "Number of unreviewed images"
-  content_summary_table_type_unreviewed_text_row: "Number of unreviewed text items"
-  content_update: "تحديث المحتوى"
-  contribute_to_page_button: "ساهم في تلك الصفحة"
-  contributors_like_you: "مساهمين مثلك"
-  could_not_find_user: "لم يتم العثور على عضو لهذا المستخدم"
-  create_a_collection: "إنشاء مجموعة"
-  create_a_community: "إنشاء مجتمع"
-  create_account: "create an account"
-  created_community: "تم إنشاء المجتمع بنجاح"
-  created_time_ago: "Created %{time_passed} ago"
-  curate_this_text: "curate this article"
-  curator_activity: "نشاط المشرف"
-  curator_comment: "تعليق المشرف"
-  curators_summary_header_with_count:
-    one: "مشرف واحد"
+  community: عرض المجتمع
+  community_activity: نشاط المجتمع
+  community_focus: محور اهتمام المجتمع
+  community_members: أعضاء المجتمع
+  community_roles: أدوار المجتمع
+  community_watching_this_note: يقوم المجتمع بمشاهدة هذا %{name}.
+  contact_us_link: اتصل بنا
+  content_partners: شركاء المحتوى
+  content_update: تحديث المحتوى
+  contribute_to_page_button: ساهم في تلك الصفحة
+  contributors_like_you: مساهمين مثلك
+  could_not_find_user: لم يتم العثور على عضو لهذا المستخدم
+  create_a_collection: إنشاء مجموعة
+  create_a_community: إنشاء مجتمع
+  created_community: تم إنشاء المجتمع بنجاح
+  curator_activity: نشاط المشرف
+  curator_comment: تعليق المشرف
+  curators_summary_header_with_count: 
+    few: "%{count} مشرفين"
+    one: مشرف واحد
     other: "%{count} مشرف"
-    three_to_ten: "%{count} مشرفين"
     two: مشرفان
-  currently_in_eol: "حاليًا في موسوعة الحياة"
-  dashboard: Dashboard
-  dato_rating_note: "تقييم %{username} لهذا هو %{rating}."
+  currently_in_eol: حاليًا في موسوعة الحياة
+  dato_rating_note: تقييم %{username} لهذا هو %{rating}.
   delete_allcaps: حذف
-  delete_community: "إلغاء المجتمع"
+  delete_community: إلغاء المجتمع
   detail: تفاصيل
-  development_version_name: "نسخة التطوير V2 - غير مخصصة للاستخدام العام"
-  displaying_numerical_range: "Displaying %{start_number} &mdash; %{end_number}"
+  development_version_name: نسخة التطوير V2 - غير مخصصة للاستخدام العام
   donate: تبرع
-  donation_error_no_amount: "يرجى اختيار قيمة التبرع"
-  donation_error_only_numbers: "يرجى ادخال القيمة بالأرقام فقط"
-  edit_collection: "تعديل المجموعة"
-  edit_community: "تعديل مجتمع"
-  edit_membership: "تعديل العضوية"
-  edit_my_profile: "Edit my profile"
-  encyclopedia_of_life: "موسوعة الحياة"
-  endorsed_collections_with_count:
-    one: "%{count} Endorsed collection"
-    other: "%{count} Endorsed collections"
-  eol_colon: "EOL:"
-  eol_glossary: "قائمة مصطلحات موسوعة الحياة"
-  eol_news: "أخبار موسوعة الحياة"
-  error_page_header: "عفوًا، طرأت مشكلة"
-  esc_key_hides_this_message: "(esc key hides this message)"
+  donation_error_no_amount: يرجى اختيار قيمة التبرع
+  donation_error_only_numbers: يرجى ادخال القيمة بالأرقام فقط
+  edit_collection: تعديل المجموعة
+  edit_community: تعديل مجتمع
+  edit_membership: تعديل العضوية
+  encyclopedia_of_life: موسوعة الحياة
+  eol_glossary: قائمة مصطلحات موسوعة الحياة
+  eol_news: أخبار موسوعة الحياة
+  error_page_header: عفوًا، طرأت مشكلة
   explore: استكشف
-  feedback: Feedback
-  filter_by_status: "Filter by status"
-  filter_by_status_all_option: "all statuses"
-  filter_by_status_inappropriate_option: inappropriate
-  filter_by_status_trusted_option: trusted
-  filter_by_status_unreviewed_option: unreviewed
-  filter_by_status_untrusted_option: untrusted
-  filter_by_type: "Filter by type"
-  filter_by_type_all_option: "all types"
-  filter_by_type_audio_option: audio
-  filter_by_type_images_option: images
-  filter_by_type_photosynths_option: photosynths
-  filter_by_type_videos_option: videos
-  filter_feeds_all_option: "تحديثات آخر الأخبار"
+  filter_feeds_all_option: تحديثات آخر الأخبار
   filter_feeds_button: تنقية
   filter_feeds_label: إظهار
-  filter_media: "filter media"
-  filtered_information: "Filtered information"
-  founder: Founder
-  general_error_occurred: "عفوًا، طرأ خلل ما. يرجى إعادة محاولة تنفيذ هذه الخطوة. وفي حال استمرار الخلل، يرجى إرسال رسالة إلكترونية إلى % {email} مُرفق بها رسالة العطل التالية وأي معلومات تود مشاركتها. نحن نعمل جاهدين لتقديم أفضل خدمة ممكنة ونقدر دعمكم. فريق عمل موسوعة الحياة."
+  general_error_occurred: عفوًا، طرأ خلل ما. يرجى إعادة محاولة تنفيذ هذه الخطوة. وفي حال استمرار الخلل، يرجى إرسال رسالة إلكترونية إلى % {email} مُرفق بها رسالة العطل التالية وأي معلومات تود مشاركتها. نحن نعمل جاهدين لتقديم أفضل خدمة ممكنة ونقدر دعمكم. فريق عمل موسوعة الحياة.
   get_involved: شارك
-  global_access_tagline: "إمكانية عالمية للوصول إلى معلومات حول الحياة على كوكب الأرض"
-  global_navigation: "التصفح العالمي"
+  global_access_tagline: إمكانية عالمية للوصول إلى معلومات حول الحياة على كوكب الأرض
+  global_navigation: التصفح العالمي
   go: بحث
-  google_translate: "ترجمة جوجل"
-  google_translate_advisory_information: "استخدم أداة ترجمة جوجل لتحويل محتوى الموقع إلى لغة أخرى"
-  has_already_been_taken: "مستخدم مسبقًا"
-  hello_user: "Hello %{user}"
+  google_translate: ترجمة جوجل
+  google_translate_advisory_information: استخدم أداة ترجمة جوجل لتحويل محتوى الموقع إلى لغة أخرى
+  has_already_been_taken: مستخدم مسبقًا
   help: المساعدة
-  home: Home
-  home_page_link_advisory_information: "سينقلك هذا الرابط إلى الصفحة الرئيسية لموسوعة الحياة"
-  image_thumbnail_alt_text: "هذه الصورة%{vetted_status} خاصة بـ %{scientific_name}"
+  home_page_link_advisory_information: سينقلك هذا الرابط إلى الصفحة الرئيسية لموسوعة الحياة
+  image_thumbnail_alt_text: هذه الصورة%{vetted_status} خاصة بـ %{scientific_name}
   images: الصور
-  images_with_count:
-    one: "صورة واحدة"
+  images_with_count: 
+    few: "%{count} صور"
+    one: صورة واحدة
     other: "%{count} صورة"
-    three_to_ten: "%{count} صور"
     two: صورتان
-  in_my_collection_button: "In my collection"
   indexed: مفهرس
-  invalid_login_or_password: "خطأ في تسجيل الدخول أو كلمة السر"
-  item_was_added_to_your_recently_collected_items: "تم إضافة العنصر للعناصر التي جمعتها مؤخرًا"
-  item_was_added_to_your_watched_items_collection: "تم إضافة العنصر لمجموعة العناصر المشاهَدة"
-  iucn_red_list_status_advisory_information: "سيحولك هذا الرابط للموقع الإلكتروني الخاص بالاتحاد الدولي للحفاظ على الطبيعة (IUCN) حيث يمكنك اكتشاف المزيد من المعلومات حول القائمة الحمراء للأنواع المهددة بالإنقراض."
-  join_community: "انضم لهذا المجتمع"
-  join_community_button: "انضم لهذا المجتمع"
-  join_community_login_required_advisory: "سيُطلب منك تسجيل الدخول قبل الإنضمام إلى المجتمع"
-  join_eol_button_html: "أنضم إلى <abbr title=\"Encyclopedia of Life\">EOL</abbr> الآن"
-  join_eol_community_html: "انضم لمجتمع <abbr title=\"Encyclopedia of Life\">EOL</abbr>!"
-  just_pages_with_pictures_and_text: "الصفحات التي تضم صور ونصوص فقط"
-  language: "Language:"
+  invalid_login_or_password: خطأ في تسجيل الدخول أو كلمة السر
+  item_was_added_to_your_recently_collected_items: تم إضافة العنصر للعناصر التي جمعتها مؤخرًا
+  item_was_added_to_your_watched_items_collection: تم إضافة العنصر لمجموعة العناصر المشاهَدة
+  iucn_red_list_status_advisory_information: سيحولك هذا الرابط للموقع الإلكتروني الخاص بالاتحاد الدولي للحفاظ على الطبيعة (IUCN) حيث يمكنك اكتشاف المزيد من المعلومات حول القائمة الحمراء للأنواع المهددة بالإنقراض.
+  join_community: انضم لهذا المجتمع
+  join_community_button: انضم لهذا المجتمع
+  join_community_login_required_advisory: سيُطلب منك تسجيل الدخول قبل الإنضمام إلى المجتمع
+  join_eol_button_html: أنضم إلى <abbr title="Encyclopedia of Life">EOL</abbr> الآن
+  join_eol_community_html: انضم لمجتمع <abbr title="Encyclopedia of Life">EOL</abbr>!
+  just_pages_with_pictures_and_text: الصفحات التي تضم صور ونصوص فقط
   language_menu_item: "%{language_label} <abbr>(%{language_abbr})</abbr>"
-  last_updated_time_ago: "Last updated %{time_passed} ago"
-  learn_about_content_partners: "تعرف على شركاء المحتوى"
-  learn_how_to_interact: "اكتشف كيف يمكنك أن تتفاعل"
-  learn_how_to_join: "تعرف على كيفية الإنضمام إلى"
-  leave_a_comment: "Leave a comment"
-  leave_community: "مغادرة المجتمع"
+  learn_about_content_partners: تعرف على شركاء المحتوى
+  learn_how_to_interact: اكتشف كيف يمكنك أن تتفاعل
+  learn_how_to_join: تعرف على كيفية الإنضمام إلى
+  leave_community: مغادرة المجتمع
   license: الرخصة
-  license_all_rights_reserved: "All rights reserved"
-  license_cc_by: "Creative Commons Attribution (CC BY)"
-  license_cc_by_2_0: "Creative Commons Attribution 2.0 (CC BY 2.0)"
-  license_cc_by_2_5: "Creative Commons Attribution 2.5 (CC BY 2.5)"
-  license_cc_by_3_0: "Creative Commons Attribution 3.0 (CC BY 3.0)"
-  license_cc_by_nc: "Creative Commons Attribution Non Commercial (CC BY-NC)"
-  license_cc_by_nc_2_0: "Creative Commons Attribution Non Commercial 2.0 (CC BY-NC 2.0)"
-  license_cc_by_nc_2_5: "Creative Commons Attribution Non Commercial 2.5 (CC BY-NC 2.5)"
-  license_cc_by_nc_3_0: "Creative Commons Attribution Non Commercial 3.0 (CC BY-NC 3.0)"
-  license_cc_by_nc_sa: "Creative Commons Attribution Non Commercial Share Alike (CC BY-NC-SA)"
-  license_cc_by_nc_sa_1_0: "Creative Commons Attribution Non Commercial Share Alike 1.0 (CC BY-NC-SA 1.0)"
-  license_cc_by_nc_sa_2_0: "Creative Commons Attribution Non Commercial Share Alike 2.0 (CC BY-NC-SA 2.0)"
-  license_cc_by_nc_sa_2_5: "Creative Commons Attribution Non Commercial Share Alike 2.5 (CC BY-NC-SA 2.5)"
-  license_cc_by_nc_sa_3_0: "Creative Commons Attribution Non Commercial Share Alike 3.0 (CC BY-NC-SA 3.0)"
-  license_cc_by_sa: "Creative Commons Attribution Share Alike (CC BY-SA)"
-  license_cc_by_sa_1_0: "Creative Commons Attribution Share Alike 1.0 (CC BY-SA 1.0)"
-  license_cc_by_sa_2_0: "Creative Commons Attribution Share Alike 2.0 (CC BY-SA 2.0)"
-  license_cc_by_sa_2_5: "Creative Commons Attribution Share Alike 2.5 (CC BY-SA 2.5)"
-  license_cc_by_sa_3_0: "Creative Commons Attribution Share Alike 3.0 (CC BY-SA 3.0)"
-  license_gnu_fdl: "GNU Free Documentation License (GNU FDL)"
-  license_gnu_gpl: "GNU General Public License (GNU GPL)"
-  license_not_applicable: "License not applicable"
-  license_public_domain: "Public Domain"
   link_to_add_role_to_community_to_control_privs: "%{link} للتحكم في امتيازات الأعضاء"
-  link_to_join_this_community: "يجب أن تكون <a href='%{link}'> بتسجيل الدخول </a> للإنضمام إلى هذا المجتمع."
-  literature: Literature
-  location: الموقع
-  log_in: "تسجيل الدخول"
-  login: login
-  login_or_create_account: "تسجيل الدخول أو إنشاء حساب"
-  logout: Logout
-  manage_community: "إدارة المجتمع"
-  manage_roles: "إدارة الأدوار"
-  maps_with_count:
-    one: "خريطة واحدة"
+  link_to_join_this_community: يجب أن تكون <a href='%{link}'> بتسجيل الدخول </a> للإنضمام إلى هذا المجتمع.
+  location_: الموقع
+  log_in: تسجيل الدخول
+  login_or_create_account: تسجيل الدخول أو إنشاء حساب
+  manage_community: إدارة المجتمع
+  manage_roles: إدارة الأدوار
+  maps_with_count: 
+    few: "%{count} خرائط"
+    one: خريطة واحدة
     other: "%{count} خريطة"
-    three_to_ten: "%{count} خرائط"
     two: خريطتان
   media: الوسائط
-  media_with_count:
-    one: "وسيلة وسائطية واحدة"
+  media_with_count: 
+    few: "%{count} وسائل وسائطية"
+    one: وسيلة وسائطية واحدة
     other: "%{count} وسيلة وسائطية"
-    three_to_ten: "%{count} وسائل وسائطية"
-    two: "وسيلتان وسائطتان"
-  members_count_in_parens:
-    one: "(عضو واحد)"
-    other: "(%{count} عضو)"
-    three_to_ten: "(%{count} أعضاء)"
+    two: وسيلتان وسائطتان
+  members_count_in_parens: 
+    few: (%{count} أعضاء)
+    one: (عضو واحد)
+    other: (%{count} عضو)
     two: (عضوان)
-  members_with_count:
-    one: "مساهم واحد"
+  members_with_count: 
+    few: "%{count} مساهمين"
+    one: مساهم واحد
     other: "%{count} مساهم"
-    three_to_ten: "%{count} مساهمين"
     two: مساهمان
-  minimal_page: "صفحة صغرى"
-  most_active_members: "Most active members"
-  most_visited_taxa: "Most visited taxa"
-  must_be_associated_with_either_a_user_or_a_community: "يجب أن يكون مرتبط بمستخدم أو بمجتمع"
-  must_be_less_than_128_characters_long: "يجب أن يكون أقل من 128 حرف ورقم"
-  must_be_logged_in: "يجب تسجيل الدخول لتنفيذ هذه الخطوة"
-  my_activity: "My activity"
-  my_info: "My info"
-  newsfeed: "آخر الأخبار"
-  no_activity: "لم يتم تسجيل نشاط"
-  no_members_in_parens: "(لا يوجد أعضاء)"
-  nomenclature: Nomenclature
-  not_evaluated: "لم يتم تقييمه"
-  other_collection_items_with_count:
-    one: "موضوع آخر"
+  minimal_page: صفحة صغرى
+  must_be_associated_with_either_a_user_or_a_community: يجب أن يكون مرتبط بمستخدم أو بمجتمع
+  must_be_less_than_128_characters_long: يجب أن يكون أقل من 128 حرف ورقم
+  must_be_logged_in: يجب تسجيل الدخول لتنفيذ هذه الخطوة
+  newsfeed: آخر الأخبار
+  no_activity: لم يتم تسجيل نشاط
+  no_members_in_parens: (لا يوجد أعضاء)
+  not_evaluated: لم يتم تقييمه
+  other_collection_items_with_count: 
+    few: "%{count} موضوعات أخرى"
+    one: موضوع آخر
     other: "%{count} موضوع أخر"
-    three_to_ten: "%{count} موضوعات أخرى"
-    two: "موضوعان آخران"
-  other_community_items_with_count:
-    one: "موضوع أخر"
+    two: موضوعان آخران
+  other_community_items_with_count: 
+    few: "%{count} موضوعات أخرى"
+    one: موضوع أخر
     other: "%{count} موضوع أخر"
-    three_to_ten: "%{count} موضوعات أخرى"
-    two: "موضوعان أخران"
-  overview: "نظرة عامة"
-  pages_with_pictures_and_text: "الصفحات التي تضم صور ونص"
-  pages_with_pictures_or_text: "الصفحات التي تضم صور أو نص"
-  pending_collections_with_count:
-    one: "مجموعة واحدة في الانتظار"
+    two: موضوعان أخران
+  overview: نظرة عامة
+  pages_with_pictures_and_text: الصفحات التي تضم صور ونص
+  pages_with_pictures_or_text: الصفحات التي تضم صور أو نص
+  pending_collections_with_count: 
+    few: "%{count} مجموعات في الانتظار"
+    one: مجموعة واحدة في الانتظار
     other: "%{count} مجموعة في الانتظار"
-    three_to_ten: "%{count} مجموعات في الانتظار"
-    two: "مجموعتان في الإنتظار"
-  pending_members_with_count:
-    one: "عضو واحد في الانتظار"
+    two: مجموعتان في الإنتظار
+  pending_members_with_count: 
+    few: "%{count} أعضاء في الانتظار"
+    one: عضو واحد في الانتظار
     other: "%{count} عضو في الانتظار"
-    three_to_ten: "%{count} أعضاء في الانتظار"
-    two: "عضوين في الانتظار"
-  people_with_count:
-    one: "شخص واحد"
+    two: عضوين في الانتظار
+  people_with_count: 
+    few: "%{count} أشخاص"
+    one: شخص واحد
     other: "%{count} شخص"
-    three_to_ten: "%{count} أشخاص"
     two: شخصان
-  personal_space: "Personal Space"
-  post_comment: "إضافة تعليق"
-  preferences: Preferences
-  preferred_common_name_advisory_information: "هذا هو الأسم الشائع المفضل لتلك الأصنوفة"
-  press_room: "Press Room"
-  print_this_page_link: "طباعة الصفحة"
-  profile: "الصفحة الشخصية"
-  profile_image_alt_text_curator: "الصورة الشخصية للمشرف %{user_given_name} %{user_family_name}"
-  profile_image_alt_text_member: "الصورة الشخصية للعضو %{user_given_name} %{user_family_name}"
+  post_comment: إضافة تعليق
+  preferred_common_name_advisory_information: هذا هو الأسم الشائع المفضل لتلك الأصنوفة
+  print_this_page_link: طباعة الصفحة
+  profile: الصفحة الشخصية
+  profile_image_alt_text_curator: الصورة الشخصية للمشرف %{user_given_name} %{user_family_name}
+  profile_image_alt_text_member: الصورة الشخصية للعضو %{user_given_name} %{user_family_name}
   punctuation_comma: ،
-  rated_by_count_people:
-    one: "from %{count} person"
-    other: "from %{count} people"
-  recent_updates: "تحديثات جديدة"
-  remove_membership: "إلغاء العضوية"
-  resources: Resources
+  recent_updates: تحديثات جديدة
+  remove_membership: إلغاء العضوية
   rights: الحقوق
-  rights_holder: "صاحب حقوق الملكية"
+  rights_holder: صاحب حقوق الملكية
   roles: الأدوار
-  rss_abbr_html: "<abbr title=\"Really Simple Syndication\">RSS</abbr>"
-  search_field_label: "البحث في موسوعة الحياة"
-  search_input_advisory_information: "أدخل الأسماء الشائعة أو العلمية للكائنات الحية التي تود معرفة المزيد عنها، على سبيل المثال، أدخل طماطم."
-  search_placeholder: "البحث في موسوعة الحياة..."
-  search_the_site: "أبحث في الموقع"
-  see_all_classifications_with_count_html:
-    one: "عرض <span class=\"assistive\">التصنيف المعترف بها والذى تظهر به هذه الأصنوفة <span/>"
-    other: "عرض جميع التصنيفات<span class=\"assistive\">%{count} المعترف بها والتي تظهر بها هذه الأصنوفة <span/>"
-    three_to_ten: "عرض جميع التصنيفات<span class=\"assistive\">%{count} المعترف بها والتي تظهر بها هذه الأصنوفة <span/>"
-    two: "عرض <span class=\"assistive\">التصنيفين المعترف بهما والذين تظهر بهما هذه الأصنوفة <span/>"
-  see_all_collections_with_count_html:
-    one: "عرض <span class=\"assistive\">المجموعة التي تظهر بها هذه الأصنوفة.</span>"
-    other: "عرض كل المجموعات <span class=\"assistive\">%{count} التي تظهر بها هذه الأصنوفة .</span>"
-    three_to_ten: "عرض كل المجموعات <span class=\"assistive\">%{count} التي تظهر بها هذه الأصنوفة .</span>"
-    two: "عرض <span class=\"assistive\">المجموعتين التين تظهر بهما هذه الأصنوفة.</span>"
-  see_all_comments_with_count_for_text:
-    one: "see the %{count} comment for this article"
-    other: "see all %{count} comments for this article"
-  see_all_communities_with_count_html:
-    one: "عرض <span class=\"assistive\">المجموعة التي تركز على هذه الأصنوفة.</span>"
-    other: "عرض جميع المجموعات <span class=\"assistive\">%{count} التيتركز على هذه الأصنوفة.</span>"
-    three_to_ten: "عرض جميع المجموعات <span class=\"assistive\">%{count} التيتركز على هذه الأصنوفة.</span>"
-    two: "عرض <span class=\"assistive\">المجموعتين التين تركزان على هذه الأصنوفة.</span>"
-  see_all_media_link: "عرض جميع الوسائط"
-  see_next_with_count:
-    one: "See next %{count}"
-    other: "See next %{count}"
-  see_previous_with_count:
-    one: "See previous %{count}"
-    other: "See previous %{count}"
-  select_topic: "يرجى أختيار مجال موضوع"
-  selected_language_advisory_information: "هذه هي اللغة المختارة حاليًا"
-  set_as_exemplar: "Set as exemplar"
-  show_status_message: "Show status message"
-  show_warning_message: "Show warning message"
-  sign_in: "تسجيل الدخول"
-  sign_out: "تسجيل الخروج"
-  site_information: "معلومات عن الموقع"
-  skip_to_content: "انتقل إلى المحتوي"
-  skip_to_navigation: "Skip to navigation"
-  skip_to_table_of_contents: "Skip to table of contents"
-  sort_by: "Sort by"
-  sort_by_button: Sort
-  sort_by_data_type_option: "Data type"
-  sort_by_default_option: Default
-  sort_by_label: "Sort by"
-  sort_by_newest_option: Newest
-  sort_by_oldest_option: Oldest
-  sort_by_rating_option: Rating
-  sort_by_vetted_option: "Vetted status"
-  sound_thumbnail_alt_text: "هذا التسجيل الصوتي %{vetted_status} خاص بـ %{scientific_name}"
-  sounds_with_count:
-    one: "%{count} Sound"
-    other: "%{count} Sounds"
-  source_information_link: "معلومات المصدر"
-  source_url: "رابط المصدر"
-  supplier: المُورِّد
-  switch_language_advisory_information: "تغيير لغة الموقع إلى %{language_label}"
-  table_of_contents: "Table of Contents"
+  search_field_label: البحث في موسوعة الحياة
+  search_input_advisory_information: أدخل الأسماء الشائعة أو العلمية للكائنات الحية التي تود معرفة المزيد عنها، على سبيل المثال، أدخل طماطم.
+  search_placeholder: البحث في موسوعة الحياة...
+  search_the_site: أبحث في الموقع
+  see_all_classifications_with_count_html: 
+    few: عرض جميع التصنيفات<span class="assistive">%{count} المعترف بها والتي تظهر بها هذه الأصنوفة <span/>
+    one: عرض <span class="assistive">التصنيف المعترف بها والذى تظهر به هذه الأصنوفة <span/>
+    other: عرض جميع التصنيفات<span class="assistive">%{count} المعترف بها والتي تظهر بها هذه الأصنوفة <span/>
+    two: عرض <span class="assistive">التصنيفين المعترف بهما والذين تظهر بهما هذه الأصنوفة <span/>
+  see_all_collections_with_count_html: 
+    few: عرض كل المجموعات <span class="assistive">%{count} التي تظهر بها هذه الأصنوفة .</span>
+    one: عرض <span class="assistive">المجموعة التي تظهر بها هذه الأصنوفة.</span>
+    other: عرض كل المجموعات <span class="assistive">%{count} التي تظهر بها هذه الأصنوفة .</span>
+    two: عرض <span class="assistive">المجموعتين التين تظهر بهما هذه الأصنوفة.</span>
+  see_all_communities_with_count_html: 
+    few: عرض جميع المجموعات <span class="assistive">%{count} التيتركز على هذه الأصنوفة.</span>
+    one: عرض <span class="assistive">المجموعة التي تركز على هذه الأصنوفة.</span>
+    other: عرض جميع المجموعات <span class="assistive">%{count} التيتركز على هذه الأصنوفة.</span>
+    two: عرض <span class="assistive">المجموعتين التين تركزان على هذه الأصنوفة.</span>
+  see_all_media_link: عرض جميع الوسائط
+  select_topic: يرجى أختيار مجال موضوع
+  selected_language_advisory_information: هذه هي اللغة المختارة حاليًا
+  sign_in: تسجيل الدخول
+  sign_out: تسجيل الخروج
+  site_information: معلومات عن الموقع
+  skip_to_content: انتقل إلى المحتوي
+  sound_thumbnail_alt_text: هذا التسجيل الصوتي %{vetted_status} خاص بـ %{scientific_name}
+  source_information_link: معلومات المصدر
+  source_url: رابط المصدر
+  supplier_: المُورِّد
+  switch_language_advisory_information: تغيير لغة الموقع إلى %{language_label}
   taxa: الأصنوفات
-  taxa_with_count:
-    one: "أصنوفة واحدة"
+  taxa_with_count: 
+    few: "%{count} أصنوفات"
+    one: أصنوفة واحدة
     other: "%{count} أصنوفة"
-    three_to_ten: "%{count} أصنوفات"
     two: أصنوفتين
   taxon: أصنوفة
-  text_summary_more_link: "الإطلاع على المشاركة بأكملها"
-  text_with_count:
-    one: "%{count} Article"
-    other: "%{count} Articles"
-  thanks_for_feedback: "شكرًا لآرائكم"
-  the_email_address_is_not_unique_you_must_enter_a_username: "البريد الإلكتروني مستخدم مسبقًا - يجب إدخال أسم المستخدم"
-  there_are_currently_no_members_in_this_community: "لا يوجد حاليًا أي أعضاء بهذا المجتمع"
-  there_are_currently_no_roles_for_this_community: "لا توجد أدوار لهذا المجتمع حاليًا"
+  text_summary_more_link: الإطلاع على المشاركة بأكملها
+  thanks_for_feedback: شكرًا لآرائكم
+  the_email_address_is_not_unique_you_must_enter_a_username: البريد الإلكتروني مستخدم مسبقًا - يجب إدخال أسم المستخدم
+  there_are_currently_no_members_in_this_community: لا يوجد حاليًا أي أعضاء بهذا المجتمع
+  there_are_currently_no_roles_for_this_community: لا توجد أدوار لهذا المجتمع حاليًا
   threat_status_header_colon: "حالة التهديد:"
-  time_ago: "%{time_passed} ago"
-  total_items_with_count:
-    one: "موضوع واحد"
+  total_items_with_count: 
+    few: "%{count} موضوعات"
+    one: موضوع واحد
     other: "%{count} موضوع"
-    three_to_ten: "%{count} موضوعات"
     two: موضوعان
-  trusted: Trusted
-  try_your_request_again: "حاول تنفيذ طلبك مرة أخرى"
-  twitter: Twitter
-  unknown: "غير معروف"
-  unreviewed: Unreviewed
-  updated_community: "تم تحديث المجتمع بنجاح"
+  try_your_request_again: حاول تنفيذ طلبك مرة أخرى
+  unknown: غير معروف
+  updated_community: تم تحديث المجتمع بنجاح
   user_became_role_note: "%{username} أصبح %{role}."
-  user_comment: "تعليق المستخدم"
+  user_comment: تعليق المستخدم
   user_joined_community_note: "%{username} إنضم إلى المجتمع"
   user_left_community_note: "%{username} ترك المجتمع"
-  user_system_down: "عفوًا، نظام تسجيل المستخدم غير متاح حاليًا. يرجى المحاولة لاحقًا."
-  using_the_site: "Using The Site"
-  verification_phrase_did_not_match: "عبارة التعريف التي أدخلتها لم تتطابق"
-  video_thumbnail_alt_text: "مقطع الفيديو هذا %{vetted_status} لـ %{scientific_name}"
-  videos_with_count:
-    one: "مقطع فيديو واحد"
+  user_system_down: عفوًا، نظام تسجيل المستخدم غير متاح حاليًا. يرجى المحاولة لاحقًا.
+  verification_phrase_did_not_match: عبارة التعريف التي أدخلتها لم تتطابق
+  video_thumbnail_alt_text: مقطع الفيديو هذا %{vetted_status} لـ %{scientific_name}
+  videos_with_count: 
+    few: "%{count} مقاطع فيديو"
+    one: مقطع فيديو واحد
     other: "%{count} مقطع فيديو"
-    three_to_ten: "%{count} مقاطع فيديو"
-    two: "مقطعان فيديو"
-  view_only_pages_with_at_least_a_picture_or_piece_of_text: "عرض الصفحات التي تضم صورة أو جزء من نص"
-  what_is_a_taxon: "ما هي الأصنوفة؟"
-  what_is_eol: "ما هي موسوعة الحياة؟"
-  what_is_this_question: "What's this?"
-  wikipedia_article_will_be_harvested_tonight: "ستضاف الليلة المراجعة %{rev} لمقال ويكبيديا %{article}"
-  wikipedia_revisions_must_match_pattern_error: "يجب أن يتوافق العنوان الإلكتروني لنسخة المراجعة مع http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*"
-  you_are_an_admin_so_i_will_show_you_that_the_error_was: "أنت مشرف. لذلك، سأعرض عليك الخطأ"
-  you_are_not_authorized_to_perform_this_action: "أنت غير مخول لتنفيذ تلك الخطوة"
-  you_have_been_a_member_of_this_community_since: "أنت عضو في هذا المجتمع منذ %{since}."
+    two: مقطعان فيديو
+  view_only_pages_with_at_least_a_picture_or_piece_of_text: عرض الصفحات التي تضم صورة أو جزء من نص
+  what_is_a_taxon: ما هي الأصنوفة؟
+  what_is_eol: ما هي موسوعة الحياة؟
+  wikipedia_article_will_be_harvested_tonight: ستضاف الليلة المراجعة %{rev} لمقال ويكبيديا %{article}
+  wikipedia_revisions_must_match_pattern_error: يجب أن يتوافق العنوان الإلكتروني لنسخة المراجعة مع http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
+  you_are_an_admin_so_i_will_show_you_that_the_error_was: أنت مشرف. لذلك، سأعرض عليك الخطأ
+  you_are_not_authorized_to_perform_this_action: أنت غير مخول لتنفيذ تلك الخطوة
+  you_have_been_a_member_of_this_community_since: أنت عضو في هذا المجتمع منذ %{since}.
   you_in_parens: أنت
-  you_joined_community: "لقد إنضممت للمجتمع بنجاح"
-  you_left_community: "لقد غادرت المجتمع بنجاح"
-  you_must_be_logged_in_to_add_tags: "يجب أن تقوم بتسجيل الدخول لإضافة علامات"
-  your_current_rating_0_of_5: "Your current rating: 0 of 5"
-  your_current_rating_1_of_5: "Your current rating: 1 of 5"
-  your_current_rating_2_of_5: "Your current rating: 2 of 5"
-  your_current_rating_3_of_5: "Your current rating: 3 of 5"
-  your_current_rating_4_of_5: "Your current rating: 4 of 5"
-  your_current_rating_5_of_5: "Your current rating: 5 of 5"
-  your_message_was_sent: "تم إرسال الرسالة"
+  you_joined_community: لقد إنضممت للمجتمع بنجاح
+  you_left_community: لقد غادرت المجتمع بنجاح
+  you_must_be_logged_in_to_add_tags: يجب أن تقوم بتسجيل الدخول لإضافة علامات
+  your_message_was_sent: تم إرسال الرسالة
   your_preferences: تفضيلاتك
-  your_rating: "Your rating"

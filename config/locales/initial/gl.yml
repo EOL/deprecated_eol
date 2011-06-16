@@ -1,0 +1,117 @@
+# Messages for Galician (Galego)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Toliño
+gl: 
+  account_information: Información sobre a conta
+  add_a_role: Engadir un rol
+  add_to_my_collection_button: Engadir á miña colección
+  all_pages: Todas as páxinas
+  already_a_member_question: Xa es membro?
+  already_member_of_community: Xa es membro desta comunidade.
+  application_version_advisory_information: Versión da aplicación
+  are_you_sure: Está seguro?
+  browse_gallery: Navega pola nosa galería
+  cannot_be_empty: non pode quedar baleiro.
+  citation: Cita
+  collected_by: Recollido por
+  collection_item_type_with_label: "Tipo: %{type}"
+  collections: Coleccións
+  collections_with_count: 
+    one: "%{count} colección"
+    other: "%{count} coleccións"
+  communities: Comunidades
+  community: Comunidade
+  community_activity: Actividade comunitaria
+  community_roles: Funcións comunitarias
+  contact_us_link: Contacta con nós
+  content_update: Actualización do contido
+  contribute_to_page_button: Colaborar nesta páxina
+  contributors_like_you: Colaboradores coma ti
+  create_a_collection: Crear unha colección
+  create_a_community: Crear unha comunidade
+  created_community: A comunidade creouse correctamente.
+  currently_in_eol: Actualmente na Enciclopedia da vida
+  delete_allcaps: BORRAR
+  delete_community: Borrar esta comunidade
+  detail: Detalles
+  donate: Doazóns
+  edit_collection: Editar a colección
+  edit_community: Editar a comunidade
+  encyclopedia_of_life: Enciclopedia da vida
+  eol_glossary: Glosario da Enciclopedia da vida
+  eol_news: Novas da Enciclopedia da vida
+  explore: Explorar
+  filter_feeds_button: Filtrar
+  filter_feeds_label: Mostrar
+  get_involved: Involúcrate
+  global_navigation: Navegación global
+  go: Ir
+  google_translate: Tradutor do Google
+  help: Axuda
+  images: Imaxes
+  images_with_count: 
+    one: "%{count} imaxe"
+    other: "%{count} imaxes"
+  indexed: Indexado
+  join_community: Únete a esta comunidade
+  join_community_button: Únete a esta comunidade
+  language_menu_item: "%{language_label} <abbr>(%{language_abbr})</abbr>"
+  learn_how_to_interact: Descubre como interactuar
+  learn_how_to_join: Descubre como podes unirte
+  leave_community: Deixar esta comunidade
+  license: Licenza
+  location_: Localización
+  log_in: Rexistro
+  login_or_create_account: Iniciar sesión ou crear unha conta
+  manage_community: Xestionar a comunidade
+  manage_roles: Xestionar os roles
+  maps_with_count: 
+    one: "%{count} mapa"
+    other: "%{count} mapas"
+  members_count_in_parens: 
+    one: (%{count} membro)
+    other: (%{count} membros)
+  minimal_page: Páxina mínima
+  newsfeed: Fonte de novas
+  no_activity: Sen actividade.
+  no_members_in_parens: (sen membros)
+  not_evaluated: Sen avaliar
+  overview: Vista xeral
+  pages_with_pictures_and_text: Páxinas con fotos e texto
+  pages_with_pictures_or_text: Páxinas con imaxes ou texto
+  people_with_count: 
+    one: "%{count} persoa"
+    other: "%{count} persoas"
+  post_comment: Publicar o comentario
+  print_this_page_link: Imprimir esta páxina
+  profile: Perfil
+  punctuation_comma: ","
+  recent_updates: Actualizacións recentes
+  rights: Dereitos
+  roles: Roles
+  search_field_label: Procurar na Enciclopedia da vida
+  search_placeholder: Procurar na Enciclopedia da vida...
+  search_the_site: Procurar no sitio
+  select_topic: Seleccione un tema
+  sign_in: Acceder
+  sign_out: Saír
+  site_information: Información do sitio
+  skip_to_content: Saltar ata os contidos
+  source_information_link: fonte da información
+  source_url: URL de orixe
+  switch_language_advisory_information: Cambiar a lingua do sitio a %{language_label}
+  text_summary_more_link: Ler a entrada ao completo
+  threat_status_header_colon: "Estado do fío:"
+  unknown: Descoñecido
+  user_became_role_note: "%{username} xa é %{role}."
+  user_comment: Comentario de usuario
+  user_left_community_note: "%{username} deixou a comunidade."
+  videos_with_count: 
+    one: "%{count} vídeo"
+    other: "%{count} vídeos"
+  what_is_eol: Que é a Enciclopedia da vida?
+  you_in_parens: (ti)
+  you_must_be_logged_in_to_add_tags: Debe estar rexistrado para engadir etiquetas.
+  your_message_was_sent: Enviouse a súa mensaxe.
+  your_preferences: As túas preferencias

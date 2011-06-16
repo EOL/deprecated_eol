@@ -1,0 +1,237 @@
+# Messages for Tagalog (Tagalog)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: AnakngAraw
+tl: 
+  account_information: Kabatiran sa Akawnt
+  account_registered_but_not_ready_try_later: Nakatala ang akawnt mo ngunit hindi pa handa upang mapuntahan mo. Mangyaring subukan muli sa loob ng limang mga minuto.
+  add_a_role: Magdagdag ng isang gampanin
+  add_to_my_collection_button: Idagdag sa aking kalipunan
+  all_pages: Lahat ng mga pahina
+  already_a_member_question: Isa ka nang kasapi?
+  already_member_of_community: Isa ka nang kasapi sa pamayanang ito.
+  application_version_advisory_information: Bersyon ng aplikasyon
+  are_you_sure: Nakatitiyak ka ba?
+  browse_gallery: Tumingin-tingin sa aming tanghalan
+  cannot_be_associated_with_both_a_user_and_a_community: Hindi maaaring may kaugnayan kapwa sa isang tagagamit at sa isang pamayanan
+  cannot_be_empty: hindi maaaring walang laman.
+  citation: Pagbanggit
+  classifications_summary_header_with_count: 
+    one: Bahagi ng %{count} pinayagang kaurian
+    other: Bahagi ng %{count} pinayagang mga kaurian
+  collected_by: Tinipon ni
+  collection_item_type_with_label: "Uri: %{type}"
+  collections: Mga kalipunan
+  collections_summary_header_with_count: 
+    one: Nasa loob ng %{count} kalipunan
+    other: Nasa loob ng %{count} mga kalipunan
+  collections_with_count: 
+    one: "%{count} Kalipunan"
+    other: "%{count} Mga kalipunan"
+  common_names_advisory_information: Pangkaraniwang mga pangalan na may kaugnayan sa taksong ito.
+  common_names_with_count: 
+    one: "%{count} pangkaraniwang pangalan"
+    other: "%{count} pangkaraniwang mga pangalan"
+  communities: Mga pamayanan
+  communities_summary_header_with_count: 
+    one: Kasama sa %{count} pamayanan
+    other: Kasama sa %{count} mga pamayanan
+  communities_with_count: 
+    one: "%{count} Community"
+    other: "%{count} Mga pamayanan"
+  community: Pamayanan
+  community_activity: Galaw ng Pamayanan
+  community_focus: Tuon ng pamayanan
+  community_members: Mga kasapi sa pamayanan
+  community_roles: Mga Gampanin sa Pamayanan
+  community_watching_this_note: Binabantayan na ng pamayanan ang %{name} na ito.
+  contact_us_link: Makipag-ugnayan sa amin
+  content_partners: Mga Kawaksi sa Nilalaman
+  content_update: Pagsasapanahon ng Nilalaman
+  contribute_to_page_button: Mag-ambag sa pahinang ito
+  contributors_like_you: Mga tagapag-ambag na katulad mo
+  could_not_find_user: Hindi makahanap ng isang kasapi para sa tagagamit na ito
+  create_a_collection: Lumikha ng isang kalipunan
+  create_a_community: Lumikha ng isang pamayanan
+  created_community: Matagumpay na nalikha ang pamayanan.
+  curator_activity: Galaw ng Katiwala
+  curator_comment: Puna ng Katiwala
+  curators_summary_header_with_count: 
+    one: "%{count} Katiwala"
+    other: "%{count} Mga katiwala"
+  currently_in_eol: Pangkasalukuyang nasa Ensiklopedya ng Buhay
+  dato_rating_note: Si %{username} ay nagbigay dito ng isang kaantasang %{rating}.
+  delete_allcaps: BURAHIN
+  delete_community: Burahin ang pamayanang ito
+  detail: Detalye
+  development_version_name: BERSYONG V2 NG PAGPAPAUNLAD - hindi para sa paggamit ng madla
+  donate: Mag-abuloy
+  donation_error_no_amount: Mangyaring pumili ng isang halaga ng abuloy.
+  donation_error_only_numbers: Mangyaring magpasok ng isang halaga na ginagamit lamang ang mga bilang.
+  edit_collection: Baguhin ang kalipunan
+  edit_community: Baguhin ang pamayanan
+  edit_membership: Baguhin ang pagkakasapi
+  encyclopedia_of_life: Ensiklopedya ng Buhay
+  eol_glossary: Glosaryo ng EOL
+  eol_news: Balitang EOL
+  error_page_header: Paumanhin, nakatagpo kami ng isang suliranin
+  explore: Galugarin
+  filter_feeds_all_option: Mga pagsasapanahon magmula sa lahat ng mga pakain
+  filter_feeds_button: Salain
+  filter_feeds_label: Ipakita
+  general_error_occurred: Ipagpaumanhin mo kami dahil naganap ang isang kamalian. Mangyaring gumawa ulit ng isa pang pagtatangka upang maisagawa ang gawain mo. Kapag nagpatuloy ang kamalian, mangyaring magpadala ng isang e-liham sa %{email} kasama ang mensahe ng kamaliang nasa ibaba at anumang iba pang kabatirang nais mong ibahagi sa amin. Nagsusumikap kaming mabigyan ka ng pinakamahusay na paglilingkod na maaari at ikinalulugod namin ang pagtangkilik mo. -- Ang Pangkat ng EOL
+  get_involved: Makilahok
+  global_access_tagline: Pandaigdigang pagpunta sa kaalaman hinggil sa buhay sa Daigdig.
+  global_navigation: Pandaigdigang Paglilibot
+  go: Gawin
+  google_translate: Google Translate
+  google_translate_advisory_information: Gamitin ang widyet ng Google Translate upang baguhin ang nilalaman ng sityo papunta sa ibang wika.
+  has_already_been_taken: ay may nakakuha na.
+  help: Tulong
+  home_page_link_advisory_information: Ang kawing na ito ay magdadala sa iyo papunta sa bahay-pahina ng Pook-sapot ng Ensiklopedya ng Buhay
+  image_thumbnail_alt_text: Ang %{vetted_status} na larawan ay sa %{scientific_name}
+  images: Mga larawan
+  images_with_count: 
+    one: "%{count} larawan"
+    other: "%{count} mga larawan"
+  indexed: Nakataluntunan
+  invalid_login_or_password: Hindi katanggap-tanggap na paglagda o hudyat
+  item_was_added_to_your_recently_collected_items: Ang bagay ay naidagdag sa iyong Kamakailang Natipong mga bagay
+  item_was_added_to_your_watched_items_collection: Idinagdag ang bagay sa iyong kalipunan ng Mga Bagay na Binabantayan
+  iucn_red_list_status_advisory_information: Ang kawing na ito ay magdadala sa iyo sa pook-sapot ng Pandaigdigang Kaisahan para sa Pagpapanatili ng Kalikasan (International Union for Conservation of Nature, IUCN) kung saan ka makakatagpo ng mas marami pang mga kabatiran tungkol sa Pulang Talaan ng Nanganganib na mga Uri ng IUCN (IUCN Red List of Threatened Species).
+  join_community: Sumali sa pamayanang ito
+  join_community_button: Sumali sa pamayanang ito
+  join_community_login_required_advisory: Hihilingin sa iyong lumagda muna bago sumali sa pamayanang ito
+  join_eol_button_html: Sumali na sa <abbr title="Encyclopedia of Life">EOL</abbr> ngayon
+  join_eol_community_html: Maging bahagi ng pamayanan ng <abbr title="Encyclopedia of Life">EOL</abbr>!
+  just_pages_with_pictures_and_text: Tanging iyong mga pahinang may mga larawan at teksto lamang
+  language_menu_item: "%{language_label} <abbr>(%{language_abbr})</abbr>"
+  learn_about_content_partners: Matuto ng hinggil sa aming mga kawaksi sa nilalaman
+  learn_how_to_interact: Matuto kung paano ka makikihalubilo
+  learn_how_to_join: Alamin kung paano ka maaaring sumali
+  leave_community: Lisanin ang pamayanang ito
+  license: Lisensiya
+  link_to_add_role_to_community_to_control_privs: "%{link} upang tabanan ang mga pribilehiyo ng kasapi."
+  link_to_join_this_community: Dapat na <a href='%{link}'>nakalagda ka</a> upang makasali sa pamayanang ito.
+  location_: Kinalalagyan
+  log_in: Lumagdang papasok
+  login_or_create_account: Lumagda o Lumikha ng Akawnt
+  manage_community: Pamahalaan ang pamayanan
+  manage_roles: Pamahalaan ang mga gampanin
+  maps_with_count: 
+    one: "%{count} Mapa"
+    other: "%{count} Mga mapa"
+  media: Midya
+  media_with_count: 
+    one: "%{count} Midya"
+    other: "%{count} Mga midya"
+  members_count_in_parens: 
+    one: (%{count} kasapi)
+    other: (%{count} mga kasapi)
+  members_with_count: 
+    one: "%{count} tagapag-ambag"
+    other: "%{count} mga tagapag-ambag"
+  minimal_page: Pahinang Pangpinakamaliit
+  must_be_associated_with_either_a_user_or_a_community: Kailangang may kaugnayan sa isang tagagamit o kaya sa isang pamayanan
+  must_be_less_than_128_characters_long: dapat na mas mababa kaysa sa 128 mga panitik ang haba.
+  must_be_logged_in: Dapat na nakalagda ka upang maisagawa ang galaw na ito.
+  newsfeed: Pakaing balita
+  no_activity: Walang paggalaw.
+  no_members_in_parens: (walang mga kasapi)
+  not_evaluated: Hindi pa nasusuri
+  other_collection_items_with_count: 
+    one: "%{count} iba pang bagay"
+    other: "%{count} iba pang mga bagay"
+  other_community_items_with_count: 
+    one: "%{count} iba pang bagay"
+    other: "%{count} iba pang mga bagay"
+  overview: Malawakang pananaw
+  pages_with_pictures_and_text: Mga pahinang may mga larawan at teksto
+  pages_with_pictures_or_text: Mga pahinang may mga larawan o teksto
+  pending_collections_with_count: 
+    one: "%{count} naghihintay na kalipunan"
+    other: "%{count} naghihintay na mga kalipunan"
+  pending_members_with_count: 
+    one: "%{count} naghihintay na kasapi"
+    other: "%{count} naghihintay na mga kasapi"
+  people_with_count: 
+    one: "%{count} tao"
+    other: "%{count} mga tao"
+  post_comment: Magpaskil ng Puna
+  preferred_common_name_advisory_information: Ito ang ninanais na pangkaraniwang pangalan para sa takson na ito.
+  print_this_page_link: Ilimbag ang pahinang ito
+  profile: Balangkas
+  profile_image_alt_text_curator: Larawang pambalangkas para sa katiwalang si %{user_given_name} %{user_family_name}
+  profile_image_alt_text_member: Larawang pambalangkas para sa kasaping si %{user_given_name} %{user_family_name}
+  punctuation_comma: ","
+  recent_updates: Kamakailang mga pagsasapanahon
+  remove_membership: Alisin ang pagkakasapi
+  rights: Mga karapatan
+  rights_holder: Tagapaghawak ng mga Karapatan
+  roles: Mga gampanin
+  search_field_label: Hanapin sa EOL
+  search_input_advisory_information: Magpasok ng pangkaraniwan o pang-agham na mga pangalan ng mga organismong nabubuhay na nais mong makaalam ng marami pa, halimbawa subukang ipasok ang kamatis.
+  search_placeholder: Hanapin sa EOL ...
+  search_the_site: Maghanap sa sityo
+  see_all_classifications_with_count_html: 
+    one: Tingnan ang <span class="assistive">%{count} pinayagang kaurian kung saan lumilitaw ang taksong ito.</span>
+    other: Tingnan ang lahat ng <span class="assistive">%{count} pinayagang mga kaurian kung saan lumilitaw ang taksong ito.</span>
+  see_all_collections_with_count_html: 
+    one: Tingnan ang <span class="assistive">%{count} kalipunan kung saan lumilitaw ang taksong ito.</span>
+    other: Tingnan ang lahat ng <span class="assistive">%{count} mga kalipunan kung saan lumilitaw ang taksong ito.</span>
+  see_all_communities_with_count_html: 
+    one: Tingnan ang <span class="assistive">%{count} pamayanang nakatuon sa taksong ito.</span>
+    other: Tingnan ang lahat ng <span class="assistive">%{count} mga pamayanang nakatuon sa taksong ito.</span>
+  see_all_media_link: Tingnan ang lahat ng midya
+  select_topic: Mangyaring pumili ng isang lugar ng paksa
+  selected_language_advisory_information: Ito ang pangkasalukuyang napiling wika.
+  sign_in: Lumagdang papasok
+  sign_out: Umalis sa Pagkalagda
+  site_information: Kabatiran sa sityo
+  skip_to_content: Lumaktaw papunta sa nilalaman
+  sound_thumbnail_alt_text: Ang %{vetted_status} na nairekord na tunog na ito ay sa %{scientific_name}
+  source_information_link: kabatiran ng pinagkunan
+  source_url: Pinagmulang URL
+  supplier_: Tagapagdulot
+  switch_language_advisory_information: Palitan ang wika ng sityo upang maging %{language_label}
+  taxa: Mga takson
+  taxa_with_count: 
+    one: "%{count} takson"
+    other: "%{count} mga takson"
+  taxon: takson
+  text_summary_more_link: Basahin ang buong ipinasok
+  thanks_for_feedback: Salamat sa tugon mo.
+  the_email_address_is_not_unique_you_must_enter_a_username: Ang tirahan ng e-liham ay hindi natatangi - dapat kang magpasok ng isang pangalan ng tagagamit
+  there_are_currently_no_members_in_this_community: Pangkasalukuyang walang mga kasapi sa loob ng pamayanang ito.
+  there_are_currently_no_roles_for_this_community: Pangkasalukuyang walang mga gampanin para sa pamayanang ito.
+  threat_status_header_colon: "Katayuan ng nagbabadyang panganib:"
+  total_items_with_count: 
+    one: "%{count} bagay"
+    other: "%{count} kabuuang mga bagay"
+  try_your_request_again: Subukan ulit ang kahilingan mo
+  unknown: Hindi nalalaman
+  updated_community: Matagumpay na naisapanahon ang pamayanan.
+  user_became_role_note: Si %{username} ay naging isa nang %{role}.
+  user_comment: Puna ng Tagagamit
+  user_joined_community_note: Sumali na si %{username} sa pamayanan.
+  user_left_community_note: Nilisan na ni %{username} ang pamayanan.
+  user_system_down: Humihingi kami ng paumanhin, sapagkat ang sistema ng pagpapatala ng tagagamit ay pangkasalukuyang hindi makukuha. Mangyaring subukan ulit mamaya.
+  verification_phrase_did_not_match: Hindi nagtugma ang ipinasok mong parirala ng pagpapatunay.
+  video_thumbnail_alt_text: Ang %{vetted_status} na bidyo ay sa %{scientific_name}
+  videos_with_count: 
+    one: "%{count} bidyo"
+    other: "%{count} mga bidyo"
+  view_only_pages_with_at_least_a_picture_or_piece_of_text: Tingnan lamang ang mga pahinang may kahit na isang larawan o piraso ng teksto
+  what_is_a_taxon: Ano ba ang isang takson?
+  what_is_eol: Ano ba ang EOL?
+  wikipedia_article_will_be_harvested_tonight: Ang artikulo ng Wikipedia na %{article} na may rebisyong %{rev} ang aanihin ngayon gabi
+  wikipedia_revisions_must_match_pattern_error: Ang URL ng rebisyon ay dapat na tumugma sa http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
+  you_are_an_admin_so_i_will_show_you_that_the_error_was: "Isa kang tagapangasiwa. Kaya, ipapakita ko sa iyo na ang kamalian ay ang:"
+  you_are_not_authorized_to_perform_this_action: Wala kang pahintulot na isagawa ang galaw na ito.
+  you_have_been_a_member_of_this_community_since: Isa kang kasapi ng pamayanang ito magmula pa noong %{since}.
+  you_in_parens: (ikaw)
+  you_joined_community: Matagumpay kang nakasali sa pamayanang ito.
+  you_left_community: Matagumpay mong nalisan ang pamayanang ito.
+  you_must_be_logged_in_to_add_tags: Dapat na nakalagda ka upang makapagdagdag ng mga tatak.
+  your_message_was_sent: Naipadala na ang mensahe mo.
+  your_preferences: Mga Nais Mo

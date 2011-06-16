@@ -1,0 +1,237 @@
+# Messages for German (Deutsch)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Kghbln
+de: 
+  account_information: Nutzerkontoinformationen
+  account_registered_but_not_ready_try_later: Ihr Konto ist registriert aber noch nicht zum Nutzen bereit. Bitte versuchen Sie es erneut in fünf Minuten.
+  add_a_role: Eine Nutzergruppe hinzufügen
+  add_to_my_collection_button: Zu meiner Sammlung hinzufügen
+  all_pages: Alle Seiten
+  already_a_member_question: Sind Sie bereits Mitglied?
+  already_member_of_community: Sie sind bereits Mitglied dieser Gemeinschaft.
+  application_version_advisory_information: Programmversion
+  are_you_sure: Sind Sie sicher?
+  browse_gallery: Durchsuchen Sie unsere Galerie
+  cannot_be_associated_with_both_a_user_and_a_community: Konnte weder einem Nutzer noch einer Gemeinschaft zugeordnet werden.
+  cannot_be_empty: darf nicht leer sein.
+  citation: Zitierung
+  classifications_summary_header_with_count: 
+    one: Teil einer genehmigten Klassifikation
+    other: Teil von %{count} genehmigten Klassifikationen
+  collected_by: Zusammengestellt von
+  collection_item_type_with_label: "Typ: %{type}"
+  collections: Sammlungen
+  collections_summary_header_with_count: 
+    one: Bestandteil einer Sammlung
+    other: Bestandteil von %{count} Sammlungen
+  collections_with_count: 
+    one: "%{count} Sammlung"
+    other: "%{count} Sammlungen"
+  common_names_advisory_information: Diesem Taxon zugeordnete gebräuchliche Namen.
+  common_names_with_count: 
+    one: "%{count} gebräuchliche Bezeichnung"
+    other: "%{count} gebräuchliche Bezeichnungen"
+  communities: Gemeinschaften
+  communities_summary_header_with_count: 
+    one: Gehört zu %{count} Gemeinschaft
+    other: Gehört zu %{count} Gemeinschaften
+  communities_with_count: 
+    one: "%{count} Gemeinschaft"
+    other: "%{count} Gemeinschaften"
+  community: Gemeinschaft
+  community_activity: Aktivität der Gemeinschaft
+  community_focus: Schwerpunkt der Gemeinschaft
+  community_members: Mitglieder der Gemeinschaft
+  community_roles: Nutzergruppen
+  community_watching_this_note: Die Gemeinschaft betrachtet gerade diese %{name}.
+  contact_us_link: Kontaktieren Sie uns
+  content_partners: Partner bezüglich Inhalten
+  content_update: Inhaltsaktualisierung
+  contribute_to_page_button: Diese Seite bearbeiten
+  contributors_like_you: Mitwirkende wie Sie
+  could_not_find_user: Zu diesem Nutzer konnte keine Mitgliedschaft in einer Gemeinschaft gefunden werden.
+  create_a_collection: Eine Sammlung erstellen
+  create_a_community: Eine Gemeinschaft erstellen
+  created_community: Der Kommentar wurde erfolgreich erstellt.
+  curator_activity: Aktivität des Kurators
+  curator_comment: Kommentar des Kurators
+  curators_summary_header_with_count: 
+    one: "%{count} Kurator"
+    other: "%{count} Kuratoren"
+  currently_in_eol: Derzeit in der Enzyklopädie des Lebens verzeichnet.
+  dato_rating_note: "%{username} vergab die Bewertung %{rating}."
+  delete_allcaps: LÖSCHEN
+  delete_community: Diese Gemeinschaft löschen
+  detail: Einzelheiten
+  development_version_name: V2-ENTWICKLUNGSVERSION - nicht zur Nutzung durch die Öffentlichkeit bestimmt.
+  donate: Spenden
+  donation_error_no_amount: Bitte einen Spendenbetrag auswählen
+  donation_error_only_numbers: Bitte geben Sie eine Menge nur mit Hilfe von Ziffern an.
+  edit_collection: Sammlung bearbeiten
+  edit_community: Gemeinschaft bearbeiten
+  edit_membership: Mitgliedschaft bearbeiten
+  encyclopedia_of_life: Enzyklopädie des Lebens
+  eol_glossary: EOL-Glossar
+  eol_news: Neuigkeiten von EOL
+  error_page_header: Es ist leider ein Problem aufgetreten.
+  explore: Entdecken
+  filter_feeds_all_option: Aktualisierungen aller RSS-Feeds
+  filter_feeds_button: Filtern
+  filter_feeds_label: Anzeigen
+  general_error_occurred: Es ist ein Fehler aufgetreten, was uns leid tut. Bitte versuchen Sie noch einmal, die von Ihnen gewünscht Aktion auszuführen. Sofern der Fehler weiterhin auftritt, bitten wir Sie uns hierzu, zusammen mit der unten angegebenen Fehlermeldung und möglichen weiteren Informationen von Ihnen, eine E-Mail an %{email} zu senden. Wir arbeiten intensiv dran, Ihnen den bestmöglichen Dienst zu bieten und schätzen sehr Ihre Unterstützung dabei. -- Das EOL-Team
+  get_involved: Beteiligen Sie sich
+  global_access_tagline: Globaler Zugang zum Wissen über das Leben auf der Erde.
+  global_navigation: Globale Navigation
+  go: Los
+  google_translate: „Google übersetzer“
+  google_translate_advisory_information: Verwenden Sie das „Google übersetzer“-Widget, um den Inhalt dieser Seite in eine andere Sprache zu übertragen.
+  has_already_been_taken: ist bereits vergeben.
+  help: Hilfe
+  home_page_link_advisory_information: Dieser Link führt zur Hauptseite der Enzyklopädie des Lebens.
+  image_thumbnail_alt_text: Dieses Bild im Status %{vetted_status} gehört zu %{scientific_name}
+  images: Bilder
+  images_with_count: 
+    one: "%{count} Bild"
+    other: "%{count} Bilder"
+  indexed: Indiziert
+  invalid_login_or_password: Benutzername oder Passwort inkorrekt.
+  item_was_added_to_your_recently_collected_items: Dieses Element wurde Ihren kürzlich gesammelten Elementen hinzugefügt.
+  item_was_added_to_your_watched_items_collection: Das Element wurde Ihrer Sammlung beobachteter Elemente hinzugefügt.
+  iucn_red_list_status_advisory_information: Dieser Link führt zur Website der International Union for Conservation of Nature and Natural Resources (IUCN) auf der Sie weitere Informationen zur Roten Liste bedrohter Arten der IUCN finden können.
+  join_community: Dieser Gemeinschaft beitreten
+  join_community_button: Dieser Gemeinschaft beitreten
+  join_community_login_required_advisory: Vor dem Beitritt zu dieser Gemeinschaft werden Sie gebeten werden, sich anzumelden.
+  join_eol_button_html: Registrieren Sie sich jetzt bei <abbr title="Encyclopedia of Life">EOL</abbr>
+  join_eol_community_html: Werden Sie Mitglied der <abbr title="Encyclopedia of Life">EOL</abbr>-Gemeinschaft.
+  just_pages_with_pictures_and_text: Nur Seiten mit Bildern und Text
+  language_menu_item: "%{language_label} <abbr>(%{language_abbr})</abbr>"
+  learn_about_content_partners: Erfahren Sie mir über unsere Partner für Inhalte
+  learn_how_to_interact: Erfahren Sie, was Sie alles machen können
+  learn_how_to_join: Erfahren Sie, wie Sie teilnehmen können
+  leave_community: Diese Gemeinschaft verlassen
+  license: Lizenz
+  link_to_add_role_to_community_to_control_privs: "%{link} zum Steuern der Berechtigungen von Mitgliedern."
+  link_to_join_this_community: Sie müssen <a href='%{link}'>angemeldet sein</a>, um dieser Gemeinschaft beitreten zu können.
+  location_: Standort
+  log_in: Anmelden
+  login_or_create_account: Anmelden oder Nutzerkonto erstellen
+  manage_community: Gemeinschaft verwalten
+  manage_roles: Nutzergruppen verwalten
+  maps_with_count: 
+    one: "%{count} Karte"
+    other: "%{count} Karten"
+  media: Medien
+  media_with_count: 
+    one: "%{count} Medium"
+    other: "%{count} Medien"
+  members_count_in_parens: 
+    one: (%{count} Mitglied)
+    other: (%{count} Mitglieder)
+  members_with_count: 
+    one: "%{count} Mitwirkender"
+    other: "%{count} Mitwirkende"
+  minimal_page: Minimale Seite
+  must_be_associated_with_either_a_user_or_a_community: Muss entweder einem Nutzer oder einer Gemeinschaft zugeordnet sein.
+  must_be_less_than_128_characters_long: muss weniger als 128 Zeichen lang sein.
+  must_be_logged_in: Um diese Aktion ausführen zu können, muss man angemeldet sein.
+  newsfeed: Neuigkeitenfeed
+  no_activity: Keine Aktivität.
+  no_members_in_parens: (keine Mitglieder)
+  not_evaluated: Nicht bewertet
+  other_collection_items_with_count: 
+    one: "%{count} weiteres Element"
+    other: "%{count} weitere Elemente"
+  other_community_items_with_count: 
+    one: "%{count} weiterer Artikel"
+    other: "%{count} weitere Artikel"
+  overview: Übersicht
+  pages_with_pictures_and_text: Seiten mit Bildern und Text
+  pages_with_pictures_or_text: Seiten mit Bildern oder Text
+  pending_collections_with_count: 
+    one: "%{count} wartende Sammlung"
+    other: "%{count} wartende Sammlungen"
+  pending_members_with_count: 
+    one: "%{count} wartendes Mitglied"
+    other: "%{count} wartende Mitglieder"
+  people_with_count: 
+    one: "%{count} Person"
+    other: "%{count} Personen"
+  post_comment: Kommentieren
+  preferred_common_name_advisory_information: Dies ist die bevorzugte gebräuchliche Bezeichnung für dieses Taxon.
+  print_this_page_link: Diese Seite drucken
+  profile: Profil
+  profile_image_alt_text_curator: Profilbild für den Kurator %{user_given_name} %{user_family_name}
+  profile_image_alt_text_member: Profilbild für das Mitglied %{user_given_name} %{user_family_name}
+  punctuation_comma: ","
+  recent_updates: Letzte Aktualisierungen
+  remove_membership: Gemeinschaftszugehörigkeit beenden
+  rights: Berechtigungen
+  rights_holder: Rechteinhaber
+  roles: Nutzergruppen
+  search_field_label: EOL durchsuchen
+  search_input_advisory_information: Eine gebräuchliche oder wissenschaftliche Bezeichnung für die lebenden Organismen angeben, zu denen Sie mehr in Erfahrung bringen möchten. Versuchen Sie es bspw. mit Tomate.
+  search_placeholder: EOL durchsuchen …
+  search_the_site: Website durchsuchen
+  see_all_classifications_with_count_html: 
+    one: <span class="assistive">Die genehmigte Klassifikation ansehen, in der dieses Taxon vorkommt.</span>
+    other: <span class="assistive">Alle %{count} genehmigten Klassifikationen ansehen, in denen dieses Taxon vorkommt.</span>
+  see_all_collections_with_count_html: 
+    one: <span class="assistive">Die Sammlung ansehen, in der dieses Taxon vorkommt.</span>
+    other: <span class="assistive">Alle %{count} Sammlungen ansehen, in denen dieses Taxon vorkommt.</span>
+  see_all_communities_with_count_html: 
+    one: <span class="assistive">Die Gemeinschaft ansehen, die ihren Schwerpunkt auf diesem Taxon hat.</span>
+    other: <span class="assistive">Die %{count} Gemeinschaften ansehen, die ihren Schwerpunkt auf diesem Taxon haben.</span>
+  see_all_media_link: Alle Medien ansehen
+  select_topic: Wählen Sie ein Thema
+  selected_language_advisory_information: Dies ist die derzeit ausgewählten Sprache.
+  sign_in: Anmelden
+  sign_out: Abmelden
+  site_information: Informationen zur Website
+  skip_to_content: Zum Inhalt
+  sound_thumbnail_alt_text: Diese Tonaufnahme im Status %{vetted_status} gehört zu %{scientific_name}
+  source_information_link: Informationen zur Quelle
+  source_url: Quell-URL
+  supplier_: Datenlieferant
+  switch_language_advisory_information: Sprache der Website zu %{language_label} umschalten
+  taxa: Taxa
+  taxa_with_count: 
+    one: "%{count} Taxon"
+    other: "%{count} Taxa"
+  taxon: Taxon
+  text_summary_more_link: Den vollständige Eintrag lesen
+  thanks_for_feedback: Vielen Dank für Ihren Beitrag.
+  the_email_address_is_not_unique_you_must_enter_a_username: Die E-Mail-Adresse ist nicht einmalig. Sie müssen einen Nutzernamen eingeben.
+  there_are_currently_no_members_in_this_community: Diese Gemeinschaft hat momentan keine Mitglieder.
+  there_are_currently_no_roles_for_this_community: Für diese Gemeinschaft gibt es momentan keine Nutzergruppen.
+  threat_status_header_colon: "Bedrohungsstatus:"
+  total_items_with_count: 
+    one: "%{count} Element"
+    other: "%{count} Elemente insgesamt"
+  try_your_request_again: Wiederholen Sie bitte Ihre Anfrage.
+  unknown: Unbekannt
+  updated_community: Die Gemeinschaft wurde erfolgreich aktualisiert.
+  user_became_role_note: "%{username} wurde %{role}."
+  user_comment: Nutzerkommentar
+  user_joined_community_note: "%{username} ist der Gemeinschaft beigetreten."
+  user_left_community_note: "%{username} hat die Gemeinschaft verlassen."
+  user_system_down: Das Nutzerregistrierungssystem ist momentan nicht verfügbar. Bitte versuchen Sie es später erneut.
+  verification_phrase_did_not_match: Die Zeichen, die Sie zur Bestätigung eingegeben haben, stimmen nicht überein
+  video_thumbnail_alt_text: Dieses Video im Status %{vetted_status} gehört zu %{scientific_name}
+  videos_with_count: 
+    one: "%{count} Video"
+    other: "%{count} Videos"
+  view_only_pages_with_at_least_a_picture_or_piece_of_text: Nur Seiten mit mindestens einem Bild oder Text anzeigen.
+  what_is_a_taxon: Was ist ein Taxon?
+  what_is_eol: Was ist EOL?
+  wikipedia_article_will_be_harvested_tonight: Der Wikipediaartikel %{article} in Version %{rev} wird heute Nacht abgefragt.
+  wikipedia_revisions_must_match_pattern_error: Die URL zur Version muss mit http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID* übereinstimmen.
+  you_are_an_admin_so_i_will_show_you_that_the_error_was: "Sie sind Administrator. Der Fehler bestand darin:"
+  you_are_not_authorized_to_perform_this_action: Sie sind nicht berechtigt, diese Aktion durchzuführen.
+  you_have_been_a_member_of_this_community_since: Du bist seit %{since} Mitglied dieser Gemeinschaft.
+  you_in_parens: (Sie)
+  you_joined_community: Sie sind dieser Gemeinschaft erfolgreich beigetreten.
+  you_left_community: Sie haben diese Gemeinschaft erfolgreich verlassen.
+  you_must_be_logged_in_to_add_tags: Sie müssen angemeldet sein, um Schlagworte hinzufügen zu können.
+  your_message_was_sent: Ihre Nachricht wurde gesendet.
+  your_preferences: Ihre Einstellungen

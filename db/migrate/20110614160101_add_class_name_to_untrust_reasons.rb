@@ -2,9 +2,9 @@ class AddClassNameToUntrustReasons < ActiveRecord::Migration
   def self.up
     add_column :untrust_reasons, :class_name, :string, :limit => 32
     TranslatedUntrustReason.all.each do |tur|
-      ur = tur.untrust_reason
-      ur.class_name = tur.label.downcase
-      ur.save!
+      # Doing this to the DB because I was getting a frozen hash when attempting this on the test_master DB:
+      UntrustReason.connection.execute("UPDATE untrust_reasons SET class_name = '#{tur.label.downcase}' WHERE id =
+                                       #{tur.untrust_reason_id}")
     end
     # Technically, this only needs to go through English, but I don't mind:
     TranslatedUntrustReason.all.each do |tur|

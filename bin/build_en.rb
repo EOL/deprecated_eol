@@ -19,7 +19,9 @@ def create_initial_file(lang, list, master = {})
     elsif @bad_keys.include? k
       # Do nothing... we know we want to avoid this one.
     else
-      if master.has_key? k
+      if master == "DONT"
+        # Do nothing... we don't care about missing keys for some files (qqq, for example)
+      elsif master.has_key? k
         puts "** WARNING: No #{lang} key found for '#{k}'.  Faking it."
         new_hash[lang][k] = master[k]
       else
@@ -168,4 +170,6 @@ list << "license_public_domain"
 en_master = create_initial_file('en', list)
 
 create_initial_file('ar', list, en_master)
+
+create_initial_file('qqq', list, "DONT")
 

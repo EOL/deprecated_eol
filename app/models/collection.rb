@@ -3,8 +3,10 @@ class Collection < ActiveRecord::Base
   belongs_to :user
   belongs_to :community # These are focus lists
 
+  has_many :collection_endorsements
   has_many :collection_items
   alias :items :collection_items
+  has_many :communities, :through => CollectionEndorsement # NOTE: be sure to check each for actually being endorsed!
 
   # TODO = you can have collections that point to collections, so there SHOULD be a has_many relationship here to all of the
   # collection items that contain this collection.  ...I don't know if we need that yet, but it would normally be named
@@ -77,6 +79,21 @@ class Collection < ActiveRecord::Base
     collection_items.collect{|ci| ci if ci.object_type == 'TaxonConcept'}
   end
 
+  def pending_communities
+    collection_endorsements.select {|c| c.pending? }.map {|c| c.community }
+  end
+
+  def endorsing_communities
+    collection_endorsements.select {|c| c.endorsed? }.map {|c| c.community }
+  end
+
+  def request_endorsement_from_community(comm)
+    ce = CollectionEndorsement.new
+    ce.collection_id = id
+    ce.community_id = comm.id
+    ce.save!
+    ce
+  end
 
 private
 

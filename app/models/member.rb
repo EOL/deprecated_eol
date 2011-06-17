@@ -9,6 +9,7 @@ class Member < ActiveRecord::Base
   belongs_to :community
   belongs_to :user
 
+  has_many :endorsed_collections # Collections this member has personally endorsed for the community
   has_many :member_privileges
 
   has_and_belongs_to_many :roles
@@ -24,7 +25,7 @@ class Member < ActiveRecord::Base
     return unless feeds_exist
     return unless FeedItem.table_exists?
     if user.respond_to?(:username) && community
-      community.feed.post(I18n.t("user_became_role_note", :username => user.username, :role => role.title), :feed_item_type_id => FeedItemType.content_update.id, :user_id => user.id)
+      community.feed.post(I18n.t(:user_became_role_note, :username => user.username, :role => role.title), :feed_item_type_id => FeedItemType.content_update.id, :user_id => user.id)
     end
     self.roles
   end

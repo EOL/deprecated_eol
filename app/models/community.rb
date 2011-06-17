@@ -5,10 +5,11 @@ class Community < ActiveRecord::Base
   has_one :collection #TODO - didn't work? , :as => :focus
   alias :focus :collection
 
-  has_many :collections # A bit confusing, this, but the singular is aliased.
   has_many :members
   has_many :roles
   has_many :collection_items, :as => :object
+  has_many :collection_endorsements
+  has_many :collections, :through => CollectionEndorsement # NOTE: be sure to check each for actually being endorsed!
 
   after_create :attatch_focus
 
@@ -57,7 +58,9 @@ class Community < ActiveRecord::Base
   # Adds the default roles, auto-joins the user to the community, and makes that person the owner.
   def initialize_as_created_by(user)
     new_roles = Role.add_defaults_to_community(self)
-    user.join_community(self).add_role(new_roles.first)
+    mem = user.join_community(self)
+    mem.add_role(new_roles.first)
+    mem
   end
 
   def special?
@@ -98,13 +101,16 @@ class Community < ActiveRecord::Base
   end
 
   def founder
-    # FIXME: This is just getting the first member not the founder (can we get founder from feed - who created this community?).
+    # FIXME: This is just getting the first member not the founder (can we get founder from feed - who created this community?).  JRice:  We could actually store this in the DB as a user_id... of course, if that user leaves, they will still be given credit, and that might be bad.  Hmmmn.  Not sure.
     members[0]
   end
 
+  def pending_collections
+    collection_endorsements.select {|c| c.pending? }.map {|c| c.collection }
+  end
+
   def endorsed_collections
-    # FIXME: This just using the community focus collection it should be endorsed collections
-    [focus, Collection.last]
+    collection_endorsements.select {|c| c.endorsed? }.map {|c| c.collection }
   end
 
 private

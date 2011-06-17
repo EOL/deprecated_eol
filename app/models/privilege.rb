@@ -1,3 +1,8 @@
+# Privileges are our sytem for Access Control across the site, but most specifically within communities.
+#
+# As of this writing, the ability for privileges to be individually assigned to members is actually NOT planned for
+# V2, but when asked if we should proceed with them, I (JRice) was told "yes", so I'm keeping them.  That said, for
+# the moment, either you are an admin and have privileges, or you aren't and don't.  :)
 require 'core_extensions' # Oddly, these aren't loaded in time for tests, and they are needed here for ACLs.
 class Privilege < ActiveRecord::Base
 

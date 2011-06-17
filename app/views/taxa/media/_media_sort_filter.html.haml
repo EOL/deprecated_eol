@@ -4,10 +4,9 @@
       %dt
         %label{:for => 'sort_by'}= I18n.t(:sort_by)
       %dd
-        - selected = params[:sort_by].nil? ? :default : params[:sort_by].to_sym
         - sort_options = {}
-        - [:default, :newest, :rating, :vetted, :data_type].each{|opt| sort_options[I18n.t("sort_by_#{opt}_option")] = opt }
-        = select_tag :sort_by, options_for_select(sort_options, selected)
+        - [:vetted, :ranking, :newest].each{|opt| sort_options[I18n.t("sort_by_#{opt}_option")] = opt }
+        = select_tag :sort_by, options_for_select(sort_options, @sort_by.to_sym)
 
   %fieldset
     %dl
@@ -15,26 +14,12 @@
         %label= I18n.t(:filter_by_type)
       %dd
         %ul
-          %li
-            %label
-              %input{ :type=>"checkbox", :name=>"filter_by_type_all", :checked=>@filter_by_type_all }
-              = I18n.t("filter_by_type_all_option")
-          %li
-            %label
-              %input{ :type=>"checkbox", :name=>"filter_by_type_image", :checked=>@filter_by_type_image }
-              = I18n.t("filter_by_type_images_option")
-          %li
-            %label
-              %input{ :type=>"checkbox", :name=>"filter_by_type_video", :checked=>@filter_by_type_video }
-              = I18n.t("filter_by_type_videos_option")
-          %li
-            %label
-              %input{ :type=>"checkbox", :name=>"filter_by_type_audio", :checked=>@filter_by_type_audio }
-              = I18n.t("filter_by_type_audio_option")
-          %li
-            %label
-              %input{ :type=>"checkbox", :name=>"filter_by_type_photosynth", :checked=>@filter_by_type_photosynth }
-              = I18n.t("filter_by_type_photosynths_option")
+          - [:all, :image, :video, :sound, :photosynth].each do |opt|
+            %li
+              %label
+                = check_box_tag "type[]", opt, @params_type.include?(opt.to_s),
+                  { :name => "type[]", :id => "type_#{opt.to_s}"}
+                = I18n.t("filter_by_type_#{opt}_option")
 
   - if current_user.is_curator?
     %fieldset
@@ -43,25 +28,12 @@
           %label= I18n.t(:filter_by_status)
         %dd
           %ul
-            %li
-              %label
-                %input{ :type=>"checkbox", :name=>"filter_by_status_all", :checked=>@filter_by_status_all }
-                = I18n.t("filter_by_status_all_option")
-            %li
-              %label
-                %input{ :type=>"checkbox", :name=>"filter_by_status_trusted", :checked=>@filter_by_status_trusted }
-                = I18n.t("filter_by_status_trusted_option")
-            %li
-              %label
-                %input{ :type=>"checkbox", :name=>"filter_by_status_unreviewed", :checked=>@filter_by_status_unreviewed }
-                = I18n.t("filter_by_status_unreviewed_option")
-            %li
-              %label
-                %input{ :type=>"checkbox", :name=>"filter_by_status_untrusted", :checked=>@filter_by_status_untrusted }
-                = I18n.t("filter_by_status_untrusted_option")
-            %li
-              %label
-                %input{ :type=>"checkbox", :name=>"filter_by_status_inappropriate", :checked=>@filter_by_status_inappropriate }
-                = I18n.t("filter_by_status_inappropriate_option")
+            - [:all, :trusted, :unknown, :untrusted, :inappropriate].each do |opt|
+              %li
+                %label
+                  = check_box_tag "status[]", opt, @params_status.include?(opt.to_s),
+                    { :name => "status[]", :id => "status_#{opt.to_s}" }
+                  = I18n.t("filter_by_status_#{opt}_option")
+
   %fieldset.actions
     = submit_tag I18n.t(:filter_media)

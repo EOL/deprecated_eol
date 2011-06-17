@@ -14,11 +14,16 @@ data[:canonical_form] = 'Copious picturesqus'
 data[:common_name]    = 'Snappy'
 images = []
 videos = []
-50.times { images << {} } # TODO -random ratings
-20.times { videos << {} }
+
+20.times { images << { :data_rating => 1 + rand(5) } }
+20.times { images << { :data_rating => 1 + rand(5), :vetted => Vetted.unknown } }
+20.times { videos << { :data_rating => 1 + rand(5) } }
+images << { :source_url => 'http://photosynth.net/blah/blah/blah' }
+images << { :data_rating => 0, :vetted => Vetted.unknown }
+images << { :data_rating => 5, :vetted => Vetted.unknown }
+
 data[:taxon_concept] = build_taxon_concept(:canonical_form => data[:canonical_form], :common_name => data[:common_name],
                                            :images => images, :videos => videos)
-
 data[:taxon_concept_id] = data[:taxon_concept].id
 
 EOL::TestInfo.save('media_heavy', data)

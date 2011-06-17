@@ -27,7 +27,8 @@ class Taxa::OverviewsController < TaxaController
     options = { :limit => 1 }
     @summary_text = @taxon_concept.text_objects_for_toc_items(toc_items, options)
 
-    @media = @taxon_concept.media
+    @media = promote_exemplar(@taxon_concept.media)
+
     @feed_item = FeedItem.new(:feed_id => @taxon_concept.id, :feed_type => @taxon_concept.class.name)
 
     @assistive_section_header = I18n.t(:assistive_overview_header)

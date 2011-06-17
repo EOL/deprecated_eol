@@ -13,13 +13,16 @@ describe Taxa::MediaController do
     @taxon_concept = @data[:taxon_concept]
     @first_image = @taxon_concept.images.first
     @first_video = @taxon_concept.videos.first
+    @poorly_ranked_image = DataObject.find_by_data_rating_and_vetted_id(0, Vetted.unknown.id)
+    @highly_rated_unreviewed_image = DataObject.find_by_data_rating_and_vetted_id(5, Vetted.unknown.id)
   end
-  
-  describe '#set_as_exemplar' do
+
+  describe 'PUT set_as_exemplar' do
     it 'should set an image as exemplar' do
-      @taxon_concept.get_exemplar_image.should_not == @first_image.id
-      put :set_as_exemplar, :taxon_concept_id => @taxon_concept.id, :data_object_id => @first_image.id
-      @taxon_concept.get_exemplar_image.should == @first_image.id
+      @taxon_concept.taxon_concept_exemplar_image.should be_nil
+      put :set_as_exemplar, :taxon_id => @taxon_concept.id, :data_object_id => @first_image.id
+      @taxon_concept.reload
+      @taxon_concept.taxon_concept_exemplar_image.data_object_id.should == @first_image.id
     end
   end
 
@@ -29,66 +32,85 @@ describe Taxa::MediaController do
       media_do_show
       assigns[:taxon_concept].should be_a(TaxonConcept)
     end
+
     it 'should instantiate an Array of DataObjects' do
       media_do_show
       assigns[:media].should be_a(Array)
       assigns[:media].first.should be_a(DataObject)
     end
+
     it 'should include images in the instantiated Array of DataObjects' do
+      @first_image.should_not be_nil
       media_do_show
       assigns[:media].include?(@first_image).should be_true
     end
 
-    it 'should include videos in the instantiated Array of DataObjects (sorting needs to be reviewed)' # do
-     #      media_do_show
-     #      assigns[:media].include?(@first_video).should be_true
-     #    end
+    it 'should include videos in the instantiated Array of DataObjects' do
+      @first_video.should_not be_nil
+      media_do_show
+      assigns[:media].include?(@first_video).should be_true
+    end
+
     it 'should include sounds in the instantiated Array of DataObjects'
+
     it 'should paginate instantiated Array of DataObjects' do
       media_do_show
       assigns[:media].should be_a(WillPaginate::Collection)
     end
-    
-    it 'should filter by type:images and status:trusted (sorting needs to be reviewed)' # do
-    #   media_do_show
-    #   orig_length = assigns[:media].length
-    #   filter_by_type = {}
-    #   filter_by_type["image"] = true
-    #   filter_by_status = {}
-    #   filter_by_status["trusted"]      
-    #   filtered_data = DataObject.custom_filter(assigns[:media], filter_by_type, filter_by_status)
-    #   filtered_data.first.data_type_id.should == DataType.image.id
-    #   filtered_data.last.data_type_id.should == DataType.image.id
-    #   filtered_data.first.vetted_id.should == Vetted.trusted.id
-    #   filtered_data.last.vetted_id.should == Vetted.trusted.id
-    #   filtered_data.length.should < orig_length
-    #   #pp filtered_data
-    # end
 
-    it 'should filter by type:videos (sorting needs to be reviewed)' # do
-    #   media_do_show
-    #   orig_length = assigns[:media].length
-    #   filter_by_type = {}
-    #   filter_by_type["video"] = true
-    #   filtered_data = DataObject.custom_filter(assigns[:media], filter_by_type, {})
-    #   [DataType.video.id, DataType.youtube.id, DataType.flash.id].include?(filtered_data.first.data_type_id).should be_true
-    #   [DataType.video.id, DataType.youtube.id, DataType.flash.id].include?(filtered_data.last.data_type_id).should be_true
-    #   filtered_data.length.should < orig_length
-    #   #pp filtered_data
-    # end
-
-    it 'should sort media by rating' do
-      media_do_show
-      sorted_data = DataObject.custom_sort(assigns[:media], "rating")
-      sorted_data.first.data_rating.should >= sorted_data.last.data_rating
+    it 'should sort media by ranking' do
+      @poorly_ranked_image.should_not be_nil
+      get :show, :taxon_id => @taxon_concept.id, :sort_by => 'ranking'
+      assigns[:media].first.data_rating.should == 5
+      assigns[:media].include?(@poorly_ranked_image).should be_false
     end
-    
+
     it 'should sort media by newest' do
+      @poorly_ranked_image.should_not be_nil
       media_do_show
-      sorted_data = DataObject.custom_sort(assigns[:media], "newest")
-      sorted_data.first.id.should >= sorted_data.last.id
-    end    
-    
+      assigns[:media].include?(@poorly_ranked_image).should be_false
+      get :show, :taxon_id => @taxon_concept.id, :sort_by => 'newest'
+      assigns[:media].include?(@poorly_ranked_image).should be_true
+    end
+
+    it 'should sort media by status' do
+      @highly_rated_unreviewed_image.should_not be_nil
+      trusted_count = DataObject.find_all_by_vetted_id(Vetted.trusted.id).count
+      trusted_count.should be_a(Fixnum)
+      get :show, :taxon_id => @taxon_concept.id, :sort_by => 'vetted'
+      assigns[:media].first.vetted.should == Vetted.trusted
+      assigns[:media][0..trusted_count].include?(@highly_rated_unreviewed_image).should be_false
+      assigns[:media].include?(@highly_rated_unreviewed_image).should be_true
+    end
+
+    it 'should filter by type:image' do
+      media_do_show
+      assigns[:media].collect{|m| m if ! m.is_image?}.compact.should_not be_blank
+      get :show, :taxon_id => @taxon_concept.id, :sort_by => 'ranking', :type => ['image']
+      assigns[:media].collect{|m| m if ! m.is_image?}.compact.should be_blank
+    end
+
+    it 'should filter by type:video' do
+      media_do_show
+      assigns[:media].collect{|m| m if ! m.is_video?}.compact.should_not be_blank
+      get :show, :taxon_id => @taxon_concept.id, :sort_by => 'ranking', :type => ['video']
+      assigns[:media].collect{|m| m if ! m.is_video?}.compact.should be_blank
+    end
+
+    it 'should filter by type:sound'
+
+    it 'should filter by type:photosynth' do
+      photosynths = DataObject.find_all_by_source_url('http://photosynth.net/blah/blah/blah')
+      photosynths.should_not be_blank
+      media_do_show
+      assigns[:media].include?(photosynths).should be_false
+      get :show, :taxon_id => @taxon_concept.id, :sort_by => 'ranking', :type => ['photosynth']
+      assigns[:media].length.should == photosynths.count
+      assigns[:media].include?(photosynths.first).should be_true
+    end
+
+    it 'should filter by vetted status and visibility'
+
     it 'should instantiate an assistive header' do
       media_do_show
       assigns[:assistive_section_header].should be_a(String)

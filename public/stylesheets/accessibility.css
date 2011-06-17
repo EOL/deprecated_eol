@@ -15,6 +15,10 @@
   border: 1px solid #677682;
   background: #8695a1; }
 
+#media_list #main li p.flag.unknown {
+  border: 1px solid #677682;
+  background: #8695a1; }
+
 #taxonomy_detail .average_rating h5 {
   display: inline;
   text-transform: lowercase; }

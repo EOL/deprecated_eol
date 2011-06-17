@@ -404,6 +404,18 @@ private
     @taxon_concept = find_taxon_concept
   end
 
+  def promote_exemplar(data_objects)
+    return data_objects if @taxon_concept.blank? || data_objects.blank? || @taxon_concept.taxon_concept_exemplar_image.blank?
+    data_objects.each_with_index do |m, index|
+      if m.id == @taxon_concept.taxon_concept_exemplar_image.data_object_id
+        data_objects.delete_at(index)
+        data_objects.unshift(m)
+        break
+      end
+    end
+    data_objects
+  end
+
   def redirect_if_invalid
     redirect_to_missing_page_on_error do
       raise "TaxonConcept not found" if @taxon_concept.nil?

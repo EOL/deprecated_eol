@@ -70,15 +70,16 @@ class DataObject < SpeciesSchemaModel
     :include => [:data_type, :mime_type, :language, :license, :vetted, :visibility, {:info_items => :toc_item},
       {:hierarchy_entries => [:name, { :hierarchy => :agent }] }, {:agents_data_objects => [ { :agent => :user }, :agent_role]}]
 
-  def self.sort_by_rating(data_objects)
+  def self.sort_by_rating(data_objects, opts = {})
     data_objects.sort_by do |obj|
+      type_order = opts[:omit_type] ? 0 : obj.data_type_id
       toc_view_order = (!obj.is_text? || obj.info_items.blank? || obj.info_items[0].toc_item.blank?) ? 0 : obj.info_items[0].toc_item.view_order
       vetted_view_order = obj.vetted.blank? ? 0 : obj.vetted.view_order
       visibility_view_order = 2
       visibility_view_order = 1 if obj.visibility_id == Visibility.preview.id
       inverted_rating = obj.data_rating * -1
       inverted_id = obj.id * -1
-      [obj.data_type_id,
+      [type_order,
        toc_view_order,
        visibility_view_order,
        vetted_view_order,
@@ -87,88 +88,66 @@ class DataObject < SpeciesSchemaModel
     end
   end
 
-  def self.custom_sort(data_objects, sort_by)
+  def self.custom_sort(data_objects, sort_by, opts = {})
     data_objects.sort_by do |obj|
       vetted_view_order = obj.vetted.blank? ? 0 : obj.vetted.view_order
       inverted_rating = obj.data_rating * -1
       inverted_id = obj.id * -1
-
+      type_order = opts[:omit_type] ? 0 : obj.data_type_id
       if sort_by == "newest"
-        [inverted_id, obj.data_type_id, vetted_view_order, inverted_rating]
-      elsif sort_by == "rating"
-        [inverted_rating, obj.data_type_id, vetted_view_order, inverted_id]
+        [inverted_id, type_order, vetted_view_order, inverted_rating]
       elsif sort_by == "vetted"
-        [vetted_view_order, inverted_rating, inverted_id, obj.data_type_id]
-      elsif sort_by == "data_type"
-        [obj.data_type_id, vetted_view_order, inverted_rating, inverted_id]
-      elsif sort_by == "default"
-        [vetted_view_order, inverted_rating, inverted_id]
+        [vetted_view_order, inverted_rating, inverted_id, type_order]
       end
-    
+
     end
   end
 
-  def self.custom_filter(data_objects, filter_by_type, filter_by_status)
+  def self.custom_filter(data_objects, type, status)
 
-    # filter by type
+    return data_objects if data_objects.blank?
+
+    # set types on which to filter or blank if no filter should be applied
     allowed_data_types = []
-    if filter_by_type["all"]
-      allowed_data_types = [DataType.image.id, DataType.sound.id, DataType.video.id, DataType.flash.id, DataType.youtube.id]
-    else
-      if filter_by_type["image"] then allowed_data_types << DataType.image.id end
-      if filter_by_type["audio"] then allowed_data_types << DataType.sound.id end
-      if filter_by_type["video"]
-        allowed_data_types << DataType.video.id
-        allowed_data_types << DataType.flash.id
-        allowed_data_types << DataType.youtube.id
+    type.each do |typ|
+      if typ == 'all'
+        allowed_data_types = []
+        break
       end
+      allowed_data_types.concat(DataType.video_type_ids) if typ == 'all' || typ == 'video'
+      allowed_data_types.concat(DataType.image_type_ids) if typ == 'all' || typ == 'image' || typ == 'photosynth'
+      allowed_data_types.concat(DataType.sound_type_ids) if typ == 'all' || typ == 'sound'
+    end unless type.blank?
 
-      if filter_by_type["photosynth"] then allowed_data_types << DataType.image.id end
-
-      # this means if all data types are not checked, then there is no filter for data types
-      if allowed_data_types.length == 0
-        allowed_data_types = [DataType.image.id, DataType.sound.id, DataType.video.id, DataType.flash.id, DataType.youtube.id]
-      end
-    end
-    data_objects.delete_if { |key, value| !allowed_data_types.include?(key.data_type_id) }
-
-    # filter by status
-    allowed_visibility_status = []
-    allowed_visibility_status = [Visibility.visible.id, Visibility.invisible.id, Visibility.preview.id]
-
+    # set visibilities and vetted statuses on which to filter or blank if no filter should be applied
+    allowed_visibilities = []
     allowed_vetted_status = []
-    if filter_by_status["all"]
-      allowed_vetted_status = [Vetted.trusted.id, Vetted.unknown.id, Vetted.untrusted.id]
-      allowed_visibility_status << Visibility.inappropriate.id
-    else
-      if filter_by_status["trusted"] then allowed_vetted_status << Vetted.trusted.id end
-      if filter_by_status["untrusted"] then allowed_vetted_status << Vetted.untrusted.id end
-      if filter_by_status["unreviewed"] then allowed_vetted_status << Vetted.unknown.id end
-      if filter_by_status["inappropriate"] then allowed_visibility_status << Visibility.inappropriate.id end
-      # this means if all statuses are not checked, then there is no filter for statuses
-      if allowed_vetted_status.length == 0 and allowed_visibility_status.length == 3
-        allowed_vetted_status = [Vetted.trusted.id, Vetted.unknown.id, Vetted.untrusted.id]
-        allowed_visibility_status << Visibility.inappropriate.id
+    status.each do |sta|
+      if sta == 'all'
+        allowed_vetted_status = []
+        allowed_visibilities = []
+        break
+      elsif sta == 'inappropriate'
+        allowed_visibilities << Visibility.inappropriate.id
+      else
+        allowed_vetted_status << Vetted.send(sta.to_sym).id
       end
-    end
+    end unless status.blank?
 
-    temp = []
-    data_objects.each do |object|
-      if allowed_vetted_status.include?(object.vetted_id) then temp << object end
-    end
-    data_objects = temp
+    # we only delete objects by type, visibility or vetted respectively if allowed parameters exist
+    data_objects.delete_if { |object|
+      # filter by type: delete object if type is not allowed
+      (! allowed_data_types.blank? && ! allowed_data_types.include?(object.data_type_id)) ||
+      # photosynth: delete non-photosynth images if type does not also include images or all
+      (! type.blank? && ! object.source_url.match(/http:\/\/photosynth.net/i) &&
+        object.is_image? && type.include?('photosynth') && ! type.include?('image') && ! type.include?('all')) ||
+      # filter by visibility: only delete by visibility if vetted status is blank or also not allowed
+      (! allowed_visibilities.blank? && ! allowed_visibilities.include?(object.visibility_id) &&
+        (allowed_vetted_status.blank? || ! allowed_vetted_status.include?(object.vetted_id))) ||
+      # filter by vetted status: only delete by vetted if visibility is blank or also not allowed
+      (! allowed_vetted_status.blank? && ! allowed_vetted_status.include?(object.vetted_id) &&
+        (allowed_visibilities.blank? || ! allowed_visibilities.include?(object.visibility_id))) }
 
-    temp = []
-    data_objects.each do |object|
-      if allowed_visibility_status.include?(object.visibility_id) then temp << object end
-    end
-    data_objects = temp
-
-    if filter_by_type["photosynth"] && !filter_by_type["image"]
-      data_objects.delete_if { |key, value| key.data_type_id == DataType.image.id && key.source_url[0..20] != "http://photosynth.net" }
-    end
-
-    return data_objects
   end
 
 

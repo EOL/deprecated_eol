@@ -111,12 +111,6 @@ class TaxonConcept < SpeciesSchemaModel
     quick_common_names(taxon_concept_ids, hierarchy)
   end
 
-  def get_exemplar_image
-    exemplar = TaxonConceptExemplarImage.find_by_taxon_concept_id(self.id)
-    return nil unless exemplar
-    exemplar.data_object_id
-  end
-
   # TODO - this will now be called on ALL taxon pages.  Eep!  Make this more efficient:
   def common_names
     tcn = TaxonConceptName.find_all_by_taxon_concept_id_and_vern(self.id, 1, :include => [ :name, :language ],
@@ -844,23 +838,8 @@ class TaxonConcept < SpeciesSchemaModel
     end
   end
 
-  def media
-    media_objects = DataObject.sort_by_rating(images + videos + sounds).compact
-
-    # check if any particular image has been set as an exemplar and move it to the begining of the array 
-    exemplar_image_id = self.get_exemplar_image
-    # Do this only if the first element is not the exemplar image in array media_objects
-    if !media_objects.blank? && media_objects.first.id != exemplar_image_id
-      exemplar_image = []
-      exemplar_image = DataObject.core_relationships(:except => [ :info_items ],
-                                                     :add_include => [ :all_comments ],
-                                                     :add_select => { :comments => [ :parent_id, :visible_at ] }
-                                                     ).find_all_by_id([exemplar_image_id])
-      # Move exemplar_image as a first element in media_objects
-      media_objects.unshift(exemplar_image.first).uniq! unless exemplar_image.blank?
-    end
-    
-    return media_objects
+  def media(opts = {})
+    DataObject.sort_by_rating(images + videos + sounds, opts).compact
   end
 
   def images(options = {})

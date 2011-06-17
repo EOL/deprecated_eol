@@ -1,4 +1,4 @@
-/ - if @name.blank? 
+/ - if @name.blank?
 /   - name = ""
 /   - msg = ""
 / - else
@@ -17,7 +17,7 @@
 /     - @ignored_images.each do |data_object|
 /       %tr{ :id => "undo-move-#{data_object.id}", :class => 'hide ' + data_object.vetted.label.downcase }
 /         %td{ :colspan => 2 }
-/           You moved the image to 
+/           You moved the image to
 /           = link_to(I18n.t("your_active_list"), {:controller => :curators, :action => :curate_images, :hierarchy_entry_id => params[:hierarchy_entry_id]}) + "."
 /           = "&nbsp;" * 5
 /           %a{ :class => "undo-restore-image" } Undo
@@ -34,16 +34,16 @@
 /           = link_to(image_tag(DataObject.image_cache_path(data_object.object_cache_url, :medium), :class => 'curation-thumb'), {:action => 'curate_image', :data_object_id => data_object.id}, {:rel => '#overlay'})
 /           - unless data_object.created_at.blank?
 /             %em
-/               = I18n.t(:indexed_on) 
+/               = I18n.t(:indexed_on)
 /             = DateTime.parse(data_object.created_at.to_s).strftime("%B %d, %Y") rescue "N/A"
 /             %br
 /           - unless data_object.description.blank?
 /             %h6
-/               = I18n.t(:description) 
+/               = I18n.t(:description)
 /             = strip_tags(data_object.description)
 /           - unless data_object.location.blank?
 /             %h6
-/               = I18n.t(:location) 
+/               = I18n.t(:location_colon)
 /             = truncate(data_object.location, 48)
 /         %td{ :class => data_object.vetted.label.downcase }
 /           = render :partial => 'curation_tools', :locals => {:data_object => data_object, :comment_height => 3, :comment_width => 24, :ignored => true}

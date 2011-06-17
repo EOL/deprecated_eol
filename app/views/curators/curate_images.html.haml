@@ -51,7 +51,7 @@
               = strip_tags(data_object.description).cleanup_for_presentation
             - unless data_object.location.blank?
               %h6
-                = I18n.t(:location)
+                = I18n.t(:location_colon)
               - data_object_location = strip_tags(data_object.location).cleanup_for_presentation
               = truncate(data_object_location, 48)
         %td{ :class => data_object.vetted.label.downcase }

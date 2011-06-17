@@ -9,9 +9,9 @@
       - # Home page title can just be the site name.
       - page_title =  I18n.t(:encyclopedia_of_life)
       - if @page_title
-        - page_title =   I18n.t("eol__")+"#{@page_title} - #{page_title}"
+        - page_title =   I18n.t(:eol_colon)+"#{@page_title} - #{page_title}"
       - elsif (@taxon_concept and not @taxon_concept.title(@session_hierarchy).blank?)
-        - page_title =  I18n.t("eol__")+"#{@taxon_concept.title(@session_hierarchy)} - #{page_title}"
+        - page_title =  I18n.t(:eol_colon)+"#{@taxon_concept.title(@session_hierarchy)} - #{page_title}"
       &= strip_tags(page_title)
     %meta{ :content => "no", "http-equiv" => "imagetoolbar" }
     %meta{ :name => "MSSmartTagsPreventParsing", :content => "true" }

@@ -476,7 +476,7 @@ class DataObject < SpeciesSchemaModel
                                   :link_to_url => data_supplier_agent.homepage,
                                   :display_string => data_supplier_agent.full_name,
                                   :logo_cache_url => data_supplier_agent.logo_cache_url,
-                                  :type =>I18n.t("supplier_"))
+                                  :type =>I18n.t(:supplier))
   end
 
   def citable_rights_holder
@@ -515,7 +515,7 @@ class DataObject < SpeciesSchemaModel
 
     unless location.blank?
       citables << EOL::Citable.new( :display_string => location,
-                                    :type => I18n.t("location_"))
+                                    :type => I18n.t(:location))
     end
 
     unless source_url.blank?

@@ -1,0 +1,117 @@
+# Messages for Vietnamese (Tiếng Việt)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Minh Nguyen
+vi: 
+  account_information: Thông tin tài khoản
+  add_a_role: Thêm vai trò
+  all_pages: Mọi trang
+  already_a_member_question: Đã là thành viên?
+  already_member_of_community: Bạn đã là một thành viên của cộng đồng này.
+  application_version_advisory_information: Phiên bản ứng dụng
+  are_you_sure: Bạn có chắc chắn?
+  cannot_be_empty: không thể để trống.
+  citation: Trích dẫn
+  collection_item_type_with_label: "Kiểu: %{type}"
+  communities: Cộng đồng
+  communities_with_count: "%{count} cộng đồng"
+  community: Cộng đồng
+  community_activity: Hoạt động cộng đồng
+  community_members: Thành viên cộng đồng
+  community_roles: Vai trò trong cộng đồng
+  community_watching_this_note: Cộng đồng hiện đang theo dõi %{name} này.
+  contact_us_link: Liên lạc
+  content_update: Nội dung cập nhật
+  contribute_to_page_button: Đóng góp vào trang này
+  contributors_like_you: Những người đóng góp như bạn
+  create_a_community: Tạo một cộng đồng
+  dato_rating_note: "%{username} đánh giá %{rating} cho cái này."
+  delete_allcaps: XÓA
+  delete_community: Xóa cộng đồng này
+  detail: Chi tiết
+  donate: Quyên góp
+  donation_error_no_amount: Vui lòng chọn số tiền quyên góp.
+  donation_error_only_numbers: Vui lòng nhập số chỉ có chữ số.
+  edit_community: Sửa đổi cộng đồng
+  edit_membership: Sửa đổi thành viên
+  encyclopedia_of_life: Bách khoa toàn thư Sự sống
+  eol_glossary: Thuật ngữ BKTTSS
+  eol_news: Tin tức BKTTSS
+  explore: Tìm hiểu
+  filter_feeds_button: Bộ lọc
+  filter_feeds_label: Hiện
+  get_involved: Cùng tham gia
+  global_access_tagline: Truy cập toàn cầu kiến thúc về sự sống trên Trái Đất.
+  go: Xem
+  google_translate: Google Dịch
+  google_translate_advisory_information: Sử dụng công cụ Google Dịch để biên dịch nội dung của site sang một ngôn ngữ khác.
+  help: Trợ giúp
+  home_page_link_advisory_information: Liên kết này sẽ đưa bạn đến trang chủ cua Bách khoa toàn thư Sự sống
+  image_thumbnail_alt_text: Đây là một hình %{vetted_status} của %{scientific_name}
+  images: Hình ảnh
+  images_with_count: "%{count} hình"
+  invalid_login_or_password: Tên đăng nhập hoặc mật khẩu không hợp lệ
+  iucn_red_list_status_advisory_information: Liên kết này sẽ đưa bạn đến trang của Liên minh Bảo tồn Thiên nhiên Quốc tế (IUCN) có thêm thông tin về Sách đỏ IUCN.
+  join_community: Gia nhập cộng đồng này
+  join_community_button: Gia nhập cộng đồng này
+  join_community_login_required_advisory: Bạn sẽ phải đăng nhập trước khi gia nhập cộng đồng này
+  join_eol_button_html: Gia nhập <abbr title="Bách khoa toàn thư">BKTT</abbr> Sự sống ngay
+  join_eol_community_html: Gia nhập cộng đồng <abbr title="Bách khoa toàn thư">BKTT</abbr> Sự sống!
+  just_pages_with_pictures_and_text: Chỉ các trang có hình ảnh và văn bản
+  language_menu_item: "%{language_label} <abbr>(%{language_abbr})</abbr>"
+  learn_how_to_join: Tìm hiểu cách gia nhập
+  leave_community: Rời khỏi cộng đồng này
+  license: Giấy phép
+  link_to_join_this_community: Bạn cần phải <a href='%{link}'>đăng nhập</a> để gia nhập cộng đồng này.
+  location_: Vị trí
+  log_in: Đăng nhập
+  login_or_create_account: Đăng nhập hoặc Mở tài khoản
+  manage_community: Quản lý cộng đồng
+  manage_roles: Quản lý vai trò
+  media: Phương tiện
+  media_with_count: "%{count} phương tiện"
+  members_count_in_parens: (%{count} thành viên)
+  members_with_count: "%{count} người đóng góp"
+  newsfeed: Nguồn tin tức
+  no_members_in_parens: (không có thành viên)
+  other_community_items_with_count: "%{count} khoản khác"
+  overview: Giới thiệu
+  pages_with_pictures_and_text: Các trang có hình ảnh và văn bản
+  pages_with_pictures_or_text: Các trang có hình ảnh hoặc văn bản
+  pending_members_with_count: "%{count} thành viên đang chờ"
+  print_this_page_link: In trang này
+  punctuation_comma: ","
+  recent_updates: Cập nhật gần đây
+  remove_membership: Gỡ thành viên
+  rights: Tác quyền
+  rights_holder: Chủ tác quyền
+  roles: Các vai trò
+  search_field_label: Tìm kiếm BKTTSS
+  search_placeholder: Tìm kiếm BKTTSS…
+  search_the_site: Tìm kiếm trên site
+  see_all_media_link: Xem tất cả phương tiện
+  selected_language_advisory_information: Đây là ngôn ngữ hiện đang được chọn.
+  sign_in: Đăng nhập
+  sign_out: Đăng xuất
+  site_information: Thông tin site
+  skip_to_content: Nhảy tới nội dung
+  source_information_link: thông tin nguồn gốc
+  source_url: URL gốc
+  switch_language_advisory_information: Đổi ngôn ngữ của site qua %{language_label}
+  taxa: Đơn vị phân loại
+  taxon: đơn vị phân loại
+  text_summary_more_link: Đọc bài đầy đủ
+  thanks_for_feedback: Cám ơn phản hồi của bạn.
+  there_are_currently_no_members_in_this_community: Hiện không có thành viên nào trong cộng đồng này.
+  threat_status_header_colon: "Tình trạng nguy cấp:"
+  unknown: Không rõ
+  user_became_role_note: "%{username} đã trở thành một %{role}."
+  user_joined_community_note: "%{username} đã gia nhập cộng đồng."
+  user_left_community_note: "%{username} đã rời khỏi cộng đồng."
+  what_is_a_taxon: Một đơn vị phân loại là gì?
+  what_is_eol: BKTTSS là gì?
+  you_have_been_a_member_of_this_community_since: Bạn đã là thành viên của cộng đồng này từ %{since}.
+  you_in_parens: (bạn)
+  you_must_be_logged_in_to_add_tags: Bạn phải đăng nhập để gắn nhãn.
+  your_message_was_sent: Thông điệp của bạn đã được gửi.
+  your_preferences: Tùy chọn cá nhân của bạn

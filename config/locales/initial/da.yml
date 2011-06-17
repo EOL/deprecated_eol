@@ -1,0 +1,71 @@
+# Messages for Danish (Dansk)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Peter Alberti
+da: 
+  account_information: Kontooplysninger
+  account_registered_but_not_ready_try_later: Din konto er registreret, men endnu ikke klar til at blive brugt. Prøv venligst igen om fem minutter.
+  add_to_my_collection_button: Tilføj til min samling
+  all_pages: Alle sider
+  already_a_member_question: Allerede medlem?
+  application_version_advisory_information: Programversion
+  are_you_sure: Er du sikker?
+  browse_gallery: Bladr vores galleri igennem
+  cannot_be_empty: kan ikke være tom.
+  collections: Samlinger
+  contact_us_link: Kontakt os
+  contribute_to_page_button: Bidrag til denne side
+  create_a_collection: Opret en samling
+  delete_allcaps: SLET
+  development_version_name: V2 UDVIKLINGSVERSION - ikke til almindelig brug
+  donate: Doner
+  edit_collection: Rediger samling
+  edit_membership: Rediger medlemskab
+  eol_glossary: EOL-ordliste
+  eol_news: EOL-nyheder
+  explore: Udforsk
+  filter_feeds_label: Vis
+  general_error_occurred: Vi beklager, men der opstod en fejl. Gør venligst et forsøg til på at udføre din opgave. Hvis fejlen dukker op igen, så send venligst en email til %{email} sammen med fejlbeskeden nedenfor og anden information, du ønsker at meddele os. Vi arbejder hårdt på at give dig den bedste mulige tjeneste og værdsætter din støtte. -- Holdet bag EOL
+  global_navigation: Global Navigation
+  go: Gå til
+  help: Hjælp
+  image_thumbnail_alt_text: Dette %{vetted_status} billede er af %{scientific_name}
+  images: Billeder
+  indexed: Indekseret
+  invalid_login_or_password: Ugyldigt brugernavn eller kodeord
+  license: Licens
+  location_: Sted
+  log_in: Log på
+  login_or_create_account: Log på eller opret en konto
+  members_with_count: 
+    one: "%{count} bidragsyder"
+    other: "%{count} bidragsydere"
+  must_be_less_than_128_characters_long: skal være kortere end 128 tegn.
+  must_be_logged_in: Du skal være logget på for at udføre denne handling.
+  no_activity: Ingen aktivitet.
+  no_members_in_parens: (ingen medlemmer)
+  not_evaluated: Ikke evalueret
+  overview: Oversigt
+  pages_with_pictures_and_text: Sider med billeder og tekst
+  post_comment: Skriv Kommentar
+  print_this_page_link: Udskriv denne side
+  profile: Profil
+  punctuation_comma: ","
+  recent_updates: Seneste opdateringer
+  remove_membership: Fjern medlemskab
+  rights: Rettigheder
+  rights_holder: Rettighedsindehaver
+  search_field_label: Søg EOL
+  search_placeholder: Søg i EOL...
+  selected_language_advisory_information: Dette er det aktuelt valgte sprog.
+  source_information_link: kildeoplysninger
+  source_url: Kilde-URL
+  the_email_address_is_not_unique_you_must_enter_a_username: Email-adressen er ikke unik - du skal angive et brugernavn
+  unknown: Ukendt
+  user_comment: Brugerkommentar
+  user_system_down: Vi beklager, men systemet til brugerregistrering er ikke tilgængeligt i øjeblikket. Prøv venligst igen senere.
+  what_is_eol: Hvad er EOL?
+  you_are_not_authorized_to_perform_this_action: Du har ikke tilladelse til at udføre denne handling.
+  you_in_parens: (dig)
+  your_message_was_sent: Din besked blev sendt.
+  your_preferences: Dine Indstillinger

@@ -1,0 +1,92 @@
+# Messages for French (Français)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Coyau
+# Author: Crochet.david
+# Author: Jean-Frédéric
+# Author: Od1n
+fr: 
+  account_information: L'Information De Compte
+  add_a_role: Ajouter un rôle
+  add_to_my_collection_button: Ajouter à ma collection
+  all_pages: Toutes les pages
+  already_a_member_question: Déjà membre ?
+  already_member_of_community: Vous êtes déjà un membre de cette communauté.
+  application_version_advisory_information: Version de l’application
+  are_you_sure: Êtes-vous certain ?
+  cannot_be_empty: ne peut pas être vide.
+  citation: Citation
+  collections: Collections
+  communities: Communautés
+  communities_with_count: 
+    one: "%{count} Communauté"
+    other: "%{count} Communautés"
+  community: Communauté
+  community_activity: Activité de la communauté
+  community_members: Membres de la communauté
+  contact_us_link: Nous contacter
+  content_partners: Content Partners
+  contribute_to_page_button: Contribuer à cette page
+  create_a_collection: Créer une collection
+  create_a_community: Créer une communauté
+  curator_comment: Commentaire du conservateur
+  delete_allcaps: SUPPRIMER
+  delete_community: Supprimer cette communauté
+  detail: Détails
+  donate: Donate
+  edit_collection: Modifier la collection
+  edit_community: Modifier la communauté
+  edit_membership: Modifier l’adhésion
+  encyclopedia_of_life: Encyclopédie de la vie
+  eol_news: Actualités EOL
+  error_page_header: Désolé, nous avons rencontré un problème
+  explore: à découvrir
+  filter_feeds_all_option: Mises à jour de tous les flux
+  filter_feeds_label: Voir
+  general_error_occurred: Nous sommes désolés, mais une erreur s’est produite. Veuillez faire une tentative de plus pour effectuer votre tâche. Si l’erreur persiste, veuillez envoyer un courriel à %{email} avec le message d’erreur ci-dessous et toute autre information que vous aimeriez partager avec nous. Nous travaillons dur pour vous fournir le meilleur service possible et nous apprécions votre soutien. -- L’équipe EOL
+  global_navigation: Navigation globale
+  google_translate: Google Translate
+  help: Assistance
+  images: Images
+  invalid_login_or_password: Nom d’utilisateur ou mot de passe invalide
+  join_community: Rejoignez la communauté
+  just_pages_with_pictures_and_text: Seulement des pages avec les images et le texte
+  license: Licence
+  location_: Localisation
+  login_or_create_account: Créer un compte ou se connecter
+  manage_community: Gérer la communauté
+  manage_roles: Gérer les rôles
+  members_with_count: 
+    one: "%{count} contributeur"
+    other: "%{count} contributeurs"
+  minimal_page: Page minimale
+  no_activity: Aucune activité.
+  not_evaluated: Non évalué
+  pages_with_pictures_and_text: Pages avec les images et le texte
+  pages_with_pictures_or_text: Pages avec des images ou du texte
+  pending_members_with_count: 
+    one: "%{count} membre en attente"
+    other: "%{count} membres en attente"
+  print_this_page_link: Imprimer cette page
+  profile: Profil
+  rights: Droits
+  roles: Rôles
+  select_topic: Choisissez un sujet
+  sign_out: Déconnexion
+  site_information: Informations sur le site
+  skip_to_content: Saut au contenu
+  source_url: URL source
+  supplier_: Fournisseur
+  taxon: taxon
+  thanks_for_feedback: Merci pour votre contribution.
+  unknown: Inconnu
+  user_joined_community_note: "%{username} a rejoint la communauté."
+  user_system_down: Nous sommes désolés, mais le système d’enregistrement des utilisateurs n’est pas disponible actuellement.  Veuillez réessayer plus tard.
+  verification_phrase_did_not_match: La phrase de vérification que vous avez saisie ne correspond pas.
+  view_only_pages_with_at_least_a_picture_or_piece_of_text: Voir seulement les pages avec au moins une image ou un morceau de texte
+  what_is_a_taxon: Qu’est-ce qu’un taxon ?
+  what_is_eol: Qu'est-ce que EOL ?
+  you_have_been_a_member_of_this_community_since: Vous êtes un membre de cette communauté depuis %{since}.
+  you_in_parens: (vous)
+  your_message_was_sent: Votre message a été envoyé
+  your_preferences: Vos préférences

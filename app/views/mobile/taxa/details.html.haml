@@ -1,0 +1,48 @@
+#taxa_details
+  .toolbar
+    %h1 Taxa Details
+    =link_to "Overview", mobile_taxon_path(@taxon_concept.id), :class => "back", :rel => "external"
+  .info
+    %h3= @taxon_concept.title(@session_hierarchy) unless @taxon_concept.title(@session_hierarchy).blank?
+  
+  - roots = @toc.collect{|t| t unless t.is_child?}.compact
+  #taxonomy_detail
+    - unless roots.empty?
+      #main
+        - for root in roots
+          - root_content = @details.collect{|d| d if d[:toc_item].id == root.category_id}.compact
+          - children = @toc.collect{|t| t if t.parent_id == root.category_id}.compact
+          - unless root_content.empty? && children.empty?
+            %h2= root.label
+            .section
+              = render :partial => 'taxa/details/category_content', :locals => { :content => root_content }
+              - unless children.empty?
+                - for child in children
+                  - child_content = @details.collect{|d| d if d[:toc_item].id == child.category_id}.compact
+                  - unless child_content.empty?
+                    %h3= child.label
+                    = render :partial => 'taxa/details/category_content', :locals => { :content => child_content }
+  
+  
+  #more_buttons
+    %ul.individual
+      %li
+        =link_to "Overview", mobile_taxon_path(@taxon_concept.id), :rel => "external"
+      %li
+        =link_to "Details", ""
+    %ul.individual
+      %li
+        %p Media
+      %li
+        %p Maps
+    %ul.individual
+      %li
+        %p Nomenclature
+      %li
+        %p Literature
+    %ul.individual
+      %li
+        %p Community
+      %li
+        %p Resources
+  

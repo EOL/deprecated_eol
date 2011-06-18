@@ -29,21 +29,23 @@
   #more_buttons
     %ul.individual
       %li
-        =link_to "Details", ""
+        =link_to "Overview", ""
       %li
-        =link_to "Media", ""
+        =link_to "Details", details_mobile_taxon_path(@taxon_concept.id)
     %ul.individual
       %li
-        =link_to "Maps", ""
+        %p Media
       %li
-        =link_to "Nomenclature", ""
+        %p Maps
     %ul.individual
       %li
-        =link_to "Literature", ""
+        %p Nomenclature
       %li
-        =link_to "Community", ""
+        %p Literature
     %ul.individual
       %li
-        =link_to "Resouces", ""
+        %p Community
+      %li
+        %p Resources
     
     

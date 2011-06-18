@@ -101,6 +101,17 @@
 .fullcontent{
 	margin: 10px;
 }
-
+#taxonomy_detail{
+	margin: 10px;
+}
+#taxonomy_detail a{
+	color: #DDD;
+}
+.rating{
+	display: none;
+}
+#new_feed_item{
+	display: none;
+}
 
 

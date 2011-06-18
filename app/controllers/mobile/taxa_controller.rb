@@ -25,7 +25,7 @@ class Mobile::TaxaController < Mobile::MobileController
       :last_curated_dates => '*',
       :users => [ :given_name, :family_name, :logo_cache_url, :credentials ] }
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
-
+    
     toc_items = [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution]
     options = { :limit => 1 }
     @summary_text = @taxon_concept.text_objects_for_toc_items(toc_items, options)

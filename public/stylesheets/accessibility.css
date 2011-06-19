@@ -15,6 +15,10 @@
   border: 1px solid #677682;
   background: #8695a1; }
 
+#media_list #main li audio {
+  background: #394651 url("/images/v2/temporary_for_mockup/icon_sound.png") no-repeat center center;
+  width: 160px;
+  height: 125px; }
 #media_list #main li p.flag.unknown {
   border: 1px solid #677682;
   background: #8695a1; }

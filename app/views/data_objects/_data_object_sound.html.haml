@@ -1,3 +1,4 @@
 - data_object ||= @data_object
-- unless @data_object.blank?
-  - # FIXME: audio markup required
+- unless data_object.blank?
+  %audio{:controls => true, :loop => false, :autoplay => false, :preload => 'metadata'}
+    %source{:type => data_object.mime_type, :src => data_object.sound_url}

@@ -654,13 +654,22 @@ class DataObject < SpeciesSchemaModel
     thumb_or_object(nil)
   end
 
-  # TODO - we will probably need a sound_url.
+  def sound_url
+    if !object_cache_url.blank? && !object_url.blank?
+      filename_extension = File.extname(object_url)
+      return ContentServer.cache_path(object_cache_url) + filename_extension
+    elsif mime_type.label('en') == 'audio/mpeg'
+      return has_object_cache_url? ? ContentServer.cache_path(object_cache_url) + '.mp3' : ''
+    else
+      return object_url
+    end
+  end
 
   def video_url
     if !object_cache_url.blank? && !object_url.blank?
       filename_extension = File.extname(object_url)
       return ContentServer.cache_path(object_cache_url) + filename_extension
-    elsif data_type.label == 'Flash'
+    elsif data_type.label('en') == 'Flash'
       return has_object_cache_url? ? ContentServer.cache_path(object_cache_url) + '.flv' : ''
     else
       return object_url

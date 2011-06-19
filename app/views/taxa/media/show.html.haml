@@ -4,6 +4,7 @@
     %h3= I18n.t(:media)
     = render :partial => "media_sort_filter"
   #main
+    = render :partial => 'data_objects/data_object_sound'
     .header
       - # FIXME: Need proper numbers for these
       %h3= I18n.t(:displaying_numerical_range, :start_number => 1, :end_number => 4)

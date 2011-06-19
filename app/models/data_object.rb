@@ -70,36 +70,26 @@ class DataObject < SpeciesSchemaModel
     :include => [:data_type, :mime_type, :language, :license, :vetted, :visibility, {:info_items => :toc_item},
       {:hierarchy_entries => [:name, { :hierarchy => :agent }] }, {:agents_data_objects => [ { :agent => :user }, :agent_role]}]
 
-  def self.sort_by_rating(data_objects, opts = {})
+  # this method is not just sorting by rating
+  def self.sort_by_rating(data_objects, sort_order = [:type, :toc, :visibility, :vetted, :rating, :date])
     data_objects.sort_by do |obj|
-      type_order = opts[:omit_type] ? 0 : obj.data_type_id
+      type_order = obj.data_type_id
       toc_view_order = (!obj.is_text? || obj.info_items.blank? || obj.info_items[0].toc_item.blank?) ? 0 : obj.info_items[0].toc_item.view_order
       vetted_view_order = obj.vetted.blank? ? 0 : obj.vetted.view_order
       visibility_view_order = 2
       visibility_view_order = 1 if obj.visibility_id == Visibility.preview.id
       inverted_rating = obj.data_rating * -1
       inverted_id = obj.id * -1
-      [type_order,
-       toc_view_order,
-       visibility_view_order,
-       vetted_view_order,
-       inverted_rating,
-       inverted_id]
-    end
-  end
-
-  def self.custom_sort(data_objects, sort_by, opts = {})
-    data_objects.sort_by do |obj|
-      vetted_view_order = obj.vetted.blank? ? 0 : obj.vetted.view_order
-      inverted_rating = obj.data_rating * -1
-      inverted_id = obj.id * -1
-      type_order = opts[:omit_type] ? 0 : obj.data_type_id
-      if sort_by == "newest"
-        [inverted_id, type_order, vetted_view_order, inverted_rating]
-      elsif sort_by == "vetted"
-        [vetted_view_order, inverted_rating, inverted_id, type_order]
+      sort = []
+      sort_order.each do |item|
+        sort << type_order if item == :type
+        sort << toc_view_order if item == :toc
+        sort << visibility_view_order if item == :visibility
+        sort << vetted_view_order if item == :vetted
+        sort << inverted_rating if item == :rating
+        sort << inverted_id if item == :date
       end
-
+      sort
     end
   end
 

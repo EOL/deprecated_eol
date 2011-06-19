@@ -26,22 +26,22 @@ class Taxa::MediaController < TaxaController
       :taxon_concept_exemplar_image => '*' }
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
     @exemplar_image = @taxon_concept.taxon_concept_exemplar_image.data_object unless @taxon_concept.taxon_concept_exemplar_image.blank?
-    @media = @taxon_concept.media(:omit_type => true)
 
     @params_type = params['type'] || []
     @params_status = params['status'] || []
-
     @sort_by = params[:sort_by]
 
-    unless @sort_by.blank?
-      @media = DataObject.custom_filter(@media, @params_type, @params_status)
-      @media = DataObject.custom_sort(@media, @sort_by, :omit_type => true) unless @sort_by == 'ranking'
-    end
+    sort_order = [:visibility, :vetted, :rating, :date, :type] if @sort_by.blank? || @sort_by == 'status' #default
+    sort_order = [:visibility, :rating, :vetted, :date, :type] if @sort_by == 'rating'
+    sort_order = [:visibility, :date, :vetted, :rating, :type] if @sort_by == 'newest'
+
+    @media = @taxon_concept.media(sort_order)
+    @media = DataObject.custom_filter(@media, @params_type, @params_status) unless @params_type.blank? && @params_status.blank?
 
     @media = promote_exemplar(@media) if @exemplar_image && (@sort_by.blank? ||
-      (@sort_by == 'ranking' && (@params_type.include?('all') || @params_type.include?('images'))))
+      (@sort_by == 'status' && (@params_type.include?('all') || @params_type.include?('images'))))
 
-    @sort_by ||= 'ranking'
+    @sort_by ||= 'status'
 
     @media = @media.paginate(:page => params[:page] || 1, :per_page => $MAX_IMAGES_PER_PAGE)
 

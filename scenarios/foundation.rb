@@ -151,6 +151,7 @@ MimeType.gen_if_not_exists(:label => 'image/jpeg')
 MimeType.gen_if_not_exists(:label => 'text/html')
 MimeType.gen_if_not_exists(:label => 'text/plain')
 MimeType.gen_if_not_exists(:label => 'video/x-flv')
+MimeType.gen_if_not_exists(:label => 'audio/mpeg')
 
 
 # create_if_not_exists These don't exist yet, but will in the future:

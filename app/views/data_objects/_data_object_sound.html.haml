@@ -1,1 +1,11 @@
-%p=I18n.t("no_sounds_yet")
+- data_object ||= @data_object
+- unless @data_object.blank?
+  %audio{:controls => true, :loop => false, :autoplay => false, :preload => 'metadata'}
+    %source{:type => "audio/mpeg", :src => "http://terrillthompson.com/music/audio/smallf.mp3"}
+    = "mp3 not supported! in Firefox"
+  %audio{:controls => true, :loop => false, :autoplay => false, :preload => 'metadata'}
+    %source{:type => "audio/wav", :src => "http://www.sound-effect.com/sounds1/ambience/jungle/junglebird.wav"}
+    = "wav not supported!"
+  %audio{:controls => true, :loop => false, :autoplay => false, :preload => 'metadata'}
+    %source{:type => "audio/ogg", :src => "http://terrillthompson.com/music/audio/smallf.ogg"}
+    = "ogg not supported! in Safari"

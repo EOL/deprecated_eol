@@ -7,6 +7,12 @@ class Language < SpeciesSchemaModel
 
   named_scope :find_active, lambda { { :conditions => ['activated_on <= ?', Time.now.to_s(:db)], :order => 'sort_order ASC' } }
 
+  def self.create_english
+    e = Language.gen_if_not_exists(:iso_639_1 => 'en', :source_form => 'English')
+    TranslatedLanguage.gen_if_not_exists(:label => 'English', :original_language_id => e.id)
+    e
+  end
+
   def self.scientific
     cached_find_translated(:label, 'Scientific Name')
   end
@@ -41,7 +47,7 @@ class Language < SpeciesSchemaModel
   def self.unknown
     @@unknown_language ||= cached_find_translated(:label, "Unknown")
   end
-  
+
   # this is only to be used, and should only work, in the test environment
   def self.create_english
     e = Language.gen_if_not_exists(:iso_639_1 => 'en', :source_form => 'English')

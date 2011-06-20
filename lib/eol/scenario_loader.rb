@@ -31,10 +31,22 @@ module EOL
         # If there's no file at all, call it 'stale':
         return true unless File.exists?(mysqldump_path_for_connection(conn))
       end
-      last_modified = File.mtime(File.join(RAILS_ROOT, 'scenarios', "#{@name}.rb"))
       last_compile = time_the_dumps_were_taken
       return true if !last_compile
-      return last_compile < last_modified
+      # Hard-coded, which sucks, but we NEED this one...
+      return true if cached_file_is_stale?('foundation', last_compile)
+      return cached_file_is_stale?(@name, last_compile)
+    end
+
+    def cached_file_is_stale?(name, last_compile)
+      last_modified = File.mtime(File.join(RAILS_ROOT, 'scenarios', "#{name}.rb"))
+      return true if last_compile < last_modified
+      return true if migrations_have_been_created_since_compile?
+      return false
+    end
+
+    def migrations_have_been_created_since_compile?
+      !`find #{RAILS_ROOT}/db/migrate -type f -newer #{mysqldump_path_for_connection(@all_connections.first)}`.blank?
     end
 
     def load_and_cache

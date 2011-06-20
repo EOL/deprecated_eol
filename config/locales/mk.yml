@@ -1,0 +1,237 @@
+# Messages for Macedonian (Македонски)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Bjankuloski06
+mk: 
+  account_information: Информации за сметката
+  account_registered_but_not_ready_try_later: Вашата сметка е регистрирана, но сè уште не може да се користи. Обидете се повторно за пет минути.
+  add_a_role: Додај улога
+  add_to_my_collection_button: Додај во мојата збирка
+  all_pages: Сите страници
+  already_a_member_question: Веќе членувате?
+  already_member_of_community: Веќе членувате во оваа заедница.
+  application_version_advisory_information: Верзија на програмот
+  are_you_sure: Дали сте сигурни?
+  browse_gallery: Прелистајте ја нашата галерија
+  cannot_be_associated_with_both_a_user_and_a_community: Не може истовремено да биде здружено со корисник и заедница
+  cannot_be_empty: не може да стои празно.
+  citation: Наведување
+  classifications_summary_header_with_count: 
+    one: Дел од %{count} одобрена класификација
+    other: Дел од %{count} одобрени класификации
+  collected_by: "Собрал:"
+  collection_item_type_with_label: "Тип: %{type}"
+  collections: Збирки
+  collections_summary_header_with_count: 
+    one: Фигурира во %{count} збирка
+    other: Фигурира во %{count} збирки
+  collections_with_count: 
+    one: "%{count} Збирка"
+    other: "%{count} Збирки"
+  common_names_advisory_information: Народни називи на овој таксон.
+  common_names_with_count: 
+    one: "%{count} народен назив"
+    other: "%{count} народни називи"
+  communities: Заедници
+  communities_summary_header_with_count: 
+    one: Припаѓа на %{count} заедница
+    other: Припаѓа на %{count} заедници
+  communities_with_count: 
+    one: "%{count} Заедница"
+    other: "%{count} Заедници"
+  community: Заедница
+  community_activity: Активности на заедницата
+  community_focus: Тематика на заедницата
+  community_members: Членови на заедницата
+  community_roles: Улоги во заедницата
+  community_watching_this_note: Заедницата сега го гледа овој %{name}.
+  contact_us_link: Контактирајте нè
+  content_partners: Соработници за содржините
+  content_update: Поднова на содржините
+  contribute_to_page_button: Учествувајте во страницава
+  contributors_like_you: Учесници како Вас
+  could_not_find_user: Не можев да најдам член за овој корисник
+  create_a_collection: Создај збирка
+  create_a_community: Создајте заедница
+  created_community: Заедницата е успешно создадена.
+  curator_activity: Активности на кустосот
+  curator_comment: Коментар на кустосот
+  curators_summary_header_with_count: 
+    one: "%{count} Кустос"
+    other: "%{count} Кустоси"
+  currently_in_eol: Моментално во Енциклопедијата на живиот свет
+  dato_rating_note: "%{username} го оцени ова со %{rating}."
+  delete_allcaps: ИЗБРИШИ
+  delete_community: Избриши ја заедницава
+  detail: Подробно
+  development_version_name: В2 РАЗВОЈНА ВЕРЗИЈА - не е за јавна употреба
+  donate: Дајте прилог
+  donation_error_no_amount: Одберете го износот на прилогот.
+  donation_error_only_numbers: Внесете го износот само со бројки.
+  edit_collection: Уреди збирка
+  edit_community: Уреди заедница
+  edit_membership: Уреди членство
+  encyclopedia_of_life: Енциклопедија на живиот свет
+  eol_glossary: Поимник
+  eol_news: Новости
+  error_page_header: Нажалост, наидовме на проблем
+  explore: Истражете
+  filter_feeds_all_option: Поднови од сите канали
+  filter_feeds_button: Филтрирај
+  filter_feeds_label: Прикажи
+  general_error_occurred: Нажалост, се појави грешка. Направете уште еден обид, а ако грешката продолжи да се јавува, пишете на %{email} наведувајќи ја пораката за грешка подолу заедно со други информации што сметате дека ќе ни помогнат. Работиме напорно за да Ве услужиме што подобро, и затоа ја цениме Вашата поддршка. -- Екипата на EOL
+  get_involved: Приклучете ни се
+  global_access_tagline: Глобален пристап до сознанија за живиот свет на Земјата.
+  global_navigation: Општа навигација
+  go: Оди
+  google_translate: Google Преведувач
+  google_translate_advisory_information: Користете го прилогот на Google Преведување за да ги преобратите содржините на мрежното место во друг јазик.
+  has_already_been_taken: е зафатено.
+  help: Помош
+  home_page_link_advisory_information: Оваа врска ќе Ве доведе до домашната страница на Енциклопедијата на живиот свет
+  image_thumbnail_alt_text: На оваа %{vetted_status} слика е претставен %{scientific_name}
+  images: Слики
+  images_with_count: 
+    one: "%{count} слика"
+    other: "%{count} слики"
+  indexed: Индексирано
+  invalid_login_or_password: Погрешно корисничко име или лозинка
+  item_was_added_to_your_recently_collected_items: Ставката е додадена во Вашите Неодамна собрани ставки
+  item_was_added_to_your_watched_items_collection: Ставката е додадена во Вашата збирка на Набљудувани ставки
+  iucn_red_list_status_advisory_information: Оваа врска ќе ве доведе до мрежното место на Меѓународниот сојуз за заштита на природата (МСЗП, IUCN), каде ќе најдете повеќе информации за Црвениот список на загрозени видови.
+  join_community: Придружете се на заедницава
+  join_community_button: Приклучете се на оваа заедница
+  join_community_login_required_advisory: Ќе треба да се најавите пред да можете да се приклучите на заедницата
+  join_eol_button_html: Придружете  се на <abbr title="Енциклопедија на живиот свет">EOL</abbr> сега
+  join_eol_community_html: Станете дел од заедницата на <abbr title="Енциклопедија на живиот свет">EOL</abbr>!
+  just_pages_with_pictures_and_text: Само страниците со слики и текст
+  language_menu_item: "%{language_label} <abbr>(%{language_abbr})</abbr>"
+  learn_about_content_partners: Дознајте повеќе за нашите партнери во содржините
+  learn_how_to_interact: Дознајте како можете да општите
+  learn_how_to_join: Дознајте како можете да ни се приклучите
+  leave_community: Напуштете ја заедницава
+  license: Лиценца
+  link_to_add_role_to_community_to_control_privs: "%{link} за да раководите со привилегиите на членовите."
+  link_to_join_this_community: Мора да сте <a href='%{link}'>најавени</a> за да се приклучите на заедницата.
+  location_: Место
+  log_in: Најава
+  login_or_create_account: Најава / Регистрација
+  manage_community: Раководење со заедницата
+  manage_roles: Раководење со улоги
+  maps_with_count: 
+    one: "%{count} Карта"
+    other: "%{count} Карти"
+  media: Медиуми
+  media_with_count: 
+    one: "%{count} Медиум"
+    other: "%{count} Медиуми"
+  members_count_in_parens: 
+    one: (%{count} член)
+    other: (%{count} члена)
+  members_with_count: 
+    one: "%{count} учесник"
+    other: "%{count} учесници"
+  minimal_page: Минимална страница
+  must_be_associated_with_either_a_user_or_a_community: Мора да биде здружено или со корисник, или со заедица.
+  must_be_less_than_128_characters_long: не повеќе од 128 знаци.
+  must_be_logged_in: Мора да сте најавени за да ја извршите оваа постапка.
+  newsfeed: Актуелности
+  no_activity: Нема активности.
+  no_members_in_parens: (нема членови)
+  not_evaluated: Непроценето
+  other_collection_items_with_count: 
+    one: "%{count} друга ставка"
+    other: "%{count} други ставки"
+  other_community_items_with_count: 
+    one: "%{count} друга ставка"
+    other: "%{count} други ставки"
+  overview: Преглед
+  pages_with_pictures_and_text: Страници со слики и текст
+  pages_with_pictures_or_text: Страници со слики или текст
+  pending_collections_with_count: 
+    one: "%{count} збирка во исчекување"
+    other: "%{count} збирки во исчекување"
+  pending_members_with_count: 
+    one: "%{count} член во исчекување"
+    other: "%{count} члена во исчекување"
+  people_with_count: 
+    one: "%{count} лице"
+    other: "%{count} лица"
+  post_comment: Објавете коментар
+  preferred_common_name_advisory_information: Ова е претпочитаниот народен назив на таксонот.
+  print_this_page_link: Отпечати ја страницава
+  profile: Профил
+  profile_image_alt_text_curator: Профилна слика на кустосот %{user_given_name} %{user_family_name}
+  profile_image_alt_text_member: Профилна слика за корисникот %{user_given_name} %{user_family_name}
+  punctuation_comma: ","
+  recent_updates: Скорешни поднови
+  remove_membership: Отстрани членство
+  rights: Права
+  rights_holder: Имател на правата
+  roles: Улоги
+  search_field_label: Пребарување по EOL
+  search_input_advisory_information: Внесете го народниот или научниот назив на живите организми кои Ве интересираат. На пример, внесете tomato (домат).
+  search_placeholder: Пребарајте по EOL ...
+  search_the_site: Пребарајте по мрежното место
+  see_all_classifications_with_count_html: 
+    one: Погледајте ја <span class="assistive">%{count} одобрената класификација кајшто фигурира овој таксон.</span>
+    other: Погледајте ги сите <span class="assistive">%{count} одобрени класификации кајшто фигурира овој таксон.</span>
+  see_all_collections_with_count_html: 
+    one: Погледајте ја <span class="assistive">%{count} збирката кајшто фигурира овој таксон.</span>
+    other: Погледајте ги сите <span class="assistive">%{count} збирки кајшто фигурира овој таксон.</span>
+  see_all_communities_with_count_html: 
+    one: Погледајте ја <span class="assistive">%{count} заедницата посветена на овој таксон.</span>
+    other: Погледајте ги сите <span class="assistive">%{count} заедници посветени на овој таксон.</span>
+  see_all_media_link: Сите медиуми
+  select_topic: Изберете тематика
+  selected_language_advisory_information: Ова е моментално избраниот јазик.
+  sign_in: Најава
+  sign_out: Одјава
+  site_information: Информации за мрежното место
+  skip_to_content: Прејди на содржината
+  sound_thumbnail_alt_text: Ова е %{vetted_status} аудиоснимка на %{scientific_name}
+  source_information_link: информации за изворот
+  source_url: Изворна URL-адреса
+  supplier_: Добавувач
+  switch_language_advisory_information: Префрлете го јазикот на мрежното место на %{language_label}
+  taxa: Таксони
+  taxa_with_count: 
+    one: "%{count} таксон"
+    other: "%{count} таксони"
+  taxon: таксон
+  text_summary_more_link: Полн запис
+  thanks_for_feedback: Ви благодариме за искажаното мислење.
+  the_email_address_is_not_unique_you_must_enter_a_username: Оваа е-поштенска адреса не е единствена - мора да внесете корисничко име
+  there_are_currently_no_members_in_this_community: Заедницата моментално нема членови.
+  there_are_currently_no_roles_for_this_community: Во заедницата моментално нема улоги.
+  threat_status_header_colon: "Загрозеност:"
+  total_items_with_count: 
+    one: "%{count} ставка"
+    other: вкупно %{count} ставки
+  try_your_request_again: Доставете го барањето повторно
+  unknown: Непознат
+  updated_community: Заедницата е успешно подновена.
+  user_became_role_note: "%{username} стана %{role}."
+  user_comment: Кориснички коментар
+  user_joined_community_note: "%{username} се приклучи на заедницата."
+  user_left_community_note: "%{username} ја напушти заедницата."
+  user_system_down: Се извинуваме, но системот за регистрација е моментално недостапен. Обидете се подоцна.
+  verification_phrase_did_not_match: Внесениот потврден израз не се совпаѓа.
+  video_thumbnail_alt_text: На ова %{vetted_status} видео се прикажува %{scientific_name}
+  videos_with_count: 
+    one: "%{count} видео"
+    other: "%{count} видеа"
+  view_only_pages_with_at_least_a_picture_or_piece_of_text: Само страниците со барем по една слика или некаков текст
+  what_is_a_taxon: Што е тоа таксон?
+  what_is_eol: Што е EOL?
+  wikipedia_article_will_be_harvested_tonight: Вечерва ќе биде преземена статијата %{article} ревизија %{rev} од Википедија
+  wikipedia_revisions_must_match_pattern_error: URL-адресата на ревизијата мора да се совпаѓа со http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
+  you_are_an_admin_so_i_will_show_you_that_the_error_was: "Администратор сте. Затоа ќе Ви покажам дека грешката беше:"
+  you_are_not_authorized_to_perform_this_action: Не сте овластени да ја извршите оваа постапка.
+  you_have_been_a_member_of_this_community_since: Во ова заедница членувате од %{since}.
+  you_in_parens: (Вие)
+  you_joined_community: Успешно се приклучивте на заедницата.
+  you_left_community: Успешно ја напуштивте заедницата.
+  you_must_be_logged_in_to_add_tags: Мора да сте најавени за да додавате ознаки.
+  your_message_was_sent: Вашата порака е испратена.
+  your_preferences: Ваши нагодувања

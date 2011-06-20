@@ -1,0 +1,147 @@
+# Messages for Simplified Chinese (‪中文(简体)‬)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Hydra
+zh-CN: 
+  account_information: 帐户信息
+  account_registered_but_not_ready_try_later: 您的帐户已注册但未准备好您访问。请五分钟后再试。
+  add_a_role: 添加角色
+  add_to_my_collection_button: 添加到我的收藏
+  all_pages: 所有页面
+  already_a_member_question: 已经是会员？
+  already_member_of_community: 你已经是这个社会的一个成员。
+  application_version_advisory_information: 应用程序版本
+  are_you_sure: 是否确定？
+  browse_gallery: 浏览我们的库
+  cannot_be_associated_with_both_a_user_and_a_community: 无法将用户与社区相关联
+  cannot_be_empty: 不能为空。
+  citation: 报价
+  collected_by: 所收集的
+  collection_item_type_with_label: 类型： %{type}
+  collections: 收藏
+  common_names_advisory_information: 这种与相关联的通用名称。
+  communities: 社区
+  community: 社区
+  community_activity: 社区活动
+  community_focus: 社会焦点
+  community_members: 社区成员
+  community_roles: 社会角色
+  contact_us_link: 联系我们
+  content_partners: 内容提供商
+  content_update: 内容更新
+  contribute_to_page_button: 贡献至此页
+  contributors_like_you: 像你这样的参与者
+  could_not_find_user: 找不到该用户的成员
+  create_a_collection: 创建集合
+  create_a_community: 创建社区
+  created_community: 社区已成功创建。
+  curator_activity: 馆长活动
+  curator_comment: 策展人的评论
+  currently_in_eol: 目前在生活的大百科全书
+  delete_allcaps: 删除
+  delete_community: 删除此社区
+  detail: 详细
+  development_version_name: V2 开发版本 - 不供市民使用
+  donate: 捐赠
+  donation_error_no_amount: 请选择捐款的金额。
+  donation_error_only_numbers: 请输入金额，使用唯一的编号。
+  edit_collection: 编辑集合
+  edit_community: 编辑社区
+  edit_membership: 编辑成员身份
+  encyclopedia_of_life: 生活的大百科全书
+  eol_glossary: EOL 词汇表
+  eol_news: EOL 新闻
+  error_page_header: 对不起，我们遇到了问题
+  explore: 探索
+  filter_feeds_all_option: 来自所有源的更新
+  filter_feeds_button: 筛选器
+  filter_feeds_label: 显示
+  get_involved: 参与
+  global_access_tagline: 地球上的生命知识的全局访问。
+  global_navigation: 全球导航
+  go: 转到
+  google_translate: 谷歌翻译
+  google_translate_advisory_information: 使用谷歌翻译构件转换成另一种语言的网站内容。
+  has_already_been_taken: 已采取。
+  help: 帮助
+  home_page_link_advisory_information: 此链接将带您到百科全书的生命网站点的主页
+  images: 图像
+  indexed: 索引
+  invalid_login_or_password: 无效的登录名或密码
+  item_was_added_to_your_recently_collected_items: 项目被添加到您最近收集的项目
+  item_was_added_to_your_watched_items_collection: 项目被添加到您观看的项集合
+  join_community: 加入此社区
+  join_community_button: 加入此社区
+  join_community_login_required_advisory: 将要求您登录才能加入此社区
+  just_pages_with_pictures_and_text: 只是这些页面使用图片和文本
+  learn_about_content_partners: 了解我们的内容合作伙伴
+  learn_how_to_interact: 了解您可以如何进行交互
+  learn_how_to_join: 了解您可以如何加入
+  leave_community: 离开此社区
+  license: 授权
+  location_: 位置
+  log_in: 登录
+  login_or_create_account: 登录或创建账户
+  manage_community: 社区管理
+  manage_roles: 管理角色
+  media: 媒体
+  minimal_page: 最小的页
+  must_be_associated_with_either_a_user_or_a_community: 必须与用户或社会关联
+  must_be_less_than_128_characters_long: 必须少于 128 个字符。
+  must_be_logged_in: 您必须登录执行此操作。
+  newsfeed: 新闻
+  no_activity: 没有活动。
+  no_members_in_parens: （没有成员）
+  not_evaluated: 不计算
+  overview: 概述
+  pages_with_pictures_and_text: 图片和文本的页
+  pages_with_pictures_or_text: 页的图片或文本
+  post_comment: 留言
+  preferred_common_name_advisory_information: 这是此种首选的公用名。
+  print_this_page_link: 打印此页
+  profile: 配置文件
+  punctuation_comma: ，
+  recent_updates: 最近的更新
+  remove_membership: 删除成员
+  rights: 权利
+  rights_holder: 权利持有人
+  roles: 角色
+  search_field_label: 搜索 EOL
+  search_input_advisory_information: 输入你想知道更多有关共同或生物体的学名，例如尝试进入番茄。
+  search_placeholder: 搜索 EOL ...
+  search_the_site: 搜索网站
+  see_all_media_link: 请参阅所有媒体
+  select_topic: 请选择一个主题区域
+  selected_language_advisory_information: 这是当前所选的语言。
+  sign_in: 登录
+  sign_out: 注销
+  site_information: 站点信息
+  skip_to_content: 跳到内容
+  source_information_link: 源信息
+  source_url: 来源网址
+  supplier_: 供应商
+  switch_language_advisory_information: 网站语言切换到 %{language_label}
+  taxa: 率
+  taxon: 分类群
+  text_summary_more_link: 阅读完整的条目
+  thanks_for_feedback: 谢谢您的反馈意见。
+  the_email_address_is_not_unique_you_must_enter_a_username: 不是唯一的电子邮件地址 - 您必须输入一个用户名
+  there_are_currently_no_members_in_this_community: 在这个社会中，目前没有任何成员。
+  there_are_currently_no_roles_for_this_community: 目前没有为这个社会的角色。
+  threat_status_header_colon: 威胁的状态：
+  try_your_request_again: 再次尝试您的请求
+  unknown: 未知
+  updated_community: 社区已成功更新。
+  user_comment: 用户注释
+  user_system_down: 很抱歉，但用户注册系统当前不可用。请稍后再试。
+  verification_phrase_did_not_match: 您输入的验证短语不匹配。
+  view_only_pages_with_at_least_a_picture_or_piece_of_text: 查看只有用最少的图片或文本段的页面
+  what_is_eol: EOL 是什么？
+  you_are_an_admin_so_i_will_show_you_that_the_error_was: 您的管理员。所以，我会告诉你错误是：
+  you_are_not_authorized_to_perform_this_action: 您无权执行此操作。
+  you_in_parens: （你）
+  you_joined_community: 您已经成功地加入了这个社会。
+  you_left_community: 您成功地离开了这个社会。
+  you_must_be_logged_in_to_add_tags: 您必须登录添加标记。
+  your_message_was_sent: 您的邮件被发送。
+  your_preferences: 您的首选项

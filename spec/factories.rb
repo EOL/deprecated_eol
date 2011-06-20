@@ -487,12 +487,11 @@ end
 Factory.define :data_object do |dato|
   dato.guid                   { Factory.next(:guid) }
   dato.identifier             ''
-  dato.data_type              { DataType.first || DataType.gen_if_not_exists(:label => 'Image') }
-  dato.mime_type              { MimeType.find_by_translated(:label, 'image/jpeg') || MimeType.gen_if_not_exists(:label => 'image/jpeg') }
+  dato.data_type              { DataType.gen_if_not_exists(:label => 'Image') }
+  dato.mime_type              { MimeType.gen_if_not_exists(:label => 'image/jpeg') }
   dato.object_title           ''
   dato.language               { Language.english }
-  dato.license                { License.find_by_title('cc-by 3.0') ||
-                                License.gen_if_not_exists(:title => 'cc-by 3.0',
+  dato.license                { License.gen_if_not_exists(:title => 'cc-by 3.0',
                                         :description => 'Some rights reserved',
                                         :source_url => 'http://creativecommons.org/licenses/by/3.0/',
                                         :logo_url => '/images/licenses/cc_by_small.png') }

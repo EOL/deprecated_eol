@@ -11,8 +11,7 @@ ActionController::Routing::Routes.draw do |map|
   # TODO - these member methods want to be :put. Capybara, however, always uses :get, so in the interests of simple tests:
   map.resources :communities, :has_many => [:members, :roles], :member => { 'join' => :get, 'leave' => :get } do |community|
     community.resource :newsfeed, :only => [:show], :controller => "communities/newsfeeds"
-    community.resources :collections, :only => [:index], :controller => "communities/collections"
-    community.resources :collections, :except => [:index]
+    community.resources :collection_endorsements, :controller => "communities/collection_endorsements"
   end
   map.resources :members, :member => {
     'grant_privilege_to' => :post, 'revoke_privilege_from' => :delete,
@@ -174,8 +173,8 @@ ActionController::Routing::Routes.draw do |map|
   map.mobile 'mobile', :controller => 'mobile/contents'
   map.namespace :mobile do |mobile|
     mobile.resources :contents, :collection => {:enable => :post, :disable => :post}
-  end 
-  
+  end
+
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'

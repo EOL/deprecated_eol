@@ -95,6 +95,9 @@ private
     # TODO: Should we have a redirect to error page here if @community is not found i.e. nil?
     @members = @community.members # Because we pull in partials from the members controller.
     @current_member = current_user.member_of(@community)
+    if @current_member && @current_member.can?(Privilege.endorse_collections)
+      @pending_collections = @community.pending_collections
+    end
   end
 
   def restrict_edit

@@ -186,6 +186,7 @@ en:
   auto_publish_this_resource__fu: "Auto-publish this resource (future harvest do not require preview)"
   available: "available"
   average_rating_value_of_total: "Average rating: %{rating} of %{total}"
+  back: "Back"
   back_to_profile: "Back to profile"
   be_able_to_display_the_eol_log: "Be able to display the EOL logo on its web site."
   began: "Began"

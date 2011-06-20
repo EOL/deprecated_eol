@@ -1,0 +1,85 @@
+# Messages for Hindi (हिन्दी)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Vitthalkudal
+hi: 
+  account_registered_but_not_ready_try_later: आपका खाता पंजीकृत है, लेकिन आपके उपयोग करने के लिए तैयार नहीं है। कृपया पांच मिनट में फिर से प्रयास करें।
+  add_a_role: एक भूमिका जोड़ें
+  add_to_my_collection_button: मेरे संग्रह में जोड़ें
+  all_pages: सभी पृष्ठ
+  already_a_member_question: पहले से ही सदस्य हैं?
+  already_member_of_community: आप पहले से ही इस समुदाय के एक सदस्य हैं।
+  are_you_sure: क्या आपको यकीन है?
+  browse_gallery: हमारी चित्रशाला देखें
+  cannot_be_associated_with_both_a_user_and_a_community: या तो किसी उपयोगकर्ता या एक समुदाय के साथ जुड़ा होना चाहिए
+  cannot_be_empty: रिक्त नहीं हो सकता।
+  collected_by: द्वारा एकत्रित
+  collections: संग्रह
+  communities: समुदाय
+  community_activity: सामुदायिक गतिविधि
+  community_members: समुदाय के सदस्य
+  community_roles: सामुदायिक भूमिकाएँ
+  contact_us_link: हमसे संपर्क करें
+  content_partners: सामग्री साझेदार
+  content_update: सामग्री अद्यतन
+  contribute_to_page_button: इस पृष्ठ के लिए योगदान करें
+  could_not_find_user: इस प्रयोक्ता के लिए सदस्य नहीं मिला
+  create_a_community: एक समुदाय बनाएँ
+  created_community: समुदाय सफलतापूर्वक बनाया गया।
+  currently_in_eol: वर्तमान में जीवन का विश्वकोश में
+  delete_allcaps: हटाएँ
+  delete_community: इस समुदाय को हटाएँ
+  donate: दान
+  donation_error_no_amount: कृपया एक दान राशि का चयन करें।
+  donation_error_only_numbers: एक ही नंबर का उपयोग कर राशि दर्ज करें.
+  edit_collection: संग्रह संपादित करें
+  edit_membership: सदस्यता संपादित करें
+  filter_feeds_all_option: सभी फ़ीड्स से अद्यतन
+  filter_feeds_button: छानें
+  filter_feeds_label: दिखाएँ
+  global_access_tagline: पृथ्वी पर जीवन के बारे में ज्ञान के लिए वैश्विक पहुँच।
+  google_translate: गूगल अनुवाद
+  google_translate_advisory_information: साइट की सामग्री किसी अन्य भाषा में रूपांतरित करने के लिए गूगल अनुवाद विजेट का उपयोग करें।
+  has_already_been_taken: पहले से ही लिया गया है।
+  help: मदद
+  images: छवियाँ
+  indexed: अनुक्रमित
+  join_community_button: इस समुदाय से जुड़ें
+  learn_about_content_partners: हमारे सामग्री साझेदारों के बारे में जानें
+  learn_how_to_interact: जानें कि कैसे आप आदान-प्रदान कर सकते हैं
+  learn_how_to_join: जानें कैसे आप शामिल हो सकते हैं
+  leave_community: इस समुदाय को छोड़ें
+  location_: स्थान
+  manage_community: समुदाय प्रबंधन
+  manage_roles: भूमिकाएँ प्रबंधित करें
+  minimal_page: न्यूनतम पृष्ठ
+  must_be_associated_with_either_a_user_or_a_community: या तो किसी उपयोगकर्ता या एक समुदाय के साथ जुड़ा होना चाहिए
+  must_be_less_than_128_characters_long: 128 वर्णों से अवश्य कम होना चाहिए.
+  newsfeed: समाचार फ़ीड
+  no_activity: कोई गतिविधि नहीं
+  not_evaluated: मूल्यांकन नहीं
+  pages_with_pictures_and_text: चित्रों और पाठ के साथ पृष्ठ
+  post_comment: टिप्पणी पोस्ट करें
+  print_this_page_link: यह पृष्ठ मुद्रित करें
+  punctuation_comma: ","
+  recent_updates: हाल ही के अद्यतन
+  rights_holder: अधिकार धारक
+  roles: भूमिकाएँ
+  select_topic: कृपया किसी विषय क्षेत्र का चयन करें
+  selected_language_advisory_information: यह वर्तमान में चयनित भाषा है।
+  site_information: साइट जानकारी
+  source_information_link: स्रोत जानकारी
+  supplier_: प्रदायक
+  text_summary_more_link: पूर्ण प्रविष्टि पढ़ें
+  thanks_for_feedback: आपकी प्रतिक्रिया के लिए धन्यवाद।
+  there_are_currently_no_roles_for_this_community: वर्तमान में इस समुदाय के लिए कोई भूमिकाएं नहीं हैं।
+  threat_status_header_colon: "खतरे की स्थिति:"
+  try_your_request_again: "आपका अनुरोध पुन: प्रयास करें"
+  updated_community: समुदाय सफलतापूर्वक अद्यतन किया गया था।
+  user_comment: सदस्य टिप्पणी
+  verification_phrase_did_not_match: आपके द्वारा दर्ज सत्यापन वाक्यांश से मिलान नहीं किया था।
+  what_is_eol: क्या है EOL?
+  you_are_an_admin_so_i_will_show_you_that_the_error_was: "आप एक व्यवस्थापक हैं  तो, मैं आपको दिखाता हूँ कि क्या त्रुटि थी:"
+  you_are_not_authorized_to_perform_this_action: आप इस क्रिया को करने के लिए अधिकृत नहीं हैं.
+  you_left_community: आपने सफलतापूर्वक इस समुदाय को छोड़ दिया है।
+  your_preferences: अपनी वरीयताएँ

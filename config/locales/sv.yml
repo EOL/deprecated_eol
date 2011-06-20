@@ -1,0 +1,96 @@
+# Messages for Swedish (Svenska)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: WikiPhoenix
+sv: 
+  account_information: Kontoinformation
+  add_to_my_collection_button: Lägg till i min samling
+  all_pages: Alla sidor
+  already_a_member_question: Redan medlem?
+  already_member_of_community: Du är redan medlem i denna gemenskap.
+  application_version_advisory_information: Programversion
+  are_you_sure: Är du säker?
+  browse_gallery: Bläddra i vårt galleri
+  cannot_be_empty: kan inte vara tom.
+  citation: Citation
+  collection_item_type_with_label: "Typ: %{type}"
+  collections: Samlingar
+  communities: Gemenskaper
+  community: Gemenskap
+  community_activity: Gemenskapsaktivitet
+  contact_us_link: Kontakta oss
+  contribute_to_page_button: Bidra till denna sida
+  contributors_like_you: Bidragsgivare som du
+  could_not_find_user: Kunde inte hitta en medlem för denna användare
+  create_a_collection: Skapa en samling
+  dato_rating_note: "%{username} gav detta ett betyg på %{rating}."
+  delete_allcaps: RADERA
+  delete_community: Ta bort denna gemenskap
+  detail: Detalj
+  donate: Donera
+  edit_collection: Redigera samling
+  edit_community: Redigera gemenskap
+  edit_membership: Redigera medlemskap
+  encyclopedia_of_life: Encyclopedia of Life
+  eol_news: EOL-nyheter
+  error_page_header: Tyvärr, vi har stött på ett problem
+  explore: Utforska
+  filter_feeds_button: Filter
+  filter_feeds_label: Visa
+  global_navigation: Global navigation
+  go: Gå
+  google_translate: Google Översätt
+  has_already_been_taken: har redan tagits.
+  help: Hjälp
+  home_page_link_advisory_information: Denna länk tar dig till startsidan för Encyclopedia Of Life
+  images: Bilder
+  images_with_count: 
+    one: "%{count} bild"
+    other: "%{count} bilder"
+  invalid_login_or_password: Ogiltigt användarnamn eller lösenord
+  join_eol_button_html: Bli medlem i <abbr title="Encyclopedia of Life">EOL</abbr> nu
+  license: Licens
+  location_: Plats
+  log_in: Logga in
+  login_or_create_account: Logga in eller skapa konto
+  members_count_in_parens: 
+    one: (%{count} medlem)
+    other: (%{count} medlemmar)
+  must_be_less_than_128_characters_long: måste vara mindre än 128 tecken.
+  must_be_logged_in: Du måste vara inloggad för att utföra denna åtgärd.
+  no_activity: Ingen aktivitet.
+  no_members_in_parens: (inga medlemmar)
+  not_evaluated: Inte utvärderad
+  overview: Översikt
+  pages_with_pictures_and_text: Sidor med bilder och text
+  pages_with_pictures_or_text: Sidor med bilder eller text
+  people_with_count: 
+    one: "%{count} person"
+    other: "%{count} personer"
+  print_this_page_link: Skriv ut denna sida
+  profile: Profil
+  profile_image_alt_text_member: Profilbild för medlemmen %{user_given_name} %{user_family_name}
+  punctuation_comma: ","
+  recent_updates: Senaste uppdateringar
+  remove_membership: Ta bort medlemskap
+  rights: Rättigheter
+  rights_holder: Rättighetshavaren
+  roles: Roller
+  search_field_label: Sök EOL
+  search_placeholder: Sök i EOL...
+  search_the_site: Sök på webbplatsen
+  select_topic: Välj ett ämnesområde
+  sign_in: Logga in
+  sign_out: Logga ut
+  site_information: Sidinformation
+  skip_to_content: Hoppa till innehåll
+  source_information_link: källinformation
+  supplier_: Leverantör
+  thanks_for_feedback: Tack för din feedback.
+  unknown: Okänd
+  user_comment: Användarkommentar
+  user_left_community_note: "%{username} lämnade gemenskapen."
+  what_is_eol: Vad är EOL?
+  you_in_parens: (du)
+  you_must_be_logged_in_to_add_tags: Du måste vara inloggad för att lägga till taggar.
+  your_message_was_sent: Ditt meddelande har skickats.

@@ -147,10 +147,11 @@ License.gen_if_not_exists(:title => 'cc-by-nc-sa 3.0',
                           :logo_url => '/images/licenses/cc_by_nc_sa_small.png')
 
 MimeType.gen_if_not_exists(:label => 'image/jpeg')
+MimeType.gen_if_not_exists(:label => 'audio/mpeg')
 MimeType.gen_if_not_exists(:label => 'text/html')
 MimeType.gen_if_not_exists(:label => 'text/plain')
 MimeType.gen_if_not_exists(:label => 'video/x-flv')
-MimeType.gen_if_not_exists(:label => 'audio/mpeg')
+MimeType.gen_if_not_exists(:label => 'video/quicktime')
 
 
 # create_if_not_exists These don't exist yet, but will in the future:

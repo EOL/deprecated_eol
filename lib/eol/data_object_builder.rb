@@ -45,13 +45,11 @@ module EOL
     #
     # Any other options on this method will be passed directly to the DataObject#gen method (for example,
     # lattitude, longitude, and the like).
-    #
-    # NOTE - I am not setting the mime type yet.  We never use it.  NOTE - There are no models for all the
-    # refs_* tables, so I'm ignoring them.
     def initialize(type, desc, options = {})
       @type = type
       data_object_gen_options = pull_class_options_from(options)
-      @dato = DataObject.gen(dynamic_attributes(desc).merge(data_object_gen_options))
+      gen_opts = dynamic_attributes(desc).merge(data_object_gen_options)
+      @dato = DataObject.gen(gen_opts)
       build
     end
 
@@ -121,7 +119,7 @@ module EOL
       options =
         default_attributes.merge({:data_type   => DataType.find_by_translated(:label, @type),
                                   :description => desc,
-                                  :mime_type   => MimeType.find_by_translated(:label, mime_types[@type] || mime_type[:default])
+                                  :mime_type   => MimeType.find_by_translated(:label, mime_types[@type] || mime_types[:default])
                                  })
       if @type == 'Image'
          options[:object_cache_url] ||= Factory.next(:image)

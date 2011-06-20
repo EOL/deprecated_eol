@@ -32,13 +32,13 @@ module EOL
     #   +mime_type+::
     #     If you care about it, set it.  Otherwise, a useful default will be chosen.
     #   +name+::
-    #     Which Name object (q.v.) to link the Taxon to. 
+    #     Which Name object (q.v.) to link the Taxon to.
     #   +num_comments+::
     #     How many comments to attach to this object.
     #   +scientific_name+::
-    #     Which raw scientific name the content provider assigned to the Taxon.  Defaults to the HE's. 
+    #     Which raw scientific name the content provider assigned to the Taxon.  Defaults to the HE's.
     #   +taxon+::
-    #     Which Taxon (q.v.) to link this to.  If missing, one will be created. 
+    #     Which Taxon (q.v.) to link this to.  If missing, one will be created.
     #   +toc_item+::
     #     If this is a 'Text' type, this specifies which TocItem to link this to. If left blank, one is randomly
     #     chosen.
@@ -115,7 +115,7 @@ module EOL
           TopUnpublishedConceptImage.gen :data_object => @dato, :taxon_concept => he.taxon_concept
         end
       end
-    end      
+    end
 
     def dynamic_attributes(desc)
       options =

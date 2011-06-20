@@ -53,6 +53,9 @@ module EOL
     #     String form of the Rank you want this TC to be.  Default 'species'.
     #   +scientific_name+::
     #     String to use for the preferred scientific name.  The first in the list will be "preferred"
+    #   +sounds+::
+    #     Array of audio files, each member is a hash containing options for sound object. The relevant keys are
+    #     +:description+ and +:object_cache_url+.
     #   +toc+::
     #     An array of hashes.  Each hash may have a +:toc_item+ key and a +:description+ key. Note that there are
     #     some toc entries that you CANNOT affect here, like common_names, bhl, or biomedical_terms, since they are
@@ -70,7 +73,7 @@ module EOL
       set_default_options(options)
       build
     end
-    
+
   private
 
     def build
@@ -85,12 +88,13 @@ module EOL
       add_comments
       add_images
       add_videos
+      add_sounds
       add_map
       add_toc
       add_iucn
       gen_bhl
       gen_biomedical_terms
-      
+
       #denormalized tables
       gen_random_hierarchy_image
       add_feed_objects
@@ -132,7 +136,7 @@ module EOL
     # internal_image, map, or image_object_id; c) I'm not sure if any of the fields in (b) are used: check.
     def gen_taxon_concept_content
       tcc = TaxonConceptContent.find_by_taxon_concept_id(@tc.id)
-      if tcc 
+      if tcc
         tcc.content_level = 4
         tcc.save!
       else
@@ -219,6 +223,17 @@ module EOL
       end
     end
 
+    def add_sounds
+      puts "** Enter: add_sounds" if @debugging
+      sound_options = @sounds || [{}]
+      sound_options.each do |sound_opt|
+        desc   = sound_opt.delete(:description) || Faker::Lorem.sentence
+        sound_opt[:object_cache_url] ||= Factory.next(:sound)
+        sound_opt[:hierarchy_entry] ||= @he
+        build_object_in_event('Sound', desc, sound_opt)
+      end
+    end
+
     def add_iucn
       puts "** Enter: add_iucn" if @debugging
       if @iucn_status
@@ -229,7 +244,7 @@ module EOL
 
     def add_map
       puts "** Enter: add_map" if @debugging
-      if @gbif_map_id 
+      if @gbif_map_id
         #gbif_he = build_hierarchy_entry(@depth, @tc, @sname, :hierarchy => gbif_hierarchy, :map => true,
         puts "++ Add map!" if @debugging
         puts "GBIF hierarchy:" if @debugging
@@ -247,7 +262,10 @@ module EOL
         toc_item[:description] ||= Faker::Lorem.paragraph
         toc_item[:vetted] ||= Vetted.trusted
         toc_item[:license] ||= License.cc
-        build_object_in_event('Text', toc_item[:description], :hierarchy_entry => @he, :toc_item => toc_item[:toc_item], :vetted => toc_item[:vetted], :license => toc_item[:license])
+        toc_item[:data_rating] ||= 2.5
+        build_object_in_event('Text', toc_item[:description], :hierarchy_entry => @he,
+                              :toc_item => toc_item[:toc_item], :vetted => toc_item[:vetted],
+                              :license => toc_item[:license], :data_rating => toc_item[:data_rating])
       end
       # We're missing the info items.  Technically, the toc_item would be referenced by looking at the info items (creating any we're
       # missing).  TODO - we should build the info item first and let the toc_item resolve from that.
@@ -262,7 +280,7 @@ module EOL
         publication = nil # scope
         if bhl[:publication].nil?
           publication = default_publication
-        else 
+        else
           publication = PublicationTitle.find_by_title(bhl[:publication])
           publication ||= PublicationTitle.gen(:title => bhl[:publication])
         end
@@ -283,7 +301,7 @@ module EOL
         HierarchyEntry.gen(:hierarchy => Resource.ligercat.hierarchy, :name => @sname, :identifier => @id, :taxon_concept => @tc)
       end
     end
-    
+
     #
     # Denormalized Tables
     #
@@ -298,7 +316,7 @@ module EOL
                  :taxon_concept => @tc }
       RandomHierarchyImage.gen(options)
     end
-    
+
     def add_feed_objects
       @tc.data_objects.each do |obj|
         unless FeedDataObject.find_by_taxon_concept_id_and_data_object_id(@tc.id, obj.id)
@@ -306,7 +324,7 @@ module EOL
         end
       end
     end
-    
+
     def add_data_objects_taxon_concepts
       @tc.data_objects.each do |obj|
         unless DataObjectsTaxonConcept.find_by_taxon_concept_id_and_data_object_id(@tc.id, obj.id)
@@ -355,6 +373,7 @@ module EOL
       @biomedical_terms = options[:biomedical_terms]
       @parent_hierarchy_entry_id = options[:parent_hierarchy_entry_id]
       @rank         = options[:rank]
+      @sounds       = options[:sounds]
       @toc          = options[:toc]             || default_toc_option
       @vetted       = (options[:vetted] and ['trusted', 'untrusted', 'unknown'].include? options[:vetted]) ? options[:vetted] : 'trusted'
       @youtube      = options[:youtube]
@@ -382,16 +401,16 @@ module EOL
                  :visibility => Visibility.invisible}
       images << {:description => 'preview', :object_cache_url => Factory.next(:image),
                  :visibility => Visibility.preview}
-      images << {:description => 'invisible, unknown', 
+      images << {:description => 'invisible, unknown',
                  :object_cache_url => Factory.next(:image), :visibility => Visibility.invisible,
                  :vetted => Vetted.unknown}
-      images << {:description => 'invisible, untrusted', 
+      images << {:description => 'invisible, untrusted',
                  :object_cache_url => Factory.next(:image), :visibility => Visibility.invisible,
                  :vetted => Vetted.untrusted}
-      images << {:description => 'preview, unknown', 
+      images << {:description => 'preview, unknown',
                  :object_cache_url => Factory.next(:image), :visibility => Visibility.preview,
                  :vetted => Vetted.unknown}
-      images << {:description => 'inappropriate', 
+      images << {:description => 'inappropriate',
                  :object_cache_url => Factory.next(:image), :visibility => Visibility.inappropriate}
       return images
     end

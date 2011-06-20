@@ -5,7 +5,7 @@
         %label{:for => 'sort_by'}= I18n.t(:sort_by)
       %dd
         - sort_options = {}
-        - [:vetted, :ranking, :newest].each{|opt| sort_options[I18n.t("sort_by_#{opt}_option")] = opt }
+        - [:newest, :rating, :status].each{|opt| sort_options[I18n.t("sort_by_#{opt}_option")] = opt }
         = select_tag :sort_by, options_for_select(sort_options, @sort_by.to_sym)
 
   %fieldset

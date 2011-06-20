@@ -1,18 +1,45 @@
-#page-title
-  %h1=  I18n.t(:search_results)
-  %hr
-#page-content.clearfix
-  #full-page-content
-    - if @all_results.blank?
-      %h3=I18n.t("no_search_results_were_found")
-    - else
-      - if @colon_warning_flag == 1
-        %h2
-          = I18n.t(:sorry_there_is_no_result_for_s, :var_search_text => params[:q])
-          = I18n.t(:see_result_for_var_search_text, :var_search_text => @querystring)
-        %br
-      = render :partial => 'search_results_table', :locals => {:title => 'Suggested Search Results', :results => @suggested_results }
-      = render :partial => 'search_results_table', :locals => {:title => 'Common Names Search Results', :results => @common_results }
-      = render :partial => 'search_results_table', :locals => {:title => 'Scientific Names Search Results', :results => @scientific_results }
-    %br
-    %br
+- unless @all_results.blank?
+  .header
+    %h3= I18n.t(:displaying_numerical_range, :start_number => @all_results.offset + 1, :end_number => @all_results.offset + [@all_results.per_page, @all_results.total_entries].min)
+    = will_paginate(@all_results)
+  %ul
+    - @all_results.each do |result|
+      - url = found_url(:id => result['id'])
+      - if 'taxon'
+        - type = 'taxon'
+        - image = result['top_image'].nil? ? nil : result['top_image'].smart_medium_thumb
+        - classification = result['ancestor_scientific'] > result['parent_scientific']
+        - primary_title = result['best_matched_scientific_name'].is_a?(Array) ? result['best_matched_scientific_name'].first : result['best_matched_scientific_name']
+        - secondary_title = hh(result['best_matched_common_name'])
+      - elsif 'person'
+        - # FIXME:
+        - primary_title = "Bill Brasky"
+        - secondary_title = "Head Mycologist"
+      - elsif 'image'
+        - # FIXME:
+        - primary_title = "Amanita in the Forest"
+        - secondary_title = "Image of Amanita and 1 other taxon"
+      - elsif 'community'
+        - # FIXME:
+        - primary_title = "Mushroom Fanatics"
+        - secondary_title = "32 members and 4 collections"
+      - elsif 'collection'
+        - # FIXME:
+        - primary_title = "My favorite pages"
+        - secondary_title = "45 items; maintained by Bill Brasky"
+      - elsif 'video'
+        - # FIXME:
+        - primary_title = "Video title"
+        - secondary_title = "Video of Amanita and 1 other taxon"
+
+      %li{:class => type}
+        - unless image.nil?
+          = link_to image_tag(image, :alt => ''), url
+        %span.icon
+        - unless classification.blank?
+          %small classification
+        %h4= link_to primary_title, url
+        = secondary_title
+  .header
+    %h3= I18n.t(:displaying_numerical_range, :start_number => @all_results.offset + 1, :end_number => @all_results.offset + [@all_results.per_page, @all_results.total_entries].min)
+    = will_paginate(@all_results)

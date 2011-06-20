@@ -491,6 +491,34 @@ body
         z-index: 1
         margin: -18px 0 0 0
         border: 1px solid #394651
+  &.filters
+    float: left
+    width: 180px
+    padding: 20px
+    margin: 0 20px 20px 0
+    background: #f1f4dc
+    img
+      display: block
+      margin: 0px -20px 20px -20px
+    h3
+      padding: 0 0 15px 0
+      font-size: 1.33em
+    dt
+      label
+        font-weight: bold
+        text-transform: uppercase
+        color: #667309
+    dd
+      margin: 0 0 10px 0
+      padding: 0 0 0 10px
+      + dt
+        padding-top: 10px
+      li
+        padding: 0 0 8px 0
+        label
+          font-weight: bold
+    fieldset.actions
+      padding: 0 0 0 10px
 
 #collections
   .collection
@@ -974,32 +1002,7 @@ body
 
 #media_list
   #sidebar
-    float: left
-    width: 180px
-    padding: 0 20px 20px 20px
-    margin: 0 20px 20px 0
-    background: #f1f4dc
-    img
-      display: block
-      margin: 0px -20px 20px -20px
-    h3
-      padding: 0 0 15px 0
-      font-size: 1.33em
-    dt
-      label
-        font-weight: bold
-        text-transform: uppercase
-        color: #667309
-    dd
-      padding: 0 0 0 10px
-      + dt
-        padding-top: 10px
-      li
-        padding: 0 0 8px 0
-        label
-          font-weight: bold
-    fieldset.actions
-      padding: 0 0 0 10px
+    padding-top: 0
   #main
     overflow: hidden
     .header
@@ -1046,3 +1049,82 @@ body
       &.first
         clear: both
         padding-left: 0
+
+#search_results
+  #main
+    width: 700px
+    float: right
+    .header
+      position: relative
+      padding: 10px 0
+      text-align: center
+      border-bottom: 1px solid #394651
+      h3
+        font-size: 1.33em
+      a
+        position: absolute
+        right: 10px
+        top: 15px
+        z-index: 1
+        font-weight: bold
+        &.prev
+          right: auto
+          left: 10px
+    ul
+      + .header
+        border-bottom: 0
+        border-top: 1px solid #394651
+        padding-top: 12px
+      li
+        padding: 10px
+        overflow: hidden
+        line-height: 160%
+        color: #5f6c76
+        & + li
+          border-top: 1px solid #d7dadc
+        span.icon
+          width: 68px
+          height: 68px
+          border: 1px solid #cad3db
+          float: left
+          margin: 0 20px 0 0
+          background: center no-repeat #f3f7fa
+        h4
+          margin-top: 15px
+          font-size: 1.2em
+          a
+            color: #28323a
+            text-decoration: none
+            &:hover
+              text-decoration: underline
+        img
+          float: right
+          border: 1px solid #394651
+        &.taxon
+          span.icon
+            background-image: url("/images/v2/icon_taxa_tabs.png")
+        &.video
+          span.icon
+            background-image: url("/images/v2/icon_videos_tabs.png")
+        &.image
+          span.icon
+            background-image: url("/images/v2/icon_images_tabs.png")
+        &.community
+          span.icon
+            background-image: url("/images/v2/icon_communities_tabs.png")
+        &.person
+          span.icon
+            background-image: url("/images/v2/icon_people_tabs.png")
+        &.collection
+          span.icon
+            background-image: url("/images/v2/icon_collections_tabs.png")
+        &.article
+          span.icon
+            background-image: url("/images/v2/icon_articles_tabs.png")
+        &.taxon
+          small
+            font-weight: bold
+            display: block
+            margin-top: 8px
+          h4
+            margin: 0

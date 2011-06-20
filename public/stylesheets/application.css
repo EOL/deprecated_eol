@@ -903,6 +903,33 @@ body > #header {
       z-index: 1;
       margin: -18px 0 0 0;
       border: 1px solid #394651; }
+  #sidebar.filters {
+    float: left;
+    width: 180px;
+    padding: 20px;
+    margin: 0 20px 20px 0;
+    background: #f1f4dc; }
+    #sidebar.filters img {
+      display: block;
+      margin: 0px -20px 20px -20px; }
+    #sidebar.filters h3 {
+      padding: 0 0 15px 0;
+      font-size: 1.33em; }
+    #sidebar.filters dt label {
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #667309; }
+    #sidebar.filters dd {
+      margin: 0 0 10px 0;
+      padding: 0 0 0 10px; }
+      #sidebar.filters dd + dt {
+        padding-top: 10px; }
+      #sidebar.filters dd li {
+        padding: 0 0 8px 0; }
+        #sidebar.filters dd li label {
+          font-weight: bold; }
+    #sidebar.filters fieldset.actions {
+      padding: 0 0 0 10px; }
 
 #collections .collection {
   position: relative;
@@ -1376,31 +1403,7 @@ body > #header {
   margin: 0 0 10px 0; }
 
 #media_list #sidebar {
-  float: left;
-  width: 180px;
-  padding: 0 20px 20px 20px;
-  margin: 0 20px 20px 0;
-  background: #f1f4dc; }
-  #media_list #sidebar img {
-    display: block;
-    margin: 0px -20px 20px -20px; }
-  #media_list #sidebar h3 {
-    padding: 0 0 15px 0;
-    font-size: 1.33em; }
-  #media_list #sidebar dt label {
-    font-weight: bold;
-    text-transform: uppercase;
-    color: #667309; }
-  #media_list #sidebar dd {
-    padding: 0 0 0 10px; }
-    #media_list #sidebar dd + dt {
-      padding-top: 10px; }
-    #media_list #sidebar dd li {
-      padding: 0 0 8px 0; }
-      #media_list #sidebar dd li label {
-        font-weight: bold; }
-  #media_list #sidebar fieldset.actions {
-    padding: 0 0 0 10px; }
+  padding-top: 0; }
 #media_list #main {
   overflow: hidden; }
   #media_list #main .header {
@@ -1447,3 +1450,72 @@ body > #header {
     #media_list #main li.first {
       clear: both;
       padding-left: 0; }
+
+#search_results #main {
+  width: 700px;
+  float: right; }
+  #search_results #main .header {
+    position: relative;
+    padding: 10px 0;
+    text-align: center;
+    border-bottom: 1px solid #394651; }
+    #search_results #main .header h3 {
+      font-size: 1.33em; }
+    #search_results #main .header a {
+      position: absolute;
+      right: 10px;
+      top: 15px;
+      z-index: 1;
+      font-weight: bold; }
+      #search_results #main .header a.prev {
+        right: auto;
+        left: 10px; }
+  #search_results #main ul + .header {
+    border-bottom: 0;
+    border-top: 1px solid #394651;
+    padding-top: 12px; }
+  #search_results #main ul li {
+    padding: 10px;
+    overflow: hidden;
+    line-height: 160%;
+    color: #5f6c76; }
+    #search_results #main ul li + li {
+      border-top: 1px solid #d7dadc; }
+    #search_results #main ul li span.icon {
+      width: 68px;
+      height: 68px;
+      border: 1px solid #cad3db;
+      float: left;
+      margin: 0 20px 0 0;
+      background: center no-repeat #f3f7fa; }
+    #search_results #main ul li h4 {
+      margin-top: 15px;
+      font-size: 1.2em; }
+      #search_results #main ul li h4 a {
+        color: #28323a;
+        text-decoration: none; }
+        #search_results #main ul li h4 a:hover {
+          text-decoration: underline; }
+    #search_results #main ul li img {
+      float: right;
+      border: 1px solid #394651; }
+    #search_results #main ul li.taxon span.icon {
+      background-image: url("/images/v2/icon_taxa_tabs.png"); }
+    #search_results #main ul li.video span.icon {
+      background-image: url("/images/v2/icon_videos_tabs.png"); }
+    #search_results #main ul li.image span.icon {
+      background-image: url("/images/v2/icon_images_tabs.png"); }
+    #search_results #main ul li.community span.icon {
+      background-image: url("/images/v2/icon_communities_tabs.png"); }
+    #search_results #main ul li.person span.icon {
+      background-image: url("/images/v2/icon_people_tabs.png"); }
+    #search_results #main ul li.collection span.icon {
+      background-image: url("/images/v2/icon_collections_tabs.png"); }
+    #search_results #main ul li.article span.icon {
+      background-image: url("/images/v2/icon_articles_tabs.png"); }
+    #search_results #main ul li.taxon small {
+      font-weight: bold;
+      display: block;
+      margin-top: 8px; }
+    #search_results #main ul li.taxon h4 {
+      margin: 0; }

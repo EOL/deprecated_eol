@@ -425,6 +425,9 @@ en:
   count: "Count"
   count_of_taxa_pages: "Count of Taxa Pages"
   count_of_taxa_pages_that_were_: "Count of Taxa Pages that were viewed during the month"
+  count_results_for_search_term:
+    one: "%{count} result for <em>%{search_term}</em>"
+    other: "%{count} results for <em>%{search_term}</em>"
   create_account: "create an account"
   create_a_community: "Create a community"
   create_a_community_login_advisory: "You will be asked to login before creating your community"

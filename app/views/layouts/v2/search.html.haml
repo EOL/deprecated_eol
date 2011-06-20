@@ -1,3 +1,33 @@
 - content_for :main do
-  = yield
+  #page_heading
+    .site_column
+      .hgroup
+        %h1= I18n.t(:search_results)
+        %h2= I18n.t(:count_results_for_search_term, :count => @all_results.count, :search_term => @querystring)
+  #content
+    .site_column
+      #search_results
+        #sidebar.filters
+          %form
+          %fieldset
+            %dl
+              %dt
+                %label Sort By
+              %dd
+                %select
+                  %option Newest
+              %dt
+                %label Filter By Type
+              %dd
+                %ul
+                  - ["all types (400)", "taxa (34)", "images (25)", "videos (0)", "photos (0)", "sounds (0)", "people (32)", "communities (3)", "collections (34)"].each do |type|
+                    %li
+                      %label
+                        %input(type="checkbox")
+                        = type
+          %fieldset.actions
+            %input(type="submit" value="filter results")
+        #main
+          = yield
+
 = render :file => 'layouts/v2/application'

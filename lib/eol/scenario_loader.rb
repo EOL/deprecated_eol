@@ -42,7 +42,6 @@ module EOL
       last_modified = File.mtime(File.join(RAILS_ROOT, 'scenarios', "#{name}.rb"))
       return true if last_compile < last_modified
       return true if migrations_have_been_created_since_compile?
-    (conn)
       return false
     end
 

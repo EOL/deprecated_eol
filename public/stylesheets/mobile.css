@@ -72,6 +72,10 @@
 	margin-left: auto;
 	margin-right: auto;
 }
+.fullcontent{
+	margin: 10px;
+}
+/* Taxa overview */
 #taxonomy{
 	margin: 10px;
 }
@@ -98,9 +102,7 @@
 	border: #333 solid 1px;
 	background-color: #555858;
 }
-.fullcontent{
-	margin: 10px;
-}
+/* Taxa details*/
 #taxonomy_detail{
 	margin: 10px;
 }
@@ -111,6 +113,9 @@
 	display: none;
 }
 #new_feed_item{
+	display: none;
+}
+.article.copy p a.button{
 	display: none;
 }
 

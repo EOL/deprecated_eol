@@ -49,7 +49,7 @@ describe TaxaController do
 
   it "should find no results on an empty search" do
     get :search
-    assigns[:all_results].should be_nil
+    assigns[:all_results].should == []
   end
 
   describe "ACL rules for pages" do

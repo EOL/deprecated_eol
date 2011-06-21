@@ -9,7 +9,6 @@ class AddTranslatedContentPages < ActiveRecord::Migration
       t.string :url
       t.string :meta_keywords
       t.string :meta_description
-      t.tinyint :open_in_new_window
       t.timestamps 
     end
   end

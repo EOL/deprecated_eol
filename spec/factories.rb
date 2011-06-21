@@ -373,7 +373,6 @@ Factory.define :contact_subject do |cs|
 end
 
 Factory.define :content_page do |cp|
-  #cp.association :content_section
   cp.page_name   'Test Content Page'
   cp.sort_order    1
   cp.last_update_user_id 1 # This *should* be the admin, and we don't *really* care otherwise.
@@ -387,7 +386,6 @@ Factory.define :translated_content_page do |tcp|
   tcp.main_content      {|c| "<h1>Main Content for #{c.title} ROCKS!</h1>" }
   tcp.meta_keywords     {|c| "keywords for #{c.title}"}
   tcp.meta_description  {|c| "description for #{c.title}"}
-  tcp.url               '' # This would imply that the content was external.
 end
 
 
@@ -427,6 +425,7 @@ end
 Factory.define :content_section do |cs|
   #cs.name { Factory.next(:string) }
   #cs.language_key 'en'
+  cs.page_location 'header'
 end
 
 Factory.define :translated_content_section do |cs|

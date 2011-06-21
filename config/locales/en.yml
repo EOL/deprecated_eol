@@ -2207,4 +2207,10 @@ en:
   eol_may_elect_at_its_sole_disc: "EOL may elect at its sole discretion to present all, portions or none of any data objects provided by %{var__agent_project_name} and reserves the right to redact or remove any illegal, offensive, or objectionable content."
   view_contact_us_submissions: "view contact us submissions"
   community: "Community"
-
+  create_child_page: "Create child page"
+  available_in_languages_colon: "Available in languages:"
+  add_page: "Add Page"
+  meta_keywords_colon: "Meta keywords:"
+  meta_description_colon: "Meta description:"
+  add_language: "Add language"
+  update_page: "Update page"

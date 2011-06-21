@@ -12,19 +12,29 @@ e = Language.gen_if_not_exists(:iso_639_1 => 'en', :source_form => 'English')
 TranslatedLanguage.gen_if_not_exists(:label => 'English', :original_language_id => e.id)
 
 # This ensures the main menu is complete, with at least one (albeit bogus) item in each section:
-ContentSection.gen_if_not_exists(:name => 'Home Page')
-ContentSection.gen_if_not_exists(:name => 'About EOL')
-ContentSection.gen_if_not_exists(:name => 'Feedback')
-ContentSection.gen_if_not_exists(:name => 'Using the Site')
-ContentSection.gen_if_not_exists(:name => 'Press Room')
-ContentSection.gen_if_not_exists(:name => 'Footer')
+ContentSection.gen_if_not_exists(:name => 'Home Page', :page_location => 'header')
+ContentSection.gen_if_not_exists(:name => 'About EOL', :page_location => 'header')
+ContentSection.gen_if_not_exists(:name => 'Feedback', :page_location => 'header')
+ContentSection.gen_if_not_exists(:name => 'Using the Site', :page_location => 'header')
+ContentSection.gen_if_not_exists(:name => 'Press Room', :page_location => 'header')
+ContentSection.gen_if_not_exists(:name => 'Footer', :page_location => 'footer')
 
 ContentPage.gen_if_not_exists(:page_name => 'Home', :title => 'Home', 
   :content_section => ContentSection.gen_if_not_exists(:name => 'Home Page'))
 ContentPage.gen_if_not_exists(:page_name => 'Who We Are', :title => 'Who We Are',
   :content_section => ContentSection.gen_if_not_exists(:name => 'About EOL'))
-ContentPage.gen_if_not_exists(:page_name => 'Working Group', :title => 'Working Group', 
+ContentPage.gen_if_not_exists(:page_name => 'Working Groups', :title => 'Working Groups', 
   :parent_content_page => ContentPage.gen_if_not_exists(:page_name => 'Who We Are'))
+ContentPage.gen_if_not_exists(:page_name => 'Working Group A', :title => 'Working Group A',
+  :sort_order => 1, :parent_content_page => ContentPage.gen_if_not_exists(:page_name => 'Working Groups'))
+ContentPage.gen_if_not_exists(:page_name => 'Working Group B', :title => 'Working Group B', 
+  :sort_order => 2, :parent_content_page => ContentPage.gen_if_not_exists(:page_name => 'Working Groups'))
+ContentPage.gen_if_not_exists(:page_name => 'Working Group C', :title => 'Working Group C', 
+  :sort_order => 3, :parent_content_page => ContentPage.gen_if_not_exists(:page_name => 'Working Groups'))
+ContentPage.gen_if_not_exists(:page_name => 'Working Group D', :title => 'Working Group D', 
+  :sort_order => 4, :parent_content_page => ContentPage.gen_if_not_exists(:page_name => 'Working Groups'))
+ContentPage.gen_if_not_exists(:page_name => 'Working Group E', :title => 'Working Group E', 
+  :sort_order => 5, :parent_content_page => ContentPage.gen_if_not_exists(:page_name => 'Working Groups'))
 ContentPage.gen_if_not_exists(:page_name => 'Contact Us', :title => 'Contact Us',
   :content_section => ContentSection.gen_if_not_exists(:name => 'Feedback'))
 ContentPage.gen_if_not_exists(:page_name => 'Screencasts', :title => 'Screencasts',

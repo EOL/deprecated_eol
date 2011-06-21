@@ -19,7 +19,7 @@ class ContentSection < ActiveRecord::Base
     return [] unless content_section
     return cached(section_name) do
       ContentPage.find_all_by_content_section_id_and_language_abbr_and_active(
-        content_section.id, 'en', true, :order => 'sort_order'
+        content_section.id, 'en', true
       )
     end
   end

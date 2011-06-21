@@ -1,118 +1,99 @@
-= javascript_include_tag 'admin-content-page' # TODO - handle these JS loads more elegantly.
-- form_for :page,@page,:url=>{:action=>'save_page_content',:id=>@page.id},:html=>{:id=>'page_form', 'data-page_id' => @page.id} do |f|
-  = eol_lang_error_messages_for :page
+= javascript_include_tag 'admin-content-page'
+- form_for :page,@page,:url=>{:action=>'save_new_page'},:html=>{:id=>'page_form', 'data-page_id' => @page.id} do |f|
+  = f.hidden_field :content_section_id
+  = f.hidden_field :parent_content_page_id
   %table
     %tr
-      %td{ :width => "120" }
-        %strong
-          =I18n.t("page_id_")
       %td
-        = @page.id
+        %strong
+          =I18n.t(:location)
+      %td
+        = @navigation_tree    
+    %tr
+      %td
+        %strong
+          =I18n.t("page_name_")
+      %td
+        = f.text_field :page_name, {:size=>'50',:maxlength=>'100'}
+        %br
+        =I18n.t("used_for_urls___should_be_uniq")
+    %tr
+      %td
+        %strong
+          =I18n.t("redirect_to_external_url_")
+      %td
+        = f.text_field :url, {:size=>'50',:maxlength=>'200'}
+        %br
+        =I18n.t("only_use_if_this_item_is_a_pla")
+    %tr
+      %td
+        %strong
+          =I18n.t("open_in_new_window_from_menu_")
+      %td
+        = f.check_box :open_in_new_window
+        =I18n.t("__if_checked__any_links_to_thi")
+    =#"xx"+@page.title
+    %tr
+      %td
+        %strong
+          =I18n.t("published_")
+      %td
+        = f.check_box :active
+        =I18n.t("__must_be_checked_in_order_to_")
+    %tr
+      %td{:colspan => 2, :height => 1, :bgcolor => '#000000'}
+    %tr
+      %td
+        %strong
+          = I18n.t("language")
+      %td
+        = f.select :current_translation_language, @page.not_available_in_languages(@page.current_translation_language).collect {|l| [l.iso_639_1, l.id]}
+    %tr
+      %td
+        %strong
+          =I18n.t("published_")
+      %td
+        = f.check_box :translated_active_translation
+        =I18n.t("__must_be_checked_in_order_to_")
     %tr
       %td
         %strong
           =I18n.t("title_")
       %td
-        = f.text_field :title, {:size=>'50',:maxlength=>'100'}
+        = f.text_field :translated_title, {:size=>'50',:maxlength=>'100'}
         %br
         =I18n.t("shown_to_user_as_the_title_of_")
-    - if @page.content_section.name != 'Home Page'
-      %tr
-        %td
-          %strong
-            =I18n.t("page_name_")
-        %td
-          = f.text_field :page_name, {:size=>'50',:maxlength=>'100'}
-          %br
-          =I18n.t("used_for_urls___should_be_uniq")
-      %tr
-        %td
-          %strong
-            =I18n.t("redirect_to_external_url_")
-        %td
-          = f.text_field :url, {:size=>'50',:maxlength=>'200'}
-          %br
-          =I18n.t("only_use_if_this_item_is_a_pla")
-      %tr
-        %td
-          %strong
-            =I18n.t("open_in_new_window_from_menu_")
-        %td
-          = f.check_box :open_in_new_window
-          =I18n.t("__if_checked__any_links_to_thi")
-      %tr
-        %td
-          %strong
-            =I18n.t("sort_order_")
-        %td
-          = f.text_field :sort_order, {:size=>'2',:maxlength=>'2'}
-          =I18n.t("__relative_sort_order_in_navig")
-      %tr
-        %td
-          %strong
-            =I18n.t("published_")
-        %td
-          = f.check_box :active
-          =I18n.t("__must_be_checked_in_order_to_")
-      %tr
-        %td
-          %strong
-            =I18n.t("section_")
-        %td
-          = f.collection_select :content_section_id,ContentSection.find(:all),:id,:name
-          =I18n.t("__only_change_to_move_page_ite")
-      %tr
-        %td
-          %strong
-            =I18n.t("url_to_this_page_")
-        %td
-          = link_to(I18n.t("_content_page_") + @page.id.to_s,{:controller=>'/content',:action=>'page',:id=>@page.id},:target=>'_blank')
-          - if @page.page_name != 'New Page'
-            =I18n.t("or")
-            = link_to(I18n.t("_content_page_") + @page.page_url,{:controller=>'/content',:action=>'page',:id=>@page.page_url},:target=>'_blank')
     %tr
       %td
         %strong
-          =I18n.t("page_title_language_key_")
+          =I18n.t("meta_keywords_colon")
       %td
-        = f.text_field :language_key, {:size=>'50',:maxlength=>'100'}
+        = f.text_field :translated_meta_keywords, {:size=>'50',:maxlength=>'200'}
+    %tr
+      %td
+        %strong
+          =I18n.t("meta_description_colon")
+      %td
+        = f.text_field :translated_meta_description, {:size=>'50',:maxlength=>'200'}
+    %tr
+      %td{:colspan => 2}
+        %strong
+          =I18n.t("left_content_area_")
+    %tr
+      %td{:colspan => 2}
+        = f.text_area :translated_left_content,{:cols=>'75',:rows=>'30'}
         %br
-        =I18n.t("only_used_if_page_title_is_als")
+        =I18n.t("_html_format__only_enter_if_yo")
     %tr
-      %td
+      %td{:colspan => 2}
         %strong
-          =I18n.t("page_language_")
-      %td
-        = f.select :language_abbr, Language.find_active.collect {|l| [l.source_form, l.iso_639_1]}
+          =I18n.t("main_content_area_")
     %tr
-      %td
-        %strong
-          =I18n.t("last_updated_")
-      %td
-        = "#{format_date_time(@page.created_at)} by #{@page.user ? @page.user.full_name : I18n.t(:unknown) }"
-    - if @page.content_page_archives.size != 0
-      %tr
-        %td
-          %strong
-            =I18n.t("archived_versions_")
-        %td
-          = collection_select(:content_page_archive,:id,@page.content_page_archives,:id,:archived_by,{:prompt=>'--retrieve page created on--'})
-    - if @page.content_section.name != 'Home Page'
-      %tr
-        %td{ :colspan => "2" }
-          = link_to I18n.t("permanently_delete_this_page"), {:action=>'destroy',:id=>@page.id}, :confirm => I18n.t("are_you_sure___this_action_can"), :method => :delete
-  %br
-  %strong
-    =I18n.t("left_content_area_")
-  =I18n.t("_html_format__only_enter_if_yo")
-  %br
-  = f.text_area :left_content,{:cols=>'75',:rows=>'30'}
-  %br
-  %strong
-    =I18n.t("main_content_area_")
-  =I18n.t("_html_format_")
-  %br
-  = f.text_area :main_content,{:cols=>'75',:rows=>'65'}
+      %td{:colspan => 2}
+        = f.text_area :translated_main_content,{:cols=>'75',:rows=>'30'}
+        %br
+        =I18n.t("_html_format_")
+
   %br
   %br
   %input#preview{ :name => "preview", :type => "button", :value => I18n.t("preview_changes") }

@@ -8,25 +8,28 @@
     .site_column
       #search_results
         #sidebar.filters
-          %form
-          %fieldset
-            %dl
-              %dt
-                %label Sort By
-              %dd
-                %select
-                  %option Newest
-              %dt
-                %label Filter By Type
-              %dd
-                %ul
-                  - ["all types (400)", "taxa (34)", "images (25)", "videos (0)", "photos (0)", "sounds (0)", "people (32)", "communities (3)", "collections (34)"].each do |type|
-                    %li
-                      %label
-                        %input(type="checkbox")
-                        = type
-          %fieldset.actions
-            %input(type="submit" value="filter results")
+          - form_tag({:action => 'show'}, :method => 'get') do
+            %fieldset
+              %dl
+                %dt
+                  %label{:for => 'sort_by'}= I18n.t(:sort_by)
+                %dd
+                  %dd
+                    - sort_options = {}
+                    - [:newest, :oldest].each{|opt| sort_options[I18n.t("sort_by_#{opt}_option")] = opt }
+                    = select_tag :sort_by, options_for_select(sort_options, @sort_by.to_sym)
+                %dt
+                  %label= I18n.t(:filter_by_type)
+                %dd
+                  %ul
+                    - [:all, :taxa, :image, :video, :sound, :person, :community, :collection].each do |opt|
+                      %li
+                        %label
+                          = check_box_tag "type[]", opt, @params_type.include?(opt.to_s),
+                            { :name => "type[]", :id => "type_#{opt.to_s}"}
+                          = I18n.t("filter_by_type_#{opt}_option")
+            %fieldset.actions
+              %input(type="submit" value="filter results")
         #main
           = yield
 

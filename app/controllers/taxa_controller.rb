@@ -35,6 +35,10 @@ class TaxaController < ApplicationController
 
   # TODO: Move search to its own controller?
   def search
+    # FIXME: Filter and sort form not integrated into controller
+    @sort_by = params[:sort_by] || 'newest'
+    @params_type = params[:type] || ['all']
+
     # remove colon from query, because it reserved for fields separation
     @colon_warning_flag = 0
     if params[:q]  =~ /:/

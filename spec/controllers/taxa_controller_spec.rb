@@ -28,26 +28,19 @@ describe TaxaController do
 
     describe 'with duplicates' do
 
-      integrate_views
-
-      it 'should show the source hierarchy on the duplicates' do
+      it 'should show the source hierarchy on the duplicates (NOT ACCORDING TO V2 DESIGN - OBSOLETE?' do
         hijack_search_for_tiger
-        response.should have_tag('span.recognized_by', :text => "Taxon recognized by #{@taxon_concept.entry.hierarchy.label}")
+        assigns[:all_results].select{|r| r['recognized_by'] == @taxon_concept.entry.hierarchy.label}.count.should > 0
       end
 
       it 'should show the parent taxon_concept of the duplicates' do
         hijack_search_for_tiger
-        response.should have_tag('div.parent', :text => @parent_concept.scientific_name)
+        assigns[:all_results].select{|r| r['parent_scientific'] == @parent_concept.scientific_name}.count.should > 0
       end
 
       it 'should show the ancestor (grandparent) taxon_concept of the duplicates' do
         hijack_search_for_tiger
-        response.should have_tag('div.ancestor', :text => @ancestor_concept.scientific_name)
-      end
-
-      it 'should add the "duplicate" class to the result div when there are duplicates' do
-        hijack_search_for_tiger
-        response.should have_tag('div.duplicate')
+        assigns[:all_results].select{|r| r['ancestor_scientific'] == @ancestor_concept.scientific_name}.count.should > 0
       end
 
     end
@@ -56,7 +49,7 @@ describe TaxaController do
 
   it "should find no results on an empty search" do
     get :search
-    assigns[:all_results].should == []
+    assigns[:all_results].should be_nil
   end
 
   describe "ACL rules for pages" do

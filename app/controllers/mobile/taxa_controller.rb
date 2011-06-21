@@ -13,7 +13,7 @@ class Mobile::TaxaController < Mobile::MobileController
       { :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] },
       { :data_objects => { :toc_items => :info_items } },
       { :top_concept_images => :data_object },
-      { :last_curated_dates => :user },
+      { :curator_activity_logs => :user },
       { :users_data_objects => { :data_object => :toc_items } }]
     selects = {
       :taxon_concepts => '*',
@@ -24,19 +24,20 @@ class Mobile::TaxaController < Mobile::MobileController
       :vetted => :view_order,
       :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ],
       :table_of_contents => '*',
-      :last_curated_dates => '*',
+      :curator_activity_logs => '*',
       :users => [ :given_name, :family_name, :logo_cache_url, :credentials ] }
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
     
     toc_items = [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution]
     options = { :limit => 1 }
     @summary_text = @taxon_concept.text_objects_for_toc_items(toc_items, options)
-
-    @media = @taxon_concept.media
+    
+    @media = promote_exemplar(@taxon_concept.media)
+    
     @feed_item = FeedItem.new(:feed_id => @taxon_concept.id, :feed_type => @taxon_concept.class.name)
-
+    
     @assistive_section_header = I18n.t(:assistive_overview_header)
-
+    
     current_user.log_activity(:viewed_taxon_concept_overview, :taxon_concept_id => @taxon_concept.id)
     
     # If it's a JQtouch ajax request don't show the layout
@@ -49,8 +50,9 @@ class Mobile::TaxaController < Mobile::MobileController
     includes = [
       { :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] },
       { :data_objects => { :toc_items => :info_items } },
-      { :last_curated_dates => :user },
-      { :users_data_objects => { :data_object => :toc_items } }]
+      { :curator_activity_logs => :user },
+      { :users_data_objects => { :data_object => :toc_items } },
+      { :taxon_concept_exemplar_image => :data_object }]
     selects = {
       :taxon_concepts => '*',
       :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
@@ -58,20 +60,21 @@ class Mobile::TaxaController < Mobile::MobileController
       :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
       :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
       :vetted => :view_order,
-      :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ],
+      :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating, :object_cache_url ],
       :table_of_contents => '*',
-      :last_curated_dates => '*',
-      :users => [ :given_name, :family_name, :logo_cache_url ] }
+      :curator_activity_logs => '*',
+      :users => [ :given_name, :family_name, :logo_cache_url ] ,
+      :taxon_concept_exemplar_image => '*' }
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
-
+    
     @details = @taxon_concept.details_for_toc_items(ContentTable.details.toc_items)
-
+    
     @toc = TocBuilder.new.toc_for_toc_items(@details.collect{|d| d[:toc_item]})
-
-    @exemplar_image = 'FIXME'
-
+    
+    @exemplar_image = @taxon_concept.taxon_concept_exemplar_image.data_object unless @taxon_concept.taxon_concept_exemplar_image.blank?
+    
     @assistive_section_header = I18n.t(:assistive_details_header)
-
+    
     current_user.log_activity(:viewed_taxon_concept_details, :taxon_concept_id => @taxon_concept.id)
     
     # If it's a JQtouch ajax request don't show the layout

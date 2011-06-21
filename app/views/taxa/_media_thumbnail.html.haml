@@ -18,4 +18,4 @@
   %a{ :data => { :data_object_id => item.id }, :href => "/data_objects/#{item.id}", :class => vetted_id_class(item) }
     = image_tag image, :alt => alt
 - else
-  = render :partial => "data_objects/data_object_#{en_type}", :locals => { :data_object => item }
+  = render :partial => "data_objects/data_object_#{en_type}", :locals => { :data_object => item, :thumbnail => true }

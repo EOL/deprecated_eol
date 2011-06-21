@@ -3,6 +3,7 @@
 
 - en_type ||= @data_object.data_type.label('en').downcase.strip
 - en_type = 'video' if DataType.video_type_ids.include?(@data_object.data_type.id)
+- en_mime_type = @data_object.mime_type.label('en')
 - copy = @data_object.is_text? ? 'copy' : nil
 #permalink
   .ratings
@@ -10,7 +11,7 @@
   .media{:class => copy}
     - if @data_object.is_text? && ! @data_object.object_title.blank?
       %h2= @data_object.object_title
-    = render :partial => "data_objects/data_object_#{en_type}", :locals => { :show_category_title => true }
+    = render :partial => "data_objects/data_object_#{en_type}"
   - if @data_object.is_image?
     %ul.sizes
       - image_sizes = { :small => @data_object.smart_thumb, :medium => @data_object.smart_medium_thumb, :large => @data_object.smart_image, :original => @data_object.original_image }
@@ -20,6 +21,9 @@
             - link_to image_sizes[size] do
               %strong= I18n.t("#{size.to_s}_size")
               - # MISSING: image dimensions are shown in design, we do not currently have them
+  - if @data_object.is_sound?
+    %ul.sizes
+      %li= link_to I18n.t("download_#{en_mime_type.sub(/\//, '_')}"), @data_object.sound_url, { :title => I18n.t("download_#{en_mime_type.sub(/\//, '_')}_assistive") }
   #main
     - unless @data_object.is_text?
       .article.copy

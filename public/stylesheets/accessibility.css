@@ -15,13 +15,24 @@
   border: 1px solid #677682;
   background: #8695a1; }
 
-#media_list #main li audio {
-  background: #394651 url("/images/v2/temporary_for_mockup/icon_sound.png") no-repeat center center;
-  width: 160px;
-  height: 125px; }
-#media_list #main li p.flag.unknown {
-  border: 1px solid #677682;
-  background: #8695a1; }
+#media_list #main li {
+  position: relative; }
+  #media_list #main li p.audio {
+    position: absolute;
+    top: 65px;
+    left: 20px;
+    width: 160px;
+    text-align: center;
+    z-index: 5; }
+    #media_list #main li p.audio a {
+      color: #e2e9ef; }
+  #media_list #main li audio {
+    background: #394651 url("/images/v2/temporary_for_mockup/icon_sound.png") no-repeat 50% 20%;
+    width: 160px;
+    height: 125px; }
+  #media_list #main li p.flag.unknown {
+    border: 1px solid #677682;
+    background: #8695a1; }
 
 #taxonomy_detail .average_rating h5 {
   display: inline;

@@ -1,0 +1,68 @@
+= javascript_include_tag 'admin-content-page-translation'
+- form_for :page,@page,:url=>{:action=>'save_translation',:id=>@page.id},:html=>{:id=>'page_form', 'data-page_id' => @page.id} do |f|
+  %table
+    %tr
+      %td
+        %strong
+          =I18n.t(:location)
+      %td
+        = @navigation_tree    
+    %tr
+      %td
+        %strong
+          = I18n.t("language")
+      %td
+        = f.select :current_translation_language, @page.not_available_in_languages(nil).collect {|l| [l.iso_639_1, l.id]}
+    %tr
+      %td
+        %strong
+          =I18n.t("published_")
+      %td
+        = f.check_box :translated_active_translation
+        =I18n.t("__must_be_checked_in_order_to_")
+    %tr
+      %td
+        %strong
+          =I18n.t("title_")
+      %td
+        = f.text_field :translated_title, {:size=>'50',:maxlength=>'100'}
+        %br
+        =I18n.t("shown_to_user_as_the_title_of_")
+    %tr
+      %td
+        %strong
+          =I18n.t("meta_keywords_colon")
+      %td
+        = f.text_field :translated_meta_keywords, {:size=>'50',:maxlength=>'200'}
+    %tr
+      %td
+        %strong
+          =I18n.t("meta_description_colon")
+      %td
+        = f.text_field :translated_meta_description, {:size=>'50',:maxlength=>'200'}
+    %tr
+      %td{:colspan => 2}
+        %strong
+          =I18n.t("left_content_area_")
+    %tr
+      %td{:colspan => 2}
+        = f.text_area :translated_left_content,{:cols=>'75',:rows=>'30'}
+        %br
+        =I18n.t("_html_format__only_enter_if_yo")
+    %tr
+      %td{:colspan => 2}
+        %strong
+          =I18n.t("main_content_area_")
+    %tr
+      %td{:colspan => 2}
+        = f.text_area :translated_main_content,{:cols=>'75',:rows=>'30'}
+        %br
+        =I18n.t("_html_format_")
+
+  %br
+  %br
+  %input#preview{ :name => "preview", :type => "button", :value => I18n.t("preview_changes") }
+  |
+  = cancel_button_goes_back('/administrator/content_page')
+  |
+  = f.submit

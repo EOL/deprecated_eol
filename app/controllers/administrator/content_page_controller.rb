@@ -6,10 +6,10 @@ class Administrator::ContentPageController < AdminController
 
   access_control :site_cms
   
- def index
-   @page_title = I18n.t("edit_page_contents_")
-   @content_sections = ContentSection.find(:all)
- end
+  def index
+    @page_title = I18n.t("site_cms")
+    @content_sections = ContentSection.find(:all)
+  end
  
  def move_up
    current_page = ContentPage.find_by_id(params[:id])
@@ -77,12 +77,23 @@ class Administrator::ContentPageController < AdminController
  end
  
  def update_page
-   language = Language.find(params[:language_id])   
    @page_title = I18n.t("update_page")   
    @page = ContentPage.find(params[:id])
-   @page.set_translation_language(language)   
    @navigation_tree = ContentPage.get_navigation_tree(@page.content_section_id, @page.parent_content_page_id)
-   @language_id = @page.current_translation_language.id
+ end
+ 
+ def save_updated_page
+   current_page = ContentPage.find(params[:id])
+   new_page = ContentPage.update(params[:id], params[:page])
+   new_page.update_attribute(:last_update_user_id, current_user.id)
+   if new_page.valid?
+     ContentPageArchive.backup(current_page) # backup old page
+     expire_menu_caches(new_page)
+     flash[:notice] = I18n.t("content_has_been_updated")
+   else
+     flash[:error] = I18n.t("some_required_fields_were_not_")
+   end
+   redirect_to :action => 'index'
  end
 
  def destroy
@@ -98,8 +109,59 @@ class Administrator::ContentPageController < AdminController
    redirect_to :action => 'index', :content_section_id => content_section_id
  end
  
- # AJAX CALLs
- def get_content_pages
+ def update_language
+   @page_title = I18n.t("update_language")
+   @page = ContentPage.find(params[:id])
+   @language = Language.find(params[:language_id])
+   @page.set_translation_language(@language)
+   @navigation_tree = ContentPage.get_navigation_tree(nil, params[:id])
+   
+ end
+ 
+ def add_language
+   @page_title = I18n.t("add_language")
+   @page = ContentPage.find(params[:id])
+   @navigation_tree = ContentPage.get_navigation_tree(nil, params[:id])
+   
+ end
+ 
+ def save_translation
+   page = ContentPage.find(params[:id])
+   
+   language = Language.find(params[:language_id]) rescue Language.find(params[:page][:current_translation_language])  
+   
+   if language.id == nil
+     language = Language.find(params[:page][:current_translation_language])
+   end
+   
+   translated_page = TranslatedContentPage.find_by_content_page_id_and_language_id(page.id, language.id)
+   
+   translated_page = TranslatedContentPage.new if !translated_page
+   
+   translated_page.content_page = page
+   translated_page.language_id = language.id
+   translated_page.active_translation = params[:page][:translated_active_translation]
+   translated_page.title = params[:page][:translated_title]
+   translated_page.meta_keywords = params[:page][:translated_meta_keywords]
+   translated_page.meta_description = params[:page][:translated_meta_description]
+   translated_page.left_content = params[:page][:translated_left_content]
+   translated_page.main_content = params[:page][:translated_main_content]
+   translated_page.save
+   
+   flash[:notice] = I18n.t("translation_saved")
+   redirect_to :action => 'index'
+   
+ end
+ 
+ def delete_translation
+   translation_content_page = TranslatedContentPage.find_by_content_page_id_and_language_id(params[:id], params[:language_id])
+   TranslatedContentPage.delete(translation_content_page.id) if translation_content_page
+   flash[:notice] = I18n.t("translation_deleted")
+   redirect_to :action => 'index'
+ end
+ 
+  # AJAX CALLs
+  def get_content_pages
     # get the content pages for the content section ID passed in the querystring parameter
     @content_section_id = params[:id]
     @content_section = ContentSection.find(@content_section_id)
@@ -114,7 +176,7 @@ class Administrator::ContentPageController < AdminController
       page.replace_html 'content_page_list', :partial => 'content_page_list'
       page.replace_html 'content_page', :partial => 'form'
     end   
- end
+  end
  
   def get_page_content
     # get the specific page for the page ID passed in by the ID querystring parameter
@@ -122,7 +184,7 @@ class Administrator::ContentPageController < AdminController
     render :update do |page|
       page.replace_html 'content_page', :partial => 'form'
     end  
- end
+  end
  
   def get_archive_page_content
     # get the specific archived page for the page ID  & archieve ID using the querystring parameters

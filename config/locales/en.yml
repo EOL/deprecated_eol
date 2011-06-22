@@ -2214,3 +2214,6 @@ en:
   meta_description_colon: "Meta description:"
   add_language: "Add language"
   update_page: "Update page"
+  update_language: "Update language"
+  translation_saved: "Translation has been saved"
+  translation_deleted: "Translation has been deleted"

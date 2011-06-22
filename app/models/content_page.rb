@@ -66,7 +66,11 @@ class ContentPage < $PARENT_CLASS_MUST_USE_MASTER
   
   def not_available_in_languages(force_exist_language)
     if self.id
-      return Language.find_by_sql("select * from languages where (not exists (select * from translated_content_pages where language_id=languages.id and content_page_id=#{self.id}) or languages.id=#{force_exist_language.id}) and activated_on <= '#{Time.now.to_s(:db)}' order by sort_order ASC")
+      if force_exist_language
+        return Language.find_by_sql("select * from languages where (not exists (select * from translated_content_pages where language_id=languages.id and content_page_id=#{self.id}) or languages.id=#{force_exist_language.id}) and activated_on <= '#{Time.now.to_s(:db)}' order by sort_order ASC")
+      else
+        return Language.find_by_sql("select * from languages where (not exists (select * from translated_content_pages where language_id=languages.id and content_page_id=#{self.id})) and activated_on <= '#{Time.now.to_s(:db)}' order by sort_order ASC")
+      end
     else
       return Language.find_active
     end

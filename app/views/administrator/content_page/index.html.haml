@@ -3,26 +3,35 @@
     #content_pages_div ul {
       margin: 0px;
       padding: 0px;
-      list-style-type: none;
+      list-style-type: none !important;
       display: block;
-      background-color:#999;
-      
-    }
+      background-color:#CCC;  
+      }
     #content_pages_div ul ul {
+      /*border: 1px solid #DDD;*/
       display: list-item;
-      padding-left: 20px;
-      background-color:#CCC;
-      list-style-type: none;
+      padding-left: 10px !important;
+      background-color:#EEE;
+      list-style-type: none !important;
       }
     #content_pages_div li {
+      border-bottom:1px solid #FFF;
       display:list-item;
-      list-style-position: outside;
+      list-style-type: none !important;
+      height: 25px;
       }
-    #content_pages_div .div_temp {
-      border: 1px solid #00F;
+    #content_pages_div .div_holder {
+      /*border: 1px solid #00F;*/
       float: right;
-      width: 200px;
       display: inline;
+      direction: ltr;
+    }
+    
+    #content_pages_div .div_holder div {
+      /*border: 1px solid #00F;*/
+      float: left;
+      display: inline;
+      margin-right: 10px;
     }
 
 #content_pages_div

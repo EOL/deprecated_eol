@@ -1,4 +1,5 @@
 = javascript_include_tag 'admin-content-page-translation'
+= javascript_include_tag :fckeditor
 - form_for :page,@page,:url=>{:action=>'save_translation',:id=>@page.id},:html=>{:id=>'page_form', 'data-page_id' => @page.id} do |f|
   %table
     %tr
@@ -46,7 +47,7 @@
           =I18n.t("left_content_area_")
     %tr
       %td{:colspan => 2}
-        = f.text_area :translated_left_content,{:cols=>'75',:rows=>'30'}
+        = fckeditor_textarea(:page, :translated_left_content, :toolbarSet => 'Simple', :width => '100%', :height => '400px')
         %br
         =I18n.t("_html_format__only_enter_if_yo")
     %tr
@@ -55,7 +56,7 @@
           =I18n.t("main_content_area_")
     %tr
       %td{:colspan => 2}
-        = f.text_area :translated_main_content,{:cols=>'75',:rows=>'30'}
+        = fckeditor_textarea(:page, :translated_main_content, :toolbarSet => 'Simple', :width => '100%', :height => '400px')
         %br
         =I18n.t("_html_format_")
 

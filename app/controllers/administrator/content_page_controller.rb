@@ -71,6 +71,7 @@ class Administrator::ContentPageController < AdminController
    @page.parent_content_page_id = params[:parent_content_page_id]
    @page.page_name = 'New Page'
    @page.translated_title = "New Page"
+   @page.translated_main_content = "Main content for <b>New Page</b>"
    @page.translated_active_translation = true
    @page.current_translation_language = Language.english
    @language_id = @page.current_translation_language.id

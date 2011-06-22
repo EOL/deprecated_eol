@@ -40,7 +40,7 @@
       %li
         = content_section.name
         = link_to(I18n.t("add_page"),:action=>'new', :content_section_id=>content_section.id)
-      - content_pages = ContentPage.find_all_by_content_section_id(content_section.id)
+      - content_pages = ContentPage.find_all_by_content_section_id(content_section.id, :order => 'sort_order')
       - if content_pages.count > 0
         %ul
           - for content_page in content_pages

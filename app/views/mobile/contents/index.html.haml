@@ -1,37 +1,98 @@
 #index
   .toolbar
-    %h1 EOL Mobile
+    =link_to image_tag("/images/v2/logo_index.png", :height => '32')
+    %h1.home_mobile Home
     =link_to_remote "Full site", :url  => disable_mobile_contents_path, :method => :post, :html => { :class  => "button flip" }
-  //=link_to "Full site", disable_mobile_contents_path, :class => "button flip"
-  %h2 Contents
+  
+  #searchwrapper
+    %form{:action => ""}
+    %input.searchbox#searchfield{:type => "text", :name => "s", :value => ""}
+    %input.searchbox_submit{:type => "image", :src => "/images/mobile/button_trasp.png"}
+    %label#searchlabel{:for => "searchfield"} Search EOL...
+  
+  %h2 Taxa  
   %ul.rounded
-    %li= link_to "First content", "#content1"
-    %li= link_to "Second content", "#content2"
-    %li= link_to "Third", "#content3"
+    %li.arrow= link_to "Nihileri voluptasus", mobile_taxon_path(9)
+    %li.arrow= link_to "Dignissimosii inutes", mobile_taxon_path(10)
+    
+  .article.stats
+    %h2= I18n.t(:currently_in_eol)
+    %ul
+      %li.taxon
+        %dl
+          %dd 1,915,247
+          %dt= I18n.t(:taxa)
+        = link_to I18n.t(:what_is_a_taxon), "#content1"
+      %li.contributors
+        %dl
+          %dd 3,154
+          %dt= I18n.t(:contributors_like_you)
+        = link_to I18n.t(:learn_how_to_join), "#content1"
+      %li.communities
+        %dl
+          %dd 861
+          %dt= I18n.t(:communities)
+        = link_to I18n.t(:learn_how_to_interact), "#content1"
+      %li.images
+        %dl
+          %dd 753,234
+          %dt= I18n.t(:images)
+        = link_to I18n.t(:browse_gallery), "#content1"
+      %li.partners
+        %dl
+          %dd 324
+          %dt= I18n.t(:content_partners)
+        = link_to I18n.t(:learn_about_content_partners), "#content1"
+  
+  %h2 Static contents
+  %ul.rounded
+    %li.arrow= link_to "Explore", "#content1"
+    %li.arrow= link_to "Announcements", "#content2"
+    %li.arrow= link_to "Featured", "#content3"
+    
 #content1
   .toolbar
     %h1 First content
     =link_to "Home", "#home", :class => "back"
-  %p Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus
-  %p Author name
+  .fullcontent
+    %p Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus
+    %p Author name
 
 #content2
   .toolbar
     %h1 Second content
     =link_to "Home", "#home", :class => "back"
-  %p Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus
-  %p Author name
+  .fullcontent
+    %p Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus
+    %p Author name
 
 #content3
   .toolbar
     %h1 Third content
     =link_to "Home", "#home", :class => "back"
-  %p Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus
-  %p Author name
+  .fullcontent
+    %p Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus
+    %p Author name
 
-
+#taxa
+  %p loading
+  
 :javascript
+  // Hide address bar
   $(document).ready(function() {
-    window.scrollTo(0, 1);
+    setTimeout(scrollTo,200,0,1);
   });
 
+  //loop through all text inputs, password inputs and textarea
+  var inputs = $('input[type="text"], textarea, input[type="password"]');
+  // remove label on focus
+  inputs.focus(function(){
+    $('label[for="'+$(this).attr('id')+'"]').hide();
+  });
+  inputs.blur(function(){
+    var that = $(this);
+    if (that.val() == ""){
+      $('label[for="'+that.attr('id')+'"]').show();
+    }
+  });
+  inputs.blur();

@@ -1,0 +1,122 @@
+#jqt .toolbar h1.home_mobile{
+	left: 100px;
+}
+#jqt .article.stats ul li.taxon dl{
+	background: url("/images/v2/icon_taxon.png") no-repeat scroll 0 2px transparent;
+	background-position:95%;
+}
+#jqt .article.stats ul li.contributors dl{
+	background: url("/images/v2/icon_contributors.png") no-repeat scroll 0 2px transparent;
+	background-position:95%;
+}
+#jqt .article.stats ul li.communities dl{
+	background: url("/images/v2/icon_communities.png") no-repeat scroll 0 2px transparent;
+	background-position:95%;
+}
+#jqt .article.stats ul li.images dl{
+	background: url("/images/v2/icon_images.png") no-repeat scroll 0 2px transparent;
+	background-position:95%;
+}
+#jqt .article.stats ul li.partners dl{
+	background: url("/images/v2/icon_partners.png") no-repeat scroll 0 2px transparent;
+	background-position:95%;
+}
+#searchwrapper {
+	width:310px;
+	height:40px;
+	background-image:url("/images/mobile/searchbox_trasp2.png");
+	background-repeat:no-repeat;
+	padding:0px;
+	margin:0px;
+	left:8px;
+	position:relative;
+}
+#searchlabel{
+	position:relative;
+	top:8px;
+	left:10px;
+}
+#searchwrapper form { display:inline ; }
+.searchbox {
+	border:0px;
+	background-color:transparent;
+	position:absolute;
+	top:4px;
+	left:9px;
+	width:256px;
+	height:28px;
+/*	color:#979797; */
+	color:#C1D72E;
+	font-size:16px;
+}
+.searchbox_submit {
+	border:0px;
+	background-color:transparent;
+	position:absolute;
+	top:4px;
+	left:265px;
+	width:32px;
+	height:28px;
+}
+#jqt h2 {
+	color:#C1D72E;
+}
+#first_image {
+	margin: 10px;
+	height: 150px;
+}
+#first_image img{
+	height: 150px;
+	border: 3px solid #DDD;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+.fullcontent{
+	margin: 10px;
+}
+/* Taxa overview */
+#taxonomy{
+	margin: 10px;
+}
+#taxonomy a{
+	color: #DDD;
+}
+#taxonomy .snippet{
+	margin: 5px;
+}
+.article.list li img {
+    border: 1px solid #DDD;
+    float: left;
+    margin: 0 10px 0 0;
+}
+#curators_summary ul li a{
+	overflow: visible;
+	display: inline;
+}
+#curators_summary.article.list .details {
+    float: left;
+    margin: 0 10px 0 0;
+}
+#new_feed_item fieldset{
+	border: #333 solid 1px;
+	background-color: #555858;
+}
+/* Taxa details*/
+#taxonomy_detail{
+	margin: 10px;
+}
+#taxonomy_detail a{
+	color: #DDD;
+}
+.rating{
+	display: none;
+}
+#new_feed_item{
+	display: none;
+}
+.article.copy p a.button{
+	display: none;
+}
+
+

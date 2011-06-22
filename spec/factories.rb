@@ -1,6 +1,6 @@
 # REMINDER: default model factories, eg. :user, should *only* generate required field s
 #
-# If you want a model loaded up with all kinds of goodies, make a different generator, 
+# If you want a model loaded up with all kinds of goodies, make a different generator,
 # eg. :admin_user
 
 require 'factory_girl'
@@ -13,8 +13,8 @@ module Faker
   class Eol
     class << self
 
-      def iucn 
-        @rand_iucn ||= 
+      def iucn
+        @rand_iucn ||=
           ["Extinct (EX)",
            "Data Deficient (DD)",
            "Endangered (EN)",
@@ -35,7 +35,7 @@ module Faker
            200811131328300, 200811131392039, 200811131350808, 200811131333809, 200811131349975, 200811131317614, 200811131356003,
            200811131372942, 200811131393363, 200811131382901, 200811131355461, 200811131374742, 200811131356635, 200811131314704,
            200811131368751, 200811131374919, 200811131316328, 200811131309151, 200811131331207, 200811131310763]
-       
+
         @rand_flash.rand
       end
 
@@ -59,7 +59,7 @@ module Faker
            200810061235291, 200810061204473, 200810061220593, 200810061247769, 200810061244546, 200810061223997, 200810061266983,
            200810061209409, 200810061288809, 200810061290506, 200810061223649, 200810061240716, 200810061234907, 200810061204262,
            200810061295992, 200810061271122, 200810061218963, 200810061248056, 200810061275954, 200810061214325, 200810061244427,
-           200810061230338, 200810061219522, 200810061271459, 200810061228261, 200810061265370]  
+           200810061230338, 200810061219522, 200810061271459, 200810061228261, 200810061265370]
 
         @rand_maps.rand
       end
@@ -127,7 +127,7 @@ end
 
 # Not unique:
 Factory.sequence(:flash) do |n|
-  @seq_flash = 
+  @seq_flash =
     [200811131313601, 200811131321659, 200811131394659, 200811131367814, 200811131351121, 200811131388288, 200811131382797,
      200811131390600, 200811131333916, 200811131393000, 200811131347554, 200811131354820, 200811131391764, 200811131316882,
      200811131328300, 200811131392039, 200811131350808, 200811131333809, 200811131349975, 200811131317614, 200811131356003,
@@ -144,7 +144,7 @@ end
 
 # Not unique:
 Factory.sequence(:map) do |n|
-  @seq_map = 
+  @seq_map =
     [200810061219436, 200810061209958, 200810061282237, 200810061249555, 200810061295422, 200810061292832, 200810061231652,
      200810061214882, 200810061250755, 200810061227362, 200810061280963, 200810061298041, 200810061213284, 200810061290224,
      200810061293016, 200810061218537, 200810061224789, 200810061224342, 200810061264532, 200810061216335, 200810061294639,
@@ -155,7 +155,7 @@ Factory.sequence(:map) do |n|
      200810061235291, 200810061204473, 200810061220593, 200810061247769, 200810061244546, 200810061223997, 200810061266983,
      200810061209409, 200810061288809, 200810061290506, 200810061223649, 200810061240716, 200810061234907, 200810061204262,
      200810061295992, 200810061271122, 200810061218963, 200810061248056, 200810061275954, 200810061214325, 200810061244427,
-     200810061230338, 200810061219522, 200810061271459, 200810061228261, 200810061265370]  
+     200810061230338, 200810061219522, 200810061271459, 200810061228261, 200810061265370]
   @seq_map[n % @seq_map.length]
 end
 
@@ -198,7 +198,7 @@ end
 Factory.sequence(:guid) do |n|
   @guids = ['3a117abf96e7fe8793ef87b14d166d5f', 'a509ebdb2fc8083f3a33ea17985bad42']
   pick = @guids[n % @guids.length]
-  (n / @guids.length).times { pick.succ! }  
+  (n / @guids.length).times { pick.succ! }
   pick
 end
 
@@ -245,9 +245,9 @@ Factory.sequence(:email  ){|n| "bob#{n}@smith.com" }
 # Faker names are frequently unique, but let's just make absolutely sure:
 Factory.sequence(:species) do |n|
   s = Factory.next(:scientific_name)
-  while (Name.find_by_string(s)) do 
+  while (Name.find_by_string(s)) do
     s = Factory.next(:scientific_name)
-  end 
+  end
   s
 end
 Factory.sequence(:title  ){|n| "#{n} " + Faker::Lorem.words(rand(3)+1).map(&:titleize).join(' ') }
@@ -263,7 +263,7 @@ Factory.define :actions_history do |ah|
   ah.association :user
   ah.association :action_with_object
   ah.association :changeable_object_type
-  #ah.id 
+  #ah.id
   #ah.user_id
   #ah.object_id
   #ah.changeable_object_type_id 1 #data_object
@@ -705,7 +705,7 @@ Factory.define :news_item do |ni|
   ni.association  :user
   ni.active       1
 end
- 
+
 Factory.define :changeable_object_type do |ot|
   ot.ch_object_type { Factory.next(:string) }
 end
@@ -798,11 +798,8 @@ end
 
 Factory.define :search_suggestion do |ss|
   ss.term            'searchterm'
-  ss.scientific_name 'TestSearchTerm ScientificName'
-  ss.common_name     'TestSearchTerm CommonName'
   ss.language_label  'en'
-  ss.image_url       '/images/eol_logo_header.png'
-  ss.taxon_id        1 
+  ss.taxon_id        1
   ss.sort_order      1
   ss.active          1
   ss.created_at      { 48.hours.ago }
@@ -1003,7 +1000,7 @@ Factory.define :google_analytics_partner_taxon do |g|
   g.association :taxon_concept
   g.association :agent
   g.year { Factory.next :year }
-  g.month { Factory.next :month }  
+  g.month { Factory.next :month }
 end
 
 Factory.define :activity do |a|

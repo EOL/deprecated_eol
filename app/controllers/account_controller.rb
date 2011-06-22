@@ -207,15 +207,16 @@ class AccountController < ApplicationController
 
     set_curator_clade(params)
 
-    current_user.log_activity(:updated_profile)
-
-    alter_current_user do |user|
-      user.update_attributes(user_params)
-    end
+    @user.log_activity(:updated_profile)
     @user = current_user
-    user_changed_mailing_list_settings(old_user,@user) if (old_user.mailing_list != @user.mailing_list) || (old_user.email != @user.email)
-    flash[:notice] = "Your preferences have been updated."[:your_preferences_have_been_updated]
-    redirect_back_or_default
+
+    alter_current_user(:curator_application => true) do |user|
+      if user.update_attributes(user_params)
+        user_changed_mailing_list_settings(old_user,@user) if (old_user.mailing_list != @user.mailing_list) || (old_user.email != @user.email)
+        flash[:notice] = "Your preferences have been updated."[:your_preferences_have_been_updated]
+        redirect_back_or_default
+      end
+    end
 
   end
 

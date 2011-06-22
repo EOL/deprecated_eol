@@ -336,13 +336,21 @@ class ApplicationController < ActionController::Base
 
   # This is actually kind of tricky, since we need to actually save things if the user is logged in, but not if they
   # aren't.  It also involves cache-clearing and the like, so be careful about skipping the set_current_user method.
-  def alter_current_user(&block)
+  def alter_current_user(options = {}, &block)
     user = current_user
     user = User.find(user.id) if user.frozen? # Since we're modifying it, we can't use the one from memcached.
     yield(user)
-    user.save! if logged_in?
+    if logged_in?
+      if options[:curator_application] == true
+        val = user.save
+        return val unless val
+      else
+        user.save!
+      end
+    end
     $CACHE.delete("users/#{session[:user_id]}")
     set_current_user(user)
+    return true
   end
 
   # this method is used as a before_filter when user logins are disabled to ensure users who may have had a previous

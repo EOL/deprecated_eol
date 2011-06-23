@@ -16,9 +16,7 @@ describe 'User Profile' do
     @username = 'userprofilespec'
     @password = 'beforeall'
     @user     = create_user(@username, @password)
-    @user.feed.post @feed_body_1 = "Something"
-    @user.feed.post @feed_body_2 = "Something Else"
-    @user.feed.post @feed_body_3 = "Something More"
+    # TODO - ActivityLog
     @watch_collection = @user.collections.find_by_special_collection_id(SpecialCollection.find_by_name('Watch').id)
   end
 

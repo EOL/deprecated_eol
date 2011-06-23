@@ -22,8 +22,6 @@ describe User do
     load_foundation_cache
     @user = User.gen :username => 'KungFuPanda', :password => @password
     @user.should_not be_a_new_record
-    FeedItemType.gen_if_not_exists(:name => 'content update')
-    FeedItemType.gen_if_not_exists(:name => 'User Comment')
     @special = Community.special
     @admin = User.gen(:username => 'MisterAdminToYouBuddy')
     @admin.join_community(@special)

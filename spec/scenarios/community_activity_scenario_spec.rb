@@ -35,10 +35,7 @@ describe 'Community Activity' do
     user_comments = []
     curator_comments = []
     @activity[:communities].each do |community|
-      community.feed.each do |item|
-        user_comments << item.body if item.feed_item_type == FeedItemType.user_comment
-        curator_comments << item.body if item.feed_item_type == FeedItemType.curator_comment
-      end
+      # TODO - ActivityLog
     end
   end
 

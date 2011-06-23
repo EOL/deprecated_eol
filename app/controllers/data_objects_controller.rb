@@ -132,7 +132,6 @@ class DataObjectsController < ApplicationController
   def show
     @page_title = @data_object.best_title
     get_attribution
-    @feed_item = FeedItem.new(:feed_id => @data_object.id, :feed_type => @data_object.class.name)
     @comments = @data_object.all_comments.dup.paginate(:page => params[:page], :order => 'updated_at DESC', :per_page => Comment.per_page)
     @slim_container = true
     @revisions = @data_object.revisions.sort_by(&:created_at).reverse

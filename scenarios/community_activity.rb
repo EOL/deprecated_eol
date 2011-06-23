@@ -104,7 +104,7 @@ data[:comments] = []
   user = data[:users].rand
   community = data[:communities].rand
   body = "This is a comment from #{user.username} on #{community.name}"
-  community.feed.post body, :user_id => user.id
+  # TODO - ActivityLog
   data[:comments] << {:user_id => user.id, :target_class => 'Community', :target_id => community.id, :body => body}
 end
 
@@ -114,7 +114,7 @@ end
   community = data[:communities].rand
   taxon = community.focus.collection_items.rand.object
   body = "This is a comment from #{user.username} on #{taxon.common_name}"
-  taxon.feed.post body, :user_id => user.id
+  # TODO - ActivityLog
   data[:comments] << {:user_id => user.id, :target_class => 'TaxonConcept', :target_id => taxon.id, :body => body}
 end
 

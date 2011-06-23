@@ -57,7 +57,7 @@ class Collection < ActiveRecord::Base
       raise EOL::Exceptions::InvalidCollectionItemType.new("I cannot create a collection item from a #{what.class.name}")
     end
     if is_focus_list?
-      community.feed.post(I18n.t("community_watching_this_note", :name => name), :feed_item_type_id => FeedItemType.content_update.id, :subject_id => what.id, :subject_type => what.class.name)
+      # TODO - ActivityLog
     end
     what # Convenience.  Allows us to chain this command and continue using the object passed in.
   end

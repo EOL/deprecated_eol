@@ -26,10 +26,6 @@ describe Taxa::OverviewsController do
       overviews_do_show
       assigns[:media][0].should be_a(DataObject)
     end
-    it "should instantiate a feed item for the taxon and current user" do
-      overviews_do_show
-      assigns[:feed_item].should be_a(FeedItem)
-    end
     it 'should instantiate an assistive header' do
       overviews_do_show
       assigns[:assistive_section_header].should be_a(String)

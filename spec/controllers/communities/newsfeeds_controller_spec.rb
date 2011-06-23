@@ -19,10 +19,6 @@ describe Communities::NewsfeedsController do
       assigns[:community].should be_a(Community)
       assigns[:community].id.should == @communities[:community].id
     end
-    it "should instantiate a feed item for the community and current user" do
-      newsfeeds_do_show
-      assigns[:feed_item].should be_a(FeedItem)
-    end
 
   end
 

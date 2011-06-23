@@ -16,9 +16,7 @@ describe 'Data Object Page' do
     @curator = build_curator(@tc)
     @another_curator = build_curator(@tc)
     @image = @tc.data_objects.select { |d| d.data_type.label == "Image" }[0]
-    @image.feed.post @feed_body_1 = "Something"
-    @image.feed.post @feed_body_2 = "Something Else"
-    @image.feed.post @feed_body_3 = "Something More"
+    # TODO - ActivityLog
     @extra_he = @another_tc.entry
     @image.add_curated_association(@curator, @extra_he)
 

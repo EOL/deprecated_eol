@@ -30,11 +30,11 @@ communities[:community].initialize_as_created_by(communities[:user_community_adm
 communities[:community_member] = communities[:community].add_member(communities[:user_community_member])
 communities[:community_member].add_role Role.gen(:community => communities[:community])
 communities[:feed_body_1] = "Something"
-communities[:community].feed.post communities[:feed_body_1]
+# TODO - ActivityLog
 communities[:feed_body_2] = "Something Else"
-communities[:community].feed.post communities[:feed_body_2]
+# TODO - ActivityLog
 communities[:feed_body_3] = "Something More"
-communities[:community].feed.post communities[:feed_body_3]
+# TODO - ActivityLog
 communities[:tc1] = build_taxon_concept
 communities[:tc2] = build_taxon_concept
 communities[:community].focus.add(communities[:tc1])

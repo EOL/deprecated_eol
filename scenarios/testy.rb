@@ -106,9 +106,7 @@ testy[:taxon_concept].overview[0].add_ref('A published visible reference with a 
   1, Visibility.visible).add_identifier('url', 'some/url.html')
 
 # Feeds:
-testy[:taxon_concept].feed.post testy[:feed_body_1] = "Something"
-testy[:taxon_concept].feed.post testy[:feed_body_2] = "Something Else"
-testy[:taxon_concept].feed.post testy[:feed_body_3] = "Something More"
+# TODO - ActivityLog
 # And we want one comment that the world cannot see:
 Comment.find_by_body(testy[:comment_bad]).hide User.last
 testy[:user] = User.gen

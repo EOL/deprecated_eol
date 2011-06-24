@@ -1,0 +1,56 @@
+<html><head><style>table { background: #fff; color: #000; }
+.ruby .normal { color: #000; }
+.ruby .comment { color: #005; font-style: italic; }
+.ruby .keyword { color: #A44; font-weight: bold; }
+.ruby .method { color: #44f; }
+.ruby .class { color: #b1713d; }
+.ruby .module { color: #050; }
+.ruby .punct { color: #668; font-weight: bold; }
+.ruby .symbol { color: #00f; }
+.ruby .string { color: #4a4; }
+.ruby .char { color: #F07; }
+.ruby .ident { color: #000; }
+.ruby .constant { color: #b1713d; }
+.ruby .regex { color: #B66; background: #FEF; }
+.ruby .number { color: #F99; }
+.ruby .attribute { color: #f84; }
+.ruby .global { color: #7FB; }
+.ruby .expr { color: #227; }
+.ruby .escape { color: #277; }</style></head><body><table cellpadding='0' cellspacing='0' class='ruby'><tr><td valign='top'><small>1</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line1'><pre><span class="keyword">class </span><span class="class">Administrator::HarvestingLogController</span> <span class="punct">&lt;</span> <span class="constant">AdminController</span>
+</pre></a></td></tr><tr><td valign='top'><small>2</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line2'><pre>  
+</pre></a></td></tr><tr><td valign='top'><small>3</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line3'><pre>  <span class="ident">layout</span> <span class="punct">'</span><span class="string">left_menu</span><span class="punct">'</span>
+</pre></a></td></tr><tr><td valign='top'><small>4</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line4'><pre>  <span class="ident">before_filter</span> <span class="symbol">:set_layout_variables</span>
+</pre></a></td></tr><tr><td valign='top'><small>5</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line5'><pre>  <span class="ident">access_control</span> <span class="symbol">:content_partners</span>
+</pre></a></td></tr><tr><td valign='top'><small>6</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line6'><pre>  
+</pre></a></td></tr><tr><td valign='top'><small>7</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line7'><pre>  <span class="keyword">def </span><span class="method">index</span>
+</pre></a></td></tr><tr><td valign='top'><small>8</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line8'><pre>    <span class="attribute">@page_title</span> <span class="punct">=</span> <span class="constant">I18n</span><span class="punct">.</span><span class="ident">t</span><span class="punct">(&quot;</span><span class="string">harvesting_processes_log</span><span class="punct">&quot;)</span>
+</pre></a></td></tr><tr><td valign='top'><small>9</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line9'><pre>    <span class="keyword">unless</span> <span class="ident">params</span><span class="punct">[</span><span class="symbol">:date</span><span class="punct">].</span><span class="ident">blank?</span>
+</pre></a></td></tr><tr><td valign='top'><small>10</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line10'><pre>      <span class="keyword">if</span> <span class="ident">params</span><span class="punct">[</span><span class="symbol">:date</span><span class="punct">]</span> <span class="punct">==</span> <span class="punct">'</span><span class="string">all</span><span class="punct">'</span>
+</pre></a></td></tr><tr><td valign='top'><small>11</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line11'><pre>        <span class="attribute">@date</span> <span class="punct">=</span> <span class="punct">'</span><span class="string">all</span><span class="punct">'</span>
+</pre></a></td></tr><tr><td valign='top'><small>12</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line12'><pre>      <span class="keyword">else</span>
+</pre></a></td></tr><tr><td valign='top'><small>13</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line13'><pre>        <span class="attribute">@date</span> <span class="punct">=</span> <span class="constant">Time</span><span class="punct">.</span><span class="ident">parse</span><span class="punct">(</span><span class="ident">params</span><span class="punct">[</span><span class="symbol">:date</span><span class="punct">])</span>
+</pre></a></td></tr><tr><td valign='top'><small>14</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line14'><pre>      <span class="keyword">end</span>
+</pre></a></td></tr><tr><td valign='top'><small>15</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line15'><pre>    <span class="keyword">else</span>
+</pre></a></td></tr><tr><td valign='top'><small>16</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line16'><pre>      <span class="attribute">@date</span> <span class="punct">=</span> <span class="punct">'</span><span class="string">all</span><span class="punct">'</span>
+</pre></a></td></tr><tr><td valign='top'><small>17</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line17'><pre>    <span class="keyword">end</span>
+</pre></a></td></tr><tr><td valign='top'><small>18</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line18'><pre>    <span class="ident">conditions</span> <span class="punct">=</span> <span class="punct">&quot;</span><span class="string">began_at BETWEEN '<span class="expr">#{@date.strftime(&quot;%Y-%m-%d&quot;)}</span>' AND '<span class="expr">#{(@date+1.day).strftime(&quot;%Y-%m-%d&quot;)}</span>'</span><span class="punct">&quot;</span> <span class="keyword">if</span> <span class="attribute">@date</span> <span class="punct">!=</span> <span class="punct">'</span><span class="string">all</span><span class="punct">'</span>
+</pre></a></td></tr><tr><td valign='top'><small>19</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line19'><pre>    <span class="attribute">@logs</span> <span class="punct">=</span> <span class="constant">HarvestProcessLog</span><span class="punct">.</span><span class="ident">paginate</span><span class="punct">(</span><span class="symbol">:order</span> <span class="punct">=&gt;</span> <span class="punct">'</span><span class="string">id desc</span><span class="punct">',</span> <span class="symbol">:page</span> <span class="punct">=&gt;</span> <span class="ident">params</span><span class="punct">[</span><span class="symbol">:page</span><span class="punct">],</span> <span class="symbol">:conditions</span> <span class="punct">=&gt;</span> <span class="ident">conditions</span><span class="punct">)</span>
+</pre></a></td></tr><tr><td valign='top'><small>20</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line20'><pre>    
+</pre></a></td></tr><tr><td valign='top'><small>21</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line21'><pre>    <span class="attribute">@distinct_dates</span> <span class="punct">=</span> <span class="punct">[]</span>
+</pre></a></td></tr><tr><td valign='top'><small>22</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line22'><pre>    <span class="ident">last_date</span> <span class="punct">=</span> <span class="constant">Time</span><span class="punct">.</span><span class="ident">now</span>
+</pre></a></td></tr><tr><td valign='top'><small>23</small></td><td valign='top'><ul><li>Don't use 'for' loops. Use Enumerable.each instead. &raquo; roodi</li></ul></td><td valign='top'><a name='line23'><pre>    <span class="keyword">for</span> <span class="ident">i</span> <span class="keyword">in</span> <span class="number">1</span><span class="punct">..</span><span class="number">30</span>
+</pre></a></td></tr><tr><td valign='top'><small>24</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line24'><pre>      <span class="ident">date</span> <span class="punct">=</span> <span class="ident">last_date</span><span class="punct">.</span><span class="ident">strftime</span><span class="punct">(&quot;</span><span class="string">%d-%b-%Y</span><span class="punct">&quot;)</span>
+</pre></a></td></tr><tr><td valign='top'><small>25</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line25'><pre>      <span class="attribute">@distinct_dates</span> <span class="punct">&lt;&lt;</span> <span class="punct">[</span><span class="ident">date</span><span class="punct">,</span> <span class="ident">date</span><span class="punct">]</span>
+</pre></a></td></tr><tr><td valign='top'><small>26</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line26'><pre>      <span class="ident">last_date</span> <span class="punct">=</span> <span class="ident">last_date</span> <span class="punct">-</span> <span class="number">1</span><span class="punct">.</span><span class="ident">day</span>
+</pre></a></td></tr><tr><td valign='top'><small>27</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line27'><pre>    <span class="keyword">end</span>
+</pre></a></td></tr><tr><td valign='top'><small>28</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line28'><pre>  <span class="keyword">end</span>
+</pre></a></td></tr><tr><td valign='top'><small>29</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line29'><pre>  
+</pre></a></td></tr><tr><td valign='top'><small>30</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line30'><pre><span class="ident">private</span>
+</pre></a></td></tr><tr><td valign='top'><small>31</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line31'><pre>
+</pre></a></td></tr><tr><td valign='top'><small>32</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line32'><pre>  <span class="keyword">def </span><span class="method">set_layout_variables</span>
+</pre></a></td></tr><tr><td valign='top'><small>33</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line33'><pre>    <span class="attribute">@page_title</span> <span class="punct">=</span> <span class="global">$ADMIN_CONSOLE_TITLE</span>
+</pre></a></td></tr><tr><td valign='top'><small>34</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line34'><pre>    <span class="attribute">@navigation_partial</span> <span class="punct">=</span> <span class="punct">'</span><span class="string">/admin/navigation</span><span class="punct">'</span>
+</pre></a></td></tr><tr><td valign='top'><small>35</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line35'><pre>  <span class="keyword">end</span>
+</pre></a></td></tr><tr><td valign='top'><small>36</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line36'><pre>
+</pre></a></td></tr><tr><td valign='top'><small>37</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line37'><pre><span class="keyword">end</span>
+</pre></a></td></tr><table></body></html>

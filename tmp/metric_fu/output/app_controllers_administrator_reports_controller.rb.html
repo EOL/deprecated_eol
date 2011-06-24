@@ -1,0 +1,40 @@
+<html><head><style>table { background: #fff; color: #000; }
+.ruby .normal { color: #000; }
+.ruby .comment { color: #005; font-style: italic; }
+.ruby .keyword { color: #A44; font-weight: bold; }
+.ruby .method { color: #44f; }
+.ruby .class { color: #b1713d; }
+.ruby .module { color: #050; }
+.ruby .punct { color: #668; font-weight: bold; }
+.ruby .symbol { color: #00f; }
+.ruby .string { color: #4a4; }
+.ruby .char { color: #F07; }
+.ruby .ident { color: #000; }
+.ruby .constant { color: #b1713d; }
+.ruby .regex { color: #B66; background: #FEF; }
+.ruby .number { color: #F99; }
+.ruby .attribute { color: #f84; }
+.ruby .global { color: #7FB; }
+.ruby .expr { color: #227; }
+.ruby .escape { color: #277; }</style></head><body><table cellpadding='0' cellspacing='0' class='ruby'><tr><td valign='top'><small>1</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line1'><pre><span class="keyword">class </span><span class="class">Administrator::ReportsController</span> <span class="punct">&lt;</span> <span class="constant">AdminController</span>
+</pre></a></td></tr><tr><td valign='top'><small>2</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line2'><pre>  <span class="ident">layout</span> <span class="punct">'</span><span class="string">left_menu</span><span class="punct">'</span>
+</pre></a></td></tr><tr><td valign='top'><small>3</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line3'><pre>
+</pre></a></td></tr><tr><td valign='top'><small>4</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line4'><pre>  <span class="ident">before_filter</span> <span class="symbol">:set_layout_variables</span>
+</pre></a></td></tr><tr><td valign='top'><small>5</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line5'><pre>
+</pre></a></td></tr><tr><td valign='top'><small>6</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line6'><pre>  <span class="ident">access_control</span> <span class="symbol">:usage_reports</span>
+</pre></a></td></tr><tr><td valign='top'><small>7</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line7'><pre>  
+</pre></a></td></tr><tr><td valign='top'><small>8</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line8'><pre>  <span class="comment"># as an administrator, you can filter everything by Agent</span>
+</pre></a></td></tr><tr><td valign='top'><small>9</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line9'><pre>  <span class="comment"># to see reports as a Content Partner would see them</span>
+</pre></a></td></tr><tr><td valign='top'><small>10</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line10'><pre>  <span class="keyword">def </span><span class="method">current_agent</span>
+</pre></a></td></tr><tr><td valign='top'><small>11</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line11'><pre>    <span class="punct">(</span> <span class="ident">params</span><span class="punct">[</span><span class="symbol">:agent</span><span class="punct">].</span><span class="ident">to_i</span> <span class="punct">&gt;</span> <span class="number">0</span> <span class="punct">)</span> <span class="punct">?</span> <span class="ident">params</span><span class="punct">[</span><span class="symbol">:agent</span><span class="punct">].</span><span class="ident">to_i</span> <span class="punct">:</span> <span class="constant">nil</span>
+</pre></a></td></tr><tr><td valign='top'><small>12</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line12'><pre>  <span class="keyword">end</span>
+</pre></a></td></tr><tr><td valign='top'><small>13</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line13'><pre>  
+</pre></a></td></tr><tr><td valign='top'><small>14</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line14'><pre><span class="ident">private</span>
+</pre></a></td></tr><tr><td valign='top'><small>15</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line15'><pre>
+</pre></a></td></tr><tr><td valign='top'><small>16</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line16'><pre>  <span class="keyword">def </span><span class="method">set_layout_variables</span>
+</pre></a></td></tr><tr><td valign='top'><small>17</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line17'><pre>    <span class="attribute">@page_title</span> <span class="punct">=</span> <span class="global">$ADMIN_CONSOLE_TITLE</span>
+</pre></a></td></tr><tr><td valign='top'><small>18</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line18'><pre>    <span class="attribute">@navigation_partial</span> <span class="punct">=</span> <span class="punct">'</span><span class="string">/admin/navigation</span><span class="punct">'</span>
+</pre></a></td></tr><tr><td valign='top'><small>19</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line19'><pre>  <span class="keyword">end</span>
+</pre></a></td></tr><tr><td valign='top'><small>20</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line20'><pre>
+</pre></a></td></tr><tr><td valign='top'><small>21</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line21'><pre><span class="keyword">end</span>
+</pre></a></td></tr><table></body></html>

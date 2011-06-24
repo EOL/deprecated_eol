@@ -1,6 +1,6 @@
 class Community < ActiveRecord::Base
 
-  include EOL::Feedable
+  include EOL::ActivityLoggable
 
   has_one :collection #TODO - didn't work? , :as => :focus
   alias :focus :collection

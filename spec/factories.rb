@@ -372,6 +372,13 @@ Factory.define :collection do |l|
   l.association           :user
 end
 
+Factory.define :collection_activity_log do |cal|
+  cal.association :user
+  cal.association :collection
+  cal.activity    { Activity.create }
+  cal.created_at  { 5.days.ago }
+end
+
 Factory.define :collection_type do |ct|
   ct.parent_id  0
   ct.lft        0
@@ -397,6 +404,13 @@ Factory.define :community do |c|
   c.name        { Faker::Lorem.words.join(' ').titleize }
   c.description { Faker::Lorem.paragraph }
   c.show_special_privileges false
+end
+
+Factory.define :community_activity_log do |cal|
+  cal.association :user
+  cal.association :community
+  cal.activity    { Activity.create }
+  cal.created_at  { 5.days.ago }
 end
 
 Factory.define :contact do |c|

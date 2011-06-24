@@ -16,8 +16,6 @@ class Comment < ActiveRecord::Base
 
   before_create :set_visible_at, :set_from_curator
 
-  after_create  :track_create
-
   validates_presence_of :body, :user
 
   attr_accessor :vetted_by
@@ -170,10 +168,6 @@ class Comment < ActiveRecord::Base
   end
 
 private
-
-  def track_create
-    self.user.track_curator_activity(self, 'comment', 'create')
-  end
 
   # Run when a comment is created, to ensure it is visible by default:
   def set_visible_at

@@ -3,7 +3,6 @@
 # database.
 class ContentPartner < SpeciesSchemaModel
 
-  include EOL::Feedable
   belongs_to :user
   belongs_to :content_partner_status
 

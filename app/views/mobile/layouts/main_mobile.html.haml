@@ -5,10 +5,10 @@
     %meta{:name => "apple-mobile-web-app-capable", :content => "yes"}/
     
     %title= "Encyclopedia of Life for mobile devices"
-    = stylesheet_link_tag "jqtouch.css", "jqtouch-theme.css", "mobile.css"
-    = javascript_include_tag "jquery-1.4.2.min.js", "jqtouch.js", "mobile.js"
+    = stylesheet_link_tag "jquery.mobile-1.0b1.css", "mobile.css"
+    = javascript_include_tag "jquery-1.6.1.min.js", "jquery.mobile-1.0b1.js", "mobile.js"
   %body
-    #jqt
+    %div{"data-role" => "page"}
       = yield
 
       

@@ -11,14 +11,60 @@
  * so I am temporarily adding some CSS here needed for V2 demo. This CSS should be integrated
  * into HashRocket SASS if it is still needed when design work is complete.
  */
+#permalink
+  form
+    &.review_status
+      fieldset
+        &.reasons
+          label
+            margin-left: 8px
+            line-height: 1.5em
+  #sidebar
+    ul.review_status
+      p.unknown /*should match unreviewed*/
+        border: 1px solid #677682
+        background: #8695A1
+#media_list
+  #main
+    li
+      p.flag.unknown /*should match unreviewed*/
+        border: 1px solid #677682
+        background: #8695A1
+#taxonomy_detail
+  .average_rating
+    h5
+      display: inline
+      text-transform: lowercase
+    p
+      float: none
+      display: inline
+  .rating
+    h5
+      display: inline
+      text-transform: lowercase
+      font-size: 0.83em
+    ul
+      display: inline
+.rating
+  ul
+    li
+      &.current_rating_0
+        position: absolute
+        top: 0
+        right: 0
+        height: 13px
+        font-size: 0
+        text-indent: -8685px
+        text-decoration: none
+        overflow: hidden
+        width: 0
+        background: transparent url("/images/v2/icon_stars.png") right 100% repeat-x
 .join
   abbr
     border: none
 body
   >#header
     .section
-      h1
-        z-index: 2 /* otherwise .session div prevents clicking on logo */
       .actions
         z-index: 5 /* otherwise language list goes behind logo */
       .session
@@ -85,21 +131,17 @@ body
 = size50x50
   width: 50px
   height: 50px
+= size35x35
+  width: 35px
+  height: 35px
+= size90x90
+  width: 90px
+  height: 90px  
 
 #media_summary
-  .image
-    height: 360px
-    text-align: center
-    img
-      max-width: 430px
-      max-height: 310px
-    .attribution
-      text-align: right
-      position: absolute
-      bottom: 0
-      right: 0
-      img
-        margin-top: 0
+  img
+    max-width: 430px
+    max-height: 310px
 ul.feed
   li
     >a
@@ -111,6 +153,10 @@ ul.feed
       >a
         >img
           +size50x50
+#header
+  .session
+    img
+      +size50x50          
 #collections
   .collections
     .article
@@ -123,7 +169,16 @@ ul.feed
     .hgroup
       img
         +max90x90
+#page_heading
+  &.profile
+    .hgroup
+      img
+        +size90x90
 #collections
   &.main_container
     .taxon>img
       +max90x90
+#sidebar
+  .collection_list
+    img
+      +size35x35

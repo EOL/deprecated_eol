@@ -47,16 +47,16 @@ describe User do
     User.hash_password(@pass).should == Digest::MD5.hexdigest(@pass)
   end
 
-  it 'should have a log method that creates an ActivityLog entry (when enabled)' do
+  it 'should have a log method that creates a UserActivityLog entry (when enabled)' do
     old_log_val = $LOG_USER_ACTIVITY
     begin
       $LOG_USER_ACTIVITY = true
-      count = ActivityLog.count
+      count = UserActivityLog.count
       @user.log_activity(:clicked_link)
       wait_for_insert_delayed do
-        ActivityLog.count.should == count + 1
+        UserActivityLog.count.should == count + 1
       end
-      ActivityLog.last.user_id.should == @user.id
+      UserActivityLog.last.user_id.should == @user.id
     ensure
       $LOG_USER_ACTIVITY = old_log_val
     end
@@ -80,9 +80,9 @@ describe User do
 
   it 'should NOT log activity on a "fake" (unsaved, temporary, non-logged-in) user' do
     user = User.create_new
-    count = ActivityLog.count
+    count = UserActivityLog.count
     user.log_activity(:clicked_link)
-    ActivityLog.count.should == count
+    UserActivityLog.count.should == count
   end
 
   it 'should authenticate existing user with correct password, returning true and user back' do

@@ -1,4 +1,4 @@
-class ActivityLog < LoggingModel
+class UserActivityLog < LoggingModel
   belongs_to :taxon_concept
   belongs_to :activity
   belongs_to :user
@@ -10,7 +10,7 @@ class ActivityLog < LoggingModel
       raise "You cannot log activity without an activity argument (first arg)" unless act_symbol
       # I'm worried these won't work if they create, since we use insert_delayed on LoggingModel models...  Ick:
       act = Activity.find_or_create(act_symbol)
-      return ActivityLog.create(:activity_id => act.id, :user_id => user.id, :value => options[:value],
+      return UserActivityLog.create(:activity_id => act.id, :user_id => user.id, :value => options[:value],
                                 :taxon_concept_id => options[:taxon_concept_id])
     end
   end
@@ -18,10 +18,10 @@ class ActivityLog < LoggingModel
   def self.get_activity_ids(user_id)
     if(user_id == 'all') then
       sql="Select activity_id id From activity_logs "
-      rset = ActivityLog.find_by_sql([sql])
+      rset = UserActivityLog.find_by_sql([sql])
     else
       sql="Select activity_id id From activity_logs where user_id = ? "
-      rset = ActivityLog.find_by_sql([sql, user_id])
+      rset = UserActivityLog.find_by_sql([sql, user_id])
     end
     obj_ids = Array.new
     rset.each do |rec|
@@ -55,7 +55,7 @@ class ActivityLog < LoggingModel
     monitored_activity = Array.new
     sql="Select distinct al.user_id From activity_logs al"
     if(activity_id) then sql += " where al.activity_id = #{activity_id} " end
-    rset = ActivityLog.find_by_sql([sql])
+    rset = UserActivityLog.find_by_sql([sql])
     rset.each do |rec|
       monitored_activity = start_user_monitoring(rec.user_id,monitored_activity)
     end

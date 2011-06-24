@@ -6,6 +6,45 @@ class Activity < LoggingModel
   has_many :activity_logs
   has_many :curator_activity_logs
 
+  # NOTE - assumes Language.english exists.  You'll get weird results otherwise.
+  # NOTE - I'm leaving duplicates in here, since they should be handled and make deleting rows easier.
+  # NOTE - These are only activities THAT GET LOGGED.  ...for now.  In the future, we may want to add a visibility to
+  # each of these and include those activities that don't show up on the site's activity logs.
+  def self.create_defaults
+    # Curation:
+    Activity.find_or_create('create')
+    Activity.find_or_create('update')     #?
+    Activity.find_or_create('delete')
+    Activity.find_or_create('trusted')
+    Activity.find_or_create('untrusted')
+    Activity.find_or_create('show')
+    Activity.find_or_create('hide')
+    Activity.find_or_create('inappropriate')
+    Activity.find_or_create('rate')
+    Activity.find_or_create('unreviewed') # tense is wrong for historical reasons, please keep.
+    Activity.find_or_create('add_association')
+    Activity.find_or_create('remove_association')
+    Activity.find_or_create('choose_exemplar')
+    Activity.find_or_create('add_common_name')
+    Activity.find_or_create('remove_common_name')
+    # Collection:
+    Activity.find_or_create('create')
+    Activity.find_or_create('collect')
+    Activity.find_or_create('remove')
+    # Community:
+    Activity.find_or_create('create')
+    Activity.find_or_create('delete')
+    Activity.find_or_create('add_member')
+    Activity.find_or_create('change_description')
+    Activity.find_or_create('change_name')
+    Activity.find_or_create('change_icon')
+    Activity.find_or_create('add_admin')
+    Activity.find_or_create('add_curator')
+    Activity.find_or_create('add_member_privilege')
+    Activity.find_or_create('add_collection_endorsement')
+    Activity.find_or_create('remove_collection_endorsement')
+  end
+
   def self.find_or_create(key_sym)
     key = key_sym.to_s
     if act = Activity.cached_find_translated(:name, key)

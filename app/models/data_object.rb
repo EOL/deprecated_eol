@@ -7,7 +7,7 @@ require 'erb'
 class DataObject < SpeciesSchemaModel
 
   include ModelQueryHelper
-  include EOL::Feedable
+  include EOL::ActivityLoggable
 
   belongs_to :data_type
   belongs_to :data_subtype, :class_name => DataType.to_s, :foreign_key => :data_subtype_id

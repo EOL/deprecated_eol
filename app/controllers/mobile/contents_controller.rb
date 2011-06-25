@@ -16,6 +16,7 @@ class Mobile::ContentsController < Mobile::MobileController
     render :update do |page|
       page.redirect_to root_path
     end
+    #render :nothing => true
   end
   
 end

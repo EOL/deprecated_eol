@@ -1,9 +1,42 @@
-%div{"data-role" => "header"}
+%div{"data-role"=>"header", "data-position"=>"fixed"}
+  =link_to image_tag("/images/mobile/logo_simple.png", :height => '24')
   %h1 Home
 
-%h2 Taxa
-%div{"data-role" => "content"}
-  %ul{"data-role" => "listview"}
-    %li.arrow= link_to "Nihileri voluptasus", mobile_taxon_path(9)
-    %li.arrow= link_to "Dignissimosii inutes", mobile_taxon_path(10)
+%div{"data-role"=>"content"}
+  %ul{"data-role" => "listview", "data-inset"=>"true"}
+    %li{"data-role"=>"list-divider"} Taxa
+    %li= link_to "Nihileri voluptasus", mobile_taxon_path(9)
+    %li= link_to "Dignissimosii inutes", mobile_taxon_path(10)
+    %li= link_to "Fugais utharumatus", mobile_taxon_path(11)
 
+    %ul{"data-role" => "listview", "data-inset"=>"true", "data-theme"=>"c", "list-divider-theme"=>"e"}
+      %li.taxon
+        =image_tag("/images/v2/icon_taxon.png")
+        %h3 1,915,247 #{I18n.t(:taxa)}
+        %p= link_to I18n.t(:what_is_a_taxon), "#content1"
+      %li.contributors
+        =image_tag("/images/v2/icon_contributors.png")
+        %h3 3,154 #{I18n.t(:contributors_like_you)}
+        %p= link_to I18n.t(:learn_how_to_join), "#content1"
+      %li.communities
+        =image_tag("/images/v2/icon_communities.png")
+        %h3 861 #{I18n.t(:communities)}
+        %p= link_to I18n.t(:learn_how_to_interact), "#content1"
+      %li.images
+        =image_tag("/images/v2/icon_partners.png")
+        %h3 753,234 #{I18n.t(:images)}
+        %p= link_to I18n.t(:browse_gallery), "#content1"
+      %li.partners
+        =image_tag("/images/v2/icon_images.png")
+        %h3 324 #{I18n.t(:content_partners)}
+        %p= link_to I18n.t(:learn_about_content_partners), "#content1"
+    
+%div{"data-role"=>"footer"}
+  %h4#go_to_full Full site
+
+
+:javascript
+  $('#go_to_full').tap(function(){  
+    jQuery.ajax({data:'_method=post', dataType:'script', type:'post', url:'/mobile/contents/disable', success: function (response) {eval(response);} });
+  });
+  

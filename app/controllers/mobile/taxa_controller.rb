@@ -41,9 +41,9 @@ class Mobile::TaxaController < Mobile::MobileController
     current_user.log_activity(:viewed_taxon_concept_overview, :taxon_concept_id => @taxon_concept.id)
     
     # If it's a JQtouch ajax request don't show the layout
-    if request.format == "*/*"
-      render :layout  => false
-    end
+    # if request.format == "*/*"
+    #   render :layout  => false
+    # end
   end
   
   def details
@@ -78,9 +78,9 @@ class Mobile::TaxaController < Mobile::MobileController
     current_user.log_activity(:viewed_taxon_concept_details, :taxon_concept_id => @taxon_concept.id)
     
     # If it's a JQtouch ajax request don't show the layout
-    if request.format == "*/*"
-      render :layout  => false
-    end
+    # if request.format == "*/*"
+    #   render :layout  => false
+    # end
   end
   
 end

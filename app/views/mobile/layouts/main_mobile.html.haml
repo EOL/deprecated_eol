@@ -2,13 +2,14 @@
 %html{html_attrs}
   %head
     %meta{:charset => "UTF-8"}/
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1"}
     %meta{:name => "apple-mobile-web-app-capable", :content => "yes"}/
     
     %title= "Encyclopedia of Life for mobile devices"
-    = stylesheet_link_tag "jquery.mobile-1.0b1.css", "mobile.css"
-    = javascript_include_tag "jquery-1.6.1.min.js", "jquery.mobile-1.0b1.js", "mobile.js"
+    = stylesheet_link_tag "jquery.mobile-1.0b1.min.css", "mobile.css"
+    = javascript_include_tag "jquery-1.6.1.min.js", "jquery.mobile-1.0b1.min.js", "mobile.js"
   %body
-    %div{"data-role" => "page"}
+    %div{"data-role" => "page", "data-theme"=>"a"}
       = yield
 
       

@@ -6,10 +6,16 @@
     %p= collection_item_detail(collection_item)
     %p= collection_item_view_type_link_to(collection_item)
   %span.icon= I18n.t(:collection_item_type_with_label, :type => type)
-  .comment
-    - #FIXME: get proper comment
-    %p= "collection_item comment"
-  %p.meta
-    - date = format_date(collection_item.created_at, format = "%B %d,%Y")
-    %br
-    = I18n.t(:added_date, :date => date)
+  %br
+  - form_tag({:controller => :collection_items, :action => :update, :id => collection_item.id}, :method => :put) do
+    - if editable
+      = text_area_tag "annotation_#{collection_item.id}", collection_item.annotation, :rows => 2, :cols => 60
+    - else
+      - # annotation for the collection... change the comment class to annotation class whenever available
+      .comment
+        %p= collection_item.annotation
+    %p.meta
+      - date = format_date(collection_item.created_at, format = "%B %d,%Y")
+      %br
+      = submit_tag I18n.t(:save_annotation_submit_button) if editable
+      = I18n.t(:added_date, :date => date)

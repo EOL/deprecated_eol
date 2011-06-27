@@ -57,10 +57,11 @@ class CollectionItemsController < ApplicationController
   # PUT /collection_items/1.xml
   def update
     @collection_item = CollectionItem.find(params[:id])
-
+    annotation = params["annotation_#{params[:id]}"]
+    redirect_path = request.env['HTTP_REFERER'] ? :back : collection_items_url
     respond_to do |format|
-      if @collection_item.update_attributes(params[:collection_item])
-        format.html { redirect_to(@collection_item, :notice => 'CollectionItem was successfully updated.') }
+      if @collection_item.update_attribute(:annotation, annotation)
+        format.html { redirect_to(redirect_path, :notice => 'CollectionItem was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -80,4 +81,5 @@ class CollectionItemsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
 end

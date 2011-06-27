@@ -94,8 +94,8 @@ describe Collection do
 
   it 'should be able to add Collection collection items' do
     collection = Collection.gen
-    collection.add(@test_data[:community])
-    collection.collection_items.last.object.should == @test_data[:community]
+    collection.add(@test_data[:collection])
+    collection.collection_items.last.object.should == @test_data[:collection]
   end
 
   it 'should NOT be able to add Agent items' do # Really, we don't care about Agents, per se, just "anything else".

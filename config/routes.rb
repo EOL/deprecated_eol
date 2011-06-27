@@ -27,6 +27,11 @@ ActionController::Routing::Routes.draw do |map|
   map.watch 'watch/:type/:id', :controller => 'collections', :action => 'watch'
   map.collect 'collect/:type/:id', :controller => 'collections', :action => 'collect'
 
+  #used in collections show page, click on left tabs
+  map.connect 'collections/:id/:filter',
+               :controller => 'collections',
+               :action     => 'show'
+
   # Web Application
   map.resources :harvest_events, :has_many => [:taxa]
   map.resources :resources, :as => 'content_partner/resources', :has_many => [:harvest_events]

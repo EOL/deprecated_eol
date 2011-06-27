@@ -26,11 +26,11 @@ xml.feed "xmlns" => "http://www.w3.org/2005/Atom",
   
   for result in @results
     xml.entry do
-      xml.title result['best_matched_scientific_name'].strip_italics
-      xml.link :href => url_for(:controller => 'taxa', :action => 'show', :id => result['id'], :only_path => false)
-      xml.id result['id']
+      xml.title result['instance'].title.strip_italics
+      xml.link :href => url_for(:controller => 'taxa', :action => 'show', :id => result['resource_id'], :only_path => false)
+      xml.id result['resource_id']
       xml.updated
-      xml.content result['scientific_name'].join(', ')+"\n\n"+result['common_name'].join(', '), :type => "text" if result['common_name']
+      xml.content result['keyword'].join('; ')
     end
   end
 end

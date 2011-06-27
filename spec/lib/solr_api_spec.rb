@@ -29,18 +29,18 @@ describe 'Solr API' do
                :vetted_id => trusted.id,
                :published => 1}
     end
-
+  
     it 'should connect to solr server from environment' do
       @solr.action_uri.host.should == 'localhost'
       config_solr_path = ($SOLR_SERVER + $SOLR_TAXON_CONCEPTS_CORE).sub(/^.*?\/solr/, '/solr')
       @solr.action_uri.path.should == config_solr_path
     end
-
+  
     it 'should be able to run search on the server' do
       @solr.delete_all_documents
       @solr.get_results("*:*")['numFound'].should == 0
     end
-
+  
     it 'should convert ruby array or hash to solr-compatible xml' do
       res = @solr.build_solr_xml('add', @data)
       xml = Nokogiri::XML(res)  
@@ -49,13 +49,13 @@ describe 'Solr API' do
         test_xml(xml, node, @data[node])
       end
     end
-
+  
     it 'should add an index for a document on a call to #create' do
       res = @solr.create(@data)
       @solr.get_results("common_name:cod")['numFound'].should > 0
       @solr.get_results("ancestor_taxon_concept_id:3452345")['numFound'].should > 0
     end
-
+  
     it 'should be able to send hashes as CSV file' do
       File.unlink(@solr.csv_path) if File.exists?(@solr.csv_path)
       File.exists?(@solr.csv_path).should == false
@@ -86,7 +86,7 @@ describe 'Solr API' do
       File.unlink(@solr.csv_path) if File.exists?(@solr.csv_path)
     end
   end
-
+  
   describe ': DataObjects' do
     before(:all) do
       @solr = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
@@ -108,8 +108,8 @@ describe 'Solr API' do
       Synonym.delete_all
       @solr = SolrAPI.new($SOLR_SERVER, $SOLR_SITE_SEARCH_CORE)
       @solr.delete_all_documents
-      @scientific_name = "Amanita muscaria"
-      @common_name = "Fly agaric"
+      @scientific_name = "Something unique"
+      @common_name = "Name not yet used"
       @test_taxon_concept = build_taxon_concept(:scientific_name => @scientific_name, :common_names => [@common_name])
       TaxonConcept.connection.execute("commit")
     end
@@ -125,7 +125,7 @@ describe 'Solr API' do
       # one for the scientific name, one for the synonym the builder creates, and one for the common name
       @solr.get_results("*:*")['numFound'].should == 3
       @solr.get_results("resource_id:#{@test_taxon_concept.id}")['numFound'].should == 3
-      @solr.get_results("keyword:#{URI.escape(@scientific_name)}")['numFound'].should == 2
+      @solr.get_results("keyword:#{URI.escape(@scientific_name)}")['numFound'].should == 1
       @solr.get_results("keyword:#{URI.escape(@common_name)}")['numFound'].should == 1
     end
   end

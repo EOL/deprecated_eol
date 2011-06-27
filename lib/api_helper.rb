@@ -1,20 +1,17 @@
 module ApiHelper
   
   def search_result_hash(options)
-    
-    last_page = (options[:results].total_entries/options[:per_page].to_f).ceil
-    
     results = []
     for result in options[:results]
       result_hash = {}
-      result_hash['id']           = result['id']
-      result_hash['title']        = result['best_matched_scientific_name'].strip_italics
-      result_hash['link']         = url_for(:controller => 'taxa', :action => 'show', :id => result['id'], :only_path => false)
-      result_hash['content']      = result['scientific_name'].join(', ')+"\n\n"+result['common_name'].join(', ') if result['common_name']
-      
+      result_hash['id']           = result['resource_id']
+      result_hash['title']        = result['instance'].title.strip_italics
+      result_hash['link']         = url_for(:controller => 'taxa', :action => 'show', :id => result['resource_id'], :only_path => false)
+      result_hash['content']      = result['keyword'].join('; ')
       results << result_hash
     end
     
+    last_page = (options[:results].total_entries/options[:per_page].to_f).ceil
     search_api_url = url_for(:controller => 'api', :action => 'search', :id => options[:search_term], :format => options[:format], :only_path => false);
     return_hash = {}
     return_hash['totalResults'] = options[:results].total_entries
@@ -26,7 +23,6 @@ module ApiHelper
     return_hash['self']         = "#{search_api_url}?page=#{options[:page]}" if options[:page] <= last_page
     return_hash['next']         = "#{search_api_url}?page=#{options[:page]+1}" if options[:page] < last_page
     return_hash['last']         = "#{search_api_url}?page=#{last_page}" if options[:page] <= last_page
-    
     return return_hash
   end
   

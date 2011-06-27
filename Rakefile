@@ -46,19 +46,19 @@ namespace :spec do
   end
 end
 
-# begin
-#   require 'metric_fu'
-# rescue LoadError
-#   puts "++ You may want to 'gem install metric_fu' for additional metric functionality."
-# end
+begin
+  require 'metric_fu'
+rescue LoadError
+  puts "++ You may want to 'gem install metric_fu' for additional metric functionality."
+end
 
 if defined?(MetricFu)
   MetricFu::Configuration.run do |config|
     # Flog is not working.  At all.  Seems like it was using the wrong version of something, but...
     config.metrics = [:churn, :flay, :reek, :roodi, :hotspots, :saikuro, :stats]
     config.graphs  = [:flay, :reek, :roodi, :rails_best_practices]
-    # Again, RCov was not working:
-    #config.rcov[:test_files] = ['spec/**/*_spec.rb']
-    #config.rcov[:rcov_opts] << "-Ispec" # Needed to find spec_helper
+    # RCov was not working:
+    config.rcov[:test_files] = ['spec/**/*_spec.rb']
+    config.rcov[:rcov_opts] << "-Ispec" # Needed to find spec_helper
   end
 end

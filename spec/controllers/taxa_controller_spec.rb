@@ -1,56 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-def hijack_search_for_tiger
-  TaxonConcept.should_receive(:search_with_pagination).at_least(1).times.and_return(@common_collection.paginate({:page => 1, :per_page => 10}))
-  get 'search', :q => 'tiger'
-end
-
 describe TaxaController do
-
-  describe 'search' do
-
-    before(:all) do
-      truncate_all_tables
-      Language.create_english
-      load_scenario_with_caching :search_with_duplicates
-      results = EOL::TestInfo.load('search_with_duplicates')
-      @tc_id                   = results[:tc_id]
-      @new_common_name         = results[:new_common_name]
-      @ancestor_concept        = results[:ancestor_concept]
-      @parent_concept          = results[:parent_concept]
-      @taxon_concept           = results[:taxon_concept]
-      @duplicate_taxon_concept = results[:duplicate_taxon_concept]
-      @query_results           = results[:query_results]
-
-      # We call it with our bogus results:
-      @common_collection = EOL::SearchResultsCollection.new(@query_results, :querystring => 'tiger', :type => :common)
-    end
-
-    describe 'with duplicates' do
-
-      it 'should show the source hierarchy on the duplicates (NOT ACCORDING TO V2 DESIGN - OBSOLETE?' do
-        hijack_search_for_tiger
-        assigns[:all_results].select{|r| r['recognized_by'] == @taxon_concept.entry.hierarchy.label}.count.should > 0
-      end
-
-      it 'should show the parent taxon_concept of the duplicates' do
-        hijack_search_for_tiger
-        assigns[:all_results].select{|r| r['parent_scientific'] == @parent_concept.scientific_name}.count.should > 0
-      end
-
-      it 'should show the ancestor (grandparent) taxon_concept of the duplicates' do
-        hijack_search_for_tiger
-        assigns[:all_results].select{|r| r['ancestor_scientific'] == @ancestor_concept.scientific_name}.count.should > 0
-      end
-
-    end
-
-  end
-
-  it "should find no results on an empty search" do
-    get :search
-    assigns[:all_results].should == []
-  end
 
   describe "ACL rules for pages" do
 

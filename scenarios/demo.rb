@@ -270,6 +270,11 @@ users.each_with_index do |user, i|
   user.save
 end
 
+TaxonConcept.all.each do |tc|
+  tc.save # This will save the record, thus indexing the concept with all its names
+end
+
+
 puts "Re-indexing.  Hang on, almost there."
 make_all_nested_sets
 rebuild_collection_type_nested_set

@@ -7,6 +7,7 @@ describe EOL::CommonNameDisplay do
     Language.gen_if_not_exists(:iso_639_1 => 'en')
     Language.gen_if_not_exists(:label => 'Unknown')
     Hierarchy.gen_if_not_exists(:label => "Encyclopedia of Life Contributors")
+    Visibility.gen_if_not_exists(:label => 'visible')
     @fake_name = fake_name
     @cnd = EOL::CommonNameDisplay.new(@fake_name)
   end

@@ -9,6 +9,7 @@
       #search_results
         #sidebar.filters
           - form_tag({:action => 'show'}, :method => 'get') do
+            = hidden_field_tag :q, @querystring
             %fieldset
               %dl
                 %dt
@@ -22,12 +23,14 @@
                   %label= I18n.t(:filter_by_type)
                 %dd
                   %ul
-                    - [:all, :taxa, :image, :video, :sound, :person, :community, :collection].each do |opt|
+                    - [:all, :taxon_concept, :image, :video, :sound, :text, :user, :community, :collection].each do |opt|
                       %li
                         %label
-                          = check_box_tag "type[]", opt, @params_type.include?(opt.to_s),
+                          = check_box_tag "type[]", opt, @params_type.include?(opt.to_s.camelize),
                             { :name => "type[]", :id => "type_#{opt.to_s}"}
                           = I18n.t("filter_by_type_#{opt}_option")
+                          - count = (opt == :all) ? @all_results.total_entries : @facets[opt.to_s.camelize]
+                          = "(#{count || 0})"
             %fieldset.actions
               %input(type="submit" value="filter results")
         #main

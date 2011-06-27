@@ -1,0 +1,31 @@
+<html><head><style>table { background: #fff; color: #000; }
+.ruby .normal { color: #000; }
+.ruby .comment { color: #005; font-style: italic; }
+.ruby .keyword { color: #A44; font-weight: bold; }
+.ruby .method { color: #44f; }
+.ruby .class { color: #b1713d; }
+.ruby .module { color: #050; }
+.ruby .punct { color: #668; font-weight: bold; }
+.ruby .symbol { color: #00f; }
+.ruby .string { color: #4a4; }
+.ruby .char { color: #F07; }
+.ruby .ident { color: #000; }
+.ruby .constant { color: #b1713d; }
+.ruby .regex { color: #B66; background: #FEF; }
+.ruby .number { color: #F99; }
+.ruby .attribute { color: #f84; }
+.ruby .global { color: #7FB; }
+.ruby .expr { color: #227; }
+.ruby .escape { color: #277; }</style></head><body><table cellpadding='0' cellspacing='0' class='ruby'><tr><td valign='top'><small>1</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line1'><pre><span class="keyword">class </span><span class="class">InfoItem</span> <span class="punct">&lt;</span> <span class="constant">SpeciesSchemaModel</span>
+</pre></a></td></tr><tr><td valign='top'><small>2</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line2'><pre>  <span class="constant">CACHE_ALL_ROWS</span> <span class="punct">=</span> <span class="constant">true</span>
+</pre></a></td></tr><tr><td valign='top'><small>3</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line3'><pre>  <span class="ident">uses_translations</span>
+</pre></a></td></tr><tr><td valign='top'><small>4</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line4'><pre>  <span class="ident">belongs_to</span> <span class="symbol">:toc_item</span><span class="punct">,</span> <span class="symbol">:foreign_key</span> <span class="punct">=&gt;</span> <span class="symbol">:toc_id</span> 
+</pre></a></td></tr><tr><td valign='top'><small>5</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line5'><pre>  <span class="ident">has_many</span>   <span class="symbol">:data_objects_info_items</span>
+</pre></a></td></tr><tr><td valign='top'><small>6</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line6'><pre>  <span class="ident">has_many</span>   <span class="symbol">:data_objects</span><span class="punct">,</span> <span class="symbol">:through</span> <span class="punct">=&gt;</span> <span class="symbol">:data_objects_info_items</span>
+</pre></a></td></tr><tr><td valign='top'><small>7</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line7'><pre>
+</pre></a></td></tr><tr><td valign='top'><small>8</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line8'><pre>  <span class="keyword">def </span><span class="method">self.get_schema_value</span>    
+</pre></a></td></tr><tr><td valign='top'><small>9</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line9'><pre>    <span class="ident">arr_SPM</span> <span class="punct">=</span> <span class="constant">SpeciesSchemaModel</span><span class="punct">.</span><span class="ident">connection</span><span class="punct">.</span><span class="ident">execute</span><span class="punct">(&quot;</span><span class="string">SELECT schema_value, id FROM info_items ORDER BY id</span><span class="punct">&quot;).</span><span class="ident">all_hashes</span>
+</pre></a></td></tr><tr><td valign='top'><small>10</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line10'><pre>    <span class="keyword">return</span> <span class="ident">arr_SPM</span>
+</pre></a></td></tr><tr><td valign='top'><small>11</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line11'><pre>  <span class="keyword">end</span>
+</pre></a></td></tr><tr><td valign='top'><small>12</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line12'><pre><span class="keyword">end</span>
+</pre></a></td></tr><table></body></html>

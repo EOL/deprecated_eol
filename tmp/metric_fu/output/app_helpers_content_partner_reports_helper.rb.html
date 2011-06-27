@@ -1,0 +1,68 @@
+<html><head><style>table { background: #fff; color: #000; }
+.ruby .normal { color: #000; }
+.ruby .comment { color: #005; font-style: italic; }
+.ruby .keyword { color: #A44; font-weight: bold; }
+.ruby .method { color: #44f; }
+.ruby .class { color: #b1713d; }
+.ruby .module { color: #050; }
+.ruby .punct { color: #668; font-weight: bold; }
+.ruby .symbol { color: #00f; }
+.ruby .string { color: #4a4; }
+.ruby .char { color: #F07; }
+.ruby .ident { color: #000; }
+.ruby .constant { color: #b1713d; }
+.ruby .regex { color: #B66; background: #FEF; }
+.ruby .number { color: #F99; }
+.ruby .attribute { color: #f84; }
+.ruby .global { color: #7FB; }
+.ruby .expr { color: #227; }
+.ruby .escape { color: #277; }</style></head><body><table cellpadding='0' cellspacing='0' class='ruby'><tr><td valign='top'><small>1</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line1'><pre><span class="keyword">module </span><span class="module">ContentPartner::ReportsHelper</span>
+</pre></a></td></tr><tr><td valign='top'><small>2</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line2'><pre>
+</pre></a></td></tr><tr><td valign='top'><small>3</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line3'><pre>  <span class="comment"># helper method for easily constructing paths to reports (with query strings)</span>
+</pre></a></td></tr><tr><td valign='top'><small>4</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line4'><pre>  <span class="comment">#</span>
+</pre></a></td></tr><tr><td valign='top'><small>5</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line5'><pre>  <span class="comment"># Usage:</span>
+</pre></a></td></tr><tr><td valign='top'><small>6</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line6'><pre>  <span class="comment">#</span>
+</pre></a></td></tr><tr><td valign='top'><small>7</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line7'><pre>  <span class="comment">#   path_for_report</span>
+</pre></a></td></tr><tr><td valign='top'><small>8</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line8'><pre>  <span class="comment">#   path_for_report :states</span>
+</pre></a></td></tr><tr><td valign='top'><small>9</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line9'><pre>  <span class="comment">#   path_for_report :page =&gt; 2, :per_page =&gt; 10</span>
+</pre></a></td></tr><tr><td valign='top'><small>10</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line10'><pre>  <span class="comment">#   path_for_report :states, :page =&gt; 2, :per_page =&gt; 10</span>
+</pre></a></td></tr><tr><td valign='top'><small>11</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line11'><pre>  <span class="comment">#</span>
+</pre></a></td></tr><tr><td valign='top'><small>12</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line12'><pre>  <span class="comment"># If no report is given, it will default to the current +@report+ (assuming you're on a report's page)</span>
+</pre></a></td></tr><tr><td valign='top'><small>13</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line13'><pre>  <span class="comment">#</span>
+</pre></a></td></tr><tr><td valign='top'><small>14</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line14'><pre>  <span class="keyword">def </span><span class="method">path_for_report</span> <span class="ident">report</span> <span class="punct">=</span> <span class="constant">nil</span><span class="punct">,</span> <span class="ident">query_strings</span> <span class="punct">=</span> <span class="punct">{}</span>
+</pre></a></td></tr><tr><td valign='top'><small>15</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line15'><pre>    <span class="keyword">if</span> <span class="ident">report</span><span class="punct">.</span><span class="ident">is_a?</span><span class="constant">Hash</span>
+</pre></a></td></tr><tr><td valign='top'><small>16</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line16'><pre>      <span class="ident">query_strings</span> <span class="punct">=</span> <span class="ident">report</span>
+</pre></a></td></tr><tr><td valign='top'><small>17</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line17'><pre>      <span class="ident">report</span>        <span class="punct">=</span> <span class="attribute">@report</span>
+</pre></a></td></tr><tr><td valign='top'><small>18</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line18'><pre>    <span class="keyword">elsif</span> <span class="ident">report</span><span class="punct">.</span><span class="ident">nil?</span>
+</pre></a></td></tr><tr><td valign='top'><small>19</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line19'><pre>      <span class="ident">report</span>        <span class="punct">=</span> <span class="attribute">@report</span>
+</pre></a></td></tr><tr><td valign='top'><small>20</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line20'><pre>    <span class="keyword">end</span>
+</pre></a></td></tr><tr><td valign='top'><small>21</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line21'><pre>
+</pre></a></td></tr><tr><td valign='top'><small>22</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line22'><pre>    <span class="ident">format</span> <span class="punct">=</span> <span class="punct">'</span><span class="string"></span><span class="punct">'</span>
+</pre></a></td></tr><tr><td valign='top'><small>23</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line23'><pre>    <span class="keyword">if</span> <span class="ident">query_strings</span><span class="punct">.</span><span class="ident">include?</span> <span class="symbol">:format</span>
+</pre></a></td></tr><tr><td valign='top'><small>24</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line24'><pre>      <span class="ident">format</span> <span class="punct">=</span> <span class="punct">'</span><span class="string">.</span><span class="punct">'</span> <span class="punct">+</span> <span class="ident">query_strings</span><span class="punct">.</span><span class="ident">delete</span><span class="punct">(</span><span class="symbol">:format</span><span class="punct">).</span><span class="ident">to_s</span>
+</pre></a></td></tr><tr><td valign='top'><small>25</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line25'><pre>    <span class="keyword">end</span>
+</pre></a></td></tr><tr><td valign='top'><small>26</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line26'><pre>
+</pre></a></td></tr><tr><td valign='top'><small>27</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line27'><pre>    <span class="ident">report_path</span>   <span class="punct">=</span> <span class="punct">&quot;</span><span class="string">/<span class="expr">#{controller.controller_path}</span>/<span class="expr">#{ report }#{ format }</span></span><span class="punct">&quot;</span>
+</pre></a></td></tr><tr><td valign='top'><small>28</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line28'><pre>    <span class="ident">query_strings</span> <span class="punct">=</span> <span class="ident">request</span><span class="punct">.</span><span class="ident">query_parameters</span><span class="punct">.</span><span class="ident">merge</span> <span class="ident">query_strings</span><span class="punct">.</span><span class="ident">stringify_keys</span>
+</pre></a></td></tr><tr><td valign='top'><small>29</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line29'><pre>
+</pre></a></td></tr><tr><td valign='top'><small>30</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line30'><pre>    <span class="comment"># create the full string.  only select the query strings where the value isn't nil.</span>
+</pre></a></td></tr><tr><td valign='top'><small>31</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line31'><pre>    <span class="ident">query_string</span> <span class="punct">=</span> <span class="ident">query_strings</span><span class="punct">.</span><span class="ident">select</span> <span class="punct">{|</span><span class="ident">k</span><span class="punct">,</span><span class="ident">v</span><span class="punct">|</span> <span class="keyword">not</span> <span class="ident">v</span><span class="punct">.</span><span class="ident">nil?</span> <span class="punct">}.</span><span class="ident">map</span> <span class="punct">{|</span><span class="ident">k</span><span class="punct">,</span><span class="ident">v</span><span class="punct">|</span> <span class="punct">&quot;</span><span class="string"><span class="expr">#{k}</span>=<span class="expr">#{v}</span></span><span class="punct">&quot;}.</span><span class="ident">join</span><span class="punct">('</span><span class="string">&amp;</span><span class="punct">')</span>
+</pre></a></td></tr><tr><td valign='top'><small>32</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line32'><pre>    <span class="ident">report_path</span> <span class="punct">+</span> <span class="punct">((</span><span class="ident">query_string</span><span class="punct">.</span><span class="ident">empty?</span><span class="punct">)</span> <span class="punct">?</span> <span class="punct">'</span><span class="string"></span><span class="punct">'</span> <span class="punct">:</span> <span class="punct">&quot;</span><span class="string">?<span class="expr">#{ query_string }</span></span><span class="punct">&quot;)</span>
+</pre></a></td></tr><tr><td valign='top'><small>33</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line33'><pre>  <span class="keyword">end</span>
+</pre></a></td></tr><tr><td valign='top'><small>34</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line34'><pre>
+</pre></a></td></tr><tr><td valign='top'><small>35</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line35'><pre>  <span class="comment"># helper method for easily constructing links to reports (with query strings)</span>
+</pre></a></td></tr><tr><td valign='top'><small>36</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line36'><pre>  <span class="comment">#</span>
+</pre></a></td></tr><tr><td valign='top'><small>37</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line37'><pre>  <span class="comment"># see #path_for_report</span>
+</pre></a></td></tr><tr><td valign='top'><small>38</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line38'><pre>  <span class="comment">#</span>
+</pre></a></td></tr><tr><td valign='top'><small>39</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line39'><pre>  <span class="comment"># Usage:</span>
+</pre></a></td></tr><tr><td valign='top'><small>40</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line40'><pre>  <span class="comment">#</span>
+</pre></a></td></tr><tr><td valign='top'><small>41</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line41'><pre>  <span class="comment">#   link_to_report 'Current Report'</span>
+</pre></a></td></tr><tr><td valign='top'><small>42</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line42'><pre>  <span class="comment">#   link_to_report 'States Report', :states</span>
+</pre></a></td></tr><tr><td valign='top'><small>43</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line43'><pre>  <span class="comment">#   link_to_report 'States Report', :states, :per_page =&gt; 50, :page =&gt; 5</span>
+</pre></a></td></tr><tr><td valign='top'><small>44</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line44'><pre>  <span class="comment">#</span>
+</pre></a></td></tr><tr><td valign='top'><small>45</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line45'><pre>  <span class="keyword">def </span><span class="method">link_to_report</span> <span class="ident">text</span><span class="punct">,</span> <span class="ident">report</span> <span class="punct">=</span> <span class="constant">nil</span><span class="punct">,</span> <span class="ident">query_strings</span> <span class="punct">=</span> <span class="punct">{}</span>
+</pre></a></td></tr><tr><td valign='top'><small>46</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line46'><pre>    <span class="punct">%{</span><span class="string">&lt;a href=&quot;<span class="expr">#{ path_for_report report, query_strings }</span>&quot;&gt;<span class="expr">#{ text }</span>&lt;/a&gt;</span><span class="punct">}</span>
+</pre></a></td></tr><tr><td valign='top'><small>47</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line47'><pre>  <span class="keyword">end</span>
+</pre></a></td></tr><tr><td valign='top'><small>48</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line48'><pre>
+</pre></a></td></tr><tr><td valign='top'><small>49</small></td><td valign='top'>&nbsp;</td><td valign='top'><a name='line49'><pre><span class="keyword">end</span>
+</pre></a></td></tr><table></body></html>

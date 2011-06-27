@@ -134,12 +134,14 @@ class ApiController < ApplicationController
       return
     end
     
-    @results = TaxonConcept.search_with_pagination(@search_term, :page => @page, :per_page => @per_page, :type => :all, :lookup_trees => false, :exact => params[:exact], 
-      :filter_by_taxon_concept_id => params[:filter_by_taxon_concept_id], 
-      :filter_by_hierarchy_entry_id => params[:filter_by_hierarchy_entry_id],
-      :filter_by_string => params[:filter_by_string]
-      )
+    # @results = TaxonConcept.search_with_pagination(@search_term, :page => @page, :per_page => @per_page, :type => :all, :lookup_trees => false, :exact => params[:exact], 
+    #   :filter_by_taxon_concept_id => params[:filter_by_taxon_concept_id], 
+    #   :filter_by_hierarchy_entry_id => params[:filter_by_hierarchy_entry_id],
+    #   :filter_by_string => params[:filter_by_string]
+    #   )
     
+    search_response = EOL::Solr::SiteSearch.search_with_pagination(@search_term, :page => @page, :per_page => @per_page, :type => ['taxon_concept'], :exact => params[:exact])
+    @results = search_response[:results]
     @last_page = (@results.total_entries/@per_page.to_f).ceil
     
     ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.env["REQUEST_URI"], :method => 'search', :version => params[:version], :format => params[:format], :request_id => @search_term, :key => @key, :user_id => @user_id)

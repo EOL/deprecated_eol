@@ -22,6 +22,11 @@ class CollectionsController < ApplicationController
 
   def show
     @collection = Collection.find(params[:id])
+    if params[:filter]
+      @collection_items = @collection.filter_type(params[:filter]).compact
+    else
+      @collection_items = @collection.collection_items
+    end
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @collection }

@@ -26,6 +26,7 @@ lang/tmp.yml
 log/*.log
 log/*.txt
 public/feeds
+public/files/solr_import_file_*.csv
 public/javascripts/*-cached_packaged.js
 public/opensearch.xml
 public/search.xml

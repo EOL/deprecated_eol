@@ -33,41 +33,6 @@ class TaxaController < ApplicationController
     return redirect_to taxon_overview_path(params[:id])
   end
 
-  # TODO: Move search to its own controller?
-  def search
-    # FIXME: Filter and sort form not integrated into controller
-    @sort_by = params[:sort_by] || 'newest'
-    @params_type = params[:type] || ['all']
-
-    # remove colon from query, because it reserved for fields separation
-    @colon_warning_flag = 0
-    if params[:q]  =~ /:/
-      @querystring = params[:q].gsub(':', '')
-      @colon_warning_flag = 1
-    else
-      @querystring = params[:q] || params[:id]
-    end
-    @search_type = params[:search_type] || 'text'
-    @page_title  = I18n.t(:search_by_term_page_title, :term => @querystring)
-    @parent_search_log_id = params[:search_log_id] || 0 # Keeps track of searches done immediately after other searches
-    log_search(request)
-    if @search_type == 'google'
-      current_user.log_activity(:google_search_on, :value => params[:q])
-      render :action => 'google_search'
-    elsif @search_type == 'tag'
-      search_tag
-    else
-      search_text
-    end
-  end
-
-  def found
-    # update the search log if we are coming from the search page, to indicate the user got here from a search
-    update_logged_search :id => params[:search_id], :taxon_concept_id => params[:id] if params.key? :search_id
-    current_user.log_activity(:clicked_on_search_result, :taxon_concept_id => params[:id])
-    redirect_to taxon_concept_url(:id => params[:id])
-  end
-
   # a permanent redirect to the new taxon_concept page
   def taxa
     headers["Status"] = "301 Moved Permanently"
@@ -96,46 +61,6 @@ class TaxaController < ApplicationController
     return if taxon_concept_invalid?(@taxon_concept)
     current_user.log_activity(:viewed_classification_attribution_on_taxon_concept, :taxon_concept_id => @taxon_concept.id)
     render :partial => 'classification_attribution', :locals => {:taxon_concept => @taxon_concept}
-  end
-
-  def search_tag
-    @search = Search.new(params, request, current_user, current_agent)
-    # The Search class (above) is using 'old' result sets, which we need to adapt to the Solr-style:
-    results = EOL::SearchResultsCollection.adapt_old_tag_search_results_to_solr_style_results(@search.search_results[:tags])
-    if current_user.expertise.to_s == 'expert'
-      @scientific_results = results.paginate(:page => 1, :per_page => results.length + 1, :total_entries => results.length)
-      @common_results = empty_paginated_set
-    else
-      @scientific_results = empty_paginated_set
-      @common_results = results.sort_by {|tc| tc['common_name'] }.paginate(:page => 1, :per_page => results.length + 1, :total_entries => results.length)
-    end
-    @suggested_results = empty_paginated_set
-    @all_results = results
-    current_user.log_activity(:tag_search_on, :value => params[:q])
-    render(:layout => 'v2/search')
-  end
-
-  def search_text
-    if @querystring.blank?
-      @all_results = empty_paginated_set
-    else
-      @suggested_results  = get_suggested_search_results(@querystring)
-      # Are we passing params here for pagination?
-      @scientific_results = TaxonConcept.search_with_pagination(@querystring, params.merge(:type => :scientific))
-      @common_results     = TaxonConcept.search_with_pagination(@querystring, params.merge(:type => :common))
-
-      @all_results = (@suggested_results + @scientific_results + @common_results)
-      current_user.log_activity(:text_search_on, :value => params[:q])
-    end
-    respond_to do |format|
-      format.html do
-        if (@all_results.length == 1 and not params[:page].to_i > 1)
-          redirect_to_taxa_page(@all_results)
-        else
-          render(:layout => 'v2/search')
-        end
-      end
-    end
   end
 
   # page that will allows a non-logged in user to change content settings
@@ -594,71 +519,6 @@ private
     return true if taxon_concept.published? # Anyone can see published TCs
     return true if agent_logged_in? and current_agent.latest_unpublished_harvest_contains?(taxon_concept.id)
     return false # current agent can't see this unpublished page, or agent isn't logged in.
-  end
-
-  def allow_text_search_to_be_cached?
-    text_search? and allow_page_to_be_cached?
-  end
-
-  def text_search?
-    params[:search_type].downcase == 'text'
-  end
-
-  def search_fragment_name(lang, query, page)
-    page ||= 1
-    {:controller => 'taxa',
-     :part => "search_#{lang}_#{query}_#{page}_#{current_user.vetted}_#{@last_harvest_event_id}"}
-  end
-  helper_method(:search_fragment_name)
-
-  def redirect_to_taxa_page(result_set)
-    flash[:notice] = I18n.t(:flash_notice_redirected_from_search_html, :search_string => @querystring)
-    redirect_to taxon_overview_path(result_set.first['id'])
-  end
-
-  def get_suggested_search_results(querystring)
-    pluralized = querystring.pluralize
-    singular   = querystring.singularize
-    suggested_results_original = SearchSuggestion.find_all_by_term_and_active(singular, true, :order => 'sort_order') +
-                                 SearchSuggestion.find_all_by_term_and_active(pluralized, true, :order => 'sort_order')
-
-    # bacteria has a singular bacterium and a plural bacterias so we need to search on the original term too
-    if querystring != pluralized && querystring != singular
-      suggested_results_original += SearchSuggestion.find_all_by_term_and_active(querystring, true, :order => 'sort_order')
-    end
-
-    return [] if suggested_results_original.blank?
-    suggested_results_query = suggested_results_original.select {|i| i.taxon_id.to_i > 0}.map {|i| 'taxon_concept_id:' + i.taxon_id}.join(' OR ')
-    suggested_results_query = suggested_results_query.blank? ? "taxon_concept_id:0" : "(#{suggested_results_query})"
-    suggested_results  = TaxonConcept.search_with_pagination(suggested_results_query, params)
-    suggested_results_original = suggested_results_original.inject({}) {|res, sugg_search| res[sugg_search.taxon_id] = sugg_search; res}
-    suggested_results
-  end
-
-  def empty_paginated_set
-    [].paginate(:page => 1, :per_page => 10, :total_entries => 0)
-  end
-
-  # Add an entry to the database desrcibing the fruitfullness of this search.
-  def log_search(req)
-    logged_search = SearchLog.log(
-      {:search_term                       => @querystring,
-       :search_type                       => @search_type,
-       :parent_search_log_id              => @parent_search_log_id,
-       :total_number_of_results           => get_num_results(@all_results),
-       :number_of_common_name_results     => get_num_results(@common_results),
-       :number_of_scientific_name_results => get_num_results(@scientific_results),
-       :number_of_suggested_results       => get_num_results(@suggested_results) },
-      req,
-      current_user)
-    @logged_search_id = logged_search.nil? ? '' : logged_search.id
-  end
-
-  def get_num_results(set)
-    return 0 if set.nil?
-    set.respond_to?(:total_entries) ?
-      set.total_entries :
-      set.length
   end
 
   def is_common_names?(category_id)

@@ -1,17 +1,15 @@
 - type = collection_item_get_type(collection_item)
 %div{:class => "collection #{type}"}
-  - #FIXME: get proper image from collection_item
   = collection_item_icon(collection_item)
   .details
     %h3= collection_item.name
-    - #TODO: Show common name for taxon description for image, expertise for person etc...
+    %p= collection_item_detail(collection_item)
     %p= collection_item_view_type_link_to(collection_item)
   %span.icon= I18n.t(:collection_item_type_with_label, :type => type)
-  / .comment
-  /   -#FIXME: get proper comment
-  /   %p collection_item
+  .comment
+    - #FIXME: get proper comment
+    %p= "collection_item comment"
   %p.meta
-    - #TODO: Format date
-    - date = collection_item.created_at
+    - date = format_date(collection_item.created_at, format = "%B %d,%Y")
     %br
     = I18n.t(:added_date, :date => date)

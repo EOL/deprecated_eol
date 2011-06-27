@@ -63,17 +63,17 @@ describe 'Index With Solr' do
     docs = @solr_connection.query_lucene('resource_type:GlossaryTerm')['response']['docs']
     docs.size.should == 2
     
-    term_result = docs.detect{ |h| h['keyword_type'] == ['term'] }
+    term_result = docs.detect{ |h| h['keyword_type'] == 'term' }
     term_result['keyword'].should == [term]
     term_result['keyword_exact'].should == [term]
-    term_result['resource_id'].should == [gt.id]
-    term_result['language'].should == [Language.english.iso_code]
+    term_result['resource_id'].should == gt.id
+    term_result['language'].should == Language.english.iso_code
     
-    definition_result = docs.detect{ |h| h['keyword_type'] == ['definition'] }
+    definition_result = docs.detect{ |h| h['keyword_type'] == 'definition' }
     definition_result['keyword'].should == [definition]
     definition_result['keyword_exact'].should == [definition]
-    definition_result['resource_id'].should == [gt.id]
-    definition_result['language'].should == [Language.english.iso_code]
+    definition_result['resource_id'].should == gt.id
+    definition_result['language'].should == Language.english.iso_code
   end
   
   it 'should update the index records on update' do
@@ -122,11 +122,11 @@ describe 'Index With Solr' do
     docs = @solr_connection.query_lucene('resource_type:GlossaryTerm AND keyword:honor')['response']['docs']
     docs.size.should == 2
     
-    new_method_result = docs.detect{ |h| h['keyword_type'] == ['some_new_method'] }
+    new_method_result = docs.detect{ |h| h['keyword_type'] == 'some_new_method' }
     new_method_result['keyword'].should == [term + " :: " + definition]
     new_method_result['keyword_exact'].should == [term + " :: " + definition]
-    new_method_result['resource_id'].should == [gt.id]
-    new_method_result['language'].should == [Language.english.iso_code]
+    new_method_result['resource_id'].should == gt.id
+    new_method_result['language'].should == Language.english.iso_code
   end
   
   it 'should throw an error if the field to index on doesnt exist' do
@@ -141,6 +141,6 @@ describe 'Index With Solr' do
       exception = e
     end
     exception.should_not == false
-    exception.message.should == "There is no field or method `some_nonsense` on GlossaryTerm"
+    exception.message.should == "NoMethodError: undefined method `some_nonsense' for GlossaryTerm"
   end
 end

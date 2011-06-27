@@ -70,6 +70,8 @@ class TaxonConcept < SpeciesSchemaModel
 
   attr_reader :has_media, :length_of_images, :length_of_videos, :length_of_sounds
 
+  index_with_solr :keywords => [ :scientific_names_for_solr, :common_names_for_solr ]
+
   define_core_relationships :select => {
       :taxon_concepts => '*',
       :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
@@ -850,9 +852,9 @@ class TaxonConcept < SpeciesSchemaModel
       filter_hierarchy = nil
     end
     perform_filter = !filter_hierarchy.nil?
-
+    
     image_page = (options[:image_page] ||= 1).to_i
-    images = DataObject.images_for_taxon_concept(self, :user => self.current_user, :filter_by_hierarchy => perform_filter, :hierarchy => filter_hierarchy, :image_page => image_page)
+    images = DataObject.images_for_taxon_concept(self, :user => self.current_user, :filter_by_hierarchy => perform_filter, :hierarchy => filter_hierarchy, :image_page => image_page, :skip_metadata => options[:skip_metadata])
     @length_of_images = images.length # Caching this because the call to #images is expensive and we don't want to do it twice.
 
     return images
@@ -888,15 +890,15 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def smart_thumb
-    return images.blank? ? nil : images[0].smart_thumb
+    return images(:skip_metadata => true).blank? ? nil : images(:skip_metadata => true)[0].smart_thumb
   end
 
   def smart_medium_thumb
-    return images.blank? ? nil : images[0].smart_medium_thumb
+    return images(:skip_metadata => true).blank? ? nil : images(:skip_metadata => true)[0].smart_medium_thumb
   end
 
   def smart_image
-    return images.blank? ? nil : images[0].smart_image
+    return images(:skip_metadata => true).blank? ? nil : images(:skip_metadata => true)[0].smart_image
   end
 
   # comment on this
@@ -1227,6 +1229,45 @@ class TaxonConcept < SpeciesSchemaModel
     end
     return collections[0..2]
   end
+  
+  def scientific_names_for_solr
+    keywords = []
+    return keywords if published_hierarchy_entries.blank?
+    published_hierarchy_entries.each do |he|
+      keywords << he.name.string
+      keywords << he.name.canonical_form.string if he.name.canonical_form
+      
+      he.scientific_synonyms.each do |s|
+        keywords << s.name.string
+        keywords << s.name.canonical_form.string if s.name.canonical_form
+      end
+    end
+    keywords = keywords.compact.uniq
+    unless keywords.empty?
+      return { :keyword_type => 'Scientific Name', :keywords => keywords }
+    end
+  end
+  
+  def common_names_for_solr
+    common_names_by_language = {}
+    published_hierarchy_entries.each do |he|
+      he.common_names.each do |cn|
+        language = (cn.language && !cn.language.iso_code.blank?) ? cn.language.iso_code : 'unknown'
+        common_names_by_language[language] ||= []
+        common_names_by_language[language] << cn.name.string
+      end
+    end
+    
+    keywords = []
+    common_names_by_language.each do |language, names|
+      names = names.compact.uniq
+      unless names.empty?
+        keywords <<  { :keyword_type => 'Common Name', :keywords => names, :language => language }
+      end
+    end
+    return keywords
+  end
+  
 
 private
 

@@ -62,12 +62,12 @@ describe Array do
   end
 
   it 'should group objects by an attribute' do
-    obj = DataObject.gen
+    obj = User.gen
     obj2 = obj.clone
     obj2.id = 99999
     arr = [obj2, obj]
 
-    grouped_arr = arr.group_objects_by('guid')
+    grouped_arr = arr.group_objects_by('given_name')
     grouped_arr.length.should == 1
     grouped_arr[0].id.should == obj2.id
   end
@@ -118,10 +118,8 @@ end
 
 describe 'Uses Translations' do
   before(:all) do
-    Language.delete_all
-    TranslatedLanguage.delete_all
-    Rank.delete_all
-    TranslatedRank.delete_all
+    truncate_all_tables
+    load_foundation_cache
     @en = Language.gen_if_not_exists(:iso_639_1 => 'en')
     TranslatedLanguage.gen_if_not_exists(:label => 'English', :original_language_id => @en.id)
     @fr = Language.gen_if_not_exists(:iso_639_1 => 'fr')

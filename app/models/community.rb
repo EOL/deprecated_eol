@@ -9,7 +9,7 @@ class Community < ActiveRecord::Base
   has_many :roles
   has_many :collection_items, :as => :object
   has_many :collection_endorsements
-  has_many :collections, :through => CollectionEndorsement # NOTE: be sure to check each for actually being endorsed!
+  has_many :collections, :through => :collection_endorsements # NOTE: be sure to check each for actually being endorsed!
 
   after_create :attatch_focus
 

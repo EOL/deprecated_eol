@@ -102,10 +102,10 @@ ActionController::Routing::Routes.draw do |map|
 
   map.external_link 'external_link', :controller => 'application', :action => 'external_link'
 
-  map.search  'search',         :controller => 'taxa', :action => 'search'
-  map.connect 'search/:id',     :controller => 'taxa', :action => 'search'
-  map.connect 'search.:format', :controller => 'taxa', :action => 'search'
-  map.found   'found/:id',      :controller => 'taxa', :action => 'found'
+  map.search  'search',         :controller => 'search', :action => 'index'
+  map.connect 'search/:id',     :controller => 'search', :action => 'index'
+  map.connect 'search.:format', :controller => 'search', :action => 'index'
+  map.found   'found/:id',      :controller => 'search', :action => 'found'
 
   map.connect 'content_partner/reports', :controller => 'content_partner_account/reports', :action => 'index'
   map.connect 'content_partner/reports/login', :controller => 'content_partner_account', :action => 'login'
@@ -167,7 +167,7 @@ ActionController::Routing::Routes.draw do |map|
   # ...with the exception of "index", which historically pointed to home:
   map.connect '/index', :controller => 'content', :action => 'index'
   map.connect ':id', :id => /\d+/,  :controller => 'taxa', :action => 'show' # only a number passed in to the root of the web, then assume a specific taxon concept ID
-  map.connect ':id', :id => /[A-Za-z0-9% ]+/,  :controller => 'taxa', :action => 'search'  # if text, then go to the search page
+  map.connect ':id', :id => /[A-Za-z0-9% ]+/,  :controller => 'search', :action => 'index'  # if text, then go to the search page
 
   ## Mobile app namespace routes
   map.mobile 'mobile', :controller => 'mobile/contents'

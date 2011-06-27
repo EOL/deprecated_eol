@@ -589,6 +589,7 @@ TaxonConcept.all.each do |tc|
   if tc.hierarchy_entries.empty?
     TaxonConcept.delete(tc.id)
   end
+  tc.save # This will save the record, thus indexing the concept with all its names
 end
 
 RandomHierarchyImage.delete_all

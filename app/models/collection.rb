@@ -20,6 +20,8 @@ class Collection < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => [:user_id]
   validates_uniqueness_of :community_id, :if => Proc.new {|l| ! l.community_id.blank? }
 
+  index_with_solr :keywords => [:name]
+
   def editable_by?(user)
     return false if special_collection_id # None of the special lists may be edited.
     if user_id

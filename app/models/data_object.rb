@@ -10,6 +10,7 @@ class DataObject < SpeciesSchemaModel
   include EOL::Feedable
 
   belongs_to :data_type
+  belongs_to :data_subtype, :class_name => DataType.to_s, :foreign_key => :data_subtype_id
   belongs_to :language
   belongs_to :license
   belongs_to :mime_type
@@ -54,7 +55,9 @@ class DataObject < SpeciesSchemaModel
 
   named_scope :visible, lambda { { :conditions => { :visibility_id => Visibility.visible.id } }}
   named_scope :preview, lambda { { :conditions => { :visibility_id => Visibility.preview.id } }}
-
+  
+  index_with_solr :keywords => [:object_title], :fulltexts => [:description]
+  
   define_core_relationships :select => {
       :data_objects => '*',
       :agents => [:full_name, :homepage, :logo_cache_url],
@@ -925,11 +928,13 @@ class DataObject < SpeciesSchemaModel
     image_page  = (options[:image_page] ||= 1).to_i
     start       = $MAX_IMAGES_PER_PAGE * (image_page - 1)
     last        = start + $MAX_IMAGES_PER_PAGE - 1
-
-    objects_with_metadata = eager_load_image_metadata(unique_image_objects[start..last].collect {|r| r.id})
-    unique_image_objects[start..last] = objects_with_metadata unless objects_with_metadata.blank?
-    if options[:user] && options[:user].is_curator? && options[:user].can_curate?(taxon_concept)
-      DataObject.preload_associations(unique_image_objects[start..last], :users_data_objects_ratings, :conditions => "users_data_objects_ratings.user_id=#{options[:user].id}")
+    
+    unless options[:skip_metadata]
+      objects_with_metadata = eager_load_image_metadata(unique_image_objects[start..last].collect {|r| r.id})
+      unique_image_objects[start..last] = objects_with_metadata unless objects_with_metadata.blank?
+      if options[:user] && options[:user].is_curator? && options[:user].can_curate?(taxon_concept)
+        DataObject.preload_associations(unique_image_objects[start..last], :users_data_objects_ratings, :conditions => "users_data_objects_ratings.user_id=#{options[:user].id}")
+      end
     end
     return unique_image_objects
   end
@@ -1037,17 +1042,17 @@ class DataObject < SpeciesSchemaModel
   end
 
   def first_concept_name
-    sorted_entries = HierarchyEntry.sort_by_vetted(hierarchy_entries)
+    sorted_entries = HierarchyEntry.sort_by_vetted(published_entries)
     sorted_entries[0].name.string rescue nil
   end
 
   def first_taxon_concept
-    sorted_entries = HierarchyEntry.sort_by_vetted(hierarchy_entries)
+    sorted_entries = HierarchyEntry.sort_by_vetted(published_entries)
     sorted_entries[0].taxon_concept rescue nil
   end
 
   def first_hierarchy_entry
-    sorted_entries = HierarchyEntry.sort_by_vetted(hierarchy_entries)
+    sorted_entries = HierarchyEntry.sort_by_vetted(published_entries)
     sorted_entries[0] rescue nil
   end
 

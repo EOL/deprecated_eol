@@ -33,18 +33,20 @@ module EOL
           :include => { :hierarchy_entries => [ :name, { :scientific_synonyms => :name }, { :common_names => [ :name, :language ] } ] },
           :select => { :taxon_concepts => :id, :names => :string, :languages => :iso_639_1 })
         taxon_concepts.each do |tc|
+          tc.save
+          next
           all_names = []
           all_synonyms = []
           all_common_names = {}
           tc.hierarchy_entries.each do |he|
             name = SolrAPI.text_filter(he.name.string)
             all_names << name if name && !all_names.include?(name)
-
+          
             he.scientific_synonyms.each do |s|
               name = SolrAPI.text_filter(s.name.string)
               all_synonyms << name if name && !all_synonyms.include?(name)
             end
-
+          
             he.common_names.each do |cn|
               name = SolrAPI.text_filter(cn.name.string)
               if name && (all_common_names[cn.language.iso_639_1].blank? || !all_common_names[cn.language.iso_639_1].include?(name))
@@ -53,27 +55,27 @@ module EOL
               end
             end
           end
-
+          
           unless all_names.blank?
-            @objects_to_send << { :keyword_type => 'scientific name',
+            @objects_to_send << { :keyword_type => 'Scientific Name',
                                   :keyword => all_names,
-                                  :language => 'scientific',
-                                  :resource_type => 'TaxonConcept',
+                                  :language => 'sci',
+                                  :resource_type => ['TaxonConcept'],
                                   :resource_id => tc.id }
           end
           unless all_synonyms.blank?
-            @objects_to_send << { :keyword_type => 'synonym',
+            @objects_to_send << { :keyword_type => 'Synonym',
                                   :keyword => all_synonyms,
-                                  :language => 'scientific',
-                                  :resource_type => 'TaxonConcept',
+                                  :language => 'sci',
+                                  :resource_type => ['TaxonConcept'],
                                   :resource_id => tc.id }
           end
           unless all_common_names.blank?
             all_common_names.each do |language, names|
-              @objects_to_send << { :keyword_type => 'common name',
+              @objects_to_send << { :keyword_type => 'Common Name',
                                     :keyword => names,
                                     :language => language,
-                                    :resource_type => 'TaxonConcept',
+                                    :resource_type => ['TaxonConcept'],
                                     :resource_id => tc.id }
             end
           end

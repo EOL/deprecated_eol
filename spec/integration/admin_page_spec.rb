@@ -33,7 +33,6 @@ describe 'Admin Pages' do
 
     @activity = Activity.gen_if_not_exists(:name => "sample activity")
     @user_with_activity = User.gen(:given_name => "John", :family_name => "Doe")
-    @activity_log = UserActivityLog.gen(:user_id => @user_with_activity.id, :activity_id => @activity.id)
   end
 
   after :each do

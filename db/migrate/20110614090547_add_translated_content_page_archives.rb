@@ -10,7 +10,6 @@ class AddTranslatedContentPageArchives < ActiveRecord::Migration
       t.string :url
       t.string :meta_keywords
       t.string :meta_description
-      t.tinyint :open_in_new_window
       t.date :original_creation_date
       t.date :create_at
       t.date :updated_at 

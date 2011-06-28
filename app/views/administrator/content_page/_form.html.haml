@@ -1,46 +1,9 @@
 = javascript_include_tag 'admin-content-page'
-= javascript_include_tag :fckeditor
+= javascript_include_tag 'fckeditor/fckeditor'
 - form_for :page,@page,:url=>{:action=>'save_new_page'},:html=>{:id=>'page_form', 'data-page_id' => @page.id} do |f|
-  = f.hidden_field :content_section_id
   = f.hidden_field :parent_content_page_id
   %table
-    %tr
-      %td
-        %strong
-          =I18n.t(:location)
-      %td
-        = @navigation_tree    
-    %tr
-      %td
-        %strong
-          =I18n.t("page_name_")
-      %td
-        = f.text_field :page_name, {:size=>'50',:maxlength=>'100'}
-        %br
-        =I18n.t("used_for_urls___should_be_uniq")
-    %tr
-      %td
-        %strong
-          =I18n.t("redirect_to_external_url_")
-      %td
-        = f.text_field :url, {:size=>'50',:maxlength=>'200'}
-        %br
-        =I18n.t("only_use_if_this_item_is_a_pla")
-    %tr
-      %td
-        %strong
-          =I18n.t("open_in_new_window_from_menu_")
-      %td
-        = f.check_box :open_in_new_window
-        =I18n.t("__if_checked__any_links_to_thi")
-    =#"xx"+@page.title
-    %tr
-      %td
-        %strong
-          =I18n.t("published_")
-      %td
-        = f.check_box :active
-        =I18n.t("__must_be_checked_in_order_to_")
+    = render (:partial => 'main_page_form', :locals => { :f => f })
     %tr
       %td{:colspan => 2, :height => 1, :bgcolor => '#000000'}
     %tr
@@ -49,52 +12,7 @@
           = I18n.t("language")
       %td
         = f.select :current_translation_language, @page.not_available_in_languages(@page.current_translation_language).collect {|l| [l.iso_639_1, l.id]}
-    %tr
-      %td
-        %strong
-          =I18n.t("published_")
-      %td
-        = f.check_box :translated_active_translation
-        =I18n.t("__must_be_checked_in_order_to_")
-    %tr
-      %td
-        %strong
-          =I18n.t("title_")
-      %td
-        = f.text_field :translated_title, {:size=>'50',:maxlength=>'100'}
-        %br
-        =I18n.t("shown_to_user_as_the_title_of_")
-    %tr
-      %td
-        %strong
-          =I18n.t("meta_keywords_colon")
-      %td
-        = f.text_field :translated_meta_keywords, {:size=>'50',:maxlength=>'200'}
-    %tr
-      %td
-        %strong
-          =I18n.t("meta_description_colon")
-      %td
-        = f.text_field :translated_meta_description, {:size=>'50',:maxlength=>'200'}
-    %tr
-      %td{:colspan => 2}
-        %strong
-          =I18n.t("left_content_area_")
-    %tr
-      %td{:colspan => 2}
-        = fckeditor_textarea(:page, :translated_left_content, :toolbarSet => 'Simple', :width => '100%', :height => '400px')
-        %br
-        =I18n.t("_html_format__only_enter_if_yo")
-    %tr
-      %td{:colspan => 2}
-        %strong
-          =I18n.t("main_content_area_")
-    %tr
-      %td{:colspan => 2}
-        = fckeditor_textarea(:page, :translated_main_content, :toolbarSet => 'Simple', :width => '100%', :height => '400px')
-        %br
-        =I18n.t("_html_format_")
-
+    = render (:partial => 'language_form', :locals => { :f => f })
   %br
   %br
   %input#preview{ :name => "preview", :type => "button", :value => I18n.t("preview_changes") }

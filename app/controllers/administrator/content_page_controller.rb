@@ -8,15 +8,15 @@ class Administrator::ContentPageController < AdminController
   
   def index
     @page_title = I18n.t("site_cms")
-    @content_sections = ContentSection.find(:all)
+    @content_pages = ContentPage.find_top_level
   end
  
  def move_up
    current_page = ContentPage.find_by_id(params[:id])
    sort_order = current_page.sort_order
    new_sort_order = sort_order - 1
-   #find page with the same parent and the same section with sort order = current sort order -1 
-   swap_page = ContentPage.find_by_content_section_id_and_parent_content_page_id_and_sort_order(current_page.content_section_id, current_page.parent_content_page_id, new_sort_order)
+   #find page with the same parent with sort order = current sort order -1 
+   swap_page = ContentPage.find_by_parent_content_page_id_and_sort_order(current_page.parent_content_page_id, new_sort_order)
    current_page.update_attribute(:sort_order, new_sort_order)
    swap_page.update_attribute(:sort_order, sort_order)
    
@@ -28,8 +28,8 @@ class Administrator::ContentPageController < AdminController
    current_page = ContentPage.find(params[:id])
    sort_order = current_page.sort_order
    new_sort_order = sort_order + 1
-   #find page with the same parent and the same section with sort order = current sort order +1 
-   swap_page = ContentPage.find_by_content_section_id_and_parent_content_page_id_and_sort_order(current_page.content_section_id, current_page.parent_content_page_id, new_sort_order)
+   #find page with the same parent with sort order = current sort order +1 
+   swap_page = ContentPage.find_by_and_parent_content_page_id_and_sort_order(current_page.parent_content_page_id, new_sort_order)
    #swap the two orders
    current_page.update_attribute(:sort_order, new_sort_order)
    swap_page.update_attribute(:sort_order, sort_order)
@@ -49,7 +49,7 @@ class Administrator::ContentPageController < AdminController
    else
      flash[:error] = I18n.t("some_required_fields_were_not_")
    end
-   redirect_to :action => 'index', :content_section_id => new_page.content_section.id, :content_page_id => new_page.id
+   redirect_to :action => 'index', :content_page_id => new_page.id
  end
  
  # pull the updated content from the querystring to build the preview version of the page 
@@ -60,15 +60,10 @@ class Administrator::ContentPageController < AdminController
  end
  
  def new
-   @navigation_tree = ContentPage.get_navigation_tree(params[:content_section_id], params[:parent_content_page_id])
-   if params[:content_section_id]
-     @page_title = I18n.t("add_page")
-   else
-     @page_title = I18n.t("create_child_page")
-   end
+   @navigation_tree = ContentPage.get_navigation_tree(params[:parent_content_page_id])
+   @page_title = I18n.t("add_page")
    @page = ContentPage.new
    @page.set_translation_language(Language.english)
-   @page.content_section_id = params[:content_section_id]
    @page.parent_content_page_id = params[:parent_content_page_id]
    @page.page_name = 'New Page'
    @page.translated_title = "New Page"
@@ -81,7 +76,7 @@ class Administrator::ContentPageController < AdminController
  def update_page
    @page_title = I18n.t("update_page")   
    @page = ContentPage.find(params[:id])
-   @navigation_tree = ContentPage.get_navigation_tree(@page.content_section_id, @page.parent_content_page_id)
+   @navigation_tree = ContentPage.get_navigation_tree(@page.parent_content_page_id)
  end
  
  def save_updated_page
@@ -103,12 +98,11 @@ class Administrator::ContentPageController < AdminController
    current_page = ContentPage.find(params[:id])
    current_page.last_update_user_id = current_user.id   
    ContentPageArchive.backup(current_page) # backup page   
-   content_section_id = current_page.content_section_id
    parent_content_page_id = current_page.parent_content_page_id
    sort_order = current_page.sort_order
    current_page.destroy
-   ContentPage.update_sort_order_based_on_deleting_page(content_section_id, parent_content_page_id, sort_order)
-   redirect_to :action => 'index', :content_section_id => content_section_id
+   ContentPage.update_sort_order_based_on_deleting_page(parent_content_page_id, sort_order)
+   redirect_to :action => 'index'
  end
  
  def update_language
@@ -116,14 +110,14 @@ class Administrator::ContentPageController < AdminController
    @page = ContentPage.find(params[:id])
    @language = Language.find(params[:language_id])
    @page.set_translation_language(@language)
-   @navigation_tree = ContentPage.get_navigation_tree(nil, params[:id])
+   @navigation_tree = ContentPage.get_navigation_tree(params[:id])
    
  end
  
  def add_language
    @page_title = I18n.t("add_language")
    @page = ContentPage.find(params[:id])
-   @navigation_tree = ContentPage.get_navigation_tree(nil, params[:id])
+   @navigation_tree = ContentPage.get_navigation_tree(params[:id])
    
  end
  
@@ -164,15 +158,12 @@ class Administrator::ContentPageController < AdminController
  
   # AJAX CALLs
   def get_content_pages
-    # get the content pages for the content section ID passed in the querystring parameter
-    @content_section_id = params[:id]
-    @content_section = ContentSection.find(@content_section_id)
-    @content_pages = ContentPage.find_all_by_content_section_id(@content_section_id, :order => 'sort_order, language_abbr')
-    # get the first page in that section if we have pages
+    @content_pages = ContentPage.find_all(:order => 'sort_order, language_abbr')
+    # get the first page if we have pages
     if @content_pages.size>0 
       @page = ContentPage.find(@content_pages[0]) 
-    else # otherwise redirect to create a new page (the first) in this section
-      @page = create_new_page(@content_section_id) 
+    else # otherwise redirect to create a new page (the first)
+      @page = create_new_page 
     end
     render :update do |page|
       page.replace_html 'content_page_list', :partial => 'content_page_list'
@@ -202,12 +193,8 @@ class Administrator::ContentPageController < AdminController
     end  
   end
   
-  def get_new_page_sort_order(content_section_id, parent_content_page_id)
-    if (content_section_id != '')
-      content_pages = ContentPage.find_all_by_content_section_id(content_section_id)
-    else
-      content_pages = ContentPage.find_all_by_parent_content_page_id(parent_content_page_id)
-    end
+  def get_new_page_sort_order(parent_content_page_id)
+    content_pages = ContentPage.find_all_by_parent_content_page_id(parent_content_page_id)
     max_order = 0
     
     for content_page in content_pages
@@ -221,8 +208,7 @@ class Administrator::ContentPageController < AdminController
   def save_new_page
     page = ContentPage.new
     page.page_name = params[:page][:page_name]
-    page.content_section_id = params[:page][:content_section_id]
-    page.sort_order = get_new_page_sort_order(params[:page][:content_section_id], params[:page][:parent_content_page_id])
+    page.sort_order = get_new_page_sort_order(params[:page][:parent_content_page_id])
     page.active = params[:page][:active]
     page.open_in_new_window = params[:page][:open_in_new_window]
     page.parent_content_page_id = params[:page][:parent_content_page_id]

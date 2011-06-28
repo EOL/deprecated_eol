@@ -1,6 +1,6 @@
 
 .div_holder
-  - same_level_pages = ContentPage.find_all_by_content_section_id_and_parent_content_page_id(content_page.content_section_id, content_page.parent_content_page_id, :order => 'sort_order')
+  - same_level_pages = ContentPage.find_all_by_parent_content_page_id(content_page.parent_content_page_id, :order => 'sort_order')
   - if content_page.sort_order > 1
     #up_arrow_holder
       = link_to image_tag("cms_up_green.png", :border => 0, :title => I18n.t(:move_up)), {:action => "move_up", :id => content_page.id}, :method => "move_up"

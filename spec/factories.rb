@@ -422,18 +422,6 @@ Factory.define :content_partner do |cp|
   cp.content_partner_status               { ContentPartnerStatus.find_by_translated(:label, 'Active') || ContentPartnerStatus.gen_if_not_exists(:label => 'Active') }
 end
 
-Factory.define :content_section do |cs|
-  #cs.name { Factory.next(:string) }
-  #cs.language_key 'en'
-  cs.page_location 'header'
-end
-
-Factory.define :translated_content_section do |cs|
-  cs.association     :content_section
-  cs.language        { Language.english }
-  cs.name            { Factory.next(:string) }
-end
-
 Factory.define :content_upload do |cu|
   cu.association :user
   cu.link_name { Factory.next(:string).gsub(/\W/, '_') }

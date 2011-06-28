@@ -5,13 +5,11 @@ class ContentPage < $PARENT_CLASS_MUST_USE_MASTER
   #CACHE_ALL_ROWS = true
   uses_translations
   
-  belongs_to :content_section
   belongs_to :content_page, :class_name => ContentPage.to_s, :foreign_key => 'parent_content_page_id'
   
   #has_many :content_page_archives, :order => 'created_at DESC', :limit => 15
   belongs_to :user, :foreign_key => 'last_update_user_id'
   
-  #validates_presence_of :content_section_id 
   validates_presence_of :page_name
   before_save :remove_underscores_from_page_name
   
@@ -33,13 +31,20 @@ class ContentPage < $PARENT_CLASS_MUST_USE_MASTER
     #return language_page
   end
   
-  def self.get_navigation_tree(section_id, page_id)
-    if (section_id)
-      return ContentSection.find(section_id).name
-    else
+  def self.get_navigation_tree(page_id)    
+    if (page_id)
       content_page = ContentPage.find(page_id)
-      return get_navigation_tree(content_page.content_section_id, content_page.parent_content_page_id) + " > " + content_page.page_name
-    end
+      if content_page.parent_content_page_id
+        return get_navigation_tree(content_page.parent_content_page_id) + " > " + content_page.page_name + " > "
+      else
+        return content_page.page_name
+      end
+    end    
+  end
+  
+  def self.find_top_level
+    #return ContentPage.find_all_by_parent_content_page_id(null) # get pages where parent is null
+    return ContentPage.find_all_by_parent_content_page_id(nil) # get pages where parent is null
   end
 
   def self.get_by_id_and_language_abbr(id, language_abbr)
@@ -53,13 +58,13 @@ class ContentPage < $PARENT_CLASS_MUST_USE_MASTER
     return language_page
   end
   
-  def self.find_all_by_content_section_id_and_language_abbr_and_active(content_section_id, language_abbr, active)
+  def self.find_all_by_language_abbr_and_active(language_abbr, active)
     language = Language.find_by_iso_639_1(language_abbr)
     #self.set_translation_language(language)
-    language_pages = self.find_all_by_content_section_id_and_active(content_section_id, true)
+    language_pages = self.find_all_by_active(true)
     if language_pages.nil? # Langauge doesn't have pages for this section, try English
       #self.set_translation_language(Language.english)
-      language_pages = self.find_all_by_content_section_id_and_active(content_section_id, true)
+      language_pages = self.find_all_by_active(true)
     end    
     return language_pages
   end
@@ -90,8 +95,8 @@ class ContentPage < $PARENT_CLASS_MUST_USE_MASTER
     return ""
   end
   
-  def self.update_sort_order_based_on_deleting_page(content_section_id, parent_content_page_id, sort_order)
-    same_level_pages = ContentPage.find_all_by_content_section_id_and_parent_content_page_id(content_section_id, parent_content_page_id)
+  def self.update_sort_order_based_on_deleting_page(parent_content_page_id, sort_order)
+    same_level_pages = ContentPage.find_all_by_parent_content_page_id(parent_content_page_id)
     for content_page in same_level_pages
       content_page.update_attribute(:sort_order, content_page.sort_order - 1) if content_page.sort_order > sort_order
     end

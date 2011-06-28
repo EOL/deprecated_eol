@@ -11,18 +11,8 @@ end
 e = Language.gen_if_not_exists(:iso_639_1 => 'en', :source_form => 'English')
 TranslatedLanguage.gen_if_not_exists(:label => 'English', :original_language_id => e.id)
 
-# This ensures the main menu is complete, with at least one (albeit bogus) item in each section:
-ContentSection.gen_if_not_exists(:name => 'Home Page', :page_location => 'header')
-ContentSection.gen_if_not_exists(:name => 'About EOL', :page_location => 'header')
-ContentSection.gen_if_not_exists(:name => 'Feedback', :page_location => 'header')
-ContentSection.gen_if_not_exists(:name => 'Using the Site', :page_location => 'header')
-ContentSection.gen_if_not_exists(:name => 'Press Room', :page_location => 'header')
-ContentSection.gen_if_not_exists(:name => 'Footer', :page_location => 'footer')
-
-ContentPage.gen_if_not_exists(:page_name => 'Home', :title => 'Home', 
-  :content_section => ContentSection.gen_if_not_exists(:name => 'Home Page'))
-ContentPage.gen_if_not_exists(:page_name => 'Who We Are', :title => 'Who We Are',
-  :content_section => ContentSection.gen_if_not_exists(:name => 'About EOL'))
+ContentPage.gen_if_not_exists(:page_name => 'Home', :title => 'Home', :sort_order => 1)
+ContentPage.gen_if_not_exists(:page_name => 'Who We Are', :title => 'Who We Are', :sort_order => 2)
 ContentPage.gen_if_not_exists(:page_name => 'Working Groups', :title => 'Working Groups', 
   :parent_content_page => ContentPage.gen_if_not_exists(:page_name => 'Who We Are'))
 ContentPage.gen_if_not_exists(:page_name => 'Working Group A', :title => 'Working Group A',
@@ -35,14 +25,10 @@ ContentPage.gen_if_not_exists(:page_name => 'Working Group D', :title => 'Workin
   :sort_order => 4, :parent_content_page => ContentPage.gen_if_not_exists(:page_name => 'Working Groups'))
 ContentPage.gen_if_not_exists(:page_name => 'Working Group E', :title => 'Working Group E', 
   :sort_order => 5, :parent_content_page => ContentPage.gen_if_not_exists(:page_name => 'Working Groups'))
-ContentPage.gen_if_not_exists(:page_name => 'Contact Us', :title => 'Contact Us',
-  :content_section => ContentSection.gen_if_not_exists(:name => 'Feedback'))
-ContentPage.gen_if_not_exists(:page_name => 'Screencasts', :title => 'Screencasts',
-  :content_section => ContentSection.gen_if_not_exists(:name => 'Using the Site'))
-ContentPage.gen_if_not_exists(:page_name => 'Press Releases', :title => 'Press Releases',
-  :content_section => ContentSection.gen_if_not_exists(:name => 'Press Room'))
-ContentPage.gen_if_not_exists(:page_name => 'Terms Of Use', :title => 'Terms Of Use',
-  :content_section => ContentSection.gen_if_not_exists(:name => 'Footer'))
+ContentPage.gen_if_not_exists(:page_name => 'Contact Us', :title => 'Contact Us', :sort_order => 3)
+ContentPage.gen_if_not_exists(:page_name => 'Screencasts', :title => 'Screencasts', :sort_order => 4)
+ContentPage.gen_if_not_exists(:page_name => 'Press Releases', :title => 'Press Releases', :sort_order => 5)
+ContentPage.gen_if_not_exists(:page_name => 'Terms Of Use', :title => 'Terms Of Use', :sort_order => 6)
 
 ContactSubject.gen_if_not_exists(:title => 'Media Contact', :recipients=>'test@test.com', :active=>true)
 

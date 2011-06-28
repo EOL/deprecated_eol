@@ -1,5 +1,5 @@
 = javascript_include_tag 'admin-content-page-translation'
-= javascript_include_tag :fckeditor
+= javascript_include_tag 'fckeditor/fckeditor'
 - form_for :page,@page,:url=>{:action=>'save_translation',:id=>@page.id},:html=>{:id=>'page_form', 'data-page_id' => @page.id} do |f|
   %table
     %tr
@@ -14,51 +14,7 @@
           = I18n.t("language")
       %td
         = f.select :current_translation_language, @page.not_available_in_languages(nil).collect {|l| [l.iso_639_1, l.id]}
-    %tr
-      %td
-        %strong
-          =I18n.t("published_")
-      %td
-        = f.check_box :translated_active_translation
-        =I18n.t("__must_be_checked_in_order_to_")
-    %tr
-      %td
-        %strong
-          =I18n.t("title_")
-      %td
-        = f.text_field :translated_title, {:size=>'50',:maxlength=>'100'}
-        %br
-        =I18n.t("shown_to_user_as_the_title_of_")
-    %tr
-      %td
-        %strong
-          =I18n.t("meta_keywords_colon")
-      %td
-        = f.text_field :translated_meta_keywords, {:size=>'50',:maxlength=>'200'}
-    %tr
-      %td
-        %strong
-          =I18n.t("meta_description_colon")
-      %td
-        = f.text_field :translated_meta_description, {:size=>'50',:maxlength=>'200'}
-    %tr
-      %td{:colspan => 2}
-        %strong
-          =I18n.t("left_content_area_")
-    %tr
-      %td{:colspan => 2}
-        = fckeditor_textarea(:page, :translated_left_content, :toolbarSet => 'Simple', :width => '100%', :height => '400px')
-        %br
-        =I18n.t("_html_format__only_enter_if_yo")
-    %tr
-      %td{:colspan => 2}
-        %strong
-          =I18n.t("main_content_area_")
-    %tr
-      %td{:colspan => 2}
-        = fckeditor_textarea(:page, :translated_main_content, :toolbarSet => 'Simple', :width => '100%', :height => '400px')
-        %br
-        =I18n.t("_html_format_")
+    = render (:partial => 'language_form', :locals => { :f => f })
 
   %br
   %br

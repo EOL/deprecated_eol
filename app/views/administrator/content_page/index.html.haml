@@ -5,7 +5,7 @@
       padding: 0px;
       list-style-type: none !important;
       display: block;
-      background-color:#CCC;  
+      background-color:#EEE;  
       }
     #content_pages_div ul ul {
       /*border: 1px solid #DDD;*/
@@ -34,17 +34,12 @@
       margin-right: 10px;
     }
 
+= link_to(I18n.t("add_page"), :action=>'new')
+<br /><br />
 #content_pages_div
   %ul
-    - for content_section in @content_sections
-      %li
-        = content_section.name
-        = link_to(I18n.t("add_page"),:action=>'new', :content_section_id=>content_section.id)
-      - content_pages = ContentPage.find_all_by_content_section_id(content_section.id, :order => 'sort_order')
-      - if content_pages.count > 0
-        %ul
-          - for content_page in content_pages
-            = render (:partial => 'content_page_list', :locals => {:content_page => content_page})
+    - for content_page in @content_pages
+      = render (:partial => 'content_page_list', :locals => {:content_page => content_page})
           
            
              

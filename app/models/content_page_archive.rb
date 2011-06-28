@@ -8,10 +8,10 @@ class ContentPageArchive < ActiveRecord::Base
     self.create(:content_page_id => page.id,
                 :last_update_user_id => page.last_update_user_id,
                 :page_name => page.page_name,
-                :content_section_id => page.content_section_id,
                 :sort_order => page.sort_order,
                 :original_creation_date => page.created_at,
-                :created_at => page.updated_at)
+                :created_at => page.updated_at,
+                :parent_content_page_id => page.parent_content_page_id)
   end
 
   def archived_by

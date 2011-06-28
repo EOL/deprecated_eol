@@ -1,44 +1,7 @@
 - form_for :page,@page,:url=>{:action=>'save_updated_page',:id=>@page.id},:html=>{:id=>'page_form', 'data-page_id' => @page.id} do |f|
-  = f.hidden_field :content_section_id
   = f.hidden_field :parent_content_page_id
   %table
-    %tr
-      %td
-        %strong
-          =I18n.t(:location)
-      %td
-        = @navigation_tree    
-    %tr
-      %td
-        %strong
-          =I18n.t("page_name_")
-      %td
-        = f.text_field :page_name, {:size=>'50',:maxlength=>'100'}
-        %br
-        =I18n.t("used_for_urls___should_be_uniq")
-    %tr
-      %td
-        %strong
-          =I18n.t("redirect_to_external_url_")
-      %td
-        = f.text_field :url, {:size=>'50',:maxlength=>'200'}
-        %br
-        =I18n.t("only_use_if_this_item_is_a_pla")
-    %tr
-      %td
-        %strong
-          =I18n.t("open_in_new_window_from_menu_")
-      %td
-        = f.check_box :open_in_new_window
-        =I18n.t("__if_checked__any_links_to_thi")
-    =#"xx"+@page.title
-    %tr
-      %td
-        %strong
-          =I18n.t("published_")
-      %td
-        = f.check_box :active
-        =I18n.t("__must_be_checked_in_order_to_")
+    = render (:partial => 'main_page_form', :locals => { :f => f })
   = cancel_button_goes_back('/administrator/content_page')
   |
   = f.submit

@@ -292,8 +292,7 @@ en:
   collections_with_count:
     one: "%{count} Collection"
     other: "%{count} Collections"
-  comment___: "Comment: \""
-  comment_: "Comment:"
+  comment_colon: "Comment:"
   comment: "Comment"
   _commented_on_your_image_on_th: " commented on your image on the <a href='%{var_data_object_link}'>Encyclopedia of Life site</a>:\n%{var_comment_body}"
   comment_on_this_var_data_objec: "Comment on this %{var_data_object_data_type_label}"
@@ -657,6 +656,7 @@ en:
   eol_curator_activity_email_message: "Encyclopedia of Life curator <a href='%{profile_url}'>%{curator_full_name}</a> %{action} on the <a href='%{data_object_url}'>EOL site</a>%{comment}"
   _encyclopedia_of_life: "-Encyclopedia of Life"
   encyclopedia_of_life: "Encyclopedia of Life"
+  end_quote: '"'
   endorsed_collections: "Endorsed collections"
   endorsed_collections_with_count:
     one: "%{count} Endorsed collection"
@@ -1705,6 +1705,7 @@ en:
   spm_category: "SPM Category"
   __stands_alone__: "( stands alone )"
   started: "Started"
+  start_quote: '"'
   state__: "State:"
   statistics: "Statistics"
   statistic: "Statistic"
@@ -2295,7 +2296,7 @@ en:
   eol_is_now_allowing_curators_t: "EOL is now allowing curators to submit a revision of a Wikipedia page to be ingested into EOL as a vetted text object. To find the revision URL of a Wikipedia article first go to the article main page (e.g. <a href='http://en.wikipedia.org/w/index.php?title=Giraffe'>http://en.wikipedia.org/w/index.php?title=Giraffe</a>) and expand in the left hand menu the 'Toolbox' menu item. You should now see the 'Permanent link' item. Either copy the URL of that link, or click the link and copy the URL in your browser's address bar. The revision URL will look something like <a href='http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069'>http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>."
   icon_near_the_table_of_content: "icon near the table of contents on the left side of the page. You can also submit <a href=''>comments</a> about this species directly on the EOL site using the \"Comments\" tab near the images."
   content_providers_who_request_some_restrictions: "Content providers who request some restrictions on re‐use of their information may select an alternate Creative Commons license from the list below.  Details about each of these licenses is available on the <a href='http://creativecommons.org/about/licenses'>Creative Commons</a>website."
-  added_to_the_comment_on_date_by: "added to the %{comment} on %{link} by %{user} %{date} ago"
+  content_partner_comment_log_activity: "added to the %{type} on %{link} by %{user} %{date} ago"
   added_to_the_comment: "added to the %{comment}"
   on_taxon_by_user_date_ago: "on \"%{taxon}\" by %{user} %{date} ago"
   this_method_takes_an_integer_or_string: "This method takes an integer or string which is the unique identifier for a taxon from some provider's database, and a hierarchy_id which represents the provider and returns the EOL page ID for that taxon. For example using the %{link_provider} API I can find out that the EOL hierarchy_id for the Integrated Taxonomic Information System (ITIS) is %{itis_id}. I can then search EOL for the ITIS Taxonomic Serial Number (TSN) of 180542,<i>Ursus maritimus</i>, by calling %{link_url}"

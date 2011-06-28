@@ -306,13 +306,6 @@ Factory.sequence(:int    ){|n| n }
 Factory.define :activity do |a|
 end
 
-Factory.define :activity_log do |al|
-  al.association :taxon_concept
-  al.association :activity
-  al.association :user
-  al.value { Factory.next(:string) }
-  al.created_at { 12.hours.ago }
-end
 Factory.define :agent do |agent|
   agent.created_at      { 5.days.ago }
   agent.homepage        ''
@@ -1140,6 +1133,14 @@ Factory.define :user do |u|
   u.curator_scope             ''
   u.password_reset_token      nil
   u.password_reset_token_expires_at  nil
+end
+
+Factory.define :user_activity_log do |al|
+  al.association :taxon_concept
+  al.association :activity
+  al.association :user
+  al.value { Factory.next(:string) }
+  al.created_at { 12.hours.ago }
 end
 
 Factory.define :users_data_object do |u|

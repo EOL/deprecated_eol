@@ -139,7 +139,7 @@ class ContentPartner < SpeciesSchemaModel
     end
   end
 
-  def taxa_comments_curator_activity_log
+  def taxa_comments
     latest_published_harvest_event_ids = []
     resources.each do |r|
       if he = r.latest_published_harvest_event
@@ -147,14 +147,12 @@ class ContentPartner < SpeciesSchemaModel
       end
     end
     return [] if latest_published_harvest_event_ids.empty?
-    comments_history = CuratorActivityLog.find_by_sql(%Q{
-      SELECT ah.*, c.body comment_body, 'comment' history_type
+    comments_history = Comment.find_by_sql(%Q{
+      SELECT c.*
       From #{HarvestEventsHierarchyEntry.full_table_name} hehe
       Join #{HierarchyEntry.full_table_name} he ON hehe.hierarchy_entry_id = he.id
       Join #{Comment.full_table_name} c ON he.taxon_concept_id = c.parent_id
-      Join #{CuratorActivityLog.full_table_name} ah ON c.id = ah.object_id
       WHERE hehe.harvest_event_id IN (#{latest_published_harvest_event_ids.join(',')})
-      AND ah.changeable_object_type_id=#{ChangeableObjectType.find_by_ch_object_type('comment').id}
       AND c.parent_type = 'TaxonConcept'
     }).uniq
     comments_history.sort! do |a,b|

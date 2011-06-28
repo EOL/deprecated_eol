@@ -1,11 +1,10 @@
--# app/views/content_partner/reports/_comments_report.html.haml and app/views/content_partner/reports/_taxa_comments_report.html.haml are almost exactly the same thing... probably needs refacrtoring at a higher level.
 %li
   %p
-    =I18n.t("comment___")
-    = truncate(allow_some_html(h(curator_log.comment_body)), 300)
-    "
+    = I18n.t(:comment_colon)
+    = I18n.t(:start_quote)
+    = truncate(allow_some_html(h(comment.body)), 300)
+    = I18n.t(:end_quote)
     %br
     %i
-      - if current_act == 'create'
-        =I18n.t("added_to_the_comment_on_date_by", :comment => curator_log.comment_object.parent_type_name, :link => link_to(curator_log.taxon_concept_name, {:controller => '/taxa', :action => 'show', :id => curator_log.taxon_concept_id}, :target => "_blank") , :user=> curator_or_plain_username(curator_log.user), :date => act_date)
+      =I18n.t(:content_partner_comment_log_activity, :type => comment.parent_type_name, :link => link_to(comment.parent.quick_scientific_name, {:controller => '/taxa', :action => 'show', :id => comment.taxon_concept_id}, :target => "_blank") , :user=> curator_or_plain_username(comment.user), :date => act_date)
   %br

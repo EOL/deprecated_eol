@@ -271,6 +271,13 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     return_value
   end
 
+  def short_name
+    return given_name if !given_name.blank? 
+    return family_name if !family_name.blank?
+    return display_name if !display_name.blank?
+    return acronym if !acronym.blank?
+  end
+
   # TODO
   # NOTE - this is currently ONLY used in an exported (CSV) report for admins... so... LOW priority.
   # get the total objects curated for a particular curator activity type

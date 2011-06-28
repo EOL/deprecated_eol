@@ -31,7 +31,7 @@
           %h3= I18n.t(:description)
         .description
           = @data_object.description.balance_tags
-    = render :partial => 'feed_items/index', :locals => {:feed => @data_object.feed}
+    = render :partial => 'activity_logs/index', :locals => {:log => @data_object.activity_log}
 
   #sidebar
     .article.source

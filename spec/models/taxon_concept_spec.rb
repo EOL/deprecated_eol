@@ -515,10 +515,10 @@ describe TaxonConcept do
     @tcn2.reload.vetted_id.should == Vetted.trusted.id
   end
 
-  it 'should have a feed' do
+  it 'should have an activity log' do
     tc = TaxonConcept.gen
-    tc.respond_to?(:feed).should be_true
-    tc.feed.should be_a EOL::Feed
+    tc.respond_to?(:activity_log).should be_true
+    tc.activity_log.should be_a EOL::ActivityLog
   end
 
   #

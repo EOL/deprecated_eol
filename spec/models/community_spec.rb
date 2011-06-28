@@ -88,10 +88,10 @@ describe Community do
     community.focus.name.should == "Bob's Focus"
   end
 
-  it 'should have a feed' do
+  it 'should have an activity log' do
     community = Community.gen
-    community.respond_to?(:feed).should be_true
-    community.feed.should be_a EOL::Feed
+    community.respond_to?(:activity_log).should be_true
+    community.activity_log.should be_a EOL::ActivityLog
   end
 
   it 'should post a notification to the feed when a user joins the community' do

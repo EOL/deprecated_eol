@@ -331,10 +331,10 @@ describe User do
     @user.member_of?(community).should_not be_true
   end
 
-  it 'should have a feed' do
+  it 'should have an activity log' do
     user = User.gen
-    user.respond_to?(:feed).should be_true
-    user.feed.should be_a EOL::Feed
+    user.respond_to?(:activity_log).should be_true
+    user.activity_log.should be_a EOL::ActivityLog
   end
 
 end

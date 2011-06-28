@@ -51,6 +51,22 @@ describe EOL::ActivityLog do
                            :object_id => dato, :created_at => 3.seconds.ago)
   end
 
-  it 'should work with TaxonConcept'
+  # TODO - Ideally, this would actually create a bunch of data objects related to the taxon concept in various ways.
+  # ...But that's a lot of work, so we're skipping it for now.  Thus, it assumes that TaxonConcept#all_data_objects
+  # works as intended. ...Alternatively, we could stub! the all_data_objects method and force it to "work".
+  it 'should work with TaxonConcept' do
+    Comment.gen(:parent => @testy[:taxon_concept], :created_at => 4.seconds.ago)
+    dato = DataObject.gen(:created_at => 3.seconds.ago)
+    UsersDataObject.gen(:taxon_concept_id => @testy[:id], :data_object => dato)
+    # We're curating one of the images, but we CANNOT force the date from here... so we're going to make this last on
+    # the list.
+    @testy[:taxon_concept].images.first.curate_association(@curator,
+                                                           @testy[:taxon_concept].entry,
+                                                           :vetted_id => Vetted.trusted.id,
+                                                           :curate_vetted_status => true)
+    @testy[:taxon_concept].activity_log[-3].class.should == Comment
+    @testy[:taxon_concept].activity_log[-2].class.should == UsersDataObject
+    @testy[:taxon_concept].activity_log[-1].class.should == CuratorActivityLog
+  end
 
 end

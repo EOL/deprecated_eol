@@ -1,4 +1,7 @@
 class CollectionItemsController < ApplicationController
+
+  before_filter :allow_login_then_submit, :only => [:create]
+
   # GET /collection_items
   # GET /collection_items.xml
   def index
@@ -40,14 +43,29 @@ class CollectionItemsController < ApplicationController
   # POST /collection_items
   # POST /collection_items.xml
   def create
-    @collection_item = CollectionItem.new(params[:collection_item])
+
+    if session[:submitted_data]
+      data = session[:submitted_data]
+      session.delete(:submitted_data)
+    end
+    data ||= params
+
+    store_location(data[:return_to])
+
+    @collection_item = CollectionItem.new(:object_type => data[:object_type],
+                                          :object_id => data[:object_id],
+                                          :collection_id => data[:collection_id] )
+
+    @collection_item.collection ||= current_user.watch_collection unless current_user.blank?
 
     respond_to do |format|
       if @collection_item.save
-        format.html { redirect_to(@collection_item, :notice => 'CollectionItem was successfully created.') }
+        flash[:notice] = I18n.t(:item_added_to_collection_name, :collection_name => @collection_item.collection.name)
+        format.html { redirect_back_or_default }
         format.xml  { render :xml => @collection_item, :status => :created, :location => @collection_item }
       else
-        format.html { render :action => "new" }
+        flash[:error] = I18n.t(:item_not_added_to_collection_error)
+        format.html { redirect_back_or_default }
         format.xml  { render :xml => @collection_item.errors, :status => :unprocessable_entity }
       end
     end

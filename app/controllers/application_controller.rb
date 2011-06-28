@@ -79,9 +79,9 @@ class ApplicationController < ActionController::Base
     unless logged_in?
       # TODO: Can we delete the submitted data if the user doesn't login or signup?
       session[:submitted_data] = params
-      # FIXME: Using current_url doesn't always work, e.g. feed_items create action url is feed_items with POST
-      # but redirect will be a GET so current url '/feed_items' will got to action index not create.
-      redirect_to login_path(:return_to => current_url)
+      # POST request should provide a submit_to URL so that we can redirect to the correct action with a GET.
+      submit_to = params[:submit_to] || current_url
+      redirect_to login_path(:return_to => submit_to)
     end
   end
 
@@ -615,15 +615,15 @@ private
     request.env["HTTP_USER_AGENT"] && request.env["HTTP_USER_AGENT"][/(iPhone|iPod|iPad|Android|IEMobile)/]
   end
   helper_method :mobile_agent_request?
-  
+
   def mobile_url_request?
     request.request_uri.to_s.include? "\/mobile\/"
   end
   helper_method :mobile_url_request?
-  
+
   def mobile_disabled_by_session?
     session[:mobile_disabled] && session[:mobile_disabled] == true
   end
   helper_method :mobile_disabled_by_session?
-  
+
 end

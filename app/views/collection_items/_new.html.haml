@@ -1,0 +1,8 @@
+- collection ||= @collection
+- form_tag [@collection_item] do
+  = hidden_field_tag 'object_type', object_being_collected.class.name
+  = hidden_field_tag 'object_id', object_being_collected.id
+  = hidden_field_tag 'collection_id', collection.id unless collection.blank?
+  = hidden_field_tag 'return_to', current_url
+  = hidden_field_tag 'submit_to', '/collection_items/create' unless logged_in?
+  = submit_tag I18n.t(:add_to_my_collection_button), :class => 'button'

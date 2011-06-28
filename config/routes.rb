@@ -21,11 +21,12 @@ ActionController::Routing::Routes.draw do |map|
   map.remove_privilege_from_role 'roles/:role_id/remove_privilege/:privilege_id',
     :controller => 'roles', :action => 'remove_privilege'
 
-  map.resources :collections
-  # The collections controller, when called outside of Users or Communities, defaults to the current_user.  These are those
-  # behaviors, with slightly nicer URLs than the default RESTful options:
-  map.watch 'watch/:type/:id', :controller => 'collections', :action => 'watch'
-  map.collect 'collect/:type/:id', :controller => 'collections', :action => 'collect'
+  map.resources :collections do |collection|
+    # PUT /collections/:collection_id/items/:item_id for editing collection items since we have collection id
+    collection.resources :items, :only => [:update], :controller => "collection_items"
+  end
+  # POST /collection_items for create since we may not have the collection id until after user logs in
+  map.resources :collection_items, :only => [:create]
 
   # Web Application
   map.resources :harvest_events, :has_many => [:taxa]

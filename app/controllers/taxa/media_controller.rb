@@ -45,6 +45,9 @@ class Taxa::MediaController < TaxaController
 
     @media = @media.paginate(:page => params[:page] || 1, :per_page => $MAX_IMAGES_PER_PAGE)
 
+    @collection = logged_in? ? current_user.watch_collection : nil
+    @collection_item = CollectionItem.new(:collection => @collection)
+
     @assistive_section_header = I18n.t(:assistive_media_header)
 
     current_user.log_activity(:viewed_taxon_concept_media, :taxon_concept_id => @taxon_concept.id)

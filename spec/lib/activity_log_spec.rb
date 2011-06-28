@@ -55,8 +55,13 @@ describe EOL::ActivityLog do
   # ...But that's a lot of work, so we're skipping it for now.  Thus, it assumes that TaxonConcept#all_data_objects
   # works as intended. ...Alternatively, we could stub! the all_data_objects method and force it to "work".
   it 'should work with TaxonConcept' do
-    Comment.gen(:parent => @testy[:taxon_concept], :created_at => 4.seconds.ago)
-    dato = DataObject.gen(:created_at => 3.seconds.ago)
+    Comment.gen(:parent => @testy[:taxon_concept], :created_at => 5.seconds.ago)
+    Comment.gen(:parent => @testy[:taxon_concept].images.first, :created_at => 4.seconds.ago)
+    # Also Comments on the children of this taxon concept
+    Comment.gen(:parent => @testy[:child1], :created_at => 3.seconds.ago)
+
+    dato = DataObject.gen(:created_at => 2.seconds.ago)
+    # We also want to see comments on data objects on the page
     UsersDataObject.gen(:taxon_concept_id => @testy[:id], :data_object => dato)
     # We're curating one of the images, but we CANNOT force the date from here... so we're going to make this last on
     # the list.
@@ -64,7 +69,13 @@ describe EOL::ActivityLog do
                                                            @testy[:taxon_concept].entry,
                                                            :vetted_id => Vetted.trusted.id,
                                                            :curate_vetted_status => true)
+
+    @testy[:taxon_concept].activity_log[-5].class.should == Comment
+    @testy[:taxon_concept].activity_log[-5].parent_id.should == @testy[:id]
+    @testy[:taxon_concept].activity_log[-4].class.should == Comment
+    @testy[:taxon_concept].activity_log[-4].parent_id.should == @testy[:taxon_concept].images.first.id
     @testy[:taxon_concept].activity_log[-3].class.should == Comment
+    @testy[:taxon_concept].activity_log[-3].parent_id.should == @testy[:child1].id
     @testy[:taxon_concept].activity_log[-2].class.should == UsersDataObject
     @testy[:taxon_concept].activity_log[-1].class.should == CuratorActivityLog
   end

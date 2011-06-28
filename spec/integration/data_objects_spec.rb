@@ -101,19 +101,7 @@ describe 'Data Object Page' do
     page.body.should_not include(page_link)
   end
 
-  it 'should show the activity feed' do
-    visit("/data_objects/#{@image.id}")
-    page.body.should have_tag('#feed_items ul') do
-      with_tag('.details', :text => /#{@feed_body_1}/)
-      with_tag('.details', :text => /#{@feed_body_2}/)
-      with_tag('.details', :text => /#{@feed_body_3}/)
-    end
-  end
-
-  it 'should show an empty feed' do
-    visit("/data_objects/#{@dato_untrusted.id}")
-    page.body.should have_tag('#feed_items', :text => /no activity/i)
-  end
+  # TODO - ActivityLog
 
   it 'should allow a curator to remove an association' do
     login_as @curator

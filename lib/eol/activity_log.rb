@@ -33,8 +33,12 @@ module EOL
         )
         @activity_log += Comment.find_all_by_parent_id_and_parent_type(@source.id, "DataObject")
         @activity_log += UsersDataObject.find_all_by_data_object_id(@source.id, :include => :data_object)
+      elsif @klass == "TaxonConcept"
+        @activity_log += CuratorActivityLog.find_all_by_data_objects_on_taxon_concept(@source)
+        @activity_log += Comment.find_all_by_parent_id_and_parent_type(@source.id, "TaxonConcept")
+        @activity_log += UsersDataObject.find_all_by_taxon_concept_id(@source.id, :include => :data_object)
       end
-      # TODO - error-checking:
+      # TODO - error-checking (for example, what if created_at is nil or not available?):
       @activity_log = @activity_log.sort_by {|l| l.class == UsersDataObject ? l.data_object.created_at : l.created_at }
     end
 

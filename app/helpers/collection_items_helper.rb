@@ -49,14 +49,11 @@ module CollectionItemsHelper
     when 'DataObject'
       object_data_type(item.object, 'word')
     when 'Community'
-      # TODO: Not in HR mockup
       'community'
     when 'User'
       'person'
     when 'Collection'
-      # TODO: Not in HR mockup collection.collection won't make sense ?
       'collection'
-    else
     end
   end
 
@@ -90,18 +87,23 @@ module CollectionItemsHelper
   def collection_item_detail(item)
     case item.object_type
     when 'TaxonConcept'
-      taxon_concept = TaxonConcept.find(item['object_id'])
-      if common_name = taxon_concept.common_name
+      if common_name = item.object.common_name
         common_name
       end
     when 'DataObject'
       en_type = item.object.data_type.label("en").downcase
       I18n.t("in_this_#{en_type}_") + " " + item.object.first_concept_name
     when 'Community'
-      item.object.description
+      detail = I18n.t(:members_with_count, :count => item.object.members.count)
+      #TODO - number of collections in a community
+      detail
     when 'User'
       I18n.t(:expertise_) + " " + item.object.expertise
     when 'Collection'
+      detail = I18n.t(:items_with_count, :count => item.object.collection_items.count) + "; "
+      #may change if there'll be multiple entities to maintain a collection
+      detail << I18n.t(:maintained_by) + " " + item.object.maintained_by
+      detail
     else
     end
   end

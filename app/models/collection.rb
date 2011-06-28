@@ -111,6 +111,11 @@ class Collection < ActiveRecord::Base
     end
   end 
 
+  def maintained_by
+    return user.full_name if !user_id.blank?
+    return community.name if !community_id.blank?
+  end
+  
   def pending_communities
     collection_endorsements.select {|c| c.pending? }.map {|c| c.community }
   end

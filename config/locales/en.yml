@@ -984,6 +984,9 @@ en:
   items_in_yellow_are_not_reviewed: "Items in yellow are not reviewed."
   item_was_added_to_your_recently_collected_items: "Item was added to your Recently Collected items"
   item_was_added_to_your_watched_items_collection: "Item was added to your Watched Items collection"
+  items_with_count:
+    one: "%{count} item"
+    other: "%{count} items"
   it_may_take_a_minute_for_the_r: "It may take a minute for the report to appear - please be patient."
   iucn_entry: "IUCN entry"
   iucn_red_list_status: "IUCN Red List Status"
@@ -1101,6 +1104,7 @@ en:
   main_content_area_: "Main content area:"
   main_: "Main:"
   main_master_: "Main Master:"
+  maintained_by: "maintained by"
   major_heading: "Major heading"
   make_sure_to: "Make sure to %{link_add_it_to_your_api_calls}"
   make_visible: "make visible"

@@ -16,11 +16,13 @@ class CuratorActivityLog < LoggingModel
   validates_presence_of :user_id, :changeable_object_type_id, :activity_id, :created_at
 
   def self.find_all_by_data_objects_on_taxon_concept(tc)
+    dato_ids = tc.all_data_objects.map {|dato| dato.id}
+    return [] if dato_ids.empty?
     CuratorActivityLog.find_by_sql("
       SELECT *
         FROM curator_activity_logs
         WHERE curator_activity_logs.changeable_object_type_id = #{ChangeableObjectType.data_object.id}
-          AND object_id IN (#{tc.all_data_objects.map {|dato| dato.id}.join(',')})
+          AND object_id IN (#{dato_ids.join(',')})
     ")
   end
 

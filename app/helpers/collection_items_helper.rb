@@ -35,8 +35,7 @@ module CollectionItemsHelper
     when 'Community'
       link_to I18n.t(:view_community_link), community_path(item.object), :title => strip_tags(item.name)
     when 'User'
-      #TODO is given name required? otherwise the link will say "View 's profile"
-      link_to I18n.t(:view_user_profile_link, :given_name => item.object.given_name), user_path(item.object)
+      link_to I18n.t(:view_user_profile_link, :given_name => item.object.short_name), user_path(item.object)
     when 'Collection'
       link_to I18n.t(:view_collection_link), collection_path(item.object), :title => strip_tags(item.name)
     else

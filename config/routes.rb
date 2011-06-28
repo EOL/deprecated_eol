@@ -28,6 +28,11 @@ ActionController::Routing::Routes.draw do |map|
   # POST /collection_items for create since we may not have the collection id until after user logs in
   map.resources :collection_items, :only => [:create]
 
+  #used in collections show page, click on left tabs
+  map.connect 'collections/:id/:filter',
+               :controller => 'collections',
+               :action     => 'show'
+
   # Web Application
   map.resources :harvest_events, :has_many => [:taxa]
   map.resources :resources, :as => 'content_partner/resources', :has_many => [:harvest_events]

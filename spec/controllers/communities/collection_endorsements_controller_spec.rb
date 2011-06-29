@@ -1,10 +1,10 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
-def collections_do_index
+def endorsed_collections_do_index
   get :index, :community_id => @collections[:community].id.to_i
 end
 
-describe Communities::CollectionsController do
+describe Communities::CollectionEndorsementsController do
 
   before(:all) do
     truncate_all_tables
@@ -15,17 +15,22 @@ describe Communities::CollectionsController do
   describe 'GET index' do
 
     it "should instantiate the community" do
-      collections_do_index
+      endorsed_collections_do_index
       assigns[:community].should be_a(Community)
       assigns[:community].id.should == @collections[:community].id
     end
 
     it "should load a community's focus collection" do
-      collections_do_index
+      endorsed_collections_do_index
       assigns[:community].focus.should be_a(Collection)
     end
 
-    it "should load a community's endorsed collections"
+    it "should load a community's endorsed collections" do
+      endorsed_collections_do_index
+      assigns[:community].collection_endorsements.each do |c|
+        c.should be_a(Collection)
+      end
+    end
   end
 
 end

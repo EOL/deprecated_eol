@@ -48,7 +48,7 @@ describe 'User Profile' do
       visit(user_collections_path(@user))
     end
     it 'should show their watch collection' do
-      page.body.should have_tag('#collections', /#{@watch_collection.name}/)
+      page.body.should have_tag('#collections_tab', /#{@watch_collection.name}/)
     end
   end
 

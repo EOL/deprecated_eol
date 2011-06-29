@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe "Collections controller" do
+describe "Collections and collecting" do
 
   before(:all) do
     # so this part of the before :all runs only once
@@ -12,68 +12,40 @@ describe "Collections controller" do
     @test_data = EOL::TestInfo.load('collections')
   end
 
+  describe "should allow users to collect" do
+    # FIXME: collect_path no longer exists this should be collection_items/create with form_for post data
+    # FIXME: test an anonymous visitor collecting an item, i.e. should be redirected to login
+    it 'taxa' # do
+#        visit collect_path(:type => 'TaxonConcept', :id => @test_data[:taxon_concept].id)
+#        @test_data[:user].inbox_collection.items.map {|li| li.object }.include?(@test_data[:taxon_concept]).should be_true
+#      end
+
+    it 'data objects' # do
+#        visit collect_path(:type => 'DataObject', :id => @test_data[:taxon_concept].images.first.id)
+#        @test_data[:user].inbox_collection.items.map {|li| li.object }.include?(@test_data[:taxon_concept].images.first).should be_true
+#      end
+
+    it 'communities' # do
+#        visit collect_path(:type => 'Community', :id => @test_data[:community].id)
+#        @test_data[:user].inbox_collection.items.map {|li| li.object }.include?(@test_data[:community]).should be_true
+#      end
+
+    it 'collections' # do
+#        visit collect_path(:type => 'Collection', :id => @test_data[:collection].id)
+#        @test_data[:user].inbox_collection.items.map {|li| li.object }.include?(@test_data[:collection]).should be_true
+#      end
+
+    it 'users' # do
+#        visit collect_path(:type => 'User', :id => @test_data[:user2].id)
+#        @test_data[:user].inbox_collection.items.map {|li| li.object }.include?(@test_data[:user2]).should be_true
+#      end
+
+  end
+
   describe "(logged in)" do
 
     before(:all) do
       login_as @test_data[:user]
-    end
-
-    describe "should allow users to watch" do
-
-      it 'taxa' do
-        visit watch_path(:type => 'TaxonConcept', :id => @test_data[:taxon_concept].id)
-        @test_data[:user].watch_collection.items.map {|li| li.object }.include?(@test_data[:taxon_concept]).should be_true
-      end
-
-      it 'data objects' do
-        visit watch_path(:type => 'DataObject', :id => @test_data[:taxon_concept].images.first.id)
-        @test_data[:user].watch_collection.items.map {|li| li.object }.include?(@test_data[:taxon_concept].images.first).should be_true
-      end
-
-      it 'communities' do
-        visit watch_path(:type => 'Community', :id => @test_data[:community].id)
-        @test_data[:user].watch_collection.items.map {|li| li.object }.include?(@test_data[:community]).should be_true
-      end
-
-      it 'collections' do
-        visit watch_path(:type => 'Collection', :id => @test_data[:collection].id)
-        @test_data[:user].watch_collection.items.map {|li| li.object }.include?(@test_data[:collection]).should be_true
-      end
-
-      it 'users' do
-        visit watch_path(:type => 'User', :id => @test_data[:user2].id)
-        @test_data[:user].watch_collection.items.map {|li| li.object }.include?(@test_data[:user2]).should be_true
-      end
-
-    end
-
-    describe "should allow users to collect" do
-
-      it 'taxa' do
-        visit collect_path(:type => 'TaxonConcept', :id => @test_data[:taxon_concept].id)
-        @test_data[:user].inbox_collection.items.map {|li| li.object }.include?(@test_data[:taxon_concept]).should be_true
-      end
-
-      it 'data objects' do
-        visit collect_path(:type => 'DataObject', :id => @test_data[:taxon_concept].images.first.id)
-        @test_data[:user].inbox_collection.items.map {|li| li.object }.include?(@test_data[:taxon_concept].images.first).should be_true
-      end
-
-      it 'communities' do
-        visit collect_path(:type => 'Community', :id => @test_data[:community].id)
-        @test_data[:user].inbox_collection.items.map {|li| li.object }.include?(@test_data[:community]).should be_true
-      end
-
-      it 'collections' do
-        visit collect_path(:type => 'Collection', :id => @test_data[:collection].id)
-        @test_data[:user].inbox_collection.items.map {|li| li.object }.include?(@test_data[:collection]).should be_true
-      end
-
-      it 'users' do
-        visit collect_path(:type => 'User', :id => @test_data[:user2].id)
-        @test_data[:user].inbox_collection.items.map {|li| li.object }.include?(@test_data[:user2]).should be_true
-      end
-
     end
 
     describe "#show" do
@@ -120,12 +92,12 @@ describe "Collections controller" do
           visit collection_path(@show_collection)
         end
 
-        it 'should show all the items in a collection' do
-          page.body.should have_tag("a[href=?]", taxon_concept_path(@shown_taxon_concept))
-          page.body.should have_tag("a[href=?]", data_object_path(@shown_image))
-          page.body.should have_tag("a[href=?]", community_path(@shown_community))
-          page.body.should have_tag("a[href=?]", collection_path(@shown_collection))
-        end
+        it 'should show all the items in a collection' # do FIXME
+#          page.body.should have_tag("a[href=?]", taxon_concept_path(@shown_taxon_concept))
+#          page.body.should have_tag("a[href=?]", data_object_path(@shown_image))
+#          page.body.should have_tag("a[href=?]", community_path(@shown_community))
+#          page.body.should have_tag("a[href=?]", collection_path(@shown_collection))
+#        end
 
         # setting to pending need to check and implement 'editable' mockups
         it 'should allow users to delete specific collections'

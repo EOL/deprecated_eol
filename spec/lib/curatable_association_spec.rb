@@ -22,7 +22,7 @@ describe 'Curating Associations' do
   end
 
   it 'should curate a dohe association' do
-    feeditems_count = FeedItem.count
+    # TODO - ActivityLog
     @dohe.vetted_id = Vetted.trusted.id
     @dohe.visibility_id = Visibility.visible.id
     [Vetted.unknown.id, Vetted.untrusted.id, Vetted.trusted.id].each do |vetted_method|
@@ -40,13 +40,12 @@ describe 'Curating Associations' do
         @dohe.vetted_id.should == vetted_method.to_i
         @dohe.visibility_id.should == visibility_method.to_i
         incr = (vetted_method == Vetted.untrusted.id) ? 2 : 1
-        FeedItem.count.should == (feeditems_count += incr) #curation comment should be posted as a feed.
       end
     end
   end
 
   it 'should curate a cdohe association' do
-    feeditems_count = FeedItem.count
+    # TODO - ActivityLog
     @cdohe.vetted_id = Vetted.trusted.id
     @cdohe.visibility_id = Visibility.visible.id
     [Vetted.unknown.id, Vetted.untrusted.id, Vetted.trusted.id].each do |vetted_method|
@@ -64,13 +63,12 @@ describe 'Curating Associations' do
         @cdohe.vetted_id.should == vetted_method.to_i
         @cdohe.visibility_id.should == visibility_method.to_i
         incr = (vetted_method == Vetted.untrusted.id) ? 2 : 1
-        FeedItem.count.should == (feeditems_count += incr)
       end
     end
   end
 
   it 'should add untrust reasons comment and save untrust reasons when curated as untrusted' do
-    feeditems_count = FeedItem.count
+    # TODO - ActivityLog
     # curate association in dohe
     @dohe.vetted_id = Vetted.trusted.id
     CuratorActivityLog.delete_all
@@ -83,7 +81,6 @@ describe 'Curating Associations' do
     commit_transactions # There are cross-database joins, here.
     CuratorActivityLog.last.untrust_reasons.map(&:id).sort.should == untrust_reason_ids.sort
     @dohe.untrusted?.should eql(true)
-    FeedItem.count.should == (feeditems_count += 1)
     # curate association in cdohe
     @cdohe.vetted_id = Vetted.trusted.id
     untrust_reason_ids = [ UntrustReason.duplicate.id, UntrustReason.poor.id ]
@@ -94,25 +91,22 @@ describe 'Curating Associations' do
                                       })
     commit_transactions # There are cross-database joins, here.
     @cdohe.untrusted?.should eql(true)
-    FeedItem.count.should == (feeditems_count + 1)
     CuratorActivityLog.last.untrust_reasons.map(&:id).sort.should == untrust_reason_ids.sort
   end
 
   it 'should add a curation comment to an association' do
-    feeditems_count = FeedItem.count
+    # TODO - ActivityLog
     # add curator comment to association in dohe
     curation_comment = "test curation comment for dohe"
     @dohe.curate(@another_curator, { :curation_comment => curation_comment,
                                      :curation_comment_status => true,
                                      :changeable_object_type => 'data_object'
                                      })
-    FeedItem.count.should == (feeditems_count += 1)
     #  add curator comment to association in cdohe
     curation_comment = "test curation comment for cdohe"
     @cdohe.curate(@another_curator, { :curation_comment => curation_comment,
                                       :curation_comment_status => true,
                                       :changeable_object_type => 'curated_data_objects_hierarchy_entry'
                                       })
-    FeedItem.count.should == (feeditems_count + 1)
   end
 end

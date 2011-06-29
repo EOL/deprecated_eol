@@ -16,8 +16,6 @@ class Comment < ActiveRecord::Base
 
   before_create :set_visible_at, :set_from_curator
 
-  after_create  :track_create
-
   validates_presence_of :body, :user
 
   attr_accessor :vetted_by
@@ -65,6 +63,26 @@ class Comment < ActiveRecord::Base
     return [] if comments_hash.blank?
     return comments_hash[0..max_results]
   end
+
+  def self.all_by_taxon_concept_recursively(tc)
+    dato_ids = tc.all_data_objects.map {|dato| dato.id}
+    return [] if dato_ids.empty?
+    children_comments = Comment.find_by_sql("
+      SELECT comments.*
+        FROM hierarchy_entries he_parent
+        JOIN hierarchy_entries he_child ON (he_parent.id=he_child.parent_id)
+        JOIN comments ON (comments.parent_id = he_child.taxon_concept_id AND comments.parent_type = 'TaxonConcept')
+        JOIN hierarchies h ON (he_parent.hierarchy_id=h.id)
+        WHERE he_parent.taxon_concept_id = #{tc.id}
+        AND browsable=1
+    ")
+    sql = "SELECT * FROM comments WHERE (parent_id = #{tc.id} AND parent_type = 'TaxonConcept')"
+    unless dato_ids.empty?
+      sql += " OR (parent_id IN (#{dato_ids.join(',')}) AND parent_type = 'DataObject')"
+    end
+    Comment.find_by_sql(sql) + children_comments
+  end
+
 
   # Comments can be hidden.  This method checks to see if a non-curator can see it:
   def visible?
@@ -170,10 +188,6 @@ class Comment < ActiveRecord::Base
   end
 
 private
-
-  def track_create
-    self.user.track_curator_activity(self, 'comment', 'create')
-  end
 
   # Run when a comment is created, to ensure it is visible by default:
   def set_visible_at

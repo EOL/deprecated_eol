@@ -26,19 +26,7 @@ ContentPage.gen_if_not_exists(:title => 'Terms Of Use',
 
 ContactSubject.gen_if_not_exists(:title => 'Media Contact', :recipients=>'test@test.com', :active=>true)
 
-# what one can do with a data_object
-Activity.gen_if_not_exists(:name => 'create')
-Activity.gen_if_not_exists(:name => 'update')     #?
-Activity.gen_if_not_exists(:name => 'delete')
-Activity.gen_if_not_exists(:name => 'trusted')
-Activity.gen_if_not_exists(:name => 'untrusted')
-Activity.gen_if_not_exists(:name => 'show')
-Activity.gen_if_not_exists(:name => 'hide')
-Activity.gen_if_not_exists(:name => 'inappropriate')
-Activity.gen_if_not_exists(:name => 'rate')
-Activity.gen_if_not_exists(:name => 'unreviewed')
-Activity.gen_if_not_exists(:name => 'add_association')
-Activity.gen_if_not_exists(:name => 'remove_association')
+Activity.create_defaults
 
 # create_if_not_exists We don't technically *need* all three of these, but it's nice to have for the menu.  There are more, but we don't currently use
 # them.  create_if_not_exists Once we do, they should get added here.
@@ -254,8 +242,6 @@ Visibility.gen_if_not_exists(:label => 'Preview')
 Visibility.gen_if_not_exists(:label => 'Inappropriate')
 
 ContentTable.create_details
-
-FeedItemType.create_defaults
 
 # The home-page doesn't render without random taxa.  Note that other scenarios, if they build legitimate RandomTaxa,
 # will need to DELETE these before they make their own!  But for foundation's purposes, this is required:

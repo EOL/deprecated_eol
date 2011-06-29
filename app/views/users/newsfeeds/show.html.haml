@@ -1,4 +1,4 @@
 #sidebar
 
 #user.main_container
-  = render :partial => 'feed_items/index', :locals => {:feed => @user.feed, :form_position => :before_header, :header => I18n.t(:newsfeed), :header_style => 'heading', :allow_filter => true}
+  = render :partial => 'activity_logs/index', :locals => {:log => @user.activity_log, :form_position => :before_header, :header => I18n.t(:newsfeed), :header_style => 'heading', :allow_filter => true}

@@ -261,6 +261,9 @@ ExceptionNotifier.exception_recipients = [] # email addresses of people to get e
 ExceptionNotifier.sender_address = $EXCEPTION_EMAIL_ADDRESS
 ExceptionNotifier.email_prefix = "[EOL] "
 
+WillPaginate::ViewHelpers.pagination_options[:previous_label] = I18n.t(:search_previous_label)
+WillPaginate::ViewHelpers.pagination_options[:next_label] = I18n.t(:search_next_label)
+
 # Required by the User model and the Account Controller, at least:
 require 'uri'
 require 'ezcrypto'

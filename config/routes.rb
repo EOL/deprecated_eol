@@ -107,8 +107,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.external_link 'external_link', :controller => 'application', :action => 'external_link'
 
-  map.search  'search',         :controller => 'search', :action => 'index'
-  map.connect 'search/:id',     :controller => 'search', :action => 'index'
+  map.connect 'search',         :controller => 'search', :action => 'index'
+  map.search  'search/:id',     :controller => 'search', :action => 'index'
   map.connect 'search.:format', :controller => 'search', :action => 'index'
   map.found   'found/:id',      :controller => 'search', :action => 'found'
 

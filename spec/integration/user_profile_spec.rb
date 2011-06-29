@@ -16,10 +16,8 @@ describe 'User Profile' do
     @username = 'userprofilespec'
     @password = 'beforeall'
     @user     = create_user(@username, @password)
-    @user.feed.post @feed_body_1 = "Something"
-    @user.feed.post @feed_body_2 = "Something Else"
-    @user.feed.post @feed_body_3 = "Something More"
-    @watch_collection = @user.collections.find_by_special_collection_id(SpecialCollection.find_by_name('Watch').id)
+    # TODO - ActivityLog
+    @watch_collection = @user.watch_collection
   end
 
   after(:each) do
@@ -43,27 +41,7 @@ describe 'User Profile' do
     body.should include("Your key is")
   end
 
-  describe 'newsfeed' do
-
-    before(:each) do
-      visit(user_newsfeed_path(@user))
-    end
-
-    it 'should show their feed' do
-      page.body.should have_tag('#feed_items') do
-        with_tag('.details', :text => /#{@feed_body_1}/)
-        with_tag('.details', :text => /#{@feed_body_2}/)
-        with_tag('.details', :text => /#{@feed_body_3}/)
-      end
-    end
-
-    it 'should show an empty feed' do
-      @lonely_user = User.gen
-      visit(user_path(@lonely_user))
-      page.body.should have_tag('#feed_items', :text => /no activity/i)
-    end
-
-  end
+  # TODO - ActivityLog
 
   describe 'collections' do
     before(:each) do

@@ -132,13 +132,16 @@ describe 'EOL APIs' do
     @test_hierarchy_entry_published = HierarchyEntry.gen(:hierarchy => @test_hierarchy, :identifier => 'Animalia', :parent_id => 0, :published => 1, :visibility_id => Visibility.visible.id, :rank => Rank.kingdom)
     @test_hierarchy_entry_unpublished = HierarchyEntry.gen(:hierarchy => @test_hierarchy, :identifier => 'Plantae', :parent_id => 0, :published => 0, :visibility_id => Visibility.invisible.id, :rank => Rank.kingdom)
     @second_test_hierarchy_entry = HierarchyEntry.gen(:hierarchy => @second_test_hierarchy, :identifier => 54321, :parent_id => 0, :published => 1, :visibility_id => Visibility.visible.id, :rank => Rank.kingdom)
+    make_all_nested_sets
+    flatten_hierarchies
+    
     # this forces all concepts to get saved, thus indexed
+    @solr = SolrAPI.new($SOLR_SERVER, $SOLR_SITE_SEARCH_CORE)
+    @solr.delete_all_documents
     TaxonConcept.all.each do |tc|
       tc.save
     end
-    make_all_nested_sets
-    flatten_hierarchies
-    recreate_solr_indexes
+    
     visit("/api/pages/#{@taxon_concept.id}")
     @default_pages_body = body
   end
@@ -567,47 +570,46 @@ describe 'EOL APIs' do
     response_object['results'].length.should == 2
   end
 
-  # TODO: fix this failing spec - reimplement exact searching
-  # it 'search should do an exact search' do
-  #   visit("/api/search/Canis%20lupus.json?exact=1")
-  #   response_object = JSON.parse(body)
-  #   response_object['results'].length.should == 1
-  #   response_object['results'][0]['title'].should == @wolf_sci_name
-  # 
-  #   visit("/api/search/Canis.json?exact=1")
-  #   response_object = JSON.parse(body)
-  #   response_object['results'].length.should == 0
-  # end
+  it 'search should do an exact search' do
+    visit("/api/search/Canis%20lupus.json?exact=1")
+    response_object = JSON.parse(body)
+    response_object['results'].length.should == 1
+    response_object['results'][0]['title'].should == @wolf_sci_name
+  
+    visit("/api/search/Canis.json?exact=1")
+    response_object = JSON.parse(body)
+    response_object['results'].length.should == 0
+  end
 
   it 'search should search without a filter and get multiple results' do
     visit("/api/search/Dog.json")
     response_object = JSON.parse(body)
-    response_object['results'][0]['title'].should match(/(#{@dog_sci_name}|Canis dog)/)
-    response_object['results'][1]['title'].should match(/(#{@dog_sci_name}|Canis dog)/)
-    response_object['results'].length.should == 2
+    response_object['results'][0]['title'].should match(/(#{@dog_sci_name}|Canis dog|Canis lupus)/)
+    response_object['results'][1]['title'].should match(/(#{@dog_sci_name}|Canis dog|Canis lupus)/)
+    response_object['results'][2]['title'].should match(/(#{@dog_sci_name}|Canis dog|Canis lupus)/)
+    response_object['results'].length.should == 3
   end
   
-  # TODO: fix these failing spec - reimplement search filtering by higher taxon
-  # it 'search should be able to filter by string' do
-  #   visit("/api/search/Dog.json?filter_by_string=Canis%20lupus")
-  #   response_object = JSON.parse(body)
-  #   response_object['results'][0]['title'].should == @dog_sci_name
-  #   response_object['results'].length.should == 1
-  # end
-  # 
-  # it 'search should be able to filter by taxon_concept_id' do
-  #   visit("/api/search/Dog.json?filter_by_taxon_concept_id=#{@wolf.id}")
-  #   response_object = JSON.parse(body)
-  #   response_object['results'][0]['title'].should == @dog_sci_name
-  #   response_object['results'].length.should == 1
-  # end
-  # 
-  # it 'search should be able to filter by hierarchy_entry_id' do
-  #   visit("/api/search/Dog.json?filter_by_hierarchy_entry_id=#{@wolf.hierarchy_entries.first.id}")
-  #   response_object = JSON.parse(body)
-  #   response_object['results'][0]['title'].should == @dog_sci_name
-  #   response_object['results'].length.should == 1
-  # end
+  it 'search should be able to filter by string' do
+    visit("/api/search/Dog.json?filter_by_string=Canis%20lupus")
+    response_object = JSON.parse(body)
+    response_object['results'][0]['title'].should == @dog_sci_name
+    response_object['results'].length.should == 1
+  end
+  
+  it 'search should be able to filter by taxon_concept_id' do
+    visit("/api/search/Dog.json?filter_by_taxon_concept_id=#{@wolf.id}")
+    response_object = JSON.parse(body)
+    response_object['results'][0]['title'].should == @dog_sci_name
+    response_object['results'].length.should == 1
+  end
+  
+  it 'search should be able to filter by hierarchy_entry_id' do
+    visit("/api/search/Dog.json?filter_by_hierarchy_entry_id=#{@wolf.hierarchy_entries.first.id}")
+    response_object = JSON.parse(body)
+    response_object['results'][0]['title'].should == @dog_sci_name
+    response_object['results'].length.should == 1
+  end
 
   it 'search should take api key and save it to the log' do
     check_api_key("/api/search/Canis.json?exact=1&key=#{@user.api_key}", @user)

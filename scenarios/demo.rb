@@ -247,20 +247,10 @@ concerned.save
 taxa.each do |tc|
   community.focus.add tc
   endorsed_collection.add tc
-  tc.feed.post "#{loud_user.username} commented on #{tc.quick_scientific_name(:canonical)}: This is one of my favorite species; I am excited to see how this page grows.",
-    :user_id => loud_user.id, :thumbnail_url => loud_user.logo_cache_url
-  tc.feed.post "#{happy_user.username} commented on #{tc.quick_scientific_name(:canonical)}: Beautiful!",
-    :user_id => happy_user.id, :thumbnail_url => happy_user.logo_cache_url
-  tc.feed.post "#{concerned.username} commented on #{tc.quick_scientific_name(:canonical)}: We could really use a few more images of this in its natural habitat.",
-    :user_id => concerned.id, :thumbnail_url => concerned.logo_cache_url
+  # TODO - ActivityLog
 end
 
-community.feed.post "#{happy_user.username} commented on #{community_name}: I cannot tell you how excited I am about
-this community! Let's make a difference!", :user_id => happy_user.id, :thumbnail_url => happy_user.logo_cache_url
-community.feed.post "#{loud_user.username} commented on #{community_name}: My sister would like to join this
-community, but she's on vacation this week.", :user_id => loud_user.id, :thumbnail_url => loud_user.logo_cache_url
-community.feed.post "#{concerned.username} commented on #{community_name}: Could we please expand this collection to
-include the endangered species listed in the latest publication from IUCN?", :user_id => concerned.id, :thumbnail_url => concerned.logo_cache_url
+# TODO - ActivityLog
 
 users = User.find(:all, :conditions => 'logo_cache_url IS NULL')
 puts "Updating #{users.length} users..."
@@ -270,12 +260,11 @@ users.each_with_index do |user, i|
   user.save
 end
 
-TaxonConcept.all.each do |tc|
-  tc.save # This will save the record, thus indexing the concept with all its names
-end
-
-
 puts "Re-indexing.  Hang on, almost there."
 make_all_nested_sets
 rebuild_collection_type_nested_set
 flatten_hierarchies
+
+TaxonConcept.all.each do |tc|
+  tc.save # This will save the record, thus indexing the concept with all its names
+end

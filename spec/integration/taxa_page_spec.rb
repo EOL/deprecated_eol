@@ -66,13 +66,9 @@ describe 'Taxa page' do
     it 'should show classifications'
     it 'should show collections'
     it 'should show communities'
-    it 'should show the activity feed' do
-      body.should have_tag('#feed_items ul') do
-        with_tag('.details', /#{@testy[:feed_body_1]}/)
-        with_tag('.details', /#{@testy[:feed_body_2]}/)
-        with_tag('.details', /#{@testy[:feed_body_3]}/)
-      end
-    end
+
+    # TODO - ActivityLog
+
     it 'should show curators' do
       body.should have_tag('div#curators_summary') do
         with_tag('.details h4', @testy[:curator].given_name)
@@ -132,10 +128,7 @@ describe 'Taxa page' do
   end
 
   context 'when taxon does not have any data' do
-    it 'overview should show an empty feed' do
-      visit("/pages/#{@testy[:exemplar].id}")
-      body.should have_tag('#feed_items p.empty', /no activity/i)
-    end
+    # TODO - ActivityLog
     it 'details should show what???'
   end
 
@@ -146,10 +139,6 @@ describe 'Taxa page' do
       visit("/pages/#{@testy[:superceded_taxon_concept].id}/details")
       current_path.should match /\/pages\/#{@testy[:id]}\/details/
     end
-    # not sure about this one for overview page, should comments show in recent updates feeds?
-    # we can use testy[:superceded_taxon_concept] i.e:
-    # comment = Comment.gen(:parent_type => "TaxonConcept", :parent_id => @testy[:superceded_taxon_concept].id, :body => "Comment from superceded taxon concept.")
-    it 'should show comments from superceded taxa'
   end
 
   context 'when taxon is unpublished' do

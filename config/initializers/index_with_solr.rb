@@ -56,13 +56,15 @@ module ActiveRecord
               elsif return_value.class == Hash
                 keyword_type = return_value[:keyword_type] || field_or_method
                 return_value[:keywords].each do |keyword|
-                  self.class.submit_keyword_to_solr(solr_connection, params, keyword, keyword_type, :language => return_value[:language])
+                  self.class.submit_keyword_to_solr(solr_connection, params, keyword, keyword_type,
+                    :language => return_value[:language], :ancestor_taxon_concept_id => return_value[:ancestor_taxon_concept_id])
                 end
               elsif return_value.class == Array
                 return_value.each do |rv|
                   keyword_type = rv[:keyword_type] || field_or_method
                   rv[:keywords].each do |keyword|
-                    self.class.submit_keyword_to_solr(solr_connection, params, keyword, keyword_type, :language => rv[:language])
+                    self.class.submit_keyword_to_solr(solr_connection, params, keyword, keyword_type,
+                      :language => rv[:language], :ancestor_taxon_concept_id => rv[:ancestor_taxon_concept_id])
                   end
                 end
               end
@@ -84,10 +86,12 @@ module ActiveRecord
 
       def submit_keyword_to_solr(solr_connection, params, keyword, keyword_type, options={})
         options[:language] ||= 'en'
+        options[:language] ||= 'en'
         params['keyword'] = keyword
         params['keyword_type'] = keyword_type
         params['full_text'] = true if options[:is_fulltext]
         params['language'] = options[:language]
+        params['ancestor_taxon_concept_id'] = options[:ancestor_taxon_concept_id] if options[:ancestor_taxon_concept_id]
         solr_connection.create(params)
       end
 

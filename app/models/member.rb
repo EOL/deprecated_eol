@@ -20,12 +20,8 @@ class Member < ActiveRecord::Base
 
   def add_role(role)
     self.roles << role unless has_role?(role)
-    feeds_exist = defined?(FeedItem) || FeedItem rescue nil
-    # v2staging was getting migration failures because this method is called in a migration before the FeedItem table is created
-    return unless feeds_exist
-    return unless FeedItem.table_exists?
     if user.respond_to?(:username) && community
-      community.feed.post(I18n.t(:user_became_role_note, :username => user.username, :role => role.title), :feed_item_type_id => FeedItemType.content_update.id, :user_id => user.id)
+      # TODO - ActivityLog
     end
     self.roles
   end

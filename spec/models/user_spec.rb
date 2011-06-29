@@ -22,8 +22,6 @@ describe User do
     load_foundation_cache
     @user = User.gen :username => 'KungFuPanda', :password => @password
     @user.should_not be_a_new_record
-    FeedItemType.gen_if_not_exists(:name => 'content update')
-    FeedItemType.gen_if_not_exists(:name => 'User Comment')
     @special = Community.special
     @admin = User.gen(:username => 'MisterAdminToYouBuddy')
     @admin.join_community(@special)
@@ -49,16 +47,16 @@ describe User do
     User.hash_password(@pass).should == Digest::MD5.hexdigest(@pass)
   end
 
-  it 'should have a log method that creates an ActivityLog entry (when enabled)' do
+  it 'should have a log method that creates a UserActivityLog entry (when enabled)' do
     old_log_val = $LOG_USER_ACTIVITY
     begin
       $LOG_USER_ACTIVITY = true
-      count = ActivityLog.count
+      count = UserActivityLog.count
       @user.log_activity(:clicked_link)
       wait_for_insert_delayed do
-        ActivityLog.count.should == count + 1
+        UserActivityLog.count.should == count + 1
       end
-      ActivityLog.last.user_id.should == @user.id
+      UserActivityLog.last.user_id.should == @user.id
     ensure
       $LOG_USER_ACTIVITY = old_log_val
     end
@@ -82,9 +80,9 @@ describe User do
 
   it 'should NOT log activity on a "fake" (unsaved, temporary, non-logged-in) user' do
     user = User.create_new
-    count = ActivityLog.count
+    count = UserActivityLog.count
     user.log_activity(:clicked_link)
-    ActivityLog.count.should == count
+    UserActivityLog.count.should == count
   end
 
   it 'should authenticate existing user with correct password, returning true and user back' do
@@ -333,10 +331,10 @@ describe User do
     @user.member_of?(community).should_not be_true
   end
 
-  it 'should have a feed' do
+  it 'should have an activity log' do
     user = User.gen
-    user.respond_to?(:feed).should be_true
-    user.feed.should be_a EOL::Feed
+    user.respond_to?(:activity_log).should be_true
+    user.activity_log.should be_a EOL::ActivityLog
   end
 
 end

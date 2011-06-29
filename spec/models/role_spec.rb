@@ -8,7 +8,6 @@ describe Role do
     @new_priv = Privilege.gen
     @role = Role.gen
     @community = Community.gen
-    FeedItemType.gen_if_not_exists(:name => 'content update')
   end
 
   before(:each) do

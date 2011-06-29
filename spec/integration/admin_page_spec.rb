@@ -33,7 +33,9 @@ describe 'Admin Pages' do
 
     @activity = Activity.gen_if_not_exists(:name => "sample activity")
     @user_with_activity = User.gen(:given_name => "John", :family_name => "Doe")
-    @activity_log = ActivityLog.gen(:user_id => @user_with_activity.id, :activity_id => @activity.id)
+
+    # I expect @user_with_activity to do a few things, one of which includes @activity...  right?
+    UserActivityLog.gen(:user_id => @user_with_activity.id, :activity_id => @activity.id)
   end
 
   after :each do
@@ -185,7 +187,7 @@ describe 'Admin Pages' do
 
   it "should get data from a form and display user activity" do
     login_as(@user)
-    visit("/administrator/user/view_user_activity", :method => :post, :params => {:user_id => @user_with_activity.id})
+    visit("/administrator/user/view_user_activity", :method => :post, :user_id => @user_with_activity.id)
     body.should have_tag("form[action=/administrator/user/view_user_activity]")
     body.should include "User Activity"
     body.should include @user_with_activity.family_name

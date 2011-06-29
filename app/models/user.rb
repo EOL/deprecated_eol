@@ -8,7 +8,7 @@
 
 class User < $PARENT_CLASS_MUST_USE_MASTER
 
-  include EOL::Feedable
+  include EOL::ActivityLoggable
 
   belongs_to :curator_verdict_by, :class_name => "User", :foreign_key => :curator_verdict_by_id
   belongs_to :language
@@ -66,7 +66,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'],
     :message => "image is not a valid image type", :if => :partner_step?
   validates_attachment_size :logo, :in => 0..0.5.megabyte
-  
+
   index_with_solr :keywords => [:username, :full_name]
 
   attr_accessor :entered_password, :entered_password_confirmation, :curator_request
@@ -156,7 +156,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def self.users_with_activity_log
     sql = "SELECT distinct u.id , u.given_name, u.family_name
       FROM users u
-        JOIN #{ActivityLog.full_table_name} al ON u.id = al.user_id
+        JOIN #{UserActivityLog.full_table_name} al ON u.id = al.user_id
       ORDER BY u.family_name, u.given_name"
 
     User.with_master do
@@ -269,6 +269,13 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     return_value = given_name || ""
     return_value += " " + family_name unless family_name.blank?
     return_value
+  end
+
+  def short_name
+    return given_name if !given_name.blank? 
+    return family_name if !family_name.blank?
+    return display_name if !display_name.blank?
+    return acronym if !acronym.blank?
   end
 
   # TODO
@@ -671,7 +678,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   # This is *very* generalized and tracks nearly everything:
   def log_activity(what, options = {})
-    ActivityLog.log(what, options.merge(:user => self)) if self.id && self.id != 0
+    UserActivityLog.log(what, options.merge(:user => self)) if self.id && self.id != 0
   end
 
   # This is at the object level (and is specific to curators)

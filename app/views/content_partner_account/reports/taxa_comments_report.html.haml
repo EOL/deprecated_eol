@@ -1,13 +1,11 @@
 #report_from_eol
   %h2
     = @sub_page_header
-  - if @curator_logs.empty?
+  - if @comments.empty?
     =I18n.t("nothing_to_report")
-  = will_paginate(@curator_logs)
+  = will_paginate(@comments)
   %ul
-    - for curator_log in @curator_logs
-      - if curator_log.changeable_object_type_id == ChangeableObjectType.find_by_ch_object_type('comment').id
-        - act_date = time_ago_in_words(curator_log.created_at)
-        - current_act = curator_log.activity.name
-        = render :partial=> 'taxa_comments_report', :locals=>{:curator_log => curator_log,  :act_date => act_date, :current_act => current_act}
-  = will_paginate(@curator_logs)
+    - for comment in @comments
+      - act_date = time_ago_in_words(comment.created_at)
+      = render :partial=> 'taxa_comments_report', :locals => {:comment => comment,  :act_date => act_date}
+  = will_paginate(@comments)

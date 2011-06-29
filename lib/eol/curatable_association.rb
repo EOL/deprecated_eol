@@ -41,7 +41,7 @@ module EOL
 
       # TODO: This adds curation comment as a feeditem to the data object, but it should be added to the associations.
       if opts[:curation_comment_status]
-        data_object.feed.post(curation_comment, :feed_item_type_id => FeedItemType.curator_comment.id, :user_id => user.id)
+        # TODO - ActivityLog
       end
 
     end
@@ -93,7 +93,7 @@ module EOL
     def trust(user, opts = {})
       update_attributes({:vetted_id => Vetted.trusted.id})
       user.track_curator_activity(curator_activity_object(opts[:changeable_object_type]), opts[:changeable_object_type], 'trusted', :comment => opts[:comment], :taxon_concept_id => opts[:taxon_concept_id])
-      #data_object.feed.post(I18n.t("dato_trusted_note", :username => user.username, :type => data_object.data_type.simple_type), :feed_item_type_id => FeedItemType.curator_activity.id, :user_id => user.id)
+      # TODO - ActivityLog
     end
 
     def untrust(user, opts = {})
@@ -112,25 +112,25 @@ module EOL
       end
       # TODO: This adds untrusted reasons comment as a feeditem to the data object, but it should be added to the associations.
       unless untrust_reason_ids.blank?
-        data_object.feed.post(untrust_reasons_comment, :feed_item_type_id => FeedItemType.curator_comment.id, :user_id => user.id)
+        # TODO - ActivityLog
       end
       user.track_curator_activity(curator_activity_object(opts[:changeable_object_type]), opts[:changeable_object_type], 'untrusted', :comment => opts[:comment], :untrust_reasons => these_untrust_reasons, :taxon_concept_id => opts[:taxon_concept_id])
       #note = I18n.t("dato_untrusted_note", :username => user.username, :type => data_object.data_type.simple_type)
       #note += "  #{untrust_reasons_comment}" unless untrust_reasons_comment.blank?
-      #data_object.feed.post(note, :feed_item_type_id => FeedItemType.curator_activity.id, :user_id => user.id)
+      # TODO - ActivityLog
     end
 
     def unreviewed(user, opts = {})
       update_attributes({ :vetted_id => Vetted.unknown.id })
       user.track_curator_activity(curator_activity_object(opts[:changeable_object_type]), opts[:changeable_object_type], 'unreviewed', :comment => opts[:comment], :taxon_concept_id => opts[:taxon_concept_id])
-      #data_object.feed.post(I18n.t("dato_unreviewed_note", :username => user.username, :type => data_object.data_type.simple_type), :feed_item_type_id => FeedItemType.curator_activity.id, :user_id => user.id)
+      # TODO - ActivityLog
     end
 
     def set_visibility(user, visibility_id, verb, note, changeable_object_type)
       vetted_by = user
       update_attributes({ :visibility_id => visibility_id })
       user.track_curator_activity(curator_activity_object(changeable_object_type), changeable_object_type, verb)
-      #data_object.feed.post(note, :feed_item_type_id => FeedItemType.curator_activity.id, :user_id => user.id)
+      # TODO - ActivityLog
     end
 
     def curator_activity_object(changeable_object_type)

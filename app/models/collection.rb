@@ -27,7 +27,7 @@ class Collection < ActiveRecord::Base
     if user_id
       return user.id == user_id # Owned by this user?
     else
-      return user.member_of(community).can?(Privilege.edit_community)
+      return user.member_of(community).can?(Privilege.edit_collections)
     end
   end
 
@@ -57,7 +57,7 @@ class Collection < ActiveRecord::Base
       raise EOL::Exceptions::InvalidCollectionItemType.new("I cannot create a collection item from a #{what.class.name}")
     end
     if is_focus_list?
-      community.feed.post(I18n.t("community_watching_this_note", :name => name), :feed_item_type_id => FeedItemType.content_update.id, :subject_id => what.id, :subject_type => what.class.name)
+      # TODO - ActivityLog
     end
     what # Convenience.  Allows us to chain this command and continue using the object passed in.
   end
@@ -81,6 +81,41 @@ class Collection < ActiveRecord::Base
     collection_items.collect{|ci| ci if ci.object_type == 'TaxonConcept'}
   end
 
+  def filter_type(type)    
+    #needs this to properly assign values from collection_items.object_type
+    if type == 'taxa'
+      type = 'TaxonConcept' 
+    elsif type == 'communities'
+      type = 'Community'
+    elsif type == 'people'
+      type = 'User'
+    elsif type == 'collections'
+      type = 'Collection'
+    end
+    
+    data_type_ids = nil
+    if type == "images"
+      data_type_ids = DataType.image_type_ids
+    elsif type == "videos"
+      data_type_ids = DataType.video_type_ids
+    elsif type == "sounds"
+      data_type_ids = DataType.sound_type_ids
+    elsif type == "articles"
+      data_type_ids = DataType.text_type_ids
+    end
+
+    if data_type_ids
+      collection_items.collect{|ci| ci if (ci.object_type == 'DataObject') && (data_type_ids.include? ci.object.data_type_id)}
+    else
+      collection_items.collect{|ci| ci if ci.object_type == type}
+    end
+  end 
+
+  def maintained_by
+    return user.full_name if !user_id.blank?
+    return community.name if !community_id.blank?
+  end
+  
   def pending_communities
     collection_endorsements.select {|c| c.pending? }.map {|c| c.community }
   end

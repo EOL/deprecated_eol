@@ -311,10 +311,10 @@ describe DataObject do
   # TODO - we need to find a proper solution for the data object index in Solr.
   it 'should update the Solr record when the object is curated'
 
-  it 'should have a feed' do
+  it 'should have an activity_log' do
     dato = DataObject.gen
-    dato.respond_to?(:feed).should be_true
-    dato.feed.should be_a EOL::Feed
+    dato.respond_to?(:activity_log).should be_true
+    dato.activity_log.should be_a EOL::ActivityLog
   end
 
   it 'should add an entry in curated_data_objects_hierarchy_entries when a curator adds an association' do

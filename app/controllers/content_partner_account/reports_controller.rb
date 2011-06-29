@@ -107,7 +107,7 @@ class ContentPartnerAccount::ReportsController < ContentPartnerAccountController
   def taxa_comments_report
     @page_header = I18n.t("usage_reports")
     content_partner   = ContentPartner.find_by_user_id(current_user.id)
-    @curator_logs    = content_partner.taxa_comments_curator_activity_log.paginate(:page => params[:page] || 1, :per_page => params[:per_page] || "25")
+    @comments    = content_partner.taxa_comments.paginate(:page => params[:page] || 1, :per_page => params[:per_page] || "25")
     @sub_page_header  = 'Comments on Taxa'
     @report_type      = :taxa_comments_report
   end

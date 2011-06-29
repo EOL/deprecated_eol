@@ -7,7 +7,7 @@ require 'erb'
 class DataObject < SpeciesSchemaModel
 
   include ModelQueryHelper
-  include EOL::Feedable
+  include EOL::ActivityLoggable
 
   belongs_to :data_type
   belongs_to :data_subtype, :class_name => DataType.to_s, :foreign_key => :data_subtype_id
@@ -418,7 +418,7 @@ class DataObject < SpeciesSchemaModel
     end
 
     self.data_rating = (other_ratings.inject(0) { |sum, r| sum + r.rating } + new_rating).to_f / (other_ratings.size + 1)
-    feed.post(I18n.t("dato_rating_note", :username => user.username, :rating => new_rating), :feed_item_type_id => FeedItemType.curator_activity.id, :user_id => user.id)
+    # TODO - ActivityLog
     self.save!
   end
 

@@ -19,4 +19,5 @@
         = link_to Collection.last.name, collection_url(Collection.last)
 
 #community.main_container
-  = render :partial => 'feed_items/index', :locals => { :feed => @community.feed, :form_position => :before_header, :header => I18n.t(:newsfeed), :header_style => 'heading', :allow_filter => true }
+  -# TODO - Fix this to show the activity logs on communities page.
+  = render :partial => 'activity_logs/index', :locals => { :log => @community.activity_log, :form_position => :before_header, :header => I18n.t(:newsfeed), :header_style => 'heading', :allow_filter => true }

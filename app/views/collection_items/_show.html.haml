@@ -10,4 +10,9 @@
   = collection_item_detail(collection_item)
   - # FIXME: REMOVE %p= collection_item_view_type_link_to(collection_item)
   - #FIXME: get proper comment
-  %p= "collection_item comment"
+  - if editable
+    - form_for collection_item do |f|
+      = f.text_area :annotation, :value => collection_item.annotation, :rows => 2, :cols => 60
+      = submit_tag I18n.t(:save_annotation_submit_button)
+  - else
+    %p= collection_item.annotation

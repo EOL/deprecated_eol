@@ -261,6 +261,7 @@ en:
   classification_preference_question: "Which default browse classification would you prefer?"
   classification_preference_advisory_information: "Select a classification from the drop down select box, the content of the site will then be organised by the classification you choose."
   classification_provided_by: "Classification provided by"
+  classifications: "Classifications"
   classifications_summary_header_with_count:
     one: "Part of %{count} approved classification"
     other: "Part of %{count} approved classifications"
@@ -1001,6 +1002,9 @@ en:
   items_with_count:
     one: "%{count} item"
     other: "%{count} items"
+  items_with_count_semi_colon:
+    one: "%{count} item;"
+    other: "%{count} items;"
   it_may_take_a_minute_for_the_r: "It may take a minute for the report to appear - please be patient."
   iucn_entry: "IUCN entry"
   iucn_red_list_status: "IUCN Red List Status"
@@ -1237,7 +1241,6 @@ en:
   no_harvesting_logs_for_this_da: "No harvesting logs for this date"
   no_images_for_this_taxon: "No images for this taxon"
   no_members_in_parens: "(no members)"
-  nomenclature: "Nomenclature"
   nominate_another_wikipedia_art: "nominate another wikipedia article for ingestion"
   none: "none"
   none_: "None"
@@ -2216,6 +2219,7 @@ en:
   was_connected_to: "was connected to"
   was_not_updated: "was not updated."
   was_successfully_updated: "was successfully updated."
+  watch_list: "Watch list"
   we_appreciate_your_feedback: "We appreciate your feedback."
   web_page: "Web page"
   web_service_base_url: "Web service base URL"

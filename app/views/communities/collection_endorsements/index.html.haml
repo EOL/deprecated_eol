@@ -16,31 +16,29 @@
           %h4= link_to member.user.given_name, user_path(member.user.id)
           - # FIXME: This shouldn't be credentials.
           %p= member.user.credentials
-#collections.main_container
-  .section.collections
-    .heading
-      %h3= I18n.t(:community_focus)
+#collections_tab.main_container
+  .heading
+    %h3= I18n.t(:community_focus)
+  %ul.object_list
     = render :partial => 'collections/collection_summary', :locals => { :collection => @community.focus }
   - if @current_member.can?(Privilege.endorse_collections) && @pending_collections
     - if @pending_collections.empty?
-      .section
-        .heading
-          %h3= I18n.t(:pending_collections_with_count, :count => 0)
+      .heading
+        %h3= I18n.t(:pending_collections_with_count, :count => 0)
     - else
-      .section.collections
-        .heading
-          %h3= I18n.t(:pending_collections_with_count, :count => @pending_collections.size)
-          = render :partial => 'shared/sort_by_date_form'
-        - @pending_collections.each do |collection|
-          = render :partial => 'collections/collection_summary', :locals => { :collection => collection }
-  - if @community.endorsed_collections.empty?
-    .section
       .heading
-        %h3= I18n.t(:endorsed_collections_with_count, :count => 0)
-  - else
-    .section.collections
-      .heading
-        %h3= I18n.t(:endorsed_collections_with_count, :count => @community.endorsed_collections.size)
+        %h3= I18n.t(:pending_collections_with_count, :count => @pending_collections.size)
         = render :partial => 'shared/sort_by_date_form'
+      %ul.object_list
+        - @pending_collections.each do |collection|
+          = render :partial => 'collections/collection_summary', :locals => { :collection => collection, :show_description => true }
+  - if @community.endorsed_collections.empty?
+    .heading
+      %h3= I18n.t(:endorsed_collections_with_count, :count => 0)
+  - else
+    .heading
+      %h3= I18n.t(:endorsed_collections_with_count, :count => @community.endorsed_collections.size)
+      = render :partial => 'shared/sort_by_date_form'
+    %ul.object_list
       - @community.endorsed_collections.each do |collection|
-        = render :partial => 'collections/collection_summary', :locals => { :collection => collection }
+        = render :partial => 'collections/collection_summary', :locals => { :collection => collection, :show_description => true }

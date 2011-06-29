@@ -68,12 +68,14 @@
         <field name="resource_unique_key" type="string" indexed="true" stored="true" required="true"/>
         <field name="keyword_type" type="string" indexed="true" stored="true" required="true"/>
         <field name="keyword" type="text" indexed="true" stored="true" required="true" multiValued="true"/>
-        <field name="keyword_exact" type="textExact" indexed="true" stored="true" required="true" multiValued="true"/>
+        <field name="keyword_exact" type="textExact" indexed="true" stored="false" required="true" multiValued="true"/>
         <copyField source="keyword" dest="keyword_exact"/>
-        <field name="autocomplete" type="textSpell" indexed="true" stored="true" required="false" multiValued="true" />
+        <field name="autocomplete" type="textSpell" indexed="true" stored="false" required="false" multiValued="true" />
         <copyField source="keyword" dest="autocomplete"/>
         <field name="full_text" type="boolean" indexed="true" stored="true" required="false"/>
         <field name="language" type="string" indexed="true" stored="true" required="true"/>
+        <field name="ancestor_taxon_concept_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="richness_score" type="float" indexed="true" stored="true" required="false"/>
         <field name="date_created" type="string" indexed="true" stored="true" required="false"/>
         <field name="date_modified" type="string" indexed="true" stored="true" required="true"/>
     </fields>

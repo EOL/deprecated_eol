@@ -1244,7 +1244,7 @@ class TaxonConcept < SpeciesSchemaModel
     end
     keywords = keywords.compact.uniq
     unless keywords.empty?
-      return { :keyword_type => 'Scientific Name', :keywords => keywords }
+      return { :keyword_type => 'Scientific Name', :keywords => keywords, :ancestor_taxon_concept_id => flattened_ancestors.map {|a| a.ancestor_id } }
     end
   end
   
@@ -1262,7 +1262,7 @@ class TaxonConcept < SpeciesSchemaModel
     common_names_by_language.each do |language, names|
       names = names.compact.uniq
       unless names.empty?
-        keywords <<  { :keyword_type => 'Common Name', :keywords => names, :language => language }
+        keywords <<  { :keyword_type => 'Common Name', :keywords => names, :language => language, :ancestor_taxon_concept_id => flattened_ancestors.map {|a| a.ancestor_id } }
       end
     end
     return keywords

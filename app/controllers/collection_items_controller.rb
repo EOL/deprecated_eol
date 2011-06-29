@@ -52,9 +52,7 @@ class CollectionItemsController < ApplicationController
 
     store_location(data[:return_to])
 
-    @collection_item = CollectionItem.new(:object_type => data[:object_type],
-                                          :object_id => data[:object_id],
-                                          :collection_id => data[:collection_id] )
+    @collection_item = CollectionItem.new(data[:collection_item])
 
     @collection_item.collection ||= current_user.watch_collection unless current_user.blank?
 

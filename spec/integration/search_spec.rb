@@ -38,7 +38,7 @@ describe 'Search' do
       @dog_sci_name             = data[:dog_sci_name]
       @wolf_name                = data[:wolf_name]
       @tricky_search_suggestion = data[:tricky_search_suggestion]
-      
+
       Capybara.reset_sessions!
       visit('/logout')
       visit('/content_partner/logout')
@@ -49,7 +49,7 @@ describe 'Search' do
       TaxonConcept.all.each do |tc|
         tc.save
       end
-      
+
       visit("/search?q=#{@tiger_name}")
       @tiger_search = body
     end

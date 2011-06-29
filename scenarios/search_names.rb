@@ -12,46 +12,54 @@ Community.special # Raises an exception if it's missing.  If that happens to you
 
 results = {}
 
-results[:panda_name] = 'panda'
-results[:panda]      = build_taxon_concept(:common_names => [results[:panda_name]])
+results[:name_for_all_types] = 'panda' # every item type should have a panda entry
+results[:name_for_multiple_species] = 'tigger' # used for multiple taxa
+results[:unique_taxon_name] = 'trigger' # the unique taxon name
+results[:text_description] = 'Panda bears are furry'
+results[:image_description] = 'Look at this crazy image of a panda'
+results[:video_description] = 'Look at this crazy video of a panda'
+results[:sound_description] = 'Listen to this crazy sound of a panda'
+results[:panda] = build_taxon_concept(
+  :common_names => [results[:name_for_all_types], results[:name_for_multiple_species], results[:unique_taxon_name]],
+  :toc          => [{:toc_item => TocItem.overview, :description => results[:text_description]}],
+  :images       => [{:description => results[:image_description]}],
+  :youtube      => [{:description => results[:video_description]}],
+  :sounds       => [{:description => results[:sound_description]}])
+results[:panda].data_objects.each do |d|
+  d.updated_at = Time.now
+  d.save
+  sleep(1) # this sleep and others in this file are to make sure we can reliably sort on date later
+end
+
+
 results[:tiger_name] = 'Tiger'
-results[:tiger]      = build_taxon_concept(:common_names => [results[:tiger_name]], :vetted => 'untrusted')
+results[:tiger_tigger_name] = 'Tigger'
+results[:tiger]      = build_taxon_concept(:common_names => [results[:tiger_name], results[:tiger_tigger_name]], :vetted => 'untrusted')
 results[:tiger_lilly_name] = "#{results[:tiger_name]} lilly"
 results[:tiger_lilly]      = build_taxon_concept(:common_names => [results[:tiger_lilly_name], 'Panther tigris'],
                                                  :vetted => 'unknown')
 results[:tiger_moth_name] = "#{results[:tiger_name]} moth"
 results[:tiger_moth]      = build_taxon_concept(:common_names => [results[:tiger_moth_name], 'Panther moth'])
-results[:plantain_name]   = 'Plantago major'
-results[:plantain_common] = 'Plantain'
-results[:plantain_synonym]= 'Synonymous toplantagius'
-results[:plantain] = build_taxon_concept(:scientific_name => results[:plantain_name],
-                                         :common_names => [results[:plantain_common]])
-results[:plantain].add_scientific_name_synonym(results[:plantain_synonym])
 
-another = build_taxon_concept(:scientific_name => "#{results[:plantain_name]} L.",
-                              :common_names => ["big #{results[:plantain_common]}"])
-another.add_scientific_name_synonym(results[:plantain_synonym]) # I'm only doing this so we get two results and not redirected.
-SearchSuggestion.gen(:taxon_id => results[:plantain].id, :term => results[:plantain_name])
-
-results[:dog_name]      = 'Dog'
-results[:domestic_name] = "Domestic #{results[:dog_name]}"
-results[:dog_sci_name]  = 'Canis lupus familiaris'
-results[:wolf_name]     = 'Wolf'
-results[:wolf_sci_name] = 'Canis lupus'
-results[:wolf] = build_taxon_concept(:scientific_name => results[:wolf_sci_name], :common_names => [results[:wolf_name]])
-results[:dog]  = build_taxon_concept(:scientific_name => results[:dog_sci_name], :common_names => [results[:domestic_name]],
-                                     :parent_hierarchy_entry_id => results[:wolf].hierarchy_entries.first.id)
-
-SearchSuggestion.gen(:taxon_id => results[:dog].id, :term => results[:dog_name])
-SearchSuggestion.gen(:taxon_id => results[:wolf].id, :term => results[:dog_name])
-
+# we want to be able to search on Bacteria and get something back with a totally different name on it
 results[:tricky_search_suggestion] = 'Bacteria'
-results[:bacteria_common] = results[:tricky_search_suggestion]
-results[:bacteria] = build_taxon_concept(:scientific_name => results[:tricky_search_suggestion],
-                                         :common_names => [results[:bacteria_common]])
-SearchSuggestion.gen(:taxon_id => results[:bacteria].id, :term => results[:tricky_search_suggestion])
+results[:suggested_taxon_name] = 'Something totally different'
+results[:suggested_taxon] = build_taxon_concept(:scientific_name => results[:suggested_taxon_name],
+                                         :common_names => [results[:suggested_taxon_name]])
+SearchSuggestion.gen(:taxon_id => results[:suggested_taxon].id, :term => results[:tricky_search_suggestion])
 
-# I'm only doing this so we get two results and not redirected.
-build_taxon_concept(:scientific_name => results[:tricky_search_suggestion])
+# I'm only doing this so we get two results for Bacteria and not redirected.
+results[:collection] = Collection.gen(:name => 'Bacteria parade')
+
+results[:user1] = User.gen(:username => 'username1', :given_name => 'Username1', :family_name => 'lastname1')
+results[:user2] = User.gen(:username => 'username2', :given_name => 'Panda', :family_name => 'lastname2')
+sleep(1)
+results[:collection] = Collection.gen(:name => 'Panda parade')
+sleep(1)
+results[:community] = Community.gen(:name => 'Panda bears of Woods Hole Community', :description => 'we are panda bears, and we live in Woods Hole')
+# I don't want this collection name as I only want one entry for Panda in all filter categories
+c = results[:community].collection
+c.name = "Focus list for this test community"
+c.save
 
 EOL::TestInfo.save('search_names', results)

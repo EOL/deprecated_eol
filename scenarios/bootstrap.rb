@@ -589,7 +589,6 @@ TaxonConcept.all.each do |tc|
   if tc.hierarchy_entries.empty?
     TaxonConcept.delete(tc.id)
   end
-  tc.save # This will save the record, thus indexing the concept with all its names
 end
 
 RandomHierarchyImage.delete_all
@@ -605,6 +604,10 @@ ContentTable.create_details
 make_all_nested_sets
 rebuild_collection_type_nested_set
 flatten_hierarchies
+
+TaxonConcept.all.each do |tc|
+  tc.save # This will save the record, thus indexing the concept with all its names
+end
 
 DataObject.find(:all).each_with_index do |d,i|
   d.created_at = Time.now - i.hours

@@ -65,13 +65,11 @@ describe 'Index With Solr' do
     
     term_result = docs.detect{ |h| h['keyword_type'] == 'term' }
     term_result['keyword'].should == [term]
-    term_result['keyword_exact'].should == [term]
     term_result['resource_id'].should == gt.id
     term_result['language'].should == Language.english.iso_code
     
     definition_result = docs.detect{ |h| h['keyword_type'] == 'definition' }
     definition_result['keyword'].should == [definition]
-    definition_result['keyword_exact'].should == [definition]
     definition_result['resource_id'].should == gt.id
     definition_result['language'].should == Language.english.iso_code
   end
@@ -124,7 +122,6 @@ describe 'Index With Solr' do
     
     new_method_result = docs.detect{ |h| h['keyword_type'] == 'some_new_method' }
     new_method_result['keyword'].should == [term + " :: " + definition]
-    new_method_result['keyword_exact'].should == [term + " :: " + definition]
     new_method_result['resource_id'].should == gt.id
     new_method_result['language'].should == Language.english.iso_code
   end

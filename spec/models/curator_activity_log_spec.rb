@@ -80,15 +80,6 @@ describe CuratorActivityLog do
       CuratorActivityLog.count.should >= @num_ah + 1 # >= because it could have created two logs.
     end
 
-    it 'should log curator activity when one creates, hides, or shows a comment' do
-      @dato_image.comment(@user, "My test text")
-      CuratorActivityLog.count.should >= (@num_ah += 1)
-      comment = @dato_image.comment(@user, "My test comment")
-      CuratorActivityLog.count.should >= (@num_ah += 1)
-      comment = @dato_image.comment(@user, "My test comment")
-      CuratorActivityLog.count.should >= (@num_ah += 1)
-    end
-
   end
 
 end

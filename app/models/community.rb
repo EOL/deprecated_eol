@@ -1,6 +1,6 @@
 class Community < ActiveRecord::Base
 
-  include EOL::Feedable
+  include EOL::ActivityLoggable
 
   has_one :collection #TODO - didn't work? , :as => :focus
   alias :focus :collection
@@ -75,7 +75,7 @@ class Community < ActiveRecord::Base
   def add_member(user)
     member = Member.create!(:user_id => user.id, :community_id => id)
     members << member
-    feed.post(I18n.t("user_joined_community_note", :username => user.username), :feed_item_type_id => FeedItemType.content_update.id, :user_id => user.id)
+    # TODO - ActivityLog
     member
   end
 
@@ -83,7 +83,7 @@ class Community < ActiveRecord::Base
     member = Member.find_by_user_id_and_community_id(user.id, id)
     raise  I18n.t(:could_not_find_user)  unless member
     member.destroy
-    feed.post(I18n.t("user_left_community_note", :username => user.username), :feed_item_type_id => FeedItemType.content_update.id, :user_id => user.id)
+    # TODO - ActivityLog
     self.reload
   end
 

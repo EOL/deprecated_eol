@@ -97,22 +97,7 @@ describe "Communities" do
         current_path.should match /#{community_path(Community.last)}/
       end
     end
-    context 'visiting show community with feeds' do
-      before(:all) { visit community_path(@test_data[:community]) }
-      it 'should show feed items' do
-        body.should have_tag('#feed_items') do
-          with_tag('.details', :text => /#{@test_data[:feed_body_1]}/)
-          with_tag('.details', :text => /#{@test_data[:feed_body_2]}/)
-          with_tag('.details', :text => /#{@test_data[:feed_body_3]}/)
-        end
-      end
-    end
-    context 'visiting show community with empty feed' do
-      before(:all) { visit community_path(@test_data[:empty_community]) }
-      it 'should show empty feed message' do
-        body.should have_tag('#feed_items', :text => /no activity/i)
-      end
-    end
+    # TODO - ActivityLog
   end
 
   shared_examples_for 'community member' do

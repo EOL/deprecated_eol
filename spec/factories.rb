@@ -306,13 +306,6 @@ Factory.sequence(:int    ){|n| n }
 Factory.define :activity do |a|
 end
 
-Factory.define :activity_log do |al|
-  al.association :taxon_concept
-  al.association :activity
-  al.association :user
-  al.value { Factory.next(:string) }
-  al.created_at { 12.hours.ago }
-end
 Factory.define :agent do |agent|
   agent.created_at      { 5.days.ago }
   agent.homepage        ''
@@ -372,6 +365,13 @@ Factory.define :collection do |l|
   l.association           :user
 end
 
+Factory.define :collection_activity_log do |cal|
+  cal.association :user
+  cal.association :collection
+  cal.activity    { Activity.create }
+  cal.created_at  { 5.days.ago }
+end
+
 Factory.define :collection_type do |ct|
   ct.parent_id  0
   ct.lft        0
@@ -397,6 +397,13 @@ Factory.define :community do |c|
   c.name        { Faker::Lorem.words.join(' ').titleize }
   c.description { Faker::Lorem.paragraph }
   c.show_special_privileges false
+end
+
+Factory.define :community_activity_log do |cal|
+  cal.association :user
+  cal.association :community
+  cal.activity    { Activity.create }
+  cal.created_at  { 5.days.ago }
 end
 
 Factory.define :contact do |c|
@@ -1126,6 +1133,14 @@ Factory.define :user do |u|
   u.curator_scope             ''
   u.password_reset_token      nil
   u.password_reset_token_expires_at  nil
+end
+
+Factory.define :user_activity_log do |al|
+  al.association :taxon_concept
+  al.association :activity
+  al.association :user
+  al.value { Factory.next(:string) }
+  al.created_at { 12.hours.ago }
 end
 
 Factory.define :users_data_object do |u|

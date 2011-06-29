@@ -7,9 +7,9 @@
     %p= collection_item_view_type_link_to(collection_item)
   %span.icon= I18n.t(:collection_item_type_with_label, :type => type)
   %br
-  - form_tag({:controller => :collection_items, :action => :update, :id => collection_item.id}, :method => :put) do
+  - form_for collection_item do |f|
     - if editable
-      = text_area_tag "annotation_#{collection_item.id}", collection_item.annotation, :rows => 2, :cols => 60
+      = f.text_area :annotation, :value => collection_item.annotation, :rows => 2, :cols => 60
     - else
       - # annotation for the collection... change the comment class to annotation class whenever available
       .comment

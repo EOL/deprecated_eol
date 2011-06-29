@@ -7,10 +7,10 @@
           -#FIXME: Change this to collection image - can we get decent alt text for this, otherwise leave blank image doesn't convey anthing useful.
           = image_tag @collection.logo_url, :alt => ""
           %h1= h @collection.name
-          - form_tag({:controller => :collections, :action => :update, :id => @collection.id}, :method => :put) do
+          - form_for @collection do |f|
             - editable = @collection.editable_by? current_user
             - if editable
-              = text_area_tag "description", @collection.description, :rows => 2, :cols => 80
+              = f.text_area :description, :value => @collection.description, :rows => 2, :cols => 80
             - else
               %p= @collection.description
             = submit_tag I18n.t(:save_collection_description_submit_button) if editable

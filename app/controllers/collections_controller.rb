@@ -66,10 +66,10 @@ class CollectionsController < ApplicationController
 
   def update
     @collection = Collection.find(params[:id])
-    redirect_path = request.env['HTTP_REFERER'] ? :back : collections_url
-    debugger
+    session[:return_to] ||= request.referer
+    redirect_path = session[:return_to].nil? ? collections_url : session[:return_to]
     respond_to do |format|
-      if @collection.update_attribute(:description, params[:description])
+      if @collection.update_attributes(params[:collection])
         format.html { redirect_to(redirect_path, :notice => 'Collection was successfully updated.') }
         format.xml  { head :ok }
       else

@@ -32,6 +32,8 @@ ActionController::Routing::Routes.draw do |map|
                :controller => 'collections',
                :action     => 'show'
 
+  map.resources :collection_items
+
   # Web Application
   map.resources :harvest_events, :has_many => [:taxa]
   map.resources :resources, :as => 'content_partner/resources', :has_many => [:harvest_events]

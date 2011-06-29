@@ -23,14 +23,14 @@ module CollectionItemsHelper
     when 'DataObject'
       if item.object.image?
         link_to I18n.t(:view_image_link), data_object_path(item.object)
-      elsif item.object.video?   
+      elsif item.object.video?
         link_to I18n.t(:view_video_link), data_object_path(item.object)
-      elsif item.object.sound?   
+      elsif item.object.sound?
         link_to I18n.t(:listen_audio_link), data_object_path(item.object)
       elsif item.object.text?
         link_to I18n.t(:read_article_link), data_object_path(item.object)
       end
-      # TODO: Confirm - not in HR mockup: 
+      # TODO: Confirm - not in HR mockup:
       # TODO: Confirm - not in HR mockup: link_to I18n.t(:view_details_link), data_object_path(item.object)
     when 'Community'
       link_to I18n.t(:view_community_link), community_path(item.object), :title => strip_tags(item.name)
@@ -57,7 +57,8 @@ module CollectionItemsHelper
     end
   end
 
-  def collection_item_icon(item)
+  def collection_item_icon(item, opts)
+    # FIXME if opts[:link] is true add a link_to to the image
     case item.object_type
     when 'TaxonConcept'
       if thumb = item.object.smart_medium_thumb

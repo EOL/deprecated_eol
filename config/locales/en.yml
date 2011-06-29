@@ -284,10 +284,18 @@ en:
   close_this_window_to_return_to: "CLOSE THIS WINDOW TO RETURN TO EDIT WINDOW"
   clouds_provided_by_the_mbl: "Clouds provided by the MBL %{link}."
   collected_by: "Collected by"
+  collect_items: "Collect items"
   collected_items_with_count:
     one: "%{count} collected item"
     other: "%{count} collected items"
-  collection_item_type_with_label: "Type: %{type}"
+  collection_item_type_article_assistive: "This collected item is an article"
+  collection_item_type_audio_assistive: "This collected item is a sound"
+  collection_item_type_collection_assistive: "This collected item is a collection"
+  collection_item_type_community_assistive: "This collected item is a community"
+  collection_item_type_image_assistive: "This collected item is an image"
+  collection_item_type_person_assistive: "This collected item is a person"
+  collection_item_type_taxon_assistive: "This collected item is a taxon"
+  collection_item_type_video_assistive: "This collected item is a video"
   collections: "Collections"
   collections_index_header: "Collections"
   collections_summary_header_with_count:
@@ -425,6 +433,7 @@ en:
   contribute_to_page_button: "Contribute to this page"
   contributors_like_you: "Contributors like you"
   copy_and_paste_in_email_or_document: "Copy and paste in email or document"
+  copy_selected_button: "Copy selected"
   copyright: "COPYRIGHT:"
   correct_donation_message: "If this information is not correct, please %{var_go_back} to make changes"
   could_not_find_user: "Couldn't find a member for this user"
@@ -666,6 +675,7 @@ en:
   _encyclopedia_of_life: "-Encyclopedia of Life"
   encyclopedia_of_life: "Encyclopedia of Life"
   end_quote: '"'
+  endorsed_by: "Endorsed by"
   endorsed_collections: "Endorsed collections"
   endorsed_collections_with_count:
     one: "%{count} Endorsed collection"
@@ -1116,6 +1126,7 @@ en:
   manage_resources: "MANAGE RESOURCES"
   manage_roles: "Manage roles"
   manage_your_profile: "Manage Your Profile"
+  managed_by: "Managed by"
   maps_with_count:
     one: "%{count} Map"
     other: "%{count} Maps"
@@ -1638,6 +1649,7 @@ en:
   select_a_tool_and_click__go__: "Select a tool and click 'Go':"
   __select_page_to_work_with__: "--select page to work with--"
   select_: "Select:"
+  select_all_button: "Select all"
   select_topic: "Please select a topic area"
   select_video: "Select a video to the right to begin playback."
   selected_language_advisory_information: "This is the currently selected language."

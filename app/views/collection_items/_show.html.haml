@@ -1,15 +1,13 @@
-- type = collection_item_get_type(collection_item)
-%div{:class => "collection #{type}"}
-  = collection_item_icon(collection_item)
-  .details
-    %h3= collection_item.name
-    %p= collection_item_detail(collection_item)
-    %p= collection_item_view_type_link_to(collection_item)
-  %span.icon= I18n.t(:collection_item_type_with_label, :type => type)
-  .comment
-    - #FIXME: get proper comment
-    %p= "collection_item comment"
-  %p.meta
-    - date = format_date(collection_item.created_at, format = "%B %d,%Y")
-    %br
-    = I18n.t(:added_date, :date => date)
+- en_type = collection_item_get_type(collection_item)
+%li{:class => "collection #{en_type}"}
+  .checkbox
+    - #FIXME checkboxes need to be hooked up
+    = check_box_tag "collection_items[]", '', 'FIXME'
+  - # FIXME: add param to collection_item_icon to return link
+  = collection_item_icon(collection_item, :link => true)
+  %span.icon{:title => I18n.t("collection_item_type_#{en_type}_assitive")}
+  - #FIXME: depending on collection item type these need to change - a partial for each cllection item might be better than helpers here
+  = collection_item_detail(collection_item)
+  - # FIXME: REMOVE %p= collection_item_view_type_link_to(collection_item)
+  - #FIXME: get proper comment
+  %p= "collection_item comment"

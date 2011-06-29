@@ -4,11 +4,10 @@
 - en_type ||= @data_object.data_type.label('en').downcase.strip
 - en_type = 'video' if DataType.video_type_ids.include?(@data_object.data_type.id)
 - en_mime_type = @data_object.mime_type.label('en')
-- copy = @data_object.is_text? ? 'copy' : nil
-#permalink
+#permalink{:class => en_type}
   .ratings
-    = render :partial => 'rating', :locals => { :data_object => @data_object, :type => en_type }
-  .media{:class => copy}
+    = render :partial => 'rating', :locals => { :data_object => @data_object, :en_type => en_type }
+  %div{:class => @data_object.is_text? ? 'article copy' : 'media'}
     - if @data_object.is_text? && ! @data_object.object_title.blank?
       %h2= @data_object.object_title
     = render :partial => "data_objects/data_object_#{en_type}"

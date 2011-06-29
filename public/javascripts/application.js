@@ -17,6 +17,13 @@ $(function() {
       $(this).closest("form").submit();
     });
 
+  (function($filters) {
+    $filters.find("button.select_all").show().click(function() {
+      $(".main_container").find(":checkbox").prop("checked", true);
+      return false;
+    });
+  })($(".filters"));
+
   (function($ss) {
     $ss.each(function() {
       var $gallery = $(this),

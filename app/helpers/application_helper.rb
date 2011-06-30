@@ -16,6 +16,25 @@ module ApplicationHelper
     end
   end
 
+  # need stable English type label for CSS and I18n keys
+  def en_type(object)
+    if object.class == CollectionItem
+      en_type(object.object)
+    elsif object.class == DataObject
+      return 'image' if object.is_image?
+      return 'video' if object.is_video?
+      return 'sound' if object.is_sound?
+      return 'article' if object.is_text?
+    elsif object.class == Community
+      'community'
+    elsif object.class == Collection
+      'collection'
+    elsif object.class == TaxonConcept
+      'taxon'
+    elsif object.class == User
+      'person'
+    end
+  end
   # A little onclick magic to make Ajaxy-links work before the page is fully loaded.  JS in the application.js file will
   # handle all the rest after the page is fully loaded (because of the class added to the link).
   # Use it like this:

@@ -1,8 +1,7 @@
 = content_for :head do
   = javascript_include_tag "permalink"
 
-- en_type ||= @data_object.data_type.label('en').downcase.strip
-- en_type = 'video' if DataType.video_type_ids.include?(@data_object.data_type.id)
+- en_type ||= en_type(@data_object)
 - en_mime_type = @data_object.mime_type.label('en')
 #permalink{:class => en_type}
   .ratings

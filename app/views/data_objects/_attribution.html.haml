@@ -1,6 +1,6 @@
 - data_object ||= @data_object
 - unless data_object.blank?
-  - en_type ||= data_object.data_type.label('en').downcase.strip
+  - en_type ||= en_type(data_object)
   - if data_object.added_by_user?
     %p
       = I18n.t(:supplier_colon)

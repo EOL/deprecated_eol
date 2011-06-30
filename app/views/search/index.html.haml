@@ -6,76 +6,15 @@
     - end_number = [ (start_number + @all_results.per_page - 1), @all_results.total_entries ].min
     %h3= I18n.t(:displaying_numerical_range, :start_number => start_number, :end_number => end_number, :total => @all_results.total_entries)
     = will_paginate(@all_results)
-  %ul
+  %ul.object_list
     - @all_results.each do |result|
-      - url = found_url(:id => result['id'])
-      - result_types = result['resource_type']
       - result_instance = result['instance']
-      - if result_types.include? 'TaxonConcept'
-        - url = taxon_concept_path(result_instance.id)
-        - en_type = 'taxon'
-        - image = result_instance.smart_thumb
-        - classification_string = result_instance.entry.classification_for_search
-        - classification = classification_string.nil? ? '&nbsp;' : classification_string
-        - primary_title = result_instance.title
-        - secondary_title = result_instance.subtitle
-      - elsif result_types.include? 'User'
-        - url = user_path(result_instance.id)
-        - image = result_instance.logo_url
-        - en_type = 'person'
-        - primary_title = result_instance.full_name
-        - secondary_title = result_instance.username
-      - elsif result_types.include? 'Community'
-        - url = community_path(result_instance.id)
-        - image = result_instance.logo_url
-        - en_type = 'community'
-        - primary_title = result_instance.name
-        - secondary_title = I18n.t(:members_with_count, :count => result_instance.members.size) + ' ' + I18n.t(:and) + ' '
-        - secondary_title += I18n.t(:collections_lowercase_with_count, :count => result_instance.collections.size)
-      - elsif result_types.include? 'Collection'
-        - url = collection_path(result_instance.id)
-        - image = result_instance.logo_url
-        - en_type = 'collection'
-        - primary_title = result_instance.name
-        - secondary_title = I18n.t(:total_items_with_count, :count => result_instance.collection_items.size)
-      - elsif result_types.include? 'Image'
-        - url = data_object_path(result_instance.id)
-        - image = result_instance.smart_thumb
-        - en_type = 'image'
-        - primary_title = result_instance.object_title.blank? ? result_instance.data_type.label.firstcap : result_instance.object_title
-        - secondary_title = I18n.t(:image_of) + ' ' + result_instance.first_concept_name
-        - if result_instance.published_entries.length > 1
-          - secondary_title += ' ' + I18n.t(:and) + ' ' + I18n.t(:other_taxa_with_count, :count => result_instance.published_entries.length - 1)
-      - elsif result_types.include? 'Text'
-        - url = data_object_path(result_instance.id)
-        - en_type = 'text'
-        - primary_title = result_instance.object_title.blank? ? result_instance.data_type.label.firstcap : result_instance.object_title
-        - secondary_title = I18n.t(:description_of) + ' ' + result_instance.first_concept_name
-        - if result_instance.published_entries.length > 1
-          - secondary_title += ' ' + I18n.t(:and) + ' ' + I18n.t(:other_taxa_with_count, :count => result_instance.published_entries.length - 1)
-      - elsif result_types.include? 'Video'
-        - url = data_object_path(result_instance.id)
-        - en_type = 'video'
-        - primary_title = result_instance.object_title.blank? ? result_instance.data_type.label.firstcap : result_instance.object_title
-        - secondary_title = I18n.t(:video_of) + ' ' + result_instance.first_concept_name
-        - if result_instance.published_entries.length > 1
-          - secondary_title += ' ' + I18n.t(:and) + ' ' + I18n.t(:other_taxa_with_count, :count => result_instance.published_entries.length - 1)
-      - elsif result_types.include? 'Sound'
-        - url = data_object_path(result_instance.id)
-        - en_type = 'sound'
-        - primary_title = result_instance.object_title.blank? ? result_instance.data_type.label.firstcap : result_instance.object_title
-        - secondary_title = I18n.t(:audio_of) + ' ' + result_instance.first_concept_name
-        - if result_instance.published_entries.length > 1
-          - secondary_title += ' ' + I18n.t(:and) + ' ' + I18n.t(:other_taxa_with_count, :count => result_instance.published_entries.length - 1)
-
+      - en_type = en_type(result_instance)
       %li{:class => en_type}
-        - unless image.nil?
-          = link_to image_tag(image, :alt => ''), url
-        %span.icon
-        - if classification
-          %small= classification
-        %h4= link_to primary_title, url
-        = secondary_title
+        - if ['image', 'video', 'sound'].include?(en_type)
+          = render :partial => "shared/item_summary_media.html.haml", :locals => {:item => result_instance, :en_type => en_type}
+        - else
+          = render :partial => "shared/item_summary_#{en_type}.html.haml", :locals => {:item => result_instance}
   .header
     %h3= I18n.t(:displaying_numerical_range, :start_number => start_number, :end_number => end_number, :total => @all_results.total_entries)
     = will_paginate(@all_results)

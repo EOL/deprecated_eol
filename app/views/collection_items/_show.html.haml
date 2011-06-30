@@ -1,15 +1,12 @@
-- en_type = collection_item_get_type(collection_item)
+- en_type = en_type(collection_item)
 %li{:class => "collection #{en_type}"}
   .checkbox
     - #FIXME checkboxes need to be hooked up
     = check_box_tag "collection_items[]", '', 'FIXME'
-  - # FIXME: add param to collection_item_icon to return link
-  = collection_item_icon(collection_item, :link => true)
-  %span.icon{:title => I18n.t("collection_item_type_#{en_type}_assitive")}
-  - #FIXME: depending on collection item type these need to change - a partial for each cllection item might be better than helpers here
-  = collection_item_detail(collection_item)
-  - # FIXME: REMOVE %p= collection_item_view_type_link_to(collection_item)
-  - #FIXME: get proper comment
+  - if ['image', 'video', 'sound'].include?(en_type)
+    = render :partial => "shared/item_summary_media.html.haml", :locals => {:item => collection_item.object, :en_type => en_type}
+  - else
+    = render :partial => "shared/item_summary_#{en_type}.html.haml", :locals => {:item => collection_item.object}
   - if editable
     - form_for collection_item do |f|
       = f.text_area :annotation, :value => collection_item.annotation, :rows => 2, :cols => 60

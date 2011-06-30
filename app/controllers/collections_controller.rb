@@ -22,11 +22,15 @@ class CollectionsController < ApplicationController
 
   def show
     @collection = Collection.find(params[:id])
-    if params[:filter]
-      @collection_items = @collection.filter_type(params[:filter]).compact
-    else
+    @sort_by = params[:sort_by]? params[:sort_by] : 'newest'
+    @filter = params[:filter]? params[:filter] : ''
+    @select_all = params[:select_all]? params[:select_all] : false
+    if @filter.blank?
       @collection_items = @collection.collection_items
+    else
+      @collection_items = @collection.filter_type(@filter).compact
     end
+    @collection_items = CollectionItem.custom_sort(@collection_items, @sort_by)
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @collection }

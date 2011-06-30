@@ -31,12 +31,20 @@
       - attrib << ' active' if params[:filter] == t['type']
       %li{:class => attrib}= link_to I18n.t(:"#{t['link']}", :count => t['count']), "/collections/#{params[:id]}/#{t['type']}"
 #sidebar
-  .filters
-    - form_tag({}) do
-      %h4= I18n.t(:collect_items)
-      %fieldset.actions
-        %button.select_all= I18n.t(:select_all_button)
-        = submit_tag I18n.t(:copy_selected_button)
+  - if logged_in?
+    .filters
+      - form_tag({:action => 'show'}, :method => 'GET') do
+        %input{:type => 'hidden', :name => 'sort_by', :value => @sort_by}
+        %input{:type => 'hidden', :name => 'filter', :value => @filter}
+        %h4= I18n.t(:collect_items)
+        %fieldset.actions
+          - if @select_all
+            %input{:type => 'submit', :name => 'un_select_all', :value => I18n.t(:un_select_all_button)}
+          - else
+            %input{:type => 'submit', :name => 'select_all', :value => I18n.t(:select_all_button)}
+          %input{:type => 'button', :name => 'copy_selected_box', :value => I18n.t(:copy_selected_button), :onClick => "javascript:document.forms['copy_selected'].submit()"}
+        
+        
   .collection_contributors
     %h3= I18n.t(:managed_by)
     %ul
@@ -55,23 +63,30 @@
         - #FIXME: guessed at methods for listing endorsed by - needs implementing properly and testing with data.
         - @collection.collection_endorsements.each do |e|
           %li
-            = link_to image_tag(e.member.user.logo_url(:small), :alt => ''), user_path(e.member.user)
-            - #TODO: Is given name required field? What happens if its nil?
-            %h4= link_to e.member.user.given_name, user_path(e.member.user.id)
-            - #FIXME users need a tag line %p= e.member.user.???
+            - if e.member_id
+              = link_to image_tag(e.member.user.logo_url(:small), :alt => ''), user_path(e.member.user)
+              %h4= link_to e.member.user.short_name, user_path(e.member.user.id)
+              - #FIXME users need a tag line %p= e.member.user.???
+            - else
+              = link_to image_tag(e.community.logo_url, :alt => ""), community_path(e.community)
+                            
             %h4= link_to e.community.name, community_path(e.community)
             %p= I18n.t(:members_with_count, :count => e.community.members.count)
 
 #collections.main_container
   .heading
     - # TODO: use the shared partial and fix css for this form
-    - # FIXME: Make sure the the controller can handle the sort params
-    - form_tag({}, :method => 'GET') do
+    - form_tag({:action => 'show'}, :method => 'GET') do
       = label_tag :sort_by, I18n.t(:sort_by_label)
-      - selected = params[:sort_by].nil? ? :newest : params[:sort_by].to_sym
-      - sort_options = { I18n.t(:sort_by_newest_option) => :newest, I18n.t(:sort_by_oldest_option) => :oldest }
-      = select_tag :sort_by, options_for_select(sort_options, selected)
+      - sort_options = { I18n.t(:sort_by_newest_option) => 'newest', I18n.t(:sort_by_oldest_option) => 'oldest' }
+      = select_tag :sort_by, options_for_select(sort_options, @sort_by)
+      %input{:type => 'hidden', :name => 'filter', :value => @filter}
       = submit_tag I18n.t(:sort_by_button)
   %ul.object_list
-    - @collection_items.each do |item|
-      = render :partial => 'collection_items/show', :locals => { :collection_item => item, :editable => editable }
+    - form_tag({:action => 'show'}, :id => 'copy_selected', :method => 'GET') do
+      %input{:type => 'hidden', :name => 'sort_by', :value => @sort_by}
+      %input{:type => 'hidden', :name => 'filter', :value => @filter}
+      - ctr = 0
+      - @collection_items.each do |item|
+        = render :partial => 'collection_items/show', :locals => { :collection_item => item, :editable => editable, :ctr => ctr }
+        - ctr = ctr + 1

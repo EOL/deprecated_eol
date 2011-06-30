@@ -72,10 +72,11 @@ class Community < ActiveRecord::Base
   end
 
   # Returns the new member.  If you are NOT adding yourself, you should pass in :added_by.
-  def add_member(user, opts => {})
+  def add_member(user, opts = {})
     member = Member.create!(:user_id => user.id, :community_id => id)
     members << member
-    CommunityActivityLog.create(:community => self, :user => opts[:added_by] || user,
+    added_by = opts[:added_by] ? opts[:added_by] : user
+    CommunityActivityLog.create(:community => self, :user => added_by,
                                 :activity => Activity.add_member, :member => member)
     member
   end

@@ -37,8 +37,6 @@ class Collection < ActiveRecord::Base
 
   def add(what, opts = {})
     name = "something"
-    opts[:user] ||= user
-    raise "No user specified" if opts[:user].nil?
     case what.class.name
     when "TaxonConcept"
       collection_items << CollectionItem.create(:object_type => "TaxonConcept", :object_id => what.id, :name => what.scientific_name)
@@ -58,8 +56,6 @@ class Collection < ActiveRecord::Base
     else
       raise EOL::Exceptions::InvalidCollectionItemType.new("I cannot create a collection item from a #{what.class.name}")
     end
-    CollectionActivityLog.create(:collection => self, :collection_item => collection_items.last,
-                                 :user => opts[:user], :activity => Activity.collect)
     what # Convenience.  Allows us to chain this command and continue using the object passed in.
   end
 

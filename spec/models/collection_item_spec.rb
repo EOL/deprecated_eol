@@ -26,4 +26,16 @@ describe CollectionItem do
     CollectionItem.last.annotation.should be_blank
   end
 
+  it 'should be able to sort collection items by newest/oldest' do
+    @collection.add(User.gen) # add a collection_item of type User
+    @collection.add(User.gen) # add another collection_item of type User
+    @collection.collection_items[0].id.should < @collection.collection_items[1].id
+
+    new_sort = CollectionItem.custom_sort(@collection.collection_items, 'newest')
+    new_sort[0].id.should > new_sort[1].id
+
+    new_sort = CollectionItem.custom_sort(new_sort, 'oldest')
+    new_sort[0].id.should < new_sort[1].id
+  end
+
 end

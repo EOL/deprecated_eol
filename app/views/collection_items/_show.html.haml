@@ -1,8 +1,8 @@
 - en_type = en_type(collection_item)
 %li{:class => "collection #{en_type}"}
-  .checkbox
-    - #FIXME checkboxes need to be hooked up
-    = check_box_tag "collection_items[]", '', 'FIXME'
+  - if logged_in?
+    .checkbox
+      = check_box_tag "collection_items[#{ctr}]", collection_item.id, @select_all
   - if ['image', 'video', 'sound'].include?(en_type)
     = render :partial => "shared/item_summary_media.html.haml", :locals => {:item => collection_item.object, :en_type => en_type}
   - else

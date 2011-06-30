@@ -989,7 +989,7 @@ en:
   italian: "Italian"
   item_added_to_collection_name: "Item was added to collection <em>%{collection_name}</em>"
   item_type_article_assistive: "This collected item is an article"
-  item_type_audio_assistive: "This collected item is a sound"
+  item_type_sound_assistive: "This collected item is a sound"
   item_type_collection_assistive: "This collected item is a collection"
   item_type_community_assistive: "This collected item is a community"
   item_type_image_assistive: "This collected item is an image"

@@ -23,7 +23,7 @@ module ApplicationHelper
     elsif object.class == DataObject
       return 'image' if object.is_image?
       return 'video' if object.is_video?
-      return 'audio' if object.is_sound?
+      return 'sound' if object.is_sound?
       return 'article' if object.is_text?
     elsif object.class == Community
       'community'

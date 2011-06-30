@@ -285,8 +285,8 @@ class HierarchyEntry < SpeciesSchemaModel
     return name.string if preferred_in_language.blank?
     preferred_in_language[0].name.string.firstcap
   end
-  
-  def classification_for_search
+
+  def preferred_classification_summary
     return 'Root' if flattened_ancestors.blank?
     sorted_ancestors = flattened_ancestors.sort{ |a,b| a.ancestor.lft <=> b.ancestor.lft }
     root_ancestor = sorted_ancestors.first.ancestor
@@ -295,7 +295,7 @@ class HierarchyEntry < SpeciesSchemaModel
       immediate_parent = sorted_ancestors.pop.ancestor
     end
     immediate_parent = nil if immediate_parent == root_ancestor
-    
+
     str_to_return = root_ancestor.name.string
     str_to_return += " > " + immediate_parent.name.string if immediate_parent
     return str_to_return

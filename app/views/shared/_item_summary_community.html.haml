@@ -1,0 +1,5 @@
+= link_to image_tag(item.logo_url), community_path(item)
+%span.icon{:title => I18n.t(:item_type_community_assitive)}
+%h4= link_to item.name, community_path(item)
+= I18n.t(:members_with_count_semi_colon, :count => item.members.count)
+= I18n.t(:collections_with_count, :count => item.collections.count)

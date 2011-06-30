@@ -1,4 +1,4 @@
-- en_type = item.data_type.label('en').downcase
+- en_type = en_type(item)
 - if item.video?
   - default_alt_text = :video_thumbnail_alt_text
   - image = 'v2/temporary_for_mockup/video_thumb.png'

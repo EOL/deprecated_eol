@@ -1,5 +1,5 @@
 = link_to image_tag(item.logo_url), collection_path(item)
-%span.icon{:title => I18n.t(:item_type_collection_assitive)}
+%span.icon{:title => I18n.t(:item_type_collection_assistive)}
 %h4= link_to item.name, collection_path(item)
 = I18n.t(:items_with_count_semi_colon, :count => item.collection_items.count)
 - # TODO: Find out whether maintained by should stay or is accurate e.g. should it be list of managers?

@@ -3,7 +3,7 @@
   .checkbox
     - #FIXME checkboxes need to be hooked up
     = check_box_tag "collection_items[]", '', 'FIXME'
-  - if ['image', 'video', 'audio'].include?(en_type)
+  - if ['image', 'video', 'sound'].include?(en_type)
     = render :partial => "shared/item_summary_media.html.haml", :locals => {:item => collection_item.object, :en_type => en_type}
   - else
     = render :partial => "shared/item_summary_#{en_type}.html.haml", :locals => {:item => collection_item.object}

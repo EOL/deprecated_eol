@@ -11,7 +11,7 @@
       - result_instance = result['instance']
       - en_type = en_type(result_instance)
       %li{:class => en_type}
-        - if ['image', 'video', 'audio'].include?(en_type)
+        - if ['image', 'video', 'sound'].include?(en_type)
           = render :partial => "shared/item_summary_media.html.haml", :locals => {:item => result_instance, :en_type => en_type}
         - else
           = render :partial => "shared/item_summary_#{en_type}.html.haml", :locals => {:item => result_instance}

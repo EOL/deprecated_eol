@@ -93,7 +93,7 @@ class CollectionsController < ApplicationController
   def collect
     @collection = current_user.inbox_collection
     object = find_collectable_item(params['type'], params['id'])
-    @collection.add(object)
+    @collection.add(object, :user => current_user)
     respond_to do |format|
       format.html { redirect_to(@collection, :notice => I18n.t(:item_was_added_to_your_recently_collected_items) ) }
     end
@@ -103,7 +103,7 @@ class CollectionsController < ApplicationController
   def watch
     @collection = current_user.watch_collection
     object = find_collectable_item(params['type'], params['id'])
-    @collection.add(object)
+    @collection.add(object, :user => current_user)
     respond_to do |format|
       format.html { redirect_to(@collection, :notice => I18n.t(:item_was_added_to_your_watched_items_collection) ) }
     end

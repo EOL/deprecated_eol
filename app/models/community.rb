@@ -24,7 +24,7 @@ class Community < ActiveRecord::Base
   index_with_solr :keywords => [:name, :description]
 
   def self.special
-    special = cached_find(:name, $SPECIAL_COMMUNITY_NAME)
+    special = cached_find(:name, $SPECIAL_COMMUNITY_NAME) # TODO - this should also have special_privs in it.
     raise "Special Community is missing. Perhaps you forgot to load it?" if special.nil? # For tests.
     special
   end
@@ -71,11 +71,12 @@ class Community < ActiveRecord::Base
     Role.add_defaults_to_community(self)
   end
 
-  # Returns the new member.
-  def add_member(user)
+  # Returns the new member.  If you are NOT adding yourself, you should pass in :added_by.
+  def add_member(user, opts => {})
     member = Member.create!(:user_id => user.id, :community_id => id)
     members << member
-    # TODO - ActivityLog
+    CommunityActivityLog.create(:community => self, :user => opts[:added_by] || user,
+                                :activity => Activity.add_member, :member => member)
     member
   end
 
@@ -83,7 +84,6 @@ class Community < ActiveRecord::Base
     member = Member.find_by_user_id_and_community_id(user.id, id)
     raise  I18n.t(:could_not_find_user)  unless member
     member.destroy
-    # TODO - ActivityLog
     self.reload
   end
 

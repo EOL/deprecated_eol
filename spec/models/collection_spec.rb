@@ -103,6 +103,27 @@ describe Collection do
     lambda { collection.add(Agent.gen) }.should raise_error(EOL::Exceptions::InvalidCollectionItemType)
   end
 
+  it 'should be able to filter by collection type' do
+    collection = Collection.gen
+    collection.add(@test_data[:taxon_concept_1])
+    collection.add(@test_data[:user])
+    collection.add(@test_data[:data_object])
+    collection.add(@test_data[:community])
+    collection.add(@test_data[:collection])
+    
+    collection_items_taxa_only = collection.filter_type("taxa").compact
+    collection_items_images_only = collection.filter_type("images").compact
+    collection_items_communities_only = collection.filter_type("communities").compact
+    collection_items_collections_only = collection.filter_type("collections").compact
+    collection_items_people_only = collection.filter_type("people").compact
+
+    collection_items_taxa_only.last.object.should == @test_data[:taxon_concept_1]
+    collection_items_images_only.last.object.should == @test_data[:data_object]
+    collection_items_communities_only.last.object.should == @test_data[:community]
+    collection_items_collections_only.last.object.should == @test_data[:collection]
+    collection_items_people_only.last.object.should == @test_data[:user]
+  end
+
   describe '#create_community' do
 
     it 'should create the community' do

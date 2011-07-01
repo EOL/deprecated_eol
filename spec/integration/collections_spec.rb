@@ -13,6 +13,7 @@ describe "Collections and collecting" do
   end
 
   describe "should allow users to collect" do
+
     # FIXME: collect_path no longer exists this should be collection_items/create with form_for post data
     # FIXME: test an anonymous visitor collecting an item, i.e. should be redirected to login
     it 'taxa' # do
@@ -30,7 +31,7 @@ describe "Collections and collecting" do
 #        @test_data[:user].inbox_collection.items.map {|li| li.object }.include?(@test_data[:community]).should be_true
 #      end
 
-    it 'collections' # do
+    it 'collections, unless its their watch collection' # do
 #        visit collect_path(:type => 'Collection', :id => @test_data[:collection].id)
 #        @test_data[:user].inbox_collection.items.map {|li| li.object }.include?(@test_data[:collection]).should be_true
 #      end

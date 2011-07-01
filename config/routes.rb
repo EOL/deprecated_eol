@@ -21,19 +21,13 @@ ActionController::Routing::Routes.draw do |map|
   map.remove_privilege_from_role 'roles/:role_id/remove_privilege/:privilege_id',
     :controller => 'roles', :action => 'remove_privilege'
 
-  map.resources :collections do |collection|
-    # PUT /collections/:collection_id/items/:item_id for editing collection items since we have collection id
-    collection.resources :items, :only => [:update], :controller => "collection_items"
-  end
-  # POST /collection_items for create since we may not have the collection id until after user logs in
-  map.resources :collection_items, :only => [:create]
+  map.resources :collections
+  map.resources :collection_items, :except => [:index, :show, :new, :edit]
 
   #used in collections show page, click on left tabs
   map.connect 'collections/:id/:filter',
                :controller => 'collections',
                :action     => 'show'
-
-  map.resources :collection_items
 
   # Web Application
   map.resources :harvest_events, :has_many => [:taxa]
@@ -61,7 +55,6 @@ ActionController::Routing::Routes.draw do |map|
     user.resource :newsfeed, :only => [:show], :controller => "users/newsfeeds"
     user.resource :activity, :only => [:show], :controller => "users/activities"
     user.resources :collections, :only => [:index], :controller => "users/collections"
-    user.resources :collections, :except => [:index]
   end
 
   map.reset_specific_users_password 'account/reset_specific_users_password',
@@ -80,8 +73,10 @@ ActionController::Routing::Routes.draw do |map|
   # Taxa nested resources with pages as alias
   map.resources :taxa, :as => :pages do |taxa|
     taxa.resource :overview, :only => [:show], :controller => "taxa/overviews"
-    taxa.resource :media, :only => [:show], :controller => "taxa/media"
-    taxa.resource :details, :only => [:show], :controller => "taxa/details"
+    taxa.resources :media, :only => [:index], :controller => "taxa/media"
+    taxa.resources :details, :only => [:index], :controller => "taxa/details"
+    taxa.resources :collections, :only => [:index], :controller => 'collections'
+    taxa.resources :communities, :only => [:index], :controller => 'communities'
   end
   # Named routes
   map.settings 'settings', :controller => 'taxa', :action => 'settings'
@@ -144,9 +139,6 @@ ActionController::Routing::Routes.draw do |map|
                                                              :conditions => {:method => :get}
   map.connect '/taxon_concepts/:taxon_concept_id/comments/', :controller => 'comments', :action => 'create',
                                                              :conditions => {:method => :post}
-
-  map.taxon_concept_collections '/taxon_concepts/:taxon_concept_id/collections/', :controller => 'collections', :action => 'index'
-  map.taxon_concept_communities '/taxon_concepts/:taxon_concept_id/communities/', :controller => 'communities', :action => 'index'
 
   map.admin 'admin',           :controller => 'admin',           :action => 'index'
   map.content_partner 'content_partner', :controller => 'content_partner', :action => 'index'

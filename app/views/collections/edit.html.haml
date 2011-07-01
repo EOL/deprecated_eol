@@ -1,0 +1,45 @@
+#sidebar
+  .filters
+    - form_for 'FIXME' do
+      - # FIXME: Need move copy remove functionality
+      %h4= I18n.t(:collect_items)
+      %fieldset.actions
+        %button.select_all= I18n.t(:select_all_button)
+        = submit_tag I18n.t(:move_selected_button)
+        = submit_tag I18n.t(:copy_selected_button)
+        = submit_tag I18n.t(:remove_selected_button)
+    - form_for 'FIXME' do |f|
+      - # FIXME: users need to be able to set the default sort order for a collection
+      %h4= I18n.t(:default_sorting_header)
+      %fieldset
+        %legend.assistive= I18n.t(:default_sorting_legend)
+        - sort_options = { I18n.t(:sort_by_recently_added_option) => :newest, I18n.t(:sort_by_oldest_option) => :oldest }
+        - selected = 'FIXME'
+        = label_tag :default_sorting, I18n.t(:default_sorting_label), :class => 'assistive'
+        = select_tag :default_sorting, options_for_select(sort_options, selected)
+      %fieldset.actions
+        = submit_tag I18n.t(:default_sorting_submit_button)
+    - # FIXME: Users need to be able to choose an image for a collection
+    %h4= I18n.t(:primary_image_header)
+    %p= link_to I18n.t(:primary_image_choose), "/placeholder"
+  .collection_contributors
+    = render :partial => 'collections/managed_by', :locals => { :collection => @collection }
+  - if @collection.collection_endorsements.count > 0
+    .collection_contributors
+      = render :partial => 'collections/endorsed_by', :locals => { :collection => @collection }
+
+#collections.main_container
+  .heading
+    - # TODO: use the shared partial and fix css for this form
+    - # FIXME: Make sure the the controller can handle the sort params
+    - form_tag({}, :method => 'GET') do
+      %fieldset
+        = label_tag :sort_by, I18n.t(:sort_by_label)
+        - selected = params[:sort_by].nil? ? :newest : params[:sort_by].to_sym
+        - sort_options = { I18n.t(:sort_by_recently_added_option) => :newest, I18n.t(:sort_by_oldest_option) => :oldest }
+        = select_tag :sort_by, options_for_select(sort_options, selected)
+      %fieldset.actions
+        = submit_tag I18n.t(:sort_by_button)
+  %ul.object_list
+    - @collection_items.each do |item|
+      = render :partial => 'collection_items/edit', :locals => { :collection_item => item }

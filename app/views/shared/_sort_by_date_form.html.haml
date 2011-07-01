@@ -7,4 +7,5 @@
         - selected = params[:sort_by].nil? ? :newest : params[:sort_by].to_sym
         - sort_options = { I18n.t(:sort_by_newest_option) => :newest, I18n.t(:sort_by_oldest_option) => :oldest }
         = select_tag :sort_by, options_for_select(sort_options, selected)
+  %fieldset.actions
     = submit_tag I18n.t(:sort_by_button)

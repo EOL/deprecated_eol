@@ -1,1 +1,22 @@
-= render :partial => 'show', :locals => { :collection => @collection }
+#sidebar
+  .collection_contributors
+    = render :partial => 'collections/managed_by', :locals => { :collection => @collection }
+  - if @collection.collection_endorsements.count > 0
+    .collection_contributors
+      = render :partial => 'collections/endorsed_by', :locals => { :collection => @collection }
+
+#collections.main_container
+  .heading
+    - # TODO: use the shared partial and fix css for this form
+    - # FIXME: Make sure the the controller can handle the sort params
+    - form_tag({}, :method => 'GET') do
+      %fieldset
+        = label_tag :sort_by, I18n.t(:sort_by_label)
+        - selected = params[:sort_by].nil? ? :newest : params[:sort_by].to_sym
+        - sort_options = { I18n.t(:sort_by_recently_added_option) => :newest, I18n.t(:sort_by_oldest_option) => :oldest }
+        = select_tag :sort_by, options_for_select(sort_options, selected)
+      %fieldset.actions
+        = submit_tag I18n.t(:sort_by_button)
+  %ul.object_list
+    - @collection_items.each do |item|
+      = render :partial => 'collection_items/show', :locals => { :collection_item => item }

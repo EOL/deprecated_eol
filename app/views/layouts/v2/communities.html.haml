@@ -1,15 +1,20 @@
 - content_for :main do
   #page_heading.with_image
     .site_column
-      .hgroup
-        - if @community && @community.id # NOTE - Sometimes we get an empty community; TODO - explain why.
-          -#FIXME what if already a member? what happens to button?
-          = link_to I18n.t(:join_community_button), join_community_path(@community, :return_to => communities_path(@community)), :class => "button"
+      - if @community
+        - # community#show or #edit or #new
+        .hgroup
           = image_tag @community.logo_url, :alt => ""
           %h1= h @community.name
           %p= h @community.description
-        - else
-          %h1= @page_title || I18n.t(:communities)
+        .page_actions
+          %ul
+            %li
+              - #FIXME what if already a member? what happens to button?
+              = link_to I18n.t(:join_community_button), join_community_path(@community, :return_to => communities_path(@community)), :class => "button"
+      - else
+        - # probably community#index
+        %h1= @page_title || I18n.t(:communities)
   .thumbnails
     -# FIXME: convert this to proper community march of life with meaningful alt tags
     %ul

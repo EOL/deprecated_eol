@@ -1,26 +1,75 @@
 - content_for :main do
   #page_heading.with_image
     .site_column
-      .hgroup
-        - if @collection
-          = link_to I18n.t(:add_to_my_collection_button), "/placeholder", :class => "button"
-          -#FIXME: Change this to collection image - can we get decent alt text for this, otherwise leave blank image doesn't convey anthing useful.
-          = image_tag @collection.logo_url, :alt => ""
-          %h1= h @collection.name
+      - if @collection
+        - if controller.action_name == 'edit'
+          - # collection#edit
           - form_for @collection do |f|
-            - editable = @collection.editable_by? current_user
-            - if editable
-              = f.text_area :description, :value => @collection.description, :rows => 2, :cols => 80
-            - else
-              %p= @collection.description
-            = submit_tag I18n.t(:save_collection_description_submit_button) if editable
-          -# TODO : Removed the 'updated' from the line above. Seems like it was related with Feeds, need to use activity logs if required.
-          -# %p= @collection.description or updated
+            = hidden_field_tag 'return_to', current_url
+            .hgroup
+              = image_tag @collection.logo_url, :alt => ''
+              %h1.assistive= h @collection.name
+              %fieldset
+                = f.label :name, I18n.t(:collection_name_label), {:class => 'assistive'}
+                = f.text_field :name, :value => @collection.name
+                = f.label :description, I18n.t(:collection_description_label), {:class => 'assistive'}
+                = f.text_area :description, :value => @collection.description, :rows => 3, :cols => 60
+            .page_actions
+              %ul
+                %li
+                  %fieldset.actions
+                    = submit_tag I18n.t(:update_collection_submit_button)
+                %li
+                  = link_to I18n.t(:go_back), collection_path(@collection)
         - else
-          %h1= @page_title || I18n.t(:collections)
+          - # probably collection#show
+          .hgroup
+            = image_tag @collection.logo_url, :alt => ''
+            %h1= h @collection.name
+            %p= @collection.description
+          - unless @collection.id == @watch_collection.id
+            .page_actions
+              %ul
+                %li= render :partial => 'shared/add_to_my_collection', :locals => { :item => @collection, :my_collection => @watch_collection }
+                - if ! @collection.editable_by? current_user
+                  %li= link_to I18n.t(:edit_this_collection_button), edit_collection_path(@collection), :class => 'button'
+      - else
+        - # no collection, probably collection#index
+        %h1= @page_title || I18n.t(:collections)
+      = render :partial => 'shared/flash_messages'
 
   #content
     .site_column
+      #tabs_sidebar
+        %ul.tabs.with_icons
+
+          - attrib = 'total'
+          - attrib << ' active' if !params[:filter]
+          %li{:class => attrib}= link_to I18n.t(:total_items_with_count, :count => @collection.collection_items.count), collections_path(@collection)
+
+          - taxa_count = @collection.filter_type("taxa").compact.count
+          - articles_count = @collection.filter_type("articles").compact.count
+          - videos_count = @collection.filter_type("videos").compact.count
+          - images_count = @collection.filter_type("images").compact.count
+          - sounds_count = @collection.filter_type("sounds").compact.count
+          - communities_count = @collection.filter_type("communities").compact.count
+          - people_count = @collection.filter_type("people").compact.count
+          - collections_count = @collection.filter_type("collections").compact.count
+
+          - types = [{"count" => taxa_count,        "type" => "taxa",        "link" => "taxa_with_count"},
+                     {"count" => articles_count,    "type" => "articles",    "link" => "articles_with_count"},
+                     {"count" => videos_count,      "type" => "videos",      "link" => "videos_with_count"},
+                     {"count" => images_count,      "type" => "images",      "link" => "images_with_count"},
+                     {"count" => sounds_count,      "type" => "sounds",      "link" => "sounds_with_count"},
+                     {"count" => communities_count, "type" => "communities", "link" => "communities_with_count"},
+                     {"count" => people_count,      "type" => "people",      "link" => "people_with_count"},
+                     {"count" => collections_count, "type" => "collections", "link" => "collections_with_count"}]
+
+          - types.each do |t|
+            - attrib = t['type']
+            - attrib << ' active' if params[:filter] == t['type']
+            %li{:class => attrib}= link_to I18n.t("#{t['link']}", :count => t['count']), "/collections/#{params[:id]}/#{t['type']}"
+
       = yield
 
 = render :file => 'layouts/v2/application'

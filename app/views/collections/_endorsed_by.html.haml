@@ -1,0 +1,11 @@
+%h3= I18n.t(:endorsed_by)
+%ul
+  - #FIXME: guessed at methods for listing endorsed by - needs implementing properly and testing with data.
+  - @collection.collection_endorsements.each do |e|
+    %li
+      = link_to image_tag(e.member.user.logo_url(:small), :alt => ''), user_path(e.member.user)
+      - #TODO: Is given name required field? What happens if its nil?
+      %h4= link_to e.member.user.given_name, user_path(e.member.user.id)
+      - #FIXME users need a tag line %p= e.member.user.???
+      %h4= link_to e.community.name, community_path(e.community)
+      %p= I18n.t(:members_with_count, :count => e.community.members.count)

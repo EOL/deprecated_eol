@@ -81,10 +81,10 @@ class Collection < ActiveRecord::Base
     collection_items.collect{|ci| ci if ci.object_type == 'TaxonConcept'}
   end
 
-  def filter_type(type)    
+  def filter_type(type)
     #needs this to properly assign values from collection_items.object_type
     if type == 'taxa'
-      type = 'TaxonConcept' 
+      type = 'TaxonConcept'
     elsif type == 'communities'
       type = 'Community'
     elsif type == 'people'
@@ -92,7 +92,7 @@ class Collection < ActiveRecord::Base
     elsif type == 'collections'
       type = 'Collection'
     end
-    
+
     data_type_ids = nil
     if type == "images"
       data_type_ids = DataType.image_type_ids
@@ -109,13 +109,13 @@ class Collection < ActiveRecord::Base
     else
       collection_items.collect{|ci| ci if ci.object_type == type}
     end
-  end 
+  end
 
   def maintained_by
     return user.full_name if !user_id.blank?
     return community.name if !community_id.blank?
   end
-  
+
   def pending_communities
     collection_endorsements.select {|c| c.pending? }.map {|c| c.community }
   end
@@ -130,6 +130,10 @@ class Collection < ActiveRecord::Base
     ce.community_id = comm.id
     ce.save!
     ce
+  end
+
+  def has_item? item
+    collection_items.any?{|ci| ci.object_type == item.class.name && ci.object_id == item.id}
   end
 
 private

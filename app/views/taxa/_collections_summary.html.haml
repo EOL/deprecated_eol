@@ -3,12 +3,12 @@
   .header
     %h3= I18n.t(:collections_summary_header_with_count, :count => count)
     - if count > 1
-      = link_to(I18n.t(:see_all_collections_with_count_html, :count => count), taxon_concept_collections_path(:taxon_concept_id => @taxon_concept.id))
+      = link_to I18n.t(:see_all_collections_with_count_html, :count => count), taxon_collections_path(@taxon_concept)
   %ul
     - @taxon_concept.top_collections.each do |collection|
       %li
-        - #TODO: Do collections have images? If so put them here, also do we have good alt text from users?
-        = link_to image_tag(collection.logo_url, :alt => ''), collection_url(collection)
+        - # NOTE: Unless we have alt text that describes the image contents, leave it blank.
+        = link_to image_tag(collection.logo_url, :alt => ''), collection_path(collection)
         .details
           %h4= collection.name
           - count = collection.collection_items.count - 1

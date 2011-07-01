@@ -19,10 +19,7 @@
               %p{:style => "width: #{average_rating * 20}%"}<
                 = I18n.t("average_rating_value_of_total", :rating => average_rating, :total => total)
           %p.flag{:class => vetted_id_class(item)}= item.vetted.label
-          - if ! @collection.blank? && @collection.collection_items.any?{|ci| ci.object_type == item.class.name && ci.object_id == item.id}
-            = link_to I18n.t(:in_my_collection_button), user_collection_path(current_user, @collection), :class => 'button'
-          - else
-            = render :partial => 'collection_items/new', :locals => {:object_being_collected => item}
+          = render :partial => 'shared/add_to_my_collection', :locals => { :item => item, :my_collection => @watch_collection }
           - if item.data_type.id == DataType.image.id && current_user.is_curator?
             %p
             = link_to I18n.t("set_as_exemplar"), :action => :set_as_exemplar, :data_object_id => item.id

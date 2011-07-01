@@ -1,15 +1,7 @@
 - en_type = en_type(collection_item)
-%li{:class => "collection #{en_type}"}
-  .checkbox
-    - #FIXME checkboxes need to be hooked up
-    = check_box_tag "collection_items[]", '', 'FIXME'
+%li{:class => "#{en_type}"}
   - if ['image', 'video', 'sound'].include?(en_type)
     = render :partial => "shared/item_summary_media.html.haml", :locals => {:item => collection_item.object, :en_type => en_type}
   - else
     = render :partial => "shared/item_summary_#{en_type}.html.haml", :locals => {:item => collection_item.object}
-  - if editable
-    - form_for collection_item do |f|
-      = f.text_area :annotation, :value => collection_item.annotation, :rows => 2, :cols => 60
-      = submit_tag I18n.t(:save_annotation_submit_button)
-  - else
-    %p= collection_item.annotation
+  %p= collection_item.annotation

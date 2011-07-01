@@ -3,7 +3,7 @@ class Taxa::MediaController < TaxaController
   before_filter :instantiate_taxon_concept, :redirect_if_superceded, :redirect_if_invalid
   before_filter :add_page_view_log_entry, :update_user_content_level
 
-  def show
+  def index
 
     includes = [
       { :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] },
@@ -45,7 +45,7 @@ class Taxa::MediaController < TaxaController
 
     @media = @media.paginate(:page => params[:page] || 1, :per_page => $MAX_IMAGES_PER_PAGE)
 
-    @collection = logged_in? ? current_user.watch_collection : nil
+    @watch_collection = logged_in? ? current_user.watch_collection : nil
 
     @assistive_section_header = I18n.t(:assistive_media_header)
 

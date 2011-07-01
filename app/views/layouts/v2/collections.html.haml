@@ -31,7 +31,7 @@
             .page_actions
               %ul
                 %li= render :partial => 'shared/add_to_my_collection', :locals => { :item => @collection, :my_collection => @watch_collection }
-                - if ! @collection.editable_by? current_user
+                - if @collection.editable_by? current_user
                   %li= link_to I18n.t(:edit_this_collection_button), edit_collection_path(@collection), :class => 'button'
       - else
         - # no collection, probably collection#index
@@ -42,10 +42,9 @@
     .site_column
       #tabs_sidebar
         %ul.tabs.with_icons
-
           - attrib = 'total'
           - attrib << ' active' if !params[:filter]
-          %li{:class => attrib}= link_to I18n.t(:total_items_with_count, :count => @collection.collection_items.count), collections_path(@collection)
+          %li{:class => attrib}= link_to I18n.t(:total_items_with_count, :count => @collection.collection_items.count), @collection
 
           - taxa_count = @collection.filter_type("taxa").compact.count
           - articles_count = @collection.filter_type("articles").compact.count
@@ -68,7 +67,7 @@
           - types.each do |t|
             - attrib = t['type']
             - attrib << ' active' if params[:filter] == t['type']
-            %li{:class => attrib}= link_to I18n.t("#{t['link']}", :count => t['count']), "/collections/#{params[:id]}/#{t['type']}"
+            %li{:class => attrib}= link_to I18n.t("#{t['link']}", :count => t['count']), "/collections/#{@collection.id}/#{t['type']}"
 
       = yield
 

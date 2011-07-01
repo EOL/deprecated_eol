@@ -3,17 +3,17 @@
     %h3= I18n.t(:founder)
     %ul
       %li
-        = link_to image_tag(@community.founder.user.logo_url, :alt => @community.founder.user.given_name), user_path(@community.founder.user.id)
-        %h4= link_to @community.founder.user.given_name, user_path(@community.founder.user.id)
-        - # FIXME: user model missing atttribute for e.g. "Head mycologist": %p= @community.founder.user.???
+        = link_to image_tag(@community.founder.user.logo_url, :alt => @community.founder.user.short_name), @community.founder.user
+        %h4= link_to @community.founder.user.short_name, @community.founder.user
+        %p= @community.founder.user.tag_line
   .collection_contributors
     %h3= I18n.t(:most_active_members)
     %ul
       - @community.top_active_members.each do |member|
         %li
-          = link_to image_tag(member.user.logo_url, :alt => member.user.given_name), user_path(member.user.id)
-          %h4= link_to member.user.given_name, user_path(member.user.id)
-          - # FIXME: user model missing atttribute for e.g. "Head mycologist": %p= member.user.???
+          = link_to image_tag(member.user.logo_url, :alt => member.user.short_name), member.user
+          %h4= link_to member.user.short_name, member.user
+          %p= member.user.tag_line
 #collections_tab.main_container
   .heading
     %h3= I18n.t(:community_focus)

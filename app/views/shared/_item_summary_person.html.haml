@@ -1,4 +1,4 @@
 = link_to image_tag(item.logo_url), user_path(item)
 %span.icon{:title => I18n.t(:item_type_person_assistive)}
 %h4= link_to item.full_name, user_path(item)
-- # TODO: Uncomment after tag_line migration = item.tag_line
+= item.tag_line

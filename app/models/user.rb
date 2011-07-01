@@ -272,10 +272,15 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def short_name
-    return given_name if !given_name.blank? 
+    return given_name if !given_name.blank?
     return family_name if !family_name.blank?
     return display_name if !display_name.blank?
     return acronym if !acronym.blank?
+  end
+
+  def tag_line
+    # Remove this method when tag line column migration is added to user model
+    'FIXME'
   end
 
   # TODO

@@ -14,31 +14,25 @@ class CollectionsController < ApplicationController
   # NOTE - I haven't really implemented this one yet.
   def index
     @collections = Collection.all
-    respond_to do |format|
-      format.html
-    end
   end
 
   def show
     @collection = Collection.find(params[:id])
     @watch_collection = logged_in? ? current_user.watch_collection : nil
-    if params[:filter]
-      @collection_items = @collection.filter_type(params[:filter]).compact
-    else
+    @sort_by = params[:sort_by]? params[:sort_by] : 'newest'
+    @filter = params[:filter]? params[:filter] : ''
+    if @filter.blank?
       @collection_items = @collection.collection_items
+    else
+      @collection_items = @collection.filter_type(@filter).compact
     end
-    respond_to do |format|
-      format.html
-    end
+    @collection_items = CollectionItem.custom_sort(@collection_items, @sort_by)
   end
 
   # NOTE - I haven't really implemented this one yet.
   def new
     @page_title = I18n.t(:create_a_collection)
     @collection = Collection.new
-    respond_to do |format|
-      format.html
-    end
   end
 
   # NOTE - This can ONLY be called as a child of a Collection or without a parent at all (which assumes current_user).
@@ -59,12 +53,13 @@ class CollectionsController < ApplicationController
     @head_title = I18n.t(:edit_collection_head_title, :collection_name => @collection.name) unless @collection.blank?
     @watch_collection = logged_in? ? current_user.watch_collection : nil
     @collection_items = @collection.collection_items
+    @select_all = params[:select_all]? params[:select_all] : false
   end
 
   def update
     @collection = Collection.find(params[:id])
     return_to = params[:return_to]
-    return_to ||= collections_path(@collection) unless @collection.blank?
+    return_to ||= edit_collection_path(@collection) unless @collection.blank?
     store_location(return_to)
     if @collection.update_attributes(params[:collection])
       flash[:notice] = I18n.t(:collection_updated_notice, :collection_name => @collection.name)

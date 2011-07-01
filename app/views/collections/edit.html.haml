@@ -1,10 +1,10 @@
 #sidebar
   .filters
-    - form_for 'FIXME' do
+    - form_for 'FIXME' do |f|
       - # FIXME: Need move copy remove functionality
       %h4= I18n.t(:collect_items)
       %fieldset.actions
-        %button.select_all= I18n.t(:select_all_button)
+        = link_to I18n.t(:select_all_button), edit_collection_path(@collection, :select_all => true), :class => 'select_all button'
         = submit_tag I18n.t(:move_selected_button)
         = submit_tag I18n.t(:copy_selected_button)
         = submit_tag I18n.t(:remove_selected_button)

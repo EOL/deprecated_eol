@@ -1,0 +1,7 @@
+- form_tag("/collections/#{@collection.id}/#{@filter}", :method => :get) do
+  %fieldset
+    = label_tag :sort_by, I18n.t(:sort_by_label)
+    - sort_options = { I18n.t(:sort_by_recently_added_option) => 'newest', I18n.t(:sort_by_oldest_option) => 'oldest' }
+    = select_tag :sort_by, options_for_select(sort_options, @sort_by)
+  %fieldset.actions
+    = submit_tag I18n.t(:sort_by_button)

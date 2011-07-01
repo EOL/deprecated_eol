@@ -1,10 +1,10 @@
 %h3= I18n.t(:managed_by)
 %ul
   %li
-    - if collection.community_id
-      = link_to image_tag(collection.community.logo_url, :alt => ""), community_path(collection.community)
-      %h4= link_to collection.community.name, community_path(collection.community)
-    - elsif collection.user_id
-      = link_to image_tag(collection.user.logo_url(:small), :alt => ''), user_path(collection.user_id)
-      %h4= link_to collection.user.full_name, user_path(collection.user_id)
-      - # uncomment when migration for tag_line is in %p= collection.user.tag_line
+    - if collection.community
+      = link_to image_tag(collection.community.logo_url, :alt => ''), collection.community
+      %h4= link_to collection.community.name, collection.community
+    - elsif collection.user
+      = link_to image_tag(collection.user.logo_url(:small), :alt => ''), collection.user
+      %h4= link_to collection.user.full_name, collection.user
+      %p= collection.user.tag_line

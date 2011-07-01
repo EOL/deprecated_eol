@@ -6,7 +6,7 @@
         .hgroup
           = image_tag @user.logo_url, :alt => ""
           %h1= @user.full_name
-          - # uncomment when tag_line migration added %h2= @user.tag_line
+          %h2= @user.tag_line
         .page_actions
           %ul
             %li= link_to I18n.t(:edit_my_profile), edit_user_path(@user), :class => "button"

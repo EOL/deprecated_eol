@@ -55,9 +55,9 @@ class DataObject < SpeciesSchemaModel
 
   named_scope :visible, lambda { { :conditions => { :visibility_id => Visibility.visible.id } }}
   named_scope :preview, lambda { { :conditions => { :visibility_id => Visibility.preview.id } }}
-  
+
   index_with_solr :keywords => [:object_title], :fulltexts => [:description]
-  
+
   define_core_relationships :select => {
       :data_objects => '*',
       :agents => [:full_name, :homepage, :logo_cache_url],
@@ -418,7 +418,6 @@ class DataObject < SpeciesSchemaModel
     end
 
     self.data_rating = (other_ratings.inject(0) { |sum, r| sum + r.rating } + new_rating).to_f / (other_ratings.size + 1)
-    # TODO - ActivityLog
     self.save!
   end
 
@@ -928,7 +927,7 @@ class DataObject < SpeciesSchemaModel
     image_page  = (options[:image_page] ||= 1).to_i
     start       = $MAX_IMAGES_PER_PAGE * (image_page - 1)
     last        = start + $MAX_IMAGES_PER_PAGE - 1
-    
+
     unless options[:skip_metadata]
       objects_with_metadata = eager_load_image_metadata(unique_image_objects[start..last].collect {|r| r.id})
       unique_image_objects[start..last] = objects_with_metadata unless objects_with_metadata.blank?

@@ -21,6 +21,8 @@ class CollectionItemsController < ApplicationController
     if @collection_item.object_type == 'Collection' && @collection_item.object_id == @collection_item.collection.id
       flash[:notice] = I18n.t(:item_not_added_is_watch_collection_notice, :collection_name => @collection_item.collection.name)
     elsif @collection_item.save
+      CollectionActivityLog.create(:collection => self, :collection_item => collection_items.last,
+                                   :user => current_user, :activity => Activity.collect)
       flash[:notice] = I18n.t(:item_added_to_collection_notice, :collection_name => @collection_item.collection.name)
     else
       flash[:error] = I18n.t(:item_not_added_to_collection_error)

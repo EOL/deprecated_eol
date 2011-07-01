@@ -1,4 +1,4 @@
-class Activity < LoggingModel
+class Activity < LazyLoggingModel
 
   CACHE_ALL_ROWS = true
   uses_translations

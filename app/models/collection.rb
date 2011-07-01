@@ -35,7 +35,7 @@ class Collection < ActiveRecord::Base
     community_id
   end
 
-  def add(what)
+  def add(what, opts = {})
     name = "something"
     case what.class.name
     when "TaxonConcept"
@@ -56,9 +56,6 @@ class Collection < ActiveRecord::Base
     else
       raise EOL::Exceptions::InvalidCollectionItemType.new("I cannot create a collection item from a #{what.class.name}")
     end
-    if is_focus_list?
-      # TODO - ActivityLog
-    end
     what # Convenience.  Allows us to chain this command and continue using the object passed in.
   end
 
@@ -68,7 +65,7 @@ class Collection < ActiveRecord::Base
     community.initialize_as_created_by(user)
     # Deep copy:
     collection_items.each do |li|
-      community.focus.add(li.object)
+      community.focus.add(li.object, :user => user)
     end
     community
   end

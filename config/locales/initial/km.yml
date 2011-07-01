@@ -3,15 +3,26 @@
 # Export driver: syck-pecl
 # Author: គីមស៊្រុន
 km: 
+  about_eol: អំពី EOL
   account_information: ព័ត៌មានពីគណនី
   account_registered_but_not_ready_try_later: គណនីរបស់អ្នកបានចុះឈ្មោះរួចហើយ ប៉ុន្តែមិនទាន់អាចអោយអ្នកចូលមើលបាននៅឡើយទេ។ សូមសាកល្បងម្ដងទៀតនៅ៥នាទីក្រោយ។
   add_a_role: បន្ថែមតួនាទី
   add_to_my_collection_button: បន្ថែមទៅក្នុងកំរងប្រមួលផ្ដុំរបស់ខ្ញុំ
+  added_date: ត្រូវបានបន្ថែមនៅ %{date}
+  admin: អភិបាល
+  all_information: ព័ត៌មានទាំងអស់
   already_a_member_question: តើអ្នកក្លាយជាសមាជិកហើយឬនៅ?
   already_member_of_community: អ្នកជាសមាជិកម្នាក់របស់សហគមន៍នេះរួចហើយ។
   are_you_sure: តើអ្នកប្រាកដហើយ?
+  assistive_details_header: ព័ត៌មាន​លំអិត
+  average_rating_value_of_total: រង្វាយតំលៃមធ្យម៖ %{rating} លើ %{total}
   browse_gallery: បើកមើលវិចិត្រសាលរបស់យើងខ្ញុំ
+  cancel: បោះបង់
   cannot_be_associated_with_both_a_user_and_a_community: មិនអាចភ្ចាប់ទៅអ្នកប្រើប្រាស់ណាម្នាក់ឬក័សហគមន៍ណាមួយទេ
+  cannot_be_empty: មិនអាចនៅទទេ។
+  change_rating_to_2_of_5: ប្ដូររង្វាយតំលៃទៅ ២ លើ ៥
+  change_rating_to_3_of_5: ប្ដូររង្វាយតំលៃទៅ ៣ លើ ៥
+  change_rating_to_5_of_5: ប្ដូររង្វាយតំលៃទៅ ៥ លើ ៥
   citation: យោង
   collection_item_type_with_label: "ប្រភេទ: %{type}"
   collections: កំរងប្រមូលផ្ដុំ
@@ -28,6 +39,7 @@ km:
   community_roles: មុខនាទីសហគមន៍
   community_watching_this_note: សហគមន៍កំពុងមើល %{name} នេះ។
   contact_us_link: ទាក់ទងមកយើងខ្ញុំ
+  content_summary_table_count_column_header: ចំនួន
   content_update: បន្ទាន់សម័យខ្លឹមសារ
   contribute_to_page_button: ចូលរួមចំណែកដល់ទំព័រនេះ
   contributors_like_you: អ្នករួមចំណែកចូលចិត្តអ្នក
@@ -35,6 +47,7 @@ km:
   create_a_collection: បង្កើតកំរងប្រមូលផ្ដុំ
   create_a_community: បង្កើតសហគមន៍មួយ
   created_community: សហគមន៍ត្រូវបានបង្កើតបានសំរេចហើយ។
+  created_time_ago: ត្រូវបានបង្កើតកាលពី %{time_passed} មុន
   curator_activity: សកម្មភាពអ្នកប្រមែប្រមូល
   curator_comment: មតិពីអ្នកប្រមែប្រមូល
   curators_summary_header_with_count: អ្នកប្រមែប្រមូលចំនួន %{count}
@@ -43,26 +56,41 @@ km:
   delete_allcaps: លុបចោល
   delete_community: លុបសហគមន៍នេះចោល
   detail: ព័ត៌មានលំអិត
+  development_version_name: V2 DEVELOPMENT VERSION - មិនសំរាប់បំរើបំរាស់ជាសាធារណៈ
+  displaying_numerical_range: កំពុងបង្ហាញ %{start_number} &mdash; %{end_number}
   donate: ឧបត្ថម្ភ
   donation_error_only_numbers: សូមវាយបញ្ចូលទឹកប្រាក់ដោយប្រើតែលេខ
   edit_collection: កែប្រែកំរងប្រមូលផ្ដុំ
   edit_community: កែប្រែសហគមន៍
   edit_membership: កែប្រែសមាជិកភាព
+  edit_my_profile: កែប្រែប្រវត្តិរូប
   encyclopedia_of_life: សព្វវចនាធិប្បាយអំពីជីវិត
+  eol_colon: EOL៖
   eol_glossary: សន្ទានុក្រម EOL
   eol_news: ព័ត៌មាន EOL
   error_page_header: សូមអភ័យទោស។ យើងខ្ញុំបានជួបនឹងបញ្ហាមួយ។
+  esc_key_hides_this_message: (ចុចច្នុច esc ដើម្បីលាក់សារនេះ)
   explore: រាវរក
+  feedback: មតិយោបល់
+  filter_by_status_inappropriate_option: មិនសមរម្យ
+  filter_by_type_all_option: គ្រប់ប្រភេទ
+  filter_by_type_images_option: រូបភាព
+  filter_by_type_videos_option: វីដេអូ
   filter_feeds_button: តំរង
   filter_feeds_label: បង្ហាញ
+  founder: ស្ថាបនិក
   global_navigation: ចង្កូតសាកល
   go: ទៅ
   google_translate: ហ្គូហ្គលបកប្រែ
   google_translate_advisory_information: ប្រើវីដជិត ហ្គូហ្គលបកប្រែ ដើម្បីបំលែងខ្លឹមសារវិបសៃថ៍នេះជាភាសាមួយទៀត។
+  hello_user: សួស្ដី %{user}
   help: ជំនួយ
+  home: ទំព័រដើម
   home_page_link_advisory_information: តំណភ្ជាប់នេះនឹងនាំអ្នកទៅកាន់គេហទំព័ររបស់សព្វវចនាធិប្បាយអំពីជីវិត
   image_thumbnail_alt_text: រូបភាព %{vetted_status} នេះ ជារបស់ %{scientific_name}
+  images: រូបភាព
   images_with_count: រូបភាពចំនួន %{count}
+  in_my_collection_button: នៅក្នុងកំរងប្រមូលផ្ដុំរបស់ខ្ញុំ
   invalid_login_or_password: អត្តនាមឬពាក្យសំងាត់មិនត្រឹមត្រូវ
   item_was_added_to_your_recently_collected_items: ធាតុនេះត្រូវបានបន្ថែមក្នុង «ធាតុដែលបានប្រមូលផ្ដុំថ្មីៗ» របស់អ្នកហើយ
   item_was_added_to_your_watched_items_collection: ធាតុនេះត្រូវបានបន្ថែមទៅក្នុងកំរងប្រមូលផ្ដុំ «ធាតុដែលបានមើលហើយ» រួចហើយ។
@@ -73,14 +101,41 @@ km:
   join_eol_button_html: ចូលរួម <abbr title="Encyclopedia of Life">EOL</abbr> នាំពេលឥឡូវនេះ
   join_eol_community_html: ក្លាយជាផ្នែកមួយរបស់សហគមន៍ <abbr title="Encyclopedia of Life">EOL</abbr> !
   just_pages_with_pictures_and_text: តែទំព័រដែលមានទាំងរូបភាពនិងអត្ថបទប៉ុណ្ណោះ
+  language: ភាសា៖
+  last_updated_time_ago: ត្រូវបានបន្ទាន់សម័យចុងក្រោយកាលពី %{time_passed} មុន
+  learn_about_content_partners: ស្វែងយល់អំពីដៃគូផ្ដល់ខ្លឹមសារអត្ថបទរបស់យើងខ្ញុំ
   learn_how_to_interact: ស្វែងយល់ពីរបៀបទាក់ទងគ្នា
+  learn_how_to_join: ស្វែងយល់ពីរបៀបចូលរួម
+  leave_a_comment: បញ្ចេញមតិយោបល់​
   leave_community: ចាកចេញពីសហគមន៍នេះ
   license: អាជ្ញាប័ណ្ឌ
+  license_all_rights_reserved: រក្សាសិទ្ធិគ្រប់យ៉ាង
+  license_cc_by: Creative Commons Attribution (CC BY)
+  license_cc_by_2_0: Creative Commons Attribution 2.0 (CC BY 2.0)
+  license_cc_by_2_5: Creative Commons Attribution 2.5 (CC BY 2.5)
+  license_cc_by_3_0: Creative Commons Attribution 3.0 (CC BY 3.0)
+  license_cc_by_nc_2_0: Creative Commons Attribution Non Commercial 2.0 (CC BY-NC 2.0)
+  license_cc_by_nc_2_5: Creative Commons Attribution Non Commercial 2.5 (CC BY-NC 2.5)
+  license_cc_by_nc_3_0: Creative Commons Attribution Non Commercial 3.0 (CC BY-NC 3.0)
+  license_cc_by_nc_sa: Creative Commons Attribution Non Commercial Share Alike (CC BY-NC-SA)
+  license_cc_by_nc_sa_1_0: Creative Commons Attribution Non Commercial Share Alike 1.0 (CC BY-NC-SA 1.0)
+  license_cc_by_nc_sa_2_0: Creative Commons Attribution Non Commercial Share Alike 2.0 (CC BY-NC-SA 2.0)
+  license_cc_by_nc_sa_3_0: Creative Commons Attribution Non Commercial Share Alike 3.0 (CC BY-NC-SA 3.0)
+  license_cc_by_sa: Creative Commons Attribution Share Alike (CC BY-SA)
+  license_cc_by_sa_1_0: Creative Commons Attribution Share Alike 1.0 (CC BY-SA 1.0)
+  license_cc_by_sa_2_0: Creative Commons Attribution Share Alike 2.0 (CC BY-SA 2.0)
+  license_cc_by_sa_2_5: Creative Commons Attribution Share Alike 2.5 (CC BY-SA 2.5)
+  license_cc_by_sa_3_0: Creative Commons Attribution Share Alike 3.0 (CC BY-SA 3.0)
+  license_gnu_gpl: GNU General Public License (GNU GPL)
+  license_not_applicable: គ្មានអាជ្ញាប័ណ្ឌ
   link_to_add_role_to_community_to_control_privs: "%{link} ដើម្បីគ្រប់គ្រងសិទ្ធិសមាជិក។"
   link_to_join_this_community: អ្នកត្រូវតែ <a href='%{link}'>កត់ឈ្មោះចូល </a>ដើម្បីអាចចូលជាសមាជិកសហគមន៍នេះ។
-  location_: ទីតាំង
+  literature: អក្សរសាស្ត្រ
+  location: ទីកន្លែង
   log_in: កត់ឈ្មោះចូល
+  login: កត់ឈ្មោះចូល
   login_or_create_account: កត់ឈ្មោះចូលឬបង្កើតគណនី
+  logout: កត់ឈ្មោះចេញ
   manage_community: រៀបចំសហគមន៍
   manage_roles: រៀបចំមុខនាទី
   maps_with_count: ផែនទីចំនួន %{count}
@@ -91,57 +146,88 @@ km:
   must_be_associated_with_either_a_user_or_a_community: ត្រូវតែមានភ្ជាប់ជាមួយអ្នកប្រើប្រាស់ម្នាក់ឬក័សហគមន៍មួយ
   must_be_less_than_128_characters_long: ត្រូវតែមានតិចជាង១២៨តួអក្សរ។
   must_be_logged_in: អ្នកត្រូវតែកត់ឈ្មោះចូលដើម្បីមានសិទ្ធិធ្វើសកម្មភាពនេះ។
+  my_activity: សកម្មភាពខ្ញុំ
+  my_info: ព៍ត៌មានរបស់ខ្ញុំ
   no_activity: គ្មានសកម្មភាព។
   no_members_in_parens: (គ្មានសមាជិក)
   not_evaluated: មិនបានទទួលការវាយតំលៃ
   other_collection_items_with_count: ធាតុផ្សេងទៀតចំនួន %{count}
   other_community_items_with_count: ធាតុផ្សេងទៀតចំនួន %{count}
   overview: ខ្លឹមសារសង្ខេប
+  pages_with_pictures_and_text: ទំព័រដែលមានរូបភាពនិងអត្ថបទ
   pages_with_pictures_or_text: ទំព័រដែលមានរូបភាពឬអត្ថបទ
   pending_members_with_count: សមាជិកកំពុងរង់ចាំការអនុញ្ញាតចំនួន %{count}
   people_with_count: មនុស្សចំនួន %{count} នាក់
+  personal_space: កន្លែងផ្ទាល់ខ្លួន
   post_comment: បញ្ចេញមតិ
+  preferences: ចំណង់ចំណូលចិត្ត
+  press_room: បន្ទប់សារព័ត៌មាន
   print_this_page_link: បោះពុម្ភទំព័រនេះ
   profile: ប្រវត្តិរូប
   profile_image_alt_text_curator: រូបភាពក្នុងប្រវត្តិរួបសំរាប់អ្នកប្រមែប្រមួលឈ្មោះ %{user_given_name} %{user_family_name}
   profile_image_alt_text_member: រូបភាពក្នុងប្រវត្តិរូបរបស់សមាជិកឈ្មោះ %{user_given_name} %{user_family_name}
   recent_updates: ការបន្ទាន់សម័យថ្មីៗ
   remove_membership: ដកសមាជិកភាព
+  resources: ធនធាន
   rights: សិទ្ធិ
   rights_holder: អ្នកកាន់សិទ្ធិ
   roles: តួនាទី
+  search_field_label: ស្វែងរកក្នុង EOL
   search_input_advisory_information: វាយបញ្ចូលឈ្មោះទូទៅឬឈ្មោះវិទ្យាសាស្ត្ររបស់ភាវរស់ដែលអ្នកចង់ស្វែងយល់បន្ថែម។ ឧទាហរណ៍សូមសាកល្បងវាយបញ្ចូលពាក្យប៉េងប៉ោះ។
   search_placeholder: ស្វែងរកក្នុង EOL ...
   search_the_site: ស្វែងរកក្នុងវិបសៃថ៍នេះ
   see_all_media_link: មើលមេឌាទាំងអស់
   select_topic: សូមជ្រើសរើសប្រធានបទ
+  selected_language_advisory_information: នេះជាភាសាដែលកំពុងជ្រើសយក។
+  show_status_message: បង្ហាញសារស្ថានភាព
+  show_warning_message: បង្ហាញសារព្រមាន
   sign_in: កត់ឈ្មោះចូល
   sign_out: កត់ឈ្មោះចេញ
   skip_to_content: រំលងខ្លឹមសារនេះ
+  skip_to_table_of_contents: រំលងទៅកាន់មាតិកា
+  sort_by: តំរៀបតាម
+  sort_by_button: តំរៀប
+  sort_by_data_type_option: ប្រភេទទិន្នន័យ
+  sort_by_default_option: លំនាំដើម
+  sort_by_label: តំរៀបតាម
+  sort_by_newest_option: ថ្មីៗបំផុត
+  sort_by_oldest_option: ចាស់ៗបំផុត
+  sort_by_rating_option: រង្វាយតំលៃ
   sound_thumbnail_alt_text: ខ្សែអាត់សំលេង %{vetted_status} នេះជារបស់ %{scientific_name}
   source_information_link: ព័ត៌មានប្រភព
   source_url: ប្រភព URL
-  supplier_: អ្នកផ្ដល់
   switch_language_advisory_information: ប្ដូរភាសាជា %{language_label}
+  table_of_contents: មាតិកា
+  text_summary_more_link: អានអត្ថបទពេញ
   thanks_for_feedback: សូមអរគុណសំរាប់មតិយោបល់របស់អ្នក។
   there_are_currently_no_members_in_this_community: សហគមន៍នេះគ្មានសមាជិកណាម្នាក់ទេនាពេលបច្ចុប្បន្ននេះ។
   there_are_currently_no_roles_for_this_community: នាពេលនេះមិនទាន់មានតួនាទីសំរាប់សហគមន៍នេះទេ។
-  threat_status_header_colon: "ភាពជិតផុតពូជ:"
+  threat_status_header_colon: ភាពជិតផុតពូជ (តាមទិន្នន័យIUCN)៖
   total_items_with_count: ធាតុសរុបចំនួន %{count
   try_your_request_again: សាកល្បងការស្នើសុំរបស់អ្នកម្ដងទៀត
   unknown: មិនស្គាល់
+  updated_community: សហគមន៍ត្រូវបានបន្ទាន់សម័យបានសំរេចហើយ។
+  user_became_role_note: "%{username} ក្លាយជា %{role}។"
+  user_comment: យោបល់របស់អ្នកប្រើប្រាស់
   user_joined_community_note: "%{username} បានចូលរួមក្នុងសហគមន៍នេះ។"
   user_left_community_note: "%{username} បានចាកចេញពីសហគមន៍។"
   user_system_down: សូមអភ័យទោយ។ ប្រព័ន្ធចុះឈ្មោះអ្នកប្រើប្រាស់មិនអាចប្រើបានទេនាពេលនេះ។ សូមសាកល្បងម្ដងទៀតនៅពេលក្រោយ។
   verification_phrase_did_not_match: ឃ្លាសំរាប់ផ្ទៀតផ្ទាត់ដែលអ្នកបានវាយបញ្ចូលមិនត្រូវគ្នាទេ។
+  video_thumbnail_alt_text: វីដេអូ %{vetted_status} នេះជារបស់ %{scientific_name}
   videos_with_count: វីដេអូចំនួន %{count}
   view_only_pages_with_at_least_a_picture_or_piece_of_text: មើលតែទំព័រណាដែលមានយ៉ាងហោចណាស់រូបភាពមួយឬក៏អត្ថបទមួយផ្នែក
   what_is_eol: តើ EOL ជាអ្វី?
+  what_is_this_question: នេះជាអ្វី?
   you_are_not_authorized_to_perform_this_action: អ្នកគ្មានសិទ្ធិធ្វើសកម្មភាពនេះទេ។
   you_have_been_a_member_of_this_community_since: អ្នកជាសមាជិកម្នាក់របស់សហគមន៍នេះតាំងពី %{since}។
   you_in_parens: (អ្នក)
   you_joined_community: អ្នកបានចូលជាសមាជិករបស់សហគមន៍នេះបានសំរេចហើយ។
   you_left_community: អ្នកបានចាកចេញពីសហគមន៍នេះបានសំរេចហើយ។
   you_must_be_logged_in_to_add_tags: អ្នកត្រូវតែកត់ឈ្មោះចូលដើម្បីបន្ថែមប្លាក។
+  your_current_rating_0_of_5: រង្វាយតំលៃរបស់អ្នកពេលនេះ៖ ០ លើ ៥
+  your_current_rating_2_of_5: រង្វាយតំលៃរបស់អ្នកពេលនេះ៖ ២ លើ ៥
+  your_current_rating_3_of_5: រង្វាយតំលៃរបស់អ្នកពេលនេះ៖ ៣ លើ ៥
+  your_current_rating_5_of_5: រង្វាយតំលៃរបស់អ្នកពេលនេះ៖ ៥ លើ ៥
   your_message_was_sent: សាររបស់អ្នកត្រូវបានផ្ញើទៅហើយ។
   your_preferences: ចំណូលចិត្តរបស់អ្នក
+  your_rating: រង្វាយតំលៃរបស់អ្នក

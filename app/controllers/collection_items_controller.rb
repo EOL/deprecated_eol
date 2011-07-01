@@ -58,6 +58,8 @@ class CollectionItemsController < ApplicationController
 
     respond_to do |format|
       if @collection_item.save
+        CollectionActivityLog.create(:collection => self, :collection_item => collection_items.last,
+                                     :user => current_user, :activity => Activity.collect)
         flash[:notice] = I18n.t(:item_added_to_collection_name, :collection_name => @collection_item.collection.name)
         format.html { redirect_back_or_default }
         format.xml  { render :xml => @collection_item, :status => :created, :location => @collection_item }

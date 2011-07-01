@@ -1,4 +1,4 @@
-class UserActivityLog < LoggingModel
+class UserActivityLog < LazyLoggingModel
   belongs_to :taxon_concept
   belongs_to :activity
   belongs_to :user

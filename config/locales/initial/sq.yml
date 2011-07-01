@@ -113,7 +113,6 @@ sq:
   license: Liçenca
   link_to_add_role_to_community_to_control_privs: "% {link} Lidhje me kontrollin e privilegje anëtare."
   link_to_join_this_community: You must be <a href='%{link}'>logged in</a> to join this community.
-  location_: Vendndodhja
   log_in: Kyçuni
   login_or_create_account: Hyni ose hapni një llogari
   manage_community: Ndrsho komunitetin
@@ -192,7 +191,6 @@ sq:
   sound_thumbnail_alt_text: This %{vetted_status} audio recording is of %{scientific_name}
   source_information_link: burim informacioni
   source_url: "Burimi URL:"
-  supplier_: Furnizuesi
   switch_language_advisory_information: Ndryshuar gjuhën e faqes për language_label {}%
   taxa: Taxa
   taxa_with_count: 

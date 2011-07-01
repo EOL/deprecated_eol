@@ -3,14 +3,19 @@
 # Export driver: syck-pecl
 # Author: Minh Nguyen
 vi: 
+  about_eol: Giới thiệu BKTT Sự Sống
   account_information: Thông tin tài khoản
   add_a_role: Thêm vai trò
+  all_information: Tất cả các thông tin
   all_pages: Mọi trang
   already_a_member_question: Đã là thành viên?
   already_member_of_community: Bạn đã là một thành viên của cộng đồng này.
   application_version_advisory_information: Phiên bản ứng dụng
   are_you_sure: Bạn có chắc chắn?
+  assistive_details_header: Chi tiết
+  cancel: Hủy bỏ
   cannot_be_empty: không thể để trống.
+  change_rating_to_2_of_5: Đổi đánh giá thành 2 trong 5
   citation: Trích dẫn
   collection_item_type_with_label: "Kiểu: %{type}"
   communities: Cộng đồng
@@ -25,6 +30,7 @@ vi:
   contribute_to_page_button: Đóng góp vào trang này
   contributors_like_you: Những người đóng góp như bạn
   create_a_community: Tạo một cộng đồng
+  created_time_ago: Được tạo ra cách đây %{time_passed}
   dato_rating_note: "%{username} đánh giá %{rating} cho cái này."
   delete_allcaps: XÓA
   delete_community: Xóa cộng đồng này
@@ -38,14 +44,23 @@ vi:
   eol_glossary: Thuật ngữ BKTTSS
   eol_news: Tin tức BKTTSS
   explore: Tìm hiểu
+  filter_by_status: Lọc theo trạng thái
+  filter_by_status_all_option: mọi trạng thái
+  filter_by_type: Lọc theo kiểu
+  filter_by_type_audio_option: âm thanh
+  filter_by_type_videos_option: video
   filter_feeds_button: Bộ lọc
   filter_feeds_label: Hiện
+  filtered_information: Thông tin lọc
+  founder: Sáng lập viên
   get_involved: Cùng tham gia
   global_access_tagline: Truy cập toàn cầu kiến thúc về sự sống trên Trái Đất.
   go: Xem
   google_translate: Google Dịch
   google_translate_advisory_information: Sử dụng công cụ Google Dịch để biên dịch nội dung của site sang một ngôn ngữ khác.
+  hello_user: Xin chào %{user}
   help: Trợ giúp
+  home: Trang đầu
   home_page_link_advisory_information: Liên kết này sẽ đưa bạn đến trang chủ cua Bách khoa toàn thư Sự sống
   image_thumbnail_alt_text: Đây là một hình %{vetted_status} của %{scientific_name}
   images: Hình ảnh
@@ -62,9 +77,14 @@ vi:
   learn_how_to_join: Tìm hiểu cách gia nhập
   leave_community: Rời khỏi cộng đồng này
   license: Giấy phép
+  license_cc_by_2_0: Creative Commons Ghi công 2.0 (CC BY 2.0)
+  license_cc_by_nc_3_0: Creative Commons Ghi công–Phi thương mại 3.0 (CC BY-NC 3.0)
+  license_cc_by_nc_sa_3_0: Creative Commons Ghi công–Phi thương mại–Chia sẻ tương tự 3.0 (CC BY-NC-SA 3.0)
+  license_gnu_gpl: Giấy phép Công cộng GNU (GNU GPL)
   link_to_join_this_community: Bạn cần phải <a href='%{link}'>đăng nhập</a> để gia nhập cộng đồng này.
-  location_: Vị trí
+  location: Vị trí
   log_in: Đăng nhập
+  login: đăng nhập
   login_or_create_account: Đăng nhập hoặc Mở tài khoản
   manage_community: Quản lý cộng đồng
   manage_roles: Quản lý vai trò
@@ -72,6 +92,7 @@ vi:
   media_with_count: "%{count} phương tiện"
   members_count_in_parens: (%{count} thành viên)
   members_with_count: "%{count} người đóng góp"
+  my_info: Thông tin về tôi
   newsfeed: Nguồn tin tức
   no_members_in_parens: (không có thành viên)
   other_community_items_with_count: "%{count} khoản khác"
@@ -83,6 +104,7 @@ vi:
   punctuation_comma: ","
   recent_updates: Cập nhật gần đây
   remove_membership: Gỡ thành viên
+  resources: Tài nguyên
   rights: Tác quyền
   rights_holder: Chủ tác quyền
   roles: Các vai trò
@@ -95,23 +117,30 @@ vi:
   sign_out: Đăng xuất
   site_information: Thông tin site
   skip_to_content: Nhảy tới nội dung
+  sort_by_button: Xếp
+  sort_by_data_type_option: Kiểu dữ liệu
+  sort_by_default_option: Mặc định
   source_information_link: thông tin nguồn gốc
   source_url: URL gốc
   switch_language_advisory_information: Đổi ngôn ngữ của site qua %{language_label}
+  table_of_contents: Mục lục
   taxa: Đơn vị phân loại
   taxon: đơn vị phân loại
   text_summary_more_link: Đọc bài đầy đủ
   thanks_for_feedback: Cám ơn phản hồi của bạn.
   there_are_currently_no_members_in_this_community: Hiện không có thành viên nào trong cộng đồng này.
   threat_status_header_colon: "Tình trạng nguy cấp:"
+  twitter: Twitter
   unknown: Không rõ
   user_became_role_note: "%{username} đã trở thành một %{role}."
   user_joined_community_note: "%{username} đã gia nhập cộng đồng."
   user_left_community_note: "%{username} đã rời khỏi cộng đồng."
   what_is_a_taxon: Một đơn vị phân loại là gì?
   what_is_eol: BKTTSS là gì?
+  what_is_this_question: Này là gì?
   you_have_been_a_member_of_this_community_since: Bạn đã là thành viên của cộng đồng này từ %{since}.
   you_in_parens: (bạn)
   you_must_be_logged_in_to_add_tags: Bạn phải đăng nhập để gắn nhãn.
   your_message_was_sent: Thông điệp của bạn đã được gửi.
   your_preferences: Tùy chọn cá nhân của bạn
+  your_rating: Đánh giá của bạn

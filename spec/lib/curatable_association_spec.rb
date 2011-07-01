@@ -22,7 +22,6 @@ describe 'Curating Associations' do
   end
 
   it 'should curate a dohe association' do
-    # TODO - ActivityLog
     @dohe.vetted_id = Vetted.trusted.id
     @dohe.visibility_id = Visibility.visible.id
     [Vetted.unknown.id, Vetted.untrusted.id, Vetted.trusted.id].each do |vetted_method|
@@ -45,7 +44,6 @@ describe 'Curating Associations' do
   end
 
   it 'should curate a cdohe association' do
-    # TODO - ActivityLog
     @cdohe.vetted_id = Vetted.trusted.id
     @cdohe.visibility_id = Visibility.visible.id
     [Vetted.unknown.id, Vetted.untrusted.id, Vetted.trusted.id].each do |vetted_method|
@@ -68,7 +66,6 @@ describe 'Curating Associations' do
   end
 
   it 'should add untrust reasons comment and save untrust reasons when curated as untrusted' do
-    # TODO - ActivityLog
     # curate association in dohe
     @dohe.vetted_id = Vetted.trusted.id
     CuratorActivityLog.delete_all
@@ -95,7 +92,6 @@ describe 'Curating Associations' do
   end
 
   it 'should add a curation comment to an association' do
-    # TODO - ActivityLog
     # add curator comment to association in dohe
     curation_comment = "test curation comment for dohe"
     @dohe.curate(@another_curator, { :curation_comment => curation_comment,

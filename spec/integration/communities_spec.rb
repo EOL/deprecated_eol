@@ -97,7 +97,6 @@ describe "Communities" do
         current_path.should match /#{community_path(Community.last)}/
       end
     end
-    # TODO - ActivityLog
   end
 
   shared_examples_for 'community member' do

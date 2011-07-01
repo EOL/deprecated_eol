@@ -31,12 +31,4 @@ describe 'Community Activity' do
     end
   end
 
-  it 'should have a bunch of comments on communities' do
-    user_comments = []
-    curator_comments = []
-    @activity[:communities].each do |community|
-      # TODO - ActivityLog
-    end
-  end
-
 end

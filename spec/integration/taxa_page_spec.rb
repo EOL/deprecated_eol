@@ -67,8 +67,6 @@ describe 'Taxa page' do
     it 'should show collections'
     it 'should show communities'
 
-    # TODO - ActivityLog
-
     it 'should show curators' do
       body.should have_tag('div#curators_summary') do
         with_tag('.details h4', @testy[:curator].given_name)
@@ -128,7 +126,6 @@ describe 'Taxa page' do
   end
 
   context 'when taxon does not have any data' do
-    # TODO - ActivityLog
     it 'details should show what???'
   end
 

@@ -38,12 +38,6 @@ module EOL
           end
         end
       end
-
-      # TODO: This adds curation comment as a feeditem to the data object, but it should be added to the associations.
-      if opts[:curation_comment_status]
-        # TODO - ActivityLog
-      end
-
     end
 
     def show(user, type, changeable_object_type)
@@ -93,7 +87,6 @@ module EOL
     def trust(user, opts = {})
       update_attributes({:vetted_id => Vetted.trusted.id})
       user.track_curator_activity(curator_activity_object(opts[:changeable_object_type]), opts[:changeable_object_type], 'trusted', :comment => opts[:comment], :taxon_concept_id => opts[:taxon_concept_id])
-      # TODO - ActivityLog
     end
 
     def untrust(user, opts = {})
@@ -110,27 +103,18 @@ module EOL
         # TODO: This should be changed to show the proper labels using Ajax/JQuery
         untrust_reasons_comment = "Reasons to Untrust: #{these_untrust_reasons.collect{|ur| ur.label}.to_sentence}"
       end
-      # TODO: This adds untrusted reasons comment as a feeditem to the data object, but it should be added to the associations.
-      unless untrust_reason_ids.blank?
-        # TODO - ActivityLog
-      end
       user.track_curator_activity(curator_activity_object(opts[:changeable_object_type]), opts[:changeable_object_type], 'untrusted', :comment => opts[:comment], :untrust_reasons => these_untrust_reasons, :taxon_concept_id => opts[:taxon_concept_id])
-      #note = I18n.t("dato_untrusted_note", :username => user.username, :type => data_object.data_type.simple_type)
-      #note += "  #{untrust_reasons_comment}" unless untrust_reasons_comment.blank?
-      # TODO - ActivityLog
     end
 
     def unreviewed(user, opts = {})
       update_attributes({ :vetted_id => Vetted.unknown.id })
       user.track_curator_activity(curator_activity_object(opts[:changeable_object_type]), opts[:changeable_object_type], 'unreviewed', :comment => opts[:comment], :taxon_concept_id => opts[:taxon_concept_id])
-      # TODO - ActivityLog
     end
 
     def set_visibility(user, visibility_id, verb, note, changeable_object_type)
       vetted_by = user
       update_attributes({ :visibility_id => visibility_id })
       user.track_curator_activity(curator_activity_object(changeable_object_type), changeable_object_type, verb)
-      # TODO - ActivityLog
     end
 
     def curator_activity_object(changeable_object_type)

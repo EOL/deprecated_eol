@@ -22,13 +22,14 @@ nl:
   assistive_details_header: Gegevens
   assistive_media_header: Media
   assistive_overview_header: Overzicht
+  authoritative_information: gezaghebbende gegevens
   average_rating_value_of_total: "Gemiddelde waardering: %{rating} van %{total}"
   browse_gallery: Onze galerij bekijken
   cancel: Annuleren
   cannot_be_associated_with_both_a_user_and_a_community: Kan niet gekoppeld zijn aan een gebruiker en een gemeenschap
   cannot_be_empty: kan niet leeg zijn.
   change_rating_to_1_of_5: Waardering naar 1 van 5 wijzigen
-  change_rating_to_2_of_5: Waardering wijzigen van 2 naar 5
+  change_rating_to_2_of_5: Waardering wijzigen naar 2 van 5
   change_rating_to_3_of_5: Waardering naar 3 van 5 wijzigen
   change_rating_to_4_of_5: Waardering naar 4 van 5 wijzigen
   change_rating_to_5_of_5: Waardering naar 5 van 5 wijzigen
@@ -37,6 +38,9 @@ nl:
     one: Deel van één goedgekeurde classificatie
     other: Deel van %{count} goedgekeurde classificaties
   collected_by: Verzameld door
+  collected_items_with_count: 
+    one: Eén verzameld item
+    other: "%{count} verzamelde items"
   collection_item_type_with_label: "Type: %{type}"
   collections: Verzamelingen
   collections_summary_header_with_count: 
@@ -64,7 +68,11 @@ nl:
   community_watching_this_note: De gemeenschap volgt deze %{name} nu.
   contact_us_link: Contact opnemen
   content_partners: Contentpartners
+  content_summary_introduction_html: De volgende waarden vertegenwoordigen de som van verschillende soorten inhoud voor dit taxon en van alle taxonomische nakomelingen. Inhoud die "%{glossary_term_trusted}" is, is goedgekeurd door een curator van EOL of is afkomstig van een vertrouwde leverancier. Inhoud die "%{glossary_term_unreviewed}" is, is nog niet beoordeeld door een EOL-curator. Elke taxonomische hiërarchie is uniek, dus elke door te bladeren hiërarchie wordt weergegeven voor de vergelijking.
+  content_summary_table_caption: Een samenvatting van de inhoud die is gekoppeld aan %{taxon_name} en de afstammelingen in %{hierarchy_label}
   content_summary_table_count_column_header: Aantal
+  content_summary_table_summary: Deze tabel bevat de tellingen van verschillende typen inhoud per inhoudsstatus.
+  content_summary_table_type_descendants_row: Aantal afstammelingen
   content_summary_table_type_status_column_header: Inhoudstype en status
   content_summary_table_type_trusted_images_row: Aantal vertrouwde afbeeldingen
   content_summary_table_type_trusted_text_row: Aantal vertrouwde tekstitems
@@ -79,6 +87,7 @@ nl:
   create_account: gebruiker aanmaken
   created_community: De gemeenschap is verwijderd.
   created_time_ago: "%{time_passed} geleden aangemaakt"
+  curate_this_text: dit artikel cureren
   curator_activity: Curatoractiviteit
   curator_comment: Opmerking van curator
   curators_summary_header_with_count: 
@@ -103,6 +112,7 @@ nl:
   endorsed_collections_with_count: 
     one: Eén goedgekeurde collectie
     other: "%{count} goedgekeurde collecties"
+  eol_colon: "EOL:"
   eol_glossary: EOL-woordenlijst
   eol_news: EOL-nieuws
   error_page_header: Sorry, er is een probleem opgetreden
@@ -191,7 +201,7 @@ nl:
   link_to_add_role_to_community_to_control_privs: "%{link} naar gebruikersrechtenbeheer."
   link_to_join_this_community: U moet <a href='%{link}'>aangemeld</a> zijn om lid te worden van deze gemeenschap.
   literature: Literatuur
-  location_: Locatie
+  location: Locatie
   log_in: Aanmelden
   login: aanmelden
   login_or_create_account: Aanmelden of registreren
@@ -272,6 +282,9 @@ nl:
   see_all_collections_with_count_html: 
     one: De<span class="assistive">collectie waarin dit taxon voorkomt</span> bekijken.
     other: Alle <span class="assistive">%{count} collecties waarin dit taxon voorkomt</span> bekijken.
+  see_all_comments_with_count_for_text: 
+    one: de opmerking bij dit artikel bekijken
+    other: alle %{count} opmerkingenb ij dit artikel bekijken
   see_all_communities_with_count_html: 
     one: De <span class="assistive">gemeenschap met focus op dit taxon</span> bekijken.
     other: Alle <span class="assistive">%{count} gemeenschappen met focus op dit taxon</span> bekijken.
@@ -301,10 +314,14 @@ nl:
   sort_by_newest_option: Nieuwste
   sort_by_oldest_option: Oudste
   sort_by_rating_option: Waardering
+  sort_by_vetted_option: Gecontroleerde status
   sound_thumbnail_alt_text: Deze audio-opname met de status %{vetted_status} is van %{scientific_name}
+  sounds_with_count: 
+    one: Eén geluid
+    other: "%{count} geluiden"
   source_information_link: brongegevens
   source_url: Bron-URL
-  supplier_: Leverancier
+  supplier: Leverancier
   switch_language_advisory_information: De taal van de site veranderen naar %{language_label}
   table_of_contents: Inhoudsopgave
   taxa: Taxa

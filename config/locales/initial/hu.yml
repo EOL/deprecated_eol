@@ -1,0 +1,215 @@
+# Messages for Hungarian (Magyar)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Dani
+hu: 
+  about_eol: Az EOL-ról
+  account_registered_but_not_ready_try_later: A fiókod regisztrálva van, de még nem áll készen a használatra. Próbáld újra öt perc múlva!
+  add_a_role: Szerepkör hozzáadása
+  all_information: Minden információ
+  all_pages: Összes lap
+  already_a_member_question: Már tag vagy?
+  already_member_of_community: Már tagja vagy ennek a közösségnek.
+  alternate_classification: Alternatív osztályozás
+  application_version_advisory_information: Alkalmazás verziója
+  are_you_sure: Biztos vagy benne?
+  assistive_details_header: Részletek
+  assistive_overview_header: Áttekintés
+  browse_gallery: Böngészés a galériánkban
+  cancel: Mégse
+  cannot_be_empty: nem lehet üres.
+  citation: Idézés
+  classifications_summary_header_with_count: 
+    one: "%{count} elfogadott osztályozás tagja"
+    other: "%{count} elfogadott osztályozás tagja"
+  collection_item_type_with_label: "Típus: %{type}"
+  collections: Gyűjtemények
+  collections_with_count: 
+    one: "%{count} gyűjtemény"
+    other: "%{count} gyűjtemény"
+  communities: Közösségek
+  communities_summary_header_with_count: 
+    one: "%{count} közösség tagja"
+    other: "%{count} közösség tagja"
+  community: Közösség
+  community_members: Közösségi tagok
+  contact_us_link: Kapcsolatfelvétel
+  content_summary_table_type_descendants_row: Leszármazottak száma
+  content_summary_table_type_status_column_header: Tartalom típusa és állapota
+  content_update: Tartalomfrissítés
+  contributors_like_you: Hozzád hasonló szerkesztők
+  create_a_collection: Gyűjtemény létrehozása
+  create_a_community: Közösség létrehozása
+  created_community: Közösség sikeresen létrehozva.
+  curators_summary_header_with_count: 
+    one: "%{count} kurátor"
+    other: "%{count} kurátor"
+  dashboard: Vezérlőpult
+  delete_allcaps: TÖRLÉS
+  delete_community: Közösség törlése
+  detail: Részletek
+  displaying_numerical_range: "Megjelenítés: %{start_number} &mdash; %{end_number}"
+  donate: Adományozás
+  donation_error_no_amount: Válaszd ki az adományozandó mennyiséget!
+  edit_collection: Gyűjtemény szerkesztése
+  edit_community: Közösség szerkesztése
+  edit_membership: Tagság szerkesztése
+  edit_my_profile: Profil szerkesztése
+  encyclopedia_of_life: Az élet enciklopédiája
+  eol_colon: "EOL:"
+  eol_glossary: EOL szószedet
+  eol_news: EOL hírek
+  esc_key_hides_this_message: (Esc billentyű megnyomása után az üzenet eltűnik)
+  feedback: Visszajelzés
+  filter_by_status_all_option: minden állapot
+  filter_by_status_untrusted_option: nem megbízható
+  filter_by_type: Szűrés típus szerint
+  filter_by_type_videos_option: videók
+  filter_feeds_button: Szűrő
+  filtered_information: Szűrt információk
+  founder: Alapító
+  google_translate: Google Fordító
+  has_already_been_taken: már foglalt.
+  hello_user: Szia, %{user}!
+  help: Segítség
+  home: Kezdőlap
+  images: Képek
+  images_with_count: 
+    one: "%{count} kép"
+    other: "%{count} kép"
+  invalid_login_or_password: Érvénytelen felhasználónév vagy jelszó
+  join_community: Csatlakozás a közösséghez
+  join_community_button: Csatlakozás a közösséghez
+  language: "Nyelv:"
+  language_menu_item: "%{language_label} <abbr>(%{language_abbr})</abbr>"
+  leave_a_comment: Hozzászólás írása
+  leave_community: Közösség elhagyása
+  license: Licenc
+  license_all_rights_reserved: Minden jog fenntartva
+  license_cc_by: Creative Commons Nevezd meg! (CC BY)
+  license_cc_by_2_0: Creative Commons Nevezd meg! 2.0 (CC BY 2.0)
+  license_cc_by_2_5: Creative Commons Nevezd meg! 2.5 (CC BY 2.5)
+  license_cc_by_3_0: Creative Commons Nevezd meg! 3.0 (CC BY 3.0)
+  license_cc_by_nc: Creative Commons Nevezd meg! - Ne add el! (CC BY-NC)
+  license_cc_by_nc_2_0: Creative Commons Nevezd meg! - Ne add el! 2.0 (CC BY-NC 2.0)
+  license_cc_by_nc_2_5: Creative Commons Nevezd meg! - Ne add el! 2.5 (CC BY-NC 2.5)
+  license_cc_by_nc_3_0: Creative Commons Nevezd meg! - Ne add el! 3.0 (CC BY-NC 3.0)
+  license_cc_by_nc_sa: Creative Commons Nevezd meg! - Ne add el! - Így add tovább! (CC BY-NC-SA)
+  license_cc_by_nc_sa_1_0: Creative Commons Nevezd meg! - Ne add el! - Így add tovább! 1.0 (CC BY-NC-SA 1.0)
+  license_cc_by_nc_sa_2_0: Creative Commons Nevezd meg! - Ne add el! - Így add tovább! 2.0 (CC BY-NC-SA 2.0)
+  license_cc_by_nc_sa_3_0: Creative Commons Nevezd meg! - Ne add el! - Így add tovább! 3.0 (CC BY-NC-SA 3.0)
+  license_cc_by_sa: Creative Commons Nevezd meg! - Így add tovább! (CC BY-SA)
+  license_cc_by_sa_1_0: Creative Commons Nevezd meg! - Így add tovább! 1.0 (CC BY-SA 1.0)
+  license_cc_by_sa_2_0: Creative Commons Nevezd meg! - Így add tovább! 2.0 (CC BY-SA 2.0)
+  license_cc_by_sa_2_5: Creative Commons Nevezd meg! - Így add tovább! 2.5 (CC BY-SA 2.5)
+  license_cc_by_sa_3_0: Creative Commons Nevezd meg! - Így add tovább! 3.0 (CC BY-SA 3.0)
+  license_gnu_fdl: GNU Szabad Dokumentációs Licenc (GNU FDL)
+  license_gnu_gpl: GNU General Public License (GNU GPL)
+  license_not_applicable: Licenc nem alkalmazható
+  license_public_domain: Közkincs
+  literature: Irodalom
+  location: Helyszín
+  log_in: Bejelentkezés
+  login: bejelentkezés
+  login_or_create_account: Jelentkezz be vagy regisztrálj
+  logout: Kijelentkezés
+  manage_roles: Szerepkörök kezelése
+  maps_with_count: 
+    one: "%{count} térkép"
+    other: "%{count} térkép"
+  members_count_in_parens: 
+    one: (egy tag)
+    other: (%{count} tag)
+  most_active_members: Legaktívabb tagok
+  most_visited_taxa: Legnézettebb taxonok
+  must_be_logged_in: A művelet végrehajtásához be kell jelentkezned.
+  my_info: Információk rólam
+  newsfeed: Hírfolyam
+  no_members_in_parens: (nincsenek tagok)
+  nomenclature: Nevezéktan
+  not_evaluated: Nincs kiértékelve
+  overview: Áttekintés
+  pages_with_pictures_or_text: Oldalak képekkel vagy szöveggel
+  pending_members_with_count: 
+    one: "%{count} függő tag"
+    other: "%{count} függő tag"
+  people_with_count: 
+    one: "%{count} személy"
+    other: "%{count} személy"
+  post_comment: Hozzászólás elküldése
+  preferences: Beállíítások
+  preferred_common_name_advisory_information: Ez a taxon előnyben részesített hétköznapi neve.
+  press_room: Sajtószoba
+  print_this_page_link: Az oldal nyomtatása
+  profile: Profil
+  punctuation_comma: ","
+  recent_updates: Legutóbbi frissítések
+  remove_membership: Tagság eltávolítása
+  rights: Jogosultságok
+  rights_holder: Jogtulajdonos
+  roles: Szerepkörök
+  rss_abbr_html: <abbr title="Really Simple Syndication">RSS</abbr>
+  search_field_label: Keresés az EOL-on
+  search_the_site: Keresés az oldalon
+  see_all_media_link: Összes médiafájl megtekintése
+  see_next_with_count: 
+    one: Következő %{count}}
+    other: Következő %{count}
+  see_previous_with_count: 
+    one: Előző %{count}}
+    other: Előző %{count}
+  selected_language_advisory_information: Ez a jelenleg kiválasztott nyelv.
+  show_warning_message: Figyelmeztető üzenet megjelenítése
+  sign_in: Bejelentkezés
+  sign_out: Kijelentkezés
+  site_information: Információk az oldalról
+  skip_to_content: Ugrás a tartalomhoz
+  skip_to_navigation: Ugrás a navigációhoz
+  skip_to_table_of_contents: Ugrás a tartalomjegyzékhez
+  sort_by: "Rendezés:"
+  sort_by_button: Rendezés
+  sort_by_default_option: Alapértelmezett
+  sort_by_label: "Rendezés:"
+  sort_by_newest_option: Legújabb
+  sort_by_oldest_option: Legrégebbi
+  sort_by_rating_option: Értékelés
+  sounds_with_count: 
+    one: "%{count} hang"
+    other: "%{count} hang"
+  source_information_link: forrásinformációk
+  source_url: Forrás URL-címe
+  switch_language_advisory_information: "Oldal nyelvének váltása a következőre: %{language_label}"
+  table_of_contents: Tartalomjegyzék
+  taxa: Taxonok
+  taxa_with_count: 
+    one: "%{count} taxon"
+    other: "%{count} taxon"
+  taxon: taxon
+  text_summary_more_link: Teljes bejegyzés olvasása
+  text_with_count: 
+    one: "%{count} cikk"
+    other: "%{count} cikk"
+  thanks_for_feedback: Köszönjük a visszajelzésedet!
+  there_are_currently_no_roles_for_this_community: A közösségben jelenleg nincsenek szerepkörök.
+  threat_status_header_colon: "IUCN veszélyeztetettségi állapot:"
+  time_ago: "%{time_passed} ezelőtt"
+  twitter: Twitter
+  unknown: Ismeretlen
+  updated_community: Közösség sikeresen frissítve.
+  user_became_role_note: "%{username} %{role} lett."
+  user_joined_community_note: "%{username} csatlakozott a közösséghez."
+  user_left_community_note: "%{username} elhagyta a közösséget."
+  using_the_site: A weboldal használata
+  videos_with_count: 
+    one: "%{count} videó"
+    other: "%{count} videó"
+  what_is_a_taxon: Mi az a taxon?
+  what_is_eol: Mi az EOL?
+  what_is_this_question: Mi ez?
+  you_are_not_authorized_to_perform_this_action: Nem vagy jogosult a művelet végrehajtására.
+  you_have_been_a_member_of_this_community_since: "%{since} óta vagy tagja ennek a közösségnek."
+  you_in_parens: (te)
+  you_joined_community: Sikeresen csatlakoztál ehhez a közösséghez.
+  you_left_community: Sikeresen elhagytad a közösséget.
+  your_message_was_sent: Üzenet elküldve.
+  your_rating: A te értékelésed

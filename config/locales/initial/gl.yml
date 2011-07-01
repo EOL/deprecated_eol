@@ -6,12 +6,14 @@ gl:
   account_information: Información sobre a conta
   add_a_role: Engadir un rol
   add_to_my_collection_button: Engadir á miña colección
+  admin: administrador
   all_pages: Todas as páxinas
   already_a_member_question: Xa es membro?
   already_member_of_community: Xa es membro desta comunidade.
   application_version_advisory_information: Versión da aplicación
   are_you_sure: Está seguro?
   browse_gallery: Navega pola nosa galería
+  cancel: Cancelar
   cannot_be_empty: non pode quedar baleiro.
   citation: Cita
   collected_by: Recollido por
@@ -38,17 +40,22 @@ gl:
   donate: Doazóns
   edit_collection: Editar a colección
   edit_community: Editar a comunidade
+  edit_my_profile: Editar o meu perfil
   encyclopedia_of_life: Enciclopedia da vida
   eol_glossary: Glosario da Enciclopedia da vida
   eol_news: Novas da Enciclopedia da vida
   explore: Explorar
+  filter_by_type_videos_option: vídeos
   filter_feeds_button: Filtrar
   filter_feeds_label: Mostrar
+  filtered_information: Información filtrada
+  founder: Fundador
   get_involved: Involúcrate
   global_navigation: Navegación global
   go: Ir
   google_translate: Tradutor do Google
   help: Axuda
+  home: Inicio
   images: Imaxes
   images_with_count: 
     one: "%{count} imaxe"
@@ -61,7 +68,9 @@ gl:
   learn_how_to_join: Descubre como podes unirte
   leave_community: Deixar esta comunidade
   license: Licenza
-  location_: Localización
+  license_cc_by_2_0: Creative Commons recoñecemento 2.0 (CC BY 2.0)
+  license_gnu_gpl: Licenza pública xeral GNU (GNU GPL)
+  location: Localización
   log_in: Rexistro
   login_or_create_account: Iniciar sesión ou crear unha conta
   manage_community: Xestionar a comunidade
@@ -73,6 +82,8 @@ gl:
     one: (%{count} membro)
     other: (%{count} membros)
   minimal_page: Páxina mínima
+  my_activity: A miña actividade
+  my_info: A miña información
   newsfeed: Fonte de novas
   no_activity: Sen actividade.
   no_members_in_parens: (sen membros)
@@ -87,6 +98,9 @@ gl:
   print_this_page_link: Imprimir esta páxina
   profile: Perfil
   punctuation_comma: ","
+  rated_by_count_people: 
+    one: de %{count} persoa
+    other: de %{count} persoas
   recent_updates: Actualizacións recentes
   rights: Dereitos
   roles: Roles
@@ -98,11 +112,17 @@ gl:
   sign_out: Saír
   site_information: Información do sitio
   skip_to_content: Saltar ata os contidos
+  sort_by_default_option: Por defecto
   source_information_link: fonte da información
   source_url: URL de orixe
   switch_language_advisory_information: Cambiar a lingua do sitio a %{language_label}
+  table_of_contents: Táboa de contidos
   text_summary_more_link: Ler a entrada ao completo
+  text_with_count: 
+    one: "%{count} artigo"
+    other: "%{count} artigos"
   threat_status_header_colon: "Estado do fío:"
+  twitter: Twitter
   unknown: Descoñecido
   user_became_role_note: "%{username} xa é %{role}."
   user_comment: Comentario de usuario
@@ -111,6 +131,7 @@ gl:
     one: "%{count} vídeo"
     other: "%{count} vídeos"
   what_is_eol: Que é a Enciclopedia da vida?
+  what_is_this_question: Que é isto?
   you_in_parens: (ti)
   you_must_be_logged_in_to_add_tags: Debe estar rexistrado para engadir etiquetas.
   your_message_was_sent: Enviouse a súa mensaxe.

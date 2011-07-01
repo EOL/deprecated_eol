@@ -3,21 +3,38 @@
 # Export driver: syck-pecl
 # Author: Anakmalaysia
 ms: 
+  about_eol: Perihal EOL
   account_information: Maklumat Akaun
   account_registered_but_not_ready_try_later: Akaun anda berdaftar tetapi belum sedia untuk diakses. Sila cuba lagi selepas lima minit.
   add_a_role: Tambahkan peranan
   add_to_my_collection_button: Tambahkan ke dalam himpunan saya
+  added_date: Ditambahkan pada %{date}
+  admin: pentadbir
+  all_information: Semua maklumat
   all_pages: Semua halaman
   already_a_member_question: Sudah jadi ahli?
   already_member_of_community: Anda sudah menjadi ahli kumpulan ini.
+  alternate_classification: Pengelasan alternatif
   application_version_advisory_information: Versi aplikasi
   are_you_sure: Anda pasti?
+  assistive_details_header: Butiran
+  assistive_media_header: Media
+  assistive_overview_header: Gambaran keseluruhan
+  authoritative_information: maklumat berwibawa
+  average_rating_value_of_total: "Purata penilaian: %{rating} daripada %{total}"
   browse_gallery: Semak seimbas galeri kami
+  cancel: Batalkan
   cannot_be_associated_with_both_a_user_and_a_community: Tidak boleh dikaitkan dengan seseorang pengguna dan sesebuah komuniti sekali
   cannot_be_empty: tidak boleh kosong.
+  change_rating_to_1_of_5: Ubah penilaian kepada 1/5
+  change_rating_to_2_of_5: Ubah penilaian kepada 2/5
+  change_rating_to_3_of_5: Ubah penilaian kepada 3/5
+  change_rating_to_4_of_5: Ubah penilaian kepada 4/5
+  change_rating_to_5_of_5: Ubah penilaian kepada 5/5
   citation: Petikan
   classifications_summary_header_with_count: Sebahagian daripada %{count} pengelasan lulus
   collected_by: Dikumpulkan oleh
+  collected_items_with_count: "%{count} item terkumpul"
   collection_item_type_with_label: "Jenis: %{type}"
   collections: Himpunan
   collections_summary_header_with_count: Terdapat dalam %{count} himpunan
@@ -35,36 +52,71 @@ ms:
   community_watching_this_note: Komuniti sedang memerhatikan %{name} ini.
   contact_us_link: Hubungi kami
   content_partners: Rakan Kandungan
+  content_summary_introduction_html: Nilai-nilai berikut mewakili jumlah pelbagai jenis kandungan untuk takson ini dan semua keturunan taksonominya. Kandungan %{glossary_term_trusted} mendapat kelulusan kurator EOL atau berasal daripada pembekal yang dipercayai. Kandungan %{glossary_term_unreviewed} belum dinilai oleh kurator EOL. Setiap hierarki taksonomi adalah unik, maka setiap  hierarki yang boleh disemak seimbas disenaraikan untuk perbandingan.
+  content_summary_table_caption: Ringkasan kandungan yang berkitan dengan %{taxon_name} dan keturunannya dalam %{hierarchy_label}
+  content_summary_table_count_column_header: Bilangan
+  content_summary_table_summary: Jadual ini mengandungi bilangan jenis kandungan berbeza yang dipisahkan oleh keadaan kandungan.
+  content_summary_table_type_descendants_row: Bilangan keturunan
+  content_summary_table_type_status_column_header: Jenis dan status kandungan
+  content_summary_table_type_trusted_images_row: Bilangan gamba yang dipercayai
+  content_summary_table_type_trusted_text_row: Bilangan butiran teks yang dipercayai
+  content_summary_table_type_unreviewed_images_row: Bilangan gambar yang belum diulas
+  content_summary_table_type_unreviewed_text_row: Bilangan butiran teks yang belum disemak
   content_update: Kemas Kini Kandungan
   contribute_to_page_button: Berikan sumbangan kepada halaman ini
   contributors_like_you: Penyumbang seperti anda
   could_not_find_user: Ahli tidak dapat dicari untuk pengguna ini
   create_a_collection: Buat himpunan
   create_a_community: Tubuhkan komuniti
+  create_account: buka akaun
   created_community: Komuniti berjaya ditubuhkan.
+  created_time_ago: Dicipta %{time_passed} lalu
+  curate_this_text: terangkan rencana ini
   curator_activity: Kegiatan Kurator
   curator_comment: Ulasan Kurator
   curators_summary_header_with_count: "%{count} Kurator"
   currently_in_eol: Kini di Encyclopedia of Life
+  dashboard: Papan Pemuka
   dato_rating_note: "%{username} memberinya markah %{rating}."
   delete_allcaps: HAPUSKAN
   delete_community: Hapuskan komuniti ini
   detail: Butiran
   development_version_name: VERSI PEMBANGUNAN V2 – bukan untuk kegunaan umum
+  displaying_numerical_range: "%{start_number} &mdash; %{end_number} dipaparkan"
   donate: Derma
   donation_error_no_amount: Sila pilih akaun dermaan.
   donation_error_only_numbers: Sila isikan jumlah dengan nombor sahaja.
   edit_collection: Sunting himpunan
   edit_community: Sunting komuniti
   edit_membership: Sunting keahlian
+  edit_my_profile: Sunting profil saya
   encyclopedia_of_life: Encyclopedia of Life
+  endorsed_collections_with_count: "%{count} himpunan diendors"
+  eol_colon: "EOL:"
   eol_glossary: Daftar Istilah EOL
   eol_news: Berita EOL
   error_page_header: Maaf, kami berdepan dengan masalah
+  esc_key_hides_this_message: (kekunci esc menyorokkan pesanan ini)
   explore: Jelajah
+  feedback: Maklum Balas
+  filter_by_status: Tapis mengikut status
+  filter_by_status_all_option: semua status
+  filter_by_status_inappropriate_option: tidak sesuai
+  filter_by_status_trusted_option: dipercayai
+  filter_by_status_unreviewed_option: belum diulas
+  filter_by_status_untrusted_option: tidak dipercayai
+  filter_by_type: Tapis mengikut jenis
+  filter_by_type_all_option: semua jenis
+  filter_by_type_audio_option: audio
+  filter_by_type_images_option: gambar
+  filter_by_type_photosynths_option: photosynth
+  filter_by_type_videos_option: video
   filter_feeds_all_option: Kemas kini dari semua suapan
   filter_feeds_button: Tapis
   filter_feeds_label: Tunjukkan
+  filter_media: tapis media
+  filtered_information: Maklumat ditapis
+  founder: Pengasas
   general_error_occurred: Maaf, ralat telah terjadi. Sila cuba sekali lagi untuk melakukan tugas anda. Jika ralat itu masih tidak reda, sila hantarkan e-mel kepada %{email} bersama mesej ralat di bawah dan sebarang maklumat lain yang ingin anda kongsikan dengan kami. Kami akan berusaha untuk memberikan khidmat yang terbaik kepada anda, dan kami menghargai sokongan anda. -- Pasukan EOL
   get_involved: Libatkan diri
   global_access_tagline: Capaian global kepada pengetahuan tentang hidupan-hidupan di Bumi.
@@ -73,11 +125,14 @@ ms:
   google_translate: Google Translate
   google_translate_advisory_information: Gunakan widget Google Translate untuk mengubah kandungan tapak ini kepada bahasa lain.
   has_already_been_taken: sudah pun diambil.
+  hello_user: Apa khabar, %{user}
   help: Bantuan
+  home: Laman Utama
   home_page_link_advisory_information: Pautan ini akan membawa anda ke halaman utama tapak web Encyclopedia of Life
   image_thumbnail_alt_text: Gambar %{vetted_status} ini mengenai %{scientific_name}
   images: Gambar
   images_with_count: "%{count} gambar"
+  in_my_collection_button: Dalam himpunan saya
   indexed: Berindeks
   invalid_login_or_password: Nama log masuk atau kata laluan tidak sah
   item_was_added_to_your_recently_collected_items: Item ditambahkan ke dalam senarai Baru Dikumpulkan anda
@@ -89,31 +144,65 @@ ms:
   join_eol_button_html: Sertai <abbr title="Encyclopedia of Life">EOL</abbr> sekarang
   join_eol_community_html: Sertailah komuniti <abbr title="Encyclopedia of Life">EOL</abbr>!
   just_pages_with_pictures_and_text: Hanya halaman yang ada gambar dan teks
+  language: "Bahasa:"
   language_menu_item: "%{language_label} <abbr>(%{language_abbr})</abbr>"
+  last_updated_time_ago: Kali terakhir dikemaskini pada %{time_passed} lalu
   learn_about_content_partners: Kenali rakan kandungan kami
   learn_how_to_interact: Pelajari cara berinteraksi
   learn_how_to_join: Ketahui cara untuk menyertai kami
+  leave_a_comment: Tinggalkan komen
   leave_community: Tinggalkan komuniti ini
   license: Lesen
+  license_all_rights_reserved: Semua hak cipta terpelihara
+  license_cc_by: Creative Commons Attribution (CC BY)
+  license_cc_by_2_0: Creative Commons Attribution 2.0 (CC BY 2.0)
+  license_cc_by_2_5: Creative Commons Attribution 2.5 (CC BY 2.5)
+  license_cc_by_3_0: Creative Commons Attribution 3.0 (CC BY 3.0)
+  license_cc_by_nc: Creative Commons Attribution Non Commercial (CC BY-NC)
+  license_cc_by_nc_2_0: Creative Commons Attribution Non Commercial 2.0 (CC BY-NC 2.0)
+  license_cc_by_nc_2_5: Creative Commons Attribution Non Commercial 2.5 (CC BY-NC 2.5)
+  license_cc_by_nc_3_0: Creative Commons Attribution Non Commercial 3.0 (CC BY-NC 3.0)
+  license_cc_by_nc_sa: Creative Commons Attribution Non Commercial Share Alike (CC BY-NC-SA)
+  license_cc_by_nc_sa_1_0: Creative Commons Attribution Non Commercial Share Alike 1.0 (CC BY-NC-SA 1.0)
+  license_cc_by_nc_sa_2_0: Creative Commons Attribution Non Commercial Share Alike 2.0 (CC BY-NC-SA 2.0)
+  license_cc_by_nc_sa_2_5: Creative Commons Attribution Non Commercial Share Alike 2.5 (CC BY-NC-SA 2.5)
+  license_cc_by_nc_sa_3_0: Creative Commons Attribution Non Commercial Share Alike 3.0 (CC BY-NC-SA 3.0)
+  license_cc_by_sa: Creative Commons Attribution Share Alike (CC BY-SA)
+  license_cc_by_sa_1_0: Creative Commons Attribution Share Alike 1.0 (CC BY-SA 1.0)
+  license_cc_by_sa_2_0: Creative Commons Attribution Share Alike 2.0 (CC BY-SA 2.0)
+  license_cc_by_sa_2_5: Creative Commons Attribution Share Alike 2.5 (CC BY-SA 2.5)
+  license_cc_by_sa_3_0: Creative Commons Attribution Share Alike 3.0 (CC BY-SA 3.0)
+  license_gnu_fdl: Lesen Dokumentasi Bebas GNU (GNU FDL)
+  license_gnu_gpl: Lesen Awam Am GNU (GNU GPL)
+  license_not_applicable: Tiada lesen yang berkenaan
+  license_public_domain: Domain Awam
   link_to_add_role_to_community_to_control_privs: "%{link} untuk mengawal keistimewaan ahli."
   link_to_join_this_community: Anda mesti <a href='%{link}'>log masuk</a> untuk menyertai komuniti ini.
-  location_: Lokasi
+  literature: Kepustakaan
+  location: Lokasi
   log_in: Log masuk
+  login: log masuk
   login_or_create_account: Log Masuk atau Buka Akaun
+  logout: Log keluar
   manage_community: Uruskan komuniti
   manage_roles: Uruskan peranan
   maps_with_count: "%{count} Peta"
   media: Media
   media_with_count: "%{count} Media"
   members_count_in_parens: (%{count} ahli)
-  members_with_count: "%{count} penyumbang"
+  members_with_count: "%{count} ahli"
   minimal_page: Halaman Minimal
+  most_active_members: Ahli-ahli paling aktif
+  most_visited_taxa: Takson yang paling kerap dikunjungi
   must_be_associated_with_either_a_user_or_a_community: Mesti dikaitkan dengan seseorang pengguna atau sesebuah komuniti
   must_be_less_than_128_characters_long: mestilah kurang daripada 128 aksara panjangnya.
   must_be_logged_in: Anda mesti log masuk untuk melakukan tindakan ini.
+  my_activity: Kegiatan saya
+  my_info: Maklumat saya
   newsfeed: Suapan berita
   no_activity: Tiada kegiatan.
   no_members_in_parens: (tiada ahli)
+  nomenclature: Tatanama
   not_evaluated: Belum dinilai
   other_collection_items_with_count: "%{count} item lain"
   other_community_items_with_count: "%{count} item lain"
@@ -123,63 +212,97 @@ ms:
   pending_collections_with_count: "%{count} himpunan menunggu kelulusan"
   pending_members_with_count: "%{count} ahli menunggu kelulusan"
   people_with_count: "%{count} orang"
+  personal_space: Ruangan Peribadi
   post_comment: Siarkan Ulasan
+  preferences: Keutamaan
   preferred_common_name_advisory_information: Inilah nama am yang diutamakan untuk takson ini.
+  press_room: Bilik Akhbar
   print_this_page_link: Cetak halaman ini
   profile: Profil
   profile_image_alt_text_curator: Gambar profil untuk kurator %{user_given_name} %{user_family_name}
   profile_image_alt_text_member: Gambar profil untuk ahli %{user_given_name} %{user_family_name}
   punctuation_comma: ","
+  rated_by_count_people: daripada %{count} orang
   recent_updates: Kemas kini terkini
   remove_membership: Tarik balik keahlian
+  resources: Sumber
   rights: Hak
   rights_holder: Pemegang Hak
   roles: Peranan
+  rss_abbr_html: <abbr title="Really Simple Syndication">RSS</abbr>
   search_field_label: Cari dalam EOL
   search_input_advisory_information: Isikan nama am atau saintifik bagi hidupan-hidupan yang anda ingin ketahui dengan lebih lanjut, misalnya cuba isikan 'tomato'.
   search_placeholder: Cari dalam EOL ...
   search_the_site: Cari dalam tapak ini
   see_all_classifications_with_count_html: <span class="assistive">%{count} pengelasan lulus yang ada takson ini.</span>
   see_all_collections_with_count_html: <span class="assistive">%{count} himpunan yang ada takson ini.</span>
+  see_all_comments_with_count_for_text: 
+    one: lihat %{count} untuk rencana ini
+    other: lihat semua %{count} untuk rencana ini
   see_all_communities_with_count_html: Lihat <span class="assistive">%{count} komuniti yang bertumpu pada takson ini.</span>
   see_all_media_link: Lihat semua media
+  see_next_with_count: Lihat %{count} seterusnya
+  see_previous_with_count: Lihat %{count} sebelumnya
   select_topic: Sila pilih bidang topik
   selected_language_advisory_information: Inilah bahasa yang dipilih sekarang.
+  set_as_exemplar: Jadikan contoh
+  show_status_message: Tunjukkan pesanan status
+  show_warning_message: Tunjukkan pesanan amaran
   sign_in: Daftar masuk
   sign_out: Daftar Keluar
   site_information: Maklumat tapak
   skip_to_content: Langkau ke kandungan
+  skip_to_navigation: Langkau ke navigasi
+  skip_to_table_of_contents: Langkau ke jadual kandungan
+  sort_by: Isih mengikut
+  sort_by_button: Isih
+  sort_by_data_type_option: Jenis data
+  sort_by_default_option: Tersedia
+  sort_by_label: Isih mengikut
+  sort_by_newest_option: Terbaru
+  sort_by_oldest_option: Terlama
+  sort_by_rating_option: Penilaian
+  sort_by_vetted_option: Status disemak
   sound_thumbnail_alt_text: Rakaman audio %{vetted_status} ini mengenai %{scientific_name}
+  sounds_with_count: "%{count} Bunyi"
   source_information_link: maklumat sumber
   source_url: URL sumber
-  supplier_: Pembekal
+  supplier: Pembekal
   switch_language_advisory_information: Tukar bahasa tapak kepada %{language_label}
+  table_of_contents: Jadual Kandungan
   taxa: Takson
   taxa_with_count: "%{count} takson"
   taxon: takson
   text_summary_more_link: Baca entri penuh
+  text_with_count: "%{count} Rencana"
   thanks_for_feedback: Terima kasih atas maklum balas anda.
   the_email_address_is_not_unique_you_must_enter_a_username: Alamat e-mel ini tidak unik; anda mesti isikan nama pengguna
   there_are_currently_no_members_in_this_community: Komuniti ini tiada ahli sekarang.
   there_are_currently_no_roles_for_this_community: Komuniti ini tiada peranan sekarang.
-  threat_status_header_colon: "Status ancaman:"
+  threat_status_header_colon: "Status ancaman IUCN:"
+  time_ago: "%{time_passed} lalu"
   total_items_with_count: 
     one: "%{count} item"
     other: "%{count} item kesemuanya"
+  trusted: Dipercayai
   try_your_request_again: Cuba lagi permohonan anda
+  twitter: Twitter
   unknown: Tidak diketahui
+  unreviewed: Belum disemak
   updated_community: Komuniti berjaya dikemas kini.
   user_became_role_note: "%{username} menjadi %{role}."
   user_comment: Ulasan Pengguna
   user_joined_community_note: "%{username} menyertai komuniti."
   user_left_community_note: "%{username} meninggalkan komuniti."
   user_system_down: Maaf, sistem pendaftaran pengguna tidak tersedia buat masa ini. Sila cuba lagi nanti.
+  using_the_site: Penggunaan Laman Ini
   verification_phrase_did_not_match: Ungkapan pengesahan yang anda isikan tidak sepadan.
   video_thumbnail_alt_text: Video %{vetted_status} ini mengenai %{scientific_name}
   videos_with_count: "%{count} video"
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Hanya lihat halaman yang mempunyai sekurang-kurangnya satu gambar atau serangkap teks.
   what_is_a_taxon: Takson itu apa?
   what_is_eol: EOL tu apa?
+  what_is_this_question: Apakah ini?
   wikipedia_article_will_be_harvested_tonight: Semakan rencana %{article} di Wikipedia (%{rev}) akan dipetik malam ini
   wikipedia_revisions_must_match_pattern_error: URL semakan mesti sepadan dengan http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
   you_are_an_admin_so_i_will_show_you_that_the_error_was: "Anda seorang pentadbir. Jadi, saya akan tunjukkan di mana ralatnya:"
@@ -189,5 +312,12 @@ ms:
   you_joined_community: Anda berjaya menyertai komuniti ini.
   you_left_community: Anda berjaya meninggalkan komuniti ini.
   you_must_be_logged_in_to_add_tags: Anda mesti log masuk untuk membubuh tag.
+  your_current_rating_0_of_5: "Penilaian semasa anda: 0/5"
+  your_current_rating_1_of_5: "Penilaian semasa anda: 1/5"
+  your_current_rating_2_of_5: "Penilaian semasa anda: 2/5"
+  your_current_rating_3_of_5: "Penilaian semasa anda: 3/5"
+  your_current_rating_4_of_5: "Penilaian semasa anda: 4/5"
+  your_current_rating_5_of_5: "Penilaian semasa anda: 5/5"
   your_message_was_sent: Pesanan anda dihantar.
   your_preferences: Keutamaan Anda
+  your_rating: Penilaian anda

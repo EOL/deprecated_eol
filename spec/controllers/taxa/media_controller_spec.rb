@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
-def media_do_show
-  get :show, :taxon_id => @data[:taxon_concept].id
+def media_do_index
+  get :index, :taxon_id => @data[:taxon_concept].id
 end
 
 describe Taxa::MediaController do
@@ -23,7 +23,7 @@ describe Taxa::MediaController do
     end
   end
 
-  describe 'GET show' do
+  describe 'GET index' do
 
     before(:all) do
       @taxon_concept.reload
@@ -93,42 +93,42 @@ describe Taxa::MediaController do
     end
 
     it 'should instantiate the taxon concept' do
-      media_do_show
+      media_do_index
       assigns[:taxon_concept].should be_a(TaxonConcept)
     end
 
     it 'should instantiate an Array of DataObjects' do
-      media_do_show
+      media_do_index
       assigns[:media].should be_a(Array)
       assigns[:media].first.should be_a(DataObject)
     end
 
     it 'should include images in the instantiated Array of DataObjects' do
       @highly_ranked_image.should_not be_nil
-      media_do_show
+      media_do_index
       assigns[:media].include?(@highly_ranked_image).should be_true
     end
 
     it 'should include videos in the instantiated Array of DataObjects' do
       @highly_ranked_video.should_not be_nil
-      media_do_show
+      media_do_index
       assigns[:media].include?(@highly_ranked_video).should be_true
     end
 
     it 'should include sounds in the instantiated Array of DataObjects' do
       @highly_ranked_sound.should_not be_nil
-      media_do_show
+      media_do_index
       assigns[:media].include?(@highly_ranked_sound).should be_true
     end
 
     it 'should not include text objects in the instantiated Array of DataObjects' do
       @highly_ranked_text.should_not be_nil
-      media_do_show
+      media_do_index
       assigns[:media].include?(@highly_ranked_text).should be_false
     end
 
     it 'should paginate instantiated Array of DataObjects' do
-      media_do_show
+      media_do_index
       assigns[:media].should be_a(WillPaginate::Collection)
     end
 
@@ -137,7 +137,7 @@ describe Taxa::MediaController do
       highly_ranked = [@highly_ranked_image, @highly_ranked_video, @highly_ranked_sound]
       @trusted_count.should be_a(Fixnum)
 
-      media_do_show
+      media_do_index
       sorted_by_default = assigns[:media]
       sorted_by_default.first(3).should == highly_ranked
       sorted_by_default.count.should > @trusted_count # because next we assume all trusted objects fit on the first page
@@ -145,7 +145,7 @@ describe Taxa::MediaController do
       sorted_by_default.include?(@newest_video_poorly_rated_trusted).should be_true
       sorted_by_default.include?(@newest_sound_poorly_rated_trusted).should be_true
 
-      get :show, :taxon_id => @taxon_concept.id, :sort_by => 'status'
+      get :index, :taxon_id => @taxon_concept.id, :sort_by => 'status'
       sorted_by_status = assigns[:media]
       sorted_by_status.should == sorted_by_default
       sorted_by_status.should == DataObject.sort_by_rating(sorted_by_status, [:visibility, :vetted, :rating, :date, :type])
@@ -159,14 +159,14 @@ describe Taxa::MediaController do
 
       highly_rated_unreviewed = [@oldest_image_highly_rated_unreviewed, @oldest_video_highly_rated_unreviewed, @oldest_sound_highly_rated_unreviewed]
 
-      media_do_show
+      media_do_index
       sorted_by_default = assigns[:media]
       sorted_by_default.first(3).should_not == highly_rated_unreviewed
       sorted_by_default.include?(@newest_image_poorly_rated_trusted).should be_true
       sorted_by_default.include?(@newest_video_poorly_rated_trusted).should be_true
       sorted_by_default.include?(@newest_sound_poorly_rated_trusted).should be_true
 
-      get :show, :taxon_id => @taxon_concept.id, :sort_by => 'rating'
+      get :index, :taxon_id => @taxon_concept.id, :sort_by => 'rating'
       sorted_by_rating = assigns[:media]
       sorted_by_rating.first(3).should == highly_rated_unreviewed
       sorted_by_rating.include?(@newest_image_poorly_rated_trusted).should be_false
@@ -179,11 +179,11 @@ describe Taxa::MediaController do
     end
 
     it 'should sort media by newest' do
-      media_do_show
+      media_do_index
       sorted_by_status = assigns[:media]
       sorted_by_status.first(10).should_not == @newest_media
 
-      get :show, :taxon_id => @taxon_concept.id, :sort_by => 'newest'
+      get :index, :taxon_id => @taxon_concept.id, :sort_by => 'newest'
       sorted_by_newest = assigns[:media]
       sorted_by_newest.first(10).should == @newest_media
       sorted_by_newest.include?(@oldest_media[0]).should be_false
@@ -194,37 +194,37 @@ describe Taxa::MediaController do
     end
 
     it 'should filter by type:image' do
-      media_do_show
+      media_do_index
       assigns[:media].select{|m| ! m.is_image?}.compact.should_not be_blank
-      get :show, :taxon_id => @taxon_concept.id, :sort_by => 'status', :type => ['image']
+      get :index, :taxon_id => @taxon_concept.id, :sort_by => 'status', :type => ['image']
       assigns[:media].select{|m| ! m.is_image?}.compact.should be_blank
     end
 
     it 'should filter by type:video' do
-      media_do_show
+      media_do_index
       assigns[:media].select{|m| ! m.is_video?}.compact.should_not be_blank
-      get :show, :taxon_id => @taxon_concept.id, :sort_by => 'status', :type => ['video']
+      get :index, :taxon_id => @taxon_concept.id, :sort_by => 'status', :type => ['video']
       assigns[:media].select{|m| ! m.is_video?}.compact.should be_blank
     end
 
     it 'should filter by type:sound' do
-      media_do_show
+      media_do_index
       assigns[:media].select{|m| ! m.is_sound?}.compact.should_not be_blank
-      get :show, :taxon_id => @taxon_concept.id, :sort_by => 'status', :type => ['sound']
+      get :index, :taxon_id => @taxon_concept.id, :sort_by => 'status', :type => ['sound']
       assigns[:media].select{|m| ! m.is_sound?}.compact.should be_blank
     end
 
     it 'should filter by type:photosynth' do
-      media_do_show
+      media_do_index
       assigns[:media].select{|m| ! m.source_url.match /photosynth.net/}.compact.should_not be_blank
-      get :show, :taxon_id => @taxon_concept.id, :sort_by => 'status', :type => ['photosynth']
+      get :index, :taxon_id => @taxon_concept.id, :sort_by => 'status', :type => ['photosynth']
       assigns[:media].select{|m| ! m.source_url.match /photosynth.net/}.compact.should be_blank
     end
 
     it 'should filter by vetted status and visibility'
 
     it 'should instantiate an assistive header' do
-      media_do_show
+      media_do_index
       assigns[:assistive_section_header].should be_a(String)
     end
   end

@@ -1,8 +1,20 @@
 - content_for :main do
   #page_heading.with_image
     .site_column
-      - if @community
-        - # community#show or #edit or #new
+      - if controller.action_name == 'edit'
+        - # community#edit
+        - # FIXME: convert to form
+        .hgroup
+          = image_tag @community.logo_url, :alt => ""
+          %h1= h @community.name
+          %p= h @community.description
+        .page_actions
+          %ul
+            %li
+              - #FIXME what if already a member? what happens to button?
+              = link_to I18n.t(:join_community_button), join_community_path(@community, :return_to => communities_path(@community)), :class => "button"
+      - elsif @community && @community.id
+        - # community#show
         .hgroup
           = image_tag @community.logo_url, :alt => ""
           %h1= h @community.name
@@ -13,7 +25,7 @@
               - #FIXME what if already a member? what happens to button?
               = link_to I18n.t(:join_community_button), join_community_path(@community, :return_to => communities_path(@community)), :class => "button"
       - else
-        - # probably community#index
+        - # community#index or #new
         %h1= @page_title || I18n.t(:communities)
   .thumbnails
     -# FIXME: convert this to proper community march of life with meaningful alt tags
@@ -28,7 +40,7 @@
         %p
   #content
     .site_column
-      - if @community && @community.id # NOTE = see note above.
+      - if @community && @community.id # NOTE: this restricts us to community#show and community#edit
         #tabs_sidebar
           - # FIXME: Are collections and pending collections meant to go to the same place? resource_is_active will not work as it stands as it assumes different controllers are used for each link
           %ul.tabs

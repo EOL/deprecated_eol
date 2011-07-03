@@ -27,17 +27,17 @@ class Mobile::TaxaController < Mobile::MobileController
       :curator_activity_logs => '*',
       :users => [ :given_name, :family_name, :logo_cache_url, :credentials ] }
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
-    
+
     toc_items = [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution]
     options = { :limit => 1 }
     @summary_text = @taxon_concept.text_objects_for_toc_items(toc_items, options)
-    
+
     @media = promote_exemplar(@taxon_concept.media)
-    
-    @feed_item = FeedItem.new(:feed_id => @taxon_concept.id, :feed_type => @taxon_concept.class.name)
-    
+
+    @watch_collection = logged_in? ? current_user.watch_collection : nil
+
     @assistive_section_header = I18n.t(:assistive_overview_header)
-    
+
     current_user.log_activity(:viewed_taxon_concept_overview, :taxon_concept_id => @taxon_concept.id)
   end
   
@@ -61,15 +61,17 @@ class Mobile::TaxaController < Mobile::MobileController
       :users => [ :given_name, :family_name, :logo_cache_url ] ,
       :taxon_concept_exemplar_image => '*' }
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
-    
+
     @details = @taxon_concept.details_for_toc_items(ContentTable.details.toc_items)
-    
+
     @toc = TocBuilder.new.toc_for_toc_items(@details.collect{|d| d[:toc_item]})
-    
+
     @exemplar_image = @taxon_concept.taxon_concept_exemplar_image.data_object unless @taxon_concept.taxon_concept_exemplar_image.blank?
-    
+
+    @watch_collection = logged_in? ? current_user.watch_collection : nil
+
     @assistive_section_header = I18n.t(:assistive_details_header)
-    
+
     current_user.log_activity(:viewed_taxon_concept_details, :taxon_concept_id => @taxon_concept.id)
   end
   
@@ -113,6 +115,8 @@ class Mobile::TaxaController < Mobile::MobileController
     @sort_by ||= 'status'
 
     @media = @media.paginate(:page => params[:page] || 1, :per_page => $MAX_IMAGES_PER_PAGE)
+
+    @watch_collection = logged_in? ? current_user.watch_collection : nil
 
     @assistive_section_header = I18n.t(:assistive_media_header)
 

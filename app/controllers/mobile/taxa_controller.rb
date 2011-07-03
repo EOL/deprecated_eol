@@ -1,6 +1,6 @@
 class Mobile::TaxaController < Mobile::MobileController
   
-  include Taxa
+  include SharedTaxaController
   
   before_filter :instantiate_taxon_concept
   before_filter :set_session_hierarchy_variable

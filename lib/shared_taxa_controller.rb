@@ -1,4 +1,4 @@
-module Taxa
+module SharedTaxaController
   ########################################################################################################
   # Notice: those methods are taken from other controllers to be shared with the mobile app.             #
   # TO-DO by the maintainers: remove those methods from original controllers and include the module      #

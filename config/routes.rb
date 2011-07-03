@@ -166,7 +166,7 @@ ActionController::Routing::Routes.draw do |map|
   map.mobile 'mobile', :controller => 'mobile/contents'
   map.namespace :mobile do |mobile|
     mobile.resources :contents, :collection => {:enable => :post, :disable => :post}
-    mobile.resources :taxa, :member => {:details => :get}
+    mobile.resources :taxa, :member => {:details => :get, :media => :get}
   end
 
   ##### ALL ROUTES BELOW SHOULD PROBABLY ALWAYS BE AT THE BOTTOM SO THEY ARE RUN LAST ####

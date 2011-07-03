@@ -2396,4 +2396,38 @@ en:
   eol_may_elect_at_its_sole_disc: "EOL may elect at its sole discretion to present all, portions or none of any data objects provided by %{var__agent_project_name} and reserves the right to redact or remove any illegal, offensive, or objectionable content."
   view_contact_us_submissions: "view contact us submissions"
   community: "Community"
+  
+  mobile:
+      contents:
+          home: "Home"
+          taxa: "Taxa"
+          full_site: "Full site"
+      taxa:
+          taxa_overview: "Taxa Overview"
+          overview: "Overview"
+          details: "Details"
+          media: "Media"
+          maps: "Maps"
+          nomenclature: "Nomenclature"
+          literature: "Literature"
+          community: "Community"
+          resources: "Resources"
+          taxa_details: "Taxa Details"
+          taxa_media: "Taxa Media"
+          images: "Images"
+          sounds: "Sounds"
+          videos: "Videos"
+          
+          
+              
 
+              
+              
+              
+              
+              
+              
+              
+              
+              
+          

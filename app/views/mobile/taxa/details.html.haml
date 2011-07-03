@@ -1,6 +1,6 @@
 %div{"data-role"=>"header"}
   =link_to "Overview", mobile_taxon_path(@taxon_concept.id), "data-icon"=>"grid", "data-direction"=>"reverse"
-  %h1 Taxa details
+  %h1=t "mobile.taxa.taxa_details"
 
 %div{"data-role"=>"content"}
   %h3= @taxon_concept.title(@session_hierarchy) unless @taxon_concept.title(@session_hierarchy).blank?
@@ -23,13 +23,12 @@
                     %h3= child.label
                     = render :partial => 'details_content', :locals => { :content => child_content }
                     
-                    
 #more_buttons{"data-role"=>"content"}
-  =link_to "Overview", mobile_taxon_path(@taxon_concept.id), "data-role"=>"button"
-  =#link_to "Details", details_mobile_taxon_path(@taxon_concept.id), "data-role"=>"button"
-  =link_to "Media", media_mobile_taxon_path(@taxon_concept.id), "data-role"=>"button"
-  =link_to "Maps", "", "data-role"=>"button"
-  =link_to "Nomenclature", "", "data-role"=>"button"
-  =link_to "Literature", "", "data-role"=>"button"
-  =link_to "Community", "", "data-role"=>"button"
-  =link_to "Resources", "", "data-role"=>"button"
+  =link_to t("mobile.taxa.overview"), mobile_taxon_path(@taxon_concept.id), "data-role"=>"button", "data-role"=>"button"
+  =#link_to t("mobile.taxa.details"), details_mobile_taxon_path(@taxon_concept.id), "data-role"=>"button"
+  =link_to t("mobile.taxa.media"), media_mobile_taxon_path(@taxon_concept.id), "data-role"=>"button"
+  =link_to t("mobile.taxa.maps"), "", "data-role"=>"button"
+  =link_to t("mobile.taxa.nomenclature"), "", "data-role"=>"button"
+  =link_to t("mobile.taxa.literature"), "", "data-role"=>"button"
+  =link_to t("mobile.taxa.community"), "", "data-role"=>"button"
+  =link_to t("mobile.taxa.resources"), "", "data-role"=>"button"

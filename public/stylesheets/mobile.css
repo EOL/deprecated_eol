@@ -1,4 +1,32 @@
-#jqt .toolbar h1.home_mobile{
+.image_container {
+	width:100%;
+}
+.image_container img {
+	max-width:100%;
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+	background-color: #FFFFFF;
+	border: 3px solid white;
+	border-radius: 5px 5px 5px 5px;
+}
+.ui-body-a .ui-link {
+    color: #aaa;
+    font-weight: bold;
+}
+
+/* Hidden things in taxa overview*/
+.rating{
+	display: none;
+}
+#new_feed_item{
+	display: none;
+}
+.article.copy p a.button{
+	display: none;
+}
+
+/*#jqt .toolbar h1.home_mobile{
 	left: 100px;
 }
 #jqt .article.stats ul li.taxon dl{
@@ -45,7 +73,6 @@
 	left:9px;
 	width:256px;
 	height:28px;
-/*	color:#979797; */
 	color:#C1D72E;
 	font-size:16px;
 }
@@ -75,7 +102,7 @@
 .fullcontent{
 	margin: 10px;
 }
-/* Taxa overview */
+
 #taxonomy{
 	margin: 10px;
 }
@@ -102,7 +129,7 @@
 	border: #333 solid 1px;
 	background-color: #555858;
 }
-/* Taxa details*/
+
 #taxonomy_detail{
 	margin: 10px;
 }
@@ -117,6 +144,6 @@
 }
 .article.copy p a.button{
 	display: none;
-}
-
+}*/
+*/
 

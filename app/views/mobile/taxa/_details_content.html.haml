@@ -1,0 +1,15 @@
+- content.each do |item|
+  - if item[:data_objects]
+    - item[:data_objects].each do |dato|
+      - en_type = dato.data_type.label('en').downcase.strip
+      .article.copy
+        .meta.attribution
+          //= render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => dato }
+          //%p= link_to I18n.t("#{en_type}_more_about"), data_object_path(dato)
+        - unless dato.object_title.blank?
+          %h4= dato.object_title
+        = render :partial => 'data_objects/data_object_text', :locals => { :data_object => dato }
+        = render :partial => "feed_items/form", :locals => { :feed_item => FeedItem.new(:feed_id => dato.id, :feed_type => dato.class.name) }
+  - else
+    .article.copy
+      = render :partial => "taxa/content/content_#{item[:content_type]}", :locals => { :content => item } rescue nil

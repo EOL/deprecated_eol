@@ -39,11 +39,6 @@ class Mobile::TaxaController < Mobile::MobileController
     @assistive_section_header = I18n.t(:assistive_overview_header)
     
     current_user.log_activity(:viewed_taxon_concept_overview, :taxon_concept_id => @taxon_concept.id)
-    
-    # If it's a JQtouch ajax request don't show the layout
-    # if request.format == "*/*"
-    #   render :layout  => false
-    # end
   end
   
   def details
@@ -76,11 +71,6 @@ class Mobile::TaxaController < Mobile::MobileController
     @assistive_section_header = I18n.t(:assistive_details_header)
     
     current_user.log_activity(:viewed_taxon_concept_details, :taxon_concept_id => @taxon_concept.id)
-    
-    # If it's a JQtouch ajax request don't show the layout
-    # if request.format == "*/*"
-    #   render :layout  => false
-    # end
   end
   
 end

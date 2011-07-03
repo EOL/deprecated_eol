@@ -3,3 +3,34 @@
   %h1 Taxa Overview
 
 %div{"data-role"=>"content"}
+  %h3=@taxon_concept.title(@session_hierarchy) unless @taxon_concept.title(@session_hierarchy).blank?
+  %div.image_container
+    %img{:src => @media.first.original_image}  
+
+#taxonomy{"data-role"=>"content"}
+  .snippet
+    =render :partial => 'text_summary'
+  .snippet
+    = render :partial => 'classifications_summary'
+  .snippet
+    = render :partial => 'curators_summary', :locals => {:curators => @taxon_concept.top_acting_curators}
+  / .snippet
+  /   = render :partial => 'taxa/media_summary'
+  .snippet
+    = render :partial => 'taxa/iucn_status_summary'
+  .snippet
+    = render :partial => 'taxa/collections_summary'
+  .snippet
+    = render :partial => 'taxa/communities_summary'
+  .snippet
+    = render :partial => 'feed_items/index', :locals => {:feed => @taxon_concept.feed}
+
+#more_buttons{"data-role"=>"content"}
+  =#link_to "Overview", "", "data-role"=>"button"
+  =link_to "Details", details_mobile_taxon_path(@taxon_concept.id), "data-role"=>"button"
+  =link_to "Media", "", "data-role"=>"button"
+  =link_to "Maps", "", "data-role"=>"button"
+  =link_to "Nomenclature", "", "data-role"=>"button"
+  =link_to "Literature", "", "data-role"=>"button"
+  =link_to "Community", "", "data-role"=>"button"
+  =link_to "Resources", "", "data-role"=>"button"

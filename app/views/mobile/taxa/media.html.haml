@@ -1,0 +1,33 @@
+%div{"data-role"=>"header"}
+  =link_to "Overview", mobile_taxon_path(@taxon_concept.id), "data-icon"=>"grid", "data-direction"=>"reverse"
+  %h1 Taxa Media
+
+%div{"data-role"=>"content"}
+  %h3=@taxon_concept.title(@session_hierarchy) unless @taxon_concept.title(@session_hierarchy).blank?
+  %div.image_container
+    = image_tag @exemplar_image.smart_medium_thumb unless @exemplar_image.blank?
+
+  %h3 Images
+  #image_gallery
+    -@media.select {|m| m.image?}.map do |m|
+      =#link_to image_tag(m.smart_medium_thumb), m.smart_image
+      =link_to image_tag(m.smart_thumb), m.smart_image unless m.smart_thumb.blank?
+
+  %h3 Sounds
+  #sounds_gallery
+    -@media.select {|m| m.sound?}.map do |m|
+      - en_mime_type ||= m.mime_type.label('en')
+      - if m.sound_url && m.mime_type
+        %audio{:controls => true, :loop => false, :autoplay => false, :preload => 'metadata'}
+          %source{:type => en_mime_type, :src => m.sound_url}
+    
+  %h3 Videos
+  #video_gallery
+    -@media.select {|m| m.video?}.map do |m|
+      = image_tag 'v2/temporary_for_mockup/video_thumb.png'
+
+:javascript
+  $(document).ready(function() {
+    $('#image_gallery a').touchGallery();
+  });
+  

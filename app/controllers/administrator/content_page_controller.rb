@@ -29,7 +29,7 @@ class Administrator::ContentPageController < AdminController
    sort_order = current_page.sort_order
    new_sort_order = sort_order + 1
    #find page with the same parent with sort order = current sort order +1 
-   swap_page = ContentPage.find_by_and_parent_content_page_id_and_sort_order(current_page.parent_content_page_id, new_sort_order)
+   swap_page = ContentPage.find_by_parent_content_page_id_and_sort_order(current_page.parent_content_page_id, new_sort_order)
    #swap the two orders
    current_page.update_attribute(:sort_order, new_sort_order)
    swap_page.update_attribute(:sort_order, sort_order)
@@ -131,6 +131,8 @@ class Administrator::ContentPageController < AdminController
    end
    
    translated_page = TranslatedContentPage.find_by_content_page_id_and_language_id(page.id, language.id)
+   
+   TranslatedContentPageArchive.backup(translated_page) if translated_page
    
    translated_page = TranslatedContentPage.new if !translated_page
    

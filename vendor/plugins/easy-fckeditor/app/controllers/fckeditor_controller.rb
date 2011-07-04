@@ -92,14 +92,27 @@ class FckeditorController < ActionController::Base
   def upload_file
     begin
       load_file_from_params
-      copy_tmp_file(@new_file) if mime_types_ok(@ftype)
+      new_file_path = copy_tmp_file(@new_file) if mime_types_ok(@ftype)
     rescue => e
       @errorNumber = 110 if @errorNumber.nil?
     end
-
+    log @new_file
+    file_path = ''
+    if !new_file_path.blank?
+      response = Hash.from_xml(new_file_path)
+      if response["response"].key? "file_path"
+        file_path = response["response"]["file_path"]  
+      end
+    end
+    file_ext = @new_file.original_filename.split(".")[-1].downcase
+    if file_ext == 'jpeg'
+      file_ext = 'jpg'
+    end
+    final_file_path = "/content/files/" + file_path + '?ext=' + file_ext
+    
     render :text => %Q'
       <script>
-         window.parent.OnUploadCompleted(#{@errorNumber}, "#{uploaded_file_path}");
+         window.parent.OnUploadCompleted(#{@errorNumber}, "#{final_file_path}");
       </script>'
   end
 
@@ -163,6 +176,9 @@ class FckeditorController < ActionController::Base
     File.open(path, "wb", 0664) do |fp|
       FileUtils.copy_stream(tmp_file, fp)
     end
+    publish_url = "http://#{$IP_ADDRESS_OF_SERVER}:#{request.port.to_s}#{UPLOAD_FOLDER}/#{params[:Type]}/#{tmp_file.original_filename}" 
+    parameters = 'function=upload_content&file_path=' + publish_url
+    return EOLWebService.call(:parameters => parameters)
   end
 
   ##############################################################################
@@ -180,6 +196,7 @@ class FckeditorController < ActionController::Base
     log "FCKEDITOR - UPLOAD_FOLDER: #{UPLOAD_FOLDER}"
     log "FCKEDITOR - #{File.expand_path(RAILS_ROOT)}/public#{UPLOAD_FOLDER}/" +
         "#{@new_file.original_filename}"
+    
   end
 
   ##############################################################################

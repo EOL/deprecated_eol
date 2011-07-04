@@ -7,11 +7,10 @@ class AddTranslatedContentPageArchives < ActiveRecord::Migration
       t.string :title
       t.text :left_content
       t.text :main_content
-      t.string :url
       t.string :meta_keywords
       t.string :meta_description
       t.date :original_creation_date
-      t.date :create_at
+      t.date :created_at
       t.date :updated_at 
     end
   end

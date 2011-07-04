@@ -42,19 +42,31 @@ class ContentPage < $PARENT_CLASS_MUST_USE_MASTER
     end    
   end
   
+  def self.get_navigation_tree_with_links(page_id)    
+    if (page_id)
+      content_page = ContentPage.find(page_id)
+      if content_page.parent_content_page_id
+        parent_content_page = self.find(content_page.parent_content_page_id)
+        return get_navigation_tree_with_links(content_page.parent_content_page_id) + "<a href='/content/page/#{parent_content_page.id}'>" + parent_content_page.page_name + "</a> > "
+      else
+        return ''#content_page.page_name
+      end
+    end    
+  end
+  
   def self.find_top_level
     #return ContentPage.find_all_by_parent_content_page_id(null) # get pages where parent is null
-    return ContentPage.find_all_by_parent_content_page_id(nil) # get pages where parent is null
+    return ContentPage.find_all_by_parent_content_page_id(nil, :order => 'sort_order') # get pages where parent is null
   end
 
   def self.get_by_id_and_language_abbr(id, language_abbr)
     language = Language.find_by_iso_639_1(language_abbr)
-    self.set_translation_language(language)    
+    #self.set_translation_language(language)    
     language_page = self.find_by_id_and_active(id, true)
-    if langauge_page.nil? # No page for this language, use English
-      self.set_translation_language(Language.english)    
-      language_page = self.find_by_id_and_active(id, true)
-    end
+    #if langauge_page.nil? # No page for this language, use English
+      #self.set_translation_language(Language.english)    
+      #language_page = self.find_by_id_and_active(id, true)
+    #end
     return language_page
   end
   

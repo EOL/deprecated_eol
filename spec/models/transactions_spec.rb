@@ -16,7 +16,7 @@ describe 'RSpec Transactions' do
 
   describe 'Transactional database' do
 
-    [ContentSection, ContentPage, Name, License].each do |model|
+    [ContentPage, Name, License].each do |model|
 
       it "should have no #{ model.to_s.tableize } at the start of an example" do
         model.count.should == 0

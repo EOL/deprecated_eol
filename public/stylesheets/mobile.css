@@ -28,42 +28,50 @@
 	padding:0px;
 	margin:0px;
 }
-.ui-li-thumb, .ui-li-icon {
+.ui-li-thumb, .ui-li-icon { /* Contents index, static pages 'li' thumbnails spacing */
 	left: 20px;
 	top: 15px;
 	max-height: 80px;
 	max-width: 80px;
 	position: absolute;
 }
+/* --------------*/
 /* Theme override*/
-.ui-bar-b{
+/* --------------*/
+.ui-bar-b{ /* Green li separator */
 	background: #C1D72E;
 	border: 1px solid #A7BA27;
 	text-shadow: none;
 	color:#2F3E46;
 }
-.ui-btn-active {
+.ui-btn-active { /* Green buttons */
 	background: #C1D72E;
 	border: 1px solid #A7BA27;
 	text-shadow: 0 -1px 1px #77851D;
 }
-.ui-body-a .ui-link {
+.ui-body-a .ui-link { /* General links grey */
     color: #aaa;
     font-weight: bold;
 }
-.ui-li-desc .ui-link {
+.ui-li-desc .ui-link { /* Contents index, static pages 'li' links dark grey */
     color: #2F3E46;
     font-weight: bold;
 }
-.ui-li .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li {
+.ui-li .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li { /* Contents index, static pages 'li' right spacing */
     display: block;
     padding: 0.7em 20px 0.7em 15px;
 }
-.ui-li-has-thumb .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-thumb {
+.ui-li-has-thumb .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-thumb { /* Contents index, static pages 'li' right spacing */
     min-height: 60px;
     padding-left: 100px;
 }
+.ui-li-heading a.ui-link{ /* Curator name */
+	color: #2F3E46;
+    font-weight: bold;
+}
+/* ------------------------------*/
 /* Hidden things in taxa overview*/
+/* ------------------------------*/
 .rating{
 	display: none;
 }

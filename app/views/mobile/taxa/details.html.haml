@@ -1,6 +1,6 @@
 %div{"data-role"=>"header"}
   =link_to "Overview", mobile_taxon_path(@taxon_concept.id), "data-icon"=>"grid", "data-direction"=>"reverse"
-  %h1=t "mobile.taxa.taxa_details"
+  %h1=t "mobile.taxa.taxon_details"
 
 %div{"data-role"=>"content"}
   %h3= @taxon_concept.title(@session_hierarchy) unless @taxon_concept.title(@session_hierarchy).blank?

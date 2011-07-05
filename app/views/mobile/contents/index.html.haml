@@ -13,6 +13,7 @@
     %li= link_to "Nihileri voluptasus", mobile_taxon_path(9)
     %li= link_to "Dignissimosii inutes", mobile_taxon_path(10)
     %li= link_to "Fugais utharumatus", mobile_taxon_path(11)
+    %li=link_to_remote "Full site", :url => "/mobile/contents/disable"
 
   %ul{"data-role" => "listview", "data-inset"=>"true", "data-theme"=>"c", "list-divider-theme"=>"e"}
     %li.taxon
@@ -38,5 +39,6 @@
     
 %div{"data-role"=>"footer"}
   %h3#go_to_full{"data-inline"=>"true"}
-    =link_to_remote "Full site", :url => "/mobile/contents/disable"
+    //=link_to_remote "Full site", :url => "/mobile/contents/disable"
+    =link_to "Full site", disable_mobile_contents_path, "data-ajax" => "false"
   

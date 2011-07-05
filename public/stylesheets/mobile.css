@@ -28,6 +28,13 @@
 	padding:0px;
 	margin:0px;
 }
+.ui-li-thumb, .ui-li-icon {
+	left: 20px;
+	top: 15px;
+	max-height: 80px;
+	max-width: 80px;
+	position: absolute;
+}
 /* Theme override*/
 .ui-bar-b{
 	background: #C1D72E;

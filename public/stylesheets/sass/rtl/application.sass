@@ -21,8 +21,12 @@ form
       textarea
         +textarea
   fieldset.actions
-    input[type="submit"]
+    button
+      display: none
+    input[type="submit"],
+    button
       +button
+      margin: 0
       padding: 3px 10px
       font-size: .92em
   .heading &.filter
@@ -54,10 +58,11 @@ form
   border: 1px solid #93a4b0
   border-width: 0 1px
   .heading
-    padding: 5px 10px
-    border-bottom: 1px solid #d4dce2
+    padding: 6px 10px 5px 10px
+    border-bottom: 1px solid #ccd399
     background: #f1f4dc
-    h3
+    h3, label
+      font-weight: bold
       text-transform: uppercase
       color: #828d33
 form.comment
@@ -116,25 +121,25 @@ ul.tabs
         font-size: 1.14em
     &.taxa
       a
-        background: transparent url("/images/v2/icon_taxa_tabs.png") 9px 6px no-repeat
+        background: transparent url("/images/v2/icon_taxa_tabs.png") 158px 6px no-repeat
     &.videos
       a
-        background: transparent url("/images/v2/icon_videos_tabs.png") 11px 10px no-repeat
+        background: transparent url("/images/v2/icon_videos_tabs.png") 158px 10px no-repeat
     &.images
       a
-        background: transparent url("/images/v2/icon_images_tabs.png") 7px 8px no-repeat
+        background: transparent url("/images/v2/icon_images_tabs.png") 158px 8px no-repeat
     &.communities
       a
-        background: transparent url("/images/v2/icon_communities_tabs.png") 8px 16px no-repeat
+        background: transparent url("/images/v2/icon_communities_tabs.png") 158px 16px no-repeat
     &.people
       a
-        background: transparent url("/images/v2/icon_people_tabs.png") 9px 10px no-repeat
+        background: transparent url("/images/v2/icon_people_tabs.png") 158px 10px no-repeat
     &.collections
       a
-        background: transparent url("/images/v2/icon_collections_tabs.png") 12px 9px no-repeat
+        background: transparent url("/images/v2/icon_collections_tabs.png") 158px 9px no-repeat
     &.articles
       a
-        background: transparent url("/images/v2/icon_articles_tabs.png") 9px 9px no-repeat
+        background: transparent url("/images/v2/icon_articles_tabs.png") 158px 9px no-repeat
   &.with_icons
     li
       font-size: 1.16em
@@ -157,12 +162,6 @@ p.status
   background: #edf6b2
   a
     color: #394651
-.taxa_list
-  li
-    padding: 0 0 30px 0
-    img
-      display: block
-      margin: 0 0 5px 0
 
 .article
   padding: 0 10px 25px 10px
@@ -182,9 +181,12 @@ p.status
       font-weight: bold
       text-transform: lowercase
   &.copy
+    h2
+      padding: 0 0 25px 0
+      font-size: 1.5em
     p
       padding: 0 0 15px 0
-      line-height: 190%
+      line-height: 170%
     .meta
       clear: both
       padding: 0 0 20px 0
@@ -308,6 +310,68 @@ p.status
       p
         width: 80%
 
+ul.object_list
+  + .header
+    border-bottom: 0
+    border-top: 1px solid #394651
+    padding-top: 12px
+  li
+    padding: 10px
+    overflow: hidden
+    line-height: 160%
+    color: #5f6c76
+    & + li
+      border-top: 1px solid #d7dadc
+    p
+      clear: both
+      padding-top: 5px
+    span.icon
+      width: 68px
+      height: 68px
+      border: 1px solid #cad3db
+      float: right
+      margin: 0 0 0 20px
+      background: center no-repeat #f3f7fa
+    h4
+      margin-top: 15px
+      font-size: 1.2em
+      a
+        color: #28323a
+        text-decoration: none
+        &:hover
+          text-decoration: underline
+    img
+      float: left
+      border: 1px solid #394651
+    &.taxon
+      span.icon
+        background-image: url("/images/v2/icon_taxa_tabs.png")
+    &.video
+      span.icon
+        background-image: url("/images/v2/icon_videos_tabs.png")
+    &.image
+      span.icon
+        background-image: url("/images/v2/icon_images_tabs.png")
+    &.community
+      span.icon
+        background-image: url("/images/v2/icon_communities_tabs.png")
+    &.person
+      span.icon
+        background-image: url("/images/v2/icon_people_tabs.png")
+    &.collection
+      span.icon
+        background-image: url("/images/v2/icon_collections_tabs.png")
+    &.article
+      span.icon
+        background-image: url("/images/v2/icon_articles_tabs.png")
+    &.taxon
+      small
+        font-weight: bold
+        display: block
+        margin-top: 8px
+      h4
+        margin: 0
+        
 body
   > #header
     background: #394651
@@ -361,14 +425,14 @@ body
   background: #ffffff
 
 #page_heading
-  padding: 26px 0
+  padding: 20px 0
   border-bottom: 1px solid #93a4b0
   background: #e2e9ef
+  .hgroup
+    float: right
+    width: 720px
   &.with_nav
     padding-bottom: 0
-    .hgroup
-      float: right
-      width: 720px
     .site_column
       overflow: visible
       &:after
@@ -399,26 +463,46 @@ body
     overflow: hidden
   .page_actions
     float: left
-    a.button
+    padding-right: 20px
+    li
       clear: both
+      float: left
       margin: 0 0 10px 0
-  a.button
-    float: left
-    margin: 10px 60px 0 0 
+      & + li
+        margin: 0
+    a
+      display: block
   &.with_image,
   &.profile  
-    h1
+    padding: 10px 0
+    .hgroup
+      float: none
+      width: auto
+      h1
+        padding-top: 10px
+      img
+        float: right
+        margin: 0 0 0 20px
+        border: 1px solid #394651
+    input[type="text"],
+    textarea
+      padding: 8px
+      font: normal 1em Helvetica, Arial, sans-serif
+      color: #394651
+      border: 1px solid #cad3db
+      width: 610px
+    .page_actions    
       padding-top: 10px
-    img
-      float: right
-      margin: 0 0 0 20px
-      border: 1px solid #394651
+      padding-bottom: 10px
+    input[type="text"]
+      font-size: 16px
+      margin: 0 0 5px 0
+    textarea
+      height: 40px
   &.profile
     padding: 10px 0
     h1
-      padding-top: 20px
-    a.button
-      margin: 30px 0 0 0      
+      padding-top: 20px   
   ul.nav
     clear: both
     position: relative
@@ -438,12 +522,14 @@ body
         font-weight: bold
         text-decoration: none
         color: #616e7a
-      &.active
-        border-color: #93a4b0
-        border-bottom: 1px solid #ffffff
-        background: #ffffff
+      &.active,
+      &:hover
+        border-color: #93a4b0        
         a
           color: #28323a
+      &.active
+        border-bottom: 1px solid #ffffff
+        background: #fff          
 
 #tabs_sidebar
   float: right
@@ -459,11 +545,12 @@ body
 #sidebar
   float: left
   width: 180px
-  padding: 20px 20px 0 0 
+  padding: 0 20px 0 0 
   h3
     padding: 0 0 15px 0
     font-size: 1.33em
   .collection_contributors
+    margin: 0 0 20px 0
     li
       overflow: hidden
       padding: 0 0 20px 0
@@ -493,58 +580,84 @@ body
         z-index: 1
         margin: -18px 0 0 0
         border: 1px solid #394651
+  &.filters
+    float: right
+    width: 180px
+    margin: 0 0 20px 20px
+    img
+      display: block
+      margin: 0px -20px 20px -20px
+  &.filters,
+  .filters
+    background: #f1f4dc
+    border-bottom: 1px solid #ccd399
+    padding: 20px
+    margin-bottom: 40px
+    h3
+      padding: 0 0 15px 0
+      font-size: 1.33em
+    h4
+      margin: 0 0 10px 0
+    fieldset + h4,
+    p + h4
+      margin-top: 20px
+    p
+      padding: 0 10px 0 0
+    h4, label
+      font-weight: bold
+      text-transform: uppercase
+      color: #667309
+    dd
+      margin: 0 0 10px 0
+      padding: 0 10px 0 0
+      + dt
+        padding-top: 10px
+      li
+        padding: 0 0 8px 0
+        label
+          font-weight: bold
+    fieldset.actions
+      padding: 0 10px 0 0 
+      input
+        margin-top: 10px
 
 #collections
-  .collection
-    position: relative
-    margin: 0 0 20px 0
-    border: 1px solid #cad3db
-    background: #f3f7fa
+  .heading
+    text-align: center
+  ul.object_list
+    li
+      padding-top: 20px
+      padding-bottom: 20px
+      .checkbox
+        float: left
+        border: 1px solid #cad3db
+        border-right: none
+        height: 68px
+        line-height: 68px
+        padding: 0 0 0 3px
+      span.icon
+        margin-bottom: 10px
+      textarea
+        display: block
+        clear: both
+        +textarea
+        width: 460px
+        height: 50px
+
+#collections_tab
+  ul.object_list
     img
       float: right
-      margin: 10px
-      border: 1px solid #394651
-    .details
-      overflow: hidden
-      padding: 15px 0 0 70px
-      line-height: 130%
-      h3
-        font-size: 1.33em
-    span.icon
+      margin: 0 0 0 20px
+    & + .heading
+      margin-top: 40px
+  .heading
+    position: relative
+    text-align: right
+    form, a
       position: absolute
-      left: 20px
-      top: 23px
-      z-index: 1
-      width: 34px
-      height: 35px
-      text-indent: -8685px
-      text-decoration: none
-    .comment
-      clear: both
-      float: right
-      width: 100%
-      padding: 10px 0 0 0
-      margin: 0 0 10px 0
-      border: 1px solid #cad3db
-      border-width: 1px 0
-      background: #ffffff
-      p
-        padding: 0 20px 8px 20px
-        line-height: 130%
-    p.meta
-      clear: both
-      padding: 0 0 10px 10px
-      font-size: .83em
-      text-align: left
-    &.taxon
-      span.icon
-        background: transparent url("/images/v2/icon_taxa_tabs.png") right 0 no-repeat
-    &.image
-      span.icon
-        background: transparent url("/images/v2/icon_images_tabs.png") right 0 no-repeat
-    &.person
-      span.icon
-        background: transparent url("/images/v2/icon_people_tabs.png") right 0 no-repeat
+      left: 10px
+      top: 4px
 
 #community
   padding: 20px
@@ -670,93 +783,6 @@ body
           input[type="submit"]
             padding: 6px 15px
 
-#collections
-  .collections
-    padding: 0 0 30px 0
-    .heading
-      overflow: hidden
-      margin: 0 0 10px 0
-      h3
-        float: right
-        padding: 5px 0 
-      a
-        float: left
-        margin: 3px 0 0 0
-        font-weight: bold        
-    .article
-      clear: both
-      overflow: hidden
-      padding: 1px
-      margin: 0 0 10px 0
-      border: 1px solid #cad3db
-      background: #f3f7fa
-      .header
-        padding: 2px
-        margin: 0 0 10px 0
-        color: #aeb7bf
-        border: 1px solid #cad3db
-        background: #394651
-        a
-          float: none
-          text-transform: capitalize
-          text-decoration: none
-        img
-          float: right
-          margin: 0 0 0 10px
-          border: 1px solid #93a4b0
-        h4
-          padding: 5px 0 0 0
-          font-size: 1.16em
-          a
-            color: #ffffff
-        p
-          font-size: .83em
-        + ul
-          margin: 0          
-      ul
-        padding: 0 15px 0 0 
-        margin: 15px 0 0 0        
-        li
-          float: right
-          padding: 0 0 15px 25px
-          font-size: 1.16em
-          a
-            display: block
-            padding: 6px 45px 9px 0
-            color: #394651
-            text-decoration: none
-          &.taxa
-            a
-              background: transparent url("/images/v2/icon_taxa_tabs.png") right 0 no-repeat
-          &.videos
-            a
-              padding-right: 38px
-              background: transparent url("/images/v2/icon_videos_tabs.png") right 0 no-repeat
-          &.images
-            a
-              background: transparent url("/images/v2/icon_images_tabs.png") right 0 no-repeat
-          &.communities
-            a
-              background: transparent url("/images/v2/icon_communities_tabs.png") right 6px no-repeat
-          &.people
-            a
-              background: transparent url("/images/v2/icon_people_tabs.png") right 0 no-repeat
-          &.collections
-            a
-              padding-right: 38px
-              background: transparent url("/images/v2/icon_collections_tabs.png") right 0 no-repeat
-          &.sounds
-            a
-              padding-right: 32px
-              background: transparent url("/images/v2/icon_sounds_tabs.png") right 2px no-repeat
-          &.articles
-            a
-              background: transparent url("/images/v2/icon_articles_tabs.png") right 0 no-repeat
-#sidebar
-  .taxa_list
-    h3
-      padding: 0 0 35px 0              
-
 #taxonomy_detail
   #sidebar
     float: right
@@ -837,9 +863,13 @@ body
         display: none
 
 #permalink
+  &.text
+    .ratings
+      margin-top: 40px
   .ratings
     float: right
     width: 120px
+    margin: 20px 0 0 0    
     padding: 0 20px 40px 20px
     text-align: center
     h5
@@ -884,17 +914,11 @@ body
     padding: 19px
     margin: 0 0 40px 20px
     border: 1px solid #cad3db
-    &.copy
-      float: none
-      overflow: hidden
-      width: auto
-      margin-left: 0
-      h2
-        padding: 0 0 25px 0
-        font-size: 1.5em
-      p
-        padding: 0 0 10px 0
-        line-height: 170%
+  > .article.copy
+    overflow: hidden
+    padding: 40px
+    margin: 0 0 40px 0
+    border: 1px solid #cad3db
   ul.sizes
     float: right
     width: 120px
@@ -902,16 +926,11 @@ body
     li
       padding: 0 0 10px 0
     a
-      display: block
-      padding: 8px 10px
-      font-weight: bold
+      +button    
+      display: block      
       text-align: center
-      text-transform: lowercase
-      text-decoration: none
-      color: #616e7a
-      border: 1px solid #c7cfd5
-      +border-radius(3px)
-      +gradient-bg(#ffffff, #d6dce1)
+      text-transform: lowercase      
+      color: #616e7a     
     strong
       display: block
       padding: 0 0 5px 0
@@ -973,36 +992,20 @@ body
       +textarea
       width: 308px
       height: 44px
+      margin: 0
+    ul
       margin: 0 0 10px 0
+      li
+        display: inline
+        font-weight: bold
+        font-size: .92em
+        margin: 0 0 0 10px
+        input
+          margin: 0 0 0 3px
 
 #media_list
   #sidebar
-    float: right
-    width: 180px
-    padding: 0 20px 20px 20px
-    margin: 0 0 20px 20px
-    background: #f1f4dc
-    img
-      display: block
-      margin: 0px -20px 20px -20px
-    h3
-      padding: 0 0 15px 0
-      font-size: 1.33em
-    dt
-      label
-        font-weight: bold
-        text-transform: uppercase
-        color: #667309
-    dd
-      padding: 0 10px 0 0 
-      + dt
-        padding-top: 10px
-      li
-        padding: 0 0 8px 0
-        label
-          font-weight: bold
-    fieldset.actions
-      padding: 0 10px 0 0 
+    padding-top: 0
   #main
     overflow: hidden
     .header
@@ -1049,4 +1052,25 @@ body
       &.first
         clear: both
         padding-right: 0
+
+#search_results
+  #main
+    width: 700px
+    float: left
+    .header
+      position: relative
+      padding: 10px 0
+      text-align: center
+      border-bottom: 1px solid #394651
+      h3
+        font-size: 1.33em
+      a
+        position: absolute
+        left: 10px
+        top: 15px
+        z-index: 1
+        font-weight: bold
+        &.prev
+          left: auto
+          right: 10px
         

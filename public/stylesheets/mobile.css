@@ -55,6 +55,14 @@
     color: #2F3E46;
     font-weight: bold;
 }
+.ui-li .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li {
+    display: block;
+    padding: 0.7em 20px 0.7em 15px;
+}
+.ui-li-has-thumb .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-thumb {
+    min-height: 60px;
+    padding-left: 100px;
+}
 /* Hidden things in taxa overview*/
 .rating{
 	display: none;

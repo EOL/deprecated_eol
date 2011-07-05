@@ -1,0 +1,24 @@
+%tr
+  %td
+    %strong
+      =I18n.t(:location)
+  %td
+    - if @navigation_tree && @navigation_tree != ''
+      = @navigation_tree
+    - else
+      = "ROOT"    
+%tr
+  %td
+    %strong
+      =I18n.t("page_name_")
+  %td
+    = f.text_field :page_name, {:size=>'50',:maxlength=>'100'}
+    %br
+    =I18n.t("used_for_urls___should_be_uniq")
+%tr
+  %td
+    %strong
+      =I18n.t("published_")
+  %td
+    = f.check_box :active
+    =I18n.t("__must_be_checked_in_order_to_")

@@ -1,0 +1,25 @@
+= javascript_include_tag 'admin-content-page-translation'
+= javascript_include_tag 'fckeditor/fckeditor'
+- form_for :page,@page,:url=>{:action=>'save_translation',:id=>@page.id},:html=>{:id=>'page_form', 'data-page_id' => @page.id} do |f|
+  %table
+    %tr
+      %td
+        %strong
+          =I18n.t(:location)
+      %td
+        = @navigation_tree    
+    %tr
+      %td
+        %strong
+          = I18n.t("language")
+      %td
+        = f.select :current_translation_language, @page.not_available_in_languages(nil).collect {|l| [l.iso_639_1, l.id]}
+    = render (:partial => 'language_form', :locals => { :f => f })
+
+  %br
+  %br
+  %input#preview{ :name => "preview", :type => "button", :value => I18n.t("preview_changes") }
+  |
+  = cancel_button_goes_back('/administrator/content_page')
+  |
+  = f.submit

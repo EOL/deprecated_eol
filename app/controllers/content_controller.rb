@@ -237,14 +237,12 @@ class ContentController < ApplicationController
         page_name = @page_id.gsub(' ', '_').gsub('_', ' ')
         @content = ContentPage.get_by_page_name_and_language_abbr(page_name, current_user.language_abbr)
       end
+      
+      @naviagtion_tree = ContentPage.get_navigation_tree_with_links(@content.id)
 
       raise "static page content #{@page_id} for #{current_user.language_abbr} not found" if @content.nil?
 
       # if this static page is simply a redirect, then go there
-      if !@content.url.blank?
-        headers["Status"] = "301 Moved Permanently"
-        redirect_to(@content.url)
-      end
       current_user.log_activity(:viewed_content_page_id, :value => @page_id)
     end
   end
@@ -269,7 +267,12 @@ class ContentController < ApplicationController
     redirect_to(content_upload.content_server_url)
 
   end
-
+  
+  # convenience method to reference the uploaded content from the CMS (usually a PDF file or an image used in the static pages)
+  def files
+    redirect_to(ContentServer.uploaded_content_url(params[:id], '.' + params[:ext].to_s))#params[:id].to_s.gsub(".")[1]))
+  end
+  
   # error page
   def error
   end

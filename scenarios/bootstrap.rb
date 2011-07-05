@@ -461,7 +461,7 @@ exemplar = build_taxon_concept(:id => 910093, # That ID is one of the (hard-code
 
 # Adds a ContentPage at the following URL: http://localhost:3000/content/page/curator_central
 
-ContentPage.gen(:page_name => "curator_central", :title => "Curator central", :left_content => "")
+ContentPage.gen_if_not_exists(:page_name => "curator_central", :title => "Curator central", :left_content => "", :sort_order => 7)
 
 # TODO - we need to build TopImages such that ancestors contain the images of their descendants
 

@@ -1,8 +1,13 @@
-%div{"data-role"=>"header", "data-position"=>"fixed"}
+%div{"data-role"=>"header", "data-position"=>"fixed", "data-theme"=>"a"}
   =link_to image_tag("/images/mobile/logo_simple.png", :height => '24')
   %h1=t "mobile.contents.home" 
 
 %div{"data-role"=>"content"}
+  
+  %form{"action"=>"#", "method"=>"get"}
+    %div#search_field_container{"data-role"=>"fieldcontain"}
+      %input{"type"=>"search","name"=>"search_query","id"=>"search2","value"=>""}
+
   %ul{"data-role" => "listview", "data-inset"=>"true"}
     %li{"data-role"=>"list-divider"}=t "mobile.contents.taxa" 
     %li= link_to "Nihileri voluptasus", mobile_taxon_path(9)

@@ -24,12 +24,30 @@
 	border-radius: 5px 5px 5px 5px;
 	margin: 5px;
 }
-
+#search_field_container{
+	padding:0px;
+	margin:0px;
+}
+/* Theme override*/
+.ui-bar-b{
+	background: #C1D72E;
+	border: 1px solid #A7BA27;
+	text-shadow: none;
+	color:#2F3E46;
+}
+.ui-btn-active {
+	background: #C1D72E;
+	border: 1px solid #A7BA27;
+	text-shadow: 0 -1px 1px #77851D;
+}
 .ui-body-a .ui-link {
     color: #aaa;
     font-weight: bold;
 }
-
+.ui-li-desc .ui-link {
+    color: #2F3E46;
+    font-weight: bold;
+}
 /* Hidden things in taxa overview*/
 .rating{
 	display: none;

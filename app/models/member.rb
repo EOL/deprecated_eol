@@ -20,9 +20,6 @@ class Member < ActiveRecord::Base
 
   def add_role(role)
     self.roles << role unless has_role?(role)
-    if user.respond_to?(:username) && community
-      # TODO - ActivityLog
-    end
     self.roles
   end
 

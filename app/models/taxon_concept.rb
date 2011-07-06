@@ -852,7 +852,7 @@ class TaxonConcept < SpeciesSchemaModel
       filter_hierarchy = nil
     end
     perform_filter = !filter_hierarchy.nil?
-    
+
     image_page = (options[:image_page] ||= 1).to_i
     images = DataObject.images_for_taxon_concept(self, :user => self.current_user, :filter_by_hierarchy => perform_filter, :hierarchy => filter_hierarchy, :image_page => image_page, :skip_metadata => options[:skip_metadata])
     @length_of_images = images.length # Caching this because the call to #images is expensive and we don't want to do it twice.
@@ -1137,7 +1137,7 @@ class TaxonConcept < SpeciesSchemaModel
     preferred = !!options[:preferred]
     language  = options[:language] || Language.unknown
     vetted    = options[:vetted] || Vetted.unknown
-    relation  = SynonymRelation.find_by_translated(:label, 'common name') # TODO - i18n
+    relation  = SynonymRelation.find_by_translated(:label, 'common name')
     name_obj  = Name.create_common_name(name_string)
     Synonym.generate_from_name(name_obj, :agent => agent, :preferred => preferred, :language => language,
                                :entry => entry, :relation => relation, :vetted => vetted)
@@ -1229,14 +1229,14 @@ class TaxonConcept < SpeciesSchemaModel
     end
     return collections[0..2]
   end
-  
+
   def scientific_names_for_solr
     keywords = []
     return keywords if published_hierarchy_entries.blank?
     published_hierarchy_entries.each do |he|
       keywords << he.name.string
       keywords << he.name.canonical_form.string if he.name.canonical_form
-      
+
       he.scientific_synonyms.each do |s|
         keywords << s.name.string
         keywords << s.name.canonical_form.string if s.name.canonical_form
@@ -1247,7 +1247,7 @@ class TaxonConcept < SpeciesSchemaModel
       return { :keyword_type => 'Scientific Name', :keywords => keywords, :ancestor_taxon_concept_id => flattened_ancestors.map {|a| a.ancestor_id } }
     end
   end
-  
+
   def common_names_for_solr
     common_names_by_language = {}
     published_hierarchy_entries.each do |he|
@@ -1257,7 +1257,7 @@ class TaxonConcept < SpeciesSchemaModel
         common_names_by_language[language] << cn.name.string
       end
     end
-    
+
     keywords = []
     common_names_by_language.each do |language, names|
       names = names.compact.uniq
@@ -1267,7 +1267,7 @@ class TaxonConcept < SpeciesSchemaModel
     end
     return keywords
   end
-  
+
 
 private
 

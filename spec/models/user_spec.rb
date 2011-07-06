@@ -254,17 +254,6 @@ describe User do
     @admin.member_of(@special).should be_a(Member)
   end
 
-  it 'should create a new CuratorActivityLog pointing to the right object, user, type and action' do
-    action = Activity.gen_if_not_exists(:name => 'hi')
-    obj    = ChangeableObjectType.create(:ch_object_type => 'name')
-    name   = Name.gen
-    @user.track_curator_activity(name, obj.ch_object_type, action.name)
-    CuratorActivityLog.last.user_id.should                   == @user.id
-    CuratorActivityLog.last.object_id.should                 == name.id
-    CuratorActivityLog.last.changeable_object_type_id.should == obj.id
-    CuratorActivityLog.last.activity_id.should               == action.id
-  end
-
   it 'convenience methods should return all of the data objects for the user' do
     rebuild_convenience_method_data
     @user.all_submitted_datos.map {|d| d.id }.should == @dato_ids

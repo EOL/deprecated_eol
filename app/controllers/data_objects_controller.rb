@@ -98,12 +98,6 @@ class DataObjectsController < ApplicationController
     end
   end
 
-  def curator_only
-    if !current_user.can_curate?(@data_object)
-      raise Exception.new('Not logged in as curator')
-    end
-  end
-
   def rate
 
     if session[:submitted_data]
@@ -159,7 +153,9 @@ class DataObjectsController < ApplicationController
   end
 
   def remove_association
-    @data_object.remove_curated_association(current_user, HierarchyEntry.find(params[:hierarchy_entry_id]))
+    he = HierarchyEntry.find(params[:hierarchy_entry_id])
+    @data_object.remove_curated_association(current_user, he)
+    log_action(@entries.first, :add_association)
     redirect_to data_object_path(@data_object)
   end
 
@@ -170,26 +166,46 @@ class DataObjectsController < ApplicationController
     if @entries.length == 1
       @data_object.add_curated_association(current_user, @entries.first)
       redirect_to data_object_path(@data_object)
+      log_action(@entries.first, :add_association)
     end
   end
 
   def curate_associations
     @data_object.published_entries.each do |phe|
+      comment = curation_comment(params["curation_comment_#{phe.id}"])
       all_params = { :vetted_id => params["vetted_id_#{phe.id}"],
                      :visibility_id => params["visibility_id_#{phe.id}"],
-                     :curation_comment => params["curation_comment_#{phe.id}"],
+                     :curation_comment => comment,
                      :untrust_reason_ids => params["untrust_reasons_#{phe.id}"],
                      :untrust_reasons_comment => params["untrust_reasons_comment_#{phe.id}"],
-                     :curate_vetted_status => phe.vetted_id != params["vetted_id_#{phe.id}"].to_i,
-                     :curate_visibility_status => phe.visibility_id != params["visibility_id_#{phe.id}"].to_i,
-                     :curation_comment_status => !params["curation_comment_#{phe.id}"].blank?,
-                     }
-      @data_object.curate_association(current_user, phe, all_params)
+                     :vet? => phe.vetted_id != params["vetted_id_#{phe.id}"].to_i,
+                     :visibility? => phe.visibility_id != params["visibility_id_#{phe.id}"].to_i,
+                     :comment? => !comment.nil?,
+                   }
+      curate_association(current_user, phe, all_params)
     end
     redirect_to data_object_path(@data_object)
   end
 
-protected
+  # NOTE - It seems like this is a HEAVY controller... and perhaps it is.  But I can't think of *truly* appropriate
+  # places to put the following code for handling curation and the logging thereof.
+private
+
+  def curator_only
+    if !current_user.can_curate?(@data_object)
+      raise Exception.new('Not logged in as curator')
+    end
+  end
+
+  def curation_comment(comment)
+    commented = !comment.blank?
+    if comment.blank?
+      return nil
+    else
+      # TODO - we really don't need this from_curator flag now:
+      return Comment.create(:parent => @data_object, :body => comment, :user => current_user, :from_curator => true)
+    end
+  end
 
   def entries_for_name(name)
     # TODO - This should use search, not Name.
@@ -223,6 +239,90 @@ protected
     else
       @data_object.smart_image
     end
+  end
+
+  # Aborts if nothing changed. Otherwise, decides what to curate, handles that, and logs the changes:
+  def curate_association(user, hierarchy_entry, opts)
+    if something_needs_curation?(opts)
+      curated_object = get_curated_object(@data_object, hierarchy_entry)
+      handle_curation(curated_object, user, opts).each do |action|
+        log = log_action(curated_object, action, opts)
+        # TODO - Untrust reasons, if any, must be added here.
+      end
+      # TODO - Update Solr Index
+    end
+  end
+
+  def something_needs_curation?(opts)
+    opts[:vet?] || opts[:visibility?]
+  end
+
+  def get_curated_object(dato, he)
+    if hierarchy_entry.associated_by_curator
+      curated_object = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(dato.id, he.id)
+    else
+      curated_object = DataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(dato.id, he.id)
+    end
+    return curated_object
+  end
+
+  # Figures out exactly what kind of curation is occuring, and performs it.  Returns an *array* of symbols
+  # representing the actions that were taken.  ...which you may want to log.  :)
+  def handle_curation(object, user, opts)
+    actions = []
+    raise "Curator should supply at least visibility or vetted information" unless (vetted_id || visibility_id)
+    actions << handle_vetting(object, opts[:vetted_id].to_i, opts) if opts[:vet?]
+    actions << handle_visibility(object, opts[:visibility_id].to_i, opts) if opts[:visibility?]
+    return actions.flatten
+  end
+
+  def handle_vetting(object, vetted_id, opts)
+    if vetted_id
+      case vetted_id
+      when Vetted.untrusted.id
+        raise "Curator should supply at least untrust reason(s) and/or curation comment" if (opts[:untrust_reason_ids].blank? && opts[:curation_comment].nil?)
+        object.untrust(user, opts)
+        return :untrusted
+      when Vetted.trusted.id
+        object.trust(user, opts)
+        return :trusted
+      when Vetted.unknown.id
+        object.unreviewed(user, opts)
+        return :unreviewed
+      else
+        raise "Cannot set data object vetted id to #{vetted_id}"
+      end
+    end
+  end
+
+  def handle_visibility(object, visibility_id, opts)
+    if visibility_id
+      changeable_object_type = opts[:changeable_object_type]
+      case visibility_id
+      when Visibility.visible.id.flatten
+        object.show(user, opts[:type], changeable_object_type)
+        return :show
+      when Visibility.invisible.id
+        object.hide(user, opts[:type], changeable_object_type)
+        return :hide
+      when Visibility.inappropriate.id
+        object.inappropriate(user, opts[:type], changeable_object_type)
+        return :inappropriate
+      else
+        raise "Cannot set data object visibility id to #{visibility_id}"
+      end
+    end
+  end
+
+  def log_action(object, method, opts)
+    CuratorActivityLog.create(
+      :user => current_user,
+      :changeable_object_type => ChangeableObjectType.send(object.class.name.underscore.to_sym),
+      :object_id => object.id,
+      :activity => Activity.send(method),
+      :data_object => @data_object,
+      :created_at => 0.seconds.from_now
+    )
   end
 
 end

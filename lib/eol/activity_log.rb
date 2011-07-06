@@ -17,6 +17,8 @@ module EOL
       @klass        = source.class.name
       @id           = source.id
       @activity_log = []
+      # TODO - it would make more sense to move this to the source models, passed in as an argument to some call that
+      # makes the class loggable.
       if @klass == "User"
         @activity_log += CuratorActivityLog.find_all_by_user_id(@source.id)
         @activity_log += Comment.find_all_by_user_id(@source.id)
@@ -37,6 +39,8 @@ module EOL
         @activity_log += CuratorActivityLog.find_all_by_data_objects_on_taxon_concept(@source)
         @activity_log += Comment.all_by_taxon_concept_recursively(@source)
         @activity_log += UsersDataObject.find_all_by_taxon_concept_id(@source.id, :include => :data_object)
+      else # Anything else that you make loggable will track comments and ONLY comments:
+        @activity_log += Comment.find_all_by_parent_id_and_parent_type(@source.id, @source.class.name)
       end
       # TODO - error-checking (for example, what if created_at is nil or not available?):
       @activity_log = @activity_log.sort_by {|l| l.class == UsersDataObject ? l.data_object.created_at : l.created_at }

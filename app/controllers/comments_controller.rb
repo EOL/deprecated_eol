@@ -35,7 +35,7 @@ class CommentsController < ApplicationController
                :locals => {:body_div_name => replace_div},
                :object => [parent_object, current_object] }
           end
-        rescue => e  
+        rescue => e
           render :update do |page|
             page.replace_html replace_div,
               {:partial => 'error.js.haml',
@@ -61,9 +61,9 @@ class CommentsController < ApplicationController
   def prepare_index
     @comment = Comment.new(:user => current_user)
     @parent = parent_object
-    @type   = :image if parent_name == 'data_object' and @parent.image? 
-    @type   = :text  if parent_name == 'data_object' and not @parent.data_objects_table_of_contents.empty?
-    @type   = :taxon if parent_name == 'taxon_concept'
+    @type   = :image if @comment.image_comment?
+    @type   = :text  if @comment.text_comment?
+    @type   = :taxon if @comment.taxa_comment?
     @slim_container = true # So, this will re-arrange some of the view, based on which format we have to play with.
     if @type == :image
       @title_label    = 'above image'
@@ -86,16 +86,16 @@ class CommentsController < ApplicationController
   #show/hide comment
   def remove
     current_user.log_activity(:removed_comment_id, :value => current_object.id)
-    current_user.unvet current_object 
+    current_user.unvet current_object
     render :partial => 'remove'
   end
 
   def make_visible
     current_user.log_activity(:make_visible_comment_id, :value => current_object.id)
-    current_user.vet current_object 
+    current_user.vet current_object
     render :partial => 'make_visible'
   end
-  
+
 private
 
   def current_comments
@@ -103,29 +103,29 @@ private
     if parent_name == 'data_object'
       comments = parent_object.all_comments
     else # "taxon_concept"
-      t = TaxonConcept.find(parent_object.id, :include => [ :comments, {:superceded_taxon_concepts => :comments} ], 
-        :select => "taxon_concepts.id, taxon_concepts.supercedure_id, comments.*")  
+      t = TaxonConcept.find(parent_object.id, :include => [ :comments, {:superceded_taxon_concepts => :comments} ],
+        :select => "taxon_concepts.id, taxon_concepts.supercedure_id, comments.*")
 
-      previous_comments = t.superceded_taxon_concepts.collect do |tc| 
+      previous_comments = t.superceded_taxon_concepts.collect do |tc|
         tc.comments
-      end.flatten.compact                               
+      end.flatten.compact
 
       comments = t.comments + previous_comments
     end
     comments
   end
-  
+
   def current_comments_visible
     current_comments.select {|c| c.visible? }
   end
-  
+
   def current_objects
     @current_objects ||= current_user.is_moderator? ? current_comments : current_comments_visible
     if params[:page_to_comment_id]
-      @current_objects.dup.paginate(:page => params[:page], :per_page => Comment.per_page, 
+      @current_objects.dup.paginate(:page => params[:page], :per_page => Comment.per_page,
                                 :conditions => ['id = ?', "#{params[:page_to_comment_id]}"])
     else
-      @current_objects.dup.paginate(:page => params[:page], :per_page => Comment.per_page) 
+      @current_objects.dup.paginate(:page => params[:page], :per_page => Comment.per_page)
     end
   end
 

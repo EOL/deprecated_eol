@@ -40,6 +40,7 @@ class CollectionsController < ApplicationController
   def create
     @collection = Collection.new(params[:collection])
     if @collection.save
+      CollectionActivityLog.create(:collection => self, :user => current_user, :activity => Activity.create)
       flash[:notice] = I18n.t(:collection_created_notice, :collection_name => @collection.name)
     else
       flash[:error] = I18n.t(:collection_not_created_error, :collection_name => @collection.name)

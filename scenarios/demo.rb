@@ -247,10 +247,15 @@ concerned.save
 taxa.each do |tc|
   community.focus.add tc
   endorsed_collection.add tc
-  # TODO - ActivityLog
+  Comment.gen(:parent => tc, :body => "Could we add some images of this in its natural habitat?", :user => loud_user)
+  Comment.gen(:parent => tc, :body => "Beautiful!", :user => happy_user)
+  Comment.gen(:parent => tc, :body => "There are serious concerns about this species becoming endangered", :user =>
+              concerned)
 end
 
-# TODO - ActivityLog
+Comment.gen(:parent => endorsed_collection, :body => "Are there enough curators for this?", :user => loud_user)
+Comment.gen(:parent => endorsed_collection, :body => "Excellent list!", :user => happy_user)
+Comment.gen(:parent => endorsed_collection, :body => "Should't this have a few more ducks?", :user => concerned)
 
 users = User.find(:all, :conditions => 'logo_cache_url IS NULL')
 puts "Updating #{users.length} users..."

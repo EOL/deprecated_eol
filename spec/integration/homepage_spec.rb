@@ -2,20 +2,6 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 include ActionController::Caching::Fragments
 
-def content_section_tester(section_name)
-  sec = ContentSection.find_by_name(section_name)
-  sec.should_not be_nil
-  new_title = Faker::Lorem.words[0]
-  ContentPage.gen(:content_section => sec, :title => new_title)
-  pages = ContentSection.find_pages_by_section(section_name)
-  pages.map(&:title).should include(new_title)
-  visit('/')
-  # <a title="Feedback" id="feedback" class="dropdown">Feedback</a>
-  body.should have_tag("a##{section_name.downcase.gsub(' ', '_')}", :text => /#{section_name}/)
-  # <a href=\"/content/page/contact_us\" target=\"_self\" title=\"Contact Us\">Contact Us</a>
-  pages.each {|page| body.should have_tag('a[href=?]', '/content/page/' + page.page_url, :text => page.title ) }
-end
-
 describe 'Home page' do
 
   before :all do

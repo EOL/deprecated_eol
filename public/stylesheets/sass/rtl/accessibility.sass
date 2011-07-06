@@ -11,14 +11,21 @@
  * so I am temporarily adding some CSS here needed for V2 demo. This CSS should be integrated
  * into HashRocket SASS if it is still needed when design work is complete.
  */
+#page_heading
+  .hgroup
+    float: right !important
+    width: 720px !important
+    overflow: hidden !important
+  .page_actions
+    fieldset.actions
+      input[type="submit"]
+        padding: 7px 10px
+        font-size: 1.08em
+        float: left
+p.status.error
+  border: 1px solid red
+  background: pink
 #permalink
-  form
-    &.review_status
-      fieldset
-        &.reasons
-          label
-            margin-left: 8px
-            line-height: 1.5em
   #sidebar
     ul.review_status
       p.unknown /*should match unreviewed*/
@@ -27,9 +34,24 @@
 #media_list
   #main
     li
+      position: relative
+      p.audio
+        position: absolute
+        top: 65px
+        right: 20px
+        width: 160px
+        text-align: center
+        z-index: 5
+        a
+          color: #e2e9ef
+      audio
+        background: #394651 url('/images/v2/temporary_for_mockup/icon_sound.png') no-repeat 50% 20%
+        width: 160px
+        height: 125px
       p.flag.unknown /*should match unreviewed*/
         border: 1px solid #677682
         background: #8695A1
+        
 #taxonomy_detail
   .average_rating
     h5

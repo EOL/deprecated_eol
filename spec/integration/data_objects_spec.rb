@@ -16,7 +16,6 @@ describe 'Data Object Page' do
     @curator = build_curator(@tc)
     @another_curator = build_curator(@tc)
     @image = @tc.data_objects.select { |d| d.data_type.label == "Image" }[0]
-    # TODO - ActivityLog
     @extra_he = @another_tc.entry
     @image.add_curated_association(@curator, @extra_he)
 
@@ -100,8 +99,6 @@ describe 'Data Object Page' do
     page_link = "/pages/#{tc.id}?image_id="
     page.body.should_not include(page_link)
   end
-
-  # TODO - ActivityLog
 
   it 'should allow a curator to remove an association' do
     login_as @curator

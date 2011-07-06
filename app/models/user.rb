@@ -681,31 +681,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     UserActivityLog.log(what, options.merge(:user => self)) if self.id && self.id != 0
   end
 
-  # This is at the object level (and is specific to curators)
-  def track_curator_activity(object, changeable_object_type, action, options = {})
-    comment_id = options[:comment] ? options[:comment].id : nil
-    untrust_reasons = options[:untrust_reasons] || nil
-    taxon_concept_id = options[:taxon_concept_id] || nil
-    activity_id     = Activity.send(action.to_sym).id
-    changeable_object_type_id = ChangeableObjectType.find_by_ch_object_type(changeable_object_type).id
-    curator_activity_log = CuratorActivityLog.new(
-      :user_id                   => self.id,
-      :object_id                 => object.id,
-      :changeable_object_type_id => changeable_object_type_id,
-      :activity_id               => activity_id,
-      :comment_id                => comment_id,
-      :taxon_concept_id          => taxon_concept_id,
-      :created_at                => Time.now,
-      :updated_at                => Time.now
-    )
-    curator_activity_log.save!
-    if untrust_reasons
-      untrust_reasons.each do |ur|
-        curator_activity_log.untrust_reasons << ur
-      end
-    end
-  end
-
   def join_community(community)
     member = Member.find_by_community_id_and_user_id(community.id, id)
     unless member

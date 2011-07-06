@@ -1,15 +1,21 @@
-# If you aren't sure what a comment is, perhaps you should re-think your career using Rails.  :)
+# Comments are just what you expect... but it would be better if you thought of them instead (or additionally) as a
+# kind of "User-entered activity log", because they are viewed inextricably with the activity logs.
+# ...Alternatively, you could think of activity logs as automatically-posted comments with some intellgence built
+# into them.  Whatever works for you.  ...The point is, there two concepts are tightly intertwined.  In terms of the
+# code, you will need comments to be shown with the activity_log code, though.
 #
-# Comments are polymorphically related to either a TaxonConcept or a DataObject.
+# Comments are polymorphically related to many kind of models.  At the time of this writing, it includes Taxon
+# Concepts, Data Objects, Communities, and Collections... but could be extended in the future.
 #
-# Comments can be hidden (by curators).
+# Comments can be hidden (by those with Community#special's Privilege#hide_comments).
 #
 # Note that we presently have no way to edit comments, and won't add this feature until it becomes important.
 class Comment < ActiveRecord::Base
 
-  belongs_to :user
+  belongs_to :user # always always posted by a user.
   belongs_to :parent, :polymorphic => true
-  has_one :curator_activity_log
+  has_one :curator_activity_log # Because you can post a comment along with activity, and we want the two to have a
+  # relationship in the DB, so we can report on it to content partners.
 
   # I *do not* have any idea why Time.now wasn't working (I assume it was a time-zone thing), but this works:
   named_scope :visible, lambda { { :conditions => ['visible_at <= ?', 0.seconds.from_now] } }
@@ -92,25 +98,25 @@ class Comment < ActiveRecord::Base
 
   # the description or name of the parent item (i.e. the name of the species or description of the object)
   def parent_name
-    return_name = case self.parent_type
-     when 'TaxonConcept' then TaxonConcept.find_by_id(self.parent_id).entry.name.string
-     when 'DataObject'   then DataObject.find_by_id(self.parent_id).description
-     else ''
-    end
-    return_name = self.parent_type if return_name.blank?
-    return return_name
+    return case self.parent_type
+      when 'TaxonConcept' then parent.entry.name.string
+      when 'DataObject'   then parent.description
+      when 'Community'    then parent.name
+      when 'Collection'   then parent.name
+      else self.parent_type
+      end
   end
 
   def taxa_comment?
-    return parent_type == 'TaxonConcept'
+    return parent.is_a? TaxonConcept
   end
 
   def image_comment?
-    return(parent_type == 'DataObject' and parent.data_type.label == 'Image')
+    return(parent.is_a?(DataObject) and parent.image?)
   end
 
   def text_comment?
-    return(parent_type == 'DataObject' and parent.data_type.label == 'Text')
+    return(parent.is_a?(DataObject) and parent.text?)
   end
 
   # the image url being commented on, if it's an image
@@ -158,13 +164,11 @@ class Comment < ActiveRecord::Base
   def show(by)
     self.vetted_by = by if by
     self.update_attribute :visible_at, Time.now unless visible_at
-    by.track_curator_activity(self, 'comment', 'show')
   end
 
   def hide(by)
     self.vetted_by = by if by
     self.update_attribute :visible_at, nil
-    by.track_curator_activity(self, 'comment', 'hide')
   end
 
   # aliases to satisfy curation

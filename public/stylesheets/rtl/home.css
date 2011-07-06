@@ -39,7 +39,6 @@ a {
 
 .site_column, body > #header .section, body > #footer .section, .thumbnails ul, #content .section {
   width: 940px;
-  padding: 0 0 0 10px;
   margin: 0 auto; }
 
 body > #header a {
@@ -56,7 +55,7 @@ body > #header h1 {
     text-indent: -8685px;
     text-decoration: none;
     overflow: hidden;
-    background: transparent url("/images/v2/logo.png") 0 0 no-repeat; }
+    background: transparent url("/languages/ar/images/logo.png") 0 0 no-repeat; }
 body > #header .section {
   position: relative; }
   body > #header .section ul.nav {
@@ -322,7 +321,7 @@ body {
       body > #header h1 a {
         width: 157px;
         height: 99px;
-        background-image: url("/images/v2/logo_index.png"); }
+        background-image: url("/languages/ar/images/logo_index.png"); }
     body > #header h2 {
       position: absolute;
       right: 0;

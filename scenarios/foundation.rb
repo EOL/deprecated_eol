@@ -10,19 +10,24 @@ end
 # Translated tables will not work without this:
 Language.create_english
 
-# This ensures the main menu is complete, with at least one (albeit bogus) item in each section:
-ContentPage.gen_if_not_exists(:title => 'Home',
-  :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Home Page'))
-ContentPage.gen_if_not_exists(:title => 'Who We Are',
-  :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'About EOL'))
-ContentPage.gen_if_not_exists(:title => 'Contact Us',
-  :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Feedback'))
-ContentPage.gen_if_not_exists(:title => 'Screencasts',
-  :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Using the Site'))
-ContentPage.gen_if_not_exists(:title => 'Press Releases',
-  :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Press Room'))
-ContentPage.gen_if_not_exists(:title => 'Terms Of Use',
-  :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Footer'))
+ContentPage.gen_if_not_exists(:page_name => 'Home', :title => 'Home', :sort_order => 1)
+ContentPage.gen_if_not_exists(:page_name => 'Who We Are', :title => 'Who We Are', :sort_order => 2)
+ContentPage.gen_if_not_exists(:page_name => 'Working Groups', :title => 'Working Groups', 
+  :parent_content_page => ContentPage.gen_if_not_exists(:page_name => 'Who We Are'))
+ContentPage.gen_if_not_exists(:page_name => 'Working Group A', :title => 'Working Group A',
+  :sort_order => 1, :parent_content_page => ContentPage.gen_if_not_exists(:page_name => 'Working Groups'))
+ContentPage.gen_if_not_exists(:page_name => 'Working Group B', :title => 'Working Group B', 
+  :sort_order => 2, :parent_content_page => ContentPage.gen_if_not_exists(:page_name => 'Working Groups'))
+ContentPage.gen_if_not_exists(:page_name => 'Working Group C', :title => 'Working Group C', 
+  :sort_order => 3, :parent_content_page => ContentPage.gen_if_not_exists(:page_name => 'Working Groups'))
+ContentPage.gen_if_not_exists(:page_name => 'Working Group D', :title => 'Working Group D', 
+  :sort_order => 4, :parent_content_page => ContentPage.gen_if_not_exists(:page_name => 'Working Groups'))
+ContentPage.gen_if_not_exists(:page_name => 'Working Group E', :title => 'Working Group E', 
+  :sort_order => 5, :parent_content_page => ContentPage.gen_if_not_exists(:page_name => 'Working Groups'))
+ContentPage.gen_if_not_exists(:page_name => 'Contact Us', :title => 'Contact Us', :sort_order => 3)
+ContentPage.gen_if_not_exists(:page_name => 'Screencasts', :title => 'Screencasts', :sort_order => 4)
+ContentPage.gen_if_not_exists(:page_name => 'Press Releases', :title => 'Press Releases', :sort_order => 5)
+ContentPage.gen_if_not_exists(:page_name => 'Terms Of Use', :title => 'Terms Of Use', :sort_order => 6)
 
 ContactSubject.gen_if_not_exists(:title => 'Media Contact', :recipients=>'test@test.com', :active=>true)
 
@@ -157,7 +162,9 @@ ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'synonym')
 ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'taxon_concept_name')
 ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'tag')
 ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'users_submitted_text')
+ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'hierarchy_entry')
 ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'curated_data_objects_hierarchy_entry')
+ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'data_objects_hierarchy_entry')
 
 RefIdentifierType.gen_if_not_exists(:label => 'url')
 

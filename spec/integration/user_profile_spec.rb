@@ -16,7 +16,6 @@ describe 'User Profile' do
     @username = 'userprofilespec'
     @password = 'beforeall'
     @user     = create_user(@username, @password)
-    # TODO - ActivityLog
     @watch_collection = @user.watch_collection
   end
 
@@ -40,8 +39,6 @@ describe 'User Profile' do
     body.should_not include("Generate a key")
     body.should include("Your key is")
   end
-
-  # TODO - ActivityLog
 
   describe 'collections' do
     before(:each) do

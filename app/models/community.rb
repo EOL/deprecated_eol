@@ -10,6 +10,7 @@ class Community < ActiveRecord::Base
   has_many :collection_items, :as => :object
   has_many :collection_endorsements
   has_many :collections, :through => :collection_endorsements # NOTE: be sure to check each for actually being endorsed!
+  has_many :comments, :as => :parent
 
   after_create :attatch_focus
 
@@ -76,8 +77,6 @@ class Community < ActiveRecord::Base
     member = Member.create!(:user_id => user.id, :community_id => id)
     members << member
     added_by = opts[:added_by] ? opts[:added_by] : user
-    CommunityActivityLog.create(:community => self, :user => added_by,
-                                :activity => Activity.add_member, :member => member)
     member
   end
 

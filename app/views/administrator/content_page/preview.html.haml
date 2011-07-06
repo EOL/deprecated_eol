@@ -2,19 +2,19 @@
   #page-separator-general
   #page-title{:style => 'margin-bottom:2em;'}
     %h1
-      = @content.title[@content.key]
+      =params[:translated_title] 
     %hr
     %h2
       =I18n.t("preview_only__")
       %a{ :href => "#", :onclick => "javascript:window.close();return false;" }
         =I18n.t("close_this_window_to_return_to")
-  %div{ :id => @content.left_content == '' ? '' : 'page-content-bgfauxinside' }
+  %div{ :id => params[:page][:translated_left_content] == '' ? '' : 'page-content-bgfauxinside' }
     #page-content.clearfix
       #full-page-content
-        - if @content.left_content != ''
+        - if params[:page][:translated_left_content] != ''
           #left-pane
-            = @content.left_content
+            = params[:page][:translated_left_content]
           #right-pane
-            = @content.main_content
+            = params[:page][:translated_main_content]
         - else
-          = @content.main_content
+          = params[:page][:translated_main_content]

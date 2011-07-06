@@ -18,7 +18,7 @@ def it_should_collect_item(collectable_item_path, collectable_item)
   end
 end
 
-describe "Collections and collecting" do
+describe "Collections and collecting:" do
 
   before(:all) do
     # so this part of the before :all runs only once
@@ -37,14 +37,14 @@ describe "Collections and collecting" do
     @taxon = @test_data[:taxon_concept_1]
   end
 
-  shared_examples_for 'all users' do
-    it 'should allow viewing of a collection and its items' do
+  shared_examples_for 'collections and collecting all users' do
+    it 'should be able to view a collection and its items' do
       visit collection_path(@collection)
       body.should have_tag('h1', /#{@collection.name}/)
       body.should have_tag('ul.object_list li', /#{@collection.collection_items.first.object.best_title}/)
     end
 
-    it "should allow sorting of a collection's items" do
+    it "should be able to sort a collection's items" do
       visit collection_path(@collection)
       body.should have_tag('#sort_by')
     end
@@ -75,8 +75,8 @@ describe "Collections and collecting" do
   end
 
   # Make sure you are logged in prior to calling this shared example group
-  shared_examples_for 'logged in user' do
-    it_should_behave_like 'all users'
+  shared_examples_for 'collections and collecting logged in user' do
+    it_should_behave_like 'collections and collecting all users'
 
     it 'should be able to select all collection items on the page' do
       visit collection_path(@collection)
@@ -100,10 +100,10 @@ describe "Collections and collecting" do
     end
   end
 
-  describe 'for anonymous users' do
+  describe 'anonymous users' do
     before(:all) { visit logout_url }
     subject { body }
-    it_should_behave_like 'all users'
+    it_should_behave_like 'collections and collecting all users'
     it 'should not be able to select collection items' do
       visit collection_path(@collection)
       should_not have_tag("input#collection_item_#{@collection.collection_items.first.id}")
@@ -126,13 +126,13 @@ describe "Collections and collecting" do
     end
   end
 
-  describe 'for user without privileges' do
+  describe 'user without privileges' do
     before(:all) {
       @user = @under_privileged_user
       login_as @user
     }
     after(:all) { @user = nil }
-    it_should_behave_like 'logged in user'
+    it_should_behave_like 'collections and collecting logged in user'
     it 'should not be able to move collection items' do
       visit collection_path(@collection)
       should_not have_tag("input#collection_item_#{@collection.collection_items.first.id}")
@@ -145,98 +145,30 @@ describe "Collections and collecting" do
     end
   end
 
-  describe 'for user with privileges' do
+  describe 'user with privileges' do
     before(:all) {
       @user = @collection_owner
       login_as @user
     }
     after(:all) { @user = nil }
-    it_should_behave_like 'logged in user'
-    it 'should be able to edit collection and item details'
+    it_should_behave_like 'collections and collecting logged in user'
     it 'should be able to move collection items'
     it 'should be able to remove collection items'
-    it 'should be able to delete unspecial collections'
+    it 'should be able to edit ordinary collection and nested collection item attributes' do
+      visit edit_collection_path(@collection)
+      body.should have_tag('input#collection_name')
+      body.should have_tag('textarea#collection_description')
+      body.should have_tag('textarea#collection_collection_items_attributes_0_annotation')
+      body.should have_tag('input#collection_collection_items_attributes_0_id')
+      page.fill_in 'collection_name', :with => 'Edited collection name'
+      page.fill_in 'collection_description', :with => 'Edited collection description'
+      page.fill_in 'collection_collection_items_attributes_0_annotation', :with => 'Edited item annotation'
+      click_button 'Update collection details'
+      body.should include('successfully updated')
+    end
+    it 'should not be able to edit special collections (really?)'
+    it 'should be able to delete ordinary collections'
+    it 'should not be able to delete special collections'
   end
-
-
-
-
-
-
-
-
-#    describe "#show" do
-#
-#      before(:all) do
-#        @show_user = User.gen
-#        @show_collection = Collection.gen(:user => @show_user)
-#        @show_items = []
-#        @show_items[0] = @show_collection.add(@shown_taxon_concept = build_taxon_concept(:images => [{}]))
-#        @show_items[1] = @show_collection.add(@shown_image = @test_data[:taxon_concept].images.first)
-#        @show_items[2] = @show_collection.add(@shown_community = Community.gen)
-#        @show_items[3] = @show_collection.add(@shown_collection = Collection.gen)
-#      end
-#
-#      it
-#      describe "(NOT editable)" do
-#
-#        before(:all) do
-#          visit logout_url
-#          visit collection_path(@show_collection)
-#        end
-#
-#
-#        it 'should NOT allow users to delete collections' do
-#          page.body.should_not have_tag("a[href=?]", collection_path(@show_collection), :text => /delete/i)
-#        end
-#
-#        it 'should allow users to edit the name of specific collections' do
-#          page.body.should_not have_tag(".actions a", :text => /change name/i)
-#          page.body.should_not have_tag("input#collection_name")
-#        end
-#
-#      end
-#
-#      describe "(editable)" do
-#
-#        before(:all) do
-#          login_as @show_user
-#        end
-#
-#        before(:each) do
-#          visit collection_path(@show_collection)
-#        end
-#
-#        it 'should show all the items in a collection' # do FIXME
-##          page.body.should have_tag("a[href=?]", taxon_concept_path(@shown_taxon_concept))
-##          page.body.should have_tag("a[href=?]", data_object_path(@shown_image))
-##          page.body.should have_tag("a[href=?]", community_path(@shown_community))
-##          page.body.should have_tag("a[href=?]", collection_path(@shown_collection))
-##        end
-#
-#        # setting to pending need to check and implement 'editable' mockups
-#        it 'should allow users to delete specific collections'
-#
-#        it 'should allow users to edit the name of specific collections'
-#
-#      end
-#
-#    end
-#
-#    it 'should allow users with privileges to copy selected collection items to another one of their collections'
-#
-#    it 'should allow users with privileges to create collections from selected collection items'
-#
-#    it 'should allow users with privileges to remove collection items'
-#
-#    it 'should NOT allow users WITHOUT privileges to remove collection items'
-#
-#    it 'should NOT allow users to rename or delete "watch" collections' do
-#      login_as @test_data[:user]
-#      visit community_path(@test_data[:user].watch_collection)
-#      page.body.should_not have_tag("a[href=?]", collection_path(@test_data[:user].watch_collection), :text => /delete/i)
-#      page.body.should_not have_tag("a", :text => /change name/i)
-#      page.body.should_not have_tag("input#collection_name")
-#    end
 
 end

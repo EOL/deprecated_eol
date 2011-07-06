@@ -12,7 +12,7 @@ describe "Communities" do
     @test_data = EOL::TestInfo.load('communities')
   end
 
-  shared_examples_for 'all users' do
+  shared_examples_for 'communities all users' do
 
     context 'visiting index' do
       before(:all) { visit communities_path }
@@ -81,9 +81,9 @@ describe "Communities" do
     end
   end
 
-  shared_examples_for 'logged in user' do
+  shared_examples_for 'communities logged in user' do
     # Make sure you are logged in prior to calling this shared example group
-    it_should_behave_like 'all users'
+    it_should_behave_like 'communities all users'
     context 'visiting create community' do
       before(:all) { visit new_community_path }
       it 'should ask for the new community name and description' do
@@ -102,7 +102,7 @@ describe "Communities" do
 
   shared_examples_for 'community member' do
     # Make sure you are logged in prior to calling this shared example group
-    it_should_behave_like 'logged in user'
+    it_should_behave_like 'communities logged in user'
 
     context 'visiting show community' do
       before(:all) { visit community_path(@test_data[:community]) }
@@ -124,7 +124,7 @@ describe "Communities" do
       login_as @test_data[:user_non_member]
       visit logout_path
     end
-    it_should_behave_like 'all users'
+    it_should_behave_like 'communities all users'
     context 'visiting create community' do
       it 'should require login' do
         get new_community_path
@@ -144,7 +144,7 @@ describe "Communities" do
 
   describe 'non member' do
     before(:all) { login_as @test_data[:user_non_member] }
-    it_should_behave_like 'logged in user'
+    it_should_behave_like 'communities logged in user'
     context 'visiting show community' do
       before(:all) { visit community_path(@test_data[:community]) }
       subject { body }

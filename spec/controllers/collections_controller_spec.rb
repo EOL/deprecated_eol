@@ -15,7 +15,7 @@ describe CollectionsController do
   describe "#update" do
     it "Updates the description" do
       getter = lambda{
-        post :update, :id => @collection.id, :collection => {:description => "New Description"}
+        post :update, :id => @collection.id, :commit_edit_collection => 'Submit',  :collection => {:description => "New Description"}
         @collection.reload
       }
       getter.should change(@collection, :description)

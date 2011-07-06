@@ -7,7 +7,7 @@ class TaxonConceptName < SpeciesSchemaModel
   belongs_to :synonym
   belongs_to :taxon_concept
   belongs_to :vetted
-  
+
   def self.sort_by_language_and_name(taxon_concept_names)
     taxon_concept_names.sort_by do |tcn|
       language_iso = tcn.language.blank? ? '' : tcn.language.iso_639_1
@@ -20,7 +20,6 @@ class TaxonConceptName < SpeciesSchemaModel
   def vet(vet_obj, by_whom)
     raw_update_attribute(:vetted_id, vet_obj.id)
     synonym.update_attributes!(:vetted => vet_obj) if synonym # There *are* TCNs in prod w/o synonyms (from CoL, I think)
-    by_whom.track_curator_activity(self, 'taxon_concept_name', vet_obj.to_action)
   end
 
   # Our composite primary keys gem is too stupid to handle this change correctly, so we're bypassing it here:

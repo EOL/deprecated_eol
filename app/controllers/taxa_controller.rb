@@ -199,6 +199,7 @@ class TaxaController < ApplicationController
   end
 
   # Ajax method to change the preferred name on a Taxon Concept:
+  # TODO - This needs to add a CuratorActivityLog.
   def update_common_names
     tc = find_taxon_concept
     return if taxon_concept_invalid?(tc)
@@ -229,6 +230,7 @@ class TaxaController < ApplicationController
     redirect_to "/pages/#{tc.id}?category_id=#{params[:category_id]}"
   end
 
+  # TODO - This needs to add a CuratorActivityLog.
   def add_common_name
     tc = TaxonConcept.find(params[:taxon_concept_id])
     if params[:name][:name_string] && params[:name][:name_string].strip != ""
@@ -246,6 +248,7 @@ class TaxaController < ApplicationController
     redirect_to "/pages/#{tc.id}?category_id=#{params[:name][:category_id]}"
   end
 
+  # TODO - This needs to add a CuratorActivityLog.
   def delete_common_name
     tc = TaxonConcept.find(params[:taxon_concept_id].to_i)
     synonym_ids = params[:synonym_ids].map {|s| s.to_i}.uniq
@@ -258,6 +261,7 @@ class TaxaController < ApplicationController
     redirect_to "/pages/#{tc.id}?category_id=#{category_id}"
   end
 
+  # TODO - This needs to add a CuratorActivityLog.
   def vet_common_name
     @taxon_concept = TaxonConcept.find(params[:taxon_concept_id].to_i)
     language_id = params[:language_id].to_i

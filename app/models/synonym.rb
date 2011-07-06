@@ -17,7 +17,7 @@ class Synonym < SpeciesSchemaModel
   after_update :update_taxon_concept_name, :update_vetted_on_synonyms_for_same_tc
   after_create :create_taxon_concept_name
   before_destroy :set_preferred_true_for_last_synonym
-  
+
   def self.sort_by_language_and_name(synonyms)
     synonyms.sort_by do |syn|
       language_code = syn.language.blank? ? '' : syn.language.iso_639_1
@@ -34,24 +34,24 @@ class Synonym < SpeciesSchemaModel
     language  = options[:language] || Language.unknown
     relation  = options[:relation] || SynonymRelation.synonym
     agent     = options[:agent]
-    hierarchy = Hierarchy.eol_contributors 
+    hierarchy = Hierarchy.eol_contributors
     preferred = options[:preferred] || 0
     vetted    = options[:vetted] || Vetted.unknown
     entry     = options[:entry]
     raise("Cannot generate a Synonym without an :entry") unless entry
     synonym = Synonym.find_by_hierarchy_id_and_hierarchy_entry_id_and_language_id_and_name_id_and_synonym_relation_id(
-              hierarchy.id, 
-              entry.id, 
-              language.id, 
+              hierarchy.id,
+              entry.id,
+              language.id,
               name_obj.id,
               relation.id)
     if synonym and options[:preferred] # They MUST have specified this in order to run this block:
       synonym.preferred = preferred
       synonym.save!
     else
-      synonym = Synonym.create(:name_id             => name_obj.id, 
+      synonym = Synonym.create(:name_id             => name_obj.id,
                                :hierarchy_id        => hierarchy.id,
-                               :hierarchy_entry_id  => entry.id, 
+                               :hierarchy_entry_id  => entry.id,
                                :language_id         => language.id,
                                :synonym_relation_id => relation.id,
                                :vetted              => vetted,
@@ -76,9 +76,9 @@ class Synonym < SpeciesSchemaModel
     agents_roles += agents_synonyms
   end
 
+  # TODO - is this being used?
   def vet(vet_obj, by_whom)
     update_attributes!(:vetted => vet_obj)
-    by_whom.track_curator_activity(self, 'synonym', vet_obj.to_action)
   end
 
 private
@@ -87,7 +87,7 @@ private
     tc_id = hierarchy_entry.taxon_concept_id
     count = TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(tc_id, language_id).length
     if count == 0  # this is the first name in this language for the concept
-      self.preferred = 1 
+      self.preferred = 1
     elsif self.preferred?  # only reset other names to preferred=0 when this name is to be preferred
       Synonym.connection.execute("UPDATE synonyms SET preferred = 0 where hierarchy_entry_id = #{hierarchy_entry_id} and  language_id = #{language_id}")
       TaxonConceptName.connection.execute("UPDATE taxon_concept_names set preferred = 0 where taxon_concept_id = #{tc_id} and  language_id = #{language_id}")
@@ -116,7 +116,7 @@ private
 
   def create_taxon_concept_name
     vern = (language_id == 0 or language_id == Language.scientific.id) ? false : true
-    TaxonConceptName.create(:synonym_id => id, 
+    TaxonConceptName.create(:synonym_id => id,
                             :language_id => language_id,
                             :name_id => name_id,
                             :preferred => self.preferred,

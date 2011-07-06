@@ -92,9 +92,12 @@ describe "Communities" do
       end
       it 'should create a community, add the user, and redirect to community default view' do
         fill_in('community_name', :with => 'Some New Name')
-        fill_in('community_description', :with => 'This is a long decription.')
+        fill_in('community_description', :with => 'This is a long description.')
         click_button(@test_data[:name_of_create_button])
-        current_path.should match /#{community_path(Community.last)}/
+        new_comm = Community.last
+        new_comm.name.should == 'Some New Name'
+        new_comm.description.should == 'This is a long description.'
+        current_path.should match /#{community_path(new_comm)}/
       end
     end
   end

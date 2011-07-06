@@ -21,88 +21,59 @@ describe 'Curating Associations' do
                                                                                            @image_dato.id)
   end
 
-  it 'should curate a dohe association' do
+  before(:each) do
     @dohe.vetted_id = Vetted.trusted.id
     @dohe.visibility_id = Visibility.visible.id
-    [Vetted.unknown.id, Vetted.untrusted.id, Vetted.trusted.id].each do |vetted_method|
-      [Visibility.invisible.id, Visibility.inappropriate.id, Visibility.visible.id].each do |visibility_method|
-        untrust_reason_ids = (vetted_method == Vetted.untrusted.id) ? [ UntrustReason.misidentified.id, UntrustReason.incorrect.id ] : []
-        @dohe.curate(@another_curator, { :vetted_id => vetted_method,
-                                         :visibility_id => visibility_method,
-                                         :untrust_reason_ids => untrust_reason_ids,
-                                         :curate_vetted_status => true,
-                                         :curate_visibility_status => true,
-                                         :curation_comment => 'test curation comment.',
-                                         :curation_comment_status => true,
-                                         :changeable_object_type => 'data_object'
-                                         })
-        @dohe.vetted_id.should == vetted_method.to_i
-        @dohe.visibility_id.should == visibility_method.to_i
-        incr = (vetted_method == Vetted.untrusted.id) ? 2 : 1
-      end
-    end
+    @dohe.save!
   end
 
-  it 'should curate a cdohe association' do
-    @cdohe.vetted_id = Vetted.trusted.id
-    @cdohe.visibility_id = Visibility.visible.id
-    [Vetted.unknown.id, Vetted.untrusted.id, Vetted.trusted.id].each do |vetted_method|
-      [Visibility.invisible.id, Visibility.inappropriate.id, Visibility.visible.id].each do |visibility_method|
-        untrust_reason_ids = (vetted_method == Vetted.untrusted.id) ? [ UntrustReason.misidentified.id, UntrustReason.incorrect.id ] : []
-        @cdohe.curate(@another_curator, { :vetted_id => vetted_method,
-                                          :visibility_id => visibility_method,
-                                          :untrust_reason_ids => untrust_reason_ids,
-                                          :curate_vetted_status => true,
-                                          :curate_visibility_status => true,
-                                          :curation_comment => 'test curation comment.',
-                                          :curation_comment_status => true,
-                                          :changeable_object_type => 'curated_data_objects_hierarchy_entry'
-                                          })
-        @cdohe.vetted_id.should == vetted_method.to_i
-        @cdohe.visibility_id.should == visibility_method.to_i
-        incr = (vetted_method == Vetted.untrusted.id) ? 2 : 1
-      end
-    end
+  # :vetted_id => vetted_method,
+  # :visibility_id => visibility_method,
+  # :untrust_reason_ids => untrust_reason_ids,
+  # :curate_vetted_status => true,
+  # :curate_visibility_status => true,
+  # :curation_comment => 'test curation comment.',
+  # :curation_comment_status => true,
+  # :changeable_object_type => 'data_object'
+
+  it 'should #trust a dohe' do
+    @dohe.vetted_id = Vetted.untrusted.id # Current value IS trusted... blah.
+    @dohe.save!
+    @dohe.trust(@another_curator)
+    @dohe.vetted_id.should == Vetted.trusted.id
   end
 
-  it 'should add untrust reasons comment and save untrust reasons when curated as untrusted' do
-    # curate association in dohe
-    @dohe.vetted_id = Vetted.trusted.id
-    CuratorActivityLog.delete_all
-    untrust_reason_ids = [ UntrustReason.misidentified.id, UntrustReason.incorrect.id ]
-    @dohe.curate(@another_curator, { :vetted_id => Vetted.untrusted.id,
-                                     :untrust_reason_ids => untrust_reason_ids,
-                                     :curate_vetted_status => true,
-                                     :changeable_object_type => 'data_object'
-                                     })
-    commit_transactions # There are cross-database joins, here.
-    CuratorActivityLog.last.untrust_reasons.map(&:id).sort.should == untrust_reason_ids.sort
-    @dohe.untrusted?.should eql(true)
-    # curate association in cdohe
-    @cdohe.vetted_id = Vetted.trusted.id
-    untrust_reason_ids = [ UntrustReason.duplicate.id, UntrustReason.poor.id ]
-    @cdohe.curate(@another_curator, { :vetted_id => Vetted.untrusted.id,
-                                      :untrust_reason_ids => untrust_reason_ids,
-                                      :curate_vetted_status => true,
-                                      :changeable_object_type => 'curated_data_objects_hierarchy_entry'
-                                      })
-    commit_transactions # There are cross-database joins, here.
-    @cdohe.untrusted?.should eql(true)
-    CuratorActivityLog.last.untrust_reasons.map(&:id).sort.should == untrust_reason_ids.sort
+  it 'should #untrust a dohe' do
+    @dohe.untrust(@another_curator)
+    @dohe.vetted_id.should == Vetted.untrusted.id
   end
 
-  it 'should add a curation comment to an association' do
-    # add curator comment to association in dohe
-    curation_comment = "test curation comment for dohe"
-    @dohe.curate(@another_curator, { :curation_comment => curation_comment,
-                                     :curation_comment_status => true,
-                                     :changeable_object_type => 'data_object'
-                                     })
-    #  add curator comment to association in cdohe
-    curation_comment = "test curation comment for cdohe"
-    @cdohe.curate(@another_curator, { :curation_comment => curation_comment,
-                                      :curation_comment_status => true,
-                                      :changeable_object_type => 'curated_data_objects_hierarchy_entry'
-                                      })
+  it 'should #unreviewed a dohe' do
+    @dohe.unreviewed(@another_curator)
+    @dohe.vetted_id.should == Vetted.unknown.id
   end
+
+  it 'should #hide a dohe' do
+    @dohe.hide(@another_curator)
+    @dohe.visibility_id.should == Visibility.invisible.id
+  end
+
+  it 'should #inappropriate a dohe' do
+    @dohe.inappropriate(@another_curator)
+    @dohe.visibility_id.should == Visibility.inappropriate.id
+  end
+
+  it 'should #show a dohe' do
+    @dohe.visibility_id = Visibility.invisible.id
+    @dohe.save!
+    @dohe.show(@another_curator)
+    @dohe.visibility_id.should == Visibility.visible.id
+  end
+
+  # NOTE - we could now check all of these methods on a cdohe... but the functionality of the library has been tested
+  # on one model; as long as any other model that uses it has vis/vet ids, then it should also work.  I'm satisfied.
+
+  # Also note, this lib used to save comments.  We chose to move that functionality to the controllers, since it's a
+  # logging function, not a basic model function.
+
 end

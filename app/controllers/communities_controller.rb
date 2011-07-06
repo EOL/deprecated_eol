@@ -40,7 +40,8 @@ class CommunitiesController < ApplicationController
     respond_to do |format|
       if @community.save
         @community.initialize_as_created_by(current_user)
-        format.html { redirect_to(@community, :notice =>  I18n.t(:created_community) ) }
+        log_action(:create)
+        format.html { redirect_to(@community, :notice => I18n.t(:created_community) ) }
         format.xml  { render :xml => @community, :status => :created, :location => @community }
       else
         format.html { render :action => "new" }
@@ -50,9 +51,13 @@ class CommunitiesController < ApplicationController
   end
 
   def update
-
+    name_change = params[:community][:name] != @community.name
+    description_change = params[:community][:description] != @community.description
+    #TODO = icon_change
     respond_to do |format|
       if @community.update_attributes(params[:community])
+        log_action(:change_name) if name_change
+        log_action(:change_description) if description_change
         format.html { redirect_to(@community, :notice =>  I18n.t(:updated_community) ) }
         format.xml  { head :ok }
       else
@@ -63,6 +68,7 @@ class CommunitiesController < ApplicationController
   end
 
   def destroy
+    # TODO - this shouldn't really be deleted, it shoud be hidden.  Also, it should log the activity.
     @community.destroy
     respond_to do |format|
       format.html { redirect_to(communities_url) }
@@ -114,4 +120,9 @@ private
     raise EOL::Exceptions::MustBeLoggedIn unless logged_in?
   end
 
+  def log_action(act, opts = {})
+    CommunityActivityLog.create(
+      {:community => @community, :user => current_user, :activity => Activity.send(act)}.merge(opts)
+    )
+  end
 end

@@ -134,33 +134,27 @@ describe Comment do
   end
 
   # show
-  it "should add curator who vetted object, log curator activity, and make comment visible" do
+  it "should add curator who vetted object and make comment visible" do
     @tc_comment.visible_at = nil
     @tc_comment.vetted_by.should_not == @curator
     @tc_comment.save
-    audit_count = CuratorActivityLog.count
     @tc_comment.visible?.should be_false
     @tc_comment.show(@curator)
     @tc_comment.visible?.should be_true
     @tc_comment.vetted_by.should == @curator
-    (CuratorActivityLog.count - audit_count).should == 1
-    CuratorActivityLog.last.user.should == @curator
   end
 
   # hide
-  it "should add curator who vetted object, log curator activity, and make comment visible" do
+  it "should add curator who vetted object and make comment visible" do
     @tc.comments.delete_all
     @tc_comment = Comment.gen(:parent_id => @tc.id, :parent_type => 'TaxonConcept')
     @tc_comment.visible_at = 1.day.ago
     @tc_comment.vetted_by.should_not == @curator
     @tc_comment.save
-    audit_count = CuratorActivityLog.count
     @tc_comment.visible?.should be_true
     @tc_comment.hide(@curator)
     @tc_comment.visible?.should be_false
     @tc_comment.vetted_by.should == @curator
-    (CuratorActivityLog.count - audit_count).should == 1
-    CuratorActivityLog.last.user.should == @curator
   end
 
   # taxon_concept_id

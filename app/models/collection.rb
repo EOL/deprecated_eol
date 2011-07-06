@@ -1,11 +1,14 @@
 class Collection < ActiveRecord::Base
 
+  include EOL::ActivityLoggable
+
   belongs_to :user
   belongs_to :community # These are focus lists
 
   has_many :collection_endorsements
   has_many :collection_items
   alias :items :collection_items
+  has_many :comments, :as => :parent
   has_many :communities, :through => CollectionEndorsement # NOTE: be sure to check each for actually being endorsed!
 
   # TODO = you can have collections that point to collections, so there SHOULD be a has_many relationship here to all of the

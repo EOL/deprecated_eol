@@ -276,7 +276,6 @@ class DataObject < SpeciesSchemaModel
     tc = TaxonConcept.find(all_params[:taxon_concept_id])
     udo = UsersDataObject.create(:user => user, :data_object => d, :taxon_concept => tc)
     d.users_data_objects << udo
-    user.track_curator_activity(udo, 'users_submitted_text', 'update')
     d
   end
 
@@ -374,7 +373,6 @@ class DataObject < SpeciesSchemaModel
     udo = UsersDataObject.create(:user => user, :data_object => dato,
                               :taxon_concept => taxon_concept)
     dato.users_data_objects << udo
-    user.track_curator_activity(udo, 'users_submitted_text', 'create')
 
     # this will give it the hash elements it needs for attributions
     dato
@@ -989,11 +987,17 @@ class DataObject < SpeciesSchemaModel
 
   def untrust_reasons(hierarchy_entry)
     if hierarchy_entry.associated_by_curator
-      object_id = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id_and_user_id(id,hierarchy_entry.id,hierarchy_entry.associated_by_curator).id
-      log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_action_id(object_id, ChangeableObjectType.curated_data_objects_hierarchy_entry.id, Activity.untrusted.id).last
+      object_id = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id_and_user_id(
+        id,hierarchy_entry.id,hierarchy_entry.associated_by_curator
+      ).id
+      log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_action_id(
+        object_id, ChangeableObjectType.hierarchy_entry.id, Activity.untrusted.id
+      ).last
       log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
     else
-      log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_action_id(id, ChangeableObjectType.data_object.id, Activity.untrusted.id).last
+      log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_action_id(
+        id, ChangeableObjectType.data_object.id, Activity.untrusted.id
+      ).last
       log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
     end
   end
@@ -1078,7 +1082,6 @@ class DataObject < SpeciesSchemaModel
                                                     :data_object_id => self.id, :user_id => user.id,
                                                     :vetted_id => Vetted.trusted.id,
                                                     :visibility_id => Visibility.visible.id)
-    log_association(cdohe, user, hierarchy_entry, :add_association)
   end
 
   def remove_curated_association(user, hierarchy_entry)
@@ -1086,29 +1089,6 @@ class DataObject < SpeciesSchemaModel
     raise EOL::Exceptions::ObjectNotFound if cdohe.nil?
     raise EOL::Exceptions::WrongCurator.new("user did not create this association") unless cdohe.user_id = user.id
     cdohe.destroy
-    log_association(cdohe, user, hierarchy_entry, :remove_association)
-  end
-
-  def curate_association(user, hierarchy_entry, all_params)
-    if all_params[:curate_vetted_status] || all_params[:curate_visibility_status] || all_params[:curation_comment_status]
-      if hierarchy_entry.associated_by_curator
-        cdohe = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(id, hierarchy_entry.id)
-        all_params[:changeable_object_type] = 'curated_data_objects_hierarchy_entry'
-        cdohe.curate(user, all_params)
-      else
-        dohe = DataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(id, hierarchy_entry.id)
-        all_params[:changeable_object_type] = 'data_object'
-        dohe.curate(user, all_params)
-      end
-      # TODO - this will need to be re-designed:
-      # update_solr_index(opts)
-    end
-  end
-
-private
-
-  def log_association(object, user, hierarchy_entry, action)
-    user.track_curator_activity(object, 'curated_data_objects_hierarchy_entry', action.to_s)
   end
 
 end

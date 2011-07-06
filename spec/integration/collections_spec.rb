@@ -12,13 +12,16 @@ describe "Collections and collecting" do
     @test_data = EOL::TestInfo.load('collections')
   end
 
+  # TODO
+  it 'should redirect an un-logged-in user to login when they attempt to collect something'
+
   describe "should allow users to collect" do
 
-    # FIXME: collect_path no longer exists this should be collection_items/create with form_for post data
     # FIXME: test an anonymous visitor collecting an item, i.e. should be redirected to login
-    it 'taxa' # do
+    it 'taxa'
 #        visit collect_path(:type => 'TaxonConcept', :id => @test_data[:taxon_concept].id)
 #        @test_data[:user].inbox_collection.items.map {|li| li.object }.include?(@test_data[:taxon_concept]).should be_true
+         # TODO - this should also test that a CollectionActivityLog entry was created.
 #      end
 
     it 'data objects' # do

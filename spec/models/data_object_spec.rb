@@ -323,17 +323,6 @@ describe DataObject do
     cdohe.should_not == nil
   end
 
-  it 'should add an entry to the curator activity log when a curator adds an association' do
-    type = ChangeableObjectType.curated_data_objects_hierarchy_entry
-    type.should_not == nil
-    action = Activity.add_association
-    action.should_not == nil
-    last_action = CuratorActivityLog.last
-    last_action.activity.should == action
-    last_action.changeable_object_type.should == type
-    last_action.user.should == @curator
-  end
-
   it 'should trust associations added by curators' do
     cdohe = CuratedDataObjectsHierarchyEntry.find_by_hierarchy_entry_id_and_data_object_id(@hierarchy_entry.id,
                                                                                            @image_dato.id)

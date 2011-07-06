@@ -688,6 +688,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   # This is at the object level (and is specific to curators)
   def track_curator_activity(object, changeable_object_type, action, options = {})
+    raise "Stop using User#track_curator_activity"
     comment_id = options[:comment] ? options[:comment].id : nil
     untrust_reasons = options[:untrust_reasons] || nil
     taxon_concept_id = options[:taxon_concept_id] || nil

@@ -162,7 +162,9 @@ ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'synonym')
 ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'taxon_concept_name')
 ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'tag')
 ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'users_submitted_text')
+ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'hierarchy_entry')
 ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'curated_data_objects_hierarchy_entry')
+ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'data_objects_hierarchy_entry')
 
 RefIdentifierType.gen_if_not_exists(:label => 'url')
 

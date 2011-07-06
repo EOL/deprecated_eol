@@ -41,6 +41,7 @@ class CollectionsController < ApplicationController
     @collection = Collection.new(params[:collection])
     respond_to do |format|
       if @collection.save
+        CollectionActivityLog.create(:collection => self, :user => current_user, :activity => Activity.create)
         format.html { redirect_to(@collection, :notice => I18n.t(:collection_created_notice, :collection_name => @collection.name)) }
       else
         format.html { render :action => "new" }

@@ -235,10 +235,9 @@ class TaxaController < ApplicationController
       agent = current_user.agent
       language = Language.find(params[:name][:language])
       if tc.is_curatable_by?(current_user)
-        name, synonym, taxon_concept_name =
-          tc.add_common_name_synonym(params[:name][:name_string], :agent => agent, :language => language,
-                                     :vetted => Vetted.trusted)
-        current_user.log_activity(:added_common_name, :value => params[:name][:name_string], :taxon_concept_id => tc.id)
+        synonym = tc.add_common_name_synonym(params[:name][:name_string], :agent => agent, :language => language,
+                                             :vetted => Vetted.trusted)
+        log_action(tc, synonym, :add_common_name)
       else
         flash[:error] = I18n.t(:insufficient_privileges_to_add_common_name)
       end
@@ -254,7 +253,7 @@ class TaxaController < ApplicationController
     synonym_ids.each do |synonym_id|
       tcn = TaxonConceptName.find_by_synonym_id_and_taxon_concept_id(synonym_id, tc.id)
       tc.delete_common_name(tcn)
-      current_user.log_activity(:deleted_common_name, :taxon_concept_id => tc.id)
+      log_action(tc, tcn, :remove_common_name)
     end
     redirect_to "/pages/#{tc.id}?category_id=#{category_id}"
   end
@@ -540,6 +539,18 @@ private
       @meta_description = "#{@taxon_concept.title} (#{@taxon_concept.subtitle}) in Encyclopedia of Life"
       @meta_keywords = @taxon_concept.title + " " + @taxon_concept.subtitle
     end
+  end
+
+  def log_action(tc, object, method)
+    CuratorActivityLog.create(
+      :user => current_user,
+      :changeable_object_type => ChangeableObjectType.send(object.class.name.underscore.to_sym),
+      :object_id => object.id,
+      :activity => Activity.send(method),
+      :data_object => @data_object,
+      :taxon_concept => tc,
+      :created_at => 0.seconds.from_now
+    )
   end
 
 end

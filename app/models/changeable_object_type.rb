@@ -20,6 +20,7 @@ class ChangeableObjectType < ActiveRecord::Base
     cached_find(:ch_object_type, 'data_object')
   end
 
+  # Adding common names:
   def self.synonym
     cached_find(:ch_object_type, 'synonym')
   end
@@ -28,12 +29,21 @@ class ChangeableObjectType < ActiveRecord::Base
     cached_find(:ch_object_type, 'tag')
   end
 
+  # Removing common names:
   def self.taxon_concept_name
     cached_find(:ch_object_type, 'taxon_concept_name')
   end
 
   def self.users_submitted_text
     cached_find(:ch_object_type, 'users_submitted_text')
+  end
+
+  def self.hierarchy_entry
+    cached_find(:ch_object_type, 'hierarchy_entry')
+  end
+
+  def self.data_objects_hierarchy_entry
+    cached_find(:ch_object_type, 'data_objects_hierarchy_entry')
   end
 
   def self.curated_data_objects_hierarchy_entry

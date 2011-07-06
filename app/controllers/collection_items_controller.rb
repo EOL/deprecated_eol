@@ -49,10 +49,17 @@ class CollectionItemsController < ApplicationController
   # DELETE /collection_items/1
   def destroy
     @collection_item = CollectionItem.find(params[:id])
-    @collection_item.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(collection_items_url) }
+    # We don't actually *destroy* collection items, so that we still have a log of what they were pointing to:
+    if @collection_item.update_attributes(:collection_id => nil)
+      CollectionActivityLog.create(:collection => @collection_item.collection, :collection_item => @collection_item,
+                                   :user => current_user, :activity => Activity.remove)
+      respond_to do |format|
+        flash[:notice] = I18n.t(:item_removed_from_collection_notice, :collection_name => @collection_item.collection.name)
+        format.html { redirect_to(@collection_item.collection) }
+      end
+    else
+      flash[:error] = I18n.t(:item_not_updated_in_collection_error)
+      redirect_back_or_default
     end
   end
 

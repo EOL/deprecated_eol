@@ -63,13 +63,13 @@ describe EOL::ActivityLog do
     dato = DataObject.gen(:created_at => 2.seconds.ago)
     # We also want to see comments on data objects on the page
     UsersDataObject.gen(:taxon_concept_id => @testy[:id], :data_object => dato)
-    # We're curating one of the images, but we CANNOT force the date from here... so we're going to make this last on
-    # the list.
-    @testy[:taxon_concept].images.first.curate_association(@curator,
-                                                           @testy[:taxon_concept].entry,
-                                                           :vetted_id => Vetted.trusted.id,
-                                                           :curate_vetted_status => true)
-
+    dohe = DataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(
+      @testy[:taxon_concept].images.first.id,
+      @testy[:taxon_concept].entry.id
+    )
+    CuratorActivityLog.gen(:changeable_object_type_id => ChangeableObjectType.data_objects_hierarchy_entry.id,
+                           :object_id => dohe.id, :created_at => 1.seconds.ago)
+    # TODO - this is failing beause of missing features in the lib.  Known problem.  Will fix later.
     @testy[:taxon_concept].activity_log[-5].class.should == Comment
     @testy[:taxon_concept].activity_log[-5].parent_id.should == @testy[:id]
     @testy[:taxon_concept].activity_log[-4].class.should == Comment

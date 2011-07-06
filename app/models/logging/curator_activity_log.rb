@@ -18,11 +18,13 @@ class CuratorActivityLog < LoggingModel
   def self.find_all_by_data_objects_on_taxon_concept(tc)
     dato_ids = tc.all_data_objects.map {|dato| dato.id}
     return [] if dato_ids.empty?
+    # TODO - This needs to add dohes, cdohes, taxon_concept_names, and synonyms.  Have fun.  :|
     CuratorActivityLog.find_by_sql("
       SELECT *
         FROM curator_activity_logs
-        WHERE curator_activity_logs.changeable_object_type_id = #{ChangeableObjectType.data_object.id}
-          AND object_id IN (#{dato_ids.join(',')})
+        WHERE
+          (curator_activity_logs.changeable_object_type_id = #{ChangeableObjectType.data_object.id}
+            AND object_id IN (#{dato_ids.join(',')}))
     ")
   end
 
@@ -40,8 +42,6 @@ class CuratorActivityLog < LoggingModel
             comment_parent.taxon_concept_for_users_text.name
           end
         end
-      when ChangeableObjectType.tag.id:
-        # We don't count these right now, but we don't want to raise an exception.
       when ChangeableObjectType.users_submitted_text.id:
         udo_taxon_concept.entry.italicized_name
       when ChangeableObjectType.synonym.id:

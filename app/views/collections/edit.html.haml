@@ -1,45 +1,68 @@
-#sidebar
-  .filters
-    - form_for 'FIXME' do |f|
-      - # FIXME: Need move copy remove functionality
-      %h4= I18n.t(:collect_items)
-      %fieldset.actions
-        = link_to I18n.t(:select_all_button), edit_collection_path(@collection, :select_all => true), :class => 'select_all button'
-        = submit_tag I18n.t(:move_selected_button)
-        = submit_tag I18n.t(:copy_selected_button)
-        = submit_tag I18n.t(:remove_selected_button)
-    - form_for 'FIXME' do |f|
-      - # FIXME: users need to be able to set the default sort order for a collection
-      %h4= I18n.t(:default_sorting_header)
-      %fieldset
-        %legend.assistive= I18n.t(:default_sorting_legend)
-        - sort_options = { I18n.t(:sort_by_recently_added_option) => :newest, I18n.t(:sort_by_oldest_option) => :oldest }
-        - selected = 'FIXME'
-        = label_tag :default_sorting, I18n.t(:default_sorting_label), :class => 'assistive'
-        = select_tag :default_sorting, options_for_select(sort_options, selected)
-      %fieldset.actions
-        = submit_tag I18n.t(:default_sorting_submit_button)
-    - # FIXME: Users need to be able to choose an image for a collection
-    %h4= I18n.t(:primary_image_header)
-    %p= link_to I18n.t(:primary_image_choose), "/placeholder"
-  .collection_contributors
-    = render :partial => 'collections/managed_by', :locals => { :collection => @collection }
-  - if @collection.collection_endorsements.count > 0
-    .collection_contributors
-      = render :partial => 'collections/endorsed_by', :locals => { :collection => @collection }
+- form_for @collection do |collection_form|
+  = hidden_field_tag :action_name, controller.action_name
+  = hidden_field_tag :filter, @filter if @filter
+  #page_heading.with_image
+    .site_column
+      = image_tag @collection.logo_url, :alt => ''
+      .hgroup_fields
+        %h1.assistive= h @collection.name
+        %fieldset
+          = collection_form.label :name, I18n.t(:collection_name_label), {:class => 'assistive'}
+          = collection_form.text_field :name, :value => @collection.name
+          = collection_form.label :description, I18n.t(:collection_description_label), {:class => 'assistive'}
+          = collection_form.text_area :description, :value => @collection.description, :rows => 3, :cols => 60
+      .page_actions
+        %ul
+          %li
+            %fieldset.actions
+              = submit_tag I18n.t(:update_collection_submit_button), :name => :commit_edit_collection
+          %li
+            = link_to I18n.t(:go_back), collection_path(@collection)
+    = render :partial => 'shared/flash_messages'
 
-#collections.main_container
-  .heading
-    - # TODO: use the shared partial and fix css for this form
-    - # FIXME: Make sure the the controller can handle the sort params
-    - form_tag({}, :method => 'GET') do
-      %fieldset
-        = label_tag :sort_by, I18n.t(:sort_by_label)
-        - selected = params[:sort_by].nil? ? :newest : params[:sort_by].to_sym
-        - sort_options = { I18n.t(:sort_by_recently_added_option) => :newest, I18n.t(:sort_by_oldest_option) => :oldest }
-        = select_tag :sort_by, options_for_select(sort_options, selected)
-      %fieldset.actions
-        = submit_tag I18n.t(:sort_by_button)
-  %ul.object_list
-    - @collection_items.each do |item|
-      = render :partial => 'collection_items/edit', :locals => { :collection_item => item }
+  #content
+    .site_column
+      #tabs_sidebar
+        = render :partial => 'collections/filter_by_item_type'
+      #sidebar
+        .filters
+          %h4= I18n.t(:collect_items)
+          %fieldset.actions
+            = submit_tag I18n.t(:select_all_button), :name => :commit_select_all
+            = submit_tag I18n.t(:copy_selected_button), :name => :commit_copy_collection_items
+            = submit_tag I18n.t(:move_selected_button), :name => :commit_move_collection_items
+            = submit_tag I18n.t(:remove_selected_button), :name => :commit_remove_collection_items
+
+          - # FIXME: users need to be able to set the default sort order for a collection
+          %h4= I18n.t(:default_sorting_header)
+          %fieldset
+            %legend.assistive= I18n.t(:default_sorting_legend)
+            - sort_options = { I18n.t(:sort_by_recently_added_option) => :newest, I18n.t(:sort_by_oldest_option) => :oldest }
+            - selected = 'FIXME'
+            = label_tag :default_sorting, I18n.t(:default_sorting_label), :class => 'assistive'
+            = select_tag :default_sorting, options_for_select(sort_options, selected)
+          %fieldset.actions
+            = submit_tag I18n.t(:default_sorting_submit_button), :name => :commit_collection_default_sorting
+
+          - # FIXME: Users need to be able to choose an image for a collection
+          %h4= I18n.t(:primary_image_header)
+          %p= link_to I18n.t(:primary_image_choose), "/placeholder"
+        .collection_contributors
+          = render :partial => 'collections/managed_by', :locals => { :collection => @collection }
+        - if @collection.collection_endorsements.count > 0
+          .collection_contributors
+            = render :partial => 'collections/endorsed_by', :locals => { :collection => @collection }
+
+      #collections.main_container
+        .heading
+          %fieldset
+            = label_tag :sort_by, I18n.t(:sort_by_label)
+            - selected = params[:sort_by].nil? ? :newest : params[:sort_by].to_sym
+            - sort_options = { I18n.t(:sort_by_recently_added_option) => :newest, I18n.t(:sort_by_oldest_option) => :oldest }
+            = select_tag :sort_by, options_for_select(sort_options, selected)
+          %fieldset.actions
+            = submit_tag I18n.t(:sort_by_button)
+        %ul.object_list
+          - @collection_items.each do |item|
+            - collection_form.fields_for :collection_items, item do |collection_item_fields|
+              = render :partial => 'collection_items/edit', :locals => { :collection_item => item, :fields => collection_item_fields }

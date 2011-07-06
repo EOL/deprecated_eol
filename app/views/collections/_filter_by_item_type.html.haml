@@ -1,0 +1,25 @@
+%ul.tabs.with_icons
+  %li{:class => params[:filter] ? 'total' : 'total active'}= link_to I18n.t(:total_items_with_count, :count => @collection.collection_items.count), @collection
+
+  - taxa_count = @collection.filter_type("taxa").compact.count
+  - articles_count = @collection.filter_type("articles").compact.count
+  - videos_count = @collection.filter_type("videos").compact.count
+  - images_count = @collection.filter_type("images").compact.count
+  - sounds_count = @collection.filter_type("sounds").compact.count
+  - communities_count = @collection.filter_type("communities").compact.count
+  - people_count = @collection.filter_type("people").compact.count
+  - collections_count = @collection.filter_type("collections").compact.count
+
+  - types = [{"count" => taxa_count,        "type" => "taxa",        "link" => "taxa_with_count"},
+   {"count" => articles_count,    "type" => "articles",    "link" => "articles_with_count"},
+   {"count" => videos_count,      "type" => "videos",      "link" => "videos_with_count"},
+   {"count" => images_count,      "type" => "images",      "link" => "images_with_count"},
+   {"count" => sounds_count,      "type" => "sounds",      "link" => "sounds_with_count"},
+   {"count" => communities_count, "type" => "communities", "link" => "communities_with_count"},
+   {"count" => people_count,      "type" => "people",      "link" => "people_with_count"},
+   {"count" => collections_count, "type" => "collections", "link" => "collections_with_count"}]
+
+  - types.each do |t|
+    - classes = t['type']
+    - classes << ' active' if params[:filter] == t['type']
+    %li{:class => classes}= link_to I18n.t("#{t['link']}", :count => t['count']), "/collections/#{@collection.id}/#{t['type']}"

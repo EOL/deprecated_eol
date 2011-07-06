@@ -830,24 +830,23 @@ body > #header {
   background: white; }
 
 #page_heading {
-  padding: 20px 0;
+  padding: 10px 0 0 0;
   border-bottom: 1px solid #93a4b0;
   background: #e2e9ef; }
   #page_heading .hgroup {
     float: left;
-    width: 720px; }
-  #page_heading.with_nav {
-    padding-bottom: 0; }
-    #page_heading.with_nav .site_column, #page_heading.with_nav body > #header .section, body > #header #page_heading.with_nav .section, #page_heading.with_nav body > #footer .section, body > #footer #page_heading.with_nav .section, #page_heading.with_nav .thumbnails ul, .thumbnails #page_heading.with_nav ul {
-      overflow: visible; }
-      #page_heading.with_nav .site_column:after, #page_heading.with_nav body > #header .section:after, body > #header #page_heading.with_nav .section:after, #page_heading.with_nav body > #footer .section:after, body > #footer #page_heading.with_nav .section:after, #page_heading.with_nav .thumbnails ul:after, .thumbnails #page_heading.with_nav ul:after {
-        display: block;
-        clear: both;
-        content: ""; }
+    width: 720px;
+    margin: 10px 0 20px 10px; }
+  #page_heading.with_nav .site_column, #page_heading.with_nav body > #header .section, body > #header #page_heading.with_nav .section, #page_heading.with_nav body > #footer .section, body > #footer #page_heading.with_nav .section, #page_heading.with_nav .thumbnails ul, .thumbnails #page_heading.with_nav ul {
+    overflow: visible; }
+    #page_heading.with_nav .site_column:after, #page_heading.with_nav body > #header .section:after, body > #header #page_heading.with_nav .section:after, #page_heading.with_nav body > #footer .section:after, body > #footer #page_heading.with_nav .section:after, #page_heading.with_nav .thumbnails ul:after, .thumbnails #page_heading.with_nav ul:after {
+      display: block;
+      clear: both;
+      content: ""; }
   #page_heading .site_column, #page_heading body > #header .section, body > #header #page_heading .section, #page_heading body > #footer .section, body > #footer #page_heading .section, #page_heading .thumbnails ul, .thumbnails #page_heading ul {
     overflow: hidden; }
   #page_heading h1 {
-    padding: 0 0 5px 0;
+    margin: 0 0 5px 0;
     font-size: 2em;
     font-weight: normal;
     color: #394651; }
@@ -864,11 +863,12 @@ body > #header {
     color: #5f6c76; }
     #page_heading p.status {
       color: #394651; }
-  #page_heading .hgroup {
-    overflow: hidden; }
   #page_heading .page_actions {
     float: right;
     padding-left: 20px; }
+    #page_heading .page_actions ul {
+      overflow: hidden;
+      padding: 0 0 10px 0; }
     #page_heading .page_actions li {
       clear: both;
       float: right;
@@ -877,36 +877,36 @@ body > #header {
         margin: 0; }
     #page_heading .page_actions a {
       display: block; }
-  #page_heading.with_image, #page_heading.profile {
-    padding: 10px 0; }
-    #page_heading.with_image .hgroup, #page_heading.profile .hgroup {
-      float: none;
-      width: auto; }
-      #page_heading.with_image .hgroup h1, #page_heading.profile .hgroup h1 {
+  #page_heading.with_image {
+    overflow: hidden; }
+    #page_heading.with_image .hgroup,
+    #page_heading.with_image .hgroup_fields {
+      margin: 0;
+      width: 660px;
+      float: left; }
+      #page_heading.with_image .hgroup h1,
+      #page_heading.with_image .hgroup_fields h1 {
         padding-top: 10px; }
-      #page_heading.with_image .hgroup img, #page_heading.profile .hgroup img {
-        float: left;
-        margin: 0 20px 0 0;
-        border: 1px solid #394651; }
+    #page_heading.with_image img {
+      float: left;
+      margin: 0 20px 10px 0;
+      border: 1px solid #394651; }
     #page_heading.with_image input[type="text"],
-    #page_heading.with_image textarea, #page_heading.profile input[type="text"], #page_heading.profile textarea {
+    #page_heading.with_image textarea {
       padding: 8px;
       font: normal 1em Helvetica, Arial, sans-serif;
       color: #394651;
       border: 1px solid #cad3db;
       width: 610px; }
-    #page_heading.with_image .page_actions, #page_heading.profile .page_actions {
+    #page_heading.with_image .page_actions {
       padding-top: 10px;
       padding-bottom: 10px; }
-    #page_heading.with_image input[type="text"], #page_heading.profile input[type="text"] {
+    #page_heading.with_image input[type="text"] {
       font-size: 16px;
       margin: 0 0 5px 0; }
-    #page_heading.with_image textarea, #page_heading.profile textarea {
-      height: 40px; }
-  #page_heading.profile {
-    padding: 10px 0; }
-    #page_heading.profile h1 {
-      padding-top: 20px; }
+    #page_heading.with_image textarea {
+      height: 40px;
+      margin: 0 0 10px 0; }
   #page_heading ul.nav {
     clear: both;
     position: relative;
@@ -1011,9 +1011,10 @@ body > #header {
     #sidebar.filters p,
     #sidebar .filters p {
       padding: 0 0 0 10px; }
-    #sidebar.filters h4, #sidebar.filters label,
+    #sidebar.filters h4,
+    #sidebar.filters dt label,
     #sidebar .filters h4,
-    #sidebar .filters label {
+    #sidebar .filters dt label {
       font-weight: bold;
       text-transform: uppercase;
       color: #667309; }

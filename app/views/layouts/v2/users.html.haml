@@ -3,13 +3,15 @@
     .site_column
       - if @user && @user.id
         - # user#show or user#edit
+        = image_tag @user.logo_url, :alt => ""
         .hgroup
-          = image_tag @user.logo_url, :alt => ""
           %h1= @user.full_name
           %h2= @user.tag_line
         .page_actions
           %ul
+            %li= render :partial => 'shared/add_to_my_collection', :locals => { :item => @user }
             %li= link_to I18n.t(:edit_my_profile), edit_user_path(@user), :class => "button"
+      = render :partial => 'shared/flash_messages'
   #content
     .site_column
       #tabs_sidebar

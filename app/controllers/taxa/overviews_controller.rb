@@ -20,7 +20,7 @@ class Taxa::OverviewsController < TaxaController
       :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ],
       :table_of_contents => '*',
       :curator_activity_logs => '*',
-      :users => [ :given_name, :family_name, :logo_cache_url, :credentials ] }
+      :users => [ :given_name, :family_name, :logo_cache_url, :tag_line ] }
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
 
     toc_items = [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution]

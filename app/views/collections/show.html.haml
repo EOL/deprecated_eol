@@ -1,14 +1,40 @@
-#sidebar
-  .collection_contributors
-    = render :partial => 'collections/managed_by', :locals => { :collection => @collection }
-  - if @collection.collection_endorsements.count > 0
-    .collection_contributors
-      = render :partial => 'collections/endorsed_by', :locals => { :collection => @collection }
+#page_heading.with_image
+  .site_column
+    = image_tag @collection.logo_url, :alt => ''
+    .hgroup
+      %h1= h @collection.name
+      %p= h @collection.description
+    .page_actions
+      %ul
+        - unless @watch_collection && @collection.id == @watch_collection.id
+          %li= render :partial => 'shared/add_to_my_collection', :locals => { :item => @collection, :my_collection => @watch_collection }
+        - if @collection.editable_by? current_user
+          %li= link_to I18n.t(:edit_this_collection_button), edit_collection_path(@collection), :class => 'button'
+  = render :partial => 'shared/flash_messages'
+#content
+  .site_column
+    #tabs_sidebar
+      = render :partial => 'collections/filter_by_item_type'
 
-#collections.main_container
-  - unless @collection_items.blank?
-    .heading
-      = render :partial => 'collections/sort_by_form'
-    %ul.object_list
-      - @collection_items.each do |item|
-        = render :partial => 'collection_items/show', :locals => { :collection_item => item }
+    - form_for @collection do |collection_form|
+      = hidden_field_tag :action_name, controller.action_name
+      = hidden_field_tag :filter, @filter if @filter
+      #sidebar
+        - if logged_in?
+          .filters
+            %h4= I18n.t(:collect_items)
+            %fieldset.actions
+              = submit_tag I18n.t(:select_all_button), :name => :commit_select_all
+              = submit_tag I18n.t(:copy_selected_button), :name => :commit_copy_collection_items
+        .collection_contributors
+          = render :partial => 'collections/managed_by', :locals => { :collection => @collection }
+        - if @collection.collection_endorsements.count > 0
+          .collection_contributors
+            = render :partial => 'collections/endorsed_by', :locals => { :collection => @collection }
+      #collections.main_container
+        - unless @collection_items.blank?
+          .heading
+            = render :partial => 'collections/sort_by_form'
+          %ul.object_list
+            - @collection_items.each do |item|
+              = render :partial => 'collection_items/show', :locals => { :collection_item => item }

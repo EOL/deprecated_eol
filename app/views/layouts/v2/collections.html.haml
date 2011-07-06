@@ -1,74 +1,15 @@
 - content_for :main do
-  #page_heading.with_image
-    .site_column
-      - if @collection
-        - if controller.action_name == 'edit'
-          - # collection#edit
-          - form_for @collection do |f|
-            = hidden_field_tag 'return_to', current_url
-            .hgroup
-              = image_tag @collection.logo_url, :alt => ''
-              %h1.assistive= h @collection.name
-              %fieldset
-                = f.label :name, I18n.t(:collection_name_label), {:class => 'assistive'}
-                = f.text_field :name, :value => @collection.name
-                = f.label :description, I18n.t(:collection_description_label), {:class => 'assistive'}
-                = f.text_area :description, :value => @collection.description, :rows => 3, :cols => 60
-            .page_actions
-              %ul
-                %li
-                  %fieldset.actions
-                    = submit_tag I18n.t(:update_collection_submit_button)
-                %li
-                  = link_to I18n.t(:go_back), collection_path(@collection)
-        - else
-          - # probably collection#show
-          .hgroup
-            = image_tag @collection.logo_url, :alt => ''
-            %h1= h @collection.name
-            %p= @collection.description
-          - unless @collection.id == @watch_collection.id
-            .page_actions
-              %ul
-                %li= render :partial => 'shared/add_to_my_collection', :locals => { :item => @collection, :my_collection => @watch_collection }
-                - if @collection.editable_by? current_user
-                  %li= link_to I18n.t(:edit_this_collection_button), edit_collection_path(@collection), :class => 'button'
-      - else
-        - # no collection, probably collection#index
-        %h1= @page_title || I18n.t(:collections)
+  - if @collection # show, edit, new
+    = yield
+  - else # index, choose
+    #page_heading.with_image
+      .site_column
+        .hgroup
+          %h1= @page_title || I18n.t(:collections)
       = render :partial => 'shared/flash_messages'
 
-  #content
-    .site_column
-      #tabs_sidebar
-        %ul.tabs.with_icons
-          - attrib = 'total'
-          - attrib << ' active' if !params[:filter]
-          %li{:class => attrib}= link_to I18n.t(:total_items_with_count, :count => @collection.collection_items.count), @collection
-
-          - taxa_count = @collection.filter_type("taxa").compact.count
-          - articles_count = @collection.filter_type("articles").compact.count
-          - videos_count = @collection.filter_type("videos").compact.count
-          - images_count = @collection.filter_type("images").compact.count
-          - sounds_count = @collection.filter_type("sounds").compact.count
-          - communities_count = @collection.filter_type("communities").compact.count
-          - people_count = @collection.filter_type("people").compact.count
-          - collections_count = @collection.filter_type("collections").compact.count
-
-          - types = [{"count" => taxa_count,        "type" => "taxa",        "link" => "taxa_with_count"},
-                     {"count" => articles_count,    "type" => "articles",    "link" => "articles_with_count"},
-                     {"count" => videos_count,      "type" => "videos",      "link" => "videos_with_count"},
-                     {"count" => images_count,      "type" => "images",      "link" => "images_with_count"},
-                     {"count" => sounds_count,      "type" => "sounds",      "link" => "sounds_with_count"},
-                     {"count" => communities_count, "type" => "communities", "link" => "communities_with_count"},
-                     {"count" => people_count,      "type" => "people",      "link" => "people_with_count"},
-                     {"count" => collections_count, "type" => "collections", "link" => "collections_with_count"}]
-
-          - types.each do |t|
-            - attrib = t['type']
-            - attrib << ' active' if params[:filter] == t['type']
-            %li{:class => attrib}= link_to I18n.t("#{t['link']}", :count => t['count']), "/collections/#{@collection.id}/#{t['type']}"
-
-      = yield
+    #content
+      .site_column
+        = yield
 
 = render :file => 'layouts/v2/application'

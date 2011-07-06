@@ -423,14 +423,14 @@ body
   background: #ffffff
 
 #page_heading
-  padding: 20px 0
+  padding: 10px 0 0 0
   border-bottom: 1px solid #93a4b0
   background: #e2e9ef
   .hgroup
     float: left
     width: 720px
+    margin: 10px 0 20px 10px
   &.with_nav
-    padding-bottom: 0
     .site_column
       overflow: visible
       &:after
@@ -440,7 +440,7 @@ body
   .site_column
     overflow: hidden
   h1
-    padding: 0 0 5px 0
+    margin: 0 0 5px 0
     font-size: 2em
     font-weight: normal
     color: #394651
@@ -457,11 +457,12 @@ body
     color: #5f6c76
     &.status
       color: #394651
-  .hgroup
-    overflow: hidden
   .page_actions
     float: right
     padding-left: 20px
+    ul
+      overflow: hidden
+      padding: 0 0 10px 0
     li
       clear: both
       float: right
@@ -471,17 +472,18 @@ body
     a
       display: block
   &.with_image,
-  &.profile
-    padding: 10px 0
-    .hgroup
-      float: none
-      width: auto
+    overflow: hidden
+    .hgroup,
+    .hgroup_fields
+      margin: 0
+      width: 660px
+      float: left
       h1
         padding-top: 10px
-      img
-        float: left
-        margin: 0 20px 0 0
-        border: 1px solid #394651
+    img
+      float: left
+      margin: 0 20px 10px 0
+      border: 1px solid #394651
     input[type="text"],
     textarea
       padding: 8px
@@ -497,10 +499,7 @@ body
       margin: 0 0 5px 0
     textarea
       height: 40px
-  &.profile
-    padding: 10px 0
-    h1
-      padding-top: 20px
+      margin: 0 0 10px 0
   ul.nav
     clear: both
     position: relative
@@ -600,7 +599,8 @@ body
       margin-top: 20px
     p
       padding: 0 0 0 10px
-    h4, label
+    h4,
+    dt label
       font-weight: bold
       text-transform: uppercase
       color: #667309

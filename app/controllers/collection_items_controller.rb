@@ -19,12 +19,11 @@ class CollectionItemsController < ApplicationController
     store_location(return_to)
 
     if @collection_item.object_type == 'Collection' && @collection_item.object_id == @collection_item.collection.id
-      flash[:notice] = I18n.t(:item_not_added_is_watch_collection_notice, :collection_name => @collection_item.collection.name)
+      flash[:notice] = I18n.t(:item_not_added_to_itself_notice, :collection_name => @collection_item.collection.name)
     elsif @collection_item.save
-      CollectionActivityLog.create(:collection => self, :collection_item => collection_items.last,
-                                   :user => current_user, :activity => Activity.collect)
       flash[:notice] = I18n.t(:item_added_to_collection_notice, :collection_name => @collection_item.collection.name)
     else
+      # TODO: Ideally examine validation error and provide more informative error message, e.g. item is already in the collection etc
       flash[:error] = I18n.t(:item_not_added_to_collection_error)
     end
     redirect_back_or_default

@@ -8,15 +8,6 @@
  * so I am temporarily adding some CSS here needed for V2 demo. This CSS should be integrated
  * into HashRocket SASS if it is still needed when design work is complete.
  */
-#page_heading .hgroup {
-  float: left !important;
-  width: 720px !important;
-  overflow: hidden !important; }
-#page_heading .page_actions fieldset.actions input[type="submit"] {
-  padding: 7px 10px;
-  font-size: 1.08em;
-  float: right; }
-
 p.status.error {
   border: 1px solid red;
   background: pink; }

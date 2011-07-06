@@ -278,11 +278,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     return acronym if !acronym.blank?
   end
 
-  def tag_line
-    # Remove this method when tag line column migration is added to user model
-    'FIXME'
-  end
-
   # TODO
   # NOTE - this is currently ONLY used in an exported (CSV) report for admins... so... LOW priority.
   # get the total objects curated for a particular curator activity type

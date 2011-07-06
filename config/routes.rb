@@ -10,8 +10,8 @@ ActionController::Routing::Routes.draw do |map|
   # Communities nested resources
   # TODO - these member methods want to be :put. Capybara, however, always uses :get, so in the interests of simple tests:
   map.resources :communities, :has_many => [:members, :roles], :member => { 'join' => :get, 'leave' => :get } do |community|
-    community.resource :newsfeed, :only => [:show], :controller => "communities/newsfeeds"
-    community.resources :collection_endorsements, :controller => "communities/collection_endorsements"
+    community.resource :newsfeed, :only => [:show], :namespace => "communities/"
+    community.resources :collection_endorsements, :namespace => "communities/"
   end
   map.resources :members, :member => {
     'grant_privilege_to' => :post, 'revoke_privilege_from' => :delete,
@@ -21,7 +21,7 @@ ActionController::Routing::Routes.draw do |map|
   map.remove_privilege_from_role 'roles/:role_id/remove_privilege/:privilege_id',
     :controller => 'roles', :action => 'remove_privilege'
 
-  map.resources :collections
+  map.resources :collections, :collection => { :choose => :get }
   map.resources :collection_items, :except => [:index, :show, :new, :edit]
 
   #used in collections show page, click on left tabs

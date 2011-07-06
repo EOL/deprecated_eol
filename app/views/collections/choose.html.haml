@@ -1,0 +1,11 @@
+#collections.main_container
+  = render :partial => 'collections/new'
+  %ul.object_list
+    - @collections.each do |collection|
+      = image_tag collection.logo_url, :alt => ''
+      - form_for collection do |collection_form|
+        = hidden_field_tag "#{@action_to_take}", true
+        - @selected_collection_items.each do |collection_item_id|
+          = hidden_field_tag "collection_items[]", collection_item_id, :id => "collection_item_#{collection_item_id}"
+        = submit_tag collection.name, :name => :commit_chosen_collection
+      = I18n.t(:items_with_count, :count => collection.collection_items.count)

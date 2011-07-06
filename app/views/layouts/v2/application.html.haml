@@ -68,7 +68,7 @@
           - if ! @home_page
             %p.print
               - link_to "/placeholder" do
-                %span= I18n.t(:print_this_page_link)
+                %span= I18n.t(:print_this_page_link) + "FIXME"
         - if @home_page
           %h2= I18n.t(:global_access_tagline)
         = render :partial => "/layouts/v2/search"

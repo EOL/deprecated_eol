@@ -1,7 +1,12 @@
 - en_type = en_type(collection_item)
 %li{:class => "#{en_type}"}
+  - if logged_in?
+    .checkbox
+      = check_box_tag "collection_items[]", collection_item.id, @selected_collection_items.include?(collection_item.id.to_s) || @select_all, :id => "collection_item_#{collection_item.id}"
   - if ['image', 'video', 'sound'].include?(en_type)
     = render :partial => "shared/item_summary_media.html.haml", :locals => {:item => collection_item.object, :en_type => en_type}
-  - else
+  - elsif en_type
     = render :partial => "shared/item_summary_#{en_type}.html.haml", :locals => {:item => collection_item.object}
+  - else
+    = I18n.t(:item_details_missing)
   %p= collection_item.annotation

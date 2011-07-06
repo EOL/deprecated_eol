@@ -1,0 +1,11 @@
+- form_for Collection.new do |collection_form|
+  - if @selected_collection_items
+    = hidden_field_tag "#{@action_to_take}", true
+    = collection_form.hidden_field :user_id, :value => current_user.id
+    - @selected_collection_items.each do |collection_item_id|
+      = hidden_field_tag "collection_items[]", collection_item_id, :id => "collection_item_#{collection_item_id}"
+  %fieldset
+    = collection_form.label :name, I18n.t(:collection_name_label), {:class => 'assistive'}
+    = collection_form.text_field :name
+  %fieldset.actions
+    = submit_tag I18n.t(:create_collection_button)

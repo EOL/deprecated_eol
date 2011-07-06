@@ -4,8 +4,8 @@
       - if controller.action_name == 'edit'
         - # community#edit
         - # FIXME: convert to form
+        = image_tag @community.logo_url, :alt => ""
         .hgroup
-          = image_tag @community.logo_url, :alt => ""
           %h1= h @community.name
           %p= h @community.description
         .page_actions
@@ -15,18 +15,21 @@
               = link_to I18n.t(:join_community_button), join_community_path(@community, :return_to => communities_path(@community)), :class => "button"
       - elsif @community && @community.id
         - # community#show
+        = image_tag @community.logo_url, :alt => ""
         .hgroup
-          = image_tag @community.logo_url, :alt => ""
           %h1= h @community.name
           %p= h @community.description
         .page_actions
           %ul
+            %li= render :partial => 'shared/add_to_my_collection', :locals => { :item => @community }
             %li
               - #FIXME what if already a member? what happens to button?
               = link_to I18n.t(:join_community_button), join_community_path(@community, :return_to => communities_path(@community)), :class => "button"
       - else
         - # community#index or #new
-        %h1= @page_title || I18n.t(:communities)
+        .hgroup
+          %h1= @page_title || I18n.t(:communities)
+    = render :partial => 'shared/flash_messages'
   .thumbnails
     -# FIXME: convert this to proper community march of life with meaningful alt tags
     %ul

@@ -6,6 +6,7 @@ class Collection < ActiveRecord::Base
   has_many :collection_endorsements
   has_many :collection_items
   alias :items :collection_items
+  accepts_nested_attributes_for :collection_items, :allow_destroy => true, :reject_if => :all_blank
   has_many :communities, :through => CollectionEndorsement # NOTE: be sure to check each for actually being endorsed!
 
   # TODO = you can have collections that point to collections, so there SHOULD be a has_many relationship here to all of the

@@ -59,6 +59,23 @@ describe 'Admin Pages' do
     body.should include('Data Usage Reports')
   end
   
+  it 'should be able to load cms pages' do
+    login_as(@user)
+    visit('/administrator/content_page')
+    body.should include('Add Page')
+    body.should include('Create child page')
+    body.should include('Add language')
+    body.should include('Delete')
+  end
+  
+  it 'should be able to load cms add page form' do
+    login_as(@user)
+    visit('/administrator/content_page/new')
+    body.should include('Page Name')
+    body.should include('Title')
+    body.should include('Main content area')
+  end
+  
   it 'should show the list of hierarchies' do
     login_as(@user)
     visit('/administrator/hierarchy')

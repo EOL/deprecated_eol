@@ -8,6 +8,11 @@
  * so I am temporarily adding some CSS here needed for V2 demo. This CSS should be integrated
  * into HashRocket SASS if it is still needed when design work is complete.
  */
+.exemplars ul img, .partners ul img {
+  clear: both;
+  float: left;
+  margin: 0 20px 30px 30px; }
+
 p.status.error {
   border: 1px solid red;
   background: pink; }

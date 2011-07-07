@@ -1,13 +1,13 @@
 - new_window = @new_window || false
 
-%table#top-photos-table
+%table
   %tr
     - for counter in 1..6
       - classname = "image"
       - classname = classname+' last' if counter == 6
       %td{ :class => classname }
         = random_image_thumb_partial(@explore_taxa[counter-1], 'top_image_tag_'+counter.to_s, new_window)
-  %tr  
+  %tr
     - for counter in 1..6
       - classname = "name"
       - classname = classname+' last' if counter == 6

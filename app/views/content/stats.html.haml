@@ -1,28 +1,24 @@
 #content
-  #page-separator-general
-  #page-title
-    %h1
-      =I18n.t("statistics")
-    %hr
-  #page-content.clearfix
-    #full-page-content
+  .site_column
+    .article.copy
       %p
         =I18n.t("the_encyclopedia_of_life_is_an")
-      %br
       - unless @stats.blank?
-        %table.results_table
-          %tr
-            %th
-              =I18n.t("statistic")
-            %th
-              =I18n.t("count")
-          %tr
-            %td.odd
-              =I18n.t("total_number_of_pages")
-            %td.odd
-              = number_with_delimiter(@stats.pages_incol+@stats.pages_not_incol)
-          %tr
-            %td.odd
-              =I18n.t("total_number_of_filled_in_page")
-            %td.odd
-              = number_with_delimiter(@stats.taxa_count)
+        %table.standard
+          %thead
+            %tr
+              %th
+                = I18n.t("statistic")
+              %th
+                = I18n.t("count")
+          %tbody
+            %tr
+              %td
+                = I18n.t("total_number_of_pages")
+              %td
+                = number_with_delimiter(@stats.pages_incol+@stats.pages_not_incol)
+            %tr
+              %td
+                = I18n.t("total_number_of_filled_in_page")
+              %td
+                = number_with_delimiter(@stats.taxa_count)

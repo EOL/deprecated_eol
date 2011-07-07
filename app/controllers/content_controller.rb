@@ -36,21 +36,24 @@ class ContentController < ApplicationController
     @term_search_string = params[:term_search_string] || ''
     search_string_parameter = '%' + @term_search_string + '%'
     if id.blank?
+      @page_title = I18n.t(:whats_new)
       @news_items = NewsItem.paginate(:conditions => ['active = 1 and body like ?', search_string_parameter],
                                       :order => 'display_date desc',
                                       :page => params[:page])
       current_user.log_activity(:viewed_news_index)
     else
       @news_item = NewsItem.find(id)
+      @page_title = @news_item.title # TODO: What happens if @news_item or title is nil
       current_user.log_activity(:viewed_news_item_id, :value => @news_item.id)
     end
     respond_to do |format|
        format.html
        format.rss { render :layout => false }
-     end
+    end
   end
 
   def translate
+    @page_title = I18n.t("automated_translation_of_eol")
     if params[:return_to].blank?
       @translate_url = root_url
     else
@@ -109,6 +112,7 @@ class ContentController < ApplicationController
   def exemplars
     respond_to do |format|
       format.html do
+        @page_title = I18n.t(:exemplar_pages)
         unless read_fragment(:controller => 'content', :part => 'exemplars')
           @exemplars = TaxonConcept.exemplars # This is stored by memcached, so should go quite fast.
         end
@@ -170,7 +174,8 @@ class ContentController < ApplicationController
 
   def contact_us
 
-    @subjects = ContactSubject.find(:all, :conditions => 'active = 1', :order => 'title')
+    @page_title = I18n.t(:contact_us_)
+    @subjects = ContactSubject.find(:all, :conditions => 'active = 1', :order => 'translated_contact_subjects.title')
 
     @contact = Contact.new(params[:contact])
     store_location(params[:return_to]) if !params[:return_to].nil? && request.get? # store the page we came from so we can return there if it's passed in the URL
@@ -200,7 +205,7 @@ class ContentController < ApplicationController
   end
 
   def media_contact
-
+    @page_title = I18n.t(:media_contact)
     @contact = Contact.new(params[:contact])
     @contact.contact_subject = ContactSubject.find($MEDIA_INQUIRY_CONTACT_SUBJECT_ID)
 
@@ -237,10 +242,10 @@ class ContentController < ApplicationController
         page_name = @page_id.gsub(' ', '_').gsub('_', ' ')
         @content = ContentPage.get_by_page_name_and_language_abbr(page_name, current_user.language_abbr)
       end
-      
-      @naviagtion_tree = ContentPage.get_navigation_tree_with_links(@content.id)
 
       raise "static page content #{@page_id} for #{current_user.language_abbr} not found" if @content.nil?
+      @navigation_tree_breadcrumbs = ContentPage.get_navigation_tree_with_links(@content.id)
+      @page_title = @content.title
 
       # if this static page is simply a redirect, then go there
       current_user.log_activity(:viewed_content_page_id, :value => @page_id)
@@ -267,26 +272,28 @@ class ContentController < ApplicationController
     redirect_to(content_upload.content_server_url)
 
   end
-  
+
   # convenience method to reference the uploaded content from the CMS (usually a PDF file or an image used in the static pages)
   def files
     redirect_to(ContentServer.uploaded_content_url(params[:id], '.' + params[:ext].to_s))#params[:id].to_s.gsub(".")[1]))
   end
-  
+
   # error page
   def error
+    @page_title = I18n.t(:error_page_header)
   end
 
   # get the list of content partners
   def partners
-
+    @page_title = I18n.t(:content_partners)
+    # FIXME: missing association :content_partner below
     # content partners will have a username
     @partners = Agent.paginate(:conditions => 'username!="" AND content_partners.show_on_partner_page = 1', :order => 'agents.full_name asc', :include => :content_partner, :page => params[:page] || 1)
 
   end
 
   def donate
-
+    @page_title = I18n.t(:donate)
     if request.post?
       current_user.log_activity(:made_donation)
     else
@@ -314,6 +321,7 @@ class ContentController < ApplicationController
     @transaction_type = "sale"
     @currency = "usd"
 
+    @page_title = I18n.t(:donation_confirmation) if @donation_amount > 0
     parameters = 'function=InsertSignature3&version=2&amount=' + @donation_amount.to_s + '&type=' + @transaction_type + '&currency=' + @currency
     @form_elements = EOLWebService.call(:parameters => parameters)
 
@@ -354,12 +362,14 @@ class ContentController < ApplicationController
 
   # show the user some taxon stats
   def stats
+    @page_title = I18n.t("statistics")
     redirect_to root_url unless current_user.is_admin?  # don't release this yet...it's not ready for public consumption
     @stats = PageStatsTaxon.latest
   end
 
   # link to uservoice
   def feedback
+    # FIXME: account/uservoice_login doesn't seem to exist ?
     if logged_in?
       redirect_to :controller => 'account', :action => 'uservoice_login'
     else

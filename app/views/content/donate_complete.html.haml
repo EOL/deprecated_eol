@@ -1,13 +1,8 @@
+- # TODO: is this page obsolete? If so delete it?
 #content
-  #page-separator-general
-  #page-title
-    %h1
-      = I18n.t(:thank_you)
-    %hr
-  #page-content.clearfix
-    #full-page-content
-      =  I18n.t(:thanks_for_donation)
-    %br
-    %br
-    = I18n.t("please_return_to_eol_homepage", :return_link =>link_to(I18n.t(:return), :controller => 'content', :action=>'index'))
+  .site_column
+    .article.copy
+      %h2= I18n.t(:thank_you)
+      %p= I18n.t(:thanks_for_donation)
+      %p= I18n.t("please_return_to_eol_homepage", :return_link =>link_to(I18n.t(:return), :controller => 'content', :action=>'index'))
 

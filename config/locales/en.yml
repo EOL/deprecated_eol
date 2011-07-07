@@ -601,6 +601,8 @@ en:
   displaying_numerical_range: "Displaying %{start_number} &mdash; %{end_number} of %{total}"
   display_name: "Display Name"
   donate: "Donate"
+  donation_amount_legend: "Choose the amount you would like to donate"
+  donation_amount_enter_label: "Or, enter an alternative amount to donate"
   donation_confirmation: "Donation Confirmation"
   donation_error_only_numbers: "Please enter an amount using only numbers."
   donation_error_no_amount: "Please select a donation amount."

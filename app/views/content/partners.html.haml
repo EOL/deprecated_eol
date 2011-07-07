@@ -1,48 +1,28 @@
 #content
-  #page-separator-general
-  #page-title
-    %h1
-      = I18n.t(:content_partners) 
-    %hr
-  #page-content.clearfix
-    #full-page-content
-      #partners
-        - if @partners.nil? == false && @partners.size > 0
-          %p
-            =I18n.t("encyclopedia_of_life_content_p", :login => link_to(I18n.t("log_in_"), :controller=>'content_partner', :action=>'login'), :register => link_to(I18n.t("register"), :controller=>'content_partner', :action=register), :learn_more =>  link_to(I18n.t("learn_more_"), :controller=>'content', :action=>'page', :id=>'help_build_eol'))            
-          %br
-          %p
-            =I18n.t("note_that_all_of_these_partner")
-          %br
-          %table.results_table{ :width => "100%", :cellspacing => 0 }
-            %tr
-              %th
-                =I18n.t("partner")
-              %th
-                =I18n.t("description")
-            - for partner in @partners
-              - if partner.ready_for_agreement? 
-                - column_class = cycle('odd','even')
-                %tr
-                  %td{ :width => "25%", :class => column_class }
-                    %strong
-                      = external_link_to(partner.display_name,partner.homepage, {:show_link_icon => true})
-                    %br
-                    = agent_logo(partner,'large') if !partner.logo_cache_url.blank?
-                  %td{ :class => column_class }
-                    = partner.project_description
-                    - if partner.show_mou_on_partner_page?
-                      = link_to(I18n.t("see_var_partner_display_name_a", :var_partner_display_name => partner.display_name), {:controller=>'content_partner', :action=>'agreement', :id=>partner.id}, {:target=>'_blank'})
-                      \.
-                    - if partner.show_gallery_on_partner_page?
-                      %br
-                      = link_to(I18n.t("see_var_partner_display_name_g", :var_partner_display_name => partner.display_name), {:controller=>'content_partner', :action=>'content', :id=>partner.content_partner.id})
-                      \.
-                    - if partner.show_stats_on_partner_page?
-                      %br
-                      = link_to(I18n.t("see_var_partner_display_name_u", :var_partner_display_name => partner.display_name), {:controller=>'content_partner', :action=>'stats', :id=>partner.id})
-                      \.
-          %br
-          = will_paginate @partners
-        - elsif @partners.nil? == false && @partners.size == 0
-          =I18n.t("no_content_partners_are_availa")
+  .site_column
+    .article.copy.partners
+      - if @partners.nil? == false && @partners.size > 0
+        - # FIXME content partners no longer have separate login or signup!?
+        %p=I18n.t("encyclopedia_of_life_content_p", :login => link_to(I18n.t("log_in_"), :controller=>'content_partner', :action=>'login'), :register => link_to(I18n.t("register"), :controller=>'content_partner', :action=register), :learn_more =>  link_to(I18n.t("learn_more_"), :controller=>'content', :action=>'page', :id=>'help_build_eol'))
+        %p=I18n.t("note_that_all_of_these_partner")
+        %ul.object_list
+          - for partner in @partners
+            - if partner.ready_for_agreement?
+              %li
+                = agent_logo(partner,'large') if !partner.logo_cache_url.blank?
+                %h2= external_link_to(partner.display_name,partner.homepage, {:show_link_icon => true})
+                %p= partner.project_description
+                - if partner.show_mou_on_partner_page?
+                  = link_to(I18n.t("see_var_partner_display_name_a", :var_partner_display_name => partner.display_name), {:controller=>'content_partner', :action=>'agreement', :id=>partner.id}, {:target=>'_blank'})
+                  \.
+                - if partner.show_gallery_on_partner_page?
+                  %br
+                  = link_to(I18n.t("see_var_partner_display_name_g", :var_partner_display_name => partner.display_name), {:controller=>'content_partner', :action=>'content', :id=>partner.content_partner.id})
+                  \.
+                - if partner.show_stats_on_partner_page?
+                  %br
+                  = link_to(I18n.t("see_var_partner_display_name_u", :var_partner_display_name => partner.display_name), {:controller=>'content_partner', :action=>'stats', :id=>partner.id})
+                  \.
+        = will_paginate @partners
+      - elsif @partners.nil? == false && @partners.size == 0
+        = I18n.t("no_content_partners_are_availa")

@@ -1,45 +1,27 @@
+- # TODO: Should this RSS be I18nised?
 = auto_discovery_link_tag :rss, {:format=>'rss'}, {:title => "EOL News RSS"}
-
 #content
-  #page-separator-general
-  #page-title
-    %h1
-      = I18n.t(:whats_new) 
-    %hr
-  #page-content.clearfix
-    #full-page-content
+  .site_column
+    .article.copy
       - form_tag({:action=>'news',:id=>''},:method=>'post') do
-        =I18n.t("search_for_news_items_containi")
-        = text_field_tag(:term_search_string,@term_search_string)
-        = submit_tag I18n.t("search")
-      %br
-      - if !@news_items.blank?
+        %fieldset
+          = label_tag :term_search_string, I18n.t("search_for_news_items_containi")
+          = text_field_tag(:term_search_string,@term_search_string)
+        %fieldset.actions
+          = submit_tag I18n.t("search")
+
+      - if ! @news_items.blank?
         = will_paginate @news_items
-        %table.results_table{ :width => "100%", :cellspacing => "0" }
-          %tr
-            %th
-              =I18n.t("date")
-            %th
-              =I18n.t("news_item_")
+        %ul
           - for news_item in @news_items
             - if news_item.visible?
-              - column_class=cycle('odd','even')
-              %tr
-                %td{ :width => "15%", :class => column_class }
-                  = h format_date(news_item.display_date)
-                %td{ :class => column_class }
-                  = "<strong>" + news_item.title + "</strong><br /> " unless news_item.title.blank?
-                  = news_item.body
-        %br
+              %h2= h news_item.title unless news_item.title.blank?
+              %small= h format_date(news_item.display_date)
+              = news_item.body
         = will_paginate @news_items
-      - elsif !@news_item.blank?
+      - elsif ! @news_item.blank?
         = link_to I18n.t("all_news"), :action=>'news', :id=>''
-        %br
-        %br
-        %strong
-          = h format_date(@news_item.display_date)
-        -
-        = @news_item.title + "<br /> " unless @news_item.title.blank?
+        %p= h format_date(@news_item.display_date)
         = @news_item.body
       - else
         =I18n.t("no_news_items_are_available_ma")

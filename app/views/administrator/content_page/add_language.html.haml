@@ -14,7 +14,7 @@
           = I18n.t("language")
       %td
         = f.select :current_translation_language, @page.not_available_in_languages(nil).collect {|l| [l.iso_639_1, l.id]}
-    = render (:partial => 'language_form', :locals => { :f => f })
+    = render(:partial => 'language_form', :locals => { :f => f })
 
   %br
   %br

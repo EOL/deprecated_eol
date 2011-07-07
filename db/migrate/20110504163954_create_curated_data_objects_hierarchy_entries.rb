@@ -22,7 +22,6 @@ class CreateCuratedDataObjectsHierarchyEntries < ActiveRecord::Migration
     ChangeableObjectType.create(:ch_object_type => 'curated_data_objects_hierarchy_entry')
     ChangeableObjectType.create(:ch_object_type => 'data_objects_hierarchy_entry')
     Activity.new(:name => 'add_association').save!
-    awo = Activity.create
     Activity.new(:name => 'remove_association').save!
   end
 

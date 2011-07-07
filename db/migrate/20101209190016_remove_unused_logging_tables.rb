@@ -1,16 +1,16 @@
 class RemoveUnusedLoggingTables < EOL::LoggingMigration
   def self.up
-    # drop_table :agent_log_dailies
-    # drop_table :country_log_dailies
-    # drop_table :curator_activity_log_dailies
-    # drop_table :curator_comment_logs
-    # drop_table :data_object_logs
-    # drop_table :data_object_log_dailies
-    # drop_table :links
-    # drop_table :state_log_dailies
-    # drop_table :user_log_dailies
-    # 
-    # remove_column :activity_logs, :link_id
+    drop_table :agent_log_dailies
+    drop_table :country_log_dailies
+    drop_table :curator_activity_log_dailies
+    drop_table :curator_comment_logs
+    drop_table :data_object_logs
+    drop_table :data_object_log_dailies
+    drop_table :links
+    drop_table :state_log_dailies
+    drop_table :user_log_dailies
+    
+    remove_column :activity_logs, :link_id
   end
   
   def self.down

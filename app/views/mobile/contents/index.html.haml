@@ -1,37 +1,43 @@
-#index
-  .toolbar
-    %h1 EOL Mobile
-    =link_to_remote "Full site", :url  => disable_mobile_contents_path, :method => :post, :html => { :class  => "button flip" }
-  //=link_to "Full site", disable_mobile_contents_path, :class => "button flip"
-  %h2 Contents
-  %ul.rounded
-    %li= link_to "First content", "#content1"
-    %li= link_to "Second content", "#content2"
-    %li= link_to "Third", "#content3"
-#content1
-  .toolbar
-    %h1 First content
-    =link_to "Home", "#home", :class => "back"
-  %p Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus
-  %p Author name
+%div{"data-role"=>"header", "data-position"=>"fixed", "data-theme"=>"a"}
+  =link_to image_tag("/images/mobile/logo_simple.png", :height => '24')
+  %h1=t "mobile.contents.home" 
 
-#content2
-  .toolbar
-    %h1 Second content
-    =link_to "Home", "#home", :class => "back"
-  %p Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus
-  %p Author name
+%div{"data-role"=>"content"}
+  
+  %form{"action"=>"#", "method"=>"get"}
+    %div#search_field_container{"data-role"=>"fieldcontain"}
+      %input{"type"=>"search","name"=>"search_query","id"=>"search2","value"=>""}
 
-#content3
-  .toolbar
-    %h1 Third content
-    =link_to "Home", "#home", :class => "back"
-  %p Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus
-  %p Author name
+  %ul#static_taxa_index{"data-role" => "listview", "data-inset"=>"true"}
+    %li{"data-role"=>"list-divider"}=t "mobile.contents.taxa" 
+    %li= link_to "Nihileri voluptasus", mobile_taxon_path(9)
+    %li= link_to "Dignissimosii inutes", mobile_taxon_path(10)
+    %li= link_to "Fugais utharumatus", mobile_taxon_path(11)
 
-
-:javascript
-  $(document).ready(function() {
-    window.scrollTo(0, 1);
-  });
-
+  %ul{"data-role" => "listview", "data-inset"=>"true", "data-theme"=>"c", "list-divider-theme"=>"e"}
+    %li.taxon
+      =image_tag("/images/v2/icon_taxon.png")
+      %h3 1,915,247 #{t(:taxa)}
+      %p= link_to t(:what_is_a_taxon), ""
+    %li.contributors
+      =image_tag("/images/v2/icon_contributors.png")
+      %h3 3,154 #{t(:contributors_like_you)}
+      %p= link_to I18n.t(:learn_how_to_join), ""
+    %li.communities
+      =image_tag("/images/v2/icon_communities.png")
+      %h3 861 #{t(:communities)}
+      %p= link_to I18n.t(:learn_how_to_interact), ""
+    %li.images
+      =image_tag("/images/v2/icon_partners.png")
+      %h3 753,234 #{t(:images)}
+      %p= link_to t(:browse_gallery), ""
+    %li.partners
+      =image_tag("/images/v2/icon_images.png")
+      %h3 324 #{t(:content_partners)}
+      %p= link_to t(:learn_about_content_partners), ""
+    
+%div{"data-role"=>"footer"}
+  %h3#go_to_full{"data-inline"=>"true"}
+    //=link_to_remote "Full site", :url => "/mobile/contents/disable"
+    =link_to "Full site", disable_mobile_contents_path, "data-ajax" => "false"
+  

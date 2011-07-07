@@ -1,16 +1,16 @@
 class Mobile::ContentsController < Mobile::MobileController
-  
-  def index  
+
+  def index
     #rendering static example content for now
   end
-  
+
   def enable
     session[:mobile_disabled] = false
     render :update do |page|
       page.redirect_to mobile_contents_path
-    end   
-  end 
-  
+    end
+  end
+
   def disable
     session[:mobile_disabled] = true
     respond_to do |format|
@@ -24,5 +24,5 @@ class Mobile::ContentsController < Mobile::MobileController
       }
     end
   end
-  
+
 end

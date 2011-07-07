@@ -2414,3 +2414,23 @@ en:
   update_language: "Update language"
   translation_saved: "Translation has been saved"
   translation_deleted: "Translation has been deleted"
+  mobile:
+    contents:
+      home: "Home"
+      taxa: "Taxa"
+      full_site: "Full site"
+    taxa:
+      taxon_overview: "Taxon Overview"
+      overview: "Overview"
+      details: "Details"
+      media: "Media"
+      maps: "Maps"
+      nomenclature: "Nomenclature"
+      literature: "Literature"
+      community: "Community"
+      resources: "Resources"
+      taxon_details: "Taxon Details"
+      taxon_media: "Taxon Media"
+      images: "Images"
+      sounds: "Sounds"
+      videos: "Videos"

@@ -1,6 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
+require 'nokogiri'
 
-describe 'Mobile' do
+describe 'Mobile redirect' do
   
   before :all do
     load_foundation_cache
@@ -60,5 +61,78 @@ describe 'Mobile' do
     body.should include "window.location.href = \"/mobile/contents\";" #AJAX response redirect to full app homepage
     # TO-DO Test session cookie, something like:   session[:mobile_disabled].should == false
   end
+  
+end
+
+describe 'Mobile taxa browsing' do
+  
+  before(:all) do
+    # so this part of the before :all runs only once
+    unless User.find_by_username('testy_scenario')
+      truncate_all_tables
+      load_scenario_with_caching(:testy)
+    end
+    @testy = EOL::TestInfo.load('testy')
+    Capybara.reset_sessions!
+    HierarchiesContent.delete_all
+    @section = 'overview'
+  end
+  
+  it 'should show the static contents index' do
+    open_session
+    headers = {"User-Agent" => "iPhone"}
+    visit "/mobile/contents"
+    body.should have_tag("ul#static_taxa_index") do
+      with_tag("li:first-child", I18n.t("mobile.contents.taxa"))
+      with_tag("li:nth-child(2)") do
+        with_tag("a")
+      end
+    end  
+  end
+  
+  it 'should show a taxon overview when clicking on an item of the taxa index' do
+    open_session
+    headers = {"User-Agent" => "iPhone"}
+    visit "/mobile/contents"
+    click_link "Nihileri voluptasus" do
+      response.should be_ok
+      assert_equal '/mobile/taxa/9', path
+      body.should have_tag("h1", I18n.t("mobile.taxa.taxon_overview"))
+      body.should have_tag("h3", "Nihileri voluptasus G. D'Amore")
+    end
+  end
+  
+  it 'should show an example taxon overview' do
+        
+    # visit("mobile/taxa/#{@testy[:id]}")
+    # raise body.inspect
+    # body.should have_tag("h1", I18n.t("mobile.taxa.taxon_overview"))
+    
+    open_session
+    headers = {"User-Agent" => "iPhone"}
+    visit mobile_taxon_path('9')
+    assert_equal '/mobile/taxa/9', path
+    body.should have_tag("h1", I18n.t("mobile.taxa.taxon_overview"))
+    body.should have_tag("h3", "Nihileri voluptasus G. D'Amore")
+  end
+  
+  it 'should show an example taxon details' do
+    open_session
+    headers = {"User-Agent" => "iPhone"}
+    visit details_mobile_taxon_path('9')
+    assert_equal '/mobile/taxa/9/details', path
+    body.should have_tag("h1", I18n.t("mobile.taxa.taxon_details"))
+    body.should have_tag("h3", "Nihileri voluptasus G. D'Amore")
+  end
+  
+  it 'should show an example taxon media gallery' do
+    open_session
+    headers = {"User-Agent" => "iPhone"}
+    visit media_mobile_taxon_path('9')
+    assert_equal '/mobile/taxa/9/media', path
+    body.should have_tag("h1", I18n.t("mobile.taxa.taxon_media"))
+    body.should have_tag("h3", "Nihileri voluptasus G. D'Amore")
+  end
+  
   
 end

@@ -162,19 +162,20 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect 'curators', :controller => 'curators'
 
+  ## Mobile app namespace routes
+  map.mobile 'mobile', :controller => 'mobile/contents'
+  map.namespace :mobile do |mobile|
+    mobile.resources :contents, :collection => {:enable => :post, :disable => [:post, :get]}
+    mobile.resources :taxa, :member => {:details => :get, :media => :get}
+  end
+
   ##### ALL ROUTES BELOW SHOULD PROBABLY ALWAYS BE AT THE BOTTOM SO THEY ARE RUN LAST ####
   # this represents a URL with just a random namestring -- send to search page (e.g. www.eol.org/animalia)
   # ...with the exception of "index", which historically pointed to home:
   map.connect '/index', :controller => 'content', :action => 'index'
   map.connect ':id', :id => /\d+/,  :controller => 'taxa', :action => 'show' # only a number passed in to the root of the web, then assume a specific taxon concept ID
-  map.connect ':id', :id => /[A-Za-z0-9% ]+/,  :controller => 'search', :action => 'index'  # if text, then go to the search page
-
-  ## Mobile app namespace routes
-  map.mobile 'mobile', :controller => 'mobile/contents'
-  map.namespace :mobile do |mobile|
-    mobile.resources :contents, :collection => {:enable => :post, :disable => :post}
-  end
-
+  map.connect ':id', :id => /[A-Za-z0-9% ]+/,  :controller => 'taxa', :action => 'search'  # if text, then go to the search page
+  
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'

@@ -399,7 +399,7 @@ private
       yield
     rescue => e
       @message = e.message
-      render(:layout => 'main', :template => "content/missing", :status => 404)
+      render(:layout => 'v2/basic', :template => "content/missing", :status => 404)
       return false
     end
   end

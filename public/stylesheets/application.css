@@ -499,19 +499,19 @@ ul.tabs {
       padding-left: 20px;
       font-size: 1.14em; }
     ul.tabs li.taxa a {
-      background: transparent url("/images/v2/icon_taxa_tabs.png") 9px 6px no-repeat; }
+      background: transparent url("/images/icon_taxa_tabs.png") 9px 6px no-repeat; }
     ul.tabs li.videos a {
-      background: transparent url("/images/v2/icon_videos_tabs.png") 11px 10px no-repeat; }
+      background: transparent url("/images/icon_videos_tabs.png") 11px 10px no-repeat; }
     ul.tabs li.images a {
-      background: transparent url("/images/v2/icon_images_tabs.png") 7px 8px no-repeat; }
+      background: transparent url("/images/icon_images_tabs.png") 7px 8px no-repeat; }
     ul.tabs li.communities a {
-      background: transparent url("/images/v2/icon_communities_tabs.png") 8px 16px no-repeat; }
+      background: transparent url("/images/icon_communities_tabs.png") 8px 16px no-repeat; }
     ul.tabs li.people a {
-      background: transparent url("/images/v2/icon_people_tabs.png") 9px 10px no-repeat; }
+      background: transparent url("/images/icon_people_tabs.png") 9px 10px no-repeat; }
     ul.tabs li.collections a {
-      background: transparent url("/images/v2/icon_collections_tabs.png") 12px 9px no-repeat; }
+      background: transparent url("/images/icon_collections_tabs.png") 12px 9px no-repeat; }
     ul.tabs li.articles a {
-      background: transparent url("/images/v2/icon_articles_tabs.png") 9px 9px no-repeat; }
+      background: transparent url("/images/icon_articles_tabs.png") 9px 9px no-repeat; }
   ul.tabs.with_icons li {
     font-size: 1.16em; }
     ul.tabs.with_icons li a {
@@ -649,7 +649,7 @@ p.status {
 .rating ul a:hover,
 .rating ul a:active,
 .rating ul a:focus {
-  background: transparent url("/images/v2/icon_stars.png") 0 100% repeat-x; }
+  background: transparent url("/images/icon_stars.png") 0 100% repeat-x; }
 .rating ul {
   float: left;
   position: relative;
@@ -670,7 +670,7 @@ p.status {
       text-indent: -8685px;
       overflow: hidden;
       width: 20%;
-      background: transparent url("/images/v2/icon_stars.png") 0 100% repeat-x; }
+      background: transparent url("/images/icon_stars.png") 0 100% repeat-x; }
     .rating ul li.current_rating_2 {
       position: absolute;
       top: 0;
@@ -680,7 +680,7 @@ p.status {
       text-indent: -8685px;
       overflow: hidden;
       width: 40%;
-      background: transparent url("/images/v2/icon_stars.png") 0 100% repeat-x; }
+      background: transparent url("/images/icon_stars.png") 0 100% repeat-x; }
     .rating ul li.current_rating_3 {
       position: absolute;
       top: 0;
@@ -690,7 +690,7 @@ p.status {
       text-indent: -8685px;
       overflow: hidden;
       width: 60%;
-      background: transparent url("/images/v2/icon_stars.png") 0 100% repeat-x; }
+      background: transparent url("/images/icon_stars.png") 0 100% repeat-x; }
     .rating ul li.current_rating_4 {
       position: absolute;
       top: 0;
@@ -700,7 +700,7 @@ p.status {
       text-indent: -8685px;
       overflow: hidden;
       width: 80%;
-      background: transparent url("/images/v2/icon_stars.png") 0 100% repeat-x; }
+      background: transparent url("/images/icon_stars.png") 0 100% repeat-x; }
     .rating ul li.current_rating_5 {
       position: absolute;
       top: 0;
@@ -710,7 +710,7 @@ p.status {
       text-indent: -8685px;
       overflow: hidden;
       width: 100%;
-      background: transparent url("/images/v2/icon_stars.png") 0 100% repeat-x; }
+      background: transparent url("/images/icon_stars.png") 0 100% repeat-x; }
   .rating ul a {
     position: absolute;
     top: 0;
@@ -761,13 +761,13 @@ p.status {
     float: left;
     width: 80px;
     height: 13px;
-    background: transparent url("/images/v2/icon_stars.png") 0 0 repeat-x; }
+    background: transparent url("/images/icon_stars.png") 0 0 repeat-x; }
     .average_rating .rating p {
       height: 13px;
       font-size: 0;
       margin: 0;
       text-indent: -8685px;
-      background: transparent url("/images/v2/icon_stars.png") 0 50% repeat-x; }
+      background: transparent url("/images/icon_stars.png") 0 50% repeat-x; }
     .average_rating .rating.one p {
       width: 20%; }
     .average_rating .rating.two p {
@@ -778,28 +778,28 @@ p.status {
       width: 80%; }
 
 .taxon span.icon {
-  background: #f3f7fa url("/images/v2/icon_taxa_tabs.png") 50% 50% no-repeat; }
+  background: #f3f7fa url("/images/icon_taxa_tabs.png") 50% 50% no-repeat; }
 
 .video span.icon {
-  background: #f3f7fa url("/images/v2/icon_videos_tabs.png") 50% 50% no-repeat; }
+  background: #f3f7fa url("/images/icon_videos_tabs.png") 50% 50% no-repeat; }
 
 .image span.icon {
-  background: #f3f7fa url("/images/v2/icon_images_tabs.png") 50% 50% no-repeat; }
+  background: #f3f7fa url("/images/icon_images_tabs.png") 50% 50% no-repeat; }
 
 .community span.icon {
-  background: #f3f7fa url("/images/v2/icon_communities_tabs.png") 50% 50% no-repeat; }
+  background: #f3f7fa url("/images/icon_communities_tabs.png") 50% 50% no-repeat; }
 
 .person span.icon {
-  background: #f3f7fa url("/images/v2/icon_people_tabs.png") 50% 50% no-repeat; }
+  background: #f3f7fa url("/images/icon_people_tabs.png") 50% 50% no-repeat; }
 
 .collection span.icon {
-  background: #f3f7fa url("/images/v2/icon_collections_tabs.png") 50% 50% no-repeat; }
+  background: #f3f7fa url("/images/icon_collections_tabs.png") 50% 50% no-repeat; }
 
 .article span.icon {
-  background: #f3f7fa url("/images/v2/icon_articles_tabs.png") 50% 50% no-repeat; }
+  background: #f3f7fa url("/images/icon_articles_tabs.png") 50% 50% no-repeat; }
 
 .sound span.icon {
-  background: #f3f7fa url("/images/v2/icon_sound_tabs.png") 50% 50% no-repeat; }
+  background: #f3f7fa url("/images/icon_sound_tabs.png") 50% 50% no-repeat; }
 
 ul.object_list + .header {
   border-bottom: 0;
@@ -1138,15 +1138,39 @@ body > #header {
     position: absolute;
     right: 10px;
     top: 4px; }
+#collections_tab .updates {
+  padding: 20px 0 0 0; }
+  #collections_tab .updates form.comment {
+    padding-right: 0; }
+    #collections_tab .updates form.comment textarea {
+      width: 598px; }
+  #collections_tab .updates ul.feed {
+    margin: 0 0 20px 0; }
+    #collections_tab .updates ul.feed li {
+      padding: 20px;
+      border-bottom: 1px solid #d4dce2; }
+  #collections_tab .updates p.more {
+    font-size: 1.16em;
+    font-weight: bold;
+    text-align: center; }
 
 #community {
   padding: 20px; }
   #community .heading {
     overflow: hidden;
-    border: none; }
+    border-width: 0; }
     #community .heading h3 {
       float: left;
       padding: 5px 0 0 0; }
+  #community .article.list {
+    padding: 0 0 40px 0; }
+    #community .article.list .heading {
+      border-bottom-width: 1px; }
+    #community .article.list li {
+      padding: 10px 20px;
+      border-bottom: 1px solid #d4dce2; }
+      #community .article.list li .meta {
+        padding: 0; }
   #community .article.updates {
     padding: 0 0 25px 0; }
     #community .article.updates li {
@@ -1246,7 +1270,7 @@ body > #header {
           padding: 0 0 0 23px;
           margin: 0 0 0 10px;
           font-weight: normal;
-          background: transparent url("/images/v2/icon_classification_arrow.png") 0 0 no-repeat; }
+          background: transparent url("/images/icon_classification_arrow.png") 0 0 no-repeat; }
     #taxonomy + #sidebar .updates form.comment {
       padding: 20px 10px 0 10px;
       margin: 0 -10px;
@@ -1370,12 +1394,12 @@ body > #header {
       padding: 0;
       margin: 0 0 5px 0;
       border: none;
-      background-image: url("/images/v2/icon_permalink-stars.png"); }
+      background-image: url("/images/icon_permalink-stars.png"); }
       #permalink .ratings .rating .rating p,
       #permalink .ratings .average_rating .rating p {
         float: left;
         height: 17px;
-        background-image: url("/images/v2/icon_permalink-stars.png"); }
+        background-image: url("/images/icon_permalink-stars.png"); }
   #permalink .ratings .rating {
     border-color: #c1d72e; }
     #permalink .ratings .rating ul, #permalink .ratings .rating li[class^="current_rating"], #permalink .ratings .rating a {
@@ -1385,7 +1409,7 @@ body > #header {
     #permalink .ratings .rating ul a:hover,
     #permalink .ratings .rating ul a:active,
     #permalink .ratings .rating ul a:focus {
-      background-image: url("/images/v2/icon_permalink-stars.png"); }
+      background-image: url("/images/icon_permalink-stars.png"); }
     #permalink .ratings .rating ul {
       width: 100px; }
 #permalink .media {
@@ -1596,7 +1620,7 @@ body > #header {
           width: 7px;
           height: 7px;
           content: "";
-          background: transparent url("/images/v2/bg_wrap-behind-tail.png") 0 0 no-repeat; }
+          background: transparent url("/images/bg_wrap-behind-tail.png") 0 0 no-repeat; }
       #worklist #tasks ul li img {
         float: right;
         border: 1px solid #394651; }
@@ -1629,6 +1653,8 @@ body > #header {
   border: 1px solid #93a4b0; }
   #worklist #task .media {
     margin: 0 0 20px 0; }
+  #worklist #task .ratings {
+    overflow: hidden; }
   #worklist #task .rating,
   #worklist #task .average_rating {
     float: left;
@@ -1640,12 +1666,10 @@ body > #header {
     #worklist #task .rating h5,
     #worklist #task .average_rating h5 {
       float: left;
-      padding: 0 10px 0 0;
+      padding: 2px 10px 0 0;
       font-size: 1.16em; }
     #worklist #task .rating p,
     #worklist #task .average_rating p {
-      float: none;
-      overflow: hidden;
       padding: 3px 10px 0 0;
       font-size: 12px; }
     #worklist #task .rating .rating,
@@ -1656,12 +1680,13 @@ body > #header {
       padding: 0;
       margin: 0;
       border: none;
-      background-image: url("/images/v2/icon_permalink-stars.png"); }
+      background-image: url("/images/icon_permalink-stars.png"); }
       #worklist #task .rating .rating p,
       #worklist #task .average_rating .rating p {
         float: left;
         height: 17px;
-        background-image: url("/images/v2/icon_permalink-stars.png"); }
+        padding: 0;
+        background-image: url("/images/icon_permalink-stars.png"); }
   #worklist #task .rating {
     float: right;
     border-color: #c1d72e; }
@@ -1672,7 +1697,7 @@ body > #header {
     #worklist #task .rating ul a:hover,
     #worklist #task .rating ul a:active,
     #worklist #task .rating ul a:focus {
-      background-image: url("/images/v2/icon_permalink-stars.png"); }
+      background-image: url("/images/icon_permalink-stars.png"); }
     #worklist #task .rating ul {
       width: 100px; }
   #worklist #task form.review_status legend {
@@ -1711,34 +1736,46 @@ body > #header {
       top: 15px;
       z-index: 1;
       font-weight: bold; }
-  #media_list #main li {
+  #media_list #main > ul > li {
     float: left;
     width: 160px;
     padding: 0 0 30px 20px; }
-    #media_list #main li img {
+    #media_list #main > ul > li img {
       display: block;
       margin: 0 0 5px 0; }
-    #media_list #main li .average_rating {
+    #media_list #main > ul > li .ratings > .rating {
+      display: none;
       float: left;
       margin: 0 0 5px 0; }
-    #media_list #main li p.flag {
+    #media_list #main > ul > li .ratings:hover .average_rating {
+      display: none; }
+    #media_list #main > ul > li .ratings:hover > .rating {
+      display: block; }
+    #media_list #main > ul > li .ratings.rated > .rating {
+      display: block; }
+    #media_list #main > ul > li .ratings.rated .average_rating {
+      display: none; }
+    #media_list #main > ul > li .average_rating {
+      float: left;
+      margin: 0 0 5px 0; }
+    #media_list #main > ul > li p.flag {
       float: right;
       padding: 1px 2px;
       font-size: 0.75em;
       text-transform: uppercase;
       color: white; }
-      #media_list #main li p.flag.trusted {
+      #media_list #main > ul > li p.flag.trusted {
         border: 1px solid #6b7910;
         background: #849513; }
-      #media_list #main li p.flag.unreviewed {
+      #media_list #main > ul > li p.flag.unreviewed {
         border: 1px solid #677682;
         background: #8695a1; }
-    #media_list #main li a.button {
+    #media_list #main > ul > li a.button {
       clear: both;
       float: left;
       padding: 4px 10px;
       font-size: 0.92em; }
-    #media_list #main li.first {
+    #media_list #main > ul > li.first {
       clear: both;
       padding-left: 0; }
 
@@ -1761,3 +1798,71 @@ body > #header {
       #search_results #main .header a.prev {
         right: auto;
         left: 10px; }
+
+#endorse {
+  width: 700px;
+  padding: 20px 0 0 0;
+  margin: 0 auto; }
+  #endorse h3 {
+    border: none; }
+  #endorse li {
+    overflow: hidden;
+    padding: 10px;
+    border-bottom: 1px solid #d7dadc; }
+    #endorse li img {
+      float: right;
+      border: 1px solid #394651; }
+    #endorse li span.icon {
+      float: left;
+      width: 68px;
+      height: 68px;
+      margin: 0 20px 0 0;
+      border: 1px solid #cad3db;
+      background: #f3f7fa url("/images/icon_communities_tabs.png") 50% 50% no-repeat; }
+    #endorse li p {
+      padding: 6px 0 0 0;
+      font-weight: bold;
+      line-height: 160%;
+      color: #5f6c76; }
+    #endorse li h4 {
+      padding: 15px 0 0 0; }
+    #endorse li a {
+      display: block;
+      font-size: 1.16em;
+      text-decoration: none;
+      color: #28323a; }
+
+#taxon_community {
+  padding: 0;
+  border: none; }
+  #taxon_community .column {
+    float: left;
+    padding: 0 0 40px 0;
+    margin: 0 20px 0 0; }
+    #taxon_community .column .summary {
+      padding: 10px;
+      border-left: 2px solid #cad3db; }
+      #taxon_community .column .summary h3 {
+        padding: 0 0 5px 0;
+        font-size: 1.33em; }
+      #taxon_community .column .summary p {
+        line-height: 200%; }
+    #taxon_community .column .article {
+      padding: 0 0 25px 0; }
+      #taxon_community .column .article ul {
+        padding: 10px 0 0 10px; }
+      #taxon_community .column .article p.more {
+        padding: 0 0 0 10px;
+        font-weight: bold; }
+    #taxon_community .column .header {
+      margin: 0; }
+    #taxon_community .column .heading form {
+      float: none; }
+    #taxon_community .column.curators {
+      clear: both;
+      width: 220px; }
+    #taxon_community .column.collections {
+      width: 340px; }
+    #taxon_community .column.communities {
+      width: 340px;
+      margin: 0; }

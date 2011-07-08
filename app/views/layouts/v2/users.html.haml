@@ -1,5 +1,5 @@
 - content_for :main do
-  #page_heading.profile
+  #page_heading.with_image
     .site_column
       - if @user && @user.id
         - # user#show or user#edit
@@ -10,7 +10,7 @@
         .page_actions
           %ul
             %li= render :partial => 'shared/add_to_my_collection', :locals => { :item => @user }
-            %li= link_to I18n.t(:edit_my_profile), edit_user_path(@user), :class => "button"
+            %li= link_to I18n.t(:edit_my_profile), edit_user_path(@user), :class => "button" if @user.id == current_user.id
       = render :partial => 'shared/flash_messages'
   #content
     .site_column

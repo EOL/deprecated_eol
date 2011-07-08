@@ -8,66 +8,61 @@
     }
   }
 
-#page-separator-general
-#page-title
-  %h1
-    = I18n.t(:contact_us) 
-  %hr
-#page-content.clearfix
-  #full-page-content
-    =I18n.t("for_comments_about_the_project", :visit_the_forum => link_to(I18n.t("visit_the_forum"),'http://forum.eol.org', :target=>:new))
-    =I18n.t("you_can_help_us_by", :suggestion_link => link_to(I18n.t("suggesting_or_voting_on_featur"), :action=>'feedback'))
-    - unless logged_in?
-      =I18n.t("_register_with_eol_to_track_yo")
-    \.
-    =I18n.t("to_contact_a_specific_indivi", :component_leads => link_to(I18n.t("component_leads"), :action=>'page', :id=>'contact_eol'))    
-    \. 
-    =I18n.t("for_other_needs_please_use_the_form_below")                
-    = eol_lang_error_messages_for :contact
-    %br
-    %span#verification_warn.error
-      %strong
-        = @verification_did_not_match
-                        
-    - form_for :contact, @contact, :html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |f|
-      %label{:for => "contact_name", :title =>  I18n.t(:your_name) }
-        =  I18n.t(:your_name) 
-        %span{ :title => I18n.t("required_") }
-          *
-        %span.warn
-          = "(" + I18n.t(:required)  + ")"
-      = f.text_field :name, :size=>'50', :maxlength=>'250'
-      %span#name_warn.error
-      %label{ :for => "contact_email", :title => I18n.t(:your_email_address)  }
-        = I18n.t(:your_email_address) 
-      = f.text_field :email, :size=>'50', :maxlength=>'250'
-      %label{ :title => I18n.t(:topic_area)  }
-        = I18n.t(:topic_area) 
-        %span{ :title => I18n.t("required_") }
-          *
-        %span.warn
-          = "(" + I18n.t(:required)  + ")"
-      = f.collection_select :contact_subject_id, @subjects, :id, :title, { :prompt => true }, {:onchange=>'javascript:select_contact_subject(this);'}
-      %span#subject_warn.error
-      %span.taxon_group{ :style => "display:none;" }
-        %label{ :for => "contact_taxon_group", :title => I18n.t(:taxon_group_of_interest)  }
-          = I18n.t(:taxon_group_of_interest) 
-        = f.text_field :taxon_group
-      %label{ :for => "contact_comments", :title => I18n.t(:comments)  }
-        = I18n.t(:comments) 
-        %span{ :title => I18n.t("required_") }
-          *
-        %span.warn
-          = "(" + I18n.t(:required)  + ")"
-      = f.text_area :comments
-      %span#comments_warn.error
-      - if $ENABLE_RECAPTCHA
+#content
+  .site_column
+    .article.copy
+      =I18n.t("for_comments_about_the_project", :visit_the_forum => link_to(I18n.t("visit_the_forum"),'http://forum.eol.org', :target=>:new))
+      =I18n.t("you_can_help_us_by", :suggestion_link => link_to(I18n.t("suggesting_or_voting_on_featur"), :action=>'feedback'))
+      - unless logged_in?
+        =I18n.t("_register_with_eol_to_track_yo")
+      \.
+      =I18n.t("to_contact_a_specific_indivi", :component_leads => link_to(I18n.t("component_leads"), :action=>'page', :id=>'contact_eol'))
+      \.
+      =I18n.t("for_other_needs_please_use_the_form_below")
+      = eol_lang_error_messages_for :contact
+      %p#verification_warn.error
+        %strong
+          = @verification_did_not_match
+
+      - form_for :contact, @contact, :html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |f|
+        %label{:for => "contact_name", :title =>  I18n.t(:your_name) }
+          = I18n.t(:your_name)
+          %span{ :title => I18n.t("required_") }
+            *
+          %span.warn
+            = "(" + I18n.t(:required)  + ")"
+        = f.text_field :name, :size=>'50', :maxlength=>'250'
+        %span#name_warn.error
+        %label{ :for => "contact_email", :title => I18n.t(:your_email_address)  }
+          = I18n.t(:your_email_address)
+        = f.text_field :email, :size=>'50', :maxlength=>'250'
+        %label{ :title => I18n.t(:topic_area)  }
+          = I18n.t(:topic_area)
+          %span{ :title => I18n.t("required_") }
+            *
+          %span.warn
+            = "(" + I18n.t(:required)  + ")"
+        = f.collection_select :contact_subject_id, @subjects, :id, :title, { :prompt => true }, {:onchange=>'javascript:select_contact_subject(this);'}
+        %span#subject_warn.error
+        %span.taxon_group{ :style => "display:none;" }
+          %label{ :for => "contact_taxon_group", :title => I18n.t(:taxon_group_of_interest)  }
+            = I18n.t(:taxon_group_of_interest)
+          = f.text_field :taxon_group
+        %label{ :for => "contact_comments", :title => I18n.t(:comments)  }
+          = I18n.t(:comments)
+          %span{ :title => I18n.t("required_") }
+            *
+          %span.warn
+            = "(" + I18n.t(:required)  + ")"
+        = f.text_area :comments
+        %span#comments_warn.error
+        - if $ENABLE_RECAPTCHA
+          %br
+          %label{ :for => "recaptcha", :title =>  I18n.t(:recaptcha)  }
+            =  I18n.t(:recaptcha)
+          = recaptcha_tags
         %br
-        %label{ :for => "recaptcha", :title =>  I18n.t(:recaptcha)  }
-          =  I18n.t(:recaptcha) 
-        = recaptcha_tags
-      %br
-      = submit_tag I18n.t(:contact_us) 
-      %br
-      %br
-      =I18n.t(:sign_up_for_eol_notifications, :var_create_account=>link_to( I18n.t(:create_account) , register_url))
+        = submit_tag I18n.t(:contact_us)
+        %br
+        %br
+        =I18n.t(:sign_up_for_eol_notifications, :var_create_account=>link_to( I18n.t(:create_account) , register_url))

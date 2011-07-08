@@ -1,4 +1,8 @@
 - content_for :main do
-  %h1= @page_title
+  - unless @home_page
+    #page_heading
+      .site_column
+        .hgroup
+          %h1= @page_title
   = yield
 = render :file => 'layouts/v2/application'

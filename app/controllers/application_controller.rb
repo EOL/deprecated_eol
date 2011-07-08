@@ -71,7 +71,7 @@ class ApplicationController < ActionController::Base
       end
       logger.error "   [...#{e.backtrace.length - index} more lines omitted]" if lines_shown > 12
       logger.error "\n\n"
-      render :layout => 'main', :template => "content/error"
+      render :layout => 'v2/basic', :template => "content/error"
     end
   end
 
@@ -110,7 +110,7 @@ class ApplicationController < ActionController::Base
   # and 500 and to do error logging
   def render_404
     respond_to do |type|
-      type.html { render :layout => 'main', :template => "content/missing", :status => 404} # status may be redundant
+      type.html { render :layout => 'v2/basic', :template => "content/missing", :status => 404} # status may be redundant
       type.all  { render :nothing => true }
     end
   end
@@ -127,7 +127,7 @@ class ApplicationController < ActionController::Base
          )
      end
     respond_to do |type|
-     type.html { render :layout => 'main', :template => "content/error"}
+     type.html { render :layout => 'v2/basic', :template => "content/error"}
      type.all  { render :nothing => true }
     end
   end

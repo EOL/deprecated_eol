@@ -10,4 +10,8 @@ $(function() {
       return false;
     });
   });
+
+  $("#tasks li").click(function() {
+    window.location.href = $(this).find("a").attr("href");
+  });
 });

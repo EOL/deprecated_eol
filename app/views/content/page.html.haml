@@ -1,44 +1,34 @@
 - cache(:controller=>'content', :part=>@page_id + "_" + current_user.language_abbr) do
   = javascript_include_tag 'faqs' if @content.page_name.downcase=='faqs'
   #content
-    #page-separator-general
-    #page-title
-      = @naviagtion_tree
-      
-      %h1
-        = @content.title
-      %hr
-    #page-content.clearfix
-      #full-page-content
-        - if @content.left_content != ''
-          #page-content-bgfauxinside
-            #page-content.clearfix
-              #full-page-content
-                #left-pane
-                  = @content.left_content
-                #right-pane
-                  = @content.main_content
-        - else
-          #page-content.clearfix
-            #full-page-content
-              = @content.main_content
-              
-              -#Curator page only - curators can submit a Wikipedia article for ingestion
-              - if @page_id == 'curator_central' && current_user.curator_approved
-                %hr.thin
-                %a{:name => 'wikipedia'}
-                %br
-                %h2
-                  =I18n.t("request_wikipedia_article_inge")
-                %br
-                =I18n.t("eol_is_now_allowing_curators_t") 
-                %br
-                %br
-                =I18n.t("by_entering_a_wikipedia_revisi")
-                %form{:action => '/content/wikipedia', :method => 'post'}
-                  %strong
-                    =I18n.t("enter_revision_url_") 
-                  %input{:type => 'text', :name => 'revision_url', :size => 60}
-                  %input{:type => 'submit', :value => 'Submit'}
-                %i
-                  =I18n.t("_eg__http___en_wikipedia_org_w")
+    .site_column
+      - # TODO: This view assumes a basic HashRocket CMS page which only has one column
+      - # we should figure out whether that is appropriate for all cases of content being passed
+      - # through the content_controller page method
+      = @navigation_tree_breadcrumbs
+      .article.copy.cms_page
+        - # FIXME: is 'left' pane content now removed from CMS?
+        - # If so remove this, if not fix layout to account for it: = @content.left_content
+        = @content.main_content
+
+        - # TODO: Figure out if this is an appropriate view for this form?
+        - # It seems a little odd as this is assumed to be CMS page show
+        -#Curator page only - curators can submit a Wikipedia article for ingestion
+        - if @page_id == 'curator_central' && current_user.curator_approved
+          %hr.thin
+          %a{:name => 'wikipedia'}
+          %br
+          %h2
+            =I18n.t("request_wikipedia_article_inge")
+          %br
+          =I18n.t("eol_is_now_allowing_curators_t")
+          %br
+          %br
+          =I18n.t("by_entering_a_wikipedia_revisi")
+          %form{:action => '/content/wikipedia', :method => 'post'}
+            %strong
+              =I18n.t("enter_revision_url_")
+            %input{:type => 'text', :name => 'revision_url', :size => 60}
+            %input{:type => 'submit', :value => 'Submit'}
+          %i
+            =I18n.t("_eg__http___en_wikipedia_org_w")

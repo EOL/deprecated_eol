@@ -10,10 +10,6 @@ describe SpecialCollection do
     SpecialCollection.focus.should_not be_nil
   end
 
-  it 'should have a "inbox" method' do
-    SpecialCollection.inbox.should_not be_nil
-  end
-
   it 'should have a "watch" method' do
     SpecialCollection.watch.should_not be_nil
   end

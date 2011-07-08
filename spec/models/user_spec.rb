@@ -289,11 +289,10 @@ describe User do
     inactive_user.activate
   end
 
-  it 'should create a "watch", "inbox" collection' do
+  it 'should create a "watch" collection' do
     inactive_user = User.gen(:active => false)
     inactive_user.activate
     inactive_user.watch_collection.should_not be_nil
-    inactive_user.inbox_collection.should_not be_nil
   end
 
   it 'community membership should be able to join a community' do

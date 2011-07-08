@@ -1,4 +1,4 @@
-#text_summary.article.copy
+#text_summary.article
   - unless @summary_text.nil?
     - @summary_text.each do |dato|
       - unless dato.description.empty? || dato.description.nil?
@@ -8,7 +8,8 @@
             = link_to(I18n.t(:text_summary_more_link), taxon_details_path(@taxon_concept.id))
           - # TODO: If our text data object does not contain p tags can we add them?
           - # Without them the text block does not have any semantic meaning.
-          = dato.description.balance_tags
+          .copy
+            = dato.description.balance_tags
           .attribution.meta
             = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => dato }
             %p= link_to I18n.t(:article_more_about), data_object_path(dato)

@@ -1,22 +1,28 @@
 - content.each do |item|
   - if item[:data_objects]
     - item[:data_objects].each do |dato|
-      .article.copy
-        .meta.attribution
-          = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => dato }
-          %p= link_to I18n.t(:article_more_about), data_object_path(dato)
+      .article
         - unless dato.object_title.blank?
           %h4= dato.object_title
+        .meta.learn_more
+          %p= link_to I18n.t(:article_more_about), data_object_path(dato)
+          %form
+            %label language:
+            %select
+              %option EN
+          %p.last= link_to "view translation source", "#"
         = render :partial => 'data_objects/data_object_article', :locals => { :data_object => dato }
+        .meta.attribution
+          = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => dato }
         = render :partial => 'data_objects/rating', :locals => { :data_object => dato }
-        .meta
-          %p= link_to I18n.t(:see_all_comments_with_count_for_text, :count => dato.all_comments.count), data_object_path(dato)
+        = render :partial => 'shared/add_to_my_collection', :locals => { :item => dato, :my_collection => @watch_collection }
+        %p.actions
           - # TODO: Should this link be visible if user is not a curator? Where does the link go?
-          %p= link_to I18n.t(:curate_this_text) + " (FIXME)", '/placeholder'
-        %p
-          = render :partial => 'shared/add_to_my_collection', :locals => { :item => dato, :my_collection => @watch_collection }
+          = link_to I18n.t(:curate_this_text) + " (FIXME)", '/placeholder'
           = link_to I18n.t(:leave_a_comment) + " (FIXME)", '/placeholder', :class => 'button comment'
-        -# TODO - ActivityLog - This needs to be a comment block
+        -# TODO - ActivityLog - This needs to be a comment form block
+        %p= link_to I18n.t(:see_all_comments_with_count_for_text, :count => dato.all_comments.count), data_object_path(dato)
   - else
-    .article.copy
-      = render :partial => "taxa/content/content_#{item[:content_type]}", :locals => { :content => item } rescue nil
+    .article
+      .copy
+        = render :partial => "taxa/content/content_#{item[:content_type]}", :locals => { :content => item } rescue nil

@@ -12,17 +12,17 @@ Language.create_english
 
 ContentPage.gen_if_not_exists(:page_name => 'Home', :title => 'Home', :sort_order => 1)
 ContentPage.gen_if_not_exists(:page_name => 'Who We Are', :title => 'Who We Are', :sort_order => 2)
-ContentPage.gen_if_not_exists(:page_name => 'Working Groups', :title => 'Working Groups', 
+ContentPage.gen_if_not_exists(:page_name => 'Working Groups', :title => 'Working Groups',
   :parent_content_page => ContentPage.gen_if_not_exists(:page_name => 'Who We Are'))
 ContentPage.gen_if_not_exists(:page_name => 'Working Group A', :title => 'Working Group A',
   :sort_order => 1, :parent_content_page => ContentPage.gen_if_not_exists(:page_name => 'Working Groups'))
-ContentPage.gen_if_not_exists(:page_name => 'Working Group B', :title => 'Working Group B', 
+ContentPage.gen_if_not_exists(:page_name => 'Working Group B', :title => 'Working Group B',
   :sort_order => 2, :parent_content_page => ContentPage.gen_if_not_exists(:page_name => 'Working Groups'))
-ContentPage.gen_if_not_exists(:page_name => 'Working Group C', :title => 'Working Group C', 
+ContentPage.gen_if_not_exists(:page_name => 'Working Group C', :title => 'Working Group C',
   :sort_order => 3, :parent_content_page => ContentPage.gen_if_not_exists(:page_name => 'Working Groups'))
-ContentPage.gen_if_not_exists(:page_name => 'Working Group D', :title => 'Working Group D', 
+ContentPage.gen_if_not_exists(:page_name => 'Working Group D', :title => 'Working Group D',
   :sort_order => 4, :parent_content_page => ContentPage.gen_if_not_exists(:page_name => 'Working Groups'))
-ContentPage.gen_if_not_exists(:page_name => 'Working Group E', :title => 'Working Group E', 
+ContentPage.gen_if_not_exists(:page_name => 'Working Group E', :title => 'Working Group E',
   :sort_order => 5, :parent_content_page => ContentPage.gen_if_not_exists(:page_name => 'Working Groups'))
 ContentPage.gen_if_not_exists(:page_name => 'Contact Us', :title => 'Contact Us', :sort_order => 3)
 ContentPage.gen_if_not_exists(:page_name => 'Screencasts', :title => 'Screencasts', :sort_order => 4)

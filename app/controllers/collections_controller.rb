@@ -17,7 +17,12 @@ class CollectionsController < ApplicationController
   end
 
   def show
-    @collection = Collection.find(params[:id])
+    begin
+      @collection = Collection.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      flash[:error] = I18n.t(:collection_not_found_error)
+      return redirect_back_or_default
+    end
     @watch_collection = logged_in? ? current_user.watch_collection : nil
     @sort_by = params[:sort_by] ? params[:sort_by] : 'newest'
     @filter = params[:filter] ? params[:filter] : ''

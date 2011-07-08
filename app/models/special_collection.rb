@@ -4,16 +4,11 @@ class SpecialCollection < ActiveRecord::Base
 
   def self.create_all
     self.create(:name => 'Focus')
-    self.create(:name => 'Inbox')
     self.create(:name => 'Watch')
   end
 
   def self.focus # This is a community's focus collection
     cached_find(:name, 'Focus')
-  end
-
-  def self.inbox
-    cached_find(:name, 'Inbox')
   end
 
   def self.watch

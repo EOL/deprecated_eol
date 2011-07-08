@@ -297,6 +297,7 @@ en:
   collection_item_annotation_label: "Collection item annotation"
   collection_name_label: "Collection name"
   collection_not_created_error: "Sorry, an error occurred, the collection <em>%{collection_name}</em> could not be created."
+  collection_not_found_error: Sorry, that collection cound not be found.
   collection_not_updated_error: "Sorry, an error occurred, the collection could not be updated."
   collection_updated_notice: "Collection <em>%{collection_name}</em> successfully updated."
   collections: "Collections"

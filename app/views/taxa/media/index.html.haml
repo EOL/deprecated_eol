@@ -1,3 +1,4 @@
+- # TODO: Optionally integrate HashRocket rating.js it must be I18nized and allow anonymous users to login.
 #media_list
   #sidebar.filters
     = image_tag @exemplar_image.smart_medium_thumb unless @exemplar_image.blank?
@@ -5,22 +6,21 @@
     = render :partial => "media_sort_filter"
   #main
     .header
-      - # FIXME: Need proper numbers for these
-      %h3= I18n.t(:displaying_numerical_range, :start_number => 1, :end_number => 4, :total => @media.count)
-      = will_paginate @media
+      - start_number = (@media.current_page - 1) * @media.per_page + 1
+      - end_number = [ (start_number + @media.per_page - 1), @media_total ].min
+      %h3= I18n.t(:displaying_numerical_range, :start_number => start_number, :end_number => end_number, :total => @media_total)
+      = will_paginate @media, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
+        :inner_window => 2, :outer_window => 2
     %ul
       - @media.each do |item|
         %li
           = render :partial => "taxa/media_thumbnail", :locals => {:item => item}
-          .average_rating
-            - total = 5
-            - average_rating = item.data_rating
-            .rating
-              %p{:style => "width: #{average_rating * 20}%"}<
-                = I18n.t("average_rating_value_of_total", :rating => average_rating, :total => total)
+          = render :partial => 'data_objects/rating', :locals => { :data_object => item, :minimal => true }
           %p.flag{:class => vetted_id_class(item)}= item.vetted.label
           = render :partial => 'shared/add_to_my_collection', :locals => { :item => item, :my_collection => @watch_collection }
           - if item.data_type.id == DataType.image.id && current_user.is_curator?
             %p
             = link_to I18n.t("set_as_exemplar"), :action => :set_as_exemplar, :data_object_id => item.id
-    = will_paginate @media
+    .footer
+      = will_paginate @media, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
+        :inner_window => 4, :outer_window => 5

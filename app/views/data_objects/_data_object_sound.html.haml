@@ -3,7 +3,8 @@
 - unless data_object.blank?
   - # TODO: Support for mime types in HTML5 audio varies across browsers, different formats of the file are required
   - en_mime_type ||= data_object.mime_type.label('en')
-  - if thumbnail
-    %p.audio= link_to data_object.best_title, data_object_path(data_object)
-  %audio{:controls => true, :loop => false, :autoplay => false, :preload => 'metadata'}
-    %source{:type => en_mime_type, :src => data_object.sound_url}
+  .audio
+    - if thumbnail
+      %p= link_to data_object.best_title, data_object_path(data_object)
+    %audio{:controls => true, :loop => false, :autoplay => false, :preload => 'metadata'}
+      %source{:type => en_mime_type, :src => data_object.sound_url}

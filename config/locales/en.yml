@@ -1396,6 +1396,8 @@ en:
   page_title_language_key_: "Page Title Language Key:"
   page_view: "Page view"
   page_views: "Page Views"
+  pagination_next: "Next"
+  pagination_previous: "Previous"
   parameters: "Parameters"
   parent_: "Parent:"
   parents_: "Parents:"

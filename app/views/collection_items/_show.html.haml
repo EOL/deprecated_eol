@@ -2,7 +2,7 @@
 %li{:class => "#{en_type}"}
   - if logged_in?
     .checkbox
-      = check_box_tag "collection_items[]", collection_item.id, @selected_collection_items.include?(collection_item.id.to_s) || @select_all, :id => "collection_item_#{collection_item.id}"
+      = check_box_tag "collection_items[]", collection_item.id, @selected_collection_items.include?(collection_item.id.to_s), :id => "collection_item_#{collection_item.id}"
   - if ['image', 'video', 'sound'].include?(en_type)
     = render :partial => "shared/item_summary_media.html.haml", :locals => {:item => collection_item.object, :en_type => en_type}
   - elsif en_type

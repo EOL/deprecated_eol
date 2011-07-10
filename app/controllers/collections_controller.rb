@@ -58,7 +58,7 @@ class CollectionsController < ApplicationController
 
   # When is an update not really an update?  When we clicked a different button.  There are many:
   def update
-    return select_all if params[:commit_select_all] # TODO - I don't think this is needed, remove?
+    return select_all if params[:commit_select_all]
     return copy if params[:commit_copy_collection_items]
     return move if params[:commit_move_collection_items]
     return remove if params[:commit_remove_collection_items]
@@ -112,14 +112,15 @@ private
     puts "--> #{ @sort_by}"
     @filter = params[:filter].blank? ? '' : params[:filter]
     @selected_collection_items = params[:collection_items] || []
-    @select_all = params[:commit_select_all] # TODO ... couldn't we just select the collection items here at the end?
-    @selected_collection_items = params[:collection_items] || []
     if @filter.blank?
       @collection_items = @collection.collection_items
     else
       @collection_items = @collection.filter_type(@filter).compact
     end
     @collection_items = CollectionItem.custom_sort(@collection_items, @sort_by)
+    if params[:commit_select_all]
+      @selected_collection_items = @collection_items.map {|ci| ci.id.to_s }
+    end
   end
 
   # When we bounce around, not all params are required; this is the list to remove:
@@ -130,9 +131,8 @@ private
      :commit_chosen_collection]
   end
 
-  # I don't think this is needed... TODO - remove?
   def select_all
-    return redirect_to params.merge!(:action => params[:action_name] || 'show').except(*unnecessary_keys_for_redirect)
+    return redirect_to params.merge!(:action => 'edit').except(*unnecessary_keys_for_redirect)
   end
 
   def no_items_selected_error(which)

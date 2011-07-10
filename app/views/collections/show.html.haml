@@ -47,7 +47,7 @@
             .heading
               %fieldset
                 = label_tag :sort_by, I18n.t(:sort_by_label)
-                = select_tag :sort_by, options_for_select(@sort_options.map {|so| [so.name, so.id]})
+                = select_tag :sort_by, options_for_select(@sort_options.map {|so| [so.name, so.id]}, @sort_by)
               %fieldset.actions
                 = submit_tag I18n.t(:sort_by_button), :name => :commit_sort
             %ul.object_list

@@ -25,7 +25,7 @@
       #tabs_sidebar
         = render :partial => 'collections/filter_by_item_type'
       #sidebar
-        - unless @collection_items.empty?
+        - unless @collection.empty?
           .filters
             %h4= I18n.t(:collect_items)
             %fieldset.actions
@@ -33,19 +33,6 @@
               = submit_tag I18n.t(:copy_selected_button), :name => :commit_copy_collection_items
               = submit_tag I18n.t(:move_selected_button), :name => :commit_move_collection_items
               = submit_tag I18n.t(:remove_selected_button), :name => :commit_remove_collection_items
-
-            - # FIXME: users need to be able to set the default sort order for a collection
-            %h4= I18n.t(:default_sorting_header)
-            %fieldset
-              %legend.assistive= I18n.t(:default_sorting_legend)
-              - sort_options = { I18n.t(:sort_by_recently_added_option) => :newest, I18n.t(:sort_by_oldest_option) => :oldest }
-              - selected = 'FIXME'
-              = label_tag :default_sorting, I18n.t(:default_sorting_label), :class => 'assistive'
-              = select_tag :default_sorting, options_for_select(sort_options, selected)
-            %fieldset.actions
-              = submit_tag I18n.t(:default_sorting_submit_button), :name => :commit_collection_default_sorting
-
-            - # FIXME: Users need to be able to choose an image for a collection
             %h4= I18n.t(:primary_image_header)
             = collection_form.label :logo, I18n.t(:primary_image_choose)
             = collection_form.file_field :logo, :size=>10
@@ -57,14 +44,19 @@
 
       #collections.main_container
         .heading
-          %fieldset
-            = label_tag :sort_by, I18n.t(:sort_by_label)
-            - selected = params[:sort_by].nil? ? :newest : params[:sort_by].to_sym
-            - sort_options = { I18n.t(:sort_by_recently_added_option) => :newest, I18n.t(:sort_by_oldest_option) => :oldest }
-            = select_tag :sort_by, options_for_select(sort_options, selected)
-          %fieldset.actions
-            = submit_tag I18n.t(:sort_by_button)
-        %ul.object_list
-          - @collection_items.each do |item|
-            - collection_form.fields_for :collection_items, item do |collection_item_fields|
-              = render :partial => 'collection_items/edit', :locals => { :collection_item => item, :fields => collection_item_fields }
+          - if @collection.empty?
+            %p#empty= I18n.t(:collection_is_empty)
+          - else
+            -# NOTE: A little weird to make the field label an h4, but wanted to keep the formatting the same as the
+            -# show view, so that it's clear what you're affecting.
+            %h4= I18n.t(:by_default_sort_collection_by_colon)
+            %fieldset
+              %legend.assistive= I18n.t(:default_sorting_legend)
+              = label_tag :default_sorting, I18n.t(:default_sorting_label), :class => 'assistive'
+              = collection_form.select :sort_style_id, @sort_options.map {|so| [so.name, so.id]}
+            - # FIXME: Users need to be able to choose an image for a collection
+        - unless @collection.empty?
+          %ul.object_list
+            - @collection_items.each do |item|
+              - collection_form.fields_for :collection_items, item do |collection_item_fields|
+                = render :partial => 'collection_items/edit', :locals => { :collection_item => item, :fields => collection_item_fields }

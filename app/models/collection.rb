@@ -6,7 +6,6 @@ class Collection < ActiveRecord::Base
   belongs_to :community # These are focus lists
 
   has_many :collection_items
-  alias :items :collection_items
   accepts_nested_attributes_for :collection_items, :allow_destroy => true, :reject_if => :all_blank
 
   has_many :collection_endorsements
@@ -36,8 +35,14 @@ class Collection < ActiveRecord::Base
 
   index_with_solr :keywords => [:name]
 
+  alias :items :collection_items
+  alias_attribute :summary_name, :name
+
+  def special?
+    special_collection_id
+  end
+
   def editable_by?(user)
-    return false if special_collection_id # None of the special lists may be edited.
     if user_id
       return user.id == user_id # Owned by this user?
     else
@@ -145,6 +150,10 @@ class Collection < ActiveRecord::Base
 
   def has_item? item
     collection_items.any?{|ci| ci.object_type == item.class.name && ci.object_id == item.id}
+  end
+
+  def empty?
+    collection_items.count == 0
   end
 
 private

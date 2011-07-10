@@ -1,3 +1,5 @@
+# NOTE - you can get a list of all the possible collection item types with this command:
+# git grep "has_many :collection_items, :as" app
 class CollectionItem < ActiveRecord::Base
 
   belongs_to :collection
@@ -11,13 +13,15 @@ class CollectionItem < ActiveRecord::Base
     :message => I18n.t(:item_not_added_already_in_collection)
 
   def self.custom_sort(collection_items, sort_by)
-     collection_items.sort_by do |item|
-       if sort_by == "newest"
-         [item.id * -1]
-       elsif sort_by == "oldest"
-         [item.id]
-       end
-     end
+    puts "&" * 111
+    case sort_by
+    when SortStyle.newest.id
+      puts "newest"
+      collection_items.sort_by(&:created_at).reverse
+    else # THIS IS THE DEAFULT... but if you want to change it, then: when SortStyle.oldest.id
+      puts "oldest"
+      collection_items.sort_by(&:created_at)
+    end
    end
 
 end

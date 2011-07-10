@@ -403,6 +403,7 @@ class DataObject < SpeciesSchemaModel
     return taxon_concepts.first.title_canonical(@session_hierarchy) unless taxon_concepts.first.blank?
     return data_type.label
   end
+  alias :summary_name :best_title
 
   def rate(user, new_rating)
     existing_ratings = UsersDataObjectsRating.find_all_by_data_object_guid(guid)

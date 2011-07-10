@@ -741,6 +741,7 @@ class TaxonConcept < SpeciesSchemaModel
     final_name = scientific_name_results[0]['name'].firstcap
     return final_name
   end
+  alias :summary_name :quick_scientific_name
 
   def self.quick_scientific_names(taxon_concept_ids, hierarchy = nil)
     concept_entries = self.entries_for_concepts(taxon_concept_ids, hierarchy)

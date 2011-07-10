@@ -199,3 +199,8 @@ ul.feed li > a > img {
 #sidebar .collection_list img {
   width: 35px;
   height: 35px; }
+
+/* TODO: this hasn't been really thought out and should be changed: */
+.heading p#empty {
+  font-weight: bold;
+  font-size: 1.2em; }

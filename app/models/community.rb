@@ -3,7 +3,6 @@ class Community < ActiveRecord::Base
   include EOL::ActivityLoggable
 
   has_one :collection #TODO - didn't work? , :as => :focus
-  alias :focus :collection
 
   has_many :members
   has_many :roles
@@ -32,6 +31,9 @@ class Community < ActiveRecord::Base
   validates_attachment_size :logo, :in => 0..0.5.megabyte
 
   index_with_solr :keywords => [:name, :description]
+
+  alias :focus :collection
+  alias_attribute :summary_name, :name
 
   def self.special
     special = cached_find(:name, $SPECIAL_COMMUNITY_NAME) # TODO - this should also have special_privs in it.

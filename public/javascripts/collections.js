@@ -1,6 +1,5 @@
-if (!EOL) { EOL = {}; }
-if (!EOL.show_collection_name_field) {
-  EOL.show_collection_name_field = function() {
-    $('#collection_name_field').slideDown();
-  };
-}
+$(document).ready(function() {
+  // Submit the sort when it's changed:
+  $('#sort_by').change(function() {$(this).closest('form').submit();});
+  $('input[name=commit_sort]').hide();
+});

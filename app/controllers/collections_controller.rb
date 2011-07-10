@@ -19,6 +19,7 @@ class CollectionsController < ApplicationController
   end
 
   def show
+    puts '&' * 111
     return copy if params[:commit_copy_collection_items]
     return move if params[:commit_move_collection_items]
   end
@@ -83,6 +84,7 @@ class CollectionsController < ApplicationController
 
   # /collections/choose GET
   def choose
+    puts "CHOOSE" * 20
     @action_to_take = :copy if params[:copy]
     @action_to_take = :move if params[:move]
     @selected_collection_items = params[:collection_items]
@@ -106,10 +108,7 @@ private
   # When you're going to show a bunch of collection items and provide sorting and filtering capabilities:
   def build_collection_items_with_sorting_and_filtering
     @sort_options = [SortStyle.newest, SortStyle.oldest]
-    puts "^" * 111
-    puts params[:sort_by]
     @sort_by = params[:sort_by].blank? ? SortStyle.newest.id : params[:sort_by].to_i
-    puts "--> #{ @sort_by}"
     @filter = params[:filter].blank? ? '' : params[:filter]
     @selected_collection_items = params[:collection_items] || []
     if @filter.blank?
@@ -137,19 +136,20 @@ private
 
   def no_items_selected_error(which)
     flash[:warning] = I18n.t("items_no_#{which}_none_selected_warning")
-    return redirect_to params.merge!(:action => params[:action_name] || 'show').except(*unnecessary_keys_for_redirect)
+    return redirect_to params.merge(:action => params[:action_name] || 'show').except(*unnecessary_keys_for_redirect)
   end
 
   def copy
+    puts "COPY" * 25
     return no_items_selected_error(:copy) if params[:collection_items].nil? or params[:collection_items].empty?
-    return redirect_to params.merge!(:action => 'choose', :commit => true).except(:filter, :sort_by,
-                                                                                 *unnecessary_keys_for_redirect)
+    return redirect_to params.merge(:action => 'choose', :action_to_take => 'copy').except(
+      :filter, :sort_by, *unnecessary_keys_for_redirect)
   end
 
   def move
     return no_items_selected_error(:move) if params[:collection_items].nil? or params[:collection_items].empty?
-    return redirect_to params.merge!(:action => 'choose', :commit => true).except(:filter, :sort_by,
-                                                                                 *unnecessary_keys_for_redirect)
+    return redirect_to params.merge(:action => 'choose', :action_to_take => 'move').except(
+      :filter, :sort_by, *unnecessary_keys_for_redirect)
   end
 
   def remove

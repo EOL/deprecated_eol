@@ -21,7 +21,7 @@ ActionController::Routing::Routes.draw do |map|
   map.remove_privilege_from_role 'roles/:role_id/remove_privilege/:privilege_id',
     :controller => 'roles', :action => 'remove_privilege'
 
-  map.resources :collections, :collection => { :choose => :get }
+  map.resources :collections, :member => { :choose => :get }
   map.resources :collection_items, :except => [:index, :show, :new, :edit]
 
   #used in collections show page, click on left tabs
@@ -175,7 +175,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/index', :controller => 'content', :action => 'index'
   map.connect ':id', :id => /\d+/,  :controller => 'taxa', :action => 'show' # only a number passed in to the root of the web, then assume a specific taxon concept ID
   map.connect ':id', :id => /[A-Za-z0-9% ]+/,  :controller => 'taxa', :action => 'search'  # if text, then go to the search page
-  
+
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'

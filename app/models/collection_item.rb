@@ -13,13 +13,10 @@ class CollectionItem < ActiveRecord::Base
     :message => I18n.t(:item_not_added_already_in_collection)
 
   def self.custom_sort(collection_items, sort_by)
-    puts "&" * 111
     case sort_by
     when SortStyle.newest.id
-      puts "newest"
       collection_items.sort_by(&:created_at).reverse
     else # THIS IS THE DEAFULT... but if you want to change it, then: when SortStyle.oldest.id
-      puts "oldest"
       collection_items.sort_by(&:created_at)
     end
    end

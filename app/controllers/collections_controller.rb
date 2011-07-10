@@ -108,7 +108,7 @@ private
   # When you're going to show a bunch of collection items and provide sorting and filtering capabilities:
   def build_collection_items_with_sorting_and_filtering
     @sort_options = [SortStyle.newest, SortStyle.oldest]
-    @sort_by = params[:sort_by].blank? ? SortStyle.newest.id : params[:sort_by].to_i
+    @sort_by = params[:sort_by].blank? ? @collection.sort_style_id : params[:sort_by].to_i
     @filter = params[:filter].blank? ? '' : params[:filter]
     @selected_collection_items = params[:collection_items] || []
     if @filter.blank?

@@ -9,7 +9,7 @@ class CollectionsController < ApplicationController
   before_filter :find_collection, :except => [:index, :new, :create]
   before_filter :find_parent, :only => [:index, :show]
   before_filter :find_parent_for_current_user_only, :except => [:index, :show, :collect, :watch]
-  before_filter :build_collection_items_with_sorting_and_filtering, :only => [:show, :edit]
+  before_filter :build_collection_items_with_sorting_and_filtering, :only => [:show, :edit, :update]
 
   layout 'v2/collections'
 
@@ -19,7 +19,6 @@ class CollectionsController < ApplicationController
   end
 
   def show
-    puts '&' * 111
     return copy if params[:commit_copy_collection_items]
     return move if params[:commit_move_collection_items]
   end
@@ -84,7 +83,6 @@ class CollectionsController < ApplicationController
 
   # /collections/choose GET
   def choose
-    puts "CHOOSE" * 20
     @action_to_take = :copy if params[:copy]
     @action_to_take = :move if params[:move]
     @selected_collection_items = params[:collection_items]
@@ -97,7 +95,7 @@ private
 
   def find_collection
     begin
-      @collection = Collection.find(params[:id])
+      @collection = Collection.find(params[:id], :include => :collection_items)
     rescue ActiveRecord::RecordNotFound
       flash[:error] = I18n.t(:collection_not_found_error)
       return redirect_back_or_default
@@ -140,7 +138,6 @@ private
   end
 
   def copy
-    puts "COPY" * 25
     return no_items_selected_error(:copy) if params[:collection_items].nil? or params[:collection_items].empty?
     return redirect_to params.merge(:action => 'choose', :action_to_take => 'copy').except(
       :filter, :sort_by, *unnecessary_keys_for_redirect)
@@ -154,8 +151,23 @@ private
 
   def remove
     return no_items_selected_error(:remove) if params[:collection_items].nil? or params[:collection_items].empty?
-    # TODO: delete collection items
-    flash[:notice] = 'NOT YET IMPLEMENTED'
+    count = 0
+    puts "=" * 111
+    puts "P: " + params['collection_items'].join(', ')
+    puts "CI: #{@collection_items.map(&:id).join(', ')}"
+    @collection_items.select {|ci| params['collection_items'].include?(ci.id.to_s) }.each do |item|
+      puts "- Removing one...."
+      if item.update_attribute(:collection_id, nil) # Not actually destroyed, so that we can talk about it in feeds.
+        puts "Worked"
+        count += 1
+        CollectionActivityLog.create(:collection => @collection, :user => current_user,
+                                     :activity => Activity.remove, :collection_item => item)
+      else
+        puts "Didn't work."
+      end
+    end
+    @collection_items.delete_if {|ci| params['collection_items'].include?(ci.id.to_s) }
+    flash[:notice] = I18n.t(:removed_count_items_from_collection_notice, :count => count)
     return redirect_to request.referer
   end
 
@@ -195,7 +207,7 @@ private
 
   def find_parent
     if params[:collection_id]
-      @parent = Collection.find(params[:collection_id])
+      @parent = Collection.find(params[:collection_id], :include => :collection_items)
     else
       @parent = params[:user_id] ? User.find(params[:user_id]) : current_user
     end
@@ -203,7 +215,7 @@ private
 
   def find_parent_for_current_user_only
     if params[:collection_id]
-      @parent = Collection.find(params[:collection_id])
+      @parent = Collection.find(params[:collection_id], :include => :collection_items)
     else
       @parent = current_user
     end

@@ -1574,6 +1574,7 @@ en:
   remove_: "remove"
   remove: "Remove"
   remove_selected_button: "Remove selected"
+  removed_count_items_from_collection_notice: "%{count} items have been removed from this collection."
   request_an_api_key_optional: "Request an API key (optional)"
   request_mailing_list_: "Request Mailing List:"
   request: "Request"

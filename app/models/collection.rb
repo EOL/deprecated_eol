@@ -6,7 +6,7 @@ class Collection < ActiveRecord::Base
   belongs_to :community # These are focus lists
 
   has_many :collection_items
-  accepts_nested_attributes_for :collection_items, :allow_destroy => true, :reject_if => :all_blank
+  accepts_nested_attributes_for :collection_items
 
   has_many :collection_endorsements
   has_many :comments, :as => :parent

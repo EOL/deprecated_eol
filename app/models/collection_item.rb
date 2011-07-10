@@ -19,6 +19,13 @@ class CollectionItem < ActiveRecord::Base
     else # THIS IS THE DEAFULT... but if you want to change it, then: when SortStyle.oldest.id
       collection_items.sort_by(&:created_at)
     end
-   end
+  end
+
+  # Using has_one :through didn't work:
+  def community
+    return nil unless collection
+    return nil unless collection.community
+    return collection.community
+  end
 
 end

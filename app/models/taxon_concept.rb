@@ -1214,7 +1214,7 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def communities
-    @communities ||= collection_items.map {|i| i.collection.community_id.nil? ? nil : i.collection.community }.compact
+    @communities ||= collection_items.map {|i| i.community }.compact
   end
 
   # TODO - This is terribly inefficient and shoud probably do most of the work via direct SQL or something...

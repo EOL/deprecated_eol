@@ -184,6 +184,7 @@ class AccountController < ApplicationController
       current_user.log_activity(:updated_profile)
       alter_current_user do |user|
         user.update_attributes(params[:user])
+        upload_logo(user) unless params[:user][:logo].blank?
       end
       flash[:notice] =  I18n.t(:your_preferences_have_been_updated)
     end

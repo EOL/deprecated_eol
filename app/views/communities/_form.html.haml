@@ -6,7 +6,8 @@
     = f.text_field :name
     = f.label :description,  I18n.t(:community_form_description_label)
     = f.text_area :description
-    %p
-    = f.file_field :logo, :size=>10 # for primary image upload
+    %h4= I18n.t(:primary_image_header)
+    = f.label :logo, I18n.t(:primary_image_choose)
+    = f.file_field :logo, :size=>25
   - submit_label ||= I18n.t(:save)
   = submit_tag(submit_label)

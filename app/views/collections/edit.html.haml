@@ -47,7 +47,7 @@
 
             - # FIXME: Users need to be able to choose an image for a collection
             %h4= I18n.t(:primary_image_header)
-            %p= link_to I18n.t(:primary_image_choose), "/placeholder"
+            = collection_form.label :logo, I18n.t(:primary_image_choose)
             = collection_form.file_field :logo, :size=>10
         .collection_contributors
           = render :partial => 'collections/managed_by', :locals => { :collection => @collection }

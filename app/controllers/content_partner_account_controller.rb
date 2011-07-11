@@ -18,7 +18,7 @@ class ContentPartnerAccountController < ApplicationController
       params[:user].delete(:content_partner)
       alter_current_user do |user|
         user.update_attributes(params[:user])
-        upload_logo(user) unless user.logo_file_name.blank?
+        upload_logo(user) unless params[:user][:logo].blank?
       end
       current_user.content_partner.log_completed_step!('partner')
       redirect_to(:action => 'dashboard')

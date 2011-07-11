@@ -9,7 +9,7 @@ class AddDefaultSortToCollections < ActiveRecord::Migration
       t.references :sort_style, :null => false
     end
     add_column :collections, :sort_style_id, :integer, :null => true
-    SortStyle.create_defaults
+    SortStyle.create_defaults if Language.english
   end
 
   def self.down

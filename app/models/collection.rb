@@ -5,17 +5,18 @@ class Collection < ActiveRecord::Base
   belongs_to :user
   belongs_to :community # These are focus lists
 
-  has_many :collection_endorsements
   has_many :collection_items
   alias :items :collection_items
   accepts_nested_attributes_for :collection_items, :allow_destroy => true, :reject_if => :all_blank
-  has_many :comments, :as => :parent
-  has_many :communities, :through => CollectionEndorsement # NOTE: be sure to check each for actually being endorsed!
 
-  # TODO = you can have collections that point to collections, so there SHOULD be a has_many relationship here to all of the
-  # collection items that contain this collection.  ...I don't know if we need that yet, but it would normally be named
-  # "collection_items", which doesn't work (because we're using that for THIS collection's children)... so we will have to
-  # re-name it and make it slightly clever.
+  has_many :collection_endorsements
+  has_many :comments, :as => :parent
+  has_many :communities, :through => CollectionEndorsement
+
+  # TODO = you can have collections that point to collections, so there SHOULD be a has_many relationship here to all
+  # of the collection items that contain this collection.  ...I don't know if we need that yet, but it would normally
+  # be named "collection_items", which doesn't work (because we're using that for THIS collection's children)... so
+  # we will have to re-name it and make it slightly clever.
 
   validates_presence_of :name
 

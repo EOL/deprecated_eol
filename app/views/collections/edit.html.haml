@@ -25,29 +25,30 @@
       #tabs_sidebar
         = render :partial => 'collections/filter_by_item_type'
       #sidebar
-        .filters
-          %h4= I18n.t(:collect_items)
-          %fieldset.actions
-            = submit_tag I18n.t(:select_all_button), :name => :commit_select_all
-            = submit_tag I18n.t(:copy_selected_button), :name => :commit_copy_collection_items
-            = submit_tag I18n.t(:move_selected_button), :name => :commit_move_collection_items
-            = submit_tag I18n.t(:remove_selected_button), :name => :commit_remove_collection_items
+        - unless @collection_items.empty?
+          .filters
+            %h4= I18n.t(:collect_items)
+            %fieldset.actions
+              = submit_tag I18n.t(:select_all_button), :name => :commit_select_all
+              = submit_tag I18n.t(:copy_selected_button), :name => :commit_copy_collection_items
+              = submit_tag I18n.t(:move_selected_button), :name => :commit_move_collection_items
+              = submit_tag I18n.t(:remove_selected_button), :name => :commit_remove_collection_items
 
-          - # FIXME: users need to be able to set the default sort order for a collection
-          %h4= I18n.t(:default_sorting_header)
-          %fieldset
-            %legend.assistive= I18n.t(:default_sorting_legend)
-            - sort_options = { I18n.t(:sort_by_recently_added_option) => :newest, I18n.t(:sort_by_oldest_option) => :oldest }
-            - selected = 'FIXME'
-            = label_tag :default_sorting, I18n.t(:default_sorting_label), :class => 'assistive'
-            = select_tag :default_sorting, options_for_select(sort_options, selected)
-          %fieldset.actions
-            = submit_tag I18n.t(:default_sorting_submit_button), :name => :commit_collection_default_sorting
+            - # FIXME: users need to be able to set the default sort order for a collection
+            %h4= I18n.t(:default_sorting_header)
+            %fieldset
+              %legend.assistive= I18n.t(:default_sorting_legend)
+              - sort_options = { I18n.t(:sort_by_recently_added_option) => :newest, I18n.t(:sort_by_oldest_option) => :oldest }
+              - selected = 'FIXME'
+              = label_tag :default_sorting, I18n.t(:default_sorting_label), :class => 'assistive'
+              = select_tag :default_sorting, options_for_select(sort_options, selected)
+            %fieldset.actions
+              = submit_tag I18n.t(:default_sorting_submit_button), :name => :commit_collection_default_sorting
 
-          - # FIXME: Users need to be able to choose an image for a collection
-          %h4= I18n.t(:primary_image_header)
-          %p= link_to I18n.t(:primary_image_choose), "/placeholder"
-          = collection_form.file_field :logo, :size=>10
+            - # FIXME: Users need to be able to choose an image for a collection
+            %h4= I18n.t(:primary_image_header)
+            %p= link_to I18n.t(:primary_image_choose), "/placeholder"
+            = collection_form.file_field :logo, :size=>10
         .collection_contributors
           = render :partial => 'collections/managed_by', :locals => { :collection => @collection }
         - if @collection.collection_endorsements.count > 0

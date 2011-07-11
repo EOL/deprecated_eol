@@ -1,7 +1,7 @@
 - data_object ||= @data_object
 - unless data_object.nil? || data_object.description.empty? || data_object.description.blank?
   - show_references = true if show_references.nil?
-  .description
+  .copy
     = data_object.description.balance_tags
   - if show_references && ! data_object.refs.blank?
     .references

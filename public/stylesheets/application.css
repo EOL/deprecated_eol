@@ -1138,15 +1138,39 @@ body > #header {
     position: absolute;
     right: 10px;
     top: 4px; }
+#collections_tab .updates {
+  padding: 20px 0 0 0; }
+  #collections_tab .updates form.comment {
+    padding-right: 0; }
+    #collections_tab .updates form.comment textarea {
+      width: 598px; }
+  #collections_tab .updates ul.feed {
+    margin: 0 0 20px 0; }
+    #collections_tab .updates ul.feed li {
+      padding: 20px;
+      border-bottom: 1px solid #d4dce2; }
+  #collections_tab .updates p.more {
+    font-size: 1.16em;
+    font-weight: bold;
+    text-align: center; }
 
 #community {
   padding: 20px; }
   #community .heading {
     overflow: hidden;
-    border: none; }
+    border-width: 0; }
     #community .heading h3 {
       float: left;
       padding: 5px 0 0 0; }
+  #community .article.list {
+    padding: 0 0 40px 0; }
+    #community .article.list .heading {
+      border-bottom-width: 1px; }
+    #community .article.list li {
+      padding: 10px 20px;
+      border-bottom: 1px solid #d4dce2; }
+      #community .article.list li .meta {
+        padding: 0; }
   #community .article.updates {
     padding: 0 0 25px 0; }
     #community .article.updates li {
@@ -1629,6 +1653,8 @@ body > #header {
   border: 1px solid #93a4b0; }
   #worklist #task .media {
     margin: 0 0 20px 0; }
+  #worklist #task .ratings {
+    overflow: hidden; }
   #worklist #task .rating,
   #worklist #task .average_rating {
     float: left;
@@ -1640,12 +1666,10 @@ body > #header {
     #worklist #task .rating h5,
     #worklist #task .average_rating h5 {
       float: left;
-      padding: 0 10px 0 0;
+      padding: 2px 10px 0 0;
       font-size: 1.16em; }
     #worklist #task .rating p,
     #worklist #task .average_rating p {
-      float: none;
-      overflow: hidden;
       padding: 3px 10px 0 0;
       font-size: 12px; }
     #worklist #task .rating .rating,
@@ -1661,6 +1685,7 @@ body > #header {
       #worklist #task .average_rating .rating p {
         float: left;
         height: 17px;
+        padding: 0;
         background-image: url("/images/v2/icon_permalink-stars.png"); }
   #worklist #task .rating {
     float: right;
@@ -1711,34 +1736,46 @@ body > #header {
       top: 15px;
       z-index: 1;
       font-weight: bold; }
-  #media_list #main li {
+  #media_list #main > ul > li {
     float: left;
     width: 160px;
     padding: 0 0 30px 20px; }
-    #media_list #main li img {
+    #media_list #main > ul > li img {
       display: block;
       margin: 0 0 5px 0; }
-    #media_list #main li .average_rating {
+    #media_list #main > ul > li .ratings > .rating {
+      display: none;
       float: left;
       margin: 0 0 5px 0; }
-    #media_list #main li p.flag {
+    #media_list #main > ul > li .ratings:hover .average_rating {
+      display: none; }
+    #media_list #main > ul > li .ratings:hover > .rating {
+      display: block; }
+    #media_list #main > ul > li .ratings.rated > .rating {
+      display: block; }
+    #media_list #main > ul > li .ratings.rated .average_rating {
+      display: none; }
+    #media_list #main > ul > li .average_rating {
+      float: left;
+      margin: 0 0 5px 0; }
+    #media_list #main > ul > li p.flag {
       float: right;
       padding: 1px 2px;
       font-size: 0.75em;
       text-transform: uppercase;
       color: white; }
-      #media_list #main li p.flag.trusted {
+      #media_list #main > ul > li p.flag.trusted {
         border: 1px solid #6b7910;
         background: #849513; }
-      #media_list #main li p.flag.unreviewed {
+      #media_list #main > ul > li p.flag.unreviewed {
         border: 1px solid #677682;
         background: #8695a1; }
-    #media_list #main li a.button {
+    #media_list #main > ul > li a.button {
       clear: both;
       float: left;
       padding: 4px 10px;
       font-size: 0.92em; }
-    #media_list #main li.first {
+    #media_list #main > ul > li.first {
       clear: both;
       padding-left: 0; }
 
@@ -1761,3 +1798,71 @@ body > #header {
       #search_results #main .header a.prev {
         right: auto;
         left: 10px; }
+
+#endorse {
+  width: 700px;
+  padding: 20px 0 0 0;
+  margin: 0 auto; }
+  #endorse h3 {
+    border: none; }
+  #endorse li {
+    overflow: hidden;
+    padding: 10px;
+    border-bottom: 1px solid #d7dadc; }
+    #endorse li img {
+      float: right;
+      border: 1px solid #394651; }
+    #endorse li span.icon {
+      float: left;
+      width: 68px;
+      height: 68px;
+      margin: 0 20px 0 0;
+      border: 1px solid #cad3db;
+      background: #f3f7fa url("/images/v2/icon_communities_tabs.png") 50% 50% no-repeat; }
+    #endorse li p {
+      padding: 6px 0 0 0;
+      font-weight: bold;
+      line-height: 160%;
+      color: #5f6c76; }
+    #endorse li h4 {
+      padding: 15px 0 0 0; }
+    #endorse li a {
+      display: block;
+      font-size: 1.16em;
+      text-decoration: none;
+      color: #28323a; }
+
+#taxon_community {
+  padding: 0;
+  border: none; }
+  #taxon_community .column {
+    float: left;
+    padding: 0 0 40px 0;
+    margin: 0 20px 0 0; }
+    #taxon_community .column .summary {
+      padding: 10px;
+      border-left: 2px solid #cad3db; }
+      #taxon_community .column .summary h3 {
+        padding: 0 0 5px 0;
+        font-size: 1.33em; }
+      #taxon_community .column .summary p {
+        line-height: 200%; }
+    #taxon_community .column .article {
+      padding: 0 0 25px 0; }
+      #taxon_community .column .article ul {
+        padding: 10px 0 0 10px; }
+      #taxon_community .column .article p.more {
+        padding: 0 0 0 10px;
+        font-weight: bold; }
+    #taxon_community .column .header {
+      margin: 0; }
+    #taxon_community .column .heading form {
+      float: none; }
+    #taxon_community .column.curators {
+      clear: both;
+      width: 220px; }
+    #taxon_community .column.collections {
+      width: 340px; }
+    #taxon_community .column.communities {
+      width: 340px;
+      margin: 0; }

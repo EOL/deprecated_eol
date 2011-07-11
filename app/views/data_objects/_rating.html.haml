@@ -3,20 +3,22 @@
 - average_rating = data_object.data_rating || 0
 - user_rating = data_object.rating_from_user(current_user).rating if data_object.rating_from_user(current_user)
 - user_rating ||= 0
-.average_rating
-  %h5<
-    = I18n.t("#{en_type}_rating")
+- minimal ||= false
+- assistive = minimal ? 'assistive' : nil
+.ratings
+  .average_rating
+    %h5{ :class => assistive }= I18n.t("#{en_type}_rating")
+    .rating
+      %p{:style => "width: #{average_rating * 20}%"}<
+        = I18n.t("average_rating_value_of_total", :rating => average_rating, :total => total)
+    %p{ :class => assistive }= I18n.t(:rated_by_count_people, :count => data_object.users_data_objects_ratings.count)
   .rating
-    %p{:style => "width: #{average_rating * 20}%"}<
-      = I18n.t("average_rating_value_of_total", :rating => average_rating, :total => total)
-  %p= I18n.t(:rated_by_count_people, :count => data_object.users_data_objects_ratings.count)
-.rating
-  %h5= I18n.t(:your_rating)
-  %ul
-    %li{:class => "current_rating_#{user_rating}"}<
-      = I18n.t("your_current_rating_#{user_rating}_of_#{total}")
-    - total.times do |i|
-      - rating = i + 1
-      %li
-        = link_to I18n.t("change_rating_to_#{i + 1}_of_#{total}"),
-          rate_data_object_path(data_object, :stars => rating, :return_to => current_url), :class => "star_#{rating}"
+    %h5{ :class => assistive }= I18n.t(:your_rating)
+    %ul
+      %li{:class => "current_rating_#{user_rating}"}<
+        = I18n.t("your_current_rating_#{user_rating}_of_#{total}")
+      - total.times do |i|
+        - rating = i + 1
+        %li
+          = link_to I18n.t("change_rating_to_#{i + 1}_of_#{total}"),
+            rate_data_object_path(data_object, :stars => rating, :return_to => current_url), :class => "star_#{rating}"

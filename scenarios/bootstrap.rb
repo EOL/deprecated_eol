@@ -21,7 +21,11 @@ include EOL::Spec::Helpers
 def bootstrap_users
   @@bootstrap_users ||= []
   return @@bootstrap_users unless @@bootstrap_users.length == 0
-  12.times { @@bootstrap_users << User.gen }
+  12.times do
+    u = User.gen
+    @@bootstrap_users << u
+    u.build_watch_collection
+  end
   return @@bootstrap_users
 end
 
@@ -234,7 +238,6 @@ bootstrap_toc
 load_old_foundation_data
 
 
-
 # TODO - I am neglecting to set up agent content partners, curators, contacts, provided data types, or agreements.  For now.
 agent_col = Agent.catalogue_of_life
 agent_col.user ||= User.gen
@@ -375,6 +378,7 @@ add_comments_and_tags_to_reharvested_data_objects(tc31)
 
 #32
 user = User.gen
+user.build_watch_collection
 overv = TocItem.find_by_translated(:label, 'Overview')
 desc = TocItem.find_by_translated(:label, 'Description')
 tc = build_taxon_concept(:toc => [{:toc_item => overv}, {:toc_item => overv}, {:toc_item => desc}], :comments => [{}])
@@ -399,6 +403,7 @@ DataObjectsInfoItem.gen(:data_object => tc.overview.last, :info_item => InfoItem
 
 # create a content_partner that we can log in as for testing (user:password = testcp:testcp)
 cp_user = User.gen(:username => 'testcp', :password => 'testcp', :given_name => 'Ralph', :family_name => 'Wiggum', :display_name => 'Test Content Partner')
+cp_user.build_watch_collection
 cp = ContentPartner.gen(:user => cp_user,
                         :partner_seen_step => '2009-10-21 10:00:00',
                         :partner_complete_step => '2009-10-21 10:00:00',
@@ -453,6 +458,7 @@ build_hierarchy_entry 0, tc, name, :hierarchy => gbif_hierarchy, :identifier => 
 # Generate a default admin user and then set them up for the default roles:
 admin = User.gen :username => 'admin', :password => 'admin', :given_name => 'Admin', :family_name => 'User'
 admin.approve_to_administrate
+admin.build_watch_collection
 
 exemplar = build_taxon_concept(:id => 910093, # That ID is one of the (hard-coded) exemplars.
                                :event => event,

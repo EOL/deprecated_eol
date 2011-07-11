@@ -42,7 +42,7 @@ class Taxa::MediaController < TaxaController
       (@sort_by == 'status' && (@params_type.include?('all') || @params_type.include?('images'))))
 
     @sort_by ||= 'status'
-
+    @media_total = @media.count
     @media = @media.paginate(:page => params[:page] || 1, :per_page => $MAX_IMAGES_PER_PAGE)
 
     @watch_collection = logged_in? ? current_user.watch_collection : nil

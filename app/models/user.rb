@@ -35,7 +35,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   belongs_to :default_hierarchy, :class_name => Hierarchy.to_s, :foreign_key => :default_hierarchy_id
   # I wish these worked, but they need runtime evaluation.
   #has_one :watch_collection, :class_name => 'Collection', :conditions => { :special_collection_id => SpecialCollection.watch.id }
-  #has_one :inbox_collection, :class_name => 'Collection', :conditions => { :special_collection_id => SpecialCollection.inbox.id }
 
   before_save :check_credentials
 
@@ -238,15 +237,14 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     self.update_attributes(:active => true)
     Notifier.deliver_welcome_registration(self)
     build_watch_collection
-    build_inbox_collection
   end
 
+  # Checks to see if one already exists (DO NOT use #watch_collection to do this, recursive!), and builds one if not:
   def build_watch_collection
-    Collection.create(:name => "#{self.username.titleize}'s Watched Items", :special_collection_id => SpecialCollection.watch.id, :user_id => self.id)
-  end
-
-  def build_inbox_collection
-    Collection.create(:name => "#{self.username.titleize}'s Inbox Collection", :special_collection_id => SpecialCollection.inbox.id, :user_id => self.id)
+    c = Collection.count(:conditions => {:special_collection_id => SpecialCollection.watch.id, :user_id => self.id})
+    if c == 0
+      Collection.create(:name => "#{self.username.titleize}'s Watched Items", :special_collection_id => SpecialCollection.watch.id, :user_id => self.id)
+    end
   end
 
   def password
@@ -451,12 +449,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def watch_collection
     collection = Collection.find_by_user_id_and_special_collection_id(self.id, SpecialCollection.watch.id)
     collection ||= build_watch_collection
-    collection
-  end
-
-  def inbox_collection
-    collection = Collection.find_by_user_id_and_special_collection_id(self.id, SpecialCollection.inbox.id)
-    collection ||= build_inbox_collection
     collection
   end
 

@@ -11,6 +11,35 @@
  * so I am temporarily adding some CSS here needed for V2 demo. This CSS should be integrated
  * into HashRocket SASS if it is still needed when design work is complete.
  */
+.pagination
+  text-align: right
+  a
+    text-decoration: none
+    font-weight: bold
+  .prev_page
+    float: left
+  .next_page
+    margin-left: 10px
+  .disabled
+    color: #616e7a
+#main
+  .footer
+    clear: both
+    border-top: 1px solid #000
+    padding: 10px 0
+    margin: 20px 0 0 0
+#main
+  .header
+    .pagination
+      position: absolute
+      top: 13px
+      left: 0
+      width: 100%
+      a
+        position: relative !important /* Override HR */
+        top: 0 !important /* Override HR */
+        left: 0 !important /* Override HR */
+
 .exemplars, .partners
   ul
     img
@@ -27,26 +56,37 @@ p.status.error
         border: 1px solid #677682
         background: #8695A1
 #media_list
-  #main
-    li
-      position: relative
-      p.audio
-        position: absolute
-        top: 65px
-        left: 20px
+  #main>ul
+    >li
+      .audio
+        position: relative
+        background: #394651 url('/images/v2/icon_sound_tabs.png') no-repeat 50% 20%
         width: 160px
+        height: 123px
+        margin: 0 0 5px 0
         text-align: center
-        z-index: 5
-        a
-          color: #e2e9ef
-      audio
-        background: #394651 url('/images/v2/temporary_for_mockup/icon_sound.png') no-repeat 50% 20%
-        width: 160px
-        height: 125px
+        overflow: hidden
+        p
+          padding: 50px 5px 40px
+          a
+            color: #e2e9ef
+        audio
+          position: absolute
+          left: 0
+          bottom: 0
+          width: 160px
+          z-index: 1
       p.flag.unknown /*should match unreviewed*/
         border: 1px solid #677682
         background: #8695A1
-
+      >a
+        display: inline-block
+        width: 160px
+        height: 125px
+        overflow: hidden
+      form
+        display: block
+        clear: both
 #taxonomy_detail
   .average_rating
     h5

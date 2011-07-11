@@ -106,7 +106,7 @@ private
   # When you're going to show a bunch of collection items and provide sorting and filtering capabilities:
   def build_collection_items_with_sorting_and_filtering
     @sort_options = [SortStyle.newest, SortStyle.oldest]
-    @sort_by = params[:sort_by].blank? ? @collection.sort_style_id : params[:sort_by].to_i
+    @sort_by = SortStyle.find(params[:sort_by].blank? ? @collection.sort_style : params[:sort_by])
     @filter = params[:filter].blank? ? '' : params[:filter]
     @selected_collection_items = params[:collection_items] || []
     if @filter.blank?
@@ -152,9 +152,6 @@ private
   def remove
     return no_items_selected_error(:remove) if params[:collection_items].nil? or params[:collection_items].empty?
     count = 0
-    puts "=" * 111
-    puts "P: " + params['collection_items'].join(', ')
-    puts "CI: #{@collection_items.map(&:id).join(', ')}"
     @collection_items.select {|ci| params['collection_items'].include?(ci.id.to_s) }.each do |item|
       puts "- Removing one...."
       if item.update_attribute(:collection_id, nil) # Not actually destroyed, so that we can talk about it in feeds.

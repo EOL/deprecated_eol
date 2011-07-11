@@ -110,7 +110,7 @@ describe Collection do
     collection.add(@test_data[:data_object])
     collection.add(@test_data[:community])
     collection.add(@test_data[:collection])
-    
+
     collection_items_taxa_only = collection.filter_type("taxa").compact
     collection_items_images_only = collection.filter_type("images").compact
     collection_items_communities_only = collection.filter_type("communities").compact
@@ -161,14 +161,6 @@ describe Collection do
 
     it 'should NOT be editable by someone else' do
       @users_collection.editable_by?(@someone_else).should_not be_true
-    end
-
-    it 'should NOT be editable if a watch collection' do
-      @owner.watch_collection.editable_by?(@owner).should_not be_true
-    end
-
-    it 'should NOT be editable if a focus collection' do
-      @community.focus.editable_by?(@owner).should_not be_true
     end
 
     it 'should NOT be editable if the user cannot edit the community' do

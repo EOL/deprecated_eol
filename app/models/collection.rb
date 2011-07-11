@@ -4,6 +4,7 @@ class Collection < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :community # These are focus lists
+  belongs_to :sort_style
 
   has_many :collection_items
   accepts_nested_attributes_for :collection_items

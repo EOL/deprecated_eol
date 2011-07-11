@@ -357,11 +357,12 @@ Factory.define :canonical_form do |cform|
   cform.string { Factory.next(:species) }
 end
 
-Factory.define :collection do |l|
-  l.name                  { Factory.next(:string) }
-  l.published             false
-  l.special_collection_id nil
-  l.association           :user
+Factory.define :collection do |c|
+  c.name                  { Factory.next(:string) }
+  c.published             false
+  c.special_collection_id nil
+  c.association           :sort_style
+  c.association           :user
 end
 
 Factory.define :collection_activity_log do |cal|
@@ -369,6 +370,12 @@ Factory.define :collection_activity_log do |cal|
   cal.association :collection
   cal.activity    { Activity.create }
   cal.created_at  { 5.days.ago }
+end
+
+Factory.define :collection_item do |ci|
+  ci.association :collection
+  ci.association :object, :factory => :data_object
+  ci.created_at  { 5.minutes.ago }
 end
 
 Factory.define :collection_type do |ct|
@@ -858,6 +865,9 @@ Factory.define :site_configuration_option do |sco|
   sco.value           { true }
 end
 
+Factory.define :sort_style do |sc|
+end
+
 Factory.define :special_collection do |sc|
   sc.name             { Factory.next(:string) }
 end
@@ -1058,6 +1068,12 @@ Factory.define :translated_service_type do |r|
   r.association     :service_type
   r.language        { Language.english }
   r.label           { Factory.next(:string) }
+end
+
+Factory.define :translated_sort_style do |r|
+  r.association :sort_style
+  r.language    { Language.english }
+  r.name        { Factory.next(:string) }
 end
 
 Factory.define :translated_status do |r|

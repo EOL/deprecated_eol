@@ -89,14 +89,18 @@ describe "Collections and collecting:" do
       visit collection_path(@collection)
       click_button 'Select all'
       click_button 'Copy selected'
-      body.should have_tag('h1', 'Choose collection')
+      body.should have_tag('#collections') do
+        with_tag('input[value=?]', @user.watch_collection.name)
+      end
     end
 
     it 'should be able to copy collection items to a new collection' do
       visit collection_path(@collection)
       click_button 'Select all'
       click_button 'Copy selected'
-      body.should have_tag('h1', 'Choose collection')
+      body.should have_tag('#collections') do
+        with_tag('form.new_collection')
+      end
     end
   end
 

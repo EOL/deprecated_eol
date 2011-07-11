@@ -14,9 +14,9 @@ class CollectionItem < ActiveRecord::Base
 
   def self.custom_sort(collection_items, sort_by)
     case sort_by
-    when SortStyle.newest.id
+    when SortStyle.newest
       collection_items.sort_by(&:created_at).reverse
-    else # THIS IS THE DEAFULT... but if you want to change it, then: when SortStyle.oldest.id
+    else # THIS IS THE DEFAULT... but if you want to change it, then: when SortStyle.oldest
       collection_items.sort_by(&:created_at)
     end
   end

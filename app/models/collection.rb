@@ -85,7 +85,7 @@ class Collection < ActiveRecord::Base
   end
 
   def logo_url(size = 'large')
-    logo_cache_url.blank? ? "v2/logos/empty_collection.png" : ContentServer.agent_logo_path(logo_cache_url, size)
+    logo_cache_url.blank? ? "v2/logos/empty_collection.png" : ContentServer.logo_path(logo_cache_url, size)
   end
 
   def taxa

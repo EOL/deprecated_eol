@@ -10,7 +10,7 @@ class ContentServer
     return $CONTENT_SERVERS[@@next]
   end
 
-  def self.agent_logo_path(url, size = nil)
+  def self.logo_path(url, size = nil)
     return self.blank if url.blank?
     logo_size = (size == "large") ? "_large.png" : "_small.png"
     if $CONTENT_SERVER_AGENT_LOGOS_PATH =~ /^http/

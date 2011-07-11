@@ -60,11 +60,11 @@ class Agent < SpeciesSchemaModel
 
   # override the logo_url column in the database to contruct the path on the content server
   def logo_url(size = 'large')
-    ContentServer.agent_logo_path(self.attributes['logo_cache_url'], size)
+    ContentServer.logo_path(self.attributes['logo_cache_url'], size)
   end
 
   def self.logo_url_from_cache_url(logo_cache_url, size = 'large')
-    ContentServer.agent_logo_path(logo_cache_url, size)
+    ContentServer.logo_path(logo_cache_url, size)
   end
 
   def shortened_full_name

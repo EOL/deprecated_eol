@@ -237,15 +237,28 @@ class ContentController < ApplicationController
 
     unless read_fragment(:controller => 'content', :part => @page_id + "_" + current_user.language_abbr)
       if @page_id.is_int?
-        @content = ContentPage.get_by_id_and_language_abbr(@page_id, current_user.language_abbr)
+        @content = ContentPage.find_by_id(@page_id)
       else # assume it's a page name
         page_name = @page_id.gsub(' ', '_').gsub('_', ' ')
-        @content = ContentPage.get_by_page_name_and_language_abbr(page_name, current_user.language_abbr)
+        @content = ContentPage.find_by_page_name(page_name)
       end
 
-      raise "static page content #{@page_id} for #{current_user.language_abbr} not found" if @content.nil?
-      @navigation_tree_breadcrumbs = ContentPage.get_navigation_tree_with_links(@content.id)
-      @page_title = @content.title
+      if @content.nil?
+        raise "static page content #{@page_id} for #{current_user.language_abbr} not found"
+      else
+        @navigation_tree_breadcrumbs = ContentPage.get_navigation_tree_with_links(@content.id)
+        current_language = Language.find_by_iso_639_1(current_user.language_abbr)
+        @translated_content = TranslatedContentPage.find_by_content_page_id_and_language_id(@content.id, current_language.id)
+        if @translated_content.nil?
+          @page_title = I18n.t("cms_missing_content_title")
+          @translated_pages = TranslatedContentPage.find_all_by_content_page_id(@content.id)
+        else
+          @page_title = @translated_content.title
+        end
+          
+      end
+      
+      
 
       # if this static page is simply a redirect, then go there
       current_user.log_activity(:viewed_content_page_id, :value => @page_id)

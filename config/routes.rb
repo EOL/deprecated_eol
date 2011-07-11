@@ -35,7 +35,7 @@ ActionController::Routing::Routes.draw do |map|
   map.force_harvest_resource 'content_partner/resources/force_harvest/:id', :method => :post,
       :controller => 'resources', :action => 'force_harvest'
 
-  map.resources :comments, :member => { :make_visible => :put, :remove => :put }
+  map.resources :comments, :only => [:create]
   map.resources :random_images
   # TODO - the curate member method is not working when you use the url_for method and its derivatives.  Instead, the default
   # url of "/data_objects/curate/:id" works.  Not sure why.
@@ -175,7 +175,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/index', :controller => 'content', :action => 'index'
   map.connect ':id', :id => /\d+/,  :controller => 'taxa', :action => 'show' # only a number passed in to the root of the web, then assume a specific taxon concept ID
   map.connect ':id', :id => /[A-Za-z0-9% ]+/,  :controller => 'taxa', :action => 'search'  # if text, then go to the search page
-  
+
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'

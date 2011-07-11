@@ -1,5 +1,0 @@
-- add_wrapper ||= false
-- outer_div_options = add_wrapper ? { :id => 'taxaCommentsWrap' } : {}
-%div{outer_div_options}
-  #commentsContain
-    = render :partial => 'index_contents.js', :locals => { :body_div_name => body_div_name }

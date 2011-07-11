@@ -1,4 +1,4 @@
-- form_for @collection do |collection_form|
+- form_for @collection, :html => { :multipart => true } do |collection_form|
   = hidden_field_tag :action_name, controller.action_name
   = hidden_field_tag :filter, @filter if @filter
   #page_heading.with_image
@@ -47,6 +47,7 @@
           - # FIXME: Users need to be able to choose an image for a collection
           %h4= I18n.t(:primary_image_header)
           %p= link_to I18n.t(:primary_image_choose), "/placeholder"
+          = collection_form.file_field :logo, :size=>10
         .collection_contributors
           = render :partial => 'collections/managed_by', :locals => { :collection => @collection }
         - if @collection.collection_endorsements.count > 0

@@ -24,6 +24,15 @@ class Collection < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => [:user_id]
   validates_uniqueness_of :community_id, :if => Proc.new {|l| ! l.community_id.blank? }
 
+  has_attached_file :logo,
+    :path => $LOGO_UPLOAD_DIRECTORY,
+    :url => $LOGO_UPLOAD_PATH,
+    :default_url => "/images/blank.gif"
+
+  validates_attachment_content_type :logo,
+    :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png']
+  validates_attachment_size :logo, :in => 0..0.5.megabyte
+
   index_with_solr :keywords => [:name]
 
   def editable_by?(user)

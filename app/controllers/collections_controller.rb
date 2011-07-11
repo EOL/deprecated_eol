@@ -99,6 +99,7 @@ class CollectionsController < ApplicationController
     elsif commit == :edit
       @collection = Collection.find(params[:id])
       if @collection.update_attributes(params[:collection])
+        upload_logo(@collection)
         flash[:notice] = I18n.t(:collection_updated_notice, :collection_name => @collection.name)
       else
         flash[:error] = I18n.t(:collection_not_updated_error)

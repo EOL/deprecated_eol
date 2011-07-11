@@ -40,7 +40,7 @@ describe 'Search' do
     @user2                      = data[:user2]
     @community                  = data[:community]
     @collection                 = data[:collection]
-    
+
     Capybara.reset_sessions!
     visit('/logout')
     visit('/content_partner/logout')
@@ -119,11 +119,11 @@ describe 'Search' do
     visit("/search?q=#{@name_for_all_types}&sort_by=newest")
     newest_results = []
     page.find(:xpath, "//div[@id='main']").all(:xpath, './/li').each{ |li| newest_results << li.text }
-    
+
     visit("/search?q=#{@name_for_all_types}&sort_by=oldest")
     oldest_results = []
     page.find(:xpath, "//div[@id='main']").all(:xpath, './/li').each{ |li| oldest_results << li.text }
-    
+
     newest_results.length.should == 8
     newest_results.length.should == oldest_results.length
     newest_results.should == oldest_results.reverse
@@ -172,13 +172,13 @@ describe 'Search' do
 
 
 
-  # the following tests are for testing filtering. There is an entry for panda in each category, but only one, so 
+  # the following tests are for testing filtering. There is an entry for panda in each category, but only one, so
   # we should get redirected when the filter is on
   it 'should return all results when not filtering' do
     visit("/search?q=#{@name_for_all_types}")
     current_path.should match /^\/search/
     body.should have_tag('h2', /8 results for.*?#{@name_for_all_types}/)
-    
+
     visit("/search?q=#{@name_for_all_types}&" + CGI::escape("type[]=all"))
     current_path.should match /^\/search/
     body.should have_tag('h2', /8 results for.*?#{@name_for_all_types}/)

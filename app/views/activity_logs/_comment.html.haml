@@ -1,1 +1,5 @@
-%p= "TODO - Comment partial"
+%p
+  = "TODO"
+  = I18n.t(:user_commented_on_something_colon, :user => item.user.username, :what => item.parent.summary_name)
+  = item.body
+

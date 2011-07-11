@@ -3,7 +3,6 @@ class Community < ActiveRecord::Base
   include EOL::ActivityLoggable
 
   has_one :collection #TODO - didn't work? , :as => :focus
-  alias :focus :collection
 
   has_many :members
   has_many :roles
@@ -22,7 +21,19 @@ class Community < ActiveRecord::Base
   validates_length_of :name, :maximum => 127, :message => I18n.t(:must_be_less_than_128_characters_long)
   validates_uniqueness_of :name, :message => I18n.t(:has_already_been_taken)
 
+  has_attached_file :logo,
+    :path => $LOGO_UPLOAD_DIRECTORY,
+    :url => $LOGO_UPLOAD_PATH,
+    :default_url => "/images/blank.gif"
+
+  validates_attachment_content_type :logo,
+    :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png']
+  validates_attachment_size :logo, :in => 0..0.5.megabyte
+
   index_with_solr :keywords => [:name, :description]
+
+  alias :focus :collection
+  alias_attribute :summary_name, :name
 
   def self.special
     special = cached_find(:name, $SPECIAL_COMMUNITY_NAME) # TODO - this should also have special_privs in it.
@@ -92,7 +103,7 @@ class Community < ActiveRecord::Base
   end
 
   def logo_url(size = 'large')
-    logo_cache_url.blank? ? "v2/icon_communities_tabs.png" : ContentServer.agent_logo_path(logo_cache_url, size)
+    logo_cache_url.blank? ? "v2/icon_communities_tabs.png" : ContentServer.logo_path(logo_cache_url, size)
   end
 
   def top_active_members

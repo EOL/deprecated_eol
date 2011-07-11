@@ -62,7 +62,7 @@ class ContentPartnerController < ApplicationController
     params[:agent][:agent_data_type_ids] = [] unless params[:agent].key? :agent_data_type_ids
 
     if @agent.update_attributes(params[:agent])     
-      upload_logo(@agent) unless @agent.logo_file_name.blank?      
+      upload_logo(@agent) unless params[:agent][:logo].blank?      
       @agent.content_partner.log_completed_step!
       handle_save_type(:stay => { :action => action_name }, :next => { :action => 'add_contact' })
     end

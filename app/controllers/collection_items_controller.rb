@@ -21,7 +21,7 @@ class CollectionItemsController < ApplicationController
     if @collection_item.object_type == 'Collection' && @collection_item.object_id == @collection_item.collection.id
       flash[:notice] = I18n.t(:item_not_added_to_itself_notice, :collection_name => @collection_item.collection.name)
     elsif @collection_item.save
-      flash[:notice] = I18n.t(:item_added_to_collection_notice, :collection_name => @collection_item.collection.name)
+      flash[:notice] = I18n.t(:item_added_to_collection_notice, :collection_name => self.class.helpers.link_to(@collection_item.collection.name, collection_path(@collection_item.collection)))
     else
       # TODO: Ideally examine validation error and provide more informative error message, e.g. item is already in the collection etc
       flash[:error] = I18n.t(:item_not_added_to_collection_error)

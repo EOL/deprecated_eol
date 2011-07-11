@@ -166,7 +166,7 @@ Rails::Initializer.run do |config|
 
   # CONTENT PARTNER REGISTRY CONFIGURATION
   $LOGO_UPLOAD_PATH = "/uploads/images/collection_icons/"  # directory to place uploaded content partner logos from CP registry, content server needs SFTP access to this folder (logos are not served out of this area)
-  $LOGO_UPLOAD_DIRECTORY = "#{RAILS_ROOT}/public/uploads/images/collection_icons/:id.:extension"  # directory to place uploaded content partner logos from CP registry, content server needs SFTP access to this folder (logos are not server out of this area)
+  $LOGO_UPLOAD_DIRECTORY = "#{RAILS_ROOT}/public/uploads/images/collection_icons/:class_:id.:extension"  # directory to place uploaded content partner logos from CP registry, content server needs SFTP access to this folder (logos are not server out of this area)
   $DATASET_UPLOAD_PATH = "/uploads/datasets/"  # directory to place uploaded content partner datasets, content server needs SFTP access to this folder
   $DATASET_UPLOAD_DIRECTORY = "#{RAILS_ROOT}/public/uploads/datasets/:id.:extension"  # directory to place uploaded content partner datasets, content server needs SFTP access to this folder
 

@@ -741,6 +741,7 @@ class TaxonConcept < SpeciesSchemaModel
     final_name = scientific_name_results[0]['name'].firstcap
     return final_name
   end
+  alias :summary_name :quick_scientific_name
 
   def self.quick_scientific_names(taxon_concept_ids, hierarchy = nil)
     concept_entries = self.entries_for_concepts(taxon_concept_ids, hierarchy)
@@ -1213,7 +1214,7 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def communities
-    @communities ||= collection_items.map {|i| i.collection.community_id.nil? ? nil : i.collection.community }.compact
+    @communities ||= collection_items.map {|i| i.community }.compact
   end
 
   # TODO - This is terribly inefficient and shoud probably do most of the work via direct SQL or something...

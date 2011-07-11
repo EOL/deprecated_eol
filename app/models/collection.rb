@@ -4,10 +4,10 @@ class Collection < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :community # These are focus lists
+  belongs_to :sort_style
 
   has_many :collection_items
-  alias :items :collection_items
-  accepts_nested_attributes_for :collection_items, :allow_destroy => true, :reject_if => :all_blank
+  accepts_nested_attributes_for :collection_items
 
   has_many :collection_endorsements
   has_many :comments, :as => :parent
@@ -25,10 +25,25 @@ class Collection < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => [:user_id]
   validates_uniqueness_of :community_id, :if => Proc.new {|l| ! l.community_id.blank? }
 
+  has_attached_file :logo,
+    :path => $LOGO_UPLOAD_DIRECTORY,
+    :url => $LOGO_UPLOAD_PATH,
+    :default_url => "/images/blank.gif"
+
+  validates_attachment_content_type :logo,
+    :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png']
+  validates_attachment_size :logo, :in => 0..0.5.megabyte
+
   index_with_solr :keywords => [:name]
 
+  alias :items :collection_items
+  alias_attribute :summary_name, :name
+
+  def special?
+    special_collection_id
+  end
+
   def editable_by?(user)
-    return false if special_collection_id # None of the special lists may be edited.
     if user_id
       return user.id == user_id # Owned by this user?
     else
@@ -76,7 +91,7 @@ class Collection < ActiveRecord::Base
   end
 
   def logo_url(size = 'large')
-    logo_cache_url.blank? ? "v2/logos/empty_collection.png" : ContentServer.agent_logo_path(logo_cache_url, size)
+    logo_cache_url.blank? ? "v2/logos/empty_collection.png" : ContentServer.logo_path(logo_cache_url, size)
   end
 
   def taxa
@@ -136,6 +151,10 @@ class Collection < ActiveRecord::Base
 
   def has_item? item
     collection_items.any?{|ci| ci.object_type == item.class.name && ci.object_id == item.id}
+  end
+
+  def empty?
+    collection_items.count == 0
   end
 
 private

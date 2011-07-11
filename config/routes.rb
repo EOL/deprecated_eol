@@ -21,7 +21,7 @@ ActionController::Routing::Routes.draw do |map|
   map.remove_privilege_from_role 'roles/:role_id/remove_privilege/:privilege_id',
     :controller => 'roles', :action => 'remove_privilege'
 
-  map.resources :collections, :collection => { :choose => :get }
+  map.resources :collections, :member => { :choose => :get }
   map.resources :collection_items, :except => [:index, :show, :new, :edit]
 
   #used in collections show page, click on left tabs

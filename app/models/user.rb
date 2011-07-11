@@ -70,6 +70,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   attr_accessor :entered_password, :entered_password_confirmation, :curator_request
 
+  alias_attribute :summary_name, :username
+
   def self.sort_by_name(users)
     users.sort_by do |u|
       given = u.given_name.blank? ? u.family_name : u.given_name.strip
@@ -701,7 +703,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   # override the logo_url column in the database to contruct the path on the content server
   def logo_url(size = 'large')
-    logo_cache_url.blank? ? "v2/logos/user_default.png" : ContentServer.agent_logo_path(logo_cache_url, size)
+    logo_cache_url.blank? ? "v2/logos/user_default.png" : ContentServer.logo_path(logo_cache_url, size)
   end
 
 private

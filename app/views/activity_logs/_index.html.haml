@@ -1,14 +1,15 @@
-- log.each do |item|
-  - case item.class.name
-  - when "CuratorActivityLog"
-    = render :partial => 'activity_logs/curator_activity_log', :item => item
-  - when "Comment"
-    = render :partial => 'activity_logs/comment', :item => item
-  - when "UsersDataObject"
-    = render :partial => 'activity_logs/users_data_object', :item => item
-  - when "CollectionActivityLog"
-    = render :partial => 'activity_logs/collection_activity_log', :item => item
-  - when "CommunityActivityLog"
-    = render :partial => 'activity_logs/community_activity_log', :item => item
-  - else
-    %p= "I am not sure what to do with a #{item.class.name} yet."
+- unless log.blank?
+  - log.each do |item|
+    - case item.class.name
+    - when "CuratorActivityLog"
+      = render :partial => 'activity_logs/curator_activity_log', :loals => {:item => item}
+    - when "Comment"
+      = render :partial => 'activity_logs/comment', :locals => {:item => item}
+    - when "UsersDataObject"
+      = render :partial => 'activity_logs/users_data_object', :locals => {:item => item}
+    - when "CollectionActivityLog"
+      = render :partial => 'activity_logs/collection_activity_log', :locals => {:item => item}
+    - when "CommunityActivityLog"
+      = render :partial => 'activity_logs/community_activity_log', :locals => {:item => item}
+    - else
+      %p= "I am not sure what to do with a #{item.class.name} yet."

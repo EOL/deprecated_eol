@@ -20,20 +20,20 @@ describe ContentServer do
     results.sort.should == $CONTENT_SERVERS
   end
 
-  describe '#agent_logo_path' do
+  describe '#logo_path' do
 
     it 'should build a path (default small png)' do
       url = 'something'
-      ContentServer.agent_logo_path(url).should =~ /http.*#{url}_small.png/
+      ContentServer.logo_path(url).should =~ /http.*#{url}_small.png/
     end
 
     it 'should allow large paths' do
       url = 'something'
-      ContentServer.agent_logo_path(url, 'large').should =~ /http.*#{url}_large.png/
+      ContentServer.logo_path(url, 'large').should =~ /http.*#{url}_large.png/
     end
 
     it 'should return blank url if logo url is empty' do
-      ContentServer.agent_logo_path('').should == ContentServer.blank
+      ContentServer.logo_path('').should == ContentServer.blank
     end
 
   end

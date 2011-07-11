@@ -16,25 +16,40 @@
     #tabs_sidebar
       = render :partial => 'collections/filter_by_item_type'
 
-    - form_for @collection do |collection_form|
-      = hidden_field_tag :action_name, controller.action_name
-      = hidden_field_tag :filter, @filter if @filter
+    - if @collection.empty?
       #sidebar
-        - if logged_in?
-          .filters
-            %h4= I18n.t(:collect_items)
-            %fieldset.actions
-              = submit_tag I18n.t(:select_all_button), :name => :commit_select_all
-              = submit_tag I18n.t(:copy_selected_button), :name => :commit_copy_collection_items
         .collection_contributors
           = render :partial => 'collections/managed_by', :locals => { :collection => @collection }
         - if @collection.collection_endorsements.count > 0
           .collection_contributors
             = render :partial => 'collections/endorsed_by', :locals => { :collection => @collection }
       #collections.main_container
-        - unless @collection_items.blank?
-          .heading
-            = render :partial => 'collections/sort_by_form'
-          %ul.object_list
-            - @collection_items.each do |item|
-              = render :partial => 'collection_items/show', :locals => { :collection_item => item }
+        .heading
+          %p#empty= I18n.t(:collection_is_empty)
+    - else
+      - form_for(@collection, :html => {:method => :get}, :url => {:action => :show}) do |collection_form|
+        = hidden_field_tag :action_name, controller.action_name
+        = hidden_field_tag :filter, @filter if @filter
+        #sidebar
+          - if logged_in?
+            .filters
+              %h4= I18n.t(:collect_items)
+              %fieldset.actions
+                = submit_tag I18n.t(:select_all_button), :name => :commit_select_all
+                = submit_tag I18n.t(:copy_selected_button), :name => :commit_copy_collection_items
+          .collection_contributors
+            = render :partial => 'collections/managed_by', :locals => { :collection => @collection }
+          - if @collection.collection_endorsements.count > 0
+            .collection_contributors
+              = render :partial => 'collections/endorsed_by', :locals => { :collection => @collection }
+        #collections.main_container
+          - unless @collection_items.blank?
+            .heading
+              %fieldset
+                = label_tag :sort_by, I18n.t(:sort_by_label)
+                = select_tag :sort_by, options_for_select(@sort_options.map {|so| [so.name, so.id]}, @sort_by.id)
+              %fieldset.actions
+                = submit_tag I18n.t(:sort_by_button), :name => :commit_sort
+            %ul.object_list
+              - @collection_items.each do |item|
+                = render :partial => 'collection_items/show', :locals => { :collection_item => item }

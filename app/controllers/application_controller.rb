@@ -4,6 +4,7 @@ ContentPage # TODO - figure out why this fails to autoload.  Look at http://kbal
 class ApplicationController < ActionController::Base
 
   include ContentPartnerAuthenticationModule # TODO -seriously?!?  You want all that cruft available to ALL controllers?!
+  include ImageManipulation
 
   if $EXCEPTION_NOTIFY || $ERROR_LOGGING
     include ExceptionNotifiable

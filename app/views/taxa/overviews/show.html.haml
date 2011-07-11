@@ -7,6 +7,6 @@
 #sidebar
   = render(:partial => 'taxa/classifications_summary')
   = render(:partial => 'taxa/curators_summary', :locals => {:curators => @taxon_concept.top_acting_curators})
-  = render(:partial => 'activity_logs/index', :locals => {:log => @taxon_concept.activity_log})
+  = render(:partial => 'activity_logs/index', :locals => {:log => @taxon_concept.activity_log[-3..-1]})
 
 

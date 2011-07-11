@@ -5,7 +5,7 @@
 # code, you will need comments to be shown with the activity_log code, though.
 #
 # Comments are polymorphically related to many kind of models.  At the time of this writing, it includes Taxon
-# Concepts, Data Objects, Communities, and Collections... but could be extended in the future.
+# Concepts, Data Objects, Communities, Collections, and Users... but could be extended in the future.
 #
 # Comments can be hidden (by those with Community#special's Privilege#hide_comments).
 #

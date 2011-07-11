@@ -56,6 +56,7 @@ class CommunitiesController < ApplicationController
     #TODO = icon_change
     respond_to do |format|
       if @community.update_attributes(params[:community])
+        upload_logo(@community)
         log_action(:change_name) if name_change
         log_action(:change_description) if description_change
         format.html { redirect_to(@community, :notice =>  I18n.t(:updated_community) ) }

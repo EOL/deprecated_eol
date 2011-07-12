@@ -1,0 +1,66 @@
+- # FIXME Placeholder of static markup direct from HashRocket replace with functioning code
+#content
+  .site_column
+    #taxon_community.main_container
+      .column.curators
+        .summary
+          %h3 Curators
+          %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a vulputate urna. Quisque nunc erat, commodo sed auctor sed, mattis quis
+      .column.collections
+        .summary
+          %h3 Collections
+          %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a vulputate urna. Quisque nunc erat, commodo sed auctor sed, mattis quis justo. Etiam gravida gravida lorem, consequat congue nisl placerat vel. Mauris lacinia lorem
+      .column.communities
+        .summary
+          %h3 Communities
+          %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a vulputate urna. Quisque nunc erat, commodo sed auctor sed, mattis quis justo. Etiam gravida gravida lorem, consequat congue nisl placerat vel. Mauris lacinia lorem
+      .column.curators
+        .article.list
+          .header
+            %h3 2 Curators
+          %ul
+            - 2.times do
+              %li
+                = link_to image_tag(dummy_image(48, 48), alt: "Bill"), "#"
+                .details
+                  %h4= link_to "Bill", "#"
+                  %p Head Mycologist
+      .column.collections
+        .article.list
+          .header
+            %h3 Present in 37 collections
+          .heading
+            %form.filter(action="" method="post")
+              %fieldset
+                %label Sort By
+                %select
+                  %option recently updated
+              %fieldset.actions
+                %input(type="submit" value="filter")
+          %ul
+            - 10.times do
+              %li
+                = link_to image_tag(dummy_image(48, 48), alt: "Bill"), "#"
+                .details
+                  %h4= link_to "Poisonous Mushrooms", "#"
+                  %p 46 other taxa, 34 contributors
+          %p.more= link_to "Show all 37 collections", "#"
+      .column.communities
+        .article.list
+          .header
+            %h3 Belongs to 8 communities
+          .heading
+            %form.filter(action="" method="post")
+              %fieldset
+                %label Sort By
+                %select
+                  %option recently updated
+              %fieldset.actions
+                %input(type="submit" value="filter")
+          %ul
+            - 8.times do
+              %li
+                = link_to image_tag(dummy_image(48, 48), alt: "Bill"), "#"
+                .details
+                  %h4= link_to "Poisonous Mushrooms", "#"
+                  %p 46 other taxa, 34 contributors

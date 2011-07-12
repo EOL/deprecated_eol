@@ -54,7 +54,7 @@ module EOL
       def self.add_community!(docs)
         ids = docs.map{ |d| d['resource_id'] }
         instances = Community.find_all_by_id(ids)
-        docs.map! do |d|
+        docs.each do |d|
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
         end
       end
@@ -62,7 +62,7 @@ module EOL
       def self.add_collection!(docs)
         ids = docs.map{ |d| d['resource_id'] }
         instances = Collection.find_all_by_id(ids)
-        docs.map! do |d|
+        docs.each do |d|
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
         end
       end
@@ -70,7 +70,7 @@ module EOL
       def self.add_user!(docs)
         ids = docs.map{ |d| d['resource_id'] }
         instances = User.find_all_by_id(ids)
-        docs.map! do |d|
+        docs.each do |d|
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
         end
       end
@@ -90,21 +90,23 @@ module EOL
         }
         ids = docs.map{ |d| d['resource_id'] }
         instances = TaxonConcept.core_relationships(:include => includes, :select => selects).find_all_by_id(ids)
-        docs.map! do |d|
+        docs.each do |d|
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
         end
       end
       
       def self.add_data_object!(docs)
-        includes = [ { :hierarchy_entries => :name }, :curated_data_objects_hierarchy_entries ]
+        includes = [ { :hierarchy_entries => { :name => :canonical_form } }, :curated_data_objects_hierarchy_entries, { :toc_items => :translations } ]
         selects = {
           :data_objects => '*',
+          :translated_table_of_contents => '*',
           :hierarchy_entries => [ :published, :visibility_id, :taxon_concept_id ],
-          :names => :string
+          :names => :string,
+          :canonical_forms => :string
         }
         ids = docs.map{ |d| d['resource_id'] }
         instances = DataObject.core_relationships(:include => includes, :select => selects).find_all_by_id(ids)
-        docs.map! do |d|
+        docs.each do |d|
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
         end
       end
@@ -152,7 +154,7 @@ module EOL
         # add facet filtering
         if options[:type] && !options[:type].include?('all')
           options[:type].map!{ |t| t.camelize }
-          url << '&fq=resource_type:' + options[:type].join(' OR resource_type:')
+          url << '&fq=resource_type:' + CGI.escape(%Q[#{options[:type].join(' OR resource_type:')}])
         end
         
         # add spellchecking - its using the spellcheck.q option because the main query main have gotten too complicated

@@ -52,4 +52,4 @@
                 = submit_tag I18n.t(:sort_by_button), :name => :commit_sort
             %ul.object_list
               - @collection_items.each do |item|
-                = render :partial => 'collection_items/show', :locals => { :collection_item => item }
+                = render :partial => 'collection_items/show', :locals => { :collection_item => item['instance'] }

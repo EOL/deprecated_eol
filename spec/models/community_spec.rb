@@ -121,7 +121,7 @@ describe Community do
 
   it 'should post a note to the feed when a taxon Concept is added to the focus list' do
     community = Community.gen
-    tc = TaxonConcept.gen
+    tc = build_taxon_concept
     tc.stub!(:scientific_name).and_return('Our TC')
     community.focus.add tc
     # TODO - ActivityLog

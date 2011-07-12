@@ -111,8 +111,9 @@ module Paperclip
     #   documentation for Paperclip::Storage::Filesystem and Paperclip::Storage::S3
     #   for backend-specific options.
     def has_attached_file name, options = {}
+      return if !options[:if].nil? && options[:if] === false
       include InstanceMethods
-
+      
       %w(file_name content_type).each do |field|
         unless column_names.include?("#{name}_#{field}")
           raise PaperclipError.new("#{self} model does not have required column '#{name}_#{field}'")
@@ -150,6 +151,8 @@ module Paperclip
     # * +greater_than+: equivalent to :in => options[:greater_than]..Infinity
     # * +message+: error message to display, use :min and :max as replacements
     def validates_attachment_size name, options = {}
+      return if !options[:if].nil? && options[:if] === false
+      
       attachment_definitions[name][:validations] << lambda do |attachment, instance|
         unless options[:greater_than].nil?
           options[:in] = (options[:greater_than]..(1/0)) # 1/0 => Infinity
@@ -193,6 +196,8 @@ module Paperclip
     #   Allows all by default.
     # * +message+: The message to display when the uploaded file has an invalid content type.
     def validates_attachment_content_type name, options = {}
+      return if !options[:if].nil? && options[:if] === false
+      
       attachment_definitions[name][:validations] << lambda do |attachment, instance|
         valid_types = [options[:content_type]].flatten
         

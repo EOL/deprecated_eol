@@ -13,24 +13,22 @@
             %fieldset
               %dl
                 %dt
-                  %label{:for => 'sort_by'}= I18n.t(:sort_by)
-                %dd
-                  %dd
-                    - sort_options = {}
-                    - [:newest, :oldest].each{|opt| sort_options[I18n.t("sort_by_#{opt}_option")] = opt }
-                    = select_tag :sort_by, options_for_select(sort_options, @sort_by.to_sym)
-                %dt
                   %label= I18n.t(:filter_by_type)
                 %dd
                   %ul
                     - [:all, :taxon_concept, :image, :video, :sound, :text, :user, :community, :collection].each do |opt|
-                      %li
+                      - count = (opt == :all) ? @all_results.total_entries : @facets[opt.to_s.camelize]
+                      - count ||= 0
+                      - item_class = (opt == :all || count > 0) ? nil : 'no_results'
+                      %li{ :class => item_class }
                         %label
                           = check_box_tag "type[]", opt, @params_type.include?(opt.to_s.camelize),
                             { :name => "type[]", :id => "type_#{opt.to_s}"}
                           = I18n.t("filter_by_type_#{opt}_option")
-                          - count = (opt == :all) ? @all_results.total_entries : @facets[opt.to_s.camelize]
-                          = "(#{count || 0})"
+                          - if opt == :all
+                            = " (#{count})" 
+                          - elsif count > 0
+                            = "*"
             %fieldset.actions
               %input(type="submit" value="filter results")
         #main

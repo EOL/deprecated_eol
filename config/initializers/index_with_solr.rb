@@ -86,7 +86,6 @@ module ActiveRecord
 
       def submit_keyword_to_solr(solr_connection, params, keyword, keyword_type, options={})
         options[:language] ||= 'en'
-        options[:language] ||= 'en'
         params['keyword'] = keyword
         params['keyword_type'] = keyword_type
         params['full_text'] = true if options[:is_fulltext]

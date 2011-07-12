@@ -399,9 +399,7 @@ class DataObject < SpeciesSchemaModel
   def best_title
     return object_title unless object_title.blank?
     return toc_items.first.label unless toc_items.blank?
-    taxon_concepts = get_taxon_concepts(:published => :preferred)
-    return taxon_concepts.first.title_canonical(@session_hierarchy) unless taxon_concepts.first.blank?
-    return data_type.label
+    return data_type.simple_type
   end
   alias :summary_name :best_title
 
@@ -1046,13 +1044,11 @@ class DataObject < SpeciesSchemaModel
   end
 
   def first_concept_name
-    sorted_entries = HierarchyEntry.sort_by_vetted(published_entries)
-    sorted_entries[0].name.string rescue nil
+    first_hierarchy_entry.name.string rescue nil
   end
 
   def first_taxon_concept
-    sorted_entries = HierarchyEntry.sort_by_vetted(published_entries)
-    sorted_entries[0].taxon_concept rescue nil
+    first_hierarchy_entry.taxon_concept rescue nil
   end
 
   def first_hierarchy_entry
@@ -1072,6 +1068,12 @@ class DataObject < SpeciesSchemaModel
     return data_type.label if description.blank?
     st = description.gsub(/\n.*$/, '')
     st.truncate(32)
+  end
+  
+  def description_teaser
+    full_teaser = Sanitize.clean(description, :elements => %w[b i], :remove_contents => %w[table script])
+    return nil if full_teaser.blank?
+    truncated_teaser = full_teaser.split[0..10].join(' ').balance_tags + '...'
   end
 
   def added_by_user?

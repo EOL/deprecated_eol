@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<schema name="site_search" version="1.4">
+<schema name="collection_items" version="1.4">
     
     <!-- define data types -->
     <types>
@@ -32,57 +32,27 @@
                 <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
             </analyzer>
         </fieldType>
-        
-        <!-- This is our *exact* text field, with limited tokenizers.
-          Thought about whitespace tokenizer, but I think that would defeat the purpose! "Felis familiaris" would match on
-          "felis", I think. Downside is, "felis familaris" won't match "felis     familiaris". -->
-        <fieldType name="textExact" class="solr.TextField" positionIncrementGap="4">
-            <analyzer type="index">
-                <tokenizer class="solr.KeywordTokenizerFactory"/>
-                <filter class="solr.LowerCaseFilterFactory"/>
-                <filter class="solr.TrimFilterFactory"/>
-            </analyzer>
-            <analyzer type="query">
-                <tokenizer class="solr.KeywordTokenizerFactory"/>
-                <filter class="solr.LowerCaseFilterFactory"/>
-                <filter class="solr.TrimFilterFactory"/>
-            </analyzer>
-        </fieldType>
-        
-        <!-- meant to be used for auto-complete searches -->
-        <fieldType name="textSpell" class="solr.TextField" positionIncrementGap="100" >
-          <analyzer>
-            <tokenizer class="solr.StandardTokenizerFactory"/>
-            <filter class="solr.LowerCaseFilterFactory"/>
-            <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
-          </analyzer>
-        </fieldType>
     </types>
     
     <!-- begin schema -->
     <fields>
         <!-- can contain multiple types (DataObject and Image and Map) -->
-        <field name="resource_type" type="string" indexed="true" stored="true" required="true" multiValued="true"/>
-        <field name="resource_id" type="int" indexed="true" stored="true" required="true"/>
-        <!-- ClassName_id -->
-        <field name="resource_unique_key" type="string" indexed="true" stored="true" required="true"/>
-        <field name="keyword_type" type="string" indexed="true" stored="true" required="true"/>
-        <field name="keyword" type="text" indexed="true" stored="true" required="true" multiValued="true"/>
-        <field name="keyword_exact" type="textExact" indexed="true" stored="false" required="true" multiValued="true"/>
-        <copyField source="keyword" dest="keyword_exact"/>
-        <field name="autocomplete" type="textSpell" indexed="true" stored="false" required="false" multiValued="true" />
-        <copyField source="keyword" dest="autocomplete"/>
-        <field name="full_text" type="boolean" indexed="true" stored="true" required="false"/>
-        <field name="language" type="string" indexed="true" stored="true" required="true"/>
-        <field name="ancestor_taxon_concept_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="collection_item_id" type="int" indexed="true" stored="true" required="true"/>
+        <field name="object_type" type="string" indexed="true" stored="true" required="true"/>
+        <field name="object_id" type="int" indexed="true" stored="true" required="true"/>
+        <field name="collection_id" type="int" indexed="true" stored="true" required="true"/>
+        <field name="title" type="text" indexed="true" stored="true" required="true"/>
+        <field name="annotation" type="text" indexed="true" stored="true" required="true"/>
+        <field name="added_by_user_id" type="int" indexed="true" stored="true" required="true"/>
+        <field name="data_rating" type="float" indexed="true" stored="true" required="false"/>
         <field name="richness_score" type="float" indexed="true" stored="true" required="false"/>
         <field name="date_created" type="date" indexed="true" stored="true" required="false"/>
         <field name="date_modified" type="date" indexed="true" stored="true" required="true"/>
     </fields>
     
     <!-- no unique key -->
-    <uniqueKey/>
+    <uniqueKey>collection_item_id</uniqueKey>
     
     <!-- default unqualified search field -->
-    <defaultSearchField>keyword</defaultSearchField>
+    <defaultSearchField>title</defaultSearchField>
 </schema>

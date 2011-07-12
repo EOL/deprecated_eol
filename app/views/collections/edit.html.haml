@@ -57,6 +57,6 @@
             - # FIXME: Users need to be able to choose an image for a collection
         - unless @collection.empty?
           %ul.object_list
-            - @collection_items.each do |item|
-              - collection_form.fields_for :collection_items, item do |collection_item_fields|
-                = render :partial => 'collection_items/edit', :locals => { :collection_item => item['instance'], :fields => collection_item_fields }
+            - @collection_items.each do |item| # NOTE - we do it this way because we MUST pass the item to partial:
+              - collection_form.fields_for(:collection_items, item) do |collection_item_fields|
+                = render :partial => 'collection_items/edit', :locals => { :collection_item => item, :fields => collection_item_fields }

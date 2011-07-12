@@ -110,11 +110,11 @@ private
     @filter = params[:filter]
     @page = params[:page]
     @selected_collection_items = params[:collection_items] || []
-    
+
     @facet_counts = EOL::Solr::CollectionItems.get_facet_counts(@collection.id)
-    @collection_items = EOL::Solr::CollectionItems.search_with_pagination(@collection.id, :facet_type => @filter, :page => @page, :sort_by => @sort_by)
+    @collection_items = EOL::Solr::CollectionItems.search_with_pagination(@collection.id, :facet_type => @filter, :page => @page, :sort_by => @sort_by).map {|i| i['instance'] }
     if params[:commit_select_all]
-      @selected_collection_items = @collection_items.map {|ci| ci['instance'].id.to_s }
+      @selected_collection_items = @collection_items.map {|ci| ci.id.to_s }
     end
   end
 
@@ -151,14 +151,11 @@ private
     return no_items_selected_error(:remove) if params[:collection_items].nil? or params[:collection_items].empty?
     count = 0
     @collection_items.select {|ci| params['collection_items'].include?(ci.id.to_s) }.each do |item|
-      puts "- Removing one...."
       if item.update_attribute(:collection_id, nil) # Not actually destroyed, so that we can talk about it in feeds.
-        puts "Worked"
+        item.remove_collection_item_from_solr # TODO - needed?  Or does the #after_save method handle this?
         count += 1
         CollectionActivityLog.create(:collection => @collection, :user => current_user,
                                      :activity => Activity.remove, :collection_item => item)
-      else
-        puts "Didn't work."
       end
     end
     @collection_items.delete_if {|ci| params['collection_items'].include?(ci.id.to_s) }

@@ -238,6 +238,7 @@ en:
   cannot_expand_children: "cannot expand children"
   cannot_find_member: "Cannot find a member with this id."
   cannot_find_user_or_email: "No matching accounts found"
+  cannot_index_collection_item_type_error: "I cannot index a collection item from a %{type}"
   catalan: "Catalan"
   category_: "Category:"
   category: "Category"

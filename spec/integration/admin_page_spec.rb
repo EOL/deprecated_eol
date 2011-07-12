@@ -5,6 +5,7 @@ describe 'Admin Pages' do
   before(:all) do
     truncate_all_tables
     load_foundation_cache
+    Activity.create_defaults
     Capybara.reset_sessions!
     @user = User.gen(:username => 'ourtestadmin')
     @user.approve_to_administrate

@@ -335,6 +335,9 @@ en:
   comments_on_taxa: "Comments on Taxa"
   comments_were_left_on_data_obj: "Comments were left on data objects you submitted:"
   comments_were_left_on_the_taxo: "Comments were left on the taxon page comments tab (may not apply specifically to your content):"
+  comments_with_count:
+    one: "%{count} Comment"
+    other: "%{count} Comments"
   common_activities_by_logged_in: "Common activities by logged in users."
   common_name_avg: "Common Name avg"
   common_name_: "Common name"
@@ -352,9 +355,18 @@ en:
   communities_index_header: "Active communities"
   community: "Community"
   community_activity: "Community Activity"
+  community_contributions_with_count:
+    one: "%{count} Contribution"
+    other: "%{count} Contributions"
   community_focus: "Community focus"
   community_form_description_label: "Provide a short description of this community's purpose:"
   community_form_name_label: "Choose a name for your community:"
+  community_managers_with_count:
+    one: "%{count} Community Manager"
+    other: "%{count} Community Managers"
+  community_members_with_count:
+    one: "%{count} Community Members"
+    other: "%{count} Community Members"
   community_members: "Community members"
   community_roles: "Community Roles"
   communities_summary_header_with_count:
@@ -1050,6 +1062,7 @@ en:
   join_eol_community_html: "Become part of the <abbr title=\"Encyclopedia of Life\">EOL</abbr> community!"
   join_eol_button_html: "Join <abbr title=\"Encyclopedia of Life\">EOL</abbr> now"
   __joined: "\" joined"
+  joined_time_ago: "Joined %{time_passed} ago"
   json_response: "JSON Response"
   jump_to_: "Jump To:"
   just_pages_with_pictures_and_text: "Just those pages with pictures and text"
@@ -1996,6 +2009,7 @@ en:
   this_collection_can_be_viewed_by_the_public_in_parens: "(This collection can be viewed by the public)"
   this_collection_is_not_attached_to_either_a_user_or_a_community: "(this collection is not attached to either a user or a community)"
   this_comment_is_not_visible: "THIS COMMENT IS NOT VISIBLE"
+  this_community_has_no_endorsed_collections: "This community has not endorsed any collections."
   this_community_has_no_focus_items_associated_with_it: "This community has no focus items associated with it."
   this_community_has_no_focus_list: "This community has no focus list."
   this_does_not_necessarily_mean: "* this does not necessarily mean the connections are being used, just that they are defined in the database.yml --- you must check the \"config/environments/%{env}.rb\" file to see if the master connections are setup"

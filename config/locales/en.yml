@@ -315,7 +315,7 @@ en:
   comment_body_label: "Your comment"
   comment_colon: "Comment:"
   comment_not_added_error: "Sorry, an error occurred, comment could not be added."
-  user_commented_on_something_colon: "%{user} commented on %{what}:"
+  user_commented_on_something_colon: "<strong>%{user}</strong> commented on %{what}:"
   _commented_on_your_image_on_th: " commented on your image on the <a href='%{var_data_object_link}'>Encyclopedia of Life site</a>:\n%{var_comment_body}"
   comment_on_this_var_data_objec: "Comment on this %{var_data_object_data_type_label}"
   comment_new_posters_image_alt: "Your profile picture, if you have provided one."

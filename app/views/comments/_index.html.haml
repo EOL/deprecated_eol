@@ -7,7 +7,7 @@
         %p
           %strong= I18n.t(:user_says_colon, :users_name => h(comment.user.short_name))
         %blockquote{:cite => h(comment.user.short_name)}
-          = h comment.body
+          %p= h comment.body
         %p.meta= I18n.t(:time_ago, :time_passed => time_ago_in_words(comment.updated_at))
 
 

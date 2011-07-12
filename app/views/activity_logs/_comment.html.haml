@@ -1,5 +1,9 @@
-%p
-  = "TODO"
-  = I18n.t(:user_commented_on_something_colon, :user => item.user.username, :what => item.parent.summary_name)
-  = item.body
+%li
+  = link_to image_tag(item.user.logo_url, :alt => I18n.t(:comment_show_posters_image_alt,
+    :posters_name => h(item.user.short_name))), user_path(item.user), :class => 'avatar'
+  .details
+    %p= I18n.t(:user_commented_on_something_colon, :user => h(item.user.short_name), :what => item.parent.summary_name)
+    %blockquote{:cite => h(item.user.short_name)}
+      %p= h item.body
+    %p.meta= I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))
 

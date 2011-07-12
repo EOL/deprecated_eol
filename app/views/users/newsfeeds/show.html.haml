@@ -1,4 +1,7 @@
-#newsfeed_tab.main_container
+#collections_tab.main_container
   .article.list.updates
-    = render :partial => 'comments/new', :locals => {:parent => @user}
+    = render :partial => 'comments/new'
+    .heading
+      %h3= I18n.t(:newsfeed)
+      - # TODO: Filter form?
     = render :partial => 'activity_logs/index', :locals => {:log => @user.activity_log}

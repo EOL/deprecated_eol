@@ -24,10 +24,20 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :collections, :member => { :choose => :get }
   map.resources :collection_items, :except => [:index, :show, :new, :edit]
 
-  #used in collections show page, click on left tabs
+  #used in collections show page, when user clicks on left tabs
   map.connect 'collections/:id/:filter',
                :controller => 'collections',
-               :action     => 'show'
+               :action => 'show'
+
+  #used in names tab:
+    # when user clicks on left tabs
+    map.connect 'pages/:taxon_id/names/:category', :controller => 'taxa/names', :action => 'show'
+    # when user updates a common name - preferred radio button
+    map.connect 'pages/:id/names/common_names/update', :controller => 'taxa', :action => 'update_common_names'
+    # when user adds a common name
+    map.connect 'pages/:taxon_concept_id/names/common_names/add', :controller => 'taxa', :action => 'add_common_name'
+
+
 
   # Web Application
   map.resources :harvest_events, :has_many => [:taxa]
@@ -75,6 +85,8 @@ ActionController::Routing::Routes.draw do |map|
     taxa.resource :overview, :only => [:show], :controller => "taxa/overviews"
     taxa.resources :media, :only => [:index], :controller => "taxa/media"
     taxa.resources :details, :only => [:index], :controller => "taxa/details"
+    taxa.resource :names, :only => [:show], :controller => "taxa/names"
+    taxa.resource :maps, :only => [:show], :controller => "taxa/maps"
     taxa.resources :collections, :only => [:index], :controller => 'collections'
     taxa.resources :communities, :only => [:index], :controller => 'communities'
   end

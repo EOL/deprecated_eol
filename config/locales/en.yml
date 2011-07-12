@@ -1271,6 +1271,7 @@ en:
   no_errors_are_available: "No errors are available."
   no_harvesting_logs_for_this_da: "No harvesting logs for this date"
   no_images_for_this_taxon: "No images for this taxon"
+  no_map_available: "No map available"
   no_members_in_parens: "(no members)"
   nominate_another_wikipedia_art: "nominate another wikipedia article for ingestion"
   none: "none"
@@ -1564,6 +1565,9 @@ en:
   register: "register"
   _register_with_eol_to_track_yo: "(register with EOL to track your suggestions)"
   registration: "Registration"
+  related_names_with_count:
+    one: "%{count} related name"
+    other: "%{count} related names"
   relationship: "Relationship"
   __relative_sort_order_in_navig: "- relative sort order in navigational menus (sort is low-->high)"
   remember_me_message: "check to stay logged in automatically for up to two weeks (do NOT use on public computers)"
@@ -1834,6 +1838,9 @@ en:
   sym_: "Sym:"
   sym: "Sym"
   synonym: "Synonym"
+  synonyms_with_count:
+    one: "%{count} synonym"
+    other: "%{count} synonyms"
   table_of_contents_breakdown: "table of contents breakdown"
   table_of_contents_breakdown_: "Table of Contents Breakdown"
   table_of_contents_editor: "Table of Contents Editor"

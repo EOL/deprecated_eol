@@ -1,0 +1,13 @@
+%ul.tabs.with_icons
+  - related_names_count = @taxon_concept.related_names_count
+  - common_names_count = @taxon_concept.common_names.count
+  - synonyms_count = @taxon_concept.synonyms.count
+
+  - types = [{"count" => related_names_count, "type" => "related_names", "link" => "related_names_with_count"},
+   {"count" => common_names_count, "type" => "common_names", "link" => "common_names_with_count"},
+   {"count" => synonyms_count, "type" => "synonyms", "link" => "synonyms_with_count"}]
+
+  - types.each do |t|
+    - classes = t['type']
+    - classes << ' active' if params[:filter] == t['type']
+    %li{:class => classes}= link_to I18n.t("#{t['link']}", :count => t['count']), "/pages/#{@taxon_concept.id}/names/#{t['type']}"

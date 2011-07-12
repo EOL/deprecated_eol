@@ -59,3 +59,15 @@ if (!EOL.init_common_name_behaviors) {
 $(document).ready(function() {
   EOL.init_common_name_behaviors();
 });
+
+function vet_common_name(tc_id, lang_id, name_id, select_tag_id) 
+{
+  var x = document.getElementById(select_tag_id).selectedIndex;
+  var y = document.getElementById(select_tag_id).options;
+  //alert("Index: " + y[x].index + " is " + y[x].text + " value: " + y[x].value);
+  document.getElementById('form_taxon_concept_id').value = tc_id
+  document.getElementById('form_language_id').value = lang_id
+  document.getElementById('form_name_id').value = name_id
+  document.getElementById('form_vetted_id').value = y[x].value
+  document.forms['vet_common_name_form'].submit()
+}

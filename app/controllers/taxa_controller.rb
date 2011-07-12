@@ -227,7 +227,7 @@ class TaxaController < ApplicationController
       end
       current_user.log_activity(:updated_common_names, :taxon_concept_id => tc.id)
     end
-    redirect_to "/pages/#{tc.id}?category_id=#{params[:category_id]}"
+    redirect_to "/pages/#{tc.id}/names/common_names"
   end
 
   # TODO - This needs to add a CuratorActivityLog.
@@ -245,7 +245,7 @@ class TaxaController < ApplicationController
       end
       expire_taxa([tc.id])
     end
-    redirect_to "/pages/#{tc.id}?category_id=#{params[:name][:category_id]}"
+    redirect_to "/pages/#{tc.id}/names/common_names"
   end
 
   # TODO - This needs to add a CuratorActivityLog.
@@ -256,9 +256,9 @@ class TaxaController < ApplicationController
     synonym_ids.each do |synonym_id|
       tcn = TaxonConceptName.find_by_synonym_id_and_taxon_concept_id(synonym_id, tc.id)
       tc.delete_common_name(tcn)
-      log_action(tc, tcn, :remove_common_name)
+      log_action(tc, tcn, :remove_common_name) if tc && tcn
     end
-    redirect_to "/pages/#{tc.id}?category_id=#{category_id}"
+    redirect_to "/pages/#{tc.id}/names/common_names"
   end
 
   # TODO - This needs to add a CuratorActivityLog.
@@ -270,9 +270,7 @@ class TaxaController < ApplicationController
     @taxon_concept.current_user = current_user
     @taxon_concept.vet_common_name(:language_id => language_id, :name_id => name_id, :vetted => vetted)
     current_user.log_activity(:vetted_common_name, :taxon_concept_id => @taxon_concept.id, :value => name_id)
-    render :partial => 'taxa/content/content_language_common_names_curator_vetting',
-           :locals => {:language_id => language_id, :name_id => name_id, :unique_id => params[:unique_id],
-             :vetted_id => vetted.id}
+    redirect_to "/pages/#{@taxon_concept.id}/names/common_names"
   end
 
   def publish_wikipedia_article
@@ -357,7 +355,7 @@ private
 
   def get_content_variables(options = {})
     @content = @taxon_concept.content_by_category(@category_id, :current_user => current_user)
-    @whats_this = WhatsThis.get_url_for_name(@content[:category_name])
+    @whats_this = @content[:category_name].blank? ? "" : WhatsThis.get_url_for_name(@content[:category_name])
     @ajax_update = options[:ajax_update]
     @languages = build_language_list if is_common_names?(@category_id)
   end

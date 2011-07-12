@@ -6,6 +6,7 @@ describe EOL::ActivityLog do
     truncate_all_tables
     load_scenario_with_caching(:testy)
     @testy = EOL::TestInfo.load('testy')
+    Activity.create_defaults
     # A curator is the only thing who's activity log would actually involve ALL the types:
     @curator = @testy[:curator]
     Comment.gen(:user_id => @curator.id, :created_at => 6.seconds.ago) # implies comment activity

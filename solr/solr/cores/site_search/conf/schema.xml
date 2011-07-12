@@ -76,8 +76,8 @@
         <field name="language" type="string" indexed="true" stored="true" required="true"/>
         <field name="ancestor_taxon_concept_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
         <field name="richness_score" type="float" indexed="true" stored="true" required="false"/>
-        <field name="date_created" type="string" indexed="true" stored="true" required="false"/>
-        <field name="date_modified" type="string" indexed="true" stored="true" required="true"/>
+        <field name="date_created" type="date" indexed="true" stored="true" required="false"/>
+        <field name="date_modified" type="date" indexed="true" stored="true" required="false"/>
     </fields>
     
     <!-- no unique key -->

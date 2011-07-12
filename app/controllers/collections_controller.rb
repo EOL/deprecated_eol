@@ -105,18 +105,16 @@ private
 
   # When you're going to show a bunch of collection items and provide sorting and filtering capabilities:
   def build_collection_items_with_sorting_and_filtering
-    @sort_options = [SortStyle.newest, SortStyle.oldest]
-    @sort_by = SortStyle.find(params[:sort_by].blank? ? @collection.sort_style : params[:sort_by])
-    @filter = params[:filter].blank? ? '' : params[:filter]
+    @sort_options = [SortStyle.newest, SortStyle.oldest, SortStyle.alphabetical, SortStyle.reverse_alphabetical, SortStyle.richness, SortStyle.rating]
+    @sort_by = SortStyle.find(params[:sort_by].blank? ? @collection.default_sort_style : params[:sort_by])
+    @filter = params[:filter]
+    @page = params[:page]
     @selected_collection_items = params[:collection_items] || []
-    if @filter.blank?
-      @collection_items = @collection.collection_items
-    else
-      @collection_items = @collection.filter_type(@filter).compact
-    end
-    @collection_items = CollectionItem.custom_sort(@collection_items, @sort_by)
+    
+    @facet_counts = EOL::Solr::CollectionItems.get_facet_counts(@collection.id)
+    @collection_items = EOL::Solr::CollectionItems.search_with_pagination(@collection.id, :facet_type => @filter, :page => @page, :sort_by => @sort_by)
     if params[:commit_select_all]
-      @selected_collection_items = @collection_items.map {|ci| ci.id.to_s }
+      @selected_collection_items = @collection_items.map {|ci| ci['instance'].id.to_s }
     end
   end
 

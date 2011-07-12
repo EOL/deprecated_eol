@@ -50,6 +50,15 @@ module ActiveRecord
         name = cached_name_for(key)
         $CACHE.read(name)
       end
+      
+      def cached_with_local_cache(key, options = {}, &block)
+        if $USE_LOCAL_CACHE_CLASSES && r = check_local_cache(key)
+          return r.dup
+        end
+        r = cached(key, options, &block)
+        set_local_cache(key, r)
+        r
+      end
 
       def cached(key, options = {}, &block)
         name = cached_name_for(key)
@@ -194,7 +203,7 @@ module ActiveRecord
             end
             options_include = args.select{ |a| a && a.class == Hash && !a[:include].blank? }.shift
             language_iso = options_language_iso || APPLICATION_DEFAULT_LANGUAGE_ISO || nil
-            cached("#{field}/#{value}/#{language_iso}") do
+            cached_with_local_cache("#{field}/#{value}/#{language_iso}") do
               find_by_translated(field, value, language_iso, options_include)
             end
           end

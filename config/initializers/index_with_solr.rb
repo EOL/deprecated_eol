@@ -39,8 +39,8 @@ module ActiveRecord
             'resource_id'         => self.id,
             'resource_unique_key' => "#{self.class}_#{self.id}"
           }
-          params['date_created'] = self.created_at.solr_timestamp rescue nil
-          params['date_modified'] = self.updated_at.solr_timestamp rescue nil
+          params['date_created'] = self.created_at.solr_timestamp if self.respond_to?('created_at') && self.created_at
+          params['date_modified'] = self.updated_at.solr_timestamp if self.respond_to?('updated_at') && self.updated_at
           
           if self.class == DataObject && self.data_type
             data_type_label = self.is_video? ? 'Video' : self.data_type.label('en')

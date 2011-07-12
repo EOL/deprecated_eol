@@ -43,7 +43,6 @@ describe 'Search' do
 
     Capybara.reset_sessions!
     visit('/logout')
-    visit('/content_partner/logout')
     make_all_nested_sets
     flatten_hierarchies
     @solr = SolrAPI.new($SOLR_SERVER, $SOLR_SITE_SEARCH_CORE)
@@ -80,7 +79,7 @@ describe 'Search' do
 
   it 'should be able to return suggested results for "bacteria"' do
     visit("/search?q=#{@tricky_search_suggestion}&search_type=text")
-    body.should have_tag("#search_results li", /#{@tricky_search_suggestion}/)
+    body.should have_tag("#main li", /#{@suggested_taxon_name}/)
   end
 
   it 'should treat empty string search gracefully when javascript is switched off' do

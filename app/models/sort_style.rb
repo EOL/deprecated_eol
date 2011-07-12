@@ -6,7 +6,7 @@ class SortStyle < ActiveRecord::Base
 
   # Creates the default sort names with some logic around translations.
   def self.create_defaults
-    ['Recently Added', 'Oldest'].each do |name|
+    ['Recently Added', 'Oldest', 'Alphabetical', 'Reverse Alphabetical', 'Richness', 'Rating'].each do |name|
       sstyle = SortStyle.create
       begin
         TranslatedSortStyle.create(:name => name, :sort_style_id => sstyle.id, :language_id => Language.english.id)
@@ -23,6 +23,22 @@ class SortStyle < ActiveRecord::Base
 
   def self.oldest
     cached_find_translated(:name, 'Oldest')
+  end
+  
+  def self.alphabetical
+    cached_find_translated(:name, 'Alphabetical')
+  end
+  
+  def self.reverse_alphabetical
+    cached_find_translated(:name, 'Reverse Alphabetical')
+  end
+  
+  def self.richness
+    cached_find_translated(:name, 'Richness')
+  end
+  
+  def self.rating
+    cached_find_translated(:name, 'Rating')
   end
 
 end

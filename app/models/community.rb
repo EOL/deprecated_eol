@@ -26,12 +26,13 @@ class Community < ActiveRecord::Base
     :path => $LOGO_UPLOAD_DIRECTORY,
     :url => $LOGO_UPLOAD_PATH,
     :default_url => "/images/blank.gif",
-    :if => self.respond_to?('logo_file_name')
+    :if => self.column_names.include?('logo_file_name')
 
   validates_attachment_content_type :logo,
     :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'],
-    :if => self.respond_to?('logo_file_name')
-  validates_attachment_size :logo, :in => 0..0.5.megabyte, :if => self.respond_to?('logo_file_name')
+    :if => self.column_names.include?('logo_file_name')
+  validates_attachment_size :logo, :in => 0..0.5.megabyte,
+    :if => self.column_names.include?('logo_file_name')
 
   index_with_solr :keywords => [:name, :description]
 

@@ -16,7 +16,11 @@ class DataObject < SpeciesSchemaModel
   belongs_to :mime_type
   belongs_to :visibility
   belongs_to :vetted
-
+  
+  # this is the DataObjectTranslation record which links this translated object
+  # to the original data object
+  has_one :data_object_translation
+  
   has_many :top_images
   has_many :feed_data_objects
   has_many :top_concept_images
@@ -35,6 +39,7 @@ class DataObject < SpeciesSchemaModel
   # has_many :user_ignored_data_objects
   has_many :collection_items, :as => :object
   has_many :users_data_objects
+  has_many :translations, :class_name => DataObjectTranslation.to_s, :foreign_key => :original_data_object_id
   has_many :users_data_objects_ratings, :foreign_key => 'data_object_guid', :primary_key => :guid
   has_many :all_comments, :class_name => Comment.to_s, :foreign_key => 'parent_id', :finder_sql => 'SELECT c.* FROM #{Comment.full_table_name} c JOIN #{DataObject.full_table_name} do ON (c.parent_id = do.id) WHERE do.guid=\'#{guid}\' AND c.parent_type = \'DataObject\''
   # has_many :all_comments, :class_name => Comment.to_s, :through => :all_versions, :source => :comments, :primary_key => :guid
@@ -1092,6 +1097,10 @@ class DataObject < SpeciesSchemaModel
     raise EOL::Exceptions::ObjectNotFound if cdohe.nil?
     raise EOL::Exceptions::WrongCurator.new("user did not create this association") unless cdohe.user_id = user.id
     cdohe.destroy
+  end
+  
+  def translated_from
+    data_object_translation ? data_object_translation.original_data_object : nil
   end
 
 end

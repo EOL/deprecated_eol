@@ -2,6 +2,7 @@ class CommunitiesController < ApplicationController
 
   layout 'v2/communities'
 
+  before_filter :allow_login_then_submit, :only => [:join]
   before_filter :load_community_and_dependent_vars, :except => [:index, :new, :create]
   before_filter :must_be_logged_in, :except => [:index, :show]
   before_filter :restrict_edit, :only => [:edit, :update]

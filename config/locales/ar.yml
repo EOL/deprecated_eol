@@ -93,7 +93,7 @@ ar:
   filter_feeds_all_option: تحديثات آخر الأخبار
   filter_feeds_button: تنقية
   filter_feeds_label: إظهار
-  general_error_occurred: عفوًا، طرأ خلل ما. يرجى إعادة محاولة تنفيذ هذه الخطوة. وفي حال استمرار الخلل، يرجى إرسال رسالة إلكترونية إلى % {email} مُرفق بها رسالة العطل التالية وأي معلومات تود مشاركتها. نحن نعمل جاهدين لتقديم أفضل خدمة ممكنة ونقدر دعمكم. فريق عمل موسوعة الحياة.
+  general_error_occurred: عفوًا، طرأ خلل ما. يرجى إعادة محاولة تنفيذ هذه الخطوة. وفي حال استمرار الخلل، يرجى إرسال رسالة إلكترونية إلى %{email} مُرفق بها رسالة العطل التالية وأي معلومات تود مشاركتها. نحن نعمل جاهدين لتقديم أفضل خدمة ممكنة ونقدر دعمكم. فريق عمل موسوعة الحياة.
   get_involved: شارك
   global_access_tagline: إمكانية عالمية للوصول إلى معلومات حول الحياة على كوكب الأرض
   global_navigation: التصفح العالمي
@@ -196,7 +196,7 @@ ar:
   print_this_page_link: طباعة الصفحة
   profile: الصفحة الشخصية
   profile_image_alt_text_curator: الصورة الشخصية للمشرف %{user_given_name} %{user_family_name}
-  profile_image_alt_text_member: الصورة الشخصية للعضو %{user_given_name} %{user_family_name}
+  profile_image_alt_text_member: الصورة الشخصية للعضو %{user_full_name}
   punctuation_comma: ،
   recent_updates: تحديثات جديدة
   remove_membership: إلغاء العضوية
@@ -281,3 +281,6 @@ ar:
   you_must_be_logged_in_to_add_tags: يجب أن تقوم بتسجيل الدخول لإضافة علامات
   your_message_was_sent: تم إرسال الرسالة
   your_preferences: تفضيلاتك
+  cms_missing_content_title: "محتوى مفقود"
+  cms_missing_content_message: "نأسف لعدم توفر هذه الصفحة لهذه اللغة."
+  cms_available_in_languages: "هذه الصفحة متاحة باللغات التالية:"

@@ -212,7 +212,6 @@ class Administrator::ContentPageController < AdminController
     page.page_name = params[:page][:page_name]
     page.sort_order = get_new_page_sort_order(params[:page][:parent_content_page_id])
     page.active = params[:page][:active]
-    page.open_in_new_window = params[:page][:open_in_new_window]
     page.parent_content_page_id = params[:page][:parent_content_page_id]
     page.last_update_user_id = current_user.id
     if page.valid?

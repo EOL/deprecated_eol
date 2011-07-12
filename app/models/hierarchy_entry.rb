@@ -287,7 +287,7 @@ class HierarchyEntry < SpeciesSchemaModel
   end
 
   def preferred_classification_summary
-    return 'Root' if flattened_ancestors.blank?
+    return '' if flattened_ancestors.blank?
     sorted_ancestors = flattened_ancestors.sort{ |a,b| a.ancestor.lft <=> b.ancestor.lft }
     root_ancestor = sorted_ancestors.first.ancestor
     immediate_parent = sorted_ancestors.pop.ancestor

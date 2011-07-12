@@ -25,14 +25,18 @@ class Collection < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => [:user_id]
   validates_uniqueness_of :community_id, :if => Proc.new {|l| ! l.community_id.blank? }
 
+  # TODO: remove the :if condition after migrations are run in production
   has_attached_file :logo,
     :path => $LOGO_UPLOAD_DIRECTORY,
     :url => $LOGO_UPLOAD_PATH,
-    :default_url => "/images/blank.gif"
+    :default_url => "/images/blank.gif",
+    :if => self.column_names.include?('logo_file_name')
 
   validates_attachment_content_type :logo,
-    :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png']
-  validates_attachment_size :logo, :in => 0..0.5.megabyte
+    :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'],
+    :if => self.column_names.include?('logo_file_name')
+  validates_attachment_size :logo, :in => 0..0.5.megabyte,
+    :if => self.column_names.include?('logo_file_name')
 
   index_with_solr :keywords => [:name]
 
@@ -59,19 +63,19 @@ class Collection < ActiveRecord::Base
     name = "something"
     case what.class.name
     when "TaxonConcept"
-      collection_items << CollectionItem.create(:object_type => "TaxonConcept", :object_id => what.id, :name => what.scientific_name)
+      collection_items << CollectionItem.create(:object_type => "TaxonConcept", :object => what, :name => what.scientific_name, :collection => self, :added_by_user => opts[:user])
       name = what.scientific_name
     when "User"
-      collection_items << CollectionItem.create(:object_type => "User", :object_id => what.id, :name => what.full_name)
+      collection_items << CollectionItem.create(:object_type => "User", :object => what, :name => what.full_name, :collection => self, :added_by_user => opts[:user])
       name = what.username
     when "DataObject"
-      collection_items << CollectionItem.create(:object_type => "DataObject", :object_id => what.id, :name => what.short_title)
-      name = what.data_type.simple_type
+      collection_items << CollectionItem.create(:object_type => "DataObject", :object => what, :name => what.short_title, :collection => self, :added_by_user => opts[:user])
+      name = what.data_type.simple_type('en')
     when "Community"
-      collection_items << CollectionItem.create(:object_type => "Community", :object_id => what.id, :name => what.name)
+      collection_items << CollectionItem.create(:object_type => "Community", :object => what, :name => what.name, :collection => self, :added_by_user => opts[:user])
       name = what.name
     when "Collection"
-      collection_items << CollectionItem.create(:object_type => "Collection", :object_id => what.id, :name => what.name)
+      collection_items << CollectionItem.create(:object_type => "Collection", :object => what, :name => what.name, :collection => self, :added_by_user => opts[:user])
       name = what.name
     else
       raise EOL::Exceptions::InvalidCollectionItemType.new("I cannot create a collection item from a #{what.class.name}")
@@ -96,36 +100,6 @@ class Collection < ActiveRecord::Base
 
   def taxa
     collection_items.collect{|ci| ci if ci.object_type == 'TaxonConcept'}
-  end
-
-  def filter_type(type)
-    #needs this to properly assign values from collection_items.object_type
-    if type == 'taxa'
-      type = 'TaxonConcept'
-    elsif type == 'communities'
-      type = 'Community'
-    elsif type == 'people'
-      type = 'User'
-    elsif type == 'collections'
-      type = 'Collection'
-    end
-
-    data_type_ids = nil
-    if type == "images"
-      data_type_ids = DataType.image_type_ids
-    elsif type == "videos"
-      data_type_ids = DataType.video_type_ids
-    elsif type == "sounds"
-      data_type_ids = DataType.sound_type_ids
-    elsif type == "articles"
-      data_type_ids = DataType.text_type_ids
-    end
-
-    if data_type_ids
-      collection_items.collect{|ci| ci if (ci.object_type == 'DataObject') && (data_type_ids.include? ci.object.data_type_id)}
-    else
-      collection_items.collect{|ci| ci if ci.object_type == type}
-    end
   end
 
   def maintained_by
@@ -155,6 +129,10 @@ class Collection < ActiveRecord::Base
 
   def empty?
     collection_items.count == 0
+  end
+  
+  def default_sort_style
+    sort_style ? sort_style : SortStyle.newest
   end
 
 private

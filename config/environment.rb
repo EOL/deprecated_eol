@@ -187,6 +187,7 @@ Rails::Initializer.run do |config|
   $SOLR_TAXON_CONCEPTS_CORE = 'taxon_concepts'
   $SOLR_DATA_OBJECTS_CORE = 'data_objects'
   $SOLR_SITE_SEARCH_CORE = 'site_search'
+  $SOLR_COLLECTION_ITEMS_CORE = 'collection_items'
   $SOLR_DIR    = File.join(RAILS_ROOT, 'solr', 'solr')
 
   ### These next few values are declared in the eol:site_configurations table. They are also declared here

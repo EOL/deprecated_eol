@@ -14,16 +14,16 @@ class Role < ActiveRecord::Base
   validates_presence_of :title
 
   def self.curator
-    cached('curator') do
+    cached_with_local_cache('curator') do
       Role.find_by_community_id_and_title(Community.special.id, $CURATOR_ROLE_NAME)
     end
   end
   def self.moderator
     logger.error "Called deprecated Role#moderator.  This will be removed eventually.  Stop it."
-    cached_find(:title, 'Moderator')
+    cached_with_local_cache(:title, 'Moderator')
   end
   def self.administrator
-    cached('administrator') do
+    cached_with_local_cache('administrator') do
       Role.find_by_community_id_and_title(Community.special.id, $ADMIN_ROLE_NAME)
     end
   end

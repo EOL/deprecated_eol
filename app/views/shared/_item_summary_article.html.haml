@@ -1,3 +1,8 @@
 %span.icon{:title => I18n.t(:item_type_article_assistive)}
 %h4= link_to item.best_title, data_object_path(item)
-- # TODO: do we show a text teaser here?
+- secondary_title = I18n.t(:description_of) + ' ' + item.first_hierarchy_entry.name.canonical_form.string
+- if item.published_entries.length > 1
+  - secondary_title += ' ' + I18n.t(:and) + ' ' + I18n.t(:other_taxa_with_count, :count => item.published_entries.length - 1)
+= secondary_title
+%br
+= item.description_teaser

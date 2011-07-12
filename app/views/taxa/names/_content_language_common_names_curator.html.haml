@@ -1,10 +1,10 @@
-- form_tag "/pages/#{@taxon_concept.id}/update_common_names", :method => :put, :class => 'update_common_names' do
+- form_tag "/pages/#{@taxon_concept.id}/names/common_names/update", :method => :put, :class => 'update_common_names' do
   = hidden_field_tag "trusted_name_clicked_on", "false"
   = hidden_field_tag "trusted_synonym_clicked_on", "false"
   = hidden_field_tag "trusted_name_checked", "false"
   = hidden_field_tag 'language_id', names[0].language_id
   = hidden_field_tag "category_id", params[:category_id]
-  %table.results_table{ :cellspacing => "0", :summary => "Common Names", :style => "width:100%"}
+  %table.results_table{:summary => "Common Names"}
     %tr
       %th{ :style => "width:7em" }= I18n.t(:preferred)
       %th{ :scope => "col" }= I18n.t(:name)
@@ -29,6 +29,6 @@
             = citables_to_string(name.sources.map{|a| a.citable})
         %td{ :class => "#{column_class} vet_common_name", :style => "text-align:center;" }
           - if name.added_by_user?(current_user)
-            = link_to( I18n.t(:delete_allcaps) , url_for(:controller => 'taxa', :action => 'delete_common_name', :category_id => @category_id, :taxon_concept_id => @taxon_concept.id, :synonym_ids => name.synonym_ids), :onclick => "javascript:if(!confirm('#{ I18n.t(:are_you_sure) }')) { return false; }")
+            = link_to( I18n.t(:delete_allcaps) , url_for(:controller => '/taxa', :action => 'delete_common_name', :category_id => @category_id, :taxon_concept_id => @taxon_concept.id, :synonym_ids => name.synonym_ids), :onclick => "javascript:if(!confirm('#{ I18n.t(:are_you_sure) }')) { return false; }")
           - else
-            = render :partial => 'taxa/content/content_language_common_names_curator_vetting', :locals => {:language_id => name.language_id, :name_id => name.name_id, :vetted_id => name.vetted_id, :unique_id => name.unique_id}
+            = render :partial => 'content_language_common_names_curator_vetting', :locals => {:language_id => name.language_id, :name_id => name.name_id, :vetted_id => name.vetted_id, :unique_id => name.unique_id}

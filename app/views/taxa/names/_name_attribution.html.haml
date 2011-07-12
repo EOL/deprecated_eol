@@ -1,0 +1,13 @@
+= I18n.t(:classification_provided_by) 
+- attributions = @taxon_concept.classification_attribution(@session_hierarchy).reverse
+- if attributions.blank?
+  = I18n.t("source_unknown")
+- elsif attributions[0].display_string == @session_hierarchy.label
+  = citables_to_string(attributions) + '' 
+  = citables_to_icons(attributions)
+- else
+  - # if we don't have CoL in classification attribution (e.g. name is from Flickr), we only show CoL here since the hiearchy we show in the browser is *only* CoL for now)
+  = citables_to_string(@session_hierarchy.attribution) + ' ' 
+  = citables_to_icons(@session_hierarchy.attribution) + ' '
+  %br
+  = "#{@taxon_concept.entry.rank_label.capitalize} " + I18n.t("recognized_by") + " "  + citables_to_string(attributions)

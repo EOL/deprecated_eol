@@ -26,17 +26,8 @@ describe CollectionItem do
     @collection.collection_items.last.annotation = ""
     CollectionItem.last.annotation.should be_blank
   end
-
-  it 'should be able to sort collection items by newest/oldest' do
-    collection = Collection.gen
-    CollectionItem.gen(:collection => collection, :object => User.gen, :created_at => 2.seconds.ago)
-    CollectionItem.gen(:collection => collection, :object => User.gen, :created_at => 1.seconds.ago)
-
-    new_sort = CollectionItem.custom_sort(collection.collection_items, SortStyle.newest)
-    new_sort[0].created_at.should > new_sort[1].created_at
-
-    new_sort = CollectionItem.custom_sort(new_sort, SortStyle.oldest)
-    new_sort[0].created_at.should < new_sort[1].created_at
-  end
+  
+  # TODO - change here to use Solr or leave that to the collection integration spec?
+  it 'should be able to sort collection items by newest/oldest'
 
 end

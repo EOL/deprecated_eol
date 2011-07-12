@@ -16,7 +16,11 @@ class DataObject < SpeciesSchemaModel
   belongs_to :mime_type
   belongs_to :visibility
   belongs_to :vetted
-
+  
+  # this is the DataObjectTranslation record which links this translated object
+  # to the original data object
+  has_one :data_object_translation
+  
   has_many :top_images
   has_many :feed_data_objects
   has_many :top_concept_images
@@ -35,6 +39,7 @@ class DataObject < SpeciesSchemaModel
   # has_many :user_ignored_data_objects
   has_many :collection_items, :as => :object
   has_many :users_data_objects
+  has_many :translations, :class_name => DataObjectTranslation.to_s, :foreign_key => :original_data_object_id
   has_many :users_data_objects_ratings, :foreign_key => 'data_object_guid', :primary_key => :guid
   has_many :all_comments, :class_name => Comment.to_s, :foreign_key => 'parent_id', :finder_sql => 'SELECT c.* FROM #{Comment.full_table_name} c JOIN #{DataObject.full_table_name} do ON (c.parent_id = do.id) WHERE do.guid=\'#{guid}\' AND c.parent_type = \'DataObject\''
   # has_many :all_comments, :class_name => Comment.to_s, :through => :all_versions, :source => :comments, :primary_key => :guid
@@ -399,9 +404,7 @@ class DataObject < SpeciesSchemaModel
   def best_title
     return object_title unless object_title.blank?
     return toc_items.first.label unless toc_items.blank?
-    taxon_concepts = get_taxon_concepts(:published => :preferred)
-    return taxon_concepts.first.title_canonical(@session_hierarchy) unless taxon_concepts.first.blank?
-    return data_type.label
+    return data_type.simple_type
   end
   alias :summary_name :best_title
 
@@ -1046,13 +1049,11 @@ class DataObject < SpeciesSchemaModel
   end
 
   def first_concept_name
-    sorted_entries = HierarchyEntry.sort_by_vetted(published_entries)
-    sorted_entries[0].name.string rescue nil
+    first_hierarchy_entry.name.string rescue nil
   end
 
   def first_taxon_concept
-    sorted_entries = HierarchyEntry.sort_by_vetted(published_entries)
-    sorted_entries[0].taxon_concept rescue nil
+    first_hierarchy_entry.taxon_concept rescue nil
   end
 
   def first_hierarchy_entry
@@ -1073,6 +1074,12 @@ class DataObject < SpeciesSchemaModel
     st = description.gsub(/\n.*$/, '')
     st.truncate(32)
   end
+  
+  def description_teaser
+    full_teaser = Sanitize.clean(description, :elements => %w[b i], :remove_contents => %w[table script])
+    return nil if full_teaser.blank?
+    truncated_teaser = full_teaser.split[0..10].join(' ').balance_tags + '...'
+  end
 
   def added_by_user?
     users_data_objects && users_data_objects[0] && ! users_data_objects[0].user.blank?
@@ -1090,6 +1097,10 @@ class DataObject < SpeciesSchemaModel
     raise EOL::Exceptions::ObjectNotFound if cdohe.nil?
     raise EOL::Exceptions::WrongCurator.new("user did not create this association") unless cdohe.user_id = user.id
     cdohe.destroy
+  end
+  
+  def translated_from
+    data_object_translation ? data_object_translation.original_data_object : nil
   end
 
 end

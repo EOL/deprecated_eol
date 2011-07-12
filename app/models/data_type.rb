@@ -77,17 +77,17 @@ class DataType < SpeciesSchemaModel
 
   # Not all unique data types DISPLAY with their label... translations come from the DB on the labels we know we
   # like:
-  def simple_type
+  def simple_type(language_iso_code = nil)
     if DataType.image_type_ids.include? id
-      DataType.image.label
+      DataType.image.label(language_iso_code)
     elsif DataType.text_type_ids.include? id
-      DataType.text.label
+      DataType.text.label(language_iso_code)
     elsif DataType.sound_type_ids.include? id
-      DataType.sound.label
+      DataType.sound.label(language_iso_code)
     elsif DataType.video_type_ids.include? id
-      DataType.video.label
+      DataType.video.label(language_iso_code)
     else
-      label # We'll have to use whatever we have.
+      label(language_iso_code) # We'll have to use whatever we have.
     end
   end
 

@@ -1,0 +1,18 @@
+#page_heading.with_image
+  = render :partial => 'name_attribution'
+  .site_column
+    .hgroup
+    .page_actions
+      %ul
+#content
+  .site_column
+    #tabs_sidebar
+      = render :partial => 'filter_by_name_category'
+    #sidebar
+    - if logged_in?
+      .filters
+        %fieldset.actions
+    .collection_contributors
+    #collections.main_container
+    - if !@content.blank?
+      = render :partial => @category, :locals => { :content => @content }

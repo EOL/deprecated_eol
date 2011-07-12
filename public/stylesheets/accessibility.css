@@ -199,6 +199,8 @@ ul.feed li > a > img {
 #sidebar .collection_list img {
   width: 35px;
   height: 35px; }
+#sidebar.filters dd li.no_results label {
+  color: #6f7e8b; }
 
 /* TODO: this hasn't been really thought out and should be changed: */
 .heading p#empty {

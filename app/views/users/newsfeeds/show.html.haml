@@ -1,4 +1,7 @@
-#sidebar
-
-#user.main_container
-  = render :partial => 'activity_logs/index', :locals => {:log => @user.activity_log, :form_position => :before_header, :header => I18n.t(:newsfeed), :header_style => 'heading', :allow_filter => true}
+#collections_tab.main_container
+  .article.list.updates
+    = render :partial => 'comments/new'
+    .heading
+      %h3= I18n.t(:newsfeed)
+      - # TODO: Filter form?
+    = render :partial => 'activity_logs/index', :locals => {:log => @user.activity_log}

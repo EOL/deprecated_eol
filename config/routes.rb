@@ -45,7 +45,7 @@ ActionController::Routing::Routes.draw do |map|
   map.force_harvest_resource 'content_partner/resources/force_harvest/:id', :method => :post,
       :controller => 'resources', :action => 'force_harvest'
 
-  map.resources :comments, :member => { :make_visible => :put, :remove => :put }
+  map.resources :comments, :only => [:create]
   map.resources :random_images
   # TODO - the curate member method is not working when you use the url_for method and its derivatives.  Instead, the default
   # url of "/data_objects/curate/:id" works.  Not sure why.

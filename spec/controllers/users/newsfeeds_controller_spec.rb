@@ -1,10 +1,24 @@
-require 'spec_helper'
+require File.dirname(__FILE__) + '/../../spec_helper'
 
 describe Users::NewsfeedsController do
 
-  #Delete this example and add some real ones
-  it "should use Users::NewsfeedsController" do
-    controller.should be_an_instance_of(Users::NewsfeedsController)
+  before(:all) do
+    truncate_all_tables
+    load_scenario_with_caching :testy
+    @testy = EOL::TestInfo.load('testy')
+  end
+
+  describe 'GET show' do
+
+    it 'should instantiate the user' do
+      get :show, :user_id => @testy[:user].id.to_i
+      assigns[:user].should == @testy[:user]
+    end
+    it 'should instantiate the parent property for use in a new comment' do
+      get :show, :user_id => @testy[:user].id.to_i
+      assigns[:parent].should == @testy[:user]
+    end
+
   end
 
 end

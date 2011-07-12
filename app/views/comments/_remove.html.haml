@@ -1,5 +1,0 @@
-%span{ :style => "color:red" }
-  = I18n.t(:hidden) 
-[
-= link_to_remote( I18n.t(:unhide) , :url => make_visible_comment_path(current_object), :method  => :put, :confirm => I18n.t(:are_you_sure_you_want_this_visible_again) , :failure => "alert('HTTP Error ' + request.status + '!');return(false);", :update  => "vis_cmnt_#{current_object.id}")
-]

@@ -17,6 +17,7 @@ describe 'User Profile' do
     @password = 'beforeall'
     @user     = create_user(@username, @password)
     @watch_collection = @user.watch_collection
+    @anon_user = User.gen(:password => 'password')
   end
 
   after(:each) do
@@ -46,6 +47,29 @@ describe 'User Profile' do
     end
     it 'should show their watch collection' do
       page.body.should have_tag('#collections_tab', /#{@watch_collection.name}/)
+    end
+  end
+
+  describe 'newsfeed' do
+    it 'should show a newsfeed'
+    it 'should allow comments to be added' do
+      visit logout_url
+      visit user_path(@user)
+      page.fill_in 'comment_body', :with => "#{@anon_user.username} woz 'ere"
+      click_button 'Post Comment'
+      if current_url.match /#{login_url}/
+        page.fill_in 'user_username', :with => @anon_user.username
+        page.fill_in 'user_password', :with => 'password'
+        click_button 'Login Now »'
+      end
+      current_url.should match /#{user_path(@user)}/
+      body.should include('Comment successfully added')
+      Comment.last.body.should match /#{@anon_user.username}/
+
+      # test error handling when body is empty
+      click_button 'Post Comment'
+      body.should include('comment could not be added')
+      visit logout_url
     end
   end
 

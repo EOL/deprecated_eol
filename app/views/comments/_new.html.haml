@@ -1,39 +1,17 @@
-- if !logged_in? && $ALLOW_USER_LOGINS
-  %p
-    %strong
-      =I18n.t("you_must_be_logged_in_to_post_comments", :logged_in_link => link_to(I18n.t("logged_in_"), login_path(:params => {:return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path}), {:class => 'login_link'} ))
-- elsif logged_in?
-  %h2
-    =I18n.t("add_a_new_comment")
-  - form_remote_for([@parent, @comment], :html => {:id => nil, :style => 'margin-top:0;'}) do |f|
-    - comment_id = "comment_body_#{@parent.id}"
-    - submit_id = "submit_comment_#{@parent.id}"
-    = hidden_field_tag :body_div_name, body_div_name
-    = f.text_area :body, :rows => length, :cols => 50, :id => comment_id
-    %p
-      %span.error{ :id => "#{@parent.id}_comment_error", :style => "display:none;" }
-        =I18n.t("comment_should_not_be_empty")
-    = submit_tag(I18n.t("post_comment"), |
-      :id => submit_id, |
-      :exception => 'alert("Yay");', |
-      :class => 'post_comment')  |
-    = image_tag('indicator_arrows_black.gif', :id => "#{submit_id}_spinner", :style=>'display:none;')
-    -# This additionally submits the form because Safari seems to cancel the event anyway!  (Worked fine in FF.)
-    :javascript
-      $('##{submit_id}').click(function() {
-        if ($.trim($('##{comment_id}').val()) == "") {
-          $('##{@parent.id}_comment_error').show();
-          return false;
-        }
-        if($('##{@parent.id}_comment_error').is(":visible")) $('##{@parent.id}_comment_error').hide();
-        $(this).val('#{ I18n.t(:please_wait) }');
-        $(this).attr('disabled', 'disabled');
-        $('##{submit_id}_spinner').fadeIn();
-        var form = $(this).closest('form');
-        $.ajax({
-          url: form.attr('action'),
-          type: 'POST',
-          data: form.serialize()
-        });
-        return false;
-      });
+- # NOTE: If user is not logged in current_user.id and current_user.short_name etc will be nil, so we don't assume they exist here.
+- parent ||= @parent
+- rows ||= 3
+- cols ||= 60
+- form_for Comment.new, :html => { :class => 'comment' } do |f|
+  = f.hidden_field :parent_type, :value => parent.class.name
+  = f.hidden_field :parent_id, :value => parent.id
+  = hidden_field_tag :return_to, current_url
+  = hidden_field_tag :submit_to, '/comments/create' unless logged_in?
+  - # TODO: We need a helper to insert HTML error markup if body is empty: don't hardcode error message in this view.
+  %fieldset
+    = image_tag current_user.logo_url, :alt => I18n.t(:comment_new_posters_image_alt),
+      :title => I18n.t(:comment_new_posters_image_advisory_info)
+    = f.label :body, I18n.t(:comment_body_label), :class => 'assistive'
+    = f.text_area :body, :rows => rows, :cols => cols
+  %fieldset.actions
+    = submit_tag I18n.t(:post_comment)

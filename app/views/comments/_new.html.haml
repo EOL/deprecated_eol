@@ -9,7 +9,7 @@
   = hidden_field_tag :submit_to, '/comments/create' unless logged_in?
   - # TODO: We need a helper to insert HTML error markup if body is empty: don't hardcode error message in this view.
   %fieldset
-    = image_tag current_user.logo_url, :alt => I18n.t(:comment_new_posters_image_alt),
+    = image_tag current_user.logo_url(:small), :alt => I18n.t(:comment_new_posters_image_alt),
       :title => I18n.t(:comment_new_posters_image_advisory_info)
     = f.label :body, I18n.t(:comment_body_label), :class => 'assistive'
     = f.text_area :body, :rows => rows, :cols => cols

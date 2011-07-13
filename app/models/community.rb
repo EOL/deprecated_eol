@@ -107,7 +107,14 @@ class Community < ActiveRecord::Base
   end
 
   def logo_url(size = 'large')
-    logo_cache_url.blank? ? "v2/icon_communities_tabs.png" : ContentServer.logo_path(logo_cache_url, size)
+    if logo_cache_url.blank?
+      return "v2/icon_communities_tabs.png"
+    elsif size.to_s == 'small'
+      DataObject.image_cache_path(logo_cache_url, '88_88')
+    else
+      DataObject.image_cache_path(logo_cache_url, '130_130')
+      # ContentServer.logo_path(logo_cache_url, size)
+    end
   end
 
   def top_active_members

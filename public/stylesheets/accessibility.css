@@ -233,6 +233,19 @@ ul.feed li > a > img {
   margin-left: auto;
   margin-right: auto; }
 
+#taxonomy_detail #sidebar img {
+  max-width: 260px;
+  max-height: 190px;
+  width: auto;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto; }
+
 ul.object_list li img {
   max-width: 68px;
   max-height: 68px; }
+
+form.comment img {
+  height: 50px;
+  width: 50px; }

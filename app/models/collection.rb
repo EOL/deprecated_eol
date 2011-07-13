@@ -95,7 +95,13 @@ class Collection < ActiveRecord::Base
   end
 
   def logo_url(size = 'large')
-    logo_cache_url.blank? ? "v2/logos/empty_collection.png" : ContentServer.logo_path(logo_cache_url, size)
+    if logo_cache_url.blank?
+      return "v2/logos/empty_collection.png"
+    elsif size.to_s == 'small'
+      DataObject.image_cache_path(logo_cache_url, '88_88')
+    else
+      DataObject.image_cache_path(logo_cache_url, '130_130')
+    end
   end
 
   def taxa

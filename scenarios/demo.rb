@@ -14,11 +14,12 @@ include EOL::Data
 include EOL::Spec::Helpers
 
 
-def next_image
-  @total_test_images = 8
-  @image_number ||= 4
-  @image_number = (@image_number + 1) % @total_test_images
-  1000 + @image_number
+def next_user_logo_cache_url
+ @test_user_logo_cache_urls ||= [ '201107131262769', '201107131223670', '201107131271546', '201107131220085',
+                                  '201107131267336', '201107131283648', '201107131271653', '201107131306848']
+  @next_index ||= 0
+  @next_index = (@next_index + 1) % @test_user_logo_cache_urls.length
+  @test_user_logo_cache_urls[@next_index]
 end
 
 
@@ -206,24 +207,24 @@ obj.italicized = '<i>Animalia</i>'
 obj.save!
 
 community_owner = User.first
-community_owner.logo_cache_url = 1003
+community_owner.logo_cache_url = next_user_logo_cache_url
 community_owner.save
 
 community_name = 'Columbia Intro Biology'
 community = Community.find_by_name(community_name)
-community ||= Community.gen(:name => community_name, :description => 'This is a community intended to showcase the newest features of Version 2 for the EOL website.', :logo_cache_url => 2000)
+community ||= Community.gen(:name => community_name, :description => 'This is a community intended to showcase the newest features of Version 2 for the EOL website.', :logo_cache_url => 201107131232031)
 community.initialize_as_created_by(community_owner)
 com_col = community.focus
-com_col.logo_cache_url = 2001
+com_col.logo_cache_url = 201107131234217
 com_col.save!
 
 collection_owner = User.find(community_owner.id + 1)
-collection_owner.logo_cache_url = 1005
+collection_owner.logo_cache_url = next_user_logo_cache_url
 collection_owner.save
 
 collection_name  = 'New Species from the Census of Marine Life'
 endorsed_collection = Collection.find_by_name(collection_name)
-endorsed_collection ||= Collection.gen(:user => collection_owner, :name => collection_name, :logo_cache_url => 3000)
+endorsed_collection ||= Collection.gen(:user => collection_owner, :name => collection_name, :logo_cache_url => 201107131204367)
 
 # Empty the two collections:
 community.focus.collection_items.each do |ci|
@@ -234,13 +235,13 @@ endorsed_collection.collection_items.each do |ci|
 end
 
 loud_user = User.find(community_owner.id + 2)
-loud_user.logo_cache_url = 1001
+loud_user.logo_cache_url = next_user_logo_cache_url
 loud_user.save
 happy_user = User.find(community_owner.id + 3)
-happy_user.logo_cache_url = 1002
+happy_user.logo_cache_url = next_user_logo_cache_url
 happy_user.save
 concerned = User.find(community_owner.id + 4)
-concerned.logo_cache_url = 1003
+concerned.logo_cache_url = next_user_logo_cache_url
 concerned.save
 
 # Now build them up again:
@@ -261,7 +262,7 @@ users = User.find(:all, :conditions => 'logo_cache_url IS NULL')
 puts "Updating #{users.length} users..."
 users.each_with_index do |user, i|
   puts "  #{i}" if (i % 10 == 0)
-  user.logo_cache_url = next_image
+  user.logo_cache_url = next_user_logo_cache_url
   user.save
 end
 

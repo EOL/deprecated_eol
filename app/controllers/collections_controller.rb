@@ -19,6 +19,7 @@ class CollectionsController < ApplicationController
   end
 
   def show
+    return select_all if params[:commit_select_all]
     return copy if params[:commit_copy_collection_items]
   end
 
@@ -57,18 +58,23 @@ class CollectionsController < ApplicationController
 
   def edit
     @head_title = I18n.t(:edit_collection_head_title, :collection_name => @collection.name) unless @collection.blank?
+    if @field = params[:field]
+      respond_to do |format|
+        format.html { render "edit_field" }
+        format.js   { render :partial => "edit_#{@field}", :layout => false }
+      end
+    end
   end
 
   # When is an update not really an update?  When we clicked a different button.  There are many:
   def update
-    return select_all if params[:commit_select_all]
+    return real_update if params[:commit_edit_collection]
     return copy if params[:commit_copy_collection_items]
     return move if params[:commit_move_collection_items]
     return remove if params[:commit_remove_collection_items]
-    return real_update if params[:commit_edit_collection]
+    return select_all if params[:commit_select_all]
     return chosen if params[:commit_chosen_collection] # TODO - I would think we want this to go to the appropriate action.
-    flash[:warning] = I18n.t(:unknown_action_error)
-    redirect_back_or_default
+    real_update # There are several actions that DON'T use a button, and those need to simply update.
   end
 
   # NOTE - I haven't really implemented this one yet.
@@ -169,9 +175,21 @@ private
 
   def real_update
     if @collection.update_attributes(params[:collection])
-      flash[:notice] = I18n.t(:collection_updated_notice, :collection_name => @collection.name)
-      return redirect_to(@collection)
+      respond_to do |format|
+        format.html do
+          flash[:notice] = I18n.t(:collection_updated_notice, :collection_name => @collection.name)
+          return redirect_to(@collection)
+        end
+        format.js do
+          if @field = params[:field]
+            return render :partial => "show_#{@field}", :layout => false, :locals => { :editable => true }
+          else
+            return render :text => I18n.t(:collection_not_updated_error), :status => 403
+          end
+        end
+      end
     else
+      puts "++ ERR"
       flash[:error] = I18n.t(:collection_not_updated_error)
     end
   end

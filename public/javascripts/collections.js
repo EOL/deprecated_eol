@@ -1,8 +1,70 @@
+if(!EOL) { var EOL = {}; }
+
+// TODO = Cleanup.  This was hacked together hastily, trying to deal with a task that's already DAYS past when it was
+// supposed to be done.  For one, I'm not sure we need more than "html" to be set in the ajaxSetup.  Second, we
+// should abstract those two Ajax calls, which are so similar.  ...And likely more.
+
+// TODO - move this somewhere global:
+$.ajaxSetup({accepts: {
+  '*': "text/javascript, */*",
+  html: "text/javascript",
+  json: "application/json, text/javascript",
+  script: "text/javascript",
+  text: "text/plain",
+  xml: "application/xml, text/xml"
+}});
+
+if (!EOL.init_collection_behaviours) {
+  EOL.init_collection_behaviours = function() {
+    // Submit the sort when it's changed:
+    $('#sort_by').unbind('change');
+    $('#sort_by').change(function() {$(this).closest('form').submit();});
+    // Select All:
+    $('input[name=commit_select_all]').unbind('click');
+    $('input[name=commit_select_all]').click(function() {
+      $('.object_list input[name="collection_items[]"]').prop('checked', true); return(false);
+    });
+    // Get tiny editable forms when clicking on the edit link:
+    $('input[name=commit_sort]').hide();
+    $('.editable_link a').click(function() {  // TODO - this isn't working?  Is change the wrong method?
+      url = $(this).attr('href');
+      cell = $(this).closest('.editable');
+      $.ajax({
+        url: url,
+        dataType: 'html',
+        beforeSend: function(xhr) { cell.fadeTo(300, 0.3); },
+        success: function(response) { cell.html(response); },
+        error: function(xhr, stat, err) { cell.html('<p>Sorry, there was an error: '+stat+'</p>'); },
+        complete: function() {
+          cell.delay(25).fadeTo(100, 1, function() {cell.css({filter:''});});
+          EOL.init_collection_behaviours();
+        }
+      });
+      return(false); // stop event... there's a better way to do this?
+    });
+    // Submit tiny editable forms and return the tiny html response:
+    $('input[name=commit_edit_collection]').unbind('click');
+    $('input[name=commit_edit_collection]').click(function() {
+      form = $(this).closest('form');
+      cell = $(this).closest('.editable');
+      $.ajax({
+        url: form.attr('action'),
+        data: form.serialize(),
+        type: 'POST',
+        dataType: 'html',
+        beforeSend: function(xhr) { cell.fadeTo(300, 0.3); },
+        success: function(response) { cell.html(response); },
+        error: function(xhr, stat, err) { cell.html('<p>Sorry, there was an error: '+stat+'</p>'); },
+        complete: function() {
+          cell.delay(25).fadeTo(100, 1, function() {cell.css({filter:''});});
+          EOL.init_collection_behaviours();
+        }
+      });
+      return(false); // stop event... there's a better way to do this?
+    });
+  };
+}
+
 $(document).ready(function() {
-  // Submit the sort when it's changed:
-  $('#sort_by').change(function() {$(this).closest('form').submit();});
-  $('input[name=commit_select_all]').click(function() {
-    $('.object_list input[name="collection_items[]"]').prop('checked', true); return(false);
-  });
-  $('input[name=commit_sort]').hide();
+  EOL.init_collection_behaviours();
 });

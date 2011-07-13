@@ -1,25 +1,15 @@
 %ul.tabs.with_icons
-  - total_count = @facet_counts['All'] || 0
-  - taxa_count = @facet_counts['TaxonConcept'] || 0
-  - articles_count = @facet_counts['Text'] || 0
-  - videos_count = @facet_counts['Video'] || 0
-  - images_count = @facet_counts['Image'] || 0
-  - sounds_count = @facet_counts['Sound'] || 0
-  - communities_count = @facet_counts['Community'] || 0
-  - people_count = @facet_counts['User'] || 0
-  - collections_count = @facet_counts['Collection'] || 0
-  %li{:class => params[:filter] ? 'total' : 'total active'}= link_to I18n.t(:total_items_with_count, :count => total_count), @collection
-  - types = [{"count" => taxa_count,        "type" => "taxa",        "link" => "taxa_with_count"},
-             {"count" => articles_count,    "type" => "articles",    "link" => "articles_with_count"},
-             {"count" => videos_count,      "type" => "videos",      "link" => "videos_with_count"},
-             {"count" => images_count,      "type" => "images",      "link" => "images_with_count"},
-             {"count" => sounds_count,      "type" => "sounds",      "link" => "sounds_with_count"},
-             {"count" => communities_count, "type" => "communities", "link" => "communities_with_count"},
-             {"count" => people_count,      "type" => "people",      "link" => "people_with_count"},
-             {"count" => collections_count, "type" => "collections", "link" => "collections_with_count"}]
+  %li{:class => 'total' + (params[:filter] ? '' : ' active')}= link_to I18n.t(:total_items_with_count, :count => @facet_counts['All'] || 0), @collection
+  - types = [{:count => 'TaxonConcept', :type => "taxa",        :link => "taxa_with_count"},
+             {:count => 'Text',         :type => "articles",    :link => "articles_with_count"},
+             {:count => 'Video',        :type => "videos",      :link => "videos_with_count"},
+             {:count => 'Image',        :type => "images",      :link => "images_with_count"},
+             {:count => 'Sound',        :type => "sounds",      :link => "sounds_with_count"},
+             {:count => 'Community',    :type => "communities", :link => "communities_with_count"},
+             {:count => 'User',         :type => "people",      :link => "people_with_count"},
+             {:count => 'Collection',   :type => "collections", :link => "collections_with_count"}]
 
   - types.each do |t|
-    - classes = t['type'].dup
-    - classes << ' active' if params[:filter] == t['type']
-    - if t['count'] > 0
-      %li{:class => classes}= link_to I18n.t("#{t['link']}", :count => t['count']), "/collections/#{@collection.id}/#{t['type']}"
+    - count = @facet_counts[t[:count]] || 0
+    - if count > 0
+      %li{:class => t[:type] + (params[:filter] == t[:type] ? ' active' : '') }= link_to I18n.t("#{t[:link]}", :count => count), "/collections/#{@collection.id}/#{t[:type]}"

@@ -60,7 +60,7 @@ $(document).ready(function() {
   EOL.init_common_name_behaviors();
 });
 
-function vet_common_name(tc_id, lang_id, name_id, select_tag_id, he_id) 
+function vet_common_name(tc_id, lang_id, name_id, select_tag_id, he_id)
 {
   var x = document.getElementById(select_tag_id).selectedIndex;
   var y = document.getElementById(select_tag_id).options;

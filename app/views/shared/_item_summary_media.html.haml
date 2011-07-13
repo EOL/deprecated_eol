@@ -1,5 +1,5 @@
 - en_type ||= en_type(item)
-= link_to image_tag(item.smart_thumb), data_object_path(item)
+= link_to image_tag(item.thumb_or_object('88_88')), data_object_path(item)
 %span.icon{:title => I18n.t("item_type_#{en_type}_assistive")}
 %h4= link_to item.best_title, data_object_path(item)
 - secondary_title = I18n.t("#{en_type}_of") + ' ' + item.first_hierarchy_entry.name.canonical_form.string

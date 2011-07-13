@@ -237,7 +237,7 @@ private
     when 'original'
       @data_object.original_image
     else
-      @data_object.smart_image
+      @data_object.thumb_or_object('580_360')
     end
   end
 

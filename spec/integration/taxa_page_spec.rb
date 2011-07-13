@@ -42,10 +42,10 @@ describe 'Taxa page' do
     end
     it 'should show a gallery of four images' do
       body.should have_tag("div#media_summary") do
-        with_tag("img[src$=#{@testy[:taxon_concept].images[0].original_image[25..-1]}]")
-        with_tag("img[src$=#{@testy[:taxon_concept].images[1].original_image[25..-1]}]")
-        with_tag("img[src$=#{@testy[:taxon_concept].images[2].original_image[25..-1]}]")
-        with_tag("img[src$=#{@testy[:taxon_concept].images[3].original_image[25..-1]}]")
+        with_tag("img[src$=#{@testy[:taxon_concept].images[0].thumb_or_object('580_360')[25..-1]}]")
+        with_tag("img[src$=#{@testy[:taxon_concept].images[1].thumb_or_object('580_360')[25..-1]}]")
+        with_tag("img[src$=#{@testy[:taxon_concept].images[2].thumb_or_object('580_360')[25..-1]}]")
+        with_tag("img[src$=#{@testy[:taxon_concept].images[3].thumb_or_object('580_360')[25..-1]}]")
       end
       should_not have_tag("img[src$=#{@testy[:taxon_concept].images[4].original_image[25..-1]}]")
     end

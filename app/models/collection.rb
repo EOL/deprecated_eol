@@ -51,7 +51,7 @@ class Collection < ActiveRecord::Base
     if user_id
       return user.id == user_id # Owned by this user?
     else
-      return user.member_of(community).can?(Privilege.edit_collections)
+      return user.member_of(community) && user.member_of(community).can?(Privilege.edit_collections)
     end
   end
 

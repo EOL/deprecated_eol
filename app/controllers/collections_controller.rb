@@ -20,7 +20,6 @@ class CollectionsController < ApplicationController
 
   def show
     return copy if params[:commit_copy_collection_items]
-    return move if params[:commit_move_collection_items]
   end
 
   def new
@@ -31,7 +30,7 @@ class CollectionsController < ApplicationController
   def create
     @collection = Collection.new(params[:collection])
     if @collection.save
-      CollectionActivityLog.create(:collection => self, :user => current_user, :activity => Activity.create)
+      CollectionActivityLog.create(:collection => @collection, :user => current_user, :activity => Activity.create)
       flash[:notice] = I18n.t(:collection_created_notice, :collection_name => @collection.name)
     else
       flash[:error] = I18n.t(:collection_not_created_error, :collection_name => @collection.name)
@@ -48,6 +47,10 @@ class CollectionsController < ApplicationController
         end
       elsif params[:move]
         flash[:notice] = 'TODO move items'
+      else
+        @collection.destroy
+        flash[:error] = I18n.t(:collection_not_created_error, :collection_name => @collection.name)
+        return redirect_to request.referer
       end
     end
   end
@@ -83,8 +86,8 @@ class CollectionsController < ApplicationController
 
   # /collections/choose GET
   def choose
-    @action_to_take = :copy if params[:copy]
-    @action_to_take = :move if params[:move]
+    @action_to_take = :copy if params[:for] == 'copy'
+    @action_to_take = :move if params[:for] == 'move'
     @selected_collection_items = params[:collection_items]
     params[:collection_items] = nil
     @collections = current_user.collections # TODO: does this include community collections of which user is member?
@@ -137,13 +140,13 @@ private
 
   def copy
     return no_items_selected_error(:copy) if params[:collection_items].nil? or params[:collection_items].empty?
-    return redirect_to params.merge(:action => 'choose', :action_to_take => 'copy').except(
+    return redirect_to params.merge(:action => 'choose', :for => 'copy').except(
       :filter, :sort_by, *unnecessary_keys_for_redirect)
   end
 
   def move
     return no_items_selected_error(:move) if params[:collection_items].nil? or params[:collection_items].empty?
-    return redirect_to params.merge(:action => 'choose', :action_to_take => 'move').except(
+    return redirect_to params.merge(:action => 'choose', :for => 'move').except(
       :filter, :sort_by, *unnecessary_keys_for_redirect)
   end
 

@@ -13,9 +13,6 @@
   = render :partial => 'shared/flash_messages'
 #content
   .site_column
-    #tabs_sidebar
-      = render :partial => 'collections/filter_by_item_type'
-
     - if @collection.empty?
       #sidebar
         .collection_contributors
@@ -27,8 +24,9 @@
         .heading
           %p#empty= I18n.t(:collection_is_empty)
     - else
+      #tabs_sidebar
+        = render :partial => 'collections/filter_by_item_type'
       - form_for(@collection, :html => {:method => :get}, :url => {:action => :show}) do |collection_form|
-        = hidden_field_tag :action_name, controller.action_name
         = hidden_field_tag :filter, @filter if @filter
         #sidebar
           - if logged_in?

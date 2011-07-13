@@ -38,7 +38,7 @@ class Collection < ActiveRecord::Base
   validates_attachment_size :logo, :in => 0..0.5.megabyte,
     :if => self.column_names.include?('logo_file_name')
 
-  index_with_solr :keywords => [:name]
+  index_with_solr :keywords => [ :name ], :fulltexts => [ :description ]
 
   alias :items :collection_items
   alias_attribute :summary_name, :name

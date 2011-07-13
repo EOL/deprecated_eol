@@ -45,14 +45,8 @@ describe 'Search' do
     visit('/logout')
     make_all_nested_sets
     flatten_hierarchies
-    @solr = SolrAPI.new($SOLR_SERVER, $SOLR_SITE_SEARCH_CORE)
-    @solr.delete_all_documents
-    # this will re-index everything
-    TaxonConcept.all.each{ |i| i.save }
-    DataObject.all.each{ |i| i.save }
-    User.all.each{ |i| i.save }
-    Community.all.each{ |i| i.save }
-    Collection.all.each{ |i| i.save }
+    builder = EOL::Solr::SiteSearchCoreRebuilder.new()
+    builder.begin_rebuild
   end
 
   it 'should redirect to species page if only 1 possible match is found (also for pages/searchterm)' do

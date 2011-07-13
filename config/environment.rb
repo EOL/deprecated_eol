@@ -189,6 +189,7 @@ Rails::Initializer.run do |config|
   $SOLR_SITE_SEARCH_CORE = 'site_search'
   $SOLR_COLLECTION_ITEMS_CORE = 'collection_items'
   $SOLR_DIR    = File.join(RAILS_ROOT, 'solr', 'solr')
+  $INDEX_RECORDS_IN_SOLR_ON_SAVE = true
 
   ### These next few values are declared in the eol:site_configurations table. They are also declared here
   ### beacuse when we switch to SI we will not be able to edit the database and need to be able to tweak the
@@ -217,7 +218,7 @@ Rails::Initializer.run do |config|
   $MAX_TAXA_TO_EXPIRE_BEFORE_EXPIRING_ALL = 1024
 
   $SPECIAL_COMMUNITY_NAME = 'EOL Curators and Admins'
-
+  
   APPLICATION_DEFAULT_LANGUAGE_ISO = 'en'
 
   # for those class that are using CACHE_ALL_ROWS, when the row is looked up in memcached, retain that value

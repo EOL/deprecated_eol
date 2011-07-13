@@ -102,8 +102,9 @@
             - @explore_taxa[0..4].each do |random_image|
               %li= link_to image_tag(random_image.data_object.thumb_or_object('130_130'),
                 :alt => random_image.taxon_concept.entry.name.canonical_form.string), "/pages/#{random_image.taxon_concept_id}"
-            %li.last= link_to image_tag(@explore_taxa[5].data_object.thumb_or_object('130_130'),
-              :alt => @explore_taxa[5].taxon_concept.entry.name.canonical_form.string), "/pages/#{@explore_taxa[5].taxon_concept_id}"
+            - if random_image = @explore_taxa[5]
+              %li.last= link_to image_tag(random_image.data_object.thumb_or_object('130_130'),
+                :alt => random_image.taxon_concept.entry.name.canonical_form.string), "/pages/#{random_image.taxon_concept_id}"
           .term
             .site_column
               %p

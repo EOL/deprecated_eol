@@ -34,7 +34,7 @@ class Community < ActiveRecord::Base
   validates_attachment_size :logo, :in => 0..0.5.megabyte,
     :if => self.column_names.include?('logo_file_name')
 
-  index_with_solr :keywords => [:name, :description]
+  index_with_solr :keywords => [ :name ], :fulltexts => [ :description ]
 
   alias :focus :collection
   alias_attribute :summary_name, :name

@@ -61,7 +61,7 @@ class DataObject < SpeciesSchemaModel
   named_scope :visible, lambda { { :conditions => { :visibility_id => Visibility.visible.id } }}
   named_scope :preview, lambda { { :conditions => { :visibility_id => Visibility.preview.id } }}
 
-  index_with_solr :keywords => [:object_title], :fulltexts => [:description]
+  index_with_solr :keywords => [ :object_title ], :fulltexts => [ :description ]
 
   define_core_relationships :select => {
       :data_objects => '*',

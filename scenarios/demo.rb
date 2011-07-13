@@ -22,6 +22,8 @@ def next_user_logo_cache_url
   @test_user_logo_cache_urls[@next_index]
 end
 
+original_index_records_on_save_value = $INDEX_RECORDS_IN_SOLR_ON_SAVE
+$INDEX_RECORDS_IN_SOLR_ON_SAVE = false
 
 # We need to build the taxa, if they don't exist:
 taxa = []
@@ -271,6 +273,9 @@ make_all_nested_sets
 rebuild_collection_type_nested_set
 flatten_hierarchies
 
-TaxonConcept.all.each do |tc|
-  tc.save # This will save the record, thus indexing the concept with all its names
-end
+builder = EOL::Solr::SiteSearchCoreRebuilder.new()
+builder.obliterate
+builder.begin_rebuild
+
+$INDEX_RECORDS_IN_SOLR_ON_SAVE = original_index_records_on_save_value
+

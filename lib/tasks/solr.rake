@@ -84,8 +84,8 @@ namespace :solr do
   
   desc 'Rebuild the site_search index'
   task :rebuild_site_search => :environment do
-    solr_api = SolrAPI.new($SOLR_SERVER, $SOLR_SITE_SEARCH_CORE)
-    builder = EOL::Solr::SiteSearchCoreRebuilder.new(solr_api)
+    builder = EOL::Solr::SiteSearchCoreRebuilder.new()
+    builder.obliterate
     builder.begin_rebuild
   end
   

@@ -35,9 +35,9 @@ describe "Members controller (within a community)" do
   end
 
   it 'nonmembers should list members of a community' do
-    @community_nonmembers_page.should have_tag('#community_members', :text => /#{@admin.username}/)
-    @community_nonmembers_page.should have_tag('#community_members', :text => /#{@user.username}/)
-    @community_nonmembers_page.should_not have_tag('#community_members', :text => /#{@nonmember.username}/)
+    @community_nonmembers_page.should have_tag('#community', :text => /#{@admin.short_name}/)
+    @community_nonmembers_page.should have_tag('#community', :text => /#{@user.short_name}/)
+    @community_nonmembers_page.should_not have_tag('#community', :text => /#{@nonmember.short_name}/)
   end
 
   it 'admins should (still) have a link to the user\'s page' do

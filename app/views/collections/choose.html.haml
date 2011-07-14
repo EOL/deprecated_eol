@@ -2,6 +2,7 @@
   = render :partial => 'collections/new'
   %ul.object_list
     - @collections.each do |collection|
+      - next if collection.id == @collection.id
       = image_tag collection.logo_url, :alt => ''
       - form_for collection do |collection_form|
         = hidden_field_tag "#{@action_to_take}", true

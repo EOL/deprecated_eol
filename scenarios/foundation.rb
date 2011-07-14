@@ -7,6 +7,9 @@ if $CACHE
   old_cache_value = $CACHE.clone
 end
 
+original_index_records_on_save_value = $INDEX_RECORDS_IN_SOLR_ON_SAVE
+$INDEX_RECORDS_IN_SOLR_ON_SAVE = false
+
 # Translated tables will not work without this:
 Language.create_english
 
@@ -260,3 +263,6 @@ he = HierarchyEntry.gen(:hierarchy => default_hierarchy)
 
 $CACHE = old_cache_value.clone if old_cache_value
 $CACHE.clear
+
+$INDEX_RECORDS_IN_SOLR_ON_SAVE = original_index_records_on_save_value
+

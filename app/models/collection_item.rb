@@ -12,62 +12,68 @@ class CollectionItem < ActiveRecord::Base
   validates_presence_of :object_id, :object_type
   validates_uniqueness_of :object_id, :scope => [:collection_id, :object_type],
     :message => I18n.t(:item_not_added_already_in_collection)
-  
+
   after_save :index_collection_item_in_solr
   before_destroy :remove_collection_item_from_solr
-  
+
   # Using has_one :through didn't work:
   def community
     return nil unless collection
     return nil unless collection.community
     return collection.community
   end
-  
+
   def index_collection_item_in_solr
-    remove_collection_item_from_solr
-    begin
-      solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_COLLECTION_ITEMS_CORE)
-    rescue Errno::ECONNREFUSED => e
-      puts "** WARNING: Solr connection failed."
-      return nil
+    if collection_id
+      remove_collection_item_from_solr
+      begin
+        solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_COLLECTION_ITEMS_CORE)
+      rescue Errno::ECONNREFUSED => e
+        puts "** WARNING: Solr connection failed."
+        return nil
+      end
+
+      params = {}
+      params['collection_item_id'] = self.id
+      params['object_type'] = (self.object_type == 'DataObject') ? self.object.data_type.simple_type('en') : self.object_type
+      params['object_id'] = self.object_id
+      params['collection_id'] = self.collection_id || 0
+      params['annotation'] = self.annotation || ''
+      params['added_by_user_id'] = self.added_by_user_id || 0
+      params['date_created'] = self.created_at.solr_timestamp rescue nil
+      params['date_modified'] = self.updated_at.solr_timestamp rescue nil
+
+      case self.object.class.name
+      when "TaxonConcept"
+        params['title'] = self.object.entry.name.canonical_form.string
+      when "User"
+        params['title'] = self.object.username
+      when "DataObject"
+        params['title'] = self.object.best_title
+        params['data_rating'] = self.object.data_rating || 0
+      when "Community"
+        params['title'] = self.object.name
+      when "Collection"
+        params['title'] = self.object.name
+      else
+        raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_index_collection_item_type_error,
+                                                                    :type => self.object.class.name))
+      end
+
+      params['data_rating'] ||= 0
+      params['richness_score'] ||= 0
+      # this is a strange thing to do as only TaxonConcepts have richness, but putting this inside the case switch
+      # above was giving me other mysterious errors
+      # if self.object.class.name == "TaxonConcept" && self.object.taxon_concept_metric && !self.object.taxon_concept_metric.richness_score.blank?
+      #   params['richness_score'] = 0
+      # end
+      solr_connection.create(params)
+    else # There is no collection associated with this collection item; it is meant for historical indexing only, and
+         # there is no need to index this in solr.  ...In fact, it had better not be indexed!
+      remove_collection_item_from_solr
     end
-    
-    params = {}
-    params['collection_item_id'] = self.id
-    params['object_type'] = (self.object_type == 'DataObject') ? self.object.data_type.simple_type('en') : self.object_type
-    params['object_id'] = self.object_id
-    params['collection_id'] = self.collection_id || 0
-    params['annotation'] = self.annotation || ''
-    params['added_by_user_id'] = self.added_by_user_id || 0
-    params['date_created'] = self.created_at.solr_timestamp rescue nil
-    params['date_modified'] = self.updated_at.solr_timestamp rescue nil
-    
-    case self.object.class.name
-    when "TaxonConcept"
-      params['title'] = self.object.entry.name.canonical_form.string
-    when "User"
-      params['title'] = self.object.username
-    when "DataObject"
-      params['title'] = self.object.best_title
-      params['data_rating'] = self.object.data_rating || 0
-    when "Community"
-      params['title'] = self.object.name
-    when "Collection"
-      params['title'] = self.object.name
-    else
-      raise EOL::Exceptions::InvalidCollectionItemType.new("I cannot index a collection item from a #{self.object.class.name}")
-    end
-    
-    params['data_rating'] ||= 0
-    params['richness_score'] ||= 0
-    # this is a strange thing to do as only TaxonConcepts have richness, but putting this inside the case switch
-    # above was giving me other mysterious errors
-    # if self.object.class.name == "TaxonConcept" && self.object.taxon_concept_metric && !self.object.taxon_concept_metric.richness_score.blank?
-    #   params['richness_score'] = 0
-    # end
-    solr_connection.create(params)
   end
-  
+
   def remove_collection_item_from_solr
     begin
       solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_COLLECTION_ITEMS_CORE)

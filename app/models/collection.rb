@@ -38,7 +38,7 @@ class Collection < ActiveRecord::Base
   validates_attachment_size :logo, :in => 0..0.5.megabyte,
     :if => self.column_names.include?('logo_file_name')
 
-  index_with_solr :keywords => [:name]
+  index_with_solr :keywords => [ :name ], :fulltexts => [ :description ]
 
   alias :items :collection_items
   alias_attribute :summary_name, :name
@@ -51,7 +51,7 @@ class Collection < ActiveRecord::Base
     if user_id
       return user.id == user_id # Owned by this user?
     else
-      return user.member_of(community).can?(Privilege.edit_collections)
+      return user.member_of(community) && user.member_of(community).can?(Privilege.edit_collections)
     end
   end
 
@@ -95,7 +95,13 @@ class Collection < ActiveRecord::Base
   end
 
   def logo_url(size = 'large')
-    logo_cache_url.blank? ? "v2/logos/empty_collection.png" : ContentServer.logo_path(logo_cache_url, size)
+    if logo_cache_url.blank?
+      return "v2/logos/empty_collection.png"
+    elsif size.to_s == 'small'
+      DataObject.image_cache_path(logo_cache_url, '88_88')
+    else
+      DataObject.image_cache_path(logo_cache_url, '130_130')
+    end
   end
 
   def taxa

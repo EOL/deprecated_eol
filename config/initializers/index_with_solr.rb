@@ -12,6 +12,7 @@ module ActiveRecord
         options[:full_text] ||= []
 
         define_method(:remove_from_index) do
+          return unless $INDEX_RECORDS_IN_SOLR_ON_SAVE
           begin
             solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_SITE_SEARCH_CORE)
           rescue Errno::ECONNREFUSED => e
@@ -22,6 +23,7 @@ module ActiveRecord
         end
 
         define_method(:add_to_index) do
+          return unless $INDEX_RECORDS_IN_SOLR_ON_SAVE
           remove_from_index
           begin
             solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_SITE_SEARCH_CORE)
@@ -30,9 +32,16 @@ module ActiveRecord
             return nil
           end
           
+          self.keywords_to_send_to_solr_index.each do |params|
+            solr_connection.create(params)
+          end
+        end
+        
+        define_method(:keywords_to_send_to_solr_index) do
+          keywords_to_send_to_solr = []
           # making some exceptions for the special community and its collection which are not to be returned in searches
-          return if self.class == Community && self == Community.special
-          return if self.class == Collection && self.community_id == Community.special.id
+          return [] if self.class == Community && self == Community.special
+          return [] if self.class == Collection && self.community_id == Community.special.id
           
           params = {
             'resource_type'       => self.class.to_s,
@@ -42,7 +51,7 @@ module ActiveRecord
           params['date_created'] = self.created_at.solr_timestamp if self.respond_to?('created_at') && self.created_at
           params['date_modified'] = self.updated_at.solr_timestamp if self.respond_to?('updated_at') && self.updated_at
           
-          if self.class == DataObject && self.data_type
+          if self.class == DataObject && !self.data_type_id.blank?
             data_type_label = self.is_video? ? 'Video' : self.data_type.label('en')
             params['resource_type'] = [self.class.to_s, data_type_label]
           end
@@ -51,20 +60,22 @@ module ActiveRecord
           options[:keywords].each do |field_or_method|
             if self.respond_to?(field_or_method)
               return_value = self.method(field_or_method).call
+              next if return_value.blank?
               if return_value.class == String
-                self.class.submit_keyword_to_solr(solr_connection, params, return_value, field_or_method)
+                keywords_to_send_to_solr << params.merge({ :keyword => return_value, :keyword_type => field_or_method })
               elsif return_value.class == Hash
                 keyword_type = return_value[:keyword_type] || field_or_method
                 return_value[:keywords].each do |keyword|
-                  self.class.submit_keyword_to_solr(solr_connection, params, keyword, keyword_type,
-                    :language => return_value[:language], :ancestor_taxon_concept_id => return_value[:ancestor_taxon_concept_id])
+                  keywords_to_send_to_solr << params.merge({ :keyword => keyword, :keyword_type => keyword_type,
+                     :language => return_value[:language], :ancestor_taxon_concept_id => return_value[:ancestor_taxon_concept_id] })
                 end
               elsif return_value.class == Array
                 return_value.each do |rv|
                   keyword_type = rv[:keyword_type] || field_or_method
                   rv[:keywords].each do |keyword|
-                    self.class.submit_keyword_to_solr(solr_connection, params, keyword, keyword_type,
-                      :language => rv[:language], :ancestor_taxon_concept_id => rv[:ancestor_taxon_concept_id])
+                    next if keyword.blank?
+                    keywords_to_send_to_solr << params.merge({ :keyword => keyword, :keyword_type => keyword_type,
+                      :language => rv[:language], :ancestor_taxon_concept_id => rv[:ancestor_taxon_concept_id] })
                   end
                 end
               end
@@ -76,22 +87,21 @@ module ActiveRecord
           options[:fulltexts] ||= []
           options[:fulltexts].each do |field_or_method|
             if self.respond_to?(field_or_method)
-              self.class.submit_keyword_to_solr(solr_connection, params, self.method(field_or_method).call, field_or_method, :fulltext => true)
+              keyword = self.method(field_or_method).call
+              next if keyword.blank?
+              keywords_to_send_to_solr << params.merge({ :keyword => keyword, :keyword_type => field_or_method,
+                :full_text => true })
             else
               raise "NoMethodError: undefined method `#{field_or_method}' for #{self.class.to_s}"
             end
           end
+          
+          # English as default language might make sense
+          keywords_to_send_to_solr.each do |k|
+            k[:language] ||= 'en'
+          end
+          return keywords_to_send_to_solr
         end
-      end
-
-      def submit_keyword_to_solr(solr_connection, params, keyword, keyword_type, options={})
-        options[:language] ||= 'en'
-        params['keyword'] = keyword
-        params['keyword_type'] = keyword_type
-        params['full_text'] = true if options[:is_fulltext]
-        params['language'] = options[:language]
-        params['ancestor_taxon_concept_id'] = options[:ancestor_taxon_concept_id] if options[:ancestor_taxon_concept_id]
-        solr_connection.create(params)
       end
 
       def remove_index_with_solr

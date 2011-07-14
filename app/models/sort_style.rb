@@ -24,19 +24,19 @@ class SortStyle < ActiveRecord::Base
   def self.oldest
     cached_find_translated(:name, 'Oldest')
   end
-  
+
   def self.alphabetical
     cached_find_translated(:name, 'Alphabetical')
   end
-  
+
   def self.reverse_alphabetical
     cached_find_translated(:name, 'Reverse Alphabetical')
   end
-  
+
   def self.richness
     cached_find_translated(:name, 'Richness')
   end
-  
+
   def self.rating
     cached_find_translated(:name, 'Rating')
   end

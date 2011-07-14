@@ -3,21 +3,18 @@
     %h3= I18n.t(:community_focus)
     - if @community.focus.nil?
       %p= I18n.t(:this_community_has_no_focus_list)
-    - elsif @community.focus.collection_items.empty?
-      %p= I18n.t(:this_community_has_no_focus_items_associated_with_it)
     - else
       %ul
-        %li
-          = link_to image_tag(@community.focus.logo_url('small')), collection_path(@community.focus)
-          = link_to @community.focus.name, collection_path(@community.focus)
+        = render :partial => 'collections/collection_summary', :locals => {:collection => @community.focus, :minimal => true}
   .collection_list
     %h3= I18n.t(:endorsed_collections)
-    -# FIXME: make this functional
-    %ul
-      %li
-        = link_to image_tag(Collection.last.logo_url('small')), collection_path(Collection.last)
-        = link_to Collection.last.name, collection_url(Collection.last)
-
+    - if @community.endorsed_collections.empty?
+      %p= I18n.t(:this_community_has_no_endorsed_collections)
+    - else
+      %ul
+        - @community.endorsed_collections[0..3].each do |collection|
+          = render :partial => 'collections/collection_summary', :locals => {:collection => collection, :minimal => true}
 #community.main_container
   -# TODO - Fix this to show the activity logs on communities page.
-  = render :partial => 'activity_logs/index', :locals => { :log => @community.activity_log, :form_position => :before_header, :header => I18n.t(:newsfeed), :header_style => 'heading', :allow_filter => true }
+  %h3= I18n.t(:newsfeed)
+  = render :partial => 'activity_logs/index', :locals => { :log => @community.activity_log }

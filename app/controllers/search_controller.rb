@@ -23,6 +23,9 @@ class SearchController < ApplicationController
       @suggestions = search_response[:suggestions]
       log_search(request)
       current_user.log_activity(:text_search_on, :value => params[:q])
+      if mobile_agent_request? && !mobile_disabled_by_session?
+        render :template => 'mobile/search/index', :layout => "#{RAILS_ROOT}/app/views/mobile/layouts/main_mobile.html.haml"
+      end
       if @all_results.length == 1 && @all_results.total_entries == 1
         redirect_to_page(@all_results)
       elsif params[:show_all].blank? && @all_results.total_entries > 1 && @all_results.length > 1 &&

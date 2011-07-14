@@ -1,0 +1,9 @@
+%div{"data-role"=>"header", "data-position"=>"fixed", "data-theme"=>"a"}
+  =link_to image_tag("/images/mobile/logo_simple.png", :height => '24')
+  %h1=t "mobile.contents.home" 
+
+%div{"data-role"=>"content"}
+  %h2 Results
+  =@all_results.map do |r|
+    //%p=r.inspect
+    %p=r["best_keyword_match"]

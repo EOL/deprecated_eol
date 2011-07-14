@@ -124,20 +124,16 @@ describe 'Taxa page' do
     it 'should allow user to rate a text object first then login to complete the action' do
       visit logout_url
       visit taxon_details_path(@testy[:taxon_concept])
-      debugger
       click_link('Change rating to 3 of 5')
       user = User.gen(:password => 'password')
       page.fill_in 'user_username', :with => user.username
       page.fill_in 'user_password', :with => 'password'
       click_button 'Login Now »'
       current_url.should match /#{taxon_details_path(@testy[:taxon_concept])}/
-      body.should include('rating added')
-      debugger
+      body.should include('Rating was added')
       visit taxon_details_path(@testy[:taxon_concept])
-      within ('.rating') do
-        click_link('Change rating to 4 of 5')
-      end
-      body.should include('rating added')
+      click_link('Change rating to 4 of 5')
+      body.should include('Rating was added ')
     end
   end
 

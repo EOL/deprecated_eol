@@ -1,5 +1,5 @@
-- unless item.smart_thumb.blank?
-  = link_to image_tag(item.smart_thumb), taxon_overview_path(item)
+- unless item.best_image.blank?
+  = link_to image_tag(item.best_image.thumb_or_object('88_88')), taxon_overview_path(item)
 %span.icon{:title => I18n.t(:item_type_taxon_assistive)}
 %small= item.entry.preferred_classification_summary
 %h4= link_to item.title_canonical, taxon_overview_path(item)

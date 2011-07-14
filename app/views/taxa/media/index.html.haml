@@ -1,7 +1,7 @@
 - # TODO: Optionally integrate HashRocket rating.js it must be I18nized and allow anonymous users to login.
 #media_list
   #sidebar.filters
-    = image_tag @exemplar_image.smart_medium_thumb unless @exemplar_image.blank?
+    = image_tag @exemplar_image.thumb_or_object('260_190') unless @exemplar_image.blank?
     %h3= I18n.t(:media)
     = render :partial => "media_sort_filter"
   #main

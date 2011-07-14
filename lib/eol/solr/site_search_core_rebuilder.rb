@@ -4,83 +4,99 @@ module EOL
       attr_reader :solr_api
       attr_reader :objects_to_send
 
-      def initialize(solr_api)
-        @solr_api = solr_api
+      def initialize()
+        @solr_api = SolrAPI.new($SOLR_SERVER, $SOLR_SITE_SEARCH_CORE)
         @objects_to_send = []
       end
 
-      def begin_rebuild(optimize = true)
+      def obliterate
         @solr_api.delete_all_documents
-        add_taxa_names
+      end
+      
+      def begin_rebuild(optimize = true)
+        reindex_model(Community)
+        reindex_model(Collection)
+        reindex_model(DataObject)
+        reindex_model(User)
+        reindex_model(TaxonConcept)
         @solr_api.optimize if optimize
       end
-
-      def add_taxa_names
-        start, max_id = TaxonConcept.connection.execute("SELECT MIN(id) as min, MAX(id) as max FROM taxon_concepts").fetch_row
-        limit = 10000
-        i = start.dup.to_i
-        while i <= max_id.to_i
+      
+      def reindex_model(klass)
+        @solr_api.delete_by_query('resource_type:' + klass.class_name)
+        start = klass.first.id
+        max_id = klass.last.id
+        limit = 5000
+        i = start
+        while i <= max_id
           @objects_to_send = []
-          lookup_names(i, limit);
+          case klass.class_name
+          when 'Community'
+            lookup_communities(i, limit);
+          when 'Collection'
+            lookup_collections(i, limit);
+          when 'DataObject'
+            lookup_data_objects(i, limit);
+          when 'User'
+            lookup_users(i, limit);
+          when 'TaxonConcept'
+            lookup_taxon_concepts(i, limit);
+          end
+          @objects_to_send.each do |o|
+            if o[:keyword]
+              o[:keyword] = SolrAPI.text_filter(o[:keyword])
+            end
+          end
           @solr_api.send_attributes(@objects_to_send) unless @objects_to_send.blank?
           i += limit
         end
       end
-
-      def lookup_names(start, limit)
+      
+      def lookup_communities(start, limit)
         max = start + limit
-        taxon_concepts = TaxonConcept.find(:all, :conditions => "id BETWEEN #{start} AND #{max}",
-          :include => { :hierarchy_entries => [ :name, { :scientific_synonyms => :name }, { :common_names => [ :name, :language ] } ] },
-          :select => { :taxon_concepts => :id, :names => :string, :languages => :iso_639_1 })
-        taxon_concepts.each do |tc|
-          tc.save
-          next
-          all_names = []
-          all_synonyms = []
-          all_common_names = {}
-          tc.hierarchy_entries.each do |he|
-            name = SolrAPI.text_filter(he.name.string)
-            all_names << name if name && !all_names.include?(name)
-          
-            he.scientific_synonyms.each do |s|
-              name = SolrAPI.text_filter(s.name.string)
-              all_synonyms << name if name && !all_synonyms.include?(name)
-            end
-          
-            he.common_names.each do |cn|
-              name = SolrAPI.text_filter(cn.name.string)
-              if name && (all_common_names[cn.language.iso_639_1].blank? || !all_common_names[cn.language.iso_639_1].include?(name))
-                all_common_names[cn.language.iso_639_1] ||= []
-                all_common_names[cn.language.iso_639_1] << name
-              end
-            end
-          end
-          
-          unless all_names.blank?
-            @objects_to_send << { :keyword_type => 'Scientific Name',
-                                  :keyword => all_names,
-                                  :language => 'sci',
-                                  :resource_type => ['TaxonConcept'],
-                                  :resource_id => tc.id }
-          end
-          unless all_synonyms.blank?
-            @objects_to_send << { :keyword_type => 'Synonym',
-                                  :keyword => all_synonyms,
-                                  :language => 'sci',
-                                  :resource_type => ['TaxonConcept'],
-                                  :resource_id => tc.id }
-          end
-          unless all_common_names.blank?
-            all_common_names.each do |language, names|
-              @objects_to_send << { :keyword_type => 'Common Name',
-                                    :keyword => names,
-                                    :language => language,
-                                    :resource_type => ['TaxonConcept'],
-                                    :resource_id => tc.id }
-            end
-          end
+        communities = Community.find(:all, :conditions => "id BETWEEN #{start} AND #{max}", :select => 'id, name, description, created_at, updated_at')
+        communities.each do |c|
+          @objects_to_send += c.keywords_to_send_to_solr_index
         end
       end
+      
+      def lookup_collections(start, limit)
+        max = start + limit
+        collections = Collection.find(:all, :conditions => "id BETWEEN #{start} AND #{max}", :select => 'id, community_id, name, description, created_at, updated_at')
+        collections.each do |c|
+          @objects_to_send += c.keywords_to_send_to_solr_index
+        end
+      end
+      
+      def lookup_data_objects(start, limit)
+        max = start + limit
+        data_objects = DataObject.find(:all, :conditions => "id BETWEEN #{start} AND #{max}", :select => 'id, object_title, description, data_type_id, created_at, updated_at')
+        data_objects.each do |d|
+          @objects_to_send += d.keywords_to_send_to_solr_index
+        end
+      end
+      
+      def lookup_users(start, limit)
+        max = start + limit
+        users = User.find(:all, :conditions => "id BETWEEN #{start} AND #{max}", :select => 'id, username, given_name, family_name, created_at, updated_at')
+        users.each do |u|
+          @objects_to_send += u.keywords_to_send_to_solr_index
+        end
+      end
+      
+      def lookup_taxon_concepts(start, limit)
+        max = start + limit
+        taxon_concepts = TaxonConcept.find(:all, :conditions => "id BETWEEN #{start} AND #{max}",
+          :include => [ :flattened_ancestors, { :published_hierarchy_entries => [ :name, { :scientific_synonyms => :name },
+            { :common_names => [ :name, :language ] } ] } ],
+          :select => { :taxon_concepts => :id, :names => :string, :languages => :iso_639_1,
+            :taxon_concepts_flattened => '*' })
+        taxon_concepts.each do |t|
+          @objects_to_send += t.keywords_to_send_to_solr_index
+        end
+      end
+      
+      
     end
   end
 end

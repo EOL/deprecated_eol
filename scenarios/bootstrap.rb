@@ -10,6 +10,11 @@
 #dependencies: [ :foundation ]
 #arbitrary_variable: arbitrary value
 
+# We turn off Solr and reindex the whole lot at the end - its faster that way
+original_index_records_on_save_value = $INDEX_RECORDS_IN_SOLR_ON_SAVE
+$INDEX_RECORDS_IN_SOLR_ON_SAVE = false
+
+
 require 'spec/eol_spec_helpers'
 require 'spec/scenario_helpers'
 # This gives us the ability to recalculate some DB values:
@@ -231,7 +236,6 @@ end
 
 
 #### Real work begins
-
 bootstrap_toc
 
 ### some data pulled out of foundation
@@ -611,9 +615,9 @@ make_all_nested_sets
 rebuild_collection_type_nested_set
 flatten_hierarchies
 
-TaxonConcept.all.each do |tc|
-  tc.save # This will save the record, thus indexing the concept with all its names
-end
+# TaxonConcept.all.each do |tc|
+#   tc.save # This will save the record, thus indexing the concept with all its names
+# end
 
 DataObject.find(:all).each_with_index do |d,i|
   d.created_at = Time.now - i.hours
@@ -635,3 +639,4 @@ end
   GoogleAnalyticsPartnerTaxon.gen(:year => year, :month => month, :taxon_concept => tc30, :user => Agent.catalogue_of_life.user )
 end
 
+$INDEX_RECORDS_IN_SOLR_ON_SAVE = original_index_records_on_save_value

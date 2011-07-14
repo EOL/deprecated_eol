@@ -8,7 +8,7 @@
     - @taxon_concept.top_collections.each do |collection|
       %li
         - # NOTE: Unless we have alt text that describes the image contents, leave it blank.
-        = link_to image_tag(collection.logo_url, :alt => ''), collection_path(collection)
+        = link_to image_tag(collection.logo_url(:small), :alt => ''), collection_path(collection)
         .details
           %h4= collection.name
           - count = collection.collection_items.count - 1

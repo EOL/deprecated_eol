@@ -153,9 +153,12 @@ class SolrAPI
         # looping through @schema_hash to make sure we get the fields in the same order for every row
         @schema_hash.each do |field, field_type|
           # this object has this attribute
-          if value = object_fields[field]
+          if value = object_fields[field] || value = object_fields[field.to_s]
             # the field is multi-values
             if field_type.class == Array
+              if value.class == String
+                value = [ value ]
+              end
               raise "Multi-value fields must be arrays (#{@action_url} :: #{field})" if value.class != Array
               this_row_values << value.join(@multi_value_delimiter)
             else
@@ -167,6 +170,7 @@ class SolrAPI
             this_row_values << ""
           end
         end
+        
         f.puts(this_row_values.join(@file_delimiter))
       end
     end

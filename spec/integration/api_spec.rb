@@ -135,12 +135,8 @@ describe 'EOL APIs' do
     make_all_nested_sets
     flatten_hierarchies
     
-    # this forces all concepts to get saved, thus indexed
-    @solr = SolrAPI.new($SOLR_SERVER, $SOLR_SITE_SEARCH_CORE)
-    @solr.delete_all_documents
-    TaxonConcept.all.each do |tc|
-      tc.save
-    end
+    builder = EOL::Solr::SiteSearchCoreRebuilder.new()
+    builder.reindex_model(TaxonConcept)
     
     visit("/api/pages/#{@taxon_concept.id}")
     @default_pages_body = body

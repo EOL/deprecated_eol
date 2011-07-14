@@ -5,16 +5,17 @@ class CollectionItemsController < ApplicationController
   # POST /collection_items
   def create
 
+    collection_item_data = params[:collection_item] unless params[:collection_item].blank?
+    return_to = params[:return_to] unless params[:return_to].blank?
     if session[:submitted_data]
-      data = session[:submitted_data]
+      collection_item_data ||= session[:submitted_data][:collection_item]
+      return_to ||= session[:submitted_data][:return_to]
       session.delete(:submitted_data)
     end
-    data ||= params
 
-    @collection_item = CollectionItem.new(data[:collection_item])
+    @collection_item = CollectionItem.new(collection_item_data)
     @collection_item.collection ||= current_user.watch_collection unless current_user.blank?
 
-    return_to = data[:return_to]
     return_to ||= collection_path(@collection_item.collection) unless @collection_item.collection.blank?
     store_location(return_to)
 

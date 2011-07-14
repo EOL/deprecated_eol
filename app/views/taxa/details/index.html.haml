@@ -5,7 +5,7 @@
 #taxonomy_detail
   - unless roots.empty?
     #sidebar
-      = image_tag @exemplar_image.smart_medium_thumb unless @exemplar_image.blank?
+      = image_tag @exemplar_image.thumb_or_object('260_190') unless @exemplar_image.blank?
       %h3= I18n.t(:table_of_contents)
       - for root in roots
         .section

@@ -10,8 +10,8 @@ module TaxaHelper
     link_to '<span style="display:block;width:24px;height:25px;"></span>', where, html_options
   end
 
-  def vetted_id_class(data_object)
-    return case data_object.vetted_id
+  def vetted_id_class(vetted_id)
+    return case vetted_id
       when Vetted.unknown.id   then 'unknown'
       when Vetted.untrusted.id then 'untrusted'
       when Vetted.trusted.id   then 'trusted'

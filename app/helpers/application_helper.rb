@@ -10,13 +10,17 @@ module ApplicationHelper
   include ActionView::Helpers::UrlHelper
   include ActionView::Helpers::SanitizeHelper
 
-  def resource_is_active(resource)
-    if controller.controller_path == resource
-      'active'
+  # Used in V2 to return class for active navigation tabs.
+  def resource_is_active(resource, action = nil)
+    if action
+      return 'active' if controller.controller_path == resource && controller.action_name == action
+    else
+      return 'active' if controller.controller_path == resource
     end
+    nil
   end
 
-  # need stable English type label for CSS and I18n keys
+  # Used in V2 to provide a stable English type label for CSS and I18n keys
   def en_type(object)
     if object.class == CollectionItem
       en_type(object.object)

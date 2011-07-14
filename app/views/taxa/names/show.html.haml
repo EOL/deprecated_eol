@@ -1,18 +1,28 @@
-#page_heading.with_image
-  = render :partial => 'name_attribution'
-  .site_column
-    .hgroup
-    .page_actions
-      %ul
 #content
   .site_column
-    #tabs_sidebar
-      = render :partial => 'filter_by_name_category'
-    #sidebar
-    - if logged_in?
-      .filters
-        %fieldset.actions
-    .collection_contributors
-    #collections.main_container
-    - if !@content.blank?
-      = render :partial => @category, :locals => { :content => @content }
+    .article
+      .header
+        %h3= I18n.t(:taxon_recognised_by_header)
+      .copy
+        = render :partial => 'taxa/recognised_by'
+    = render :partial => 'filter_by_name_category'
+    #taxon_names.main_container
+      - if @related_names.blank?
+        %p= I18n.t(:no_related_names)
+      - else
+        - ['parents', 'children'].each do |type|
+          - unless @related_names[type].blank?
+            %table.names
+              %thead
+                %tr
+                  %th= I18n.t("names_#{type}_column_header")
+                  %th= I18n.t(:names_sources_column_header)
+              %tbody
+                - @related_names[type].each do |key, related_name|
+                  %tr
+                    %td= related_name['name_string']
+                    %td
+                      - for source in related_name['sources']
+                        = source['hierarchy_label']
+                        - unless source == related_name['sources'].last
+                          %br/

@@ -9,8 +9,7 @@
           %i<
             = hh(@taxon_concept.title_canonical(@session_hierarchy))
           %span.assistive<
-            = " &mdash; "
-            = @assistive_section_header
+            = " &mdash; #{@assistive_section_header}"
         - preferred_common_name = @taxon_concept.subtitle(@session_hierarchy)
         %h2{:title => I18n.t(:preferred_common_name_advisory_information)}
           = hh(preferred_common_name) unless preferred_common_name.blank?

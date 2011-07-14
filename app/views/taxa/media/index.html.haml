@@ -16,7 +16,7 @@
         %li
           = render :partial => "taxa/media_thumbnail", :locals => {:item => item}
           = render :partial => 'data_objects/rating', :locals => { :data_object => item, :minimal => true }
-          %p.flag{:class => vetted_id_class(item)}= item.vetted.label
+          %p.flag{:class => vetted_id_class(item.vetted_id)}= item.vetted.label
           = render :partial => 'shared/add_to_my_collection', :locals => { :item => item, :my_collection => @watch_collection }
           - if item.data_type.id == DataType.image.id && current_user.is_curator?
             %p

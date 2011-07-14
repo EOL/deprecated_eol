@@ -2,7 +2,7 @@
   - unless @summary_text.nil?
     - @summary_text.each do |dato|
       - unless dato.description.empty? || dato.description.nil?
-        %div{:class => vetted_id_class(dato), :data => { :text_id =>  dato.id } }
+        %div{:class => vetted_id_class(dato.vetted_id), :data => { :text_id =>  dato.id } }
           .header
             %h3= h dato.toc_items[0].label
             = link_to(I18n.t(:text_summary_more_link), taxon_details_path(@taxon_concept.id))

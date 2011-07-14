@@ -937,7 +937,7 @@ class TaxonConcept < SpeciesSchemaModel
     end
     # You can also count here: @taxon_concept.content_by_category(TocItem.related_names.id, :current_user => current_user)
   end
-  
+
   def self.related_names(taxon_concept_id)
     parents = SpeciesSchemaModel.connection.execute("
       SELECT n.id name_id, n.string name_string, n.canonical_form_id, he_parent.taxon_concept_id, h.label hierarchy_label

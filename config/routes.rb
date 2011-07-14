@@ -29,16 +29,6 @@ ActionController::Routing::Routes.draw do |map|
                :controller => 'collections',
                :action => 'show'
 
-  #used in names tab:
-    # when user clicks on left tabs
-    map.connect 'pages/:taxon_id/names/:category', :controller => 'taxa/names', :action => 'show'
-    # when user updates a common name - preferred radio button
-    map.connect 'pages/:id/names/common_names/update', :controller => 'taxa', :action => 'update_common_names'
-    # when user adds a common name
-    map.connect 'pages/:taxon_concept_id/names/common_names/add', :controller => 'taxa', :action => 'add_common_name'
-
-
-
   # Web Application
   map.resources :harvest_events, :has_many => [:taxa]
   map.resources :resources, :as => 'content_partner/resources', :has_many => [:harvest_events]
@@ -85,11 +75,20 @@ ActionController::Routing::Routes.draw do |map|
     taxa.resource :overview, :only => [:show], :controller => "taxa/overviews"
     taxa.resources :media, :only => [:index], :controller => "taxa/media"
     taxa.resources :details, :only => [:index], :controller => "taxa/details"
-    taxa.resource :names, :only => [:show], :controller => "taxa/names"
+    taxa.resource :names, :only => [:show], :controller => "taxa/names",
+                          :member => { :common_names => :get, :synonyms => :get }
     taxa.resource :maps, :only => [:show], :controller => "taxa/maps"
     taxa.resources :collections, :only => [:index], :controller => 'collections'
     taxa.resources :communities, :only => [:index], :controller => 'communities'
   end
+  # used in names tab:
+  # when user updates a common name - preferred radio button
+  map.connect 'pages/:id/names/common_names/update', :controller => 'taxa', :action => 'update_common_names'
+  # when user adds a common name
+  map.connect 'pages/:taxon_concept_id/names/common_names/add', :controller => 'taxa', :action => 'add_common_name'
+
+
+
   # Named routes
   map.settings 'settings', :controller => 'taxa', :action => 'settings'
   map.taxon_concept 'pages/:id', :controller => 'taxa', :action => 'show'

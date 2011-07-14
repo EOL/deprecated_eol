@@ -12,7 +12,7 @@ $(function() {
     }).css("margin-" + direction, pos[direction]).text($e.find("img").attr("alt"));
   }).eq(0).mouseover();
 
-  $(".heading form.filter").find(":submit").hide().end().find("select")
+  $(".heading form.filter, form.select_submit").find(":submit").hide().end().find("select")
     .change(function() {
       $(this).closest("form").submit();
     });
@@ -107,7 +107,7 @@ $(function() {
     else { return this; }
     return this.each(function() {
       $(this).click(function(e) {
-        if (!e.keyCode && e.layerY > 0) { return cb.apply(this); }
+        if ((!e.keyCode && e.layerY > 0) || e.layerY === undefined) { return cb.apply(this); }
         else { return false; }
       }).keyup(function(e) {
         if (e.keyCode === 13 || $.inArray(e.keyCode, key_codes) !== -1) {

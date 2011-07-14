@@ -227,7 +227,7 @@ class TaxaController < ApplicationController
       end
       current_user.log_activity(:updated_common_names, :taxon_concept_id => tc.id)
     end
-    redirect_to "/pages/#{tc.id}/names/common_names"
+    redirect_to common_names_taxon_names_path(tc)
   end
 
   # TODO - This needs to add a CuratorActivityLog.
@@ -236,7 +236,7 @@ class TaxaController < ApplicationController
     if params[:name][:name_string] && params[:name][:name_string].strip != ""
       agent = current_user.agent
       language = Language.find(params[:name][:language])
-      if tc.is_curatable_by?(current_user)
+      if current_user.is_curator?
         synonym = tc.add_common_name_synonym(params[:name][:name_string], :agent => agent, :language => language,
                                              :vetted => Vetted.trusted)
         log_action(tc, synonym, :add_common_name)
@@ -245,7 +245,7 @@ class TaxaController < ApplicationController
       end
       expire_taxa([tc.id])
     end
-    redirect_to "/pages/#{tc.id}/names/common_names"
+    redirect_to common_names_taxon_names_path(tc)
   end
 
   # TODO - This needs to add a CuratorActivityLog.
@@ -258,7 +258,7 @@ class TaxaController < ApplicationController
       tc.delete_common_name(tcn)
       log_action(tc, tcn, :remove_common_name) if tc && tcn
     end
-    redirect_to "/pages/#{tc.id}/names/common_names"
+    redirect_to common_names_taxon_names_path(tc)
   end
 
   # TODO - This needs to add a CuratorActivityLog.
@@ -270,7 +270,7 @@ class TaxaController < ApplicationController
     @taxon_concept.current_user = current_user
     @taxon_concept.vet_common_name(:language_id => language_id, :name_id => name_id, :vetted => vetted)
     current_user.log_activity(:vetted_common_name, :taxon_concept_id => @taxon_concept.id, :value => name_id)
-    redirect_to "/pages/#{@taxon_concept.id}/names/common_names"
+    redirect_to common_names_taxon_names_path(tc)
   end
 
   def publish_wikipedia_article

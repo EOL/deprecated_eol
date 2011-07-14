@@ -38,6 +38,29 @@ module EOL
       end
       EOL::CommonNameDisplay.group_by_name(display_names)
     end
+    
+    def self.find_by_hierarchy_entry_id(hierarchy_entry_id)
+      inc = [ :name, :language ]
+      sel = { :taxon_concept_names => [ :synonym_id, :preferred, :vetted_id ],
+              :names => :string,
+              :languages => [ :source_form, :iso_639_1 ]}
+      taxon_concept_names = TaxonConceptName.find_all_by_source_hierarchy_entry_id_and_vern(hierarchy_entry_id, 1, :select => sel, :include => inc)
+      display_names = taxon_concept_names.map do |tcn|
+        params = {}
+        params[:name_id] = tcn.name.id
+        params[:name_string] = tcn.name.string
+        params[:iso_639_1] = tcn.language.iso_639_1 rescue nil
+        params[:language_label] = tcn.language.label rescue nil
+        params[:language_name] = tcn.language.source_form rescue nil
+        params[:language_id] = tcn.language.id rescue nil
+        params[:synonym_id] = tcn.synonym_id
+        params[:preferred] = tcn.preferred
+        params[:vetted_id] = tcn.vetted_id
+        EOL::CommonNameDisplay.new(params)
+      end
+      EOL::CommonNameDisplay.group_by_name(display_names)
+    end
+    
 
     def self.group_by_name(names)
       new_names = []

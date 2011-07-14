@@ -24,6 +24,17 @@ class TaxonConcept < SpeciesSchemaModel
   has_many :hierarchy_entries
   has_many :published_hierarchy_entries, :class_name => HierarchyEntry.to_s,
     :conditions => 'hierarchy_entries.published=1 AND hierarchy_entries.visibility_id=#{Visibility.visible.id}'
+
+
+  has_many :published_browsable_hierarchy_entries, :class_name => HierarchyEntry.to_s, :foreign_key => 'hierarchy_entry_id',
+    :finder_sql => 'SELECT he.id, h.id hierarchy_id, h.label hierarchy_label
+    FROM hierarchies h
+    JOIN hierarchy_entries he ON h.id = he.hierarchy_id
+    WHERE he.taxon_concept_id = \'#{id}\' AND he.published = 1 and h.browsable = 1
+    ORDER BY h.label'
+
+    
+    
   has_many :top_concept_images
   has_many :top_unpublished_concept_images
   has_many :curator_activity_logs
@@ -323,10 +334,11 @@ class TaxonConcept < SpeciesSchemaModel
 
   # This may throw an ActiveRecord::RecordNotFound exception if the TocItem's category_id doesn't exist.
   def content_by_category(category_id, options = {})
+    #debugger
     toc_item = TocItem.find(category_id) # Note: this "just works" even if category_id *is* a TocItem.
     ccb = CategoryContentBuilder.new
     if ccb.can_handle?(toc_item)
-      ccb.content_for(toc_item, :vetted => current_user.vetted, :taxon_concept => self)
+      ccb.content_for(toc_item, :vetted => current_user.vetted, :taxon_concept => self, :hierarchy_entry => options[:hierarchy_entry])
     else
       get_default_content(toc_item)
     end
@@ -829,6 +841,17 @@ class TaxonConcept < SpeciesSchemaModel
     return '' unless e
     return e.classification_attribution
   end
+  
+  # def classification_attribution_hierarchy_entry(hierarchy_entry = nil)
+  #   return '' if hierarchy_entry.blank?
+  #   hierarchy = hierarchy_entry.hierarchy
+  #   e = entry(hierarchy)
+  #   return '' unless e
+  #   return e.classification_attribution
+  # end
+  
+  
+  
 
   # TODO - we only want PUBLISHED hierarchies, here:
   def classifications
@@ -840,11 +863,14 @@ class TaxonConcept < SpeciesSchemaModel
     end
   end
 
-  def media(opts = {})
-    DataObject.sort_by_rating(images + videos + sounds, opts).compact
+  def media(opts = {}, hierarchy_entry = nil)
+    #debugger
+    DataObject.sort_by_rating(images({}, hierarchy_entry) + videos + sounds, opts).compact
   end
 
-  def images(options = {})
+  def images(options = {}, hierarchy_entry = nil)
+    
+    #debugger
     # set hierarchy to filter images by
     if self.current_user.filter_content_by_hierarchy && self.current_user.default_hierarchy_valid?
       filter_hierarchy = Hierarchy.find(self.current_user.default_hierarchy_id)
@@ -853,8 +879,19 @@ class TaxonConcept < SpeciesSchemaModel
     end
     perform_filter = !filter_hierarchy.nil?
 
+    #todo opts[:hierarchy_entry]
+
+    if hierarchy_entry
+     perform_filter = true
+     filter_hierarchy = hierarchy_entry.hierarchy
+    end
+    #debugger
+    
     image_page = (options[:image_page] ||= 1).to_i
-    images = DataObject.images_for_taxon_concept(self, :user => self.current_user, :filter_by_hierarchy => perform_filter, :hierarchy => filter_hierarchy, :image_page => image_page, :skip_metadata => options[:skip_metadata])
+    images = DataObject.images_for_taxon_concept(self, :user => self.current_user, 
+      :filter_by_hierarchy => perform_filter, 
+      :hierarchy => filter_hierarchy, 
+      :image_page => image_page, :skip_metadata => options[:skip_metadata])
     @length_of_images = images.length # Caching this because the call to #images is expensive and we don't want to do it twice.
 
     return images
@@ -938,9 +975,12 @@ class TaxonConcept < SpeciesSchemaModel
     # You can also count here: @taxon_concept.content_by_category(TocItem.related_names.id, :current_user => current_user)
   end
   
-  def self.related_names(taxon_concept_id)
+  def self.related_names(taxon_concept_id, hierarchy_entry = nil)
+    
+    #Names tab 1 of 3
+    
     parents = SpeciesSchemaModel.connection.execute("
-      SELECT n.id name_id, n.string name_string, n.canonical_form_id, he_parent.taxon_concept_id, h.label hierarchy_label
+      SELECT n.id name_id, n.string name_string, n.canonical_form_id, he_parent.taxon_concept_id, h.label hierarchy_label, he_parent.id hierarchy_entry_id
       FROM hierarchy_entries he_parent
       JOIN hierarchy_entries he_child ON (he_parent.id=he_child.parent_id)
       JOIN names n ON (he_parent.name_id=n.id)
@@ -950,7 +990,7 @@ class TaxonConcept < SpeciesSchemaModel
     ").all_hashes.uniq
 
     children = SpeciesSchemaModel.connection.execute("
-      SELECT n.id name_id, n.string name_string, n.canonical_form_id, he_child.taxon_concept_id, h.label hierarchy_label
+      SELECT n.id name_id, n.string name_string, n.canonical_form_id, he_child.taxon_concept_id, h.label hierarchy_label, he_child.id hierarchy_entry_id
       FROM hierarchy_entries he_parent
       JOIN hierarchy_entries he_child ON (he_parent.id=he_child.parent_id)
       JOIN names n ON (he_child.name_id=n.id)
@@ -959,10 +999,12 @@ class TaxonConcept < SpeciesSchemaModel
       AND browsable=1
     ").all_hashes.uniq
 
+
+    
     grouped_parents = {}
     for parent in parents
       key = parent['name_string'].downcase+"|"+parent['taxon_concept_id']
-      grouped_parents[key] ||= {'taxon_concept_id' => parent['taxon_concept_id'], 'name_string' => parent['name_string'], 'sources' => []}
+      grouped_parents[key] ||= {'taxon_concept_id' => parent['taxon_concept_id'], 'name_string' => parent['name_string'], 'sources' => [], 'hierarchy_entry_id' => parent['hierarchy_entry_id']}
       grouped_parents[key]['sources'] << parent
     end
     grouped_parents.each do |key, hash|
@@ -973,7 +1015,8 @@ class TaxonConcept < SpeciesSchemaModel
     grouped_children = {}
     for child in children
       key = child['name_string'].downcase+"|"+child['taxon_concept_id']
-      grouped_children[key] ||= {'taxon_concept_id' => child['taxon_concept_id'], 'name_string' => child['name_string'], 'sources' => []}
+      grouped_children[key] ||= {'taxon_concept_id' => child['taxon_concept_id'], 'name_string' => child['name_string'], 'sources' => [], 
+        'hierarchy_entry_id' => child['hierarchy_entry_id']}
       grouped_children[key]['sources'] << child
     end
     grouped_children.each do |key, hash|
@@ -982,6 +1025,9 @@ class TaxonConcept < SpeciesSchemaModel
     grouped_children = grouped_children.sort {|a,b| a[0] <=> b[0]}
 
     combined = {'parents' => grouped_parents, 'children' => grouped_children}
+    
+    #debugger
+    
   end
 
   def data_objects_for_api(options = {})
@@ -1286,6 +1332,7 @@ private
   # You must pass in the :data_type_ids option for this to work.  Use DataObject.FOO_type_ids for the value.  eg:
   #   videos = filter_data_objects_by_type(:data_type_ids => DataObject.video_type_ids)
   def filter_data_objects_by_type(options = {})
+    #debugger
     usr = current_user
     if options[:unvetted]
       usr = current_user.clone

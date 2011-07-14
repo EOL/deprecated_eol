@@ -1,5 +1,10 @@
 - taxon_concept = content[:items]
-- for he in taxon_concept.published_hierarchy_entries
+
+/- todo: just use the he in question, sep the partal for 'for..
+
+- hierarchy_entries = @dropdown_hierarchy_entry.blank? ? taxon_concept.published_hierarchy_entries : [@dropdown_hierarchy_entry]
+
+- for he in hierarchy_entries
   - unless he.scientific_synonyms.blank?
     %p
       %b
@@ -20,5 +25,6 @@
             = s.name.string
           %td{:class => row_class}
             = s.synonym_relation ? s.synonym_relation.label : 'synonym'
+            = he.id
     %br
     %br

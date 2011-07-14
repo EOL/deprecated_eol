@@ -13,7 +13,8 @@
       - row_class = cycle('odd', 'even')
       %tr
         %td{:class => row_class, :valign => 'top'}
-          %a{:href => "/pages/#{related_hash['taxon_concept_id']}?category_id=#{TocItem.related_names.id}"}
+          /%a{:href => "/pages/#{related_hash['taxon_concept_id']}?category_id=#{TocItem.related_names.id}"}
+          %a{:href => "/pages/#{related_hash['taxon_concept_id']}/entries/#{related_hash['hierarchy_entry_id']}/overview"}
             = related_hash['name_string']
         %td{:class => row_class}
           - for source in related_hash['sources']
@@ -36,7 +37,8 @@
       - row_class = cycle('odd', 'even')
       %tr
         %td{:class => row_class, :valign => 'top'}
-          %a{:href => "/pages/#{related_hash['taxon_concept_id']}?category_id=#{TocItem.related_names.id}"}
+          /%a{:href => "/pages/#{related_hash['taxon_concept_id']}?category_id=#{TocItem.related_names.id}"}
+          %a{:href => "/pages/#{related_hash['taxon_concept_id']}/entries/#{related_hash['hierarchy_entry_id']}/overview"}
             = related_hash['name_string']
         %td{:class => row_class}
           - for source in related_hash['sources']

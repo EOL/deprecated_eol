@@ -2,7 +2,11 @@
 class CategoryContentBuilder
 
   def content_for(toc_item, options)
+    #debugger
     sub_name = toc_item.label_as_method_name # TODO - i18n (this won't work without labels like the methods below)
+    if sub_name == "synonyms"
+      #debugger
+    end
     content = self.send(sub_name, options)
     return nil if content.nil? || content.reject{|k,v| v.nil? || v.blank?}.empty?
     content[:toc_item] = toc_item
@@ -26,22 +30,32 @@ class CategoryContentBuilder
   end
 
   def related_names(options)
-    return {:items => TaxonConcept.related_names(options[:taxon_concept].id)}
+    #debugger
+    return {:items => TaxonConcept.related_names(options[:taxon_concept].id, options[:hierarchy_entry])}
   end
 
   def synonyms(options)
-    TaxonConcept.preload_associations(options[:taxon_concept],
-      { :published_hierarchy_entries => [ :name, { :scientific_synonyms => [ :synonym_relation, :name ] } ] },
-      :select => {
-        :hierarchy_entries => [ :id, :name_id, :hierarchy_id, :taxon_concept_id ],
-        :names => [ :id, :string ],
-        :synonym_relations => [ :id ] } )
+    #debugger
+    # TaxonConcept.preload_associations(options[:taxon_concept],
+    #   { :published_hierarchy_entries => [ :name, { :scientific_synonyms => [ :synonym_relation, :name ] } ] },
+    #   :select => {
+    #     :hierarchy_entries => [ :id, :name_id, :hierarchy_id, :taxon_concept_id ],
+    #     :names => [ :id, :string ],
+    #     :synonym_relations => [ :id ] } )
+
+    TaxonConcept.preload_associations(options[:taxon_concept], { :published_hierarchy_entries => [ :name, { :scientific_synonyms => [ :synonym_relation, :name ] } ] }, :select => { :hierarchy_entries => [ :id, :name_id, :hierarchy_id, :taxon_concept_id ], :names => [ :id, :string ], :synonym_relations => [ :id ] } )
+
+    #debugger
     return { :items => options[:taxon_concept] }
   end
 
   def common_names(options)
     unknown = Language.unknown.label # Just don't want to look it up every time.
-    names = EOL::CommonNameDisplay.find_by_taxon_concept_id(options[:taxon_concept].id)
+    if options[:hierarchy_entry].nil?
+      names = EOL::CommonNameDisplay.find_by_taxon_concept_id(options[:taxon_concept].id)
+    else
+      names = EOL::CommonNameDisplay.find_by_hierarchy_entry_id(options[:hierarchy_entry].id)
+    end
     names = names.select {|n| n.language_label != unknown}
     return {:items => names}
   end

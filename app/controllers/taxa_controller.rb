@@ -63,6 +63,20 @@ class TaxaController < ApplicationController
     render :partial => 'classification_attribution', :locals => {:taxon_concept => @taxon_concept}
   end
 
+  def prepare_hierarchy_entry_switch
+    #debugger
+    he_id = params[:user][:default_hierarchy_entry_id] || ""
+    orig_tc_id = params[:orig_tc_id]
+    
+    if !he_id.nil?
+      return redirect_to("/pages/#{orig_tc_id}/entries/#{he_id}/overview");  
+    else
+      redirect_back_or_default
+      return
+    end
+    
+  end
+  
   # page that will allows a non-logged in user to change content settings
   def settings
 
@@ -354,7 +368,13 @@ private
   end
 
   def get_content_variables(options = {})
-    @content = @taxon_concept.content_by_category(@category_id, :current_user => current_user)
+    #debugger
+    
+    @content = @taxon_concept.content_by_category(@category_id, :current_user => current_user, :hierarchy_entry => options[:hierarchy_entry])
+    
+    if @content[:content_type] == "synonyms"
+      #debugger
+    end
     @whats_this = @content[:category_name].blank? ? "" : WhatsThis.get_url_for_name(@content[:category_name])
     @ajax_update = options[:ajax_update]
     @languages = build_language_list if is_common_names?(@category_id)

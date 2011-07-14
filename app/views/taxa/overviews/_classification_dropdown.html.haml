@@ -1,0 +1,15 @@
+- form_for :user, current_user, :url=>{:controller=>"prepare_hierarchy_entry_switch"}, :html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |f|
+  %select#default_hierarchy_entry_id{ :name => 'user[default_hierarchy_entry_id]', :class => 'choose-hierarchy-select', :onchange => "javascript:$(this).closest('form').submit();" }
+    - for he in @hierarchy_entries_to_offer
+      - selected = he.id == @dropdown_hierarchy_entry_id.to_i
+      %option{:value => he.id, :selected => selected}
+        = he.id
+        = he.hierarchy_label
+        = he.hierarchy_id
+  
+  - if @hierarchy_entries_to_offer.count == 1
+    %input{ :type => 'submit', :value=>I18n.t("submit")}
+    
+  %input{ :type => 'hidden', :name => 'orig_tc_id',     :value => @taxon_concept.id}
+  %input{ :type => 'hidden', :name => 'return_to',      :value => "/pages/#{@taxon_concept.id}/overview"}
+  %input{ :type => 'hidden', :name => 'from_taxa_page', :value => 'true'}

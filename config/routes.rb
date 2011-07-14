@@ -29,6 +29,15 @@ ActionController::Routing::Routes.draw do |map|
                :controller => 'collections',
                :action => 'show'
 
+
+  #"/pages/22/entries/4/???"
+  map.connect 'pages/:taxon_id/entries/:he_id/details',  :controller => 'taxa/details',   :action => 'index'
+  map.connect 'pages/:taxon_id/entries/:he_id/overview', :controller => 'taxa/overviews', :action => 'show'
+  map.connect 'pages/:taxon_id/entries/:he_id/media',    :controller => 'taxa/media',     :action => 'index'
+  map.connect 'pages/:taxon_id/entries/:he_id/maps',     :controller => 'taxa/maps',      :action => 'show'
+  map.connect 'pages/:taxon_id/entries/:he_id/names',    :controller => 'taxa/names',     :action => 'show'
+
+
   #used in names tab:
     # when user clicks on left tabs
     map.connect 'pages/:taxon_id/names/:category', :controller => 'taxa/names', :action => 'show'
@@ -37,6 +46,14 @@ ActionController::Routing::Routes.draw do |map|
     # when user adds a common name
     map.connect 'pages/:taxon_concept_id/names/common_names/add', :controller => 'taxa', :action => 'add_common_name'
 
+
+    #used in names tab with hierarchy_entry
+      # when user clicks on left tabs
+      map.connect 'pages/:taxon_id/entries/:he_id/names/:category', :controller => 'taxa/names', :action => 'show'
+      # # when user updates a common name - preferred radio button
+      # map.connect 'pages/:id/names/common_names/update', :controller => 'taxa', :action => 'update_common_names'
+      # # when user adds a common name
+      # map.connect 'pages/:taxon_concept_id/names/common_names/add', :controller => 'taxa', :action => 'add_common_name'
 
 
   # Web Application
@@ -82,6 +99,13 @@ ActionController::Routing::Routes.draw do |map|
 
   # Taxa nested resources with pages as alias
   map.resources :taxa, :as => :pages do |taxa|
+    taxa.resources :hierarchy_entries, :as => :entries, :only => [:show], :controller => 'taxa' do |entries|
+      entries.resource :overview, :only => [:show], :controller => "taxa/overviews"
+      entries.resources :media, :only => [:index], :controller => "taxa/media"
+      entries.resources :details, :only => [:index], :controller => "taxa/details"
+      entries.resource :names, :only => [:show], :controller => "taxa/names"
+      entries.resource :maps, :only => [:show], :controller => "taxa/maps"
+    end
     taxa.resource :overview, :only => [:show], :controller => "taxa/overviews"
     taxa.resources :media, :only => [:index], :controller => "taxa/media"
     taxa.resources :details, :only => [:index], :controller => "taxa/details"
@@ -90,6 +114,9 @@ ActionController::Routing::Routes.draw do |map|
     taxa.resources :collections, :only => [:index], :controller => 'collections'
     taxa.resources :communities, :only => [:index], :controller => 'communities'
   end
+  
+  
+  
   # Named routes
   map.settings 'settings', :controller => 'taxa', :action => 'settings'
   map.taxon_concept 'pages/:id', :controller => 'taxa', :action => 'show'

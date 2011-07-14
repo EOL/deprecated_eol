@@ -31,10 +31,13 @@ class Taxa::NamesController < TaxaController
       @category_id = TocItem.common_names.id
     end
 
+    dropdown_hierarchy_entry_id = params[:he_id] || ""
+    @dropdown_hierarchy_entry = HierarchyEntry.find_by_id(dropdown_hierarchy_entry_id);
+
 
     @taxon_concept.current_user  = current_user
     @curator = @taxon_concept.current_user.can_curate?(@taxon_concept)
-    get_content_variables(:ajax_update => true)
+    get_content_variables(:ajax_update => true, :hierarchy_entry => @dropdown_hierarchy_entry)
     
     if @content.nil?
       render :text => '[content missing]'

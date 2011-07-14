@@ -1,5 +1,6 @@
 = I18n.t(:classification_provided_by) 
-- attributions = @taxon_concept.classification_attribution(@session_hierarchy).reverse
+- hierarchy = @dropdown_hierarchy_entry.blank? ? @session_hierarchy : @dropdown_hierarchy_entry.hierarchy
+- attributions = @taxon_concept.classification_attribution(hierarchy).reverse
 - if attributions.blank?
   = I18n.t("source_unknown")
 - elsif attributions[0].display_string == @session_hierarchy.label

@@ -41,6 +41,11 @@ module TaxaHelper
     return final_string
   end
 
+  def get_hierarchy_entry_from_path
+    fullpath = request.fullpath
+    he_id = fullpath.scan(/entries\/(.*?)\//imu)
+  end
+
   def citables_to_icons(original_citables, params={})
     return '' if original_citables.nil? or original_citables.blank? or original_citables.class == String
     params[:linked] = true if params[:linked].nil?

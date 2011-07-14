@@ -139,6 +139,12 @@ class ApplicationController < ActionController::Base
     return !(agent_logged_in? or current_user.is_admin?)
   end
 
+  # def get_hierarchy_entry_from_path
+  #   path = request.fullpath
+  #   he_id = path.match(/entries\/(.*?)\//)
+  #   #entries/17/
+  # end
+
   # store a given URL (defaults to current) in case we need to redirect back later
   def store_location(url = url_for(:controller => controller_name, :action => action_name))
     # It's possible to create a redirection attack with a redirect to data: protocol... and possibly others, so:

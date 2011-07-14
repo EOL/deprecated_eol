@@ -1569,6 +1569,8 @@ en:
     one: "from %{count} person"
     other: "from %{count} people"
   rating: "Rating"
+  rating_added_notice: "Rating was added successfully."
+  rating_not_added_error: "Sorry, an error occurred, the rating could not be added."
   read_article_link: "Read article"
   read_the_eol_licensing_policy: "Read the EOL Licensing Policy"
   recaptcha: "For verification, please enter the characters you see below.  Click the ? for assistance."

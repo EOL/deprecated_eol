@@ -99,28 +99,35 @@ class DataObjectsController < ApplicationController
   end
 
   def rate
+    rated_successfully = false
+    stars = params[:stars] unless params[:stars].blank?
+    return_to = params[:return_to] unless params[:return_to].blank?
 
     if session[:submitted_data]
-      stars = session[:submitted_data][:stars]
-      return_to = session[:submitted_data][:return_to]
+      stars ||= session[:submitted_data][:stars]
+      return_to ||= session[:submitted_data][:return_to]
       session.delete(:submitted_data)
     end
-
-    stars ||= params[:stars]
-    return_to ||= params[:return_to]
 
     store_location(return_to)
 
     if stars.to_i > 0
-      @data_object.rate(current_user, stars.to_i)
+      rated_successfully = @data_object.rate(current_user, stars.to_i)
       expire_data_object(@data_object.id)
       current_user.log_activity(:rated_data_object_id, :value => @data_object.id)
     end
 
     respond_to do |format|
+      if rated_successfully
+        flash[:notice] = I18n.t(:rating_added_notice)
+      else
+        # TODO: Ideally examine validation error and provide more informative error message.
+        flash[:error] = I18n.t(:rating_not_added_error)
+      end
       format.html { redirect_back_or_default }
       # format.js {render :action => 'rate.rjs'} #TODO
     end
+
   end
 
   def show

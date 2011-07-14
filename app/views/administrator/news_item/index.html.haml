@@ -17,16 +17,24 @@
       %table.results_table{ :cellspacing => "0" }
         %tr
           %th
+            =I18n.t("id")
+          %th
             =I18n.t("publish_after__utc_")
           %th
             =I18n.t("news_date")
           %th
             =I18n.t("news_item_")
           %th
-            =I18n.t("action")
+            =I18n.t("language")
+          %th
+            =I18n.t("add_language")
+          %th
+            =I18n.t("delete")
         - for news_item in @news_items
           - column_class=cycle('odd','even')
           %tr
+            %td{ :class => column_class }
+              = link_to news_item.id,:action=>'edit',:id=>news_item.id               
             %td{ :class => column_class }
               = h format_date_time(news_item.activated_on,:format=>'short_no_tz')
               %br
@@ -36,9 +44,12 @@
             %td{ :class => column_class }
               = news_item.summary
             %td{ :class => column_class }
-              = link_to I18n.t("_edit_"),:action=>'edit',:id=>news_item.id
-              %br
-              = link_to I18n.t("_delete_"), {:action=>'destroy',:id=>news_item.id}, :confirm => I18n.t("this_cannot_be_undone__are_you"), :method => :delete
+              - for translated_news_item in TranslatedNewsItem.find_all_by_news_item_id(news_item.id)
+                = link_to translated_news_item.language.iso_639_1, :action=>'update_language', :id=>news_item.id, :language_id=>translated_news_item.language_id
+            %td{ :class => column_class }
+              = link_to I18n.t("add_language"), :action=>'add_language', :id=>news_item.id
+            %td{ :class => column_class }
+              = link_to I18n.t("delete"), {:action=>'destroy',:id=>news_item.id}, :confirm => I18n.t("this_cannot_be_undone__are_you"), :method => :delete
       %br
       = will_paginate @news_items
     - else

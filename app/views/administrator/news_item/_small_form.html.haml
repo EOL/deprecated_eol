@@ -1,0 +1,26 @@
+%tr
+  %td
+    %strong
+      =I18n.t("news_item_date_as_shown_to_use")
+  %td
+    = f.text_field :display_date
+%tr
+  %td{ :valign => "top" }
+    %strong
+      =I18n.t("news_item_is_visible_on_websit")
+  %td
+    = f.text_field :activated_on
+    %br
+    =I18n.t("note_that_all_times_are_utc__g")
+    %br
+    = f.check_box :active
+    =I18n.t("publish_item_based_on_time_set")
+- if (controller.action_name != 'new' && controller.action_name != 'create') && @news_item.user.nil? == false
+  %tr
+    %td
+      %strong
+        =I18n.t("created_by_")
+    %td
+      = @news_item.user.username + " (" + @news_item.user.given_name + ")"
+- else
+  = f.hidden_field :user_id, :value => current_user.id

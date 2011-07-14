@@ -6,7 +6,7 @@
   - default_alt_text = :sound_thumbnail_alt_text
 - else
   - default_alt_text = :image_thumbnail_alt_text
-  - image = item.smart_medium_thumb
+  - image = item.thumb_or_object('260_190')
 - # TODO: These alt/title attributes are useless in terms of accessibility.
 - # We can include the item description but its not always going to make sense or be short enough
 - # ideally we need a short description provided by the content partner, describing what is in the item.
@@ -15,7 +15,7 @@
 - alt = I18n.t(default_alt_text, :vetted_status => item.vetted.label, :scientific_name => hh(@taxon_concept.scientific_name(nil,false))) if alt.blank?
 - alt = Sanitize.clean(alt, :remove_contents => %w[table script])
 - unless image.blank?
-  %a{ :data => { :data_object_id => item.id }, :href => "/data_objects/#{item.id}", :class => vetted_id_class(item) }
+  %a{ :data => { :data_object_id => item.id }, :href => "/data_objects/#{item.id}", :class => vetted_id_class(item.vetted_id) }
     = image_tag image, :alt => alt
 - else
   = render :partial => "data_objects/data_object_#{en_type}", :locals => { :data_object => item, :thumbnail => true }

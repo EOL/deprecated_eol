@@ -1,16 +1,11 @@
 - form_tag "/pages/#{@taxon_concept.id}/names/common_names/add", :method => :post, :id => 'add_common_name' do
-  %fieldset.standout
-    %legend=I18n.t("add_a_new_common_name")
-    = hidden_field :name, "category_id", :value => params[:category_id]
-    = label_tag :name_name_string, "Name"
+  %fieldset
+    %legend=I18n.t(:add_a_new_common_name)
+    = label_tag :name_name_string, I18n.t(:name)
     = text_field :name, :name_string, :size => 40, :maxlength => 300
-    %br
-    %br
     = label_tag :name_language, "Name's Language"
     %select{:id => "name_language", :name => "name[language]"}
       - @languages.each do |language|
         %option{ :selected => language[:selected], :value => language[:id] }= language[:label]
-    %br
-    %br
-    %input{:type => "submit", :name => "add_common_name_button", :value => "Add", :id => "add_common_name_button"}
-  %br
+  %fieldset.actions
+    %input{:type => "submit", :name => "add_common_name_button", :value => I18n.t(:add), :id => "add_common_name_button"}

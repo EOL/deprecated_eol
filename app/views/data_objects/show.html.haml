@@ -12,8 +12,8 @@
     = render :partial => "data_objects/data_object_#{en_type}"
   - if @data_object.is_image?
     %ul.sizes
-      - image_sizes = { :small => @data_object.smart_thumb, :medium => @data_object.smart_medium_thumb, :large => @data_object.smart_image, :original => @data_object.original_image }
-      - [:small, :medium, :large, :original].each do |size|
+      - image_sizes = { :small => @data_object.smart_thumb, :medium => @data_object.smart_medium_thumb, :large => @data_object.smart_image, :original => @data_object.thumb_or_object(:orig) }
+      - [:original].each do |size|
         - unless image_sizes[size].blank?
           %li
             - link_to image_sizes[size] do

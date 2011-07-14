@@ -9,7 +9,6 @@
         %ul
           %li
             = render :partial => 'shared/add_to_my_collection', :locals => { :item => @data_object, :my_collection => @watch_collection }
-          %li= link_to I18n.t(:contribute_to_page_button) + 'FIXME', "/placeholder", :class => "button"
       = render :partial => 'shared/flash_messages'
 
   #content

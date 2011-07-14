@@ -41,6 +41,7 @@ class Taxa::DetailsController < TaxaController
     @toc = TocBuilder.new.toc_for_toc_items(@details.collect{|d| d[:toc_item]})
 
     @exemplar_image = @taxon_concept.taxon_concept_exemplar_image.data_object unless @taxon_concept.taxon_concept_exemplar_image.blank?
+    @exemplar_image ||= @taxon_concept.best_image
 
     @watch_collection = logged_in? ? current_user.watch_collection : nil
 

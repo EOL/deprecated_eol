@@ -1,7 +1,7 @@
 $(function() {
   $("#taxonomy_detail form.comment").each(function() {
     var $form = $(this).hide();
-    $form.prev("p").find("a.comment").show().click(function() {
+    $form.prev("p").find("a.comment").css("display", "inline-block").click(function() {
       $(this).hide().closest(".article").find("form.comment").show();
       return false;
     });

@@ -33,7 +33,7 @@ class Agent < SpeciesSchemaModel
     return nil
   end
 
-  # Singleton class variable, so we only ever look it up once per thread:  
+  # Singleton class variable, so we only ever look it up once per thread:
   def self.iucn
     cached_find(:full_name, 'IUCN')
   end
@@ -70,7 +70,7 @@ class Agent < SpeciesSchemaModel
   def shortened_full_name
     return self.full_name.strip[0..50]
   end
-  
+
   def citable(role_label = 'author')
     EOL::Citable.new( :agent_id => id,
                       :user => user,
@@ -88,7 +88,7 @@ protected
     self.homepage       ||= ''
     self.full_name      ||= ''
     self[:logo_url]     ||= ''
-    self.homepage = 'http://' + self.homepage if self.homepage != '' && (self.homepage[0..6] != 'http://' && self.homepage[0..7] != 'https://')      
+    self.homepage = 'http://' + self.homepage if self.homepage != '' && (self.homepage[0..6] != 'http://' && self.homepage[0..7] != 'https://')
   end
 
 end

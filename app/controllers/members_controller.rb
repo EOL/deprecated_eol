@@ -1,12 +1,14 @@
 class MembersController < ApplicationController
-  layout 'main'
+
+  layout 'v2/communities'
+
   before_filter :load_community_and_current_member
   before_filter :load_member, :except => [:index]
   before_filter :restrict_edit, :only => [:edit, :update]
   before_filter :restrict_delete, :only => [:delete]
 
   def index
-    @members = Member.paginate(:page => params[:page]) 
+    @members = Member.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -74,7 +76,7 @@ private
   def load_member
     @member = Member.find(params[:id] || params[:member_id])
     unless @member && @member.community_id == @community.id
-      flash[:error] =  I18n.t(:cannot_find_member) 
+      flash[:error] =  I18n.t(:cannot_find_member)
       return redirect_to(@community)
     end
   end

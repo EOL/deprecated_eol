@@ -87,6 +87,8 @@ class AccountController < ApplicationController
       @email = user[:email].strip == '' ? nil : user[:email].strip
       @users = User.find_all_by_username(@name)
       @users = User.find_all_by_email(@email) if @users.empty?
+      store_location(params[:return_to]) unless params[:return_to].nil? # store the page we came from so we can return there if it's passed in the URL
+      
       if @users.size == 1
         @users.each do |user_with_forgotten_pass|
           Notifier.deliver_forgot_password_email(user_with_forgotten_pass, request.port)
@@ -174,6 +176,7 @@ class AccountController < ApplicationController
         user.update_attributes(params[:user])
       end
       flash[:notice] =  I18n.t(:your_preferences_have_been_updated)
+      redirect_back_or_default
     end
     @user = User.find(current_user.id)
   end

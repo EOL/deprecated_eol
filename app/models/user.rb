@@ -707,8 +707,16 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   # override the logo_url column in the database to contruct the path on the content server
   def logo_url(size = 'large')
-    logo_cache_url.blank? ? "v2/logos/user_default.png" : ContentServer.logo_path(logo_cache_url, size)
+    if logo_cache_url.blank?
+      return "v2/logos/user_default.png"
+    elsif size.to_s == 'small'
+      DataObject.image_cache_path(logo_cache_url, '88_88')
+    else
+      DataObject.image_cache_path(logo_cache_url, '130_130')
+      # ContentServer.logo_path(logo_cache_url, size)
+    end
   end
+  
 
 private
 

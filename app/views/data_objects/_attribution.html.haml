@@ -4,8 +4,7 @@
   - if data_object.added_by_user?
     %p
       = I18n.t(:supplier_colon)
-      = data_object.users_data_objects[0].user.given_name
-      = data_object.users_data_objects[0].user.family_name
+      = data_object.users_data_objects[0].user.full_name
   - else
     = render :partial => 'license'
     - unless data_object.rights_holder.blank?

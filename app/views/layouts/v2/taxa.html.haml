@@ -9,8 +9,7 @@
           %i<
             = hh(@taxon_concept.title_canonical(@session_hierarchy))
           %span.assistive<
-            = " &mdash; "
-            = @assistive_section_header
+            = " &mdash; #{@assistive_section_header}"
         - preferred_common_name = @taxon_concept.subtitle(@session_hierarchy)
         %h2{:title => I18n.t(:preferred_common_name_advisory_information)}
           = hh(preferred_common_name) unless preferred_common_name.blank?
@@ -24,8 +23,6 @@
         %ul
           %li
             = render :partial => 'shared/add_to_my_collection', :locals => { :item => @taxon_concept, :my_collection => @watch_collection }
-          - # FIXME: Make "contribute to this page" functional
-          %li= link_to(I18n.t(:contribute_to_page_button), "/placeholder", :class => "button") + "FIXME"
           - if !@dropdown_hierarchy_entry.blank?
             %li= link_to I18n.t(:return_to_the_taxon_concept_page), taxon_overview_path(@taxon_concept.id)
           

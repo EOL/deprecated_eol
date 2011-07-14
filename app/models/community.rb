@@ -20,7 +20,7 @@ class Community < ActiveRecord::Base
   validates_presence_of :name, :message => I18n.t(:cannot_be_empty)
   validates_length_of :name, :maximum => 127, :message => I18n.t(:must_be_less_than_128_characters_long)
   validates_uniqueness_of :name, :message => I18n.t(:has_already_been_taken)
-  
+
   # TODO: remove the :if condition after migrations are run in production
   has_attached_file :logo,
     :path => $LOGO_UPLOAD_DIRECTORY,
@@ -34,7 +34,7 @@ class Community < ActiveRecord::Base
   validates_attachment_size :logo, :in => 0..0.5.megabyte,
     :if => self.column_names.include?('logo_file_name')
 
-  index_with_solr :keywords => [:name, :description]
+  index_with_solr :keywords => [ :name ], :fulltexts => [ :description ]
 
   alias :focus :collection
   alias_attribute :summary_name, :name
@@ -107,7 +107,14 @@ class Community < ActiveRecord::Base
   end
 
   def logo_url(size = 'large')
-    logo_cache_url.blank? ? "v2/icon_communities_tabs.png" : ContentServer.logo_path(logo_cache_url, size)
+    if logo_cache_url.blank?
+      return "v2/icon_communities_tabs.png"
+    elsif size.to_s == 'small'
+      DataObject.image_cache_path(logo_cache_url, '88_88')
+    else
+      DataObject.image_cache_path(logo_cache_url, '130_130')
+      # ContentServer.logo_path(logo_cache_url, size)
+    end
   end
 
   def top_active_members
@@ -118,6 +125,11 @@ class Community < ActiveRecord::Base
   def founder
     # FIXME: This is just getting the first member not the founder (can we get founder from feed - who created this community?).  JRice:  We could actually store this in the DB as a user_id... of course, if that user leaves, they will still be given credit, and that might be bad.  Hmmmn.  Not sure.
     members[0]
+  end
+
+  def managers
+    # FIXME: This is just getting the first couple of member not the managers
+    members[0..2]
   end
 
   def pending_collections

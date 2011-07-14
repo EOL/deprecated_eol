@@ -1,7 +1,7 @@
 - # TODO: Optionally integrate HashRocket rating.js it must be I18nized and allow anonymous users to login.
 #media_list
   #sidebar.filters
-    = image_tag @exemplar_image.smart_medium_thumb unless @exemplar_image.blank?
+    = image_tag @exemplar_image.thumb_or_object('260_190') unless @exemplar_image.blank?
     %h3= I18n.t(:media)
     = render :partial => "media_sort_filter"
   #main
@@ -16,7 +16,7 @@
         %li
           = render :partial => "taxa/media_thumbnail", :locals => {:item => item}
           = render :partial => 'data_objects/rating', :locals => { :data_object => item, :minimal => true }
-          %p.flag{:class => vetted_id_class(item)}= item.vetted.label
+          %p.flag{:class => vetted_id_class(item.vetted_id)}= item.vetted.label
           = render :partial => 'shared/add_to_my_collection', :locals => { :item => item, :my_collection => @watch_collection }
           - if item.data_type.id == DataType.image.id && current_user.is_curator?
             %p

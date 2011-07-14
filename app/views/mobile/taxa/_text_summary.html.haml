@@ -3,11 +3,10 @@
     - @summary_text.each do |dato|
       - en_type = dato.data_type.label('en').downcase.strip
       - unless dato.description.empty? || dato.description.nil?
-        %div{:class => vetted_id_class(dato), :data => { :text_id =>  dato.id } }
+        %div{:class => vetted_id_class(dato.vetted_id), :data => { :text_id =>  dato.id } }
           .header
             %h3= h dato.toc_items[0].label
           - # TODO: If our text data object does not contain p tags can we add them?
           - # Without them the text block does not have any semantic meaning.
           = dato.description.balance_tags
           = link_to(I18n.t(:text_summary_more_link), details_mobile_taxon_path(@taxon_concept.id))
-          

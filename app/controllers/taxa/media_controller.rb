@@ -26,7 +26,8 @@ class Taxa::MediaController < TaxaController
       :taxon_concept_exemplar_image => '*' }
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
     @exemplar_image = @taxon_concept.taxon_concept_exemplar_image.data_object unless @taxon_concept.taxon_concept_exemplar_image.blank?
-
+    @exemplar_image ||= @taxon_concept.best_image
+    
     @params_type = params['type'] || ['all']
     @params_status = params['status'] || []
     @sort_by = params[:sort_by]

@@ -1,40 +1,24 @@
-=# will_paginate @members # TODO - since this is in a partial, we may want to make this Ajaxy.
-#community_members_container
-  %h2= I18n.t(:community_members)
-  -# TODO: Should the community be removed if the last member leaves?
+- # FIXME: Community managers?
+.article.list
+  .heading
+    %h2= I18n.t(:community_managers_with_count, :count => 999999)
+  %ul
+    - # FIXME: Faked need to get actual managers
+    - @community.managers.each do |manager|
+      = render :partial => 'members/member_summary.html.haml', :locals => {:member => manager}
+.article.list
+  .heading
+    %h2= I18n.t(:community_members_with_count, :count => 999999)
+  - # TODO: Should the community be removed if the last member leaves?
   - if @members.blank?
-    %p.result_empty
-      = I18n.t(:there_are_currently_no_members_in_this_community)
-      - if not logged_in?
-        = I18n.t(:link_to_join_this_community, :link=>link_to(I18n.t(:log_in), login_path))
-      - elsif !@current_member
-    = link_to( I18n.t(:join_community) , join_community_path(@community.id))
-
+    %p= I18n.t(:there_are_currently_no_members_in_this_community)
   - else
-    %ul#community_members
-      - @members.each do |member|
-        - this_is_me = (member.user_id == current_user.id)
-        %li{:class => this_is_me ? member_function : nil}
-          = link_to member.user.username, member.user
-          = member.roles.map {|r| r.title}.sort.join(', ')
-          - if this_is_me
-            = I18n.t(:you_in_parens)
-            = link_to( I18n.t(:leave_community) , leave_community_path(@community.id))
-          - else # NOTE THE ELSE!!!!  You *cannot* edit yourself.
-            - if @current_member && @current_member.can_edit_members?
-              = link_to( I18n.t(:edit_membership) , community_member_path(@community, member))
-            - if @current_member && @current_member.can?(Privilege.remove_members)
-              = link_to( I18n.t(:remove_membership) , [@community, member], :method => :delete, :confirm => I18n.t(:are_you_sure) )
-
-  .membership_actions
-    %h2= I18n.t(:get_involved)
-    - if !logged_in?
-      - return_to = join_community_path(@community.id)
-      - title = I18n.t(:join_community_login_required_advisory)
-    - if !logged_in? || !@current_member
-      =link_to(I18n.t(:join_community), join_community_path(@community.id, :return_to => return_to), :title => title)
-    - elsif @current_member
-      %p
-        = I18n.t(:you_have_been_a_member_of_this_community_since, :when => @current_member.created_at)
-        = link_to( I18n.t(:leave_community) , leave_community_path(@community.id), :confirm => I18n.t(:are_you_sure) , :class => 'leave_community')
-
+  %ul
+    =# TODO: will_paginate @members
+    - @members.each do |member|
+      = render :partial => 'members/member_summary.html.haml', :locals => {:member => member}
+      - # FIXME - membership management ?
+      - if @current_member && @current_member.can_edit_members? && ! member.user.id == current_user.id
+        = link_to I18n.t(:edit_membership), community_member_path(@community, member)
+      - if @current_member && @current_member.can?(Privilege.remove_members) && ! member.user.id == current_user.id
+        = link_to I18n.t(:remove_membership), [@community, member], :method => :delete, :confirm => I18n.t(:are_you_sure)

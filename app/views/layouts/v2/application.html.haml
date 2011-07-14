@@ -65,10 +65,6 @@
               %li
                 = link_to I18n.t(:google_translate), { :controller => "/content", :action => "translate" },
                   { :title => I18n.t(:google_translate_advisory_information) }
-          - if ! @home_page
-            %p.print
-              - link_to "/placeholder" do
-                %span= I18n.t(:print_this_page_link) + "FIXME"
         - if @home_page
           %h2= I18n.t(:global_access_tagline)
         = render :partial => "/layouts/v2/search"
@@ -103,11 +99,12 @@
         %h3.assistive= I18n.t(:explore)
         .thumbnails
           %ul
-            - demo_taxa_ids = { 2866150 => 'Amanita muscaria', 17924149 => 'Dinochelus ausubeli', 921737 => 'Haramonas dimorpha', 328607 => 'Canis lupus', 1061748 => 'Pinus strobus', 491753 => 'Anochetus mayri' }
-            - demo_taxa_ids.each_with_index do |(id, name), i|
-              - unless id == 17924149
-                %li= link_to image_tag("v2/temporary_for_mockup/mol_#{id}.jpg", :alt => name), "/pages/#{id}"
-            %li.last= link_to image_tag("v2/temporary_for_mockup/mol_17924149.jpg", :alt => demo_taxa_ids[17924149]), "/pages/17924149"
+            - @explore_taxa[0..4].each do |random_image|
+              %li= link_to image_tag(random_image.data_object.thumb_or_object('130_130'),
+                :alt => random_image.taxon_concept.entry.name.canonical_form.string), "/pages/#{random_image.taxon_concept_id}"
+            - if random_image = @explore_taxa[5]
+              %li.last= link_to image_tag(random_image.data_object.thumb_or_object('130_130'),
+                :alt => random_image.taxon_concept.entry.name.canonical_form.string), "/pages/#{random_image.taxon_concept_id}"
           .term
             .site_column
               %p

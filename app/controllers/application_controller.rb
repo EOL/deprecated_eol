@@ -79,6 +79,7 @@ class ApplicationController < ActionController::Base
   def allow_login_then_submit
     unless logged_in?
       # TODO: Can we delete the submitted data if the user doesn't login or signup?
+      flash[:notice] = I18n.t(:must_be_logged_in)
       session[:submitted_data] = params
       # POST request should provide a submit_to URL so that we can redirect to the correct action with a GET.
       submit_to = params[:submit_to] || current_url

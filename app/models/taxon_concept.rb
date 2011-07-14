@@ -925,7 +925,11 @@ class TaxonConcept < SpeciesSchemaModel
     subtitle = '' if subtitle.upcase == "[DATA MISSING]"
     @subtitle = subtitle
   end
-
+  
+  def best_image
+    return images(:skip_metadata => true).blank? ? nil : images(:skip_metadata => true)[0]
+  end
+  
   def smart_thumb
     return images(:skip_metadata => true).blank? ? nil : images(:skip_metadata => true)[0].smart_thumb
   end

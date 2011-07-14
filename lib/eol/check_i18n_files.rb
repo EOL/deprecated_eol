@@ -1,6 +1,6 @@
 module EOL
   class CheckI18nFiles
-
+    
     def initialize
       @lang_dir = File.join([RAILS_ROOT, "config", "locales"])
       @en_yml = File.join([@lang_dir, "en.yml"])
@@ -8,6 +8,7 @@ module EOL
       puts "** CHECKING I18N FILES..."
       puts "   The following will not register as failing tests. It is up to the developer to handle these issues individually."
       check_consistency
+      check_parameter_consistency
       check_hard_coded_controllers
       check_hard_coded_html_erb
       check_hard_coded_html_haml
@@ -53,6 +54,40 @@ module EOL
       end
 
     end
+    
+    def check_parameter_consistency
+      error_log = ''
+      all_files = get_all_files_in_app
+      error_count = 0
+      
+      Dir.glob(File.join([@lang_dir, "*"])).each do |file|
+        file_name = File.split(file)[-1]
+        if file_name.match(/^[a-z]{2}\.yml\b/)
+          yml_keys = load_yml_file(file)
+          error_log << "\n#{file_name}\n"
+          
+          all_files.each do |file|
+            inconsistent_keys = get_inconsistent_parameters(file, yml_keys)
+            if inconsistent_keys.size > 0
+              error_count = error_count + inconsistent_keys.size
+              for i in (0..inconsistent_keys.size-1)
+                error_log << ">> #{file}\n"
+                error_log << "#{inconsistent_keys[i]}\n"
+              end
+            end
+          end
+        end
+      end
+      # logging data in log file
+      log_keys = File.join([RAILS_ROOT, "log", "i18n_inconsistent_parameters.txt"]) # for missing keys in en.yml files
+      log_data = open(log_keys, 'w')
+      log_data.write error_log
+      log_data.close
+
+      if (error_count > 0)
+        carp error_count.to_s + " keys have incosistent parameters. Please check the missing keys at " + log_keys
+      end
+    end
 
     def check_hard_coded_controllers
       log_file = File.join([RAILS_ROOT, "log", "hard_coded_controllers.txt"])
@@ -89,7 +124,6 @@ module EOL
       end
     end
 
-
     def check_hard_coded_html_erb
       log_file = File.join([RAILS_ROOT, "log", "hard_coded_html_erb.txt"])
       control_dir = File.join([RAILS_ROOT, "app", "views"])
@@ -125,8 +159,6 @@ module EOL
         carp error_message
       end
     end
-
-
 
     def check_hard_coded_html_haml
       log_file = File.join([RAILS_ROOT, "log", "hard_coded_html_haml.txt"])
@@ -186,7 +218,6 @@ module EOL
         carp error_message
       end
     end
-
 
     def check_i18n_keys_have_en_values
 
@@ -267,10 +298,101 @@ module EOL
           end
         end
         return keys
-     end
+      end
 
     end
+    
+    def load_parameters_from_key(value)
+      return_array = Array.new
+      if value.index('%{')
+        temp_array = value.split('%{')
+        for i in (1..temp_array.size-1)
+          return_array << temp_array[i].split('}')[0]
+        end
+      end
+      return return_array
+    end
+    
+    def load_full_i18_function_call(function_parameters)
+      string_in_lines = function_parameters.split("\n")
+      i=0      
+      current_line = string_in_lines[i]
+      return_call = current_line
+      
+      while (current_line.strip[-1] == ',' and i < string_in_lines.size)
+        i = i + 1
+        return_call << " " + current_line
+        current_line = string_in_lines[i]
+      end
+      
+      return return_call
+    end
+    
+    def check_call_inconsistency(yml_keys, key_name, function_call)
+      if (yml_keys[key_name])
+        params = load_parameters_from_key(yml_keys[key_name])
+        for i in (0..params.size-1)
+          if (function_call.split(":"+params[i]).size > 1)
+            equal_index = function_call.split(":"+params[i])[1].strip.index("=>")
+            if equal_index.nil? or equal_index>0
+              return true
+            end
+          else
+            return true
+          end
+        end
+      end
+      return false
+    end
+    
+    def get_inconsistent_parameters(file_path, yml_keys)
+      file_open = open(file_path, "r")
+      file_content = file_open.read
+      file_open.close
 
+      # returns array of keys in the file if any
+      keys_having_incorrect_parameters = Array.new
+      temp_keys = file_content.split(/I18n.t(ranslate)*/)
+      if (temp_keys.size==1)
+        # no I18n keys in this file, return an empty array
+        return keys_having_incorrect_parameters
+      else
+        # ignore the first item in the array, from the second item, each will start with the key
+        keys_count = 0
+        for i in (1..temp_keys.size-1)
+          if temp_keys[i].match(/^(\s*\()/) # matchs I18n.t(xxxx)
+            if temp_keys[i].strip != '(' # to avoid error from nested I18n.t
+              function_call = temp_keys[i].strip.gsub('(','').strip.split(")")[0]
+              key_name = function_call.split(')')[0].strip.gsub("\"", "").gsub(":","").gsub("'","")
+              if check_call_inconsistency(yml_keys, key_name, function_call)
+                keys_having_incorrect_parameters << key_name
+              end
+            end
+          elsif temp_keys[i].match(/^\s(\')/) # matchs I18n.t 'xxx'                        
+            key_name = temp_keys[i].strip[1..-1].split("'")[0] # trim then remove the first ' then split on the next ' and get the key
+            full_call = load_full_i18_function_call(temp_keys[i])
+            if check_call_inconsistency(yml_keys, key_name, full_call)
+              keys_having_incorrect_parameters << key_name
+            end            
+          elsif temp_keys[i].match(/^\s(\")/) # matchs I18n.t "xxx"
+            key_name = temp_keys[i].strip[1..-1].split('"')[0].strip # trim then remove the first " then split on the next " and get the key
+            full_call = load_full_i18_function_call(temp_keys[i])
+            if check_call_inconsistency(yml_keys, key_name, full_call)
+              keys_having_incorrect_parameters << key_name
+            end            
+          elsif temp_keys[i].match(/^\s(\:)/) # matchs I18n.t :xxx
+            key_name = temp_keys[i].strip[1..-1].split(/(,|\s|$|\Z)/)[0].strip # trim then remove the first : then split on the next comma, space, or a new line, end of line, or end of string
+            full_call = load_full_i18_function_call(temp_keys[i])
+            if check_call_inconsistency(yml_keys, key_name, full_call)
+              keys_having_incorrect_parameters << key_name
+            end        
+          end
+        end
+        return keys_having_incorrect_parameters
+      end
+
+    end
+    
     def get_missing_keys_in_file(file_path, en_yml_keys)
       file_open = open(file_path, "r")
       file_content = file_open.read

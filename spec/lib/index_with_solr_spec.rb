@@ -5,6 +5,8 @@ describe 'Index With Solr' do
   before(:all) do
     Language.create_english
     @solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_SITE_SEARCH_CORE)
+    @original_index_config = $INDEX_RECORDS_IN_SOLR_ON_SAVE
+    $INDEX_RECORDS_IN_SOLR_ON_SAVE = true
   end
   
   after(:all) do
@@ -12,6 +14,7 @@ describe 'Index With Solr' do
     class GlossaryTerm < SpeciesSchemaModel
       remove_index_with_solr
     end
+    $INDEX_RECORDS_IN_SOLR_ON_SAVE = @original_index_config
   end
   
   it 'should define new methods and set callback functions' do

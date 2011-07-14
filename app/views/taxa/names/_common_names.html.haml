@@ -1,35 +1,25 @@
-%br
-= javascript_include_tag 'common-names'
-- is_curator = @taxon_concept.is_curatable_by?(current_user)
-- if is_curator
-  = render :partial => 'data_objects/curation_js'
-  #common_names_error{ :style => "color:brown;text-align:center;padding-bottom:8px;display:none;" }
-    =I18n.t("sorry__there_was_an_error_send")
-  #common_names_spinner{ :style => "text-align:right;float:right;" }
-    = image_tag('indicator_arrows_black.gif', :style => 'display:none;')
-
-#common_names_wrapper.text_object
-  - names_by_language = common_names_by_language(content[:items], current_user.language_id)
-  - if names_by_language.empty? && is_curator
-    = render(:partial => 'content_common_names_insert')
-  - else
-    - names_by_language.each_with_index do |language_names_pair, index|
-      - language = language_names_pair[0]
-      - names    = language_names_pair[1]
-
-      - if index == 0
-        = I18n.t(:language)
-      == #{language}
-
-      - if is_curator
-        = render(:partial => 'content_language_common_names_curator', :locals => {:names => names})
-      - else
-        = render(:partial => 'content_language_common_names', :locals => {:names => names})
-      - if index == 0 && is_curator
-        = render(:partial => 'content_common_names_insert', :locals => {:names => names})
-
-- form_tag({:action => 'vet_common_name'}, :id => 'vet_common_name_form', :method => 'post') do
-  %input{:type => 'hidden', :id => 'form_taxon_concept_id', :name => 'taxon_concept_id', :value => ''}
-  %input{:type => 'hidden', :id => 'form_language_id',      :name => 'language_id',      :value => ''}
-  %input{:type => 'hidden', :id => 'form_name_id',          :name => 'name_id',          :value => ''}
-  %input{:type => 'hidden', :id => 'form_vetted_id',        :name => 'vetted_id',        :value => ''}
+- names_by_language = common_names_by_language(@common_names, current_user.language_id)
+- names_by_language.each_with_index do |language_names_pair, index|
+  - language = language_names_pair[0]
+  - names = language_names_pair[1]
+  %h4= language
+  %table.names
+    %thead
+      %tr
+        %th= I18n.t(:names_preferred_column_header)
+        %th= I18n.t(:names_name_column_header)
+        %th= I18n.t(:names_sources_column_header)
+        %th= I18n.t(:names_status_column_header)
+    %tbody
+      - names.each do |name|
+        %tr
+          %td
+            %span{:class => name.preferred ? 'preferred' : nil}
+              = name.preferred ? I18n.t(:name_preferred_for_language_yes) : I18n.t(:name_preferred_for_language_no)
+          %td
+            = name.string
+          %td
+            - name.sources.each do |source|
+              = source.full_name
+          %td
+            %span.flag{:class => vetted_id_class(name.vetted_id)}= Vetted.find_by_id(name.vetted_id).label

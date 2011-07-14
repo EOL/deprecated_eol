@@ -1,5 +1,18 @@
--# TODO - this is duplicated with communities/show.  Really, though, this is mainly used for testing... hmmn:
-- i_am_in_this_community = current_user.member_of?(@community)
-- member_function = i_am_in_this_community ? 'member allowed' : 'member not_allowed'
-- non_member_function = i_am_in_this_community ? 'non_member not_allowed' : 'non_member allowed'
-= render :partial => 'index', :locals => {:i_am_in_this_community => i_am_in_this_community, :member_function => member_function, :non_member_function => non_member_function }
+#sidebar
+  .collection_list
+    %h3= I18n.t(:community_focus)
+    - if @community.focus.nil?
+      %p= I18n.t(:this_community_has_no_focus_list)
+    - else
+      %ul
+        = render :partial => 'collections/collection_summary', :locals => {:collection => @community.focus, :minimal => true}
+  .collection_list
+    %h3= I18n.t(:endorsed_collections)
+    - if @community.endorsed_collections.empty?
+      %p= I18n.t(:this_community_has_no_endorsed_collections)
+    - else
+      %ul
+        - @community.endorsed_collections[0..3].each do |collection|
+          = render :partial => 'collections/collection_summary', :locals => {:collection => collection, :minimal => true}
+#community.main_container
+  = render :partial => 'index'

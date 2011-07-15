@@ -1,5 +1,6 @@
+- supress_try_again_link = !@retry
 #content
   .site_column
     .article.copy
-      = render :partial => 'content/error'
+      = render :partial => 'content/error', :locals => {:supress_try_again_link => supress_try_again_link }
 

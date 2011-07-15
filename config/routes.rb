@@ -22,7 +22,7 @@ ActionController::Routing::Routes.draw do |map|
     :controller => 'roles', :action => 'remove_privilege'
 
   map.resources :collections, :member => { :choose => :get }
-  map.resources :collection_items, :except => [:index, :show, :new, :edit]
+  map.resources :collection_items, :except => [:index, :show, :new, :destroy]
 
   #used in collections show page, when user clicks on left tabs
   map.connect 'collections/:id/:filter',

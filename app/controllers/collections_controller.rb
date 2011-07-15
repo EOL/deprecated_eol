@@ -59,6 +59,7 @@ class CollectionsController < ApplicationController
   def edit
     @head_title = I18n.t(:edit_collection_head_title, :collection_name => @collection.name) unless @collection.blank?
     if @field = params[:field]
+      @field_id = $1 # NOTE - this will be nil if there was no match, of course.
       respond_to do |format|
         format.html { render "edit_field" }
         format.js   { render :partial => "edit_#{@field}", :layout => false }
@@ -131,13 +132,13 @@ private
   # When we bounce around, not all params are required; this is the list to remove:
   # NOTE - to use this as an parameter, you need to de-reference the array with a splat (*).
   def unnecessary_keys_for_redirect
-    [:action_name, :_method, :commit_sort, :commit_select_all, :commit_copy_collection_items,
+    [:action_name, :_method, :commit_sort, :commit_select_all, :commit_copy_collection_items, :commit, :collection,
      :commit_move_collection_items, :commit_remove_collection_items, :commit_edit_collection,
      :commit_chosen_collection]
   end
 
   def select_all
-    return redirect_to params.merge!(:action => 'edit').except(*unnecessary_keys_for_redirect)
+    return redirect_to params.merge(:action => 'edit').except(*unnecessary_keys_for_redirect)
   end
 
   def no_items_selected_error(which)
@@ -177,8 +178,9 @@ private
     if @collection.update_attributes(params[:collection])
       respond_to do |format|
         format.html do
-          flash[:notice] = I18n.t(:collection_updated_notice, :collection_name => @collection.name)
-          return redirect_to(@collection)
+          flash[:notice] = I18n.t(:collection_updated_notice, :collection_name => @collection.name) if
+            params[:colleciton] # NOTE - when we sort, we don't *actually* update params...
+          return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect)
         end
         format.js do
           if @field = params[:field]
@@ -189,7 +191,6 @@ private
         end
       end
     else
-      puts "++ ERR"
       flash[:error] = I18n.t(:collection_not_updated_error)
     end
   end

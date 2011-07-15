@@ -72,7 +72,10 @@ class ApplicationController < ActionController::Base
       end
       logger.error "   [...#{e.backtrace.length - index} more lines omitted]" if lines_shown > 12
       logger.error "\n\n"
-      render :layout => 'v2/basic', :template => "content/error"
+      respond_to do |format|
+        format.html { render :layout => 'v2/basic', :template => "content/error" }
+        format.js { @retry = false; render :layout => false, :template => "content/error" }
+      end
     end
   end
 

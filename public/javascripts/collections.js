@@ -4,6 +4,9 @@ if(!EOL) { var EOL = {}; }
 // supposed to be done.  For one, I'm not sure we need more than "html" to be set in the ajaxSetup.  Second, we
 // should abstract those two Ajax calls, which are so similar.  ...And likely more.
 
+// TODO - these unbind() calls are not working.  Not sure why.  Invesitgate.  (Clicking on multiple "edit annotation"
+// links will submit the request multiple times.)
+
 // TODO - move this somewhere global:
 $.ajaxSetup({accepts: {
   '*': "text/javascript, */*",
@@ -27,8 +30,8 @@ if (!EOL.init_collection_behaviours) {
     // Get tiny editable forms when clicking on the edit link:
     $('input[name=commit_sort]').hide();
     $('.editable_link a').click(function() {  // TODO - this isn't working?  Is change the wrong method?
-      url = $(this).attr('href');
-      cell = $(this).closest('.editable');
+      var url = $(this).attr('href');
+      var cell = $(this).closest('.editable');
       $.ajax({
         url: url,
         dataType: 'html',
@@ -37,6 +40,7 @@ if (!EOL.init_collection_behaviours) {
         error: function(xhr, stat, err) { cell.html('<p>Sorry, there was an error: '+stat+'</p>'); },
         complete: function() {
           cell.delay(25).fadeTo(100, 1, function() {cell.css({filter:''});});
+          $('.editable_link a').unbind('click'); // TODO - needed?
           EOL.init_collection_behaviours();
         }
       });
@@ -45,10 +49,14 @@ if (!EOL.init_collection_behaviours) {
     // Submit tiny editable forms and return the tiny html response:
     $('input[name=commit_edit_collection]').unbind('click');
     $('input[name=commit_edit_collection]').click(function() {
-      form = $(this).closest('form');
-      cell = $(this).closest('.editable');
+      var form = $(this).closest('form');
+      var cell = $(this).closest('.editable');
+      var url  = form.attr('action');
+      if($(this).attr('data_url') != undefined) {
+        url = $(this).attr('data_url');
+      }
       $.ajax({
-        url: form.attr('action'),
+        url: url,
         data: form.serialize(),
         type: 'POST',
         dataType: 'html',

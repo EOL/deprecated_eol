@@ -1,6 +1,7 @@
 class CollectionItemsController < ApplicationController
 
   before_filter :allow_login_then_submit, :only => [:create]
+  before_filter :find_collection_item, :only => [:update, :edit]
 
   # POST /collection_items
   def create
@@ -32,35 +33,45 @@ class CollectionItemsController < ApplicationController
 
   # PUT /collection_items/1
   def update
-    @collection_item = CollectionItem.find(params[:id])
-
-    return_to = params[:return_to]
-    return_to ||= collection_path(@collection_item.collection) unless @collection_item.blank?
-    store_location(return_to)
-
     if @collection_item.update_attributes(params[:collection_item])
-      flash[:notice] = I18n.t(:item_updated_in_collection_notice, :collection_name => @collection_item.collection.name)
-    else
-      flash[:error] = I18n.t(:item_not_updated_in_collection_error)
-    end
-    redirect_back_or_default
-  end
-
-  # DELETE /collection_items/1
-  def destroy
-    @collection_item = CollectionItem.find(params[:id])
-    # We don't actually *destroy* collection items, so that we still have a log of what they were pointing to:
-    if @collection_item.update_attributes(:collection_id => nil)
-      CollectionActivityLog.create(:collection => @collection_item.collection, :collection_item => @collection_item,
-                                   :user => current_user, :activity => Activity.remove)
       respond_to do |format|
-        flash[:notice] = I18n.t(:item_removed_from_collection_notice, :collection_name => @collection_item.collection.name)
-        format.html { redirect_to(@collection_item.collection) }
+        format.js do
+          render :partial => 'show', :layout => false,
+            :locals => { :collection_item => @collection_item, :editable => true }
+        end
+        format.html do
+          flash[:notice] = I18n.t(:item_updated_in_collection_notice, :collection_name => @collection_item.collection.name)
+          redirect_to(@collection_item.collection)
+        end
       end
     else
-      flash[:error] = I18n.t(:item_not_updated_in_collection_error)
-      redirect_back_or_default
+      respond_to do |format|
+        format.js do
+        end
+        format.html do
+          flash[:error] = I18n.t(:item_not_updated_in_collection_error)
+          redirect_to(@collection_item.collection)
+        end
+      end
     end
+  end
+
+  # TODO - html
+  # TODO - permissions checking
+  def edit
+    # TODO - Abstract the find into a before filter and handle not found errors..
+    respond_to do |format|
+      format.js do
+        render :partial => 'edit', :locals => { :collection_item => @collection_item }
+      end
+    end
+  end
+
+private
+
+  def find_collection_item
+    @collection_item = CollectionItem.find(params[:id])
+    @selected_collection_items = [] # To avoid errors.  If you edit something, it becomes unchecked.  That's okay.
   end
 
 end

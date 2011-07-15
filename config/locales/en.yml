@@ -304,6 +304,7 @@ en:
   collection_description_label: "Collection description"
   collection_is_empty: "This collection is currently empty."
   collection_item_annotation_label: "Collection item annotation"
+  collection_item_not_found_error: "That collection item could not be found."
   collection_name_label: "Collection name"
   collection_not_created_error: "Sorry, an error occurred, the collection <em>%{collection_name}</em> could not be created."
   collection_not_found_error: Sorry, that collection cound not be found.
@@ -660,6 +661,7 @@ en:
   dutch: "Dutch"
   each_method_s_documentation_pa: "Each method's documentation page has an example of both the XML and JSON formatted responses."
   _edit_agreement_: "[edit agreement]"
+  edit_annotation: edit annotation
   edit_comment: "Edit Comment"
   edit_community: "Edit community"
   edit_contact_us_topic: "Edit Contact Us Topic"

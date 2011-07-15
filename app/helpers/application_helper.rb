@@ -233,6 +233,25 @@ module ApplicationHelper
     end
   end
 
+  # Total counts for stats on the home page
+  def total_count(obj)
+    case obj
+      when "taxon_concepts"
+        TaxonConcept.count(:conditions => "published=1")
+      when "data_objects"
+        DataObject.count(:conditions => "data_type_id=#{DataType.image.id} and published=1")
+      when "users" then
+        User.count(:conditions => "active=1")
+      when "collections"
+        Collection.count
+      when "content_partners" then
+        ContentPartner.count
+      else
+        # TODO - This exception is really just for the developers, not sure if we should change it to make more informative to developers.
+        raise EOL::Exceptions::ObjectNotFound
+    end
+  end
+
   def get_year_month_list
     arr=[]
     start="2009_07"

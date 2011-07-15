@@ -151,6 +151,7 @@ en:
   articles_with_count:
     one: "%{count} Article"
     other: "%{count} Articles"
+  as_of_time: "as of %{time}"
   as_of_time_there_were_unique_visitors:
     one: "As of %{time} there was %{count} unique visitor"
     other: "As of %{time} there were %{count} unique visitors"
@@ -458,7 +459,6 @@ en:
   content_update: "Content Update"
   contribute: "Contribute"
   contribute_to_page_button: "Contribute to this page"
-  contributors_like_you: "Contributors like you"
   copy_and_paste_in_email_or_document: "Copy and paste in email or document"
   copy_selected_button: "Copy selected"
   copyright: "COPYRIGHT:"
@@ -1094,6 +1094,7 @@ en:
   latest_version_of_this_article: "latest version of this article in Wikipedia"
   latvian: "Latvian"
   learn_about_content_partners: "Learn about our content partners"
+  learn_how_to_contribute: "Learn how you can contribute"
   learn_how_to_interact: "Learn how you can interact"
   learn_how_to_join: "Learn how you can join"
   learn_more_about_browse_classification_and_filtering: "Learn more about browse classification and filtering"
@@ -1202,6 +1203,7 @@ en:
     one: "(one member)"
     other: "(%{count} members)"
   members: "Members"
+  members_like_you: "Members like you"
   members_with_count:
     one: "%{count} member"
     other: "%{count} members"

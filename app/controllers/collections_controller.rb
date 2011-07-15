@@ -73,6 +73,7 @@ class CollectionsController < ApplicationController
     return copy if params[:commit_copy_collection_items]
     return move if params[:commit_move_collection_items]
     return remove if params[:commit_remove_collection_items]
+    return default_sort if params[:commit_default_sort]
     return select_all if params[:commit_select_all]
     return chosen if params[:commit_chosen_collection] # TODO - I would think we want this to go to the appropriate action.
     real_update # There are several actions that DON'T use a button, and those need to simply update.
@@ -133,7 +134,7 @@ private
   # NOTE - to use this as an parameter, you need to de-reference the array with a splat (*).
   def unnecessary_keys_for_redirect
     [:action_name, :_method, :commit_sort, :commit_select_all, :commit_copy_collection_items, :commit, :collection,
-     :commit_move_collection_items, :commit_remove_collection_items, :commit_edit_collection,
+     :commit_move_collection_items, :commit_remove_collection_items, :commit_edit_collection, :commit_default_sort,
      :commit_chosen_collection]
   end
 
@@ -193,6 +194,15 @@ private
     else
       flash[:error] = I18n.t(:collection_not_updated_error)
     end
+  end
+
+  def default_sort
+    if @collection.update_attribute(:sort_style_id, params[:sort_by])
+      flash[:notice] = I18n.t(:collection_updated_notice, :collection_name => @collection.name)
+    else
+      flash[:error] = I18n.t(:collection_not_updated_error)
+    end
+    return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect)
   end
 
   # TODO - Not sure this is what we want to do. see #update

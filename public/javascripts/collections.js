@@ -23,6 +23,7 @@ if (!EOL.init_collection_behaviours) {
     $('#sort_by').unbind('change');
     $('#sort_by').change(function() {$(this).closest('form').submit();});
     // Select All:
+    // TODO: there's something in the application JS file that could handle this. Try it.
     $('input[name=commit_select_all]').unbind('click');
     $('input[name=commit_select_all]').click(function() {
       $('.object_list input[name="collection_items[]"]').prop('checked', true); return(false);

@@ -32,6 +32,22 @@
                 <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
             </analyzer>
         </fieldType>
+        
+        <!-- This is our *exact* text field, with limited tokenizers.
+          Thought about whitespace tokenizer, but I think that would defeat the purpose! "Felis familiaris" would match on
+          "felis", I think. Downside is, "felis familaris" won't match "felis     familiaris". -->
+        <fieldType name="textExact" class="solr.TextField" positionIncrementGap="4">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.TrimFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.TrimFilterFactory"/>
+            </analyzer>
+        </fieldType>
     </types>
     
     <!-- begin schema -->
@@ -42,11 +58,13 @@
         <field name="object_id" type="int" indexed="true" stored="true" required="true"/>
         <field name="collection_id" type="int" indexed="true" stored="true" required="true"/>
         <field name="title" type="text" indexed="true" stored="true" required="true"/>
-        <field name="annotation" type="text" indexed="true" stored="true" required="true"/>
-        <field name="added_by_user_id" type="int" indexed="true" stored="true" required="true"/>
+        <field name="title_exact" type="textExact" indexed="true" stored="true" required="false"/>
+        <copyField source="title" dest="title_exact"/>
+        <field name="annotation" type="text" indexed="true" stored="true" required="false"/>
+        <field name="added_by_user_id" type="int" indexed="true" stored="true" required="false"/>
         <field name="data_rating" type="float" indexed="true" stored="true" required="false"/>
         <field name="richness_score" type="float" indexed="true" stored="true" required="false"/>
-        <field name="date_created" type="date" indexed="true" stored="true" required="false"/>
+        <field name="date_created" type="date" indexed="true" stored="true" required="true"/>
         <field name="date_modified" type="date" indexed="true" stored="true" required="true"/>
     </fields>
     

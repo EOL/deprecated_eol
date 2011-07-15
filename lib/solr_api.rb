@@ -15,6 +15,7 @@ class SolrAPI
   attr_reader :action_uri
   
   def self.text_filter(t)
+    return t if t.nil?
     return '' unless t.is_utf8?
     text = t.clone
     text.gsub!(/;/, ' ')
@@ -38,6 +39,7 @@ class SolrAPI
       return false
     end
     # returns true if a connection was made the the schema loaded
+    load_schema
     !test_connection.schema_hash.blank?
   end
   
@@ -58,10 +60,10 @@ class SolrAPI
     @multi_value_delimiter = ';'
     csv_path_random_bit = 10.times.map{ rand(10) }.join
     @csv_path = File.join(RAILS_ROOT, 'public', 'files', "solr_import_file_#{csv_path_random_bit}.csv")
-    load_schema
   end
   
   def load_schema
+    return if @schema_hash && !@schema_hash.empty?
     schema_xml = SolrAPI.xml_get(@action_url + "/admin/file/?file=schema.xml")
     @primary_key = nil
     if pk = schema_xml.xpath('//uniqueKey').inner_text
@@ -135,6 +137,7 @@ class SolrAPI
     # If the app isn't running, there cannot be a URL as there is no web server to serve the file.
     # If the app is running, rake doesn't know about the request therefore it can't know the proper port
     stream_file = false # if RAILS_ENV == 'test'
+    load_schema # make sure we know the fields. It will only be loaded once
     
     File.open(@csv_path, 'w') do |f|
       if @primary_key
@@ -188,6 +191,12 @@ class SolrAPI
     end
     SolrAPI.post_fields(@action_url + "/update/csv", fields)
     commit
+    
+    # file = File.open(@csv_path)
+    # while File.exists?(file.path)
+    #     puts file.gets while !file.eof?
+    # end
+    
     File.delete(@csv_path) if delete_on_finish
   end
   

@@ -3,8 +3,8 @@ module EOL
     class CollectionItems
       def self.search_with_pagination(collection_id, options = {})
         options[:page]        ||= 1
-        options[:per_page]    ||= 10
-        options[:per_page]      = 10 if options[:per_page] == 0
+        options[:per_page]    ||= 20
+        options[:per_page]      = 20 if options[:per_page] == 0
 
         response = solr_search(collection_id, options)
         total_results = response['response']['numFound']
@@ -30,7 +30,7 @@ module EOL
         add_collection!(docs.select{ |d| d['object_type'] == 'Collection' })
         add_user!(docs.select{ |d| d['object_type'] == 'User' })
         add_taxon_concept!(docs.select{ |d| d['object_type'] == 'TaxonConcept' })
-        add_data_object!(docs.select{ |d| ['Image', 'Video', 'Sound', 'Text'].include? d['object_type'] })
+        add_data_object!(docs.select{ |d| ['Image', 'Video', 'Sound', 'Text', 'DataObject'].include? d['object_type'] })
       end
 
       def self.add_community!(docs)
@@ -63,12 +63,13 @@ module EOL
       def self.add_taxon_concept!(docs)
         return if docs.empty?
         includes = [
-          { :published_hierarchy_entries => [ :name , :hierarchy, :vetted, { :flattened_ancestors => { :ancestor => [ :name, :rank ] } } ] },
+          { :published_hierarchy_entries => [ { :name => :canonical_form } , :hierarchy, :vetted, { :flattened_ancestors => { :ancestor => [ :name, :rank ] } } ] },
           { :top_concept_images => :data_object } ]
         selects = {
           :taxon_concepts => '*',
           :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
           :names => [ :string, :italicized, :canonical_form_id ],
+          :canonical_forms => [ :string ],
           :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
           :vetted => :view_order,
           :hierarchy_entries_flattened => '*',
@@ -134,9 +135,9 @@ module EOL
         elsif options[:sort_by] == SortStyle.oldest
           url << '&sort=date_modified+asc'
         elsif options[:sort_by] == SortStyle.alphabetical
-          url << '&sort=title+asc'
+          url << '&sort=title_exact+asc'
         elsif options[:sort_by] == SortStyle.reverse_alphabetical
-          url << '&sort=title+desc'
+          url << '&sort=title_exact+desc'
         elsif options[:sort_by] == SortStyle.richness
           url << '&sort=data_rating+desc'
         elsif options[:sort_by] == SortStyle.rating

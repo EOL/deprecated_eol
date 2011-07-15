@@ -22,6 +22,7 @@ describe 'Taxa page' do
     @testy = EOL::TestInfo.load('testy')
     Capybara.reset_sessions!
     HierarchiesContent.delete_all
+    Activity.create_defaults
   end
 
   shared_examples_for 'taxon pages with all expected data' do

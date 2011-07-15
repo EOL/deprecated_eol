@@ -211,6 +211,29 @@ module EOL
         end
         filter_taxon_concept_id
       end
+      
+      def self.get_facet_counts(query, options={})
+        url =  $SOLR_SERVER + $SOLR_SITE_SEARCH_CORE + '/select/?wt=json&q=' + CGI.escape(%Q[{!lucene}])
+        lucene_query = ''
+        if options[:exact]
+          url << CGI.escape("keyword_exact:\"#{query}\"^100")
+        else
+          url << CGI.escape("(keyword_exact:\"#{query}\"^100 OR keyword:\"#{query}\"^20)")
+        end
+        url << "&group=true&group.field=resource_unique_key&group.ngroups=true&facet.field=resource_type&facet=on&rows=0"
+        res = open(url).read
+        response = JSON.load(res)
+
+        facets = {}
+        f = response['facet_counts']['facet_fields']['resource_type']
+        f.each_with_index do |rt, index|
+          next if index % 2 == 1 # if its odd, skip this. Solr has a strange way of returning the facets in JSON
+          facets[rt] = f[index+1]
+        end
+        total_results = response['grouped']['resource_unique_key']['ngroups']
+        facets['All'] = total_results
+        facets
+      end
     end
   end
 end

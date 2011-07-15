@@ -246,15 +246,28 @@ concerned = User.find(community_owner.id + 4)
 concerned.logo_cache_url = next_user_logo_cache_url
 concerned.save
 
+summart_text_toc_items = [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution]
 # Now build them up again:
 taxa.each do |tc|
   community.focus.add tc
   endorsed_collection.add tc
+  endorsed_collection.add tc.best_image
+
+  summary_text = tc.text_objects_for_toc_items(summart_text_toc_items, { :limit => 1 })
+  endorsed_collection.add summary_text.first unless summary_text.blank?
+  
   Comment.gen(:parent => tc, :body => "Could we add some images of this in its natural habitat?", :user => loud_user)
   Comment.gen(:parent => tc, :body => "Beautiful!", :user => happy_user)
   Comment.gen(:parent => tc, :body => "There are serious concerns about this species becoming endangered", :user =>
               concerned)
 end
+
+# adding some users to the collection
+endorsed_collection.add loud_user
+endorsed_collection.add happy_user
+endorsed_collection.add concerned
+# adding a community
+endorsed_collection.add community
 
 Comment.gen(:parent => endorsed_collection, :body => "Are there enough curators for this?", :user => loud_user)
 Comment.gen(:parent => endorsed_collection, :body => "Excellent list!", :user => happy_user)

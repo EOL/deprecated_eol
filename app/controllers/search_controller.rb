@@ -7,11 +7,12 @@ class SearchController < ApplicationController
     params[:sort_by] ||= 'score'
     params[:type] ||= ['all']
     params[:type] = ['all'] if params[:type].include?('all')
+    params[:type] = ['taxon_concept'] if params[:mobile_search] # Mobile search is limited to taxa for now
     @sort_by = params[:sort_by]
     @params_type = params[:type]
     @params_type = ['all'] if @params_type.include?('all')
     @params_type.map!{ |t| t.camelize }
-    @querystring = params[:q] || params[:id]
+    @querystring = params[:q] || params[:id] || params[:mobile_search]
     @page_title  = I18n.t(:search_by_term_page_title, :term => @querystring)
     if @querystring.blank?
       @all_results = empty_paginated_set
@@ -23,10 +24,13 @@ class SearchController < ApplicationController
       @suggestions = search_response[:suggestions]
       log_search(request)
       current_user.log_activity(:text_search_on, :value => params[:q])
-      if mobile_agent_request? && !mobile_disabled_by_session?
-        render :template => 'mobile/search/index', :layout => "#{RAILS_ROOT}/app/views/mobile/layouts/main_mobile.html.haml"
-      end
-      if @all_results.length == 1 && @all_results.total_entries == 1
+      if params[:mobile_search] && !mobile_disabled_by_session?
+        if @all_results.length == 1 && @all_results.total_entries == 1
+          mobile_taxon_path(@all_results.first["resource_id"])
+        else
+          render :template => 'mobile/search/index', :layout => "#{RAILS_ROOT}/app/views/mobile/layouts/main_mobile.html.haml"
+        end
+      elsif @all_results.length == 1 && @all_results.total_entries == 1
         redirect_to_page(@all_results)
       elsif params[:show_all].blank? && @all_results.total_entries > 1 && @all_results.length > 1 &&
         @all_results[0]['score'] > 5 && (@all_results[0]['score'] > (@all_results[1]['score'] * 4))

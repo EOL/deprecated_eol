@@ -194,7 +194,7 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :mobile do |mobile|
     mobile.resources :contents, :collection => {:enable => :post, :disable => [:post, :get]}
     mobile.resources :taxa, :member => {:details => :get, :media => :get}
-    mobile.search 'search', :controller => 'search', :action => 'index'
+    mobile.search 'search/:id', :controller => 'search', :action => 'index'
   end
 
   ##### ALL ROUTES BELOW SHOULD PROBABLY ALWAYS BE AT THE BOTTOM SO THEY ARE RUN LAST ####

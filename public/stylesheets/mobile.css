@@ -28,6 +28,9 @@
 	padding:0px;
 	margin:0px;
 }
+#search_field{
+	color: #fff;
+}
 .ui-li-thumb, .ui-li-icon { /* Contents index, static pages 'li' thumbnails spacing */
 	left: 20px;
 	top: 15px;
@@ -35,6 +38,7 @@
 	max-width: 80px;
 	position: absolute;
 }
+
 /* --------------*/
 /* Theme override*/
 /* --------------*/
@@ -69,6 +73,7 @@
 	color: #2F3E46;
     font-weight: bold;
 }
+
 /* ------------------------------*/
 /* Hidden things in taxa overview*/
 /* ------------------------------*/

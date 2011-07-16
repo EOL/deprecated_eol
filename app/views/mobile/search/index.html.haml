@@ -3,7 +3,30 @@
   %h1=t "mobile.contents.home" 
 
 %div{"data-role"=>"content"}
-  %h2 Results
-  =@all_results.map do |r|
-    //%p=r.inspect
-    %p=r["best_keyword_match"]
+  - unless @suggestions.blank?
+    .suggestions
+      %h2 Suggestions
+      = I18n.t(:did_you_mean, :suggestions => @suggestions.map{ |s| link_to s.firstcap, mobile_search_path(:mobile_search => s) }.join(", "))
+  - unless @all_results.blank?
+
+    // TO-DO clean up and show only taxon related info
+    %h2 Results
+    .header
+      - start_number = (@all_results.current_page - 1) * @all_results.per_page + 1
+      - end_number = [ (start_number + @all_results.per_page - 1), @all_results.total_entries ].min
+      %h3= I18n.t(:displaying_numerical_range, :start_number => start_number, :end_number => end_number, :total => @all_results.total_entries)
+      = will_paginate @all_results, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
+        :inner_window => 2, :outer_window => 2
+    %ul.object_list
+      - @all_results.each do |result|
+        - result_instance = result['instance']
+        - unless result_instance.nil? # TODO: result_instance is sometimes nil - remove this comment if that is okay, or fix if not.
+          - en_type = en_type(result_instance)
+          %li{:class => en_type}
+            - if ['image', 'video', 'sound'].include?(en_type)
+              = render :partial => "shared/item_summary_media.html.haml", :locals => {:item => result_instance, :en_type => en_type}
+            - else
+              = render :partial => "shared/item_summary_#{en_type}.html.haml", :locals => {:item => result_instance}
+    .footer
+      = will_paginate @all_results, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
+        :inner_window => 4, :outer_window => 5

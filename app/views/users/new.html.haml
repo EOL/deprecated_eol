@@ -1,0 +1,34 @@
+#content.session
+  - form_for @user do |f|
+    %fieldset
+      %h1= I18n.t(:sign_up_form_header)
+      %dl
+        %dt
+          = f.label :username, I18n.t(:sign_up_form_username_label), { :title => I18n.t(:required_form_element) }
+        %dd
+          = f.text_field :username, { :maxlength => 32 }
+        %dt
+          = f.label :email, I18n.t(:sign_up_form_email_label), { :title => I18n.t(:required_form_element) }
+        %dd
+          = f.text_field :email, { :maxlength => 100 }
+        %dt
+          = f.label :entered_password, I18n.t(:sign_up_form_password_label), { :title => I18n.t(:required_form_element) }
+        %dd
+          = f.password_field :entered_password, { :maxlength => 16 }
+        %dt
+          = f.label :entered_password_confirmation, I18n.t(:sign_up_form_password_confirmation_label), { :title => I18n.t(:required_form_element) }
+        %dd
+          = f.password_field :entered_password_confirmation, { :maxlength => 16 }
+
+        %fieldset
+      - if $ENABLE_RECAPTCHA
+        :javascript
+          var RecaptchaOptions = { theme : 'clean'};
+        %dl
+          %dt
+            %label{ :for => "recaptcha" }
+              = I18n.t(:recaptcha)
+          %dd
+            = recaptcha_tags
+    %fieldset.actions
+      = submit_tag I18n.t(:sign_up_form_submit)

@@ -88,62 +88,37 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   # create a new user using default attributes and then update with supplied parameters
   def self.create_new options = {}
-    # NOTE - the agent_id is assigned in account controller, not in the model
+    # NOTE - the agent_id is assigned in user controller, not in the model
     new_user = User.new
     new_user.send(:set_defaults) # It's a private method.  This is cheating, but we really DO want it private.
     new_user.attributes = options
     new_user
   end
 
-  def self.authenticate(username, password)
-    user = self.find_by_username_and_active(username, true)
-    if user.blank?
-      self.authenticate_by_email(username, password)
-    elsif user.hashed_password == self.hash_password(password)
-      user.reset_login_attempts # found a matching username and password matched!
-      return true, user
-    else
-      user.invalid_login_attempt
-      return false, I18n.t(:invalid_login_or_password)
-    end
-  end
-
-  def self.authenticate_by_email(email, password)
-    users = User.find_all_by_email_and_active(email, true)
-    if users.blank?
-      return self.fail_authentication_with_master_check(email)
-    end
-    users.each do |u| # check all users with matching email addresses to see if one of them matches the password
-      if u.hashed_password == User.hash_password(password)
-        u.reset_login_attempts # found a match with email and password
+  def self.authenticate(username_or_email, password)
+    user = self.find_by_username_and_active(username_or_email, true)
+    users = user.blank? ? self.find_all_by_email_and_active(username_or_email, true) : [user]
+    users.each do |u|
+      if u.hashed_password == self.hash_password(password)
+        u.reset_login_attempts
         return true, u
-      else
-        u.invalid_login_attempt # log the bad attempt for this user!
       end
     end
-    if users.size > 1 # more than 1 email address with no matching passwords
-      return false, I18n.t(:the_email_address_is_not_unique_you_must_enter_a_username)
-    else  # no matches yet again :(
-      return false, I18n.t(:invalid_login_or_password)
+    # if we get here authentication was unsuccessful
+    users.each do |u|
+      u.invalid_login_attempt # log failed attempts
     end
-  end
-
-  def self.fail_authentication_with_master_check(user_identifier)
-    if self.active_on_master?(user_identifier)
-      return false,  I18n.t(:account_registered_but_not_ready_try_later)
-    else
-      return false, I18n.t(:invalid_login_or_password)
-    end
+    return false, users
   end
 
   def self.generate_key
     Digest::SHA1.hexdigest(rand(10**16).to_s + Time.now.to_f.to_s)
   end
 
-  def self.active_on_master?(username)
+  def self.active_on_master?(username_or_email)
     User.with_master do
-      user = User.find_by_username_and_active(username, true)
-      user ||= User.find_by_email_and_active(username, true)
+      user = User.find_by_username_and_active(username_or_email, true)
+      user ||= User.find_by_email_and_active(username_or_email, true)
       user.nil? ? false : true  # Just cleaning up the nil, is all.  False is less likely to annoy.
     end
   end
@@ -726,7 +701,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       # ContentServer.logo_path(logo_cache_url, size)
     end
   end
-  
+
 
 private
 

@@ -1,12 +1,46 @@
 class UsersController < ApplicationController
 
-  before_filter :instantiate_user
+  layout :users_layout
 
-  layout 'v2/users'
   @@objects_per_page = 20
 
+  # GET users/new or named route /register
+  def new
+    @user = User.new
+  end
+
+  # POST /users
+  def create
+    @user = User.create_new(params[:user])
+    # give them a validation code and make their account not active by default
+    @user.validation_code = Digest::MD5.hexdigest "#{@user.username}#{Time.now.hour}:#{Time.now.min}:#{Time.now.sec}"
+    while(User.find_by_validation_code(@user.validation_code))
+      @user.validation_code.succ!
+    end
+    @user.active = false
+    # set the password and the remote_IP address
+    @user.password = @user.entered_password
+    @user.remote_ip = request.remote_ip
+    if verify_recaptcha && @user.save
+      begin
+        @user.update_attribute :agent_id, Agent.create_agent_from_user(@user.full_name).id
+      rescue ActiveRecord::StatementInvalid
+        # Interestingly, we are getting users who already have agents attached to them.  I'm not sure why, but it's causing registration to fail (or seem to; the user is created), and this is bad.
+      end
+      @user.entered_password = ''
+      @user.entered_password_confirmation = ''
+      Notifier.deliver_registration_confirmation(@user)
+      flash[:notice] = I18n.t(:sign_up_verify_email_notice, :email_address => h(@user.email))
+      redirect_to login_path and return
+    else # verify recaptcha failed or other validation errors
+      flash[:error] = verify_recaptcha ? I18n.t(:sign_up_unsuccessful_error) : I18n.t(:verification_phrase_did_not_match)
+      redirect_to register_path and return
+    end
+  end
+
+  # GET /users/:id
   def show
-    redirect_to user_newsfeed_path(params[:id] || params[:user_id])
+    @user = User.find(params[:id])
   end
 
   def objects_curated
@@ -82,7 +116,7 @@ class UsersController < ApplicationController
   end
 
 private
-  def instantiate_user
-    @user = User.find(params[:id] || params[:user_id])
+  def users_layout
+    action_name == 'new' ? 'v2/sessions' : 'v2/users'
   end
 end

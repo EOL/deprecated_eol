@@ -11,6 +11,7 @@
  * so I am temporarily adding some CSS here needed for V2 demo. This CSS should be integrated
  * into HashRocket SASS if it is still needed when design work is complete.
  */
+
 .pagination
   text-align: right
   a
@@ -119,6 +120,13 @@ p.status.error
   abbr
     border: none
 body
+  &.home
+    >#header
+      .session
+        position: absolute
+        right: 40px
+        top: 55px
+        z-index: 2
   >#header
     .section
       .actions

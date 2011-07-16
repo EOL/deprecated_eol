@@ -51,24 +51,31 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect 'boom', :controller => 'content', :action => 'error'
 
+  # users and sessions
   map.resources :users do |user|
     user.resource :newsfeed, :only => [:show], :controller => "users/newsfeeds"
     user.resource :activity, :only => [:show], :controller => "users/activities"
     user.resources :collections, :only => [:index], :controller => "users/collections"
   end
+  map.register 'register', :controller => 'users', :action => 'new'
+  map.resources :sessions, :only => [:new, :create, :destroy]
+  map.login '/login', :controller => 'sessions', :action => 'new'
+  map.logout '/logout', :controller => 'sessions', :action => 'destroy'
+
 
   map.reset_specific_users_password 'account/reset_specific_users_password',
                                     :controller => 'account',
                                     :action => 'reset_specific_users_password'
   # TODO - I don't like this.  Why don't we just use restful routes here with the 'users' above?
   # WIP - I have created a users conrtroller.  These should move there.
-  map.with_options(:controller => 'account') do |account|
-    account.login     'login',     :action => 'login'
-    account.logout    'logout',    :action => 'logout'
-    account.register  'register',  :action => 'signup'
-    account.profile   'profile',   :action => 'profile'
-    account.user_info 'user_info', :action => 'info'
-  end
+#  map.with_options(:controller => 'account') do |account|
+#    account.login     'login',     :action => 'login'
+#    account.logout    'logout',    :action => 'logout'
+#    account.register  'register',  :action => 'signup'
+#    account.profile   'profile',   :action => 'profile'
+#    account.user_info 'user_info', :action => 'info'
+#  end
+
 
   # Taxa nested resources with pages as alias
   map.resources :taxa, :as => :pages do |taxa|

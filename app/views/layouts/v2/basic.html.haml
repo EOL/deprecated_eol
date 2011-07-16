@@ -1,8 +1,11 @@
 - content_for :main do
-  - unless @home_page
+  - if @home_page
+    = render :partial => 'shared/flash_messages'
+  - else
     #page_heading
       .site_column
         .hgroup
           %h1= @page_title
+      = render :partial => 'shared/flash_messages'
   = yield
 = render :file => 'layouts/v2/application'

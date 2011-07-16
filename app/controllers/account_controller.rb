@@ -1,8 +1,10 @@
 class AccountController < ApplicationController
+
+  layout 'v2/application'
+
   before_filter :check_authentication, :except => [ :login, :register, :authenticate, :logout, :signup, :check_username,
     :check_email, :confirmation_sent, :confirm, :forgot_password, :reset_specific_users_password, :reset_password ]
   before_filter :go_to_home_page_if_logged_in, :only => [ :login, :register, :signup, :authenticate]
-  layout :main_if_not_logged_in
 
   def login
     # Makes no sense to bounce them back to the login page in the rare case they clicked "login" twice:
@@ -17,44 +19,44 @@ class AccountController < ApplicationController
     password_authentication(user_params[:username],user_params[:password],remember_me)
   end
 
-  def signup
-    unless request.post? && params[:user]
-      current_user.id = nil
-      store_location(params[:return_to]) unless params[:return_to].nil? # store the page we came from so we can return there if it's passed in the URL
-      return
-    end
-
-    # create a new user with the defaults and then update with the user entered values on the signup form
-    @user = User.create_new(params[:user])
-
-    # give them a validation code and make their account not active by default
-    @user.validation_code = Digest::MD5.hexdigest "#{@user.username}#{Time.now.hour}:#{Time.now.min}:#{Time.now.sec}"
-    while(User.find_by_validation_code(@user.validation_code))
-      @user.validation_code.succ!
-    end
-    @user.active = false
-
-    # set the password and the remote_IP address
-    @user.password = @user.entered_password
-    @user.remote_ip = request.remote_ip
-    if verify_recaptcha && @user.save
-      begin
-        @user.update_attribute :agent_id, Agent.create_agent_from_user(@user.full_name).id
-      rescue ActiveRecord::StatementInvalid
-        # Interestingly, we are getting users who already have agents attached to them.  I'm not sure why, but it's causing registration to fail (or seem to; the user is created), and this is bad.
-      end
-      @user.entered_password = ''
-      @user.entered_password_confirmation = ''
-      Notifier.deliver_registration_confirmation(@user)
-      redirect_to :action => 'confirmation_sent', :protocol => "http://"
-      return
-    else # verify recaptcha failed or other validation errors
-      @verification_did_not_match =  I18n.t(:verification_phrase_did_not_match)  unless verify_recaptcha
-    end
-  end
-
-  def confirmation_sent
-  end
+#  def signup
+#    unless request.post? && params[:user]
+#      current_user.id = nil
+#      store_location(params[:return_to]) unless params[:return_to].nil? # store the page we came from so we can return there if it's passed in the URL
+#      return
+#    end
+#
+#    # create a new user with the defaults and then update with the user entered values on the signup form
+#    @user = User.create_new(params[:user])
+#
+#    # give them a validation code and make their account not active by default
+#    @user.validation_code = Digest::MD5.hexdigest "#{@user.username}#{Time.now.hour}:#{Time.now.min}:#{Time.now.sec}"
+#    while(User.find_by_validation_code(@user.validation_code))
+#      @user.validation_code.succ!
+#    end
+#    @user.active = false
+#
+#    # set the password and the remote_IP address
+#    @user.password = @user.entered_password
+#    @user.remote_ip = request.remote_ip
+#    if verify_recaptcha && @user.save
+#      begin
+#        @user.update_attribute :agent_id, Agent.create_agent_from_user(@user.full_name).id
+#      rescue ActiveRecord::StatementInvalid
+#        # Interestingly, we are getting users who already have agents attached to them.  I'm not sure why, but it's causing registration to fail (or seem to; the user is created), and this is bad.
+#      end
+#      @user.entered_password = ''
+#      @user.entered_password_confirmation = ''
+#      Notifier.deliver_registration_confirmation(@user)
+#      redirect_to :action => 'confirmation_sent', :protocol => "http://"
+#      return
+#    else # verify recaptcha failed or other validation errors
+#      @verification_did_not_match =  I18n.t(:verification_phrase_did_not_match)  unless verify_recaptcha
+#    end
+#  end
+#
+#  def confirmation_sent
+#  end
 
   # users come here from the activation email they receive
   def confirm
@@ -239,9 +241,9 @@ class AccountController < ApplicationController
   end
 
 private
-  def main_if_not_logged_in
-    layout = current_user.username.nil? ? 'main' : 'user_profile'
-  end
+#  def main_if_not_logged_in
+#    layout = current_user.username.nil? ? 'main' : 'user_profile'
+#  end
 
   def password_length_okay?
     return !(params[:user][:entered_password].length < 4 || params[:user][:entered_password].length > 16)
@@ -265,34 +267,34 @@ private
     end
   end
 
-  def password_authentication(username, password, remember_me)
-    success, message_or_user = User.authenticate(username, password)
-    if success
-      successful_login(message_or_user, remember_me)
-    else
-      failed_login(message_or_user)
-    end
-  end
-
-  def successful_login(user, remember_me)
-    set_current_user(user)
-    notice_message =  I18n.t(:logged_in)
-    if remember_me && !user.is_admin?
-      user.remember_me
-      cookies[:user_auth_token] = { :value => user.remember_token , :expires => user.remember_token_expires_at }
-    elsif remember_me && user.is_admin?
-      notice_message +=  I18n.t(:admin_remind_me_message)
-    end
-    flash[:notice] = notice_message
-    if user.is_admin? && ( session[:return_to].nil? || session[:return_to].empty?) # if we're an admin we STILL would love a return, thank you very much!
-      redirect_to :controller => 'admin', :action => 'index', :protocol => "http://"
-    else
-      redirect_back_or_default
-    end
-  end
-
-  def failed_login(message)
-    flash[:warning] = message
-    redirect_to :action => 'login'
-  end
+#  def password_authentication(username, password, remember_me)
+#    success, message_or_user = User.authenticate(username, password)
+#    if success
+#      successful_login(message_or_user, remember_me)
+#    else
+#      failed_login(message_or_user)
+#    end
+#  end
+#
+#  def successful_login(user, remember_me)
+#    set_current_user(user)
+#    notice_message =  I18n.t(:logged_in)
+#    if remember_me && !user.is_admin?
+#      user.remember_me
+#      cookies[:user_auth_token] = { :value => user.remember_token , :expires => user.remember_token_expires_at }
+#    elsif remember_me && user.is_admin?
+#      notice_message +=  I18n.t(:admin_remind_me_message)
+#    end
+#    flash[:notice] = notice_message
+#    if user.is_admin? && ( session[:return_to].nil? || session[:return_to].empty?) # if we're an admin we STILL would love a return, thank you very much!
+#      redirect_to :controller => 'admin', :action => 'index', :protocol => "http://"
+#    else
+#      redirect_back_or_default
+#    end
+#  end
+#
+#  def failed_login(message)
+#    flash[:warning] = message
+#    redirect_to :action => 'login'
+#  end
 end

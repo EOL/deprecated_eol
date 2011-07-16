@@ -1,0 +1,12 @@
+.session
+  %h2.assistive= I18n.t(:account_information)
+  = image_tag current_user.logo_url('small'), :alt => I18n.t(:profile_image_alt_text_member, :user_full_name => h(current_user.full_name))
+  .details
+    %p
+      %strong= h current_user.short_name
+      %br/
+      = h current_user.tag_line
+    %p.user_links
+      = link_to I18n.t(:profile), current_user
+      &bull;
+      = link_to I18n.t(:sign_out), logout_url

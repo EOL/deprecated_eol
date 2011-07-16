@@ -44,7 +44,7 @@
 
     = yield :head
 
-  %body
+  %body{:class => @home_page ? 'home' : nil}
     %ul#controls.assistive
       %li= link_to I18n.t(:skip_to_content), '#main'
     #header
@@ -70,21 +70,8 @@
         - if @home_page
           %h2= I18n.t(:global_access_tagline)
         = render :partial => "/layouts/v2/search"
-        - #TODO: Figure out what the home page user info should look like, and non home page join should look like
         - if logged_in?
-          - if ! @home_page
-            .session
-              %h2.assistive= I18n.t(:account_information)
-              = image_tag current_user.logo_url('small'), :alt => I18n.t(:profile_image_alt_text_member, :user_full_name => h(current_user.full_name))
-              .details
-                %p
-                  %strong= h current_user.short_name
-                  %br/
-                  = h current_user.tag_line
-                %p.user_links
-                  = link_to I18n.t(:profile), current_user
-                  &bull;
-                  = link_to I18n.t(:sign_out), logout_url
+          = render :partial => 'sessions/session_summary'
         - elsif $ALLOW_USER_LOGINS && !agent_logged_in?
           - if @home_page
             = render :partial => 'shared/join_eol', :locals => {:join_style => 'button'}
@@ -93,11 +80,9 @@
               = render :partial => 'shared/join_eol'
         - elsif $ALLOW_USER_LOGINS == false && @home_page.nil?
           .session
-            %p
-              =  I18n.t(:user_system_down)
+            %p= I18n.t(:user_system_down)
 
       - if @home_page
-        -# TODO: Convert to partial or something, and assign to proper controller variables - currently static placeholder.
         %h3.assistive= I18n.t(:explore)
         .thumbnails
           %ul
@@ -110,6 +95,7 @@
           .term
             .site_column
               %p
+
 
     #central
       .section{ :role => "main" }

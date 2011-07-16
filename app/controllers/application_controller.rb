@@ -151,9 +151,10 @@ class ApplicationController < ActionController::Base
     session[:return_to] = url
   end
 
-  # retrieve the stored URL that we want to go back to
+  # retrieve url stored in session by store_location()
+  # use redirect_back_or_default to specify a default url, do not add default here
   def return_to_url
-    session[:return_to] || root_url
+    session[:return_to]
   end
 
   # Set the page expertise and vetted defaults, get from querystring, update the session with this value if found
@@ -468,8 +469,8 @@ class ApplicationController < ActionController::Base
   alias is_curator is_curator?
 
   # used as a before_filter on methods that you don't want users to see if they are logged in (such as the login or register page)
-  def go_to_home_page_if_logged_in
-    redirect_to(root_url) if logged_in?
+  def redirect_if_already_logged_in
+    redirect_to(current_user) if logged_in?
   end
 
   def must_log_in

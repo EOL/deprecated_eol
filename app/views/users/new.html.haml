@@ -20,7 +20,7 @@
         %dd
           = f.password_field :entered_password_confirmation, { :maxlength => 16 }
 
-        %fieldset
+    %fieldset
       - if $ENABLE_RECAPTCHA
         :javascript
           var RecaptchaOptions = { theme : 'clean'};

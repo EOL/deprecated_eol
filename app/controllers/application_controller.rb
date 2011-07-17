@@ -2,7 +2,7 @@ require 'uri'
 ContentPage # TODO - figure out why this fails to autoload.  Look at http://kballcodes.com/2009/09/05/rails-memcached-a-better-solution-to-the-undefined-classmodule-problem/
 
 class ApplicationController < ActionController::Base
-
+  filter_parameter_logging :password
   include ContentPartnerAuthenticationModule # TODO -seriously?!?  You want all that cruft available to ALL controllers?!
   include ImageManipulation
 

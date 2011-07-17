@@ -59,7 +59,7 @@ module ActiveRecord
           options[:keywords] ||= []
           options[:keywords].each do |field_or_method|
             if self.respond_to?(field_or_method)
-              return_value = self.method(field_or_method).call
+              return_value = self.send(field_or_method)
               next if return_value.blank?
               if return_value.class == String
                 keywords_to_send_to_solr << params.merge({ :keyword => return_value, :keyword_type => field_or_method })

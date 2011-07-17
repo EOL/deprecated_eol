@@ -41,7 +41,7 @@ private
   def log_in(user)
     set_current_user(user)
     flash[:notice] = I18n.t(:sign_in_successful_notice)
-    if params[:remember_me]
+    if EOLConvert.to_boolean(params[:remember_me])
       if user.is_admin?
         flash[:notice] += " #{I18n.t(:sign_in_remember_me_disallowed_for_admins_notice)}"
       else

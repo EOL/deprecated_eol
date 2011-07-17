@@ -47,7 +47,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   validates_presence_of :curator_verdict_by, :if => Proc.new { |obj| !obj.curator_verdict_at.blank? }
   validates_presence_of :curator_verdict_at, :if => Proc.new { |obj| !obj.curator_verdict_by.blank? }
   validates_presence_of :username
-  validates_presence_of :given_name
 
   validates_length_of :username, :within => 4..32
   validates_length_of :entered_password, :within => 4..16, :on => :create
@@ -215,7 +214,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def activate
-    self.update_attributes(:active => true)
+    self.update_attributes(:active => true, :validation_code => nil)
     Notifier.deliver_welcome_registration(self)
     build_watch_collection
   end
@@ -255,6 +254,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     return family_name if !family_name.blank?
     return display_name if !display_name.blank?
     return acronym if !acronym.blank?
+    username
   end
 
   # TODO

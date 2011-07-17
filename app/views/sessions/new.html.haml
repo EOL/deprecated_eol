@@ -12,7 +12,7 @@
         = f.password_field :password, :maxlength => 16
   %fieldset.actions
     = f.submit I18n.t(:sign_in_form_submit)
-    = link_to I18n.t(:forgot_password), :action => 'forgot_password'
+    = link_to I18n.t(:forgot_password), forgot_password_path
   %fieldset
     %label.checkbox{ :for => "remember_me" }
       = check_box_tag :remember_me

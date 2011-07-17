@@ -6,18 +6,18 @@ class AccountController < ApplicationController
     :check_email, :confirmation_sent, :confirm, :forgot_password, :reset_specific_users_password, :reset_password ]
   before_filter :go_to_home_page_if_logged_in, :only => [ :login, :register, :signup, :authenticate]
 
-  def login
-    # Makes no sense to bounce them back to the login page in the rare case they clicked "login" twice:
-    params[:return_to] = nil if params[:return_to] =~ /login/
-    store_location(params[:return_to]) unless params[:return_to].blank? # store the page we came from so we can return there if it's passed in the URL
-  end
+  # def login
+  #     # Makes no sense to bounce them back to the login page in the rare case they clicked "login" twice:
+  #     params[:return_to] = nil if params[:return_to] =~ /login/
+  #     store_location(params[:return_to]) unless params[:return_to].blank? # store the page we came from so we can return there if it's passed in the URL
+  #   end
 
-  def authenticate
-    # reset the agent session in case there are any content partners logged in to avoid any funny things
-    user_params = params[:user]
-    remember_me = EOLConvert.to_boolean(params[:remember_me])
-    password_authentication(user_params[:username],user_params[:password],remember_me)
-  end
+  # def authenticate
+  #   # reset the agent session in case there are any content partners logged in to avoid any funny things
+  #   user_params = params[:user]
+  #   remember_me = EOLConvert.to_boolean(params[:remember_me])
+  #   password_authentication(user_params[:username],user_params[:password],remember_me)
+  # end
 
 #  def signup
 #    unless request.post? && params[:user]
@@ -59,27 +59,27 @@ class AccountController < ApplicationController
 #  end
 
   # users come here from the activation email they receive
-  def confirm
-    params[:id] ||= ''
-    params[:validation_code] ||= ''
-    params[:return_to] = nil
-    User.with_master do
-      @user = User.find_by_username_and_validation_code(params[:id], params[:validation_code])
-    end
-    if !@user.blank?
-      @user.activate
-    end
-  end
+  # def confirm
+  #     params[:id] ||= ''
+  #     params[:validation_code] ||= ''
+  #     params[:return_to] = nil
+  #     User.with_master do
+  #       @user = User.find_by_username_and_validation_code(params[:id], params[:validation_code])
+  #     end
+  #     if !@user.blank?
+  #       @user.activate
+  #     end
+  #   end
 
-  def logout
-    # Whitelisting redirection to our own site, relative paths.
-    params[:return_to] = nil unless params[:return_to] =~ /\A[%2F\/]/
-    cookies.delete :user_auth_token
-    reset_session
-    store_location(params[:return_to])
-    flash[:notice] =  I18n.t(:you_have_been_logged_out)
-    redirect_back_or_default
-  end
+  # def logout
+  #     # Whitelisting redirection to our own site, relative paths.
+  #     params[:return_to] = nil unless params[:return_to] =~ /\A[%2F\/]/
+  #     cookies.delete :user_auth_token
+  #     reset_session
+  #     store_location(params[:return_to])
+  #     flash[:notice] =  I18n.t(:you_have_been_logged_out)
+  #     redirect_back_or_default
+  #   end
 
 
   def forgot_password

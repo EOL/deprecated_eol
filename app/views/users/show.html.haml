@@ -56,4 +56,3 @@
       - @user.members.each do |member|
         - if community = member.community
           %li= link_to(h(community.name), community)
-  = render :partial => 'feed_items/index', :locals => {:feed => @user.feed}

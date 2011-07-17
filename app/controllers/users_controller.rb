@@ -4,6 +4,17 @@ class UsersController < ApplicationController
 
   @@objects_per_page = 20
 
+  # GET /users/:id
+  def show
+    @user = User.find(params[:id])
+  end
+
+  def edit
+  end
+  
+  def update
+  end
+  
   # GET users/new or named route /register
   def new
     @user = User.new
@@ -13,7 +24,7 @@ class UsersController < ApplicationController
   def create
     @user = User.create_new(params[:user])
     # give them a validation code and make their account not active by default
-    @user.validation_code = Digest::MD5.hexdigest "#{@user.username}#{Time.now.hour}:#{Time.now.min}:#{Time.now.sec}"
+    set_validation_code
     while(User.find_by_validation_code(@user.validation_code))
       @user.validation_code.succ!
     end
@@ -30,7 +41,7 @@ class UsersController < ApplicationController
       @user.entered_password = ''
       @user.entered_password_confirmation = ''
       Notifier.deliver_registration_confirmation(@user)
-      flash[:notice] = I18n.t(:sign_up_verify_email_notice, :email_address => h(@user.email))
+      flash[:notice] = I18n.t(:sign_up_verify_email_notice, :email_address => @user.email)
       redirect_to login_path and return
     else # verify recaptcha failed or other validation errors
       flash[:error] = verify_recaptcha ? I18n.t(:sign_up_unsuccessful_error) : I18n.t(:verification_phrase_did_not_match)
@@ -38,11 +49,38 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /users/:id
-  def show
-    @user = User.find(params[:id])
-  end
+  # users come here from the activation email they receive named route /register/confirm
+  def register_confirm
+    params[:username] ||= ''
+    params[:validation_code] ||= ''
+    params[:return_to] = nil
+    User.with_master do
+      @user = User.find_by_username_and_validation_code(params[:username], params[:validation_code])
+    end
 
+    @user.activate unless @user.blank? || @user.active
+    @user ||= User.find_by_username(params[:username])
+    if @user && @user.active
+      flash[:notice] = I18n.t(:sign_up_activation_successful_notice)
+      redirect_to login_path
+    elsif @user
+      set_validation_code
+      Notifier.deliver_registration_confirmation(@user)
+      flash[:error] = I18n.t(:sign_up_activation_failed_wrong_validation_code_error)
+      redirect_to login_path
+    else
+      @user.blank? # not found please register
+      flash[:error] = I18n.t(:sign_up_activation_failed_user_not_found_error)
+      redirect_to register_path 
+    end
+  end
+  
+  def forgot_password
+  end
+  
+  def reset_password
+  end
+    
   def objects_curated
     page = (params[:page] || 1).to_i
     current_user.log_activity(:show_objects_curated_by_user_id, :value => params[:id])
@@ -118,5 +156,9 @@ class UsersController < ApplicationController
 private
   def users_layout
     action_name == 'new' ? 'v2/sessions' : 'v2/users'
+  end
+
+  def set_validation_code
+    @user.validation_code = Digest::MD5.hexdigest "#{@user.username}#{Time.now.hour}:#{Time.now.min}:#{Time.now.sec}"
   end
 end

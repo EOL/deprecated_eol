@@ -249,3 +249,7 @@ ul.object_list li img {
 form.comment img {
   height: 50px;
   width: 50px; }
+
+#header .thumbnails ul li {
+  width: 140px;
+  height: 140px; }

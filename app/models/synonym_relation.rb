@@ -8,7 +8,7 @@ class SynonymRelation < SpeciesSchemaModel
   end
   
   def self.common_name_ids
-    cached('common_names') do
+    cached_with_local_cache('common_names') do
        [cached_find_translated(:label, 'common name'),
         cached_find_translated(:label, 'genbank common name')].compact.collect{ |sr| sr.id }
     end

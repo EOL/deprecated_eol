@@ -1,5 +1,6 @@
 class Api::DocsController < ApiController
   layout 'main'
+  # layout 'v2/basic'
   def index
   end
   def ping
@@ -18,4 +19,7 @@ class Api::DocsController < ApiController
   end
   def search_by_provider
   end
+  def collections
+  end
+  
 end

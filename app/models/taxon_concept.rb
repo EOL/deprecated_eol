@@ -1268,7 +1268,7 @@ class TaxonConcept < SpeciesSchemaModel
     common_names_by_language = {}
     published_hierarchy_entries.each do |he|
       he.common_names.each do |cn|
-        language = (cn.language && !cn.language.iso_code.blank?) ? cn.language.iso_code : 'unknown'
+        language = (cn.language_id!=0 && cn.language && !cn.language.iso_code.blank?) ? cn.language.iso_code : 'unknown'
         common_names_by_language[language] ||= []
         common_names_by_language[language] << cn.name.string
       end

@@ -40,6 +40,7 @@ module EOL
           when 'User'
             lookup_users(i, limit);
           when 'TaxonConcept'
+            limit = 1000
             lookup_taxon_concepts(i, limit);
           end
           @objects_to_send.each do |o|
@@ -70,7 +71,7 @@ module EOL
       
       def lookup_data_objects(start, limit)
         max = start + limit
-        data_objects = DataObject.find(:all, :conditions => "id BETWEEN #{start} AND #{max}", :select => 'id, object_title, description, data_type_id, created_at, updated_at')
+        data_objects = DataObject.find(:all, :conditions => "id BETWEEN #{start} AND #{max} AND published=1 AND visibility_id=#{Visibility.visible.id}", :select => 'id, object_title, description, data_type_id, created_at, updated_at')
         data_objects.each do |d|
           @objects_to_send += d.keywords_to_send_to_solr_index
         end
@@ -78,7 +79,7 @@ module EOL
       
       def lookup_users(start, limit)
         max = start + limit
-        users = User.find(:all, :conditions => "id BETWEEN #{start} AND #{max}", :select => 'id, username, given_name, family_name, created_at, updated_at')
+        users = User.find(:all, :conditions => "id BETWEEN #{start} AND #{max} AND active=1", :select => 'id, username, given_name, family_name, created_at, updated_at')
         users.each do |u|
           @objects_to_send += u.keywords_to_send_to_solr_index
         end

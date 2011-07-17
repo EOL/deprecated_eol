@@ -111,6 +111,7 @@ en:
   anonymous: "Anonymous"
   any_integer: "any integer"
   api_docs_home: "API Docs Home"
+  api_docs_collections_description: "Given the identifier for a collection this API will return all metadata about the collection and the items it contains. The item list can be filtered by item type, and sorted on the above listed attributes."
   a_pipe___delimited_list_of_lic: "a pipe | delimited list of licenses or 'all' to get objects under any license. Licenses abbreviated cc- are all"
   a_pipe___delimited_list_of_spm: "a pipe | delimited list of SPM Info Item subject names or 'all' to get text in any subject"
   api_terms_of_use: "API Terms of Use"
@@ -309,6 +310,7 @@ en:
   collection_not_updated_error: "Sorry, an error occurred, the collection could not be updated."
   collection_updated_notice: "Collection <em>%{collection_name}</em> successfully updated."
   collections: "Collections"
+  collections_lowercase: "collections"
   collections_index_header: "Collections"
   collections_summary_header_with_count:
     one: "Present in %{count} collection"
@@ -735,6 +737,7 @@ en:
   eol_api__provider_hierarchies: "EOL API: Provider Hierarchies"
   eol_api__search_by_provider: "EOL API: Search By Provider"
   eol_api__search: "EOL API: Search"
+  eol_api__collections: "EOL API: Collections"
   eol_communities: "EOL Communities"
   eol_contact_us_form: "EOL Contact Us Form"
   eol_content_partner_agreement: "EOL Content Partner Agreement"

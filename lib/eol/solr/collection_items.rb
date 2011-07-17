@@ -108,22 +108,22 @@ module EOL
         # add facet filtering
         if options[:facet_type]
           object_type = nil
-          case options[:facet_type]
-          when 'taxa'
+          case options[:facet_type].downcase
+          when 'taxa', 'taxonconcept', 'taxon'
             object_type = 'TaxonConcept'
-          when 'articles'
+          when 'articles', 'text'
             object_type = 'Text'
-          when 'videos'
+          when 'videos', 'video'
             object_type = 'Video'
-          when 'images'
+          when 'images', 'image'
             object_type = 'Image'
-          when 'sounds'
+          when 'sounds', 'sound'
             object_type = 'Sound'
-          when 'communities'
+          when 'communities', 'community'
             object_type = 'Community'
-          when 'people'
+          when 'people', 'user'
             object_type = 'User'
-          when 'collections'
+          when 'collections', 'collection'
             object_type = 'Collection'
           end
           url << "&fq=object_type:#{object_type}" if object_type

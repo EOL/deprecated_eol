@@ -41,7 +41,7 @@ class Language < SpeciesSchemaModel
   end
 
   def self.english # because it's a default.  No other language will have this kind of method.
-    self.from_iso('en')
+    self.find_by_iso_exclusive_scope('en')
   end
 
   def self.unknown

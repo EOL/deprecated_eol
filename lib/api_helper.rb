@@ -253,6 +253,10 @@ module ApiHelper
       when 'DataObject'
         item_hash['data_rating'] = r['data_rating']
         item_hash['object_guid'] = ci.object.guid
+        item_hash['object_type'] = ci.object.data_type.simple_type
+        if ci.object.is_image?
+          item_hash['source'] = ci.object.thumb_or_object(:orig)
+        end
       end
       return_hash['collection_items'] << item_hash
     end

@@ -560,13 +560,9 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def password_reset_url(original_port)
     port = ["80", "443"].include?(original_port.to_s) ? "" : ":#{original_port}"
     new_token = User.generate_key
-    success = self.update_attributes(:password_reset_token => new_token, :password_reset_token_expires_at => 24.hours.from_now)
+    self.update_attributes(:password_reset_token => new_token, :password_reset_token_expires_at => 24.hours.from_now)
     http_string = $USE_SSL_FOR_LOGIN ? "https" : "http"
-    if success
-      return "#{http_string}://#{$SITE_DOMAIN_OR_IP}#{port}/account/reset_password/#{new_token}"
-    else
-      raise RuntimeError("Cannot save reset password data to the database") #TODO write it correctly
-    end
+    "#{http_string}://#{$SITE_DOMAIN_OR_IP}#{port}/users/reset_password/#{new_token}"
   end
 
   def ensure_unique_username_against_master

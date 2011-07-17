@@ -36,7 +36,7 @@ class UsersController < ApplicationController
   def create
     @user = User.create_new(params[:user])
     # give them a validation code and make their account not active by default
-    set_validation_code
+    @user.validation_code = User.generate_key
     while(User.find_by_validation_code(@user.validation_code))
       @user.validation_code.succ!
     end
@@ -76,7 +76,7 @@ class UsersController < ApplicationController
       flash[:notice] = I18n.t(:sign_up_activation_successful_notice)
       redirect_to login_path
     elsif @user
-      set_validation_code
+      @user.validation_code = User.generate_key
       Notifier.deliver_registration_confirmation(@user)
       flash[:error] = I18n.t(:sign_up_activation_failed_wrong_validation_code_error)
       redirect_to login_path
@@ -88,9 +88,39 @@ class UsersController < ApplicationController
   end
 
   def forgot_password
+    if params[:user] && request.post?
+      @username_or_email = params[:user][:username_or_email].strip
+      @users = User.find_all_by_email(@username_or_email)
+      @users = User.find_all_by_username(@username_or_email) if @users.empty?
+      store_location(params[:return_to]) unless params[:return_to].nil? # store the page we came from so we can return there if it's passed in the URL
+      if @users.size == 1
+        user = @users[0]
+        Notifier.deliver_forgot_password_email(user, password_reset_url(user))
+        flash[:notice] =  I18n.t(:reset_password_instructions_emailed, :email => user.email)
+      elsif @users.size > 1
+        render :action => 'multiple_users_with_forgotten_password'
+      else
+        flash.now[:notice] =  I18n.t(:cannot_find_user_or_email)
+      end
+    end
   end
 
   def reset_password
+    password_reset_token = params[:id]
+    user = User.find_by_password_reset_token(password_reset_token)
+    if user
+      is_expired = Time.now > user.password_reset_token_expires_at
+      if is_expired
+        go_to_forgot_password(user)
+      else
+        set_current_user(user)
+        delete_password_reset_token(user)
+        flash[:notice] = I18n.t(:reset_password_please)
+        redirect_to edit_user_path(user)
+      end
+    else
+      go_to_forgot_password(nil)
+    end
   end
 
 #  def objects_curated
@@ -170,7 +200,22 @@ private
     action_name == 'new' ? 'v2/sessions' : 'v2/users'
   end
 
-  def set_validation_code
-    @user.validation_code = Digest::MD5.hexdigest "#{@user.username}#{Time.now.hour}:#{Time.now.min}:#{Time.now.sec}"
+  def password_reset_url(user)
+    port = ["80", "443"].include?(request.port.to_s) ? "" : ":#{request.port}"
+    new_token = User.generate_key
+    user.update_attributes(:password_reset_token => new_token, :password_reset_token_expires_at => 24.hours.from_now)
+    http_string = $USE_SSL_FOR_LOGIN ? "https" : "http"
+    "#{http_string}://#{$SITE_DOMAIN_OR_IP}#{port}/users/reset_password/#{new_token}"
   end
+
+  def delete_password_reset_token(user)
+    user.update_attributes(:password_reset_token => nil, :password_reset_token_expires_at => nil) if user
+  end
+
+  def go_to_forgot_password(user)
+    flash[:notice] =  I18n.t(:expired_reset_password_link)
+    delete_password_reset_token(user)
+    redirect_to :action => "forgot_password", :protocol => "http"
+  end
+
 end

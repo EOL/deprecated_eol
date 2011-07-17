@@ -82,57 +82,57 @@ class AccountController < ApplicationController
   #   end
 
 
-  def forgot_password
-    if params[:user] && request.post?
-      user = params[:user]
-      @name = user[:username].strip == '' ? nil : user[:username].strip
-      @email = user[:email].strip == '' ? nil : user[:email].strip
-      @users = User.find_all_by_username(@name)
-      @users = User.find_all_by_email(@email) if @users.empty?
-      store_location(params[:return_to]) unless params[:return_to].nil? # store the page we came from so we can return there if it's passed in the URL
+  # def forgot_password
+  #   if params[:user] && request.post?
+  #     user = params[:user]
+  #     @name = user[:username].strip == '' ? nil : user[:username].strip
+  #     @email = user[:email].strip == '' ? nil : user[:email].strip
+  #     @users = User.find_all_by_username(@name)
+  #     @users = User.find_all_by_email(@email) if @users.empty?
+  #     store_location(params[:return_to]) unless params[:return_to].nil? # store the page we came from so we can return there if it's passed in the URL
 
-      if @users.size == 1
-        @users.each do |user_with_forgotten_pass|
-          Notifier.deliver_forgot_password_email(user_with_forgotten_pass, request.port)
-        end
-        flash[:notice] =  I18n.t(:reset_password_instructions_emailed)
-        redirect_to root_url(:protocol => "http")  # need protocol for flash to survive
-      elsif @users.size > 1
-        render :action => 'multiple_users_with_forgotten_password'
-        return
-      else
-        flash.now[:notice] =  I18n.t(:cannot_find_user_or_email)
-      end
-    end
-  end
+  #     if @users.size == 1
+  #       @users.each do |user_with_forgotten_pass|
+  #         Notifier.deliver_forgot_password_email(user_with_forgotten_pass, request.port)
+  #       end
+  #       flash[:notice] =  I18n.t(:reset_password_instructions_emailed)
+  #       redirect_to root_url(:protocol => "http")  # need protocol for flash to survive
+  #     elsif @users.size > 1
+  #       render :action => 'multiple_users_with_forgotten_password'
+  #       return
+  #     else
+  #       flash.now[:notice] =  I18n.t(:cannot_find_user_or_email)
+  #     end
+  #   end
+  # end
 
-  def reset_specific_users_password
-    user = User.find(params[:id])
-    if user
-      Notifier.deliver_forgot_password_email(user, request.port)
-      @success = true
-    else
-      @success = false
-    end
-    render :partial => 'reset_specific_users_password_response'
-  end
+  # def reset_specific_users_password
+  #   user = User.find(params[:id])
+  #   if user
+  #     Notifier.deliver_forgot_password_email(user, request.port)
+  #     @success = true
+  #   else
+  #     @success = false
+  #   end
+  #   render :partial => 'reset_specific_users_password_response'
+  # end
 
-  def reset_password
-    password_reset_token = params[:id]
-    user = User.find_by_password_reset_token(password_reset_token)
-    if user
-      is_expired = Time.now > user.password_reset_token_expires_at
-      if is_expired
-        go_to_forgot_password(user)
-      else
-        set_current_user(user)
-        delete_password_reset_token(user)
-        redirect_to :action => "profile"
-      end
-    else
-      go_to_forgot_password(nil)
-    end
-  end
+  # def reset_password
+  #   password_reset_token = params[:id]
+  #   user = User.find_by_password_reset_token(password_reset_token)
+  #   if user
+  #     is_expired = Time.now > user.password_reset_token_expires_at
+  #     if is_expired
+  #       go_to_forgot_password(user)
+  #     else
+  #       set_current_user(user)
+  #       delete_password_reset_token(user)
+  #       redirect_to :action => "profile"
+  #     end
+  #   else
+  #     go_to_forgot_password(nil)
+  #   end
+  # end
 
   def info
     @user = User.find(current_user.id)

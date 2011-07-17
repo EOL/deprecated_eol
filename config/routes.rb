@@ -57,7 +57,7 @@ ActionController::Routing::Routes.draw do |map|
     user.resource :activity, :only => [:show], :controller => "users/activities"
     user.resources :collections, :only => [:index], :controller => "users/collections"
   end
-  map.register '/register', :controller => 'users', :action => 'new' 
+  map.register '/register', :controller => 'users', :action => 'new'
   map.register_confirm '/register/confirm/:username/:validation_code',
                        :controller => 'users', :action => 'register_confirm'
   map.forgot_password '/forgot_password', :controller => 'users', :action => 'forgot_password'

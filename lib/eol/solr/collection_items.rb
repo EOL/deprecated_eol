@@ -22,6 +22,8 @@ module EOL
       def self.add_resource_instances!(docs)
         ids = docs.map{ |d| d['collection_item_id'] }
         instances = CollectionItem.find_all_by_id(ids)
+        return if ids.empty?
+        raise "No CollectionItem instances found from IDs #{ids.join(', ')}.  Rebuild indexes." if instances.empty?
         docs.each do |d|
           d['instance'] = instances.detect{ |i| i.id == d['collection_item_id'].to_i }
         end
@@ -46,6 +48,7 @@ module EOL
         return if docs.empty?
         ids = docs.map{ |d| d['object_id'] }
         instances = Collection.find_all_by_id(ids)
+        debugger
         docs.map! do |d|
           d['instance'].object = instances.detect{ |i| i.id == d['object_id'].to_i }
         end

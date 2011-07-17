@@ -53,7 +53,6 @@ Rails::Initializer.run do |config|
   config.gem 'sanitize'
   config.gem 'escape'
   config.gem 'email_spec'
-  config.gem 'jrails'
   config.gem 'invert'
   config.gem 'sass', :version => '3.1.1'
 

@@ -19,6 +19,7 @@ class CollectionsController < ApplicationController
   end
 
   def show
+    puts "## SHOW"
     return select_all if params[:commit_select_all]
     return copy if params[:commit_copy_collection_items]
   end
@@ -33,6 +34,7 @@ class CollectionsController < ApplicationController
     if @collection.save
       CollectionActivityLog.create(:collection => @collection, :user => current_user, :activity => Activity.create)
       flash[:notice] = I18n.t(:collection_created_notice, :collection_name => @collection.name)
+      return redirect_to request.referer
     else
       flash[:error] = I18n.t(:collection_not_created_error, :collection_name => @collection.name)
       return redirect_to request.referer
@@ -47,16 +49,21 @@ class CollectionsController < ApplicationController
           return redirect_to request.referer
         end
       elsif params[:move]
-        flash[:notice] = 'TODO move items'
+        move
+        return redirect_to request.referer
       else
         @collection.destroy
         flash[:error] = I18n.t(:collection_not_created_error, :collection_name => @collection.name)
         return redirect_to request.referer
       end
     end
+    # You shouldn't get here; something weird happened.
+    flash[:error] = I18n.t(:collection_not_created_error, :collection_name => @collection.name)
+    return redirect_to request.referer
   end
 
   def edit
+    puts "## EDIT"
     @head_title = I18n.t(:edit_collection_head_title, :collection_name => @collection.name) unless @collection.blank?
     if @field = params[:field]
       @field_id = $1 # NOTE - this will be nil if there was no match, of course.
@@ -67,20 +74,25 @@ class CollectionsController < ApplicationController
     end
   end
 
-  # When is an update not really an update?  When we clicked a different button.  There are many:
+  # When is an update not really an update?  When we clicked a different button.  There are (way too) many:
   def update
+    puts "## UPDATE"
     return real_update if params[:commit_edit_collection]
     return copy if params[:commit_copy_collection_items]
     return move if params[:commit_move_collection_items]
+    return copy(:all) if params[:commit_copy_all_collection_items]
+    return move(:all) if params[:commit_move_all_collection_items]
     return remove if params[:commit_remove_collection_items]
+    return remove(:all) if params[:commit_remove_all_collection_items]
     return default_sort if params[:commit_default_sort]
     return select_all if params[:commit_select_all]
-    return chosen if params[:commit_chosen_collection] # TODO - I would think we want this to go to the appropriate action.
+    return chosen if params[:commit_chosen_collection]
     real_update # There are several actions that DON'T use a button, and those need to simply update.
   end
 
   # NOTE - I haven't really implemented this one yet.
   def destroy
+    puts "## DESTROY"
     if @collection.special?
       flash[:error] = I18n.t(:special_collections_cannot_be_destroyed)
       return redirect_to request.referer
@@ -94,8 +106,10 @@ class CollectionsController < ApplicationController
 
   # /collections/choose GET
   def choose
+    puts "## CHOOSE"
     @action_to_take = :copy if params[:for] == 'copy'
     @action_to_take = :move if params[:for] == 'move'
+    @all = params[:all_items_from_collection_id]
     @selected_collection_items = params[:collection_items]
     params[:collection_items] = nil
     @collections = current_user.collections # TODO: does this include community collections of which user is member?
@@ -105,6 +119,8 @@ class CollectionsController < ApplicationController
 private
 
   def find_collection
+    puts "#" * 300
+    puts "## FIND_COLLECTION"
     begin
       @collection = Collection.find(params[:id], :include => :collection_items)
     rescue ActiveRecord::RecordNotFound
@@ -139,6 +155,7 @@ private
   end
 
   def select_all
+    puts "## SELECT_ALL"
     return redirect_to params.merge(:action => 'edit').except(*unnecessary_keys_for_redirect)
   end
 
@@ -147,35 +164,44 @@ private
     return redirect_to params.merge(:action => params[:action_name] || 'show').except(*unnecessary_keys_for_redirect)
   end
 
-  def copy
-    return no_items_selected_error(:copy) if params[:collection_items].nil? or params[:collection_items].empty?
+  def copy(all = false)
+    puts "## COPY"
+    if all
+      params[:all_items_from_collection_id] = @collection.id
+    else
+      return no_items_selected_error(:copy) if params[:collection_items].nil? or params[:collection_items].empty?
+    end
     return redirect_to params.merge(:action => 'choose', :for => 'copy').except(
       :filter, :sort_by, *unnecessary_keys_for_redirect)
   end
 
-  def move
-    return no_items_selected_error(:move) if params[:collection_items].nil? or params[:collection_items].empty?
+  def move(all = false)
+    puts "## MOVE"
+    if all
+      params[:all_items_from_collection_id] = @collection.id
+    else
+      return no_items_selected_error(:move) if params[:collection_items].nil? or params[:collection_items].empty?
+    end
     return redirect_to params.merge(:action => 'choose', :for => 'move').except(
       :filter, :sort_by, *unnecessary_keys_for_redirect)
   end
 
-  def remove
-    return no_items_selected_error(:remove) if params[:collection_items].nil? or params[:collection_items].empty?
-    count = 0
-    @collection_items.select {|ci| params['collection_items'].include?(ci.id.to_s) }.each do |item|
-      if item.update_attribute(:collection_id, nil) # Not actually destroyed, so that we can talk about it in feeds.
-        item.remove_collection_item_from_solr # TODO - needed?  Or does the #after_save method handle this?
-        count += 1
-        CollectionActivityLog.create(:collection => @collection, :user => current_user,
-                                     :activity => Activity.remove, :collection_item => item)
-      end
+  def remove(all = false)
+    puts "## REMOVE"
+    if all
+      count = remove_items_from_collection(@collection.collection_items)
+    else
+      return no_items_selected_error(:remove) if params[:collection_items].nil? or params[:collection_items].empty?
+      count = remove_items_from_collection(@collection_items.select {|ci| params['collection_items'].include?(ci.id.to_s) })
+      @collection_items.delete_if {|ci| params['collection_items'].include?(ci.id.to_s) }
     end
-    @collection_items.delete_if {|ci| params['collection_items'].include?(ci.id.to_s) }
-    flash[:notice] = I18n.t(:removed_count_items_from_collection_notice, :count => count)
+    flash[:notice] = I18n.t(:removed_count_items_from_collection_notice, :count => count,
+                            :collection => self.class.helpers.link_to(@collection.name, collection_path(@collection)))
     return redirect_to request.referer
   end
 
   def real_update
+    puts "## REAL_UPDATE"
     if @collection.update_attributes(params[:collection])
       respond_to do |format|
         format.html do
@@ -205,27 +231,39 @@ private
     return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect)
   end
 
-  # TODO - Not sure this is what we want to do. see #update
   def chosen
-    if params[:copy]
-      @collection.collection_items_attributes = copy_collection_items(CollectionItem.find(params[:collection_items]))
+    puts "## CHOSEN"
+    if params[:copy] || params[:move]
+      items = if params[:all_items_from_collection_id]
+                CollectionItem.find_all_by_collection_id(params[:all_items_from_collection_id])
+              else
+                CollectionItem.find(params[:collection_items])
+              end
+      @collection.collection_items_attributes = copy_collection_items(items)
       if @collection.save
-        return redirect_to(@collection) # should we go to new collection or back to copied from collection
+        if params[:move]
+          old_collection = items.first.collection
+          count = remove_items_from_collection(items)
+          flash[:notice] = I18n.t(:removed_count_items_from_collection_notice, :count => count,
+            :collection => self.class.helpers.link_to(old_collection.name, collection_path(old_collection)))
+        end
+        return redirect_to(@collection)
       else
         flash[:error] = "FIXME something bad happened figure out a good error message to go here"
         return redirect_to request.referer
       end
-    elsif params[:move]
-      flash[:notice] = 'TODO move items'
     end
   end
 
   def copy_collection_items(collection_items)
+    puts "## COPY_COLLECTION_ITEMS"
+    already_have = @collection.collection_items.map {|i| [i.object_id, i.object_type]}
     new_collection_items = []
     collection_items.each do |collection_item|
       new_collection_items << { :object_id => collection_item.object.id,
                                 :object_type => collection_item.object_type,
-                                :added_by_user_id => current_user.id }
+                                :added_by_user_id => current_user.id } unless
+        already_have.include?([collection_item.object.id, collection_item.object_type])
     end
     return new_collection_items
   end
@@ -246,4 +284,16 @@ private
     end
   end
 
+  def remove_items_from_collection(items)
+    count = 0
+    items.each do |item|
+      if item.update_attribute(:collection_id, nil) # Not actually destroyed, so that we can talk about it in feeds.
+        item.remove_collection_item_from_solr # TODO - needed?  Or does the #after_save method handle this?
+        count += 1
+        CollectionActivityLog.create(:collection => @collection, :user => current_user,
+                                     :activity => Activity.remove, :collection_item => item)
+      end
+    end
+    return count
+  end
 end

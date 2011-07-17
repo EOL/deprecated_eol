@@ -13,6 +13,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   belongs_to :curator_verdict_by, :class_name => "User", :foreign_key => :curator_verdict_by_id
   belongs_to :language
   belongs_to :agent
+  accepts_nested_attributes_for :agent
 
   has_many :curators_evaluated, :class_name => "User", :foreign_key => :curator_verdict_by_id
   has_many :users_data_objects_ratings

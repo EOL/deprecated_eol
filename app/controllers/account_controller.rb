@@ -194,6 +194,7 @@ class AccountController < ApplicationController
       flash[:notice] =  I18n.t(:your_preferences_have_been_updated)
     end
     @user = User.find(current_user.id)
+    render :layout => 'v2/users'
   end
 
   def site_settings

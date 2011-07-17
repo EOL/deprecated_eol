@@ -336,6 +336,9 @@ form dl dd {
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
     background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
+form label.checkbox {
+  display: block;
+  font-weight: bold; }
 form fieldset.actions button {
   display: none; }
 form fieldset.actions input[type="submit"],
@@ -1871,46 +1874,80 @@ body > #header {
       top: 15px;
       z-index: 1;
       font-weight: bold; }
-  #media_list #main > ul > li {
+  #media_list #main ul.media > li {
     float: left;
     width: 160px;
     padding: 0 0 30px 20px; }
-    #media_list #main > ul > li img {
+    #media_list #main ul.media > li:hover .figure label {
+      display: block; }
+    #media_list #main ul.media > li .figure {
+      position: relative;
+      background: white; }
+      #media_list #main ul.media > li .figure .overlay {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        width: 100%;
+        height: 100%; }
+      #media_list #main ul.media > li .figure label {
+        display: none;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 2;
+        padding: 10px;
+        font-weight: bold;
+        background: transparent url("/images/v2/bg_exemplar.png") repeat; }
+    #media_list #main ul.media > li.inappropriate .figure .overlay {
+      background: transparent url("/images/v2/bg_media-inappropriate.png") 50% 0 no-repeat; }
+    #media_list #main ul.media > li.inappropriate .figure img {
+      opacity: 0.5;
+      filter: alpha(opacity=50); }
+    #media_list #main ul.media > li.untrusted .figure img {
+      opacity: 0.5;
+      filter: alpha(opacity=50); }
+    #media_list #main ul.media > li img {
       display: block;
       margin: 0 0 5px 0; }
-    #media_list #main > ul > li .ratings > .rating {
+    #media_list #main ul.media > li fieldset {
+      clear: both; }
+      #media_list #main ul.media > li fieldset select {
+        margin: 0 0 3px 0; }
+    #media_list #main ul.media > li .ratings > .rating {
       display: none;
       float: left;
       margin: 0 0 5px 0; }
-    #media_list #main > ul > li .ratings:hover .average_rating {
+    #media_list #main ul.media > li .ratings:hover .average_rating {
       display: none; }
-    #media_list #main > ul > li .ratings:hover > .rating {
+    #media_list #main ul.media > li .ratings:hover > .rating {
       display: block; }
-    #media_list #main > ul > li .ratings.rated > .rating {
+    #media_list #main ul.media > li .ratings.rated > .rating {
       display: block; }
-    #media_list #main > ul > li .ratings.rated .average_rating {
+    #media_list #main ul.media > li .ratings.rated .average_rating {
       display: none; }
-    #media_list #main > ul > li .average_rating {
+    #media_list #main ul.media > li .average_rating {
       float: left;
       margin: 0 0 5px 0; }
-    #media_list #main > ul > li p.flag {
+    #media_list #main ul.media > li p.flag {
       float: right;
       padding: 1px 2px;
       font-size: 0.75em;
       text-transform: uppercase;
       color: white; }
-      #media_list #main > ul > li p.flag.trusted {
+      #media_list #main ul.media > li p.flag.trusted {
         border: 1px solid #6b7910;
         background: #849513; }
-      #media_list #main > ul > li p.flag.unreviewed {
+      #media_list #main ul.media > li p.flag.unreviewed {
         border: 1px solid #677682;
         background: #8695a1; }
-    #media_list #main > ul > li a.button {
+    #media_list #main ul.media > li a.button {
       clear: both;
       display: inline-block;
       padding: 4px 10px;
       font-size: 0.92em; }
-    #media_list #main > ul > li.first {
+    #media_list #main ul.media > li.first {
       clear: both;
       padding-left: 0; }
 
@@ -2033,8 +2070,10 @@ body > #header {
       font-size: 1em; }
     #content.session form a {
       font-weight: bold; }
+    #content.session form label.checkbox {
+      padding: 0 0 15px 0; }
 
-#profile_edit input[type="text"], #profile_edit input[type="password"] {
+form.edit_user input[type="text"], form.edit_user input[type="password"] {
   width: 248px;
   height: 22px;
   padding: 2px 5px;
@@ -2044,33 +2083,73 @@ body > #header {
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
   background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
-#profile_edit fieldset {
+form.edit_user fieldset {
   float: left;
   padding: 0 60px 40px 0; }
-  #profile_edit fieldset h3 {
+  form.edit_user fieldset h3 {
     padding: 0 0 30px 0;
     font-size: 1.5em;
     font-weight: normal; }
-  #profile_edit fieldset.photo img {
+  form.edit_user fieldset dt {
+    font-size: 1.08em;
+    font-weight: bold; }
+    form.edit_user fieldset dt p {
+      font-size: 0.9em;
+      font-weight: normal;
+      line-height: 150%; }
+  form.edit_user fieldset button {
+    padding: 7px 10px;
+    overflow: visible;
+    font: bold 1.08em Helvetica, Arial, sans-serif;
+    color: #394651;
+    text-transform: lowercase;
+    text-decoration: none;
+    border: 1px solid #939a9f;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #d7dde1;
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#d7dde1);
+    background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white);
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1));
+    cursor: pointer; }
+    form.edit_user fieldset button:hover {
+      background-color: #e6eef4;
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#e6eef4);
+      background-image: -moz-linear-gradient(100% 100% 90deg, #e6eef4, white);
+      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#e6eef4)); }
+    form.edit_user fieldset button:active {
+      background-color: #d7dde1;
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#d7dde1);
+      background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white);
+      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1)); }
+  form.edit_user fieldset ul {
+    overflow: hidden; }
+    form.edit_user fieldset ul li {
+      float: left;
+      padding: 0 10px 5px 0;
+      font-weight: bold; }
+  form.edit_user fieldset.photo img {
     display: block;
     margin: 0 0 15px 0;
     border: 1px solid #394651; }
-  #profile_edit fieldset.photo input[type="file"] {
+  form.edit_user fieldset.photo input[type="file"] {
     width: 200px; }
-  #profile_edit fieldset.profile input[type="text"] {
-    width: 308px; }
-  #profile_edit fieldset.profile textarea {
-    width: 302px; }
-  #profile_edit fieldset.account {
+  form.edit_user fieldset.profile {
+    width: 320px; }
+    form.edit_user fieldset.profile input[type="text"] {
+      width: 308px; }
+    form.edit_user fieldset.profile textarea {
+      width: 302px; }
+  form.edit_user fieldset.account {
     padding: 0; }
-  #profile_edit fieldset.actions {
+  form.edit_user fieldset.actions {
     clear: both;
     float: none;
     padding: 20px;
     border-top: 1px solid #cad3db; }
-    #profile_edit fieldset.actions input[type="submit"] {
+    form.edit_user fieldset.actions input[type="submit"] {
       padding: 7px 10px;
       margin: 0 10px 0 0;
       font-size: 1em; }
-    #profile_edit fieldset.actions a {
+    form.edit_user fieldset.actions a {
       font-weight: bold; }

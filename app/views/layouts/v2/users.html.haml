@@ -14,9 +14,8 @@
       = render :partial => 'shared/flash_messages'
   #content
     .site_column
-      #tabs_sidebar
-        - if @user && @user.id
-          - # user#show or user#edit
+      - if @user && @user.id && action_name == 'show'
+        #tabs_sidebar
           %ul.tabs
             %li{:class => resource_is_active('users/newsfeeds')}= link_to I18n.t(:newsfeed), user_newsfeed_path(@user)
             %li{:class => resource_is_active('users/info')}= link_to I18n.t(:my_info), '/placeholder'

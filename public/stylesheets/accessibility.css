@@ -3,6 +3,11 @@
   left: -999em; }
 
 /*
+ * Changes required for HR sass files:
+ *   - replace /images/<image name> with /images/v2/<image name>
+ *   - replace #profile_edit with form.edit_user
+ *
+ *
  * Temporary placement of needed CSS for V2
  * I don't want to edit/add to HashRocket's SASS files until they are done making changes
  * so I am temporarily adding some CSS here needed for V2 demo. This CSS should be integrated

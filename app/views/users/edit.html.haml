@@ -1,0 +1,84 @@
+- form_for @user, :html => { :multipart => true } do |user_form|
+  %fieldset.photo
+    %h3= I18n.t(:users_form_photo_header)
+    = image_tag @user.logo_url, :alt => ""
+    %dl
+      %dt
+        = user_form.label :logo, I18n.t(:users_form_photo_label)
+      %dd
+        = user_form.file_field :logo
+  %fieldset.profile
+    %h3= I18n.t(:users_form_profile_info_header)
+    %dl
+      %dt
+        = user_form.label :given_name, I18n.t(:users_form_given_name_label)
+      %dd
+        = user_form.text_field :given_name
+      %dt
+        = user_form.label :family_name, I18n.t(:users_form_family_name_label)
+      %dd
+        = user_form.text_field :family_name
+      %dt
+        = user_form.label :display_name, I18n.t(:users_form_display_name_label)
+      %dd
+        = user_form.text_field :display_name
+      %dt
+        = user_form.label :tag_line, I18n.t(:users_form_tag_line_label)
+      %dd
+        = user_form.text_field :tag_line
+      %dt
+        = user_form.label :credentials, I18n.t(:users_form_credentials_label) + " FIXME: is this credentials?"
+      %dd
+        = user_form.text_area :credentials
+
+    = "ARE WE EDITING USERS OR AGENTS ??? AGENT FIELDS:"
+    %dl
+      - user_form.fields_for @user.agent do |agent_fields|
+        %dt
+          = agent_fields.label :logo, I18n.t(:users_form_photo_label)
+        %dd
+          = agent_fields.file_field :logo
+        %dt
+          = agent_fields.label :full_name, I18n.t(:users_form_full_name_label)
+        %dd
+          = agent_fields.text_field :full_name
+        %dt
+          = agent_fields.label :given_name, I18n.t(:users_form_given_name_label)
+        %dd
+          = agent_fields.text_field :given_name
+        %dt
+          = agent_fields.label :family_name, I18n.t(:users_form_family_name_label)
+        %dd
+          = agent_fields.text_field :family_name
+        %dt
+          = agent_fields.label :project, I18n.t(:users_form_project_label)
+        %dd
+          = agent_fields.text_field :project
+        %dt
+          = agent_fields.label :organization, I18n.t(:users_form_organization_label)
+        %dd
+          = agent_fields.text_field :organization
+  %fieldset.account
+    %h3= I18n.t(:users_form_account_header) + " WHAT ABOUT USERNAME???"
+    %dl
+      %dt
+        = user_form.label :entered_password, I18n.t(:users_form_new_password_label)
+      %dd
+        = user_form.password_field :entered_password, { :maxlength => 16 }
+      %dt
+        = user_form.label :entered_password_confirmation, I18n.t(:users_form_new_password_confirm_label)
+      %dd
+        = user_form.password_field :entered_password_confirmation, { :maxlength => 16 }
+      %dt
+        = user_form.label :email, I18n.t(:users_form_email_label)
+      %dd
+        = user_form.text_field :email, { :maxlength => 100 }
+      %dt
+        = user_form.label :username, I18n.t(:users_form_username_label)
+      %dd
+        = user_form.text_field :username, { :maxlength => 32 }
+  %fieldset.actions
+    = user_form.submit I18n.t(:users_form_submit)
+    = link_to I18n.t(:go_back), @user
+
+

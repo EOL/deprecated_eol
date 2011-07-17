@@ -1,58 +1,26 @@
-#page-separator-general
-#user_show.clearfix
-  = link_to I18n.t("_go_back_"), :back
-  - if @user == current_user
-    = link_to I18n.t("_edit_"), profile_path
-  #about
-    %h1
-      = h @user.full_name
-    - if @user.is_curator?
-      %p
-        = @user.curator_scope
-    %p
-      "
-      = h @user.username
-      =I18n.t("__joined")
-      = format_date(@user.created_at)
-  - if @user.is_curator?
-    #activity
-      %h3
-        =I18n.t("activity")
-      %p
-      %table
-        %thead
-        %tbody
-          %tr{ :class => cycle('odd','even', :name => 'account') }
-            %td
-              =I18n.t("objects_curated")
-            %td
-              = link_to @user.total_data_objects_curated, { :controller => 'users', :action => :objects_curated, :id => @user.id }
-          %tr{ :class => cycle('odd','even', :name => 'account') }
-            %td
-              =I18n.t("comments_moderated")
-            %td
-              = link_to @user.total_comments_curated, { :controller => 'users', :action => :comments_moderated, :id => @user.id }
-          %tr{ :class => cycle('odd','even', :name => 'account') }
-            %td
-              =I18n.t("species_curated")
-            %td
-              = link_to @user.total_species_curated, { :controller => 'users', :action => :species_curated, :id => @user.id }
-          %tr{ :class => cycle('odd','even', :name => 'account') }
-            %td
-              =I18n.t("user_submitted_text")
-            %td
-              = link_to @user_submitted_text_count, { :controller => 'administrator/user_data_object', :action => :index, :user_id => @user.id }
-    #credentials
-      %h3
-        =I18n.t("credentials")
-      = @user.credentials.blank? ? I18n.t("none_provided") : allow_some_html(@user.credentials)
-  #communities
-    %h3
-      = I18n.t(:eol_communities) 
-    - if @user.members.blank?
-      %p=  I18n.t(:user_has_no_communities) 
-    - else
-      %ul{:id => 'user_communities'}
-      - @user.members.each do |member|
-        - if community = member.community
-          %li= link_to(h(community.name), community)
+#profile_info.main_container
+  .article
+    .header
+      %h3= I18n.t(:users_about_me_header)
+    .copy
+      %p= allow_some_html @user.credentials + " FIXME: What is this credentials?"
+  .article.half.info
+    .header
+      %h3= I18n.t(:users_my_info_header)
+    %dl
+      %dt= I18n.t(:users_full_name_label)
+      %dd= h @user.full_name
+      %dt= I18n.t(:users_username_label)
+      %dd= h @user.username
+      %dt= I18n.t(:users_organisation_label)
+      %dd= h @user.agent.organization
+      %dt= I18n.t(:users_project_label)
+      %dd= h @user.agent.project
+  .article.half.list
+    .header
+      %h3= I18n.t(:users_member_of_count_communities, :count => @user.members.size)
+    - unless @user.members.blank?
+      %ul
+        - @user.members.each do |member|
+          - if community = member.community
+            %li= link_to h(community.name), community

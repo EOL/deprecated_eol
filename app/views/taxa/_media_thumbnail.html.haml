@@ -11,7 +11,7 @@
 - # We can include the item description but its not always going to make sense or be short enough
 - # ideally we need a short description provided by the content partner, describing what is in the item.
 - alt = item.object_title || nil
-- alt = truncate(item.description.sub(/\.\s\s.*$/, '.'), 150) if alt.blank?
+- alt = truncate(item.description.sub(/\.\s\s.*$/, '.'), 150) if item.description? && alt.blank?
 - alt = I18n.t(default_alt_text, :vetted_status => item.vetted.label, :scientific_name => hh(@taxon_concept.scientific_name(nil,false))) if alt.blank?
 - alt = Sanitize.clean(alt, :remove_contents => %w[table script])
 - unless image.blank?

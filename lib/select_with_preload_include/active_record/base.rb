@@ -32,6 +32,9 @@ module ActiveRecord
                   records = nil if records.blank?
                 end
               end
+              if defined?(self::USES_TRANSLATIONS)
+                include_associations << :translations
+              end
             end
             records ||= find_by_sql(construct_finder_sql(options))
             if include_associations.any?

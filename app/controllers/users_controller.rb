@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   layout :users_layout
 
   before_filter :check_authentication, :only => [:edit]
+  before_filter :check_user_agreed_with_terms, :except => [:logout, :terms_agreement]
 
   @@objects_per_page = 20
 
@@ -121,6 +122,9 @@ class UsersController < ApplicationController
     else
       go_to_forgot_password(nil)
     end
+  end
+
+  def terms_agreement
   end
 
 #  def objects_curated

@@ -27,6 +27,7 @@ class ApplicationController < ActionController::Base
   prepend_before_filter :set_session
   before_filter :clear_any_logged_in_session unless $ALLOW_USER_LOGINS
   before_filter :set_user_settings
+  before_filter :check_user_agreed_with_terms
 
   helper :all
 
@@ -511,6 +512,12 @@ class ApplicationController < ActionController::Base
     secondary_hierarchy_id = current_user.secondary_hierarchy_id rescue nil
     @session_hierarchy = Hierarchy.find(hierarchy_id)
     @session_secondary_hierarchy = secondary_hierarchy_id.nil? ? nil : Hierarchy.find(secondary_hierarchy_id)
+  end
+
+  def check_user_agreed_with_terms
+    return if !current_user.id || current_user.agreed_with_terms
+    store_location
+    redirect_to terms_agreement_url
   end
 
 private

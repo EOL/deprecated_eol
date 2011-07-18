@@ -61,9 +61,11 @@ ActionController::Routing::Routes.draw do |map|
   map.register_confirm '/register/confirm/:username/:validation_code',
                        :controller => 'users', :action => 'register_confirm'
   map.forgot_password '/forgot_password', :controller => 'users', :action => 'forgot_password'
+  map.terms_agreement '/terms_agreement', :controller => 'users', :action => 'terms_agreement'
   map.resources :sessions, :only => [:new, :create, :destroy]
   map.login '/login', :controller => 'sessions', :action => 'new'
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
+
 
 
   map.reset_specific_users_password 'account/reset_specific_users_password',

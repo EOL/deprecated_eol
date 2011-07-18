@@ -12,11 +12,10 @@ class SessionsController < ApplicationController
   def create
     success, user = User.authenticate(params[:session][:username_or_email], params[:session][:password])
 
-    if success && user.class == User # authentication successful
+    if success && user.is_a?(User) # authentication successful
       log_in user
       store_location(params[:return_to]) unless params[:return_to].blank?
       redirect_back_or_default(current_user)
-
     else # authentication unsuccessful
       if user.blank? && User.active_on_master?(params[:session][:username_or_email])
         flash[:notice] = I18n.t(:account_registered_but_not_ready_try_later)

@@ -1,0 +1,9 @@
+%h1= I18n.t(:terms_agreement)
+
+- form_for :user do |f|
+  %fieldset
+    = f.check_box :agreed_with_terms
+    = f.label :user_agreed_with_terms, I18n.t(:agree_with_terms)
+  %fieldset
+    = f.submit I18n.t(:i_agree)
+    = link_to  I18n.t(:cancel) , :action => 'logout'

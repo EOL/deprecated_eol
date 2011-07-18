@@ -89,6 +89,19 @@ namespace :solr do
     builder.begin_rebuild
   end
   
+  desc 'Rebuild a site_search resource tyoe'
+  task :rebuild_site_search_resource_type, [:resource_type] => :environment do |t, args|
+    if args[:resource_type].blank?
+      puts "\n\n    rake solr:rebuild_site_search_resource_type[ClassName]"
+      return
+    end
+    klass = args[:resource_type].constantize
+    builder = EOL::Solr::SiteSearchCoreRebuilder.new()
+    builder.reindex_model(klass)
+    builder.optimize
+  end
+  
+  
   desc 'Rebuild the collection_items index'
   task :rebuild_collection_items => :environment do
     builder = EOL::Solr::CollectionItemsCoreRebuilder.new()

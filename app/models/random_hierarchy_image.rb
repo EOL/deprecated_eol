@@ -56,7 +56,7 @@ class RandomHierarchyImage < SpeciesSchemaModel
     
     random_images = self.random_set(limit, Hierarchy.default, :size => options[:size]) if random_images.blank? && hierarchy.id != Hierarchy.default.id
     #raise "Found no Random Taxa in the database (#{starting_id}, #{limit})" if random_images.blank?
-    return random_images.shuffle
+    return random_images
   end
   
   # The first one takes a little longer, since it needs to populate the class variables.  But after that, it's quite fast:

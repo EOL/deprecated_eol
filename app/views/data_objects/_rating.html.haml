@@ -1,7 +1,9 @@
 - en_type ||= en_type(data_object)
 - total = 5
 - average_rating = data_object.data_rating || 0
-- user_rating = data_object.rating_from_user(current_user).rating if data_object.rating_from_user(current_user)
+
+- if !@current_user_ratings.blank? && users_data_object_rating = @current_user_ratings[data_object.guid]
+  - user_rating = users_data_object_rating.rating
 - user_rating ||= 0
 - minimal ||= false
 - assistive = minimal ? 'assistive' : nil
@@ -11,7 +13,6 @@
     .rating
       %p{:style => "width: #{average_rating * 20}%"}<
         = I18n.t("average_rating_value_of_total", :rating => average_rating, :total => total)
-    %p{ :class => assistive }= I18n.t(:rated_by_count_people, :count => data_object.users_data_objects_ratings.count)
   .rating
     %h5{ :class => assistive }= I18n.t(:your_rating)
     %ul

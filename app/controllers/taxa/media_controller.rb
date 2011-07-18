@@ -19,7 +19,7 @@ class Taxa::MediaController < TaxaController
       :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
       :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
       :vetted => :view_order,
-      :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating, :object_cache_url, :source_url ],
+      :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating, :object_cache_url, :source_url, :object_title ],
       :table_of_contents => '*',
       :curator_activity_logs => '*',
       :users => [ :given_name, :family_name ],
@@ -43,6 +43,8 @@ class Taxa::MediaController < TaxaController
     @sort_by ||= 'status'
     @media_total = @media.count
     @media = @media.paginate(:page => params[:page] || 1, :per_page => $MAX_IMAGES_PER_PAGE)
+    @current_user_ratings = logged_in? ? current_user.rating_for_object_guids(@media.collect{ |m| m.guid }) : {}
+
     @watch_collection = logged_in? ? current_user.watch_collection : nil
     @assistive_section_header = I18n.t(:assistive_media_header)
     dropdown_hierarchy_entry_id = params[:hierarchy_entry_id] || ""

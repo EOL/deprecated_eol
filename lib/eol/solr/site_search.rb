@@ -168,6 +168,8 @@ module EOL
           url << '&sort=date_modified+desc'
         elsif options[:sort_by] == 'oldest'
           url << '&sort=date_modified+asc'
+        elsif options[:sort_by] == 'score'
+          url << '&sort=score+desc'
         end
         
         # add paging

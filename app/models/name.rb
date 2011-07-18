@@ -9,6 +9,7 @@
 class Name < SpeciesSchemaModel
 
   belongs_to :canonical_form
+  belongs_to :ranked_canonical_form, :class_name => CanonicalForm.to_s, :foreign_key => :ranked_canonical_form_id
 
   has_many :taxon_concept_names
   has_many :hierarchy_entries

@@ -604,6 +604,16 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def rating_for_object_guid(guid)
     UsersDataObjectsRating.find_by_data_object_guid_and_user_id(guid, self.id)
   end
+  
+  def rating_for_object_guids(guids)
+    return_ratings = {}
+    ratings = UsersDataObjectsRating.find_all_by_data_object_guid_and_user_id(guids, self.id, :order => 'id desc')
+    ratings.each do |udor|
+      next if return_ratings[udor.data_object_guid]
+      return_ratings[udor.data_object_guid] = udor
+    end
+    return_ratings
+  end
 
   def images_to_curate(options = {})
     page = options[:page].blank? ? 1 : options[:page].to_i

@@ -13,19 +13,26 @@ module EOL
         @solr_api.delete_all_documents
       end
       
-      def begin_rebuild(optimize = true)
+      def optimize
+        @solr_api.optimize
+      end
+      
+      def begin_rebuild(do_optimize = true)
         reindex_model(Community)
         reindex_model(Collection)
         reindex_model(DataObject)
         reindex_model(User)
         reindex_model(TaxonConcept)
-        @solr_api.optimize if optimize
+        optimize if do_optimize
       end
       
       def reindex_model(klass)
         @solr_api.delete_by_query('resource_type:' + klass.class_name)
-        start = klass.first.id
-        max_id = klass.last.id
+        first_record = klass.first
+        last_record = klass.last
+        return if first_record.nil? || last_record.nil?
+        start = first_record.id
+        max_id = last_record.id
         limit = 5000
         i = start
         while i <= max_id
@@ -87,7 +94,7 @@ module EOL
       
       def lookup_taxon_concepts(start, limit)
         max = start + limit
-        taxon_concepts = TaxonConcept.find(:all, :conditions => "id BETWEEN #{start} AND #{max}",
+        taxon_concepts = TaxonConcept.find(:all, :conditions => "id BETWEEN #{start} AND #{max} AND published=1 AND supercedure_id=0",
           :include => [ :flattened_ancestors, { :published_hierarchy_entries => [ :name, { :scientific_synonyms => :name },
             { :common_names => [ :name, :language ] } ] } ],
           :select => { :taxon_concepts => :id, :names => :string, :languages => :iso_639_1,

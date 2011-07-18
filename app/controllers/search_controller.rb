@@ -4,7 +4,7 @@ class SearchController < ApplicationController
   @@results_per_page = 10
   
   def index
-    params[:sort_by] ||= 'newest'
+    params[:sort_by] ||= 'score'
     params[:type] ||= ['all']
     params[:type] = ['all'] if params[:type].include?('all')
     @sort_by = params[:sort_by]

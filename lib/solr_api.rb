@@ -59,6 +59,7 @@ class SolrAPI
     @file_delimiter = '|'
     @multi_value_delimiter = ';'
     csv_path_random_bit = 10.times.map{ rand(10) }.join
+    @stream_url = "http://" + $IP_ADDRESS_OF_SERVER + "/files/solr_import_file_#{csv_path_random_bit}.csv"
     @csv_path = File.join(RAILS_ROOT, 'public', 'files', "solr_import_file_#{csv_path_random_bit}.csv")
   end
   
@@ -136,7 +137,7 @@ class SolrAPI
     # Currently I can't determine a reliable way to get a URL for the file for streaming.
     # If the app isn't running, there cannot be a URL as there is no web server to serve the file.
     # If the app is running, rake doesn't know about the request therefore it can't know the proper port
-    stream_file = false # if RAILS_ENV == 'test'
+    stream_file = false if RAILS_ENV == 'test'
     load_schema # make sure we know the fields. It will only be loaded once
     
     File.open(@csv_path, 'w') do |f|
@@ -181,7 +182,7 @@ class SolrAPI
     fields = { 'separator' => file_delimiter, 'stream.contentType' => 'text/plain;charset=utf-8' }
     if stream_file
       # NOT THE LACK OF A PORT HERE
-      fields['stream.url'] = 'http://' + $IP_ADDRESS_OF_SERVER + '/files/solr_import_file.csv'
+      fields['stream.url'] = @stream_url
     else
       fields['stream.file'] = @csv_path
     end

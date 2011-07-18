@@ -546,7 +546,7 @@ class DataObject < SpeciesSchemaModel
 
     # if we don't have any agents with the preferred roles then just pick one
     best_ado = agents_data_objects.find_all{|ado| ado.agent_role && ado.agent}
-
+    return nil if best_ado.blank?
     return best_ado.first.agent.full_name, best_ado.first.agent.user
 
   end

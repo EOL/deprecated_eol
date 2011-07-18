@@ -100,10 +100,10 @@ describe 'Search' do
     body.should have_tag("#search_results li", /#{@suggested_taxon_name}/)
   end
 
-  it 'should sort by newest by default' do
+  it 'should sort by score by default' do
     visit("/search?q=#{@name_for_all_types}")
     default_body = body.gsub(/content[0-9]{1,2}\./, 'content1.')  # normalizing content server host names
-    visit("/search?q=#{@name_for_all_types}&sort_by=newest")
+    visit("/search?q=#{@name_for_all_types}&sort_by=score")
     newest_body = body.gsub(/content[0-9]{1,2}\./, 'content1.')  # normalizing content server host names
     default_body.should == newest_body
   end

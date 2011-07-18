@@ -119,6 +119,86 @@ describe 'Taxa page' do
       end
     end
   end
+
+  shared_examples_for 'taxon names tab' do
+    it 'should list the classifications that recognise the taxon' do
+      visit logout_url
+      visit taxon_names_path(@testy[:taxon_concept])
+      body.should have_tag('.article h3', /recognized by the following classifications/i)
+      body.should have_tag('.article ul li img[alt=?]', /catalogue of life/i)
+      visit common_names_taxon_names_path(@testy[:taxon_concept])
+      body.should have_tag('.article h3', /recognized by the following classifications/i)
+      body.should have_tag('.article ul li img[alt=?]', /catalogue of life/i)
+      visit synonyms_taxon_names_path(@testy[:taxon_concept])
+      body.should have_tag('.article h3', /recognized by the following classifications/i)
+      body.should have_tag('.article ul li img[alt=?]', /catalogue of life/i)
+    end
+    
+    it 'should show related names and their sources' do
+      visit taxon_names_path(@testy[:taxon_concept])
+      # parents
+      body.should have_tag('table:first-of-type') do
+        with_tag('th:first-of-type', /parent/i)
+        with_tag('th:nth-of-type(2)', /source/i)
+        with_tag('td:first-of-type', @testy[:taxon_concept].hierarchy_entries.first.parent.name.string)
+        with_tag('td:nth-of-type(2)', @testy[:taxon_concept].hierarchy_entries.first.hierarchy.label)
+      end
+      # children
+      body.should have_tag('table:nth-of-type(2)') do
+        with_tag('th:first-of-type', /children/i)
+        with_tag('th:nth-of-type(2)', /source/i)
+        with_tag('td:first-of-type', @testy[:child1].hierarchy_entries.first.name.string)
+        with_tag('td:nth-of-type(2)', @testy[:child1].hierarchy_entries.first.hierarchy.label)
+      end
+    end
+    
+    it 'should show common names grouped by language with preferred flagged and status indicator' do
+      visit common_names_taxon_names_path(@testy[:taxon_concept])
+      @common_names = EOL::CommonNameDisplay.find_by_taxon_concept_id(@testy[:taxon_concept].id)
+      # TODO: Test that common names from other languages are present and that current language names appear first after language is switched.
+      # English by default
+      body.should have_tag('h4:first-of-type', "English")
+      body.should have_tag('table:first-of-type') do
+        with_tag('thead tr th:first-of-type', /preferred/i)
+        with_tag('thead tr th:nth-of-type(2)', /name/i)
+        with_tag('thead tr th:nth-of-type(3)', /source/i)
+        with_tag('thead tr th:nth-of-type(4)', /status/i)
+        with_tag('tbody tr:first-of-type td:first-of-type', /#{@common_names.first.preferred ? 'preferred' : 'no'}/i)
+        with_tag('tbody tr:first-of-type td:nth-of-type(2)', /#{@common_names.first.name_string}/i)
+        with_tag('tbody tr:first-of-type td:nth-of-type(3)', /#{@common_names.first.sources.first.full_name}/i)
+        with_tag('tbody tr:first-of-type td:nth-of-type(4)', /#{Vetted.find_by_id(@common_names.first.vetted_id).label}/i)
+      end
+    end
+    
+    it 'should allow curators to add common names' do
+      visit logout_url
+      visit common_names_taxon_names_path(@testy[:taxon_concept])
+      body.should_not have_tag('form#add_common_name')
+      login_as @testy[:curator]
+      visit common_names_taxon_names_path(@testy[:taxon_concept])
+      body.should have_tag('form#add_common_name')
+      new_name = 'My new English common name'
+      fill_in 'Name', :with => new_name
+      select('English', :from => "Name's Language")
+      click_button 'Add'
+      body.should have_tag('td', new_name)
+    end
+    
+    it 'should allow curators to choose a preferred common name for each language'
+    it 'should allow curators to change the status of common names'
+    
+    it 'should show synonyms grouped by their source hierarchy' do
+      visit logout_url
+      visit synonyms_taxon_names_path(@testy[:taxon_concept])
+      @synonyms = @testy[:taxon_concept].published_hierarchy_entries.first.scientific_synonyms
+      body.should have_tag('h4', /#{@testy[:taxon_concept].published_hierarchy_entries.first.hierarchy.label}/)
+      body.should have_tag('table') do
+        with_tag('thead th:first-of-type', /name/i)
+        with_tag('thead th:nth-of-type(2)', /relationship/i)
+        with_tag('td', /#{@synonyms.first.name.string}/)
+      end
+    end
+  end
   
   # overview tab - taxon_concept
   context 'overview when taxon has all expected data - taxon_concept' do
@@ -147,7 +227,6 @@ describe 'Taxa page' do
     it_should_behave_like 'taxon overview tab'
   end
 
-
   # details tab - taxon_concept
   context 'details when taxon has all expected data - taxon_concept' do
     before(:all) do
@@ -171,97 +250,28 @@ describe 'Taxa page' do
     it_should_behave_like 'taxon details tab'
   end
 
-  # names tab
-  context 'names when taxon has all expected data' do
-    # before(:all) do
-    #   visit taxon_names_path(@testy[:taxon_concept])
-    #   @section = 'names'
-    # end
-    # subject { body }
-    # #it_should_behave_like 'taxon pages with all expected data'
-    # 
-    # it 'should list the classifications that recognise the taxon' do
-    #   visit logout_url
-    #   visit taxon_names_path(@testy[:taxon_concept])
-    #   body.should have_tag('.article h3', /recognized by the following classifications/i)
-    #   body.should have_tag('.article ul li img[alt=?]', /catalogue of life/i)
-    #   visit common_names_taxon_names_path(@testy[:taxon_concept])
-    #   body.should have_tag('.article h3', /recognized by the following classifications/i)
-    #   body.should have_tag('.article ul li img[alt=?]', /catalogue of life/i)
-    #   visit synonyms_taxon_names_path(@testy[:taxon_concept])
-    #   body.should have_tag('.article h3', /recognized by the following classifications/i)
-    #   body.should have_tag('.article ul li img[alt=?]', /catalogue of life/i)
-    # end
-    # 
-    # it 'should show related names and their sources' do
-    #   visit taxon_names_path(@testy[:taxon_concept])
-    #   # parents
-    #   body.should have_tag('table:first-of-type') do
-    #     with_tag('th:first-of-type', /parent/i)
-    #     with_tag('th:nth-of-type(2)', /source/i)
-    #     with_tag('td:first-of-type', @testy[:taxon_concept].hierarchy_entries.first.parent.name.string)
-    #     with_tag('td:nth-of-type(2)', @testy[:taxon_concept].hierarchy_entries.first.hierarchy.label)
-    #   end
-    #   # children
-    #   body.should have_tag('table:nth-of-type(2)') do
-    #     with_tag('th:first-of-type', /children/i)
-    #     with_tag('th:nth-of-type(2)', /source/i)
-    #     with_tag('td:first-of-type', @testy[:child1].hierarchy_entries.first.name.string)
-    #     with_tag('td:nth-of-type(2)', @testy[:child1].hierarchy_entries.first.hierarchy.label)
-    #   end
-    # end
-    # 
-    # it 'should show common names grouped by language with preferred flagged and status indicator' do
-    #   visit common_names_taxon_names_path(@testy[:taxon_concept])
-    #   @common_names = EOL::CommonNameDisplay.find_by_taxon_concept_id(@testy[:taxon_concept].id)
-    #   # TODO: Test that common names from other languages are present and that current language names appear first after language is switched.
-    #   # English by default
-    #   body.should have_tag('h4:first-of-type', "English")
-    #   body.should have_tag('table:first-of-type') do
-    #     with_tag('thead tr th:first-of-type', /preferred/i)
-    #     with_tag('thead tr th:nth-of-type(2)', /name/i)
-    #     with_tag('thead tr th:nth-of-type(3)', /source/i)
-    #     with_tag('thead tr th:nth-of-type(4)', /status/i)
-    #     with_tag('tbody tr:first-of-type td:first-of-type', /#{@common_names.first.preferred ? 'preferred' : 'no'}/i)
-    #     with_tag('tbody tr:first-of-type td:nth-of-type(2)', /#{@common_names.first.name_string}/i)
-    #     with_tag('tbody tr:first-of-type td:nth-of-type(3)', /#{@common_names.first.sources.first.full_name}/i)
-    #     with_tag('tbody tr:first-of-type td:nth-of-type(4)', /#{Vetted.find_by_id(@common_names.first.vetted_id).label}/i)
-    #   end
-    # end
-    # 
-    # it 'should allow curators to add common names' do
-    #   visit logout_url
-    #   visit common_names_taxon_names_path(@testy[:taxon_concept])
-    #   body.should_not have_tag('form#add_common_name')
-    #   login_as @testy[:curator]
-    #   visit common_names_taxon_names_path(@testy[:taxon_concept])
-    #   body.should have_tag('form#add_common_name')
-    #   new_name = 'My new English common name'
-    #   fill_in 'Name', :with => new_name
-    #   select('English', :from => "Name's Language")
-    #   click_button 'Add'
-    #   body.should have_tag('td', new_name)
-    # end
-    # 
-    # it 'should allow curators to choose a preferred common name for each language'
-    # it 'should allow curators to change the status of common names'
-    # 
-    # it 'should show synonyms grouped by their source hierarchy' do
-    #   visit logout_url
-    #   visit synonyms_taxon_names_path(@testy[:taxon_concept])
-    #   @synonyms = @testy[:taxon_concept].published_hierarchy_entries.first.scientific_synonyms
-    #   body.should have_tag('h4', /#{@testy[:taxon_concept].published_hierarchy_entries.first.hierarchy.label}/)
-    #   body.should have_tag('table') do
-    #     with_tag('thead th:first-of-type', /name/i)
-    #     with_tag('thead th:nth-of-type(2)', /relationship/i)
-    #     with_tag('td', /#{@synonyms.first.name.string}/)
-    #   end
-    # end
-
+  # names tab - taxon_concept
+  context 'names when taxon has all expected data - taxon_concept' do
+    before(:all) do
+      visit taxon_names_path(@testy[:taxon_concept])
+      @section = 'names'
+    end
+    subject { body }
+    it_should_behave_like 'taxon pages with all expected data'
+    it_should_behave_like 'taxon names tab'
   end
 
-
-
+  # names tab - hierarchy_entry
+  context 'names when taxon has all expected data - hierarchy_entry' do
+    before(:all) do
+      hierarchy_entry = @testy[:taxon_concept].published_browsable_hierarchy_entries[0]
+      visit taxon_hierarchy_entry_names_path(@testy[:taxon_concept], hierarchy_entry)
+      @section = 'names'
+    end
+    subject { body }
+    it_should_behave_like 'taxon pages with all expected data'
+    it_should_behave_like 'taxon names tab'
+  end
 
 #  context 'when taxon does not have any common names'
 # TODO: figure out if this should be true and fix/remove as appropriate

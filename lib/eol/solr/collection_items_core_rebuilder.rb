@@ -12,13 +12,13 @@ module EOL
       def obliterate
         @solr_api.delete_all_documents
       end
-      
+
       def begin_rebuild(optimize = true)
         @solr_api.delete_all_documents
         start_to_index_collection_items
         @solr_api.optimize if optimize
       end
-      
+
       def start_to_index_collection_items
         start = CollectionItem.first.id
         max_id = CollectionItem.last.id
@@ -35,7 +35,7 @@ module EOL
           i += limit
         end
       end
-      
+
       def lookup_collection_items(start, limit)
         max = start + limit
         collection_items = CollectionItem.find(:all, :conditions => "id BETWEEN #{start} AND #{max}")
@@ -46,7 +46,7 @@ module EOL
           @objects_to_send[i.id] = hash
         end
       end
-      
+
       def preload_concepts_and_objects!(collection_items)
         preload_object!(collection_items.select{ |d| d.object_type == 'Community' })
         preload_object!(collection_items.select{ |d| d.object_type == 'Collection' })
@@ -54,12 +54,12 @@ module EOL
         preload_taxon_concepts!(collection_items.select{ |d| d.object_type == 'TaxonConcept' })
         preload_data_objects!(collection_items.select{ |d| ['Image', 'Video', 'Sound', 'Text', 'DataObject'].include?(d.object_type) })
       end
-      
+
       def preload_object!(collection_items)
         return if collection_items.blank?
         CollectionItem.preload_associations(collection_items, :object)
       end
-      
+
       def preload_taxon_concepts!(collection_items)
         return if collection_items.blank?
         includes = { :object =>
@@ -72,7 +72,7 @@ module EOL
         }
         CollectionItem.preload_associations(collection_items, includes, :select => selects)
       end
-      
+
       def preload_data_objects!(collection_items)
         return if collection_items.blank?
         includes = { :object => [ :data_type, { :toc_items => :translations } ] }

@@ -83,13 +83,12 @@ describe "Collections and collecting:" do
     it 'should be able to select all collection items on the page' do
       visit collection_path(@collection)
       body.should_not have_tag("input[id=?][checked]", "collection_item_#{@collection.collection_items.first.id}")
-      click_button 'Select all'
+      visit collection_path(@collection, :commit_select_all => true) # FAKE the button click, since it's JS otherwise
       body.should have_tag("input[id=?][checked]", "collection_item_#{@collection.collection_items.first.id}")
     end
 
     it 'should be able to copy collection items to one of their existing collections' do
-      visit collection_path(@collection)
-      click_button 'Select all'
+      visit collection_path(@collection, :commit_select_all => true) # Select all button is JS, fake it.
       click_button 'Copy selected'
       body.should have_tag('#collections') do
         with_tag('input[value=?]', @user.watch_collection.name)
@@ -97,8 +96,7 @@ describe "Collections and collecting:" do
     end
 
     it 'should be able to copy collection items to a new collection' do
-      visit collection_path(@collection)
-      click_button 'Select all'
+      visit collection_path(@collection, :commit_select_all => true) # Select all button is JS, fake it.
       click_button 'Copy selected'
       body.should have_tag('#collections') do
         with_tag('form.new_collection')
@@ -161,16 +159,11 @@ describe "Collections and collecting:" do
     it 'should be able to move collection items'
     it 'should be able to remove collection items'
     it 'should be able to edit ordinary collection and nested collection item attributes' do
-      visit edit_collection_path(@collection)
-      body.should have_tag('input#collection_name')
-      body.should have_tag('textarea#collection_description')
-      body.should have_tag('textarea#collection_collection_items_attributes_0_annotation')
-      body.should have_tag('input#collection_collection_items_attributes_0_id')
+      visit collection_path(@collection)
+      click_link 'edit name'
       page.fill_in 'collection_name', :with => 'Edited collection name'
-      page.fill_in 'collection_description', :with => 'Edited collection description'
-      page.fill_in 'collection_collection_items_attributes_0_annotation', :with => 'Edited item annotation'
-      click_button 'Update collection details'
-      body.should include('successfully updated')
+      click_button 'Save'
+      body.should have_tag('h1', 'Edited collection name')
     end
     it 'should not be able to edit special collections (really?)'
     it 'should be able to delete ordinary collections'

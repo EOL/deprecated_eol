@@ -33,8 +33,8 @@ class TaxonConcept < SpeciesSchemaModel
     WHERE he.taxon_concept_id = \'#{id}\' AND he.published = 1 and h.browsable = 1
     ORDER BY h.label'
 
-    
-    
+
+
   has_many :top_concept_images
   has_many :top_unpublished_concept_images
   has_many :curator_activity_logs
@@ -132,7 +132,7 @@ class TaxonConcept < SpeciesSchemaModel
       tcn = TaxonConceptName.find_all_by_taxon_concept_id_and_vern(self.id, 1, :include => [ :name, :language ],
         :select => {:taxon_concept_names => [ :preferred, :vetted_id ], :names => :string, :languages => '*'})
     end
-    
+
     sorted_names = TaxonConceptName.sort_by_language_and_name(tcn)
     duplicate_check = {}
     name_languages = {}
@@ -708,7 +708,13 @@ class TaxonConcept < SpeciesSchemaModel
   def quick_common_name(language = nil, hierarchy = nil)
     language ||= current_user.language
     hierarchy ||= Hierarchy.default
-    common_name_results = SpeciesSchemaModel.connection.execute("SELECT n.string name, he.hierarchy_id source_hierarchy_id FROM taxon_concept_names tcn JOIN names n ON (tcn.name_id = n.id) LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id = he.id) WHERE tcn.taxon_concept_id=#{id} AND language_id=#{language.id} AND preferred=1").all_hashes
+    common_name_results = SpeciesSchemaModel.connection.execute(
+      "SELECT n.string name, he.hierarchy_id source_hierarchy_id
+        FROM taxon_concept_names tcn
+          JOIN names n ON (tcn.name_id = n.id)
+          LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id = he.id)
+        WHERE tcn.taxon_concept_id=#{id} AND language_id=#{language.id} AND preferred=1"
+    ).all_hashes
 
     final_name = ''
 
@@ -846,7 +852,7 @@ class TaxonConcept < SpeciesSchemaModel
     return '' unless e
     return e.classification_attribution
   end
-  
+
   # def classification_attribution_hierarchy_entry(hierarchy_entry = nil)
   #   return '' if hierarchy_entry.blank?
   #   hierarchy = hierarchy_entry.hierarchy
@@ -854,8 +860,8 @@ class TaxonConcept < SpeciesSchemaModel
   #   return '' unless e
   #   return e.classification_attribution
   # end
-  
-  
+
+
   # TODO - we only want PUBLISHED hierarchies, here:
   def classifications
     hierarchy_entries.map do |entry|
@@ -883,11 +889,11 @@ class TaxonConcept < SpeciesSchemaModel
      perform_filter = true
      filter_hierarchy = hierarchy_entry.hierarchy
     end
-    
+
     image_page = (options[:image_page] ||= 1).to_i
-    images = DataObject.images_for_taxon_concept(self, :user => self.current_user, 
-      :filter_by_hierarchy => perform_filter, 
-      :hierarchy => filter_hierarchy, 
+    images = DataObject.images_for_taxon_concept(self, :user => self.current_user,
+      :filter_by_hierarchy => perform_filter,
+      :hierarchy => filter_hierarchy,
       :image_page => image_page, :skip_metadata => options[:skip_metadata])
     @length_of_images = images.length # Caching this because the call to #images is expensive and we don't want to do it twice.
 
@@ -922,11 +928,11 @@ class TaxonConcept < SpeciesSchemaModel
     subtitle = '' if subtitle.upcase == "[DATA MISSING]"
     @subtitle = subtitle
   end
-  
+
   def best_image
     return images(:skip_metadata => true).blank? ? nil : images(:skip_metadata => true)[0]
   end
-  
+
   def smart_thumb
     return images(:skip_metadata => true).blank? ? nil : images(:skip_metadata => true)[0].smart_thumb
   end
@@ -974,7 +980,7 @@ class TaxonConcept < SpeciesSchemaModel
     end
     # You can also count here: @taxon_concept.content_by_category(TocItem.related_names.id, :current_user => current_user)
   end
-  
+
   def self.related_names(options = {})
     filter = []
     if !options[:taxon_concept_id].blank?
@@ -1019,7 +1025,7 @@ class TaxonConcept < SpeciesSchemaModel
     grouped_children = {}
     for child in children
       key = child['name_string'].downcase+"|"+child['taxon_concept_id']
-      grouped_children[key] ||= {'taxon_concept_id' => child['taxon_concept_id'], 'name_string' => child['name_string'], 'sources' => [], 
+      grouped_children[key] ||= {'taxon_concept_id' => child['taxon_concept_id'], 'name_string' => child['name_string'], 'sources' => [],
         'hierarchy_entry_id' => child['hierarchy_entry_id']}
       grouped_children[key]['sources'] << child
     end

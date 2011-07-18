@@ -5,9 +5,8 @@
       %br
       = render :partial => 'taxa/overviews/classification_dropdown'
       %br
-      - flash[:notice] = @recognized_by
+      - flash.now[:notice] = @recognized_by
 
-      
   #page_heading.with_nav
     .site_column
       .hgroup
@@ -63,7 +62,6 @@
           %li{:class => resource_is_active('taxa/names')}= link_to I18n.t(:names), taxon_hierarchy_entry_names_path(@taxon_concept, @dropdown_hierarchy_entry)
           %li{:class => resource_is_active('taxa/resources')}= link_to I18n.t(:resources), '/placeholder'
           %li{:class => resource_is_active('taxa/literature')}= link_to I18n.t(:literature), '/placeholder'
-
 
   #content
     .site_column

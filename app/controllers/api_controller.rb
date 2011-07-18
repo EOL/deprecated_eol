@@ -3,7 +3,8 @@ class ApiController < ApplicationController
   include ApiHelper
   
   before_filter :check_version, :handle_key
-  layout 'main' , :only => [:index, :ping, :search, :pages, :data_objects, :hierarchy_entries, :hierarchies, :provider_hierarchies, :search_by_provider]
+  layout 'main' , :only => [ :index, :ping, :search, :pages, :data_objects, :hierarchy_entries, :hierarchies,
+    :provider_hierarchies, :search_by_provider, :collections ]
   
   def pages
     taxon_concept_id = params[:id] || 0
@@ -290,6 +291,42 @@ class ApiController < ApplicationController
   def ping_host
     respond_to do |format|
       format.json { render :json => { 'response' => { 'host' => request.host, 'port' => request.port } } }
+    end
+  end
+  
+  def collections
+    id = params[:id] || 0
+    params[:format] ||= 'xml'
+    @page = params[:page].to_i || 1
+    @page = 1 if @page < 1
+    @per_page = params[:per_page].to_i
+    @filter = nil
+    unless params[:filter].blank? || params[:filter].class != String
+      @filter = params[:filter].singularize.split(' ').join('_').camelize
+    end
+    
+    begin
+      @collection = Collection.find_by_id(id, :include => [ :community, :user, :sort_style ])
+      @sort_by = @collection.default_sort_style
+      if !params[:sort_by].blank? && params[:sort_by].class == String && ss = SortStyle.find_by_translated(:name, params[:sort_by].titleize)
+        @sort_by = ss
+      end
+      @facet_counts = EOL::Solr::CollectionItems.get_facet_counts(@collection.id)
+      @collection_results = @collection.items_from_solr(:facet_type => @filter, :page => params[:page], :sort_by => @sort_by)
+      @collection_items = @collection_results.map { |i| i['instance'] }
+      raise if @collection.blank?
+    rescue
+      render(:partial => 'error.xml.builder', :locals => { :error => "Unknown identifier #{id}" })
+      return
+    end
+    
+    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.env["REQUEST_URI"],
+                  :method => 'collections', :version => params[:version], :format => params[:format],
+                  :request_id => id, :key => @key, :user_id => @user_id)
+    
+    respond_to do |format|
+      format.xml { render :layout => false }
+      format.json { render :json => collections_json, :callback => params[:callback] }
     end
   end
   

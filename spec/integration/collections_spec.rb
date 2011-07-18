@@ -35,9 +35,8 @@ describe "Collections and collecting:" do
     @under_privileged_user = User.gen
     @anon_user = User.gen(:password => 'password')
     @taxon = @test_data[:taxon_concept_1]
-    @solr = SolrAPI.new($SOLR_SERVER, $SOLR_COLLECTION_ITEMS_CORE)
-    @solr.delete_all_documents
-    CollectionItem.all.each{ |i| i.save }
+    builder = EOL::Solr::CollectionItemsCoreRebuilder.new()
+    builder.begin_rebuild
   end
 
   shared_examples_for 'collections and collecting all users' do

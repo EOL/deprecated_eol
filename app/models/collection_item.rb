@@ -24,6 +24,7 @@ class CollectionItem < ActiveRecord::Base
   end
 
   def index_collection_item_in_solr
+    return unless $INDEX_RECORDS_IN_SOLR_ON_SAVE
     if collection_id
       remove_collection_item_from_solr
       begin
@@ -32,49 +33,54 @@ class CollectionItem < ActiveRecord::Base
         puts "** WARNING: Solr connection failed."
         return nil
       end
-
-      params = {}
-      params['collection_item_id'] = self.id
-      params['object_type'] = (self.object_type == 'DataObject') ? self.object.data_type.simple_type('en') : self.object_type
-      params['object_id'] = self.object_id
-      params['collection_id'] = self.collection_id || 0
-      params['annotation'] = self.annotation || ''
-      params['added_by_user_id'] = self.added_by_user_id || 0
-      params['date_created'] = self.created_at.solr_timestamp rescue nil
-      params['date_modified'] = self.updated_at.solr_timestamp rescue nil
-
-      case self.object.class.name
-      when "TaxonConcept"
-        params['title'] = self.object.entry.name.canonical_form.string
-      when "User"
-        params['title'] = self.object.username
-      when "DataObject"
-        params['title'] = self.object.best_title
-        params['data_rating'] = self.object.data_rating || 0
-      when "Community"
-        params['title'] = self.object.name
-      when "Collection"
-        params['title'] = self.object.name
-      else
-        raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_index_collection_item_type_error,
-                                                                    :type => self.object.class.name))
-      end
-
-      params['data_rating'] ||= 0
-      params['richness_score'] ||= 0
-      # this is a strange thing to do as only TaxonConcepts have richness, but putting this inside the case switch
-      # above was giving me other mysterious errors
-      # if self.object.class.name == "TaxonConcept" && self.object.taxon_concept_metric && !self.object.taxon_concept_metric.richness_score.blank?
-      #   params['richness_score'] = 0
-      # end
-      solr_connection.create(params)
+      
+      solr_connection.create(solr_index_hash)
     else # There is no collection associated with this collection item; it is meant for historical indexing only, and
          # there is no need to index this in solr.  ...In fact, it had better not be indexed!
       remove_collection_item_from_solr
     end
   end
+  
+  def solr_index_hash
+    params = {}
+    params['collection_item_id'] = self.id
+    params['object_type'] = (self.object_type == 'DataObject') ? self.object.data_type.simple_type('en') : self.object_type
+    params['object_id'] = self.object_id
+    params['collection_id'] = self.collection_id || 0
+    params['annotation'] = self.annotation || ''
+    params['added_by_user_id'] = self.added_by_user_id || 0
+    params['date_created'] = self.created_at.solr_timestamp rescue nil
+    params['date_modified'] = self.updated_at.solr_timestamp rescue nil
+
+    case self.object.class.name
+    when "TaxonConcept"
+      params['title'] = self.object.entry.name.canonical_form.string
+    when "User"
+      params['title'] = self.object.username
+    when "DataObject"
+      params['title'] = self.object.best_title
+      params['data_rating'] = self.object.data_rating || 0
+    when "Community"
+      params['title'] = self.object.name
+    when "Collection"
+      params['title'] = self.object.name
+    else
+      raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_index_collection_item_type_error,
+                                                                  :type => self.object.class.name))
+    end
+
+    params['data_rating'] ||= 0
+    params['richness_score'] ||= 0
+    # this is a strange thing to do as only TaxonConcepts have richness, but putting this inside the case switch
+    # above was giving me other mysterious errors
+    # if self.object.class.name == "TaxonConcept" && self.object.taxon_concept_metric && !self.object.taxon_concept_metric.richness_score.blank?
+    #   params['richness_score'] = 0
+    # end
+    return params
+  end
 
   def remove_collection_item_from_solr
+    return unless $INDEX_RECORDS_IN_SOLR_ON_SAVE
     begin
       solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_COLLECTION_ITEMS_CORE)
     rescue Errno::ECONNREFUSED => e

@@ -12,10 +12,14 @@ class ContentController < ApplicationController
   def index
     @home_page = true
     current_user.log_activity(:viewed_home_page)
+    @explore_taxa = $CACHE.fetch('homepage/random_images') do
+      @explore_taxa = RandomHierarchyImage.random_set(42)
+    end
+    @explore_taxa.shuffle!
+    
     unless @cached_fragment = read_fragment(:controller => 'content', :part => 'home_' + current_user.content_page_cache_str)
       @content = ContentPage.get_by_page_name_and_language_abbr('Home', current_user.language_abbr)
       raise "static page content not found" if @content.nil?
-      @explore_taxa  = RandomHierarchyImage.random_set(6)
       # get top news items less then a predetermined number of weeks old
       @news_items = NewsItem.find_all_by_active(true, :limit => $NEWS_ITEMS_HOMEPAGE_MAX_DISPLAY, :order => 'display_date desc', :conditions => 'display_date >= "' + $NEWS_ITEMS_TIMEOUT_HOMEPAGE_WEEKS.weeks.ago.to_s(:db) + '"')
     end

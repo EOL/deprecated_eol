@@ -221,4 +221,46 @@ module ApiHelper
     end
     return return_hash
   end
+  
+  def collections_json
+    return_hash = {}
+    return_hash['name'] = @collection.name
+    return_hash['description'] = @collection.description
+    return_hash['logo_url'] = @collection.logo_cache_url.blank? ? nil : @collection.logo_url
+    return_hash['created'] = @collection.created_at
+    return_hash['modified'] = @collection.updated_at
+    return_hash['total_items'] = @collection_results.total_entries
+    
+    return_hash['item_types'] = []
+    ['TaxonConcept', 'Text', 'Video', 'Image', 'Sound', 'Community', 'User', 'Collection'].each do |facet|
+      return_hash['item_types'] << { 'item_type' => facet, 'item_count' => @facet_counts[facet] || 0 }
+    end
+    
+    return_hash['collection_items'] = []
+    @collection_results.each do |r|
+      ci = r['instance']
+      item_hash = {
+        'name' => r['title'],
+        'object_type' => ci.object_type,
+        'object_id' => ci.object_id,
+        'title' => ci.name,
+        'created' => ci.created_at,
+        'updated' => ci.updated_at
+      }
+      case ci.object_type
+      when 'TaxonConcept'
+        item_hash['richness_score'] = r['richness_score']
+      when 'DataObject'
+        item_hash['data_rating'] = r['data_rating']
+        item_hash['object_guid'] = ci.object.guid
+        item_hash['object_type'] = ci.object.data_type.simple_type
+        if ci.object.is_image?
+          item_hash['source'] = ci.object.thumb_or_object(:orig)
+        end
+      end
+      return_hash['collection_items'] << item_hash
+    end
+    return return_hash
+  end
+  
 end

@@ -89,5 +89,11 @@ namespace :solr do
     builder.begin_rebuild
   end
   
+  desc 'Rebuild the collection_items index'
+  task :rebuild_collection_items => :environment do
+    builder = EOL::Solr::CollectionItemsCoreRebuilder.new()
+    builder.begin_rebuild
+  end
+  
   
 end

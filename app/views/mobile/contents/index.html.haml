@@ -17,23 +17,28 @@
   %ul{"data-role" => "listview", "data-inset"=>"true", "data-theme"=>"c", "list-divider-theme"=>"e"}
     %li.taxon
       =image_tag("/images/v2/icon_taxon.png")
-      %h3 1,915,247 #{t(:taxa)}
+      %h3= total_count("taxon_concepts")
+      #{t(:taxa)}
       %p= link_to t(:what_is_a_taxon), ""
     %li.contributors
       =image_tag("/images/v2/icon_contributors.png")
-      %h3 3,154 #{t(:contributors_like_you)}
+      %h3= total_count("users")
+      #{t(:members_like_you)}
       %p= link_to I18n.t(:learn_how_to_join), ""
     %li.communities
       =image_tag("/images/v2/icon_communities.png")
-      %h3 861 #{t(:communities)}
+      %h3= total_count("collections") 
+      #{t(:collections)}
       %p= link_to I18n.t(:learn_how_to_interact), ""
     %li.images
       =image_tag("/images/v2/icon_partners.png")
-      %h3 753,234 #{t(:images)}
-      %p= link_to t(:browse_gallery), ""
+      %h3= total_count("data_objects")
+      #{t(:images)}
+      %p= link_to t(:learn_how_to_contribute), ""
     %li.partners
       =image_tag("/images/v2/icon_images.png")
-      %h3 324 #{t(:content_partners)}
+      %h3= total_count("content_partners")
+      #{t(:content_partners)}
       %p= link_to t(:learn_about_content_partners), ""
     
 %div{"data-role"=>"footer"}

@@ -115,7 +115,8 @@ private
     @selected_collection_items = params[:collection_items] || []
 
     @facet_counts = EOL::Solr::CollectionItems.get_facet_counts(@collection.id)
-    @collection_items = EOL::Solr::CollectionItems.search_with_pagination(@collection.id, :facet_type => @filter, :page => @page, :sort_by => @sort_by).map {|i| i['instance'] }
+    @collection_results = @collection.items_from_solr(:facet_type => @filter, :page => @page, :sort_by => @sort_by)
+    @collection_items = @collection_results.map { |i| i['instance'] }
     if params[:commit_select_all]
       @selected_collection_items = @collection_items.map {|ci| ci.id.to_s }
     end

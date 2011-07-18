@@ -99,12 +99,12 @@
         %h3.assistive= I18n.t(:explore)
         .thumbnails
           %ul
-            - @explore_taxa[0..4].each do |random_image|
-              %li= link_to image_tag(random_image.data_object.thumb_or_object('130_130'),
-                :alt => random_image.taxon_concept.entry.name.canonical_form.string), "/pages/#{random_image.taxon_concept_id}"
-            - if random_image = @explore_taxa[5]
-              %li.last= link_to image_tag(random_image.data_object.thumb_or_object('130_130'),
-                :alt => random_image.taxon_concept.entry.name.canonical_form.string), "/pages/#{random_image.taxon_concept_id}"
+            = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 0 }
+            = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 1 }
+            = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 2 }
+            = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 3 }
+            = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 4 }
+            = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 5, :last => true }
           .term
             .site_column
               %p
@@ -129,7 +129,7 @@
           %li= link_to I18n.t(:twitter), "/placeholder", :class => "twitter"
           %li= link_to I18n.t(:rss_abbr_html), "/placeholder", :class => "rss"
 
-    - if $ENABLE_ANALYTICS || true
+    - if $ENABLE_ANALYTICS
       :javascript
         var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
         document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));

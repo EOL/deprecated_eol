@@ -7,30 +7,33 @@
         .article.stats
           -#TODO: Figure out how stats content is going to be generated e.g. static + count or editable from CMS?
           %h3= I18n.t(:currently_in_eol)
+          = I18n.t(:as_of_time, :time => format_date_time(Time.now))
           %ul
             %li.taxon
               %dl
-                %dd 1,915,247
+                %dd= total_count("taxon_concepts")
                 %dt= I18n.t(:taxa)
               = link_to I18n.t(:what_is_a_taxon), "/placeholder"
+            - # TODO - Add proper members class & icon instead of contributors
             %li.contributors
               %dl
-                %dd 3,154
-                %dt= I18n.t(:contributors_like_you)
+                %dd= total_count("users")
+                %dt= I18n.t(:members_like_you)
               = link_to I18n.t(:learn_how_to_join), "/placeholder"
+            - # TODO - Add proper collections class & icon instead of communities 
             %li.communities
               %dl
-                %dd 861
-                %dt= I18n.t(:communities)
+                %dd= total_count("collections")
+                %dt= I18n.t(:collections)
               = link_to I18n.t(:learn_how_to_interact), "/placeholder"
             %li.images
               %dl
-                %dd 753,234
+                %dd= total_count("data_objects")
                 %dt= I18n.t(:images)
-              = link_to I18n.t(:browse_gallery), "/placeholder"
+              = link_to I18n.t(:learn_how_to_contribute), "/placeholder"
             %li.partners
               %dl
-                %dd 324
+                %dd= total_count("content_partners")
                 %dt= I18n.t(:content_partners)
               = link_to I18n.t(:learn_about_content_partners), "/placeholder"
         .article.community

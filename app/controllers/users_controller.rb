@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   layout :users_layout
 
   before_filter :check_authentication, :only => [:edit]
-  before_filter :check_user_agreed_with_terms, :except => [:logout, :terms_agreement]
+  before_filter :check_user_agreed_with_terms, :except => [:terms_agreement, :reset_password]
 
   @@objects_per_page = 20
 
@@ -125,6 +125,10 @@ class UsersController < ApplicationController
   end
 
   def terms_agreement
+    if request.post?
+      require 'ruby-debug'; debugger
+      puts ''
+    end
   end
 
 #  def objects_curated

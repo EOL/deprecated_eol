@@ -3,6 +3,7 @@ class SessionsController < ApplicationController
   layout 'v2/sessions'
 
   before_filter :redirect_if_already_logged_in, :only => [:new, :create]
+  before_filter :check_user_agreed_with_terms, :except => [:destroy]
 
   # GET /sessions/new or named route /login
   def new

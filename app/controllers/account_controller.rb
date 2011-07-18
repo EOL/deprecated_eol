@@ -245,20 +245,20 @@ private
 #  def main_if_not_logged_in
 #    layout = current_user.username.nil? ? 'main' : 'user_profile'
 #  end
+# 
+#   def password_length_okay?
+#     return !(params[:user][:entered_password].length < 4 || params[:user][:entered_password].length > 16)
+#   end
 
-  def password_length_okay?
-    return !(params[:user][:entered_password].length < 4 || params[:user][:entered_password].length > 16)
-  end
+  # def delete_password_reset_token(user)
+  #   user.update_attributes(:password_reset_token => nil, :password_reset_token_expires_at => nil) if user
+  # end
 
-  def delete_password_reset_token(user)
-    user.update_attributes(:password_reset_token => nil, :password_reset_token_expires_at => nil) if user
-  end
-
-  def go_to_forgot_password(user)
-    flash[:notice] =  I18n.t(:expired_reset_password_link)
-    delete_password_reset_token(user)
-    redirect_to :action => "forgot_password", :protocol => "http"
-  end
+  # def go_to_forgot_password(user)
+  #   flash[:notice] =  I18n.t(:expired_reset_password_link)
+  #   delete_password_reset_token(user)
+  #   redirect_to :action => "forgot_password", :protocol => "http"
+  # end
 
   # Change password parameters when they are set automatically by an autofil password management of a browser (known behavior of Firefox for example)
   def unset_auto_managed_password

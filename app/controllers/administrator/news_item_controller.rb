@@ -22,6 +22,8 @@ class Administrator::NewsItemController < AdminController
     @news_item = NewsItem.new
     @news_item.set_translation_language(Language.english)
     @news_item.translated_active_translation = true
+    @news_item.display_date = DateTime.now
+    @news_item.activated_on = DateTime.now
     @news_item.current_translation_language = Language.english
     @language_id = @news_item.current_translation_language.id
     @news_item.translated_title = "News title"

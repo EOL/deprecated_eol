@@ -3,13 +3,13 @@
     %strong
       =I18n.t("news_item_date_as_shown_to_use")
   %td
-    = f.text_field :display_date
+    = f.date_select(:display_date, :order => [:day,:month,:year], :start_year => (Time.now.year - 10), :end_year => (Time.now.year + 1), :use_month_numbers => true)
 %tr
   %td{ :valign => "top" }
     %strong
       =I18n.t("news_item_is_visible_on_websit")
   %td
-    = f.text_field :activated_on
+    = f.date_select(:activated_on, :order => [:day,:month,:year], :start_year => (Time.now.year - 10), :end_year => (Time.now.year + 1), :use_month_numbers => true)
     %br
     =I18n.t("note_that_all_times_are_utc__g")
     %br

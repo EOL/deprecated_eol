@@ -1,11 +1,14 @@
 - form_tag "/pages/#{@taxon_concept.id}/names/common_names/add", :method => :post, :id => 'add_common_name' do
+  = hidden_field_tag "hierarchy_entry_id", @dropdown_hierarchy_entry_id
   %fieldset
     %legend=I18n.t(:add_a_new_common_name)
     = label_tag :name_name_string, I18n.t(:name)
     = text_field :name, :name_string, :size => 40, :maxlength => 300
+    = "&nbsp;"
     = label_tag :name_language, "Name's Language"
     %select{:id => "name_language", :name => "name[language]"}
       - @languages.each do |language|
         %option{ :selected => language[:selected], :value => language[:id] }= language[:label]
-  %fieldset.actions
+    = "&nbsp;"
     %input{:type => "submit", :name => "add_common_name_button", :value => I18n.t(:add), :id => "add_common_name_button"}
+  %fieldset.actions

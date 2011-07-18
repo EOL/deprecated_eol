@@ -282,6 +282,40 @@ describe TaxonConcept do
   it "should not have common names" do
     @tc_with_no_common_names.has_common_names?.should == false
   end
+  
+  it "should be able to filter common_names by taxon_concept or hierarchy_entry" do
+    # by taxon_concept
+    common_names = @taxon_concept.common_names()
+    common_names.count.should > 0
+    # by hierarchy_entry
+    hierarchy_entry = @taxon_concept.published_browsable_hierarchy_entries
+    taxon_concept_name = TaxonConceptName.gen(:vern => 1, :source_hierarchy_entry_id => hierarchy_entry.id, :taxon_concept_id => @taxon_concept.id)
+    common_names = @taxon_concept.common_names(:hierarchy_entry_id => hierarchy_entry.id)
+    common_names.count.should > 0
+  end
+
+  it "should be able to filter related_names by taxon_concept or hierarchy_entry" do
+    # by taxon_concept
+    related_names = TaxonConcept.related_names(:taxon_concept_id => @taxon_concept.id)
+    related_names.class.should == Hash
+    # by hierarchy_entry
+    hierarchy_entry = @taxon_concept.published_browsable_hierarchy_entries
+    related_names = TaxonConcept.related_names(:hierarchy_entry_id => hierarchy_entry.id)
+    related_names.class.should == Hash
+  end
+
+  it "should be able to filter synonyms by taxon_concept or hierarchy_entry" do
+    # by taxon_concept
+    hierarchy_entries = @taxon_concept.published_browsable_hierarchy_entries
+    for he in hierarchy_entries
+      he.scientific_synonyms.class.should == Array
+    end
+    # by hierarchy_entry
+    hierarchy_entries = @taxon_concept.published_hierarchy_entries
+    for he in hierarchy_entries
+      he.scientific_synonyms.class.should == Array
+    end
+  end
 
   it 'should return images sorted by trusted, unknown, untrusted but preview mode first' do
     @taxon_concept.reload

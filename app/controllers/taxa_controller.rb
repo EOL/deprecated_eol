@@ -30,7 +30,8 @@ class TaxaController < ApplicationController
       do_the_search
       return
     end
-    return redirect_to taxon_overview_path(params[:id])
+    taxon_id = params[:id] if params[:id]
+    return redirect_to taxon_overview_path(taxon_id)
   end
 
   # a permanent redirect to the new taxon_concept page
@@ -64,17 +65,14 @@ class TaxaController < ApplicationController
   end
 
   def prepare_hierarchy_entry_switch
-    #debugger
-    he_id = params[:user][:default_hierarchy_entry_id] || ""
-    orig_tc_id = params[:orig_tc_id]
-    
-    if !he_id.nil?
-      return redirect_to("/pages/#{orig_tc_id}/entries/#{he_id}/overview");  
+    hierarchy_entry_id = params[:user][:default_hierarchy_entry_id] || ""
+    orig_tc_id = params[:orig_tc_id]    
+    if !hierarchy_entry_id.nil?
+      return redirect_to("/pages/#{orig_tc_id}/entries/#{hierarchy_entry_id}/overview");  
     else
       redirect_back_or_default
       return
-    end
-    
+    end    
   end
   
   # page that will allows a non-logged in user to change content settings
@@ -241,7 +239,11 @@ class TaxaController < ApplicationController
       end
       current_user.log_activity(:updated_common_names, :taxon_concept_id => tc.id)
     end
-    redirect_to common_names_taxon_names_path(tc)
+    if !params[:hierarchy_entry_id].blank?
+      redirect_to common_names_taxon_hierarchy_entry_names_path(tc, params[:hierarchy_entry_id])
+    else
+      redirect_to common_names_taxon_names_path(tc)
+    end
   end
 
   # TODO - This needs to add a CuratorActivityLog.
@@ -259,7 +261,11 @@ class TaxaController < ApplicationController
       end
       expire_taxa([tc.id])
     end
-    redirect_to common_names_taxon_names_path(tc)
+    if !params[:hierarchy_entry_id].blank?
+      redirect_to common_names_taxon_hierarchy_entry_names_path(tc, params[:hierarchy_entry_id])
+    else
+      redirect_to common_names_taxon_names_path(tc)
+    end
   end
 
   # TODO - This needs to add a CuratorActivityLog.
@@ -272,7 +278,11 @@ class TaxaController < ApplicationController
       tc.delete_common_name(tcn)
       log_action(tc, tcn, :remove_common_name) if tc && tcn
     end
-    redirect_to common_names_taxon_names_path(tc)
+    if !params[:hierarchy_entry_id].blank?
+      redirect_to common_names_taxon_hierarchy_entry_names_path(tc, params[:hierarchy_entry_id])
+    else
+      redirect_to common_names_taxon_names_path(tc)
+    end
   end
 
   # TODO - This needs to add a CuratorActivityLog.
@@ -284,7 +294,11 @@ class TaxaController < ApplicationController
     @taxon_concept.current_user = current_user
     @taxon_concept.vet_common_name(:language_id => language_id, :name_id => name_id, :vetted => vetted)
     current_user.log_activity(:vetted_common_name, :taxon_concept_id => @taxon_concept.id, :value => name_id)
-    redirect_to common_names_taxon_names_path(tc)
+    if !params[:hierarchy_entry_id].blank?
+      redirect_to common_names_taxon_hierarchy_entry_names_path(@taxon_concept, params[:hierarchy_entry_id])
+    else
+      redirect_to common_names_taxon_names_path(@taxon_concept)
+    end
   end
 
   def publish_wikipedia_article
@@ -368,13 +382,7 @@ private
   end
 
   def get_content_variables(options = {})
-    #debugger
-    
     @content = @taxon_concept.content_by_category(@category_id, :current_user => current_user, :hierarchy_entry => options[:hierarchy_entry])
-    
-    if @content[:content_type] == "synonyms"
-      #debugger
-    end
     @whats_this = @content[:category_name].blank? ? "" : WhatsThis.get_url_for_name(@content[:category_name])
     @ajax_update = options[:ajax_update]
     @languages = build_language_list if is_common_names?(@category_id)

@@ -5,7 +5,11 @@ class Taxa::NamesController < TaxaController
 
   # Default tab: related names
   def show
-    @related_names = TaxonConcept.related_names(@taxon_concept.id)
+    if @dropdown_hierarchy_entry
+      @related_names = TaxonConcept.related_names(:hierarchy_entry_id => @dropdown_hierarchy_entry_id)
+    else
+      @related_names = TaxonConcept.related_names(:taxon_concept_id => @taxon_concept.id)
+    end
     @assistive_section_header = I18n.t(:assistive_names_related_header)
     current_user.log_activity(:viewed_taxon_concept_names_related_names, :taxon_concept_id => @taxon_concept.id)
   end
@@ -22,7 +26,11 @@ class Taxa::NamesController < TaxaController
 
   def common_names
     unknown = Language.unknown.label # Just don't want to look it up every time.
-    names = EOL::CommonNameDisplay.find_by_taxon_concept_id(@taxon_concept.id)
+    if @dropdown_hierarchy_entry
+      names = EOL::CommonNameDisplay.find_by_hierarchy_entry_id(@dropdown_hierarchy_entry.id)
+    else
+      names = EOL::CommonNameDisplay.find_by_taxon_concept_id(@taxon_concept.id)
+    end
     names = names.select {|n| n.language_label != unknown}
     @common_names = names
     @languages = build_language_list
@@ -44,9 +52,9 @@ private
       :vetted => :view_order,
       :agents => '*' }
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
-    @hierarchies = @taxon_concept.published_hierarchy_entries.collect{|he| he.hierarchy if he.hierarchy.browsable}
+    @hierarchies = @taxon_concept.published_hierarchy_entries.collect{|he| he.hierarchy if he.hierarchy.browsable}.uniq
     # TODO: Eager load hierarchy entry agents?
-    dropdown_hierarchy_entry_id = params[:he_id] || ""
-    @dropdown_hierarchy_entry = HierarchyEntry.find_by_id(dropdown_hierarchy_entry_id);
+    @dropdown_hierarchy_entry_id = params[:hierarchy_entry_id] || ""
+    @dropdown_hierarchy_entry = HierarchyEntry.find_by_id(@dropdown_hierarchy_entry_id);
   end
 end

@@ -36,25 +36,17 @@ class Taxa::MediaController < TaxaController
     sort_order = [:visibility, :rating, :vetted, :date, :type] if @sort_by == 'rating'
     sort_order = [:visibility, :date, :vetted, :rating, :type] if @sort_by == 'newest'
 
-    dropdown_hierarchy_entry_id = params[:he_id] || ""
-    @dropdown_hierarchy_entry = HierarchyEntry.find_by_id(dropdown_hierarchy_entry_id);
-
     @media = @taxon_concept.media(sort_order, @dropdown_hierarchy_entry)
     @media = DataObject.custom_filter(@media, @params_type, @params_status) unless @params_type.blank? && @params_status.blank?
-
     @media = promote_exemplar(@media) if @exemplar_image && (@sort_by.blank? ||
       (@sort_by == 'status' && (@params_type.include?('all') || @params_type.include?('images'))))
-
     @sort_by ||= 'status'
     @media_total = @media.count
     @media = @media.paginate(:page => params[:page] || 1, :per_page => $MAX_IMAGES_PER_PAGE)
-
     @watch_collection = logged_in? ? current_user.watch_collection : nil
-
     @assistive_section_header = I18n.t(:assistive_media_header)
-
-
-
+    dropdown_hierarchy_entry_id = params[:hierarchy_entry_id] || ""
+    @dropdown_hierarchy_entry = HierarchyEntry.find_by_id(dropdown_hierarchy_entry_id);
     current_user.log_activity(:viewed_taxon_concept_media, :taxon_concept_id => @taxon_concept.id)
   end
 

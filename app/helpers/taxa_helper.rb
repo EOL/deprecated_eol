@@ -43,7 +43,7 @@ module TaxaHelper
 
   def get_hierarchy_entry_from_path
     fullpath = request.fullpath
-    he_id = fullpath.scan(/entries\/(.*?)\//imu)
+    hierarchy_entry_id = fullpath.scan(/entries\/(.*?)\//imu)
   end
 
   def citables_to_icons(original_citables, params={})

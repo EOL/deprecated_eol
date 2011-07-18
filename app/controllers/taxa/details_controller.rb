@@ -5,17 +5,6 @@ class Taxa::DetailsController < TaxaController
 
   def index
 
-    # map.connect 'pages/:taxon_id/entries/he_id/details',
-    #              :controller => 'taxa',
-    #              :action => 'hierarchy_entry_switch'
-
-    if(params[:he_id])
-      he = HierarchyEntry.find_by_id(params[:he_id])
-      tc_id = he.taxon_concept_id
-      @taxon_concept = TaxonConcept.find_by_id(tc_id)
-    end  
-    
-
     includes = [
       { :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] },
       { :data_objects => { :toc_items => :info_items } },
@@ -47,7 +36,7 @@ class Taxa::DetailsController < TaxaController
 
     @assistive_section_header = I18n.t(:assistive_details_header)
 
-    dropdown_hierarchy_entry_id = params[:he_id] || ""
+    dropdown_hierarchy_entry_id = params[:hierarchy_entry_id] || ""
     @dropdown_hierarchy_entry = HierarchyEntry.find_by_id(dropdown_hierarchy_entry_id);
 
     current_user.log_activity(:viewed_taxon_concept_details, :taxon_concept_id => @taxon_concept.id)

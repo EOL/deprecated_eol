@@ -2,11 +2,7 @@
 class CategoryContentBuilder
 
   def content_for(toc_item, options)
-    #debugger
     sub_name = toc_item.label_as_method_name # TODO - i18n (this won't work without labels like the methods below)
-    if sub_name == "synonyms"
-      #debugger
-    end
     content = self.send(sub_name, options)
     return nil if content.nil? || content.reject{|k,v| v.nil? || v.blank?}.empty?
     content[:toc_item] = toc_item
@@ -30,22 +26,11 @@ class CategoryContentBuilder
   end
 
   def related_names(options)
-    #debugger
     return {:items => TaxonConcept.related_names(options[:taxon_concept].id, options[:hierarchy_entry])}
   end
 
   def synonyms(options)
-    #debugger
-    # TaxonConcept.preload_associations(options[:taxon_concept],
-    #   { :published_hierarchy_entries => [ :name, { :scientific_synonyms => [ :synonym_relation, :name ] } ] },
-    #   :select => {
-    #     :hierarchy_entries => [ :id, :name_id, :hierarchy_id, :taxon_concept_id ],
-    #     :names => [ :id, :string ],
-    #     :synonym_relations => [ :id ] } )
-
     TaxonConcept.preload_associations(options[:taxon_concept], { :published_hierarchy_entries => [ :name, { :scientific_synonyms => [ :synonym_relation, :name ] } ] }, :select => { :hierarchy_entries => [ :id, :name_id, :hierarchy_id, :taxon_concept_id ], :names => [ :id, :string ], :synonym_relations => [ :id ] } )
-
-    #debugger
     return { :items => options[:taxon_concept] }
   end
 

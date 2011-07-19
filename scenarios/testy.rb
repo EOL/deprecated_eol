@@ -9,11 +9,14 @@
 #---
 #dependencies: [ :foundation ]
 
-$CACHE.clear # Not *positive* we need this, but...
 require 'spec/eol_spec_helpers'
 require 'spec/scenario_helpers'
 # This gives us the ability to build taxon concepts:
 include EOL::Spec::Helpers
+
+unless Activity.trusted
+  raise "Translated Activities are missing. Something went wrong with loading the foundation scenario. Try again."
+end
 
 # NOTE - Because this can be pre-loaded, Factory strings will NOT be unique by themselves, so we add a little to them (if
 # they need to be unique)

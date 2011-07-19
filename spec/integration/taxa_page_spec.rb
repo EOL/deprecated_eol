@@ -136,7 +136,7 @@ describe 'Taxa page' do
       body.should have_tag('.article h3', /recognized by the following classifications/i)
       body.should have_tag('.article ul li img[alt=?]', /catalogue of life/i)
     end
-    
+
     it 'should show related names and their sources' do
       visit taxon_names_path(@testy[:taxon_concept])
       # parents
@@ -154,7 +154,7 @@ describe 'Taxa page' do
         with_tag('td:nth-of-type(2)', @testy[:child1].hierarchy_entries.first.hierarchy.label)
       end
     end
-    
+
     it 'should show common names grouped by language with preferred flagged and status indicator' do
       visit common_names_taxon_names_path(@testy[:taxon_concept])
       @common_names = EOL::CommonNameDisplay.find_by_taxon_concept_id(@testy[:taxon_concept].id)
@@ -172,7 +172,7 @@ describe 'Taxa page' do
         with_tag('tbody tr:first-of-type td:nth-of-type(4)', /#{Vetted.find_by_id(@common_names.first.vetted_id).label}/i)
       end
     end
-    
+
     it 'should allow curators to add common names' do
       visit logout_url
       visit common_names_taxon_names_path(@testy[:taxon_concept])
@@ -186,10 +186,10 @@ describe 'Taxa page' do
       click_button 'Add'
       body.should have_tag('td', new_name)
     end
-    
+
     it 'should allow curators to choose a preferred common name for each language'
     it 'should allow curators to change the status of common names'
-    
+
     it 'should show synonyms grouped by their source hierarchy' do
       visit logout_url
       visit synonyms_taxon_names_path(@testy[:taxon_concept])
@@ -202,7 +202,7 @@ describe 'Taxa page' do
       end
     end
   end
-  
+
   # overview tab - taxon_concept
   context 'overview when taxon has all expected data - taxon_concept' do
     before(:all) do

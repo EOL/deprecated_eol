@@ -4,13 +4,13 @@ class Language < SpeciesSchemaModel
   has_many :data_objects
   has_many :users
   has_many :taxon_concept_names
-  
+
   def self.find_active
     cached("active_languages") do
       self.find(:all, :conditions => ['activated_on <= ?', Time.now.to_s(:db)], :order => 'sort_order ASC')
     end
   end
-  
+
   def self.create_english
     e = Language.gen_if_not_exists(:iso_639_1 => 'en', :source_form => 'English')
     TranslatedLanguage.gen_if_not_exists(:label => 'English', :original_language_id => e.id)
@@ -29,10 +29,18 @@ class Language < SpeciesSchemaModel
     cached_find(:iso_639_1, iso)
   end
 
-  def self.find_by_iso_exclusive_scope(iso)
-    with_exclusive_scope do
-      find_by_iso_639_1(iso)
+  # Migrations make it possible that the 'en' will either be in the languages table or its translated table.  This
+  # ensures we grab it from whichever place is currently appropriate
+  def self.english_for_migrations
+    english = nil
+    begin
+      with_exclusive_scope do
+        find_by_iso_639_1('en')
+      end
+    rescue ActiveRecord::StatementInvalid => e
+      english = Language.find_by_sql('SELECT * FROM languages WHERE iso_639_1 = "en"')
     end
+    english
   end
 
   def self.id_from_iso(iso_code)
@@ -46,7 +54,7 @@ class Language < SpeciesSchemaModel
 
   def self.english # because it's a default.  No other language will have this kind of method.
     cached("english") do
-      self.find_by_iso_exclusive_scope('en')
+      self.english_for_migrations # Slightly weird, but... as it implies... needed for migrations.
     end
   end
 

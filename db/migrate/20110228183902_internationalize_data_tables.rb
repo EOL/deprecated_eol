@@ -15,7 +15,7 @@ class InternationalizeDataTables < EOL::DataMigration
 
   def self.up
     EOL::DB::toggle_eol_data_connections(:eol_data)
-    english = Language.find_by_iso_exclusive_scope('en')
+    english = Language.english_for_migrations
     # we need to use SQL to get some numeric types we want (smallint)
 
     # === AgentContactRole

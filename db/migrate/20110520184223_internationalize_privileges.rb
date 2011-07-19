@@ -1,6 +1,6 @@
 class InternationalizePrivileges < ActiveRecord::Migration
   def self.up
-    english = Language.find_by_iso_exclusive_scope('en')
+    english = Language.english_for_migrations
     execute("CREATE TABLE `translated_privileges` (
       `id` int NOT NULL auto_increment,
       `privilege_id` int unsigned NOT NULL,
@@ -21,7 +21,7 @@ class InternationalizePrivileges < ActiveRecord::Migration
   end
 
   def self.down
-    english = Language.find_by_iso_exclusive_scope('en')
+    english = Language.english_for_migrations
     execute('ALTER TABLE `privileges` ADD `name` varchar(255) default "" AFTER `id`') rescue nil
     execute('ALTER TABLE `privileges` ADD `sym` varchar(255) default "" AFTER `id`') rescue nil
     begin

@@ -178,7 +178,7 @@ private
       @collection_items.delete_if {|ci| params['collection_items'].include?(ci.id.to_s) }
     end
     flash[:notice] = I18n.t(:removed_count_items_from_collection_notice, :count => count,
-                            :collection => self.class.helpers.link_to(@collection.name, collection_path(@collection)))
+                            :collection => link_to_name(@collection))
     return redirect_to request.referer
   end
 
@@ -225,7 +225,7 @@ private
           old_collection = items.first.collection
           count = remove_items_from_collection(items)
           flash[:notice] = I18n.t(:removed_count_items_from_collection_notice, :count => count,
-            :collection => self.class.helpers.link_to(old_collection.name, collection_path(old_collection)))
+            :collection => link_to_name(old_collection.name))
         end
         return redirect_to(@collection)
       else
@@ -277,7 +277,7 @@ private
   end
 
   def link_to_name(collection)
-    self.class.helpers.link_to(old_collection.name, collection_path(old_collection)))
+    self.class.helpers.link_to(old_collection.name, collection_path(old_collection))
   end
 
 end

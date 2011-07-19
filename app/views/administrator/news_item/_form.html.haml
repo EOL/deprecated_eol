@@ -1,61 +1,23 @@
 = eol_lang_error_messages_for :news_item
+= javascript_include_tag 'fckeditor/fckeditor'
 :javascript
   var todays_date = '#{Date.today}';
 = javascript_include_tag 'admin-news-item.js'
 %br
 =I18n.t("edit_the_news_item_below___htm", :link => link_to(I18n.t("tinyurl"), 'http://www.tinyurl.com', :target => '_blank'))
-%table
+%table{:width => '100%'}
+  = render(:partial => 'small_form', :locals => { :f => f })
+  = #From here, this is the language dependent part  
   %tr
-    %td{ :valign => "top" }
-      %strong
-        =I18n.t("title_")
-      %br
-      %span#title_remaining_length
-    %td
-      = f.text_field :title, :size => 50, :maxlength => 250, :onkeyup => "javascript:check_title_remaining();"
+    %td{:colspan => 2, :height => 1, :bgcolor => '#000000'}  
   %tr
-    %td{ :valign => "top" }
+    %td{:width => 150} 
       %strong
-        =I18n.t("body_")
-      %br
-      %span#body_remaining_length
+        = I18n.t("language")
     %td
-      = f.text_area :body, {:cols => 50, :onkeyup => "javascript:check_body_remaining();"}
-  %tr
-    %td{ :valign => "top" }
-      %strong
-        =I18n.t("preview")
-    %td
-      #previewed_news_item{:style => 'width:500px'}
-      %br
-      %i
-        =I18n.t("note__the_preview_is_not_exact")
-  %tr
-    %td
-      %strong
-        =I18n.t("news_item_date_as_shown_to_use")
-    %td
-      = f.datetime_select :display_date
-  %tr
-    %td{ :valign => "top" }
-      %strong
-        =I18n.t("news_item_is_visible_on_websit")
-    %td
-      = f.datetime_select :activated_on
-      %br
-      =I18n.t("note_that_all_times_are_utc__g")
-      %br
-      = f.check_box :active
-      =I18n.t("publish_item_based_on_time_set")
-  - if (controller.action_name != 'new' && controller.action_name != 'create') && @news_item.user.nil? == false
-    %tr
-      %td
-        %strong
-          =I18n.t("created_by_")
-      %td
-        = @news_item.user.username + " (" + @news_item.user.given_name + ")"
-  - else
-    = f.hidden_field :user_id, :value => current_user.id
+      = f.select :current_translation_language, @news_item.not_available_in_languages(@news_item.current_translation_language).collect {|l| [l.iso_639_1, l.id]}
+  
+  = render(:partial => 'language_form', :locals => { :f => f })
 %br
 %br
 = cancel_button_goes_back(return_to_url)

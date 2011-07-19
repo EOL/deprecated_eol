@@ -14,7 +14,9 @@ require 'spec/scenario_helpers'
 # This gives us the ability to build taxon concepts:
 include EOL::Spec::Helpers
 
-unless Activity.trusted
+begin
+  Activity.trusted
+rescue
   raise "Translated Activities are missing. Something went wrong with loading the foundation scenario. Try again."
 end
 

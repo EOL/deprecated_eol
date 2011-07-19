@@ -55,7 +55,7 @@ class Privilege < ActiveRecord::Base
       # this runs, so it is undefined after recreating the DB (in which case we hardly need it anyway):
       begin
         TranslatedPrivilege.create(:name => key, :privilege_id => priv.id, :language_id => Language.english.id)
-      rescue ActiveRecord::StatementInvalid => e
+      rescue ActiveRecord::StatementInvalid => e # Missing table
         priv.name = key
         priv.save!
       end

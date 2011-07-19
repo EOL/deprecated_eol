@@ -32,15 +32,15 @@ class Language < SpeciesSchemaModel
   # Migrations make it possible that the 'en' will either be in the languages table or its translated table.  This
   # ensures we grab it from whichever place is currently appropriate
   def self.english_for_migrations
-    english = nil
+    eng_lang = nil
     begin
       with_exclusive_scope do
-        find_by_iso_639_1('en')
+        eng_lang = find_by_iso_639_1('en')
       end
     rescue ActiveRecord::StatementInvalid => e
-      english = Language.find_by_sql('SELECT * FROM languages WHERE iso_639_1 = "en"')
+      eng_lang = Language.find_by_sql('SELECT * FROM languages WHERE iso_639_1 = "en"')
     end
-    english
+    eng_lang
   end
 
   def self.id_from_iso(iso_code)

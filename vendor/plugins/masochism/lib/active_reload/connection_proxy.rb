@@ -22,21 +22,21 @@ module ActiveReload
   end
 
   class ConnectionProxy
-    
+
     def initialize(master_class, slave_class)
       @master  = master_class
       @slave   = slave_class
       @current = :slave
     end
-    
+
     def master
       @slave.connection_handler.retrieve_connection(@master)
     end
-    
+
     def slave
       @slave.retrieve_connection
     end
-    
+
     def current
       if @current == :master
         master
@@ -44,7 +44,7 @@ module ActiveReload
         slave
       end
     end
-    
+
     def self.setup!
       if slave_defined?
         setup_for ActiveReload::MasterDatabase, ActiveReload::SlaveDatabase
@@ -91,14 +91,23 @@ module ActiveReload
 
     def transaction(start_db_transaction = true, &block)
       with_master(start_db_transaction) do
-        master.transaction(start_db_transaction, &block)
+        begin
+          master.transaction(start_db_transaction, &block)
+        rescue ActiveRecord::StatementInvalid => e
+          if e.message =~ /SAVEPOINT/
+            puts "++ SAVEPOINT was missing.  Continuing... but you might want to find out why.  Original error:"
+            puts e.message
+          else
+            raise(e)
+          end
+        end
       end
     end
 
     def method_missing(method, *args, &block)
       current.send(method, *args, &block)
     end
-    
+
     #added by EOL team
     def execute(sql)
       if @current == :master || needs_master?(sql)
@@ -126,7 +135,7 @@ module ActiveReload
   module ActiveRecordConnectionMethods
     def self.included(base)
       # base.alias_method_chain :reload, :master
-      
+
       class << base
         def connection_proxy=(proxy)
           @connection_proxy = proxy

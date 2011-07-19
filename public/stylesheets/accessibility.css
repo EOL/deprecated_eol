@@ -13,6 +13,11 @@
  * so I am temporarily adding some CSS here needed for V2 demo. This CSS should be integrated
  * into HashRocket SASS if it is still needed when design work is complete.
  */
+/*Need some spacing on form elements that come below action buttons e.g. login form */
+fieldset.additional {
+  padding-top: 20px; }
+
+/*will_paginate styling */
 .pagination {
   text-align: right; }
   .pagination a {
@@ -41,11 +46,13 @@
     top: 0 !important;
     left: 0 !important; }
 
+/*Static pages */
 .exemplars ul img, .partners ul img {
   clear: both;
   float: left;
   margin: 0 20px 30px 30px; }
 
+/*warning messages - check HR commits for updates to this */
 p.status.error {
   border: 1px solid red;
   background: pink; }
@@ -54,6 +61,7 @@ p.status.error {
   border: 1px solid #677682;
   background: #8695a1; }
 
+/*Special styles for layering audio description on top of audio thumbnail */
 #media_list #main > ul > li .audio {
   position: relative;
   background: #394651 url("/images/v2/icon_sound_tabs.png") no-repeat 50% 20%;
@@ -84,6 +92,7 @@ p.status.error {
   display: block;
   clear: both; }
 
+/*We share rating partial across many pages so need extra styles here. */
 #taxonomy_detail .average_rating h5 {
   display: inline;
   text-transform: lowercase; }
@@ -108,9 +117,11 @@ p.status.error {
   width: 0;
   background: transparent url("/images/v2/icon_stars.png") 0 100% repeat-x; }
 
+/*We don't want border on EOL abbr tags in the shared join partial */
 .join abbr {
   border: none; }
 
+/*HR z-indexes were messed up in header, also we're putting session partial on home page for logged in users */
 body.home > #header .session {
   position: absolute;
   right: 40px;
@@ -127,17 +138,21 @@ body > #header .section .session .join {
   body > #header .section .session .join a {
     color: #90bce4; }
 
+/*Check latest from HR they might have put IUCN styles in by now. */
 #iucn_status {
   margin-bottom: 20px; }
   #iucn_status h3, #iucn_status p {
     display: inline; }
 
+/*we share attribution across multiple pages my guess is we needed some overrides here */
 #text_summary .attribution {
   font-size: 0.92em; }
   #text_summary .attribution img {
     float: left;
     margin: 2px 10px 0 0; }
 
+/*Our classification is a hierarchichal list whereas HR was just links without hierarchy so we override the styles here
+ * check this is still true after hierarchy entry page design is implemented */
 #classifications_summary li {
   overflow: hidden; }
   #classifications_summary li li p {
@@ -148,6 +163,9 @@ body > #header .section .session .join {
     margin-left: 10px;
     background: transparent url("/images/v2/icon_classification_arrow.png") 0 0 no-repeat; }
 
+/*HR styles assume text descriptions are nicely wrapped in p tags - in reality they may or may not be so we add
+ * extra div.description and assign styles to the div - check this, particularly line-height as we probably need
+ * to remove some HR styles from nested p. Check latest HR and remove the table styles here if possible.* */
 #taxonomy_detail .article .description {
   padding: 0 0 15px 0;
   line-height: 170%; }
@@ -166,6 +184,14 @@ body > #header .section .session .join {
       border-bottom: 1px solid #cccccc; }
   #taxonomy_detail table .odd {
     background-color: #eeeeee; }
+
+/* TODO: this hasn't been really thought out and should be changed: */
+.heading p#empty {
+  font-weight: bold;
+  font-size: 1.2em; }
+
+#sidebar.filters dd li.no_results label {
+  color: #6f7e8b; }
 
 /*
  * TEMPORARY FIX: Forcing image sizes for V2 demo.
@@ -209,13 +235,6 @@ ul.feed li > a > img {
 #sidebar .collection_list img {
   width: 35px;
   height: 35px; }
-#sidebar.filters dd li.no_results label {
-  color: #6f7e8b; }
-
-/* TODO: this hasn't been really thought out and should be changed: */
-.heading p#empty {
-  font-weight: bold;
-  font-size: 1.2em; }
 
 #taxonomy .gallery ul.thumbnails li {
   text-align: center; }

@@ -2,8 +2,10 @@ class UsersController < ApplicationController
 
   layout :users_layout
 
-  before_filter :check_authentication, :only => [:edit]
+  before_filter :authentication_only_allow_editing_of_self, :only => [:edit, :terms_agreement]
   before_filter :check_user_agreed_with_terms, :except => [:terms_agreement, :reset_password]
+  before_filter :redirect_if_already_logged_in, :only => [:new, :create, :register_confirm,
+                                                          :forgot_password, :reset_password]
 
   @@objects_per_page = 20
 
@@ -16,16 +18,15 @@ class UsersController < ApplicationController
   # GET /users/:id/edit
   def edit
     @user = User.find(params[:id])
-    current_user.log_activity(:updated_profile)
-    alter_current_user do |user|
-      # TODO: finish this (from account controller action personal_profile)
-    end
-    render 'show'
   end
 
   # PUT /users/:id
   def update
     @user = User.find(params[:id])
+    current_user.log_activity(:updated_profile)
+    alter_current_user do |user|
+      # TODO: finish this (from account controller action personal_profile)
+    end
   end
 
   # GET users/new or named route /register
@@ -62,7 +63,7 @@ class UsersController < ApplicationController
     end
   end
 
-  # users come here from the activation email they receive named route /register/confirm
+  # GET named route /register/confirm/:username/:validation_code users come here from the activation email they receive after registering
   def register_confirm
     params[:username] ||= ''
     params[:validation_code] ||= ''
@@ -88,6 +89,7 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET and POST for named route /forgot_password
   def forgot_password
     if params[:user] && request.post?
       @username_or_email = params[:user][:username_or_email].strip
@@ -96,38 +98,46 @@ class UsersController < ApplicationController
       store_location(params[:return_to]) unless params[:return_to].nil? # store the page we came from so we can return there if it's passed in the URL
       if @users.size == 1
         user = @users[0]
-        Notifier.deliver_forgot_password_email(user, password_reset_url(user))
-        flash[:notice] =  I18n.t(:reset_password_instructions_emailed, :email => user.email)
+        Notifier.deliver_forgot_password_email(user, generate_password_reset_token(user))
+        flash[:notice] =  I18n.t(:reset_password_instructions_sent_to_email_notice, :email => user.email)
       elsif @users.size > 1
-        render :action => 'multiple_users_with_forgotten_password'
+        render :action => 'forgot_password_choose_username' # renders users/forgot_password_choose_username.haml view
       else
-        flash.now[:notice] =  I18n.t(:cannot_find_user_or_email)
+        flash.now[:error] =  I18n.t(:forgot_password_cannot_find_user_from_username_or_email_error, :username_or_email => params[:user][:username_or_email].strip.sanitize)
       end
     end
   end
 
+  # GET for named route /users/:user_id/reset_password/:id
   def reset_password
     password_reset_token = params[:id]
     user = User.find_by_password_reset_token(password_reset_token)
-    if user
-      is_expired = Time.now > user.password_reset_token_expires_at
-      if is_expired
-        go_to_forgot_password(user)
-      else
-        set_current_user(user)
-        delete_password_reset_token(user)
-        flash[:notice] = I18n.t(:reset_password_please)
-        redirect_to edit_user_path(user)
-      end
+    is_expired = Time.now > user.password_reset_token_expires_at if user
+    delete_password_reset_token(user) if is_expired
+    if ! user || is_expired
+      flash[:error] =  I18n.t(:reset_password_token_expired_error)
+      redirect_to forgot_password_path
     else
-      go_to_forgot_password(nil)
+      set_current_user(user)
+      delete_password_reset_token(user)
+      flash[:notice] = I18n.t(:reset_password_enter_new_password_notice)
+      redirect_to edit_user_path(user)
     end
   end
 
+  # GET and POST for users member /users/:user_id/terms_agreement
   def terms_agreement
-    if request.post?
-      require 'ruby-debug'; debugger
-      puts ''
+    # @user instantiated by authentication before filter and matched to current user
+    if request.post? && params[:commit_agreed]
+      alter_current_user do |user|
+        user.agreed_with_terms = true
+      end
+      redirect_back_or_default(user_path(current_user))
+    else
+      # FIXME: is this the right content for terms agreement and the right call for it?
+      # FIXME: this seems flakey, do we have unique machine names for content rather than page name?
+      page = ContentPage.find_by_page_name('Terms Of Use')
+      @terms = TranslatedContentPage.find_by_content_page_id_and_language_id(page, @user.language_id) unless page.nil?
     end
   end
 
@@ -204,26 +214,30 @@ class UsersController < ApplicationController
 #  end
 
 private
-  def users_layout
-    action_name == 'new' ? 'v2/sessions' : 'v2/users'
+
+  def users_layout # choose an appropriate views layout for an action
+    case action_name
+    when 'new' # /register
+    when 'forgot_password'
+    when 'terms_agreement'
+      'v2/sessions'
+    else
+      'v2/users'
+    end
   end
 
-  def password_reset_url(user)
-    port = ["80", "443"].include?(request.port.to_s) ? "" : ":#{request.port}"
+  def authentication_only_allow_editing_of_self
+    @user = User.find(params[:id])
+    access_denied unless current_user.id == @user.id
+  end
+
+  def generate_password_reset_token(user)
     new_token = User.generate_key
     user.update_attributes(:password_reset_token => new_token, :password_reset_token_expires_at => 24.hours.from_now)
-    http_string = $USE_SSL_FOR_LOGIN ? "https" : "http"
-    "#{http_string}://#{$SITE_DOMAIN_OR_IP}#{port}/users/reset_password/#{new_token}"
   end
 
   def delete_password_reset_token(user)
     user.update_attributes(:password_reset_token => nil, :password_reset_token_expires_at => nil) if user
-  end
-
-  def go_to_forgot_password(user)
-    flash[:notice] =  I18n.t(:expired_reset_password_link)
-    delete_password_reset_token(user)
-    redirect_to :action => "forgot_password", :protocol => "http"
   end
 
 end

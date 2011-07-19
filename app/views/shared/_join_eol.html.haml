@@ -5,4 +5,4 @@
   %p{:class => join_style}= link_to I18n.t(:join_eol_button_html), register_path
   %p
     = I18n.t(:already_a_member_question)
-    = link_to I18n.t(:sign_in), login_url(:return_to => current_url)
+    = link_to I18n.t(:sign_in), login_path

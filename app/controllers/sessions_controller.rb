@@ -15,6 +15,7 @@ class SessionsController < ApplicationController
 
     if success && user.is_a?(User) # authentication successful
       log_in user
+      # return_to may be inappropriate for logged users, e.g. forgot password, place check on destination
       store_location(params[:return_to]) unless params[:return_to].blank?
       redirect_back_or_default(current_user)
     else # authentication unsuccessful
@@ -24,7 +25,6 @@ class SessionsController < ApplicationController
         flash[:error] = I18n.t(:sign_in_unsuccessful_error)
       end
       redirect_to login_path
-
     end
   end
 

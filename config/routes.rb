@@ -51,8 +51,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect 'boom', :controller => 'content', :action => 'error'
 
-  # users and sessions
-  map.resources :users do |user|
+  # users
+  map.resources :users, :member => { :terms_agreement => [ :get, :post ] } do |user|
     user.resource :newsfeed, :only => [:show], :controller => "users/newsfeeds"
     user.resource :activity, :only => [:show], :controller => "users/activities"
     user.resources :collections, :only => [:index], :controller => "users/collections"
@@ -61,16 +61,19 @@ ActionController::Routing::Routes.draw do |map|
   map.register_confirm '/register/confirm/:username/:validation_code',
                        :controller => 'users', :action => 'register_confirm'
   map.forgot_password '/forgot_password', :controller => 'users', :action => 'forgot_password'
-  map.terms_agreement '/terms_agreement', :controller => 'users', :action => 'terms_agreement'
+  # can't add dynamic segment to a member in rails 2.3 so we have to specify a named route here
+  map.reset_password 'users/:user_id/reset_password/:id', :controller => 'users', :action => 'reset_password'
+
+  # sessions
   map.resources :sessions, :only => [:new, :create, :destroy]
   map.login '/login', :controller => 'sessions', :action => 'new'
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
 
 
 
-  map.reset_specific_users_password 'account/reset_specific_users_password',
-                                    :controller => 'account',
-                                    :action => 'reset_specific_users_password'
+#  map.reset_specific_users_password 'account/reset_specific_users_password',
+#                                    :controller => 'account',
+#                                    :action => 'reset_specific_users_password'
   # TODO - I don't like this.  Why don't we just use restful routes here with the 'users' above?
   # WIP - I have created a users conrtroller.  These should move there.
 #  map.with_options(:controller => 'account') do |account|

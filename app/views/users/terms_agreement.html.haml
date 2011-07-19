@@ -1,9 +1,7 @@
-%h1= I18n.t(:terms_agreement)
-
-- form_for :user do |f|
+- form_for @user, :url => terms_agreement_user_path(@user), :html => {:method => :post}  do |f|
   %fieldset
-    = f.check_box :agreed_with_terms
-    = f.label :user_agreed_with_terms, I18n.t(:agree_with_terms)
-  %fieldset
-    = f.submit I18n.t(:i_agree)
-    = link_to  I18n.t(:cancel) , :action => 'logout'
+    %h1= I18n.t(:terms_agreement_form_header)
+    = @terms.main_content
+  %fieldset.actions
+    = f.submit I18n.t(:terms_agreement_form_submit), :name => :commit_agreed
+    = link_to  I18n.t(:cancel) , logout_path

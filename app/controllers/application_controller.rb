@@ -96,11 +96,6 @@ class ApplicationController < ActionController::Base
     return redirect_to(login_path(:return_to => params[:return_to]))
   end
 
-  def access_denied
-    flash[:warning] = I18n.t(:you_are_not_authorized_to_perform_this_action)
-    return redirect_to(root_path)
-  end
-
   def view_helper_methods
     Helper.instance
   end
@@ -469,9 +464,13 @@ class ApplicationController < ActionController::Base
   end
   alias is_curator is_curator?
 
-  # used as a before_filter on methods that you don't want users to see if they are logged in (such as the login or register page)
+  # used as a before_filter on methods that you don't want users to see if they are logged in
+  # such as the sessions#new, users#new, users#forgot_password etc
   def redirect_if_already_logged_in
-    redirect_to(current_user) if logged_in?
+    if logged_in?
+      flash[:notice] = I18n.t(:destination_inappropriate_for_logged_in_users)
+      redirect_to(current_user)
+    end
   end
 
   def must_log_in
@@ -489,7 +488,9 @@ class ApplicationController < ActionController::Base
   # A user is not authorized for the particular controller based on the rights for the roles they are in
   def access_denied
     flash.now[:warning] = I18n.t(:you_are_not_authorized_to_perform_this_action)
-    request.env["HTTP_REFERER"] ? (redirect_to :back) : (redirect_to root_url)
+    return_to = request.referer
+    store_location(return_to) unless return_to.blank?
+    redirect_back_or_default
   end
 
   # Set the current language
@@ -514,10 +515,12 @@ class ApplicationController < ActionController::Base
     @session_secondary_hierarchy = secondary_hierarchy_id.nil? ? nil : Hierarchy.find(secondary_hierarchy_id)
   end
 
+  # logged in users will be redirected to terms agreement if they have not yet accepted.
   def check_user_agreed_with_terms
-    return if !current_user.id || current_user.agreed_with_terms
-    store_location
-    redirect_to terms_agreement_url
+    if logged_in? && ! current_user.agreed_with_terms
+      store_location
+      redirect_to terms_agreement_user_path(current_user)
+    end
   end
 
 private

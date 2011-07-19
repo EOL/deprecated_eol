@@ -26,8 +26,10 @@ class SearchController < ApplicationController
       current_user.log_activity(:text_search_on, :value => params[:q])
       if params[:mobile_search] && !mobile_disabled_by_session?
         if @all_results.length == 1 && @all_results.total_entries == 1
-          mobile_taxon_path(@all_results.first["resource_id"])
+          redirect_to mobile_taxon_path(@all_results.first["resource_id"])
+          puts "==================================================== SINGOLO ========================"
         else
+          #@media = promote_exemplar(@taxon_concept.media)
           render :template => 'mobile/search/index', :layout => "#{RAILS_ROOT}/app/views/mobile/layouts/main_mobile.html.haml"
         end
       elsif @all_results.length == 1 && @all_results.total_entries == 1

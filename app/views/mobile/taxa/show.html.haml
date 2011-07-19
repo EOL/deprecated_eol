@@ -5,7 +5,8 @@
 %div{"data-role"=>"content"}
   %h3=@taxon_concept.title(@session_hierarchy) unless @taxon_concept.title(@session_hierarchy).blank?
   %div.image_container
-    %img{:src => @media.first.original_image}  
+    - first_image = @media.select {|m| m.image?}.first
+    = image_tag first_image.blank? ? "/images/v2/icon_taxon.png" : first_image.original_image 
 
 #taxonomy{"data-role"=>"content"}
   .snippet

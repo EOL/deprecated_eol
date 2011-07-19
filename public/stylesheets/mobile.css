@@ -6,20 +6,25 @@
 	display: block;
     margin-left: auto;
     margin-right: auto;
-	background-color: #FFFFFF;
+	background-color: #fff;
 	border: 3px solid white;
+	border-radius: 5px 5px 5px 5px;
+}
+li.with_thumbs img {
+	background-color: #fff;
+	border: 3px solid #2F3E46;
 	border-radius: 5px 5px 5px 5px;
 }
 #image_gallery a img {
 	max-width:100%;
-	background-color: #FFFFFF;
+	background-color: #fff;
 	border: 3px solid white;
 	border-radius: 5px 5px 5px 5px;
 	margin: 5px;
 }
 #video_gallery img {
 	max-width:100%;
-	background-color: #FFFFFF;
+	background-color: #fff;
 	border: 3px solid white;
 	border-radius: 5px 5px 5px 5px;
 	margin: 5px;

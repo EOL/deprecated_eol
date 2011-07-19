@@ -1,20 +1,10 @@
 #content
-  #page-separator-general
-  #page-title{:style => 'margin-bottom:2em;'}
-    %h1
-      =params[:translated_title] 
-    %hr
-    %h2
-      =I18n.t("preview_only__")
+  .site_column
+    - # TODO: This view assumes a basic HashRocket CMS page which only has one column
+    - # we should figure out whether that is appropriate for all cases of content being passed
+    - # through the content_controller page method
+    = #@navigation_tree_breadcrumbs
+    .article.copy.cms_page
+      = params[:page][:translated_main_content]
       %a{ :href => "#", :onclick => "javascript:window.close();return false;" }
         =I18n.t("close_this_window_to_return_to")
-  %div{ :id => params[:page][:translated_left_content] == '' ? '' : 'page-content-bgfauxinside' }
-    #page-content.clearfix
-      #full-page-content
-        - if params[:page][:translated_left_content] != ''
-          #left-pane
-            = params[:page][:translated_left_content]
-          #right-pane
-            = params[:page][:translated_main_content]
-        - else
-          = params[:page][:translated_main_content]

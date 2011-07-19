@@ -55,8 +55,8 @@ class Administrator::ContentPageController < AdminController
  # pull the updated content from the querystring to build the preview version of the page 
  def preview
    #@content = ContentPage.new(params[:page])
-   render :layout => 'admin_without_nav'
-	 @page_title = I18n.t("update_page")
+   render :layout => 'v2/basic'
+	 @page_title = params[:page][:translated_main_content]
  end
  
  def new

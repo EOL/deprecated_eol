@@ -19,7 +19,6 @@ class CollectionsController < ApplicationController
   end
 
   def show
-    dbg "## SHOW"
     return copy if params[:commit_copy_collection_items]
   end
 
@@ -62,7 +61,6 @@ class CollectionsController < ApplicationController
   end
 
   def edit
-    dbg "## EDIT"
     @head_title = I18n.t(:edit_collection_head_title, :collection_name => @collection.name) unless @collection.blank?
     if @field = params[:field]
       @field_id = $1 # NOTE - this will be nil if there was no match, of course.
@@ -75,7 +73,6 @@ class CollectionsController < ApplicationController
 
   # When is an update not really an update?  When we clicked a different button.  There are (way too) many:
   def update
-    dbg "## UPDATE"
     return real_update if params[:commit_edit_collection]
     return copy if params[:commit_copy_collection_items]
     return move if params[:commit_move_collection_items]
@@ -90,7 +87,6 @@ class CollectionsController < ApplicationController
 
   # NOTE - I haven't really implemented this one yet.
   def destroy
-    dbg "## DESTROY"
     if @collection.special?
       flash[:error] = I18n.t(:special_collections_cannot_be_destroyed)
       return redirect_to request.referer
@@ -104,7 +100,6 @@ class CollectionsController < ApplicationController
 
   # /collections/choose GET
   def choose
-    dbg "## CHOOSE"
     @action_to_take = :copy if params[:for] == 'copy'
     @action_to_take = :move if params[:for] == 'move'
     @all = params[:all_items_from_collection_id]
@@ -117,8 +112,6 @@ class CollectionsController < ApplicationController
 private
 
   def find_collection
-    dbg "#" * 300
-    dbg "## FIND_COLLECTION"
     begin
       @collection = Collection.find(params[:id], :include => :collection_items)
     rescue ActiveRecord::RecordNotFound
@@ -157,7 +150,6 @@ private
   end
 
   def copy(all = false)
-    dbg "## COPY"
     if all
       params[:all_items_from_collection_id] = @collection.id
     else
@@ -168,7 +160,6 @@ private
   end
 
   def move(all = false)
-    dbg "## MOVE"
     if all
       params[:all_items_from_collection_id] = @collection.id
     else
@@ -179,7 +170,6 @@ private
   end
 
   def remove(all = false)
-    dbg "## REMOVE"
     if all
       count = remove_items_from_collection(@collection.collection_items)
     else
@@ -193,7 +183,6 @@ private
   end
 
   def real_update
-    dbg "## REAL_UPDATE"
     if @collection.update_attributes(params[:collection])
       respond_to do |format|
         format.html do
@@ -224,7 +213,6 @@ private
   end
 
   def chosen
-    dbg "## CHOSEN"
     if params[:copy] || params[:move]
       items = if params[:all_items_from_collection_id]
                 CollectionItem.find_all_by_collection_id(params[:all_items_from_collection_id])
@@ -248,7 +236,6 @@ private
   end
 
   def copy_collection_items(collection_items)
-    dbg "## COPY_COLLECTION_ITEMS"
     already_have = @collection.collection_items.map {|i| [i.object_id, i.object_type]}
     new_collection_items = []
     collection_items.each do |collection_item|
@@ -289,7 +276,8 @@ private
     return count
   end
 
-  def dbg(what)
-    #puts what
+  def link_to_name(collection)
+    self.class.helpers.link_to(old_collection.name, collection_path(old_collection)))
   end
+
 end

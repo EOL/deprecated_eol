@@ -13,7 +13,7 @@ class Taxa::OverviewsController < TaxaController
     selects = {
       :taxon_concepts => '*',
       :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
-      :names => [ :string, :italicized, :canonical_form_id ],
+      :names => [ :string, :italicized, :canonical_form_id, :ranked_canonical_form_id ],
       :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
       :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
       :vetted => :view_order,
@@ -27,8 +27,8 @@ class Taxa::OverviewsController < TaxaController
     options = { :limit => 1 }
     @summary_text = @taxon_concept.text_objects_for_toc_items(toc_items, options)
 
-    @dropdown_hierarchy_entry_id = params[:hierarchy_entry_id] || ""
-    @dropdown_hierarchy_entry = HierarchyEntry.find_by_id(@dropdown_hierarchy_entry_id) || nil;
+    @dropdown_hierarchy_entry_id = params[:hierarchy_entry_id]
+    @dropdown_hierarchy_entry = HierarchyEntry.find_by_id(@dropdown_hierarchy_entry_id) rescue nil
     if @dropdown_hierarchy_entry
       @recognized_by = recognized_by
     end

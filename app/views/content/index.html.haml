@@ -11,29 +11,29 @@
           %ul
             %li.taxon
               %dl
-                %dd= total_count("taxon_concepts")
+                %dd= number_with_delimiter(total_count("taxon_concepts"), :delimiter => ",")
                 %dt= I18n.t(:taxa)
               = link_to I18n.t(:what_is_a_taxon), "/placeholder"
             - # TODO - Add proper members class & icon instead of contributors
             %li.contributors
               %dl
-                %dd= total_count("users")
+                %dd= number_with_delimiter(total_count("users"), :delimiter => ",")
                 %dt= I18n.t(:members_like_you)
               = link_to I18n.t(:learn_how_to_join), "/placeholder"
             - # TODO - Add proper collections class & icon instead of communities 
             %li.communities
               %dl
-                %dd= total_count("collections")
+                %dd= number_with_delimiter(total_count("collections"), :delimiter => ",")
                 %dt= I18n.t(:collections)
               = link_to I18n.t(:learn_how_to_interact), "/placeholder"
             %li.images
               %dl
-                %dd= total_count("data_objects")
+                %dd= number_with_delimiter(total_count("data_objects"), :delimiter => ",")
                 %dt= I18n.t(:images)
               = link_to I18n.t(:learn_how_to_contribute), "/placeholder"
             %li.partners
               %dl
-                %dd= total_count("content_partners")
+                %dd= number_with_delimiter(total_count("content_partners"), :delimiter => ",")
                 %dt= I18n.t(:content_partners)
               = link_to I18n.t(:learn_about_content_partners), "/placeholder"
         .article.community

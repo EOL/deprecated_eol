@@ -101,12 +101,12 @@
         %h3.assistive= I18n.t(:explore)
         .thumbnails
           %ul
-            = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 0 }
-            = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 1 }
-            = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 2 }
-            = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 3 }
-            = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 4 }
-            = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 5, :last => true }
+            = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 0, :total => 6 }
+            = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 1, :total => 6 }
+            = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 2, :total => 6 }
+            = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 3, :total => 6 }
+            = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 4, :total => 6 }
+            = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 5, :total => 6 }
           .term
             .site_column
               %p

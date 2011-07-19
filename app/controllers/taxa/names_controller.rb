@@ -46,7 +46,7 @@ private
     selects = {
       :taxon_concepts => '*',
       :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
-      :names => [ :string, :italicized, :canonical_form_id ],
+      :names => [ :string, :italicized, :canonical_form_id, :ranked_canonical_form_id ],
       :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
       :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
       :vetted => :view_order,

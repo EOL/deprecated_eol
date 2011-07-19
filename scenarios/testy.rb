@@ -32,6 +32,7 @@ testy[:brief_summary_text] = 'This is a test brief summary.'
 testy[:toc_item_2]      = TocItem.gen_if_not_exists(:view_order => 2, :label => "test toc item 2")
 testy[:toc_item_3]      = TocItem.gen_if_not_exists(:view_order => 3, :label => "test toc item 3")
 testy[:canonical_form]  = Factory.next(:species) + 'tsty'
+testy[:ranked_canonical_form] = Factory.next(:species) + ' var. tsty'
 testy[:attribution]     = Faker::Eol.attribution
 testy[:common_name]     = Faker::Eol.common_name.firstcap + 'tsty'
 testy[:unreviewed_name] = Faker::Eol.common_name.firstcap + 'tsty'
@@ -57,6 +58,7 @@ tc = build_taxon_concept(
   :parent_hierarchy_entry_id => testy[:empty_taxon_concept].hierarchy_entries.first.id,
   :rank            => 'species',
   :canonical_form  => testy[:canonical_form],
+  :ranked_canonical_form => testy[:ranked_canonical_form],
   :attribution     => testy[:attribution],
   :scientific_name => testy[:scientific_name],
   :italicized      => testy[:italicized],

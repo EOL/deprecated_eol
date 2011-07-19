@@ -2,7 +2,6 @@
   = javascript_include_tag "permalink"
 
 - en_type ||= en_type(@data_object)
-- en_mime_type = @data_object.mime_type.label('en')
 #permalink{:class => en_type}
   .ratings
     = render :partial => 'rating', :locals => { :data_object => @data_object, :en_type => en_type }
@@ -20,6 +19,7 @@
               %strong= I18n.t("#{size.to_s}_size")
               - # MISSING: image dimensions are shown in design, we do not currently have them
   - if @data_object.is_sound?
+    - en_mime_type = @data_object.mime_type ? @data_object.mime_type.label('en') : DataType.sound.simple_type
     %ul.sizes
       %li= link_to I18n.t("download_#{en_mime_type.sub(/\//, '_')}"), @data_object.sound_url, { :title => I18n.t("download_#{en_mime_type.sub(/\//, '_')}_assistive") }
   #main

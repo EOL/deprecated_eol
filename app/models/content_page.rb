@@ -60,7 +60,7 @@ class ContentPage < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def self.get_by_id_and_language_abbr(id, language_abbr)
-    language = Language.find_by_iso_639_1(language_abbr)
+    language = Language.from_iso(language_abbr)
     #self.set_translation_language(language)    
     language_page = self.find_by_id_and_active(id, true)
     #if langauge_page.nil? # No page for this language, use English
@@ -71,7 +71,7 @@ class ContentPage < $PARENT_CLASS_MUST_USE_MASTER
   end
   
   def self.find_all_by_language_abbr_and_active(language_abbr, active)
-    language = Language.find_by_iso_639_1(language_abbr)
+    language = Language.from_iso(language_abbr)
     #self.set_translation_language(language)
     language_pages = self.find_all_by_active(true)
     if language_pages.nil? # Langauge doesn't have pages for this section, try English

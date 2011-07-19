@@ -460,7 +460,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   # set the language from the abbreviation
   def language_abbr=(value)
-    self.language = Language.find_by_iso_639_1(value.downcase)
+    self.language = Language.from_iso(value.downcase)
   end
 
   # grab the language abbreviation
@@ -602,7 +602,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def rating_for_object_guid(guid)
-    UsersDataObjectsRating.find_by_data_object_guid_and_user_id(guid, self.id)
+    UsersDataObjectsRating.find_by_data_object_guid_and_user_id(guid, self.id, :order => 'id desc')
   end
   
   def rating_for_object_guids(guids)

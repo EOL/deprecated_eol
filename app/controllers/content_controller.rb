@@ -12,17 +12,10 @@ class ContentController < ApplicationController
   def index
     @home_page = true
     current_user.log_activity(:viewed_home_page)
-    @explore_taxa = $CACHE.fetch('homepage/random_images') do
-      @explore_taxa = RandomHierarchyImage.random_set(42)
+    @explore_taxa = $CACHE.fetch('homepage/random_images', :expires_in => 30.minutes) do
+      @explore_taxa = RandomHierarchyImage.random_set(60)
     end
     @explore_taxa.shuffle!
-    
-    unless @cached_fragment = read_fragment(:controller => 'content', :part => 'home_' + current_user.content_page_cache_str)
-      @content = ContentPage.get_by_page_name_and_language_abbr('Home', current_user.language_abbr)
-      raise "static page content not found" if @content.nil?
-      # get top news items less then a predetermined number of weeks old
-      @news_items = NewsItem.find_all_by_active(true, :limit => $NEWS_ITEMS_HOMEPAGE_MAX_DISPLAY, :order => 'display_date desc', :conditions => 'display_date >= "' + $NEWS_ITEMS_TIMEOUT_HOMEPAGE_WEEKS.weeks.ago.to_s(:db) + '"')
-    end
   end
 
   # just shows the top set of species --- can be included on other websites
@@ -248,7 +241,7 @@ class ContentController < ApplicationController
         raise "static page content #{@page_id} for #{current_user.language_abbr} not found"
       else
         @navigation_tree_breadcrumbs = ContentPage.get_navigation_tree_with_links(@content.id)
-        current_language = Language.find_by_iso_639_1(current_user.language_abbr)
+        current_language = Language.from_iso(current_user.language_abbr)
         @translated_content = TranslatedContentPage.find_by_content_page_id_and_language_id(@content.id, current_language.id)
         if @translated_content.nil?
           @page_title = I18n.t("cms_missing_content_title")

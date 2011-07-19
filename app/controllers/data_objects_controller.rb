@@ -139,6 +139,7 @@ class DataObjectsController < ApplicationController
     @taxon_concepts = @data_object.get_taxon_concepts(:published => :preferred)
     @scientific_names = @taxon_concepts.inject({}) { |res, tc| res[tc.scientific_name] = { :common_name => tc.common_name, :taxon_concept_id => tc.id }; res }
     @image_source = get_image_source if @data_object.is_image?
+    @current_user_ratings = logged_in? ? current_user.rating_for_object_guids([@data_object.guid]) : {}
   end
 
   # GET /data_objects/1/attribution

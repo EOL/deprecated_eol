@@ -4,9 +4,13 @@ class Language < SpeciesSchemaModel
   has_many :data_objects
   has_many :users
   has_many :taxon_concept_names
-
-  named_scope :find_active, lambda { { :conditions => ['activated_on <= ?', Time.now.to_s(:db)], :order => 'sort_order ASC' } }
-
+  
+  def self.find_active
+    cached("active_languages") do
+      self.find(:all, :conditions => ['activated_on <= ?', Time.now.to_s(:db)], :order => 'sort_order ASC')
+    end
+  end
+  
   def self.create_english
     e = Language.gen_if_not_exists(:iso_639_1 => 'en', :source_form => 'English')
     TranslatedLanguage.gen_if_not_exists(:label => 'English', :original_language_id => e.id)
@@ -41,7 +45,9 @@ class Language < SpeciesSchemaModel
   end
 
   def self.english # because it's a default.  No other language will have this kind of method.
-    self.find_by_iso_exclusive_scope('en')
+    cached("english") do
+      self.find_by_iso_exclusive_scope('en')
+    end
   end
 
   def self.unknown

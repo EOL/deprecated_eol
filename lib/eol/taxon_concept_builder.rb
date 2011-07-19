@@ -161,8 +161,9 @@ module EOL
     def gen_canonical_name
       puts "** Enter: gen_canonical_name" if @debugging
       @cform = CanonicalForm.find_by_string(@canon) || CanonicalForm.gen(:string => @canon)
-      @sname = Name.find_by_string(@complete) || Name.gen(:canonical_form => @cform, :string => @complete,
-                        :italicized     => @italicized || "<i>#{@canon}</i> #{@attri}".strip)
+      @rcform = CanonicalForm.find_by_string(@ranked_canonical_form) || CanonicalForm.gen(:string => @ranked_canonical_form)
+      @sname = Name.find_by_string(@complete) || Name.gen(:canonical_form => @cform, :ranked_canonical_form => @rcform,
+        :string => @complete, :italicized => @italicized || "<i>#{@canon}</i> #{@attri}".strip)
     end
 
     # TODO - add some alternate names, including at least one in another language.
@@ -358,6 +359,7 @@ module EOL
       @common_names = options[:common_names]    || [] # MOST entries should NOT have a common name.
       @comments     = options[:comments]
       @canon        = options[:canonical_form]  || Factory.next(:scientific_name)
+      @ranked_canonical_form = options[:ranked_canonical_form] || @canon
       @complete     = options[:scientific_name] || "#{@canon} #{@attri}".strip
       @depth        = options[:depth]
       @event        = options[:event]           || default_harvest_event # Note this method is in eol_spec_helper

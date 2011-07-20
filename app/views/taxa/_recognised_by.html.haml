@@ -6,12 +6,16 @@
     - hierarchies.each do |hierarchy|
       - if hierarchy.agent.logo_url
         - hierarchy_agent = image_tag hierarchy.agent.logo_url(:small), :alt => hierarchy.agent.full_name
+        - hierarchy_agent << " " << hierarchy.agent.full_name
       - else
         - hierarchy_agent = hierarchy.agent.full_name
       - # NOTE: We're just getting the first matching hierarchy entry for this hierarchy
       - hierarchy_entry = @taxon_concept.published_hierarchy_entries.find_by_hierarchy_id(hierarchy.id)
       - if hierarchy_entry.agents.blank?
-        %li= hierarchy_agent
+        %li
+          = hierarchy_agent << " ["
+          = link_to I18n.t(:hierarchy_entry_taxon_page), taxon_hierarchy_entry_overview_path(@taxon_concept, hierarchy_entry)
+          = "]"
       - else
         - hierarchy_entry.agents.each do |hierarchy_entry_agent|
           %li= I18n.t(:entry_agent_in_hierarchy_agent, :entry_agent => hierarchy_entry_agent.full_name, :hierarchy_agent => hierarchy_agent)

@@ -66,15 +66,16 @@ class TaxaController < ApplicationController
 
   def prepare_hierarchy_entry_switch
     hierarchy_entry_id = params[:user][:default_hierarchy_entry_id] || ""
-    orig_tc_id = params[:orig_tc_id]    
-    if !hierarchy_entry_id.nil?
-      return redirect_to("/pages/#{orig_tc_id}/entries/#{hierarchy_entry_id}/overview");  
+    orig_tc_id = params[:orig_tc_id]
+    return_to = params[:return_to] + "/"
+    tab = return_to.scan(/#{params[:old_he_id]}\/(.*?)\//imu)
+    if !hierarchy_entry_id.blank?
+      return redirect_to("/pages/#{orig_tc_id}/entries/#{hierarchy_entry_id}/#{tab[0][0]}");
     else
-      redirect_back_or_default
-      return
-    end    
+      return redirect_to("/pages/#{orig_tc_id}/#{tab[0][0]}");
+    end
   end
-  
+
   # page that will allows a non-logged in user to change content settings
   def settings
 

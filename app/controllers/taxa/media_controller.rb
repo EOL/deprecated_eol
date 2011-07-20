@@ -47,8 +47,9 @@ class Taxa::MediaController < TaxaController
 
     @watch_collection = logged_in? ? current_user.watch_collection : nil
     @assistive_section_header = I18n.t(:assistive_media_header)
-    dropdown_hierarchy_entry_id = params[:hierarchy_entry_id] || ""
-    @dropdown_hierarchy_entry = HierarchyEntry.find_by_id(dropdown_hierarchy_entry_id);
+    @dropdown_hierarchy_entry_id = params[:hierarchy_entry_id]
+    @dropdown_hierarchy_entry = HierarchyEntry.find_by_id(@dropdown_hierarchy_entry_id) rescue nil
+    @hierarchy_entries_to_offer = @taxon_concept.published_hierarchy_entries
     current_user.log_activity(:viewed_taxon_concept_media, :taxon_concept_id => @taxon_concept.id)
   end
 

@@ -54,7 +54,8 @@ private
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
     @hierarchies = @taxon_concept.published_hierarchy_entries.collect{|he| he.hierarchy if he.hierarchy.browsable}.uniq
     # TODO: Eager load hierarchy entry agents?
-    @dropdown_hierarchy_entry_id = params[:hierarchy_entry_id] || ""
-    @dropdown_hierarchy_entry = HierarchyEntry.find_by_id(@dropdown_hierarchy_entry_id);
+    @dropdown_hierarchy_entry_id = params[:hierarchy_entry_id]
+    @dropdown_hierarchy_entry = HierarchyEntry.find_by_id(@dropdown_hierarchy_entry_id) rescue nil
+    @hierarchy_entries_to_offer = @taxon_concept.published_hierarchy_entries
   end
 end

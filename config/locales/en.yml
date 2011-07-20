@@ -928,6 +928,7 @@ en:
   hide_for_all_except_curators: "Hide for all except curators"
   hide: "hide"
   hide__other__slice: "Hide 'Other' Slice"
+  hierarchy_entry_taxon_page: "hierarchy entry taxon page"
   hierarachyentryid_: "HierarachyEntryID:"
   hierarchies: "hierarchies"
   hierarchies_: "Hierarchies"

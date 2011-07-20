@@ -371,9 +371,9 @@ tc31 = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common
 )
 
 curator_for_tc31 = build_curator(tc31, :username => 'curator_for_tc', :password => 'password')
-
 text_dato = tc31.overview.first # TODO - this doesn't seem to ACTAULLY be the overview.  Fix it?
 image_dato = tc31.images.first
+
 # rating of old version of dato was 1
 text_dato.rate(curator_for_tc31, 1)
 image_dato.rate(curator_for_tc31, 1)

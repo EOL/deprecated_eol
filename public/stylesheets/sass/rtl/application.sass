@@ -112,7 +112,7 @@ ul.tabs
     &.active
       border-color: #93a4b0
       border-left-color: #ffffff
-      background: #ffffff
+      +gradient-bg-horizontal(#fff, #fff)
       a
         color: #28323a
     &.total
@@ -162,6 +162,77 @@ p.status
   background: #edf6b2
   a
     color: #394651
+  strong
+    text-decoration: underline
+    color: #809203
+  &.neutral
+    border-color: #cad3db
+    background: #f1f4f7
+    strong
+      color: #195184
+  &.negative
+    border-color: #f2d2cc
+    background: #ffeae6
+    strong
+      color: #e84226
+
+.copy
+  &.cms_page
+    padding: 40px 40px 25px 40px
+    border: 1px solid #cad3db
+    margin: 0 0 0 60px
+    img
+      float: left
+      padding: 10px
+      border: 1px solid #cad3db
+      margin: 0 20px 20px 0
+  h2
+    margin: 0 0 15px 0
+    font-size: 1.5em
+  h3
+    margin: 0 0 15px 0
+    font-size: 1.2em
+  h4
+    margin: 0 0 15px 0
+    font-size: 1em
+  p
+    margin: 0 0 15px 0
+    line-height: 170%
+  ul, ol
+    margin: 0 40px 15px 40px
+    line-height: 170%
+    li
+      margin: 0 0 10px 0
+      list-style-type: disc
+  ol li
+    list-style-type: decimal
+  blockquote
+    background: #eff2f4
+    border: 1px solid #cad3db
+    margin: 0 -20px 25px -20px
+    padding: 15px 20px 0 20px
+  p, ul, ol, blockquote
+    & + h2,
+    & + h3,
+    & + h4
+      padding-top: 20px
+  table
+    border-collapse: collapse
+    width: 100%
+    margin: 0 0 15px 0
+    thead
+      tr
+        border: 1px solid #cad3db
+        th
+          background: #eff2f4
+          padding: 5px 0 0 20px
+          font-weight: bold
+          text-align: right
+    tbody
+      tr
+        border: 1px solid #cad3db
+        td
+          padding: 5px 0 0 20px
 
 .article
   padding: 0 10px 25px 10px
@@ -180,29 +251,24 @@ p.status
       padding: 2px 0 0 0
       font-weight: bold
       text-transform: lowercase
-  &.copy
-    h2
-      padding: 0 0 25px 0
-      font-size: 1.5em
+
+  .meta
+    clear: both
+    padding: 0 0 20px 0
+    overflow: hidden
+    font-size: .92em
+    img
+      float: right
+      margin: 0 0 0 10px
     p
-      padding: 0 0 15px 0
-      line-height: 170%
-    .meta
-      clear: both
-      padding: 0 0 20px 0
-      overflow: hidden
-      font-size: .92em
-      img
-        float: right
-        margin: 0 0 0 10px
-      p
-        float: right
-        padding: 0
-        line-height: 120%
-        + p
-          display: list-item
-          margin: 0 25px 0 0 
-          list-style: disc      
+      float: right
+      margin: 0
+      line-height: 120%
+      + p
+        display: list-item
+        margin: 0 25px 0 0
+        list-style: disc
+        
   &.list
     li
       overflow: hidden
@@ -286,6 +352,7 @@ p.status
   font-weight: bold
   p
     float: right
+    margin: 0
   .rating
     float: right
     width: 80px
@@ -294,6 +361,7 @@ p.status
     p
       height: 13px
       font-size: 0
+      margin: 0
       text-indent: -8685px
       text-decoration: none
       background: transparent url("/images/v2/icon_stars.png") right 50% repeat-x
@@ -309,6 +377,31 @@ p.status
     &.four
       p
         width: 80%
+
+.taxon
+  span.icon
+    background: #f3f7fa url("/images/v2/icon_taxa_tabs.png") 50% 50% no-repeat
+.video
+  span.icon
+    background: #f3f7fa url("/images/v2/icon_videos_tabs.png") 50% 50% no-repeat
+.image
+  span.icon
+    background: #f3f7fa url("/images/v2/icon_images_tabs.png") 50% 50% no-repeat
+.community
+  span.icon
+    background: #f3f7fa url("/images/v2/icon_communities_tabs.png") 50% 50% no-repeat
+.person
+  span.icon
+    background: #f3f7fa url("/images/v2/icon_people_tabs.png") 50% 50% no-repeat
+.collection
+  span.icon
+    background: #f3f7fa url("/images/v2/icon_collections_tabs.png") 50% 50% no-repeat
+.article
+  span.icon
+    background: #f3f7fa url("/images/v2/icon_articles_tabs.png") 50% 50% no-repeat
+.sound
+  span.icon
+    background: #f3f7fa url("/images/v2/icon_sound_tabs.png") 50% 50% no-repeat
 
 ul.object_list
   + .header
@@ -331,7 +424,6 @@ ul.object_list
       border: 1px solid #cad3db
       float: right
       margin: 0 0 0 20px
-      background: center no-repeat #f3f7fa
     h4
       margin-top: 15px
       font-size: 1.2em
@@ -344,33 +436,58 @@ ul.object_list
       float: left
       border: 1px solid #394651
     &.taxon
-      span.icon
-        background-image: url("/images/v2/icon_taxa_tabs.png")
-    &.video
-      span.icon
-        background-image: url("/images/v2/icon_videos_tabs.png")
-    &.image
-      span.icon
-        background-image: url("/images/v2/icon_images_tabs.png")
-    &.community
-      span.icon
-        background-image: url("/images/v2/icon_communities_tabs.png")
-    &.person
-      span.icon
-        background-image: url("/images/v2/icon_people_tabs.png")
-    &.collection
-      span.icon
-        background-image: url("/images/v2/icon_collections_tabs.png")
-    &.article
-      span.icon
-        background-image: url("/images/v2/icon_articles_tabs.png")
-    &.taxon
       small
         font-weight: bold
         display: block
         margin-top: 8px
       h4
         margin: 0
+
+table.names
+  width: 100%
+  margin: 0 0 20px 0
+  border: 1px solid #cad3db
+  border-spacing: 0
+  border-collapse: collapse
+  th
+    padding: 7px 20px 7px 0
+    text-align: right
+    vertical-align: top
+    border-bottom: 1px solid #cad3db
+  thead
+    th
+      background: #eff2f4
+  td
+    padding: 7px 20px 7px 0
+    line-height: 170%
+    vertical-align: top
+    border-bottom: 1px solid #cad3db
+    a
+      font-weight: bold
+
+form.select_content_partner
+  padding: 5px 0
+  text-align: center
+  color: #394651
+  border: 1px solid #c7d471
+  background: #edf6b2
+  p
+    display: inline
+    font-size: 1.16em
+    font-weight: bold
+  input[type="submit"]
+    +button
+    padding: 3px 0 0 10px
+    font-size: .92em
+
+ul.classification
+  li
+    line-height: 160%
+  > li
+    > a
+      font-weight: bold
+  ul
+    padding: 0 10px 0 0 
         
 body
   > #header
@@ -402,7 +519,7 @@ body
           float: left
           margin: 0 10px 0 0 
           border: 1px solid #cad3db
-        .details
+        .details, .sign_in
           overflow: hidden
           padding: 5px 0 0 0
           font-size: .92em
@@ -418,21 +535,27 @@ body
             a
               color: #90bce4
               text-decoration: none
-
+        .sign_in
+          p
+            font-weight: bold
+            line-height: 150%
+          a
+            color: #90bce4
+            
 #content
   overflow: hidden
   padding: 20px 0
   background: #ffffff
 
 #page_heading
-  padding: 20px 0
+  padding: 10px 0 0 0
   border-bottom: 1px solid #93a4b0
   background: #e2e9ef
   .hgroup
     float: right
     width: 720px
+    padding: 10px 10px 20px 0  
   &.with_nav
-    padding-bottom: 0
     .site_column
       overflow: visible
       &:after
@@ -442,11 +565,11 @@ body
   .site_column
     overflow: hidden
   h1
-    padding: 0 0 5px 0
     font-size: 2em
     font-weight: normal
     color: #394651
   h2
+    margin: 5px 0 0 0  
     font-size: 1.66em
     font-weight: normal
     color: #5f6c76
@@ -459,31 +582,36 @@ body
     color: #5f6c76
     &.status
       color: #394651    
-  .hgroup
-    overflow: hidden
   .page_actions
     float: left
     padding-right: 20px
+    ul
+      padding: 0 0 10px 0    
     li
-      clear: both
-      float: left
+      overflow: hidden
       margin: 0 0 10px 0
       & + li
         margin: 0
     a
-      display: block
-  &.with_image,
-  &.profile  
-    padding: 10px 0
-    .hgroup
-      float: none
-      width: auto
+      float: left
+    form.button_to
+      float: left
+      input[type="submit"]
+        +button
+  &.with_image
+    overflow: hidden
+    padding-bottom: 10px
+    .hgroup,
+    .hgroup_fields
+      width: 640px
+      padding: 0
+      float: right
       h1
         padding-top: 10px
-      img
-        float: right
-        margin: 0 0 0 20px
-        border: 1px solid #394651
+    img
+      float: right
+      margin: 0 0 0 20px
+      border: 1px solid #394651
     input[type="text"],
     textarea
       padding: 8px
@@ -499,10 +627,7 @@ body
       margin: 0 0 5px 0
     textarea
       height: 40px
-  &.profile
-    padding: 10px 0
-    h1
-      padding-top: 20px   
+      margin: 0 0 10px 0
   ul.nav
     clear: both
     position: relative
@@ -603,7 +728,8 @@ body
       margin-top: 20px
     p
       padding: 0 10px 0 0
-    h4, label
+    h4,
+    dt label
       font-weight: bold
       text-transform: uppercase
       color: #667309
@@ -659,20 +785,64 @@ body
       left: 10px
       top: 4px
 
+  .updates
+    padding: 20px 0 0 0
+    form.comment
+      padding-left: 0
+      textarea
+        width: 598px
+    ul.feed
+      margin: 0 0 20px 0
+      li
+        padding: 20px
+        border-bottom: 1px solid #d4dce2
+    p.more
+      font-size: 1.16em
+      font-weight: bold
+      text-align: center
+
+#profile_info
+  padding: 40px
+  .half
+    float: right
+    width: 299px
+    &.info
+      clear: both
+      margin-right: 20px
+      dl
+        line-height: 140%
+      dt
+        clear: both
+        float: right
+        padding: 0 0 5px 0
+        font-weight: bold
+      dd
+        overflow: hidden
+        padding: 0 0 5px 0
+        text-align: left
+
 #community
   padding: 20px
   .heading
     overflow: hidden
-    border: none
+    border-width: 0
     h3
       float: right
       padding: 5px 0 0 0
+  .article.list
+    padding: 0 0 40px 0
+    .heading
+      border-bottom-width: 1px
+    li
+      padding: 10px 0 0 20px
+      border-bottom: 1px solid #d4dce2
+      .meta
+        padding: 0      
   .article.updates
     padding: 0 0 25px 0
     li
       overflow: hidden
       padding: 20px
-      border-top: 1px solid #d4dce2
       .details
         img
           margin: 0 0 0 8px
@@ -740,6 +910,8 @@ body
       padding: 5px 0 0 0
       font-weight: bold
       text-transform: lowercase
+      + p.status
+      margin: -20px 0 35px 0
   .article.half
     float: right
     width: 260px
@@ -832,22 +1004,29 @@ body
       + .article
         padding-top: 40px
         border-top: 1px solid #d4dce2
-      > p
-        padding: 0 0 15px 0
-        line-height: 170%
+      .meta.learn_more
+        p, form
+          float: none
+          display: inline
+          margin: 0 0 0 10px
+          &:after
+            content: '•'
+            margin: 0 10px 0 0 
+          &.last
+            &:after
+              content: ''
       .average_rating
         float: right
         padding: 0 0 0 40px
         margin: 0 0 20px 0
-        p
-          padding: 0
-          line-height: 120%        
       > .rating
         margin: 0 0 20px 0
-        p
-          padding: 0
-          line-height: 120%        
+      p.actions
+        clear: both
+        margin: 0 0 20px 0
+        a.button      
       a.button
+        display: inline-block      
         padding: 7px 20px
         margin: 0 0 0 15px        
         font-size: 1em
@@ -914,6 +1093,9 @@ body
     padding: 19px
     margin: 0 0 40px 20px
     border: 1px solid #cad3db
+    img
+      display: block
+      margin: 0 auto    
   > .article.copy
     overflow: hidden
     padding: 40px
@@ -927,7 +1109,8 @@ body
       padding: 0 0 10px 0
     a
       +button    
-      display: block      
+      display: block 
+      width: 98px
       text-align: center
       text-transform: lowercase      
       color: #616e7a     
@@ -1003,6 +1186,189 @@ body
         input
           margin: 0 0 0 3px
 
+#worklist
+  .filters
+    overflow: hidden
+    padding: 15px 0 0 40px
+    margin: 0 0 20px 0
+    border-bottom: 1px solid #ccd399
+    background: #f1f4dc
+    fieldset
+      float: right
+      dl
+        float: right
+        padding: 0 0 0 40px
+        dt
+          label
+            text-transform: uppercase
+            color: #667309
+        dd
+          padding: 0
+          select
+    fieldset.actions
+      padding: 17px 0 0 0
+      input[type="submit"]
+        float: left
+        margin: 0 0 0 20px
+      p
+        overflow: hidden
+        font-weight: bold
+        line-height: 170%
+        color: #667309
+  #tasks
+    float: right
+    width: 380px
+    ul
+      float: right
+      width: 360px
+      margin: 0 0 25px 20px
+      border: 1px solid #93a4b0
+      li
+        clear: both
+        float: right
+        position: relative
+        width: 340px
+        padding: 10px
+        cursor: pointer
+        background: #f3f7fa
+        + li
+          border-top: 1px solid #d7dadc
+        &:hover
+          background-color: #ffffff
+        p
+          padding: 6px 0 0 0
+          font-weight: bold
+          line-height: 160%
+          color: #5f6c76
+        a
+          display: block
+          font-size: 1.16em
+          text-decoration: none
+          color: #28323a
+        span.icon
+          float: right
+          width: 48px
+          height: 48px
+          margin: 0 0 0 10px
+          border: 1px solid #cad3db
+        span.indicator
+          position: absolute
+          left: -8px
+          top: 50%
+          z-index: 1
+          padding: 1px 0 0 3px
+          margin: -8px 0 0 0
+          font-weight: bold
+          text-transform: uppercase
+          text-shadow: 0 1px 1px rgba(107, 121, 16, .75)
+          color: #ffffff
+          border: 1px solid #677682
+          background: #8695a1
+          &::after
+            display: block
+            position: absolute
+            left: -1px
+            top: -8px
+            z-index: 1
+            width: 7px
+            height: 7px
+            content: ""
+            background: transparent url("/images/v2/bg_wrap-behind-tail.png") 0 0 no-repeat
+        img
+          float: left
+          border: 1px solid #394651
+        &.ignored
+          background: #d2d9df
+        &.saved
+          background: #dde3cc
+          span.icon, p
+            +opacity(.6)
+          span.indicator
+            border-color: #849517
+            background: #9fb31b
+            &::after
+              background-position: 0 100%
+        &.active
+          width: 340px
+          padding-left: 30px
+          border: 1px solid #93a4b0
+          border-right: none
+          border-left-color: #ffffff
+          background: #ffffff
+          + li
+            border: none
+    p.more
+      text-align: center
+      a
+        display: inline-block
+  #task
+    overflow: hidden
+    padding: 19px
+    border: 1px solid #93a4b0
+    .media
+      margin: 0 0 20px 0
+    .ratings
+      overflow: hidden
+    .rating,
+    .average_rating
+      float: right
+      overflow: hidden
+      padding: 10px
+      margin: 0 0 20px 0
+      font-size: 1em
+      border: 3px solid #cad3db
+      h5
+        float: right
+        padding: 2px 0 0 10px
+        font-size: 1.16em
+      p
+        padding: 3px 0 0 10px 
+        font-size: 12px
+      .rating
+        float: left
+        width: 100px
+        height: 17px
+        padding: 0
+        margin: 0
+        border: none
+        background-image: url("/images/v2/icon_permalink-stars.png")
+        p
+          float: right
+          height: 17px
+          padding: 0
+          background-image: url("/images/v2/icon_permalink-stars.png")
+    .rating
+      float: left
+      border-color: #c1d72e
+      ul, li[class^="current_rating"], a
+        height: 17px
+      ul,
+      li[class^="current_rating"],
+      ul a:hover,
+      ul a:active,
+      ul a:focus
+        background-image: url("/images/v2/icon_permalink-stars.png")
+      ul
+        width: 100px
+    form.review_status
+      legend
+        padding: 0 0 5px 0
+        font-size: 1.16em
+        font-weight: bold
+      select
+        margin: 0 0 5px 0
+      p
+        padding: 0 0 5px 0
+      ul
+        padding: 0 0 5px 0
+        li
+          display: inline
+          padding: 0 20px 0 0
+          label
+            font-weight: bold
+      textarea
+        width: 486px
+
 #media_list
   #sidebar
     padding-top: 0
@@ -1022,36 +1388,52 @@ body
         top: 15px
         z-index: 1
         font-weight: bold
-    li
-      float: right
-      width: 160px
-      padding: 0 20px 30px 0
-      img
-        display: block
-        margin: 0 0 5px 0
-      .average_rating
+    > ul
+      > li
         float: right
-        margin: 0 0 5px 0
-      p.flag
-        float: left
-        padding: 1px 0 0 2px
-        font-size: .75em
-        text-transform: uppercase
-        color: #ffffff
-        &.trusted
-          border: 1px solid #6b7910
-          background: #849513
-        &.unreviewed
-          border: 1px solid #677682
-          background: #8695a1
-      a.button
-        clear: both
-        float: right
-        padding: 4px 10px
-        font-size: .92em
-      &.first
-        clear: both
-        padding-right: 0
+        width: 160px
+        padding: 0 20px 30px 0
+        img
+          display: block
+          margin: 0 0 5px 0
+        .ratings
+          > .rating
+            display: none
+            float: right
+            margin: 0 0 5px 0
+          &:hover
+            .average_rating
+              display: none
+            > .rating
+              display: block
+          &.rated
+            > .rating
+              display: block
+            .average_rating
+              display: none
+        .average_rating
+          float: right
+          margin: 0 0 5px 0
+        p.flag
+          float: left
+          padding: 1px 0 0 2px
+          font-size: .75em
+          text-transform: uppercase
+          color: #ffffff
+          &.trusted
+            border: 1px solid #6b7910
+            background: #849513
+          &.unreviewed
+            border: 1px solid #677682
+            background: #8695a1
+        a.button
+          clear: both
+          display: inline-block
+          padding: 4px 0 0 10px
+          font-size: .92em
+        &.first
+          clear: both
+          padding-left: 0
 
 #search_results
   #main

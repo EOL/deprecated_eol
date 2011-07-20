@@ -25,6 +25,27 @@ end
 original_index_records_on_save_value = $INDEX_RECORDS_IN_SOLR_ON_SAVE
 $INDEX_RECORDS_IN_SOLR_ON_SAVE = false
 
+# put all summary text and lanugage in an array, be carefull for their index, as they are used to maintain the relation ships
+summary = []
+summary[0] =  {:text => '<p>Commonly known as the fly agaric or fly Amanita, Amanita muscaria is a mycorrhizal basidiomycete
+    fungus that contains several toxic, psychoactive compounds. Amanita muscaria is the typical “toadstool” mushroom,
+    bearing white gills and white warts on its variably colored cap and growing typically in clusters near conifers
+  or hardwoods throughout the northern hemisphere</p><p>The name fly agaric comes from its use as a control for pesky flies. The old practice was to soaking pieces of
+  the mushroom in a saucer of milk to attract flies. The flies would drink the tainted milk, become intoxicated, and
+  fly into walls to their death.</p>', :lang => 'en'}
+summary[1] =  {:text => '<p>والمعروف باسم غاريقون تطير أو تطير الأمانيت، الأمانيت muscaria هو basidiomycete الميكوريزا
+     الفطريات السامة التي تحتوي على عدة والمركبات النفسانية. الأمانيت muscaria هو نموذجي "الفطر" عيش الغراب،
+     مع الخياشيم البيضاء والبثور البيضاء على غطائها الملونة بنسب مختلفة ومتزايدة عادة في مجموعات قرب الصنوبريات
+   أو الأخشاب في جميع أنحاء نصف الكرة الشمالي </ P> وتطير غاريقون اسم يأتي من استخدامه كعنصر تحكم عن الذباب المزعج. كانت الممارسة القديمة لقطع من تمرغ
+   الفطر في الصحن من الحليب لاجتذاب الذباب. فإن الذباب شرب الحليب الملوث، وتصبح حالة سكر، و
+   تطير في الجدران لموتهم. </ P>', :lang => 'ar'} 
+summary[2] =  {:text => '<p> Communément appelé la volée ou amanite tue-mouche Amanita, Amanita muscaria est un basidiomycète mycorhiziens
+     champignon qui contient plusieurs toxiques, de composés psychoactifs. Amanita muscaria est le typique "champignon" champignon,
+     portant des branchies blanches et les verrues blanches sur son capuchon de couleur variable et croissante généralement en grappes à proximité de conifères
+   ou de feuillus dans l\'hémisphère nord </ p> L\'amanite tue-mouche nom vient de son utilisation comme un contrôle des mouches des embêtants. L\'ancienne pratique était de trempage des pièces
+   le champignon dans une soucoupe de lait pour attirer les mouches. Les mouches ne boire le lait contaminé, s\'enivrer, et
+   voler dans les murs de leur mort. </ p>', :lang => 'fr'}
+
 # We need to build the taxa, if they don't exist:
 taxa = []
 
@@ -69,54 +90,49 @@ species = [
     :attribution => '(L. ex Fr.) Hook.',
     :common => 'Fly Agaric',
     :imgs => [201008242207638, 201101141341094, 201101141330049, 201101141305714],
-    :summary => '<p>Commonly known as the fly agaric or fly Amanita, Amanita muscaria is a mycorrhizal basidiomycete
-    fungus that contains several toxic, psychoactive compounds. Amanita muscaria is the typical “toadstool” mushroom,
-    bearing white gills and white warts on its variably colored cap and growing typically in clusters near conifers
-  or hardwoods throughout the northern hemisphere</p><p>The name fly agaric comes from its use as a control for pesky flies. The old practice was to soaking pieces of
-  the mushroom in a saucer of milk to attract flies. The flies would drink the tainted milk, become intoxicated, and
-  fly into walls to their death.</p>',
+    :summary => summary,
     :rank => 'species'},
   { :id => 17924149, :parent => 17954507,
     :sci => 'Dinochelus ausubeli',
     :attribution => 'Ahyong, Chan & Bouchet, 2010',
     :common => "Ausubel's Mighty Claws Lobster",
     :imgs => [201012041086784, 201009280303944],
-    :summary => 'Dinochelus ausubeli is a new species of deepwater lobster (family Nephropidae) first collected in
+    :summary => [{:text =>'Dinochelus ausubeli is a new species of deepwater lobster (family Nephropidae) first collected in
     2007 from the Philippine Sea off the island of Luzon and was formally described in 2010. The species is so
   distinct that it was not only described as a new species but placed in a newly erected genus as well (Dinochelus).
     "Dinochelus" is derived from the Greek dinos, meaning "terrible", and chela, meaning "claw", an allusion to the
   massive, spinose major claw. The specific epithet ausubeli honors Jesse Ausubel, an enthusiastic sponsor of the
-  Census of Marine Life, a major effort to document marine life in the first decade of the 21st century. (Ahyong et al. 2010)',
+  Census of Marine Life, a major effort to document marine life in the first decade of the 21st century. (Ahyong et al. 2010)', :lang => 'en'}],
     :rank => 'species'},
   { :id => 921737, :parent => 89513,
     :sci => 'Haramonas dimorpha',
     :attribution => 'Horiguchi',
     :imgs => [200812102137415, 200812102183535],
-    :summary => 'Haramonas (ha-ra-moan-ass) dimorpha, large raphidophyte, with two emergent flagella, anterior
+    :summary => [{:text =>'Haramonas (ha-ra-moan-ass) dimorpha, large raphidophyte, with two emergent flagella, anterior
     flagellum beats with an undulating pattern, posterior flagellum trails. Many small green or yellow green
-  plastids. No eyespot. Phase contrast microscopy.',
+  plastids. No eyespot. Phase contrast microscopy.', :lang => 'en'}],
     :rank => 'species'},
   { :id => 328607, :parent => 14460,
     :sci => 'Canis lupus',
     :attribution => 'Linnaeus, 1758',
     :common => 'Wolf',
     :imgs => [200908250179632, 200905130150563, 200905130192503, 200907241171232],
-    :summary => %q{<p>Gray wolves usually live in packs, led by an "alpha pair." The pack includes some of the alpha
-    pair's offspring and may include some unrelated wolves. A pack's territory can be as large as 13,000 square km.
+    :summary => [{:text =>'%q{<p>Gray wolves usually live in packs, led by an "alpha pair." The pack includes some of the alpha
+    pair\'s offspring and may include some unrelated wolves. A pack\'s territory can be as large as 13,000 square km.
     Howling probably helps advertise who "owns" a particular piece of territory. When pups are born, the mother stays
   near them for the first three weeks, and her mate and others in the pack bring food to her. The pups are weaned
     when they about nine weeks old. As adults, they may travel as far as 72 km a day with their pack and run as fast
       as 70 km per hour.</p><p>
         Adaptation: This transparent view of the wolf braincase shows how the brain is situated within. The large
         feature projecting from the front of the brain is the olfactory lobe, an important center related to the
-        sense of smell.</p>},
+        sense of smell.</p>}', :lang => 'en'}],
     :rank => 'species'},
   { :id => 1061748, :parent => 14031,
     :sci => 'Pinus strobus',
     :attribution => 'L.',
     :common => 'Eastern white pine',
     :imgs => [201105312325504, 201102040505636, 201102040570574, 201105132311043],
-    :summary => '<p>Pinus strobus, the Eastern White Pine, is characterized by fascicles of 5 fine needles with a
+    :summary => [{:text =>'<p>Pinus strobus, the Eastern White Pine, is characterized by fascicles of 5 fine needles with a
     nonpersistent bundle sheath, and relatively soft, unarmed, elongate seed cones whose scales are spread at
   maturity. The native range of eastern white pine stretches from southeastern Manitoba to Newfoundland in Canada and
   from Minnesota and Iowa eastward to Maine and Pennsylvania, with a southward Appalachian extension to Tennessee and
@@ -135,17 +151,17 @@ species = [
   used it extensively for various medicinal properties and it is an important food source for wildlife. The long
   history of cultivation has led to the development of numerous cultivars and forms. The species is affected by the
   exotic white pine blister rust Cronartium ribicola, an important pathogen of timber trees in the white pine group
-  in temperate North America.</p>',
+  in temperate North America.</p>', :lang => 'en'}],
     :rank => 'species'},
   { :id => 491753, :parent => 49148,
     :sci => 'Anochetus mayri',
     :attribution => 'Emery, 1884',
     :imgs => [200901131343523, 200901131383455, 200901131367550, 201012100375791],
-    :summary => 'Anochetus are presumably predators, using their snapping mandibles much like their larger relatives,
+    :summary => [{:text =>'Anochetus are presumably predators, using their snapping mandibles much like their larger relatives,
     Odontomachus. However, there are few direct observations. "A. mayri is found mostly in forests under stones, in
     moss on rocks or logs, in rotten twigs on the forest floor, or in larger bodies of rotten wood. The workers and
     queen feign death, and are difficult to see (Brown 1978)." There appear to be two distinct forms in the Atlantic
-    lowlands of Costa Rica, one of which may be more arboreal (see below).',
+    lowlands of Costa Rica, one of which may be more arboreal (see below).', :lang => 'en'}],
     :rank => 'species'}
 ]
 
@@ -164,9 +180,19 @@ species.each_with_index do |info, which|
     parent = info.has_key?(:parent) ?
       TaxonConcept.find(info[:parent]).entry.id :
       animalia_entry
-    desc = info.has_key?(:summary) ?
-      info[:summary] :
-      'Just a placeholder text for the description of this species'
+    tocs = []
+    if info.has_key? :summary
+      info[:summary].each do |sum|
+        tocs << { :toc_item => overv, 
+                  :description => sum[:text]? sum[:text] : 'Just a placeholder text for the description of this species', 
+                  :language => sum[:lang]? Language.from_iso(sum[:lang]) : Language.english }
+      end
+      
+    else
+      tocs << { :toc_item => overv, 
+                :description => 'Just a placeholder text for the description of this species', 
+                :language => Language.english }
+    end
     imgs = []
     if info.has_key? :imgs
       info[:imgs].each do |i|
@@ -185,7 +211,7 @@ species.each_with_index do |info, which|
       :rank => info[:rank] || nil,
       :flash => [],
       :youtube => [],
-      :toc => [{ :toc_item => overv, :description => desc }],
+      :toc => tocs,
       :images => imgs
     )
   end
@@ -292,3 +318,6 @@ builder.begin_rebuild
 
 $INDEX_RECORDS_IN_SOLR_ON_SAVE = original_index_records_on_save_value
 
+puts "Adding data_object translations relationships"
+DataObjectTranslation.create(:data_object => DataObject.find_by_description(summary[1][:text]),:language => DataObject.find_by_description(summary[1][:text]).language, :original_data_object => DataObject.find_by_description(summary[0][:text]))
+DataObjectTranslation.create(:data_object => DataObject.find_by_description(summary[2][:text]),:language => DataObject.find_by_description(summary[2][:text]).language, :original_data_object => DataObject.find_by_description(summary[0][:text]))

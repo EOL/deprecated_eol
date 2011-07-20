@@ -8,14 +8,38 @@
  * so I am temporarily adding some CSS here needed for V2 demo. This CSS should be integrated
  * into HashRocket SASS if it is still needed when design work is complete.
  */
-#page_heading .hgroup {
-  float: right !important;
-  width: 720px !important;
-  overflow: hidden !important; }
-#page_heading .page_actions fieldset.actions input[type="submit"] {
-  padding: 7px 10px;
-  font-size: 1.08em;
-  float: left; }
+.pagination {
+  text-align: left; }
+  .pagination a {
+    text-decoration: none;
+    font-weight: bold; }
+  .pagination .prev_page {
+    float: right; }
+  .pagination .next_page {
+    margin-right: 10px; }
+  .pagination .disabled {
+    color: #616e7a; }
+
+#main .footer {
+  clear: both;
+  border-top: 1px solid black;
+  padding: 10px 0;
+  margin: 20px 0 0 0; }
+
+#main .header .pagination {
+  position: absolute;
+  top: 13px;
+  right: 0;
+  width: 100%; }
+  #main .header .pagination a {
+    position: relative !important;
+    top: 0 !important;
+    right: 0 !important; }
+
+.exemplars ul img, .partners ul img {
+  clear: both;
+  float: right;
+  margin: 0 30px 30px 20px; }
 
 p.status.error {
   border: 1px solid red;
@@ -25,24 +49,35 @@ p.status.error {
   border: 1px solid #677682;
   background: #8695a1; }
 
-#media_list #main li {
-  position: relative; }
-  #media_list #main li p.audio {
-    position: absolute;
-    top: 65px;
-    right: 20px;
-    width: 160px;
-    text-align: center;
-    z-index: 5; }
-    #media_list #main li p.audio a {
+#media_list #main > ul > li .audio {
+  position: relative;
+  background: #394651 url("/images/v2/icon_sound_tabs.png") no-repeat 50% 20%;
+  width: 160px;
+  height: 123px;
+  margin: 0 0 5px 0;
+  text-align: center;
+  overflow: hidden; }
+  #media_list #main > ul > li .audio p {
+    padding: 50px 0 40px 5px; }
+    #media_list #main > ul > li .audio p a {
       color: #e2e9ef; }
-  #media_list #main li audio {
-    background: #394651 url("/images/v2/temporary_for_mockup/icon_sound.png") no-repeat 50% 20%;
+  #media_list #main > ul > li .audio audio {
+    position: absolute;
+    right: 0;
+    bottom: 0;
     width: 160px;
-    height: 125px; }
-  #media_list #main li p.flag.unknown {
-    border: 1px solid #677682;
-    background: #8695a1; }
+    z-index: 1; }
+#media_list #main > ul > li p.flag.unknown {
+  border: 1px solid #677682;
+  background: #8695a1; }
+#media_list #main > ul > li > a {
+  display: inline-block;
+  width: 160px;
+  height: 125px;
+  overflow: hidden; }
+#media_list #main > ul > li form {
+  display: block;
+  clear: both; }
 
 #taxonomy_detail .average_rating h5 {
   display: inline;
@@ -165,3 +200,53 @@ ul.feed li > a > img {
 #sidebar .collection_list img {
   width: 35px;
   height: 35px; }
+#sidebar.filters dd li.no_results label {
+  color: #6f7e8b; }
+
+/* TODO: this hasn't been really thought out and should be changed: */
+.heading p#empty {
+  font-weight: bold;
+  font-size: 1.2em; }
+
+#taxonomy .gallery ul.thumbnails li {
+  text-align: center; }
+#taxonomy .gallery ul.thumbnails li img {
+  max-width: 98px;
+  max-height: 68px;
+  width: auto;
+  height: auto;
+  display: inline !important; }
+
+#media_list #main ul li img {
+  max-width: 160px;
+  max-height: 125px;
+  width: auto;
+  height: auto;
+  display: block;
+  margin-right: auto;
+  margin-left: auto; }
+#media_list #sidebar.filters img {
+  max-width: 220px;
+  max-height: 162px;
+  width: auto;
+  height: auto;
+  display: block;
+  margin-right: auto;
+  margin-left: auto; }
+
+#taxonomy_detail #sidebar img {
+  max-width: 260px;
+  max-height: 190px;
+  width: auto;
+  height: auto;
+  display: block;
+  margin-right: auto;
+  margin-left: auto; }
+
+ul.object_list li img {
+  max-width: 68px;
+  max-height: 68px; }
+
+form.comment img {
+  height: 50px;
+  width: 50px; }

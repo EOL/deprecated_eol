@@ -48,6 +48,13 @@
     +gradient_bg(saturate($from + #111111, 10%), saturate($to + #111111, 10%))
   &:active
     +gradient-bg($from, $to)
+= input($width: 308px)
+  width: $width
+  height: 22px
+  padding: 2px 5px
+  font: normal 1em Helvetica, Arial, sans-serif
+  border: 1px solid #cad3db
+  +gradient-bg(#f0f4f7, #ffffff)    
 = textarea
   padding: 8px
   font: normal 1em Helvetica, Arial, sans-serif

@@ -136,6 +136,7 @@ class DataObjectsController < ApplicationController
     @comments = @data_object.all_comments.dup.paginate(:page => params[:page], :order => 'updated_at DESC', :per_page => Comment.per_page)
     @slim_container = true
     @revisions = @data_object.revisions.sort_by(&:created_at).reverse
+    @translations = @data_object.available_translations_data_objects(current_user)
     @taxon_concepts = @data_object.get_taxon_concepts(:published => :preferred)
     @scientific_names = @taxon_concepts.inject({}) { |res, tc| res[tc.scientific_name] = { :common_name => tc.common_name, :taxon_concept_id => tc.id }; res }
     @image_source = get_image_source if @data_object.is_image?

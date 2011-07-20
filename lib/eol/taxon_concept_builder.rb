@@ -264,9 +264,11 @@ module EOL
         toc_item[:vetted] ||= Vetted.trusted
         toc_item[:license] ||= License.cc
         toc_item[:data_rating] ||= 2.5
+        toc_item[:language] ||= Language.english
         build_object_in_event('Text', toc_item[:description], :hierarchy_entry => @he,
                               :toc_item => toc_item[:toc_item], :vetted => toc_item[:vetted],
-                              :license => toc_item[:license], :data_rating => toc_item[:data_rating])
+                              :license => toc_item[:license], :data_rating => toc_item[:data_rating],
+                              :language => toc_item[:language])
       end
       # We're missing the info items.  Technically, the toc_item would be referenced by looking at the info items (creating any we're
       # missing).  TODO - we should build the info item first and let the toc_item resolve from that.

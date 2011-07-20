@@ -18,14 +18,14 @@ class Taxa::DetailsController < TaxaController
       :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
       :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
       :vetted => :view_order,
-      :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating, :object_cache_url ],
+      :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating, :object_cache_url, :language_id ],
       :table_of_contents => '*',
       :curator_activity_logs => '*',
       :users => [ :given_name, :family_name, :logo_cache_url ] ,
       :taxon_concept_exemplar_image => '*' }
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
 
-    @details = @taxon_concept.details_for_toc_items(ContentTable.details.toc_items)
+    @details = @taxon_concept.details_for_toc_items(ContentTable.details.toc_items, :language => current_user.language_abbr)
 
     @toc = TocBuilder.new.toc_for_toc_items(@details.collect{|d| d[:toc_item]})
 

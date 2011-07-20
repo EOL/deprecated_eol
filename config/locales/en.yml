@@ -2540,3 +2540,4 @@ en:
   cms_missing_content_title: "Missing content"
   cms_missing_content_message: "Sorry, this page is not available for this language."
   cms_available_in_languages: "This page is available in:"
+  translated_from: Translated from

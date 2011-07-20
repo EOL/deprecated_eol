@@ -65,18 +65,13 @@ module ActiveRecord
                 keywords_to_send_to_solr << params.merge({ :keyword => return_value, :keyword_type => field_or_method })
               elsif return_value.class == Hash
                 keyword_type = return_value[:keyword_type] || field_or_method
-                return_value[:keywords].each do |keyword|
-                  keywords_to_send_to_solr << params.merge({ :keyword => keyword, :keyword_type => keyword_type,
-                     :language => return_value[:language], :ancestor_taxon_concept_id => return_value[:ancestor_taxon_concept_id] })
-                end
+                keywords_to_send_to_solr << params.merge({ :keyword => return_value[:keywords], :keyword_type => keyword_type,
+                   :language => return_value[:language], :ancestor_taxon_concept_id => return_value[:ancestor_taxon_concept_id] })
               elsif return_value.class == Array
                 return_value.each do |rv|
                   keyword_type = rv[:keyword_type] || field_or_method
-                  rv[:keywords].each do |keyword|
-                    next if keyword.blank?
-                    keywords_to_send_to_solr << params.merge({ :keyword => keyword, :keyword_type => keyword_type,
-                      :language => rv[:language], :ancestor_taxon_concept_id => rv[:ancestor_taxon_concept_id] })
-                  end
+                  keywords_to_send_to_solr << params.merge({ :keyword => rv[:keywords], :keyword_type => keyword_type,
+                    :language => rv[:language], :ancestor_taxon_concept_id => rv[:ancestor_taxon_concept_id] })
                 end
               end
             else

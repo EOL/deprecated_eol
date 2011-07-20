@@ -122,10 +122,10 @@ describe 'Solr API' do
     it 'should rebuild the core' do
       builder = EOL::Solr::SiteSearchCoreRebuilder.new()
       builder.begin_rebuild
-      # one for the scientific name, one for the synonym the builder creates, and one for the common name
-      @solr.get_results("*:*")['numFound'].should == 24
-      @solr.get_results("resource_id:#{@test_taxon_concept.id}")['numFound'].should == 3
-      @solr.get_results("keyword:#{URI.escape(@scientific_name)}")['numFound'].should == 1
+      # names for preferred name, synonym, surrogate and common names
+      @solr.get_results("*:*")['numFound'].should == 25
+      @solr.get_results("resource_id:#{@test_taxon_concept.id}")['numFound'].should == 4
+      @solr.get_results("keyword:#{URI.escape(@scientific_name)}")['numFound'].should == 2
       @solr.get_results("keyword:#{URI.escape(@common_name)}")['numFound'].should == 1
     end
   end

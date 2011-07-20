@@ -27,6 +27,29 @@ describe Name do
   it "should have clean/normalized name" do
     @name.clean_name.should == "some name auth 1923"
   end
+  
+  it 'should identify surrogate names' do
+    name = Name.create( :string => 'something', :ranked_canonical_form_id => 1)
+    [ 'Deferribacters incertae sedis',
+      'Amanita sp. 1 HKAS 38419',
+      'Amanita cf. muscaria MFC-14',
+      'Incertae sedis{51. 1. }',
+      'Amanita cf. pantherina HKAS 26746',
+      'Lactobacullus genera incertae sedis',
+      'Incertae sedis{25. 15}'].each do |str|
+      name.string = str
+      name.is_surrogate?.should == true
+    end
+    
+    [ 'Aus bus',
+      'Aus bus Linnaeus',
+      'Aus bus Linnaeus 1983',
+      'Aus bus var. cus Linnaeus 3434'].each do |str|
+      name.string = str
+      name.is_surrogate?.should == false
+    end
+    
+  end
 
   describe "::prepare_clean_name" do
     it "should prepare a clean name" do

@@ -51,8 +51,10 @@ module EOL
             lookup_taxon_concepts(i, limit);
           end
           @objects_to_send.each do |o|
-            if o[:keyword]
+            if o[:keyword].class == String
               o[:keyword] = SolrAPI.text_filter(o[:keyword])
+            elsif o[:keyword].class == Array
+              o[:keyword].map{ |k| SolrAPI.text_filter(k) }
             end
           end
           @solr_api.send_attributes(@objects_to_send) unless @objects_to_send.blank?
@@ -97,7 +99,7 @@ module EOL
         taxon_concepts = TaxonConcept.find(:all, :conditions => "id BETWEEN #{start} AND #{max} AND published=1 AND supercedure_id=0",
           :include => [ :flattened_ancestors, { :published_hierarchy_entries => [ :name, { :scientific_synonyms => :name },
             { :common_names => [ :name, :language ] } ] } ],
-          :select => { :taxon_concepts => :id, :names => :string, :languages => :iso_639_1,
+          :select => { :taxon_concepts => :id, :names => [ :string, :ranked_canonical_form_id ], :languages => :iso_639_1,
             :taxon_concepts_flattened => '*' })
         taxon_concepts.each do |t|
           @objects_to_send += t.keywords_to_send_to_solr_index

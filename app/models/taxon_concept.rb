@@ -1306,21 +1306,47 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def scientific_names_for_solr
-    keywords = []
-    return keywords if published_hierarchy_entries.blank?
+    preferred_names = []
+    synonyms = []
+    surrogates = []
+    return [] if published_hierarchy_entries.blank?
     published_hierarchy_entries.each do |he|
-      keywords << he.name.string
-      keywords << he.name.canonical_form.string if he.name.canonical_form
-
+      if he.name.is_surrogate?
+        surrogates << he.name.string
+      else
+        preferred_names << he.name.string
+        preferred_names << he.name.canonical_form.string if he.name.canonical_form
+      end
+      
       he.scientific_synonyms.each do |s|
-        keywords << s.name.string
-        keywords << s.name.canonical_form.string if s.name.canonical_form
+        if s.name.is_surrogate?
+          surrogates << s.name.string
+        else
+          synonyms << s.name.string
+          synonyms << s.name.canonical_form.string if s.name.canonical_form
+        end
       end
     end
-    keywords = keywords.compact.uniq
-    unless keywords.empty?
-      return { :keyword_type => 'Scientific Name', :keywords => keywords, :ancestor_taxon_concept_id => flattened_ancestors.map {|a| a.ancestor_id } }
+    
+    return_keywords = []
+    ancestor_ids = flattened_ancestors.map {|a| a.ancestor_id }
+    
+    preferred_names = preferred_names.compact.uniq
+    unless preferred_names.empty?
+      return_keywords << { :keyword_type => 'PreferredName', :keywords => preferred_names, :ancestor_taxon_concept_id => ancestor_ids }
     end
+    
+    synonyms = synonyms.compact.uniq
+    unless synonyms.empty?
+      return_keywords << { :keyword_type => 'Synonym', :keywords => synonyms, :ancestor_taxon_concept_id => ancestor_ids }
+    end
+    
+    surrogates = surrogates.compact.uniq
+    unless surrogates.empty?
+      return_keywords << { :keyword_type => 'Surrogate', :keywords => surrogates, :ancestor_taxon_concept_id => ancestor_ids }
+    end
+    
+    return return_keywords
   end
 
   def common_names_for_solr

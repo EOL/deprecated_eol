@@ -107,6 +107,13 @@ class Name < SpeciesSchemaModel
     return Name.find_by_clean_name(clean_string)
   end
   
+  def is_surrogate?
+    # return true if ranked_canonical_form_id.blank?
+    return true if string.match(/(^|[^\w])(incertae sedis|incertaesedis|culture|clone|isolate|phage|sp|cf)([^\w]|$)/i)
+    return true if string.match(/virus([^\w]|$)/i)
+    return false
+  end
+  
   
   private
   def clean_name_must_be_unique
@@ -142,19 +149,4 @@ class Name < SpeciesSchemaModel
       self.italicized_verified = 1
     end
   end
-
 end
-
-# == Schema Info
-# Schema version: 20081020144900
-#
-# Table name: names
-#
-#  id                  :integer(4)      not null, primary key
-#  canonical_form_id   :integer(4)      not null
-#  namebank_id         :integer(4)      not null
-#  canonical_verified  :integer(1)      not null
-#  italicized          :string(300)     not null
-#  italicized_verified :integer(1)      not null
-#  string              :string(300)     not null
-

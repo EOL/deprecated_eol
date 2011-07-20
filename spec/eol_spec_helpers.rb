@@ -69,8 +69,9 @@ module EOL
       end
 
       def truncate_table(conn, table, skip_if_empty)
-        run_command = skip_if_empty ? conn.execute("SELECT 1 FROM #{table} LIMIT 1").num_rows > 0 : true
-        conn.execute "TRUNCATE TABLE `#{table}`" if run_command
+        # run_command = skip_if_empty ? conn.execute("SELECT 1 FROM #{table} LIMIT 1").num_rows > 0 : true
+        # conn.execute "TRUNCATE TABLE `#{table}`" if run_command
+        conn.execute "TRUNCATE TABLE `#{table}`"
       end
 
       def build_data_object(type, desc, options = {})

@@ -5,10 +5,10 @@ class NavigationController < ApplicationController
   def show_tree_view
     # set the users default hierarchy if they haven't done so already
     current_user.default_hierarchy_id = Hierarchy.default.id if current_user.default_hierarchy_id.nil? || !Hierarchy.exists?(current_user.default_hierarchy_id)
-    @session_hierarchy = Hierarchy.find(current_user.default_hierarchy_id)
-    @session_secondary_hierarchy = current_user.secondary_hierarchy_id.nil? ? nil : Hierarchy.find(current_user.secondary_hierarchy_id)
-    
-    
+    @dropdown_hierarchy_entry = HierarchyEntry.find_by_id(params[:dropdown_hierarchy_entry_id].to_i)
+    @session_hierarchy = @dropdown_hierarchy_entry.hierarchy
+    @session_secondary_hierarchy = @session_hierarchy
+
     load_taxon_for_tree_view
     render :layout => false, :partial => 'browse_page', :locals => { :current_user => current_user }
   end

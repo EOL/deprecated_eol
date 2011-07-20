@@ -39,7 +39,7 @@ function displayNode(id) {
 }
 
 // call remote function to show the selected node in the text-based navigational tree view
-function displayNode(id, for_selection) {
+function displayNode(id, for_selection, dropdown_hierarchy_entry_id) {
   url = '/navigation/show_tree_view';
   if(for_selection) {
     url = '/navigation/show_tree_view_for_selection';
@@ -49,7 +49,7 @@ function displayNode(id, for_selection) {
     type: 'POST',
     success: function(response){$('#browser-text').html(response);},
     error: function(){ $('#browser-text').html("<p>Sorry, there was an error.</p>"); },
-    data: {id: id}
+    data: {id: id, dropdown_hierarchy_entry_id: dropdown_hierarchy_entry_id}
   });
 }
 

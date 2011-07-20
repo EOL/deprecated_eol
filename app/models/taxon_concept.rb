@@ -51,18 +51,18 @@ class TaxonConcept < SpeciesSchemaModel
   has_many :users_data_objects
   has_many :flattened_ancestors, :class_name => TaxonConceptsFlattened.to_s
   has_many :all_data_objects, :class_name => DataObject.to_s, :finder_sql => '
-      (SELECT do.id, do.data_type_id, do.vetted_id, do.visibility_id, do.published, do.guid, do.data_rating
+      (SELECT do.id, do.data_type_id, do.vetted_id, do.visibility_id, do.published, do.guid, do.data_rating, do.language_id
         FROM data_objects_taxon_concepts dotc
         JOIN data_objects do ON (dotc.data_object_id=do.id)
           WHERE dotc.taxon_concept_id=#{id}
           AND do.data_type_id=#{DataType.image.id})
       UNION
-      (SELECT do.id, do.data_type_id, do.vetted_id, do.visibility_id, do.published, do.guid, do.data_rating
+      (SELECT do.id, do.data_type_id, do.vetted_id, do.visibility_id, do.published, do.guid, do.data_rating, do.language_id
         FROM top_concept_images tci
         JOIN data_objects do ON (tci.data_object_id=do.id)
           WHERE tci.taxon_concept_id=#{id})
       UNION
-      (SELECT do.id, do.data_type_id, do.vetted_id, do.visibility_id, do.published, do.guid, do.data_rating
+      (SELECT do.id, do.data_type_id, do.vetted_id, do.visibility_id, do.published, do.guid, do.data_rating, do.language_id
         FROM #{UsersDataObject.full_table_name} udo
         JOIN data_objects do ON (udo.data_object_id=do.id)
           WHERE udo.taxon_concept_id=#{id})'
@@ -90,7 +90,7 @@ class TaxonConcept < SpeciesSchemaModel
       :names => :string,
       :vetted => :view_order,
       :canonical_forms => :string,
-      :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ],
+      :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating, :language_id ],
       :licenses => :title,
       :table_of_contents => '*' },
     :include => [{ :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] }, { :data_objects => [ { :toc_items => :info_items }, :license] },
@@ -253,7 +253,7 @@ class TaxonConcept < SpeciesSchemaModel
   #   :required will return the next available text object if no text is returned by toc_items
   #   :limit returns a subset of objects for each toc_item
   def text_objects_for_toc_items(toc_items, options={})
-
+    options[:language] ||= 'en'
     text_objects = text
 
     return nil if text_objects.empty? || text_objects.nil?
@@ -263,7 +263,9 @@ class TaxonConcept < SpeciesSchemaModel
     datos_to_load = []
     toc_items.each do |toc_item|
       unless toc_item.nil?
-        items = text_objects.select{ |t| t.toc_items && t.toc_items.include?(toc_item) }
+       
+        items = text_objects.select{ |t| t.toc_items && t.toc_items.include?(toc_item) && t[:language_id]==Language.id_from_iso(options[:language])}
+
         unless items.blank? || items.nil?
           if options[:limit].nil? || options[:limit].to_i == 0
             datos_to_load += items
@@ -320,9 +322,9 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   # Returns harvested text objects, user submitted object and special content for given toc items
-  def details_for_toc_items(toc_items)
+  def details_for_toc_items(toc_items, options = {})
     details = []
-    text_objects = text_objects_for_toc_items(toc_items)
+    text_objects = text_objects_for_toc_items(toc_items, options)
     if text_objects
       text_object_toc_items = text_objects.collect{ |d| d.toc_items }.flatten.compact.uniq
       text_object_toc_items.each do |toc_item|

@@ -1102,5 +1102,61 @@ class DataObject < SpeciesSchemaModel
   def translated_from
     data_object_translation ? data_object_translation.original_data_object : nil
   end
+  
+  def translation_source
+    org_tr = DataObjectTranslation.find_by_data_object_id(self.id)
+    if org_tr
+      return  org_tr.original_data_object 
+    else
+      return nil 
+    end
+  end
+
+  
+  def available_translations_data_objects(current_user)
+    dobj_ids = []
+    if !translations.empty?
+      dobj_ids << id
+      translations.each do |tr| 
+        dobj_ids << tr.data_object.id
+      end
+    else 
+      org_tr = DataObjectTranslation.find_by_data_object_id(self.id)
+      if org_tr
+        org_dobj = org_tr.original_data_object
+        dobj_ids << org_dobj.id
+        org_dobj.translations.each do |tr|
+          dobj_ids << tr.data_object.id
+        end
+      end 
+    end
+    dobj_ids = dobj_ids.uniq
+    if !dobj_ids.empty? && dobj_ids.length>1
+      dobjs = DataObject.find_by_sql("SELECT do.* FROM data_objects do INNER JOIN languages l on (do.language_id = l.id) WHERE do.id in (#{dobj_ids.join(',')}) AND l.activated_on <= NOW() ORDER BY l.sort_order")
+      dobjs = DataObject.filter_list_for_user(dobjs, {:user => current_user})      
+      return dobjs
+    end
+    return nil     
+  end
+  
+  
+  def available_translation_languages(current_user)
+    dobjs = available_translations_data_objects(current_user)
+    if dobjs and !dobjs.empty?    
+      lang_ids = []
+      dobjs.each do |dobj| 
+        lang_ids << dobj.language_id
+      end    
+  
+      lang_ids = lang_ids.uniq
+      if !lang_ids.empty? && lang_ids.length>1
+        languages = Language.find_by_sql("SELECT * FROM languages WHERE id in (#{lang_ids.join(',')}) AND activated_on <= NOW() ORDER BY sort_order")      
+        return languages
+      end
+    end
+    return nil     
+
+  end
+
 
 end

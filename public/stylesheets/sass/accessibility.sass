@@ -299,6 +299,9 @@ ul
       img
         max-width: 68px
         max-height: 68px
+        // JRice added this to force missing images to look reasonable.  ...Not sure if it's wise, though:
+        width: 68px
+        height: 68px
 form
   &.comment
     img
@@ -310,5 +313,12 @@ form
       li
         width: 140px
         height: 140px
+// Tiny Link below Ajax fields
 .editable_link
   font-size: 0.8em
+// Buttons are too far over (and this is only in English!):
+.edit_collection #sidebar fieldset.actions
+  padding: 0
+// Need more space between button and text:
+#collections .heading
+  line-height: 2.5em

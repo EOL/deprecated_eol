@@ -1,0 +1,1827 @@
+Script started on Wed 20 Jul 2011 07:19:26 AM MDT
+[0;38m[0;37mjrice [0;31mubuntu [0;33m~/code/eol[0;38m[0m[0;31m(master)[0m > ps
+Warning: bad ps syntax, perhaps a bogus '-'? See http://procps.sf.net/faq.html
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.1   3036  1704 ?        Ss   Jul19   0:00 /sbin/init
+root         2  0.0  0.0      0     0 ?        S    Jul19   0:00 [kthreadd]
+root         3  0.0  0.0      0     0 ?        S    Jul19   0:05 [ksoftirqd/0]
+root         5  0.0  0.0      0     0 ?        S    Jul19   0:00 [kworker/u:0]
+root         6  0.0  0.0      0     0 ?        S    Jul19   0:00 [migration/0]
+root         7  0.0  0.0      0     0 ?        S<   Jul19   0:00 [cpuset]
+root         8  0.0  0.0      0     0 ?        S<   Jul19   0:00 [khelper]
+root         9  0.0  0.0      0     0 ?        S<   Jul19   0:00 [netns]
+root        10  0.0  0.0      0     0 ?        S    Jul19   0:00 [sync_supers]
+root        11  0.0  0.0      0     0 ?        S    Jul19   0:00 [bdi-default]
+root        12  0.0  0.0      0     0 ?        S<   Jul19   0:00 [kintegrityd]
+root        13  0.0  0.0      0     0 ?        S<   Jul19   0:00 [kblockd]
+root        14  0.0  0.0      0     0 ?        S<   Jul19   0:00 [kacpid]
+root        15  0.0  0.0      0     0 ?        S<   Jul19   0:00 [kacpi_notify]
+root        16  0.0  0.0      0     0 ?        S<   Jul19   0:00 [kacpi_hotplug]
+root        17  0.0  0.0      0     0 ?        S<   Jul19   0:00 [ata_sff]
+root        18  0.0  0.0      0     0 ?        S    Jul19   0:00 [khubd]
+root        19  0.0  0.0      0     0 ?        S<   Jul19   0:00 [md]
+root        22  0.0  0.0      0     0 ?        S    Jul19   0:00 [khungtaskd]
+root        23  0.0  0.0      0     0 ?        S    Jul19   0:02 [kswapd0]
+root        24  0.0  0.0      0     0 ?        SN   Jul19   0:00 [ksmd]
+root        25  0.0  0.0      0     0 ?        S    Jul19   0:00 [fsnotify_mark]
+root        26  0.0  0.0      0     0 ?        S<   Jul19   0:00 [aio]
+root        27  0.0  0.0      0     0 ?        S    Jul19   0:00 [ecryptfs-kthrea]
+root        28  0.0  0.0      0     0 ?        S<   Jul19   0:00 [crypto]
+root        32  0.0  0.0      0     0 ?        S<   Jul19   0:00 [kthrotld]
+root        34  0.0  0.0      0     0 ?        S    Jul19   0:00 [scsi_eh_0]
+root        35  0.0  0.0      0     0 ?        S    Jul19   0:00 [scsi_eh_1]
+root        36  0.0  0.0      0     0 ?        S    Jul19   0:00 [kworker/u:3]
+root        38  0.0  0.0      0     0 ?        S<   Jul19   0:00 [kmpathd]
+root        39  0.0  0.0      0     0 ?        S<   Jul19   0:00 [kmpath_handlerd]
+root        40  0.0  0.0      0     0 ?        S<   Jul19   0:00 [kondemand]
+root        41  0.0  0.0      0     0 ?        S<   Jul19   0:00 [kconservative]
+root       155  0.0  0.0      0     0 ?        S    Jul19   0:00 [scsi_eh_2]
+root       173  0.2  0.0      0     0 ?        S    Jul19   4:02 [jbd2/sda1-8]
+root       174  0.0  0.0      0     0 ?        S<   Jul19   0:00 [ext4-dio-unwrit]
+root       222  0.0  0.0   2412   720 ?        S    Jul19   0:00 upstart-udev-bridge --daemon
+root       250  0.0  0.0   2880   664 ?        S<s  Jul19   0:00 udevd --daemon
+root       313  0.0  0.1   5652  1932 ?        Ss   Jul19   0:00 /usr/sbin/sshd -D
+root       390  0.0  0.0      0     0 ?        S<   Jul19   0:00 [kpsmoused]
+syslog     400  0.0  0.0  27620   968 ?        Sl   Jul19   0:00 rsyslogd -c4
+102        466  0.0  0.1   3508  1660 ?        Ss   Jul19   0:00 dbus-daemon --system --fork --activation=upstart
+root       501  0.0  0.0   2412   568 ?        S    Jul19   0:00 upstart-socket-bridge --daemon
+avahi      526  0.0  0.1   3132  1644 ?        S    Jul19   0:04 avahi-daemon: running [ubuntu.local]
+avahi      528  0.0  0.0   3016   384 ?        S    Jul19   0:00 avahi-daemon: chroot helper
+root       562  0.0  0.3  25492  3852 ?        Ssl  Jul19   0:00 NetworkManager
+root       590  0.0  0.0      0     0 ?        S    Jul19   0:05 [flush-8:0]
+root       602  0.0  0.2   4660  2148 ?        S    Jul19   0:00 /usr/sbin/modem-manager
+root       608  0.0  0.3  23420  3112 ?        Sl   Jul19   0:01 /usr/lib/policykit-1/polkitd
+root       652  0.0  0.1   5172  1428 ?        S    Jul19   0:00 /sbin/wpa_supplicant -u -s
+root       668  0.0  0.0   1872   564 tty4     Ss+  Jul19   0:00 /sbin/getty -8 38400 tty4
+root       674  0.0  0.0   1872   560 tty5     Ss+  Jul19   0:00 /sbin/getty -8 38400 tty5
+root       682  0.0  0.0   1872   564 tty2     Ss+  Jul19   0:00 /sbin/getty -8 38400 tty2
+root       683  0.0  0.0   1872   560 tty3     Ss+  Jul19   0:00 /sbin/getty -8 38400 tty3
+root       686  0.0  0.0   1872   564 tty6     Ss+  Jul19   0:00 /sbin/getty -8 38400 tty6
+root       688  0.0  0.0   1864   644 ?        Ss   Jul19   0:00 acpid -c /etc/acpi/events -s /var/run/acpid.socket
+daemon     691  0.0  0.0   2132   348 ?        Ss   Jul19   0:00 atd
+root       692  0.0  0.0   2268   880 ?        Ss   Jul19   0:00 cron
+mysql      708  0.7  3.4 146324 35768 ?        Ssl  Jul19  13:45 /usr/sbin/mysqld
+memcache   734  0.0  1.7  60356 17448 ?        Sl   Jul19   0:14 /usr/bin/memcached -m 64 -p 11211 -u memcache -l 127.0.0.1
+root       749  0.0  0.2   6792  2248 ?        Ss   Jul19   0:00 /usr/sbin/cupsd -F
+root       753  0.0  0.3  18020  3100 ?        Ssl  Jul19   0:05 gdm-binary
+root       766  0.0  0.3  27192  3232 ?        Sl   Jul19   0:00 /usr/sbin/console-kit-daemon --no-daemon
+root       844  0.0  0.3  19716  3308 ?        Sl   Jul19   0:00 /usr/lib/gdm/gdm-simple-slave --display-id /org/gnome/DisplayManage
+root       865  0.0  1.8  30908 18588 tty7     Ss+  Jul19   0:04 /usr/bin/X :0 -nr -verbose -auth /var/run/gdm/auth-for-gdm-KNeUbn/d
+root      1013  0.0  0.2  18232  3016 ?        Sl   Jul19   0:00 /usr/lib/gdm/gdm-session-worker
+jrice     1051  0.0  0.5  35320  5340 ?        Ssl  Jul19   0:00 gnome-session --session=ubuntu
+jrice     1142  0.0  0.0   3368   188 ?        Ss   Jul19   0:01 /usr/bin/ssh-agent /usr/bin/dbus-launch --exit-with-session gnome-s
+jrice     1145  0.0  0.0   3456   528 ?        S    Jul19   0:00 /usr/bin/dbus-launch --exit-with-session gnome-session --session=ub
+jrice     1150  0.0  0.1   4524  1836 ?        Ss   Jul19   0:02 //bin/dbus-daemon --fork --print-pid 5 --print-address 7 --session
+jrice     1166  0.0  0.3   9556  3340 ?        S    Jul19   0:01 /usr/lib/libgconf2-4/gconfd-2
+root      1197  0.0  0.0   1872   560 tty1     Ss+  Jul19   0:00 /sbin/getty -8 38400 tty1
+jrice     1201  0.0  0.1  41644  1972 ?        Sl   Jul19   0:00 /usr/bin/gnome-keyring-daemon --start --components=ssh
+jrice     1205  0.0  0.6  99672  6832 ?        Ssl  Jul19   0:12 /usr/lib/gnome-settings-daemon/gnome-settings-daemon
+jrice     1220  0.0  0.1   7632  1920 ?        S    Jul19   0:00 /usr/lib/gvfs/gvfsd
+jrice     1238  0.0  0.1  30976  1444 ?        Ssl  Jul19   0:00 /usr/lib/gvfs//gvfs-fuse-daemon /home/jrice/.gvfs
+jrice     1248  0.0  0.4  27176  4576 ?        Sl   Jul19   0:00 metacity
+jrice     1271  0.0  1.0 106196 11100 ?        Sl   Jul19   0:13 nautilus
+jrice     1272  0.0  0.1  95548  2024 ?        S<sl Jul19   0:01 /usr/bin/pulseaudio --start --log-target=syslog
+rtkit     1275  0.0  0.1  18888  1052 ?        SNl  Jul19   0:01 /usr/lib/rtkit/rtkit-daemon
+jrice     1285  0.0  0.8 110380  8892 ?        Sl   Jul19   0:15 gnome-panel
+jrice     1286  0.0  0.2  47824  2792 ?        Sl   Jul19   0:00 zeitgeist-datahub
+jrice     1287  0.0  0.3  26324  4032 ?        Sl   Jul19   0:00 /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
+jrice     1289  0.0  0.5  38988  5300 ?        Sl   Jul19   0:00 /usr/lib/evolution/2.32/evolution-alarm-notify
+jrice     1297  0.0  0.7  30960  8028 ?        Sl   Jul19   0:00 /usr/bin/python /usr/bin/zeitgeist-daemon
+jrice     1299  0.0  0.4  44268  5104 ?        Sl   Jul19   0:02 gnome-power-manager
+jrice     1304  0.0  0.8 126232  9040 ?        Sl   Jul19   0:00 nm-applet --sm-disable
+jrice     1305  0.0  0.4  43152  4784 ?        Sl   Jul19   0:00 bluetooth-applet
+jrice     1307  0.0  0.1  20788  2048 ?        Sl   Jul19   0:00 /usr/lib/pulseaudio/pulse/gconf-helper
+root      1331  0.0  0.2  16720  2960 ?        Sl   Jul19   0:00 /usr/lib/upower/upowerd
+jrice     1343  0.0  0.2  33592  3056 ?        S    Jul19   0:00 /usr/lib/gvfs/gvfs-gdu-volume-monitor
+jrice     1346  0.0  0.9  72884  9928 ?        Sl   Jul19   0:00 /usr/lib/notify-osd/notify-osd
+jrice     1357  0.0  0.2   8128  2748 ?        S    Jul19   0:00 /usr/lib/gvfs/gvfsd-trash --spawner :1.12 /org/gtk/gvfs/exec_spaw/0
+jrice     1360  0.0  0.2  34160  2944 ?        Ssl  Jul19   0:00 /usr/lib/bonobo-activation/bonobo-activation-server --ac-activate -
+root      1371  0.0  0.3  22512  3100 ?        Sl   Jul19   0:00 /usr/lib/udisks/udisks-daemon
+root      1373  0.0  0.0   5564   944 ?        S    Jul19   0:21 udisks-daemon: polling /dev/sr0
+jrice     1419  0.0  0.2   8512  2256 ?        S    Jul19   0:00 /usr/lib/gvfs/gvfs-gphoto2-volume-monitor
+jrice     1421  0.0  0.2  18204  2052 ?        Sl   Jul19   0:00 /usr/lib/gvfs/gvfs-afc-volume-monitor
+jrice     1422  0.0  0.2  27068  2628 ?        Ss   Jul19   0:01 gnome-screensaver
+jrice     1425  0.0  0.8  80364  8460 ?        Sl   Jul19   0:00 /usr/lib/gnome-panel/wnck-applet
+jrice     1427  0.0  0.7  79484  7848 ?        Sl   Jul19   0:00 /usr/lib/gnome-applets/trashapplet
+jrice     1429  0.0  1.0  98516 10260 ?        Sl   Jul19   0:12 /usr/lib/indicator-applet/indicator-applet-complete
+jrice     1431  0.0  0.6  76304  6400 ?        Sl   Jul19   0:00 /usr/lib/gnome-panel/notification-area-applet
+jrice     1455  0.0  0.2   7764  2304 ?        S    Jul19   0:00 /usr/lib/gvfs/gvfsd-burn --spawner :1.12 /org/gtk/gvfs/exec_spaw/1
+jrice     1460  0.0  0.0   3912   244 ?        S    Jul19   0:00 /bin/cat
+jrice     1462  0.0  0.0      0     0 ?        Z    Jul19   0:00 [zeitgeist-datah] <defunct>
+jrice     1468  0.0  0.4  19392  4704 ?        S    Jul19   0:00 /usr/lib/gnome-disk-utility/gdu-notification-daemon
+jrice     1477  0.0  0.1   7440  1852 ?        S    Jul19   0:00 /usr/lib/gvfs/gvfsd-metadata
+jrice     1484  0.0  0.2  21496  2200 ?        Sl   Jul19   0:00 /usr/lib/d-conf/dconf-service
+jrice     1488  0.0  0.3  40500  3404 ?        Sl   Jul19   0:00 /usr/lib/indicator-application/indicator-application-service
+jrice     1490  0.0  0.3  61096  3816 ?        Sl   Jul19   0:00 /usr/lib/indicator-me/indicator-me-service
+jrice     1492  0.0  0.5  58988  5132 ?        Sl   Jul19   0:00 /usr/lib/indicator-datetime/indicator-datetime-service
+jrice     1494  0.0  0.4 120404  4340 ?        Sl   Jul19   0:00 /usr/lib/indicator-sound/indicator-sound-service
+jrice     1496  0.0  0.4  50784  4200 ?        Sl   Jul19   0:00 /usr/lib/indicator-session/indicator-session-service
+jrice     1498  0.0  0.3  58288  3424 ?        Sl   Jul19   0:00 /usr/lib/indicator-messages/indicator-messages-service
+jrice     1527  0.0  0.3  18072  3460 ?        Sl   Jul19   0:00 /usr/lib/geoclue/geoclue-master
+jrice     1535  0.0  1.2  33544 13080 ?        S    Jul19   0:00 /usr/bin/python /usr/share/system-config-printer/applet.py
+jrice     1537  0.0  0.8  80904  8948 ?        Sl   Jul19   0:04 update-notifier
+root      5918  0.0  0.6  14724  6432 ?        S    Jul19   0:00 /usr/bin/python /usr/lib/system-service/system-service-d
+root      7707  0.0  0.0   2876   680 ?        S<   Jul19   0:00 udevd --daemon
+jrice    11788  0.3  4.9 422596 50360 ?        Sl   Jul19   1:37 java -Djetty.port=8983 -Dsolr.solr.home=/home/jrice/code/eol/solr/s
+root     14155  0.0  0.0      0     0 ?        S    05:17   0:02 [kworker/0:0]
+root     14224  0.0  0.0   2876   704 ?        S<   06:09   0:00 udevd --daemon
+root     14246  0.0  0.1   2552  1236 ?        S    06:10   0:00 /sbin/dhclient -d -4 -sf /usr/lib/NetworkManager/nm-dhcp-client.act
+root     14305  0.0  0.3   9068  3308 ?        Ss   06:10   0:00 sshd: jrice [priv]  
+jrice    14398  0.0  0.1   9068  1736 ?        S    06:10   0:00 sshd: jrice@pts/0   
+jrice    14399  0.0  0.8  12236  8960 pts/0    Ss   06:10   0:00 -bash
+root     14627  0.0  0.3   8992  3204 ?        Ss   06:13   0:00 sshd: jrice [priv]  
+jrice    14699  0.0  0.1   8992  1644 ?        S    06:13   0:01 sshd: jrice@pts/1   
+jrice    14700  0.0  0.8  12236  8984 pts/1    Ss   06:13   0:00 -bash
+jrice    14956  3.5 10.1 111604 104012 pts/0   T    06:23   1:59 ruby ./script/server
+root     15007  0.0  0.0      0     0 ?        S    07:09   0:00 [kworker/0:1]
+jrice    15017  0.4  0.5   9188  5544 pts/1    S+   07:09   0:02 vim +15 app/controllers/content_controller.rb
+root     15023  0.0  0.0      0     0 ?        S    07:14   0:00 [kworker/0:2]
+jrice    15039  0.0  0.0   4124   780 pts/0    S+   07:19   0:00 script server:stop
+jrice    15040  0.0  0.0   4128   344 pts/0    S+   07:19   0:00 script server:stop
+jrice    15041  3.0  0.4   7772  4388 pts/2    Ss   07:19   0:00 bash -i
+jrice    15097  0.0  0.1   4708  1196 pts/2    R+   07:19   0:00 ps -auwx
+[0;38m[0;37mjrice [0;31mubuntu [0;33m~/code/eol[0;38m[0m[0;31m(master)[0m > ps | grep ruby
+Warning: bad ps syntax, perhaps a bogus '-'? See http://procps.sf.net/faq.html
+jrice    14956  3.5 10.1 111604 104012 pts/0   T    06:23   1:59 ruby ./script/server
+jrice    15103  0.0  0.0   4156   856 pts/2    S+   07:19   0:00 grep ruby
+[0;38m[0;37mjrice [0;31mubuntu [0;33m~/code/eol[0;38m[0m[0;31m(master)[0m > kill -9 14956
+[0;38m[0;37mjrice [0;31mubuntu [0;33m~/code/eol[0;38m[0m[0;31m(master)[0m > cler
+^C
+[0;38m[0;37mjrice [0;31mubuntu [0;33m~/code/eol[0;38m[0m[0;31m(master)[0m > clear
+[H[2J[0;38m[0;37mjrice [0;31mubuntu [0;33m~/code/eol[0;38m[0m[0;31m(master)[0m > ss
+config.gem: Unpacked gem haml-3.1.1 in vendor/gems has no specification file. Run 'rake gems:refresh_specs' to fix this.
+=> Booting WEBrick
+=> Rails 2.3.8 application starting on http://0.0.0.0:3000
+** LOADING environment_eol_org
+=> Call with -d to detach
+=> Ctrl-C to shutdown server
+[2011-07-20 07:19:53] INFO  WEBrick 1.3.1
+[2011-07-20 07:19:53] INFO  ruby 1.8.7 (2010-08-16) [i686-linux]
+[2011-07-20 07:19:58] INFO  WEBrick::HTTPServer#start: pid=15124 port=3000
+  [4;36;1mSQL (0.3ms) localhost::eol_development[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms) localhost::eol_development[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (5.3ms) localhost::eol_development[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mTranslatedContentPage Columns (2.0ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `translated_content_pages`[0m
+  [4;36;1mContentPage Columns (0.9ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `content_pages`[0m
+
+
+Processing ContentController#index (for 192.168.1.4 at 2011-07-20 07:20:01) [GET]
+  [4;35;1mSQL (2.1ms) localhost::eol_development[0m   [0mSHOW TABLES[0m
+  [4;36;1mTranslatedUntrustReason Columns (0.8ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `translated_untrust_reasons`[0m
+  [4;35;1mUntrustReason Columns (0.5ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `untrust_reasons`[0m
+  [4;36;1mChangeableObjectType Columns (0.8ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `changeable_object_types`[0m
+  [4;35;1mChangeableObjectType Load (0.4ms) localhost::eol_development[0m   [0mSELECT * FROM `changeable_object_types` WHERE (`changeable_object_types`.`ch_object_type` = 'data_object') LIMIT 1[0m
+  [4;36;1mUser Columns (1.4ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `users`[0m
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+  [4;35;1mSQL (2.0ms) localhost::eol_development[0m   [0mSHOW TABLES[0m
+  [4;36;1mTranslatedLanguage Columns (0.6ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `translated_languages`[0m
+  [4;35;1mLanguage Columns (0.4ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `languages`[0m
+Cache read: development/languages/instances_cached
+Cache hit: development/languages/instances_cached ({})
+Cache read: development/languages/instance_id_1
+Cache read: development/languages/instance_id_1
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: development/hierarchies/instances_cached
+Cache hit: development/hierarchies/instances_cached ({})
+Cache read: development/hierarchies/instance_id_1
+Cache read: development/hierarchies/instance_id_1
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+  [4;36;1mHierarchy Columns (1.4ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `hierarchies`[0m
+Cache read: users/32
+Cache hit: users/32 ({})
+  [4;35;1mSQL (0.1ms) localhost::eol_logging_development[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms) localhost::eol_logging_development[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSQL (0.4ms) localhost::eol_logging_development[0m   [0mSHOW TABLES[0m
+  [4;36;1mTranslatedActivity Columns (0.4ms) localhost::eol_logging_development[0m   [0;1mSHOW FIELDS FROM `translated_activities`[0m
+  [4;35;1mActivity Columns (0.4ms) localhost::eol_logging_development[0m   [0mSHOW FIELDS FROM `activities`[0m
+Cache read: development/activities/name/viewed_home_page/en
+Cache hit: development/activities/name/viewed_home_page/en ({})
+  [4;36;1mUserActivityLog Columns (0.5ms) localhost::eol_logging_development[0m   [0;1mSHOW FIELDS FROM `user_activity_logs`[0m
+  [4;35;1mUserActivityLog Create (0.7ms) localhost::eol_logging_development[0m   [0mINSERT DELAYED INTO `user_activity_logs` (`created_at`, `activity_id`, `user_id`, `value`, `taxon_concept_id`) VALUES('2011-07-20 13:20:01', 59, 32, NULL, NULL)[0m
+Cache read: homepage/random_images
+Cache miss: homepage/random_images ({:expires_in=>1800 seconds})
+Cache read: development/hierarchies/label/Species_2000_ITIS_Catalogue_of_Life_Annual_Checklist_2010
+Cache hit: development/hierarchies/label/Species_2000_ITIS_Catalogue_of_Life_Annual_Checklist_2010 ({})
+Cache read: development/languages/english
+Cache hit: development/languages/english ({})
+  [4;36;1mSQL (0.2ms) localhost::eol_development[0m   [0;1mselect min(id) min from random_hierarchy_images[0m
+  [4;35;1mSQL (0.1ms) localhost::eol_development[0m   [0mselect count(*) count from random_hierarchy_images rhi WHERE rhi.hierarchy_id=4[0m
+  [4;36;1mRandomHierarchyImage Load (0.2ms) localhost::eol_development[0m   [0;1mSELECT * FROM `random_hierarchy_images` WHERE (hierarchy_id=4 AND id>30) LIMIT 120[0m
+  [4;35;1mRandomHierarchyImage Columns (0.7ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `random_hierarchy_images`[0m
+  [4;36;1mSQL (1.9ms) localhost::eol_development[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mTranslatedDataType Columns (1.1ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `translated_data_types`[0m
+  [4;36;1mDataType Columns (0.8ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `data_types`[0m
+  [4;35;1mDataObject Columns (1.3ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `data_objects`[0m
+  [4;36;1mDataObject Load (0.2ms) localhost::eol_development[0m   [0;1mSELECT `data_objects`.`id`,`data_objects`.`object_cache_url` FROM `data_objects` WHERE (`data_objects`.`id` IN (66,12,91,47,93,39,30,102,21)) [0m
+  [4;35;1mTaxonConcept Columns (0.8ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `taxon_concepts`[0m
+  [4;36;1mTaxonConcept Load (0.3ms) localhost::eol_development[0m   [0;1mSELECT `taxon_concepts`.`id` FROM `taxon_concepts` WHERE (`taxon_concepts`.`id` IN (11,12,8,9,16,17,18,910093,10)) [0m
+  [4;35;1mTaxonConceptName Load (0.3ms) localhost::eol_development[0m   [0mSELECT * FROM `taxon_concept_names` WHERE (`taxon_concept_names`.taxon_concept_id IN (8,9,10,11,12,16,17,18,910093) AND (taxon_concept_names.vern=1 AND taxon_concept_names.preferred=1)) [0m
+  [4;36;1mTaxonConceptName Columns (1.2ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `taxon_concept_names`[0m
+  [4;35;1mName Load (0.5ms) localhost::eol_development[0m   [0mSELECT `names`.`id`,`names`.`italicized`,`names`.`string`,`names`.`canonical_form_id`,`names`.`ranked_canonical_form_id` FROM `names` WHERE (`names`.`id` IN ('11','7','24','13','9','26','30','5')) [0m
+  [4;36;1mName Columns (2.2ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `names`[0m
+  [4;35;1mSQL (1.7ms) localhost::eol_development[0m   [0mSHOW TABLES[0m
+  [4;36;1mTranslatedVisibility Columns (1.9ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `translated_visibilities`[0m
+  [4;35;1mVisibility Columns (1.4ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `visibilities`[0m
+Cache read: development/visibilities/label/Visible/en
+Cache hit: development/visibilities/label/Visible/en ({})
+  [4;36;1mHierarchyEntry Load (0.3ms) localhost::eol_development[0m   [0;1mSELECT * FROM `hierarchy_entries` WHERE (`hierarchy_entries`.taxon_concept_id IN (8,9,10,11,12,16,17,18,910093) AND (hierarchy_entries.published=1 AND hierarchy_entries.visibility_id=2)) [0m
+  [4;35;1mHierarchyEntry Columns (1.0ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `hierarchy_entries`[0m
+  [4;36;1mName Load (1.2ms) localhost::eol_development[0m   [0;1mSELECT `names`.`id`,`names`.`italicized`,`names`.`string`,`names`.`canonical_form_id`,`names`.`ranked_canonical_form_id` FROM `names` WHERE (`names`.`id` IN (6,23,12,8,25,27,28,29,10,4)) [0m
+  [4;35;1mCanonicalForm Columns (0.7ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `canonical_forms`[0m
+  [4;36;1mCanonicalForm Load (0.2ms) localhost::eol_development[0m   [0;1mSELECT `canonical_forms`.`id`,`canonical_forms`.`string` FROM `canonical_forms` WHERE (`canonical_forms`.`id` IN (6,23,12,8,25,27,28,10,4)) [0m
+  [4;35;1mCACHE (0.0ms) localhost::eol_development[0m   [0mSELECT `canonical_forms`.`id`,`canonical_forms`.`string` FROM `canonical_forms` WHERE (`canonical_forms`.`id` IN (6,23,12,8,25,27,28,10,4)) [0m
+/home/jrice/code/eol/app/controllers/content_controller.rb:21
+puts "h"
+(rdb:1) q
+Really quit? (y/n) y
+[0;38m[0;37mjrice [0;31mubuntu [0;33m~/code/eol[0;38m[0m[0;31m(master)[0m > ss
+config.gem: Unpacked gem haml-3.1.1 in vendor/gems has no specification file. Run 'rake gems:refresh_specs' to fix this.
+=> Booting WEBrick
+=> Rails 2.3.8 application starting on http://0.0.0.0:3000
+** LOADING environment_eol_org
+=> Call with -d to detach
+=> Ctrl-C to shutdown server
+[2011-07-20 07:20:23] INFO  WEBrick 1.3.1
+[2011-07-20 07:20:23] INFO  ruby 1.8.7 (2010-08-16) [i686-linux]
+[2011-07-20 07:20:28] INFO  WEBrick::HTTPServer#start: pid=15129 port=3000
+  [4;36;1mSQL (0.2ms) localhost::eol_development[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms) localhost::eol_development[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (3.8ms) localhost::eol_development[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mTranslatedContentPage Columns (0.7ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `translated_content_pages`[0m
+  [4;36;1mContentPage Columns (0.6ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `content_pages`[0m
+
+
+Processing ContentController#index (for 192.168.1.4 at 2011-07-20 07:20:44) [GET]
+  [4;35;1mSQL (3.0ms) localhost::eol_development[0m   [0mSHOW TABLES[0m
+  [4;36;1mTranslatedUntrustReason Columns (0.7ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `translated_untrust_reasons`[0m
+  [4;35;1mUntrustReason Columns (0.5ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `untrust_reasons`[0m
+  [4;36;1mChangeableObjectType Columns (2.2ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `changeable_object_types`[0m
+  [4;35;1mChangeableObjectType Load (0.7ms) localhost::eol_development[0m   [0mSELECT * FROM `changeable_object_types` WHERE (`changeable_object_types`.`ch_object_type` = 'data_object') LIMIT 1[0m
+  [4;36;1mUser Columns (1.6ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `users`[0m
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+  [4;35;1mSQL (14.5ms) localhost::eol_development[0m   [0mSHOW TABLES[0m
+  [4;36;1mTranslatedLanguage Columns (0.8ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `translated_languages`[0m
+  [4;35;1mLanguage Columns (0.4ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `languages`[0m
+Cache read: development/languages/instances_cached
+Cache hit: development/languages/instances_cached ({})
+Cache read: development/languages/instance_id_1
+Cache read: development/languages/instance_id_1
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: development/hierarchies/instances_cached
+Cache hit: development/hierarchies/instances_cached ({})
+Cache read: development/hierarchies/instance_id_1
+Cache read: development/hierarchies/instance_id_1
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+  [4;36;1mHierarchy Columns (0.6ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `hierarchies`[0m
+Cache read: users/32
+Cache hit: users/32 ({})
+  [4;35;1mSQL (0.2ms) localhost::eol_logging_development[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms) localhost::eol_logging_development[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSQL (0.4ms) localhost::eol_logging_development[0m   [0mSHOW TABLES[0m
+  [4;36;1mTranslatedActivity Columns (3.0ms) localhost::eol_logging_development[0m   [0;1mSHOW FIELDS FROM `translated_activities`[0m
+  [4;35;1mActivity Columns (0.6ms) localhost::eol_logging_development[0m   [0mSHOW FIELDS FROM `activities`[0m
+Cache read: development/activities/name/viewed_home_page/en
+Cache hit: development/activities/name/viewed_home_page/en ({})
+  [4;36;1mUserActivityLog Columns (1.3ms) localhost::eol_logging_development[0m   [0;1mSHOW FIELDS FROM `user_activity_logs`[0m
+  [4;35;1mUserActivityLog Create (0.5ms) localhost::eol_logging_development[0m   [0mINSERT DELAYED INTO `user_activity_logs` (`created_at`, `activity_id`, `user_id`, `value`, `taxon_concept_id`) VALUES('2011-07-20 13:20:44', 59, 32, NULL, NULL)[0m
+Cache read: homepage/random_images
+Cache miss: homepage/random_images ({:expires_in=>1800 seconds})
+Cache read: development/hierarchies/label/Species_2000_ITIS_Catalogue_of_Life_Annual_Checklist_2010
+Cache hit: development/hierarchies/label/Species_2000_ITIS_Catalogue_of_Life_Annual_Checklist_2010 ({})
+Cache read: development/languages/english
+Cache hit: development/languages/english ({})
+  [4;36;1mSQL (0.2ms) localhost::eol_development[0m   [0;1mselect min(id) min from random_hierarchy_images[0m
+  [4;35;1mSQL (1.5ms) localhost::eol_development[0m   [0mselect count(*) count from random_hierarchy_images rhi WHERE rhi.hierarchy_id=4[0m
+  [4;36;1mRandomHierarchyImage Load (1.2ms) localhost::eol_development[0m   [0;1mSELECT * FROM `random_hierarchy_images` WHERE (hierarchy_id=4 AND id>30) LIMIT 120[0m
+  [4;35;1mRandomHierarchyImage Columns (0.6ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `random_hierarchy_images`[0m
+  [4;36;1mSQL (2.0ms) localhost::eol_development[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mTranslatedDataType Columns (0.4ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `translated_data_types`[0m
+  [4;36;1mDataType Columns (0.3ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `data_types`[0m
+  [4;35;1mDataObject Columns (1.2ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `data_objects`[0m
+  [4;36;1mDataObject Load (0.2ms) localhost::eol_development[0m   [0;1mSELECT `data_objects`.`id`,`data_objects`.`object_cache_url` FROM `data_objects` WHERE (`data_objects`.`id` IN (66,12,91,47,93,39,30,102,21)) [0m
+  [4;35;1mTaxonConcept Columns (1.0ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `taxon_concepts`[0m
+  [4;36;1mTaxonConcept Load (0.2ms) localhost::eol_development[0m   [0;1mSELECT `taxon_concepts`.`id` FROM `taxon_concepts` WHERE (`taxon_concepts`.`id` IN (11,12,8,9,16,17,18,910093,10)) [0m
+  [4;35;1mTaxonConceptName Load (0.1ms) localhost::eol_development[0m   [0mSELECT * FROM `taxon_concept_names` WHERE (`taxon_concept_names`.taxon_concept_id IN (8,9,10,11,12,16,17,18,910093) AND (taxon_concept_names.vern=1 AND taxon_concept_names.preferred=1)) [0m
+  [4;36;1mTaxonConceptName Columns (1.8ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `taxon_concept_names`[0m
+  [4;35;1mName Load (0.2ms) localhost::eol_development[0m   [0mSELECT `names`.`id`,`names`.`italicized`,`names`.`string`,`names`.`canonical_form_id`,`names`.`ranked_canonical_form_id` FROM `names` WHERE (`names`.`id` IN ('11','7','24','13','9','26','30','5')) [0m
+  [4;36;1mName Columns (0.6ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `names`[0m
+  [4;35;1mSQL (2.0ms) localhost::eol_development[0m   [0mSHOW TABLES[0m
+  [4;36;1mTranslatedVisibility Columns (0.6ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `translated_visibilities`[0m
+  [4;35;1mVisibility Columns (0.4ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `visibilities`[0m
+Cache read: development/visibilities/label/Visible/en
+Cache hit: development/visibilities/label/Visible/en ({})
+  [4;36;1mHierarchyEntry Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT * FROM `hierarchy_entries` WHERE (`hierarchy_entries`.taxon_concept_id IN (8,9,10,11,12,16,17,18,910093) AND (hierarchy_entries.published=1 AND hierarchy_entries.visibility_id=2)) [0m
+  [4;35;1mHierarchyEntry Columns (0.8ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `hierarchy_entries`[0m
+  [4;36;1mName Load (0.7ms) localhost::eol_development[0m   [0;1mSELECT `names`.`id`,`names`.`italicized`,`names`.`string`,`names`.`canonical_form_id`,`names`.`ranked_canonical_form_id` FROM `names` WHERE (`names`.`id` IN (6,23,12,8,25,27,28,29,10,4)) [0m
+  [4;35;1mCanonicalForm Columns (0.5ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `canonical_forms`[0m
+  [4;36;1mCanonicalForm Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT `canonical_forms`.`id`,`canonical_forms`.`string` FROM `canonical_forms` WHERE (`canonical_forms`.`id` IN (6,23,12,8,25,27,28,10,4)) [0m
+  [4;35;1mCACHE (0.0ms) localhost::eol_development[0m   [0mSELECT `canonical_forms`.`id`,`canonical_forms`.`string` FROM `canonical_forms` WHERE (`canonical_forms`.`id` IN (6,23,12,8,25,27,28,10,4)) [0m
+/home/jrice/code/eol/app/controllers/content_controller.rb:21
+puts "h"
+(rdb:1) p e
+#<TypeError: singleton can't be dumped>
+(rdb:1) c
+h
+****************************************************************************
+** EXCEPTION: (uncaught) You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.shuffle!
+   ./app/controllers/content_controller.rb:23:in `index'
+       (./vendor/rails/actionpack/lib/action_controller/base.rb:1331:in `send')
+       (./vendor/rails/actionpack/lib/action_controller/base.rb:1331:in `perform_action_without_filters')
+       (./vendor/rails/actionpack/lib/action_controller/filters.rb:617:in `call_filters')
+       (./vendor/rails/actionpack/lib/action_controller/filters.rb:610:in `perform_action_without_benchmark')
+       (./vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue')
+       (./vendor/rails/activesupport/lib/active_support/core_ext/benchmark.rb:17:in `ms')
+       (/usr/local/rvm/rubies/ruby-1.8.7-p302/lib/ruby/1.8/benchmark.rb:308:in `realtime')
+       (./vendor/rails/activesupport/lib/active_support/core_ext/benchmark.rb:17:in `ms')
+       (./vendor/rails/actionpack/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue')
+       (./vendor/rails/actionpack/lib/action_controller/rescue.rb:160:in `perform_action_without_flash')
+       (./vendor/rails/actionpack/lib/action_controller/flash.rb:151:in `perform_action')
+       (./vendor/rails/actionpack/lib/action_controller/base.rb:532:in `send')
+       (./vendor/rails/actionpack/lib/action_controller/base.rb:532:in `process_without_filters')
+       (./vendor/rails/actionpack/lib/action_controller/filters.rb:606:in `process')
+       (./vendor/rails/actionpack/lib/action_controller/base.rb:391:in `process')
+       (./vendor/rails/actionpack/lib/action_controller/base.rb:386:in `call')
+       (./vendor/rails/actionpack/lib/action_controller/routing/route_set.rb:438:in `call')
+       (./vendor/rails/actionpack/lib/action_controller/dispatcher.rb:87:in `dispatch')
+       (./vendor/rails/actionpack/lib/action_controller/dispatcher.rb:121:in `_call')
+       (./vendor/rails/actionpack/lib/action_controller/dispatcher.rb:130:in `build_middleware_stack')
+       (./vendor/rails/activerecord/lib/active_record/query_cache.rb:29:in `call')
+       (./vendor/rails/activerecord/lib/active_record/query_cache.rb:29:in `call')
+       (./vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache')
+       (./vendor/rails/activerecord/lib/active_record/query_cache.rb:9:in `cache')
+       (./vendor/rails/activerecord/lib/active_record/query_cache.rb:28:in `call')
+       (./vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call')
+       (./vendor/gems/sass-3.1.1/rails/../lib/sass/plugin/rack.rb:54:in `call')
+       (./vendor/rails/actionpack/lib/action_controller/string_coercion.rb:25:in `call')
+       (./vendor/gems/rack-1.1.0/lib/rack/head.rb:9:in `call')
+       (./vendor/gems/rack-1.1.0/lib/rack/methodoverride.rb:24:in `call')
+       (./vendor/rails/actionpack/lib/action_controller/params_parser.rb:15:in `call')
+       (./vendor/rails/actionpack/lib/action_controller/session/cookie_store.rb:99:in `call')
+       (./vendor/rails/activesupport/lib/active_support/cache/strategy/local_cache.rb:25:in `call')
+       (./vendor/rails/actionpack/lib/action_controller/failsafe.rb:26:in `call')
+       (./vendor/gems/rack-1.1.0/lib/rack/lock.rb:11:in `call')
+       (./vendor/gems/rack-1.1.0/lib/rack/lock.rb:11:in `synchronize')
+       (./vendor/gems/rack-1.1.0/lib/rack/lock.rb:11:in `call')
+       (./vendor/rails/actionpack/lib/action_controller/dispatcher.rb:114:in `call')
+       (./vendor/rails/actionpack/lib/action_controller/reloader.rb:34:in `run')
+       (./vendor/rails/actionpack/lib/action_controller/dispatcher.rb:108:in `call')
+       (./vendor/rails/railties/lib/rails/rack/static.rb:31:in `call')
+       (./vendor/gems/rack-1.1.0/lib/rack/urlmap.rb:47:in `call')
+       (./vendor/gems/rack-1.1.0/lib/rack/urlmap.rb:41:in `each')
+       (./vendor/gems/rack-1.1.0/lib/rack/urlmap.rb:41:in `call')
+       (./vendor/rails/railties/lib/rails/rack/log_tailer.rb:17:in `call')
+       (./vendor/gems/rack-1.1.0/lib/rack/content_length.rb:13:in `call')
+       (./vendor/gems/rack-1.1.0/lib/rack/handler/webrick.rb:48:in `service')
+       (/usr/local/rvm/rubies/ruby-1.8.7-p302/lib/ruby/1.8/webrick/httpserver.rb:104:in `service')
+       (/usr/local/rvm/rubies/ruby-1.8.7-p302/lib/ruby/1.8/webrick/httpserver.rb:65:in `run')
+       (/usr/local/rvm/rubies/ruby-1.8.7-p302/lib/ruby/1.8/webrick/server.rb:173:in `start_thread')
+       (/usr/local/rvm/rubies/ruby-1.8.7-p302/lib/ruby/1.8/webrick/server.rb:162:in `start')
+       (/usr/local/rvm/rubies/ruby-1.8.7-p302/lib/ruby/1.8/webrick/server.rb:162:in `start_thread')
+       (/usr/local/rvm/rubies/ruby-1.8.7-p302/lib/ruby/1.8/webrick/server.rb:95:in `start')
+       (/usr/local/rvm/rubies/ruby-1.8.7-p302/lib/ruby/1.8/webrick/server.rb:92:in `each')
+       (/usr/local/rvm/rubies/ruby-1.8.7-p302/lib/ruby/1.8/webrick/server.rb:92:in `start')
+       (/usr/local/rvm/rubies/ruby-1.8.7-p302/lib/ruby/1.8/webrick/server.rb:23:in `start')
+       (/usr/local/rvm/rubies/ruby-1.8.7-p302/lib/ruby/1.8/webrick/server.rb:82:in `start')
+       (./vendor/gems/rack-1.1.0/lib/rack/handler/webrick.rb:14:in `run')
+       (./vendor/rails/railties/lib/commands/server.rb:111)
+       (/usr/local/rvm/rubies/ruby-1.8.7-p302/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:29:in `gem_original_require')
+       (/usr/local/rvm/rubies/ruby-1.8.7-p302/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:29:in `require')
+   ./script/server:3
+
+
+
+Rendering template within layouts/v2/basic
+Rendering content/error
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: development/roles/administrator
+Cache hit: development/roles/administrator ({})
+  [4;36;1mCommunity Columns (1.4ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `communities`[0m
+Cache read: development/communities/name/EOL_Curators_and_Admins
+Cache hit: development/communities/name/EOL_Curators_and_Admins ({})
+  [4;35;1mUser Load (0.2ms) localhost::eol_development[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 32) [0m
+  [4;36;1mMember Load (0.5ms) localhost::eol_development[0m   [0;1mSELECT * FROM `members` WHERE ((`members`.`user_id` = 32)) [0m
+Rendered content/_error (175.9ms)
+Cache read: users/32
+Cache hit: users/32 ({})
+Rendered layouts/v2/_global_navigation (12.0ms)
+Cache read: development/languages/active_languages
+Cache hit: development/languages/active_languages ({})
+Rendered layouts/v2/_search (7.3ms)
+Cache read: users/32
+Cache hit: users/32 ({})
+Rendered content/_march_of_life_item (3.2ms)
+Rendered content/_march_of_life_item (0.2ms)
+Rendered content/_march_of_life_item (0.2ms)
+Rendered content/_march_of_life_item (0.2ms)
+Rendered content/_march_of_life_item (0.2ms)
+Rendered content/_march_of_life_item (0.0ms)
+Cache read: users/32
+Cache hit: users/32 ({})
+Rendered layouts/v2/_global_navigation (10.4ms)
+  [4;35;1mSQL (0.1ms) localhost::eol_development[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms) localhost::eol_development[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSQL (2.3ms) localhost::eol_development[0m   [0mSHOW TABLES[0m
+  [4;36;1mTranslatedContentPage Columns (0.7ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `translated_content_pages`[0m
+  [4;35;1mContentPage Columns (0.9ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `content_pages`[0m
+
+
+Processing ContentController#index (for 192.168.1.4 at 2011-07-20 07:21:41) [GET]
+  [4;36;1mSQL (2.4ms) localhost::eol_development[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mTranslatedUntrustReason Columns (0.5ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `translated_untrust_reasons`[0m
+  [4;36;1mUntrustReason Columns (0.4ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `untrust_reasons`[0m
+  [4;35;1mChangeableObjectType Columns (0.6ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `changeable_object_types`[0m
+  [4;36;1mChangeableObjectType Load (0.2ms) localhost::eol_development[0m   [0;1mSELECT * FROM `changeable_object_types` WHERE (`changeable_object_types`.`ch_object_type` = 'data_object') LIMIT 1[0m
+  [4;35;1mUser Columns (1.7ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `users`[0m
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+  [4;36;1mSQL (2.2ms) localhost::eol_development[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mTranslatedLanguage Columns (0.6ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `translated_languages`[0m
+  [4;36;1mLanguage Columns (0.0ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `languages`[0m
+Cache read: development/languages/instances_cached
+Cache hit: development/languages/instances_cached ({})
+Cache read: development/languages/instance_id_1
+Cache read: development/languages/instance_id_1
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: development/hierarchies/instances_cached
+Cache hit: development/hierarchies/instances_cached ({})
+Cache read: development/hierarchies/instance_id_1
+Cache read: development/hierarchies/instance_id_1
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+  [4;35;1mHierarchy Columns (4.4ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `hierarchies`[0m
+Cache read: users/32
+Cache hit: users/32 ({})
+  [4;36;1mSQL (0.3ms) localhost::eol_logging_development[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms) localhost::eol_logging_development[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.6ms) localhost::eol_logging_development[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mTranslatedActivity Columns (0.4ms) localhost::eol_logging_development[0m   [0mSHOW FIELDS FROM `translated_activities`[0m
+  [4;36;1mActivity Columns (0.4ms) localhost::eol_logging_development[0m   [0;1mSHOW FIELDS FROM `activities`[0m
+Cache read: development/activities/name/viewed_home_page/en
+Cache hit: development/activities/name/viewed_home_page/en ({})
+  [4;35;1mUserActivityLog Columns (0.6ms) localhost::eol_logging_development[0m   [0mSHOW FIELDS FROM `user_activity_logs`[0m
+  [4;36;1mUserActivityLog Create (0.7ms) localhost::eol_logging_development[0m   [0;1mINSERT DELAYED INTO `user_activity_logs` (`created_at`, `activity_id`, `user_id`, `value`, `taxon_concept_id`) VALUES('2011-07-20 13:21:42', 59, 32, NULL, NULL)[0m
+Cache read: homepage/random_images
+Cache miss: homepage/random_images ({:expires_in=>1800 seconds})
+Cache read: development/hierarchies/label/Species_2000_ITIS_Catalogue_of_Life_Annual_Checklist_2010
+Cache hit: development/hierarchies/label/Species_2000_ITIS_Catalogue_of_Life_Annual_Checklist_2010 ({})
+Cache read: development/languages/english
+Cache hit: development/languages/english ({})
+  [4;35;1mSQL (0.2ms) localhost::eol_development[0m   [0mselect min(id) min from random_hierarchy_images[0m
+  [4;36;1mSQL (0.1ms) localhost::eol_development[0m   [0;1mselect count(*) count from random_hierarchy_images rhi WHERE rhi.hierarchy_id=4[0m
+  [4;35;1mRandomHierarchyImage Load (0.1ms) localhost::eol_development[0m   [0mSELECT * FROM `random_hierarchy_images` WHERE (hierarchy_id=4 AND id>30) LIMIT 120[0m
+  [4;36;1mRandomHierarchyImage Columns (0.6ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `random_hierarchy_images`[0m
+  [4;35;1mSQL (2.5ms) localhost::eol_development[0m   [0mSHOW TABLES[0m
+  [4;36;1mTranslatedDataType Columns (0.6ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `translated_data_types`[0m
+  [4;35;1mDataType Columns (0.6ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `data_types`[0m
+  [4;36;1mDataObject Columns (1.6ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `data_objects`[0m
+  [4;35;1mDataObject Load (0.3ms) localhost::eol_development[0m   [0mSELECT `data_objects`.`id`,`data_objects`.`object_cache_url` FROM `data_objects` WHERE (`data_objects`.`id` IN (66,12,91,47,93,39,30,102,21)) [0m
+  [4;36;1mTaxonConcept Columns (1.1ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `taxon_concepts`[0m
+  [4;35;1mTaxonConcept Load (0.3ms) localhost::eol_development[0m   [0mSELECT `taxon_concepts`.`id` FROM `taxon_concepts` WHERE (`taxon_concepts`.`id` IN (11,12,8,9,16,17,18,910093,10)) [0m
+  [4;36;1mTaxonConceptName Load (0.3ms) localhost::eol_development[0m   [0;1mSELECT * FROM `taxon_concept_names` WHERE (`taxon_concept_names`.taxon_concept_id IN (8,9,10,11,12,16,17,18,910093) AND (taxon_concept_names.vern=1 AND taxon_concept_names.preferred=1)) [0m
+  [4;35;1mTaxonConceptName Columns (0.5ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `taxon_concept_names`[0m
+  [4;36;1mName Load (0.2ms) localhost::eol_development[0m   [0;1mSELECT `names`.`id`,`names`.`italicized`,`names`.`string`,`names`.`canonical_form_id`,`names`.`ranked_canonical_form_id` FROM `names` WHERE (`names`.`id` IN ('11','7','24','13','9','26','30','5')) [0m
+  [4;35;1mName Columns (0.7ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `names`[0m
+  [4;36;1mSQL (1.9ms) localhost::eol_development[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mTranslatedVisibility Columns (0.5ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `translated_visibilities`[0m
+  [4;36;1mVisibility Columns (0.3ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `visibilities`[0m
+Cache read: development/visibilities/label/Visible/en
+Cache hit: development/visibilities/label/Visible/en ({})
+  [4;35;1mHierarchyEntry Load (1.1ms) localhost::eol_development[0m   [0mSELECT * FROM `hierarchy_entries` WHERE (`hierarchy_entries`.taxon_concept_id IN (8,9,10,11,12,16,17,18,910093) AND (hierarchy_entries.published=1 AND hierarchy_entries.visibility_id=2)) [0m
+  [4;36;1mHierarchyEntry Columns (0.9ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `hierarchy_entries`[0m
+  [4;35;1mName Load (0.3ms) localhost::eol_development[0m   [0mSELECT `names`.`id`,`names`.`italicized`,`names`.`string`,`names`.`canonical_form_id`,`names`.`ranked_canonical_form_id` FROM `names` WHERE (`names`.`id` IN (6,23,12,8,25,27,28,29,10,4)) [0m
+  [4;36;1mCanonicalForm Columns (1.0ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `canonical_forms`[0m
+  [4;35;1mCanonicalForm Load (0.2ms) localhost::eol_development[0m   [0mSELECT `canonical_forms`.`id`,`canonical_forms`.`string` FROM `canonical_forms` WHERE (`canonical_forms`.`id` IN (6,23,12,8,25,27,28,10,4)) [0m
+  [4;36;1mCACHE (0.0ms) localhost::eol_development[0m   [0;1mSELECT `canonical_forms`.`id`,`canonical_forms`.`string` FROM `canonical_forms` WHERE (`canonical_forms`.`id` IN (6,23,12,8,25,27,28,10,4)) [0m
+Cache read: development/languages/english
+Cache hit: development/languages/english ({})
+  [4;35;1mCACHE (0.0ms) localhost::eol_development[0m   [0mSELECT * FROM `random_hierarchy_images` WHERE (hierarchy_id=4 AND id>30) LIMIT 120[0m
+  [4;36;1mCACHE (0.0ms) localhost::eol_development[0m   [0;1mSELECT `data_objects`.`id`,`data_objects`.`object_cache_url` FROM `data_objects` WHERE (`data_objects`.`id` IN (66,12,91,47,93,39,30,102,21)) [0m
+  [4;35;1mCACHE (0.0ms) localhost::eol_development[0m   [0mSELECT `taxon_concepts`.`id` FROM `taxon_concepts` WHERE (`taxon_concepts`.`id` IN (11,12,8,9,16,17,18,910093,10)) [0m
+  [4;36;1mCACHE (0.0ms) localhost::eol_development[0m   [0;1mSELECT * FROM `taxon_concept_names` WHERE (`taxon_concept_names`.taxon_concept_id IN (8,9,10,11,12,16,17,18,910093) AND (taxon_concept_names.vern=1 AND taxon_concept_names.preferred=1)) [0m
+  [4;35;1mCACHE (0.0ms) localhost::eol_development[0m   [0mSELECT `names`.`id`,`names`.`italicized`,`names`.`string`,`names`.`canonical_form_id`,`names`.`ranked_canonical_form_id` FROM `names` WHERE (`names`.`id` IN ('11','7','24','13','9','26','30','5')) [0m
+  [4;36;1mCACHE (0.0ms) localhost::eol_development[0m   [0;1mSELECT * FROM `hierarchy_entries` WHERE (`hierarchy_entries`.taxon_concept_id IN (8,9,10,11,12,16,17,18,910093) AND (hierarchy_entries.published=1 AND hierarchy_entries.visibility_id=2)) [0m
+  [4;35;1mCACHE (0.0ms) localhost::eol_development[0m   [0mSELECT `names`.`id`,`names`.`italicized`,`names`.`string`,`names`.`canonical_form_id`,`names`.`ranked_canonical_form_id` FROM `names` WHERE (`names`.`id` IN (6,23,12,8,25,27,28,29,10,4)) [0m
+  [4;36;1mCACHE (0.0ms) localhost::eol_development[0m   [0;1mSELECT `canonical_forms`.`id`,`canonical_forms`.`string` FROM `canonical_forms` WHERE (`canonical_forms`.`id` IN (6,23,12,8,25,27,28,10,4)) [0m
+  [4;35;1mCACHE (0.0ms) localhost::eol_development[0m   [0mSELECT `canonical_forms`.`id`,`canonical_forms`.`string` FROM `canonical_forms` WHERE (`canonical_forms`.`id` IN (6,23,12,8,25,27,28,10,4)) [0m
+Rendering template within layouts/v2/basic
+Rendering content/index
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: homepage_stats/total_taxon_concepts
+Cache miss: homepage_stats/total_taxon_concepts ({:expires_in=>3900 seconds})
+  [4;36;1mSQL (0.5ms) localhost::eol_development[0m   [0;1mSELECT count(*) AS count_all FROM `taxon_concepts` WHERE (published=1) [0m
+Cache write (will save 1.09ms): homepage_stats/total_taxon_concepts
+Cache read: homepage_stats/total_users
+Cache miss: homepage_stats/total_users ({:expires_in=>3900 seconds})
+  [4;35;1mSQL (0.2ms) localhost::eol_development[0m   [0mSELECT count(*) AS count_all FROM `users` WHERE (active=1) [0m
+Cache write (will save 0.73ms): homepage_stats/total_users
+Cache read: homepage_stats/total_collections
+Cache miss: homepage_stats/total_collections ({:expires_in=>3900 seconds})
+  [4;36;1mCollection Columns (1.8ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `collections`[0m
+  [4;35;1mSQL (1.9ms) localhost::eol_development[0m   [0mSELECT count(*) AS count_all FROM `collections` [0m
+Cache write (will save 32.34ms): homepage_stats/total_collections
+Cache read: homepage_stats/total_data_objects
+Cache miss: homepage_stats/total_data_objects ({:expires_in=>3900 seconds})
+Cache read: development/data_types/label/Image/en
+Cache miss: development/data_types/label/Image/en ({})
+Cache read: development/languages/id_from_iso_en
+Cache hit: development/languages/id_from_iso_en ({})
+  [4;36;1mDataType Load (0.5ms) localhost::eol_development[0m   [0;1mSELECT `data_types`.* FROM `data_types` INNER JOIN `translated_data_types` ON translated_data_types.data_type_id = data_types.id WHERE (`translated_data_types`.`label` = 'Image' AND `translated_data_types`.`language_id` = 1) LIMIT 1[0m
+  [4;35;1mTranslatedDataType Load (0.5ms) localhost::eol_development[0m   [0mSELECT `translated_data_types`.* FROM `translated_data_types` WHERE (`translated_data_types`.data_type_id = 1) [0m
+Cache write (will save 18.59ms): development/data_types/label/Image/en
+  [4;36;1mSQL (2.1ms) localhost::eol_development[0m   [0;1mSELECT count(*) AS count_all FROM `data_objects` WHERE (data_type_id=1 and published=1) [0m
+Cache write (will save 23.39ms): homepage_stats/total_data_objects
+Cache read: homepage_stats/total_content_partners
+Cache miss: homepage_stats/total_content_partners ({:expires_in=>3900 seconds})
+  [4;35;1mContentPartner Columns (2.1ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `content_partners`[0m
+  [4;36;1mSQL (0.8ms) localhost::eol_development[0m   [0;1mSELECT count(*) AS count_all FROM `content_partners` [0m
+Cache write (will save 18.09ms): homepage_stats/total_content_partners
+Rendered shared/_join_eol (7.3ms)
+Cache read: users/32
+Cache hit: users/32 ({})
+Rendered layouts/v2/_global_navigation (1.2ms)
+Cache read: development/languages/active_languages
+Cache hit: development/languages/active_languages ({})
+Rendered layouts/v2/_search (1.5ms)
+Cache read: users/32
+Cache hit: users/32 ({})
+  [4;35;1mSQL (3.7ms) localhost::eol_development[0m   [0mSHOW TABLES[0m
+  [4;36;1mTranslatedVetted Columns (0.6ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `translated_vetted`[0m
+  [4;35;1mVetted Columns (0.4ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `vetted`[0m
+Cache read: development/vetted/instances_cached
+Cache hit: development/vetted/instances_cached ({})
+Cache read: development/vetted/instance_id_3
+Cache read: development/vetted/instance_id_3
+Rendered content/_march_of_life_item (35.1ms)
+Rendered content/_march_of_life_item (6.3ms)
+Rendered content/_march_of_life_item (7.7ms)
+Rendered content/_march_of_life_item (2.6ms)
+Rendered content/_march_of_life_item (1.6ms)
+Rendered content/_march_of_life_item (1.9ms)
+Cache read: users/32
+Cache hit: users/32 ({})
+Rendered layouts/v2/_global_navigation (0.8ms)
+Completed in 1950ms (View: 478, DB: 48) | 200 OK [http://192.168.1.9/]
+  [4;36;1mSQL (0.1ms) localhost::eol_development[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms) localhost::eol_development[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (4.3ms) localhost::eol_development[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mTranslatedContentPage Columns (0.8ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `translated_content_pages`[0m
+  [4;36;1mContentPage Columns (1.3ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `content_pages`[0m
+
+
+Processing TaxaController#show (for 192.168.1.4 at 2011-07-20 07:21:57) [GET]
+  Parameters: {"id"=>"16"}
+  [4;35;1mSQL (2.3ms) localhost::eol_development[0m   [0mSHOW TABLES[0m
+  [4;36;1mTranslatedUntrustReason Columns (0.5ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `translated_untrust_reasons`[0m
+  [4;35;1mUntrustReason Columns (0.5ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `untrust_reasons`[0m
+  [4;36;1mChangeableObjectType Columns (1.6ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `changeable_object_types`[0m
+  [4;35;1mChangeableObjectType Load (0.3ms) localhost::eol_development[0m   [0mSELECT * FROM `changeable_object_types` WHERE (`changeable_object_types`.`ch_object_type` = 'data_object') LIMIT 1[0m
+  [4;36;1mUser Columns (1.4ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `users`[0m
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+  [4;35;1mSQL (2.0ms) localhost::eol_development[0m   [0mSHOW TABLES[0m
+  [4;36;1mTranslatedLanguage Columns (1.3ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `translated_languages`[0m
+  [4;35;1mLanguage Columns (0.4ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `languages`[0m
+Cache read: development/languages/instances_cached
+Cache hit: development/languages/instances_cached ({})
+Cache read: development/languages/instance_id_1
+Cache read: development/languages/instance_id_1
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: development/hierarchies/instances_cached
+Cache hit: development/hierarchies/instances_cached ({})
+Cache read: development/hierarchies/instance_id_1
+Cache read: development/hierarchies/instance_id_1
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+  [4;36;1mHierarchy Columns (0.7ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `hierarchies`[0m
+Redirected to http://192.168.1.9:3000/pages/16/overview
+Completed in 407ms (DB: 18) | 302 Found [http://192.168.1.9/pages/16]
+  [4;35;1mSQL (0.1ms) localhost::eol_development[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.1ms) localhost::eol_development[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSQL (2.2ms) localhost::eol_development[0m   [0mSHOW TABLES[0m
+  [4;36;1mTranslatedContentPage Columns (0.7ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `translated_content_pages`[0m
+  [4;35;1mContentPage Columns (0.4ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `content_pages`[0m
+
+
+Processing Taxa::OverviewsController#show (for 192.168.1.4 at 2011-07-20 07:21:59) [GET]
+  Parameters: {"taxon_id"=>"16"}
+  [4;36;1mSQL (1.9ms) localhost::eol_development[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mTranslatedUntrustReason Columns (0.5ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `translated_untrust_reasons`[0m
+  [4;36;1mUntrustReason Columns (0.4ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `untrust_reasons`[0m
+  [4;35;1mChangeableObjectType Columns (0.7ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `changeable_object_types`[0m
+  [4;36;1mChangeableObjectType Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT * FROM `changeable_object_types` WHERE (`changeable_object_types`.`ch_object_type` = 'data_object') LIMIT 1[0m
+  [4;35;1mUser Columns (12.6ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `users`[0m
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+  [4;36;1mSQL (2.4ms) localhost::eol_development[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mTranslatedLanguage Columns (0.7ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `translated_languages`[0m
+  [4;36;1mLanguage Columns (0.5ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `languages`[0m
+Cache read: development/languages/instances_cached
+Cache hit: development/languages/instances_cached ({})
+Cache read: development/languages/instance_id_1
+Cache read: development/languages/instance_id_1
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: development/hierarchies/instances_cached
+Cache hit: development/hierarchies/instances_cached ({})
+Cache read: development/hierarchies/instance_id_1
+Cache read: development/hierarchies/instance_id_1
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+  [4;35;1mHierarchy Columns (1.6ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `hierarchies`[0m
+  [4;36;1mSQL (2.0ms) localhost::eol_development[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mTranslatedDataType Columns (0.5ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `translated_data_types`[0m
+  [4;36;1mDataType Columns (0.3ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `data_types`[0m
+  [4;35;1mTaxonConcept Columns (0.7ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `taxon_concepts`[0m
+  [4;36;1mTaxonConcept Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT * FROM `taxon_concepts` WHERE (`taxon_concepts`.`id` = 16) [0m
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+  [4;35;1mAgent Columns (0.7ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `agents`[0m
+  [4;36;1mAgent Load (0.2ms) localhost::eol_development[0m   [0;1mSELECT * FROM `agents` WHERE (`agents`.`id` = 39) [0m
+  [4;35;1mSQL (0.1ms) localhost::eol_logging_development[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.9ms) localhost::eol_logging_development[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mPageViewLog Columns (0.5ms) localhost::eol_logging_development[0m   [0mSHOW FIELDS FROM `page_view_logs`[0m
+  [4;36;1mPageViewLog Create (0.3ms) localhost::eol_logging_development[0m   [0;1mINSERT DELAYED INTO `page_view_logs` (`created_at`, `updated_at`, `user_id`, `taxon_concept_id`, `agent_id`) VALUES('2011-07-20 13:22:00', '2011-07-20 13:22:00', 32, 16, 39)[0m
+  [4;35;1mSQL (2.1ms) localhost::eol_development[0m   [0mSHOW TABLES[0m
+  [4;36;1mTranslatedVetted Columns (6.2ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `translated_vetted`[0m
+  [4;35;1mVetted Columns (0.6ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `vetted`[0m
+  [4;36;1mSQL (1.9ms) localhost::eol_development[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mTranslatedTocItem Columns (0.5ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `translated_table_of_contents`[0m
+  [4;36;1mTocItem Columns (0.4ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `table_of_contents`[0m
+  [4;35;1mSQL (2.1ms) localhost::eol_development[0m   [0mSHOW TABLES[0m
+  [4;36;1mTranslatedInfoItem Columns (0.5ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `translated_info_items`[0m
+  [4;35;1mInfoItem Columns (0.7ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `info_items`[0m
+  [4;36;1mTaxonConcept Load (0.5ms) localhost::eol_development[0m   [0;1mSELECT `taxon_concepts`.* FROM `taxon_concepts` WHERE (`taxon_concepts`.`id` = 16) LIMIT 1[0m
+  [4;35;1mSQL (1.9ms) localhost::eol_development[0m   [0mSHOW TABLES[0m
+  [4;36;1mTranslatedVisibility Columns (0.5ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `translated_visibilities`[0m
+  [4;35;1mVisibility Columns (0.4ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `visibilities`[0m
+Cache read: development/visibilities/label/Visible/en
+Cache hit: development/visibilities/label/Visible/en ({})
+  [4;36;1mHierarchyEntry Load (0.3ms) localhost::eol_development[0m   [0;1mSELECT `hierarchy_entries`.`id`,`hierarchy_entries`.`rank_id`,`hierarchy_entries`.`identifier`,`hierarchy_entries`.`hierarchy_id`,`hierarchy_entries`.`parent_id`,`hierarchy_entries`.`published`,`hierarchy_entries`.`visibility_id`,`hierarchy_entries`.`lft`,`hierarchy_entries`.`rgt`,`hierarchy_entries`.`taxon_concept_id`,`hierarchy_entries`.`source_url`,`hierarchy_entries`.`name_id`,`hierarchy_entries`.`vetted_id` FROM `hierarchy_entries` WHERE (`hierarchy_entries`.taxon_concept_id = 16 AND (hierarchy_entries.published=1 AND hierarchy_entries.visibility_id=2)) [0m
+  [4;35;1mHierarchyEntry Columns (1.8ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `hierarchy_entries`[0m
+  [4;36;1mName Columns (0.7ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `names`[0m
+  [4;35;1mName Load (0.4ms) localhost::eol_development[0m   [0mSELECT `names`.`string`,`names`.`italicized`,`names`.`canonical_form_id`,`names`.`ranked_canonical_form_id`,`names`.`id` FROM `names` WHERE (`names`.`id` = 23) [0m
+Cache read: development/hierarchies/instance_id_4
+Cache read: development/hierarchies/instance_id_4
+  [4;36;1mHierarchiesContent Load (1.1ms) localhost::eol_development[0m   [0;1mSELECT `hierarchies_content`.`content_level`,`hierarchies_content`.`image`,`hierarchies_content`.`text`,`hierarchies_content`.`child_image`,`hierarchies_content`.`map`,`hierarchies_content`.`youtube`,`hierarchies_content`.`flash`,`hierarchies_content`.`hierarchy_entry_id` FROM `hierarchies_content` WHERE (`hierarchies_content`.hierarchy_entry_id = 11) [0m
+  [4;35;1mHierarchiesContent Columns (0.9ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `hierarchies_content`[0m
+Cache read: development/vetted/instances_cached
+Cache hit: development/vetted/instances_cached ({})
+Cache read: development/vetted/instance_id_3
+Cache read: development/vetted/instance_id_3
+  [4;36;1mDataObject Load (0.2ms) localhost::eol_development[0m   [0;1mSELECT `data_objects`.`id`,`data_objects`.`data_type_id`,`data_objects`.`vetted_id`,`data_objects`.`visibility_id`,`data_objects`.`published`,`data_objects`.`guid`,`data_objects`.`data_rating`,`t0`.`taxon_concept_id` as the_parent_record_id FROM `data_objects` INNER JOIN `data_objects_taxon_concepts` t0 ON `data_objects`.id = t0.data_object_id WHERE (t0.taxon_concept_id = 16) [0m
+  [4;35;1mDataObject Columns (0.8ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `data_objects`[0m
+  [4;36;1mTocItem Load (0.4ms) localhost::eol_development[0m   [0;1mSELECT `table_of_contents`.*,`t0`.`data_object_id` as the_parent_record_id FROM `table_of_contents` INNER JOIN `data_objects_table_of_contents` t0 ON `table_of_contents`.id = t0.toc_id WHERE (t0.data_object_id IN (66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81)) [0m
+  [4;35;1mTranslatedTocItem Load (0.2ms) localhost::eol_development[0m   [0mSELECT * FROM `translated_table_of_contents` WHERE (`translated_table_of_contents`.table_of_contents_id IN (1,4,43,37)) [0m
+  [4;36;1mInfoItem Load (1.2ms) localhost::eol_development[0m   [0;1mSELECT `info_items`.`toc_id` FROM `info_items` WHERE (`info_items`.toc_id IN (1,4,43,37)) [0m
+  [4;35;1mTranslatedInfoItem Load (0.2ms) localhost::eol_development[0m   [0mSELECT * FROM `translated_info_items` WHERE (`translated_info_items`.info_item_id = NULL) [0m
+  [4;36;1mTopConceptImage Load (0.2ms) localhost::eol_development[0m   [0;1mSELECT `top_concept_images`.`taxon_concept_id`,`top_concept_images`.`data_object_id` FROM `top_concept_images` WHERE (`top_concept_images`.taxon_concept_id = 16) [0m
+  [4;35;1mTopConceptImage Columns (2.3ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `top_concept_images`[0m
+  [4;36;1mDataObject Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT `data_objects`.`id`,`data_objects`.`data_type_id`,`data_objects`.`vetted_id`,`data_objects`.`visibility_id`,`data_objects`.`published`,`data_objects`.`guid`,`data_objects`.`data_rating` FROM `data_objects` WHERE (`data_objects`.`id` IN ('66','67','68','70','69','71','72','73','74')) [0m
+  [4;35;1mCuratorActivityLog Load (0.2ms) localhost::eol_logging_development[0m   [0mSELECT `curator_activity_logs`.* FROM `curator_activity_logs` WHERE (`curator_activity_logs`.taxon_concept_id = 16) [0m
+  [4;36;1mCuratorActivityLog Columns (0.6ms) localhost::eol_logging_development[0m   [0;1mSHOW FIELDS FROM `curator_activity_logs`[0m
+  [4;35;1mUser Load (0.3ms) localhost::eol_development[0m   [0mSELECT `users`.`given_name`,`users`.`family_name`,`users`.`logo_cache_url`,`users`.`tag_line`,`users`.`id` FROM `users` WHERE (`users`.`id` IN (25,27)) [0m
+  [4;36;1mUsersDataObject Load (0.9ms) localhost::eol_development[0m   [0;1mSELECT `users_data_objects`.`taxon_concept_id`,`users_data_objects`.`id`,`users_data_objects`.`data_object_id` FROM `users_data_objects` WHERE (`users_data_objects`.taxon_concept_id = 16) [0m
+Cache read: development/table_of_contents/label/Brief_Summary/en
+Cache miss: development/table_of_contents/label/Brief_Summary/en ({})
+Cache read: development/languages/id_from_iso_en
+Cache hit: development/languages/id_from_iso_en ({})
+  [4;35;1mTocItem Load (0.1ms) localhost::eol_development[0m   [0mSELECT `table_of_contents`.* FROM `table_of_contents` INNER JOIN `translated_table_of_contents` ON translated_table_of_contents.table_of_contents_id = table_of_contents.id WHERE (`translated_table_of_contents`.`label` = 'Brief Summary' AND `translated_table_of_contents`.`language_id` = 1) LIMIT 1[0m
+  [4;36;1mTranslatedTocItem Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT `translated_table_of_contents`.* FROM `translated_table_of_contents` WHERE (`translated_table_of_contents`.table_of_contents_id = 2) [0m
+  [4;35;1mInfoItem Load (0.1ms) localhost::eol_development[0m   [0mSELECT `info_items`.* FROM `info_items` WHERE (`info_items`.toc_id = 2) [0m
+Cache read: development/table_of_contents/instances_cached
+Cache miss: development/table_of_contents/instances_cached ({})
+  [4;36;1mTocItem Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT * FROM `table_of_contents` [0m
+  [4;35;1mTranslatedTocItem Load (0.1ms) localhost::eol_development[0m   [0mSELECT `translated_table_of_contents`.* FROM `translated_table_of_contents` WHERE (`translated_table_of_contents`.table_of_contents_id IN (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48)) [0m
+Cache read: development/table_of_contents/instance_id_1
+Cache miss: development/table_of_contents/instance_id_1 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_1
+Cache read: development/table_of_contents/instance_id_2
+Cache miss: development/table_of_contents/instance_id_2 ({})
+Cache write (will save 0.02ms): development/table_of_contents/instance_id_2
+Cache read: development/table_of_contents/instance_id_3
+Cache miss: development/table_of_contents/instance_id_3 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_3
+Cache read: development/table_of_contents/instance_id_4
+Cache miss: development/table_of_contents/instance_id_4 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_4
+Cache read: development/table_of_contents/instance_id_5
+Cache miss: development/table_of_contents/instance_id_5 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_5
+Cache read: development/table_of_contents/instance_id_6
+Cache miss: development/table_of_contents/instance_id_6 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_6
+Cache read: development/table_of_contents/instance_id_7
+Cache miss: development/table_of_contents/instance_id_7 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_7
+Cache read: development/table_of_contents/instance_id_8
+Cache miss: development/table_of_contents/instance_id_8 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_8
+Cache read: development/table_of_contents/instance_id_9
+Cache miss: development/table_of_contents/instance_id_9 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_9
+Cache read: development/table_of_contents/instance_id_10
+Cache miss: development/table_of_contents/instance_id_10 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_10
+Cache read: development/table_of_contents/instance_id_11
+Cache miss: development/table_of_contents/instance_id_11 ({})
+Cache write (will save 0.01ms): development/table_of_contents/instance_id_11
+Cache read: development/table_of_contents/instance_id_12
+Cache miss: development/table_of_contents/instance_id_12 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_12
+Cache read: development/table_of_contents/instance_id_13
+Cache miss: development/table_of_contents/instance_id_13 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_13
+Cache read: development/table_of_contents/instance_id_14
+Cache miss: development/table_of_contents/instance_id_14 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_14
+Cache read: development/table_of_contents/instance_id_15
+Cache miss: development/table_of_contents/instance_id_15 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_15
+Cache read: development/table_of_contents/instance_id_16
+Cache miss: development/table_of_contents/instance_id_16 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_16
+Cache read: development/table_of_contents/instance_id_17
+Cache miss: development/table_of_contents/instance_id_17 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_17
+Cache read: development/table_of_contents/instance_id_18
+Cache miss: development/table_of_contents/instance_id_18 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_18
+Cache read: development/table_of_contents/instance_id_19
+Cache miss: development/table_of_contents/instance_id_19 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_19
+Cache read: development/table_of_contents/instance_id_20
+Cache miss: development/table_of_contents/instance_id_20 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_20
+Cache read: development/table_of_contents/instance_id_21
+Cache miss: development/table_of_contents/instance_id_21 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_21
+Cache read: development/table_of_contents/instance_id_22
+Cache miss: development/table_of_contents/instance_id_22 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_22
+Cache read: development/table_of_contents/instance_id_23
+Cache miss: development/table_of_contents/instance_id_23 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_23
+Cache read: development/table_of_contents/instance_id_24
+Cache miss: development/table_of_contents/instance_id_24 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_24
+Cache read: development/table_of_contents/instance_id_25
+Cache miss: development/table_of_contents/instance_id_25 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_25
+Cache read: development/table_of_contents/instance_id_26
+Cache miss: development/table_of_contents/instance_id_26 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_26
+Cache read: development/table_of_contents/instance_id_27
+Cache miss: development/table_of_contents/instance_id_27 ({})
+Cache write (will save 0.01ms): development/table_of_contents/instance_id_27
+Cache read: development/table_of_contents/instance_id_28
+Cache miss: development/table_of_contents/instance_id_28 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_28
+Cache read: development/table_of_contents/instance_id_29
+Cache miss: development/table_of_contents/instance_id_29 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_29
+Cache read: development/table_of_contents/instance_id_30
+Cache miss: development/table_of_contents/instance_id_30 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_30
+Cache read: development/table_of_contents/instance_id_31
+Cache miss: development/table_of_contents/instance_id_31 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_31
+Cache read: development/table_of_contents/instance_id_32
+Cache miss: development/table_of_contents/instance_id_32 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_32
+Cache read: development/table_of_contents/instance_id_33
+Cache miss: development/table_of_contents/instance_id_33 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_33
+Cache read: development/table_of_contents/instance_id_34
+Cache miss: development/table_of_contents/instance_id_34 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_34
+Cache read: development/table_of_contents/instance_id_35
+Cache miss: development/table_of_contents/instance_id_35 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_35
+Cache read: development/table_of_contents/instance_id_36
+Cache miss: development/table_of_contents/instance_id_36 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_36
+Cache read: development/table_of_contents/instance_id_37
+Cache miss: development/table_of_contents/instance_id_37 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_37
+Cache read: development/table_of_contents/instance_id_38
+Cache miss: development/table_of_contents/instance_id_38 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_38
+Cache read: development/table_of_contents/instance_id_39
+Cache miss: development/table_of_contents/instance_id_39 ({})
+Cache write (will save 0.01ms): development/table_of_contents/instance_id_39
+Cache read: development/table_of_contents/instance_id_40
+Cache miss: development/table_of_contents/instance_id_40 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_40
+Cache read: development/table_of_contents/instance_id_41
+Cache miss: development/table_of_contents/instance_id_41 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_41
+Cache read: development/table_of_contents/instance_id_42
+Cache miss: development/table_of_contents/instance_id_42 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_42
+Cache read: development/table_of_contents/instance_id_43
+Cache miss: development/table_of_contents/instance_id_43 ({})
+Cache write (will save 0.01ms): development/table_of_contents/instance_id_43
+Cache read: development/table_of_contents/instance_id_44
+Cache miss: development/table_of_contents/instance_id_44 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_44
+Cache read: development/table_of_contents/instance_id_45
+Cache miss: development/table_of_contents/instance_id_45 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_45
+Cache read: development/table_of_contents/instance_id_46
+Cache miss: development/table_of_contents/instance_id_46 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_46
+Cache read: development/table_of_contents/instance_id_47
+Cache miss: development/table_of_contents/instance_id_47 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_47
+Cache read: development/table_of_contents/instance_id_48
+Cache miss: development/table_of_contents/instance_id_48 ({})
+Cache write (will save 0.00ms): development/table_of_contents/instance_id_48
+Cache write (will save 286.82ms): development/table_of_contents/instances_cached
+Cache read: development/table_of_contents/instance_id_1
+  [4;36;1mInfoItem Load (0.2ms) localhost::eol_development[0m   [0;1mSELECT `info_items`.* FROM `info_items` WHERE (`info_items`.toc_id = 1) [0m
+  [4;35;1mTranslatedInfoItem Load (0.1ms) localhost::eol_development[0m   [0mSELECT * FROM `translated_info_items` WHERE (`translated_info_items`.info_item_id = 1) [0m
+Cache write (will save 301.76ms): development/table_of_contents/label/Brief_Summary/en
+Cache read: development/table_of_contents/label/Comprehensive_Description/en
+Cache miss: development/table_of_contents/label/Comprehensive_Description/en ({})
+Cache read: development/languages/id_from_iso_en
+Cache hit: development/languages/id_from_iso_en ({})
+  [4;36;1mTocItem Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT `table_of_contents`.* FROM `table_of_contents` INNER JOIN `translated_table_of_contents` ON translated_table_of_contents.table_of_contents_id = table_of_contents.id WHERE (`translated_table_of_contents`.`label` = 'Comprehensive Description' AND `translated_table_of_contents`.`language_id` = 1) LIMIT 1[0m
+  [4;35;1mTranslatedTocItem Load (0.1ms) localhost::eol_development[0m   [0mSELECT `translated_table_of_contents`.* FROM `translated_table_of_contents` WHERE (`translated_table_of_contents`.table_of_contents_id = 3) [0m
+  [4;36;1mInfoItem Load (0.0ms) localhost::eol_development[0m   [0;1mSELECT `info_items`.* FROM `info_items` WHERE (`info_items`.toc_id = 3) [0m
+Cache read: development/table_of_contents/instance_id_0
+Cache read: development/table_of_contents/instance_id_0
+  [4;35;1mTocItem Load (0.3ms) localhost::eol_development[0m   [0mSELECT * FROM `table_of_contents` WHERE (`table_of_contents`.`id` = 0) [0m
+Cache read: development/table_of_contents/instance_id_0
+  [4;36;1mCACHE (0.0ms) localhost::eol_development[0m   [0;1mSELECT * FROM `table_of_contents` WHERE (`table_of_contents`.`id` = 0) [0m
+Cache write (will save 9.72ms): development/table_of_contents/label/Comprehensive_Description/en
+Cache read: development/table_of_contents/label/Distribution/en
+Cache miss: development/table_of_contents/label/Distribution/en ({})
+Cache read: development/languages/id_from_iso_en
+Cache hit: development/languages/id_from_iso_en ({})
+  [4;35;1mTocItem Load (1.3ms) localhost::eol_development[0m   [0mSELECT `table_of_contents`.* FROM `table_of_contents` INNER JOIN `translated_table_of_contents` ON translated_table_of_contents.table_of_contents_id = table_of_contents.id WHERE (`translated_table_of_contents`.`label` = 'Distribution' AND `translated_table_of_contents`.`language_id` = 1) LIMIT 1[0m
+  [4;36;1mTranslatedTocItem Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT `translated_table_of_contents`.* FROM `translated_table_of_contents` WHERE (`translated_table_of_contents`.table_of_contents_id = 7) [0m
+  [4;35;1mInfoItem Load (0.1ms) localhost::eol_development[0m   [0mSELECT `info_items`.* FROM `info_items` WHERE (`info_items`.toc_id = 7) [0m
+Cache read: development/table_of_contents/instance_id_6
+  [4;36;1mInfoItem Load (0.5ms) localhost::eol_development[0m   [0;1mSELECT `info_items`.* FROM `info_items` WHERE (`info_items`.toc_id = 6) [0m
+  [4;35;1mTranslatedInfoItem Load (1.3ms) localhost::eol_development[0m   [0mSELECT * FROM `translated_info_items` WHERE (`translated_info_items`.info_item_id IN (3,4)) [0m
+Cache write (will save 15.81ms): development/table_of_contents/label/Distribution/en
+Cache read: development/languages/english
+Cache hit: development/languages/english ({})
+Cache read: development/data_types/label/Text/en
+Cache miss: development/data_types/label/Text/en ({})
+Cache read: development/languages/id_from_iso_en
+Cache hit: development/languages/id_from_iso_en ({})
+  [4;36;1mDataType Load (0.2ms) localhost::eol_development[0m   [0;1mSELECT `data_types`.* FROM `data_types` INNER JOIN `translated_data_types` ON translated_data_types.data_type_id = data_types.id WHERE (`translated_data_types`.`label` = 'Text' AND `translated_data_types`.`language_id` = 1) LIMIT 1[0m
+  [4;35;1mTranslatedDataType Load (0.2ms) localhost::eol_development[0m   [0mSELECT `translated_data_types`.* FROM `translated_data_types` WHERE (`translated_data_types`.data_type_id = 3) [0m
+Cache write (will save 7.55ms): development/data_types/label/Text/en
+Cache read: development/vetted/label/Trusted/en
+Cache miss: development/vetted/label/Trusted/en ({})
+Cache read: development/languages/id_from_iso_en
+Cache hit: development/languages/id_from_iso_en ({})
+  [4;36;1mVetted Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT `vetted`.* FROM `vetted` INNER JOIN `translated_vetted` ON translated_vetted.vetted_id = vetted.id WHERE (`translated_vetted`.`label` = 'Trusted' AND `translated_vetted`.`language_id` = 1) LIMIT 1[0m
+  [4;35;1mTranslatedVetted Load (6.4ms) localhost::eol_development[0m   [0mSELECT `translated_vetted`.* FROM `translated_vetted` WHERE (`translated_vetted`.vetted_id = 3) [0m
+Cache write (will save 15.68ms): development/vetted/label/Trusted/en
+Cache read: development/vetted/label/Unknown/en
+Cache miss: development/vetted/label/Unknown/en ({})
+Cache read: development/languages/id_from_iso_en
+Cache hit: development/languages/id_from_iso_en ({})
+  [4;36;1mVetted Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT `vetted`.* FROM `vetted` INNER JOIN `translated_vetted` ON translated_vetted.vetted_id = vetted.id WHERE (`translated_vetted`.`label` = 'Unknown' AND `translated_vetted`.`language_id` = 1) LIMIT 1[0m
+  [4;35;1mTranslatedVetted Load (0.3ms) localhost::eol_development[0m   [0mSELECT `translated_vetted`.* FROM `translated_vetted` WHERE (`translated_vetted`.vetted_id = 1) [0m
+Cache write (will save 9.51ms): development/vetted/label/Unknown/en
+Cache read: development/vetted/label/Untrusted/en
+Cache miss: development/vetted/label/Untrusted/en ({})
+Cache read: development/languages/id_from_iso_en
+Cache hit: development/languages/id_from_iso_en ({})
+  [4;36;1mVetted Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT `vetted`.* FROM `vetted` INNER JOIN `translated_vetted` ON translated_vetted.vetted_id = vetted.id WHERE (`translated_vetted`.`label` = 'Untrusted' AND `translated_vetted`.`language_id` = 1) LIMIT 1[0m
+  [4;35;1mTranslatedVetted Load (0.2ms) localhost::eol_development[0m   [0mSELECT `translated_vetted`.* FROM `translated_vetted` WHERE (`translated_vetted`.vetted_id = 2) [0m
+Cache write (will save 6.40ms): development/vetted/label/Untrusted/en
+Cache read: development/roles/administrator
+Cache hit: development/roles/administrator ({})
+  [4;36;1mCommunity Columns (1.0ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `communities`[0m
+Cache read: development/communities/name/EOL_Curators_and_Admins
+Cache hit: development/communities/name/EOL_Curators_and_Admins ({})
+Cache read: development/roles/curator
+Cache miss: development/roles/curator ({})
+  [4;35;1mRole Columns (5.6ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `roles`[0m
+  [4;36;1mRole Load (6.8ms) localhost::eol_development[0m   [0;1mSELECT * FROM `roles` WHERE (`roles`.`community_id` = 1 AND `roles`.`title` = 'Curator') LIMIT 1[0m
+Cache write (will save 17.97ms): development/roles/curator
+Cache read: development/table_of_contents/label/Wikipedia/en
+Cache miss: development/table_of_contents/label/Wikipedia/en ({})
+Cache read: development/languages/id_from_iso_en
+Cache hit: development/languages/id_from_iso_en ({})
+  [4;35;1mTocItem Load (0.2ms) localhost::eol_development[0m   [0mSELECT `table_of_contents`.* FROM `table_of_contents` INNER JOIN `translated_table_of_contents` ON translated_table_of_contents.table_of_contents_id = table_of_contents.id WHERE (`translated_table_of_contents`.`label` = 'Wikipedia' AND `translated_table_of_contents`.`language_id` = 1) LIMIT 1[0m
+  [4;36;1mTranslatedTocItem Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT `translated_table_of_contents`.* FROM `translated_table_of_contents` WHERE (`translated_table_of_contents`.table_of_contents_id = 8) [0m
+  [4;35;1mInfoItem Load (0.1ms) localhost::eol_development[0m   [0mSELECT `info_items`.* FROM `info_items` WHERE (`info_items`.toc_id = 8) [0m
+Cache read: development/table_of_contents/instance_id_0
+  [4;36;1mCACHE (0.0ms) localhost::eol_development[0m   [0;1mSELECT * FROM `table_of_contents` WHERE (`table_of_contents`.`id` = 0) [0m
+Cache read: development/table_of_contents/instance_id_0
+  [4;35;1mCACHE (0.0ms) localhost::eol_development[0m   [0mSELECT * FROM `table_of_contents` WHERE (`table_of_contents`.`id` = 0) [0m
+Cache write (will save 8.65ms): development/table_of_contents/label/Wikipedia/en
+  [4;36;1mInfoItem Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT `info_items`.* FROM `info_items` INNER JOIN data_objects_info_items ON ( info_items.id = data_objects_info_items.info_item_id ) WHERE (data_objects_info_items.data_object_id = 78 ) [0m
+Cache read: development/visibilities/label/Preview/en
+Cache miss: development/visibilities/label/Preview/en ({})
+Cache read: development/languages/id_from_iso_en
+Cache hit: development/languages/id_from_iso_en ({})
+  [4;35;1mVisibility Load (1.0ms) localhost::eol_development[0m   [0mSELECT `visibilities`.* FROM `visibilities` INNER JOIN `translated_visibilities` ON translated_visibilities.visibility_id = visibilities.id WHERE (`translated_visibilities`.`label` = 'Preview' AND `translated_visibilities`.`language_id` = 1) LIMIT 1[0m
+  [4;36;1mTranslatedVisibility Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT `translated_visibilities`.* FROM `translated_visibilities` WHERE (`translated_visibilities`.visibility_id = 3) [0m
+Cache write (will save 5.05ms): development/visibilities/label/Preview/en
+  [4;35;1mInfoItem Load (0.1ms) localhost::eol_development[0m   [0mSELECT `info_items`.* FROM `info_items` INNER JOIN data_objects_info_items ON ( info_items.id = data_objects_info_items.info_item_id ) WHERE (data_objects_info_items.data_object_id = 79 ) [0m
+  [4;36;1mTranslatedInfoItem Load (0.4ms) localhost::eol_development[0m   [0;1mSELECT * FROM `translated_info_items` WHERE (`translated_info_items`.info_item_id IN (2,5,6,7)) [0m
+Cache read: development/table_of_contents/instance_id_4
+  [4;35;1mInfoItem Load (0.1ms) localhost::eol_development[0m   [0mSELECT `info_items`.* FROM `info_items` INNER JOIN data_objects_info_items ON ( info_items.id = data_objects_info_items.info_item_id ) WHERE (data_objects_info_items.data_object_id = 80 ) [0m
+  [4;36;1mInfoItem Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT `info_items`.* FROM `info_items` INNER JOIN data_objects_info_items ON ( info_items.id = data_objects_info_items.info_item_id ) WHERE (data_objects_info_items.data_object_id = 81 ) [0m
+  [4;35;1mHierarchyEntry Load (0.5ms) localhost::eol_development[0m   [0mSELECT * FROM `hierarchy_entries` WHERE (`hierarchy_entries`.`id` IS NULL) LIMIT 1[0m
+Cache read: development/vetted/instance_id_2
+Cache read: development/vetted/instance_id_2
+Cache read: development/vetted/instance_id_1
+Cache read: development/vetted/instance_id_1
+  [4;36;1mSQL (7.7ms) localhost::eol_development[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mTranslatedMimeType Columns (0.9ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `translated_mime_types`[0m
+  [4;36;1mMimeType Columns (0.7ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `mime_types`[0m
+  [4;35;1mSQL (2.2ms) localhost::eol_development[0m   [0mSHOW TABLES[0m
+  [4;36;1mTranslatedLicense Columns (0.5ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `translated_licenses`[0m
+  [4;35;1mLicense Columns (0.4ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `licenses`[0m
+  [4;36;1mSQL (2.8ms) localhost::eol_development[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mTranslatedAgentRole Columns (0.7ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `translated_agent_roles`[0m
+  [4;36;1mAgentRole Columns (0.6ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `agent_roles`[0m
+  [4;35;1mDataObject Load (0.8ms) localhost::eol_development[0m   [0mSELECT `data_objects`.* FROM `data_objects` WHERE (`data_objects`.`id` IN (66,68,67)) [0m
+Cache read: development/data_types/instances_cached
+Cache miss: development/data_types/instances_cached ({})
+  [4;36;1mDataType Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT * FROM `data_types` [0m
+  [4;35;1mTranslatedDataType Load (0.1ms) localhost::eol_development[0m   [0mSELECT `translated_data_types`.* FROM `translated_data_types` WHERE (`translated_data_types`.data_type_id IN (1,2,3,4,5,6,7,8)) [0m
+Cache read: development/data_types/instance_id_1
+Cache miss: development/data_types/instance_id_1 ({})
+Cache write (will save 0.00ms): development/data_types/instance_id_1
+Cache read: development/data_types/instance_id_2
+Cache miss: development/data_types/instance_id_2 ({})
+Cache write (will save 0.00ms): development/data_types/instance_id_2
+Cache read: development/data_types/instance_id_3
+Cache miss: development/data_types/instance_id_3 ({})
+Cache write (will save 0.00ms): development/data_types/instance_id_3
+Cache read: development/data_types/instance_id_4
+Cache miss: development/data_types/instance_id_4 ({})
+Cache write (will save 0.00ms): development/data_types/instance_id_4
+Cache read: development/data_types/instance_id_5
+Cache miss: development/data_types/instance_id_5 ({})
+Cache write (will save 0.00ms): development/data_types/instance_id_5
+Cache read: development/data_types/instance_id_6
+Cache miss: development/data_types/instance_id_6 ({})
+Cache write (will save 0.00ms): development/data_types/instance_id_6
+Cache read: development/data_types/instance_id_7
+Cache miss: development/data_types/instance_id_7 ({})
+Cache write (will save 0.00ms): development/data_types/instance_id_7
+Cache read: development/data_types/instance_id_8
+Cache miss: development/data_types/instance_id_8 ({})
+Cache write (will save 0.00ms): development/data_types/instance_id_8
+Cache write (will save 11.22ms): development/data_types/instances_cached
+Cache read: development/data_types/instance_id_1
+Cache read: development/mime_types/instances_cached
+Cache miss: development/mime_types/instances_cached ({})
+  [4;36;1mMimeType Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT * FROM `mime_types` [0m
+  [4;35;1mTranslatedMimeType Load (0.4ms) localhost::eol_development[0m   [0mSELECT `translated_mime_types`.* FROM `translated_mime_types` WHERE (`translated_mime_types`.mime_type_id IN (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21)) [0m
+Cache read: development/mime_types/instance_id_1
+Cache miss: development/mime_types/instance_id_1 ({})
+Cache write (will save 0.00ms): development/mime_types/instance_id_1
+Cache read: development/mime_types/instance_id_2
+Cache miss: development/mime_types/instance_id_2 ({})
+Cache write (will save 0.00ms): development/mime_types/instance_id_2
+Cache read: development/mime_types/instance_id_3
+Cache miss: development/mime_types/instance_id_3 ({})
+Cache write (will save 0.00ms): development/mime_types/instance_id_3
+Cache read: development/mime_types/instance_id_4
+Cache miss: development/mime_types/instance_id_4 ({})
+Cache write (will save 0.00ms): development/mime_types/instance_id_4
+Cache read: development/mime_types/instance_id_5
+Cache miss: development/mime_types/instance_id_5 ({})
+Cache write (will save 0.00ms): development/mime_types/instance_id_5
+Cache read: development/mime_types/instance_id_6
+Cache miss: development/mime_types/instance_id_6 ({})
+Cache write (will save 0.00ms): development/mime_types/instance_id_6
+Cache read: development/mime_types/instance_id_7
+Cache miss: development/mime_types/instance_id_7 ({})
+Cache write (will save 0.00ms): development/mime_types/instance_id_7
+Cache read: development/mime_types/instance_id_8
+Cache miss: development/mime_types/instance_id_8 ({})
+Cache write (will save 0.00ms): development/mime_types/instance_id_8
+Cache read: development/mime_types/instance_id_9
+Cache miss: development/mime_types/instance_id_9 ({})
+Cache write (will save 0.00ms): development/mime_types/instance_id_9
+Cache read: development/mime_types/instance_id_10
+Cache miss: development/mime_types/instance_id_10 ({})
+Cache write (will save 0.01ms): development/mime_types/instance_id_10
+Cache read: development/mime_types/instance_id_11
+Cache miss: development/mime_types/instance_id_11 ({})
+Cache write (will save 0.00ms): development/mime_types/instance_id_11
+Cache read: development/mime_types/instance_id_12
+Cache miss: development/mime_types/instance_id_12 ({})
+Cache write (will save 0.00ms): development/mime_types/instance_id_12
+Cache read: development/mime_types/instance_id_13
+Cache miss: development/mime_types/instance_id_13 ({})
+Cache write (will save 0.00ms): development/mime_types/instance_id_13
+Cache read: development/mime_types/instance_id_14
+Cache miss: development/mime_types/instance_id_14 ({})
+Cache write (will save 0.00ms): development/mime_types/instance_id_14
+Cache read: development/mime_types/instance_id_15
+Cache miss: development/mime_types/instance_id_15 ({})
+Cache write (will save 0.00ms): development/mime_types/instance_id_15
+Cache read: development/mime_types/instance_id_16
+Cache miss: development/mime_types/instance_id_16 ({})
+Cache write (will save 0.00ms): development/mime_types/instance_id_16
+Cache read: development/mime_types/instance_id_17
+Cache miss: development/mime_types/instance_id_17 ({})
+Cache write (will save 0.00ms): development/mime_types/instance_id_17
+Cache read: development/mime_types/instance_id_18
+Cache miss: development/mime_types/instance_id_18 ({})
+Cache write (will save 0.00ms): development/mime_types/instance_id_18
+Cache read: development/mime_types/instance_id_19
+Cache miss: development/mime_types/instance_id_19 ({})
+Cache write (will save 0.00ms): development/mime_types/instance_id_19
+Cache read: development/mime_types/instance_id_20
+Cache miss: development/mime_types/instance_id_20 ({})
+Cache write (will save 0.00ms): development/mime_types/instance_id_20
+Cache read: development/mime_types/instance_id_21
+Cache miss: development/mime_types/instance_id_21 ({})
+Cache write (will save 0.00ms): development/mime_types/instance_id_21
+Cache write (will save 185.39ms): development/mime_types/instances_cached
+Cache read: development/mime_types/instance_id_1
+Cache read: development/licenses/instances_cached
+Cache miss: development/licenses/instances_cached ({})
+  [4;36;1mLicense Load (0.4ms) localhost::eol_development[0m   [0;1mSELECT * FROM `licenses` [0m
+  [4;35;1mTranslatedLicense Load (0.2ms) localhost::eol_development[0m   [0mSELECT `translated_licenses`.* FROM `translated_licenses` WHERE (`translated_licenses`.license_id IN (1,2,3,4,5,6,7,8,9,10,11)) [0m
+Cache read: development/licenses/instance_id_1
+Cache miss: development/licenses/instance_id_1 ({})
+Cache write (will save 0.00ms): development/licenses/instance_id_1
+Cache read: development/licenses/instance_id_2
+Cache miss: development/licenses/instance_id_2 ({})
+Cache write (will save 0.00ms): development/licenses/instance_id_2
+Cache read: development/licenses/instance_id_3
+Cache miss: development/licenses/instance_id_3 ({})
+Cache write (will save 0.00ms): development/licenses/instance_id_3
+Cache read: development/licenses/instance_id_4
+Cache miss: development/licenses/instance_id_4 ({})
+Cache write (will save 0.00ms): development/licenses/instance_id_4
+Cache read: development/licenses/instance_id_5
+Cache miss: development/licenses/instance_id_5 ({})
+Cache write (will save 0.01ms): development/licenses/instance_id_5
+Cache read: development/licenses/instance_id_6
+Cache miss: development/licenses/instance_id_6 ({})
+Cache write (will save 0.00ms): development/licenses/instance_id_6
+Cache read: development/licenses/instance_id_7
+Cache miss: development/licenses/instance_id_7 ({})
+Cache write (will save 0.00ms): development/licenses/instance_id_7
+Cache read: development/licenses/instance_id_8
+Cache miss: development/licenses/instance_id_8 ({})
+Cache write (will save 0.00ms): development/licenses/instance_id_8
+Cache read: development/licenses/instance_id_9
+Cache miss: development/licenses/instance_id_9 ({})
+Cache write (will save 0.00ms): development/licenses/instance_id_9
+Cache read: development/licenses/instance_id_10
+Cache miss: development/licenses/instance_id_10 ({})
+Cache write (will save 0.00ms): development/licenses/instance_id_10
+Cache read: development/licenses/instance_id_11
+Cache miss: development/licenses/instance_id_11 ({})
+Cache write (will save 0.00ms): development/licenses/instance_id_11
+Cache write (will save 29.35ms): development/licenses/instances_cached
+Cache read: development/licenses/instance_id_1
+Cache read: development/visibilities/instances_cached
+Cache miss: development/visibilities/instances_cached ({})
+  [4;36;1mVisibility Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT * FROM `visibilities` [0m
+  [4;35;1mTranslatedVisibility Load (0.4ms) localhost::eol_development[0m   [0mSELECT `translated_visibilities`.* FROM `translated_visibilities` WHERE (`translated_visibilities`.visibility_id IN (1,2,3,4)) [0m
+Cache read: development/visibilities/instance_id_1
+Cache miss: development/visibilities/instance_id_1 ({})
+Cache write (will save 0.00ms): development/visibilities/instance_id_1
+Cache read: development/visibilities/instance_id_2
+Cache miss: development/visibilities/instance_id_2 ({})
+Cache write (will save 0.00ms): development/visibilities/instance_id_2
+Cache read: development/visibilities/instance_id_3
+Cache miss: development/visibilities/instance_id_3 ({})
+Cache write (will save 0.00ms): development/visibilities/instance_id_3
+Cache read: development/visibilities/instance_id_4
+Cache miss: development/visibilities/instance_id_4 ({})
+Cache write (will save 0.00ms): development/visibilities/instance_id_4
+Cache write (will save 11.59ms): development/visibilities/instances_cached
+Cache read: development/visibilities/instance_id_2
+  [4;36;1mHierarchyEntry Load (0.4ms) localhost::eol_development[0m   [0;1mSELECT `hierarchy_entries`.`published`,`hierarchy_entries`.`visibility_id`,`hierarchy_entries`.`taxon_concept_id`,`hierarchy_entries`.`id`,`hierarchy_entries`.`name_id`,`hierarchy_entries`.`hierarchy_id`,`t0`.`data_object_id` as the_parent_record_id FROM `hierarchy_entries` INNER JOIN `data_objects_hierarchy_entries` t0 ON `hierarchy_entries`.id = t0.hierarchy_entry_id WHERE (t0.data_object_id IN (66,67,68)) [0m
+  [4;35;1mName Load (0.2ms) localhost::eol_development[0m   [0mSELECT `names`.`string`,`names`.`id` FROM `names` WHERE (`names`.`id` = 23) [0m
+  [4;36;1mAgent Load (0.4ms) localhost::eol_development[0m   [0;1mSELECT `agents`.`full_name`,`agents`.`homepage`,`agents`.`logo_cache_url`,`agents`.`id` FROM `agents` WHERE (`agents`.`id` = 3) [0m
+  [4;35;1mAgentsDataObject Load (1.4ms) localhost::eol_development[0m   [0mSELECT `agents_data_objects`.`view_order`,`agents_data_objects`.`data_object_id`,`agents_data_objects`.`agent_id`,`agents_data_objects`.`agent_role_id` FROM `agents_data_objects` WHERE (`agents_data_objects`.data_object_id IN (66,67,68)) [0m
+  [4;36;1mAgentsDataObject Columns (0.8ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `agents_data_objects`[0m
+  [4;35;1mAgent Load (0.2ms) localhost::eol_development[0m   [0mSELECT `agents`.`full_name`,`agents`.`homepage`,`agents`.`logo_cache_url`,`agents`.`id` FROM `agents` WHERE (`agents`.`id` = '3') [0m
+  [4;36;1mUser Load (0.4ms) localhost::eol_development[0m   [0;1mSELECT `users`.`agent_id` FROM `users` WHERE (`users`.agent_id = 3) [0m
+Cache read: development/agent_roles/instances_cached
+Cache miss: development/agent_roles/instances_cached ({})
+  [4;35;1mAgentRole Load (0.1ms) localhost::eol_development[0m   [0mSELECT * FROM `agent_roles` [0m
+  [4;36;1mTranslatedAgentRole Load (1.9ms) localhost::eol_development[0m   [0;1mSELECT `translated_agent_roles`.* FROM `translated_agent_roles` WHERE (`translated_agent_roles`.agent_role_id IN (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16)) [0m
+Cache read: development/agent_roles/instance_id_1
+Cache miss: development/agent_roles/instance_id_1 ({})
+Cache write (will save 0.00ms): development/agent_roles/instance_id_1
+Cache read: development/agent_roles/instance_id_2
+Cache miss: development/agent_roles/instance_id_2 ({})
+Cache write (will save 0.00ms): development/agent_roles/instance_id_2
+Cache read: development/agent_roles/instance_id_3
+Cache miss: development/agent_roles/instance_id_3 ({})
+Cache write (will save 0.00ms): development/agent_roles/instance_id_3
+Cache read: development/agent_roles/instance_id_4
+Cache miss: development/agent_roles/instance_id_4 ({})
+Cache write (will save 0.00ms): development/agent_roles/instance_id_4
+Cache read: development/agent_roles/instance_id_5
+Cache miss: development/agent_roles/instance_id_5 ({})
+Cache write (will save 0.00ms): development/agent_roles/instance_id_5
+Cache read: development/agent_roles/instance_id_6
+Cache miss: development/agent_roles/instance_id_6 ({})
+Cache write (will save 0.00ms): development/agent_roles/instance_id_6
+Cache read: development/agent_roles/instance_id_7
+Cache miss: development/agent_roles/instance_id_7 ({})
+Cache write (will save 0.00ms): development/agent_roles/instance_id_7
+Cache read: development/agent_roles/instance_id_8
+Cache miss: development/agent_roles/instance_id_8 ({})
+Cache write (will save 0.00ms): development/agent_roles/instance_id_8
+Cache read: development/agent_roles/instance_id_9
+Cache miss: development/agent_roles/instance_id_9 ({})
+Cache write (will save 0.00ms): development/agent_roles/instance_id_9
+Cache read: development/agent_roles/instance_id_10
+Cache miss: development/agent_roles/instance_id_10 ({})
+Cache write (will save 0.00ms): development/agent_roles/instance_id_10
+Cache read: development/agent_roles/instance_id_11
+Cache miss: development/agent_roles/instance_id_11 ({})
+Cache write (will save 0.02ms): development/agent_roles/instance_id_11
+Cache read: development/agent_roles/instance_id_12
+Cache miss: development/agent_roles/instance_id_12 ({})
+Cache write (will save 0.00ms): development/agent_roles/instance_id_12
+Cache read: development/agent_roles/instance_id_13
+Cache miss: development/agent_roles/instance_id_13 ({})
+Cache write (will save 0.00ms): development/agent_roles/instance_id_13
+Cache read: development/agent_roles/instance_id_14
+Cache miss: development/agent_roles/instance_id_14 ({})
+Cache write (will save 0.00ms): development/agent_roles/instance_id_14
+Cache read: development/agent_roles/instance_id_15
+Cache miss: development/agent_roles/instance_id_15 ({})
+Cache write (will save 0.00ms): development/agent_roles/instance_id_15
+Cache read: development/agent_roles/instance_id_16
+Cache miss: development/agent_roles/instance_id_16 ({})
+Cache write (will save 0.00ms): development/agent_roles/instance_id_16
+Cache write (will save 26.75ms): development/agent_roles/instances_cached
+Cache read: development/agent_roles/instance_id_1
+  [4;35;1mSQL (0.2ms) localhost::eol_development[0m   [0mselect database()[0m
+  [4;36;1mSQL (0.1ms) localhost::eol_development[0m   [0;1mselect database()[0m
+  [4;35;1mComment Load (0.1ms) localhost::eol_development[0m   [0mSELECT `comments`.`parent_id`,`comments`.`visible_at` FROM `comments` WHERE (`comments`.parent_id IN (66,67,68)) [0m
+  [4;36;1mComment Columns (1.1ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `comments`[0m
+Cache read: development/data_types/label/YouTube/en
+Cache miss: development/data_types/label/YouTube/en ({})
+Cache read: development/languages/id_from_iso_en
+Cache hit: development/languages/id_from_iso_en ({})
+  [4;35;1mDataType Load (0.1ms) localhost::eol_development[0m   [0mSELECT `data_types`.* FROM `data_types` INNER JOIN `translated_data_types` ON translated_data_types.data_type_id = data_types.id WHERE (`translated_data_types`.`label` = 'YouTube' AND `translated_data_types`.`language_id` = 1) LIMIT 1[0m
+  [4;36;1mTranslatedDataType Load (0.2ms) localhost::eol_development[0m   [0;1mSELECT `translated_data_types`.* FROM `translated_data_types` WHERE (`translated_data_types`.data_type_id = 8) [0m
+Cache write (will save 3.71ms): development/data_types/label/YouTube/en
+Cache read: development/data_types/label/Flash/en
+Cache miss: development/data_types/label/Flash/en ({})
+Cache read: development/languages/id_from_iso_en
+Cache hit: development/languages/id_from_iso_en ({})
+  [4;35;1mDataType Load (3.0ms) localhost::eol_development[0m   [0mSELECT `data_types`.* FROM `data_types` INNER JOIN `translated_data_types` ON translated_data_types.data_type_id = data_types.id WHERE (`translated_data_types`.`label` = 'Flash' AND `translated_data_types`.`language_id` = 1) LIMIT 1[0m
+  [4;36;1mTranslatedDataType Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT `translated_data_types`.* FROM `translated_data_types` WHERE (`translated_data_types`.data_type_id = 7) [0m
+Cache write (will save 7.22ms): development/data_types/label/Flash/en
+Cache read: development/data_types/label/Video/en
+Cache miss: development/data_types/label/Video/en ({})
+Cache read: development/languages/id_from_iso_en
+Cache hit: development/languages/id_from_iso_en ({})
+  [4;35;1mDataType Load (0.0ms) localhost::eol_development[0m   [0mSELECT `data_types`.* FROM `data_types` INNER JOIN `translated_data_types` ON translated_data_types.data_type_id = data_types.id WHERE (`translated_data_types`.`label` = 'Video' AND `translated_data_types`.`language_id` = 1) LIMIT 1[0m
+  [4;36;1mTranslatedDataType Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT `translated_data_types`.* FROM `translated_data_types` WHERE (`translated_data_types`.data_type_id = 4) [0m
+Cache write (will save 2.84ms): development/data_types/label/Video/en
+  [4;35;1mDataObject Load (0.7ms) localhost::eol_development[0m   [0mSELECT `data_objects`.* FROM `data_objects` WHERE (`data_objects`.`id` IN (75,76)) [0m
+Cache read: development/data_types/instance_id_7
+Cache read: development/data_types/instance_id_8
+Cache read: development/mime_types/instance_id_5
+  [4;36;1mDataObjectsInfoItem Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT * FROM `data_objects_info_items` WHERE (`data_objects_info_items`.data_object_id IN (75,76)) [0m
+  [4;35;1mHierarchyEntry Load (0.1ms) localhost::eol_development[0m   [0mSELECT `hierarchy_entries`.`published`,`hierarchy_entries`.`visibility_id`,`hierarchy_entries`.`taxon_concept_id`,`hierarchy_entries`.`id`,`hierarchy_entries`.`name_id`,`hierarchy_entries`.`hierarchy_id`,`t0`.`data_object_id` as the_parent_record_id FROM `hierarchy_entries` INNER JOIN `data_objects_hierarchy_entries` t0 ON `hierarchy_entries`.id = t0.hierarchy_entry_id WHERE (t0.data_object_id IN (75,76)) [0m
+  [4;36;1mCACHE (0.0ms) localhost::eol_development[0m   [0;1mSELECT `names`.`string`,`names`.`id` FROM `names` WHERE (`names`.`id` = 23) [0m
+  [4;35;1mCACHE (0.0ms) localhost::eol_development[0m   [0mSELECT `agents`.`full_name`,`agents`.`homepage`,`agents`.`logo_cache_url`,`agents`.`id` FROM `agents` WHERE (`agents`.`id` = 3) [0m
+  [4;36;1mAgentsDataObject Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT `agents_data_objects`.`view_order`,`agents_data_objects`.`data_object_id`,`agents_data_objects`.`agent_id`,`agents_data_objects`.`agent_role_id` FROM `agents_data_objects` WHERE (`agents_data_objects`.data_object_id IN (75,76)) [0m
+  [4;35;1mCACHE (0.0ms) localhost::eol_development[0m   [0mSELECT `agents`.`full_name`,`agents`.`homepage`,`agents`.`logo_cache_url`,`agents`.`id` FROM `agents` WHERE (`agents`.`id` = '3') [0m
+  [4;36;1mCACHE (0.0ms) localhost::eol_development[0m   [0;1mSELECT `users`.`agent_id` FROM `users` WHERE (`users`.agent_id = 3) [0m
+  [4;35;1mComment Load (0.3ms) localhost::eol_development[0m   [0mSELECT `comments`.`parent_id`,`comments`.`visible_at` FROM `comments` WHERE (`comments`.parent_id IN (75,76)) [0m
+Cache read: development/data_types/label/Sound/en
+Cache miss: development/data_types/label/Sound/en ({})
+Cache read: development/languages/id_from_iso_en
+Cache hit: development/languages/id_from_iso_en ({})
+  [4;36;1mDataType Load (0.2ms) localhost::eol_development[0m   [0;1mSELECT `data_types`.* FROM `data_types` INNER JOIN `translated_data_types` ON translated_data_types.data_type_id = data_types.id WHERE (`translated_data_types`.`label` = 'Sound' AND `translated_data_types`.`language_id` = 1) LIMIT 1[0m
+  [4;35;1mTranslatedDataType Load (0.1ms) localhost::eol_development[0m   [0mSELECT `translated_data_types`.* FROM `translated_data_types` WHERE (`translated_data_types`.data_type_id = 2) [0m
+Cache write (will save 31.33ms): development/data_types/label/Sound/en
+  [4;36;1mDataObject Load (2.0ms) localhost::eol_development[0m   [0;1mSELECT `data_objects`.* FROM `data_objects` WHERE (`data_objects`.`id` IN (77)) [0m
+Cache read: development/data_types/instance_id_2
+Cache read: development/mime_types/instance_id_2
+  [4;35;1mDataObjectsInfoItem Load (0.5ms) localhost::eol_development[0m   [0mSELECT * FROM `data_objects_info_items` WHERE (`data_objects_info_items`.data_object_id = 77) [0m
+  [4;36;1mHierarchyEntry Load (0.2ms) localhost::eol_development[0m   [0;1mSELECT `hierarchy_entries`.`published`,`hierarchy_entries`.`visibility_id`,`hierarchy_entries`.`taxon_concept_id`,`hierarchy_entries`.`id`,`hierarchy_entries`.`name_id`,`hierarchy_entries`.`hierarchy_id`,`t0`.`data_object_id` as the_parent_record_id FROM `hierarchy_entries` INNER JOIN `data_objects_hierarchy_entries` t0 ON `hierarchy_entries`.id = t0.hierarchy_entry_id WHERE (t0.data_object_id = 77) [0m
+  [4;35;1mCACHE (0.0ms) localhost::eol_development[0m   [0mSELECT `names`.`string`,`names`.`id` FROM `names` WHERE (`names`.`id` = 23) [0m
+  [4;36;1mCACHE (0.0ms) localhost::eol_development[0m   [0;1mSELECT `agents`.`full_name`,`agents`.`homepage`,`agents`.`logo_cache_url`,`agents`.`id` FROM `agents` WHERE (`agents`.`id` = 3) [0m
+  [4;35;1mAgentsDataObject Load (0.6ms) localhost::eol_development[0m   [0mSELECT `agents_data_objects`.`view_order`,`agents_data_objects`.`data_object_id`,`agents_data_objects`.`agent_id`,`agents_data_objects`.`agent_role_id` FROM `agents_data_objects` WHERE (`agents_data_objects`.data_object_id = 77) [0m
+  [4;36;1mCACHE (0.0ms) localhost::eol_development[0m   [0;1mSELECT `agents`.`full_name`,`agents`.`homepage`,`agents`.`logo_cache_url`,`agents`.`id` FROM `agents` WHERE (`agents`.`id` = '3') [0m
+  [4;35;1mCACHE (0.0ms) localhost::eol_development[0m   [0mSELECT `users`.`agent_id` FROM `users` WHERE (`users`.agent_id = 3) [0m
+  [4;36;1mComment Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT `comments`.`parent_id`,`comments`.`visible_at` FROM `comments` WHERE (`comments`.parent_id = 77) [0m
+  [4;35;1mTaxonConceptExemplarImage Load (0.4ms) localhost::eol_development[0m   [0mSELECT * FROM `taxon_concept_exemplar_images` WHERE ((`taxon_concept_exemplar_images`.`taxon_concept_id` = 16)) LIMIT 1[0m
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+  [4;36;1mCollection Columns (2.6ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `collections`[0m
+Cache read: development/special_collections/name/Watch
+Cache miss: development/special_collections/name/Watch ({})
+  [4;35;1mSpecialCollection Columns (0.5ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `special_collections`[0m
+  [4;36;1mSpecialCollection Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT * FROM `special_collections` WHERE (`special_collections`.`name` = 'Watch') LIMIT 1[0m
+Cache write (will save 2.22ms): development/special_collections/name/Watch
+  [4;35;1mCollection Load (0.5ms) localhost::eol_development[0m   [0mSELECT * FROM `collections` WHERE (`collections`.`user_id` = 32 AND `collections`.`special_collection_id` = 2) LIMIT 1[0m
+Cache read: users/32
+Cache hit: users/32 ({})
+  [4;36;1mSQL (0.7ms) localhost::eol_logging_development[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mTranslatedActivity Columns (0.5ms) localhost::eol_logging_development[0m   [0mSHOW FIELDS FROM `translated_activities`[0m
+  [4;36;1mActivity Columns (0.3ms) localhost::eol_logging_development[0m   [0;1mSHOW FIELDS FROM `activities`[0m
+Cache read: development/activities/name/viewed_taxon_concept_overview/en
+Cache miss: development/activities/name/viewed_taxon_concept_overview/en ({})
+Cache read: development/languages/id_from_iso_en
+Cache hit: development/languages/id_from_iso_en ({})
+  [4;35;1mActivity Load (0.5ms) localhost::eol_logging_development[0m   [0mSELECT `activities`.* FROM `activities` INNER JOIN `translated_activities` ON translated_activities.activity_id = activities.id WHERE (`translated_activities`.`name` = 'viewed_taxon_concept_overview' AND `translated_activities`.`language_id` = 1) LIMIT 1[0m
+  [4;36;1mTranslatedActivity Load (0.3ms) localhost::eol_logging_development[0m   [0;1mSELECT `translated_activities`.* FROM `translated_activities` WHERE (`translated_activities`.activity_id = 56) [0m
+Cache write (will save 5.90ms): development/activities/name/viewed_taxon_concept_overview/en
+  [4;35;1mUserActivityLog Columns (0.5ms) localhost::eol_logging_development[0m   [0mSHOW FIELDS FROM `user_activity_logs`[0m
+  [4;36;1mUserActivityLog Create (0.9ms) localhost::eol_logging_development[0m   [0;1mINSERT DELAYED INTO `user_activity_logs` (`created_at`, `activity_id`, `user_id`, `value`, `taxon_concept_id`) VALUES('2011-07-20 13:22:02', 56, 32, NULL, 16)[0m
+Rendering template within layouts/v2/taxa
+Rendering taxa/overviews/show
+Rendered data_objects/_license (2.0ms)
+  [4;35;1mUsersDataObject Load (0.4ms) localhost::eol_development[0m   [0mSELECT * FROM `users_data_objects` WHERE ((`users_data_objects`.`data_object_id` = 66)) [0m
+Cache read: development/agent_roles/label/Author/en
+Cache miss: development/agent_roles/label/Author/en ({})
+Cache read: development/languages/id_from_iso_en
+Cache hit: development/languages/id_from_iso_en ({})
+  [4;36;1mAgentRole Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT `agent_roles`.* FROM `agent_roles` INNER JOIN `translated_agent_roles` ON translated_agent_roles.agent_role_id = agent_roles.id WHERE (`translated_agent_roles`.`label` = 'Author' AND `translated_agent_roles`.`language_id` = 1) LIMIT 1[0m
+  [4;35;1mTranslatedAgentRole Load (0.1ms) localhost::eol_development[0m   [0mSELECT `translated_agent_roles`.* FROM `translated_agent_roles` WHERE (`translated_agent_roles`.agent_role_id = 1) [0m
+Cache write (will save 3.49ms): development/agent_roles/label/Author/en
+Cache read: development/agent_roles/label/Photographer/en
+Cache miss: development/agent_roles/label/Photographer/en ({})
+Cache read: development/languages/id_from_iso_en
+Cache hit: development/languages/id_from_iso_en ({})
+  [4;36;1mAgentRole Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT `agent_roles`.* FROM `agent_roles` INNER JOIN `translated_agent_roles` ON translated_agent_roles.agent_role_id = agent_roles.id WHERE (`translated_agent_roles`.`label` = 'Photographer' AND `translated_agent_roles`.`language_id` = 1) LIMIT 1[0m
+  [4;35;1mTranslatedAgentRole Load (0.1ms) localhost::eol_development[0m   [0mSELECT `translated_agent_roles`.* FROM `translated_agent_roles` WHERE (`translated_agent_roles`.agent_role_id = 2) [0m
+Cache write (will save 2.96ms): development/agent_roles/label/Photographer/en
+Cache read: development/agent_roles/label/Source/en
+Cache miss: development/agent_roles/label/Source/en ({})
+Cache read: development/languages/id_from_iso_en
+Cache hit: development/languages/id_from_iso_en ({})
+  [4;36;1mAgentRole Load (0.9ms) localhost::eol_development[0m   [0;1mSELECT `agent_roles`.* FROM `agent_roles` INNER JOIN `translated_agent_roles` ON translated_agent_roles.agent_role_id = agent_roles.id WHERE (`translated_agent_roles`.`label` = 'Source' AND `translated_agent_roles`.`language_id` = 1) LIMIT 1[0m
+  [4;35;1mTranslatedAgentRole Load (0.2ms) localhost::eol_development[0m   [0mSELECT `translated_agent_roles`.* FROM `translated_agent_roles` WHERE (`translated_agent_roles`.agent_role_id = 4) [0m
+Cache write (will save 3.72ms): development/agent_roles/label/Source/en
+Cache read: development/agent_roles/label/Editor/en
+Cache miss: development/agent_roles/label/Editor/en ({})
+Cache read: development/languages/id_from_iso_en
+Cache hit: development/languages/id_from_iso_en ({})
+  [4;36;1mAgentRole Load (0.2ms) localhost::eol_development[0m   [0;1mSELECT `agent_roles`.* FROM `agent_roles` INNER JOIN `translated_agent_roles` ON translated_agent_roles.agent_role_id = agent_roles.id WHERE (`translated_agent_roles`.`label` = 'Editor' AND `translated_agent_roles`.`language_id` = 1) LIMIT 1[0m
+  [4;35;1mTranslatedAgentRole Load (0.1ms) localhost::eol_development[0m   [0mSELECT `translated_agent_roles`.* FROM `translated_agent_roles` WHERE (`translated_agent_roles`.agent_role_id = 10) [0m
+Cache write (will save 10.84ms): development/agent_roles/label/Editor/en
+Cache read: development/agent_roles/label/Contributor/en
+Cache miss: development/agent_roles/label/Contributor/en ({})
+Cache read: development/languages/id_from_iso_en
+Cache hit: development/languages/id_from_iso_en ({})
+  [4;36;1mAgentRole Load (0.2ms) localhost::eol_development[0m   [0;1mSELECT `agent_roles`.* FROM `agent_roles` INNER JOIN `translated_agent_roles` ON translated_agent_roles.agent_role_id = agent_roles.id WHERE (`translated_agent_roles`.`label` = 'Contributor' AND `translated_agent_roles`.`language_id` = 1) LIMIT 1[0m
+  [4;35;1mTranslatedAgentRole Load (0.1ms) localhost::eol_development[0m   [0mSELECT `translated_agent_roles`.* FROM `translated_agent_roles` WHERE (`translated_agent_roles`.agent_role_id = 3) [0m
+Cache write (will save 3.27ms): development/agent_roles/label/Contributor/en
+Rendered data_objects/_owner (71.9ms)
+Rendered data_objects/_attribution_minimal (97.6ms)
+Rendered data_objects/_license (0.4ms)
+  [4;36;1mUsersDataObject Load (0.3ms) localhost::eol_development[0m   [0;1mSELECT * FROM `users_data_objects` WHERE ((`users_data_objects`.`data_object_id` = 68)) [0m
+Rendered data_objects/_owner (1.9ms)
+Rendered data_objects/_attribution_minimal (3.5ms)
+Rendered data_objects/_license (0.4ms)
+  [4;35;1mUsersDataObject Load (0.1ms) localhost::eol_development[0m   [0mSELECT * FROM `users_data_objects` WHERE ((`users_data_objects`.`data_object_id` = 67)) [0m
+Rendered data_objects/_owner (1.1ms)
+Rendered data_objects/_attribution_minimal (2.2ms)
+Rendered data_objects/_license (0.5ms)
+  [4;36;1mUsersDataObject Load (0.7ms) localhost::eol_development[0m   [0;1mSELECT * FROM `users_data_objects` WHERE ((`users_data_objects`.`data_object_id` = 75)) [0m
+Rendered data_objects/_owner (2.0ms)
+Rendered data_objects/_attribution_minimal (3.6ms)
+Rendered taxa/_media_summary (260.3ms)
+Cache read: development/data_types/label/IUCN/en
+Cache miss: development/data_types/label/IUCN/en ({})
+Cache read: development/languages/id_from_iso_en
+Cache hit: development/languages/id_from_iso_en ({})
+  [4;35;1mDataType Load (1.0ms) localhost::eol_development[0m   [0mSELECT `data_types`.* FROM `data_types` INNER JOIN `translated_data_types` ON translated_data_types.data_type_id = data_types.id WHERE (`translated_data_types`.`label` = 'IUCN' AND `translated_data_types`.`language_id` = 1) LIMIT 1[0m
+  [4;36;1mTranslatedDataType Load (0.4ms) localhost::eol_development[0m   [0;1mSELECT `translated_data_types`.* FROM `translated_data_types` WHERE (`translated_data_types`.data_type_id = 6) [0m
+Cache write (will save 4.94ms): development/data_types/label/IUCN/en
+Cache read: development/agents/full_name/IUCN
+Cache miss: development/agents/full_name/IUCN ({})
+  [4;35;1mAgent Load (0.1ms) localhost::eol_development[0m   [0mSELECT * FROM `agents` WHERE (`agents`.`full_name` = 'IUCN') LIMIT 1[0m
+Cache write (will save 1.19ms): development/agents/full_name/IUCN
+Rendered taxa/_iucn_status_summary (17.9ms)
+Rendered taxa/_text_summary (4.4ms)
+  [4;36;1mCollectionItem Load (1.4ms) localhost::eol_development[0m   [0;1mSELECT * FROM `collection_items` WHERE (`collection_items`.object_id = 16 AND `collection_items`.object_type = 'TaxonConcept') [0m
+  [4;35;1mCollectionItem Columns (1.1ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `collection_items`[0m
+  [4;36;1mCollection Load (0.8ms) localhost::eol_development[0m   [0;1mSELECT * FROM `collections` WHERE (`collections`.`id` = 6) [0m
+  [4;35;1mSQL (0.1ms) localhost::eol_development[0m   [0mSELECT count(*) AS count_all FROM `collection_items` WHERE ((`collection_items`.`collection_id` = 6)) [0m
+Rendered taxa/_collections_summary (39.1ms)
+Rendered taxa/_communities_summary (8.5ms)
+  [4;36;1mHierarchyEntry Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT * FROM `hierarchy_entries` WHERE ((`hierarchy_entries`.`taxon_concept_id` = 16)) [0m
+  [4;35;1mAgent Load (0.1ms) localhost::eol_development[0m   [0mSELECT * FROM `agents` WHERE (`agents`.`id` = 3) [0m
+  [4;36;1mUser Load (0.2ms) localhost::eol_development[0m   [0;1mSELECT * FROM `users` WHERE ((`users`.`agent_id` = 3)) LIMIT 1[0m
+  [4;35;1mHierarchyEntriesFlattened Load (0.1ms) localhost::eol_development[0m   [0mSELECT * FROM `hierarchy_entries_flattened` WHERE ((`hierarchy_entries_flattened`.`hierarchy_entry_id` = 11)) [0m
+  [4;36;1mHierarchyEntriesFlattened Columns (0.5ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `hierarchy_entries_flattened`[0m
+  [4;35;1mHierarchyEntry Load (0.2ms) localhost::eol_development[0m   [0mSELECT `hierarchy_entries`.`id`,`hierarchy_entries`.`identifier`,`hierarchy_entries`.`hierarchy_id`,`hierarchy_entries`.`parent_id`,`hierarchy_entries`.`lft`,`hierarchy_entries`.`rgt`,`hierarchy_entries`.`taxon_concept_id`,`hierarchy_entries`.`rank_id`,`hierarchy_entries`.`name_id` FROM `hierarchy_entries` WHERE (`hierarchy_entries`.`id` IN (2,3,4,5,6,11)) [0m
+  [4;36;1mName Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT `names`.`string`,`names`.`italicized`,`names`.`id` FROM `names` WHERE (`names`.`id` IN (6,23,8,2,10,4)) [0m
+  [4;35;1mHierarchiesContent Load (0.2ms) localhost::eol_development[0m   [0mSELECT `hierarchies_content`.`content_level`,`hierarchies_content`.`image`,`hierarchies_content`.`text`,`hierarchies_content`.`child_image`,`hierarchies_content`.`hierarchy_entry_id` FROM `hierarchies_content` WHERE (`hierarchies_content`.hierarchy_entry_id IN (2,3,4,5,6,11)) [0m
+  [4;36;1mHierarchyEntryStat Load (1.6ms) localhost::eol_development[0m   [0;1mSELECT `hierarchy_entry_stats`.* FROM `hierarchy_entry_stats` WHERE (`hierarchy_entry_stats`.hierarchy_entry_id IN (2,3,4,5,6,11)) [0m
+  [4;35;1mHierarchyEntryStat Columns (1.2ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `hierarchy_entry_stats`[0m
+  [4;36;1mTaxonConcept Load (0.5ms) localhost::eol_development[0m   [0;1mSELECT `taxon_concepts`.`id` FROM `taxon_concepts` WHERE (`taxon_concepts`.`id` IN (11,7,8,9,16,10)) [0m
+  [4;35;1mTaxonConceptName Load (0.2ms) localhost::eol_development[0m   [0mSELECT `taxon_concept_names`.`language_id`,`taxon_concept_names`.`taxon_concept_id`,`taxon_concept_names`.`name_id`,`taxon_concept_names`.`source_hierarchy_entry_id` FROM `taxon_concept_names` WHERE (`taxon_concept_names`.taxon_concept_id IN (7,8,9,10,11,16) AND (taxon_concept_names.vern=1 AND taxon_concept_names.preferred=1)) [0m
+  [4;36;1mTaxonConceptName Columns (0.8ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `taxon_concept_names`[0m
+  [4;35;1mName Load (0.3ms) localhost::eol_development[0m   [0mSELECT `names`.`string`,`names`.`italicized`,`names`.`id` FROM `names` WHERE (`names`.`id` IN ('11','7','24','9','36','3','5')) [0m
+  [4;36;1mHierarchyEntry Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT * FROM `hierarchy_entries` WHERE (`hierarchy_entries`.`id` = 6) [0m
+  [4;35;1mSQL (1.7ms) localhost::eol_development[0m   [0mSHOW TABLES[0m
+  [4;36;1mTranslatedRank Columns (0.7ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `translated_ranks`[0m
+  [4;35;1mRank Columns (0.3ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `ranks`[0m
+Cache read: development/ranks/italicized
+Cache miss: development/ranks/italicized ({})
+Cache read: development/languages/english
+Cache hit: development/languages/english ({})
+  [4;36;1mRank Load (1.1ms) localhost::eol_development[0m   [0;1mSELECT r.* FROM ranks r JOIN translated_ranks rt ON (r.id=rt.rank_id) WHERE rt.label IN ('?var','binomial','biovar','Espéce','especie','','f.','f.sp.','form','forma','infra-form','infra-species','infra-variety','infraspecies','infravariety','micro-species','microspecies','nohtosubsp','nopthosubsp','notho species','nothof','nothosubsp','nothosupsp','nothovar','nssp','nsubsp','quadrinomial','sbsp','sebsp','SP','sp.','sp.-group','species','species forma','species group','species subgroup','specio','ssp','ssp.','sub-form','sub-forma','sub-species','sub-variety','subform','subfsp','subsp','subsp.','subspecies','subspecific','subspsp','subv','subvar','subvar.','subvar. [?]','subvarietas','subvariety','subvarsp','supsp','susbp','susbsp','susp','trinomial','var','var.','variety','varsp') AND rt.language_id=1[0m
+Cache write (will save 2.00ms): development/ranks/italicized
+Cache read: development/ranks/instances_cached
+Cache miss: development/ranks/instances_cached ({})
+  [4;35;1mRank Load (0.2ms) localhost::eol_development[0m   [0mSELECT * FROM `ranks` [0m
+  [4;36;1mTranslatedRank Load (4.0ms) localhost::eol_development[0m   [0;1mSELECT `translated_ranks`.* FROM `translated_ranks` WHERE (`translated_ranks`.rank_id IN (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19)) [0m
+Cache read: development/ranks/instance_id_1
+Cache miss: development/ranks/instance_id_1 ({})
+Cache write (will save 0.00ms): development/ranks/instance_id_1
+Cache read: development/ranks/instance_id_2
+Cache miss: development/ranks/instance_id_2 ({})
+Cache write (will save 0.00ms): development/ranks/instance_id_2
+Cache read: development/ranks/instance_id_3
+Cache miss: development/ranks/instance_id_3 ({})
+Cache write (will save 0.00ms): development/ranks/instance_id_3
+Cache read: development/ranks/instance_id_4
+Cache miss: development/ranks/instance_id_4 ({})
+Cache write (will save 0.00ms): development/ranks/instance_id_4
+Cache read: development/ranks/instance_id_5
+Cache miss: development/ranks/instance_id_5 ({})
+Cache write (will save 0.00ms): development/ranks/instance_id_5
+Cache read: development/ranks/instance_id_6
+Cache miss: development/ranks/instance_id_6 ({})
+Cache write (will save 0.00ms): development/ranks/instance_id_6
+Cache read: development/ranks/instance_id_7
+Cache miss: development/ranks/instance_id_7 ({})
+Cache write (will save 0.00ms): development/ranks/instance_id_7
+Cache read: development/ranks/instance_id_8
+Cache miss: development/ranks/instance_id_8 ({})
+Cache write (will save 0.00ms): development/ranks/instance_id_8
+Cache read: development/ranks/instance_id_9
+Cache miss: development/ranks/instance_id_9 ({})
+Cache write (will save 0.00ms): development/ranks/instance_id_9
+Cache read: development/ranks/instance_id_10
+Cache miss: development/ranks/instance_id_10 ({})
+Cache write (will save 0.00ms): development/ranks/instance_id_10
+Cache read: development/ranks/instance_id_11
+Cache miss: development/ranks/instance_id_11 ({})
+Cache write (will save 0.00ms): development/ranks/instance_id_11
+Cache read: development/ranks/instance_id_12
+Cache miss: development/ranks/instance_id_12 ({})
+Cache write (will save 0.00ms): development/ranks/instance_id_12
+Cache read: development/ranks/instance_id_13
+Cache miss: development/ranks/instance_id_13 ({})
+Cache write (will save 0.00ms): development/ranks/instance_id_13
+Cache read: development/ranks/instance_id_14
+Cache miss: development/ranks/instance_id_14 ({})
+Cache write (will save 0.00ms): development/ranks/instance_id_14
+Cache read: development/ranks/instance_id_15
+Cache miss: development/ranks/instance_id_15 ({})
+Cache write (will save 0.00ms): development/ranks/instance_id_15
+Cache read: development/ranks/instance_id_16
+Cache miss: development/ranks/instance_id_16 ({})
+Cache write (will save 0.00ms): development/ranks/instance_id_16
+Cache read: development/ranks/instance_id_17
+Cache miss: development/ranks/instance_id_17 ({})
+Cache write (will save 0.00ms): development/ranks/instance_id_17
+Cache read: development/ranks/instance_id_18
+Cache miss: development/ranks/instance_id_18 ({})
+Cache write (will save 0.00ms): development/ranks/instance_id_18
+Cache read: development/ranks/instance_id_19
+Cache miss: development/ranks/instance_id_19 ({})
+Cache write (will save 0.00ms): development/ranks/instance_id_19
+Cache write (will save 29.79ms): development/ranks/instances_cached
+Cache read: development/ranks/instance_id_1
+Cache read: development/languages/iso_639_1/en
+Cache miss: development/languages/iso_639_1/en ({})
+  [4;35;1mLanguage Load (0.2ms) localhost::eol_development[0m   [0mSELECT * FROM `languages` WHERE (`languages`.`iso_639_1` = 'en') LIMIT 1[0m
+  [4;36;1mTranslatedLanguage Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT `translated_languages`.* FROM `translated_languages` WHERE (`translated_languages`.original_language_id = 1) [0m
+Cache write (will save 4.90ms): development/languages/iso_639_1/en
+  [4;35;1mHierarchyEntry Load (0.1ms) localhost::eol_development[0m   [0mSELECT * FROM `hierarchy_entries` WHERE (`hierarchy_entries`.`id` = 5) [0m
+  [4;36;1mName Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT * FROM `names` WHERE (`names`.`id` = 8) [0m
+Cache read: development/ranks/instance_id_0
+Cache read: development/ranks/instance_id_0
+  [4;35;1mRank Load (0.3ms) localhost::eol_development[0m   [0mSELECT * FROM `ranks` WHERE (`ranks`.`id` = 0) [0m
+Rendered taxa/_classifications_summary (249.3ms)
+Rendered taxa/_curators_summary (7.8ms)
+Cache read: development/data_types/label/Image/en
+Cache hit: development/data_types/label/Image/en ({})
+  [4;36;1mSQL (0.2ms) localhost::eol_development[0m   [0;1mselect database()[0m
+  [4;35;1mDataObject Load (0.1ms) localhost::eol_development[0m   [0m
+ (SELECT do.id, do.data_type_id, do.vetted_id, do.visibility_id, do.published, do.guid, do.data_rating
+ FROM data_objects_taxon_concepts dotc
+ JOIN data_objects do ON (dotc.data_object_id=do.id)
+ WHERE dotc.taxon_concept_id=16
+ AND do.data_type_id=1)
+ UNION
+ (SELECT do.id, do.data_type_id, do.vetted_id, do.visibility_id, do.published, do.guid, do.data_rating
+ FROM top_concept_images tci
+ JOIN data_objects do ON (tci.data_object_id=do.id)
+ WHERE tci.taxon_concept_id=16)
+ UNION
+ (SELECT do.id, do.data_type_id, do.vetted_id, do.visibility_id, do.published, do.guid, do.data_rating
+ FROM eol_development.users_data_objects udo
+ JOIN data_objects do ON (udo.data_object_id=do.id)
+ WHERE udo.taxon_concept_id=16)[0m
+Cache read: development/changeable_object_types/ch_object_type/data_object
+Cache miss: development/changeable_object_types/ch_object_type/data_object ({})
+  [4;36;1mCACHE (0.0ms) localhost::eol_development[0m   [0;1mSELECT * FROM `changeable_object_types` WHERE (`changeable_object_types`.`ch_object_type` = 'data_object') LIMIT 1[0m
+Cache write (will save 1.03ms): development/changeable_object_types/ch_object_type/data_object
+  [4;35;1mCuratorActivityLog Load (0.2ms) localhost::eol_logging_development[0m   [0m
+ SELECT *
+ FROM curator_activity_logs
+ WHERE
+ (curator_activity_logs.changeable_object_type_id = 2
+ AND object_id IN (66,67,68,69,70,71,72,73,74))
+ [0m
+  [4;36;1mComment Load (0.1ms) localhost::eol_development[0m   [0;1m
+ SELECT comments.*
+ FROM hierarchy_entries he_parent
+ JOIN hierarchy_entries he_child ON (he_parent.id=he_child.parent_id)
+ JOIN comments ON (comments.parent_id = he_child.taxon_concept_id AND comments.parent_type = 'TaxonConcept')
+ JOIN hierarchies h ON (he_parent.hierarchy_id=h.id)
+ WHERE he_parent.taxon_concept_id = 16
+ AND browsable=1
+ [0m
+  [4;35;1mComment Load (0.1ms) localhost::eol_development[0m   [0mSELECT * FROM comments WHERE (parent_id = 16 AND parent_type = 'TaxonConcept') OR (parent_id IN (66,67,68,69,70,71,72,73,74) AND parent_type = 'DataObject')[0m
+  [4;36;1mUsersDataObject Columns (0.6ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `users_data_objects`[0m
+  [4;35;1mUsersDataObject Load (0.1ms) localhost::eol_development[0m   [0mSELECT * FROM `users_data_objects` WHERE (`users_data_objects`.`taxon_concept_id` = 16) [0m
+  [4;36;1mUser Load (0.6ms) localhost::eol_development[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 25) [0m
+  [4;35;1mDataObject Load (0.2ms) localhost::eol_development[0m   [0mSELECT * FROM `data_objects` WHERE (`data_objects`.`id` = 66) [0m
+  [4;36;1mdata_objects_table_of_contents Columns (0.5ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `data_objects_table_of_contents`[0m
+  [4;35;1mTocItem Load (0.1ms) localhost::eol_development[0m   [0mSELECT * FROM `table_of_contents` INNER JOIN `data_objects_table_of_contents` ON (`table_of_contents`.`id`=`data_objects_table_of_contents`.`toc_id`) WHERE ((`data_objects_table_of_contents`.`data_object_id` = 66)) [0m
+Rendered activity_logs/_comment (10.9ms)
+  [4;36;1mCACHE (0.0ms) localhost::eol_development[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 25) [0m
+  [4;35;1mCACHE (0.0ms) localhost::eol_development[0m   [0mSELECT * FROM `data_objects` WHERE (`data_objects`.`id` = 66) [0m
+  [4;36;1mCACHE (0.0ms) localhost::eol_development[0m   [0;1mSELECT * FROM `table_of_contents` INNER JOIN `data_objects_table_of_contents` ON (`table_of_contents`.`id`=`data_objects_table_of_contents`.`toc_id`) WHERE ((`data_objects_table_of_contents`.`data_object_id` = 66)) [0m
+Rendered activity_logs/_comment (4.8ms)
+  [4;35;1mCACHE (0.0ms) localhost::eol_development[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 25) [0m
+  [4;36;1mCACHE (0.0ms) localhost::eol_development[0m   [0;1mSELECT * FROM `data_objects` WHERE (`data_objects`.`id` = 66) [0m
+  [4;35;1mCACHE (0.0ms) localhost::eol_development[0m   [0mSELECT * FROM `table_of_contents` INNER JOIN `data_objects_table_of_contents` ON (`table_of_contents`.`id`=`data_objects_table_of_contents`.`toc_id`) WHERE ((`data_objects_table_of_contents`.`data_object_id` = 66)) [0m
+Rendered activity_logs/_comment (6.3ms)
+Rendered activity_logs/_index (121.7ms)
+Cache read: development/hierarchies/label/Species_2000_ITIS_Catalogue_of_Life_Annual_Checklist_2010
+Cache hit: development/hierarchies/label/Species_2000_ITIS_Catalogue_of_Life_Annual_Checklist_2010 ({})
+  [4;36;1mCanonicalForm Columns (0.3ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `canonical_forms`[0m
+  [4;35;1mCanonicalForm Load (0.1ms) localhost::eol_development[0m   [0mSELECT * FROM `canonical_forms` WHERE (`canonical_forms`.`id` = 23) [0m
+  [4;36;1mSQL (0.1ms) localhost::eol_development[0m   [0;1mSELECT n.string name, he.hierarchy_id source_hierarchy_id
+ FROM taxon_concept_names tcn
+ JOIN names n ON (tcn.name_id = n.id)
+ LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id = he.id)
+ WHERE tcn.taxon_concept_id=16 AND language_id=1 AND preferred=1[0m
+  [4;35;1mTaxonConceptName Load (0.9ms) localhost::eol_development[0m   [0mSELECT `taxon_concept_names`.`preferred`,`taxon_concept_names`.`vetted_id`,`taxon_concept_names`.`taxon_concept_id`,`taxon_concept_names`.`name_id`,`taxon_concept_names`.`source_hierarchy_entry_id`,`taxon_concept_names`.`language_id` FROM `taxon_concept_names` WHERE (`taxon_concept_names`.`taxon_concept_id` = 16 AND `taxon_concept_names`.`vern` = 1) [0m
+  [4;36;1mName Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT `names`.`string`,`names`.`id` FROM `names` WHERE (`names`.`id` = '24') [0m
+Cache read: users/32
+Cache hit: users/32 ({})
+  [4;35;1mSQL (0.2ms) localhost::eol_development[0m   [0mSELECT count(*) AS count_all FROM `collection_items` WHERE ((`collection_items`.`collection_id` = 2)) [0m
+  [4;36;1mCACHE (0.0ms) localhost::eol_development[0m   [0;1mSELECT count(*) AS count_all FROM `collection_items` WHERE ((`collection_items`.`collection_id` = 2)) [0m
+Cache read: users/32
+Cache hit: users/32 ({})
+Rendered collection_items/_new (6.8ms)
+Rendered shared/_add_to_my_collection (18.1ms)
+Rendered shared/_flash_messages (3.2ms)
+  [4;35;1mCACHE (0.0ms) localhost::eol_development[0m   [0mSELECT `data_objects`.* FROM `data_objects` WHERE (`data_objects`.`id` IN (66,68,67)) [0m
+  [4;36;1mCACHE (0.0ms) localhost::eol_development[0m   [0;1mSELECT `hierarchy_entries`.`published`,`hierarchy_entries`.`visibility_id`,`hierarchy_entries`.`taxon_concept_id`,`hierarchy_entries`.`id`,`hierarchy_entries`.`name_id`,`hierarchy_entries`.`hierarchy_id`,`t0`.`data_object_id` as the_parent_record_id FROM `hierarchy_entries` INNER JOIN `data_objects_hierarchy_entries` t0 ON `hierarchy_entries`.id = t0.hierarchy_entry_id WHERE (t0.data_object_id IN (66,67,68)) [0m
+  [4;35;1mCACHE (0.0ms) localhost::eol_development[0m   [0mSELECT `names`.`string`,`names`.`id` FROM `names` WHERE (`names`.`id` = 23) [0m
+  [4;36;1mCACHE (0.0ms) localhost::eol_development[0m   [0;1mSELECT `agents`.`full_name`,`agents`.`homepage`,`agents`.`logo_cache_url`,`agents`.`id` FROM `agents` WHERE (`agents`.`id` = 3) [0m
+  [4;35;1mCACHE (0.0ms) localhost::eol_development[0m   [0mSELECT `agents_data_objects`.`view_order`,`agents_data_objects`.`data_object_id`,`agents_data_objects`.`agent_id`,`agents_data_objects`.`agent_role_id` FROM `agents_data_objects` WHERE (`agents_data_objects`.data_object_id IN (66,67,68)) [0m
+  [4;36;1mCACHE (0.0ms) localhost::eol_development[0m   [0;1mSELECT `agents`.`full_name`,`agents`.`homepage`,`agents`.`logo_cache_url`,`agents`.`id` FROM `agents` WHERE (`agents`.`id` = '3') [0m
+  [4;35;1mCACHE (0.0ms) localhost::eol_development[0m   [0mSELECT `users`.`agent_id` FROM `users` WHERE (`users`.agent_id = 3) [0m
+  [4;36;1mCACHE (0.0ms) localhost::eol_development[0m   [0;1mSELECT `comments`.`parent_id`,`comments`.`visible_at` FROM `comments` WHERE (`comments`.parent_id IN (66,67,68)) [0m
+  [4;35;1mCACHE (0.0ms) localhost::eol_development[0m   [0mSELECT `data_objects`.* FROM `data_objects` WHERE (`data_objects`.`id` IN (75,76)) [0m
+  [4;36;1mCACHE (0.0ms) localhost::eol_development[0m   [0;1mSELECT * FROM `data_objects_info_items` WHERE (`data_objects_info_items`.data_object_id IN (75,76)) [0m
+  [4;35;1mCACHE (0.0ms) localhost::eol_development[0m   [0mSELECT `hierarchy_entries`.`published`,`hierarchy_entries`.`visibility_id`,`hierarchy_entries`.`taxon_concept_id`,`hierarchy_entries`.`id`,`hierarchy_entries`.`name_id`,`hierarchy_entries`.`hierarchy_id`,`t0`.`data_object_id` as the_parent_record_id FROM `hierarchy_entries` INNER JOIN `data_objects_hierarchy_entries` t0 ON `hierarchy_entries`.id = t0.hierarchy_entry_id WHERE (t0.data_object_id IN (75,76)) [0m
+  [4;36;1mCACHE (0.0ms) localhost::eol_development[0m   [0;1mSELECT `names`.`string`,`names`.`id` FROM `names` WHERE (`names`.`id` = 23) [0m
+  [4;35;1mCACHE (0.0ms) localhost::eol_development[0m   [0mSELECT `agents`.`full_name`,`agents`.`homepage`,`agents`.`logo_cache_url`,`agents`.`id` FROM `agents` WHERE (`agents`.`id` = 3) [0m
+  [4;36;1mCACHE (0.0ms) localhost::eol_development[0m   [0;1mSELECT `agents_data_objects`.`view_order`,`agents_data_objects`.`data_object_id`,`agents_data_objects`.`agent_id`,`agents_data_objects`.`agent_role_id` FROM `agents_data_objects` WHERE (`agents_data_objects`.data_object_id IN (75,76)) [0m
+  [4;35;1mCACHE (0.0ms) localhost::eol_development[0m   [0mSELECT `agents`.`full_name`,`agents`.`homepage`,`agents`.`logo_cache_url`,`agents`.`id` FROM `agents` WHERE (`agents`.`id` = '3') [0m
+  [4;36;1mCACHE (0.0ms) localhost::eol_development[0m   [0;1mSELECT `users`.`agent_id` FROM `users` WHERE (`users`.agent_id = 3) [0m
+  [4;35;1mCACHE (0.0ms) localhost::eol_development[0m   [0mSELECT `comments`.`parent_id`,`comments`.`visible_at` FROM `comments` WHERE (`comments`.parent_id IN (75,76)) [0m
+  [4;36;1mCACHE (0.0ms) localhost::eol_development[0m   [0;1mSELECT `data_objects`.* FROM `data_objects` WHERE (`data_objects`.`id` IN (77)) [0m
+  [4;35;1mCACHE (0.0ms) localhost::eol_development[0m   [0mSELECT * FROM `data_objects_info_items` WHERE (`data_objects_info_items`.data_object_id = 77) [0m
+  [4;36;1mCACHE (0.0ms) localhost::eol_development[0m   [0;1mSELECT `hierarchy_entries`.`published`,`hierarchy_entries`.`visibility_id`,`hierarchy_entries`.`taxon_concept_id`,`hierarchy_entries`.`id`,`hierarchy_entries`.`name_id`,`hierarchy_entries`.`hierarchy_id`,`t0`.`data_object_id` as the_parent_record_id FROM `hierarchy_entries` INNER JOIN `data_objects_hierarchy_entries` t0 ON `hierarchy_entries`.id = t0.hierarchy_entry_id WHERE (t0.data_object_id = 77) [0m
+  [4;35;1mCACHE (0.0ms) localhost::eol_development[0m   [0mSELECT `names`.`string`,`names`.`id` FROM `names` WHERE (`names`.`id` = 23) [0m
+  [4;36;1mCACHE (0.0ms) localhost::eol_development[0m   [0;1mSELECT `agents`.`full_name`,`agents`.`homepage`,`agents`.`logo_cache_url`,`agents`.`id` FROM `agents` WHERE (`agents`.`id` = 3) [0m
+  [4;35;1mCACHE (0.0ms) localhost::eol_development[0m   [0mSELECT `agents_data_objects`.`view_order`,`agents_data_objects`.`data_object_id`,`agents_data_objects`.`agent_id`,`agents_data_objects`.`agent_role_id` FROM `agents_data_objects` WHERE (`agents_data_objects`.data_object_id = 77) [0m
+  [4;36;1mCACHE (0.0ms) localhost::eol_development[0m   [0;1mSELECT `agents`.`full_name`,`agents`.`homepage`,`agents`.`logo_cache_url`,`agents`.`id` FROM `agents` WHERE (`agents`.`id` = '3') [0m
+  [4;35;1mCACHE (0.0ms) localhost::eol_development[0m   [0mSELECT `users`.`agent_id` FROM `users` WHERE (`users`.agent_id = 3) [0m
+  [4;36;1mCACHE (0.0ms) localhost::eol_development[0m   [0;1mSELECT `comments`.`parent_id`,`comments`.`visible_at` FROM `comments` WHERE (`comments`.parent_id = 77) [0m
+Cache read: development/hierarchies/label/GBIF_Nub_Taxonomy
+Cache miss: development/hierarchies/label/GBIF_Nub_Taxonomy ({})
+  [4;35;1mHierarchy Load (0.0ms) localhost::eol_development[0m   [0mSELECT * FROM `hierarchies` WHERE (`hierarchies`.`label` = 'GBIF Nub Taxonomy') LIMIT 1[0m
+Cache write (will save 2.24ms): development/hierarchies/label/GBIF_Nub_Taxonomy
+  [4;36;1mHierarchyEntry Load (0.3ms) localhost::eol_development[0m   [0;1mSELECT * FROM `hierarchy_entries` WHERE (`hierarchy_entries`.`hierarchy_id` = 8 AND `hierarchy_entries`.`taxon_concept_id` = 16) LIMIT 1[0m
+Cache read: users/32
+Cache hit: users/32 ({})
+Rendered layouts/v2/_global_navigation (1.3ms)
+Cache read: development/languages/active_languages
+Cache hit: development/languages/active_languages ({})
+Rendered layouts/v2/_search (0.8ms)
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+Rendered layouts/v2/_global_navigation (1.1ms)
+Completed in 4619ms (View: 1234, DB: 155) | 200 OK [http://192.168.1.9/pages/16/overview]
+  [4;35;1mSQL (0.1ms) localhost::eol_development[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.6ms) localhost::eol_development[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSQL (1.7ms) localhost::eol_development[0m   [0mSHOW TABLES[0m
+  [4;36;1mTranslatedContentPage Columns (0.7ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `translated_content_pages`[0m
+  [4;35;1mContentPage Columns (0.6ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `content_pages`[0m
+
+
+Processing ApplicationController#index (for 192.168.1.4 at 2011-07-20 07:22:06) [GET]
+****************************************************************************
+** EXCEPTION: (uncaught) No route matches "/pages/16/v2/temporary_for_mockup/video_thumb.png" with {:method=>:get}
+       (./vendor/rails/actionpack/lib/action_controller/routing/recognition_optimisation.rb:66:in `recognize_path')
+       (./vendor/rails/actionpack/lib/action_controller/routing/route_set.rb:442:in `recognize')
+       (./vendor/rails/actionpack/lib/action_controller/routing/route_set.rb:437:in `call')
+       (./vendor/rails/actionpack/lib/action_controller/dispatcher.rb:87:in `dispatch')
+       (./vendor/rails/actionpack/lib/action_controller/dispatcher.rb:121:in `_call')
+       (./vendor/rails/actionpack/lib/action_controller/dispatcher.rb:130:in `build_middleware_stack')
+       (./vendor/rails/activerecord/lib/active_record/query_cache.rb:29:in `call')
+       (./vendor/rails/activerecord/lib/active_record/query_cache.rb:29:in `call')
+       (./vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache')
+       (./vendor/rails/activerecord/lib/active_record/query_cache.rb:9:in `cache')
+       (./vendor/rails/activerecord/lib/active_record/query_cache.rb:28:in `call')
+       (./vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call')
+       (./vendor/gems/sass-3.1.1/rails/../lib/sass/plugin/rack.rb:54:in `call')
+       (./vendor/rails/actionpack/lib/action_controller/string_coercion.rb:25:in `call')
+       (./vendor/gems/rack-1.1.0/lib/rack/head.rb:9:in `call')
+       (./vendor/gems/rack-1.1.0/lib/rack/methodoverride.rb:24:in `call')
+       (./vendor/rails/actionpack/lib/action_controller/params_parser.rb:15:in `call')
+       (./vendor/rails/actionpack/lib/action_controller/session/cookie_store.rb:99:in `call')
+       (./vendor/rails/activesupport/lib/active_support/cache/strategy/local_cache.rb:25:in `call')
+       (./vendor/rails/actionpack/lib/action_controller/failsafe.rb:26:in `call')
+       (./vendor/gems/rack-1.1.0/lib/rack/lock.rb:11:in `call')
+       (./vendor/gems/rack-1.1.0/lib/rack/lock.rb:11:in `synchronize')
+       (./vendor/gems/rack-1.1.0/lib/rack/lock.rb:11:in `call')
+       (./vendor/rails/actionpack/lib/action_controller/dispatcher.rb:114:in `call')
+       (./vendor/rails/actionpack/lib/action_controller/reloader.rb:34:in `run')
+       (./vendor/rails/actionpack/lib/action_controller/dispatcher.rb:108:in `call')
+       (./vendor/rails/railties/lib/rails/rack/static.rb:31:in `call')
+       (./vendor/gems/rack-1.1.0/lib/rack/urlmap.rb:47:in `call')
+       (./vendor/gems/rack-1.1.0/lib/rack/urlmap.rb:41:in `each')
+       (./vendor/gems/rack-1.1.0/lib/rack/urlmap.rb:41:in `call')
+       (./vendor/rails/railties/lib/rails/rack/log_tailer.rb:17:in `call')
+       (./vendor/gems/rack-1.1.0/lib/rack/content_length.rb:13:in `call')
+       (./vendor/gems/rack-1.1.0/lib/rack/handler/webrick.rb:48:in `service')
+       (/usr/local/rvm/rubies/ruby-1.8.7-p302/lib/ruby/1.8/webrick/httpserver.rb:104:in `service')
+       (/usr/local/rvm/rubies/ruby-1.8.7-p302/lib/ruby/1.8/webrick/httpserver.rb:65:in `run')
+       (/usr/local/rvm/rubies/ruby-1.8.7-p302/lib/ruby/1.8/webrick/server.rb:173:in `start_thread')
+       (/usr/local/rvm/rubies/ruby-1.8.7-p302/lib/ruby/1.8/webrick/server.rb:162:in `start')
+       (/usr/local/rvm/rubies/ruby-1.8.7-p302/lib/ruby/1.8/webrick/server.rb:162:in `start_thread')
+       (/usr/local/rvm/rubies/ruby-1.8.7-p302/lib/ruby/1.8/webrick/server.rb:95:in `start')
+       (/usr/local/rvm/rubies/ruby-1.8.7-p302/lib/ruby/1.8/webrick/server.rb:92:in `each')
+       (/usr/local/rvm/rubies/ruby-1.8.7-p302/lib/ruby/1.8/webrick/server.rb:92:in `start')
+       (/usr/local/rvm/rubies/ruby-1.8.7-p302/lib/ruby/1.8/webrick/server.rb:23:in `start')
+       (/usr/local/rvm/rubies/ruby-1.8.7-p302/lib/ruby/1.8/webrick/server.rb:82:in `start')
+       (./vendor/gems/rack-1.1.0/lib/rack/handler/webrick.rb:14:in `run')
+       (./vendor/rails/railties/lib/commands/server.rb:111)
+       (/usr/local/rvm/rubies/ruby-1.8.7-p302/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:29:in `gem_original_require')
+       (/usr/local/rvm/rubies/ruby-1.8.7-p302/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:29:in `require')
+   ./script/server:3
+
+
+
+Rendering template within layouts/v2/basic
+Rendering content/error
+  [4;36;1mSQL (2.5ms) localhost::eol_development[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mTranslatedUntrustReason Columns (0.7ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `translated_untrust_reasons`[0m
+  [4;36;1mUntrustReason Columns (0.5ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `untrust_reasons`[0m
+  [4;35;1mChangeableObjectType Columns (0.6ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `changeable_object_types`[0m
+  [4;36;1mChangeableObjectType Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT * FROM `changeable_object_types` WHERE (`changeable_object_types`.`ch_object_type` = 'data_object') LIMIT 1[0m
+  [4;35;1mUser Columns (2.2ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `users`[0m
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: development/roles/administrator
+Cache hit: development/roles/administrator ({})
+  [4;36;1mCommunity Columns (9.5ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `communities`[0m
+Cache read: development/communities/name/EOL_Curators_and_Admins
+Cache hit: development/communities/name/EOL_Curators_and_Admins ({})
+  [4;35;1mUser Load (0.2ms) localhost::eol_development[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 32) [0m
+  [4;36;1mMember Load (0.2ms) localhost::eol_development[0m   [0;1mSELECT * FROM `members` WHERE ((`members`.`user_id` = 32)) [0m
+Rendered content/_error (866.2ms)
+Cache read: users/32
+Cache hit: users/32 ({})
+  [4;35;1mSQL (2.2ms) localhost::eol_development[0m   [0mSHOW TABLES[0m
+  [4;36;1mTranslatedLanguage Columns (0.5ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `translated_languages`[0m
+  [4;35;1mLanguage Columns (0.4ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `languages`[0m
+Cache read: development/languages/instances_cached
+Cache hit: development/languages/instances_cached ({})
+Cache read: development/languages/instance_id_1
+Cache read: development/languages/instance_id_1
+Rendered layouts/v2/_global_navigation (41.0ms)
+Cache read: development/languages/active_languages
+Cache hit: development/languages/active_languages ({})
+Rendered layouts/v2/_search (0.9ms)
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+Rendered layouts/v2/_global_navigation (1.1ms)
+  [4;36;1mSQL (0.1ms) localhost::eol_development[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms) localhost::eol_development[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (2.1ms) localhost::eol_development[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mTranslatedContentPage Columns (1.2ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `translated_content_pages`[0m
+  [4;36;1mContentPage Columns (0.6ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `content_pages`[0m
+
+
+Processing CollectionsController#show (for 192.168.1.4 at 2011-07-20 07:23:07) [GET]
+  Parameters: {"id"=>"2"}
+  [4;35;1mSQL (2.9ms) localhost::eol_development[0m   [0mSHOW TABLES[0m
+  [4;36;1mTranslatedUntrustReason Columns (0.5ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `translated_untrust_reasons`[0m
+  [4;35;1mUntrustReason Columns (0.4ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `untrust_reasons`[0m
+  [4;36;1mChangeableObjectType Columns (1.0ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `changeable_object_types`[0m
+  [4;35;1mChangeableObjectType Load (0.1ms) localhost::eol_development[0m   [0mSELECT * FROM `changeable_object_types` WHERE (`changeable_object_types`.`ch_object_type` = 'data_object') LIMIT 1[0m
+  [4;36;1mUser Columns (1.8ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `users`[0m
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+  [4;35;1mSQL (2.3ms) localhost::eol_development[0m   [0mSHOW TABLES[0m
+  [4;36;1mTranslatedLanguage Columns (0.5ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `translated_languages`[0m
+  [4;35;1mLanguage Columns (0.5ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `languages`[0m
+Cache read: development/languages/instances_cached
+Cache hit: development/languages/instances_cached ({})
+Cache read: development/languages/instance_id_1
+Cache read: development/languages/instance_id_1
+  [4;36;1mCollection Columns (0.9ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `collections`[0m
+  [4;35;1mCollection Load (0.3ms) localhost::eol_development[0m   [0mSELECT * FROM `collections` WHERE (`collections`.`id` = 2) [0m
+  [4;36;1mCollectionItem Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT `collection_items`.* FROM `collection_items` WHERE (`collection_items`.collection_id = 2) [0m
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: users/32
+Cache hit: users/32 ({})
+Cache read: development/special_collections/name/Watch
+Cache hit: development/special_collections/name/Watch ({})
+  [4;35;1mSpecialCollection Columns (0.5ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `special_collections`[0m
+  [4;36;1mCollection Load (0.0ms) localhost::eol_development[0m   [0;1mSELECT * FROM `collections` WHERE (`collections`.`user_id` = 32 AND `collections`.`special_collection_id` = 2) LIMIT 1[0m
+Cache read: users/32
+Cache hit: users/32 ({})
+  [4;35;1mSQL (2.0ms) localhost::eol_development[0m   [0mSHOW TABLES[0m
+  [4;36;1mTranslatedSortStyle Columns (0.5ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `translated_sort_styles`[0m
+  [4;35;1mSortStyle Columns (0.3ms) localhost::eol_development[0m   [0mSHOW FIELDS FROM `sort_styles`[0m
+Cache read: development/sort_styles/name/Recently_Added/en
+Cache miss: development/sort_styles/name/Recently_Added/en ({})
+Cache read: development/languages/id_from_iso_en
+Cache hit: development/languages/id_from_iso_en ({})
+  [4;36;1mSortStyle Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT `sort_styles`.* FROM `sort_styles` INNER JOIN `translated_sort_styles` ON translated_sort_styles.sort_style_id = sort_styles.id WHERE (`translated_sort_styles`.`name` = 'Recently Added' AND `translated_sort_styles`.`language_id` = 1) LIMIT 1[0m
+  [4;35;1mTranslatedSortStyle Load (0.1ms) localhost::eol_development[0m   [0mSELECT `translated_sort_styles`.* FROM `translated_sort_styles` WHERE (`translated_sort_styles`.sort_style_id = 1) [0m
+Cache write (will save 5.27ms): development/sort_styles/name/Recently_Added/en
+Cache read: development/sort_styles/name/Oldest/en
+Cache miss: development/sort_styles/name/Oldest/en ({})
+Cache read: development/languages/id_from_iso_en
+Cache hit: development/languages/id_from_iso_en ({})
+  [4;36;1mSortStyle Load (0.2ms) localhost::eol_development[0m   [0;1mSELECT `sort_styles`.* FROM `sort_styles` INNER JOIN `translated_sort_styles` ON translated_sort_styles.sort_style_id = sort_styles.id WHERE (`translated_sort_styles`.`name` = 'Oldest' AND `translated_sort_styles`.`language_id` = 1) LIMIT 1[0m
+  [4;35;1mTranslatedSortStyle Load (0.3ms) localhost::eol_development[0m   [0mSELECT `translated_sort_styles`.* FROM `translated_sort_styles` WHERE (`translated_sort_styles`.sort_style_id = 2) [0m
+Cache write (will save 5.30ms): development/sort_styles/name/Oldest/en
+Cache read: development/sort_styles/name/Alphabetical/en
+Cache miss: development/sort_styles/name/Alphabetical/en ({})
+Cache read: development/languages/id_from_iso_en
+Cache hit: development/languages/id_from_iso_en ({})
+  [4;36;1mSortStyle Load (0.2ms) localhost::eol_development[0m   [0;1mSELECT `sort_styles`.* FROM `sort_styles` INNER JOIN `translated_sort_styles` ON translated_sort_styles.sort_style_id = sort_styles.id WHERE (`translated_sort_styles`.`name` = 'Alphabetical' AND `translated_sort_styles`.`language_id` = 1) LIMIT 1[0m
+  [4;35;1mTranslatedSortStyle Load (0.1ms) localhost::eol_development[0m   [0mSELECT `translated_sort_styles`.* FROM `translated_sort_styles` WHERE (`translated_sort_styles`.sort_style_id = 3) [0m
+Cache write (will save 4.85ms): development/sort_styles/name/Alphabetical/en
+Cache read: development/sort_styles/name/Reverse_Alphabetical/en
+Cache miss: development/sort_styles/name/Reverse_Alphabetical/en ({})
+Cache read: development/languages/id_from_iso_en
+Cache hit: development/languages/id_from_iso_en ({})
+  [4;36;1mSortStyle Load (0.2ms) localhost::eol_development[0m   [0;1mSELECT `sort_styles`.* FROM `sort_styles` INNER JOIN `translated_sort_styles` ON translated_sort_styles.sort_style_id = sort_styles.id WHERE (`translated_sort_styles`.`name` = 'Reverse Alphabetical' AND `translated_sort_styles`.`language_id` = 1) LIMIT 1[0m
+  [4;35;1mTranslatedSortStyle Load (0.7ms) localhost::eol_development[0m   [0mSELECT `translated_sort_styles`.* FROM `translated_sort_styles` WHERE (`translated_sort_styles`.sort_style_id = 4) [0m
+Cache write (will save 3.73ms): development/sort_styles/name/Reverse_Alphabetical/en
+Cache read: development/sort_styles/name/Richness/en
+Cache miss: development/sort_styles/name/Richness/en ({})
+Cache read: development/languages/id_from_iso_en
+Cache hit: development/languages/id_from_iso_en ({})
+  [4;36;1mSortStyle Load (0.4ms) localhost::eol_development[0m   [0;1mSELECT `sort_styles`.* FROM `sort_styles` INNER JOIN `translated_sort_styles` ON translated_sort_styles.sort_style_id = sort_styles.id WHERE (`translated_sort_styles`.`name` = 'Richness' AND `translated_sort_styles`.`language_id` = 1) LIMIT 1[0m
+  [4;35;1mTranslatedSortStyle Load (0.1ms) localhost::eol_development[0m   [0mSELECT `translated_sort_styles`.* FROM `translated_sort_styles` WHERE (`translated_sort_styles`.sort_style_id = 5) [0m
+Cache write (will save 25.22ms): development/sort_styles/name/Richness/en
+Cache read: development/sort_styles/name/Rating/en
+Cache miss: development/sort_styles/name/Rating/en ({})
+Cache read: development/languages/id_from_iso_en
+Cache hit: development/languages/id_from_iso_en ({})
+  [4;36;1mSortStyle Load (0.1ms) localhost::eol_development[0m   [0;1mSELECT `sort_styles`.* FROM `sort_styles` INNER JOIN `translated_sort_styles` ON translated_sort_styles.sort_style_id = sort_styles.id WHERE (`translated_sort_styles`.`name` = 'Rating' AND `translated_sort_styles`.`language_id` = 1) LIMIT 1[0m
+  [4;35;1mTranslatedSortStyle Load (0.2ms) localhost::eol_development[0m   [0mSELECT `translated_sort_styles`.* FROM `translated_sort_styles` WHERE (`translated_sort_styles`.sort_style_id = 6) [0m
+Cache write (will save 3.26ms): development/sort_styles/name/Rating/en
+Cache read: development/sort_styles/instances_cached
+Cache miss: development/sort_styles/instances_cached ({})
+  [4;36;1mSortStyle Load (0.2ms) localhost::eol_development[0m   [0;1mSELECT * FROM `sort_styles` [0m
+  [4;35;1mTranslatedSortStyle Load (0.5ms) localhost::eol_development[0m   [0mSELECT `translated_sort_styles`.* FROM `translated_sort_styles` WHERE (`translated_sort_styles`.sort_style_id IN (1,2,3,4,5,6)) [0m
+Cache read: development/sort_styles/instance_id_1
+Cache miss: development/sort_styles/instance_id_1 ({})
+Cache write (will save 0.00ms): development/sort_styles/instance_id_1
+Cache read: development/sort_styles/instance_id_2
+Cache miss: development/sort_styles/instance_id_2 ({})
+Cache write (will save 0.00ms): development/sort_styles/instance_id_2
+Cache read: development/sort_styles/instance_id_3
+Cache miss: development/sort_styles/instance_id_3 ({})
+Cache write (will save 0.00ms): development/sort_styles/instance_id_3
+Cache read: development/sort_styles/instance_id_4
+Cache miss: development/sort_styles/instance_id_4 ({})
+Cache write (will save 0.00ms): development/sort_styles/instance_id_4
+Cache read: development/sort_styles/instance_id_5
+Cache miss: development/sort_styles/instance_id_5 ({})
+Cache write (will save 0.00ms): development/sort_styles/instance_id_5
+Cache read: development/sort_styles/instance_id_6
+Cache miss: development/sort_styles/instance_id_6 ({})
+Cache write (will save 0.00ms): development/sort_styles/instance_id_6
+Cache write (will save 33.11ms): development/sort_styles/instances_cached
+Cache read: development/sort_styles/instance_id_3
+  [4;36;1mCollectionItem Columns (1.1ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `collection_items`[0m
+  [4;35;1mCollectionItem Load (0.2ms) localhost::eol_development[0m   [0mSELECT * FROM `collection_items` WHERE (`collection_items`.`id` IN (NULL)) [0m
+Rendering template within layouts/v2/collections
+Rendering collections/show
+Cache read: users/32
+Cache hit: users/32 ({})
+Rendered collections/_show_name (2.5ms)
+Rendered collections/_show_description (2.1ms)
+Rendered shared/_flash_messages (0.1ms)
+  [4;36;1mSQL (0.3ms) localhost::eol_development[0m   [0;1mSELECT count(*) AS count_all FROM `collection_items` WHERE ((`collection_items`.`collection_id` = 2)) [0m
+  [4;35;1mUser Load (0.8ms) localhost::eol_development[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 32) [0m
+Rendered collections/_managed_by (23.6ms)
+  [4;36;1mCollectionEndorsement Columns (0.6ms) localhost::eol_development[0m   [0;1mSHOW FIELDS FROM `collection_endorsements`[0m
+  [4;35;1mSQL (0.4ms) localhost::eol_development[0m   [0mSELECT count(*) AS count_all FROM `collection_endorsements` WHERE ((`

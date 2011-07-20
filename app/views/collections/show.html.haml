@@ -59,6 +59,8 @@
                 %h4= I18n.t(:primary_image_header)
                 = collection_form.label :logo, I18n.t(:primary_image_choose)
                 = collection_form.file_field :logo, :size=>10
+                %fieldset.actions
+                  = submit_tag I18n.t(:save), :name => :commit_edit_collection
           .collection_contributors
             = render :partial => 'collections/managed_by', :locals => { :collection => @collection }
           - if @collection.collection_endorsements.count > 0
@@ -73,7 +75,7 @@
               %fieldset.actions
                 = submit_tag I18n.t(:sort_by_button), :name => :commit_sort
               - if editable && @sort_by.id != @collection.sort_style_id
-                %fieldset
+                %fieldset.actions
                   = submit_tag I18n.t(:make_this_the_default_sort), :name => :commit_default_sort
             = will_paginate @collection_results, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next), :inner_window => 2, :outer_window => 2
             %ul.object_list

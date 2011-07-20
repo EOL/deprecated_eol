@@ -244,7 +244,9 @@ ul.feed li > a > img {
 
 ul.object_list li img {
   max-width: 68px;
-  max-height: 68px; }
+  max-height: 68px;
+  width: 68px;
+  height: 68px; }
 
 form.comment img {
   height: 50px;
@@ -253,5 +255,12 @@ form.comment img {
 #header .thumbnails ul li {
   width: 140px;
   height: 140px; }
+
 .editable_link {
   font-size: 0.8em; }
+
+.edit_collection #sidebar fieldset.actions {
+  padding: 0; }
+
+#collections .heading {
+  line-height: 2.5em; }

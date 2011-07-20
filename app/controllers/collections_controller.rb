@@ -1,22 +1,17 @@
 # A bit tricky.
 #
 # You could come here looking at a Community's Collection.
-# You could come here looking at a (specified) User's Collection. (index and show only)
+# You could come here looking at a (specified) User's Collection. (show only)
 #     UPDATE: user collections index is now in users/collections
 # And you could come here without either of those (implying the current_user's Collection).
 class CollectionsController < ApplicationController
 
-  before_filter :find_collection, :except => [:index, :new, :create]
-  before_filter :find_parent, :only => [:index, :show]
-  before_filter :find_parent_for_current_user_only, :except => [:index, :show, :collect, :watch]
+  before_filter :find_collection, :except => [:new, :create]
+  before_filter :find_parent, :only => [:show]
+  before_filter :find_parent_for_current_user_only, :except => [:show, :collect, :watch]
   before_filter :build_collection_items_with_sorting_and_filtering, :only => [:show, :edit, :update]
 
   layout 'v2/collections'
-
-  # NOTE - I haven't really implemented this one yet.
-  def index
-    @collections = Collection.all
-  end
 
   def show
     return copy if params[:commit_copy_collection_items]
@@ -32,28 +27,26 @@ class CollectionsController < ApplicationController
     if @collection.save
       CollectionActivityLog.create(:collection => @collection, :user => current_user, :activity => Activity.create)
       flash[:notice] = I18n.t(:collection_created_notice, :collection_name => @collection.name)
-      return redirect_to request.referer
+      if params[:collection_items]
+        if params[:copy]
+          @collection.collection_items_attributes = copy_collection_items(CollectionItem.find(params[:collection_items]))
+          if @collection.save
+            return redirect_to @collection
+          else
+            flash[:error] = I18n.t(:items_no_copy_error, :collection_name => @collection.name)
+            return redirect_to request.referer
+          end
+        elsif params[:move]
+          return move
+        else
+          @collection.destroy
+          flash[:error] = I18n.t(:collection_not_created_error, :collection_name => @collection.name)
+          return redirect_to request.referer
+        end
+      end
     else
       flash[:error] = I18n.t(:collection_not_created_error, :collection_name => @collection.name)
       return redirect_to request.referer
-    end
-    if params[:collection_items]
-      if params[:copy]
-        @collection.collection_items_attributes = copy_collection_items(CollectionItem.find(params[:collection_items]))
-        if @collection.save
-          return redirect_to @collection
-        else
-          flash[:error] = I18n.t(:items_no_copy_error, :collection_name => @collection.name)
-          return redirect_to request.referer
-        end
-      elsif params[:move]
-        move
-        return redirect_to request.referer
-      else
-        @collection.destroy
-        flash[:error] = I18n.t(:collection_not_created_error, :collection_name => @collection.name)
-        return redirect_to request.referer
-      end
     end
     # You shouldn't get here; something weird happened.
     flash[:error] = I18n.t(:collection_not_created_error, :collection_name => @collection.name)
@@ -85,16 +78,15 @@ class CollectionsController < ApplicationController
     real_update # There are several actions that DON'T use a button, and those need to simply update.
   end
 
-  # NOTE - I haven't really implemented this one yet.
+  # NOTE - I haven't really implemented this one yet... started to, but it's not USED anywhere, yet...
   def destroy
     if @collection.special?
       flash[:error] = I18n.t(:special_collections_cannot_be_destroyed)
-      return redirect_to request.referer
+      return redirect_to collection_url(@collection)
     else
+      back = @collection.user ? user_collections_url(current_user) : community_url(@collection.community)
       @collection.destroy
-    end
-    respond_to do |format|
-      format.html { redirect_to(collections_url) }
+      redirect_to(back)
     end
   end
 
@@ -165,8 +157,8 @@ private
     else
       return no_items_selected_error(:move) if params[:collection_items].nil? or params[:collection_items].empty?
     end
-    return redirect_to params.merge(:action => 'choose', :for => 'move').except(
-      :filter, :sort_by, *unnecessary_keys_for_redirect)
+    return redirect_to params.merge(:action => 'choose', :for => 'move').except(:filter, :sort_by,
+                                                                                *unnecessary_keys_for_redirect)
   end
 
   def remove(all = false)
@@ -225,7 +217,7 @@ private
           old_collection = items.first.collection
           count = remove_items_from_collection(items)
           flash[:notice] = I18n.t(:removed_count_items_from_collection_notice, :count => count,
-            :collection => link_to_name(old_collection.name))
+            :collection => link_to_name(old_collection))
         end
         return redirect_to(@collection)
       else
@@ -277,7 +269,7 @@ private
   end
 
   def link_to_name(collection)
-    self.class.helpers.link_to(old_collection.name, collection_path(old_collection))
+    self.class.helpers.link_to(collection.name, collection_path(collection))
   end
 
 end

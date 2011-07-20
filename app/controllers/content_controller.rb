@@ -12,7 +12,12 @@ class ContentController < ApplicationController
   def index
     @home_page = true
     current_user.log_activity(:viewed_home_page)
-    @explore_taxa = $CACHE.fetch('homepage/random_images', :expires_in => 30.minutes) do
+    begin
+      @explore_taxa = $CACHE.fetch('homepage/random_images', :expires_in => 30.minutes) do
+        RandomHierarchyImage.random_set(60)
+      end
+    rescue TypeError => e
+      # TODO - FIXME  ... This appears to have to do with $CACHE.fetch (obviously)... not sure why, though.
       @explore_taxa = RandomHierarchyImage.random_set(60)
     end
     @explore_taxa.shuffle!

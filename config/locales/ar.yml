@@ -195,7 +195,7 @@ ar:
   preferred_common_name_advisory_information: هذا هو الأسم الشائع المفضل لتلك الأصنوفة
   print_this_page_link: طباعة الصفحة
   profile: الصفحة الشخصية
-  profile_image_alt_text_curator: الصورة الشخصية للمشرف %{user_given_name} %{user_family_name}
+  profile_image_alt_text_curator: الصورة الشخصية للمشرف  %{user_full_name}
   profile_image_alt_text_member: الصورة الشخصية للعضو %{user_full_name}
   punctuation_comma: ،
   recent_updates: تحديثات جديدة

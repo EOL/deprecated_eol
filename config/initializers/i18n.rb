@@ -11,9 +11,13 @@ module I18n
         super key
       else
         translated_string = I18n.t(key, opts, :locale => :en)
-        # replacing variables
-        for opt in opts
-          translated_string = translated_string.gsub('%{' + opt[0].to_s + '}', opt[1].to_s)
+        begin
+          # replacing variables
+          for opt in opts
+            translated_string = translated_string.gsub('%{' + opt[0].to_s + '}', opt[1].to_s) if !translated_string.index('%{' + opt[0].to_s + '}').nil?
+          end
+        rescue
+          translated_string = key
         end        
         super translated_string
       end

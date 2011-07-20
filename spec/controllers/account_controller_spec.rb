@@ -10,7 +10,7 @@ describe AccountController do
 
   # "POST /account/forgot_password
   it "should deliver the signup email" do
-    user = User.gen(:username => 'johndoe', :email => 'johndoe@example.com')
+    user = User.gen(:email => 'johndoe@example.com')
     user.save!
     # expect
     Notifier.should_receive(:deliver_forgot_password_email).with(user, 80)
@@ -19,7 +19,7 @@ describe AccountController do
   end
 
   it "should send email to a single account with requested email" do
-    user1 = User.gen(:username => 'johndoe', :email => 'jd@example.com')
+    user1 = User.gen(:email => 'jd@example.com')
     user1.save!
     #expect
     Notifier.should_receive(:deliver_forgot_password_email).with(user1, 80)
@@ -29,7 +29,7 @@ describe AccountController do
 
   # POST /account/profile
   it "should not change password if user is not logged in" do
-    user = User.gen(:username => 'johndoe', :email => 'johndoe@example.com')
+    user = User.gen(:email => 'johndoe@example.com')
     user.save!
     new_password = "newpass"
     old_hashed_password = User.find(user).hashed_password
@@ -38,7 +38,7 @@ describe AccountController do
   end
 
   it "should change password for a user" do
-    user = User.gen(:username => 'johndoe', :email => 'johndoe@example.com')
+    user = User.gen(:email => 'johndoe@example.com')
     user.save!
     new_password = "newpass"
     session[:user] = user
@@ -50,7 +50,7 @@ describe AccountController do
   end
 
   it "should unset password wrongly remembered by a browser" do
-    user = User.gen(:username => 'johndoe', :email => 'johndoe@example.com')
+    user = User.gen(:email => 'johndoe@example.com')
     user.save!
     new_password = "newpass"
     old_hashed_password = User.find(user).hashed_password

@@ -180,7 +180,7 @@ describe 'Taxa page' do
       login_as @testy[:curator]
       visit common_names_taxon_names_path(@testy[:taxon_concept])
       body.should have_tag('form#add_common_name')
-      new_name = 'My new English common name'
+      new_name = Factory.next(:string)
       fill_in 'Name', :with => new_name
       select('English', :from => "Name's Language")
       click_button 'Add'

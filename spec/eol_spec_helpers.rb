@@ -3,45 +3,9 @@ require 'nokogiri'
 
 require 'spec/runner/formatter/base_text_formatter'
 
-
 module EOL
   module Spec
     module Helpers
-      # get or set a variable that's stored on the spec (the describe block)
-      # so it's cached between examples
-      #
-      # obviously, be careful with this one ... only use this if
-      # it makes sense to use this.  a good example is caching data
-      # that you want to access in multiple examples but which is
-      # expensive to create.
-      #
-      # before(:all) blocks can help with this too, except any database
-      # modifications that happen in before(:all) blocks will happen
-      # OUTSIDE the scope of transactions ... which is bad
-      #
-      def spec_variable name, value = :unset
-        if value == :unset
-          self.class.instance_variable_get "@#{ name.to_s }"
-        else
-          self.class.instance_variable_set "@#{ name.to_s }", value
-        end
-      end
-
-      def login_content_partner(options = {})
-        f = request('/content_partner/login', :params => {
-            'agent[username]' => options[:username],
-            'agent[password]' => options[:password],
-            'remember_me' => options[:remember_me] || '' })
-      end
-
-      def login_content_partner_capybara(options = {})
-        visit('/content_partner/login')
-        fill_in "agent_username", :with => options[:username]
-        fill_in "agent_password", :with => options[:password]
-        check("remember_me") if options[:remember_me] && options[:remember_me].to_i != 0
-        click_button "Login Now »"
-        page
-      end
 
       def login_as(user, options = {})
         if user.is_a? User # let us pass a newly created user (with an entered_password)
@@ -108,19 +72,6 @@ module EOL
         run_command = skip_if_empty ? conn.execute("SELECT 1 FROM #{table} LIMIT 1").num_rows > 0 : true
         conn.execute "TRUNCATE TABLE `#{table}`" if run_command
       end
-
-      # truncates all tables in all databases
-      def truncate_all_logging_tables options = { }
-        options[:verbose] ||= false
-        PageViewLog.connection.tables.each   do |table|
-          unless table == 'schema_migrations'
-            puts "[#{PageViewLog.connection.instance_eval { @config[:database] }}].`#{table}`" if options[:verbose]
-            count_rows = PageViewLog.connection.execute("SELECT 1 FROM #{table} LIMIT 1")
-            PageViewLog.connection.execute "TRUNCATE TABLE `#{table}`" if count_rows.num_rows > 0
-          end
-        end
-      end
-
 
       def build_data_object(type, desc, options = {})
         dato_builder = EOL::DataObjectBuilder.new(type, desc, options)
@@ -230,10 +181,6 @@ module EOL
 
       def find_or_build_harvest_event(resource)
         HarvestEvent.find_by_resource_id(resource.id) || HarvestEvent.gen(:resource => resource)
-      end
-
-      def gbif_hierarchy
-        find_or_build_hierarchy('GBIF')
       end
 
       def iucn_hierarchy

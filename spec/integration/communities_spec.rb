@@ -91,11 +91,12 @@ describe "Communities" do
         body.should have_tag("textarea#community_description")
       end
       it 'should create a community, add the user, and redirect to community default view' do
-        fill_in('community_name', :with => 'Some New Name')
+        new_name = Factory.next(:string)
+        fill_in('community_name', :with => new_name)
         fill_in('community_description', :with => 'This is a long description.')
         click_button(@test_data[:name_of_create_button])
         new_comm = Community.last
-        new_comm.name.should == 'Some New Name'
+        new_comm.name.should == new_name
         new_comm.description.should == 'This is a long description.'
         current_path.should match /#{community_path(new_comm)}/
       end

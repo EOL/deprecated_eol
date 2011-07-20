@@ -35,6 +35,8 @@ Spec::Runner.configure do |config|
   include EOL::DB   # this gives us access to methods that handle transactions
   include EOL::Spec::Helpers
 
+  config.use_transactional_fixtures = false
+
   config.include EOL::Spec::Matchers
   config.include(EmailSpec::Helpers)
   config.include(EmailSpec::Matchers)

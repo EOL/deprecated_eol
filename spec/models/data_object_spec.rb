@@ -144,7 +144,7 @@ describe DataObject do
  end
 
  it 'ratings should verify uniqueness of pair guid/user in users_data_objects_ratings' do
-   UsersDataObjectsRating.count.should eql(0)
+   UsersDataObjectsRating.delete_all
    d = DataObject.gen
    u = User.gen
    d.rate(u,5)
@@ -154,6 +154,7 @@ describe DataObject do
  end
 
  it 'ratings should update existing rating' do
+   UsersDataObjectsRating.delete_all
    d = DataObject.gen
    u = User.gen
    d.rate(u,1)

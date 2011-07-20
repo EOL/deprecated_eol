@@ -299,7 +299,7 @@ describe TaxonConcept do
     related_names = TaxonConcept.related_names(:taxon_concept_id => @taxon_concept.id)
     related_names.class.should == Hash
     # by hierarchy_entry
-    hierarchy_entry = @taxon_concept.published_browsable_hierarchy_entries
+    hierarchy_entry = @taxon_concept.published_browsable_hierarchy_entries.first
     related_names = TaxonConcept.related_names(:hierarchy_entry_id => hierarchy_entry.id)
     related_names.class.should == Hash
   end
@@ -499,22 +499,22 @@ describe TaxonConcept do
 
   it "delete common name should delete preferred common names, should mark last common name for a language as preferred" do
     # remove all existing English common names
-    TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(@taxon_concept, Language.english).each do |tcn|
+    TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(@testy[:empty_taxon_concept], Language.english).each do |tcn|
       tcn.delete
     end
 
     # first one should go in as preferred
-    first_syn = @taxon_concept.add_common_name_synonym('First english name', :agent => @agent, :language => Language.english)
+    first_syn = @testy[:empty_taxon_concept].add_common_name_synonym('First english name', :agent => @agent, :language => Language.english)
     first_tcn = TaxonConceptName.find_by_synonym_id(first_syn.id)
     first_tcn.preferred?.should be_true
 
     # second should not be preferred
-    second_syn = @taxon_concept.add_common_name_synonym('Second english name', :agent => @agent, :language => Language.english)
+    second_syn = @testy[:empty_taxon_concept].add_common_name_synonym('Second english name', :agent => @agent, :language => Language.english)
     second_tcn = TaxonConceptName.find_by_synonym_id(second_syn.id)
     second_tcn.preferred?.should be_false
 
     # after removing the first, the last one should change to preferred
-    @taxon_concept.delete_common_name(first_tcn)
+    @testy[:empty_taxon_concept].delete_common_name(first_tcn)
     second_tcn.reload
     second_tcn.preferred?.should be_true
   end

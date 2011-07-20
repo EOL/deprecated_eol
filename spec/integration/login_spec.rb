@@ -35,20 +35,20 @@ describe 'Login' do
   end
 
   it 'should redirect to index after a successful login' do
-    user = User.gen :username => 'johndoe'
+    user = User.gen
     login_as(user)
     current_path.should == root_path
   end
 
   it 'should set a remember token for us if we asked to be remembered' do
-    user = User.gen :username => 'charliebrown'
+    user = User.gen
     login_as(user, :remember_me => '1')
     current_path.should == root_path
     user.reload.remember_token.should_not be_blank
   end
 
   it 'should indicate to user that they are logged in' do
-    user = User.gen :username => 'charliebrown'
+    user = User.gen
     visit('/profile')
     body.should_not have_tag('.desc-personal', /#{user.given_name}/)
     login_as(user)
@@ -57,7 +57,7 @@ describe 'Login' do
   end
 
   it 'should be able to logout user' do
-    user = User.gen :username => 'johndoe'
+    user = User.gen
     login_as(user)
     visit('/profile')
     body.should have_tag('.desc-personal', /#{user.given_name}/)

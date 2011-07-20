@@ -249,10 +249,10 @@ class ContentController < ApplicationController
         else
           @page_title = @translated_content.title
         end
-          
+
       end
-      
-      
+
+
 
       # if this static page is simply a redirect, then go there
       current_user.log_activity(:viewed_content_page_id, :value => @page_id)
@@ -325,11 +325,9 @@ class ContentController < ApplicationController
     end
 
     @donation_amount = @preset_amount.to_f > 0 ? @preset_amount.to_f : @other_amount
-    @transaction_type = "sale"
-    @currency = "usd"
 
     @page_title = I18n.t(:donation_confirmation) if @donation_amount > 0
-    parameters = 'function=InsertSignature3&version=2&amount=' + @donation_amount.to_s + '&type=' + @transaction_type + '&currency=' + @currency
+    parameters = 'function=InsertSignature3&version=2&amount=' + @donation_amount.to_s + '&type=sale&currency=usd'
     @form_elements = EOLWebService.call(:parameters => parameters)
 
   end

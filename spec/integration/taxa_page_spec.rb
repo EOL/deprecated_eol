@@ -29,9 +29,6 @@ describe 'Taxa page' do
     it 'should show the section name' do
       body.should have_tag('#page_heading h1', /\n.*#{@section}/i)
     end
-    it 'should show the concepts preferred name style and ' do
-      body.should have_tag('#page_heading h1', /#{@testy[:taxon_concept].entry.name.ranked_canonical_form.string}\n/i)
-    end
     it 'should show the preferred common name' do
       body.should have_tag('#page_heading h2', /^#{@testy[:common_name]}/)
     end
@@ -203,6 +200,18 @@ describe 'Taxa page' do
     end
   end
 
+  shared_examples_for 'taxon name - taxon_concept page' do
+    it 'should show the concepts preferred name style and ' do
+      body.should have_tag('#page_heading h1', /#{@testy[:taxon_concept].entry.name.ranked_canonical_form.string}\n/i)
+    end
+  end
+  
+  shared_examples_for 'taxon name - hierarchy_entry page' do
+    it 'should show the concepts preferred name style and ' do
+      body.should have_tag('#page_heading h1', /#{@testy[:taxon_concept].quick_scientific_name(:normal)}\n/i)
+    end
+  end
+
   # overview tab - taxon_concept
   context 'overview when taxon has all expected data - taxon_concept' do
     before(:all) do
@@ -212,6 +221,7 @@ describe 'Taxa page' do
     subject { body }
     # WARNING: Regarding use of subject, if you are using with_tag you must specify body.should... due to bug.
     # @see https://rspec.lighthouseapp.com/projects/5645/tickets/878-problem-using-with_tag
+    it_should_behave_like 'taxon name - taxon_concept page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon overview tab'
   end
@@ -226,6 +236,7 @@ describe 'Taxa page' do
     subject { body }
     # WARNING: Regarding use of subject, if you are using with_tag you must specify body.should... due to bug.
     # @see https://rspec.lighthouseapp.com/projects/5645/tickets/878-problem-using-with_tag
+    it_should_behave_like 'taxon name - hierarchy_entry page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon overview tab'
   end
@@ -237,6 +248,7 @@ describe 'Taxa page' do
       @section = 'details'
     end
     subject { body }
+    it_should_behave_like 'taxon name - taxon_concept page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon details tab'
   end
@@ -249,6 +261,7 @@ describe 'Taxa page' do
       @section = 'details'
     end
     subject { body }
+    it_should_behave_like 'taxon name - hierarchy_entry page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon details tab'
   end
@@ -260,6 +273,7 @@ describe 'Taxa page' do
       @section = 'names'
     end
     subject { body }
+    it_should_behave_like 'taxon name - taxon_concept page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon names tab'
   end
@@ -272,6 +286,7 @@ describe 'Taxa page' do
       @section = 'names'
     end
     subject { body }
+    it_should_behave_like 'taxon name - hierarchy_entry page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon names tab'
   end

@@ -1,0 +1,3 @@
+= image_tag @collection.logo_url, :alt => ''
+- if editable
+  .editable_link= link_to(I18n.t(:edit_logo), edit_collection_path(@collection, :field => 'logo'))

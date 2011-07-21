@@ -1,7 +1,7 @@
 - editable = @collection.editable_by?(current_user)
 #page_heading.with_image
   .site_column
-    = image_tag @collection.logo_url, :alt => ''
+    = render :partial => 'show_logo', :locals => { :editable => editable }
     .hgroup
       .editable
         = render :partial => 'show_name', :locals => { :editable => editable }

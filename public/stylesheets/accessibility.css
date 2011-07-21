@@ -317,7 +317,8 @@ form.comment img {
   height: 140px; }
 
 .editable_link {
-  font-size: 0.8em; }
+  font-size: 0.8em;
+  padding-bottom: 10px; }
 
 .edit_collection #sidebar fieldset.actions {
   padding: 0; }

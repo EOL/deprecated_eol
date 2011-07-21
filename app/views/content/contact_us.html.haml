@@ -27,7 +27,7 @@
       - form_for :contact, @contact, :html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |f|
         %label{:for => "contact_name", :title =>  I18n.t(:your_name) }
           = I18n.t(:your_name)
-          %span{ :title => I18n.t("required_") }
+          %span{ :title => I18n.t(:required) }
             *
           %span.warn
             = "(" + I18n.t(:required)  + ")"
@@ -38,7 +38,7 @@
         = f.text_field :email, :size=>'50', :maxlength=>'250'
         %label{ :title => I18n.t(:topic_area)  }
           = I18n.t(:topic_area)
-          %span{ :title => I18n.t("required_") }
+          %span{ :title => I18n.t(:required) }
             *
           %span.warn
             = "(" + I18n.t(:required)  + ")"
@@ -50,7 +50,7 @@
           = f.text_field :taxon_group
         %label{ :for => "contact_comments", :title => I18n.t(:comments)  }
           = I18n.t(:comments)
-          %span{ :title => I18n.t("required_") }
+          %span{ :title => I18n.t(:required) }
             *
           %span.warn
             = "(" + I18n.t(:required)  + ")"

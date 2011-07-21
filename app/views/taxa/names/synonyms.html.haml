@@ -12,7 +12,7 @@
         - unless he.scientific_synonyms.blank?
           %h4= he.hierarchy.label
           %p
-            = I18n.t("preferred_name_")
+            = I18n.t(:preferred_name_colon)
             = he.name.string
           %table.names
             %thead

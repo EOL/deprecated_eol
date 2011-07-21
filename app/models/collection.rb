@@ -20,8 +20,6 @@ class Collection < ActiveRecord::Base
 
   validates_presence_of :name
 
-  # This is cheating, slightly.  We want it to be unique within a user's scope, but ALSO within the scope of ALL
-  # communities... it so happens that the scope of the later is, in fact, a user_id (of nil)... so this works:
   validates_uniqueness_of :name, :scope => [:user_id]
   validates_uniqueness_of :community_id, :if => Proc.new {|l| ! l.community_id.blank? }
 
@@ -41,7 +39,7 @@ class Collection < ActiveRecord::Base
   index_with_solr :keywords => [ :name ], :fulltexts => [ :description ]
 
   define_core_relationships :select => '*'
-  
+
   alias :items :collection_items
   alias_attribute :summary_name, :name
 
@@ -81,14 +79,15 @@ class Collection < ActiveRecord::Base
       collection_items << CollectionItem.create(:object_type => "Collection", :object => what, :name => what.name, :collection => self, :added_by_user => opts[:user])
       name = what.name
     else
-      raise EOL::Exceptions::InvalidCollectionItemType.new("I cannot create a collection item from a #{what.class.name}")
+      raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_create_collection_item_from_class_error,
+                                                                  :klass => what.class.name))
     end
     what # Convenience.  Allows us to chain this command and continue using the object passed in.
   end
 
   def create_community
     raise EOL::Exceptions::OnlyUsersCanCreateCommunitiesFromCollections unless user
-    community = Community.create(:name => "#{name} Community")
+    community = Community.create(:name => I18n.t(:default_community_name_from_collection, :name => name))
     community.initialize_as_created_by(user)
     # Deep copy:
     collection_items.each do |li|
@@ -139,16 +138,16 @@ class Collection < ActiveRecord::Base
   def empty?
     collection_items.count == 0
   end
-  
+
   def default_sort_style
     sort_style ? sort_style : SortStyle.newest
   end
-  
+
   def items_from_solr(options={})
     sort_by_style = SortStyle.find(options[:sort_by].blank? ? default_sort_style : options[:sort_by])
     EOL::Solr::CollectionItems.search_with_pagination(self.id, :facet_type => options[:facet_type], :page => options[:page], :sort_by => sort_by_style)
   end
-  
+
   def facet_counts
     EOL::Solr::CollectionItems.get_facet_counts(self.id)
   end

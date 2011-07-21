@@ -7,11 +7,11 @@
       =I18n.t("welcome")
       = agent.full_name || agent.username
       %br
-      = link_to I18n.t("logout"),:controller=>'/content_partner',:action => 'logout'
+      = link_to I18n.t(:logout),:controller=>'/content_partner',:action => 'logout'
       \&nbsp; | &nbsp;
-      = link_to I18n.t("account_profile"),:controller=>'/content_partner',:action => 'profile'
+      = link_to I18n.t(:account_profile),:controller=>'/content_partner',:action => 'profile'
       \&nbsp; | &nbsp;
-      = link_to I18n.t("contact_us_"),:action => 'contact_us', :return_to=>CGI.escape(request.request_uri)
+      = link_to I18n.t(:contact_us_title),:action => 'contact_us', :return_to=>CGI.escape(request.request_uri)
     %h1
       = @page_header
     %hr

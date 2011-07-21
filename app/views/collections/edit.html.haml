@@ -51,7 +51,7 @@
             -# show view, so that it's clear what you're affecting.
             %h4= I18n.t(:by_default_sort_collection_by_colon)
             %fieldset
-              %legend.assistive= I18n.t(:default_sorting_legend)
+              %legend.assistive= I18n.t(:default_sorting_legend_for_collection)
               = label_tag :default_sorting, I18n.t(:default_sorting_label), :class => 'assistive'
               = collection_form.select :sort_style_id, @sort_options.map {|so| [so.name, so.id]}
             - # FIXME: Users need to be able to choose an image for a collection

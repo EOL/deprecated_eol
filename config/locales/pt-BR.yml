@@ -112,7 +112,6 @@ pt-BR:
   license: Licença
   link_to_add_role_to_community_to_control_privs: ↓ % {Link} para controlar os privilégios de membro.
   link_to_join_this_community: Você deve estar <a href="%{link}">logado</a> para participar desta Comunidade.
-  location_: Localização
   log_in: Autenticar-se
   login_or_create_account: Entrar ou criar uma conta
   manage_community: Gerenciar Comunidade
@@ -189,7 +188,6 @@ pt-BR:
   sound_thumbnail_alt_text: Esta gravação de áudio %{vetted_status} pertence a %{scientific_name}
   source_information_link: fonte
   source_url: URL de origem
-  supplier_: Fornecedor
   switch_language_advisory_information: Mudar o idioma do sítio para %{language_label}
   taxa: Taxa
   taxa_with_count: 

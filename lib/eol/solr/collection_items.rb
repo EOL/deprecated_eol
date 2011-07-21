@@ -48,7 +48,6 @@ module EOL
         return if docs.empty?
         ids = docs.map{ |d| d['object_id'] }
         instances = Collection.find_all_by_id(ids)
-        debugger
         docs.map! do |d|
           d['instance'].object = instances.detect{ |i| i.id == d['object_id'].to_i }
         end

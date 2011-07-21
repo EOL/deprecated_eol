@@ -2,18 +2,32 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Beta16
+# Author: Ribez
 # Author: Rippitippi
 it: 
   account_registered_but_not_ready_try_later: La tua registrazione è avvenuta correttamente ma il sistema non è pronto per l'accesso. Riprova tra cinque minuti.
   add_a_role: Aggiungi una regola
   add_to_my_collection_button: Aggiungi alla mia collezione
+  added_date: Aggiunto il % {date}
+  admin: Amministratore
+  all_information: Tutte le informazioni
   all_pages: Tutte le pagine
   already_a_member_question: Sei già iscritto?
   already_member_of_community: Sei già un membro di questa comunità.
   application_version_advisory_information: Versione dell'applicazione
   are_you_sure: Sei sicuro?
+  assistive_details_header: Dettagli
+  assistive_overview_header: Panoramica
+  average_rating_value_of_total: "Media voto: %{rating} su %{total} voti"
   browse_gallery: Sfoglia la nostra galleria
+  cancel: Annulla
+  cannot_be_associated_with_both_a_user_and_a_community: Non può essere associato sia con un utente e con una comunità
   cannot_be_empty: non può essere vuoto.
+  change_rating_to_1_of_5: Cambia la valutazione a 1 su 5
+  change_rating_to_2_of_5: Cambia la valutazione a 2 su 5
+  change_rating_to_3_of_5: Cambia la valutazione a 3 su 5
+  change_rating_to_4_of_5: Cambia la valutazione a 4 su 5
+  change_rating_to_5_of_5: Cambia valutazione a 5 su 5
   citation: Citazione
   collected_by: Raccolto da
   collection_item_type_with_label: "Tipo: %{type}"
@@ -34,9 +48,12 @@ it:
   community_members: Membri della comunità
   community_roles: Ruoli nella comunità
   contact_us_link: Contattaci
+  content_summary_table_type_trusted_images_row: Numero di immagini approvate
+  content_summary_table_type_unreviewed_images_row: Numero di immagini non controllate
   content_update: Aggiornamento contenuti
   contribute_to_page_button: Contribuisci a questa pagina
   contributors_like_you: Contributori come te
+  could_not_find_user: Impossibile trovare un utente con questo nome
   create_a_collection: Crea una raccolta
   create_a_community: Crea una comunità
   created_community: La comunità è stata creata con successo.
@@ -45,21 +62,37 @@ it:
     one: "%{count} Curatore"
     other: "%{count} Curatori"
   currently_in_eol: Attualmente nell'Enciclopedia della vita
+  dato_rating_note: "%{username} ha dato una valutazione di %{rating}."
   delete_allcaps: CANCELLA
   delete_community: Elimina questa comunità
   detail: Dettagli
   development_version_name: V2 Versione di sviluppo - non per uso pubblico
   donate: Fai una donazione
   donation_error_no_amount: Seleziona l'importo della donazione.
+  donation_error_only_numbers: Si prega di inserire una quantità utilizzando solo numeri.
   edit_collection: Modifica collezione
   edit_community: Modifica la comunità
   edit_membership: Modifica il tuo profilo
+  edit_my_profile: Modifica il mio profilo
+  encyclopedia_of_life: Enciclopedia della vita
+  eol_colon: "EOL:"
   eol_glossary: Glossario EOL
   eol_news: EOL Notizie
   error_page_header: Ci dispiace, abbiamo riscontrato un problema
   explore: Esplora
+  filter_by_status_all_option: tutti gli status
+  filter_by_status_inappropriate_option: inappropriato
+  filter_by_status_trusted_option: attendibile
+  filter_by_type: Filtra per tipo
+  filter_by_type_all_option: tutti i tipi
+  filter_by_type_audio_option: audio
+  filter_by_type_images_option: immagini
+  filter_by_type_photosynths_option: Fotosintesi
+  filter_by_type_videos_option: video
   filter_feeds_button: Filtra
   filter_feeds_label: Visualizza
+  filtered_information: Informazioni filtrate
+  founder: Fondatore
   general_error_occurred: Siamo spiacenti ma si è verificato un errore. Si prega di fare un altro tentativo. Se l'errore persiste, per favore invia un' e-mail a % {email} con il messaggio di errore scritto qui sotto e qualsiasi altra informazione che si desidera condividere con noi. Stiamo lavorando duramente per fornirti il migliore servizio, ti ringraziamo per il sostegno. -- La squadra di  EOL
   get_involved: Partecipare
   global_access_tagline: Accesso globale alla conoscenza della vita sulla terra.
@@ -68,25 +101,51 @@ it:
   google_translate: Traduci con Google
   google_translate_advisory_information: Utilizza Google Translate widget per visualizzare  il contenuto del sito in un'altra lingua.
   has_already_been_taken: è già stata presa.
+  hello_user: Ciao %{user}
   help: Aiuto
+  home: Pagina principale
   home_page_link_advisory_information: Questo link vi porterà alla pagina principale del sito Web della Encyclopedia Of Life
+  image_thumbnail_alt_text: Questa immagine %{vetted_status} è di %{scientific_name}
   images: Immagini
   images_with_count: 
     one: "%{count} immagine"
     other: "%{count} immagini"
+  in_my_collection_button: Nella mia collezione
   indexed: Catalogato
   invalid_login_or_password: Accesso o password non valida
+  item_was_added_to_your_recently_collected_items: L' elemento è stato aggiunto recentemente alla tua raccolta
+  iucn_red_list_status_advisory_information: Questo link vi porterà nel sito dell'Unione Internazionale per la Conservazione della Natura  (IUCN) dove si possono trovare maggiori informazioni sulla Lista Rossa IUCN delle specie minacciate.
   join_community: Iscriviti a questa comunità
   join_community_button: Iscriviti a questa comunità
+  join_community_login_required_advisory: Vi verrà chiesto di iscrivervi prima di poter entrare in questa comunità
   join_eol_button_html: Iscriviti ora a <abbr title="Encyclopedia of Life">EOL</abbr>
+  join_eol_community_html: Entra a far parte della comunità <abbr title="Encyclopedia of Life">EOL</abbr>
   just_pages_with_pictures_and_text: Solo quelle pagine con immagini e testo
+  language: "Lingua:"
+  last_updated_time_ago: Ultimo aggiornamento %{time_passed} fa
+  learn_about_content_partners: Informazioni su chi collabora alla raccolta di contenuti
   learn_how_to_interact: Scopri come è possibile contribuire
   learn_how_to_join: Scopri come è possibile aderire
+  leave_a_comment: Lascia un commento
   leave_community: Lascia questa comunità
   license: Licenza
-  location_: Località
+  license_all_rights_reserved: Tutti i diritti riservati.
+  license_cc_by_2_0: Creative Commons Attribuzione 2.0 (CC BY 2.0)
+  license_cc_by_nc_3_0: Creative Commons Attribuzione-Non commerciale 3.0 (CC BY-NC 3.0)
+  license_cc_by_nc_sa: Creative Commons Attribuzione-Non commerciale-Condividi allo stesso modo (CC BY-NC-SA)
+  license_cc_by_nc_sa_2_5: Creative Commons Attribuzione Non commerciale Condividi allo stesso modo 2.5 (CC BY-NC-SA 2.5)
+  license_cc_by_nc_sa_3_0: Creative Commons Attribuzione Non commerciale Condividi allo stesso modo 3.0 (CC BY-NC-SA 3.0)
+  license_cc_by_sa_2_0: Creative Commons Attribuzione-Condividi allo stesso modo 2.0 (CC BY-SA 2.0)
+  license_cc_by_sa_2_5: Creative Commons Attribuzione-Condividi allo stesso modo 2.5 (CC BY-SA 2.5)
+  license_cc_by_sa_3_0: Creative Commons Attribuzione-Condividi allo stesso modo 3.0 (CC BY-SA 3.0)
+  license_gnu_fdl: GNU Free Documentation License (GNU FDL)
+  license_gnu_gpl: GNU General Public License (GNU GPL)
+  license_public_domain: Pubblico Dominio
+  location: Località
   log_in: Entra
+  login: entra
   login_or_create_account: Entra o Registrati
+  logout: Esci
   manage_community: Gestisci comunità
   manage_roles: Gestisci i ruoli
   maps_with_count: 
@@ -96,13 +155,17 @@ it:
     one: (%{count} membro)
     other: (%{count} membri)
   members_with_count: 
-    one: "%{count} contributore"
-    other: "%{count} contributori"
+    one: "%{count} membro"
+    other: "%{count} membri"
   minimal_page: Visualizzazione minima
+  most_active_members: Utenti più attivi
+  most_visited_taxa: Taxa più visitati
   must_be_associated_with_either_a_user_or_a_community: Deve essere associato a un utente o a una comunità
   must_be_less_than_128_characters_long: deve essere inferiore a 128 caratteri.
+  my_activity: La mia attività
   no_activity: Nessuna attività.
   no_members_in_parens: (Non iscritti)
+  nomenclature: Nomenclatura
   not_evaluated: Non valutato
   other_collection_items_with_count: 
     one: "%{count} altro elemento"
@@ -119,11 +182,18 @@ it:
   people_with_count: 
     one: "%{count} persona"
     other: "%{count} persone"
+  personal_space: Pagina personale
   post_comment: Lascia un commento
+  preferences: Preferenze
   preferred_common_name_advisory_information: Questo è il nome comune preferito per questo taxon.
+  press_room: Sala stampa
   print_this_page_link: Stampa questa pagina
   profile: Profilo
   profile_image_alt_text_curator: Foto del curatore %{user_given_name} %{user_family_name}
+  punctuation_comma: ","
+  rated_by_count_people: 
+    one: da %{count} persona
+    other: da %{count} persone
   recent_updates: Aggiornamenti recenti
   remove_membership: Rimuovi l'iscrizione
   rights: Diritti
@@ -133,24 +203,55 @@ it:
   search_input_advisory_information: Inserisci i nomi comuni o scientifici di organismi viventi di cui vorresti sapere di più su, ad esempio prova a inserire pomodoro.
   search_placeholder: Ricerca EOL...
   search_the_site: Cerca nel sito
+  see_all_media_link: Vedi tutti i tipi di media
+  see_next_with_count: 
+    one: Vedi il prossimo %{count}}
+    other: Vedi i prossimi %{count}
+  see_previous_with_count: 
+    one: Vedi il precedente  %{count}}
+    other: Vedi i precedenti %{count}
   select_topic: Seleziona un argomento
   selected_language_advisory_information: Questa è la lingua attualmente selezionata.
+  set_as_exemplar: Imposta come esemplare
+  show_status_message: Mostra lo stato dei messaggi
+  show_warning_message: Mostra messaggio di avviso
   sign_in: Entra
   sign_out: Esci
   site_information: Informazioni sul sito
+  skip_to_content: Vai al contenuto
+  skip_to_table_of_contents: Vai alla tabella dei contenuti
+  sort_by: Ordina per
+  sort_by_button: Ordina
+  sort_by_default_option: Predefinito
+  sort_by_label: Ordina per
+  sort_by_newest_option: Più recenti
+  sort_by_oldest_option: Più vecchi
+  sort_by_rating_option: Valutazione
+  sounds_with_count: 
+    one: "%{count} Suono"
+    other: "%{count} Suoni"
   source_url: URL di origine
   switch_language_advisory_information: Cambia la lingua del sito % {language_label}
+  table_of_contents: Sommario
   taxa: Taxa
   taxa_with_count: 
     one: "%{count} taxon"
     other: "%{count} taxa"
   taxon: taxon
+  text_summary_more_link: Leggi tutto
+  text_with_count: 
+    one: "%{count} Articolo"
+    other: "%{count} Articoli"
   thanks_for_feedback: Grazie per il tuo parere.
   the_email_address_is_not_unique_you_must_enter_a_username: L'indirizzo email non è unico - è necessario inserire un nome utente
   there_are_currently_no_members_in_this_community: Attualmente non sono presenti membri in questa comunità.
+  there_are_currently_no_roles_for_this_community: Attualmente non ci sono ruoli per questa comunità.
+  time_ago: "%{time_passed} fa"
   total_items_with_count: 
     one: "%{count} elemento"
     other: "%{count} elementi"
+  trusted: Attendibile
+  twitter: Twitter
   unknown: Sconosciuto
   updated_community: La comunità è stata aggiornata con successo.
   user_became_role_note: "%{username} è diventato un %{role}."
@@ -159,13 +260,25 @@ it:
   user_left_community_note: "%{username} ha lasciato la comunità."
   user_system_down: Ci scusiamo, ma il sistema di registrazione utente non è al momento disponibile. Si prega di riprovare più tardi.
   verification_phrase_did_not_match: La frase di verifica che hai inserito non corrisponde.
+  video_thumbnail_alt_text: In questo video %{vetted_status} è visibile la specie %{scientific_name}
+  videos_with_count: 
+    one: "%{count} video"
+    other: "%{count} video"
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Mostra solo pagine con almeno una foto o del testo
   what_is_a_taxon: Che cosa è un taxon?
   what_is_eol: Che cosa è EOL?
+  what_is_this_question: Che cos'è questo?
   you_have_been_a_member_of_this_community_since: Sei iscritto a questa comunità dal %{since}.
   you_in_parens: (tu)
   you_joined_community: Ti sei iscritto con successo a questa comunità.
   you_left_community: Hai lasciato con successo questa comunità.
   you_must_be_logged_in_to_add_tags: Devi essere registrato per aggiungere etichette.
+  your_current_rating_0_of_5: "La tua valutazione attuale è: 0 su 5"
+  your_current_rating_1_of_5: "La tua valutazione attuale è: 1 su 5"
+  your_current_rating_2_of_5: "Il tuo livello attuale è: 2 su 5"
+  your_current_rating_3_of_5: "La tua valutazione attuale è: 3 su 5"
+  your_current_rating_4_of_5: "La tua valutazione attuale è: 4 su 5"
+  your_current_rating_5_of_5: "Il tuo livello attuale è: 5 su 5"
   your_message_was_sent: Il tuo messaggio è stato inviato.
   your_preferences: Le tue preferenze
+  your_rating: Il tuo voto

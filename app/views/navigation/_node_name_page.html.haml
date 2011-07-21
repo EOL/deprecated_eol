@@ -4,7 +4,10 @@
 - link_class = hierarchy_entry.has_content? ? '' : 'light'
 - name_string = @include_common_names ? hierarchy_entry.common_name_in_language(@common_name_language).firstcap : hierarchy_entry.italicized_name.firstcap
 
-= link_to(name_string, taxon_hierarchy_entry_overview_path(hierarchy_entry.taxon_concept_id, hierarchy_entry.id), :class => [link_class, node_class].compact.join(' '))
+- if @dropdown_hierarchy_entry.id == hierarchy_entry.id
+  %b= name_string
+- else
+  = link_to(name_string, taxon_hierarchy_entry_overview_path(hierarchy_entry.taxon_concept_id, hierarchy_entry.id), :class => [link_class, node_class].compact.join(' '))
 -#- unless hierarchy_entry.rank.blank?
 -#    %span.rank
 -#    = hierarchy_entry.rank.label

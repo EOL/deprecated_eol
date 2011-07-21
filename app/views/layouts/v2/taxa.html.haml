@@ -36,7 +36,7 @@
           %li
             = render :partial => 'shared/add_to_my_collection', :locals => { :item => @taxon_concept, :my_collection => @watch_collection }
           - if !@dropdown_hierarchy_entry.blank?
-            %li= link_to I18n.t(:return_to_the_taxon_concept_page), taxon_overview_path(@taxon_concept.id)
+            %li= link_to I18n.t(:show_data_from_all_content_partners), taxon_overview_path(@taxon_concept.id)
 
       = render :partial => 'shared/flash_messages'
 

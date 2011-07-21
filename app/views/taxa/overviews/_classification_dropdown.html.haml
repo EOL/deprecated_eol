@@ -1,14 +1,14 @@
+- rank = @dropdown_hierarchy_entry.rank_label.blank? ? "taxon" : @dropdown_hierarchy_entry.rank_label
 - if @hierarchy_entries_to_offer.count > 1
   - form_for :user, current_user, :url=>{:controller=>"prepare_hierarchy_entry_switch"}, :html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |f|
-    = I18n.t(:you_are_viewing_a_hierarchy_entry_page)
+    = I18n.t(:you_are_viewing_this_rank_as_classified_by, :rank => rank)
     %select#default_hierarchy_entry_id{ :name => 'user[default_hierarchy_entry_id]', :class => 'choose-hierarchy-select', :onchange => "javascript:$(this).closest('form').submit();" }
       - for he in @hierarchy_entries_to_offer
         - selected = he.id == @dropdown_hierarchy_entry_id.to_i
         %option{:value => he.id, :selected => selected}
           = he.hierarchy.label
           = "[#{he.id}]"
-      %option{:value => ''}= ">> Back to taxon page >>"
-    
+      %option{:value => ''}= ">> " + I18n.t(:show_data_from_all_content_partners) + " >>"
     %input{ :type => 'hidden', :name => 'orig_tc_id',     :value => @taxon_concept.id}
     %input{ :type => 'hidden', :name => 'return_to',      :value => request.fullpath}
     %input{ :type => 'hidden', :name => 'old_he_id',      :value => @dropdown_hierarchy_entry_id}
@@ -16,6 +16,6 @@
     - if @hierarchy_entries_to_offer.count == 1
       %input{ :type => 'submit', :value=>I18n.t("submit")}
 - else
-  = I18n.t(:you_are_viewing_a_hierarchy_entry_page) + " " 
+  = I18n.t(:you_are_viewing_this_rank_as_classified_by, :rank => rank)
   %b= @hierarchy_entries_to_offer[0].hierarchy.label
   %br

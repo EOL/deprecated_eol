@@ -920,19 +920,7 @@ class TaxonConcept < SpeciesSchemaModel
   def title_canonical(hierarchy = nil)
     return @title_canonical unless @title_canonical.nil?
     return '' if entry.nil?
-    
-    # used the ranked version first
-    if entry.name.is_surrogate?
-      @title_canonical = entry.name.string.firstcap
-    elsif entry.name.ranked_canonical_form && !entry.name.ranked_canonical_form.string.blank?
-      @title_canonical = entry.name.ranked_canonical_form.string.firstcap
-    # otherwise bare canonical form
-    elsif entry.name.canonical_form && !entry.name.canonical_form.string.blank?
-      @title_canonical = entry.name.canonical_form.string.firstcap
-    # finally just the name string
-    else
-      @title_canonical = entry.name.string.firstcap
-    end
+    @title_canonical = entry.title_canonical
   end
 
 
@@ -1170,7 +1158,7 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def has_related_names?
-    entries_with_parents = published_hierarchy_entries.select{ |he| he.hierarchy.browsable && he.parent_id != 0 }
+    entries_with_parents = published_hierarchy_entries.select{ |he| he.hierarchy.browsable? && he.parent_id != 0 }
     return true unless entries_with_parents.empty?
     return TaxonConcept.count_by_sql("SELECT 1
                                       FROM hierarchy_entries he

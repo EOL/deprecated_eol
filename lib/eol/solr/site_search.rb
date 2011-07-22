@@ -169,11 +169,12 @@ module EOL
         end
         
         # add spellchecking - its using the spellcheck.q option because the main query main have gotten too complicated
-        url << '&spellcheck.q=' + CGI.escape(%Q[#{query}]) + '&spellcheck=true&spellcheck.count=5'
+        url << '&spellcheck.q=' + CGI.escape(%Q[#{query}]) + '&spellcheck=true&spellcheck.count=500'
         
         # add grouping and faceting
         url << "&group=true&group.field=resource_unique_key&group.ngroups=true&facet.field=resource_type&facet=on"
-        
+        # we also want to get back the relevancy score
+        url << "&fl=score"
         # add sorting
         if options[:sort_by] == 'newest'
           url << '&sort=date_modified+desc'

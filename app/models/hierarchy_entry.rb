@@ -67,6 +67,22 @@ class HierarchyEntry < SpeciesSchemaModel
   def canonical_form
     return name.canonical_form
   end
+  
+  def title_canonical
+    return @title_canonical unless @title_canonical.nil?
+    # used the ranked version first
+    if name.is_surrogate?
+      @title_canonical = name.string.firstcap
+    elsif name.ranked_canonical_form && !name.ranked_canonical_form.string.blank?
+      @title_canonical = name.ranked_canonical_form.string.firstcap
+    # otherwise bare canonical form
+    elsif name.canonical_form && !name.canonical_form.string.blank?
+      @title_canonical = name.canonical_form.string.firstcap
+    # finally just the name string
+    else
+      @title_canonical = name.string.firstcap
+    end
+  end
 
   def media
     {:images => hierarchies_content.image != 0 || hierarchies_content.child_image  != 0,
@@ -288,6 +304,14 @@ class HierarchyEntry < SpeciesSchemaModel
 
   def preferred_classification_summary
     return '' if flattened_ancestors.blank?
+    root_ancestor, immediate_parent = kingdom_and_immediate_parent
+    str_to_return = root_ancestor.name.string
+    str_to_return += " > " + immediate_parent.name.string if immediate_parent
+    return str_to_return
+  end
+  
+  def kingdom_and_immediate_parent
+    return [ nil, nil ] if flattened_ancestors.blank?
     sorted_ancestors = flattened_ancestors.sort{ |a,b| a.ancestor.lft <=> b.ancestor.lft }
     root_ancestor = sorted_ancestors.first.ancestor
     immediate_parent = sorted_ancestors.pop.ancestor
@@ -295,10 +319,8 @@ class HierarchyEntry < SpeciesSchemaModel
       immediate_parent = sorted_ancestors.pop.ancestor
     end
     immediate_parent = nil if immediate_parent == root_ancestor
-
-    str_to_return = root_ancestor.name.string
-    str_to_return += " > " + immediate_parent.name.string if immediate_parent
-    return str_to_return
+    [root_ancestor, immediate_parent]
   end
+  
 
 end

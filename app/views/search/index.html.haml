@@ -1,5 +1,5 @@
 - unless @suggestions.blank?
-  = I18n.t(:did_you_mean, :suggestions => @suggestions.map{ |s| link_to s.firstcap, search_path(s) }.join(", "))
+  = I18n.t(:did_you_mean, :suggestions => @suggestions[0..5].map{ |s| link_to s.firstcap, search_path(s) }.join(", "))
 - unless @all_results.blank?
   .header
     - start_number = (@all_results.current_page - 1) * @all_results.per_page + 1

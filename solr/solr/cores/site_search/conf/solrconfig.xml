@@ -1093,7 +1093,7 @@
       <str name="name">default</str>
       <str name="field">keyword_exact</str>
       <str name="spellcheckIndexDir">spellchecker</str>
-      <str name="buildOnCommit">true</str>
+      <str name="buildOnCommit">false</str>
       <!-- uncomment this to require terms to occur in 1% of the documents in order to be included in the dictionary
       	<float name="thresholdTokenFrequency">.01</float>
       -->

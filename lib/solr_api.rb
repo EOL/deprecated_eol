@@ -319,9 +319,24 @@ class SolrAPI
   end
   
   def post_xml(method, xml)
-    request = Net::HTTP::Post.new(@action_url + "/#{method}")
+    post_url = @action_url + "/#{method}"
+    request = Net::HTTP::Post.new(post_url)
     request.body = xml
     request.content_type = 'application/xml'
-    response = Net::HTTP.start(@action_uri.host, @action_uri.port) {|http| http.request(request) }
+    response = Net::HTTP.start(@action_uri.host, @action_uri.port) do |http|
+      http.open_timeout = 30
+      http.read_timeout = 240
+      http.request(request)
+    end
+    rescue Timeout::Error => e
+      puts "Timeout accessing #{post_url}"
+      pp e.message
+      pp e.backtrace
+      nil
+    rescue => e
+      puts "Error accessing #{post_url}"
+      pp e.message
+      pp e.backtrace
+      nil
   end
 end

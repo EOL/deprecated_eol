@@ -33,7 +33,8 @@ class Taxa::NamesController < TaxaController
     end
     names = names.select {|n| n.language_label != unknown}
     @common_names = names
-    @languages = build_language_list
+    # only curators need access to a language list - for adding new common names
+    @languages = build_language_list if current_user.is_curator?
     @assistive_section_header = I18n.t(:assistive_names_common_header)
     current_user.log_activity(:viewed_taxon_concept_names_common_names, :taxon_concept_id => @taxon_concept.id)
   end
@@ -52,7 +53,7 @@ private
       :vetted => :view_order,
       :agents => '*' }
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
-    @hierarchies = @taxon_concept.published_hierarchy_entries.collect{|he| he.hierarchy if he.hierarchy.browsable}.uniq
+    @hierarchies = @taxon_concept.published_hierarchy_entries.collect{|he| he.hierarchy if he.hierarchy.browsable? }.uniq
     # TODO: Eager load hierarchy entry agents?
     @dropdown_hierarchy_entry_id = params[:hierarchy_entry_id]
     @dropdown_hierarchy_entry = HierarchyEntry.find_by_id(@dropdown_hierarchy_entry_id) rescue nil

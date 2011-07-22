@@ -4,6 +4,7 @@
 - else
   %ul
     - hierarchies.each do |hierarchy|
+      - next if hierarchy.nil?
       - if hierarchy.agent.logo_url
         - hierarchy_agent = image_tag hierarchy.agent.logo_url(:small), :alt => hierarchy.agent.full_name
         - hierarchy_agent << " " << hierarchy.agent.full_name

@@ -62,9 +62,11 @@
         <!-- from publications -->
         <field name="start_year" type="int" indexed="true" stored="true"/>
         <field name="end_year" type="int" indexed="true" stored="true"/>
+        <field name="publication_id" type="string" indexed="true" stored="true" required="true"/>
         <field name="publication_title" type="textExact" indexed="true" stored="true" required="true"/>
         <field name="details" type="string" indexed="false" stored="true"/>
         <field name="name_id" type="int" indexed="true" stored="true" multiValued="true"/>
+        <field name="title_item_id" type="string" indexed="true" stored="true" required="true"/>
     </fields>
     
     <!-- no unique key -->

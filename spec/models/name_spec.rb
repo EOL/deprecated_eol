@@ -36,7 +36,9 @@ describe Name do
       'Incertae sedis{51. 1. }',
       'Amanita cf. pantherina HKAS 26746',
       'Lactobacullus genera incertae sedis',
-      'Incertae sedis{25. 15}'].each do |str|
+      'Incertae sedis{25. 15}',
+      'uncultured Leucocoprinus',
+      'haloarchaeon TP100'].each do |str|
       name.string = str
       name.is_surrogate?.should == true
     end
@@ -44,7 +46,8 @@ describe Name do
     [ 'Aus bus',
       'Aus bus Linnaeus',
       'Aus bus Linnaeus 1983',
-      'Aus bus var. cus Linnaeus 3434'].each do |str|
+      'Aus bus var. cus Linnaeus 3434',
+      'Something 7-maculata'].each do |str|
       name.string = str
       name.is_surrogate?.should == false
     end

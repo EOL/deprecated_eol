@@ -14,6 +14,8 @@ form
       padding: 0 0 5px 0
       label
         font-weight: bold
+        small
+          color: #616e7a
     dd
       padding: 0 0 10px 0
       input[type="text"], input[type="password"], textarea, select
@@ -23,13 +25,15 @@ form
   label.checkbox
     display: block
     font-weight: bold
+    input
+      margin: 0 5px 0 0
   fieldset.actions
     button
       display: none
     input[type="submit"],
     button
       +button
-      margin: 0
+      margin: 0 5px 0 0
       padding: 3px 10px
       font-size: .92em
   .heading &.filter
@@ -97,7 +101,6 @@ ul.tabs
   li
     margin: 0 0 1px 0
     font-weight: bold
-    text-transform: lowercase
     border: 1px solid #cad3db
     border-right-color: #93a4b0
     +border-top-left-radius(3px)
@@ -105,7 +108,7 @@ ul.tabs
     +gradient-bg-horizontal(#ffffff, #f0f4f7)
     a
       display: block
-      padding: 7px 10px
+      padding: 7px 10px 6px 10px
       text-decoration: none
       color: #616e7a
     &:hover
@@ -124,25 +127,25 @@ ul.tabs
         font-size: 1.14em
     &.taxa
       a
-        background: transparent url("/images/v2/icon_taxa_tabs.png") 9px 6px no-repeat
+        background: transparent url("/images/icon_taxa_tabs.png") 9px 6px no-repeat
     &.videos
       a
-        background: transparent url("/images/v2/icon_videos_tabs.png") 11px 10px no-repeat
+        background: transparent url("/images/icon_videos_tabs.png") 11px 10px no-repeat
     &.images
       a
-        background: transparent url("/images/v2/icon_images_tabs.png") 7px 8px no-repeat
+        background: transparent url("/images/icon_images_tabs.png") 7px 8px no-repeat
     &.communities
       a
-        background: transparent url("/images/v2/icon_communities_tabs.png") 8px 16px no-repeat
+        background: transparent url("/images/icon_communities_tabs.png") 8px 16px no-repeat
     &.people
       a
-        background: transparent url("/images/v2/icon_people_tabs.png") 9px 10px no-repeat
+        background: transparent url("/images/icon_people_tabs.png") 9px 10px no-repeat
     &.collections
       a
-        background: transparent url("/images/v2/icon_collections_tabs.png") 12px 9px no-repeat
+        background: transparent url("/images/icon_collections_tabs.png") 12px 9px no-repeat
     &.articles
       a
-        background: transparent url("/images/v2/icon_articles_tabs.png") 9px 9px no-repeat
+        background: transparent url("/images/icon_articles_tabs.png") 9px 9px no-repeat
   &.with_icons
     li
       font-size: 1.16em
@@ -219,23 +222,25 @@ p.status
     & + h3,
     & + h4
       padding-top: 20px
-  table
-    border-collapse: collapse
-    width: 100%
-    margin: 0 0 15px 0
-    thead
-      tr
-        border: 1px solid #cad3db
-        th
-          background: #eff2f4
-          padding: 5px 20px
-          font-weight: bold
-          text-align: left
-    tbody
-      tr
-        border: 1px solid #cad3db
-        td
-          padding: 5px 20px
+
+table.standard
+  border-collapse: collapse
+  width: 100%
+  margin: 0 0 15px 0
+  line-height: 170%
+  thead
+    tr
+      border: 1px solid #cad3db
+      th
+        background: #eff2f4
+        padding: 5px 20px
+        font-weight: bold
+        text-align: left
+  tbody
+    tr
+      border: 1px solid #cad3db
+      td
+        padding: 5px 20px
 
 .article
   padding: 0 10px 25px 10px
@@ -295,7 +300,7 @@ p.status
         font-size: .75em
         font-weight: bold
         text-transform: uppercase
-        color: #82919e
+        color: #62707d
     .details
       img
         float: none
@@ -313,7 +318,7 @@ p.status
   ul a:hover,
   ul a:active,
   ul a:focus
-    background: transparent url("/images/v2/icon_stars.png") 0 100% repeat-x
+    background: transparent url("/images/icon_stars.png") 0 100% repeat-x
   ul
     float: left
     position: relative
@@ -329,7 +334,7 @@ p.status
         &.current_rating_#{$i}
           +star
           width: 20% * $i
-          background: transparent url("/images/v2/icon_stars.png") 0 100% repeat-x
+          background: transparent url("/images/icon_stars.png") 0 100% repeat-x
     a
       +star
       &:hover, &:active, &:focus
@@ -357,13 +362,13 @@ p.status
     float: left
     width: 80px
     height: 13px
-    background: transparent url("/images/v2/icon_stars.png") 0 0 repeat-x
+    background: transparent url("/images/icon_stars.png") 0 0 repeat-x
     p
       height: 13px
       font-size: 0
       margin: 0
       text-indent: -8685px
-      background: transparent url("/images/v2/icon_stars.png") 0 50% repeat-x
+      background: transparent url("/images/icon_stars.png") 0 50% repeat-x
     &.one
       p
         width: 20%
@@ -379,28 +384,28 @@ p.status
 
 .taxon
   span.icon
-    background: #f3f7fa url("/images/v2/icon_taxa_tabs.png") 50% 50% no-repeat
+    background: #f3f7fa url("/images/icon_taxa_tabs.png") 50% 50% no-repeat
 .video
   span.icon
-    background: #f3f7fa url("/images/v2/icon_videos_tabs.png") 50% 50% no-repeat
+    background: #f3f7fa url("/images/icon_videos_tabs.png") 50% 50% no-repeat
 .image
   span.icon
-    background: #f3f7fa url("/images/v2/icon_images_tabs.png") 50% 50% no-repeat
+    background: #f3f7fa url("/images/icon_images_tabs.png") 50% 50% no-repeat
 .community
   span.icon
-    background: #f3f7fa url("/images/v2/icon_communities_tabs.png") 50% 50% no-repeat
+    background: #f3f7fa url("/images/icon_communities_tabs.png") 50% 50% no-repeat
 .person
   span.icon
-    background: #f3f7fa url("/images/v2/icon_people_tabs.png") 50% 50% no-repeat
+    background: #f3f7fa url("/images/icon_people_tabs.png") 50% 50% no-repeat
 .collection
   span.icon
-    background: #f3f7fa url("/images/v2/icon_collections_tabs.png") 50% 50% no-repeat
+    background: #f3f7fa url("/images/icon_collections_tabs.png") 50% 50% no-repeat
 .article
   span.icon
-    background: #f3f7fa url("/images/v2/icon_articles_tabs.png") 50% 50% no-repeat
+    background: #f3f7fa url("/images/icon_articles_tabs.png") 50% 50% no-repeat
 .sound
   span.icon
-    background: #f3f7fa url("/images/v2/icon_sound_tabs.png") 50% 50% no-repeat
+    background: #f3f7fa url("/images/icon_sound_tabs.png") 50% 50% no-repeat
 
 ul.object_list
   + .header
@@ -442,27 +447,11 @@ ul.object_list
       h4
         margin: 0
 
-table.names
-  width: 100%
-  margin: 0 0 20px 0
-  border: 1px solid #cad3db
-  border-spacing: 0
-  border-collapse: collapse
-  th
-    padding: 7px 0 7px 20px
-    text-align: left
-    vertical-align: top
-    border-bottom: 1px solid #cad3db
-  thead
-    th
-      background: #eff2f4
-  td
-    padding: 7px 0 7px 20px
-    line-height: 170%
-    vertical-align: top
-    border-bottom: 1px solid #cad3db
-    a
-      font-weight: bold
+#taxon_names
+  table.standard
+    td
+      a
+        font-weight: bold
 
 form.select_content_partner
   padding: 5px 0
@@ -530,16 +519,16 @@ body
           p.user_links
             font-size: 9px
             text-transform: uppercase
-            color: #82919e
+            color: #62707d
             a
-              color: #90bce4
+              color: #acd7ff
               text-decoration: none
         .sign_in
           p
             font-weight: bold
             line-height: 150%
           a
-            color: #90bce4
+            color: #acd7ff
 
 #content
   overflow: hidden
@@ -581,6 +570,13 @@ body
     color: #5f6c76
     &.status
       color: #394651
+    &.message
+      clear: both
+      background: #fff
+      border: 1px solid #d4dce2
+      text-align: center
+      padding: 3px 0
+      margin: 0 0 10px 0
   .page_actions
     float: right
     padding-left: 20px
@@ -752,10 +748,11 @@ body
     li
       padding-top: 20px
       padding-bottom: 20px
+      img
+        margin-right: -1px
       .checkbox
         float: right
         border: 1px solid #cad3db
-        border-left: none
         height: 68px
         line-height: 68px
         padding: 0 3px
@@ -767,6 +764,31 @@ body
         +textarea
         width: 460px
         height: 50px
+      p.edit
+        display: none
+      form
+        margin: 10px 0 0 0
+        textarea
+          margin: 0 0 20px 0
+        input[type="submit"]
+          margin: 0 5px 0 0
+
+#collections_edit
+  width: 500px
+  margin: 0 auto
+  h2
+    margin: 0 0 20px 0
+  input[type="text"]
+    +input(488px)
+  textarea
+    width: 482px
+    height: 60px
+  fieldset.actions
+    padding: 20px 0
+    input[type="submit"]
+      padding: 7px 10px
+      font-size: 1em
+
 
 #collections_tab
   ul.object_list
@@ -808,15 +830,30 @@ body
       margin-right: 20px
       dl
         line-height: 140%
-      dt
-        clear: both
-        float: left
-        padding: 0 0 5px 0
-        font-weight: bold
-      dd
-        overflow: hidden
-        padding: 0 0 5px 0
-        text-align: right
+        dt
+          font-weight: bold
+        dd
+          margin: 0 0 5px 20px
+
+#profile_curator_info
+  padding: 40px
+  fieldset
+    padding-top: 10px
+    dt
+      margin: 0
+      label
+        display: block
+        font-size: 16px
+      p, label, ol, ol li
+        margin-bottom: 5px
+    dd
+      margin: 0 0 10px 0
+      textarea
+        width: 600px
+        height: 60px
+    input[type="submit"]
+      padding: 7px 10px
+      font-size: 1em
 
 #community
   padding: 20px
@@ -845,12 +882,43 @@ body
           margin: 0 8px 0 0
           border: 1px solid #394651
 
+#taxon_literature
+  .main_container
+    padding: 20px
+    .bhl_description
+      overflow: hidden
+      margin: 0 0 20px 0
+      p
+        margin: 20px
+      a
+        font-weight: bold
+        +underline-on-hover
+      img
+        float: left
+        margin: 0 20px 0 0
+    .heading
+      text-align: center
+      margin: 0 0 20px 0
+    table
+      tr
+        td
+          vertical-align: middle
+          &.pages
+            white-space: nowrap
+          a
+            font-weight: bold
+            +underline-on-hover
+          + td
+            font-size: .9em
+            line-height: 120%
+            color: #616E7A
+
 #taxonomy
   float: left
   width: 580px
   .gallery
     overflow: hidden
-    padding: 20px 20px 10px 20px
+    padding: 20px 20px 0 20px
     margin: 0 0 35px 0
     border: 1px solid #cad3db
     .images
@@ -890,18 +958,18 @@ body
             margin: -2px 0 0 -2px
     .attribution
       position: absolute
-      float: left
       left: 0
       top: 315px
       z-index: 100
       width: 430px
       font-size: .92em
       img
-        float: left
-        margin: 7px 10px 0 0
+        position: absolute
+        top: 50%
+        left: 0
+        margin-top: -8px
       p
-        overflow: hidden
-        line-height: 150%
+        padding: 0 0 0 90px
     p.all
       float: right
       padding: 5px 0 0 0
@@ -937,7 +1005,7 @@ body
             padding: 0 0 0 23px
             margin: 0 0 0 10px
             font-weight: normal
-            background: transparent url("/images/v2/icon_classification_arrow.png") 0 0 no-repeat
+            background: transparent url("/images/icon_classification_arrow.png") 0 0 no-repeat
     .updates
       form.comment
         padding: 20px 10px 0 10px
@@ -1067,11 +1135,11 @@ body
         padding: 0
         margin: 0 0 5px 0
         border: none
-        background-image: url("/images/v2/icon_permalink-stars.png")
+        background-image: url("/images/icon_permalink-stars.png")
         p
           float: left
           height: 17px
-          background-image: url("/images/v2/icon_permalink-stars.png")
+          background-image: url("/images/icon_permalink-stars.png")
     .rating
       border-color: #c1d72e
       ul, li[class^="current_rating"], a
@@ -1081,7 +1149,7 @@ body
       ul a:hover,
       ul a:active,
       ul a:focus
-        background-image: url("/images/v2/icon_permalink-stars.png")
+        background-image: url("/images/icon_permalink-stars.png")
       ul
         width: 100px
   .media
@@ -1270,7 +1338,7 @@ body
             width: 7px
             height: 7px
             content: ""
-            background: transparent url("/images/v2/bg_wrap-behind-tail.png") 0 0 no-repeat
+            background: transparent url("/images/bg_wrap-behind-tail.png") 0 0 no-repeat
         img
           float: right
           border: 1px solid #394651
@@ -1328,12 +1396,12 @@ body
         padding: 0
         margin: 0
         border: none
-        background-image: url("/images/v2/icon_permalink-stars.png")
+        background-image: url("/images/icon_permalink-stars.png")
         p
           float: left
           height: 17px
           padding: 0
-          background-image: url("/images/v2/icon_permalink-stars.png")
+          background-image: url("/images/icon_permalink-stars.png")
     .rating
       float: right
       border-color: #c1d72e
@@ -1344,7 +1412,7 @@ body
       ul a:hover,
       ul a:active,
       ul a:focus
-        background-image: url("/images/v2/icon_permalink-stars.png")
+        background-image: url("/images/icon_permalink-stars.png")
       ul
         width: 100px
     form.review_status
@@ -1397,6 +1465,7 @@ body
         .figure
           position: relative
           background: #ffffff
+          cursor: pointer
           .overlay
             position: absolute
             left: 0
@@ -1413,11 +1482,11 @@ body
             z-index: 2
             padding: 10px
             font-weight: bold
-            background: transparent url("/images/v2/bg_exemplar.png") repeat
+            background: transparent url("/images/bg_exemplar.png") repeat
         &.inappropriate
           .figure
             .overlay
-              background: transparent url("/images/v2/bg_media-inappropriate.png") 50% 0 no-repeat
+              background: transparent url("/images/bg_media-inappropriate.png") 50% 0 no-repeat
             img
               +opacity(.5)
         &.untrusted
@@ -1510,7 +1579,7 @@ body
       height: 68px
       margin: 0 20px 0 0
       border: 1px solid #cad3db
-      background: #f3f7fa url("/images/v2/icon_communities_tabs.png") 50% 50% no-repeat
+      background: #f3f7fa url("/images/icon_communities_tabs.png") 50% 50% no-repeat
     p
       padding: 6px 0 0 0
       font-weight: bold
@@ -1568,7 +1637,7 @@ body
     padding: 75px 159px
     margin: 0 auto
     border: 1px solid #cad3db
-    background: #f0f4f7 url("/images/v2/bg_sign-in.gif") 0 0 no-repeat
+    background: #f0f4f7 url("/images/bg_sign-in.gif") 0 0 no-repeat
     h1
       padding: 0 0 25px 0
       font-size: 2em
@@ -1591,7 +1660,7 @@ body
     +input(248px)
   fieldset
     float: left
-    padding: 0 60px 40px 0
+    padding: 0 60px 20px 0
     h3
       padding: 0 0 30px 0
       font-size: 1.5em
@@ -1599,10 +1668,6 @@ body
     dt
       font-size: 1.08em
       font-weight: bold
-      p
-        font-size: .9em
-        font-weight: normal
-        line-height: 150%
     button
       +button
     ul
@@ -1611,23 +1676,36 @@ body
         float: left
         padding: 0 10px 5px 0
         font-weight: bold
-    &.photo
+    &.profile,
+    &.account
+      width: 300px
+      input[type="text"],
+      input[type="file"],
+      input[type="password"]
+        width: 288px
+    &.profile
       img
         display: block
         margin: 0 0 15px 0
         border: 1px solid #394651
-      input[type="file"]
-        width: 200px
-    &.profile
-      width: 320px
-      input[type="text"]
-        width: 308px
       textarea
-        width: 302px
+        width: 282px
+        height: 120px
     &.account
-      float: none
-      overflow: hidden
-      padding: 0
+      input[type="checkbox"],
+      select
+        margin-left: 10px
+    &.api-request
+      width: 178px
+      background: #f3f7fa
+      border: 1px solid #cad3db
+      padding: 20px 20px 10px 20px
+      margin-top: 70px
+      p
+        font-size: .9em
+        padding-top: 5px
+        font-weight: normal
+        line-height: 150%
     &.actions
       clear: both
       float: none

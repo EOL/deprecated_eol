@@ -5,8 +5,8 @@ class Taxa::OverviewsController < TaxaController
 
   def show
     includes = [
-      { :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] },
-      { :data_objects => { :toc_items => :info_items } },
+      { :published_hierarchy_entries => [ { :name => :ranked_canonical_form } , :hierarchy, :hierarchies_content, :vetted ] },
+      { :data_objects => [ :toc_items,  :info_items ] },
       { :top_concept_images => :data_object },
       { :curator_activity_logs => :user },
       { :users_data_objects => { :data_object => :toc_items } }]
@@ -14,6 +14,7 @@ class Taxa::OverviewsController < TaxaController
       :taxon_concepts => '*',
       :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
       :names => [ :string, :italicized, :canonical_form_id, :ranked_canonical_form_id ],
+      :canonical_forms => [ :string ],
       :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
       :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
       :vetted => :view_order,
@@ -22,7 +23,7 @@ class Taxa::OverviewsController < TaxaController
       :curator_activity_logs => '*',
       :users => [ :given_name, :family_name, :logo_cache_url, :tag_line ] }
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
-    @hierarchies = @taxon_concept.published_hierarchy_entries.collect{|he| he.hierarchy if he.hierarchy.browsable}.uniq
+    @hierarchies = @taxon_concept.published_hierarchy_entries.collect{|he| he.hierarchy if he.hierarchy.browsable? }.uniq
     toc_items = [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution]
     options = {:limit => 1, :language => current_user.language_abbr}
     @summary_text = @taxon_concept.text_objects_for_toc_items(toc_items, options)
@@ -42,7 +43,6 @@ class Taxa::OverviewsController < TaxaController
     # we'll need to default the list to the user's hierarchy no matter what
     # @hierarchies_to_offer << @session_hierarchy
     # @hierarchies_to_offer = @hierarchies_to_offer.uniq.sort_by{|h| h.form_label}
-  
     current_user.log_activity(:viewed_taxon_concept_overview, :taxon_concept_id => @taxon_concept.id)
   end
 

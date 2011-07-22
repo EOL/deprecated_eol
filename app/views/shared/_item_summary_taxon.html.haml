@@ -20,3 +20,4 @@
   %strong
     = search_result['keyword_type'].titleize + ": "
   = search_result['best_keyword_match'].firstcap
+= "    : " + search_result['score'].to_s

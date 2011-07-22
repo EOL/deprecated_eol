@@ -1,9 +1,0 @@
-= render :partial => 'shared/flash_messages'
-- form_for @collection do |collection_form|
-  = hidden_field_tag 'field', 'name'
-  .hgroup_fields
-    %h1.assistive= h @collection.name
-    %fieldset
-      = collection_form.label :name, I18n.t(:collection_name_label), {:class => 'assistive'}
-      = collection_form.text_field :name, :value => @collection.name
-      = submit_tag I18n.t(:save), :name => 'commit_edit_collection'

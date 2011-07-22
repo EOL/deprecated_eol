@@ -15,6 +15,11 @@ class CollectionsController < ApplicationController
 
   def show
     return copy if params[:commit_copy_collection_items]
+    return move if params[:commit_move_collection_items]
+    return remove if params[:commit_remove_collection_items]
+    return chosen if params[:commit_chosen_collection]
+    types = CollectionItem.types
+    @collection_item_scopes  = [:selected_items, :all_items] + types.keys.map {|k| "all_#{types[k][:i18n_key]}"}
   end
 
   def new
@@ -54,28 +59,24 @@ class CollectionsController < ApplicationController
   end
 
   def edit
+    @site_column_id = 'collections_edit'
+    @site_column_class = 'copy' # TODO - why?! (This was a HR thing.)
+    @editing = true # TODO - there's a more elegant way to handle the difference in the layout...
     @head_title = I18n.t(:edit_collection_head_title, :collection_name => @collection.name) unless @collection.blank?
-    if @field = params[:field]
-      @field_id = $1 # NOTE - this will be nil if there was no match, of course.
-      respond_to do |format|
-        format.html { render "edit_field" }
-        format.js   { render :partial => "edit_#{@field}", :layout => false }
-      end
-    end
   end
 
-  # When is an update not really an update?  When we clicked a different button.  There are (way too) many:
   def update
-    return real_update if params[:commit_edit_collection]
-    return copy if params[:commit_copy_collection_items]
-    return move if params[:commit_move_collection_items]
-    return copy(:all) if params[:commit_copy_all_collection_items]
-    return move(:all) if params[:commit_move_all_collection_items]
-    return remove if params[:commit_remove_collection_items]
-    return remove(:all) if params[:commit_remove_all_collection_items]
-    return default_sort if params[:commit_default_sort]
-    return chosen if params[:commit_chosen_collection]
-    real_update # There are several actions that DON'T use a button, and those need to simply update.
+    if @collection.update_attributes(params[:collection])
+      respond_to do |format|
+        format.html do
+          flash[:notice] = I18n.t(:collection_updated_notice, :collection_name => @collection.name) if
+            params[:colleciton] # NOTE - when we sort, we don't *actually* update params...
+          return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect)
+        end
+      end
+    else
+      flash[:error] = I18n.t(:collection_not_updated_error)
+    end
   end
 
   # NOTE - I haven't really implemented this one yet... started to, but it's not USED anywhere, yet...
@@ -131,14 +132,14 @@ private
   # When we bounce around, not all params are required; this is the list to remove:
   # NOTE - to use this as an parameter, you need to de-reference the array with a splat (*).
   def unnecessary_keys_for_redirect
-    [:action_name, :_method, :commit_sort, :commit_select_all, :commit_copy_collection_items, :commit, :collection,
-     :commit_move_collection_items, :commit_remove_collection_items, :commit_edit_collection, :commit_default_sort,
+    [:_method, :commit_sort, :commit_select_all, :commit_copy_collection_items, :commit, :collection,
+     :commit_move_collection_items, :commit_remove_collection_items, :commit_edit_collection,
      :commit_chosen_collection]
   end
 
   def no_items_selected_error(which)
     flash[:warning] = I18n.t("items_no_#{which}_none_selected_warning")
-    return redirect_to params.merge(:action => params[:action_name] || 'show').except(*unnecessary_keys_for_redirect)
+    return redirect_to params.merge(:action => 'show').except(*unnecessary_keys_for_redirect)
   end
 
   def copy(all = false)
@@ -172,36 +173,6 @@ private
     flash[:notice] = I18n.t(:removed_count_items_from_collection_notice, :count => count,
                             :collection => link_to_name(@collection))
     return redirect_to request.referer
-  end
-
-  def real_update
-    if @collection.update_attributes(params[:collection])
-      respond_to do |format|
-        format.html do
-          flash[:notice] = I18n.t(:collection_updated_notice, :collection_name => @collection.name) if
-            params[:colleciton] # NOTE - when we sort, we don't *actually* update params...
-          return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect)
-        end
-        format.js do
-          if @field = params[:field]
-            return render :partial => "show_#{@field}", :layout => false, :locals => { :editable => true }
-          else
-            return render :text => I18n.t(:collection_not_updated_error), :status => 403
-          end
-        end
-      end
-    else
-      flash[:error] = I18n.t(:collection_not_updated_error)
-    end
-  end
-
-  def default_sort
-    if @collection.update_attribute(:sort_style_id, params[:sort_by])
-      flash[:notice] = I18n.t(:collection_updated_notice, :collection_name => @collection.name)
-    else
-      flash[:error] = I18n.t(:collection_not_updated_error)
-    end
-    return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect)
   end
 
   def chosen

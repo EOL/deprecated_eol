@@ -1,86 +1,52 @@
 - editable = @collection.editable_by?(current_user)
-#page_heading.with_image
-  .site_column
-    = render :partial => 'show_logo', :locals => { :editable => editable }
-    .hgroup
-      .editable
-        = render :partial => 'show_name', :locals => { :editable => editable }
-      .editable
-        = render :partial => 'show_description', :locals => { :editable => editable }
-    .page_actions
-      %ul
-        - unless @watch_collection && @collection.id == @watch_collection.id
-          %li= render :partial => 'shared/add_to_my_collection', :locals => { :item => @collection, :my_collection => @watch_collection }
-  = render :partial => 'shared/flash_messages'
-#content
-  .site_column
-    - if @collection.empty?
-      #sidebar
+= content_for :additional_page_actions do
+  - if editable
+    %li= link_to I18n.t(:edit_collection), edit_collection_path(@collection), :class => 'button'
+-# TODO ...
+- if @collection_items.blank?
+  #sidebar
+    .collection_contributors
+      = render :partial => 'collections/managed_by', :locals => { :collection => @collection }
+    - if @collection.collection_endorsements.count > 0
+      .collection_contributors
+        = render :partial => 'collections/endorsed_by', :locals => { :collection => @collection }
+  #collections.main_container
+    .heading
+      %p#empty= I18n.t(:collection_is_empty)
+- else
+  - form_for(@collection, { :html => {:method => :get}, :url => {:action => :show} }) do |f|
+    = hidden_field_tag(:filter, @filter) if @filter
+    #tabs_sidebar
+      = render :partial => 'collections/filter_by_item_type'
+    #sidebar
+      - if logged_in?
+        .filters
+          %h4= I18n.t(:collect_items)
+          %fieldset.actions
+            = select_tag :scope, options_for_select(@collection_item_scopes.map {|scope| [I18n.t(scope), scope]})
+            - if editable
+              = submit_tag I18n.t(:move)
+              = submit_tag I18n.t(:copy)
+              = submit_tag I18n.t(:remove)
+            - else
+              = submit_tag I18n.t(:collect)
+      .collection_contributors
+        = render :partial => 'collections/managed_by', :locals => { :collection => @collection }
+      - if @collection.collection_endorsements.count > 0
         .collection_contributors
-          = render :partial => 'collections/managed_by', :locals => { :collection => @collection }
-        - if @collection.collection_endorsements.count > 0
-          .collection_contributors
-            = render :partial => 'collections/endorsed_by', :locals => { :collection => @collection }
-      #collections.main_container
+          = render :partial => 'collections/endorsed_by', :locals => { :collection => @collection }
+    #collections.main_container
+      - unless @collection_items.blank?
         .heading
-          %p#empty= I18n.t(:collection_is_empty)
-    - else
-      #tabs_sidebar
-        = render :partial => 'collections/filter_by_item_type'
-      - form_data = { :html => {:method => :get}, :url => {:action => :show} } # GET
-      - if editable
-        - form_data = { :html => { :multipart => true } } # POST
-      - form_for(@collection, form_data) do |collection_form|
-        = hidden_field_tag(:filter, @filter) if @filter
-        #sidebar
-          - if logged_in?
-            .filters
-              %h4= I18n.t(:collect_items)
-              %fieldset.actions
-                = submit_tag I18n.t(:select_all_button), :name => :commit_select_all
-                = submit_tag I18n.t(:copy_selected_button), :name => :commit_copy_collection_items
-                - if @filter
-                  = submit_tag I18n.t("copy_all_#{@filter}_button"), :name => :commit_copy_all_collection_items
-                - else
-                  = submit_tag I18n.t(:copy_all_items_button), :name => :commit_copy_all_collection_items
-              -# NOTE - since we're not using the Edit view for a full page:
-              - if editable
-                %fieldset.actions
-                  = submit_tag I18n.t(:move_selected_button), :name => :commit_move_collection_items
-                  - if @filter
-                    = submit_tag I18n.t("move_all_#{@filter}_button"), :name => :commit_move_all_collection_items
-                  - else
-                    = submit_tag I18n.t(:move_all_items_button), :name => :commit_move_all_collection_items
-                  = submit_tag I18n.t(:remove_selected_button), :name => :commit_remove_collection_items
-                  - if @filter
-                    = submit_tag I18n.t("remove_all_#{@filter}_button"), :name => :commit_remove_all_collection_items
-                  - else
-                    = submit_tag I18n.t(:remove_all_items_button), :name => :commit_remove_all_collection_items
-                %h4= I18n.t(:primary_image_header)
-                = collection_form.label :logo, I18n.t(:primary_image_choose)
-                = collection_form.file_field :logo, :size=>10
-                %fieldset.actions
-                  = submit_tag I18n.t(:save), :name => :commit_edit_collection
-          .collection_contributors
-            = render :partial => 'collections/managed_by', :locals => { :collection => @collection }
-          - if @collection.collection_endorsements.count > 0
-            .collection_contributors
-              = render :partial => 'collections/endorsed_by', :locals => { :collection => @collection }
-        #collections.main_container
-          - unless @collection_items.blank?
-            .heading
-              %fieldset
-                = label_tag :sort_by, I18n.t(:sort_by_label)
-                = select_tag :sort_by, options_for_select(@sort_options.map {|so| [so.name, so.id]}, @sort_by.id)
-              %fieldset.actions
-                = submit_tag I18n.t(:sort_by_button), :name => :commit_sort
-              - if editable && @sort_by.id != @collection.sort_style_id
-                %fieldset.actions
-                  = submit_tag I18n.t(:make_this_the_default_sort), :name => :commit_default_sort
-            = will_paginate @collection_results, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next), :inner_window => 2, :outer_window => 2
-            %ul.object_list
-              - @collection_items.each do |item|
-                - item_type = en_type(item)
-                %li{:class => "#{item_type}" + (editable ? ' editable' : '')}
-                  = render :partial => 'collection_items/show', :locals => { :collection_item => item, :editable => editable, :item_type => item_type }
-            = will_paginate @collection_results, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next), :inner_window => 2, :outer_window => 2
+          %fieldset
+            = label_tag :sort_by, I18n.t(:sort_by_label)
+            = select_tag :sort_by, options_for_select(@sort_options.map {|so| [so.name, so.id]}, @sort_by.id)
+          %fieldset.actions
+            = submit_tag I18n.t(:sort_by_button), :name => :commit_sort
+        = will_paginate @collection_results, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next), :inner_window => 2, :outer_window => 2
+        %ul.object_list
+          - @collection_items.each do |item|
+            - item_type = en_type(item)
+            %li{:class => "#{item_type}" + (editable ? ' editable' : '')}
+              = render :partial => 'collection_items/show', :locals => { :collection_item => item, :editable => editable, :item_type => item_type }
+        = will_paginate @collection_results, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next), :inner_window => 2, :outer_window => 2

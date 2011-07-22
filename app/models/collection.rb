@@ -135,10 +135,6 @@ class Collection < ActiveRecord::Base
     collection_items.any?{|ci| ci.object_type == item.class.name && ci.object_id == item.id}
   end
 
-  def empty?
-    collection_items.count == 0
-  end
-
   def default_sort_style
     sort_style ? sort_style : SortStyle.newest
   end

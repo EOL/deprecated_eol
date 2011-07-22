@@ -46,8 +46,7 @@ class CollectionItemsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.js do
-        end
+        format.js { render :text => I18n.t(:item_not_updated_in_collection_error) }
         format.html do
           flash[:error] = I18n.t(:item_not_updated_in_collection_error)
           redirect_to(@collection_item.collection)
@@ -61,6 +60,7 @@ class CollectionItemsController < ApplicationController
   def edit
     # TODO - Abstract the find into a before filter and handle not found errors..
     respond_to do |format|
+      format.html
       format.js do
         render :partial => 'edit', :locals => { :collection_item => @collection_item }
       end

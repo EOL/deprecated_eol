@@ -133,6 +133,15 @@ en:
   all: "all"
   all_: "All"
   all_apis_return_by_default_an_: "All APIs return by default an XML response. The API methods may be called without a format extension to get the XML response, and adding an XML extension will give an identical response:"
+  all_items: All items
+  all_taxa: All taxa
+  all_articles: All articles
+  all_videos: All videos
+  all_images: All images
+  all_sounds: All sounds
+  all_communities: All communities
+  all_people: All people
+  all_collections: All collections
   all_changes: "All changes"
   all_comments_entered_by_users_: "All comments entered by users on the website are shown below, sorted inversely by time created."
   all_count: "All (%{count})"
@@ -278,7 +287,7 @@ en:
   by: "by"
   by_: "By"
   by_entering_a_wikipedia_revisi: "By entering a Wikipedia revision URL you are requesting that EOL ingests that particular revision as vetted. It will replace the current version of that article in EOL if we have it already."
-  by_default_sort_collection_by_colon: "By default, sort this collection by:"
+  default_collection_sort_label: "Default sorting direction"
   by_scientific_name_table_header: "by Scientific Name"
   cache: "Cache"
   cache_store: "Cache Store"
@@ -346,17 +355,19 @@ en:
   click_to_view_previous_agreeme: "Click to view previous agreements:"
   close_this_window_to_return_to: "CLOSE THIS WINDOW TO RETURN TO EDIT WINDOW"
   clouds_provided_by_the_mbl: "Clouds provided by the MBL %{link}."
+  collect: "Collect"
   collected_by: "Collected by"
   collect_items: "Collect items"
   collected_items_with_count:
     one: "%{count} collected item"
     other: "%{count} collected items"
   collection_created_notice: "Collection <em>%{collection_name}</em> successfully created."
-  collection_description_label: "Collection description"
+  collection_description_label: "Collection description:"
+  collection_icon_label: "Primary collection image"
   collection_is_empty: "This collection is currently empty."
   collection_item_annotation_label: "Collection item annotation"
   collection_item_not_found_error: "That collection item could not be found."
-  collection_name_label: "Collection name"
+  collection_name_label: "Collection name:"
   collection_not_created_error: "Sorry, an error occurred, the collection <em>%{collection_name}</em> could not be created."
   collection_not_found_error: Sorry, that collection cound not be found.
   collection_not_updated_error: "Sorry, an error occurred, the collection could not be updated."
@@ -513,6 +524,7 @@ en:
   content_update: "Content Update"
   contribute: "Contribute"
   contribute_to_page_button: "Contribute to this page"
+  copy: "Copy"
   copy_and_paste_in_email_or_document: "Copy and paste in email or document"
   copy_selected_button: "Copy selected"
   copy_all_items_button: copy entire collection
@@ -671,7 +683,6 @@ en:
   default_rights_statement__: "Default Rights Statement:"
   default_sorting_header: "Default sorting"
   default_sorting_label: "Default sort order"
-  default_sorting_legend_for_collection: "Select the default sort order for items in this collection."
   default_sorting_submit_button: "Set sort order"
   __defines_the_composition_of_i: "- defines the composition of information on species pages; works with the scientific community to identify potential sources of information (such as the Content Partner) for the species pages and to authenticate the information on the species pages; establishes licensing agreements with data providers."
   defines_the_composition_of_inf: "defines the composition of information on species pages; works with the scientific community to identify potential sources of information (such as the Content Partner) for the species pages and to authenticate the information on the species pages; establishes licensing agreements with data providers."
@@ -736,6 +747,7 @@ en:
   edit_glossary_term: "Edit Glossary Term"
   edit_hierarchy: "edit hierarchy"
   edit_collection: "Edit collection"
+  edit_collection_details_header: "Edit collection details"
   edit_collection_head_title: "Edit: %{collection_name}"
   edit_this_collection_button: "Edit this collection"
   editing_collection: "Editing collection"
@@ -1268,7 +1280,6 @@ en:
   maintained_by: "maintained by"
   major_heading: "Major heading"
   make_sure_to: "Make sure to %{link_add_it_to_your_api_calls}"
-  make_this_the_default_sort: Make this the default sort
   make_visible: "make visible"
   manage_community: "Manage community"
   manage_resources: "MANAGE RESOURCES"
@@ -1319,6 +1330,7 @@ en:
   more_species: "more species"
   most_active_members: "Most active members"
   most_visited_taxa: "Most visited taxa"
+  move: "Move"
   move_down: "move down"
   move_all_items_button: move entire collection
   move_all_taxa_button: "move all taxa"
@@ -1848,10 +1860,10 @@ en:
   select_a_tool_and_click__go__: "Select a tool and click 'Go':"
   __select_page_to_work_with__: "--select page to work with--"
   select_: "Select:"
-  select_all_button: "Select all"
   select_topic: "Please select a topic area"
   select_video: "Select a video to the right to begin playback."
   selected_language_advisory_information: "This is the currently selected language."
+  selected_items: Selected items
   send_contact_email: "Send Contact Email"
   send_email_notification_to_all: "Send email notification to all content partners \n about the availability of the latest monthly web stats"
   send_email_: "Send email:"
@@ -2261,7 +2273,6 @@ en:
   type_: "Type:"
   type: "Type"
   ukrainian: "Ukrainian"
-  un_select_all_button: "Un-select all"
   uncheck_to_unvet_this_entire_r: "Uncheck to unvet this entire resource (all uncurated data objects will be untrusted)"
   unhide: "unhide"
   unique_page_view: "Unique page view"

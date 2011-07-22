@@ -1,63 +1,30 @@
-- form_for @collection, :html => { :multipart => true } do |collection_form|
-  = hidden_field_tag :action_name, controller.action_name
-  = hidden_field_tag :filter, @filter if @filter
-  #page_heading.with_image
-    .site_column
-      = image_tag @collection.logo_url, :alt => ''
-      .hgroup_fields
-        %h1.assistive= h @collection.name
-        %fieldset
-          = collection_form.label :name, I18n.t(:collection_name_label), {:class => 'assistive'}
-          = collection_form.text_field :name, :value => @collection.name
-          = collection_form.label :description, I18n.t(:collection_description_label), {:class => 'assistive'}
-          = collection_form.text_area :description, :value => @collection.description, :rows => 3, :cols => 60
-      .page_actions
-        %ul
-          %li
-            %fieldset.actions
-              = submit_tag I18n.t(:update_collection_submit_button), :name => :commit_edit_collection
-          %li
-            = link_to I18n.t(:go_back), collection_path(@collection)
-    = render :partial => 'shared/flash_messages'
-
-  #content
-    .site_column
-      #tabs_sidebar
-        = render :partial => 'collections/filter_by_item_type'
-      #sidebar
-        - unless @collection.empty?
-          .filters
-            %h4= I18n.t(:collect_items)
-            %fieldset.actions
-              = submit_tag I18n.t(:select_all_button), :name => :commit_select_all
-              = submit_tag I18n.t(:copy_selected_button), :name => :commit_copy_collection_items
-              = submit_tag I18n.t(:move_selected_button), :name => :commit_move_collection_items
-              = submit_tag I18n.t(:remove_selected_button), :name => :commit_remove_collection_items
-            %h4= I18n.t(:primary_image_header)
-            = collection_form.label :logo, I18n.t(:primary_image_choose)
-            = collection_form.file_field :logo, :size=>10
-        .collection_contributors
-          = render :partial => 'collections/managed_by', :locals => { :collection => @collection }
-        - if @collection.collection_endorsements.count > 0
-          .collection_contributors
-            = render :partial => 'collections/endorsed_by', :locals => { :collection => @collection }
-
-      #collections.main_container
-        .heading
-          - if @collection.empty?
-            %p#empty= I18n.t(:collection_is_empty)
-          - else
-            -# NOTE: A little weird to make the field label an h4, but wanted to keep the formatting the same as the
-            -# show view, so that it's clear what you're affecting.
-            %h4= I18n.t(:by_default_sort_collection_by_colon)
-            %fieldset
-              %legend.assistive= I18n.t(:default_sorting_legend_for_collection)
-              = label_tag :default_sorting, I18n.t(:default_sorting_label), :class => 'assistive'
-              = collection_form.select :sort_style_id, @sort_options.map {|so| [so.name, so.id]}
-            - # FIXME: Users need to be able to choose an image for a collection
-        - unless @collection.empty?
-          %ul.object_list
-            - @collection_items.each do |item| # NOTE - we do it this way because we MUST pass the item to partial:
-              - collection_form.fields_for(:collection_items, item) do |collection_item_fields|
-                %li{:class => "#{en_type(item)}"}
-                  = render :partial => 'collection_items/edit', :locals => { :collection_item => item, :fields => collection_item_fields }
+- content_for :additional_page_actions do
+  %li
+    = link_to I18n.t(:go_back), collection_path(@collection)
+%h2= I18n.t(:edit_collection_details_header)
+- form_for @collection, :html => { :class => 'standard', :multipart => true } do |f|
+  %fieldset
+    %dl
+      %dt
+        %label= I18n.t(:collection_name_label)
+      %dd
+        = f.label :name, I18n.t(:collection_name_label), {:class => 'assistive'}
+        = f.text_field :name, :value => @collection.name
+      %dt
+        %label= I18n.t(:collection_description_label)
+      %dd
+        = f.label :description, I18n.t(:collection_description_label), {:class => 'assistive'}
+        = f.text_area :description, :value => @collection.description, :rows => 3, :cols => 60
+      %dt
+        %label= I18n.t(:default_collection_sort_label)
+      %dd
+        = label_tag :default_sorting, I18n.t(:default_sorting_label), :class => 'assistive'
+        = f.select :sort_style_id, @sort_options.map {|so| [so.name, so.id]}
+      %dt
+        %label= I18n.t(:collection_icon_label)
+      %dd
+        = f.label :logo, I18n.t(:primary_image_choose)
+        = f.file_field :logo, :size=>10
+  %fieldset.actions
+    = submit_tag I18n.t(:update_collection_submit_button), :class => 'button'
+    = link_to I18n.t(:go_back), collection_path(@collection)

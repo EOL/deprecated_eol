@@ -1139,9 +1139,10 @@ Factory.define :user do |u|
     end
     attempt
   end
+  u.agreed_with_terms         true
   u.active                    true
   u.password                  'test password'
-  u.entered_password          'test password'
+  u.entered_password          { |usr| usr.password }
   u.curator_approved          false
   u.curator_verdict_by_id     nil
   u.curator_verdict_at        nil

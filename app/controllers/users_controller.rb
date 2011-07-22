@@ -3,9 +3,9 @@ class UsersController < ApplicationController
   layout :users_layout
 
   before_filter :authentication_only_allow_editing_of_self, :only => [:edit, :update, :terms_agreement]
-  before_filter :check_user_agreed_with_terms, :except => [:terms_agreement, :reset_password]
   before_filter :redirect_if_already_logged_in, :only => [:new, :create, :verify, :pending, :activated,
                                                           :forgot_password, :reset_password]
+  before_filter :check_user_agreed_with_terms, :except => [:terms_agreement, :reset_password]
 
   @@objects_per_page = 20
 
@@ -77,6 +77,7 @@ class UsersController < ApplicationController
       redirect_to login_path
     elsif @user && @user.validation_code == params[:validation_code] && ! params[:validation_code].blank?
       @user.activate
+      Notifier.deliver_account_activated(@user)
       redirect_to activated_user_path(@user)
     elsif @user
       @user.validation_code = User.generate_key if @user.validation_code.blank?
@@ -134,13 +135,13 @@ class UsersController < ApplicationController
         if @users.size == 1
           user = @users[0]
           generate_password_reset_token(user)
-          Notifier.deliver_forgot_password_email(user, reset_password_url(user, user.password_reset_token))
-          flash[:notice] =  I18n.t(:reset_password_instructions_sent_to_email_notice, :username => user.username, :email => user.email)
+          Notifier.deliver_reset_password(user, reset_password_user_url(user, user.password_reset_token))
+          flash[:notice] =  I18n.t(:reset_password_instructions_sent_to_user_notice, :username => user.username)
           redirect_to login_path
         elsif @users.size > 1
           render :action => 'forgot_password_choose_account'
         else
-          flash.now[:error] =  I18n.t(:forgot_password_cannot_find_user_from_username_or_email_error, :username_or_email => params[:user][:username_or_email].strip.sanitize)
+          flash.now[:error] =  I18n.t(:forgot_password_cannot_find_user_from_username_or_email_error, :username_or_email => Sanitize.clean(params[:user][:username_or_email]))
         end
       end
     end

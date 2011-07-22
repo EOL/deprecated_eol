@@ -3,13 +3,6 @@ class Notifier < ActionMailer::Base
 
   @@test_recipient = "junk@example.com" # testing only if needed
 
-  def forgot_password_email(user, url)
-    subject     I18n.t(:mail_eol_forgot_password_subj)
-    recipients  user.email
-    from        $WEBSITE_EMAIL_FROM_ADDRESS
-    body        :user => user, :password_reset_url => url
-  end
-
   def agent_is_ready_for_agreement(agent,recipient)
     subject    "EOL Content Partner Ready For Agreement"
     recipients recipient
@@ -40,11 +33,11 @@ class Notifier < ActionMailer::Base
     body        :donation => donation
   end
 
-  def welcome_registration(user)
-    subject     "Thanks for registering with the Encyclopedia of Life"
+  def reset_password(user, url)
+    subject     I18n.t(:email_subject_reset_password)
     recipients  user.email
     from        $WEBSITE_EMAIL_FROM_ADDRESS
-    body        :user => user
+    body        :user => user, :password_reset_url => url
   end
 
   def verify_user(user, url)
@@ -52,6 +45,13 @@ class Notifier < ActionMailer::Base
     recipients  user.email
     from        $WEBSITE_EMAIL_FROM_ADDRESS
     body        :user => user, :verify_user_url => url
+  end
+
+  def account_activated(user)
+    subject     I18n.t(:email_subject_account_activated)
+    recipients  user.email
+    from        $WEBSITE_EMAIL_FROM_ADDRESS
+    body        :user => user
   end
 
   def contact_us_auto_response(contact)

@@ -586,7 +586,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def rating_for_object_guid(guid)
     UsersDataObjectsRating.find_by_data_object_guid_and_user_id(guid, self.id, :order => 'id desc')
   end
-  
+
   def rating_for_object_guids(guids)
     return_ratings = {}
     ratings = UsersDataObjectsRating.find_all_by_data_object_guid_and_user_id(guids, self.id, :order => 'id desc')

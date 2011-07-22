@@ -323,6 +323,8 @@ form dl dt {
   padding: 0 0 5px 0; }
   form dl dt label {
     font-weight: bold; }
+    form dl dt label small {
+      color: #616e7a; }
 form dl dd {
   padding: 0 0 10px 0; }
   form dl dd input[type="text"], form dl dd input[type="password"], form dl dd textarea, form dl dd select {
@@ -339,6 +341,8 @@ form dl dd {
 form label.checkbox {
   display: block;
   font-weight: bold; }
+  form label.checkbox input {
+    margin: 0 5px 0 0; }
 form fieldset.actions button {
   display: none; }
 form fieldset.actions input[type="submit"],
@@ -357,7 +361,7 @@ form fieldset.actions button {
   background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white);
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1));
   cursor: pointer;
-  margin: 0;
+  margin: 0 5px 0 0;
   padding: 3px 10px;
   font-size: 0.92em; }
   form fieldset.actions input[type="submit"]:hover,
@@ -469,7 +473,6 @@ ul.tabs {
   ul.tabs li {
     margin: 0 0 1px 0;
     font-weight: bold;
-    text-transform: lowercase;
     border: 1px solid #cad3db;
     border-right-color: #93a4b0;
     -moz-border-radius-topleft: 3px;
@@ -482,7 +485,7 @@ ul.tabs {
     background-image: -webkit-gradient(linear, left center, right center, from(white), to(#f0f4f7)); }
     ul.tabs li a {
       display: block;
-      padding: 7px 10px;
+      padding: 7px 10px 6px 10px;
       text-decoration: none;
       color: #616e7a; }
     ul.tabs li:hover {
@@ -585,20 +588,22 @@ p.status {
   padding: 15px 20px 0 20px; }
 .copy p + h2, .copy p + h3, .copy p + h4, .copy ul + h2, .copy ul + h3, .copy ul + h4, .copy ol + h2, .copy ol + h3, .copy ol + h4, .copy blockquote + h2, .copy blockquote + h3, .copy blockquote + h4 {
   padding-top: 20px; }
-.copy table {
+
+table.standard {
   border-collapse: collapse;
   width: 100%;
-  margin: 0 0 15px 0; }
-  .copy table thead tr {
+  margin: 0 0 15px 0;
+  line-height: 170%; }
+  table.standard thead tr {
     border: 1px solid #cad3db; }
-    .copy table thead tr th {
+    table.standard thead tr th {
       background: #eff2f4;
       padding: 5px 20px;
       font-weight: bold;
       text-align: left; }
-  .copy table tbody tr {
+  table.standard tbody tr {
     border: 1px solid #cad3db; }
-    .copy table tbody tr td {
+    table.standard tbody tr td {
       padding: 5px 20px; }
 
 .article {
@@ -657,7 +662,7 @@ p.status {
       font-size: 0.75em;
       font-weight: bold;
       text-transform: uppercase;
-      color: #82919e; }
+      color: #62707d; }
   .article.updates .details img {
     float: none; }
 
@@ -855,26 +860,8 @@ ul.object_list li {
   ul.object_list li.taxon h4 {
     margin: 0; }
 
-table.names {
-  width: 100%;
-  margin: 0 0 20px 0;
-  border: 1px solid #cad3db;
-  border-spacing: 0;
-  border-collapse: collapse; }
-  table.names th {
-    padding: 7px 0 7px 20px;
-    text-align: left;
-    vertical-align: top;
-    border-bottom: 1px solid #cad3db; }
-  table.names thead th {
-    background: #eff2f4; }
-  table.names td {
-    padding: 7px 0 7px 20px;
-    line-height: 170%;
-    vertical-align: top;
-    border-bottom: 1px solid #cad3db; }
-    table.names td a {
-      font-weight: bold; }
+#taxon_names table.standard td a {
+  font-weight: bold; }
 
 form.select_content_partner {
   padding: 5px 0;
@@ -961,15 +948,15 @@ body > #header {
         body > #header .section .session .details p.user_links, body > #header .section .session .sign_in p.user_links {
           font-size: 9px;
           text-transform: uppercase;
-          color: #82919e; }
+          color: #62707d; }
           body > #header .section .session .details p.user_links a, body > #header .section .session .sign_in p.user_links a {
-            color: #90bce4;
+            color: #acd7ff;
             text-decoration: none; }
       body > #header .section .session .sign_in p {
         font-weight: bold;
         line-height: 150%; }
       body > #header .section .session .sign_in a {
-        color: #90bce4; }
+        color: #acd7ff; }
 
 #content {
   overflow: hidden;
@@ -1010,6 +997,13 @@ body > #header {
     color: #5f6c76; }
     #page_heading p.status {
       color: #394651; }
+    #page_heading p.message {
+      clear: both;
+      background: white;
+      border: 1px solid #d4dce2;
+      text-align: center;
+      padding: 3px 0;
+      margin: 0 0 10px 0; }
   #page_heading .page_actions {
     float: right;
     padding-left: 20px; }
@@ -1216,10 +1210,11 @@ body > #header {
 #collections ul.object_list li {
   padding-top: 20px;
   padding-bottom: 20px; }
+  #collections ul.object_list li img {
+    margin-right: -1px; }
   #collections ul.object_list li .checkbox {
     float: right;
     border: 1px solid #cad3db;
-    border-left: none;
     height: 68px;
     line-height: 68px;
     padding: 0 3px; }
@@ -1238,6 +1233,38 @@ body > #header {
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
     width: 460px;
     height: 50px; }
+  #collections ul.object_list li p.edit {
+    display: none; }
+  #collections ul.object_list li form {
+    margin: 10px 0 0 0; }
+    #collections ul.object_list li form textarea {
+      margin: 0 0 20px 0; }
+    #collections ul.object_list li form input[type="submit"] {
+      margin: 0 5px 0 0; }
+
+#collections_edit {
+  width: 500px;
+  margin: 0 auto; }
+  #collections_edit h2 {
+    margin: 0 0 20px 0; }
+  #collections_edit input[type="text"] {
+    width: 488px;
+    height: 22px;
+    padding: 2px 5px;
+    font: normal 1em Helvetica, Arial, sans-serif;
+    border: 1px solid #cad3db;
+    background-color: white;
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+    background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
+  #collections_edit textarea {
+    width: 482px;
+    height: 60px; }
+  #collections_edit fieldset.actions {
+    padding: 20px 0; }
+    #collections_edit fieldset.actions input[type="submit"] {
+      padding: 7px 10px;
+      font-size: 1em; }
 
 #collections_tab ul.object_list img {
   float: left;
@@ -1277,15 +1304,30 @@ body > #header {
       margin-right: 20px; }
       #profile_info .half.info dl {
         line-height: 140%; }
-      #profile_info .half.info dt {
-        clear: both;
-        float: left;
-        padding: 0 0 5px 0;
-        font-weight: bold; }
-      #profile_info .half.info dd {
-        overflow: hidden;
-        padding: 0 0 5px 0;
-        text-align: right; }
+        #profile_info .half.info dl dt {
+          font-weight: bold; }
+        #profile_info .half.info dl dd {
+          margin: 0 0 5px 20px; }
+
+#profile_curator_info {
+  padding: 40px; }
+  #profile_curator_info fieldset {
+    padding-top: 10px; }
+    #profile_curator_info fieldset dt {
+      margin: 0; }
+      #profile_curator_info fieldset dt label {
+        display: block;
+        font-size: 16px; }
+      #profile_curator_info fieldset dt p, #profile_curator_info fieldset dt label, #profile_curator_info fieldset dt ol, #profile_curator_info fieldset dt ol li {
+        margin-bottom: 5px; }
+    #profile_curator_info fieldset dd {
+      margin: 0 0 10px 0; }
+      #profile_curator_info fieldset dd textarea {
+        width: 600px;
+        height: 60px; }
+    #profile_curator_info fieldset input[type="submit"] {
+      padding: 7px 10px;
+      font-size: 1em; }
 
 #community {
   padding: 20px; }
@@ -1313,12 +1355,44 @@ body > #header {
         margin: 0 8px 0 0;
         border: 1px solid #394651; }
 
+#taxon_literature .main_container {
+  padding: 20px; }
+  #taxon_literature .main_container .bhl_description {
+    overflow: hidden;
+    margin: 0 0 20px 0; }
+    #taxon_literature .main_container .bhl_description p {
+      margin: 20px; }
+    #taxon_literature .main_container .bhl_description a {
+      font-weight: bold;
+      text-decoration: none; }
+      #taxon_literature .main_container .bhl_description a:hover {
+        text-decoration: underline; }
+    #taxon_literature .main_container .bhl_description img {
+      float: left;
+      margin: 0 20px 0 0; }
+  #taxon_literature .main_container .heading {
+    text-align: center;
+    margin: 0 0 20px 0; }
+  #taxon_literature .main_container table tr td {
+    vertical-align: middle; }
+    #taxon_literature .main_container table tr td.pages {
+      white-space: nowrap; }
+    #taxon_literature .main_container table tr td a {
+      font-weight: bold;
+      text-decoration: none; }
+      #taxon_literature .main_container table tr td a:hover {
+        text-decoration: underline; }
+    #taxon_literature .main_container table tr td + td {
+      font-size: 0.9em;
+      line-height: 120%;
+      color: #616e7a; }
+
 #taxonomy {
   float: left;
   width: 580px; }
   #taxonomy .gallery {
     overflow: hidden;
-    padding: 20px 20px 10px 20px;
+    padding: 20px 20px 0 20px;
     margin: 0 0 35px 0;
     border: 1px solid #cad3db; }
     #taxonomy .gallery .images {
@@ -1358,18 +1432,18 @@ body > #header {
             margin: -2px 0 0 -2px; }
     #taxonomy .gallery .attribution {
       position: absolute;
-      float: left;
       left: 0;
       top: 315px;
       z-index: 100;
       width: 430px;
       font-size: 0.92em; }
       #taxonomy .gallery .attribution img {
-        float: left;
-        margin: 7px 10px 0 0; }
+        position: absolute;
+        top: 50%;
+        left: 0;
+        margin-top: -8px; }
       #taxonomy .gallery .attribution p {
-        overflow: hidden;
-        line-height: 150%; }
+        padding: 0 0 0 90px; }
     #taxonomy .gallery p.all {
       float: right;
       padding: 5px 0 0 0;
@@ -1882,7 +1956,8 @@ body > #header {
       display: block; }
     #media_list #main ul.media > li .figure {
       position: relative;
-      background: white; }
+      background: white;
+      cursor: pointer; }
       #media_list #main ul.media > li .figure .overlay {
         position: absolute;
         left: 0;
@@ -2085,7 +2160,7 @@ body > #header {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
 #profile_edit fieldset {
   float: left;
-  padding: 0 60px 40px 0; }
+  padding: 0 60px 20px 0; }
   #profile_edit fieldset h3 {
     padding: 0 0 30px 0;
     font-size: 1.5em;
@@ -2093,10 +2168,6 @@ body > #header {
   #profile_edit fieldset dt {
     font-size: 1.08em;
     font-weight: bold; }
-    #profile_edit fieldset dt p {
-      font-size: 0.9em;
-      font-weight: normal;
-      line-height: 150%; }
   #profile_edit fieldset button {
     padding: 7px 10px;
     overflow: visible;
@@ -2128,22 +2199,33 @@ body > #header {
       float: left;
       padding: 0 10px 5px 0;
       font-weight: bold; }
-  #profile_edit fieldset.photo img {
+  #profile_edit fieldset.profile, #profile_edit fieldset.account {
+    width: 300px; }
+    #profile_edit fieldset.profile input[type="text"],
+    #profile_edit fieldset.profile input[type="file"],
+    #profile_edit fieldset.profile input[type="password"], #profile_edit fieldset.account input[type="text"], #profile_edit fieldset.account input[type="file"], #profile_edit fieldset.account input[type="password"] {
+      width: 288px; }
+  #profile_edit fieldset.profile img {
     display: block;
     margin: 0 0 15px 0;
     border: 1px solid #394651; }
-  #profile_edit fieldset.photo input[type="file"] {
-    width: 200px; }
-  #profile_edit fieldset.profile {
-    width: 320px; }
-    #profile_edit fieldset.profile input[type="text"] {
-      width: 308px; }
-    #profile_edit fieldset.profile textarea {
-      width: 302px; }
-  #profile_edit fieldset.account {
-    float: none;
-    overflow: hidden;
-    padding: 0; }
+  #profile_edit fieldset.profile textarea {
+    width: 282px;
+    height: 120px; }
+  #profile_edit fieldset.account input[type="checkbox"],
+  #profile_edit fieldset.account select {
+    margin-left: 10px; }
+  #profile_edit fieldset.api-request {
+    width: 178px;
+    background: #f3f7fa;
+    border: 1px solid #cad3db;
+    padding: 20px 20px 10px 20px;
+    margin-top: 70px; }
+    #profile_edit fieldset.api-request p {
+      font-size: 0.9em;
+      padding-top: 5px;
+      font-weight: normal;
+      line-height: 150%; }
   #profile_edit fieldset.actions {
     clear: both;
     float: none;

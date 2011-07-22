@@ -1586,7 +1586,7 @@ body
     label.checkbox
       padding: 0 0 15px 0
 
-form.edit_user
+#profile_edit
   input[type="text"], input[type="password"]
     +input(248px)
   fieldset
@@ -1625,6 +1625,8 @@ form.edit_user
       textarea
         width: 302px
     &.account
+      float: none
+      overflow: hidden
       padding: 0
     &.actions
       clear: both

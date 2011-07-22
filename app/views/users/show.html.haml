@@ -1,21 +1,18 @@
 #profile_info.main_container
-  .article
-    .header
-      %h3= I18n.t(:users_about_me_header)
-    .copy
-      %p= allow_some_html @user.credentials + " FIXME: What is this credentials?"
+  - unless @user.bio.blank?
+    .article
+      .header
+        %h3= I18n.t(:users_about_me_header)
+      .copy
+        %p= allow_some_html @user.bio
   .article.half.info
     .header
       %h3= I18n.t(:users_my_info_header)
     %dl
-      %dt= I18n.t(:users_full_name_label)
+      %dt= I18n.t('activerecord.attributes.user.full_name')
       %dd= h @user.full_name
-      %dt= I18n.t(:users_username_label)
+      %dt= I18n.t('activerecord.attributes.user.username')
       %dd= h @user.username
-      %dt= I18n.t(:users_organisation_label)
-      %dd= h @user.agent.organization
-      %dt= I18n.t(:users_project_label)
-      %dd= h @user.agent.project
   .article.half.list
     .header
       %h3= I18n.t(:users_member_of_count_communities, :count => @user.members.size)

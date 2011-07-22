@@ -10,6 +10,75 @@ module ApplicationHelper
   include ActionView::Helpers::UrlHelper
   include ActionView::Helpers::SanitizeHelper
 
+  # Used in V2 to allow block elements in forms
+  # adds error class and title attributes to form elements
+  # adds error messages after label
+  class EolFormBuilder < ActionView::Helpers::FormBuilder
+
+    def text_field(method, options = {})
+      (options['class'] = "#{options['class'].to_s} errors").strip! if errors_on?(method)
+      super(method, options)
+    end
+
+    def password_field(method, options = {})
+      (options['class'] = "#{options['class'].to_s} errors").strip! if errors_on?(method)
+      super(method, options)
+    end
+
+    def label(method, content_or_options_with_block = nil, options = {}, &block)
+      options = content_or_options_with_block if content_or_options_with_block.is_a?(Hash)
+      options.symbolize_keys!
+      if errors_on?(method)
+        (options[:class] = "#{options[:class].to_s} errors").strip!
+        (options[:title] = "#{options[:title].to_s} #{I18n.t(:form_validation_errors_for_attribute_assistive)}").strip!
+        errors = errors_for_method(@object, method)
+      end
+
+      if block_given?
+        @template.concat(@template.content_tag(:label, options) do
+          "#{@template.capture(&block)} #{errors.to_s}" end, block.binding)
+      else
+        "#{super(method, content_or_options_with_block, options)} #{errors}"
+      end
+    end
+
+    private
+
+    def errors_on?(method)
+      @object.respond_to?(:errors) && @object.errors.respond_to?(:on) && @object.errors.on(method.to_sym)
+    end
+
+    def errors_for_method(object, method)
+      return unless errors_on?(method)
+      errors = object.errors.on(method)
+      if errors.any?
+        errors = [errors] if errors.is_a? String
+        @template.content_tag(:span, { :class => 'errors' }){ errors.join(", ") }
+      end
+    end
+  end
+  # Used in V2, removes div#fieldWithErrors errors identified by class on form element instead see EolFormBuilder
+  ActionView::Base.field_error_proc = Proc.new do |html_tag, instance_tag|
+    html_tag
+  end
+  # Used in V2 to render all validation errors for a form
+  # form.error_messages and form.error_messages_for are deprecated in Rails 3
+  def validation_errors_for(resource, message = nil)
+    if resource.errors.any?
+      message ||= I18n.t('activerecord.errors.template.header', :count => resource.errors.size)
+      capture_haml do
+        haml_tag 'fieldset#errors' do
+          haml_tag :legend, message
+          haml_tag :ul do
+            resource.errors.full_messages.each do |error|
+              haml_tag :li, error
+            end
+          end
+        end
+      end
+    end
+  end
+
   # Used in V2 to return class for active navigation tabs.
   def resource_is_active(resource, action = nil)
     if action

@@ -171,7 +171,7 @@ class ApplicationController < ActionController::Base
   end
 
   def valid_return_to_url
-    return_to_url != nil && return_to_url != login_url && return_to_url != register_url && return_to_url != logout_url && !url_for(:controller => 'content_partner', :action => 'login', :only_path => true).include?(return_to_url)
+    return_to_url != nil && return_to_url != login_url && return_to_url != new_user_url && return_to_url != logout_url && !url_for(:controller => 'content_partner', :action => 'login', :only_path => true).include?(return_to_url)
   end
 
   def current_url(remove_querystring = true)

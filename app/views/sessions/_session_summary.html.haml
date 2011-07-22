@@ -7,6 +7,12 @@
       %br/
       = h current_user.tag_line
     %p.user_links
+      - if current_user.is_admin?
+        = link_to I18n.t(:pages_admin_section_link), admin_path
+        &bull;
+      - if current_user.is_curator?
+        = link_to I18n.t(:pages_curator_section_link), {:controller => '/content', :action => 'page', :id => 'curator_central'}
+        &bull;
       = link_to I18n.t(:profile), current_user
       &bull;
       = link_to I18n.t(:sign_out), logout_url

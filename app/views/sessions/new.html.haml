@@ -1,19 +1,18 @@
-- form_for :session, :url => sessions_path do |f|
+- form_for :session, :url => sessions_path, :builder => ApplicationHelper::EolFormBuilder do |f|
   %fieldset
     %h1= I18n.t(:login_header)
     %dl
       %dt
-        = f.label :username_or_email, I18n.t(:sign_in_form_username_or_email_label)
+        = f.label :username_or_email
       %dd
         = f.text_field :username_or_email
       %dt
-        = f.label :password, I18n.t(:sign_in_form_password_label)
+        = f.label :password
       %dd
         = f.password_field :password, :maxlength => 16
-  %fieldset.actions
-    = f.submit I18n.t(:sign_in_form_submit)
-    = link_to I18n.t(:forgot_password), forgot_password_path
-  %fieldset.additional
-    %label.checkbox{ :for => :remember_me }
+    - f.label :remember_me, { :class => 'checkbox' } do
       = check_box_tag :remember_me
-      = I18n.t(:sign_in_form_remember_me_label)
+      = I18n.t("helpers.label.session.remember_me")
+  %fieldset.actions
+    = f.submit I18n.t("helpers.submit.session.create")
+    = link_to I18n.t(:forgot_password), forgot_password_users_path

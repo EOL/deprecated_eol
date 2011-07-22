@@ -13,7 +13,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   belongs_to :curator_verdict_by, :class_name => "User", :foreign_key => :curator_verdict_by_id
   belongs_to :language
   belongs_to :agent
-  accepts_nested_attributes_for :agent
 
   has_many :curators_evaluated, :class_name => "User", :foreign_key => :curator_verdict_by_id
   has_many :users_data_objects_ratings
@@ -38,23 +37,29 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   #has_one :watch_collection, :class_name => 'Collection', :conditions => { :special_collection_id => SpecialCollection.watch.id }
 
   before_save :check_credentials
+  before_save :encrypt_password
+  before_update :encrypt_password
 
   accepts_nested_attributes_for :user_info
 
   @email_format_re = %r{^(?:[_\+a-z0-9-]+)(\.[_\+a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$}i
 
-  validate :ensure_unique_username_against_master, :on => :create
+  #validate :ensure_unique_username_against_master
+
+  validates_uniqueness_of :username
 
   validates_presence_of :curator_verdict_by, :if => Proc.new { |obj| !obj.curator_verdict_at.blank? }
   validates_presence_of :curator_verdict_at, :if => Proc.new { |obj| !obj.curator_verdict_by.blank? }
   validates_presence_of :username
 
   validates_length_of :username, :within => 4..32
-  validates_length_of :entered_password, :within => 4..16, :on => :create
+  validates_length_of :entered_password, :within => 4..16, :if => :password_validation_required?
+
+  validates_confirmation_of :entered_password, :if => :password_validation_required?
 
   validates_format_of :email, :with => @email_format_re
 
-  validates_confirmation_of :entered_password
+  validates_acceptance_of :agreed_with_terms, :accept => true
 
   # TODO: remove the :if condition after migrations are run in production
   has_attached_file :logo,
@@ -400,6 +405,11 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     self.save!
   end
 
+  def clear_entered_password
+    self.entered_password = ''
+    self.entered_password_confirmation = ''
+  end
+
   def vet object
     object.vet(self) if object and object.respond_to? :vet and can_curate? object
   end
@@ -557,21 +567,21 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     return true unless attributes.keys.include?("filter_content_by_hierarchy")
   end
 
-  def password_reset_url(original_port)
-    port = ["80", "443"].include?(original_port.to_s) ? "" : ":#{original_port}"
-    new_token = User.generate_key
-    self.update_attributes(:password_reset_token => new_token, :password_reset_token_expires_at => 24.hours.from_now)
-    http_string = $USE_SSL_FOR_LOGIN ? "https" : "http"
-    "#{http_string}://#{$SITE_DOMAIN_OR_IP}#{port}/users/reset_password/#{new_token}"
-  end
+#  def password_reset_url(original_port)
+#    port = ["80", "443"].include?(original_port.to_s) ? "" : ":#{original_port}"
+#    new_token = User.generate_key
+#    self.update_attributes(:password_reset_token => new_token, :password_reset_token_expires_at => 24.hours.from_now)
+#    http_string = $USE_SSL_FOR_LOGIN ? "https" : "http"
+#    "#{http_string}://#{$SITE_DOMAIN_OR_IP}#{port}/users/reset_password/#{new_token}"
+#  end
 
-  def ensure_unique_username_against_master
-    # NOTE - this weird id.blank? line was introduced because the :on => :create clause on the validation was not working.
-    # Very frustrating.  So, essentially, we make sure this user is newly created before proceeding.
-    if id.blank? # We don't care if the username is unique if the user is already in the system...
-      errors.add('username', "#{username} is already taken") unless User.unique_user?(username)
-    end
-  end
+#  def ensure_unique_username_against_master
+#    # NOTE - this weird id.blank? line was introduced because the :on => :create clause on the validation was not working.
+#    # Very frustrating.  So, essentially, we make sure this user is newly created before proceeding.
+#    if id.blank? # We don't care if the username is unique if the user is already in the system...
+#      errors.add('username', "#{username} is already taken") unless User.unique_user?(username)
+#    end
+#  end
 
   def rating_for_object_guid(guid)
     UsersDataObjectsRating.find_by_data_object_guid_and_user_id(guid, self.id, :order => 'id desc')
@@ -723,7 +733,21 @@ private
   end
 
   def password_required?
-    (hashed_password.blank? || hashed_password.nil?)
+    hashed_password.blank? || hashed_password.nil? || ! self.entered_password.blank?
+  end
+
+  # We need to validate the password if hashed password is empty i.e. on user#create, or if someone is trying to change it i.e. user#update
+  def password_validation_required?
+    password_required? || ! self.entered_password.blank?
+  end
+
+  # Callback before_save and before_update we only encrypt password if someone has entered a valid password
+  def encrypt_password
+    if self.valid? && ! self.entered_password.blank?
+      self.hashed_password = User.hash_password(self.entered_password)
+    else
+      return true # encryption not required but we don't want to halt the process
+    end
   end
 
 end

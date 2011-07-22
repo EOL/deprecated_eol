@@ -7,10 +7,11 @@
         .hgroup
           %h1= @user.full_name
           %h2= @user.tag_line
-        .page_actions
-          %ul
-            %li= render :partial => 'shared/add_to_my_collection', :locals => { :item => @user }
-            %li= link_to I18n.t(:edit_my_profile), edit_user_path(@user), :class => "button" if @user.id == current_user.id
+        - unless action_name == 'edit'
+          .page_actions
+            %ul
+              %li= render :partial => 'shared/add_to_my_collection', :locals => { :item => @user }
+              %li= link_to I18n.t(:edit_my_profile), edit_user_path(@user), :class => "button" if @user.id == current_user.id
       = render :partial => 'shared/flash_messages'
   #content
     .site_column
@@ -18,7 +19,7 @@
         #tabs_sidebar
           %ul.tabs
             %li{:class => resource_is_active('users/newsfeeds')}= link_to I18n.t(:newsfeed), user_newsfeed_path(@user)
-            %li{:class => resource_is_active('users/info')}= link_to I18n.t(:my_info), '/placeholder'
+            %li{:class => resource_is_active('users', 'show')}= link_to I18n.t(:my_info), user_path(@user)
             %li{:class => resource_is_active('users/activity')}= link_to I18n.t(:my_activity), '/placeholder'
             %li{:class => resource_is_active('users/collections')}= link_to I18n.t(:collections_with_count, :count => @user.collections.count), user_collections_path(@user)
       = yield

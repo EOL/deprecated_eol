@@ -47,11 +47,11 @@ class Notifier < ActionMailer::Base
     body        :user => user
   end
 
-  def registration_confirmation(user)
-    subject     "Please confirm your registration with the Encyclopedia of Life"
+  def verify_user(user, url)
+    subject     I18n.t(:email_validate_user_subject)
     recipients  user.email
     from        $WEBSITE_EMAIL_FROM_ADDRESS
-    body        :user => user
+    body        :user => user, :verify_user_url => url
   end
 
   def contact_us_auto_response(contact)

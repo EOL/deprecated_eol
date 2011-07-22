@@ -12,10 +12,8 @@ class SessionsController < ApplicationController
   # POST /sessions
   def create
     success, user = User.authenticate(params[:session][:username_or_email], params[:session][:password])
-
     if success && user.is_a?(User) # authentication successful
       log_in user
-      # return_to may be inappropriate for logged users, e.g. forgot password, place check on destination
       store_location(params[:return_to]) unless params[:return_to].blank?
       redirect_back_or_default(current_user)
     else # authentication unsuccessful
@@ -23,8 +21,8 @@ class SessionsController < ApplicationController
         flash[:notice] = I18n.t(:account_registered_but_not_ready_try_later)
       else
         flash[:error] = I18n.t(:sign_in_unsuccessful_error)
+        redirect_to login_path
       end
-      redirect_to login_path
     end
   end
 

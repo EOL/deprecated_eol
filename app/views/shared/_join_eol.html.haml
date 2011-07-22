@@ -2,7 +2,7 @@
 .join
   %h3.assistive= I18n.t(:login_or_create_account)
   %p= I18n.t(:join_eol_community_html)
-  %p{:class => join_style}= link_to I18n.t(:join_eol_button_html), register_path
+  %p{:class => join_style}= link_to I18n.t(:join_eol_button_html), new_user_path
   %p
     = I18n.t(:already_a_member_question)
     = link_to I18n.t(:sign_in), login_path

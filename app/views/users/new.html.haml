@@ -1,27 +1,30 @@
 #content.session
-  - form_for @user do |f|
+  - form_for @user, :builder => ApplicationHelper::EolFormBuilder do |f|
     %fieldset
-      %h1= I18n.t(:sign_up_form_header)
+      %h1= I18n.t(:create_user_form_header)
+      = validation_errors_for(@user)
       %dl
         %dt
-          = f.label :username, I18n.t(:sign_up_form_username_label), { :title => I18n.t(:required_form_element) }
+          = f.label :username
         %dd
           = f.text_field :username, { :maxlength => 32 }
         %dt
-          = f.label :email, I18n.t(:sign_up_form_email_label), { :title => I18n.t(:required_form_element) }
+          = f.label :email
         %dd
           = f.text_field :email, { :maxlength => 100 }
         %dt
-          = f.label :entered_password, I18n.t(:sign_up_form_password_label), { :title => I18n.t(:required_form_element) }
+          = f.label :entered_password
         %dd
           = f.password_field :entered_password, { :maxlength => 16 }
         %dt
-          = f.label :entered_password_confirmation, I18n.t(:sign_up_form_password_confirmation_label), { :title => I18n.t(:required_form_element) }
+          = f.label :entered_password_confirmation
         %dd
           = f.password_field :entered_password_confirmation, { :maxlength => 16 }
-
-    %fieldset
-      - if $ENABLE_RECAPTCHA
+      - f.label :agreed_with_terms, :class => 'checkbox' do
+        = f.check_box :agreed_with_terms
+        = I18n.t('helpers.label.user.agreed_with_terms', :terms_url => terms_of_use_path)
+    - if $ENABLE_RECAPTCHA
+      %fieldset
         :javascript
           var RecaptchaOptions = { theme : 'clean'};
         %dl
@@ -31,4 +34,5 @@
           %dd
             = recaptcha_tags
     %fieldset.actions
-      = submit_tag I18n.t(:sign_up_form_submit)
+      = f.submit I18n.t('helpers.submit.user.create')
+      = link_to I18n.t(:already_a_member_question), login_path

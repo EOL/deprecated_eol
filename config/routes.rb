@@ -52,17 +52,16 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'boom', :controller => 'content', :action => 'error'
 
   # users
-  map.resources :users, :member => { :terms_agreement => [ :get, :post ] } do |user|
+  map.resources :users, :path_names => { :new => :register },
+                :member => { :terms_agreement => [ :get, :post ], :pending => :get, :activated => :get },
+                :collection => { :forgot_password => :get } do |user|
     user.resource :newsfeed, :only => [:show], :controller => "users/newsfeeds"
     user.resource :activity, :only => [:show], :controller => "users/activities"
     user.resources :collections, :only => [:index], :controller => "users/collections"
   end
-  map.register '/register', :controller => 'users', :action => 'new'
-  map.register_confirm '/register/confirm/:username/:validation_code',
-                       :controller => 'users', :action => 'register_confirm'
-  map.forgot_password '/forgot_password', :controller => 'users', :action => 'forgot_password'
-  # can't add dynamic segment to a member in rails 2.3 so we have to specify a named route here
-  map.reset_password 'users/:user_id/reset_password/:id', :controller => 'users', :action => 'reset_password'
+  map.verify_user '/users/:username/verify/:validation_code', :controller => 'users', :action => 'verify'
+  # can't add dynamic segment to a member in rails 2.3 so we have to specify named route:
+  map.reset_password_user 'users/:user_id/reset_password/:password_reset_token', :controller => 'users', :action => 'reset_password'
 
   # sessions
   map.resources :sessions, :only => [:new, :create, :destroy]

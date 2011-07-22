@@ -13,9 +13,37 @@
  * so I am temporarily adding some CSS here needed for V2 demo. This CSS should be integrated
  * into HashRocket SASS if it is still needed when design work is complete.
  */
-/*Need some spacing on form elements that come below action buttons e.g. login form */
-fieldset.additional {
-  padding-top: 20px; }
+/*Styles for forms and form validation errors */
+form fieldset#errors {
+  width: 100%;
+  position: relative;
+  background: #ffeae6;
+  padding: 20px;
+  margin: 0 0 20px 0; }
+  form fieldset#errors legend {
+    position: absolute;
+    background: transparent;
+    font-weight: bold; }
+  form fieldset#errors ul {
+    margin-top: 30px; }
+  form fieldset#errors li {
+    margin-bottom: 5px; }
+form fieldset.radio {
+  margin: 20px 0; }
+  form fieldset.radio legend {
+    font-weight: bold;
+    padding-bottom: 10px; }
+  form fieldset.radio label {
+    margin: 10px;
+    display: block;
+    clear: both;
+    line-height: 1.2em; }
+form label.errors, form span.errors {
+  color: #e84226; }
+form span.errors {
+  font-weight: normal; }
+form input.errors {
+  border-color: #f2d2cc !important; }
 
 /*will_paginate styling */
 .pagination {
@@ -54,8 +82,8 @@ fieldset.additional {
 
 /*warning messages - check HR commits for updates to this */
 p.status.error {
-  border: 1px solid red;
-  background: pink; }
+  border: 1px solid #f2d2cc;
+  background: #ffeae6; }
 
 #permalink #sidebar ul.review_status p.unknown {
   border: 1px solid #677682;

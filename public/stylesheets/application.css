@@ -2073,7 +2073,7 @@ body > #header {
     #content.session form label.checkbox {
       padding: 0 0 15px 0; }
 
-form.edit_user input[type="text"], form.edit_user input[type="password"] {
+#profile_edit input[type="text"], #profile_edit input[type="password"] {
   width: 248px;
   height: 22px;
   padding: 2px 5px;
@@ -2083,21 +2083,21 @@ form.edit_user input[type="text"], form.edit_user input[type="password"] {
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
   background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
-form.edit_user fieldset {
+#profile_edit fieldset {
   float: left;
   padding: 0 60px 40px 0; }
-  form.edit_user fieldset h3 {
+  #profile_edit fieldset h3 {
     padding: 0 0 30px 0;
     font-size: 1.5em;
     font-weight: normal; }
-  form.edit_user fieldset dt {
+  #profile_edit fieldset dt {
     font-size: 1.08em;
     font-weight: bold; }
-    form.edit_user fieldset dt p {
+    #profile_edit fieldset dt p {
       font-size: 0.9em;
       font-weight: normal;
       line-height: 150%; }
-  form.edit_user fieldset button {
+  #profile_edit fieldset button {
     padding: 7px 10px;
     overflow: visible;
     font: bold 1.08em Helvetica, Arial, sans-serif;
@@ -2112,44 +2112,46 @@ form.edit_user fieldset {
     background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white);
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1));
     cursor: pointer; }
-    form.edit_user fieldset button:hover {
+    #profile_edit fieldset button:hover {
       background-color: #e6eef4;
       filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#e6eef4);
       background-image: -moz-linear-gradient(100% 100% 90deg, #e6eef4, white);
       background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#e6eef4)); }
-    form.edit_user fieldset button:active {
+    #profile_edit fieldset button:active {
       background-color: #d7dde1;
       filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#d7dde1);
       background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white);
       background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1)); }
-  form.edit_user fieldset ul {
+  #profile_edit fieldset ul {
     overflow: hidden; }
-    form.edit_user fieldset ul li {
+    #profile_edit fieldset ul li {
       float: left;
       padding: 0 10px 5px 0;
       font-weight: bold; }
-  form.edit_user fieldset.photo img {
+  #profile_edit fieldset.photo img {
     display: block;
     margin: 0 0 15px 0;
     border: 1px solid #394651; }
-  form.edit_user fieldset.photo input[type="file"] {
+  #profile_edit fieldset.photo input[type="file"] {
     width: 200px; }
-  form.edit_user fieldset.profile {
+  #profile_edit fieldset.profile {
     width: 320px; }
-    form.edit_user fieldset.profile input[type="text"] {
+    #profile_edit fieldset.profile input[type="text"] {
       width: 308px; }
-    form.edit_user fieldset.profile textarea {
+    #profile_edit fieldset.profile textarea {
       width: 302px; }
-  form.edit_user fieldset.account {
+  #profile_edit fieldset.account {
+    float: none;
+    overflow: hidden;
     padding: 0; }
-  form.edit_user fieldset.actions {
+  #profile_edit fieldset.actions {
     clear: both;
     float: none;
     padding: 20px;
     border-top: 1px solid #cad3db; }
-    form.edit_user fieldset.actions input[type="submit"] {
+    #profile_edit fieldset.actions input[type="submit"] {
       padding: 7px 10px;
       margin: 0 10px 0 0;
       font-size: 1em; }
-    form.edit_user fieldset.actions a {
+    #profile_edit fieldset.actions a {
       font-weight: bold; }

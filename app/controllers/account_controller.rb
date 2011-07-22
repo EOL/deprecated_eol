@@ -1,10 +1,10 @@
 class AccountController < ApplicationController
 
-  layout 'v2/application'
-
-  before_filter :check_authentication, :except => [ :login, :register, :authenticate, :logout, :signup, :check_username,
-    :check_email, :confirmation_sent, :confirm, :forgot_password, :reset_specific_users_password, :reset_password ]
-  before_filter :go_to_home_page_if_logged_in, :only => [ :login, :register, :signup, :authenticate]
+#  layout 'v2/application'
+#
+#  before_filter :check_authentication, :except => [ :login, :register, :authenticate, :logout, :signup, :check_username,
+#    :check_email, :confirmation_sent, :confirm, :forgot_password, :reset_specific_users_password, :reset_password ]
+#  before_filter :go_to_home_page_if_logged_in, :only => [ :login, :register, :signup, :authenticate]
 
   # def login
   #     # Makes no sense to bounce them back to the login page in the rare case they clicked "login" twice:
@@ -134,118 +134,118 @@ class AccountController < ApplicationController
   #   end
   # end
 
-  def info
-    @user = User.find(current_user.id)
-    @user_info = @user.user_info
-    @user_info ||= UserInfo.new
-    unless request.post? # first time on page, get current settings
-      store_location(params[:return_to]) unless params[:return_to].nil?
-      current_user.log_activity(:updating_info)
-      return
-    end
-    it_worked = false
-    if @user.user_info
-      it_worked = @user.user_info.update_attributes(params[:user_info])
-    else
-      it_worked = @user.user_info = UserInfo.create(params[:user_info])
-    end
-    if it_worked
-      current_user.log_activity(:updated_info)
-      flash[:notice] = I18n.t(:your_information_has_been_updated_thank_you_for_contributing_to_eol)
-      redirect_back_or_default
-    end
-  end
+#  def info
+#    @user = User.find(current_user.id)
+#    @user_info = @user.user_info
+#    @user_info ||= UserInfo.new
+#    unless request.post? # first time on page, get current settings
+#      store_location(params[:return_to]) unless params[:return_to].nil?
+#      current_user.log_activity(:updating_info)
+#      return
+#    end
+#    it_worked = false
+#    if @user.user_info
+#      it_worked = @user.user_info.update_attributes(params[:user_info])
+#    else
+#      it_worked = @user.user_info = UserInfo.create(params[:user_info])
+#    end
+#    if it_worked
+#      current_user.log_activity(:updated_info)
+#      flash[:notice] = I18n.t(:your_information_has_been_updated_thank_you_for_contributing_to_eol)
+#      redirect_back_or_default
+#    end
+#  end
 
-  def profile
-    @page_header = I18n.t("account_settings")
-    @user = User.find(current_user.id)
-    if params[:user] && request.post?
-      unset_auto_managed_password
-      if params[:user][:entered_password] && params[:user][:entered_password_confirmation]
-        if !password_length_okay?
-          flash[:error] = I18n.t(:password_must_be_4to16_characters)
-          return
-        elsif params[:user][:entered_password] != params[:user][:entered_password_confirmation]
-          flash[:error] = I18n.t(:passwords_must_match)
-          return
-        end
-        alter_current_user do |user|
-          user.password = params[:user][:entered_password]
-        end
-      end
-      current_user.log_activity(:updated_profile)
-      alter_current_user do |user|
-        user.update_attributes(params[:user])
-      end
-      flash[:notice] =  I18n.t(:your_preferences_have_been_updated)
-      redirect_back_or_default
-    end
-    @user = User.find(current_user.id)
-  end
+#  def profile
+#    @page_header = I18n.t("account_settings")
+#    @user = User.find(current_user.id)
+#    if params[:user] && request.post?
+#      unset_auto_managed_password
+#      if params[:user][:entered_password] && params[:user][:entered_password_confirmation]
+#        if !password_length_okay?
+#          flash[:error] = I18n.t(:password_must_be_4to16_characters)
+#          return
+#        elsif params[:user][:entered_password] != params[:user][:entered_password_confirmation]
+#          flash[:error] = I18n.t(:passwords_must_match)
+#          return
+#        end
+#        alter_current_user do |user|
+#          user.password = params[:user][:entered_password]
+#        end
+#      end
+#      current_user.log_activity(:updated_profile)
+#      alter_current_user do |user|
+#        user.update_attributes(params[:user])
+#      end
+#      flash[:notice] =  I18n.t(:your_preferences_have_been_updated)
+#      redirect_back_or_default
+#    end
+#    @user = User.find(current_user.id)
+#  end
 
-  def personal_profile
-    @page_header = I18n.t("personal_profile_menu")
-    if params[:user] && request.post?
-      current_user.log_activity(:updated_profile)
-      alter_current_user do |user|
-        user.update_attributes(params[:user])
-        upload_logo(user) unless params[:user][:logo].blank?
-      end
-      flash[:notice] =  I18n.t(:your_preferences_have_been_updated)
-    end
-    @user = User.find(current_user.id)
-    render :layout => 'v2/users'
-  end
+#  def personal_profile
+#    @page_header = I18n.t("personal_profile_menu")
+#    if params[:user] && request.post?
+#      current_user.log_activity(:updated_profile)
+#      alter_current_user do |user|
+#        user.update_attributes(params[:user])
+#        upload_logo(user) unless params[:user][:logo].blank?
+#      end
+#      flash[:notice] =  I18n.t(:your_preferences_have_been_updated)
+#    end
+#    @user = User.find(current_user.id)
+#    render :layout => 'v2/users'
+#  end
 
-  def site_settings
-    @page_header = I18n.t("site_settings_menu")
-    @user = User.find(current_user.id)
-    if params[:generate_api_key]
-      @user = alter_current_user do |user|
-        user.update_attributes({ :api_key => User.generate_key })
-      end
-      params[:anchor] = "profile_api_key"
-      flash[:notice] =  I18n.t(:your_preferences_have_been_updated)
-    elsif params[:user] && request.post?
-      current_user.log_activity(:updated_profile)
-      @user = alter_current_user do |user|
-        user.update_attributes(params[:user])
-      end
-      flash[:notice] =  I18n.t(:your_preferences_have_been_updated)
-    end
-  end
+#  def site_settings
+#    @page_header = I18n.t("site_settings_menu")
+#    @user = User.find(current_user.id)
+#    if params[:generate_api_key]
+#      @user = alter_current_user do |user|
+#        user.update_attributes({ :api_key => User.generate_key })
+#      end
+#      params[:anchor] = "profile_api_key"
+#      flash[:notice] =  I18n.t(:your_preferences_have_been_updated)
+#    elsif params[:user] && request.post?
+#      current_user.log_activity(:updated_profile)
+#      @user = alter_current_user do |user|
+#        user.update_attributes(params[:user])
+#      end
+#      flash[:notice] =  I18n.t(:your_preferences_have_been_updated)
+#    end
+#  end
 
-  # AJAX call to check if name is unique from signup page
-  def check_username
-    username = params[:username] || ""
-    if User.unique_user?(username) || (logged_in? && current_user.username == username)
-      message = ""
-    else
-      message =  I18n.t(:username_taken , :name => username)
-    end
-    render :update do |page|
-      page.replace_html 'username_warn', message
-    end
-  end
-
-  # AJAX call to check if email is unique from signup page
-  def check_email
-    email = params[:email] || ""
-    if User.unique_email?(email) || (logged_in? && current_user.email == email)
-      message = ""
-    else
-      message =  I18n.t(:username_taken , :name => email)
-    end
-    render :update do |page|
-      page.replace_html 'email_warn', message
-    end
-  end
+#  # AJAX call to check if name is unique from signup page
+#  def check_username
+#    username = params[:username] || ""
+#    if User.unique_user?(username) || (logged_in? && current_user.username == username)
+#      message = ""
+#    else
+#      message =  I18n.t(:username_taken , :name => username)
+#    end
+#    render :update do |page|
+#      page.replace_html 'username_warn', message
+#    end
+#  end
+#
+#  # AJAX call to check if email is unique from signup page
+#  def check_email
+#    email = params[:email] || ""
+#    if User.unique_email?(email) || (logged_in? && current_user.email == email)
+#      message = ""
+#    else
+#      message =  I18n.t(:username_taken , :name => email)
+#    end
+#    render :update do |page|
+#      page.replace_html 'email_warn', message
+#    end
+#  end
 
 private
 #  def main_if_not_logged_in
 #    layout = current_user.username.nil? ? 'main' : 'user_profile'
 #  end
-# 
+#
 #   def password_length_okay?
 #     return !(params[:user][:entered_password].length < 4 || params[:user][:entered_password].length > 16)
 #   end
@@ -260,13 +260,13 @@ private
   #   redirect_to :action => "forgot_password", :protocol => "http"
   # end
 
-  # Change password parameters when they are set automatically by an autofil password management of a browser (known behavior of Firefox for example)
-  def unset_auto_managed_password
-    password = params[:user][:entered_password].strip
-    if params[:user][:entered_password_confirmation].blank? && !password.blank? && User.hash_password(password) == User.find(current_user.id).hashed_password
-      params[:user][:entered_password] = ''
-    end
-  end
+#  # Change password parameters when they are set automatically by an autofil password management of a browser (known behavior of Firefox for example)
+#  def unset_auto_managed_password
+#    password = params[:user][:entered_password].strip
+#    if params[:user][:entered_password_confirmation].blank? && !password.blank? && User.hash_password(password) == User.find(current_user.id).hashed_password
+#      params[:user][:entered_password] = ''
+#    end
+#  end
 
 #  def password_authentication(username, password, remember_me)
 #    success, message_or_user = User.authenticate(username, password)

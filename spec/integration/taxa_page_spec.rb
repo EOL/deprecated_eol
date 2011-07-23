@@ -124,13 +124,13 @@ describe 'Taxa page' do
     it 'should list the classifications that recognise the taxon' do
       visit logout_url
       visit taxon_names_path(@testy[:taxon_concept])
-      body.should have_tag('.article h3', /recognized by the following classifications/i)
+      body.should have_tag('.article h3', /recognized by/i)
       body.should have_tag('.article ul li img[alt=?]', /catalogue of life/i)
       visit common_names_taxon_names_path(@testy[:taxon_concept])
-      body.should have_tag('.article h3', /recognized by the following classifications/i)
+      body.should have_tag('.article h3', /recognized by/i)
       body.should have_tag('.article ul li img[alt=?]', /catalogue of life/i)
       visit synonyms_taxon_names_path(@testy[:taxon_concept])
-      body.should have_tag('.article h3', /recognized by the following classifications/i)
+      body.should have_tag('.article h3', /recognized by/i)
       body.should have_tag('.article ul li img[alt=?]', /catalogue of life/i)
     end
 

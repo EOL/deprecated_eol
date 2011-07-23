@@ -96,6 +96,11 @@ describe UsersController do
 
   describe 'GET verify' do
     it 'should verify user or return error'
+    it 'should send activated account notification' do
+      inactive_user = User.gen(:active => false, :validation_code => User.generate_key)
+      Notifier.should_receive(:deliver_account_activated).with(inactive_user).and_return(true)
+      get :verify, { :username => inactive_user.username, :validation_code => inactive_user.validation_code }
+    end
   end
 
   describe 'GET pending' do

@@ -15,10 +15,10 @@ module EOL
         end
         visit logout_path
         visit login_path
-        fill_in "user_username", :with => options[:username]
-        fill_in "user_password", :with => options[:password]
+        fill_in "session_username_or_email", :with => options[:username]
+        fill_in "session_password", :with => options[:password]
         check("remember_me") if options[:remember_me] && options[:remember_me].to_i != 0
-        click_button "Login Now »"
+        click_button "Sign in"
         page
       end
 

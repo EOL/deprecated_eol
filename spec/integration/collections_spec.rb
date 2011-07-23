@@ -4,9 +4,9 @@ def it_should_collect_item(collectable_item_path, collectable_item)
   visit collectable_item_path
   click_button 'Add to my collection'
   if current_url.match /#{login_url}/
-    page.fill_in 'user_username', :with => @anon_user.username
-    page.fill_in 'user_password', :with => 'password'
-    click_button 'Login Now »'
+    page.fill_in 'session_username_or_email', :with => @anon_user.username
+    page.fill_in 'session_password', :with => 'password'
+    click_button 'Sign in'
     current_url.should match /#{collectable_item_path}/
     body.should include('added to collection')
     @anon_user.watch_collection.items.map {|li| li.object }.include?(collectable_item).should be_true
@@ -39,7 +39,7 @@ describe "Collections and collecting:" do
     builder.begin_rebuild
   end
 
-  shared_examples_for 'collections and collecting all users' do
+  shared_examples_for 'collections all users' do
     it 'should be able to view a collection and its items' do
       visit collection_path(@collection)
       body.should have_tag('h1', /#{@collection.name}/)
@@ -50,7 +50,9 @@ describe "Collections and collecting:" do
       visit collection_path(@collection)
       body.should have_tag('#sort_by')
     end
+  end
 
+  shared_examples_for 'collecting all users' do
     describe "should be able to collect" do
       it 'taxa' do
         it_should_collect_item(taxon_overview_path(@taxon), @taxon)
@@ -78,7 +80,8 @@ describe "Collections and collecting:" do
 
   # Make sure you are logged in prior to calling this shared example group
   shared_examples_for 'collections and collecting logged in user' do
-    it_should_behave_like 'collections and collecting all users'
+    it_should_behave_like 'collections all users'
+    it_should_behave_like 'collecting all users'
 
     it 'should be able to select all collection items on the page' do
       visit collection_path(@collection)
@@ -107,7 +110,8 @@ describe "Collections and collecting:" do
   describe 'anonymous users' do
     before(:all) { visit logout_url }
     subject { body }
-    it_should_behave_like 'collections and collecting all users'
+    it_should_behave_like 'collections all users'
+    # it_should_behave_like 'collecting all users'
     it 'should not be able to select collection items' do
       visit collection_path(@collection)
       should_not have_tag("input#collection_item_#{@collection.collection_items.first.id}")
@@ -136,7 +140,8 @@ describe "Collections and collecting:" do
       login_as @user
     }
     after(:all) { @user = nil }
-    it_should_behave_like 'collections and collecting logged in user'
+    it_should_behave_like 'collections all users'
+    it_should_behave_like 'collecting all users'
     it 'should not be able to move collection items' do
       visit collection_path(@collection)
       should_not have_tag("input#collection_item_#{@collection.collection_items.first.id}")
@@ -155,7 +160,8 @@ describe "Collections and collecting:" do
       login_as @user
     }
     after(:all) { @user = nil }
-    it_should_behave_like 'collections and collecting logged in user'
+    it_should_behave_like 'collections all users'
+    it_should_behave_like 'collecting all users'
     it 'should be able to move collection items'
     it 'should be able to remove collection items'
     it 'should be able to edit ordinary collection and nested collection item attributes' do

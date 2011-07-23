@@ -28,8 +28,8 @@ describe SessionsController do
       it 'should log the user in and redirect to user\'s show' do
         password = 'password'
         user = User.gen(:password => password)
-        post :create, :session => { :username_or_email => User.email, :password => password }
-        flash[:notice].should == 'Login successful'
+        post :create, :session => { :username_or_email => user.email, :password => password }
+        flash[:notice].should =~ /login successful/i
         response.should redirect_to(user_path(user))
       end
     end

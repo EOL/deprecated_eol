@@ -41,15 +41,17 @@ en:
       user:
         agreed_with_terms: "I agree to the <a href=\"%{terms_url}\">terms of use</a>"
         api_key_more: "Read more about <a href=\"%{api_docs_url}\">adding a key to your API calls</a>."
-        email_reports_frequency_hours: "How often would you like to receive email alerts about comments or curator actions on your contributions?"
+        bio: "About me"
+        email_reports_frequency_hours: "How often would you like to receive email alerts about activity on your contributions?"
         entered_password: "Password (4 - 16 characters)"
-        generate_api_key: "Request an API key"
+        generate_api_key: "Requesting an API key"
         generate_api_key_more: "If you are interested in using the EOL API you can generate an API key to identify your application. Read more about <a href=\"%{api_docs_url}\">adding a key to your API calls</a>."
         logo: "Upload a new photo"
         mailing_list: "I want to receive email newsletter updates?"
         mailing_list_yes: "Yes"
         new_password: "New password (4 - 16 characters)"
         new_password_confirmation: "New password (to confirm)"
+        tag_line: 'Tagline or title <small>example: "Bird enthusiast"</small>'
         username: "Username (4 - 32 characters)"
         username_or_email: "Username or email address"
   0_or_1: "0 or 1"
@@ -2349,7 +2351,6 @@ en:
   use_the_form_below_to_enter_in_: "Use the form below to enter in tag suggestions. Categories entered here will be shown to users in the tag \"category\" drop down menu, and suggested values will be shown to users if they select the corresponding category and begin typing a few letters."
   users_about_me_header: "About me"
   users_form_account_header: "Your account"
-  users_form_photo_header: "Your photo"
   users_form_profile_info_header: "Public profile information"
   users_member_of_count_communities:
     one: "Member of %{count} community"

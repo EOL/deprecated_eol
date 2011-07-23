@@ -221,7 +221,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   def activate
     self.update_attributes(:active => true, :validation_code => nil)
-    Notifier.deliver_welcome_registration(self)
     build_watch_collection
   end
 

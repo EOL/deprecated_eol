@@ -22,8 +22,8 @@ class UsersController < ApplicationController
   # PUT /users/:id
   def update
     # @user instantiated by authentication before filter and matched to current user
-    unset_auto_managed_password
     generate_api_key and return if params[:commit_generate_api_key]
+    unset_auto_managed_password
     if @user.update_attributes(params[:user])
       # not using alter_current_user because it doesn't allow for validation checks
       # and we probably don't want to update current_user with invalid attributes

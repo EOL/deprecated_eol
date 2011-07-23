@@ -1,14 +1,6 @@
 #profile_edit
   - form_for @user, :builder => ApplicationHelper::EolFormBuilder, :html => { :multipart => true } do |user_form|
     = validation_errors_for(@user)
-    %fieldset.photo
-      %h3= I18n.t(:users_form_photo_header)
-      = image_tag @user.logo_url, :alt => ""
-      %dl
-        %dt
-          = user_form.label :logo
-        %dd
-          = user_form.file_field :logo
     %fieldset.profile
       %h3= I18n.t(:users_form_profile_info_header)
       %dl
@@ -29,13 +21,24 @@
         %dd
           = user_form.text_field :tag_line
         %dt
+          = user_form.label :logo
+        %dd
+          = user_form.file_field :logo
+        %dt
           = user_form.label :bio
         %dd
           = user_form.text_area :bio
-
     %fieldset.account
       %h3= I18n.t(:users_form_account_header)
       %dl
+        %dt
+          = user_form.label :language_abbr
+        %dd
+          = user_form.select :language_abbr, Language.find_active.collect {|l| [l.source_form, l.iso_639_1]}
+        %dt
+          = user_form.label :email
+        %dd
+          = user_form.text_field :email, { :maxlength => 100 }
         %dt
           = user_form.label :entered_password, I18n.t('helpers.label.user.new_password')
         %dd
@@ -44,10 +47,7 @@
           = user_form.label :entered_password_confirmation, I18n.t('helpers.label.user.new_password_confirmation')
         %dd
           = user_form.password_field :entered_password_confirmation, { :maxlength => 16 }
-        %dt
-          = user_form.label :email
-        %dd
-          = user_form.text_field :email, { :maxlength => 100 }
+      %dl.notifications
         %dt
           = I18n.t('helpers.label.user.mailing_list')
         %dd
@@ -59,10 +59,8 @@
         %dd
           - select_options = [['Never', 0] , ['Daily', 1*24], ['Weekly', 7*24], ['Monthly', 30*24]]
           = user_form.select :email_reports_frequency_hours, select_options
-        %dt
-          = user_form.label :language_abbr
-        %dd
-          = user_form.select :language_abbr, Language.find_active.collect {|l| [l.source_form, l.iso_639_1]}
+    %fieldset.api-request
+      %dl
         - if @user.api_key
           %dt
             = I18n.t('activerecord.attributes.user.api_key')

@@ -27,6 +27,9 @@ form fieldset#errors {
   form fieldset#errors ul {
     margin-top: 30px; }
   form fieldset#errors li {
+    font-weight: normal;
+    display: block;
+    float: none;
     margin-bottom: 5px; }
 form fieldset.radio {
   margin: 20px 0; }

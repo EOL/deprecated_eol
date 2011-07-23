@@ -15,9 +15,12 @@
         :inner_window => 2, :outer_window => 2
     %ul.media
       - @media.each_with_index do |item, index|
-        %li{:class => index.modulo(4) == 0 ? 'first' : nil}
+        - en_type = en_type(item)
+        %li{:class => "#{index.modulo(4) == 0 ? 'first' : nil} #{vetted_id_class(item.vetted_id)}"}
           .figure
-            = render :partial => "taxa/media_thumbnail", :locals => {:item => item}
+            %a{ :data => { :data_object_id => item.id }, :class => vetted_id_class(item.vetted_id), :href => data_object_path(item) }
+              = render :partial => "data_objects/data_object_#{en_type}",
+                :locals => { :data_object => item, :thumbnail => true, :size => '260_190' }
             - if item.data_type.id == DataType.image.id && current_user.is_curator?
               .overlay
               - form_for :taxon_concept_exemplar_image, :url => set_as_exemplar_taxon_media_path(@taxon_concept),

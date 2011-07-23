@@ -142,9 +142,15 @@ p.status.error
             bottom: 0
             width: 160px
             z-index: 1
-      p.flag.unknown /*should match unreviewed*/
-        border: 1px solid #677682
-        background: #8695A1
+      p
+        &.flag
+          &.unknown /*should match unreviewed*/
+            border: 1px solid #677682
+            background: #8695A1
+          &.untrusted
+            border: 1px solid #f2d2cc
+            background: #ffeae6
+            color: #677682
       >a
         display: inline-block
         width: 160px

@@ -117,6 +117,20 @@ module ApplicationHelper
       'person'
     end
   end
+
+  # Used in V2 to provide semi-useful alternative text for data object image representations
+  # TODO: These alt/title attributes are fairly useless in terms of accessibility.
+  # We can include the item description but its not always going to make sense or be short enough
+  # ideally we need a short description provided by the content partner, describing what is in the item.
+  def alternative_text(data_object, en_type, taxon_name = nil)
+    taxon_name = taxon_name.blank? ? I18n.t(:a_taxon) : Sanitize.clean(taxon_name)
+    alt = data_object.object_title || nil
+    alt = data_object.description_teaser if alt.blank?
+    alt = I18n.t("#{en_type}_alt_text", :vetted_status => data_object.vetted.label,
+                 :taxon_name => taxon_name) if alt.blank?
+    alt = Sanitize.clean(alt)
+  end
+
   # A little onclick magic to make Ajaxy-links work before the page is fully loaded.  JS in the application.js file will
   # handle all the rest after the page is fully loaded (because of the class added to the link).
   # Use it like this:

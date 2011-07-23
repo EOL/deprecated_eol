@@ -126,6 +126,10 @@ p.status.error {
 #media_list #main > ul > li p.flag.unknown {
   border: 1px solid #677682;
   background: #8695a1; }
+#media_list #main > ul > li p.flag.untrusted {
+  border: 1px solid #f2d2cc;
+  background: #ffeae6;
+  color: #677682; }
 #media_list #main > ul > li > a {
   display: inline-block;
   width: 160px;

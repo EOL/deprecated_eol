@@ -7,7 +7,7 @@
   %div{:class => @data_object.is_text? ? 'article copy' : 'media'}
     - if @data_object.is_text? && ! @data_object.object_title.blank?
       %h2= @data_object.object_title
-    = render :partial => "data_objects/data_object_#{en_type}"
+    = render :partial => "data_objects/data_object_#{en_type}", :locals => { :size => '580_360' }
   - if @data_object.is_image?
     %ul.sizes
       - image_sizes = { :small => @data_object.smart_thumb, :medium => @data_object.smart_medium_thumb, :large => @data_object.smart_image, :original => @data_object.thumb_or_object(:orig) }

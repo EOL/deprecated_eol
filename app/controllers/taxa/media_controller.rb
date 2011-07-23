@@ -54,7 +54,6 @@ class Taxa::MediaController < TaxaController
   end
 
   def set_as_exemplar
-    debugger
     taxon_concept_id = params[:taxon_id] || params[:taxon_concept_exemplar_image][:taxon_concept_id]
     data_object_id = params[:taxon_concept_exemplar_image][:data_object_id]
     unless taxon_concept_id.blank? || data_object_id.blank?

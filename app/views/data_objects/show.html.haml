@@ -3,8 +3,7 @@
 
 - en_type ||= en_type(@data_object)
 #permalink{:class => en_type}
-  .ratings
-    = render :partial => 'rating', :locals => { :data_object => @data_object, :en_type => en_type }
+  = render :partial => 'rating', :locals => { :data_object => @data_object, :en_type => en_type }
   %div{:class => @data_object.is_text? ? 'article copy' : 'media'}
     - if @data_object.is_text? && ! @data_object.object_title.blank?
       %h2= @data_object.object_title

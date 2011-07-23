@@ -1,12 +1,7 @@
 $(function() {
-  $("#media_list form.taxon_concept_exemplar_image").each(function() {
-    var $form = $(this)
-    $form.find('label').click(function() {
-      $(this).find('input[type="radio"]').attr('checked', true);
-      $form.submit();
-    });
-    $form.find('input[type="radio"]').click(function() {
-      $form.submit();
+  $('#media_list form.taxon_concept_exemplar_image').each(function() {
+    $(this).find(":submit").hide().end().find('label, input[type="radio"]').accessibleClick(function() {
+      $(this).addClass('busy').parent().find('input[type="radio"]').attr('checked', true).closest('form').submit();
     });
   });
 });

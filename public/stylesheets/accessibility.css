@@ -13,6 +13,10 @@
  * so I am temporarily adding some CSS here needed for V2 demo. This CSS should be integrated
  * into HashRocket SASS if it is still needed when design work is complete.
  */
+/*Busy indicator for JS submitted forms e.g. exemplar image */
+.busy {
+  cursor: wait; }
+
 /*Styles for forms and form validation errors */
 form fieldset#errors {
   width: 100%;
@@ -92,7 +96,11 @@ p.status.error {
   border: 1px solid #677682;
   background: #8695a1; }
 
-/*Special styles for layering audio description on top of audio thumbnail */
+/*Special styles for layering audio description on top of audio thumbnail and adjustments for when missing exemplar */
+#media_list #sidebar.filters img {
+  margin-bottom: 0; }
+#media_list #sidebar.filters h3 {
+  margin-top: 20px; }
 #media_list #main > ul > li .figure {
   width: 160px;
   height: 125px;

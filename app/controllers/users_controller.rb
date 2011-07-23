@@ -54,11 +54,13 @@ class UsersController < ApplicationController
     @user.remote_ip = request.remote_ip
     if @user.save
       @user.clear_entered_password
-#      begin # TODO: Figure out whether we still need an agent to be created for a user - note full_name doesn't exist
-#        @user.update_attribute :agent_id, Agent.create_agent_from_user(@user.full_name).id # V2 users only required to add username on signup
-#      rescue ActiveRecord::StatementInvalid
-#        # Interestingly, we are getting users who already have agents attached to them.  I'm not sure why, but it's causing registration to fail (or seem to; the user is created), and this is bad.
-#      end
+      begin
+        # FIXME: Figure out whether we still need an agent to be created for a user in V2
+        # If we do note that user does not have full_name on creation.
+        @user.update_attribute :agent_id, Agent.create_agent_from_user(@user.full_name).id
+      rescue ActiveRecord::StatementInvalid
+        # Interestingly, we are getting users who already have agents attached to them.  I'm not sure why, but it's causing registration to fail (or seem to; the user is created), and this is bad.
+      end
       send_verification_email
       redirect_to pending_user_path(@user)
     else

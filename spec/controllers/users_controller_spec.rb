@@ -11,6 +11,7 @@ describe UsersController do
   before(:all) do
     truncate_all_tables
     Language.create_english
+    SpecialCollection.gen(:name => 'Watch')
     @user = User.gen
   end
 
@@ -98,7 +99,7 @@ describe UsersController do
     it 'should verify user or return error'
     it 'should send activated account notification' do
       inactive_user = User.gen(:active => false, :validation_code => User.generate_key)
-      Notifier.should_receive(:deliver_account_activated).with(inactive_user).and_return(true)
+      Notifier.should_receive(:deliver_account_activated).once.with(inactive_user)
       get :verify, { :username => inactive_user.username, :validation_code => inactive_user.validation_code }
     end
   end

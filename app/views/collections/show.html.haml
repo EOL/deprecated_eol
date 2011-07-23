@@ -25,11 +25,12 @@
           %fieldset.actions
             = select_tag :scope, options_for_select(@collection_item_scopes.map {|scope| [I18n.t(scope), scope]})
             - if editable
-              = submit_tag I18n.t(:move)
-              = submit_tag I18n.t(:copy)
-              = submit_tag I18n.t(:remove)
+              -# NOTE - we use name because we don't want to handle the I18n of the button.
+              = submit_tag I18n.t(:move),   :name => 'commit_move'
+              = submit_tag I18n.t(:copy),   :name => 'commit_copy'
+              = submit_tag I18n.t(:remove), :name => 'commit_remove'
             - else
-              = submit_tag I18n.t(:collect)
+              = submit_tag I18n.t(:collect), :name => 'commit_collect'
       .collection_contributors
         = render :partial => 'collections/managed_by', :locals => { :collection => @collection }
       - if @collection.collection_endorsements.count > 0
@@ -42,7 +43,7 @@
             = label_tag :sort_by, I18n.t(:sort_by_label)
             = select_tag :sort_by, options_for_select(@sort_options.map {|so| [so.name, so.id]}, @sort_by.id)
           %fieldset.actions
-            = submit_tag I18n.t(:sort_by_button), :name => :commit_sort
+            = submit_tag I18n.t(:sort_by_button), :name => 'commit_sort'
         = will_paginate @collection_results, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next), :inner_window => 2, :outer_window => 2
         %ul.object_list
           - @collection_items.each do |item|

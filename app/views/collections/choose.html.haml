@@ -1,25 +1,18 @@
-#page_heading.with_image
-  .site_column
-    = image_tag @collection.logo_url, :alt => ''
-    .hgroup
-      = render :partial => 'show_name', :locals => { :editable => false }
-      = render :partial => 'show_description', :locals => { :editable => false }
-  = render :partial => 'shared/flash_messages'
-#content
-  .site_column
-    #collections.main_container
+#collections.main_container
+  %h2= I18n.t(:choose_a_destination_collection)
+  %ul.object_list
+    %li
       = render :partial => 'collections/new'
-      %ul.object_list
-        - @collections.each do |collection|
-          - next if collection.id == @collection.id
-          %li
-            = image_tag collection.logo_url, :alt => ''
-            - form_for collection do |collection_form|
-              = hidden_field_tag "#{@action_to_take}", true
-              - if @all
-                = hidden_field_tag "all_items_from_collection_id", @all
-              - else
-                - @selected_collection_items.each do |collection_item_id|
-                  = hidden_field_tag "collection_items[]", collection_item_id, :id => "collection_item_#{collection_item_id}"
-              = submit_tag collection.name, :name => :commit_chosen_collection
-            = I18n.t(:items_with_count, :count => collection.collection_items.count)
+    - @collections.each do |collection|
+      - next if collection.id == @collection.id
+      %li
+        = image_tag collection.logo_url, :alt => ''
+        - form_for(collection, { :url => { :action => 'chosen' } }) do |f|
+          = f.hidden_field :id
+          = hidden_field_tag :scope, @scope
+          - @selected_collection_items.each do |collection_item_id|
+            = hidden_field_tag "collection_items[]", collection_item_id, :id => "collection_item_#{collection_item_id}"
+          %h3= collection.name
+          = I18n.t(:items_with_count, :count => collection.collection_items.count)
+          %fieldset.actions
+            = submit_tag I18n.t(:choose)

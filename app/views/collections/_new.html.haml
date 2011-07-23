@@ -5,7 +5,11 @@
     - @selected_collection_items.each do |collection_item_id|
       = hidden_field_tag "collection_items[]", collection_item_id, :id => "collection_item_#{collection_item_id}"
   %fieldset
-    = collection_form.label :name, I18n.t(:collection_name_label), {:class => 'assistive'}
-    = collection_form.text_field :name
+    %dl
+      %dt
+        = collection_form.label :name, I18n.t(:create_a_collection_label)
+        = collection_form.label :name, I18n.t(:collection_name_label), {:class => 'assistive'}
+      %dd
+        = collection_form.text_field :name
   %fieldset.actions
     = submit_tag I18n.t(:create_collection_button)

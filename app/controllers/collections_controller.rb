@@ -14,10 +14,9 @@ class CollectionsController < ApplicationController
   layout 'v2/collections'
 
   def show
-    return copy if params[:commit_copy_collection_items]
-    return move if params[:commit_move_collection_items]
-    return remove if params[:commit_remove_collection_items]
-    return chosen if params[:commit_chosen_collection]
+    # NOTE - we use these names because we don't want to handle the I18n of the commit option.
+    return redirect_to_choose if params[:commit_copy] || params[:commit_move] || params[:commit_remove]
+    return collect if params[:commit_collect]
     types = CollectionItem.types
     @collection_item_scopes  = [:selected_items, :all_items] + types.keys.map {|k| "all_#{types[k][:i18n_key]}"}
   end
@@ -93,12 +92,10 @@ class CollectionsController < ApplicationController
 
   # /collections/choose GET
   def choose
-    @action_to_take = :copy if params[:for] == 'copy'
-    @action_to_take = :move if params[:for] == 'move'
-    @all = params[:all_items_from_collection_id]
+    @site_column_id = 'collections_choose'
     @selected_collection_items = params[:collection_items]
-    params[:collection_items] = nil
-    @collections = current_user.collections # TODO: does this include community collections of which user is member?
+    @scope = params[:scope]
+    @collections = current_user.all_collections
     @page_title = I18n.t(:choose_collection_header)
   end
 
@@ -132,9 +129,8 @@ private
   # When we bounce around, not all params are required; this is the list to remove:
   # NOTE - to use this as an parameter, you need to de-reference the array with a splat (*).
   def unnecessary_keys_for_redirect
-    [:_method, :commit_sort, :commit_select_all, :commit_copy_collection_items, :commit, :collection,
-     :commit_move_collection_items, :commit_remove_collection_items, :commit_edit_collection,
-     :commit_chosen_collection]
+    [:_method, :commit_sort, :commit_select_all, :commit_copy, :commit, :collection,
+     :commit_move, :commit_remove, :commit_edit_collection, :commit_collect]
   end
 
   def no_items_selected_error(which)
@@ -142,27 +138,14 @@ private
     return redirect_to params.merge(:action => 'show').except(*unnecessary_keys_for_redirect)
   end
 
-  def copy(all = false)
-    if all
-      params[:all_items_from_collection_id] = @collection.id
-    else
+  def redirect_to_choose
+    if params[:scope] == 'selected_items'
       return no_items_selected_error(:copy) if params[:collection_items].nil? or params[:collection_items].empty?
     end
-    return redirect_to params.merge(:action => 'choose', :for => 'copy').except(
-      :filter, :sort_by, *unnecessary_keys_for_redirect)
+    return redirect_to params.merge(:action => 'choose').except(*unnecessary_keys_for_redirect)
   end
 
-  def move(all = false)
-    if all
-      params[:all_items_from_collection_id] = @collection.id
-    else
-      return no_items_selected_error(:move) if params[:collection_items].nil? or params[:collection_items].empty?
-    end
-    return redirect_to params.merge(:action => 'choose', :for => 'move').except(:filter, :sort_by,
-                                                                                *unnecessary_keys_for_redirect)
-  end
-
-  def remove(all = false)
+  def remove
     if all
       count = remove_items_from_collection(@collection.collection_items)
     else
@@ -176,6 +159,7 @@ private
   end
 
   def chosen
+    debugger
     if params[:copy] || params[:move]
       items = if params[:all_items_from_collection_id]
                 CollectionItem.find_all_by_collection_id(params[:all_items_from_collection_id])

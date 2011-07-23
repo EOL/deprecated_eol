@@ -325,6 +325,8 @@ en:
   characteristics: "Characteristics"
   children_colon: "Children:"
   chinese: "Chinese"
+  choose: Choose
+  choose_a_destination_collection: "Choose a destination collection"
   choose_collection_header: "Choose collection"
   choose_which_language_you_woul: "Choose which language you would like to view the site in, the currently selected language is %{var_i18n_locale}"
   city__: "City:"
@@ -546,6 +548,7 @@ en:
     one: "%{count} result for <em>%{search_term}</em>"
     other: "%{count} results for <em>%{search_term}</em>"
   create_account: "create an account"
+  create_a_collection_label: "Create a new collection"
   create_a_community: "Create a community"
   create_a_community_login_advisory: "You will be asked to login before creating your community"
   create_a_license_agreement__an: "create a license agreement, and confirm that your data are configured so that they can be easily acquired by EOL."

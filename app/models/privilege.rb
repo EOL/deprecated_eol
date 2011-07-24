@@ -15,6 +15,7 @@ class Privilege < ActiveRecord::Base
   has_and_belongs_to_many :roles
 
   def self.create_defaults
+    Privilege.reset_cached_instances
     # These are for communities:
     create_all_for_type({
       'Delete Community' => 20,           # admins only

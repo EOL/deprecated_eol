@@ -94,9 +94,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   # used in names tab:
   # when user updates a common name - preferred radio button
-  #map.connect 'pages/:id/names/common_names/update', :controller => 'taxa', :action => 'update_common_names'
-  # when user adds a common name
-  #map.connect 'pages/:taxon_concept_id/names/common_names/add', :controller => 'taxa', :action => 'add_common_name'
+  map.connect 'pages/:id/names/common_names/update', :controller => 'taxa', :action => 'update_common_names'
   map.bhl_title 'pages/:id/literature/bhl_title/:title_item_id', :controller => 'taxa/literature', :action => 'bhl_title'
 
 

@@ -32,7 +32,7 @@ class Taxa::NamesController < TaxaController
 
   # PUT /pages/:taxon_id/names currently only used to update common_names
   def update
-
+    # TODO:
   end
 
 

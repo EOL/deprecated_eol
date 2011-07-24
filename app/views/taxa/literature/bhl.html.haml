@@ -1,7 +1,14 @@
 #content
-  .site_column
+  #taxon_literature.site_column
     = render :partial => 'literature_menu'
-    #taxon_names.main_container
+    .main_container
+      .bhl_description.copy
+        = image_tag '/images/bhl_logo.gif', :alt => I18n.t(:biodiversity_heritage_library)
+        %p= I18n.t(:literature_bhl_information)
+        %br/
+        = link_to I18n.t(:literature_bhl_link), "http://www.biodiversitylibrary.org"
+      .heading
+        - # sort form goes here
       - if @bhl_results && @bhl_results[:total] > 0
         = will_paginate @bhl_results[:results], :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
           :inner_window => 2, :outer_window => 2
@@ -12,16 +19,18 @@
               %th= link_to(I18n.t(:year), bhl_taxon_literature_path(@taxon_concept, :sort => (@sort == 'year') ? 'year_desc' : 'year'))
               %th= I18n.t(:details_capital)
               %th= I18n.t(:pages__)
-          - @bhl_results[:results].each do |r|
-            %tr
-              %td
-                = link_to([r['publication_title'], r['volume_info']].join(' ; '), bhl_title_path(@taxon_concept, r['title_item_id']))
-              %td
-                = r['year']
-              %td
-                = r['details']
-              %td.nowrap
-                = link_to(I18n.t(:pages_with_count, :count => r['numFound']), bhl_title_path(@taxon_concept, r['title_item_id']))
+          %tbody
+            - @bhl_results[:results].each do |r|
+              %tr
+                %td
+                  = link_to([r['publication_title'], r['volume_info']].join(' ; '), bhl_title_path(@taxon_concept, r['title_item_id']))
+                %td
+                  = r['year']
+                %td
+                  = r['details']
+                %td.nowrap
+                  = link_to(I18n.t(:pages_with_count, :count => r['numFound']), bhl_title_path(@taxon_concept, r['title_item_id']))
         = will_paginate @bhl_results[:results], :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
           :inner_window => 2, :outer_window => 2
-      
+      - else
+        %p= I18n.t(:literature_empty)

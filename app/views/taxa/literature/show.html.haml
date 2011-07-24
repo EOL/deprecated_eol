@@ -1,13 +1,11 @@
 #content
-  .site_column
+  #taxon_literature.site_column
     = render :partial => 'literature_menu'
-    #taxon_names.main_container
-      - unless @references.blank?
-        %table.standard
-          %thead
-            %tr
-              %th= I18n.t(:references)
+    .main_container.copy
+      %h2= I18n.t(:literature_header)
+      - if @references.blank?
+        %p= I18n.t(:literature_empty)
+      - else
+        %ul
           - @references.each do |r|
-            %tr
-              %td
-                = r.full_reference
+            %li= r.full_reference

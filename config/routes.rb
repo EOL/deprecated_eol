@@ -68,47 +68,31 @@ ActionController::Routing::Routes.draw do |map|
   map.login '/login', :controller => 'sessions', :action => 'new'
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
 
-
-
-#  map.reset_specific_users_password 'account/reset_specific_users_password',
-#                                    :controller => 'account',
-#                                    :action => 'reset_specific_users_password'
-  # TODO - I don't like this.  Why don't we just use restful routes here with the 'users' above?
-  # WIP - I have created a users conrtroller.  These should move there.
-#  map.with_options(:controller => 'account') do |account|
-#    account.login     'login',     :action => 'login'
-#    account.logout    'logout',    :action => 'logout'
-#    account.register  'register',  :action => 'signup'
-#    account.profile   'profile',   :action => 'profile'
-#    account.user_info 'user_info', :action => 'info'
-#  end
-
-
   # Taxa nested resources with pages as alias
   map.resources :taxa, :as => :pages do |taxa|
     taxa.resources :hierarchy_entries, :as => :entries, :only => [:show] do |entries|
       entries.resource :overview, :only => [:show], :controller => "taxa/overviews"
       entries.resources :media, :only => [:index], :controller => "taxa/media"
       entries.resources :details, :only => [:index], :controller => "taxa/details"
-      entries.resource :names, :only => [:show], :controller => "taxa/names",
-                               :member => { :common_names => :get, :synonyms => :get }
+      entries.resources :names, :only => [:index, :create, :update], :controller => "taxa/names",
+                               :collection => { :common_names => :get, :synonyms => :get }
       entries.resource :maps, :only => [:show], :controller => "taxa/maps"
     end
     taxa.resource :overview, :only => [:show], :controller => "taxa/overviews"
     taxa.resources :media, :only => [:index], :controller => "taxa/media",
                            :collection => { :set_as_exemplar => [:get, :post] }
     taxa.resources :details, :only => [:index], :controller => "taxa/details"
-    taxa.resource :names, :only => [:show], :controller => "taxa/names",
-                          :member => { :common_names => :get, :synonyms => :get }
+    taxa.resources :names, :only => [:index, :create, :update], :controller => "taxa/names",
+                          :collection => { :common_names => :get, :synonyms => :get }
     taxa.resource :maps, :only => [:show], :controller => "taxa/maps"
     taxa.resources :collections, :only => [:index], :controller => 'collections'
     taxa.resources :communities, :only => [:index], :controller => 'communities'
   end
   # used in names tab:
   # when user updates a common name - preferred radio button
-  map.connect 'pages/:id/names/common_names/update', :controller => 'taxa', :action => 'update_common_names'
+  #map.connect 'pages/:id/names/common_names/update', :controller => 'taxa', :action => 'update_common_names'
   # when user adds a common name
-  map.connect 'pages/:taxon_concept_id/names/common_names/add', :controller => 'taxa', :action => 'add_common_name'
+  #map.connect 'pages/:taxon_concept_id/names/common_names/add', :controller => 'taxa', :action => 'add_common_name'
 
 
 

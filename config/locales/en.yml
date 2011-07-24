@@ -3,6 +3,8 @@ en:
     models:
       user: "account"
     attributes:
+      name:
+        string: "Name"
       user:
         agreed_with_terms: "Terms of use agreement"
         api_key: "API key"
@@ -26,6 +28,9 @@ en:
     submit:
       create: "Create %{model}"
       update: "Update %{model}"
+      name:
+        create: "Add name"
+        update: "Update name"
       session:
         create: "Sign in"
       user:
@@ -1105,7 +1110,7 @@ en:
   in_providing_its_content_to_eo: "In providing its content to EOL,"
   in_providing_its_content_to_eo_: "In providing its content to EOL, %{var__agent_project_name} will:"
   instructions: "Instructions"
-  insufficient_privileges_to_add_common_name: "You do not have privileges to add a common name to this taxon"
+  insufficient_privileges_to_curate_names: "Sorry, you do not have sufficient privileges to curate names."
   internal_ip_address: "internal IP address"
   introduction: "Introduction"
   invalid_url__sorry__perhaps_yo: "Invalid URL, sorry. Perhaps you want to see the %{link} list of resources?"

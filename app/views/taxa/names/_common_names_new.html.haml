@@ -1,14 +1,17 @@
-- form_tag "/pages/#{@taxon_concept.id}/names/common_names/add", :method => :post, :id => 'add_common_name' do
-  = hidden_field_tag "hierarchy_entry_id", @dropdown_hierarchy_entry_id
+- form_for Name.new, :url => taxon_names_path(@taxon_concept) do |f|
   %fieldset
-    %legend=I18n.t(:add_a_new_common_name)
-    = label_tag :name_name_string, I18n.t(:name)
-    = text_field :name, :name_string, :size => 40, :maxlength => 300
-    = "&nbsp;"
-    = label_tag :name_language, "Name's Language"
-    %select{:id => "name_language", :name => "name[language]"}
-      - @languages.each do |language|
-        %option{ :selected => language[:selected], :value => language[:id] }= language[:label]
-    = "&nbsp;"
-    %input{:type => "submit", :name => "add_common_name_button", :value => I18n.t(:add), :id => "add_common_name_button"}
+    %h3=I18n.t(:add_a_new_common_name)
+    %dl
+      %dt
+        = f.label :string
+      %dd
+        = f.text_field :string, { :maxlength => 300, :size => 40 }
+
+      - f.fields_for :synonym do |synonym|
+        = synonym.hidden_field :hierarchy_entry_id, :value => @dropdown_hierarchy_entry_id
+        %dt
+          = synonym.label :language_id
+        %dd
+          = synonym.collection_select(:language_id, Language.all, :id, :label)
   %fieldset.actions
+    = f.submit I18n.t('helpers.submit.name.create'), :name => :commit_add_common_name

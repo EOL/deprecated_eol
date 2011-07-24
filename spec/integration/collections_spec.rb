@@ -165,10 +165,9 @@ describe "Collections and collecting:" do
     it 'should be able to move collection items'
     it 'should be able to remove collection items'
     it 'should be able to edit ordinary collection and nested collection item attributes' do
-      visit collection_path(@collection)
-      click_link 'edit name'
+      visit edit_collection_path(@collection)
       page.fill_in 'collection_name', :with => 'Edited collection name'
-      click_button 'Save'
+      click_button 'Update collection details'
       body.should have_tag('h1', 'Edited collection name')
     end
     it 'should not be able to edit special collections (really?)'

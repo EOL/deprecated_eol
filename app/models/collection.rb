@@ -141,7 +141,7 @@ class Collection < ActiveRecord::Base
 
   def items_from_solr(options={})
     sort_by_style = SortStyle.find(options[:sort_by].blank? ? default_sort_style : options[:sort_by])
-    EOL::Solr::CollectionItems.search_with_pagination(self.id, :facet_type => options[:facet_type], :page => options[:page], :sort_by => sort_by_style)
+    EOL::Solr::CollectionItems.search_with_pagination(self.id, options.merge(:sort_by => sort_by_style))
   end
 
   def facet_counts

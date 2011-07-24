@@ -23,7 +23,7 @@
         .filters
           %h4= I18n.t(:collect_items)
           %fieldset.actions
-            = select_tag :scope, options_for_select(@collection_item_scopes.map {|scope| [I18n.t(scope), scope]})
+            = select_tag :scope, options_for_select(@collection_item_scopes)
             - if editable
               -# NOTE - we use name because we don't want to handle the I18n of the button.
               = submit_tag I18n.t(:move),   :name => 'commit_move'

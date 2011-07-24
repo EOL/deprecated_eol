@@ -1,0 +1,13 @@
+#content
+  .site_column
+    = render :partial => 'literature_menu'
+    #taxon_names.main_container
+      - unless @references.blank?
+        %table.standard
+          %thead
+            %tr
+              %th= I18n.t(:references)
+          - @references.each do |r|
+            %tr
+              %td
+                = r.full_reference

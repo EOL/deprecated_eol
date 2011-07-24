@@ -1,3 +1,4 @@
+- search_result = nil unless defined?(search_result)
 - if search_result
   - if search_result['top_image_instance']
     = link_to image_tag(search_result['top_image_instance'].thumb_or_object('88_88')), taxon_overview_path(item)

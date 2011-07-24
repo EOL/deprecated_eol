@@ -76,6 +76,8 @@ ActionController::Routing::Routes.draw do |map|
       entries.resources :details, :only => [:index], :controller => "taxa/details"
       entries.resources :names, :only => [:index, :create, :update], :controller => "taxa/names",
                                :collection => { :common_names => :get, :synonyms => :get }
+      entries.resource :literature, :only => [:show], :controller => "taxa/literature",
+        :member => { :bhl => :get }
       entries.resource :maps, :only => [:show], :controller => "taxa/maps"
     end
     taxa.resource :overview, :only => [:show], :controller => "taxa/overviews"
@@ -84,6 +86,8 @@ ActionController::Routing::Routes.draw do |map|
     taxa.resources :details, :only => [:index], :controller => "taxa/details"
     taxa.resources :names, :only => [:index, :create, :update], :controller => "taxa/names",
                           :collection => { :common_names => :get, :synonyms => :get }
+    taxa.resource :literature, :only => [:show], :controller => "taxa/literature",
+      :member => { :bhl => :get }
     taxa.resource :maps, :only => [:show], :controller => "taxa/maps"
     taxa.resources :collections, :only => [:index], :controller => 'collections'
     taxa.resources :communities, :only => [:index], :controller => 'communities'
@@ -93,7 +97,7 @@ ActionController::Routing::Routes.draw do |map|
   #map.connect 'pages/:id/names/common_names/update', :controller => 'taxa', :action => 'update_common_names'
   # when user adds a common name
   #map.connect 'pages/:taxon_concept_id/names/common_names/add', :controller => 'taxa', :action => 'add_common_name'
-
+  map.bhl_title 'pages/:id/literature/bhl_title/:title_item_id', :controller => 'taxa/literature', :action => 'bhl_title'
 
 
   # Named routes

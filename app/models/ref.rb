@@ -6,6 +6,20 @@ class Ref < SpeciesSchemaModel
   has_and_belongs_to_many :data_objects
   has_and_belongs_to_many :hierarchy_entries
 
+  # this method is not just sorting by rating
+  def self.sort_by_full_reference(refs)
+    find_starting_nums = 
+    refs.sort_by do |r|
+      # TODO: is there a better way to stip tags, or sort both strings and numbers here?
+      stripped_full_reference = Sanitize.clean(r.full_reference)
+      if stripped_full_reference =~ /^\s*(\d+)/
+        $1
+      else
+        stripped_full_reference
+      end
+    end
+  end
+
   # Returns a list of Literature References. Will return an empty array if there aren't any results
   def self.find_refs_for(taxon_concept_id)
     # refs for DataObjects then HierarchyEntries

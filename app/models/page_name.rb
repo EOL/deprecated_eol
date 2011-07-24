@@ -7,7 +7,7 @@ class PageName < SpeciesSchemaModel
     return PageName.count_by_sql(['SELECT 1 FROM taxon_concept_names tcn 
                                      STRAIGHT_JOIN page_names pn 
                                     ON (tcn.name_id=pn.name_id) 
-                                    WHERE tcn.taxon_concept_id = ? 
+                                    WHERE tcn.taxon_concept_id = ? AND vern=0
                                     LIMIT 1', taxon_concept_id]) > 0
   end
       

@@ -687,8 +687,7 @@ class TaxonConcept < SpeciesSchemaModel
 
   # TODO - we won't need this, soon.  Delete it.  (ATM it's still used in an old mediacenter partial)
   def has_map
-    available_media if @has_media.nil?
-    @has_media[:map]
+    return true if gbif_map_id
   end
 
   def available_media
@@ -1363,6 +1362,18 @@ class TaxonConcept < SpeciesSchemaModel
       end
     end
     return keywords
+  end
+  
+  def media_count(filter_hierarchy_entry = nil)
+    # may not be accurate, but will be faster than loading everything then counting it
+    return @media_count if @media_count
+    if filter_hierarchy_entry
+      image_count = filter_hierarchy_entry.top_images.count
+    else
+      image_count = self.top_concept_images.count
+    end
+    other_media_count = self.data_objects.count(:conditions => "data_objects.published=1 AND data_objects.visibility_id=#{Visibility.visible.id} AND data_objects.data_type_id IN (#{(DataType.video_type_ids + DataType.sound_type_ids).join(',')})")
+    @media_count = image_count + other_media_count
   end
 
 

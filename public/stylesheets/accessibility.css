@@ -324,3 +324,6 @@ form.comment img {
 
 #collections .heading {
   line-height: 2.5em; }
+
+table.standard td.nowrap {
+  white-space: nowrap; }

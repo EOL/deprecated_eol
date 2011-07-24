@@ -173,14 +173,14 @@ describe 'Taxa page' do
     it 'should allow curators to add common names' do
       visit logout_url
       visit common_names_taxon_names_path(@testy[:taxon_concept])
-      body.should_not have_tag('form#add_common_name')
+      body.should_not have_tag('form#new_name')
       login_as @testy[:curator]
       visit common_names_taxon_names_path(@testy[:taxon_concept])
-      body.should have_tag('form#add_common_name')
+      body.should have_tag('form#new_name')
       new_name = Factory.next(:string)
       fill_in 'Name', :with => new_name
-      select('English', :from => "Name's Language")
-      click_button 'Add'
+      select('English', :from => "Language")
+      click_button 'Add name'
       body.should have_tag('td', new_name)
     end
 

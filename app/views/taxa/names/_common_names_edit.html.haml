@@ -2,7 +2,6 @@
 = render :partial => 'data_objects/curation_js'
 
 = render :partial => 'common_names_new'
-%br
 - names_by_language = common_names_by_language(@common_names, current_user.language_id)
 - names_by_language.each_with_index do |language_names_pair, index|
   - language = language_names_pair[0]

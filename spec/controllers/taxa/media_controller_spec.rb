@@ -17,9 +17,10 @@ describe Taxa::MediaController do
     it 'should set an image as exemplar' do
       @taxon_concept.taxon_concept_exemplar_image.should be_nil
       exemplar_image = @taxon_concept.images.first.id
-      put :set_as_exemplar, :taxon_id => @taxon_concept.id, :data_object_id => exemplar_image.id
+      put :set_as_exemplar, :taxon_id => @taxon_concept.id, :taxon_concept_exemplar_image => { :data_object_id => exemplar_image.id }
       @taxon_concept.reload
       @taxon_concept.taxon_concept_exemplar_image.data_object_id.should == exemplar_image.id
+      response.redirected_to.should == taxon_media_path(@taxon_concept)
     end
   end
 

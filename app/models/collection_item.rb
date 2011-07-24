@@ -16,6 +16,18 @@ class CollectionItem < ActiveRecord::Base
   after_save :index_collection_item_in_solr
   before_destroy :remove_collection_item_from_solr
 
+  # Information about how collection items interface with solr and views and the like...
+  def self.types
+    @types ||= {:taxa =>        {:facet => 'TaxonConcept', :i18n_key => "taxa"},
+                :text =>        {:facet => 'Text',         :i18n_key => "articles"},
+                :videos =>      {:facet => 'Video',        :i18n_key => "videos"},
+                :images =>      {:facet => 'Image',        :i18n_key => "images"},
+                :sounds =>      {:facet => 'Sound',        :i18n_key => "sounds"},
+                :communities => {:facet => 'Community',    :i18n_key => "communities"},
+                :people =>      {:facet => 'User',         :i18n_key => "people"},
+                :collections => {:facet => 'Collection',   :i18n_key => "collections"}}
+  end
+
   # Using has_one :through didn't work:
   def community
     return nil unless collection
@@ -33,14 +45,14 @@ class CollectionItem < ActiveRecord::Base
         puts "** WARNING: Solr connection failed."
         return nil
       end
-      
+
       solr_connection.create(solr_index_hash)
     else # There is no collection associated with this collection item; it is meant for historical indexing only, and
          # there is no need to index this in solr.  ...In fact, it had better not be indexed!
       remove_collection_item_from_solr
     end
   end
-  
+
   def solr_index_hash
     params = {}
     params['collection_item_id'] = self.id

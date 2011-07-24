@@ -13,6 +13,10 @@
  * so I am temporarily adding some CSS here needed for V2 demo. This CSS should be integrated
  * into HashRocket SASS if it is still needed when design work is complete.
  */
+/*Busy indicator for JS submitted forms e.g. exemplar image */
+.busy {
+  cursor: wait; }
+
 /*Styles for forms and form validation errors */
 form fieldset#errors {
   width: 100%;
@@ -92,28 +96,40 @@ p.status.error {
   border: 1px solid #677682;
   background: #8695a1; }
 
-/*Special styles for layering audio description on top of audio thumbnail */
-#media_list #main > ul > li .audio {
-  position: relative;
-  background: #394651 url("/images/v2/icon_sound_tabs.png") no-repeat 50% 20%;
+/*Special styles for layering audio description on top of audio thumbnail and adjustments for when missing exemplar */
+#media_list #sidebar.filters img {
+  margin-bottom: 0; }
+#media_list #sidebar.filters h3 {
+  margin-top: 20px; }
+#media_list #main > ul > li .figure {
   width: 160px;
-  height: 123px;
-  margin: 0 0 5px 0;
-  text-align: center;
-  overflow: hidden; }
-  #media_list #main > ul > li .audio p {
-    padding: 50px 5px 40px; }
-    #media_list #main > ul > li .audio p a {
-      color: #e2e9ef; }
-  #media_list #main > ul > li .audio audio {
-    position: absolute;
-    left: 0;
-    bottom: 0;
+  height: 125px;
+  margin-bottom: 5px; }
+  #media_list #main > ul > li .figure .audio {
+    position: relative;
+    background: #394651 url("/images/v2/icon_sound_tabs.png") no-repeat 50% 20%;
     width: 160px;
-    z-index: 1; }
+    height: 123px;
+    margin: 0 0 5px 0;
+    text-align: center;
+    overflow: hidden; }
+    #media_list #main > ul > li .figure .audio p {
+      padding: 50px 5px 40px; }
+      #media_list #main > ul > li .figure .audio p a {
+        color: #e2e9ef; }
+    #media_list #main > ul > li .figure .audio audio {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 160px;
+      z-index: 1; }
 #media_list #main > ul > li p.flag.unknown {
   border: 1px solid #677682;
   background: #8695a1; }
+#media_list #main > ul > li p.flag.untrusted {
+  border: 1px solid #f2d2cc;
+  background: #ffeae6;
+  color: #677682; }
 #media_list #main > ul > li > a {
   display: inline-block;
   width: 160px;
@@ -278,29 +294,14 @@ ul.feed li > a > img {
 
 #media_list #main ul li img {
   max-width: 160px;
-  max-height: 125px;
-  width: auto;
-  height: auto;
-  display: block;
-  margin-left: auto;
-  margin-right: auto; }
+  max-height: 125px; }
 #media_list #sidebar.filters img {
   max-width: 220px;
-  max-height: 162px;
-  width: auto;
-  height: auto;
-  display: block;
-  margin-left: auto;
-  margin-right: auto; }
+  max-height: 162px; }
 
 #taxonomy_detail #sidebar img {
   max-width: 260px;
-  max-height: 190px;
-  width: auto;
-  height: auto;
-  display: block;
-  margin-left: auto;
-  margin-right: auto; }
+  max-height: 190px; }
 
 ul.object_list li img {
   max-width: 68px;
@@ -327,3 +328,9 @@ form.comment img {
 
 table.standard td.nowrap {
   white-space: nowrap; }
+
+#collections_choose h2 {
+  font-size: 2em; }
+
+#collections_choose ul {
+  width: 500px; }

@@ -11,6 +11,7 @@ class Activity < LazyLoggingModel
   # NOTE - These are only activities THAT GET LOGGED.  ...for now.  In the future, we may want to add a visibility to
   # each of these and include those activities that don't show up on the site's activity logs.
   def self.create_defaults
+    Activity.reset_cached_instances
     # Curation:
     Activity.find_or_create('create')
     Activity.find_or_create('update')     #?

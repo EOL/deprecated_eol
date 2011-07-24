@@ -1,10 +1,12 @@
 class Taxa::NamesController < TaxaController
 
   before_filter :instantiate_taxon_concept
-  before_filter :preload_core_relationships_for_names
+  before_filter :authentication_for_names, :only => [ :create, :update ]
+  before_filter :preload_core_relationships_for_names, :only => [ :index, :common_names, :synonyms ]
 
-  # Default tab: related names
-  def show
+  # GET /pages/:taxon_id/names
+  # related names default tab
+  def index
     if @dropdown_hierarchy_entry
       @related_names = TaxonConcept.related_names(:hierarchy_entry_id => @dropdown_hierarchy_entry_id)
     else
@@ -14,6 +16,27 @@ class Taxa::NamesController < TaxaController
     current_user.log_activity(:viewed_taxon_concept_names_related_names, :taxon_concept_id => @taxon_concept.id)
   end
 
+  # POST /pages/:taxon_id/names currently only used to add common_names
+  def create
+    if params[:commit_add_common_name]
+      agent = current_user.agent
+      language = Language.find(params[:name][:synonym][:language_id])
+      synonym = @taxon_concept.add_common_name_synonym(params[:name][:string],
+                  :agent => agent, :language => language, :vetted => Vetted.trusted)
+      log_action(@taxon_concept, synonym, :add_common_name)
+      expire_taxa([@taxon_concept.id])
+    end
+    store_location params[:return_to] unless params[:return_to].blank?
+    redirect_back_or_default common_names_taxon_names_path(@taxon_concept)
+  end
+
+  # PUT /pages/:taxon_id/names currently only used to update common_names
+  def update
+    # TODO:
+  end
+
+
+  # GET for collection synonyms /pages/:taxon_id/synonyms
   def synonyms
     associations = { :published_hierarchy_entries => [ :name, { :scientific_synonyms => [ :synonym_relation, :name ] } ] }
     options = { :select => { :hierarchy_entries => [ :id, :name_id, :hierarchy_id, :taxon_concept_id ],
@@ -24,6 +47,7 @@ class Taxa::NamesController < TaxaController
     current_user.log_activity(:viewed_taxon_concept_names_synonyms, :taxon_concept_id => @taxon_concept.id)
   end
 
+  # GET for collection common_names /pages/:taxon_id/names/common_names
   def common_names
     unknown = Language.unknown.label # Just don't want to look it up every time.
     if @dropdown_hierarchy_entry
@@ -31,10 +55,7 @@ class Taxa::NamesController < TaxaController
     else
       names = EOL::CommonNameDisplay.find_by_taxon_concept_id(@taxon_concept.id)
     end
-    names = names.select {|n| n.language_label != unknown}
-    @common_names = names
-    # only curators need access to a language list - for adding new common names
-    @languages = build_language_list if current_user.is_curator?
+    @common_names = names.select {|n| n.language_label != unknown}
     @assistive_section_header = I18n.t(:assistive_names_common_header)
     current_user.log_activity(:viewed_taxon_concept_names_common_names, :taxon_concept_id => @taxon_concept.id)
   end
@@ -59,4 +80,13 @@ private
     @dropdown_hierarchy_entry = HierarchyEntry.find_by_id(@dropdown_hierarchy_entry_id) rescue nil
     @hierarchy_entries_to_offer = @taxon_concept.published_hierarchy_entries
   end
+
+  def authentication_for_names
+    if ! current_user.is_curator?
+      flash[:error] = I18n.t(:insufficient_privileges_to_curate_names)
+      store_location params[:return_to] unless params[:return_to].blank?
+      redirect_back_or_default common_names_taxon_names_path(@taxon_concept)
+    end
+  end
+
 end

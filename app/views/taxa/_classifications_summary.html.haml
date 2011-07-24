@@ -1,5 +1,4 @@
 #classifications_summary.article.classifications
-  classifications_summary
   - browsable_hierarchy_entries = @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
   - count = browsable_hierarchy_entries.length
   .header
@@ -13,9 +12,10 @@
         - root_ancestor, immediate_parent = hierarchy_entry.kingdom_and_immediate_parent
         - if root_ancestor
           %ul
+            -# TODO: Fix styles for long names (second name is disappearing out of div)
             -# TODO: Find out whether links on kingdom and genus should be going to taxon pages or specific hierarchy entries for the classification (is the latter even an option?)
             -# TODO: Provide more descriptive title attributes, e.g. what happens when a rank is null, blank or will it just say 'taxon' if rank is missing?
-            -# TODO - If we're on a Kingdom page, we don't want two hard-coded entries, here:
+            -# TODO: If we're on a Kingdom page, we don't want two hard-coded entries, here:
             %li
               %p
                 = link_to(root_ancestor.title_canonical, taxon_overview_path(root_ancestor.taxon_concept_id), { :title => root_ancestor.rank_label })
@@ -24,4 +24,3 @@
                   %li
                     %p
                       = link_to(immediate_parent.title_canonical, taxon_overview_path(immediate_parent.taxon_concept_id), { :title => immediate_parent.rank_label })
-            

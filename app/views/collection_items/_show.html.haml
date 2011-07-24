@@ -11,4 +11,4 @@
   = I18n.t(:item_details_missing)
 %p= collection_item.annotation
 - if editable
-  .editable_link= link_to(I18n.t(:edit_annotation), edit_collection_item_path(collection_item))
+  %p.edit= link_to(I18n.t(:edit_annotation), edit_collection_item_path(collection_item))

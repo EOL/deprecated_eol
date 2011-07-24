@@ -1,5 +1,5 @@
 #content
-  .site_column
+  #taxon_names.site_column
     .article
       .header
         %h3= I18n.t(:taxon_recognised_by_header)
@@ -12,7 +12,7 @@
       - else
         - ['parents', 'children'].each do |type|
           - unless @related_names[type].blank?
-            %table.names
+            %table.standard
               %thead
                 %tr
                   %th= I18n.t("names_#{type}_column_header")

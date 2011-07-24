@@ -1,11 +1,6 @@
 - content_for :main do
-
   - if @dropdown_hierarchy_entry
-    #hierarchy_entry_dropdown{ :style => 'text-align:center; background-color:lightyellow'}
-      %br
-      = render :partial => 'taxa/overviews/classification_dropdown'
-      %br
-
+    = render :partial => 'taxa/classification_dropdown'
   #page_heading.with_nav
     .site_column
       .hgroup
@@ -18,12 +13,12 @@
               = hh(@taxon_concept.quick_scientific_name(:normal, @dropdown_hierarchy_entry.hierarchy))
             - else
               = hh(@taxon_concept.title_canonical())
-          
+
           %span.assistive<
             = " &mdash; #{@assistive_section_header}"
-        
+
         - preferred_common_name = @dropdown_hierarchy_entry ? @dropdown_hierarchy_entry.taxon_concept.subtitle(@dropdown_hierarchy_entry.hierarchy) : @taxon_concept.subtitle()
-        
+
         %h2{:title => I18n.t(:preferred_common_name_advisory_information)}
           = hh(preferred_common_name) unless preferred_common_name.blank?
           - common_name_count = @dropdown_hierarchy_entry ? @taxon_concept.common_names(:hierarchy_entry_id => @dropdown_hierarchy_entry.id).count : @taxon_concept.common_names.count

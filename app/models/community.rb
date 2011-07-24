@@ -47,6 +47,7 @@ class Community < ActiveRecord::Base
 
   # I18n not particularly necessary, here, this is mostly for testing.
   def self.create_special
+    Community.reset_cached_instances
     special = nil
     begin
       special = Community.special

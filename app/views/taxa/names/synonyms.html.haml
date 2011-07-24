@@ -1,5 +1,5 @@
 #content
-  .site_column
+  #taxon_names.site_column
     .article
       .header
         %h3= I18n.t(:taxon_recognised_by_header)
@@ -14,7 +14,7 @@
           %p
             = I18n.t(:preferred_name_colon)
             = he.name.string
-          %table.names
+          %table.standard
             %thead
               %tr
                 %th= I18n.t(:names_name_column_header)

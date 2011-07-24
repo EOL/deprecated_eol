@@ -708,6 +708,15 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     end
   end
 
+  # #collections is only a list of the collections the user *owns*.  This is a list that includes the collections the
+  # user has access to through communities
+  def all_collections
+    editable_collections = collections
+    members.each do |member|
+      editable_collections << member.community.focus_collection if member.can?(Privilege.edit_collections)
+    end
+    editable_collections
+  end
 
 private
 

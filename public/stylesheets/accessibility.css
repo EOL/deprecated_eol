@@ -316,14 +316,13 @@ form.comment img {
   width: 140px;
   height: 140px; }
 
-.editable_link {
-  font-size: 0.8em; }
-
+#collections_choose h2 {
+  font-size: 2em; }
+#collections_choose ul {
+  width: 500px; }
 .edit_collection #sidebar fieldset.actions {
   padding: 0; }
-
 #collections .heading {
   line-height: 2.5em; }
-
 table.standard td.nowrap {
   white-space: nowrap; }

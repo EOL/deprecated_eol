@@ -1,15 +1,7 @@
 %ul.tabs.with_icons
-  %li{:class => 'total' + (params[:filter] ? '' : ' active')}= link_to I18n.t(:total_items_with_count, :count => @facet_counts['All'] || 0), @collection
-  - types = [{:count => 'TaxonConcept', :type => "taxa",        :link => "taxa_with_count"},
-             {:count => 'Text',         :type => "articles",    :link => "articles_with_count"},
-             {:count => 'Video',        :type => "videos",      :link => "videos_with_count"},
-             {:count => 'Image',        :type => "images",      :link => "images_with_count"},
-             {:count => 'Sound',        :type => "sounds",      :link => "sounds_with_count"},
-             {:count => 'Community',    :type => "communities", :link => "communities_with_count"},
-             {:count => 'User',         :type => "people",      :link => "people_with_count"},
-             {:count => 'Collection',   :type => "collections", :link => "collections_with_count"}]
-
-  - types.each do |t|
-    - count = @facet_counts[t[:count]] || 0
+  %li{:class => 'total' + (@filter ? '' : ' active')}= link_to I18n.t(:total_items_with_count, :count => @facet_counts['All'] || 0), @collection
+  - types = CollectionItem.types
+  - types.keys.each do |type|
+    - count = @facet_counts[types[type][:facet]] || 0
     - if count > 0
-      %li{:class => t[:type] + (params[:filter] == t[:type] ? ' active' : '') }= link_to I18n.t("#{t[:link]}", :count => count), "/collections/#{@collection.id}/#{t[:type]}"
+      %li{:class => "#{type}#{@filter == type.to_s ? ' active' : ''}" }= link_to I18n.t("#{types[type][:i18n_key]}_with_count", :count => count), "/collections/#{@collection.id}/#{type}"

@@ -14,7 +14,16 @@ class CollectionsController < ApplicationController
   layout 'v2/collections'
 
   def show
-    return copy if params[:commit_copy_collection_items]
+    # NOTE - we use these commit_* names because we don't want to handle the I18n of the commit option.
+    return redirect_to_choose(:copy) if params[:commit_copy]
+    return redirect_to_choose(:move) if params[:commit_move]
+    return remove_and_redirect if params[:commit_remove]
+    return collect if params[:commit_collect]
+    # NOTE - this is complicated. It's getting the various collection item types and doing i18n on the name as well
+    # as passing the raw facet type (used by Solr) as the values in the option hash that will be built in the view:
+    types = CollectionItem.types
+    @collection_item_scopes  = [[I18n.t(:selected_items), :selected_items], [I18n.t(:all_items), :all_items]] +
+      types.keys.map {|k| [I18n.t("all_#{types[k][:i18n_key]}"), k]}
   end
 
   def new
@@ -29,15 +38,16 @@ class CollectionsController < ApplicationController
       flash[:notice] = I18n.t(:collection_created_notice, :collection_name => @collection.name)
       if params[:collection_items]
         if params[:copy]
-          @collection.collection_items_attributes = copy_collection_items(CollectionItem.find(params[:collection_items]))
-          if @collection.save
-            return redirect_to @collection
-          else
-            flash[:error] = I18n.t(:items_no_copy_error, :collection_name => @collection.name)
-            return redirect_to request.referer
-          end
+          copied = copy_items(:to => @collection, :items => CollectionItem.find(params[:collection_items]))
+          # Assume flash message set by #copy_items if there was an error.
+          return redirect_to @collection
         elsif params[:move]
-          return move
+          copied = copy_items(:to => @collection, :items => CollectionItem.find(params[:collection_items]))
+          old_colleciton = Collection.find(params[:id])
+          remove_items(:from => old_colleciton, :items => params[:collection_items], :scope => params[:scope])
+          flash[:notice] = I18n.t(:moved_items_from_collection_with_count_notice, :count => copied,
+                                  :name => link_to_name(old_colleciton))
+          return redirect_to collection_path(@collection)
         else
           @collection.destroy
           flash[:error] = I18n.t(:collection_not_created_error, :collection_name => @collection.name)
@@ -54,28 +64,25 @@ class CollectionsController < ApplicationController
   end
 
   def edit
+    @site_column_id = 'collections_edit'
+    @site_column_class = 'copy' # TODO - why?! (This was a HR thing.)
+    @editing = true # TODO - there's a more elegant way to handle the difference in the layout...
     @head_title = I18n.t(:edit_collection_head_title, :collection_name => @collection.name) unless @collection.blank?
-    if @field = params[:field]
-      @field_id = $1 # NOTE - this will be nil if there was no match, of course.
-      respond_to do |format|
-        format.html { render "edit_field" }
-        format.js   { render :partial => "edit_#{@field}", :layout => false }
-      end
-    end
   end
 
-  # When is an update not really an update?  When we clicked a different button.  There are (way too) many:
   def update
-    return real_update if params[:commit_edit_collection]
-    return copy if params[:commit_copy_collection_items]
-    return move if params[:commit_move_collection_items]
-    return copy(:all) if params[:commit_copy_all_collection_items]
-    return move(:all) if params[:commit_move_all_collection_items]
-    return remove if params[:commit_remove_collection_items]
-    return remove(:all) if params[:commit_remove_all_collection_items]
-    return default_sort if params[:commit_default_sort]
-    return chosen if params[:commit_chosen_collection]
-    real_update # There are several actions that DON'T use a button, and those need to simply update.
+    return chosen if params[:scope] # Note that updating the collection params doesn't specify a scope.
+    if @collection.update_attributes(params[:collection])
+      respond_to do |format|
+        format.html do
+          flash[:notice] = I18n.t(:collection_updated_notice, :collection_name => @collection.name) if
+            params[:colleciton] # NOTE - when we sort, we don't *actually* update params...
+          return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect)
+        end
+      end
+    else
+      flash[:error] = I18n.t(:collection_not_updated_error)
+    end
   end
 
   # NOTE - I haven't really implemented this one yet... started to, but it's not USED anywhere, yet...
@@ -92,12 +99,11 @@ class CollectionsController < ApplicationController
 
   # /collections/choose GET
   def choose
-    @action_to_take = :copy if params[:for] == 'copy'
-    @action_to_take = :move if params[:for] == 'move'
-    @all = params[:all_items_from_collection_id]
+    @site_column_id = 'collections_choose'
     @selected_collection_items = params[:collection_items]
-    params[:collection_items] = nil
-    @collections = current_user.collections # TODO: does this include community collections of which user is member?
+    @for   = params[:for]
+    @scope = params[:scope]
+    @collections = current_user.all_collections
     @page_title = I18n.t(:choose_collection_header)
   end
 
@@ -131,112 +137,121 @@ private
   # When we bounce around, not all params are required; this is the list to remove:
   # NOTE - to use this as an parameter, you need to de-reference the array with a splat (*).
   def unnecessary_keys_for_redirect
-    [:action_name, :_method, :commit_sort, :commit_select_all, :commit_copy_collection_items, :commit, :collection,
-     :commit_move_collection_items, :commit_remove_collection_items, :commit_edit_collection, :commit_default_sort,
-     :commit_chosen_collection]
+    [:_method, :commit_sort, :commit_select_all, :commit_copy, :commit, :collection,
+     :commit_move, :commit_remove, :commit_edit_collection, :commit_collect]
   end
 
   def no_items_selected_error(which)
     flash[:warning] = I18n.t("items_no_#{which}_none_selected_warning")
-    return redirect_to params.merge(:action => params[:action_name] || 'show').except(*unnecessary_keys_for_redirect)
+    return redirect_to params.merge(:action => 'show').except(*unnecessary_keys_for_redirect)
   end
 
-  def copy(all = false)
-    if all
-      params[:all_items_from_collection_id] = @collection.id
-    else
+  def redirect_to_choose(for_what)
+    if params[:scope] == 'selected_items'
       return no_items_selected_error(:copy) if params[:collection_items].nil? or params[:collection_items].empty?
     end
-    return redirect_to params.merge(:action => 'choose', :for => 'copy').except(
-      :filter, :sort_by, *unnecessary_keys_for_redirect)
-  end
-
-  def move(all = false)
-    if all
-      params[:all_items_from_collection_id] = @collection.id
-    else
-      return no_items_selected_error(:move) if params[:collection_items].nil? or params[:collection_items].empty?
-    end
-    return redirect_to params.merge(:action => 'choose', :for => 'move').except(:filter, :sort_by,
-                                                                                *unnecessary_keys_for_redirect)
-  end
-
-  def remove(all = false)
-    if all
-      count = remove_items_from_collection(@collection.collection_items)
-    else
-      return no_items_selected_error(:remove) if params[:collection_items].nil? or params[:collection_items].empty?
-      count = remove_items_from_collection(@collection_items.select {|ci| params['collection_items'].include?(ci.id.to_s) })
-      @collection_items.delete_if {|ci| params['collection_items'].include?(ci.id.to_s) }
-    end
-    flash[:notice] = I18n.t(:removed_count_items_from_collection_notice, :count => count,
-                            :collection => link_to_name(@collection))
-    return redirect_to request.referer
-  end
-
-  def real_update
-    if @collection.update_attributes(params[:collection])
-      respond_to do |format|
-        format.html do
-          flash[:notice] = I18n.t(:collection_updated_notice, :collection_name => @collection.name) if
-            params[:colleciton] # NOTE - when we sort, we don't *actually* update params...
-          return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect)
-        end
-        format.js do
-          if @field = params[:field]
-            return render :partial => "show_#{@field}", :layout => false, :locals => { :editable => true }
-          else
-            return render :text => I18n.t(:collection_not_updated_error), :status => 403
-          end
-        end
-      end
-    else
-      flash[:error] = I18n.t(:collection_not_updated_error)
-    end
-  end
-
-  def default_sort
-    if @collection.update_attribute(:sort_style_id, params[:sort_by])
-      flash[:notice] = I18n.t(:collection_updated_notice, :collection_name => @collection.name)
-    else
-      flash[:error] = I18n.t(:collection_not_updated_error)
-    end
-    return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect)
+    return redirect_to params.merge(:action => 'choose', :for => for_what).except(*unnecessary_keys_for_redirect)
   end
 
   def chosen
-    if params[:copy] || params[:move]
-      items = if params[:all_items_from_collection_id]
-                CollectionItem.find_all_by_collection_id(params[:all_items_from_collection_id])
-              else
-                CollectionItem.find(params[:collection_items])
-              end
-      @collection.collection_items_attributes = copy_collection_items(items)
-      if @collection.save
-        if params[:move]
-          old_collection = items.first.collection
-          count = remove_items_from_collection(items)
-          flash[:notice] = I18n.t(:removed_count_items_from_collection_notice, :count => count,
-            :collection => link_to_name(old_collection))
-        end
-        return redirect_to(@collection)
-      else
-        flash[:error] = "FIXME something bad happened figure out a good error message to go here"
-        return redirect_to request.referer
-      end
+    source = Collection.find(params[:source_collection_id])
+    if source.nil?
+      flash[:error] = I18n.t(:could_not_find_collection_error)
+      return redirect_to collection_path(@collection)
+    end
+    case params[:for]
+    when 'move'
+      return copy_items_from_collection(source, :move => true)
+    when 'copy'
+      return copy_items_from_collection(source)
+    else
+      flash[:error] = I18n.t(:action_not_available_error)
+      return redirect_to collection_path(source)
     end
   end
 
-  def copy_collection_items(collection_items)
-    already_have = @collection.collection_items.map {|i| [i.object_id, i.object_type]}
+  def copy_items_from_collection(source, options = {})
+    copied = copy_items(:from => source, :to => @collection, :items => params[:collection_items],
+                        :scope => params[:scope])
+    if copied > 0
+      if options[:move]
+        # Not handling any weird errors here, to simplify flash notice handling.
+        remove_items(:from => source, :items => params[:collection_items], :scope => params[:scope])
+        @collection_items.delete_if {|ci| params['collection_items'].include?(ci.id.to_s) }
+        flash[:notice] = I18n.t(:moved_items_from_collection_with_count_notice, :count => copied,
+                                :name => link_to_name(source))
+        return redirect_to collection_path(@collection)
+      else
+        flash[:notice] = I18n.t(:copied_items_from_collection_with_count_notice, :count => copied,
+                                :name => link_to_name(source))
+        return redirect_to collection_path(@collection)
+      end
+    elsif copied == 0
+      # Assume the flash message was set by #copy_items
+      return redirect_to collection_path(source)
+    else
+      # Assume the flash message was set by #copy_items
+      return redirect_to collection_path(source)
+    end
+  end
+
+  def copy_items(options)
+    collection_items = collection_items_with_scope(options)
+    already_have = options[:to].collection_items.map {|i| [i.object_id, i.object_type]}
     new_collection_items = []
     collection_items.each do |collection_item|
+      collection_item = CollectionItem.find(collection_item) # sometimes this is just an id.
       new_collection_items << { :object_id => collection_item.object.id,
                                 :object_type => collection_item.object_type,
                                 :added_by_user_id => current_user.id } unless
         already_have.include?([collection_item.object.id, collection_item.object_type])
     end
-    return new_collection_items
+    if new_collection_items.empty?
+      flash[:error] = I18n.t(:no_items_were_copied_error)
+      return(0)
+    end
+    options[:to].collection_items_attributes = new_collection_items
+    if options[:to].save
+      return new_collection_items.length
+    else
+      flash[:error] = I18n.t(:unable_to_copy_items_error)
+    end
+  end
+
+  def remove_and_redirect
+    count = remove_items(:from => @collection, :items => params[:collection_items], :scope => params[:scope])
+    flash[:notice] = I18n.t(:removed_count_items_from_collection_notice, :count => count)
+    return redirect_to collection_path(@collection)
+  end
+
+  def remove_items(options)
+    collection_items = collection_items_with_scope(options)
+    count = 0
+    collection_items.each do |item|
+      item = CollectionItem.find(item) # Sometimes, this is just an id.
+      if item.update_attribute(:collection_id, nil) # Not actually destroyed, so that we can talk about it in feeds.
+        item.remove_collection_item_from_solr # TODO - needed?  Or does the #after_save method handle this?
+        count += 1
+        CollectionActivityLog.create(:collection => @collection, :user => current_user,
+                                     :activity => Activity.remove, :collection_item => item)
+      end
+    end
+    @collection_items.delete_if {|ci| collection_items.include?(ci.id.to_s) }
+    return count
+  end
+
+  def collection_items_with_scope(options)
+    collection_items = []
+    if params[:scope].nil? || params[:scope] == 'selected_items'
+      collection_items = options[:items]
+    elsif params[:scope] == 'all_items'
+      collection_items = options[:from].collection_items
+    else # It's a particular type of item.
+      @@starts_with_all_re ||= /^all_/ # NOTE REs create memory leaks when used in-line.
+      facet = params[:scope].sub(@@starts_with_all_re, '')
+      collection_items = @collection.items_from_solr(:facet_type => facet, :page => 1, :per_page => 20000)
+    end
+    collection_items
   end
 
   def find_parent
@@ -253,19 +268,6 @@ private
     else
       @parent = current_user
     end
-  end
-
-  def remove_items_from_collection(items)
-    count = 0
-    items.each do |item|
-      if item.update_attribute(:collection_id, nil) # Not actually destroyed, so that we can talk about it in feeds.
-        item.remove_collection_item_from_solr # TODO - needed?  Or does the #after_save method handle this?
-        count += 1
-        CollectionActivityLog.create(:collection => @collection, :user => current_user,
-                                     :activity => Activity.remove, :collection_item => item)
-      end
-    end
-    return count
   end
 
   def link_to_name(collection)

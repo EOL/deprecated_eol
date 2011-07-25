@@ -1,1 +1,16 @@
-%p= "TODO - Collection activity partial"
+= link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
+  :posters_name => h(item.user.short_name))), user_path(item.user), :class => 'avatar'
+.details
+  %p
+    - case item.activity_id
+    - when Activity.create.id
+      = I18n.t(:activity_user_created_collection, :user => h(item.user.short_name), :collection => link_to(item.collection.summary_name, collection_path(item.collection))
+    - when Activity.collect.id
+      -# TODO: would be better if we could link to the item, but that's tricky...
+      = I18n.t(:activity_user_added_item_to_collection, :user => h(item.user.short_name), :collection => link_to(item.collection.summary_name, collection_path(item.collection), :item => item.collection_item.object.summary_name)
+    - when Activity.remove.id
+      = I18n.t(:activity_user_removed_item_from_collection, :user => h(item.user.short_name), :collection => link_to(item.collection.summary_name, collection_path(item.collection), :item => item.collection_item.object.summary_name)
+    - else
+      = I18n.t(:activity_user_modified_collection, :user => h(item.user.short_name), :collection => link_to(item.collection.summary_name, collection_path(item.collection))
+  %p.meta= I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))
+

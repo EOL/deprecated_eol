@@ -1,21 +1,30 @@
-#profile_edit
+#profile_edit.article
   - form_for @user, :builder => ApplicationHelper::EolFormBuilder, :html => { :multipart => true } do |user_form|
     = validation_errors_for(@user)
     %fieldset.profile
-      %h3= I18n.t(:users_form_profile_info_header)
+      .header
+        %h3= I18n.t(:users_form_profile_info_header)
+      %p.tip= I18n.t(:users_form_tip, :required_icon => image_tag('/images/v2/icon_required.png', :alt => ''))
       %dl
-        %dt
+        %dt.required
+          = user_form.label :bio
+          %small.assistive= I18n.t(:required_form_element)
+        %dd
+          = user_form.text_area :bio
+        %dt.required
+          = user_form.label :given_name
+          %small.assistive= I18n.t(:required_form_element)
+        %dd
+          = user_form.text_field :given_name
+        %dt.required
+          = user_form.label :family_name
+          %small.assistive= I18n.t(:required_form_element)
+        %dd
+          = user_form.text_field :family_name
+        %dt.required
           = user_form.label :username
         %dd
           = user_form.text_field :username
-        %dt
-          = user_form.label :given_name
-        %dd
-          = user_form.text_field :given_name
-        %dt
-          = user_form.label :family_name
-        %dd
-          = user_form.text_field :family_name
         %dt
           = user_form.label :tag_line
         %dd
@@ -24,12 +33,9 @@
           = user_form.label :logo
         %dd
           = user_form.file_field :logo
-        %dt
-          = user_form.label :bio
-        %dd
-          = user_form.text_area :bio
     %fieldset.account
-      %h3= I18n.t(:users_form_account_header)
+      .header
+        %h3= I18n.t(:users_form_account_header)
       %dl
         %dt
           = user_form.label :language_abbr
@@ -65,7 +71,7 @@
           %dt
             = I18n.t('activerecord.attributes.user.api_key')
           %dd
-            %p= @user.api_key
+            %textarea= @user.api_key
             %p= I18n.t('helpers.label.user.api_key_more')
         - else
           %dt

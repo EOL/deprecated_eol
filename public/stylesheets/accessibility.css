@@ -17,7 +17,15 @@
 .busy {
   cursor: wait; }
 
+/*Override for padding on users edit - we have nested div so we need to get rid of left and right padding on article */
+#profile_edit.article {
+  padding: 0 0 25px 0; }
+
 /*Styles for forms and form validation errors */
+form dt.required label {
+  background: url("/images/v2/icon_required.png") 0 45% no-repeat;
+  padding-left: 10px;
+  margin-left: -10px; }
 form fieldset#errors {
   width: 100%;
   position: relative;

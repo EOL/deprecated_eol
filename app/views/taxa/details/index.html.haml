@@ -5,7 +5,6 @@
   = javascript_include_tag "taxonomy"
 
 - roots = @toc.collect{|t| t unless t.is_child?}.compact
-- roots = @toc.compact
 #taxonomy_detail
   - unless roots.empty?
     #sidebar

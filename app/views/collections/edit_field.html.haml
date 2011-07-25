@@ -1,8 +1,0 @@
-#page_heading.with_image
-  .site_column
-    = image_tag @collection.logo_url, :alt => ''
-    = render :partial => "edit_#{@field}"
-    .page_actions
-      %ul
-        %li
-          = link_to I18n.t(:go_back), collection_path(@collection)

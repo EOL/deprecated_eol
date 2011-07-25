@@ -865,6 +865,39 @@ body
       padding: 7px 10px
       font-size: 1em
 
+#profile_content_connections
+  padding: 40px
+  ul
+    margin: 0 0 30px 0
+    li
+      overflow: hidden
+      margin: 0 0 10px 0
+      img
+        float: left
+        border: 1px solid #394651
+        margin: 0 10px 0 0
+      .details
+        float: left
+        margin: 10px 0 0 0
+        a
+          font-size: .9em
+          margin: 0 5px 0 0
+          +underline-on-hover
+
+#content_partner
+  padding: 40px
+  fieldset
+    input[type="text"],
+    input[type="password"]
+      +input
+    textarea
+      width: 622px
+      height: 60px
+    input[type="submit"]
+      padding: 7px 10px
+      margin: 0 10px 0 0
+      font-size: 1em
+
 #community
   padding: 20px
   .heading
@@ -987,6 +1020,19 @@ body
       text-transform: lowercase
     + p.status
       margin: -20px 0 35px 0
+  .article.overview
+    .meta.learn_more
+      padding: 0 0 10px 0
+      p, form
+        float: none
+        display: inline
+        margin: 0 10px 0 0
+        &:after
+          content: '•'
+          margin: 0 0 0 10px
+        &.last
+          &:after
+            content: ''
   .article.half
     float: left
     width: 260px

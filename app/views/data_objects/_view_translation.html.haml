@@ -1,0 +1,13 @@
+- unless data_object.blank?
+  - languages = data_object.available_translation_languages(current_user)
+  - unless languages.blank?
+    - form_tag set_language_path, :class => 'select_submit' do
+      = hidden_field_tag :return_to, current_url
+      %label= I18n.t(:language)
+      = select_tag 'language', options_from_collection_for_select(languages, 'iso_639_1', 'iso_639_1', current_user.language_abbr)
+      %fieldset.actions
+        = submit_tag I18n.t(:translations_submit), :name => nil
+  - tr_source = data_object.translation_source
+  - if tr_source
+    %p.last
+      = link_to I18n.t(:view_translation_source_link), set_language_url(:language => tr_source.language.iso_639_1, :return_to => data_object_path(tr_source))

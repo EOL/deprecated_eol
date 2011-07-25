@@ -11,12 +11,12 @@
       = select_tag('data_objects_toc_category[toc_id]', options_for_select(@selectable_toc,@selected_toc), {'id' => 'data_objects_toc_category_toc_id', 'data-change_toc_url' => url_for(:controller => 'taxa', :action => 'user_text_change_toc')})
   %tr
     %td
-      = f.label :object_title, I18n.t("title__optional_")
+      = f.label :object_title, I18n.t("title_of_user_text_form_label")
     %td
       = f.text_field( :object_title )
   %tr
     %td
-      = f.label :description, I18n.t("text__")
+      = f.label :description, I18n.t("description")
     %td
       = f.text_area( :description, :size => "33x8" )
   %tr
@@ -40,11 +40,12 @@
       - @data_object.visible_references.each do |ref|
         - refs += ref.full_reference
       = text_area_tag('references', @data_object.visible_references.map {|r| r.full_reference}.join("\n\n"), :size => "33x8" )
-  %tr
-    %td
-      %label=I18n.t("note_")
-    %td
-      =I18n.t("after_submitting_your_text_ent")
+  /%tr
+  /  %td
+  /    %label=I18n.t("note")      
+  /  %td
+  /    =I18n.t("after_submitting_your_text_ent")
+  
   %tr
     %td{ :colspan => "2" }
 

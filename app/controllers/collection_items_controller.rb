@@ -29,7 +29,16 @@ class CollectionItemsController < ApplicationController
     end
     respond_to do |format|
       format.html { redirect_back_or_default }
-      format.js { render :partial => 'shared/add_to_my_collection', :layout => false, :locals => { :item => @collection_item.object } }
+      format.js do
+        if flash[:error].nil?
+          flash[:notice] = nil # No need to flash with JS.
+          render :partial => 'shared/add_to_my_collection', :layout => false, :locals => { :item => @collection_item.object }
+        else
+          err = flash[:error]
+          flash[:error] = nil
+          render :text => err
+        end
+      end
     end
   end
 

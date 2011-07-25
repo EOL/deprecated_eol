@@ -85,3 +85,12 @@ EOL.ajax_submit = function(el, args) {
   });
   return(false); // stop event... there's a better way to do this?
 };
+
+// Add to collection buttons should be Ajaxy:
+$(function() {
+  $('form#new_collection_item').find('input.button').click(function() {
+    var $f = $(this).closest('form');
+    EOL.ajax_submit($(this), {update: $f})
+    return(false);
+  });
+});

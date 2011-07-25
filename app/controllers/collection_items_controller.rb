@@ -5,7 +5,6 @@ class CollectionItemsController < ApplicationController
 
   # POST /collection_items
   def create
-
     collection_item_data = params[:collection_item] unless params[:collection_item].blank?
     return_to = params[:return_to] unless params[:return_to].blank?
     if session[:submitted_data]
@@ -28,7 +27,10 @@ class CollectionItemsController < ApplicationController
       # TODO: Ideally examine validation error and provide more informative error message, e.g. item is already in the collection etc
       flash[:error] = I18n.t(:item_not_added_to_collection_error)
     end
-    redirect_back_or_default
+    respond_to do |format|
+      format.html { redirect_back_or_default }
+      format.js { render :partial => 'shared/add_to_my_collection', :layout => false, :locals => { :item => @collection_item.object } }
+    end
   end
 
   # PUT /collection_items/1

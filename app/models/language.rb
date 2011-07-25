@@ -12,6 +12,7 @@ class Language < SpeciesSchemaModel
   end
 
   def self.create_english
+    TranslatedLanguage.reset_cached_instances
     Language.reset_cached_instances
     e = Language.gen_if_not_exists(:iso_639_1 => 'en', :source_form => 'English')
     TranslatedLanguage.gen_if_not_exists(:label => 'English', :original_language_id => e.id)

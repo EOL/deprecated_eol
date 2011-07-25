@@ -1,1 +1,7 @@
-%p= "TODO - Users Data Object (user added text) partial"
+= link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
+  :posters_name => h(item.user.short_name))), user_path(item.user), :class => 'avatar'
+.details
+  %p
+    = I18n.t(:activity_user_created_text, :user => h(item.user.short_name), :object_name => link_to(item.data_object.summary_name, data_object_path(item.data_object)), :taxon_concept => link_to(item.taxon_concept.summary_name, taxon_overview_path(item.taxon_concept))
+  %p.meta= I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))
+

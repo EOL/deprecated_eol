@@ -2,18 +2,18 @@
   %ul.tabs
     - if @dropdown_hierarchy_entry
       - related_names = TaxonConcept.related_names(:hierarchy_entry_id => @dropdown_hierarchy_entry.id)
-      
-      %li{:class => resource_is_active('taxa/names', 'show')}
+
+      %li{:class => resource_is_active('taxa/names', 'index')}
         = link_to I18n.t(:related_names_with_count, :count => @taxon_concept.related_names_count(related_names)), taxon_hierarchy_entry_names_path(@taxon_concept, @dropdown_hierarchy_entry)
       %li{:class => resource_is_active('taxa/names', 'common_names')}
         = link_to I18n.t(:common_names_with_count, :count => @taxon_concept.common_names(:hierarchy_entry_id => @dropdown_hierarchy_entry.id).count), common_names_taxon_hierarchy_entry_names_path(@taxon_concept, @dropdown_hierarchy_entry)
       %li{:class => resource_is_active('taxa/names', 'synonyms')}
-        = link_to I18n.t(:synonyms_with_count, :count => @dropdown_hierarchy_entry.scientific_synonyms.count), synonyms_taxon_hierarchy_entry_names_path(@taxon_concept, @dropdown_hierarchy_entry)	
-    
+        = link_to I18n.t(:synonyms_with_count, :count => @dropdown_hierarchy_entry.scientific_synonyms.count), synonyms_taxon_hierarchy_entry_names_path(@taxon_concept, @dropdown_hierarchy_entry)
+
     - else
       - related_names = TaxonConcept.related_names(:taxon_concept_id => @taxon_concept.id)
 
-      %li{:class => resource_is_active('taxa/names', 'show')}
+      %li{:class => resource_is_active('taxa/names', 'index')}
         = link_to I18n.t(:related_names_with_count, :count => @taxon_concept.related_names_count(related_names)), taxon_names_path(@taxon_concept)
       %li{:class => resource_is_active('taxa/names', 'common_names')}
         = link_to I18n.t(:common_names_with_count, :count => @taxon_concept.common_names.count), common_names_taxon_names_path(@taxon_concept)

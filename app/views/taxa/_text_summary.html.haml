@@ -1,4 +1,4 @@
-#text_summary.article
+#text_summary.article.overview
   - unless @summary_text.nil?
     - @summary_text.each do |dato|
       - unless dato.description.empty? || dato.description.nil?
@@ -6,7 +6,7 @@
           .header
             %h3= h dato.toc_items[0].label
             = link_to(I18n.t(:text_summary_more_link), taxon_details_path(@taxon_concept.id))
-          .copy
+          .meta.learn_more
             %p= link_to I18n.t(:article_more_about), data_object_path(dato)
             - langs = dato.available_translation_languages(current_user)
             - if langs && !langs.empty?
@@ -16,11 +16,14 @@
                   - langs.each do |lang|
                     %option{:value =>  set_language_url(:language => lang.iso_639_1)+"&return_to=/pages/#{@taxon_concept.id}/overview", :selected => lang.iso_639_1 == current_user.language_abbr}
                       = lang.source_form
+                %fieldset
+                  %submit= I18n.t(:translations_submit)
             - tr_source = dato.translation_source
             - if tr_source
-              %p.last= link_to I18n.t(:view_translation_source_link), set_language_url(:language => tr_source.language.iso_639_1)+"&return_to=/data_objects/#{tr_source.id}"          
+              %p.last= link_to I18n.t(:view_translation_source_link), set_language_url(:language => tr_source.language.iso_639_1)+"&return_to=/data_objects/#{tr_source.id}"
+          .copy
             = dato.description.balance_tags
           .attribution.meta
             = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => dato }
-            
+
         - break

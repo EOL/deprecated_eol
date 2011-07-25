@@ -2292,6 +2292,7 @@ en:
   to_turn_off_or_change_how_ofte: "To turn off or change how often you receive these updates, log in to your account in the EOL Content Partner Registry and edit your profile (CONTACT INFORMATION:Change):"
   transfer_schema_overview: "Transfer Schema Overview"
   transfer_schema_upload: "Transfer Schema Upload"
+  translations_submit: "View translation"
   trigger_search_term_entered_by: "trigger search term entered by the user"
   _true_: "True"
   trusted: "Trusted"

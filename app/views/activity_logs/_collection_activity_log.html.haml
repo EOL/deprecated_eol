@@ -4,13 +4,24 @@
   %p
     - case item.activity_id
     - when Activity.create.id
-      = I18n.t(:activity_user_created_collection, :user => h(item.user.short_name), :collection => link_to(item.collection.summary_name, collection_path(item.collection))
+      = I18n.t(:activity_user_created_collection, :user => h(item.user.short_name), :collection => link_to(item.collection.summary_name, collection_path(item.collection)))
     - when Activity.collect.id
-      -# TODO: would be better if we could link to the item, but that's tricky...
-      = I18n.t(:activity_user_added_item_to_collection, :user => h(item.user.short_name), :collection => link_to(item.collection.summary_name, collection_path(item.collection), :item => item.collection_item.object.summary_name)
+      - case item.collection_item.object_type
+      - when 'TaxonConcept'
+        = I18n.t(:activity_user_added_item_to_collection, :user => h(item.user.short_name), :collection => link_to(item.collection.summary_name, collection_path(item.collection)), :item => link_to(item.collection_item.object.summary_name, taxon_overview_path(item.collection_item.object)))
+      - when 'DataObject'
+        = I18n.t(:activity_user_added_item_to_collection, :user => h(item.user.short_name), :collection => link_to(item.collection.summary_name, collection_path(item.collection)), :item => link_to(item.collection_item.object.summary_name, data_object_path(item.collection_item.object)))
+      - when 'User'
+        = I18n.t(:activity_user_added_item_to_collection, :user => h(item.user.short_name), :collection => link_to(item.collection.summary_name, collection_path(item.collection)), :item => link_to(item.collection_item.object.summary_name, user_path(item.collection_item.object)))
+      - when 'Collection'
+        = I18n.t(:activity_user_added_item_to_collection, :user => h(item.user.short_name), :collection => link_to(item.collection.summary_name, collection_path(item.collection)), :item => link_to(item.collection_item.object.summary_name, collection_path(item.collection_item.object)))
+      - when 'Community'
+        = I18n.t(:activity_user_added_item_to_collection, :user => h(item.user.short_name), :collection => link_to(item.collection.summary_name, collection_path(item.collection)), :item => link_to(item.collection_item.object.summary_name, community_path(item.collection_item.object)))
+      - else
+        = I18n.t(:activity_user_added_item_to_collection, :user => h(item.user.short_name), :collection => link_to(item.collection.summary_name, collection_path(item.collection)), :item => item.collection_item.object.summary_name)
     - when Activity.remove.id
-      = I18n.t(:activity_user_removed_item_from_collection, :user => h(item.user.short_name), :collection => link_to(item.collection.summary_name, collection_path(item.collection), :item => item.collection_item.object.summary_name)
+      = I18n.t(:activity_user_removed_item_from_collection, :user => h(item.user.short_name), :collection => link_to(item.collection.summary_name, collection_path(item.collection)), :item => item.collection_item.object.summary_name)
     - else
-      = I18n.t(:activity_user_modified_collection, :user => h(item.user.short_name), :collection => link_to(item.collection.summary_name, collection_path(item.collection))
-  %p.meta= I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))
+      = I18n.t(:activity_user_modified_collection, :user => h(item.user.short_name), :collection => link_to(item.collection.summary_name, collection_path(item.collection)))
+  %p.meta= I18n.t(:time_ago, :time_passed => time_ago_in_words(item.created_at))
 

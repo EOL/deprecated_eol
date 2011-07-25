@@ -32,19 +32,20 @@ class CollectionsController < ApplicationController
   def create
     @collection = Collection.new(params[:collection])
     if @collection.save
-      CollectionActivityLog.create(:collection => @collection, :user => current_user, :activity => Activity.create)
       flash[:notice] = I18n.t(:collection_created_notice, :collection_name => link_to_name(@collection))
       if params[:collection_items]
+        source = Collection.find(params[:source_collection_id])
+        if source.nil?
+          @collection.destroy
+          flash[:notice] = nil # We're undoing the create.
+          flash[:error] = I18n.t(:could_not_find_collection_error)
+          return redirect_to collection_path(@collection)
+        end
         if params[:for] == 'copy'
+          CollectionActivityLog.create(:collection => @collection, :user => current_user, :activity => Activity.create)
           return copy_items_and_redirect(source, @collection)
         elsif params[:for] == 'move'
-          source = Collection.find(params[:source_collection_id])
-          if source.nil?
-            @collection.destroy
-            flash[:notice] = nil # We're undoing the create.
-            flash[:error] = I18n.t(:could_not_find_collection_error)
-            return redirect_to collection_path(@collection)
-          end
+          CollectionActivityLog.create(:collection => @collection, :user => current_user, :activity => Activity.create)
           return copy_items_and_redirect(source, @collection, :move => true)
         else
           @collection.destroy
@@ -199,11 +200,14 @@ private
     new_collection_items = []
     collection_items.each do |collection_item|
       collection_item = CollectionItem.find(collection_item) # sometimes this is just an id.
-      new_collection_items << { :object_id => collection_item.object.id,
-                                :object_type => collection_item.object_type,
-                                :annotation => collection_item.annotation,
-                                :added_by_user_id => current_user.id } unless
-        already_have.include?([collection_item.object.id, collection_item.object_type])
+      unless already_have.include?([collection_item.object.id, collection_item.object_type])
+        new_collection_items << { :object_id => collection_item.object.id,
+                                  :object_type => collection_item.object_type,
+                                  :annotation => collection_item.annotation,
+                                  :added_by_user_id => current_user.id }
+        CollectionActivityLog.create(:collection => @collection, :user => current_user,
+                                     :activity => Activity.collect, :collection_item => collection_item)
+      end
     end
     if new_collection_items.empty?
       flash[:error] = I18n.t(:no_items_were_copied_error)
@@ -268,8 +272,6 @@ private
       collection_items = options[:from].collection_items
     else # It's a particular type of item.
       collection_items = options[:from].items_from_solr(:facet_type => params[:scope], :page => 1, :per_page => 20000).map { |i| i['instance'] }
-      debugger
-      puts "g"
     end
     collection_items
   end

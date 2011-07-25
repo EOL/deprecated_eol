@@ -15,9 +15,6 @@ class CollectionsController < ApplicationController
 
   def show
     # NOTE - we use these commit_* names because we don't want to handle the I18n of the commit option.
-    return redirect_to_choose(:copy) if params[:commit_copy]
-    return redirect_to_choose(:move) if params[:commit_move]
-    return remove_and_redirect if params[:commit_remove]
     return collect if params[:commit_collect]
     # NOTE - this is complicated. It's getting the various collection item types and doing i18n on the name as well
     # as passing the raw facet type (used by Solr) as the values in the option hash that will be built in the view:
@@ -35,23 +32,24 @@ class CollectionsController < ApplicationController
     @collection = Collection.new(params[:collection])
     if @collection.save
       CollectionActivityLog.create(:collection => @collection, :user => current_user, :activity => Activity.create)
-      flash[:notice] = I18n.t(:collection_created_notice, :collection_name => @collection.name)
+      flash[:notice] = I18n.t(:collection_created_notice, :collection_name => link_to_name(@collection))
       if params[:collection_items]
-        if params[:copy]
-          copied = copy_items(:to => @collection, :items => CollectionItem.find(params[:collection_items]))
-          # Assume flash message set by #copy_items if there was an error.
-          return redirect_to @collection
-        elsif params[:move]
-          copied = copy_items(:to => @collection, :items => CollectionItem.find(params[:collection_items]))
-          old_colleciton = Collection.find(params[:id])
-          remove_items(:from => old_colleciton, :items => params[:collection_items], :scope => params[:scope])
-          flash[:notice] = I18n.t(:moved_items_from_collection_with_count_notice, :count => copied,
-                                  :name => link_to_name(old_colleciton))
-          return redirect_to collection_path(@collection)
+        if params[:for] == 'copy'
+          return copy_items_from_collection(source)
+        elsif params[:for] == 'move'
+          source = Collection.find(params[:source_collection_id])
+          if source.nil?
+            @collection.destroy
+            flash[:notice] = nil # We're undoing the create.
+            flash[:error] = I18n.t(:could_not_find_collection_error)
+            return redirect_to collection_path(@collection)
+          end
+          return copy_items_from_collection(source, :move => true)
         else
           @collection.destroy
+          flash[:notice] = nil # We're undoing the create.
           flash[:error] = I18n.t(:collection_not_created_error, :collection_name => @collection.name)
-          return redirect_to request.referer
+          return redirect_to collection_path(@collection)
         end
       end
     else
@@ -71,6 +69,9 @@ class CollectionsController < ApplicationController
   end
 
   def update
+    return redirect_to_choose(:copy) if params[:commit_copy]
+    return redirect_to_choose(:move) if params[:commit_move]
+    return remove_and_redirect if params[:commit_remove]
     return chosen if params[:scope] # Note that updating the collection params doesn't specify a scope.
     if @collection.update_attributes(params[:collection])
       respond_to do |format|
@@ -177,7 +178,7 @@ private
       if options[:move]
         # Not handling any weird errors here, to simplify flash notice handling.
         remove_items(:from => source, :items => params[:collection_items], :scope => params[:scope])
-        @collection_items.delete_if {|ci| params['collection_items'].include?(ci.id.to_s) }
+        @collection_items.delete_if {|ci| params['collection_items'].include?(ci.id.to_s) } if @collection_items
         flash[:notice] = I18n.t(:moved_items_from_collection_with_count_notice, :count => copied,
                                 :name => link_to_name(source))
         return redirect_to collection_path(@collection)
@@ -236,7 +237,7 @@ private
                                      :activity => Activity.remove, :collection_item => item)
       end
     end
-    @collection_items.delete_if {|ci| collection_items.include?(ci.id.to_s) }
+    @collection_items.delete_if {|ci| collection_items.include?(ci.id.to_s) } if @collection_items
     return count
   end
 

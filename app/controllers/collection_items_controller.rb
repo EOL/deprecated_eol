@@ -36,8 +36,8 @@ class CollectionItemsController < ApplicationController
     if @collection_item.update_attributes(params[:collection_item])
       respond_to do |format|
         format.js do
-          render :partial => 'show', :layout => false,
-            :locals => { :collection_item => @collection_item, :editable => true }
+          # TODO - this won't work 'cause I'm using @collection_item to test whether to use a full form.  Fix:
+          render :partial => 'edit', :locals => { :collection_item => @collection_item }
         end
         format.html do
           flash[:notice] = I18n.t(:item_updated_in_collection_notice, :collection_name => @collection_item.collection.name)

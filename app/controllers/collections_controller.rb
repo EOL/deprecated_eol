@@ -72,6 +72,8 @@ class CollectionsController < ApplicationController
     return redirect_to_choose(:copy) if params[:commit_copy]
     return redirect_to_choose(:move) if params[:commit_move]
     return remove_and_redirect if params[:commit_remove]
+    return annotate if params[:commit_annotation]
+    return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect) if params[:commit_sort]
     return chosen if params[:scope] # Note that updating the collection params doesn't specify a scope.
     if @collection.update_attributes(params[:collection])
       respond_to do |format|
@@ -204,6 +206,7 @@ private
       collection_item = CollectionItem.find(collection_item) # sometimes this is just an id.
       new_collection_items << { :object_id => collection_item.object.id,
                                 :object_type => collection_item.object_type,
+                                :annotation => collection_item.annotation,
                                 :added_by_user_id => current_user.id } unless
         already_have.include?([collection_item.object.id, collection_item.object_type])
     end
@@ -223,6 +226,27 @@ private
     count = remove_items(:from => @collection, :items => params[:collection_items], :scope => params[:scope])
     flash[:notice] = I18n.t(:removed_count_items_from_collection_notice, :count => count)
     return redirect_to collection_path(@collection)
+  end
+
+  def annotate
+    if @collection.update_attributes(params[:collection])
+      respond_to do |format|
+        format.js do
+          # Sorry this is confusing, but we don't know which attribute number will have the id:
+          @collection_item = CollectionItem.find(params[:collection][:collection_items_attributes].keys.map {|i|
+            params[:collection][:collection_items_attributes][i][:id] }.first)
+          render :partial => 'edit_collection_item', :locals => { :collection_item => @collection_item }
+        end
+      end
+    else
+      respond_to do |format|
+        format.js { render :text => I18n.t(:item_not_updated_in_collection_error) }
+        format.html do
+          flash[:error] = I18n.t(:item_not_updated_in_collection_error)
+          redirect_to(@collection_item.collection)
+        end
+      end
+    end
   end
 
   def remove_items(options)
@@ -248,9 +272,9 @@ private
     elsif params[:scope] == 'all_items'
       collection_items = options[:from].collection_items
     else # It's a particular type of item.
-      @@starts_with_all_re ||= /^all_/ # NOTE REs create memory leaks when used in-line.
-      facet = params[:scope].sub(@@starts_with_all_re, '')
-      collection_items = @collection.items_from_solr(:facet_type => facet, :page => 1, :per_page => 20000)
+      collection_items = options[:from].items_from_solr(:facet_type => params[:scope], :page => 1, :per_page => 20000).map { |i| i['instance'] }
+      debugger
+      puts "g"
     end
     collection_items
   end

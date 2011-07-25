@@ -16,7 +16,7 @@
 - else
   - form_options = { :html => {:method => :get}, :url => {:action => :show} }
   - if editable
-    - form_options = {}
+    - form_options = { :html => {:method => :put} }
   - form_for(@collection, form_options) do |f|
     = hidden_field_tag(:filter, @filter) if @filter
     #tabs_sidebar

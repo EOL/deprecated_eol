@@ -44,8 +44,6 @@ $('.editable_link a').click(function() {
 //   complete: Function to call when complete.  Optional.
 EOL.ajax_submit = function(el, args) {
   var form = el.closest('form');
-  console.log('form:');
-  console.log(form);
   var cell = '';
   if(typeof(args.update) != 'undefined') {
     cell = args.update;
@@ -54,28 +52,18 @@ EOL.ajax_submit = function(el, args) {
   }
   var url  = '';
   if(typeof(args.url) != 'undefined') {
-    console.log('reading url from args');
     url = args.url;
   } else if(typeof(el.attr('data_url')) != 'undefined') {
-    console.log('reading url from data_url');
     url = el.attr('data_url');
   } else {
-    console.log('reading url from form');
     url = form.attr('action');
   }
-  console.log('url:');
-  console.log(url);
   var data = '';
   if(typeof(args.data) != 'undefined') {
-    console.log('reading data from args, type:');
-    console.log(typeof(args.data));
     data = args.data;
   } else {
-    console.log('reading data from form');
     data = form.serialize();
   }
-  console.log('data:');
-  console.log(data);
   complete = '';
   if(typeof(args.complete) != 'undefined') {
     complete = args.complete;

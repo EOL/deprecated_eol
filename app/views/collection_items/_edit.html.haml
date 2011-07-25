@@ -6,7 +6,7 @@
 - else
   = render :partial => "shared/item_summary_#{item_type}.html.haml", :locals => {:item => collection_item.object}
 -# When JS is disabled, you are taken to a page specific to the collection item, which has its own form:
-- if @collection_item
+- if defined?(item_form)
   - form_for(@collection_item) do |f|
     %fieldset
       = label_tag :collection_item_annotation, I18n.t(:collection_item_annotation_label), {:class => 'assistive'}
@@ -24,10 +24,10 @@
     -# ...below, for non-JS users. This is sub-optimal for non-JS users, but see note above.
   -# Doing this because HR had a full form tag here, but we don't want/need one:
   .collection_item_form
-    = parent_form.fields_for :collection_items, collection_item do |item_form|
+    - parent_form.fields_for :collection_items, collection_item do |item_form|
       %fieldset
         = item_form.label :annotation, I18n.t(:collection_item_annotation_label), {:class => 'assistive'}
         = item_form.text_area :annotation, :rows => 2, :cols => 60
       %fieldset.actions
-        = submit_tag I18n.t(:save_annotation_submit_button), :name => "commit_annotation_#{collection_item.id}"
+        = submit_tag I18n.t(:save_annotation_submit_button)
         %a(href="#") cancel

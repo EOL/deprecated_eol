@@ -1,7 +1,7 @@
 = javascript_include_tag 'new-text'
 %p
   %strong
-    = I18n.t(:you_must_be_logged_in_to_add_text, :logged_in_link => link_to(I18n.t("logged_in_"), login_path(:params => {:return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path}), {:class => 'login_link'} )) 
+    -# This used to be the "you must be logged in" link, which is going away; I removed it to ease I18n issues.
 
 
 

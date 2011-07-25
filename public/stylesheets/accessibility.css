@@ -3,11 +3,56 @@
   left: -999em; }
 
 /*
+ * Changes required for HR sass files:
+ *   - replace /images/<image name> with /images/v2/<image name>
+ *   - replace #profile_edit with form.edit_user
+ *
+ *
  * Temporary placement of needed CSS for V2
  * I don't want to edit/add to HashRocket's SASS files until they are done making changes
  * so I am temporarily adding some CSS here needed for V2 demo. This CSS should be integrated
  * into HashRocket SASS if it is still needed when design work is complete.
  */
+/*Busy indicator for JS submitted forms e.g. exemplar image */
+.busy {
+  cursor: wait; }
+
+/*Styles for forms and form validation errors */
+form fieldset#errors {
+  width: 100%;
+  position: relative;
+  background: #ffeae6;
+  padding: 20px;
+  margin: 0 0 20px 0; }
+  form fieldset#errors legend {
+    position: absolute;
+    background: transparent;
+    font-weight: bold; }
+  form fieldset#errors ul {
+    margin-top: 30px; }
+  form fieldset#errors li {
+    font-weight: normal;
+    display: block;
+    float: none;
+    margin-bottom: 5px; }
+form fieldset.radio {
+  margin: 20px 0; }
+  form fieldset.radio legend {
+    font-weight: bold;
+    padding-bottom: 10px; }
+  form fieldset.radio label {
+    margin: 10px;
+    display: block;
+    clear: both;
+    line-height: 1.2em; }
+form label.errors, form span.errors {
+  color: #e84226; }
+form span.errors {
+  font-weight: normal; }
+form input.errors {
+  border-color: #f2d2cc !important; }
+
+/*will_paginate styling */
 .pagination {
   text-align: right; }
   .pagination a {
@@ -36,40 +81,55 @@
     top: 0 !important;
     left: 0 !important; }
 
+/*Static pages */
 .exemplars ul img, .partners ul img {
   clear: both;
   float: left;
   margin: 0 20px 30px 30px; }
 
+/*warning messages - check HR commits for updates to this */
 p.status.error {
-  border: 1px solid red;
-  background: pink; }
+  border: 1px solid #f2d2cc;
+  background: #ffeae6; }
 
 #permalink #sidebar ul.review_status p.unknown {
   border: 1px solid #677682;
   background: #8695a1; }
 
-#media_list #main > ul > li .audio {
-  position: relative;
-  background: #394651 url("/images/v2/icon_sound_tabs.png") no-repeat 50% 20%;
+/*Special styles for layering audio description on top of audio thumbnail and adjustments for when missing exemplar */
+#media_list #sidebar.filters img {
+  margin-bottom: 0; }
+#media_list #sidebar.filters h3 {
+  margin-top: 20px; }
+#media_list #main > ul > li .figure {
   width: 160px;
-  height: 123px;
-  margin: 0 0 5px 0;
-  text-align: center;
-  overflow: hidden; }
-  #media_list #main > ul > li .audio p {
-    padding: 50px 5px 40px; }
-    #media_list #main > ul > li .audio p a {
-      color: #e2e9ef; }
-  #media_list #main > ul > li .audio audio {
-    position: absolute;
-    left: 0;
-    bottom: 0;
+  height: 125px;
+  margin-bottom: 5px; }
+  #media_list #main > ul > li .figure .audio {
+    position: relative;
+    background: #394651 url("/images/v2/icon_sound_tabs.png") no-repeat 50% 20%;
     width: 160px;
-    z-index: 1; }
+    height: 123px;
+    margin: 0 0 5px 0;
+    text-align: center;
+    overflow: hidden; }
+    #media_list #main > ul > li .figure .audio p {
+      padding: 50px 5px 40px; }
+      #media_list #main > ul > li .figure .audio p a {
+        color: #e2e9ef; }
+    #media_list #main > ul > li .figure .audio audio {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 160px;
+      z-index: 1; }
 #media_list #main > ul > li p.flag.unknown {
   border: 1px solid #677682;
   background: #8695a1; }
+#media_list #main > ul > li p.flag.untrusted {
+  border: 1px solid #f2d2cc;
+  background: #ffeae6;
+  color: #677682; }
 #media_list #main > ul > li > a {
   display: inline-block;
   width: 160px;
@@ -79,6 +139,7 @@ p.status.error {
   display: block;
   clear: both; }
 
+/*We share rating partial across many pages so need extra styles here. */
 #taxonomy_detail .average_rating h5 {
   display: inline;
   text-transform: lowercase; }
@@ -103,9 +164,16 @@ p.status.error {
   width: 0;
   background: transparent url("/images/v2/icon_stars.png") 0 100% repeat-x; }
 
+/*We don't want border on EOL abbr tags in the shared join partial */
 .join abbr {
   border: none; }
 
+/*HR z-indexes were messed up in header, also we're putting session partial on home page for logged in users */
+body.home > #header .session {
+  position: absolute;
+  right: 40px;
+  top: 55px;
+  z-index: 2; }
 body > #header .section .actions {
   z-index: 5; }
 body > #header .section .session .join {
@@ -117,17 +185,21 @@ body > #header .section .session .join {
   body > #header .section .session .join a {
     color: #90bce4; }
 
+/*Check latest from HR they might have put IUCN styles in by now. */
 #iucn_status {
   margin-bottom: 20px; }
   #iucn_status h3, #iucn_status p {
     display: inline; }
 
+/*we share attribution across multiple pages my guess is we needed some overrides here */
 #text_summary .attribution {
   font-size: 0.92em; }
   #text_summary .attribution img {
     float: left;
     margin: 2px 10px 0 0; }
 
+/*Our classification is a hierarchichal list whereas HR was just links without hierarchy so we override the styles here
+ * check this is still true after hierarchy entry page design is implemented */
 #classifications_summary li {
   overflow: hidden; }
   #classifications_summary li li p {
@@ -138,6 +210,9 @@ body > #header .section .session .join {
     margin-left: 10px;
     background: transparent url("/images/v2/icon_classification_arrow.png") 0 0 no-repeat; }
 
+/*HR styles assume text descriptions are nicely wrapped in p tags - in reality they may or may not be so we add
+ * extra div.description and assign styles to the div - check this, particularly line-height as we probably need
+ * to remove some HR styles from nested p. Check latest HR and remove the table styles here if possible.* */
 #taxonomy_detail .article .description {
   padding: 0 0 15px 0;
   line-height: 170%; }
@@ -156,6 +231,14 @@ body > #header .section .session .join {
       border-bottom: 1px solid #cccccc; }
   #taxonomy_detail table .odd {
     background-color: #eeeeee; }
+
+/* TODO: this hasn't been really thought out and should be changed: */
+.heading p#empty {
+  font-weight: bold;
+  font-size: 1.2em; }
+
+#sidebar.filters dd li.no_results label {
+  color: #6f7e8b; }
 
 /*
  * TEMPORARY FIX: Forcing image sizes for V2 demo.
@@ -199,13 +282,6 @@ ul.feed li > a > img {
 #sidebar .collection_list img {
   width: 35px;
   height: 35px; }
-#sidebar.filters dd li.no_results label {
-  color: #6f7e8b; }
-
-/* TODO: this hasn't been really thought out and should be changed: */
-.heading p#empty {
-  font-weight: bold;
-  font-size: 1.2em; }
 
 #taxonomy .gallery ul.thumbnails li {
   text-align: center; }
@@ -218,29 +294,14 @@ ul.feed li > a > img {
 
 #media_list #main ul li img {
   max-width: 160px;
-  max-height: 125px;
-  width: auto;
-  height: auto;
-  display: block;
-  margin-left: auto;
-  margin-right: auto; }
+  max-height: 125px; }
 #media_list #sidebar.filters img {
   max-width: 220px;
-  max-height: 162px;
-  width: auto;
-  height: auto;
-  display: block;
-  margin-left: auto;
-  margin-right: auto; }
+  max-height: 162px; }
 
 #taxonomy_detail #sidebar img {
   max-width: 260px;
-  max-height: 190px;
-  width: auto;
-  height: auto;
-  display: block;
-  margin-left: auto;
-  margin-right: auto; }
+  max-height: 190px; }
 
 ul.object_list li img {
   max-width: 68px;
@@ -264,3 +325,12 @@ form.comment img {
 
 #collections .heading {
   line-height: 2.5em; }
+
+table.standard td.nowrap {
+  white-space: nowrap; }
+
+#collections_choose h2 {
+  font-size: 2em; }
+
+#collections_choose ul {
+  width: 500px; }

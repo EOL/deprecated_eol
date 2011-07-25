@@ -28,11 +28,9 @@ module EOL
       
       def reindex_model(klass)
         @solr_api.delete_by_query('resource_type:' + klass.class_name)
-        first_record = klass.first
-        last_record = klass.last
-        return if first_record.nil? || last_record.nil?
-        start = first_record.id
-        max_id = last_record.id
+        start = klass.minimum('id')
+        max_id = klass.maximum('id') # doing this to avoid TC supercedure
+        return if start.nil? || max_id.nil?
         limit = 5000
         i = start
         while i <= max_id
@@ -54,7 +52,7 @@ module EOL
             if o[:keyword].class == String
               o[:keyword] = SolrAPI.text_filter(o[:keyword])
             elsif o[:keyword].class == Array
-              o[:keyword].map{ |k| SolrAPI.text_filter(k) }
+              o[:keyword].map!{ |k| SolrAPI.text_filter(k) }
             end
           end
           @solr_api.send_attributes(@objects_to_send) unless @objects_to_send.blank?
@@ -95,6 +93,23 @@ module EOL
       end
       
       def lookup_taxon_concepts(start, limit)
+        # max = start + limit
+        # taxon_concept_ids_array = TaxonConcept.connection.select_values("SELECT tc.id, tc.vetted_id, tcn.preferred, tcn.vern, tcn.language_id, tcn.source_hierarchy_entry_id, n.string FROM taxon_concepts tc LEFT JOIN (taxon_concept_names tcn JOIN names n ON  (tcn.name_id=n.id)) ON (tc.id=tcn.taxon_concept_id) WHERE tc.supercedure_id=0 AND tc.published=1 AND tc.id  BETWEEN #{start} AND #{max}")
+        # 
+        # # ,
+        # #   :include => [
+        # #     :flattened_ancestors,
+        # #     { :published_hierarchy_entries => [
+        # #       :name, { :scientific_synonyms => :name } ] },
+        # #     { :denormalized_common_names => :name } ],
+        # #   :select => { :taxon_concepts => :id, :names => [ :string, :ranked_canonical_form_id ], :languages => :iso_639_1,
+        # #     :taxon_concepts_flattened => '*' })
+        # # taxon_concepts.each do |t|
+        # #   @objects_to_send += t.keywords_to_send_to_solr_index
+        # # end
+        # 
+        # 
+        # return
         max = start + limit
         taxon_concepts = TaxonConcept.find(:all, :conditions => "id BETWEEN #{start} AND #{max} AND published=1 AND supercedure_id=0",
           :include => [ :flattened_ancestors, { :published_hierarchy_entries => [ :name, { :scientific_synonyms => :name },
@@ -104,6 +119,7 @@ module EOL
         taxon_concepts.each do |t|
           @objects_to_send += t.keywords_to_send_to_solr_index
         end
+        
       end
       
       

@@ -12,13 +12,12 @@ class SearchController < ApplicationController
     @params_type = ['all'] if @params_type.include?('all')
     @params_type.map!{ |t| t.camelize }
     @querystring = params[:q] || params[:id]
-    params[:per_page] = @@results_per_page
     @page_title  = I18n.t(:search_by_term_page_title, :term => @querystring)
     if @querystring.blank?
       @all_results = empty_paginated_set
       @facets = {}
     else
-      search_response = EOL::Solr::SiteSearch.search_with_pagination(@querystring, params)
+      search_response = EOL::Solr::SiteSearch.search_with_pagination(@querystring, params.merge({ :per_page => @@results_per_page }))
       @all_results = search_response[:results]
       @facets = search_response[:facets]
       @suggestions = search_response[:suggestions]
@@ -26,13 +25,27 @@ class SearchController < ApplicationController
       current_user.log_activity(:text_search_on, :value => params[:q])
       if @all_results.length == 1 && @all_results.total_entries == 1
         redirect_to_page(@all_results)
+      elsif params[:show_all].blank? && @all_results.total_entries > 1 && @all_results.length > 1 &&
+        @all_results[0]['score'] > 5 && (@all_results[0]['score'] > (@all_results[1]['score'] * 4))
+        redirect_to_page(@all_results, :more_results => true, :params => params)
       end
     end
+    params.delete(:type) if params[:type] == ['all']
+    params.delete(:sort_by) if params[:sort_by] == 'score'
   end
   
   # there are various object types which can be the only result. This method handles redirecting to all of them
-  def redirect_to_page(result_set)
-    flash[:notice] = I18n.t(:flash_notice_redirected_from_search_html, :search_string => @querystring)
+  def redirect_to_page(result_set, options={})
+    if options[:more_results]
+      modified_params = options[:params].dup
+      modified_params.delete(:type) if modified_params[:type] == ['all']
+      modified_params.delete(:sort_by) if modified_params[:sort_by] == 'score'
+      modified_params.delete_if{ |k, v| ![ :sort_by, :type ].include?(k) }
+      modified_params[:q] = @querystring
+      flash[:notice] = I18n.t(:flash_notice_redirected_from_search_html_more_results, :search_string => @querystring, :more_results_url => search_path(nil, modified_params.merge({ :show_all => true })))
+    else
+      flash[:notice] = I18n.t(:flash_notice_redirected_from_search_html, :search_string => @querystring)
+    end
     result_instance = result_set.first['instance']
     if result_instance.class == Collection
       redirect_to collection_path(result_instance.id)

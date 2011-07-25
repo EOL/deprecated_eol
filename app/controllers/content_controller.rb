@@ -173,7 +173,7 @@ class ContentController < ApplicationController
 
   def contact_us
 
-    @page_title = I18n.t(:contact_us_)
+    @page_title = I18n.t(:contact_us_title)
     @subjects = ContactSubject.find(:all, :conditions => 'active = 1', :order => 'translated_contact_subjects.title')
 
     @contact = Contact.new(params[:contact])

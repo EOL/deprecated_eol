@@ -1,14 +1,21 @@
 - item_type ||= en_type(collection_item)
+- inline_form = true unless defined?(:inline_form)
 .checkbox
   = check_box_tag "collection_items[]", collection_item.id, @selected_collection_items.include?(collection_item.id.to_s) || @select_all, :id => "collection_item_#{collection_item.id}"
 - if ['image', 'video', 'sound'].include?(item_type)
   = render :partial => "shared/item_summary_media.html.haml", :locals => {:item => collection_item.object, :en_type => item_type}
 - else
   = render :partial => "shared/item_summary_#{item_type}.html.haml", :locals => {:item => collection_item.object}
-%fieldset
-  = label_tag :collection_item_annotation, I18n.t(:collection_item_annotation_label), {:class => 'assistive'}
-  = text_area_tag "collection_item[annotation]", collection_item.annotation, :rows => 2, :cols => 60
-  -# NOTE = you do NOT want to submit the form that this appears on; it's actually for a collection.  But if you're
-  -# here, JS is enabled, and this button will be affected by JS, not HTML:  TODO - Since this ONLY works with JS, it
-  -# should be added with JS.  ...maybe?  Not sure... it might be safe enough to assume that if we're here, it's ok:
-  = submit_tag I18n.t(:save), :name => 'commit_edit_collection', :data_url => collection_item_path(collection_item)
+- if inline_form
+  %fieldset
+    = label_tag :collection_item_annotation, I18n.t(:collection_item_annotation_label), {:class => 'assistive'}
+    = text_area_tag "collection_item[annotation]", collection_item.annotation, :rows => 2, :cols => 60
+    = submit_tag I18n.t(:save_annotation_submit_button), :data_url => collection_item_path(collection_item)
+-# When JS is disabled, you are taken to a page specific to the collection item, which has its own form:
+- else
+  - form_for(@collection_item) do |f|
+    %fieldset
+      = label_tag :collection_item_annotation, I18n.t(:collection_item_annotation_label), {:class => 'assistive'}
+      = f.text_area :annotation, :rows => 2, :cols => 60
+      = submit_tag I18n.t(:save_annotation_submit_button)
+

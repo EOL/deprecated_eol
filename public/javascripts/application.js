@@ -14,21 +14,6 @@ $(document).ready(function() {
   });
 });
 
-// function stepMarchOfLife() {
-//   $('.thumbnails ul li:first a:first').appendTo('.thumbnails ul li:first')
-//   if($('.thumbnails ul li:first img').length > 1) {
-//     $('.thumbnails ul li:first img:last').css({
-//       opacity:0
-//     });
-//   }
-//   $('.thumbnails ul li:first img:first').css({
-//     opacity:1
-//   });
-//   $('.thumbnails ul li:first').appendTo('.thumbnails ul');
-//   $('.thumbnails ul li').removeClass('last');
-//   $('.thumbnails ul li:last').addClass('last');
-// }
-
 $(function() {
   $(".thumbnails li img").mouseover(function() {
     var $e = $(this).parent().parent(),
@@ -42,11 +27,7 @@ $(function() {
       textAlign: direction
     }).css("margin-" + direction, pos[direction]).text($(this).attr("alt"));
   }).eq(0).mouseover();
-  
-  // setInterval(function() {
-  //   stepMarchOfLife();
-  // }, 3000);
-  
+
   $(".thumbnails li").mouseout(function() {
     $(".thumbnails .term p").html("&nbsp;");
   });
@@ -55,13 +36,6 @@ $(function() {
     .change(function() {
       $(this).closest("form").submit();
     });
-
-  (function($filters) {
-    $filters.find("button.select_all").show().click(function() {
-      $(".main_container").find(":checkbox").prop("checked", true);
-      return false;
-    });
-  })($(".filters"));
 
   (function($ss) {
     $ss.each(function() {
@@ -108,6 +82,13 @@ $(function() {
     }
   })($(".gallery"));
 
+  (function($media_list) {
+    $media_list.find("li .overlay").click(function() {
+      window.location = $(this).parent().find("a").attr("href");
+      return false;
+    });
+  })($("#media_list"));
+
   (function($language) {
     $language.find("p a").accessibleClick(function() {
       var $e = $(this),
@@ -127,6 +108,18 @@ $(function() {
     });
 
   })($(".language"));
+
+  (function($collection) {
+    $collection.find("ul.object_list li").each(function() {
+      var $li = $(this);
+      $li.find("p.edit").show().next().hide().end().find("a").click(function() {
+        $(this).parent().hide().next().show();
+      });
+      $li.find("form a").click(function() {
+        $(this).closest("form").hide().prev().show();
+      });
+    });
+  })($("#collections"));
 
   $("input[placeholder]").each(function() {
     var $e = $(this),

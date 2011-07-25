@@ -2,7 +2,7 @@ require 'uri'
 ContentPage # TODO - figure out why this fails to autoload.  Look at http://kballcodes.com/2009/09/05/rails-memcached-a-better-solution-to-the-undefined-classmodule-problem/
 
 class ApplicationController < ActionController::Base
-
+  filter_parameter_logging :password
   include ContentPartnerAuthenticationModule # TODO -seriously?!?  You want all that cruft available to ALL controllers?!
   include ImageManipulation
 
@@ -27,6 +27,7 @@ class ApplicationController < ActionController::Base
   prepend_before_filter :set_session
   before_filter :clear_any_logged_in_session unless $ALLOW_USER_LOGINS
   before_filter :set_user_settings
+  before_filter :check_user_agreed_with_terms
 
   helper :all
 
@@ -95,11 +96,6 @@ class ApplicationController < ActionController::Base
     return redirect_to(login_path(:return_to => params[:return_to]))
   end
 
-  def access_denied
-    flash[:warning] = I18n.t(:you_are_not_authorized_to_perform_this_action)
-    return redirect_to(root_path)
-  end
-
   def view_helper_methods
     Helper.instance
   end
@@ -151,9 +147,10 @@ class ApplicationController < ActionController::Base
     session[:return_to] = url
   end
 
-  # retrieve the stored URL that we want to go back to
+  # retrieve url stored in session by store_location()
+  # use redirect_back_or_default to specify a default url, do not add default here
   def return_to_url
-    session[:return_to] || root_url
+    session[:return_to]
   end
 
   # Set the page expertise and vetted defaults, get from querystring, update the session with this value if found
@@ -174,7 +171,7 @@ class ApplicationController < ActionController::Base
   end
 
   def valid_return_to_url
-    return_to_url != nil && return_to_url != login_url && return_to_url != register_url && return_to_url != logout_url && !url_for(:controller => 'content_partner', :action => 'login', :only_path => true).include?(return_to_url)
+    return_to_url != nil && return_to_url != login_url && return_to_url != new_user_url && return_to_url != logout_url && !url_for(:controller => 'content_partner', :action => 'login', :only_path => true).include?(return_to_url)
   end
 
   def current_url(remove_querystring = true)
@@ -467,9 +464,13 @@ class ApplicationController < ActionController::Base
   end
   alias is_curator is_curator?
 
-  # used as a before_filter on methods that you don't want users to see if they are logged in (such as the login or register page)
-  def go_to_home_page_if_logged_in
-    redirect_to(root_url) if logged_in?
+  # used as a before_filter on methods that you don't want users to see if they are logged in
+  # such as the sessions#new, users#new, users#forgot_password etc
+  def redirect_if_already_logged_in
+    if logged_in?
+      flash[:notice] = I18n.t(:destination_inappropriate_for_logged_in_users)
+      redirect_to(current_user)
+    end
   end
 
   def must_log_in
@@ -487,7 +488,9 @@ class ApplicationController < ActionController::Base
   # A user is not authorized for the particular controller based on the rights for the roles they are in
   def access_denied
     flash.now[:warning] = I18n.t(:you_are_not_authorized_to_perform_this_action)
-    request.env["HTTP_REFERER"] ? (redirect_to :back) : (redirect_to root_url)
+    return_to = request.referer
+    store_location(return_to) unless return_to.blank?
+    redirect_back_or_default
   end
 
   # Set the current language
@@ -510,6 +513,14 @@ class ApplicationController < ActionController::Base
     secondary_hierarchy_id = current_user.secondary_hierarchy_id rescue nil
     @session_hierarchy = Hierarchy.find(hierarchy_id)
     @session_secondary_hierarchy = secondary_hierarchy_id.nil? ? nil : Hierarchy.find(secondary_hierarchy_id)
+  end
+
+  # logged in users will be redirected to terms agreement if they have not yet accepted.
+  def check_user_agreed_with_terms
+    if logged_in? && ! current_user.agreed_with_terms
+      store_location
+      redirect_to terms_agreement_user_path(current_user)
+    end
   end
 
 private

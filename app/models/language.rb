@@ -12,6 +12,7 @@ class Language < SpeciesSchemaModel
   end
 
   def self.create_english
+    Language.reset_cached_instances
     e = Language.gen_if_not_exists(:iso_639_1 => 'en', :source_form => 'English')
     TranslatedLanguage.gen_if_not_exists(:label => 'English', :original_language_id => e.id)
     e
@@ -22,7 +23,9 @@ class Language < SpeciesSchemaModel
   end
 
   def self.with_iso_639_1
-    Language.find_by_sql("select * from languages where iso_639_1 != ''")
+    cached("all_languages_with_iso_639_1") do
+      Language.find(:all, :conditions => "iso_639_1 != '' AND iso_639_1 IS NOT NULL")
+    end
   end
 
   def self.from_iso(iso, params={})

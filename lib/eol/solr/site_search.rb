@@ -53,6 +53,7 @@ module EOL
       
       def self.add_community!(docs)
         ids = docs.map{ |d| d['resource_id'] }
+        return if ids.blank?
         instances = Community.find_all_by_id(ids)
         docs.each do |d|
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
@@ -61,6 +62,7 @@ module EOL
       
       def self.add_collection!(docs)
         ids = docs.map{ |d| d['resource_id'] }
+        return if ids.blank?
         instances = Collection.find_all_by_id(ids)
         docs.each do |d|
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
@@ -69,6 +71,7 @@ module EOL
       
       def self.add_user!(docs)
         ids = docs.map{ |d| d['resource_id'] }
+        return if ids.blank?
         instances = User.find_all_by_id(ids)
         docs.each do |d|
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
@@ -77,21 +80,27 @@ module EOL
       
       def self.add_taxon_concept!(docs)
         includes = [
-          { :published_hierarchy_entries => [ :name , :hierarchy, :vetted, { :flattened_ancestors => { :ancestor => [ :name, :rank ] } } ] },
-          { :top_concept_images => :data_object } ]
+          { :published_hierarchy_entries => [ { :name => :ranked_canonical_form } , :hierarchy, :vetted, { :flattened_ancestors => { :ancestor => [ :name, :rank ] } } ] },
+          { :preferred_common_names => [ :name, :language ] } ]
         selects = {
           :taxon_concepts => '*',
           :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
           :names => [ :string, :italicized, :canonical_form_id ],
+          :canonical_forms => [ :string ],
           :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
           :vetted => :view_order,
           :hierarchy_entries_flattened => '*',
           :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating, :object_cache_url, :source_url ]
         }
         ids = docs.map{ |d| d['resource_id'] }
+        return if ids.blank?
         instances = TaxonConcept.core_relationships(:include => includes, :select => selects).find_all_by_id(ids)
+
+        top_image_ids = docs.map{ |d| d['top_image_id'] }
+        top_images = DataObject.find_all_by_id(top_image_ids, :select => 'id, object_cache_url')
         docs.each do |d|
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
+          d['top_image_instance'] = top_images.detect{ |i| i.id == d['top_image_id'].to_i }
         end
       end
       
@@ -105,6 +114,7 @@ module EOL
           :canonical_forms => :string
         }
         ids = docs.map{ |d| d['resource_id'] }
+        return if ids.blank?
         instances = DataObject.core_relationships(:include => includes, :select => selects).find_all_by_id(ids)
         docs.each do |d|
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
@@ -121,6 +131,7 @@ module EOL
             intersection_size = keyword_set.intersection(querystring_set).size
             if intersection_size > best_intersection_size || best_intersection_size == 0
               best_match = k
+              best_intersection_size = intersection_size
             end
           end
           docs[index]['best_keyword_match'] = best_match
@@ -158,11 +169,12 @@ module EOL
         end
         
         # add spellchecking - its using the spellcheck.q option because the main query main have gotten too complicated
-        url << '&spellcheck.q=' + CGI.escape(%Q[#{query}]) + '&spellcheck=true&spellcheck.count=5'
+        url << '&spellcheck.q=' + CGI.escape(%Q[#{query}]) + '&spellcheck=true&spellcheck.count=500'
         
         # add grouping and faceting
         url << "&group=true&group.field=resource_unique_key&group.ngroups=true&facet.field=resource_type&facet=on"
-        
+        # we also want to get back the relevancy score
+        url << "&fl=score"
         # add sorting
         if options[:sort_by] == 'newest'
           url << '&sort=date_modified+desc'

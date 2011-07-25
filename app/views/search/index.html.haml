@@ -1,5 +1,5 @@
 - unless @suggestions.blank?
-  = I18n.t(:did_you_mean, :suggestions => @suggestions.map{ |s| link_to s.firstcap, search_path(s) }.join(", "))
+  = I18n.t(:did_you_mean, :suggestions => @suggestions[0..5].map{ |s| link_to s.firstcap, search_path(s) }.join(", "))
 - unless @all_results.blank?
   .header
     - start_number = (@all_results.current_page - 1) * @all_results.per_page + 1
@@ -14,9 +14,10 @@
         - en_type = en_type(result_instance)
         %li{:class => en_type}
           - if ['image', 'video', 'sound'].include?(en_type)
-            = render :partial => "shared/item_summary_media.html.haml", :locals => {:item => result_instance, :en_type => en_type}
+            = render :partial => "shared/item_summary_media.html.haml", :locals => { :item => result_instance,
+              :en_type => en_type, :search_result => result }
           - else
-            = render :partial => "shared/item_summary_#{en_type}.html.haml", :locals => {:item => result_instance}
+            = render :partial => "shared/item_summary_#{en_type}.html.haml", :locals => { :item => result_instance, :search_result => result }
   .footer
     = will_paginate @all_results, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
       :inner_window => 4, :outer_window => 5

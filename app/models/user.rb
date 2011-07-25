@@ -37,24 +37,29 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   #has_one :watch_collection, :class_name => 'Collection', :conditions => { :special_collection_id => SpecialCollection.watch.id }
 
   before_save :check_credentials
+  before_save :encrypt_password
+  before_update :encrypt_password
 
   accepts_nested_attributes_for :user_info
 
   @email_format_re = %r{^(?:[_\+a-z0-9-]+)(\.[_\+a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$}i
 
-  validate :ensure_unique_username_against_master, :on => :create
+  #validate :ensure_unique_username_against_master
+
+  validates_uniqueness_of :username
 
   validates_presence_of :curator_verdict_by, :if => Proc.new { |obj| !obj.curator_verdict_at.blank? }
   validates_presence_of :curator_verdict_at, :if => Proc.new { |obj| !obj.curator_verdict_by.blank? }
   validates_presence_of :username
-  validates_presence_of :given_name
 
   validates_length_of :username, :within => 4..32
-  validates_length_of :entered_password, :within => 4..16, :on => :create
+  validates_length_of :entered_password, :within => 4..16, :if => :password_validation_required?
+
+  validates_confirmation_of :entered_password, :if => :password_validation_required?
 
   validates_format_of :email, :with => @email_format_re
 
-  validates_confirmation_of :entered_password
+  validates_acceptance_of :agreed_with_terms, :accept => true
 
   # TODO: remove the :if condition after migrations are run in production
   has_attached_file :logo,
@@ -88,62 +93,37 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   # create a new user using default attributes and then update with supplied parameters
   def self.create_new options = {}
-    # NOTE - the agent_id is assigned in account controller, not in the model
+    # NOTE - the agent_id is assigned in user controller, not in the model
     new_user = User.new
     new_user.send(:set_defaults) # It's a private method.  This is cheating, but we really DO want it private.
     new_user.attributes = options
     new_user
   end
 
-  def self.authenticate(username, password)
-    user = self.find_by_username_and_active(username, true)
-    if user.blank?
-      self.authenticate_by_email(username, password)
-    elsif user.hashed_password == self.hash_password(password)
-      user.reset_login_attempts # found a matching username and password matched!
-      return true, user
-    else
-      user.invalid_login_attempt
-      return false, I18n.t(:invalid_login_or_password)
-    end
-  end
-
-  def self.authenticate_by_email(email, password)
-    users = User.find_all_by_email_and_active(email, true)
-    if users.blank?
-      return self.fail_authentication_with_master_check(email)
-    end
-    users.each do |u| # check all users with matching email addresses to see if one of them matches the password
-      if u.hashed_password == User.hash_password(password)
-        u.reset_login_attempts # found a match with email and password
+  def self.authenticate(username_or_email, password)
+    user = self.find_by_username_and_active(username_or_email, true)
+    users = user.blank? ? self.find_all_by_email_and_active(username_or_email, true) : [user]
+    users.each do |u|
+      if u.hashed_password == self.hash_password(password)
+        u.reset_login_attempts
         return true, u
-      else
-        u.invalid_login_attempt # log the bad attempt for this user!
       end
     end
-    if users.size > 1 # more than 1 email address with no matching passwords
-      return false, I18n.t(:the_email_address_is_not_unique_you_must_enter_a_username)
-    else  # no matches yet again :(
-      return false, I18n.t(:invalid_login_or_password)
+    # if we get here authentication was unsuccessful
+    users.each do |u|
+      u.invalid_login_attempt # log failed attempts
     end
-  end
-
-  def self.fail_authentication_with_master_check(user_identifier)
-    if self.active_on_master?(user_identifier)
-      return false,  I18n.t(:account_registered_but_not_ready_try_later)
-    else
-      return false, I18n.t(:invalid_login_or_password)
-    end
+    return false, users
   end
 
   def self.generate_key
     Digest::SHA1.hexdigest(rand(10**16).to_s + Time.now.to_f.to_s)
   end
 
-  def self.active_on_master?(username)
+  def self.active_on_master?(username_or_email)
     User.with_master do
-      user = User.find_by_username_and_active(username, true)
-      user ||= User.find_by_email_and_active(username, true)
+      user = User.find_by_username_and_active(username_or_email, true)
+      user ||= User.find_by_email_and_active(username_or_email, true)
       user.nil? ? false : true  # Just cleaning up the nil, is all.  False is less likely to annoy.
     end
   end
@@ -240,8 +220,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def activate
-    self.update_attributes(:active => true)
-    Notifier.deliver_welcome_registration(self)
+    self.update_attributes(:active => true, :validation_code => nil)
     build_watch_collection
   end
 
@@ -280,6 +259,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     return family_name if !family_name.blank?
     return display_name if !display_name.blank?
     return acronym if !acronym.blank?
+    username
   end
 
   # TODO
@@ -422,6 +402,11 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       self.notes += ' ; (' + updated_by.username + ' on ' + Date.today.to_s + '): ' + update_notes
     end
     self.save!
+  end
+
+  def clear_entered_password
+    self.entered_password = ''
+    self.entered_password_confirmation = ''
   end
 
   def vet object
@@ -581,30 +566,26 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     return true unless attributes.keys.include?("filter_content_by_hierarchy")
   end
 
-  def password_reset_url(original_port)
-    port = ["80", "443"].include?(original_port.to_s) ? "" : ":#{original_port}"
-    new_token = User.generate_key
-    success = self.update_attributes(:password_reset_token => new_token, :password_reset_token_expires_at => 24.hours.from_now)
-    http_string = $USE_SSL_FOR_LOGIN ? "https" : "http"
-    if success
-      return "#{http_string}://#{$SITE_DOMAIN_OR_IP}#{port}/account/reset_password/#{new_token}"
-    else
-      raise RuntimeError("Cannot save reset password data to the database") #TODO write it correctly
-    end
-  end
+#  def password_reset_url(original_port)
+#    port = ["80", "443"].include?(original_port.to_s) ? "" : ":#{original_port}"
+#    new_token = User.generate_key
+#    self.update_attributes(:password_reset_token => new_token, :password_reset_token_expires_at => 24.hours.from_now)
+#    http_string = $USE_SSL_FOR_LOGIN ? "https" : "http"
+#    "#{http_string}://#{$SITE_DOMAIN_OR_IP}#{port}/users/reset_password/#{new_token}"
+#  end
 
-  def ensure_unique_username_against_master
-    # NOTE - this weird id.blank? line was introduced because the :on => :create clause on the validation was not working.
-    # Very frustrating.  So, essentially, we make sure this user is newly created before proceeding.
-    if id.blank? # We don't care if the username is unique if the user is already in the system...
-      errors.add('username', "#{username} is already taken") unless User.unique_user?(username)
-    end
-  end
+#  def ensure_unique_username_against_master
+#    # NOTE - this weird id.blank? line was introduced because the :on => :create clause on the validation was not working.
+#    # Very frustrating.  So, essentially, we make sure this user is newly created before proceeding.
+#    if id.blank? # We don't care if the username is unique if the user is already in the system...
+#      errors.add('username', "#{username} is already taken") unless User.unique_user?(username)
+#    end
+#  end
 
   def rating_for_object_guid(guid)
     UsersDataObjectsRating.find_by_data_object_guid_and_user_id(guid, self.id, :order => 'id desc')
   end
-  
+
   def rating_for_object_guids(guids)
     return_ratings = {}
     ratings = UsersDataObjectsRating.find_all_by_data_object_guid_and_user_id(guids, self.id, :order => 'id desc')
@@ -726,7 +707,16 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       # ContentServer.logo_path(logo_cache_url, size)
     end
   end
-  
+
+  # #collections is only a list of the collections the user *owns*.  This is a list that includes the collections the
+  # user has access to through communities
+  def all_collections
+    editable_collections = collections
+    members.each do |member|
+      editable_collections << member.community.focus_collection if member.can?(Privilege.edit_collections)
+    end
+    editable_collections
+  end
 
 private
 
@@ -751,7 +741,21 @@ private
   end
 
   def password_required?
-    (hashed_password.blank? || hashed_password.nil?)
+    hashed_password.blank? || hashed_password.nil? || ! self.entered_password.blank?
+  end
+
+  # We need to validate the password if hashed password is empty i.e. on user#create, or if someone is trying to change it i.e. user#update
+  def password_validation_required?
+    password_required? || ! self.entered_password.blank?
+  end
+
+  # Callback before_save and before_update we only encrypt password if someone has entered a valid password
+  def encrypt_password
+    if self.valid? && ! self.entered_password.blank?
+      self.hashed_password = User.hash_password(self.entered_password)
+    else
+      return true # encryption not required but we don't want to halt the process
+    end
   end
 
 end

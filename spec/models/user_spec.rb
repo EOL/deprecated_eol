@@ -35,11 +35,10 @@ describe User do
     User.generate_key.should_not == key
   end
 
-  it 'should check master for accounts that cannot log in with email' do
+  it 'should tell us if an account is active on master' do
     User.should_receive(:with_master).and_return(true)
-    status, message = User.authenticate("invalid@some-place.org", @password)
-    status.should_not be_true
-    message.should =~ /please try again/i
+    status = User.active_on_master?("invalid@some-place.org")
+    status.should be_true
   end
 
   it 'should hash passwords with MD5' do
@@ -98,26 +97,21 @@ describe User do
   end
 
   it 'should return false as first return value for non-existing user' do
-    success, message=User.authenticate('idontexistATALL', @password)
+    success, user = User.authenticate('idontexistATALL', @password)
     success.should be_false
-    message.should == 'Invalid login or password'
+    user.should be_blank
   end
 
   it 'should return false as first return value for user with incorrect password' do
-    success, message=User.authenticate(@user.username, 'totally wrong password')
+    success, user = User.authenticate(@user.username, 'totally wrong password')
     success.should be_false
-    message.should == 'Invalid login or password'
+    user.first.id.should == @user.id
   end
 
-  it 'should return url for the reset password email' do
-    user = User.gen(:username => 'johndoe', :email => 'johndoe@example.com')
-    user.password_reset_url(80).should match /http[s]?:\/\/.+\/account\/reset_password\//
-    user.password_reset_url(3000).should match /http[s]?:\/\/.+:3000\/account\/reset_password\//
-    user = User.find(user.id)
-    user.password_reset_token.size.should == 40
-    user.password_reset_token.should match /[\da-f]/
-    user.password_reset_token_expires_at.should > 23.hours.from_now
-    user.password_reset_token_expires_at.should < 24.hours.from_now
+  it 'should generate reset password token' do
+    token = User.generate_key
+    token.size.should == 40
+    token.should match /[\da-f]/
   end
 
   it 'should say a new username is unique' do
@@ -281,12 +275,6 @@ describe User do
     inactive_user.active?.should_not be_true
     inactive_user.activate
     inactive_user.active?.should be_true
-  end
-
-  it 'should send a notification' do
-    inactive_user = User.gen(:active => false)
-    Notifier.should_receive(:deliver_welcome_registration).with(inactive_user).and_return(true)
-    inactive_user.activate
   end
 
   it 'should create a "watch" collection' do

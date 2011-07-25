@@ -3,12 +3,11 @@
 
 - en_type ||= en_type(@data_object)
 #permalink{:class => en_type}
-  .ratings
-    = render :partial => 'rating', :locals => { :data_object => @data_object, :en_type => en_type }
+  = render :partial => 'rating', :locals => { :data_object => @data_object, :en_type => en_type }
   %div{:class => @data_object.is_text? ? 'article copy' : 'media'}
     - if @data_object.is_text? && ! @data_object.object_title.blank?
       %h2= @data_object.object_title
-    = render :partial => "data_objects/data_object_#{en_type}"
+    = render :partial => "data_objects/data_object_#{en_type}", :locals => { :size => '580_360' }
   - if @data_object.is_image?
     %ul.sizes
       - image_sizes = { :small => @data_object.smart_thumb, :medium => @data_object.smart_medium_thumb, :large => @data_object.smart_image, :original => @data_object.thumb_or_object(:orig) }
@@ -59,12 +58,12 @@
     - unless @translations.blank?
       .article.list
         .header
-          %h3= I18n.t(:languages)
+          %h3= I18n.t(:languages_colon)
         %ul
           - @translations.each do |tr|
             - if tr.id == @data_object.id
               %li= tr.language.display_code
-            - else 
-              %li= link_to tr.language.display_code, set_language_url(:language => tr.language.iso_639_1)+"&return_to=/data_objects/#{tr.id}" 
+            - else
+              %li= link_to tr.language.display_code, set_language_url(:language => tr.language.iso_639_1)+"&return_to=/data_objects/#{tr.id}"
 
 

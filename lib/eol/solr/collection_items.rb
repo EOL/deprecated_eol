@@ -3,8 +3,8 @@ module EOL
     class CollectionItems
       def self.search_with_pagination(collection_id, options = {})
         options[:page]        ||= 1
-        options[:per_page]    ||= 20
-        options[:per_page]      = 20 if options[:per_page] == 0
+        options[:per_page]    ||= 50
+        options[:per_page]      = 50 if options[:per_page] == 0
 
         response = solr_search(collection_id, options)
         total_results = response['response']['numFound']
@@ -48,7 +48,6 @@ module EOL
         return if docs.empty?
         ids = docs.map{ |d| d['object_id'] }
         instances = Collection.find_all_by_id(ids)
-        debugger
         docs.map! do |d|
           d['instance'].object = instances.detect{ |i| i.id == d['object_id'].to_i }
         end

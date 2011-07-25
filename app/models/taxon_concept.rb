@@ -46,6 +46,7 @@ class TaxonConcept < SpeciesSchemaModel
   has_many :collection_items, :as => :object
   has_many :preferred_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=0 AND taxon_concept_names.preferred=1'
   has_many :preferred_common_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=1 AND taxon_concept_names.preferred=1'
+  has_many :denormalized_common_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=1'
   has_many :synonyms, :class_name => Synonym.to_s, :foreign_key => 'hierarchy_entry_id',
     :finder_sql => 'SELECT s.* FROM #{Synonym.full_table_name} s JOIN #{HierarchyEntry.full_table_name} he ON (he.id = s.hierarchy_entry_id) WHERE he.taxon_concept_id=\'#{id}\' AND s.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(",")})'
   has_many :users_data_objects
@@ -686,8 +687,7 @@ class TaxonConcept < SpeciesSchemaModel
 
   # TODO - we won't need this, soon.  Delete it.  (ATM it's still used in an old mediacenter partial)
   def has_map
-    available_media if @has_media.nil?
-    @has_media[:map]
+    return true if gbif_map_id
   end
 
   def available_media
@@ -919,17 +919,7 @@ class TaxonConcept < SpeciesSchemaModel
   def title_canonical(hierarchy = nil)
     return @title_canonical unless @title_canonical.nil?
     return '' if entry.nil?
-    
-    # used the ranked version first
-    if entry.name.ranked_canonical_form && !entry.name.ranked_canonical_form.string.blank?
-      @title_canonical = entry.name.ranked_canonical_form.string.firstcap
-    # otherwise bare canonical form
-    elsif entry.name.canonical_form && !entry.name.canonical_form.string.blank?
-      @title_canonical = entry.name.canonical_form.string.firstcap
-    # finally just the name string
-    else
-      @title_canonical = entry.name.string.firstcap
-    end
+    @title_canonical = entry.title_canonical
   end
 
 
@@ -1167,7 +1157,7 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def has_related_names?
-    entries_with_parents = published_hierarchy_entries.select{ |he| he.hierarchy.browsable && he.parent_id != 0 }
+    entries_with_parents = published_hierarchy_entries.select{ |he| he.hierarchy.browsable? && he.parent_id != 0 }
     return true unless entries_with_parents.empty?
     return TaxonConcept.count_by_sql("SELECT 1
                                       FROM hierarchy_entries he
@@ -1306,6 +1296,10 @@ class TaxonConcept < SpeciesSchemaModel
     end
     return collections[0..2]
   end
+  
+  def flattened_ancestor_ids
+    @flattened_ancestor_ids ||= flattened_ancestors.map {|a| a.ancestor_id }
+  end
 
   def scientific_names_for_solr
     preferred_names = []
@@ -1331,21 +1325,19 @@ class TaxonConcept < SpeciesSchemaModel
     end
     
     return_keywords = []
-    ancestor_ids = flattened_ancestors.map {|a| a.ancestor_id }
-    
     preferred_names = preferred_names.compact.uniq
     unless preferred_names.empty?
-      return_keywords << { :keyword_type => 'PreferredName', :keywords => preferred_names, :ancestor_taxon_concept_id => ancestor_ids }
+      return_keywords << { :keyword_type => 'PreferredName', :keywords => preferred_names, :ancestor_taxon_concept_id => flattened_ancestor_ids }
     end
     
     synonyms = synonyms.compact.uniq
     unless synonyms.empty?
-      return_keywords << { :keyword_type => 'Synonym', :keywords => synonyms, :ancestor_taxon_concept_id => ancestor_ids }
+      return_keywords << { :keyword_type => 'Synonym', :keywords => synonyms, :ancestor_taxon_concept_id => flattened_ancestor_ids }
     end
     
     surrogates = surrogates.compact.uniq
     unless surrogates.empty?
-      return_keywords << { :keyword_type => 'Surrogate', :keywords => surrogates, :ancestor_taxon_concept_id => ancestor_ids }
+      return_keywords << { :keyword_type => 'Surrogate', :keywords => surrogates, :ancestor_taxon_concept_id => flattened_ancestor_ids }
     end
     
     return return_keywords
@@ -1355,6 +1347,7 @@ class TaxonConcept < SpeciesSchemaModel
     common_names_by_language = {}
     published_hierarchy_entries.each do |he|
       he.common_names.each do |cn|
+        next if cn.name.blank?
         language = (cn.language_id!=0 && cn.language && !cn.language.iso_code.blank?) ? cn.language.iso_code : 'unknown'
         common_names_by_language[language] ||= []
         common_names_by_language[language] << cn.name.string
@@ -1365,10 +1358,22 @@ class TaxonConcept < SpeciesSchemaModel
     common_names_by_language.each do |language, names|
       names = names.compact.uniq
       unless names.empty?
-        keywords <<  { :keyword_type => 'Common Name', :keywords => names, :language => language, :ancestor_taxon_concept_id => flattened_ancestors.map {|a| a.ancestor_id } }
+        keywords <<  { :keyword_type => 'Common Name', :keywords => names, :language => language, :ancestor_taxon_concept_id => flattened_ancestor_ids }
       end
     end
     return keywords
+  end
+  
+  def media_count(filter_hierarchy_entry = nil)
+    # may not be accurate, but will be faster than loading everything then counting it
+    return @media_count if @media_count
+    if filter_hierarchy_entry
+      image_count = filter_hierarchy_entry.top_images.count
+    else
+      image_count = self.top_concept_images.count
+    end
+    other_media_count = self.data_objects.count(:conditions => "data_objects.published=1 AND data_objects.visibility_id=#{Visibility.visible.id} AND data_objects.data_type_id IN (#{(DataType.video_type_ids + DataType.sound_type_ids).join(',')})")
+    @media_count = image_count + other_media_count
   end
 
 

@@ -109,7 +109,9 @@ class Name < SpeciesSchemaModel
   
   def is_surrogate?
     # return true if ranked_canonical_form_id.blank?
-    return true if string.match(/(^|[^\w])(incertae sedis|incertaesedis|culture|clone|isolate|phage|sp|cf)([^\w]|$)/i)
+    return true if string.match(/(^|[^\w])(incertae sedis|incertaesedis|culture|clone|isolate|phage|sp|cf|uncultured|DNA|unclassified|sect)([^\w]|$)/i)
+    return true if string.match(/[0-9][a-z]/i)
+    return true if string.match(/[a-z][0-9]/i)
     return true if string.match(/virus([^\w]|$)/i)
     return false
   end

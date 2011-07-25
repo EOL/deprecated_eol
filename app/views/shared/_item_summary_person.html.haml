@@ -1,4 +1,4 @@
 = link_to image_tag(item.logo_url(:small)), user_path(item)
 %span.icon{:title => I18n.t(:item_type_person_assistive)}
 %h4= link_to item.full_name, user_path(item)
-= item.tag_line
+= [ item.username, item.tag_line ].compact.join('<br/>')

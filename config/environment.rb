@@ -92,9 +92,9 @@ Rails::Initializer.run do |config|
   $IMAGE_LIMIT = 200
 
   # THIS IS WHERE ALL THE IMAGES/VIDEOS LIVE:
-  $CONTENT_SERVERS = ['http://content1.eol.org/', 'http://content2.eol.org/', 'http://content3.eol.org/', 'http://content4.eol.org/', 'http://content5.eol.org/',
-                      'http://content6.eol.org/', 'http://content7.eol.org/', 'http://content8.eol.org/', 'http://content9.eol.org/', 'http://content10.eol.org/']
-
+#  $CONTENT_SERVERS = ['http://content1.eol.org/', 'http://content2.eol.org/', 'http://content3.eol.org/', 'http://content4.eol.org/', 'http://content5.eol.org/',
+#                      'http://content6.eol.org/', 'http://content7.eol.org/', 'http://content8.eol.org/', 'http://content9.eol.org/', 'http://content10.eol.org/']
+  $CONTENT_SERVERS = ['http://10.19.19.226/']
   $CONTENT_SERVER_CONTENT_PATH = "content" # if you put leading and trailing slashes here you get double slashes in the URLs, which work fine but aren't right
   $CONTENT_SERVER_RESOURCES_PATH = "/resources/"
   $CONTENT_SERVER_AGENT_LOGOS_PATH = "/content_partners/"
@@ -187,6 +187,7 @@ Rails::Initializer.run do |config|
   $SOLR_DATA_OBJECTS_CORE = 'data_objects'
   $SOLR_SITE_SEARCH_CORE = 'site_search'
   $SOLR_COLLECTION_ITEMS_CORE = 'collection_items'
+  $SOLR_BHL_CORE = 'bhl'
   $SOLR_DIR    = File.join(RAILS_ROOT, 'solr', 'solr')
   $INDEX_RECORDS_IN_SOLR_ON_SAVE = true
 
@@ -217,7 +218,7 @@ Rails::Initializer.run do |config|
   $MAX_TAXA_TO_EXPIRE_BEFORE_EXPIRING_ALL = 1024
 
   $SPECIAL_COMMUNITY_NAME = 'EOL Curators and Admins'
-  
+
   APPLICATION_DEFAULT_LANGUAGE_ISO = 'en'
 
   # for those class that are using CACHE_ALL_ROWS, when the row is looked up in memcached, retain that value

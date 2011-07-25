@@ -24,7 +24,7 @@ def create_initial_file(lang, list, master = {})
       if master == "DONT"
         # Do nothing... we don't care about missing keys for some files (qqq, for example)
       elsif master.has_key? k
-        puts "** WARNING: No #{lang} key found for '#{k}'.  Faking it."
+        puts "** WARNING: No #{lang} key found for '#{k}'.  Faking it." if lang == 'en'
         new_hash[lang][k] = master[k]
       else
         puts "** WARNING: No #{lang} key found for '#{k}', and no master value either.  Leaving empty..."
@@ -57,48 +57,46 @@ list = Set.new()
 %w[
   models
 
-  controllers/application_controller.rb
-  controllers/collections_controller.rb
-  controllers/communities_controller.rb
-  controllers/communities/collections_controller.rb
-  controllers/content_controller.rb
-  controllers/taxa/overviews_controller.rb
-  controllers/taxa/details_controller.rb
-  controllers/taxa/media_controller.rb
+  views/layouts/v2
 
-  views/collection_items/_show.html.haml
-  views/collections/_collection_summary.html.haml
-  views/collections/_show.html.haml
-  views/collections/show.html.haml
-  views/communities/collections/index.html.haml
-  views/communities/show.html.haml
-  views/content/error.html.haml
+  views/data_objects
+  views/collection_items
+  views/collections
+  views/search
+
+  controllers/account_controller.rb
+  controllers/application_controller.rb
+  controllers/collection_items_controller.rb
+  controllers/collections_controller.rb
+  controllers/content_controller.rb
+  controllers/data_objects_controller.rb
+  controllers/search_controller.rb
+  controllers/taxa_controller.rb
+  controllers/taxa/details_controller.rb
+  controllers/taxa/maps_controller.rb
+  controllers/taxa/media_controller.rb
+  controllers/taxa/names_controller.rb
+  controllers/taxa/overviews_controller.rb
+  controllers/users/collections_controller.rb
+  controllers/users_controller.rb
+  controllers/users/newsfeeds_controller.rb
+
+  views/account/login.html.haml
+  views/account/signup.html.haml
+  views/activity_logs/_collection_activity_log.html.haml
+  views/activity_logs/_comment.html.haml
+  views/activity_logs/_index.html.haml
+  views/comments/_new.html.haml
   views/content/_error.html.haml
   views/content/error.html.haml
   views/content/index.html.haml
-  views/data_objects/_attribution_minimal.html.haml
-  views/data_objects/_data_object_text.html.haml
-  views/data_objects/_license.html.haml
-  views/data_objects/_owner.html.haml
-  views/data_objects/_rating.html.haml
-  views/feed_items/_form.html.haml
-  views/feed_items/_index.html.haml
-  views/layouts/_footer_menu.html.haml
-  views/layouts/main.html.haml
-  views/layouts/_search_field.html.haml
-  views/layouts/_top_menu_item.html.haml
-  views/layouts/v2/application.html.haml
-  views/layouts/v2/basic.html.haml
-  views/layouts/v2/collections.html.haml
-  views/layouts/v2/communities.html.haml
-  views/layouts/v2/_global_navigation.html.haml
-  views/layouts/v2/_search.html.haml
-  views/layouts/v2/taxa.html.haml
-  views/layouts/v2/users.html.haml
-  views/members/_index.html.haml
-  views/roles/_index.html.haml
+  views/content/_march_of_life_item.html.haml
+  views/curator_account/_curator_form.html.haml
+  views/shared/_add_to_my_collection.html.haml
   views/shared/_flash_messages.html.haml
   views/shared/_google_custom_search_params.html.haml
+  views/shared/_item_summary_collection.html.haml
+  views/shared/_item_summary_taxon.html.haml
   views/shared/_join_eol.html.haml
   views/shared/_sort_by_date_form.html.haml
   views/taxa/_classifications_summary.html.haml
@@ -107,17 +105,24 @@ list = Set.new()
   views/taxa/content/_content_content_summary.html.haml
   views/taxa/_curators_summary.html.haml
   views/taxa/details/_category_content.html.haml
-  views/taxa/details/show.html.haml
+  views/taxa/details/index.html.haml
   views/taxa/_iucn_status_summary.html.haml
+  views/taxa/maps/_maps.html.haml
+  views/taxa/maps/show.html.haml
+  views/taxa/media/index.html.haml
   views/taxa/media/_media_sort_filter.html.haml
-  views/taxa/media/show.html.haml
   views/taxa/_media_summary.html.haml
   views/taxa/_media_thumbnail.html.haml
+  views/taxa/names/_common_names.html.haml
+  views/taxa/names/common_names.html.haml
+  views/taxa/names/_filter_by_name_category.html.haml
+  views/taxa/names/show.html.haml
+  views/taxa/names/synonyms.html.haml
   views/taxa/overviews/show.html.haml
-  views/taxa/_show.html.haml
-  views/taxa/show.html.haml
+  views/taxa/_recognised_by.html.haml
   views/taxa/_text_summary.html.haml
   views/users/collections/index.html.haml
+  views/users/newsfeeds/show.html.haml
 
 ].compact.each do |dir|
   list += grepper(dir)
@@ -128,19 +133,25 @@ list << "video_thumbnail_alt_text"
 list << "sound_thumbnail_alt_text"
 list << "image_thumbnail_alt_text"
 list << "roles"
+
+list << "view_article_source"
+list << "view_image_source"
+
+[:image, :sound, :article, :video].each do |type|
+  list << "associated_with_#{type}_header"
+end
+
 (1..5).each do |n|
   list << "change_rating_to_#{n}_of_5"
 end
+
 (0..5).each do |n|
   list << "your_current_rating_#{n}_of_5"
 end
-list << "sort_by_label"
-list << "sort_by_data_type_option"
-list << "sort_by_default_option"
-list << "sort_by_newest_option"
-list << "sort_by_oldest_option"
-list << "sort_by_rating_option"
-list << "sort_by_vetted_option"
+
+[:newest, :rating, :status].each do |type|
+  list << "sort_by_#{type}_option"
+end
 
 list << "license_all_rights_reserved"
 list << "license_cc_by"
@@ -166,8 +177,31 @@ list << "license_gnu_gpl"
 list << "license_not_applicable"
 list << "license_public_domain"
 
+list << "download_audio_mpeg"
+
+[:all, :trusted, :unknown, :untrusted, :inappropriate].each do |opt|
+  list << "filter_by_status_#{opt}_option"
+end
+
+[:all, :collection, :community, :image, :text, :user, :photosynth, :sound, :taxon_concept, :video].each do |type|
+  list << "filter_by_type_#{type}_option"
+end
+
+[:copy, :move, :remove].each do |act|
+  list << "items_no_#{act}_none_selected_warning"
+  [:items, :taxa, :articles, :videos, :images, :sounds, :communities, :people, :collections].each do |type|
+    list << "#{act}_all_#{type}_button"
+  end
+end
+
+[:children, :curation, :name, :parents, :preferred, :relationship, :sources, :status].each do |header|
+  list << "names_#{header}_column_header"
+end
+
 # IGNORE THESE (unusual because the key name is set by a variable):
-@bad_keys = ["efault_alt_text", "18n", "change_rating_to_", "your_current_rating_", "sort_by_", "license_"]
+@bad_keys = ["efault_alt_text", "18n", "change_rating_to_", "your_current_rating_", "sort_by_", "license_",
+  "filter_by_status_", "download_", "items_no_", "remove_all_", "move_all_", "copy_all_", "associated_with_",
+  "view_", "filter_by_type_", "names_"]
 
 en_master = create_initial_file('en', list)
 create_initial_file('ar', list, en_master)

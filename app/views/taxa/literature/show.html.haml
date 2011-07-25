@@ -1,0 +1,11 @@
+#content
+  #taxon_literature.site_column
+    = render :partial => 'literature_menu'
+    .main_container.copy
+      %h2= I18n.t(:literature_header)
+      - if @references.blank?
+        %p= I18n.t(:literature_empty)
+      - else
+        %ul
+          - @references.each do |r|
+            %li= r.full_reference

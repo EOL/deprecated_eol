@@ -17,14 +17,14 @@ describe Taxa::NamesController do
     end
     it 'should instantiate hierarchies' do
       get :show, :taxon_id => @testy[:taxon_concept].id.to_i
-      assigns[:hierarchies].should == @testy[:taxon_concept].published_hierarchy_entries.collect{|he| he.hierarchy if he.hierarchy.browsable}.uniq
+      assigns[:hierarchies].should == @testy[:taxon_concept].published_hierarchy_entries.collect{|he| he.hierarchy if he.hierarchy.browsable?}.uniq
     end
   end
 
 
-  describe 'GET show' do # default related names
+  describe 'GET index' do # default related names
     before :each do
-      get :show, :taxon_id => @testy[:taxon_concept].id.to_i
+      get :index, :taxon_id => @testy[:taxon_concept].id.to_i
     end
     it_should_behave_like 'taxa/names controller'
     it 'should instantiate related names' do
@@ -32,6 +32,10 @@ describe Taxa::NamesController do
       assigns[:related_names]['parents'].should be_a(Array)
       assigns[:related_names]['children'].should be_a(Array)
     end
+  end
+
+  describe 'POST names' do
+    it 'should add a new common name'
   end
 
   describe 'GET common_names' do

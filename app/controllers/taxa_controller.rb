@@ -247,27 +247,27 @@ class TaxaController < ApplicationController
     end
   end
 
-  # TODO - This needs to add a CuratorActivityLog.
-  def add_common_name
-    tc = TaxonConcept.find(params[:taxon_concept_id])
-    if params[:name][:name_string] && params[:name][:name_string].strip != ""
-      agent = current_user.agent
-      language = Language.find(params[:name][:language])
-      if current_user.is_curator?
-        synonym = tc.add_common_name_synonym(params[:name][:name_string], :agent => agent, :language => language,
-                                             :vetted => Vetted.trusted)
-        log_action(tc, synonym, :add_common_name)
-      else
-        flash[:error] = I18n.t(:insufficient_privileges_to_add_common_name)
-      end
-      expire_taxa([tc.id])
-    end
-    if !params[:hierarchy_entry_id].blank?
-      redirect_to common_names_taxon_hierarchy_entry_names_path(tc, params[:hierarchy_entry_id])
-    else
-      redirect_to common_names_taxon_names_path(tc)
-    end
-  end
+#  # TODO - This needs to add a CuratorActivityLog.
+#  def add_common_name
+#    tc = TaxonConcept.find(params[:taxon_concept_id])
+#    if params[:name][:name_string] && params[:name][:name_string].strip != ""
+#      agent = current_user.agent
+#      language = Language.find(params[:name][:language])
+#      if current_user.is_curator?
+#        synonym = tc.add_common_name_synonym(params[:name][:name_string], :agent => agent, :language => language,
+#                                             :vetted => Vetted.trusted)
+#        log_action(tc, synonym, :add_common_name)
+#      else
+#        flash[:error] = I18n.t(:insufficient_privileges_to_add_common_name)
+#      end
+#      expire_taxa([tc.id])
+#    end
+#    if !params[:hierarchy_entry_id].blank?
+#      redirect_to common_names_taxon_hierarchy_entry_names_path(tc, params[:hierarchy_entry_id])
+#    else
+#      redirect_to common_names_taxon_names_path(tc)
+#    end
+#  end
 
   # TODO - This needs to add a CuratorActivityLog.
   def delete_common_name
@@ -556,11 +556,12 @@ private
   end
 
   def build_language_list
+    current_user_copy = current_user.dup || nil
     @languages = Language.with_iso_639_1.map  do |lang|
       {
         :label    => lang.label,
         :id       => lang.id,
-        :selected => lang.id == (current_user && current_user.language_id) ? "selected" : nil
+        :selected => lang.id == (current_user_copy && current_user_copy.language_id) ? "selected" : nil
       }
     end
   end

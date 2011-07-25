@@ -87,22 +87,16 @@
               %a#feedback.dropdown{ :title => I18n.t(:feedback)  }
                 = I18n.t(:feedback)
               %ul.uppercase
-                =# render :partial => 'layouts/top_menu_item', :locals => {:menu_items => ContentSection.find_pages_by_section('Feedback')}
             %li
               %a#press_room.dropdown{ :title => I18n.t(:press_room)  }
-                =# I18n.t(:press_room)
               %ul.uppercase
-                =# render :partial => 'layouts/top_menu_item', :locals => {:menu_items => ContentSection.find_pages_by_section('Press Room')}
             %li
               %a#using_the_site.dropdown{ :title => I18n.t(:using_the_site)  }
-                =# I18n.t(:using_the_site)
               %ul.uppercase
-                =# render :partial => 'layouts/top_menu_item', :locals => {:menu_items => ContentSection.find_pages_by_section('Using the Site')}
             %li.last
               %a#about_eol.last.dropdown{ :title => I18n.t(:about_eol)  }
                 = I18n.t(:about_eol)
               %ul.uppercase
-                =# render :partial => 'layouts/top_menu_item', :locals => {:menu_items => ContentSection.find_pages_by_section('About EOL')}
           %hr
 
         #ajax-indicator.ajax-indicator{ :style => "display:none;" }
@@ -176,7 +170,6 @@
       #content
         = yield(:content) or yield
       #footer
-        =# render :partial => 'layouts/footer_menu', :locals => {:menu_items => ContentSection.find_pages_by_section('Footer')}
         = ENV['APP_VERSION'] unless ENV['APP_VERSION'].blank?
         - if flash[:warning] || flash[:error]
           = link_to( I18n.t(:show_warning_message) , '#', :id => 'show-flash', :rel => '#flash-bad')

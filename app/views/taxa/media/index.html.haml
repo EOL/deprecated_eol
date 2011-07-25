@@ -1,7 +1,9 @@
-- # TODO: Optionally integrate HashRocket rating.js it must be I18nized and allow anonymous users to login.
+- # TODO: Optionally integrate HashRocket rating.js it must be I18nized and allow anonymous users to login after submitting a rating.
+= content_for :head do
+  = javascript_include_tag "exemplar_image.js"
 #media_list
   #sidebar.filters
-    = image_tag @exemplar_image.thumb_or_object('260_190') unless @exemplar_image.blank?
+    = image_tag @exemplar_image.thumb_or_object('260_190'), :alt => '' unless @exemplar_image.blank?
     %h3= I18n.t(:media)
     = render :partial => "media_sort_filter"
   #main
@@ -11,16 +13,26 @@
       %h3= I18n.t(:displaying_numerical_range, :start_number => start_number, :end_number => end_number, :total => @media_total)
       = will_paginate @media, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
         :inner_window => 2, :outer_window => 2
-    %ul
-      - @media.each do |item|
-        %li
-          = render :partial => "taxa/media_thumbnail", :locals => {:item => item}
+    %ul.media
+      - @media.each_with_index do |item, index|
+        - en_type = en_type(item)
+        %li{:class => "#{index.modulo(4) == 0 ? 'first' : nil} #{vetted_id_class(item.vetted_id)}"}
+          .figure
+            %a{ :data => { :data_object_id => item.id }, :class => vetted_id_class(item.vetted_id), :href => data_object_path(item) }
+              = render :partial => "data_objects/data_object_#{en_type}",
+                :locals => { :data_object => item, :thumbnail => true, :size => '260_190' }
+            - if item.data_type.id == DataType.image.id && current_user.is_curator?
+              .overlay
+              - form_for :taxon_concept_exemplar_image, :url => set_as_exemplar_taxon_media_path(@taxon_concept),
+                :html => {:class => 'taxon_concept_exemplar_image'} do |f|
+                %label
+                  = f.radio_button :data_object_id, item.id, { :checked => @exemplar_image.id == item.id }
+                  = I18n.t(:set_as_exemplar)
+                %fieldset.actions
+                  = f.submit I18n.t(:set_as_exemplar)
           = render :partial => 'data_objects/rating', :locals => { :data_object => item, :minimal => true }
           %p.flag{:class => vetted_id_class(item.vetted_id)}= item.vetted.label
           = render :partial => 'shared/add_to_my_collection', :locals => { :item => item, :my_collection => @watch_collection }
-          - if item.data_type.id == DataType.image.id && current_user.is_curator?
-            %p
-            = link_to I18n.t("set_as_exemplar"), :action => :set_as_exemplar, :data_object_id => item.id
     .footer
       = will_paginate @media, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
         :inner_window => 4, :outer_window => 5

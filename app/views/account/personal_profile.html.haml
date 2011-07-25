@@ -1,23 +1,23 @@
 - form_for :user, :html => { :class => "single_body_form warning-warn invalid-invalid styleLabelOnErr", :multipart => true } do |f|
   %label{ :title => I18n.t(:please_enter_your_email_address) , :for => "user_email" }
-    = I18n.t(:email_address) 
-    %span{ :title => I18n.t("required_") }
+    = I18n.t(:email_address)
+    %span{ :title => I18n.t(:required) }
       *
     %span.warn== (#{ I18n.t(:required) })
   = f.text_field :email, { :maxlength => 100, :size => 30, :onblur => 'javascript:check_email();'}
   %span#email_warn.error
   %label{ :title => I18n.t(:please_enter_your_given_name) , :for => "user_given_name" }
-    =  I18n.t(:given_name) 
-    %span{ :title => I18n.t("required_") }
+    =  I18n.t(:given_name)
+    %span{ :title => I18n.t(:required) }
       *
     %span.warn== (#{ I18n.t(:required) })
   = f.text_field :given_name, { :maxlength => 30 }
   %label{ :title => I18n.t(:please_enter_your_family_name) , :for => "user_family_name" }
-    =  I18n.t(:family_name) 
+    =  I18n.t(:family_name)
   = f.text_field :family_name, { :maxlength => 30 }
   = f.label :logo, I18n.t(:profile_picture)
   - unless @user.logo_url.blank?
     = agent_logo(@user,"large")
   = f.file_field :logo, :size=>10
   .button
-    = submit_tag I18n.t(:update_account) 
+    = submit_tag I18n.t(:update_account)

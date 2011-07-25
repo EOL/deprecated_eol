@@ -1,9 +1,23 @@
 - content_for :head do
   = javascript_include_tag "collections"
 - content_for :main do
-  - if @collection # show, edit, new
-    = yield
-  - else # index, choose
+  - if @collection
+    #page_heading.with_image
+      .site_column
+        = image_tag @collection.logo_url, :alt => ''
+        .hgroup
+          %h1= h @collection.name
+          %p= h @collection.description
+        .page_actions
+          %ul
+            - unless @watch_collection && @collection.id == @watch_collection.id
+              %li= render :partial => 'shared/add_to_my_collection', :locals => { :item => @collection, :my_collection => @watch_collection }
+            = yield :additional_page_actions
+        = render :partial => 'shared/flash_messages'
+    #content
+      .site_column{:id => @site_column_id, :class => @site_column_class}
+        = yield
+  - else
     #page_heading.with_image
       .site_column
         .hgroup

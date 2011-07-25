@@ -1,33 +1,21 @@
-:javascript
-  $(document).ready(function() { $('#user_username').focus(); });
-#page-separator-general
-#page-title
-  %h1
-    = I18n.t(:login)
-#page-content.clearfix
-  #full-page-content
-    %div{ :style => "float: left; width: 550px;" }
-      - form_for :user, :url => {:action => 'authenticate'} do |form|
-        %fieldset
-          %label{ :for => "user_username" }
-            == #{ I18n.t(:username_or_email_address) }:
-          = form.text_field 'username', :size => '16',:maxlength => '30'
-          %br
-          %br
-          %label{ :for => "user_password" }
-            == #{ I18n.t(:password) }:
-          = form.password_field 'password', :size => '16',:maxlength=>'30'
-          &nbsp;&nbsp;
-          = link_to( I18n.t(:forgot_password) , :action => 'forgot_password')
-          %br
-          %br
-          = link_to( I18n.t(:click_here_to_register) ,:action=>'signup')
-          %br
-          %br
-          %br
-          %label{ :for => "remember_me" }= I18n.t(:remember_me) 
-          = check_box_tag 'remember_me'
-          =  I18n.t(:remember_me_message) 
-          %br
-          %br
-          = submit_tag  I18n.t(:login_now)  + ' &#187;'
+- content_for :main do
+  #content.session
+    - form_for :user, :url => {:action => 'authenticate'} do |f|
+      %fieldset
+        %h1= I18n.t(:login_header)
+        %dl
+          %dt
+            = f.label :username, I18n.t(:sign_in_form_username_label)
+          %dd
+            = f.text_field :username
+          %dt
+            = f.label :password, I18n.t(:sign_in_form_password_label)
+          %dd
+            = f.password_field :password, :maxlength => 16
+      %fieldset.actions
+        = f.submit I18n.t(:sign_in_form_submit)
+        = link_to I18n.t(:forgot_password), :action => 'forgot_password'
+      %fieldset
+        %label.checkbox{ :for => "remember_me" }
+          = check_box_tag :remember_me
+          = I18n.t(:sign_in_form_remember_me_label)

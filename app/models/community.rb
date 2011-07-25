@@ -45,7 +45,9 @@ class Community < ActiveRecord::Base
     special
   end
 
+  # I18n not particularly necessary, here, this is mostly for testing.
   def self.create_special
+    Community.reset_cached_instances
     special = nil
     begin
       special = Community.special
@@ -143,8 +145,7 @@ class Community < ActiveRecord::Base
 private
 
   def attatch_focus
-    # TODO - i18n
-    Collection.create(:name => "#{self.name}'s Focus", :special_collection_id => SpecialCollection.focus.id, :community_id => self.id)
+    Collection.create(:name => I18n.t(:default_focus_collection_name_from_community, :name => self.name), :special_collection_id => SpecialCollection.focus.id, :community_id => self.id)
   end
 
 end

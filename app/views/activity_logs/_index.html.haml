@@ -7,7 +7,7 @@
       - when "Comment"
         = render :partial => 'activity_logs/comment', :locals => {:item => item}
       - when "UsersDataObject"
-        = render :partial => 'activity_logs/users_data_object', :locals => {:item => item}
+        = render :partial => 'activity_logs/users_data_object_log', :locals => {:item => item}
       - when "CollectionActivityLog"
         = render :partial => 'activity_logs/collection_activity_log', :locals => {:item => item}
       - when "CommunityActivityLog"

@@ -18,8 +18,10 @@ class DataObjectsController < ApplicationController
       user.vetted=false
     end
     current_user.log_activity(:created_data_object_id, :value => data_object.id, :taxon_concept_id => @taxon_concept.id)
-    render(:partial => '/taxa/text_data_object',
-           :locals => {:content_item => data_object, :comments_style => '', :category => data_object.toc_items[0].label})
+    #render(:partial => '/taxa/text_data_object',
+    #render(:partial => '/taxa/details/category_content',
+    #       :locals => {:content => data_object, :comments_style => '', :category => data_object.toc_items[0].label})
+    redirect_to taxon_details_path(@taxon_concept)  
   end
 
   def preview
@@ -62,7 +64,10 @@ class DataObjectsController < ApplicationController
       user.vetted=false
     end
     current_user.log_activity(:updated_data_object_id, :value => @data_object.id, :taxon_concept_id => @taxon_concept.id)
-    render(:partial => '/taxa/text_data_object', :locals => {:content_item => @data_object, :comments_style => '', :category => @data_object.toc_items[0].label})
+    #render(:partial => '/taxa/text_data_object', :locals => {:content_item => @data_object, :comments_style => '', :category => @data_object.toc_items[0].label})
+    #redirect_to taxon_details_path(@taxon_concept)  
+    render(:partial => '/taxa/details/category_content_part', :locals => {:dato => @data_object, :with_javascript => 1})
+    
   end
 
   def edit

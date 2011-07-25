@@ -62,10 +62,7 @@ class CollectionsController < ApplicationController
   end
 
   def edit
-    @site_column_id = 'collections_edit'
-    @site_column_class = 'copy' # TODO - why?! (This was a HR thing.)
-    @editing = true # TODO - there's a more elegant way to handle the difference in the layout...
-    @head_title = I18n.t(:edit_collection_head_title, :collection_name => @collection.name) unless @collection.blank?
+    set_edit_vars
   end
 
   def update
@@ -76,15 +73,12 @@ class CollectionsController < ApplicationController
     return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect) if params[:commit_sort]
     return chosen if params[:scope] # Note that updating the collection params doesn't specify a scope.
     if @collection.update_attributes(params[:collection])
-      respond_to do |format|
-        format.html do
-          flash[:notice] = I18n.t(:collection_updated_notice, :collection_name => @collection.name) if
-            params[:colleciton] # NOTE - when we sort, we don't *actually* update params...
-          return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect)
-        end
-      end
+      flash[:notice] = I18n.t(:collection_updated_notice, :collection_name => @collection.name) if
+        params[:colleciton] # NOTE - when we sort, we don't *actually* update params...
+      redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect)
     else
-      flash[:error] = I18n.t(:collection_not_updated_error)
+      set_edit_vars
+      render :action => :edit
     end
   end
 
@@ -297,6 +291,13 @@ private
 
   def link_to_name(collection)
     self.class.helpers.link_to(collection.name, collection_path(collection))
+  end
+
+  def set_edit_vars
+    @site_column_id = 'collections_edit'
+    @site_column_class = 'copy' # TODO - why?! (This was a HR thing.)
+    @editing = true # TODO - there's a more elegant way to handle the difference in the layout...
+    @head_title = I18n.t(:edit_collection_head_title, :collection_name => @collection.name) unless @collection.blank?
   end
 
 end

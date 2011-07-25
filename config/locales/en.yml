@@ -18,6 +18,11 @@ en:
         language_abbr: "Preferred language"
         tag_line: "Tagline"
         username: "Username"
+      collection:
+        name: Collection name
+        description: Collection description
+        sort_style_id: Default sorting direction
+        logo: Primary collection image
     errors:
       template:
         header:
@@ -294,7 +299,6 @@ en:
   by: "by"
   by_: "By"
   by_entering_a_wikipedia_revisi: "By entering a Wikipedia revision URL you are requesting that EOL ingests that particular revision as vetted. It will replace the current version of that article in EOL if we have it already."
-  default_collection_sort_label: "Default sorting direction"
   by_scientific_name_table_header: "by Scientific Name"
   cache: "Cache"
   cache_store: "Cache Store"
@@ -371,12 +375,8 @@ en:
     one: "%{count} collected item"
     other: "%{count} collected items"
   collection_created_notice: "Collection <em>%{collection_name}</em> successfully created."
-  collection_description_label: "Collection description:"
-  collection_icon_label: "Primary collection image"
   collection_is_empty: "This collection is currently empty."
-  collection_item_annotation_label: "Collection item annotation"
   collection_item_not_found_error: "That collection item could not be found."
-  collection_name_label: "Collection name:"
   collection_not_created_error: "Sorry, an error occurred, the collection <em>%{collection_name}</em> could not be created."
   collection_not_found_error: Sorry, that collection cound not be found.
   collection_not_updated_error: "Sorry, an error occurred, the collection could not be updated."

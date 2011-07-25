@@ -3,27 +3,24 @@
     = link_to I18n.t(:go_back), collection_path(@collection)
 %h2= I18n.t(:edit_collection_details_header)
 - form_for @collection, :html => { :class => 'standard', :multipart => true } do |f|
+  = validation_errors_for(@collection)
   %fieldset
     %dl
       %dt
-        %label= I18n.t(:collection_name_label)
+        = f.label :name
       %dd
-        = f.label :name, I18n.t(:collection_name_label), {:class => 'assistive'}
         = f.text_field :name, :value => @collection.name
       %dt
-        %label= I18n.t(:collection_description_label)
+        = f.label :description
       %dd
-        = f.label :description, I18n.t(:collection_description_label), {:class => 'assistive'}
         = f.text_area :description, :value => @collection.description, :rows => 3, :cols => 60
       %dt
-        %label= I18n.t(:default_collection_sort_label)
+        = f.label :sort_style_id
       %dd
-        = label_tag :default_sorting, I18n.t(:default_sorting_label), :class => 'assistive'
         = f.select :sort_style_id, @sort_options.map {|so| [so.name, so.id]}
       %dt
-        %label= I18n.t(:collection_icon_label)
+        = f.label :logo
       %dd
-        = f.label :logo, I18n.t(:primary_image_choose)
         = f.file_field :logo, :size=>10
   %fieldset.actions
     = submit_tag I18n.t(:update_collection_submit_button), :class => 'button'

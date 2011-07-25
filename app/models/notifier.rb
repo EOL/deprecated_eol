@@ -41,7 +41,7 @@ class Notifier < ActionMailer::Base
   end
 
   def verify_user(user, url)
-    subject     I18n.t(:email_validate_user_subject)
+    subject     I18n.t(:email_subject_verify_user)
     recipients  user.email
     from        $WEBSITE_EMAIL_FROM_ADDRESS
     body        :user => user, :verify_user_url => url

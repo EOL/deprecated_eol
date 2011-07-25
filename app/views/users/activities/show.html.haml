@@ -1,0 +1,7 @@
+#collections_tab.main_container
+  .article.list.updates
+    .heading
+      %h3= I18n.t(:my_activity)
+      - # TODO: Filter form?
+    = render :partial => 'activity_logs/index', :locals => {:log => @user.activity_log}
+

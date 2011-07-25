@@ -4,6 +4,8 @@
 # You could come here looking at a (specified) User's Collection. (show only)
 #     UPDATE: user collections index is now in users/collections
 # And you could come here without either of those (implying the current_user's Collection).
+#
+# NOTE - we use these commit_* button names because we don't want to parse the I18n of the button name (hard).
 class CollectionsController < ApplicationController
 
   before_filter :find_collection, :except => [:new, :create]
@@ -14,12 +16,11 @@ class CollectionsController < ApplicationController
   layout 'v2/collections'
 
   def show
-    # NOTE - we use these commit_* names because we don't want to handle the I18n of the commit option.
-    return collect if params[:commit_collect]
+    return copy_items_and_redirect(@collection, current_user.watch_collection) if params[:commit_collect]
     # NOTE - this is complicated. It's getting the various collection item types and doing i18n on the name as well
     # as passing the raw facet type (used by Solr) as the values in the option hash that will be built in the view:
     types = CollectionItem.types
-    @collection_item_scopes  = [[I18n.t(:selected_items), :selected_items], [I18n.t(:all_items), :all_items]] +
+    @collection_item_scopes = [[I18n.t(:selected_items), :selected_items], [I18n.t(:all_items), :all_items]] +
       types.keys.map {|k| [I18n.t("all_#{types[k][:i18n_key]}"), k]}
   end
 
@@ -35,7 +36,7 @@ class CollectionsController < ApplicationController
       flash[:notice] = I18n.t(:collection_created_notice, :collection_name => link_to_name(@collection))
       if params[:collection_items]
         if params[:for] == 'copy'
-          return copy_items_from_collection(source)
+          return copy_items_and_redirect(source, @collection)
         elsif params[:for] == 'move'
           source = Collection.find(params[:source_collection_id])
           if source.nil?
@@ -44,7 +45,7 @@ class CollectionsController < ApplicationController
             flash[:error] = I18n.t(:could_not_find_collection_error)
             return redirect_to collection_path(@collection)
           end
-          return copy_items_from_collection(source, :move => true)
+          return copy_items_and_redirect(source, @collection, :move => true)
         else
           @collection.destroy
           flash[:notice] = nil # We're undoing the create.
@@ -158,17 +159,17 @@ private
     end
     case params[:for]
     when 'move'
-      return copy_items_from_collection(source, :move => true)
+      return copy_items_and_redirect(source, @collection, :move => true)
     when 'copy'
-      return copy_items_from_collection(source)
+      return copy_items_and_redirect(source, @collection)
     else
       flash[:error] = I18n.t(:action_not_available_error)
       return redirect_to collection_path(source)
     end
   end
 
-  def copy_items_from_collection(source, options = {})
-    copied = copy_items(:from => source, :to => @collection, :items => params[:collection_items],
+  def copy_items_and_redirect(source, destination, options = {})
+    copied = copy_items(:from => source, :to => destination, :items => params[:collection_items],
                         :scope => params[:scope])
     if copied > 0
       if options[:move]
@@ -177,11 +178,11 @@ private
         @collection_items.delete_if {|ci| params['collection_items'].include?(ci.id.to_s) } if @collection_items
         flash[:notice] = I18n.t(:moved_items_from_collection_with_count_notice, :count => copied,
                                 :name => link_to_name(source))
-        return redirect_to collection_path(@collection)
+        return redirect_to collection_path(destination)
       else
         flash[:notice] = I18n.t(:copied_items_from_collection_with_count_notice, :count => copied,
                                 :name => link_to_name(source))
-        return redirect_to collection_path(@collection)
+        return redirect_to collection_path(destination)
       end
     elsif copied == 0
       # Assume the flash message was set by #copy_items

@@ -1,5 +1,5 @@
 %div{"data-role"=>"header", "data-position"=>"fixed", "data-theme"=>"a"}
-  =link_to image_tag("/images/mobile/logo_simple.png", :height => '24')
+  =link_to image_tag("/images/mobile/logo_simple.png", :height => '24'), mobile_contents_path(), "data-ajax" => "false"
   %h1=t "mobile.contents.home" 
 
 %div{"data-role"=>"content"}

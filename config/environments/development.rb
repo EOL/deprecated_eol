@@ -55,6 +55,8 @@ $AGENT_ID_OF_DEFAULT_COMMON_NAME_SOURCE = Agent.first.id rescue nil # Because it
 
 $SKIP_URL_VALIDATIONS = true
 
+$IP_ADDRESS_OF_SERVER = '0.0.0.0:3000'
+
 # # If you decide you want to view the site using the V1 layout then comment out the next line
 # $USE_OLD_MAIN_LAYOUT = true
 

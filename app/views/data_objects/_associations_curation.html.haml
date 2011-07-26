@@ -2,10 +2,9 @@
 - unless data_object.blank?
   - # How many, if any of these options do we need?
   - visible ||= true
-  - inappropriate ||= false
   - invisible ||= false
   - preview ||= false
-  - entries = data_object.published_entries.collect{|e| e if (visible && Visibility.visible == e.visibility) || (inappropriate && Visibility.inappropriate == e.visibility) || (invisible && Visibility.invisible == e.visibility) || (preview && Visibility.preview == e.visibility)}.compact
+  - entries = data_object.published_entries.collect{|e| e if (visible && Visibility.visible == e.visibility) || (invisible && Visibility.invisible == e.visibility) || (preview && Visibility.preview == e.visibility)}.compact
   - if entries.blank?
     %p= I18n.t(:data_object_not_associated_with_any_hierarchies)
   - else
@@ -23,7 +22,7 @@
           = select_tag "vetted_id_#{entry.id}", options_for_select(statuses, vetted_selected)
           = I18n.t(:and_between_form_items)
           - visibility_selected = entry.visibility_id.to_i
-          - visibilities = Visibility.all.collect{|v| [ v.label, v.id ] unless v == Visibility.preview }.compact.sort
+          - visibilities = Visibility.all.collect{|v| [ v == Visibility.invisible ? I18n.t(:hidden) : v.label, v.id ] unless v == Visibility.preview }.compact.sort
           = select_tag "visibility_id_#{entry.id}", options_for_select(visibilities, visibility_selected)
           - unless entry.hierarchy.agent.blank?
             %p

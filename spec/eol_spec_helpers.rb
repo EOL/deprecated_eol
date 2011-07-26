@@ -208,6 +208,7 @@ module EOL
         raise foundation_fail unless Vetted.trusted
         raise foundation_fail unless Vetted.unknown
         raise foundation_fail unless Vetted.untrusted
+        raise foundation_fail unless Vetted.inappropriate
         Community.special # Throws its own error
         # TODO - anything else we should test for here...
       end

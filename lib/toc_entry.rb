@@ -6,7 +6,6 @@ class TocEntry
   attr_reader :category_id
   attr_reader :has_content
   attr_reader :has_unpublished_content
-  attr_reader :has_inappropriate_content
   attr_reader :has_invisible_content
   attr_reader :label
   attr_reader :parent_id
@@ -26,7 +25,6 @@ class TocEntry
     end
     if toc_item.respond_to? :visibility_id 
       @has_invisible_content     = true if toc_item.visibility_id.to_i == Visibility.invisible.id
-      @has_inappropriate_content = true if toc_item.visibility_id.to_i == Visibility.inappropriate.id
     end
   end
 

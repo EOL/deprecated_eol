@@ -120,6 +120,10 @@ module EOL
     def unreviewed?
       @vetted_id == Vetted.unknown.id
     end
+    
+    def inappropriate?
+      @vetted_id == Vetted.inappropriate.id
+    end
 
     # This is only used in the scope of a single TaxonConcept... otherwise I would add that (at the cost of some obfuscation).
     def unique_id

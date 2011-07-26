@@ -318,6 +318,7 @@ describe TaxonConcept do
   end
 
   it 'should return images sorted by trusted, unknown, untrusted but preview mode first' do
+    # TODO - add inappropriate if needed
     @taxon_concept.reload
     trusted   = Vetted.trusted.id
     unknown   = Vetted.unknown.id
@@ -547,6 +548,16 @@ describe TaxonConcept do
     @syn2.reload.vetted_id.should == Vetted.trusted.id
     @tcn1.reload.vetted_id.should == Vetted.trusted.id
     @tcn2.reload.vetted_id.should == Vetted.trusted.id
+  end
+
+  it 'should inappropriate all synonyms and TCNs related to a TC when inappropriated' do
+    # Make them all "unknown" first:
+    [@syn1, @syn2, @tcn1, @tcn2].each {|obj| obj.update_attributes!(:vetted => Vetted.unknown) }
+    @taxon_concept.vet_common_name(:vetted => Vetted.inappropriate, :language_id => Language.english.id, :name_id => @name_obj.id)
+    @syn1.reload.vetted_id.should == Vetted.inappropriate.id
+    @syn2.reload.vetted_id.should == Vetted.inappropriate.id
+    @tcn1.reload.vetted_id.should == Vetted.inappropriate.id
+    @tcn2.reload.vetted_id.should == Vetted.inappropriate.id
   end
 
   it 'should have an activity log' do

@@ -297,6 +297,9 @@ private
   def handle_vetting(object, vetted_id, opts)
     if vetted_id
       case vetted_id
+      when Vetted.inappropriate.id
+        object.inappropriate(user, opts)
+        return :inappropriate
       when Vetted.untrusted.id
         raise "Curator should supply at least untrust reason(s) and/or curation comment" if (opts[:untrust_reason_ids].blank? && opts[:curation_comment].nil?)
         object.untrust(user, opts)
@@ -323,9 +326,6 @@ private
       when Visibility.invisible.id
         object.hide(user, opts[:type], changeable_object_type)
         return :hide
-      when Visibility.inappropriate.id
-        object.inappropriate(user, opts[:type], changeable_object_type)
-        return :inappropriate
       else
         raise "Cannot set data object visibility id to #{visibility_id}"
       end

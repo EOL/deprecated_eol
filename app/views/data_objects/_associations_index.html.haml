@@ -2,10 +2,9 @@
 - unless data_object.blank?
   - # How many, if any of these options do we need?
   - visible ||= true
-  - inappropriate ||= false
   - invisible ||= false
   - preview ||= false
-  - entries = data_object.published_entries.collect{|e| e if (visible && Visibility.visible == e.visibility) || (inappropriate && Visibility.inappropriate == e.visibility) || (invisible && Visibility.invisible == e.visibility) || (preview && Visibility.preview == e.visibility)}
+  - entries = data_object.published_entries.collect{|e| e if (visible && Visibility.visible == e.visibility) || (invisible && Visibility.invisible == e.visibility) || (preview && Visibility.preview == e.visibility)}
   - if entries.blank?
     %p= I18n.t(:data_object_not_associated_with_any_hierarchies)
   - else

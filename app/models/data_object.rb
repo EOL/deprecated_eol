@@ -126,7 +126,7 @@ class DataObject < SpeciesSchemaModel
         allowed_visibilities = []
         break
       elsif sta == 'inappropriate'
-        allowed_visibilities << Visibility.inappropriate.id
+        allowed_visibilities << Vetted.inappropriate.id
       else
         allowed_vetted_status << Vetted.send(sta.to_sym).id
       end
@@ -154,7 +154,7 @@ class DataObject < SpeciesSchemaModel
   def self.filter_list_for_user(data_objects, options={})
     return [] if data_objects.blank?
     visibility_ids = [Visibility.visible.id]
-    vetted_ids = [Vetted.trusted.id, Vetted.unknown.id, Vetted.untrusted.id]
+    vetted_ids = [Vetted.trusted.id, Vetted.unknown.id, Vetted.untrusted.id, Vetted.inappropriate.id]
     show_preview = false
 
     # Show all vetted states unless there is a user that DOES NOT want to see vetted content
@@ -163,7 +163,7 @@ class DataObject < SpeciesSchemaModel
     if options[:user]
       # admins see everything
       if options[:user].is_admin?
-        vetted_ids += [Vetted.untrusted.id, Vetted.unknown.id]
+        vetted_ids += [Vetted.untrusted.id, Vetted.unknown.id, Vetted.inappropriate.id]
         visibility_ids = Visibility.all_ids.dup
         show_preview = true
       # curators see invisible objects

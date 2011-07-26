@@ -68,6 +68,7 @@ module EOL
         result['top_image'] = result['top_image_id'] ? DataObject.find(result['top_image_id']) : nil rescue nil
         result['unknown']   = true if result['vetted_id'] and result['vetted_id'][0].to_i == Vetted.unknown.id
         result['untrusted'] = true if result['vetted_id'] and result['vetted_id'][0].to_i == Vetted.untrusted.id
+        result['inappropriate'] = true if result['vetted_id'] and result['vetted_id'][0].to_i == Vetted.inappropriate.id
         result['best_matched_common_name']     ||= result['preferred_common_name']
         result['best_matched_scientific_name'] ||= result['preferred_scientific_name']
         result
@@ -86,6 +87,7 @@ module EOL
          'vetted_id'                 => [tc.vetted_id],
          'unknown'                   => tc.vetted_id == Vetted.unknown.id,
          'untrusted'                 => tc.vetted_id == Vetted.untrusted.id,
+         'inappropriate'             => tc.vetted_id == Vetted.inappropriate.id,
          'scientific_name'           => [scientific_name],
          'preferred_scientific_name' => [scientific_name],
          'best_matched_scientific_name' => scientific_name,

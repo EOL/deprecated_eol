@@ -1021,7 +1021,7 @@ en:
   hello_user: "Hello %{user}"
   help: "Help"
   here: "here"
-  hidden: "hidden"
+  hidden: "Hidden"
   hide_for_all_except_curators: "Hide for all except curators"
   hide: "hide"
   hide__other__slice: "Hide 'Other' Slice"

@@ -21,9 +21,6 @@ class Taxa::MapsController < TaxaController
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(params[:taxon_id])
     @taxon_concept.current_user  = current_user
     @curator = @taxon_concept.current_user.can_curate?(@taxon_concept)
-    @dropdown_hierarchy_entry_id = params[:hierarchy_entry_id]
-    @dropdown_hierarchy_entry = HierarchyEntry.find_by_id(@dropdown_hierarchy_entry_id) rescue nil
-    @hierarchy_entries_to_offer = @taxon_concept.published_hierarchy_entries
     @assistive_section_header = I18n.t(:assistive_maps_header)
     current_user.log_activity(:viewed_taxon_concept_maps, :taxon_concept_id => @taxon_concept.id)
   end

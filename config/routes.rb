@@ -96,6 +96,7 @@ ActionController::Routing::Routes.draw do |map|
   # when user updates a common name - preferred radio button
   map.connect 'pages/:id/names/common_names/update', :controller => 'taxa', :action => 'update_common_names'
   map.bhl_title 'pages/:id/literature/bhl_title/:title_item_id', :controller => 'taxa/literature', :action => 'bhl_title'
+  map.entry_bhl_title 'pages/:id/entries/:hierarchy_entry_id/literature/bhl_title/:title_item_id', :controller => 'taxa/literature', :action => 'bhl_title'
 
 
   # Named routes

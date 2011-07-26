@@ -14,7 +14,10 @@
     .heading
       %p#empty= I18n.t(:collection_is_empty)
 - else
-  - form_for(@collection, { :html => {:method => :get}, :url => {:action => :show} }) do |f|
+  - form_options = { :html => {:method => :get}, :url => {:action => :show} }
+  - if editable
+    - form_options = { :html => {:method => :put} }
+  - form_for(@collection, form_options) do |f|
     = hidden_field_tag(:filter, @filter) if @filter
     #tabs_sidebar
       = render :partial => 'collections/filter_by_item_type'
@@ -48,6 +51,9 @@
         %ul.object_list
           - @collection_items.each do |item|
             - item_type = en_type(item)
-            %li{:class => "#{item_type}" + (editable ? ' editable' : '')}
-              = render :partial => 'collection_items/show', :locals => { :collection_item => item, :editable => editable, :item_type => item_type }
+            %li{:class => item_type}
+              - if editable
+                = render :partial => 'collection_items/edit', :locals => { :collection_item => item, :item_type => item_type, :parent_form => f}
+              - else
+                = render :partial => 'collection_items/show', :locals => { :collection_item => item, :item_type => item_type }
         = will_paginate @collection_results, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next), :inner_window => 2, :outer_window => 2

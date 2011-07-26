@@ -1,3 +1,5 @@
 = javascript_include_tag 'new-text'
 - form_for(@data_object) do |f|
-  = render :partial => 'text_form', :locals => {:f => f}
+
+  /= render :partial => 'text_form', :locals => {:f => f}
+  = render :partial => 'taxa/details/text_form', :locals => {:f => f}

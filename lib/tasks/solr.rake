@@ -101,12 +101,16 @@ namespace :solr do
     builder.optimize
   end
   
-  
   desc 'Rebuild the collection_items index'
   task :rebuild_collection_items => :environment do
     builder = EOL::Solr::CollectionItemsCoreRebuilder.new()
     builder.begin_rebuild
   end
   
+  desc 'Rebuild the bhl index'
+  task :rebuild_bhl => :environment do
+    builder = EOL::Solr::BHLCoreRebuilder.new()
+    builder.begin_rebuild
+  end
   
 end

@@ -8,11 +8,11 @@ class Visibility < SpeciesSchemaModel
       Visibility.all.collect {|v| v.id}
     end
   end
-  
+
   def self.visible
     cached_find_translated(:label, 'Visible')
   end
-  
+
   def self.preview
     cached_find_translated(:label, 'Preview')
   end

@@ -28,9 +28,6 @@ class Taxa::OverviewsController < TaxaController
     options = {:limit => 1, :language => current_user.language_abbr}
     @summary_text = @taxon_concept.text_objects_for_toc_items(toc_items, options)
 
-    @dropdown_hierarchy_entry_id = params[:hierarchy_entry_id]
-    @dropdown_hierarchy_entry = HierarchyEntry.find_by_id(@dropdown_hierarchy_entry_id) rescue nil
-    @hierarchy_entries_to_offer = @taxon_concept.published_hierarchy_entries
     if @dropdown_hierarchy_entry
       @recognized_by = recognized_by
     end

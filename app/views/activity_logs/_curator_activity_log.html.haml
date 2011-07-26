@@ -1,1 +1,57 @@
-%p= "TODO - Curator Activity partial"
+= link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
+  :posters_name => h(item.user.short_name))), user_path(item.user), :class => 'avatar'
+.details
+  %p
+    - case item.activity_id
+    - when Activity.trusted.id
+      - case item.changeable_object_type_id
+      - when ChangeableObjectType.data_object.id
+        = I18n.t(:activity_user_trusted_data_object, :user => h(item.user.short_name), :object_name => link_to(item.data_object.summary_name, data_object_path(item.data_object)))
+      - else
+        = I18n.t(:activity_user_trusted_unknown_object, :user => h(item.user.short_name))
+    - when Activity.untrusted.id
+      - case item.changeable_object_type_id
+      - when ChangeableObjectType.data_object.id
+        = I18n.t(:activity_user_untrusted_data_object, :user => h(item.user.short_name), :object_name => link_to(item.data_object.summary_name, data_object_path(item.data_object)))
+      - else
+        = I18n.t(:activity_user_untrusted_unknown_object, :user => h(item.user.short_name))
+    - when Activity.show.id
+      - case item.changeable_object_type_id
+      - when ChangeableObjectType.data_object.id
+        = I18n.t(:activity_user_showed_data_object, :user => h(item.user.short_name), :object_name => link_to(item.data_object.summary_name, data_object_path(item.data_object)))
+      - else
+        = I18n.t(:activity_user_showed_unknown_object, :user => h(item.user.short_name))
+    - when Activity.hide.id
+      - case item.changeable_object_type_id
+      - when ChangeableObjectType.data_object.id
+        = I18n.t(:activity_user_hid_data_object, :user => h(item.user.short_name), :object_name => link_to(item.data_object.summary_name, data_object_path(item.data_object)))
+      - else
+        = I18n.t(:activity_user_hid_unknown_object, :user => h(item.user.short_name))
+    - when Activity.inappropriate.id
+      = I18n.t(:activity_user_marked_content_as_inappropriate, :user => h(item.user.short_name))
+    - when Activity.rate.id
+      - case item.changeable_object_type_id
+      - when ChangeableObjectType.data_object.id
+        = I18n.t(:activity_user_rated_data_object, :user => h(item.user.short_name), :object_name => link_to(item.data_object.summary_name, data_object_path(item.data_object)))
+      - else
+        = I18n.t(:activity_user_rated_unknown_object, :user => h(item.user.short_name))
+    - when Activity.unreviewed.id
+      - case item.changeable_object_type_id
+      - when ChangeableObjectType.data_object.id
+        = I18n.t(:activity_user_unreviewed_data_object, :user => h(item.user.short_name), :object_name => link_to(item.data_object.summary_name, data_object_path(item.data_object)))
+      - else
+        = I18n.t(:activity_user_unreviewed_unknown_object, :user => h(item.user.short_name))
+    - when Activity.add_association.id
+      = I18n.t(:TODO)
+    - when Activity.remove_association.id
+      = I18n.t(:TODO)
+    - when Activity.choose_exemplar.id
+      = I18n.t(:TODO)
+    - when Activity.add_common_name.id
+      = I18n.t(:TODO)
+    - when Activity.remove_common_name.id
+      = I18n.t(:TODO)
+    - else
+      = I18n.t(:activity_user_curated_an_unknown_object, :user => h(item.user.short_name))
+  %p.meta= I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))
+

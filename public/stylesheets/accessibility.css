@@ -17,7 +17,15 @@
 .busy {
   cursor: wait; }
 
-/*Styles for forms and form validation errors */
+/*Override for padding on users edit - we have nested div so we need to get rid of left and right padding on article */
+#profile_edit.article {
+  padding: 0 0 25px 0; }
+
+/*Styles for form required (HR overrides) and form validation errors (custom no equivalent from HR)  */
+form dt.required label {
+  background: url("/images/v2/icon_required.png") 0 45% no-repeat;
+  padding-left: 10px;
+  margin-left: -10px; }
 form fieldset#errors {
   width: 100%;
   position: relative;
@@ -51,6 +59,14 @@ form span.errors {
   font-weight: normal; }
 form input.errors {
   border-color: #f2d2cc !important; }
+
+/*Making lanugage switcher accessible on overview and details pages */
+.learn_more fieldset.actions {
+  display: inline; }
+
+/*terms agreement ** */
+#content.session form.edit_user p {
+  margin-bottom: 20px; }
 
 /*will_paginate styling */
 .pagination {
@@ -187,9 +203,25 @@ body > #header .section .session .join {
 
 /*Check latest from HR they might have put IUCN styles in by now. */
 #iucn_status {
-  margin-bottom: 20px; }
+  border: 1px solid #cad3db;
+  background: #f1f4f7;
+  text-align: center;
+  padding: 7px 10px;
+  font-size: 1.16em;
+  margin-bottom: 20px;
+  color: #394651; }
   #iucn_status h3, #iucn_status p {
     display: inline; }
+  #iucn_status a {
+    color: #195184; }
+  #iucn_status.positive {
+    border-color: #c7d471;
+    background: #edf6b2; }
+    #iucn_status.positive a {
+      color: #809203; }
+  #iucn_status.negative {
+    border-color: #f2d2cc;
+    background: #ffeae6; }
 
 /*we share attribution across multiple pages my guess is we needed some overrides here */
 #text_summary .attribution {

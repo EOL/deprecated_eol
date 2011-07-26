@@ -338,6 +338,10 @@ form dl dd {
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
     background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
+form label.required {
+  background: url("/images/v2/icon_required.png") 0 45% no-repeat;
+  padding-left: 10px;
+  margin-left: -10px; }
 form label.checkbox {
   display: block;
   font-weight: bold; }
@@ -860,6 +864,9 @@ ul.object_list li {
   ul.object_list li.taxon h4 {
     margin: 0; }
 
+#taxon_names .article.recognized ul a.view {
+  font-weight: bold;
+  margin-left: 10px; }
 #taxon_names table.standard td a {
   font-weight: bold; }
 
@@ -1329,6 +1336,48 @@ body > #header {
       padding: 7px 10px;
       font-size: 1em; }
 
+#profile_content_connections {
+  padding: 40px; }
+  #profile_content_connections ul {
+    margin: 0 0 30px 0; }
+    #profile_content_connections ul li {
+      overflow: hidden;
+      margin: 0 0 10px 0; }
+      #profile_content_connections ul li img {
+        float: left;
+        border: 1px solid #394651;
+        margin: 0 10px 0 0; }
+      #profile_content_connections ul li .details {
+        float: left;
+        margin: 10px 0 0 0; }
+        #profile_content_connections ul li .details a {
+          font-size: 0.9em;
+          margin: 0 5px 0 0;
+          text-decoration: none; }
+          #profile_content_connections ul li .details a:hover {
+            text-decoration: underline; }
+
+#content_partner {
+  padding: 40px; }
+  #content_partner fieldset input[type="text"],
+  #content_partner fieldset input[type="password"] {
+    width: 308px;
+    height: 22px;
+    padding: 2px 5px;
+    font: normal 1em Helvetica, Arial, sans-serif;
+    border: 1px solid #cad3db;
+    background-color: white;
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+    background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
+  #content_partner fieldset textarea {
+    width: 622px;
+    height: 60px; }
+  #content_partner fieldset input[type="submit"] {
+    padding: 7px 10px;
+    margin: 0 10px 0 0;
+    font-size: 1em; }
+
 #community {
   padding: 20px; }
   #community .heading {
@@ -1451,6 +1500,17 @@ body > #header {
       text-transform: lowercase; }
     #taxonomy .gallery + p.status {
       margin: -20px 0 35px 0; }
+  #taxonomy .article.overview .meta.learn_more {
+    padding: 0 0 10px 0; }
+    #taxonomy .article.overview .meta.learn_more p, #taxonomy .article.overview .meta.learn_more form {
+      float: none;
+      display: inline;
+      margin: 0 10px 0 0; }
+      #taxonomy .article.overview .meta.learn_more p:after, #taxonomy .article.overview .meta.learn_more form:after {
+        content: "•";
+        margin: 0 0 0 10px; }
+      #taxonomy .article.overview .meta.learn_more p.last:after, #taxonomy .article.overview .meta.learn_more form.last:after {
+        content: ""; }
   #taxonomy .article.half {
     float: left;
     width: 260px; }
@@ -2148,6 +2208,14 @@ body > #header {
     #content.session form label.checkbox {
       padding: 0 0 15px 0; }
 
+#profile_edit p.tip {
+  background: #f3f7fa;
+  border: 1px solid #cad3db;
+  padding: 10px;
+  margin: 0 0 20px 0;
+  line-height: 140%; }
+  #profile_edit p.tip img {
+    margin: -2px 5px 0 5px; }
 #profile_edit input[type="text"], #profile_edit input[type="password"] {
   width: 248px;
   height: 22px;
@@ -2158,13 +2226,13 @@ body > #header {
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
   background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
+#profile_edit .header {
+  margin: 0 0 20px 0; }
 #profile_edit fieldset {
   float: left;
-  padding: 0 60px 20px 0; }
-  #profile_edit fieldset h3 {
-    padding: 0 0 30px 0;
-    font-size: 1.5em;
-    font-weight: normal; }
+  padding: 0 40px 20px 0; }
+  #profile_edit fieldset dl {
+    padding: 0 10px; }
   #profile_edit fieldset dt {
     font-size: 1.08em;
     font-weight: bold; }
@@ -2200,12 +2268,12 @@ body > #header {
       padding: 0 10px 5px 0;
       font-weight: bold; }
   #profile_edit fieldset.profile, #profile_edit fieldset.account {
-    width: 300px; }
+    width: 320px; }
     #profile_edit fieldset.profile input[type="text"],
     #profile_edit fieldset.profile input[type="file"],
     #profile_edit fieldset.profile input[type="password"], #profile_edit fieldset.account input[type="text"], #profile_edit fieldset.account input[type="file"], #profile_edit fieldset.account input[type="password"] {
       width: 288px; }
-  #profile_edit fieldset.profile img {
+  #profile_edit fieldset.profile dd img {
     display: block;
     margin: 0 0 15px 0;
     border: 1px solid #394651; }
@@ -2220,12 +2288,24 @@ body > #header {
     background: #f3f7fa;
     border: 1px solid #cad3db;
     padding: 20px 20px 10px 20px;
-    margin-top: 70px; }
+    margin-top: 20px; }
+    #profile_edit fieldset.api-request dl {
+      padding: 0; }
     #profile_edit fieldset.api-request p {
       font-size: 0.9em;
       padding-top: 5px;
       font-weight: normal;
       line-height: 150%; }
+    #profile_edit fieldset.api-request textarea {
+      padding: 8px;
+      font: normal 1em Helvetica, Arial, sans-serif;
+      color: #394651;
+      border: 1px solid #cad3db;
+      background-color: white;
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+      background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
+      width: 158px; }
   #profile_edit fieldset.actions {
     clear: both;
     float: none;

@@ -5,24 +5,30 @@ class Activity < LazyLoggingModel
 
   has_many :activity_logs
   has_many :curator_activity_logs
+  has_many :translated_activities
 
   # NOTE - assumes Language.english exists.  You'll get weird results otherwise.
   # NOTE - I'm leaving duplicates in here, since they should be handled and make deleting rows easier.
   # NOTE - These are only activities THAT GET LOGGED.  ...for now.  In the future, we may want to add a visibility to
+  # NOTE - The tense is inconsistent, but doesn't *really* matter.  Keep the ones you see as-is (since they are in
+  # the DB... but as you add new ones, try to use the verb's present tense ("take", not "taken" or "took").
   # each of these and include those activities that don't show up on the site's activity logs.
+  # TODO - many of these are not used yet.  Add them to the code in the appropriate place
   def self.create_defaults
+    TranslatedActivity.reset_cached_instances
     Activity.reset_cached_instances
-    # Curation:
+    # User Data Objects (user-submitted text):
     Activity.find_or_create('create')
-    Activity.find_or_create('update')     #?
+    Activity.find_or_create('update')
     Activity.find_or_create('delete')
+    # Curation:
     Activity.find_or_create('trusted')
     Activity.find_or_create('untrusted')
     Activity.find_or_create('show')
     Activity.find_or_create('hide')
     Activity.find_or_create('inappropriate')
     Activity.find_or_create('rate')
-    Activity.find_or_create('unreviewed') # tense is wrong for historical reasons, please keep.
+    Activity.find_or_create('unreviewed')
     Activity.find_or_create('add_association')
     Activity.find_or_create('remove_association')
     Activity.find_or_create('choose_exemplar')

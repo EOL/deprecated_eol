@@ -5,7 +5,6 @@ class CollectionItemsController < ApplicationController
 
   # POST /collection_items
   def create
-
     collection_item_data = params[:collection_item] unless params[:collection_item].blank?
     return_to = params[:return_to] unless params[:return_to].blank?
     if session[:submitted_data]
@@ -23,12 +22,26 @@ class CollectionItemsController < ApplicationController
     if @collection_item.object_type == 'Collection' && @collection_item.object_id == @collection_item.collection.id
       flash[:notice] = I18n.t(:item_not_added_to_itself_notice, :collection_name => @collection_item.collection.name)
     elsif @collection_item.save
+      CollectionActivityLog.create(:collection => @collection_item.collection, :user => current_user,
+                                   :activity => Activity.collect, :collection_item => @collection_item)
       flash[:notice] = I18n.t(:item_added_to_collection_notice, :collection_name => self.class.helpers.link_to(@collection_item.collection.name, collection_path(@collection_item.collection)))
     else
       # TODO: Ideally examine validation error and provide more informative error message, e.g. item is already in the collection etc
       flash[:error] = I18n.t(:item_not_added_to_collection_error)
     end
-    redirect_back_or_default
+    respond_to do |format|
+      format.html { redirect_back_or_default }
+      format.js do
+        if flash[:error].nil?
+          flash[:notice] = nil # No need to flash with JS.
+          render :partial => 'shared/add_to_my_collection', :layout => false, :locals => { :item => @collection_item.object }
+        else
+          err = flash[:error]
+          flash[:error] = nil
+          render :text => err
+        end
+      end
+    end
   end
 
   # PUT /collection_items/1
@@ -36,8 +49,8 @@ class CollectionItemsController < ApplicationController
     if @collection_item.update_attributes(params[:collection_item])
       respond_to do |format|
         format.js do
-          render :partial => 'show', :layout => false,
-            :locals => { :collection_item => @collection_item, :editable => true }
+          # TODO - this won't work 'cause I'm using @collection_item to test whether to use a full form.  Fix:
+          render :partial => 'edit', :locals => { :collection_item => @collection_item }
         end
         format.html do
           flash[:notice] = I18n.t(:item_updated_in_collection_notice, :collection_name => @collection_item.collection.name)

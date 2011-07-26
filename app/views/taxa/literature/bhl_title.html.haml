@@ -1,7 +1,8 @@
 #content
-  .site_column
+  #taxon_literature.site_column
     = render :partial => 'literature_menu'
-    #taxon_names.main_container
+    .main_container
+      = render :partial => 'bhl_header'
       - if @bhl_title_results && @bhl_title_results[:total] > 0
         %table.standard
           %thead
@@ -10,16 +11,22 @@
               %th= I18n.t(:year)
               %th= I18n.t(:details_capital)
               %th= I18n.t(:pages__)
+          %tbody
             %tr
               %td
                 - first_result = @bhl_title_results[:results].first
                 = external_link_to([first_result['publication_title'], first_result['volume_info']].join(' ; '), "http://www.biodiversitylibrary.org/item/#{first_result['title_item_id']}")
-                - @bhl_title_results[:results].each do |r|
-                  %br
-                    = external_link_to([r['prefix'], r['number']].join(' '), "http://www.biodiversitylibrary.org/page/#{r['id']}")
               %td
                 = first_result['year']
               %td
                 = first_result['details']
               %td.nowrap
                 = I18n.t(:pages_with_count, :count => @bhl_title_results[:total])
+            - @bhl_title_results[:results].each do |r|
+              %tr
+                %td
+                  = external_link_to([r['prefix'], r['number']].join(' '), "http://www.biodiversitylibrary.org/page/#{r['id']}")
+                %td
+                %td
+                %td
+            

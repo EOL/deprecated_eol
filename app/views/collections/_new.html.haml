@@ -1,7 +1,9 @@
 - form_for Collection.new do |collection_form|
+  = collection_form.hidden_field :user_id, :value => current_user.id
+  = hidden_field_tag :for, @for
+  = hidden_field_tag :source_collection_id, @collection.id
+  = hidden_field_tag :scope, @scope
   - if @selected_collection_items
-    = hidden_field_tag "#{@action_to_take}", true
-    = collection_form.hidden_field :user_id, :value => current_user.id
     - @selected_collection_items.each do |collection_item_id|
       = hidden_field_tag "collection_items[]", collection_item_id, :id => "collection_item_#{collection_item_id}"
   %fieldset

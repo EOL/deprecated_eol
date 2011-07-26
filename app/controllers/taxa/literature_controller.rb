@@ -8,14 +8,13 @@ class Taxa::LiteratureController < TaxaController
   def references
     @assistive_section_header = I18n.t(:assistive_literature_header)
     @references = Ref.find_refs_for(@taxon_concept.id)
-    pp @references
     @references = Ref.sort_by_full_reference(@references)
     current_user.log_activity(:viewed_taxon_concept_literature, :taxon_concept_id => @taxon_concept.id)
   end
   
   def bhl
     @assistive_section_header = I18n.t(:assistive_literature_header)
-    @sort = params[:sort]
+    @sort = params[:sort_by]
     @page = params[:page]
     @sort = 'year' unless ['title', 'title_desc', 'year', 'year_desc'].include?(@sort)
     @bhl_results = EOL::Solr::BHL.search(@taxon_concept, :sort => @sort, :page => @page)

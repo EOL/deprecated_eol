@@ -1,4 +1,3 @@
-- editable ||= false
 - item_type ||= en_type(collection_item)
 - if logged_in?
   .checkbox
@@ -10,5 +9,3 @@
 - else
   = I18n.t(:item_details_missing)
 %p= collection_item.annotation
-- if editable
-  %p.edit= link_to(I18n.t(:edit_annotation), edit_collection_item_path(collection_item))

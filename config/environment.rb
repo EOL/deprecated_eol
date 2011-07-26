@@ -50,7 +50,7 @@ Rails::Initializer.run do |config|
   config.gem 'macaddr'
   config.gem 'uuid'
   config.gem 'ezcrypto'
-  config.gem 'sanitize'
+  config.gem 'sanitize', :version => '2.0.1'
   config.gem 'escape'
   config.gem 'email_spec'
   config.gem 'invert'

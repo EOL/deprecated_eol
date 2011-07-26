@@ -11,14 +11,15 @@
 - unless subtitle.blank?
   = subtitle.firstcap
 - # we need the search result object, and the best match can't be in the title or subtitle
-- unless search_result.nil? || |
-  item.title_canonical.downcase.match(Regexp.escape(@querystring.downcase)) || |
-  item.title_canonical.downcase.match(Regexp.escape(search_result['best_keyword_match'].downcase)) || |
-  (subtitle && subtitle.downcase.match(Regexp.escape(@querystring.downcase))) || |
-  (subtitle && subtitle.downcase.match(Regexp.escape(search_result['best_keyword_match'].downcase))) |
-  - unless subtitle.blank?
-    %br
-  %strong
-    = search_result['keyword_type'].titleize + ": "
-  = search_result['best_keyword_match'].firstcap
-= "    : " + search_result['score'].to_s
+- if search_result || @querystring # This was a search result... perhaps we should be more intelligent about this.
+  - unless search_result.nil? || |
+    item.title_canonical.downcase.match(Regexp.escape(@querystring.downcase)) || |
+    item.title_canonical.downcase.match(Regexp.escape(search_result['best_keyword_match'].downcase)) || |
+    (subtitle && subtitle.downcase.match(Regexp.escape(@querystring.downcase))) || |
+    (subtitle && subtitle.downcase.match(Regexp.escape(search_result['best_keyword_match'].downcase))) |
+    - unless subtitle.blank?
+      %br
+    %strong
+      = search_result['keyword_type'].titleize + ": "
+    = search_result['best_keyword_match'].firstcap
+  = "    : " + search_result['score'].to_s

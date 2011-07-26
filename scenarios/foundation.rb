@@ -48,6 +48,9 @@ SpecialCollection.create_all
 SortStyle.create_defaults # Need this to make communities.
 Community.create_special
 
+CuratorLevel.create_defaults
+UserIdentity.create_defaults
+
 iucn_agent = Agent.gen_if_not_exists(:full_name => 'IUCN')
 iucn_user = User.gen_if_not_exists(:given_name => 'IUCN', :agent => iucn_agent)
 iucn_content_parter = ContentPartner.gen_if_not_exists(:user => iucn_user, :display_name => 'IUCN')
@@ -232,11 +235,10 @@ Status.gen_if_not_exists(:label => 'Inserted')
 Status.gen_if_not_exists(:label => 'Unchanged')
 Status.gen_if_not_exists(:label => 'Updated')
 
-UntrustReason.gen_if_not_exists(:label => 'Misidentified', :class_name => 'misidentified')
-UntrustReason.gen_if_not_exists(:label => 'Incorrect/misleading information', :class_name => 'incorrect')
-UntrustReason.gen_if_not_exists(:label => 'Poor writing/image/sound quality', :class_name => 'poor')
-UntrustReason.gen_if_not_exists(:label => 'Redundant/duplicate', :class_name => 'duplicate')
-UntrustReason.gen_if_not_exists(:label => 'Other', :class_name => 'other')
+UntrustReason.gen_if_not_exists(:label => 'misidentified', :class_name => 'misidentified')
+UntrustReason.gen_if_not_exists(:label => 'incorrect/misleading', :class_name => 'incorrect')
+UntrustReason.gen_if_not_exists(:label => 'low quality', :class_name => 'poor')
+UntrustReason.gen_if_not_exists(:label => 'duplicate', :class_name => 'duplicate')
 
 Vetted.gen_if_not_exists(:label => 'Unknown', :view_order => 2)
 Vetted.gen_if_not_exists(:label => 'Untrusted', :view_order => 3)

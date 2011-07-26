@@ -406,7 +406,7 @@ DataObjectsInfoItem.gen(:data_object => tc.overview.last, :info_item => InfoItem
 
 
 # create a content_partner that we can log in as for testing (user:password = testcp:testcp)
-cp_user = User.gen(:username => 'testcp', :password => 'testcp', :given_name => 'Ralph', :family_name => 'Wiggum', :display_name => 'Test Content Partner')
+cp_user = User.gen(:username => 'testcp', :password => 'testcp', :given_name => 'Ralph', :family_name => 'Wiggum')
 cp_user.build_watch_collection
 cp = ContentPartner.gen(:user => cp_user,
                         :partner_seen_step => '2009-10-21 10:00:00',

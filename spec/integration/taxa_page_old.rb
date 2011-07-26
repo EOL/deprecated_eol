@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 require 'nokogiri'
 
+# TODO: Make sure the relevant tests from here have been moved to the appropriate V2 spec then delete this file.
+
 class TaxonConcept
   def self.missing_id
     missing_id = TaxonConcept.last.id + 1

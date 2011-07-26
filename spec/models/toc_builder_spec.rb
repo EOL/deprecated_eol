@@ -47,7 +47,6 @@ describe TocBuilder do
       toc[7].label.should == "Literature References"
       toc[8].label.should == "Content Partners"
       toc[9].label.should == "Biomedical Terms"
-      toc[10].label.should == "Search the Web"
     end
 
   end

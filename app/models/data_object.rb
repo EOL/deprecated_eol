@@ -154,7 +154,7 @@ class DataObject < SpeciesSchemaModel
   def self.filter_list_for_user(data_objects, options={})
     return [] if data_objects.blank?
     visibility_ids = [Visibility.visible.id]
-    vetted_ids = [Vetted.trusted.id, Vetted.unknown.id, Vetted.untrusted.id, Vetted.inappropriate.id]
+    vetted_ids = [Vetted.trusted.id, Vetted.unknown.id, Vetted.untrusted.id]
     show_preview = false
 
     # Show all vetted states unless there is a user that DOES NOT want to see vetted content

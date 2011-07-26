@@ -118,10 +118,6 @@ private
       toc << TocEntry.new(TocItem.nucleotide_sequences) if entry.identifier != ''
     end
 
-    if user_allows_unvetted_items(options)
-      toc << TocEntry.new(TocItem.search_the_web)
-    end
-
   end
 
   def user_allows_unvetted_items(options = {})

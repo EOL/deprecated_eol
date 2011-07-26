@@ -21,7 +21,7 @@ class DataObjectsController < ApplicationController
     #render(:partial => '/taxa/text_data_object',
     #render(:partial => '/taxa/details/category_content',
     #       :locals => {:content => data_object, :comments_style => '', :category => data_object.toc_items[0].label})
-    redirect_to taxon_details_path(@taxon_concept)  
+    redirect_to taxon_details_path(@taxon_concept)
   end
 
   def preview
@@ -270,7 +270,7 @@ private
   end
 
   def get_curated_object(dato, he)
-    if hierarchy_entry.associated_by_curator
+    if he.associated_by_curator
       curated_object = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(dato.id, he.id)
     else
       curated_object = DataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(dato.id, he.id)

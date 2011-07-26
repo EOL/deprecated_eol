@@ -28,7 +28,7 @@ class Taxa::LiteratureController < TaxaController
     end
     @assistive_section_header = I18n.t(:assistive_literature_header)
     @bhl_title_results = EOL::Solr::BHL.search_publication(@taxon_concept, @title_item_id)
-    
+    # TODO: user natural sort to sort numerically, also romain numerals... not by string
     current_user.log_activity(:viewed_taxon_concept_bhl_title, :taxon_concept_id => @taxon_concept.id)
   end
 end

@@ -1,0 +1,31 @@
+#content
+  #profile_curator_info.site_column
+    .article.copy
+      - form_for @user, :builder => ApplicationHelper::EolFormBuilder do |f|
+        = hidden_field_tag :return_to, edit_user_path(@user)
+        = validation_errors_for(@user)
+        %fieldset
+          %dl
+            %dt.curation_level
+              = f.label :curation_level
+            %dd
+              / TODO= f.select options_from_collection_for_select(curation_levels, 'id', 'label', @user.curation_level)
+              %p= I18n.t('helpers.label.user.curation_level_more', :curation_level => 'FIXME: @user.curation_level')
+            %dt
+              = f.label :curator_scope
+              %p= I18n.t('helpers.label.user.curator_scope_more')
+            %dd
+              = f.text_area :curator_scope
+            %dt
+              = f.label :credentials
+              %p= I18n.t('helpers.label.user.credentials_more')
+              %ol
+                %li= I18n.t('helpers.label.user.credentials_more_academic')
+                %li= I18n.t('helpers.label.user.credentials_more_author')
+                %li= I18n.t('helpers.label.user.credentials_more_professional')
+            %dd
+              = f.text_area :credentials
+          %fieldset.actions
+            = f.submit I18n.t('helpers.submit.user.curation_privileges'), :name => :commit_curation_privileges
+
+

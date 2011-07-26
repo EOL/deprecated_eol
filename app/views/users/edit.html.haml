@@ -65,7 +65,7 @@
         %dd
           - select_options = [['Never', 0] , ['Daily', 1*24], ['Weekly', 7*24], ['Monthly', 30*24]]
           = user_form.select :email_reports_frequency_hours, select_options
-    %fieldset.api-request
+    %fieldset.requests
       %dl
         - if @user.api_key
           %dt
@@ -80,7 +80,15 @@
           %dd
             - content_tag :button , :name => :commit_generate_api_key do
               = I18n.t('helpers.submit.user.generate_api_key')
-
+      %dl
+        %dt
+          = I18n.t('helpers.label.user.curation_application')
+          %p
+            = I18n.t('helpers.label.user.curation_level_more', :curation_level => '#FIXME @user.curation_level')
+            = I18n.t('helpers.label.user.curation_application_more')
+        %dd
+          - content_tag :button , :name => :commit_curation_application do
+            = I18n.t('helpers.submit.user.curation_application')
     %fieldset.actions
       = user_form.submit I18n.t('helpers.submit.user.update')
       = link_to I18n.t(:go_back), @user

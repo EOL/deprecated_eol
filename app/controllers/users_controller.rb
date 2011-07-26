@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   layout :users_layout
 
-  before_filter :authentication_only_allow_editing_of_self, :only => [:edit, :update, :terms_agreement]
+  before_filter :authentication_only_allow_editing_of_self, :only => [:edit, :update, :terms_agreement, :curation_privileges]
   before_filter :redirect_if_already_logged_in, :only => [:new, :create, :verify, :pending, :activated,
                                                           :forgot_password, :reset_password]
   before_filter :check_user_agreed_with_terms, :except => [:terms_agreement, :reset_password]
@@ -19,11 +19,20 @@ class UsersController < ApplicationController
     # @user instantiated by authentication before filter and matched to current user
   end
 
+   # GET /users/:id/curation_privileges
+  def curation_privileges
+    # @user instantiated by authentication before filter and matched to current user
+    # TODO: @curation_levels =
+    @page_title = I18n.t(:curation_privileges_page_title)
+    @page_description = I18n.t(:curation_privileges_page_description)
+  end
+
   # PUT /users/:id
   def update
     # @user instantiated by authentication before filter and matched to current user
+    redirect_to curation_privileges_user_path(@user) and return if params[:commit_curation_application]
     generate_api_key and return if params[:commit_generate_api_key]
-    unset_auto_managed_password
+    unset_auto_managed_password if params[:user][:entered_password]
     if @user.update_attributes(params[:user])
       # not using alter_current_user because it doesn't allow for validation checks
       # and we probably don't want to update current_user with invalid attributes
@@ -31,7 +40,8 @@ class UsersController < ApplicationController
       $CACHE.delete("users/#{session[:user_id]}")
       set_current_user(@user)
       current_user.log_activity(:updated_user)
-      redirect_to @user
+      store_location params[:return_to] if params[:return_to]
+      redirect_back_or_default @user
     else
       failed_to_update_user
     end
@@ -244,6 +254,8 @@ private
     case action_name
     when 'forgot_password', 'terms_agreement', 'new', 'pending', 'activated'
       'v2/sessions'
+    when 'curation_privileges'
+      'v2/basic'
     else
       'v2/users'
     end

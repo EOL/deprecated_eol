@@ -56,6 +56,8 @@ class ApplicationController < ActionController::Base
       must_be_logged_in
     when EOL::Exceptions::SecurityViolation
       access_denied
+    when EOL::Exceptions::Pending
+      not_yet_implemented
     else
       logger.error "*" * 76
       logger.error "** EXCEPTION: (uncaught) #{e.message}"
@@ -487,10 +489,19 @@ class ApplicationController < ActionController::Base
 
   # A user is not authorized for the particular controller based on the rights for the roles they are in
   def access_denied
-    flash.now[:warning] = I18n.t(:you_are_not_authorized_to_perform_this_action)
-    return_to = request.referer
-    store_location(return_to) unless return_to.blank?
-    redirect_back_or_default
+    flash_and_redirect_back(I18n.t(:you_are_not_authorized_to_perform_this_action))
+  end
+
+  def not_yet_implemented
+    flash_and_redirect_back(I18n.t(:not_yet_implemented_error))
+  end
+
+  def flash_and_redirect_back(msg)
+    flash[:error] = msg
+    respond_to do |format|
+      format.html { redirect_back_or_default }
+      format.js { render :text => warning }
+    end
   end
 
   # Set the current language

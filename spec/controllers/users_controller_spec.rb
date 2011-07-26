@@ -2,7 +2,8 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 def users_access_should_be_denied(template = nil)
   response.rendered[:template].should_not == template unless template.nil?
-  session[:flash][:warning].should =~ /not authorized/
+  response.should be_redirect
+  session[:flash][:error].should =~ /not authorized/
   response.redirected_to.should == root_url
 end
 

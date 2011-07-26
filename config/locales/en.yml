@@ -1504,6 +1504,7 @@ en:
   not_encourage_or_answer_request: "Not encourage or answer requests to provide all or major components of %{projecta}'s content to other data providers. Rather, such requests for re-usage will be forwarded to %{projectb}."
   not_evaluated: "Not evaluated"
   not_recognised_by_available_hierarchies: "Not recognised by any of the available classifications"
+  not_yet_implemented_error: "Sorry, that feature has not been implemented yet."
   note: "Note:"
   note__only_change_this_attribu: "NOTE: only change this attribute if you are certain - unchecking this could cause serious homonym problems"
   notes: "Notes"

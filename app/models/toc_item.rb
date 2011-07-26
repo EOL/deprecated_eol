@@ -12,7 +12,7 @@ class TocItem < SpeciesSchemaModel
   has_and_belongs_to_many :content_tables, :join_table => 'content_table_items', :foreign_key => 'toc_id'
 
 
-  @@reserved_toc_labels = ['Biodiversity Heritage Library', 'Content Partners', 'Names and Taxonomy', 'Related Names', 'Synonyms', 'Common Names', 'Page Statistics', 'Content Summary', 'Education', 'Barcode', 'Wikipedia', 'Search the Web', 'Biomedical Terms', 'Literature References', 'Nucleotide Sequences']
+  @@reserved_toc_labels = ['Biodiversity Heritage Library', 'Content Partners', 'Names and Taxonomy', 'Related Names', 'Synonyms', 'Common Names', 'Page Statistics', 'Content Summary', 'Education', 'Barcode', 'Wikipedia', 'Biomedical Terms', 'Literature References', 'Nucleotide Sequences']
 
   def self.toc_object_counts
     cached('toc_object_counts') do
@@ -76,10 +76,6 @@ class TocItem < SpeciesSchemaModel
   def self.education
     InfoItem
     cached_find_translated(:label, 'Education', :include => [ :info_items, { :parent => :info_items } ])
-  end
-  def self.search_the_web
-    InfoItem
-    cached_find_translated(:label, 'Search the Web', :include => [ :info_items, { :parent => :info_items } ])
   end
   def self.biomedical_terms
     InfoItem

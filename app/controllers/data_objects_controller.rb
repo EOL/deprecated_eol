@@ -172,6 +172,7 @@ class DataObjectsController < ApplicationController
   end
 
   def add_association
+    raise EOL::Exceptions::Pending
     @name = params[:name]
     form_submitted = params[:commit]
     unless form_submitted.blank?
@@ -206,6 +207,7 @@ class DataObjectsController < ApplicationController
         curate_association(current_user, phe, all_params)
       end
     rescue => e
+      debugger
       flash[:error] = e.message
     end
     redirect_to data_object_path(@data_object)
@@ -267,7 +269,6 @@ private
 
   # Aborts if nothing changed. Otherwise, decides what to curate, handles that, and logs the changes:
   def curate_association(user, hierarchy_entry, opts)
-    debugger
     if something_needs_curation?(opts)
       curated_object = get_curated_object(@data_object, hierarchy_entry)
       handle_curation(curated_object, user, opts).each do |action|
@@ -305,7 +306,7 @@ private
     if vetted_id
       case vetted_id
       when Vetted.inappropriate.id
-        object.inappropriate(user, opts)
+        object.inappropriate(current_user, opts)
         return :inappropriate
       when Vetted.untrusted.id
         raise "Curator should supply at least untrust reason(s) and/or curation comment" if (opts[:untrust_reason_ids].blank? && opts[:curation_comment].nil?)
@@ -327,11 +328,12 @@ private
     if visibility_id
       changeable_object_type = opts[:changeable_object_type]
       case visibility_id
-      when Visibility.visible.id.flatten
-        object.show(user, opts[:type], changeable_object_type)
+      when Visibility.visible.id
+        object.show(current_user)
         return :show
       when Visibility.invisible.id
-        object.hide(user, opts[:type], changeable_object_type)
+        # TODO - when I tried this, it actually removed the association entirely.
+        object.hide(current_user)
         return :hide
       else
         raise "Cannot set data object visibility id to #{visibility_id}"

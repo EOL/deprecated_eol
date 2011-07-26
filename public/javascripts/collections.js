@@ -30,8 +30,8 @@ EOL.init_collection_item_behaviours = function($collection) {
 }
 
 $(function() {
-  $('#sort_by').change(function() {$(this).closest('form').find('input[name="commit_sort"]').click();});
-  $('input[name="commit_sort"]').hide();
+  $('#collections #sort_by').change(function() {$(this).closest('form').find('input[name="commit_sort"]').click();});
+  $('#collections input[name="commit_sort"]').hide();
   (function($collection) { // TODO - I don't understand this syntax (see the end, too).
     $collection.find("ul.object_list li").each(EOL.init_collection_item_behaviours);
   })($("#collections"));

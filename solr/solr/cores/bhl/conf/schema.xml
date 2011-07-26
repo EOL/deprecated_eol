@@ -67,6 +67,7 @@
         <field name="details" type="string" indexed="false" stored="true"/>
         <field name="name_id" type="int" indexed="true" stored="true" multiValued="true"/>
         <field name="title_item_id" type="string" indexed="true" stored="true" required="true"/>
+        <field name="volume_info" type="string" indexed="true" stored="true" required="false"/>
     </fields>
     
     <!-- no unique key -->

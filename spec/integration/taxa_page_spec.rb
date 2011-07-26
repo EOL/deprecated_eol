@@ -199,6 +199,51 @@ describe 'Taxa page' do
       end
     end
   end
+  
+  shared_examples_for 'taxon literature tab' do
+    # it 'should NOT show references for the overview text when there aren\'t any' do
+    #   Ref.delete_all
+    #   visit("/pages/#{@id}")
+    #   body.should_not have_tag('div.references')
+    # end
+    # 
+    # it 'should show references for the overview text (with URL and DOI identifiers ONLY) when present' do
+    #   full_ref = 'This is the reference text that should show up'
+    #   # TODO - When we add "helper" methods to Rails classes for testing, then "add_reference" could be
+    #   # extracted to do this:
+    #   url_identifier = 'some/url.html'
+    #   doi_identifier = '10.12355/foo/bar.baz.230'
+    #   bad_identifier = 'you should not see this identifier'
+    #   @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 1, :visibility => Visibility.visible)
+    #   # I heard you like RSpec, so we put a lot of tests in your test so you could spec while you're
+    #   # speccing.There are actually a lot of 'tests' in this test. For one, we're testing that URLs will have http://
+    #   # added to them if they are blank. We're also testing the regex that pulls DOIs out of potentially
+    #   # messy DOI identifiers:
+    #   ref.add_identifier('url', url_identifier)
+    #   ref.add_identifier('doi', "doi: #{doi_identifier}")
+    #   ref.add_identifier('bad', bad_identifier)
+    #   visit("/pages/#{@id}")
+    #   body.should have_tag('div.references')
+    #   body.should include(full_ref)
+    #   body.should have_tag("a[href=http://#{url_identifier}]")
+    #   body.should_not include(bad_identifier)
+    #   body.should have_tag("a[href=http://dx.doi.org/#{doi_identifier}]")
+    # end
+    # 
+    # it 'should NOT show references for the overview text when reference is invisible' do
+    #   full_ref = 'This is the reference text that should show up'
+    #   @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 1, :visibility => Visibility.invisible)
+    #   visit("/pages/#{@id}")
+    #   body.should_not have_tag('div.references')
+    # end
+    # 
+    # it 'should NOT show references for the overview text when reference is unpublished' do
+    #   full_ref = 'This is the reference text that should show up'
+    #   @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 0, :visibility => Visibility.visible)
+    #   visit("/pages/#{@id}")
+    #   body.should_not have_tag('div.references')
+    # end
+  end
 
   shared_examples_for 'taxon name - taxon_concept page' do
     it 'should show the concepts preferred name style and ' do
@@ -289,6 +334,31 @@ describe 'Taxa page' do
     it_should_behave_like 'taxon name - hierarchy_entry page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon names tab'
+  end
+  
+  # literature tab - taxon_concept
+  context 'literature when taxon has all expected data - taxon_concept' do
+    before(:all) do
+      visit taxon_literature_path(@testy[:taxon_concept])
+      @section = 'literature'
+    end
+    subject { body }
+    it_should_behave_like 'taxon name - taxon_concept page'
+    it_should_behave_like 'taxon pages with all expected data'
+    it_should_behave_like 'taxon literature tab'
+  end
+
+  # literature tab - hierarchy_entry
+  context 'literature when taxon has all expected data - hierarchy_entry' do
+    before(:all) do
+      hierarchy_entry = @testy[:taxon_concept].published_browsable_hierarchy_entries[0]
+      visit taxon_hierarchy_entry_literature_path(@testy[:taxon_concept], hierarchy_entry)
+      @section = 'literature'
+    end
+    subject { body }
+    it_should_behave_like 'taxon name - hierarchy_entry page'
+    it_should_behave_like 'taxon pages with all expected data'
+    it_should_behave_like 'taxon literature tab'
   end
 
 #  context 'when taxon does not have any common names'

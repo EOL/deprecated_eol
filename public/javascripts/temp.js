@@ -94,3 +94,10 @@ $(function() {
     return(false);
   });
 });
+
+$(function() {
+  $('#sort_by').change(function() {
+    $(this).closest('form').find('input[type="submit"]').click();
+  });
+  $('input[type="submit"]').hide();
+});

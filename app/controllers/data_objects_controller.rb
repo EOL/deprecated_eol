@@ -180,7 +180,6 @@ class DataObjectsController < ApplicationController
         # TODO - use solr search for finding the taxa
         @entries = entries_for_name(@name)
       else
-        debugger
         flash[:error] = I18n.t(:please_enter_a_name_to_find_taxa)
       end
     end
@@ -207,7 +206,6 @@ class DataObjectsController < ApplicationController
         curate_association(current_user, phe, all_params)
       end
     rescue => e
-      debugger
       flash[:error] = e.message
     end
     redirect_to data_object_path(@data_object)

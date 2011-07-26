@@ -493,8 +493,6 @@ class ApplicationController < ActionController::Base
   end
 
   def not_yet_implemented
-    puts "*" * 119
-    puts "PENDING"
     flash_and_redirect_back(I18n.t(:not_yet_implemented_error))
   end
 

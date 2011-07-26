@@ -604,7 +604,7 @@ en:
   curation_scope: "Curation Scope"
   curation_standards: "Curation Standards"
   curation_status: "Curation status"
-  curation_reason_placeholder: "Reasoning"
+  curation_reason_placeholder: "additional details (optional)"
   curator_actions_have_affected_: "Curator actions have affected data objects you submitted:"
   curator_activity: "Curator Activity"
   curator_approved_: "Curator Approved:"

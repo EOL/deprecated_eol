@@ -18,13 +18,13 @@
             %p
               = link_to I18n.t(:remove_data_object_association), remove_association_path(:id => data_object.id, :hierarchy_entry_id => entry.id), :id => "remove_association_#{entry.id}"
           - # TODO - modify HashRocket permalink.js to use our form element ids
-          - visibility_selected = entry.visibility_id.to_i
-          - visibilities = Visibility.all.collect{|v| [ v.label, v.id ] unless v == Visibility.preview }.compact.sort
-          = select_tag "visibility_id_#{entry.id}", options_for_select(visibilities, visibility_selected)
-          = I18n.t(:and_between_form_items)
           - vetted_selected = entry.vetted_id.to_i
           - statuses = Vetted.all.collect{|v| [ v == Vetted.unknown ? I18n.t(:unreviewed) : v.label, v.id ] }.compact.sort
           = select_tag "vetted_id_#{entry.id}", options_for_select(statuses, vetted_selected)
+          = I18n.t(:and_between_form_items)
+          - visibility_selected = entry.visibility_id.to_i
+          - visibilities = Visibility.all.collect{|v| [ v.label, v.id ] unless v == Visibility.preview }.compact.sort
+          = select_tag "visibility_id_#{entry.id}", options_for_select(visibilities, visibility_selected)
           - unless entry.hierarchy.agent.blank?
             %p
               = I18n.t(:supplier_colon)
@@ -50,10 +50,10 @@
               = check_box_tag "untrust_reasons_#{entry.id}[]", UntrustReason.poor.id.to_s, untrusted_reasons.include?(UntrustReason.poor.id), {:id => "#{entry.id}_untrust_reason_poor"}
               %label{ :for => "#{entry.id}_untrust_reason_poor" }
                 = UntrustReason.poor.label
-            %li
-              = check_box_tag "untrust_reasons_#{entry.id}[]", UntrustReason.other.id.to_s, untrusted_reasons.include?(UntrustReason.other.id), {:id => "#{entry.id}_untrust_reason_other"}
-              %label{ :for => "#{entry.id}_untrust_reason_other" }
-                = UntrustReason.other.label
+            - #%li
+            - #  = check_box_tag "untrust_reasons_#{entry.id}[]", UntrustReason.other.id.to_s, untrusted_reasons.include?(UntrustReason.other.id), {:id => "#{entry.id}_untrust_reason_other"}
+            - #  %label{ :for => "#{entry.id}_untrust_reason_other" }
+            - #    = UntrustReason.other.label
 
           %input{ :type => "hidden", :id => "untrust_reasons_comment_#{entry.id}", :name => "untrust_reasons_comment_#{entry.id}" }
 

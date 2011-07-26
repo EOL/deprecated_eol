@@ -48,6 +48,9 @@ SpecialCollection.create_all
 SortStyle.create_defaults # Need this to make communities.
 Community.create_special
 
+CuratorLevel.create_defaults
+UserIdentity.create_defaults
+
 iucn_agent = Agent.gen_if_not_exists(:full_name => 'IUCN')
 iucn_user = User.gen_if_not_exists(:given_name => 'IUCN', :agent => iucn_agent)
 iucn_content_parter = ContentPartner.gen_if_not_exists(:user => iucn_user, :display_name => 'IUCN')

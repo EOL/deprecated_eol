@@ -1044,7 +1044,6 @@ en:
   hide_for_all_except_curators: "Hide for all except curators"
   hide: "hide"
   hide__other__slice: "Hide 'Other' Slice"
-  hierarchy_entry_taxon_page: "hierarchy entry taxon page"
   hierarachyentryid_: "HierarachyEntryID:"
   hierarchies: "hierarchies"
   hierarchies_: "Hierarchies"
@@ -1755,6 +1754,8 @@ en:
   recently_published_resources__: "Recently published resources (last 20)"
   recent_updates: "Recent updates"
   recipients: "Recipients"
+  recognised_by_hierarchy_agent_as_a_rank: '%{hierarchy_agent} %{hierarchy_agent_logo} as a %{taxon_rank}. <a href="%{hierarchy_entry_url}">View in classification</a>'
+  recognised_by_hierarchy_entry_agent_in_hierarchy_agent_as_a_rank: '%{hierarchy_entry_agent} in %{hierarchy_agent} %{hierarchy_agent_logo} as a %{taxon_rank}. <a href="%{hierarchy_entry_url}">View in classification</a>'
   recognized_by: "Recognized by"
   recommend: "RECOMMEND"
   redirect_to_external_url_: "Redirect to external URL:"

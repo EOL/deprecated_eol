@@ -19,6 +19,18 @@ module TaxaHelper
     end
   end
 
+  def iucn_status_class(iucn_status)
+    case iucn_status
+    when 'Least Concern (LC)', 'Lower Risk/least concern (LR/lc)', 'Near Threatened (NT)', 'Lower Risk/near threatened (LR/nt)', 'Lower Risk/conservation dependent (LR/cd)'
+      'positive'
+    when 'Vulnerable (VU)', 'Endangered (EN)', 'Critically Endangered (CR)', 'Extinct in the Wild (EW)', 'Extinct (EX)'
+      'negative'
+    else
+      # 'Data Deficient (DD)' or not evaluated
+      'neutral'
+    end
+  end
+
   def citables_to_string(citables, params={})
     return '' if citables.nil? or citables.blank? or citables.class == String
     params[:linked] = true if params[:linked].nil?

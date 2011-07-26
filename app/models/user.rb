@@ -257,8 +257,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def short_name
     return given_name if !given_name.blank?
     return family_name if !family_name.blank?
-    return display_name if !display_name.blank?
-    return acronym if !acronym.blank?
     username
   end
 

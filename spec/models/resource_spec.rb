@@ -4,7 +4,7 @@ describe Agent do
 
   before(:all) do
     load_foundation_cache
-    iucn_user = User.find_by_display_name('IUCN')
+    iucn_user = User.find_by_given_name('IUCN')
     iucn_content_partner = ContentPartner.find_by_user_id(iucn_user.id)
 
     @iucn_resource1 = Resource.gen(:content_partner => iucn_content_partner)

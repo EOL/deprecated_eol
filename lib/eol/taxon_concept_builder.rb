@@ -397,6 +397,8 @@ module EOL
       images = [{:num_comments => 12}] # One "normal" image, lots of comments, everything else default.
       # So, every TC (which doesn't have a predefined list of images) will have each of the following, making
       # testing easier:
+      images << {:description => 'inappropriate', :object_cache_url => Factory.next(:image),
+                 :vetted => Vetted.inappropriate}
       images << {:description => 'untrusted', :object_cache_url => Factory.next(:image),
                  :vetted => Vetted.untrusted}
       images << {:description => 'unknown',   :object_cache_url => Factory.next(:image),
@@ -414,8 +416,6 @@ module EOL
       images << {:description => 'preview, unknown',
                  :object_cache_url => Factory.next(:image), :visibility => Visibility.preview,
                  :vetted => Vetted.unknown}
-      images << {:description => 'inappropriate',
-                 :object_cache_url => Factory.next(:image), :visibility => Visibility.inappropriate}
       return images
     end
 

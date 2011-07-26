@@ -240,6 +240,7 @@ UntrustReason.gen_if_not_exists(:label => 'Other', :class_name => 'other')
 
 Vetted.gen_if_not_exists(:label => 'Unknown', :view_order => 2)
 Vetted.gen_if_not_exists(:label => 'Untrusted', :view_order => 3)
+Vetted.gen_if_not_exists(:label => 'Inappropriate', :view_order => 4)
 Vetted.gen_if_not_exists(:label => 'Trusted', :view_order => 1)
 
 SynonymRelation.gen_if_not_exists(:label => "synonym")
@@ -250,7 +251,6 @@ SynonymRelation.gen_if_not_exists(:label => "genbank common name")
 Visibility.gen_if_not_exists(:label => 'Invisible')
 Visibility.gen_if_not_exists(:label => 'Visible')
 Visibility.gen_if_not_exists(:label => 'Preview')
-Visibility.gen_if_not_exists(:label => 'Inappropriate')
 
 ContentTable.create_details
 

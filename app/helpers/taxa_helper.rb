@@ -15,6 +15,7 @@ module TaxaHelper
       when Vetted.unknown.id   then 'unknown'
       when Vetted.untrusted.id then 'untrusted'
       when Vetted.trusted.id   then 'trusted'
+      when Vetted.inappropriate.id   then 'inappropriate'
       else nil
     end
   end

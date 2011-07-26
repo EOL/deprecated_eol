@@ -22,15 +22,15 @@ youtube = []
 10.times { images << { :data_rating => 1 + rand(5), :source_url => 'http://photosynth.net/identifying/by/string/is/bad/change/me' } }
 10.times { images << { :data_rating => 1 + rand(5), :vetted => Vetted.unknown } }
 10.times { images << { :data_rating => 1 + rand(5), :vetted => Vetted.untrusted } }
-10.times { images << { :data_rating => 1 + rand(5), :visibility => Visibility.inappropriate } }
+10.times { images << { :data_rating => 1 + rand(5), :vetted => Vetted.inappropriate } }
 2.times { flash << { :data_rating => 1 + rand(5) } }
 2.times { flash << { :data_rating => 1 + rand(5), :vetted => Vetted.unknown } }
 2.times { flash << { :data_rating => 1 + rand(5), :vetted => Vetted.untrusted } }
-2.times { flash << { :data_rating => 1 + rand(5), :visibility => Visibility.inappropriate } }
+2.times { flash << { :data_rating => 1 + rand(5), :vetted => Vetted.inappropriate } }
 2.times { sounds << { :data_rating => 1 + rand(5) } }
 2.times { sounds << { :data_rating => 1 + rand(5), :vetted => Vetted.unknown } }
 2.times { sounds << { :data_rating => 1 + rand(5), :vetted => Vetted.untrusted } }
-2.times { sounds << { :data_rating => 1 + rand(5), :visibility => Visibility.inappropriate } }
+2.times { sounds << { :data_rating => 1 + rand(5), :vetted => Vetted.inappropriate } }
 2.times { youtube << { :data_rating => 1 + rand(5), :vetted => Vetted.unknown } }
 
 data[:taxon_concept] = build_taxon_concept(:canonical_form => data[:canonical_form], :common_name => data[:common_name],

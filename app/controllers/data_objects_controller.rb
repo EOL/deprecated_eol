@@ -172,14 +172,22 @@ class DataObjectsController < ApplicationController
   end
 
   def add_association
-    @name = params[:add_association]
-    # TODO - handle the case where they didn't enter a name at all.
-    @entries = entries_for_name(@name)
-    if @entries.length == 1
-      @data_object.add_curated_association(current_user, @entries.first)
-      redirect_to data_object_path(@data_object)
-      log_action(@entries.first, :add_association)
+    @name = params[:name]
+    form_submitted = params[:commit]
+    unless form_submitted.blank?
+      unless @name.blank?
+        # TODO - use solr search for finding the taxa
+        @entries = entries_for_name(@name)
+      else
+        debugger
+        flash[:error] = I18n.t(:please_enter_a_name_to_find_taxa)
+      end
     end
+    # if @entries.length == 1
+    #   @data_object.add_curated_association(current_user, @entries.first)
+    #   redirect_to data_object_path(@data_object)
+    #   log_action(@entries.first, :add_association)
+    # end
   end
 
   def curate_associations
@@ -259,6 +267,7 @@ private
 
   # Aborts if nothing changed. Otherwise, decides what to curate, handles that, and logs the changes:
   def curate_association(user, hierarchy_entry, opts)
+    debugger
     if something_needs_curation?(opts)
       curated_object = get_curated_object(@data_object, hierarchy_entry)
       handle_curation(curated_object, user, opts).each do |action|
@@ -295,6 +304,9 @@ private
   def handle_vetting(object, vetted_id, opts)
     if vetted_id
       case vetted_id
+      when Vetted.inappropriate.id
+        object.inappropriate(user, opts)
+        return :inappropriate
       when Vetted.untrusted.id
         raise "Curator should supply at least untrust reason(s) and/or curation comment" if (opts[:untrust_reason_ids].blank? && opts[:curation_comment].nil?)
         object.untrust(current_user)
@@ -321,9 +333,6 @@ private
       when Visibility.invisible.id
         object.hide(user, opts[:type], changeable_object_type)
         return :hide
-      when Visibility.inappropriate.id
-        object.inappropriate(user, opts[:type], changeable_object_type)
-        return :inappropriate
       else
         raise "Cannot set data object visibility id to #{visibility_id}"
       end

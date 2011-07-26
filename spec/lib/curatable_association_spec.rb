@@ -53,14 +53,14 @@ describe 'Curating Associations' do
     @dohe.vetted_id.should == Vetted.unknown.id
   end
 
+  it 'should #inappropriate a dohe' do
+    @dohe.inappropriate(@another_curator)
+    @dohe.vetted_id.should == Vetted.inappropriate.id
+  end
+
   it 'should #hide a dohe' do
     @dohe.hide(@another_curator)
     @dohe.visibility_id.should == Visibility.invisible.id
-  end
-
-  it 'should #inappropriate a dohe' do
-    @dohe.inappropriate(@another_curator)
-    @dohe.visibility_id.should == Visibility.inappropriate.id
   end
 
   it 'should #show a dohe' do

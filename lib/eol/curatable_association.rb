@@ -9,8 +9,8 @@ module EOL
       set_visibility(user, Visibility.invisible.id)
     end
 
-    def inappropriate(user)
-      set_visibility(user, Visibility.inappropriate.id)
+    def preview?
+      visibility_id == Visibility.preview.id
     end
 
     def visible?
@@ -22,7 +22,7 @@ module EOL
     end
 
     def inappropriate?
-      visibility_id == Visibility.inappropriate.id
+      vetted_id == Vetted.inappropriate.id
     end
 
     def untrusted?
@@ -39,10 +39,6 @@ module EOL
     alias is_vetted? vetted?
     alias trusted? vetted?
 
-    def preview?
-      visibility_id == Visibility.preview.id
-    end
-
     def trust(user)
       update_attributes({:vetted_id => Vetted.trusted.id})
     end
@@ -53,6 +49,10 @@ module EOL
 
     def unreviewed(user)
       update_attributes({:vetted_id => Vetted.unknown.id})
+    end
+
+    def inappropriate(user)
+      update_attributes({:vetted_id => Vetted.inappropriate.id})
     end
 
     def set_visibility(user, visibility_id)

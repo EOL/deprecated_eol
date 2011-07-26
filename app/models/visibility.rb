@@ -16,11 +16,7 @@ class Visibility < SpeciesSchemaModel
   def self.preview
     cached_find_translated(:label, 'Preview')
   end
-
-  def self.inappropriate
-    cached_find_translated(:label, 'Inappropriate')
-  end
-
+  
   def self.invisible
     cached_find_translated(:label, 'Invisible')
   end

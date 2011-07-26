@@ -183,18 +183,22 @@ class DataObjectsController < ApplicationController
   end
 
   def curate_associations
-    @data_object.published_entries.each do |phe|
-      comment = curation_comment(params["curation_comment_#{phe.id}"])
-      all_params = { :vetted_id => params["vetted_id_#{phe.id}"],
-                     :visibility_id => params["visibility_id_#{phe.id}"],
-                     :curation_comment => comment,
-                     :untrust_reason_ids => params["untrust_reasons_#{phe.id}"],
-                     :untrust_reasons_comment => params["untrust_reasons_comment_#{phe.id}"],
-                     :vet? => phe.vetted_id != params["vetted_id_#{phe.id}"].to_i,
-                     :visibility? => phe.visibility_id != params["visibility_id_#{phe.id}"].to_i,
-                     :comment? => !comment.nil?,
-                   }
-      curate_association(current_user, phe, all_params)
+    begin
+      @data_object.published_entries.each do |phe|
+        comment = curation_comment(params["curation_comment_#{phe.id}"])
+        all_params = { :vetted_id => params["vetted_id_#{phe.id}"],
+                       :visibility_id => params["visibility_id_#{phe.id}"],
+                       :curation_comment => comment,
+                       :untrust_reason_ids => params["untrust_reasons_#{phe.id}"],
+                       :untrust_reasons_comment => params["untrust_reasons_comment_#{phe.id}"],
+                       :vet? => phe.vetted_id != params["vetted_id_#{phe.id}"].to_i,
+                       :visibility? => phe.visibility_id != params["visibility_id_#{phe.id}"].to_i,
+                       :comment? => !comment.nil?,
+                     }
+        curate_association(current_user, phe, all_params)
+      end
+    rescue => e
+      flash[:error] = e.message
     end
     redirect_to data_object_path(@data_object)
   end
@@ -282,7 +286,7 @@ private
   # representing the actions that were taken.  ...which you may want to log.  :)
   def handle_curation(object, user, opts)
     actions = []
-    raise "Curator should supply at least visibility or vetted information" unless (vetted_id || visibility_id)
+    raise "Curator should supply at least visibility or vetted information" unless (opts[:vet?] || opts[:visibility?])
     actions << handle_vetting(object, opts[:vetted_id].to_i, opts) if opts[:vet?]
     actions << handle_visibility(object, opts[:visibility_id].to_i, opts) if opts[:visibility?]
     return actions.flatten
@@ -293,13 +297,13 @@ private
       case vetted_id
       when Vetted.untrusted.id
         raise "Curator should supply at least untrust reason(s) and/or curation comment" if (opts[:untrust_reason_ids].blank? && opts[:curation_comment].nil?)
-        object.untrust(user, opts)
+        object.untrust(current_user)
         return :untrusted
       when Vetted.trusted.id
-        object.trust(user, opts)
+        object.trust(current_user)
         return :trusted
       when Vetted.unknown.id
-        object.unreviewed(user, opts)
+        object.unreviewed(current_user)
         return :unreviewed
       else
         raise "Cannot set data object vetted id to #{vetted_id}"

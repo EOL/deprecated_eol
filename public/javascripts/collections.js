@@ -7,6 +7,7 @@ EOL.init_collection_item_behaviours = function($collection) {
     $(this).parent().hide().prev().hide().next().next().show();
     return(false);
   });
+  // TODO try changing the input to :submit, which is a jQuery shortcut
   $li.find(".collection_item_form input[type='submit']").click(function() {
     var $node = $(this).closest("li");
     EOL.ajax_submit($(this), {

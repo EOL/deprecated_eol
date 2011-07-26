@@ -2418,7 +2418,7 @@ en:
   users_form_tip: "Username is required for all users, other items marked as required %{required_icon} are optional for general users but required for curators."
   users_member_of_count_communities:
     one: "Member of %{count} community"
-    other: "Members of %{count} communities"
+    other: "Member of %{count} communities"
   users_my_info_header: "My info"
   using_the_site: "Using The Site"
   validation_error: "Validation Error"

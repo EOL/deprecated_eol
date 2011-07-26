@@ -97,7 +97,7 @@ $(function() {
 
 $(function() {
   $('#sort_by').change(function() {
-    $(this).closest('form').find('input[type="submit"]').click();
+    $(this).closest('form').find('input[name="sort_by"]').click();
   });
-  $('input[type="submit"]').hide();
+  // $('input[type="submit"]').hide();
 });

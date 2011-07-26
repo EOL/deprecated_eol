@@ -846,7 +846,7 @@ body
           margin: 0 0 5px 20px
 
 #profile_curator_info
-  padding: 40px
+  width: 640px
   fieldset
     padding-top: 10px
     dt
@@ -1509,91 +1509,91 @@ body
         top: 15px
         z-index: 1
         font-weight: bold
-    ul.media
-      > li
-        float: left
-        width: 160px
-        padding: 0 0 30px 20px
-        &:hover
-          .figure
-            label
-              display: block
+  ul.media
+    > li
+      float: left
+      width: 160px
+      padding: 0 0 30px 20px
+      &:hover
         .figure
-          position: relative
-          background: #ffffff
-          cursor: pointer
-          .overlay
-            position: absolute
-            left: 0
-            top: 0
-            z-index: 1
-            width: 100%
-            height: 100%
           label
-            display: none
-            position: absolute
-            right: 0
-            bottom: 0
-            left: 0
-            z-index: 2
-            padding: 10px
-            font-weight: bold
-            background: transparent url("/images/v2/bg_exemplar.png") repeat
-        &.inappropriate
-          .figure
-            .overlay
-              background: transparent url("/images/v2/bg_media-inappropriate.png") 50% 0 no-repeat
-            img
-              +opacity(.5)
-        &.untrusted
-          .figure
-            img
-              +opacity(.5)
-        img
-          display: block
-          margin: 0 0 5px 0
-        fieldset
-          clear: both
-          select
-            margin: 0 0 3px 0
-        .ratings
-          > .rating
-            display: none
-            float: left
-            margin: 0 0 5px 0
-          &:hover
-            .average_rating
-              display: none
-            > .rating
-              display: block
-          &.rated
-            > .rating
-              display: block
-            .average_rating
-              display: none
-        .average_rating
+            display: block
+      .figure
+        position: relative
+        background: #ffffff
+        cursor: pointer
+        .overlay
+          position: absolute
+          left: 0
+          top: 0
+          z-index: 1
+          width: 100%
+          height: 100%
+        label
+          display: none
+          position: absolute
+          right: 0
+          bottom: 0
+          left: 0
+          z-index: 2
+          padding: 10px
+          font-weight: bold
+          background: transparent url("/images/v2/bg_exemplar.png") repeat
+      &.inappropriate
+        .figure
+          .overlay
+            background: transparent url("/images/v2/bg_media-inappropriate.png") 50% 0 no-repeat
+          img
+            +opacity(.5)
+      &.untrusted
+        .figure
+          img
+            +opacity(.5)
+      img
+        display: block
+        margin: 0 0 5px 0
+      fieldset
+        clear: both
+        select
+          margin: 0 0 3px 0
+      .ratings
+        > .rating
+          display: none
           float: left
           margin: 0 0 5px 0
-        p.flag
-          float: right
-          padding: 1px 2px
-          font-size: .75em
-          text-transform: uppercase
-          color: #ffffff
-          &.trusted
-            border: 1px solid #6b7910
-            background: #849513
-          &.unreviewed
-            border: 1px solid #677682
-            background: #8695a1
-        a.button
-          clear: both
-          display: inline-block
-          padding: 4px 10px
-          font-size: .92em
-        &.first
-          clear: both
-          padding-left: 0
+        &:hover
+          .average_rating
+            display: none
+          > .rating
+            display: block
+        &.rated
+          > .rating
+            display: block
+          .average_rating
+            display: none
+      .average_rating
+        float: left
+        margin: 0 0 5px 0
+      p.flag
+        float: right
+        padding: 1px 2px
+        font-size: .75em
+        text-transform: uppercase
+        color: #ffffff
+        &.trusted
+          border: 1px solid #6b7910
+          background: #849513
+        &.unreviewed
+          border: 1px solid #677682
+          background: #8695a1
+      a.button
+        clear: both
+        display: inline-block
+        padding: 4px 10px
+        font-size: .92em
+      &.first
+        clear: both
+        padding-left: 0
 
 #search_results
   #main
@@ -1685,6 +1685,15 @@ body
       width: 340px
       margin: 0
 
+#taxon_maps
+  #map
+    p
+      margin: 10px
+  #media_list
+    padding: 30px 0
+    ul.media
+      padding: 0 30px
+
 #content.session
   background: #e2e9ef
   form
@@ -1760,14 +1769,15 @@ body
       input[type="checkbox"],
       select
         margin-left: 10px
-    &.api-request
-      width: 178px
-      background: #f3f7fa
-      border: 1px solid #cad3db
-      padding: 20px 20px 10px 20px
-      margin-top: 20px
+    &.requests
+      width: 218px
+      margin: 0
+      padding: 0
       dl
-        padding: 0
+        padding: 20px 20px 10px 20px
+        margin-top: 20px
+        background: #f3f7fa
+        border: 1px solid #cad3db
       p
         font-size: .9em
         padding-top: 5px

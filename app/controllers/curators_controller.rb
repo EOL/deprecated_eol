@@ -13,12 +13,12 @@ class CuratorsController < ApplicationController
     get_page_content
   end
 
-  def profile
-    @user = params[:id].nil? ? User.find(current_user.id) : User.find(params[:id])
-    @user.log_activity(:viewed_curator_profile)
-    @user_submitted_text_count = UsersDataObject.count(:conditions=>['user_id = ?', params[:id]])
-    redirect_back_or_default unless @user.curator_approved
-  end
+#  def profile
+#    @user = params[:id].nil? ? User.find(current_user.id) : User.find(params[:id])
+#    @user.log_activity(:viewed_curator_profile)
+#    @user_submitted_text_count = UsersDataObject.count(:conditions=>['user_id = ?', params[:id]])
+#    redirect_back_or_default unless @user.curator_approved
+#  end
 
   # TODO - we need to link to this.  :)  There should be a hierarchy_entry_id provided, when we do.  We want each TC page to
   # have a link (for curators), using "an appropriate clade" for the hierarchy_entry_id.
@@ -53,7 +53,7 @@ class CuratorsController < ApplicationController
   #   session['ignored_images_hierarchy_entry_id'] = nil if session['ignored_images_hierarchy_entry_id'].blank?
   #   @name = params['hierarchy_entry_id'].blank? ? '' : Name.find_by_id(HierarchyEntry.find_by_id(params['hierarchy_entry_id'], :select => 'name_id').name_id)
   #   all_images = current_user.ignored_data_objects(
-  #     :hierarchy_entry_id => session['ignored_images_hierarchy_entry_id'], 
+  #     :hierarchy_entry_id => session['ignored_images_hierarchy_entry_id'],
   #     :data_type_id => DataType.image.id)
   #   @ignored_images = all_images
   # end
@@ -62,7 +62,7 @@ class CuratorsController < ApplicationController
     @data_object = DataObject.find(params[:data_object_id])
     @data_object.comment(current_user, params['comment'])
     respond_to do |format|
-      format.js do 
+      format.js do
         comments = @data_object.all_comments.select(&:visible?)
         current_user_comments = comments.select { |c| c.user.id == current_user.id && c.visible? }
         render :json => { :last_comment => params['comment'].balance_tags, :comments => comments.size, :current_user_comments => current_user_comments.size, :data_object_id => params[:data_object_id] }
@@ -82,15 +82,15 @@ private
     @page_title = $CURATOR_CENTRAL_TITLE
     @navigation_partial = '/curators/navigation'
   end
-  
+
   def published_resources
     @published_resources = ContentPartner.with_published_data.collect{ |cp| [ cp.user.full_name, cp.id ] }.sort_by{ |arr| arr[0].downcase }
   end
-  
+
   def get_page_content
     params[:id] = params[:id].nil? ? "curator_central" : params[:id]
     @content = ContentPage.smart_find_with_language(params[:id], current_user.language_abbr)
     @page_title += ": #{@content.title}" unless params[:id] == "curator_central"
   end
-  
+
 end

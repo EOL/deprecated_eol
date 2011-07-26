@@ -53,7 +53,8 @@ ActionController::Routing::Routes.draw do |map|
 
   # users
   map.resources :users, :path_names => { :new => :register },
-                :member => { :terms_agreement => [ :get, :post ], :pending => :get, :activated => :get },
+                :member => { :terms_agreement => [ :get, :post ], :pending => :get, :activated => :get,
+                             :curation_privileges => [ :get ] },
                 :collection => { :forgot_password => :get } do |user|
     user.resource :newsfeed, :only => [:show], :controller => "users/newsfeeds"
     user.resource :activity, :only => [:show], :controller => "users/activities"

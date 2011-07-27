@@ -264,7 +264,7 @@ class TaxonConcept < SpeciesSchemaModel
     datos_to_load = []
     toc_items.each do |toc_item|
       unless toc_item.nil?
-       
+
         items = text_objects.select{ |t| t.toc_items && t.toc_items.include?(toc_item) && t[:language_id]==Language.id_from_iso(options[:language])}
 
         unless items.blank? || items.nil?
@@ -685,7 +685,7 @@ class TaxonConcept < SpeciesSchemaModel
     return (videos.length > 0 ? true : false)
   end
 
-  # TODO - we won't need this, soon.  Delete it.  (ATM it's still used in an old mediacenter partial)
+  # TODO - we won't need this, soon.  Delete it.  (ATM it's still used in an old mediacenter partial) - it has been used in V2 maps tab, what is recommended alternative?
   def has_map
     return true if gbif_map_id
   end
@@ -1304,7 +1304,7 @@ class TaxonConcept < SpeciesSchemaModel
     collections = coll_sorted_by_endorsement_count.map {|c| Collection.find(c['id']) }
     return collections[0..2]
   end
-  
+
   def flattened_ancestor_ids
     @flattened_ancestor_ids ||= flattened_ancestors.map {|a| a.ancestor_id }
   end
@@ -1321,7 +1321,7 @@ class TaxonConcept < SpeciesSchemaModel
         preferred_names << he.name.string
         preferred_names << he.name.canonical_form.string if he.name.canonical_form
       end
-      
+
       he.scientific_synonyms.each do |s|
         if s.name.is_surrogate?
           surrogates << s.name.string
@@ -1331,23 +1331,23 @@ class TaxonConcept < SpeciesSchemaModel
         end
       end
     end
-    
+
     return_keywords = []
     preferred_names = preferred_names.compact.uniq
     unless preferred_names.empty?
       return_keywords << { :keyword_type => 'PreferredName', :keywords => preferred_names, :ancestor_taxon_concept_id => flattened_ancestor_ids }
     end
-    
+
     synonyms = synonyms.compact.uniq
     unless synonyms.empty?
       return_keywords << { :keyword_type => 'Synonym', :keywords => synonyms, :ancestor_taxon_concept_id => flattened_ancestor_ids }
     end
-    
+
     surrogates = surrogates.compact.uniq
     unless surrogates.empty?
       return_keywords << { :keyword_type => 'Surrogate', :keywords => surrogates, :ancestor_taxon_concept_id => flattened_ancestor_ids }
     end
-    
+
     return return_keywords
   end
 
@@ -1371,7 +1371,7 @@ class TaxonConcept < SpeciesSchemaModel
     end
     return keywords
   end
-  
+
   def media_count(filter_hierarchy_entry = nil)
     # may not be accurate, but will be faster than loading everything then counting it
     return @media_count if @media_count

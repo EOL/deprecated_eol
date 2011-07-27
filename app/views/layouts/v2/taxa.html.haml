@@ -37,21 +37,26 @@
       = render :partial => 'shared/flash_messages'
 
       %ul.nav
-        %li{:class => resource_is_active('taxa/overviews')}= link_to I18n.t(:overview),
-          @dropdown_hierarchy_entry ? taxon_hierarchy_entry_overview_path(@taxon_concept, @dropdown_hierarchy_entry) : taxon_overview_path(@taxon_concept)
-        %li{:class => resource_is_active('taxa/details')}= link_to I18n.t(:detail),
-          @dropdown_hierarchy_entry ? taxon_hierarchy_entry_details_path(@taxon_concept, @dropdown_hierarchy_entry) : taxon_details_path(@taxon_concept)
-        %li{:class => resource_is_active('taxa/media')}= link_to I18n.t(:media_with_count, :count => @taxon_concept.media_count),
-          @dropdown_hierarchy_entry ? taxon_hierarchy_entry_media_path(@taxon_concept, @dropdown_hierarchy_entry) : taxon_media_path(@taxon_concept)
-        %li{:class => resource_is_active('taxa/maps')}= link_to I18n.t(:maps_with_count, :count => @taxon_concept.has_map ? 1 : 0),
-          @dropdown_hierarchy_entry ? taxon_hierarchy_entry_maps_path(@taxon_concept, @dropdown_hierarchy_entry) : taxon_maps_path(@taxon_concept)
-        %li{:class => resource_is_active('taxa/names')}= link_to I18n.t(:names),
-          @dropdown_hierarchy_entry ? taxon_hierarchy_entry_names_path(@taxon_concept, @dropdown_hierarchy_entry) : taxon_names_path(@taxon_concept)
-        %li{:class => resource_is_active('taxa/community')}= link_to I18n.t(:community), '/placeholder'
-        %li{:class => resource_is_active('taxa/resources')}= link_to I18n.t(:resources), '/placeholder'
-        %li{:class => resource_is_active('taxa/literature')}= link_to I18n.t(:literature),
-          @dropdown_hierarchy_entry ? taxon_hierarchy_entry_literature_path(@taxon_concept, @dropdown_hierarchy_entry) : taxon_literature_path(@taxon_concept.id)
-        %li{:class => resource_is_active('taxa/updates')}= link_to I18n.t(:updates), '/placeholder'
+        - if @dropdown_hierarchy_entry
+          %li{:class => resource_is_active('taxa/overviews')}= link_to I18n.t(:overview), taxon_hierarchy_entry_overview_path(@taxon_concept, @dropdown_hierarchy_entry)
+          %li{:class => resource_is_active('taxa/details')}= link_to I18n.t(:detail), taxon_hierarchy_entry_details_path(@taxon_concept, @dropdown_hierarchy_entry)
+          %li{:class => resource_is_active('taxa/media')}= link_to I18n.t(:media_with_count, :count => @taxon_concept.media_count), taxon_hierarchy_entry_media_path(@taxon_concept, @dropdown_hierarchy_entry)
+          %li{:class => resource_is_active('taxa/maps')}= link_to I18n.t(:maps_with_count, :count => @taxon_concept.has_map ? 1 : 0), taxon_hierarchy_entry_maps_path(@taxon_concept, @dropdown_hierarchy_entry)
+          %li{:class => resource_is_active('taxa/names')}= link_to I18n.t(:names), taxon_hierarchy_entry_names_path(@taxon_concept, @dropdown_hierarchy_entry)
+          %li{:class => resource_is_active('taxa/community')}= link_to I18n.t(:community), '/placeholder'
+          %li{:class => resource_is_active('taxa/resources')}= link_to I18n.t(:resources), '/placeholder'
+          %li{:class => resource_is_active('taxa/literature')}= link_to I18n.t(:literature), taxon_hierarchy_entry_literature_path(@taxon_concept, @dropdown_hierarchy_entry)
+          %li{:class => resource_is_active('taxa/updates')}= link_to I18n.t(:updates), '/placeholder'
+        - else
+          %li{:class => resource_is_active('taxa/overviews')}= link_to I18n.t(:overview), taxon_overview_path(@taxon_concept)
+          %li{:class => resource_is_active('taxa/details')}= link_to I18n.t(:detail), taxon_details_path(@taxon_concept)
+          %li{:class => resource_is_active('taxa/media')}= link_to I18n.t(:media_with_count, :count => @taxon_concept.media_count), taxon_media_path(@taxon_concept)
+          %li{:class => resource_is_active('taxa/maps')}= link_to I18n.t(:maps_with_count, :count => @taxon_concept.has_map ? 1 : 0), taxon_maps_path(@taxon_concept)
+          %li{:class => resource_is_active('taxa/names')}= link_to I18n.t(:names), taxon_names_path(@taxon_concept)
+          %li{:class => resource_is_active('taxa/community')}= link_to I18n.t(:community), '/placeholder'
+          %li{:class => resource_is_active('taxa/resources')}= link_to I18n.t(:resources), '/placeholder'
+          %li{:class => resource_is_active('taxa/literature')}= link_to I18n.t(:literature), taxon_literature_path(@taxon_concept.id)
+          %li{:class => resource_is_active('taxa/updates')}= link_to I18n.t(:updates), '/placeholder'
 
   #content
     .site_column

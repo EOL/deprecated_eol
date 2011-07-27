@@ -1,12 +1,3 @@
-#taxonomy
-  = render(:partial => 'maps')
-  /= render(:partial => 'taxa/iucn_status_summary')
-  /= render(:partial => 'taxa/text_summary')
-  /= render(:partial => 'taxa/collections_summary')
-  /= render(:partial => 'taxa/communities_summary')
-#sidebar
-  /= render(:partial => 'taxa/classifications_summary')
-  /= render(:partial => 'taxa/curators_summary', :locals => {:curators => @taxon_concept.top_acting_curators})
-  /= render(:partial => 'activity_logs/index', :locals => {:log => @taxon_concept.activity_log})
-
-
+#taxon_maps
+  #map
+    = render :partial => 'maps'

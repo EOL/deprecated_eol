@@ -5,11 +5,12 @@
   - invisible ||= false
   - preview ||= false
   - entries = data_object.published_entries.collect{|e| e if (visible && Visibility.visible == e.visibility) || (invisible && Visibility.invisible == e.visibility) || (preview && Visibility.preview == e.visibility)}
-  - if entries.blank?
+  - if entries.compact.blank?
     %p= I18n.t(:data_object_not_associated_with_any_hierarchies)
   - else
     %ul.review_status
       - entries.each do |entry|
+        - next if entry.nil?
         - en_status = entry.vetted.label('en').downcase
         - status = entry.vetted == Vetted.unknown ? I18n.t(:unreviewed) : entry.vetted.label
         %li

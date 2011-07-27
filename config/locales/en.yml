@@ -131,6 +131,8 @@ en:
   activity_user_removed_item_from_collection: "<strong>%{user}</strong> removed \"%{item}\" from the collection \"%{collection}\"."
   activity_user_added_item_to_collection: "<strong>%{user}</strong> added \"%{item}\" to the collection \"%{collection}\"."
   activity_user_created_collection: "<strong>%{user}</strong> created the collection \"%{collection}\"."
+  activity_user_created_text: "<strong>%{user}</strong> added text to \"%{object_name}\" on \"%{taxon_concept}\"."
+  activity_user_updated_text: "<strong>%{user}</strong> updated \"%{object_name}\" text on \"%{taxon_concept}\"."
   a_curator_action_has_affected_: "A curator action has affected a data object you submitted:"
   add_a_comment: "Add a comment."
   add_a_comment_colon: "Add a Comment:"

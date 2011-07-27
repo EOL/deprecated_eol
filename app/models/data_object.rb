@@ -1080,6 +1080,7 @@ class DataObject < SpeciesSchemaModel
     return nil if full_teaser.blank?
     truncated_teaser = full_teaser.split[0..10].join(' ').balance_tags
     truncated_teaser << '...' if full_teaser.length > truncated_teaser.length
+    truncated_teaser
   end
 
   def added_by_user?

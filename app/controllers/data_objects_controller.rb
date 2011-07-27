@@ -222,7 +222,7 @@ private
     when 'new', 'create', 'update', 'edit'
       'v2/basic'
     else
-      'v2/data_object'
+      'v2/data'
     end
   end
 

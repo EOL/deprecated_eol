@@ -60,7 +60,7 @@ describe 'Data Object Page' do
 
   it "should show image description for image objects" do
     visit("/data_objects/#{@image.id}")
-    body.should have_tag('.article.copy', /Description(\n|.)*?#{@image.description}/)
+    body.should have_tag('.article', /Description(\n|.)*?#{@image.description}/)
   end
 
   it "should not show comments section if there are no comments" do

@@ -3,6 +3,7 @@ class Taxa::DetailsController < TaxaController
   before_filter :instantiate_taxon_concept, :redirect_if_superceded, :redirect_if_invalid
   before_filter :add_page_view_log_entry, :update_user_content_level
 
+  # GET /pages/:taxon_id/details
   def index
 
     includes = [

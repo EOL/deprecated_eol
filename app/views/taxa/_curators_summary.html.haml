@@ -2,10 +2,14 @@
   - count = curators.count
   .header
     %h3= I18n.t(:curators_summary_header_with_count, :count => count)
-  %ul
-    - curators.each do |curator|
-      %li
-        = link_to image_tag(curator.logo_url(:small), :alt => I18n.t(:profile_image_alt_text_curator, :user_full_name => h(curator.full_name))), curator
-        .details
-          %h4= link_to h(curator.short_name), curator
-          %p.meta= h(curator.tag_line)
+  - if count > 0
+    %ul
+      - curators.each do |curator|
+        %li
+          = link_to image_tag(curator.logo_url(:small), :alt => I18n.t(:profile_image_alt_text_curator, :user_full_name => h(curator.full_name))), curator
+          .details
+            %h4= link_to h(curator.short_name), curator
+            %p.meta= h(curator.tag_line)
+  - else
+    .empty
+      %p= I18n.t(:curators_empty)

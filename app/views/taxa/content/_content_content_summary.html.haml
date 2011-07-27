@@ -4,7 +4,7 @@
 - # content[:items] -= selected_hierarchy_stat_entries
 - # selected_hierarchy_stat_entries.each{ |he| content[:items].unshift(he) }
 - for hierarchy_entry in content[:items]
-  %table{:summary =>  I18n.t(:content_summary_table_summary)}
+  %table.standard{:summary =>  I18n.t(:content_summary_table_summary)}
     %caption= I18n.t(:content_summary_table_caption, :taxon_name => hh(@taxon_concept.title), :hierarchy_label => hierarchy_entry.hierarchy.label)
     %colgroup
     %colgroup.count

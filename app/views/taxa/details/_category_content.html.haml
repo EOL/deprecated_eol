@@ -1,9 +1,22 @@
 - content.each do |item|
   - if item[:data_objects]
     - item[:data_objects].each do |dato|
-      /.article
-      %div{:id => dato.id, :class => "article"}
-        = render :partial => "category_content_part", :locals => {:dato => dato}
+      .article
+        - unless dato.object_title.blank?
+          %h4= dato.object_title
+        .meta.learn_more
+          %p= link_to I18n.t(:article_more_about), data_object_path(dato)
+          = render :partial => 'data_objects/view_translation', :locals => { :data_object => dato }
+        = render :partial => 'data_objects/data_object_article', :locals => { :data_object => dato , :show_view_source => 'false'}
+        .meta.attribution
+          = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => dato }
+        = render :partial => 'data_objects/rating', :locals => { :data_object => dato }
+        %div.actions
+          = render :partial => 'shared/add_to_my_collection', :locals => { :item => dato, :my_collection => @watch_collection }
+          = link_to I18n.t(:leave_a_comment), '#new_comment', :class => 'button comment'
+        = render :partial => 'comments/new', :locals => { :parent => dato }
+        %p= link_to I18n.t(:see_all_comments_with_count_for_text, :count => dato.all_comments.count), data_object_path(dato)
+
   - else
     .article
       .copy

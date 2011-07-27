@@ -23,10 +23,10 @@
       %li= link_to I18n.t("download_#{en_mime_type.sub(/\//, '_')}"), @data_object.sound_url, { :title => I18n.t("download_#{en_mime_type.sub(/\//, '_')}_assistive") }
   #main
     - unless @data_object.is_text? # NOTE - if it IS text, it was already shown, above.
-      .article.copy
+      .article
         .header
           %h3= I18n.t(:description)
-        .description
+        .copy
           = @data_object.description.balance_tags
     .article.list.updates
       .header

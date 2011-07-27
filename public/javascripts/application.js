@@ -1,36 +1,16 @@
-$(document).ready(function() {
-  $('.thumbnails ul li').each(function() {
-    var number_of_slides = $('.thumbnails ul li').length;
-    var index = $(this).index();
-    var random = new Array(-4, 0, -1, -3, -5, -2);
-    var display_time = 4000;
-    var transition_time = 1500;
-    $(this).cycle({
-      fx: 'fade',
-      timeout: number_of_slides * display_time,
-      delay: random[index] * display_time,
-      speed: transition_time
-    });
-  });
-});
-
 $(function() {
-  $(".thumbnails li img").mouseover(function() {
-    var $e = $(this).parent().parent(),
+  $(".thumbnails li").hover(function() {
+    var $e = $(this),
         $thumbs = $e.closest(".thumbnails"),
         margin = $thumbs.find("li").eq(0).outerWidth(true) - $e.outerWidth();
-        direction = ($e.index() > $thumbs.find("li").length / 2 - 1) ? "right" : "left";
+        direction = ($e.index() > $thumbs.find("li").length / 2 - 1) ? "right" : "left",
         pos = $e.position();
     pos.right = $thumbs.find("ul").width() - $e.outerWidth() - pos.left + margin;
     $thumbs.find(".term p").css({
       margin: 0,
       textAlign: direction
-    }).css("margin-" + direction, pos[direction]).text($(this).attr("alt"));
+    }).css("margin-" + direction, pos[direction]).text($e.find("img").attr("alt"));
   }).eq(0).mouseover();
-
-  $(".thumbnails li").mouseout(function() {
-    $(".thumbnails .term p").html("&nbsp;");
-  });
 
   $(".heading form.filter, form.select_submit").find(":submit").hide().end().find("select")
     .change(function() {
@@ -38,19 +18,30 @@ $(function() {
     });
 
   (function($ss) {
+    var placeholder = "<li class=\"placeholder\"></li>";
+
     $ss.each(function() {
       var $gallery = $(this),
           thumbs = [];
       $("<ul />", { "class": "thumbnails" }).insertBefore($gallery.find("p.all"));
       $gallery.find(".image > img").each(function() {
-        var $e = $(this);
-        thumbs.push("<li><a href=\"#\"><img src=\"" +
+        var $e = $(this),
+            li;
+        if ($e.is("[data-thumb]")) {
+          li = "<li><a href=\"#\"><img src=\"" +
                     $e.attr("data-thumb") + "\" alt=\"" + $e.attr("alt") +
-                    "\" /></a></li>");
+                    "\" /></a></li>";
+        }
+        else { li = placeholder; }
+        thumbs.push(li);
       });
+      for (var i = 1, len = 4 - thumbs.length; i < len; i++) {
+        thumbs.push(placeholder);
+      }
       $gallery.find(".thumbnails").html(thumbs.join(""));
-      $gallery.find(".thumbnails li").eq(0).addClass("active");
+      $gallery.find(".thumbnails li").not(".placeholder").eq(0).addClass("active");
     });
+
 
     var loading_complete = $ss.find(".image").length;
     $ss.find(".image > img").each(function() {
@@ -135,5 +126,9 @@ $(function() {
         }
       });
     });
+  };
+
+  $.fn.hasAttr = function(attr) {
+    return this.is("[" + attr + "]");
   };
 })(jQuery);

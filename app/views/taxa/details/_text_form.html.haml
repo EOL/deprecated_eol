@@ -42,10 +42,10 @@
       = text_area_tag('references', @data_object.visible_references.map {|r| r.full_reference}.join("\n\n"), :size => "33x8" )
   /%tr
   /  %td
-  /    %label=I18n.t("note")      
+  /    %label=I18n.t("note")
   /  %td
   /    =I18n.t("after_submitting_your_text_ent")
-  
+
   %tr
     %td{ :colspan => "2" }
 
@@ -57,7 +57,7 @@
       - else
         /This is regular form submit with page refresh
         %input{:id => "submit_edit", :type => "submit", :value => I18n.t(:confirm),  :data_object_id => "new_user_submitted_text_id"}
-      
+
       &nbsp;
       %span#missing_text_error.error{ :style => "display:none;" }
         = I18n.t(:your_content_is_emptynothing_to_submit)
@@ -74,7 +74,7 @@
 
 :javascript
   $(document).ready(function() {
-  
+
     $("#cancel_edit_text").die();
     $("#cancel_edit_text").live('click', function()
     {
@@ -82,20 +82,20 @@
       if(id == "new_user_submitted_text_id")
       {
         message = "--ADD NEW RECORD CANCELLED--";
-    
+
         //To get the div id which is the data_object id
         id = $(this).parents("div:eq(1)").attr("id")
-        
-        $("#div_new_user_submitted_text_id").attr("id", "div_" + id);                  
+
+        $("#div_new_user_submitted_text_id").attr("id", "div_" + id);
       }
       else {message = "--UPDATE CANCELLED--";}
       $("#div_" + id).text(message);
-       
+
       //This will scroll to the current <div>
       $.scrollTo($("#" + id), {duration: 1});
       return false;
     });
-  
+
     $("#submit_edit").die();
     $("#submit_edit").live('click', function()
     {
@@ -103,12 +103,12 @@
       $("#" + id).append('...SAVING...');
       if ($(this).attr('type') == "submit") {return;}
       path_url = $("#edit_data_object_" + id).attr('action');
-      var dataString = $('#edit_data_object_' + id).serialize();  
+      var dataString = $('#edit_data_object_' + id).serialize();
       if ( $('#edit_data_object_'+id).length ){ path_url = $('#edit_data_object_'+id).attr('action').replace('/data_objects/','/data_objects/update/'); }
-      
+
       //Add this if you want to have a form-submit without page refresh
       //if ( $('#new_data_object_'+id).length ){ path_url = $('#new_data_object_'+id).attr('action').replace('/data_objects/','/data_objects/update/'); }
-      
+
       $.ajax({ type:'POST',
                url: path_url,
                data: dataString,
@@ -119,5 +119,5 @@
                error:function (xhr, ajaxOptions, thrownError) { $("#div_" + id).text("--SORRY AN ERROR HAS OCCURRED--"); }
             });
     });
-  
+
   });

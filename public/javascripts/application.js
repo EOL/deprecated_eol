@@ -100,18 +100,6 @@ $(function() {
 
   })($(".language"));
 
-  (function($collection) {
-    $collection.find("ul.object_list li").each(function() {
-      var $li = $(this);
-      $li.find("p.edit").show().next().hide().end().find("a").click(function() {
-        $(this).parent().hide().next().show();
-      });
-      $li.find("form a").click(function() {
-        $(this).closest("form").hide().prev().show();
-      });
-    });
-  })($("#collections"));
-
   $("input[placeholder]").each(function() {
     var $e = $(this),
         placeholder = $e.attr("placeholder");

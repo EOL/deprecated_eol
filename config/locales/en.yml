@@ -696,7 +696,7 @@ en:
     other: "%{count} Community Members"
   community_members: "Community members"
   community_roles: "Community Roles"
-  communities_summary_empty: "This taxon hasn't been endorsed by a community yet."
+  communities_summary_empty: "This taxon hasn't been featured by a community yet."
   communities_summary_header_with_count:
     one: "Belongs to %{count} community"
     other: "Belongs to %{count} communities"
@@ -1073,11 +1073,11 @@ en:
   _encyclopedia_of_life: "-Encyclopedia of Life"
   encyclopedia_of_life: "Encyclopedia of Life"
   end_quote: '"'
-  endorsed_by: "Endorsed by"
-  endorsed_collections: "Endorsed collections"
+  endorsed_by: "Featured by"
+  endorsed_collections: "Featured collections"
   endorsed_collections_with_count:
-    one: "%{count} Endorsed collection"
-    other: "%{count} Endorsed collections"
+    one: "%{count} Featured collection"
+    other: "%{count} Featured collections"
   enjoy_exploring_the_diversity_: "Enjoy exploring the diversity of Life."
   enter_in_any_other_notes_or_co: "Enter in any other notes or comments about your project or content."
   enter_in_any_other_notes_or_co_: "Enter in any other notes or comments -- these will not be visible on the website or to the partner."
@@ -2457,7 +2457,7 @@ en:
   this_collection_can_be_viewed_by_the_public_in_parens: "(This collection can be viewed by the public)"
   this_collection_is_not_attached_to_either_a_user_or_a_community: "(this collection is not attached to either a user or a community)"
   this_comment_is_not_visible: "THIS COMMENT IS NOT VISIBLE"
-  this_community_has_no_endorsed_collections: "This community has not endorsed any collections."
+  this_community_has_no_endorsed_collections: "This community has not featured any collections."
   this_community_has_no_focus_items_associated_with_it: "This community has no focus items associated with it."
   this_community_has_no_focus_list: "This community has no focus list."
   this_does_not_necessarily_mean: "* this does not necessarily mean the connections are being used, just that they are defined in the database.yml --- you must check the \"config/environments/%{env}.rb\" file to see if the master connections are setup"

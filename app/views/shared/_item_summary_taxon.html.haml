@@ -12,11 +12,13 @@
   = subtitle.firstcap
 - # we need the search result object, and the best match can't be in the title or subtitle
 - if search_result || @querystring # This was a search result... perhaps we should be more intelligent about this.
+  - querystring = @querystring.blank? ? "" : @querystring.downcase
+  - best_keyword_match = search_result['best_keyword_match'].blank? ? "" : search_result['best_keyword_match'].downcase
   - unless search_result.nil? || |
-    item.title_canonical.downcase.match(Regexp.escape(@querystring.downcase)) || |
-    item.title_canonical.downcase.match(Regexp.escape(search_result['best_keyword_match'].downcase)) || |
-    (subtitle && subtitle.downcase.match(Regexp.escape(@querystring.downcase))) || |
-    (subtitle && subtitle.downcase.match(Regexp.escape(search_result['best_keyword_match'].downcase))) |
+    item.title_canonical.downcase.match(Regexp.escape(querystring)) || |
+    item.title_canonical.downcase.match(Regexp.escape(best_keyword_match)) || |
+    (subtitle && subtitle.downcase.match(Regexp.escape(querystring))) || |
+    (subtitle && subtitle.downcase.match(Regexp.escape(best_keyword_match))) |
     - unless subtitle.blank?
       %br
     %strong

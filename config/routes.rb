@@ -47,6 +47,8 @@ ActionController::Routing::Routes.draw do |map|
                                                     :autocomplete_for_tag_key => :get },
                                    :member => { :autocomplete_for_tag_value => :get }
   end
+  map.add_association 'data_objects/:id/add_association', :controller => 'data_objects', :action => 'add_association'
+  map.save_association 'data_objects/:id/save_association/:hierarchy_entry_id', :controller => 'data_objects', :action => 'save_association'
   map.remove_association 'data_objects/:id/remove_association/:hierarchy_entry_id', :controller => 'data_objects', :action => 'remove_association'
 
   map.resources :tags, :collection => { :search => :get }

@@ -16,7 +16,6 @@
           - if entry.by_curated_association? && entry.associated_by_curator.id == current_user.id
             %p
               = link_to I18n.t(:remove_data_object_association), remove_association_path(:id => data_object.id, :hierarchy_entry_id => entry.id), :id => "remove_association_#{entry.id}"
-          - # TODO - modify HashRocket permalink.js to use our form element ids
           - vetted_selected = entry.vetted_id.to_i
           - statuses = Vetted.all.collect{|v| [ v == Vetted.unknown ? I18n.t(:unreviewed) : v.label, v.id ] }.compact.sort
           = select_tag "vetted_id_#{entry.id}", options_for_select(statuses, vetted_selected)

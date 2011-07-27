@@ -167,40 +167,44 @@ class DataObjectsController < ApplicationController
   def remove_association
     he = HierarchyEntry.find(params[:hierarchy_entry_id])
     @data_object.remove_curated_association(current_user, he)
-    log_action(@entries.first, :add_association)
+    log_action(he, :remove_association, nil)
+    redirect_to data_object_path(@data_object)
+  end
+
+  def save_association
+    he = HierarchyEntry.find(params[:hierarchy_entry_id])
+    @data_object.add_curated_association(current_user, he)
+    log_action(he, :add_association, nil)
     redirect_to data_object_path(@data_object)
   end
 
   def add_association
     raise EOL::Exceptions::Pending
-    @name = params[:name]
+    name = params[:name]
     form_submitted = params[:commit]
     unless form_submitted.blank?
-      unless @name.blank?
-        # TODO - use solr search for finding the taxa
-        @entries = entries_for_name(@name)
+      unless name.blank?
+        @entries = entries_for_name(name)
       else
         flash[:error] = I18n.t(:please_enter_a_name_to_find_taxa)
       end
     end
-    # if @entries.length == 1
-    #   @data_object.add_curated_association(current_user, @entries.first)
-    #   redirect_to data_object_path(@data_object)
-    #   log_action(@entries.first, :add_association)
-    # end
   end
 
   def curate_associations
     begin
       @data_object.published_entries.each do |phe|
         comment = curation_comment(params["curation_comment_#{phe.id}"])
-        all_params = { :vetted_id => params["vetted_id_#{phe.id}"],
-                       :visibility_id => params["visibility_id_#{phe.id}"],
+        vetted_id = params["vetted_id_#{phe.id}"].to_i
+        # make visibility hidden if curated as Inappropriate or Untrusted
+        visibility_id = (vetted_id == Vetted.inappropriate.id || vetted_id == Vetted.untrusted.id) ? Visibility.invisible.id : params["visibility_id_#{phe.id}"].to_i
+        all_params = { :vetted_id => vetted_id,
+                       :visibility_id => visibility_id,
                        :curation_comment => comment,
                        :untrust_reason_ids => params["untrust_reasons_#{phe.id}"],
                        :untrust_reasons_comment => params["untrust_reasons_comment_#{phe.id}"],
-                       :vet? => phe.vetted_id != params["vetted_id_#{phe.id}"].to_i,
-                       :visibility? => phe.visibility_id != params["visibility_id_#{phe.id}"].to_i,
+                       :vet? => (vetted_id == 0) ? false : (phe.vetted_id != vetted_id),
+                       :visibility? => (visibility_id == 0) ? false : (phe.visibility_id != visibility_id),
                        :comment? => !comment.nil?,
                      }
         curate_association(current_user, phe, all_params)
@@ -243,8 +247,8 @@ private
   end
 
   def entries_for_name(name)
-    # TODO - This should use search, not Name.
-    Name.find_by_string(name).hierarchy_entries
+    search_response = EOL::Solr::SiteSearch.search_with_pagination(name, :type => ['taxon_concept'], :exact => true)
+    search_response[:results]
   end
 
   def load_data_object
@@ -315,7 +319,7 @@ private
     if vetted_id
       case vetted_id
       when Vetted.inappropriate.id
-        object.inappropriate(current_user, opts)
+        object.inappropriate(current_user)
         return :inappropriate
       when Vetted.untrusted.id
         raise "Curator should supply at least untrust reason(s) and/or curation comment" if (opts[:untrust_reason_ids].blank? && opts[:curation_comment].nil?)
@@ -350,6 +354,7 @@ private
     end
   end
 
+  # TODO - Remove the opts parameter if we not intend to use it.
   def log_action(object, method, opts)
     CuratorActivityLog.create(
       :user => current_user,

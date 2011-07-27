@@ -219,6 +219,8 @@ Rails::Initializer.run do |config|
 
   $SPECIAL_COMMUNITY_NAME = 'EOL Curators and Admins'
 
+  $ACTIVITIES_ON_HOME_PAGE = 6
+
   APPLICATION_DEFAULT_LANGUAGE_ISO = 'en'
 
   # for those class that are using CACHE_ALL_ROWS, when the row is looked up in memcached, retain that value

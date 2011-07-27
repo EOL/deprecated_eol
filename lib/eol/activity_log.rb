@@ -12,20 +12,26 @@ module EOL
       ActivityLog.new(activity_log, options)
     end
 
+    def self.global(max = 0) # TODO - this 4 should be in a config somewhere.
+      max = $ACTIVITIES_ON_HOME_PAGE if max <= 0
+      return ActivityLog.new(nil, :max => max)
+    end
+
     def initialize(source, options = {})
       @source       = source
-      @klass        = source.class.name
-      @id           = source.id
+      if @source
+        @klass        = source.class.name
+        @id           = source.id
+      end
       @activity_log = []
       find_activities(@klass, @source, options)
-      # TODO - it would make more sense to move this to the source models, passed in as an argument to some call that
-      # makes the class loggable.
-      # TODO - error-checking (for example, what if created_at is nil or not available?):
-      @activity_log = @activity_log.sort_by {|l| l.class == UsersDataObject ? l.data_object.created_at : l.created_at }
+      @activity_log = @activity_log.sort_by {|li| li.log_date }
     end
 
     def find_activities(klass, source, options = {})
       case klass
+      when nil
+        global_activities(options[:max] || 4)
       when "User"
         if options[:news]
           @activity_log += Comment.find_all_by_parent_id_and_parent_type(source.id, "User")
@@ -46,6 +52,29 @@ module EOL
         other_activities(source)
       end
     end
+
+    def global_activities(max)
+      @activity_log += CuratorActivityLog.find_by_sql(ActiveRecord::Base.sanitize_sql_array([
+        "SELECT * FROM curator_activity_logs ORDER BY id DESC LIMIT ?", max
+      ]))
+      @activity_log += Comment.find_by_sql(ActiveRecord::Base.sanitize_sql_array([
+        "SELECT * FROM comments ORDER BY id DESC LIMIT ?", max
+      ]))
+      @activity_log += UsersDataObject.find_by_sql(ActiveRecord::Base.sanitize_sql_array([
+        "SELECT * FROM users_data_objects ORDER BY id DESC LIMIT ?", max
+      ]))
+      @activity_log += CollectionActivityLog.find_by_sql(ActiveRecord::Base.sanitize_sql_array([
+        "SELECT * FROM collection_activity_logs ORDER BY id DESC LIMIT ?", max
+      ]))
+      if (false) # TODO ... for the moment, we don't want to show this:
+        @activity_log += CommunityActivityLog.find_by_sql(ActiveRecord::Base.sanitize_sql_array([
+          "SELECT * FROM community_activity_logs ORDER BY id DESC LIMIT ?", max
+        ]))
+      end
+    end
+
+    # TODO - it would make more sense to move these methods to the source models, passed in as an argument when the
+    # loggable is declared. ...That way defining new loggable classes would not have to happen here.
 
     def user_activities(source)
       @activity_log += CuratorActivityLog.find_all_by_user_id(source.id)

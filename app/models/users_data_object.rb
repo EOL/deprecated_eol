@@ -1,5 +1,7 @@
 class UsersDataObject < ActiveRecord::Base
 
+  include EOL::ActivityLogItem
+
   validates_presence_of :user_id, :data_object_id
   validates_uniqueness_of :data_object_id
 

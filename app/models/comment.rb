@@ -12,6 +12,8 @@
 # Note that we presently have no way to edit comments, and won't add this feature until it becomes important.
 class Comment < ActiveRecord::Base
 
+  include EOL::ActivityLogItem
+
   belongs_to :user # always always posted by a user.
   belongs_to :parent, :polymorphic => true
   has_one :curator_activity_log # Because you can post a comment along with activity, and we want the two to have a

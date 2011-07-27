@@ -20,7 +20,7 @@
                 %dd= number_with_delimiter(total_count("users"), :delimiter => ",")
                 %dt= I18n.t(:members_like_you)
               = link_to I18n.t(:learn_how_to_join), "/placeholder"
-            - # TODO - Add proper collections class & icon instead of communities 
+            - # TODO - Add proper collections class & icon instead of communities
             %li.communities
               %dl
                 %dd= number_with_delimiter(total_count("collections"), :delimiter => ",")
@@ -37,47 +37,7 @@
                 %dt= I18n.t(:content_partners)
               = link_to I18n.t(:learn_about_content_partners), "/placeholder"
         .article.community
-          -#TODO: Build this properly from database - currently static placeholder
           %h3= I18n.t(:community_activity)
-          %ul
-            %li
-              = link_to image_tag("v2/temporary_for_mockup/user_john.jpg", :alt => "John"), "#"
-              .details
-                %p
-                  %strong John
-                  added
-                  = link_to "4 photos", "pages/328607"
-                  to
-                  = link_to "Canis", "pages/328607"
-                %p.meta 5 minutes ago
-            %li
-              = link_to image_tag("v2/temporary_for_mockup/user_sarah.jpg", :alt => "Sarah"), "#"
-              .details
-                %p
-                  %strong Sarah
-                  commented on the
-                  = link_to "Distribution section", "pages/1061748"
-                  of
-                  = link_to "Pinus strobus", "pages/1061748"
-                %p.meta 6 minutes ago
-            %li
-              = link_to image_tag("v2/temporary_for_mockup/user_bill.jpg", :alt => "Bill"), "#"
-              .details
-                %p
-                  %strong Bill
-                  updated the
-                  = link_to "Overview section", "pages/2866150"
-                  of
-                  = link_to "Aminata muscaria", "pages/2866150"
-                %p.meta 6 minutes ago
-            %li
-              = link_to image_tag("v2/temporary_for_mockup/user_sarah.jpg", :alt => "Sarah"), "#"
-              .details
-                %p
-                  %strong Sarah
-                  added
-                  = link_to "2 photos", "pages/1061748"
-                  to
-                  = link_to "Pinus strobus", "pages/1061748"
-                %p.meta 11 minutes ago
-        = render :partial => 'shared/join_eol', :locals => {:join_style => 'button'}
+          = render :partial => 'activity_logs/index', :locals => { :log => EOL::ActivityLog.global[0..$ACTIVITIES_ON_HOME_PAGE-1] }
+        - unless logged_in?
+          = render :partial => 'shared/join_eol', :locals => {:join_style => 'button'}

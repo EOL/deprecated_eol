@@ -1,5 +1,7 @@
 class CuratorActivityLog < LoggingModel
 
+  include EOL::ActivityLogItem
+
   belongs_to :user
   belongs_to :changeable_object_type
   belongs_to :activity

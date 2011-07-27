@@ -1,39 +1,40 @@
-- unless dato.object_title.blank?
-  %h4= dato.object_title
-.meta.learn_more
-  %p= link_to I18n.t(:article_more_about), data_object_path(dato)
-  = render :partial => 'data_objects/view_translation', :locals => { :data_object => dato }
-= render :partial => 'data_objects/data_object_article', :locals => { :data_object => dato , :show_view_source => 'false'}
-.meta.attribution
-  = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => dato }
-= render :partial => 'data_objects/rating', :locals => { :data_object => dato }
-= render :partial => 'shared/add_to_my_collection', :locals => { :item => dato, :my_collection => @watch_collection }
-
-%p.actions
-  - if current_user.is_curator?
-    = link_to I18n.t(:curate_this_text), data_object_path(dato), :class => 'button'
-  = link_to I18n.t(:leave_a_comment), '#', :class => 'button comment' # NOTE - REALLY don't need link to go anywhere.
-= render :partial => 'comments/new', :locals => { :parent => dato }
-%p= link_to I18n.t(:see_all_comments_with_count_for_text, :count => dato.all_comments.count), data_object_path(dato)
-
-- if current_user.is_curator?
-  = link_to("Add", "javascript:submit(0)", :class => "addx", :data_object_id => "#{dato.id}", :path_url => "/data_objects/new?taxon_concept_id=#{@taxon_concept.id}&toc_id=#{dato.toc_items[0].id}&type=text")
-  - if !dato.users_data_objects.blank? && dato.users_data_objects[0].user.id == current_user.id
-    = link_to("Edit", "javascript:submit(0)", :class =>"editx", :data_object_id => "#{dato.id}", :path_url => "/data_objects/#{dato.id}/edit?taxon_concept_id=#{@taxon_concept.id}&toc_id=#{dato.toc_items[0].id}&type=text" )
-
+- # TODO: delete this partial
+/- unless dato.object_title.blank?
+/  %h4= dato.object_title
+/.meta.learn_more
+/  %p= link_to I18n.t(:article_more_about), data_object_path(dato)
+/  = render :partial => 'data_objects/view_translation', :locals => { :data_object => dato }
+/= render :partial => 'data_objects/data_object_article', :locals => { :data_object => dato , :show_view_source => 'false'}
+/.meta.attribution
+/  = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => dato }
+/= render :partial => 'data_objects/rating', :locals => { :data_object => dato }
+/= render :partial => 'shared/add_to_my_collection', :locals => { :item => dato, :my_collection => @watch_collection }
+/
+/%p.actions
+/  - if current_user.is_curator?
+/    = link_to I18n.t(:curate_this_text), data_object_path(dato), :class => 'button'
+/  = link_to I18n.t(:leave_a_comment), '#', :class => 'button comment' # NOTE - REALLY don't need link to go anywhere.
+/= render :partial => 'comments/new', :locals => { :parent => dato }
+/%p= link_to I18n.t(:see_all_comments_with_count_for_text, :count => dato.all_comments.count), data_object_path(dato)
+/
+/- if current_user.is_curator?
+/  = link_to("Add", "javascript:submit(0)", :class => "addx", :data_object_id => "#{dato.id}", :path_url => "/data_objects/new?taxon_concept_id=#{@taxon_concept.id}&toc_id=#{dato.toc_items[0].id}&type=text")
+/  - if !dato.users_data_objects.blank? && dato.users_data_objects[0].user.id == current_user.id
+/    = link_to("Edit", "javascript:submit(0)", :class =>"editx", :data_object_id => "#{dato.id}", :path_url => "/data_objects/#{dato.id}/edit?taxon_concept_id=#{@taxon_concept.id}&toc_id=#{dato.toc_items[0].id}&type=text" )
+/
 /This is the <div> where the user-submitted text add/edit form will be displayed.
-%div{:id => "div_#{dato.id}"}
-
-
-- if defined?(with_javascript)
-  :javascript
-    $(document).ready(function() {
-      //This will update the <div> id with the latest data_object id.
-      $("#" + id).attr("id", "#{dato.id}");
-
-      $("#div_" + "#{dato.id}").text("--SAVED--");
-
-      //This will scroll to the updated <div>
-      $.scrollTo($("#" + "#{dato.id}"), {duration: 1});
-      return false;
-    });
+/%div{:id => "div_#{dato.id}"}
+/
+/
+/- if defined?(with_javascript)
+/  :javascript
+/    $(document).ready(function() {
+/      //This will update the <div> id with the latest data_object id.
+/      $("#" + id).attr("id", "#{dato.id}");
+/
+/      $("#div_" + "#{dato.id}").text("--SAVED--");
+/
+/      //This will scroll to the updated <div>
+/      $.scrollTo($("#" + "#{dato.id}"), {duration: 1});
+/      return false;
+/    });

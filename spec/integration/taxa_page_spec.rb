@@ -69,6 +69,22 @@ describe 'Taxa page' do
       end
     end
 
+    it 'should allow logged in user to rate a text object' do
+      visit logout_url
+      login_as @testy[:curator]
+      visit taxon_details_path(@testy[:taxon_concept])
+      click_link('Change rating to 3 of 5')
+      current_url.should match /#{taxon_details_path(@testy[:taxon_concept])}/
+      body.should include('Rating was added ')
+    end
+
+    it 'should show actions for text objects' do
+      body.should have_tag('div.actions') do # note this should be a div.actions and not the p.actions defined in HR markup
+        with_tag('form#new_collection_item')
+        with_tag('a.comment')
+      end
+    end
+
     it 'should allow user to rate a text object first then login to complete the action' # do
 #      visit logout_url
 #      visit taxon_details_path(@testy[:taxon_concept])
@@ -199,14 +215,14 @@ describe 'Taxa page' do
       end
     end
   end
-  
+
   shared_examples_for 'taxon literature tab' do
     # it 'should NOT show references for the overview text when there aren\'t any' do
     #   Ref.delete_all
     #   visit("/pages/#{@id}")
     #   body.should_not have_tag('div.references')
     # end
-    # 
+    #
     # it 'should show references for the overview text (with URL and DOI identifiers ONLY) when present' do
     #   full_ref = 'This is the reference text that should show up'
     #   # TODO - When we add "helper" methods to Rails classes for testing, then "add_reference" could be
@@ -229,14 +245,14 @@ describe 'Taxa page' do
     #   body.should_not include(bad_identifier)
     #   body.should have_tag("a[href=http://dx.doi.org/#{doi_identifier}]")
     # end
-    # 
+    #
     # it 'should NOT show references for the overview text when reference is invisible' do
     #   full_ref = 'This is the reference text that should show up'
     #   @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 1, :visibility => Visibility.invisible)
     #   visit("/pages/#{@id}")
     #   body.should_not have_tag('div.references')
     # end
-    # 
+    #
     # it 'should NOT show references for the overview text when reference is unpublished' do
     #   full_ref = 'This is the reference text that should show up'
     #   @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 0, :visibility => Visibility.visible)
@@ -335,7 +351,7 @@ describe 'Taxa page' do
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon names tab'
   end
-  
+
   # literature tab - taxon_concept
   context 'literature when taxon has all expected data - taxon_concept' do
     before(:all) do

@@ -67,7 +67,7 @@ class HierarchyEntry < SpeciesSchemaModel
   def canonical_form
     return name.canonical_form
   end
-  
+
   def title_canonical
     return @title_canonical unless @title_canonical.nil?
     # used the ranked version first
@@ -94,6 +94,10 @@ class HierarchyEntry < SpeciesSchemaModel
     rank.nil? ? I18n.t(:taxon) : rank.label
   end
 
+  # wrapper function used in options_from_collection_for_select
+  def hierarchy_label
+    hierarchy.label
+  end
   # Returns true if the specified user has access to the TaxonConcept that this HierarchyEntry belongs to
   # (because curators have access to pages, not really specific HierarchyEntry instances.  This is confusing
   # because users have a HierarchyEntry that their
@@ -309,7 +313,7 @@ class HierarchyEntry < SpeciesSchemaModel
     str_to_return += " > " + immediate_parent.name.string if immediate_parent
     return str_to_return
   end
-  
+
   def kingdom_and_immediate_parent
     return [ nil, nil ] if flattened_ancestors.blank?
     sorted_ancestors = flattened_ancestors.sort{ |a,b| a.ancestor.lft <=> b.ancestor.lft }
@@ -321,6 +325,6 @@ class HierarchyEntry < SpeciesSchemaModel
     immediate_parent = nil if immediate_parent == root_ancestor
     [root_ancestor, immediate_parent]
   end
-  
+
 
 end

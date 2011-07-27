@@ -64,18 +64,6 @@ class TaxaController < ApplicationController
     render :partial => 'classification_attribution', :locals => {:taxon_concept => @taxon_concept}
   end
 
-  def prepare_hierarchy_entry_switch
-    hierarchy_entry_id = params[:user][:default_hierarchy_entry_id] || ""
-    orig_tc_id = params[:orig_tc_id]
-    return_to = params[:return_to] + "/"
-    tab = return_to.scan(/#{params[:old_he_id]}\/(.*?)\//imu)
-    if !hierarchy_entry_id.blank?
-      return redirect_to("/pages/#{orig_tc_id}/entries/#{hierarchy_entry_id}/#{tab[0][0]}");
-    else
-      return redirect_to("/pages/#{orig_tc_id}/#{tab[0][0]}");
-    end
-  end
-
   # page that will allows a non-logged in user to change content settings
   def settings
 
@@ -366,7 +354,7 @@ private
     if @dropdown_hierarchy_entry_id
       @dropdown_hierarchy_entry = HierarchyEntry.find_by_id(@dropdown_hierarchy_entry_id) rescue nil
       # TODO: Eager load hierarchy entry agents?
-      @hierarchy_entries_to_offer = @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
+      @browsable_hierarchy_entries = @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
     end
   end
 

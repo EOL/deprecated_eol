@@ -6,10 +6,10 @@
     = data_object.description.balance_tags
   - tr_source = data_object.translation_source
   - if tr_source && show_view_source=='true'
-    = I18n.t(:translated_from) 
+    = I18n.t(:translated_from)
     = tr_source.language.display_code
-    = link_to I18n.t(:view_translation_source_link), set_language_url(:language => tr_source.language.iso_639_1)+"&return_to=/data_objects/#{tr_source.id}" 
-  
+    = link_to I18n.t(:view_translation_source_link), set_language_url(:language => tr_source.language.iso_639_1)+"&return_to=/data_objects/#{tr_source.id}"
+
   - if show_references && ! data_object.refs.blank?
     .references
       %ul

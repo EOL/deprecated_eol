@@ -627,6 +627,18 @@ table.standard {
       padding: 2px 0 0 0;
       font-weight: bold;
       text-transform: lowercase; }
+  .article .empty {
+    padding: 15px 15px 0 15px;
+    margin: 10px -10px;
+    font-size: 1.16em;
+    text-align: center;
+    border: 1px solid #cad3db;
+    background: #f3f7fa; }
+    .article .empty p {
+      padding: 0 0 15px 0;
+      line-height: 150%; }
+    .article .empty a.button {
+      font-size: 0.78em; }
   .article .meta {
     clear: both;
     padding: 0 0 20px 0;
@@ -1468,6 +1480,7 @@ body > #header {
         height: 68px;
         margin: 0 0 10px 0;
         border: 1px solid #cad3db;
+        background: #e2e9ef;
         overflow: hidden; }
         #taxonomy .gallery ul.thumbnails li img {
           display: block;
@@ -1486,13 +1499,16 @@ body > #header {
       z-index: 100;
       width: 430px;
       font-size: 0.92em; }
+      #taxonomy .gallery .attribution p {
+        margin: 0;
+        line-height: 120%; }
       #taxonomy .gallery .attribution img {
         position: absolute;
         top: 50%;
         left: 0;
         margin-top: -8px; }
-      #taxonomy .gallery .attribution p {
-        padding: 0 0 0 90px; }
+        #taxonomy .gallery .attribution img + .copy {
+          padding: 0 0 0 90px; }
     #taxonomy .gallery p.all {
       float: right;
       padding: 5px 0 0 0;
@@ -1539,10 +1555,11 @@ body > #header {
           margin: 0 0 0 10px;
           font-weight: normal;
           background: transparent url("/images/v2/icon_classification_arrow.png") 0 0 no-repeat; }
+    #taxonomy + #sidebar .updates ul {
+      border-bottom: 1px solid #d7dadc; }
     #taxonomy + #sidebar .updates form.comment {
       padding: 20px 10px 0 10px;
-      margin: 0 -10px;
-      border-top: 1px solid #d7dadc; }
+      margin: 0 -10px; }
       #taxonomy + #sidebar .updates form.comment img {
         border: 1px solid #394651; }
       #taxonomy + #sidebar .updates form.comment textarea {

@@ -4,13 +4,18 @@
     %h3= I18n.t(:collections_summary_header_with_count, :count => count)
     - if count > 1
       = link_to I18n.t(:see_all_collections_with_count_html, :count => count), taxon_collections_path(@taxon_concept)
-  %ul
-    - @taxon_concept.top_collections.each do |collection|
-      %li
-        - # NOTE: Unless we have alt text that describes the image contents, leave it blank.
-        = link_to image_tag(collection.logo_url(:small), :alt => ''), collection_path(collection)
-        .details
-          %h4= collection.name
-          - count = collection.collection_items.count - 1
-          %p= I18n.t(:other_collection_items_with_count, :count => count)
+  - if count > 0
+    %ul
+      - @taxon_concept.top_collections.each do |collection|
+        %li
+          - # NOTE: Unless we have alt text that describes the image contents, leave it blank.
+          = link_to image_tag(collection.logo_url(:small), :alt => ''), collection_path(collection)
+          .details
+            %h4= collection.name
+            - count = collection.collection_items.count - 1
+            %p= I18n.t(:other_collection_items_with_count, :count => count)
+  - else
+    .empty
+      %p= I18n.t(:collections_summary_empty)
+      = render :partial => 'shared/add_to_my_collection', :locals => { :item => @taxon_concept, :my_collection => @watch_collection }
 

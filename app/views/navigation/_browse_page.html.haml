@@ -14,7 +14,7 @@
 - entry_kingdom = @hierarchy_entry.blank? ? nil : @hierarchy_entry.kingdom
 
 #taxonomic-text-container
-  %ul#taxonomictext
+  %ul#taxonomictext.classification
     - kingdoms = @hierarchy.kingdoms(:include_common_names => @include_common_names, :common_name_language => @common_name_language)
     - for kingdom in kingdoms
       - if entry_kingdom && entry_kingdom.id == kingdom.id

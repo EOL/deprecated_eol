@@ -1,5 +1,35 @@
-= javascript_include_tag 'new-text'
-- form_for(@data_object) do |f|
-
-  /= render :partial => 'text_form', :locals => {:f => f}
-  = render :partial => 'taxa/details/text_form', :locals => {:f => f}
+- form_for @data_object, :url => taxon_data_objects_path(@taxon_concept) do |f|
+  %fieldset
+    %dl
+      = f.fields_for :toc_items do |toc_items_form|
+        %dt
+          = toc_items_form.label :id, I18n.t('helpers.label.data_object.toc_item')
+        %dd
+          = toc_items_form.select :id, options_from_collection_for_select(@toc_items, :id, :label)
+      %dt
+        = f.label :object_title
+      %dd
+        = f.text_field :object_title
+      %dt
+        = f.label :description
+      %dd
+        = f.text_area :description
+      %dt
+        = f.label :language_id
+      %dd
+        = f.select :language_id, options_from_collection_for_select(@languages, :id, :source_form)
+      %dt
+        = f.label :license_id
+      %dd
+        = f.select :license_id, options_from_collection_for_select(@licenses, :id, :title)
+        = I18n.t('helpers.label.data_object.license_id_more', :policy_url => "/content/page/eol_licensing_policy")
+      %dt
+        = f.label :refs
+      %dd
+        - refs = ''
+        - @data_object.visible_references.each do |ref|
+          - refs += ref.full_reference
+        = text_area_tag 'references', @data_object.visible_references.map {|r| r.full_reference}.join("\n\n")
+  %fieldset.actions
+    = f.submit I18n.t('helpers.submit.data_object.create')
+    = link_to I18n.t(:dato_create_cancel), taxon_details_path(@taxon_concept)

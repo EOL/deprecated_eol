@@ -71,6 +71,11 @@ form
   input
     &.errors
       border-color: #f2d2cc !important
+/** switching hierarchy entries form when js disabled want button to be inline if possible **/
+form#switch_hierarchy_entry
+  fieldset
+    display: inline
+
 /** Making lanugage switcher accessible on overview and details pages **/
 .learn_more
   fieldset.actions
@@ -127,12 +132,24 @@ p.status.error
   padding: 0.3em
   border: 1px solid #f2d2cc
   background: #ffeae6
+/** HR change permalink class to text, but use article elsewhere for text objects so we are still using
+ * article as that's what en_type is returning... at some point we should go through and change all 'article'
+ * classes that mean data_object text to text, as article clashes with the HR generic article class but right
+ * now we have I18n keys and various classes around the site depending on 'article' for text data object.
+ */
 #permalink
+  &.article
+    padding: 0
   #sidebar
     ul.review_status
-      p.unknown /*should match unreviewed*/
-        border: 1px solid #677682
-        background: #8695A1
+      p
+        &.unknown /*should match unreviewed*/
+          border: 1px solid #677682
+          background: #8695A1
+        &.untrusted
+          border: 1px solid #f2d2cc
+          background: #ffeae6
+          color: #677682
 
 /** Special styles for layering audio description on top of audio thumbnail and adjustments for when missing exemplar **/
 #media_list
@@ -193,6 +210,9 @@ p.status.error
     p
       float: none
       display: inline
+    .rating
+      p
+        float: left
   .rating
     h5
       display: inline
@@ -273,6 +293,11 @@ body
     img
       float: left
       margin: 2px 10px 0 0
+#taxonomy
+  .gallery
+    .attribution
+      a + .copy
+        padding: 0 0 0 90px
 
 /** Our classification is a hierarchichal list whereas HR was just links without hierarchy so we override the styles here
   * check this is still true after hierarchy entry page design is implemented **/
@@ -289,29 +314,35 @@ body
           margin-left: 10px
           background: transparent url('/images/v2/icon_classification_arrow.png') 0 0 no-repeat
 
+/** Add to my collection button is a form not an a tag as assumed by HR so we have to add some styles **/
+#taxonomy_detail
+  div.actions
+    clear: both
+    margin: 0 0 20px 0
+  form
+    &#new_collection_item
+      input[type="submit"]
+        padding: 7px 20px
+        font-size: 1em
+      display: inline-block
+      fieldset
+        display: inline-block
+.empty
+  form#new_collection_item
+    margin-bottom: 10px
+    input[type="submit"]
+      font-size: 0.78em
+      padding: 7px 10px
+
 /** HR styles assume text descriptions are nicely wrapped in p tags - in reality they may or may not be so we add
   * extra div.description and assign styles to the div - check this, particularly line-height as we probably need
   * to remove some HR styles from nested p. Check latest HR and remove the table styles here if possible.**/
 #taxonomy_detail
-  .article
-    .description
-      padding: 0 0 15px 0
-      line-height: 170%
-  table
-    margin: 20px 0
-    width: 100%
-    caption
-      padding: 10px
-      border-top: 1px solid #ccc
-      border-bottom: 1px solid #666
-    colgroup.count
-      width: 20%
-    thead
-      text-align: left
-      tr
-        border-bottom: 1px solid #ccc
-    .odd
-      background-color: #eee
+  #main
+    .article
+      .copy
+        margin: 0 0 15px 0
+        line-height: 170%
 
 /* TODO: this hasn't been really thought out and should be changed: */
 .heading
@@ -346,9 +377,10 @@ body
   height: 90px
 
 #media_summary
-  img
-    max-width: 430px
-    max-height: 310px
+  .image
+    > img
+      max-width: 430px
+      max-height: 310px
 ul.feed
   li
     >a
@@ -455,10 +487,3 @@ table.standard
   font-size: 2em
 #collections_choose ul
   width: 500px
-// Newsfeed beautification:
-.updates > p
-  font-size: 1.5em
-  margin: 1em 0.5em
-// Dato page needs a little more width on the right:
-#permalink #main
-  width: 550px

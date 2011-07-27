@@ -2,7 +2,7 @@
 - unless data_object.blank?
   - # How many, if any of these options do we need?
   - visible ||= true
-  - invisible ||= false
+  - invisible ||= current_user.is_admin? ? true : false
   - preview ||= false
   - entries = data_object.published_entries.collect{|e| e if (visible && Visibility.visible == e.visibility) || (invisible && Visibility.invisible == e.visibility) || (preview && Visibility.preview == e.visibility)}
   - if entries.blank?

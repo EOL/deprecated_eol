@@ -195,13 +195,16 @@ class DataObjectsController < ApplicationController
     begin
       @data_object.published_entries.each do |phe|
         comment = curation_comment(params["curation_comment_#{phe.id}"])
-        all_params = { :vetted_id => params["vetted_id_#{phe.id}"],
-                       :visibility_id => params["visibility_id_#{phe.id}"],
+        vetted_id = params["vetted_id_#{phe.id}"].to_i
+        # make visibility hidden if curated as Inappropriate or Untrusted
+        visibility_id = (vetted_id == Vetted.inappropriate.id || vetted_id == Vetted.untrusted.id) ? Visibility.invisible.id : params["visibility_id_#{phe.id}"].to_i
+        all_params = { :vetted_id => vetted_id,
+                       :visibility_id => visibility_id,
                        :curation_comment => comment,
                        :untrust_reason_ids => params["untrust_reasons_#{phe.id}"],
                        :untrust_reasons_comment => params["untrust_reasons_comment_#{phe.id}"],
-                       :vet? => phe.vetted_id != params["vetted_id_#{phe.id}"].to_i,
-                       :visibility? => phe.visibility_id != params["visibility_id_#{phe.id}"].to_i,
+                       :vet? => (vetted_id == 0) ? false : (phe.vetted_id != vetted_id),
+                       :visibility? => (visibility_id == 0) ? false : (phe.visibility_id != visibility_id),
                        :comment? => !comment.nil?,
                      }
         curate_association(current_user, phe, all_params)
@@ -305,7 +308,7 @@ private
     if vetted_id
       case vetted_id
       when Vetted.inappropriate.id
-        object.inappropriate(current_user, opts)
+        object.inappropriate(current_user)
         return :inappropriate
       when Vetted.untrusted.id
         raise "Curator should supply at least untrust reason(s) and/or curation comment" if (opts[:untrust_reason_ids].blank? && opts[:curation_comment].nil?)

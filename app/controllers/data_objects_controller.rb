@@ -184,7 +184,7 @@ class DataObjectsController < ApplicationController
     form_submitted = params[:commit]
     unless form_submitted.blank?
       unless name.blank?
-        @entries = entries_for_name(name)
+        entries_for_name(name)
       else
         flash[:error] = I18n.t(:please_enter_a_name_to_find_taxa)
       end
@@ -247,8 +247,20 @@ private
   end
 
   def entries_for_name(name)
+    @entries = []
     search_response = EOL::Solr::SiteSearch.search_with_pagination(name, :type => ['taxon_concept'], :exact => true)
-    search_response[:results]
+    unless search_response[:results].blank?
+      search_response[:results].each do |result|
+        result_instance = result['instance']
+        if result_instance.class == TaxonConcept
+          hierarchy_entries = result_instance.published_hierarchy_entries.blank? ? result_instance.hierarchy_entries : result_instance.published_hierarchy_entries
+          hierarchy_entries.each do |hierarchy_entry|
+            @entries << hierarchy_entry
+          end
+        end
+      end
+    end
+    @entries
   end
 
   def load_data_object

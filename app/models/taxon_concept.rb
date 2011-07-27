@@ -1276,24 +1276,32 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def top_communities
-    communities[0..2]
+    # communities are sorted by the most number of members - descending order
+    community_ids = communities.map{|c| c.id}.compact
+    return [] if community_ids.blank?
+    temp = SpeciesSchemaModel.connection.execute(" SELECT c.id, COUNT(m.user_id) total FROM members m JOIN communities c ON c.id = m.community_id WHERE c.id in (#{community_ids.join(',')})   GROUP BY c.id ORDER BY total desc ").all_hashes
+    communities_sorted_by_member_count = temp.map {|c| Community.find(c['id']) }
+    return communities_sorted_by_member_count[0..2]
   end
 
   def communities
     @communities ||= collection_items.map {|i| i.community }.compact
   end
 
-  # TODO - This is terribly inefficient and shoud probably do most of the work via direct SQL or something...
   def top_collections
-    collections = collection_items.map {|ci| ci.collection }.compact.sort do |a,b|
-      if a.community_id.nil?
-        1
-      elsif b.community_id.nil?
-        -1
-      else
-        a.community_id <=> b.community_id
-      end
-    end
+    # New order of priority:
+    # - collections which are endorsed the most will show first (descending order on the # of communities who endorsed them)
+    # - then collections with least taxa collected will show next (ascending order on the # of taxa collected under the collection)
+    #   Rationale behind that is the least no. of taxa collected the more focused a collection is. At least this is what we'll follow at the moment.
+    collection_ids = collection_items.map{|ci| ci.collection_id}.compact
+    return [] if collection_ids.blank?
+    coll_sorted_by_endorsement_count = SpeciesSchemaModel.connection.execute(" SELECT c.id, COUNT(ce.id) total FROM collections c JOIN collection_endorsements ce ON ce.collection_id = c.id WHERE c.id IN (#{collection_ids.join(',')}) GROUP BY c.id ORDER BY total DESC ").all_hashes
+    coll_sorted_by_taxa_collected_count  = SpeciesSchemaModel.connection.execute(" SELECT c.id, COUNT(ci.id) total FROM collections c JOIN collection_items ci ON ci.collection_id = c.id WHERE ci.object_type = 'TaxonConcept' AND c.id in (#{collection_ids.join(',')}) GROUP BY c.id ORDER BY total, c.name ").all_hashes
+    # add contents of hash 2 in hash 1 if doesn't exist yet in hash 1
+    ids = coll_sorted_by_endorsement_count.map {|c| c["id"]}
+    coll_sorted_by_taxa_collected_count.map {|c| coll_sorted_by_endorsement_count << c if !ids.include?(c["id"]) }
+    # build the list of collections
+    collections = coll_sorted_by_endorsement_count.map {|c| Collection.find(c['id']) }
     return collections[0..2]
   end
   

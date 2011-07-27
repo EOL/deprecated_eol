@@ -1,5 +1,203 @@
 en:
+  date:
+    formats:
+      default: "%Y-%m-%d"
+      short: "%b %d"
+      long: "%B %d, %Y"
+    day_names:
+      - Sunday
+      - Monday
+      - Tuesday
+      - Wednesday
+      - Thursday
+      - Friday
+      - Saturday
+    abbr_day_names:
+      - Sun
+      - Mon
+      - Tue
+      - Wed
+      - Thu
+      - Fri
+      - Sat
+    month_names:
+      - ~
+      - January
+      - February
+      - March
+      - April
+      - May
+      - June
+      - July
+      - August
+      - September
+      - October
+      - November
+      - December
+    abbr_month_names:
+      - ~
+      - Jan
+      - Feb
+      - Mar
+      - Apr
+      - May
+      - Jun
+      - Jul
+      - Aug
+      - Sep
+      - Oct
+      - Nov
+      - Dec
+    order:
+      - :year
+      - :month
+      - :day
+  time:
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      short: "%d %b %H:%M"
+      long: "%B %d, %Y %H:%M"
+    am: "am"
+    pm: "pm"
+  support:
+    array:
+      words_connector: ", "
+      two_words_connector: " and "
+      last_word_connector: ", and "
+    select:
+      prompt: "Please select"
+  number:
+    format:
+      separator: "."
+      delimiter: ","
+      precision: 3
+      significant: false
+      strip_insignificant_zeros: false
+    currency:
+      format:
+        format: "%u%n"
+        unit: "$"
+        separator: "."
+        delimiter: ","
+        precision: 2
+        significant: false
+        strip_insignificant_zeros: false
+    percentage:
+      format:
+        delimiter: ""
+    precision:
+      format:
+        delimiter: ""
+    human:
+      format:
+        delimiter: ""
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one: "Byte"
+            other: "Bytes"
+          kb: "KB"
+          mb: "MB"
+          gb: "GB"
+          tb: "TB"
+      decimal_units:
+        format: "%n %u"
+        units:
+          unit: ""
+          thousand: Thousand
+          million: Million
+          billion: Billion
+          trillion: Trillion
+          quadrillion: Quadrillion
+  datetime:
+    distance_in_words:
+      half_a_minute: "half a minute"
+      less_than_x_seconds:
+        one: "less than 1 second"
+        other: "less than %{count} seconds"
+      x_seconds:
+        one: "1 second"
+        other: "%{count} seconds"
+      less_than_x_minutes:
+        one: "less than a minute"
+        other: "less than %{count} minutes"
+      x_minutes:
+        one: "1 minute"
+        other: "%{count} minutes"
+      about_x_hours:
+        one: "about 1 hour"
+        other: "about %{count} hours"
+      x_days:
+        one: "1 day"
+        other: "%{count} days"
+      about_x_months:
+        one: "about 1 month"
+        other: "about %{count} months"
+      x_months:
+        one: "1 month"
+        other: "%{count} months"
+      about_x_years:
+        one: "about 1 year"
+        other: "about %{count} years"
+      over_x_years:
+        one: "over 1 year"
+        other: "over %{count} years"
+      almost_x_years:
+        one: "almost 1 year"
+        other: "almost %{count} years"
+    prompts:
+      year: "Year"
+      month: "Month"
+      day: "Day"
+      hour: "Hour"
+      minute: "Minute"
+      second: "Seconds"
+  helpers:
+    select:
+      prompt: "Please select"
+    submit:
+      create: 'Create %{model}'
+      update: 'Update %{model}'
+      submit: 'Save %{model}'
+  errors:
+    format: "%{attribute} %{message}"
+    messages: &errors_messages
+      inclusion: "is not included in the list"
+      exclusion: "is reserved"
+      invalid: "is invalid"
+      confirmation: "doesn't match confirmation"
+      accepted: "must be accepted"
+      empty: "can't be empty"
+      blank: "can't be blank"
+      too_long: "is too long (maximum is %{count} characters)"
+      too_short: "is too short (minimum is %{count} characters)"
+      wrong_length: "is the wrong length (should be %{count} characters)"
+      not_a_number: "is not a number"
+      not_an_integer: "must be an integer"
+      greater_than: "must be greater than %{count}"
+      greater_than_or_equal_to: "must be greater than or equal to %{count}"
+      equal_to: "must be equal to %{count}"
+      less_than: "must be less than %{count}"
+      less_than_or_equal_to: "must be less than or equal to %{count}"
+      odd: "must be odd"
+      even: "must be even"
   activerecord:
+    errors:
+      template:
+        header:
+          one: "1 error prohibited this %{model} from being saved"
+          other: "%{count} errors prohibited this %{model} from being saved"
+        body: "There were problems with the following fields:"
+      messages:
+        taken: "has already been taken"
+        record_invalid: "Validation failed: %{errors}"
+        <<: *errors_messages
+      full_messages:
+        format: "%{attribute} %{message}"
     models:
       user: "account"
     attributes:
@@ -719,7 +917,7 @@ en:
   date_created: "Date Created"
   date__: "Date:"
   date_: "Date:"
-  date: "Date"
+  date_word: "Date"
   date_range: "Date Range"
   date_registered__: "Date Registered:"
   date_this_resource_was_created: "Date This Resource Was Created:  <span title=\"required\">*</span>"
@@ -1116,7 +1314,6 @@ en:
   __if_checked__any_links_to_thi: "- if checked, any links to this page will open in a new browser window"
   __if_entered__this_overrides_t: "- if entered, this overrides the template"
   if_the_above_url_does_not_work: "If the above URL does not work try copying and pasting it into your browser."
-
   if_there_are_comments_or_curator_actions_on_your_contributions_how_often_would_you_like_to_receive_email_alerts: "If there are comments or curator actions on your contributions, how often would you like to receive email alerts?"
   if_this_box_is_checked_the_hie: "if this box is checked the hierarchy will be an option for users to browse EOL"
   if_vetted_is_1_only__trusted__: "if vetted = 1 then only trusted content will be returned. If vetted = 2 then only trusted and unreviewed content will be returned (untrusted content will not be returned). The default is to return all content"
@@ -1200,6 +1397,7 @@ en:
   __is_a__sub_species__of_wolf__: ") is a \"sub-species\" of wolf, and (3) walking up the tree of life, you would find that all canis are in the class of \"Mammalia\", meaning they are all mammals.  Placing these species into groupings in an overall \"tree of life\" is part of what scientists called \"taxonomists\" get to do! When your browse the Encyclopedia of Life, you can use the \"classification browser\" on the right side of the species pages to browse the tree of life."
   project_is_not_ready_for_their_agreement: "%{project} is not ready for their agreement."
   italian: "Italian"
+  item_added_to_watch_collection_notice: "\"%{item_name}\" was added to %{collection_name}."
   item_added_to_collection_notice: "Item was added to collection <em>%{collection_name}</em>"
   item_details_missing: "Sorry, an error occurred, item details could not be retrieved."
   item_removed_from_collection_notice: "Item was removed from collection <em>%{collection_name}</em>"
@@ -2311,7 +2509,6 @@ en:
   to_administer_site_content__pl: "To administer site content, please select the section to work on:"
   to_avoid_confusion__we_have_ad: "To avoid confusion, we have added a unique number to the end of your current username. Your new username is: %{var__new_username}. The next time you log into eol.org, please use this updated username."
   to_begin_the_registration_process_click_here: "To begin the registration process, click here"
-
   toc_entry: "TOC Entry"
   to_change_clade_preamble: "If you would like to have your group assignment changed at any time, please %{contact_us_link}."
   to_clarify_which_accounts_you_: "To clarify which accounts you want to reset the password for, please click on the username you intend to reset.  An email will then be sent to your email account, to ensure that you have access to the account. Please click on the link in the email to complete the password-resetting process."
@@ -2433,6 +2630,7 @@ en:
   user_id: "User ID"
   user_index_intro: "All web users registered in the system are shown below,  sorted inversely by time registered.  Note that the registration dates for users prior to EOL V2 (Jan 5, 2009) are not available.  Click on a username to edit that user."
   user_joined_community_note: "%{username} joined the community."
+  user_left_comment_on_date: "%{username} left a comment on %{date}."
   user_left_community_note: "%{username} left the community."
   profile_picture: "Profile Picture"
   username____4___32_characters_: "Username:  (4 - 32 characters)"

@@ -3,7 +3,7 @@
 - form_tag({:action=>'index'},:method=>'get') do
   %select#contact_subject_id{ :name => "id" }
     %option{ :value => "*" }
-      =I18n.t("all_count" , :count => @all_contacts_count)      
+      =I18n.t("all_count" , :count => @all_contacts_count)
     - for subject in @subjects
       %option{ :value => subject.id, :selected => subject.id.to_s == @contact_subject_id }
         = subject.title
@@ -19,7 +19,7 @@
       - if @contacts.nil? == false && @contacts.size > 0
         =I18n.t("total_comments_have_been_submitted" ,:count => @contacts_count ,:string => @subject )
         - if @comment_search_string != ''
-          =I18n.t("containing_value" , :value => @comment_search_string)        
+          =I18n.t("containing_value" , :value => @comment_search_string)
         %br
         %br
         %table.results_table{ :cellspacing => "0" }
@@ -34,7 +34,7 @@
               %th
                 =I18n.t("topic")
             %th
-              =I18n.t("date")
+              =I18n.t(:date_word)
             %th
               =I18n.t("taxon_group")
           - for contact in @contacts
@@ -58,7 +58,7 @@
       - elsif @contacts.nil? == false && @contacts.size == 0
         =I18n.t("no_comments_are_available_for_subject", :subject => @subject)
         - if @comment_search_string != ''
-          =I18n.t("containing_value", :value => @comment_search_string)        
+          =I18n.t("containing_value", :value => @comment_search_string)
       - else
         / TODO - *seriously?!*
         %br

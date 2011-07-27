@@ -23,7 +23,7 @@
               =I18n.t("all_")
             - for activity in @activity_list
               %option{ :value => activity.id, :selected => @activity_id.to_i == activity.id }
-                = h(activity.name) 
+                = h(activity.name)
           = submit_tag I18n.t("search")
     - if @activities.nil? == false && @activities.size > 0
       = will_paginate @activities
@@ -36,9 +36,9 @@
           %th
             =I18n.t("activity")
           %th
-            =I18n.t("detail")          
+            =I18n.t("detail")
           %th
-            =I18n.t("date")
+            =I18n.t(:date_word)
         -#- for activity in @activities
         - @activities.each do |activity|
           - column_class=cycle('odd','even')
@@ -50,8 +50,8 @@
 
           - obj = Activity.find(activity.activity_id)
           - user = User.find(activity.user_id) rescue nil
-          
-          %tr{ :valign => "top" }            
+
+          %tr{ :valign => "top" }
             %td{ :class => column_class }
               - if(user)
                 = user.given_name + " " + user.family_name
@@ -70,13 +70,13 @@
               - value_as_species_curated_user_id = [32]
               - value_as_objects_curated_by_user_id = [39]
               - value_as_species_comments_moderated_by_user_id = [40]
-              - value_as_user_id = [30]  
+              - value_as_user_id = [30]
 
               - if(display_as_text.include? activity.activity_id)
                 - if(!activity.value.nil?)
-                  = "'" + activity.value + "'"                
+                  = "'" + activity.value + "'"
 
-              - if(value_as_data_object.include? activity.activity_id)                
+              - if(value_as_data_object.include? activity.activity_id)
                 - if(!activity.value.nil?)
                   = link_to(I18n.t("data_object"),:controller => '/data_objects', :action => activity.value)
 
@@ -84,7 +84,7 @@
                 - if(!activity.value.nil?)
                   - data_object = DataObject.find(:first, :conditions => "object_cache_url = '#{activity.value}'")
                   - temp_do_id = data_object.id
-                  = link_to(I18n.t("data_object"),:controller => '/data_objects', :action => temp_do_id)  
+                  = link_to(I18n.t("data_object"),:controller => '/data_objects', :action => temp_do_id)
 
               - if(value_as_toc_id.include? activity.activity_id)
                 - if(!activity.value.nil?)
@@ -97,7 +97,7 @@
                         = " -- " + toc2.label
                   - else
                     =I18n.t("toc__no_longer_available")
-                    
+
               - if(value_as_hierarchy_entry_id.include? activity.activity_id)
                 - if(!activity.value.nil?)
                   - he = HierarchyEntry.find(activity.value)
@@ -112,27 +112,27 @@
 
               - if(value_as_news_items_id.include? activity.activity_id)
                 - if(!activity.value.nil?)
-                  = link_to(I18n.t("news_item"),:controller => '/content/news', :action => activity.value)  
+                  = link_to(I18n.t("news_item"),:controller => '/content/news', :action => activity.value)
 
               - if(value_as_species_curated_user_id.include? activity.activity_id)
                 - if(!activity.value.nil?)
                   - user = User.find(activity.value)
-                  = link_to(I18n.t("curated_species_of_", :name => user.given_name + " " + user.family_name) ,:controller => '/account/show_species_curated', :action => activity.value)  
+                  = link_to(I18n.t("curated_species_of_", :name => user.given_name + " " + user.family_name) ,:controller => '/account/show_species_curated', :action => activity.value)
 
               - if(value_as_objects_curated_by_user_id.include? activity.activity_id)
                 - if(!activity.value.nil?)
                   - user = User.find(activity.value)
-                  = link_to(I18n.t("curated_objects_of_", :name => user.given_name + " " + user.family_name) ,:controller => '/account/show_objects_curated', :action => activity.value)  
+                  = link_to(I18n.t("curated_objects_of_", :name => user.given_name + " " + user.family_name) ,:controller => '/account/show_objects_curated', :action => activity.value)
 
               - if(value_as_species_comments_moderated_by_user_id.include? activity.activity_id)
                 - if(!activity.value.nil?)
                   - user = User.find(activity.value)
-                  = link_to(I18n.t("curated_objects_of_", :name =>user.given_name + " " + user.family_name) ,:controller => '/account/show_comments_moderated', :action => activity.value)  
+                  = link_to(I18n.t("curated_objects_of_", :name =>user.given_name + " " + user.family_name) ,:controller => '/account/show_comments_moderated', :action => activity.value)
 
               - if(value_as_user_id.include? activity.activity_id)
                 - if(!activity.value.nil?)
                   - user = User.find(activity.value)
-                  = link_to(I18n.t("curator_profile_of_", :name => user.given_name + " " + user.family_name) ,:controller => '/account/show', :action => activity.value)  
+                  = link_to(I18n.t("curator_profile_of_", :name => user.given_name + " " + user.family_name) ,:controller => '/account/show', :action => activity.value)
 
             %td{ :class => column_class }
               = h format_date_time(activity.created_at,:format=>'short_no_tz')

@@ -39,7 +39,7 @@
       .header
         %h3= I18n.t("associated_with_#{en_type}_header")
         - if current_user.is_curator?
-          = link_to I18n.t(:add_new_association_link), '/placeholder'
+          = link_to I18n.t(:add_new_association_link), :action => :add_association, :id => @data_object.id
           - # TODO: Where does the add association link go? Or we show form (not here) as in: = render :partial => 'associations_new'
       - if current_user.is_curator?
         = render :partial => 'associations_curation'

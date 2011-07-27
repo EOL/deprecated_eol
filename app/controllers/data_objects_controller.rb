@@ -167,27 +167,28 @@ class DataObjectsController < ApplicationController
   def remove_association
     he = HierarchyEntry.find(params[:hierarchy_entry_id])
     @data_object.remove_curated_association(current_user, he)
-    log_action(@entries.first, :add_association)
+    log_action(he, :remove_association)
+    redirect_to data_object_path(@data_object)
+  end
+
+  def save_association
+    he = HierarchyEntry.find(params[:hierarchy_entry_id])
+    @data_object.add_curated_association(current_user, he)
+    log_action(he, :add_association)
     redirect_to data_object_path(@data_object)
   end
 
   def add_association
     raise EOL::Exceptions::Pending
-    @name = params[:name]
+    name = params[:name]
     form_submitted = params[:commit]
     unless form_submitted.blank?
-      unless @name.blank?
-        # TODO - use solr search for finding the taxa
-        @entries = entries_for_name(@name)
+      unless name.blank?
+        @entries = entries_for_name(name)
       else
         flash[:error] = I18n.t(:please_enter_a_name_to_find_taxa)
       end
     end
-    # if @entries.length == 1
-    #   @data_object.add_curated_association(current_user, @entries.first)
-    #   redirect_to data_object_path(@data_object)
-    #   log_action(@entries.first, :add_association)
-    # end
   end
 
   def curate_associations
@@ -232,8 +233,8 @@ private
   end
 
   def entries_for_name(name)
-    # TODO - This should use search, not Name.
-    Name.find_by_string(name).hierarchy_entries
+    search_response = EOL::Solr::SiteSearch.search_with_pagination(name, :type => ['taxon_concept'], :exact => true)
+    search_response[:results]
   end
 
   def load_data_object
@@ -339,7 +340,7 @@ private
     end
   end
 
-  def log_action(object, method, opts)
+  def log_action(object, method, opts = nil)
     CuratorActivityLog.create(
       :user => current_user,
       :changeable_object_type => ChangeableObjectType.send(object.class.name.underscore.to_sym),

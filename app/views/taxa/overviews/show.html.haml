@@ -16,3 +16,4 @@
       .header
         %h3 Recent Updates
       = render(:partial => 'activity_logs/index', :locals => {:log => log[-3..-1]})
+      = render(:partial => 'comments/new', :locals => { :parent => @taxon_concept })

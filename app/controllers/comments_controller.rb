@@ -22,8 +22,8 @@ class CommentsController < ApplicationController
     if @comment.save
       flash[:notice] = I18n.t(:comment_added_notice)
     else
-      # TODO: Ideally examine validation error and provide more informative error message.
       flash[:error] = I18n.t(:comment_not_added_error)
+      flash[:error] << " #{@comment.errors.full_messages.join('; ')}." if @comment.errors.any?
     end
     redirect_back_or_default
   end

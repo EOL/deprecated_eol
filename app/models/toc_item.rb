@@ -132,7 +132,7 @@ class TocItem < SpeciesSchemaModel
       InfoItem
       all = TocItem.find(:all, :include => :info_items).sort_by{ |toc| toc.label.to_s }
       all.delete_if{ |toc| toc.info_items.empty? || ['Wikipedia', 'Barcode'].include?(toc.label('en')) }
-      all.collect{ |c| [c.label, c.id] }
+      # all.collect{ |c| [c.label, c.id] }
     end
   end
 

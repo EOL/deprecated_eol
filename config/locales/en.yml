@@ -45,6 +45,8 @@ en:
         generate_api_key: "Generate a key"
         curation_application: "Apply now"
         curation_privileges: "Submit request"
+      data_object
+        create_text: "Add article"
     label:
       session:
         password: "Password"
@@ -136,6 +138,7 @@ en:
   add_a_new_topic_area: "Add a new topic area"
   add_a_new_user: "Add a new user"
   add_a_role: "Add a role"
+  add_article_to_page_link_button: "Add an article to this page"
   add_association_label_colon: "Add association:"
   add_association_submit_button: "add new association"
   add_contact: "Add Contact"
@@ -377,7 +380,9 @@ en:
   classification_preference_question: "Which default browse classification would you prefer?"
   classification_preference_advisory_information: "Select a classification from the drop down select box, the content of the site will then be organised by the classification you choose."
   classification_provided_by: "Classification provided by"
+  classification_tree_header: "Classification"
   classifications: "Classifications"
+  classifications_empty: "Our curators haven't approved any classifications of this taxon yet."
   classifications_summary_header_with_count:
     one: "Part of %{count} approved classification"
     other: "Part of %{count} approved classifications"
@@ -416,6 +421,7 @@ en:
   collections: "Collections"
   collections_lowercase: "collections"
   collections_index_header: "Collections"
+  collections_summary_empty: "This taxon isn't in any collections yet."
   collections_summary_header_with_count:
     one: "Present in %{count} collection"
     other: "Present in %{count} collections"
@@ -480,6 +486,7 @@ en:
     other: "%{count} Community Members"
   community_members: "Community members"
   community_roles: "Community Roles"
+  communities_summary_empty: "This taxon hasn't been endorsed by a community yet."
   communities_summary_header_with_count:
     one: "Belongs to %{count} community"
     other: "Belongs to %{count} communities"
@@ -656,11 +663,12 @@ en:
   curator_profile_menu: "Curator Profile"
   curator_profile_of_: "curator profile of %{name}"
   curator_scope_: "Curator scope:"
-  curators: "Curators"
   curator_signup_message: "To request curator privileges you must indicate the scope of your your credentials below.  You will be notified via email if your application for curator privileges is accepted."
-  curators_of_taxon_page_title: "Curators of %{taxon}"
   _curator_status_changed_by: "(Curator status changed by %{user} on %{date})"
   curator_to_do_list: "Curator To Do List"
+  curators: "Curators"
+  curators_empty: "Our curators haven't contributed information to this taxon yet."
+  curators_of_taxon_page_title: "Curators of %{taxon}"
   curators_summary_header_with_count:
     one: "%{count} Curator"
     other: "%{count} Curators"
@@ -1065,6 +1073,7 @@ en:
   hierarchies_: "Hierarchies"
   hierarchy_entries: "hierarchy_entries"
   hierarchyentries: "HierarchyEntries"
+  hierarchy_entry_switch_missing_id_error: "Sorry, the hierarchy entry page you selected could not be found due to a missing identifier."
   hierarchy: "Hierarchy"
   hierarchy_id: "hierarchy_id"
   hierarchy_roots_: "Hierarchy Roots:"
@@ -1121,7 +1130,7 @@ en:
   image_object: "Image object"
   image_objects_will_contain_two: "Image objects will contain two mediaURL elements - the first being the URL of the image on the provider's website, and the second is the URL of the cached version of the media hosted on an EOL server. The EOL version of the image will have been resized (perserving the aspect ration) if the original image is larger than 460 pixels wide or 345 pixels in height."
   image_of: "Image of"
-  image_alt_text: "This %{vetted_status} image is of %{taxon_name}"
+  image_alt_text: "This image is thought to represent a %{taxon_name}, our curators have indicated that this association is %{vetted_status}."
   image_rating: "Image rating"
   images_: "images"
   images: "Images"
@@ -1349,6 +1358,8 @@ en:
     other: "%{count} Media"
   media_center_navigation: "Media Center Navigation"
   media_contact: "Media Contact"
+  media_summary_empty: "No images of this taxon have been provided yet."
+  media_summary_empty_flickr_instructions: "Learn how to add an image through Flickr"
   mediarss_feed: "MediaRSS Feed"
   medium_size: "Medium"
   member_of_professional_society_credential_option: "member of a professional society"
@@ -1905,7 +1916,7 @@ en:
     one: "See the <span class=\"assistive\">%{count} collection in which this taxon appears.</span>"
     other: "See all <span class=\"assistive\">%{count} collections in which this taxon appears.</span>"
   see_all_comments_with_count_for_text:
-    one: "see the %{count} comment for this article"
+    one: "see the comment for this article"
     other: "see all %{count} comments for this article"
   see_all_communities_with_count_html:
     one: "See the <span class=\"assistive\">%{count} community that focus on this taxon.</span>"
@@ -2128,6 +2139,8 @@ en:
   text_object: "Text Object"
   text: "text"
   text_colon: "Text:"
+  text_summary_empty: "This taxon doesn't have a brief summary yet."
+  text_summary_empty_header: "Brief summary"
   text_summary_more_link: "Read full entry"
   text_with_count:
     one: "%{count} Article"

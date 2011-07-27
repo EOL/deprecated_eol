@@ -23,7 +23,8 @@ class Taxa::OverviewsController < TaxaController
       :curator_activity_logs => '*',
       :users => [ :given_name, :family_name, :logo_cache_url, :tag_line ] }
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
-    @hierarchies = @taxon_concept.published_hierarchy_entries.collect{|he| he.hierarchy if he.hierarchy.browsable? }.uniq
+    @browsable_hierarchy_entries ||= @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
+    @hierarchies = @browsable_hierarchy_entries.collect{|he| he.hierarchy }.uniq
     toc_items = [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution]
     options = {:limit => 1, :language => current_user.language_abbr}
     @summary_text = @taxon_concept.text_objects_for_toc_items(toc_items, options)
@@ -49,7 +50,7 @@ private
     redirect_to taxon_overview_path(@taxon_concept, params.merge(:status => :moved_permanently).
         except(:controller, :action, :id, :taxon_id)) and return false if @taxon_concept.superceded_the_requested_id?
   end
-  
+
   def recognized_by
     @recognized_by = I18n.t(:recognized_by)
     if !@dropdown_hierarchy_entry.hierarchy.url.blank?

@@ -126,7 +126,7 @@ module ApplicationHelper
     taxon_name = taxon_name.blank? ? I18n.t(:a_taxon) : Sanitize.clean(taxon_name)
     alt = data_object.object_title || nil
     alt = data_object.description_teaser if alt.blank?
-    alt = I18n.t("#{en_type}_alt_text", :vetted_status => data_object.vetted.label,
+    alt = I18n.t("#{en_type}_alt_text", :vetted_status => data_object.vetted.label.downcase,
                  :taxon_name => taxon_name) if alt.blank?
     alt = Sanitize.clean(alt)
   end

@@ -1,5 +1,10 @@
 #text_summary.article.overview
-  - unless @summary_text.nil?
+  - if @summary_text.nil?
+    .header
+      %h3= I18n.t(:text_summary_empty_header)
+    .empty
+      %p= I18n.t(:text_summary_empty)
+  - else
     - @summary_text.each do |dato|
       - unless dato.description.empty? || dato.description.nil?
         %div{:class => vetted_id_class(dato.vetted_id), :data => { :text_id =>  dato.id } }

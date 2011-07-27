@@ -1,20 +1,26 @@
+- # Note: this partial is shared between data object and taxa pages
 - en_type ||= en_type(data_object)
 - total = 5
 - average_rating = data_object.data_rating || 0
-
-- if !@current_user_ratings.blank? && users_data_object_rating = @current_user_ratings[data_object.guid]
-  - user_rating = users_data_object_rating.rating
+- if @current_user_ratings.blank?
+  - if rating_from_user = data_object.rating_from_user(current_user)
+    - user_rating = rating_from_user.rating
+- else
+  - if users_data_object_rating = @current_user_ratings[data_object.guid]
+    - user_rating = users_data_object_rating.rating
 - user_rating ||= 0
 - minimal ||= false
-- assistive = minimal ? 'assistive' : nil
+- assistive_or_nil = minimal ? 'assistive' : nil
 .ratings
   .average_rating
-    %h5{ :class => assistive }= I18n.t("#{en_type}_rating")
+    %h5{:class => assistive_or_nil}= I18n.t("#{en_type}_rating")
     .rating
       %p{:style => "width: #{average_rating * 20}%"}<
         = I18n.t("average_rating_value_of_total", :rating => average_rating, :total => total)
+    - unless minimal
+      %p= I18n.t(:rated_by_count_people, :count => data_object.users_data_objects_ratings.count)
   .rating
-    %h5{ :class => assistive }= I18n.t(:your_rating)
+    %h5{:class => assistive_or_nil}= I18n.t(:your_rating)
     %ul
       %li{:class => "current_rating_#{user_rating}"}<
         = I18n.t("your_current_rating_#{user_rating}_of_#{total}")

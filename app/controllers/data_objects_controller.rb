@@ -1,12 +1,37 @@
 class DataObjectsController < ApplicationController
 
-  # No layout for Ajax calls.  Everthing else uses main:
-  layout proc { |c| c.request.xhr? ? false : "v2/data" }
+  layout :data_objects_layout
 
   before_filter :load_data_object, :except => [:index, :new, :create, :preview]
   before_filter :allow_login_then_submit, :only => [:rate]
-  before_filter :curator_only, :only => [:curate, :add_association, :remove_association]
+  before_filter :curator_only, :only => [:curate, :add_association, :remove_association,
+                                         :new, :create, :edit, :update, :destroy]
 
+  # GET /pages/:taxon_id/data_objects/new
+  def new
+    if(logged_in?)
+      @taxon_concept = TaxonConcept.find(params[:taxon_id])
+      @selected_license = [License.by_nc.title,License.by_nc.id]
+      @selected_language = [current_user.language.label,current_user.language.id]
+      unless (params[:toc_id])
+        @taxon_concept.current_user = current_user
+        toc_item = @taxon_concept.tocitem_for_new_text
+        params[:toc_id] = toc_item.id
+      end
+      set_text_data_object_options
+      @data_object = DataObject.new
+      render :partial => 'new_text'
+      current_user.log_activity(:creating_new_data_object, :taxon_concept_id => @taxon_concept.id)
+    else
+      if $ALLOW_USER_LOGINS
+        render :partial => 'login_for_text'
+      else
+        render :text => 'New text cannot be added at this time. Please try again later.'
+      end
+    end
+  end
+
+  # POST /pages/:taxon_id/data_objects
   def create
     params[:references] = params[:references].split("\n") unless params[:references].blank?
     data_object = DataObject.create_user_text(params, current_user)
@@ -24,33 +49,34 @@ class DataObjectsController < ApplicationController
     redirect_to taxon_details_path(@taxon_concept)
   end
 
-  def preview
-    begin
-      params[:references] = params[:references].split("\n")
-      data_object = DataObject.preview_user_text(params, current_user)
-      @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
-      @taxon_concept.current_user = current_user
-      @curator = false
-      @preview = true
-      @data_object_id = params[:id]
-      @hide = true
-      current_user.log_activity(:previewed_data_object, :taxon_concept_id => @taxon_concept.id)
-      render :partial => '/taxa/text_data_object', :locals => {:content_item => data_object, :comments_style => '', :category => data_object.toc_items[0].label}
-    rescue => e
-      @message = e.message
-    end
-  end
+#  def preview
+#    begin
+#      params[:references] = params[:references].split("\n")
+#      data_object = DataObject.preview_user_text(params, current_user)
+#      @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
+#      @taxon_concept.current_user = current_user
+#      @curator = false
+#      @preview = true
+#      @data_object_id = params[:id]
+#      @hide = true
+#      current_user.log_activity(:previewed_data_object, :taxon_concept_id => @taxon_concept.id)
+#      render :partial => '/taxa/text_data_object', :locals => {:content_item => data_object, :comments_style => '', :category => data_object.toc_items[0].label}
+#    rescue => e
+#      @message = e.message
+#    end
+#  end
 
-  def get
-    @taxon_concept = TaxonConcept.find params[:taxon_concept_id] if params[:taxon_concept_id]
-    @taxon_concept.current_user = current_user
-    @curator = current_user.can_curate?(@taxon_concept)
-    @hide = true
-    @category_id = @data_object.toc_items[0].id
-    @text = render_to_string(:partial => '/taxa/text_data_object', :locals => {:content_item => @data_object, :comments_style => '', :category => @data_object.toc_items[0].label})
-    render(:partial => '/taxa/text_data_object', :locals => {:content_item => @data_object, :comments_style => '', :category => @data_object.toc_items[0].label})
-  end
+#  def get
+#    @taxon_concept = TaxonConcept.find params[:taxon_concept_id] if params[:taxon_concept_id]
+#    @taxon_concept.current_user = current_user
+#    @curator = current_user.can_curate?(@taxon_concept)
+#    @hide = true
+#    @category_id = @data_object.toc_items[0].id
+#    @text = render_to_string(:partial => '/taxa/text_data_object', :locals => {:content_item => @data_object, :comments_style => '', :category => @data_object.toc_items[0].label})
+#    render(:partial => '/taxa/text_data_object', :locals => {:content_item => @data_object, :comments_style => '', :category => @data_object.toc_items[0].label})
+#  end
 
+  # PUT /pages/:taxon_id/data_objects/:id
   def update
     params[:references] = params[:references].split("\n")
     @taxon_concept = TaxonConcept.find params[:taxon_concept_id] if params[:taxon_concept_id]
@@ -68,6 +94,7 @@ class DataObjectsController < ApplicationController
     render(:partial => '/taxa/details/category_content_part', :locals => {:dato => @data_object, :with_javascript => 1})
   end
 
+  # GET /pages/:taxon_id/data_objects/:id/edit
   def edit
     set_text_data_object_options
     @taxon_concept = TaxonConcept.find params[:taxon_concept_id] if params[:taxon_concept_id]
@@ -75,30 +102,6 @@ class DataObjectsController < ApplicationController
     @selected_license = [@data_object.license.title,@data_object.license.id]
     current_user.log_activity(:editing_data_object, :taxon_concept_id => @taxon_concept.id)
     render :partial => 'edit_text'
-  end
-
-  def new
-    if(logged_in?)
-      @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
-      @selected_license = [License.by_nc.title,License.by_nc.id]
-      @selected_language = [current_user.language.label,current_user.language.id]
-      @toc_id_empty = params[:toc_id] == 'none'
-      if (@toc_id_empty)
-        @taxon_concept.current_user = current_user
-        toc_item = @taxon_concept.tocitem_for_new_text
-        params[:toc_id] = toc_item.id
-      end
-      set_text_data_object_options
-      @data_object = DataObject.new
-      render :partial => 'new_text'
-      current_user.log_activity(:creating_new_data_object, :taxon_concept_id => @taxon_concept.id)
-    else
-      if $ALLOW_USER_LOGINS
-        render :partial => 'login_for_text'
-      else
-        render :text => 'New text cannot be added at this time. Please try again later.'
-      end
-    end
   end
 
   def rate
@@ -133,6 +136,7 @@ class DataObjectsController < ApplicationController
 
   end
 
+  # GET /data_objects/:id
   def show
     @page_title = @data_object.best_title
     get_attribution
@@ -215,9 +219,20 @@ class DataObjectsController < ApplicationController
   # places to put the following code for handling curation and the logging thereof.
 private
 
+  def data_objects_layout
+    # No layout for Ajax calls.
+    return false if request.xhr?
+    case action_name
+    when 'new', 'create', 'update', 'edit'
+      'v2/taxa'
+    else
+      'v2/data_object'
+    end
+  end
+
   def curator_only
-    if !current_user.can_curate?(@data_object)
-      raise Exception.new('Not logged in as curator')
+    unless current_user.is_curator?
+      access_denied
     end
   end
 
@@ -246,8 +261,8 @@ private
 
   def set_text_data_object_options
     @selectable_toc = TocItem.selectable_toc
-    toc = TocItem.find(params[:toc_id])
-    @selected_toc = [toc.label, toc.id]
+    # toc = TocItem.find(params[:toc_id])
+    @selected_toc = params[:toc_id] # [toc.label, toc.id]
     @languages = Language.find_by_sql("SELECT * FROM languages WHERE iso_639_1!=''").collect {|c| [c.label.truncate(30), c.id] }
     @licenses = License.valid_for_user_content
   end

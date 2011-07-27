@@ -1,6 +1,7 @@
 - hierarchies = @dropdown_hierarchy_entry.blank? ? @hierarchies : [@dropdown_hierarchy_entry.hierarchy]
 - if hierarchies.blank?
-  %p= I18n.t(:not_recognised_by_available_hierarchies)
+  .empty
+    %p= I18n.t(:not_recognised_by_available_hierarchies)
 - else
   %ul
     - hierarchies.each do |hierarchy|
@@ -14,7 +15,6 @@
             = I18n.t(:recognised_by_hierarchy_agent_as_a_rank, :hierarchy_agent => hierarchy.agent.full_name,
               :hierarchy_agent_logo => hierarchy_agent_logo, :taxon_rank => taxon_rank,
               :hierarchy_entry_url => taxon_hierarchy_entry_overview_path(@taxon_concept, hierarchy_entry))
-
         - else
           - hierarchy_entry.agents.each do |hierarchy_entry_agent|
             %li

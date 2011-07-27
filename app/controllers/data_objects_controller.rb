@@ -167,14 +167,14 @@ class DataObjectsController < ApplicationController
   def remove_association
     he = HierarchyEntry.find(params[:hierarchy_entry_id])
     @data_object.remove_curated_association(current_user, he)
-    log_action(he, :remove_association)
+    log_action(he, :remove_association, nil)
     redirect_to data_object_path(@data_object)
   end
 
   def save_association
     he = HierarchyEntry.find(params[:hierarchy_entry_id])
     @data_object.add_curated_association(current_user, he)
-    log_action(he, :add_association)
+    log_action(he, :add_association, nil)
     redirect_to data_object_path(@data_object)
   end
 
@@ -343,7 +343,8 @@ private
     end
   end
 
-  def log_action(object, method, opts = nil)
+  # TODO - Remove the opts parameter if we not intend to use it.
+  def log_action(object, method, opts)
     CuratorActivityLog.create(
       :user => current_user,
       :changeable_object_type => ChangeableObjectType.send(object.class.name.underscore.to_sym),

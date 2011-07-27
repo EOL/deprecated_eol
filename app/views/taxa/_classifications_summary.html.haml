@@ -3,7 +3,7 @@
   .header
     %h3= I18n.t(:classifications_summary_header_with_count, :count => count)
     - if count > 1
-      = link_to(I18n.t(:see_all_classifications_with_count_html, :count => count), '/placeholder')
+      = link_to(I18n.t(:see_all_classifications_with_count_html, :count => count), taxon_names_path(@taxon_concept))
   - if count > 0
     %ul
       - @browsable_hierarchy_entries[0..1].each do |hierarchy_entry|

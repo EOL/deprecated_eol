@@ -9,26 +9,22 @@ class DataObjectsController < ApplicationController
 
   # GET /pages/:taxon_id/data_objects/new
   def new
-    if(logged_in?)
-      @taxon_concept = TaxonConcept.find(params[:taxon_id])
-      @selected_license = [License.by_nc.title,License.by_nc.id]
-      @selected_language = [current_user.language.label,current_user.language.id]
-      unless (params[:toc_id])
-        @taxon_concept.current_user = current_user
-        toc_item = @taxon_concept.tocitem_for_new_text
-        params[:toc_id] = toc_item.id
-      end
-      set_text_data_object_options
-      @data_object = DataObject.new
-      render :partial => 'new_text'
-      current_user.log_activity(:creating_new_data_object, :taxon_concept_id => @taxon_concept.id)
+    @taxon_concept = TaxonConcept.find(params[:taxon_id])
+    @toc_items = TocItem.selectable_toc
+    @languages = Language.find_by_sql("SELECT * FROM languages WHERE iso_639_1 != '' && source_form != ''")
+    @licenses = License.find_all_by_show_to_content_partners(1)
+    if params[:data_object]
+      @data_object = DataObject.new(params[:data_object])
+      @selected_toc_item = @data_object.toc_items[0]
     else
-      if $ALLOW_USER_LOGINS
-        render :partial => 'login_for_text'
-      else
-        render :text => 'New text cannot be added at this time. Please try again later.'
-      end
+      @data_object = DataObject.new(:data_type => DataType.text,
+                                    :license_id => License.by_nc.id,
+                                    :language_id => current_user.language_id)
+      @selected_toc_item = @toc_items[0]
     end
+    @page_title = I18n.t(:dato_new_text_for_taxon_page_title, :taxon => Sanitize.clean(@taxon_concept.title_canonical))
+    @page_description = I18n.t(:dato_new_text_page_description)
+    current_user.log_activity(:creating_new_data_object, :taxon_concept_id => @taxon_concept.id)
   end
 
   # POST /pages/:taxon_id/data_objects
@@ -224,7 +220,7 @@ private
     return false if request.xhr?
     case action_name
     when 'new', 'create', 'update', 'edit'
-      'v2/taxa'
+      'v2/basic'
     else
       'v2/data_object'
     end

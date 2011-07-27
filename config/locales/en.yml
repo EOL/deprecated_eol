@@ -33,6 +33,8 @@ en:
     submit:
       create: "Create %{model}"
       update: "Update %{model}"
+      data_object:
+        create: "Add article"
       name:
         create: "Add name"
         update: "Update name"
@@ -48,6 +50,13 @@ en:
       data_object
         create_text: "Add article"
     label:
+      data_object:
+        description: "Body"
+        license_id: "License"
+        license_id_more: 'Read the <a href="%{policy_url}">EOL Licensing Policy</a>'
+        object_title: "Title"
+        toc_item: "Category"
+        refs: "References"
       session:
         password: "Password"
         remember_me: "Keep me logged in for 2 weeks"
@@ -158,7 +167,6 @@ en:
   add_to_my_collection_button: "Add to my collection"
   added_date: "Added %{date}"
   added_date_by: "Added %{date} by %{name}"
-  a_description_must_be_entered: "A Description must be entered."
   admin: "admin"
   _admin_home_: "[admin home]"
   admin_home: "admin home"
@@ -714,8 +722,11 @@ en:
   date_this_resource_was_created: "Date This Resource Was Created:  <span title=\"required\">*</span>"
   date_updated: "Date Updated"
   date_uploaded_: "Date uploaded:"
+  dato_create_cancel: "Cancel"
   dato_hidden_note: "%{username} hid %{type}."
   dato_inappropriate_note: "%{username} marked this %{type} as inappropriate."
+  dato_new_text_for_taxon_page_title: "Add an article to <i>%{taxon}</i>"
+  dato_new_text_page_description: "Enter text to add article... etc..."
   dato_rating_note: "%{username} gave this a rating of %{rating}."
   dato_shown_note: "%{username} made this %{type} visible."
   dato_trusted_note: "%{username} trusted this %{type}."
@@ -2291,7 +2302,6 @@ en:
   title___span_title__required__: "Title: <span title=\"required\">*</span>"
   title_: "Title:"
   title: "Title"
-  title_of_user_text_form_label: "Title (optional)"
   to_administer_site_content__pl: "To administer site content, please select the section to work on:"
   to_avoid_confusion__we_have_ad: "To avoid confusion, we have added a unique number to the end of your current username. Your new username is: %{var__new_username}. The next time you log into eol.org, please use this updated username."
   to_begin_the_registration_process_click_here: "To begin the registration process, click here"

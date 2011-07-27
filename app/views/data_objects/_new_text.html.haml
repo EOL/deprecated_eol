@@ -1,124 +1,35 @@
 - form_for @data_object, :url => taxon_data_objects_path(@taxon_concept) do |f|
-  %span#missing_text_error.error{ :style => "display:none;" }
-    = I18n.t(:a_description_must_be_entered)
-  %input{ :type => "hidden", :name => "taxon_concept_id", :value => @taxon_concept.id }
-  %table
-    %col.labels
-    %col.fields
-    %tr
-      %td
-      %td
-        %input#original_toc_id{ :type => "hidden", :value => @selected_toc[1] }
-        = select_tag('data_objects_toc_category[toc_id]', options_from_collection_for_select(@selectable_toc,:id, :label, @selected_toc), {'id' => 'data_objects_toc_category_toc_id', 'data-change_toc_url' => url_for(:controller => 'taxa', :action => 'user_text_change_toc')})
-    %tr
-      %td
-        = f.label :object_title, I18n.t("title_of_user_text_form_label")
-      %td
-        = f.text_field( :object_title )
-    %tr
-      %td
-        = f.label :description, I18n.t("description")
-      %td
-        = f.text_area( :description, :size => "33x8" )
-    %tr
-      %td
+  %fieldset
+    %dl
+      = f.fields_for :toc_items do |toc_items_form|
+        %dt
+          = toc_items_form.label :id, I18n.t('helpers.label.data_object.toc_item')
+        %dd
+          = toc_items_form.select :id, options_from_collection_for_select(@toc_items, :id, :label)
+      %dt
+        = f.label :object_title
+      %dd
+        = f.text_field :object_title
+      %dt
+        = f.label :description
+      %dd
+        = f.text_area :description
+      %dt
         = f.label :language_id
-      %td
-        = select_tag("data_object[language_id]", options_for_select(@languages,@selected_language))
-    %tr
-      %td
+      %dd
+        = f.select :language_id, options_from_collection_for_select(@languages, :id, :source_form)
+      %dt
         = f.label :license_id
-      %td
-        = select_tag("data_object[license_id]", options_for_select(@licenses,@selected_license))
-        %br
-        = link_to I18n.t(:read_the_eol_licensing_policy) ,"/content/page/eol_licensing_policy",{:target=>'_blank'}
-    %tr
-      %td
-        - # TODO: Check why we're not using f.label :references and f.text_area :references
-        %label{ :for => 'references'}= I18n.t("references")
-      %td
+      %dd
+        = f.select :license_id, options_from_collection_for_select(@licenses, :id, :title)
+        = I18n.t('helpers.label.data_object.license_id_more', :policy_url => "/content/page/eol_licensing_policy")
+      %dt
+        = f.label :refs
+      %dd
         - refs = ''
         - @data_object.visible_references.each do |ref|
           - refs += ref.full_reference
-        = text_area_tag('references', @data_object.visible_references.map {|r| r.full_reference}.join("\n\n"), :size => "33x8" )
-    /%tr
-    /  %td
-    /    %label=I18n.t("note")
-    /  %td
-    /    =I18n.t("after_submitting_your_text_ent")
-
-    %tr
-      %td{ :colspan => "2" }
-
-        %input#cancel_edit_text{ :type => "button", :value => "Cancel", :'data-data_object_id' => "" }
-        &nbsp;
-
-        - if @data_object.id
-          %input{:id => "submit_edit", :type => "button", :value => I18n.t(:confirm), :data_object_id => "#{@data_object.id}"}
-        - else
-          /This is regular form submit with page refresh
-          %input{:id => "submit_edit", :type => "submit", :value => I18n.t(:confirm),  :data_object_id => "new_user_submitted_text_id"}
-
-        &nbsp;
-        %span#missing_text_error.error{ :style => "display:none;" }
-          = I18n.t(:your_content_is_emptynothing_to_submit)
-        &nbsp;
-        %span#edit_text_spinner{ :style => "display:none;" }
-          = image_tag('indicator_arrows_black.gif')
-          = I18n.t(:please_wait)
-  - if @toc_id_empty
-    -# This forces an update of the TOC (but only if we need to do it):
-    :javascript
-      $(document).ready(function() {
-        $('#data_objects_toc_category_toc_id').change();
-      });
-
-  :javascript
-    $(document).ready(function() {
-
-      $("#cancel_edit_text").die();
-      $("#cancel_edit_text").live('click', function()
-      {
-        id = $("#submit_edit").attr('data_object_id');
-        if(id == "new_user_submitted_text_id")
-        {
-          message = "--ADD NEW RECORD CANCELLED--";
-
-          //To get the div id which is the data_object id
-          id = $(this).parents("div:eq(1)").attr("id")
-
-          $("#div_new_user_submitted_text_id").attr("id", "div_" + id);
-        }
-        else {message = "--UPDATE CANCELLED--";}
-        $("#div_" + id).text(message);
-
-        //This will scroll to the current <div>
-        $.scrollTo($("#" + id), {duration: 1});
-        return false;
-      });
-
-      $("#submit_edit").die();
-      $("#submit_edit").live('click', function()
-      {
-        id = $(this).attr('data_object_id');
-        $("#" + id).append('...SAVING...');
-        if ($(this).attr('type') == "submit") {return;}
-        path_url = $("#edit_data_object_" + id).attr('action');
-        var dataString = $('#edit_data_object_' + id).serialize();
-        if ( $('#edit_data_object_'+id).length ){ path_url = $('#edit_data_object_'+id).attr('action').replace('/data_objects/','/data_objects/update/'); }
-
-        //Add this if you want to have a form-submit without page refresh
-        //if ( $('#new_data_object_'+id).length ){ path_url = $('#new_data_object_'+id).attr('action').replace('/data_objects/','/data_objects/update/'); }
-
-        $.ajax({ type:'POST',
-                 url: path_url,
-                 data: dataString,
-                 success:function(response)
-                 {
-                    $("#" + id).html(response);
-                 },
-                 error:function (xhr, ajaxOptions, thrownError) { $("#div_" + id).text("--SORRY AN ERROR HAS OCCURRED--"); }
-              });
-      });
-
-    });
+        = text_area_tag 'references', @data_object.visible_references.map {|r| r.full_reference}.join("\n\n")
+  %fieldset.actions
+    = f.submit I18n.t('helpers.submit.data_object.create')
+    = link_to I18n.t(:dato_create_cancel), taxon_details_path(@taxon_concept)

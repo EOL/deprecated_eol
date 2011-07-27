@@ -22,13 +22,17 @@
     %ul.sizes
       %li= link_to I18n.t("download_#{en_mime_type.sub(/\//, '_')}"), @data_object.sound_url, { :title => I18n.t("download_#{en_mime_type.sub(/\//, '_')}_assistive") }
   #main
-    - unless @data_object.is_text?
+    - unless @data_object.is_text? # NOTE - if it IS text, it was already shown, above.
       .article.copy
         .header
           %h3= I18n.t(:description)
         .description
           = @data_object.description.balance_tags
-    = render :partial => 'activity_logs/index', :locals => {:log => @data_object.activity_log}
+    .article.list.updates
+      .header
+        %h3= I18n.t(:recent_updates)
+      = render :partial => 'activity_logs/index', :locals => {:log => @data_object.activity_log}
+      = render :partial => 'comments/new', :locals => {:parent => @data_object}
 
   #sidebar
     .article.source

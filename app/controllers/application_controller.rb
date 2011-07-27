@@ -59,22 +59,14 @@ class ApplicationController < ActionController::Base
     when EOL::Exceptions::Pending
       not_yet_implemented
     else
-      logger.error "*" * 76
-      logger.error "** EXCEPTION: (uncaught) #{e.message}"
-      lines_shown = 0
-      index = 0
-      e.backtrace.map {|t| t.gsub(/#{RAILS_ROOT}/, '.')}.each do |trace|
-        if trace =~ /\.?\/(usr|vendor).*:/
-          logger.error "       (#{trace})"
-        else
-          logger.error "   #{trace}"
-          lines_shown += 1
-        end
-        index += 1
-        break if lines_shown > 12
+      # NOTE - Solr connection was failing often enough that I thought it warranted special handling.
+      @@solr_error_re ||= /^Connection refused/  # Remember REs cause mem leaks if in-line
+      if e.message =~ @@solr_error_re
+        logger.error "****\n**** ERROR: Solr connection refused.\n****"
+        @solr_connection_refused = true
+      else
+        log_error_cleanly(e)
       end
-      logger.error "   [...#{e.backtrace.length - index} more lines omitted]" if lines_shown > 12
-      logger.error "\n\n"
       respond_to do |format|
         format.html { render :layout => 'v2/basic', :template => "content/error" }
         format.js { @retry = false; render :layout => false, :template => "content/error" }
@@ -652,5 +644,24 @@ private
     session[:mobile_disabled] && session[:mobile_disabled] == true
   end
   helper_method :mobile_disabled_by_session?
+
+  def log_error_cleanly(e)
+    logger.error "*" * 76
+    logger.error "** EXCEPTION: (uncaught) #{e.message}"
+    lines_shown = 0
+    index = 0
+    e.backtrace.map {|t| t.gsub(/#{RAILS_ROOT}/, '.')}.each do |trace|
+      if trace =~ /\.?\/(usr|vendor).*:/
+        logger.error "       (#{trace})"
+      else
+        logger.error "   #{trace}"
+        lines_shown += 1
+      end
+      index += 1
+      break if lines_shown > 12
+    end
+    logger.error "   [...#{e.backtrace.length - index} more lines omitted]" if lines_shown > 12
+    logger.error "\n\n"
+  end
 
 end

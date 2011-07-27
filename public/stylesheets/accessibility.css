@@ -369,3 +369,10 @@ table.standard td.nowrap {
 
 #collections_choose ul {
   width: 500px; }
+
+.updates > p {
+  font-size: 1.5em;
+  margin: 1em 0.5em; }
+
+#permalink #main {
+  width: 550px; }

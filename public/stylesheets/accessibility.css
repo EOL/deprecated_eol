@@ -166,8 +166,6 @@ p.status.error {
   color: #677682; }
 #media_list #main > ul > li > a {
   display: inline-block;
-  width: 160px;
-  height: 125px;
   overflow: hidden; }
 #media_list #main > ul > li form {
   display: block;

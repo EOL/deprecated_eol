@@ -156,13 +156,6 @@ en:
       hour: "Hour"
       minute: "Minute"
       second: "Seconds"
-  helpers:
-    select:
-      prompt: "Please select"
-    submit:
-      create: 'Create %{model}'
-      update: 'Update %{model}'
-      submit: 'Save %{model}'
   errors:
     format: "%{attribute} %{message}"
     messages: &errors_messages
@@ -186,18 +179,6 @@ en:
       odd: "must be odd"
       even: "must be even"
   activerecord:
-    errors:
-      template:
-        header:
-          one: "1 error prohibited this %{model} from being saved"
-          other: "%{count} errors prohibited this %{model} from being saved"
-        body: "There were problems with the following fields:"
-      messages:
-        taken: "has already been taken"
-        record_invalid: "Validation failed: %{errors}"
-        <<: *errors_messages
-      full_messages:
-        format: "%{attribute} %{message}"
     models:
       user: "account"
     attributes:
@@ -227,7 +208,15 @@ en:
           one: "%{count} validation error found"
           other: "%{count} validation errors found"
         body: "The following fields failed validation:"
+      messages:
+        taken: "has already been taken"
+        record_invalid: "Validation failed: %{errors}"
+        <<: *errors_messages
+      full_messages:
+        format: "%{attribute} %{message}"
   helpers:
+    select:
+      prompt: "Please select"
     submit:
       create: "Create %{model}"
       update: "Update %{model}"
@@ -238,6 +227,7 @@ en:
         update: "Update name"
       session:
         create: "Sign in"
+      submit: 'Save %{model}'
       user:
         create: "Create account"
         update: "Save profile information"
@@ -245,7 +235,7 @@ en:
         generate_api_key: "Generate a key"
         curation_application: "Apply now"
         curation_privileges: "Submit request"
-      data_object
+      data_object:
         create_text: "Add article"
     label:
       data_object:

@@ -3,8 +3,9 @@ class Taxa::ResourcesController < TaxaController
   before_filter :add_page_view_log_entry, :update_user_content_level
   
   def show
+    toc_id = TocItem.identification_resources.id
     @assistive_section_header = I18n.t(:resources)
-    
+    @contents = @taxon_concept.details_for_toc_items(ContentTable.details.toc_items, :language => current_user.language_abbr).collect{|d| d if d[:toc_item].id == toc_id}.compact
     current_user.log_activity(:viewed_taxon_concept_resources, :taxon_concept_id => @taxon_concept.id)
   end
   

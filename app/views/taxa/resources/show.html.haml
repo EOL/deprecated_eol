@@ -3,4 +3,8 @@
     = render :partial => 'resources_menu'
     .main_container.copy
       %h2= I18n.t(:identification_resources)
-      
+      .section
+      - unless @contents.blank?
+        = render :partial => 'taxa/details/category_content', :locals => { :content => @contents }
+      - else
+        = I18n.t(:identifcation_resources_empty)

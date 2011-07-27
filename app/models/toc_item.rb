@@ -77,6 +77,10 @@ class TocItem < SpeciesSchemaModel
     InfoItem
     cached_find_translated(:label, 'Education', :include => [ :info_items, { :parent => :info_items } ])
   end
+  def self.identification_resources
+    InfoItem
+    cached_find_translated(:label, 'Identification Resources', :include => [ :info_items, { :parent => :info_items } ])
+  end
   def self.search_the_web
     InfoItem
     cached_find_translated(:label, 'Search the Web', :include => [ :info_items, { :parent => :info_items } ])

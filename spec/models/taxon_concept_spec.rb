@@ -566,6 +566,53 @@ describe TaxonConcept do
     tc.activity_log.should be_a EOL::ActivityLog
   end
 
+  it 'should list collections in the proper order - most endorsements show firt' do
+    community1 = Community.gen()
+    community2 = Community.gen()
+    collection1 = Collection.gen
+    collection2 = Collection.gen
+    tc = TaxonConcept.gen
+    coll_item1 = CollectionItem.gen(:object_type => "TaxonConcept", :object_id => tc.id, :collection_id => collection1.id)
+    coll_item2 = CollectionItem.gen(:object_type => "TaxonConcept", :object_id => tc.id, :collection_id => collection2.id)
+    coll_endorsement1 = CollectionEndorsement.gen(:collection => collection1, :community => community1)
+    coll_endorsement2 = CollectionEndorsement.gen(:collection => collection2, :community => community1)
+    coll_endorsement3 = CollectionEndorsement.gen(:collection => collection2, :community => community2)
+    tc.top_collections[0].name.should == collection2.name
+    tc.top_collections[1].name.should == collection1.name
+  end
+
+  it 'should list collections in the proper order - least collected taxa show first' do
+    tc1 = TaxonConcept.gen
+    tc2 = TaxonConcept.gen
+    collection1 = Collection.gen
+    collection2 = Collection.gen
+    coll_item1 = CollectionItem.gen(:object_type => "TaxonConcept", :object_id => tc1.id, :collection_id => collection1.id)
+    coll_item2 = CollectionItem.gen(:object_type => "TaxonConcept", :object_id => tc2.id, :collection_id => collection1.id)
+    coll_item3 = CollectionItem.gen(:object_type => "TaxonConcept", :object_id => tc1.id, :collection_id => collection2.id)
+    tc1.top_collections[0].name.should == collection2.name
+    tc1.top_collections[1].name.should == collection1.name
+  end
+
+  it 'should list communites in the proper order - most number of members show first' do
+    community1 = Community.gen()
+    community2 = Community.gen()
+    user1 = User.gen()
+    user2 = User.gen()
+    user3 = User.gen()
+    member1 = Member.gen(:community => community2, :user => user1)
+    member2 = Member.gen(:community => community2, :user => user2)
+    member3 = Member.gen(:community => community1, :user => user3)
+    collection1 = Collection.gen()
+    collection2 = Collection.gen()
+    tc = TaxonConcept.gen
+    coll_item1 = CollectionItem.gen(:object_type => "TaxonConcept", :object_id => tc.id, :collection => collection1)
+    coll_item2 = CollectionItem.gen(:object_type => "TaxonConcept", :object_id => tc.id, :collection => collection2)
+    tc.collection_items[0].collection.community = community1
+    tc.collection_items[1].collection.community = community2
+    tc.top_communities[0].name.should == community2.name
+    tc.top_communities[1].name.should == community1.name
+  end
+
   #
   # I'm all for pending tests, but in this case, they run SLOWLY, so it's best to comment them out:
   #

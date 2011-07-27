@@ -378,6 +378,12 @@ Factory.define :collection_item do |ci|
   ci.created_at  { 5.minutes.ago }
 end
 
+Factory.define :collection_endorsement do |ce|
+  ce.association :collection
+  ce.association :community
+  ce.association :member
+end
+
 Factory.define :collection_type do |ct|
   ct.parent_id  0
   ct.lft        0

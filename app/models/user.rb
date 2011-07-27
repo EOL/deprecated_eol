@@ -15,7 +15,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   belongs_to :agent
   belongs_to :curator_level
   belongs_to :requested_curator_level, :class_name => CuratorLevel.to_s, :foreign_key => :requested_curator_level_id
-  
+
 
   has_many :curators_evaluated, :class_name => "User", :foreign_key => :curator_verdict_by_id
   has_many :users_data_objects_ratings
@@ -34,7 +34,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   has_many :resources, :through => :content_partner
   has_many :users_user_identities
   has_many :user_identities, :through => :users_user_identities
-  
+
   has_one :content_partner
   has_one :user_info
   belongs_to :default_hierarchy, :class_name => Hierarchy.to_s, :foreign_key => :default_hierarchy_id
@@ -716,7 +716,9 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def all_collections
     editable_collections = collections
     members.each do |member|
-      editable_collections << member.community.focus_collection if member.can?(Privilege.edit_collections)
+      if member.community.is_a? Community # Hmmmn.  Trying to solve a problem found on version2.  TODO
+        editable_collections << member.community.focus_collection if member.can?(Privilege.edit_collections)
+      end
     end
     editable_collections
   end

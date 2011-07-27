@@ -189,6 +189,7 @@ TocItem.gen_if_not_exists(:label => 'Nucleotide Sequences', :view_order => 4, :p
 ecology_and_distribution = TocItem.gen_if_not_exists(:label => 'Ecology and Distribution', :view_order => 5)
 TocItem.gen_if_not_exists(:label => 'Distribution', :view_order => 6, :parent_id => ecology_and_distribution.id)
 TocItem.gen_if_not_exists(:label => 'Wikipedia', :view_order => 7)
+TocItem.gen_if_not_exists(:label => 'Identification Resources', :view_order => 8, :parent_id => description.id)
 #--
 names_and_taxonomy = TocItem.gen_if_not_exists(:label => 'Names and Taxonomy', :view_order => 50)
 TocItem.gen_if_not_exists(:label => 'Related Names', :view_order => 51, :parent_id => names_and_taxonomy.id)
@@ -225,6 +226,8 @@ InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPM
   :label => 'Uses', :toc_item => description)
 InfoItem.gen_if_not_exists(:schema_value => 'http://www.eol.org/voc/table_of_contents#Education',
   :label => 'Education', :toc_item => education)
+InfoItem.gen_if_not_exists(:schema_value => 'http://www.eol.org/voc/table_of_contents#IdentificationResources',
+  :label => 'IdentificationResources', :toc_item => description)  
 
 ServiceType.gen_if_not_exists(:label => 'EOL Transfer Schema')
 

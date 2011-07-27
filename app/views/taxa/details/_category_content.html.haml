@@ -3,7 +3,7 @@
     - item[:data_objects].each do |dato|
       /.article
       %div{:id => dato.id, :class => "article"}
-        = render :partial => "category_content_part", :locals => {:dato => dato}
+        = render :partial => "taxa/details/category_content_part", :locals => {:dato => dato}
   - else
     .article
       .copy

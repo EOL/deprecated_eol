@@ -1,0 +1,31 @@
+#content
+  #taxon_literature.site_column
+    = render :partial => 'resources_menu'
+    .main_container.copy
+      %h2= I18n.t(:content_partners)
+      - unless @links.empty?
+        %p
+          =  I18n.t(:content_partners_intro, :link => link_to(I18n.t(:eol_api) , url_for(:controller => 'api', :action => 'docs', :only_path => false)))
+        - projects_rows, num_columns = reformat_specialist_projects(@links)
+        %table.results_table{:cellspacing => "0"}
+          %tr
+            - num_columns.times do
+              %th
+                = ''
+          - projects_rows.each do |row|
+            %tr
+              - column_class = cycle('odd', 'even')
+              - row.each do |outlink|
+                %td{:class => column_class, :valign => "top", :style => "width:#{100/num_columns}%"}
+                  - if outlink
+                    - link_text = hierarchy_outlink_collection_types(outlink[:hierarchy])
+                    = external_link_to(agent_logo(outlink[:hierarchy].agent, "small"), outlink[:hierarchy].url, :show_link_icon => false)
+                    - no_link_text = hierarchy_or_resource_name(outlink[:hierarchy])
+                    - unless link_text == no_link_text
+                      = no_link_text 
+                    %br
+                    = external_link_to(link_text, outlink[:outlink_url], :show_link_icon => true)
+                  - else
+                    &nbsp;
+      - else
+        = I18n.t(:content_partner_empty)

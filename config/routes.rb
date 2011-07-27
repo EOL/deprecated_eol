@@ -78,6 +78,8 @@ ActionController::Routing::Routes.draw do |map|
                                :collection => { :common_names => :get, :synonyms => :get }
       entries.resource :literature, :only => [:show], :controller => "taxa/literature",
         :member => { :bhl => :get }
+      entries.resource :resources, :only => [:show], :controller => "taxa/resources",
+        :member => { :education => :get , :nucleotide_sequences => :get, :content_partners => :get }
       entries.resource :maps, :only => [:show], :controller => "taxa/maps"
     end
     taxa.resource :overview, :only => [:show], :controller => "taxa/overviews"
@@ -88,6 +90,8 @@ ActionController::Routing::Routes.draw do |map|
                           :collection => { :common_names => :get, :synonyms => :get }
     taxa.resource :literature, :only => [:show], :controller => "taxa/literature",
       :member => { :bhl => :get }
+    taxa.resource :resources, :only => [:show], :controller => "taxa/resources",
+      :member => { :education => :get , :nucleotide_sequences => :get, :content_partners => :get }
     taxa.resource :maps, :only => [:show], :controller => "taxa/maps"
     taxa.resources :collections, :only => [:index], :controller => 'collections'
     taxa.resources :communities, :only => [:index], :controller => 'communities'

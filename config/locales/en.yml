@@ -2699,3 +2699,8 @@ en:
   cms_missing_content_message: "Sorry, this page is not available for this language."
   cms_available_in_languages: "This page is available in:"
   translated_from: Translated from
+  identification_resources: Identification Resources
+  education: Education
+  nucleotide_sequences: Nucleotide Sequences
+  content_partner_empty: "No content partner found."
+  education_empty: "No education found."

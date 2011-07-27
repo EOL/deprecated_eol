@@ -5,13 +5,14 @@
 module EOL
   module Exceptions
     class FailedToCreateTag < StandardError; end
-    class SecurityViolation < StandardError; end
-    class MustBeLoggedIn < StandardError; end
     class InvalidCollectionItemType < StandardError; end
+    class MustBeLoggedIn < StandardError; end
     class OnlyUsersCanCreateCommunitiesFromCollections < StandardError; end
+    class ObjectNotFound < StandardError; end
+    class Pending < StandardError; end
+    class SecurityViolation < StandardError; end
     class UnknownFeedType < StandardError; end
     class WrongCurator < StandardError; end
-    class ObjectNotFound < StandardError; end
   end
 end
 

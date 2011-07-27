@@ -1,4 +1,6 @@
-- unless log.blank?
+- if log.blank?
+  %p= I18n.t(:no_activity)
+- else
   %ul.feed
     - log.each do |item|
       %li

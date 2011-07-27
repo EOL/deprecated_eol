@@ -503,6 +503,10 @@ Factory.define :curator_activity_log do |ah|
   ah.updated_at  { 5.days.ago }
 end
 
+Factory.define :curator_level do |cl|
+  cl.label { Factory.next(:string) }
+end
+
 Factory.define :data_object do |dato|
   dato.guid                   { Factory.next(:guid) }
   dato.identifier             ''
@@ -1106,6 +1110,12 @@ Factory.define :translated_untrust_reason do |r|
   r.label           { Factory.next(:string) }
 end
 
+Factory.define :translated_user_identity do |r|
+  r.association     :user_identity
+  r.language        { Language.english }
+  r.label           { Factory.next(:string) }
+end
+
 Factory.define :translated_vetted do |r|
   r.association     :vetted
   r.language        { Language.english }
@@ -1168,6 +1178,10 @@ end
 Factory.define :users_data_object do |u|
   u.association :data_object
   u.association :user
+end
+
+Factory.define :user_identity do |ui|
+  ui.sort_order 1
 end
 
 Factory.define :vetted do |x|

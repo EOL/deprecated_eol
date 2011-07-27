@@ -10,3 +10,5 @@
   -# Do nothing.  The problem is that the special community CAN be missing in tests.
 - unless defined?(supress_try_again_link)
   %p= link_to I18n.t(:try_your_request_again), current_url
+- if defined?(@solr_connection_refused) && @solr_connection_refused
+  %p= "(Solr)" # No I18n req'd, this in internal marker.

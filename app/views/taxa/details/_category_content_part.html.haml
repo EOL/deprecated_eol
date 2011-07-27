@@ -11,10 +11,9 @@
 
 %p.actions
   - if current_user.is_curator?
-    = link_to I18n.t(:curate_this_text) + " (FIXME)", '/placeholder'
-  = link_to I18n.t(:leave_a_comment) + " (FIXME)", '/placeholder', :class => 'button comment'
--# TODO - ActivityLog - This needs to be a comment form block
-= 'FIXME comment form goes here. When form.comment is here then HR JS will hide it by default and display the leave comment button'
+    = link_to I18n.t(:curate_this_text), data_object_path(dato), :class => 'button'
+  = link_to I18n.t(:leave_a_comment), '#', :class => 'button comment' # NOTE - REALLY don't need link to go anywhere.
+= render :partial => 'comments/new', :locals => { :parent => dato }
 %p= link_to I18n.t(:see_all_comments_with_count_for_text, :count => dato.all_comments.count), data_object_path(dato)
 
 - if current_user.is_curator?

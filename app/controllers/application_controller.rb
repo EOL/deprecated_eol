@@ -56,23 +56,17 @@ class ApplicationController < ActionController::Base
       must_be_logged_in
     when EOL::Exceptions::SecurityViolation
       access_denied
+    when EOL::Exceptions::Pending
+      not_yet_implemented
     else
-      logger.error "*" * 76
-      logger.error "** EXCEPTION: (uncaught) #{e.message}"
-      lines_shown = 0
-      index = 0
-      e.backtrace.map {|t| t.gsub(/#{RAILS_ROOT}/, '.')}.each do |trace|
-        if trace =~ /\.?\/(usr|vendor).*:/
-          logger.error "       (#{trace})"
-        else
-          logger.error "   #{trace}"
-          lines_shown += 1
-        end
-        index += 1
-        break if lines_shown > 12
+      # NOTE - Solr connection was failing often enough that I thought it warranted special handling.
+      @@solr_error_re ||= /^Connection refused/  # Remember REs cause mem leaks if in-line
+      if e.message =~ @@solr_error_re
+        logger.error "****\n**** ERROR: Solr connection refused.\n****"
+        @solr_connection_refused = true
+      else
+        log_error_cleanly(e)
       end
-      logger.error "   [...#{e.backtrace.length - index} more lines omitted]" if lines_shown > 12
-      logger.error "\n\n"
       respond_to do |format|
         format.html { render :layout => 'v2/basic', :template => "content/error" }
         format.js { @retry = false; render :layout => false, :template => "content/error" }
@@ -487,10 +481,19 @@ class ApplicationController < ActionController::Base
 
   # A user is not authorized for the particular controller based on the rights for the roles they are in
   def access_denied
-    flash.now[:warning] = I18n.t(:you_are_not_authorized_to_perform_this_action)
-    return_to = request.referer
-    store_location(return_to) unless return_to.blank?
-    redirect_back_or_default
+    flash_and_redirect_back(I18n.t(:you_are_not_authorized_to_perform_this_action))
+  end
+
+  def not_yet_implemented
+    flash_and_redirect_back(I18n.t(:not_yet_implemented_error))
+  end
+
+  def flash_and_redirect_back(msg)
+    flash[:error] = msg
+    respond_to do |format|
+      format.html { redirect_back_or_default }
+      format.js { render :text => warning }
+    end
   end
 
   # Set the current language
@@ -641,5 +644,24 @@ private
     session[:mobile_disabled] && session[:mobile_disabled] == true
   end
   helper_method :mobile_disabled_by_session?
+
+  def log_error_cleanly(e)
+    logger.error "*" * 76
+    logger.error "** EXCEPTION: (uncaught) #{e.message}"
+    lines_shown = 0
+    index = 0
+    e.backtrace.map {|t| t.gsub(/#{RAILS_ROOT}/, '.')}.each do |trace|
+      if trace =~ /\.?\/(usr|vendor).*:/
+        logger.error "       (#{trace})"
+      else
+        logger.error "   #{trace}"
+        lines_shown += 1
+      end
+      index += 1
+      break if lines_shown > 12
+    end
+    logger.error "   [...#{e.backtrace.length - index} more lines omitted]" if lines_shown > 12
+    logger.error "\n\n"
+  end
 
 end

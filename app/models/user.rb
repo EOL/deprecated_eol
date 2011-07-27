@@ -13,6 +13,9 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   belongs_to :curator_verdict_by, :class_name => "User", :foreign_key => :curator_verdict_by_id
   belongs_to :language
   belongs_to :agent
+  belongs_to :curator_level
+  belongs_to :requested_curator_level, :class_name => CuratorLevel.to_s, :foreign_key => :requested_curator_level_id
+  
 
   has_many :curators_evaluated, :class_name => "User", :foreign_key => :curator_verdict_by_id
   has_many :users_data_objects_ratings
@@ -29,7 +32,9 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   has_many :google_analytics_partner_summaries
   has_many :google_analytics_partner_taxa
   has_many :resources, :through => :content_partner
-
+  has_many :users_user_identities
+  has_many :user_identities, :through => :users_user_identities
+  
   has_one :content_partner
   has_one :user_info
   belongs_to :default_hierarchy, :class_name => Hierarchy.to_s, :foreign_key => :default_hierarchy_id
@@ -216,7 +221,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def curator_request
-    return true unless curator_scope.blank? && credentials.blank?
+    return true unless curator_approved || (curator_scope.blank? && credentials.blank?)
   end
 
   def activate

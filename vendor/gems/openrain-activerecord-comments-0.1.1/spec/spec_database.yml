@@ -1,6 +1,0 @@
---- 
-adapter: mysql
-database: activerecord_comments_test_db
-host: localhost
-username: root
-password: 

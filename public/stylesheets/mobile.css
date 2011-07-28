@@ -6,20 +6,20 @@
 	display: block;
     margin-left: auto;
     margin-right: auto;
-	background-color: #FFFFFF;
+	background-color: #fff;
 	border: 3px solid white;
 	border-radius: 5px 5px 5px 5px;
 }
 #image_gallery a img {
 	max-width:100%;
-	background-color: #FFFFFF;
+	background-color: #fff;
 	border: 3px solid white;
 	border-radius: 5px 5px 5px 5px;
 	margin: 5px;
 }
 #video_gallery img {
 	max-width:100%;
-	background-color: #FFFFFF;
+	background-color: #fff;
 	border: 3px solid white;
 	border-radius: 5px 5px 5px 5px;
 	margin: 5px;
@@ -28,13 +28,29 @@
 	padding:0px;
 	margin:0px;
 }
-.ui-li-thumb, .ui-li-icon { /* Contents index, static pages 'li' thumbnails spacing */
+#search_field{
+	color: #fff;
+}
+.ui-mobile a img.listview_thumb,
+.ui-mobile img.listview_thumb{ /* Thumbails inside list view, like on random taxon thumbnails in homepage or search results */
+	width:68px;
+	height:68px;
+	display: block;
+    margin-left: 3px;
+    margin-right: auto;
+	margin-top: 4px;
+	background-color: #fff;
+	border: 3px solid #2F3E46;
+	border-radius: 5px 5px 5px 5px;
+}
+.index_static_content_img { /* Contents index, static pages 'li' thumbnails */
 	left: 20px;
 	top: 15px;
 	max-height: 80px;
 	max-width: 80px;
 	position: absolute;
 }
+
 /* --------------*/
 /* Theme override*/
 /* --------------*/
@@ -69,6 +85,7 @@
 	color: #2F3E46;
     font-weight: bold;
 }
+
 /* ------------------------------*/
 /* Hidden things in taxa overview*/
 /* ------------------------------*/

@@ -16,6 +16,7 @@ class CollectionsController < ApplicationController
   layout 'v2/collections'
 
   def show
+    render :action => 'newsfeed' if @filter == 'newsfeed'
     return copy_items_and_redirect(@collection, current_user.watch_collection) if params[:commit_collect]
     # NOTE - this is complicated. It's getting the various collection item types and doing i18n on the name as well
     # as passing the raw facet type (used by Solr) as the values in the option hash that will be built in the view:
@@ -125,6 +126,7 @@ private
     @filter = params[:filter]
     @page = params[:page]
     @selected_collection_items = params[:collection_items] || []
+    # NOTE - you still need these counts on the Update page:
     @facet_counts = EOL::Solr::CollectionItems.get_facet_counts(@collection.id)
     @collection_results = @collection.items_from_solr(:facet_type => @filter, :page => @page, :sort_by => @sort_by)
     @collection_items = @collection_results.map { |i| i['instance'] }

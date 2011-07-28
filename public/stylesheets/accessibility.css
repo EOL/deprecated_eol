@@ -401,3 +401,12 @@ table.standard td.nowrap {
 
 #page_heading .page_actions {
   padding-top: 10px; }
+
+#collections .article.updates {
+  padding: 0 0 25px 0; }
+  #collections .article.updates li {
+    overflow: hidden;
+    padding: 20px; }
+    #collections .article.updates li .details img {
+      margin: 0 8px 0 0;
+      border: 1px solid #394651; }

@@ -4,5 +4,7 @@
   - types.keys.each do |type|
     - count = @facet_counts[types[type][:facet]] || 0
     - if count > 0
+      -# NOTE - a string is used for the path instead of collection_path(@collection, :filter => 'newsfeed') because
+      -# that version produces an awkward-looking URL.
       %li{:class => "#{type}#{@filter == type.to_s ? ' active' : ''}" }= link_to I18n.t("#{types[type][:i18n_key]}_with_count", :count => count), "/collections/#{@collection.id}/#{type}"
-  %li{:class => 'newsfeed' + (@filter == :newsfeed ? ' active' : '')}= link_to(I18n.t(:updates_with_count, :count => @collection.activity_log.count), @collection)
+  %li{:class => 'newsfeed' + (@filter == 'newsfeed' ? ' active' : '')}= link_to(I18n.t(:updates_with_count, :count => @collection.activity_log.count), "/collections/#{@collection.id}/newsfeed")

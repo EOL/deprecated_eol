@@ -1,5 +1,5 @@
 %div{"data-role"=>"header", "data-position"=>"fixed", "data-theme"=>"a"}
-  =link_to image_tag("/images/mobile/logo_simple.png", :height => '24')
+  =link_to "Home", "/mobile/contents", "data-icon"=>"home", "data-direction"=>"reverse"
   %h1=t "mobile.contents.home" 
 
 %div{"data-role"=>"content"}
@@ -9,13 +9,13 @@
     
   - unless @suggestions.blank?
     .suggestions
-      %h2 Suggestions
+      %h2= t "mobile.search.suggestions"
       = I18n.t(:did_you_mean, :suggestions => @suggestions.map{ |s| link_to s.firstcap, mobile_search_path(:mobile_search => s) }.join(", "))
   - if @all_results.blank?
-    %h2 No results found
+    %h2=t "mobile.search.no_results_found"
   - unless @all_results.blank?
     // TO-DO clean up and show only taxon related info
-    %h2 Results
+    %h2=t "mobile.search.results"
     .header
       - start_number = (@all_results.current_page - 1) * @all_results.per_page + 1
       - end_number = [ (start_number + @all_results.per_page - 1), @all_results.total_entries ].min

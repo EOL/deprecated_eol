@@ -6,8 +6,15 @@ class Mobile::ContentsController < Mobile::MobileController
 
   def enable
     session[:mobile_disabled] = false
-    render :update do |page|
-      page.redirect_to mobile_contents_path
+    respond_to do |format|
+      format.html {
+        redirect_to mobile_contents_path
+      }
+      format.js {
+        render :update do |page|
+          page.redirect_to mobile_contents_path
+        end
+      }
     end
   end
 

@@ -9,7 +9,7 @@
       %input{"type"=>"search","name"=>"mobile_search","id"=>"search_field","value"=>""}
   
   %ul#random_taxa_index{"data-role" => "listview", "data-inset"=>"true"}
-    %li{"data-role"=>"list-divider"}=t "mobile.contents.taxa" 
+    %li{"data-role"=>"list-divider"}=t "mobile.contents.species" 
     -@explore_taxa.map do |t|
       %li
         /=link_to mobile_taxon_path(t.taxon_concept_id) do      --DOES NOT WORK, THE SCRIPT LOOPS AND FREEZES--
@@ -43,6 +43,5 @@
     
 %div{"data-role"=>"footer"}
   %h3#go_to_full{"data-inline"=>"true"}
-    //=link_to_remote "Full site", :url => "/mobile/contents/disable"
-    =link_to "Full site", disable_mobile_contents_path, "data-ajax" => "false"
+    =link_to t("mobile.contents.full_site"), disable_mobile_contents_path, "data-ajax" => "false"
   

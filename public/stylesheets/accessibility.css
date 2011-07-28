@@ -398,3 +398,6 @@ table.standard td.nowrap {
 
 #collections_choose ul {
   width: 500px; }
+
+#page_heading .page_actions {
+  padding-top: 10px; }

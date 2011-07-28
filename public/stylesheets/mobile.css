@@ -36,7 +36,18 @@ li.with_thumbs img {
 #search_field{
 	color: #fff;
 }
-.ui-li-thumb, .ui-li-icon { /* Contents index, static pages 'li' thumbnails spacing */
+.ui-mobile a img.index_taxon_img{ /* Contents index, random taxon thumbnails */
+	width:70px;
+	height:70px;
+	display: block;
+    margin-left: 3px;
+    margin-right: auto;
+	margin-top: 3px;
+	background-color: #fff;
+	border: 3px solid white;
+	border-radius: 5px 5px 5px 5px;
+}
+.index_static_content_img { /* Contents index, static pages 'li' thumbnails */
 	left: 20px;
 	top: 15px;
 	max-height: 80px;

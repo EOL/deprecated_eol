@@ -385,7 +385,7 @@ module EOL
 
     def default_toc_option
       toc = [{:toc_item => TocItem.overview, :description => "This is an overview of the <b>#{@canon}</b> hierarchy entry."},
-                       {:toc_item => TocItem.find_by_translated(:label, 'Description'), :description => "This is an description of the <b>#{@canon}</b> hierarchy entry."}]
+             {:toc_item => TocItem.find_by_translated(:label, 'Description'), :description => "This is an description of the <b>#{@canon}</b> hierarchy entry."}]
       # Add more toc items:
       (2).times do
         toc << {} # Default values are applied below.

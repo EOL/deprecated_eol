@@ -14,8 +14,7 @@
           - unless children.empty?
             %ul
               - for child in children
-                %li<
-                  = link_to child.label, '/placeholder'
+                %li= link_to child.label, url_for(:anchor => category_anchor(child))
     #main
       - for root in roots
         - root_content = @details.collect{|d| d if d[:toc_item].id == root.category_id}.compact
@@ -28,5 +27,5 @@
               - for child in children
                 - child_content = @details.collect{|d| d if d[:toc_item].id == child.category_id}.compact
                 - unless child_content.empty?
-                  %h3= child.label
+                  %h3{:id => category_anchor(child)}= child.label
                   = render :partial => 'category_content', :locals => { :content => child_content }

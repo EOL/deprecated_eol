@@ -191,9 +191,9 @@ en:
         email: "Email address"
         entered_password: "Password"
         entered_password_confirmation: "Password again <small>(to confirm)</small>"
-        family_name: "Family name"
+        family_name: "Last name"
         full_name: "Full name"
-        given_name: "Given name"
+        given_name: "First name"
         language_abbr: "Preferred language"
         tag_line: "Tagline"
         username: "Username"
@@ -581,11 +581,12 @@ en:
   classification_preference_advisory_information: "Select a classification from the drop down select box, the content of the site will then be organised by the classification you choose."
   classification_provided_by: "Classification provided by"
   classification_tree_header: "Classification"
+  classification_view_in_hierarchy: "View in %{hierarchy_label}"
   classifications: "Classifications"
   classifications_empty: "Our curators haven't approved any classifications of this taxon yet."
   classifications_summary_header_with_count:
-    one: "Part of %{count} approved classification"
-    other: "Part of %{count} approved classifications"
+    one: "Found in %{count} classification"
+    other: "Found in %{count} classifications"
   _clear_all_non_species_pages_: "[clear all non-species pages]"
   _clear_: "[clear]"
   _clear_entire_cache_store_: "[clear entire cache store]"
@@ -870,8 +871,8 @@ en:
   curators_empty: "Our curators haven't contributed information to this taxon yet."
   curators_of_taxon_page_title: "Curators of %{taxon}"
   curators_summary_header_with_count:
-    one: "%{count} Curator"
-    other: "%{count} Curators"
+    one: "Reviewed by %{count} curator"
+    other: "Reviewed by %{count} curators"
   current_logos_: "Current Logos:"
   your_current_rating_0_of_5: "Your current rating: 0 of 5"
   your_current_rating_1_of_5: "Your current rating: 1 of 5"
@@ -1987,8 +1988,8 @@ en:
   recently_published_resources__: "Recently published resources (last 20)"
   recent_updates: "Recent updates"
   recipients: "Recipients"
-  recognised_by_hierarchy_agent_as_a_rank: '%{hierarchy_agent} %{hierarchy_agent_logo} as a %{taxon_rank}. <a href="%{hierarchy_entry_url}">View in classification</a>'
-  recognised_by_hierarchy_entry_agent_in_hierarchy_agent_as_a_rank: '%{hierarchy_entry_agent} in %{hierarchy_agent} %{hierarchy_agent_logo} as a %{taxon_rank}. <a href="%{hierarchy_entry_url}">View in classification</a>'
+  recognised_by_hierarchy_agent_as_a_rank: '%{hierarchy_agent} as a %{taxon_rank}. <a href="%{hierarchy_entry_url}">View in classification</a>'
+  recognised_by_hierarchy_entry_agent_in_hierarchy_agent_as_a_rank: '%{hierarchy_entry_agent} in %{hierarchy_agent} as a %{taxon_rank}. <a href="%{hierarchy_entry_url}">View in classification</a>'
   recognized_by: "Recognized by"
   recommend: "RECOMMEND"
   redirect_to_external_url_: "Redirect to external URL:"

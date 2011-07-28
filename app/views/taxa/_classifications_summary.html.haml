@@ -8,7 +8,7 @@
     %ul
       - @browsable_hierarchy_entries[0..1].each do |hierarchy_entry|
         %li
-          %h4= hierarchy_entry.hierarchy.label
+          %h4= link_to I18n.t(:classification_view_in_hierarchy, :hierarchy_label => hierarchy_entry.hierarchy.label), taxon_hierarchy_entry_overview_path(hierarchy_entry.taxon_concept_id, hierarchy_entry)
           - root_ancestor, immediate_parent = hierarchy_entry.kingdom_and_immediate_parent
           - if root_ancestor
             %ul
@@ -18,12 +18,12 @@
               -# TODO: If we're on a Kingdom page, we don't want two hard-coded entries, here:
               %li
                 %p
-                  = link_to(root_ancestor.title_canonical, taxon_overview_path(root_ancestor.taxon_concept_id), { :title => root_ancestor.rank_label })
+                  = link_to(root_ancestor.title_canonical, taxon_hierarchy_entry_overview_path(root_ancestor.taxon_concept_id, root_ancestor), { :title => root_ancestor.rank_label })
                 - unless immediate_parent.nil?
                   %ul
                     %li
                       %p
-                        = link_to(immediate_parent.title_canonical, taxon_overview_path(immediate_parent.taxon_concept_id), { :title => immediate_parent.rank_label })
+                        = link_to(immediate_parent.title_canonical, taxon_hierarchy_entry_overview_path(immediate_parent.taxon_concept_id, immediate_parent), { :title => immediate_parent.rank_label })
   - else
     .empty
       %p= I18n.t(:classifications_empty)

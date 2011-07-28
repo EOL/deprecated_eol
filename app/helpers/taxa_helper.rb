@@ -20,6 +20,12 @@ module TaxaHelper
     end
   end
 
+  # used in v2 taxa details
+  def category_anchor(toc_entry)
+    toc_entry.label.gsub(/[^0-9a-z]/i, '_').strip.downcase
+  end
+
+  # used in v2 taxa overview
   def iucn_status_class(iucn_status)
     case iucn_status
     when 'Least Concern (LC)', 'Lower Risk/least concern (LR/lc)', 'Near Threatened (NT)', 'Lower Risk/near threatened (LR/nt)', 'Lower Risk/conservation dependent (LR/cd)'

@@ -393,12 +393,6 @@ form.comment img {
 table.standard td.nowrap {
   white-space: nowrap; }
 
-#collections_choose h2 {
-  font-size: 2em; }
-
-#collections_choose ul {
-  width: 500px; }
-
 #page_heading .page_actions {
   padding-top: 10px; }
 
@@ -410,3 +404,20 @@ table.standard td.nowrap {
     #collections .article.updates li .details img {
       margin: 0 8px 0 0;
       border: 1px solid #394651; }
+
+#collections_choose h2 {
+  font-size: 1.3em;
+  margin: 2em 0 0.5em; }
+#collections_choose input[type="text"] {
+  background-color: white;
+  background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+  border: 1px solid #cad3db;
+  font: 1em Helvetica, Arial, sans-serif;
+  height: 22px;
+  padding: 2px 5px;
+  width: 248px; }
+#collections_choose ul {
+  border-top: 1px solid #394651; }
+#collections_choose li img {
+  float: left;
+  margin-right: 2em !important; }

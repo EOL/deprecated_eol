@@ -298,7 +298,10 @@ private
       curated_object = get_curated_object(@data_object, hierarchy_entry)
       handle_curation(curated_object, user, opts).each do |action|
         log = log_action(curated_object, action, opts)
-        # TODO - Untrust reasons, if any, must be added here.
+        # Saves untrust reasons, if any
+        unless untrust_reason_ids.blank?
+          save_untrust_reasons(log, untrust_reason_ids)
+        end
       end
       # TODO - Update Solr Index
     end
@@ -376,6 +379,23 @@ private
       :data_object => @data_object,
       :created_at => 0.seconds.from_now
     )
+  end
+
+  def save_untrust_reasons(log, untrust_reason_ids)
+    untrust_reason_ids.each do |untrust_reason_id|
+      case untrust_reason_id.to_i
+      when UntrustReason.misidentified.id
+        log.untrust_reasons << UntrustReason.misidentified if action == :untrusted
+      when UntrustReason.incorrect.id
+        log.untrust_reasons << UntrustReason.incorrect if action == :untrusted
+      when UntrustReason.poor.id
+        log.untrust_reasons << UntrustReason.poor if action == :hide
+      when UntrustReason.duplicate.id
+        log.untrust_reasons << UntrustReason.duplicate if action == :hide
+      else
+        raise "Please re-check the provided untrust reasons"
+      end
+    end
   end
 
 end

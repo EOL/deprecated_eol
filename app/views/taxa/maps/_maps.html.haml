@@ -1,4 +1,4 @@
-- taxon_concept = @dropdown_hierarchy_entry ? @dropdown_hierarchy_entry.taxon_concept : @taxon_concept
+- taxon_concept = @selected_hierarchy_entry ? @selected_hierarchy_entry.taxon_concept : @taxon_concept
 .article
   - if taxon_concept.has_map
     = javascript_include_tag 'swfobject'

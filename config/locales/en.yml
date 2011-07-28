@@ -182,6 +182,8 @@ en:
     models:
       user: "account"
     attributes:
+      data_object:
+        object_title: "Title"
       name:
         string: "Name"
       user:
@@ -222,6 +224,8 @@ en:
       update: "Update %{model}"
       data_object:
         create: "Add article"
+        create_text: "Add article"
+        update: "Update article"
       name:
         create: "Add name"
         update: "Update name"
@@ -235,8 +239,6 @@ en:
         generate_api_key: "Generate a key"
         curation_application: "Apply now"
         curation_privileges: "Submit request"
-      data_object:
-        create_text: "Add article"
     label:
       data_object:
         description: "Body"
@@ -915,6 +917,11 @@ en:
   date_updated: "Date Updated"
   date_uploaded_: "Date uploaded:"
   dato_create_cancel: "Cancel"
+  dato_edit_cancel: "Cancel"
+  dato_create_missing_text_dato_error: "Sorry, the article could not be added."
+  dato_edit_text_link_button: "Edit this article"
+  dato_edit_text_page_description: "Some info about editing.. maybe"
+  dato_edit_text_title: "Edit article"
   dato_hidden_note: "%{username} hid %{type}."
   dato_inappropriate_note: "%{username} marked this %{type} as inappropriate."
   dato_new_text_for_taxon_page_title: "Add an article to <i>%{taxon}</i>"

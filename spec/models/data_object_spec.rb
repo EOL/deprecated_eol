@@ -13,6 +13,7 @@ describe DataObject do
     @curator         = @testy[:curator]
     @another_curator = create_curator
     @data_object     = @taxon_concept.add_user_submitted_text(:user => @curator)
+    #add_user_submitted_text
     @image_dato      = @taxon_concept.images.last
 
     @dato = DataObject.gen(:description => 'That <b>description has unclosed <i>html tags')

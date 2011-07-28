@@ -347,15 +347,36 @@ TaxonConcept.class_eval do
                :language    => Language.english,
                :vetted      => false
               }.merge(options)
-    dato = DataObject.create_user_text({:taxon_concept_id => self.id,
-                                        :data_objects_toc_category => { :toc_id => options[:toc_item].id },
-                                        :data_object => {
-                                          :object_title => options[:title],
-                                          :description  => options[:description],
-                                          :language_id  => options[:language].id,
-                                          :license_id   => options[:license].id
-                                        }
-                                       }, options[:user])
+    # dato = DataObject.create_user_text({:taxon_concept_id => self.id,
+    #                                     :data_objects_toc_category => { :toc_id => options[:toc_item].id },
+    #                                     :data_object => {
+    #                                       :object_title => options[:title],
+    #                                       :description  => options[:description],
+    #                                       :language_id  => options[:language].id,
+    #                                       :license_id   => options[:license].id
+    #                                     }
+    #                                    }, options[:user])
+
+    dato = DataObject.create_user_text(
+                                        {:data_object=>
+                                          {:toc_items=>{:id=>options[:toc_item].id},
+                                           :data_type_id=>DataType.text.id,
+                                           :object_title=>options[:title],
+                                           :license_id=>options[:license].id,
+                                           :language_id=>options[:language].id,
+                                           :description=>options[:description]},
+                                         :commit=>"Add article",
+                                         :action=>"create",
+                                         :taxon_id=>self.id,
+                                         :controller=>"data_objects",
+                                         :references=>""}, options[:user]
+                                      )
+
+                                   
+                                       
+                                       
+                                       
+                                       
     if options[:vetted]
       curator = User.find(self.curators.first) # Curators array doesn't return "full" user objects...
       curator ||= User.first

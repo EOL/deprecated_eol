@@ -9,4 +9,7 @@
   - else
     - owner = "&copy; #{data_object.rights_holder}"
   - unless owner.blank?
-    = link_to_if linked && !user.blank? && !user.id.blank?, owner, user_path(user)
+    - if linked && !user.blank? && ! user.id.blank?
+      = link_to owner, user_path(user)
+    - else
+      = owner

@@ -364,13 +364,18 @@ body
 #taxonomy_detail
   #main
     .article
-      .copy
+      .copy, .references
         margin: 0 0 15px 0
         line-height: 170%
 #text_summary.article
   .copy
     margin: 0 0 15px 0
     line-height: 170%
+/** Recognized by is looking to cramped **/
+.recognized
+  ul
+    li
+      padding: 5px 0
 
 /* TODO: this hasn't been really thought out and should be changed: */
 .heading
@@ -472,12 +477,12 @@ ul.feed
     &.filters
       img
         max-width: 220px
-        max-height: 162px
+        /*max-height: 162px*/
 #taxonomy_detail
   #sidebar
     img
       max-width: 260px
-      max-height: 190px
+      /*max-height: 190px*/
 ul
   &.object_list
     li

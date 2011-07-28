@@ -308,13 +308,17 @@ body > #header .section .session .join {
  * extra div.description and assign styles to the div - check this, particularly line-height as we probably need
  * to remove some HR styles from nested p. Check latest HR and remove the table styles here if possible.
  * if we keep this we should DRY it out - same for whole file actually */
-#taxonomy_detail #main .article .copy {
+#taxonomy_detail #main .article .copy, #taxonomy_detail #main .article .references {
   margin: 0 0 15px 0;
   line-height: 170%; }
 
 #text_summary.article .copy {
   margin: 0 0 15px 0;
   line-height: 170%; }
+
+/*Recognized by is looking to cramped */
+.recognized ul li {
+  padding: 5px 0; }
 
 /* TODO: this hasn't been really thought out and should be changed: */
 .heading p#empty {
@@ -381,11 +385,11 @@ ul.feed li > a > img {
   max-height: 125px; }
 #media_list #sidebar.filters img {
   max-width: 220px;
-  max-height: 162px; }
+  /*max-height: 162px */ }
 
 #taxonomy_detail #sidebar img {
   max-width: 260px;
-  max-height: 190px; }
+  /*max-height: 190px */ }
 
 ul.object_list li img {
   max-width: 68px;

@@ -452,7 +452,7 @@ en:
   are_you_sure_you_want_to_var__: "Are you sure you want to %{var__agent_show_on_partner_page_____hide_____show_} this partner on the content partner page?"
   are_you_sure_you_want_to_var_____: "Are you sure you want to %{var__agent_show_stats_on_partner_page_____hide_____show_} a link to this partner's statistics on the content partner page?"
   are_you_sure_you_want_to_var______: "Are you sure you want to %{var__agent_vetted_____unvet_____vet_} this partner?  All of their uncurated data objects will become %{var__agent_vetted_____untrusted_____trusted_} immediately!"
-  article_more_about: "read more about this article"
+  article_more_about: "Learn more about this article"
   article_rating: "Article rating"
   articles_with_count:
     one: "%{count} Article"
@@ -1988,8 +1988,8 @@ en:
   recently_published_resources__: "Recently published resources (last 20)"
   recent_updates: "Recent updates"
   recipients: "Recipients"
-  recognised_by_hierarchy_agent_as_a_rank: '%{hierarchy_agent} as a %{taxon_rank}. <a href="%{hierarchy_entry_url}">View in classification</a>'
-  recognised_by_hierarchy_entry_agent_in_hierarchy_agent_as_a_rank: '%{hierarchy_entry_agent} in %{hierarchy_agent} as a %{taxon_rank}. <a href="%{hierarchy_entry_url}">View in classification</a>'
+  recognised_by_hierarchy_agent_as_a_rank: '%{hierarchy_agent} as a %{taxon_rank} <a href="%{hierarchy_entry_url}">view in classification</a>'
+  recognised_by_hierarchy_entry_agent_in_hierarchy_agent_as_a_rank: '%{hierarchy_entry_agent} in %{hierarchy_agent} as a %{taxon_rank} <a href="%{hierarchy_entry_url}">view in classification</a>'
   recognized_by: "Recognized by"
   recommend: "RECOMMEND"
   redirect_to_external_url_: "Redirect to external URL:"
@@ -2123,7 +2123,7 @@ en:
     one: "See the <span class=\"assistive\">%{count} collection in which this taxon appears.</span>"
     other: "See all <span class=\"assistive\">%{count} collections in which this taxon appears.</span>"
   see_all_comments_with_count_for_text:
-    one: "see the comment for this article"
+    one: "see %{count} comment for this article"
     other: "see all %{count} comments for this article"
   see_all_communities_with_count_html:
     one: "See the <span class=\"assistive\">%{count} community that focus on this taxon.</span>"

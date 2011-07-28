@@ -1,14 +1,12 @@
 - # owner basically means choose someone responsible for this object
 - linked ||= false
 - if data_object.added_by_user?
-  - attribution = data_object.users_data_objects[0].user.given_name + data_object.users_data_objects[0].user.family_name
+  - # TODO: users have agent so should we be using it? They can't update it though - common names perhaps uses user agent?
+  - attribution = data_object.users_data_objects[0].user.full_name
 - else
   - if data_object.rights_holder.blank?
     - owner, user = data_object.owner
   - else
     - owner = "&copy; #{data_object.rights_holder}"
   - unless owner.blank?
-    - if linked && !user.blank? && ! user.id.blank?
-      = link_to owner, user_path(user)
-    - else
-      = owner
+    = link_to_if linked && !user.blank? && !user.id.blank?, owner, user_path(user)

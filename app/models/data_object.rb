@@ -541,13 +541,14 @@ class DataObject < SpeciesSchemaModel
                    AgentRole.editor, AgentRole.contributor ]
     role_order.each do |role|
       best_ado = agents_data_objects.find_all{|ado| ado.agent_role_id == role.id && ado.agent}
-      break unless best_ado.empty?
+      break unless best_ado.blank?
     end
 
     # if we don't have any agents with the preferred roles then just pick one
-    best_ado = agents_data_objects.find_all{|ado| ado.agent_role && ado.agent}
+    best_ado = agents_data_objects.find_all{|ado| ado.agent_role && ado.agent} if best_ado.blank?
     return nil if best_ado.blank?
-    return best_ado.first.agent.full_name, best_ado.first.agent.user
+    # TODO: optimize this, preload agents and users on DataObject or something
+    return best_ado.first.agent.full_name, User.find_by_agent_id(best_ado.first.agent.id)
 
   end
 

@@ -1,4 +1,5 @@
 - linked ||= false
+- supplier ||= false
 = render :partial => 'data_objects/license', :locals => { :data_object => data_object }
 .copy
   %p<
@@ -6,4 +7,7 @@
     - if linked
       &mdash;
       = link_to I18n.t(:source_information_link), data_object_path(data_object)
-  - #TODO add supplier here %p= I18n.t(:supplier_with_colon) link_to supplier, supplier url
+  - if supplier
+    %p
+      = I18n.t(:supplier_colon) + " "
+      = link_to data_object.data_supplier_agent.full_name, data_object.data_supplier_agent.user

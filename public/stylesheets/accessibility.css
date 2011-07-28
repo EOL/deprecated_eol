@@ -68,6 +68,19 @@ form#switch_hierarchy_entry fieldset {
 .learn_more fieldset.actions {
   display: inline; }
 
+/*Getting rid of the dodgy dot */
+.meta.learn_more p:before, .meta.learn_more form:before {
+  content: "•";
+  margin: 0 10px 0 0; }
+.meta.learn_more p:after, .meta.learn_more form:after {
+  content: "" !important;
+  margin: 0 !important; }
+.meta.learn_more p {
+  text-transform: lowercase; }
+  .meta.learn_more p:first-child:before {
+    content: "";
+    margin: 0 !important; }
+
 /*terms agreement ** */
 #content.session form.edit_user p {
   margin-bottom: 20px; }
@@ -227,7 +240,7 @@ body > #header .section .session .join {
   body > #header .section .session .join a {
     color: #90bce4; }
 
-/*Check latest from HR they might have put IUCN styles in by now. */
+/*IUCN styles, we use a h3 header instead of just a paragraph so its easier to find with screenreaders. */
 #iucn_status {
   border: 1px solid #cad3db;
   background: #f1f4f7;
@@ -249,18 +262,20 @@ body > #header .section .session .join {
     border-color: #f2d2cc;
     background: #ffeae6; }
 
-/*we share attribution across multiple pages my guess is we needed some overrides here */
+/*we share attribution across multiple pages so we need some overrides of HR here */
 #text_summary .attribution {
   font-size: 0.92em; }
   #text_summary .attribution img {
     float: left;
     margin: 2px 10px 0 0; }
 
-#taxonomy .gallery .attribution a + .copy {
+#taxonomy .gallery .attribution .copy {
   padding: 0 0 0 90px; }
 
-/*Our classification is a hierarchichal list whereas HR was just links without hierarchy so we override the styles here
- * check this is still true after hierarchy entry page design is implemented */
+/*Our classification summary is a hierarchichal list whereas HR was just links without hierarchy
+ * so we override the styles here */
+#classifications_summary h4 {
+  padding-bottom: 15px !important; }
 #classifications_summary li {
   overflow: hidden; }
   #classifications_summary li li p {
@@ -291,8 +306,13 @@ body > #header .section .session .join {
 
 /*HR styles assume text descriptions are nicely wrapped in p tags - in reality they may or may not be so we add
  * extra div.description and assign styles to the div - check this, particularly line-height as we probably need
- * to remove some HR styles from nested p. Check latest HR and remove the table styles here if possible.* */
+ * to remove some HR styles from nested p. Check latest HR and remove the table styles here if possible.
+ * if we keep this we should DRY it out - same for whole file actually */
 #taxonomy_detail #main .article .copy {
+  margin: 0 0 15px 0;
+  line-height: 170%; }
+
+#text_summary.article .copy {
   margin: 0 0 15px 0;
   line-height: 170%; }
 

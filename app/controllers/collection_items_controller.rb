@@ -34,7 +34,14 @@ class CollectionItemsController < ApplicationController
       format.js do
         if flash[:error].nil?
           flash[:notice] = nil # No need to flash with JS.
-          render :partial => 'shared/add_to_my_collection', :layout => false, :locals => { :item => @collection_item.object }
+          # this means we came from the collections summary on the overview page,
+          # so render that entire summary box again
+          if params[:return_to].match(/^\/pages\/[0-9]+\/overview$/) && params[:render_overview_summary]
+            @taxon_concept = @collection_item.object
+            render :partial => 'taxa/collections_summary', :layout => false, :locals => { :item => @collection_item.object }
+          else
+            render :partial => 'shared/add_to_my_collection', :layout => false, :locals => { :item => @collection_item.object }
+          end
         else
           err = flash[:error]
           flash[:error] = nil

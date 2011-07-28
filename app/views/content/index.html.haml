@@ -1,43 +1,42 @@
 #content
   .section
-    - if @cached_fragment
-      = @cached_fragment
-    - else
-      - cache({:controller=>"content", :part => 'home_' + current_user.content_page_cache_str}) do
-        .article.stats
-          -#TODO: Figure out how stats content is going to be generated e.g. static + count or editable from CMS?
-          %h3= I18n.t(:currently_in_eol)
-          = I18n.t(:as_of_time, :time => format_date_time(Time.now))
-          %ul
-            %li.taxon
-              %dl
-                %dd= number_with_delimiter(total_count("taxon_concepts"), :delimiter => ",")
-                %dt= I18n.t(:taxa)
-              = link_to I18n.t(:what_is_a_taxon), "/placeholder"
-            - # TODO - Add proper members class & icon instead of contributors
-            %li.contributors
-              %dl
-                %dd= number_with_delimiter(total_count("users"), :delimiter => ",")
-                %dt= I18n.t(:members_like_you)
-              = link_to I18n.t(:learn_how_to_join), "/placeholder"
-            - # TODO - Add proper collections class & icon instead of communities
-            %li.communities
-              %dl
-                %dd= number_with_delimiter(total_count("collections"), :delimiter => ",")
-                %dt= I18n.t(:collections)
-              = link_to I18n.t(:learn_how_to_interact), "/placeholder"
-            %li.images
-              %dl
-                %dd= number_with_delimiter(total_count("data_objects"), :delimiter => ",")
-                %dt= I18n.t(:images)
-              = link_to I18n.t(:learn_how_to_contribute), "/placeholder"
-            %li.partners
-              %dl
-                %dd= number_with_delimiter(total_count("content_partners"), :delimiter => ",")
-                %dt= I18n.t(:content_partners)
-              = link_to I18n.t(:learn_about_content_partners), "/placeholder"
-        .article.community
-          %h3= I18n.t(:community_activity)
-          = render :partial => 'activity_logs/index', :locals => { :log => EOL::ActivityLog.global[0..$ACTIVITIES_ON_HOME_PAGE-1] }
-        - unless logged_in?
-          = render :partial => 'shared/join_eol', :locals => {:join_style => 'button'}
+    - cache_key = 'home_' + current_user.content_page_cache_str
+    - cache_key += '_logged_in' if logged_in?
+    - cache({:controller=>"content", :part => cache_key}) do
+      .article.stats
+        -#TODO: Figure out how stats content is going to be generated e.g. static + count or editable from CMS?
+        %h3= I18n.t(:currently_in_eol)
+        = I18n.t(:as_of_time, :time => format_date_time(Time.now))
+        %ul
+          %li.taxon
+            %dl
+              %dd= number_with_delimiter(total_count("taxon_concepts"), :delimiter => ",")
+              %dt= I18n.t(:taxa)
+            = link_to I18n.t(:what_is_a_taxon), "/placeholder"
+          - # TODO - Add proper members class & icon instead of contributors
+          %li.contributors
+            %dl
+              %dd= number_with_delimiter(total_count("users"), :delimiter => ",")
+              %dt= I18n.t(:members_like_you)
+            = link_to I18n.t(:learn_how_to_join), "/placeholder"
+          - # TODO - Add proper collections class & icon instead of communities
+          %li.communities
+            %dl
+              %dd= number_with_delimiter(total_count("collections"), :delimiter => ",")
+              %dt= I18n.t(:collections)
+            = link_to I18n.t(:learn_how_to_interact), "/placeholder"
+          %li.images
+            %dl
+              %dd= number_with_delimiter(total_count("data_objects"), :delimiter => ",")
+              %dt= I18n.t(:images)
+            = link_to I18n.t(:learn_how_to_contribute), "/placeholder"
+          %li.partners
+            %dl
+              %dd= number_with_delimiter(total_count("content_partners"), :delimiter => ",")
+              %dt= I18n.t(:content_partners)
+            = link_to I18n.t(:learn_about_content_partners), "/placeholder"
+      .article.community
+        %h3= I18n.t(:community_activity)
+        = render :partial => 'activity_logs/index', :locals => { :log => EOL::ActivityLog.global[0..$ACTIVITIES_ON_HOME_PAGE-1] }
+      - unless logged_in?
+        = render :partial => 'shared/join_eol', :locals => {:join_style => 'button'}

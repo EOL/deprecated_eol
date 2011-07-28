@@ -62,10 +62,11 @@ module EOL
 
       def preload_taxon_concepts!(collection_items)
         return if collection_items.blank?
-        includes = { :object =>
-          { :published_hierarchy_entries => { :name => :canonical_form } } }
+        includes = { :object => [ :taxon_concept_metric,
+          { :published_hierarchy_entries => { :name => :canonical_form } } ] }
         selects = {
           :taxon_concepts => 'id',
+          :taxon_concept_metrics => [ :taxon_concept_id, :richness_score ],
           :hierarchy_entries => [ :id, :name_id, :taxon_concept_id, :published, :vetted_id, :hierarchy_id ],
           :names => [ :id, :canonical_form_id ],
           :canonical_forms => [ :id, :string ]

@@ -23,11 +23,11 @@ class SearchController < ApplicationController
       @suggestions = search_response[:suggestions]
       log_search(request)
       current_user.log_activity(:text_search_on, :value => params[:q])
-      if @all_results.length == 1 && @all_results.total_entries == 1
-        redirect_to_page(@all_results)
+      if params[:show_all].blank? && @all_results.length == 1 && @all_results.total_entries == 1
+        redirect_to_page(@all_results, :total_results => 1, :params => params)
       elsif params[:show_all].blank? && @all_results.total_entries > 1 && @all_results.length > 1 &&
         @all_results[0]['score'] > 5 && (@all_results[0]['score'] > (@all_results[1]['score'] * 4))
-        redirect_to_page(@all_results, :more_results => true, :params => params)
+        redirect_to_page(@all_results, :total_results => @all_results.total_entries, :params => params)
       end
     end
     params.delete(:type) if params[:type] == ['all']
@@ -36,15 +36,15 @@ class SearchController < ApplicationController
   
   # there are various object types which can be the only result. This method handles redirecting to all of them
   def redirect_to_page(result_set, options={})
-    if options[:more_results]
-      modified_params = options[:params].dup
-      modified_params.delete(:type) if modified_params[:type] == ['all']
-      modified_params.delete(:sort_by) if modified_params[:sort_by] == 'score'
-      modified_params.delete_if{ |k, v| ![ :sort_by, :type ].include?(k) }
-      modified_params[:q] = @querystring
+    modified_params = options[:params].dup
+    modified_params.delete(:type) if modified_params[:type] == ['all']
+    modified_params.delete(:sort_by) if modified_params[:sort_by] == 'score'
+    modified_params.delete_if{ |k, v| ![ :sort_by, :type ].include?(k) }
+    modified_params[:q] = @querystring
+    if options[:total_results] > 1
       flash[:notice] = I18n.t(:flash_notice_redirected_from_search_html_more_results, :search_string => @querystring, :more_results_url => search_path(nil, modified_params.merge({ :show_all => true })))
-    else
-      flash[:notice] = I18n.t(:flash_notice_redirected_from_search_html, :search_string => @querystring)
+    elsif options[:total_results] == 1
+      flash[:notice] = I18n.t(:flash_notice_redirected_from_search_html, :search_string => @querystring, :more_results_url => search_path(nil, modified_params.merge({ :show_all => true })))
     end
     result_instance = result_set.first['instance']
     if result_instance.class == Collection

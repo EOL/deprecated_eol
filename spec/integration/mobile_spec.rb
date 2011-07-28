@@ -1,7 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 require File.dirname(__FILE__) + '/../../lib/eol_data'
 require 'nokogiri'
-require 'solr_api'
 
 class EOL::NestedSet; end
 EOL::NestedSet.send :extend, EOL::Data
@@ -89,7 +88,7 @@ describe 'Mobile taxa browsing' do
     @section = 'overview'
   end
 
-  # This test sometime passes, sometimes not. Still wondering why.
+  # This test sometime passes, sometimes not. Pure random behaviour. WTF still wondering why.
   it 'should show a random species index' do
     headers = {"User-Agent" => "iPhone"}
     visit "/mobile/contents"
@@ -154,72 +153,81 @@ end
 
 describe 'Mobile search' do
   
-  puts "Mobile search tests to be implemented"
+  before :all do
+    truncate_all_tables
+    load_scenario_with_caching(:search_names)
+    data = EOL::TestInfo.load('search_names')
   
-  # before :all do
-  #   truncate_all_tables
-  #   load_scenario_with_caching(:search_names)
-  #   data = EOL::TestInfo.load('search_names')
-  # 
-  #   @panda                      = data[:panda]
-  #   @name_for_all_types         = data[:name_for_all_types]
-  #   @name_for_multiple_species  = data[:name_for_multiple_species]
-  #   @unique_taxon_name          = data[:unique_taxon_name]
-  #   @text_description           = data[:text_description]
-  #   @image_description          = data[:image_description]
-  #   @video_description          = data[:video_description]
-  #   @sound_description          = data[:sound_description]
-  #   @tiger_name                 = data[:tiger_name]
-  #   @tiger                      = data[:tiger]
-  #   @tiger_lilly_name           = data[:tiger_lilly_name]
-  #   @tiger_lilly                = data[:tiger_lilly]
-  #   @tricky_search_suggestion   = data[:tricky_search_suggestion]
-  #   @suggested_taxon_name       = data[:suggested_taxon_name]
-  #   @user1                      = data[:user1]
-  #   @user2                      = data[:user2]
-  #   @community                  = data[:community]
-  #   @collection                 = data[:collection]
-  # 
-  #   Capybara.reset_sessions!
-  #   make_all_nested_sets
-  #   flatten_hierarchies
-  #   builder = EOL::Solr::SiteSearchCoreRebuilder.new()
-  #   builder.begin_rebuild
-  # end
-  # 
-  # it 'should show a search field on mobile home page' do
-  #   headers = {"User-Agent" => "iPhone"}
-  #   visit "/mobile/contents"
-  #   body.should have_tag("form", :method => "get", :action => "/mobile/search/")
-  #   body.should have_tag("input", :type => "search", :name => "mobile_search", :id => "search_field")
-  #   
-  #   ## Cannot submit form without submit button. Keeping for reference.
-  #   #fill_in 'search_field', :with => 'cani'
-  #   #submit_form "search_form"
-  #   #find_field('search_field').native.send_key(:enter)
-  #   #page.evaluate_script("document.forms[0].submit()")
-  # end
-  # 
-  # it 'should redirect to taxon overview page if only one match is found' do
-  #   headers = {"User-Agent" => "iPhone"}
-  #   visit("/mobile/search?mobile_search=#{@unique_taxon_name}")
-  #   #body.should_not include "We're sorry but an error has occurred"
-  #   body.should have_tag("h1", I18n.t("mobile.taxa.taxon_overview"))
-  #   body.should have_tag("h3", @unique_taxon_name)
-  # end
-  # 
-  # it 'should search for an invalid term and provide a suggestion' do
-  #   headers = {"User-Agent" => "iPhone"}
-  #   visit("/mobile/search?mobile_search=cani")
-  #   #body.should_not include "We're sorry but an error has occurred"
-  #   body.should have_tag('h2', 'Suggestions')
-  #   body.should have_content('Did you mean:')
-  #   body.have_link('Canis', :href => '/mobile/search?mobile_search=canis')
-  # end
-  # 
-  # it 'should return a list of results' do
-  #   headers = {"User-Agent" => "iPhone"}
-  #   visit("/mobile/search?mobile_search=canis")
-  # end
+    @panda                      = data[:panda]
+    @name_for_all_types         = data[:name_for_all_types]
+    @name_for_multiple_species  = data[:name_for_multiple_species]
+    @unique_taxon_name          = data[:unique_taxon_name]
+    @text_description           = data[:text_description]
+    @image_description          = data[:image_description]
+    @video_description          = data[:video_description]
+    @sound_description          = data[:sound_description]
+    @tiger_name                 = data[:tiger_name]
+    @tiger                      = data[:tiger]
+    @tiger_lilly_name           = data[:tiger_lilly_name]
+    @tiger_lilly                = data[:tiger_lilly]
+    @tricky_search_suggestion   = data[:tricky_search_suggestion]
+    @suggested_taxon_name       = data[:suggested_taxon_name]
+    @user1                      = data[:user1]
+    @user2                      = data[:user2]
+    @community                  = data[:community]
+    @collection                 = data[:collection]
+  
+    Capybara.reset_sessions!
+    visit('/logout')
+    make_all_nested_sets
+    flatten_hierarchies
+    builder = EOL::Solr::SiteSearchCoreRebuilder.new()
+    builder.begin_rebuild
+  end
+  
+  it 'should show a search field on mobile home page' do
+    
+    pending "Not Yet Implemented"
+    
+    headers = {"User-Agent" => "iPhone"}
+    visit "/mobile/contents"
+    body.should have_tag("form", :method => "get", :action => "/mobile/search/")
+    body.should have_tag("input", :type => "search", :name => "mobile_search", :id => "search_field")
+    
+    ## Cannot submit form without submit button. Keeping for reference.
+    #fill_in 'search_field', :with => 'cani'
+    #submit_form "search_form"
+    #find_field('search_field').native.send_key(:enter)
+    #page.evaluate_script("document.forms[0].submit()")
+  end
+  
+  it 'should redirect to taxon overview page if only one match is found' do
+    
+    pending "Not Yet Implemented"
+    
+    headers = {"User-Agent" => "iPhone"}
+    visit("/mobile/search?mobile_search=#{@unique_taxon_name}")
+    body.should_not include "We're sorry but an error has occurred"
+    body.should have_tag("h1", I18n.t("mobile.taxa.taxon_overview"))
+    body.should have_tag("h3", @unique_taxon_name)
+  end
+  
+  it 'should search for an invalid term and provide a suggestion' do
+    
+    pending "Not Yet Implemented"
+    
+    headers = {"User-Agent" => "iPhone"}
+    visit("/mobile/search?mobile_search=cani")
+    body.should_not include "We're sorry but an error has occurred"
+    body.should have_tag('h2', 'Suggestions')
+    body.should have_content('Did you mean:')
+    body.have_link('Canis', :href => '/mobile/search?mobile_search=canis')
+  end
+  
+  it 'should return a list of results' do
+    
+    pending "Not Yet Implemented"
+    
+  end
   
 end

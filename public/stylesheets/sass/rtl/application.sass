@@ -14,19 +14,31 @@ form
       padding: 0 0 5px 0
       label
         font-weight: bold
+        small
+          color: #616e7a        
     dd
       padding: 0 0 10px 0
       input[type="text"], input[type="password"], textarea, select
         margin: 0 0 5px 0
       textarea
         +textarea
+  label
+    &.required
+      background: url("/images/v2/icon_required.png") 0 45% no-repeat
+      padding-right: 10px
+      margin-right: -10px
+    &.checkbox
+      display: block
+      font-weight: bold
+      input
+        margin: 0 0 0 5px        
   fieldset.actions
     button
       display: none
     input[type="submit"],
     button
       +button
-      margin: 0
+      margin: 0 5px 0 0
       padding: 3px 10px
       font-size: .92em
   .heading &.filter
@@ -94,7 +106,6 @@ ul.tabs
   li
     margin: 0 0 1px 0
     font-weight: bold
-    text-transform: lowercase
     border: 1px solid #cad3db
     border-left-color: #93a4b0
     +border-top-right-radius(3px)
@@ -102,7 +113,7 @@ ul.tabs
     +gradient-bg-horizontal(#ffffff, #f0f4f7)
     a
       display: block
-      padding: 7px 10px
+      padding: 7px 10px 6px 10px
       text-decoration: none
       color: #616e7a
     &:hover
@@ -216,23 +227,25 @@ p.status
     & + h3,
     & + h4
       padding-top: 20px
-  table
-    border-collapse: collapse
-    width: 100%
-    margin: 0 0 15px 0
-    thead
-      tr
-        border: 1px solid #cad3db
-        th
-          background: #eff2f4
-          padding: 5px 0 0 20px
-          font-weight: bold
-          text-align: right
-    tbody
-      tr
-        border: 1px solid #cad3db
-        td
-          padding: 5px 0 0 20px
+table.standard
+  border-collapse: collapse
+  width: 100%
+  margin: 0 0 15px 0
+  line-height: 170%
+  thead
+    tr
+      border: 1px solid #cad3db
+      th
+        background: #eff2f4
+        padding: 5px 20px
+        font-weight: bold
+        text-align: right
+  tbody
+    tr
+      border: 1px solid #cad3db
+      td
+        padding: 5px 0 0 20px
+
 
 .article
   padding: 0 10px 25px 10px
@@ -294,7 +307,7 @@ p.status
         font-size: .75em
         font-weight: bold
         text-transform: uppercase
-        color: #82919e
+        color: #62707d
     .details
       img
         float: none
@@ -443,27 +456,16 @@ ul.object_list
       h4
         margin: 0
 
-table.names
-  width: 100%
-  margin: 0 0 20px 0
-  border: 1px solid #cad3db
-  border-spacing: 0
-  border-collapse: collapse
-  th
-    padding: 7px 20px 7px 0
-    text-align: right
-    vertical-align: top
-    border-bottom: 1px solid #cad3db
-  thead
-    th
-      background: #eff2f4
-  td
-    padding: 7px 20px 7px 0
-    line-height: 170%
-    vertical-align: top
-    border-bottom: 1px solid #cad3db
-    a
-      font-weight: bold
+#taxon_names
+  .article.recognized
+    ul
+      a.view
+        font-weight: bold
+        margin-right: 10px
+  table.standard
+    td
+      a
+        font-weight: bold
 
 form.select_content_partner
   padding: 5px 0
@@ -531,16 +533,16 @@ body
           p.user_links
             font-size: 9px
             text-transform: uppercase
-            color: #82919e
+            color: #62707d
             a
-              color: #90bce4
+              color: #acd7ff
               text-decoration: none
         .sign_in
           p
             font-weight: bold
             line-height: 150%
           a
-            color: #90bce4
+            color: #acd7ff
             
 #content
   overflow: hidden
@@ -582,6 +584,13 @@ body
     color: #5f6c76
     &.status
       color: #394651    
+    &.message
+      clear: both
+      background: #fff
+      border: 1px solid #d4dce2
+      text-align: center
+      padding: 3px 0
+      margin: 0 0 10px 0      
   .page_actions
     float: left
     padding-right: 20px
@@ -754,10 +763,11 @@ body
     li
       padding-top: 20px
       padding-bottom: 20px
+      img
+        margin-left: -1px      
       .checkbox
         float: left
         border: 1px solid #cad3db
-        border-right: none
         height: 68px
         line-height: 68px
         padding: 0 0 0 3px
@@ -769,6 +779,30 @@ body
         +textarea
         width: 460px
         height: 50px
+      p.edit
+        display: none
+      form
+        margin: 10px 0 0 0
+        textarea
+          margin: 0 0 20px 0
+        input[type="submit"]
+          margin: 0 0 0 5px
+
+#collections_edit
+  width: 500px
+  margin: 0 auto
+  h2
+    margin: 0 0 20px 0
+  input[type="text"]
+    +input(488px)
+  textarea
+    width: 482px
+    height: 60px
+  fieldset.actions
+    padding: 20px 0
+    input[type="submit"]
+      padding: 7px 10px
+      font-size: 1em
 
 #collections_tab
   ul.object_list
@@ -811,15 +845,64 @@ body
       margin-right: 20px
       dl
         line-height: 140%
-      dt
-        clear: both
+        dt
+          font-weight: bold
+        dd
+          margin: 0 20px 5px 0
+
+#profile_curator_info
+  padding: 40px
+  fieldset
+    padding-top: 10px
+    dt
+      margin: 0
+      label
+        display: block
+        font-size: 16px
+      p, label, ol, ol li
+        margin-bottom: 5px
+    dd
+      margin: 0 0 10px 0
+      textarea
+        width: 600px
+        height: 60px
+    input[type="submit"]
+      padding: 7px 10px
+      font-size: 1em
+
+#profile_content_connections
+  padding: 40px
+  ul
+    margin: 0 0 30px 0
+    li
+      overflow: hidden
+      margin: 0 0 10px 0
+      img
         float: right
-        padding: 0 0 5px 0
-        font-weight: bold
-      dd
-        overflow: hidden
-        padding: 0 0 5px 0
-        text-align: left
+        border: 1px solid #394651
+        margin: 0 10px 0 0
+      .details
+        float: right
+        margin: 10px 0 0 0
+        a
+          font-size: .9em
+          margin: 0 0 0 5px
+          +underline-on-hover
+
+#content_partner
+  padding: 40px
+  fieldset
+    input[type="text"],
+    input[type="password"]
+      +input
+    textarea
+      width: 622px
+      height: 60px
+    input[type="submit"]
+      padding: 7px 10px
+      margin: 0 0 0 10px
+      font-size: 1em
+
 
 #community
   padding: 20px
@@ -848,12 +931,43 @@ body
           margin: 0 0 0 8px
           border: 1px solid #394651
 
+#taxon_literature
+  .main_container
+    padding: 20px
+    .bhl_description
+      overflow: hidden
+      margin: 0 0 20px 0
+      p
+        margin: 20px
+      a
+        font-weight: bold
+        +underline-on-hover
+      img
+        float: right
+        margin: 0 20px 0 0
+    .heading
+      text-align: center
+      margin: 0 0 20px 0
+    table
+      tr
+        td
+          vertical-align: middle
+          &.pages
+            white-space: nowrap
+          a
+            font-weight: bold
+            +underline-on-hover
+          + td
+            font-size: .9em
+            line-height: 120%
+            color: #616E7A
+
 #taxonomy
   float: right
   width: 580px
   .gallery
     overflow: hidden
-    padding: 20px 20px 10px 20px
+    padding: 20px 20px 0 20px
     margin: 0 0 35px 0
     border: 1px solid #cad3db
     .images
@@ -892,26 +1006,39 @@ body
           img
             margin: -2px -2px 0 0
     .attribution
-      position: absolute
-      float: right
+      position: absolute      
       right: 0
       top: 315px
       z-index: 100
       width: 430px
       font-size: .92em
       img
-        float: right
-        margin: 7px 10px
+        position: absolute
+        top: 50%
+        right: 0
+        margin-top: -8p
       p
-        overflow: hidden
-        line-height: 150%
+        padding: 0 90px 0 0 
     p.all
       float: left
       padding: 5px 0 0 0
       font-weight: bold
       text-transform: lowercase
-      + p.status
+    + p.status
       margin: -20px 0 35px 0
+  .article.overview
+    .meta.learn_more
+      padding: 0 0 10px 0
+      p, form
+        float: none
+        display: inline
+        margin: 0 0 0 10px
+        &:after
+          content: '•'
+          margin: 0 10px 0 0 
+        &.last
+          &:after
+            content: ''      
   .article.half
     float: right
     width: 260px
@@ -1388,14 +1515,53 @@ body
         top: 15px
         z-index: 1
         font-weight: bold
-    > ul
+    ul.media
       > li
         float: right
         width: 160px
         padding: 0 20px 30px 0
+        &:hover
+          .figure
+            label
+              display: block
+        .figure
+          position: relative
+          background: #ffffff
+          cursor: pointer
+          .overlay
+            position: absolute
+            right: 0
+            top: 0
+            z-index: 1
+            width: 100%
+            height: 100%
+          label
+            display: none
+            position: absolute
+            left: 0
+            bottom: 0
+            right: 0
+            z-index: 2
+            padding: 10px
+            font-weight: bold
+            background: transparent url("/images/v2/bg_exemplar.png") repeat
+        &.inappropriate
+          .figure
+            .overlay
+              background: transparent url("/images/v2/bg_media-inappropriate.png") 50% 0 no-repeat
+            img
+              +opacity(.5)
+        &.untrusted
+          .figure
+            img
+              +opacity(.5)
         img
           display: block
           margin: 0 0 5px 0
+        fieldset
+          clear: both
+          select
+            margin: 0 0 3px 0
         .ratings
           > .rating
             display: none
@@ -1455,4 +1621,177 @@ body
         &.prev
           left: auto
           right: 10px
+#endorse
+  width: 700px
+  padding: 20px 0 0 0
+  margin: 0 auto
+  h3
+    border: none
+  li
+    overflow: hidden
+    padding: 10px
+    border-bottom: 1px solid #d7dadc
+    img
+      float: left
+      border: 1px solid #394651
+    span.icon
+      float: right
+      width: 68px
+      height: 68px
+      margin: 0 0 0 20px
+      border: 1px solid #cad3db
+      background: #f3f7fa url("/images/v2/icon_communities_tabs.png") 50% 50% no-repeat
+    p
+      padding: 6px 0 0 0
+      font-weight: bold
+      line-height: 160%
+      color: #5f6c76
+    h4
+      padding: 15px 0 0 0
+    a
+      display: block
+      font-size: 1.16em
+      text-decoration: none
+      color: #28323a
+
+#taxon_community
+  padding: 0
+  border: none
+  .column
+    float: right
+    padding: 0 0 40px 0
+    margin: 0 0 0 20px
+    .summary
+      padding: 10px
+      border-right: 2px solid #cad3db
+      h3
+        padding: 0 0 5px 0
+        font-size: 1.33em
+      p
+        line-height: 200%
+    .article
+      padding: 0 0 25px 0
+      ul
+        padding: 10px 0 0 10px
+      p.more
+        padding: 0 0 0 10px
+        font-weight: bold
+    .header
+      margin: 0
+    .heading
+      form
+        float: none
+    &.curators
+      clear: both
+      width: 220px
+    &.collections
+      width: 340px
+    &.communities
+      width: 340px
+      margin: 0
+
+#content.session
+  background: #e2e9ef
+  form
+    width: 320px
+    min-height: 225px
+    padding: 75px 159px
+    margin: 0 auto
+    border: 1px solid #cad3db
+    background: #f0f4f7 url("/images/v2/bg_sign-in.gif") 0 0 no-repeat
+    h1
+      padding: 0 0 25px 0
+      font-size: 2em
+      font-weight: normal
+    label
+      font-size: 1.08em
+    input[type="text"], input[type="password"]
+      +input
+    input[type="submit"]
+      padding: 7px 10px
+      margin: 0 10px 0 0
+      font-size: 1em
+    a
+      font-weight: bold
+    label.checkbox
+      padding: 0 0 15px 0
+
+#profile_edit
+  p.tip
+    background: #f3f7fa
+    border: 1px solid #cad3db
+    padding: 10px
+    margin: 0 0 20px 0
+    line-height: 140%
+    width: 330px
+    img
+      margin: -2px 5px 0 5px
+  input[type="text"], input[type="password"]
+    +input(248px)
+  .header
+    margin: 0 0 20px 0
+  fieldset
+    float: right
+    padding: 0 0 20px 40px
+    dl
+      padding: 0 10px
+    dt
+      font-size: 1.08em
+      font-weight: bold
+    button
+      +button
+    ul
+      overflow: hidden
+      li
+        float: right
+        padding: 0 0 5px 10px
+        font-weight: bold
+    &.profile,
+    &.account
+      width: 320px
+      input[type="text"],      
+      input[type="password"]
+        width: 288px
+      input[type="file"]
+        width: 385px
+    &.profile
+      dd
+        img
+          display: block
+          margin: 0 0 15px 0
+          border: 1px solid #394651
+      textarea
+        width: 282px
+        height: 120px
+    &.account
+      input[type="checkbox"],
+      select
+        margin-right: 10px
+    &.api-request
+      width: 178px
+      background: #f3f7fa
+      border: 1px solid #cad3db
+      padding: 20px 20px 10px 20px
+      margin-top: 20px
+      dl
+        padding: 0
+      p
+        font-size: .9em
+        padding-top: 5px
+        font-weight: normal
+        line-height: 150%
+      textarea
+        +textarea
+        width: 158px
+    &.actions
+      clear: both
+      float: none
+      padding: 20px
+      border-top: 1px solid #cad3db
+      input[type="submit"]
+        padding: 7px 10px
+        margin: 0 0 0 10px
+        font-size: 1em
+      a
+        font-weight: bold
         

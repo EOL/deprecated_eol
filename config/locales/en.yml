@@ -1209,6 +1209,7 @@ en:
   laborum_est_nulla_aut_molestia: "Laborum est nulla aut molestiae est repellat incidunt dolor. Fuga unde et voluptatem commodi. Itaque recusandae officiis ut suscipit quidem odio incidunt. Occaecati sed distinctio odio et molestias sit quae quia. Voluptatem voluptatibus eveniet nam delectus quia ea iure."
   language: "Language:"
   languages_colon: "Languages:"
+  languages: "Languages"
   language_menu_item: "%{language_label} <abbr>(%{language_abbr})</abbr>"
   language_preference: "Which language do you prefer?"
   language_preference_advisory_information: "Select a language from the drop down select box, then content available in the language you choose will be displayed by default across the site."

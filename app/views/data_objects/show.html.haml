@@ -58,12 +58,12 @@
     - unless @translations.blank?
       .article.list
         .header
-          %h3= I18n.t(:languages_colon)
+          %h3= I18n.t(:languages)
         %ul
           - @translations.each do |tr|
             - if tr.id == @data_object.id
-              %li= tr.language.display_code
+              %li= tr.language.source_form
             - else
-              %li= link_to tr.language.display_code, set_language_url(:language => tr.language.iso_639_1)+"&return_to=/data_objects/#{tr.id}"
+              %li= link_to tr.language.source_form, set_language_url(:language => tr.language.iso_639_1)+"&return_to=/data_objects/#{tr.id}"
 
 

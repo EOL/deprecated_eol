@@ -11,6 +11,72 @@
  * so I am temporarily adding some CSS here needed for V2 demo. This CSS should be integrated
  * into HashRocket SASS if it is still needed when design work is complete.
  */
+/** Busy indicator for JS submitted forms e.g. exemplar image **/
+.busy
+  cursor: wait
+/** Override for padding on users edit - we have nested div so we need to get rid of left and right padding on article
+#profile_edit.article
+  padding: 0 0 25px 0
+
+/** Styles for form required (HR overrides) and form validation errors (custom no equivalent from HR)  **/
+form
+  dt
+    &.required
+      label
+        background: url("/images/v2/icon_required.png") right 45% no-repeat
+        padding-right: 10px
+        margin-right: -10px
+
+  fieldset
+    &#errors
+      width: 100%
+      position: relative
+      background: #ffeae6
+      padding: 20px
+      margin: 0 0 20px 0
+      legend
+        position: absolute
+        background: transparent
+        font-weight: bold
+      ul
+        margin-top: 30px
+      li
+        font-weight: normal
+        display: block
+        float: none
+        margin-bottom: 5px
+    &.radio
+      margin: 20px 0
+      legend
+        font-weight: bold
+        padding-bottom: 10px
+      label
+        margin: 10px
+        display: block
+        clear: both
+        line-height: 1.2em
+
+  label, span
+    &.errors
+      color: #e84226
+  span
+    &.errors
+      font-weight: normal
+  input
+    &.errors
+      border-color: #f2d2cc !important
+/** Making lanugage switcher accessible on overview and details pages **/
+.learn_more
+  fieldset.actions
+    display: inline
+/** terms agreement **
+#content
+  &.session
+    form
+      &.edit_user
+        p
+          margin-bottom: 20px
+/** will_paginate styling **/
 .pagination
   text-align: left
   a
@@ -40,45 +106,64 @@
         top: 0 !important /* Override HR */
         right: 0 !important /* Override HR */
 
+/** Static pages **/
 .exemplars, .partners
   ul
     img
       clear: both
       float: right
       margin: 0 30px 30px 20px
+      
 p.status.error
-  border: 1px solid red
-  background: pink
+  border: 1px solid #f2d2cc
+  background: #ffeae6 
 #permalink
   #sidebar
     ul.review_status
       p.unknown /*should match unreviewed*/
         border: 1px solid #677682
         background: #8695A1
+/** Special styles for layering audio description on top of audio thumbnail and adjustments for when missing exemplar **/        
 #media_list
+  #sidebar
+    &.filters
+      img
+        margin-bottom: 0
+      h3
+        margin-top: 20px
   #main>ul
     >li
-      .audio
-        position: relative
-        background: #394651 url('/images/v2/icon_sound_tabs.png') no-repeat 50% 20%
+      .figure
         width: 160px
-        height: 123px
-        margin: 0 0 5px 0
-        text-align: center
-        overflow: hidden
-        p
-          padding: 50px 0 40px 5px
-          a
-            color: #e2e9ef
-        audio
-          position: absolute
-          right: 0
-          bottom: 0
+        height: 125px
+        margin-bottom: 5px
+        .audio
+          position: relative
+          background: #394651 url('/images/v2/icon_sound_tabs.png') no-repeat 50% 20%
           width: 160px
-          z-index: 1
-      p.flag.unknown /*should match unreviewed*/
-        border: 1px solid #677682
-        background: #8695A1
+          height: 123px
+          margin: 0 0 5px 0
+          text-align: center
+          overflow: hidden
+          p
+            padding: 50px 5px 40px
+            a
+              color: #e2e9ef
+          audio
+            position: absolute
+            right: 0
+            bottom: 0
+            width: 160px
+            z-index: 1
+      p
+        &.flag
+          &.unknown /*should match unreviewed*/
+            border: 1px solid #677682
+            background: #8695A1
+          &.untrusted
+            border: 1px solid #f2d2cc
+            background: #ffeae6
+            color: #677682
       >a
         display: inline-block
         width: 160px
@@ -121,6 +206,13 @@ p.status.error
   abbr
     border: none
 body
+  &.home
+    >#header
+      .session
+        position: absolute
+        left: 40px
+        top: 55px
+        z-index: 2
   >#header
     .section
       .actions
@@ -135,9 +227,27 @@ body
           a
             color: #90bce4
 #iucn_status
+  border: 1px solid #cad3db
+  background: #f1f4f7
+  text-align: center
+  padding: 7px 10px
+  font-size: 1.16em
   margin-bottom: 20px
+  color: #394651
   h3, p
     display: inline
+  a
+    color: #195184
+  &.positive
+    border-color: #c7d471
+    background: #edf6b2
+    a
+      color: #809203
+  &.negative
+    border-color: #f2d2cc
+    background: #ffeae6
+    a
+      #E84226
 
 #text_summary
   .attribution
@@ -178,6 +288,19 @@ body
         border-bottom: 1px solid #ccc
     .odd
       background-color: #eee
+/* TODO: this hasn't been really thought out and should be changed: */
+.heading
+  p#empty
+    font-weight: bold
+    font-size: 1.2em
+#sidebar
+  &.filters
+    dd
+      li
+        &.no_results
+          label
+            color: #6F7E8B
+
 /**
   * TEMPORARY FIX: Forcing image sizes for V2 demo.
   */
@@ -205,16 +328,16 @@ ul.feed
     >a
       >img
         +size50x50
+#header
+  .session
+    img
+      +size50x50         
 #collections_summary, #communities_summary, .collection_contributors
   ul
     li
       >a
         >img
           +size50x50
-#header
-  .session
-    img
-      +size50x50          
 #collections
   .collections
     .article
@@ -240,17 +363,7 @@ ul.feed
   .collection_list
     img
       +size35x35
-  &.filters
-    dd
-      li
-        &.no_results
-          label
-            color: #6F7E8B
-/* TODO: this hasn't been really thought out and should be changed: */
-.heading
-  p#empty
-    font-weight: bold
-    font-size: 1.2em
+
 #taxonomy
   .gallery
     ul.thumbnails
@@ -270,39 +383,51 @@ ul.feed
         img
           max-width: 160px
           max-height: 125px
-          width: auto
-          height: auto
-          display: block
-          margin-right: auto
-          margin-left: auto
   #sidebar
     &.filters
       img
         max-width: 220px
         max-height: 162px
-        width: auto
-        height: auto
-        display: block
-        margin-right: auto
-        margin-left: auto
+
 #taxonomy_detail
   #sidebar
     img
       max-width: 260px
       max-height: 190px
-      width: auto
-      height: auto
-      display: block
-      margin-right: auto
-      margin-left: auto
 ul
   &.object_list
     li
       img
         max-width: 68px
         max-height: 68px
+        // JRice added this to force missing images to look reasonable.  ...Not sure if it's wise, though:
+        width: 68px
+        height: 68px        
 form
   &.comment
     img
       height: 50px
-      width: 50px      
+      width: 50px
+#header
+  .thumbnails
+    ul
+      li
+        width: 140px
+        height: 140px
+// Tiny Link below Ajax fields
+.editable_link
+  font-size: 0.8em        
+// Buttons are too far over (and this is only in English!):
+.edit_collection #sidebar fieldset.actions
+  padding: 0
+// Need more space between button and text:
+#collections .heading
+  line-height: 2.5em
+table.standard
+  td.nowrap
+    white-space: nowrap
+// choose a collection is mighty ugly... trying to make it slightly better:
+#collections_choose h2
+  font-size: 2em
+#collections_choose ul
+  width: 500px          

@@ -78,12 +78,18 @@ form#switch_hierarchy_entry fieldset {
   .pagination a {
     text-decoration: none;
     font-weight: bold; }
+  .pagination a, .pagination span.current {
+    display: inline-block;
+    padding: 0 3px; }
   .pagination .prev_page {
     float: left; }
   .pagination .next_page {
     margin-left: 10px; }
   .pagination .disabled {
     color: #616e7a; }
+
+#taxon_literature .pagination {
+  margin-bottom: 15px; }
 
 #main .footer {
   clear: both;
@@ -130,11 +136,13 @@ p.status.error {
   background: #ffeae6;
   color: #677682; }
 
-/*Special styles for layering audio description on top of audio thumbnail and adjustments for when missing exemplar */
-#media_list #sidebar.filters img {
+/*Adjustments for when missing exemplar image */
+#media_list #sidebar img, #taxonomy_detail #sidebar img {
   margin-bottom: 0; }
-#media_list #sidebar.filters h3 {
+#media_list #sidebar h3, #taxonomy_detail #sidebar h3 {
   margin-top: 20px; }
+
+/*Special styles for layering audio description on top of audio thumbnail */
 #media_list #main > ul > li .figure {
   width: 160px;
   height: 125px;

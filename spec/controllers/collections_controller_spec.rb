@@ -10,6 +10,8 @@ describe CollectionsController do
     end
     @test_data = EOL::TestInfo.load('collections')
     @collection = @test_data[:collection]
+    builder = EOL::Solr::CollectionItemsCoreRebuilder.new()
+    builder.begin_rebuild
   end
 
   describe "#update" do

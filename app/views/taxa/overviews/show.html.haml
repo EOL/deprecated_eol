@@ -5,7 +5,7 @@
   = render(:partial => 'taxa/collections_summary')
   = render(:partial => 'taxa/communities_summary')
 #sidebar
-  - if @dropdown_hierarchy_entry
+  - if @selected_hierarchy_entry
     = render(:partial => 'taxa/curators_summary', :locals => {:curators => @taxon_concept.top_acting_curators})
     = render(:partial => 'taxa/classification_tree')
   - else

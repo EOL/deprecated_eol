@@ -230,6 +230,7 @@ class TaxonConcept < SpeciesSchemaModel
   def text(options={})
     options[:user] ||= current_user
     text_datos = data_objects.select{ |d| d.is_text? }
+    #debugger
     text_user_objects = users_data_objects.select{ |udo| udo.data_object.is_text? }.collect{ |udo| udo.data_object}
     combined_objects = text_datos | text_user_objects  # get the union of the two sets
 
@@ -496,6 +497,7 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def gbif_map_id
+    #debugger
     return @gbif_map_id if @gbif_map_id
     if h = Hierarchy.gbif
       if he = HierarchyEntry.find_by_hierarchy_id_and_taxon_concept_id(h.id, self.id)

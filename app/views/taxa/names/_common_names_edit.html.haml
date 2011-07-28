@@ -1,6 +1,5 @@
 = javascript_include_tag 'common-names'
 = render :partial => 'data_objects/curation_js'
-
 = render :partial => 'common_names_new'
 - names_by_language = common_names_by_language(@common_names, current_user.language_id)
 - names_by_language.each_with_index do |language_names_pair, index|
@@ -11,7 +10,7 @@
     = hidden_field_tag "trusted_synonym_clicked_on", "false"
     = hidden_field_tag "trusted_name_checked", "false"
     = hidden_field_tag 'language_id', names[0].language_id
-    = hidden_field_tag "hierarchy_entry_id", @dropdown_hierarchy_entry_id
+    = hidden_field_tag "hierarchy_entry_id", @selected_hierarchy_entry_id
     %h4= language
     %table.standard
       %thead
@@ -35,7 +34,7 @@
             %td{:class => 'vet_common_name'}
               - if name.added_by_user?(current_user)
                 = link_to( I18n.t(:delete), url_for(:controller => '/taxa', :action => 'delete_common_name',
-                  :taxon_concept_id => @taxon_concept.id, :synonym_ids => name.synonym_ids, :hierarchy_entry_id => @dropdown_hierarchy_entry_id),
+                  :taxon_concept_id => @taxon_concept.id, :synonym_ids => name.synonym_ids, :hierarchy_entry_id => @selected_hierarchy_entry_id),
                   :onclick => "javascript:if(!confirm('#{ I18n.t(:are_you_sure) }')) { return false; }")
               - else
                 -# NOTE - this should really be a form.  But we're already *in* a form, and putting that form at a lower level would, in fact, create a lot of duplication (I think),
@@ -48,7 +47,7 @@
                 /= select_tag(unique_id, options_for_select({ I18n.t(:trusted)  => url.sub(/REPLACE_ME/, Vetted.trusted.id.to_s), I18n.t(:unreviewed)  => url.sub(/REPLACE_ME/, Vetted.unknown.id.to_s), I18n.t(:untrusted)  => url.sub(/REPLACE_ME/, Vetted.untrusted.id.to_s)}, current_value).gsub(/&amp;/, '&'))
 
                 /- vetted_id = Vetted.unknown.id if name.vetted_id < 1
-                = select_tag("#{name.unique_id}", options_for_select({I18n.t(:trusted) => Vetted.trusted.id.to_s, I18n.t(:unreviewed) => Vetted.unknown.id.to_s, I18n.t(:untrusted) => Vetted.untrusted.id.to_s, I18n.t(:inappropriate) => Vetted.inappropriate.id.to_s}, name.vetted_id.to_s), :onchange => "javascript:vet_common_name(#{@taxon_concept.id}, #{name.language_id}, #{name.name_id}, '#{name.unique_id}', '#{@dropdown_hierarchy_entry_id}')")
+                = select_tag("#{name.unique_id}", options_for_select({I18n.t(:trusted) => Vetted.trusted.id.to_s, I18n.t(:unreviewed) => Vetted.unknown.id.to_s, I18n.t(:untrusted) => Vetted.untrusted.id.to_s, I18n.t(:inappropriate) => Vetted.inappropriate.id.to_s}, name.vetted_id.to_s), :onchange => "javascript:vet_common_name(#{@taxon_concept.id}, #{name.language_id}, #{name.name_id}, '#{name.unique_id}', '#{@selected_hierarchy_entry_id}')")
 
 - form_tag({:action => 'vet_common_name'}, :id => 'vet_common_name_form', :method => 'post') do
   %input{:type => 'hidden', :id => 'form_taxon_concept_id',   :name => 'taxon_concept_id',   :value => ''}

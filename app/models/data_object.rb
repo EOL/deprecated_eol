@@ -261,7 +261,7 @@ class DataObject < SpeciesSchemaModel
     }
 
     d = DataObject.new(do_params)
-    d.toc_items << TocItem.find(all_params[:data_objects_toc_category][:toc_id])
+    d.toc_items << TocItem.find(all_params[:data_object][:toc_items][:id])
 
     unless all_params[:references].blank?
       all_params[:references].each do |reference|
@@ -329,7 +329,8 @@ class DataObject < SpeciesSchemaModel
   end
 
   def self.create_user_text(all_params,user)
-    taxon_concept = TaxonConcept.find(all_params[:taxon_concept_id])
+
+    taxon_concept = TaxonConcept.find(all_params[:taxon_id])
 
     if defined?(PhusionPassenger)
       UUID.state_file(0664) # Makes the file writable, which we seem to need to do with Passenger...
@@ -338,7 +339,7 @@ class DataObject < SpeciesSchemaModel
     do_params = {
       :guid => UUID.generate.gsub('-',''),
       :identifier => '',
-      :data_type => DataType.text,
+      :data_type_id => all_params[:data_object][:data_type_id],
       :rights_statement => '',
       :rights_holder => '',
       :mime_type_id => MimeType.find_by_translated(:label, 'text/plain').id,
@@ -361,7 +362,7 @@ class DataObject < SpeciesSchemaModel
     }
 
     dato = DataObject.new(do_params)
-    dato.toc_items << TocItem.find(all_params[:data_objects_toc_category][:toc_id])
+    dato.toc_items << TocItem.find(all_params[:data_object][:toc_items][:id])
 
     unless all_params[:references].blank?
       all_params[:references].each do |reference|
@@ -372,9 +373,10 @@ class DataObject < SpeciesSchemaModel
     end
 
     dato.save!
+    # TODO: if dato.errors.any?
     raise "Unable to build a UsersDataObject if user is nil" if user.nil?
     raise "Unable to build a UsersDataObject if DataObject is nil" if dato.nil?
-    raise "Unable to build a UsersDataObject if taxon_concept_id is missing" if all_params[:taxon_concept_id].blank?
+    raise "Unable to build a UsersDataObject if taxon_concept_id is missing" if all_params[:taxon_id].blank?
     udo = UsersDataObject.create(:user => user, :data_object => dato,
                               :taxon_concept => taxon_concept)
     dato.users_data_objects << udo

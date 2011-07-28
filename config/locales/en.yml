@@ -182,6 +182,8 @@ en:
     models:
       user: "account"
     attributes:
+      data_object:
+        object_title: "Title"
       name:
         string: "Name"
       user:
@@ -222,6 +224,8 @@ en:
       update: "Update %{model}"
       data_object:
         create: "Add article"
+        create_text: "Add article"
+        update: "Update article"
       name:
         create: "Add name"
         update: "Update name"
@@ -235,8 +239,6 @@ en:
         generate_api_key: "Generate a key"
         curation_application: "Apply now"
         curation_privileges: "Submit request"
-      data_object:
-        create_text: "Add article"
     label:
       data_object:
         description: "Body"
@@ -915,6 +917,11 @@ en:
   date_updated: "Date Updated"
   date_uploaded_: "Date uploaded:"
   dato_create_cancel: "Cancel"
+  dato_edit_cancel: "Cancel"
+  dato_create_missing_text_dato_error: "Sorry, the article could not be added."
+  dato_edit_text_link_button: "Edit this article"
+  dato_edit_text_page_description: "Some info about editing.. maybe"
+  dato_edit_text_title: "Edit article"
   dato_hidden_note: "%{username} hid %{type}."
   dato_inappropriate_note: "%{username} marked this %{type} as inappropriate."
   dato_new_text_for_taxon_page_title: "Add an article to <i>%{taxon}</i>"
@@ -943,6 +950,7 @@ en:
   default_sorting_header: "Default sorting"
   default_sorting_label: "Default sort order"
   default_sorting_submit_button: "Set sort order"
+  default_watch_collection_name: "%{username}'s Collection"
   __defines_the_composition_of_i: "- defines the composition of information on species pages; works with the scientific community to identify potential sources of information (such as the Content Partner) for the species pages and to authenticate the information on the species pages; establishes licensing agreements with data providers."
   defines_the_composition_of_inf: "defines the composition of information on species pages; works with the scientific community to identify potential sources of information (such as the Content Partner) for the species pages and to authenticate the information on the species pages; establishes licensing agreements with data providers."
   definition: "Definition"
@@ -1174,7 +1182,7 @@ en:
   finnish: "Finnish"
   first_name__: "First Name:"
   fisher__brian___pogonomyrmex_a: "Fisher, Brian. \"Pogonomyrmex anergismus Cole, 1954.\" Encyclopedia of Life, available from <a href=\"http://eol.org/pages/460427\" target=\"_blank\">http://eol.org/pages/460427</a>. Accessed 15 Jan 2009."
-  flash_notice_redirected_from_search_html: "You've arrived here by searching for <em>%{search_string}</em>"
+  flash_notice_redirected_from_search_html: "You've arrived here by searching for <em>%{search_string}</em>. <a href=\"%{more_results_url}\">Click here to return to the search page.</a>"
   flash_notice_redirected_from_search_html_more_results: "You've arrived here by searching for <em>%{search_string}</em>. <a href=\"%{more_results_url}\">Click here to see other search results.</a>"
   flash_rating: "Flash rating"
   flash_video: "Flash video"
@@ -1436,6 +1444,7 @@ en:
   laborum_est_nulla_aut_molestia: "Laborum est nulla aut molestiae est repellat incidunt dolor. Fuga unde et voluptatem commodi. Itaque recusandae officiis ut suscipit quidem odio incidunt. Occaecati sed distinctio odio et molestias sit quae quia. Voluptatem voluptatibus eveniet nam delectus quia ea iure."
   language: "Language:"
   languages_colon: "Languages:"
+  languages: "Languages"
   language_menu_item: "%{language_label} <abbr>(%{language_abbr})</abbr>"
   language_preference: "Which language do you prefer?"
   language_preference_advisory_information: "Select a language from the drop down select box, then content available in the language you choose will be displayed by default across the site."
@@ -1681,7 +1690,7 @@ en:
   new_upload: "New Upload"
   new_user: "New User"
   next: "Next"
-  no_activity: "No activity."
+  no_activity: "No EOL member has commented yet."
   no_authoritative_videos_availa: "No authoritative videos available."
   no_comments_are_available_for_subject: "No comments are available for %{subject}"
   no_comments_have_been_left_yet: "No comments have been left yet."
@@ -1985,7 +1994,7 @@ en:
   recaptcha: "For verification, please enter the characters you see below.  Click the ? for assistance."
   recently_harvested_resources__: "Recently harvested resources (last 20)"
   recently_published_resources__: "Recently published resources (last 20)"
-  recent_updates: "Recent updates"
+  recent_updates: "Latest updates"
   recipients: "Recipients"
   recognised_by_hierarchy_agent_as_a_rank: '%{hierarchy_agent} %{hierarchy_agent_logo} as a %{taxon_rank}. <a href="%{hierarchy_entry_url}">View in classification</a>'
   recognised_by_hierarchy_entry_agent_in_hierarchy_agent_as_a_rank: '%{hierarchy_entry_agent} in %{hierarchy_agent} %{hierarchy_agent_logo} as a %{taxon_rank}. <a href="%{hierarchy_entry_url}">View in classification</a>'

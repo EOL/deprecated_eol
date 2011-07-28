@@ -309,8 +309,8 @@ if defined?(PhusionPassenger)
 end
 
 # Default values for some footer elements:
-$EOL_TWITTER_ACCOUNT = "http://twitter.com/EOL"
-$EOL_FACEBOOK_ACCOUNT = "http://www.facebook.com/pages/Encyclopedia-of-Life/62911075968"
+$EOL_TWITTER_ACCOUNT = "http://twitter.com/#!/EOL"
+$EOL_FACEBOOK_ACCOUNT = "http://www.facebook.com/pages/Encyclopedia-of-Life/62911075968?sk=wall"
 
 # load the system configuration
 require File.dirname(__FILE__) + '/system' if File.file?(File.dirname(__FILE__) + '/system.rb')

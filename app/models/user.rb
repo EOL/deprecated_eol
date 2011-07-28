@@ -475,7 +475,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def is_curator?
-    has_special_role?(Role.curator)
+    curator_approved
+    # has_special_role?(Role.curator)
   end
 
   def selected_default_hierarchy

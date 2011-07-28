@@ -10,11 +10,6 @@
 	border: 3px solid white;
 	border-radius: 5px 5px 5px 5px;
 }
-li.with_thumbs img {
-	background-color: #fff;
-	border: 3px solid #2F3E46;
-	border-radius: 5px 5px 5px 5px;
-}
 #image_gallery a img {
 	max-width:100%;
 	background-color: #fff;
@@ -36,15 +31,16 @@ li.with_thumbs img {
 #search_field{
 	color: #fff;
 }
-.ui-mobile a img.index_taxon_img{ /* Contents index, random taxon thumbnails */
-	width:70px;
-	height:70px;
+.ui-mobile a img.listview_thumb,
+.ui-mobile img.listview_thumb{ /* Thumbails inside list view, like on random taxon thumbnails in homepage or search results */
+	width:68px;
+	height:68px;
 	display: block;
     margin-left: 3px;
     margin-right: auto;
-	margin-top: 3px;
+	margin-top: 4px;
 	background-color: #fff;
-	border: 3px solid white;
+	border: 3px solid #2F3E46;
 	border-radius: 5px 5px 5px 5px;
 }
 .index_static_content_img { /* Contents index, static pages 'li' thumbnails */

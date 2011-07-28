@@ -14,9 +14,9 @@
       %li
         /=link_to mobile_taxon_path(t.taxon_concept_id) do      --DOES NOT WORK, THE SCRIPT LOOPS AND FREEZES--
         <a href="#{mobile_taxon_path(t.taxon_concept_id)}">
-        =image_tag(t.data_object.thumb_or_object('130_130'), :alt => t.taxon_concept.title_canonical, :class => "index_taxon_img")
+        =image_tag(t.data_object.thumb_or_object('130_130'), :alt => t.taxon_concept.title_canonical, :class => "listview_thumb")
         %h3=t.taxon_concept.title_canonical
-        %p=t.taxon_concept.title
+        %p=t.taxon_concept.entry.preferred_classification_summary
         </a>
 
   %ul{"data-role" => "listview", "data-inset"=>"true", "data-theme"=>"c", "list-divider-theme"=>"e"}

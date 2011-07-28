@@ -21,17 +21,20 @@
       - end_number = [ (start_number + @all_results.per_page - 1), @all_results.total_entries ].min
       %h3= I18n.t(:displaying_numerical_range, :start_number => start_number, :end_number => end_number, :total => @all_results.total_entries)
       = will_paginate @all_results, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next), :inner_window => 2, :outer_window => 2
-      %ul{"data-role" => "listview", "data-inset"=>"true", "data-theme"=>"c", "list-divider-theme"=>"e"}
+      %ul{"data-role" => "listview", "data-inset"=>"true"}
         - @all_results.each do |result|
-          %li.with_thumbs
+          %li
             - result_instance = result['instance']
             -unless result_instance.nil?
               - first_image = result_instance.media.select {|m| m.image?}.first
-              = image_tag first_image.blank? ? "/images/v2/icon_taxon.png" : first_image.smart_thumb
-              %h1= link_to result_instance.title_canonical, mobile_taxon_path(result_instance.id)
-              #subtitle= result_instance.subtitle
-              #classification= result_instance.entry.preferred_classification_summary
-              
+              /=link_to mobile_taxon_path(result_instance.id) do      --DOES NOT WORK, THE SCRIPT LOOPS AND FREEZES--
+              <a href="#{mobile_taxon_path(result_instance.id)}">
+              =image_tag((first_image.blank? ? "/images/v2/icon_taxon.png" : first_image.smart_thumb), :alt => result_instance.title_canonical, :class => "listview_thumb")
+              %h3=result_instance.title_canonical
+              %p=result_instance.entry.preferred_classification_summary
+              </a>      
+        
+      
 
     .footer
       = will_paginate @all_results, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),

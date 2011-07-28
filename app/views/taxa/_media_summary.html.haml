@@ -8,7 +8,7 @@
           .copy
             %p= I18n.t(:media_summary_empty)
             - # FIXME: add url for flickr instructions
-            %p= link_to I18n.t(:media_summary_empty_flickr_instructions), '/placeholder'
+            %p= link_to I18n.t(:media_summary_empty_contribute_instructions), '/placeholder'
     - else
       - @media[0..3].each do |item|
         .image

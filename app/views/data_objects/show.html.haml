@@ -16,7 +16,6 @@
           %li
             - link_to image_sizes[size] do
               %strong= I18n.t("#{size.to_s}_size")
-              - # MISSING: image dimensions are shown in design, we do not currently have them
   - if @data_object.is_sound?
     - en_mime_type = @data_object.mime_type ? @data_object.mime_type.label('en') : DataType.sound.simple_type
     %ul.sizes

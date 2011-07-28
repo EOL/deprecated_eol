@@ -233,7 +233,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def build_watch_collection
     c = Collection.count(:conditions => {:special_collection_id => SpecialCollection.watch.id, :user_id => self.id})
     if c == 0
-      Collection.create(:name => "#{self.username.titleize}'s Watched Items", :special_collection_id => SpecialCollection.watch.id, :user_id => self.id)
+      Collection.create(:name => I18n.t(:default_watch_collection_name, :username => self.short_name.titleize), :special_collection_id => SpecialCollection.watch.id, :user_id => self.id)
     end
   end
 
@@ -475,7 +475,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def is_curator?
-    has_special_role?(Role.curator)
+    curator_approved
+    # has_special_role?(Role.curator)
   end
 
   def selected_default_hierarchy

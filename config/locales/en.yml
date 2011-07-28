@@ -950,6 +950,7 @@ en:
   default_sorting_header: "Default sorting"
   default_sorting_label: "Default sort order"
   default_sorting_submit_button: "Set sort order"
+  default_watch_collection_name: "%{username}'s Collection"
   __defines_the_composition_of_i: "- defines the composition of information on species pages; works with the scientific community to identify potential sources of information (such as the Content Partner) for the species pages and to authenticate the information on the species pages; establishes licensing agreements with data providers."
   defines_the_composition_of_inf: "defines the composition of information on species pages; works with the scientific community to identify potential sources of information (such as the Content Partner) for the species pages and to authenticate the information on the species pages; establishes licensing agreements with data providers."
   definition: "Definition"
@@ -1689,7 +1690,7 @@ en:
   new_upload: "New Upload"
   new_user: "New User"
   next: "Next"
-  no_activity: "No activity."
+  no_activity: "No EOL member has commented yet."
   no_authoritative_videos_availa: "No authoritative videos available."
   no_comments_are_available_for_subject: "No comments are available for %{subject}"
   no_comments_have_been_left_yet: "No comments have been left yet."
@@ -1993,7 +1994,7 @@ en:
   recaptcha: "For verification, please enter the characters you see below.  Click the ? for assistance."
   recently_harvested_resources__: "Recently harvested resources (last 20)"
   recently_published_resources__: "Recently published resources (last 20)"
-  recent_updates: "Recent updates"
+  recent_updates: "Latest updates"
   recipients: "Recipients"
   recognised_by_hierarchy_agent_as_a_rank: '%{hierarchy_agent} %{hierarchy_agent_logo} as a %{taxon_rank}. <a href="%{hierarchy_entry_url}">View in classification</a>'
   recognised_by_hierarchy_entry_agent_in_hierarchy_agent_as_a_rank: '%{hierarchy_entry_agent} in %{hierarchy_agent} %{hierarchy_agent_logo} as a %{taxon_rank}. <a href="%{hierarchy_entry_url}">View in classification</a>'

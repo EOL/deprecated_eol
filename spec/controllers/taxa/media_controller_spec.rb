@@ -16,10 +16,12 @@ describe Taxa::MediaController do
   describe 'PUT set_as_exemplar' do
     it 'should set an image as exemplar' do
       @taxon_concept.taxon_concept_exemplar_image.should be_nil
-      exemplar_image = @taxon_concept.images.first.id
+      exemplar_image = @taxon_concept.images.first
+      TopConceptImage.find_by_taxon_concept_id_and_data_object_id(@taxon_concept, exemplar_image.id).update_attribute(:view_order, 5)
       put :set_as_exemplar, :taxon_id => @taxon_concept.id, :taxon_concept_exemplar_image => { :data_object_id => exemplar_image.id }
       @taxon_concept.reload
       @taxon_concept.taxon_concept_exemplar_image.data_object_id.should == exemplar_image.id
+      TopConceptImage.find_by_taxon_concept_id_and_data_object_id(@taxon_concept, exemplar_image.id).view_order.should == 1
       response.redirected_to.should == taxon_media_path(@taxon_concept)
     end
   end

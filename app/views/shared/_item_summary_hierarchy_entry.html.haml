@@ -1,0 +1,14 @@
+- if tc.best_image
+  = link_to image_tag(tc.best_image.thumb_or_object('88_88')), taxon_overview_path(tc)
+%span.icon{:title => I18n.t(:item_type_taxon_assistive)}
+%small= item.preferred_classification_summary
+%h4= link_to tc.title_canonical, taxon_overview_path(tc)
+- subtitle = tc.preferred_common_name_in_language(Language.english)
+- unless subtitle.blank?
+  = subtitle.firstcap
+- unless item.hierarchy.agent.blank?
+  %small
+    - if item.hierarchy.agent.homepage.blank?
+      = item.hierarchy.agent.full_name
+    - else
+      = link_to item.hierarchy.agent.full_name, item.hierarchy.agent.homepage

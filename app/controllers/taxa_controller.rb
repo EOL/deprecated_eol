@@ -346,13 +346,12 @@ class TaxaController < ApplicationController
   end
 
 private
-
   def instantiate_taxon_concept
     @taxon_concept = find_taxon_concept
     # TODO: is this the best name for this?
-    @dropdown_hierarchy_entry_id = params[:hierarchy_entry_id]
-    if @dropdown_hierarchy_entry_id
-      @dropdown_hierarchy_entry = HierarchyEntry.find_by_id(@dropdown_hierarchy_entry_id) rescue nil
+    @selected_hierarchy_entry_id = params[:hierarchy_entry_id]
+    if @selected_hierarchy_entry_id
+      @selected_hierarchy_entry = HierarchyEntry.find_by_id(@selected_hierarchy_entry_id) rescue nil
       # TODO: Eager load hierarchy entry agents?
       @browsable_hierarchy_entries = @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
     end

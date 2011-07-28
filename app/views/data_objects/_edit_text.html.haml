@@ -1,3 +1,46 @@
-= javascript_include_tag 'new-text'
-- form_for(@data_object,:html => {'data-data_object_id' => @data_object.id}) do |f|
-  = render :partial => 'taxa/details/text_form', :locals => {:f => f}
+- form_for @data_object do |f|
+  = f.hidden_field :data_type_id
+  %input{:type => "hidden", :name => "taxon_concept_id", :value => @data_object.taxon_concept_for_users_text.id}
+  %fieldset
+    %dl
+      = f.fields_for :toc_items do |toc_items_form|
+        %dt
+          = toc_items_form.label :id, I18n.t('helpers.label.data_object.toc_item')
+        %dd
+          = toc_items_form.select :id, options_from_collection_for_select(@toc_items, :id, :label, @selected_toc_item.id)
+      %dt
+        = f.label :object_title
+      %dd
+        = f.text_field :object_title
+      %dt
+        = f.label :description
+      %dd
+        = f.text_area :description
+      %dt
+        = f.label :language_id
+      %dd
+        = f.select :language_id, options_from_collection_for_select(@languages, :id, :source_form) # @data_object.language_id
+      %dt
+        = f.label :license_id
+      %dd
+        = f.select :license_id, options_from_collection_for_select(@licenses, :id, :title, @data_object.license_id)
+        = I18n.t('helpers.label.data_object.license_id_more', :policy_url => "/content/page/eol_licensing_policy")
+      %dt
+        = f.label :refs
+      %dd
+        = text_area_tag 'references', @data_object.visible_references.map {|r| r.full_reference}.join("\n\n")
+  %fieldset.actions
+    = link_to I18n.t('helpers.submit.data_object.update'), "javascript:validate(#{@data_object.id})", :class => 'button'
+    = link_to I18n.t(:dato_edit_cancel), data_object_path(@data_object)
+
+:javascript
+  function validate(data_object_id)
+  {
+    if (document.getElementById('data_object_description').value == "")
+    {
+      alert("Descripition body cannot be blank.")
+      document.getElementById('data_object_description').focus();
+    }
+    else {document.getElementById('edit_data_object_' + data_object_id).submit();}
+  }
+

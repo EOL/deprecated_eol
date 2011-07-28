@@ -1,5 +1,4 @@
 class Taxa::OverviewsController < TaxaController
-
   before_filter :instantiate_taxon_concept, :redirect_if_superceded, :redirect_if_invalid
   before_filter :add_page_view_log_entry, :update_user_content_level
 
@@ -29,11 +28,11 @@ class Taxa::OverviewsController < TaxaController
     options = {:limit => 1, :language => current_user.language_abbr}
     @summary_text = @taxon_concept.text_objects_for_toc_items(toc_items, options)
 
-    if @dropdown_hierarchy_entry
+    if @selected_hierarchy_entry
       @recognized_by = recognized_by
     end
 
-    @media = promote_exemplar(@taxon_concept.media({}, @dropdown_hierarchy))
+    @media = promote_exemplar(@taxon_concept.media({}, @selected_hierarchy_entry))
     @watch_collection = logged_in? ? current_user.watch_collection : nil
     @assistive_section_header = I18n.t(:assistive_overview_header)
 
@@ -53,10 +52,10 @@ private
 
   def recognized_by
     @recognized_by = I18n.t(:recognized_by)
-    if !@dropdown_hierarchy_entry.hierarchy.url.blank?
-      @recognized_by << ' ' << self.class.helpers.link_to( @dropdown_hierarchy_entry.hierarchy.label , @dropdown_hierarchy_entry.hierarchy.url)
+    if !@selected_hierarchy_entry.hierarchy.url.blank?
+      @recognized_by << ' ' << self.class.helpers.link_to( @selected_hierarchy_entry.hierarchy.label , @selected_hierarchy_entry.hierarchy.url)
     else
-      @recognized_by << ' ' << @dropdown_hierarchy_entry.hierarchy.label
+      @recognized_by << ' ' << @selected_hierarchy_entry.hierarchy.label
     end
   end
 

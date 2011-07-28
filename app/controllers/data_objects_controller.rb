@@ -2,26 +2,19 @@ class DataObjectsController < ApplicationController
 
   layout :data_objects_layout
 
+  before_filter :check_authentication => [:new, :create, :edit, :update]
   before_filter :load_data_object, :except => [:index, :new, :create, :preview]
   before_filter :allow_login_then_submit, :only => [:rate]
-  before_filter :curator_only, :only => [:curate, :add_association, :remove_association,
-                                         :new, :create, :edit, :update, :destroy]
+  before_filter :curator_only, :only => [:curate, :add_association, :remove_association]
 
   # GET /pages/:taxon_id/data_objects/new
   def new
     @taxon_concept = TaxonConcept.find(params[:taxon_id])
-    @toc_items = TocItem.selectable_toc
-    @languages = Language.find_by_sql("SELECT * FROM languages WHERE iso_639_1 != '' && source_form != ''")
-    @licenses = License.find_all_by_show_to_content_partners(1)
-    if params[:data_object]
-      @data_object = DataObject.new(params[:data_object])
-      @selected_toc_item = @data_object.toc_items[0]
-    else
-      @data_object = DataObject.new(:data_type => DataType.text,
+    set_text_data_object_options
+    @data_object = DataObject.new(:data_type => DataType.text,
                                     :license_id => License.by_nc.id,
                                     :language_id => current_user.language_id)
-      @selected_toc_item = @toc_items[0]
-    end
+    @selected_toc_item = @toc_items[0]
     @page_title = I18n.t(:dato_new_text_for_taxon_page_title, :taxon => Sanitize.clean(@taxon_concept.title_canonical))
     @page_description = I18n.t(:dato_new_text_page_description)
     current_user.log_activity(:creating_new_data_object, :taxon_concept_id => @taxon_concept.id)
@@ -29,16 +22,30 @@ class DataObjectsController < ApplicationController
 
   # POST /pages/:taxon_id/data_objects
   def create
-    params[:references] = params[:references].split("\n") unless params[:references].blank?
-    data_object = DataObject.create_user_text(params, current_user)
-    @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
+    if params[:data_object]
+      params[:references] = params[:references].split("\n") unless params[:references].blank?
+      data_object = DataObject.create_user_text(params, current_user)
+    else
+      flash[:error] = I18n.t(:dato_create_missing_text_dato_error)
+    end
+    @taxon_concept = TaxonConcept.find(params[:taxon_id])
     @curator = current_user.can_curate?(@taxon_concept)
     @taxon_concept.current_user = current_user
-    @category_id = data_object.toc_items[0].id
     alter_current_user do |user|
       user.vetted=false
     end
     current_user.log_activity(:created_data_object_id, :value => data_object.id, :taxon_concept_id => @taxon_concept.id)
+    
+    # params[:references] = params[:references].split("\n") unless params[:references].blank?
+    #     data_object = DataObject.create_user_text(params, current_user)
+    #     @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
+    #     @curator = current_user.can_curate?(@taxon_concept)
+    #     @taxon_concept.current_user = current_user
+    #     @category_id = data_object.toc_items[0].id
+    #     alter_current_user do |user|
+    #       user.vetted=false
+    #     end
+    #     current_user.log_activity(:created_data_object_id, :value => data_object.id, :taxon_concept_id => @taxon_concept.id)
     #render(:partial => '/taxa/text_data_object',
     #render(:partial => '/taxa/details/category_content',
     #       :locals => {:content => data_object, :comments_style => '', :category => data_object.toc_items[0].label})
@@ -72,8 +79,19 @@ class DataObjectsController < ApplicationController
 #    render(:partial => '/taxa/text_data_object', :locals => {:content_item => @data_object, :comments_style => '', :category => @data_object.toc_items[0].label})
 #  end
 
+  # GET /pages/:taxon_id/data_objects/:id/edit
+  def edit
+    set_text_data_object_options
+    @data_object = DataObject.find(params[:id])
+    @selected_toc_item = @data_object.toc_items[0]
+    @page_title = I18n.t(:dato_edit_text_title)
+    @page_description = I18n.t(:dato_edit_text_page_description)
+    #current_user.log_activity(:editing_data_object, :taxon_concept_id => @taxon_concept.id)
+  end
+  
   # PUT /pages/:taxon_id/data_objects/:id
   def update
+    #debugger
     params[:references] = params[:references].split("\n")
     @taxon_concept = TaxonConcept.find params[:taxon_concept_id] if params[:taxon_concept_id]
     @taxon_concept.current_user = current_user
@@ -87,17 +105,8 @@ class DataObjectsController < ApplicationController
     end
     current_user.log_activity(:updated_data_object_id, :value => @data_object.id, :taxon_concept_id => @taxon_concept.id)
     #render(:partial => '/taxa/text_data_object', :locals => {:content_item => @data_object, :comments_style => '', :category => @data_object.toc_items[0].label})
-    render(:partial => '/taxa/details/category_content_part', :locals => {:dato => @data_object, :with_javascript => 1})
-  end
-
-  # GET /pages/:taxon_id/data_objects/:id/edit
-  def edit
-    set_text_data_object_options
-    @taxon_concept = TaxonConcept.find params[:taxon_concept_id] if params[:taxon_concept_id]
-    @selected_language = [@data_object.language.label,@data_object.language.id]
-    @selected_license = [@data_object.license.title,@data_object.license.id]
-    current_user.log_activity(:editing_data_object, :taxon_concept_id => @taxon_concept.id)
-    render :partial => 'edit_text'
+    #render(:partial => '/taxa/details/category_content_part', :locals => {:dato => @data_object, :with_javascript => 1})
+    redirect_to data_object_path(@data_object)
   end
 
   def rate
@@ -260,11 +269,14 @@ private
   end
 
   def set_text_data_object_options
-    @selectable_toc = TocItem.selectable_toc
-    # toc = TocItem.find(params[:toc_id])
-    @selected_toc = params[:toc_id] # [toc.label, toc.id]
-    @languages = Language.find_by_sql("SELECT * FROM languages WHERE iso_639_1!=''").collect {|c| [c.label.truncate(30), c.id] }
-    @licenses = License.valid_for_user_content
+    @toc_items = TocItem.selectable_toc
+    @languages = Language.find_by_sql("SELECT * FROM languages WHERE iso_639_1 != '' && source_form != ''")
+    @licenses = License.find_all_by_show_to_content_partners(1)
+    # @selectable_toc = TocItem.selectable_toc
+    #     # toc = TocItem.find(params[:toc_id])
+    #     @selected_toc = params[:toc_id] # [toc.label, toc.id]
+    #     @languages = Language.find_by_sql("SELECT * FROM languages WHERE iso_639_1!=''").collect {|c| [c.label.truncate(30), c.id] }
+    #     @licenses = License.valid_for_user_content
   end
 
   def get_image_source

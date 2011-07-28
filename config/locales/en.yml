@@ -939,7 +939,7 @@ en:
   dear_var__contact__full_name__: "Dear %{var__contact__full_name__},"
   dear_var__name_0__0__capitaliz_: "Dear %{var__name_0__0__capitalize}%{var__name_1___1_},"
   dear_var__name_0__0__capitaliz: "Dear %{var__name_0__0__capitalize}%{var__name_1___1_},"
-  development_version_name: "V2 DEVELOPMENT VERSION - not for public use"
+  development_version_name: "EOL V2 Beta"
   default: "Default"
   default_focus_collection_name_from_community: "%{name}'s Focus"
   default_community_name_from_collection: "%{name} Community"

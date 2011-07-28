@@ -916,6 +916,7 @@ en:
   date_this_resource_was_created: "Date This Resource Was Created:  <span title=\"required\">*</span>"
   date_updated: "Date Updated"
   date_uploaded_: "Date uploaded:"
+  dato_description_field_cannot_be_blank: "Description field cannot be blank"
   dato_create_cancel: "Cancel"
   dato_edit_cancel: "Cancel"
   dato_create_missing_text_dato_error: "Sorry, the article could not be added."

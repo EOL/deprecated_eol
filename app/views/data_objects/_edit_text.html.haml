@@ -30,17 +30,7 @@
       %dd
         = text_area_tag 'references', @data_object.visible_references.map {|r| r.full_reference}.join("\n\n")
   %fieldset.actions
-    = link_to I18n.t('helpers.submit.data_object.update'), "javascript:validate(#{@data_object.id})", :class => 'button'
+    = f.submit I18n.t('helpers.submit.data_object.update')
     = link_to I18n.t(:dato_edit_cancel), data_object_path(@data_object)
 
-:javascript
-  function validate(data_object_id)
-  {
-    if (document.getElementById('data_object_description').value == "")
-    {
-      alert("Descripition body cannot be blank.")
-      document.getElementById('data_object_description').focus();
-    }
-    else {document.getElementById('edit_data_object_' + data_object_id).submit();}
-  }
 

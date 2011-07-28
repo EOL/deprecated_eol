@@ -22,6 +22,11 @@ class DataObjectsController < ApplicationController
 
   # POST /pages/:taxon_id/data_objects
   def create
+    if params[:data_object][:description] == ""
+      flash[:warning] = I18n.t(:dato_description_field_cannot_be_blank)
+      redirect_to :back
+      return
+    end 
     if params[:data_object]
       params[:references] = params[:references].split("\n") unless params[:references].blank?
       data_object = DataObject.create_user_text(params, current_user)
@@ -91,7 +96,11 @@ class DataObjectsController < ApplicationController
   
   # PUT /pages/:taxon_id/data_objects/:id
   def update
-    #debugger
+    if params[:data_object][:description] == ""
+      flash[:warning] = I18n.t(:dato_description_field_cannot_be_blank)
+      redirect_to :back
+      return
+    end 
     params[:references] = params[:references].split("\n")
     @taxon_concept = TaxonConcept.find params[:taxon_concept_id] if params[:taxon_concept_id]
     @taxon_concept.current_user = current_user

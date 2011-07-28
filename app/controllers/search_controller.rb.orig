@@ -1,8 +1,8 @@
 class SearchController < ApplicationController
   layout 'v2/search'
-
+  
   @@results_per_page = 10
-
+  
   def index
     params[:sort_by] ||= 'score'
     params[:type] ||= ['all']
@@ -24,6 +24,10 @@ class SearchController < ApplicationController
       @suggestions = search_response[:suggestions]
       log_search(request)
       current_user.log_activity(:text_search_on, :value => params[:q])
+<<<<<<< HEAD
+      if params[:show_all].blank? && @all_results.length == 1 && @all_results.total_entries == 1
+        redirect_to_page(@all_results, :total_results => 1, :params => params)
+=======
       if params[:mobile_search] && !mobile_disabled_by_session?
         if @all_results.length == 1 && @all_results.total_entries == 1
           redirect_to mobile_taxon_path(@all_results.first["resource_id"])
@@ -32,8 +36,9 @@ class SearchController < ApplicationController
           #@media = promote_exemplar(@taxon_concept.media)
           render :template => 'mobile/search/index', :layout => "#{RAILS_ROOT}/app/views/mobile/layouts/main_mobile.html.haml"
         end
-      elsif params[:show_all].blank? && @all_results.length == 1 && @all_results.total_entries == 1
-        redirect_to_page(@all_results, :total_results => 1, :params => params)
+      elsif @all_results.length == 1 && @all_results.total_entries == 1
+        redirect_to_page(@all_results)
+>>>>>>> silvio/mobile_search
       elsif params[:show_all].blank? && @all_results.total_entries > 1 && @all_results.length > 1 &&
         @all_results[0]['score'] > 5 && (@all_results[0]['score'] > (@all_results[1]['score'] * 4))
         redirect_to_page(@all_results, :total_results => @all_results.total_entries, :params => params)
@@ -42,7 +47,7 @@ class SearchController < ApplicationController
     params.delete(:type) if params[:type] == ['all']
     params.delete(:sort_by) if params[:sort_by] == 'score'
   end
-
+  
   # there are various object types which can be the only result. This method handles redirecting to all of them
   def redirect_to_page(result_set, options={})
     modified_params = options[:params].dup
@@ -68,11 +73,11 @@ class SearchController < ApplicationController
       redirect_to taxon_overview_path(result_instance.id)
     end
   end
-
+  
   def empty_paginated_set
     [].paginate(:page => 1, :per_page => @@results_per_page, :total_entries => 0)
   end
-
+  
   # Add an entry to the database desrcibing the fruitfullness of this search.
   def log_search(req)
     logged_search = SearchLog.log(

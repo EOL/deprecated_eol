@@ -11,7 +11,7 @@ class CollectionsController < ApplicationController
   before_filter :find_collection, :except => [:new, :create]
   before_filter :find_parent, :only => [:show]
   before_filter :find_parent_for_current_user_only, :except => [:show, :collect, :watch]
-  before_filter :build_collection_items_with_sorting_and_filtering, :only => [:show, :edit, :update]
+  before_filter :build_collection_items_with_sorting_and_filtering, :only => [:show, :update]
 
   layout 'v2/collections'
 
@@ -76,6 +76,7 @@ class CollectionsController < ApplicationController
     return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect) if params[:commit_sort]
     return chosen if params[:scope] # Note that updating the collection params doesn't specify a scope.
     if @collection.update_attributes(params[:collection])
+      upload_logo(@collection) unless params[:collection][:logo].blank?
       flash[:notice] = I18n.t(:collection_updated_notice, :collection_name => @collection.name) if
         params[:colleciton] # NOTE - when we sort, we don't *actually* update params...
       redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect)
@@ -121,7 +122,7 @@ private
 
   # When you're going to show a bunch of collection items and provide sorting and filtering capabilities:
   def build_collection_items_with_sorting_and_filtering
-    @sort_options = [SortStyle.newest, SortStyle.oldest, SortStyle.alphabetical, SortStyle.reverse_alphabetical, SortStyle.richness, SortStyle.rating]
+    set_sort_options
     @sort_by = SortStyle.find(params[:sort_by].blank? ? @collection.default_sort_style : params[:sort_by])
     @filter = params[:filter]
     @page = params[:page]
@@ -299,10 +300,15 @@ private
   end
 
   def set_edit_vars
+    set_sort_options
     @site_column_id = 'collections_edit'
     @site_column_class = 'copy' # TODO - why?! (This was a HR thing.)
     @editing = true # TODO - there's a more elegant way to handle the difference in the layout...
     @head_title = I18n.t(:edit_collection_head_title, :collection_name => @collection.name) unless @collection.blank?
+  end
+  
+  def set_sort_options
+    @sort_options = [SortStyle.newest, SortStyle.oldest, SortStyle.alphabetical, SortStyle.reverse_alphabetical, SortStyle.richness, SortStyle.rating]
   end
 
 end

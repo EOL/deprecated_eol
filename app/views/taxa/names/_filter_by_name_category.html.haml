@@ -18,4 +18,4 @@
       %li{:class => resource_is_active('taxa/names', 'common_names')}
         = link_to I18n.t(:common_names_with_count, :count => @taxon_concept.common_names.count), common_names_taxon_names_path(@taxon_concept)
       %li{:class => resource_is_active('taxa/names', 'synonyms')}
-        = link_to I18n.t(:synonyms_with_count, :count => @taxon_concept.synonyms.count), synonyms_taxon_names_path(@taxon_concept)
+        = link_to I18n.t(:synonyms_with_count, :count => @taxon_concept.viewable_synonyms.count), synonyms_taxon_names_path(@taxon_concept)

@@ -213,6 +213,11 @@ p.status.error
             bottom: 0
             width: 160px
             z-index: 1
+        .video
+          border: 1px solid #CAD3DB
+          background: #F3F7FA url('/images/v2/icon_videos_tabs.png') no-repeat 50% 50%
+          width: 158px
+          height: 123px
       p
         &.flag
           &.unknown /*should match unreviewed*/
@@ -482,6 +487,8 @@ ul.feed
         img
           max-width: 160px
           max-height: 125px
+          margin-left: auto
+          margin-right: auto
   #sidebar
     &.filters
       img
@@ -556,4 +563,6 @@ table.standard
     float: left
     // ACK!  Sorry.  No time to fix the important thing.  TODO
     margin-right: 2em !important
-
+// set the height of the GBIF map viewer
+#map_image
+  height: 350px

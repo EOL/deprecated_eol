@@ -320,8 +320,8 @@ private
       handle_curation(curated_object, user, opts).each do |action|
         log = log_action(curated_object, action, opts)
         # Saves untrust reasons, if any
-        unless untrust_reason_ids.blank?
-          save_untrust_reasons(log, untrust_reason_ids)
+        unless opts['untrust_reason_ids'].blank?
+          save_untrust_reasons(log, action, opts['untrust_reason_ids'])
         end
       end
       # TODO - Update Solr Index
@@ -381,6 +381,7 @@ private
         object.show(current_user)
         return :show
       when Visibility.invisible.id
+        raise "Curator should supply at least reason(s) to hide and/or curation comment" if (opts[:untrust_reason_ids].blank? && opts[:curation_comment].nil?)
         # TODO - when I tried this, it actually removed the association entirely.
         object.hide(current_user)
         return :hide
@@ -402,7 +403,7 @@ private
     )
   end
 
-  def save_untrust_reasons(log, untrust_reason_ids)
+  def save_untrust_reasons(log, action, untrust_reason_ids)
     untrust_reason_ids.each do |untrust_reason_id|
       case untrust_reason_id.to_i
       when UntrustReason.misidentified.id

@@ -3,6 +3,7 @@ class AddCuratorLevelsToUsers < ActiveRecord::Migration
     create_table :curator_levels do |t|
       t.string :label, :null => false
     end
+    CuratorLevel.create_defaults
     add_column :users, :curator_level_id, :integer
     add_column :users, :requested_curator_level_id, :integer
   end

@@ -13,6 +13,10 @@
  * so I am temporarily adding some CSS here needed for V2 demo. This CSS should be integrated
  * into HashRocket SASS if it is still needed when design work is complete.
  */
+/* Use the ~30K JPG form on the homepage image instead of the ~500K transparent PNG */
+body.home > #header {
+  background: transparent url("/images/v2/bg_home_earth.jpg") 50% 100% no-repeat; }
+
 /*Busy indicator for JS submitted forms e.g. exemplar image */
 .busy {
   cursor: wait; }
@@ -207,6 +211,11 @@ p.status.error {
       bottom: 0;
       width: 160px;
       z-index: 1; }
+  #media_list #main > ul > li .figure .video {
+    border: 1px solid #cad3db;
+    background: #f3f7fa url("/images/v2/icon_videos_tabs.png") no-repeat 50% 50%;
+    width: 158px;
+    height: 123px; }
 #media_list #main > ul > li p.flag.unknown {
   border: 1px solid #677682;
   background: #8695a1; }
@@ -413,7 +422,9 @@ ul.feed li > a > img {
 
 #media_list #main ul li img {
   max-width: 160px;
-  max-height: 125px; }
+  max-height: 125px;
+  margin-left: auto;
+  margin-right: auto; }
 #media_list #sidebar.filters img {
   max-width: 220px; }
 
@@ -474,3 +485,6 @@ table.standard td.nowrap {
 #collections_choose li img {
   float: left;
   margin-right: 2em !important; }
+
+#map_image {
+  height: 350px; }

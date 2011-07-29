@@ -1,4 +1,4 @@
-- form_tag({:action => 'show'}, :method => 'get') do
+- form_for(@taxon_concept, { :html => { :method => :get }, :url => { :action => 'index' } }) do
   %fieldset
     %dl
       %dt
@@ -36,4 +36,4 @@
                   = I18n.t("filter_by_status_#{opt}_option")
 
   %fieldset.actions
-    = submit_tag I18n.t(:filter_media)
+    = submit_tag I18n.t(:filter_media), :name => nil

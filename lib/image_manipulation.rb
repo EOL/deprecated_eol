@@ -1,7 +1,9 @@
 module ImageManipulation
 
   def upload_logo(obj)
-    parameters = 'function=upload_content&file_path=http://' + $IP_ADDRESS_OF_SERVER + ":" + request.port.to_s + $LOGO_UPLOAD_PATH + obj.class.to_s.pluralize.downcase + "_" + obj.id.to_s + "."  + obj.logo_file_name.split(".")[-1]
+    ip_with_port = $IP_ADDRESS_OF_SERVER.dup
+    ip_with_port += ":" + request.port.to_s unless ip_with_port.match(/:[0-9]+$/)
+    parameters = 'function=upload_content&file_path=http://' + ip_with_port + $LOGO_UPLOAD_PATH + obj.class.to_s.pluralize.downcase + "_" + obj.id.to_s + "."  + obj.logo_file_name.split(".")[-1]
     response = EOLWebService.call(:parameters => parameters)
     if response.blank?
       ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "content partner logo upload service failed") if $ERROR_LOGGING

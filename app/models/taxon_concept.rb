@@ -49,6 +49,8 @@ class TaxonConcept < SpeciesSchemaModel
   has_many :denormalized_common_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=1'
   has_many :synonyms, :class_name => Synonym.to_s, :foreign_key => 'hierarchy_entry_id',
     :finder_sql => 'SELECT s.* FROM #{Synonym.full_table_name} s JOIN #{HierarchyEntry.full_table_name} he ON (he.id = s.hierarchy_entry_id) WHERE he.taxon_concept_id=\'#{id}\' AND s.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(",")})'
+  has_many :viewable_synonyms, :class_name => Synonym.to_s, :foreign_key => 'hierarchy_entry_id',
+    :finder_sql => 'SELECT s.* FROM #{Synonym.full_table_name} s JOIN #{HierarchyEntry.full_table_name} he ON (he.id = s.hierarchy_entry_id) JOIN #{Hierarchy.full_table_name} h ON (he.hierarchy_id=h.id) WHERE he.taxon_concept_id=\'#{id}\' AND he.published=1 AND he.visibility_id=#{Visibility.visible.id} AND h.browsable=1 AND s.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(",")})'
   has_many :users_data_objects
   has_many :flattened_ancestors, :class_name => TaxonConceptsFlattened.to_s
   has_many :all_data_objects, :class_name => DataObject.to_s, :finder_sql => '
@@ -1379,7 +1381,7 @@ class TaxonConcept < SpeciesSchemaModel
     if filter_hierarchy_entry
       image_count = filter_hierarchy_entry.top_images.count
     else
-      image_count = self.top_concept_images.count
+      image_count = connection.select_values("SELECT count(*) AS count_all FROM `top_concept_images` tci JOIN `data_objects` do ON (tci.data_object_id=do.id) WHERE ((tci.taxon_concept_id = #{self.id})) AND do.published=1")[0].to_i
     end
     other_media_count = self.data_objects.count(:conditions => "data_objects.published=1 AND data_objects.visibility_id=#{Visibility.visible.id} AND data_objects.data_type_id IN (#{(DataType.video_type_ids + DataType.sound_type_ids).join(',')})")
     @media_count = image_count + other_media_count

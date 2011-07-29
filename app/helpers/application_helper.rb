@@ -330,7 +330,7 @@ module ApplicationHelper
     $CACHE.fetch('homepage_stats/total_' + obj, :expires_in => $CACHE_STATS_COUNT_IN_MINUTES.minutes) do
       case obj
         when "taxon_concepts"
-          TaxonConcept.count(:conditions => "published=1")
+          TaxonConcept.find_by_sql("SELECT COUNT(*) count FROM taxon_concepts tc JOIN taxon_concept_content tcc ON (tc.id=tcc.taxon_concept_id) WHERE tc.published=1 AND tc.supercedure_id=0 AND (tcc.text=1 OR tcc.image=1 OR tcc.flash=1 OR tcc.youtube=1)")[0].count.to_i
         when "data_objects"
           DataObject.count(:conditions => "data_type_id=#{DataType.image.id} and published=1")
         when "users" then

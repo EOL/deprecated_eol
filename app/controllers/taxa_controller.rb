@@ -359,12 +359,10 @@ private
 
   def promote_exemplar(data_objects)
     return data_objects if @taxon_concept.blank? || data_objects.blank? || @taxon_concept.taxon_concept_exemplar_image.blank?
-    data_objects.each_with_index do |m, index|
-      if m.id == @taxon_concept.taxon_concept_exemplar_image.data_object_id
-        data_objects.delete_at(index)
-        data_objects.unshift(m)
-        break
-      end
+    exemplar = @taxon_concept.taxon_concept_exemplar_image
+    if exemplar && exemplar_image = exemplar.data_object
+      data_objects.delete_if{ |d| d.id == exemplar_image.id }
+      data_objects.unshift(exemplar_image)
     end
     data_objects
   end

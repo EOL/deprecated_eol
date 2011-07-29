@@ -3,9 +3,10 @@
 - size ||= '260_190'
 - thumbnail ||= false
 - if thumbnail
-  - # FIXME: are video thumbnails accessible through thumb_or_object? If not fix this!
-  - alt ||= alternative_text(data_object, 'video', taxon_concept.blank? ? nil : taxon_concept.title_canonical())
-  = image_tag data_object.thumb_or_object(size), :alt => alt
+  .video
+    - unless data_object.thumbnail_cache_url.blank?
+      - alt ||= alternative_text(data_object, 'video', taxon_concept.blank? ? nil : taxon_concept.title_canonical())
+      = image_tag data_object.thumb_or_object(size), :alt => alt
 - else
   -# playing cached videos
 

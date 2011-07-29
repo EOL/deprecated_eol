@@ -20,6 +20,8 @@ class AddUserIdentities < ActiveRecord::Migration
       `user_identity_id` smallint unsigned NOT NULL,
       PRIMARY KEY (`user_id`, `user_identity_id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8")
+    
+    UserIdentity.create_defaults
   end
 
   def self.down

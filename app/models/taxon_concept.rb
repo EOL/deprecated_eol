@@ -1381,7 +1381,7 @@ class TaxonConcept < SpeciesSchemaModel
     if filter_hierarchy_entry
       image_count = filter_hierarchy_entry.top_images.count
     else
-      image_count = connection.select_values("SELECT count(*) AS count_all FROM `top_concept_images` tci JOIN `data_objects` do ON (tci.data_object_id=do.id) WHERE ((tci.taxon_concept_id = 206692)) AND do.published=1")[0].to_i
+      image_count = connection.select_values("SELECT count(*) AS count_all FROM `top_concept_images` tci JOIN `data_objects` do ON (tci.data_object_id=do.id) WHERE ((tci.taxon_concept_id = #{self.id})) AND do.published=1")[0].to_i
     end
     other_media_count = self.data_objects.count(:conditions => "data_objects.published=1 AND data_objects.visibility_id=#{Visibility.visible.id} AND data_objects.data_type_id IN (#{(DataType.video_type_ids + DataType.sound_type_ids).join(',')})")
     @media_count = image_count + other_media_count

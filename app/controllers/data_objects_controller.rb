@@ -23,7 +23,7 @@ class DataObjectsController < ApplicationController
   # POST /pages/:taxon_id/data_objects
   def create
     if params[:data_object][:description] == ""
-      flash[:warning] = I18n.t(:dato_description_field_cannot_be_blank)
+      flash[:error] = I18n.t(:dato_description_field_cannot_be_blank)
       redirect_to :back
       return
     end 
@@ -40,20 +40,6 @@ class DataObjectsController < ApplicationController
       user.vetted=false
     end
     current_user.log_activity(:created_data_object_id, :value => data_object.id, :taxon_concept_id => @taxon_concept.id)
-    
-    # params[:references] = params[:references].split("\n") unless params[:references].blank?
-    #     data_object = DataObject.create_user_text(params, current_user)
-    #     @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
-    #     @curator = current_user.can_curate?(@taxon_concept)
-    #     @taxon_concept.current_user = current_user
-    #     @category_id = data_object.toc_items[0].id
-    #     alter_current_user do |user|
-    #       user.vetted=false
-    #     end
-    #     current_user.log_activity(:created_data_object_id, :value => data_object.id, :taxon_concept_id => @taxon_concept.id)
-    #render(:partial => '/taxa/text_data_object',
-    #render(:partial => '/taxa/details/category_content',
-    #       :locals => {:content => data_object, :comments_style => '', :category => data_object.toc_items[0].label})
     redirect_to taxon_details_path(@taxon_concept)
   end
 
@@ -97,7 +83,7 @@ class DataObjectsController < ApplicationController
   # PUT /pages/:taxon_id/data_objects/:id
   def update
     if params[:data_object][:description] == ""
-      flash[:warning] = I18n.t(:dato_description_field_cannot_be_blank)
+      flash[:error] = I18n.t(:dato_description_field_cannot_be_blank)
       redirect_to :back
       return
     end 

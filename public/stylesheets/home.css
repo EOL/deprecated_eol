@@ -434,5 +434,6 @@ body {
             color: #82919e; }
     #content .section .join {
       float: right;
+      clear: right;
       width: 380px;
       margin: 0 0 30px 0; }

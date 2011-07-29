@@ -17,9 +17,15 @@
 .busy {
   cursor: wait; }
 
-/*Override for padding on users edit - we have nested div so we need to get rid of left and right padding on article */
+/*Override for layout on users edit - we have extra nested div so we need to remove padding,
+ * we added extra fieldset - but check HR might give us an update for the fieldset */
 #profile_edit.article {
   padding: 0 0 25px 0; }
+#profile_edit fieldset.curation {
+  width: 320px; }
+  #profile_edit fieldset.curation textarea {
+    width: 282px;
+    height: 120px; }
 
 /*Styles for form required (HR overrides) and form validation errors (custom no equivalent from HR)  */
 form dt.required label {
@@ -223,6 +229,9 @@ p.status.error {
 .join abbr {
   border: none; }
 
+#content .section .join {
+  clear: right; }
+
 /*HR z-indexes were messed up in header, also we're putting session partial on home page for logged in users */
 body.home > #header .session {
   position: absolute;
@@ -316,7 +325,7 @@ body > #header .section .session .join {
   margin: 0 0 15px 0;
   line-height: 170%; }
 
-/*Recognized by is looking to cramped */
+/*Recognized by is looking too cramped */
 .recognized ul li {
   padding: 5px 0; }
 
@@ -384,12 +393,10 @@ ul.feed li > a > img {
   max-width: 160px;
   max-height: 125px; }
 #media_list #sidebar.filters img {
-  max-width: 220px;
-  /*max-height: 162px */ }
+  max-width: 220px; }
 
 #taxonomy_detail #sidebar img {
-  max-width: 260px;
-  /*max-height: 190px */ }
+  max-width: 260px; }
 
 ul.object_list li img {
   max-width: 68px;

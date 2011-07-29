@@ -17,20 +17,19 @@ class UsersController < ApplicationController
   # GET /users/:id/edit
   def edit
     # @user instantiated by authentication before filter and matched to current user
+    instantiate_variables_for_edit
   end
 
    # GET /users/:id/curation_privileges
   def curation_privileges
     # @user instantiated by authentication before filter and matched to current user
-    # TODO: @curation_levels =
-    @page_title = I18n.t(:curation_privileges_page_title)
-    @page_description = I18n.t(:curation_privileges_page_description)
+    instantiate_variables_for_curation_privileges
   end
 
   # PUT /users/:id
   def update
     # @user instantiated by authentication before filter and matched to current user
-    redirect_to curation_privileges_user_path(@user) and return if params[:commit_curation_application]
+    redirect_to curation_privileges_user_path(@user) and return if params[:commit_curation_privileges_get]
     generate_api_key and return if params[:commit_generate_api_key]
     unset_auto_managed_password if params[:user][:entered_password]
     if @user.update_attributes(params[:user])
@@ -41,6 +40,7 @@ class UsersController < ApplicationController
       set_current_user(@user)
       current_user.log_activity(:updated_user)
       store_location params[:return_to] if params[:return_to]
+      provide_feedback
       redirect_back_or_default @user
     else
       failed_to_update_user
@@ -284,7 +284,13 @@ private
   def failed_to_update_user
     @user.clear_entered_password if @user
     flash.now[:error] = I18n.t(:update_user_unsuccessful_error)
-    render :action => :edit
+    if params[:commit_curation_privileges_put]
+      instantiate_variables_for_curation_privileges
+      render :curation_privileges, :layout => 'v2/basic'
+    else
+      instantiate_variables_for_edit
+      render :edit
+    end
   end
 
   # Change password parameters when they are set automatically by an auto fill password management of a browser (known behavior of Firefox for example)
@@ -304,7 +310,29 @@ private
     @user = alter_current_user do |user|
       user.update_attributes({ :api_key => User.generate_key })
     end
-    render :action => :edit
+    render :edit
+  end
+
+  def instantiate_variables_for_edit
+    @user_identities = UserIdentity.find(:all, :order => "sort_order ASC")
+  end
+
+  def instantiate_variables_for_curation_privileges
+    @curator_levels = CuratorLevel.find(:all, :order => "label ASC")
+    @page_title = I18n.t(:curation_privileges_page_title)
+    @page_description = I18n.t(:curation_privileges_page_description, :curator_faq_url => '/content/page/help_build_eol#curators')
+  end
+
+  def provide_feedback
+    if params[:commit_curation_privileges_put]
+      if params[:user][:requested_curator_level_id] == CuratorLevel.assistant_curator.id
+        flash[:notice] = I18n.t(:curator_level_assistant_approved_notice)
+      elsif !@user.requested_curator_level_id.nil? && !@user.requested_curator_level_id.zero?
+        flash[:notice] = I18n.t(:curator_level_application_pending_notice)
+      end
+    else
+      flash[:notice] = I18n.t(:update_user_successful_notice)
+    end
   end
 
 end

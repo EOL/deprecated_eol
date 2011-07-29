@@ -7,6 +7,6 @@
         .hgroup
           %h1= @page_title
           %p= @page_description unless @page_description.blank?
-      = render :partial => 'shared/flash_messages'
+        = render :partial => 'shared/flash_messages'
   = yield
 = render :file => 'layouts/v2/application'

@@ -100,6 +100,25 @@ $(function() {
 
   })($(".language"));
 
+  (function($collection) {
+    $collection.find("ul.object_list li").each(function() {
+      var $li = $(this);
+      $li.find("p.edit").show().next().hide().end().find("a").click(function() {
+        $(this).parent().hide().next().show();
+      });
+      $li.find("form a").click(function() {
+        $(this).closest("form").hide().prev().show();
+      });
+    });
+  })($("#collections"));
+
+  (function($community_new) {
+    $community_new.find("dd.invite").spotlite({
+      // replace this example array with a URL to the JSON to be loaded
+      pool: ["johndoe", "jdoe", "johnlovesmushrooms", "jimjimmyjimjim", "johnscreenname", "jjtheguyonline"]
+    }).find("textarea").hide().end().find(":text").show();
+  })($("#community_new"));
+
   $("input[placeholder]").each(function() {
     var $e = $(this),
         placeholder = $e.attr("placeholder");

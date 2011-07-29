@@ -20,10 +20,17 @@
 /** Busy indicator for JS submitted forms e.g. exemplar image **/
 .busy
   cursor: wait
-/** Override for padding on users edit - we have nested div so we need to get rid of left and right padding on article
-#profile_edit.article
-  padding: 0 0 25px 0
-
+/** Override for layout on users edit - we have extra nested div so we need to remove padding,
+  * we added extra fieldset - but check HR might give us an update for the fieldset */
+#profile_edit
+  &.article
+    padding: 0 0 25px 0
+  fieldset
+    &.curation
+      width: 320px
+      textarea
+        width: 282px
+        height: 120px
 /** Styles for form required (HR overrides) and form validation errors (custom no equivalent from HR)  **/
 form
   dt
@@ -259,6 +266,10 @@ p.status.error
 .join
   abbr
     border: none
+#content
+  .section
+    .join
+      clear: right
 
 /** HR z-indexes were messed up in header, also we're putting session partial on home page for logged in users **/
 body
@@ -371,7 +382,7 @@ body
   .copy
     margin: 0 0 15px 0
     line-height: 170%
-/** Recognized by is looking to cramped **/
+/** Recognized by is looking too cramped **/
 .recognized
   ul
     li
@@ -477,12 +488,10 @@ ul.feed
     &.filters
       img
         max-width: 220px
-        /*max-height: 162px*/
 #taxonomy_detail
   #sidebar
     img
       max-width: 260px
-      /*max-height: 190px*/
 ul
   &.object_list
     li

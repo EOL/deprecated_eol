@@ -188,6 +188,8 @@ en:
         agreed_with_terms: "Terms of use agreement"
         api_key: "API key"
         bio: "Bio"
+        credentials: "Credentials"
+        curator_scope: "Curation scope"
         email: "Email address"
         entered_password: "Password"
         entered_password_confirmation: "Password again <small>(to confirm)</small>"
@@ -195,6 +197,7 @@ en:
         full_name: "Full name"
         given_name: "First name"
         language_abbr: "Preferred language"
+        requested_curator_level_id: "Desired curation level"
         tag_line: "Tagline"
         username: "Username"
       collection:
@@ -260,8 +263,7 @@ en:
         credentials_more_professional: "Member of a professional society."
         curation_application: "Becoming a curator"
         curation_application_more: "If you'd like to modify your curation privileges, just submit an application and we'll review your eligibility."
-        curation_level: "Desired curation level"
-        curation_level_more: "You current curation level is %{curation_level}."
+        curator_level: "You are currently %{curator_level_with_indefinite_article}."
         curator_scope: "Curation scope"
         curator_scope_more: 'Please indicate the scope of your expertise. For example: "Rodents of Borneo", "Tri-trophic interactions", or "Conservation issues in fish". This will not limit your ability to curate, but will inform the EOL community.'
         email_reports_frequency_hours: "How often would you like to receive email alerts about activity on your contributions?"
@@ -273,7 +275,9 @@ en:
         mailing_list_yes: "Yes"
         new_password: "New password <small>(4 - 16 characters)</small>"
         new_password_confirmation: "New password <small>(to confirm)</small>"
+        requested_curator_level: "Your request to become %{curator_level_with_indefinite_article} is pending."
         tag_line: 'Tagline or title <small>example: "Bird enthusiast"</small>'
+        user_identities: "I am"
         username: "Username <small>(4 - 32 characters)</small>"
         username_or_email: "Username or email address"
   0_or_1: "0 or 1"
@@ -841,7 +845,7 @@ en:
   curation_and_comments: "Curation and Comments"
   curation_comment: "Curation Comment"
   curation: "Curation"
-  curation_privileges_page_description: "To become a curator, you must indicate the scope of your credentials below. You'll be notified via email if your application for curator privileges is accepted."
+  curation_privileges_page_description: 'Select your desired curation level, assistant, full or master curator. Full and master curator applications must include scope and credentials, you will be notified by email once your details have been reviewed and accepted. Assistant curator applications are not moderated and will be instantly approved. Learn more about <a href="%{curator_faq_url}">becoming a curator</a>.'
   curation_privileges_page_title: "Become a curator"
   curation_scope: "Curation Scope"
   curation_standards: "Curation Standards"
@@ -856,6 +860,14 @@ en:
   curator: "curator"
   curator__: "Curator"
   curator_: "Curator?"
+  curator_level_application_pending_notice: 'Thanks for applying to become a curator, your application has been queued for review and you will be notified by email when it has been accepted.'
+  curator_level_assistant_approved_notice: 'Congratulations! You are now an <em>EOL Assistant Curator</em>. <a href="%{more_url}">Learn more about the assistant curator role</a>.'
+  curator_level_assistant_curator: "Assistant Curator"
+  curator_level_full_curator: "Full Curator"
+  curator_level_master_curator: "Master Curator"
+  curator_level_with_indefinite_article_master_curator: "a <strong>master curator</strong>"
+  curator_level_with_indefinite_article_full_curator: "a <strong>full curator</strong>"
+  curator_level_with_indefinite_article_assistant_curator: "an <strong>assistant curator</strong>"
   curator_list: "Curator List"
   curator_name: "Curator Name"
   curator_of_: "Curator of:"
@@ -2580,6 +2592,7 @@ en:
   update_preferences: "Update Preferences"
   update_profile: "Update Profile"
   update_their_profile: "update their profile"
+  update_user_successful_notice: "Account successfully updated."
   update_user_unsuccessful_error: "Sorry, an error occurred, your account was not updated. Please ensure fields are completed correctly."
   updated_community: "Community was successfully updated."
   updated_member: "Member was successfully updated."
@@ -2651,7 +2664,9 @@ en:
   use_the_form_below_to_enter_in: "Use the form below to enter in tag suggestions.  Categories entered here will be shown to users in the tag \"category\" drop down menu,"
   use_the_form_below_to_enter_in_: "Use the form below to enter in tag suggestions. Categories entered here will be shown to users in the tag \"category\" drop down menu, and suggested values will be shown to users if they select the corresponding category and begin typing a few letters."
   users_about_me_header: "About me"
+  users_curation_header: "Curation qualifications"
   users_form_account_header: "Your account"
+  users_form_curation_header: "Curation qualifications"
   users_form_profile_info_header: "Public profile information"
   users_form_tip: "Username is required for all users, other items marked as required %{required_icon} are optional for general users but required for curators."
   users_member_of_count_communities:

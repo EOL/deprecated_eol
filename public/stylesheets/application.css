@@ -319,6 +319,8 @@ a.in_collection {
     background-image: -moz-linear-gradient(100% 100% 90deg, #1e5587, #7e9eba);
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#7e9eba), to(#1e5587)); }
 
+form.button_to {
+  margin-top: 20px; }
 form dl dt {
   padding: 0 0 5px 0; }
   form dl dt label {
@@ -329,6 +331,8 @@ form dl dd {
   padding: 0 0 10px 0; }
   form dl dd input[type="text"], form dl dd input[type="password"], form dl dd textarea, form dl dd select {
     margin: 0 0 5px 0; }
+  form dl dd input[type="file"] {
+    margin: 0 0 10px 0; }
   form dl dd textarea {
     padding: 8px;
     font: normal 1em Helvetica, Arial, sans-serif;
@@ -347,39 +351,76 @@ form label.checkbox {
   font-weight: bold; }
   form label.checkbox input {
     margin: 0 5px 0 0; }
-form fieldset.actions button {
-  display: none; }
-form fieldset.actions input[type="submit"],
-form fieldset.actions button {
-  padding: 7px 10px;
-  overflow: visible;
-  font: bold 1.08em Helvetica, Arial, sans-serif;
-  color: #394651;
-  text-transform: lowercase;
-  text-decoration: none;
-  border: 1px solid #939a9f;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  background-color: #d7dde1;
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#d7dde1);
-  background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white);
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1));
-  cursor: pointer;
-  margin: 0 5px 0 0;
-  padding: 3px 10px;
-  font-size: 0.92em; }
-  form fieldset.actions input[type="submit"]:hover,
-  form fieldset.actions button:hover {
-    background-color: #e6eef4;
-    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#e6eef4);
-    background-image: -moz-linear-gradient(100% 100% 90deg, #e6eef4, white);
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#e6eef4)); }
-  form fieldset.actions input[type="submit"]:active,
-  form fieldset.actions button:active {
+form fieldset.actions,
+form div {
+  margin: 10px 0; }
+  form fieldset.actions button,
+  form div button {
+    display: none; }
+  form fieldset.actions input[type="submit"],
+  form fieldset.actions button,
+  form div input[type="submit"],
+  form div button {
+    padding: 7px 10px;
+    overflow: visible;
+    font: bold 1.08em Helvetica, Arial, sans-serif;
+    color: #394651;
+    text-transform: lowercase;
+    text-decoration: none;
+    border: 1px solid #939a9f;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
     background-color: #d7dde1;
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#d7dde1);
     background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white);
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1)); }
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1));
+    cursor: pointer;
+    margin: 0 5px 0 0;
+    padding: 3px 10px;
+    font-size: 0.92em;
+    cursor: pointer; }
+    form fieldset.actions input[type="submit"]:hover,
+    form fieldset.actions button:hover,
+    form div input[type="submit"]:hover,
+    form div button:hover {
+      background-color: #e6eef4;
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#e6eef4);
+      background-image: -moz-linear-gradient(100% 100% 90deg, #e6eef4, white);
+      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#e6eef4)); }
+    form fieldset.actions input[type="submit"]:active,
+    form fieldset.actions button:active,
+    form div input[type="submit"]:active,
+    form div button:active {
+      background-color: #d7dde1;
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#d7dde1);
+      background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white);
+      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1)); }
+    form fieldset.actions input[type="submit"].delete,
+    form fieldset.actions button.delete,
+    form div input[type="submit"].delete,
+    form div button.delete {
+      border-color: #cd331e;
+      background-color: #cd331e;
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#e07f71, endColorstr=#cd331e);
+      background-image: -moz-linear-gradient(100% 100% 90deg, #cd331e, #e07f71);
+      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#e07f71), to(#cd331e));
+      color: white; }
+      form fieldset.actions input[type="submit"].delete:hover,
+      form fieldset.actions button.delete:hover,
+      form div input[type="submit"].delete:hover,
+      form div button.delete:hover {
+        background-color: #ea3b23;
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f88b7b, endColorstr=#ea3b23);
+        background-image: -moz-linear-gradient(100% 100% 90deg, #ea3b23, #f88b7b);
+        background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f88b7b), to(#ea3b23)); }
+      form fieldset.actions input[type="submit"].delete:active,
+      form fieldset.actions button.delete:active,
+      form div input[type="submit"].delete:active,
+      form div button.delete:active {
+        background-color: #cd331e;
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#e07f71, endColorstr=#cd331e);
+        background-image: -moz-linear-gradient(100% 100% 90deg, #cd331e, #e07f71);
+        background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#e07f71), to(#cd331e)); }
 .heading form.filter {
   float: right; }
   .heading form.filter label {
@@ -526,8 +567,9 @@ ul.tabs {
     font-size: 1.16em; }
     ul.tabs.with_icons li a {
       padding: 17px 20px 17px 50px; }
-    ul.tabs.with_icons li.total a {
-      padding-left: 20px;
+    ul.tabs.with_icons li.total a, ul.tabs.with_icons li.comments a {
+      padding-left: 20px; }
+    ul.tabs.with_icons li.total {
       font-size: 1.14em; }
 
 p.status {
@@ -556,21 +598,12 @@ p.status {
     p.status.negative strong {
       color: #e84226; }
 
-.copy.cms_page {
-  padding: 40px 40px 25px 40px;
-  border: 1px solid #cad3db;
-  margin: 0 60px; }
-  .copy.cms_page img {
-    float: right;
-    padding: 10px;
-    border: 1px solid #cad3db;
-    margin: 0 0 20px 20px; }
 .copy h2 {
   margin: 0 0 15px 0;
   font-size: 1.5em; }
 .copy h3 {
   margin: 0 0 15px 0;
-  font-size: 1.2em; }
+  font-size: 1.33em; }
 .copy h4 {
   margin: 0 0 15px 0;
   font-size: 1em; }
@@ -665,11 +698,6 @@ table.standard {
     .article.list li .details {
       padding: 5px 0 0 0;
       overflow: hidden; }
-      .article.list li .details a {
-        text-decoration: none;
-        color: #27282b; }
-        .article.list li .details a:hover {
-          text-decoration: underline; }
   .article.updates blockquote {
     line-height: 140%; }
   .article.updates p {
@@ -981,6 +1009,29 @@ body > #header {
   overflow: hidden;
   padding: 20px 0;
   background: white; }
+  #content.cms_page .nav {
+    float: left;
+    margin: 0 20px 0 0;
+    width: 240px; }
+    #content.cms_page .nav ul li a {
+      border: 1px solid #cad3db;
+      margin: 0 0 1px 0; }
+    #content.cms_page .nav ul li a {
+      display: block;
+      font-weight: bold;
+      padding: 7px 10px 6px 10px;
+      text-decoration: none; }
+      #content.cms_page .nav ul li a:hover {
+        border-color: #93a4b0; }
+  #content.cms_page .copy {
+    overflow: hidden;
+    padding: 40px 40px 25px 40px;
+    border: 1px solid #cad3db; }
+    #content.cms_page .copy img {
+      float: right;
+      padding: 10px;
+      border: 1px solid #cad3db;
+      margin: 0 0 20px 20px; }
 
 #page_heading {
   padding: 10px 0 0 0;
@@ -1036,7 +1087,8 @@ body > #header {
     #page_heading .page_actions a {
       float: right; }
     #page_heading .page_actions form.button_to {
-      float: right; }
+      float: right;
+      margin: 0; }
       #page_heading .page_actions form.button_to input[type="submit"] {
         padding: 7px 10px;
         overflow: visible;
@@ -1087,6 +1139,8 @@ body > #header {
     #page_heading.with_image .page_actions {
       padding-top: 10px;
       padding-bottom: 10px; }
+      #page_heading.with_image .page_actions ul {
+        padding: 0; }
     #page_heading.with_image input[type="text"] {
       font-size: 16px;
       margin: 0 0 5px 0; }
@@ -1128,6 +1182,9 @@ body > #header {
   z-index: 2;
   width: 200px;
   padding: 20px 0 0 0; }
+  #tabs_sidebar h3 {
+    margin: 0 0 10px 10px;
+    font-size: 14px; }
   #tabs_sidebar form {
     padding: 0 0 0 10px; }
     #tabs_sidebar form dt {
@@ -1226,6 +1283,25 @@ body > #header {
 
 #collections .heading {
   text-align: center; }
+#collections .article.list.updates {
+  padding-top: 15px;
+  margin: 0 -10px; }
+  #collections .article.list.updates form {
+    padding: 5px 15px 20px 15px;
+    margin: 0;
+    border-bottom: 1px solid #d4dce2; }
+    #collections .article.list.updates form textarea {
+      width: 390px; }
+    #collections .article.list.updates form fieldset {
+      margin: 0; }
+    #collections .article.list.updates form fieldset.actions input[type="submit"] {
+      padding: 7px 10px;
+      font-size: 1em; }
+  #collections .article.list.updates ul li {
+    padding: 15px 15px;
+    border-bottom: 1px solid #d4dce2; }
+    #collections .article.list.updates ul li img {
+      margin-bottom: 5px; }
 #collections ul.object_list li {
   padding-top: 20px;
   padding-bottom: 20px; }
@@ -1328,23 +1404,44 @@ body > #header {
         #profile_info .half.info dl dd {
           margin: 0 0 5px 20px; }
 
-#profile_curator_info {
+#profile_curator_info fieldset label {
+  font-size: 16px; }
+
+#profile_curator_info,
+#profile_content_partner {
   width: 640px; }
-  #profile_curator_info fieldset {
+  #profile_curator_info fieldset,
+  #profile_content_partner fieldset {
     padding-top: 10px; }
-    #profile_curator_info fieldset dt {
+    #profile_curator_info fieldset dt,
+    #profile_content_partner fieldset dt {
       margin: 0; }
-      #profile_curator_info fieldset dt label {
-        display: block;
-        font-size: 16px; }
-      #profile_curator_info fieldset dt p, #profile_curator_info fieldset dt label, #profile_curator_info fieldset dt ol, #profile_curator_info fieldset dt ol li {
-        margin-bottom: 5px; }
-    #profile_curator_info fieldset dd {
+      #profile_curator_info fieldset dt p, #profile_curator_info fieldset dt label, #profile_curator_info fieldset dt ol, #profile_curator_info fieldset dt ol li,
+      #profile_content_partner fieldset dt p,
+      #profile_content_partner fieldset dt label,
+      #profile_content_partner fieldset dt ol,
+      #profile_content_partner fieldset dt ol li {
+        margin-bottom: 0; }
+    #profile_curator_info fieldset dd,
+    #profile_content_partner fieldset dd {
       margin: 0 0 10px 0; }
-      #profile_curator_info fieldset dd textarea {
+      #profile_curator_info fieldset dd input[type="text"],
+      #profile_content_partner fieldset dd input[type="text"] {
+        width: 308px;
+        height: 22px;
+        padding: 2px 5px;
+        font: normal 1em Helvetica, Arial, sans-serif;
+        border: 1px solid #cad3db;
+        background-color: white;
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+        background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+        background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
+      #profile_curator_info fieldset dd textarea,
+      #profile_content_partner fieldset dd textarea {
         width: 600px;
         height: 60px; }
-    #profile_curator_info fieldset input[type="submit"] {
+    #profile_curator_info fieldset input[type="submit"],
+    #profile_content_partner fieldset input[type="submit"] {
       padding: 7px 10px;
       font-size: 1em; }
 
@@ -1355,16 +1452,17 @@ body > #header {
     #profile_content_connections ul li {
       overflow: hidden;
       margin: 0 0 10px 0; }
-      #profile_content_connections ul li img {
+      #profile_content_connections ul li > a {
         float: left;
         border: 1px solid #394651;
         margin: 0 10px 0 0; }
+        #profile_content_connections ul li > a img {
+          display: block; }
       #profile_content_connections ul li .details {
-        float: left;
-        margin: 10px 0 0 0; }
+        overflow: hidden;
+        margin: 5px 0 0 0; }
         #profile_content_connections ul li .details a {
-          font-size: 0.9em;
-          margin: 0 5px 0 0;
+          color: #27282b;
           text-decoration: none; }
           #profile_content_connections ul li .details a:hover {
             text-decoration: underline; }
@@ -1389,6 +1487,25 @@ body > #header {
     padding: 7px 10px;
     margin: 0 10px 0 0;
     font-size: 1em; }
+  #content_partner.contact {
+    padding: 0;
+    width: 640px; }
+
+#content_partner_show #sidebar {
+  width: 320px; }
+  #content_partner_show #sidebar ul li {
+    margin: 0 0 20px 0; }
+    #content_partner_show #sidebar ul li h4 b {
+      font-size: 0.9em;
+      color: #616e7a; }
+    #content_partner_show #sidebar ul li p {
+      font-size: 0.9em;
+      line-height: 140%; }
+      #content_partner_show #sidebar ul li p + p a {
+        font-weight: bold; }
+#content_partner_show .main_container {
+  border: none;
+  padding: 0; }
 
 #community {
   padding: 20px; }
@@ -1415,6 +1532,54 @@ body > #header {
       #community .article.updates li .details img {
         margin: 0 8px 0 0;
         border: 1px solid #394651; }
+
+#community_new .copy {
+  width: 300px;
+  float: right;
+  margin: 0 0 0 40px; }
+#community_new form {
+  float: right;
+  width: 600px; }
+  #community_new form dt p {
+    margin: 0; }
+  #community_new form input[type="text"] {
+    width: 308px;
+    height: 22px;
+    padding: 2px 5px;
+    font: normal 1em Helvetica, Arial, sans-serif;
+    border: 1px solid #cad3db;
+    background-color: white;
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+    background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
+  #community_new form textarea {
+    width: 582px;
+    height: 100px; }
+  #community_new form dd.invite {
+    position: relative; }
+    #community_new form dd.invite input[type="text"] {
+      display: none; }
+    #community_new form dd.invite textarea {
+      height: 40px; }
+    #community_new form dd.invite ul.spotlite-results li {
+      border: 1px solid #d4dce2;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      float: left;
+      padding: 4px 5px;
+      cursor: pointer;
+      background: url("/images/v2/icon_remove.png") no-repeat 5px center;
+      padding-left: 17px;
+      margin: 0 5px 5px 0; }
+      #community_new form dd.invite ul.spotlite-results li:hover {
+        background-color: #f3f7fa; }
+  #community_new form fieldset.actions {
+    clear: both;
+    width: 100%; }
+    #community_new form fieldset.actions input[type="submit"] {
+      font-size: 1em;
+      padding: 7px 20px;
+      margin: 10px 20px 10px 0; }
 
 #taxon_literature .main_container {
   padding: 20px; }
@@ -1617,6 +1782,8 @@ body > #header {
     #taxonomy_detail #main .article + .article {
       padding-top: 40px;
       border-top: 1px solid #d4dce2; }
+    #taxonomy_detail #main .article .meta {
+      padding-top: 10px; }
     #taxonomy_detail #main .article .meta.learn_more p, #taxonomy_detail #main .article .meta.learn_more form {
       float: none;
       display: inline;
@@ -1626,12 +1793,25 @@ body > #header {
         margin: 0 0 0 10px; }
       #taxonomy_detail #main .article .meta.learn_more p.last:after, #taxonomy_detail #main .article .meta.learn_more form.last:after {
         content: ""; }
+    #taxonomy_detail #main .article p.flag {
+      float: left;
+      padding: 1px 2px;
+      font-size: 0.83em;
+      text-transform: uppercase;
+      color: white;
+      margin: 0 40px 0 0; }
+      #taxonomy_detail #main .article p.flag.trusted {
+        border: 1px solid #6b7910;
+        background: #849513; }
+      #taxonomy_detail #main .article p.flag.unreviewed {
+        border: 1px solid #677682;
+        background: #8695a1; }
     #taxonomy_detail #main .article .average_rating {
       float: left;
-      padding: 0 40px 0 0;
+      padding: 2px 40px 0 0;
       margin: 0 0 20px 0; }
     #taxonomy_detail #main .article > .rating {
-      margin: 0 0 20px 0; }
+      padding: 2px 0 20px 0; }
     #taxonomy_detail #main .article p.actions {
       clear: both;
       margin: 0 0 20px 0; }
@@ -1650,6 +1830,39 @@ body > #header {
       padding: 7px 20px; }
     #taxonomy_detail #main form.comment a.cancel {
       display: none; }
+
+#taxon_resources .main_container {
+  padding: 40px; }
+  #taxon_resources .main_container table.standard img {
+    display: block; }
+
+#object_text_new fieldset {
+  width: 640px;
+  float: left; }
+  #object_text_new fieldset + fieldset {
+    width: 300px; }
+    #object_text_new fieldset + fieldset input[type="text"] {
+      width: 288px; }
+  #object_text_new fieldset input[type="text"] {
+    width: 308px;
+    height: 22px;
+    padding: 2px 5px;
+    font: normal 1em Helvetica, Arial, sans-serif;
+    border: 1px solid #cad3db;
+    background-color: white;
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+    background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
+  #object_text_new fieldset textarea {
+    width: 580px;
+    height: 200px; }
+  #object_text_new fieldset.actions {
+    clear: both;
+    width: 100%; }
+    #object_text_new fieldset.actions input[type="submit"] {
+      font-size: 1em;
+      padding: 7px 20px;
+      margin: 10px 20px 10px 0; }
 
 #permalink.text .ratings {
   margin-top: 40px; }
@@ -2342,3 +2555,11 @@ body > #header {
       font-size: 1em; }
     #profile_edit fieldset.actions a {
       font-weight: bold; }
+
+ul.spotlite-matches {
+  background: white;
+  border: 1px solid #d4dce2; }
+  ul.spotlite-matches li {
+    padding: 4px 5px; }
+    ul.spotlite-matches li.spotlite-selected {
+      background: #f1f4dc; }

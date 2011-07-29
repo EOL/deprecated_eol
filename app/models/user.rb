@@ -43,18 +43,18 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   before_save :check_credentials
   before_save :encrypt_password
-  before_update :encrypt_password
+  before_save :instantly_approve_curator_level, :if => :curator_level_can_be_instantly_approved?
 
   accepts_nested_attributes_for :user_info
 
   @email_format_re = %r{^(?:[_\+a-z0-9-]+)(\.[_\+a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$}i
 
-  #validate :ensure_unique_username_against_master
-
-  validates_uniqueness_of :username
+  validate :ensure_unique_username_against_master
 
   validates_presence_of :curator_verdict_by, :if => Proc.new { |obj| !obj.curator_verdict_at.blank? }
   validates_presence_of :curator_verdict_at, :if => Proc.new { |obj| !obj.curator_verdict_by.blank? }
+  validates_presence_of :credentials, :if => :curator_attributes_required?
+  validates_presence_of :curator_scope, :if => :curator_attributes_required?
   validates_presence_of :username
 
   validates_length_of :username, :within => 4..32
@@ -207,9 +207,13 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   # returns true or false indicating if username is unique
-  def self.unique_user?(username)
+  def self.unique_user?(username, id = nil)
     User.with_master do
-      User.count(:conditions => ['username = ?', username]) == 0
+      if id.nil?
+        User.count(:conditions => ['username = ?', username]) == 0
+      else
+        User.count(:conditions => ['username = ? AND id <> ?', username, id]) == 0
+      end
     end
   end
 
@@ -478,6 +482,10 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     has_special_role?(Role.curator)
   end
 
+  def is_pending_curator?
+    !requested_curator_level.nil? && !requested_curator_level.zero?
+  end
+
   def selected_default_hierarchy
     hierarchy = Hierarchy.find_by_id(default_hierarchy_id)
     hierarchy.blank? ? '' : hierarchy.label
@@ -569,6 +577,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     return true unless attributes.keys.include?("filter_content_by_hierarchy")
   end
 
+#  I commented this out because instead I used a route path and I don't think we are using ssl right now ?
 #  def password_reset_url(original_port)
 #    port = ["80", "443"].include?(original_port.to_s) ? "" : ":#{original_port}"
 #    new_token = User.generate_key
@@ -577,13 +586,9 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 #    "#{http_string}://#{$SITE_DOMAIN_OR_IP}#{port}/users/reset_password/#{new_token}"
 #  end
 
-#  def ensure_unique_username_against_master
-#    # NOTE - this weird id.blank? line was introduced because the :on => :create clause on the validation was not working.
-#    # Very frustrating.  So, essentially, we make sure this user is newly created before proceeding.
-#    if id.blank? # We don't care if the username is unique if the user is already in the system...
-#      errors.add('username', "#{username} is already taken") unless User.unique_user?(username)
-#    end
-#  end
+  def ensure_unique_username_against_master
+    errors.add('username', "#{username} is already taken") unless User.unique_user?(username, id)
+  end
 
   def rating_for_object_guid(guid)
     UsersDataObjectsRating.find_by_data_object_guid_and_user_id(guid, self.id, :order => 'id desc')
@@ -764,6 +769,25 @@ private
     else
       return true # encryption not required but we don't want to halt the process
     end
+  end
+
+  # validation condition for required curator attributes
+  def curator_attributes_required?
+    (!self.requested_curator_level_id.nil? && !self.requested_curator_level_id.zero? &&
+      self.requested_curator_level_id != CuratorLevel.assistant_curator.id) ||
+    (!self.curator_level_id.nil? && !self.curator_level_id.zero? &&
+      self.curator_level_id != CuratorLevel.assistant_curator.id)
+  end
+  # before_save
+  def instantly_approve_curator_level
+    self.curator_level_id = self.requested_curator_level_id
+    self.requested_curator_level_id = nil
+  end
+
+  # conditional for before_save
+  def curator_level_can_be_instantly_approved?
+    self.requested_curator_level_id == CuratorLevel.assistant_curator.id ||
+    self.requested_curator_level_id == self.curator_level_id
   end
 
 end

@@ -13,6 +13,9 @@
       %dd= h @user.full_name
       %dt= I18n.t('activerecord.attributes.user.username')
       %dd= h @user.username
+      - unless @user.user_identities.blank?
+        %dt= I18n.t('helpers.label.user.user_identities')
+        %dd= @user.user_identities.collect{|ui| ui.label}.join(', ')
   .article.half.list
     .header
       %h3= I18n.t(:users_member_of_count_communities, :count => @user.members.size)
@@ -21,3 +24,12 @@
         - @user.members.each do |member|
           - if community = member.community
             %li= link_to h(community.name), community
+  - if @user.is_curator?
+    .article.half.info
+      .header
+        %h3= I18n.t(:users_curation_header)
+      %dl
+        %dt= I18n.t('activerecord.attributes.user.credentials')
+        %dd= h @user.credentials
+        %dt= I18n.t('activerecord.attributes.user.curator_scope')
+        %dd= h @user.curator_scope

@@ -5,6 +5,7 @@ describe SessionsController do
   before(:all) do
     truncate_all_tables
     Language.create_english
+    CuratorLevel.create_defaults
   end
 
   describe "GET new" do

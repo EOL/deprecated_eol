@@ -13,7 +13,27 @@ describe UsersController do
     truncate_all_tables
     Language.create_english
     SpecialCollection.gen(:name => 'Watch')
+    CuratorLevel.create_defaults
+    UserIdentity.create_defaults
     @user = User.gen
+  end
+
+  describe 'GET new' do
+    it 'should render new unless logged in' do
+      get :new
+      response.rendered[:template].should == 'users/new.html.haml'
+      response.redirected_to.should be_blank
+      get :new, nil, { :user => @user, :user_id => @user.id }
+      response.rendered[:template].should_not == 'users/new.html.haml'
+      response.redirected_to.should == @user
+    end
+  end
+
+  describe 'POST create' do
+    it 'should rerender on validation errors'
+    it 'should redirect on success'
+    it 'should send verify email notification'
+    it 'should create agent record for a user during account creation'
   end
 
   describe 'GET show' do
@@ -76,24 +96,40 @@ describe UsersController do
       user.bio.should_not == bio
       user.bio.should == 'My bio'
     end
-  end
 
-  describe 'GET new' do
-    it 'should render new unless logged in' do
-      get :new
-      response.rendered[:template].should == 'users/new.html.haml'
-      response.redirected_to.should be_blank
-      get :new, nil, { :user => @user, :user_id => @user.id }
-      response.rendered[:template].should_not == 'users/new.html.haml'
-      response.redirected_to.should == @user
+    it 'should render curation privileges on validation errors for curator application' do
+      user = User.gen
+      put :update, { :id => user.id, :commit_curation_privileges_put => 'Curation application',
+                     :user => { :id => user.id, :username => user.username, :credentials => '',
+                                :requested_curator_level_id => CuratorLevel.master_curator.id } },
+                   { :user => user, :user_id => user.id }
+      response.rendered[:template].should == 'users/curation_privileges.html.haml'
+      assigns[:user].errors.any?.should be_true
+    end
+
+    it 'should allow instant approval for assistant curators without requirements' do
+      user = User.gen
+      put :update, { :id => user.id, :commit_curation_privileges_put => 'Curation application',
+                     :user => { :id => user.id, :username => user.username, :credentials => '',
+                                :requested_curator_level_id => CuratorLevel.assistant_curator.id } },
+                   { :user => user, :user_id => user.id }
+      assigns[:user].errors.any?.should be_false
+      assigns[:user].curator_level_id.should == CuratorLevel.assistant_curator.id
     end
   end
 
-  describe 'POST create' do
-    it 'should rerender on validation errors'
-    it 'should redirect on success'
-    it 'should send verify email notification'
-    it 'should create agent record for a user during account creation'
+  describe 'GET curation_privileges' do
+    it 'should render curation privileges only if applying for self' do
+      get :curation_privileges, { :id => @user.id }
+      users_access_should_be_denied('users/curation_privileges.html.haml')
+      user = User.gen
+      get :curation_privileges, { :id => user.id }, { :user => @user, :user_id => @user.id }
+      users_access_should_be_denied('users/curation_privileges.html.haml')
+      get :curation_privileges, { :id => @user.id }, { :user => @user, :user_id => @user.id }
+      assigns[:user].should == @user
+      response.rendered[:template].should == 'users/curation_privileges.html.haml'
+      response.redirected_to.should be_blank
+    end
   end
 
   describe 'GET verify' do

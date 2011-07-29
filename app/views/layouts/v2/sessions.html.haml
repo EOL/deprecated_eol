@@ -1,5 +1,6 @@
 - content_for :main do
-  = render :partial => 'shared/flash_messages'
+  .site_column
+    = render :partial => 'shared/flash_messages'
   #content.session
     = yield
 = render :file => 'layouts/v2/application'

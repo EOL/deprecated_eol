@@ -157,11 +157,12 @@ Rails::Initializer.run do |config|
   # SESSION MANAGEMENT
   $SESSION_EXPIRY_IN_SECONDS = (60*60) # the number of seconds of non-use before sessions are automatically expired in SQL
   $USE_SQL_SESSION_MANAGEMENT = false   # set to true to use Rails built-in SQL session storage management
-   # (create the session table with 'rake db:sessions:create')
+  # (create the session table with 'rake db:sessions:create')
 
-   # CACHE CONFIGURATION
-   $CACHE_CLEARED_LAST = Time.now()  # This variable will record the last time the home page cache was cleared
-   $CACHE_CLEAR_IN_HOURS = 1 # automatically expire home page cached fragment at this time interval (in hours)
+  # CACHE CONFIGURATION
+  $CACHE_CLEARED_LAST = Time.now()  # This variable will record the last time the home page cache was cleared
+  $CACHE_CLEAR_IN_HOURS = 1 # automatically expire home page cached fragment at this time interval (in hours)
+  $CACHE_STATS_COUNT_IN_MINUTES = 65 # refresh total counts of all data at this time interval (in minutes)
 
   # CONTENT PARTNER REGISTRY CONFIGURATION
   $LOGO_UPLOAD_PATH = "/uploads/images/collection_icons/"  # directory to place uploaded content partner logos from CP registry, content server needs SFTP access to this folder (logos are not served out of this area)

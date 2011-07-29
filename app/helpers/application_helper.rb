@@ -327,7 +327,7 @@ module ApplicationHelper
 
   # Total counts for stats on the home page
   def total_count(obj)
-    $CACHE.fetch('homepage_stats/total_' + obj, :expires_in => 65.minutes) do
+    $CACHE.fetch('homepage_stats/total_' + obj, :expires_in => $CACHE_STATS_COUNT_IN_MINUTES.minutes) do
       case obj
         when "taxon_concepts"
           TaxonConcept.count(:conditions => "published=1")

@@ -20,6 +20,9 @@
 /** Busy indicator for JS submitted forms e.g. exemplar image **/
 .busy
   cursor: wait
+/** adding facebook icon to social media **/
+body > #footer ul.social_media li a.facebook
+  background-position: 0 center
 /** Override for layout on users edit - we have extra nested div so we need to remove padding,
   * we added extra fieldset - but check HR might give us an update for the fieldset */
 #profile_edit
@@ -156,11 +159,35 @@ form#switch_hierarchy_entry
 
 /** warning messages - check HR commits for updates to this **/
 p.status.error
-  text-align: center
-  font-size: 1.5em
-  padding: 0.3em
   border: 1px solid #f2d2cc
   background: #ffeae6
+/** move to home.css once HR involvement ceases **/
+.home
+  p.status
+    &.notice, &.error, &.warning
+      clear: both
+      padding: 7px 10px
+      margin: 0
+      line-height: 140%
+      font-size: 1.08em
+      font-weight: bold
+      text-align: center
+      color: #394651
+      border: 1px solid #C7D471
+      background: #EDF6B2
+    &.error
+      border: 1px solid #f2d2cc
+      background: #ffeae6
+  #content
+    .section
+      .stats
+        p.meta
+          padding: 40px 0 15px 40px
+          font-size: 0.83em
+          font-weight: bold
+          text-transform: uppercase
+          color: #82919E
+
 /** HR change permalink class to text, but use article elsewhere for text objects so we are still using
  * article as that's what en_type is returning... at some point we should go through and change all 'article'
  * classes that mean data_object text to text, as article clashes with the HR generic article class but right

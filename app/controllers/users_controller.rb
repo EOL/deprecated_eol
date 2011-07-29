@@ -110,6 +110,7 @@ class UsersController < ApplicationController
   # GET for member /users/:id/activated
   def activated
     @user = User.find(params[:id])
+    flash.now[:notice] = I18n.t(:user_activation_successful_notice, :username => @user.username)
   end
 
   # GET and POST for member /users/:user_id/terms_agreement

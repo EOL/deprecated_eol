@@ -9,7 +9,7 @@ class TaxonConceptExemplarImage < SpeciesSchemaModel
 
     tci_exists = TopConceptImage.find_by_taxon_concept_id_and_data_object_id(taxon_concept_id, data_object_id)
     tci_exists.destroy unless tci_exists.nil?
-    connection.execute("UPDATE top_concept_images SET view_order=view_order+1 WHERE taxon_concept_id=taxon_concept_id");
+    connection.execute("UPDATE top_concept_images SET view_order=view_order+1 WHERE taxon_concept_id=#{taxon_concept_id}");
     TopConceptImage.create(:taxon_concept_id => taxon_concept_id, :data_object_id => data_object_id, :view_order => 1)
   end
 end

@@ -13,6 +13,10 @@
  * so I am temporarily adding some CSS here needed for V2 demo. This CSS should be integrated
  * into HashRocket SASS if it is still needed when design work is complete.
  */
+/* Use the ~30K JPG form on the homepage image instead of the ~500K transparent PNG */
+body > #header {
+  background: transparent url("/images/v2/bg_home_earth.jpg") 50% 100% no-repeat; }
+
 /*Busy indicator for JS submitted forms e.g. exemplar image */
 .busy {
   cursor: wait; }

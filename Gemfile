@@ -11,6 +11,7 @@ group :development, :test do
   gem 'capybara', '0.3.9'
 end
 
+gem 'mysql'
 gem 'indifferent-variable-hash'
 gem 'ruby-debug'
 gem 'rails', '2.3.8'

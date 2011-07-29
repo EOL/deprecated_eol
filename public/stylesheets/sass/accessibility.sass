@@ -266,10 +266,6 @@ p.status.error
 .join
   abbr
     border: none
-#content
-  .section
-    .join
-      clear: right
 
 /** HR z-indexes were messed up in header, also we're putting session partial on home page for logged in users **/
 body
@@ -361,12 +357,14 @@ body
       display: inline-block
       fieldset
         display: inline-block
-.empty
+#taxonomy
   form#new_collection_item
-    margin-bottom: 10px
-    input[type="submit"]
-      font-size: 0.78em
-      padding: 7px 10px
+    margin-top: 0
+    fieldset.actions
+      margin-top: -3px
+      input[type="submit"]
+        font-size: 0.78em
+        padding: 7px 10px
 
 /** HR styles assume text descriptions are nicely wrapped in p tags - in reality they may or may not be so we add
   * extra div.description and assign styles to the div - check this, particularly line-height as we probably need

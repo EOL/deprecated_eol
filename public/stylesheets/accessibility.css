@@ -229,9 +229,6 @@ p.status.error {
 .join abbr {
   border: none; }
 
-#content .section .join {
-  clear: right; }
-
 /*HR z-indexes were messed up in header, also we're putting session partial on home page for logged in users */
 body.home > #header .session {
   position: absolute;
@@ -307,11 +304,13 @@ body > #header .section .session .join {
   #taxonomy_detail form#new_collection_item fieldset {
     display: inline-block; }
 
-.empty form#new_collection_item {
-  margin-bottom: 10px; }
-  .empty form#new_collection_item input[type="submit"] {
-    font-size: 0.78em;
-    padding: 7px 10px; }
+#taxonomy form#new_collection_item {
+  margin-top: 0; }
+  #taxonomy form#new_collection_item fieldset.actions {
+    margin-top: -3px; }
+    #taxonomy form#new_collection_item fieldset.actions input[type="submit"] {
+      font-size: 0.78em;
+      padding: 7px 10px; }
 
 /*HR styles assume text descriptions are nicely wrapped in p tags - in reality they may or may not be so we add
  * extra div.description and assign styles to the div - check this, particularly line-height as we probably need

@@ -24,7 +24,7 @@
     #sidebar
       - if logged_in?
         .filters
-          %h4= I18n.t(:collect_items)
+          %h4= I18n.t(:actions)
           %fieldset.actions
             = select_tag :scope, options_for_select(@collection_item_scopes)
             - if editable

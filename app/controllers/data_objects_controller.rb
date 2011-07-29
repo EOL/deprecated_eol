@@ -2,26 +2,19 @@ class DataObjectsController < ApplicationController
 
   layout :data_objects_layout
 
+  before_filter :check_authentication => [:new, :create, :edit, :update]
   before_filter :load_data_object, :except => [:index, :new, :create, :preview]
   before_filter :allow_login_then_submit, :only => [:rate]
-  before_filter :curator_only, :only => [:curate, :add_association, :remove_association,
-                                         :new, :create, :edit, :update, :destroy]
+  before_filter :curator_only, :only => [:curate, :add_association, :remove_association]
 
   # GET /pages/:taxon_id/data_objects/new
   def new
     @taxon_concept = TaxonConcept.find(params[:taxon_id])
-    @toc_items = TocItem.selectable_toc
-    @languages = Language.find_by_sql("SELECT * FROM languages WHERE iso_639_1 != '' && source_form != ''")
-    @licenses = License.find_all_by_show_to_content_partners(1)
-    if params[:data_object]
-      @data_object = DataObject.new(params[:data_object])
-      @selected_toc_item = @data_object.toc_items[0]
-    else
-      @data_object = DataObject.new(:data_type => DataType.text,
+    set_text_data_object_options
+    @data_object = DataObject.new(:data_type => DataType.text,
                                     :license_id => License.by_nc.id,
                                     :language_id => current_user.language_id)
-      @selected_toc_item = @toc_items[0]
-    end
+    @selected_toc_item = @toc_items[0]
     @page_title = I18n.t(:dato_new_text_for_taxon_page_title, :taxon => Sanitize.clean(@taxon_concept.title_canonical))
     @page_description = I18n.t(:dato_new_text_page_description)
     current_user.log_activity(:creating_new_data_object, :taxon_concept_id => @taxon_concept.id)
@@ -29,16 +22,35 @@ class DataObjectsController < ApplicationController
 
   # POST /pages/:taxon_id/data_objects
   def create
-    params[:references] = params[:references].split("\n") unless params[:references].blank?
-    data_object = DataObject.create_user_text(params, current_user)
-    @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
+    if params[:data_object][:description] == ""
+      flash[:warning] = I18n.t(:dato_description_field_cannot_be_blank)
+      redirect_to :back
+      return
+    end 
+    if params[:data_object]
+      params[:references] = params[:references].split("\n") unless params[:references].blank?
+      data_object = DataObject.create_user_text(params, current_user)
+    else
+      flash[:error] = I18n.t(:dato_create_missing_text_dato_error)
+    end
+    @taxon_concept = TaxonConcept.find(params[:taxon_id])
     @curator = current_user.can_curate?(@taxon_concept)
     @taxon_concept.current_user = current_user
-    @category_id = data_object.toc_items[0].id
     alter_current_user do |user|
       user.vetted=false
     end
     current_user.log_activity(:created_data_object_id, :value => data_object.id, :taxon_concept_id => @taxon_concept.id)
+    
+    # params[:references] = params[:references].split("\n") unless params[:references].blank?
+    #     data_object = DataObject.create_user_text(params, current_user)
+    #     @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
+    #     @curator = current_user.can_curate?(@taxon_concept)
+    #     @taxon_concept.current_user = current_user
+    #     @category_id = data_object.toc_items[0].id
+    #     alter_current_user do |user|
+    #       user.vetted=false
+    #     end
+    #     current_user.log_activity(:created_data_object_id, :value => data_object.id, :taxon_concept_id => @taxon_concept.id)
     #render(:partial => '/taxa/text_data_object',
     #render(:partial => '/taxa/details/category_content',
     #       :locals => {:content => data_object, :comments_style => '', :category => data_object.toc_items[0].label})
@@ -72,8 +84,23 @@ class DataObjectsController < ApplicationController
 #    render(:partial => '/taxa/text_data_object', :locals => {:content_item => @data_object, :comments_style => '', :category => @data_object.toc_items[0].label})
 #  end
 
+  # GET /pages/:taxon_id/data_objects/:id/edit
+  def edit
+    set_text_data_object_options
+    @data_object = DataObject.find(params[:id])
+    @selected_toc_item = @data_object.toc_items[0]
+    @page_title = I18n.t(:dato_edit_text_title)
+    @page_description = I18n.t(:dato_edit_text_page_description)
+    #current_user.log_activity(:editing_data_object, :taxon_concept_id => @taxon_concept.id)
+  end
+  
   # PUT /pages/:taxon_id/data_objects/:id
   def update
+    if params[:data_object][:description] == ""
+      flash[:warning] = I18n.t(:dato_description_field_cannot_be_blank)
+      redirect_to :back
+      return
+    end 
     params[:references] = params[:references].split("\n")
     @taxon_concept = TaxonConcept.find params[:taxon_concept_id] if params[:taxon_concept_id]
     @taxon_concept.current_user = current_user
@@ -87,17 +114,8 @@ class DataObjectsController < ApplicationController
     end
     current_user.log_activity(:updated_data_object_id, :value => @data_object.id, :taxon_concept_id => @taxon_concept.id)
     #render(:partial => '/taxa/text_data_object', :locals => {:content_item => @data_object, :comments_style => '', :category => @data_object.toc_items[0].label})
-    render(:partial => '/taxa/details/category_content_part', :locals => {:dato => @data_object, :with_javascript => 1})
-  end
-
-  # GET /pages/:taxon_id/data_objects/:id/edit
-  def edit
-    set_text_data_object_options
-    @taxon_concept = TaxonConcept.find params[:taxon_concept_id] if params[:taxon_concept_id]
-    @selected_language = [@data_object.language.label,@data_object.language.id]
-    @selected_license = [@data_object.license.title,@data_object.license.id]
-    current_user.log_activity(:editing_data_object, :taxon_concept_id => @taxon_concept.id)
-    render :partial => 'edit_text'
+    #render(:partial => '/taxa/details/category_content_part', :locals => {:dato => @data_object, :with_javascript => 1})
+    redirect_to data_object_path(@data_object)
   end
 
   def rate
@@ -184,7 +202,7 @@ class DataObjectsController < ApplicationController
     form_submitted = params[:commit]
     unless form_submitted.blank?
       unless name.blank?
-        @entries = entries_for_name(name)
+        entries_for_name(name)
       else
         flash[:error] = I18n.t(:please_enter_a_name_to_find_taxa)
       end
@@ -247,8 +265,20 @@ private
   end
 
   def entries_for_name(name)
+    @entries = []
     search_response = EOL::Solr::SiteSearch.search_with_pagination(name, :type => ['taxon_concept'], :exact => true)
-    search_response[:results]
+    unless search_response[:results].blank?
+      search_response[:results].each do |result|
+        result_instance = result['instance']
+        if result_instance.class == TaxonConcept
+          hierarchy_entries = result_instance.published_hierarchy_entries.blank? ? result_instance.hierarchy_entries : result_instance.published_hierarchy_entries
+          hierarchy_entries.each do |hierarchy_entry|
+            @entries << hierarchy_entry
+          end
+        end
+      end
+    end
+    @entries
   end
 
   def load_data_object
@@ -260,11 +290,14 @@ private
   end
 
   def set_text_data_object_options
-    @selectable_toc = TocItem.selectable_toc
-    # toc = TocItem.find(params[:toc_id])
-    @selected_toc = params[:toc_id] # [toc.label, toc.id]
-    @languages = Language.find_by_sql("SELECT * FROM languages WHERE iso_639_1!=''").collect {|c| [c.label.truncate(30), c.id] }
-    @licenses = License.valid_for_user_content
+    @toc_items = TocItem.selectable_toc
+    @languages = Language.find_by_sql("SELECT * FROM languages WHERE iso_639_1 != '' && source_form != ''")
+    @licenses = License.find_all_by_show_to_content_partners(1)
+    # @selectable_toc = TocItem.selectable_toc
+    #     # toc = TocItem.find(params[:toc_id])
+    #     @selected_toc = params[:toc_id] # [toc.label, toc.id]
+    #     @languages = Language.find_by_sql("SELECT * FROM languages WHERE iso_639_1!=''").collect {|c| [c.label.truncate(30), c.id] }
+    #     @licenses = License.valid_for_user_content
   end
 
   def get_image_source
@@ -286,7 +319,10 @@ private
       curated_object = get_curated_object(@data_object, hierarchy_entry)
       handle_curation(curated_object, user, opts).each do |action|
         log = log_action(curated_object, action, opts)
-        # TODO - Untrust reasons, if any, must be added here.
+        # Saves untrust reasons, if any
+        unless untrust_reason_ids.blank?
+          save_untrust_reasons(log, untrust_reason_ids)
+        end
       end
       # TODO - Update Solr Index
     end
@@ -364,6 +400,23 @@ private
       :data_object => @data_object,
       :created_at => 0.seconds.from_now
     )
+  end
+
+  def save_untrust_reasons(log, untrust_reason_ids)
+    untrust_reason_ids.each do |untrust_reason_id|
+      case untrust_reason_id.to_i
+      when UntrustReason.misidentified.id
+        log.untrust_reasons << UntrustReason.misidentified if action == :untrusted
+      when UntrustReason.incorrect.id
+        log.untrust_reasons << UntrustReason.incorrect if action == :untrusted
+      when UntrustReason.poor.id
+        log.untrust_reasons << UntrustReason.poor if action == :hide
+      when UntrustReason.duplicate.id
+        log.untrust_reasons << UntrustReason.duplicate if action == :hide
+      else
+        raise "Please re-check the provided untrust reasons"
+      end
+    end
   end
 
 end

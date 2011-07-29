@@ -8,7 +8,7 @@
         = f.text_field :string, { :maxlength => 300, :size => 40 }
 
       - f.fields_for :synonym do |synonym|
-        = synonym.hidden_field :hierarchy_entry_id, :value => @dropdown_hierarchy_entry_id
+        = synonym.hidden_field :hierarchy_entry_id, :value => @selected_hierarchy_entry_id
         %dt
           = synonym.label :language_id
         %dd

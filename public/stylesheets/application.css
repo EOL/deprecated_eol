@@ -1076,6 +1076,7 @@ body > #header {
       margin: 0 0 10px 0; }
   #page_heading .page_actions {
     float: right;
+    padding-top: 10px;
     padding-left: 20px; }
     #page_heading .page_actions ul {
       padding: 0 0 10px 0; }

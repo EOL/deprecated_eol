@@ -20,6 +20,7 @@ module EOL
       private
 
       def self.add_resource_instances!(docs)
+        return if docs.empty?
         ids = docs.map{ |d| d['collection_item_id'] }
         instances = CollectionItem.find_all_by_id(ids)
         return if ids.empty?
@@ -66,7 +67,8 @@ module EOL
         return if docs.empty?
         includes = [
           { :published_hierarchy_entries => [ { :name => :canonical_form } , :hierarchy, :vetted, { :flattened_ancestors => { :ancestor => [ :name, :rank ] } } ] },
-          { :top_concept_images => :data_object } ]
+          { :top_concept_images => :data_object },
+          { :preferred_common_names => [ :name, :language ] } ]
         selects = {
           :taxon_concepts => '*',
           :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
@@ -141,9 +143,9 @@ module EOL
         elsif options[:sort_by] == SortStyle.reverse_alphabetical
           url << '&sort=title_exact+desc'
         elsif options[:sort_by] == SortStyle.richness
-          url << '&sort=data_rating+desc'
-        elsif options[:sort_by] == SortStyle.rating
           url << '&sort=richness_score+desc'
+        elsif options[:sort_by] == SortStyle.rating
+          url << '&sort=data_rating+desc'
         end
 
         # add paging

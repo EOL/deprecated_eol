@@ -24,7 +24,8 @@ class ContentController < ApplicationController
   end
 
   def not_implemented
-    flash_and_redirect_back(I18n.t(:not_yet_implemented_error))
+    flash[:warning] =  I18n.t(:not_yet_implemented_error)
+    redirect_to :back
   end
 
   # just shows the top set of species --- can be included on other websites

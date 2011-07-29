@@ -94,3 +94,50 @@ $(function() {
     return(false);
   });
 });
+
+$(document).ready(function() {
+  // initiates march of life on homepage
+  $('.thumbnails ul li').each(function() {
+    var number_of_slides = $('.thumbnails ul li').length;
+    var index = $(this).index();
+    var random = new Array(-3, 1, 0, -2, -4, -1);
+    var display_time = 5000;
+    var transition_time = 1800;
+    $(this).cycle({
+      fx: 'fade',
+      timeout: number_of_slides * display_time,
+      delay: random[index] * display_time,
+      speed: transition_time
+    });
+  });
+  
+  // properly shows the march of life name on mouseover
+  $(".thumbnails li img").mouseover(function() {
+    var $e = $(this).parent().parent(),
+        $thumbs = $e.closest(".thumbnails"),
+        margin = $thumbs.find("li").eq(0).outerWidth(true) - $e.outerWidth();
+        direction = ($e.index() > $thumbs.find("li").length / 2 - 1) ? "right" : "left";
+        pos = $e.position();
+    pos.right = $thumbs.find("ul").width() - $e.outerWidth() - pos.left + margin;
+    $thumbs.find(".term p").css({
+      margin: 0,
+      textAlign: direction
+    }).css("margin-" + direction, pos[direction]).text($(this).attr("alt"));
+  }).eq(0).mouseover();
+
+  // removes the homepage march of life name on mouseout
+  $(".thumbnails li").mouseout(function() {
+    $(".thumbnails .term p").html("&nbsp;");
+  });
+  
+  // uncheck search filter All when other options are selected
+  $("#main_search_type_filter input[type=checkbox][value!='all']").click(function() {
+    $("#main_search_type_filter input[type=checkbox][value='all']").removeAttr("checked");
+  });
+  // uncheck all other search filter options when All is selected
+  $("#main_search_type_filter input[type=checkbox][value='all']").click(function() {
+    $("#main_search_type_filter input[type=checkbox][value!='all']").removeAttr("checked");
+  });
+  // disable the checkboxes for filter categories with no results
+  $("#main_search_type_filter li.no_results input[type=checkbox]").attr("disabled", true);
+});

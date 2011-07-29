@@ -40,7 +40,14 @@
         .collection_contributors
           = render :partial => 'collections/endorsed_by', :locals => { :collection => @collection }
     #collections.main_container
-      - unless @collection_items.blank?
+      - if @filter == 'newsfeed'
+        .article.list.updates
+          -# TODO - can't have a nested form, here:
+          -# = render :partial => 'comments/new', :locals => {:parent => @collection}
+          .heading
+            %h3= I18n.t(:newsfeed)
+          = render :partial => 'activity_logs/index', :locals => {:log => @collection.activity_log}
+      - else
         .heading
           %fieldset
             = label_tag :sort_by, I18n.t(:sort_by_label)

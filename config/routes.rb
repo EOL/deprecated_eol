@@ -41,7 +41,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :random_images
   # TODO - the curate member method is not working when you use the url_for method and its derivatives.  Instead, the default
   # url of "/data_objects/curate/:id" works.  Not sure why.
-  map.resources :data_objects, :only => [:show], :member => { :curate => :put, :curation => :get, :attribution => :get, :rate => :get } do |data_objects|
+  map.resources :data_objects, :only => [:show, :edit, :update], :member => { :curate => :put, :curation => :get, :attribution => :get, :rate => :get } do |data_objects|
     data_objects.resources :comments
     data_objects.resources :tags,  :collection => { :public => :get, :private => :get, :add_category => :post,
                                                     :autocomplete_for_tag_key => :get },
@@ -96,7 +96,7 @@ ActionController::Routing::Routes.draw do |map|
     taxa.resource :maps, :only => [:show], :controller => "taxa/maps"
     taxa.resources :collections, :only => [:index], :controller => 'collections'
     taxa.resources :communities, :only => [:index], :controller => 'communities'
-    taxa.resources :data_objects, :except => [:show, :destroy], :controller => 'data_objects'
+    taxa.resources :data_objects, :only => [:create, :new], :controller => 'data_objects'
   end
   # used in names tab:
   # when user updates a common name - preferred radio button
@@ -192,8 +192,9 @@ ActionController::Routing::Routes.draw do |map|
   ## Mobile app namespace routes
   map.mobile 'mobile', :controller => 'mobile/contents'
   map.namespace :mobile do |mobile|
-    mobile.resources :contents, :collection => {:enable => :post, :disable => [:post, :get]}
+    mobile.resources :contents, :collection => {:enable => [:post, :get], :disable => [:post, :get]}
     mobile.resources :taxa, :member => {:details => :get, :media => :get}
+    mobile.search 'search/:id', :controller => 'search', :action => 'index'
   end
 
   ##### ALL ROUTES BELOW SHOULD PROBABLY ALWAYS BE AT THE BOTTOM SO THEY ARE RUN LAST ####

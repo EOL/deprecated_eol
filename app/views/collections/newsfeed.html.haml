@@ -1,0 +1,14 @@
+#tabs_sidebar
+  = render :partial => 'collections/filter_by_item_type'
+#sidebar
+  .collection_contributors
+    = render :partial => 'collections/managed_by', :locals => { :collection => @collection }
+  - if @collection.collection_endorsements.count > 0
+    .collection_contributors
+      = render :partial => 'collections/endorsed_by', :locals => { :collection => @collection }
+#collections.main_container
+  .article.list.updates
+    = render :partial => 'comments/new', :locals => {:parent => @collection}
+    .heading
+      %h3= I18n.t(:newsfeed)
+    = render :partial => 'activity_logs/index', :locals => {:log => @collection.activity_log}

@@ -7,8 +7,8 @@ class Taxa::NamesController < TaxaController
   # GET /pages/:taxon_id/names
   # related names default tab
   def index
-    if @dropdown_hierarchy_entry
-      @related_names = TaxonConcept.related_names(:hierarchy_entry_id => @dropdown_hierarchy_entry_id)
+    if @selected_hierarchy_entry
+      @related_names = TaxonConcept.related_names(:hierarchy_entry_id => @selected_hierarchy_entry_id)
     else
       @related_names = TaxonConcept.related_names(:taxon_concept_id => @taxon_concept.id)
     end
@@ -50,8 +50,8 @@ class Taxa::NamesController < TaxaController
   # GET for collection common_names /pages/:taxon_id/names/common_names
   def common_names
     unknown = Language.unknown.label # Just don't want to look it up every time.
-    if @dropdown_hierarchy_entry
-      names = EOL::CommonNameDisplay.find_by_hierarchy_entry_id(@dropdown_hierarchy_entry.id)
+    if @selected_hierarchy_entry
+      names = EOL::CommonNameDisplay.find_by_hierarchy_entry_id(@selected_hierarchy_entry.id)
     else
       names = EOL::CommonNameDisplay.find_by_taxon_concept_id(@taxon_concept.id)
     end

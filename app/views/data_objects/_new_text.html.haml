@@ -1,5 +1,7 @@
 - form_for @data_object, :url => taxon_data_objects_path(@taxon_concept) do |f|
+  = f.hidden_field :data_type_id
   %fieldset
+    = validation_errors_for(@data_object)
     %dl
       = f.fields_for :toc_items do |toc_items_form|
         %dt
@@ -17,18 +19,15 @@
       %dt
         = f.label :language_id
       %dd
-        = f.select :language_id, options_from_collection_for_select(@languages, :id, :source_form)
+        = f.select :language_id, options_from_collection_for_select(@languages, :id, :source_form) # @data_object.language_id
       %dt
         = f.label :license_id
       %dd
-        = f.select :license_id, options_from_collection_for_select(@licenses, :id, :title)
+        = f.select :license_id, options_from_collection_for_select(@licenses, :id, :title) # @data_object.license_id
         = I18n.t('helpers.label.data_object.license_id_more', :policy_url => "/content/page/eol_licensing_policy")
       %dt
         = f.label :refs
       %dd
-        - refs = ''
-        - @data_object.visible_references.each do |ref|
-          - refs += ref.full_reference
         = text_area_tag 'references', @data_object.visible_references.map {|r| r.full_reference}.join("\n\n")
   %fieldset.actions
     = f.submit I18n.t('helpers.submit.data_object.create')

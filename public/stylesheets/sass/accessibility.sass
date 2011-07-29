@@ -524,8 +524,38 @@ form
 table.standard
   td.nowrap
     white-space: nowrap
-// choose a collection is mighty ugly... trying to make it slightly better:
-#collections_choose h2
-  font-size: 2em
-#collections_choose ul
-  width: 500px
+// We can't *easily* center the buttons in the header, but we can push them down slightly, which looks better.
+#page_heading .page_actions
+  padding-top: 10px
+// Collections newsfeed was never mocked up:
+#collections
+  .article.updates
+    padding: 0 0 25px 0
+    li
+      overflow: hidden
+      padding: 20px
+      .details
+        img
+          margin: 0 8px 0 0
+          border: 1px solid #394651
+// Choose collection hasn't been completed by HR yet:
+#collections_choose
+  h2
+    font-size: 1.3em
+    margin: 2em 0 0.5em
+  input[type="text"]
+    // Sorry, not taking the time to find the right way to do this.
+    background-color: white
+    background-image: -moz-linear-gradient(100% 100% 90deg, white, #F0F4F7)
+    border: 1px solid #CAD3DB
+    font: 1em Helvetica,Arial,sans-serif
+    height: 22px
+    padding: 2px 5px
+    width: 248px
+  ul
+    border-top: 1px solid #394651
+  li img
+    float: left
+    // ACK!  Sorry.  No time to fix the important thing.  TODO
+    margin-right: 2em !important
+

@@ -85,9 +85,9 @@ class CollectionItem < ActiveRecord::Base
     params['richness_score'] ||= 0
     # this is a strange thing to do as only TaxonConcepts have richness, but putting this inside the case switch
     # above was giving me other mysterious errors
-    # if self.object.class.name == "TaxonConcept" && self.object.taxon_concept_metric && !self.object.taxon_concept_metric.richness_score.blank?
-    #   params['richness_score'] = 0
-    # end
+    if self.object.class.name == "TaxonConcept" && self.object.taxon_concept_metric && !self.object.taxon_concept_metric.richness_score.blank?
+      params['richness_score'] = self.object.taxon_concept_metric.richness_score
+    end
     return params
   end
 

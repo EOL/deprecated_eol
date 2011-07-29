@@ -6,7 +6,7 @@
       = render :partial => 'taxa/recognised_by'
     = render :partial => 'filter_by_name_category'
     #taxon_names.main_container
-      - hierarchy_entries = @dropdown_hierarchy_entry.blank? ? @taxon_concept.published_hierarchy_entries : [@dropdown_hierarchy_entry]
+      - hierarchy_entries = @selected_hierarchy_entry.blank? ? @taxon_concept.published_hierarchy_entries : [@selected_hierarchy_entry]
       - for he in hierarchy_entries
         - unless he.scientific_synonyms.blank?
           %h4= he.hierarchy.label

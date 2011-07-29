@@ -1,4 +1,4 @@
-- hierarchies = @dropdown_hierarchy_entry.blank? ? @hierarchies : [@dropdown_hierarchy_entry.hierarchy]
+- hierarchies = @selected_hierarchy_entry.blank? ? @hierarchies : [@selected_hierarchy_entry.hierarchy]
 - if hierarchies.blank?
   .empty
     %p= I18n.t(:not_recognised_by_available_hierarchies)

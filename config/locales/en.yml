@@ -182,6 +182,8 @@ en:
     models:
       user: "account"
     attributes:
+      data_object:
+        object_title: "Title"
       name:
         string: "Name"
       user:
@@ -225,6 +227,8 @@ en:
       update: "Update %{model}"
       data_object:
         create: "Add article"
+        create_text: "Add article"
+        update: "Update article"
       name:
         create: "Add name"
         update: "Update name"
@@ -238,8 +242,6 @@ en:
         generate_api_key: "Generate a key"
         curation_application: "Apply now"
         curation_privileges: "Submit request"
-      data_object:
-        create_text: "Add article"
     label:
       data_object:
         description: "Body"
@@ -576,7 +578,6 @@ en:
   children_colon: "Children:"
   chinese: "Chinese"
   choose: Choose
-  choose_a_destination_collection: "Choose a destination collection"
   choose_collection_header: "Choose collection"
   choose_which_language_you_woul: "Choose which language you would like to view the site in, the currently selected language is %{var_i18n_locale}"
   city__: "City:"
@@ -792,6 +793,7 @@ en:
   copy_all_communities_button: "copy all communities"
   copy_all_people_button: "copy all people"
   copy_all_collections_button: "copy all collections"
+  copy_items_to_a_new_collection: "Copy items to a new collection"
   copyright: "COPYRIGHT:"
   correct_donation_message: "If this information is not correct, please %{var_go_back} to make changes"
   could_not_find_collection_error: "Sorry, that collection could not be found."
@@ -927,7 +929,13 @@ en:
   date_this_resource_was_created: "Date This Resource Was Created:  <span title=\"required\">*</span>"
   date_updated: "Date Updated"
   date_uploaded_: "Date uploaded:"
+  dato_description_field_cannot_be_blank: "Description field cannot be blank"
   dato_create_cancel: "Cancel"
+  dato_edit_cancel: "Cancel"
+  dato_create_missing_text_dato_error: "Sorry, the article could not be added."
+  dato_edit_text_link_button: "Edit this article"
+  dato_edit_text_page_description: "Some info about editing.. maybe"
+  dato_edit_text_title: "Edit article"
   dato_hidden_note: "%{username} hid %{type}."
   dato_inappropriate_note: "%{username} marked this %{type} as inappropriate."
   dato_new_text_for_taxon_page_title: "Add an article to <i>%{taxon}</i>"
@@ -945,7 +953,7 @@ en:
   dear_var__contact__full_name__: "Dear %{var__contact__full_name__},"
   dear_var__name_0__0__capitaliz_: "Dear %{var__name_0__0__capitalize}%{var__name_1___1_},"
   dear_var__name_0__0__capitaliz: "Dear %{var__name_0__0__capitalize}%{var__name_1___1_},"
-  development_version_name: "V2 DEVELOPMENT VERSION - not for public use"
+  development_version_name: "EOL V2 Beta"
   default: "Default"
   default_focus_collection_name_from_community: "%{name}'s Focus"
   default_community_name_from_collection: "%{name} Community"
@@ -956,6 +964,7 @@ en:
   default_sorting_header: "Default sorting"
   default_sorting_label: "Default sort order"
   default_sorting_submit_button: "Set sort order"
+  default_watch_collection_name: "%{username}'s Collection"
   __defines_the_composition_of_i: "- defines the composition of information on species pages; works with the scientific community to identify potential sources of information (such as the Content Partner) for the species pages and to authenticate the information on the species pages; establishes licensing agreements with data providers."
   defines_the_composition_of_inf: "defines the composition of information on species pages; works with the scientific community to identify potential sources of information (such as the Content Partner) for the species pages and to authenticate the information on the species pages; establishes licensing agreements with data providers."
   definition: "Definition"
@@ -1187,7 +1196,7 @@ en:
   finnish: "Finnish"
   first_name__: "First Name:"
   fisher__brian___pogonomyrmex_a: "Fisher, Brian. \"Pogonomyrmex anergismus Cole, 1954.\" Encyclopedia of Life, available from <a href=\"http://eol.org/pages/460427\" target=\"_blank\">http://eol.org/pages/460427</a>. Accessed 15 Jan 2009."
-  flash_notice_redirected_from_search_html: "You've arrived here by searching for <em>%{search_string}</em>"
+  flash_notice_redirected_from_search_html: "You've arrived here by searching for <em>%{search_string}</em>. <a href=\"%{more_results_url}\">Click here to return to the search page.</a>"
   flash_notice_redirected_from_search_html_more_results: "You've arrived here by searching for <em>%{search_string}</em>. <a href=\"%{more_results_url}\">Click here to see other search results.</a>"
   flash_rating: "Flash rating"
   flash_video: "Flash video"
@@ -1449,6 +1458,7 @@ en:
   laborum_est_nulla_aut_molestia: "Laborum est nulla aut molestiae est repellat incidunt dolor. Fuga unde et voluptatem commodi. Itaque recusandae officiis ut suscipit quidem odio incidunt. Occaecati sed distinctio odio et molestias sit quae quia. Voluptatem voluptatibus eveniet nam delectus quia ea iure."
   language: "Language:"
   languages_colon: "Languages:"
+  languages: "Languages"
   language_menu_item: "%{language_label} <abbr>(%{language_abbr})</abbr>"
   language_preference: "Which language do you prefer?"
   language_preference_advisory_information: "Select a language from the drop down select box, then content available in the language you choose will be displayed by default across the site."
@@ -1623,6 +1633,7 @@ en:
   move_all_communities_button: "move all communities"
   move_all_people_button: "move all people"
   move_all_collections_button: "move all collections"
+  move_items_to_a_new_collection: "Move items to a new collection"
   move_selected_button: "Move selected"
   move_to_active_list: "Move to active list"
   move_to_bottom: "move to bottom"
@@ -1694,7 +1705,7 @@ en:
   new_upload: "New Upload"
   new_user: "New User"
   next: "Next"
-  no_activity: "No activity."
+  no_activity: "No EOL member has commented yet."
   no_authoritative_videos_availa: "No authoritative videos available."
   no_comments_are_available_for_subject: "No comments are available for %{subject}"
   no_comments_have_been_left_yet: "No comments have been left yet."
@@ -1791,6 +1802,8 @@ en:
   open_in_new_window_from_menu_: "Open in new window from menu:"
   options: "Options"
   __or_add_this_url_to_your_rss_: ", or add this URL to your RSS reader: http://"
+  or_copy_them_to_existing_collection: "or copy them to an existing collection"
+  or_move_them_to_existing_collection: "or move them to an existing collection"
   or_if_you_have_previously_regi: "or if you have previously registered, enter your login information below. Note that this is a project level login."
   original_object_: "Original object:"
   original: "ORIGINAL:"
@@ -1998,7 +2011,7 @@ en:
   recaptcha: "For verification, please enter the characters you see below.  Click the ? for assistance."
   recently_harvested_resources__: "Recently harvested resources (last 20)"
   recently_published_resources__: "Recently published resources (last 20)"
-  recent_updates: "Recent updates"
+  recent_updates: "Latest updates"
   recipients: "Recipients"
   recognised_by_hierarchy_agent_as_a_rank: '%{hierarchy_agent} as a %{taxon_rank} <a href="%{hierarchy_entry_url}">view in classification</a>'
   recognised_by_hierarchy_entry_agent_in_hierarchy_agent_as_a_rank: '%{hierarchy_entry_agent} in %{hierarchy_agent} as a %{taxon_rank} <a href="%{hierarchy_entry_url}">view in classification</a>'
@@ -2926,6 +2939,7 @@ en:
       home: "Home"
       taxa: "Taxa"
       full_site: "Full site"
+      species: "Species"
     taxa:
       taxon_overview: "Taxon Overview"
       overview: "Overview"
@@ -2941,6 +2955,10 @@ en:
       images: "Images"
       sounds: "Sounds"
       videos: "Videos"
+    search:
+      suggestions: "Suggestions"
+      no_results_found: "No results found"
+      results: "Results"
   cms_missing_content_title: "Missing content"
   cms_missing_content_message: "Sorry, this page is not available for this language."
   cms_available_in_languages: "This page is available in:"

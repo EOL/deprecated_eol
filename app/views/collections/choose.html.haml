@@ -1,8 +1,8 @@
 #collections.main_container
-  %h2= I18n.t(:choose_a_destination_collection)
+  %h2= I18n.t("#{@for}_items_to_a_new_collection")
+  = render :partial => 'collections/new'
+  %h2= I18n.t("or_#{@for}_them_to_existing_collection")
   %ul.object_list
-    %li
-      = render :partial => 'collections/new'
     - @collections.each do |collection|
       - next if collection.id == @collection.id
       %li

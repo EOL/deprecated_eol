@@ -36,7 +36,7 @@ class Taxa::MediaController < TaxaController
     sort_order = [:visibility, :rating, :vetted, :date, :type] if @sort_by == 'rating'
     sort_order = [:visibility, :date, :vetted, :rating, :type] if @sort_by == 'newest'
 
-    @media = @taxon_concept.media(sort_order, @dropdown_hierarchy_entry)
+    @media = @taxon_concept.media(sort_order, @selected_hierarchy_entry)
     @media = DataObject.custom_filter(@media, @params_type, @params_status) unless @params_type.blank? && @params_status.blank?
     @media = promote_exemplar(@media) if @exemplar_image && (@sort_by.blank? ||
       (@sort_by == 'status' && (@params_type.include?('all') || @params_type.include?('images'))))

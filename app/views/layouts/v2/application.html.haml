@@ -114,8 +114,11 @@
         = render :partial => '/layouts/v2/global_navigation', :locals => { :position => :footer }
         %ul.social_media
           - #TODO: Add functional social media links.
-          %li= link_to I18n.t(:twitter), "/placeholder", :class => "twitter"
-          %li= link_to I18n.t(:rss_abbr_html), "/placeholder", :class => "rss"
+          /%li= link_to I18n.t(:rss_abbr_html), "/placeholder", :class => "rss"
+
+          %li= link_to I18n.t(:twitter), $EOL_TWITTER_ACCOUNT, :class => "twitter"
+          - #TODO: HashRocket to add :class => "facebook"
+          %li= link_to I18n.t(:facebook), $EOL_FACEBOOK_ACCOUNT, :class => "facebook"
 
     - if $ENABLE_ANALYTICS
       :javascript

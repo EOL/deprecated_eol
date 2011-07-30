@@ -4,6 +4,7 @@
       %h3= I18n.t(:text_summary_empty_header)
     .empty
       %p= I18n.t(:text_summary_empty)
+      %p= link_to I18n.t(:add_brief_summary_to_page_link_button), new_taxon_data_object_path(@taxon_concept), :class => 'button'
   - else
     - @summary_text.each do |dato|
       - unless dato.description.empty? || dato.description.nil?

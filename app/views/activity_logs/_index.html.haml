@@ -1,7 +1,7 @@
 - if log.blank?
   .article
     .empty
-      %p= I18n.t(:no_activity)
+      %p= I18n.t(:activity_log_empty)
 - else
   %ul.feed
     - log.each do |item|

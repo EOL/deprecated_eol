@@ -21,7 +21,8 @@
       = I18n.t(:gbif_occurrence_disclaimer)
       = link_to I18n.t(:gbif_occurrence_learn_more_link), "http://data.gbif.org/species/#{taxon_concept.gbif_map_id}/"
   - else
-    .copy
+    .article
       .empty
-        %p= I18n.t(:no_map_available)
-
+        %p= I18n.t(:maps_empty)
+        - # FIXME: add url for faq on contributing images
+        %p= link_to I18n.t(:maps_empty_contribute_instructions), '/placeholder'

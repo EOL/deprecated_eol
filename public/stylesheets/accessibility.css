@@ -323,6 +323,15 @@ body > #header .section .session .join {
     padding-left: 23px !important;
     margin-left: 10px;
     background: transparent url("/images/v2/icon_classification_arrow.png") 0 0 no-repeat; }
+#classifications_summary .empty p {
+  font-size: 1em !important; }
+
+/*overides for empty text styles - various */
+.updates .empty p {
+  padding: 0 0 15px 0 !important; }
+
+#taxon_maps .empty p {
+  margin: 0 !important; }
 
 /*Add to my collection button is a form not an a tag as assumed by HR so we have to add some styles */
 #taxonomy_detail div.actions {

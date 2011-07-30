@@ -1,6 +1,7 @@
-- content_for :additional_page_actions do
-  %li
-    = link_to I18n.t(:go_back), collection_path(@collection)
+- # commenting out because its inconsistent with other layouts and HR mockups - we have cancel or go back links at end of form but not in header
+- # content_for :additional_page_actions do
+- #  %li
+- #   = link_to I18n.t(:go_back), collection_path(@collection)
 %h2= I18n.t(:edit_collection_details_header)
 - form_for @collection, :html => { :class => 'standard', :multipart => true } do |f|
   = validation_errors_for(@collection)

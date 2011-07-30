@@ -220,7 +220,7 @@ p.status.error
           color: #677682
 
 /** Adjustments for when missing exemplar image **/
-#media_list, #taxonomy_detail
+#media_list, #taxon_detail
   #sidebar
     img
       margin-bottom: 0
@@ -281,24 +281,23 @@ p.flag
     color: #677682
 
 /** We share rating partial across many pages so need extra styles here. **/
-#taxonomy_detail
-  .average_rating
-    h5
-      display: inline
-      text-transform: lowercase
-    p
-      float: none
-      display: inline
-    .rating
-      p
-        float: left
+#taxon_detail
   .rating
     h5
-      display: inline
+      float: left
+      margin: 0 10px 0 0
       text-transform: lowercase
       font-size: 0.83em
     ul
       display: inline
+  .average_rating
+    h5
+      float: left
+      margin: 0 10px 0 0
+      text-transform: lowercase
+      small
+        font-size: 1em
+
 .rating
   ul
     li
@@ -375,7 +374,7 @@ body
     img
       float: left
       margin: 0 10px
-#taxonomy
+#taxon
   .gallery
     .images
       height: 380px
@@ -444,7 +443,7 @@ body
     p
       margin: 0 !important
 /** Add to my collection button is a form not an a tag as assumed by HR so we have to add some styles **/
-#taxonomy_detail
+#taxon_detail
   div.actions
     clear: both
     margin: 0 0 20px 0
@@ -456,7 +455,7 @@ body
       display: inline-block
       fieldset
         display: inline-block
-#taxonomy
+#taxon
   form#new_collection_item
     margin-top: 0
     fieldset.actions
@@ -469,7 +468,7 @@ body
   * extra div.description and assign styles to the div - check this, particularly line-height as we probably need
   * to remove some HR styles from nested p. Check latest HR and remove the table styles here if possible.
   * if we keep this we should DRY it out - same for whole file actually **/
-#taxonomy_detail
+#taxon_detail
   #main
     .article
       .copy, .references
@@ -486,10 +485,6 @@ body
       padding: 5px 0
 
 /* TODO: this hasn't been really thought out and should be changed: */
-.heading
-  p#empty
-    font-weight: bold
-    font-size: 1.2em
 #sidebar
   &.filters
     dd
@@ -497,7 +492,24 @@ body
         &.no_results
           label
             color: #6F7E8B
-
+/** page heading actions **/
+#page_heading
+  .page_actions
+    padding-top: 10px
+    fieldset.actions
+      margin: 0
+/** collections overides **/
+.object_list
+  div.checkbox
+    margin: 0
+#collections
+  .heading
+    fieldset
+      display: inline
+      margin: 0
+// set the height of the GBIF map viewer
+#map_image
+  height: 350px
 
 /**
   * TEMPORARY FIX: Forcing image sizes for V2 demo.
@@ -562,7 +574,7 @@ ul.feed
   .collection_list
     img
       +size35x35
-#taxonomy
+#taxon
   .gallery
     ul.thumbnails
       li
@@ -587,7 +599,7 @@ ul.feed
     &.filters
       img
         max-width: 220px
-#taxonomy_detail
+#taxon_detail
   #sidebar
     img
       max-width: 260px
@@ -611,12 +623,6 @@ form
       li
         width: 140px
         height: 140px
-/** page heading actions **/
-#page_heading
-  .page_actions
-    padding-top: 10px
-    fieldset.actions
-      margin: 0
 
 // Tiny Link below Ajax fields
 .editable_link
@@ -624,9 +630,6 @@ form
 // Buttons are too far over (and this is only in English!):
 .edit_collection #sidebar fieldset.actions
   padding: 0
-// Need more space between button and text:
-#collections .heading
-  line-height: 2.5em
 table.standard
   td.nowrap
     white-space: nowrap
@@ -661,6 +664,3 @@ table.standard
     float: left
     // ACK!  Sorry.  No time to fix the important thing.  TODO
     margin-right: 2em !important
-// set the height of the GBIF map viewer
-#map_image
-  height: 350px

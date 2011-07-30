@@ -1,6 +1,7 @@
 @import "common"
 
-a
+a,
+input[type="submit"]
   &.button
     +button
   &.in_collection
@@ -344,7 +345,6 @@ table.standard
     position: relative
     width: 80px
     height: 13px
-    margin: 0 5px 0 0
     overflow: hidden
     list-style: none
     background-position: 0 0
@@ -354,11 +354,11 @@ table.standard
         &.current_rating_#{$i}
           +star
           width: 20% * $i
-          background: transparent url("/images/v2/icon_stars.png") 0 100% repeat-x
+          background: transparent url("/images/v2/icon_stars.png") 0 -26px repeat-x
     a
       +star
       &:hover, &:active, &:focus
-        background-position: 0 100%
+        background-position: 0 -26px
       @for $i from 1 through 5
         &.star_#{$i}
           width: 20% * $i
@@ -371,6 +371,7 @@ table.standard
     float: left
     font-size: .83em
     font-weight: bold
+    margin: 0 10px 0 0
 
 .average_rating
   font-size: .83em
@@ -378,6 +379,7 @@ table.standard
   p
     float: left
     margin: 0
+    margin: 0 10px 0 0
   .rating
     float: left
     width: 80px
@@ -630,7 +632,6 @@ body
       margin: 0 0 10px 0
   .page_actions
     float: right
-    padding-top: 10px
     padding-left: 20px
     ul
       padding: 0 0 10px 0
@@ -899,6 +900,39 @@ body
       font-weight: bold
       text-align: center
 
+#collections_copy
+  width: 700px
+  margin: 20px auto
+  h2
+    font-size: 1.33em
+    margin: 0 0 10px 10px
+  fieldset.new_collection
+    overflow: hidden
+    margin: 0 0 40px 10px
+    input[type="text"]
+      float: left
+      +input(210px)
+      margin: 0 10px 0 0
+    input[type="submit"]
+      float: left
+      padding-left: 20px
+      padding-right: 20px
+  .heading
+    border-bottom: 1px solid #394651
+    margin: 0
+    overflow: hidden
+    h2
+      float: left
+    a
+      float: right
+      padding: 4px 10px 0 0
+  ul.object_list
+    h4
+      margin-top: 8px
+    img
+      float: left
+      margin: 0 20px 0 0
+
 #profile_info
   padding: 40px
   .half
@@ -1097,7 +1131,7 @@ body
             line-height: 120%
             color: #616E7A
 
-#taxonomy
+#taxon
   float: left
   width: 580px
   .gallery
@@ -1222,7 +1256,7 @@ body
           input[type="submit"]
             padding: 6px 15px
 
-#taxonomy_detail
+#taxon_detail
   #sidebar
     float: left
     width: 220px
@@ -1351,40 +1385,38 @@ body
         padding: 7px 20px
         margin: 10px 20px 10px 0
 #permalink
-  &.text
-    .ratings
-      margin-top: 40px
   .ratings
-    float: left
-    width: 120px
-    margin: 20px 0 0 0
-    padding: 0 20px 40px 20px
-    text-align: center
     h5
+      float: left
       padding: 0 0 5px 0
       font-size: 1.16em
-    .rating,
+    > .rating,
     .average_rating
       overflow: hidden
-      padding: 10px
+      padding: 10px 15px 11px 15px
       margin: 0 0 20px 0
       font-size: 1em
       border: 3px solid #cad3db
-      p
-        float: none
-        font-size: 12px
+      > p
+        float: left
+        font-size: 1.1em
+        margin-top: 2px
+      ul
+        float: right
+        margin: 0
+        li
+          background-position: 0 100%
+          a:hover, a:active, a:focus
+            background-position: 0 100%
       .rating
+        float: right
         width: 100px
         height: 17px
-        padding: 0
-        margin: 0 0 5px 0
-        border: none
         background-image: url("/images/v2/icon_permalink-stars.png")
         p
-          float: left
           height: 17px
           background-image: url("/images/v2/icon_permalink-stars.png")
-    .rating
+    > .rating
       border-color: #c1d72e
       ul, li[class^="current_rating"], a
         height: 17px
@@ -1398,37 +1430,20 @@ body
         width: 100px
   .media
     float: left
-    width: 580px
+    width: 540px
     padding: 19px
-    margin: 0 20px 40px 0
+    margin: 0 0 40px 0
     border: 1px solid #cad3db
     img
       display: block
       margin: 0 auto
-  > .article.copy
-    overflow: hidden
-    padding: 40px
-    margin: 0 0 40px 0
-    border: 1px solid #cad3db
-  ul.sizes
-    float: left
-    width: 120px
-    padding: 20px 0 40px 0
-    li
-      padding: 0 0 10px 0
-    a
-      +button
-      display: block
-      width: 98px
-      text-align: center
-      text-transform: lowercase
-      color: #616e7a
-    strong
-      display: block
-      padding: 0 0 5px 0
-      font-size: 1.33em
-      font-weight: 500
-      color: #28323a
+  &.text
+    #main
+      .article.copy
+        overflow: hidden
+        padding: 40px
+        margin: 0 0 40px 0
+        border: 1px solid #cad3db
   #main
     clear: both
     float: left
@@ -1439,7 +1454,7 @@ body
       border-top: 1px solid #d7dadc
   #sidebar
     width: 340px
-    padding-top: 0
+    padding: 0
     h3
       padding: 0 10px 3px 10px
       font-size: 1.16em
@@ -1463,11 +1478,11 @@ body
       line-height: 150%
   form.review_status
     fieldset
-      padding: 0 10px 10px 10px
-      margin: 0 0 20px 0
+      padding: 0 10px 0 10px
+      margin: 0 0 10px 0
       border-bottom: 1px solid #d7dadc
       &.actions
-        padding-bottom: 0
+        padding: 10px 0 0 10px
         border: none
     legend
       padding: 0 0 5px 0
@@ -1482,7 +1497,7 @@ body
         margin-left: 5px
     textarea
       +textarea
-      width: 308px
+      width: 282px
       height: 44px
       margin: 0
     ul
@@ -1513,7 +1528,6 @@ body
             color: #667309
         dd
           padding: 0
-          select
     fieldset.actions
       padding: 17px 0 0 0
       input[type="submit"]
@@ -1657,6 +1671,10 @@ body
       ul a:active,
       ul a:focus
         background-image: url("/images/v2/icon_permalink-stars.png")
+      li
+        background-position: 0 100%
+        a:hover, a:active, a:focus
+          background-position: 0 100%
       ul
         width: 100px
     form.review_status
@@ -1804,7 +1822,7 @@ body
           right: auto
           left: 10px
 
-#endorse
+#collections_endorse
   width: 700px
   padding: 20px 0 0 0
   margin: 0 auto

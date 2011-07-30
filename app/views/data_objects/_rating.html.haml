@@ -13,12 +13,13 @@
 - assistive_or_nil = minimal ? 'assistive' : nil
 .ratings
   .average_rating
-    %h5{:class => assistive_or_nil}= I18n.t("#{en_type}_rating")
+    %h5{:class => assistive_or_nil}
+      = I18n.t("#{en_type}_rating")
+      - unless minimal
+        %small= I18n.t(:rated_by_count_people, :count => data_object.users_data_objects_ratings.count)
     .rating
       %p{:style => "width: #{average_rating * 20}%"}<
         = I18n.t("average_rating_value_of_total", :rating => average_rating, :total => total)
-    - unless minimal
-      %p= I18n.t(:rated_by_count_people, :count => data_object.users_data_objects_ratings.count)
   .rating
     %h5{:class => assistive_or_nil}= I18n.t(:your_rating)
     %ul

@@ -12,7 +12,7 @@ $(function() {
     }).css("margin-" + direction, pos[direction]).text($e.find("img").attr("alt"));
   }).eq(0).mouseover();
 
-  $(".heading form.filter, form.select_submit").find(":submit").hide().end().find("select")
+  $(".heading form.filter, form.select_submit").find(".actions").hide().find(":submit").end().find("select")
     .change(function() {
       $(this).closest("form").submit();
     });

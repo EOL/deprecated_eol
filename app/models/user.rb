@@ -258,14 +258,14 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def full_name
-    return_value = given_name || ""
-    return_value += " " + family_name unless family_name.blank?
-    return_value
+    full_name = [given_name, family_name].join(' ').strip
+    return full_name unless full_name.blank?
+    username # last resort since given and family are no longer required
   end
 
   def short_name
-    return given_name if !given_name.blank?
-    return family_name if !family_name.blank?
+    return given_name unless given_name.blank?
+    return family_name unless family_name.blank?
     username
   end
 

@@ -2,7 +2,7 @@
   = javascript_include_tag "taxonomy"
 
 - roots = @toc.collect{|t| t unless t.is_child?}.compact
-#taxonomy_detail
+#taxon_detail
   - if roots.empty?
     .article
       .empty

@@ -188,9 +188,9 @@ p.status.error {
   color: #677682; }
 
 /*Adjustments for when missing exemplar image */
-#media_list #sidebar img, #taxonomy_detail #sidebar img {
+#media_list #sidebar img, #taxon_detail #sidebar img {
   margin-bottom: 0; }
-#media_list #sidebar h3, #taxonomy_detail #sidebar h3 {
+#media_list #sidebar h3, #taxon_detail #sidebar h3 {
   margin-top: 20px; }
 
 /*Special styles for layering audio description on top of audio thumbnail */
@@ -246,20 +246,19 @@ p.flag {
     color: #677682; }
 
 /*We share rating partial across many pages so need extra styles here. */
-#taxonomy_detail .average_rating h5 {
-  display: inline;
-  text-transform: lowercase; }
-#taxonomy_detail .average_rating p {
-  float: none;
-  display: inline; }
-#taxonomy_detail .average_rating .rating p {
-  float: left; }
-#taxonomy_detail .rating h5 {
-  display: inline;
+#taxon_detail .rating h5 {
+  float: left;
+  margin: 0 10px 0 0;
   text-transform: lowercase;
   font-size: 0.83em; }
-#taxonomy_detail .rating ul {
+#taxon_detail .rating ul {
   display: inline; }
+#taxon_detail .average_rating h5 {
+  float: left;
+  margin: 0 10px 0 0;
+  text-transform: lowercase; }
+  #taxon_detail .average_rating h5 small {
+    font-size: 1em; }
 
 .rating ul li.current_rating_0 {
   position: absolute;
@@ -325,30 +324,30 @@ body > #header .section .session .join {
     float: left;
     margin: 0 10px; }
 
-#taxonomy .gallery .images {
+#taxon .gallery .images {
   height: 380px; }
-  #taxonomy .gallery .images .image {
+  #taxon .gallery .images .image {
     padding-bottom: 60px; }
-  #taxonomy .gallery .images .details {
+  #taxon .gallery .images .details {
     position: absolute;
     top: 320px;
     width: 430px; }
-    #taxonomy .gallery .images .details p {
+    #taxon .gallery .images .details p {
       line-height: 120%;
       margin: 0; }
-      #taxonomy .gallery .images .details p.flag {
+      #taxon .gallery .images .details p.flag {
         float: left;
         margin-top: 1px; }
-    #taxonomy .gallery .images .details .caption {
+    #taxon .gallery .images .details .caption {
       font-size: 0.92em;
       padding: 0 0 0 5em; }
-    #taxonomy .gallery .images .details .attribution {
+    #taxon .gallery .images .details .attribution {
       margin-top: 5px;
       padding-bottom: 5px;
       position: relative;
       top: 0;
       left: 0; }
-      #taxonomy .gallery .images .details .attribution .copy {
+      #taxon .gallery .images .details .attribution .copy {
         padding: 0 0 0 90px; }
 
 /*Our classification summary is a hierarchichal list whereas HR was just links without hierarchy
@@ -388,22 +387,22 @@ body > #header .section .session .join {
   margin: 0 !important; }
 
 /*Add to my collection button is a form not an a tag as assumed by HR so we have to add some styles */
-#taxonomy_detail div.actions {
+#taxon_detail div.actions {
   clear: both;
   margin: 0 0 20px 0; }
-#taxonomy_detail form#new_collection_item {
+#taxon_detail form#new_collection_item {
   display: inline-block; }
-  #taxonomy_detail form#new_collection_item input[type="submit"] {
+  #taxon_detail form#new_collection_item input[type="submit"] {
     padding: 7px 20px;
     font-size: 1em; }
-  #taxonomy_detail form#new_collection_item fieldset {
+  #taxon_detail form#new_collection_item fieldset {
     display: inline-block; }
 
-#taxonomy form#new_collection_item {
+#taxon form#new_collection_item {
   margin-top: 0; }
-  #taxonomy form#new_collection_item fieldset.actions {
+  #taxon form#new_collection_item fieldset.actions {
     margin-top: -3px; }
-    #taxonomy form#new_collection_item fieldset.actions input[type="submit"] {
+    #taxon form#new_collection_item fieldset.actions input[type="submit"] {
       font-size: 0.78em;
       padding: 7px 10px; }
 
@@ -411,7 +410,7 @@ body > #header .section .session .join {
  * extra div.description and assign styles to the div - check this, particularly line-height as we probably need
  * to remove some HR styles from nested p. Check latest HR and remove the table styles here if possible.
  * if we keep this we should DRY it out - same for whole file actually */
-#taxonomy_detail #main .article .copy, #taxonomy_detail #main .article .references {
+#taxon_detail #main .article .copy, #taxon_detail #main .article .references {
   margin: 0 0 15px 0;
   line-height: 170%; }
 
@@ -424,12 +423,25 @@ body > #header .section .session .join {
   padding: 5px 0; }
 
 /* TODO: this hasn't been really thought out and should be changed: */
-.heading p#empty {
-  font-weight: bold;
-  font-size: 1.2em; }
-
 #sidebar.filters dd li.no_results label {
   color: #6f7e8b; }
+
+/*page heading actions */
+#page_heading .page_actions {
+  padding-top: 10px; }
+  #page_heading .page_actions fieldset.actions {
+    margin: 0; }
+
+/*collections overides */
+.object_list div.checkbox {
+  margin: 0; }
+
+#collections .heading fieldset {
+  display: inline;
+  margin: 0; }
+
+#map_image {
+  height: 350px; }
 
 /*
  * TEMPORARY FIX: Forcing image sizes for V2 demo.
@@ -474,9 +486,9 @@ ul.feed li > a > img {
   width: 35px;
   height: 35px; }
 
-#taxonomy .gallery ul.thumbnails li {
+#taxon .gallery ul.thumbnails li {
   text-align: center; }
-#taxonomy .gallery ul.thumbnails li img {
+#taxon .gallery ul.thumbnails li img {
   max-width: 98px;
   max-height: 68px;
   width: auto;
@@ -491,7 +503,7 @@ ul.feed li > a > img {
 #media_list #sidebar.filters img {
   max-width: 220px; }
 
-#taxonomy_detail #sidebar img {
+#taxon_detail #sidebar img {
   max-width: 260px; }
 
 ul.object_list li img {
@@ -508,20 +520,11 @@ form.comment img {
   width: 140px;
   height: 140px; }
 
-/*page heading actions */
-#page_heading .page_actions {
-  padding-top: 10px; }
-  #page_heading .page_actions fieldset.actions {
-    margin: 0; }
-
 .editable_link {
   font-size: 0.8em; }
 
 .edit_collection #sidebar fieldset.actions {
   padding: 0; }
-
-#collections .heading {
-  line-height: 2.5em; }
 
 table.standard td.nowrap {
   white-space: nowrap; }
@@ -551,6 +554,3 @@ table.standard td.nowrap {
 #collections_choose li img {
   float: left;
   margin-right: 2em !important; }
-
-#map_image {
-  height: 350px; }

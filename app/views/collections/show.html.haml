@@ -11,8 +11,9 @@
       .collection_contributors
         = render :partial => 'collections/endorsed_by', :locals => { :collection => @collection }
   #collections.main_container
-    .heading
-      %p#empty= I18n.t(:collection_is_empty)
+    .article
+      .empty
+        %p= I18n.t(:collection_is_empty)
 - else
   - form_options = { :html => {:method => :get}, :url => {:action => :show} }
   - if editable

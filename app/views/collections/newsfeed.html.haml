@@ -9,6 +9,4 @@
 #collections.main_container
   .article.list.updates
     = render :partial => 'comments/new', :locals => {:parent => @collection}
-    .heading
-      %h3= I18n.t(:newsfeed)
     = render :partial => 'activity_logs/index', :locals => {:log => @collection.activity_log}

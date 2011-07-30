@@ -2014,7 +2014,8 @@ en:
   rating_not_added_error: "Sorry, an error occurred, the rating could not be added."
   read_article_link: "Read article"
   read_the_eol_licensing_policy: "Read the EOL Licensing Policy"
-  recaptcha: "For verification, please enter the characters you see below.  Click the ? for assistance."
+  recaptcha: "Type in the two words you see below"
+  recaptcha_incorrect_error_with_anchor: 'The <a href="#%{recaptcha_anchor}">reCaptcha characters</a> did not match, please try again.'
   recently_harvested_resources__: "Recently harvested resources (last 20)"
   recently_published_resources__: "Recently published resources (last 20)"
   recent_updates: "Latest updates"

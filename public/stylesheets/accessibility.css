@@ -508,6 +508,12 @@ form.comment img {
   width: 140px;
   height: 140px; }
 
+/*page heading actions */
+#page_heading .page_actions {
+  padding-top: 10px; }
+  #page_heading .page_actions fieldset.actions {
+    margin: 0; }
+
 .editable_link {
   font-size: 0.8em; }
 
@@ -519,9 +525,6 @@ form.comment img {
 
 table.standard td.nowrap {
   white-space: nowrap; }
-
-#page_heading .page_actions {
-  padding-top: 10px; }
 
 #collections .article.updates {
   padding: 0 0 25px 0; }

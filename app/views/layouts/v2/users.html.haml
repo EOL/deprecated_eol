@@ -15,7 +15,7 @@
       = render :partial => 'shared/flash_messages'
   #content
     .site_column
-      - if @user && @user.id && action_name == 'show'
+      - if @user && @user.id && (action_name == 'show' || action_name == 'index')
         #tabs_sidebar
           %ul.tabs
             %li{:class => resource_is_active('users/newsfeeds')}= link_to I18n.t(:newsfeed), user_newsfeed_path(@user)

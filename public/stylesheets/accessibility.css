@@ -326,6 +326,19 @@ body > #header .section .session .join {
 #classifications_summary .empty p {
   font-size: 1em !important; }
 
+/*classification tree */
+#classification_tree {
+  padding: 0; }
+  #classification_tree #browser-text {
+    width: 360px;
+    margin: 0 -10px;
+    overflow: auto;
+    border: 1px solid #cad3db; }
+    #classification_tree #browser-text ul.classification {
+      margin: 10px; }
+      #classification_tree #browser-text ul.classification li {
+        white-space: nowrap; }
+
 /*overides for empty text styles - various */
 .updates .empty p {
   padding: 0 0 15px 0 !important; }

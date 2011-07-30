@@ -21,14 +21,14 @@ describe Users::CollectionsController do
 
     it "should instantiate and sort user collections" do
       do_index
-      assigns[:collections].should be_a(Array)
-      assigns[:collections].first.should be_a(Collection)
-      assigns[:collections].first.id.should == @collections[:collection].id
-      assigns[:collections].last.id.should == @collections[:collection_oldest].id
+      assigns[:featured_collections].should be_a(Array)
+      assigns[:featured_collections].first.should be_a(Collection)
+      assigns[:featured_collections].first.id.should == @collections[:collection].id
+      assigns[:featured_collections].last.id.should == @collections[:collection_oldest].id
 
       get :index, :user_id => @collections[:user].id.to_i, :sort_by => "oldest"
-      assigns[:collections].first.id.should == @collections[:collection_oldest].id
-      assigns[:collections].last.id.should == @collections[:collection].id
+      assigns[:featured_collections].first.id.should == @collections[:collection_oldest].id
+      assigns[:featured_collections].last.id.should == @collections[:collection].id
     end
 
     it "should count collection items"

@@ -35,7 +35,7 @@ class SearchController < ApplicationController
       elsif params[:show_all].blank? && @all_results.length == 1 && @all_results.total_entries == 1
         redirect_to_page(@all_results, :total_results => 1, :params => params)
       elsif params[:show_all].blank? && @all_results.total_entries > 1 && @all_results.length > 1 &&
-        @all_results[0]['score'] > 5 && (@all_results[0]['score'] > (@all_results[1]['score'] * 4))
+        @all_results[0]['score'] > 3 && (@all_results[0]['score'] > (@all_results[1]['score'] * 4))
         redirect_to_page(@all_results, :total_results => @all_results.total_entries, :params => params)
       end
     end

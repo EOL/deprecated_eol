@@ -81,7 +81,8 @@ module EOL
       def self.add_taxon_concept!(docs)
         includes = [
           { :published_hierarchy_entries => [ { :name => :ranked_canonical_form } , :hierarchy, :vetted, { :flattened_ancestors => { :ancestor => [ :name, :rank ] } } ] },
-          { :preferred_common_names => [ :name, :language ] } ]
+          { :preferred_common_names => [ :name, :language ] },
+          { :taxon_concept_content => :image_object } ]
         selects = {
           :taxon_concepts => '*',
           :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
@@ -90,17 +91,14 @@ module EOL
           :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
           :vetted => :view_order,
           :hierarchy_entries_flattened => '*',
-          :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating, :object_cache_url, :source_url ]
+          :taxon_concept_content => [ :taxon_concept_id, :image_object_id ],
+          :data_objects => [ :id, :object_cache_url ]
         }
         ids = docs.map{ |d| d['resource_id'] }
         return if ids.blank?
         instances = TaxonConcept.core_relationships(:include => includes, :select => selects).find_all_by_id(ids)
-
-        top_image_ids = docs.map{ |d| d['top_image_id'] }
-        top_images = DataObject.find_all_by_id(top_image_ids, :select => 'id, object_cache_url')
         docs.each do |d|
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
-          d['top_image_instance'] = top_images.detect{ |i| i.id == d['top_image_id'].to_i }
         end
       end
       
@@ -143,9 +141,9 @@ module EOL
         lucene_query = ''
         # create initial query, 'exact' or 'contains'
         if options[:exact]
-          lucene_query << "keyword_exact:\"#{query}\"^100"
+          lucene_query << "keyword_exact:\"#{query}\"^5"
         else
-          lucene_query << "(keyword_exact:\"#{query}\"^100 OR keyword:\"#{query}\"^20)"
+          lucene_query << "(keyword_exact:\"#{query}\"^5 OR keyword:\"#{query}\"^2)"
         end
         
         # add search suggestions and weight them way higher. Suggested searches are currently always TaxonConcepts
@@ -160,7 +158,7 @@ module EOL
           url << CGI.escape(%Q[ AND (ancestor_taxon_concept_id:#{id})])
         end
         
-        url << CGI.escape(%Q[ AND _val_:richness_score^2])
+        url << CGI.escape(%Q[ AND _val_:richness_score^200])
         
         # add facet filtering
         if options[:type] && !options[:type].include?('all')

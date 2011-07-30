@@ -1,9 +1,6 @@
 - search_result = nil unless defined?(search_result)
-- if search_result
-  - if search_result['top_image_instance']
-    = link_to image_tag(search_result['top_image_instance'].thumb_or_object('88_88')), taxon_overview_path(item)
-- elsif item.best_image
-  = link_to image_tag(item.best_image.thumb_or_object('88_88')), taxon_overview_path(item)
+- if item.taxon_concept_content && item.taxon_concept_content.image_object
+  = link_to image_tag(item.taxon_concept_content.image_object.thumb_or_object('88_88')), taxon_overview_path(item)
 %span.icon{:title => I18n.t(:item_type_taxon_assistive)}
 %small= item.entry.preferred_classification_summary
 %h4= link_to item.title_canonical, taxon_overview_path(item)

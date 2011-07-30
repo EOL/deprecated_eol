@@ -29,7 +29,7 @@ class Taxa::MediaController < TaxaController
     @exemplar_image ||= @taxon_concept.best_image
 
     @params_type = params['type'] || ['all']
-    @params_status = params['status'] || []
+    @params_status = params['status'] || ['all']
     @sort_by = params[:sort_by]
 
     sort_order = [:visibility, :vetted, :rating, :date, :type] if @sort_by.blank? || @sort_by == 'status' #default
@@ -37,7 +37,9 @@ class Taxa::MediaController < TaxaController
     sort_order = [:visibility, :date, :vetted, :rating, :type] if @sort_by == 'newest'
 
     @media = @taxon_concept.media(sort_order, @selected_hierarchy_entry)
-    @media = DataObject.custom_filter(@media, @params_type, @params_status) unless @params_type.blank? && @params_status.blank?
+    unless @params_type.blank? && (@params_status.blank? || @params_status == 'all')
+      @media = DataObject.custom_filter(@media, @params_type, @params_status)
+    end
     @media = promote_exemplar(@media) if @exemplar_image && (@sort_by.blank? ||
       (@sort_by == 'status' && (@params_type.include?('all') || @params_type.include?('images'))))
     @sort_by ||= 'status'
@@ -52,10 +54,12 @@ class Taxa::MediaController < TaxaController
 
   def set_as_exemplar
     taxon_concept_id = params[:taxon_id] || params[:taxon_concept_exemplar_image][:taxon_concept_id]
+    taxon_concept = TaxonConcept.find(taxon_concept_id.to_i) rescue nil
     data_object_id = params[:taxon_concept_exemplar_image][:data_object_id]
     unless taxon_concept_id.blank? || data_object_id.blank?
-      TaxonConceptExemplarImage.set_exemplar(taxon_concept_id, data_object_id)
+      TaxonConceptExemplarImage.set_exemplar(taxon_concept, data_object_id)
     end
+    
     store_location(params[:return_to] || request.referer)
     redirect_back_or_default taxon_media_path params[:taxon_concept_id]
   end

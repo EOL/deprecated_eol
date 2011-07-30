@@ -130,6 +130,7 @@ $(document).ready(function() {
     $(".thumbnails .term p").html("&nbsp;");
   });
   
+  
   // uncheck search filter All when other options are selected
   $("#main_search_type_filter input[type=checkbox][value!='all']").click(function() {
     $("#main_search_type_filter input[type=checkbox][value='all']").removeAttr("checked");
@@ -140,4 +141,15 @@ $(document).ready(function() {
   });
   // disable the checkboxes for filter categories with no results
   $("#main_search_type_filter li.no_results input[type=checkbox]").attr("disabled", true);
+  
+  
+  // uncheck media list filter All when other options are selected
+  $("#media_list #sidebar input[type=checkbox][value!='all']").click(function() {
+    $("#media_list #sidebar input[type=checkbox][value='all'][name='"+ $(this).attr('name') +"']").removeAttr("checked");
+  });
+  // uncheck all other media list filter options when All is selected
+  $("#media_list #sidebar input[type=checkbox][value='all']").click(function() {
+    $("#media_list #sidebar input[type=checkbox][value!='all'][name='"+ $(this).attr('name') +"']").removeAttr("checked");
+  });
+  
 });

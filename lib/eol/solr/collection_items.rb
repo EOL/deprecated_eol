@@ -67,8 +67,8 @@ module EOL
         return if docs.empty?
         includes = [
           { :published_hierarchy_entries => [ { :name => :canonical_form } , :hierarchy, :vetted, { :flattened_ancestors => { :ancestor => [ :name, :rank ] } } ] },
-          { :top_concept_images => :data_object },
-          { :preferred_common_names => [ :name, :language ] } ]
+          { :preferred_common_names => [ :name, :language ] },
+          { :taxon_concept_content => :image_object } ]
         selects = {
           :taxon_concepts => '*',
           :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
@@ -77,7 +77,8 @@ module EOL
           :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
           :vetted => :view_order,
           :hierarchy_entries_flattened => '*',
-          :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating, :object_cache_url, :source_url ]
+          :taxon_concept_content => [ :taxon_concept_id, :image_object_id ],
+          :data_objects => [ :id, :object_cache_url ]
         }
         ids = docs.map{ |d| d['object_id'] }
         instances = TaxonConcept.core_relationships(:include => includes, :select => selects).find_all_by_id(ids)

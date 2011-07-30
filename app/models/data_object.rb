@@ -927,6 +927,12 @@ class DataObject < SpeciesSchemaModel
 
     # sort the remainder by our rating criteria
     unique_image_objects = DataObject.sort_by_rating(unique_image_objects)
+    
+    exemplar = taxon_concept.taxon_concept_exemplar_image
+    if exemplar && exemplar_image = exemplar.data_object
+      unique_image_objects.delete_if{ |d| d.id == exemplar_image.id }
+      unique_image_objects.unshift(exemplar_image)
+    end
 
     # get the rest of the metadata for the selected page
     image_page  = (options[:image_page] ||= 1).to_i

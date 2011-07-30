@@ -2,7 +2,8 @@
   = javascript_include_tag "temp-permalink"
 
 - en_type ||= en_type(@data_object)
-#permalink{:class => "site_column #{en_type}"}
+- # TODO: Looks like HR have moved from using article to text css class - need to check across the site and adjust en_type
+#permalink{:class => en_type == 'article' ? 'text' : en_type}
   #main
     %div{:class => @data_object.is_text? ? 'article copy' : 'media'}
       - if @data_object.is_text? && ! @data_object.object_title.blank?

@@ -10,6 +10,7 @@
         = render :partial => 'data_objects/data_object_article', :locals => { :data_object => dato , :show_view_source => 'false'}
         .meta.attribution
           = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => dato }
+        %p.flag{:class => vetted_id_class(dato.vetted_id)}= dato.vetted.label
         = render :partial => 'data_objects/rating', :locals => { :data_object => dato }
         %div.actions
           = render :partial => 'shared/add_to_my_collection', :locals => { :item => dato, :my_collection => @watch_collection }

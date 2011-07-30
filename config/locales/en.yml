@@ -888,6 +888,7 @@ en:
   curators_summary_header_with_count:
     one: "Reviewed by %{count} curator"
     other: "Reviewed by %{count} curators"
+  curators_summary_learn_more_link: "Learn how to curate"
   current_logos_: "Current Logos:"
   your_current_rating_0_of_5: "Your current rating: 0 of 5"
   your_current_rating_1_of_5: "Your current rating: 1 of 5"

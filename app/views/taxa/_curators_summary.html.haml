@@ -2,6 +2,7 @@
   - count = curators.count
   .header
     %h3= I18n.t(:curators_summary_header_with_count, :count => count)
+    = link_to I18n.t(:curators_summary_learn_more_link), '/placeholder' # FIXME: placeholder link
   - if count > 0
     %ul
       - curators.each do |curator|

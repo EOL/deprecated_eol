@@ -14,9 +14,11 @@
         .image
           %img{:src => item.thumb_or_object('580_360'), :alt => alternative_text(item, en_type(item), @taxon_concept.title_canonical()),
             :data => { :data_object_id => item.id, :thumb => item.thumb_or_object('98_68') }}
-          .attribution
+          .details
+            %p.flag{:class => vetted_id_class(item.vetted_id)}= item.vetted.label
             - unless item.object_title.empty?
-              .copy
+              .copy.caption
                 %p= item.object_title
-            = render :partial => "data_objects/attribution_minimal", :locals => {:data_object => item, :linked => true, :supplier => true}
+            .attribution
+              = render :partial => "data_objects/attribution_minimal", :locals => {:data_object => item, :linked => true, :supplier => true}
   %p.all= link_to I18n.t(:see_all_media_link), taxon_media_path(@taxon_concept.id)

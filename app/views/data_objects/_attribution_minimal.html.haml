@@ -1,6 +1,5 @@
 - linked ||= false
 - supplier ||= false
-%p.flag{:class => vetted_id_class(data_object.vetted_id)}= data_object.vetted.label
 = render :partial => 'data_objects/license', :locals => { :data_object => data_object }
 .copy
   %p<

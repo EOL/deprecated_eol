@@ -252,21 +252,28 @@ p.status.error
           background: #F3F7FA url('/images/v2/icon_videos_tabs.png') no-repeat 50% 50%
           width: 158px
           height: 123px
-      p
-        &.flag
-          &.unknown /*should match unreviewed*/
-            border: 1px solid #677682
-            background: #8695A1
-          &.untrusted
-            border: 1px solid #f2d2cc
-            background: #ffeae6
-            color: #677682
       >a
         display: inline-block
         overflow: hidden
       form
         display: block
         clear: both
+/** style for vetted status flags - various locations **/
+p.flag
+  color: white
+  padding: 1px 2px
+  text-transform: uppercase
+  font-size: 0.75em
+  &.trusted
+    border: 1px solid #6B7910
+    background: #849513
+  &.unknown /*should match unreviewed*/
+    border: 1px solid #677682
+    background: #8695A1
+  &.untrusted
+    border: 1px solid #f2d2cc
+    background: #ffeae6
+    color: #677682
 
 /** We share rating partial across many pages so need extra styles here. **/
 #taxonomy_detail
@@ -362,9 +369,32 @@ body
       margin: 2px 10px 0 0
 #taxonomy
   .gallery
-    .attribution
-      .copy
-        padding: 0 0 0 90px
+    .images
+      height: 380px
+      .image
+        padding-bottom: 60px
+      .details
+        position: absolute
+        top: 320px
+        width: 430px
+        p
+          line-height: 120%
+          margin: 0
+          &.flag
+            float: left
+            margin-top: 1px
+        .caption
+          font-size: 0.92em
+          padding: 0 0 0 5em
+        .attribution
+          margin-top: 5px
+          padding-bottom: 5px
+          position: relative
+          top: 0
+          left: 0
+          .copy
+            padding: 0 0 0 90px
+
 
 /** Our classification summary is a hierarchichal list whereas HR was just links without hierarchy
   * so we override the styles here **/

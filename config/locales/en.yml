@@ -307,7 +307,8 @@ en:
   active: "Active"
   activity_: "Activity:"
   activity: "Activity"
-  activity_log_empty: "No EOL member has commented yet."
+  activity_log_empty: "This account has yet to contribute to EOL."
+  activity_log_empty_learn_more_link: "Learn how to contribute"
   activity_user_curated_an_unknown_object: "<strong>%{user}</strong> curated an unknown object."
   activity_user_trusted_data_object: "<strong>%{user}</strong> marked \"%{object_name}\" as trusted."
   activity_user_trusted_unknown_object: "<strong>%{user}</strong> marked an unknown object as trusted."
@@ -589,7 +590,7 @@ en:
   classification_tree_header: "Classification"
   classification_view_in_hierarchy: "View in %{hierarchy_label}"
   classifications: "Classifications"
-  classifications_empty: "Our curators haven't approved any classifications of this taxon yet."
+  classifications_empty: "This taxon is not in any classifications that are browsable in EOL."
   classifications_summary_header_with_count:
     one: "Found in %{count} classification"
     other: "Found in %{count} classifications"

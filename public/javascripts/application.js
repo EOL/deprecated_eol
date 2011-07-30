@@ -50,7 +50,9 @@ $(function() {
           var h = $ss.find(".images").height();
           h -= parseInt($ss.find(".image").css("padding-bottom"), 10);
           $ss.find(".image > img").each(function() {
-            $(this).css("top", (h / 2 - this.height / 2) + "px");
+            var top = (h / 2 - this.height / 2);
+            top = top < 0 ? 0 : top;
+            $(this).css("top", top + "px");
           });
         };
       };

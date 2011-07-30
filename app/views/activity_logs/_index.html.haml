@@ -2,6 +2,7 @@
   .article
     .empty
       %p= I18n.t(:activity_log_empty)
+      %p= link_to I18n.t(:activity_log_empty_learn_more_link), '/placeholder'
 - else
   %ul.feed
     - log.each do |item|

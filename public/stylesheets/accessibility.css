@@ -216,19 +216,29 @@ p.status.error {
     background: #f3f7fa url("/images/v2/icon_videos_tabs.png") no-repeat 50% 50%;
     width: 158px;
     height: 123px; }
-#media_list #main > ul > li p.flag.unknown {
-  border: 1px solid #677682;
-  background: #8695a1; }
-#media_list #main > ul > li p.flag.untrusted {
-  border: 1px solid #f2d2cc;
-  background: #ffeae6;
-  color: #677682; }
 #media_list #main > ul > li > a {
   display: inline-block;
   overflow: hidden; }
 #media_list #main > ul > li form {
   display: block;
   clear: both; }
+
+/*style for vetted status flags - various locations */
+p.flag {
+  color: white;
+  padding: 1px 2px;
+  text-transform: uppercase;
+  font-size: 0.75em; }
+  p.flag.trusted {
+    border: 1px solid #6b7910;
+    background: #849513; }
+  p.flag.unknown {
+    border: 1px solid #677682;
+    background: #8695a1; }
+  p.flag.untrusted {
+    border: 1px solid #f2d2cc;
+    background: #ffeae6;
+    color: #677682; }
 
 /*We share rating partial across many pages so need extra styles here. */
 #taxonomy_detail .average_rating h5 {
@@ -307,8 +317,31 @@ body > #header .section .session .join {
     float: left;
     margin: 2px 10px 0 0; }
 
-#taxonomy .gallery .attribution .copy {
-  padding: 0 0 0 90px; }
+#taxonomy .gallery .images {
+  height: 380px; }
+  #taxonomy .gallery .images .image {
+    padding-bottom: 60px; }
+  #taxonomy .gallery .images .details {
+    position: absolute;
+    top: 320px;
+    width: 430px; }
+    #taxonomy .gallery .images .details p {
+      line-height: 120%;
+      margin: 0; }
+      #taxonomy .gallery .images .details p.flag {
+        float: left;
+        margin-top: 1px; }
+    #taxonomy .gallery .images .details .caption {
+      font-size: 0.92em;
+      padding: 0 0 0 5em; }
+    #taxonomy .gallery .images .details .attribution {
+      margin-top: 5px;
+      padding-bottom: 5px;
+      position: relative;
+      top: 0;
+      left: 0; }
+      #taxonomy .gallery .images .details .attribution .copy {
+        padding: 0 0 0 90px; }
 
 /*Our classification summary is a hierarchichal list whereas HR was just links without hierarchy
  * so we override the styles here */

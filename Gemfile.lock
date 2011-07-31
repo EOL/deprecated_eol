@@ -94,6 +94,7 @@ DEPENDENCIES
   haml (= 3.1.1)
   indifferent-variable-hash
   invert
+  json_pure
   macaddr
   mysql
   rack (= 1.1.0)

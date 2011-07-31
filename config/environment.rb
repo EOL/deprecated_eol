@@ -221,6 +221,8 @@ Rails::Initializer.run do |config|
   $SPECIAL_COMMUNITY_NAME = 'EOL Curators and Admins'
 
   $ACTIVITIES_ON_HOME_PAGE = 6
+  
+  $HOMEPAGE_MARCH_RICHNESS_THRESHOLD = 0.7
 
   APPLICATION_DEFAULT_LANGUAGE_ISO = 'en'
 

@@ -31,10 +31,17 @@ class RandomHierarchyImage < SpeciesSchemaModel
     # sci_name, common_name, taxon_concept_id, object_cache_url
     # it also looks for twice the limit as we still have some concepts with more than one preferred common name
     
-    random_image_result = RandomHierarchyImage.find(:all,
-      :conditions => "hierarchy_id=#{hierarchy.id} AND id>#{starting_id}",
-      :limit => limit*2)
-    random_image_result
+    if $HOMEPAGE_MARCH_RICHNESS_THRESHOLD
+      random_image_result = RandomHierarchyImage.find(:all,
+        :conditions => "hierarchy_id=#{hierarchy.id} AND id>#{starting_id} AND tcm.richness_score > " + $HOMEPAGE_MARCH_RICHNESS_THRESHOLD.to_s,
+        :joins => "JOIN taxon_concept_metrics tcm USING (taxon_concept_id)",
+        :limit => limit*2)
+      random_image_result
+    else
+      random_image_result = RandomHierarchyImage.find(:all,
+        :conditions => "hierarchy_id=#{hierarchy.id} AND id>#{starting_id}",
+        :limit => limit*2)
+    end
     
     RandomHierarchyImage.preload_associations(random_image_result,
       [ :data_object,

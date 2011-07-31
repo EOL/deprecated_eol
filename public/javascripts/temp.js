@@ -112,7 +112,7 @@ $(document).ready(function() {
   });
   
   // properly shows the march of life name on mouseover
-  $(".thumbnails li img").mouseover(function() {
+  $(".thumbnails li img").unbind().mouseover(function() {
     var $e = $(this).parent().parent(),
         $thumbs = $e.closest(".thumbnails"),
         margin = $thumbs.find("li").eq(0).outerWidth(true) - $e.outerWidth();

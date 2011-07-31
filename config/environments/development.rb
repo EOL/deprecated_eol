@@ -57,6 +57,8 @@ $SKIP_URL_VALIDATIONS = true
 
 $IP_ADDRESS_OF_SERVER = '0.0.0.0:3000'
 
+$HOMEPAGE_MARCH_RICHNESS_THRESHOLD = nil
+
 # # If you decide you want to view the site using the V1 layout then comment out the next line
 # $USE_OLD_MAIN_LAYOUT = true
 

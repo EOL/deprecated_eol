@@ -102,6 +102,7 @@ class SearchController < ApplicationController
           return first_taxon
         else
           # the second taxon isn't far worse than the first, so break
+          first_taxon = nil
           break
         end
       end

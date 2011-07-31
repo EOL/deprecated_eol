@@ -494,7 +494,8 @@ class ApplicationController < ActionController::Base
   end
 
   def not_yet_implemented
-    flash_and_redirect_back(I18n.t(:not_yet_implemented_error))
+    flash[:warning] =  I18n.t(:not_yet_implemented_error)
+    redirect_to request.referer ? :back : :default
   end
 
   def flash_and_redirect_back(msg)

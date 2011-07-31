@@ -23,11 +23,6 @@ class ContentController < ApplicationController
     @explore_taxa.shuffle!
   end
 
-  def not_implemented
-    flash[:warning] =  I18n.t(:not_yet_implemented_error)
-    redirect_to :back
-  end
-
   # just shows the top set of species --- can be included on other websites
   def species_bar
      @explore_taxa  = RandomHierarchyImage.random_set(6, nil, {:language => current_user.language, :size => :medium})

@@ -4,7 +4,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :task_states
   map.resources :task_names
 
-  map.placeholder 'placeholder', :action => 'not_implemented', :controller => 'content'
+  map.placeholder 'placeholder', :action => 'not_yet_implemented', :controller => 'application'
 
   # Communities, Privileges, Roles, Feeds:
   map.resources :feed_items

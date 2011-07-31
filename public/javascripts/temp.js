@@ -152,4 +152,11 @@ $(document).ready(function() {
     $("#media_list #sidebar input[type=checkbox][value!='all'][name='"+ $(this).attr('name') +"']").removeAttr("checked");
   });
   
+  // re-writing a block from application.js which was missing an end() and thus was broken
+  $(".heading form.filter, form.select_submit").find(".actions").hide().find(":submit").end().end().find("select")
+    .change(function() {
+      $(this).closest("form").submit();
+    });
 });
+
+

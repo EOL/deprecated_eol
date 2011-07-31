@@ -177,15 +177,19 @@ p.status.error {
  * classes that mean data_object text to text, as article clashes with the HR generic article class but right
  * now we have I18n keys and various classes around the site depending on 'article' for text data object.
  */
-#permalink.article {
-  padding: 0; }
-#permalink #sidebar ul.review_status p.unknown {
-  border: 1px solid #677682;
-  background: #8695a1; }
-#permalink #sidebar ul.review_status p.untrusted {
-  border: 1px solid #f2d2cc;
-  background: #ffeae6;
-  color: #677682; }
+#permalink {
+  /* added float non to video as description box wasn't showing up properly on DO page */ }
+  #permalink.article {
+    padding: 0; }
+  #permalink #sidebar ul.review_status p.unknown {
+    border: 1px solid #677682;
+    background: #8695a1; }
+  #permalink #sidebar ul.review_status p.untrusted {
+    border: 1px solid #f2d2cc;
+    background: #ffeae6;
+    color: #677682; }
+  #permalink .media {
+    float: none; }
 
 /*Adjustments for when missing exemplar image */
 #media_list #sidebar img, #taxon_detail #sidebar img {

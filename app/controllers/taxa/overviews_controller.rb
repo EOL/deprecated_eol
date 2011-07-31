@@ -24,6 +24,7 @@ class Taxa::OverviewsController < TaxaController
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
     @browsable_hierarchy_entries ||= @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
     @browsable_hierarchy_entries = [@dropdown_hierarchy_entry] if @browsable_hierarchy_entries.blank? # TODO: Check this - we are getting here with a hierarchy entry that has a hierarchy that is not browsable.
+    @browsable_hierarchy_entries.compact!
     @hierarchies = @browsable_hierarchy_entries.collect{|he| he.hierarchy }.uniq
     toc_items = [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution]
     options = {:limit => 1, :language => current_user.language_abbr}

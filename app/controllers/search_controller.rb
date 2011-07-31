@@ -33,10 +33,10 @@ class SearchController < ApplicationController
           render :template => 'mobile/search/index', :layout => "#{RAILS_ROOT}/app/views/mobile/layouts/main_mobile.html.haml"
         end
       elsif params[:show_all].blank? && @all_results.length == 1 && @all_results.total_entries == 1
-        redirect_to_page(@all_results, :total_results => 1, :params => params)
+        redirect_to_page(@all_results.first, :total_results => 1, :params => params)
       elsif params[:show_all].blank? && @all_results.total_entries > 1 && @all_results.length > 1 &&
-        @all_results[0]['score'] > 3 && (@all_results[0]['score'] > (@all_results[1]['score'] * 4))
-        redirect_to_page(@all_results, :total_results => @all_results.total_entries, :params => params)
+        superior_result = pick_superior_result(@all_results)
+        redirect_to_page(superior_result, :total_results => @all_results.total_entries, :params => params)
       end
     end
     params.delete(:type) if params[:type] == ['all']
@@ -44,7 +44,7 @@ class SearchController < ApplicationController
   end
 
   # there are various object types which can be the only result. This method handles redirecting to all of them
-  def redirect_to_page(result_set, options={})
+  def redirect_to_page(result, options={})
     modified_params = options[:params].dup
     modified_params.delete(:type) if modified_params[:type] == ['all']
     modified_params.delete(:sort_by) if modified_params[:sort_by] == 'score'
@@ -55,7 +55,7 @@ class SearchController < ApplicationController
     elsif options[:total_results] == 1
       flash[:notice] = I18n.t(:flash_notice_redirected_from_search_html, :search_string => @querystring, :more_results_url => search_path(nil, modified_params.merge({ :show_all => true })))
     end
-    result_instance = result_set.first['instance']
+    result_instance = result['instance']
     if result_instance.class == Collection
       redirect_to collection_path(result_instance.id)
     elsif result_instance.class == Community
@@ -83,5 +83,29 @@ class SearchController < ApplicationController
       req,
       current_user)
     @logged_search_id = logged_search.nil? ? '' : logged_search.id
+  end
+  
+  private
+  
+  # if the first returned taxon has a score greater than 3, and 
+  def pick_superior_result(all_results)
+    minimum_score = 3
+    superior_multiple = 4
+    first_taxon = nil
+    
+    all_results.each do |r|
+      break if first_taxon.nil? && r['score'] < minimum_score
+      if first_taxon.nil? && r['resource_type'].include?('TaxonConcept') && r['score'] > minimum_score
+        first_taxon = r
+      elsif first_taxon && r['resource_type'].include?('TaxonConcept')
+        if first_taxon['score'] > (r['score'] * superior_multiple)
+          return first_taxon
+        else
+          # the second taxon isn't far worse than the first, so break
+          break
+        end
+      end
+    end
+    first_taxon
   end
 end

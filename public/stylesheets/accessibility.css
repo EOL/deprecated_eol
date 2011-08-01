@@ -196,6 +196,9 @@ p.status.error {
   margin-bottom: 0; }
 #media_list #sidebar h3, #taxon_detail #sidebar h3 {
   margin-top: 20px; }
+#media_list #sidebar h4 a, #taxon_detail #sidebar h4 a {
+  color: #667309;
+  text-decoration: none; }
 
 /*Special styles for layering audio description on top of audio thumbnail */
 #media_list #main > ul > li .figure {

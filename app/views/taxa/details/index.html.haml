@@ -14,7 +14,7 @@
       %h3= I18n.t(:table_of_contents)
       - for root in roots
         .section
-          %h4= root.label
+          %h4= link_to root.label, url_for(:anchor => category_anchor(root))
           - children = @toc.collect{|t| t if t.parent_id == root.category_id}.compact
           - unless children.empty?
             %ul
@@ -25,7 +25,7 @@
         - root_content = @details.collect{|d| d if d[:toc_item].id == root.category_id}.compact
         - children = @toc.collect{|t| t if t.parent_id == root.category_id}.compact
         - unless root_content.empty? && children.empty?
-          %h2= root.label
+          %h2{:id => category_anchor(root)}= root.label
           .section
             = render :partial => 'category_content', :locals => { :content => root_content }
             - unless children.empty?

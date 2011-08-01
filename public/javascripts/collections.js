@@ -15,7 +15,8 @@ EOL.init_collection_item_behaviours = function($collection) {
       data: "_method=put&commit_annotation=true&" +
         $(this).closest(".collection_item_form").find("input, textarea").serialize(),
       complete: function() {
-        $node.find(".collection_item_form a").closest(".collection_item_form").hide().prev().show().prev().show()
+        $node.find(".collection_item_form").closest(".collection_item_form").hide().prev().show().prev().show();
+        $node.each(EOL.init_collection_item_behaviours);
       }
     });
     return(false);

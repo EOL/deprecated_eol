@@ -16,6 +16,13 @@ class Taxa::ResourcesController < TaxaController
     current_user.log_activity(:viewed_taxon_concept_resources_education, :taxon_concept_id => @taxon_concept.id)
   end
   
+  def biomedical_terms
+    toc_id = TocItem.biomedical_terms.id
+    @assistive_section_header = I18n.t(:biomedical_terms)
+    @contents = @taxon_concept.details_for_toc_items(ContentTable.details.toc_items, :language => current_user.language_abbr).collect{|d| d if d[:toc_item].id == toc_id}.compact
+    current_user.log_activity(:viewed_taxon_concept_resources_biomedical_terms, :taxon_concept_id => @taxon_concept.id)
+  end
+  
   def content_partners
     @assistive_section_header = I18n.t(:content_partners)
     @links = @taxon_concept.content_partners_links

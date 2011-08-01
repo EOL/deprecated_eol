@@ -1,0 +1,21 @@
+#content
+  #taxon_literature.site_column
+    = render :partial => 'resources_menu'
+    .main_container.copy
+      %h2= I18n.t(:biomedical_terms)
+      .section
+        =I18n.t("these_terms_are_derived_by_searching", :link => external_link_to('PubMed', 'http://pubmed.gov') , :scientific_name => @taxon_concept.quick_scientific_name)
+        =I18n.t("the_results_are_analyzed_with_the_tool", :link_ligercat =>  external_link_to (I18n.t("ligercat"), 'http://ligercat.ubio.org'), :link_mesh => external_link_to (I18n.t("mesh"), 'http://www.ncbi.nlm.nih.gov/sites/entrez?db=mesh'))
+        %p
+          %br
+        - # There should only be one mapping for LigerCat, but if there are several, this will show all:
+        - unless @contents.blank?
+          = render :partial => 'taxa/details/category_content', :locals => { :content => @contents }
+        %p
+          %br
+        .divider
+        .content-attribution-area
+          .attribution-header.text-area-header= I18n.t(:source_and_additional_information)
+          %span.source
+            =I18n.t("terms_provided_by", :link => external_link_to(I18n.t("pubmed"), 'http://www.ncbi.nlm.nih.gov/pubmed/'))
+            =I18n.t("clouds_provided_by_the_mbl", :link => external_link_to(I18n.t("biology_of_aging_project"), 'http://aging.ubio.org'))

@@ -9,6 +9,8 @@
         = link_to I18n.t(:nucleotide_sequences), nucleotide_sequences_taxon_hierarchy_entry_resources_path(@taxon_concept, @dropdown_hierarchy_entry)
       %li{:class => resource_is_active('taxa/resources', 'content_partners')}  
         = link_to I18n.t(:content_partners), content_partners_taxon_hierarchy_entry_resources_path(@taxon_concept, @dropdown_hierarchy_entry)
+      %li{:class => resource_is_active('taxa/resources', 'biomedical_terms')}  
+        = link_to I18n.t(:biomedical_terms), biomedical_terms_taxon_hierarchy_entry_resources_path(@taxon_concept, @dropdown_hierarchy_entry)
     - else
       %li{:class => resource_is_active('taxa/resources', 'show')}
         = link_to I18n.t(:identification_resources), taxon_resources_path(@taxon_concept)
@@ -18,4 +20,6 @@
         = link_to I18n.t(:nucleotide_sequences), nucleotide_sequences_taxon_resources_path(@taxon_concept)
       %li{:class => resource_is_active('taxa/resources', 'content_partners')}  
         = link_to I18n.t(:content_partners), content_partners_taxon_resources_path(@taxon_concept)
+      %li{:class => resource_is_active('taxa/resources', 'biomedical_terms')}  
+        = link_to I18n.t(:biomedical_terms), biomedical_terms_taxon_resources_path(@taxon_concept)
         

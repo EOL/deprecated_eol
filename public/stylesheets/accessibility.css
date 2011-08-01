@@ -95,10 +95,6 @@ form#switch_hierarchy_entry fieldset {
     content: "";
     margin: 0 !important; }
 
-/*terms agreement ** */
-#content.session form.edit_user p {
-  margin-bottom: 20px; }
-
 /*recaptcha */
 #new_user iframe {
   width: 320px;

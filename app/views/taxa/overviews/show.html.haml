@@ -15,5 +15,5 @@
     .article.list.updates
       .header
         %h3= I18n.t(:recent_updates)
-      = render(:partial => 'activity_logs/index', :locals => {:log => log[-3..-1]})
+      = render(:partial => 'activity_logs/index', :locals => {:log => log[-3..-1].reverse })
       = render(:partial => 'comments/new', :locals => { :parent => @taxon_concept })

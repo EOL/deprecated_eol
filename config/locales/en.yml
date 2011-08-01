@@ -2369,8 +2369,9 @@ en:
   telephone: "Telephone"
   term_cannot_be_left_blank: "Term cannot be left blank"
   terms_agreement_form_fallback: 'Please review and agree to the <a href="%{terms_url}">terms of use</a> before accessing your account.'
-  terms_agreement_form_header: "Terms agreement"
+  terms_agreement_form_header: "Terms Of use"
   terms_agreement_form_submit: "I agree"
+  terms_agreement_beta_intro: "Thank you for participating in the EOL Version 2 Beta. Before proceeding we need you to agree to the following:"
   terms_of_use: "Terms of Use"
   terms_provided_by: "Terms provided by %{link}."
   term: "Term"

@@ -998,6 +998,25 @@ class DataObject < SpeciesSchemaModel
     return obj_tc_id
   end
 
+  # To retrieve the vetted id of an association
+  def vetted_id(hierarchy_entry)
+    association = DataObjectHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(id, hierarchy_entry.id)
+    if association.blank?
+      association = CuratedDataObjectHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(id, hierarchy_entry.id)
+    end
+    return association.vetted_id
+  end
+  
+  # To retrieve the visibility id of an association
+  def visibility_id(hierarchy_entry)
+    association = DataObjectHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(id, hierarchy_entry.id)
+    if association.blank?
+      association = CuratedDataObjectHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(id, hierarchy_entry.id)
+    end
+    return association.visibility_id
+  end
+  
+  # To retrieve the reasons provided while untrusting an association
   def untrust_reasons(hierarchy_entry)
     if hierarchy_entry.associated_by_curator
       object_id = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id_and_user_id(
@@ -1010,6 +1029,24 @@ class DataObject < SpeciesSchemaModel
     else
       log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_action_id(
         id, ChangeableObjectType.data_object.id, Activity.untrusted.id
+      ).last
+      log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
+    end
+  end
+  
+  # To retrieve the reasons provided while hiding an association
+  def hide_reasons(hierarchy_entry)
+    if hierarchy_entry.associated_by_curator
+      object_id = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id_and_user_id(
+        id,hierarchy_entry.id,hierarchy_entry.associated_by_curator
+      ).id
+      log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_action_id(
+        object_id, ChangeableObjectType.hierarchy_entry.id, Activity.invisible.id
+      ).last
+      log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
+    else
+      log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_action_id(
+        id, ChangeableObjectType.data_object.id, Activity.invisible.id
       ).last
       log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
     end

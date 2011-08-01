@@ -235,7 +235,7 @@ class ContentController < ApplicationController
     @page_id = params[:id]
     raise "static page without id" if @page_id.blank?
 
-    unless read_fragment(:controller => 'content', :part => @page_id + "_" + current_user.language_abbr)
+    # unless read_fragment(:controller => 'content', :part => @page_id + "_" + current_user.language_abbr)
       if @page_id.is_int?
         @content = ContentPage.find_by_id(@page_id)
       else # assume it's a page name
@@ -262,7 +262,7 @@ class ContentController < ApplicationController
 
       # if this static page is simply a redirect, then go there
       current_user.log_activity(:viewed_content_page_id, :value => @page_id)
-    end
+    # end
   end
 
   # convenience method to reference the uploaded content from the CMS (usually a PDF file or an image used in the static pages)

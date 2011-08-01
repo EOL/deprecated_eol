@@ -17,7 +17,7 @@ module EOL
         @solr_api.optimize
       end
       
-      def begin_rebuild(do_optimize = true)
+      def begin_rebuild(do_optimize = false)
         reindex_model(Community)
         reindex_model(Collection)
         reindex_model(DataObject)

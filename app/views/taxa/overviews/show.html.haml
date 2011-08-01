@@ -12,8 +12,9 @@
     = render(:partial => 'taxa/classifications_summary')
     = render(:partial => 'taxa/curators_summary', :locals => {:curators => @taxon_concept.top_acting_curators})
     - log = @taxon_concept.activity_log
+    - log = log[-3..-1].reverse if log.length > 3
     .article.list.updates
       .header
         %h3= I18n.t(:recent_updates)
-      = render(:partial => 'activity_logs/index', :locals => {:log => log[-3..-1]})
+      = render(:partial => 'activity_logs/index', :locals => {:log => log })
       = render(:partial => 'comments/new', :locals => { :parent => @taxon_concept })

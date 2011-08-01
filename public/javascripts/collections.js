@@ -15,10 +15,7 @@ EOL.init_collection_item_behaviours = function($collection) {
       data: "_method=put&commit_annotation=true&" +
         $(this).closest(".collection_item_form").find("input, textarea").serialize(),
       complete: function() {
-        // This removes the form tag which we needed to build because Rails can be silly. TODO - this is a hackjob.
-        var inner_html = $node.find('form').html();
-        $node.html(inner_html);
-        $node.each(EOL.init_collection_item_behaviours);
+        $node.find(".collection_item_form a").closest(".collection_item_form").hide().prev().show().prev().show()
       }
     });
     return(false);

@@ -307,7 +307,7 @@ en:
   active: "Active"
   activity_: "Activity:"
   activity: "Activity"
-  activity_log_empty: "This account has yet to contribute to EOL."
+  activity_log_empty: "No one has provided updates yet."
   activity_log_empty_learn_more_link: "Learn how to contribute"
   activity_user_curated_an_unknown_object: "<strong>%{user}</strong> curated an unknown object."
   activity_user_trusted_data_object: "<strong>%{user}</strong> marked \"%{object_name}\" as trusted."

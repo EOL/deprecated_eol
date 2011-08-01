@@ -17,7 +17,7 @@
             = render :partial => 'data_objects/view_translation', :locals => { :data_object => dato }
           .copy
             = dato.description.balance_tags
-          %p.flag{:class => vetted_id_class(dato.vetted_id)}= dato.vetted.label
+          %p.flag{:class => vetted_id_class(dato.vetted_id)}= dato.vetted == Vetted.unknown ? I18n.t(:unreviewed) : dato.vetted.label
           .meta.attribution
             = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => dato }
         - break

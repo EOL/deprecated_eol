@@ -15,7 +15,7 @@
           %img{:src => item.thumb_or_object('580_360'), :alt => alternative_text(item, en_type(item), @taxon_concept.title_canonical()),
             :data => { :data_object_id => item.id, :thumb => item.thumb_or_object('98_68') }}
           .details
-            %p.flag{:class => vetted_id_class(item.vetted_id)}= item.vetted.label
+            %p.flag{:class => vetted_id_class(item.vetted_id)}= item.vetted == Vetted.unknown ? I18n.t(:unreviewed) : item.vetted.label
             - unless item.object_title.empty?
               .copy.caption
                 %p= item.object_title

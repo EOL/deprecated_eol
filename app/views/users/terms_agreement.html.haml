@@ -1,9 +1,11 @@
 - form_for @user, :url => terms_agreement_user_path(@user), :html => {:method => :post}  do |f|
-  %fieldset
-    %h1= I18n.t(:terms_agreement_form_header)
+  %fieldset.copy
     - if @terms.blank?
+      %h1= I18n.t(:terms_agreement_form_header)
       %p= I18n.t(:terms_agreement_form_fallback, :terms_url => 'terms_of_use_path')
     - else
+      %p= I18n.t(:terms_agreement_beta_intro)
+      %h1= I18n.t(:terms_agreement_form_header)
       = @terms.main_content
   %fieldset.actions
     = f.submit I18n.t(:terms_agreement_form_submit), :name => :commit_agreed

@@ -38,7 +38,7 @@
                   %fieldset.actions
                     = f.submit I18n.t(:set_as_exemplar)
             = render :partial => 'data_objects/rating', :locals => { :data_object => item, :minimal => true }
-            %p.flag{:class => vetted_id_class(item.vetted_id)}= item.vetted.label
+            %p.flag{:class => vetted_id_class(item.vetted_id)}= item.vetted == Vetted.unknown ? I18n.t(:unreviewed) : item.vetted.label
             = render :partial => 'shared/add_to_my_collection', :locals => { :item => item, :my_collection => @watch_collection }
       .footer
         = will_paginate @media, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),

@@ -95,10 +95,6 @@ form#switch_hierarchy_entry fieldset {
     content: "";
     margin: 0 !important; }
 
-/*terms agreement ** */
-#content.session form.edit_user p {
-  margin-bottom: 20px; }
-
 /*recaptcha */
 #new_user iframe {
   width: 320px;
@@ -288,6 +284,17 @@ body.home > #header .session {
   right: 40px;
   top: 55px;
   z-index: 2; }
+  body.home > #header .session img {
+    float: right;
+    margin: 0 0 0 10px;
+    border: 1px solid #cad3db; }
+  body.home > #header .session .details {
+    overflow: hidden;
+    padding: 5px 0 0 0;
+    font-size: 0.92em;
+    line-height: 130%;
+    text-align: right;
+    color: white; }
 body > #header .section .actions {
   z-index: 5; }
 body > #header .section .session .join {

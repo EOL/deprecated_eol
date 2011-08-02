@@ -154,8 +154,8 @@ module EOL
       @activity_log.first
     end
 
-    def last
-      @activity_log.last
+    def last(n = 1)
+      @activity_log.last(n)
     end
 
     def nil?

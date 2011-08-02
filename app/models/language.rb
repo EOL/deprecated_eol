@@ -11,14 +11,6 @@ class Language < SpeciesSchemaModel
     end
   end
 
-  def self.create_english
-    TranslatedLanguage.reset_cached_instances
-    Language.reset_cached_instances
-    e = Language.gen_if_not_exists(:iso_639_1 => 'en', :source_form => 'English')
-    TranslatedLanguage.gen_if_not_exists(:label => 'English', :original_language_id => e.id)
-    e
-  end
-
   def self.scientific
     cached_find_translated(:label, 'Scientific Name')
   end
@@ -32,17 +24,31 @@ class Language < SpeciesSchemaModel
   def self.from_iso(iso, params={})
     cached_find(:iso_639_1, iso)
   end
+  
+  def self.find_by_iso_exclusive_scope(iso)
+    with_exclusive_scope do
+      find_by_iso_639_1(iso)
+    end
+  end
 
   # Migrations make it possible that the 'en' will either be in the languages table or its translated table.  This
-  # ensures we grab it from whichever place is currently appropriate
+  # ensures we grab it from whichever place is currently appropriate. This method will also create English is it does
+  # not already exist
   def self.english_for_migrations
     eng_lang = nil
-    begin
-      with_exclusive_scope do
-        eng_lang = find_by_iso_639_1('en')
+    if TranslatedLanguage.table_exists?
+      eng_lang = find_by_iso_exclusive_scope('en')
+      unless eng_lang
+        eng_lang = Language.create(:iso_639_1 => 'en', :iso_639_2 => 'eng', :iso_639_3 => 'eng',
+          :source_form => 'English', :sort_order => 1)
+        TranslatedLanguage.create(:label => 'English', :original_language_id => eng_lang.id, :language_id => eng_lang.id)
       end
-    rescue ActiveRecord::StatementInvalid => e
+    else
       eng_lang = Language.find_by_sql('SELECT * FROM languages WHERE iso_639_1 = "en"')
+      unless eng_lang
+        eng_lang = Language.create(:iso_639_1 => 'en', :iso_639_2 => 'eng', :iso_639_3 => 'eng',
+          :source_form => 'English', :sort_order => 1, :label => 'English')
+      end
     end
     eng_lang
   end

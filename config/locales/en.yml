@@ -2698,6 +2698,7 @@ en:
     one: "Member of %{count} community"
     other: "Member of %{count} communities"
   users_my_info_header: "My info"
+  users_pending_activation_message: "A confirmation message has been sent to the email address you have provided. To complete the registration process and become an EOL member, please click on the link included in that email. Thank you!"
   using_the_site: "Using The Site"
   validation_error: "Validation Error"
   validation_following_fields: "There were problems with the following fields:"

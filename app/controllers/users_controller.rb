@@ -279,7 +279,7 @@ private
   def failed_to_create_user
     @user.clear_entered_password if @user
     flash.now[:error] = I18n.t(:create_user_unsuccessful_error)
-    flash.now[:error] << I18n.t(:recaptcha_incorrect_error_with_anchor, :recaptcha_anchor => 'recaptcha_widget_div')
+    flash.now[:error] << I18n.t(:recaptcha_incorrect_error_with_anchor, :recaptcha_anchor => 'recaptcha_widget_div') unless verify_recaptcha
     render :action => :new, :layout => 'v2/sessions'
   end
 

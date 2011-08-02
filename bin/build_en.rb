@@ -59,70 +59,77 @@ list = Set.new()
 
   views/layouts/v2
 
+  views/activity_logs
   views/data_objects
   views/collection_items
   views/collections
+  views/comments
+  views/members
   views/search
+  views/sessions
+  views/taxa/details
+  views/taxa/literature
+  views/taxa/maps
+  views/taxa/media
+  views/taxa/names
+  views/taxa/overviews
 
-  controllers/account_controller.rb
   controllers/application_controller.rb
   controllers/collection_items_controller.rb
   controllers/collections_controller.rb
+  controllers/comments_controller.rb
   controllers/content_controller.rb
   controllers/data_objects_controller.rb
+  controllers/members_controller.rb
   controllers/search_controller.rb
+  controllers/sessions_controller.rb
   controllers/taxa_controller.rb
   controllers/taxa/details_controller.rb
+  controllers/taxa/literature_controller.rb
   controllers/taxa/maps_controller.rb
   controllers/taxa/media_controller.rb
   controllers/taxa/names_controller.rb
   controllers/taxa/overviews_controller.rb
-  controllers/users/collections_controller.rb
   controllers/users_controller.rb
+  controllers/users/activities_controller.rb
+  controllers/users/collections_controller.rb
   controllers/users/newsfeeds_controller.rb
 
-  views/account/login.html.haml
-  views/account/signup.html.haml
-  views/activity_logs/_collection_activity_log.html.haml
-  views/activity_logs/_comment.html.haml
-  views/activity_logs/_index.html.haml
-  views/comments/_new.html.haml
   views/content/_error.html.haml
   views/content/error.html.haml
-  views/content/index.html.haml
   views/content/_march_of_life_item.html.haml
-  views/curator_account/_curator_form.html.haml
+  views/content/index.html.haml
+  views/navigation/_browse_page.html.haml
+  views/navigation/_node_name_page.html.haml
+  views/navigation/_node_with_ancestry_page.html.haml
   views/shared/_add_to_my_collection.html.haml
   views/shared/_flash_messages.html.haml
   views/shared/_google_custom_search_params.html.haml
+  views/shared/_item_summary_article.html.haml
   views/shared/_item_summary_collection.html.haml
+  views/shared/_item_summary_media.html.haml
   views/shared/_item_summary_taxon.html.haml
   views/shared/_join_eol.html.haml
   views/shared/_sort_by_date_form.html.haml
+  views/taxa/_classification_selector.html.haml
+  views/taxa/_classification_tree.html.haml
   views/taxa/_classifications_summary.html.haml
   views/taxa/_collections_summary.html.haml
   views/taxa/_communities_summary.html.haml
   views/taxa/content/_content_content_summary.html.haml
   views/taxa/_curators_summary.html.haml
-  views/taxa/details/_category_content.html.haml
-  views/taxa/details/index.html.haml
   views/taxa/_iucn_status_summary.html.haml
-  views/taxa/maps/_maps.html.haml
-  views/taxa/maps/show.html.haml
-  views/taxa/media/index.html.haml
-  views/taxa/media/_media_sort_filter.html.haml
   views/taxa/_media_summary.html.haml
-  views/taxa/_media_thumbnail.html.haml
-  views/taxa/names/_common_names.html.haml
-  views/taxa/names/common_names.html.haml
-  views/taxa/names/_filter_by_name_category.html.haml
-  views/taxa/names/show.html.haml
-  views/taxa/names/synonyms.html.haml
-  views/taxa/overviews/show.html.haml
   views/taxa/_recognised_by.html.haml
   views/taxa/_text_summary.html.haml
+  views/taxa/_iucn_status_summary.html.haml
+  views/taxa/_media_summary.html.haml
+  views/taxa/_media_thumbnail.html.haml
+  views/taxa/_recognised_by.html.haml
+  views/taxa/_text_summary.html.haml
+  views/users/activities/show.html.haml
   views/users/collections/index.html.haml
-  views/users/newsfeeds/show.html.haml
+  views/users/show.html.haml
 
 ].compact.each do |dir|
   list += grepper(dir)

@@ -1,24 +1,110 @@
 ar:
-  4_16_characters: "(4 - 16 characters)"
-  a_description_must_be_entered: "A Description must be entered."
-  acceptable_sizes_for_username: "(4 - 32 characters)"
   account_information: "بيانات الحساب"
   account_registered_but_not_ready_try_later: "تم تسجيل الحساب ولكنه غير جاهز لتسجيل الدخول. يرجى المحاولة مرة أخرى خلال خمس دقائق."
-  account_settings: "Account Settings"
+  action_not_available_error: "Sorry, that action is not available."
+  actions: Actions
+  activerecord:
+    attributes:
+      collection:
+        description: "Collection description"
+        logo: "Primary collection image"
+        name: "Collection name"
+        sort_style_id: "Default sorting direction"
+      data_object:
+        object_title: Title
+      name:
+        string: Name
+      user:
+        agreed_with_terms: "Terms of use agreement"
+        api_key: "API key"
+        bio: Bio
+        credentials: Credentials
+        curator_scope: "Curation scope"
+        email: "Email address"
+        entered_password: Password
+        entered_password_confirmation: "Password again <small>(to confirm)</small>"
+        family_name: "Last name"
+        full_name: "Full name"
+        given_name: "First name"
+        language_abbr: "Preferred language"
+        requested_curator_level_id: "Desired curation level"
+        tag_line: Tagline
+        username: Username
+    errors:
+      full_messages:
+        format: "%{attribute} %{message}"
+      messages:
+        accepted: "must be accepted"
+        blank: "can't be blank"
+        confirmation: "doesn't match confirmation"
+        empty: "can't be empty"
+        equal_to: "must be equal to %{count}"
+        even: "must be even"
+        exclusion: "is reserved"
+        greater_than: "must be greater than %{count}"
+        greater_than_or_equal_to: "must be greater than or equal to %{count}"
+        inclusion: "is not included in the list"
+        invalid: "is invalid"
+        less_than: "must be less than %{count}"
+        less_than_or_equal_to: "must be less than or equal to %{count}"
+        not_a_number: "is not a number"
+        not_an_integer: "must be an integer"
+        odd: "must be odd"
+        record_invalid: "Validation failed: %{errors}"
+        taken: "has already been taken"
+        too_long: "is too long (maximum is %{count} characters)"
+        too_short: "is too short (minimum is %{count} characters)"
+        wrong_length: "is the wrong length (should be %{count} characters)"
+      template:
+        body: "The following fields failed validation:"
+        header:
+          one: "%{count} validation error found"
+          other: "%{count} validation errors found"
+    models:
+      user: account
+  activity_log_empty: "No one has provided updates yet."
+  activity_log_empty_learn_more_link: "Learn how to contribute"
+  activity_user_added_item_to_collection: "<strong>%{user}</strong> added \"%{item}\" to the collection \"%{collection}\"."
+  activity_user_added_unknown_item_to_collection: "<strong>%{user}</strong> added an unknown item to the collection \"%{collection}\"."
+  activity_user_created_collection: "<strong>%{user}</strong> created the collection \"%{collection}\"."
+  activity_user_created_text: "<strong>%{user}</strong> added text to \"%{object_name}\" on \"%{taxon_concept}\"."
+  activity_user_curated_an_unknown_object: "<strong>%{user}</strong> curated an unknown object."
+  activity_user_hid_data_object: "<strong>%{user}</strong> marked \"%{object_name}\" as hidden."
+  activity_user_hid_unknown_object: "<strong>%{user}</strong> marked an unknown object as hidden."
+  activity_user_marked_content_as_inappropriate: "<strong>%{user}</strong> marked content as inappropriate."
+  activity_user_modified_collection: "<strong>%{user}</strong> modified the collection \"%{collection}\"."
+  activity_user_rated_data_object: "<strong>%{user}</strong> rated \"%{object_name}\"."
+  activity_user_rated_unknown_object: "<strong>%{user}</strong> rated an unknown object."
+  activity_user_removed_item_from_collection: "<strong>%{user}</strong> removed \"%{item}\" from the collection \"%{collection}\"."
+  activity_user_showed_data_object: "<strong>%{user}</strong> marked \"%{object_name}\" as visibile."
+  activity_user_showed_unknown_object: "<strong>%{user}</strong> marked an unknown object as visibile."
+  activity_user_trusted_data_object: "<strong>%{user}</strong> marked \"%{object_name}\" as trusted."
+  activity_user_trusted_unknown_object: "<strong>%{user}</strong> marked an unknown object as trusted."
+  activity_user_unreviewed_data_object: "<strong>%{user}</strong> marked \"%{object_name}\" as unreviewed."
+  activity_user_unreviewed_unknown_object: "<strong>%{user}</strong> marked an unknown object as unreviewed."
+  activity_user_untrusted_data_object: "<strong>%{user}</strong> marked \"%{object_name}\" as untrusted."
+  activity_user_untrusted_unknown_object: "<strong>%{user}</strong> marked an unknown object as untrusted."
+  activity_user_updated_text: "<strong>%{user}</strong> updated \"%{object_name}\" text on \"%{taxon_concept}\"."
   add_a_comment_colon: "Add a Comment:"
-  add_association_label_colon: "Add association:"
-  add_association_submit_button: "add new association"
+  add_a_new_common_name: "Add a new common name"
+  add_a_taxon_association_label: "Add a taxon association"
+  add_article_to_page_link_button: "Add an article to this page"
+  add_brief_summary_to_page_link_button: "Add a brief summary to this page"
   add_new_association_link: "Add new association"
+  add_role: "Add Role"
   add_to_my_collection_button: "أضف إلى مجموعتي"
-  admin_remind_me_message: " NOTE: for security reasons, administrators cannot use the remember me feature."
+  all_title: All
+  all_items: "All items"
   all_pages: "جميع الصفحات"
   already_a_member_question: "هل أنت عضو؟"
+  and: and
   and_between_form_items: and
   application_version_advisory_information: "نسخة التطبيق"
   are_you_sure: "هل أنت متأكد؟"
-  article_more_about: "read more about this article"
-  as_of_time: "as of %{time}"
+  article_more_about: "Learn more about this article"
+  assign_additional_roles_to_this_member: "Assign additional roles to this member"
   assistive_details_header: Details
+  assistive_literature_header: Literature
   assistive_maps_header: Maps
   assistive_media_header: Media
   assistive_names_common_header: "Common names"
@@ -29,41 +115,41 @@ ar:
   associated_with_image_header: "In this image"
   associated_with_sound_header: "Associated with"
   associated_with_video_header: "In this video"
-  author_of_peer_reviewed_publication_credential_option: "authorship of a peer-reviewed publication (provide reference)"
   automated_translation_of_eol: "Automated Translation of EOL"
   average_rating_value_of_total: "Average rating: %{rating} of %{total}"
   back: Back
-  by_default_sort_collection_by_colon: "By default, sort this collection by:"
+  biodiversity_heritage_library: "Biodiversity Heritage Library"
   cancel: Cancel
   cannot_be_associated_with_both_a_user_and_a_community: "لا يمكن أن يكون مرتبطًا بمستخدم ومجتمع"
   cannot_be_empty: "لا يمكن أن يكون خاليًا"
   cannot_create_collection_item_from_class_error: "I cannot create a collection item from a #{klass}"
-  cannot_find_user_or_email: "No matching accounts found"
+  cannot_find_member: "Cannot find a member with this id."
   cannot_index_collection_item_type_error: "I cannot index a collection item from a %{type}"
   change_rating_to_1_of_5: "Change rating to 1 of 5"
   change_rating_to_2_of_5: "Change rating to 2 of 5"
   change_rating_to_3_of_5: "Change rating to 3 of 5"
   change_rating_to_4_of_5: "Change rating to 4 of 5"
   change_rating_to_5_of_5: "Change rating to 5 of 5"
+  choose: Choose
   choose_collection_header: "Choose collection"
   citation: الإقتباس
+  classification_tree_header: Classification
+  classification_view_in_hierarchy: "View in %{hierarchy_label}"
+  classifications_empty: "This taxon is not in any classifications that are browsable in EOL."
   classifications_summary_header_with_count:
     few: "جزء من %{count} تصنيفات معترف بها"
     one: "جزء من تصنيف معترف به"
     other: "جزء من %{count} تصنيف معترف به"
     two: "جزء من تصنيفان معترف بهما"
-  click_here_to_register: "If you don't have an account, click here to register"
   cms_missing_content_title: "محتوى مفقود"
-  collect_items: "Collect items"
+  collect: Collect
   collection_created_notice: "Collection <em>%{collection_name}</em> successfully created."
-  collection_description_label: "Collection description"
   collection_is_empty: "This collection is currently empty."
   collection_item_annotation_label: "Collection item annotation"
   collection_item_not_found_error: "That collection item could not be found."
   collection_name_label: "Collection name"
   collection_not_created_error: "Sorry, an error occurred, the collection <em>%{collection_name}</em> could not be created."
   collection_not_found_error: "Sorry, that collection cound not be found."
-  collection_not_updated_error: "Sorry, an error occurred, the collection could not be updated."
   collection_updated_notice: "Collection <em>%{collection_name}</em> successfully updated."
   collections: المجموعات
   collections_summary_header_with_count:
@@ -76,10 +162,15 @@ ar:
     one: "مجموعة واحدة"
     other: "%{count} مجموعة"
     two: مجموعتان
+  comment_added_notice: "Comment successfully added."
   comment_body_label: "Your comment"
   comment_new_posters_image_advisory_info: "Your profile picture and name will appear next to your comment in listings."
   comment_new_posters_image_alt: "Your profile picture, if you have provided one."
+  comment_not_added_error: "Sorry, an error occurred, comment could not be added."
   comment_show_posters_image_alt: "Profile picture of %{posters_name} who added this comment."
+  comments_with_count:
+    one: "%{count} Comment"
+    other: "%{count} Comments"
   common_names_advisory_information: "الأسماء الشائعة المرتبطة بتلك الأصنوفة"
   common_names_with_count:
     few: "%{count} أسماء شائعة"
@@ -87,6 +178,7 @@ ar:
     other: "%{count} أسم شائع"
     two: "أسمان شائعان"
   communities: المجتمعات
+  communities_summary_empty: "This taxon hasn't been endorsed by a community yet."
   communities_summary_header_with_count:
     few: "ينتمي إلى %{count} مجتمعات"
     one: "ينتمي إلى مجتمع واحد"
@@ -94,8 +186,16 @@ ar:
     two: "ينتمي إلى مجتمعان"
   community: "عرض المجتمع"
   community_activity: "نشاط المجتمع"
-  confirm: Confirm
-  confirm_password: "Confirm Password"
+  community_contributions_with_count:
+    one: "%{count} Contribution"
+    other: "%{count} Contributions"
+  community_focus: "محور اهتمام المجتمع"
+  community_managers_with_count:
+    one: "%{count} Community Manager"
+    other: "%{count} Community Managers"
+  community_members_with_count:
+    one: "%{count} Community Members"
+    other: "%{count} Community Members"
   contact_us_link: "اتصل بنا"
   contact_us_title: "Contact Us"
   content_partners: "شركاء المحتوى"
@@ -109,6 +209,10 @@ ar:
   content_summary_table_type_trusted_text_row: "Number of trusted text items"
   content_summary_table_type_unreviewed_images_row: "Number of unreviewed images"
   content_summary_table_type_unreviewed_text_row: "Number of unreviewed text items"
+  copied_items_from_collection_with_count_notice:
+    one: "Copied %{count} item from %{name}."
+    other: "Copied %{count} items from %{name}."
+  copy: Copy
   copy_all_articles_button: "copy all articles"
   copy_all_collections_button: "copy all collections"
   copy_all_communities_button: "copy all communities"
@@ -118,7 +222,7 @@ ar:
   copy_all_sounds_button: "copy all sounds"
   copy_all_taxa_button: "copy all taxa"
   copy_all_videos_button: "copy all videos"
-  copy_selected_button: "Copy selected"
+  could_not_find_collection_error: "Sorry, that collection could not be found."
   could_not_find_user: "لم يتم العثور على عضو لهذا المستخدم"
   count_results_for_search_term:
     one: "%{count} result for <em>%{search_term}</em>"
@@ -126,32 +230,46 @@ ar:
   create: Create
   create_a_collection: "إنشاء مجموعة"
   create_collection_button: "Create collection"
-  credentials: Credentials
-  curate_this_text: "curate this article"
+  create_user_unsuccessful_error: "Sorry, an error occurred, your new account was not created. Please ensure all fields are completed correctly."
   curated_association_update_button: "Save changes"
   curation_comment: "Curation Comment"
-  curation_reason_placeholder: Reasoning
-  curation_scope: "Curation Scope"
+  curation_privileges_page_description: "Select your desired curation level, assistant, full or master curator. Full and master curator applications must include scope and credentials, you will be notified by email once your details have been reviewed and accepted. Assistant curator applications are not moderated and will be instantly approved. Learn more about <a href=\"%{curator_faq_url}\">becoming a curator</a>."
+  curation_privileges_page_title: "Become a curator"
+  curation_reason_placeholder: "additional details (optional)"
+  curator_level_application_pending_notice: "Thanks for applying to become a curator, your application has been queued for review and you will be notified by email when it has been accepted."
+  curator_level_assistant_approved_notice: "Congratulations! You are now an <em>EOL Assistant Curator</em>. <a href=\"%{more_url}\">Learn more about the assistant curator role</a>."
+  curators_empty: "Our curators haven't contributed information to this taxon yet."
   curators_of_taxon_page_title: "Curators of %{taxon}"
   curators_summary_header_with_count:
     few: "%{count} مشرفين"
     one: "مشرف واحد"
     other: "%{count} مشرف"
     two: مشرفان
+  curators_summary_learn_more_link: "Learn how to curate"
   currently_in_eol: "حاليًا في موسوعة الحياة"
   data_object_not_associated_with_any_hierarchies: "This data object is not associated with any hierarchies."
+  dato_create_cancel: Cancel
+  dato_create_missing_text_dato_error: "Sorry, the article could not be added."
+  dato_description_field_cannot_be_blank: "Description field cannot be blank"
+  dato_edit_cancel: Cancel
+  dato_edit_text_link_button: "Edit this article"
+  dato_edit_text_page_description: "Some info about editing.. maybe"
+  dato_edit_text_title: "Edit article"
+  dato_new_text_for_taxon_page_title: "Add an article to <i>%{taxon}</i>"
+  dato_new_text_page_description: "Enter text to add article... etc..."
   default_community_name_from_collection: "%{name} Community"
   default_focus_collection_name_from_community: "%{name}'s Focus"
-  default_sorting_label: "Default sort order"
-  default_sorting_legend_for_collection: "Select the default sort order for items in this collection."
+  default_watch_collection_name: "%{username}'s Collection"
+  delete: delete
   description: Description
+  description_of: "Description of"
+  destination_inappropriate_for_logged_in_users: "You are logged in."
   destroy: Destroy
   detail: تفاصيل
+  details_title: Details
   development_version_name: "نسخة التطوير V2 - غير مخصصة للاستخدام العام"
   did_you_mean: "Did you mean: %{suggestions} ?"
   displaying_numerical_range: "Displaying %{start_number} &mdash; %{end_number} of %{total}"
-  do_you_want_to_be_a_curator: "Do you want to be a curator"
-  do_you_want_to_receive_eol_notifications_by_email: "Do you want to receive EOL notifications by email?"
   donate: تبرع
   donation_confirmation: "Donation Confirmation"
   donation_error_no_amount: "يرجى اختيار قيمة التبرع"
@@ -159,25 +277,27 @@ ar:
   download_audio_mpeg: "Download MPEG"
   edit: Edit
   edit_annotation: "edit annotation"
+  edit_collection: "تعديل المجموعة"
+  edit_collection_details_header: "Edit collection details"
   edit_collection_head_title: "Edit: %{collection_name}"
-  edit_description: "edit description"
+  edit_membership: "تعديل العضوية"
   edit_my_profile: "Edit my profile"
-  edit_name: "edit name"
-  email_address: "Email Address"
+  email_subject_account_activated: "Your Encyclopedia of Life account has been activated"
+  email_subject_reset_password: "Password reset request"
+  email_subject_verify_user: "Encyclopedia of Life account activation"
   encyclopedia_of_life: "موسوعة الحياة"
-  endorsed_by: "Endorsed by"
+  endorsed_by: "Featured by"
+  endorsed_collections: "Featured collections"
   endorsed_collections_with_count:
-    one: "%{count} Endorsed collection"
-    other: "%{count} Endorsed collections"
-  entry_agent_in_hierarchy_agent: "%{entry_agent} in %{hierarchy_agent}"
+    one: "%{count} Featured collection"
+    other: "%{count} Featured collections"
   eol_glossary: "قائمة مصطلحات موسوعة الحياة"
   eol_news: "أخبار موسوعة الحياة"
   error_page_header: "عفوًا، طرأت مشكلة"
   exemplar_pages: "Exemplar Pages"
-  expired_reset_password_link: "Expired link, you can generate it again"
+  explain_member_privileges: "These are privileges which are granted specifically to this member, regardless of the member's roles, and supercede any privilieges granted by roles."
   explore: استكشف
-  faculty_staff_or_grad_student_credential_option: "faculty, staff, or graduate student status in a relevant university or college department"
-  family_name: "Family Name"
+  facebook: Facebook
   filter_by_status: "Filter by status"
   filter_by_status_all_option: "All statuses"
   filter_by_status_inappropriate_option: Inappropriate
@@ -196,39 +316,108 @@ ar:
   filter_by_type_user_option: People
   filter_by_type_video_option: Videos
   filter_media: "filter media"
-  flash_notice_redirected_from_search_html: "You've arrived here by searching for <em>%{search_string}</em>"
-  forgot_password: "Forgot Password"
+  find_taxa_submit_button: "find taxa"
+  flash_notice_redirected_from_search_html: "You've arrived here by searching for <em>%{search_string}</em>. <a href=\"%{more_results_url}\">Click here to return to the search page.</a>"
+  flash_notice_redirected_from_search_html_more_results: "You've arrived here by searching for <em>%{search_string}</em>. <a href=\"%{more_results_url}\">Click here to see other search results.</a>"
+  forgot_password: "Forgot password"
+  forgot_password_cannot_find_user_from_username_or_email_error: "Sorry, there are no user accounts with the provided username or email <em>%{username_or_email}</em>."
+  forgot_password_form_choose_username_blank_error: "Please select the account you wish to reset the password for."
+  forgot_password_form_username_or_email_blank_error: "Please enter your username or email address to reset your password."
   gbif_occurrence_disclaimer: "This map is based on occurrence records available through GBIF and may not represent the entire taxon distribution"
+  gbif_occurrence_learn_more_link: "Learn more about GBIF occurrence maps."
   general_error_occurred: "عفوًا، طرأ خلل ما. يرجى إعادة محاولة تنفيذ هذه الخطوة. وفي حال استمرار الخلل، يرجى إرسال رسالة إلكترونية إلى %{email} مُرفق بها رسالة العطل التالية وأي معلومات تود مشاركتها. نحن نعمل جاهدين لتقديم أفضل خدمة ممكنة ونقدر دعمكم. فريق عمل موسوعة الحياة."
-  given_name: "Given Name (or Organization Name)"
   global_access_tagline: "إمكانية عالمية للوصول إلى معلومات حول الحياة على كوكب الأرض"
   global_navigation: "التصفح العالمي"
   go: بحث
   go_back: "go back"
-  google_translate: "ترجمة جوجل"
-  google_translate_advisory_information: "استخدم أداة ترجمة جوجل لتحويل محتوى الموقع إلى لغة أخرى"
+  grant_privilege: "Grant Privilege"
   has_already_been_taken: "مستخدم مسبقًا"
   help: المساعدة
-  hierarchy_entry_taxon_page: "hierarchy entry taxon page"
+  helpers:
+    label:
+      data_object:
+        description: Body
+        license_id: License
+        license_id_more: "Read the <a href=\"%{policy_url}\">EOL Licensing Policy</a>"
+        object_title: Title
+        refs: References
+        toc_item: Category
+      session:
+        password: Password
+        remember_me: "Keep me logged in for 2 weeks"
+        username_or_email: "Username or email address"
+      user:
+        agreed_with_terms: "I agree to the <a href=\"%{terms_url}\">terms of use</a>"
+        api_key_more: "Read more about <a href=\"%{api_docs_url}\">adding a key to your API calls</a>."
+        bio: "About me"
+        credentials: Credentials
+        credentials_more: "Please state at least one specific credential from this list:"
+        credentials_more_academic: "Faculty, staff, or graduate student status in a relevant university or college department."
+        credentials_more_author: "Authorship of a peer-reviewed publication (provide reference)."
+        credentials_more_professional: "Member of a professional society."
+        curation_application: "Becoming a curator"
+        curation_application_more: "If you'd like to modify your curation privileges, just submit an application and we'll review your eligibility."
+        curator_level: "You are currently %{curator_level_with_indefinite_article}."
+        curator_scope: "Curation scope"
+        curator_scope_more: "Please indicate the scope of your expertise. For example: \"Rodents of Borneo\", \"Tri-trophic interactions\", or \"Conservation issues in fish\". This will not limit your ability to curate, but will inform the EOL community."
+        email_reports_frequency_hours: "How often would you like to receive email alerts about activity on your contributions?"
+        entered_password: "Password <small>(4 - 16 characters)</small>"
+        generate_api_key: "Requesting an API key"
+        generate_api_key_more: "If you are interested in using the EOL API you can generate an API key to identify your application. Read more about <a href=\"%{api_docs_url}\">adding a key to your API calls</a>."
+        logo: "Upload a new photo"
+        mailing_list: "I want to receive email newsletter updates?"
+        mailing_list_yes: "Yes"
+        new_password: "New password <small>(4 - 16 characters)</small>"
+        new_password_confirmation: "New password <small>(to confirm)</small>"
+        requested_curator_level: "Your request to become %{curator_level_with_indefinite_article} is pending."
+        tag_line: "Tagline or title <small>example: \"Bird enthusiast\"</small>"
+        user_identities: "I am"
+        username: "Username <small>(4 - 32 characters)</small>"
+        username_or_email: "Username or email address"
+    select:
+      prompt: "Please select"
+    submit:
+      create: "Create %{model}"
+      data_object:
+        create: "Add article"
+        create_text: "Add article"
+        update: "Update article"
+      name:
+        create: "Add name"
+        update: "Update name"
+      session:
+        create: "Sign in"
+      submit: "Save %{model}"
+      update: "Update %{model}"
+      user:
+        create: "Create account"
+        curation_application: "Apply now"
+        curation_privileges: "Submit request"
+        forgot_password: "Send email"
+        generate_api_key: "Generate a key"
+        update: "Save profile information"
+  hidden: Hidden
   home_page_link_advisory_information: "سينقلك هذا الرابط إلى الصفحة الرئيسية لموسوعة الحياة"
   image_is_no_longer_available: "Image is no longer available"
   image_not_found: "Image not found"
   image_thumbnail_alt_text: "هذه الصورة%{vetted_status} خاصة بـ %{scientific_name}"
   images: الصور
   in_my_collection_button: "In my collection"
+  inappropriate: TODO
   indexed: مفهرس
   insufficient_privileges_to_add_common_name: "You do not have privileges to add a common name to this taxon"
-  invalid_login_or_password: "خطأ في تسجيل الدخول أو كلمة السر"
+  insufficient_privileges_to_curate_names: "Sorry, you do not have sufficient privileges to curate names."
   item_added_to_collection_notice: "Item was added to collection <em>%{collection_name}</em>"
+  item_added_to_watch_collection_notice: "\"%{item_name}\" was added to %{collection_name}."
   item_details_missing: "Sorry, an error occurred, item details could not be retrieved."
   item_not_added_already_in_collection: "This item has already been added to the collection."
   item_not_added_to_collection_error: "Sorry, an error occurred, the selected item could not be added to the collection."
   item_not_added_to_itself_notice: "Sorry, you cannot add collection <em>%{collection_name}</em> to itself."
   item_not_updated_in_collection_error: "Sorry, an error occurred, the collection item could not be updated."
+  item_type_article_assistive: "This item is an article"
   item_type_collection_assistive: "This item is a collection"
   item_type_taxon_assistive: "This item is a taxon"
   item_updated_in_collection_notice: "Item successfully updated in <em>%{collection_name}</em> collection."
-  items_no_copy_error: "Sorry, an error occurred, items were not copied to the collection <em>%{collection_name}</em>."
   items_no_copy_none_selected_warning: "No items were copied as none were selected. To copy items to another collection, first check the box adjacent to the items in the list that you would like to copy."
   items_no_move_none_selected_warning: "No items were moved as none were selected. To move items to another collection, first check the box adjacent to the items in the list that you would like to move."
   items_no_remove_none_selected_warning: "No items were removed as none were selected. To remove items from the collection, first check the box adjacent to the items in the list that you would like to remove."
@@ -242,10 +431,11 @@ ar:
   join_community_button: "انضم لهذا المجتمع"
   join_eol_button_html: "أنضم إلى <abbr title=\"Encyclopedia of Life\">EOL</abbr> الآن"
   join_eol_community_html: "انضم لمجتمع <abbr title=\"Encyclopedia of Life\">EOL</abbr>!"
+  joined_time_ago: "Joined %{time_passed} ago"
   just_pages_with_pictures_and_text: "الصفحات التي تضم صور ونصوص فقط"
   language: "Language:"
   language_menu_item: "%{language_label} <abbr>(%{language_abbr})</abbr>"
-  languages_colon: "Languages:"
+  languages: Languages
   last_updated_time_ago: "Last updated %{time_passed} ago"
   learn_about_content_partners: "تعرف على شركاء المحتوى"
   learn_how_to_contribute: "Learn how you can contribute"
@@ -279,14 +469,18 @@ ar:
   license_public_domain: "Public Domain"
   listing_collections: "Listing collections"
   literature: Literature
+  literature_bhl_information: "The following bibliography has been generated by automated services. BHL uses taxonomic intelligence tools to locate, verify, and record scientific names located within the text of each digitized page in the BHL digital collection."
+  literature_bhl_link: "View Discovered Bibliography in BHL"
+  literature_empty: "No references found."
+  literature_header: References
+  literature_references: "Literature references"
   location: الموقع
-  logged_in: "Logged in successfully."
-  login: login
-  login_now: "Login Now"
+  login_header: "Sign in to your <abbr title=\"Encyclopedia of Life\">EOL</abbr> account"
   login_or_create_account: "تسجيل الدخول أو إنشاء حساب"
   maintained_by: "maintained by"
-  make_this_the_default_sort: "Make this the default sort"
   managed_by: "Managed by"
+  maps_empty: "No one has contributed any maps for this taxon yet."
+  maps_empty_contribute_instructions: "Learn how to contribute maps to EOL."
   maps_with_count:
     few: "%{count} خرائط"
     one: "خريطة واحدة"
@@ -294,12 +488,16 @@ ar:
     two: خريطتان
   media: الوسائط
   media_contact: "Media Contact"
+  media_list_empty: "No one has contributed any media for this taxon yet."
+  media_list_empty_contribute_instructions: "Learn how to contribute media to EOL."
+  media_summary_empty: "No one has contributed any images for this taxon yet."
+  media_summary_empty_contribute_instructions: "Learn how to contribute images to EOL."
   media_with_count:
     few: "%{count} وسائل وسائطية"
     one: "وسيلة وسائطية واحدة"
     other: "%{count} وسيلة وسائطية"
     two: "وسيلتان وسائطتان"
-  member_of_professional_society_credential_option: "member of a professional society"
+  member_of: "member of"
   members_like_you: "Members like you"
   members_with_count:
     few: "%{count} مساهمين"
@@ -307,6 +505,7 @@ ar:
     other: "%{count} مساهم"
     two: مساهمان
   minimal_page: "صفحة صغرى"
+  move: Move
   move_all_articles_button: "move all articles"
   move_all_collections_button: "move all collections"
   move_all_communities_button: "move all communities"
@@ -316,13 +515,16 @@ ar:
   move_all_sounds_button: "move all sounds"
   move_all_taxa_button: "move all taxa"
   move_all_videos_button: "move all videos"
-  move_selected_button: "Move selected"
+  moved_items_from_collection_with_count_notice:
+    one: "Moved %{count} item from %{name}."
+    other: "Moved %{count} items from %{name}."
   must_be_associated_with_either_a_user_or_a_community: "يجب أن يكون مرتبط بمستخدم أو بمجتمع"
   must_be_less_than_128_characters_long: "يجب أن يكون أقل من 128 حرف ورقم"
   must_be_logged_in: "يجب تسجيل الدخول لتنفيذ هذه الخطوة"
   my_activity: "My activity"
   my_info: "My info"
   name: Name
+  name_not_in_select_an_alternate: "Name not in %{hierarchy}. Select an alternate hierarchy from the list above"
   name_preferred_for_language_no: "No"
   name_preferred_for_language_yes: Preferred
   names: Names
@@ -336,10 +538,11 @@ ar:
   names_status_column_header: Status
   new_collection: "New collection"
   newsfeed: "آخر الأخبار"
-  no_map_available: "No map available"
+  no_items_were_copied_error: "Sorry, no items were copied."
   no_related_names: "There are no related names."
   not_evaluated: "لم يتم تقييمه"
   not_recognised_by_available_hierarchies: "Not recognised by any of the available classifications"
+  not_yet_implemented_error: "Sorry, that feature has not been implemented yet."
   object: Object
   object_curation: "Object Curation"
   object_type: "Object type"
@@ -353,15 +556,21 @@ ar:
     one: "موضوع أخر"
     other: "%{count} موضوع أخر"
     two: "موضوعان أخران"
+  other_taxa_with_count:
+    one: "%{count} other taxon"
+    other: "%{count} other taxa"
   overall_colon: "Overall:"
   overview: "نظرة عامة"
+  pages_title: Pages
+  pages_admin_section_link: Admins
+  pages_curator_section_link: Curators
+  pages_with_count:
+    one: "%{count} page"
+    other: "%{count} pages"
   pages_with_pictures_and_text: "الصفحات التي تضم صور ونص"
   pages_with_pictures_or_text: "الصفحات التي تضم صور أو نص"
   pagination_next: Next
   pagination_previous: Previous
-  password: Password
-  password_must_be_4to16_characters: "Password length must be between 4 and 16 characters."
-  passwords_must_match: "Passwords must match"
   pending_collections_with_count:
     few: "%{count} مجموعات في الانتظار"
     one: "مجموعة واحدة في الانتظار"
@@ -372,42 +581,30 @@ ar:
     one: "عضو واحد في الانتظار"
     other: "%{count} عضو في الانتظار"
     two: "عضوين في الانتظار"
-  personal_profile_menu: "Personal Profile"
-  please_enter_a_password: "Please enter a password"
-  please_enter_family_name: "Please enter your family name"
-  please_enter_given_name: "Please enter your given name"
-  please_enter_the_password_again: "Please enter the password again"
-  please_enter_your_email_address: "Please enter your email address"
-  please_enter_your_username: "Please enter your username"
+  please_enter_a_name_to_find_taxa: "Please enter a name to search taxa"
   please_indicate_curation_reason: "Please select a reason, and/or optionally leave a curation comment:"
-  please_note_confirmation_email_necessary: "Please note that you will be required to click a link in a confirmation email sent to the email address you enter below - so you must provide a valid, working email address."
-  please_note_expertise_smaller_than_scope: "Please indicate the scope of your expertise. For example: \"Rodents of Borneo,\" or \"Tri-trophic interactions,\" or \"Conservation issues in fish.\" This will not limit your ability to curate, but will inform the EOL community."
-  please_state_one_credential: "Please state at least one specific credential from this list:"
-  please_wait: "Please wait..."
   post_comment: "إضافة تعليق"
   preferred_common_name_advisory_information: "هذا هو الأسم الشائع المفضل لتلك الأصنوفة"
   preferred_name_colon: "Preferred Name:"
-  preview: Preview
-  primary_image_choose: "Choose new"
-  primary_image_header: "Primary image"
   profile: "الصفحة الشخصية"
   profile_image_alt_text_curator: "الصورة الشخصية للمشرف  %{user_full_name}"
   profile_image_alt_text_member: "الصورة الشخصية للعضو %{user_full_name}"
   public: Public
   punctuation_comma: ،
+  rated_by_count_people:
+    one: "from %{count} person"
+    other: "from %{count} people"
   rating_added_notice: "Rating was added successfully."
   rating_not_added_error: "Sorry, an error occurred, the rating could not be added."
-  read_the_eol_licensing_policy: "Read the EOL Licensing Policy"
-  recaptcha: "For verification, please enter the characters you see below.  Click the ? for assistance."
+  recaptcha_incorrect_error_with_anchor: "The <a href=\"#%{recaptcha_anchor}\">reCaptcha characters</a> did not match, please try again."
+  recent_updates: "تحديثات جديدة"
+  recognised_by_hierarchy_agent_as_a_rank: "%{hierarchy_agent} as a %{taxon_rank} <a href=\"%{hierarchy_entry_url}\">view in classification</a>"
+  recognised_by_hierarchy_entry_agent_in_hierarchy_agent_as_a_rank: "%{hierarchy_entry_agent} in %{hierarchy_agent} as a %{taxon_rank} <a href=\"%{hierarchy_entry_url}\">view in classification</a>"
   recognized_by: "Recognized by"
-  references: References
-  register_now: "Register Now"
-  registration: Registration
   related_names_with_count:
     one: "%{count} related name"
     other: "%{count} related names"
-  remember_me: "Remember Me"
-  remember_me_message: "check to stay logged in automatically for up to two weeks (do NOT use on public computers)"
+  remove: Remove
   remove_all_articles_button: "remove all articles"
   remove_all_collections_button: "remove all collections"
   remove_all_communities_button: "remove all communities"
@@ -418,18 +615,24 @@ ar:
   remove_all_taxa_button: "remove all taxa"
   remove_all_videos_button: "remove all videos"
   remove_data_object_association: "Remove association"
-  remove_selected_button: "Remove selected"
-  removed_count_items_from_collection_notice: "%{count} items have been removed from %{collection}."
-  required: Required
-  reset_password_instructions_emailed: "Check your email to reset your password"
+  remove_membership: "إلغاء العضوية"
+  removed_count_items_from_collection_notice:
+    one: "%{count} item has been removed from this collection."
+    other: "%{count} items have been removed from this collection."
+  reset_password_enter_new_password_notice: "This is a one time login, please enter a new password to continue."
+  reset_password_instructions_sent_to_user_notice: "Instructions for resetting the password on your account <em>%{username}</em> have been sent to your email address."
+  reset_password_token_expired_error: "Sorry, your password has not been reset. The link provided has expired, please fill out and submit the forgot password form again to receive a new link."
   resources: Resources
   revisions: Revisions
+  revoke_privilege: "Revoke Privilege"
+  revoked: (revoked)
   rights: الحقوق
   rights_holder: "صاحب حقوق الملكية"
   rights_statement: "Rights statement"
   roles: الأدوار
   rss_abbr_html: "<abbr title=\"Really Simple Syndication\">RSS</abbr>"
   save: Save
+  save_annotation_submit_button: "Save annotation"
   save_curated_association_submit_button: "Save association"
   search_by_term_page_title: "Search: %{term}"
   search_field_label: "البحث في موسوعة الحياة"
@@ -448,7 +651,7 @@ ar:
     other: "عرض كل المجموعات <span class=\"assistive\">%{count} التي تظهر بها هذه الأصنوفة .</span>"
     two: "عرض <span class=\"assistive\">المجموعتين التين تظهر بهما هذه الأصنوفة.</span>"
   see_all_comments_with_count_for_text:
-    one: "see the %{count} comment for this article"
+    one: "see %{count} comment for this article"
     other: "see all %{count} comments for this article"
   see_all_communities_with_count_html:
     few: "عرض جميع المجموعات <span class=\"assistive\">%{count} التيتركز على هذه الأصنوفة.</span>"
@@ -456,16 +659,18 @@ ar:
     other: "عرض جميع المجموعات <span class=\"assistive\">%{count} التيتركز على هذه الأصنوفة.</span>"
     two: "عرض <span class=\"assistive\">المجموعتين التين تركزان على هذه الأصنوفة.</span>"
   see_all_media_link: "عرض جميع الوسائط"
-  select_all_button: "Select all"
   select_topic: "يرجى أختيار مجال موضوع"
+  selected_items: "Selected items"
   selected_language_advisory_information: "هذه هي اللغة المختارة حاليًا"
   set_as_exemplar: "Set as exemplar"
   show: Show
   show_data_from_all_content_partners: "show data from all content partners"
   sign_in: "تسجيل الدخول"
+  sign_in_remember_me_disallowed_for_admins_notice: "For security reasons, administrators cannot use the remember me feature."
+  sign_in_successful_notice: "Login successful."
+  sign_in_unsuccessful_error: "Login failed. Invalid username, email address or password."
   sign_out: "تسجيل الخروج"
   site_information: "معلومات عن الموقع"
-  site_settings_menu: "Site Settings"
   skip_to_content: "انتقل إلى المحتوي"
   sort_by: "Sort by"
   sort_by_button: Sort
@@ -474,13 +679,18 @@ ar:
   sort_by_oldest_option: Oldest
   sort_by_rating_option: Rating
   sort_by_status_option: Status
+  sort_by_title_descending: "Title Descending"
+  sort_by_year_descending: "Year Descending"
   sound_thumbnail_alt_text: "هذا التسجيل الصوتي %{vetted_status} خاص بـ %{scientific_name}"
   source_information_header: "Source information"
   source_information_link: "معلومات المصدر"
   source_url: "رابط المصدر"
   special_collection: "Special collection"
   special_collections_cannot_be_destroyed: "This collection is special and cannot be destroyed."
+  special_privileges: "Special Privileges"
   statistics: Statistics
+  stats_last_count_less_than_minutes_ago: "Counts last udpated less than %{minutes} minutes ago."
+  submit: Submit
   supplier: المُورِّد
   supplier_colon: "Supplier:"
   switch_language_advisory_information: "تغيير لغة الموقع إلى %{language_label}"
@@ -491,38 +701,64 @@ ar:
   table_of_contents: "Table of Contents"
   taxa: الأصنوفات
   taxon: أصنوفة
-  taxon_recognised_by_header: "Recognized by the following classifications"
-  text_colon: "Text:"
+  taxon_details_empty: "No one has contributed any details about this taxon yet."
+  taxon_recognised_by_header: "Recognized by"
+  test: Test.
   text_is_no_longer_available: "Text is no longer available"
+  text_summary_empty: "No one has contributed a brief summary for this taxon yet."
+  text_summary_empty_header: "Brief summary"
   text_summary_more_link: "الإطلاع على المشاركة بأكملها"
   thanks_for_feedback: "شكرًا لآرائكم"
-  the_email_address_is_not_unique_you_must_enter_a_username: "البريد الإلكتروني مستخدم مسبقًا - يجب إدخال أسم المستخدم"
+  there_are_currently_no_members_in_this_community: "لا يوجد حاليًا أي أعضاء بهذا المجتمع"
   there_was_an_error_posting_your_text: "There was an error posting your text."
+  this_community_has_no_endorsed_collections: "This community has not featured any collections."
+  this_community_has_no_focus_list: "This community has no focus list."
+  this_member_has_all_of_the_privileges_in_this_community_as_special_privileges: "This member has all of the privileges in this community as special privileges."
+  this_member_has_all_of_the_roles_available_in_this_community: "This member has all of the roles available in this community."
+  this_member_has_no_special_privileges: "This member has no special privileges."
   threat_status_header_colon: "حالة التهديد:"
   time_ago: "%{time_passed} ago"
-  title_of_user_text_form_label: "Title (optional)"
+  title: Title
   total_items_with_count:
     few: "%{count} موضوعات"
     one: "موضوع واحد"
     other: "%{count} موضوع"
     two: موضوعان
-  translated_from: "Translated from"
+  translations_submit: "View translation"
   trusted: Trusted
   try_your_request_again: "حاول تنفيذ طلبك مرة أخرى"
   twitter: Twitter
+  unable_to_copy_items_error: "Sorry, I was unable to copy the collection items."
   unknown: "غير معروف"
   unreviewed: Unreviewed
+  untrusted: Untrusted
   update_collection_submit_button: "Update collection details"
+  update_user_successful_notice: "Account successfully updated."
+  update_user_unsuccessful_error: "Sorry, an error occurred, your account was not updated. Please ensure fields are completed correctly."
+  updated_member: "Member was successfully updated."
   updates: Updates
+  updates_with_count:
+    one: "%{count} Update"
+    other: "%{count} Updates"
   user: User
+  user_activation_failed_resent_validation_email_error: "Sorry, an error occurred, your account could not be verified. This usually occurs when the verficiation link you entered or selected is not recognised. Activation instructions have been resent to the email address you registered with, please ensure the verficiation link you use matches the one provided in the activation email."
+  user_activation_failed_user_not_found_error: "Sorry, an error occurred, the account you are trying to verify could not be found. Please ensure the verficiation link you use matches the one provided in the activation email you received after registering."
+  user_activation_successful_notice: "Welcome, and thanks for joining the Encyclopedia Of Life team. Your account with username <em>%{username}</em> is now active, please login."
+  user_already_active_notice: "Your account is already active, please login."
   user_commented_on_something_colon: "<strong>%{user}</strong> commented on %{what}:"
+  user_left_comment_on_date: "%{username} left a comment on %{date}."
+  user_says_colon: "%{users_name} says:"
   user_system_down: "عفوًا، نظام تسجيل المستخدم غير متاح حاليًا. يرجى المحاولة لاحقًا."
-  username: Username
-  username_or_email_address: "Username or Email Address"
-  username_taken: "%{name} is already taken"
+  users_about_me_header: "About me"
+  users_curation_header: "Curation qualifications"
+  users_member_of_count_communities:
+    one: "Member of %{count} community"
+    other: "Member of %{count} communities"
+  users_my_info_header: "My info"
   verification_phrase_did_not_match: "عبارة التعريف التي أدخلتها لم تتطابق"
   video_thumbnail_alt_text: "مقطع الفيديو هذا %{vetted_status} لـ %{scientific_name}"
   view_article_source: "View article source"
+  view_full_size_image: "View full-size image"
   view_image_source: "View image source"
   view_only_pages_with_at_least_a_picture_or_piece_of_text: "عرض الصفحات التي تضم صورة أو جزء من نص"
   view_translation_source_link: "View translation source"
@@ -533,19 +769,19 @@ ar:
   whats_new: "What's New?"
   wikipedia_article_will_be_harvested_tonight: "ستضاف الليلة المراجعة %{rev} لمقال ويكبيديا %{article}"
   wikipedia_revisions_must_match_pattern_error: "يجب أن يتوافق العنوان الإلكتروني لنسخة المراجعة مع http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*"
-  yes_answer: "Yes"
+  year: Year
   you_are_an_admin_so_i_will_show_you_that_the_error_was: "أنت مشرف. لذلك، سأعرض عليك الخطأ"
   you_are_not_authorized_to_perform_this_action: "أنت غير مخول لتنفيذ تلك الخطوة"
+  you_are_viewing_this_rank_as_classified_by: "You are viewing this %{rank} as classified by: "
   you_have_been_logged_out: "You have been logged out."
   you_must_be_logged_in_to_add_tags: "يجب أن تقوم بتسجيل الدخول لإضافة علامات"
-  your_content_is_emptynothing_to_submit: "Your content is empty--nothing to submit!"
+  you_removed_the_member_from_the_community: "You have successfully removed this member from the community."
   your_current_rating_0_of_5: "Your current rating: 0 of 5"
   your_current_rating_1_of_5: "Your current rating: 1 of 5"
   your_current_rating_2_of_5: "Your current rating: 2 of 5"
   your_current_rating_3_of_5: "Your current rating: 3 of 5"
   your_current_rating_4_of_5: "Your current rating: 4 of 5"
   your_current_rating_5_of_5: "Your current rating: 5 of 5"
-  your_information_has_been_updated_thank_you_for_contributing_to_eol: "Your information has been updated. Thank you for contributing to EOL."
   your_message_was_sent: "تم إرسال الرسالة"
   your_preferences: تفضيلاتك
   your_preferences_have_been_updated: "Your preferences have been updated."

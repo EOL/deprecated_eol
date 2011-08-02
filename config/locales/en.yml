@@ -384,7 +384,7 @@ en:
   agreement_template_: "Agreement template:"
   agreement_url__e_g__full_or_re: "Agreement URL (e.g. full or relative URL to a PDF or other file)"
   all: "all"
-  all_: "All"
+  all_title: "All"
   all_apis_return_by_default_an_: "All APIs return by default an XML response. The API methods may be called without a format extension to get the XML response, and adding an XML extension will give an identical response:"
   all_items: All items
   all_taxa: All taxa
@@ -989,7 +989,7 @@ en:
   detail: "Detail"
   details: "details"
   details_: "Details:"
-  details_capital: "Details"
+  details_title: "Details"
   did_you_mean: "Did you mean: %{suggestions} ?"
   disabled_for_now: "DISABLED FOR NOW"
   disabling_this_for_now__: "Disabling this for now..."
@@ -1154,6 +1154,7 @@ en:
   export_all_of_the_entries_as_a: "export all of the entries as a CSV file"
   export_this_list_as_csv: "Export this list as CSV"
   external_link_icon_alt_text: "External link."
+  facebook: Facebook
   facere_quibusdam_itaque_et__et: "Facere quibusdam itaque et. Et facere at voluptatum commodi nostrum quod. Voluptatem sunt sit quae qui consectetur omnis vel inventore."
   faculty_staff_or_grad_student_credential_option: "faculty, staff, or graduate student status in a relevant university or college department"
   failed____could_not_find_this_: "FAILED... Could not find this user.  Sorry."
@@ -1371,6 +1372,7 @@ en:
   imagine_an_electronic_page_for: "Imagine an electronic page for each species of organism on Earth..."
   important__your_agreement_is_o: "IMPORTANT: Your agreement is out of date and has been updated. Your updated agreement is available via the link below."
   import_once: "Import once"
+  inappropriate: "Inappropriate"
   include_all_metadata: "include all metadata for data objects"
   including_additional_provision: ", including additional provisions, is available for review and printing."
   in_community: "in community"
@@ -1815,7 +1817,6 @@ en:
   original: "ORIGINAL:"
   original_size: "Original"
   or_individuals_associated_with: "or individuals associated with the data object. You will submit your attribution information via the Transfer Schema. Note: The specific style and techniques employed for display of attribution for data objects may change as the EOL evolves."
-  or_: "or"
   or: "OR"
   other__us_: "Other: US$"
   other_collection_items_with_count:
@@ -1848,7 +1849,7 @@ en:
   pages_items_created_in_the__fo: "Pages/items created in the \"Footer\" section will have links to them automatically created in the footer."
   pages_: "pages"
   pages: "pages."
-  pages__: "Pages"
+  pages_title: "Pages"
   pages_with_count:
     one: "%{count} page"
     other: "%{count} pages"
@@ -2698,6 +2699,7 @@ en:
     one: "Member of %{count} community"
     other: "Member of %{count} communities"
   users_my_info_header: "My info"
+  users_pending_activation_message: "A confirmation message has been sent to the email address you have provided. To complete the registration process and become an EOL member, please click on the link included in that email. Thank you!"
   using_the_site: "Using The Site"
   validation_error: "Validation Error"
   validation_following_fields: "There were problems with the following fields:"

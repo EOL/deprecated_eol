@@ -5,7 +5,7 @@
     =I18n.t("select_")
     %select{ :name => "user_id" }
       %option
-        =I18n.t("all_")
+        =I18n.t("all_title")
       - for user in @user_list
         %option{ :value => user.id, :selected => @user_id.to_i == user.id }
           = h(user.family_name)

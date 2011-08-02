@@ -64,7 +64,7 @@ module ApplicationHelper
   # form.error_messages and form.error_messages_for are deprecated in Rails 3
   def validation_errors_for(resource, message = nil)
     if resource.errors.any?
-      message ||= I18n.t('activerecord.errors.template.header', :count => resource.errors.size)
+      message ||= I18n.t('activerecord.errors.template.header', :count => resource.errors.size, :model => '')
       capture_haml do
         haml_tag 'fieldset#errors' do
           haml_tag :legend, message

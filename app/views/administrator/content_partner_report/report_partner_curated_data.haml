@@ -18,7 +18,7 @@
 
     %select{ :name => "agent_id" }
       %option
-        =I18n.t("all_")
+        =I18n.t("all_title")
       - for cp in @content_partners_with_published_data
         %option{ :value => cp.id, :selected => @agent_id.to_i == cp.id }
           = cp.user.full_name
@@ -29,7 +29,7 @@
 
     %select{ :name => "year_month" }
       %option
-        =I18n.t("all_")
+        =I18n.t("all_title")
       - for ym in @year_month_list
         %option{ :value => ym, :selected => @year_month == ym }
           = ym

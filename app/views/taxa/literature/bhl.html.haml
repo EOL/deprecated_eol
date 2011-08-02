@@ -20,8 +20,8 @@
             %tr
               %th= I18n.t(:title)
               %th= I18n.t(:year)
-              %th= I18n.t(:details_capital)
-              %th= I18n.t(:pages__)
+              %th= I18n.t(:details_title)
+              %th= I18n.t(:pages_title)
           %tbody
             - @bhl_results[:results].each do |r|
               - if @selected_hierarchy_entry

@@ -10,7 +10,7 @@
           %select{ :name => "user_id" }
             %option
             %option{ :value => 'All', :selected => @user_id.to_s == 'All' }
-              =I18n.t("all_")
+              =I18n.t("all_title")
             - for user in @user_list
               %option{ :value => user.id, :selected => @user_id.to_i == user.id }
                 = h(user.family_name) + ", " + h(user.given_name)
@@ -20,7 +20,7 @@
         %td
           %select{ :name => "activity_id" }
             %option
-              =I18n.t("all_")
+              =I18n.t("all_title")
             - for activity in @activity_list
               %option{ :value => activity.id, :selected => @activity_id.to_i == activity.id }
                 = h(activity.name)

@@ -45,13 +45,5 @@ tmp/*.sql
 tmp/*_test_info.yml
 tmp/metric_fu/scratch
 vendor/eol_org
-vendor/gems/json-1.1.6/ext/json/ext/generator/Makefile
-vendor/gems/json-1.1.6/ext/json/ext/parser/Makefile
-vendor/gems/json-1.4.3/ext/json/ext/generator/Makefile
-vendor/gems/json-1.4.3/ext/json/ext/parser/Makefile
-vendor/gems/libxml-ruby-1.1.3/ext/libxml/Makefile
-vendor/gems/nokogiri-1.4.2/ext/nokogiri/Makefile
-vendor/gems/nokogiri-1.4.2/ext/nokogiri/conftest.dSYM
-vendor/gems/*/.specification
 tags
 public/files/solr_import_file.csv

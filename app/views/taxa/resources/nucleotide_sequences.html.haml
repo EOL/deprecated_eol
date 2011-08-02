@@ -3,19 +3,20 @@
     = render :partial => 'resources_menu'
     .main_container.copy
       %h2= I18n.t(:nucleotide_sequences)
-      %table{ :cellspacing => "5", :border => "0", :width => "100%", :cellpadding => "5" }
-        %tr
-          %td{ :align => "center", :valign => "top", :width => "20%" }
-            = external_link_to(image_tag('/images/ncbi.gif'),"http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=#{@identifier}&lvl=0", {:show_link_icon => false})
-          %td{:valign => "top"}
-            %span.smalltext
-              =I18n.t("the_mission_of_the", :link => external_link_to(I18n.t("national_center_for_biotechnol"), 'http://www.ncbi.nlm.nih.gov/', {:show_link_icon => false}))
-            %br
-            %span.smalltext
-              =I18n.t("the_ncbi_taxonomy_contains_names_using", :linka => external_link_to(I18n.t("ncbi_taxonomy"), 'http://www.ncbi.nlm.nih.gov/sites/entrez?db=taxonomy', {:show_link_icon => false}), :linkb =>  link_to(I18n.t("browse_eol"), url_for(settings_url)))
-            %br
-      %br
-      %p{ :align => "center" }
-        = external_link_to I18n.t("view_protein_and_nucleotide_se"), "http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=#{@identifier}&lvl=0"
-      
+      - unless @identifier.blank?
+        %table{ :cellspacing => "5", :border => "0", :width => "100%", :cellpadding => "5" }
+          %tr
+            %td{ :align => "center", :valign => "top", :width => "20%" }
+              = external_link_to(image_tag('/images/ncbi.gif'),"http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=#{@identifier}&lvl=0", {:show_link_icon => false})
+            %td{:valign => "top"}
+              %span.smalltext
+                =I18n.t("the_mission_of_the", :link => external_link_to(I18n.t("national_center_for_biotechnol"), 'http://www.ncbi.nlm.nih.gov/', {:show_link_icon => false}))
+              %br
+              %span.smalltext
+                =I18n.t("the_ncbi_taxonomy_contains_names_using", :linka => external_link_to(I18n.t("ncbi_taxonomy"), 'http://www.ncbi.nlm.nih.gov/sites/entrez?db=taxonomy', {:show_link_icon => false}), :linkb =>  link_to(I18n.t("browse_eol"), url_for(settings_url)))
+              %br
+        %br
+        %p{ :align => "center" }
+          = external_link_to I18n.t("view_protein_and_nucleotide_se"), "http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=#{@identifier}&lvl=0"
+        
 

@@ -119,7 +119,25 @@ describe 'Taxa page' do
       end
     end
   end
-
+  
+  shared_examples_for 'taxon resources tab' do
+    it 'should include Identification Resources' do
+      body.should include('Identification Resources')
+    end
+    it 'should include Education' do
+      body.should include('Education')
+    end
+    it 'should include Nucleotide Sequences' do
+      body.should include('Nucleotide Sequences')
+    end
+    it 'should include Content Partners' do
+      body.should include('Content Partners')
+    end
+    it 'should include Biomedical terms' do
+      body.should include('Biomedical terms')
+    end    
+  end
+  
   shared_examples_for 'taxon names tab' do
     it 'should list the classifications that recognise the taxon' do
       visit logout_url
@@ -284,6 +302,35 @@ describe 'Taxa page' do
     it_should_behave_like 'taxon name - hierarchy_entry page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon overview tab'
+  end
+  
+  # resources tab - taxon_concept
+  context 'resources when taxon has all expected data - taxon_concept' do
+    before(:all) do
+      visit("pages/#{@testy[:id]}/resources")
+      @section = 'resources'
+    end
+    subject { body }
+    # WARNING: Regarding use of subject, if you are using with_tag you must specify body.should... due to bug.
+    # @see https://rspec.lighthouseapp.com/projects/5645/tickets/878-problem-using-with_tag
+    it_should_behave_like 'taxon name - taxon_concept page'
+    it_should_behave_like 'taxon pages with all expected data'
+    it_should_behave_like 'taxon resources tab'
+  end
+  
+  # resources tab - hierarchy_entry
+  context 'resources when taxon has all expected data - hierarchy_entry' do
+    before(:all) do
+      hierarchy_entry = @testy[:taxon_concept].published_browsable_hierarchy_entries[0]
+      visit taxon_hierarchy_entry_resources_path(@testy[:taxon_concept], hierarchy_entry)
+      @section = 'resources'
+    end
+    subject { body }
+    # WARNING: Regarding use of subject, if you are using with_tag you must specify body.should... due to bug.
+    # @see https://rspec.lighthouseapp.com/projects/5645/tickets/878-problem-using-with_tag
+    it_should_behave_like 'taxon name - hierarchy_entry page'
+    it_should_behave_like 'taxon pages with all expected data'
+    it_should_behave_like 'taxon resources tab'
   end
 
   # details tab - taxon_concept

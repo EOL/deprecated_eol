@@ -142,6 +142,7 @@ module TaxaHelper
     return $KINGDOM_IDs.include?(kingdom.id.to_s)
   end
 
+  # TODO - I don't see anywhere we use this method. Would love to get rid of it, if we no longer need it :)
   # TODO - this would be useless if we put all these things into a view and show/hide the div.  Which we should:
   def video_hash(video, taxon_concept_id='')
     if taxon_concept_id.blank? # grab the first taxon concept ID from the video object if we didn't just pass it in

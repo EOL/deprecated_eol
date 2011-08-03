@@ -978,7 +978,6 @@ class DataObject < SpeciesSchemaModel
     return obj[0]
   end
 
-
   def self.tc_ids_from_do_ids(obj_ids)
     obj_tc_id = {} #same Hash.new
     if(obj_ids.length > 0) then
@@ -998,24 +997,62 @@ class DataObject < SpeciesSchemaModel
     return obj_tc_id
   end
 
-  # To retrieve the vetted id of an association
-  def vetted_id(hierarchy_entry)
-    association = DataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(id, hierarchy_entry.id)
+  # To retrieve the DOHE or curated_DOHE for this entry
+  def association_for_hierarchy_entry(hierarchy_entry)
+    association = data_objects_hierarchy_entries.detect{ |dohe| dohe.hierarchy_entry_id == hierarchy_entry.id }
     if association.blank?
-      association = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(id, hierarchy_entry.id)
+      association = curated_data_objects_hierarchy_entries.detect{ |dohe| dohe.hierarchy_entry_id == hierarchy_entry.id }
     end
-    return association.vetted_id
+    association
   end
-  
-  # To retrieve the visibility id of an association
-  def visibility_id(hierarchy_entry)
-    association = DataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(id, hierarchy_entry.id)
+
+  # To retrieve the DOHE or curated_DOHE for this concept
+  def association_for_taxon_concept(taxon_concept)
+    association = data_objects_hierarchy_entries.detect{ |dohe| dohe.hierarchy_entry.taxon_concept_id == taxon_concept.id }
     if association.blank?
-      association = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(id, hierarchy_entry.id)
+      association = curated_data_objects_hierarchy_entries.detect{ |dohe| dohe.hierarchy_entry.taxon_concept_id == taxon_concept.id }
     end
-    return association.visibility_id
+    association
   end
-  
+
+  # To retrieve the DOHE or curated_DOHE for this entry
+  def association_with_best_vetted_status
+    all_associations = data_objects_hierarchy_entries + curated_data_objects_hierarchy_entries
+    return if all_associations.empty?
+    all_associations.sort_by{ |a| a.vetted.view_order }.first
+  end
+
+  # To retrieve the vetted id of an association by using hierarchy entry
+  def vetted_by_hierarchy_entry(hierarchy_entry)
+    association = association_for_hierarchy_entry(hierarchy_entry)
+    return association.vetted unless association.blank?
+    return nil
+  end
+
+  # To retrieve the vetted id of an association by using taxon concept
+  def vetted_by_taxon_concept(taxon_concept, options={})
+    association = association_for_taxon_concept(taxon_concept)
+    return association.vetted unless association.blank?
+    if options[:find_best] && association = association_with_best_vetted_status
+      return association.vetted
+    end
+    return nil
+  end
+
+  # # To retrieve the visibility id of an association by using hierarchy entry
+  # def visibility_by_hierarchy_entry(hierarchy_entry)
+  #   association = association_for_hierarchy_entry(hierarchy_entry)
+  #   return association.visibility unless association.blank?
+  #   return nil
+  # end
+  # 
+  # # To retrieve the visibility id of an association by using taxon concept
+  # def visibility_by_taxon_concept(taxon_concept)
+  #   association = association_for_taxon_concept(taxon_concept)
+  #   return association.visibility unless association.blank?
+  #   return nil
+  # end
+
   # To retrieve the reasons provided while untrusting an association
   def untrust_reasons(hierarchy_entry)
     if hierarchy_entry.associated_by_curator
@@ -1033,7 +1070,7 @@ class DataObject < SpeciesSchemaModel
       log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
     end
   end
-  
+
   # To retrieve the reasons provided while hiding an association
   def hide_reasons(hierarchy_entry)
     if hierarchy_entry.associated_by_curator

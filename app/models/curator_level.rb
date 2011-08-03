@@ -13,16 +13,21 @@ class CuratorLevel < ActiveRecord::Base
     end
   end
 
-  def self.master_curator
-    cached_find(:label, 'Master Curator')
-  end
+  class << self
+    def master
+      cached_find(:label, 'Master Curator')
+    end
+    alias :master_curator :master
 
-  def self.full_curator
-    cached_find(:label, 'Full Curator')
-  end
+    def full
+      cached_find(:label, 'Full Curator')
+    end
+    alias :full_curator :full
 
-  def self.assistant_curator
-    cached_find(:label, 'Assistant Curator')
+    def assistant
+      cached_find(:label, 'Assistant Curator')
+    end
+    alias :assistant_curator :assistant
   end
 
   def translated_label

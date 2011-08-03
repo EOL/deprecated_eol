@@ -1,41 +1,39 @@
 = javascript_include_tag 'admin-curator' # TODO - handle JS more elegantly.
-=I18n.t("click_a_username_to_view_the_u")
-= link_to I18n.t("_export_all_curators_as_csv_"),:action=>'export'
+= I18n.t(:curator_admin_index_help)
+= link_to I18n.t(:export_curator_csv_link), :action=>'export'
 #users
-  - form_tag({:action=>'index'},:id=>'search',:method=>'get') do
-    =I18n.t("search_for_curators_containing")
-    = text_field_tag(:user_search_string,@user_search_string)
+  - form_tag({:action=>'index'}, :id=>'search', :method=>'get') do
+    = I18n.t(:search_for_curators_containing)
+    = text_field_tag(:user_search_string, @user_search_string)
     %br
-    = check_box_tag 'only_unapproved','1',@only_unapproved
-    =I18n.t("only_show_unapproved_curators_")|
-    = check_box_tag 'only_without_clade','1',@only_without_clade
-    =I18n.t("only_show_curators_with_no_cla")
-    = submit_tag I18n.t("go")
+    = check_box_tag 'only_unapproved', '1', @only_unapproved
+    = I18n.t(:only_show_unapproved_curators)
+    = submit_tag I18n.t(:go)
     %br
     %br
   - if @users.nil? == false && @users.size > 0
-    =I18n.t("a_total_of_users_were_found_matching_your", :count => @user_count)
+    = I18n.t(:matching_users_found_with_count, :count => @user_count)
     %br
     %form
       = will_paginate @users
     %table.results_table{ :cellspacing => "0" }
       %tr
         %th
-          =I18n.t("username__")
+          = I18n.t(:username)
         %th
-          =I18n.t("credentials")
+          = I18n.t(:credentials)
         %th
-          =I18n.t("name")
+          = I18n.t(:name)
         %th
-          =I18n.t("approved_")
+          = I18n.t(:curator_level)
         %th
-          =I18n.t("remove")
+          = I18n.t(:remove)
         %th
-          =I18n.t("_on_")
+          = I18n.t(:on_time_col_header)
         %th
-          =I18n.t("by_")
+          = I18n.t(:by_caps)
       - for user in @users
-        - column_class=cycle('odd','even')
+        - column_class = cycle('odd', 'even')
         %tr{ :id => "row_#{user.id}" }
           %td{ :class => column_class }
             = link_to user.username, { :controller => :user, :action => :edit, :id => user.id }
@@ -43,7 +41,7 @@
               %br
               %small
                 (
-                = link_to(I18n.t("curator_profile"), { :controller => '/curators', :action => :profile, :id => user.id }
+                = link_to(I18n.t(:curator_profile), { :controller => '/curators', :action => :profile, :id => user.id })
                 )
           %td{ :class => column_class }
             .toggle-credentials.linky
@@ -54,20 +52,28 @@
             = h user.full_name
           - form_id = "user_curator_#{user.id}"
           %td{ :class => column_class }
-            - form_tag('/administrator/user/toggle_curator', :id => form_id, :method => 'get') do
-              %input{ :name => "id", :type => "hidden", :value => user.id }
-              = check_box_tag('curator_approved', user.curator_approved, user.curator_approved)
+            - if user.curator_level_id
+              %strong
+                = I18n.t(:has_colon)
+              = user.curator_level.label.split[0] # No, this is not I18n'zed
+              - if user.curator_level_id == CuratorLevel.assistant.id
+                = link_to(I18n.t(:make_full_curator_link), "/administrator/user/toggle_curator?id=#{user.id}&curator_approved=1")
+              - if user.curator_level_id == CuratorLevel.full.id
+                = link_to(I18n.t(:remove_full_curator_link), "/administrator/user/toggle_curator?id=#{user.id}")
+            - else
+              = I18n.t(:none)
+              = link_to(I18n.t(:approve_full_curator_link), "/administrator/user/toggle_curator?id=#{user.id}&curator_approved=1")
           %td{ :class => column_class }
-            = link_to I18n.t("remove_"), {:controller => 'administrator/user', :action => :clear_curatorship, :id => user.id}, {:class => :remove_link}
+            = link_to I18n.t(:remove), {:controller => 'administrator/user', :action => :clear_curatorship, :id => user.id}, {:class => :remove_link}
           %td{ :class => column_class, :id => "#{form_id}_at" }
-            = format_date_time(user.curator_verdict_at) unless user.curator_verdict_at.nil?
+            = I18n.l(user.curator_verdict_at) unless user.curator_verdict_at.nil?
           %td{ :class => column_class, :id => "#{form_id}_by" }
-            = link_to(user.curator_verdict_by.username,:action=>'edit',:id=>user.id) unless user.curator_verdict_by.nil?
+            = link_to(user.curator_verdict_by.username, :action=>'edit', :id=>user.id) unless user.curator_verdict_by.nil?
     %br
     %form
       = will_paginate @users
   - else
-    =I18n.t("no_users_are_available_matchin")
+    = I18n.t(:no_users_matched_search)
 :javascript
   $('.toggle-credentials').toggle(
     function() { $(this).next().slideDown(); },

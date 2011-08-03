@@ -8,17 +8,20 @@ class Administrator::CuratorController < AdminController
 
   def index
     @page_title = I18n.t("curators")
-    @user_search_string=params[:user_search_string] || ''
-    search_string_parameter='%' + @user_search_string + '%'
-    @only_unapproved=EOLConvert.to_boolean(params[:only_unapproved])
+    @user_search_string = params[:user_search_string] || ''
+    search_string_parameter = '%' + @user_search_string + '%'
+    @only_unapproved = EOLConvert.to_boolean(params[:only_unapproved])
 
     only_unapproved_condition = ' curator_approved = 0 AND ' if @only_unapproved
     clade_condition = "credentials != '' OR curator_scope!= ''"
 
-    condition="(#{clade_condition}) AND #{only_unapproved_condition} (email like ? OR username like ? OR given_name like ? OR identity_url like ? OR family_name like ? OR username like ?)"
+    # We search six fields, so we need to pass six values.  TODO - this is likely silly and could be improved.
+    condition = "(#{clade_condition}) AND #{only_unapproved_condition} (email like ? OR username like ? OR given_name like ? OR identity_url like ? OR family_name like ? OR username like ?)"
+    conditions = [condition, search_string_parameter, search_string_parameter, search_string_parameter,
+      search_string_parameter, search_string_parameter, search_string_parameter]
 
-    @users = User.paginate(:conditions => [condition, search_string_parameter], :order => 'curator_approved ASC, created_at DESC',:page => params[:page])
-    @user_count = User.count(:conditions => [condition, search_string_parameter])
+    @users = User.paginate(:conditions => conditions, :order => 'curator_approved ASC, created_at DESC',:page => params[:page])
+    @user_count = User.count(:conditions => conditions)
   end
 
   def export

@@ -110,7 +110,7 @@ private
 
   def find_collection
     begin
-      @collection = Collection.find(params[:id], :include => :collection_items)
+      @collection = Collection.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       flash[:error] = I18n.t(:collection_not_found_error)
       return redirect_back_or_default

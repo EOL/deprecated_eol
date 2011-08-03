@@ -9,6 +9,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl'
   gem 'capybara', '0.3.9'
+  gem 'daemons'
+  gem 'optiflag'
 end
 
 gem 'mysql'

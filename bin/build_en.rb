@@ -60,10 +60,10 @@ list = Set.new()
   views/layouts/v2
 
   views/activity_logs
-  views/data_objects
   views/collection_items
   views/collections
   views/comments
+  views/data_objects
   views/members
   views/search
   views/sessions
@@ -80,25 +80,28 @@ list = Set.new()
   controllers/comments_controller.rb
   controllers/content_controller.rb
   controllers/data_objects_controller.rb
+  controllers/hierarchy_entries_controller.rb
   controllers/members_controller.rb
   controllers/search_controller.rb
   controllers/sessions_controller.rb
-  controllers/taxa_controller.rb
   controllers/taxa/details_controller.rb
   controllers/taxa/literature_controller.rb
   controllers/taxa/maps_controller.rb
   controllers/taxa/media_controller.rb
   controllers/taxa/names_controller.rb
   controllers/taxa/overviews_controller.rb
-  controllers/users_controller.rb
+  controllers/taxa_controller.rb
   controllers/users/activities_controller.rb
   controllers/users/collections_controller.rb
   controllers/users/newsfeeds_controller.rb
+  controllers/users_controller.rb
 
   views/content/_error.html.haml
-  views/content/error.html.haml
   views/content/_march_of_life_item.html.haml
+  views/content/donate.html.haml
+  views/content/error.html.haml
   views/content/index.html.haml
+  views/content/page.html.haml
   views/navigation/_browse_page.html.haml
   views/navigation/_node_name_page.html.haml
   views/navigation/_node_with_ancestry_page.html.haml
@@ -108,6 +111,7 @@ list = Set.new()
   views/shared/_item_summary_article.html.haml
   views/shared/_item_summary_collection.html.haml
   views/shared/_item_summary_media.html.haml
+  views/shared/_item_summary_person.html.haml
   views/shared/_item_summary_taxon.html.haml
   views/shared/_join_eol.html.haml
   views/shared/_sort_by_date_form.html.haml
@@ -115,21 +119,24 @@ list = Set.new()
   views/taxa/_classification_tree.html.haml
   views/taxa/_classifications_summary.html.haml
   views/taxa/_collections_summary.html.haml
-  views/taxa/_communities_summary.html.haml
-  views/taxa/content/_content_content_summary.html.haml
+  views/taxa/_collections_summary_empty.html.haml
   views/taxa/_curators_summary.html.haml
-  views/taxa/_iucn_status_summary.html.haml
-  views/taxa/_media_summary.html.haml
-  views/taxa/_recognised_by.html.haml
-  views/taxa/_text_summary.html.haml
   views/taxa/_iucn_status_summary.html.haml
   views/taxa/_media_summary.html.haml
   views/taxa/_media_thumbnail.html.haml
   views/taxa/_recognised_by.html.haml
   views/taxa/_text_summary.html.haml
+  views/taxa/content/_content_content_summary.html.haml
   views/users/activities/show.html.haml
   views/users/collections/index.html.haml
+  views/users/curation_privileges.html.haml
+  views/users/edit.html.haml
+  views/users/forgot_password.html.haml
+  views/users/new.html.haml
+  views/users/newsfeeds/show.html.haml
+  views/users/pending.html.haml
   views/users/show.html.haml
+  views/users/terms_agreement.html.haml
 
 ].compact.each do |dir|
   list += grepper(dir)

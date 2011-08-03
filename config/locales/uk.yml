@@ -3436,9 +3436,9 @@ uk:
 #TODO: Component Leads
   #TODO: component_leads:
 #TODO: Request Wikipedia article ingestion:
-  #TODO: request_wikipedia_article_inge:
+  #TODO: request_wikipedia_article_ingestion:
 #TODO: EOL is now allowing curators to submit a revision of a Wikipedia page to be ingested into EOL as a vetted text object. To find the revision URL of a Wikipedia article first go to the article main page (e.g.
-  #TODO: eol_is_now_allowing_curators_t:
+  #TODO: wikipedia_article_revision_for_ingestion:
 #TODO: http://en.wikipedia.org/w/index.php?title=Giraffe
   #TODO: http___en_wikipedia_org_w_inde:
 #TODO: ) and expand in the left hand menu the "Toolbox" menu item. You should now see the "Permanent link" item. Either copy the URL of that link, or click the link and copy the URL in your browser's address bar. The revision URL will look something like
@@ -3446,11 +3446,11 @@ uk:
 #TODO: http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069
   #TODO: http___en_wikipedia_org_w_inde_:
 #TODO: By entering a Wikipedia revision URL you are requesting that EOL ingests that particular revision as vetted. It will replace the current version of that article in EOL if we have it already.
-  #TODO: by_entering_a_wikipedia_revisi:
+  #TODO: by_entering_a_wikipedia_revision:
 #TODO: Enter revision url:
-  #TODO: enter_revision_url_:
+  #TODO: enter_revision_url_colon:
 #TODO: (eg: http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)
-  #TODO: _eg__http___en_wikipedia_org_w:
+  #TODO: example_url_for_wikipedia_article_ingestion:
 #TODO: pause
   #TODO: pause:
 #TODO: more news...
@@ -3592,15 +3592,15 @@ uk:
 #TODO: Total number of filled in pages
   #TODO: total_number_of_filled_in_page:
 #TODO: US $35
-  #TODO: us__35:
+  #TODO: us_dollars_35:
 #TODO: US $50
-  #TODO: us__50:
+  #TODO: us_dollars_50:
 #TODO: US $75
-  #TODO: us__75:
+  #TODO: us_dolars_75:
 #TODO: US $100
-  #TODO: us__100:
+  #TODO: us_dollars_100:
 #TODO: Other: US$
-  #TODO: other__us_:
+  #TODO: other_us_dollars_amount:
 #TODO: secretariat@eol.org
   #TODO: secretariat_eol_org:
 #TODO: : US

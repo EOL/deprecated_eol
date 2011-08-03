@@ -1000,18 +1000,18 @@ class DataObject < SpeciesSchemaModel
 
   # To retrieve the vetted id of an association
   def vetted_id(hierarchy_entry)
-    association = DataObjectHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(id, hierarchy_entry.id)
+    association = DataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(id, hierarchy_entry.id)
     if association.blank?
-      association = CuratedDataObjectHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(id, hierarchy_entry.id)
+      association = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(id, hierarchy_entry.id)
     end
     return association.vetted_id
   end
   
   # To retrieve the visibility id of an association
   def visibility_id(hierarchy_entry)
-    association = DataObjectHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(id, hierarchy_entry.id)
+    association = DataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(id, hierarchy_entry.id)
     if association.blank?
-      association = CuratedDataObjectHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(id, hierarchy_entry.id)
+      association = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(id, hierarchy_entry.id)
     end
     return association.visibility_id
   end

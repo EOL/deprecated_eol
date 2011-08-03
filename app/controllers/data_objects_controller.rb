@@ -182,7 +182,6 @@ class DataObjectsController < ApplicationController
   end
 
   def add_association
-    raise EOL::Exceptions::Pending
     name = params[:name]
     form_submitted = params[:commit]
     unless form_submitted.blank?
@@ -251,20 +250,21 @@ private
   end
 
   def entries_for_name(name)
-    @entries = []
-    search_response = EOL::Solr::SiteSearch.search_with_pagination(name, :type => ['taxon_concept'], :exact => true)
+    browsable_entries = []
+    unbrowsable_entries = []
+    search_response = EOL::Solr::SiteSearch.search_with_pagination(name, :type => ['taxon_concept'])
     unless search_response[:results].blank?
       search_response[:results].each do |result|
         result_instance = result['instance']
         if result_instance.class == TaxonConcept
           hierarchy_entries = result_instance.published_hierarchy_entries.blank? ? result_instance.hierarchy_entries : result_instance.published_hierarchy_entries
           hierarchy_entries.each do |hierarchy_entry|
-            @entries << hierarchy_entry
+            hierarchy_entry.hierarchy.browsable? ? browsable_entries << hierarchy_entry : unbrowsable_entries << hierarchy_entry
           end
         end
       end
     end
-    @entries
+    @entries = browsable_entries.blank? ? unbrowsable_entries : browsable_entries
   end
 
   def load_data_object

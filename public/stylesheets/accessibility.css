@@ -44,10 +44,12 @@ form fieldset#errors {
   width: 100%;
   position: relative;
   background: #ffeae6;
-  padding: 20px;
+  border: 1px solid #f2d2cc;
+  padding: 20px 0;
   margin: 0 0 20px 0; }
   form fieldset#errors legend {
     position: absolute;
+    left: 20px;
     background: transparent;
     font-weight: bold; }
   form fieldset#errors ul {
@@ -71,7 +73,7 @@ form label.errors, form span.errors {
   color: #e84226; }
 form span.errors {
   font-weight: normal; }
-form input.errors {
+form input.errors, form textarea.errors {
   border-color: #f2d2cc !important; }
 
 /*switching hierarchy entries form when js disabled want button to be inline if possible */
@@ -195,6 +197,29 @@ p.status.error {
     color: #677682; }
   #permalink .media {
     float: none; }
+
+/*Add article interface we have error fieldset and a textarea box in information fieldset that HR didn't expect */
+#object_text_new p.tip {
+  background: #f3f7fa;
+  border: 1px solid #cad3db;
+  padding: 10px;
+  margin: 0 40px 20px 0;
+  line-height: 140%; }
+#object_text_new form#new_data_object fieldset dt, #object_text_new form.edit_data_object fieldset dt {
+  font-size: 1.08em; }
+#object_text_new form#new_data_object fieldset.content, #object_text_new form.edit_data_object fieldset.content {
+  width: 640px; }
+  #object_text_new form#new_data_object fieldset.content input[type="text"], #object_text_new form.edit_data_object fieldset.content input[type="text"] {
+    width: 308px; }
+  #object_text_new form#new_data_object fieldset.content textarea, #object_text_new form.edit_data_object fieldset.content textarea {
+    width: 580px;
+    height: 200px; }
+#object_text_new form#new_data_object fieldset.information, #object_text_new form.edit_data_object fieldset.information {
+  width: 300px; }
+  #object_text_new form#new_data_object fieldset.information textarea, #object_text_new form#new_data_object fieldset.information input[type="text"], #object_text_new form.edit_data_object fieldset.information textarea, #object_text_new form.edit_data_object fieldset.information input[type="text"] {
+    width: 288px; }
+  #object_text_new form#new_data_object fieldset.information textarea, #object_text_new form.edit_data_object fieldset.information textarea {
+    height: 80px; }
 
 /*Adjustments for when missing exemplar image */
 #media_list #sidebar img, #taxon_detail #sidebar img {

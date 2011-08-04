@@ -1,7 +1,7 @@
 - content.each do |item|
   - if item[:data_objects]
     - item[:data_objects].each do |dato|
-      .article
+      %div{:id => "data_object_#{dato.id}", :class => 'article'}
         - unless dato.object_title.blank?
           %h4= dato.object_title
         .meta.learn_more

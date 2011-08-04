@@ -49,7 +49,7 @@ private
     end
     expire_user_specific_caches
   end
-  
+
   def expire_user_specific_caches
     # the portion of the homepage underneath the march of life. Language-specific
     # expire_fragment(:controller => 'content', :part => 'home_' + current_user.content_page_cache_str + '_logged_in')

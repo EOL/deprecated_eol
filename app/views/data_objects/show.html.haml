@@ -9,7 +9,7 @@
       - if @data_object.is_text? && ! @data_object.object_title.blank?
         %h2= @data_object.object_title
       = render :partial => "data_objects/data_object_#{en_type}", :locals => { :size => '580_360' }
-    - unless @data_object.is_text? # NOTE - if it IS text, it was already shown, above.
+    - unless @data_object.is_text? # NOTE - text description was already shown above so we don't want to show it again.
       .article
         .header
           %h3= I18n.t(:description)

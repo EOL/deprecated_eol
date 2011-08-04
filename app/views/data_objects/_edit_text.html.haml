@@ -1,36 +1,58 @@
-- form_for @data_object do |f|
+- form_for @data_object, :url => data_object_path(params[:id]), :html => { :method => :put },
+  :builder => ApplicationHelper::EolFormBuilder do |f|
   = f.hidden_field :data_type_id
-  %input{:type => "hidden", :name => "taxon_concept_id", :value => @data_object.taxon_concept_for_users_text.id}
-  %fieldset
+  = validation_errors_for(@data_object)
+  %fieldset.content
+    %h3= I18n.t(:dato_new_edit_user_text_fieldset_content_header)
+    %p.tip= I18n.t(:dato_new_edit_user_text_form_tip, :required_icon => image_tag('/images/v2/icon_required.png', :alt => ''))
     %dl
-      = f.fields_for :toc_items do |toc_items_form|
-        %dt
-          = toc_items_form.label :id, I18n.t('helpers.label.data_object.toc_item')
-        %dd
-          = toc_items_form.select :id, options_from_collection_for_select(@toc_items, :id, :label, @selected_toc_item.id)
+      - # Note: tried to use fields_for nested attributes :toc_items but got duplicate select box, unclear why
+      %dt
+        = label_tag 'data_object[toc_items][id]', I18n.t('helpers.label.data_object.toc_item')
+      %dd
+        = select_tag 'data_object[toc_items][id]', options_from_collection_for_select(@toc_items, :id, :label, @selected_toc_item.id)
       %dt
         = f.label :object_title
       %dd
         = f.text_field :object_title
-      %dt
+      %dt.required
         = f.label :description
       %dd
         = f.text_area :description
       %dt
+        = f.label :refs
+      %dd
+        = text_area_tag 'references', @references
+  %fieldset.information
+    %h3= I18n.t(:dato_new_edit_user_text_fieldset_information_header)
+    %dl
+      %dt
         = f.label :language_id
       %dd
-        = f.select :language_id, options_from_collection_for_select(@languages, :id, :source_form) # @data_object.language_id
+        = f.select :language_id, options_from_collection_for_select(@languages, :id, :source_form, @data_object.language_id)
       %dt
         = f.label :license_id
       %dd
         = f.select :license_id, options_from_collection_for_select(@licenses, :id, :title, @data_object.license_id)
         = I18n.t('helpers.label.data_object.license_id_more', :policy_url => "/content/page/eol_licensing_policy")
       %dt
-        = f.label :refs
+        = f.label :rights_holder
       %dd
-        = text_area_tag 'references', @data_object.visible_references.map {|r| r.full_reference}.join("\n\n")
+        = f.text_field :rights_holder
+      %dt
+        = f.label :rights_statement
+      %dd
+        = f.text_field :rights_statement, { :maxlength => 300 }
+      %dt
+        = f.label :bibliographic_citation
+      %dd
+        = f.text_area :bibliographic_citation
+      %dt
+        = f.label :source_url
+      %dd
+        = f.text_field :source_url
   %fieldset.actions
     = f.submit I18n.t('helpers.submit.data_object.update')
-    = link_to I18n.t(:dato_edit_cancel), data_object_path(@data_object)
+    = link_to I18n.t(:dato_edit_cancel), data_object_path(params[:id])
 
 

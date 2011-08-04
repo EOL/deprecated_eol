@@ -61,6 +61,9 @@ class DataObject < SpeciesSchemaModel
   named_scope :visible, lambda { { :conditions => { :visibility_id => Visibility.visible.id } }}
   named_scope :preview, lambda { { :conditions => { :visibility_id => Visibility.preview.id } }}
 
+  validates_presence_of :description, :if => :is_text?
+  validates_length_of :rights_statement, :maximum => 300
+
   index_with_solr :keywords => [ :object_title ], :fulltexts => [ :description ]
 
   define_core_relationships :select => {
@@ -230,24 +233,23 @@ class DataObject < SpeciesSchemaModel
   end
 
   #----- user submitted text --------
+  # TODO: do we really need update_user_text and create_user_text methods?
+  # A lot of repetition, why do we need to set all these defaults here?
+
   def self.update_user_text(all_params, user)
-    dato = DataObject.find(all_params[:id])
-    if dato.user.id != user.id
-      raise 'Not original author'
-    end
-    taxon_concept = TaxonConcept.find(all_params[:taxon_concept_id])
+    old_dato = DataObject.find(all_params[:id])
+    raise I18n.t(:dato_update_users_text_not_owner_exception) unless old_dato.user.id == user.id
+    taxon_concept = old_dato.taxon_concept_for_users_text
+    raise I18n.t(:dato_create_update_user_text_missing_taxon_id_exception) if taxon_concept.blank?
+
     do_params = {
-      :guid => dato.guid,
+      :guid => old_dato.guid,
       :identifier => '',
-      :data_type => DataType.find_by_translated(:label, 'Text'),
-      :rights_statement => '',
-      :rights_holder => '',
+      :data_type_id => all_params[:data_object][:data_type_id],
       :mime_type_id => MimeType.find_by_translated(:label, 'text/plain').id,
       :location => '',
       :latitude => 0,
       :longitude => 0,
-      :bibliographic_citation => '',
-      :source_url => '',
       :altitude => 0,
       :object_url => '',
       :thumbnail_url => '',
@@ -255,82 +257,88 @@ class DataObject < SpeciesSchemaModel
       :description => all_params[:data_object][:description].allow_some_html,
       :language_id => all_params[:data_object][:language_id],
       :license_id => all_params[:data_object][:license_id],
-      :vetted_id => (user.can_curate?(taxon_concept) ? Vetted.trusted.id : Vetted.unknown.id),
+      :rights_holder => ERB::Util.h(all_params[:data_object][:rights_holder]), # No HTML allowed
+      :rights_statement => ERB::Util.h(all_params[:data_object][:rights_statement]), # No HTML allowed
+      :bibliographic_citation => ERB::Util.h(all_params[:data_object][:bibliographic_citation]), # No HTML allowed
+      :source_url => ERB::Util.h(all_params[:data_object][:source_url]), # No HTML allowed
+      :vetted_id => Vetted.unknown.id, # TODO: what curator level should allow trusted by default?
       :published => 1, #not sure if this is right
       :visibility_id => Visibility.visible.id #not sure if this is right either
     }
 
-    d = DataObject.new(do_params)
-    d.toc_items << TocItem.find(all_params[:data_object][:toc_items][:id])
+    new_dato = DataObject.new(do_params)
+    new_dato.toc_items << TocItem.find(all_params[:data_object][:toc_items][:id])
 
     unless all_params[:references].blank?
       all_params[:references].each do |reference|
         if reference.strip != ''
-          d.refs << Ref.new(:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible)
+          new_dato.refs << Ref.new(:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible)
         end
       end
     end
 
-    d.save!
-    dato.published = false
-    dato.save!
+    new_dato.save
+    return new_dato if new_dato.nil? || new_dato.errors.any?
 
-    comments_from_old_dato = Comment.find(:all, :conditions => {:parent_id => dato.id, :parent_type => 'DataObject'})
-    comments_from_old_dato.map { |c| c.update_attribute :parent_id, d.id  }
+    old_dato.published = false
+    old_dato.save!
 
-    tc = TaxonConcept.find(all_params[:taxon_concept_id])
-    udo = UsersDataObject.create(:user => user, :data_object => d, :taxon_concept => tc)
-    d.users_data_objects << udo
-    d
+    comments_from_old_dato = Comment.find(:all, :conditions => {:parent_id => old_dato.id, :parent_type => 'DataObject'})
+    comments_from_old_dato.map { |c| c.update_attribute :parent_id, new_dato.id  }
+
+    udo = UsersDataObject.create(:user => user, :data_object => new_dato, :taxon_concept => taxon_concept)
+    new_dato.users_data_objects << udo
+    new_dato
   end
 
-  def self.preview_user_text(all_params, user)
-    taxon_concept = TaxonConcept.find(all_params[:taxon_concept_id])
+#  def self.preview_user_text(all_params, user)
+#    taxon_concept = TaxonConcept.find(all_params[:taxon_concept_id])
+#
+#    do_params = {
+#      :guid => '',
+#      :identifier => '',
+#      :data_type => DataType.text,
+#      :rights_statement => '',
+#      :rights_holder => '',
+#      :mime_type_id => MimeType.find_by_translated(:label, 'text/plain').id,
+#      :location => '',
+#      :latitude => 0,
+#      :longitude => 0,
+#      :object_title => '',
+#      :bibliographic_citation => '',
+#      :source_url => '',
+#      :altitude => 0,
+#      :object_url => '',
+#      :thumbnail_url => '',
+#      :object_title => ERB::Util.h(all_params[:data_object][:object_title]), # No HTML allowed
+#      :description => all_params[:data_object][:description].allow_some_html,
+#      :language_id => all_params[:data_object][:language_id],
+#      :license_id => all_params[:data_object][:license_id],
+#      :vetted_id => (user.can_curate?(taxon_concept) ? Vetted.trusted.id : Vetted.unknown.id),
+#      :published => 1, #not sure if this is right
+#      :visibility_id => Visibility.visible.id #not sure if this is right either
+#    }
+#
+#    d = DataObject.new(do_params)
+#    d.toc_items << TocItem.find(all_params[:data_objects_toc_category][:toc_id])
+#
+#    unless all_params[:references].blank?
+#      all_params[:references].each do |reference|
+#        if reference.strip != ''
+#          d.published_refs << Ref.new(:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible)
+#        end
+#      end
+#    end
+#
+#    # TODO - references aren't shown in the preview, because we would have to "fake" them, and we can't effectively.
+#    d.users_data_objects = [UsersDataObject.new(:data_object => d, :taxon_concept => taxon_concept, :user => user)]
+#    d
+#  end
 
-    do_params = {
-      :guid => '',
-      :identifier => '',
-      :data_type => DataType.text,
-      :rights_statement => '',
-      :rights_holder => '',
-      :mime_type_id => MimeType.find_by_translated(:label, 'text/plain').id,
-      :location => '',
-      :latitude => 0,
-      :longitude => 0,
-      :object_title => '',
-      :bibliographic_citation => '',
-      :source_url => '',
-      :altitude => 0,
-      :object_url => '',
-      :thumbnail_url => '',
-      :object_title => ERB::Util.h(all_params[:data_object][:object_title]), # No HTML allowed
-      :description => all_params[:data_object][:description].allow_some_html,
-      :language_id => all_params[:data_object][:language_id],
-      :license_id => all_params[:data_object][:license_id],
-      :vetted_id => (user.can_curate?(taxon_concept) ? Vetted.trusted.id : Vetted.unknown.id),
-      :published => 1, #not sure if this is right
-      :visibility_id => Visibility.visible.id #not sure if this is right either
-    }
+  def self.create_user_text(all_params, user, taxon_concept)
 
-    d = DataObject.new(do_params)
-    d.toc_items << TocItem.find(all_params[:data_objects_toc_category][:toc_id])
-
-    unless all_params[:references].blank?
-      all_params[:references].each do |reference|
-        if reference.strip != ''
-          d.published_refs << Ref.new(:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible)
-        end
-      end
-    end
-
-    # TODO - references aren't shown in the preview, because we would have to "fake" them, and we can't effectively.
-    d.users_data_objects = [UsersDataObject.new(:data_object => d, :taxon_concept => taxon_concept, :user => user)]
-    d
-  end
-
-  def self.create_user_text(all_params,user)
-
-    taxon_concept = TaxonConcept.find(all_params[:taxon_id])
+    raise I18n.t(:dato_create_user_text_missing_user_exception) if user.nil?
+    raise I18n.t(:dato_create_user_text_missing_taxon_id_exception) if taxon_concept.blank?
 
     if defined?(PhusionPassenger)
       UUID.state_file(0664) # Makes the file writable, which we seem to need to do with Passenger...
@@ -340,15 +348,10 @@ class DataObject < SpeciesSchemaModel
       :guid => UUID.generate.gsub('-',''),
       :identifier => '',
       :data_type_id => all_params[:data_object][:data_type_id],
-      :rights_statement => '',
-      :rights_holder => '',
       :mime_type_id => MimeType.find_by_translated(:label, 'text/plain').id,
       :location => '',
       :latitude => 0,
       :longitude => 0,
-      :object_title => '',
-      :bibliographic_citation => '',
-      :source_url => '',
       :altitude => 0,
       :object_url => '',
       :thumbnail_url => '',
@@ -356,7 +359,11 @@ class DataObject < SpeciesSchemaModel
       :description => all_params[:data_object][:description].allow_some_html,
       :language_id => all_params[:data_object][:language_id],
       :license_id => all_params[:data_object][:license_id],
-      :vetted_id => (user.can_curate?(taxon_concept) ? Vetted.trusted.id : Vetted.unknown.id),
+      :rights_holder => ERB::Util.h(all_params[:data_object][:rights_holder]), # No HTML allowed
+      :rights_statement => ERB::Util.h(all_params[:data_object][:rights_statement]), # No HTML allowed
+      :bibliographic_citation => ERB::Util.h(all_params[:data_object][:bibliographic_citation]), # No HTML allowed
+      :source_url => ERB::Util.h(all_params[:data_object][:source_url]), # No HTML allowed
+      :vetted_id => Vetted.unknown.id, # TODO: what curator level should allow trusted by default?
       :published => 1, #not sure if this is right
       :visibility_id => Visibility.visible.id #not sure if this is right either
     }
@@ -372,16 +379,11 @@ class DataObject < SpeciesSchemaModel
       end
     end
 
-    dato.save!
-    # TODO: if dato.errors.any?
-    raise "Unable to build a UsersDataObject if user is nil" if user.nil?
-    raise "Unable to build a UsersDataObject if DataObject is nil" if dato.nil?
-    raise "Unable to build a UsersDataObject if taxon_concept_id is missing" if all_params[:taxon_id].blank?
-    udo = UsersDataObject.create(:user => user, :data_object => dato,
-                              :taxon_concept => taxon_concept)
-    dato.users_data_objects << udo
+    dato.save
+    return dato if dato.nil? || dato.errors.any?
 
-    # this will give it the hash elements it needs for attributions
+    udo = UsersDataObject.create(:user => user, :data_object => dato, :taxon_concept => taxon_concept)
+    dato.users_data_objects << udo
     dato
   end
 
@@ -927,7 +929,7 @@ class DataObject < SpeciesSchemaModel
 
     # sort the remainder by our rating criteria
     unique_image_objects = DataObject.sort_by_rating(unique_image_objects)
-    
+
     exemplar = taxon_concept.taxon_concept_exemplar_image
     if exemplar && exemplar_image = exemplar.data_object
       unique_image_objects.delete_if{ |d| d.id == exemplar_image.id }

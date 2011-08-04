@@ -12,3 +12,4 @@ qqq:
   you_in_parens: "This is text added to an item in a list that represents you, the logged in user.  ie: John the Baptist, Anthony Goddard (you), Leonardo da Vinci"
   punctuation_comma: "This is the symbol used to join lists. (A comma in English.)"
   taxon_suggested: "This is a column header indicating that the values in the column are the taxon names suggested as results for a search term (which is specified in another column).  So, for example, a search term of 'fox' might have 'Vulpes vulpes' as a value in this column."
+  on_time_col_header: "This is meant as a header for a time column."

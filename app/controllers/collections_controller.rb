@@ -9,6 +9,7 @@
 class CollectionsController < ApplicationController
 
   before_filter :find_collection, :except => [:new, :create]
+  before_filter :user_able_to_edit_collection, :only => [:edit] # we do authenticate update, its in the update method
   before_filter :find_parent, :only => [:show]
   before_filter :find_parent_for_current_user_only, :except => [:show, :collect, :watch]
   before_filter :build_collection_items_with_sorting_and_filtering, :only => [:show, :update]
@@ -67,7 +68,10 @@ class CollectionsController < ApplicationController
   end
 
   def update
+    return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect) if params[:commit_sort]
     return redirect_to_choose(:copy) if params[:commit_copy]
+    # copy is the only update action allowed for non-owners
+    return if user_able_to_edit_collection
     return redirect_to_choose(:move) if params[:commit_move]
     return remove_and_redirect if params[:commit_remove]
     return annotate if params[:commit_annotation]
@@ -102,7 +106,7 @@ class CollectionsController < ApplicationController
     @selected_collection_items = params[:collection_items]
     @for   = params[:for]
     @scope = params[:scope]
-    @collections = current_user.all_collections
+    @collections = current_user.all_collections.delete_if{ |c| c.is_resource_collection? }
     @page_title = I18n.t(:choose_collection_header)
   end
 
@@ -307,6 +311,13 @@ private
   
   def set_sort_options
     @sort_options = [SortStyle.newest, SortStyle.oldest, SortStyle.alphabetical, SortStyle.reverse_alphabetical, SortStyle.richness, SortStyle.rating]
+  end
+  
+  def user_able_to_edit_collection
+    unless @collection && current_user.can_edit_collection?(@collection)
+      access_denied
+      return true
+    end
   end
 
 end

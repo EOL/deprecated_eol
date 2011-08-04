@@ -486,6 +486,12 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def is_pending_curator?
     !requested_curator_level.nil? && !requested_curator_level.zero?
   end
+  
+  def can_edit_collection?(collection)
+    return true if collection.user == self
+    return true if collection.community && collection.community.managers.include?(self)
+    false
+  end
 
   def selected_default_hierarchy
     hierarchy = Hierarchy.find_by_id(default_hierarchy_id)

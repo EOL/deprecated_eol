@@ -12,6 +12,7 @@ class UsersController < ApplicationController
   # GET /users/:id
   def show
     @user = User.find(params[:id])
+    @user_submitted_text_count = UsersDataObject.count(:conditions => ['user_id = ?',params[:id]])
   end
 
   # GET /users/:id/edit

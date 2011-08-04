@@ -9,7 +9,7 @@ module ActiveRecord
       private
         def find_every(options)
           include_associations = merge_includes(scope(:find, :include), options[:include])
-          
+
           if include_associations.any? && references_eager_loaded_tables?(options)
             records = find_with_associations(options)
           else
@@ -42,12 +42,12 @@ module ActiveRecord
               preload_associations(records, include_associations, {:select => options[:select]})
             end
           end
-          
+
           records.each { |record| record.readonly! } if options[:readonly]
-          
+
           records
         end
-        
+
         def lookup_ids_from_cache(ids, options={})
           chache_all_class_instances
           results = []
@@ -63,7 +63,7 @@ module ActiveRecord
               end
             end
             break if options[:limit] && results.length >= options[:limit]
-            
+
             # if r = cached_read("instance_id_#{id}")
             #   results << r
             #   break if options[:limit] && results.length >= options[:limit]
@@ -71,7 +71,7 @@ module ActiveRecord
           end
           results.compact
         end
-        
+
         def chache_all_class_instances
           return true if check_local_cache("already_cached_all_instances")
           cached('instances_cached') do
@@ -85,10 +85,10 @@ module ActiveRecord
           end
           set_local_cache("already_cached_all_instances", true)
         end
-        
+
         def construct_finder_sql(options)
           scope = scope(:find)
-          
+
           # EOL: this block was added
           #   only use selects that pertain to this table
           options[:select] = select_statement_to_string(options[:select])
@@ -97,32 +97,32 @@ module ActiveRecord
             # add in needed select fields. Associations will require a foreign key or primary
             # key to be included - so add these even if they are not in the original :select statement
             options[:select] = add_association_keys_to_select(options)
-            
+
             split_options = {:delete_other_model_selects => true}
-            
+
             # this case is a select from a :has_and_belongs_to_many which creates an INNER JOIN
             # we'll need to keep the fields for this table AND the fields from the join table
             if options[:joins] && options[:joins].match(/INNER JOIN `(\w*)` t0 ON /)
-              split_options[:is_join] = true 
+              split_options[:is_join] = true
             end
-            
+
             # remove any fields not pertaining to this table
             select_table_fields = split_table_fields(options[:select], split_options)
             modified_select = reform_select_from_fields(select_table_fields.uniq)
           end
-          
+
           #EOL: changed options[:select] to modified_select in the line below
           sql  = "SELECT #{modified_select || (scope && scope[:select]) || default_select(options[:joins] || (scope && scope[:joins]))} "
           sql << "FROM #{options[:from]  || (scope && scope[:from]) || quoted_table_name} "
-        
+
           add_joins!(sql, options[:joins], scope)
           add_conditions!(sql, options[:conditions], scope)
-        
+
           add_group!(sql, options[:group], options[:having], scope)
           add_order!(sql, options[:order], scope)
           add_limit!(sql, options, scope)
           add_lock!(sql, options, scope)
-        
+
           sql
         end
     end

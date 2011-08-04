@@ -1,16 +1,16 @@
 $(function() {
-  $(".thumbnails li").hover(function() {
-    var $e = $(this),
-        $thumbs = $e.closest(".thumbnails"),
-        margin = $thumbs.find("li").eq(0).outerWidth(true) - $e.outerWidth();
-        direction = ($e.index() > $thumbs.find("li").length / 2 - 1) ? "right" : "left",
-        pos = $e.position();
-    pos.right = $thumbs.find("ul").width() - $e.outerWidth() - pos.left + margin;
-    $thumbs.find(".term p").css({
-      margin: 0,
-      textAlign: direction
-    }).css("margin-" + direction, pos[direction]).text($e.find("img").attr("alt"));
-  }).eq(0).mouseover();
+  // $(".thumbnails li").hover(function() {
+  //   var $e = $(this),
+  //       $thumbs = $e.closest(".thumbnails"),
+  //       margin = $thumbs.find("li").eq(0).outerWidth(true) - $e.outerWidth();
+  //       direction = ($e.index() > $thumbs.find("li").length / 2 - 1) ? "right" : "left",
+  //       pos = $e.position();
+  //   pos.right = $thumbs.find("ul").width() - $e.outerWidth() - pos.left + margin;
+  //   $thumbs.find(".term p").css({
+  //     margin: 0,
+  //     textAlign: direction
+  //   }).css("margin-" + direction, pos[direction]).text($e.find("img").attr("alt"));
+  // }).eq(0).mouseover();
 
   $(".heading form.filter, form.select_submit").find(".actions").hide().find(":submit").end().find("select")
     .change(function() {

@@ -9,7 +9,9 @@ class Resource < SpeciesSchemaModel
   belongs_to :hierarchy
   belongs_to :content_partner
   belongs_to :dwc_hierarchy, :foreign_key => 'dwc_hierarchy_id', :class_name => "Hierarchy"
-
+  belongs_to :collection
+  belongs_to :preview_collection, :class_name => Collection.to_s, :foreign_key => :preview_collection_id
+  
   has_many :harvest_events
 
   has_attached_file :dataset,

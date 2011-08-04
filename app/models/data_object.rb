@@ -1005,12 +1005,12 @@ class DataObject < SpeciesSchemaModel
       object_id = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id_and_user_id(
         id,hierarchy_entry.id,hierarchy_entry.associated_by_curator
       ).id
-      log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_action_id(
+      log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_activity_id(
         object_id, ChangeableObjectType.hierarchy_entry.id, Activity.untrusted.id
       ).last
       log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
     else
-      log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_action_id(
+      log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_activity_id(
         id, ChangeableObjectType.data_object.id, Activity.untrusted.id
       ).last
       log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []

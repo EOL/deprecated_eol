@@ -1,5 +1,5 @@
 #content
-  .site_column
-    .article.copy
-      - if @data_object.is_text?
-        = render :partial => 'edit_text'
+  - if @data_object.is_text?
+    - # TODO: Change id 'object_text_new' to generic id so can be shared between new and edit layouts
+    #object_text_new.site_column.copy
+      = render :partial => 'edit_text'

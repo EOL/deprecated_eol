@@ -15,6 +15,11 @@ module ApplicationHelper
   # adds error messages after label
   class EolFormBuilder < ActionView::Helpers::FormBuilder
 
+    def text_area(method, options = {})
+      (options['class'] = "#{options['class'].to_s} errors").strip! if errors_on?(method)
+      super(method, options)
+    end
+
     def text_field(method, options = {})
       (options['class'] = "#{options['class'].to_s} errors").strip! if errors_on?(method)
       super(method, options)

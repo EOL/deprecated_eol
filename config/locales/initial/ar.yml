@@ -1,4 +1,5 @@
 ar:
+  example_url_for_wikipedia_article_ingestion: "(eg: http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)"
   account_information: "بيانات الحساب"
   account_registered_but_not_ready_try_later: "تم تسجيل الحساب ولكنه غير جاهز لتسجيل الدخول. يرجى المحاولة مرة أخرى خلال خمس دقائق."
   action_not_available_error: "Sorry, that action is not available."
@@ -119,6 +120,7 @@ ar:
   average_rating_value_of_total: "Average rating: %{rating} of %{total}"
   back: Back
   biodiversity_heritage_library: "Biodiversity Heritage Library"
+  by_entering_a_wikipedia_revision: "By entering a Wikipedia revision URL you are requesting that EOL ingests that particular revision as vetted. It will replace the current version of that article in EOL if we have it already."
   cancel: Cancel
   cannot_be_associated_with_both_a_user_and_a_community: "لا يمكن أن يكون مرتبطًا بمستخدم ومجتمع"
   cannot_be_empty: "لا يمكن أن يكون خاليًا"
@@ -141,6 +143,8 @@ ar:
     one: "جزء من تصنيف معترف به"
     other: "جزء من %{count} تصنيف معترف به"
     two: "جزء من تصنيفان معترف بهما"
+  cms_available_in_languages: "هذه الصفحة متاحة باللغات التالية:"
+  cms_missing_content_message: "نأسف لعدم توفر هذه الصفحة لهذه اللغة."
   cms_missing_content_title: "محتوى مفقود"
   collect: Collect
   collection_created_notice: "Collection <em>%{collection_name}</em> successfully created."
@@ -152,6 +156,7 @@ ar:
   collection_not_found_error: "Sorry, that collection cound not be found."
   collection_updated_notice: "Collection <em>%{collection_name}</em> successfully updated."
   collections: المجموعات
+  collections_summary_empty: "This taxon isn't in any collections yet."
   collections_summary_header_with_count:
     few: "متواجد في %{count} مجموعات"
     one: "متواجد في مجموعة واحدة"
@@ -196,6 +201,7 @@ ar:
   community_members_with_count:
     one: "%{count} Community Members"
     other: "%{count} Community Members"
+  contact_about_sponsorship_preamble: "If you would like to learn more about specific programs available for sponsorship, or would like to make a recurring gift, please contact the Encyclopedia of Life Secretariat at %{email} or by phone at (202)633-8730."
   contact_us_link: "اتصل بنا"
   contact_us_title: "Contact Us"
   content_partners: "شركاء المحتوى"
@@ -222,6 +228,7 @@ ar:
   copy_all_sounds_button: "copy all sounds"
   copy_all_taxa_button: "copy all taxa"
   copy_all_videos_button: "copy all videos"
+  correct_donation_message: "If this information is not correct, please %{go_back_link} to make changes"
   could_not_find_collection_error: "Sorry, that collection could not be found."
   could_not_find_user: "لم يتم العثور على عضو لهذا المستخدم"
   count_results_for_search_term:
@@ -230,6 +237,7 @@ ar:
   create: Create
   create_a_collection: "إنشاء مجموعة"
   create_collection_button: "Create collection"
+  create_user_form_header: "Create a new <abbr title=\"Encyclopedia of Life\">EOL</abbr> account"
   create_user_unsuccessful_error: "Sorry, an error occurred, your new account was not created. Please ensure all fields are completed correctly."
   curated_association_update_button: "Save changes"
   curation_comment: "Curation Comment"
@@ -271,9 +279,13 @@ ar:
   did_you_mean: "Did you mean: %{suggestions} ?"
   displaying_numerical_range: "Displaying %{start_number} &mdash; %{end_number} of %{total}"
   donate: تبرع
+  donation_amount_enter_label: "Or, enter an alternative amount to donate"
+  donation_amount_legend: "Choose the amount you would like to donate"
   donation_confirmation: "Donation Confirmation"
   donation_error_no_amount: "يرجى اختيار قيمة التبرع"
   donation_error_only_numbers: "يرجى ادخال القيمة بالأرقام فقط"
+  donation_message: "Your generous gift to the Encyclopedia of Life supports our mission to gather and share knowledge of Earth's biodiversity.  The entire EOL team thanks you for your kind contribution."
+  donation_privacy_notice: "Please note that this page and the next confirmation page do not collect any personal information or credit card numbers, and are therefore not encrypted. After confirming the amount you wish to donate, you will be directed to a secure page to enter in your payment information.  Charges to your credit card will not be applied until you submit the page containing your personal information."
   download_audio_mpeg: "Download MPEG"
   edit: Edit
   edit_annotation: "edit annotation"
@@ -291,7 +303,9 @@ ar:
   endorsed_collections_with_count:
     one: "%{count} Featured collection"
     other: "%{count} Featured collections"
+  enter_revision_url_colon: "Enter revision url:"
   eol_glossary: "قائمة مصطلحات موسوعة الحياة"
+  wikipedia_article_revision_for_ingestion: "EOL is now allowing curators to submit a revision of a Wikipedia page to be ingested into EOL as a vetted text object. To find the revision URL of a Wikipedia article first go to the article main page (e.g. <a href='http://en.wikipedia.org/w/index.php?title=Giraffe'>http://en.wikipedia.org/w/index.php?title=Giraffe</a>) and expand in the left hand menu the 'Toolbox' menu item. You should now see the 'Permanent link' item. Either copy the URL of that link, or click the link and copy the URL in your browser's address bar. The revision URL will look something like <a href='http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069'>http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>."
   eol_news: "أخبار موسوعة الحياة"
   error_page_header: "عفوًا، طرأت مشكلة"
   exemplar_pages: "Exemplar Pages"
@@ -321,7 +335,9 @@ ar:
   flash_notice_redirected_from_search_html_more_results: "You've arrived here by searching for <em>%{search_string}</em>. <a href=\"%{more_results_url}\">Click here to see other search results.</a>"
   forgot_password: "Forgot password"
   forgot_password_cannot_find_user_from_username_or_email_error: "Sorry, there are no user accounts with the provided username or email <em>%{username_or_email}</em>."
+  forgot_password_form_cancel: Cancel
   forgot_password_form_choose_username_blank_error: "Please select the account you wish to reset the password for."
+  forgot_password_form_header: "Reset your password"
   forgot_password_form_username_or_email_blank_error: "Please enter your username or email address to reset your password."
   gbif_occurrence_disclaimer: "This map is based on occurrence records available through GBIF and may not represent the entire taxon distribution"
   gbif_occurrence_learn_more_link: "Learn more about GBIF occurrence maps."
@@ -330,6 +346,8 @@ ar:
   global_navigation: "التصفح العالمي"
   go: بحث
   go_back: "go back"
+  google_translate: "ترجمة جوجل"
+  google_translate_advisory_information: "استخدم أداة ترجمة جوجل لتحويل محتوى الموقع إلى لغة أخرى"
   grant_privilege: "Grant Privilege"
   has_already_been_taken: "مستخدم مسبقًا"
   help: المساعدة
@@ -397,13 +415,14 @@ ar:
         generate_api_key: "Generate a key"
         update: "Save profile information"
   hidden: Hidden
+  hierarchy_entry_switch_missing_id_error: "Sorry, the hierarchy entry page you selected could not be found due to a missing identifier."
   home_page_link_advisory_information: "سينقلك هذا الرابط إلى الصفحة الرئيسية لموسوعة الحياة"
   image_is_no_longer_available: "Image is no longer available"
   image_not_found: "Image not found"
   image_thumbnail_alt_text: "هذه الصورة%{vetted_status} خاصة بـ %{scientific_name}"
   images: الصور
   in_my_collection_button: "In my collection"
-  inappropriate: TODO
+  inappropriate: Inappropriate
   indexed: مفهرس
   insufficient_privileges_to_add_common_name: "You do not have privileges to add a common name to this taxon"
   insufficient_privileges_to_curate_names: "Sorry, you do not have sufficient privileges to curate names."
@@ -416,6 +435,7 @@ ar:
   item_not_updated_in_collection_error: "Sorry, an error occurred, the collection item could not be updated."
   item_type_article_assistive: "This item is an article"
   item_type_collection_assistive: "This item is a collection"
+  item_type_person_assistive: "This item is a person"
   item_type_taxon_assistive: "This item is a taxon"
   item_updated_in_collection_notice: "Item successfully updated in <em>%{collection_name}</em> collection."
   items_no_copy_none_selected_warning: "No items were copied as none were selected. To copy items to another collection, first check the box adjacent to the items in the list that you would like to copy."
@@ -546,6 +566,7 @@ ar:
   object: Object
   object_curation: "Object Curation"
   object_type: "Object type"
+  other_us_dollars_amount: "Other: US$"
   other_collection_items_with_count:
     few: "%{count} موضوعات أخرى"
     one: "موضوع آخر"
@@ -564,6 +585,7 @@ ar:
   pages_title: Pages
   pages_admin_section_link: Admins
   pages_curator_section_link: Curators
+  pages_title: Pages
   pages_with_count:
     one: "%{count} page"
     other: "%{count} pages"
@@ -581,11 +603,14 @@ ar:
     one: "عضو واحد في الانتظار"
     other: "%{count} عضو في الانتظار"
     two: "عضوين في الانتظار"
+  please_confirm_your_donation_details: "Please confirm your donation details"
   please_enter_a_name_to_find_taxa: "Please enter a name to search taxa"
   please_indicate_curation_reason: "Please select a reason, and/or optionally leave a curation comment:"
   post_comment: "إضافة تعليق"
   preferred_common_name_advisory_information: "هذا هو الأسم الشائع المفضل لتلك الأصنوفة"
   preferred_name_colon: "Preferred Name:"
+  privacy_and_security_notice: "Privacy and Security Notice:"
+  proceed_to_checkout_page: "Proceed to Checkout Page"
   profile: "الصفحة الشخصية"
   profile_image_alt_text_curator: "الصورة الشخصية للمشرف  %{user_full_name}"
   profile_image_alt_text_member: "الصورة الشخصية للعضو %{user_full_name}"
@@ -596,6 +621,7 @@ ar:
     other: "from %{count} people"
   rating_added_notice: "Rating was added successfully."
   rating_not_added_error: "Sorry, an error occurred, the rating could not be added."
+  recaptcha: "Type in the two words you see below"
   recaptcha_incorrect_error_with_anchor: "The <a href=\"#%{recaptcha_anchor}\">reCaptcha characters</a> did not match, please try again."
   recent_updates: "تحديثات جديدة"
   recognised_by_hierarchy_agent_as_a_rank: "%{hierarchy_agent} as a %{taxon_rank} <a href=\"%{hierarchy_entry_url}\">view in classification</a>"
@@ -619,6 +645,8 @@ ar:
   removed_count_items_from_collection_notice:
     one: "%{count} item has been removed from this collection."
     other: "%{count} items have been removed from this collection."
+  request_wikipedia_article_ingestion: "Request Wikipedia article ingestion:"
+  required_form_element: Required
   reset_password_enter_new_password_notice: "This is a one time login, please enter a new password to continue."
   reset_password_instructions_sent_to_user_notice: "Instructions for resetting the password on your account <em>%{username}</em> have been sent to your email address."
   reset_password_token_expired_error: "Sorry, your password has not been reset. The link provided has expired, please fill out and submit the forgot password form again to receive a new link."
@@ -703,12 +731,18 @@ ar:
   taxon: أصنوفة
   taxon_details_empty: "No one has contributed any details about this taxon yet."
   taxon_recognised_by_header: "Recognized by"
+  terms_agreement_form_fallback: 'Please review and agree to the <a href="%{terms_url}">terms of use</a> before accessing your account.'
+  terms_agreement_form_header: "Terms Of use"
+  terms_agreement_form_submit: "I agree"
+  terms_agreement_beta_intro: "Thank you for participating in the EOL Version 2 Beta. Before proceeding we need you to agree to the following:"
   test: Test.
   text_is_no_longer_available: "Text is no longer available"
   text_summary_empty: "No one has contributed a brief summary for this taxon yet."
   text_summary_empty_header: "Brief summary"
   text_summary_more_link: "الإطلاع على المشاركة بأكملها"
+  thank_you_for_your_generous_support: "Thank you for your generous support"
   thanks_for_feedback: "شكرًا لآرائكم"
+  the_amount_entered_was: "The amount entered was : US %{number}"
   there_are_currently_no_members_in_this_community: "لا يوجد حاليًا أي أعضاء بهذا المجتمع"
   there_was_an_error_posting_your_text: "There was an error posting your text."
   this_community_has_no_endorsed_collections: "This community has not featured any collections."
@@ -719,6 +753,7 @@ ar:
   threat_status_header_colon: "حالة التهديد:"
   time_ago: "%{time_passed} ago"
   title: Title
+  to_process_your_donation_please_proceed: "To process your donation please proceed"
   total_items_with_count:
     few: "%{count} موضوعات"
     one: "موضوع واحد"
@@ -740,6 +775,10 @@ ar:
   updates_with_count:
     one: "%{count} Update"
     other: "%{count} Updates"
+  us_dollars_100: "US $100"
+  us_dollars_35: "US $35"
+  us_dollars_50: "US $50"
+  us_dolars_75: "US $75"
   user: User
   user_activation_failed_resent_validation_email_error: "Sorry, an error occurred, your account could not be verified. This usually occurs when the verficiation link you entered or selected is not recognised. Activation instructions have been resent to the email address you registered with, please ensure the verficiation link you use matches the one provided in the activation email."
   user_activation_failed_user_not_found_error: "Sorry, an error occurred, the account you are trying to verify could not be found. Please ensure the verficiation link you use matches the one provided in the activation email you received after registering."
@@ -751,10 +790,15 @@ ar:
   user_system_down: "عفوًا، نظام تسجيل المستخدم غير متاح حاليًا. يرجى المحاولة لاحقًا."
   users_about_me_header: "About me"
   users_curation_header: "Curation qualifications"
+  users_form_account_header: "Your account"
+  users_form_curation_header: "Curation qualifications"
+  users_form_profile_info_header: "Public profile information"
+  users_form_tip: "Username is required for all users, other items marked as required %{required_icon} are optional for general users but required for curators."
   users_member_of_count_communities:
     one: "Member of %{count} community"
     other: "Member of %{count} communities"
   users_my_info_header: "My info"
+  users_pending_activation_message: "A confirmation message has been sent to the email address you have provided. To complete the registration process and become an EOL member, please click on the link included in that email. Thank you!"
   verification_phrase_did_not_match: "عبارة التعريف التي أدخلتها لم تتطابق"
   video_thumbnail_alt_text: "مقطع الفيديو هذا %{vetted_status} لـ %{scientific_name}"
   view_article_source: "View article source"

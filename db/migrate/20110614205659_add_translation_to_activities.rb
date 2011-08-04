@@ -13,6 +13,7 @@ class AddTranslationToActivities < EOL::LoggingMigration
         TranslatedActivity.create(:activity_id => a.id, :language_id => english.id, :name => a.name) unless a.name.blank?
       end
     end
+    Activity.create_defaults # Most should be there, now, but this fills in the blanks.
     remove_column :activities, :name
   end
 

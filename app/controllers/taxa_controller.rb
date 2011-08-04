@@ -129,7 +129,7 @@ class TaxaController < ApplicationController
     @category_id   = params[:category_id].to_i
 
     @taxon_concept.current_user  = current_user
-    @curator = @taxon_concept.current_user.can_curate?(@taxon_concept)
+    @curator = current_user.min_curator_level?(:full)
 
     get_content_variables(:ajax_update => true)
     if @content.nil?
@@ -507,29 +507,6 @@ private
       @selected_image_id = @images[adjusted_selected_image_index].id
     else
       @selected_image_id = @images[0].id unless @images.blank?
-    end
-  end
-
-  def set_selected_text_item
-    if(params[:text_id])
-      text_id = params[:text_id].to_i
-
-      @selected_text = DataObject.find_by_id(text_id)
-
-      if @selected_text && @selected_text.get_taxon_concepts.include?(@taxon_concept) && (@selected_text.visible? || (@selected_text.invisible? && current_user.can_curate?(@selected_text)) || (@selected_text.inappropriate? && current_user.is_admin?))
-        selected_toc = @selected_text.toc_items[0]
-
-        params[:category_id] = selected_toc.id
-
-        @category_id = show_category_id
-
-        if current_user.vetted && (@selected_text.untrusted? || @selected_text.unknown?)
-          current_user.vetted = false
-          current_user.save if logged_in?
-        end
-      else
-        flash[:warning] = I18n.t("text_is_no_longer_available")
-      end
     end
   end
 

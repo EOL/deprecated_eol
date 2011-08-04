@@ -94,7 +94,7 @@ private
     end
 
     # Add common names content if there Common Names:
-    if taxon_concept.has_common_names? || (!options[:user].nil? && options[:user].can_curate?(taxon_concept))
+    if taxon_concept.has_common_names? || (!options[:user].nil? && options[:user].min_curator_level?(:assistant))
       toc << TocEntry.new(TocItem.common_names)
     end
 

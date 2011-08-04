@@ -105,7 +105,7 @@ class TaxonConcept < SpeciesSchemaModel
     if user.nil?
       raise "a user must be specified"
     end
-    @show_curator_controls = user.can_curate?(self)
+    @show_curator_controls = user.min_curator_level?(:full)
     @show_curator_controls
   end
 
@@ -297,7 +297,7 @@ class TaxonConcept < SpeciesSchemaModel
 
     objects = DataObject.core_relationships(:add_include => add_include, :add_select => add_select).
         find_all_by_id(datos_to_load.collect{ |d| d.id })
-    if options[:user] && options[:user].is_curator? && options[:user].can_curate?(self)
+    if options[:user] && options[:user].is_curator? && options[:user].min_curator_level?(:full)
       DataObject.preload_associations(objects, :users_data_objects_ratings, :conditions => "users_data_objects_ratings.user_id=#{options[:user].id}")
     end
 

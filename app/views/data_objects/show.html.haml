@@ -34,9 +34,9 @@
     .article.list
       .header
         %h3= I18n.t("associated_with_#{en_type}_header")
-        - if current_user.is_curator?
+        - if current_user.min_curator_level?(:full)
           = link_to I18n.t(:add_new_association_link), :action => :add_association, :id => @data_object.id
-      - if current_user.is_curator?
+      - if current_user.min_curator_level?(:full)
         = render :partial => 'associations_curation'
       - else
         = render :partial => 'associations_index'

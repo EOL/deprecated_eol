@@ -114,12 +114,14 @@ $(function() {
     });
   })($("#collections"));
 
-  (function($community_new) {
-    $community_new.find("dd.invite").spotlite({
-      // replace this example array with a URL to the JSON to be loaded
-      pool: ["johndoe", "jdoe", "johnlovesmushrooms", "jimjimmyjimjim", "johnscreenname", "jjtheguyonline"]
-    }).find("textarea").hide().end().find(":text").show();
-  })($("#community_new"));
+  if ($.fn.spotlite != undefined) {
+    (function($community_new) {
+      $community_new.find("dd.invite").spotlite({
+        // replace this example array with a URL to the JSON to be loaded
+        pool: ["johndoe", "jdoe", "johnlovesmushrooms", "jimjimmyjimjim", "johnscreenname", "jjtheguyonline"]
+      }).find("textarea").hide().end().find(":text").show();
+    })($("#community_new"));
+  }
 
   $("input[placeholder]").each(function() {
     var $e = $(this),

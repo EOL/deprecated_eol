@@ -107,7 +107,9 @@ class Administrator::UserController  < AdminController
     params[:user][:role_ids] ||= []
 
     if @user.save
-      @user.approve_to_curate_by_user(EOLConvert.to_boolean(params[:user][:curator_approved]), current_user)
+      if EOLConvert.to_boolean(params[:user][:curator_approved])
+        @user.grant_curator(:full, :by => current_user)
+      end
       flash[:notice] = I18n.t("the_new_user_was_created")
       redirect_back_or_default(url_for(:action=>'index'))
     else
@@ -119,6 +121,7 @@ class Administrator::UserController  < AdminController
   def update
 
    @user = User.find(params[:id])
+   was_curator = @user.full_curator? || @user.master_curator?
    @message=params[:message]
 
    Notifier.deliver_user_message(@user.full_name, @user.email, @message) unless @message.blank?
@@ -136,9 +139,11 @@ class Administrator::UserController  < AdminController
 
    if @user.update_attributes(user_params)
       if params[:curator_denied]
-        @user.clear_curatorship(current_user)
+        @user.revoke_curator
       else
-        @user.approve_to_curate_by_user(EOLConvert.to_boolean(user_params[:curator_approved]), current_user)
+        if EOLConvert.to_boolean(params[:user][:curator_approved]) && !was_curator
+          @user.grant_curator(:full, :by => current_user)
+        end
       end
       flash[:notice] = I18n.t("the_user_was_updated")
       redirect_back_or_default(url_for(:action=>'index'))
@@ -147,27 +152,42 @@ class Administrator::UserController  < AdminController
     end
   end
 
+  def destroy
+    (redirect_to referred_url ;return) unless request.method == :delete
+    user = User.find(params[:id])
+    user.destroy
+    redirect_to referred_url
+  end
 
- def destroy
-
-   (redirect_to referred_url ;return) unless request.method == :delete
-
-   user = User.find(params[:id])
-   user.destroy
-
-   redirect_to referred_url
-
- end
-
-  def toggle_curator
+  # TODO - why are these here and not in curator?
+  def grant_curator
     @user = User.find(params[:id])
-    @user.approve_to_curate_by_user(!params[:curator_approved].nil?, current_user)
-    @user.save!
+    @user.grant_curator(:full, :by => current_user)
+    respond_to do |format|
+      format.html {
+        redirect_to '/administrator/curator'
+      }
+      format.js {
+        render :partial => 'administrator/curator/user_row', :locals => {:column_class => params[:class] || 'odd', :user => @user}
+      }
+    end
+  end
+  def revoke_curator
+    @user = User.find(params[:id])
+    @user.revoke_curator
+    respond_to do |format|
+      format.html {
+        redirect_to '/administrator/curator'
+      }
+      format.js {
+        render :partial => 'administrator/curator/user_row', :locals => {:column_class => params[:class] || 'even', :user => @user}
+      }
+    end
   end
 
   def clear_curatorship
     user = User.find(params[:id])
-    user.clear_curatorship(current_user, params[:notes])
+    user.revoke_curator
     user.save!
   end
 

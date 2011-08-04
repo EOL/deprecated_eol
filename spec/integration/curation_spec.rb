@@ -54,12 +54,12 @@ describe 'Curation' do
   after(:each) do
     visit('/logout')
   end
-  
+
   # TODO: commented out this entire block as none of the specs were enabled and it was eating up 25 seconds of spec time
   # context "on taxon overview" do
-  # 
+  #
   #   it 'should show a list of acting curators with a photo, curator name and expertise'
-  # 
+  #
   #   it 'should change the curator count if another curator curates an image'
   #     #num_curators = @taxon_concept.acting_curators.length
   #     #curator = create_curator_for_taxon_concept(@taxon_concept)
@@ -67,7 +67,7 @@ describe 'Curation' do
   #     #@taxon_concept.acting_curators.length.should == num_curators + 1
   #     #visit("/pages/#{@taxon_concept.id}")
   #     #body.should have_tag('h2', :text => /#{num_curators + 1} curators/i)
-  # 
+  #
   #   it 'should change the number of curators if another curator curates a text object'
   #     #@taxon_concept.reload
   #     #num_curators = @taxon_concept.acting_curators.length
@@ -76,26 +76,26 @@ describe 'Curation' do
   #     #@taxon_concept.acting_curators.length.should == num_curators + 1
   #     #visit("/pages/#{@taxon_concept.id}")
   #     #body.should have_tag('h2', :text => /#{num_curators + 1} curators/i)
-  # 
+  #
   #   it 'should have a link from name of curator to account page'
   #     #@default_page.should have_tag('div#curators_container') do
   #       #with_tag('a[href*=?]', /\/account\/show\/#{@taxon_concept.acting_curators.first.id}/)
   #     #end
-  # 
+  #
   #   it 'should not show curation button when not logged in (obsolete?)'
-  # 
+  #
   #   it 'should show curation (contribute?) button on taxon overview when logged in as curator'
-  # 
+  #
   #   it 'should not have a curation panel when not logged in as a curator (obsolete?)'
-  # 
+  #
   #   it 'should show the curator list link (obsolete?)'
-  # 
+  #
   #   it 'should show the curator list link when there has been no activity (obsolete?)'
-  # 
+  #
   #   it 'should say the page has citation (obsolete?)'
-  # 
+  #
   #   it 'should have a link from N curators to the citation (obsolete?)'
-  # 
+  #
   #   it 'should still have a curator name in citation after changing clade (obsolete?)'
   #     #@default_page.should have_tag('div#page-citation', /#{@first_curator.family_name}/)
   #     #uu = User.find(@first_curator.id)
@@ -104,7 +104,7 @@ describe 'Curation' do
   #     #@first_curator = uu
   #     #visit("/pages/#{@taxon_concept.id}")
   #     #body.should have_tag('div#page-citation', /#{@first_curator.family_name}/)
-  # 
+  #
   #   it 'should display a "view/edit" link next to the common name in the header (obsolete?)'
   # end
 
@@ -174,30 +174,6 @@ describe 'Curation' do
     visit("/pages/#{@taxon_concept.id}?category_id=#{TocItem.common_names.id}")
     body.should_not have_tag("form#add_common_name")
     body.should_not have_tag("form.update_common_names")
-  end
-
-  it 'should be able to curate a concept not in default hierarchy' do
-    hierarchy = Hierarchy.gen
-    hierarchy_entry = HierarchyEntry.gen(:hierarchy => hierarchy, :taxon_concept => @taxon_concept)
-    hierarchy_entry_child = HierarchyEntry.gen(:hierarchy => hierarchy, :parent => hierarchy_entry)
-    make_all_nested_sets
-    flatten_hierarchies
-    @first_curator.can_curate?(hierarchy_entry_child).should == true
-  end
-
-  it 'should be able to curate a concept when curator hiearchy entry id not in default hierarchy' do
-    # If a curator's curator_hierarchy_entry is not in the default hierarchy (think COL 2009 vs COL 2010)
-    # and they curate Plants, when they are on a plant page not in their curator hierarchy we had a bug
-    # that they couldn't curate that page. This test make sure they can curate things not in their curator hierarchy
-    curator_hierarchy = Hierarchy.gen()
-    parent_entry_in_curator_hierarchy = HierarchyEntry.gen(:hierarchy => curator_hierarchy, :taxon_concept => @parent_hierarchy_entry.taxon_concept)
-    entry_in_curator_hierarchy = HierarchyEntry.gen(:hierarchy => curator_hierarchy, :taxon_concept_id => @taxon_concept.id, :parent_id => parent_entry_in_curator_hierarchy.id)
-    entry_not_in_curator_hierarchy = HierarchyEntry.gen(:hierarchy => @parent_hierarchy_entry.hierarchy, :parent => @taxon_concept.entry)
-    flatten_hierarchies
-    new_curator = build_curator(parent_entry_in_curator_hierarchy)
-    HierarchyEntry.connection.execute('COMMIT')
-    User.connection.execute('COMMIT')
-    new_curator.can_curate?(entry_not_in_curator_hierarchy.taxon_concept).should == true
   end
 
 end

@@ -11,6 +11,7 @@ class Administrator::CuratorController < AdminController
     @user_search_string = params[:user_search_string] || ''
     search_string_parameter = '%' + @user_search_string + '%'
     @only_unapproved = EOLConvert.to_boolean(params[:only_unapproved])
+    @additional_javascript = ['application', 'admin-curator', 'temp']
 
     only_unapproved_condition = ' curator_approved = 0 AND ' if @only_unapproved
     clade_condition = "credentials != '' OR curator_scope!= ''"

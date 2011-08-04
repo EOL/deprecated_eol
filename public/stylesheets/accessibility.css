@@ -53,7 +53,7 @@ form fieldset#errors {
     background: transparent;
     font-weight: bold; }
   form fieldset#errors ul {
-    margin-top: 30px; }
+    margin: 30px 20px 0 40px; }
   form fieldset#errors li {
     font-weight: normal;
     display: block;
@@ -216,9 +216,10 @@ p.status.error {
     height: 200px; }
 #object_text_new form#new_data_object fieldset.information, #object_text_new form.edit_data_object fieldset.information {
   width: 300px; }
-  #object_text_new form#new_data_object fieldset.information textarea, #object_text_new form#new_data_object fieldset.information input[type="text"], #object_text_new form.edit_data_object fieldset.information textarea, #object_text_new form.edit_data_object fieldset.information input[type="text"] {
+  #object_text_new form#new_data_object fieldset.information input[type="text"], #object_text_new form.edit_data_object fieldset.information input[type="text"] {
     width: 288px; }
   #object_text_new form#new_data_object fieldset.information textarea, #object_text_new form.edit_data_object fieldset.information textarea {
+    width: 282px;
     height: 80px; }
 
 /*Adjustments for when missing exemplar image */
@@ -479,6 +480,8 @@ body > #header .section .session .join {
   padding-top: 10px; }
   #page_heading .page_actions fieldset.actions {
     margin: 0; }
+    #page_heading .page_actions fieldset.actions input[type="submit"] {
+      margin: 0; }
 
 /*collections overides */
 .object_list div.checkbox {

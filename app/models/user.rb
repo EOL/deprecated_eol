@@ -480,6 +480,21 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     content_partner ? true : false
   end
 
+  def is_curator?
+    curator_approved
+    # has_special_role?(Role.curator)
+  end
+
+  def is_pending_curator?
+    !requested_curator_level.nil? && !requested_curator_level.zero?
+  end
+
+  def can_edit_collection?(collection)
+    return true if collection.user == self
+    return true if collection.community && collection.community.managers.include?(self)
+    false
+  end
+
   def selected_default_hierarchy
     hierarchy = Hierarchy.find_by_id(default_hierarchy_id)
     hierarchy.blank? ? '' : hierarchy.label

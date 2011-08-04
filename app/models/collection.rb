@@ -12,6 +12,9 @@ class Collection < ActiveRecord::Base
   has_many :collection_endorsements
   has_many :comments, :as => :parent
   has_many :communities, :through => CollectionEndorsement
+  
+  has_one :resource
+  has_one :resource_preview, :class_name => Resource.to_s, :foreign_key => :preview_collection_id
 
   # TODO = you can have collections that point to collections, so there SHOULD be a has_many relationship here to all
   # of the collection items that contain this collection.  ...I don't know if we need that yet, but it would normally
@@ -53,6 +56,10 @@ class Collection < ActiveRecord::Base
     else
       return user.member_of(community) && user.member_of(community).can?(Privilege.edit_collections)
     end
+  end
+  
+  def is_resource_collection?
+    return true if resource || resource_preview
   end
 
   def is_focus_list?

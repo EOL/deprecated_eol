@@ -1283,7 +1283,11 @@ class TaxonConcept < SpeciesSchemaModel
     community_ids = communities.map{|c| c.id}.compact
     return [] if community_ids.blank?
     temp = SpeciesSchemaModel.connection.execute(" SELECT c.id, COUNT(m.user_id) total FROM members m JOIN communities c ON c.id = m.community_id WHERE c.id in (#{community_ids.join(',')})   GROUP BY c.id ORDER BY total desc ").all_hashes
-    communities_sorted_by_member_count = temp.map {|c| Community.find(c['id']) }
+    if temp.blank?
+      return communities
+    else
+      communities_sorted_by_member_count = temp.map {|c| Community.find(c['id']) }
+    end
     return communities_sorted_by_member_count[0..2]
   end
 

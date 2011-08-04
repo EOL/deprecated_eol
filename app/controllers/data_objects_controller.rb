@@ -2,18 +2,20 @@ class DataObjectsController < ApplicationController
 
   layout :data_objects_layout
 
-  before_filter :check_authentication => [:new, :create, :edit, :update]
+  before_filter :check_authentication, :only => [:new, :create, :edit, :update] # checks login only
   before_filter :load_data_object, :except => [:index, :new, :create, :preview]
+  before_filter :authentication_own_user_added_text_objects_only, :only => [:edit, :update]
   before_filter :allow_login_then_submit, :only => [:rate]
   before_filter :curator_only, :only => [:curate, :add_association, :remove_association]
 
   # GET /pages/:taxon_id/data_objects/new
+  # We're only creating new data objects in the context of a taxon concept so we for taxon_id to be provided in route
   def new
     @taxon_concept = TaxonConcept.find(params[:taxon_id])
     set_text_data_object_options
     @data_object = DataObject.new(:data_type => DataType.text,
-                                    :license_id => License.by_nc.id,
-                                    :language_id => current_user.language_id)
+                                  :license_id => License.by_nc.id,
+                                  :language_id => current_user.language_id)
     # default to brief summary if selectable otherwise just the first toc item
     @selected_toc_item = @toc_items.select{|ti| ti == TocItem.brief_summary}.first || @toc_items[0]
     @page_title = I18n.t(:dato_new_text_for_taxon_page_title, :taxon => Sanitize.clean(@taxon_concept.title_canonical))
@@ -23,84 +25,64 @@ class DataObjectsController < ApplicationController
 
   # POST /pages/:taxon_id/data_objects
   def create
-    if params[:data_object][:description] == ""
-      flash[:error] = I18n.t(:dato_description_field_cannot_be_blank)
-      redirect_to :back
-      return
-    end
-    if params[:data_object]
-      params[:references] = params[:references].split("\n") unless params[:references].blank?
-      data_object = DataObject.create_user_text(params, current_user)
-    else
-      flash[:error] = I18n.t(:dato_create_missing_text_dato_error)
-    end
     @taxon_concept = TaxonConcept.find(params[:taxon_id])
-    @curator = current_user.can_curate?(@taxon_concept)
-    @taxon_concept.current_user = current_user
-    alter_current_user do |user|
-      user.vetted=false
+    return failed_to_create_data_object unless params[:data_object]
+
+    @references = params[:references] # we'll need these if validation fails and we re-render new
+    params[:references] = params[:references].split("\n") unless params[:references].blank?
+    @data_object = DataObject.create_user_text(params, current_user, @taxon_concept)
+    @selected_toc_item = @data_object.toc_items.first unless @data_object.nil?
+
+    if @data_object.nil? || @data_object.errors.any?
+      failed_to_create_data_object and return
+    else
+      # TODO: alter_current_user is to allow the current user to see the text object they just added,
+      # if their preferences were set to vetted, however - the preference of seeing only
+      # vetted may now be obsolete. I'm leaving this here for now, but maybe we can remove.
+      alter_current_user do |user|
+        user.vetted=false
+      end
+      current_user.log_activity(:created_data_object_id, :value => @data_object.id,
+                                :taxon_concept_id => @taxon_concept.id)
+      redirect_to taxon_details_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}")
     end
-    current_user.log_activity(:created_data_object_id, :value => data_object.id, :taxon_concept_id => @taxon_concept.id)
-    redirect_to taxon_details_path(@taxon_concept)
   end
 
-#  def preview
-#    begin
-#      params[:references] = params[:references].split("\n")
-#      data_object = DataObject.preview_user_text(params, current_user)
-#      @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
-#      @taxon_concept.current_user = current_user
-#      @curator = false
-#      @preview = true
-#      @data_object_id = params[:id]
-#      @hide = true
-#      current_user.log_activity(:previewed_data_object, :taxon_concept_id => @taxon_concept.id)
-#      render :partial => '/taxa/text_data_object', :locals => {:content_item => data_object, :comments_style => '', :category => data_object.toc_items[0].label}
-#    rescue => e
-#      @message = e.message
-#    end
-#  end
-
-#  def get
-#    @taxon_concept = TaxonConcept.find params[:taxon_concept_id] if params[:taxon_concept_id]
-#    @taxon_concept.current_user = current_user
-#    @curator = current_user.can_curate?(@taxon_concept)
-#    @hide = true
-#    @category_id = @data_object.toc_items[0].id
-#    @text = render_to_string(:partial => '/taxa/text_data_object', :locals => {:content_item => @data_object, :comments_style => '', :category => @data_object.toc_items[0].label})
-#    render(:partial => '/taxa/text_data_object', :locals => {:content_item => @data_object, :comments_style => '', :category => @data_object.toc_items[0].label})
-#  end
-
-  # GET /pages/:taxon_id/data_objects/:id/edit
+  # GET /data_objects/:id/edit
   def edit
+    # @data_object is loaded in before_filter
     set_text_data_object_options
-    @data_object = DataObject.find(params[:id])
     @selected_toc_item = @data_object.toc_items[0]
+    @references = @data_object.visible_references.map {|r| r.full_reference}.join("\n\n")
     @page_title = I18n.t(:dato_edit_text_title)
     @page_description = I18n.t(:dato_edit_text_page_description)
-    #current_user.log_activity(:editing_data_object, :taxon_concept_id => @taxon_concept.id)
   end
 
-  # PUT /pages/:taxon_id/data_objects/:id
+  # PUT /data_objects/:id
   def update
-    if params[:data_object][:description] == ""
-      flash[:error] = I18n.t(:dato_description_field_cannot_be_blank)
-      redirect_to :back
-      return
-    end
+    # old @data_object is loaded in before_filter
+    return failed_to_update_data_object unless params[:data_object]
+    @references = params[:references]
     params[:references] = params[:references].split("\n")
-    @taxon_concept = TaxonConcept.find params[:taxon_concept_id] if params[:taxon_concept_id]
-    @taxon_concept.current_user = current_user
-    @old_data_object_id = params[:id]
+    # Note: update_user_text doesn't actually update, it creates a new data_object
     @data_object = DataObject.update_user_text(params, current_user)
-    @curator = current_user.can_curate?(@taxon_concept)
-    @hide = true
-    @category_id = @data_object.toc_items[0].id
-    alter_current_user do |user|
-      user.vetted=false
+    @selected_toc_item = @data_object.toc_items.first unless @data_object.nil?
+
+    if @data_object.nil? || @data_object.errors.any?
+      # TODO: this is unpleasant, we are using update to create a new data object so @data_object.new_record?
+      # is now true. The edit action expects a data_object id, but we need the new values.
+      failed_to_update_data_object and return
+    else
+      # TODO: alter_current_user is to allow the current user to see the text object they just added,
+      # if their preferences were set to vetted, however - the preference of seeing only
+      # vetted may now be obsolete. I'm leaving this here for now, but maybe we can remove.
+      alter_current_user do |user|
+        user.vetted = false
+      end
+      current_user.log_activity(:updated_data_object_id, :value => @data_object.id,
+                                :taxon_concept_id => @data_object.taxon_concept_for_users_text.id)
+      redirect_to data_object_path(@data_object)
     end
-    current_user.log_activity(:updated_data_object_id, :value => @data_object.id, :taxon_concept_id => @taxon_concept.id)
-    redirect_to data_object_path(@data_object)
   end
 
   def rate
@@ -239,8 +221,15 @@ private
     end
   end
 
+  def authentication_own_user_added_text_objects_only
+    if !@data_object.is_text? || @data_object.users_data_objects.blank? ||
+       @data_object.user.id != current_user.id
+      access_denied
+    end
+  end
+
   def curation_comment(comment)
-    commented = !comment.blank?
+    commented = !comment.blank? # TODO - what is commented variable for?
     if comment.blank?
       return nil
     else
@@ -279,6 +268,32 @@ private
     @toc_items = TocItem.selectable_toc
     @languages = Language.find_by_sql("SELECT * FROM languages WHERE iso_639_1 != '' && source_form != ''")
     @licenses = License.find_all_by_show_to_content_partners(1)
+  end
+
+  def failed_to_create_data_object
+    if params[:data_object]
+      flash.now[:error] = I18n.t(:dato_create_user_text_error)
+      set_text_data_object_options
+      @page_title = I18n.t(:dato_new_text_for_taxon_page_title, :taxon => Sanitize.clean(@taxon_concept.title_canonical))
+      @page_description = I18n.t(:dato_new_text_page_description)
+      render :action => 'new', :layout => 'v2/basic'
+    else
+      flash[:error] = I18n.t(:dato_create_user_text_error)
+      redirect_to new_taxon_data_object_path(@taxon_concept)
+    end
+  end
+
+  def failed_to_update_data_object
+    if params[:data_object]
+      flash.now[:error] = I18n.t(:dato_update_user_text_error)
+      set_text_data_object_options
+      @page_title = I18n.t(:dato_edit_text_title)
+      @page_description = I18n.t(:dato_edit_text_page_description)
+      render :action => 'edit', :layout => 'v2/basic'
+    else
+      flash[:error] = I18n.t(:dato_update_user_text_error)
+      redirect_to edit_data_object_path(@data_object)
+    end
   end
 
   def get_image_source

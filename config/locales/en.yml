@@ -183,7 +183,12 @@ en:
       user: "account"
     attributes:
       data_object:
+        bibliographic_citation: "Bibliographic citation"
+        description: "Description"
         object_title: "Title"
+        rights_holder: "Rights holder"
+        rights_statement: "Rights statement"
+        source_url: "Source URL"
       name:
         string: "Name"
       user:
@@ -244,12 +249,16 @@ en:
         curation_privileges: "Submit request"
     label:
       data_object:
-        description: "Body"
+        bibliographic_citation: "Bibliographic citation"
+        description: "Text <small>(some HTML markup is allowed)</small>"
         license_id: "License"
         license_id_more: 'Read the <a href="%{policy_url}">EOL Licensing Policy</a>'
         object_title: "Title"
-        toc_item: "Category"
-        refs: "References"
+        toc_item: "Subchapter"
+        refs: "References <small>(put each reference on a new line)</small>"
+        rights_holder: "Rights holder"
+        rights_statement: "Rights statement"
+        source_url: "URL to original data object"
       session:
         password: "Password"
         remember_me: "Keep me logged in for 2 weeks"
@@ -932,10 +941,17 @@ en:
   date_this_resource_was_created: "Date This Resource Was Created:  <span title=\"required\">*</span>"
   date_updated: "Date Updated"
   date_uploaded_: "Date uploaded:"
-  dato_description_field_cannot_be_blank: "Description field cannot be blank"
   dato_create_cancel: "Cancel"
   dato_edit_cancel: "Cancel"
-  dato_create_missing_text_dato_error: "Sorry, the article could not be added."
+  dato_create_user_text_error: "Sorry, an error occurred, the article could not be added."
+  dato_update_user_text_error: "Sorry, an error occurred, the article could not be updated."
+  dato_new_edit_user_text_fieldset_content_header: "Article content"
+  dato_new_edit_user_text_fieldset_information_header: "Article information"
+  dato_new_edit_user_text_form_tip: 'Your article will be marked as "unreviewed" until a curator reviews it. Text %{required_icon} is required.'
+  dato_create_user_text_missing_user_exception: "Unable to build a text DataObject or UsersDataObject if user is nil."
+  dato_create_update_user_text_missing_taxon_id_exception: "Unable to build a text DataObject or UsersDataObject if taxon_concept_id is missing."
+  dato_create_user_text_validation_error: "Please ensure you have completed the form correctly."
+  dato_update_users_text_not_owner_exception: "Unable to update text DataObject current user is not owner"
   dato_edit_text_link_button: "Edit this article"
   dato_edit_text_page_description: "Some info about editing.. maybe"
   dato_edit_text_title: "Edit article"

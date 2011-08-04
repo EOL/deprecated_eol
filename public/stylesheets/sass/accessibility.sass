@@ -55,10 +55,12 @@ form
       width: 100%
       position: relative
       background: #ffeae6
-      padding: 20px
+      border: 1px solid #F2D2CC
+      padding: 20px 0
       margin: 0 0 20px 0
       legend
         position: absolute
+        left: 20px
         background: transparent
         font-weight: bold
       ul
@@ -85,7 +87,7 @@ form
   span
     &.errors
       font-weight: normal
-  input
+  input, textarea
     &.errors
       border-color: #f2d2cc !important
 /** switching hierarchy entries form when js disabled want button to be inline if possible **/
@@ -222,6 +224,32 @@ p.status.error
   /* added float non to video as description box wasn't showing up properly on DO page */
   .media
     float: none
+/** Add article interface we have error fieldset and a textarea box in information fieldset that HR didn't expect **/
+#object_text_new
+  p.tip
+    background: #F3F7FA
+    border: 1px solid #CAD3DB
+    padding: 10px
+    margin: 0 40px 20px 0
+    line-height: 140%
+  form#new_data_object, form.edit_data_object
+    fieldset
+      dt
+        font-size: 1.08em
+      &.content
+        width: 640px
+        input[type="text"]
+          width: 308px
+        textarea
+          width: 580px
+          height: 200px
+      &.information
+        width: 300px
+        textarea, input[type="text"]
+          width: 288px
+        textarea
+          height: 80px
+
 /** Adjustments for when missing exemplar image **/
 #media_list, #taxon_detail
   #sidebar

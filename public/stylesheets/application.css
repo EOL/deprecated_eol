@@ -556,7 +556,7 @@ ul.tabs {
       padding-left: 20px;
       font-size: 1.14em; }
     ul.tabs li.taxa a {
-      background: transparent url("/images/v2/icon_taxa_tabs.png") 9px 6px no-repeat; }
+      background: transparent url("/images/v2/icon_taxa_tabs.png") 9px 50% no-repeat; }
     ul.tabs li.videos a {
       background: transparent url("/images/v2/icon_videos_tabs.png") 11px 10px no-repeat; }
     ul.tabs li.images a {
@@ -2004,6 +2004,8 @@ body > #header {
 #permalink .article.source p {
   font-size: 0.92em;
   line-height: 150%; }
+  #permalink .article.source p.inappropriate a {
+    color: #cd331e; }
 #permalink form.review_status fieldset {
   padding: 0 10px 0 10px;
   margin: 0 0 10px 0;

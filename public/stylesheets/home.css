@@ -398,7 +398,7 @@ body {
           font-weight: bold;
           color: #394651; }
         #content .section .stats li.taxon dl {
-          background: transparent url("/images/v2/icon_taxon.png") 0 0 no-repeat; }
+          background: transparent url("/images/v2/icon_taxon.png") 0 50% no-repeat; }
         #content .section .stats li.contributors dl {
           background: transparent url("/images/v2/icon_contributors.png") 0 2px no-repeat; }
         #content .section .stats li.communities dl {

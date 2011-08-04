@@ -182,7 +182,6 @@ class DataObjectsController < ApplicationController
   end
 
   def add_association
-    raise EOL::Exceptions::Pending
     name = params[:name]
     form_submitted = params[:commit]
     unless form_submitted.blank?
@@ -195,7 +194,6 @@ class DataObjectsController < ApplicationController
   end
 
   def curate_associations
-    raise EOL::Exceptions::Pending
     begin
       @data_object.published_entries.each do |phe|
         comment = curation_comment(params["curation_comment_#{phe.id}"])

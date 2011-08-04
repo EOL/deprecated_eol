@@ -79,13 +79,15 @@ class DataObject < SpeciesSchemaModel
       {:hierarchy_entries => [:name, { :hierarchy => :agent }] }, {:agents_data_objects => [ { :agent => :user }, :agent_role]}]
 
   # this method is not just sorting by rating
-  def self.sort_by_rating(data_objects, sort_order = [:type, :toc, :visibility, :vetted, :rating, :date])
+  def self.sort_by_rating(data_objects, taxon_concept = nil, sort_order = [:type, :toc, :visibility, :vetted, :rating, :date])
     data_objects.sort_by do |obj|
+      dato_visibility = obj.visibility_by_taxon_concept(taxon_concept)
+      dato_visibility_id = dato_visibility.id unless dato_visibility.nil?
       type_order = obj.data_type_id
       toc_view_order = (!obj.is_text? || obj.info_items.blank? || obj.info_items[0].toc_item.blank?) ? 0 : obj.info_items[0].toc_item.view_order
       vetted_view_order = obj.vetted.blank? ? 0 : obj.vetted.view_order
       visibility_view_order = 2
-      visibility_view_order = 1 if obj.visibility_id == Visibility.preview.id
+      visibility_view_order = 1 if dato_visibility_id == Visibility.preview.id
       inverted_rating = obj.data_rating * -1
       inverted_id = obj.id * -1
       sort = []
@@ -101,7 +103,7 @@ class DataObject < SpeciesSchemaModel
     end
   end
 
-  def self.custom_filter(data_objects, type, status)
+  def self.custom_filter(data_objects, taxon_concept, type, status)
 
     return data_objects if data_objects.blank?
 
@@ -134,17 +136,20 @@ class DataObject < SpeciesSchemaModel
 
     # we only delete objects by type, visibility or vetted respectively if allowed parameters exist
     data_objects.delete_if { |object|
+      dato_association = object.association_with_exact_or_best_vetted_status(taxon_concept)
+      dato_vetted_id = dato_association.vetted_id unless dato_association.nil?
+      dato_visibility_id = dato_association.visibility_id unless dato_association.nil?
       # filter by type: delete object if type is not allowed
       (! allowed_data_types.blank? && ! allowed_data_types.include?(object.data_type_id)) ||
       # photosynth: delete non-photosynth images if type does not also include images or all
       (! type.blank? && ! object.source_url.match(/http:\/\/photosynth.net/i) &&
         object.is_image? && type.include?('photosynth') && ! type.include?('image') && ! type.include?('all')) ||
       # filter by visibility: only delete by visibility if vetted status is blank or also not allowed
-      (! allowed_visibilities.blank? && ! allowed_visibilities.include?(object.visibility_id) &&
-        (allowed_vetted_status.blank? || ! allowed_vetted_status.include?(object.vetted_id))) ||
+      (! allowed_visibilities.blank? && ! allowed_visibilities.include?(dato_visibility_id) &&
+        (allowed_vetted_status.blank? || ! allowed_vetted_status.include?(dato_vetted_id))) ||
       # filter by vetted status: only delete by vetted if visibility is blank or also not allowed
-      (! allowed_vetted_status.blank? && ! allowed_vetted_status.include?(object.vetted_id) &&
-        (allowed_visibilities.blank? || ! allowed_visibilities.include?(object.visibility_id))) }
+      (! allowed_vetted_status.blank? && ! allowed_vetted_status.include?(dato_vetted_id) &&
+        (allowed_visibilities.blank? || ! allowed_visibilities.include?(dato_visibility_id))) }
 
   end
 
@@ -182,6 +187,10 @@ class DataObject < SpeciesSchemaModel
 
     # removing from the array the ones not mathching our criteria
     data_objects.compact.select do |d|
+      tc = options[:taxon_concept]
+      dato_association = d.association_with_exact_or_best_vetted_status(tc)
+      dato_vetted_id = dato_association.vetted_id unless dato_association.nil?
+      dato_visibility_id = dato_association.visibility_id unless dato_association.nil?
       # partners see all their PREVIEW or PUBLISHED objects
       if options[:user] && options[:user].is_content_partner? && d.data_supplier_agent.id == options[:user].agent.id
         if (d.visibility_id == Visibility.preview.id) || d.published == true
@@ -191,8 +200,7 @@ class DataObject < SpeciesSchemaModel
       elsif show_preview && d.visibility_id == Visibility.preview.id
         true
       # otherwise object must be PUBLISHED and in the vetted and visibility selection
-      elsif d.published == true && vetted_ids.include?(d.vetted_id) &&
-        visibility_ids.include?(d.visibility_id)
+      elsif d.published == true && vetted_ids.include?(dato_vetted_id) && visibility_ids.include?(dato_visibility_id)
         true
       else
         false
@@ -761,8 +769,8 @@ class DataObject < SpeciesSchemaModel
       data_object_hash = response['response']['docs'][0]
       return false unless data_object_hash
       modified_object_hash = data_object_hash.dup
-      modified_object_hash['vetted_id'] = [options[:vetted_id]] unless options[:vetted_id].blank?
-      modified_object_hash['visibility_id'] = [options[:visibility_id]] unless options[:visibility_id].blank?
+      # modified_object_hash['vetted_id'] = [options[:vetted_id]] unless options[:vetted_id].blank?
+      # modified_object_hash['visibility_id'] = [options[:visibility_id]] unless options[:visibility_id].blank?
       # if some of the values have changed, post the updated record to Solr
       if data_object_hash != modified_object_hash
         solr_connection.create(modified_object_hash)
@@ -775,14 +783,24 @@ class DataObject < SpeciesSchemaModel
     toc_items.include?(TocItem.wikipedia)
   end
 
-  def publish_wikipedia_article
+  def publish_wikipedia_article(taxon_concept)
+    dato_vetted = self.vetted_by_taxon_concept(@taxon_concept)
+    dato_vetted_id = dato_vetted.id unless dato_vetted.nil?
+    dato_visibility = self.visibility_by_taxon_concept(@taxon_concept)
+    dato_visibility_id = dato_visibility.id unless dato_visibility.nil?
     return false unless in_wikipedia?
-    return false unless visibility_id == Visibility.preview.id
+    return false unless dato_visibility_id == Visibility.preview.id
 
     SpeciesSchemaModel.connection.execute("UPDATE data_objects SET published=0 WHERE guid='#{guid}'");
     reload
-    self.visibility_id = Visibility.visible.id
-    self.vetted_id = Vetted.trusted.id
+    
+    dato_vetted = self.vetted_by_taxon_concept(@taxon_concept)
+    dato_vetted_id = dato_vetted.id unless dato_vetted.nil?
+    dato_visibility = self.visibility_by_taxon_concept(@taxon_concept)
+    dato_visibility_id = dato_visibility.id unless dato_visibility.nil?
+    
+    dato_visibility_id = Visibility.visible.id
+    dato_vetted_id = Vetted.trusted.id
     self.published = 1
     self.save!
   end
@@ -882,12 +900,12 @@ class DataObject < SpeciesSchemaModel
       if entry_in_hierarchy = taxon_concept.entry(options[:filter_hierarchy], true)
         HierarchyEntry.preload_associations(entry_in_hierarchy,
           [ :top_images => :data_object ],
-          :select => { :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ] } )
+          :select => { :data_objects => '*' } )
         image_data_objects = entry_in_hierarchy.top_images.collect{ |ti| ti.data_object }
         if show_unpublished
           HierarchyEntry.preload_associations(entry_in_hierarchy,
             [ :top_unpublished_images => :data_object ],
-            :select => { :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ] } )
+            :select => { :data_objects => '*' } )
           image_data_objects += entry_in_hierarchy.top_unpublished_images.collect{ |ti| ti.data_object }
         end
       end
@@ -906,7 +924,7 @@ class DataObject < SpeciesSchemaModel
         TaxonConcept.preload_associations(taxon_concept,
           [ :top_unpublished_concept_images => { :data_object => { :hierarchy_entries => { :hierarchy => :agent } } } ],
           :select => {
-            :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ],
+            :data_objects => '*',
             :hierarchy_entries => :hierarchy_id,
             :agents => [:id, :full_name, :homepage, :logo_cache_url] } )
         image_data_objects += taxon_concept.top_unpublished_concept_images.collect{ |tci| tci.data_object }
@@ -914,6 +932,7 @@ class DataObject < SpeciesSchemaModel
     end
 
     # remove anything this agent/user should not have access to
+    options[:taxon_concept] = taxon_concept
     image_data_objects = DataObject.filter_list_for_user(image_data_objects, options)
     # make the list unique by DataObject.guid
     unique_image_objects = []
@@ -926,7 +945,7 @@ class DataObject < SpeciesSchemaModel
     return [] if unique_image_objects.empty?
 
     # sort the remainder by our rating criteria
-    unique_image_objects = DataObject.sort_by_rating(unique_image_objects)
+    unique_image_objects = DataObject.sort_by_rating(unique_image_objects, taxon_concept)
     
     exemplar = taxon_concept.taxon_concept_exemplar_image
     if exemplar && exemplar_image = exemplar.data_object
@@ -940,7 +959,7 @@ class DataObject < SpeciesSchemaModel
     last        = start + $MAX_IMAGES_PER_PAGE - 1
 
     unless options[:skip_metadata]
-      objects_with_metadata = eager_load_image_metadata(unique_image_objects[start..last].collect {|r| r.id})
+      objects_with_metadata = eager_load_image_metadata(unique_image_objects[start..last].collect {|r| r.id}, taxon_concept)
       unique_image_objects[start..last] = objects_with_metadata unless objects_with_metadata.blank?
       if options[:user] && options[:user].is_curator? && options[:user].can_curate?(taxon_concept)
         DataObject.preload_associations(unique_image_objects[start..last], :users_data_objects_ratings, :conditions => "users_data_objects_ratings.user_id=#{options[:user].id}")
@@ -949,13 +968,13 @@ class DataObject < SpeciesSchemaModel
     return unique_image_objects
   end
 
-  def self.eager_load_image_metadata(data_object_ids)
+  def self.eager_load_image_metadata(data_object_ids, taxon_concept)
     return nil if data_object_ids.blank?
     add_include = [ :all_comments ]
     add_select = { :comments => [ :parent_id, :visible_at ] }
     except = [ :info_items ]
     objects = DataObject.core_relationships(:except => except, :add_include => add_include, :add_select => add_select).find_all_by_id(data_object_ids)
-    DataObject.sort_by_rating(objects)
+    DataObject.sort_by_rating(objects, taxon_concept)
   end
 
   def self.latest_published_version_of(data_object_id)
@@ -1033,10 +1052,19 @@ class DataObject < SpeciesSchemaModel
   def vetted_by_taxon_concept(taxon_concept, options={})
     association = association_for_taxon_concept(taxon_concept)
     return association.vetted unless association.blank?
-    if options[:find_best] && association = association_with_best_vetted_status
+    if options[:find_best] == true && association = association_with_best_vetted_status
       return association.vetted
     end
     return nil
+  end
+
+  # This method by default returns an exact association(if exists) for the given taxon concept.
+  # Otherwise returns an association with best vetted status(if exists)
+  def association_with_exact_or_best_vetted_status(taxon_concept)
+    association = association_for_taxon_concept(taxon_concept)
+    return association unless association.blank?
+    association = association_with_best_vetted_status
+    return association
   end
 
   # # To retrieve the visibility id of an association by using hierarchy entry
@@ -1045,13 +1073,16 @@ class DataObject < SpeciesSchemaModel
   #   return association.visibility unless association.blank?
   #   return nil
   # end
-  # 
-  # # To retrieve the visibility id of an association by using taxon concept
-  # def visibility_by_taxon_concept(taxon_concept)
-  #   association = association_for_taxon_concept(taxon_concept)
-  #   return association.visibility unless association.blank?
-  #   return nil
-  # end
+
+  # To retrieve the visibility id of an association by using taxon concept
+  def visibility_by_taxon_concept(taxon_concept, options={})
+    association = association_for_taxon_concept(taxon_concept)
+    return association.visibility unless association.blank?
+    if options[:find_best] == true && association = association_with_best_vetted_status
+      return association.visibility
+    end
+    return nil
+  end
 
   # To retrieve the reasons provided while untrusting an association
   def untrust_reasons(hierarchy_entry)

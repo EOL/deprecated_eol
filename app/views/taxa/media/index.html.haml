@@ -22,10 +22,13 @@
           :inner_window => 2, :outer_window => 2
       %ul.media
         - @media.each_with_index do |item, index|
+          - item_vetted = item.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
+          - item_vetted_id = item_vetted.id unless item_vetted.nil?
+          - item_vetted_label = item_vetted.label unless item_vetted.nil?
           - en_type = en_type(item)
-          %li{:class => "#{index.modulo(4) == 0 ? 'first' : nil} #{vetted_id_class(item.vetted_id)}"}
+          %li{:class => "#{index.modulo(4) == 0 ? 'first' : nil} #{vetted_id_class(item_vetted_id)}"}
             .figure
-              %a{ :data => { :data_object_id => item.id }, :class => vetted_id_class(item.vetted_id), :href => data_object_path(item) }
+              %a{ :data => { :data_object_id => item.id }, :class => vetted_id_class(item_vetted_id), :href => data_object_path(item) }
                 = render :partial => "data_objects/data_object_#{en_type}",
                   :locals => { :data_object => item, :thumbnail => true, :size => '260_190' }
               - if item.data_type.id == DataType.image.id && current_user.is_curator?
@@ -38,7 +41,7 @@
                   %fieldset.actions
                     = f.submit I18n.t(:set_as_exemplar)
             = render :partial => 'data_objects/rating', :locals => { :data_object => item, :minimal => true }
-            %p.flag{:class => vetted_id_class(item.vetted_id)}= item.vetted.label
+            %p.flag{:class => vetted_id_class(item_vetted_id)}= item_vetted_label
             = render :partial => 'shared/add_to_my_collection', :locals => { :item => item, :my_collection => @watch_collection }
       .footer
         = will_paginate @media, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),

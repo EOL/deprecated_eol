@@ -28,6 +28,11 @@ class ContentPartner < SpeciesSchemaModel
   # Callbacks
   before_save :blank_not_null_fields
 
+  # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we go to many to many
+  def can_be_updated_by?(user)
+    user.id == user_id
+  end
+
   def concepts_for_gallery(page, per_page)
     page = page - 1
 
@@ -356,5 +361,14 @@ class ContentPartner < SpeciesSchemaModel
     self.notes ||= ""
     self.description_of_data ||= ""
     self.description ||=""
+  end
+
+  def logo_url
+    # TODO: convert to proper method when logo_url attribute added to cp model
+    return "v2/logos/user_default.png"
+  end
+
+  def name
+    display_name || full_name
   end
 end

@@ -1,0 +1,48 @@
+#profile_content_partner.site_column
+  .article.copy
+    %h3= I18n.t(:content_partner_edit_form_profile_header)
+    %p.tip= I18n.t(:content_partner_edit_form_tip, :required_icon => image_tag('/images/v2/icon_required.png', :alt => ''))
+    - form_for @partner, :builder => ApplicationHelper::EolFormBuilder, :html => { :multipart => true } do |partner_form|
+      %fieldset
+        %dl
+          %dt.required
+            = partner_form.label :full_name
+          %dd
+            = partner_form.text_field :full_name
+          %dt
+            = partner_form.label :display_name
+          %dd
+            = partner_form.text_field :display_name, { :max_length => 255 }
+          %dt
+            = partner_form.label :homepage
+          %dd
+            = partner_form.text_field :homepage, { :max_length => 255 }
+          %dt
+            = partner_form.label :acronym
+          %dd
+            = partner_form.text_field :acronym, { :max_length => 20 }
+          %dt
+            = partner_form.label :description
+          %dd
+            = partner_form.text_area :description
+          %dt
+            = partner_form.label :description_of_data
+          %dd
+            = partner_form.text_area :description_of_data
+          %dt
+            = partner_form.label :notes
+          %dd
+            = partner_form.text_area :notes
+          %dt
+            = partner_form.label :logo
+          %dd
+            = partner_form.file_field :logo
+
+          - if current_user.is_admin?
+            %dt
+              = partner_form.label :admin_notes
+            %dd
+              = partner_form.text_area :admin_notes
+
+      %fieldset.actions
+

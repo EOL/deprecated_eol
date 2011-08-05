@@ -335,6 +335,16 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     tags.map(&:key).uniq
   end
 
+  def can_create?(resource)
+    resource.can_be_created_by?(self)
+  end
+  def can_read?(resource)
+    resource.can_be_read_by?(self)
+  end
+  def can_update?(resource)
+    resource.can_be_updated_by?(self)
+  end
+
   # object might be a data object or taxon concept
   def can_curate? object
     return false unless curator_approved
@@ -486,7 +496,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def is_pending_curator?
     !requested_curator_level.nil? && !requested_curator_level.zero?
   end
-  
+
   def can_edit_collection?(collection)
     return true if collection.user == self
     return true if collection.community && collection.community.managers.include?(self)

@@ -1,0 +1,16 @@
+- content_for :main do
+  #page_heading.with_image
+    .site_column
+      = image_tag @partner.logo_url, :alt => ""
+      .hgroup
+        %h1= h @partner.name
+        %p= h @partner.description
+      - if current_user.can_update?(@partner) && action_name != 'edit'
+        .page_actions
+          %ul
+            %li= link_to I18n.t(:content_partner_edit_link), edit_content_partner_path(@partner), :class => "button"
+      = render :partial => 'shared/flash_messages'
+  #content
+    = yield
+
+= render :file => 'layouts/v2/application'

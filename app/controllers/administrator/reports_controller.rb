@@ -1,4 +1,5 @@
-before_filter :restrict_to_admins
+class Administrator::ReportsController < AdminController
+
   layout 'left_menu'
 
   before_filter :set_layout_variables

@@ -20,22 +20,6 @@ describe Community do
     c.valid?.should_not be_true
   end
 
-  it 'should find the special community' do
-    sp = Community.find_by_name($SPECIAL_COMMUNITY_NAME)
-    sp ||= Community.gen(:name => $SPECIAL_COMMUNITY_NAME)
-  end
-
-  it 'should be #special?' do
-    c = Community.gen(:show_special_privileges => 1)
-    c.special?.should be_true
-  end
-
-  it 'should be able to add default roles to itself' do
-    c = Community.gen
-    Role.should_receive(:add_defaults_to_community).with(c)
-    c.add_default_roles
-  end
-
   it 'should be able to add a member' do
     c = Community.gen
     c.members.should be_blank
@@ -43,15 +27,6 @@ describe Community do
     u.member_of?(c).should be_false
     c.add_member(u)
     u.member_of?(c).should be_true
-  end
-
-  it 'should be able to create the special community' do
-    Community.delete_all(:name => $SPECIAL_COMMUNITY_NAME)
-    lambda { Community.special }.should raise_error
-    Community.create_special
-    Community.special.should_not be_nil
-    Community.special.name.should == $SPECIAL_COMMUNITY_NAME
-    Community.special.roles.should_not be_blank
   end
 
   it "should create a new instance given valid attributes" do

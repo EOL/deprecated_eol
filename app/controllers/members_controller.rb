@@ -16,17 +16,15 @@ class MembersController < ApplicationController
     end
   end
 
-  # This for non-members and members WITHOUT access to change privileges:
+  # This for non-members and members WITHOUT manager access:
   def show
-    # This is for community managers who have access to change privileges:
-    @privileges = Privilege.all_for_community(@member.community)
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @member }
     end
   end
 
-  # You must be a community manager with privilege granting/revoking access to get here.
+  # You must be a community manager to get here.
   def update
     respond_to do |format|
       if @member.update_attributes(params[:member])
@@ -46,26 +44,6 @@ class MembersController < ApplicationController
     end
   end
 
-  def grant_privilege_to
-    @member.grant_privilege Privilege.find(params[:member][:new_privilege_id])
-    redirect_to([@community, @member], :notice =>  I18n.t(:updated_member) )
-  end
-
-  def revoke_privilege_from
-    @member.revoke_privilege Privilege.find(params[:member][:removed_privilege_id])
-    redirect_to([@community, @member], :notice =>  I18n.t(:updated_member) )
-  end
-
-  def add_role_to
-    @member.add_role Role.find(params[:member][:new_role_id])
-    redirect_to([@community, @member], :notice =>  I18n.t(:updated_member) )
-  end
-
-  def remove_role_from
-    @member.remove_role Role.find(params[:member][:removed_role_id])
-    redirect_to([@community, @member], :notice =>  I18n.t(:updated_member) )
-  end
-
 private
 
   def load_community_and_current_member
@@ -83,12 +61,12 @@ private
 
   def restrict_edit
     @current_member ||= current_user.member_of(@community)
-    raise EOL::Exceptions::SecurityViolation unless @current_member && @current_member.can_edit_members?
+    raise EOL::Exceptions::SecurityViolation unless @current_member && @current_member.manager?
   end
 
   def restrict_delete
     @current_member ||= current_user.member_of(@community)
-    raise EOL::Exceptions::SecurityViolation unless @current_member && @current_member.can?(Privilege.remove_members)
+    raise EOL::Exceptions::SecurityViolation unless @current_member && @current_member.manager?
   end
 
 end

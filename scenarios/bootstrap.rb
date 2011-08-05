@@ -461,7 +461,7 @@ build_hierarchy_entry 0, tc, name, :hierarchy => gbif_hierarchy, :identifier => 
 
 # Generate a default admin user and then set them up for the default roles:
 admin = User.gen :username => 'admin', :password => 'admin', :given_name => 'Admin', :family_name => 'User'
-admin.approve_to_administrate
+admin.grant_admin
 admin.build_watch_collection
 
 exemplar = build_taxon_concept(:id => 910093, # That ID is one of the (hard-coded) exemplars.

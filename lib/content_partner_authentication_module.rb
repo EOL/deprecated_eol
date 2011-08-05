@@ -1,5 +1,5 @@
 module ContentPartnerAuthenticationModule
-    
+
   # Protected authentication methods
   # ------------------------------------
 
@@ -46,10 +46,6 @@ module ContentPartnerAuthenticationModule
   def agent_redirect_back_or_default(default)
     redirect_to(session[:agent_return_to] || default, :protocol => 'http://')
     session[:agent_return_to] = nil
-  end
-
-  def is_user_admin?
-    current_user.is_admin?
   end
 
   def agent_must_be_agreeable

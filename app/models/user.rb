@@ -247,18 +247,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     self.entered_password
   end
 
-  def validate
-    errors.add_to_base "Secondary hierarchy must be different than default" if !secondary_hierarchy_id.nil? && secondary_hierarchy_id == default_hierarchy_id
-    if EOLConvert.to_boolean(curator_request)
-      if(credentials.blank?)
-        errors.add_to_base "You must indicate your credentials and area of expertise to request curator privileges."
-      end
-      if(curator_scope.blank?)
-        errors.add_to_base "You must indicate your scope to request curator privileges."
-      end
-    end
-  end
-
   def full_name
     full_name = [given_name, family_name].join(' ').strip
     return full_name unless full_name.blank?
@@ -337,12 +325,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     tags.map(&:key).uniq
   end
 
-  def special
-    @special ||= member_of(Community.special)
-  end
-
-  def approve_to_administrate
-    grant_special_role(Role.administrator)
+  def grant_admin
+    self.update_attribute(:admin, true)
   end
 
   def grant_curator(level = :full, options = {})
@@ -354,8 +338,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
         self.update_attribute(:curator_verdict_by, options[:user])
         self.update_attribute(:curator_verdict_at, Time.now)
       end
-      # TODO -remove this... it's a ticket.  But for now, I want to be thorough:
-      grant_special_role(Role.curator)
     end
     self.update_attribute(:requested_curator_level_id, nil)
   end
@@ -371,11 +353,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     self.update_attribute(:requested_curator_level_id, nil)
   end
   alias revoke_curatorship revoke_curator
-
-  def grant_special_role(role)
-    join_community(Community.special)
-    special.add_role(role)
-  end
 
   def clear_cached_user
     $CACHE.delete("users/#{self.id}") if $CACHE
@@ -464,18 +441,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     end
   end
 
-  def is_moderator?
-    return false if special.nil?
-    special.can?(Privilege.hide_comments)
-  end
-
-  def has_special_role?(role)
-    return false unless special
-    special.roles.include?(role)
-  end
-
   def is_admin?
-    has_special_role?(Role.administrator)
+    self.admin
   end
 
   def is_content_partner?
@@ -484,7 +451,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   def is_curator?
     curator_approved
-    # has_special_role?(Role.curator)
   end
 
   def is_pending_curator?
@@ -594,7 +560,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 #  end
 
   def ensure_unique_username_against_master
-    errors.add('username', "#{username} is already taken") unless User.unique_user?(username, id)
+    errors.add('username', I18n.t(:username_taken, :name => username) unless User.unique_user?(username, id)
   end
 
   def rating_for_object_guid(guid)
@@ -785,12 +751,12 @@ private
     (!self.curator_level_id.nil? && !self.curator_level_id.zero? &&
       self.curator_level_id != CuratorLevel.assistant_curator.id)
   end
-  
+
   def first_last_names_required?
     (!self.requested_curator_level_id.nil? && !self.requested_curator_level_id.zero?) ||
     (!self.curator_level_id.nil? && !self.curator_level_id.zero?)
   end
-  
+
   # before_save TODO - could replace this with actual method that does all approvals however that is going to work
   # TODO - this is not hooked up with the V1 curator approved attributes - need more info
   def instantly_approve_curator_level

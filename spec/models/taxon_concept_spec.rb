@@ -157,8 +157,9 @@ describe TaxonConcept do
   end
 
   it 'should be able to show a table of contents' do
-    # Tricky, tricky. See, we add special things to the TOC like "Common Names" and "Search the Web", when they are appropriate.  I
-    # could test for those here, but that seems the perview of TocItem.  So, I'm only checking the first three elements:
+    # Tricky, tricky. See, we add special things to the TOC like "Common Names" and "Search the Web", when they are
+    # appropriate.  I could test for those here, but that seems the perview of TocItem.  So, I'm only checking the
+    # first three elements:
     @taxon_concept.toc[0..3].should == [@overview, @testy[:brief_summary], @toc_item_2, @toc_item_3]
   end
 

@@ -170,7 +170,6 @@ describe "Collections and collecting:" do
       click_button 'Update collection details'
       body.should have_tag('h1', 'Edited collection name')
     end
-    it 'should not be able to edit special collections (really?)'
     it 'should be able to delete ordinary collections'
     it 'should not be able to delete special collections'
   end

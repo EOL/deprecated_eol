@@ -540,7 +540,7 @@ class DataObject < SpeciesSchemaModel
   end
 
   def visible_comments(user = nil)
-    return all_comments if (not user.nil?) and user.is_moderator?
+    return all_comments if (not user.nil?) and user.is_admin?
     all_comments.find_all {|c| c.visible? }
   end
 

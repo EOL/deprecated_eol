@@ -1,102 +1,93 @@
 %ul#toc{ :style => "list-style:none;margin-left:-25px;padding-left:-25px;" }
   %li
     = link_to I18n.t("admin_home"), {:controller => '/admin', :action => 'index'}, {:class=>'toc_item active'}
-  - if current_user.special.can? Privilege.site_cms
-    %h3
-      =I18n.t("site_cms")
+  %h3
+    =I18n.t("site_cms")
+  %li
+    = link_to I18n.t("edit_page_contents"),{:controller=>'administrator/content_page',:action=>'index'}, {:class=>'toc_item active'}
+  %li
+    = link_to I18n.t("upload_content"),{:controller=>'administrator/content_upload', :action=>'index'}, {:class=>'toc_item active'}
+  %li
+    = link_to I18n.t("edit_search_suggestions"),{:controller=>'administrator/search_suggestion', :action=>'index'}, {:class=>'toc_item active'}
+  %li
+    = link_to I18n.t("edit_eol_glossary"),{:controller=>'administrator/glossary', :action=>'index'}, {:class=>'toc_item active'}
+  %li
+    = link_to I18n.t("edit_table_of_contents"),{:controller=>'administrator/table_of_contents', :action=>'index'}, {:class=>'toc_item active'}
+  %h3
+    =I18n.t("news_items")
+  %li
+    = link_to I18n.t("edit_news_items"),{:controller=>'administrator/news_item',:action=>'index'}, {:class=>'toc_item active'}
+  %h3
+    =I18n.t("comments_and_tags")
+  %li
+    = link_to I18n.t("edit_tag_suggestions"), {:controller => 'administrator/tag_suggestion', :action => 'index'}, {:class=>'toc_item active'}
+  %li
+    = link_to I18n.t("view_user_comments"), {:controller => 'administrator/comment', :action => 'index'}, {:class=>'toc_item active'}
+  %li
+    = link_to I18n.t("view_added_text"), {:controller => 'administrator/user_data_object', :action => 'index'}, {:class=>'toc_item active'}
+  %li
+    = link_to I18n.t("view_user_activity"), {:controller => 'administrator/user', :action => 'view_user_activity'}, {:class=>'toc_item active'}
+  /
+    =I18n.t("disabled_for_now")
     %li
-      = link_to I18n.t("edit_page_contents"),{:controller=>'administrator/content_page',:action=>'index'}, {:class=>'toc_item active'}
-    %li
-      = link_to I18n.t("upload_content"),{:controller=>'administrator/content_upload', :action=>'index'}, {:class=>'toc_item active'}
-    %li
-      = link_to I18n.t("edit_search_suggestions"),{:controller=>'administrator/search_suggestion', :action=>'index'}, {:class=>'toc_item active'}
-    %li
-      = link_to I18n.t("edit_eol_glossary"),{:controller=>'administrator/glossary', :action=>'index'}, {:class=>'toc_item active'}
-    %li
-      = link_to I18n.t("edit_table_of_contents"),{:controller=>'administrator/table_of_contents', :action=>'index'}, {:class=>'toc_item active'}
-  - if current_user.special.can? Privilege.news_items
-    %h3
-      =I18n.t("news_items")
-    %li
-      = link_to I18n.t("edit_news_items"),{:controller=>'administrator/news_item',:action=>'index'}, {:class=>'toc_item active'}
-  - if current_user.special.can? Privilege.comments_and_tags
-    %h3
-      =I18n.t("comments_and_tags")
-    %li
-      = link_to I18n.t("edit_tag_suggestions"), {:controller => 'administrator/tag_suggestion', :action => 'index'}, {:class=>'toc_item active'}
-    %li
-      = link_to I18n.t("view_user_comments"), {:controller => 'administrator/comment', :action => 'index'}, {:class=>'toc_item active'}
-    %li
-      = link_to I18n.t("view_added_text"), {:controller => 'administrator/user_data_object', :action => 'index'}, {:class=>'toc_item active'}
-    %li
-      = link_to I18n.t("view_user_activity"), {:controller => 'administrator/user', :action => 'view_user_activity'}, {:class=>'toc_item active'}
-    / 
-      =I18n.t("disabled_for_now")
-      %li
-        = link_to I18n.t("view_common_activities"), {:controller => 'administrator/user', :action => 'view_common_activities'}, {:class=>'toc_item active'}
+      = link_to I18n.t("view_common_activities"), {:controller => 'administrator/user', :action => 'view_common_activities'}, {:class=>'toc_item active'}
 
-  - if current_user.special.can? Privilege.web_users
-    %h3
-      =I18n.t("web_users")
-    %li
-      = link_to I18n.t("edit_web_users"),{:controller=>'administrator/user', :action=>'index'}, {:class=>'toc_item active'}
-    %li
-      = link_to I18n.t("view_curators"),{:controller=>'administrator/curator', :action=>'index'}, {:class=>'toc_item active'}
-  - if current_user.special.can? Privilege.contact_us_submissions
-    %h3
-      =I18n.t("contact_us_functions")
-    %li
-      = link_to I18n.t("edit_contact_us_topics"),{:controller=>'administrator/contact_subject', :action=>'index'}, {:class=>'toc_item active'}
-    %li
-      = link_to I18n.t("view_contact_us_submissions"), {:controller => 'administrator/contact', :action => 'index'}, {:class=>'toc_item active'}
-  - if current_user.special.can? Privilege.technical
-    %h3
-      =I18n.t("technical_functions")
-    %li
-      = link_to I18n.t("general_site_admin"), {:controller => 'administrator/site', :action => 'index'}, {:class=>'toc_item active'}
-    %li
-      = link_to I18n.t("view_error_log"), {:controller => 'administrator/error_log', :action => 'index'}, {:class=>'toc_item active'}
-    %li
-      = link_to I18n.t("add_new_user_roles"),{:controller=>'administrator/role', :action=>'index'}, {:class=>'toc_item active'}
-  - if current_user.special.can? Privilege.content_partners
-    %h3
-      =I18n.t("content_partners")
-    %li
-      = link_to I18n.t("content_partner_details"), {:controller => 'administrator/content_partner_report', :action => 'index'}, {:class=>'toc_item active'}
-    %li
-      = link_to I18n.t("content_partner_hierarchies"), {:controller => 'administrator/hierarchy', :action => 'index'}, {:class=>'toc_item active'}
-    %li
-      = link_to I18n.t("monthly_notification"), {:controller => 'administrator/content_partner_report', :action => 'monthly_stats_email'}, {:class => 'toc_item active', :confirm => I18n.t("send_email_notification_to_all")}
-  - if current_user.special.can? Privilege.usage_reports
-    %li
-      = link_to I18n.t("monthly_published_partners"), {:controller => 'administrator/content_partner_report', :action => 'report_monthly_published_partners'}, {:class=>'toc_item active'}
-    %li
-      = link_to I18n.t("content_partner_curated_data"), {:controller => 'administrator/content_partner_report', :action => 'report_partner_curated_data'}, {:class=>'toc_item active'}
-    %li
-      = link_to I18n.t("content_partner_objects_stats"), {:controller => 'administrator/content_partner_report', :action => 'report_partner_objects_stats'}, {:class=>'toc_item active'}
-    %li
-      = link_to I18n.t("view_harvesting_log"), {:controller => 'administrator/harvesting_log', :action => 'index'}, {:class=>'toc_item active'}
-    %h3
-      =I18n.t("statistics")
-    %li
-      = link_to I18n.t("page_statistics_and_tools"), {:controller => 'administrator/stats', :action => 'index'}, {:class=>'toc_item active'}
-    %li
-      = link_to I18n.t("taxonomic_summary_of_content"), {:controller => 'administrator/stats', :action => 'content_taxonomic'}, {:class => 'toc_item active'}
-    %li
-      = link_to I18n.t("search_term_reports"), search_logs_url(:reverse => true, :averages => false), {:class=>'toc_item active'}
-    %li
-      = link_to I18n.t("table_of_contents_breakdown"), {:controller => 'administrator/stats', :action => 'toc_breakdown'}, {:class=>'toc_item active'}
-    %li
-      = link_to I18n.t("spm_category___objects_count"), {:controller => 'administrator/stats', :action => 'SPM_objects_count'}, {:class=>'toc_item active'}
-    %li
-      = link_to I18n.t("spm_category___partner_count"), {:controller => 'administrator/stats', :action => 'SPM_partners_count'}, {:class=>'toc_item active'}
+  %h3
+    =I18n.t("web_users")
+  %li
+    = link_to I18n.t("edit_web_users"),{:controller=>'administrator/user', :action=>'index'}, {:class=>'toc_item active'}
+  %li
+    = link_to I18n.t("view_curators"),{:controller=>'administrator/curator', :action=>'index'}, {:class=>'toc_item active'}
+  %h3
+    =I18n.t("contact_us_functions")
+  %li
+    = link_to I18n.t("edit_contact_us_topics"),{:controller=>'administrator/contact_subject', :action=>'index'}, {:class=>'toc_item active'}
+  %li
+    = link_to I18n.t("view_contact_us_submissions"), {:controller => 'administrator/contact', :action => 'index'}, {:class=>'toc_item active'}
+  %h3
+    =I18n.t("technical_functions")
+  %li
+    = link_to I18n.t("general_site_admin"), {:controller => 'administrator/site', :action => 'index'}, {:class=>'toc_item active'}
+  %li
+    = link_to I18n.t("view_error_log"), {:controller => 'administrator/error_log', :action => 'index'}, {:class=>'toc_item active'}
+  %li
+    = link_to I18n.t("add_new_user_roles"),{:controller=>'administrator/role', :action=>'index'}, {:class=>'toc_item active'}
+  %h3
+    =I18n.t("content_partners")
+  %li
+    = link_to I18n.t("content_partner_details"), {:controller => 'administrator/content_partner_report', :action => 'index'}, {:class=>'toc_item active'}
+  %li
+    = link_to I18n.t("content_partner_hierarchies"), {:controller => 'administrator/hierarchy', :action => 'index'}, {:class=>'toc_item active'}
+  %li
+    = link_to I18n.t("monthly_notification"), {:controller => 'administrator/content_partner_report', :action => 'monthly_stats_email'}, {:class => 'toc_item active', :confirm => I18n.t("send_email_notification_to_all")}
+  %li
+    = link_to I18n.t("monthly_published_partners"), {:controller => 'administrator/content_partner_report', :action => 'report_monthly_published_partners'}, {:class=>'toc_item active'}
+  %li
+    = link_to I18n.t("content_partner_curated_data"), {:controller => 'administrator/content_partner_report', :action => 'report_partner_curated_data'}, {:class=>'toc_item active'}
+  %li
+    = link_to I18n.t("content_partner_objects_stats"), {:controller => 'administrator/content_partner_report', :action => 'report_partner_objects_stats'}, {:class=>'toc_item active'}
+  %li
+    = link_to I18n.t("view_harvesting_log"), {:controller => 'administrator/harvesting_log', :action => 'index'}, {:class=>'toc_item active'}
+  %h3
+    =I18n.t("statistics")
+  %li
+    = link_to I18n.t("page_statistics_and_tools"), {:controller => 'administrator/stats', :action => 'index'}, {:class=>'toc_item active'}
+  %li
+    = link_to I18n.t("taxonomic_summary_of_content"), {:controller => 'administrator/stats', :action => 'content_taxonomic'}, {:class => 'toc_item active'}
+  %li
+    = link_to I18n.t("search_term_reports"), search_logs_url(:reverse => true, :averages => false), {:class=>'toc_item active'}
+  %li
+    = link_to I18n.t("table_of_contents_breakdown"), {:controller => 'administrator/stats', :action => 'toc_breakdown'}, {:class=>'toc_item active'}
+  %li
+    = link_to I18n.t("spm_category___objects_count"), {:controller => 'administrator/stats', :action => 'SPM_objects_count'}, {:class=>'toc_item active'}
+  %li
+    = link_to I18n.t("spm_category___partner_count"), {:controller => 'administrator/stats', :action => 'SPM_partners_count'}, {:class=>'toc_item active'}
 
-    %h3
-      =I18n.t("data_usage_reports")
+  %h3
+    =I18n.t("data_usage_reports")
+  %li
+    = link_to(I18n.t("google_analytics__google_accou"),'https://www.google.com/analytics/settings/?et=reset&hl=en#scid=3298646',:target=>'_blank', :class=>'toc_item active' )
+  /
+    =I18n.t("disabled_for_now")
     %li
-      = link_to(I18n.t("google_analytics__google_accou"),'https://www.google.com/analytics/settings/?et=reset&hl=en#scid=3298646',:target=>'_blank', :class=>'toc_item active' )
-    / 
-      =I18n.t("disabled_for_now")
-      %li
-        = link_to I18n.t("all_changes"),{:controller=>'/administrator/reports', :action=>'admin_whole_report'}, {:class=>"toc_item active"}
-    / TODO: do bullets active dynamically, as for content-partner
+      = link_to I18n.t("all_changes"),{:controller=>'/administrator/reports', :action=>'admin_whole_report'}, {:class=>"toc_item active"}

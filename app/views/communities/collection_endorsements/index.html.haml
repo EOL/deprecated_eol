@@ -1,13 +1,5 @@
 #sidebar
   .collection_contributors
-    %h3= I18n.t(:founder)
-    - # FIXME: founder is just returning the first member which may or may not be the founder
-    %ul
-      %li
-        = link_to image_tag(@community.founder.user.logo_url, :alt => @community.founder.user.short_name), @community.founder.user
-        %h4= link_to @community.founder.user.short_name, @community.founder.user
-        %p= @community.founder.user.tag_line
-  .collection_contributors
     %h3= I18n.t(:most_active_members)
     - # FIXME: top_active_members needs actual measure of activiy
     %ul

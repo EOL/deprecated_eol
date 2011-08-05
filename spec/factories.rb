@@ -408,7 +408,6 @@ end
 Factory.define :community do |c|
   c.name        { Faker::Lorem.words.join(' ').titleize }
   c.description { Faker::Lorem.paragraph }
-  c.show_special_privileges false
 end
 
 Factory.define :community_activity_log do |cal|
@@ -776,11 +775,6 @@ Factory.define :page_name do |pn|
   pn.association :item_page
 end
 
-Factory.define :privilege do |p|
-  p.level 10
-  p.special false
-end
-
 Factory.define :publication_title do |pt|
   pt.short_title 'hello'
   pt.author      'bob'
@@ -849,15 +843,6 @@ end
 Factory.define :resource_status do |rs|
 end
 
-Factory.define :role do |r|
-  r.title { Factory.next(:string) }
-end
-
-Factory.define :roles_user do |ru|
-  ru.association  :user
-  ru.association  :role
-end
-
 Factory.define :search_suggestion do |ss|
   ss.term            'searchterm'
   ss.language_label  'en'
@@ -879,7 +864,7 @@ Factory.define :sort_style do |sc|
 end
 
 Factory.define :special_collection do |sc|
-  sc.name             { Factory.next(:string) }
+  sc.name { Factory.next(:string) }
 end
 
 Factory.define :status do |s|
@@ -1056,12 +1041,6 @@ Factory.define :translated_news_item do |r|
   r.title           { Faker::Lorem.words[rand(4) + 1].titleize }
 end
 
-Factory.define :translated_privilege do |r|
-  r.association     :privilege
-  r.language        { Language.english }
-  r.name            { Factory.next(:string).gsub(/[^A-Za-z0-9]/, ' ') }
-end
-
 Factory.define :translated_rank do |r|
   r.association     :rank
   r.language        { Language.english }
@@ -1135,6 +1114,7 @@ Factory.define :untrust_reason do |ur|
 end
 
 Factory.define :user do |u|
+  u.admin                     false
   u.default_taxonomic_browser 'text'
   u.expertise                 'middle'
   u.remote_ip                 { "123.45.67.1#{rand(10)}" }

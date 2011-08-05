@@ -40,16 +40,6 @@ class ApplicationController < ActionController::Base
     I18n.locale = current_user.language_abbr
   end
 
-  # TODO - test
-  def self.access_control(sym)
-    before_filter do |c|
-      priv = Privilege.send(sym)
-      unless c.current_user.special && c.current_user.special.can?(priv)
-        c.send(:access_denied) # You must send the method, otherwise flashes and redirects don't work.
-      end
-    end
-  end
-
   def rescue_action(e)
     case e
     when EOL::Exceptions::MustBeLoggedIn
@@ -416,10 +406,6 @@ class ApplicationController < ActionController::Base
   def check_authentication
     must_log_in unless logged_in?
     return false
-  end
-
-  def is_user_admin?
-    return current_user.is_admin?
   end
 
   # used as a before_filter on methods that you don't want users to see if they are logged in

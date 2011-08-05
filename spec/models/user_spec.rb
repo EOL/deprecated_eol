@@ -204,13 +204,13 @@ describe User do
   end
 
   it '(curator user) should allow curator rights to be revoked' do
+    Role.gen(:title => 'Curator') rescue nil
     @curator.approve_to_curate
     @curator.save!
-    Role.gen(:title => 'Curator') rescue nil
-    @curator.is_curator?.should be_true
+    @curator.curator_level_id.nil?.should_not be_true
     @curator.revoke_curator
     @curator.reload
-    @curator.is_curator?.should be_false
+    @curator.curator_level_id.nil?.should be_true
   end
 
   it '(in the special community) should be a member of the special community' do

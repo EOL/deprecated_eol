@@ -431,7 +431,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   # NOTE: Careful!  This one means "any kind of curator"... which may not be what you want.  For example, an
   # assistant curator can't see vetting controls, so don't use this; use #min_curator_level?(:full) or the like.
   def is_curator?
-    curator_level_id
+    self.curator_level_id
   end
 
   def is_pending_curator?
@@ -440,15 +440,15 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   # NOTE: Careful!  The next three methods are for checking the EXACT curator level.  See also #min_curator_level?.
   def master_curator?
-    curator_level_id == CuratorLevel.master.id
+    self.curator_level_id == CuratorLevel.master.id
   end
 
   def full_curator?
-    curator_level_id == CuratorLevel.full.id
+    self.curator_level_id == CuratorLevel.full.id
   end
 
   def assistant_curator?
-    curator_level_id == CuratorLevel.assistant.id
+    self.curator_level_id == CuratorLevel.assistant.id
   end
 
   def min_curator_level?(level)

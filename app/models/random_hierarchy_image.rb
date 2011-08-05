@@ -47,7 +47,7 @@ class RandomHierarchyImage < SpeciesSchemaModel
     
     RandomHierarchyImage.preload_associations(random_image_result,
       [ :data_object,
-        { :taxon_concept => { :published_hierarchy_entries => { :name => [ :canonical_form, :ranked_canonical_form ] }, :preferred_common_names => :name } } ],
+        { :taxon_concept => { :published_hierarchy_entries => { :name => [ :canonical_form, :ranked_canonical_form ] } } } ],
       :select => {
         :data_objects => [ :id, :object_cache_url, :data_type_id ],
         :names => [ :id, :italicized, :string, :canonical_form_id, :ranked_canonical_form_id ],

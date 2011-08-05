@@ -38,8 +38,10 @@
 <br /><br />
 #content_pages_div
   %ul
+    - first = @content_pages.first
+    - last = @content_pages.last
     - for content_page in @content_pages
-      = render(:partial => 'content_page_list', :locals => {:content_page => content_page})
+      = render(:partial => 'content_page_list', :locals => {:content_page => content_page, :is_first => (content_page==first), :is_last => (content_page==last)  })
           
            
              

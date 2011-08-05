@@ -903,6 +903,7 @@ en:
   your_current_rating_3_of_5: "Your current rating: 3 of 5"
   your_current_rating_4_of_5: "Your current rating: 4 of 5"
   your_current_rating_5_of_5: "Your current rating: 5 of 5"
+  current_language: "Language: %{iso_code}"
   currently_in_eol: "Currently in the Encyclopedia of Life"
   currently_published: "currently published"
   ___currently__the_eol_is_compo: ". Currently, the EOL is composed of five working groups:"

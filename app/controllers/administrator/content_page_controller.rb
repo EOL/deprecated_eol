@@ -16,10 +16,10 @@ class Administrator::ContentPageController < AdminController
    sort_order = current_page.sort_order
    new_sort_order = sort_order - 1
    #find page with the same parent with sort order = current sort order -1 
-   swap_page = ContentPage.find_by_parent_content_page_id_and_sort_order(current_page.parent_content_page_id, new_sort_order)
+   if swap_page = ContentPage.find_by_parent_content_page_id_and_sort_order(current_page.parent_content_page_id, new_sort_order)
+     swap_page.update_attribute(:sort_order, sort_order)
+   end
    current_page.update_attribute(:sort_order, new_sort_order)
-   swap_page.update_attribute(:sort_order, sort_order)
-   
    flash[:notice] = I18n.t("content_has_been_updated")
    redirect_to :action => 'index'
  end
@@ -29,11 +29,11 @@ class Administrator::ContentPageController < AdminController
    sort_order = current_page.sort_order
    new_sort_order = sort_order + 1
    #find page with the same parent with sort order = current sort order +1 
-   swap_page = ContentPage.find_by_parent_content_page_id_and_sort_order(current_page.parent_content_page_id, new_sort_order)
    #swap the two orders
+   if swap_page = ContentPage.find_by_parent_content_page_id_and_sort_order(current_page.parent_content_page_id, new_sort_order)
+     swap_page.update_attribute(:sort_order, sort_order)
+   end
    current_page.update_attribute(:sort_order, new_sort_order)
-   swap_page.update_attribute(:sort_order, sort_order)
-   
    flash[:notice] = I18n.t("content_has_been_updated")
    redirect_to :action => 'index'
  end
@@ -54,9 +54,8 @@ class Administrator::ContentPageController < AdminController
  
  # pull the updated content from the querystring to build the preview version of the page 
  def preview
-   #@content = ContentPage.new(params[:page])
+   @page_title = params[:page][:translated_title]
    render :layout => 'v2/basic'
-	 @page_title = params[:page][:translated_main_content]
  end
  
  def new
@@ -214,6 +213,7 @@ class Administrator::ContentPageController < AdminController
     page.active = params[:page][:active]
     page.parent_content_page_id = params[:page][:parent_content_page_id]
     page.last_update_user_id = current_user.id
+    page.sort_order = ContentPage.max_view_order_by_parent_id(params[:page][:parent_content_page_id]) + 1
     if page.valid?
       page.save
       translated_page = TranslatedContentPage.new

@@ -8,8 +8,6 @@ require 'spec/scenario_helpers'
 # This gives us the ability to build taxon concepts:
 include EOL::Spec::Helpers
 
-Community.special # Raises an exception if it's missing.  If that happens to you, figure out why foundation wasn't properly loaded.
-
 results = {}
 
 results[:name_for_all_types] = 'panda' # every item type should have a panda entry

@@ -22,6 +22,6 @@
         - if @current_member && @current_member.manager? && ! member.user.id == current_user.id
           = link_to I18n.t(:revoke_manager_link), revoke_manager_community_member_path(@community, member), :confirm => I18n.t(:are_you_sure)
       - elsif @current_member && @current_member.manager? && ! member.user.id == current_user.id
-          = link_to I18n.t(:grant_manager_link), grant_manager_community_member_path(@community, member)
+        = link_to I18n.t(:grant_manager_link), grant_manager_community_member_path(@community, member)
       - if @current_member && @current_member.manager? && ! member.user.id == current_user.id
         = link_to I18n.t(:remove_membership), [@community, member], :method => :delete, :confirm => I18n.t(:are_you_sure)

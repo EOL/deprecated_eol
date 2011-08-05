@@ -31,18 +31,15 @@ module ActiveRecord
             puts "** WARNING: Solr connection failed."
             return nil
           end
-          
+
           self.keywords_to_send_to_solr_index.each do |params|
             solr_connection.create(params)
           end
         end
-        
+
         define_method(:keywords_to_send_to_solr_index) do
           keywords_to_send_to_solr = []
-          # making some exceptions for the special community and its collection which are not to be returned in searches
-          return [] if self.class == Community && self == Community.special
-          return [] if self.class == Collection && self.community_id == Community.special.id
-          
+
           params = {
             'resource_type'       => self.class.to_s,
             'resource_id'         => self.id,
@@ -50,12 +47,12 @@ module ActiveRecord
           }
           params['date_created'] = self.created_at.solr_timestamp if self.respond_to?('created_at') && self.created_at
           params['date_modified'] = self.updated_at.solr_timestamp if self.respond_to?('updated_at') && self.updated_at
-          
+
           if self.class == DataObject && !self.data_type_id.blank?
             data_type_label = self.is_video? ? 'Video' : self.data_type.label('en')
             params['resource_type'] = [self.class.to_s, data_type_label]
           end
-          
+
           options[:keywords] ||= []
           options[:keywords].each do |field_or_method|
             if self.respond_to?(field_or_method)
@@ -90,7 +87,7 @@ module ActiveRecord
               raise "NoMethodError: undefined method `#{field_or_method}' for #{self.class.to_s}"
             end
           end
-          
+
           # English as default language might make sense
           keywords_to_send_to_solr.each do |k|
             k[:language] ||= 'en'

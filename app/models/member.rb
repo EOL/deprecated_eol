@@ -9,4 +9,12 @@ class Member < ActiveRecord::Base
 
   # You should be able to call manager? to test whether the member is ... uhhh... a manager.
 
+  def grant_manager
+    self.update_attribute(:manager, true)
+  end
+
+  def revoke_manager
+    self.update_attribute(:manager, false)
+  end
+
 end

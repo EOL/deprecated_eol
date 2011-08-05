@@ -12,9 +12,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :communities, :member => { 'join' => :get, 'leave' => :get } do |community|
     community.resource :newsfeed, :only => [:show], :namespace => "communities/"
     community.resources :collection_endorsements, :namespace => "communities/"
-    community.resources :members, :namespace => "communities/",
-      # TODO - these shouldn't be GETs, but I really want them to be links, not forms, sooooo...
-      :member => {'grant_manager' => :get, 'revoke_manager' => :get}
+    # TODO - these shouldn't be GETs, but I really want them to be links, not forms, sooooo...
+    community.resources :members, :member => {'grant_manager' => :get, 'revoke_manager' => :get}
   end
 
   map.resources :collections, :member => { :choose => :get }

@@ -57,21 +57,21 @@ describe DataObject do
 
   it 'should be able to replace wikipedia articles' do
     TocItem.gen_if_not_exists(:label => 'wikipedia')
-    
+
     published_do = build_data_object('Text', 'This is a test wikipedia article content', :published => 1, :vetted => Vetted.trusted, :visibility => Visibility.visible)
     DataObjectsTaxonConcept.gen(:taxon_concept_id => @taxon_concept.id, :data_object_id => published_do.id)
     published_do.toc_items << TocItem.wikipedia
     published_do_association = published_do.association_with_exact_or_best_vetted_status(@taxon_concept)
-    
+
     preview_do = build_data_object('Text', 'This is a test wikipedia article content', :guid => published_do.guid, :published => 1, :vetted => Vetted.unknown, :visibility => Visibility.preview)
     DataObjectsTaxonConcept.gen(:taxon_concept_id => @taxon_concept.id, :data_object_id => preview_do.id)
     preview_do.toc_items << TocItem.wikipedia
     preview_do_association = preview_do.association_with_exact_or_best_vetted_status(@taxon_concept)
-    
+
     published_do.published.should == true
     preview_do_association.visibility.should == Visibility.preview
     preview_do_association.vetted.should == Vetted.unknown
-debugger
+
     preview_do.publish_wikipedia_article(@taxon_concept)
     published_do.reload
     preview_do.reload

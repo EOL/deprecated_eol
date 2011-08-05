@@ -14,8 +14,6 @@ class DataObject < SpeciesSchemaModel
   belongs_to :language
   belongs_to :license
   belongs_to :mime_type
-  belongs_to :visibility
-  belongs_to :vetted
 
   # this is the DataObjectTranslation record which links this translated object
   # to the original data object

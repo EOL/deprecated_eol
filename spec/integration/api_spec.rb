@@ -69,8 +69,6 @@ describe 'EOL APIs' do
       :latitude               => 1.234,
       :longitude              => 12.34,
       :altitude               => 123.4,
-      :vetted                 => Vetted.trusted,
-      :visibility             => Visibility.visible,
       :published              => 1,
       :curated                => 0)
     @object.info_items << InfoItem.gen_if_not_exists(:label => 'Distribution')

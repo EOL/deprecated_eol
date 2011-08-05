@@ -545,8 +545,6 @@ Factory.define :data_object do |dato|
   dato.created_at             { 5.days.ago }
   dato.updated_at             { 3.days.ago }
   dato.data_rating            2.5
-  dato.vetted                 { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'trusted') }
-  dato.visibility             { Visibility.visible || Visibility.gen_if_not_exists(:label => 'visible') }
   dato.published              true
 end
 

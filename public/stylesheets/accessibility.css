@@ -137,8 +137,8 @@ form#switch_hierarchy_entry fieldset {
   margin: 20px 0 0 0; }
 
 #main .header .pagination {
-  position: absolute;
-  top: 13px;
+  position: relative;
+  top: 5px;
   left: 0;
   width: 100%; }
   #main .header .pagination a {
@@ -224,7 +224,9 @@ p.status.error {
 
 /*Adjustments for when missing exemplar image */
 #media_list #sidebar img, #taxon_detail #sidebar img {
-  margin-bottom: 0; }
+  margin-bottom: 0;
+  margin-left: auto;
+  margin-right: auto; }
 #media_list #sidebar h3, #taxon_detail #sidebar h3 {
   margin-top: 20px; }
 #media_list #sidebar h4 a, #taxon_detail #sidebar h4 a {

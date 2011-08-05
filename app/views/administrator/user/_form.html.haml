@@ -88,19 +88,19 @@
       (
       = @user.failed_login_attempts
       =I18n.t("failed_login_attempts___must_b")
-  %tr
-    %td
-      %strong
-        =I18n.t("roles_")
-    %td
-      #roles_toggle
-        %a{ :href => "#roles", :onclick => "javascript:$('#roles').show();$('#roles_toggle').hide();return false;" }
-          =I18n.t("_show_roles_")
-      #roles{ :style => "display:none;" }
-        - Role.find(:all, :order => 'title').each do |role|
-          = check_box_tag "user[role_ids][]", role.id, @user.roles.include?(role)
-          = role.title
-          %br
+  / %tr
+  /   %td
+  /     %strong
+  /       =I18n.t("roles_")
+  /   %td
+  /     #roles_toggle
+  /       %a{ :href => "#roles", :onclick => "javascript:$('#roles').show();$('#roles_toggle').hide();return false;" }
+  /         =I18n.t("_show_roles_")
+  /     #roles{ :style => "display:none;" }
+  /       - Role.find(:all, :order => 'title').each do |role|
+  /         = check_box_tag "user[role_ids][]", role.id, @user.roles.include?(role)
+  /         = role.title
+  /         %br
   %tr
     %td
       %strong

@@ -11,13 +11,14 @@
   %ul#random_taxa_index{"data-role" => "listview", "data-inset"=>"true"}
     %li{"data-role"=>"list-divider"}=t "mobile.contents.species"
     -@explore_taxa.map do |t|
-      %li
-        -# =link_to mobile_taxon_path(t.taxon_concept_id) do      --DOES NOT WORK, THE SCRIPT LOOPS AND FREEZES--
-        %a{:href => mobile_taxon_path(t.taxon_concept_id)}
-          = image_tag(t.data_object.thumb_or_object('130_130'), :alt => t.taxon_concept.title_canonical, :class => "listview_thumb")
-          %h3= t.taxon_concept.title_canonical
-          - if t.taxon_concept.entry.respond_to? :preferred_classification_summary
-            %p= t.taxon_concept.entry.preferred_classification_summary
+      - if thumb = t.data_object.thumb_or_object('130_130')
+        %li
+          -# =link_to mobile_taxon_path(t.taxon_concept_id) do      --DOES NOT WORK, THE SCRIPT LOOPS AND FREEZES--
+          %a{:href => mobile_taxon_path(t.taxon_concept_id)}
+            = image_tag(thumb, :alt => t.taxon_concept.title_canonical, :class => "listview_thumb")
+            %h3= t.taxon_concept.title_canonical
+            - if t.taxon_concept.entry.respond_to? :preferred_classification_summary
+              %p= t.taxon_concept.entry.preferred_classification_summary
 
   %ul{"data-role" => "listview", "data-inset"=>"true", "data-theme"=>"c", "list-divider-theme"=>"e"}
     %li.taxon

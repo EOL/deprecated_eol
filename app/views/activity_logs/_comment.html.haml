@@ -11,6 +11,6 @@
     - what = item.parent.summary_name
   %p= I18n.t(:user_commented_on_something_colon, :user => h(item.user.short_name), :what => what)
   %blockquote{:cite => h(item.user.short_name)}
-    %p= h item.body
+    %p= item.body
   %p.meta= I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))
 

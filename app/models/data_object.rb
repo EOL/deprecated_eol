@@ -580,6 +580,7 @@ class DataObject < SpeciesSchemaModel
   end
 
   def self.image_cache_path(cache_url, size = :large, subdir = $CONTENT_SERVER_CONTENT_PATH)
+    return if cache_url.blank?
     size = size ? "_" + size.to_s : ''
     cache_path(cache_url, subdir) + "#{size}.#{$SPECIES_IMAGE_FORMAT}"
   end
@@ -595,7 +596,11 @@ class DataObject < SpeciesSchemaModel
   end
 
   def thumb_or_object(size = :large)
-    return DataObject.image_cache_path(object_cache_url, size)
+    if self.is_video?
+      return DataObject.image_cache_path(thumbnail_cache_url, size)
+    else
+      return DataObject.image_cache_path(object_cache_url, size)
+    end
   end
 
   # Returns path to a thumbnail.

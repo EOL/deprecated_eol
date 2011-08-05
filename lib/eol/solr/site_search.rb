@@ -92,7 +92,7 @@ module EOL
           :vetted => :view_order,
           :hierarchy_entries_flattened => '*',
           :taxon_concept_content => [ :taxon_concept_id, :image_object_id ],
-          :data_objects => [ :id, :object_cache_url ]
+          :data_objects => [ :id, :object_cache_url, :data_type_id ]
         }
         ids = docs.map{ |d| d['resource_id'] }
         return if ids.blank?

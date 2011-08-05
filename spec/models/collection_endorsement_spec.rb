@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe CollectionEndorsement do
 
   before(:all) do
-    load_foundation_cache # Needs too much stuff... English, default roles, feed item types, etc...
+    load_foundation_cache # Needs too much stuff... English, feed item types, etc...
     @community = Community.gen
     @good_collection = Collection.gen
     @bad_collection = Collection.gen

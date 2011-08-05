@@ -695,7 +695,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     editable_collections = collections
     members.each do |member|
       begin
-        editable_collections << member.community.focus_collection if member.can?(Privilege.edit_collections)
+        editable_collections << member.community.focus_collection if member.manager?
       rescue
         # TODO ... what is causing this?  member.community.respond_to?(:focus_collection) => true, but
         # when you call it, it fails.  GRRR!

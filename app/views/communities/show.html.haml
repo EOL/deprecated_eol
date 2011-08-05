@@ -1,18 +1,15 @@
-- #FIXME: move all this extra stuff to appropriate tab show
-- roles = @community.roles
-= render :partial => 'roles/index', :locals => {:roles => roles}
 - i_am_in_this_community = current_user.member_of?(@community)
 -# TODO: Understand what member and non_member business is about?
 - member_function = i_am_in_this_community ? 'member allowed' : 'member not_allowed'
 - non_member_function = i_am_in_this_community ? 'non_member not_allowed' : 'non_member allowed'
 = render :partial => 'members/index', :locals => {:i_am_in_this_community => i_am_in_this_community, :member_function => member_function, :non_member_function => non_member_function }
 
-    - if @current_member && @current_member.can?(Privilege.edit_community)
+    - if @current_member && @current_member.manager?
   %h2= I18n.t(:manage_community)
   %ul
     %li{ :class => "edit_community #{ member_function}" }
       = link_to( I18n.t(:edit_community) , edit_community_path(@community))
-    - if @current_member.can?(Privilege.delete_community)
+    - if @current_member.manager?
       %li{:class => "delete_community #{ member_function }" }
         = link_to( I18n.t(:delete_community) , community_path(@community), :confirm => I18n.t(:are_you_sure) , :method => :delete)
 

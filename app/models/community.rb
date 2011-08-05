@@ -5,7 +5,6 @@ class Community < ActiveRecord::Base
   has_one :collection #TODO - didn't work? , :as => :focus
 
   has_many :members
-  has_many :roles
   has_many :collection_items, :as => :object
   has_many :collection_endorsements
   has_many :collections, :through => :collection_endorsements # NOTE: be sure to check each for actually being endorsed!
@@ -40,7 +39,7 @@ class Community < ActiveRecord::Base
   alias_attribute :summary_name, :name
 
   # TODO - test
-  # Adds the default roles, auto-joins the user to the community, and makes that person the owner.
+  # Auto-joins the user to the community, and makes that person the owner.
   def initialize_as_created_by(user)
     mem = user.join_community(self)
     mem.update_attribute(:manager, true)

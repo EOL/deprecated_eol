@@ -431,7 +431,7 @@ class ApplicationController < ActionController::Base
     redirect_to root_url
   end
 
-  # A user is not authorized for the particular controller based on the rights for the roles they are in
+  # A user is not authorized for the particular controller/action:
   def access_denied
     flash_and_redirect_back(I18n.t(:you_are_not_authorized_to_perform_this_action))
   end

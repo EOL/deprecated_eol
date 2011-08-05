@@ -34,8 +34,8 @@ describe "Members controller (within a community)" do
   end
 
   #TODO
-  it 'should be able to grant manager role'
-  it 'should be able to revoke manager role'
+  it 'should be able to grant manager'
+  it 'should be able to revoke manager'
 
   it 'members should have a link to the user\'s page' do
     @community_member_page.should have_tag("a[href=#{user_path(@user)}]")

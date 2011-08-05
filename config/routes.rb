@@ -6,22 +6,16 @@ ActionController::Routing::Routes.draw do |map|
 
   map.placeholder 'placeholder', :action => 'not_yet_implemented', :controller => 'application'
 
-  # Communities, Privileges, Roles, Feeds:
   map.resources :feed_items
-  map.resources :privileges
   # Communities nested resources
   # TODO - these member methods want to be :put. Capybara, however, always uses :get, so in the interests of simple tests:
-  map.resources :communities, :has_many => [:members, :roles], :member => { 'join' => :get, 'leave' => :get } do |community|
+  map.resources :communities, :member => { 'join' => :get, 'leave' => :get } do |community|
     community.resource :newsfeed, :only => [:show], :namespace => "communities/"
     community.resources :collection_endorsements, :namespace => "communities/"
+    community.resources :members, :namespace => "communities/",
+      # TODO - these shouldn't be GETs, but I really want them to be links, not forms, sooooo...
+      :member => {'grant_manager' => :get, 'revoke_manager' => :get}
   end
-  map.resources :members, :member => {
-    'grant_privilege_to' => :post, 'revoke_privilege_from' => :delete,
-    'add_role_to' => :post, 'remove_role_from' => :delete }
-
-  map.add_privilege_to_role 'roles/:role_id/add_privilege/:privilege_id', :controller => 'roles', :action => 'add_privilege'
-  map.remove_privilege_from_role 'roles/:role_id/remove_privilege/:privilege_id',
-    :controller => 'roles', :action => 'remove_privilege'
 
   map.resources :collections, :member => { :choose => :get }
   map.resources :collection_items, :except => [:index, :show, :new, :destroy]

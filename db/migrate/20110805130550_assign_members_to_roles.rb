@@ -1,3 +1,5 @@
+class Role < ActiveRecord::Base # We don't want this model ANYWHERE else, it's only for this migration.
+end
 class RolesUser < ActiveRecord::Base # We don't want this model ANYWHERE else, it's only for this migration.
   belongs_to :role
   belongs_to :user

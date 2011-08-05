@@ -20,7 +20,7 @@ module EOL
     #     nothing else worked.
     #   +agent_role+::
     #     If specified (as either a string or an AgentRole instance), this dato will be related to the agent with
-    #     this role.  If missing, 'Author' will be used.
+    #     this agent_role.  If missing, 'Author' will be used.
     #   +content_partner+::
     #     If specified, a Resource, HarvestEvent, and all relationships between them will be created.
     #   +hierarchy_entry+::

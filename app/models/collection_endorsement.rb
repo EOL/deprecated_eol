@@ -17,8 +17,7 @@ class CollectionEndorsement < ActiveRecord::Base
   end
 
   def endorsed_by(mem)
-    raise EOL::Exceptions::SecurityViolation.new("This member cannot endorse collections.") unless
-      mem.can? Privilege.endorse_collections
+    raise EOL::Exceptions::SecurityViolation.new("This member cannot endorse collections.") unless mem.manager?
     update_attribute(:member_id, mem.id)
   end
 

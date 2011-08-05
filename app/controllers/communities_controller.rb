@@ -103,19 +103,19 @@ private
     # TODO: Should we have a redirect to error page here if @community is not found i.e. nil?
     @members = @community.members # Because we pull in partials from the members controller.
     @current_member = current_user.member_of(@community)
-    if @current_member && @current_member.can?(Privilege.endorse_collections)
+    if @current_member && @current_member.manager?
       @pending_collections = @community.pending_collections
     end
   end
 
   def restrict_edit
     @current_member ||= current_user.member_of(@community)
-    raise EOL::Exceptions::SecurityViolation unless @current_member && @current_member.can?(Privilege.edit_community)
+    raise EOL::Exceptions::SecurityViolation unless @current_member && @current_member.manager?
   end
 
   def restrict_delete
     @current_member ||= current_user.member_of(@community)
-    raise EOL::Exceptions::SecurityViolation unless @current_member && @current_member.can?(Privilege.delete_community)
+    raise EOL::Exceptions::SecurityViolation unless @current_member && @current_member.manager?
   end
 
   def must_be_logged_in

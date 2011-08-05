@@ -31,7 +31,7 @@ class Administrator::UserController  < AdminController
 
     if export
       @users = User.find(:all,
-        :conditions=>[condition,
+        :conditions => [condition,
         @start_date_db,
         @end_date_db,
         @user_search_string,
@@ -41,23 +41,23 @@ class Administrator::UserController  < AdminController
          search_string_parameter,
          search_string_parameter,
          search_string_parameter],
-        :order=>'created_at desc')
+        :order => 'created_at desc')
       report = StringIO.new
       CSV::Writer.generate(report, ',') do |title|
           title << ['Id', 'Username', 'Name', 'Email', 'Registered Date', 'Mailings?']
           @users.each do |u|
             created_at = ''
-            created_at=u.created_at.strftime("%m/%d/%y - %I:%M %p %Z") unless u.created_at.blank?
+            created_at = u.created_at.strftime("%m/%d/%y - %I:%M %p %Z") unless u.created_at.blank?
             title << [u.id, u.username, u.full_name, u.email, created_at, u.mailing_list]
           end
        end
        report.rewind
-       send_data(report.read, :type=>'text/csv; charset=iso-8859-1; header=present', :filename => 'EOL_users_report_' + Time.now.strftime("%m_%d_%Y-%I%M%p") + '.csv', :disposition =>'attachment', :encoding => 'utf8')
+       send_data(report.read, :type => 'text/csv; charset=iso-8859-1; header=present', :filename => 'EOL_users_report_' + Time.now.strftime("%m_%d_%Y-%I%M%p") + '.csv', :disposition => 'attachment', :encoding => 'utf8')
        return false
     end
 
     @users = User.paginate(
-      :conditions=>[condition,
+      :conditions => [condition,
       @start_date_db,
       @end_date_db,
       @user_search_string,
@@ -67,11 +67,11 @@ class Administrator::UserController  < AdminController
        search_string_parameter,
        search_string_parameter,
        search_string_parameter],
-      :order=>'created_at desc', :page => params[:page])
+      :order => 'created_at desc', :page => params[:page])
 
 
     @user_count = User.count(
-      :conditions=>[condition,
+      :conditions => [condition,
         @start_date_db,
         @end_date_db,
       @user_search_string,
@@ -86,34 +86,33 @@ class Administrator::UserController  < AdminController
 
   def edit
     store_location(referred_url) if request.get?
-    @user=User.find(params[:id])
+    @user = User.find(params[:id])
     @page_title = I18n.t("edit_var__user_username", :var__user_username => @user.username)
   end
 
   def new
     @page_title = I18n.t("new_user")
     store_location(referred_url) if request.get?
-    @user=User.create_new
+    @user = User.create_new
   end
 
   def create
 
-    @user=User.create_new(params[:user])
-    @message=params[:message]
+    @user = User.create_new(params[:user])
+    @message = params[:message]
 
     Notifier.deliver_user_message(@user.full_name, @user.email, @message) unless @message.blank?
 
-    @user.password=@user.entered_password
-    params[:user][:role_ids] ||= []
+    @user.password = @user.entered_password
 
     if @user.save
       if EOLConvert.to_boolean(params[:user][:curator_approved])
         @user.grant_curator(:full, :by => current_user)
       end
       flash[:notice] = I18n.t("the_new_user_was_created")
-      redirect_back_or_default(url_for(:action=>'index'))
+      redirect_back_or_default(url_for(:action => 'index'))
     else
-      render :action=>'new'
+      render :action => 'new'
     end
 
   end
@@ -122,19 +121,19 @@ class Administrator::UserController  < AdminController
 
    @user = User.find(params[:id])
    was_curator = @user.full_curator? || @user.master_curator?
-   @message=params[:message]
+   @message = params[:message]
 
    Notifier.deliver_user_message(@user.full_name, @user.email, @message) unless @message.blank?
 
-   user_params=params[:user]
+   user_params = params[:user]
 
    unless user_params[:entered_password].blank? && user_params[:entered_password_confirmation].blank?
       if user_params[:entered_password].length < 4 || user_params[:entered_password].length > 16
          @user.errors.add_to_base( I18n.t(:password_must_be_4to16_characters) )
-         render :action=>'edit'
+         render :action => 'edit'
          return
      end
-     @user.password=user_params[:entered_password]
+     @user.password = user_params[:entered_password]
    end
 
    if @user.update_attributes(user_params)
@@ -146,9 +145,9 @@ class Administrator::UserController  < AdminController
         end
       end
       flash[:notice] = I18n.t("the_user_was_updated")
-      redirect_back_or_default(url_for(:action=>'index'))
+      redirect_back_or_default(url_for(:action => 'index'))
     else
-      render :action=>'edit'
+      render :action => 'edit'
     end
   end
 
@@ -192,7 +191,7 @@ class Administrator::UserController  < AdminController
   end
 
   def login_as_user
-      user=User.find_by_id(params[:id])
+      user = User.find_by_id(params[:id])
       if !user.blank?
         reset_session
         set_current_user(user)

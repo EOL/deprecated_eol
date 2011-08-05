@@ -494,7 +494,7 @@ class DataObject < SpeciesSchemaModel
     # rights holder is preferred
     return rights_holder, nil unless rights_holder.blank?
 
-    # otherwise choose agents ordered by preferred role
+    # otherwise choose agents ordered by preferred agent_role
     role_order = [ AgentRole.author, AgentRole.photographer, AgentRole.source,
                    AgentRole.editor, AgentRole.contributor ]
     role_order.each do |role|

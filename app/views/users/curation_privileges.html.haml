@@ -6,6 +6,18 @@
         = validation_errors_for(@user)
         %fieldset
           %dl
+
+            %dt.required
+              = f.label :given_name
+              %small.assistive= I18n.t(:required_form_element)
+            %dd
+              = f.text_field :given_name
+            %dt.required
+              = f.label :family_name
+              %small.assistive= I18n.t(:required_form_element)
+            %dd
+              = f.text_field :family_name
+          
             %dt.curation_level
               = f.label :requested_curator_level_id
             %dd

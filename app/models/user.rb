@@ -55,6 +55,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   validates_presence_of :curator_verdict_at, :if => Proc.new { |obj| !obj.curator_verdict_by.blank? }
   validates_presence_of :credentials, :if => :curator_attributes_required?
   validates_presence_of :curator_scope, :if => :curator_attributes_required?
+  validates_presence_of :given_name, :if => :first_last_names_required?
+  validates_presence_of :family_name, :if => :first_last_names_required?
   validates_presence_of :username
 
   validates_length_of :username, :within => 4..32
@@ -783,6 +785,12 @@ private
     (!self.curator_level_id.nil? && !self.curator_level_id.zero? &&
       self.curator_level_id != CuratorLevel.assistant_curator.id)
   end
+  
+  def first_last_names_required?
+    (!self.requested_curator_level_id.nil? && !self.requested_curator_level_id.zero?) ||
+    (!self.curator_level_id.nil? && !self.curator_level_id.zero?)
+  end
+  
   # before_save TODO - could replace this with actual method that does all approvals however that is going to work
   # TODO - this is not hooked up with the V1 curator approved attributes - need more info
   def instantly_approve_curator_level

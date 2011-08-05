@@ -784,23 +784,21 @@ class DataObject < SpeciesSchemaModel
   end
 
   def publish_wikipedia_article(taxon_concept)
-    dato_vetted = self.vetted_by_taxon_concept(@taxon_concept)
-    dato_vetted_id = dato_vetted.id unless dato_vetted.nil?
-    dato_visibility = self.visibility_by_taxon_concept(@taxon_concept)
-    dato_visibility_id = dato_visibility.id unless dato_visibility.nil?
+    dato_association = self.association_with_exact_or_best_vetted_status(taxon_concept)
     return false unless in_wikipedia?
-    return false unless dato_visibility_id == Visibility.preview.id
+    return false unless dato_association.visibility_id == Visibility.preview.id
 
     SpeciesSchemaModel.connection.execute("UPDATE data_objects SET published=0 WHERE guid='#{guid}'");
     reload
     
-    dato_vetted = self.vetted_by_taxon_concept(@taxon_concept)
+    dato_vetted = self.vetted_by_taxon_concept(taxon_concept)
     dato_vetted_id = dato_vetted.id unless dato_vetted.nil?
-    dato_visibility = self.visibility_by_taxon_concept(@taxon_concept)
+    dato_visibility = self.visibility_by_taxon_concept(taxon_concept)
     dato_visibility_id = dato_visibility.id unless dato_visibility.nil?
     
-    dato_visibility_id = Visibility.visible.id
-    dato_vetted_id = Vetted.trusted.id
+    dato_association.visibility_id = Visibility.visible.id
+    dato_association.vetted_id = Vetted.trusted.id
+    dato_association.save!
     self.published = 1
     self.save!
   end

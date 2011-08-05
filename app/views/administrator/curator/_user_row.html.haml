@@ -1,0 +1,36 @@
+%td{ :class => column_class }
+  = link_to user.username, { :controller => :user, :action => :edit, :id => user.id }
+  - if user.curator_approved
+    %br
+    %small
+      (
+      = link_to(I18n.t(:curator_profile), { :controller => '/curators', :action => :profile, :id => user.id })
+      )
+%td{ :class => column_class }
+  .toggle-credentials.linky
+    = truncate(h(user.credentials))
+  %div{ :style => "display:none;" }
+    = allow_some_html(user.credentials)
+%td{ :class => column_class }
+  = h user.full_name
+- form_id = "user_curator_#{user.id}"
+%td{ :class => column_class, :style => user.requested_curator_level_id == CuratorLevel.full.id ? 'border: 2px solid red !important; background-color: #fee !important' : ''}
+  %strong
+    = I18n.t(:has_colon)
+  - if user.curator_level_id
+    = user.curator_level.label.split[0] # No, this is not I18n'zed
+    - if user.full_curator?
+      = link_to(I18n.t(:revoke_full_curator_link), "/administrator/user/revoke_curator?id=#{user.id}", :class => 'TEMPcurator_status')
+  - else
+    = I18n.t(:none)
+  %br
+  - if user.requested_curator_level_id
+    %strong
+      = I18n.t(:wants_colon)
+    = user.requested_curator_level.label.split[0] # No, this is not I18n'zed
+    - if user.requested_curator_level_id == CuratorLevel.full.id
+      = link_to(I18n.t(:grant_full_curator_link), "/administrator/user/grant_curator?id=#{user.id}", :class => 'TEMPcurator_status')
+%td{ :class => column_class, :id => "#{form_id}_at" }
+  = I18n.l(user.curator_verdict_at, :format => :short) unless user.curator_verdict_at.nil?
+%td{ :class => column_class, :id => "#{form_id}_by" }
+  = link_to(user.curator_verdict_by.username, :action=>'edit', :id=>user.id) unless user.curator_verdict_by.nil?

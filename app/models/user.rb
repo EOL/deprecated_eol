@@ -227,7 +227,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def curator_request
-    return true unless curator_approved || (curator_scope.blank? && credentials.blank?)
+    return true unless is_curator? || (curator_scope.blank? && credentials.blank?)
   end
 
   def activate
@@ -337,21 +337,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     tags.map(&:key).uniq
   end
 
-  # object might be a data object or taxon concept
-  def can_curate? object
-    return false unless curator_approved
-    return false unless object
-    raise "Don't know how to curate object of type #{ object.class }" unless object.respond_to?:is_curatable_by?
-    # object.is_curatable_by? self
-    true
-  end
-  alias is_curator_for? can_curate?
-
-  # TODO - TEST (or remove... this seems silly.)
-  def can_curate_taxon_concept_id? taxon_concept_id
-    can_curate? TaxonConcept.find(taxon_concept_id)
-  end
-
   def special
     @special ||= member_of(Community.special)
   end
@@ -360,57 +345,40 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     grant_special_role(Role.administrator)
   end
 
-  # Grants rights to their currently-selected HE.
-  def approve_to_curate
-    self.curator_approved = true
-    grant_special_role(Role.curator)
+  def grant_curator(level = :full, options = {})
+    level = CuratorLevel.send(level)
+    unless curator_level_id == level.id
+      self.update_attribute(:curator_level_id, level.id)
+      Notifier.deliver_curator_approved(self)
+      if options[:user]
+        self.update_attribute(:curator_verdict_by, options[:user])
+        self.update_attribute(:curator_verdict_at, Time.now)
+      end
+      # TODO -remove this... it's a ticket.  But for now, I want to be thorough:
+      grant_special_role(Role.curator)
+    end
+    self.update_attribute(:requested_curator_level_id, nil)
   end
+  alias approve_to_curate grant_curator
+
+  def revoke_curator
+    unless curator_level_id == nil
+      self.update_attribute(:curator_level_id, nil)
+      Notifier.deliver_curator_unapproved(self)
+    end
+    self.update_attribute(:curator_verdict_by, nil)
+    self.update_attribute(:curator_verdict_at, nil)
+    self.update_attribute(:requested_curator_level_id, nil)
+  end
+  alias revoke_curatorship revoke_curator
 
   def grant_special_role(role)
     join_community(Community.special)
     special.add_role(role)
   end
 
-  def revoke_curatorship
-    self.curator_approved = false
-    if special
-      special.remove_role(Role.curator)
-    end
-  end
-
-  # Grants or revokes rights to their currently-selected HE *and* updates fields indicating who allowed this (and when).
-  def approve_to_curate_by_user approved, updated_by
-    # TODO - this will happen EVERY time the user's record is updated by an admin. So the name curator_verdict_at is
-    # now misleading because it will get updated even when nothing about the user is changed (the edit form is loaded and
-    # immediately saved).
-    self.curator_verdict_at = Time.now
-    self.curator_verdict_by = updated_by
-    if (approved && ! curator_approved) # The user wasn't a curator and is now approved
-      approve_to_curate
-      Notifier.deliver_curator_approved(self)
-    elsif ((! approved) && curator_approved) # The user *was* a curator and is now rejected
-      revoke_curatorship
-      Notifier.deliver_curator_unapproved(self)
-    end
-    self.save! unless self.validating
-  end
-
   def clear_cached_user
     $CACHE.delete("users/#{self.id}") if $CACHE
-  end
-
-  def clear_curatorship updated_by, update_notes=""
-    revoke_curatorship
-    self.credentials = ""
-    self.curator_scope = ""
-    self.credentials=""
-    self.curator_verdict_at = Time.now
-    self.curator_verdict_by = updated_by
-    self.notes = "" if self.notes.nil?
-    unless update_notes.blank?
-      self.notes += ' ; (' + updated_by.username + ' on ' + Date.today.to_s + '): ' + update_notes
-    end
-    self.save!
   end
 
   def clear_entered_password
@@ -462,6 +430,40 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     return language.nil? ? Language.english.iso_639_1 : language.iso_639_1
   end
 
+  # NOTE: Careful!  This one means "any kind of curator"... which may not be what you want.  For example, an
+  # assistant curator can't see vetting controls, so don't use this; use #min_curator_level?(:full) or the like.
+  def is_curator?
+    self.curator_level_id
+  end
+
+  def is_pending_curator?
+    !requested_curator_level.nil? && !requested_curator_level.zero?
+  end
+
+  # NOTE: Careful!  The next three methods are for checking the EXACT curator level.  See also #min_curator_level?.
+  def master_curator?
+    self.curator_level_id == CuratorLevel.master.id
+  end
+
+  def full_curator?
+    self.curator_level_id == CuratorLevel.full.id
+  end
+
+  def assistant_curator?
+    self.curator_level_id == CuratorLevel.assistant.id
+  end
+
+  def min_curator_level?(level)
+    case level
+    when :assistant
+      return is_curator?
+    when :full
+      return master_curator? || full_curator?
+    when :master
+      return master_curator?
+    end
+  end
+
   def is_moderator?
     return false if special.nil?
     special.can?(Privilege.hide_comments)
@@ -488,7 +490,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def is_pending_curator?
     !requested_curator_level.nil? && !requested_curator_level.zero?
   end
-  
+
   def can_edit_collection?(collection)
     return true if collection.user == self
     return true if collection.community && collection.community.managers.include?(self)
@@ -512,10 +514,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   def check_credentials
     credentials = '' if credentials.nil?
-  end
-
-  def tags_are_public_for_data_object?(data_object)
-    return can_curate?(data_object)
   end
 
   # Returns an array of data objects submitted by this user.  NOT USED ANYWHERE.  This is a convenience method for

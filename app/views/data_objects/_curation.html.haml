@@ -5,14 +5,14 @@
       %li
         -# NOTE: this is actually a link to the TC.  It ostensibily uses the name from the HE rather than
         -# the TC, but in actuallity, that's what the TC does /anyway/, so this is fine (and faster):
-        - if (phe.visibility_id == Visibility.visible.id && !current_user.is_curator?) || current_user.is_curator?
+        - if current_user.min_curator_level?(:full) || phe.visibility_id == Visibility.visible.id
           %ul.review_status
             %li
               %p{:class => phe.vetted.label == Vetted.unknown.label ? "unreviewed" : phe.vetted.label.downcase}
                 = phe.vetted.label == Vetted.unknown.label ? "Unreviewed" : phe.vetted.label
               = link_to(phe.name.string, taxon_concept_path(phe.taxon_concept_id))
 
-        - if current_user.is_curator?
+        - if current_user.min_curator_level?(:full)
           - if phe.by_curated_association? && phe.associated_by_curator.id == current_user.id
             = link_to I18n.t(:remove_data_object_association), remove_association_path(:id => data_object.id, :hierarchy_entry_id => phe.id), :id => "remove_association_#{phe.id}"
           - vetted_selected = phe.vetted_id.to_i
@@ -34,4 +34,4 @@
           = I18n.t(:curation_comment)
           = text_area_tag "curation_comment_#{phe.id}", nil, :rows => 3, :cols => 30
           %hr.thin
-    = submit_tag I18n.t(:save_curated_association_submit_button) if current_user.is_curator?
+    = submit_tag I18n.t(:save_curated_association_submit_button) if current_user.min_curator_level?(:full)

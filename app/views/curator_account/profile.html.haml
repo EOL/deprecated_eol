@@ -7,7 +7,7 @@
       = f.check_box :curator_request, {:id => "curator_request"}
       =  I18n.t(:yes_answer)
     #curator_request_options{ :style => ('display:none' unless @user.is_curator?) }
-      - unless @user.is_curator? # show them the clade they have selected
+      - unless @user.is_curator?
         %span
           = I18n.t(:curator_signup_message)
       = render(:partial => 'curator_form', :locals => {:f => f})
@@ -15,4 +15,4 @@
         %p
           = link_to I18n.t("view_your_curator_profile"), { :controller => :curators, :action => :profile, :id => @user.id }
   .button
-    = submit_tag I18n.t(:update_account) 
+    = submit_tag I18n.t(:update_account)

@@ -142,8 +142,7 @@ class DataObjectsController < ApplicationController
   #
   # UI for curating a data object
   #
-  # This is a GET, so there's no real reason to check to see
-  # whether or not the current_user can_curate the object -
+  # This is a GET, so there's no real reason to check to see whether or not the current_user can curate the object -
   # we leave that to the #curate method
   #
   def curation

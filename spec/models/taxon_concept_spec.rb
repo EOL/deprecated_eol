@@ -276,7 +276,7 @@ describe TaxonConcept do
   end
 
   it "should have common names" do
-    @taxon_concept.has_common_names?.should == true
+    @taxon_concept.has_common_names?.should be_true
   end
 
   it "should not have common names" do
@@ -339,14 +339,6 @@ describe TaxonConcept do
     tc.quick_common_name.should == "A name"
     tc.add_common_name_synonym("Another name", :agent => agent, :language => Language.english)
     tc.quick_common_name.should == "A name"
-  end
-
-  it 'should determine and cache curation authorization' do
-    @curator.can_curate?(@taxon_concept).should == true
-    @curator.should_receive('can_curate?').and_return(true)
-    @taxon_concept.show_curator_controls?(@curator).should == true
-    @curator.should_not_receive('can_curate?')
-    @taxon_concept.show_curator_controls?(@curator).should == true
   end
 
   it 'should return a toc item which accepts user submitted text' do

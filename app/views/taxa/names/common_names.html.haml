@@ -6,7 +6,7 @@
       = render :partial => 'taxa/recognised_by'
     = render :partial => 'filter_by_name_category'
     #taxon_names.main_container
-      - if current_user.is_curator?
+      - if current_user.min_curator_level?(:assistant)
         = render :partial => 'common_names_edit'
       - else
         = render :partial => 'common_names'

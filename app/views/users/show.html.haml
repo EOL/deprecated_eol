@@ -33,7 +33,6 @@
         %dd= h @user.credentials
         %dt= I18n.t('activerecord.attributes.user.curator_scope')
         %dd= h @user.curator_scope
-
   .article.half.list
     .header
       %h3= I18n.t(:activity)
@@ -41,16 +40,12 @@
       %li
         Objects Curated:
         = @user.total_data_objects_curated
-        /= link_to @user.total_data_objects_curated,{:controller=>'/account', :action=>:show_objects_curated, :id => @user.id}
       %li
         Comments Moderated:
         = @user.total_comments_curated
-        /= link_to @user.total_comments_curated,{:controller=>'/account', :action=>:show_comments_moderated, :id => @user.id}
       %li
         Species Curated:
         = @user.total_species_curated
-        /= link_to @user.total_species_curated,{:controller=>'/account', :action=>:show_species_curated, :id => @user.id}
       %li
         User-submitted text:
         = @user_submitted_text_count
-        /= link_to @user_submitted_text_count,{:controller=>'administrator/user_data_object', :action=>:index, :user_id => @user.id}

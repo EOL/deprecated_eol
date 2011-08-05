@@ -1,4 +1,5 @@
 - data_object ||= @data_object
+- data_object.description = data_object.description_linked unless data_object.description_linked.blank? rescue nil
 - show_view_source ||= 'true'
 - unless data_object.nil? || data_object.description.empty? || data_object.description.blank?
   - show_references = true if show_references.nil?

@@ -145,7 +145,7 @@ class String
         text += "</#{tag}>" * difference
       end
     end
-    return text
+    return text.gsub(/<em\/>/, '')
   end
 
   def truncate(length)

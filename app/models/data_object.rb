@@ -30,8 +30,6 @@ class DataObject < SpeciesSchemaModel
   has_many :comments, :as => :parent
   has_many :data_objects_harvest_events
   has_many :harvest_events, :through => :data_objects_harvest_events
-  has_many :data_object_tags, :class_name => DataObjectTags.to_s
-  has_many :tags, :class_name => DataObjectTag.to_s, :through => :data_object_tags, :source => :data_object_tag
   has_many :data_objects_table_of_contents
   has_many :data_objects_info_items
   has_many :info_items, :through => :data_objects_info_items
@@ -170,7 +168,7 @@ class DataObject < SpeciesSchemaModel
         visibility_ids = Visibility.all_ids.dup
         show_preview = true
       # curators see invisible objects
-      elsif options[:user].is_curator? && options[:user].can_curate?(options[:taxon])
+      elsif options[:user].is_curator? && options[:user].min_curator_level?(:full)
         visibility_ids << Visibility.invisible.id
       end
       # the only scenario to see ONLY TRUSTED objects
@@ -290,50 +288,6 @@ class DataObject < SpeciesSchemaModel
     new_dato.users_data_objects << udo
     new_dato
   end
-
-#  def self.preview_user_text(all_params, user)
-#    taxon_concept = TaxonConcept.find(all_params[:taxon_concept_id])
-#
-#    do_params = {
-#      :guid => '',
-#      :identifier => '',
-#      :data_type => DataType.text,
-#      :rights_statement => '',
-#      :rights_holder => '',
-#      :mime_type_id => MimeType.find_by_translated(:label, 'text/plain').id,
-#      :location => '',
-#      :latitude => 0,
-#      :longitude => 0,
-#      :object_title => '',
-#      :bibliographic_citation => '',
-#      :source_url => '',
-#      :altitude => 0,
-#      :object_url => '',
-#      :thumbnail_url => '',
-#      :object_title => ERB::Util.h(all_params[:data_object][:object_title]), # No HTML allowed
-#      :description => all_params[:data_object][:description].allow_some_html,
-#      :language_id => all_params[:data_object][:language_id],
-#      :license_id => all_params[:data_object][:license_id],
-#      :vetted_id => (user.can_curate?(taxon_concept) ? Vetted.trusted.id : Vetted.unknown.id),
-#      :published => 1, #not sure if this is right
-#      :visibility_id => Visibility.visible.id #not sure if this is right either
-#    }
-#
-#    d = DataObject.new(do_params)
-#    d.toc_items << TocItem.find(all_params[:data_objects_toc_category][:toc_id])
-#
-#    unless all_params[:references].blank?
-#      all_params[:references].each do |reference|
-#        if reference.strip != ''
-#          d.published_refs << Ref.new(:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible)
-#        end
-#      end
-#    end
-#
-#    # TODO - references aren't shown in the preview, because we would have to "fake" them, and we can't effectively.
-#    d.users_data_objects = [UsersDataObject.new(:data_object => d, :taxon_concept => taxon_concept, :user => user)]
-#    d
-#  end
 
   def self.create_user_text(all_params, user, taxon_concept)
 
@@ -626,6 +580,7 @@ class DataObject < SpeciesSchemaModel
   end
 
   def self.image_cache_path(cache_url, size = :large, subdir = $CONTENT_SERVER_CONTENT_PATH)
+    return if cache_url.blank?
     size = size ? "_" + size.to_s : ''
     cache_path(cache_url, subdir) + "#{size}.#{$SPECIES_IMAGE_FORMAT}"
   end
@@ -641,20 +596,24 @@ class DataObject < SpeciesSchemaModel
   end
 
   def thumb_or_object(size = :large)
-    return DataObject.image_cache_path(object_cache_url, size)
+    if self.is_video?
+      return DataObject.image_cache_path(thumbnail_cache_url, size)
+    else
+      return DataObject.image_cache_path(object_cache_url, size)
+    end
   end
 
-  # Returns the src when you want an image tag containing a thumbnail.
+  # Returns path to a thumbnail.
   def smart_thumb
     thumb_or_object(:small)
   end
 
-  # Returns the src when you want an image tag containing a "larger" thumbnail (a'la main page).
+  # Returns path to a "larger" thumbnail (a'la main page).
   def smart_medium_thumb
     thumb_or_object(:medium)
   end
 
-  # Returns the src when you want an image tag containing the *full* image.
+  # Returns path to the *full* image.
   def smart_image
     thumb_or_object
   end
@@ -692,44 +651,6 @@ class DataObject < SpeciesSchemaModel
     else
       return DataObject.cache_path(object_cache_url) + "_orig.jpg"
     end
-  end
-
-  # This allows multiple values, eg: 'red, blue' or 'red blue'
-  def tag(key, values, user)
-    raise I18n.t(:you_must_be_logged_in_to_add_tags)  unless user
-    key = 'none' if key.blank?
-    return unless values
-    values = DataObjectTag.clean_values(values)
-    values.each do |value|
-      tag = DataObjectTag.find_or_create_by_key_and_value key.to_s, value.to_s
-      if user.tags_are_public_for_data_object?(self)
-        tag.update_attributes!(:is_public => true)
-      end
-      begin
-        DataObjectTags.create :data_object => self, :data_object_guid => guid, :data_object_tag => tag, :user => user
-      rescue
-        raise EOL::Exceptions::FailedToCreateTag.new("Failed to add #{key}:#{value} tag")
-      end
-    end
-    tags.reset
-    user.tags.reset
-  end
-
-  def public_tags
-    DataObjectTags.public_tags_for_data_object self
-  end
-
-  # returns a hash in the format { 'tag_key' => ['value1','value2'] }
-  def tags_hash
-    tags.inject({}) do |all,this|
-      all[this.key] = (all[this.key] || []) + [this.value]
-      all
-    end
-  end
-
-  # returns an array of all of the keys an object is tagged with
-  def tag_keys
-    tags.map {|t| t.key }.uniq
   end
 
   # TODO - wow, this is expensive (IFF you pass in :published) ... we should really consider optimizing this, since
@@ -795,80 +716,6 @@ class DataObject < SpeciesSchemaModel
 
   def to_s
     "[DataObject id:#{id}]"
-  end
-
-  # Find data objects tagged with a particular tag
-  #
-  # If no 'value' is provided for the tag, it will find all data objects
-  # tagged with *any* value of the given key (category)
-  #
-  # Usage:
-  #   DataObject.search_by_tag :color, 'blue'
-  #   DataObject.search_by_tag :color, :blue
-  #   DataObject.search_by_tag <DataObjecTag>
-  #
-  # TODO this is starting to get really messy ... extract some of this outta here into objects ...
-  #      try a named_scope on TopImage and things like that ... move to other models or to other
-  #      DataObject methods
-  #
-  def self.search_by_tag key_or_tag, value_or_nil = nil, options = {}
-    tag = (key_or_tag.is_a?DataObjectTag) ? key_or_tag : DataObjectTag[key_or_tag, value_or_nil]
-    data_object_tags = (tag) ? DataObjectTags.search_by_tag( tag ) : []
-    return [] if data_object_tags.empty?
-    if options[:clade]
-      options[:clade] = [ options[:clade] ] unless options[:clade].is_a?Array
-      data_object_ids = data_object_tags.map(&:data_object_id).uniq
-      clades = HierarchyEntry.find :all, :conditions => options[:clade].map {|id| "id = #{id}" }.join(' OR ')
-      return [] if clades.empty?
-      sql = %[
-        SELECT DISTINCT top_images.data_object_id
-        FROM top_images
-        JOIN hierarchy_entries ON top_images.hierarchy_entry_id = hierarchy_entries.id
-        WHERE ]
-      sql += clades.map {|clade| "(hierarchy_entries.lft >= #{clade.lft} AND hierarchy_entries.lft <= #{clade.rgt})" }.join(' OR ')
-      sql += %[ AND data_object_id IN (#{data_object_ids.join(',')})]
-      tagged_images_in_clade = TopImage.find_by_sql sql
-      tagged_images_in_clade.map {|img| DataObject.find(img.data_object_id) }.uniq
-    else
-      data_object_tags.map(&:object).uniq
-    end
-  end
-
-  # Find data objects tagged with certain tags
-  #
-  # Usage:
-  #   DataObject.search_by_tags [ [<DataObjecTag>], [<DataObjectTag>, <DataObjectTag] ]
-  #   DataObject.search_by_tags [ [[:key1,'value1']], [[:key2,:value2],['key3',:value3]] ]
-  #
-  # TODO: Optimization is necessary, the way it is now is quite resource hungry
-  def self.search_by_tags tags, options = {}
-    t = tags.inject([]) do |res,tags_group|
-      if tags_group.first.is_a?(DataObjectTag)
-        res << tags_group
-      else
-        res << tags_group.map {|k,v| DataObjectTag[k,v]}
-      end
-    end
-    result = t.inject(Set.new) do |res, tags_group|
-      search = (DataObject.search_tags_group(tags_group, options).to_set)
-      res = res ? search : res.intersection(search)
-    end.to_a
-    result
-  end
-
-  def self.search_tags_group tags, options
-    tags.compact!
-    return [] if tags.empty?
-    data_object_tags = DataObjectTags.search_by_tags_or tags, options[:user_id]
-    return [] if data_object_tags.empty?
-
-    return_objects = []
-    data_object_tags.each do |dot|
-      if obj = DataObject.find_by_guid_and_published_and_visibility_id(dot.data_object_guid, 1, Visibility.visible.id, :order => 'id desc')
-        return_objects << obj
-      end
-    end
-    return return_objects
   end
 
   def self.images_for_taxon_concept(taxon_concept, options = {})
@@ -944,7 +791,7 @@ class DataObject < SpeciesSchemaModel
     unless options[:skip_metadata]
       objects_with_metadata = eager_load_image_metadata(unique_image_objects[start..last].collect {|r| r.id})
       unique_image_objects[start..last] = objects_with_metadata unless objects_with_metadata.blank?
-      if options[:user] && options[:user].is_curator? && options[:user].can_curate?(taxon_concept)
+      if options[:user] && options[:user].is_curator? && options[:user].min_curator_level?(:full)
         DataObject.preload_associations(unique_image_objects[start..last], :users_data_objects_ratings, :conditions => "users_data_objects_ratings.user_id=#{options[:user].id}")
       end
     end

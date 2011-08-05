@@ -299,45 +299,11 @@ class ApplicationController < ActionController::Base
 
   def expire_data_object(data_object_id)
     # TODO: re-implement caching and review caching practices
-    # begin
-    #   expire_taxa(DataObject.find(data_object_id).get_taxon_concepts(:published => :strict))
-    # rescue Exception => e
-    #   if e.to_s != "Taxon concept must have at least one hierarchy entry"
-    #     raise e
-    #   end
-    # end
   end
 
   # NOTE: If you want to expire it's ancestors, too, use #expire_taxa.
-  # TODO: Rather than having to iterate through all of these alternative key names and expire them whether or not they
-  # actually exist, we should have a list (in memcached) of all of the keys associated for a particular page.  Then, we can
-  # read that list (ie: "taxa/memcached_keys") and iterate over the array of keys that *actually exist* and remove them.
   def expire_taxon_concept(taxon_concept_id, params = {})
     # TODO: re-implement caching and review caching practices
-    # raise 'Expiring nothing' if taxon_concept_id.blank?
-    # raise "Not a number: #{taxon_concept_id}" if taxon_concept_id.to_i == 0
-    # raise "Taxon Concept #{taxon_concept_id} does not exist" unless TaxonConcept.exists?(taxon_concept_id)
-    # browsable_hierarchy_ids = Hierarchy.browsable_by_label.map {|h| h.id.to_s }
-    # Language.find_active.each do |language|
-    #   %w{middle expert}.each do |expertise| # NOTE - this used to include novice, but we don't use it anymore.
-    #     %w{true false}.each do |vetted|
-    #       %w{text}.each do |default_taxonomic_browser| # NOTE - this used to include flash, but we don't use it anymore.
-    #         [nil.to_s, browsable_hierarchy_ids].flatten.each do |default_hierarchy_id|
-    #           %w{true false}.each do |can_curate|
-    #             part_name = 'page_' + taxon_concept_id.to_s +
-    #                             '_' + language.iso_639_1 +
-    #                             '_' + expertise +
-    #                             '_' + vetted +
-    #                             '_' + default_taxonomic_browser +
-    #                             '_' + default_hierarchy_id +
-    #                             '_' + can_curate
-    #             expire_fragment(:controller => '/taxa', :part => part_name)
-    #           end
-    #         end
-    #       end
-    #     end
-    #   end
-    # end
   end
 
   # check if the requesting IP address is allowed (used to resrict methods to specific IPs, such as MBL/EOL IPs)
@@ -351,7 +317,8 @@ class ApplicationController < ActionController::Base
     redirect_to :protocol => "http://" if request.ssl?
   end
 
-  # check if user is curator and display the curator documentation pages from curator central with the left sidebar navigation
+  # check if user is curator and display the curator documentation pages from curator central with the left sidebar
+  # navigation
   def redirect_if_curator
     if current_user.is_curator?
       redirect_pages = ["curator_central", "curator_todo", "curation", "curate_wiki", "curation_standards"]
@@ -454,16 +421,6 @@ class ApplicationController < ActionController::Base
   def is_user_admin?
     return current_user.is_admin?
   end
-
-  # Returns true if the given user (or currently logged in user if not provided) has curator permissions
-  # for the given TaxonConcept or any parent thereof.
-  def is_curator?(tc, user = nil)
-    user = current_user if user.nil?
-    return false if tc.nil? or user.nil?
-    return false unless tc.is_a?(TaxonConcept) and user.is_a?(User)
-    user.can_curate? tc
-  end
-  alias is_curator is_curator?
 
   # used as a before_filter on methods that you don't want users to see if they are logged in
   # such as the sessions#new, users#new, users#forgot_password etc

@@ -21,7 +21,7 @@
                   { :name => "type[]", :id => "type_#{opt.to_s}"}
                 = I18n.t("filter_by_type_#{opt}_option")
 
-  - if current_user.is_curator?
+  - if current_user.min_curator_level?(:full)
     %fieldset
       %dl
         %dt

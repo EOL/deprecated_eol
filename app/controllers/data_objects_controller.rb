@@ -44,6 +44,13 @@ class DataObjectsController < ApplicationController
       end
       current_user.log_activity(:created_data_object_id, :value => @data_object.id,
                                 :taxon_concept_id => @taxon_concept.id)
+      # add this new object to the user's watch collection
+      collection_item = CollectionItem.create(
+        :object => @data_object,
+        :collection => current_user.watch_collection
+      )
+      CollectionActivityLog.create(:collection => current_user.watch_collection, :user => current_user,
+                                   :activity => Activity.collect, :collection_item => collection_item)
       redirect_to taxon_details_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}")
     end
   end
@@ -142,8 +149,7 @@ class DataObjectsController < ApplicationController
   #
   # UI for curating a data object
   #
-  # This is a GET, so there's no real reason to check to see
-  # whether or not the current_user can_curate the object -
+  # This is a GET, so there's no real reason to check to see whether or not the current_user can curate the object -
   # we leave that to the #curate method
   #
   def curation

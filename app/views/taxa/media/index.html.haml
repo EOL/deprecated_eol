@@ -28,7 +28,7 @@
               %a{ :data => { :data_object_id => item.id }, :class => vetted_id_class(item.vetted_id), :href => data_object_path(item) }
                 = render :partial => "data_objects/data_object_#{en_type}",
                   :locals => { :data_object => item, :thumbnail => true, :size => '260_190' }
-              - if item.data_type.id == DataType.image.id && current_user.is_curator?
+              - if item.data_type.id == DataType.image.id && current_user.min_curator_level?(:assistant)
                 .overlay
                 - form_for :taxon_concept_exemplar_image, :url => set_as_exemplar_taxon_media_path(@taxon_concept),
                   :html => {:class => 'taxon_concept_exemplar_image'} do |f|

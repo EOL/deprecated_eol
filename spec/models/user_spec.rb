@@ -26,7 +26,7 @@ describe User do
     @admin = User.gen(:username => 'MisterAdminToYouBuddy')
     @admin.join_community(@special)
     @he = bogus_hierarchy_entry
-    @curator = User.gen()
+    @curator = User.gen(:credentials => 'whatever', :curator_scope => 'whatever')
   end
 
   it "should generate a random hexadecimal key" do
@@ -203,41 +203,14 @@ describe User do
     User.create_new( :username => @user.username ).save.should be_false
   end
 
-  it '(curator user) should NOT delegate can_curate? to the object passed in' do
-    @curator.approve_to_curate
-    @curator.save!
-    model = mock_model(DataObject)
-    model.should_not_receive(:is_curatable_by?).with(@curator)
-    @curator.can_curate? model
-  end
-
-  it '(curator user) should return false if asked to curate when curator not approved' do
-    @curator.approve_to_curate
-    @curator.save!
-    @curator.curator_approved = false
-    @curator.can_curate?(@he).should be_false
-  end
-
-  it '(curator user) should return false if asked to curate ... nothing' do
-    @curator.approve_to_curate
-    @curator.save!
-    @curator.can_curate?(nil).should be_false
-  end
-
-  it '(curator user) should raise an error if asked to curate something non-curatable' do
-    @curator.approve_to_curate
-    @curator.save!
-    lambda { @curator.can_curate?("a String").should be_false }.should raise_error
-  end
-
   it '(curator user) should allow curator rights to be revoked' do
+    Role.gen(:title => 'Curator') rescue nil
     @curator.approve_to_curate
     @curator.save!
-    Role.gen(:title => 'Curator') rescue nil
-    @curator.is_curator?.should be_true
-    @curator.clear_curatorship(User.gen, 'just because')
+    @curator.curator_level_id.nil?.should_not be_true
+    @curator.revoke_curator
     @curator.reload
-    @curator.is_curator?.should be_false
+    @curator.curator_level_id.nil?.should be_true
   end
 
   it '(in the special community) should be a member of the special community' do

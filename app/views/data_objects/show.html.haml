@@ -14,18 +14,20 @@
         .header
           %h3= I18n.t(:description)
         .copy
+          - @data_object.description = @data_object.description_linked unless @data_object.description_linked.blank? rescue nil
           = @data_object.description.balance_tags
     .article.list.updates
       .header
         %h3= I18n.t(:recent_updates)
-      = render :partial => 'activity_logs/index', :locals => {:log => @data_object.activity_log}
+      - # TODO: I added the .last(10) so we could create them as an array and reverse them. I should really be reversing them in the activity_log method...
+      = render :partial => 'activity_logs/index', :locals => { :log => @data_object.activity_log.last(10).reverse }
       = render :partial => 'comments/new', :locals => {:parent => @data_object}
   #sidebar
     = render :partial => 'rating', :locals => { :data_object => @data_object, :en_type => en_type }
     .article.source
       .header
         %h3= I18n.t(:source_information_header)
-      = render :partial => 'attribution'
+      = render :partial => 'attribution', :locals => { :supplier => true }
       - if @data_object.is_image?
         %p= link_to I18n.t(:view_full_size_image), @data_object.thumb_or_object(:orig)
       - if @data_object.is_sound?
@@ -34,9 +36,9 @@
     .article.list
       .header
         %h3= I18n.t("associated_with_#{en_type}_header")
-        - if current_user.is_curator?
+        - if current_user.min_curator_level?(:full)
           = link_to I18n.t(:add_new_association_link), :action => :add_association, :id => @data_object.id
-      - if current_user.is_curator?
+      - if current_user.min_curator_level?(:full)
         = render :partial => 'associations_curation'
       - else
         = render :partial => 'associations_index'

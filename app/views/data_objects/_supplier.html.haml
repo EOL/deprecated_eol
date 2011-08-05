@@ -1,0 +1,7 @@
+%p
+  - if !data_object.data_supplier_agent.blank?
+    = I18n.t(:supplier_colon) + " "
+    - if data_object.data_supplier_agent.homepage
+      = link_to data_object.data_supplier_agent.full_name, data_object.data_supplier_agent.homepage
+    - else
+      = data_object.data_supplier_agent.full_name

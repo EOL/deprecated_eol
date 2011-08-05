@@ -35,6 +35,6 @@
 
     .article.community
       %h3= I18n.t(:community_activity)
-      = render :partial => 'activity_logs/index', :locals => { :log => EOL::ActivityLog.global[0..$ACTIVITIES_ON_HOME_PAGE-1] }
+      = render :partial => 'activity_logs/index', :locals => { :log => EOL::ActivityLog.global.last($ACTIVITIES_ON_HOME_PAGE).reverse }
     - unless logged_in?
       = render :partial => 'shared/join_eol', :locals => {:join_style => 'button'}

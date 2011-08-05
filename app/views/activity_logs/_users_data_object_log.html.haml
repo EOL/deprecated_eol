@@ -10,5 +10,5 @@
       = I18n.t(:activity_user_created_text, :user => h(item.user.short_name), :object_name => link_to(item.data_object.summary_name, data_object_path(item.data_object)), :taxon_concept => link_to(item.taxon_concept.summary_name, taxon_overview_path(item.taxon_concept)))
   %blockquote{:cite => h(item.user.short_name)}
     -# TODO - Yeesh.  This is ending up blank, and I cannot figure out why.
-    %p= h item.data_object.description_teaser
+    %p= item.data_object.description_teaser
   %p.meta= I18n.t(:time_ago, :time_passed => time_ago)

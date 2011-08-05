@@ -25,7 +25,7 @@
     .article.source
       .header
         %h3= I18n.t(:source_information_header)
-      = render :partial => 'attribution'
+      = render :partial => 'attribution', :locals => { :supplier => true }
       - if @data_object.is_image?
         %p= link_to I18n.t(:view_full_size_image), @data_object.thumb_or_object(:orig)
       - if @data_object.is_sound?

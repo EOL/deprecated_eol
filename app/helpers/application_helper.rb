@@ -125,8 +125,8 @@ module ApplicationHelper
   def alternative_text(data_object, en_type, taxon_concept = nil)
     taxon_name = taxon_concept.title_canonical() unless taxon_concept.nil?
     taxon_name = taxon_name.blank? ? I18n.t(:a_taxon) : Sanitize.clean(taxon_name)
-    data_object_vetted = data_object.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
-    data_object_vetted_label = data_object_vetted.label unless data_object_vetted.nil?
+    data_object_vetted = data_object.vetted_by_taxon_concept(taxon_concept, :find_best => true) unless taxon_concept.nil?
+    data_object_vetted_label = data_object_vetted.nil? ? "" : data_object_vetted.label
     alt = data_object.object_title || nil
     alt = data_object.description_teaser if alt.blank?
     alt = I18n.t("#{en_type}_alt_text", :vetted_status => data_object_vetted_label.downcase,

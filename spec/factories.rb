@@ -503,6 +503,15 @@ Factory.define :curator_activity_log do |ah|
   ah.updated_at  { 5.days.ago }
 end
 
+
+Factory.define :curated_data_objects_hierarchy_entry do |cdohe|
+  cdohe.association :hierarchy_entry
+  cdohe.association :data_object
+  cdohe.association :user
+  cdohe.vetted      { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
+  cdohe.visibility  { Visibility.visible || Visibility.gen_if_not_exists(:label => 'Visible') }
+end
+
 Factory.define :curator_level do |cl|
   cl.label { Factory.next(:string) }
 end

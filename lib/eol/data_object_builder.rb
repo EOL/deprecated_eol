@@ -21,6 +21,10 @@ module EOL
     #   +agent_role+::
     #     If specified (as either a string or an AgentRole instance), this dato will be related to the agent with
     #     this role.  If missing, 'Author' will be used.
+    #   +association+::
+    #     This is a flag to make distinction between data_object_hierarchy_entry(DOHE) and curated_DOHE(CDOHE) while
+    #     building the hierarchy entry relation(i.e. adding an association between data object and hierarchy entry).
+    #     If missing, the association will be added in DOHE.
     #   +content_partner+::
     #     If specified, a Resource, HarvestEvent, and all relationships between them will be created.
     #   +hierarchy_entry+::
@@ -42,6 +46,15 @@ module EOL
     #   +toc_item+::
     #     If this is a 'Text' type, this specifies which TocItem to link this to. If left blank, one is randomly
     #     chosen.
+    #   +user+::
+    #     This argument should be added if adding an association to CDOHE otherwise doesn't matter.
+    #     If missing, defaults to the last User in the users table, so be careful.
+    #   +vetted+::
+    #     A Vetted object to assign to the DataObjectHierarchyEntry (DOHE) or Curated_DOHE(CDOHE).
+    #     If missing, the default vetted status added will Trusted.
+    #   +visibility+::
+    #     A Visibility object to assign to the DataObjectHierarchyEntry (DOHE) or Curated_DOHE(CDOHE).
+    #     If missing, the default visibility status added will Visible.
     #
     # Any other options on this method will be passed directly to the DataObject#gen method (for example,
     # lattitude, longitude, and the like).
@@ -78,15 +91,20 @@ module EOL
     end
 
     def add_comments
-      user = User.last # not convinced it is faster to assign this rather than calling it repeatedly, but feeling saucy!
       # You cannot add comments to anything but images and text (for now):
       if @type == 'Image' or @type == 'Text'
-        @num_comments.times { Comment.gen(:parent => @dato, :user => user) }
+        @num_comments.times { Comment.gen(:parent => @dato, :user => @user) }
       end
     end
 
     def build_hierarchy_entry_relation
-      DataObjectsHierarchyEntry.gen(:data_object => @dato, :hierarchy_entry => @he)
+      if @association == "DOHE"
+        DataObjectsHierarchyEntry.gen(:data_object => @dato, :hierarchy_entry => @he, :vetted => @vetted, :visibility => @visibility)
+      elsif @association == "CDOHE"
+        CuratedDataObjectsHierarchyEntry.gen(:data_object => @dato, :hierarchy_entry => @he, :vetted => @vetted, :visibility => @visibility, :user => @user)
+      else
+        raise 'Please specify association as "DOHE" or "CDOHE"'
+      end
       DataObjectsTaxonConcept.gen(:data_object => @dato, :taxon_concept_id => @he.taxon_concept_id)
     end
 
@@ -128,17 +146,21 @@ module EOL
     end
 
     def pull_class_options_from(options)
-      @agent           = options.delete(:agent) || nil # better guesses will be made later, in context.
-      @event           = options.delete(:event) || nil # better guesses will be made later...
+      @agent           = options.delete(:agent)           || nil # better guesses will be made later, in context.
+      @association     = options.delete(:association)     || "DOHE"
+      @event           = options.delete(:event)           || nil # better guesses will be made later...
       @agent_role      = find_agent_role(options.delete(:agent_role))
       @content_partner = options.delete(:content_partner)
       @he              = options.delete(:hierarchy_entry) || HierarchyEntry.last
       name             = options.delete(:name)            || Name.last
       @num_comments    = options.delete(:num_comments)    || 1
+      @user            = options.delete(:user)            || User.last
+      @vetted          = options.delete(:vetted)          || Vetted.trusted
+      @visibility      = options.delete(:visibility)      || Visibility.visible
       scientific_name  = options.delete(:scientific_name) || @he.name(:expert) || Factory.next(:scientific_name)
       if @type == 'Text'
         @toc_item      = options.delete(:toc_item)
-        @toc_item    ||= TocItem.find(rand(3)+1)   # If foundation was loaded: Overview, Description, or Ecology.
+        @toc_item      ||= TocItem.find(rand(3)+1)   # If foundation was loaded: Overview, Description, or Ecology.
       end
       return options
     end

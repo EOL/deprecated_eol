@@ -19,7 +19,7 @@ class Vetted < SpeciesSchemaModel
   end
 
   def self.unknown
-    cached_find_translated(:label, 'Unreviewed')
+    cached_find_translated(:label, 'Unknown')
   end
 
   def self.trusted_ids

@@ -193,11 +193,11 @@ class DataObject < SpeciesSchemaModel
       dato_visibility_id = dato_association.visibility_id unless dato_association.nil?
       # partners see all their PREVIEW or PUBLISHED objects
       if options[:user] && options[:user].is_content_partner? && d.data_supplier_agent.id == options[:user].agent.id
-        if (d.visibility_id == Visibility.preview.id) || d.published == true
+        if (dato_visibility_id == Visibility.preview.id) || d.published == true
           true
         end
       # user can see preview objects
-      elsif show_preview && d.visibility_id == Visibility.preview.id
+      elsif show_preview && dato_visibility_id == Visibility.preview.id
         true
       # otherwise object must be PUBLISHED and in the vetted and visibility selection
       elsif d.published == true && vetted_ids.include?(dato_vetted_id) && visibility_ids.include?(dato_visibility_id)

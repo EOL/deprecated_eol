@@ -18,7 +18,7 @@ class Administrator::UserDataObjectController < AdminController
         :users_data_objects => :taxon_concept_id,
         :users => [ :given_name, :family_name ],
         :data_objects => [ :description, :created_at, :updated_at, :published ] },
-      :include => [ :user, { :data_object => [ :vetted, :visibility, :toc_items] }],
+      :include => [ :user, { :data_object => [:toc_items] }],
       :page => params[:page])
   end
   

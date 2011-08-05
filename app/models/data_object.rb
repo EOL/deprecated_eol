@@ -75,7 +75,7 @@ class DataObject < SpeciesSchemaModel
       :vetted => :view_order,
       :table_of_contents => '*',
       :licenses => '*' },
-    :include => [:data_type, :mime_type, :language, :license, :vetted, :visibility, {:info_items => :toc_item},
+    :include => [:data_type, :mime_type, :language, :license, {:info_items => :toc_item},
       {:hierarchy_entries => [:name, { :hierarchy => :agent }] }, {:agents_data_objects => [ { :agent => :user }, :agent_role]}]
 
   # this method is not just sorting by rating

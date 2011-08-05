@@ -11,7 +11,7 @@
       - item_vetted_id = item_vetted.id unless item_vetted.nil?
       - item_vetted_label = item_vetted.label unless item_vetted.nil?
       - unless item.description.empty? || item.description.nil?
-        %div{:class => vetted_id_class(item.vetted_id), :data => { :text_id =>  item.id } }
+        %div{:class => vetted_id_class(item_vetted_id), :data => { :text_id =>  item.id } }
           .header
             %h3= h item.toc_items[0].label
             = link_to(I18n.t(:text_summary_more_link), taxon_details_path(@taxon_concept.id))

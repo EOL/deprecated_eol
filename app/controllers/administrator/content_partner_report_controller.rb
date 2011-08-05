@@ -8,7 +8,7 @@ class Administrator::ContentPartnerReportController < AdminController
 
   helper_method :current_agent, :agent_logged_in?
 
-  access_control :content_partners
+  before_filter :restrict_to_admins
 
   def index
     @page_title = I18n.t("content_partners")

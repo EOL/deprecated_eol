@@ -459,7 +459,7 @@ img    = build_data_object('Image', "This should only be seen by ContentPartner 
 # Some node in the GBIF Hierarchy to test maps on
 build_hierarchy_entry 0, tc, name, :hierarchy => gbif_hierarchy, :identifier => '13810203'
 
-# Generate a default admin user and then set them up for the default roles:
+# Generate a default admin user and then set them up:
 admin = User.gen :username => 'admin', :password => 'admin', :given_name => 'Admin', :family_name => 'User'
 admin.grant_admin
 admin.build_watch_collection

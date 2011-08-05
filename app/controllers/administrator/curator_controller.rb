@@ -4,7 +4,7 @@ class Administrator::CuratorController < AdminController
 
   before_filter :set_layout_variables
 
-  access_control :web_users
+  before_filter :restrict_to_admins
 
   def index
     @page_title = I18n.t("curators")

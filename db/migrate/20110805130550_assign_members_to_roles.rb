@@ -7,7 +7,7 @@ end
 
 class AssignMembersToRoles < ActiveRecord::Migration
 
-  def self.move_users(old_title, new_title, &block)
+  def self.move_users(old_title, &block)
     roles = Role.find(:all, :conditions => "title LIKE '#{old_title}' AND community_id IS NULL")
     @@completed_user_ids = []
     roles.compact.each do |role|

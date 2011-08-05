@@ -560,7 +560,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 #  end
 
   def ensure_unique_username_against_master
-    errors.add('username', I18n.t(:username_taken, :name => username) unless User.unique_user?(username, id)
+    errors.add('username', I18n.t(:username_taken, :name => username)) unless User.unique_user?(username, id)
   end
 
   def rating_for_object_guid(guid)

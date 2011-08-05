@@ -431,6 +431,14 @@ class ApplicationController < ActionController::Base
     redirect_to root_url
   end
 
+  def restrict_to_admins
+    raise EOL::Exceptions::SecurityViolation unless current_user.is_admin?
+  end
+
+  def restrict_to_curators
+    raise EOL::Exceptions::SecurityViolation unless current_user.min_curator_level?(:full)
+  end
+
   # A user is not authorized for the particular controller/action:
   def access_denied
     flash_and_redirect_back(I18n.t(:you_are_not_authorized_to_perform_this_action))

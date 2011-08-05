@@ -4,7 +4,7 @@ class Administrator::UserController  < AdminController
 
   before_filter :set_layout_variables
 
-  access_control :web_users
+  before_filter :restrict_to_admins
 
   def index
 

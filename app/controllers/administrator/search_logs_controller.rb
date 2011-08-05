@@ -6,7 +6,7 @@ class Administrator::SearchLogsController < AdminController
 
   helper :resources
 
-  access_control :usage_reports
+  before_filter :restrict_to_admins
 
   def index
     @page_title = I18n.t("search_term_reports_")

@@ -378,69 +378,6 @@ There are lots of configuration settings, and they load in the following order:
   3) config/environments/[RAILS_ENV]_eol_org.rb
   4) config/environment_eol_org.rb
 
-== USERS/ROLES/RIGHTS
-
-The site is using the acl_system plugin (http://brainspl.at/articles/2006/02/20/new-plugin-acl_system).
-
-Basically:
-
-1. Users can be assigned to zero or more roles.
-2. Controllers are restricted by role when needed.
-
-So you can protect controllers and actions in the following ways:
-
-1. To indicate a user must be logged in to view particular actions or controllers, just put this at the top of
-   the controller (restricted to certain actions if you wish):
-
-   before_filter :check_authentication
-
-   This does not perform any checks for roles, just does a simple logged in check and redirects to the login page if
-   needed.
-
-2. To indicate a user must have the rights to a particular controller, just put this at the top of the controller
-   (restricted to certain actions if you wish):
-
-     access_control :DEFAULT => 'ROLE NAME GOES HERE'
-
-   This checks to be sure the user has access rights to that controller (based on the role you specified)
-   before letting them use actions in the controller.  For more advanced control over only certain methods, see
-   the acl_system2 plugin README.
-
-3. A convenience controller/helper method is provided to check if a user is in a particular role called
-   "is_user_in_role?"
-
-   For example:
-
-     do_this_method_only_for_admins if is_user_in_role?('Administrator')
-
-4. You can also use the built in acl plugin helpers to only show links or other snippets of code in your view
-   based on roles membership.
-
-   For example:
-
-     <% restrict_to "(Administrator) & !blacklist" do %> admin stuff here <% end %>
-
-== ADMINISTRATIVE SECTION
-
-The admin section uses the roles setup described above.  To create a new admin function:
-
-1. Create a new controller in the "administrator" folder under controllers, e.g. Administrator::NewContollerName
-2. Derive that controller from the Admin controller, e.g. class Administrator::NewContollerName < AdminController
-3. Create your views in the correct subfolder under "views/administrator", e.g.
-   "views/administrator/new_controller_name"
-4. Decide if you need a new role to access this controller or if an existing role will suffice.  Add the new role
-   into the "roles" database if required (you can use the admin interface or a migration).
-5. At the top of your controller, restrict access to the role by adding the following line to the top:
-
-     access_control :DEFAULT => 'ROLE NAME GOES HERE'
-
-   Note that by default, users must also have the generic "administrator" role to access any of the controllers
-   derived from the main admin controller.
-6. Add your new controller to the admin navigation menu by editing "views/admin/_navigation.html.erb"
-   See the existing links for restricting the display of menu items to the specific role you have identified in
-   step 5.
-7. Make sure you've got at least one admin user with access to the correct role, log in and test.
-
 == LOGGING
 
 The logging model is intended to be thought of as a data mining system. A separate database is used to store

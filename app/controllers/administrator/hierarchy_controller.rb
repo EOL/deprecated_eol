@@ -7,9 +7,9 @@ class Administrator::HierarchyController < AdminController
   helper :resources
 
   helper_method :current_agent, :agent_logged_in?
-  
-  access_control :content_partners
-  
+
+  before_filter :restrict_to_admins
+
   def index
     page = params[:page] || '1'
     order = params[:order_by] || 'agent'
@@ -26,19 +26,19 @@ class Administrator::HierarchyController < AdminController
       end
     @hierarchies = hierarchies.paginate(:page => page)
   end
-  
+
   def browse
     @hierarchy = Hierarchy.find_by_id(params[:id])
     if @hierarchy.blank?
-      redirect_to :action=>'index' 
+      redirect_to :action=>'index'
       return
     end
   end
-  
+
   def edit
     @hierarchy = Hierarchy.find_by_id(params[:id])
     if @hierarchy.blank?
-      redirect_to :action=>'index' 
+      redirect_to :action=>'index'
       return
     end
     if request.post?
@@ -49,7 +49,7 @@ class Administrator::HierarchyController < AdminController
         # if there were changes to what was browsable we want those changes immediately visible
         $CACHE.delete('hierarchies/browsable_by_label')
         flash[:notice] = I18n.t("hierarchy_updated")
-        redirect_to :action => 'index', :id => @hierarchy.id 
+        redirect_to :action => 'index', :id => @hierarchy.id
       end
     end
   end

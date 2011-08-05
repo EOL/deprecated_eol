@@ -3,8 +3,7 @@ class CuratorsController < ApplicationController
 
   layout 'left_menu'
 
-  access_control :vet
-
+  before_filter :restrict_to_curators
   before_filter :check_authentication
   before_filter :set_no_cache
   before_filter :set_layout_variables
@@ -13,15 +12,8 @@ class CuratorsController < ApplicationController
     get_page_content
   end
 
-#  def profile
-#    @user = params[:id].nil? ? User.find(current_user.id) : User.find(params[:id])
-#    @user.log_activity(:viewed_curator_profile)
-#    @user_submitted_text_count = UsersDataObject.count(:conditions=>['user_id = ?', params[:id]])
-#    redirect_back_or_default unless @user.curator_approved
-#  end
-
-  # TODO - we need to link to this.  :)  There should be a hierarchy_entry_id provided, when we do.  We want each TC page to
-  # have a link (for curators), using "an appropriate clade" for the hierarchy_entry_id.
+  # TODO - we need to link to this.  :)  There should be a hierarchy_entry_id provided, when we do.  We want each TC
+  # page to have a link (for curators), using "an appropriate clade" for the hierarchy_entry_id.
   def curate_images
     @page_title += ": " + I18n.t("curate_images")
     published_resources

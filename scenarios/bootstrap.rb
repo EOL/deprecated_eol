@@ -378,7 +378,7 @@ image_dato = tc31.images.first
 text_dato.rate(curator_for_tc31, 1)
 image_dato.rate(curator_for_tc31, 1)
 # create new dato with the same guid and comments on new version
-add_comments_and_tags_to_reharvested_data_objects(tc31)
+add_comments_to_reharvested_data_objects(tc31)
 
 #32
 user = User.gen

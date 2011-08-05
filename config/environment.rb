@@ -85,7 +85,7 @@ Rails::Initializer.run do |config|
   # We have a lot of production-like environments.  To quickly test if we're in one, rather than parsing the ENV,
   # you may check $PRODUCTION_MODE.
   $PRODUCTION_MODE = true if ENV['RAILS_ENV'] and
-    ['production', 'staging', 'siproduction', 'failover', 'preview'].include?(ENV['RAILS_ENV'].downcase)
+    ['production', 'staging', 'v2staging', 'v2demo', 'siproduction', 'failover', 'preview'].include?(ENV['RAILS_ENV'].downcase)
 
   # How many images we want to show, at maximum, for a given page.  This number should be lower than the maximum number of
   # images created in the cached_images tables.  (EOL presently sets cached_image limits at 500.)
@@ -221,7 +221,7 @@ Rails::Initializer.run do |config|
   $SPECIAL_COMMUNITY_NAME = 'EOL Curators and Admins'
 
   $ACTIVITIES_ON_HOME_PAGE = 6
-  
+
   $HOMEPAGE_MARCH_RICHNESS_THRESHOLD = 0.4
 
   APPLICATION_DEFAULT_LANGUAGE_ISO = 'en'

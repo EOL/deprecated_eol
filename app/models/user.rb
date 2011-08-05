@@ -333,7 +333,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     level = CuratorLevel.send(level)
     unless curator_level_id == level.id
       self.update_attribute(:curator_level_id, level.id)
-      Notifier.deliver_curator_approved(self)
+      Notifier.deliver_curator_approved(self) if $PRODUCTION_MODE
       if options[:user]
         self.update_attribute(:curator_verdict_by, options[:user])
         self.update_attribute(:curator_verdict_at, Time.now)
@@ -346,7 +346,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def revoke_curator
     unless curator_level_id == nil
       self.update_attribute(:curator_level_id, nil)
-      Notifier.deliver_curator_unapproved(self)
+      Notifier.deliver_curator_unapproved(self) if $PRODUCTION_MODE
     end
     self.update_attribute(:curator_verdict_by, nil)
     self.update_attribute(:curator_verdict_at, nil)

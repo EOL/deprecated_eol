@@ -1,0 +1,10 @@
+#content_partner.site_column.contact
+  .article.copy
+    - form_for [@partner, @contact], :builder => ApplicationHelper::EolFormBuilder do |contact_form|
+      = validation_errors_for(@contact)
+      = render :partial => 'contact_fieldset', :locals => { :contact_form => contact_form }
+      %fieldset.actions
+        = contact_form.submit I18n.t('helpers.submit.content_partner_contact.update')
+        = link_to I18n.t(:cancel), @partner
+    = button_to I18n.t('helpers.submit.content_partner_contact.destroy'), { :action => 'destroy', :id => @contact.id },
+      :method => :delete, :confirm => I18n.t(:delete_confirmation_question), :class => 'button_to'

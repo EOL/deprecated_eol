@@ -14,6 +14,12 @@ class ContentPartner < SpeciesSchemaModel
   has_many :google_analytics_partner_taxa
   has_many :content_partner_agreements
 
+  validates_presence_of :full_name
+  validates_presence_of :description
+  validates_length_of :display_name, :maximum => 255
+  validates_length_of :acronym, :maximum => 20
+  validates_length_of :homepage, :maximum => 255
+
   #STEPS = [:partner, :contacts, :licensing, :attribution, :roles, :transfer_overview, :transfer_upload, :specialist_overview, :specialist_formatting]
 
   # Alias some partner fields so we can use validation helpers
@@ -30,7 +36,7 @@ class ContentPartner < SpeciesSchemaModel
 
   # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we go to many to many
   def can_be_updated_by?(user)
-    user.id == user_id
+    user.id == user_id || user.is_admin?
   end
 
   def concepts_for_gallery(page, per_page)
@@ -369,6 +375,7 @@ class ContentPartner < SpeciesSchemaModel
   end
 
   def name
-    display_name || full_name
+    return display_name unless display_name.blank?
+    full_name
   end
 end

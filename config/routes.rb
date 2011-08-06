@@ -32,7 +32,9 @@ ActionController::Routing::Routes.draw do |map|
 
   # content partners and their nested resources
   map.resources :content_partners do |content_partner|
-    content_partner.resources :content_partner_contacts, :as => :contacts, :except => [:index, :show]
+    content_partner.resources :content_partner_contacts, :as => :contacts,
+                                                         :except => [:index, :show],
+                                                         :namespace => "content_partners/"
   end
 
 # WIP

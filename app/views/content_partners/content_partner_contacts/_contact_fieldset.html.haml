@@ -1,0 +1,36 @@
+%fieldset
+  %h3= I18n.t(:content_partner_contact_new_edit_form_header)
+  %p.tip= I18n.t(:content_partner_contact_new_edit_form_tip, :required_icon => image_tag('/images/v2/icon_required.png', :alt => ''))
+  %dl
+    %dt.required
+      = contact_form.label :given_name
+    %dd
+      = contact_form.text_field :given_name, { :maxlength => 255 }
+    %dt.required
+      = contact_form.label :family_name
+    %dd
+      = contact_form.text_field :family_name, { :maxlength => 255 }
+    %dt.required
+      = contact_form.label :email
+    %dd
+      = contact_form.text_field :email, { :maxlength => 75 }
+    %dt
+      = contact_form.label :homepage
+    %dd
+      = contact_form.text_field :homepage, { :maxlength => 255 }
+    %dt
+      = contact_form.label :telephone
+    %dd
+      = contact_form.text_field :telephone, { :maxlength => 30 }
+    %dt
+      = contact_form.label :address
+    %dd
+      = contact_form.text_area :address
+    %dt
+      = contact_form.label :contact_role_id
+    %dd
+      = contact_form.select :contact_role_id, options_from_collection_for_select(@contact_roles, :id, :label, @contact.contact_role_id)
+    %dt
+      = contact_form.label :email_reports_frequency_hours
+    %dd
+      = contact_form.select :email_reports_frequency_hours, @mail_intervals

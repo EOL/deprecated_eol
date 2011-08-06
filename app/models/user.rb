@@ -346,6 +346,9 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def can_update?(resource)
     resource.can_be_updated_by?(self)
   end
+  def can_delete?(resource)
+    resource.can_be_deleted_by?(self)
+  end
 
   def special
     @special ||= member_of(Community.special)
@@ -795,12 +798,12 @@ private
     (!self.curator_level_id.nil? && !self.curator_level_id.zero? &&
       self.curator_level_id != CuratorLevel.assistant_curator.id)
   end
-  
+
   def first_last_names_required?
     (!self.requested_curator_level_id.nil? && !self.requested_curator_level_id.zero?) ||
     (!self.curator_level_id.nil? && !self.curator_level_id.zero?)
   end
-  
+
   # before_save TODO - could replace this with actual method that does all approvals however that is going to work
   # TODO - this is not hooked up with the V1 curator approved attributes - need more info
   def instantly_approve_curator_level

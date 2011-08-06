@@ -79,13 +79,14 @@ class DataObject < SpeciesSchemaModel
   # this method is not just sorting by rating
   def self.sort_by_rating(data_objects, taxon_concept = nil, sort_order = [:type, :toc, :visibility, :vetted, :rating, :date])
     data_objects.sort_by do |obj|
-      dato_visibility = obj.visibility_by_taxon_concept(taxon_concept)
-      dato_visibility_id = dato_visibility.id unless dato_visibility.nil?
+      obj_association = obj.association_with_exact_or_best_vetted_status(taxon_concept)
+      obj_vetted = obj_association.vetted unless obj_association.nil?
+      obj_visibility = obj_association.visibility unless obj_association.nil?
       type_order = obj.data_type_id
       toc_view_order = (!obj.is_text? || obj.info_items.blank? || obj.info_items[0].toc_item.blank?) ? 0 : obj.info_items[0].toc_item.view_order
-      vetted_view_order = obj.vetted.blank? ? 0 : obj.vetted.view_order
+      vetted_view_order = obj_vetted.blank? ? 0 : obj_vetted.view_order
       visibility_view_order = 2
-      visibility_view_order = 1 if dato_visibility_id == Visibility.preview.id
+      visibility_view_order = 1 if obj_visibility.id == Visibility.preview.id
       inverted_rating = obj.data_rating * -1
       inverted_id = obj.id * -1
       sort = []

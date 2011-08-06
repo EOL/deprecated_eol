@@ -210,9 +210,7 @@ module EOL
       }
     end
     def default_attributes
-      @default_attributes = {:visibility  => Visibility.visible,
-                             :vetted      => Vetted.trusted,
-                             :license     => License.first,
+      @default_attributes = {:license     => License.first,
                              :language    => Language.english }
     end
 

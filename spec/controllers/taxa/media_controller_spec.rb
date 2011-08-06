@@ -36,7 +36,10 @@ describe Taxa::MediaController do
 
       # rank objects in order: 1 - oldest image; 2 - oldest video; 3 - oldest sound
       # assumes exemplar is nil
-      @trusted_count = @taxon_concept.media.select{|m| m.vetted_id == Vetted.trusted.id}.count
+      @trusted_count = @taxon_concept.media.select{ |item|
+        item_vetted = item.vetted_by_taxon_concept(@taxon_concept)
+        item_vetted.id == Vetted.trusted.id
+      }.count
 
       @media = @taxon_concept.media.sort_by{|m| m.id}
       @newest_media = @media.last(10).reverse
@@ -46,51 +49,51 @@ describe Taxa::MediaController do
       @oldest_image_highly_rated_unreviewed = @taxon_concept.images.first
       @highly_ranked_image = @taxon_concept.images.second
       @newest_image_poorly_rated_trusted.data_rating = 0
-      @newest_image_poorly_rated_trusted.vetted_id = Vetted.trusted.id
+      @newest_image_poorly_rated_trusted.vetted_by_taxon_concept(@taxon_concept).id = Vetted.trusted.id
       @newest_image_poorly_rated_trusted.save
       @oldest_image_highly_rated_unreviewed.data_rating = 20
-      @oldest_image_highly_rated_unreviewed.vetted_id = Vetted.unknown.id
-      @oldest_image_highly_rated_unreviewed.visibility_id = Visibility.visible.id
+      @oldest_image_highly_rated_unreviewed.vetted_by_taxon_concept(@taxon_concept).id = Vetted.unknown.id
+      @oldest_image_highly_rated_unreviewed.visibility_by_taxon_concept(@taxon_concept).id = Visibility.visible.id
       @oldest_image_highly_rated_unreviewed.save
       @highly_ranked_image.data_rating = 8
-      @highly_ranked_image.vetted_id = Vetted.trusted.id
-      @highly_ranked_image.visibility_id = Visibility.visible.id
+      @highly_ranked_image.vetted_by_taxon_concept(@taxon_concept).id = Vetted.trusted.id
+      @highly_ranked_image.visibility_by_taxon_concept(@taxon_concept).id = Visibility.visible.id
       @highly_ranked_image.save
 
       @newest_video_poorly_rated_trusted = @taxon_concept.videos.last
       @oldest_video_highly_rated_unreviewed = @taxon_concept.videos.first
       @highly_ranked_video = @taxon_concept.videos.second
       @newest_video_poorly_rated_trusted.data_rating = 0
-      @newest_video_poorly_rated_trusted.vetted_id = Vetted.trusted.id
+      @newest_video_poorly_rated_trusted.vetted_by_taxon_concept(@taxon_concept).id = Vetted.trusted.id
       @newest_video_poorly_rated_trusted.save
       @oldest_video_highly_rated_unreviewed.data_rating = 19
-      @oldest_video_highly_rated_unreviewed.vetted_id = Vetted.unknown.id
-      @oldest_video_highly_rated_unreviewed.visibility_id = Visibility.visible.id
+      @oldest_video_highly_rated_unreviewed.vetted_by_taxon_concept(@taxon_concept).id = Vetted.unknown.id
+      @oldest_video_highly_rated_unreviewed.visibility_by_taxon_concept(@taxon_concept).id = Visibility.visible.id
       @oldest_video_highly_rated_unreviewed.save
       @highly_ranked_video.data_rating = 7
-      @highly_ranked_video.vetted_id = Vetted.trusted.id
-      @highly_ranked_video.visibility_id = Visibility.visible.id
+      @highly_ranked_video.vetted_by_taxon_concept(@taxon_concept).id = Vetted.trusted.id
+      @highly_ranked_video.visibility_by_taxon_concept(@taxon_concept).id = Visibility.visible.id
       @highly_ranked_video.save
 
       @newest_sound_poorly_rated_trusted = @taxon_concept.sounds.last
       @oldest_sound_highly_rated_unreviewed = @taxon_concept.sounds.first
       @highly_ranked_sound = @taxon_concept.sounds.second
       @newest_sound_poorly_rated_trusted.data_rating = 0
-      @newest_sound_poorly_rated_trusted.vetted_id = Vetted.trusted.id
+      @newest_sound_poorly_rated_trusted.vetted_by_taxon_concept(@taxon_concept).id = Vetted.trusted.id
       @newest_sound_poorly_rated_trusted.save
       @oldest_sound_highly_rated_unreviewed.data_rating = 18
-      @oldest_sound_highly_rated_unreviewed.vetted_id = Vetted.unknown.id
-      @oldest_sound_highly_rated_unreviewed.visibility_id = Visibility.visible.id
+      @oldest_sound_highly_rated_unreviewed.vetted_by_taxon_concept(@taxon_concept).id = Vetted.unknown.id
+      @oldest_sound_highly_rated_unreviewed.visibility_by_taxon_concept(@taxon_concept).id = Visibility.visible.id
       @oldest_sound_highly_rated_unreviewed.save
       @highly_ranked_sound.data_rating = 6
-      @highly_ranked_sound.vetted_id = Vetted.trusted.id
-      @highly_ranked_sound.visibility_id = Visibility.visible.id
+      @highly_ranked_sound.vetted_by_taxon_concept(@taxon_concept).id = Vetted.trusted.id
+      @highly_ranked_sound.visibility_by_taxon_concept(@taxon_concept).id = Visibility.visible.id
       @highly_ranked_sound.save
 
       @highly_ranked_text = @taxon_concept.text.first
       @highly_ranked_text.data_rating = 21
-      @highly_ranked_text.vetted_id = Vetted.trusted.id
-      @highly_ranked_text.visibility_id = Visibility.visible.id
+      @highly_ranked_text.vetted_by_taxon_concept(@taxon_concept).id = Vetted.trusted.id
+      @highly_ranked_text.visibility_by_taxon_concept(@taxon_concept).id = Visibility.visible.id
       @highly_ranked_text.save
 
     end

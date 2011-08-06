@@ -40,7 +40,7 @@
       = @config.database_configuration[ENV["RAILS_ENV"]+'_logging']["database"] + ' @ ' + @config.database_configuration[ENV["RAILS_ENV"]+'_logging']["host"]
       %br
       - unless @config.database_configuration['master_database'].nil?
-        =I18n.t("this_does_not_necessarily_mean", :env => ENV["RAILS_ENV"]
+        =I18n.t("this_does_not_necessarily_mean", :env => ENV["RAILS_ENV"])
         %br
         =I18n.t("main_master_")
         = @config.database_configuration['master_database']["database"] + ' @ ' + @config.database_configuration['master_database']["host"]

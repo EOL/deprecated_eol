@@ -31,6 +31,19 @@ class ContentPartner < SpeciesSchemaModel
 
   # Callbacks
   before_save :blank_not_null_fields
+  
+  # TODO: remove the :if condition after migrations are run in production
+  has_attached_file :logo,
+    :path => $LOGO_UPLOAD_DIRECTORY,
+    :url => $LOGO_UPLOAD_PATH,
+    :default_url => "/images/blank.gif",
+    :if => self.column_names.include?('logo_file_name')
+
+  validates_attachment_content_type :logo,
+    :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'],
+    :if => self.column_names.include?('logo_file_name')
+  validates_attachment_size :logo, :in => 0..$LOGO_UPLOAD_MAX_SIZE,
+    :if => self.column_names.include?('logo_file_name')
 
   # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we go to many to many
   def can_be_updated_by?(user)

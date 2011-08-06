@@ -3,7 +3,7 @@ class Taxa::ResourcesController < TaxaController
   before_filter :add_page_view_log_entry, :update_user_content_level
   
   def show
-    @assistive_section_header = I18n.t(:content_partners)
+    @assistive_section_header = I18n.t(:resources)
     @links = @taxon_concept.content_partners_links
     current_user.log_activity(:viewed_taxon_concept_resources_content_partners, :taxon_concept_id => @taxon_concept.id)
   end
@@ -17,7 +17,7 @@ class Taxa::ResourcesController < TaxaController
   
   def education
     toc_id = TocItem.education.id
-    @assistive_section_header = I18n.t(:education)
+    @assistive_section_header = I18n.t(:resources)
     @contents = @taxon_concept.details_for_toc_items(ContentTable.details.toc_items, :language => current_user.language_abbr).collect{|d| d if d[:toc_item].id == toc_id}.compact
     current_user.log_activity(:viewed_taxon_concept_resources_education, :taxon_concept_id => @taxon_concept.id)
   end
@@ -26,7 +26,7 @@ class Taxa::ResourcesController < TaxaController
     if !Resource.ligercat.nil? && HierarchyEntry.find_by_hierarchy_id_and_taxon_concept_id(Resource.ligercat.hierarchy.id, @taxon_concept.id)
       @biomedical_exists = true
       toc_id = TocItem.biomedical_terms.id
-      @assistive_section_header = I18n.t(:biomedical_terms)
+      @assistive_section_header = I18n.t(:resources)
       @contents = @taxon_concept.details_for_toc_items(ContentTable.details.toc_items, :language => current_user.language_abbr).collect{|d| d if d[:toc_item].id == toc_id}.compact
     else
       @biomedical_exists = false

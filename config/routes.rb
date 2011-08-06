@@ -71,6 +71,7 @@ ActionController::Routing::Routes.draw do |map|
     user.resource :newsfeed, :only => [:show], :controller => "users/newsfeeds"
     user.resource :activity, :only => [:show], :controller => "users/activities"
     user.resources :collections, :only => [:index], :controller => "users/collections"
+    user.resources :content_partners, :only => [:index], :namespace => "users/"
   end
   map.verify_user '/users/:username/verify/:validation_code', :controller => 'users', :action => 'verify'
   # can't add dynamic segment to a member in rails 2.3 so we have to specify named route:

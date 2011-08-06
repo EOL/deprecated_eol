@@ -13,7 +13,9 @@ class ContentPartnersController < ApplicationController
   end
 
   def new
-    # TODO
+    @partner = ContentPartner.new
+    @page_title = I18n.t(:content_partners_page_title)
+    @page_subtitle = I18n.t(:content_partner_new_page_subheader)
   end
 
   # GET /content_partners/:id
@@ -48,7 +50,7 @@ private
 
   def content_partners_layout
     case action_name
-    when 'index'
+    when 'index', 'new'
       'v2/basic'
     else
       'v2/partners'

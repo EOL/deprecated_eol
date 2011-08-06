@@ -6,8 +6,6 @@ class ContentPartner < SpeciesSchemaModel
   belongs_to :user
   belongs_to :content_partner_status
 
-  has_many :content_partner_provided_data_types, :dependent => :destroy
-  has_many :content_partner_data_types, :through => :content_partner_provided_data_types
   has_many :resources
   has_many :content_partner_contacts, :dependent => :destroy
   has_many :google_analytics_partner_summaries
@@ -16,9 +14,9 @@ class ContentPartner < SpeciesSchemaModel
 
   validates_presence_of :full_name
   validates_presence_of :description
-  validates_length_of :display_name, :maximum => 255
-  validates_length_of :acronym, :maximum => 20
-  validates_length_of :homepage, :maximum => 255
+  validates_length_of :display_name, :maximum => 255, :allow_nil => true
+  validates_length_of :acronym, :maximum => 20, :allow_nil => true
+  validates_length_of :homepage, :maximum => 255, :allow_nil => true
 
   #STEPS = [:partner, :contacts, :licensing, :attribution, :roles, :transfer_overview, :transfer_upload, :specialist_overview, :specialist_formatting]
 

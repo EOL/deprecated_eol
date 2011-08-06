@@ -120,14 +120,20 @@ ActionController::Routing::Routes.draw do |map|
 
   map.set_language 'set_language', :controller => 'application', :action => 'set_language'
 
-  map.contact_us    'contact_us',    :controller => 'content', :action => 'contact_us'
-  map.media_contact 'media_contact', :controller => 'content', :action => 'media_contact'
+  # some of V1 links - temporarily commented until further notice
+  #map.contact_us    'contact_us',    :controller => 'content', :action => 'contact_us'
+  #map.media_contact 'media_contact', :controller => 'content', :action => 'media_contact'
+  #map.help         'help',         :controller => 'content', :action => 'page', :id => 'screencasts'
+  #map.screencasts  'screencasts',  :controller => 'content', :action => 'page', :id => 'screencasts'
+  #map.faq          'faq',          :controller => 'content', :action => 'page', :id => 'faqs'
+  #map.terms_of_use 'terms_of_use', :controller => 'content', :action => 'page', :id => 'terms_of_use'
 
-  map.help         'help',         :controller => 'content', :action => 'page', :id => 'screencasts'
-  map.screencasts  'screencasts',  :controller => 'content', :action => 'page', :id => 'screencasts'
-  map.faq          'faq',          :controller => 'content', :action => 'page', :id => 'faqs'
-  map.terms_of_use 'terms_of_use', :controller => 'content', :action => 'page', :id => 'terms_of_use'
-  map.donate       'donate',       :controller => 'content', :action => 'donate'
+  # V2 header links
+  map.help        'help',        :controller => 'content', :action => 'page', :id => 'help'
+  map.what_is_eol 'what_is_eol', :controller => 'content', :action => 'page', :id => 'what_is_eol'
+  map.eol_news    'eol_news',    :controller => 'content', :action => 'page', :id => 'eol_news'
+  map.contact_us  'contact_us',  :controller => 'content', :action => 'page', :id => 'contact_us'
+  map.donate      'donate',      :controller => 'content', :action => 'donate'
 
   map.clear_caches 'clear_caches',      :controller => 'content', :action => 'clear_caches'
   map.expire_all   'expire_all',        :controller => 'content', :action => 'expire_all'

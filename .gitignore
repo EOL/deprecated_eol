@@ -32,6 +32,7 @@ public/opensearch.xml
 public/search.xml
 public/stylesheets/*-cached_packaged.css
 public/uploads/datasets/*
+public/uploads/Image/*
 solr/logs/*.*
 solr/solr/data/*
 tmp/cache/*

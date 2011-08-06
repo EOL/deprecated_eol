@@ -135,7 +135,6 @@ describe 'EOL APIs' do
     
     builder = EOL::Solr::SiteSearchCoreRebuilder.new()
     builder.reindex_model(TaxonConcept)
-    
     visit("/api/pages/#{@taxon_concept.id}")
     @default_pages_body = body
   end
@@ -249,7 +248,7 @@ describe 'EOL APIs' do
     images = @taxon_concept.images
     # and they should still contain vetted and rating info
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"][last()]/xmlns:additionalInformation/xmlns:vettedStatus').
-      inner_text.should == images.first.vetted.label
+      inner_text.should == images.first.vetted_by_taxon_concept(@taxon_concept, :find_best => true).label
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"][last()]/xmlns:additionalInformation/xmlns:dataRating').
       inner_text.should == images.first.data_rating.to_s
   end
@@ -259,7 +258,7 @@ describe 'EOL APIs' do
     xml_response = Nokogiri.XML(body)
     last_guid = xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"][last()]/dc:identifier').inner_text
     data_object = DataObject.find_by_guid(last_guid)
-    data_object.vetted_id.should == Vetted.untrusted.id
+    data_object.vetted_by_taxon_concept(@taxon_concept, :find_best => true).id.should == Vetted.untrusted.id
   end
   
   it 'pages should filter out all non-trusted objects' do
@@ -267,7 +266,7 @@ describe 'EOL APIs' do
     xml_response = Nokogiri.XML(body)
     last_guid = xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"][last()]/dc:identifier').inner_text
     data_object = DataObject.find_by_guid(last_guid)
-    data_object.vetted_id.should == Vetted.trusted.id
+    data_object.vetted_by_taxon_concept(@taxon_concept, :find_best => true).id.should == Vetted.trusted.id
   end
   
   it 'pages should filter out untrusted objects' do
@@ -275,7 +274,7 @@ describe 'EOL APIs' do
     xml_response = Nokogiri.XML(body)
     last_guid = xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"][last()]/dc:identifier').inner_text
     data_object = DataObject.find_by_guid(last_guid, :order => 'id desc')
-    data_object.vetted_id.should == Vetted.unknown.id
+    data_object.vetted_by_taxon_concept(@taxon_concept, :find_best => true).id.should == Vetted.unknown.id
   end
   
   it 'pages should be able to toggle common names' do
@@ -296,7 +295,7 @@ describe 'EOL APIs' do
     xml_response = Nokogiri.XML(@default_pages_body)
     images = @taxon_concept.images
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"][last()]/xmlns:additionalInformation/xmlns:vettedStatus').
-      inner_text.should == images.first.vetted.label
+      inner_text.should == images.first.vetted_by_taxon_concept(@taxon_concept, :find_best => true).label
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"][last()]/xmlns:additionalInformation/xmlns:dataRating').
       inner_text.should == images.first.data_rating.to_s
   end

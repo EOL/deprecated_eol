@@ -1086,7 +1086,9 @@ class TaxonConcept < SpeciesSchemaModel
       image_data_objects = DataObject.filter_list_for_user(image_data_objects, :taxon_concept => self)
       # remove non-matching vetted and license values
       image_data_objects.delete_if do |d|
-        (options[:vetted] && !options[:vetted].include?(d.vetted)) ||
+        d_vetted = d.vetted_by_taxon_concept(self, :find_best => true)
+        d_vetted = d_vetted unless d_vetted.nil?
+        (options[:vetted] && !options[:vetted].include?(d_vetted)) ||
         (options[:licenses] && !options[:licenses].include?(d.license))
       end
       image_data_objects = image_data_objects.group_objects_by('guid')  # group by guid
@@ -1099,7 +1101,9 @@ class TaxonConcept < SpeciesSchemaModel
       non_image_objects = data_objects.select{ |d| !d.is_image? }
       non_image_objects = DataObject.filter_list_for_user(non_image_objects, :taxon_concept => self)
       non_image_objects.delete_if do |d|
-        (options[:vetted] && !options[:vetted].include?(d.vetted)) ||
+        d_vetted = d.vetted_by_taxon_concept(self, :find_best => true)
+        d_vetted = d_vetted unless d_vetted.nil?
+        (options[:vetted] && !options[:vetted].include?(d_vetted)) ||
         (options[:licenses] && !options[:licenses].include?(d.license)) ||
         (d.is_text? && options[:text_subjects] && (options[:text_subjects] & d.info_items).empty?)
         # the use of & above is the array set intersection operator

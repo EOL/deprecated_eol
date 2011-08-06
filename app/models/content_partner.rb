@@ -27,6 +27,19 @@ class ContentPartner < SpeciesSchemaModel
 
   # Callbacks
   before_save :blank_not_null_fields
+  
+  # TODO: remove the :if condition after migrations are run in production
+  has_attached_file :logo,
+    :path => $LOGO_UPLOAD_DIRECTORY,
+    :url => $LOGO_UPLOAD_PATH,
+    :default_url => "/images/blank.gif",
+    :if => self.column_names.include?('logo_file_name')
+
+  validates_attachment_content_type :logo,
+    :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'],
+    :if => self.column_names.include?('logo_file_name')
+  validates_attachment_size :logo, :in => 0..5.megabyte,
+    :if => self.column_names.include?('logo_file_name')
 
   def concepts_for_gallery(page, per_page)
     page = page - 1

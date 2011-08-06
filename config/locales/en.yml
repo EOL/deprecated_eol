@@ -786,6 +786,8 @@ en:
   content_partner_contact_new_edit_form_tip: "First name, last name and email are %{required_icon} required."
   content_partner_contacts_header: "Contacts"
   content_partner_contacts_page_title: "Content Partner Contacts - %{name}"
+  content_partner_update_successful_notice: "Content partner successfully added."
+  content_partner_update_unsuccessful_error: "Sorry, an error occurred, content partner was not added."
   content_partner_curated_data: "content partner curated data"
   content_partner_data_description_header: "Project data"
   content_partner_dashboard_header: "Content Partner Dashboard"

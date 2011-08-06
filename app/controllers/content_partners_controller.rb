@@ -12,10 +12,23 @@ class ContentPartnersController < ApplicationController
     @partner_search_string = params[:partner_search_string] || ''
   end
 
+  # GET /content_partners/new
   def new
     @partner = ContentPartner.new
     @page_title = I18n.t(:content_partners_page_title)
     @page_subtitle = I18n.t(:content_partner_new_page_subheader)
+  end
+
+  def create
+    @partner = ContentPartner.new(params[:content_partner])
+    if @partner.save
+      upload_logo(@partner) unless params[:content_partner][:logo].blank?
+      flash[:notice] = I18n.t(:content_partner_create_successful_notice)
+      redirect_to @partner
+    else
+      flash.now[:error] = I18n.t(:content_partner_create_unsuccessful_error)
+      render :new
+    end
   end
 
   # GET /content_partners/:id
@@ -37,7 +50,7 @@ class ContentPartnersController < ApplicationController
     @partner = ContentPartner.find(params[:id])
     access_denied unless current_user.can_update?(@partner)
     if @partner.update_attributes(params[:content_partner])
-      # upload_logo(@partner) unless params[:content_partner][:logo].blank?
+      upload_logo(@partner) unless params[:content_partner][:logo].blank?
       flash[:notice] = I18n.t(:content_partner_update_successful_notice)
       redirect_to @partner
     else

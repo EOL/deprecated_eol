@@ -34,15 +34,15 @@
       = partner_form.label :notes
     %dd
       = partner_form.text_area :notes
-    - # %dt
-    - #   = partner_form.label :logo
-    - # %dd.logo
-    - #   %p= I18n.t('helpers.label.content_partner.logo_current')
-    - #   %br/
-    - #   = image_tag @partner.logo
-    - #   %p= I18n.t('helpers.label.content_partner.logo_new')
-    - #   %br/
-    - #   = partner_form.file_field :logo
+    %dt
+      = partner_form.label :logo
+    %dd.logo
+      %p= I18n.t('helpers.label.content_partner.logo_current')
+      %br/
+      = image_tag @partner.logo_url
+      %p= I18n.t('helpers.label.content_partner.logo_new')
+      %br/
+      = partner_form.file_field :logo
     - if current_user.is_admin?
       %dt
         = partner_form.label :admin_notes

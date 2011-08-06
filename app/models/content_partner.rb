@@ -31,7 +31,7 @@ class ContentPartner < SpeciesSchemaModel
 
   # Callbacks
   before_save :blank_not_null_fields
-  
+
   # TODO: remove the :if condition after migrations are run in production
   has_attached_file :logo,
     :path => $LOGO_UPLOAD_DIRECTORY,
@@ -380,9 +380,16 @@ class ContentPartner < SpeciesSchemaModel
     self.description ||=""
   end
 
-  def logo_url
-    # TODO: convert to proper method when logo_url attribute added to cp model
-    return "v2/logos/user_default.png"
+  # override the logo_url column in the database to construct the path on the content server
+  def logo_url(size = 'large')
+    if logo_cache_url.blank?
+      return "v2/logos/partner_default.png"
+    elsif size.to_s == 'small'
+      DataObject.image_cache_path(logo_cache_url, '88_88')
+    else
+      DataObject.image_cache_path(logo_cache_url, '130_130')
+      # ContentServer.logo_path(logo_cache_url, size)
+    end
   end
 
   def name

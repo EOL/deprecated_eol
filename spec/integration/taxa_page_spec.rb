@@ -130,9 +130,6 @@ describe 'Taxa page' do
     it 'should include Content Partners' do
       body.should include('Content Partners')
     end
-    it 'should include Biomedical terms' do
-      body.should include('Biomedical terms')
-    end    
   end
   
   shared_examples_for 'taxon names tab' do

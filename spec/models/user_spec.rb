@@ -258,6 +258,7 @@ describe User do
     @user.all_submitted_dato_descriptions.sort.should == @descriptions
   end
 
+  # TODO - This test should be modified/rewritten while working on WEB-2542
   it 'convenience methods should be able to mark all data objects invisible and unvetted' # do
    #    rebuild_convenience_method_data
    #    Vetted.gen_if_not_exists(:label => 'Untrusted') unless Vetted.find_by_translated(:label, 'Untrusted')

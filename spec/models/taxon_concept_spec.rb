@@ -361,6 +361,7 @@ describe TaxonConcept do
     @taxon_concept.show_curator_controls?(@curator).should == true
   end
 
+  # TODO - This test should be modified/rewritten while working on WEB-2542
   it 'should return a toc item which accepts user submitted text' # do
    #    @taxon_concept.tocitem_for_new_text.class.should == TocItem
    #    @empty_taxon_concept.tocitem_for_new_text.class.should == TocItem

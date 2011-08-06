@@ -1,9 +1,9 @@
 class Administrator::HarvestingLogController < AdminController
-  
+
   layout 'left_menu'
   before_filter :set_layout_variables
-  access_control :content_partners
-  
+  before_filter :restrict_to_admins
+
   def index
     @page_title = I18n.t("harvesting_processes_log")
     unless params[:date].blank?
@@ -17,7 +17,7 @@ class Administrator::HarvestingLogController < AdminController
     end
     conditions = "began_at BETWEEN '#{@date.strftime("%Y-%m-%d")}' AND '#{(@date+1.day).strftime("%Y-%m-%d")}'" if @date != 'all'
     @logs = HarvestProcessLog.paginate(:order => 'id desc', :page => params[:page], :conditions => conditions)
-    
+
     @distinct_dates = []
     last_date = Time.now
     for i in 1..30
@@ -26,7 +26,7 @@ class Administrator::HarvestingLogController < AdminController
       last_date = last_date - 1.day
     end
   end
-  
+
 private
 
   def set_layout_variables

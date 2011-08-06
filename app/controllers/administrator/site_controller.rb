@@ -6,7 +6,7 @@ class Administrator::SiteController  < AdminController
 
   helper :resources
 
-  access_control :technical
+  before_filter :restrict_to_admins
 
   def index
     @page_title = 'General Site Administration'
@@ -27,13 +27,13 @@ class Administrator::SiteController  < AdminController
   def clear_all
     unless request.xhr?
       render :nothing => true
-      return 
+      return
     end
     if clear_all_caches
       message = 'All caches cleared on ' + view_helper_methods.format_date_time(Time.now)
     else
       message = 'Caches could not be cleared'
-    end    
+    end
     render :text => message, :layout => false
   end
 
@@ -41,7 +41,7 @@ class Administrator::SiteController  < AdminController
   def expire_all
     unless request.xhr?
       render :nothing => true
-      return 
+      return
     end
     expire_non_species_caches
     message = 'Non-species page caches cleared on ' + view_helper_methods.format_date_time($CACHE_CLEARED_LAST)
@@ -53,7 +53,7 @@ class Administrator::SiteController  < AdminController
     taxon_concept_id = params[:taxon_id]
     unless request.xhr? && !taxon_concept_id.blank?
       render :nothing => true
-      return 
+      return
     end
     message = '' # Scope.
     begin

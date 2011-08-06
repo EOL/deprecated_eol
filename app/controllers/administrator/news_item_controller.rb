@@ -6,19 +6,19 @@ class Administrator::NewsItemController < AdminController
 
   helper :resources
 
-  access_control :news_items
-  
+  before_filter :restrict_to_admins
+
   def index
     @page_title = I18n.t("news_items")
     @term_search_string=params[:term_search_string] || ''
-    search_string_parameter='%' + @term_search_string + '%' 
+    search_string_parameter='%' + @term_search_string + '%'
     @news_items=NewsItem.paginate(:conditions=>['exists (select * from translated_news_items where body like ?)',search_string_parameter],:order=>'display_date desc',:page => params[:page])
     @news_items_count=NewsItem.count(:conditions=>['exists (select * from translated_news_items where body like ?)',search_string_parameter])
   end
 
   def new
     @page_title = I18n.t("new_news_item")
-    store_location(referred_url) if request.get?    
+    store_location(referred_url) if request.get?
     @news_item = NewsItem.new
     @news_item.set_translation_language(Language.english)
     @news_item.translated_active_translation = true
@@ -32,7 +32,7 @@ class Administrator::NewsItemController < AdminController
 
   def edit
     @page_title = I18n.t("edit_news_item")
-    store_location(referred_url) if request.get?            
+    store_location(referred_url) if request.get?
     @news_item = NewsItem.find(params[:id])
   end
 
@@ -50,7 +50,7 @@ class Administrator::NewsItemController < AdminController
       expire_cache('Home')
       redirect_back_or_default(url_for(:action=>'index'))
     else
-      render :action => 'new' 
+      render :action => 'new'
     end
   end
 
@@ -61,10 +61,10 @@ class Administrator::NewsItemController < AdminController
       expire_cache('Home')
       redirect_back_or_default(url_for(:action=>'index'))
     else
-      render :action => 'edit' 
+      render :action => 'edit'
     end
   end
-  
+
   def delete_translation
     translation_news_item = TranslatedNewsItem.find_by_news_item_id_and_language_id(params[:id], params[:language_id])
     translation_news_item.destroy
@@ -77,48 +77,48 @@ class Administrator::NewsItemController < AdminController
     for translated_news_item in TranslatedNewsItem.find_all_by_news_item_id(params[:id])
       translated_news_item.destroy
     end
-    @news_item = NewsItem.find(params[:id])    
+    @news_item = NewsItem.find(params[:id])
     @news_item.destroy
     expire_cache('Home')
     redirect_to referred_url
   end
-  
+
   def add_language
     @page_title = I18n.t("add_language")
-    @news_item = NewsItem.find(params[:id])       
+    @news_item = NewsItem.find(params[:id])
   end
-  
+
   def update_language
     @page_title = I18n.t("update_language")
     @news_item = NewsItem.find(params[:id])
     @language = Language.find(params[:language_id])
-    @news_item.set_translation_language(@language)  
-    
+    @news_item.set_translation_language(@language)
+
   end
-  
+
   def save_translation
-   news_item = NewsItem.find(params[:id])   
-   language = Language.find(params[:language_id]) rescue Language.find(params[:news_item][:current_translation_language])  
-   
+   news_item = NewsItem.find(params[:id])
+   language = Language.find(params[:language_id]) rescue Language.find(params[:news_item][:current_translation_language])
+
    if language.id == nil
      language = Language.find(params[:news_item][:current_translation_language])
    end
-   
+
    translated_news_item = TranslatedNewsItem.find_by_news_item_id_and_language_id(news_item.id, language.id)
-   
+
    translated_news_item = TranslatedNewsItem.new if translated_news_item.nil?
-   
+
    translated_news_item.news_item = news_item
    translated_news_item.language_id = language.id
    translated_news_item.active_translation = params[:news_item][:translated_active_translation]
    translated_news_item.title = params[:news_item][:translated_title]
    translated_news_item.body = params[:news_item][:translated_body]
-   
+
    translated_news_item.save
-   
+
    flash[:notice] = I18n.t("translation_saved")
-   redirect_to :action => 'index' 
-   
+   redirect_to :action => 'index'
+
  end
 
 private

@@ -1,10 +1,10 @@
 class Administrator::ErrorLogController < AdminController
-  
+
   layout 'left_menu'
 
   before_filter :set_layout_variables
-  
-  access_control :technical
+
+  before_filter :restrict_to_admins
 
   def index
     @page_title = I18n.t("error_log")
@@ -19,7 +19,7 @@ class Administrator::ErrorLogController < AdminController
     end
     conditions = "created_at BETWEEN '#{@date.strftime("%Y-%m-%d")}' AND '#{(@date+1.day).strftime("%Y-%m-%d")}'" if @date != 'all'
     @errors = ErrorLog.paginate(:order => 'id desc', :page => params[:page], :conditions => conditions)
-    
+
     @distinct_dates = []
     last_date = Time.now
     for i in 1..30
@@ -28,12 +28,12 @@ class Administrator::ErrorLogController < AdminController
       last_date = last_date - 1.day
     end
   end
- 
+
   def show
     @page_title = I18n.t("error_log_detail")
     @error = ErrorLog.find(params[:id])
   end
- 
+
 private
 
   def set_layout_variables

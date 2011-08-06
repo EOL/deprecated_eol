@@ -247,18 +247,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     self.entered_password
   end
 
-  def validate
-    errors.add_to_base "Secondary hierarchy must be different than default" if !secondary_hierarchy_id.nil? && secondary_hierarchy_id == default_hierarchy_id
-    if EOLConvert.to_boolean(curator_request)
-      if(credentials.blank?)
-        errors.add_to_base "You must indicate your credentials and area of expertise to request curator privileges."
-      end
-      if(curator_scope.blank?)
-        errors.add_to_base "You must indicate your scope to request curator privileges."
-      end
-    end
-  end
-
   def full_name
     full_name = [given_name, family_name].join(' ').strip
     return full_name unless full_name.blank?
@@ -350,25 +338,19 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     resource.can_be_deleted_by?(self)
   end
 
-  def special
-    @special ||= member_of(Community.special)
-  end
-
-  def approve_to_administrate
-    grant_special_role(Role.administrator)
+  def grant_admin
+    self.update_attribute(:admin, true)
   end
 
   def grant_curator(level = :full, options = {})
     level = CuratorLevel.send(level)
     unless curator_level_id == level.id
       self.update_attribute(:curator_level_id, level.id)
-      Notifier.deliver_curator_approved(self)
+      Notifier.deliver_curator_approved(self) if $PRODUCTION_MODE
       if options[:user]
         self.update_attribute(:curator_verdict_by, options[:user])
         self.update_attribute(:curator_verdict_at, Time.now)
       end
-      # TODO -remove this... it's a ticket.  But for now, I want to be thorough:
-      grant_special_role(Role.curator)
     end
     self.update_attribute(:requested_curator_level_id, nil)
   end
@@ -377,18 +359,13 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def revoke_curator
     unless curator_level_id == nil
       self.update_attribute(:curator_level_id, nil)
-      Notifier.deliver_curator_unapproved(self)
+      Notifier.deliver_curator_unapproved(self) if $PRODUCTION_MODE
     end
     self.update_attribute(:curator_verdict_by, nil)
     self.update_attribute(:curator_verdict_at, nil)
     self.update_attribute(:requested_curator_level_id, nil)
   end
   alias revoke_curatorship revoke_curator
-
-  def grant_special_role(role)
-    join_community(Community.special)
-    special.add_role(role)
-  end
 
   def clear_cached_user
     $CACHE.delete("users/#{self.id}") if $CACHE
@@ -477,18 +454,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     end
   end
 
-  def is_moderator?
-    return false if special.nil?
-    special.can?(Privilege.hide_comments)
-  end
-
-  def has_special_role?(role)
-    return false unless special
-    special.roles.include?(role)
-  end
-
   def is_admin?
-    has_special_role?(Role.administrator)
+    self.admin
   end
 
   def is_content_partner?
@@ -497,7 +464,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   def is_curator?
     curator_approved
-    # has_special_role?(Role.curator)
   end
 
   def is_pending_curator?
@@ -607,7 +573,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 #  end
 
   def ensure_unique_username_against_master
-    errors.add('username', "#{username} is already taken") unless User.unique_user?(username, id)
+    errors.add('username', I18n.t(:username_taken, :name => username)) unless User.unique_user?(username, id)
   end
 
   def rating_for_object_guid(guid)
@@ -742,7 +708,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     editable_collections = collections
     members.each do |member|
       begin
-        editable_collections << member.community.focus_collection if member.can?(Privilege.edit_collections)
+        editable_collections << member.community.focus_collection if member.manager?
       rescue
         # TODO ... what is causing this?  member.community.respond_to?(:focus_collection) => true, but
         # when you call it, it fails.  GRRR!

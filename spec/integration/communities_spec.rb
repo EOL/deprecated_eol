@@ -35,23 +35,6 @@ describe "Communities" do
         should have_tag('h1', /.*?#{@test_data[:community].name}/)
         should have_tag('#page_heading', /#{@test_data[:community].description}/)
       end
-      it 'should link to community roles'
-# maybe but not on default show tab
-#        body.should have_tag('ul#community_roles') do
-#          @test_data[:community].roles.each do |role|
-#            with_tag("a[href=#{community_role_path(@test_data[:community], role)}]", :text => /#{role.title}/m)
-#          end
-#        end
-
-      it 'should show count of members with any given role'
-# maybe but not on default show tab
-#        body.should have_tag('ul#community_roles') do
-#          @test_data[:community].roles.each do |role|
-#            count = role.members.length
-#            count = 'no' if count == 0
-#            with_tag("li", :text => /#{role.title}.*#{count}/m)
-#          end
-#        end
 
       it 'should link to all of the community members'
 # maybe but not on default show tab
@@ -59,17 +42,6 @@ describe "Communities" do
 #          @test_data[:community].members.each do |member|
 #            user = member.user
 #            with_tag("a[href=#{user_path(user)}]", :text => user.username)
-#          end
-#        end
-
-      it 'should show each member\'s roles'
-# maybe but not on default show tab
-#        body.should have_tag("ul#community_members") do
-#          @test_data[:community].members.each do |member|
-#            user = member.user
-#            member.roles.each do |role|
-#              with_tag("li", :text => /#{user.username}.*#{role.title}/m)
-#            end
 #          end
 #        end
 
@@ -195,9 +167,6 @@ describe "Communities" do
       it 'should not show remove membership links' do
         should_not have_tag("a[href=#{community_member_path(@test_data[:community], @test_data[:community_member])}]", :text => /remove/i)
       end
-      it 'should not show an add role link' do
-        should_not have_tag("a[href=#{new_community_role_path(@test_data[:community])}]")
-      end
       it 'should allow member to leave community and return to show community' do
         @test_data[:user_community_member].member_of?(@test_data[:community]).should be_true
         visit(leave_community_path(@test_data[:community].id))
@@ -218,9 +187,6 @@ describe "Communities" do
       before(:all) { visit community_path(@test_data[:community]) }
       subject { body }
       # Setting to pending until we know what actions will be available on default show tab
-      it 'should show an add role link'
-#        should have_tag("a[href=#{new_community_role_path(@test_data[:community])}]")
-#      end
       it 'should show an edit community link'
 #        should have_tag("a[href=#{edit_community_path(@test_data[:community])}]")
 #      end

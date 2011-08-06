@@ -197,7 +197,7 @@ class OldAccountController < ApplicationController
     end
 
     # The UI would not allow this, but a hacker might try to grant curator permissions to themselves in this manner.
-    user_params.delete(:curator_approved) unless is_user_admin?
+    user_params.delete(:curator_approved) unless current_user.is_admin?
 
     current_user.log_activity(:updated_profile)
 

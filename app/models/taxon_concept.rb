@@ -206,7 +206,7 @@ class TaxonConcept < SpeciesSchemaModel
   # If you just call "comments", you are actually getting comments that should really be invisible.  This method gets around this,
   # and didn't see appropriate to do with a named_scpope:
   def visible_comments(user = @current_user)
-    return comments if user and user.is_moderator?
+    return comments if user and user.is_admin?
     comments.find_all {|comment| comment.visible? }
   end
 

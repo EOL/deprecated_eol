@@ -31,9 +31,9 @@ class CreatePrivileges < ActiveRecord::Migration
 
     add_column :roles, :community_id, :integer
 
-    # This makes me want to cry, but boolean DID NOT WORK here... You could NEVER change the value to non-false.  Worked fine
-    # on privileges.  Not here.  I don't know wht, and it's very, very frustrating, and I was done trying to figure out the
-    # problem.
+    # This makes me want to cry, but boolean DID NOT WORK here... You could NEVER change the value to non-false.
+    # Worked fine on privileges.  Not here.  I don't know wht, and it's very, very frustrating, and I was done trying
+    # to figure out the problem.
     add_column :communities, :show_special_privileges, :integer, :default => 0
 
   end

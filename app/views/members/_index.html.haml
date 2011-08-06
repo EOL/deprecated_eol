@@ -17,8 +17,11 @@
     =# TODO: will_paginate @members
     - @members.each do |member|
       = render :partial => 'members/member_summary.html.haml', :locals => {:member => member}
-      - # FIXME - membership management ?
-      - if @current_member && @current_member.can_edit_members? && ! member.user.id == current_user.id
-        = link_to I18n.t(:edit_membership), community_member_path(@community, member)
-      - if @current_member && @current_member.can?(Privilege.remove_members) && ! member.user.id == current_user.id
+      - if member.manager?
+        = I18n.t(:manager_parens)
+        - if @current_member && @current_member.manager? && ! member.user.id == current_user.id
+          = link_to I18n.t(:revoke_manager_link), revoke_manager_community_member_path(@community, member), :confirm => I18n.t(:are_you_sure)
+      - elsif @current_member && @current_member.manager? && ! member.user.id == current_user.id
+        = link_to I18n.t(:grant_manager_link), grant_manager_community_member_path(@community, member)
+      - if @current_member && @current_member.manager? && ! member.user.id == current_user.id
         = link_to I18n.t(:remove_membership), [@community, member], :method => :delete, :confirm => I18n.t(:are_you_sure)

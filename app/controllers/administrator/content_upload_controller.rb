@@ -3,23 +3,23 @@ class Administrator::ContentUploadController < AdminController
   layout 'left_menu'
 
   before_filter :set_layout_variables
-   
-  access_control :site_cms
+
+  before_filter :restrict_to_admins
 
   def index
     @page_title = I18n.t("uploaded_content")
     @content_uploads = ContentUpload.paginate(:order => 'created_at desc', :page => params[:page])
   end
-   
+
   def edit
-    @page_title = I18n.t("edit_upload") 
+    @page_title = I18n.t("edit_upload")
     @content_upload = ContentUpload.find(params[:id])
   end
 
   def update
-    @content_upload = ContentUpload.find(params[:id])  
+    @content_upload = ContentUpload.find(params[:id])
     if @content_upload.update_attributes(params[:content_upload])
-      flash[:notice] = I18n.t(:the_content_was_updated) 
+      flash[:notice] = I18n.t(:the_content_was_updated)
       redirect_to(:action => 'index')
     else
       render :action => 'edit'
@@ -36,7 +36,7 @@ class Administrator::ContentUploadController < AdminController
     if @content_upload.save
       @content_upload.update_attributes(:user_id => current_user.id, :attachment_extension => File.extname(@content_upload.attachment_file_name))
       upload_file(@content_upload)
-      flash[:notice] = I18n.t(:the_file_was_uploaded) 
+      flash[:notice] = I18n.t(:the_file_was_uploaded)
       redirect_to(:action => 'index')
     else
       render :action => 'new'
@@ -54,7 +54,7 @@ private
       response = Hash.from_xml(response)
       if response["response"].key? "file_path"
         file_path = response["response"]["file_path"]
-        content_upload.update_attribute(:attachment_cache_url, file_path) # store new url to file on content server      
+        content_upload.update_attribute(:attachment_cache_url, file_path) # store new url to file on content server
       end
       if response["response"].key? "error"
         error = response["response"]["error"]

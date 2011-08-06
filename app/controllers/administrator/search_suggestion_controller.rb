@@ -6,7 +6,7 @@ class Administrator::SearchSuggestionController < AdminController
 
   helper :resources
 
-  access_control :site_cms
+  before_filter :restrict_to_admins
 
   def index
     @page_title = I18n.t("search_suggestions")

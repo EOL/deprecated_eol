@@ -7,9 +7,9 @@ class Administrator::GlossaryController < AdminController
   helper_method :current_agent, :agent_logged_in?
 
   before_filter :set_layout_variables
-  
-  access_control :site_cms
-  
+
+  before_filter :restrict_to_admins
+
   def index
     @page = params[:page] || '1'
     @order = params[:order_by] || 'term'
@@ -22,7 +22,7 @@ class Administrator::GlossaryController < AdminController
       @glossary_terms = GlossaryTerm.all(:order => "#{@order}").paginate(:page => @page)
     end
   end
-  
+
   def create
     if params[:glossary_term][:term].blank?
       flash[:error] = I18n.t("term_cannot_be_left_blank")
@@ -35,22 +35,22 @@ class Administrator::GlossaryController < AdminController
       redirect_to :action => 'index'
     end
   end
-  
+
   def edit
     @page_title = I18n.t("eol_glossary")
     @glossary_term = GlossaryTerm.find(params[:id])
   end
-  
+
   def update
     @glossary_term = GlossaryTerm.find(params[:id])
     if @glossary_term.update_attributes(params[:glossary_term])
       flash[:notice] = I18n.t("the_glossary_term_was_successf")
       redirect_to :action => 'index'
     else
-      render :action => 'edit' 
+      render :action => 'edit'
     end
   end
-  
+
   def destroy
     (redirect_to referred_url;return) unless request.method == :delete
     term = GlossaryTerm.find(params[:id])

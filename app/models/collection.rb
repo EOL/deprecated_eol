@@ -12,7 +12,7 @@ class Collection < ActiveRecord::Base
   has_many :collection_endorsements
   has_many :comments, :as => :parent
   has_many :communities, :through => CollectionEndorsement
-  
+
   has_one :resource
   has_one :resource_preview, :class_name => Resource.to_s, :foreign_key => :preview_collection_id
 
@@ -54,10 +54,10 @@ class Collection < ActiveRecord::Base
     if user_id
       return user.id == user_id # Owned by this user?
     else
-      return user.member_of(community) && user.member_of(community).can?(Privilege.edit_collections)
+      return user.member_of(community) && user.member_of(community).manager?
     end
   end
-  
+
   def is_resource_collection?
     return true if resource || resource_preview
   end

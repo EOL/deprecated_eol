@@ -1,18 +1,16 @@
-
+- is_first ||= false
+- is_last ||= false
 .div_holder
-  - same_level_pages = ContentPage.find_all_by_parent_content_page_id(content_page.parent_content_page_id, :order => 'sort_order')
-  - if content_page.sort_order > 1
-    #up_arrow_holder
-      = link_to image_tag("cms_up_green.png", :border => 0, :title => I18n.t(:move_up)), {:action => "move_up", :id => content_page.id}, :method => "move_up"
-  - else
-    #up_arrow_holder
+  #up_arrow_holder
+    - if is_first
       = image_tag("cms_up_gray.png", :border => 0, :title => I18n.t(:move_up))
-  - if content_page.sort_order < same_level_pages.count 
-    #down_arrow_holder
-      = link_to image_tag("cms_down_green.png", :border => 0, :title => I18n.t(:move_down)), {:action => "move_down", :id => content_page.id}, :method => "move_down"
-  - else
-    #down_arrow_holder
+    - else
+      = link_to image_tag("cms_up_green.png", :border => 0, :title => I18n.t(:move_up)), {:action => "move_up", :id => content_page.id}, :method => "move_up"
+  #down_arrow_holder
+    - if is_last
       = image_tag("cms_down_gray.png", :border => 0, :title => I18n.t(:move_down))
+    - else
+      = link_to image_tag("cms_down_green.png", :border => 0, :title => I18n.t(:move_down)), {:action => "move_down", :id => content_page.id}, :method => "move_down"
   #add_page
     = link_to(I18n.t("create_child_page"), :action=>'new', :parent_content_page_id=>content_page.id)
     
@@ -24,12 +22,11 @@
 %li
   = link_to content_page.page_name, :action => 'update_page', :id=>content_page.id
   (
-  - for translated_page in TranslatedContentPage.find_all_by_content_page_id(content_page.id)
+  - for translated_page in content_page.translations
     = link_to translated_page.language.iso_639_1, :action=>'update_language', :id=>content_page.id, :language_id=>translated_page.language_id
   )
-  
-- sub_pages = ContentPage.find_all_by_parent_content_page_id(content_page.id, :order => 'sort_order')
-- if sub_pages.count > 0 
+
+- unless content_page.children.empty?
   %ul
-    - for sub_page in sub_pages
+    - for sub_page in content_page.children
       = render(:partial => 'content_page_list', :locals => {:content_page => sub_page}) 

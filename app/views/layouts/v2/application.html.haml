@@ -54,10 +54,10 @@
         .actions
           .language
             %p{ :title => I18n.t(:selected_language_advisory_information) }
-              -# FIXME: Fix this so it gets currently selected language easily from controller?
               -# FIXME: Where should this link go? To separate 'select language' page?
               - link_to "#" do
-                %span Language: EN
+                %span
+                  = I18n.t(:current_language, :iso_code => I18n.locale.to_s.upcase)
             %ul
               - Language.find_active.each do |language|
                 %li

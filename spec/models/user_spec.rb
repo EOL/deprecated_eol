@@ -22,9 +22,8 @@ describe User do
     load_foundation_cache
     @user = User.gen :username => 'KungFuPanda', :password => @password
     @user.should_not be_a_new_record
-    @special = Community.special
     @admin = User.gen(:username => 'MisterAdminToYouBuddy')
-    @admin.join_community(@special)
+    @admin.grant_admin
     @he = bogus_hierarchy_entry
     @curator = User.gen(:credentials => 'whatever', :curator_scope => 'whatever')
   end
@@ -211,14 +210,6 @@ describe User do
     @curator.revoke_curator
     @curator.reload
     @curator.curator_level_id.nil?.should be_true
-  end
-
-  it '(in the special community) should be a member of the special community' do
-    @admin.member_of?(@special).should be_true
-  end
-
-  it '(in the special community) #member_of should return a member of the special community' do
-    @admin.member_of(@special).should be_a(Member)
   end
 
   it 'convenience methods should return all of the data objects for the user' do

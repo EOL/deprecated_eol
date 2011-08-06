@@ -28,7 +28,6 @@ communities[:user_community_administrator] = User.gen
 communities[:user_community_member] = User.gen
 communities[:community].initialize_as_created_by(communities[:user_community_administrator])
 communities[:community_member] = communities[:community].add_member(communities[:user_community_member])
-communities[:community_member].add_role Role.gen(:community => communities[:community])
 communities[:feed_body_1] = "Something"
 communities[:feed_body_2] = "Something Else"
 communities[:feed_body_3] = "Something More"

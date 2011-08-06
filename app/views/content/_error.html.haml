@@ -2,12 +2,9 @@
   -# TODO: That email addy should be in the config file, not here:
   =  I18n.t(:general_error_occurred, :email => 'error@eol.org')
   -# Extra tests because errors can be caused by weird things:
-- begin
-  - if current_user && current_user.is_admin? && defined?(message)
-    %p= I18n.t(:you_are_an_admin_so_i_will_show_you_that_the_error_was)
-    %code= message
-- rescue
-  -# Do nothing.  The problem is that the special community CAN be missing in tests.
+- if current_user && current_user.is_admin? && defined?(message)
+  %p= I18n.t(:you_are_an_admin_so_i_will_show_you_that_the_error_was)
+  %code= message
 - unless defined?(supress_try_again_link)
   %p= link_to I18n.t(:try_your_request_again), current_url
 - if defined?(@solr_connection_refused) && @solr_connection_refused

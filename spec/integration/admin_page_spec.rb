@@ -7,7 +7,7 @@ describe 'Admin Pages' do
     load_foundation_cache
     Capybara.reset_sessions!
     @user = User.gen(:username => 'ourtestadmin')
-    @user.approve_to_administrate
+    @user.grant_admin
 
     @agent = Agent.gen(:full_name => 'HierarchyAgent')
     @hierarchy = Hierarchy.gen(:label => 'TreeofLife', :description => 'contains all life', :agent => @agent)

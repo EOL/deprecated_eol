@@ -45,9 +45,7 @@ class Activity < LazyLoggingModel
     Activity.find_or_create('change_description')
     Activity.find_or_create('change_name')
     Activity.find_or_create('change_icon')
-    Activity.find_or_create('add_admin')
-    Activity.find_or_create('add_curator')
-    Activity.find_or_create('add_member_privilege')
+    Activity.find_or_create('add_manager')
     Activity.find_or_create('add_collection_endorsement')
     Activity.find_or_create('remove_collection_endorsement')
   end

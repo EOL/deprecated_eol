@@ -3,9 +3,7 @@ describe Administrator::ContentPartnerReportController do
   before(:all) do
     load_foundation_cache
     @admin = User.gen(:username => "admin", :password => "admin")
-    @admin.approve_to_administrate
-    @admin.save!
-    
+    @admin.grant_admin
   end
 
   it "should send monthly report email" do

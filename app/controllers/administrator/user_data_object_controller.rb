@@ -1,16 +1,16 @@
-class Administrator::UserDataObjectController < AdminController  
+class Administrator::UserDataObjectController < AdminController
 
   layout 'left_menu'
 
   before_filter :set_layout_variables
 
-  access_control :web_users
+  before_filter :restrict_to_admins
 
   def index
-    @page_title = I18n.t("user_submitted_text_") 
+    @page_title = I18n.t("user_submitted_text_")
     @user_id = params[:user_id] || 'All'
-    @user_list = User.users_with_submitted_text 
-    
+    @user_list = User.users_with_submitted_text
+
     conditions = (@user_id == 'All') ? nil : ['user_id = ?',@user_id]
     @users_data_objects = UsersDataObject.paginate(:conditions => conditions,
       :order => 'id desc',
@@ -21,7 +21,7 @@ class Administrator::UserDataObjectController < AdminController
       :include => [ :user, { :data_object => [ :vetted, :visibility, :toc_items] }],
       :page => params[:page])
   end
-  
+
 private
 
   def set_layout_variables

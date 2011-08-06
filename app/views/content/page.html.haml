@@ -1,45 +1,44 @@
-- cache(:controller=>'content', :part=>@page_id + "_" + current_user.language_abbr) do
-  = javascript_include_tag 'faqs' if @content.page_name.downcase=='faqs'
-  #content
-    .site_column
-      - # TODO: This view assumes a basic HashRocket CMS page which only has one column
-      - # we should figure out whether that is appropriate for all cases of content being passed
-      - # through the content_controller page method
-      = @navigation_tree_breadcrumbs
-      .article.copy.cms_page
-        - # FIXME: is 'left' pane content now removed from CMS?
-        - # If so remove this, if not fix layout to account for it: = @content.left_content
-        - if @translated_content.nil?
-          - # this page is not available at this language
-          = I18n.t("cms_missing_content_message")
-          %br
-          - if !@translated_pages.nil?
-            = I18n.t("cms_available_in_languages")
-            %ul
-              - for translated_page in @translated_pages
-                %li
-                  = translated_page.language.label              
-        - else
-          - # this page is available in this language
-          = @translated_content.main_content
-        - # TODO: Figure out if this is an appropriate view for this form?
-        - # It seems a little odd as this is assumed to be CMS page show
-        -#Curator page only - curators can submit a Wikipedia article for ingestion
-        - if @page_id == 'curator_central' && current_user.curator_approved
-          %hr.thin
-          %a{:name => 'wikipedia'}
-          %br
-          %h2
-            =I18n.t("request_wikipedia_article_ingestion")
-          %br
-          =I18n.t("wikipedia_article_revision_for_ingestion")
-          %br
-          %br
-          =I18n.t("by_entering_a_wikipedia_revision")
-          %form{:action => '/content/wikipedia', :method => 'post'}
-            %strong
-              =I18n.t("enter_revision_url_colon")
-            %input{:type => 'text', :name => 'revision_url', :size => 60}
-            %input{:type => 'submit', :value => 'Submit'}
-          %i
-            =I18n.t("example_url_for_wikipedia_article_ingestion")
+= javascript_include_tag 'faqs' if @content.page_name.downcase=='faqs'
+#content
+  .site_column
+    - # TODO: This view assumes a basic HashRocket CMS page which only has one column
+    - # we should figure out whether that is appropriate for all cases of content being passed
+    - # through the content_controller page method
+    = @navigation_tree_breadcrumbs
+    .article.copy.cms_page
+      - # FIXME: is 'left' pane content now removed from CMS?
+      - # If so remove this, if not fix layout to account for it: = @content.left_content
+      - if @translated_content.nil?
+        - # this page is not available at this language
+        = I18n.t("cms_missing_content_message")
+        %br
+        - if !@translated_pages.nil?
+          = I18n.t("cms_available_in_languages")
+          %ul
+            - for translated_page in @translated_pages
+              %li
+                = translated_page.language.label              
+      - else
+        - # this page is available in this language
+        = @translated_content.main_content
+      - # TODO: Figure out if this is an appropriate view for this form?
+      - # It seems a little odd as this is assumed to be CMS page show
+      -#Curator page only - curators can submit a Wikipedia article for ingestion
+      - if @page_id == 'curator_central' && current_user.curator_approved
+        %hr.thin
+        %a{:name => 'wikipedia'}
+        %br
+        %h2
+          =I18n.t("request_wikipedia_article_ingestion")
+        %br
+        =I18n.t("wikipedia_article_revision_for_ingestion")
+        %br
+        %br
+        =I18n.t("by_entering_a_wikipedia_revision")
+        %form{:action => '/content/wikipedia', :method => 'post'}
+          %strong
+            =I18n.t("enter_revision_url_colon")
+          %input{:type => 'text', :name => 'revision_url', :size => 60}
+          %input{:type => 'submit', :value => 'Submit'}
+        %i
+          =I18n.t("example_url_for_wikipedia_article_ingestion")

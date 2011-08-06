@@ -111,7 +111,7 @@ module EOL
         HierarchiesContent.gen(:hierarchy_entry => he, :text => 1, :image => 1, :content_level => 4,
                                :map => options[:map] ? 1 : 0, :youtube => 1, :flash => 1)
         HierarchyEntryStat.gen(:hierarchy_entry => he)
-        # TODO - Create two AgentsHierarchyEntry(ies); you want "Source Database" and "Compiler" as roles
+        # TODO - Create two AgentsHierarchyEntry(ies); you want "Source Database" and "Compiler" as partner roles
         return he
       end
 
@@ -203,14 +203,6 @@ module EOL
       def load_foundation_cache
         reset_all_model_cached_instances
         load_scenario_with_caching(:foundation)
-        # test some basic assumptions here; helpful to avoid SERIOUS problems in testing.
-        foundation_fail = "Foundation Scenario failed to load properly. Please rm tmp/*sql and tmp/*yml and try again"
-        raise foundation_fail unless Vetted.trusted
-        raise foundation_fail unless Vetted.unknown
-        raise foundation_fail unless Vetted.untrusted
-        raise foundation_fail unless Vetted.inappropriate
-        Community.special # Throws its own error
-        # TODO - anything else we should test for here...
       end
 
       def load_scenario_with_caching(name)

@@ -40,16 +40,6 @@ class ApplicationController < ActionController::Base
     I18n.locale = current_user.language_abbr
   end
 
-  # TODO - test
-  def self.access_control(sym)
-    before_filter do |c|
-      priv = Privilege.send(sym)
-      unless c.current_user.special && c.current_user.special.can?(priv)
-        c.send(:access_denied) # You must send the method, otherwise flashes and redirects don't work.
-      end
-    end
-  end
-
   def rescue_action(e)
     case e
     when EOL::Exceptions::MustBeLoggedIn
@@ -418,10 +408,6 @@ class ApplicationController < ActionController::Base
     return false
   end
 
-  def is_user_admin?
-    return current_user.is_admin?
-  end
-
   # used as a before_filter on methods that you don't want users to see if they are logged in
   # such as the sessions#new, users#new, users#forgot_password etc
   def redirect_if_already_logged_in
@@ -445,7 +431,15 @@ class ApplicationController < ActionController::Base
     redirect_to root_url
   end
 
-  # A user is not authorized for the particular controller based on the rights for the roles they are in
+  def restrict_to_admins
+    raise EOL::Exceptions::SecurityViolation unless current_user.is_admin?
+  end
+
+  def restrict_to_curators
+    raise EOL::Exceptions::SecurityViolation unless current_user.min_curator_level?(:full)
+  end
+
+  # A user is not authorized for the particular controller/action:
   def access_denied
     flash_and_redirect_back(I18n.t(:you_are_not_authorized_to_perform_this_action))
   end

@@ -12,7 +12,7 @@ class HarvestEventsController < ApplicationController
     page = params[:page] || 1
     @harvest_events = HarvestEvent.paginate_by_resource_id(@resource.id, :page => page, :order => "id desc")
   end
-  
+
   def update
     @harvest_event = HarvestEvent.find(params[:id])
     @resource.publish @harvest_event
@@ -31,6 +31,10 @@ protected
 
   def this_resource_must_belong_to_agent
     resource_must_belong_to_agent(find_resource)
+  end
+
+  def is_user_admin?
+    current_user.is_admin?
   end
 
 private

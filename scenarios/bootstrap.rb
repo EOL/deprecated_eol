@@ -378,7 +378,7 @@ image_dato = tc31.images.first
 text_dato.rate(curator_for_tc31, 1)
 image_dato.rate(curator_for_tc31, 1)
 # create new dato with the same guid and comments on new version
-add_comments_and_tags_to_reharvested_data_objects(tc31)
+add_comments_to_reharvested_data_objects(tc31)
 
 #32
 user = User.gen
@@ -459,9 +459,9 @@ img    = build_data_object('Image', "This should only be seen by ContentPartner 
 # Some node in the GBIF Hierarchy to test maps on
 build_hierarchy_entry 0, tc, name, :hierarchy => gbif_hierarchy, :identifier => '13810203'
 
-# Generate a default admin user and then set them up for the default roles:
+# Generate a default admin user and then set them up:
 admin = User.gen :username => 'admin', :password => 'admin', :given_name => 'Admin', :family_name => 'User'
-admin.approve_to_administrate
+admin.grant_admin
 admin.build_watch_collection
 
 exemplar = build_taxon_concept(:id => 910093, # That ID is one of the (hard-coded) exemplars.

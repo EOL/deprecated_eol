@@ -5,7 +5,6 @@ class Community < ActiveRecord::Base
   has_one :collection #TODO - didn't work? , :as => :focus
 
   has_many :members
-  has_many :roles
   has_many :collection_items, :as => :object
   has_many :collection_endorsements
   has_many :collections, :through => :collection_endorsements # NOTE: be sure to check each for actually being endorsed!
@@ -39,54 +38,12 @@ class Community < ActiveRecord::Base
   alias :focus :collection
   alias_attribute :summary_name, :name
 
-  def self.special
-    special = cached_find(:name, $SPECIAL_COMMUNITY_NAME) # TODO - this should also have special_privs in it.
-    raise "Special Community is missing. Perhaps you forgot to load it?" if special.nil? # For tests.
-    special
-  end
-
-  # I18n not particularly necessary, here, this is mostly for testing.
-  def self.create_special
-    Community.reset_cached_instances
-    special = nil
-    begin
-      special = Community.special
-    rescue
-      special = Community.create(:name => $SPECIAL_COMMUNITY_NAME,
-                                 :description => 'This is a special community for the curtors and admins of EOL.',
-                                 :show_special_privileges => 1)
-      special.add_default_roles
-    end
-    special_roles = {$ADMIN_ROLE_NAME => 20, $CURATOR_ROLE_NAME => 10, $ASSOCIATE_ROLE_NAME => 1}
-    special_roles.keys.each do |key|
-      role = Role.find(:first, :conditions => ['title = ? and community_id = ?', key, special.id])
-      role ||= Role.create(:community_id => special.id, :title => key)
-      # TODO - we really should change Language#english to Language#default and have it set in a config file.
-      # TODO - this is stupid, but migrations break because Language (the model) doesn't point to the right DB when
-      # this runs, so it is undefined after recreating the DB (in which case we hardly need it anyway):
-      begin
-        role.privileges = Privilege.find(:all, :conditions => ["level <= ? and special = ?", special_roles[key], true])
-      rescue ActiveRecord::StatementInvalid => e
-        # Do nothing; this should only happen when developers recreate the databases and thus it hardly matters now.
-      end
-    end
-  end
-
   # TODO - test
-  # Adds the default roles, auto-joins the user to the community, and makes that person the owner.
+  # Auto-joins the user to the community, and makes that person the owner.
   def initialize_as_created_by(user)
-    new_roles = Role.add_defaults_to_community(self)
     mem = user.join_community(self)
-    mem.add_role(new_roles.first)
+    mem.update_attribute(:manager, true)
     mem
-  end
-
-  def special?
-    show_special_privileges > 0
-  end
-
-  def add_default_roles
-    Role.add_defaults_to_community(self)
   end
 
   # Returns the new member.  If you are NOT adding yourself, you should pass in :added_by.
@@ -122,11 +79,6 @@ class Community < ActiveRecord::Base
   def top_active_members
     # FIXME: This is just getting the top 3 members not the most active
     members[0..3]
-  end
-
-  def founder
-    # FIXME: This is just getting the first member not the founder (can we get founder from feed - who created this community?).  JRice:  We could actually store this in the DB as a user_id... of course, if that user leaves, they will still be given credit, and that might be bad.  Hmmmn.  Not sure.
-    members[0]
   end
 
   def managers

@@ -1,4 +1,4 @@
-# To allow administartors to add / remove the tags that always 
+# To allow administartors to add / remove the tags that always
 # show up as suggested (static public tags)
 class Administrator::TagSuggestionController < AdminController
 
@@ -6,8 +6,8 @@ class Administrator::TagSuggestionController < AdminController
 
   before_filter :set_layout_variables
 
-  access_control :comments_and_tags
-  
+  before_filter :restrict_to_admins
+
   # GET /administrator/tag_suggestions
   def index
     @admin_header="Tag Suggestions"

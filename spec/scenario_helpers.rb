@@ -5,7 +5,7 @@ include EOL::Data
 include EOL::Spec::Helpers
 
 # Add some comments for testing re-harvesting preserves such things:
-def add_comments_and_tags_to_reharvested_data_objects(tc)
+def add_comments_to_reharvested_data_objects(tc)
   user = User.first
 
   # 1) create comments on text (and all the same for image)
@@ -20,16 +20,9 @@ def add_comments_and_tags_to_reharvested_data_objects(tc)
   invis_image = image_dato.comment(user, 'this is an invisible comment applied to the old image')
   invis_image.hide user
 
-  #   1b) add tags
-  image_dato.tag('color', 'yellow', user)
-  image_dato.tag('length', 'long', user)
-
   # 2) create new dato with the same guid
   new_text_dato = DataObject.build_reharvested_dato(text_dato)
   new_image_dato = DataObject.build_reharvested_dato(image_dato)
-
-  #   2a) add tag
-  new_image_dato.tag('color', 'green', user)
 
   #   2b) a new harvest_event
   #   2c) new links in data_objects_harvest_events (should happen automatically)

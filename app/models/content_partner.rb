@@ -1,6 +1,6 @@
-# This is a special kind of Agent (the relationship is mandatory; q.v.).  A ContentPartner is akin to a User, in that they can
-# log in (see ContentPartnerController).  Of course, content partners are those people or organizations who add data to our
-# database.
+# This is a special kind of Agent (the relationship is mandatory; q.v.).  A ContentPartner is akin to a User, in that
+# they can log in (see ContentPartnerController).  Of course, content partners are those people or organizations who
+# add data to our database.
 class ContentPartner < SpeciesSchemaModel
 
   belongs_to :user

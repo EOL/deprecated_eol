@@ -5,7 +5,6 @@ describe AccountController do
     truncate_all_tables
     Language.create_english
     SpecialCollection.gen(:name => 'Focus')
-    Community.create_special
   end
 
   # "POST /account/forgot_password

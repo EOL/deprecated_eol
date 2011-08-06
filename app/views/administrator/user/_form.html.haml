@@ -56,13 +56,13 @@
         =I18n.t("content_setting_")
     %td
       = f.radio_button :expertise, "novice"
-      = I18n.t(:information_intended_for_beginners) 
+      = I18n.t(:information_intended_for_beginners)
       %br
       = f.radio_button :expertise, "middle"
-      = I18n.t(:information_for_any_audience) 
+      = I18n.t(:information_for_any_audience)
       %br
       = f.radio_button :expertise, "expert"
-      = I18n.t(:information_intended_for_experts) 
+      = I18n.t(:information_intended_for_experts)
       %br
   %tr
     %td
@@ -88,19 +88,6 @@
       (
       = @user.failed_login_attempts
       =I18n.t("failed_login_attempts___must_b")
-  / %tr
-  /   %td
-  /     %strong
-  /       =I18n.t("roles_")
-  /   %td
-  /     #roles_toggle
-  /       %a{ :href => "#roles", :onclick => "javascript:$('#roles').show();$('#roles_toggle').hide();return false;" }
-  /         =I18n.t("_show_roles_")
-  /     #roles{ :style => "display:none;" }
-  /       - Role.find(:all, :order => 'title').each do |role|
-  /         = check_box_tag "user[role_ids][]", role.id, @user.roles.include?(role)
-  /         = role.title
-  /         %br
   %tr
     %td
       %strong
@@ -110,19 +97,18 @@
   %tr
     %td
       %strong
-        =  I18n.t(:credentials) 
+        =  I18n.t(:credentials)
         \:
     %td
       = f.text_area :credentials, :rows => 9, :cols => 60
   %tr
     %td
       %strong
-        =I18n.t("curator_approved_")
+        =I18n.t(:curator_level)
     %td
-      = f.check_box :curator_approved
-      =I18n.t("_true_")
-      - if !(@user.curator_verdict_by.blank? && @user.curator_verdict_at.blank?)
-        =I18n.t("_curator_status_changed_by", :user => @user.curator_verdict_by.full_name, :date => format_date_time(@user.curator_verdict_at))        
+      = f.select(:curator_level_id, options_from_collection_for_select(CuratorLevel.all, :id, :label, @user.curator_level_id)
+      - if @user.is_curator?
+        =I18n.t(:curator_status_changed_by, :user => @user.curator_verdict_by.full_name, :date => I18n.l(@user.curator_verdict_at, :format => :short))
   %tr
     %td{ :colspan => "2" }
   %tr

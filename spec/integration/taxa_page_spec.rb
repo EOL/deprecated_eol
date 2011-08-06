@@ -127,9 +127,6 @@ describe 'Taxa page' do
     it 'should include Education' do
       body.should include('Education')
     end
-    it 'should include Nucleotide Sequences' do
-      body.should include('Nucleotide Sequences')
-    end
     it 'should include Content Partners' do
       body.should include('Content Partners')
     end

@@ -2705,3 +2705,5 @@ en:
   content_partner_empty: "No content partner found."
   education_empty: "No education found."
   identifcation_resources_empty: "No resources found."
+  logo_header: "Logo"
+  external_link_header: "External Link"

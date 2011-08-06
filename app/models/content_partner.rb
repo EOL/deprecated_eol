@@ -38,7 +38,7 @@ class ContentPartner < SpeciesSchemaModel
   validates_attachment_content_type :logo,
     :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'],
     :if => self.column_names.include?('logo_file_name')
-  validates_attachment_size :logo, :in => 0..5.megabyte,
+  validates_attachment_size :logo, :in => 0..$LOGO_UPLOAD_MAX_SIZE,
     :if => self.column_names.include?('logo_file_name')
 
   def concepts_for_gallery(page, per_page)

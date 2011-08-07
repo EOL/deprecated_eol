@@ -18,6 +18,7 @@ config/environments/labs1.rb
 config/environments/staging_test.rb
 config/environments/local.*
 config/environments/v2demo*
+config/environments/v2prelaunch*
 config/remi-deploy.rb
 config/systems/
 db/*_structure.sql

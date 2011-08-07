@@ -13,20 +13,15 @@ class FckeditorController < ActionController::Base
   ]
 
   def upload_file
-    puts "XXXXXXXXXXXXXXX"
     begin
       load_file_from_params
-      puts "XXXXXXXXXXXXXXX"
       log @new_file
-      puts "XXXXXXXXXXXXXXX"
-      pp @new_file
       if mime_types_ok(@ftype) && new_file_path = copy_tmp_file(@new_file)
         final_file_path = DataObject.image_cache_path(new_file_path, :orig)
       else
         raise 'couldnt upload file'
       end
     rescue => e
-      pp e
       @errorNumber = 110 if @errorNumber.nil?
     end
     
@@ -93,11 +88,10 @@ class FckeditorController < ActionController::Base
   #
   def copy_tmp_file(tmp_file)
     path = $LOGO_UPLOAD_PATH + tmp_file.original_filename
-    puts "Path #{path}"
     File.open("public/" + path, "wb", 0664) do |fp|
       FileUtils.copy_stream(tmp_file, fp)
     end
-    ContentServer.upload_content(path)
+    ContentServer.upload_content(path, request.port.to_s)
   end
 
   ##############################################################################

@@ -62,7 +62,7 @@
               - Language.find_active.each do |language|
                 %li
                   = link_to I18n.t(:language_menu_item, :language_label => language.source_form, :language_abbr => language.display_code),
-                    set_language_url(:language => language.iso_639_1),
+                    set_language_url(:language => language.iso_639_1, :return_to => current_url(false)),
                     { :title => I18n.t(:switch_language_advisory_information, :language_label => language.source_form) }
               %li
                 = link_to I18n.t(:google_translate), { :controller => "/content", :action => "translate" },

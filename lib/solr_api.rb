@@ -258,8 +258,6 @@ class SolrAPI
       this_object_hash = {}
       this_object_hash[:guid] = data_object.guid
       this_object_hash[:data_type_id] = data_object.data_type_id
-      this_object_hash[:vetted_id] = data_object.vetted_id
-      this_object_hash[:visibility_id] = data_object.visibility_id
       this_object_hash[:published] = data_object.published ? 1 : 0
       this_object_hash[:data_rating] = data_object.data_rating
       this_object_hash[:description] = data_object.description

@@ -20,6 +20,7 @@ module EOL
     def invisible?
       visibility_id == Visibility.invisible.id
     end
+    alias hidden? invisible?
 
     def inappropriate?
       vetted_id == Vetted.inappropriate.id
@@ -32,6 +33,7 @@ module EOL
     def unknown?
       vetted_id == Vetted.unknown.id
     end
+    alias unreviewed? unknown?
 
     def vetted?
       vetted_id == Vetted.trusted.id

@@ -206,7 +206,7 @@ class Administrator::UserController  < AdminController
     @user_id = params[:user_id] || ''
     @user_list = User.users_with_activity_log
     @activity_id = params[:activity_id] || 'All'
-    @activity_list = Activity.all.sort_by {|a| a.name }
+    @translated_activity_list = TranslatedActivity.all.sort_by {|a| a.name }
     page = params[:page] || 1
     @activities = UserActivityLog.user_activity(@user_id, @activity_id, page)
   end

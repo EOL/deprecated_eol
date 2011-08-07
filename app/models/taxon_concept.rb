@@ -54,18 +54,18 @@ class TaxonConcept < SpeciesSchemaModel
   has_many :users_data_objects
   has_many :flattened_ancestors, :class_name => TaxonConceptsFlattened.to_s
   has_many :all_data_objects, :class_name => DataObject.to_s, :finder_sql => '
-      (SELECT do.id, do.data_type_id, do.vetted_id, do.visibility_id, do.published, do.guid, do.data_rating, do.language_id
+      (SELECT do.id, do.data_type_id, do.published, do.guid, do.data_rating, do.language_id
         FROM data_objects_taxon_concepts dotc
         JOIN data_objects do ON (dotc.data_object_id=do.id)
           WHERE dotc.taxon_concept_id=#{id}
           AND do.data_type_id=#{DataType.image.id})
       UNION
-      (SELECT do.id, do.data_type_id, do.vetted_id, do.visibility_id, do.published, do.guid, do.data_rating, do.language_id
+      (SELECT do.id, do.data_type_id, do.published, do.guid, do.data_rating, do.language_id
         FROM top_concept_images tci
         JOIN data_objects do ON (tci.data_object_id=do.id)
           WHERE tci.taxon_concept_id=#{id})
       UNION
-      (SELECT do.id, do.data_type_id, do.vetted_id, do.visibility_id, do.published, do.guid, do.data_rating, do.language_id
+      (SELECT do.id, do.data_type_id, do.published, do.guid, do.data_rating, do.language_id
         FROM #{UsersDataObject.full_table_name} udo
         JOIN data_objects do ON (udo.data_object_id=do.id)
           WHERE udo.taxon_concept_id=#{id})'
@@ -93,7 +93,7 @@ class TaxonConcept < SpeciesSchemaModel
       :names => :string,
       :vetted => :view_order,
       :canonical_forms => :string,
-      :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating, :language_id ],
+      :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating, :language_id ],
       :licenses => :title,
       :table_of_contents => '*' },
     :include => [{ :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] }, { :data_objects => [ { :toc_items => :info_items }, :license] },
@@ -237,7 +237,7 @@ class TaxonConcept < SpeciesSchemaModel
           :hierarchy_entries => :hierarchy_id,
           :agents => :id } )
     end
-    DataObject.filter_list_for_user(combined_objects, :user => options[:user])
+    DataObject.filter_list_for_user(combined_objects, :taxon_concept => self, :user => options[:user])
   end
 
   def text_toc_items_for_session(options={})
@@ -254,7 +254,7 @@ class TaxonConcept < SpeciesSchemaModel
 
     return nil if text_objects.empty? || text_objects.nil?
     toc_items = [toc_items] unless toc_items.is_a?(Array)
-    text_objects = DataObject.sort_by_rating(text_objects)
+    text_objects = DataObject.sort_by_rating(text_objects, self)
 
     datos_to_load = []
     toc_items.each do |toc_item|
@@ -870,7 +870,7 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def media(opts = {}, hierarchy_entry = nil)
-    DataObject.sort_by_rating(images({}, hierarchy_entry) + videos + sounds, opts).compact
+    DataObject.sort_by_rating(images({}, hierarchy_entry) + videos + sounds, self, opts).compact
   end
 
   def images(options = {}, hierarchy_entry = nil)
@@ -893,7 +893,6 @@ class TaxonConcept < SpeciesSchemaModel
       :hierarchy => filter_hierarchy,
       :image_page => image_page, :skip_metadata => options[:skip_metadata])
     @length_of_images = images.length # Caching this because the call to #images is expensive and we don't want to do it twice.
-
     return images
   end
 
@@ -1076,29 +1075,33 @@ class TaxonConcept < SpeciesSchemaModel
     # get the images
     if options[:images].to_i > 0
       image_data_objects = top_concept_images.collect{ |tci| tci.data_object }.compact
-      image_data_objects = DataObject.filter_list_for_user(image_data_objects)
+      image_data_objects = DataObject.filter_list_for_user(image_data_objects, :taxon_concept => self)
       # remove non-matching vetted and license values
       image_data_objects.delete_if do |d|
-        (options[:vetted] && !options[:vetted].include?(d.vetted)) ||
+        d_vetted = d.vetted_by_taxon_concept(self, :find_best => true)
+        d_vetted = d_vetted unless d_vetted.nil?
+        (options[:vetted] && !options[:vetted].include?(d_vetted)) ||
         (options[:licenses] && !options[:licenses].include?(d.license))
       end
       image_data_objects = image_data_objects.group_objects_by('guid')  # group by guid
-      image_data_objects = DataObject.sort_by_rating(image_data_objects)  # order by rating
+      image_data_objects = DataObject.sort_by_rating(image_data_objects, self)  # order by rating
       return_data_objects += image_data_objects[0...options[:images].to_i]  # get the # requested
     end
 
     # get the rest
     if options[:text].to_i > 0 || options[:videos].to_i
       non_image_objects = data_objects.select{ |d| !d.is_image? }
-      non_image_objects = DataObject.filter_list_for_user(non_image_objects)
+      non_image_objects = DataObject.filter_list_for_user(non_image_objects, :taxon_concept => self)
       non_image_objects.delete_if do |d|
-        (options[:vetted] && !options[:vetted].include?(d.vetted)) ||
+        d_vetted = d.vetted_by_taxon_concept(self, :find_best => true)
+        d_vetted = d_vetted unless d_vetted.nil?
+        (options[:vetted] && !options[:vetted].include?(d_vetted)) ||
         (options[:licenses] && !options[:licenses].include?(d.license)) ||
         (d.is_text? && options[:text_subjects] && (options[:text_subjects] & d.info_items).empty?)
         # the use of & above is the array set intersection operator
       end
       non_image_objects = non_image_objects.group_objects_by('guid')  # group by guid
-      non_image_objects = DataObject.sort_by_rating(non_image_objects)  # order by rating
+      non_image_objects = DataObject.sort_by_rating(non_image_objects, self)  # order by rating
 
       # remove items over the count limit
       types_count = {:text => 0, :video => 0}
@@ -1379,7 +1382,8 @@ class TaxonConcept < SpeciesSchemaModel
     else
       image_count = connection.select_values("SELECT count(*) AS count_all FROM `top_concept_images` tci JOIN `data_objects` do ON (tci.data_object_id=do.id) WHERE ((tci.taxon_concept_id = #{self.id})) AND do.published=1")[0].to_i
     end
-    other_media_count = self.data_objects.count(:conditions => "data_objects.published=1 AND data_objects.visibility_id=#{Visibility.visible.id} AND data_objects.data_type_id IN (#{(DataType.video_type_ids + DataType.sound_type_ids).join(',')})")
+    # TODO - Fix the other_media_count by counting only media with visibility as visible
+    other_media_count = self.data_objects.count(:conditions => "data_objects.published=1 AND data_objects.data_type_id IN (#{(DataType.video_type_ids + DataType.sound_type_ids).join(',')})")
     @media_count = image_count + other_media_count
   end
 
@@ -1396,14 +1400,14 @@ private
     end
 
     objects = data_objects.select{ |d| options[:data_type_ids].include?(d.data_type_id) }
-    filtered_objects = DataObject.filter_list_for_user(objects, :user => usr)
+    filtered_objects = DataObject.filter_list_for_user(objects, :taxon_concept => self, :user => usr)
 
     add_include = [:agents_data_objects, :all_comments]
     add_select = { :comments => [:parent_id, :visible_at] }
 
     objects = DataObject.core_relationships(:add_include => add_include, :add_select => add_select).
         find_all_by_id(filtered_objects.collect{ |d| d.id })
-    objects = DataObject.sort_by_rating(objects)
+    objects = DataObject.sort_by_rating(objects, self)
     return objects
   end
 

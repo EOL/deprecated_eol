@@ -1,6 +1,9 @@
 - content.each do |item|
   - if item[:data_objects]
     - item[:data_objects].each do |dato|
+      - dato_vetted = dato.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
+      - dato_vetted_id = dato_vetted.id unless dato_vetted.nil?
+      - dato_vetted_label = dato_vetted.label unless dato_vetted.nil?
       %div{:id => "data_object_#{dato.id}", :class => 'article'}
         - unless dato.object_title.blank?
           %h4= dato.object_title
@@ -9,8 +12,8 @@
           = render :partial => 'data_objects/view_translation', :locals => { :data_object => dato }
         = render :partial => 'data_objects/data_object_article', :locals => { :data_object => dato , :show_view_source => 'false'}
         .meta.attribution
-          = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => dato, :supplier => true }
-        %p.flag{:class => vetted_id_class(dato.vetted_id)}= dato.vetted == Vetted.unknown ? I18n.t(:unreviewed) : dato.vetted.label
+          = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => dato }
+        %p.flag{:class => vetted_id_class(dato_vetted_id)}= dato_vetted_label == Vetted.unknown.label ? I18n.t(:unreviewed) : dato_vetted_label
         = render :partial => 'data_objects/rating', :locals => { :data_object => dato }
         %div.actions
           = render :partial => 'shared/add_to_my_collection', :locals => { :item => dato, :my_collection => @watch_collection }

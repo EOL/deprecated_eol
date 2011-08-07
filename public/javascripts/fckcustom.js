@@ -6,6 +6,8 @@ FCKConfig.LinkBrowserURL = FCKConfig.BasePath + 'filemanager/browser/default/bro
 FCKConfig.ImageBrowserURL = FCKConfig.BasePath + 'filemanager/browser/default/browser.html?Type=Image&Connector='+FCKRelativePath+'/fckeditor/command';
 FCKConfig.FlashBrowserURL = FCKConfig.BasePath + 'filemanager/browser/default/browser.html?Type=Flash&Connector='+FCKRelativePath+'/fckeditor/command';
 
+FCKConfig.LinkBrowser = false;
+FCKConfig.ImageBrowser = false;
 FCKConfig.LinkUploadURL = FCKRelativePath+'/fckeditor/upload';
 FCKConfig.ImageUploadURL = FCKRelativePath+'/fckeditor/upload?Type=Image';
 FCKConfig.FlashUploadURL = FCKRelativePath+'/fckeditor/upload?Type=Flash';

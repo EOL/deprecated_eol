@@ -250,8 +250,6 @@ def DataObject.build_reharvested_dato(dato)
   :created_at             => Time.now,
   :updated_at             => Time.now,
   :data_rating            => dato.data_rating,
-  :vetted                 => dato.vetted,
-  :visibility             => dato.visibility,
   :published              => true
   )
 

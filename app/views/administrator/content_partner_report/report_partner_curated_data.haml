@@ -2,30 +2,26 @@
   %h2
     = @page_header
   %p
-    - if(@agent_id != "All")
-      =I18n.t("the_list_represents_the_curation_activity", :link => link_to(@partner_fullname, { :action => 'show', :id => @agent_id }))
+    - if(@content_partner_id != "All")
+      =I18n.t("the_list_represents_the_curation_activity", :link => link_to(@partner_fullname, { :action => 'show', :id => @content_partner_id }))
     =I18n.t("this_report_is_also_available_")
     - if(@year_month == "All")
-      /= link_to " I18n.t(:_see_feeds),{:controller=>'/feeds', :action=>:partner_curation, :agent_id => @agent_id}
-      = link_to image_tag('rss.png'), {:controller => '/feeds', :action => :partner_curation, :agent_id => @agent_id}
+      = link_to image_tag('rss.png'), {:controller => '/feeds', :action => :partner_curation, :content_partner_id => @content_partner_id}
     - else
-      /= link_to I18n.t(:_see_feeds),{:controller=>'/feeds', :action=>:partner_curation, :agent_id => @agent_id ,:year => @report_year, :month => @report_month}
-      = link_to image_tag('rss.png'), {:controller => '/feeds', :action => :partner_curation, :agent_id => @agent_id,:year => @report_year, :month => @report_month }
+      = link_to image_tag('rss.png'), {:controller => '/feeds', :action => :partner_curation, :content_partner_id => @content_partner_id,:year => @report_year, :month => @report_month }
 
   - form_for :hello, :url => { :action => :report_partner_curated_data } do |form|
     =I18n.t("viewing_partner_")
-    / working ok = select_tag :agent_id, options_from_collection_for_select(  @content_partners_with_published_data, :id, :full_name, @agent_id.to_i )
 
-    %select{ :name => "agent_id" }
+    %select{ :name => "content_partner_id" }
       %option
         =I18n.t("all_title")
       - for cp in @content_partners_with_published_data
-        %option{ :value => cp.id, :selected => @agent_id.to_i == cp.id }
+        %option{ :value => cp.id, :selected => @content_partner_id.to_i == cp.id }
           = cp.user.full_name
     = submit_tag("Change")
     %br
     =I18n.t("for_the_month_of_")
-    /= select_tag "year_month", options_for_select(@year_month_list,@year_month)
 
     %select{ :name => "year_month" }
       %option
@@ -66,7 +62,7 @@
         %th
           =I18n.t("permalink")
         %th
-          I18n.t("date_updated")
+          =I18n.t("updated")
 
     %tbody
       - count = @cur_page.to_i

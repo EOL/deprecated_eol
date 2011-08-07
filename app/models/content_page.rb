@@ -22,7 +22,7 @@ class ContentPage < $PARENT_CLASS_MUST_USE_MASTER
       else
         return content_page.page_name
       end
-    end    
+    end
   end
   
   def self.get_navigation_tree_with_links(page_id)
@@ -73,8 +73,19 @@ class ContentPage < $PARENT_CLASS_MUST_USE_MASTER
   end
   
   def page_url
-    return self.page_name.gsub(' ', '_').downcase
+    all_pages_with_this_name = ContentPage.find_all_by_page_name(page_name)
+    if all_pages_with_this_name.count > 1 && all_pages_with_this_name.first != self
+      return self.id
+    else
+      return self.page_name.gsub(' ', '_').downcase
+    end
   end
   
+  def alternate_page_url
+    all_pages_with_this_name = ContentPage.find_all_by_page_name(page_name)
+    if all_pages_with_this_name.count == 1
+      return self.id
+    end
+  end
 end
 

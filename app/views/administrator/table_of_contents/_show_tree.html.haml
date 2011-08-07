@@ -34,10 +34,13 @@
               = image_tag('arrow_down.gif', :alt => I18n.t("move_down"), :title => I18n.t("move_down"))
             %a{:href => '', :onclick => "javascript:toc_move_down(#{toc.id}, true); return false;"}><
               = image_tag('arrow_way_down.gif', :alt => I18n.t("move_to_bottom"), :title => I18n.t("move_to_bottom"))
-          %span{:id => "toc_label_#{toc.id}"}><
-            = "&nbsp;" + toc.label + "&nbsp;"
-            %a{:href => '', :onclick => %Q[javascript:toc_edit_label(#{toc.id}, "#{toc.label}"); return false;]}
-              = image_tag('pencil.png', :alt => I18n.t("edit_"), :title => I18n.t("edit_"), :style => 'float: right; margin: 0px;')
+
+          - if !toc.label.blank?
+            %span{:id => "toc_label_#{toc.id}"}><
+              = "&nbsp;" + toc.label + "&nbsp;"
+              %a{:href => '', :onclick => %Q[javascript:toc_edit_label(#{toc.id}, "#{toc.label}"); return false;]}
+                = image_tag('pencil.png', :alt => I18n.t("edit_"), :title => I18n.t("edit_"), :style => 'float: right; margin: 0px;')
+
         %td{:class => cell2_class, :valign => 'top'}
           - unless toc.info_items.empty?
             - toc.info_items.each do |ii|

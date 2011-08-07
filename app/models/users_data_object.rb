@@ -27,13 +27,4 @@ class UsersDataObject < ActiveRecord::Base
     return obj_ids
   end
 
-  def self.get_all_object_ids
-    rset = UsersDataObject.find_by_sql(["SELECT data_object_id FROM users_data_objects"])
-    arr_object_ids = Array.new
-    rset.each do |rec|
-      arr_object_ids << rec.data_object_id
-    end
-    return arr_object_ids
-  end
-
 end

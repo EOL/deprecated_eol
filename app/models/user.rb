@@ -160,24 +160,24 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def self.curated_data_object_ids(arr_dataobject_ids, year, month, agent_id)
     obj_ids = []
     user_ids = []
-    if(arr_dataobject_ids.length > 0 or agent_id == 'All') then
-      sql = "SELECT cal.object_id data_object_id, cal.user_id
-        FROM #{LoggingModel.database_name}.activities acts
-          JOIN #{LoggingModel.database_name}.curator_activity_logs cal ON cal.activity_id = acts.id
-          JOIN changeable_object_types cot ON cal.changeable_object_type_id = cot.id
-          JOIN users u ON cal.user_id = u.id
-        WHERE cot.ch_object_type = 'data_object' "
-      if(agent_id != 'All') then
-        sql += " AND cal.object_id IN (" + arr_dataobject_ids * "," + ")"
-      end
-      if(year.to_i > 0) then sql += " AND year(cal.updated_at) = #{year} AND month(cal.updated_at) = #{month} "
-      end
-      rset = User.find_by_sql([sql])
-      rset.each do |post|
-        obj_ids << post.data_object_id
-        user_ids << post.user_id
-      end
+
+    sql = "SELECT cal.object_id data_object_id, cal.user_id
+      FROM #{LoggingModel.database_name}.activities acts
+        JOIN #{LoggingModel.database_name}.curator_activity_logs cal ON cal.activity_id = acts.id
+        JOIN changeable_object_types cot ON cal.changeable_object_type_id = cot.id
+        JOIN users u ON cal.user_id = u.id
+      WHERE cot.ch_object_type = 'data_object' "
+    if(arr_dataobject_ids.length > 0) then
+      sql += " AND cal.object_id IN (" + arr_dataobject_ids * "," + ")"
     end
+    if(year.to_i > 0) then sql += " AND year(cal.updated_at) = #{year} AND month(cal.updated_at) = #{month} "
+    end
+    rset = User.find_by_sql([sql])
+    rset.each do |post|
+      obj_ids << post.data_object_id
+      user_ids << post.user_id
+    end
+
     arr = [obj_ids, user_ids]
     return arr
   end
@@ -747,6 +747,7 @@ private
 
   # validation condition for required curator attributes
   def curator_attributes_required?
+    return false unless self.class.column_names.include?('requested_curator_level_id')
     (!self.requested_curator_level_id.nil? && !self.requested_curator_level_id.zero? &&
       self.requested_curator_level_id != CuratorLevel.assistant_curator.id) ||
     (!self.curator_level_id.nil? && !self.curator_level_id.zero? &&
@@ -754,6 +755,7 @@ private
   end
 
   def first_last_names_required?
+    return false unless self.class.column_names.include?('requested_curator_level_id')
     (!self.requested_curator_level_id.nil? && !self.requested_curator_level_id.zero?) ||
     (!self.curator_level_id.nil? && !self.curator_level_id.zero?)
   end
@@ -769,6 +771,7 @@ private
 
   # conditional for before_save
   def curator_level_can_be_instantly_approved?
+    return false unless self.class.column_names.include?('requested_curator_level_id')
     self.requested_curator_level_id == CuratorLevel.assistant_curator.id ||
     self.requested_curator_level_id == self.curator_level_id
   end

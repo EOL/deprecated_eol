@@ -59,14 +59,11 @@
                 %span
                   = I18n.t(:current_language, :iso_code => I18n.locale.to_s.upcase)
             %ul
-              - Language.find_active.each do |language|
+              - [Language.english].each do |language|
                 %li
                   = link_to I18n.t(:language_menu_item, :language_label => language.source_form, :language_abbr => language.display_code),
                     set_language_url(:language => language.iso_639_1),
                     { :title => I18n.t(:switch_language_advisory_information, :language_label => language.source_form) }
-              %li
-                = link_to I18n.t(:google_translate), { :controller => "/content", :action => "translate" },
-                  { :title => I18n.t(:google_translate_advisory_information) }
         - if @home_page
           %h2= I18n.t(:global_access_tagline)
         = render :partial => "/layouts/v2/search"

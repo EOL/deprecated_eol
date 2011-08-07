@@ -50,7 +50,10 @@ describe 'Admin Pages' do
     body.should include('News Items')
     body.should include('Comments and Tags')
     body.should include('Web Users')
-    body.should include('Contact Us Functions')
+    
+    # commented in V2, until further notice
+    #body.should include('Contact Us Functions')
+    
     body.should include('Technical Functions')
     body.should include('Content Partners')
     body.should include('Statistics')

@@ -5,20 +5,17 @@ class Administrator::StatsController < AdminController
   before_filter :restrict_to_admins
 
   def index
-    @reports_list=[["--select--",""],
+    @reports_list = [["--select--",""],
                   ["Latest Species Page Counts","http://services.eol.org/species_stat/display.php"],
                   ["EOL Web Usage Statistics","http://services.eol.org/eol_php_code/applications/google_stats/index.php"],
                   ["EOL Data Objects by Partner","http://services.eol.org/eol_php_code/applications/partner_stat/index.php"],
-                  ["EOL Names Lookup Tool","http://services.eol.org/names_lookup/"],
+                  ["EOL Names Stat","http://services.eol.org/names_stat/"],
                   ["EOL Transfer Schema XML Validator","http://services.eol.org/validator/"],
                   ["UBio-FindIT for URL lists","http://services.eol.org/urls_lookup/"],
-                  ["General EOL Statistics by lists of names","http://services.eol.org/names_stat/"],
                   ["EOL Resource Monitoring - RSS Feeds","http://services.eol.org/RSS_resource_monitor/"]
                   ]
-#                  ["Specific EOL Taxa ID Stats","http://services.eol.org/species_stat/index.php"],
-
-    @report_url=params[:report_url] || @reports_list[1][1]
-
+    @report_url = params[:report_url] || @reports_list[1][1]
+    @google_stat_year_list = get_google_stat_year_list
   end
 
   def SPM_objects_count
@@ -30,10 +27,6 @@ class Administrator::StatsController < AdminController
     else
       @arr_count = nil
     end
-    #@arr_count = DataObject.get_SPM_count_on_dataobjects(@arr_SPM)
-    #add numbers from User Submitted Text - UsersDataObjects table
-    #@arr_user_object_ids = UsersDataObject.get_all_object_ids
-    #@arr_count = DataObject.add_user_dataobjects_on_SPM_count(@arr_count, @arr_user_object_ids)
   end
 
   def SPM_partners_count
@@ -45,7 +38,6 @@ class Administrator::StatsController < AdminController
     else
       @arr_count = nil
     end
-    #@arr_count = DataObject.get_SPM_count_on_contentpartners(@arr_SPM)
   end
 
   def toc_breakdown
@@ -69,5 +61,19 @@ private
     @navigation_partial = '/admin/navigation'
     'left_menu'
   end
+  
+  def get_google_stat_year_list
+    arr=[]
+    start="2008_07"
+    str=""
+    var_date = Time.now
+    while( start != str)
+      var_date = var_date - 1.month
+      str = var_date.year.to_s + "_" + "%02d" % var_date.month.to_s
+      arr << var_date.strftime("%Y")
+    end
+    return arr.uniq
+  end
+  
 
 end

@@ -21,8 +21,8 @@
           %select{ :name => "activity_id" }
             %option
               =I18n.t("all_title")
-            - for activity in @activity_list
-              %option{ :value => activity.id, :selected => @activity_id.to_i == activity.id }
+            - for activity in @translated_activity_list
+              %option{ :value => activity.activity_id, :selected => @activity_id.to_i == activity.activity_id }
                 = h(activity.name)
           = submit_tag I18n.t("search")
     - if @activities.nil? == false && @activities.size > 0

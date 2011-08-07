@@ -57,7 +57,7 @@ class Resource < SpeciesSchemaModel
   end
   
   def latest_harvest_event
-    HarvestEvent.find(:first, :limit => 1, :order => 'id desc')
+    HarvestEvent.find(:first, :limit => 1, :order => 'id desc', :conditions => ["resource_id = ?", id])
   end
 
   def all_harvest_events

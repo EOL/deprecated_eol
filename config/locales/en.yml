@@ -1176,6 +1176,8 @@ en:
   export_all_of_the_entries_as_a: "export all of the entries as a CSV file"
   export_this_list_as_csv: "Export this list as CSV"
   external_link_icon_alt_text: "External link."
+  external_report_click_url_to_proceed: "External report. Click URL to proceed."
+  external_report_click_year_to_proceed: "External report. Click year to proceed."
   facebook: Facebook
   facere_quibusdam_itaque_et__et: "Facere quibusdam itaque et. Et facere at voluptatum commodi nostrum quod. Voluptatem sunt sit quae qui consectetur omnis vel inventore."
   faculty_staff_or_grad_student_credential_option: "faculty, staff, or graduate student status in a relevant university or college department"

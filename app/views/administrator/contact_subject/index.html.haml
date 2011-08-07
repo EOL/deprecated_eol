@@ -2,7 +2,7 @@
 = link_to I18n.t("add_a_new_topic_area"), :action => 'new'
 %br
 #contact_us_topics
-  - unless @contact_subjects.nil?
+  - unless @translated_contact_subjects.nil?
     =I18n.t("the_following_topic_areas_are_")
     %br
     %br
@@ -16,14 +16,14 @@
           =I18n.t("active")
         %th
           =I18n.t("action")
-      - for contact_subject in @contact_subjects
+      - for tcs in @translated_contact_subjects
         - column_class = cycle('odd', 'even')
         %tr
           %td{ :class => column_class }
-            = h contact_subject.title
+            = h tcs.title
           %td{ :class => column_class }
-            = h contact_subject.recipients
+            = h tcs.contact_subject.recipients
           %td{ :class => column_class }
-            = h contact_subject.active
+            = h tcs.contact_subject.active
           %td{ :class => column_class }
-            = link_to I18n.t("_edit_"),:action=>'edit', :id=>contact_subject.id
+            = link_to I18n.t("_edit_"), :action => 'edit', :id => tcs.contact_subject_id

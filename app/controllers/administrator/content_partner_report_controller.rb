@@ -257,12 +257,12 @@ class Administrator::ContentPartnerReportController < AdminController
       arr_dataobject_ids = []
     else
       content_partner = ContentPartner.find(@content_partner_id)
-      @partner_fullname = content_partner_id.user.full_name
+      @partner_fullname = content_partner.user.full_name
       latest_harvest_event = content_partner.resources.first.latest_harvest_event
       arr_dataobject_ids = HarvestEvent.data_object_ids_from_harvest(latest_harvest_event.id)
     end
 
-    arr = User.curated_data_object_ids(arr_dataobject_ids, @report_year, @report_month, @agent_id)
+    arr = User.curated_data_object_ids(arr_dataobject_ids, @report_year, @report_month, @content_partner_id)
     @arr_dataobject_ids = arr[0]
     @arr_user_ids = arr[1]
 

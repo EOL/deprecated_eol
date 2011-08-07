@@ -182,14 +182,6 @@ class TaxonConcept < SpeciesSchemaModel
     return iucn.description
   end
 
-  # Returns true if the specified user has access to this TaxonConcept.
-  def is_curatable_by? user
-    if user
-      return false unless user.curator_approved
-      true
-    end
-  end
-
   # The scientific name for a TC will be italicized if it is a species (or below) and will include attribution and varieties, etc:
   def scientific_name(hierarchy = nil, italicize = true)
     hierarchy ||= Hierarchy.default

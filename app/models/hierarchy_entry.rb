@@ -98,12 +98,6 @@ class HierarchyEntry < SpeciesSchemaModel
   def hierarchy_label
     hierarchy.label
   end
-  # Returns true if the specified user has access to the TaxonConcept that this HierarchyEntry belongs to
-  # (because curators have access to pages, not really specific HierarchyEntry instances.  This is confusing
-  # because users have a HierarchyEntry that their
-  def is_curatable_by? user
-    return taxon_concept.is_curatable_by?(user)
-  end
 
   # Returns true IFF this HE was included in a set of HEs because a curator added the association.  See
   # DataObject.published_entries

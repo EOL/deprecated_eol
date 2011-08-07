@@ -4,6 +4,7 @@ class CommunitiesController < ApplicationController
 
   before_filter :allow_login_then_submit, :only => [:join]
   before_filter :load_community_and_dependent_vars, :except => [:index, :new, :create]
+  before_filter :load_collection, :only => [:new, :create]
   before_filter :must_be_logged_in, :except => [:index, :show]
   before_filter :restrict_edit, :only => [:edit, :update]
   before_filter :restrict_delete, :only => [:delete]
@@ -25,11 +26,7 @@ class CommunitiesController < ApplicationController
 
   def new
     @page_title = I18n.t(:create_a_community)
-    @community = Community.new
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @community }
-    end
+    render :action => 'new', :layout => 'v2/new_community'
   end
 
   def edit
@@ -38,16 +35,19 @@ class CommunitiesController < ApplicationController
 
   def create
     @community = Community.new(params[:community])
-    respond_to do |format|
-      if @community.save
-        @community.initialize_as_created_by(current_user)
-        log_action(:create)
-        format.html { redirect_to(@community, :notice => I18n.t(:created_community) ) }
-        format.xml  { render :xml => @community, :status => :created, :location => @community }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @community.errors, :status => :unprocessable_entity }
-      end
+    if @community.save
+      @community.initialize_as_created_by(current_user)
+      # NOTE - Because the collection is actually created by the on_create of the community, we need to update it:
+      @community.collection.update_attribute(:name, params[:collection][:name])
+      sent_to = send_invitations(params[:invite_list].values || params[:invitations].split(/[,\s]/).grep(/\w/))
+      notice = I18n.t(:created_community)
+      notice += " #{I18n.t(:sent_invitations_to_users, :users => sent_to.to_sentence)}" unless sent_to.empty?
+      upload_logo(@community) unless params[:community][:logo].blank?
+      log_action(:create)
+      redirect_to(@community, :notice => notice)
+    else
+      flash.now[:error] = I18n.t(:create_community_unsuccessful_error)
+      render :action => "new", :layout => 'v2/new_community'
     end
   end
 
@@ -99,13 +99,24 @@ class CommunitiesController < ApplicationController
 private
 
   def load_community_and_dependent_vars
-    @community = Community.find(params[:community_id] || params[:id])
-    # TODO: Should we have a redirect to error page here if @community is not found i.e. nil?
+    begin
+      @community = Community.find(params[:community_id] || params[:id])
+    rescue => e
+      @message = e.message
+      render(:layout => 'v2/basic', :template => "content/missing", :status => 404)
+      return false
+    end
     @members = @community.members # Because we pull in partials from the members controller.
     @current_member = current_user.member_of(@community)
     if @current_member && @current_member.manager?
       @pending_collections = @community.pending_collections
     end
+  end
+
+  def load_collection
+    @community = Community.new
+    @collection = Collection.find(params[:collection_id])
+    @community_collection = Collection.new(:name => I18n.t(:copy_of_name, :name => @collection.name))
   end
 
   def restrict_edit
@@ -127,4 +138,34 @@ private
       {:community => @community, :user => current_user, :activity => Activity.send(act)}.merge(opts)
     )
   end
+
+  def send_invitations(usernames)
+    sent_to = []
+    not_sent_to = []
+    usernames.each do |name|
+      next if name.blank?
+      begin
+        user = User.find_by_username(name)
+        comment = Comment.create(:parent => user, :user => current_user,
+                                 :body => I18n.t(:community_invitation_comment, :community => link_to_name(@community)))
+        sent_to << link_to_user(user)
+      rescue
+        not_sent_to << name
+      end
+    end
+    unless not_sent_to.empty?
+      flash[:error] = flash[:error].nil? ? '' : "#{flash[:error]} " # NOTE - add space if needed
+      flash[:error] += I18n.t(:unable_to_invite_users_to_community_error, :users => not_sent_to.to_sentence)
+    end
+    return sent_to
+  end
+
+  def link_to_user(who)
+    self.class.helpers.link_to(who.username, user_path(who))
+  end
+
+  def link_to_name(community)
+    self.class.helpers.link_to(community.name, community_path(community))
+  end
+
 end

@@ -327,6 +327,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   def grant_admin
     self.update_attribute(:admin, true)
+    clear_cached_user
   end
 
   def grant_curator(level = :full, options = {})

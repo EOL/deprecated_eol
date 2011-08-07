@@ -1,13 +1,34 @@
 - form_for @community, :html => { :multipart => true } do |f|
+  - if @collection
+    = hidden_field_tag :collection_id, @collection.id
   %fieldset
-    = f.error_messages :header_message =>  I18n.t(:error_saving_community) , |
-      :message =>  I18n.t(:these_problems_need_to_be_fixed)  |
-    = f.label :name,  I18n.t(:community_form_name_label)
-    = f.text_field :name
-    = f.label :description,  I18n.t(:community_form_description_label)
-    = f.text_area :description
-    %h4= I18n.t(:primary_image_header)
-    = f.label :logo, I18n.t(:primary_image_choose)
-    = f.file_field :logo, :size=>25
-  - submit_label ||= I18n.t(:save)
-  = submit_tag(submit_label)
+    = validation_errors_for(@community)
+    %dl
+      %dt
+        %label= f.label :name
+      %dd
+        = f.text_field :name
+      %dt
+        %label= f.label :description
+      %dd
+        %textarea
+      = fields_for :collection, @community_collection do |collection_f|
+        %dt
+          %label= I18n.t(:name_for_community_focus_label)
+        %dd
+          = collection_f.text_field :name
+      -# TODO - there is a "2" appearing here, which I cannot figure out.  FIXME
+      %dt
+        %label= f.label :logo
+        %p= I18n.t(:upload_logo_help_text)
+      %dd
+        = f.file_field :logo, :size=>25
+      %dt
+        %label= I18n.t(:invite_members_label)
+        %p= I18n.t(:invite_members_help_text)
+      %dd.invite
+        = text_area_tag :invitations
+        = text_field_tag :invitations
+  %fieldset.actions
+    - submit_label ||= I18n.t(:save)
+    = submit_tag(submit_label)

@@ -124,15 +124,6 @@ describe Comment do
     @text_comment.parent_type_name.should == 'text'
   end
 
-  # is_curatable_by
-  it "should return true for a curator of it's parent" do
-    @tc_comment.is_curatable_by?(@curator).should be_true
-  end
-
-  it "should return false for a non-curator of it's parent" do
-    @tc_comment.is_curatable_by?(@non_curator).should be_false
-  end
-
   # show
   it "should add curator who vetted object and make comment visible" do
     @tc_comment.visible_at = nil

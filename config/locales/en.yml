@@ -1874,6 +1874,7 @@ en:
   _page_: " Page"
   page: "Page"
   page_results_avg: "Page Results avg"
+  page_urls: "Page URL(s):"
   pages_created_in_the__other__s: "Pages created in the \"Other\" section will not be added to any navigational menus -- you must link to these pages manually."
   pages_items_created_in_the__ab: "Pages/items created in the \"About EOL\", \"Press Room\", \"Using the Site\" and \"Feedback\" sections will have links to them automatically created in the top navigation."
   pages_items_created_in_the__fo: "Pages/items created in the \"Footer\" section will have links to them automatically created in the footer."

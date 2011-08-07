@@ -119,6 +119,7 @@ ActionController::Routing::Routes.draw do |map|
   map.eol_news    'eol_news',    :controller => 'content', :action => 'page', :id => 'eol_news'
   map.contact_us  'contact_us',  :controller => 'content', :action => 'page', :id => 'contact_us'
   map.donate      'donate',      :controller => 'content', :action => 'donate'
+  map.cms_page    'content/page/:id', :controller => 'content', :action => 'page'
 
   map.clear_caches 'clear_caches',      :controller => 'content', :action => 'clear_caches'
   map.expire_all   'expire_all',        :controller => 'content', :action => 'expire_all'

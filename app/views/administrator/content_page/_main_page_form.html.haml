@@ -7,6 +7,16 @@
       = @navigation_tree
     - else
       = "ROOT"    
+- if ContentPage.exists?(@page)
+  %tr
+    %td
+      %strong
+        =I18n.t(:page_urls)
+    %td
+      = external_link_to(cms_page_url(@page.page_url), cms_page_url(@page.page_url), :show_link_icon => false)
+      - if alternate = @page.alternate_page_url
+        %br
+        = external_link_to(cms_page_url(alternate), cms_page_url(alternate), :show_link_icon => false)
 %tr
   %td
     %strong

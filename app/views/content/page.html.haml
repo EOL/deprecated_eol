@@ -17,7 +17,7 @@
           %ul
             - for translated_page in @translated_pages
               %li
-                = translated_page.language.label              
+                = link_to translated_page.language.label, cms_page_path(@page_id, :language => translated_page.language.iso_code)
       - else
         - # this page is available in this language
         = @translated_content.main_content

@@ -746,6 +746,7 @@ private
 
   # validation condition for required curator attributes
   def curator_attributes_required?
+    return false unless self.class.column_names.include?('requested_curator_level_id')
     (!self.requested_curator_level_id.nil? && !self.requested_curator_level_id.zero? &&
       self.requested_curator_level_id != CuratorLevel.assistant_curator.id) ||
     (!self.curator_level_id.nil? && !self.curator_level_id.zero? &&
@@ -753,6 +754,7 @@ private
   end
 
   def first_last_names_required?
+    return false unless self.class.column_names.include?('requested_curator_level_id')
     (!self.requested_curator_level_id.nil? && !self.requested_curator_level_id.zero?) ||
     (!self.curator_level_id.nil? && !self.curator_level_id.zero?)
   end
@@ -768,6 +770,7 @@ private
 
   # conditional for before_save
   def curator_level_can_be_instantly_approved?
+    return false unless self.class.column_names.include?('requested_curator_level_id')
     self.requested_curator_level_id == CuratorLevel.assistant_curator.id ||
     self.requested_curator_level_id == self.curator_level_id
   end

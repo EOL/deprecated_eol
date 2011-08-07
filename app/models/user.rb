@@ -29,6 +29,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   has_many :users_data_objects
   has_many :collection_items, :as => :object
   has_many :collections
+  has_many :published_collections, :class_name => Collection.to_s, :conditions => 'collections.published = 1'
   has_many :google_analytics_partner_summaries
   has_many :google_analytics_partner_taxa
   has_many :resources, :through => :content_partner
@@ -460,6 +461,11 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def can_edit_collection?(collection)
     return true if collection.user == self
     return true if collection.community && collection.community.managers.include?(self)
+    false
+  end
+  
+  def can_view_collection?(collection)
+    return true if collection.published? || collection.user == self
     false
   end
 

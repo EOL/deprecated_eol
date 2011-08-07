@@ -15,4 +15,4 @@
         &bull;
       = link_to I18n.t(:profile), current_user
       &bull;
-      = link_to I18n.t(:sign_out), logout_url
+      = link_to I18n.t(:sign_out), logout_url(:return_to => current_url(false))

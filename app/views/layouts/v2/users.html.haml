@@ -21,7 +21,8 @@
             %li{:class => resource_is_active('users/newsfeeds')}= link_to I18n.t(:newsfeed), user_newsfeed_path(@user)
             %li{:class => resource_is_active('users', 'show')}= link_to I18n.t(:my_info), user_path(@user)
             %li{:class => resource_is_active('users/activities')}= link_to I18n.t(:my_activity), user_activity_path(@user)
-            %li{:class => resource_is_active('users/collections')}= link_to I18n.t(:collections_with_count, :count => @user.collections.count), user_collections_path(@user)
+            - collections_count = (@user == current_user) ? @user.collections.count : @user.published_collections.count
+            %li{:class => resource_is_active('users/collections')}= link_to I18n.t(:collections_with_count, :count => collections_count), user_collections_path(@user)
       = yield
 
 = render :file => 'layouts/v2/application'

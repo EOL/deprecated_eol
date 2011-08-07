@@ -359,7 +359,7 @@ end
 
 Factory.define :collection do |c|
   c.name                  { Factory.next(:string) }
-  c.published             false
+  c.published             true
   c.special_collection_id nil
   c.association           :sort_style
   c.association           :user

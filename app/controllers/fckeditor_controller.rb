@@ -3,7 +3,7 @@ require 'tmpdir'
 
 class FckeditorController < ActionController::Base
 
-  MIME_TYPES = [
+  @@UPLOAD_MIME_TYPES = [
     "image/jpg",
     "image/jpeg",
     "image/pjpeg",
@@ -63,7 +63,7 @@ class FckeditorController < ActionController::Base
   # Chek if mime type is included in the MIME_TYPES
   #
   def mime_types_ok(ftype)
-    mime_type_ok = MIME_TYPES.include?(ftype) ? true : false
+    mime_type_ok = @@UPLOAD_MIME_TYPES.include?(ftype) ? true : false
     if mime_type_ok
       @errorNumber = 0
     else
@@ -118,7 +118,7 @@ class FckeditorController < ActionController::Base
   def check_file(file)
     log "FCKEDITOR ---- CLASS OF UPLOAD OBJECT: #{file.class}"
 
-    unless "#{file.class}" == "Tempfile" || "StringIO"
+    unless file.class.to_s == "Tempfile" || file.class.to_s == "StringIO"
       @errorNumber = 403
       throw Exception.new
     end

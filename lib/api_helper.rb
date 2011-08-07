@@ -106,8 +106,7 @@ module ApiHelper
     data_object.published_refs.each do |r|
       return_hash['references'] << r.full_reference
     end
-    
-    return_hash['vettedStatus'] = data_object.vetted.label unless data_object.vetted.blank?
+    return_hash['vettedStatus'] = data_object.association_with_best_vetted_status.vetted.label unless data_object.association_with_best_vetted_status.vetted.blank?
     return_hash['dataRating'] =  data_object.data_rating
     
     return return_hash

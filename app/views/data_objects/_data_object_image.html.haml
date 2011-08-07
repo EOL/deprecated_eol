@@ -1,5 +1,5 @@
 - data_object ||= @data_object
 - taxon_concept ||= nil
 - size ||= '260_190'
-- alt ||= alternative_text(data_object, 'image', taxon_concept.blank? ? nil : taxon_concept.title_canonical())
+- alt ||= alternative_text(data_object, 'image', taxon_concept)
 = image_tag data_object.thumb_or_object(size), :alt => alt

@@ -87,7 +87,7 @@ describe 'Feeds' do
       @resource = Resource.gen(:title => "test resource", :content_partner => @content_partner)
       last_month = Time.now - 1.month
       @harvest_event = HarvestEvent.gen(:resource_id => @resource.id, :published_at => last_month)
-      @data_object = DataObject.gen(:published => 1, :vetted_id => Vetted.trusted.id)
+      @data_object = build_data_object('Text', 'Test Description', :published => 1, :vetted => Vetted.trusted)
       @data_objects_harvest_event = DataObjectsHarvestEvent.gen(:data_object_id => @data_object.id, :harvest_event_id => @harvest_event.id)
 
       @taxon_concept = TaxonConcept.gen(:published => 1, :supercedure_id => 0)

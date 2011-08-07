@@ -1,7 +1,8 @@
 class Visibility < SpeciesSchemaModel
   CACHE_ALL_ROWS = true
   uses_translations
-  has_many :data_objects
+  has_many :data_objects_hierarchy_entry
+  has_many :curated_data_objects_hierarchy_entry
 
   def self.all_ids
     cached('all_ids') do

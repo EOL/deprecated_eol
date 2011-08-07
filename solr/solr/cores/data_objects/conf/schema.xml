@@ -29,8 +29,6 @@
         <field name="data_object_id" type="int" indexed="true" stored="true" required="true"/>
         <field name="guid" type="string" indexed="true" stored="true" required="true"/>
         <field name="data_type_id" type="int" indexed="true" stored="true" required="true"/>
-        <field name="vetted_id" type="int" indexed="true" stored="true" required="true"/>
-        <field name="visibility_id" type="int" indexed="true" stored="true" required="true"/>
         <field name="published" type="int" indexed="true" stored="true" required="true"/>
         <field name="data_rating" type="float" indexed="true" stored="true" required="true"/>
         <field name="description" type="text" indexed="true" stored="true" required="false"/>

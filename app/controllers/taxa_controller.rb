@@ -146,7 +146,7 @@ class TaxaController < ApplicationController
     return if taxon_concept_invalid?(taxon_concept)
     includes = { :top_concept_images => :data_object }
     selects = { :taxon_concepts => :supercedure_id,
-      :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ] }
+      :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating ] }
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(taxon_concept.id)
     @taxon_concept.current_user = current_user
     @image_page  = (params[:image_page] ||= 1).to_i
@@ -293,7 +293,7 @@ class TaxaController < ApplicationController
   def publish_wikipedia_article
     tc = TaxonConcept.find(params[:taxon_concept_id].to_i)
     data_object = DataObject.find(params[:data_object_id].to_i)
-    data_object.publish_wikipedia_article
+    data_object.publish_wikipedia_article(tc)
 
     category_id = params[:category_id].to_i
     redirect_url = "/pages/#{tc.id}"

@@ -11,11 +11,14 @@
             %p= link_to I18n.t(:media_summary_empty_contribute_instructions), '/placeholder'
     - else
       - @media[0..3].each do |item|
+        - item_vetted = item.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
+        - item_vetted_id = item_vetted.id unless item_vetted.nil?
+        - item_vetted_label = item_vetted.label unless item_vetted.nil?
         .image
-          %img{:src => item.thumb_or_object('580_360'), :alt => alternative_text(item, en_type(item), @taxon_concept.title_canonical()),
+          %img{:src => item.thumb_or_object('580_360'), :alt => alternative_text(item, en_type(item), @taxon_concept),
             :data => { :data_object_id => item.id, :thumb => item.thumb_or_object('98_68') }}
           .details
-            %p.flag{:class => vetted_id_class(item.vetted_id)}= item.vetted == Vetted.unknown ? I18n.t(:unreviewed) : item.vetted.label
+            %p.flag{:class => vetted_id_class(item_vetted_id)}= item_vetted_label == Vetted.unknown.label ? I18n.t(:unreviewed) : item_vetted_label
             - unless item.object_title.empty?
               .copy.caption
                 %p= item.object_title

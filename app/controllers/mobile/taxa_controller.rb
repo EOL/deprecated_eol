@@ -22,7 +22,7 @@ class Mobile::TaxaController < Mobile::MobileController
       :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
       :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
       :vetted => :view_order,
-      :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ],
+      :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating ],
       :table_of_contents => '*',
       :curator_activity_logs => '*',
       :users => [ :given_name, :family_name, :logo_cache_url, :credentials ] }
@@ -55,7 +55,7 @@ class Mobile::TaxaController < Mobile::MobileController
       :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
       :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
       :vetted => :view_order,
-      :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating, :object_cache_url ],
+      :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating, :object_cache_url ],
       :table_of_contents => '*',
       :curator_activity_logs => '*',
       :users => [ :given_name, :family_name, :logo_cache_url ] ,
@@ -90,7 +90,7 @@ class Mobile::TaxaController < Mobile::MobileController
       :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
       :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
       :vetted => :view_order,
-      :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating, :object_cache_url, :source_url ],
+      :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating, :object_cache_url, :source_url ],
       :table_of_contents => '*',
       :curator_activity_logs => '*',
       :users => [ :given_name, :family_name ],
@@ -107,7 +107,7 @@ class Mobile::TaxaController < Mobile::MobileController
     sort_order = [:visibility, :date, :vetted, :rating, :type] if @sort_by == 'newest'
 
     @media = @taxon_concept.media(sort_order)
-    @media = DataObject.custom_filter(@media, @params_type, @params_status) unless @params_type.blank? && @params_status.blank?
+    @media = DataObject.custom_filter(@media, @taxon_concept, @params_type, @params_status) unless @params_type.blank? && @params_status.blank?
 
     @media = promote_exemplar(@media) if @exemplar_image && (@sort_by.blank? ||
       (@sort_by == 'status' && (@params_type.include?('all') || @params_type.include?('images'))))

@@ -26,7 +26,7 @@ class ApiController < ApplicationController
     begin
       inc = [ { :data_objects => :info_items }, { :top_concept_images => :data_object },
         { :published_hierarchy_entries => { :name => :canonical_form } } ]
-      sel = { :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ],
+      sel = { :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating ],
         :canonical_forms => :string }
       taxon_concept = TaxonConcept.core_relationships(:add_include => inc, :add_select => sel).find(taxon_concept_id)
       raise if taxon_concept.blank? || !taxon_concept.published?

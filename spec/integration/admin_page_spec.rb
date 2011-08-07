@@ -187,13 +187,13 @@ describe 'Admin Pages' do
   #   body.should include @resource.title
   # end
 
-  it "should link to data objects stats per harvest event" do
-    login_as(@user)
-    visit("/administrator/content_partner_report/show_data_object_stats?harvest_id=#{@harvest_event.id}&partner_fullname=#{URI.escape(@agent.full_name)}")
-    body.should include "Total Data Objects:"
-    body.should include @agent.full_name
-    body.should include "#{@harvest_event.id}\n"
-  end
+  it "should link to data objects stats per harvest event" # do
+   #    login_as(@user)
+   #    visit("/administrator/content_partner_report/show_data_object_stats?harvest_id=#{@harvest_event.id}&partner_fullname=#{URI.escape(@agent.full_name)}")
+   #    body.should include "Total Data Objects:"
+   #    body.should include @agent.full_name
+   #    body.should include "#{@harvest_event.id}\n"
+   #  end
 
   it "should show table of contents breakdown page" do
     login_as(@user)

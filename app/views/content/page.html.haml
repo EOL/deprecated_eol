@@ -3,27 +3,23 @@
   .site_column
     = @navigation_tree_breadcrumbs
     - if @translated_content.nil?
-      - # this page is not available at this language
-      = I18n.t("cms_missing_content_message")
+      = I18n.t(:cms_missing_content_message)
       %br/
-      - if !@translated_pages.nil?
-        = I18n.t("cms_available_in_languages")
+      - unless @translated_pages.nil?
+        = I18n.t(:cms_available_in_languages)
         %ul
           - for translated_page in @translated_pages
             %li
-              = translated_page.language.label
+              = link_to translated_page.language.label, cms_page_path(@page_id, :language => translated_page.language.iso_code)
     - else
       - unless @translated_content.left_content.blank?
         .nav
           = @translated_content.left_content
       .article.copy
         = @translated_content.main_content
-
-        - # TODO: Figure out if this is an appropriate view for this form?
-        - # It seems a little odd as this is assumed to be CMS page show
-        -#Curator page only - curators can submit a Wikipedia article for ingestion
+        - # TODO: figure out if we need separate view for curator central, this is messy
+        - curator page only - curators can submit a Wikipedia article for ingestion
         - if @page_id == 'curator_central' && current_user.curator_approved
-          %hr.thin
           %a{:name => 'wikipedia'}
           %br/
           %h2
@@ -32,7 +28,7 @@
           =I18n.t("wikipedia_article_revision_for_ingestion")
           %br/
           %br/
-          =I18n.t("by_entering_a_wikipedia_revision")
+          = I18n.t("by_entering_a_wikipedia_revision")
           %form{:action => '/content/wikipedia', :method => 'post'}
             %strong
               =I18n.t("enter_revision_url_colon")

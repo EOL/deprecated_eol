@@ -7,4 +7,20 @@
   = submit_tag I18n.t("go")
 .divider
 - unless @report_url.blank?
-  = render :partial => '/shared/embed_external_page',:locals=>{:height=>'1000',:width=>'900',:url=>@report_url}
+  
+  %br
+  - if @report_url == "http://services.eol.org/eol_php_code/applications/google_stats/index.php"
+    = I18n.t("external_report_click_year_to_proceed")
+    %br
+    %br
+    - @google_stat_year_list.each do |year|
+      = link_to year, "http://services.eol.org/eol_php_code/applications/google_stats/process.php?report=year2date&year=#{year}", :target=>'_blank'
+      %br
+      %br
+  - else
+    = I18n.t("external_report_click_url_to_proceed")
+    %br
+    %br
+    = link_to " #{@report_url}", @report_url, :target=>'_blank'
+    
+  

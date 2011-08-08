@@ -533,10 +533,10 @@ opisthokonts = build_hierarchy_entry(0, kingdom, opisthokonts_name,
             :identifier => 33154,
             :parent_id => Hierarchy.ncbi.hierarchy_entries.last.id,
             :hierarchy => Hierarchy.ncbi )
-TaxonConceptName.gen(:preferred => true, :vern => true, :source_hierarchy_entry_id => opisthokonts.id,
-                     :language => Language.english, :name => opisthokonts_common_name, :taxon_concept => kingdom)
-TaxonConceptName.gen(:preferred => true, :vern => false, :source_hierarchy_entry_id => opisthokonts.id,
-                     :language => Language.scientific, :name => opisthokonts_name, :taxon_concept => kingdom)
+TaxonConceptName.gen(:preferred => true, :vern => true, :source_hierarchy_entry_id => opisthokonts.id, :language => Language.english,
+                    :name => opisthokonts_common_name, :taxon_concept => kingdom, :vetted_id => Vetted.trusted.id)
+TaxonConceptName.gen(:preferred => true, :vern => false, :source_hierarchy_entry_id => opisthokonts.id, :language => Language.scientific,
+                     :name => opisthokonts_name, :taxon_concept => kingdom, :vetted_id => Vetted.trusted.id)
 
 4.times do
   parent_id = Hierarchy.ncbi.hierarchy_entries.last.id

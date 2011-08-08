@@ -182,7 +182,6 @@ class DataObjectsController < ApplicationController
   end
 
   def curate_associations
-    raise EOL::Exceptions::Pending
     begin
       @data_object.published_entries.each do |phe|
         comment = curation_comment(params["curation_comment_#{phe.id}"])

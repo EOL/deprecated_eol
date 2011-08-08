@@ -47,7 +47,10 @@ class UserActivityLog < LazyLoggingModel
   end
 
   def self.most_common_activities(page)
-    query="SELECT COUNT(a.id) count, a.name, a.id FROM activities a JOIN user_activity_logs al ON a.id = al.activity_id GROUP BY a.name ORDER BY Count(a.id) desc"
+    query="SELECT COUNT(a.activity_id) count, a.name, a.activity_id id
+    FROM translated_activities a 
+    JOIN user_activity_logs al ON a.activity_id = al.activity_id 
+    GROUP BY a.name ORDER BY Count(a.activity_id) desc"
     self.paginate_by_sql [query], :page => page, :per_page => 30
   end
 

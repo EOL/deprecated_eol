@@ -9,19 +9,18 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :feed_items
   # Communities nested resources
   # TODO - these member methods want to be :put. Capybara, however, always uses :get, so in the interests of simple tests:
-  map.resources :communities, :member => { 'join' => :get, 'leave' => :get } do |community|
-    community.resource :newsfeed, :only => [:show], :namespace => "communities/"
-    community.resources :collection_endorsements, :namespace => "communities/"
-    # TODO - these shouldn't be GETs, but I really want them to be links, not forms, sooooo...
-    community.resources :members, :member => {'grant_manager' => :get, 'revoke_manager' => :get}
-  end
+  map.resources :communities,
+    :member => { 'join' => :get, 'leave' => :get } do |community|
+      community.resource :newsfeed, :only => [:show], :namespace => "communities/"
+      community.resources :collection_endorsements, :namespace => "communities/"
+      # TODO - these shouldn't be GETs, but I really want them to be links, not forms, sooooo...
+      community.resources :members, :member => {'grant_manager' => :get, 'revoke_manager' => :get}
+    end
 
   map.resources :collections, :member => { :choose => :get }
   map.resources :collection_items, :except => [:index, :show, :new, :destroy]
   #used in collections show page, when user clicks on left tabs
-  map.connect 'collections/:id/:filter',
-               :controller => 'collections',
-               :action => 'show'
+  map.connect 'collections/:id/:filter', :controller => 'collections', :action => 'show'
 
   # content partners and their nested resources
   map.resources :content_partners do |content_partner|
@@ -68,7 +67,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users, :path_names => { :new => :register },
                 :member => { :terms_agreement => [ :get, :post ], :pending => :get, :activated => :get,
                              :curation_privileges => [ :get ] },
-                :collection => { :forgot_password => :get } do |user|
+                :collection => { :forgot_password => :get, :usernames => :get } do |user|
     user.resource :newsfeed, :only => [:show], :controller => "users/newsfeeds"
     user.resource :activity, :only => [:show], :controller => "users/activities"
     user.resources :collections, :only => [:index], :controller => "users/collections"
@@ -128,7 +127,6 @@ ActionController::Routing::Routes.draw do |map|
   #map.help         'help',         :controller => 'content', :action => 'page', :id => 'screencasts'
   #map.screencasts  'screencasts',  :controller => 'content', :action => 'page', :id => 'screencasts'
   #map.faq          'faq',          :controller => 'content', :action => 'page', :id => 'faqs'
-  #map.terms_of_use 'terms_of_use', :controller => 'content', :action => 'page', :id => 'terms_of_use'
 
   # V2 header links
   map.help        'help',        :controller => 'content', :action => 'page', :id => 'help'
@@ -136,6 +134,9 @@ ActionController::Routing::Routes.draw do |map|
   map.eol_news    'eol_news',    :controller => 'content', :action => 'page', :id => 'eol_news'
   map.contact_us  'contact_us',  :controller => 'content', :action => 'page', :id => 'contact_us'
   map.donate      'donate',      :controller => 'content', :action => 'donate'
+  map.cms_page    'content/page/:id', :controller => 'content', :action => 'page'
+  map.terms_of_use 'terms_of_use', :controller => 'content', :action => 'page', :id => 'terms_of_use'
+  
 
   map.clear_caches 'clear_caches',      :controller => 'content', :action => 'clear_caches'
   map.expire_all   'expire_all',        :controller => 'content', :action => 'expire_all'

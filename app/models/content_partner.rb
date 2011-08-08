@@ -1,6 +1,3 @@
-# This is a special kind of Agent (the relationship is mandatory; q.v.).  A ContentPartner is akin to a User, in that
-# they can log in (see ContentPartnerController).  Of course, content partners are those people or organizations who
-# add data to our database.
 class ContentPartner < SpeciesSchemaModel
 
   belongs_to :user
@@ -47,6 +44,10 @@ class ContentPartner < SpeciesSchemaModel
 
   # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we go to many to many
   def can_be_updated_by?(user)
+    user.id == user_id || user.is_admin?
+  end
+  # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we go to many to many
+  def can_be_created_by?(user)
     user.id == user_id || user.is_admin?
   end
 
@@ -187,7 +188,7 @@ class ContentPartner < SpeciesSchemaModel
     FROM resources r
     JOIN harvest_events he ON (r.id = he.resource_id)
     WHERE he.published_at IS NOT NULL")
-    ContentPartner.find_all_by_id(published_partner_ids)
+    ContentPartner.find_all_by_id(published_partner_ids, :order => "full_name")
   end
 
   def all_harvest_events
@@ -396,4 +397,15 @@ class ContentPartner < SpeciesSchemaModel
     return display_name unless display_name.blank?
     full_name
   end
+
+  def self.resources_harvest_events(content_partner_id, page)
+    query = "SELECT r.id resource_id, he.id AS harvest_id, r.title, he.began_at, he.completed_at, he.published_at
+    FROM content_partners cp
+    JOIN resources r ON cp.id = r.content_partner_id
+    JOIN harvest_events he ON he.resource_id = r.id
+    WHERE cp.id = #{content_partner_id}
+    ORDER BY r.id desc, he.id desc"
+    self.paginate_by_sql [query, content_partner_id], :page => page, :per_page => 30
+  end
+
 end

@@ -94,7 +94,7 @@ describe 'Solr API' do
     end
   
     it 'should create the data object index' do
-      @taxon_concept = build_taxon_concept(:images => [{:guid => 'a509ebdb2fc8083f3a33ea17985bae72', :visibility_id => Visibility.preview.id}])
+      @taxon_concept = build_taxon_concept(:images => [{ :guid => 'a509ebdb2fc8083f3a33ea17985bae72', :published => 1 }])
       @data_object = DataObject.last
       @solr.build_data_object_index([@data_object])
       @solr.get_results("data_object_id:#{@data_object.id}")['numFound'].should == 1

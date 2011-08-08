@@ -461,9 +461,11 @@ class ApplicationController < ActionController::Base
   # Set the current language
   def set_language
     language = params[:language].to_s
+    unless language.blank?
       alter_current_user do |user|
         user.language = Language.from_iso(language)
       end
+    end
     return_to = (params[:return_to].blank? ? root_url : params[:return_to])
     redirect_to return_to
   end
@@ -609,7 +611,7 @@ private
 
   def log_error_cleanly(e)
     logger.error "*" * 76
-    logger.error "** EXCEPTION: (uncaught) #{e.message}"
+    logger.error "** EXCEPTION: (#{e.class.name}) #{e.message}"
     lines_shown = 0
     index = 0
     e.backtrace.map {|t| t.gsub(/#{RAILS_ROOT}/, '.')}.each do |trace|

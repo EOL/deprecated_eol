@@ -38,7 +38,7 @@
       = eol_lang_main_stylesheet 'application', :media => "all"
     = eol_lang_main_stylesheet 'accessibility', :media => "all"
 
-    = javascript_include_tag "jquery-1.6.1.min", "rails", "application", "jquery.cycle.all.min", "jquery.spotlite", "temp"
+    = javascript_include_tag "jquery-1.6.1.min", "rails", "application", "jquery.cycle.all.min"
 
     = csrf_meta_tag # Recommended by https://github.com/rails/jquery-ujs
 
@@ -62,7 +62,7 @@
               - Language.find_active.each do |language|
                 %li
                   = link_to I18n.t(:language_menu_item, :language_label => language.source_form, :language_abbr => language.display_code),
-                    set_language_url(:language => language.iso_639_1),
+                    set_language_url(:language => language.iso_639_1, :return_to => current_url(false)),
                     { :title => I18n.t(:switch_language_advisory_information, :language_label => language.source_form) }
               %li
                 = link_to I18n.t(:google_translate), { :controller => "/content", :action => "translate" },

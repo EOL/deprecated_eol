@@ -9,8 +9,8 @@ class UsersDataObject < ActiveRecord::Base
   belongs_to :data_object
   belongs_to :taxon_concept
 
-  #has_one :user
-  #has_one :data_object
+  belongs_to :vetted
+  belongs_to :visibility
 
   def self.get_user_submitted_data_object_ids(user_id)
     if(user_id == 'All') then
@@ -25,15 +25,6 @@ class UsersDataObject < ActiveRecord::Base
       obj_ids << rec.data_object_id
     end
     return obj_ids
-  end
-
-  def self.get_all_object_ids
-    rset = UsersDataObject.find_by_sql(["SELECT data_object_id FROM users_data_objects"])
-    arr_object_ids = Array.new
-    rset.each do |rec|
-      arr_object_ids << rec.data_object_id
-    end
-    return arr_object_ids
   end
 
 end

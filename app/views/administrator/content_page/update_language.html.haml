@@ -12,6 +12,17 @@
     %tr
       %td
         %strong
+          =I18n.t(:page_urls)
+      %td
+        = external_link_to(cms_page_url(@page.page_url, :language => @language.iso_639_1),
+          cms_page_url(@page.page_url, :language => @language.iso_639_1), :show_link_icon => false)
+        - if alternate = @page.alternate_page_url
+          %br
+          = external_link_to(cms_page_url(alternate, :language => @language.iso_639_1),
+            cms_page_url(alternate, :language => @language.iso_639_1), :show_link_icon => false)
+    %tr
+      %td
+        %strong
           = I18n.t("language")
       %td
         = @language.iso_639_1

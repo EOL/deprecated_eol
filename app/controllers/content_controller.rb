@@ -21,7 +21,12 @@ class ContentController < ApplicationController
       # TODO - FIXME  ... This appears to have to do with $CACHE.fetch (obviously)... not sure why, though.
       @explore_taxa = RandomHierarchyImage.random_set(60)
     end
-    @explore_taxa.shuffle!
+    begin
+      @explore_taxa.shuffle!
+    rescue TypeError => e # it's a frozen array, it's been cached somwhere.
+      @explore_taxa = @explore_taxa.dup
+      @explore_taxa.shuffle!
+    end
   end
 
   # just shows the top set of species --- can be included on other websites
@@ -233,6 +238,7 @@ class ContentController < ApplicationController
   def page
     # get the id parameter, which can be either a page ID # or a page name
     @page_id = params[:id]
+    @selected_language = params[:language] ? Language.from_iso(params[:language]) : nil
     raise "static page without id" if @page_id.blank?
 
     if @page_id.is_int?
@@ -246,7 +252,7 @@ class ContentController < ApplicationController
       raise "static page content #{@page_id} for #{current_user.language_abbr} not found"
     else
       @navigation_tree_breadcrumbs = ContentPage.get_navigation_tree_with_links(@content.id)
-      current_language = Language.from_iso(current_user.language_abbr)
+      current_language = @selected_language || Language.from_iso(current_user.language_abbr)
       @translated_content = TranslatedContentPage.find_by_content_page_id_and_language_id(@content.id, current_language.id)
       if @translated_content.nil?
         @page_title = I18n.t("cms_missing_content_title")

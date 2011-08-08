@@ -38,12 +38,15 @@
     = link_to I18n.t("edit_web_users"),{:controller=>'administrator/user', :action=>'index'}, {:class=>'toc_item active'}
   %li
     = link_to I18n.t("view_curators"),{:controller=>'administrator/curator', :action=>'index'}, {:class=>'toc_item active'}
-  %h3
-    =I18n.t("contact_us_functions")
-  %li
-    = link_to I18n.t("edit_contact_us_topics"),{:controller=>'administrator/contact_subject', :action=>'index'}, {:class=>'toc_item active'}
-  %li
-    = link_to I18n.t("view_contact_us_submissions"), {:controller => 'administrator/contact', :action => 'index'}, {:class=>'toc_item active'}
+
+  -# commented in V2, no final decision yet
+  -#%h3
+  -#  =I18n.t("contact_us_functions")
+  -#%li
+  -#  = link_to I18n.t("edit_contact_us_topics"),{:controller=>'administrator/contact_subject', :action=>'index'}, {:class=>'toc_item active'}
+  -#%li
+  -#  = link_to I18n.t("view_contact_us_submissions"), {:controller => 'administrator/contact', :action => 'index'}, {:class=>'toc_item active'}
+
   %h3
     =I18n.t("technical_functions")
   %li

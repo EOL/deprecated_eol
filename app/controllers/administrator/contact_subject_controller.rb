@@ -9,7 +9,7 @@ class Administrator::ContactSubjectController < AdminController
  def index
 
    @page_title = I18n.t("contact_us_topics")
-   @contact_subjects = ContactSubject.find(:all,:order => 'title')
+   @translated_contact_subjects = TranslatedContactSubject.find(:all,:order => 'title')
 
  end
 
@@ -29,6 +29,7 @@ class Administrator::ContactSubjectController < AdminController
 
  def create
 
+   #TODO - something has to be adjusted here but "Contact Us Functions" in admin is disabled for V2
    @contact_subject = ContactSubject.new(params[:contact_subject])
    if @contact_subject.save
      flash[:notice] = I18n.t("the_new_topic_was_created")

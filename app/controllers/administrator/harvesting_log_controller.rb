@@ -6,7 +6,7 @@ class Administrator::HarvestingLogController < AdminController
 
   def index
     @page_title = I18n.t("harvesting_processes_log")
-    unless params[:date].blank?
+    if params[:date]
       if params[:date] == 'all'
         @date = 'all'
       else
@@ -20,7 +20,7 @@ class Administrator::HarvestingLogController < AdminController
 
     @distinct_dates = []
     last_date = Time.now
-    for i in 1..30
+    for i in 1..300
       date = last_date.strftime("%d-%b-%Y")
       @distinct_dates << [date, date]
       last_date = last_date - 1.day

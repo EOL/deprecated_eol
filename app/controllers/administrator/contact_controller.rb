@@ -10,7 +10,7 @@ class Administrator::ContactController < AdminController
   def index
 
    @page_title = I18n.t("contact_us_submissions")
-   @subjects=ContactSubject.find(:all,:order=>'title')
+   @subjects=TranslatedContactSubject.find(:all,:order=>'title')
    @contact_subject_id=params[:id]
    @comment_search_string=params[:comment_search_string] || ''
    search_string_parameter='%' + @comment_search_string + '%'

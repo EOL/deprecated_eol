@@ -29,7 +29,8 @@ class AssignMembersToRoles < ActiveRecord::Migration
       user.grant_admin
     end
     Role.destroy_all('community_id IS NULL') # We don't want these any more.
-    drop_table :roles_users
+    # its possible the roles_users table will not exist for some development environments
+    drop_table :roles_users rescue nil
   end
 
   def self.down

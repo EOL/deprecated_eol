@@ -38,7 +38,7 @@
             =I18n.t("total")          
       %tr
         - Vetted.all.each do |vetted|
-          - objects_of_this_type_and_vetted = objects_of_this_type.select{ |d| d.vetted == vetted }
+          - objects_of_this_type_and_vetted = objects_of_this_type.select{ |d| d.vetted_by_hierarchy_entry(@hierarchy_entry) == vetted }
           %td{ :align => "right" }
             = number_with_delimiter(objects_of_this_type_and_vetted.length, :delimiter => ",")
         %td{ :align => "right" }

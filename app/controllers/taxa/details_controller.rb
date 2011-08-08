@@ -19,7 +19,7 @@ class Taxa::DetailsController < TaxaController
       :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
       :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
       :vetted => :view_order,
-      :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating, :object_cache_url, :language_id ],
+      :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating, :object_cache_url, :language_id ],
       :table_of_contents => '*',
       :curator_activity_logs => '*',
       :users => [ :given_name, :family_name, :logo_cache_url ] ,

@@ -8,7 +8,7 @@
       %option{ :value => subject.id, :selected => subject.id.to_s == @contact_subject_id }
         = subject.title
         (
-        = subject.contacts.count
+        = subject.contact_subject.contacts.count
         )
   %br
   =I18n.t("search_for_messages_containing")

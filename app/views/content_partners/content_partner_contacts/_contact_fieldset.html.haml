@@ -4,14 +4,17 @@
   %dl
     %dt.required
       = contact_form.label :given_name
+      %small.assistive= I18n.t(:required_form_element)
     %dd
       = contact_form.text_field :given_name, { :maxlength => 255 }
     %dt.required
       = contact_form.label :family_name
+      %small.assistive= I18n.t(:required_form_element)
     %dd
       = contact_form.text_field :family_name, { :maxlength => 255 }
     %dt.required
       = contact_form.label :email
+      %small.assistive= I18n.t(:required_form_element)
     %dd
       = contact_form.text_field :email, { :maxlength => 75 }
     %dt

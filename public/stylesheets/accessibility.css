@@ -485,6 +485,13 @@ body > #header .section .session .join {
     #page_heading .page_actions fieldset.actions input[type="submit"] {
       margin: 0; }
 
+/*CMS pages */
+.cms_page table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0 0 15px 0;
+  line-height: 170%; }
+
 /*collections overides */
 .object_list div.checkbox {
   margin: 0; }

@@ -15,17 +15,19 @@ class ContentPartnersController < ApplicationController
   # GET /content_partners/new
   def new
     @partner = ContentPartner.new
-    @page_title = I18n.t(:content_partners_page_title)
-    @page_subtitle = I18n.t(:content_partner_new_page_subheader)
+    access_denied unless current_user.can_create?(@partner)
+    set_new_partner_options
   end
 
   def create
     @partner = ContentPartner.new(params[:content_partner])
+    access_denied unless current_user.can_create?(@partner)
     if @partner.save
       upload_logo(@partner) unless params[:content_partner][:logo].blank?
       flash[:notice] = I18n.t(:content_partner_create_successful_notice)
       redirect_to @partner
     else
+      set_new_partner_options
       flash.now[:error] = I18n.t(:content_partner_create_unsuccessful_error)
       render :new
     end
@@ -42,6 +44,7 @@ class ContentPartnersController < ApplicationController
   # GET /content_partners/:id/edit
   def edit
     @partner = ContentPartner.find(params[:id])
+    access_denied unless current_user.can_update?(@partner)
     @head_title = @partner.name
   end
 
@@ -68,6 +71,11 @@ private
     else
       'v2/partners'
     end
+  end
+
+  def set_new_partner_options
+    @page_title = I18n.t(:content_partners_page_title)
+    @page_subtitle = I18n.t(:content_partner_new_page_subheader)
   end
 
 end

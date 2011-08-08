@@ -199,6 +199,15 @@ en:
         source_url: "Source URL"
       name:
         string: "Name"
+      resource:
+        dataset_url: "Dataset URL"
+        dataset: "Dataset file"
+        description: "Description"
+        dwc_archive_url: "Darwin Core Archive URL"
+        language_id: "Language"
+        license_id: "License"
+        subject: "Taxonomic subject"
+        title: "Resource name"
       user:
         agreed_with_terms: "Terms of use agreement"
         api_key: "API key"
@@ -238,6 +247,7 @@ en:
     submit:
       create: "Create %{model}"
       update: "Update %{model}"
+      submit: 'Save %{model}'
       content_partner:
         create: "Create content partner"
         update: "Save content partner information"
@@ -252,9 +262,11 @@ en:
       name:
         create: "Add name"
         update: "Update name"
+      resource:
+        create: "Add resource"
+        update: "Update resource"
       session:
         create: "Sign in"
-      submit: 'Save %{model}'
       user:
         create: "Create account"
         update: "Save profile information"
@@ -283,6 +295,13 @@ en:
         rights_holder: "Rights holder"
         rights_statement: "Rights statement"
         source_url: "URL to original data object"
+      resource:
+        accesspoint_url: "Dataset URL"
+        license_id: "License"
+        refresh_period_hours: "Frequency"
+        resource_status_id: "Status"
+        title: "Resource name"
+        subject: "Taxonomic subject <small>(e.g. birds, mammals, etc.)</small>"
       session:
         password: "Password"
         remember_me: "Keep me logged in for 2 weeks"
@@ -802,16 +821,34 @@ en:
   content_partner_new_edit_form_profile_header: "Content partner profile information"
   content_partner_new_edit_form_tip: "Some of the information you enter here will be publicly visible. Project name and description are %{required_icon} required."
   content_partner_notes_header: "Project notes"
+  content_partner_overview: "Partner overview"
   content_partner_objects_stats: "content partner objects stats"
   content_partner_profile_menu: "Content Partner Profile"
   content_partner_profiles_can_b: "Content partner profiles can be updated below.  Only enter a new password to change it."
   content_partner_reports: "Content Partner Reports"
+  content_partner_resource_create_successful_notice: "Content partner resource successfully added."
+  content_partner_resource_create_unsuccessful_error: "Sorry, an error occurred, the resource was not added."
+  content_partner_resource_edit_link: "Edit"
+  content_partner_resource_edit_subheader: "Edit resource"
+  content_partner_resource_taxonomy_header: "Taxonomy"
+  content_partner_resource_force_harvest_link: "Force harvest"
+  content_partner_resource_file_or_url_header: "Resource URL or file"
+  content_partner_resource_new_edit_form_header: "Describe resource"
+  content_partner_resource_new_edit_form_tip: "Enter information about your data resource. Resource name, license, language and taxonomic subject are %{required_icon} required. In addition, please enter the public URL of your EOL Transfer Schema data resource, and specify how often you would like your data to be harvested by EOL. If you do not have a public URL for your data resource you may directly upload an EOL Transfer Schema data file in GZIP, TAR or XML format."
+  content_partner_resource_new_link: "Add a new resource"
+  content_partner_resource_new_subheader: "Add a new resource"
+  content_partner_resource_resource_status_new: "Created"
+  content_partner_resources_information: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt hendrerit tortor, commodo faucibus turpis imperdiet non. Nullam tincidunt, est vel euismod volutpat, libero turpis suscipit neque, nec viverra magna augue non nisl. Praesent et risus sit amet quam sagittis pulvinar eu at odio."
+  content_partner_resources: "Resources"
+  content_partner_resources_with_count:
+    one: "%{count} resource"
+    other: "%{count} resources"
   content_partner_update_successful_notice: "Partner details successfully updated."
   content_partner_update_unsuccessful_error: "Sorry, an error occurred, partner details were not updated."
   content_partners_: "content partners"
   content_partners: "Content Partners"
   content_partners_intro: "Below is a list of partners, including content partners, with information on this taxon. Where possible the links will take you to the corresponding content on the given partner's website. The unique identifier for this taxon used by each partner is embedded in these links, and these identifiers are also accessible through the %{link}"
-  content_partners_page_title: "Content Connections"
+  content_partners_page_title: "Content Partners"
   content_partner_status: "Content partner status:"
   content_provided_by_the_link: "Content provided by the %{link}"
   content_providers_are_required_: "Content providers are required to adopt a Creative Commons license for the information subject to copyright that they serve through the EOL. The default and preferred license is CC-BY (Attribution), which allows users to copy, transmit and reuse the information, and to remix or adapt the information, as long as attribution regarding the source of the information is maintained."
@@ -1889,6 +1926,7 @@ en:
   open_in_new_window_from_menu_: "Open in new window from menu:"
   options: "Options"
   __or_add_this_url_to_your_rss_: ", or add this URL to your RSS reader: http://"
+  or_between_form_items: "or"
   or_copy_them_to_existing_collection: "or copy them to an existing collection"
   or_move_them_to_existing_collection: "or move them to an existing collection"
   or_if_you_have_previously_regi: "or if you have previously registered, enter your login information below. Note that this is a project level login."
@@ -2769,12 +2807,12 @@ en:
   use_the_form_below_to_enter_in: "Use the form below to enter in tag suggestions.  Categories entered here will be shown to users in the tag \"category\" drop down menu,"
   use_the_form_below_to_enter_in_: "Use the form below to enter in tag suggestions. Categories entered here will be shown to users in the tag \"category\" drop down menu, and suggested values will be shown to users if they select the corresponding category and begin typing a few letters."
   users_about_me_header: "About me"
-  users_content_partners_header: "Content connections"
+  users_content_partners_header: "Content partners"
   users_content_partners_information: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt hendrerit tortor, commodo faucibus turpis imperdiet non. Nullam tincidunt, est vel euismod volutpat, libero turpis suscipit neque, nec viverra magna augue non nisl. Praesent et risus sit amet quam sagittis pulvinar eu at odio. Etiam mattis enim turpis, cursus rutrum massa. Ut blandit varius tellus, vitae interdum nulla pulvinar nec."
-  users_content_partners_link: "Content connections"
+  users_content_partners_link: "Content partners"
   users_content_partners_with_count:
-    one: "%{count} current content connection"
-    other: "%{count} current content connections"
+    one: "%{count} current content partner"
+    other: "%{count} current content partners"
   users_curation_header: "Curation qualifications"
   users_form_account_header: "Your account"
   users_form_curation_header: "Curation qualifications"

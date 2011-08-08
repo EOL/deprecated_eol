@@ -11,20 +11,41 @@ class Resource < SpeciesSchemaModel
   belongs_to :dwc_hierarchy, :foreign_key => 'dwc_hierarchy_id', :class_name => "Hierarchy"
   belongs_to :collection
   belongs_to :preview_collection, :class_name => Collection.to_s, :foreign_key => :preview_collection_id
-  
+
   has_many :harvest_events
 
   has_attached_file :dataset,
     :path => $DATASET_UPLOAD_DIRECTORY,
     :url => $DATASET_URL_PATH
 
-  validates_attachment_content_type :dataset, 
+  before_save :strip_urls
+
+  validates_attachment_content_type :dataset,
       :content_type => ['application/x-gzip','application/x-tar','text/xml'],
       :message => "dataset file is not a valid file type"
 
-  validates_presence_of :title, :message => "can't be blank"  
-  validates_presence_of :subject, :message => "can't be blank"
-  validates_presence_of :license_id, :message => "must be indicated"
+  validates_presence_of :title
+  validates_presence_of :subject
+  validates_presence_of :license_id
+  validates_presence_of :resource_created_at
+  validates_presence_of :refresh_period_hours, :if => :accesspoint_url_provided?
+
+  # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we move to many to many
+  def can_be_created_by?(user)
+    content_partner.user_id == user.id || user.is_admin?
+  end
+  # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we move to many to many
+  def can_be_read_by?(user)
+    content_partner.user_id == user.id || user.is_admin?
+  end
+  # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we move to many to many
+  def can_be_updated_by?(user)
+    content_partner.user_id == user.id || user.is_admin?
+  end
+  # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we move to many to many
+  def can_be_deleted_by?(user)
+    content_partner.user_id == user.id || user.is_admin?
+  end
 
   # trying to change it to memcache got error after reload a page
   def self.iucn
@@ -39,9 +60,8 @@ class Resource < SpeciesSchemaModel
     end
   end
 
-
   def status_label
-    (resource_status.nil?) ? "Created" : resource_status.label
+    (resource_status.nil?) ? I18n.t(:content_partner_resource_resource_status_new) : resource_status.label
   end
 
   def latest_unpublished_harvest_event
@@ -55,7 +75,7 @@ class Resource < SpeciesSchemaModel
                               :limit => 1,
                               :order => 'published_at desc')
   end
-  
+
   def latest_harvest_event
     HarvestEvent.find(:first, :limit => 1, :order => 'id desc')
   end
@@ -88,7 +108,7 @@ class Resource < SpeciesSchemaModel
   end
 
   # vet or unvet entire resource (0 = unknown, 1 = vet)
-  def set_vetted_status(vetted) 
+  def set_vetted_status(vetted)
     set_to_state = EOLConvert.to_boolean(vetted) ? Vetted.trusted.id : Vetted.unknown.id
 
     # update the vetted_id of all data_objects associated with the latest
@@ -107,11 +127,11 @@ class Resource < SpeciesSchemaModel
   def upload_resource_to_content_master(application_server_url)
     resource_status = ResourceStatus.uploaded if accesspoint_url.blank?
 
-    file_path = (accesspoint_url.blank? ? application_server_url + $DATASET_UPLOAD_PATH + id.to_s + "."+ dataset_file_name.split(".")[-1] : accesspoint_url)  
+    file_path = (accesspoint_url.blank? ? application_server_url + $DATASET_UPLOAD_PATH + id.to_s + "."+ dataset_file_name.split(".")[-1] : accesspoint_url)
     parameters = 'function=upload_resource&resource_id=' + id.to_s + '&file_path=' + file_path
     begin
       response = EOLWebService.call(:parameters => parameters)
-    rescue 
+    rescue
       ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "content provider dataset service has an error") if $ERROR_LOGGING
       resource_status = ResourceStatus.upload_failed
     end
@@ -141,5 +161,14 @@ class Resource < SpeciesSchemaModel
     return resource_status
   end
 
+private
+  def accesspoint_url_provided?
+    !accesspoint_url.blank?
+  end
+
+  def strip_urls
+    accesspoint_url.strip! if accesspoint_url
+    dwc_archive_url.strip! if dwc_archive_url
+  end
 end
 

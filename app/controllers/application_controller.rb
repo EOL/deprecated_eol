@@ -441,6 +441,7 @@ class ApplicationController < ActionController::Base
 
   # A user is not authorized for the particular controller/action:
   def access_denied
+    store_location(request.referer) unless session[:return_to] || request.referer.blank?
     flash_and_redirect_back(I18n.t(:you_are_not_authorized_to_perform_this_action))
   end
 

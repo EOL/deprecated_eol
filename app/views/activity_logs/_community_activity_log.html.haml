@@ -1,1 +1,22 @@
-%p= "TODO - Community Activity partial"
+= link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
+  :posters_name => h(item.user.short_name))), user_path(item.user), :class => 'avatar'
+.details
+  %p
+    - case item.activity_id
+    - when Activity.create.id
+      = I18n.t(:activity_user_created_community, :user => h(item.user.short_name), :community => link_to(item.community.summary_name, community_path(item.community)))
+    - when Activity.delete.id
+      = I18n.t(:activity_user_deleted_community, :user => h(item.user.short_name), :community => link_to(item.community.summary_name, community_path(item.community)))
+    - when Activity.add_member.id
+      = I18n.t(:activity_user_joined_community, :user => h(item.member.user.short_name), :community => link_to(item.community.summary_name, community_path(item.community)))
+    - when Activity.change_description.id
+      = I18n.t(:activity_user_changed_community_description, :user => h(item.user.short_name), :community => link_to(item.community.summary_name, community_path(item.community)))
+    - when Activity.change_name.id
+      = I18n.t(:activity_user_changed_community_name, :user => h(item.user.short_name), :community => link_to(item.community.summary_name, community_path(item.community)))
+    - when Activity.change_icon.id
+      = I18n.t(:activity_user_changed_community_icon, :user => h(item.user.short_name), :community => link_to(item.community.summary_name, community_path(item.community)))
+    - when Activity.add_manager.id
+      = I18n.t(:activity_user_added_community_manager, :user => h(item.user.short_name), :manager => h(item.member.user.short_name), :community => link_to(item.community.summary_name, community_path(item.community)))
+    - else
+      = I18n.t(:activity_user_modified_community, :user => h(item.user.short_name), :community => link_to(item.community.summary_name, community_path(item.community)))
+  %p.meta= I18n.t(:time_ago, :time_passed => time_ago_in_words(item.created_at))

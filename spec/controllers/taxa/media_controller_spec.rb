@@ -36,51 +36,64 @@ describe Taxa::MediaController do
       @oldest_image_highly_rated_unreviewed = @taxon_concept.images.first
       @highly_ranked_image = @taxon_concept.images.second
       @newest_image_poorly_rated_trusted.data_rating = 0
-      @newest_image_poorly_rated_trusted.vetted_by_taxon_concept(@taxon_concept).id = Vetted.trusted.id
+      newest_image_poorly_rated_trusted_association = @newest_image_poorly_rated_trusted.association_for_taxon_concept(@taxon_concept)
+      newest_image_poorly_rated_trusted_association.vetted_id = Vetted.trusted.id
+      newest_image_poorly_rated_trusted_association.save!
       @newest_image_poorly_rated_trusted.save
       @oldest_image_highly_rated_unreviewed.data_rating = 20
-      @oldest_image_highly_rated_unreviewed.vetted_by_taxon_concept(@taxon_concept).id = Vetted.unknown.id
-      @oldest_image_highly_rated_unreviewed.visibility_by_taxon_concept(@taxon_concept).id = Visibility.visible.id
+      oldest_image_highly_rated_unreviewed_association = @oldest_image_highly_rated_unreviewed.association_for_taxon_concept(@taxon_concept)
+      oldest_image_highly_rated_unreviewed_association.vetted_id = Vetted.unknown.id
+      oldest_image_highly_rated_unreviewed_association.save!
       @oldest_image_highly_rated_unreviewed.save
       @highly_ranked_image.data_rating = 8
-      @highly_ranked_image.vetted_by_taxon_concept(@taxon_concept).id = Vetted.trusted.id
-      @highly_ranked_image.visibility_by_taxon_concept(@taxon_concept).id = Visibility.visible.id
+      highly_ranked_image_association = @highly_ranked_image.association_for_taxon_concept(@taxon_concept)
+      highly_ranked_image_association.vetted_id = Vetted.trusted.id
+      highly_ranked_image_association.save!
       @highly_ranked_image.save
 
       @newest_video_poorly_rated_trusted = @taxon_concept.videos.last
       @oldest_video_highly_rated_unreviewed = @taxon_concept.videos.first
       @highly_ranked_video = @taxon_concept.videos.second
       @newest_video_poorly_rated_trusted.data_rating = 0
-      @newest_video_poorly_rated_trusted.vetted_by_taxon_concept(@taxon_concept).id = Vetted.trusted.id
+      newest_video_poorly_rated_trusted_association = @newest_video_poorly_rated_trusted.association_for_taxon_concept(@taxon_concept)
+      newest_video_poorly_rated_trusted_association.vetted_id = Vetted.trusted.id
+      newest_video_poorly_rated_trusted_association.save!
       @newest_video_poorly_rated_trusted.save
       @oldest_video_highly_rated_unreviewed.data_rating = 19
-      @oldest_video_highly_rated_unreviewed.vetted_by_taxon_concept(@taxon_concept).id = Vetted.unknown.id
-      @oldest_video_highly_rated_unreviewed.visibility_by_taxon_concept(@taxon_concept).id = Visibility.visible.id
+      oldest_video_highly_rated_unreviewed_association = @oldest_video_highly_rated_unreviewed.association_for_taxon_concept(@taxon_concept)
+      oldest_video_highly_rated_unreviewed_association.vetted_id = Vetted.unknown.id
+      oldest_video_highly_rated_unreviewed_association.save!
       @oldest_video_highly_rated_unreviewed.save
       @highly_ranked_video.data_rating = 7
-      @highly_ranked_video.vetted_by_taxon_concept(@taxon_concept).id = Vetted.trusted.id
-      @highly_ranked_video.visibility_by_taxon_concept(@taxon_concept).id = Visibility.visible.id
+      highly_ranked_video_association = @highly_ranked_video.association_for_taxon_concept(@taxon_concept)
+      highly_ranked_video_association.vetted_id = Vetted.trusted.id
+      highly_ranked_video_association.save!
       @highly_ranked_video.save
 
       @newest_sound_poorly_rated_trusted = @taxon_concept.sounds.last
       @oldest_sound_highly_rated_unreviewed = @taxon_concept.sounds.first
       @highly_ranked_sound = @taxon_concept.sounds.second
       @newest_sound_poorly_rated_trusted.data_rating = 0
-      @newest_sound_poorly_rated_trusted.vetted_by_taxon_concept(@taxon_concept).id = Vetted.trusted.id
+      newest_sound_poorly_rated_trusted_association = @newest_sound_poorly_rated_trusted.association_for_taxon_concept(@taxon_concept)
+      newest_sound_poorly_rated_trusted_association.vetted_id = Vetted.trusted.id
+      newest_sound_poorly_rated_trusted_association.save!
       @newest_sound_poorly_rated_trusted.save
       @oldest_sound_highly_rated_unreviewed.data_rating = 18
-      @oldest_sound_highly_rated_unreviewed.vetted_by_taxon_concept(@taxon_concept).id = Vetted.unknown.id
-      @oldest_sound_highly_rated_unreviewed.visibility_by_taxon_concept(@taxon_concept).id = Visibility.visible.id
+      oldest_sound_highly_rated_unreviewed_association = @oldest_sound_highly_rated_unreviewed.association_for_taxon_concept(@taxon_concept)
+      oldest_sound_highly_rated_unreviewed_association.vetted_id = Vetted.unknown.id
+      oldest_sound_highly_rated_unreviewed_association.save!
       @oldest_sound_highly_rated_unreviewed.save
       @highly_ranked_sound.data_rating = 6
-      @highly_ranked_sound.vetted_by_taxon_concept(@taxon_concept).id = Vetted.trusted.id
-      @highly_ranked_sound.visibility_by_taxon_concept(@taxon_concept).id = Visibility.visible.id
+      highly_ranked_sound_association = @highly_ranked_sound.association_for_taxon_concept(@taxon_concept)
+      highly_ranked_sound_association.vetted_id = Vetted.trusted.id
+      highly_ranked_sound_association.save!
       @highly_ranked_sound.save
 
       @highly_ranked_text = @taxon_concept.text.first
       @highly_ranked_text.data_rating = 21
-      @highly_ranked_text.vetted_by_taxon_concept(@taxon_concept).id = Vetted.trusted.id
-      @highly_ranked_text.visibility_by_taxon_concept(@taxon_concept).id = Visibility.visible.id
+      highly_ranked_text_association = @highly_ranked_text.association_for_taxon_concept(@taxon_concept)
+      highly_ranked_text_association.vetted_id = Vetted.trusted.id
+      highly_ranked_text_association.save!
       @highly_ranked_text.save
     end
 
@@ -124,51 +137,51 @@ describe Taxa::MediaController do
       assigns[:media].should be_a(WillPaginate::Collection)
     end
 
-    it 'should sort media by status then rating, which is also the default sort order' # do
-     # 
-     #      highly_ranked = [@highly_ranked_image, @highly_ranked_video, @highly_ranked_sound]
-     #      @trusted_count.should be_a(Fixnum)
-     # 
-     #      media_do_index
-     #      sorted_by_default = assigns[:media]
-     #      sorted_by_default.first(3).should == highly_ranked
-     #      sorted_by_default.count.should > @trusted_count # because next we assume all trusted objects fit on the first page
-     #      sorted_by_default.include?(@newest_image_poorly_rated_trusted).should be_true
-     #      sorted_by_default.include?(@newest_video_poorly_rated_trusted).should be_true
-     #      sorted_by_default.include?(@newest_sound_poorly_rated_trusted).should be_true
-     # 
-     #      get :index, :taxon_id => @taxon_concept.id, :sort_by => 'status'
-     #      sorted_by_status = assigns[:media]
-     #      sorted_by_status.should == sorted_by_default
-     #      sorted_by_status.should == DataObject.sort_by_rating(sorted_by_status, @taxon_concept, [:visibility, :vetted, :rating, :date, :type])
-     # 
-     #    end
+    it 'should sort media by status then rating, which is also the default sort order' do
 
-    it 'should sort media by rating then status' # do
-     #      @newest_image_poorly_rated_trusted.should_not be_nil
-     #      @newest_video_poorly_rated_trusted.should_not be_nil
-     #      @newest_sound_poorly_rated_trusted.should_not be_nil
-     # 
-     #      highly_rated_unreviewed = [@oldest_image_highly_rated_unreviewed, @oldest_video_highly_rated_unreviewed, @oldest_sound_highly_rated_unreviewed]
-     # 
-     #      media_do_index
-     #      sorted_by_default = assigns[:media]
-     #      sorted_by_default.first(3).should_not == highly_rated_unreviewed
-     #      sorted_by_default.include?(@newest_image_poorly_rated_trusted).should be_true
-     #      sorted_by_default.include?(@newest_video_poorly_rated_trusted).should be_true
-     #      sorted_by_default.include?(@newest_sound_poorly_rated_trusted).should be_true
-     # 
-     #      get :index, :taxon_id => @taxon_concept.id, :sort_by => 'rating'
-     #      sorted_by_rating = assigns[:media]
-     #      sorted_by_rating.first(3).should == highly_rated_unreviewed
-     #      sorted_by_rating.include?(@newest_image_poorly_rated_trusted).should be_false
-     #      sorted_by_rating.include?(@newest_video_poorly_rated_trusted).should be_false
-     #      sorted_by_rating.include?(@newest_sound_poorly_rated_trusted).should be_false
-     #      sorted_by_default.should_not == sorted_by_rating
-     # 
-     #      sorted_by_rating.should == DataObject.sort_by_rating(sorted_by_rating, @taxon_concept, [:visibility, :rating, :vetted, :date, :type])
-     # 
-     #    end
+      highly_ranked = [@highly_ranked_image, @highly_ranked_video, @highly_ranked_sound]
+      @trusted_count.should be_a(Fixnum)
+
+      media_do_index
+      sorted_by_default = assigns[:media]
+      sorted_by_default.first(3).should == highly_ranked
+      sorted_by_default.count.should > @trusted_count # because next we assume all trusted objects fit on the first page
+      sorted_by_default.include?(@newest_image_poorly_rated_trusted).should be_true
+      sorted_by_default.include?(@newest_video_poorly_rated_trusted).should be_true
+      sorted_by_default.include?(@newest_sound_poorly_rated_trusted).should be_true
+
+      get :index, :taxon_id => @taxon_concept.id, :sort_by => 'status'
+      sorted_by_status = assigns[:media]
+      sorted_by_status.should == sorted_by_default
+      sorted_by_status.should == DataObject.sort_by_rating(sorted_by_status, @taxon_concept, [:visibility, :vetted, :rating, :date, :type])
+
+    end
+
+    it 'should sort media by rating then status' do
+      @newest_image_poorly_rated_trusted.should_not be_nil
+      @newest_video_poorly_rated_trusted.should_not be_nil
+      @newest_sound_poorly_rated_trusted.should_not be_nil
+
+      highly_rated_unreviewed = [@oldest_image_highly_rated_unreviewed, @oldest_video_highly_rated_unreviewed, @oldest_sound_highly_rated_unreviewed]
+
+      media_do_index
+      sorted_by_default = assigns[:media]
+      sorted_by_default.first(3).should_not == highly_rated_unreviewed
+      sorted_by_default.include?(@newest_image_poorly_rated_trusted).should be_true
+      sorted_by_default.include?(@newest_video_poorly_rated_trusted).should be_true
+      sorted_by_default.include?(@newest_sound_poorly_rated_trusted).should be_true
+
+      get :index, :taxon_id => @taxon_concept.id, :sort_by => 'rating'
+      sorted_by_rating = assigns[:media]
+      sorted_by_rating.first(3).should == highly_rated_unreviewed
+      sorted_by_rating.include?(@newest_image_poorly_rated_trusted).should be_false
+      sorted_by_rating.include?(@newest_video_poorly_rated_trusted).should be_false
+      sorted_by_rating.include?(@newest_sound_poorly_rated_trusted).should be_false
+      sorted_by_default.should_not == sorted_by_rating
+
+      sorted_by_rating.should == DataObject.sort_by_rating(sorted_by_rating, @taxon_concept, [:visibility, :rating, :vetted, :date, :type])
+
+    end
 
     it 'should sort media by newest' do
       media_do_index

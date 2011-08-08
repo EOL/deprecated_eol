@@ -44,6 +44,13 @@ module EOL
         end
       when "Community"
         community_activities(source)
+        if options[:news]
+          @activity_log += Comment.find_all_by_parent_id_and_parent_type(source.id, "Community")
+          # TODO - Whoa.  WHOA.  Seriously?!?  No.  You NEED to make this faster.  Seriously.
+          source.focus_collection.collection_items.each do |item|
+            find_activities(item.object_type, item.object) # Note NO options to avoid infinite recursion
+          end
+        end
       when "DataObject"
         data_object_activities(source)
       when "TaxonConcept"

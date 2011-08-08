@@ -10,7 +10,7 @@ namespace :i18n do
   tmp_file = File.join([lang_dir, "tmp.yml"])
   en_yml = File.join([lang_dir, "en.yml"])
   trans_tmp = File.join([lang_dir, "translation_template.yml"])
-  excluded_tables = ["translated_mime_types"]
+  excluded_tables = ["translated_mime_types", "translated_news_items"]
 
 
   desc 'convert old yml language files from Gibberish format to support i18n '
@@ -424,7 +424,7 @@ namespace :i18n do
   task (:list_db_strings => :environment) do
     en_strings = "en:\n"
     en_id = Language.english.id
-    
+
     all_models = Dir.foreach("#{RAILS_ROOT}/app/models").map do |model_path|
       if m = model_path.match(/translate/) && model_path.match(/^(([a-z]+_)*[a-z]+)\.rb$/)
         m[1].camelcase.constantize
@@ -433,7 +433,7 @@ namespace :i18n do
       end
     end.compact
     all_tables = {}
-    all_models.each do |model|      
+    all_models.each do |model|
       begin
         if excluded_tables.include?(model.table_name)
           puts "Excluding: " + model.table_name
@@ -446,7 +446,7 @@ namespace :i18n do
           cols.delete_if {|c| c =~ /_id$/ }
           cols.delete_if {|c| c =~ /^phonetic_/ }
           all_tables[model.table_name][:translatable] = cols
-        end        
+        end
       rescue ActiveRecord::StatementInvalid => e
         puts "** You seem to have a missing table:"
         puts e.message
@@ -454,27 +454,42 @@ namespace :i18n do
     end
     all_tables.each do |table|
       table_name = table[0]
-      foreign_key = all_tables[table_name][:associations].to_s        
-      translatable = ""
-      all_tables[table_name][:translatable].each do |field|
-        translatable << ", " if translatable != ""
-        translatable << field
-      end
-      puts "select #{foreign_key}, #{translatable} from #{table_name} where language_id=#{en_id}"
-      results = ActiveRecord::Base.connection.execute("select #{foreign_key}, #{translatable} from #{table_name} where language_id=#{en_id}")
-      results.each_hash do |row|
+      all_tables[table_name][:associations].each do |fk|
+        foreign_key = fk.to_s
+        translatable = ""
         all_tables[table_name][:translatable].each do |field|
-          
-          # if we are in the Ranks table, ignore any rows not in our translation whitelist
-          if table_name == 'translated_ranks' && field == 'label'
-            lookup_rank_label = row[field].downcase.gsub(/\.$/, '')  # remove trailing periods
-            next unless Rank.english_rank_labels_to_translate.include?(lookup_rank_label)
-          end
-          en_strings << "  #{table_name}__#{field}__#{foreign_key}__#{row[foreign_key]}: \"" + row[field].gsub("\"", "\\\"").gsub("\n", "\\n") + "\"\n"
+          translatable << ", " if translatable != ""
+          translatable << field
         end
-      end      
+        puts "select #{foreign_key}, #{translatable} from #{table_name} where language_id=#{en_id}"
+        begin
+          results = ActiveRecord::Base.connection.execute("select #{foreign_key}, #{translatable} from #{table_name} where language_id=#{en_id}")
+        rescue ActiveRecord::StatementInvalid => e # Some of these tables are in the logging db.
+          results = LoggingModel.connection.execute("select #{foreign_key}, #{translatable} from #{table_name} where language_id=#{en_id}")
+        end
+        results.each_hash do |row|
+          all_tables[table_name][:translatable].each do |field|
+
+            next unless row[field] # No data.
+
+            value = row[field].gsub("\"", "\\\"").gsub("\n", "\\n")
+
+            # if we are in the Ranks table, ignore any rows not in our translation whitelist
+            if table_name == 'translated_ranks' && field == 'label'
+              lookup_rank_label = row[field].downcase.gsub(/\.$/, '')  # remove trailing periods
+              next unless Rank.english_rank_labels_to_translate.include?(lookup_rank_label)
+            elsif table_name == 'translated_languages' and field == 'label'
+              next if row[field] =~ /^[a-z][a-z]$/
+              next if row[field] =~ /^[A-Z][A-Z]$/
+              next if row[field] =~ /^[A-Z][A-Z][A-Z]$/
+              next unless Synonym.exists?(:language_id => row['original_language_id'])
+            end
+            en_strings << "  #{table_name}__#{field}__#{foreign_key}__#{row[foreign_key]}: \"#{value}\"\n"
+          end
+        end
+      end
     end
-    
+
     puts "Writing to en-db.yml"
     en_file = File.join([RAILS_ROOT, "config", "locales" , "en-db.yml"])
     en_data = open(en_file, 'w')
@@ -535,7 +550,7 @@ namespace :i18n do
 
       ActiveRecord::Base.connection.execute(query)
     end
-    
+
     en_keys = load_language_keys('en')
 
     translated_languages = get_languages

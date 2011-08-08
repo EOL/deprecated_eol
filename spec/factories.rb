@@ -449,6 +449,7 @@ end
 
 
 Factory.define :content_partner do |cp|
+  cp.full_name                           { Factory.next(:string) }
   cp.auto_publish                        false
   cp.association                         :user
   cp.description                         'Our Testing Content Partner'
@@ -843,6 +844,8 @@ Factory.define :resource do |r|
                                         :logo_url => '/images/licenses/cc_by_small.png') }
   r.resource_status { ResourceStatus.find_by_translated(:label, 'Published') || ResourceStatus.gen_if_not_exists(:label => 'Published') }
   r.accesspoint_url 'http://services.eol.org/eol_php_code/tests/fixtures/files/test_resource.xml' # Won't work without a real, live URL for an XML file
+  r.refresh_period_hours 0
+  r.resource_created_at 48.hours.ago
   r.association :hierarchy
   r.association :content_partner
 end

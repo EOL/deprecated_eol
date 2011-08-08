@@ -175,7 +175,7 @@ module EOL
       def find_or_build_resource(title, options = {})
         first_try = Resource.find_by_title(title)
         return first_try unless first_try.nil?
-        options[:content_partner] ||= ContentPartner.gen
+        options[:content_partner] ||= ContentPartner.gen(:full_name => 'Test content partner')
         resource = Resource.gen(:title => title, :content_partner => options[:content_partner])
         return resource
       end

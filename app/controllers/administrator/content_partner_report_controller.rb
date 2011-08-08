@@ -281,7 +281,7 @@ class Administrator::ContentPartnerReportController < AdminController
     @page_header = 'Content Partner Data Objects Stats'
 
     if !params[:agent_id].blank? && params[:agent_id] != 0
-      @agent_id = params[:agent_id]
+      @agent_id = params[:agent_id] # this is content_partner.id
       session[:form_agent_id] = params[:agent_id]
     elsif !session[:form_agent_id].blank? && session[:form_agent_id] != 0
       @agent_id = session[:form_agent_id]
@@ -289,15 +289,15 @@ class Administrator::ContentPartnerReportController < AdminController
       @agent_id = 1  # default
     end
 
-    @content_partners_with_published_data = Agent.content_partners_with_published_data
+    @content_partners_with_published_data = ContentPartner.with_published_data
     if @agent_id == "All"
       @agent_id = 1
     end
-    partner = Agent.find(@agent_id, :select => 'full_name')
+    partner = ContentPartner.find(@agent_id, :select => 'full_name')
     @partner_fullname = partner.full_name
 
     page = params[:page] || 1
-    @partner_harvest_events = Agent.resources_harvest_events(@agent_id, page)
+    @partner_harvest_events = ContentPartner.resources_harvest_events(@agent_id, page)
 
     @cur_page = (page.to_i - 1) * 30
   end
@@ -308,6 +308,8 @@ class Administrator::ContentPartnerReportController < AdminController
 
     @page_header = 'Harvest Event Data Objects Stats'
     @data_objects, @total_taxa = DataObject.generate_dataobject_stats(@harvest_id)
+
+    @hierarchy_entry = HarvestEventsHierarchyEntry.find_by_harvest_event_id(@harvest_id).hierarchy_entry
   end
 
 private

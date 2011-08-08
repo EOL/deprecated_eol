@@ -7,7 +7,7 @@ class Language < SpeciesSchemaModel
 
   def self.find_active
     cached("active_languages") do
-      self.find(:all, :conditions => ['activated_on <= ?', Time.now.to_s(:db)], :order => 'sort_order ASC')
+      self.find(:all, :conditions => ['activated_on <= ?', Time.now.to_s(:db)], :order => 'sort_order ASC, source_form ASC')
     end
   end
 

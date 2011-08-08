@@ -178,7 +178,7 @@ class ContentPartner < SpeciesSchemaModel
     FROM resources r
     JOIN harvest_events he ON (r.id = he.resource_id)
     WHERE he.published_at IS NOT NULL")
-    ContentPartner.find_all_by_id(published_partner_ids)
+    ContentPartner.find_all_by_id(published_partner_ids, :order => "full_name")
   end
 
   def all_harvest_events
@@ -370,4 +370,15 @@ class ContentPartner < SpeciesSchemaModel
     self.description_of_data ||= ""
     self.description ||=""
   end
+
+  def self.resources_harvest_events(content_partner_id, page)
+    query = "SELECT r.id resource_id, he.id AS harvest_id, r.title, he.began_at, he.completed_at, he.published_at
+    FROM content_partners cp
+    JOIN resources r ON cp.id = r.content_partner_id 
+    JOIN harvest_events he ON he.resource_id = r.id
+    WHERE cp.id = #{content_partner_id}
+    ORDER BY r.id desc, he.id desc"
+    self.paginate_by_sql [query, content_partner_id], :page => page, :per_page => 30
+  end
+  
 end

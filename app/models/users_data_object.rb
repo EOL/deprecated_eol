@@ -9,8 +9,8 @@ class UsersDataObject < ActiveRecord::Base
   belongs_to :data_object
   belongs_to :taxon_concept
 
-  #has_one :user
-  #has_one :data_object
+  belongs_to :vetted
+  belongs_to :visibility
 
   def self.get_user_submitted_data_object_ids(user_id)
     if(user_id == 'All') then

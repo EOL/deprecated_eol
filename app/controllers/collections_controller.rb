@@ -10,6 +10,7 @@ class CollectionsController < ApplicationController
 
   before_filter :find_collection, :except => [:new, :create]
   before_filter :user_able_to_edit_collection, :only => [:edit] # we do authenticate update, its in the update method
+  before_filter :user_able_to_view_collection, :only => [:show]
   before_filter :find_parent, :only => [:show]
   before_filter :find_parent_for_current_user_only, :except => [:show, :collect, :watch]
   before_filter :build_collection_items_with_sorting_and_filtering, :only => [:show, :update]
@@ -311,6 +312,13 @@ private
   
   def set_sort_options
     @sort_options = [SortStyle.newest, SortStyle.oldest, SortStyle.alphabetical, SortStyle.reverse_alphabetical, SortStyle.richness, SortStyle.rating]
+  end
+  
+  def user_able_to_view_collection
+    unless @collection && current_user.can_view_collection?(@collection)
+      access_denied
+      return true
+    end
   end
   
   def user_able_to_edit_collection

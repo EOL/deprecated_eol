@@ -6,6 +6,7 @@ class Vetted < SpeciesSchemaModel
   has_many :hierarchy_entries
   has_many :data_objects_hierarchy_entries
   has_many :curated_data_objects_hierarchy_entries
+  has_many :users_data_objects
 
   def self.inappropriate
     cached_find_translated(:label, 'Inappropriate')

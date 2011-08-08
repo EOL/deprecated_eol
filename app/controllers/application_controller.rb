@@ -460,9 +460,11 @@ class ApplicationController < ActionController::Base
   # Set the current language
   def set_language
     language = params[:language].to_s
+    unless language.blank?
       alter_current_user do |user|
         user.language = Language.from_iso(language)
       end
+    end
     return_to = (params[:return_to].blank? ? root_url : params[:return_to])
     redirect_to return_to
   end

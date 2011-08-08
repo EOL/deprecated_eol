@@ -80,8 +80,8 @@ private
   end
 
   def get_page_content
-    params[:id] = params[:id].nil? ? "curator_central" : params[:id]
-    @content = ContentPage.smart_find_with_language(params[:id], current_user.language_abbr)
+    params[:id] = params[:id].nil? ? "curator central" : params[:id]
+    @content = ContentPage.find_by_page_name(params[:id].gsub(/_/, ' '))
     @page_title += ": #{@content.title}" unless params[:id] == "curator_central"
   end
 

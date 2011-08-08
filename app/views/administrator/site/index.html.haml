@@ -102,7 +102,8 @@
       %td.even
         = ActionController::Base.cache_store.class
         %br
-        = ActionController::Base.cache_store.stats.inspect
+        - if ActionController::Base.cache_store.respond_to?('stats')
+          = ActionController::Base.cache_store.stats.inspect
   - if $ENABLE_ANALYTICS
     %tr
       %td.even

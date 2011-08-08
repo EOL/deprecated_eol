@@ -106,7 +106,7 @@
       %strong
         =I18n.t(:curator_level)
     %td
-      = f.select(:curator_level_id, options_from_collection_for_select(CuratorLevel.all, :id, :label, @user.curator_level_id)
+      = f.select(:curator_level_id, options_from_collection_for_select(CuratorLevel.all, :id, :label, @user.curator_level_id))
       - if @user.is_curator?
         =I18n.t(:curator_status_changed_by, :user => @user.curator_verdict_by.full_name, :date => I18n.l(@user.curator_verdict_at, :format => :short))
   %tr

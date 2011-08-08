@@ -18,7 +18,7 @@
       .article.copy
         = @translated_content.main_content
         - # TODO: figure out if we need separate view for curator central, this is messy
-        - curator page only - curators can submit a Wikipedia article for ingestion
+        - # curator page only - curators can submit a Wikipedia article for ingestion
         - if @page_id == 'curator_central' && current_user.curator_approved
           %a{:name => 'wikipedia'}
           %br/

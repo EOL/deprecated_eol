@@ -746,12 +746,12 @@ class DataObject < SpeciesSchemaModel
       if entry_in_hierarchy = taxon_concept.entry(options[:filter_hierarchy], true)
         HierarchyEntry.preload_associations(entry_in_hierarchy,
           [ :top_images => :data_object ],
-          :select => { :data_objects => '*' } )
+          :select => { :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating ] } )
         image_data_objects = entry_in_hierarchy.top_images.collect{ |ti| ti.data_object }
         if show_unpublished
           HierarchyEntry.preload_associations(entry_in_hierarchy,
             [ :top_unpublished_images => :data_object ],
-            :select => { :data_objects => '*' } )
+            :select => { :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating ] } )
           image_data_objects += entry_in_hierarchy.top_unpublished_images.collect{ |ti| ti.data_object }
         end
       end
@@ -770,7 +770,7 @@ class DataObject < SpeciesSchemaModel
         TaxonConcept.preload_associations(taxon_concept,
           [ :top_unpublished_concept_images => { :data_object => { :hierarchy_entries => { :hierarchy => :agent } } } ],
           :select => {
-            :data_objects => '*',
+            :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating ],
             :hierarchy_entries => :hierarchy_id,
             :agents => [:id, :full_name, :homepage, :logo_cache_url] } )
         image_data_objects += taxon_concept.top_unpublished_concept_images.collect{ |tci| tci.data_object }

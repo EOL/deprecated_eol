@@ -6,9 +6,11 @@ class Community < ActiveRecord::Base
 
   has_many :members
   has_many :collection_items, :as => :object
-  has_many :collection_endorsements
-  has_many :collections, :through => :collection_endorsements # NOTE: be sure to check each for actually being endorsed!
   has_many :comments, :as => :parent
+  # NOTE - You MUST use single-quotes here, lest the #{id} be interpolated at compile time. USE SINGLE QUOTES.
+  has_many :collections,
+    :finder_sql => 'SELECT c.* FROM collections c, collection_items ci ' +
+      'WHERE ci.collection_id = #{id} AND ci.object_type = "Collection" AND c.id = ci.object_id'
 
   accepts_nested_attributes_for :collection
 
@@ -85,14 +87,6 @@ class Community < ActiveRecord::Base
   def managers
     # FIXME: This is just getting the first couple of member not the managers
     members[0..2]
-  end
-
-  def pending_collections
-    collection_endorsements.select {|c| c.pending? }.map {|c| c.collection }
-  end
-
-  def endorsed_collections
-    collection_endorsements.select {|c| c.endorsed? }.map {|c| c.collection }
   end
 
 private

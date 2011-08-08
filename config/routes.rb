@@ -12,7 +12,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :communities,
     :member => { 'join' => :get, 'leave' => :get } do |community|
       community.resource :newsfeed, :only => [:show], :namespace => "communities/"
-      community.resources :collection_endorsements, :namespace => "communities/"
+      community.resources :collections, :namespace => "communities/"
       # TODO - these shouldn't be GETs, but I really want them to be links, not forms, sooooo...
       community.resources :members, :member => {'grant_manager' => :get, 'revoke_manager' => :get}
     end
@@ -119,7 +119,7 @@ ActionController::Routing::Routes.draw do |map|
   map.donate      'donate',      :controller => 'content', :action => 'donate'
   map.cms_page    'info/:id',    :controller => 'content', :action => 'page'
   map.terms_of_use 'terms_of_use', :controller => 'content', :action => 'page', :id => 'terms_of_use'
-  
+
   map.clear_caches 'clear_caches',      :controller => 'content', :action => 'clear_caches'
   map.expire_all   'expire_all',        :controller => 'content', :action => 'expire_all'
   map.expire       'expire/:id',        :controller => 'content', :action => 'expire_single',

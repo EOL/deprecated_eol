@@ -92,18 +92,14 @@ class Collection < ActiveRecord::Base
       raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_create_collection_item_from_class_error,
                                                                   :klass => what.class.name))
     end
+    collection_items.last.update_attribute(:annotation, opts[:annotation]) if opts[:annotation]
     what # Convenience.  Allows us to chain this command and continue using the object passed in.
   end
 
-  def create_community
-    raise EOL::Exceptions::OnlyUsersCanCreateCommunitiesFromCollections unless user
-    community = Community.create(:name => I18n.t(:default_community_name_from_collection, :name => name))
-    community.initialize_as_created_by(user)
-    # Deep copy:
-    collection_items.each do |li|
-      community.focus.add(li.object, :user => user)
+  def deep_copy(other)
+    other.collection_items.each do |item|
+      add(item.object, :annotation => item.annotation)
     end
-    community
   end
 
   def logo_url(size = 'large')

@@ -1717,6 +1717,7 @@ en:
   manage_roles: "Manage roles"
   manage_your_profile: "Manage Your Profile"
   managed_by: "Managed by"
+  manager_endorse_collecitons_suggestion: "To feature a collection on this page, add the collection to the community's focus."
   manager_parens: "(manager)"
   maps_with_count:
     one: "%{count} Map"

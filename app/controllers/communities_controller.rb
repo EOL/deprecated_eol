@@ -41,6 +41,7 @@ class CommunitiesController < ApplicationController
       @community.initialize_as_created_by(current_user)
       # NOTE - Because the collection is actually created by the on_create of the community, we need to update it:
       @community.collection.update_attribute(:name, collection.name)
+      @community.collection.deep_copy(@collection) # NOTE this uses the OLD collection (see before_filters)
       invitees = params[:invite_list] ? params[:invite_list].values : params[:invitations].split(/[,\s]/).grep(/\w/)
       sent_to = send_invitations(invitees)
       notice = I18n.t(:created_community)

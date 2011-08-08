@@ -111,9 +111,6 @@ private
     end
     @members = @community.members # Because we pull in partials from the members controller.
     @current_member = current_user.member_of(@community)
-    if @current_member && @current_member.manager?
-      @pending_collections = @community.pending_collections
-    end
   end
 
   def load_collection

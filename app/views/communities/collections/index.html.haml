@@ -21,13 +21,13 @@
       %ul.object_list
         - @pending_collections.each do |collection|
           = render :partial => 'collections/collection_summary', :locals => { :collection => collection, :show_description => true }
-  - if @community.endorsed_collections.empty?
+  - if @community.collections.empty?
     .heading
       %h3= I18n.t(:endorsed_collections_with_count, :count => 0)
   - else
     .heading
-      %h3= I18n.t(:endorsed_collections_with_count, :count => @community.endorsed_collections.size)
+      %h3= I18n.t(:endorsed_collections_with_count, :count => @community.collections.size)
       = render :partial => 'shared/sort_by_date_form'
     %ul.object_list
-      - @community.endorsed_collections.each do |collection|
+      - @community.collections.each do |collection|
         = render :partial => 'collections/collection_summary', :locals => { :collection => collection, :show_description => true }

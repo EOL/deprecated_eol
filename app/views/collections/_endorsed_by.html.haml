@@ -1,12 +1,7 @@
 %h3= I18n.t(:endorsed_by)
 %ul
-  - collection.collection_endorsements.each do |ce|
+  - collection.communities.each do |community|
     %li
-      - if ce.community
-        = link_to image_tag(ce.community.logo_url(:small), :alt => ''), ce.community
-        %h4= link_to ce.community.name, ce.community
-        %p= I18n.t(:members_with_count, :count => ce.community.members.count)
-      - elsif ce.member
-        = link_to image_tag(ce.member.user.logo_url(:small), :alt => ''), ce.member.user
-        %h4= link_to ce.member.user.short_name, ce.member.user
-        %p= ce.member.user.tag_line
+      = link_to image_tag(community.logo_url(:small), :alt => ''), community
+      %h4= link_to community.name, community
+      %p= I18n.t(:members_with_count, :count => community.members.count)

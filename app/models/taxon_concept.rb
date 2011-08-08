@@ -25,15 +25,12 @@ class TaxonConcept < SpeciesSchemaModel
   has_many :published_hierarchy_entries, :class_name => HierarchyEntry.to_s,
     :conditions => 'hierarchy_entries.published=1 AND hierarchy_entries.visibility_id=#{Visibility.visible.id}'
 
-
   has_many :published_browsable_hierarchy_entries, :class_name => HierarchyEntry.to_s, :foreign_key => 'hierarchy_entry_id',
     :finder_sql => 'SELECT he.id, h.id hierarchy_id, h.label hierarchy_label
     FROM hierarchies h
     JOIN hierarchy_entries he ON h.id = he.hierarchy_id
     WHERE he.taxon_concept_id = \'#{id}\' AND he.published = 1 and h.browsable = 1
     ORDER BY h.label'
-
-
 
   has_many :top_concept_images
   has_many :top_unpublished_concept_images
@@ -44,6 +41,7 @@ class TaxonConcept < SpeciesSchemaModel
   has_many :ranks, :through => :hierarchy_entries
   has_many :google_analytics_partner_taxa
   has_many :collection_items, :as => :object
+  has_many :collections, :through => :collection_items
   has_many :preferred_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=0 AND taxon_concept_names.preferred=1'
   has_many :preferred_common_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=1 AND taxon_concept_names.preferred=1'
   has_many :denormalized_common_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=1'
@@ -1290,21 +1288,20 @@ class TaxonConcept < SpeciesSchemaModel
     @communities ||= collection_items.map {|i| i.community }.compact
   end
 
+  # Returns three collections, prioritized as:
+  #  - collections with the most communities ("featured by") show up first,
+  #  - collections with the FEWEST taxa show up next (since they are more focused)
+  #  - collections with the FEWEST items show up next.
   def top_collections
-    # New order of priority:
-    # - collections which are endorsed the most will show first (descending order on the # of communities who endorsed them)
-    # - then collections with least taxa collected will show next (ascending order on the # of taxa collected under the collection)
-    #   Rationale behind that is the least no. of taxa collected the more focused a collection is. At least this is what we'll follow at the moment.
-    collection_ids = collection_items.map{|ci| ci.collection_id}.compact
-    return [] if collection_ids.blank?
-    coll_sorted_by_endorsement_count = SpeciesSchemaModel.connection.execute(" SELECT c.id, COUNT(ce.id) total FROM collections c JOIN collection_endorsements ce ON ce.collection_id = c.id WHERE c.id IN (#{collection_ids.join(',')}) GROUP BY c.id ORDER BY total DESC ").all_hashes
-    coll_sorted_by_taxa_collected_count  = SpeciesSchemaModel.connection.execute(" SELECT c.id, COUNT(ci.id) total FROM collections c JOIN collection_items ci ON ci.collection_id = c.id WHERE ci.object_type = 'TaxonConcept' AND c.id in (#{collection_ids.join(',')}) GROUP BY c.id ORDER BY total, c.name ").all_hashes
-    # add contents of hash 2 in hash 1 if doesn't exist yet in hash 1
-    ids = coll_sorted_by_endorsement_count.map {|c| c["id"]}
-    coll_sorted_by_taxa_collected_count.map {|c| coll_sorted_by_endorsement_count << c if !ids.include?(c["id"]) }
-    # build the list of collections
-    collections = coll_sorted_by_endorsement_count.map {|c| Collection.find(c['id']) }
-    return collections[0..2]
+    collections.sort { |a,b|
+      if (a_count = a.communities.count) != (b_count = b.communities.count)
+        b_count <=> a_count # NOTE the reversed order here. 2 should come before 1.
+      elsif (a_count = a.collection_items.taxa.count) != (b_count = b.collection_items.taxa.count)
+        a_count <=> b_count
+      else
+        a.collection_items.count <=> b.collection_items.count
+      end
+    }[0..2]
   end
 
   def flattened_ancestor_ids

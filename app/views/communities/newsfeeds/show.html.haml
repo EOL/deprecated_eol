@@ -8,11 +8,11 @@
         = render :partial => 'collections/collection_summary', :locals => {:collection => @community.focus, :minimal => true}
   .collection_list
     %h3= I18n.t(:endorsed_collections)
-    - if @community.endorsed_collections.empty?
+    - if @community.collections.empty?
       %p= I18n.t(:this_community_has_no_endorsed_collections)
     - else
       %ul
-        - @community.endorsed_collections[0..3].each do |collection|
+        - @community.collections[0..3].each do |collection|
           = render :partial => 'collections/collection_summary', :locals => {:collection => collection, :minimal => true}
 #community.main_container
   .article.list.updates

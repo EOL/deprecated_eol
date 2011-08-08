@@ -8,7 +8,7 @@
   #sidebar
     .collection_contributors
       = render :partial => 'collections/managed_by', :locals => { :collection => @collection }
-    - if @collection.collection_endorsements.count > 0
+    - if @collection.communities.count > 0
       .collection_contributors
         = render :partial => 'collections/endorsed_by', :locals => { :collection => @collection }
   #collections.main_container
@@ -36,7 +36,7 @@
               = submit_tag I18n.t(:copy), :name => 'commit_copy'
       .collection_contributors
         = render :partial => 'collections/managed_by', :locals => { :collection => @collection }
-      - if @collection.collection_endorsements.count > 0
+      - if @collection.communities.count > 0
         .collection_contributors
           = render :partial => 'collections/endorsed_by', :locals => { :collection => @collection }
     #collections.main_container

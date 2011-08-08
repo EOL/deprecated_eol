@@ -9,9 +9,12 @@ class Collection < ActiveRecord::Base
   has_many :collection_items
   accepts_nested_attributes_for :collection_items
 
-  has_many :collection_endorsements
   has_many :comments, :as => :parent
-  has_many :communities, :through => CollectionEndorsement
+  # NOTE - You MUST use single-quotes here, lest the #{id} be interpolated at compile time. USE SINGLE QUOTES.
+  has_many :communities,
+    :finder_sql => 'SELECT cm.* FROM communities cm, collections c, collection_items ci ' +
+      'WHERE ci.object_type = "Collection" AND ci.object_id = #{id} ' +
+      'AND ci.collection_id = c.id AND c.community_id = cm.id'
 
   has_one :resource
   has_one :resource_preview, :class_name => Resource.to_s, :foreign_key => :preview_collection_id
@@ -120,22 +123,6 @@ class Collection < ActiveRecord::Base
   def maintained_by
     return user.full_name if !user_id.blank?
     return community.name if !community_id.blank?
-  end
-
-  def pending_communities
-    collection_endorsements.select {|c| c.pending? }.map {|c| c.community }
-  end
-
-  def endorsing_communities
-    collection_endorsements.select {|c| c.endorsed? }.map {|c| c.community }
-  end
-
-  def request_endorsement_from_community(comm)
-    ce = CollectionEndorsement.new
-    ce.collection_id = id
-    ce.community_id = comm.id
-    ce.save!
-    ce
   end
 
   def has_item? item

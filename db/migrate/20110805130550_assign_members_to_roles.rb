@@ -22,7 +22,7 @@ class AssignMembersToRoles < ActiveRecord::Migration
   end
 
   def self.up
-    self.move_users('%curator%') do
+    self.move_users('%curator%') do |user|
       user.grant_curator
     end
     self.move_users('admin%') do |user|

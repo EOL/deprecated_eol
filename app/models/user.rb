@@ -443,7 +443,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def is_admin?
-    self.admin
+    self.admin.nil? ? false : self.admin # return false for anonymous users
   end
 
   def is_content_partner?

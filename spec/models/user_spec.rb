@@ -279,4 +279,14 @@ describe User do
     user.activity_log.should be_a EOL::ActivityLog
   end
 
+  it '#is_admin? should return true if current user is admin, otherwise false' do
+    user = User.gen
+    user.admin = 0                  # non-admin user
+    user.is_admin?.should == false
+    user.grant_admin                # admin user
+    user.is_admin?.should == true
+    user.admin = nil                # anonymous user
+    user.is_admin?.should == false
+  end
+
 end

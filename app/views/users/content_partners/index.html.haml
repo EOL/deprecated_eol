@@ -1,0 +1,16 @@
+#profile_content_connections.main_container
+  .article
+    .header
+      %h3= I18n.t(:users_content_partners_header)
+    .copy
+      %p= I18n.t(:users_content_partners_information)
+      %h3= I18n.t(:users_content_partners_with_count, :count => @partners.size) unless @partners.blank?
+    - if @partners.blank?
+      = link_to I18n.t(:content_partner_add_link), new_content_partner_path, :class => 'button'
+    - else
+      %ul
+        - @partners.each do |partner|
+          %li
+            = link_to image_tag(partner.logo_url(:small), :alt => ''), content_partner_path(partner)
+            .details
+              %h4= link_to partner.name, content_partner_path(partner)

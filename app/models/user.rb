@@ -326,6 +326,19 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     tags.map(&:key).uniq
   end
 
+  def can_create?(resource)
+    resource.can_be_created_by?(self)
+  end
+  def can_read?(resource)
+    resource.can_be_read_by?(self)
+  end
+  def can_update?(resource)
+    resource.can_be_updated_by?(self)
+  end
+  def can_delete?(resource)
+    resource.can_be_deleted_by?(self)
+  end
+
   def grant_admin
     self.update_attribute(:admin, true)
     clear_cached_user

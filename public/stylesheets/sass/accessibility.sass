@@ -549,6 +549,14 @@ body
       margin: 0
       input[type="submit"]
         margin: 0
+/** CMS pages **/
+.cms_page
+  table
+    border-collapse: collapse
+    width: 100%
+    margin: 0 0 15px 0
+    line-height: 170%
+
 /** collections overides **/
 .object_list
   div.checkbox
@@ -570,6 +578,11 @@ body
   max-height: 90px
   width: expression(this.width > 90 ? "90px" : true)
   height: expression(this.height > 90 ? "90px" : true)
+= max88x88
+  max-width: 88px
+  max-height: 88px
+  width: expression(this.width > 88 ? "88px" : true)
+  height: expression(this.height > 88 ? "88px" : true)
 = size50x50
   width: 50px
   height: 50px
@@ -608,15 +621,9 @@ ul.feed
           >img
             +size50x50
 #page_heading
-  &.with_image
-    .hgroup
-      img
-        +max90x90
-#page_heading
-  &.profile
-    .hgroup
-      img
-        +size90x90
+  &.with_image, &.profile
+    img
+      +max88x88
 #collections
   &.main_container
     .taxon>img

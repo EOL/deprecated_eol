@@ -1,0 +1,36 @@
+#content_partner_show
+  #sidebar
+    - unless @partner_contacts.blank?
+      .article
+        %h3= I18n.t(:content_partner_contacts_header)
+        %ul.content_partner_contacts
+          - @partner_contacts.each do |contact|
+            %li
+              %h4
+                = contact.full_name
+                %b= contact.contact_role.label
+              %p
+                = mail_to contact.email, contact.email
+                %br/
+                = link_to contact.homepage, contact.homepage
+                %br/
+                = contact.telephone
+                %br/
+                = contact.address
+              %p= link_to I18n.t(:content_partner_contact_edit_link),
+                edit_content_partner_content_partner_contact_path(@partner, contact) if current_user.can_update?(contact)
+        = link_to I18n.t(:content_partner_contact_new_link), new_content_partner_content_partner_contact_path(@partner),
+          :class => "button" if current_user.can_create?(@new_partner_contact)
+  .main_container
+    .article.copy
+      %h3= I18n.t(:content_partner_about_header, :partner_name => @partner.name)
+      %p= @partner.description
+      %p= link_to I18n.t(:content_partner_homepage_link), @partner.homepage
+      - if current_user.can_update?(@partner)
+        %h3= I18n.t(:content_partner_data_description_header)
+        %p= @partner.description_of_data
+        %h3= I18n.t(:content_partner_notes_header)
+        %p= @partner.notes
+      - if current_user.is_admin?
+        %h3= I18n.t(:content_partner_administration_notes_header)
+        %p= @partner.admin_notes

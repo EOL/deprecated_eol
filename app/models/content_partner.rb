@@ -1,18 +1,19 @@
-# This is a special kind of Agent (the relationship is mandatory; q.v.).  A ContentPartner is akin to a User, in that
-# they can log in (see ContentPartnerController).  Of course, content partners are those people or organizations who
-# add data to our database.
 class ContentPartner < SpeciesSchemaModel
 
   belongs_to :user
   belongs_to :content_partner_status
 
-  has_many :content_partner_provided_data_types, :dependent => :destroy
-  has_many :content_partner_data_types, :through => :content_partner_provided_data_types
   has_many :resources
   has_many :content_partner_contacts, :dependent => :destroy
   has_many :google_analytics_partner_summaries
   has_many :google_analytics_partner_taxa
   has_many :content_partner_agreements
+
+  validates_presence_of :full_name
+  validates_presence_of :description
+  validates_length_of :display_name, :maximum => 255, :allow_nil => true
+  validates_length_of :acronym, :maximum => 20, :allow_nil => true
+  validates_length_of :homepage, :maximum => 255, :allow_nil => true
 
   #STEPS = [:partner, :contacts, :licensing, :attribution, :roles, :transfer_overview, :transfer_upload, :specialist_overview, :specialist_formatting]
 
@@ -27,7 +28,7 @@ class ContentPartner < SpeciesSchemaModel
 
   # Callbacks
   before_save :blank_not_null_fields
-  
+
   # TODO: remove the :if condition after migrations are run in production
   has_attached_file :logo,
     :path => $LOGO_UPLOAD_DIRECTORY,
@@ -40,6 +41,15 @@ class ContentPartner < SpeciesSchemaModel
     :if => self.column_names.include?('logo_file_name')
   validates_attachment_size :logo, :in => 0..$LOGO_UPLOAD_MAX_SIZE,
     :if => self.column_names.include?('logo_file_name')
+
+  # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we go to many to many
+  def can_be_updated_by?(user)
+    user.id == user_id || user.is_admin?
+  end
+  # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we go to many to many
+  def can_be_created_by?(user)
+    user.id == user_id || user.is_admin?
+  end
 
   def concepts_for_gallery(page, per_page)
     page = page - 1
@@ -371,14 +381,31 @@ class ContentPartner < SpeciesSchemaModel
     self.description ||=""
   end
 
+  # override the logo_url column in the database to construct the path on the content server
+  def logo_url(size = 'large')
+    if logo_cache_url.blank?
+      return "v2/logos/partner_default.png"
+    elsif size.to_s == 'small'
+      DataObject.image_cache_path(logo_cache_url, '88_88')
+    else
+      DataObject.image_cache_path(logo_cache_url, '130_130')
+      # ContentServer.logo_path(logo_cache_url, size)
+    end
+  end
+
+  def name
+    return display_name unless display_name.blank?
+    full_name
+  end
+
   def self.resources_harvest_events(content_partner_id, page)
     query = "SELECT r.id resource_id, he.id AS harvest_id, r.title, he.began_at, he.completed_at, he.published_at
     FROM content_partners cp
-    JOIN resources r ON cp.id = r.content_partner_id 
+    JOIN resources r ON cp.id = r.content_partner_id
     JOIN harvest_events he ON he.resource_id = r.id
     WHERE cp.id = #{content_partner_id}
     ORDER BY r.id desc, he.id desc"
     self.paginate_by_sql [query, content_partner_id], :page => page, :per_page => 30
   end
-  
+
 end

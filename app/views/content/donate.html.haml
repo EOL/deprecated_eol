@@ -1,27 +1,29 @@
-#content
+#content.cms_page
   .site_column
     .article.copy.donate
       - if @donation_amount.nil? || @donation_amount == 0
         %p=  I18n.t(:donation_message)
-        - form_for :donation, @donation,:html => {:class => "warning-warn invalid-invalid styleLabelOnErr"} do |f|
-          %fieldset
+        - form_for :donation, @donation, :builder => ApplicationHelper::EolFormBuilder do |f|
+          %fieldset.radio
             %legend= I18n.t(:donation_amount_legend)
-            = f.radio_button :preset_amount, "35"
-            = f.label :preset_amount_35, I18n.t("us_dollars_35")
-            %br
-            = f.radio_button :preset_amount, "50"
-            = f.label :preset_amount_50, I18n.t("us_dollars_50")
-            %br
-            = f.radio_button :preset_amount, "75"
-            = f.label :preset_amount_75, I18n.t("us_dolars_75")
-            %br
-            = f.radio_button :preset_amount, "100"
-            = f.label :preset_amount_100, I18n.t("us_dollars_100")
-            %br
-            = f.radio_button :preset_amount, "other"
-            = f.label :preset_amount_other, I18n.t("other_us_dollars_amount")
-            = f.label :amount, I18n.t(:donation_amount_enter_label)
-            = f.text_field :amount, {:size => 6, :maxlength => 6, :onfocus => "$('#donation_preset_amount_other').attr('checked', 'checked');"}
+            - f.label :preset_amount_35 do
+              = f.radio_button :preset_amount, "35"
+              = I18n.t("us_dollars_35")
+            - f.label :preset_amount_50 do
+              = f.radio_button :preset_amount, "50"
+              = I18n.t("us_dollars_50")
+            - f.label :preset_amount_75 do
+              = f.radio_button :preset_amount, "75"
+              = I18n.t("us_dolars_75")
+            - f.label :preset_amount_100 do
+              = f.radio_button :preset_amount, "100"
+              = I18n.t("us_dollars_100")
+            - f.label :preset_amount_other do
+              = f.radio_button :preset_amount, I18n.t(:donation_amount_other_label)
+              = I18n.t("other_us_dollars_amount")
+            - f.label :amount, :class => 'other' do
+              = I18n.t(:donation_amount_enter_other_label)
+              = f.text_field :amount, {:size => 6, :maxlength => 6, :onfocus => "$('#donation_preset_amount_other').attr('checked', 'checked');"}
 
           %span#donation_amount_warn.error
           %fieldset.actions

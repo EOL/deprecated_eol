@@ -3,6 +3,7 @@ class Visibility < SpeciesSchemaModel
   uses_translations
   has_many :data_objects_hierarchy_entry
   has_many :curated_data_objects_hierarchy_entry
+  has_many :users_data_objects
 
   def self.all_ids
     cached('all_ids') do

@@ -11,7 +11,7 @@
     - if @community.collections.empty?
       %p
         = I18n.t(:this_community_has_no_endorsed_collections)
-        - if @current_member.manager?
+        - if @current_member && @current_member.manager?
           = I18n.t(:manager_endorse_collecitons_suggestion)
     - else
       %ul

@@ -111,7 +111,6 @@ ActionController::Routing::Routes.draw do |map|
   #map.help         'help',         :controller => 'content', :action => 'page', :id => 'screencasts'
   #map.screencasts  'screencasts',  :controller => 'content', :action => 'page', :id => 'screencasts'
   #map.faq          'faq',          :controller => 'content', :action => 'page', :id => 'faqs'
-  #map.terms_of_use 'terms_of_use', :controller => 'content', :action => 'page', :id => 'terms_of_use'
 
   # V2 header links
   map.help        'help',        :controller => 'content', :action => 'page', :id => 'help'
@@ -120,6 +119,8 @@ ActionController::Routing::Routes.draw do |map|
   map.contact_us  'contact_us',  :controller => 'content', :action => 'page', :id => 'contact_us'
   map.donate      'donate',      :controller => 'content', :action => 'donate'
   map.cms_page    'content/page/:id', :controller => 'content', :action => 'page'
+  map.terms_of_use 'terms_of_use', :controller => 'content', :action => 'page', :id => 'terms_of_use'
+  
 
   map.clear_caches 'clear_caches',      :controller => 'content', :action => 'clear_caches'
   map.expire_all   'expire_all',        :controller => 'content', :action => 'expire_all'

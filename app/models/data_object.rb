@@ -971,7 +971,7 @@ class DataObject < SpeciesSchemaModel
       FROM data_objects_harvest_events dohe
       JOIN data_objects do ON dohe.data_object_id = do.id
       WHERE dohe.harvest_event_id = #{harvest_event_id}")
-    data_objects = DataObject.find_all_by_id(ids, :include => [ :vetted, :data_type ])
+    data_objects = DataObject.find_all_by_id(ids, :include => [ :data_type ])
 
     # to get total_taxa count
     query = "Select count(distinct he.taxon_concept_id) taxa_count

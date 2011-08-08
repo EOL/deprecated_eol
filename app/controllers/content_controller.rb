@@ -21,7 +21,12 @@ class ContentController < ApplicationController
       # TODO - FIXME  ... This appears to have to do with $CACHE.fetch (obviously)... not sure why, though.
       @explore_taxa = RandomHierarchyImage.random_set(60)
     end
-    @explore_taxa.shuffle!
+    begin
+      @explore_taxa.shuffle!
+    rescue TypeError => e # it's a frozen array, it's been cached somwhere.
+      @explore_taxa = @explore_taxa.dup
+      @explore_taxa.shuffle!
+    end
   end
 
   # just shows the top set of species --- can be included on other websites

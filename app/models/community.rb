@@ -10,6 +10,8 @@ class Community < ActiveRecord::Base
   has_many :collections, :through => :collection_endorsements # NOTE: be sure to check each for actually being endorsed!
   has_many :comments, :as => :parent
 
+  accepts_nested_attributes_for :collection
+
   after_create :attatch_focus
 
   # These are for will_paginate:
@@ -41,16 +43,15 @@ class Community < ActiveRecord::Base
   # TODO - test
   # Auto-joins the user to the community, and makes that person the owner.
   def initialize_as_created_by(user)
-    mem = user.join_community(self)
+    mem = add_member(user)
     mem.update_attribute(:manager, true)
     mem
   end
 
-  # Returns the new member.  If you are NOT adding yourself, you should pass in :added_by.
+  # Returns the new member.
   def add_member(user, opts = {})
     member = Member.create!(:user_id => user.id, :community_id => id)
     members << member
-    added_by = opts[:added_by] ? opts[:added_by] : user
     member
   end
 

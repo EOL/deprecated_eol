@@ -204,7 +204,7 @@ class TaxaController < ApplicationController
   def update_common_names
     tc = find_taxon_concept
     return if taxon_concept_invalid?(tc)
-    if tc.is_curatable_by?(current_user)
+    if current_user.min_curator_level?(:full)
       if !params[:preferred_name_id].nil?
         name = Name.find(params[:preferred_name_id])
         language = Language.find(params[:language_id])

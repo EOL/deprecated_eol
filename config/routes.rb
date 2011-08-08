@@ -9,20 +9,19 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :feed_items
   # Communities nested resources
   # TODO - these member methods want to be :put. Capybara, however, always uses :get, so in the interests of simple tests:
-  map.resources :communities, :member => { 'join' => :get, 'leave' => :get } do |community|
-    community.resource :newsfeed, :only => [:show], :namespace => "communities/"
-    community.resources :collection_endorsements, :namespace => "communities/"
-    # TODO - these shouldn't be GETs, but I really want them to be links, not forms, sooooo...
-    community.resources :members, :member => {'grant_manager' => :get, 'revoke_manager' => :get}
-  end
+  map.resources :communities,
+    :member => { 'join' => :get, 'leave' => :get } do |community|
+      community.resource :newsfeed, :only => [:show], :namespace => "communities/"
+      community.resources :collection_endorsements, :namespace => "communities/"
+      # TODO - these shouldn't be GETs, but I really want them to be links, not forms, sooooo...
+      community.resources :members, :member => {'grant_manager' => :get, 'revoke_manager' => :get}
+    end
 
   map.resources :collections, :member => { :choose => :get }
   map.resources :collection_items, :except => [:index, :show, :new, :destroy]
 
   #used in collections show page, when user clicks on left tabs
-  map.connect 'collections/:id/:filter',
-               :controller => 'collections',
-               :action => 'show'
+  map.connect 'collections/:id/:filter', :controller => 'collections', :action => 'show'
 
   # Web Application
   map.resources :harvest_events, :has_many => [:taxa]
@@ -52,7 +51,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users, :path_names => { :new => :register },
                 :member => { :terms_agreement => [ :get, :post ], :pending => :get, :activated => :get,
                              :curation_privileges => [ :get ] },
-                :collection => { :forgot_password => :get } do |user|
+                :collection => { :forgot_password => :get, :usernames => :get } do |user|
     user.resource :newsfeed, :only => [:show], :controller => "users/newsfeeds"
     user.resource :activity, :only => [:show], :controller => "users/activities"
     user.resources :collections, :only => [:index], :controller => "users/collections"

@@ -4,7 +4,7 @@
   - if @collection
     #page_heading.with_image
       .site_column
-        = image_tag @collection.logo_url, :alt => ''
+        = image_tag @collection.logo_url, :alt => I18n.t(:collection_image)
         .hgroup
           %h1= h @collection.name
           %p= h @collection.description

@@ -158,11 +158,6 @@ class Comment < ActiveRecord::Base
     return return_name
   end
 
-  # Test if the parent object (DataObject or TaxonConcept) can be curated by a user:
-  def is_curatable_by? by
-    parent.is_curatable_by?(by)
-  end
-
   def show(by)
     self.vetted_by = by if by
     self.update_attribute :visible_at, Time.now unless visible_at
@@ -201,7 +196,7 @@ private
   end
 
   def set_from_curator
-    self.from_curator = is_curatable_by?(user) if self.from_curator.nil?
+    self.from_curator = user.is_curator? if self.from_curator.nil?
     return self.from_curator.to_s
   end
 

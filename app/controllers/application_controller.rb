@@ -608,7 +608,7 @@ private
 
   def log_error_cleanly(e)
     logger.error "*" * 76
-    logger.error "** EXCEPTION: (uncaught) #{e.message}"
+    logger.error "** EXCEPTION: (#{e.class.name}) #{e.message}"
     lines_shown = 0
     index = 0
     e.backtrace.map {|t| t.gsub(/#{RAILS_ROOT}/, '.')}.each do |trace|

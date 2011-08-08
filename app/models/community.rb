@@ -10,7 +10,7 @@ class Community < ActiveRecord::Base
   has_many :collections, :through => :collection_endorsements # NOTE: be sure to check each for actually being endorsed!
   has_many :comments, :as => :parent
 
-  accepts_nested_attributes_for :collections
+  accepts_nested_attributes_for :collection
 
   after_create :attatch_focus
 

@@ -7,9 +7,13 @@ describe "Communities" do
     unless User.find_by_username('communities_scenario')
       truncate_all_tables
       load_scenario_with_caching(:communities)
+      @@test_data = EOL::TestInfo.load('communities')
+      @@collection = Collection.gen
+      @@collection.add(User.gen)
     end
+    @test_data = @@test_data
+    @collection = @@collection
     Capybara.reset_sessions!
-    @test_data = EOL::TestInfo.load('communities')
   end
 
   shared_examples_for 'communities all users' do
@@ -57,18 +61,22 @@ describe "Communities" do
     # Make sure you are logged in prior to calling this shared example group
     it_should_behave_like 'communities all users'
     context 'visiting create community' do
-      before(:all) { visit new_community_path }
+      before(:all) { visit new_community_path(:collection_id => @collection.id) }
       it 'should ask for the new community name and description' do
         body.should have_tag("input#community_name")
         body.should have_tag("textarea#community_description")
+        body.should have_tag("input#community_collection_attributes_name")
       end
       it 'should create a community, add the user, and redirect to community default view' do
         new_name = Factory.next(:string)
+        new_col_name = Factory.next(:string)
         fill_in('community_name', :with => new_name)
         fill_in('community_description', :with => 'This is a long description.')
-        click_button(@test_data[:name_of_create_button])
+        fill_in('community_collection_attributes_name', :with => new_col_name)
+        click_button('Create community')
         new_comm = Community.last
         new_comm.name.should == new_name
+        new_comm.collection.name.should == new_col_name
         new_comm.description.should == 'This is a long description.'
         current_path.should match /#{community_path(new_comm)}/
       end
@@ -102,7 +110,7 @@ describe "Communities" do
     it_should_behave_like 'communities all users'
     context 'visiting create community' do
       it 'should require login' do
-        get new_community_path
+        get new_community_path(:collection_id => @collection.id)
         response.should be_redirect
         response.body.should_not have_tag("input#community_name")
       end

@@ -34,12 +34,15 @@ class CommunitiesController < ApplicationController
   end
 
   def create
+    # accepts_nested_attributes_for doesn't fully work on create... it'll work on update, though, so we deal w/ it:
+    collection = Collection.new(params[:community].delete(:collection_attributes))
     @community = Community.new(params[:community])
     if @community.save
       @community.initialize_as_created_by(current_user)
       # NOTE - Because the collection is actually created by the on_create of the community, we need to update it:
-      @community.collection.update_attribute(:name, params[:collection][:name])
-      sent_to = send_invitations(params[:invite_list].values || params[:invitations].split(/[,\s]/).grep(/\w/))
+      @community.collection.update_attribute(:name, collection.name)
+      invitees = params[:invite_list] ? params[:invite_list].values : params[:invitations].split(/[,\s]/).grep(/\w/)
+      sent_to = send_invitations(invitees)
       notice = I18n.t(:created_community)
       notice += " #{I18n.t(:sent_invitations_to_users, :users => sent_to.to_sentence)}" unless sent_to.empty?
       upload_logo(@community) unless params[:community][:logo].blank?

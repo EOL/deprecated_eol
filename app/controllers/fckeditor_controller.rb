@@ -3,7 +3,7 @@ require 'tmpdir'
 
 class FckeditorController < ActionController::Base
 
-  MIME_TYPES = [
+  @@fck_mime_types ||= [
     "image/jpg",
     "image/jpeg",
     "image/pjpeg",
@@ -24,7 +24,7 @@ class FckeditorController < ActionController::Base
     rescue => e
       @errorNumber = 110 if @errorNumber.nil?
     end
-    
+
     render :text => %Q'
       <script>
          window.parent.OnUploadCompleted(#{@errorNumber}, "#{final_file_path}");
@@ -60,10 +60,10 @@ class FckeditorController < ActionController::Base
   end
 
   ##############################################################################
-  # Chek if mime type is included in the MIME_TYPES
+  # Chek if mime type is included in the @@fck_mime_types
   #
   def mime_types_ok(ftype)
-    mime_type_ok = MIME_TYPES.include?(ftype) ? true : false
+    mime_type_ok = @@fck_mime_types.include?(ftype) ? true : false
     if mime_type_ok
       @errorNumber = 0
     else
@@ -109,7 +109,7 @@ class FckeditorController < ActionController::Base
     # log "FCKEDITOR - UPLOAD_FOLDER: #{UPLOAD_FOLDER}"
     # log "FCKEDITOR - #{File.expand_path(RAILS_ROOT)}/public#{UPLOAD_FOLDER}/" +
     #     "#{@new_file.original_filename}"
-    
+
   end
 
   ##############################################################################
@@ -118,7 +118,7 @@ class FckeditorController < ActionController::Base
   def check_file(file)
     log "FCKEDITOR ---- CLASS OF UPLOAD OBJECT: #{file.class}"
 
-    unless "#{file.class}" == "Tempfile" || "StringIO"
+    unless "#{file.class}" == "Tempfile" || "#{file.class}" == "StringIO"
       @errorNumber = 403
       throw Exception.new
     end

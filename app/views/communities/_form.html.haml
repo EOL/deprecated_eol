@@ -5,21 +5,20 @@
     = validation_errors_for(@community)
     %dl
       %dt
-        %label= f.label :name
+        = f.label :name
       %dd
         = f.text_field :name
       %dt
-        %label= f.label :description
+        = f.label :description
       %dd
-        %textarea
-      = fields_for :collection, @community_collection do |collection_f|
+        = f.text_area :description
+      - f.fields_for :collection, @community_collection do |collection_f|
         %dt
           %label= I18n.t(:name_for_community_focus_label)
         %dd
           = collection_f.text_field :name
-      -# TODO - there is a "2" appearing here, which I cannot figure out.  FIXME
       %dt
-        %label= f.label :logo
+        = f.label :logo
         %p= I18n.t(:upload_logo_help_text)
       %dd
         = f.file_field :logo, :size=>25

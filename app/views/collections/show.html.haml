@@ -1,14 +1,15 @@
 - editable = @collection.editable_by?(current_user)
 = content_for :additional_page_actions do
   - if editable
-    %li= link_to I18n.t(:create_community), new_community_path(:collection_id => @collection), :class => 'button'
+    - unless @collection.community_id # You cannot create a community on a community focus list!
+      %li= link_to I18n.t(:create_community), new_community_path(:collection_id => @collection), :class => 'button'
     %li= link_to I18n.t(:edit_collection), edit_collection_path(@collection), :class => 'button'
 -# TODO ...
 - if @collection_items.blank?
   #sidebar
     .collection_contributors
       = render :partial => 'collections/managed_by', :locals => { :collection => @collection }
-    - if @collection.collection_endorsements.count > 0
+    - if @collection.communities.count > 0
       .collection_contributors
         = render :partial => 'collections/endorsed_by', :locals => { :collection => @collection }
   #collections.main_container
@@ -36,7 +37,7 @@
               = submit_tag I18n.t(:copy), :name => 'commit_copy'
       .collection_contributors
         = render :partial => 'collections/managed_by', :locals => { :collection => @collection }
-      - if @collection.collection_endorsements.count > 0
+      - if @collection.communities.count > 0
         .collection_contributors
           = render :partial => 'collections/endorsed_by', :locals => { :collection => @collection }
     #collections.main_container

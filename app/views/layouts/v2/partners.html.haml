@@ -1,0 +1,27 @@
+- content_for :main do
+  #page_heading.with_image
+    .site_column
+      = image_tag @partner.logo_url, :alt => ""
+      .hgroup
+        %h1= h @partner.name
+        - if @page_subheader.blank?
+          %p= @partner.homepage unless @partner.homepage.blank?
+        - else
+          %h2= @page_subheader unless @page_subheader.blank?
+
+      - if current_user.can_update?(@partner) && action_name == 'show'
+        .page_actions
+          %ul
+            %li= link_to I18n.t(:content_partner_edit_link), edit_content_partner_path(@partner), :class => "button"
+      = render :partial => 'shared/flash_messages'
+  #content
+    .site_column
+      - if @partner && @partner.id && (action_name == 'show' || action_name == 'index')
+        #tabs_sidebar
+          %ul.tabs
+            %li{:class => resource_is_active('content_partners')}= link_to I18n.t(:content_partner_overview), content_partner_path(@partner)
+            %li{:class => resource_is_active('content_partners/resources')}= link_to I18n.t(:content_partner_resources), content_partner_resources_path(@partner)
+
+      = yield
+
+= render :file => 'layouts/v2/application'

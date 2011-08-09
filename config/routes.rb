@@ -12,22 +12,38 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :communities,
     :member => { 'join' => :get, 'leave' => :get } do |community|
       community.resource :newsfeed, :only => [:show], :namespace => "communities/"
-      community.resources :collection_endorsements, :namespace => "communities/"
+      community.resources :collections, :namespace => "communities/"
       # TODO - these shouldn't be GETs, but I really want them to be links, not forms, sooooo...
       community.resources :members, :member => {'grant_manager' => :get, 'revoke_manager' => :get}
     end
 
   map.resources :collections, :member => { :choose => :get }
   map.resources :collection_items, :except => [:index, :show, :new, :destroy]
-
   #used in collections show page, when user clicks on left tabs
   map.connect 'collections/:id/:filter', :controller => 'collections', :action => 'show'
 
-  # Web Application
-  map.resources :harvest_events, :has_many => [:taxa]
-  map.resources :resources, :as => 'content_partner/resources', :has_many => [:harvest_events]
-  map.force_harvest_resource 'content_partner/resources/force_harvest/:id', :method => :post,
-      :controller => 'resources', :action => 'force_harvest'
+  # content partners and their nested resources
+  map.resources :content_partners do |content_partner|
+    content_partner.resources :content_partner_contacts, :as => :contacts,
+                                                         :except => [:index, :show],
+                                                         :namespace => "content_partners/"
+    content_partner.resources :resources, :namespace => "content_partners/"
+  end
+
+# WIP
+#  map.resources :harvest_events, :has_many => [:taxa]
+#  map.resources :resources, :as => 'content_partner/resources', :has_many => [:harvest_events]
+#  map.force_harvest_resource 'content_partner/resources/force_harvest/:id', :method => :post,
+#      :controller => 'resources', :action => 'force_harvest'
+#  map.connect 'content_partner/reports', :controller => 'content_partner_account/reports', :action => 'index'
+#  map.connect 'content_partner/reports/login', :controller => 'content_partner_account', :action => 'login'
+#  map.connect 'content_partner/reports/:action', :controller => 'content_partner_account/reports'
+#  map.connect 'content_partner/content/:id', :controller => 'content_partner', :action => 'content', :requirements => { :id => /.*/}
+#  map.connect 'content_partner/stats/:id', :controller => 'content_partner_account', :action => 'stats', :requirements => { :id => /.*/}
+#  map.request_publish_hierarchy 'content_partner/resources/request_publish/:id', :method => :post,
+#      :controller => 'content_partner', :action => 'request_publish_hierarchy'
+#  map.content_partner 'content_partner', :controller => 'content_partner', :action => 'index'
+
 
   map.resources :comments, :only => [:create]
   map.resources :random_images
@@ -55,6 +71,7 @@ ActionController::Routing::Routes.draw do |map|
     user.resource :newsfeed, :only => [:show], :controller => "users/newsfeeds"
     user.resource :activity, :only => [:show], :controller => "users/activities"
     user.resources :collections, :only => [:index], :controller => "users/collections"
+    user.resources :content_partners, :only => [:index], :namespace => "users/"
   end
   map.verify_user '/users/:username/verify/:validation_code', :controller => 'users', :action => 'verify'
   # can't add dynamic segment to a member in rails 2.3 so we have to specify named route:
@@ -75,6 +92,8 @@ ActionController::Routing::Routes.draw do |map|
                                 :collection => { :common_names => :get, :synonyms => :get }
       entries.resource :literature, :only => [:show], :controller => "taxa/literature",
         :member => { :bhl => :get }
+      entries.resource :resources, :only => [:show], :controller => "taxa/resources",
+        :member => { :identification_resources => :get, :education => :get , :nucleotide_sequences => :get, :biomedical_terms => :get }
       entries.resource :maps, :only => [:show], :controller => "taxa/maps"
     end
     taxa.resource :overview, :only => [:show], :controller => "taxa/overviews"
@@ -85,6 +104,8 @@ ActionController::Routing::Routes.draw do |map|
                           :collection => { :common_names => :get, :synonyms => :get }
     taxa.resource :literature, :only => [:show], :controller => "taxa/literature",
       :member => { :bhl => :get }
+    taxa.resource :resources, :only => [:show], :controller => "taxa/resources",
+      :member => { :identification_resources => :get, :education => :get , :nucleotide_sequences => :get , :biomedical_terms => :get }
     taxa.resource :maps, :only => [:show], :controller => "taxa/maps"
     taxa.resources :collections, :only => [:index], :controller => 'collections'
     taxa.resources :communities, :only => [:index], :controller => 'communities'
@@ -119,7 +140,7 @@ ActionController::Routing::Routes.draw do |map|
   map.donate      'donate',      :controller => 'content', :action => 'donate'
   map.cms_page    'info/:id',    :controller => 'content', :action => 'page'
   map.terms_of_use 'terms_of_use', :controller => 'content', :action => 'page', :id => 'terms_of_use'
-  
+
   map.clear_caches 'clear_caches',      :controller => 'content', :action => 'clear_caches'
   map.expire_all   'expire_all',        :controller => 'content', :action => 'expire_all'
   map.expire       'expire/:id',        :controller => 'content', :action => 'expire_single',
@@ -136,18 +157,9 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'search.:format', :controller => 'search', :action => 'index'
   map.found   'found/:id',      :controller => 'search', :action => 'found'
 
-  map.connect 'content_partner/reports', :controller => 'content_partner_account/reports', :action => 'index'
-  map.connect 'content_partner/reports/login', :controller => 'content_partner_account', :action => 'login'
-  map.connect 'content_partner/reports/:action', :controller => 'content_partner_account/reports'
-  map.connect 'content_partner/content/:id', :controller => 'content_partner', :action => 'content', :requirements => { :id => /.*/}
-  map.connect 'content_partner/stats/:id', :controller => 'content_partner_account', :action => 'stats', :requirements => { :id => /.*/}
-
   map.connect 'administrator/reports',         :controller => 'administrator/reports', :action => 'index'
   map.connect 'monthly_stats_email',         :controller => 'administrator/content_partner_report', :action => 'monthly_stats_email'
   map.connect 'administrator/reports/:action', :controller => 'administrator/reports'
-
-  map.request_publish_hierarchy 'content_partner/resources/request_publish/:id', :method => :post,
-      :controller => 'content_partner', :action => 'request_publish_hierarchy'
 
   #map.connect 'administrator/user_data_object',    :controller => 'administrator/user_data_object', :action => 'index'
 
@@ -167,7 +179,6 @@ ActionController::Routing::Routes.draw do |map|
                                                              :conditions => {:method => :post}
 
   map.admin 'admin',           :controller => 'admin',           :action => 'index'
-  map.content_partner 'content_partner', :controller => 'content_partner', :action => 'index'
   map.podcast 'podcast', :controller=>'content', :action=>'page', :id=>'podcast'
 
   # by default /api goes to the docs

@@ -237,7 +237,7 @@ describe TaxonConcept do
    #    ContentPartner.gen(:user => primary_user)
    #    different_user = User.gen
    #    ContentPartner.gen(:user => different_user)
-   # 
+   #
    #    cp_hierarchy   = Hierarchy.gen(:agent => primary_user.agent)
    #    resource       = Resource.gen(:hierarchy => cp_hierarchy, :content_partner => primary_user.content_partner)
    #    event          = HarvestEvent.gen(:resource => resource)
@@ -254,26 +254,26 @@ describe TaxonConcept do
    #                        :data_object_id => @taxon_concept.images.last.id)
    #    TopConceptImage.delete_all(:taxon_concept_id => @taxon_concept.id,
    #                        :data_object_id => @taxon_concept.images.last.id)
-   # 
+   #
    #    @taxon_concept.reload
    #    @taxon_concept.images.length.should == how_many - 1 # Ensuring that we removed it...
-   # 
+   #
    #    # object must be in preview mode for the Content Partner to have exclusive access
    #    dato.visibility = Visibility.preview
    #    dato.save!
-   # 
+   #
    #    DataObjectsHarvestEvent.delete_all(:data_object_id => dato.id)
    #    DataObjectsHierarchyEntry.delete_all(:data_object_id => dato.id)
    #    he = HierarchyEntry.gen(:hierarchy => cp_hierarchy, :taxon_concept => @taxon_concept)
    #    DataObjectsHierarchyEntry.gen(:hierarchy_entry => he, :data_object => dato)
    #    DataObjectsHarvestEvent.gen(:harvest_event => event, :data_object => dato)
    #    HierarchyEntry.connection.execute("COMMIT")
-   # 
+   #
    #    # Original should see it:
    #    @taxon_concept.reload
    #    @taxon_concept.current_user = primary_user
    #    @taxon_concept.images(:user => primary_user).map {|i| i.id }.should include(dato.id)
-   # 
+   #
    #    # Another CP should not:
    #    tc = TaxonConcept.find(@taxon_concept.id) # hack to reload the object and delete instance variables
    #    tc.current_user = different_user
@@ -340,7 +340,7 @@ describe TaxonConcept do
     ratings = @taxon_concept.images.select { |item|
       item_vetted = item.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
       item_vetted_id = item_vetted.id unless item_vetted.nil?
-      item_vetted_id == Vetted.trusted.id 
+      item_vetted_id == Vetted.trusted.id
     }.map(&:data_rating)
     ratings.should == ratings.sort.reverse
   end
@@ -572,7 +572,7 @@ describe TaxonConcept do
     tc.activity_log.should be_a EOL::ActivityLog
   end
 
-  it 'should list collections in the proper order - most endorsements show firt' do
+  it 'should list collections in the proper order - most communities show firt' do
     community1 = Community.gen()
     community2 = Community.gen()
     collection1 = Collection.gen
@@ -580,9 +580,9 @@ describe TaxonConcept do
     tc = TaxonConcept.gen
     coll_item1 = CollectionItem.gen(:object_type => "TaxonConcept", :object_id => tc.id, :collection_id => collection1.id)
     coll_item2 = CollectionItem.gen(:object_type => "TaxonConcept", :object_id => tc.id, :collection_id => collection2.id)
-    coll_endorsement1 = CollectionEndorsement.gen(:collection => collection1, :community => community1)
-    coll_endorsement2 = CollectionEndorsement.gen(:collection => collection2, :community => community1)
-    coll_endorsement3 = CollectionEndorsement.gen(:collection => collection2, :community => community2)
+    community1.collection.add(collection1)
+    community1.collection.add(collection2)
+    community2.collection.add(collection2)
     tc.top_collections[0].name.should == collection2.name
     tc.top_collections[1].name.should == collection1.name
   end

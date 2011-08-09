@@ -245,11 +245,12 @@ private
   end
 
   def entries_for_name(name)
-    browsable_entries = []
-    unbrowsable_entries = []
     search_response = EOL::Solr::SiteSearch.search_with_pagination(name, :type => ['taxon_concept'])
+    @concepts = search_response[:results]
     unless search_response[:results].blank?
       search_response[:results].each do |result|
+        browsable_entries = []
+        unbrowsable_entries = []
         result_instance = result['instance']
         if result_instance.class == TaxonConcept
           hierarchy_entries = result_instance.published_hierarchy_entries.blank? ? result_instance.hierarchy_entries : result_instance.published_hierarchy_entries
@@ -257,9 +258,10 @@ private
             hierarchy_entry.hierarchy.browsable? ? browsable_entries << hierarchy_entry : unbrowsable_entries << hierarchy_entry
           end
         end
+        result_instance['entries'] = browsable_entries.blank? ? unbrowsable_entries : browsable_entries
       end
     end
-    @entries = browsable_entries.blank? ? unbrowsable_entries : browsable_entries
+    @concepts
   end
 
   def load_data_object

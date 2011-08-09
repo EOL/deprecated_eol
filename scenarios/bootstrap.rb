@@ -245,7 +245,7 @@ load_old_foundation_data
 # TODO - I am neglecting to set up agent content partners, curators, contacts, provided data types, or agreements.  For now.
 agent_col = Agent.catalogue_of_life
 agent_col.user ||= User.gen
-agent_col.user.content_partner ||= ContentPartner.gen
+agent_col.user.content_partner ||= ContentPartner.gen :full_name => "Catalogue of Life"
 resource = Resource.gen(:title => 'Bootstrapper', :resource_status => ResourceStatus.published,
   :hierarchy => Hierarchy.find_by_label('Species 2000 & ITIS Catalogue of Life: Annual Checklist 2010'),
   :content_partner => agent_col.user.content_partner)
@@ -254,7 +254,7 @@ event    = HarvestEvent.gen(:resource => resource)
 gbif_agent = Agent.gen(:full_name => "Global Biodiversity Information Facility (GBIF)")
 #gbif_agent = Agent.find_by_full_name('Global Biodiversity Information Facility (GBIF)');
 gbif_agent.user ||= User.gen
-gbif_cp    = ContentPartner.gen :vetted => true, :user => gbif_agent.user
+gbif_cp    = ContentPartner.gen :vetted => true, :user => gbif_agent.user, :full_name => "Global Biodiversity Information Facility (GBIF)"
 ContentPartnerContact.gen(:content_partner => gbif_cp, :contact_role => ContactRole.primary)
 gbif_hierarchy = Hierarchy.gen(:agent => gbif_agent, :label => "GBIF Nub Taxonomy")
 
@@ -409,6 +409,7 @@ DataObjectsInfoItem.gen(:data_object => tc.overview.last, :info_item => InfoItem
 cp_user = User.gen(:username => 'testcp', :password => 'testcp', :given_name => 'Ralph', :family_name => 'Wiggum')
 cp_user.build_watch_collection
 cp = ContentPartner.gen(:user => cp_user,
+                        :full_name => 'Partner name',
                         :partner_seen_step => '2009-10-21 10:00:00',
                         :partner_complete_step => '2009-10-21 10:00:00',
                         :contacts_seen_step => '2009-10-21 10:00:00',
@@ -444,7 +445,7 @@ name   = Name.gen(:canonical_form => tc.canonical_form_object)#, :string => n = 
                   # :italicized     => "<i>#{n}</i> #{Factory.next(:attribution)}")
 agent2 = Agent.gen
 agent2.user ||= User.gen(:agent => agent2, :username => 'test_cp')
-cp     = ContentPartner.gen :vetted => true, :user => agent2.user
+cp     = ContentPartner.gen :vetted => true, :user => agent2.user, :full_name => 'Test ContenPartner'
 cont   = ContentPartnerContact.gen :content_partner => cp, :contact_role => ContactRole.primary
 r2     = Resource.gen(:title => 'Test ContentPartner import', :resource_status => ResourceStatus.processed, :content_partner => cp)
 ev2    = HarvestEvent.gen(:resource => r2)
@@ -511,7 +512,7 @@ r = Rank.gen_if_not_exists(:label => 'superkingdom', :rank_group_id => 0)
 
 ### Adding another hierarchy to test switching from one to another
 Agent.ncbi.user ||= User.gen(:agent => Agent.ncbi)
-Agent.ncbi.user.content_partner ||= ContentPartner.gen(:user => Agent.ncbi.user)
+Agent.ncbi.user.content_partner ||= ContentPartner.gen(:user => Agent.ncbi.user, :full_name => "NCBI")
 ContentPartnerContact.gen(:content_partner => Agent.ncbi.user.content_partner, :contact_role => ContactRole.primary)
 
 eukaryota = build_taxon_concept(:rank => 'superkingdom',

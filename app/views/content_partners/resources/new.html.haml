@@ -1,0 +1,8 @@
+#content_partner.resource
+  .article.copy
+    - form_for [@partner, @resource], :builder => ApplicationHelper::EolFormBuilder do |resource_form|
+      = validation_errors_for(@resource)
+      = render :partial => 'resource_fieldset', :locals => { :resource_form => resource_form }
+      %fieldset.actions
+        = resource_form.submit I18n.t('helpers.submit.resource.create')
+        = link_to I18n.t(:cancel), content_partner_resources_path(@partner)

@@ -25,15 +25,12 @@ class TaxonConcept < SpeciesSchemaModel
   has_many :published_hierarchy_entries, :class_name => HierarchyEntry.to_s,
     :conditions => 'hierarchy_entries.published=1 AND hierarchy_entries.visibility_id=#{Visibility.visible.id}'
 
-
   has_many :published_browsable_hierarchy_entries, :class_name => HierarchyEntry.to_s, :foreign_key => 'hierarchy_entry_id',
     :finder_sql => 'SELECT he.id, h.id hierarchy_id, h.label hierarchy_label
     FROM hierarchies h
     JOIN hierarchy_entries he ON h.id = he.hierarchy_id
     WHERE he.taxon_concept_id = \'#{id}\' AND he.published = 1 and h.browsable = 1
     ORDER BY h.label'
-
-
 
   has_many :top_concept_images
   has_many :top_unpublished_concept_images
@@ -44,6 +41,7 @@ class TaxonConcept < SpeciesSchemaModel
   has_many :ranks, :through => :hierarchy_entries
   has_many :google_analytics_partner_taxa
   has_many :collection_items, :as => :object
+  has_many :collections, :through => :collection_items
   has_many :preferred_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=0 AND taxon_concept_names.preferred=1'
   has_many :preferred_common_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=1 AND taxon_concept_names.preferred=1'
   has_many :denormalized_common_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=1'
@@ -277,7 +275,7 @@ class TaxonConcept < SpeciesSchemaModel
 
     return nil if datos_to_load.empty?
 
-    add_include = [:users_data_objects_ratings, :comments, :agents_data_objects, :info_items, :toc_items, { :users_data_objects => :user },
+    add_include = [ :translations, :data_object_translation, :users_data_objects_ratings, :comments, :agents_data_objects, :info_items, :toc_items, { :users_data_objects => :user },
       { :published_refs => { :ref_identifiers => :ref_identifier_type } }, :all_comments]
     add_select = {
       :users_data_objects_ratings => '*',
@@ -285,6 +283,7 @@ class TaxonConcept < SpeciesSchemaModel
       :ref_identifiers => '*',
       :ref_identifier_types => '*',
       :users => '*',
+      :data_object_translations => '*',
       :comments => [:parent_id, :visible_at] }
 
     objects = DataObject.core_relationships(:add_include => add_include, :add_select => add_select).
@@ -316,6 +315,28 @@ class TaxonConcept < SpeciesSchemaModel
     end
     special_content
   end
+  
+  # Returns education content
+  def education_content
+    toc_item = TocItem.education
+    ccb = CategoryContentBuilder.new
+    if ccb.can_handle?(toc_item)
+      ccb.content_for(toc_item, :vetted => current_user.vetted, :taxon_concept => self)
+    else
+      get_default_content(toc_item)
+    end
+  end
+  
+  # Returns nucleotide sequences HE
+  def nucleotide_sequences_hierarchy_entry_for_taxon
+    return TaxonConcept.find_entry_in_hierarchy(self.id, Hierarchy.ncbi.id)
+  end
+  
+  # Returns external links
+  def content_partners_links
+   return self.outlinks.sort_by { |ol| ol[:hierarchy_entry].hierarchy.label }
+  end
+  
 
   # Returns harvested text objects, user submitted object and special content for given toc items
   def details_for_toc_items(toc_items, options = {})
@@ -1290,21 +1311,16 @@ class TaxonConcept < SpeciesSchemaModel
     @communities ||= collection_items.map {|i| i.community }.compact
   end
 
+  # Returns three collections, prioritized as:
+  #  - collections with the most communities ("featured by") show up first,
+  #  - collections with the FEWEST taxa show up next (since they are more focused)
+  #  - collections with the FEWEST items show up next.
   def top_collections
-    # New order of priority:
-    # - collections which are endorsed the most will show first (descending order on the # of communities who endorsed them)
-    # - then collections with least taxa collected will show next (ascending order on the # of taxa collected under the collection)
-    #   Rationale behind that is the least no. of taxa collected the more focused a collection is. At least this is what we'll follow at the moment.
-    collection_ids = collection_items.map{|ci| ci.collection_id}.compact
-    return [] if collection_ids.blank?
-    coll_sorted_by_endorsement_count = SpeciesSchemaModel.connection.execute(" SELECT c.id, COUNT(ce.id) total FROM collections c JOIN collection_endorsements ce ON ce.collection_id = c.id WHERE c.id IN (#{collection_ids.join(',')}) GROUP BY c.id ORDER BY total DESC ").all_hashes
-    coll_sorted_by_taxa_collected_count  = SpeciesSchemaModel.connection.execute(" SELECT c.id, COUNT(ci.id) total FROM collections c JOIN collection_items ci ON ci.collection_id = c.id WHERE ci.object_type = 'TaxonConcept' AND c.id in (#{collection_ids.join(',')}) GROUP BY c.id ORDER BY total, c.name ").all_hashes
-    # add contents of hash 2 in hash 1 if doesn't exist yet in hash 1
-    ids = coll_sorted_by_endorsement_count.map {|c| c["id"]}
-    coll_sorted_by_taxa_collected_count.map {|c| coll_sorted_by_endorsement_count << c if !ids.include?(c["id"]) }
-    # build the list of collections
-    collections = coll_sorted_by_endorsement_count.map {|c| Collection.find(c['id']) }
-    return collections[0..2]
+    return @top_collections if @top_collections
+    all_containing_collections = Collection.which_contain(self)
+    Collection.add_taxa_counts!(all_containing_collections)
+    Collection.add_counts!(all_containing_collections)
+    @top_collections = Collection.sort_for_overview(all_containing_collections)[0..2]
   end
 
   def flattened_ancestor_ids

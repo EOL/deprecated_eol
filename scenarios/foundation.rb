@@ -51,12 +51,12 @@ UserIdentity.create_defaults
 
 iucn_agent = Agent.gen_if_not_exists(:full_name => 'IUCN')
 iucn_user = User.gen_if_not_exists(:given_name => 'IUCN', :agent => iucn_agent)
-iucn_content_parter = ContentPartner.gen_if_not_exists(:user => iucn_user, :display_name => 'IUCN')
+iucn_content_parter = ContentPartner.gen_if_not_exists(:user => iucn_user, :full_name => 'IUCN' )
 ContentPartnerContact.gen_if_not_exists(:content_partner => iucn_content_parter, :contact_role => ContactRole.primary)
 
 col_agent = Agent.gen_if_not_exists(:full_name => 'Catalogue of Life', :logo_cache_url => '219000', :homepage => 'http://www.catalogueoflife.org/')
 col_user = User.gen_if_not_exists(:display_name => 'Catalogue of Life', :agent => col_agent)
-col_content_partner = ContentPartner.gen_if_not_exists(:user => col_user, :display_name => 'Catalogue of Life')
+col_content_partner = ContentPartner.gen_if_not_exists(:user => col_user, :full_name => 'Catalogue of Life')
 ContentPartnerContact.gen_if_not_exists(:content_partner => col_content_partner, :contact_role => ContactRole.primary)
 
 Agent.gen_if_not_exists(:full_name => 'National Center for Biotechnology Information', :acronym => 'NCBI', :logo_cache_url => '921800', :homepage => 'http://www.ncbi.nlm.nih.gov/')
@@ -64,7 +64,7 @@ Agent.gen_if_not_exists(:full_name => 'National Center for Biotechnology Informa
 
 boa_agent = Agent.gen_if_not_exists(:full_name => 'Biology of Aging', :logo_cache_url => '318700')
 boa_user = User.gen_if_not_exists(:display_name => 'Biology of Aging', :logo_cache_url => '318700', :agent => boa_agent)
-boa_content_partner = ContentPartner.gen_if_not_exists(:user => boa_user)
+boa_content_partner = ContentPartner.gen_if_not_exists(:user => boa_user, :full_name => "Biology of Aging")
 boa_hierarchy = Hierarchy.gen_if_not_exists(:label => 'LigerCat',
                                    :description    => 'LigerCat Biomedical Terms Tag Cloud',
                                    :outlink_uri    => 'http://ligercat.ubio.org/eol/%%ID%%.cloud',
@@ -190,6 +190,7 @@ TocItem.gen_if_not_exists(:label => 'Nucleotide Sequences', :view_order => 4, :p
 ecology_and_distribution = TocItem.gen_if_not_exists(:label => 'Ecology and Distribution', :view_order => 5)
 TocItem.gen_if_not_exists(:label => 'Distribution', :view_order => 6, :parent_id => ecology_and_distribution.id)
 TocItem.gen_if_not_exists(:label => 'Wikipedia', :view_order => 7)
+TocItem.gen_if_not_exists(:label => 'Identification Resources', :view_order => 8, :parent_id => description.id)
 #--
 names_and_taxonomy = TocItem.gen_if_not_exists(:label => 'Names and Taxonomy', :view_order => 50)
 TocItem.gen_if_not_exists(:label => 'Related Names', :view_order => 51, :parent_id => names_and_taxonomy.id)
@@ -226,6 +227,8 @@ InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPM
   :label => 'Uses', :toc_item => description)
 InfoItem.gen_if_not_exists(:schema_value => 'http://www.eol.org/voc/table_of_contents#Education',
   :label => 'Education', :toc_item => education)
+InfoItem.gen_if_not_exists(:schema_value => 'http://www.eol.org/voc/table_of_contents#IdentificationResources',
+  :label => 'IdentificationResources', :toc_item => description)  
 
 ServiceType.gen_if_not_exists(:label => 'EOL Transfer Schema')
 

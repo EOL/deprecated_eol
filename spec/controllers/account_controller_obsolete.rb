@@ -62,9 +62,9 @@ describe AccountController do
 #    User.find(user).hashed_password.should == User.hash_password(new_password)
 #  end
 
-  # POST /account/signup
-  it "should create agent record for a user during account creation" do
-    post :signup, "user" => {"username" => "johndoe99", "email" => "johndoe99@example.com", "entered_password" => "password", "entered_password_confirmation" => "password", "given_name" => "John"}
-    User.find_by_username("johndoe99").agent_id.to_i.should > 0
-  end
+#  # POST /account/signup
+#  it "should create agent record for a user during account creation" do
+#    post :signup, "user" => {"username" => "johndoe99", "email" => "johndoe99@example.com", "entered_password" => "password", "entered_password_confirmation" => "password", "given_name" => "John"}
+#    User.find_by_username("johndoe99").agent_id.to_i.should > 0
+#  end
 end

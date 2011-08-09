@@ -46,8 +46,6 @@ class Activity < LazyLoggingModel
     Activity.find_or_create('change_name')
     Activity.find_or_create('change_icon')
     Activity.find_or_create('add_manager')
-    Activity.find_or_create('add_collection_endorsement')
-    Activity.find_or_create('remove_collection_endorsement')
   end
 
   def self.find_or_create(key_sym)

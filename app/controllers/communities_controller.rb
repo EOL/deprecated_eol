@@ -41,6 +41,7 @@ class CommunitiesController < ApplicationController
       @community.initialize_as_created_by(current_user)
       # NOTE - Because the collection is actually created by the on_create of the community, we need to update it:
       @community.collection.update_attribute(:name, collection.name)
+      @community.collection.deep_copy(@collection) # NOTE this uses the OLD collection (see before_filters)
       invitees = params[:invite_list] ? params[:invite_list].values : params[:invitations].split(/[,\s]/).grep(/\w/)
       sent_to = send_invitations(invitees)
       notice = I18n.t(:created_community)
@@ -111,9 +112,6 @@ private
     end
     @members = @community.members # Because we pull in partials from the members controller.
     @current_member = current_user.member_of(@community)
-    if @current_member && @current_member.manager?
-      @pending_collections = @community.pending_collections
-    end
   end
 
   def load_collection

@@ -30,7 +30,7 @@ describe UsersController do
   end
 
   describe 'POST create' do
-    it 'should rerender on validation errors'
+    it 'should rerender new on validation errors'
     it 'should redirect on success'
     it 'should send verify email notification'
     it 'should create agent record for a user during account creation'

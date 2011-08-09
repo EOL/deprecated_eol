@@ -9,9 +9,12 @@ class Collection < ActiveRecord::Base
   has_many :collection_items
   accepts_nested_attributes_for :collection_items
 
-  has_many :collection_endorsements
   has_many :comments, :as => :parent
-  has_many :communities, :through => CollectionEndorsement
+  # NOTE - You MUST use single-quotes here, lest the #{id} be interpolated at compile time. USE SINGLE QUOTES.
+  has_many :communities,
+    :finder_sql => 'SELECT cm.* FROM communities cm, collections c, collection_items ci ' +
+      'WHERE ci.object_type = "Collection" AND ci.object_id = #{id} ' +
+      'AND ci.collection_id = c.id AND c.community_id = cm.id'
 
   has_one :resource
   has_one :resource_preview, :class_name => Resource.to_s, :foreign_key => :preview_collection_id
@@ -45,6 +48,53 @@ class Collection < ActiveRecord::Base
 
   alias :items :collection_items
   alias_attribute :summary_name, :name
+
+  def self.which_contain(what)
+    Collection.find(:all, :joins => :collection_items, :conditions => "collection_items.object_type='#{what.class.name}' and collection_items.object_id=#{what.id}").uniq
+  end
+
+  # this method will quickly get the counts for multiple collections at the same time
+  def self.add_counts!(collections)
+    collection_ids = collections.collect{ |c| c.id }.join(',')
+    return if collection_ids.empty?
+    collections_with_counts = Collection.find_by_sql("
+      SELECT c.*, count(*) as count
+      FROM collections c JOIN collection_items ci ON (c.id=ci.collection_id)
+      WHERE c.id IN (#{collection_ids})
+      GROUP BY c.id")
+    collections_with_counts.each do |cwc|
+      if c = collections.detect{ |c| c.id }
+        c['collection_items_count'] = cwc['count'].to_i
+      end
+    end
+  end
+
+  def self.add_taxa_counts!(collections)
+    collection_ids = collections.collect{ |c| c.id }.join(',')
+    return if collection_ids.empty?
+    collections_with_counts = Collection.find_by_sql("
+      SELECT c.*, count(*) as count
+      FROM collections c JOIN collection_items ci ON (c.id=ci.collection_id)
+      WHERE c.id IN (#{collection_ids})
+      AND ci.object_type = 'TaxonConcept'
+      GROUP BY c.id")
+    collections_with_counts.each do |cwc|
+      if c = collections.detect{ |c| c.id }
+        c['taxa_count'] = cwc['count'].to_i
+      end
+    end
+  end
+
+  def self.sort_for_overview(collections)
+    col = collections.sort_by do |c|
+      is_collected_by_community = c.community_id? ? 0 : 1 # opposite so those in communities come first
+      taxa_count = c['taxa_count'] || 0
+      collection_items_count = c['collection_items_count'] || 0
+      [ is_collected_by_community,
+        taxa_count,
+        collection_items_count ]
+    end
+  end
 
   def special?
     special_collection_id
@@ -89,18 +139,14 @@ class Collection < ActiveRecord::Base
       raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_create_collection_item_from_class_error,
                                                                   :klass => what.class.name))
     end
+    collection_items.last.update_attribute(:annotation, opts[:annotation]) if opts[:annotation]
     what # Convenience.  Allows us to chain this command and continue using the object passed in.
   end
 
-  def create_community
-    raise EOL::Exceptions::OnlyUsersCanCreateCommunitiesFromCollections unless user
-    community = Community.create(:name => I18n.t(:default_community_name_from_collection, :name => name))
-    community.initialize_as_created_by(user)
-    # Deep copy:
-    collection_items.each do |li|
-      community.focus.add(li.object, :user => user)
+  def deep_copy(other)
+    other.collection_items.each do |item|
+      add(item.object, :annotation => item.annotation)
     end
-    community
   end
 
   def logo_url(size = 'large')
@@ -120,22 +166,6 @@ class Collection < ActiveRecord::Base
   def maintained_by
     return user.full_name if !user_id.blank?
     return community.name if !community_id.blank?
-  end
-
-  def pending_communities
-    collection_endorsements.select {|c| c.pending? }.map {|c| c.community }
-  end
-
-  def endorsing_communities
-    collection_endorsements.select {|c| c.endorsed? }.map {|c| c.community }
-  end
-
-  def request_endorsement_from_community(comm)
-    ce = CollectionEndorsement.new
-    ce.collection_id = id
-    ce.community_id = comm.id
-    ce.save!
-    ce
   end
 
   def has_item? item

@@ -98,7 +98,6 @@ namespace :solr do
     klass = args[:resource_type].constantize
     builder = EOL::Solr::SiteSearchCoreRebuilder.new()
     builder.reindex_model(klass)
-    builder.optimize
   end
   
   desc 'Rebuild the collection_items index'

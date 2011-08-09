@@ -8,9 +8,11 @@ class Taxa::DetailsController < TaxaController
 
     includes = [
       { :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] },
-      { :data_objects => { :toc_items => :info_items } },
+      { :data_objects => [ :translations, :data_object_translation, { :toc_items => :info_items }, { :data_objects_hierarchy_entries => :hierarchy_entry },
+        { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ] },
       { :curator_activity_logs => :user },
-      { :users_data_objects => { :data_object => :toc_items } },
+      { :users_data_objects => [ { :data_object => :toc_items }, { :data_objects_hierarchy_entries => :hierarchy_entry },
+        { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ] },
       { :taxon_concept_exemplar_image => :data_object }]
     selects = {
       :taxon_concepts => '*',
@@ -20,6 +22,9 @@ class Taxa::DetailsController < TaxaController
       :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
       :vetted => :view_order,
       :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating, :object_cache_url, :language_id ],
+      :data_objects_hierarchy_entries => '*',
+      :curated_data_objects_hierarchy_entries => '*',
+      :data_object_translations => '*',
       :table_of_contents => '*',
       :curator_activity_logs => '*',
       :users => [ :given_name, :family_name, :logo_cache_url ] ,

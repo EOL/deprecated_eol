@@ -805,7 +805,7 @@ class DataObject < SpeciesSchemaModel
 
   def self.eager_load_image_metadata(data_object_ids, taxon_concept)
     return nil if data_object_ids.blank?
-    add_include = [ :all_comments, { :data_objects_hierarchy_entries => :hierarchy_entry},
+    add_include = [ :all_comments, { :data_objects_hierarchy_entries => :hierarchy_entry },
       { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ]
     add_select = { :comments => [ :parent_id, :visible_at ], :hierarchy_entries => 'taxon_concept_id',
       :data_objects_hierarchy_entries => '*', :curated_data_objects_hierarchy_entries => '*' }
@@ -1048,26 +1048,17 @@ class DataObject < SpeciesSchemaModel
   def translated_from
     data_object_translation ? data_object_translation.original_data_object : nil
   end
-
-  def translation_source
-    org_tr = DataObjectTranslation.find_by_data_object_id(self.id)
-    if org_tr
-      return  org_tr.original_data_object
-    else
-      return nil
-    end
-  end
-
+  alias :translation_source :translated_from
 
   def available_translations_data_objects(current_user)
     dobj_ids = []
-    if !translations.empty?
+    if translations
       dobj_ids << id
       translations.each do |tr|
         dobj_ids << tr.data_object.id
       end
     else
-      org_tr = DataObjectTranslation.find_by_data_object_id(self.id)
+      org_tr = data_object_translation
       if org_tr
         org_dobj = org_tr.original_data_object
         dobj_ids << org_dobj.id
@@ -1103,6 +1094,4 @@ class DataObject < SpeciesSchemaModel
     return nil
 
   end
-
-
 end

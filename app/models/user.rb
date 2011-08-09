@@ -473,9 +473,11 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def can_edit_collection?(collection)
-    return true if collection.user == self
-    return true if collection.community && collection.community.managers.include?(self)
-    false
+    return true if collection.user == self # Her collection
+    return false if collection.user        # Not her collection, not a community collection.
+    return false unless member = member_of(collection.community) # Not a community she's even in.
+    return true if collection.community && member.manager? # She's a manager
+    false # She's not a manager
   end
 
   def can_view_collection?(collection)
@@ -713,14 +715,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   # user has access to through communities
   def all_collections
     editable_collections = collections
-    members.each do |member|
-      begin
-        editable_collections << member.community.focus_collection if member.manager?
-      rescue
-        # TODO ... what is causing this?  member.community.respond_to?(:focus_collection) => true, but
-        # when you call it, it fails.  GRRR!
-      end
-    end
+    editable_collections += members.managers.map {|member| member.community.collection }
     editable_collections
   end
 

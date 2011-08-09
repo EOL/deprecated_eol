@@ -7,10 +7,6 @@ class Community < ActiveRecord::Base
   has_many :members
   has_many :collection_items, :as => :object
   has_many :comments, :as => :parent
-  # NOTE - You MUST use single-quotes here, lest the #{id} be interpolated at compile time. USE SINGLE QUOTES.
-  has_many :collections,
-    :finder_sql => 'SELECT c.* FROM collections c, collection_items ci ' +
-      'WHERE ci.collection_id = #{id} AND ci.object_type = "Collection" AND c.id = ci.object_id'
 
   accepts_nested_attributes_for :collection
 
@@ -41,6 +37,16 @@ class Community < ActiveRecord::Base
 
   alias :focus :collection
   alias_attribute :summary_name, :name
+
+  # Don't get dizzy.  This is all of the collections this community has collected.  This is the same thing as
+  # "featured" collections or "endorsed" collections... that is the way it's done, now: you simply add the collection
+  # to the community's focus.
+  #
+  # NOTE that this returns the collection_item, NOT the collection it points to!  This is so you can get the
+  # annotation along with it.
+  def collections
+    self.collection.collection_items.collections
+  end
 
   # TODO - test
   # Auto-joins the user to the community, and makes that person the owner.
@@ -82,13 +88,11 @@ class Community < ActiveRecord::Base
   end
 
   def top_active_members
-    # FIXME: This is just getting the top 3 members not the most active
-    members[0..3]
-  end
-
-  def managers
-    # FIXME: This is just getting the first couple of member not the managers
-    members[0..2]
+    activity_log.map {|l|
+      l.user_id
+    }.compact.sort.uniq.map {|uid|
+      Member.find_by_community_id_and_user_id(id, uid)
+    }.compact[0..3]
   end
 
 private

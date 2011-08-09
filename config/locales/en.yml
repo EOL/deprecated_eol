@@ -2644,6 +2644,7 @@ en:
   this_image_has_no_public_tags: "This image has no public tags."
   this_information_will_allow_us: "This information will allow us to make contact with you.  It will not be visible on the EOL web site. You must have at least one contact."
   this_is_a_flat_list_of_10_mill: "This is a flat list of 10 million strings - not going to let you browse it"
+  this_is_a_focus_collection_for_community: "This collection is the focus of \"%{community}\"."
   this_is_a_list_of_first_time_p: "This is a list of first-time published content partners for the month."
   this_is_an_automated_e_mail_no: "This is an automated e-mail notification."
   this_is_optional___if_you_ente: "This is optional.  If you enter a name here, it will be used instead of the 'Project Name' when shown on the website, otherwise the 'Project Name' will be used.  THIS INFORMATION WILL BE VISIBLE ON THE WEB SITE IF ENTERED"

@@ -110,6 +110,7 @@ private
       render(:layout => 'v2/basic', :template => "content/missing", :status => 404)
       return false
     end
+    @community_collections = @community.collections # NOTE these are collection_items, really.
     @members = @community.members # Because we pull in partials from the members controller.
     @current_member = current_user.member_of(@community)
   end

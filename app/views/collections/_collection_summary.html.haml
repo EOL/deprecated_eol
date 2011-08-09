@@ -8,5 +8,7 @@
     %h4= link_to collection.name, collection_path(collection.id)
     = I18n.t(:items_with_count_semi_colon, :count => collection.collection_items.count)
     = I18n.t(:last_updated_time_ago, :time_passed => time_ago_in_words(collection.updated_at))
-    - if show_description
-      %p= collection.description
+    - if defined?(show_user) && show_user && collection.user_id
+      - I18n.t(:maintained_by_user, :user => link_to(collection.user.short_name, user_path(collection.user)))
+    - if defined?(annotation) && !annotation.blank?
+      %p= annotation

@@ -9,7 +9,7 @@
           %h4= dato.object_title
         .meta.learn_more
           %p= link_to I18n.t(:article_more_about), data_object_path(dato)
-          = render :partial => 'data_objects/view_translation', :locals => { :data_object => dato }
+          = render :partial => 'data_objects/view_translation', :locals => { :data_object => dato, :taxon => @taxon_concept }
         = render :partial => 'data_objects/data_object_article', :locals => { :data_object => dato , :show_view_source => 'false'}
         .meta.attribution
           = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => dato }

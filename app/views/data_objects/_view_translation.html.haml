@@ -1,5 +1,5 @@
-- unless data_object.blank?
-  - languages = data_object.available_translation_languages(current_user)
+- unless data_object.blank?  
+  - languages = data_object.available_translation_languages(current_user, taxon)
   - unless languages.blank?
     - form_tag set_language_path, :class => 'select_submit' do
       = hidden_field_tag :return_to, current_url

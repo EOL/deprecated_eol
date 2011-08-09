@@ -202,7 +202,7 @@ class DataObjectsController < ApplicationController
     rescue => e
       flash[:error] = e.message
     end
-    redirect_to data_object_path(@data_object)
+    redirect_to request.referer ? :back : :default
   end
 
   # NOTE - It seems like this is a HEAVY controller... and perhaps it is.  But I can't think of *truly* appropriate

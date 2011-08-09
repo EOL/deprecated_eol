@@ -6,16 +6,15 @@
       = I18n.t(:supplier_colon)
       = data_object.users_data_objects[0].user.full_name
   - else
-    = render :partial => 'license'
+    = render :partial => 'data_objects/license', :locals => { :data_object => data_object }
     - unless data_object.rights_holder.blank?
       %p{:title => I18n.t(:rights_holder)}= "&copy; #{data_object.rights_holder}"
-    = render :partial => 'rights_statement'
+    = render :partial => 'data_objects/rights_statement', :locals => { :data_object => data_object }
     - # do wen need data supplier as well as agents? or will data supplier be in agents?
-    = render :partial => 'agents'
+    = render :partial => 'data_objects/agents', :locals => { :data_object => data_object }
     - unless data_object.bibliographic_citation.blank?
       %p= data_object.bibliographic_citation
     - unless data_object.source_url.blank?
       %p= link_to I18n.t("view_#{en_type}_source"), data_object.source_url
-    - if supplier
       = render :partial => 'data_objects/supplier', :locals => { :data_object => data_object }
 

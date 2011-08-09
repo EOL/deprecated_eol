@@ -10,12 +10,7 @@
         %h2= @data_object.object_title
       = render :partial => "data_objects/data_object_#{en_type}", :locals => { :size => '580_360' }
     - unless @data_object.is_text? # NOTE - text description was already shown above so we don't want to show it again.
-      .article
-        .header
-          %h3= I18n.t(:description)
-        .copy
-          - @data_object.description = @data_object.description_linked unless @data_object.description_linked.blank? rescue nil
-          = @data_object.description.balance_tags
+      = render :partial => 'data_objects/description.html.haml', :locals => { :data_object => @data_object }
     .article.list.updates
       .header
         %h3= I18n.t(:recent_updates)
@@ -33,25 +28,9 @@
       - if @data_object.is_sound?
         - en_mime_type = @data_object.mime_type ? @data_object.mime_type.label('en') : DataType.sound.simple_type
         %p= link_to I18n.t("download_#{en_mime_type.sub(/\//, '_')}"), @data_object.sound_url, { :title => I18n.t("download_#{en_mime_type.sub(/\//, '_')}_assistive") }
-    .article.list
-      .header
-        %h3= I18n.t("associated_with_#{en_type}_header")
-        - if current_user.min_curator_level?(:full)
-          = link_to I18n.t(:add_new_association_link), :action => :add_association, :id => @data_object.id
-      - if current_user.min_curator_level?(:full)
-        = render :partial => 'associations_curation'
-      - else
-        = render :partial => 'associations_index'
+    = render :partial => 'data_objects/list_associations', :locals => { :data_object => @data_object, :en_type => en_type }
     - unless @revisions.blank?
-      .article.list
-        .header
-          %h3= I18n.t(:revisions)
-        %ul
-          - @revisions.each do |revision|
-            - if revision.created_at == @data_object.created_at
-              %li= revision.created_at
-            - else
-              %li= link_to revision.created_at, data_object_path(revision.id)
+      = render :partial => 'data_objects/revisions', :locals => { :data_object => @data_object, :revisions => @revisions }
     - unless @translations.blank?
       .article.list
         .header

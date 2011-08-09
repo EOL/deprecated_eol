@@ -1,0 +1,9 @@
+.article.list
+  .header
+    %h3= I18n.t(:revisions)
+  %ul
+    - revisions.each do |revision|
+      - if revision.created_at == data_object.created_at
+        %li= revision.created_at
+      - else
+        %li= link_to revision.created_at, data_object_path(revision.id)

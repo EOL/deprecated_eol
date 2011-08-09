@@ -477,7 +477,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     return true if collection.community && collection.community.managers.include?(self)
     false
   end
-  
+
   def can_view_collection?(collection)
     return true if collection.published? || collection.user == self
     false

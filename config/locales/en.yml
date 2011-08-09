@@ -750,6 +750,7 @@ en:
   community_contributions_with_count:
     one: "%{count} Contribution"
     other: "%{count} Contributions"
+  community_empty_notice: "This community has no members."
   community_focus: "Community focus"
   community_invitation_comment: "I would like to invite you to join \"%{community}\"."
   community_managers_with_count:

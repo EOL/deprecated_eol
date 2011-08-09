@@ -266,9 +266,7 @@ class DataObject < SpeciesSchemaModel
       :rights_statement => ERB::Util.h(all_params[:data_object][:rights_statement]), # No HTML allowed
       :bibliographic_citation => ERB::Util.h(all_params[:data_object][:bibliographic_citation]), # No HTML allowed
       :source_url => ERB::Util.h(all_params[:data_object][:source_url]), # No HTML allowed
-      :vetted_id => Vetted.unknown.id, # TODO: what curator level should allow trusted by default?
       :published => 1, #not sure if this is right
-      :visibility_id => Visibility.visible.id #not sure if this is right either
     }
 
     new_dato = DataObject.new(do_params)
@@ -291,7 +289,10 @@ class DataObject < SpeciesSchemaModel
     comments_from_old_dato = Comment.find(:all, :conditions => {:parent_id => old_dato.id, :parent_type => 'DataObject'})
     comments_from_old_dato.map { |c| c.update_attribute :parent_id, new_dato.id  }
 
-    udo = UsersDataObject.create(:user => user, :data_object => new_dato, :taxon_concept => taxon_concept)
+    current_visibility = old_dato.users_data_objects[0].visibility
+    current_vetted = old_dato.users_data_objects[0].vetted
+    udo = UsersDataObject.create(:user => user, :data_object => new_dato, :taxon_concept => taxon_concept, 
+                                 :visibility => current_visibility, :vetted => current_vetted)
     new_dato.users_data_objects << udo
     new_dato
   end
@@ -324,9 +325,7 @@ class DataObject < SpeciesSchemaModel
       :rights_statement => ERB::Util.h(all_params[:data_object][:rights_statement]), # No HTML allowed
       :bibliographic_citation => ERB::Util.h(all_params[:data_object][:bibliographic_citation]), # No HTML allowed
       :source_url => ERB::Util.h(all_params[:data_object][:source_url]), # No HTML allowed
-      :vetted_id => Vetted.unknown.id, # TODO: what curator level should allow trusted by default?
       :published => 1, #not sure if this is right
-      :visibility_id => Visibility.visible.id #not sure if this is right either
     }
 
     dato = DataObject.new(do_params)
@@ -343,7 +342,7 @@ class DataObject < SpeciesSchemaModel
     dato.save
     return dato if dato.nil? || dato.errors.any?
 
-    udo = UsersDataObject.create(:user => user, :data_object => dato, :taxon_concept => taxon_concept)
+    udo = UsersDataObject.create(:user => user, :data_object => dato, :taxon_concept => taxon_concept, :visibility => Visibility.visible, :vetted => Vetted.unknown)
     dato.users_data_objects << udo
     dato
   end
@@ -805,7 +804,7 @@ class DataObject < SpeciesSchemaModel
 
   def self.eager_load_image_metadata(data_object_ids, taxon_concept)
     return nil if data_object_ids.blank?
-    add_include = [ :all_comments, { :data_objects_hierarchy_entries => :hierarchy_entry},
+    add_include = [ :all_comments, { :data_objects_hierarchy_entries => :hierarchy_entry },
       { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ]
     add_select = { :comments => [ :parent_id, :visible_at ], :hierarchy_entries => 'taxon_concept_id',
       :data_objects_hierarchy_entries => '*', :curated_data_objects_hierarchy_entries => '*' }
@@ -868,6 +867,9 @@ class DataObject < SpeciesSchemaModel
     if association.blank?
       association = curated_data_objects_hierarchy_entries.detect{ |dohe| dohe.hierarchy_entry.taxon_concept_id == taxon_concept.id }
     end
+    if association.blank?
+      association = users_data_objects.detect{ |udo| udo.taxon_concept_id == taxon_concept.id }
+    end
     association
   end
 
@@ -916,19 +918,29 @@ class DataObject < SpeciesSchemaModel
 
   # To retrieve the reasons provided while untrusting an association
   def untrust_reasons(hierarchy_entry)
-    if hierarchy_entry.associated_by_curator
-      object_id = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id_and_user_id(
-        id,hierarchy_entry.id,hierarchy_entry.associated_by_curator
-      ).id
+    if hierarchy_entry.class == UsersDataObject
+      object_id = hierarchy_entry.id
       log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_activity_id(
-        object_id, ChangeableObjectType.hierarchy_entry.id, Activity.untrusted.id
+        object_id, ChangeableObjectType.users_data_object.id, Activity.untrusted.id
       ).last
       log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
     else
-      log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_activity_id(
-        id, ChangeableObjectType.data_object.id, Activity.untrusted.id
-      ).last
-      log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
+
+      if hierarchy_entry.associated_by_curator
+        object_id = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id_and_user_id(
+          id,hierarchy_entry.id,hierarchy_entry.associated_by_curator
+        ).id
+        log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_activity_id(
+          object_id, ChangeableObjectType.hierarchy_entry.id, Activity.untrusted.id
+        ).last
+        log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
+      else
+        log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_activity_id(
+          id, ChangeableObjectType.data_object.id, Activity.untrusted.id
+        ).last
+        log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
+      end
+      
     end
   end
 
@@ -1048,26 +1060,17 @@ class DataObject < SpeciesSchemaModel
   def translated_from
     data_object_translation ? data_object_translation.original_data_object : nil
   end
-
-  def translation_source
-    org_tr = DataObjectTranslation.find_by_data_object_id(self.id)
-    if org_tr
-      return  org_tr.original_data_object
-    else
-      return nil
-    end
-  end
-
+  alias :translation_source :translated_from
 
   def available_translations_data_objects(current_user)
     dobj_ids = []
-    if !translations.empty?
+    if translations
       dobj_ids << id
       translations.each do |tr|
         dobj_ids << tr.data_object.id
       end
     else
-      org_tr = DataObjectTranslation.find_by_data_object_id(self.id)
+      org_tr = data_object_translation
       if org_tr
         org_dobj = org_tr.original_data_object
         dobj_ids << org_dobj.id
@@ -1103,6 +1106,4 @@ class DataObject < SpeciesSchemaModel
     return nil
 
   end
-
-
 end

@@ -12,7 +12,7 @@ module EOL
         add_resource_instances!(results)
 
         results = WillPaginate::Collection.create(options[:page], options[:per_page], total_results) do |pager|
-           pager.replace(results)
+          pager.replace(results)
         end
         results
       end

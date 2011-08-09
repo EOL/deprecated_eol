@@ -22,4 +22,6 @@
     = render :partial => 'comments/new', :locals => { :parent => @community }
     .heading
       %h3= I18n.t(:newsfeed)
-    = render :partial => 'activity_logs/index', :locals => { :log => @community.activity_log }
+    = will_paginate(@newsfeed)
+    = render :partial => 'activity_logs/index', :locals => { :log => @newsfeed }
+    = will_paginate(@newsfeed)

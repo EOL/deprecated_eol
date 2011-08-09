@@ -57,9 +57,11 @@ class Community < ActiveRecord::Base
     member
   end
 
-  def remove_member(user)
-    member = Member.find_by_user_id_and_community_id(user.id, id)
-    raise  I18n.t(:could_not_find_user)  unless member
+  def remove_member(user_or_member)
+    member = user_or_member.is_a?(User) ?
+      Member.find_by_user_id_and_community_id(user_or_member.id, id) :
+      user_or_member
+    raise I18n.t(:could_not_find_user) unless member
     member.destroy
     self.reload
   end

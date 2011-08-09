@@ -1,6 +1,7 @@
 class UsersDataObject < ActiveRecord::Base
 
   include EOL::ActivityLogItem
+  include EOL::CuratableAssociation
 
   validates_presence_of :user_id, :data_object_id
   validates_uniqueness_of :data_object_id
@@ -8,7 +9,6 @@ class UsersDataObject < ActiveRecord::Base
   belongs_to :user
   belongs_to :data_object
   belongs_to :taxon_concept
-
   belongs_to :vetted
   belongs_to :visibility
 

@@ -4,12 +4,11 @@ class MembersController < ApplicationController
 
   before_filter :load_community_and_current_member
   before_filter :load_member, :except => [:index]
+  before_filter :load_members, :only => [:index, :grant_manager, :revoke_manager]
   before_filter :restrict_edit, :only => [:edit, :update, :grant_manager, :revoke_manager]
   before_filter :restrict_delete, :only => [:delete]
 
   def index
-    @members = Member.paginate(:page => params[:page])
-
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @members }
@@ -39,15 +38,18 @@ class MembersController < ApplicationController
 
   def destroy
     @community.remove_member(@member)
-    respond_to do |format|
-      format.html { redirect_to(@community, :notice =>  I18n.t(:you_removed_the_member_from_the_community) ) }
-    end
+    flash[:notice] = I18n.t(:you_removed_the_member_from_the_community)
+    redirect_to :action => 'index'
   end
 
   def grant_manager
+    @member.grant_manager
+    redirect_to :action => 'index'
   end
 
   def revoke_manager
+    @member.revoke_manager
+    redirect_to :action => 'index'
   end
 
 private
@@ -63,6 +65,13 @@ private
       flash[:error] =  I18n.t(:cannot_find_member)
       return redirect_to(@community)
     end
+  end
+
+  def load_members
+    @managers = @community.members.managers
+    @nonmanagers = @community.members.nonmanagers
+    @all_members = @managers + @nonmanagers
+    @members = @all_members.paginate(:page => params[:page])
   end
 
   def restrict_edit

@@ -342,6 +342,10 @@ en:
         user_identities: "I am"
         username: "Username <small>(4 - 32 characters)</small>"
         username_or_email: "Username or email address"
+  will_paginate:
+    previous_label: "&#8592; Previous"
+    next_label: "Next &#8594;"
+    page_gap: "&hellip;"
   0_or_1: "0 or 1"
   0_1_or_2: "0, 1 or 2"
   1_member: "(1 member)"
@@ -754,6 +758,7 @@ en:
   community_contributions_with_count:
     one: "%{count} Contribution"
     other: "%{count} Contributions"
+  community_empty_notice: "This community has no members."
   community_focus: "Community focus"
   community_invitation_comment: "I would like to invite you to join \"%{community}\"."
   community_managers_with_count:
@@ -1087,12 +1092,12 @@ en:
   dato_create_user_text_validation_error: "Please ensure you have completed the form correctly."
   dato_update_users_text_not_owner_exception: "Unable to update text DataObject current user is not owner"
   dato_edit_text_link_button: "Edit this article"
-  dato_edit_text_page_description: "Some info about editing.. maybe"
+  dato_edit_text_page_description: "Thank you for contributing your expertise to EOL. The revised article will be added to your Watch List so you can follow any conversations related to it and check on its curation status."
   dato_edit_text_title: "Edit article"
   dato_hidden_note: "%{username} hid %{type}."
   dato_inappropriate_note: "%{username} marked this %{type} as inappropriate."
   dato_new_text_for_taxon_page_title: "Add an article to <i>%{taxon}</i>"
-  dato_new_text_page_description: "Enter text to add article... etc..."
+  dato_new_text_page_description: "Thank you for contributing to EOL. Your article will be added to your Watch List so you can follow any conversations related to it and check on its curation status."
   dato_rating_note: "%{username} gave this a rating of %{rating}."
   dato_shown_note: "%{username} made this %{type} visible."
   dato_trusted_note: "%{username} trusted this %{type}."

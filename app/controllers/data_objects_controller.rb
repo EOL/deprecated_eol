@@ -183,7 +183,12 @@ class DataObjectsController < ApplicationController
 
   def curate_associations
     begin
-      @data_object.published_entries.each do |phe|
+      entries = []
+      entries = @data_object.published_entries
+      udo_entry = @data_object.users_data_objects[0]
+      entries <<  udo_entry unless udo_entry.nil?
+      
+      entries.each do |phe|
         comment = curation_comment(params["curation_comment_#{phe.id}"])
         vetted_id = params["vetted_id_#{phe.id}"].to_i
         # make visibility hidden if curated as Inappropriate or Untrusted
@@ -336,6 +341,10 @@ private
   end
 
   def get_curated_object(dato, he)
+    if he.class == UsersDataObject
+      return UsersDataObject.find_by_id(he.id)
+    end
+
     if he.associated_by_curator
       curated_object = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(dato.id, he.id)
     else

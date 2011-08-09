@@ -136,21 +136,43 @@ form#switch_hierarchy_entry fieldset {
   padding: 10px 0;
   margin: 20px 0 0 0; }
 
-#main .header .pagination {
-  position: relative;
-  top: 5px;
-  left: 0;
-  width: 100%; }
-  #main .header .pagination a {
-    position: relative !important;
-    top: 0 !important;
-    left: 0 !important; }
+#main .header, .cms_page .header {
+  text-align: center; }
+  #main .header .pagination, .cms_page .header .pagination {
+    position: relative;
+    top: 5px;
+    left: 0;
+    width: 100%; }
+    #main .header .pagination a, .cms_page .header .pagination a {
+      position: relative !important;
+      top: 0 !important;
+      left: 0 !important; }
 
 /*Static pages */
-.exemplars ul img, .partners ul img {
+.exemplars ul img {
   clear: both;
   float: left;
   margin: 0 20px 30px 30px; }
+
+/*content partners */
+.cms_page .header {
+  border-bottom: 1px solid #cad3db;
+  padding-bottom: 1em;
+  margin-bottom: 30px; }
+.cms_page .footer {
+  border-top: 1px solid #cad3db;
+  padding-top: 1em; }
+.cms_page ul.object_list {
+  list-style_type: none; }
+  .cms_page ul.object_list li img {
+    max-width: 68px; }
+  .cms_page ul.object_list li h4 {
+    margin-bottom: 0.5em; }
+    .cms_page ul.object_list li h4 a {
+      color: #195184;
+      text-decoration: underline; }
+  .cms_page ul.object_list li p {
+    clear: none; }
 
 /*warning messages - check HR commits for updates to this */
 p.status.error {

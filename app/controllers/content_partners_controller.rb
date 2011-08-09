@@ -6,10 +6,37 @@ class ContentPartnersController < ApplicationController
 
   # GET /content_partners
   def index
-    # WIP
-    @partners = ContentPartner.all
+    @full_name_like = params[:full_name_like] || ''
+    @sort_by = params[:sort_by] || 'partner'
+
+    order = case @sort_by
+    when 'newest'
+      'content_partners.created_at DESC'
+    else
+      'content_partners.full_name'
+    end
+    include = [ { :resources => [ :resource_status ] }, :content_partner_status, :content_partner_contacts ]
+    select = 'content_partners.id, content_partners.full_name, content_partners.display_name, content_partners.description,
+              content_partners.homepage, content_partners.logo_cache_url, content_partners.logo_file_name,
+              content_partners.logo_content_type, content_partners.logo_file_size, content_partners.created_at,
+              resources.id, resources.collection_id, resources.resource_status_id,
+              resource_statuses.*, harvest_events.*'
+    conditions = "content_partners.show_on_partner_page = 1 AND content_partners.full_name LIKE :full_name_like"
+    conditions_replacements = {}
+    conditions_replacements[:full_name_like] = "%#{@full_name_like}%"
+    @partners = ContentPartner.paginate(
+                  :page => params[:page],
+                  :per_page => 10,
+                  :select => select,
+                  :include => include,
+                  :conditions => [ conditions, conditions_replacements],
+                  :order => order)
+    # eager load latest published harvest event
+    Resource.add_latest_published_harvest_event!(@partners.collect(&:resources).flatten.compact)
+
+    set_sort_options
     @page_title = I18n.t(:content_partners_page_title)
-    @partner_search_string = params[:partner_search_string] || ''
+    @page_description = I18n.t(:content_partners_page_description, :more_url => '/placeholder') # FIXME: placeholder to CMS page
   end
 
   # GET /content_partners/new
@@ -20,6 +47,7 @@ class ContentPartnersController < ApplicationController
   end
 
   def create
+    # TODO: create contact for current user on content partner create
     @partner = ContentPartner.new(params[:content_partner])
     access_denied unless current_user.can_create?(@partner)
     if @partner.save
@@ -76,6 +104,12 @@ private
   def set_new_partner_options
     @page_title = I18n.t(:content_partners_page_title)
     @page_subtitle = I18n.t(:content_partner_new_page_subheader)
+  end
+
+  def set_sort_options
+    @sort_by_options   = [[I18n.t(:content_partner_column_header_partner), 'partner'],
+                          [I18n.t(:sort_by_newest_option), 'newest'],
+                          [I18n.t(:sort_by_oldest_option), 'oldest']]
   end
 
 end

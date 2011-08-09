@@ -30,6 +30,7 @@ class Admins::ContentPartnersController < AdminsController
     unless @vetted.blank?
       conditions << " AND content_partners.vetted = :vetted"
       conditions_replacements[:vetted] = @vetted
+      @vetted = @vetted.to_i
     end
     @partners = ContentPartner.paginate(
                   :page => params[:page],
@@ -49,9 +50,9 @@ private
     @vetted_options    = [[I18n.t(:option_please_select), ""],
                           [I18n.t(:content_partner_filter_option_vetted_yes), 1],
                           [I18n.t(:content_partner_filter_option_vetted_no), 0]]
- end
+  end
 
- def set_sort_options
+  def set_sort_options
     @sort_by_options   = [[I18n.t(:content_partner_column_header_partner), 'partner'],
                           [I18n.t(:sort_by_newest_option), 'newest'],
                           [I18n.t(:sort_by_oldest_option), 'oldest']]

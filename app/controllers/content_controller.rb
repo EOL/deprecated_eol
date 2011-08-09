@@ -298,15 +298,6 @@ class ContentController < ApplicationController
     @page_title = I18n.t(:error_page_header)
   end
 
-  # get the list of content partners
-  def partners
-    @page_title = I18n.t(:content_partners)
-    # FIXME: missing association :content_partner below
-    # content partners will have a username
-    @partners = Agent.paginate(:conditions => 'username!="" AND content_partners.show_on_partner_page = 1', :order => 'agents.full_name asc', :include => :content_partner, :page => params[:page] || 1)
-
-  end
-
   def donate
     @page_title = I18n.t(:donate)
     if request.post?

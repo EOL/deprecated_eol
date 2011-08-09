@@ -314,6 +314,28 @@ class TaxonConcept < SpeciesSchemaModel
     end
     special_content
   end
+  
+  # Returns education content
+  def education_content
+    toc_item = TocItem.education
+    ccb = CategoryContentBuilder.new
+    if ccb.can_handle?(toc_item)
+      ccb.content_for(toc_item, :vetted => current_user.vetted, :taxon_concept => self)
+    else
+      get_default_content(toc_item)
+    end
+  end
+  
+  # Returns nucleotide sequences HE
+  def nucleotide_sequences_hierarchy_entry_for_taxon
+    return TaxonConcept.find_entry_in_hierarchy(self.id, Hierarchy.ncbi.id)
+  end
+  
+  # Returns external links
+  def content_partners_links
+   return self.outlinks.sort_by { |ol| ol[:hierarchy_entry].hierarchy.label }
+  end
+  
 
   # Returns harvested text objects, user submitted object and special content for given toc items
   def details_for_toc_items(toc_items, options = {})

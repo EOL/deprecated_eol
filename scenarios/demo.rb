@@ -91,6 +91,18 @@ species = [
     :common => 'Fly Agaric',
     :imgs => [201008242207638, 201101141341094, 201101141330049, 201101141305714],
     :summary => summary,
+    :education => 'Learn how three fiery, painful stings during an early morning swim in Hawaii changed the 
+    life of researcher Angel Yanagihara. Once the young biochemist had recovered from her box jelly encounter, 
+    Carybdea alata had her full attention. Now she works to unlock the secrets of venom of these beautiful, 
+    and sometimes dangerous, angels of the sea. Listen to the box jellyfish podcast on the EOL Learning + 
+    Education website, where you can also meet featured scientist Angel Yanagihara, view amazing jellyfish images, 
+    and find relevant educational activities.',
+    :identification_resources => 'Recent cases highlight the issue of the similarity of A. phalloides to the 
+    edible paddy straw mushroom, Volvariella volvacea, with east- and southeast-Asian immigrants in Australia 
+    and the west coast of the United States falling victim. In an episode in Oregon, four members of a Korean 
+    family required liver transplants (Benjamin 1995). Of the seven people poisoned in the Canberra region between 
+    1988 and 1998, three were from Laos (Trimm et al. 1999). This misidentification is a leading cause of mushroom
+     poisoning in the United States.',
     :rank => 'species'},
   { :id => 17924149, :parent => 17954507,
     :sci => 'Dinochelus ausubeli',
@@ -167,6 +179,8 @@ species = [
 
 animalia_entry = TaxonConcept.find(1).entry.id
 overv = TocItem.find_by_translated(:label, 'Brief Summary')
+edu = TocItem.find_by_translated(:label, 'Education')
+idres = TocItem.find_by_translated(:label, 'Identification Resources')
 
 species.each_with_index do |info, which|
   puts which
@@ -193,6 +207,16 @@ species.each_with_index do |info, which|
                 :description => 'Just a placeholder text for the description of this species', 
                 :language => Language.english }
     end
+    if info.has_key? :identification_resources
+      tocs << { :toc_item => idres,
+                :description => info[:identification_resources],
+                :language => Language.english }
+    end     
+    if info.has_key? :education
+      tocs << { :toc_item => edu,
+                :description => info[:education],
+                :language => Language.english }
+    end        
     imgs = []
     if info.has_key? :imgs
       info[:imgs].each do |i|

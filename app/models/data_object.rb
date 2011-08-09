@@ -289,7 +289,10 @@ class DataObject < SpeciesSchemaModel
     comments_from_old_dato = Comment.find(:all, :conditions => {:parent_id => old_dato.id, :parent_type => 'DataObject'})
     comments_from_old_dato.map { |c| c.update_attribute :parent_id, new_dato.id  }
 
-    udo = UsersDataObject.create(:user => user, :data_object => new_dato, :taxon_concept => taxon_concept, :visibility => Visibility.visible, :vetted => Vetted.unknown)
+    current_visibility = old_dato.users_data_objects[0].visibility
+    current_vetted = old_dato.users_data_objects[0].vetted
+    udo = UsersDataObject.create(:user => user, :data_object => new_dato, :taxon_concept => taxon_concept, 
+                                 :visibility => current_visibility, :vetted => current_vetted)
     new_dato.users_data_objects << udo
     new_dato
   end

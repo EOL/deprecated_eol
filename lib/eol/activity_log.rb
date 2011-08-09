@@ -39,6 +39,8 @@ module EOL
           source.watch_collection.collection_items.each do |item|
             find_activities(item.object_type, item.object) # Note NO options to avoid infinite recursion
           end
+          # TODO - likely we will also want to cycle through all of the communities the user is a member of, and
+          # report on the activity there.
         else
           user_activities(source)
         end

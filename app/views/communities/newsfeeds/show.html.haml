@@ -9,7 +9,10 @@
   .collection_list
     %h3= I18n.t(:endorsed_collections)
     - if @community.collections.empty?
-      %p= I18n.t(:this_community_has_no_endorsed_collections)
+      %p
+        = I18n.t(:this_community_has_no_endorsed_collections)
+        - if @current_member && @current_member.manager?
+          = I18n.t(:manager_endorse_collecitons_suggestion)
     - else
       %ul
         - @community.collections[0..3].each do |collection|

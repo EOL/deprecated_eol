@@ -1,6 +1,7 @@
 - content.each do |item|
   - if item[:data_objects]
     - item[:data_objects].each do |dato|
+<<<<<<< HEAD
       - dato_vetted = dato.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
       - dato_vetted_id = dato_vetted.id unless dato_vetted.nil?
       - dato_vetted_label = dato_vetted.label unless dato_vetted.nil?
@@ -22,7 +23,11 @@
         - if dato.all_comments.count > 0
           %p= link_to I18n.t(:see_all_comments_with_count_for_text, :count => dato.all_comments.count), data_object_path(dato)
 
-        -# Bibalex added this?  Or didn't replace it?  Or changed it: = render :partial => "taxa/details/category_content_part", :locals => {:dato => dato}
+=======
+      /.article
+      %div{:id => dato.id, :class => "article"}
+        = render :partial => "taxa/details/category_content_part", :locals => {:dato => dato}
+>>>>>>> bibalex/web_2450
   - else
     .article
       .copy

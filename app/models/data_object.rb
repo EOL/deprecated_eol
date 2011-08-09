@@ -805,8 +805,10 @@ class DataObject < SpeciesSchemaModel
 
   def self.eager_load_image_metadata(data_object_ids, taxon_concept)
     return nil if data_object_ids.blank?
-    add_include = [ :all_comments ]
-    add_select = { :comments => [ :parent_id, :visible_at ] }
+    add_include = [ :all_comments, { :data_objects_hierarchy_entries => :hierarchy_entry},
+      { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ]
+    add_select = { :comments => [ :parent_id, :visible_at ], :hierarchy_entries => 'taxon_concept_id',
+      :data_objects_hierarchy_entries => '*', :curated_data_objects_hierarchy_entries => '*' }
     except = [ :info_items ]
     objects = DataObject.core_relationships(:except => except, :add_include => add_include, :add_select => add_select).find_all_by_id(data_object_ids)
     DataObject.sort_by_rating(objects, taxon_concept)
@@ -851,7 +853,7 @@ class DataObject < SpeciesSchemaModel
     return obj_tc_id
   end
 
-  # To retrieve the DOHE or curated_DOHE for this entry
+  # To retrieve an association for the data object by using given hierarchy entry
   def association_for_hierarchy_entry(hierarchy_entry)
     association = data_objects_hierarchy_entries.detect{ |dohe| dohe.hierarchy_entry_id == hierarchy_entry.id }
     if association.blank?
@@ -860,7 +862,7 @@ class DataObject < SpeciesSchemaModel
     association
   end
 
-  # To retrieve the DOHE or curated_DOHE for this concept
+  # To retrieve an association for the data object by using given taxon concept
   def association_for_taxon_concept(taxon_concept)
     association = data_objects_hierarchy_entries.detect{ |dohe| dohe.hierarchy_entry.taxon_concept_id == taxon_concept.id }
     if association.blank?
@@ -869,21 +871,21 @@ class DataObject < SpeciesSchemaModel
     association
   end
 
-  # To retrieve the DOHE or curated_DOHE for this entry
+  # To retrieve an association for the data object if taxon concept and hierarchy entry are unknown
   def association_with_best_vetted_status
     all_associations = data_objects_hierarchy_entries + curated_data_objects_hierarchy_entries
     return if all_associations.empty?
     all_associations.sort_by{ |a| a.vetted.view_order }.first
   end
 
-  # To retrieve the vetted id of an association by using hierarchy entry
+  # To retrieve the vetted status of an association by using given hierarchy entry
   def vetted_by_hierarchy_entry(hierarchy_entry)
     association = association_for_hierarchy_entry(hierarchy_entry)
     return association.vetted unless association.blank?
     return nil
   end
 
-  # To retrieve the vetted id of an association by using taxon concept
+  # To retrieve the vetted status of an association by using given taxon concept
   def vetted_by_taxon_concept(taxon_concept, options={})
     association = association_for_taxon_concept(taxon_concept)
     return association.vetted unless association.blank?
@@ -893,8 +895,8 @@ class DataObject < SpeciesSchemaModel
     return nil
   end
 
-  # This method by default returns an exact association(if exists) for the given taxon concept.
-  # Otherwise returns an association with best vetted status(if exists)
+  # To retrieve an exact association(if exists) for the given taxon concept, 
+  # otherwise retrieve an association with best vetted status.
   def association_with_exact_or_best_vetted_status(taxon_concept)
     association = association_for_taxon_concept(taxon_concept)
     return association unless association.blank?
@@ -902,14 +904,7 @@ class DataObject < SpeciesSchemaModel
     return association
   end
 
-  # # To retrieve the visibility id of an association by using hierarchy entry
-  # def visibility_by_hierarchy_entry(hierarchy_entry)
-  #   association = association_for_hierarchy_entry(hierarchy_entry)
-  #   return association.visibility unless association.blank?
-  #   return nil
-  # end
-
-  # To retrieve the visibility id of an association by using taxon concept
+  # To retrieve the visibility status of an association by using taxon concept
   def visibility_by_taxon_concept(taxon_concept, options={})
     association = association_for_taxon_concept(taxon_concept)
     return association.visibility unless association.blank?

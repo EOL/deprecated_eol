@@ -417,7 +417,7 @@ en:
   add_a_taxon_association_label: "Add a taxon association"
   add_article_to_page_link_button: "Add an article to this page"
   add_association_label_colon: "Add association:"
-  add_association_submit_button: "add new association"
+  add_association_submit_button: "add association"
   add_brief_summary_to_page_link_button: "Add a brief summary to this page"
   add_contact: "Add Contact"
   add_image_tags: "Add Image Tags"
@@ -562,6 +562,7 @@ en:
   assistive_names_related_header: "Related names"
   assistive_names_synonyms_header: "Synonyms"
   assistive_maps_header: "Maps"
+  associated_submit_button: "associated"
   associated_with_image_header: "In this image"
   associated_with_sound_header: "Associated with"
   associated_with_article_header: "Associated with"
@@ -1742,6 +1743,7 @@ en:
   manage_roles: "Manage roles"
   manage_your_profile: "Manage Your Profile"
   managed_by: "Managed by"
+  manager_endorse_collecitons_suggestion: "To feature a collection on this page, add the collection to the community's focus."
   manager_parens: "(manager)"
   maps_with_count:
     one: "%{count} Map"
@@ -3151,3 +3153,11 @@ en:
   cms_missing_content_message: "Sorry, this page is not available for this language."
   cms_available_in_languages: "This page is available in:"
   translated_from: Translated from
+  identification_resources: Identification Resources
+  education: Education
+  nucleotide_sequences: Nucleotide Sequences
+  content_partner_empty: "No content partner found."
+  education_empty: "No education found."
+  identifcation_resources_empty: "No resources found."
+  logo_header: "Logo"
+  external_link_header: "External Link"

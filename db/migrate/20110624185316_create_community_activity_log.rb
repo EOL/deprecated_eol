@@ -6,6 +6,7 @@ class CreateCommunityActivityLog < EOL::LoggingMigration
       t.integer :community_id, :null => false
       t.integer :member_id           # for adding members
       t.integer :member_privilege_id # For adding privs
+      t.integer :collection_id       # for endorsements
       t.datetime :created_at, :null => false
     end
     add_index :collection_activity_logs, :created_at

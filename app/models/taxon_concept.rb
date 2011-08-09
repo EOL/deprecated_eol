@@ -314,6 +314,28 @@ class TaxonConcept < SpeciesSchemaModel
     end
     special_content
   end
+  
+  # Returns education content
+  def education_content
+    toc_item = TocItem.education
+    ccb = CategoryContentBuilder.new
+    if ccb.can_handle?(toc_item)
+      ccb.content_for(toc_item, :vetted => current_user.vetted, :taxon_concept => self)
+    else
+      get_default_content(toc_item)
+    end
+  end
+  
+  # Returns nucleotide sequences HE
+  def nucleotide_sequences_hierarchy_entry_for_taxon
+    return TaxonConcept.find_entry_in_hierarchy(self.id, Hierarchy.ncbi.id)
+  end
+  
+  # Returns external links
+  def content_partners_links
+   return self.outlinks.sort_by { |ol| ol[:hierarchy_entry].hierarchy.label }
+  end
+  
 
   # Returns harvested text objects, user submitted object and special content for given toc items
   def details_for_toc_items(toc_items, options = {})
@@ -1293,15 +1315,11 @@ class TaxonConcept < SpeciesSchemaModel
   #  - collections with the FEWEST taxa show up next (since they are more focused)
   #  - collections with the FEWEST items show up next.
   def top_collections
-    collections.sort { |a,b|
-      if (a_count = a.communities.count) != (b_count = b.communities.count)
-        b_count <=> a_count # NOTE the reversed order here. 2 should come before 1.
-      elsif (a_count = a.collection_items.taxa.count) != (b_count = b.collection_items.taxa.count)
-        a_count <=> b_count
-      else
-        a.collection_items.count <=> b.collection_items.count
-      end
-    }[0..2]
+    return @top_collections if @top_collections
+    all_containing_collections = Collection.which_contain(self)
+    Collection.add_taxa_counts!(all_containing_collections)
+    Collection.add_counts!(all_containing_collections)
+    @top_collections = Collection.sort_for_overview(all_containing_collections)[0..2]
   end
 
   def flattened_ancestor_ids

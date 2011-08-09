@@ -11,6 +11,10 @@
         - head_title =  "EOL: #{@head_title} - #{head_title}"
       - elsif (@taxon_concept && !@taxon_concept.title(@session_hierarchy).blank?)
         - head_title = "EOL: #{@taxon_concept.title(@session_hierarchy)} - #{head_title}"
+      - elsif (@community && !@community.name.blank?)
+        - head_title = "EOL: #{@community.name}"
+      - elsif (@collection && !@collection.name.blank?)
+        - head_title = "EOL: #{@collection.name}"
       &= strip_tags(head_title)
 
     %meta{ :charset => "utf-8" }

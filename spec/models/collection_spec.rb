@@ -103,24 +103,6 @@ describe Collection do
     lambda { collection.add(Agent.gen) }.should raise_error(EOL::Exceptions::InvalidCollectionItemType)
   end
 
-  # TODO: I owe some tests for Collections & Solr
-  it 'should be able to filter by collection type using Solr'
-
-  describe '#create_community' do
-
-    it 'should create the community' do
-      collection = Collection.gen
-      collection.add(@test_data[:taxon_concept_1])
-      collection.add(@test_data[:taxon_concept_2])
-      collection.add(@test_data[:user])
-      community = collection.create_community
-      community.focus.collection_items.map {|li| li.object }.include?(@test_data[:taxon_concept_1]).should be_true
-      community.focus.collection_items.map {|li| li.object }.include?(@test_data[:taxon_concept_2]).should be_true
-      community.focus.collection_items.map {|li| li.object }.include?(@test_data[:user]).should be_true
-    end
-
-  end
-
   describe '#editable_by?' do
 
     before(:all) do

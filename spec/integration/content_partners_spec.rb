@@ -6,7 +6,7 @@ describe 'Content Partners' do
     load_foundation_cache
   end
 
-  it 'content partner should have a gallery' # do
+#TODO  it 'content partner should have a gallery' # do
 #    user = User.gen(:given_name => 'test_username')
 #    cp = ContentPartner.gen(:user => user, :display_name => 'gallery_test_agent')
 #    image = build_data_object('Image', "the image description", :content_partner => cp)

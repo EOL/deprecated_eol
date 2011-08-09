@@ -1,10 +1,9 @@
 = content_for :head do
   = javascript_include_tag "taxonomy", "permalink", "worklist"
-/ - # FIXME Placeholder of static markup direct from HashRocket replace with functioning code
 #content
   #worklist.site_column
     .filters
-      %form(action="" method="post")
+      %form(action="" method="get")
         %fieldset
           %dl
             %dt
@@ -42,61 +41,19 @@
         - @worklist_tasks.first(10).each do |worklist_task|
           - en_type = en_type(worklist_task)
           - task_class = @current_task.id == worklist_task.id ? "#{en_type} active" : en_type
-          %li{:class => task_class}          
+          - saved_label = "Saved" unless (@saved_tasks.blank? || @saved_tasks.include?(worklist_task.id) == false)
+          - ignored_label = "Ignored" unless (@ignored_tasks.blank? || @ignored_tasks.include?(worklist_task.id) == false)
+          - status_class = ignored_label.blank? ? (saved_label.blank? ? "" : "saved") : "ignored"
+          - status_indicator = ignored_label.blank? ? (saved_label.blank? ? "" : saved_label) : ignored_label
+          %li{:class => "#{task_class} #{status_class}"}
+            %span.icon
+            - unless status_indicator.blank?
+              %span.indicator= status_indicator
             - if ['image', 'video', 'sound'].include?(en_type)
               = render :partial => "media_data_object.html.haml", :locals => { :item => worklist_task, :en_type => en_type }
             - else
               = render :partial => "#{en_type}_data_object.html.haml", :locals => { :item => worklist_task }
-        / %li.article.ignored
-        /   %span.icon
-        /   %span.indicator Ignored
-        /   %p
-        /     = link_to "Cairina moschata", "#"
-        /     Overview
-        / %li.article
-        /   %span.icon
-        /   %p
-        /     = link_to "Mergus serrator", "#"
-        /     34 common names
-        / %li.image.active
-        /   %span.icon
-        /   /= image_tag dummy_image(48, 48), alt: ""
-        /   %p
-        /     = link_to "Duck in the water", "#"
-        /     image from Flickr
-        / %li.sound
-        /   %span.icon
-        /   %p
-        /     = link_to "Duck quacking wildly", "#"
-        /     sound from DuckSounds
-        / %li.video
-        /   %span.icon
-        /   /= image_tag dummy_image(48, 48), alt: ""
-        /   %p
-        /     = link_to "Duck being duck-like", "#"
-        /     this duck is so duck-like
-        / %li.article.saved
-        /   %span.icon
-        /   %span.indicator Saved
-        /   %p
-        /     = link_to "Mergus serrator", "#"
-        /     34 common names
-        / %li.article.image
-        /   %span.icon
-        /   %p
-        /     = link_to "Duck in the water", "#"
-        /     sound from DuckSounds
-        / %li.image
-        /   %span.icon
-        /   /= image_tag dummy_image(48, 48), alt: ""
-        /   %p
-        /     = link_to "Duck in the water", "#"
-        /     image from Flickr
-        / %li.sound
-        /   %span.icon
-        /   %p
-        /     = link_to "Duck quacking wildly", "#"
-        /     sound from DuckSounds
+      - # TODO : Implement functionality for the "get more tasks" button. Remove the 'ignored' and 'saved' tasks from the task list and replace them with the new tasks.
       %p.more= link_to I18n.t(:get_more_tasks), "#", {:class => "button"}
     .article#task
       .media

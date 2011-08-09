@@ -1,6 +1,5 @@
-%span.icon
 - # TODO : Fix this. Image thumbnail should be 48_48.
-- if thumb = item.thumb_or_object('small')
+- if en_type != DataType.sound.label.downcase && thumb = item.thumb_or_object('small')
   = image_tag(thumb)
 %p
   = link_to item.best_title, taxon_worklist_path(@taxon_concept.id, params.merge(:active => item.id))

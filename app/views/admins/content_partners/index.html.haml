@@ -1,0 +1,81 @@
+#sidebar
+  .filters.small
+    - form_tag({}, :class => 'select_submit', :method => :get) do
+      %fieldset
+        %dl
+          %dt
+            = label_tag :sort_by, I18n.t(:sort_by_label)
+          %dd
+            = select_tag :sort_by, options_for_select(@sort_by_options, @sort_by)
+      %fieldset.actions
+        = submit_tag I18n.t(:sort_by_button), :name => nil
+  .filters.small
+    - form_tag({}, :method => :get) do
+      %fieldset
+        - option_please_select = "<option value=\"\">#{I18n.t(:option_please_select)}</option>"
+        %dl
+          %dt
+            = label_tag :full_name_like, I18n.t('activerecord.attributes.content_partner.full_name')
+          %dd
+            = text_field_tag :full_name_like, @full_name_like
+          %dt
+            = label_tag :resource_status_id, I18n.t('activerecord.attributes.resource.resource_status')
+          %dd
+            = select_tag :resource_status_id,
+              option_please_select + options_from_collection_for_select(@resource_statuses, :id, :label, @resource_status_id.to_i)
+          %dt
+            = label_tag :content_partner_status_id, I18n.t('activerecord.attributes.content_partner.content_partner_status')
+          %dd
+            = select_tag :content_partner_status_id,
+              option_please_select + options_from_collection_for_select(@partner_statuses, :id, :label, @partner_status_id.to_i)
+          %dt
+            = label_tag :vetted, I18n.t('activerecord.attributes.content_partner.vetted')
+          %dd
+            = select_tag :vetted, options_for_select(@vetted_options, @vetted.to_i)
+      %fieldset.actions
+        = submit_tag I18n.t(:filter), :name => nil
+        %small= link_to I18n.t(:cancel), admin_content_partners_path
+.main_container
+  = will_paginate @partners, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
+    :inner_window => 2, :outer_window => 2
+  %table.standard
+    %thead
+      %th= I18n.t(:content_partner_column_header_partner)
+      %th= I18n.t(:content_partner_column_header_registered)
+      %th= I18n.t(:content_partner_column_header_status)
+    %tbody
+      - @partners.each do |partner|
+        %tr
+          %td
+            = link_to partner.full_name, content_partner_path(partner)
+            .meta
+              = link_to I18n.t(:content_partner_resources_with_count, :count => partner.resources.size),
+                content_partner_resources_path(partner)
+              - unless partner.resources.size.zero?
+                - unpublished_resources = partner.resources.select{|r| r.resource_status_id != ResourceStatus.published.id}
+                = "(#{I18n.t(:content_partner_resources_unpublished_with_count, :count => unpublished_resources.size)})"
+              &bull;
+              = link_to I18n.t(:content_partner_contacts_with_count, :count => partner.content_partner_contacts.size),
+                content_partner_path(partner)
+          %td
+            = partner.created_at
+          %td
+            = partner.content_partner_status.label
+            %br/
+            = partner.vetted.zero? ? I18n.t(:content_partner_unvetted) : I18n.t(:content_partner_vetted)
+            %br/
+            - if partner.terms_agreed_to?
+              = I18n.t(:content_partner_terms_agreed_to_true)
+            - else
+              = I18n.t(:content_partner_terms_agreed_to_false)
+            %br/
+            - if partner.has_unpublished_content?
+              = I18n.t(:content_partner_has_unpublished_content_true)
+            - else
+              = I18n.t(:content_partner_has_unpublished_content_false)
+
+  .footer
+    = will_paginate @partners, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
+      :inner_window => 2, :outer_window => 2
+
+

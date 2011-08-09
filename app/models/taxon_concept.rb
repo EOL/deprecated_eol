@@ -1315,15 +1315,11 @@ class TaxonConcept < SpeciesSchemaModel
   #  - collections with the FEWEST taxa show up next (since they are more focused)
   #  - collections with the FEWEST items show up next.
   def top_collections
-    collections.sort { |a,b|
-      if (a_count = a.communities.count) != (b_count = b.communities.count)
-        b_count <=> a_count # NOTE the reversed order here. 2 should come before 1.
-      elsif (a_count = a.collection_items.taxa.count) != (b_count = b.collection_items.taxa.count)
-        a_count <=> b_count
-      else
-        a.collection_items.count <=> b.collection_items.count
-      end
-    }[0..2]
+    return @top_collections if @top_collections
+    all_containing_collections = Collection.which_contain(self)
+    Collection.add_taxa_counts!(all_containing_collections)
+    Collection.add_counts!(all_containing_collections)
+    @top_collections = Collection.sort_for_overview(all_containing_collections)[0..2]
   end
 
   def flattened_ancestor_ids

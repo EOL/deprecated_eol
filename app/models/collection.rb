@@ -49,6 +49,53 @@ class Collection < ActiveRecord::Base
   alias :items :collection_items
   alias_attribute :summary_name, :name
 
+  def self.which_contain(what)
+    Collection.find(:all, :joins => :collection_items, :conditions => "collection_items.object_type='#{what.class.name}' and collection_items.object_id=#{what.id}").uniq
+  end
+
+  # this method will quickly get the counts for multiple collections at the same time
+  def self.add_counts!(collections)
+    collection_ids = collections.collect{ |c| c.id }.join(',')
+    return if collection_ids.empty?
+    collections_with_counts = Collection.find_by_sql("
+      SELECT c.*, count(*) as count
+      FROM collections c JOIN collection_items ci ON (c.id=ci.collection_id)
+      WHERE c.id IN (#{collection_ids})
+      GROUP BY c.id")
+    collections_with_counts.each do |cwc|
+      if c = collections.detect{ |c| c.id }
+        c['collection_items_count'] = cwc['count'].to_i
+      end
+    end
+  end
+
+  def self.add_taxa_counts!(collections)
+    collection_ids = collections.collect{ |c| c.id }.join(',')
+    return if collection_ids.empty?
+    collections_with_counts = Collection.find_by_sql("
+      SELECT c.*, count(*) as count
+      FROM collections c JOIN collection_items ci ON (c.id=ci.collection_id)
+      WHERE c.id IN (#{collection_ids})
+      AND ci.object_type = 'TaxonConcept'
+      GROUP BY c.id")
+    collections_with_counts.each do |cwc|
+      if c = collections.detect{ |c| c.id }
+        c['taxa_count'] = cwc['count'].to_i
+      end
+    end
+  end
+
+  def self.sort_for_overview(collections)
+    col = collections.sort_by do |c|
+      is_collected_by_community = c.community_id? ? 0 : 1 # opposite so those in communities come first
+      taxa_count = c['taxa_count'] || 0
+      collection_items_count = c['collection_items_count'] || 0
+      [ is_collected_by_community,
+        taxa_count,
+        collection_items_count ]
+    end
+  end
+
   def special?
     special_collection_id
   end

@@ -1075,7 +1075,7 @@ class DataObject < SpeciesSchemaModel
   end
 
 
-  def available_translations_data_objects(current_user)
+  def available_translations_data_objects(current_user, taxon)
     dobj_ids = []
     if !translations.empty?
       dobj_ids << id
@@ -1095,15 +1095,17 @@ class DataObject < SpeciesSchemaModel
     dobj_ids = dobj_ids.uniq
     if !dobj_ids.empty? && dobj_ids.length>1
       dobjs = DataObject.find_by_sql("SELECT do.* FROM data_objects do INNER JOIN languages l on (do.language_id = l.id) WHERE do.id in (#{dobj_ids.join(',')}) AND l.activated_on <= NOW() ORDER BY l.sort_order")
-      dobjs = DataObject.filter_list_for_user(dobjs, {:user => current_user})
+      if !taxon.nil?
+        dobjs = DataObject.filter_list_for_user(dobjs, {:user => current_user, :taxon_concept => taxon})
+      end
       return dobjs
     end
     return nil
   end
 
 
-  def available_translation_languages(current_user)
-    dobjs = available_translations_data_objects(current_user)
+  def available_translation_languages(current_user, taxon)
+    dobjs = available_translations_data_objects(current_user, taxon)
     if dobjs and !dobjs.empty?
       lang_ids = []
       dobjs.each do |dobj|

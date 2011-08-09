@@ -5,8 +5,11 @@ class Taxa::OverviewsController < TaxaController
   def show
     includes = [
       { :published_hierarchy_entries => [ { :name => :ranked_canonical_form } , :hierarchy, :hierarchies_content, :vetted ] },
-      { :data_objects => [ :toc_items,  :info_items ] },
-      { :top_concept_images => :data_object },
+      { :data_objects => [ :toc_items,  :info_items, { :data_objects_hierarchy_entries => :hierarchy_entry },
+        { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ] },
+      { :top_concept_images => { :data_object => [
+        { :data_objects_hierarchy_entries => :hierarchy_entry },
+        { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ] } },
       { :curator_activity_logs => :user },
       { :users_data_objects => { :data_object => :toc_items } }]
     selects = {
@@ -19,6 +22,8 @@ class Taxa::OverviewsController < TaxaController
       :vetted => :view_order,
       :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating, :language_id ],
       :table_of_contents => '*',
+      :data_objects_hierarchy_entries => '*',
+      :curated_data_objects_hierarchy_entries => '*',
       :curator_activity_logs => '*',
       :users => [ :given_name, :family_name, :logo_cache_url, :tag_line ] }
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)

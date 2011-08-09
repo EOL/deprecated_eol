@@ -338,6 +338,10 @@ en:
         user_identities: "I am"
         username: "Username <small>(4 - 32 characters)</small>"
         username_or_email: "Username or email address"
+  will_paginate:
+    previous_label: "&#8592; Previous"
+    next_label: "Next &#8594;"
+    page_gap: "&hellip;"
   0_or_1: "0 or 1"
   0_1_or_2: "0, 1 or 2"
   1_member: "(1 member)"

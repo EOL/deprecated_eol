@@ -39,8 +39,6 @@ module EOL
           source.watch_collection.collection_items.each do |item|
             find_activities(item.object_type, item.object) # Note NO options to avoid infinite recursion
           end
-          # TODO - likely we will also want to cycle through all of the communities the user is a member of, and
-          # report on the activity there.
         else
           user_activities(source)
         end
@@ -90,6 +88,10 @@ module EOL
       @activity_log += Comment.find_all_by_parent_id_and_parent_type(source.id, "Community")
       @activity_log += CollectionActivityLog.find_all_by_collection_id(source.focus.id)
       @activity_log += CommunityActivityLog.find_all_by_community_id(source.id)
+      # TODO - Whoa.  WHOA.  Seriously?!?  No.  You NEED to make this faster.  Seriously.
+      source.collection.collection_items.each do |item|
+        find_activities(item.object_type, item.object) # Note NO options to avoid infinite recursion
+      end
     end
 
     def data_object_activities(source)
@@ -115,6 +117,10 @@ module EOL
     # these, but start reading again at the "private" keyword--there are plenty of methods there that you may want to
     # know about.
     #
+
+    def to_a
+      @activity_log
+    end
 
     def [] which
       @activity_log[which]
@@ -162,6 +168,17 @@ module EOL
 
     def nil?
       @activity_log.nil?
+    end
+
+    def paginate(page = 1, per_page = 0)
+      # NOTE - page and per_page can be nil if passed straight in from params.
+      page = 1 if page.nil?
+      page = page.to_i
+      page = 1 if page <= 0
+      per_page = 20 if per_page.nil? || per_page <= 0
+      WillPaginate::Collection.create(page, per_page, length) do |pager|
+        pager.replace @activity_log[pager.offset, pager.per_page]
+      end
     end
 
   end

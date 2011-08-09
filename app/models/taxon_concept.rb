@@ -275,7 +275,7 @@ class TaxonConcept < SpeciesSchemaModel
 
     return nil if datos_to_load.empty?
 
-    add_include = [ :translations, :data_object_translation, :users_data_objects_ratings, :comments, :agents_data_objects, :info_items, :toc_items, { :users_data_objects => :user },
+    add_include = [ :translations, :data_object_translation, :users_data_objects_ratings, :comments, :agents_data_objects, :info_items, :toc_items, { :users_data_objects => [:user, :taxon_concept, :vetted, :visibility] },
       { :published_refs => { :ref_identifiers => :ref_identifier_type } }, :all_comments]
     add_select = {
       :users_data_objects_ratings => '*',

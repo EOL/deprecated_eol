@@ -97,10 +97,9 @@ class Ref < SpeciesSchemaModel
                 JOIN refs ON (dor.ref_id=refs.id)
                 WHERE udo.taxon_concept_id=?
                 AND do.published=1
-                AND do.visibility_id=?
                 AND refs.published=1
                 AND refs.visibility_id=?
-                LIMIT 1", taxon_concept_id, Visibility.visible.id, Visibility.visible.id])
+                LIMIT 1", taxon_concept_id, Visibility.visible.id])
     ref_count > 0
   end
 

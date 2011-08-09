@@ -11,8 +11,7 @@ class Taxa::DetailsController < TaxaController
       { :data_objects => [ :translations, :data_object_translation, { :toc_items => :info_items }, { :data_objects_hierarchy_entries => :hierarchy_entry },
         { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ] },
       { :curator_activity_logs => :user },
-      { :users_data_objects => [ { :data_object => :toc_items }, { :data_objects_hierarchy_entries => :hierarchy_entry },
-        { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ] },
+      { :users_data_objects => [ { :data_object => :toc_items } ] },
       { :taxon_concept_exemplar_image => :data_object }]
     selects = {
       :taxon_concepts => '*',
@@ -30,7 +29,7 @@ class Taxa::DetailsController < TaxaController
       :users => [ :given_name, :family_name, :logo_cache_url ] ,
       :taxon_concept_exemplar_image => '*' }
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
-
+    @taxon_concept.current_user = current_user
     @details = @taxon_concept.details_for_toc_items(ContentTable.details.toc_items, :language => current_user.language_abbr)
 
     toc_items_to_show = @details.collect{|d| d[:toc_item]}

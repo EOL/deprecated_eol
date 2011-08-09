@@ -44,7 +44,7 @@ class CuratorActivityLog < LoggingModel
             comment_parent.taxon_concept_for_users_text.name
           end
         end
-      when ChangeableObjectType.users_submitted_text.id:
+      when ChangeableObjectType.users_data_object.id:
         udo_taxon_concept.entry.italicized_name
       when ChangeableObjectType.synonym.id:
         synonym.hierarchy_entry.taxon_concept.entry.italicized_name
@@ -69,7 +69,7 @@ class CuratorActivityLog < LoggingModel
         end
       when ChangeableObjectType.synonym.id:
         synonym.hierarchy_entry.taxon_concept_id
-      when ChangeableObjectType.users_submitted_text.id:
+      when ChangeableObjectType.users_data_object.id:
         udo_taxon_concept.id
       else
         raise "Don't know how to get the taxon id from a changeable object type of id #{changeable_object_type_id}"

@@ -16,9 +16,4 @@
       %p= data_object.bibliographic_citation
     - unless data_object.source_url.blank?
       %p= link_to I18n.t("view_#{en_type}_source"), data_object.source_url
-<<<<<<< HEAD
       = render :partial => 'data_objects/supplier', :locals => { :data_object => data_object }
-=======
-    = render :partial => 'data_objects/supplier', :locals => { :data_object => data_object }
->>>>>>> f07aa30eda7b8c3af667cb2f725674b4204a9d00
-

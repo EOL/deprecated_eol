@@ -1,14 +1,14 @@
 class Taxa::WorklistController < TaxaController
 
+  before_filter :check_authentication
+  before_filter :restrict_to_curators
   before_filter :instantiate_taxon_concept, :redirect_if_superceded, :redirect_if_invalid
   before_filter :add_page_view_log_entry, :update_user_content_level
 
   def show
-    # TODO - Use Solr to get the data_objects for the given taxon_concept
-    # solr_query = "ancestor_id:#{@taxon_concept.id} AND published:1"
-    # data_object_ids_to_lookup = EOL::Solr::SolrSearchDataObjects.tasks_for_worklist(solr_query, :rows => 500, :sort => 'created_at desc')
-    
-    @worklist_tasks = @taxon_concept.data_objects
+    # TODO - Note, I'm assigning @taxon_concept.data_objects to the @worklist_tasks just to get the functionality working on the interface.
+    # It should be replaced to get the data_objects for the given taxon_concept using the SOLR.
+    @worklist_tasks = @taxon_concept.data_objects 
     
     @object_type = params[:object_type] ||= 'all'
     @object_status = params[:object_status] ||= 'unknown'

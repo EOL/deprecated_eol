@@ -1684,6 +1684,7 @@ en:
   learn_more_: "learn more"
   learn_more: "Learn More"
   learn_more_about_names_for_this_taxon: "learn more about names for this taxon"
+  learn_more_with_data_type: "learn more about this %{data_type}"
   leave_community: "Leave this community"
   leave_community_button: "Leave this community"
   leave_a_comment: "Leave a comment"

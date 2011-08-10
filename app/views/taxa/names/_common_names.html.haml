@@ -1,4 +1,4 @@
-- names_by_language = common_names_by_language(@common_names, current_user.language_id)
+- names_by_language = common_names_by_language(@common_names, current_user.language_id).uniq
 - names_by_language.each_with_index do |language_names_pair, index|
   - language = language_names_pair[0]
   - names = language_names_pair[1]

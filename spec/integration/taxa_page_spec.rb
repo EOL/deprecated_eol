@@ -32,9 +32,9 @@ describe 'Taxa page' do
     it 'should show the preferred common name' do
       body.should have_tag('#page_heading h2', /^#{@testy[:common_name]}/)
     end
-    it 'should show a link to common names with count' do
-      body.should have_tag('#page_heading h2 small', /^#{@testy[:taxon_concept].common_names.count}/)
-    end
+    # it 'should show a link to common names with count' do
+    #   body.should have_tag('#page_heading h2 small', /^#{@testy[:taxon_concept].common_names.count}/)
+    # end
   end
 
   shared_examples_for 'taxon details tab' do

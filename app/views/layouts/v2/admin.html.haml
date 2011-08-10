@@ -1,0 +1,14 @@
+- content_for :main do
+  #page_heading
+    .site_column
+      .hgroup
+        %h1= @page_title
+  #content.admin
+    .site_column
+      #tabs_sidebar
+        %ul.tabs
+          %li{:class => resource_is_active('admins')}= link_to I18n.t(:admin_link), admin_path
+          %li{:class => resource_is_active('admins/content_partners')}= link_to I18n.t(:admin_content_partners_index_link), admin_content_partners_path
+      = yield
+
+= render :file => 'layouts/v2/application'

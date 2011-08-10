@@ -152,8 +152,9 @@ form#switch_hierarchy_entry
     border-top: 1px solid #000
     padding: 10px 0
     margin: 20px 0 0 0
-#main
+#main, .cms_page
   .header
+    text-align: center
     .pagination
       position: relative
       top: 5px
@@ -165,13 +166,54 @@ form#switch_hierarchy_entry
         left: 0 !important /* Override HR */
 
 /** Static pages **/
-.exemplars, .partners
+.exemplars
   ul
     img
       clear: both
       float: left
       margin: 0 20px 30px 30px
-
+/** content partners **/
+.cms_page
+  .header
+    border-bottom: 1px solid #CAD3DB
+    padding-bottom: 1em
+    margin-bottom: 30px
+  .footer
+    border-top: 1px solid #CAD3DB
+    padding-top: 1em
+  ul.object_list
+    list-style_type: none
+    li
+      img
+        max-width: 68px
+      h4
+        margin-bottom: 0.5em
+        a
+          color: #195184
+          text-decoration: underline
+      p
+        clear: none
+#content_partner_edit, #content_partner_new
+  &.site_column
+    width: 640px
+#content_partner_show
+  .main_container
+    padding: 40px
+    border: 1px solid #93A4B0
+    border-width: 0 1px
+  #sidebar
+    width: 200px
+ul.content_partner_contacts
+  li
+    margin: 0 0 20px 0
+#content_partner_statistics
+  .heading
+    text-align: center
+    fieldset, input[type="submit"]
+      display: inline
+      margin: 0
+  table
+    margin-top: 20px
 /** warning messages - check HR commits for updates to this **/
 p.status.error
   border: 1px solid #f2d2cc
@@ -725,3 +767,19 @@ table.standard
 // pagination for news feeds
 .article .pagination
   margin-top: 1em
+// The application sass wants the first node of the classification tree to be bold, ALWAYS.  This doesn't work for
+// the overview tab anymore (besides, it's given the "bold" class anyway):
+ul.classification
+  > li
+    > a
+      font-weight: normal
+// The "bold" class on tree nodes is not honored for some reason:
+ul.classification a.bold
+  font-weight: bold
+// Classification browser for summary needs to be bumped over slightly:
+ul.classification.summary
+  margin-left: 1em
+// Classification summary needs breathing space:
+#classifications_summary > ul > li
+  margin-bottom: 1em
+

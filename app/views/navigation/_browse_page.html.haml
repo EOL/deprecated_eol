@@ -2,7 +2,6 @@
 
 - @include_common_names = (current_user.expertise == "middle")
 - @include_common_names = false
-- @common_name_language = current_user.language
 - if @hierarchy_entry.blank?
   - @hierarchy_entry = @taxon_concept.find_ancestor_in_hierarchy(@selected_hierarchy_entry.hierarchy)
   - @in_hierarchy = @taxon_concept.in_hierarchy?(@selected_hierarchy_entry.hierarchy)
@@ -14,10 +13,10 @@
 
 #taxonomic-text-container
   %ul#taxonomictext.classification
-    - kingdoms = @hierarchy.kingdoms(:include_common_names => @include_common_names, :common_name_language => @common_name_language)
+    - kingdoms = @hierarchy.kingdoms(:include_common_names => @include_common_names, :common_name_language => current_user.language)
     - for kingdom in kingdoms
       - if entry_kingdom && entry_kingdom.id == kingdom.id
-        - ancestors = @hierarchy_entry.ancestors(:include_common_names => @include_common_names, :common_name_language => @common_name_language)
+        - ancestors = @hierarchy_entry.ancestors(:include_common_names => @include_common_names, :common_name_language => current_user.language)
         - hierarchy_entry = ancestors.pop
         - unless kingdom == kingdoms.first
           %br

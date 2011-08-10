@@ -136,21 +136,64 @@ form#switch_hierarchy_entry fieldset {
   padding: 10px 0;
   margin: 20px 0 0 0; }
 
-#main .header .pagination {
-  position: relative;
-  top: 5px;
-  left: 0;
-  width: 100%; }
-  #main .header .pagination a {
-    position: relative !important;
-    top: 0 !important;
-    left: 0 !important; }
+#main .header, .cms_page .header {
+  text-align: center; }
+  #main .header .pagination, .cms_page .header .pagination {
+    position: relative;
+    top: 5px;
+    left: 0;
+    width: 100%; }
+    #main .header .pagination a, .cms_page .header .pagination a {
+      position: relative !important;
+      top: 0 !important;
+      left: 0 !important; }
 
 /*Static pages */
-.exemplars ul img, .partners ul img {
+.exemplars ul img {
   clear: both;
   float: left;
   margin: 0 20px 30px 30px; }
+
+/*content partners */
+.cms_page .header {
+  border-bottom: 1px solid #cad3db;
+  padding-bottom: 1em;
+  margin-bottom: 30px; }
+.cms_page .footer {
+  border-top: 1px solid #cad3db;
+  padding-top: 1em; }
+.cms_page ul.object_list {
+  list-style_type: none; }
+  .cms_page ul.object_list li img {
+    max-width: 68px; }
+  .cms_page ul.object_list li h4 {
+    margin-bottom: 0.5em; }
+    .cms_page ul.object_list li h4 a {
+      color: #195184;
+      text-decoration: underline; }
+  .cms_page ul.object_list li p {
+    clear: none; }
+
+#content_partner_edit.site_column, #content_partner_new.site_column {
+  width: 640px; }
+
+#content_partner_show .main_container {
+  padding: 40px;
+  border: 1px solid #93a4b0;
+  border-width: 0 1px; }
+#content_partner_show #sidebar {
+  width: 200px; }
+
+ul.content_partner_contacts li {
+  margin: 0 0 20px 0; }
+
+#content_partner_statistics .heading {
+  text-align: center; }
+  #content_partner_statistics .heading fieldset, #content_partner_statistics .heading input[type="submit"] {
+    display: inline;
+    margin: 0; }
+#content_partner_statistics table {
+  margin-top: 20px; }
 
 /*warning messages - check HR commits for updates to this */
 p.status.error {
@@ -613,3 +656,15 @@ table.standard td.nowrap {
 
 .article .pagination {
   margin-top: 1em; }
+
+ul.classification > li > a {
+  font-weight: normal; }
+
+ul.classification a.bold {
+  font-weight: bold; }
+
+ul.classification.summary {
+  margin-left: 1em; }
+
+#classifications_summary > ul > li {
+  margin-bottom: 1em; }

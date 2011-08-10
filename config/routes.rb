@@ -28,6 +28,7 @@ ActionController::Routing::Routes.draw do |map|
                                                          :except => [:index, :show],
                                                          :namespace => "content_partners/"
     content_partner.resources :resources, :namespace => "content_partners/"
+    content_partner.resource :statistics, :only => [:show], :namespace => "content_partners/"
   end
 
 # WIP
@@ -85,6 +86,7 @@ ActionController::Routing::Routes.draw do |map|
   # Taxa nested resources with pages as alias
   map.resources :taxa, :as => :pages do |taxa|
     taxa.resources :hierarchy_entries, :as => :entries, :only => [:show], :member => { :switch => [:put] } do |entries|
+      entries.resource :tree, :only => [:show], :controller => "taxa/trees"
       entries.resource :overview, :only => [:show], :controller => "taxa/overviews"
       entries.resources :media, :only => [:index], :controller => "taxa/media"
       entries.resources :details, :only => [:index], :controller => "taxa/details"
@@ -160,18 +162,20 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'search.:format', :controller => 'search', :action => 'index'
   map.found   'found/:id',      :controller => 'search', :action => 'found'
 
+  # New V2 /admins namespace with singular resource admin
+  map.resource :admin, :only => [:show] do |admin|
+    admin.resources :content_partners, :only => [:index], :namespace => 'admins/'
+  end
+  #map.connect 'monthly_stats_email',         :controller => 'administrator/content_partner_report', :action => 'monthly_stats_email'
+
+  # Old V1 /admin and /administrator namespaces (controllers)
+  map.administrator 'administrator',           :controller => 'admin',           :action => 'index'
   map.connect 'administrator/reports',         :controller => 'administrator/reports', :action => 'index'
-  map.connect 'monthly_stats_email',         :controller => 'administrator/content_partner_report', :action => 'monthly_stats_email'
   map.connect 'administrator/reports/:action', :controller => 'administrator/reports'
-
   #map.connect 'administrator/user_data_object',    :controller => 'administrator/user_data_object', :action => 'index'
-
-
   # map.connect 'administrator/reports/:report', :controller => 'administrator/reports', :action => 'catch_all',
   #                                              :requirements => { :report => /.*/ }
-
   map.connect 'administrator/curator', :controller => 'administrator/curator', :action => 'index'
-
   map.resources :public_tags, :controller => 'administrator/tag_suggestion'
   map.resources :search_logs, :controller => 'administrator/search_logs'
 
@@ -181,7 +185,6 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/taxon_concepts/:taxon_concept_id/comments/', :controller => 'comments', :action => 'create',
                                                              :conditions => {:method => :post}
 
-  map.admin 'admin',           :controller => 'admin',           :action => 'index'
   map.podcast 'podcast', :controller=>'content', :action=>'page', :id=>'podcast'
 
   # by default /api goes to the docs

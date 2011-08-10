@@ -5,7 +5,15 @@
       .hgroup
         %h1= h @partner.name
         - if @page_subheader.blank?
-          %p= @partner.homepage unless @partner.homepage.blank?
+          %p
+            - unless @partner.latest_published_harvest_events.blank?
+              = I18n.t(:content_partner_latest_published_harvest_event_time_ago,
+                :time_passed => time_ago_in_words(@partner.latest_published_harvest_events.first.published_at))
+              - unless @partner.homepage.blank?
+                %br/
+            - unless @partner.homepage.blank?
+              = link_to @partner.homepage, @partner.homepage
+
         - else
           %h2= @page_subheader unless @page_subheader.blank?
 
@@ -15,13 +23,14 @@
             %li= link_to I18n.t(:content_partner_edit_link), edit_content_partner_path(@partner), :class => "button"
       = render :partial => 'shared/flash_messages'
   #content
-    .site_column
+    %div{:id => "content_partner_#{action_name}", :class => 'site_column'}
       - if @partner && @partner.id && (action_name == 'show' || action_name == 'index')
         #tabs_sidebar
           %ul.tabs
             %li{:class => resource_is_active('content_partners')}= link_to I18n.t(:content_partner_overview), content_partner_path(@partner)
-            %li{:class => resource_is_active('content_partners/resources')}= link_to I18n.t(:content_partner_resources), content_partner_resources_path(@partner)
-
+            %li{:class => resource_is_active('content_partners/statistics')}= link_to I18n.t(:content_partner_statistics_link), content_partner_statistics_path(@partner)
+            - if current_user.can_update?(@partner)
+              %li{:class => resource_is_active('content_partners/resources')}= link_to I18n.t(:content_partner_resources), content_partner_resources_path(@partner)
       = yield
 
 = render :file => 'layouts/v2/application'

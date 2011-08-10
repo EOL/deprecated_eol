@@ -7,7 +7,7 @@ class Taxa::OverviewsController < TaxaController
       { :published_hierarchy_entries => [ { :name => :ranked_canonical_form } , :hierarchy, :hierarchies_content, :vetted ] },
       { :data_objects => [ :toc_items,  :info_items, { :data_objects_hierarchy_entries => :hierarchy_entry },
         { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ] },
-      { :top_concept_images => { :data_object => [
+      { :top_concept_images => { :data_object => [ :users_data_object,
         { :data_objects_hierarchy_entries => :hierarchy_entry },
         { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ] } },
       { :curator_activity_logs => :user },

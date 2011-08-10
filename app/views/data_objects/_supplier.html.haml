@@ -2,9 +2,8 @@
   - agent  ||= data_object.data_supplier_agent
   - unless agent.blank?
     = I18n.t(:supplier_colon) + " "
-    - content_partner = agent.user.content_partner
-    - if content_partner
-      = link_to content_partner.full_name,  content_partner_path(:id => content_partner.id)
+    - if agent.user && agent.user.content_partner
+      = link_to agent.user.content_partner.full_name,  content_partner_path(:id => agent.user.content_partner.id)
     - else
       = agent.full_name
   - else

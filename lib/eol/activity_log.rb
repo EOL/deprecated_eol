@@ -19,7 +19,7 @@ module EOL
     end
 
     def self.find_activities(klass, source, options = {})
-      options[:per_page] ||= 5
+      options[:per_page] ||= 20
       options[:page] ||= 1
       case klass
       when nil

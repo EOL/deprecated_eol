@@ -18,4 +18,11 @@ class Member < ActiveRecord::Base
     self.update_attribute(:manager, false)
   end
 
+  def comment_count
+    Comment.count_by_sql(%Q{
+      SELECT COUNT(*) FROM comments
+      WHERE parent_type = "Community" AND parent_id = #{self.community_id} AND user_id = #{self.user_id}
+    })
+  end
+
 end

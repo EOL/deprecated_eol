@@ -2,7 +2,7 @@
 - linked ||= false
 - if data_object.added_by_user?
   - # TODO: users have agent so should we be using it? They can't update it though - common names perhaps uses user agent?
-  - attribution = data_object.users_data_objects[0].user.full_name
+  - attribution = data_object.users_data_object.user.full_name
 - else
   - if data_object.rights_holder.blank?
     - owner, user = data_object.owner

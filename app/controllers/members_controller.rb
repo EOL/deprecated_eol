@@ -56,6 +56,7 @@ private
 
   def load_community_and_current_member
     @community = Community.find(params[:community_id])
+    @community_collections = @community.collections # NOTE these are really collection_items.
     @current_member = current_user.member_of(@community)
   end
 

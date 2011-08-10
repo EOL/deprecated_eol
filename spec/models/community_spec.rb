@@ -66,7 +66,7 @@ describe Community do
   it 'should have an activity log' do
     community = Community.gen
     community.respond_to?(:activity_log).should be_true
-    community.activity_log.should be_a EOL::ActivityLog
+    community.activity_log.should be_a WillPaginate::Collection
   end
 
 end

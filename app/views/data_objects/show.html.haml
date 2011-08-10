@@ -19,8 +19,7 @@
     .article.list.updates
       .header
         %h3= I18n.t(:recent_updates)
-      - # TODO: I added the .last(10) so we could create them as an array and reverse them. I should really be reversing them in the activity_log method...
-      = render :partial => 'activity_logs/index', :locals => { :log => @data_object.activity_log.last(10).reverse }
+      = render :partial => 'activity_logs/index', :locals => { :log => @data_object.activity_log(:page => @page || nil) }
       = render :partial => 'comments/new', :locals => {:parent => @data_object}
   #sidebar
     = render :partial => 'rating', :locals => { :data_object => @data_object, :en_type => en_type }

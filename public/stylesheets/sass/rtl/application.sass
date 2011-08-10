@@ -1,6 +1,7 @@
 @import "common"
 
-a
+a,
+input[type="submit"]
   &.button
     +button
   &.in_collection
@@ -9,6 +10,8 @@ a
     text-shadow: 0 1px 1px #222222
     border-color: #1e5587
 form
+  &.button_to
+    margin-top: 20px
   dl
     dt
       padding: 0 0 5px 0
@@ -20,6 +23,8 @@ form
       padding: 0 0 10px 0
       input[type="text"], input[type="password"], textarea, select
         margin: 0 0 5px 0
+      input[type="file"]
+        margin: 0 0 10px 0        
       textarea
         +textarea
   label
@@ -32,7 +37,9 @@ form
       font-weight: bold
       input
         margin: 0 0 0 5px        
-  fieldset.actions
+  fieldset.actions,
+  div
+    margin: 10px 0
     button
       display: none
     input[type="submit"],
@@ -41,6 +48,15 @@ form
       margin: 0 5px 0 0
       padding: 3px 10px
       font-size: .92em
+      cursor: pointer
+      &.delete
+        border-color: #cd331e
+        +gradient-bg(#e07f71, #cd331e)
+        color: #fff
+        &:hover
+          +gradient_bg(saturate(#e07f71 + #111111, 10%), saturate(#cd331e + #111111, 10%))
+        &:active
+          +gradient-bg(#e07f71, #cd331e)      
   .heading &.filter
     float: left
     label
@@ -132,7 +148,7 @@ ul.tabs
         font-size: 1.14em
     &.taxa
       a
-        background: transparent url("/images/v2/icon_taxa_tabs.png") 158px 6px no-repeat
+        background: transparent url("/images/v2/icon_taxa_tabs.png") 158px 50% no-repeat
     &.videos
       a
         background: transparent url("/images/v2/icon_videos_tabs.png") 158px 10px no-repeat
@@ -156,10 +172,12 @@ ul.tabs
       font-size: 1.16em
       a
         padding: 17px 50px 17px 20px
-      &.total
+      &.total,
+      &.comments
         a
           padding-right: 20px
-          font-size: 1.14em
+      &.total
+        font-size: 1.14em
 
 p.status
   clear: both
@@ -188,21 +206,12 @@ p.status
       color: #e84226
 
 .copy
-  &.cms_page
-    padding: 40px 40px 25px 40px
-    border: 1px solid #cad3db
-    margin: 0 0 0 60px
-    img
-      float: left
-      padding: 10px
-      border: 1px solid #cad3db
-      margin: 0 20px 20px 0
   h2
     margin: 0 0 15px 0
     font-size: 1.5em
   h3
     margin: 0 0 15px 0
-    font-size: 1.2em
+    font-size: 1.33em
   h4
     margin: 0 0 15px 0
     font-size: 1em
@@ -264,7 +273,18 @@ table.standard
       padding: 2px 0 0 0
       font-weight: bold
       text-transform: lowercase
-
+  .empty
+    padding: 15px 15px 0 15px
+    margin: 10px 0 0 -10px
+    font-size: 1.16em
+    text-align: center
+    border: 1px solid #cad3db
+    background: #f3f7fa
+    p
+      padding: 0 0 15px 0
+      line-height: 150%
+    a.button
+      font-size: .78em
   .meta
     clear: both
     padding: 0 0 20px 0
@@ -293,11 +313,6 @@ table.standard
       .details
         padding: 5px 0 0 0
         overflow: hidden
-        a
-          text-decoration: none
-          color: #27282b
-          &:hover
-            text-decoration: underline
   &.updates
     blockquote
       line-height: 140%
@@ -332,7 +347,6 @@ table.standard
     position: relative
     width: 80px
     height: 13px
-    margin: 0 0 0 5px
     overflow: hidden
     list-style: none
     background-position: 0 0
@@ -342,11 +356,11 @@ table.standard
         &.current_rating_#{$i}
           +star
           width: 20% * $i
-          background: transparent url("/images/v2/icon_stars.png") 0 100% repeat-x
+          background: transparent url("/images/v2/icon_stars.png") 0 -26px repeat-x
     a
       +star
       &:hover, &:active, &:focus
-        background-position: 0 100%
+        background-position: 0 -26px
       @for $i from 1 through 5
         &.star_#{$i}
           width: 20% * $i
@@ -359,6 +373,7 @@ table.standard
     float: right
     font-size: .83em
     font-weight: bold
+    margin: 0 0 0 10px    
 
 .average_rating
   font-size: .83em
@@ -366,6 +381,7 @@ table.standard
   p
     float: right
     margin: 0
+    margin: 0 0 0 10px    
   .rating
     float: right
     width: 80px
@@ -548,7 +564,32 @@ body
   overflow: hidden
   padding: 20px 0
   background: #ffffff
-
+  &.cms_page
+    .nav
+      float: right
+      margin: 0 0 0 20px
+      width: 240px
+      ul
+        li
+          a
+            border: 1px solid #cad3db
+            margin: 0 0 1px 0
+          a
+            display: block
+            font-weight: bold
+            padding: 7px 10px 6px 10px
+            text-decoration: none
+            &:hover
+              border-color: #93a4b0
+    .copy
+      overflow: hidden
+      padding: 40px 40px 25px 40px
+      border: 1px solid #cad3db
+      img
+        float: left
+        padding: 10px
+        border: 1px solid #cad3db
+        margin: 0 20px 20px 0
 #page_heading
   padding: 10px 0 0 0
   border-bottom: 1px solid #93a4b0
@@ -605,6 +646,7 @@ body
       float: left
     form.button_to
       float: left
+      margin: 0
       input[type="submit"]
         +button
   &.with_image
@@ -631,6 +673,8 @@ body
     .page_actions    
       padding-top: 10px
       padding-bottom: 10px
+      ul
+        padding: 0      
     input[type="text"]
       font-size: 16px
       margin: 0 0 5px 0
@@ -671,6 +715,9 @@ body
   z-index: 2
   width: 200px
   padding: 20px 0 0 0
+  h3
+    margin: 0 10px 10px 0 
+    font-size: 14px  
   form
     padding: 0 10px 0 0 
     dt
@@ -759,6 +806,27 @@ body
 #collections
   .heading
     text-align: center
+  .article.list.updates
+    padding-top: 15px
+    margin: 0 0 0 -10px
+    form
+      padding: 5px 15px 20px 15px
+      margin: 0
+      border-bottom: 1px solid #d4dce2
+      textarea
+        width: 390px
+      fieldset
+        margin: 0
+      fieldset.actions
+        input[type="submit"]
+          padding: 7px 10px
+          font-size: 1em
+    ul
+      li
+        padding: 15px 0 0 15px
+        img
+          margin-bottom: 5px
+        border-bottom: 1px solid #d4dce2    
   ul.object_list
     li
       padding-top: 20px
@@ -834,6 +902,39 @@ body
       font-size: 1.16em
       font-weight: bold
       text-align: center
+      
+#collections_copy
+  width: 700px
+  margin: 20px auto
+  h2
+    font-size: 1.33em
+    margin: 0 10px 10px 0
+  fieldset.new_collection
+    overflow: hidden
+    margin: 0 10px 40px 0
+    input[type="text"]
+      float: right
+      +input(210px)
+      margin: 0 0 0 10px
+    input[type="submit"]
+      float: right
+      padding-left: 20px
+      padding-right: 20px
+  .heading
+    border-bottom: 1px solid #394651
+    margin: 0
+    overflow: hidden
+    h2
+      float: right
+    a
+      float: left
+      padding: 4px 0 0 10px
+  ul.object_list
+    h4
+      margin-top: 8px
+    img
+      float: right
+      margin: 0 0 0 20px
 
 #profile_info
   padding: 40px
@@ -851,18 +952,23 @@ body
           margin: 0 20px 5px 0
 
 #profile_curator_info
-  padding: 40px
   fieldset
+    label
+      font-size: 16px
+
+#profile_curator_info,
+#profile_content_partner
+  width: 640px
+  fieldset  
     padding-top: 10px
     dt
       margin: 0
-      label
-        display: block
-        font-size: 16px
       p, label, ol, ol li
-        margin-bottom: 5px
+        margin-bottom: 0
     dd
       margin: 0 0 10px 0
+      input[type="text"]
+        +input      
       textarea
         width: 600px
         height: 60px
@@ -877,16 +983,17 @@ body
     li
       overflow: hidden
       margin: 0 0 10px 0
-      img
+      > a
         float: right
         border: 1px solid #394651
         margin: 0 10px 0 0
+        img
+          display: block        
       .details
-        float: right
-        margin: 10px 0 0 0
+        overflow: hidden
+        margin: 5px 0 0 0
         a
-          font-size: .9em
-          margin: 0 0 0 5px
+          color: #27282B
           +underline-on-hover
 
 #content_partner
@@ -902,6 +1009,29 @@ body
       padding: 7px 10px
       margin: 0 0 0 10px
       font-size: 1em
+  &.contact
+    padding: 0
+    width: 640px      
+
+#content_partner_show
+  #sidebar
+    width: 320px
+    ul
+      li
+        margin: 0 0 20px 0
+        h4
+          b
+            font-size: .9em
+            color: #616e7a
+        p
+          font-size: .9em
+          line-height: 140%
+          & + p
+            a
+              font-weight: bold
+  .main_container
+    border: none
+    padding: 0
 
 
 #community
@@ -930,6 +1060,50 @@ body
         img
           margin: 0 0 0 8px
           border: 1px solid #394651
+
+
+#community_new
+  .copy
+    width: 300px
+    float: left
+    margin: 0 40px 0 0 
+  form
+    float: left
+    width: 600px
+    dt
+      p
+        margin: 0
+    input[type="text"]
+      +input
+    textarea
+      width: 582px
+      height: 100px
+    dd.invite
+      position: relative
+      input[type="text"]
+        display: none
+      textarea
+        height: 40px
+      ul.spotlite-results
+        li
+          border: 1px solid #d4dce2
+          +border-radius(3px)
+          float: right
+          padding: 4px 0 0 5px
+          cursor: pointer
+          background: url("/images/v2/icon_remove.png") no-repeat 5px center
+          padding-right: 17px
+          margin: 0 0 5px 5px
+          &:hover
+            background-color: #f3f7fa
+    fieldset
+      &.actions
+        clear: both
+        width: 100%
+        input[type="submit"]
+          font-size: 1em
+          padding: 7px 20px
+          margin: 10px 0 10px 20px
 
 #taxon_literature
   .main_container
@@ -962,7 +1136,7 @@ body
             line-height: 120%
             color: #616E7A
 
-#taxonomy
+#taxon
   float: right
   width: 580px
   .gallery
@@ -994,6 +1168,7 @@ body
         height: 68px
         margin: 0 0 10px 0
         border: 1px solid #cad3db
+        background: #e2e9ef        
         overflow: hidden
         img
           display: block
@@ -1012,13 +1187,16 @@ body
       z-index: 100
       width: 430px
       font-size: .92em
+      p
+        margin: 0
+        line-height: 120%      
       img
         position: absolute
         top: 50%
         right: 0
         margin-top: -8p
-      p
-        padding: 0 90px 0 0 
+        + .copy
+          padding: 0 90px 0 0 
     p.all
       float: left
       padding: 5px 0 0 0
@@ -1069,10 +1247,11 @@ body
             font-weight: normal
             background: transparent url("/languages/ar/images/icon_classification_arrow.png") right 0 no-repeat
     .updates
+      ul
+        border-bottom: 1px solid #d7dadc    
       form.comment
         padding: 20px 0 10px 0
         margin: 0 0 0 -10px
-        border-top: 1px solid #d7dadc
         img
           border: 1px solid #394651
         textarea
@@ -1082,7 +1261,7 @@ body
           input[type="submit"]
             padding: 6px 15px
 
-#taxonomy_detail
+#taxon_detail
   #sidebar
     float: right
     width: 220px
@@ -1131,6 +1310,8 @@ body
       + .article
         padding-top: 40px
         border-top: 1px solid #d4dce2
+      .meta
+        padding-top: 10px
       .meta.learn_more
         p, form
           float: none
@@ -1142,12 +1323,25 @@ body
           &.last
             &:after
               content: ''
+      p.flag
+        float: right
+        padding: 1px 0 0 2px
+        font-size: .83em
+        text-transform: uppercase
+        color: #ffffff
+        margin: 0 0 0 40px
+        &.trusted
+          border: 1px solid #6b7910
+          background: #849513
+        &.unreviewed
+          border: 1px solid #677682
+          background: #8695a1              
       .average_rating
         float: right
-        padding: 0 0 0 40px
+        padding: 2px 0 0 40px
         margin: 0 0 20px 0
       > .rating
-        margin: 0 0 20px 0
+        padding: 2px 0 20px 0
       p.actions
         clear: both
         margin: 0 0 20px 0
@@ -1168,41 +1362,66 @@ body
       a.cancel
         display: none
 
-#permalink
-  &.text
-    .ratings
-      margin-top: 40px
-  .ratings
+#taxon_resources
+  .main_container
+    padding: 40px
+    table.standard
+      img
+        display: block
+
+#object_text_new
+  fieldset
+    width: 640px
     float: right
-    width: 120px
-    margin: 20px 0 0 0    
-    padding: 0 20px 40px 20px
-    text-align: center
+    & + fieldset
+      width: 300px
+      input[type="text"]
+        width: 288px
+    input[type="text"]
+      +input
+    textarea
+      width: 580px
+      height: 200px
+    &.actions
+      clear: both
+      width: 100%
+      input[type="submit"]
+        font-size: 1em
+        padding: 7px 20px
+        margin: 10px 0 10px 20px
+#permalink
+  .ratings
     h5
+      float: right
       padding: 0 0 5px 0
       font-size: 1.16em
-    .rating,
+    > .rating,
     .average_rating
       overflow: hidden
-      padding: 10px
+      padding: 10px 15px 11px 15px
       margin: 0 0 20px 0
       font-size: 1em
       border: 3px solid #cad3db
-      p
-        float: none
-        font-size: 12px
+      > p
+        float: right
+        font-size: 1.1em
+        margin-top: 2px
+      ul
+        float: left
+        margin: 0
+        li
+          background-position: 0 100%
+          a:hover, a:active, a:focus
+            background-position: 0 100%
       .rating
+        float: left
         width: 100px
         height: 17px
-        padding: 0
-        margin: 0 0 5px 0
-        border: none
         background-image: url("/images/v2/icon_permalink-stars.png")
         p
-          float: right
           height: 17px
           background-image: url("/images/v2/icon_permalink-stars.png")
-    .rating
+    > .rating
       border-color: #c1d72e
       ul, li[class^="current_rating"], a
         height: 17px
@@ -1216,37 +1435,20 @@ body
         width: 100px
   .media
     float: right
-    width: 580px
+    width: 540px
     padding: 19px
-    margin: 0 0 40px 20px
+    margin: 0 0 40px 0
     border: 1px solid #cad3db
     img
       display: block
       margin: 0 auto    
-  > .article.copy
-    overflow: hidden
-    padding: 40px
-    margin: 0 0 40px 0
-    border: 1px solid #cad3db
-  ul.sizes
-    float: right
-    width: 120px
-    padding: 20px 0 40px 0
-    li
-      padding: 0 0 10px 0
-    a
-      +button    
-      display: block 
-      width: 98px
-      text-align: center
-      text-transform: lowercase      
-      color: #616e7a     
-    strong
-      display: block
-      padding: 0 0 5px 0
-      font-size: 1.33em
-      font-weight: 500
-      color: #28323a
+  &.text
+    #main
+      .article.copy
+        overflow: hidden
+        padding: 40px
+        margin: 0 0 40px 0
+        border: 1px solid #cad3db
   #main
     clear: both
     float: right
@@ -1257,7 +1459,7 @@ body
       border-top: 1px solid #d7dadc
   #sidebar
     width: 340px
-    padding-top: 0
+    padding: 0
     h3
       padding: 0 10px 3px 10px
       font-size: 1.16em
@@ -1279,13 +1481,16 @@ body
     p
       font-size: .92em
       line-height: 150%
+      &.inappropriate
+        a
+          color: #cd331e      
   form.review_status
     fieldset
-      padding: 0 10px 10px 10px
-      margin: 0 0 20px 0
+      padding: 0 10px 0 10px
+      margin: 0 0 10px 0
       border-bottom: 1px solid #d7dadc
       &.actions
-        padding-bottom: 0
+        padding: 10px 10px 0 0 
         border: none
     legend
       padding: 0 0 5px 0
@@ -1300,7 +1505,7 @@ body
         margin-right: 5px
     textarea
       +textarea
-      width: 308px
+      width: 282px
       height: 44px
       margin: 0
     ul
@@ -1331,7 +1536,6 @@ body
             color: #667309
         dd
           padding: 0
-          select
     fieldset.actions
       padding: 17px 0 0 0
       input[type="submit"]
@@ -1475,6 +1679,10 @@ body
       ul a:active,
       ul a:focus
         background-image: url("/images/v2/icon_permalink-stars.png")
+      li
+        background-position: 0 100%
+        a:hover, a:active, a:focus
+          background-position: 0 100%
       ul
         width: 100px
     form.review_status
@@ -1515,91 +1723,91 @@ body
         top: 15px
         z-index: 1
         font-weight: bold
-    ul.media
-      > li
-        float: right
-        width: 160px
-        padding: 0 20px 30px 0
-        &:hover
-          .figure
-            label
-              display: block
+  ul.media
+    > li
+      float: right
+      width: 160px
+      padding: 0 20px 30px 0
+      &:hover
         .figure
-          position: relative
-          background: #ffffff
-          cursor: pointer
-          .overlay
-            position: absolute
-            right: 0
-            top: 0
-            z-index: 1
-            width: 100%
-            height: 100%
           label
-            display: none
-            position: absolute
-            left: 0
-            bottom: 0
-            right: 0
-            z-index: 2
-            padding: 10px
-            font-weight: bold
-            background: transparent url("/images/v2/bg_exemplar.png") repeat
-        &.inappropriate
-          .figure
-            .overlay
-              background: transparent url("/images/v2/bg_media-inappropriate.png") 50% 0 no-repeat
-            img
-              +opacity(.5)
-        &.untrusted
-          .figure
-            img
-              +opacity(.5)
-        img
-          display: block
-          margin: 0 0 5px 0
-        fieldset
-          clear: both
-          select
-            margin: 0 0 3px 0
-        .ratings
-          > .rating
-            display: none
-            float: right
-            margin: 0 0 5px 0
-          &:hover
-            .average_rating
-              display: none
-            > .rating
-              display: block
-          &.rated
-            > .rating
-              display: block
-            .average_rating
-              display: none
-        .average_rating
+            display: block
+      .figure
+        position: relative
+        background: #ffffff
+        cursor: pointer
+        .overlay
+          position: absolute
+          right: 0
+          top: 0
+          z-index: 1
+          width: 100%
+          height: 100%
+        label
+          display: none
+          position: absolute
+          left: 0
+          bottom: 0
+          right: 0
+          z-index: 2
+          padding: 10px
+          font-weight: bold
+          background: transparent url("/images/v2/bg_exemplar.png") repeat
+      &.inappropriate
+        .figure
+          .overlay
+            background: transparent url("/images/v2/bg_media-inappropriate.png") 50% 0 no-repeat
+          img
+            +opacity(.5)
+      &.untrusted
+        .figure
+          img
+            +opacity(.5)
+      img
+        display: block
+        margin: 0 0 5px 0
+      fieldset
+        clear: both
+        select
+          margin: 0 0 3px 0
+      .ratings
+        > .rating
+          display: none
           float: right
           margin: 0 0 5px 0
-        p.flag
-          float: left
-          padding: 1px 0 0 2px
-          font-size: .75em
-          text-transform: uppercase
-          color: #ffffff
-          &.trusted
-            border: 1px solid #6b7910
-            background: #849513
-          &.unreviewed
-            border: 1px solid #677682
-            background: #8695a1
-        a.button
-          clear: both
-          display: inline-block
-          padding: 4px 0 0 10px
-          font-size: .92em
-        &.first
-          clear: both
-          padding-left: 0
+        &:hover
+          .average_rating
+            display: none
+          > .rating
+            display: block
+        &.rated
+          > .rating
+            display: block
+          .average_rating
+            display: none
+      .average_rating
+        float: right
+        margin: 0 0 5px 0
+      p.flag
+        float: left
+        padding: 1px 0 0 2px
+        font-size: .75em
+        text-transform: uppercase
+        color: #ffffff
+        &.trusted
+          border: 1px solid #6b7910
+          background: #849513
+        &.unreviewed
+          border: 1px solid #677682
+          background: #8695a1
+      a.button
+        clear: both
+        display: inline-block
+        padding: 4px 10px
+        font-size: .92em
+      &.first
+        clear: both
+        padding-right: 0
 
 #search_results
   #main
@@ -1621,7 +1829,7 @@ body
         &.prev
           left: auto
           right: 10px
-#endorse
+#collections_endorse
   width: 700px
   padding: 20px 0 0 0
   margin: 0 auto
@@ -1690,6 +1898,15 @@ body
       width: 340px
       margin: 0
 
+#taxon_maps
+  #map
+    p
+      margin: 10px
+  #media_list
+    padding: 30px 0
+    ul.media
+      padding: 0 0 0 30px
+
 #content.session
   background: #e2e9ef
   form
@@ -1709,7 +1926,7 @@ body
       +input
     input[type="submit"]
       padding: 7px 10px
-      margin: 0 10px 0 0
+      margin: 0 0 0 10px
       font-size: 1em
     a
       font-weight: bold
@@ -1767,14 +1984,15 @@ body
       input[type="checkbox"],
       select
         margin-right: 10px
-    &.api-request
-      width: 178px
-      background: #f3f7fa
-      border: 1px solid #cad3db
-      padding: 20px 20px 10px 20px
-      margin-top: 20px
+    &.requests
+      width: 218px
+      margin: 0
+      padding: 0
       dl
-        padding: 0
+        padding: 20px 20px 10px 20px
+        margin-top: 20px
+        background: #f3f7fa
+        border: 1px solid #cad3db
       p
         font-size: .9em
         padding-top: 5px
@@ -1794,4 +2012,11 @@ body
         font-size: 1em
       a
         font-weight: bold
-        
+ 
+ul.spotlite-matches
+  background: #fff
+  border: 1px solid #d4dce2
+  li
+    padding: 4px 0 0 5px
+    &.spotlite-selected
+      background: #f1f4dc       

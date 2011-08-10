@@ -20,10 +20,10 @@
 
           - if common_name_count > 0
             - if @selected_hierarchy_entry
-              - link_url = common_names_taxon_hierarchy_entry_names_path(@taxon_concept, @selected_hierarchy_entry.id)
+              - link_url = taxon_hierarchy_entry_names_path(@taxon_concept, @selected_hierarchy_entry.id)
             - else
-              - link_url = common_names_taxon_names_path(@taxon_concept)
-            %small= link_to I18n.t(:common_names_with_count, :count => common_name_count), link_url, { :title => I18n.t(:common_names_advisory_information) }
+              - link_url = taxon_names_path(@taxon_concept)
+            %small= link_to I18n.t(:learn_more_about_names_for_this_taxon), link_url, { :title => I18n.t(:common_names_advisory_information) }
 
       .page_actions
         %ul
@@ -46,7 +46,7 @@
           %li{:class => resource_is_active('taxa/community')}= link_to I18n.t(:community), '/placeholder'
           %li{:class => resource_is_active('taxa/resources')}= link_to I18n.t(:resources), '/placeholder'
           %li{:class => resource_is_active('taxa/literature')}= link_to I18n.t(:literature), taxon_hierarchy_entry_literature_path(@taxon_concept, @selected_hierarchy_entry)
-          %li{:class => resource_is_active('taxa/updates')}= link_to I18n.t(:updates), '/placeholder'
+          %li{:class => resource_is_active('taxa/updates')}= link_to I18n.t(:updates), taxon_hierarchy_entry_updates_path(@taxon_concept, @selected_hierarchy_entry)
         - else
           %li{:class => resource_is_active('taxa/overviews')}= link_to I18n.t(:overview), taxon_overview_path(@taxon_concept)
           %li{:class => resource_is_active('taxa/details')}= link_to I18n.t(:detail), taxon_details_path(@taxon_concept)
@@ -56,7 +56,7 @@
           %li{:class => resource_is_active('taxa/community')}= link_to I18n.t(:community), '/placeholder'
           %li{:class => resource_is_active('taxa/resources')}= link_to I18n.t(:resources), taxon_resources_path(@taxon_concept)
           %li{:class => resource_is_active('taxa/literature')}= link_to I18n.t(:literature), taxon_literature_path(@taxon_concept.id)
-          %li{:class => resource_is_active('taxa/updates')}= link_to I18n.t(:updates), '/placeholder'
+          %li{:class => resource_is_active('taxa/updates')}= link_to I18n.t(:updates), taxon_updates_path(@taxon_concept.id)
 
   #content
     .site_column

@@ -13,18 +13,18 @@
         %li.contributors
           %dl
             %dd= number_with_delimiter(total_count("users"), :delimiter => ",")
-            %dt= I18n.t(:members_like_you)
-          = link_to I18n.t(:learn_how_to_join), "/placeholder"
+            %dt= link_to I18n.t(:members_like_you), search_path('*', :type => ['user'])
+          = link_to I18n.t(:learn_how_to_join), search_path('*', :type => ['user'])
         - # TODO - Add proper collections class & icon instead of communities
         %li.communities
           %dl
             %dd= number_with_delimiter(total_count("collections"), :delimiter => ",")
-            %dt= I18n.t(:collections)
+            %dt= link_to I18n.t(:collections), search_path('*', :type => ['collection'])
           = link_to I18n.t(:learn_how_to_interact), "/placeholder"
         %li.images
           %dl
-            %dd= number_with_delimiter(total_count("data_objects"), :delimiter => ",")
-            %dt= I18n.t(:images)
+            %dd= number_with_delimiter(total_count("images"), :delimiter => ",")
+            %dt= link_to I18n.t(:images), search_path('*', :type => ['image'])
           = link_to I18n.t(:learn_how_to_contribute), "/placeholder"
         %li.partners
           %dl

@@ -20,6 +20,7 @@ class TurnContentPartnersIntoUsers < ActiveRecord::Migration
     user.logo_file_name = content_partner_agent.logo_file_name
     user.logo_content_type = content_partner_agent.logo_content_type
     user.logo_file_size = content_partner_agent.logo_file_size
+    user.agent_id = content_partner_agent.id
     user.save
 
     content_partner.content_partner_status_id = content_partner_agent.agent_status_id

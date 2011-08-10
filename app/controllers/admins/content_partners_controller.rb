@@ -3,7 +3,7 @@ class Admins::ContentPartnersController < AdminsController
   def index
     @page_title = I18n.t(:admin_content_partners_page_title)
 
-    @full_name_like = params[:full_name_like] || ''
+    @name = params[:name] || ''
     @resource_status_id = params[:resource_status_id]
     @partner_status_id = params[:content_partner_status_id]
     @vetted = params[:vetted]
@@ -16,9 +16,9 @@ class Admins::ContentPartnersController < AdminsController
       'content_partners.full_name'
     end
     include = [ { :resources => :resource_status }, :content_partner_status, :content_partner_contacts ]
-    conditions = "content_partners.full_name LIKE :full_name_like"
+    conditions = "content_partners.full_name LIKE :name"
     conditions_replacements = {}
-    conditions_replacements[:full_name_like] = "%#{@full_name_like}%"
+    conditions_replacements[:name] = "%#{@name}%"
     unless @partner_status_id.blank?
       conditions << " AND content_partners.content_partner_status_id = :partner_status_id"
       conditions_replacements[:partner_status_id] = @partner_status_id

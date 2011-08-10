@@ -1,17 +1,19 @@
 class ContentPartnersController < ApplicationController
 
-  before_filter :check_authentication, :except => [:show]
+  before_filter :check_authentication, :except => [:show, :index]
 
   layout :content_partners_layout
 
   # GET /content_partners
   def index
-    @full_name_like = params[:full_name_like] || ''
+    @name = params[:name] || ''
     @sort_by = params[:sort_by] || 'partner'
 
     order = case @sort_by
     when 'newest'
       'content_partners.created_at DESC'
+    when 'oldest'
+      'content_partners.created_at'
     else
       'content_partners.full_name'
     end
@@ -21,9 +23,9 @@ class ContentPartnersController < ApplicationController
               content_partners.logo_content_type, content_partners.logo_file_size, content_partners.created_at,
               resources.id, resources.collection_id, resources.resource_status_id,
               resource_statuses.*, harvest_events.*'
-    conditions = "content_partners.show_on_partner_page = 1 AND content_partners.full_name LIKE :full_name_like"
+    conditions = "content_partners.show_on_partner_page = 1 AND content_partners.full_name LIKE :name"
     conditions_replacements = {}
-    conditions_replacements[:full_name_like] = "%#{@full_name_like}%"
+    conditions_replacements[:name] = "%#{@name}%"
     @partners = ContentPartner.paginate(
                   :page => params[:page],
                   :per_page => 10,
@@ -63,7 +65,9 @@ class ContentPartnersController < ApplicationController
 
   # GET /content_partners/:id
   def show
-    @partner = ContentPartner.find(params[:id])
+    @partner = ContentPartner.find(params[:id], :include => [{ :resources => :collection }, :content_partner_contacts ])
+    @partner_collections = @partner.resources.collect{|r| r.collection}.compact
+    Resource.add_latest_published_harvest_event!(@partner.resources)
     @partner_contacts = @partner.content_partner_contacts.select{|cpc| cpc.can_be_read_by?(current_user)}
     @new_partner_contact = @partner.content_partner_contacts.build
     @head_title = @partner.name

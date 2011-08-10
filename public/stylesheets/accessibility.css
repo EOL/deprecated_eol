@@ -174,6 +174,27 @@ form#switch_hierarchy_entry fieldset {
   .cms_page ul.object_list li p {
     clear: none; }
 
+#content_partner_edit.site_column, #content_partner_new.site_column {
+  width: 640px; }
+
+#content_partner_show .main_container {
+  padding: 40px;
+  border: 1px solid #93a4b0;
+  border-width: 0 1px; }
+#content_partner_show #sidebar {
+  width: 200px; }
+
+ul.content_partner_contacts li {
+  margin: 0 0 20px 0; }
+
+#content_partner_statistics .heading {
+  text-align: center; }
+  #content_partner_statistics .heading fieldset, #content_partner_statistics .heading input[type="submit"] {
+    display: inline;
+    margin: 0; }
+#content_partner_statistics table {
+  margin-top: 20px; }
+
 /*warning messages - check HR commits for updates to this */
 p.status.error {
   border: 1px solid #f2d2cc;

@@ -28,6 +28,7 @@ ActionController::Routing::Routes.draw do |map|
                                                          :except => [:index, :show],
                                                          :namespace => "content_partners/"
     content_partner.resources :resources, :namespace => "content_partners/"
+    content_partner.resource :statistics, :only => [:show], :namespace => "content_partners/"
   end
 
 # WIP

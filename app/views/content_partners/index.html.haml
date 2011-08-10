@@ -9,9 +9,9 @@
             - option_please_select = "<option value=\"\">#{I18n.t(:option_please_select)}</option>"
             %dl
               %dt
-                = label_tag :full_name_like, I18n.t('activerecord.attributes.content_partner.full_name')
+                = label_tag :name, I18n.t('activerecord.attributes.content_partner.full_name')
               %dd
-                = text_field_tag :full_name_like, @full_name_like
+                = text_field_tag :name, @name
           %fieldset.actions
             = submit_tag I18n.t(:filter), :name => nil
             %small= link_to I18n.t(:cancel), content_partners_path

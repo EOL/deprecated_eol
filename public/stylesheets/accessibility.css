@@ -668,3 +668,13 @@ ul.classification.summary {
 
 #classifications_summary > ul > li {
   margin-bottom: 1em; }
+
+ul#taxonomictext #taxonomic-text-container {
+  width: 360px;
+  margin: 0 -10px;
+  overflow: auto;
+  border: 1px solid #cad3db; }
+  ul#taxonomictext #taxonomic-text-container ul.classification {
+    margin: 10px; }
+    ul#taxonomictext #taxonomic-text-container ul.classification li {
+      white-space: nowrap; }

@@ -1,177 +1,45 @@
 = content_for :head do
-  = javascript_include_tag "taxonomy", "permalink"
-- # FIXME Placeholder of static markup direct from HashRocket replace with functioning code
+  = javascript_include_tag "taxonomy", "permalink", "worklist"
 #content
   #worklist.site_column
     .filters
-      %form(action="" method="post")
+      - form_tag({:action => 'show'}, :method => 'get') do
+        = hidden_field_tag :q, @querystring
         %fieldset
           %dl
             %dt
-              %label Object type
+              %label{:for => 'object_type'}= I18n.t(:object_type)
             %dd
-              %select
-                - ['All types', 'Taxa', 'Images', 'Videos', 'Sounds', 'People', 'Communities', 'Collections'].each do |option|
-                  %option= option
+              - object_type_options = {}
+              - [:all, :image, :video, :sound, :text].each{|opt| object_type_options[I18n.t("object_type_#{opt}_option")] = opt }
+              = select_tag :object_type, options_for_select(object_type_options, @object_type.to_sym)
           %dl
             %dt
-              %label Object status
+              %label{:for => 'object_status'}= I18n.t(:object_status)
             %dd
-              %select
-                - ['Unreviewed', 'Trusted', 'Untrusted'].each do |option|
-                  %option= option
+              - object_status_options = {}
+              - [:unknown, :trusted, :untrusted].each{|opt| object_status_options[I18n.t("object_status_#{opt}_option")] = opt }
+              = select_tag :object_status, options_for_select(object_status_options, @object_status.to_sym)
           %dl
             %dt
-              %label Object visibility
+              %label{:for => 'object_visibility'}= I18n.t(:object_visibility)
             %dd
-              %select
-                - ['Visible', 'Hidden'].each do |option|
-                  %option= option
+              - object_visibility_options = {}
+              - [:visible, :invisible].each{|opt| object_visibility_options[I18n.t("object_visibility_#{opt}_option")] = opt }
+              = select_tag :object_visibility, options_for_select(object_visibility_options, @object_visibility.to_sym)
           %dl
             %dt
-              %label Task status
+              %label{:for => 'task_status'}= I18n.t(:task_status)
             %dd
-              %select
-                - ['Active', 'Ignored', 'Curated'].each do |option|
-                  %option= option
+              - task_status_options = {}
+              - [:active, :ignored, :curated].each{|opt| task_status_options[I18n.t("task_status_#{opt}_option")] = opt }
+              = select_tag :task_status, options_for_select(task_status_options, @task_status.to_sym)
         %fieldset.actions
-          %input(type="submit" value="show tasks")
-          %p 1430 tasks found
-    #tasks
-      %ul
-        %li.image
-          %span.icon
-          = image_tag dummy_image(48, 48), alt: ""
-          %p
-            = link_to "Quack", "#"
-            image from Flickr
-        %li.article.ignored
-          %span.icon
-          %span.indicator Ignored
-          %p
-            = link_to "Cairina moschata", "#"
-            Overview
-        %li.article
-          %span.icon
-          %p
-            = link_to "Mergus serrator", "#"
-            34 common names
-        %li.image.active
-          %span.icon
-          = image_tag dummy_image(48, 48), alt: ""
-          %p
-            = link_to "Duck in the water", "#"
-            image from Flickr
-        %li.sound
-          %span.icon
-          %p
-            = link_to "Duck quacking wildly", "#"
-            sound from DuckSounds
-        %li.video
-          %span.icon
-          = image_tag dummy_image(48, 48), alt: ""
-          %p
-            = link_to "Duck being duck-like", "#"
-            this duck is so duck-like
-        %li.article.saved
-          %span.icon
-          %span.indicator Saved
-          %p
-            = link_to "Mergus serrator", "#"
-            34 common names
-        %li.article.image
-          %span.icon
-          %p
-            = link_to "Duck in the water", "#"
-            sound from DuckSounds
-        %li.image
-          %span.icon
-          = image_tag dummy_image(48, 48), alt: ""
-          %p
-            = link_to "Duck in the water", "#"
-            image from Flickr
-        %li.sound
-          %span.icon
-          %p
-            = link_to "Duck quacking wildly", "#"
-            sound from DuckSounds
-      %p.more= link_to "get more tasks", "#", class: "button"
-    .article#task
-      .media
-        = image_tag dummy_image(520, 360), alt: ""
-      .ratings
-        .average_rating
-          %h5 Rating
-          .rating.four
-            %p 4 of 5
-          %p from 23 people
-        .rating
-          %h5 Your rating
-          %ul
-            %li.current_rating_3 Current rating: 3 of 5
-            - 5.times do |i|
-              %li(title="Change rating to #{i + 1} of 5")= link_to "Change rating to #{i + 1} of 5", "#", class: "star_#{i + 1}"
-      .article
-        .header
-          %h3 Description
-        .copy
-          %p This is a photo I took while hiking off the highway near Mudville, Virginia. The largest agaric is fully formed, and there were other in the area of similar sizes.
-
-      .article.source
-        .header
-          %h3 Source Information
-        = image_tag "icon_cc.png", alt: "CC by-sa"
-        %p== &copy; Noah Siegel
-        %p Some rights reserved
-        %p
-          Supplier:
-          = link_to "Mushroom Observer", "#"
-        %p Photographer: Noah Siegel
-        %p= link_to "View image source", "#"
-
-      .article.list
-        .header
-          %h3 Associated with
-          = link_to "Add new association", "#"
-        %form.review_status(action="" method="post")
-          %fieldset
-            %legend= link_to "Amanita muscaria", "#"
-            %select(name="status")
-              %option(value="trusted") Trusted
-              %option(value="untrusted") Untrusted
-              %option(value="inappropriate") Inappropriate
-            and
-            %select(name="visibility")
-              %option(value="visible") Visible
-              %option(value="hidden") Hidden
-            %p
-              Supplier:
-              = link_to "Mushroom Observer", "#"
-            %ul.untrusted
-              - ["misidentified", "incorrect/misleading"].each do |i|
-                %li
-                  %label
-                    %input(type="checkbox")
-                    =i
-            %ul.hidden
-              - ["duplicate", "low quality"].each do |i|
-                %li
-                  %label
-                    %input(type="checkbox")
-                    =i
-            %dl
-              %dt
-                %label Additional details (optional)
-              %dd
-                %textarea(rows="4" cols="60")
-          %fieldset.actions
-            %input(type="submit" value="Save changes")
-
-
-      .article.list
-        .header
-          %h3 Revisions
-        %ul
-          %li 2010-03-24 03:04:35 UTC
-          %li= link_to "2010-03-24 03:04:35 UTC", "#"
-          %li= link_to "2010-03-24 03:04:35 UTC", "#"
+          %input(type="submit" value="#{I18n.t(:show_tasks)}")
+          - unless @worklist_tasks.blank?
+            = I18n.t(:tasks_with_count, :count => @worklist_tasks.count)
+          - else
+            = I18n.t(:no_tasks_found)
+    - unless @worklist_tasks.blank?
+      = render :partial => "tasks.html.haml"
+      = render :partial => "curation_content.html.haml"

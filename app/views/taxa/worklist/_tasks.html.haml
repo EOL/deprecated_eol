@@ -1,0 +1,19 @@
+#tasks
+  %ul
+    - @worklist_tasks.first(10).each do |worklist_task|
+      - en_type = en_type(worklist_task)
+      - task_class = @current_task.id == worklist_task.id ? "#{en_type} active" : en_type
+      - saved_label = "Saved" unless (@saved_tasks.blank? || @saved_tasks.include?(worklist_task.id) == false)
+      - ignored_label = "Ignored" unless (@ignored_tasks.blank? || @ignored_tasks.include?(worklist_task.id) == false)
+      - status_class = ignored_label.blank? ? (saved_label.blank? ? "" : "saved") : "ignored"
+      - status_indicator = ignored_label.blank? ? (saved_label.blank? ? "" : saved_label) : ignored_label
+      %li{:class => "#{task_class} #{status_class}"}
+        %span.icon
+        - unless status_indicator.blank?
+          %span.indicator= status_indicator
+        - if ['image', 'video', 'sound'].include?(en_type)
+          = render :partial => "media_data_object.html.haml", :locals => { :item => worklist_task, :en_type => en_type }
+        - else
+          = render :partial => "#{en_type}_data_object.html.haml", :locals => { :item => worklist_task }
+  - # TODO : Implement functionality for the "get more tasks" button. Remove the 'ignored' and 'saved' tasks from the task list and replace them with the new tasks.
+  %p.more= link_to I18n.t(:get_more_tasks), "#", {:class => "button"}

@@ -1,0 +1,6 @@
+.article
+  .header
+    %h3= I18n.t(:description)
+  .copy
+    - data_object.description = data_object.description_linked unless data_object.description_linked.blank? rescue nil
+    = data_object.description.balance_tags

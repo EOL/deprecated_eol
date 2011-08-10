@@ -13,8 +13,16 @@ class SearchController < ApplicationController
     @params_type = ['all'] if @params_type.include?('all')
     @params_type.map!{ |t| t.camelize }
     @querystring = params[:q] || params[:id] || params[:mobile_search]
+    
+    if @querystring == '*' || @querystring == '%'
+      if params[:type].size != 1 || !EOL::Solr::SiteSearch.types_to_show_all.include?(params[:type].first)
+        bad_query = true
+      end
+    end
+    
+    
     @page_title  = I18n.t(:search_by_term_page_title, :term => @querystring)
-    if @querystring.blank?
+    if @querystring.blank? || bad_query
       @all_results = empty_paginated_set
       @facets = {}
     else
@@ -27,9 +35,7 @@ class SearchController < ApplicationController
       if params[:mobile_search] && !mobile_disabled_by_session?
         if @all_results.length == 1 && @all_results.total_entries == 1
           redirect_to mobile_taxon_path(@all_results.first["resource_id"])
-          puts "==================================================== SINGOLO ========================"
         else
-          #@media = promote_exemplar(@taxon_concept.media)
           render :template => 'mobile/search/index', :layout => "#{RAILS_ROOT}/app/views/mobile/layouts/main_mobile.html.haml"
         end
       elsif params[:show_all].blank? && @all_results.length == 1 && @all_results.total_entries == 1

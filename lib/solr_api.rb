@@ -100,6 +100,11 @@ class SolrAPI
     optimize
   end
   
+  def obliterate
+    delete_all_documents
+    optimize
+  end
+  
   def delete_by_id(id, options = {})
     options[:optimize] ||= false
     post_xml('update', "<delete><id>#{id}</id></delete>")

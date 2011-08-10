@@ -12,7 +12,7 @@
     = render(:partial => 'taxa/classifications_summary')
     = render(:partial => 'taxa/curators_summary', :locals => {:curators => @taxon_concept.top_acting_curators})
     .article.list.updates
-      - log = @taxon_concept.activity_log
+      - log = @taxon_concept.activity_log(:per_page => 5)
       .header
         %h3= I18n.t(:recent_updates)
         - if log.total_entries > 0

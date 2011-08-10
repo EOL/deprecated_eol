@@ -1,6 +1,10 @@
 module EOL
   module Solr
     class SiteSearch
+      def self.types_to_show_all
+        [ 'Image', 'Video', 'Sound', 'User', 'Community', 'Collection' ]
+      end
+      
       def self.search_with_pagination(query, options = {})
         options[:page]        ||= 1
         options[:per_page]    ||= 10
@@ -139,16 +143,26 @@ module EOL
       def self.solr_search(query, options = {})
         url =  $SOLR_SERVER + $SOLR_SITE_SEARCH_CORE + '/select/?wt=json&q=' + CGI.escape(%Q[{!lucene}])
         lucene_query = ''
-        # create initial query, 'exact' or 'contains'
-        if options[:exact]
-          lucene_query << "keyword_exact:\"#{query}\"^5"
+        # if its a wildcard search and we're not looking for everything, or all concepts, do a real wildcard searc
+        if query == '*' && options[:type] && options[:type].size == 1 && types_to_show_all.include?(options[:type].first)
+          lucene_query << '*:*'
+          if [ 'Image', 'Sound', 'Video' ].include?(options[:type].first)
+            options[:sort_by] = 'newest' # TODO: oops - no data_rating field?
+          else
+            options[:sort_by] = 'newest'
+          end
         else
-          lucene_query << "(keyword_exact:\"#{query}\"^5 OR keyword:\"#{query}\"^2)"
-        end
+          # create initial query, 'exact' or 'contains'
+          if options[:exact]
+            lucene_query << "keyword_exact:\"#{query}\"^5"
+          else
+            lucene_query << "(keyword_exact:\"#{query}\"^5 OR keyword:\"#{query}\"^2)"
+          end
         
-        # add search suggestions and weight them way higher. Suggested searches are currently always TaxonConcepts
-        search_suggestions(query, options[:exact]).each do |ss|
-          lucene_query << " OR (resource_id:\"#{ss.taxon_id}\"^300 AND resource_type:TaxonConcept)"
+          # add search suggestions and weight them way higher. Suggested searches are currently always TaxonConcepts
+          search_suggestions(query, options[:exact]).each do |ss|
+            lucene_query << " OR (resource_id:\"#{ss.taxon_id}\"^300 AND resource_type:TaxonConcept)"
+          end
         end
         
         # now compile all the query bits with proper logic

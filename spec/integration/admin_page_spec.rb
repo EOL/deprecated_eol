@@ -44,7 +44,7 @@ describe 'Admin Pages' do
 
   it 'should load the admin homepage' do
     login_as(@user)
-    visit('/admin')
+    visit('/administrator')
     body.should include('Welcome to the EOL Administration Console')
     body.should include('Site CMS')
     body.should include('News Items')

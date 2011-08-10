@@ -448,15 +448,13 @@ body > #header .section .session .join {
  * so we override the styles here */
 #classifications_summary h4 {
   padding-bottom: 15px !important; }
-#classifications_summary li {
-  overflow: hidden; }
-  #classifications_summary li li p {
-    font-weight: bold;
-    float: left; }
-  #classifications_summary li li li p {
-    padding-left: 23px !important;
-    margin-left: 10px;
-    background: transparent url("/images/v2/icon_classification_arrow.png") 0 0 no-repeat; }
+#classifications_summary li li p {
+  font-weight: bold;
+  float: left; }
+#classifications_summary li li li p {
+  padding-left: 23px !important;
+  margin-left: 10px;
+  background: transparent url("/images/v2/icon_classification_arrow.png") 0 0 no-repeat; }
 #classifications_summary .empty p {
   font-size: 1em !important; }
 
@@ -670,8 +668,8 @@ ul.classification.summary {
   margin-bottom: 1em; }
 
 ul#taxonomictext #taxonomic-text-container {
-  width: 360px;
-  margin: 0 -10px;
+  width: 115px;
+  margin: 1em -1em;
   overflow: auto;
   border: 1px solid #cad3db; }
   ul#taxonomictext #taxonomic-text-container ul.classification {

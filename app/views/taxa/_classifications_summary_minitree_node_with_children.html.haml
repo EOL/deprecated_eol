@@ -1,0 +1,15 @@
+%li
+  = render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => hierarchy_entry, :include_common_names => true, :node_class => 'bold'})
+  %ul.branch
+    - he_children = hierarchy_entry.children.sort_by {|e| e.common_name_in_language(current_user.language) }
+    - if he_children && ! he_children.empty?
+      %ul.branch
+        - he_children[0..2].each do |child|
+          %li
+            = render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => child, :include_common_names => true, :node_class => 'light'})
+        - if he_children.length == 4
+          %li= render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => he_children[3], :include_common_names => true, :node_class => 'light'})
+        - elsif he_children.length > 4
+          %li
+            = I18n.t(:more_children_with_count, :count => he_children.length - 3)
+            = link_to(I18n.t(:show_full_tree), taxon_hierarchy_entry_overview_path(@taxon_concept, hierarchy_entry), :class => 'show_tree')

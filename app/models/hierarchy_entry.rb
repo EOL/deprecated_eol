@@ -60,6 +60,10 @@ class HierarchyEntry < SpeciesSchemaModel
     end
   end
 
+  def has_parent?
+    self.parent_id && self.parent_id > 0
+  end
+
   def italicized_name
     species_or_below? ? name.italicized : name.string
   end

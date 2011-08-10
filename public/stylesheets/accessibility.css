@@ -656,3 +656,15 @@ table.standard td.nowrap {
 
 .article .pagination {
   margin-top: 1em; }
+
+ul.classification > li > a {
+  font-weight: normal; }
+
+ul.classification a.bold {
+  font-weight: bold; }
+
+ul.classification.summary {
+  margin-left: 1em; }
+
+#classifications_summary li {
+  margin-bottom: 0; }

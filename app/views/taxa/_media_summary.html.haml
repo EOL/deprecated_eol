@@ -19,9 +19,8 @@
             :data => { :data_object_id => item.id, :thumb => item.thumb_or_object('98_68') }}
           .details
             %p.flag{:class => vetted_id_class(item_vetted_id)}= item_vetted_label == Vetted.unknown.label ? I18n.t(:unreviewed) : item_vetted_label
-            - unless item.object_title.empty?
-              .copy.caption
-                %p= item.object_title
+            .copy.caption
+              = render :partial => "taxa/overview_image_taxon_link", :locals => {:data_object => item}
             .attribution
-              = render :partial => "data_objects/attribution_minimal", :locals => {:data_object => item, :linked => true, :supplier => true}
+              = render :partial => "data_objects/attribution_minimal", :locals => {:data_object => item, :linked => true}
   %p.all= link_to I18n.t(:see_all_media_link), taxon_media_path(@taxon_concept.id)

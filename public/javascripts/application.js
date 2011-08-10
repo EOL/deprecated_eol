@@ -184,6 +184,11 @@ $(function() {
   $("#media_list #sidebar input[type=checkbox][value='all']").click(function() {
     $("#media_list #sidebar input[type=checkbox][value!='all'][name='"+ $(this).attr('name') +"']").removeAttr("checked");
   });
+  $('#classifications_summary a.show_tree').click(function() {
+    var $update = $(this).closest('#classifications_summary > ul > li').find('.classification.summary');
+    EOL.ajax_submit($(this), {update: $update, type: 'GET'})
+    return(false);
+  });
 });
 
 (function($) {
@@ -208,22 +213,18 @@ $(function() {
   };
 })(jQuery);
 
-// trying to generalize Ajax calls for EOL:
-// Arguments:
+// trying to generalize Ajax calls for EOL. Parameters:
 //   el: The element firing the event.  It helps us find stuff, please pass it.
 //   update: where you want the (html) response to go.  Defaults to the closest .editable item.
 //   url: where you want the form to subit to.  Defaults to the data_url of the el you pass in, then to the nearest
 //        form's action.
 //   data: The data to send.  Defaults to the nearest form, serialized.
 //   complete: Function to call when complete.  Optional.
+//   type: method to use.  Defaults to POST.
 EOL.ajax_submit = function(el, args) {
   var form = el.closest('form');
   var cell = '';
-  if(typeof(args.update) != 'undefined') {
-    cell = args.update;
-  } else {
-    cell = el.closest('.editable');
-  }
+  if(typeof(args.update) != 'undefined') { cell = args.update; } else { cell = el.closest('.editable'); }
   var url  = '';
   if(typeof(args.url) != 'undefined') {
     url = args.url;
@@ -233,19 +234,15 @@ EOL.ajax_submit = function(el, args) {
     url = form.attr('action');
   }
   var data = '';
-  if(typeof(args.data) != 'undefined') {
-    data = args.data;
-  } else {
-    data = form.serialize();
-  }
+  if(typeof(args.data) != 'undefined') { data = args.data; } else { data = form.serialize(); }
   complete = '';
-  if(typeof(args.complete) != 'undefined') {
-    complete = args.complete;
-  }
+  if(typeof(args.complete) != 'undefined') { complete = args.complete; }
+  type = 'POST';
+  if(typeof(args.type) != 'undefined') { type = args.type; }
   $.ajax({
     url: url,
     data: data,
-    type: 'POST',
+    type: type,
     dataType: 'html',
     beforeSend: function(xhr) { cell.fadeTo(300, 0.3); },
     success: function(response) { cell.html(response); },

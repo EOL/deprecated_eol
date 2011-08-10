@@ -490,6 +490,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def redirect_to_missing_page_on_error(&block)
+    begin
+      yield
+    rescue => e
+      @message = e.message
+      render(:layout => 'v2/basic', :template => "content/missing", :status => 404)
+      return false
+    end
+  end
+
 private
 
   def find_ancestor_ids(taxa_ids)

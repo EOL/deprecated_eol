@@ -666,5 +666,5 @@ ul.classification a.bold {
 ul.classification.summary {
   margin-left: 1em; }
 
-#classifications_summary li {
-  margin-bottom: 0; }
+#classifications_summary > ul > li {
+  margin-bottom: 1em; }

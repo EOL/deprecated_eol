@@ -86,6 +86,7 @@ ActionController::Routing::Routes.draw do |map|
   # Taxa nested resources with pages as alias
   map.resources :taxa, :as => :pages do |taxa|
     taxa.resources :hierarchy_entries, :as => :entries, :only => [:show], :member => { :switch => [:put] } do |entries|
+      entries.resource :tree, :only => [:show], :controller => "taxa/trees"
       entries.resource :overview, :only => [:show], :controller => "taxa/overviews"
       entries.resources :media, :only => [:index], :controller => "taxa/media"
       entries.resources :details, :only => [:index], :controller => "taxa/details"

@@ -10,7 +10,7 @@
         %li
           - taxon_rank = hierarchy_entry.rank.blank? ? 'Taxon' : hierarchy_entry.rank.label.firstcap
           = I18n.t(:rank_recognized_by_agent_colon, :rank => taxon_rank, :agent => link_to(hierarchy_entry.hierarchy.agent.full_name, taxon_hierarchy_entry_overview_path(@taxon_concept, hierarchy_entry)))
-          = link_to(I18n.t(:show_full_tree), taxon_hierarchy_entry_overview_path(@taxon_concept, hierarchy_entry), :class => 'show_tree')
+          = link_to(I18n.t(:show_full_tree), taxon_hierarchy_entry_overview_path(@taxon_concept, hierarchy_entry), :class => 'show_tree', :data_url => taxon_hierarchy_entry_tree_path(@taxon_concept, hierarchy_entry))
           %ul#taxonomictext.classification.summary
             - if hierarchy_entry.has_parent?
               %li

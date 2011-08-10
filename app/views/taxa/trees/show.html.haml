@@ -1,0 +1,17 @@
+= javascript_include_tag 'navigation.js' # TODO - this should probably be done merged.
+
+- entry_kingdom = @hierarchy_entry.blank? ? nil : @hierarchy_entry.kingdom
+
+#taxonomic-text-container
+  %ul#taxonomictext.classification
+    - if entry_kingdom
+      - ancestors = @hierarchy_entry.ancestors(:include_common_names => @include_common_names, :common_name_language => current_user.language)
+      - hierarchy_entry = ancestors.pop
+      = render(:partial => 'navigation/node_with_ancestry_page', :locals => { :ancestors => ancestors, :hierarchy_entry => hierarchy_entry })
+    - else
+      %li
+        = render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => @hierarchy_entry, :node_class => 'bold' })
+    - if entry_kingdom.blank?
+      %br
+      %span.message
+        =I18n.t("name_not_in_select_an_alternate", :hierarchy => @hierarchy.label)

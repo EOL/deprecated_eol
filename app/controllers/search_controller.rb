@@ -30,7 +30,7 @@ class SearchController < ApplicationController
       @all_results = search_response[:results]
       @facets = search_response[:facets]
       @suggestions = search_response[:suggestions]
-      log_search(request)
+      log_search(request) unless params[:mobile_search]
       current_user.log_activity(:text_search_on, :value => params[:q])
       if params[:mobile_search] && !mobile_disabled_by_session?
         if @all_results.length == 1 && @all_results.total_entries == 1

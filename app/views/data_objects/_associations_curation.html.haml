@@ -32,7 +32,7 @@
                 = link_to I18n.t(:remove_data_object_association), remove_association_path(:id => data_object.id, :hierarchy_entry_id => entry.id), :id => "remove_association_#{entry.id}"
           - else
             %legend= link_to udo.taxon_concept.entry.name.string, taxon_overview_path(udo.taxon_concept_id)
-          
+
           - vetted_selected = entry.vetted_id.to_i
           - statuses = Vetted.all.collect{|v| [ v == Vetted.unknown ? I18n.t(:unreviewed) : v.label, v.id ] }.compact.sort
           = select_tag "vetted_id_#{entry.id}", options_for_select(statuses, vetted_selected)
@@ -40,13 +40,10 @@
           - visibility_selected = entry.visibility_id.to_i
           - visibilities = Visibility.all.collect{|v| [ v == Visibility.invisible ? I18n.t(:hidden) : v.label, v.id ] unless v == Visibility.preview }.compact.sort
           = select_tag "visibility_id_#{entry.id}", options_for_select(visibilities, visibility_selected)
+
           - unless entry_hierarchy.agent.blank?
-            %p
-              = I18n.t(:supplier_colon)
-              - if entry_hierarchy.agent.homepage.blank?
-                = #{entry_hierarchy.agent.full_name}
-              - else
-                = link_to entry_hierarchy.agent.full_name, entry_hierarchy.agent.homepage
+            = render :partial => 'data_objects/supplier', :locals => { :data_object => data_object }            
+            - # = render :partial => 'data_objects/supplier', :locals => { :agent => entry_hierarchy.agent }            
 
           - untrusted_reasons = (vetted_selected == Vetted.untrusted.id.to_i) ? data_object.untrust_reasons(entry) : []
           %ul.untrusted

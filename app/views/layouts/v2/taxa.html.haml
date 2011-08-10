@@ -20,10 +20,10 @@
 
           - if common_name_count > 0
             - if @selected_hierarchy_entry
-              - link_url = common_names_taxon_hierarchy_entry_names_path(@taxon_concept, @selected_hierarchy_entry.id)
+              - link_url = taxon_hierarchy_entry_names_path(@taxon_concept, @selected_hierarchy_entry.id)
             - else
-              - link_url = common_names_taxon_names_path(@taxon_concept)
-            %small= link_to I18n.t(:common_names_with_count, :count => common_name_count), link_url, { :title => I18n.t(:common_names_advisory_information) }
+              - link_url = taxon_names_path(@taxon_concept)
+            %small= link_to I18n.t(:learn_more_about_names_for_this_taxon), link_url, { :title => I18n.t(:common_names_advisory_information) }
 
       .page_actions
         %ul

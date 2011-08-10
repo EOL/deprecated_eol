@@ -5,7 +5,8 @@
     .copy
       %p= I18n.t(:users_content_partners_information)
       %h3= I18n.t(:users_content_partners_with_count, :count => @partners.size) unless @partners.blank?
-    = link_to I18n.t(:content_partner_add_link), new_content_partner_path, :class => 'button'
+    - if @partners.blank? && current_user.id == @user.id
+      = link_to I18n.t(:content_partner_add_link), new_content_partner_path, :class => 'button'
     - else
       %ul
         - @partners.each do |partner|

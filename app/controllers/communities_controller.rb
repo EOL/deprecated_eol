@@ -64,7 +64,7 @@ class CommunitiesController < ApplicationController
         upload_logo(@community) unless params[:community][:logo].blank?
         log_action(:change_name) if name_change
         log_action(:change_description) if description_change
-        format.html { redirect_to(@community, :notice =>  I18n.t(:updated_community) ) }
+        format.html { redirect_to(@community, :notice => I18n.t(:updated_community) ) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -84,19 +84,25 @@ class CommunitiesController < ApplicationController
 
   def join
     if @community.has_member?(current_user)
-      redirect_to(@community, :notice =>  I18n.t(:already_member_of_community) )
+      redirect_to(@community, :notice => I18n.t(:already_member_of_community) )
     else
       @community.add_member(current_user)
       respond_to do |format|
-        format.html { redirect_to(@community, :notice =>  I18n.t(:you_joined_community) ) }
+        format.html { redirect_to(@community, :notice => I18n.t(:you_joined_community) ) }
       end
     end
   end
 
   def leave
-    @community.remove_member(current_user)
     respond_to do |format|
-      format.html { redirect_to(@community, :notice =>  I18n.t(:you_left_community) ) }
+      begin
+        @community.remove_member(current_user)
+      rescue EOL::Exceptions::CommunitiesMustHaveAManager => e
+        format.html { redirect_to(@community, :notice => I18n.t(:community_must_have_one_manager_error)) }
+      rescue EOL::Exceptions::ObjectNotFound => e
+        format.html { redirect_to(@community, :notice => I18n.t(:could_not_find_user)) }
+      end
+      format.html { redirect_to(@community, :notice => I18n.t(:you_left_community) ) }
     end
   end
 

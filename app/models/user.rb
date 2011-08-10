@@ -684,9 +684,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def leave_community(community)
-    member = Member.find_by_user_id_and_community_id(id, community.id)
-    raise  I18n.t(:could_not_find_user)  unless member
-    member.destroy
+    community.remove_member(self)
     self.reload
   end
 

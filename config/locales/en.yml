@@ -777,6 +777,7 @@ en:
     one: "%{count} Community Members"
     other: "%{count} Community Members"
   community_members: "Community members"
+  community_must_have_one_manager_error: "Sorry, communities must have at least one manager, and this member is the last one."
   community_roles: "Community Roles"
   communities_summary_empty: "This taxon hasn't been endorsed by a community yet."
   communities_summary_header_with_count:

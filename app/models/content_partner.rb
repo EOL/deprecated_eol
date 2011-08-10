@@ -391,7 +391,7 @@ class ContentPartner < SpeciesSchemaModel
   end
 
   def strip_urls
-    self.homepage.strip
+    self.homepage.strip unless self.homepage.blank?
   end
 
   # override the logo_url column in the database to construct the path on the content server

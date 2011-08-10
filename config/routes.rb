@@ -166,8 +166,8 @@ ActionController::Routing::Routes.draw do |map|
   end
   #map.connect 'monthly_stats_email',         :controller => 'administrator/content_partner_report', :action => 'monthly_stats_email'
 
-  # Old V1 /admin and /administrator namespaces
-  #map.admin 'admin',           :controller => 'admin',           :action => 'index'
+  # Old V1 /admin and /administrator namespaces (controllers)
+  map.administrator 'administrator',           :controller => 'admin',           :action => 'index'
   map.connect 'administrator/reports',         :controller => 'administrator/reports', :action => 'index'
   map.connect 'administrator/reports/:action', :controller => 'administrator/reports'
   #map.connect 'administrator/user_data_object',    :controller => 'administrator/user_data_object', :action => 'index'

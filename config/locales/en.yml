@@ -454,6 +454,8 @@ en:
   admin_home: "admin home"
   admin_notes: "Admin Notes"
   admin_notes__not_visible_to_us: "Admin notes (not visible to user):"
+  admin_information: "This is the new administration console for EOL V2. We are in the process of transferring administration functionality from V1. If the administration section you are looking for is not listed please visit the <a href=\"/administrator\">V1 Administration Console</a>."
+  admin_link: "Administration Console"
   admin_page_title: "Administration Console"
   administration: "Administration"
   a_file_was_previously_uploaded: "a file was previously uploaded for this resource:"

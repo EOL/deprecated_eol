@@ -87,8 +87,9 @@ class CommunitiesController < ApplicationController
       redirect_to(@community, :notice => I18n.t(:already_member_of_community) )
     else
       @community.add_member(current_user)
+      auto_collect(@community)
       respond_to do |format|
-        format.html { redirect_to(@community, :notice => I18n.t(:you_joined_community) ) }
+        format.html { redirect_to(@community, :notice => I18n.t(:you_joined_community) + " #{flash[:notice]}" ) }
       end
     end
   end

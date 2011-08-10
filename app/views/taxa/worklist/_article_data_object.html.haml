@@ -1,7 +1,7 @@
 %p
-  = link_to item.best_title, taxon_worklist_path(@taxon_concept.id, params.merge(:active => item.id))
+  = link_to item.best_title, taxon_worklist_path(@taxon_concept.id, params.merge(:current => item.id))
   - # TODO : Fix this. Common names for text data object doesn't make any sense.
-  34 common names
+  - # 34 common names
   - # TODO : I've added this to show instead of common names, remove if not needed
   = I18n.t(:article_from)
   - if !item.data_supplier_agent.blank?

@@ -597,58 +597,58 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     return_ratings
   end
 
-  def images_to_curate(options = {})
-    page = options[:page].blank? ? 1 : options[:page].to_i
-    per_page = options[:per_page].blank? ? 30 : options[:per_page].to_i
-    hierarchy_entry_id = options[:hierarchy_entry_id] || Hierarchy.default.kingdoms[0].id
-    hierarchy_entry = HierarchyEntry.find(hierarchy_entry_id)
-    vetted_id = options[:vetted_id].nil? ? Vetted.unknown.id : options[:vetted_id]
-    vetted_clause = vetted_id.nil? ? "" : " AND vetted_id:#{vetted_id}"
-    vetted_clause = "" if (vetted_id == 'all')
-
-    solr_query = "ancestor_id:#{hierarchy_entry.taxon_concept_id} AND published:1 AND data_type_id:#{DataType.image.id} AND visibility_id:#{Visibility.visible.id}#{vetted_clause}"
-
-    unless options[:content_partner_id].blank?
-      content_partner = ContentPartner.find(options[:content_partner_id].to_i)
-      resource_clause = content_partner.resources.collect{|r| r.id}.join(" OR resource_id:")
-      if resource_clause.blank?
-        solr_query << " AND resource_id:0"  # This will return nothing, when the content partner has no resources
-      else
-        solr_query << " AND (resource_id:#{resource_clause})"
-      end
-    end
-
-    data_object_ids = EOL::Solr::SolrSearchDataObjects.images_for_concept(solr_query, :fields => 'data_object_id', :rows => 1500, :sort => 'created_at desc')
-
-    return [] if data_object_ids.empty?
-
-    start = per_page * (page - 1)
-    last = start + per_page - 1
-    data_object_ids_to_lookup = data_object_ids[start..last].clone
-    data_object_ids_to_lookup = DataObject.latest_published_version_ids_of_do_ids(data_object_ids_to_lookup)
-
-    add_include = [
-      :all_comments,
-      { :users_data_objects => :user },
-      :users_data_objects_ratings,
-      { :taxon_concepts => { :preferred_common_names => :name } } ]
-    add_select = {
-      :users => '*',
-      :names => [ :string ],
-      :taxon_concept_names => [ :language_id ],
-      :comments => [ :parent_id, :visible_at, :user_id ],
-      :users_data_objects_ratings => [ :user_id, :rating ] }
-    core_data = DataObject.core_relationships(:add_include => add_include,
-      :add_select => add_select).find_all_by_id(data_object_ids_to_lookup).sort_by{|d| Invert(d.id)}
-    core_data.each do |data_object|
-      if index = data_object_ids.index(data_object.id)
-        data_object_ids[index] = data_object
-      end
-    end
-    data_object_ids.collect!{|do_or_id| (do_or_id.class == DataObject) ? do_or_id : nil }
-
-    return data_object_ids
-  end
+  # def images_to_curate(options = {})
+  #   page = options[:page].blank? ? 1 : options[:page].to_i
+  #   per_page = options[:per_page].blank? ? 30 : options[:per_page].to_i
+  #   hierarchy_entry_id = options[:hierarchy_entry_id] || Hierarchy.default.kingdoms[0].id
+  #   hierarchy_entry = HierarchyEntry.find(hierarchy_entry_id)
+  #   vetted_id = options[:vetted_id].nil? ? Vetted.unknown.id : options[:vetted_id]
+  #   vetted_clause = vetted_id.nil? ? "" : " AND vetted_id:#{vetted_id}"
+  #   vetted_clause = "" if (vetted_id == 'all')
+  # 
+  #   solr_query = "ancestor_id:#{hierarchy_entry.taxon_concept_id} AND published:1 AND data_type_id:#{DataType.image.id} AND visibility_id:#{Visibility.visible.id}#{vetted_clause}"
+  # 
+  #   unless options[:content_partner_id].blank?
+  #     content_partner = ContentPartner.find(options[:content_partner_id].to_i)
+  #     resource_clause = content_partner.resources.collect{|r| r.id}.join(" OR resource_id:")
+  #     if resource_clause.blank?
+  #       solr_query << " AND resource_id:0"  # This will return nothing, when the content partner has no resources
+  #     else
+  #       solr_query << " AND (resource_id:#{resource_clause})"
+  #     end
+  #   end
+  # 
+  #   data_object_ids = EOL::Solr::SolrSearchDataObjects.images_for_concept(solr_query, :fields => 'data_object_id', :rows => 1500, :sort => 'created_at desc')
+  # 
+  #   return [] if data_object_ids.empty?
+  # 
+  #   start = per_page * (page - 1)
+  #   last = start + per_page - 1
+  #   data_object_ids_to_lookup = data_object_ids[start..last].clone
+  #   data_object_ids_to_lookup = DataObject.latest_published_version_ids_of_do_ids(data_object_ids_to_lookup)
+  # 
+  #   add_include = [
+  #     :all_comments,
+  #     { :users_data_objects => :user },
+  #     :users_data_objects_ratings,
+  #     { :taxon_concepts => { :preferred_common_names => :name } } ]
+  #   add_select = {
+  #     :users => '*',
+  #     :names => [ :string ],
+  #     :taxon_concept_names => [ :language_id ],
+  #     :comments => [ :parent_id, :visible_at, :user_id ],
+  #     :users_data_objects_ratings => [ :user_id, :rating ] }
+  #   core_data = DataObject.core_relationships(:add_include => add_include,
+  #     :add_select => add_select).find_all_by_id(data_object_ids_to_lookup).sort_by{|d| Invert(d.id)}
+  #   core_data.each do |data_object|
+  #     if index = data_object_ids.index(data_object.id)
+  #       data_object_ids[index] = data_object
+  #     end
+  #   end
+  #   data_object_ids.collect!{|do_or_id| (do_or_id.class == DataObject) ? do_or_id : nil }
+  # 
+  #   return data_object_ids
+  # end
 
   def uservoice_token
     return nil if $USERVOICE_ACCOUNT_KEY.blank?

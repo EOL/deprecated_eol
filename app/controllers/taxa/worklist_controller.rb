@@ -4,33 +4,23 @@ class Taxa::WorklistController < TaxaController
   before_filter :add_page_view_log_entry, :update_user_content_level
 
   def show
-
-    includes = [
-      { :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] },
-      { :data_objects => { :toc_items => :info_items } },
-      { :top_concept_images => :data_object },
-      { :curator_activity_logs => :user },
-      { :users_data_objects => { :data_object => :toc_items } },
-      { :taxon_concept_exemplar_image => :data_object }]
-    selects = {
-      :taxon_concepts => '*',
-      :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
-      :names => [ :string, :italicized, :canonical_form_id, :ranked_canonical_form_id ],
-      :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
-      :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
-      :vetted => :view_order,
-      :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating, :object_cache_url, :source_url, :object_title, :description, :created_at, :rights_holder, :rights_statement, :bibliographic_citation, :license_id, :thumbnail_cache_url],
-      :table_of_contents => '*',
-      :curator_activity_logs => '*',
-      :users => [ :given_name, :family_name ],
-      :taxon_concept_exemplar_image => '*' }
-    @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
-
+    # TODO - Use Solr to get the data_objects for the given taxon_concept
+    # solr_query = "ancestor_id:#{@taxon_concept.id} AND published:1"
+    # data_object_ids_to_lookup = EOL::Solr::SolrSearchDataObjects.tasks_for_worklist(solr_query, :rows => 500, :sort => 'created_at desc')
+    
     @worklist_tasks = @taxon_concept.data_objects
+    
+    @object_type = params[:object_type] ||= 'all'
+    @object_status = params[:object_status] ||= 'unknown'
+    @object_visibility = params[:object_visibility] ||= 'visible'
+    @task_status = params[:task_status] ||= 'active'
+    unless @object_type.blank? && (@object_type.blank? || @object_type == 'all')
+      @worklist_tasks = DataObject.custom_filter(@worklist_tasks, @taxon_concept, @object_type, @object_status)
+    end
     @worklist_tasks.each do |wt|
       wt['revisions'] = wt.revisions.sort_by(&:created_at).reverse
     end
-    @current_task = @worklist_tasks.find_by_id(params[:active]) unless params[:active].blank?
+    @current_task = @worklist_tasks.detect{ |ct| ct.id == params[:current].to_i } unless params[:current].blank?
     @current_task = @worklist_tasks.first if @current_task.blank?
   end
 

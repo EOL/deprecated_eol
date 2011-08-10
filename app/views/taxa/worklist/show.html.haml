@@ -3,75 +3,43 @@
 #content
   #worklist.site_column
     .filters
-      %form(action="" method="get")
+      - form_tag({:action => 'show'}, :method => 'get') do
+        = hidden_field_tag :q, @querystring
         %fieldset
           %dl
             %dt
-              %label Object type
+              %label{:for => 'object_type'}= I18n.t(:object_type)
             %dd
-              %select
-                - ['All types', 'Taxa', 'Images', 'Videos', 'Sounds', 'People', 'Communities', 'Collections'].each do |option|
-                  %option= option
+              - object_type_options = {}
+              - [:all, :taxon_concept, :image, :video, :sound, :text, :user, :community, :collection].each{|opt| object_type_options[I18n.t("object_type_#{opt}_option")] = opt }
+              = select_tag :object_type, options_for_select(object_type_options, @object_type.to_sym)
           %dl
             %dt
-              %label Object status
+              %label{:for => 'object_status'}= I18n.t(:object_status)
             %dd
-              %select
-                - ['Unreviewed', 'Trusted', 'Untrusted'].each do |option|
-                  %option= option
+              - object_status_options = {}
+              - [:unknown, :trusted, :untrusted].each{|opt| object_status_options[I18n.t("object_status_#{opt}_option")] = opt }
+              = select_tag :object_status, options_for_select(object_status_options, @object_status.to_sym)
           %dl
             %dt
-              %label Object visibility
+              %label{:for => 'object_visibility'}= I18n.t(:object_visibility)
             %dd
-              %select
-                - ['Visible', 'Hidden'].each do |option|
-                  %option= option
+              - object_visibility_options = {}
+              - [:visible, :invisible].each{|opt| object_visibility_options[I18n.t("object_visibility_#{opt}_option")] = opt }
+              = select_tag :object_visibility, options_for_select(object_visibility_options, @object_visibility.to_sym)
           %dl
             %dt
-              %label Task status
+              %label{:for => 'task_status'}= I18n.t(:task_status)
             %dd
-              %select
-                - ['Active', 'Ignored', 'Curated'].each do |option|
-                  %option= option
+              - task_status_options = {}
+              - [:active, :ignored, :curated].each{|opt| task_status_options[I18n.t("task_status_#{opt}_option")] = opt }
+              = select_tag :task_status, options_for_select(task_status_options, @task_status.to_sym)
         %fieldset.actions
-          %input(type="submit" value="show tasks")
-          %p 1430 tasks found
-    #tasks
-      %ul
-        - @worklist_tasks.first(10).each do |worklist_task|
-          - en_type = en_type(worklist_task)
-          - task_class = @current_task.id == worklist_task.id ? "#{en_type} active" : en_type
-          - saved_label = "Saved" unless (@saved_tasks.blank? || @saved_tasks.include?(worklist_task.id) == false)
-          - ignored_label = "Ignored" unless (@ignored_tasks.blank? || @ignored_tasks.include?(worklist_task.id) == false)
-          - status_class = ignored_label.blank? ? (saved_label.blank? ? "" : "saved") : "ignored"
-          - status_indicator = ignored_label.blank? ? (saved_label.blank? ? "" : saved_label) : ignored_label
-          %li{:class => "#{task_class} #{status_class}"}
-            %span.icon
-            - unless status_indicator.blank?
-              %span.indicator= status_indicator
-            - if ['image', 'video', 'sound'].include?(en_type)
-              = render :partial => "media_data_object.html.haml", :locals => { :item => worklist_task, :en_type => en_type }
-            - else
-              = render :partial => "#{en_type}_data_object.html.haml", :locals => { :item => worklist_task }
-      - # TODO : Implement functionality for the "get more tasks" button. Remove the 'ignored' and 'saved' tasks from the task list and replace them with the new tasks.
-      %p.more= link_to I18n.t(:get_more_tasks), "#", {:class => "button"}
-    .article#task
-      .media
-        - # TODO : Fix this. Image thumbnail should be 520_360.
-        - if thumb = @current_task.thumb_or_object('large')
-          = image_tag(thumb)
-      = render :partial => 'data_objects/rating', :locals => { :data_object => @current_task }
-      = render :partial => 'data_objects/description.html.haml', :locals => { :data_object => @current_task, :en_type => en_type(@current_task) }
-      .article.source
-        .header
-          %h3= I18n.t(:source_information_header)
-        = render :partial => 'data_objects/attribution', :locals => { :data_object => @current_task }
-        - if @current_task.is_image?
-          %p= link_to I18n.t(:view_full_size_image), @current_task.thumb_or_object(:orig)
-        - if @current_task.is_sound?
-          - en_mime_type = @current_task.mime_type ? @current_task.mime_type.label('en') : DataType.sound.simple_type
-          %p= link_to I18n.t("download_#{en_mime_type.sub(/\//, '_')}"), @current_task.sound_url, { :title => I18n.t("download_#{en_mime_type.sub(/\//, '_')}_assistive") }
-      = render :partial => 'data_objects/list_associations', :locals => { :data_object => @current_task, :en_type => en_type(@current_task) }
-      - revisions = @current_task['revisions']
-      - unless revisions.blank?
-        = render :partial => 'data_objects/revisions', :locals => { :data_object => @current_task, :revisions => revisions }
+          %input(type="submit" value="#{I18n.t(:show_tasks)}")
+          - unless @worklist_tasks.blank?
+            = I18n.t(:tasks_with_count, :count => @worklist_tasks.count)
+          - else
+            = I18n.t(:no_tasks_found)
+    - unless @worklist_tasks.blank?
+      = render :partial => "tasks.html.haml"
+      = render :partial => "curation_content.html.haml"

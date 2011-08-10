@@ -3,14 +3,18 @@ $(function() {
     var actions = {
       trusted: function() {
         this.closest("fieldset").find("ul").hide()
-          .end().find("select[name=visibility]").prop("disabled", false).trigger("change");
+          .end().find("select[name*=visibility]").prop("disabled", false).trigger("change");
+      },
+      unreviewed: function() {
+        this.closest("fieldset").find("ul").hide()
+          .end().find("select[name*=visibility]").prop("disabled", false).trigger("change");
       },
       untrusted: function() {
-        this.closest("fieldset").find("select[name=visibility]").val("hidden").prop("disabled", true)
+        this.closest("fieldset").find("select[name*=visibility]").val("hidden").prop("disabled", true)
           .end().find("ul").hide().filter(".untrusted").show();
       },
       inappropriate: function() {
-        this.closest("fieldset").find("select[name=visibility]").val("hidden").prop("disabled", true)
+        this.closest("fieldset").find("select[name*=visibility]").val("hidden").prop("disabled", true)
           .end().find("ul").hide();
       },
       hidden: function () {
@@ -24,7 +28,7 @@ $(function() {
     $form.find("select").change(function() {
       var $e = $(this);
       if ($e.is(":enabled")) {
-        actions[$e.find(":selected").val()].apply($e);
+        actions[$e.find(":selected").text().toLowerCase()].apply($e);
       }
     }).trigger("change");
 

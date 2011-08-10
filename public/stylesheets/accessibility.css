@@ -610,3 +610,6 @@ table.standard td.nowrap {
 #collections_choose li img {
   float: left;
   margin-right: 2em !important; }
+
+.article .pagination {
+  margin-top: 1em; }

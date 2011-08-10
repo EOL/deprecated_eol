@@ -17,6 +17,8 @@ class CuratorActivityLog < LoggingModel
 
   validates_presence_of :user_id, :changeable_object_type_id, :activity_id, :created_at
 
+  after_create :log_activity_in_solr
+
   def self.find_all_by_data_objects_on_taxon_concept(tc)
     dato_ids = tc.all_data_objects.map {|dato| dato.id}
     return [] if dato_ids.empty?
@@ -44,7 +46,7 @@ class CuratorActivityLog < LoggingModel
             comment_parent.taxon_concept_for_users_text.name
           end
         end
-      when ChangeableObjectType.users_submitted_text.id:
+      when ChangeableObjectType.users_data_object.id:
         udo_taxon_concept.entry.italicized_name
       when ChangeableObjectType.synonym.id:
         synonym.hierarchy_entry.taxon_concept.entry.italicized_name
@@ -69,7 +71,7 @@ class CuratorActivityLog < LoggingModel
         end
       when ChangeableObjectType.synonym.id:
         synonym.hierarchy_entry.taxon_concept_id
-      when ChangeableObjectType.users_submitted_text.id:
+      when ChangeableObjectType.users_data_object.id:
         udo_taxon_concept.id
       else
         raise "Don't know how to get the taxon id from a changeable object type of id #{changeable_object_type_id}"
@@ -110,5 +112,57 @@ class CuratorActivityLog < LoggingModel
 
   def udo_taxon_concept
     TaxonConcept.find(users_data_object.taxon_concept_id)
+  end
+  
+  def log_activity_in_solr
+    loggable_activities = {
+      ChangeableObjectType.data_object.id => [ Activity.show.id, Activity.trusted.id, Activity.unreviewed.id, Activity.untrusted.id ],
+      ChangeableObjectType.data_objects_hierarchy_entry.id => [ Activity.show.id, Activity.trusted.id, Activity.unreviewed.id, Activity.untrusted.id ],
+      ChangeableObjectType.synonym.id => [ Activity.add_common_name.id ]
+    }
+    return unless self.activity
+    return unless loggable_activities[self.changeable_object_type_id]
+    return unless loggable_activities[self.changeable_object_type_id].include?(self.activity_id)
+    keywords = []
+    keywords << self.changeable_object_type.ch_object_type.camelize if self.changeable_object_type
+    keywords << self.activity.name('en') if self.activity
+    base_index_hash = {
+      'activity_log_unique_key' => "CuratorActivityLog_#{id}",
+      'activity_log_type' => 'CuratorActivityLog',
+      'activity_log_id' => self.id,
+      'action_keyword' => keywords,
+      'user_id' => self.user_id,
+      'date_created' => self.created_at.solr_timestamp }
+    EOL::Solr::ActivityLog.index_activities(base_index_hash, activity_logs_affected)
+  end
+  
+  def activity_logs_affected
+    logs_affected = {}
+    # activity feed of user taking action
+    logs_affected['User'] = [ self.user_id ]
+    
+    # action on a concept
+    if self.changeable_object_type_id == ChangeableObjectType.synonym.id
+      logs_affected['TaxonConcept'] = [ self.taxon_concept_id ]
+      logs_affected['TaxonConcept'] |= self.taxon_concept.flattened_ancestor_ids
+      Collection.which_contain(self.taxon_concept).each do |c|
+        logs_affected['Collection'] ||= []
+        logs_affected['Collection'] << c.id
+      end
+      
+    # action on a data object
+    elsif [ ChangeableObjectType.data_object.id, ChangeableObjectType.data_objects_hierarchy_entry.id].include?(self.changeable_object_type_id)
+      logs_affected['DataObject'] = [ self.object_id ]
+      logs_affected['TaxonConcept'] = []
+      self.data_object.curated_hierarchy_entries.each do |he|
+        logs_affected['TaxonConcept'] << he.taxon_concept_id
+        logs_affected['TaxonConcept'] |= he.taxon_concept.flattened_ancestor_ids
+      end
+      Collection.which_contain(self.data_object).each do |c|
+        logs_affected['Collection'] ||= []
+        logs_affected['Collection'] << c.id
+      end
+    end
+    logs_affected
   end
 end

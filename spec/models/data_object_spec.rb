@@ -325,7 +325,7 @@ describe DataObject do
   it 'should have an activity_log' do
     dato = DataObject.gen
     dato.respond_to?(:activity_log).should be_true
-    dato.activity_log.should be_a EOL::ActivityLog
+    dato.activity_log.should be_a WillPaginate::Collection
   end
 
   it 'should add an entry in curated_data_objects_hierarchy_entries when a curator adds an association' do

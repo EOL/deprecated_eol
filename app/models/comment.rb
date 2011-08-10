@@ -21,6 +21,7 @@ class Comment < ActiveRecord::Base
   named_scope :visible, lambda { { :conditions => ['visible_at <= ?', 0.seconds.from_now] } }
 
   before_create :set_visible_at, :set_from_curator
+  after_create :log_activity_in_solr
 
   validates_presence_of :body, :user
 
@@ -186,6 +187,51 @@ class Comment < ActiveRecord::Base
     end
     raise "Don't know how to handle a parent type of #{self.parent_type} (or t_c was nil)" if return_t_c.nil?
     return return_t_c
+  end
+  
+  def log_activity_in_solr
+    base_index_hash = {
+      'activity_log_unique_key' => "Comment_#{id}",
+      'activity_log_type' => 'Comment',
+      'activity_log_id' => self.id,
+      'action_keyword' => self.parent.class.name,
+      'user_id' => self.user_id,
+      'date_created' => self.created_at.solr_timestamp }
+    EOL::Solr::ActivityLog.index_activities(base_index_hash, activity_logs_affected)
+  end
+  
+  def activity_logs_affected
+    logs_affected = {}
+    return {} if self.parent.nil?
+    # activity feed of user making comment
+    logs_affected['User'] = [ self.user_id ]
+    watch_collection_id = self.user.existing_watch_collection.id rescue nil
+    logs_affected['Collection'] = [ watch_collection_id ] if watch_collection_id
+    if self.parent_type == 'User'
+      # news feed of user commented on
+      logs_affected['UserNews'] = [ self.parent_id ] 
+    else
+      # news feed of other types
+      logs_affected[self.parent.class.name] = [ self.parent_id ] 
+    end
+    # news feed of collections which contain the thing commented on
+    self.parent.containing_collections.each do |c|
+      next if c.blank?
+      logs_affected['Collection'] ||= []
+      logs_affected['Collection'] << c.id
+    end
+    if self.parent_type == 'TaxonConcept'
+      # this is the union equals operator (|=) - the uniqe combined list of itself and its ancestors
+      logs_affected['TaxonConcept'] |= self.parent.flattened_ancestor_ids
+    end
+    if self.parent_type == 'DataObject'
+      logs_affected['TaxonConcept'] = []
+      self.parent.curated_hierarchy_entries.each do |he|
+        logs_affected['TaxonConcept'] << he.taxon_concept_id
+        logs_affected['TaxonConcept'] |= he.taxon_concept.flattened_ancestor_ids
+      end
+    end
+    logs_affected
   end
 
 private

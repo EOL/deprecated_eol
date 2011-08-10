@@ -28,6 +28,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
              :conditions => "curator_activity_logs.changeable_object_type_id = #{ChangeableObjectType.raw_data_object_id}"
   has_many :users_data_objects
   has_many :collection_items, :as => :object
+  has_many :containing_collections, :through => :collection_items, :source => :collection
   has_many :collections
   has_many :published_collections, :class_name => Collection.to_s, :conditions => 'collections.published = 1'
   has_many :google_analytics_partner_summaries
@@ -40,7 +41,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   has_one :user_info
   belongs_to :default_hierarchy, :class_name => Hierarchy.to_s, :foreign_key => :default_hierarchy_id
   # I wish these worked, but they need runtime evaluation.
-  #has_one :watch_collection, :class_name => 'Collection', :conditions => { :special_collection_id => SpecialCollection.watch.id }
+  has_one :existing_watch_collection, :class_name => 'Collection', :conditions => 'special_collection_id = #{SpecialCollection.watch.id}'
 
   before_save :check_credentials
   before_save :encrypt_password
@@ -473,11 +474,13 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def can_edit_collection?(collection)
-    return true if collection.user == self
-    return true if collection.community && collection.community.managers.include?(self)
-    false
+    return true if collection.user == self # Her collection
+    return false if collection.user        # Not her collection, not a community collection.
+    return false unless member = member_of(collection.community) # Not a community she's even in.
+    return true if collection.community && member.manager? # She's a manager
+    false # She's not a manager
   end
-  
+
   def can_view_collection?(collection)
     return true if collection.published? || collection.user == self
     false
@@ -713,14 +716,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   # user has access to through communities
   def all_collections
     editable_collections = collections
-    members.each do |member|
-      begin
-        editable_collections << member.community.focus_collection if member.manager?
-      rescue
-        # TODO ... what is causing this?  member.community.respond_to?(:focus_collection) => true, but
-        # when you call it, it fails.  GRRR!
-      end
-    end
+    editable_collections += members.managers.map {|member| member.community.collection }
     editable_collections
   end
 

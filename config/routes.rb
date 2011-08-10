@@ -95,6 +95,7 @@ ActionController::Routing::Routes.draw do |map|
       entries.resource :resources, :only => [:show], :controller => "taxa/resources",
         :member => { :identification_resources => :get, :education => :get , :nucleotide_sequences => :get, :biomedical_terms => :get }
       entries.resource :maps, :only => [:show], :controller => "taxa/maps"
+      entries.resource :updates, :only => [:show], :controller => "taxa/updates"
     end
     taxa.resource :overview, :only => [:show], :controller => "taxa/overviews"
     taxa.resources :media, :only => [:index], :controller => "taxa/media",
@@ -107,6 +108,7 @@ ActionController::Routing::Routes.draw do |map|
     taxa.resource :resources, :only => [:show], :controller => "taxa/resources",
       :member => { :identification_resources => :get, :education => :get , :nucleotide_sequences => :get , :biomedical_terms => :get }
     taxa.resource :maps, :only => [:show], :controller => "taxa/maps"
+    taxa.resource :updates, :only => [:show], :controller => "taxa/updates"
     taxa.resource :worklist, :only => [:show], :controller => "taxa/worklist"
     taxa.resources :collections, :only => [:index], :controller => 'collections'
     taxa.resources :communities, :only => [:index], :controller => 'communities'

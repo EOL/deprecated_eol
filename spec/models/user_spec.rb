@@ -276,7 +276,7 @@ describe User do
   it 'should have an activity log' do
     user = User.gen
     user.respond_to?(:activity_log).should be_true
-    user.activity_log.should be_a EOL::ActivityLog
+    user.activity_log.should be_a WillPaginate::Collection
   end
 
   it '#is_admin? should return true if current user is admin, otherwise false' do

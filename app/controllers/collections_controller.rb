@@ -18,6 +18,7 @@ class CollectionsController < ApplicationController
   layout 'v2/collections'
 
   def show
+    @page = params[:page] || 1
     render :action => 'newsfeed' if @filter == 'newsfeed'
     return copy_items_and_redirect(@collection, current_user.watch_collection) if params[:commit_collect]
     # NOTE - this is complicated. It's getting the various collection item types and doing i18n on the name as well

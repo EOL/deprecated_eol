@@ -18,6 +18,7 @@ class DataObject < SpeciesSchemaModel
   # this is the DataObjectTranslation record which links this translated object
   # to the original data object
   has_one :data_object_translation
+  has_one :users_data_object
 
   has_many :top_images
   has_many :feed_data_objects
@@ -34,7 +35,7 @@ class DataObject < SpeciesSchemaModel
   has_many :taxon_concept_exemplar_images
   # has_many :user_ignored_data_objects
   has_many :collection_items, :as => :object
-  has_many :users_data_objects
+  has_many :containing_collections, :through => :collection_items, :source => :collection
   has_many :translations, :class_name => DataObjectTranslation.to_s, :foreign_key => :original_data_object_id
   has_many :users_data_objects_ratings, :foreign_key => 'data_object_guid', :primary_key => :guid
   has_many :all_comments, :class_name => Comment.to_s, :foreign_key => 'parent_id', :finder_sql => 'SELECT c.* FROM #{Comment.full_table_name} c JOIN #{DataObject.full_table_name} do ON (c.parent_id = do.id) WHERE do.guid=\'#{guid}\' AND c.parent_type = \'DataObject\''
@@ -266,9 +267,7 @@ class DataObject < SpeciesSchemaModel
       :rights_statement => ERB::Util.h(all_params[:data_object][:rights_statement]), # No HTML allowed
       :bibliographic_citation => ERB::Util.h(all_params[:data_object][:bibliographic_citation]), # No HTML allowed
       :source_url => ERB::Util.h(all_params[:data_object][:source_url]), # No HTML allowed
-      :vetted_id => Vetted.unknown.id, # TODO: what curator level should allow trusted by default?
       :published => 1, #not sure if this is right
-      :visibility_id => Visibility.visible.id #not sure if this is right either
     }
 
     new_dato = DataObject.new(do_params)
@@ -291,8 +290,11 @@ class DataObject < SpeciesSchemaModel
     comments_from_old_dato = Comment.find(:all, :conditions => {:parent_id => old_dato.id, :parent_type => 'DataObject'})
     comments_from_old_dato.map { |c| c.update_attribute :parent_id, new_dato.id  }
 
-    udo = UsersDataObject.create(:user => user, :data_object => new_dato, :taxon_concept => taxon_concept)
-    new_dato.users_data_objects << udo
+    current_visibility = old_dato.users_data_object.visibility
+    current_vetted = old_dato.users_data_object.vetted
+    udo = UsersDataObject.create(:user => user, :data_object => new_dato, :taxon_concept => taxon_concept, 
+                                 :visibility => current_visibility, :vetted => current_vetted)
+    new_dato.users_data_object = udo
     new_dato
   end
 
@@ -324,9 +326,7 @@ class DataObject < SpeciesSchemaModel
       :rights_statement => ERB::Util.h(all_params[:data_object][:rights_statement]), # No HTML allowed
       :bibliographic_citation => ERB::Util.h(all_params[:data_object][:bibliographic_citation]), # No HTML allowed
       :source_url => ERB::Util.h(all_params[:data_object][:source_url]), # No HTML allowed
-      :vetted_id => Vetted.unknown.id, # TODO: what curator level should allow trusted by default?
       :published => 1, #not sure if this is right
-      :visibility_id => Visibility.visible.id #not sure if this is right either
     }
 
     dato = DataObject.new(do_params)
@@ -343,8 +343,8 @@ class DataObject < SpeciesSchemaModel
     dato.save
     return dato if dato.nil? || dato.errors.any?
 
-    udo = UsersDataObject.create(:user => user, :data_object => dato, :taxon_concept => taxon_concept)
-    dato.users_data_objects << udo
+    udo = UsersDataObject.create(:user => user, :data_object => dato, :taxon_concept => taxon_concept, :visibility => Visibility.visible, :vetted => Vetted.unknown)
+    dato.users_data_object = udo
     dato
   end
 
@@ -805,7 +805,7 @@ class DataObject < SpeciesSchemaModel
 
   def self.eager_load_image_metadata(data_object_ids, taxon_concept)
     return nil if data_object_ids.blank?
-    add_include = [ :all_comments, { :data_objects_hierarchy_entries => :hierarchy_entry},
+    add_include = [ :all_comments, { :data_objects_hierarchy_entries => :hierarchy_entry },
       { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ]
     add_select = { :comments => [ :parent_id, :visible_at ], :hierarchy_entries => 'taxon_concept_id',
       :data_objects_hierarchy_entries => '*', :curated_data_objects_hierarchy_entries => '*' }
@@ -868,6 +868,9 @@ class DataObject < SpeciesSchemaModel
     if association.blank?
       association = curated_data_objects_hierarchy_entries.detect{ |dohe| dohe.hierarchy_entry.taxon_concept_id == taxon_concept.id }
     end
+    if association.blank?
+      association = users_data_object if users_data_object && users_data_object.taxon_concept_id == taxon_concept.id
+    end
     association
   end
 
@@ -916,19 +919,29 @@ class DataObject < SpeciesSchemaModel
 
   # To retrieve the reasons provided while untrusting an association
   def untrust_reasons(hierarchy_entry)
-    if hierarchy_entry.associated_by_curator
-      object_id = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id_and_user_id(
-        id,hierarchy_entry.id,hierarchy_entry.associated_by_curator
-      ).id
+    if hierarchy_entry.class == UsersDataObject
+      object_id = hierarchy_entry.id
       log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_activity_id(
-        object_id, ChangeableObjectType.hierarchy_entry.id, Activity.untrusted.id
+        object_id, ChangeableObjectType.users_data_object.id, Activity.untrusted.id
       ).last
       log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
     else
-      log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_activity_id(
-        id, ChangeableObjectType.data_object.id, Activity.untrusted.id
-      ).last
-      log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
+
+      if hierarchy_entry.associated_by_curator
+        object_id = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id_and_user_id(
+          id,hierarchy_entry.id,hierarchy_entry.associated_by_curator
+        ).id
+        log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_activity_id(
+          object_id, ChangeableObjectType.hierarchy_entry.id, Activity.untrusted.id
+        ).last
+        log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
+      else
+        log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_activity_id(
+          id, ChangeableObjectType.data_object.id, Activity.untrusted.id
+        ).last
+        log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
+      end
+      
     end
   end
 
@@ -979,7 +992,8 @@ class DataObject < SpeciesSchemaModel
 
   # TODO - we need to make sure that the user_id of curated_dohe is added to the HE...
   def curated_hierarchy_entries
-    hierarchy_entries + curated_data_objects_hierarchy_entries.map do |cdohe|
+    data_objects_hierarchy_entries.collect{|dohe| dohe.hierarchy_entry} +
+    curated_data_objects_hierarchy_entries.map do |cdohe|
       he = cdohe.hierarchy_entry
       he.associated_by_curator = cdohe.user
       he.vetted_id = cdohe.vetted_id
@@ -1028,7 +1042,7 @@ class DataObject < SpeciesSchemaModel
   end
 
   def added_by_user?
-    users_data_objects && users_data_objects[0] && ! users_data_objects[0].user.blank?
+    users_data_object && !users_data_object.user.blank?
   end
 
   def add_curated_association(user, hierarchy_entry)
@@ -1048,26 +1062,17 @@ class DataObject < SpeciesSchemaModel
   def translated_from
     data_object_translation ? data_object_translation.original_data_object : nil
   end
+  alias :translation_source :translated_from
 
-  def translation_source
-    org_tr = DataObjectTranslation.find_by_data_object_id(self.id)
-    if org_tr
-      return  org_tr.original_data_object
-    else
-      return nil
-    end
-  end
-
-
-  def available_translations_data_objects(current_user)
+  def available_translations_data_objects(current_user, taxon)
     dobj_ids = []
-    if !translations.empty?
+    if translations
       dobj_ids << id
       translations.each do |tr|
         dobj_ids << tr.data_object.id
       end
     else
-      org_tr = DataObjectTranslation.find_by_data_object_id(self.id)
+      org_tr = data_object_translation
       if org_tr
         org_dobj = org_tr.original_data_object
         dobj_ids << org_dobj.id
@@ -1079,15 +1084,17 @@ class DataObject < SpeciesSchemaModel
     dobj_ids = dobj_ids.uniq
     if !dobj_ids.empty? && dobj_ids.length>1
       dobjs = DataObject.find_by_sql("SELECT do.* FROM data_objects do INNER JOIN languages l on (do.language_id = l.id) WHERE do.id in (#{dobj_ids.join(',')}) AND l.activated_on <= NOW() ORDER BY l.sort_order")
-      dobjs = DataObject.filter_list_for_user(dobjs, {:user => current_user})
+      if !taxon.nil?
+        dobjs = DataObject.filter_list_for_user(dobjs, {:user => current_user, :taxon_concept => taxon})
+      end
       return dobjs
     end
     return nil
   end
 
 
-  def available_translation_languages(current_user)
-    dobjs = available_translations_data_objects(current_user)
+  def available_translation_languages(current_user, taxon)
+    dobjs = available_translations_data_objects(current_user, taxon)
     if dobjs and !dobjs.empty?
       lang_ids = []
       dobjs.each do |dobj|
@@ -1103,13 +1110,36 @@ class DataObject < SpeciesSchemaModel
     return nil
 
   end
-
-  def initialize(hash)
-    hash.each do |k,v|
-      self.instance_variable_set("@#{k}", v)  ## create and initialize an instance variable for this key/value pair
-      self.class.send(:define_method, k, proc{self.instance_variable_get("@#{k}")})  ## create the getter that returns the instance variable
-      self.class.send(:define_method, "#{k}=", proc{|v| self.instance_variable_set("@#{k}", v)})  ## create the setter that sets the instance variable
+  
+  def log_activity_in_solr(options)
+    base_index_hash = {
+      'activity_log_unique_key' => "UsersDataObject_#{id}",
+      'activity_log_type' => 'UsersDataObject',
+      'activity_log_id' => self.users_data_object.id,
+      'action_keyword' => options[:keyword],
+      'date_created' => self.updated_at.solr_timestamp || self.created_at.solr_timestamp }
+    base_index_hash[:user_id] = options[:user].id if options[:user]
+    EOL::Solr::ActivityLog.index_activities(base_index_hash, activity_logs_affected(options))
+  end
+  
+  def activity_logs_affected(options)
+    logs_affected = {}
+    # activity feed of user making comment
+    logs_affected['User'] = [ options[:user].id ] if options[:user]
+    watch_collection_id = options[:user].watch_collection.id rescue nil
+    logs_affected['Collection'] = [ watch_collection_id ] if watch_collection_id
+    # this is when the object is first added. Using the passed-in value to prevent potential slave lag interference
+    if options[:taxon_concept]
+      logs_affected['TaxonConcept'] = [ options[:taxon_concept].id ]
+      logs_affected['TaxonConcept'] |= options[:taxon_concept].flattened_ancestor_ids
+    else
+      self.curated_hierarchy_entries.each do |he|
+        logs_affected['TaxonConcept'] ||= []
+        logs_affected['TaxonConcept'] << he.taxon_concept_id
+        logs_affected['TaxonConcept'] |= he.taxon_concept.flattened_ancestor_ids
+      end
     end
+    logs_affected
   end
 
 end

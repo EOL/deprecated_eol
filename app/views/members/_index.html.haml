@@ -1,27 +1,22 @@
-- # FIXME: Community managers?
-.article.list
-  .heading
-    %h2= I18n.t(:community_managers_with_count, :count => 999999)
-  %ul
-    - # FIXME: Faked need to get actual managers
-    - @community.managers.each do |manager|
-      = render :partial => 'members/member_summary.html.haml', :locals => {:member => manager}
-.article.list
-  .heading
-    %h2= I18n.t(:community_members_with_count, :count => 999999)
-  - # TODO: Should the community be removed if the last member leaves?
-  - if @members.blank?
-    %p= I18n.t(:there_are_currently_no_members_in_this_community)
-  - else
-  %ul
-    =# TODO: will_paginate @members
-    - @members.each do |member|
-      = render :partial => 'members/member_summary.html.haml', :locals => {:member => member}
-      - if member.manager?
-        = I18n.t(:manager_parens)
-        - if @current_member && @current_member.manager? && ! member.user.id == current_user.id
-          = link_to I18n.t(:revoke_manager_link), revoke_manager_community_member_path(@community, member), :confirm => I18n.t(:are_you_sure)
-      - elsif @current_member && @current_member.manager? && ! member.user.id == current_user.id
-        = link_to I18n.t(:grant_manager_link), grant_manager_community_member_path(@community, member)
-      - if @current_member && @current_member.manager? && ! member.user.id == current_user.id
-        = link_to I18n.t(:remove_membership), [@community, member], :method => :delete, :confirm => I18n.t(:are_you_sure)
+= will_paginate(@members)
+- if @managers.count < 1 && @nonmanagers.count < 1
+  %p= I18n.t(:community_empty_notice) # NOTE you really shouldn't get here... empty communities should be barred.
+- if @managers.count > 0
+  .article.list
+    .heading
+      %h2= I18n.t(:community_managers_with_count, :count => @managers.count)
+    %ul
+      - @members.select {|m| m.manager? }.each do |manager|
+        - revoke = @current_member && @current_member.manager? && manager.user.id != current_user.id
+        = render :partial => 'members/member_summary.html.haml', :locals => {:member => manager, :revoke => revoke}
+- if @nonmanagers.count > 0
+  .article.list
+    .heading
+      %h2= I18n.t(:community_members_with_count, :count => @nonmanagers.count)
+    - if @members.blank?
+      %p= I18n.t(:there_are_currently_no_members_in_this_community)
+    - else
+    %ul
+      - @members.select {|m| !m.manager? }.each do |member|
+        - grant = @current_member && @current_member.manager? && member.user.id != current_user.id
+        = render :partial => 'members/member_summary.html.haml', :locals => {:member => member, :grant => grant}

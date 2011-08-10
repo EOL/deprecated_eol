@@ -51,6 +51,7 @@ class DataObjectsController < ApplicationController
       )
       CollectionActivityLog.create(:collection => current_user.watch_collection, :user => current_user,
                                    :activity => Activity.collect, :collection_item => collection_item)
+      @data_object.log_activity_in_solr(:keyword => 'create', :user => current_user, :taxon_concept => @taxon_concept)
       redirect_to taxon_details_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}")
     end
   end
@@ -136,6 +137,7 @@ class DataObjectsController < ApplicationController
     @scientific_names = @taxon_concepts.inject({}) { |res, tc| res[tc.scientific_name] = { :common_name => tc.common_name, :taxon_concept_id => tc.id }; res }
     @image_source = get_image_source if @data_object.is_image?
     @current_user_ratings = logged_in? ? current_user.rating_for_object_guids([@data_object.guid]) : {}
+    @page = params[:page]
   end
 
   # GET /data_objects/1/attribution
@@ -185,8 +187,7 @@ class DataObjectsController < ApplicationController
     begin
       entries = []
       entries = @data_object.published_entries
-      udo_entry = @data_object.users_data_objects[0]
-      entries <<  udo_entry unless udo_entry.nil?
+      entries <<   @data_object.users_data_object unless  @data_object.users_data_object.nil?
       
       entries.each do |phe|
         comment = curation_comment(params["curation_comment_#{phe.id}"])
@@ -232,7 +233,7 @@ private
   end
 
   def authentication_own_user_added_text_objects_only
-    if !@data_object.is_text? || @data_object.users_data_objects.blank? ||
+    if !@data_object.is_text? || @data_object.users_data_object.blank? ||
        @data_object.user.id != current_user.id
       access_denied
     end

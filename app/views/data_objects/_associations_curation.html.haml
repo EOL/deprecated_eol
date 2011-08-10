@@ -8,8 +8,8 @@
   -# entries can now be a DOHE, CDOHE or UDO  
 
   - entries = data_object.published_entries.collect{|e| e if (visible && Visibility.visible == e.visibility) || (invisible && Visibility.invisible == e.visibility) || (preview && Visibility.preview == e.visibility)}.compact
-  - if !data_object.users_data_objects.blank?
-    - udo = data_object.users_data_objects[0]
+  - if data_object.users_data_object
+    - udo = data_object.users_data_object
     - entries << udo
 
   - if entries.blank?

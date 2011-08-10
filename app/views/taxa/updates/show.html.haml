@@ -1,0 +1,6 @@
+#content
+  #taxon_updates.site_column
+    .main_container
+      .article.list.updates
+        = render(:partial => 'activity_logs/index', :locals => {:log => @taxon_concept.activity_log(:per_page => 10, :page => @page) })
+

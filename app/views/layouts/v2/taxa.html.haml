@@ -46,7 +46,7 @@
           %li{:class => resource_is_active('taxa/community')}= link_to I18n.t(:community), '/placeholder'
           %li{:class => resource_is_active('taxa/resources')}= link_to I18n.t(:resources), '/placeholder'
           %li{:class => resource_is_active('taxa/literature')}= link_to I18n.t(:literature), taxon_hierarchy_entry_literature_path(@taxon_concept, @selected_hierarchy_entry)
-          %li{:class => resource_is_active('taxa/updates')}= link_to I18n.t(:updates), '/placeholder'
+          %li{:class => resource_is_active('taxa/updates')}= link_to I18n.t(:updates), taxon_hierarchy_entry_updates_path(@taxon_concept, @selected_hierarchy_entry)
         - else
           %li{:class => resource_is_active('taxa/overviews')}= link_to I18n.t(:overview), taxon_overview_path(@taxon_concept)
           %li{:class => resource_is_active('taxa/details')}= link_to I18n.t(:detail), taxon_details_path(@taxon_concept)
@@ -56,7 +56,7 @@
           %li{:class => resource_is_active('taxa/community')}= link_to I18n.t(:community), '/placeholder'
           %li{:class => resource_is_active('taxa/resources')}= link_to I18n.t(:resources), taxon_resources_path(@taxon_concept)
           %li{:class => resource_is_active('taxa/literature')}= link_to I18n.t(:literature), taxon_literature_path(@taxon_concept.id)
-          %li{:class => resource_is_active('taxa/updates')}= link_to I18n.t(:updates), '/placeholder'
+          %li{:class => resource_is_active('taxa/updates')}= link_to I18n.t(:updates), taxon_updates_path(@taxon_concept.id)
 
   #content
     .site_column

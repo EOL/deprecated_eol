@@ -11,5 +11,14 @@ module EOL
       res = open(query_url).read
       JSON.load res
     end
+    
+    def self.add_standard_instance_to_docs!(klass, docs, primary_key_field_name, options = {})
+      ids = docs.map{ |d| d[primary_key_field_name] }.compact
+      return if ids.blank?
+      instances = klass.find_all_by_id(ids, :include => options[:includes], :select => options[:selects])
+      docs.each do |d|
+        d['instance'] = instances.detect{ |i| i.id == d[primary_key_field_name].to_i }
+      end
+    end
   end
 end

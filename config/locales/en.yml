@@ -558,6 +558,7 @@ en:
   assistive_names_related_header: "Related names"
   assistive_names_synonyms_header: "Synonyms"
   assistive_maps_header: "Maps"
+  assistive_updates_header: "Updates"
   associated_submit_button: "associated"
   associated_with_image_header: "In this image"
   associated_with_sound_header: "Associated with"
@@ -2309,6 +2310,9 @@ en:
   see_all_communities_with_count_html:
     one: "See the <span class=\"assistive\">%{count} community that focus on this taxon.</span>"
     other: "See all <span class=\"assistive\">%{count} communities that focus on this taxon.</span>"
+  see_all_updates_with_count_html:
+    one: "See all <span class=\"assistive\">%{count} updates for this taxon.</span>"
+    other: "See all <span class=\"assistive\">%{count} updates for this taxon.</span>"
   see_all_media_link: "See all media"
   see_notes: "see notes"
   see_result_for_var_search_text: "See result for \"%{var_search_text}\"."

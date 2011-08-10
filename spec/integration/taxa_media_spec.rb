@@ -9,6 +9,7 @@ describe 'Taxa media' do
     @data = EOL::TestInfo.load('media_heavy')
     @taxon_concept = @data[:taxon_concept]
     Capybara.reset_sessions!
+    CuratorLevel.create_defaults
   end
 
   it 'should show the taxon header' do

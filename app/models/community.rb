@@ -6,6 +6,7 @@ class Community < ActiveRecord::Base
 
   has_many :members
   has_many :collection_items, :as => :object
+  has_many :containing_collections, :through => :collection_items, :source => :collection
   has_many :comments, :as => :parent
 
   accepts_nested_attributes_for :collection

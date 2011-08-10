@@ -569,7 +569,7 @@ describe TaxonConcept do
   it 'should have an activity log' do
     tc = TaxonConcept.gen
     tc.respond_to?(:activity_log).should be_true
-    tc.activity_log.should be_a EOL::ActivityLog
+    tc.activity_log.should be_a WillPaginate::Collection
   end
 
   it 'should list collections in the proper order - most communities show firt' do

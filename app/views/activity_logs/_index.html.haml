@@ -1,3 +1,4 @@
+- hide_pagination ||= false
 - if log.blank?
   .article
     .empty
@@ -5,8 +6,9 @@
       %p= link_to I18n.t(:activity_log_empty_learn_more_link), '/placeholder'
 - else
   %ul.feed
-    - log.each do |item|
+    - log.each do |result|
       %li
+        - item = result['instance']
         - case item.class.name
         - when "CuratorActivityLog"
           = render :partial => 'activity_logs/curator_activity_log', :locals => {:item => item}
@@ -20,3 +22,6 @@
           = render :partial => 'activity_logs/community_activity_log', :locals => {:item => item}
         - else
           %p= "I am not sure what to do with a #{item.class.name} yet."
+  - unless hide_pagination
+    = will_paginate log, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
+      :inner_window => 2, :outer_window => 2

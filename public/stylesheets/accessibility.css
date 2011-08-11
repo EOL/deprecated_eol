@@ -679,3 +679,8 @@ ul#taxonomictext #taxonomic-text-container {
 
 #page_heading .page_actions li + li {
   margin: 10px 0; }
+
+h1.notice {
+  font-size: 2em;
+  text-align: center;
+  padding: 4em; }

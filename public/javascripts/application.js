@@ -251,7 +251,7 @@ EOL.ajax_submit = function(el, args) {
     data: data,
     type: type,
     dataType: 'html',
-    beforeSend: function(xhr) { cell.fadeTo(300, 0.3); },
+    beforeSend: function(xhr) { cell.fadeTo(225, 0.3); },
     success: function(response) { cell.html(response); },
     error: function(xhr, stat, err) { cell.html('<p>Sorry, there was an error: '+stat+'</p>'); },
     complete: function() {

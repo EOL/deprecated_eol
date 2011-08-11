@@ -317,7 +317,7 @@ class TaxonConcept < SpeciesSchemaModel
     end
     special_content
   end
-  
+
   # Returns education content
   def education_content
     toc_item = TocItem.education
@@ -328,17 +328,16 @@ class TaxonConcept < SpeciesSchemaModel
       get_default_content(toc_item)
     end
   end
-  
+
   # Returns nucleotide sequences HE
   def nucleotide_sequences_hierarchy_entry_for_taxon
     return TaxonConcept.find_entry_in_hierarchy(self.id, Hierarchy.ncbi.id)
   end
-  
+
   # Returns external links
   def content_partners_links
    return self.outlinks.sort_by { |ol| ol[:hierarchy_entry].hierarchy.label }
   end
-  
 
   # Returns harvested text objects, user submitted object and special content for given toc items
   def details_for_toc_items(toc_items, options = {})
@@ -1298,7 +1297,7 @@ class TaxonConcept < SpeciesSchemaModel
     # communities are sorted by the most number of members - descending order
     community_ids = communities.map{|c| c.id}.compact
     return [] if community_ids.blank?
-    temp = SpeciesSchemaModel.connection.execute(" SELECT c.id, COUNT(m.user_id) total FROM members m JOIN communities c ON c.id = m.community_id WHERE c.id in (#{community_ids.join(',')})   GROUP BY c.id ORDER BY total desc ").all_hashes
+    temp = SpeciesSchemaModel.connection.execute("SELECT c.id, COUNT(m.user_id) total FROM members m JOIN communities c ON c.id = m.community_id WHERE c.id in (#{community_ids.join(',')})   GROUP BY c.id ORDER BY total desc").all_hashes
     if temp.blank?
       return communities
     else
@@ -1308,7 +1307,10 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def communities
-    @communities ||= collection_items.map {|i| i.community }.compact
+    @communities ||= Community.find_by_sql("
+      SELECT c.* FROM communities c LEFT JOIN collection_items ci ON (ci.collection_id = c.id)
+      WHERE ci.object_id = #{id} AND object_type = 'TaxonConcept' AND c.published = 1
+    ")
   end
 
   # Returns three collections, prioritized as:

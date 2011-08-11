@@ -13,6 +13,13 @@ class MoveInappropriateFromVisibilityToVetted < ActiveRecord::Migration
         vetted_id = #{inappropriate_vetted.id},
         visibility_id = #{Visibility.invisible.id}
         where visibility_id = #{inappropriate_visibility.id}")
+      
+      # Also update the records in the DOHE
+      execute("update data_objects_hierarchy_entries set
+        vetted_id = #{inappropriate_vetted.id},
+        visibility_id = #{Visibility.invisible.id}
+        where visibility_id = #{inappropriate_visibility.id}")
+      
       inappropriate_visibility.destroy
     end
   end
@@ -25,15 +32,21 @@ class MoveInappropriateFromVisibilityToVetted < ActiveRecord::Migration
       TranslatedVisibility.create(:visibility => inappropriate_visibility, :label => 'Inappropriate',
         :language => Language.english)
       
-      # Data objects are irreversibile to their previous vetted statuses if they were trusted or unreviewed
-      # but either way it doesn't make sense to have data objects with vetted and visibility statuses as 
-      # (trusted and inappropriate) or (unreviewed and inappropriate) respectively.
+      # Data objects are irreversibile to their previous vetted statuses(so the DOHE) if they were trusted or 
+      # unreviewed but either way it doesn't make sense to have data objects with vetted and visibility statuses 
+      # as (trusted and inappropriate) or (unreviewed and inappropriate) respectively.
       # So here I'm reverting them to (untrusted and inappropriate).
       execute("update data_objects set
         vetted_id = #{Vetted.untrusted.id},
         visibility_id = #{inappropriate_visibility.id}
         where vetted_id = #{inappropriate_vetted.id}")
       inappropriate_vetted.destroy
+      
+      # Also update the records in the DOHE
+      execute("update data_objects_hierarchy_entries set
+        vetted_id = #{Vetted.untrusted.id},
+        visibility_id = #{inappropriate_visibility.id}
+        where vetted_id = #{inappropriate_vetted.id}")
     end
   end
 end

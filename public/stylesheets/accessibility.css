@@ -684,3 +684,14 @@ h1.notice {
   font-size: 2em;
   text-align: center;
   padding: 4em; }
+
+#worklist #task #sidebar {
+  width: auto;
+  float: none;
+  padding: 0px !important; }
+
+#worklist #tasks li img {
+  max-width: 60x;
+  max-height: 60px;
+  width: expression(this.width > 60 ? "60px" : true);
+  height: expression(this.height > 60 ? "60px" : true); }

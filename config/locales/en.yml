@@ -705,13 +705,17 @@ en:
     one: "%{count} collected item"
     other: "%{count} collected items"
   collection_created_notice: "Collection <em>%{collection_name}</em> successfully created."
+  collection_delete_link: "Permanently delete this collection"
+  collection_destroyed: "The collection was deleted."
   collection_image: "Collection image"
   collection_is_empty: "This collection is currently empty."
   collection_item_not_found_error: "That collection item could not be found."
   collection_not_created_error: "Sorry, an error occurred, the collection <em>%{collection_name}</em> could not be created."
+  collection_not_destroyed_error: "Sorry, the collection was not deleted."
   collection_not_found_error: Sorry, that collection cound not be found.
   collection_not_updated_error: "Sorry, an error occurred, the collection could not be updated."
   collection_updated_notice: "Collection <em>%{collection_name}</em> successfully updated."
+  collection_was_removed_by_owner: "This collection was removed by its owner."
   collections: "Collections"
   collections_lowercase: "collections"
   collections_index_header: "Collections"
@@ -769,6 +773,7 @@ en:
   community_contributions_with_count:
     one: "%{count} Contribution"
     other: "%{count} Contributions"
+  community_destroyed: "Community was deleted."
   community_empty_notice: "This community has no members."
   community_focus: "Community focus"
   community_invitation_comment: "I would like to invite you to join \"%{community}\"."
@@ -780,6 +785,8 @@ en:
     other: "%{count} Community Members"
   community_members: "Community members"
   community_must_have_one_manager_error: "Sorry, communities must have at least one manager, and this member is the last one."
+  community_not_destroyed_error: "Sorry, the community was not deleted."
+  community_removed_by_owner: "This community was removed by its owner."
   community_roles: "Community Roles"
   communities_summary_empty: "This taxon hasn't been endorsed by a community yet."
   communities_summary_header_with_count:
@@ -908,6 +915,12 @@ en:
   content_partner_statistics_information: "Usage statistics for taxon pages containing content provided by %{partner_name}."
   content_partner_statistics_link: "Usage statistics"
   content_partner_statistics_subheader: "Usage statistics"
+
+  content_partner_statistics_taxa_page: "Taxa Page Statistics"
+  content_partner_statistics_column_header_taxa_page_page_views: "Page Views"
+  content_partner_statistics_column_header_taxa_page_unique_page_views: "Unique Page Views"
+  content_partner_statistics_column_header_taxa_page_time_on_page_seconds: "Time On Page (seconds)"
+
   content_partner_update_successful_notice: "Partner details successfully updated."
   content_partner_update_unsuccessful_error: "Sorry, an error occurred, partner details were not updated."
   content_partner_unvetted: "Unreviewed"

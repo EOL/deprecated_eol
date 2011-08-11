@@ -6,8 +6,7 @@ class CommunitiesController < ApplicationController
   before_filter :load_community_and_dependent_vars, :except => [:index, :new, :create]
   before_filter :load_collection, :only => [:new, :create]
   before_filter :must_be_logged_in, :except => [:index, :show]
-  before_filter :restrict_edit, :only => [:edit, :update]
-  before_filter :restrict_delete, :only => [:delete]
+  before_filter :restrict_edit, :only => [:edit, :update, :destroy]
 
   def index
     @communities = Community.paginate(:page => params[:page])
@@ -74,10 +73,13 @@ class CommunitiesController < ApplicationController
   end
 
   def destroy
-    # TODO - this shouldn't really be deleted, it shoud be hidden.  Also, it should log the activity.
-    @community.destroy
+    if @community.update_attribute(:published, false)
+      flash[:notice] = I18n.t(:community_destroyed)
+    else
+      flash[:error] = I18n.t(:community_not_destroyed_error)
+    end
     respond_to do |format|
-      format.html { redirect_to(communities_url) }
+      format.html { redirect_to(root_url) }
       format.xml  { head :ok }
     end
   end
@@ -117,6 +119,10 @@ private
       render(:layout => 'v2/basic', :template => "content/missing", :status => 404)
       return false
     end
+    unless @community.published?
+      render :action => 'show'
+      return false
+    end
     @community_collections = @community.collections # NOTE these are collection_items, really.
     @members = @community.members # Because we pull in partials from the members controller.
     @current_member = current_user.member_of(@community)
@@ -129,11 +135,6 @@ private
   end
 
   def restrict_edit
-    @current_member ||= current_user.member_of(@community)
-    raise EOL::Exceptions::SecurityViolation unless @current_member && @current_member.manager?
-  end
-
-  def restrict_delete
     @current_member ||= current_user.member_of(@community)
     raise EOL::Exceptions::SecurityViolation unless @current_member && @current_member.manager?
   end

@@ -55,7 +55,17 @@ class MembersController < ApplicationController
 private
 
   def load_community_and_current_member
-    @community = Community.find(params[:community_id])
+    begin
+      @community = Community.find(params[:community_id])
+    rescue => e
+      @message = e.message
+      render(:layout => 'v2/basic', :template => "content/missing", :status => 404)
+      return false
+    end
+    unless @community.published?
+      render :template => '/communities/show'
+      return false
+    end
     @community_collections = @community.collections # NOTE these are really collection_items.
     @current_member = current_user.member_of(@community)
   end

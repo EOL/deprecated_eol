@@ -144,7 +144,7 @@ class CuratorActivityLog < LoggingModel
     # action on a concept
     if self.changeable_object_type_id == ChangeableObjectType.synonym.id
       logs_affected['TaxonConcept'] = [ self.taxon_concept_id ]
-      logs_affected['TaxonConcept'] |= self.taxon_concept.flattened_ancestor_ids
+      logs_affected['AncestorTaxonConcept'] = self.taxon_concept.flattened_ancestor_ids
       Collection.which_contain(self.taxon_concept).each do |c|
         logs_affected['Collection'] ||= []
         logs_affected['Collection'] << c.id
@@ -153,10 +153,11 @@ class CuratorActivityLog < LoggingModel
     # action on a data object
     elsif [ ChangeableObjectType.data_object.id, ChangeableObjectType.data_objects_hierarchy_entry.id].include?(self.changeable_object_type_id)
       logs_affected['DataObject'] = [ self.object_id ]
-      logs_affected['TaxonConcept'] = []
       self.data_object.curated_hierarchy_entries.each do |he|
+        logs_affected['TaxonConcept'] ||= []
         logs_affected['TaxonConcept'] << he.taxon_concept_id
-        logs_affected['TaxonConcept'] |= he.taxon_concept.flattened_ancestor_ids
+        logs_affected['AncestorTaxonConcept'] ||= []
+        logs_affected['AncestorTaxonConcept'] |= he.taxon_concept.flattened_ancestor_ids
       end
       Collection.which_contain(self.data_object).each do |c|
         logs_affected['Collection'] ||= []

@@ -251,7 +251,7 @@ EOL.ajax_submit = function(el, args) {
     data: data,
     type: type,
     dataType: 'html',
-    beforeSend: function(xhr) { cell.fadeTo(300, 0.3); },
+    beforeSend: function(xhr) { cell.fadeTo(225, 0.3); },
     success: function(response) { cell.html(response); },
     error: function(xhr, stat, err) { cell.html('<p>Sorry, there was an error: '+stat+'</p>'); },
     complete: function() {
@@ -259,6 +259,22 @@ EOL.ajax_submit = function(el, args) {
       if(complete != '') {
         complete();
       }
+    }
+  });
+  return(false); // stop event... there's a better way to do this?
+};
+
+EOL.ajax_get = function(el, args) {
+  var cell = '';
+  if(typeof(args.update) != 'undefined') { cell = args.update; } else { cell = el.closest('.editable'); }
+  $.ajax({
+    url: el.attr('href'),
+    dataType: 'html',
+    beforeSend: function(xhr) { cell.fadeTo(300, 0.3); },
+    success: function(response) { cell.html(response); },
+    error: function(xhr, stat, err) { cell.html('<p>Sorry, there was an error: '+stat+'</p>'); },
+    complete: function() {
+      cell.delay(25).fadeTo(100, 1, function() {cell.css({filter:''});});
     }
   });
   return(false); // stop event... there's a better way to do this?

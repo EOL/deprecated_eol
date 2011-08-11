@@ -36,6 +36,18 @@
         <field name="taxon_concept_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
         <field name="ancestor_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
         <field name="resource_id" type="int" indexed="true" stored="true" required="false"/>
+        <!-- vetted states -->
+        <field name="trusted_ancestor_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="unreviewed_ancestor_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="untrusted_ancestor_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="inappropriate_ancestor_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <!-- visibility states -->
+        <field name="invisible_ancestor_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="visible_ancestor_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="preview_ancestor_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <!-- user-specific fields -->
+        <field name="curated_by_user_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="ignored_by_user_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
     </fields>
     
     <!-- force uniqueness -->

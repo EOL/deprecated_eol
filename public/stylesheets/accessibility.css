@@ -676,3 +676,6 @@ ul#taxonomictext #taxonomic-text-container {
     margin: 10px; }
     ul#taxonomictext #taxonomic-text-container ul.classification li {
       white-space: nowrap; }
+
+#page_heading .page_actions li + li {
+  margin: 10px 0; }

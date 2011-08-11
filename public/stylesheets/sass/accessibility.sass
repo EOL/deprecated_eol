@@ -791,3 +791,6 @@ ul#taxonomictext #taxonomic-text-container
     margin: 10px
     li
       white-space: nowrap
+// This is specified incorrectly in the application sass, and caused buttons to touch.  This keeps them apart:
+#page_heading .page_actions li + li
+  margin: 10px 0

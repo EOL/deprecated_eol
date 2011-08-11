@@ -189,6 +189,13 @@ $(function() {
     EOL.ajax_submit($(this), {update: $update, type: 'GET'})
     return(false);
   });
+  $('.button.confirm').click(function() {
+    if(confirm($(this).attr('data_confirm'))) {
+      return true;
+    } else {
+      return false;
+    }
+  });
 });
 
 (function($) {

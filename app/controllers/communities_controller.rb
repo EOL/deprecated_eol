@@ -6,8 +6,7 @@ class CommunitiesController < ApplicationController
   before_filter :load_community_and_dependent_vars, :except => [:index, :new, :create]
   before_filter :load_collection, :only => [:new, :create]
   before_filter :must_be_logged_in, :except => [:index, :show]
-  before_filter :restrict_edit, :only => [:edit, :update]
-  before_filter :restrict_delete, :only => [:delete]
+  before_filter :restrict_edit, :only => [:edit, :update, :destroy]
 
   def index
     @communities = Community.paginate(:page => params[:page])
@@ -64,7 +63,7 @@ class CommunitiesController < ApplicationController
         upload_logo(@community) unless params[:community][:logo].blank?
         log_action(:change_name) if name_change
         log_action(:change_description) if description_change
-        format.html { redirect_to(@community, :notice =>  I18n.t(:updated_community) ) }
+        format.html { redirect_to(@community, :notice => I18n.t(:updated_community) ) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -74,29 +73,39 @@ class CommunitiesController < ApplicationController
   end
 
   def destroy
-    # TODO - this shouldn't really be deleted, it shoud be hidden.  Also, it should log the activity.
-    @community.destroy
+    if @community.update_attribute(:published, false)
+      flash[:notice] = I18n.t(:community_destroyed)
+    else
+      flash[:error] = I18n.t(:community_not_destroyed_error)
+    end
     respond_to do |format|
-      format.html { redirect_to(communities_url) }
+      format.html { redirect_to(root_url) }
       format.xml  { head :ok }
     end
   end
 
   def join
     if @community.has_member?(current_user)
-      redirect_to(@community, :notice =>  I18n.t(:already_member_of_community) )
+      redirect_to(@community, :notice => I18n.t(:already_member_of_community) )
     else
       @community.add_member(current_user)
+      auto_collect(@community)
       respond_to do |format|
-        format.html { redirect_to(@community, :notice =>  I18n.t(:you_joined_community) ) }
+        format.html { redirect_to(@community, :notice => I18n.t(:you_joined_community) + " #{flash[:notice]}" ) }
       end
     end
   end
 
   def leave
-    @community.remove_member(current_user)
     respond_to do |format|
-      format.html { redirect_to(@community, :notice =>  I18n.t(:you_left_community) ) }
+      begin
+        @community.remove_member(current_user)
+      rescue EOL::Exceptions::CommunitiesMustHaveAManager => e
+        format.html { redirect_to(@community, :notice => I18n.t(:community_must_have_one_manager_error)) }
+      rescue EOL::Exceptions::ObjectNotFound => e
+        format.html { redirect_to(@community, :notice => I18n.t(:could_not_find_user)) }
+      end
+      format.html { redirect_to(@community, :notice => I18n.t(:you_left_community) ) }
     end
   end
 
@@ -108,6 +117,10 @@ private
     rescue => e
       @message = e.message
       render(:layout => 'v2/basic', :template => "content/missing", :status => 404)
+      return false
+    end
+    unless @community.published?
+      render :action => 'show'
       return false
     end
     @community_collections = @community.collections # NOTE these are collection_items, really.
@@ -122,11 +135,6 @@ private
   end
 
   def restrict_edit
-    @current_member ||= current_user.member_of(@community)
-    raise EOL::Exceptions::SecurityViolation unless @current_member && @current_member.manager?
-  end
-
-  def restrict_delete
     @current_member ||= current_user.member_of(@community)
     raise EOL::Exceptions::SecurityViolation unless @current_member && @current_member.manager?
   end

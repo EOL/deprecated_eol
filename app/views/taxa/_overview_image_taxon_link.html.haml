@@ -1,0 +1,17 @@
+%p 
+  - visible ||= true
+  - invisible ||= false
+  - preview ||= false
+  &nbsp;
+  - entries = data_object.published_entries.collect{|e| e if (visible && Visibility.visible == e.visibility) || (invisible && Visibility.invisible == e.visibility) || (preview && Visibility.preview == e.visibility)}.compact
+  - i = 0
+  - # list maximum of 2
+  - entries[0..1].each do |entry| 
+    - i = i + 1
+    = link_to entry.canonical_form.string, taxon_overview_path(entry.taxon_concept_id)
+    - if i < 2
+      - if i < entries.count
+        = ", "
+    - else
+      - if i < entries.count
+        = "..."

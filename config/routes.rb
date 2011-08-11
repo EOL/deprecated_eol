@@ -86,6 +86,7 @@ ActionController::Routing::Routes.draw do |map|
   # Taxa nested resources with pages as alias
   map.resources :taxa, :as => :pages do |taxa|
     taxa.resources :hierarchy_entries, :as => :entries, :only => [:show], :member => { :switch => [:put] } do |entries|
+      entries.resource :tree, :only => [:show], :controller => "taxa/trees"
       entries.resource :overview, :only => [:show], :controller => "taxa/overviews"
       entries.resources :media, :only => [:index], :controller => "taxa/media"
       entries.resources :details, :only => [:index], :controller => "taxa/details"
@@ -110,6 +111,7 @@ ActionController::Routing::Routes.draw do |map|
       :member => { :identification_resources => :get, :education => :get , :nucleotide_sequences => :get , :biomedical_terms => :get }
     taxa.resource :maps, :only => [:show], :controller => "taxa/maps"
     taxa.resource :updates, :only => [:show], :controller => "taxa/updates"
+    taxa.resource :worklist, :only => [:show], :controller => "taxa/worklist"
     taxa.resources :collections, :only => [:index], :controller => 'collections'
     taxa.resources :communities, :only => [:index], :controller => 'communities'
     taxa.resources :data_objects, :only => [:create, :new], :controller => 'data_objects'
@@ -212,8 +214,10 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :mobile do |mobile|
     mobile.resources :contents, :collection => {:enable => [:post, :get], :disable => [:post, :get]}
     mobile.resources :taxa, :member => {:details => :get, :media => :get}
-    mobile.search 'search/:id', :controller => 'search', :action => 'index'
+  #  mobile.search 'search/:id', :controller => 'search', :action => 'index' # this looks for mobile/search controller but I'm using the main search controller instead
   end
+  map.mobile_search 'mobile/search/:id', :controller => 'search', :action => 'index'
+
 
   ##### ALL ROUTES BELOW SHOULD PROBABLY ALWAYS BE AT THE BOTTOM SO THEY ARE RUN LAST ####
   # this represents a URL with just a random namestring -- send to search page (e.g. www.eol.org/animalia)

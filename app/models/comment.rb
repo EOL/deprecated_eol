@@ -221,14 +221,13 @@ class Comment < ActiveRecord::Base
       logs_affected['Collection'] << c.id
     end
     if self.parent_type == 'TaxonConcept'
-      # this is the union equals operator (|=) - the uniqe combined list of itself and its ancestors
-      logs_affected['TaxonConcept'] |= self.parent.flattened_ancestor_ids
-    end
-    if self.parent_type == 'DataObject'
-      logs_affected['TaxonConcept'] = []
+      logs_affected['AncestorTaxonConcept'] = self.parent.flattened_ancestor_ids
+    elsif self.parent_type == 'DataObject'
       self.parent.curated_hierarchy_entries.each do |he|
+        logs_affected['TaxonConcept'] ||= []
         logs_affected['TaxonConcept'] << he.taxon_concept_id
-        logs_affected['TaxonConcept'] |= he.taxon_concept.flattened_ancestor_ids
+        logs_affected['AncestorTaxonConcept'] ||= []
+        logs_affected['AncestorTaxonConcept'] |= he.taxon_concept.flattened_ancestor_ids
       end
     end
     logs_affected

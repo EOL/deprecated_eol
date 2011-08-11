@@ -25,11 +25,12 @@ module EOL
         options[:page]        ||= 1
         options[:per_page]    ||= 30
         options[:per_page]      = 30 if options[:per_page] == 0
-
+        options[:group_field] ||= 'activity_log_unique_key'
+        
         response = solr_search(query, options)
-        total_results = response['grouped']['activity_log_unique_key']['ngroups']
+        total_results = response['grouped'][options[:group_field]]['ngroups']
         results = []
-        response['grouped']['activity_log_unique_key']['groups'].each do |g|
+        response['grouped'][options[:group_field]]['groups'].each do |g|
           results << g['doclist']['docs'][0]
         end
         
@@ -64,10 +65,11 @@ module EOL
       end
       
       def self.solr_search(query, options = {})
+        options[:group_field] ||= 'activity_log_unique_key'
         url =  $SOLR_SERVER + $SOLR_ACTIVITY_LOGS_CORE + '/select/?wt=json&q=' + CGI.escape(%Q[{!lucene}])
         url << CGI.escape(query)
         url << '&sort=date_created+desc&fl=activity_log_type,activity_log_id,user_id,date_created'
-        url << "&group=true&group.field=activity_log_unique_key&group.ngroups=true"
+        url << "&group=true&group.field=#{options[:group_field]}&group.ngroups=true"
 
         # add paging
         limit  = options[:per_page] ? options[:per_page].to_i : 10
@@ -81,11 +83,11 @@ module EOL
       
       def self.rebuild_comments_logs
         start = Comment.minimum('id')
-        max_id = Comment.maximum('id')
+        max_id = Comment.maximum('id') + 20 # just in case some get added while this is running
         return if start.nil? || max_id.nil?
         limit = 200
         i = start
-        while i <= max_id
+        while i < max_id
           # TaxonConcept comments
           comments = Comment.find_all_by_id((i...(i+limit)).to_a, :conditions => "parent_type='TaxonConcept'")
           Comment.preload_associations(comments,
@@ -104,6 +106,12 @@ module EOL
             :select => { :comments => '*', :users => [:id], :data_objects => [:id], :data_objects_hierarchy_entries => '*',
               :curated_data_objects_hierarchy_entries => '*', :hierarchy_entries => [:id, :taxon_concept_id],
               :taxon_concepts => [:id], :collections => [ :id, :user_id ] })
+          comments.each do |c|
+            c.log_activity_in_solr
+          end
+          
+          # Everything else (very minimal right now thus not worrying about eager loading)
+          comments = Comment.find_all_by_id((i...(i+limit)).to_a, :conditions => "parent_type!='TaxonConcept' AND parent_type!='DataObject'")
           comments.each do |c|
             c.log_activity_in_solr
           end

@@ -374,6 +374,11 @@ private
     end
   end
 
+  def redirect_if_superceded
+    redirect_to taxon_overview_path(@taxon_concept, params.merge(:status => :moved_permanently).
+        except(:controller, :action, :id, :taxon_id)) and return false if @taxon_concept.superceded_the_requested_id?
+  end
+
   def get_content_variables(options = {})
     @content = @taxon_concept.content_by_category(@category_id, :current_user => current_user, :hierarchy_entry => options[:hierarchy_entry])
     @whats_this = @content[:category_name].blank? ? "" : WhatsThis.get_url_for_name(@content[:category_name])
@@ -411,16 +416,6 @@ private
   def show_unvetted_videos
     videos = @taxon_concept.video_data_objects(:unvetted => true) unless @default_videos.blank?
     return videos
-  end
-
-  def redirect_to_missing_page_on_error(&block)
-    begin
-      yield
-    rescue => e
-      @message = e.message
-      render(:layout => 'v2/basic', :template => "content/missing", :status => 404)
-      return false
-    end
   end
 
   # wich TOC item choose to show

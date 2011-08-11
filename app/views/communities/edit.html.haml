@@ -1,1 +1,12 @@
-= render :partial => 'form', :locals => {:submit_label => I18n.t(:save) }
+#community_new.site_column
+  .copy
+    .collection_list
+      %h3= I18n.t(:community_focus)
+      - if @community.focus.nil?
+        %p= I18n.t(:this_community_has_no_focus_list)
+      - else
+        %p= I18n.t(:focus_collection_edit_link, :collection => link_to(@community.collection.name, collection_path(@community.collection)))
+    .collection_list
+      %h3= I18n.t(:endorsed_collections)
+      %p= I18n.t(:manager_endorse_collecitons_suggestion)
+  = render :partial => 'form', :locals => {:submit_label => I18n.t(:save) }

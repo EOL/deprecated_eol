@@ -68,7 +68,8 @@ class Community < ActiveRecord::Base
     member = user_or_member.is_a?(User) ?
       Member.find_by_user_id_and_community_id(user_or_member.id, id) :
       user_or_member
-    raise I18n.t(:could_not_find_user) unless member
+    raise EOL::Exceptions::ObjectNotFound unless member
+    raise EOL::Exceptions::CommunitiesMustHaveAManager if member.manager? && members.managers.count <= 1
     member.destroy
     self.reload
   end
@@ -89,8 +90,9 @@ class Community < ActiveRecord::Base
   end
 
   def top_active_members
+    debugger
     activity_log.map {|l|
-      l.user_id
+      l['user_id']
     }.compact.sort.uniq.map {|uid|
       Member.find_by_community_id_and_user_id(id, uid)
     }.compact[0..3]

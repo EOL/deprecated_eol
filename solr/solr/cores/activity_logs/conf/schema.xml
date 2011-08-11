@@ -16,7 +16,7 @@
         <field name="activity_log_type" type="string" indexed="true" stored="true" required="true"/>
         <field name="activity_log_id" type="int" indexed="true" stored="true" required="true"/>
         <field name="action_keyword" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
-        <field name="user_id" type="int" indexed="true" stored="true" required="false" />
+        <field name="user_id" type="string" indexed="true" stored="true" required="false" />
         <field name="date_created" type="date" indexed="true" stored="true" required="true"/>
         <field name="feed_type_affected" type="string" indexed="true" stored="true" required="true"/>
         <field name="feed_type_primary_key" type="int" indexed="true" stored="true" required="false" multiValued="true"/>

@@ -490,6 +490,46 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def redirect_to_missing_page_on_error(&block)
+    begin
+      yield
+    rescue => e
+      @message = e.message
+      render(:layout => 'v2/basic', :template => "content/missing", :status => 404)
+      return false
+    end
+  end
+
+  # Ensure that the user has this in their watch_colleciton, so they will get replies in their newsfeed:
+  def auto_collect(what)
+    watchlist = current_user.watch_collection
+    collection_item = CollectionItem.find_by_collection_id_and_object_id_and_object_type(watchlist.id, what.id,
+                                                                                         what.class.name)
+    if collection_item.nil?
+      collection_item = begin # No care if this fails.
+        CollectionItem.create(
+          :annotation => I18n.t(:user_left_comment_on_date, :username => current_user.short_name, :date => I18n.l(Date.today)),
+          :object => what,
+          :collection_id => watchlist.id
+        )
+      rescue => e
+        logger.error "** ERROR COLLECTING: #{e.message} FROM #{e.backtrace.first}"
+        nil
+      end
+      if collection_item
+        return unless what.respond_to?(:summary_name) # Failsafe.  Most things should.
+        flash[:notice] ||= ''
+        flash[:notice] += ' '
+        flash[:notice] += I18n.t(:item_added_to_watch_collection_notice,
+                                 :collection_name => self.class.helpers.link_to(watchlist.name,
+                                                                                collection_path(watchlist)),
+                                 :item_name => what.summary_name)
+        CollectionActivityLog.create(:collection => watchlist, :user => current_user,
+                             :activity => Activity.collect, :collection_item => collection_item)
+      end
+    end
+  end
+
 private
 
   def find_ancestor_ids(taxa_ids)

@@ -5,7 +5,7 @@
         %p
           =I18n.t("comments_moderated")
       %td
-        =I18n.t("_nbsp__nbsp__nbsp_moderator_")
+        =I18n.t("moderator_colon")
         = h @user.full_name
         \&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         = link_to I18n.t("back_to_profile"), { :controller => 'users', :action => :show, :id => @user.id }
@@ -22,7 +22,7 @@
         %th
           =I18n.t("comment")
         %th
-          =I18n.t("visible_")
+          =I18n.t("visible_title")
         %th
           =I18n.t("created")
         %th

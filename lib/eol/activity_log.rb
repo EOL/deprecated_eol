@@ -44,7 +44,7 @@ module EOL
     end
 
     def self.global_activities(options = {})
-      EOL::Solr::ActivityLog.search_with_pagination("*:*", options)
+      EOL::Solr::ActivityLog.search_with_pagination("*:*", options.merge({ :group_field => 'user_id' }))
     end
 
     # TODO - it would make more sense to move these methods to the source models, passed in as an argument when the
@@ -55,9 +55,9 @@ module EOL
     end
 
     def self.user_news_activities(source, options = {})
-      query = "user_id:#{source.id}"
+      query = "(feed_type_affected:UserNews AND feed_type_primary_key:#{source.id})"
       if source.existing_watch_collection
-        query += " OR (feed_type_affected:Collection AND feed_type_primary_key:#{source.existing_watch_collection.id})"
+        query += " OR (feed_type_affected:Collection AND feed_type_primary_key:#{source.existing_watch_collection.id} NOT user_id:#{source.id})"
       end
       results = EOL::Solr::ActivityLog.search_with_pagination(query, options)
     end
@@ -75,7 +75,7 @@ module EOL
     end
 
     def self.taxon_concept_activities(source, options = {})
-      results = EOL::Solr::ActivityLog.search_with_pagination("feed_type_affected:TaxonConcept AND feed_type_primary_key:#{source.id}", options)
+      results = EOL::Solr::ActivityLog.search_with_pagination("(feed_type_affected:TaxonConcept OR feed_type_affected:AncestorTaxonConcept) AND feed_type_primary_key:#{source.id}", options)
     end
 
     def self.other_activities(source, options = {})

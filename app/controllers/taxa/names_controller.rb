@@ -14,6 +14,9 @@ class Taxa::NamesController < TaxaController
     end
     @assistive_section_header = I18n.t(:assistive_names_related_header)
     current_user.log_activity(:viewed_taxon_concept_names_related_names, :taxon_concept_id => @taxon_concept.id)
+
+    # for common names count
+    @common_names_count = get_common_names.count
   end
 
   # POST /pages/:taxon_id/names currently only used to add common_names
@@ -45,22 +48,30 @@ class Taxa::NamesController < TaxaController
     TaxonConcept.preload_associations(@taxon_concept, associations, options )
     @assistive_section_header = I18n.t(:assistive_names_synonyms_header)
     current_user.log_activity(:viewed_taxon_concept_names_synonyms, :taxon_concept_id => @taxon_concept.id)
+    
+    # for common names count
+    @common_names_count = get_common_names.count
   end
 
   # GET for collection common_names /pages/:taxon_id/names/common_names
   def common_names
+    @common_names = get_common_names
+    @common_names_count = @common_names.count
+    @assistive_section_header = I18n.t(:assistive_names_common_header)
+    current_user.log_activity(:viewed_taxon_concept_names_common_names, :taxon_concept_id => @taxon_concept.id)
+  end
+
+private
+
+  def get_common_names
     unknown = Language.unknown.label # Just don't want to look it up every time.
     if @selected_hierarchy_entry
       names = EOL::CommonNameDisplay.find_by_hierarchy_entry_id(@selected_hierarchy_entry.id)
     else
       names = EOL::CommonNameDisplay.find_by_taxon_concept_id(@taxon_concept.id)
     end
-    @common_names = names.select {|n| n.language_label != unknown}
-    @assistive_section_header = I18n.t(:assistive_names_common_header)
-    current_user.log_activity(:viewed_taxon_concept_names_common_names, :taxon_concept_id => @taxon_concept.id)
+    common_names = names.select {|n| n.language_label != unknown}
   end
-
-private
 
   def preload_core_relationships_for_names
     includes = [

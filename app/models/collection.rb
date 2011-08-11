@@ -17,7 +17,7 @@ class Collection < ActiveRecord::Base
   has_many :communities,
     :finder_sql => 'SELECT cm.* FROM communities cm, collections c, collection_items ci ' +
       'WHERE ci.object_type = "Collection" AND ci.object_id = #{id} ' +
-      'AND ci.collection_id = c.id AND c.community_id = cm.id'
+      'AND ci.collection_id = c.id AND c.community_id = cm.id AND cm.published = 1'
 
   has_one :resource
   has_one :resource_preview, :class_name => Resource.to_s, :foreign_key => :preview_collection_id

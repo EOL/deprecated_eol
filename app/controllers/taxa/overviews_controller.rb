@@ -52,11 +52,6 @@ class Taxa::OverviewsController < TaxaController
 
 private
 
-  def redirect_if_superceded
-    redirect_to taxon_overview_path(@taxon_concept, params.merge(:status => :moved_permanently).
-        except(:controller, :action, :id, :taxon_id)) and return false if @taxon_concept.superceded_the_requested_id?
-  end
-
   def recognized_by
     @recognized_by = I18n.t(:recognized_by)
     if !@selected_hierarchy_entry.hierarchy.url.blank?

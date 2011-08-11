@@ -4,27 +4,38 @@
 class ContentPage < $PARENT_CLASS_MUST_USE_MASTER
   #CACHE_ALL_ROWS = true
   uses_translations
-  
+
   belongs_to :parent, :class_name => ContentPage.to_s, :foreign_key => 'parent_content_page_id'
   has_many :children, :class_name => ContentPage.to_s, :foreign_key => 'parent_content_page_id', :order => 'sort_order'
-  
+
   #has_many :content_page_archives, :order => 'created_at DESC', :limit => 15
   belongs_to :user, :foreign_key => 'last_update_user_id'
-  
+
+  accepts_nested_attributes_for :children
+  accepts_nested_attributes_for :translations, :allow_destroy => true
+
+  before_destroy :give_children_new_parent
+  before_destroy :archive_self
+  before_destroy :destroy_translations # TODO: can we have :dependent => :destroy on translations rather than this custom callback?
+
+
   validates_presence_of :page_name
-  before_save :remove_underscores_from_page_name
-  
+  validates_length_of :page_name, :maximum => 255
+  validates_uniqueness_of :page_name, :scope => :id
+  # TODO: add unique index of page_name in db ?
+  # TODO: Validate format of page name alphanumeric and underscores only - when we move to machine names
+
   def self.get_navigation_tree(page_id)
     if (page_id)
       content_page = ContentPage.find(page_id)
       if content_page.parent_content_page_id
-        return get_navigation_tree(content_page.parent_content_page_id) + " > " + content_page.page_name + " > "
+        return get_navigation_tree(content_page.parent_content_page_id) + " > " + content_page.page_name
       else
         return content_page.page_name
       end
     end
   end
-  
+
   def self.get_navigation_tree_with_links(page_id)
     if (page_id)
       content_page = ContentPage.find(page_id)
@@ -34,20 +45,20 @@ class ContentPage < $PARENT_CLASS_MUST_USE_MASTER
       else
         return ''#content_page.page_name
       end
-    end    
+    end
   end
-  
+
   def self.find_top_level
     # get pages where parent is null
     ContentPage.find_all_by_parent_content_page_id(nil, :order => 'sort_order', :include => [ :translations, :children ])
   end
-  
+
   def self.max_view_order_by_parent_id(parent_id)
     condition = parent_id.blank? ? " IS NULL" : " = #{parent_id}"
     self.connection.select_values("SELECT max(id) FROM content_pages WHERE parent_content_page_id #{condition}")[0].to_i
   end
-  
-  
+
+
   def not_available_in_languages(force_exist_language)
     if self.id
       languages = []
@@ -59,11 +70,7 @@ class ContentPage < $PARENT_CLASS_MUST_USE_MASTER
       return Language.find_active
     end
   end
-  
-  def remove_underscores_from_page_name
-    self.page_name.gsub!('_', ' ')
-  end
-  
+
   def self.update_sort_order_based_on_deleting_page(parent_content_page_id, sort_order)
     condition = parent_content_page_id.blank? ? " IS NULL" : " = #{parent_content_page_id}"
     self.connection.execute("UPDATE content_pages
@@ -71,7 +78,7 @@ class ContentPage < $PARENT_CLASS_MUST_USE_MASTER
       WHERE parent_content_page_id #{condition}
       AND sort_order > #{sort_order}")
   end
-  
+
   def page_url
     all_pages_with_this_name = ContentPage.find_all_by_page_name(page_name)
     if all_pages_with_this_name.count > 1 && all_pages_with_this_name.first != self
@@ -80,12 +87,31 @@ class ContentPage < $PARENT_CLASS_MUST_USE_MASTER
       return self.page_name.gsub(' ', '_').downcase
     end
   end
-  
+
   def alternate_page_url
     all_pages_with_this_name = ContentPage.find_all_by_page_name(page_name)
     if all_pages_with_this_name.count == 1
       return self.id
     end
   end
+
+private
+
+  def give_children_new_parent
+    # TODO: Use nested attributes if we can get it to work properly
+    children.map{|c| c.parent_content_page_id = parent_content_page_id}
+    save
+  end
+
+  def archive_self
+    ContentPageArchive.backup(self)
+  end
+
+  def destroy_translations
+    translations.each do |translated_content_page|
+      translated_content_page.destroy
+    end
+  end
+
 end
 

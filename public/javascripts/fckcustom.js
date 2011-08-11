@@ -21,7 +21,9 @@ FCKConfig.Plugins.Add( 'easyUpload', 'en' ) ;
 FCKConfig.ContextMenu = ['Generic','Anchor','Flash','Select','Textarea','Checkbox','Radio','TextField','HiddenField','ImageButton','Button','BulletedList','NumberedList','Table','Form'] ;
 
 // ONLY CHANGE BELOW HERE
-FCKConfig.SkinPath = FCKConfig.BasePath + 'skins/silver/';
+FCKConfig.SkinPath = FCKConfig.BasePath + 'skins/office2003/';
+
+FCKConfig.EditorAreaCSS = '/stylesheets/fckcustom.css' ;
 
 FCKConfig.ToolbarSets["Easy"] = [
         ['Bold','Italic','Underline','StrikeThrough','-'],
@@ -44,3 +46,28 @@ FCKConfig.ToolbarSets["Simple"] = [
         ['FontName','FontSize','Style'],
         ['TextColor','BGColor']
 ] ;
+
+FCKConfig.ToolbarSets["CMSNavigation"] = [
+       ['Cut','Copy','Paste','PasteWord','-','SpellCheck'],
+       ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
+       ['UnorderedList'],
+       ['Link','Unlink'],
+       ['Source','FitWindow','ShowBlocks','-','About']
+] ;
+
+FCKConfig.ToolbarSets["CMSBody"] = [
+       ['Cut','Copy','Paste','PasteWord','-','SpellCheck','-','Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
+       ['Source','FitWindow','ShowBlocks','-','About'],
+       '/',
+       ['FontFormat','OrderedList','UnorderedList','Blockquote','-','Bold','Italic','-','Subscript','Superscript'],
+       ['Link','Unlink','Anchor'],
+       ['Image','Table','Rule','SpecialChar']
+] ;
+
+FCKConfig.FontFormats = 'p;h2;h3;h4;h5;h6;pre;address' ;
+FCKConfig.IgnoreEmptyParagraphValue = true ;
+FCKConfig.FillEmptyBlocks = false ;
+FCKConfig.StartupShowBlocks = true ;
+FCKConfig.LinkDlgHideTarget = true ;
+FCKConfig.DefaultLinkTarget = '' ;
+FCKConfig.CleanWordKeepsStructure = true ;

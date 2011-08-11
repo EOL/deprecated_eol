@@ -162,6 +162,10 @@ ActionController::Routing::Routes.draw do |map|
 
   # New V2 /admins namespace with singular resource admin
   map.resource :admin, :only => [:show] do |admin|
+    admin.resources :content_pages, :member => {:move_up => :post, :move_down => :post}, :namespace => 'admins/' do |content_page|
+      content_page.resources :children, :only => [:new, :create], :controller => 'content_pages'
+      content_page.resources :translated_content_pages, :as => :translations, :except => [:show, :index], :controller => 'translated_content_pages'
+    end
     admin.resources :content_partners, :only => [:index], :namespace => 'admins/'
   end
   #map.connect 'monthly_stats_email',         :controller => 'administrator/content_partner_report', :action => 'monthly_stats_email'

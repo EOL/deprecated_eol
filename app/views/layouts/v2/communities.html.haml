@@ -10,7 +10,7 @@
           %ul
             %li= render :partial => 'shared/add_to_my_collection', :locals => { :item => @community }
             - if @community.has_member?(current_user)
-              - if controller.action_name != 'edit'
+              - if @current_member && @current_member.manager? && controller.action_name != 'edit'
                 %li
                   = link_to I18n.t(:edit_community) , edit_community_path(@community.id), :class => "button"
               %li

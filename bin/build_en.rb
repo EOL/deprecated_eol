@@ -53,16 +53,18 @@ def grepper(dir)
 end
 
 list = Set.new()
-# Home Page, Taxon Page Overview, Collections Interface, Community Interface
+
 %w[
   models
 
   views/layouts/v2
 
   views/activity_logs
+  views/admins
   views/collection_items
   views/collections
   views/comments
+  views/communities
   views/data_objects
   views/members
   views/search
@@ -73,13 +75,21 @@ list = Set.new()
   views/taxa/media
   views/taxa/names
   views/taxa/overviews
+  views/taxa/resources
+  views/taxa/trees
+  views/taxa/updates
+  views/taxa/worklist
+  views/users
 
+  controllers/admins_controller.rb
   controllers/application_controller.rb
   controllers/collection_items_controller.rb
   controllers/collections_controller.rb
   controllers/comments_controller.rb
+  controllers/communities/collections_controller.rb
   controllers/content_controller.rb
   controllers/data_objects_controller.rb
+  controllers/fckeditor_controller.rb
   controllers/hierarchy_entries_controller.rb
   controllers/members_controller.rb
   controllers/search_controller.rb
@@ -90,12 +100,17 @@ list = Set.new()
   controllers/taxa/media_controller.rb
   controllers/taxa/names_controller.rb
   controllers/taxa/overviews_controller.rb
+  controllers/taxa/resources_controller.rb
+  controllers/taxa/trees_controller.rb
+  controllers/taxa/updates_controller.rb
+  controllers/taxa/worklist_controller.rb
   controllers/taxa_controller.rb
   controllers/users/activities_controller.rb
   controllers/users/collections_controller.rb
   controllers/users/newsfeeds_controller.rb
   controllers/users_controller.rb
 
+  views/administrator/curator/_user_row.html.haml
   views/content/_error.html.haml
   views/content/_march_of_life_item.html.haml
   views/content/donate.html.haml
@@ -118,25 +133,17 @@ list = Set.new()
   views/taxa/_classification_selector.html.haml
   views/taxa/_classification_tree.html.haml
   views/taxa/_classifications_summary.html.haml
+  views/taxa/_classifications_summary_minitree_node_with_children.html.haml
   views/taxa/_collections_summary.html.haml
   views/taxa/_collections_summary_empty.html.haml
   views/taxa/_curators_summary.html.haml
   views/taxa/_iucn_status_summary.html.haml
   views/taxa/_media_summary.html.haml
   views/taxa/_media_thumbnail.html.haml
+  views/taxa/_overview_image_taxon_link.html.haml
   views/taxa/_recognised_by.html.haml
   views/taxa/_text_summary.html.haml
   views/taxa/content/_content_content_summary.html.haml
-  views/users/activities/show.html.haml
-  views/users/collections/index.html.haml
-  views/users/curation_privileges.html.haml
-  views/users/edit.html.haml
-  views/users/forgot_password.html.haml
-  views/users/new.html.haml
-  views/users/newsfeeds/show.html.haml
-  views/users/pending.html.haml
-  views/users/show.html.haml
-  views/users/terms_agreement.html.haml
 
 ].compact.each do |dir|
   list += grepper(dir)

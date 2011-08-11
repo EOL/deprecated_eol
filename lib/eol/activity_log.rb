@@ -75,7 +75,7 @@ module EOL
     end
 
     def self.taxon_concept_activities(source, options = {})
-      results = EOL::Solr::ActivityLog.search_with_pagination("feed_type_affected:TaxonConcept AND feed_type_primary_key:#{source.id}", options)
+      results = EOL::Solr::ActivityLog.search_with_pagination("(feed_type_affected:TaxonConcept OR feed_type_affected:AncestorTaxonConcept) AND feed_type_primary_key:#{source.id}", options)
     end
 
     def self.other_activities(source, options = {})

@@ -1131,12 +1131,13 @@ class DataObject < SpeciesSchemaModel
     # this is when the object is first added. Using the passed-in value to prevent potential slave lag interference
     if options[:taxon_concept]
       logs_affected['TaxonConcept'] = [ options[:taxon_concept].id ]
-      logs_affected['TaxonConcept'] |= options[:taxon_concept].flattened_ancestor_ids
+      logs_affected['AncestorTaxonConcept'] = options[:taxon_concept].flattened_ancestor_ids
     else
       self.curated_hierarchy_entries.each do |he|
         logs_affected['TaxonConcept'] ||= []
         logs_affected['TaxonConcept'] << he.taxon_concept_id
-        logs_affected['TaxonConcept'] |= he.taxon_concept.flattened_ancestor_ids
+        logs_affected['AncestorTaxonConcept'] ||= []
+        logs_affected['AncestorTaxonConcept'] |= he.taxon_concept.flattened_ancestor_ids
       end
     end
     logs_affected

@@ -83,11 +83,11 @@ module EOL
       
       def self.rebuild_comments_logs
         start = Comment.minimum('id')
-        max_id = Comment.maximum('id')
+        max_id = Comment.maximum('id') + 20 # just in case some get added while this is running
         return if start.nil? || max_id.nil?
         limit = 200
         i = start
-        while i <= max_id
+        while i < max_id
           # TaxonConcept comments
           comments = Comment.find_all_by_id((i...(i+limit)).to_a, :conditions => "parent_type='TaxonConcept'")
           Comment.preload_associations(comments,
@@ -106,6 +106,12 @@ module EOL
             :select => { :comments => '*', :users => [:id], :data_objects => [:id], :data_objects_hierarchy_entries => '*',
               :curated_data_objects_hierarchy_entries => '*', :hierarchy_entries => [:id, :taxon_concept_id],
               :taxon_concepts => [:id], :collections => [ :id, :user_id ] })
+          comments.each do |c|
+            c.log_activity_in_solr
+          end
+          
+          # Everything else (very minimal right now thus not worrying about eager loading)
+          comments = Comment.find_all_by_id((i...(i+limit)).to_a, :conditions => "parent_type!='TaxonConcept' AND parent_type!='DataObject'")
           comments.each do |c|
             c.log_activity_in_solr
           end

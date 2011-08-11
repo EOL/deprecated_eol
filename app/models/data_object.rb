@@ -292,7 +292,7 @@ class DataObject < SpeciesSchemaModel
 
     current_visibility = old_dato.users_data_object.visibility
     current_vetted = old_dato.users_data_object.vetted
-    udo = UsersDataObject.create(:user => user, :data_object => new_dato, :taxon_concept => taxon_concept, 
+    udo = UsersDataObject.create(:user => user, :data_object => new_dato, :taxon_concept => taxon_concept,
                                  :visibility => current_visibility, :vetted => current_vetted)
     new_dato.users_data_object = udo
     new_dato
@@ -377,21 +377,36 @@ class DataObject < SpeciesSchemaModel
     existing_ratings = UsersDataObjectsRating.find_all_by_data_object_guid(guid)
     users_current_ratings, other_ratings = existing_ratings.partition { |r| r.user_id == user.id }
 
+    weight = user.is_curator? ? user.curator_level.rating_weight : 1
+    new_udor = nil
     if users_current_ratings.blank?
-      UsersDataObjectsRating.create(:data_object_guid => guid, :user_id => user.id, :rating => new_rating)
-    elsif users_current_ratings[0].rating != new_rating
-      users_current_ratings[0].rating = new_rating
-      users_current_ratings[0].save!
+      new_udor = UsersDataObjectsRating.create(:data_object_guid => guid, :user_id => user.id,
+                                               :rating => new_rating, :weight => weight)
+    elsif (new_udor = users_current_ratings.first).rating != new_rating
+      new_udor.update_attribute(:rating, new_rating)
+      new_udor.update_attribute(:weight, weight)
     end
 
-    self.data_rating = (other_ratings.inject(0) { |sum, r| sum + r.rating } + new_rating).to_f / (other_ratings.size + 1)
-    self.save!
+    self.update_attribute(:data_rating, ratings_calculator(other_ratings + [new_udor]))
   end
 
   def recalculate_rating
     ratings = UsersDataObjectsRating.find_all_by_data_object_guid(guid)
-    self.data_rating = ratings.blank? ? 2.5 : ratings.inject(0) { |sum, r| sum + r.rating }.to_f / ratings.size
-    self.save!
+    self.update_attribute(:data_rating, ratings_calculator(ratings))
+  end
+
+  def ratings_calculator(ratings)
+    count = 0
+    self.data_rating = ratings.blank? ? 2.5 : ratings.inject(0) { |sum, r|
+      if r.respond_to?(:weight)
+        sum += (r.rating * r.weight)
+        count += r.weight
+      else
+        sum += r.rating
+        count += 1
+      end
+      sum
+    }.to_f / count
   end
 
   def rating_for_user(user)
@@ -701,12 +716,12 @@ class DataObject < SpeciesSchemaModel
 
     SpeciesSchemaModel.connection.execute("UPDATE data_objects SET published=0 WHERE guid='#{guid}'");
     reload
-    
+
     dato_vetted = self.vetted_by_taxon_concept(taxon_concept)
     dato_vetted_id = dato_vetted.id unless dato_vetted.nil?
     dato_visibility = self.visibility_by_taxon_concept(taxon_concept)
     dato_visibility_id = dato_visibility.id unless dato_visibility.nil?
-    
+
     dato_association.visibility_id = Visibility.visible.id
     dato_association.vetted_id = Vetted.trusted.id
     dato_association.save!
@@ -898,7 +913,7 @@ class DataObject < SpeciesSchemaModel
     return nil
   end
 
-  # To retrieve an exact association(if exists) for the given taxon concept, 
+  # To retrieve an exact association(if exists) for the given taxon concept,
   # otherwise retrieve an association with best vetted status.
   def association_with_exact_or_best_vetted_status(taxon_concept)
     association = association_for_taxon_concept(taxon_concept)
@@ -941,7 +956,7 @@ class DataObject < SpeciesSchemaModel
         ).last
         log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
       end
-      
+
     end
   end
 
@@ -1110,7 +1125,7 @@ class DataObject < SpeciesSchemaModel
     return nil
 
   end
-  
+
   def log_activity_in_solr(options)
     base_index_hash = {
       'activity_log_unique_key' => "UsersDataObject_#{id}",
@@ -1121,7 +1136,7 @@ class DataObject < SpeciesSchemaModel
     base_index_hash[:user_id] = options[:user].id if options[:user]
     EOL::Solr::ActivityLog.index_activities(base_index_hash, activity_logs_affected(options))
   end
-  
+
   def activity_logs_affected(options)
     logs_affected = {}
     # activity feed of user making comment

@@ -12,12 +12,12 @@ describe DataObject do
 
     @curator         = @testy[:curator]
     @another_curator = create_curator
-    
+
     # TODO - Uncomment the following 3 lines and make appropriate changes whenever the system is capable of handling the user data objects.
     # # add_user_submitted_text
     # @data_object     = @taxon_concept.add_user_submitted_text(:user => @curator)
     # DataObjectsTaxonConcept.gen(:taxon_concept_id => @taxon_concept.id, :data_object_id => @data_object.id)
-    
+
     @dato = DataObject.gen(:description => 'That <b>description has unclosed <i>html tags')
     DataObjectsTaxonConcept.gen(:taxon_concept_id => @taxon_concept.id, :data_object_id => @dato.id)
     @tag1 = DataObjectTag.gen(:key => 'foo',    :value => 'bar')

@@ -908,6 +908,12 @@ en:
   content_partner_statistics_information: "Usage statistics for taxon pages containing content provided by %{partner_name}."
   content_partner_statistics_link: "Usage statistics"
   content_partner_statistics_subheader: "Usage statistics"
+
+  content_partner_statistics_taxa_page: "Taxa Page Statistics"
+  content_partner_statistics_column_header_taxa_page_page_views: "Page Views"
+  content_partner_statistics_column_header_taxa_page_unique_page_views: "Unique Page Views"
+  content_partner_statistics_column_header_taxa_page_time_on_page_seconds: "Time On Page (seconds)"
+
   content_partner_update_successful_notice: "Partner details successfully updated."
   content_partner_update_unsuccessful_error: "Sorry, an error occurred, partner details were not updated."
   content_partner_unvetted: "Unreviewed"

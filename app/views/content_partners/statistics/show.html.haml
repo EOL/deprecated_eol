@@ -47,3 +47,31 @@
           %td= @partner_summary.time_on_page_in_hours.round(2)
           %td= @site_summary.time_on_pages_in_hours.round(2)
           %td= @partner_summary.percent_overall_time_on_page_in_hours(@site_summary).round(2)
+
+  - if !@pages.blank?
+    = will_paginate @pages
+    %table.standard
+      %caption
+        = I18n.t(:content_partner_statistics_taxa_page)
+      %thead
+        %th= I18n.t(:id)
+        %th= I18n.t(:scientific_name)
+        %th= I18n.t(:content_partner_statistics_column_header_taxa_page_page_views)
+        %th= I18n.t(:content_partner_statistics_column_header_taxa_page_unique_page_views)
+        %th= I18n.t(:content_partner_statistics_column_header_taxa_page_time_on_page_seconds)
+      %tbody
+        - count = 0
+        - @pages.each do |post|
+          - column_class=cycle('odd','even')
+          - count += 1
+          - concept = TaxonConcept.find(post.taxon_concept_id)
+          - name = concept.quick_scientific_name(:italicized)
+          %tr
+            %td= post.taxon_concept_id
+            %td
+              %i
+                = name
+            %td= post.page_views
+            %td= post.unique_page_views
+            %td= post.timeonpage
+    = will_paginate @pages

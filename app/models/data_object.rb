@@ -687,22 +687,22 @@ class DataObject < SpeciesSchemaModel
   end
 
   def update_solr_index(options)
-    return false if options[:vetted_id].blank? && options[:visibility_id].blank?
-    solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
-    begin
-      # query Solr for the index record for this data object
-      response = solr_connection.query_lucene("data_object_id:#{id}")
-      data_object_hash = response['response']['docs'][0]
-      return false unless data_object_hash
-      modified_object_hash = data_object_hash.dup
-      # modified_object_hash['vetted_id'] = [options[:vetted_id]] unless options[:vetted_id].blank?
-      # modified_object_hash['visibility_id'] = [options[:visibility_id]] unless options[:visibility_id].blank?
-      # if some of the values have changed, post the updated record to Solr
-      if data_object_hash != modified_object_hash
-        solr_connection.create(modified_object_hash)
-      end
-    rescue
-    end
+    # return false if options[:vetted_id].blank? && options[:visibility_id].blank?
+    # solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
+    # begin
+    #   # query Solr for the index record for this data object
+    #   response = solr_connection.query_lucene("data_object_id:#{id}")
+    #   data_object_hash = response['response']['docs'][0]
+    #   return false unless data_object_hash
+    #   modified_object_hash = data_object_hash.dup
+    #   # modified_object_hash['vetted_id'] = [options[:vetted_id]] unless options[:vetted_id].blank?
+    #   # modified_object_hash['visibility_id'] = [options[:visibility_id]] unless options[:visibility_id].blank?
+    #   # if some of the values have changed, post the updated record to Solr
+    #   if data_object_hash != modified_object_hash
+    #     solr_connection.create(modified_object_hash)
+    #   end
+    # rescue
+    # end
   end
 
   def in_wikipedia?

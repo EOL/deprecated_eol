@@ -4,7 +4,6 @@
   #worklist.site_column
     .filters
       - form_tag({:action => 'show'}, :method => 'get') do
-        = hidden_field_tag :q, @querystring
         %fieldset
           %dl
             %dt
@@ -36,10 +35,11 @@
               = select_tag :task_status, options_for_select(task_status_options, @task_status.to_sym)
         %fieldset.actions
           %input(type="submit" value="#{I18n.t(:show_tasks)}")
-          - unless @worklist_tasks.blank?
-            = I18n.t(:tasks_with_count, :count => @worklist_tasks.count)
+          - unless @data_objects.blank?
+            = I18n.t(:tasks_with_count, :count => @data_objects.total_entries)
           - else
             = I18n.t(:no_tasks_found)
-    - unless @worklist_tasks.blank?
+    - unless @data_objects.blank?
       = render :partial => "tasks.html.haml"
-      = render :partial => "curation_content.html.haml"
+      .article#task
+        = render :partial => "curation_content.html.haml"

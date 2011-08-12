@@ -196,6 +196,18 @@ $(function() {
       return false;
     }
   });
+
+  (function($content_partner_resources) {
+    var $radios = $content_partner_resources.find("dl.resources :radio");
+    $radios.change(function() {
+      $radios.each(function() {
+        var $radio = $(this);
+        var $dd = $radio.closest("dt").next("dd");
+        $radio.is(":checked") ? $dd.slideDown(200) : $dd.slideUp(200);
+      });
+    }).closest("dt").next("dd").hide();
+  })($("#content_partner_resources"));
+
 });
 
 (function($) {

@@ -197,13 +197,15 @@ class DataObjectsController < ApplicationController
         vetted_id = params["vetted_id_#{phe.id}"].to_i
         # make visibility hidden if curated as Inappropriate or Untrusted
         visibility_id = (vetted_id == Vetted.inappropriate.id || vetted_id == Vetted.untrusted.id) ? Visibility.invisible.id : params["visibility_id_#{phe.id}"].to_i
+        visibility_changed = (visibility_id == 0) ? false : (phe.visibility_id != visibility_id)
+        visibility_changed = (phe.visibility_id == Visibility.invisible.id && (vetted_id == Vetted.trusted.id || vetted_id == Vetted.unknown.id)) ? true : false unless visibility_changed == true
         all_params = { :vetted_id => vetted_id,
                        :visibility_id => visibility_id,
                        :curation_comment => comment,
                        :untrust_reason_ids => params["untrust_reasons_#{phe.id}"],
                        :untrust_reasons_comment => params["untrust_reasons_comment_#{phe.id}"],
                        :vet? => (vetted_id == 0) ? false : (phe.vetted_id != vetted_id),
-                       :visibility? => (visibility_id == 0) ? false : (phe.visibility_id != visibility_id),
+                       :visibility? => visibility_changed,
                        :comment? => !comment.nil?,
                      }
         curate_association(current_user, phe, all_params)

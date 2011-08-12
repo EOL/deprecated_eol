@@ -7,10 +7,7 @@
 
   -# entries can now be a DOHE, CDOHE or UDO  
 
-  - entries = data_object.published_entries.collect{|e| e if (visible && Visibility.visible == e.visibility) || (invisible && Visibility.invisible == e.visibility) || (preview && Visibility.preview == e.visibility)}.compact
-  - if data_object.users_data_object
-    - udo = data_object.users_data_object
-    - entries << udo
+  - entries = data_object.all_associations.collect{|e| e if (visible && Visibility.visible == e.visibility) || (invisible && Visibility.invisible == e.visibility) || (preview && Visibility.preview == e.visibility)}.compact
 
   - if entries.blank?
     %p= I18n.t(:data_object_not_associated_with_any_hierarchies)
@@ -18,12 +15,7 @@
     - form_tag({:controller => '/data_objects', :action => 'curate_associations'}, {:class => 'review_status'}) do
       = hidden_field_tag 'id', data_object.id
       - entries.each do |entry|
-
-        - if entry.class == UsersDataObject
-          - entry_hierarchy = entry.taxon_concept.hierarchy_entries[0].hierarchy
-        - else
-          - entry_hierarchy = entry.hierarchy
-
+        - supplier = entry.hierarchy.agent unless entry.class == UsersDataObject
         %fieldset
           - if entry.class == HierarchyEntry
             %legend= link_to entry.name.string, taxon_overview_path(entry.taxon_concept_id)
@@ -31,7 +23,7 @@
               %p
                 = link_to I18n.t(:remove_data_object_association), remove_association_path(:id => data_object.id, :hierarchy_entry_id => entry.id), :id => "remove_association_#{entry.id}"
           - else
-            %legend= link_to udo.taxon_concept.entry.name.string, taxon_overview_path(udo.taxon_concept_id)
+            %legend= link_to entry.taxon_concept.quick_scientific_name, taxon_overview_path(entry.taxon_concept_id)
 
           - vetted_selected = entry.vetted_id.to_i
           - statuses = Vetted.all.collect{|v| [ v == Vetted.unknown ? I18n.t(:unreviewed) : v.label, v.id ] }.compact.sort
@@ -41,9 +33,8 @@
           - visibilities = Visibility.all.collect{|v| [ v == Visibility.invisible ? I18n.t(:hidden) : v.label, v.id ] unless v == Visibility.preview }.compact.sort
           = select_tag "visibility_id_#{entry.id}", options_for_select(visibilities, visibility_selected)
 
-          - unless entry_hierarchy.agent.blank?
-            = render :partial => 'data_objects/supplier', :locals => { :data_object => data_object }            
-            - # = render :partial => 'data_objects/supplier', :locals => { :agent => entry_hierarchy.agent }            
+          - unless supplier.blank?          
+            = render :partial => 'data_objects/supplier', :locals => { :agent => supplier, :data_object => data_object }            
 
           - untrusted_reasons = (vetted_selected == Vetted.untrusted.id.to_i) ? data_object.untrust_reasons(entry) : []
           %ul.untrusted

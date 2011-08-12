@@ -186,8 +186,7 @@ class DataObjectsController < ApplicationController
   def curate_associations
     begin
       entries = []
-      entries = @data_object.published_entries
-      entries <<   @data_object.users_data_object unless  @data_object.users_data_object.nil?
+      entries = @data_object.all_associations
       
       entries.each do |phe|
         comment = curation_comment(params["curation_comment_#{phe.id}"])

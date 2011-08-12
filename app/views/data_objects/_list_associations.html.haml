@@ -1,3 +1,4 @@
+- for_worklist ||= false
 .article.list
   .header
     %h3= I18n.t("associated_with_#{en_type}_header")
@@ -7,3 +8,6 @@
     = render :partial => 'data_objects/associations_curation', :locals => { :data_object => data_object }
   - else
     = render :partial => 'data_objects/associations_index', :locals => { :data_object => data_object }
+  - if for_worklist
+    = render :partial => 'data_objects/ignore', :locals => { :data_object => @data_object }
+  

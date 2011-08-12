@@ -4,10 +4,16 @@ $(function() {
       trusted: function() {
         this.closest("fieldset").find("ul").hide()
           .end().find("select[name*=visibility]").prop("disabled", false).trigger("change");
+        this.closest("fieldset").find("ul").end()
+          .find("select[name*=visibility] option:contains('Visible')").attr("selected","selected")
+        this.closest("fieldset").find("ul").hide();
       },
       unreviewed: function() {
         this.closest("fieldset").find("ul").hide()
           .end().find("select[name*=visibility]").prop("disabled", false).trigger("change");
+        this.closest("fieldset").find("ul").end()
+          .find("select[name*=visibility] option:contains('Visible')").attr("selected","selected")
+        this.closest("fieldset").find("ul").hide();
       },
       untrusted: function() {
         this.closest("fieldset").find("select[name*=visibility]").val("hidden").prop("disabled", true)

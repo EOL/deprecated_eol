@@ -422,7 +422,7 @@ private
   # TODO - Remove the opts parameter if we not intend to use it.
   def log_action(object, method, opts)
     object_id = object.class == "DataObjectsHierarchyEntry" ? @data_object.id : object.id
-    he = object.hierarchy_entry unless object.hierarchy_entry.blank?
+    he = object.hierarchy_entry if object.class == "DataObjectsHierarchyEntry"
     CuratorActivityLog.create(
       :user => current_user,
       :changeable_object_type => ChangeableObjectType.send(object.class.name.underscore.to_sym),

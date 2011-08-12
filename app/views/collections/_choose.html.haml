@@ -12,8 +12,19 @@
     - else
       %h2= I18n.t(:or_add_it_to_an_existing_collection)
     %ul
-      = render :partial => 'collection_choose_list_item', :locals => { :collection => current_user.watch_collection }
-      - collections.reject {|c| c.id == current_user.watch_collection.id }.each do |collection|
+      - unless current_user.watch_collection.has_item?(@item)
+        = render :partial => 'collection_choose_list_item', :locals => { :collection => current_user.watch_collection }
+      - collections.reject {|c| c.id == current_user.watch_collection.id || c.has_item?(@item) }.each do |collection|
         %li
           = render :partial => 'collection_choose_list_item', :locals => { :collection => collection }
-%a.close{:href => "#"}= I18n.t(:go_back)
+  - already_collected_in = @collections.select {|c| c.has_item?(@item) }
+  - unless already_collected_in.nil? || already_collected_in.empty?
+    %h2= I18n.t(:this_item_is_already_collected_in)
+    %ul
+      - already_collected_in.each do |collection|
+        %li= link_to(collection.name, collection_path(collection))
+%p
+  %a.close{:href => "#"}= I18n.t(:go_back)
+  - if already_collected_in.count > 0
+    = I18n.t(:already_in_collections_with_count, :count => already_collected_in.count)
+  = link_to(I18n.t(:see_all_of_your_collections), user_collections_path(current_user))

@@ -1070,6 +1070,7 @@ h1.notice {
       border-right: 0;
       background-color: transparent;
       display: block;
+      font-weight: bold;
       padding: 5px 10px;
       text-decoration: none;
       text-align: left;
@@ -1080,4 +1081,14 @@ h1.notice {
         background: #e6f1f8; }
     #modal #choose_collections ul li + li input, #collections.main_container #choose_collections ul li + li input {
       border-right: 0; }
+    #modal #choose_collections ul li a, #collections.main_container #choose_collections ul li a {
+      display: block;
+      padding: 5px 10px;
+      text-decoration: none; }
+      #modal #choose_collections ul li a small, #collections.main_container #choose_collections ul li a small {
+        color: #5f6c76; }
+      #modal #choose_collections ul li a:hover, #collections.main_container #choose_collections ul li a:hover {
+        background: #e6f1f8; }
+    #modal #choose_collections ul li + li a, #collections.main_container #choose_collections ul li + li a {
+      border-top: 1px solid #cad3db; }
 

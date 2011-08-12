@@ -684,3 +684,7 @@ h1.notice {
   font-size: 2em;
   text-align: center;
   padding: 4em; }
+
+.column.curators img, .column.collections img, .column.communities img {
+  width: 48px;
+  height: 48px; }

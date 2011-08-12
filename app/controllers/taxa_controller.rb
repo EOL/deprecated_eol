@@ -348,6 +348,7 @@ class TaxaController < ApplicationController
 private
   def instantiate_taxon_concept
     @taxon_concept = find_taxon_concept
+    @taxon_concept.current_user = current_user if @taxon_concept
     # TODO: is this the best name for this?
     @selected_hierarchy_entry_id = params[:hierarchy_entry_id]
     if @selected_hierarchy_entry_id

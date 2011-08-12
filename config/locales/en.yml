@@ -602,6 +602,9 @@ en:
   be_able_to_display_the_eol_log: "Be able to display the EOL logo on its web site."
   began: "Began"
   belongs_to_: "belongs to"
+  belongs_in_count_communities:
+    one: "Belongs to %{count} Communities"
+    other: "Belongs to %{count} Communities"
   below_is_the_list_of_harvest_e: "Below is the list of harvest events for %{link}"
   bhl_publication: "BHL publication"
   bhl_summary: "BHL Summary"
@@ -770,6 +773,9 @@ en:
   communities_index_header: "Active communities"
   community: "Community"
   community_activity: "Community Activity"
+  community_contributors_with_count:
+    one: "%{count} Contributor"
+    other: "%{count} Contributors"
   community_contributions_with_count:
     one: "%{count} Contribution"
     other: "%{count} Contributions"
@@ -786,6 +792,11 @@ en:
   community_members: "Community members"
   community_must_have_one_manager_error: "Sorry, communities must have at least one manager, and this member is the last one."
   community_not_destroyed_error: "Sorry, the community was not deleted."
+  community_tab_collections_description: "Collections are created by EOL users to highlight the relationships between species, whether that relationship is geographic, ecological, or personal. Communities can \"feature\" collections that are of particular interest and value."
+  community_tab_communities_description: "Communities are groups of EOL users united around a single purpose, from
+protecting shorebirds to sharing their passion for primates. Collections are also an opportunity for like-minded
+individuals to find one another and interact both on and off the EOL website."
+  community_tab_curators_description: "Curators are EOL users with taxonomic expertise who have given their time to vet the content you see on EOL, ensuring what you see is accurate and of quality."
   community_removed_by_owner: "This community was removed by its owner."
   community_roles: "Community Roles"
   communities_summary_empty: "This taxon hasn't been endorsed by a community yet."
@@ -1071,6 +1082,9 @@ en:
     one: "Reviewed by %{count} curator"
     other: "Reviewed by %{count} curators"
   curators_summary_learn_more_link: "Learn how to curate"
+  curators_with_count:
+    one: "%{count} Curator"
+    other: "%{count} Curators"
   current_logos_: "Current Logos:"
   your_current_rating_0_of_5: "Your current rating: 0 of 5"
   your_current_rating_1_of_5: "Your current rating: 1 of 5"

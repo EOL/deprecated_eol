@@ -1,7 +1,6 @@
 = javascript_include_tag 'faqs' if @content.page_name.downcase=='faqs'
 #content.cms_page
   .site_column
-    = @navigation_tree_breadcrumbs
     - if @translated_content.nil?
       = I18n.t(:cms_missing_content_message)
       %br/

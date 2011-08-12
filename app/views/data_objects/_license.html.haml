@@ -1,4 +1,4 @@
 - data_object ||= @data_object
-- unless data_object.blank? || data_object.license.blank?
+- unless data_object.blank? || data_object.license.blank? || data_object.license.logo_url.blank?
   = link_to image_tag(data_object.license.logo_url, :alt => I18n.t("license_#{data_object.license.title.gsub(/[- .]/, '_').strip}")),
     data_object.license.source_url

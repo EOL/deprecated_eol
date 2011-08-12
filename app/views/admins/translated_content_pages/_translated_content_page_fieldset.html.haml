@@ -1,0 +1,48 @@
+%p
+  %strong= "#{I18n.t(:location)}: "
+  - if @navigation_tree.blank?
+    = I18n.t(:root)
+  - else
+    = @navigation_tree
+- fields_for @translated_content_page do |translated_content_page_fields|
+  %dl
+    - # Note: @languages is blank on edit because we don't want it to be modified.
+    - unless @languages.blank?
+      %dt.required
+        = translated_content_page_fields.label :language_id
+      %dd
+        = translated_content_page_fields.select :language_id,
+          options_from_collection_for_select(@languages, :id, :label, @translated_content_page.language_id)
+    %dt.required
+      = translated_content_page_fields.label :title
+      %p= I18n.t('helpers.label.translated_content_page.title_more')
+    %dd
+      = translated_content_page_fields.text_field :title, { :maxlength => 255 }
+    %dt.required
+      %label{:for => 'translated_content_page__main_content_editor'}
+        = I18n.t('activerecord.attributes.translated_content_page.main_content')
+      %p= I18n.t('helpers.label.translated_content_page.main_content_more')
+    %dd
+      = fckeditor_textarea(:translated_content_page, :main_content, :toolbarSet => 'CMSBody', :height => 500, :width => 600)
+    %dt
+      %label{:for => 'translated_content_page__left_content_editor'}
+        = I18n.t('activerecord.attributes.translated_content_page.left_content')
+      %p= I18n.t('helpers.label.translated_content_page.left_content_more')
+    %dd
+      = fckeditor_textarea(:translated_content_page, :left_content, :toolbarSet => 'CMSNavigation', :height => 200, :width => 600)
+    %dt
+      = translated_content_page_fields.label :meta_keywords
+      %p= I18n.t('helpers.label.translated_content_page.meta_keywords_more')
+    %dd.metadata
+      = translated_content_page_fields.text_field :meta_keywords, { :maxlength => 255 }
+    %dt
+      = translated_content_page_fields.label :meta_description
+      %p= I18n.t('helpers.label.translated_content_page.meta_description_more')
+    %dd.metadata
+      = translated_content_page_fields.text_field :meta_description, { :maxlength => 255 }
+
+  %fieldset
+    %label{:for => :active_translation, :class => 'checkbox'}
+      = translated_content_page_fields.check_box :active_translation
+      = I18n.t('activerecord.attributes.translated_content_page.active_translation')
+      %p= I18n.t('helpers.label.translated_content_page.active_translation_more')

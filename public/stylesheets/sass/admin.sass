@@ -1,0 +1,77 @@
+@import "common"
+
+#cms_index
+  ul
+    border-top: 3px solid #93A4B0
+    clear: both
+    margin-top: 30px
+    ul
+      margin-top: 0
+      border: none
+    li
+      overflow: hidden
+      border-top: 2px solid #93A4B0
+      li
+        border-top: 1px solid #93A4B0
+        margin-left: 20px
+      h3
+        font-size: 1.2em
+        float: left
+        margin: 20px 0 5px
+      .actions
+        text-align: right
+        margin: 15px 0 0
+        form, input, form div, a.button
+          margin: 0
+          display: inline-block
+        form, a.button
+          margin: 0 3px 5px 0
+        input.delete
+          font-weight: normal
+        a.button
+          padding: 3px 10px
+          font-size: 0.92em
+        input[disabled="disabled"]
+          cursor: default
+          background-image: none
+      .translations
+        clear: both
+        margin: 0 10px 20px
+        li
+          border: none
+          margin: 5px 0
+#content_page_new, #content_page_edit
+  width: 640px
+  margin: 0 auto
+  p.tip
+    background: #f3f7fa
+    border: 1px solid #cad3db
+    padding: 10px
+    margin: 0 0 20px 0
+    line-height: 140%
+    img
+      margin: -2px 5px 0 5px
+  h3
+    margin-top: 50px
+  fieldset
+    padding-top: 10px
+    dt
+      margin: 0
+      p, label, ol, ol li
+        margin-bottom: 0
+    dd
+      margin: 0 0 10px 0
+      input[type="text"]
+        +input
+      textarea
+        width: 600px
+        height: 200px
+      &.metadata
+        input[type="text"]
+          width: 600px
+    .checkbox
+      p
+        font-weight: normal
+    input[type="submit"]
+      padding: 7px 10px
+      font-size: 1em

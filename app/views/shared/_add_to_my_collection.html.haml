@@ -1,5 +1,3 @@
 - my_collection ||= current_user.watch_collection unless current_user.id.blank?
-- if ! my_collection.blank? && my_collection.has_item?(item)
-  = link_to I18n.t(:in_my_collection_button), collection_path(my_collection), :class => 'button in_collection'
-- else
+- if my_collection
   = link_to I18n.t(:add_to_my_collection_button), choose_collect_target_collection_url(my_collection, :item_type => item.class.name, :item_id => item.id), :class => 'button'

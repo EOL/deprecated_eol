@@ -1,0 +1,11 @@
+%li{:class => has_item ? 'collected' : nil}
+  = check_box_tag 'collection_id[]', collection.id, has_item, :disabled => has_item
+  = label_tag('collection_name', collection.name)
+  - if collection.community_id || has_item
+    %span
+    - if collection.community_id
+      •
+      = I18n.t(:from_community, :community => collection.community.name)
+    - if has_item
+      •
+      = I18n.t(:in_collection)

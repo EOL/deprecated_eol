@@ -881,62 +881,11 @@ h1.notice
       border: 1px solid #cad3db
       padding: 20px 20px 0 20px
 
-// modal dialog uses buttons, not links (also the overflow was always showing, and I wanted this to work for the
-// non-JS view, too):
-#modal
-  width: 600px
-  padding: 20px
-  background: #fff
-  z-index: 999
+// Wanted to add a link to the modal collect dialogue:
+a.other_actions
+  float: right
+  margin-top: 1em
 
-#modal, #collections.main_container
-  #choose_collections
-    h2
-      font-size: 1.33em
-      margin: 0 0 10px 0
-    fieldset.new_collection
-      overflow: hidden
-      margin: 0 0 20px 0
-      input[type="text"]
-        float: left
-        +input(210px)
-        margin: 0 10px 0 0
-      input[type="submit"]
-        padding-left: 20px
-        padding-right: 20px
-    ul
-      border: 1px solid #cad3db
-      height: 230px
-      overflow-y: auto
-      margin: 0 0 20px 0
-      li
-        font-weight: bold
-        input
-          border-bottom: 1px solid #cad3db
-          border-right: 0
-          background-color: transparent
-          display: block
-          font-weight: bold
-          padding: 5px 10px
-          text-decoration: none
-          text-align: left
-          width: 100%
-          small
-            color: #5f6c76
-          &:hover
-            background: #e6f1f8
-        & + li
-          input
-            border-right: 0
-        a
-          display: block
-          padding: 5px 10px
-          text-decoration: none
-          small
-            color: #5f6c76
-          &:hover
-            background: #e6f1f8
-        & + li
-          a
-            border-top: 1px solid #cad3db
-
+// Too much space in modal dialogue:
+form#new_collection_item fieldset.actions
+  margin: 0

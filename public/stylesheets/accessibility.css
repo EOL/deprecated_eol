@@ -982,7 +982,6 @@ h1.notice {
 #sidebar p {
   padding-bottom: 1em; }
 
-
 #task .media img {
   margin: 0 auto;
   display: block; }
@@ -1091,4 +1090,9 @@ h1.notice {
         background: #e6f1f8; }
     #modal #choose_collections ul li + li a, #collections.main_container #choose_collections ul li + li a {
       border-top: 1px solid #cad3db; }
+a.other_actions {
+  float: right;
+  margin-top: 1em; }
 
+form#new_collection_item fieldset.actions {
+  margin: 0; }

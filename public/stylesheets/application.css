@@ -2648,7 +2648,6 @@ ul.spotlite-matches {
     ul.spotlite-matches li.spotlite-selected {
       background: #f1f4dc; }
 
-<<<<<<< HEAD
 #modal {
   width: 600px;
   padding: 20px;
@@ -2672,25 +2671,26 @@ ul.spotlite-matches {
       background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
       background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
       margin: 0 10px 0 0; }
-    #modal #choose_collections fieldset.new_collection input[type="submit"] {
-      padding-left: 20px;
-      padding-right: 20px; }
+  #modal #choose_collections input[type="submit"] {
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 1.08em;
+    padding: 5px 10px 6px 10px; }
   #modal #choose_collections ul {
     border: 1px solid #cad3db;
     height: 230px;
     overflow-y: scroll;
     margin: 0 0 20px 0; }
     #modal #choose_collections ul li {
-      font-weight: bold; }
-      #modal #choose_collections ul li a {
-        display: block;
-        padding: 5px 10px;
-        text-decoration: none; }
-        #modal #choose_collections ul li a small {
-          color: #5f6c76; }
-        #modal #choose_collections ul li a:hover {
-          background: #e6f1f8; }
-      #modal #choose_collections ul li + li a {
+      font-weight: bold;
+      padding: 5px 10px; }
+      #modal #choose_collections ul li.collected {
+        background: #f4f4f4; }
+      #modal #choose_collections ul li input[type="checkbox"] {
+        margin: 0 5px 0 0; }
+      #modal #choose_collections ul li a, #modal #choose_collections ul li span {
+        font-size: 0.95em; }
+      #modal #choose_collections ul li + li {
         border-top: 1px solid #cad3db; }
 
 #modal_layer {

@@ -2080,6 +2080,44 @@ ul.spotlite-matches
     &.spotlite-selected
       background: #f1f4dc
 
+#modal
+  width: 600px
+  padding: 20px
+  background: #fff
+  z-index: 999
+  #choose_collections
+    h2
+      font-size: 1.33em
+      margin: 0 0 10px 0
+    fieldset.new_collection
+      overflow: hidden
+      margin: 0 0 20px 0
+      input[type="text"]
+        float: left
+        +input(210px)
+        margin: 0 10px 0 0
+    input[type="submit"]
+      padding-left: 20px
+      padding-right: 20px
+      font-size: 1.08em
+      padding: 5px 10px 6px 10px
+    ul
+      border: 1px solid #cad3db
+      height: 230px
+      overflow-y: scroll
+      margin: 0 0 20px 0
+      li
+        font-weight: bold
+        padding: 5px 10px
+        &.collected
+          background: #f4f4f4
+        input[type="checkbox"]
+          margin: 0 5px 0 0
+        a, span
+          font-size: .95em
+        & + li
+          border-top: 1px solid #cad3db
+
 #modal_layer
   display: none
   z-index: 998

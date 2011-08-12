@@ -530,6 +530,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def convert_flash_messages_for_ajax
+    [:notice, :error].each do |type|
+      if flash[type]
+        temp = flash[type]
+        flash[type] = ''
+        flash.now[type] = temp
+      end
+    end
+  end
+
 private
 
   def find_ancestor_ids(taxa_ids)

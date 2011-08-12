@@ -188,6 +188,10 @@ class Collection < ActiveRecord::Base
     EOL::Solr::CollectionItems.get_facet_counts(self.id)
   end
 
+  def watch_collection?
+    special? && user_id
+  end
+
 private
 
   def validate

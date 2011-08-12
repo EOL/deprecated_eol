@@ -15,7 +15,7 @@ class CollectionsController < ApplicationController
   before_filter :find_parent, :only => [:show]
   before_filter :find_parent_for_current_user_only, :except => [:show, :collect, :watch, :choose_collect_target]
   before_filter :build_collection_items_with_sorting_and_filtering, :only => [:show, :update]
-  before_filter :load_item, :only => [:choose_collect_target, :create, :update]
+  before_filter :load_item, :only => [:choose_collect_target, :create]
 
   layout 'v2/collections'
 
@@ -36,9 +36,13 @@ class CollectionsController < ApplicationController
   end
 
   def create
+    #   Parameters: {"commit"=>"Create collection", "action"=>"create", "controller"=>"collections", "object_id"=>"",
+    #     "collection"=>{"name"=>"Okay, time to create", "user_id"=>"37"}, "object_type"=>""}
     @collection = Collection.new(params[:collection])
     if @collection.save
-      flash[:notice] = I18n.t(:collection_created_notice, :collection_name => link_to_name(@collection))
+      flash[:notice] = I18n.t(:collection_created_with_count_notice,
+                              :collection_name => link_to_name(@collection),
+                              :count => @collection.collection_items.count)
       if params[:source_collection_id] # We got here by creating a new collection FROM an existing collection:
         return create_collection_from_existing
       else
@@ -58,7 +62,6 @@ class CollectionsController < ApplicationController
   end
 
   def update
-    return collect if @item
     return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect) if params[:commit_sort]
     return redirect_to_choose(:copy) if params[:commit_copy]
     # copy is the only update action allowed for non-owners
@@ -114,7 +117,7 @@ class CollectionsController < ApplicationController
     return EOL::Exceptions::ObjectNotFound unless @item
     respond_to do |format|
       format.html { render :action => 'choose' }
-      format.js { render :partial => 'choose', :layout => false }
+      format.js { render :layout => false }
     end
   end
 
@@ -281,14 +284,6 @@ private
     return count
   end
 
-  def collect
-    @collection.add(@item)
-    flash[:notice] = I18n.t(:item_added_to_watch_collection_notice,
-                            :item_name => @item.summary_name,
-                            :collection_name => link_to_name(@collection))
-    return_to_item
-  end
-
   def collection_items_with_scope(options)
     collection_items = []
     if params[:scope].nil? || params[:scope] == 'selected_items'
@@ -369,9 +364,19 @@ private
     end
   end
 
+  # Use this when your JS wants to render the flash messages.
   def create_collection_from_item
     @collection.add(@item)
-    return_to_item
+    flash[:notice] = I18n.t(:collection_created_with_count_notice,
+                            :collection_name => link_to_name(@collection),
+                            :count => @collection.collection_items.count)
+    respond_to do |format|
+      format.html { return_to_item }
+      format.js do
+        convert_flash_messages_for_ajax
+        render :partial => 'shared/flash_messages', :layout => false
+      end
+    end
   end
 
   def load_item

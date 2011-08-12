@@ -790,11 +790,14 @@ en:
   clouds_provided_by_the_mbl: "Clouds provided by the MBL %{link}."
   collect: "Collect"
   collected_by: "Collected by"
+  collect_item: "Collect item"
   collect_items: "Collect items"
   collected_items_with_count:
     one: "%{count} collected item"
     other: "%{count} collected items"
-  collection_created_notice: "Collection <em>%{collection_name}</em> successfully created."
+  collection_created_with_count_notice:
+    one: "Collection <em>%{collection_name}</em> successfully created with %{count} collection item."
+    other: "Collection <em>%{collection_name}</em> successfully created with %{count} collection item."
   collection_delete_link: "Permanently delete this collection"
   collection_destroyed: "The collection was deleted."
   collection_image: "Collection image"
@@ -1749,6 +1752,7 @@ en:
   inappropriate: "Inappropriate"
   include_all_metadata: "include all metadata for data objects"
   including_additional_provision: ", including additional provisions, is available for review and printing."
+  in_collection: "in collection"
   in_community: "in community"
   in_my_collection_button: "In my collection"
   in_this_data_object_by_type: "In this %{type}"

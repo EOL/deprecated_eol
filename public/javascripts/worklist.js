@@ -46,5 +46,13 @@ $(function() {
 function update_active_indicator(message) {
   $('#worklist #tasks li.active span.indicator').html(message);
   $('#worklist #tasks li.active span.indicator').removeClass('invisible');
+  if(message == 'Saved') {
+    $('#worklist #tasks li.active').removeClass('ignored');
+    $('#worklist #tasks li.active').addClass('saved');
+  }
+  if(message == 'Ignored') {
+    $('#worklist #tasks li.active').removeClass('saved');
+    $('#worklist #tasks li.active').addClass('ignored');
+  }
 }
 

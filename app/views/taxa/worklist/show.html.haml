@@ -35,10 +35,11 @@
               = select_tag :task_status, options_for_select(task_status_options, @task_status.to_sym)
         %fieldset.actions
           %input(type="submit" value="#{I18n.t(:show_tasks)}")
-          - unless @data_objects.blank?
-            = I18n.t(:tasks_with_count, :count => @data_objects.total_entries)
-          - else
-            = I18n.t(:no_tasks_found)
+          %label
+            - unless @data_objects.blank?
+              = I18n.t(:tasks_with_count, :count => @data_objects.total_entries)
+            - else
+              = I18n.t(:no_tasks_found)
     - unless @data_objects.blank?
       = will_paginate @data_objects, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
         :inner_window => 2, :outer_window => 2

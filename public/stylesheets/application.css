@@ -2153,7 +2153,7 @@ body > #header {
       #worklist #tasks ul li + li {
         border-top: 1px solid #d7dadc; }
       #worklist #tasks ul li:hover {
-        background-color: white; }
+        background-color: white !important; }
       #worklist #tasks ul li p {
         padding: 6px 0 0 0;
         font-weight: bold;

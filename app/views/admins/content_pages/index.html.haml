@@ -1,0 +1,16 @@
+#cms_index.main_container
+  - if @content_pages.blank?
+    .article
+      .empty
+        %p= I18n.t(:admin_content_pages_empty)
+        = link_to I18n.t(:admin_content_page_new_link), new_admin_content_page_path, :class => 'button'
+  - else
+    .article.copy
+      %p= I18n.t(:admin_content_pages_index_information)
+      = link_to I18n.t(:admin_content_page_new_link), new_admin_content_page_path, :class => 'button'
+    %ul
+      - @content_pages.each do |content_page|
+        = render :partial => 'content_page_item_with_actions',
+          :locals => { :content_page => content_page, :block_of_pages => @content_pages }
+
+

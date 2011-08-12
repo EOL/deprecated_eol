@@ -635,7 +635,7 @@ private
     if mobile_agent_request? && !mobile_url_request? && !mobile_disabled_by_session?
       if params[:controller] == "taxa/overviews" && params[:taxon_id]
         redirect_to mobile_taxon_path(params[:taxon_id])
-      elsif params[:controller] == "taxa/overviews" && params[:taxon_id]
+      elsif params[:controller] == "taxa/details" && params[:taxon_id]
         redirect_to details_mobile_taxon_path(params[:taxon_id])
       elsif params[:controller] == "taxa/media" && params[:taxon_id]
         redirect_to media_mobile_taxon_path(params[:taxon_id])

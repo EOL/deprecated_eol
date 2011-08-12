@@ -7,6 +7,7 @@ class CuratorActivityLog < LoggingModel
   belongs_to :activity
   belongs_to :comment
   belongs_to :taxon_concept
+  belongs_to :hierarchy_entry
 
   has_and_belongs_to_many :untrust_reasons, :join_table => "#{UntrustReason.configurations[RAILS_ENV]['database']}.curator_activity_logs_untrust_reasons"
 

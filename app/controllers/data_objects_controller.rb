@@ -345,8 +345,8 @@ private
       handle_curation(curated_object, user, opts).each do |action|
         log = log_action(curated_object, action, opts)
         # Saves untrust reasons, if any
-        unless opts['untrust_reason_ids'].blank?
-          save_untrust_reasons(log, action, opts['untrust_reason_ids'])
+        unless opts[:untrust_reason_ids].blank?
+          save_untrust_reasons(log, action, opts[:untrust_reason_ids])
         end
       end
       # TODO - Update Solr Index
@@ -359,15 +359,12 @@ private
 
   def get_curated_object(dato, he)
     if he.class == UsersDataObject
-      return UsersDataObject.find_by_id(he.id)
-    end
-
-    if he.associated_by_curator
+      curated_object = UsersDataObject.find_by_data_object_id(dato.id)
+    elsif he.associated_by_curator
       curated_object = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(dato.id, he.id)
     else
       curated_object = DataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(dato.id, he.id)
     end
-    return curated_object
   end
 
   # Figures out exactly what kind of curation is occuring, and performs it.  Returns an *array* of symbols
@@ -422,12 +419,15 @@ private
 
   # TODO - Remove the opts parameter if we not intend to use it.
   def log_action(object, method, opts)
+    object_id = object.class == "DataObjectsHierarchyEntry" ? @data_object.id : object.id
+    he = object.hierarchy_entry unless object.hierarchy_entry.blank?
     CuratorActivityLog.create(
       :user => current_user,
       :changeable_object_type => ChangeableObjectType.send(object.class.name.underscore.to_sym),
-      :object_id => object.id,
+      :object_id => object_id,
       :activity => Activity.send(method),
       :data_object => @data_object,
+      :hierarchy_entry => he,
       :created_at => 0.seconds.from_now
     )
   end

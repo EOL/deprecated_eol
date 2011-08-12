@@ -7,9 +7,9 @@ class Taxa::MediaController < TaxaController
 
     includes = [
       { :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] },
-      { :data_objects => [ { :toc_items => :info_items }, { :data_objects_hierarchy_entries => :hierarchy_entry },
+      { :data_objects => [ :users_data_object, { :toc_items => :info_items }, { :data_objects_hierarchy_entries => :hierarchy_entry },
         { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ] },
-      { :top_concept_images => { :data_object => [ { :toc_items => :info_items }, { :data_objects_hierarchy_entries => :hierarchy_entry },
+      { :top_concept_images => { :data_object => [ :users_data_object, { :toc_items => :info_items }, { :data_objects_hierarchy_entries => :hierarchy_entry },
           { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ] } },
       { :curator_activity_logs => :user },
       { :users_data_objects => [ { :data_object => :toc_items }, { :data_objects_hierarchy_entries => :hierarchy_entry },

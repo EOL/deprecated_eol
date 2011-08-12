@@ -25,7 +25,6 @@ class Taxa::WorklistController < TaxaController
       data_type_ids = [data_type.id]
     end
     
-    
     @data_objects = EOL::Solr::DataObjects.search_with_pagination(@taxon_concept.id, {
       :page => @page,
       :sort_by => @sort_by,
@@ -45,6 +44,12 @@ class Taxa::WorklistController < TaxaController
       params[:worklist_return_to] = taxon_worklist_data_object_path(@taxon_concept, @current_data_object)
       params[:force_return_to] = taxon_worklist_data_object_path(@taxon_concept, @current_data_object)
     end
+    
+    unless params[:ajax].blank?
+      params.delete(:ajax)
+      render(:partial => 'main_content')
+      return
+    end
   end
   
   def data_objects
@@ -56,6 +61,17 @@ class Taxa::WorklistController < TaxaController
     params[:force_return_to] = taxon_worklist_data_object_path(@taxon_concept, @current_data_object)
     render(:partial => 'curation_content')
   end
+  
+  def data_objects
+    @current_data_object = DataObject.find(params[:data_object_id])
+    params.delete(:worklist_return_to)
+    params.delete(:data_object_id)
+    params.delete(:action)
+    params[:worklist_return_to] = taxon_worklist_data_object_path(@taxon_concept, @current_data_object)
+    params[:force_return_to] = taxon_worklist_data_object_path(@taxon_concept, @current_data_object)
+    render(:partial => 'curation_content')
+  end
+
 private
 
   def redirect_if_superceded

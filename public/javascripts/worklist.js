@@ -9,6 +9,27 @@ $(function() {
     return(false);
   });
   
+  $('#worklist .filters form input[type=submit]').unbind('click');
+  $('#worklist .filters form input[type=submit]').click(function() {
+    var $f = $(this).closest('form');
+    $('<input>').attr({
+        type: 'hidden',
+        name: 'ajax',
+        value: 1
+    }).appendTo($f);
+    EOL.ajax_submit($f, {update: $(this).closest('#worklist'), type: 'GET'});
+    return(false);
+  });
+  
+  $('#worklist #tasks p.more a').unbind('click');
+  $('#worklist #tasks p.more a').click(function() {
+    var $update = $(this).closest('#worklist');
+    var current_link = $(this).attr('href');
+    $(this).attr('href', current_link + (current_link.indexOf('?') != -1 ? "&ajax=1" : "?ajax=1"));
+    EOL.ajax_get($(this), {update: $update, type: 'GET'});
+    return(false);
+  });
+  
   $('#worklist #task .ratings .rating a').unbind('click');
   $('#worklist #task .ratings .rating a').click(function() {
     var $update = $(this).closest('#worklist').find('#task');

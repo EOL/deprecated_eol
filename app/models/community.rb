@@ -90,7 +90,6 @@ class Community < ActiveRecord::Base
   end
 
   def top_active_members
-    debugger
     activity_log.map {|l|
       l['user_id']
     }.compact.sort.uniq.map {|uid|

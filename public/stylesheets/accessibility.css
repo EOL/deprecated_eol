@@ -699,3 +699,6 @@ h1.notice {
   max-height: 60px;
   width: expression(this.width > 60 ? "60px" : true);
   height: expression(this.height > 60 ? "60px" : true); }
+
+#sidebar p {
+  padding-bottom: 1em; }

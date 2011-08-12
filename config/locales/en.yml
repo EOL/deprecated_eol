@@ -2009,6 +2009,7 @@ en:
   new_upload: "New Upload"
   new_user: "New User"
   next: "Next"
+  no_active_members: "There hasn't been enough activity yet."
   no_authoritative_videos_availa: "No authoritative videos available."
   no_comments_are_available_for_subject: "No comments are available for %{subject}"
   no_comments_have_been_left_yet: "No comments have been left yet."

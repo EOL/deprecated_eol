@@ -1,10 +1,5 @@
 #sidebar
-  .collection_contributors
-    %h3= I18n.t(:most_active_members)
-    - # FIXME: top_active_members needs actual measure of activiy
-    %ul
-      - @community.top_active_members.each do |member|
-        = render :partial => 'members/member_summary', :locals => {:member => member, :minimal => true}
+  = render :partial => 'communities/active_members_sidebar'
 #collections_tab.main_container
   .heading
     %h3= I18n.t(:community_focus)

@@ -1295,7 +1295,6 @@ class TaxonConcept < SpeciesSchemaModel
 
   def top_communities
     # communities are sorted by the most number of members - descending order
-    debugger if $FOO == 1
     community_ids = communities.map{|c| c.id}.compact
     return [] if community_ids.blank?
     temp = SpeciesSchemaModel.connection.execute("SELECT c.id, COUNT(m.user_id) total FROM members m JOIN communities c ON c.id = m.community_id WHERE c.id in (#{community_ids.join(',')})   GROUP BY c.id ORDER BY total desc").all_hashes

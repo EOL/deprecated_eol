@@ -2,12 +2,13 @@
 - unless data_object.blank?
   - # How many, if any of these options do we need?
   - visible ||= true
-  - invisible ||= false
   - preview ||= false
+  - inappropriate |= false
+  - invisible ||= current_user.is_admin? || current_user.is_curator? ? true : false
 
   -# entries can now be a DOHE, CDOHE or UDO  
 
-  - entries = data_object.all_associations.collect{|e| e if (visible && Visibility.visible == e.visibility) || (invisible && Visibility.invisible == e.visibility) || (preview && Visibility.preview == e.visibility)}.compact
+  - entries = data_object.all_associations.collect{|e| e if (visible && Visibility.visible == e.visibility) || (preview && Visibility.preview == e.visibility) || (inappropriate && Vetted.inappropriate == e.vetted) || (invisible && Visibility.invisible == e.visibility)}.compact
 
   - if entries.blank?
     %p= I18n.t(:data_object_not_associated_with_any_hierarchies)
@@ -26,7 +27,7 @@
             %legend= link_to entry.taxon_concept.quick_scientific_name, taxon_overview_path(entry.taxon_concept_id)
 
           - vetted_selected = entry.vetted_id.to_i
-          - statuses = Vetted.all.collect{|v| [ v == Vetted.unknown ? I18n.t(:unreviewed) : v.label, v.id ] }.compact.sort
+          - statuses = Vetted.all.collect{|v| [ v == Vetted.unknown ? I18n.t(:unreviewed) : v.label, v.id ] unless v == Vetted.inappropriate }.compact.sort
           = select_tag "vetted_id_#{entry.id}", options_for_select(statuses, vetted_selected)
           = I18n.t(:and_between_form_items)
           - visibility_selected = entry.visibility_id.to_i

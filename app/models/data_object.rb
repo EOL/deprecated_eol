@@ -1141,6 +1141,10 @@ class DataObject < SpeciesSchemaModel
                                                     :data_object_id => self.id, :user_id => user.id,
                                                     :vetted_id => Vetted.trusted.id,
                                                     :visibility_id => Visibility.visible.id)
+    if self.data_type == DataType.image
+      TopImage.find_or_create_by_hierarchy_entry_id_and_data_object_id(hierarchy_entry.id, self.id, :view_order => 1)
+      TopConceptImage.find_or_create_by_taxon_concept_id_and_data_object_id(hierarchy_entry.taxon_concept.id, self.id, :view_order => 1)
+    end
   end
 
   def remove_curated_association(user, hierarchy_entry)
@@ -1148,6 +1152,12 @@ class DataObject < SpeciesSchemaModel
     raise EOL::Exceptions::ObjectNotFound if cdohe.nil?
     raise EOL::Exceptions::WrongCurator.new("user did not create this association") unless cdohe.user_id = user.id
     cdohe.destroy
+    if self.data_type == DataType.image                                      
+      tci_exists = TopConceptImage.find_by_taxon_concept_id_and_data_object_id(hierarchy_entry.taxon_concept.id, self.id)
+      tci_exists.destroy unless tci_exists.nil?
+      ti_exists = TopImage.find_by_hierarchy_entry_id_and_data_object_id(hierarchy_entry.id, self.id)
+      ti_exists.destroy unless ti_exists.nil?
+    end
   end
 
   def translated_from

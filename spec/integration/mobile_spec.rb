@@ -50,7 +50,26 @@ describe 'Mobile redirect' do
     page.should have_link(I18n.t("mobile.contents.full_site"))
     # click_link(I18n.t("mobile.contents.full_site"))
   end
-
+  
+  it 'should translate url and redirect to mobile taxon overview' do
+    headers = {"User-Agent" => "iPhone"}
+    request_via_redirect(:get, "/pages/#{@taxon_concept.id}/overview", {}, headers)
+    request.fullpath.should == mobile_taxon_path(@taxon_concept.id)
+  end
+  
+  it 'should translate url and redirect to mobile taxon details' do
+    headers = {"User-Agent" => "iPhone"}
+    request_via_redirect(:get, "/pages/#{@taxon_concept.id}/details", {}, headers)
+    request.fullpath.should == details_mobile_taxon_path(@taxon_concept.id)
+  end
+  
+  it 'should translate url and redirect to mobile taxon media' do
+    headers = {"User-Agent" => "iPhone"}
+    request_via_redirect(:get, "/pages/#{@taxon_concept.id}/media", {}, headers)
+    request.fullpath.should == media_mobile_taxon_path(@taxon_concept.id)
+  end
+  
+  
 end
 
 describe 'Mobile taxa browsing' do

@@ -714,7 +714,8 @@ class DataObject < SpeciesSchemaModel
       hash['ignored_by_user_id'] << ido.user_id
     end
     # add curated users
-    curation = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_activity_id(self.id, ChangeableObjectType.data_object.id,
+    curation = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_activity_id(self.id,
+      [ ChangeableObjectType.data_object.id, ChangeableObjectType.data_objects_hierarchy_entry.id ],
       [ Activity.untrusted.id, Activity.trusted.id, Activity.untrusted.id, Activity.hide.id, Activity.show.id,
         Activity.inappropriate.id, Activity.unreviewed.id,  Activity.add_association.id,  Activity.add_common_name.id])
     curation.each do |cal|

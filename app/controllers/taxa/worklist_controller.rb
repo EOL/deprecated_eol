@@ -41,8 +41,10 @@ class Taxa::WorklistController < TaxaController
     params[:current] = @current_data_object.id if @current_data_object
     params.delete(:worklist_return_to)
     params.delete(:data_object_id)
-    params[:worklist_return_to] = taxon_worklist_data_object_path(@taxon_concept, @current_data_object)
-    params[:force_return_to] = taxon_worklist_data_object_path(@taxon_concept, @current_data_object)
+    if @current_data_object
+      params[:worklist_return_to] = taxon_worklist_data_object_path(@taxon_concept, @current_data_object)
+      params[:force_return_to] = taxon_worklist_data_object_path(@taxon_concept, @current_data_object)
+    end
   end
   
   def data_objects

@@ -33,10 +33,11 @@ class DataObject < SpeciesSchemaModel
   has_many :data_objects_info_items
   has_many :info_items, :through => :data_objects_info_items
   has_many :taxon_concept_exemplar_images
-  # has_many :user_ignored_data_objects
+  has_many :worklist_ignored_data_objects
   has_many :collection_items, :as => :object
   has_many :containing_collections, :through => :collection_items, :source => :collection
   has_many :translations, :class_name => DataObjectTranslation.to_s, :foreign_key => :original_data_object_id
+  has_many :curator_activity_logs, :as => :object
   has_many :users_data_objects_ratings, :foreign_key => 'data_object_guid', :primary_key => :guid
   has_many :all_comments, :class_name => Comment.to_s, :foreign_key => 'parent_id', :finder_sql => 'SELECT c.* FROM #{Comment.full_table_name} c JOIN #{DataObject.full_table_name} do ON (c.parent_id = do.id) WHERE do.guid=\'#{guid}\' AND c.parent_type = \'DataObject\''
   # has_many :all_comments, :class_name => Comment.to_s, :through => :all_versions, :source => :comments, :primary_key => :guid
@@ -671,24 +672,100 @@ class DataObject < SpeciesSchemaModel
     get_taxon_concepts.first
   end
 
-  def update_solr_index(options)
-    return false if options[:vetted_id].blank? && options[:visibility_id].blank?
-    solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
-    begin
-      # query Solr for the index record for this data object
-      response = solr_connection.query_lucene("data_object_id:#{id}")
-      data_object_hash = response['response']['docs'][0]
-      return false unless data_object_hash
-      modified_object_hash = data_object_hash.dup
-      # modified_object_hash['vetted_id'] = [options[:vetted_id]] unless options[:vetted_id].blank?
-      # modified_object_hash['visibility_id'] = [options[:visibility_id]] unless options[:visibility_id].blank?
-      # if some of the values have changed, post the updated record to Solr
-      if data_object_hash != modified_object_hash
-        solr_connection.create(modified_object_hash)
+  # def update_solr_index
+  #   begin
+  #     # query Solr for the index record for this data object
+  #     solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
+  #     response = solr_connection.query_lucene("data_object_id:#{id}")
+  #     pp response
+  #     data_object_hash = response['response']['docs'][0]
+  #     return false unless data_object_hash
+  #     modified_object_hash = data_object_hash.dup
+  #     pp modified_object_hash
+  #     # if data_object_hash != modified_object_hash
+  #     #   solr_connection.create(modified_object_hash)
+  #     # end
+  #   rescue
+  #   end
+  # end
+  
+  def update_solr_index
+    hash = {
+      'data_object_id' => self.id,
+      'guid' => self.guid,
+      'data_type_id' => self.data_type_id,
+      'published' => self.published? ? 1 : 0,
+      'data_rating' => self.data_rating,
+      'created_at' => self.created_at ? self.created_at.solr_timestamp : nil
+    }
+    # add resource ID
+    if he = self.harvest_events.first
+      hash['resource_id'] = he.resource_id
+    end
+    # add toc IDs
+    self.data_objects_table_of_contents.each do |dotoc|
+      hash['toc_id'] ||= []
+      hash['toc_id'] << dotoc.toc_id
+    end
+    
+    # add ignored users
+    self.worklist_ignored_data_objects.each do |ido|
+      hash['ignored_by_user_id'] ||= []
+      hash['ignored_by_user_id'] << ido.user_id
+    end
+    # add curated users
+    curation = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_activity_id(self.id, ChangeableObjectType.data_object.id,
+      [ Activity.untrusted.id, Activity.trusted.id, Activity.untrusted.id, Activity.hide.id, Activity.show.id,
+        Activity.inappropriate.id, Activity.unreviewed.id,  Activity.add_association.id,  Activity.add_common_name.id])
+    curation.each do |cal|
+      hash['curated_by_user_id'] ||= []
+      hash['curated_by_user_id'] << cal.user_id
+    end
+    # add concepts and ancestors
+    (self.hierarchy_entries + self.curated_hierarchy_entries).each do |he|
+      field_prefixes = []
+      if he.vetted
+        vetted_label = he.vetted.label('en').downcase rescue nil
+        vetted_label = 'unreviewed' if vetted_label == 'unknown'
+        field_prefixes << vetted_label if ['trusted', 'unreviewed', 'untrusted', 'inappropriate'].include?(vetted_label)
       end
+      if he.visibility
+        visibility_label = he.visibility.label('en').downcase rescue nil
+        field_prefixes << visibility_label if ['invisible', 'visible', 'preview'].include?(visibility_label)
+      end
+      hash['taxon_concept_id'] ||= []
+      hash['taxon_concept_id'] << he.taxon_concept_id
+      hash['ancestor_id'] ||= []
+      hash['ancestor_id'] << he.taxon_concept_id
+      field_prefixes.each do |prefix|
+        hash[prefix + '_ancestor_id'] ||= []
+        hash[prefix + '_ancestor_id'] << he.taxon_concept_id
+      end
+      he.taxon_concept.flattened_ancestors.each do |a|
+        hash['ancestor_id'] ||= []
+        hash['ancestor_id'] << a.ancestor_id
+        field_prefixes.each do |prefix|
+          hash[prefix + '_ancestor_id'] ||= []
+          hash[prefix + '_ancestor_id'] << a.ancestor_id
+        end
+      end
+    end
+    # clean up and use unique values
+    hash.each do |k, v|
+      if v.class == Array
+        v.delete(0)
+        v.uniq!
+        v.compact!
+      end
+    end
+    begin
+      solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
+      solr_connection.delete_by_id(self.id)
+      solr_connection.create(hash)
     rescue
     end
   end
+  
 
   def in_wikipedia?
     toc_items.include?(TocItem.wikipedia)

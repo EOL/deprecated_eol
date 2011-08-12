@@ -16,4 +16,33 @@ $(function() {
     return(false);
   });
   
+  $('#worklist #task .ratings .rating a').click(function() {
+    var $update = $(this).closest('#worklist').find('#task');
+    EOL.ajax_get($(this), {update: $update, type: 'GET'});
+    return(false);
+  });
+  
+  
+  $('#worklist #task form.comment input[type=submit]').click(function() {
+    var $f = $(this).closest('form');
+    $f.find("#return_to").val($f.find("#worklist_return_to").val());
+    EOL.ajax_submit($(this).closest('form'), {update: $(this).closest('#task')});
+    return(false);
+  });
+  
+  $('#worklist #task form.review_status input[type=submit]').click(function() {
+    var $f = $(this).closest('form');
+    $f.find("#return_to").val($f.find("#worklist_return_to").val());
+    EOL.ajax_submit($(this).closest('form'), {update: $(this).closest('#task')});
+    return(false);
+  });
+  
+  $('#worklist #task form.ignore_data_object input[type=submit]').click(function() {
+    var $f = $(this).closest('form');
+    $f.find("#return_to").val($f.find("#worklist_return_to").val());
+    EOL.ajax_submit($(this).closest('form'), {update: $(this).closest('#task')});
+    return(false);
+  });
+  
+  
 });

@@ -16,4 +16,4 @@
         - else
           = render :partial => "#{en_type}_data_object.html.haml", :locals => { :item => data_object }
   - # TODO : Implement functionality for the "get more tasks" button. Remove the 'ignored' and 'saved' tasks from the task list and replace them with the new tasks.
-  %p.more= link_to I18n.t(:get_more_tasks), "#", {:class => "button"}
+  %p.more= link_to I18n.t(:get_more_tasks), current_url(false), {:class => "button"}

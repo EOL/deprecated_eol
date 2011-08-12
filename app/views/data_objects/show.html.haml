@@ -2,6 +2,7 @@
   = javascript_include_tag "temp-permalink"
 
 - en_type ||= en_type(@data_object)
+- for_worklist ||= false
 - # TODO: Looks like HR have moved from using article to text css class - need to check across the site and adjust en_type
 #permalink{:class => en_type == 'article' ? 'text' : en_type}
-  = render :partial => "show"
+  = render :partial => "show", :locals => { :for_worklist => for_worklist }

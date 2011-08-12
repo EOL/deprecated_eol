@@ -36,6 +36,7 @@
         <field name="taxon_concept_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
         <field name="ancestor_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
         <field name="resource_id" type="int" indexed="true" stored="true" required="false"/>
+        <field name="toc_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
         <!-- vetted states -->
         <field name="trusted_ancestor_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
         <field name="unreviewed_ancestor_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>

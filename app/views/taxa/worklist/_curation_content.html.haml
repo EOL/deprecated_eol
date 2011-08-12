@@ -1,2 +1,4 @@
 - @data_object = @current_data_object
-= render :partial => "/data_objects/show"
+- # we need to reload the JS here to get events on the AJAX loaded content
+= javascript_include_tag "worklist"
+= render :partial => "/data_objects/show", :locals => { :for_worklist => true }

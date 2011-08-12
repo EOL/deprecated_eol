@@ -35,6 +35,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   has_many :resources, :through => :content_partner
   has_many :users_user_identities
   has_many :user_identities, :through => :users_user_identities
+  has_many :worklist_ignored_data_objects
 
   has_one :content_partner
   has_one :user_info
@@ -663,6 +664,11 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     editable_collections += members.managers.map {|member| member.community.collection }
     editable_collections
   end
+  
+  def ignored_data_object?(data_object)
+    return false unless data_object
+    return WorklistIgnoredDataObject.find_by_user_id_and_data_object_id(self.id, data_object.id)
+  end
 
 private
 
@@ -734,5 +740,4 @@ private
     self.requested_curator_level_id == CuratorLevel.assistant_curator.id ||
     self.requested_curator_level_id == self.curator_level_id
   end
-
 end

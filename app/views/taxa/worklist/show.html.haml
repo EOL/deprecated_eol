@@ -17,7 +17,7 @@
               %label{:for => 'object_status'}= I18n.t(:object_status)
             %dd
               - object_status_options = {}
-              - [:unknown, :trusted, :untrusted].each{|opt| object_status_options[I18n.t("object_status_#{opt}_option")] = opt }
+              - [:unreviewed, :trusted, :untrusted].each{|opt| object_status_options[I18n.t("object_status_#{opt}_option")] = opt }
               = select_tag :object_status, options_for_select(object_status_options, @object_status.to_sym)
           %dl
             %dt
@@ -40,6 +40,8 @@
           - else
             = I18n.t(:no_tasks_found)
     - unless @data_objects.blank?
+      = will_paginate @data_objects, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
+        :inner_window => 2, :outer_window => 2
       = render :partial => "tasks.html.haml"
       .article#task
         = render :partial => "curation_content.html.haml"

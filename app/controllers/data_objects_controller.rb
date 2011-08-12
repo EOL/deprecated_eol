@@ -2,7 +2,7 @@ class DataObjectsController < ApplicationController
 
   layout :data_objects_layout
 
-  before_filter :check_authentication, :only => [:new, :create, :edit, :update] # checks login only
+  before_filter :check_authentication, :only => [:new, :create, :edit, :update, :ignore] # checks login only
   before_filter :load_data_object, :except => [:index, :new, :create, :preview]
   before_filter :authentication_own_user_added_text_objects_only, :only => [:edit, :update]
   before_filter :allow_login_then_submit, :only => [:rate]
@@ -160,6 +160,7 @@ class DataObjectsController < ApplicationController
   def remove_association
     he = HierarchyEntry.find(params[:hierarchy_entry_id])
     @data_object.remove_curated_association(current_user, he)
+    @data_object.update_solr_index
     log_action(he, :remove_association, nil)
     redirect_to data_object_path(@data_object)
   end
@@ -167,6 +168,7 @@ class DataObjectsController < ApplicationController
   def save_association
     he = HierarchyEntry.find(params[:hierarchy_entry_id])
     @data_object.add_curated_association(current_user, he)
+    @data_object.update_solr_index
     log_action(he, :add_association, nil)
     redirect_to data_object_path(@data_object)
   end
@@ -184,6 +186,8 @@ class DataObjectsController < ApplicationController
   end
 
   def curate_associations
+    return_to = params[:return_to] unless params[:return_to].blank?
+    store_location(return_to)
     begin
       entries = []
       entries = @data_object.all_associations
@@ -204,10 +208,23 @@ class DataObjectsController < ApplicationController
                      }
         curate_association(current_user, phe, all_params)
       end
+      @data_object.update_solr_index
     rescue => e
       flash[:error] = e.message
     end
-    redirect_to request.referer ? :back : :default
+    redirect_back_or_default
+  end
+  
+  def ignore
+    return_to = params[:return_to] unless params[:return_to].blank?
+    store_location(return_to)
+    if params[:undo]
+      WorklistIgnoredDataObject.destroy_all("user_id = #{current_user.id} AND data_object_id = #{@data_object.id}")
+    else
+      @data_object.worklist_ignored_data_objects << WorklistIgnoredDataObject.create(:user => current_user, :data_object => @data_object)
+    end
+    @data_object.update_solr_index
+    redirect_back_or_default
   end
 
   # NOTE - It seems like this is a HEAVY controller... and perhaps it is.  But I can't think of *truly* appropriate

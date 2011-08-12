@@ -2,7 +2,7 @@
   .header
     %h3= I18n.t("associated_with_#{en_type}_header")
     - if current_user.min_curator_level?(:full)
-      = link_to I18n.t(:add_new_association_link), :action => :add_association, :id => data_object.id
+      = link_to I18n.t(:add_new_association_link), add_association_path(data_object)
   - if current_user.min_curator_level?(:full)
     = render :partial => 'data_objects/associations_curation', :locals => { :data_object => data_object }
   - else

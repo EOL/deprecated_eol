@@ -19,6 +19,8 @@
             %li{:class => resource_is_active('admins')}= link_to I18n.t(:admin_link), admin_path
             %li{:class => resource_is_active('admins/content_pages')}= link_to I18n.t(:admin_content_pages_link), admin_content_pages_path
             %li{:class => resource_is_active('admins/content_partners')}= link_to I18n.t(:admin_content_partners_link), admin_content_partners_path
+            %li{:class => resource_is_active('admins/hierarchies')}= link_to I18n.t(:admin_content_partners_hierarchies_link), admin_hierarchies_path
+            %li{:class => resource_is_active('admins/published_partners')}= link_to I18n.t(:admin_content_partners_published_link), admin_published_partners_path
       = yield
 
 = render :file => 'layouts/v2/application'

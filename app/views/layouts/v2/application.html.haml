@@ -77,11 +77,7 @@
         - if logged_in?
           = render :partial => 'sessions/session_summary'
         - elsif $ALLOW_USER_LOGINS && !agent_logged_in?
-          - if @home_page
-            = render :partial => 'shared/join_eol', :locals => {:join_style => 'button'}
-          - else
-            .session
-              = render :partial => 'shared/join_eol'
+          = render :partial => 'shared/join_eol', :locals => {:join_style => @home_page ? 'button' : nil}
         - elsif $ALLOW_USER_LOGINS == false && @home_page.nil?
           .session
             %p= I18n.t(:user_system_down)

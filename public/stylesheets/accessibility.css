@@ -154,7 +154,7 @@ form#switch_hierarchy_entry fieldset {
   float: left;
   margin: 0 20px 30px 30px; }
 
-/*content partners */
+/*cms page styles for public content partners listing */
 .cms_page .header {
   border-bottom: 1px solid #cad3db;
   padding-bottom: 1em;
@@ -174,19 +174,19 @@ form#switch_hierarchy_entry fieldset {
   .cms_page ul.object_list li p {
     clear: none; }
 
+/*content partners overrides/additions */
+#content_partner_show .empty {
+  font-size: 1em; }
+
 #content_partner_edit.site_column, #content_partner_new.site_column {
   width: 640px; }
-
-#content_partner_show .main_container {
-  padding: 40px;
-  border: 1px solid #93a4b0;
-  border-width: 0 1px; }
-#content_partner_show #sidebar {
-  width: 200px; }
 
 ul.content_partner_contacts li {
   margin: 0 0 20px 0; }
 
+#content_partner_statistics .main_container {
+  border: none;
+  padding: 0; }
 #content_partner_statistics .heading {
   text-align: center; }
   #content_partner_statistics .heading fieldset, #content_partner_statistics .heading input[type="submit"] {
@@ -241,27 +241,31 @@ p.status.error {
   #permalink .media {
     float: none; }
 
-/*Add article interface we have error fieldset and a textarea box in information fieldset that HR didn't expect */
-#object_text_new p.tip {
+/*I say we standardise form tips everywhere */
+form p.tip {
   background: #f3f7fa;
   border: 1px solid #cad3db;
   padding: 10px;
   margin: 0 40px 20px 0;
   line-height: 140%; }
-#object_text_new form#new_data_object fieldset dt, #object_text_new form.edit_data_object fieldset dt {
+  form p.tip img {
+    margin: -2px 5px 0 5px; }
+
+/*Add article interface we have error fieldset and a textarea box in information fieldset that HR didn't expect */
+form#new_data_object fieldset dt, form.edit_data_object fieldset dt {
   font-size: 1.08em; }
-#object_text_new form#new_data_object fieldset.content, #object_text_new form.edit_data_object fieldset.content {
+form#new_data_object fieldset.content, form.edit_data_object fieldset.content {
   width: 640px; }
-  #object_text_new form#new_data_object fieldset.content input[type="text"], #object_text_new form.edit_data_object fieldset.content input[type="text"] {
+  form#new_data_object fieldset.content input[type="text"], form.edit_data_object fieldset.content input[type="text"] {
     width: 308px; }
-  #object_text_new form#new_data_object fieldset.content textarea, #object_text_new form.edit_data_object fieldset.content textarea {
+  form#new_data_object fieldset.content textarea, form.edit_data_object fieldset.content textarea {
     width: 580px;
     height: 200px; }
-#object_text_new form#new_data_object fieldset.information, #object_text_new form.edit_data_object fieldset.information {
+form#new_data_object fieldset.information, form.edit_data_object fieldset.information {
   width: 300px; }
-  #object_text_new form#new_data_object fieldset.information input[type="text"], #object_text_new form.edit_data_object fieldset.information input[type="text"] {
+  form#new_data_object fieldset.information input[type="text"], form.edit_data_object fieldset.information input[type="text"] {
     width: 288px; }
-  #object_text_new form#new_data_object fieldset.information textarea, #object_text_new form.edit_data_object fieldset.information textarea {
+  form#new_data_object fieldset.information textarea, form.edit_data_object fieldset.information textarea {
     width: 282px;
     height: 80px; }
 
@@ -359,31 +363,19 @@ p.flag {
   border: none; }
 
 /*HR z-indexes were messed up in header, also we're putting session partial on home page for logged in users */
-body.home > #header .session {
-  position: absolute;
-  right: 40px;
-  top: 55px;
-  z-index: 2; }
-  body.home > #header .session img {
-    float: right;
-    margin: 0 0 0 10px;
-    border: 1px solid #cad3db; }
-  body.home > #header .session .details {
-    overflow: hidden;
-    padding: 5px 0 0 0;
-    font-size: 0.92em;
-    line-height: 130%;
-    text-align: right;
-    color: white; }
+body.home > #header .session.join {
+  text-align: center !important; }
+  body.home > #header .session.join a {
+    color: white !important; }
 body > #header .section .actions {
   z-index: 5; }
-body > #header .section .session .join {
+body > #header .section .session.join {
   float: right;
   text-align: right;
   color: white; }
-  body > #header .section .session .join p {
+  body > #header .section .session.join p {
     line-height: 1.4em; }
-  body > #header .section .session .join a {
+  body > #header .section .session.join a {
     color: #90bce4; }
 
 /*IUCN styles, we use a h3 header instead of just a paragraph so its easier to find with screenreaders. */

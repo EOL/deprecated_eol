@@ -308,14 +308,6 @@ body > #footer {
 #content_page_new, #content_page_edit {
   width: 640px;
   margin: 0 auto; }
-  #content_page_new p.tip, #content_page_edit p.tip {
-    background: #f3f7fa;
-    border: 1px solid #cad3db;
-    padding: 10px;
-    margin: 0 0 20px 0;
-    line-height: 140%; }
-    #content_page_new p.tip img, #content_page_edit p.tip img {
-      margin: -2px 5px 0 5px; }
   #content_page_new h3, #content_page_edit h3 {
     margin-top: 50px; }
   #content_page_new fieldset, #content_page_edit fieldset {

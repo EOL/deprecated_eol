@@ -6,7 +6,8 @@
       - status_indicator = nil
       - status_indicator = 'Ignored' if @task_status == 'ignored'
       - status_indicator = 'Saved' if @task_status == 'curated'
-      %li{:class => "#{task_class} #{en_type}"}
+      - li_class = status_indicator ? status_indicator.downcase : nil
+      %li{:class => "#{task_class} #{li_class} #{en_type}"}
         %span.icon
         - if status_indicator.blank?
           %span.indicator.invisible

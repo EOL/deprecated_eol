@@ -1,3 +1,5 @@
+- # we need to reload the JS here to get events on the AJAX loaded content
+= javascript_include_tag "worklist"
 .filters
   - form_tag({:action => 'show'}, :method => 'get') do
     %fieldset
@@ -13,14 +15,14 @@
           %label{:for => 'object_status'}= I18n.t(:object_status)
         %dd
           - object_status_options = {}
-          - [:unreviewed, :trusted, :untrusted].each{|opt| object_status_options[I18n.t("object_status_#{opt}_option")] = opt }
+          - [:unreviewed, :trusted, :untrusted, :all].each{|opt| object_status_options[I18n.t("object_status_#{opt}_option")] = opt }
           = select_tag :object_status, options_for_select(object_status_options, @object_status.to_sym)
       %dl
         %dt
           %label{:for => 'object_visibility'}= I18n.t(:object_visibility)
         %dd
           - object_visibility_options = {}
-          - [:visible, :invisible].each{|opt| object_visibility_options[I18n.t("object_visibility_#{opt}_option")] = opt }
+          - [:visible, :invisible, :all].each{|opt| object_visibility_options[I18n.t("object_visibility_#{opt}_option")] = opt }
           = select_tag :object_visibility, options_for_select(object_visibility_options, @object_visibility.to_sym)
       %dl
         %dt

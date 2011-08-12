@@ -14,8 +14,8 @@ class Taxa::WorklistController < TaxaController
     @task_status = params[:task_status] ||= 'active'
     # checking approved values
     @object_type = 'all' unless ['all', 'text', 'image', 'video', 'sound'].include?(@object_type)
-    @object_status = 'trusted' unless ['trusted', 'unreviewed', 'untrusted'].include?(@object_status)
-    @object_visibility = 'visible' unless ['visible', 'invisible'].include?(@object_visibility)
+    @object_status = 'all' unless ['all', 'trusted', 'unreviewed', 'untrusted'].include?(@object_status)
+    @object_visibility = 'all' unless ['all', 'visible', 'invisible'].include?(@object_visibility)
     @task_status = 'active' unless ['active', 'curated', 'ignored'].include?(@task_status)
     
     data_type_ids = nil

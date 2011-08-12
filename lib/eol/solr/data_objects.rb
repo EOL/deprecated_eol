@@ -25,15 +25,19 @@ module EOL
       end
       
       def self.solr_search(taxon_concept_id, options = {})
-        options[:vetted_type] ||= 'trusted'
-        options[:visibility_type] ||= 'visible'
         options[:sort_by] ||= 'data_object_id+desc'
         
-        url =  $SOLR_SERVER + $SOLR_DATA_OBJECTS_CORE + '/select/?wt=json&q=' + CGI.escape('{!lucene}')
-        url << CGI.escape("#{options[:vetted_type]}_ancestor_id:#{taxon_concept_id} AND ")
-        url << CGI.escape("#{options[:visibility_type]}_ancestor_id:#{taxon_concept_id} AND published:1")
+        url =  $SOLR_SERVER + $SOLR_DATA_OBJECTS_CORE + '/select/?wt=json&q=' + CGI.escape("{!lucene}published:1 AND ancestor_id:#{taxon_concept_id}")
+        if options[:vetted_type] && options[:vetted_type] != 'all'
+          url << CGI.escape(" AND #{options[:vetted_type]}_ancestor_id:#{taxon_concept_id}")
+        end
+        if options[:visibility_type] && options[:visibility_type] != 'all'
+          url << CGI.escape(" AND #{options[:visibility_type]}_ancestor_id:#{taxon_concept_id}")
+        end
         if options[:data_type_ids]
           url << CGI.escape(" AND (data_type_id:#{options[:data_type_ids].join(' OR data_type_id:')})")
+        else
+          url << CGI.escape(" NOT (data_type_id:#{DataType.iucn.id})")
         end
         # filter
         if options[:filter] == 'curated' && options[:user]

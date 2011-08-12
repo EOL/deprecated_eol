@@ -55,7 +55,7 @@ class FckeditorController < ActionController::Base
   def load_file_from_params
     @new_file = check_file(params[:NewFile])
     @fck_url  = "/"
-    @ftype     = @new_file.content_type.strip
+    @ftype     = @new_file.content_type.strip.downcase
     log_upload
   end
 

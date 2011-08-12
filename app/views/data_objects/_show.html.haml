@@ -23,9 +23,7 @@
     - if @data_object.is_sound?
       - en_mime_type = @data_object.mime_type ? @data_object.mime_type.label('en') : DataType.sound.simple_type
       %p= link_to I18n.t("download_#{en_mime_type.sub(/\//, '_')}"), @data_object.sound_url, { :title => I18n.t("download_#{en_mime_type.sub(/\//, '_')}_assistive") }
-  = render :partial => '/data_objects/list_associations', :locals => { :data_object => @data_object, :en_type => en_type }
-  - if for_worklist
-    = render :partial => '/data_objects/ignore', :locals => { :data_object => @data_object }
+  = render :partial => '/data_objects/list_associations', :locals => { :data_object => @data_object, :en_type => en_type, :for_worklist => for_worklist }
   - unless @revisions.blank?
     = render :partial => '/data_objects/revisions', :locals => { :data_object => @data_object, :revisions => @revisions }
   - unless @translations.blank?

@@ -694,3 +694,20 @@ h1.notice {
 
 #sidebar p {
   padding-bottom: 1em; }
+
+#task .media img {
+  margin: 0 auto;
+  display: block; }
+
+.invisible {
+  opacity: 0; }
+
+#worklist .filters fieldset.actions {
+  padding: 0;
+  line-height: 22px;
+  color: #667309;
+  text-transform: uppercase;
+  font-weight: bold; }
+
+#worklist #tasks li:hover {
+  background-color: white !important; }

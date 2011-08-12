@@ -1,0 +1,56 @@
+.main_container
+
+  %h2
+    = @hierarchy.label
+  = "("+ link_to(I18n.t("browse_hierarchy"), {:action => 'show', :id => @hierarchy.id }) +")"
+
+  - form_for @hierarchy, :url => { :action => 'update' }, :html => { :method => :put } do |f|
+    %table.standard
+      - column_class=cycle('odd','even')
+      %tr
+        %th
+          =I18n.t("attribute")
+        %th
+          =I18n.t("value")
+      %tr
+        %td{:class => column_class}
+          = f.label :label, I18n.t("label")
+        %td{:class => column_class}
+          = f.text_field :label, :maxlength => 200, :size=>50
+          %br
+          %i
+            =I18n.t("this_is_the_label_that_will_be")
+      %tr
+        %td{:class => column_class}
+          = f.label :descriptive_label, I18n.t("descriptive_label")
+        %td{:class => column_class}
+          = f.text_field :descriptive_label, :maxlength => 200, :size=>50
+          %br
+          %i
+            =I18n.t("this_is_the_label_that_will_ap")
+      %tr
+        %td{:class => column_class}
+          = f.label :description, I18n.t("description")
+        %td{:class => column_class}
+          = f.text_area :description, :cols => 70, :rows => 3
+      %tr
+        %td{:class => column_class}
+          = f.label :browsable, I18n.t("browsable")
+        %td{:class => column_class}
+          = f.check_box :browsable
+          =I18n.t("if_this_box_is_checked_the_hie")
+      %tr
+        %td{:class => column_class}
+          = f.label :complete, I18n.t("curated")
+        %td{:class => column_class}
+          = f.check_box :complete, :disabled => 'disabled'
+          =I18n.t("note__only_change_this_attribu")
+      %tr
+        %td{:class => column_class}
+          = f.label :request_publish, I18n.t("publish_requested")
+        %td{:class => column_class}
+          = f.hidden_field :request_publish
+          = (@hierarchy.request_publish == true) ? 'yes' : 'no'
+    %br
+    = submit_tag I18n.t("update")
+  %hr

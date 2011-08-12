@@ -464,7 +464,7 @@
   gbif_occurrence_learn_more_link: "Learn more about GBIF occurrence maps."
   general_error_occurred: "We're sorry but an error has occurred. Please make one more attempt to perform your task. If the error persists, please send an email to %{email} along with the error message below and any other information you'd like to share with us. We are working hard to provide you with the best service possible and we appreciate your support. -- The EOL Team"
   get_more_tasks: "get more tasks"
-  global_access_tagline: "Global access to knowledge about life on Earth."
+  global_access_tagline: "Global access to knowledge about life on Earth"
   global_navigation: "Global Navigation"
   go: Go
   go_back: "go back"

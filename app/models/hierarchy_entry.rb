@@ -22,6 +22,7 @@ class HierarchyEntry < SpeciesSchemaModel
   has_many :common_names, :class_name => Synonym.to_s,
       :conditions => 'synonyms.synonym_relation_id IN (#{SynonymRelation.common_name_ids.join(",")})'
   has_many :flattened_ancestors, :class_name => HierarchyEntriesFlattened.to_s
+  has_many :curator_activity_logs
 
   has_and_belongs_to_many :data_objects
   has_and_belongs_to_many :refs

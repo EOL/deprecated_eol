@@ -27,7 +27,7 @@ ActionController::Routing::Routes.draw do |map|
     content_partner.resources :content_partner_contacts, :as => :contacts,
                                                          :except => [:index, :show],
                                                          :namespace => "content_partners/"
-    content_partner.resources :resources, :namespace => "content_partners/"
+    content_partner.resources :resources, :member => {:force_harvest => [:post]}, :namespace => "content_partners/"
     content_partner.resource :statistics, :only => [:show], :namespace => "content_partners/"
   end
 

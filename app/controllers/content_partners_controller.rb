@@ -68,8 +68,6 @@ class ContentPartnersController < ApplicationController
     @partner = ContentPartner.find(params[:id], :include => [{ :resources => :collection }, :content_partner_contacts ])
     @partner_collections = @partner.resources.collect{|r| r.collection}.compact
     Resource.add_latest_published_harvest_event!(@partner.resources)
-    @partner_contacts = @partner.content_partner_contacts.select{|cpc| cpc.can_be_read_by?(current_user)}
-    @new_partner_contact = @partner.content_partner_contacts.build
     @head_title = @partner.name
   end
 
@@ -82,7 +80,7 @@ class ContentPartnersController < ApplicationController
 
   # PUT /content_partners/:id
   def update
-    @partner = ContentPartner.find(params[:id])
+    @partner = ContentPartner.find()
     access_denied unless current_user.can_update?(@partner)
     if @partner.update_attributes(params[:content_partner])
       upload_logo(@partner) unless params[:content_partner][:logo].blank?

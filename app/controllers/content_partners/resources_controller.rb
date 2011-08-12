@@ -8,7 +8,8 @@ class ContentPartners::ResourcesController < ContentPartnersController
   def index
     @partner = ContentPartner.find(params[:content_partner_id])
     @resources = @partner.resources
-    @page_subheader = I18n.t(:content_partner_resources)
+    @partner_contacts = @partner.content_partner_contacts.select{|cpc| cpc.can_be_read_by?(current_user)}
+    @new_partner_contact = @partner.content_partner_contacts.build
   end
 
   # GET /content_partners/:content_partner_id/resources/new

@@ -9,7 +9,7 @@
 class CollectionsController < ApplicationController
 
   before_filter :find_collection, :except => [:new, :create]
-  before_filter :user_able_to_edit_collection, :only => [:edit] # we do authenticate update, its in the update method
+  before_filter :user_able_to_edit_collection, :only => [:edit, :destroy] # authentication of update in the method
   before_filter :user_able_to_view_collection, :only => [:show]
   before_filter :find_parent, :only => [:show]
   before_filter :find_parent_for_current_user_only, :except => [:show, :collect, :watch]
@@ -18,6 +18,7 @@ class CollectionsController < ApplicationController
   layout 'v2/collections'
 
   def show
+    @page = params[:page] || 1
     render :action => 'newsfeed' if @filter == 'newsfeed'
     return copy_items_and_redirect(@collection, current_user.watch_collection) if params[:commit_collect]
     # NOTE - this is complicated. It's getting the various collection item types and doing i18n on the name as well
@@ -89,15 +90,21 @@ class CollectionsController < ApplicationController
     end
   end
 
-  # NOTE - I haven't really implemented this one yet... started to, but it's not USED anywhere, yet...
   def destroy
     if @collection.special?
       flash[:error] = I18n.t(:special_collections_cannot_be_destroyed)
       return redirect_to collection_url(@collection)
     else
-      back = @collection.user ? user_collections_url(current_user) : community_url(@collection.community)
-      @collection.destroy
-      redirect_to(back)
+      back = @collection.user ? user_collections_url(current_user) : collection_url(@collection.community)
+      if @collection.update_attribute(:published, false)
+        flash[:notice] = I18n.t(:collection_destroyed)
+      else
+        flash[:error] = I18n.t(:collection_not_destroyed_error)
+      end
+      respond_to do |format|
+        format.html { redirect_to(back) }
+        format.xml  { head :ok }
+      end
     end
   end
 
@@ -115,10 +122,14 @@ private
 
   def find_collection
     begin
-      @collection = Collection.find(params[:id])
+      @collection = Collection.find(params[:collection_id] || params[:id])
     rescue ActiveRecord::RecordNotFound
       flash[:error] = I18n.t(:collection_not_found_error)
       return redirect_back_or_default
+    end
+    unless @collection.published?
+      render :action => 'unpublished'
+      return false
     end
     @watch_collection = logged_in? ? current_user.watch_collection : nil
   end
@@ -273,11 +284,11 @@ private
   def collection_items_with_scope(options)
     collection_items = []
     if params[:scope].nil? || params[:scope] == 'selected_items'
-      collection_items = options[:items]
+      collection_items = options[:items] # NOTE - no limit, since these are HTML parms, which are limited already.
     elsif params[:scope] == 'all_items'
-      collection_items = options[:from].collection_items
+      collection_items = options[:from].collection_items[0..$MAX_COLLECTION_ITEMS_TO_MANIPULATE]
     else # It's a particular type of item.
-      collection_items = options[:from].items_from_solr(:facet_type => params[:scope], :page => 1, :per_page => 20000).map { |i| i['instance'] }
+      collection_items = options[:from].items_from_solr(:facet_type => params[:scope], :page => 1, :per_page => $MAX_COLLECTION_ITEMS_TO_MANIPULATE).map { |i| i['instance'] }
     end
     collection_items
   end
@@ -309,18 +320,18 @@ private
     @editing = true # TODO - there's a more elegant way to handle the difference in the layout...
     @head_title = I18n.t(:edit_collection_head_title, :collection_name => @collection.name) unless @collection.blank?
   end
-  
+
   def set_sort_options
     @sort_options = [SortStyle.newest, SortStyle.oldest, SortStyle.alphabetical, SortStyle.reverse_alphabetical, SortStyle.richness, SortStyle.rating]
   end
-  
+
   def user_able_to_view_collection
     unless @collection && current_user.can_view_collection?(@collection)
       access_denied
       return true
     end
   end
-  
+
   def user_able_to_edit_collection
     unless @collection && current_user.can_edit_collection?(@collection)
       access_denied

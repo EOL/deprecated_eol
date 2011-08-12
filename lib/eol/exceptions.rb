@@ -13,6 +13,7 @@ module EOL
     class SecurityViolation < StandardError; end
     class UnknownFeedType < StandardError; end
     class WrongCurator < StandardError; end
+    class CommunitiesMustHaveAManager < StandardError; end
   end
 end
 

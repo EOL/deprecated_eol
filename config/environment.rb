@@ -190,6 +190,7 @@ Rails::Initializer.run do |config|
   $SOLR_DATA_OBJECTS_CORE = 'data_objects'
   $SOLR_SITE_SEARCH_CORE = 'site_search'
   $SOLR_COLLECTION_ITEMS_CORE = 'collection_items'
+  $SOLR_ACTIVITY_LOGS_CORE = 'activity_logs'
   $SOLR_BHL_CORE = 'bhl'
   $SOLR_DIR    = File.join(RAILS_ROOT, 'solr', 'solr')
   $INDEX_RECORDS_IN_SOLR_ON_SAVE = true
@@ -219,6 +220,8 @@ Rails::Initializer.run do |config|
   $AGENT_ID_OF_DEFAULT_COMMON_NAME_SOURCE = 9448
 
   $MAX_TAXA_TO_EXPIRE_BEFORE_EXPIRING_ALL = 1024
+
+  $MAX_COLLECTION_ITEMS_TO_MANIPULATE = 1000
 
   $SPECIAL_COMMUNITY_NAME = 'EOL Curators and Admins'
 

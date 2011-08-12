@@ -1,0 +1,32 @@
+%li
+  %h3
+    = content_page.page_name
+    %small= link_to " (#{I18n.t(:edit)})", edit_admin_content_page_path(content_page)
+  .actions
+    = button_to I18n.t(:move_up), { :action => 'move_up', :id => content_page.id },
+      { :disabled => block_of_pages.first == content_page, :class => 'move_up' }
+    = button_to I18n.t(:move_down), { :action => 'move_down', :id => content_page.id },
+      { :disabled => block_of_pages.last == content_page, :class => 'move_down' }
+    = link_to I18n.t(:admin_content_page_child_new_link),
+      new_admin_content_page_child_path(content_page), :class => 'button'
+    = button_to I18n.t(:delete), { :action => 'destroy', :id => content_page.id },
+      { :confirm => I18n.t(:admin_content_page_delete_confirmation, :page_name => content_page.page_name), :method => 'delete', :class => 'delete' }
+  .translations
+    %ul
+      - content_page.translations.each do |translated_content_page|
+        %li
+          %strong= "#{translated_content_page.language.label}:"
+          = I18n.t(:last_updated_time_ago, :time_passed => time_ago_in_words(translated_content_page.updated_at))
+          &bull;
+          = translated_content_page.active_translation ? I18n.t(:published) : I18n.t(:unpublished)
+          &bull;
+          = link_to I18n.t(:view), cms_page_path(content_page, :language => translated_content_page.language.iso_639_1)
+          &bull;
+          = link_to I18n.t(:edit), edit_admin_content_page_translated_content_page_path(content_page, translated_content_page)
+    = link_to I18n.t(:admin_translated_content_page_new_link),
+      new_admin_content_page_translated_content_page_path(content_page)
+
+  - unless content_page.children.empty?
+    %ul
+      - content_page.children.each do |child_page|
+        = render :partial => 'content_page_item_with_actions', :locals => { :content_page => child_page, :block_of_pages => content_page.children }

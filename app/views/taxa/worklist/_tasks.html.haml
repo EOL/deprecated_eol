@@ -1,0 +1,20 @@
+#tasks
+  %ul
+    - @data_objects.each do |data_object|
+      - en_type = en_type(data_object)
+      - task_class = @current_data_object.id == data_object.id ? "#{en_type} active" : en_type
+      - status_indicator = nil
+      - status_indicator = 'Ignored' if @task_status == 'ignored'
+      - status_indicator = 'Saved' if @task_status == 'curated'
+      - li_class = status_indicator ? status_indicator.downcase : nil
+      %li{:class => "#{task_class} #{li_class} #{en_type}"}
+        %span.icon
+        - if status_indicator.blank?
+          %span.indicator.invisible
+        - else
+          %span.indicator= status_indicator
+        - if ['image', 'video', 'sound'].include?(en_type)
+          = render :partial => "media_data_object.html.haml", :locals => { :item => data_object, :en_type => en_type }
+        - else
+          = render :partial => "#{en_type}_data_object.html.haml", :locals => { :item => data_object }
+  %p.more= link_to I18n.t(:get_more_tasks), current_url(false), {:class => "button"}

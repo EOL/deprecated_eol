@@ -11,6 +11,7 @@ module EOL
 
       def obliterate
         @solr_api.delete_all_documents
+        @solr_api.optimize
       end
       
       def optimize

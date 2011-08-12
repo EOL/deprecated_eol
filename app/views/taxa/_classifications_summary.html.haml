@@ -6,24 +6,19 @@
       = link_to(I18n.t(:see_all_classifications_with_count_html, :count => count), taxon_names_path(@taxon_concept))
   - if count > 0
     %ul
-      - @browsable_hierarchy_entries[0..1].each do |hierarchy_entry|
+      - @browsable_hierarchy_entries.shuffle[0..1].each do |hierarchy_entry|
         %li
-          %h4= link_to I18n.t(:classification_view_in_hierarchy, :hierarchy_label => hierarchy_entry.hierarchy.label), taxon_hierarchy_entry_overview_path(hierarchy_entry.taxon_concept_id, hierarchy_entry)
-          - root_ancestor, immediate_parent = hierarchy_entry.kingdom_and_immediate_parent
-          - if root_ancestor
-            %ul
-              -# TODO: Fix styles for long names (second name is disappearing out of div)
-              -# TODO: Find out whether links on kingdom and genus should be going to taxon pages or specific hierarchy entries for the classification (is the latter even an option?)
-              -# TODO: Provide more descriptive title attributes, e.g. what happens when a rank is null, blank or will it just say 'taxon' if rank is missing?
-              -# TODO: If we're on a Kingdom page, we don't want two hard-coded entries, here:
+          - taxon_rank = hierarchy_entry.rank.blank? ? 'Taxon' : hierarchy_entry.rank.label.firstcap
+          = I18n.t(:rank_recognized_by_agent_colon, :rank => taxon_rank, :agent => link_to(hierarchy_entry.hierarchy.agent.full_name, taxon_hierarchy_entry_overview_path(@taxon_concept, hierarchy_entry)))
+          = link_to(I18n.t(:show_full_tree), taxon_hierarchy_entry_overview_path(@taxon_concept, hierarchy_entry), :class => 'show_tree', :data_url => taxon_hierarchy_entry_tree_path(@taxon_concept, hierarchy_entry))
+          %ul#taxonomictext.classification.summary
+            - if hierarchy_entry.has_parent?
               %li
-                %p
-                  = link_to(root_ancestor.title_canonical, taxon_hierarchy_entry_overview_path(root_ancestor.taxon_concept_id, root_ancestor), { :title => root_ancestor.rank_label })
-                - unless immediate_parent.nil?
-                  %ul
-                    %li
-                      %p
-                        = link_to(immediate_parent.title_canonical, taxon_hierarchy_entry_overview_path(immediate_parent.taxon_concept_id, immediate_parent), { :title => immediate_parent.rank_label })
+                = render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => hierarchy_entry.parent, :include_common_names => true, :node_class => 'light'})
+                %ul.branch
+                  = render(:partial => 'taxa/classifications_summary_minitree_node_with_children', :locals => {:hierarchy_entry => hierarchy_entry})
+            - else # No ancestor, start with this node:
+              = render(:partial => 'taxa/classifications_summary_minitree_node_with_children', :locals => {:hierarchy_entry => hierarchy_entry})
   - else
     .empty
       %p= I18n.t(:classifications_empty)

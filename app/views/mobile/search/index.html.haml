@@ -23,7 +23,7 @@
       = will_paginate @all_results, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next), :inner_window => 2, :outer_window => 2
       %ul{"data-role" => "listview", "data-inset"=>"true"}
         - @all_results.each do |result|
-          %li
+          %li.result_item
             - result_instance = result['instance']
             -unless result_instance.nil?
               - first_image = result_instance.media.select {|m| m.image?}.first

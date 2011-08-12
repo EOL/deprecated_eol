@@ -21,7 +21,7 @@
             %li{:class => resource_is_active('users/newsfeeds')}= link_to I18n.t(:newsfeed), user_newsfeed_path(@user)
             %li{:class => resource_is_active('users', 'show')}= link_to I18n.t(:my_info), user_path(@user)
             %li{:class => resource_is_active('users/activities')}= link_to I18n.t(:my_activity), user_activity_path(@user)
-            - collections_count = (@user == current_user) ? @user.collections.count : @user.published_collections.count
+            - collections_count = @user.collections.count
             %li{:class => resource_is_active('users/collections')}= link_to I18n.t(:collections_with_count, :count => collections_count), user_collections_path(@user)
             %li{:class => resource_is_active('users/content_partners')}= link_to I18n.t(:users_content_partners_link), user_content_partners_path(@user)
       = yield

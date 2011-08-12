@@ -1,6 +1,6 @@
 @import "common"
 
-.join
+.session.join
   font-weight: bold
   text-align: center
   p
@@ -73,11 +73,34 @@ body
         font-size: 1.08em
         line-height: 38px
         +box-shadow(0 0 4px rgba(0, 0, 0, .6))
-    .join
+    .session
       position: absolute
-      right: 40px
-      top: 55px
+      right: 30px
+      top: 45px
       z-index: 2
+      background: #080f13
+      padding: 10px
+      &.signed_in
+        img
+          float: right
+          margin: 0 0 0 10px
+          border: 1px solid #cad3db
+        .details
+          float: right
+          padding: 5px 0 0 0
+          font-size: .92em
+          line-height: 130%
+          text-align: right
+          color: #ffffff
+          strong
+            font-size: 1.09em
+          p.user_links
+            font-size: 9px
+            text-transform: uppercase
+            color: #62707d
+            a
+              color: #acd7ff
+              text-decoration: none
     .thumbnails
       position: absolute
       left: 0
@@ -160,7 +183,7 @@ body
             font-weight: bold
             text-transform: uppercase
             color: #82919e
-    .join
+    .session
       float: right
       clear: right
       width: 380px

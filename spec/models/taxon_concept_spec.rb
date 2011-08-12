@@ -354,11 +354,11 @@ describe TaxonConcept do
     tc.quick_common_name.should == "A name"
   end
 
-  # TODO - This test should be modified/rewritten while working on WEB-2542
-  it 'should return a toc item which accepts user submitted text' # do
-   #    @taxon_concept.tocitem_for_new_text.class.should == TocItem
-   #    @empty_taxon_concept.tocitem_for_new_text.class.should == TocItem
-   #  end
+  # WEB-2542
+  it 'should return a toc item which accepts user submitted text' do
+      @taxon_concept.tocitem_for_new_text.class.should == TocItem
+      @empty_taxon_concept.tocitem_for_new_text.class.should == TocItem
+  end
 
   it 'should return first toc item which accepts user submitted text' do
     @taxon_concept.tocitem_for_new_text.label.should == @overview.label
@@ -569,7 +569,7 @@ describe TaxonConcept do
   it 'should have an activity log' do
     tc = TaxonConcept.gen
     tc.respond_to?(:activity_log).should be_true
-    tc.activity_log.should be_a EOL::ActivityLog
+    tc.activity_log.should be_a WillPaginate::Collection
   end
 
   it 'should list collections in the proper order - most communities show firt' do
@@ -608,12 +608,11 @@ describe TaxonConcept do
     member1 = Member.gen(:community => community2, :user => user1)
     member2 = Member.gen(:community => community2, :user => user2)
     member3 = Member.gen(:community => community1, :user => user3)
-    collection1 = Collection.gen()
-    collection2 = Collection.gen()
+    collection1 = community1.collection
+    collection2 = community2.collection
     tc = TaxonConcept.gen
     coll_item1 = CollectionItem.gen(:object_type => "TaxonConcept", :object_id => tc.id, :collection => collection1)
     coll_item2 = CollectionItem.gen(:object_type => "TaxonConcept", :object_id => tc.id, :collection => collection2)
-    tc.collection_items[0].collection.community = community1
     tc.collection_items[1].collection.community = community2
     tc.top_communities[0].name.should == community2.name
     tc.top_communities[1].name.should == community1.name

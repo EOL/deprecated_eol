@@ -2,35 +2,49 @@
 - unless data_object.blank?
   - # How many, if any of these options do we need?
   - visible ||= true
-  - invisible ||= false
   - preview ||= false
-  - entries = data_object.published_entries.collect{|e| e if (visible && Visibility.visible == e.visibility) || (invisible && Visibility.invisible == e.visibility) || (preview && Visibility.preview == e.visibility)}.compact
+  - inappropriate |= false
+  - invisible ||= current_user.is_admin? || current_user.is_curator? ? true : false
+
+  -# entries can now be a DOHE, CDOHE or UDO  
+
+  - entries = data_object.all_associations.collect{|e| e if (visible && Visibility.visible == e.visibility) || (preview && Visibility.preview == e.visibility) || (inappropriate && Vetted.inappropriate == e.vetted) || (invisible && Visibility.invisible == e.visibility)}.compact
+
   - if entries.blank?
     %p= I18n.t(:data_object_not_associated_with_any_hierarchies)
   - else
-    - form_tag({:controller => 'data_objects', :action => 'curate_associations'}, {:class => 'review_status'}) do
+    - form_tag({:controller => '/data_objects', :action => 'curate_associations'}, {:class => 'review_status'}) do
       = hidden_field_tag 'id', data_object.id
+      - if params[:worklist_return_to]
+        = hidden_field_tag :worklist_return_to, params[:force_return_to] || current_url
+        = hidden_field_tag :return_to, params[:worklist_return_to]
+      - else
+        = hidden_field_tag :return_to, current_url
       - entries.each do |entry|
+        - supplier = entry.hierarchy.agent unless entry.class == UsersDataObject
         %fieldset
-          %legend= link_to entry.name.string, taxon_overview_path(entry.taxon_concept_id)
-          - if entry.by_curated_association? && entry.associated_by_curator.id == current_user.id
-            %p
-              = link_to I18n.t(:remove_data_object_association), remove_association_path(:id => data_object.id, :hierarchy_entry_id => entry.id), :id => "remove_association_#{entry.id}"
+          - if entry.class == HierarchyEntry
+            %legend= link_to entry.name.string, taxon_overview_path(entry.taxon_concept_id)
+            - if entry.by_curated_association? && entry.associated_by_curator.id == current_user.id
+              %p
+                = link_to I18n.t(:remove_data_object_association), remove_association_path(:id => data_object.id, :hierarchy_entry_id => entry.id), :id => "remove_association_#{entry.id}"
+          - else
+            %legend= link_to entry.taxon_concept.quick_scientific_name, taxon_overview_path(entry.taxon_concept_id)
+
           - vetted_selected = entry.vetted_id.to_i
-          - statuses = Vetted.all.collect{|v| [ v == Vetted.unknown ? I18n.t(:unreviewed) : v.label, v.id ] }.compact.sort
+          - statuses = Vetted.all.collect{|v| [ v == Vetted.unknown ? I18n.t(:unreviewed) : v.label, v.id ] unless v == Vetted.inappropriate }.compact.sort
           = select_tag "vetted_id_#{entry.id}", options_for_select(statuses, vetted_selected)
           = I18n.t(:and_between_form_items)
           - visibility_selected = entry.visibility_id.to_i
           - visibilities = Visibility.all.collect{|v| [ v == Visibility.invisible ? I18n.t(:hidden) : v.label, v.id ] unless v == Visibility.preview }.compact.sort
           = select_tag "visibility_id_#{entry.id}", options_for_select(visibilities, visibility_selected)
-          - unless entry.hierarchy.agent.blank?
-            %p
-              = I18n.t(:supplier_colon)
-              - if entry.hierarchy.agent.homepage.blank?
-                = #{entry.hierarchy.agent.full_name}
-              - else
-                = link_to entry.hierarchy.agent.full_name, entry.hierarchy.agent.homepage
+
+          - unless supplier.blank?          
+            = render :partial => 'data_objects/supplier', :locals => { :agent => supplier, :data_object => data_object }            
+
           - untrusted_reasons = (vetted_selected == Vetted.untrusted.id.to_i) ? data_object.untrust_reasons(entry) : []
+          - if untrusted_reasons.blank? 
+            - untrusted_reasons = (visibility_selected == Visibility.invisible.id.to_i) ? data_object.hide_reasons(entry) : []
           %ul.untrusted
             %li
               = check_box_tag "untrust_reasons_#{entry.id}[]", UntrustReason.misidentified.id.to_s, untrusted_reasons.include?(UntrustReason.misidentified.id), {:id => "#{entry.id}_untrust_reason_misidentified"}

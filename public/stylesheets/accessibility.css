@@ -136,21 +136,64 @@ form#switch_hierarchy_entry fieldset {
   padding: 10px 0;
   margin: 20px 0 0 0; }
 
-#main .header .pagination {
-  position: relative;
-  top: 5px;
-  left: 0;
-  width: 100%; }
-  #main .header .pagination a {
-    position: relative !important;
-    top: 0 !important;
-    left: 0 !important; }
+#main .header, .cms_page .header {
+  text-align: center; }
+  #main .header .pagination, .cms_page .header .pagination {
+    position: relative;
+    top: 5px;
+    left: 0;
+    width: 100%; }
+    #main .header .pagination a, .cms_page .header .pagination a {
+      position: relative !important;
+      top: 0 !important;
+      left: 0 !important; }
 
 /*Static pages */
-.exemplars ul img, .partners ul img {
+.exemplars ul img {
   clear: both;
   float: left;
   margin: 0 20px 30px 30px; }
+
+/*content partners */
+.cms_page .header {
+  border-bottom: 1px solid #cad3db;
+  padding-bottom: 1em;
+  margin-bottom: 30px; }
+.cms_page .footer {
+  border-top: 1px solid #cad3db;
+  padding-top: 1em; }
+.cms_page ul.object_list {
+  list-style_type: none; }
+  .cms_page ul.object_list li img {
+    max-width: 68px; }
+  .cms_page ul.object_list li h4 {
+    margin-bottom: 0.5em; }
+    .cms_page ul.object_list li h4 a {
+      color: #195184;
+      text-decoration: underline; }
+  .cms_page ul.object_list li p {
+    clear: none; }
+
+#content_partner_edit.site_column, #content_partner_new.site_column {
+  width: 640px; }
+
+#content_partner_show .main_container {
+  padding: 40px;
+  border: 1px solid #93a4b0;
+  border-width: 0 1px; }
+#content_partner_show #sidebar {
+  width: 200px; }
+
+ul.content_partner_contacts li {
+  margin: 0 0 20px 0; }
+
+#content_partner_statistics .heading {
+  text-align: center; }
+  #content_partner_statistics .heading fieldset, #content_partner_statistics .heading input[type="submit"] {
+    display: inline;
+    margin: 0; }
+#content_partner_statistics table {
+  margin-top: 20px; }
 
 /*warning messages - check HR commits for updates to this */
 p.status.error {
@@ -405,15 +448,13 @@ body > #header .section .session .join {
  * so we override the styles here */
 #classifications_summary h4 {
   padding-bottom: 15px !important; }
-#classifications_summary li {
-  overflow: hidden; }
-  #classifications_summary li li p {
-    font-weight: bold;
-    float: left; }
-  #classifications_summary li li li p {
-    padding-left: 23px !important;
-    margin-left: 10px;
-    background: transparent url("/images/v2/icon_classification_arrow.png") 0 0 no-repeat; }
+#classifications_summary li li p {
+  font-weight: bold;
+  float: left; }
+#classifications_summary li li li p {
+  padding-left: 23px !important;
+  margin-left: 10px;
+  background: transparent url("/images/v2/icon_classification_arrow.png") 0 0 no-repeat; }
 #classifications_summary .empty p {
   font-size: 1em !important; }
 
@@ -610,3 +651,71 @@ table.standard td.nowrap {
 #collections_choose li img {
   float: left;
   margin-right: 2em !important; }
+
+.article .pagination {
+  margin-top: 1em; }
+
+ul.classification > li > a {
+  font-weight: normal; }
+
+ul.classification a.bold {
+  font-weight: bold; }
+
+ul.classification.summary {
+  margin-left: 1em; }
+
+#classifications_summary > ul > li {
+  margin-bottom: 1em; }
+
+ul#taxonomictext #taxonomic-text-container {
+  width: 315px;
+  margin: 1em -1em;
+  overflow: auto;
+  border: 1px solid #cad3db; }
+  ul#taxonomictext #taxonomic-text-container ul.classification {
+    margin: 10px; }
+    ul#taxonomictext #taxonomic-text-container ul.classification li {
+      white-space: nowrap; }
+
+#page_heading .page_actions li + li {
+  margin: 10px 0; }
+
+h1.notice {
+  font-size: 2em;
+  text-align: center;
+  padding: 4em; }
+
+.column.curators img, .column.collections img, .column.communities img {
+  width: 48px;
+  height: 48px; }
+
+#worklist #task #sidebar {
+  width: auto;
+  float: none;
+  padding: 0px !important; }
+
+#worklist #tasks li img {
+  max-width: 60x;
+  max-height: 60px;
+  width: expression(this.width > 60 ? "60px" : true);
+  height: expression(this.height > 60 ? "60px" : true); }
+
+#sidebar p {
+  padding-bottom: 1em; }
+
+#task .media img {
+  margin: 0 auto;
+  display: block; }
+
+.invisible {
+  opacity: 0; }
+
+#worklist .filters fieldset.actions {
+  padding: 0;
+  line-height: 22px;
+  color: #667309;
+  text-transform: uppercase;
+  font-weight: bold; }
+
+#worklist #tasks li:hover {
+  background-color: white !important; }

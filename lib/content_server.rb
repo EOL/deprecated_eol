@@ -41,6 +41,7 @@ class ContentServer
   def self.upload_content(path_from_root, port = nil)
     ip_with_port = $IP_ADDRESS_OF_SERVER.dup
     ip_with_port += ":" + port if port && !ip_with_port.match(/:[0-9]+$/)
+    path_from_root = URI.encode(URI.encode(path_from_root))
     parameters = 'function=upload_content&file_path=http://' + ip_with_port + path_from_root
     response = EOLWebService.call(:parameters => parameters)
     if response.blank?

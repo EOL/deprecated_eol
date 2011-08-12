@@ -100,6 +100,11 @@ class SolrAPI
     optimize
   end
   
+  def obliterate
+    delete_all_documents
+    optimize
+  end
+  
   def delete_by_id(id, options = {})
     options[:optimize] ||= false
     post_xml('update', "<delete><id>#{id}</id></delete>")
@@ -260,7 +265,6 @@ class SolrAPI
       this_object_hash[:data_type_id] = data_object.data_type_id
       this_object_hash[:published] = data_object.published ? 1 : 0
       this_object_hash[:data_rating] = data_object.data_rating
-      this_object_hash[:description] = data_object.description
       this_object_hash[:created_at] = data_object.created_at.solr_timestamp
       if concept = data_object.linked_taxon_concept
         this_object_hash[:taxon_concept_id] = [concept.id]

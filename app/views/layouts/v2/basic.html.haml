@@ -5,6 +5,7 @@
     #page_heading
       .site_column
         .hgroup
+          = @navigation_tree_breadcrumbs unless @navigation_tree_breadcrumbs.blank?
           %h1= @page_title
           %h2= @page_subtitle unless @page_subtitle.blank?
           %p= @page_description unless @page_description.blank?

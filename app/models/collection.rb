@@ -8,13 +8,16 @@ class Collection < ActiveRecord::Base
 
   has_many :collection_items
   accepts_nested_attributes_for :collection_items
+  has_many :others_collection_items, :class_name => CollectionItem.to_s, :as => :object
+  has_many :containing_collections, :through => :others_collection_items, :source => :collection
 
   has_many :comments, :as => :parent
   # NOTE - You MUST use single-quotes here, lest the #{id} be interpolated at compile time. USE SINGLE QUOTES.
+  # this will return the communities which have collected this collection. Those communities 'feature' this collection
   has_many :communities,
     :finder_sql => 'SELECT cm.* FROM communities cm, collections c, collection_items ci ' +
       'WHERE ci.object_type = "Collection" AND ci.object_id = #{id} ' +
-      'AND ci.collection_id = c.id AND c.community_id = cm.id'
+      'AND ci.collection_id = c.id AND c.community_id = cm.id AND cm.published = 1'
 
   has_one :resource
   has_one :resource_preview, :class_name => Resource.to_s, :foreign_key => :preview_collection_id

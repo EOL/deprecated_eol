@@ -5,7 +5,7 @@
         %p
           =I18n.t("species_curated")
       %td
-        =I18n.t("_nbsp__nbsp__nbsp_curator_") 
+        =I18n.t("curator_colon") 
         = h @user.full_name  
         \&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
         = link_to I18n.t("back_to_profile"), { :controller => 'users', :action => :show, :id => @user.id }

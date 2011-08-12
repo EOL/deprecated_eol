@@ -402,7 +402,7 @@ body {
           font-weight: bold;
           color: #394651; }
         #content .section .stats li.taxon dl {
-          background: transparent url("/images/v2/icon_taxon.png") right 0 no-repeat; }
+          background: transparent url("/images/v2/icon_taxon.png") right 50% no-repeat; }
         #content .section .stats li.contributors dl {
           background: transparent url("/images/v2/icon_contributors.png") right 2px no-repeat; }
         #content .section .stats li.communities dl {
@@ -438,5 +438,6 @@ body {
             color: #82919e; }
     #content .section .join {
       float: left;
+      clear: left;
       width: 380px;
       margin: 0 0 30px 0; }

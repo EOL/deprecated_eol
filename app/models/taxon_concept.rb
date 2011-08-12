@@ -42,6 +42,8 @@ class TaxonConcept < SpeciesSchemaModel
   has_many :google_analytics_partner_taxa
   has_many :collection_items, :as => :object
   has_many :collections, :through => :collection_items
+  # TODO: this is just an alias of the above so all collectable entities have this association
+  has_many :containing_collections, :through => :collection_items, :source => :collection
   has_many :preferred_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=0 AND taxon_concept_names.preferred=1'
   has_many :preferred_common_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=1 AND taxon_concept_names.preferred=1'
   has_many :denormalized_common_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=1'
@@ -275,7 +277,7 @@ class TaxonConcept < SpeciesSchemaModel
 
     return nil if datos_to_load.empty?
 
-    add_include = [ :translations, :data_object_translation, :users_data_objects_ratings, :comments, :agents_data_objects, :info_items, :toc_items, { :users_data_objects => :user },
+    add_include = [ :translations, :data_object_translation, :users_data_objects_ratings, :comments, :agents_data_objects, :info_items, :toc_items, { :users_data_object => [:user, :taxon_concept, :vetted, :visibility] },
       { :published_refs => { :ref_identifiers => :ref_identifier_type } }, :all_comments]
     add_select = {
       :users_data_objects_ratings => '*',
@@ -315,7 +317,7 @@ class TaxonConcept < SpeciesSchemaModel
     end
     special_content
   end
-  
+
   # Returns education content
   def education_content
     toc_item = TocItem.education
@@ -326,17 +328,16 @@ class TaxonConcept < SpeciesSchemaModel
       get_default_content(toc_item)
     end
   end
-  
+
   # Returns nucleotide sequences HE
   def nucleotide_sequences_hierarchy_entry_for_taxon
     return TaxonConcept.find_entry_in_hierarchy(self.id, Hierarchy.ncbi.id)
   end
-  
+
   # Returns external links
   def content_partners_links
    return self.outlinks.sort_by { |ol| ol[:hierarchy_entry].hierarchy.label }
   end
-  
 
   # Returns harvested text objects, user submitted object and special content for given toc items
   def details_for_toc_items(toc_items, options = {})
@@ -840,15 +841,13 @@ class TaxonConcept < SpeciesSchemaModel
     return @iucn if !@iucn.nil?
     iucn_objects = data_objects.select{ |d| d.is_iucn? && d.published? }.sort_by{ |d| Invert(d.id) }
     my_iucn = iucn_objects.empty? ? nil : DataObject.find(iucn_objects[0].id, :select => 'description, source_url')
-
-    temp_iucn = my_iucn.nil? ? DataObject.new(:source_url => 'http://www.iucnredlist.org/', :description => I18n.t(:not_evaluated)) : my_iucn
-    temp_iucn.instance_eval { def agent_url; return Agent.iucn.homepage; end }
+    temp_iucn = my_iucn.nil? ? DataObject.new(:source_url => 'http://www.iucnredlist.org/about', :description => I18n.t(:not_evaluated)) : my_iucn
     @iucn = temp_iucn
     return @iucn
   end
 
   def iucn_conservation_status_url
-    return iucn.respond_to?(:agent_url) ? iucn.agent_url : iucn.source_url
+    return iucn.source_url
   end
 
   # TODO - find refs to these and make them grab a hierarchy...
@@ -1298,7 +1297,7 @@ class TaxonConcept < SpeciesSchemaModel
     # communities are sorted by the most number of members - descending order
     community_ids = communities.map{|c| c.id}.compact
     return [] if community_ids.blank?
-    temp = SpeciesSchemaModel.connection.execute(" SELECT c.id, COUNT(m.user_id) total FROM members m JOIN communities c ON c.id = m.community_id WHERE c.id in (#{community_ids.join(',')})   GROUP BY c.id ORDER BY total desc ").all_hashes
+    temp = SpeciesSchemaModel.connection.execute("SELECT c.id, COUNT(m.user_id) total FROM members m JOIN communities c ON c.id = m.community_id WHERE c.id in (#{community_ids.join(',')})   GROUP BY c.id ORDER BY total desc").all_hashes
     if temp.blank?
       return communities
     else
@@ -1308,7 +1307,12 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def communities
-    @communities ||= collection_items.map {|i| i.community }.compact
+    @communities ||= Community.find_by_sql("
+      SELECT c.* FROM communities c
+        JOIN collections cl ON (cl.community_id = c.id)
+        JOIN collection_items ci ON (ci.collection_id = cl.id)
+      WHERE ci.object_id = #{id} AND object_type = 'TaxonConcept' AND c.published = 1
+    ")
   end
 
   # Returns three collections, prioritized as:

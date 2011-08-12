@@ -1,33 +1,17 @@
 #sidebar
-  .collection_contributors
-    %h3= I18n.t(:most_active_members)
-    - # FIXME: top_active_members needs actual measure of activiy
-    %ul
-      - @community.top_active_members.each do |member|
-        = render :partial => 'members/member_summary', :locals => {:member => member, :minimal => true}
+  = render :partial => 'communities/active_members_sidebar'
 #collections_tab.main_container
   .heading
     %h3= I18n.t(:community_focus)
   %ul.object_list
     = render :partial => 'collections/collection_summary', :locals => { :collection => @community.focus }
-  - if @current_member && @current_member.manager? && @pending_collections
-    - if @pending_collections.empty?
-      .heading
-        %h3= I18n.t(:pending_collections_with_count, :count => 0)
-    - else
-      .heading
-        %h3= I18n.t(:pending_collections_with_count, :count => @pending_collections.size)
-        = render :partial => 'shared/sort_by_date_form'
-      %ul.object_list
-        - @pending_collections.each do |collection|
-          = render :partial => 'collections/collection_summary', :locals => { :collection => collection, :show_description => true }
-  - if @community.collections.empty?
+  - if @community_collections.empty?
     .heading
       %h3= I18n.t(:endorsed_collections_with_count, :count => 0)
   - else
     .heading
-      %h3= I18n.t(:endorsed_collections_with_count, :count => @community.collections.size)
+      %h3= I18n.t(:endorsed_collections_with_count, :count => @community_collections.size)
       = render :partial => 'shared/sort_by_date_form'
     %ul.object_list
-      - @community.collections.each do |collection|
-        = render :partial => 'collections/collection_summary', :locals => { :collection => collection, :show_description => true }
+      - @community_collections.each do |ci|
+        = render :partial => 'collections/collection_summary', :locals => { :collection => ci.object, :show_user => true, :annotation => ci.annotation }

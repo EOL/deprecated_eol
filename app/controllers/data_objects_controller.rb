@@ -2,7 +2,7 @@ class DataObjectsController < ApplicationController
 
   layout :data_objects_layout
 
-  before_filter :check_authentication, :only => [:new, :create, :edit, :update] # checks login only
+  before_filter :check_authentication, :only => [:new, :create, :edit, :update, :ignore] # checks login only
   before_filter :load_data_object, :except => [:index, :new, :create, :preview]
   before_filter :authentication_own_user_added_text_objects_only, :only => [:edit, :update]
   before_filter :allow_login_then_submit, :only => [:rate]
@@ -51,6 +51,7 @@ class DataObjectsController < ApplicationController
       )
       CollectionActivityLog.create(:collection => current_user.watch_collection, :user => current_user,
                                    :activity => Activity.collect, :collection_item => collection_item)
+      @data_object.log_activity_in_solr(:keyword => 'create', :user => current_user, :taxon_concept => @taxon_concept)
       redirect_to taxon_details_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}")
     end
   end
@@ -131,11 +132,12 @@ class DataObjectsController < ApplicationController
     @comments = @data_object.all_comments.dup.paginate(:page => params[:page], :order => 'updated_at DESC', :per_page => Comment.per_page)
     @slim_container = true
     @revisions = @data_object.revisions.sort_by(&:created_at).reverse
-    @translations = @data_object.available_translations_data_objects(current_user)
+    @translations = @data_object.available_translations_data_objects(current_user, nil)
     @taxon_concepts = @data_object.get_taxon_concepts(:published => :preferred)
     @scientific_names = @taxon_concepts.inject({}) { |res, tc| res[tc.scientific_name] = { :common_name => tc.common_name, :taxon_concept_id => tc.id }; res }
     @image_source = get_image_source if @data_object.is_image?
     @current_user_ratings = logged_in? ? current_user.rating_for_object_guids([@data_object.guid]) : {}
+    @page = params[:page]
   end
 
   # GET /data_objects/1/attribution
@@ -158,6 +160,7 @@ class DataObjectsController < ApplicationController
   def remove_association
     he = HierarchyEntry.find(params[:hierarchy_entry_id])
     @data_object.remove_curated_association(current_user, he)
+    @data_object.update_solr_index
     log_action(he, :remove_association, nil)
     redirect_to data_object_path(@data_object)
   end
@@ -165,6 +168,7 @@ class DataObjectsController < ApplicationController
   def save_association
     he = HierarchyEntry.find(params[:hierarchy_entry_id])
     @data_object.add_curated_association(current_user, he)
+    @data_object.update_solr_index
     log_action(he, :add_association, nil)
     redirect_to data_object_path(@data_object)
   end
@@ -182,9 +186,13 @@ class DataObjectsController < ApplicationController
   end
 
   def curate_associations
-    raise EOL::Exceptions::Pending
+    return_to = params[:return_to] unless params[:return_to].blank?
+    store_location(return_to)
     begin
-      @data_object.published_entries.each do |phe|
+      entries = []
+      entries = @data_object.all_associations
+      
+      entries.each do |phe|
         comment = curation_comment(params["curation_comment_#{phe.id}"])
         vetted_id = params["vetted_id_#{phe.id}"].to_i
         # make visibility hidden if curated as Inappropriate or Untrusted
@@ -200,10 +208,23 @@ class DataObjectsController < ApplicationController
                      }
         curate_association(current_user, phe, all_params)
       end
+      @data_object.update_solr_index
     rescue => e
       flash[:error] = e.message
     end
-    redirect_to data_object_path(@data_object)
+    redirect_back_or_default
+  end
+  
+  def ignore
+    return_to = params[:return_to] unless params[:return_to].blank?
+    store_location(return_to)
+    if params[:undo]
+      WorklistIgnoredDataObject.destroy_all("user_id = #{current_user.id} AND data_object_id = #{@data_object.id}")
+    else
+      @data_object.worklist_ignored_data_objects << WorklistIgnoredDataObject.create(:user => current_user, :data_object => @data_object)
+    end
+    @data_object.update_solr_index
+    redirect_back_or_default
   end
 
   # NOTE - It seems like this is a HEAVY controller... and perhaps it is.  But I can't think of *truly* appropriate
@@ -228,7 +249,7 @@ private
   end
 
   def authentication_own_user_added_text_objects_only
-    if !@data_object.is_text? || @data_object.users_data_objects.blank? ||
+    if !@data_object.is_text? || @data_object.users_data_object.blank? ||
        @data_object.user.id != current_user.id
       access_denied
     end
@@ -324,8 +345,8 @@ private
       handle_curation(curated_object, user, opts).each do |action|
         log = log_action(curated_object, action, opts)
         # Saves untrust reasons, if any
-        unless opts['untrust_reason_ids'].blank?
-          save_untrust_reasons(log, action, opts['untrust_reason_ids'])
+        unless opts[:untrust_reason_ids].blank?
+          save_untrust_reasons(log, action, opts[:untrust_reason_ids])
         end
       end
       # TODO - Update Solr Index
@@ -337,12 +358,13 @@ private
   end
 
   def get_curated_object(dato, he)
-    if he.associated_by_curator
+    if he.class == UsersDataObject
+      curated_object = UsersDataObject.find_by_data_object_id(dato.id)
+    elsif he.associated_by_curator
       curated_object = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(dato.id, he.id)
     else
       curated_object = DataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id(dato.id, he.id)
     end
-    return curated_object
   end
 
   # Figures out exactly what kind of curation is occuring, and performs it.  Returns an *array* of symbols
@@ -397,12 +419,15 @@ private
 
   # TODO - Remove the opts parameter if we not intend to use it.
   def log_action(object, method, opts)
+    object_id = object.class == "DataObjectsHierarchyEntry" ? @data_object.id : object.id
+    he = object.hierarchy_entry unless object.hierarchy_entry.blank?
     CuratorActivityLog.create(
       :user => current_user,
       :changeable_object_type => ChangeableObjectType.send(object.class.name.underscore.to_sym),
-      :object_id => object.id,
+      :object_id => object_id,
       :activity => Activity.send(method),
       :data_object => @data_object,
+      :hierarchy_entry => he,
       :created_at => 0.seconds.from_now
     )
   end

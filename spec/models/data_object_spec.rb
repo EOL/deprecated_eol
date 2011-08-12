@@ -13,11 +13,6 @@ describe DataObject do
     @curator         = @testy[:curator]
     @another_curator = create_curator
     
-    # TODO - Uncomment the following 3 lines and make appropriate changes whenever the system is capable of handling the user data objects.
-    # # add_user_submitted_text
-    # @data_object     = @taxon_concept.add_user_submitted_text(:user => @curator)
-    # DataObjectsTaxonConcept.gen(:taxon_concept_id => @taxon_concept.id, :data_object_id => @data_object.id)
-    
     @dato = DataObject.gen(:description => 'That <b>description has unclosed <i>html tags')
     DataObjectsTaxonConcept.gen(:taxon_concept_id => @taxon_concept.id, :data_object_id => @dato.id)
     @tag1 = DataObjectTag.gen(:key => 'foo',    :value => 'bar')
@@ -53,6 +48,8 @@ describe DataObject do
     @content_server_match = %r/#{content_server_match}/
     @flash_dato = DataObject.gen(:data_type => DataType.find_by_translated(:label, 'flash'), :object_cache_url => @big_int)
 
+    # add user submitted text
+    @user_submitted_text = @taxon_concept.add_user_submitted_text(:user => @curator)
   end
 
   it 'should be able to replace wikipedia articles' do
@@ -325,7 +322,7 @@ describe DataObject do
   it 'should have an activity_log' do
     dato = DataObject.gen
     dato.respond_to?(:activity_log).should be_true
-    dato.activity_log.should be_a EOL::ActivityLog
+    dato.activity_log.should be_a WillPaginate::Collection
   end
 
   it 'should add an entry in curated_data_objects_hierarchy_entries when a curator adds an association' do
@@ -354,15 +351,21 @@ describe DataObject do
 
   it '#curate_association should curate the given association'
 
-  # TODO - Uncomment and fix following test whenever the system is capable of handling the user data objects.
-  # it '#published_entries should read data_objects_hierarchy_entries' do
-  #   @data_object.should_receive(:hierarchy_entries).and_return([])
-  #   @data_object.published_entries.should == []
-  # end
+  it '#published_entries should read data_objects_hierarchy_entries' do
+    @user_submitted_text.hierarchy_entries == []
+    @user_submitted_text.published_entries.should == []
+  end
 
-  # TODO - Uncomment and fix following test whenever the system is capable of handling the user data objects.
-  # it '#published_entries should have a user_id on hierarchy entries that were added by curators' do
-  #   @data_object.published_entries.should == []
-  # end
+  it '#published_entries should have a user_id on hierarchy entries that were added by curators' do
+    @user_submitted_text.hierarchy_entries == []
+    @user_submitted_text.published_entries.should == []
+  end
 
+  it '#all_associations should return all associations for the data object' do
+    all_associations_count_for_udo = @user_submitted_text.all_associations.count
+    CuratedDataObjectsHierarchyEntry.find_or_create_by_hierarchy_entry_id_and_data_object_id( @hierarchy_entry.id, 
+        @user_submitted_text.id, :vetted => Vetted.trusted, :visibility => Visibility.visible, :user => @curator)
+    @user_submitted_text.reload
+    @user_submitted_text.all_associations.count.should == all_associations_count_for_udo + 1
+  end
 end

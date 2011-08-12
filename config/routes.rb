@@ -28,6 +28,7 @@ ActionController::Routing::Routes.draw do |map|
                                                          :except => [:index, :show],
                                                          :namespace => "content_partners/"
     content_partner.resources :resources, :namespace => "content_partners/"
+    content_partner.resource :statistics, :only => [:show], :namespace => "content_partners/"
   end
 
 # WIP
@@ -55,6 +56,7 @@ ActionController::Routing::Routes.draw do |map|
                                                     :autocomplete_for_tag_key => :get },
                                    :member => { :autocomplete_for_tag_value => :get }
   end
+  map.data_object_ignore 'data_objects/:id/ignore', :controller => 'data_objects', :action => 'ignore'
   map.add_association 'data_objects/:id/add_association', :controller => 'data_objects', :action => 'add_association'
   map.save_association 'data_objects/:id/save_association/:hierarchy_entry_id', :controller => 'data_objects', :action => 'save_association'
   map.remove_association 'data_objects/:id/remove_association/:hierarchy_entry_id', :controller => 'data_objects', :action => 'remove_association'
@@ -85,6 +87,7 @@ ActionController::Routing::Routes.draw do |map|
   # Taxa nested resources with pages as alias
   map.resources :taxa, :as => :pages do |taxa|
     taxa.resources :hierarchy_entries, :as => :entries, :only => [:show], :member => { :switch => [:put] } do |entries|
+      entries.resource :tree, :only => [:show], :controller => "taxa/trees"
       entries.resource :overview, :only => [:show], :controller => "taxa/overviews"
       entries.resources :media, :only => [:index], :controller => "taxa/media"
       entries.resources :details, :only => [:index], :controller => "taxa/details"
@@ -95,11 +98,13 @@ ActionController::Routing::Routes.draw do |map|
       entries.resource :resources, :only => [:show], :controller => "taxa/resources",
         :member => { :identification_resources => :get, :education => :get , :nucleotide_sequences => :get, :biomedical_terms => :get }
       entries.resource :maps, :only => [:show], :controller => "taxa/maps"
+      entries.resource :updates, :only => [:show], :controller => "taxa/updates"
     end
     taxa.resource :overview, :only => [:show], :controller => "taxa/overviews"
     taxa.resources :media, :only => [:index], :controller => "taxa/media",
                            :collection => { :set_as_exemplar => [:get, :post] }
     taxa.resources :details, :except => [:show], :controller => "taxa/details"
+    taxa.resource :community, :only => [:show], :controller => "taxa/communities"
     taxa.resources :names, :only => [:index, :create, :update], :controller => "taxa/names",
                           :collection => { :common_names => :get, :synonyms => :get }
     taxa.resource :literature, :only => [:show], :controller => "taxa/literature",
@@ -107,6 +112,8 @@ ActionController::Routing::Routes.draw do |map|
     taxa.resource :resources, :only => [:show], :controller => "taxa/resources",
       :member => { :identification_resources => :get, :education => :get , :nucleotide_sequences => :get , :biomedical_terms => :get }
     taxa.resource :maps, :only => [:show], :controller => "taxa/maps"
+    taxa.resource :updates, :only => [:show], :controller => "taxa/updates"
+    taxa.resource :worklist, :only => [:show], :controller => "taxa/worklist"
     taxa.resources :collections, :only => [:index], :controller => 'collections'
     taxa.resources :communities, :only => [:index], :controller => 'communities'
     taxa.resources :data_objects, :only => [:create, :new], :controller => 'data_objects'
@@ -116,6 +123,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'pages/:id/names/common_names/update', :controller => 'taxa', :action => 'update_common_names'
   map.bhl_title 'pages/:id/literature/bhl_title/:title_item_id', :controller => 'taxa/literature', :action => 'bhl_title'
   map.entry_bhl_title 'pages/:id/entries/:hierarchy_entry_id/literature/bhl_title/:title_item_id', :controller => 'taxa/literature', :action => 'bhl_title'
+  map.taxon_worklist_data_object 'pages/:id/worklist/data_objects/:data_object_id', :controller => 'taxa/worklist', :action => 'data_objects'
 
 
   # Named routes
@@ -157,18 +165,24 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'search.:format', :controller => 'search', :action => 'index'
   map.found   'found/:id',      :controller => 'search', :action => 'found'
 
+  # New V2 /admins namespace with singular resource admin
+  map.resource :admin, :only => [:show] do |admin|
+    admin.resources :content_pages, :member => {:move_up => :post, :move_down => :post}, :namespace => 'admins/' do |content_page|
+      content_page.resources :children, :only => [:new, :create], :controller => 'content_pages'
+      content_page.resources :translated_content_pages, :as => :translations, :except => [:show, :index], :controller => 'translated_content_pages'
+    end
+    admin.resources :content_partners, :only => [:index], :namespace => 'admins/'
+  end
+  #map.connect 'monthly_stats_email',         :controller => 'administrator/content_partner_report', :action => 'monthly_stats_email'
+
+  # Old V1 /admin and /administrator namespaces (controllers)
+  map.administrator 'administrator',           :controller => 'admin',           :action => 'index'
   map.connect 'administrator/reports',         :controller => 'administrator/reports', :action => 'index'
-  map.connect 'monthly_stats_email',         :controller => 'administrator/content_partner_report', :action => 'monthly_stats_email'
   map.connect 'administrator/reports/:action', :controller => 'administrator/reports'
-
   #map.connect 'administrator/user_data_object',    :controller => 'administrator/user_data_object', :action => 'index'
-
-
   # map.connect 'administrator/reports/:report', :controller => 'administrator/reports', :action => 'catch_all',
   #                                              :requirements => { :report => /.*/ }
-
   map.connect 'administrator/curator', :controller => 'administrator/curator', :action => 'index'
-
   map.resources :public_tags, :controller => 'administrator/tag_suggestion'
   map.resources :search_logs, :controller => 'administrator/search_logs'
 
@@ -178,7 +192,6 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/taxon_concepts/:taxon_concept_id/comments/', :controller => 'comments', :action => 'create',
                                                              :conditions => {:method => :post}
 
-  map.admin 'admin',           :controller => 'admin',           :action => 'index'
   map.podcast 'podcast', :controller=>'content', :action=>'page', :id=>'podcast'
 
   # by default /api goes to the docs
@@ -204,8 +217,10 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :mobile do |mobile|
     mobile.resources :contents, :collection => {:enable => [:post, :get], :disable => [:post, :get]}
     mobile.resources :taxa, :member => {:details => :get, :media => :get}
-    mobile.search 'search/:id', :controller => 'search', :action => 'index'
+  #  mobile.search 'search/:id', :controller => 'search', :action => 'index' # this looks for mobile/search controller but I'm using the main search controller instead
   end
+  map.mobile_search 'mobile/search/:id', :controller => 'search', :action => 'index'
+
 
   ##### ALL ROUTES BELOW SHOULD PROBABLY ALWAYS BE AT THE BOTTOM SO THEY ARE RUN LAST ####
   # this represents a URL with just a random namestring -- send to search page (e.g. www.eol.org/animalia)

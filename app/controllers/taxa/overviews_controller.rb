@@ -7,7 +7,7 @@ class Taxa::OverviewsController < TaxaController
       { :published_hierarchy_entries => [ { :name => :ranked_canonical_form } , :hierarchy, :hierarchies_content, :vetted ] },
       { :data_objects => [ :toc_items,  :info_items, { :data_objects_hierarchy_entries => :hierarchy_entry },
         { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ] },
-      { :top_concept_images => { :data_object => [
+      { :top_concept_images => { :data_object => [ :users_data_object,
         { :data_objects_hierarchy_entries => :hierarchy_entry },
         { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ] } },
       { :curator_activity_logs => :user },
@@ -51,11 +51,6 @@ class Taxa::OverviewsController < TaxaController
   end
 
 private
-
-  def redirect_if_superceded
-    redirect_to taxon_overview_path(@taxon_concept, params.merge(:status => :moved_permanently).
-        except(:controller, :action, :id, :taxon_id)) and return false if @taxon_concept.superceded_the_requested_id?
-  end
 
   def recognized_by
     @recognized_by = I18n.t(:recognized_by)

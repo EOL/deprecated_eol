@@ -10,23 +10,23 @@ class Administrator::ContentPartnerReportController < AdminController
 
   before_filter :restrict_to_admins
 
-  def index
-    @page_title = I18n.t("content_partners")
-    @partner_search_string = params[:partner_search_string] || ''
-    @only_show_agents_with_unpublished_content = EOLConvert.to_boolean(params[:only_show_agents_with_unpublished_content])
-    @agent_status = AgentStatus.find(:all, :order => 'label')
-    @agent_status_id = params[:agent_status_id] || AgentStatus.active.id
-    where_clause = (@agent_status_id.blank? ? '' : "agent_status_id=#{@agent_status_id} AND ")
-    search_string_parameter = '%' + @partner_search_string + '%'
-    page = params[:page] || '1'
-    order_by = params[:order_by] || 'full_name ASC'
-    @agents = Agent.paginate_by_sql(["
-      SELECT a.id, a.full_name, a.agent_status_id, partner_complete_step, show_on_partner_page, cp.vetted, cp.created_at
-      FROM agents a
-      JOIN content_partners cp on cp.agent_id=a.id
-      WHERE #{where_clause} full_name like ?
-      ORDER BY #{order_by}", search_string_parameter],:page => page)
-  end
+#  def index
+#    @page_title = I18n.t("content_partners")
+#    @partner_search_string = params[:partner_search_string] || ''
+#    @only_show_agents_with_unpublished_content = EOLConvert.to_boolean(params[:only_show_agents_with_unpublished_content])
+#    @agent_status = AgentStatus.find(:all, :order => 'label')
+#    @agent_status_id = params[:agent_status_id] || AgentStatus.active.id
+#    where_clause = (@agent_status_id.blank? ? '' : "agent_status_id=#{@agent_status_id} AND ")
+#    search_string_parameter = '%' + @partner_search_string + '%'
+#    page = params[:page] || '1'
+#    order_by = params[:order_by] || 'full_name ASC'
+#    @agents = Agent.paginate_by_sql(["
+#      SELECT a.id, a.full_name, a.agent_status_id, partner_complete_step, show_on_partner_page, cp.vetted, cp.created_at
+#      FROM agents a
+#      JOIN content_partners cp on cp.agent_id=a.id
+#      WHERE #{where_clause} full_name like ?
+#      ORDER BY #{order_by}", search_string_parameter],:page => page)
+#  end
 
   def export
     @agents = Agent.find_by_sql('select a.* from agents a inner join content_partners cp on cp.agent_id=a.id order by a.full_name ASC')

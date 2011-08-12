@@ -10,7 +10,7 @@
           %li
             = render :partial => 'shared/add_to_my_collection', :locals => { :item => @data_object, :my_collection => @watch_collection }
           
-          - if !@data_object.users_data_objects.blank? && @data_object.users_data_objects[0].user.id == current_user.id
+          - if @data_object.users_data_object && @data_object.users_data_object.user.id == current_user.id
             %li
               = link_to I18n.t(:dato_edit_text_link_button), edit_data_object_path(@data_object), :class => 'button'
 

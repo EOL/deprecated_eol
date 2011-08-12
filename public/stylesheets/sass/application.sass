@@ -27,6 +27,8 @@ form
         margin: 0 0 10px 0
       textarea
         +textarea
+    input[type="radio"]
+      margin: 0 5px 0 0
   label
     &.required
       background: url("/images/v2/icon_required.png") 0 45% no-repeat
@@ -603,6 +605,23 @@ body
         display: block
         clear: both
         content: ""
+  &.with_breadcrumbs
+    padding-top: 20px
+    .hgroup
+      clear: both
+      padding-top: 5px
+    ul.breadcrumbs
+      margin: 0 0 0 10px
+      li
+        float: left
+        font-size: .92em
+        a
+          font-weight: bold
+          text-decoration: none
+          &:hover
+            text-decoration: underline
+        span
+          margin: 0 10px
   .site_column
     overflow: hidden
   h1
@@ -647,9 +666,15 @@ body
       margin: 0
       input[type="submit"]
         +button
+        margin: 0
   &.with_image
     overflow: hidden
     padding-bottom: 10px
+    &.with_nav
+      padding-bottom: 0
+      overflow: visible
+      img
+        margin-bottom: 10px
     .hgroup,
     .hgroup_fields
       width: 640px
@@ -770,7 +795,7 @@ body
     background: #f1f4dc
     border-bottom: 1px solid #ccd399
     padding: 20px
-    margin-bottom: 40px
+    margin-bottom: 20px
     h3
       padding: 0 0 15px 0
       font-size: 1.33em
@@ -799,10 +824,20 @@ body
       padding: 0 0 0 10px
       input
         margin-top: 10px
+    &.small
+      dd
+        margin: 0
+      fieldset.actions
+        margin: 0
+        input
+          margin: 0 5px 5px 0
 
 #collections
   .heading
+    font-size: .92em
     text-align: center
+    a
+      font-weight: bold
   .article.list.updates
     padding-top: 15px
     margin: 0 -10px
@@ -900,53 +935,26 @@ body
       font-weight: bold
       text-align: center
 
-#collections_copy
-  width: 700px
-  margin: 20px auto
-  h2
-    font-size: 1.33em
-    margin: 0 0 10px 10px
-  fieldset.new_collection
-    overflow: hidden
-    margin: 0 0 40px 10px
-    input[type="text"]
-      float: left
-      +input(210px)
-      margin: 0 10px 0 0
-    input[type="submit"]
-      float: left
-      padding-left: 20px
-      padding-right: 20px
-  .heading
-    border-bottom: 1px solid #394651
-    margin: 0
-    overflow: hidden
-    h2
-      float: left
-    a
-      float: right
-      padding: 4px 10px 0 0
-  ul.object_list
-    h4
-      margin-top: 8px
-    img
-      float: left
-      margin: 0 20px 0 0
-
 #profile_info
   padding: 40px
-  .half
+  .article.half
     float: left
     width: 299px
-    &.info
-      clear: both
-      margin-right: 20px
-      dl
-        line-height: 140%
+    margin-right: 20px
+    + .half
+      margin-right: 0
+    dl
+      line-height: 140%
+      margin: 0 0 40px 0
+      dt
+        font-weight: bold
+      dd
+        margin: 0 0 5px 20px
+      &.activity
+        overflow: hidden
+        text-align: right
         dt
-          font-weight: bold
-        dd
-          margin: 0 0 5px 20px
+          float: left
 
 #profile_curator_info
   fieldset
@@ -1012,7 +1020,12 @@ body
 
 #content_partner_show
   #sidebar
-    width: 320px
+    width: 240px
+    padding-left: 40px
+    padding-bottom: 20px
+    h3
+      padding: 0
+      margin: 0 0 15px 0
     ul
       li
         margin: 0 0 20px 0
@@ -1029,6 +1042,58 @@ body
   .main_container
     border: none
     padding: 0
+    table.standard
+      font-size: .9em
+      thead
+        tr
+          th
+            padding: 5px 10px
+            white-space: nowrap
+      tbody
+        tr
+          td
+            padding: 5px 10px
+            &.actions
+              white-space: nowrap
+              a
+                margin: 0 5px 0 0
+                & + a
+                  margin: 0
+
+#content_partner_resources
+  width: 600px
+  fieldset
+    padding-top: 10px
+    dl
+      dt
+        margin: 0
+        p, label, ol, ol li
+          margin-bottom: 0
+      dd
+        margin: 0 0 10px 0
+        input[type="text"]
+          +input(588px)
+        textarea
+          width: 582px
+          height: 60px
+        ul
+          li
+            list-style-type: none
+            margin: 2px 0
+      &.resources
+        padding-bottom: 20px
+        > dd
+          border: 1px solid #cad3db
+          background: #eff2f4
+          padding: 20px 30px 0 30px
+          margin: 5px 40px 20px 40px
+          input[type="text"]
+            width: 448px
+          input[type="file"]
+            margin: 0
+    input[type="submit"]
+      padding: 7px 10px
+      font-size: 1em
 
 #community
   padding: 20px
@@ -2014,3 +2079,52 @@ ul.spotlite-matches
     padding: 4px 5px
     &.spotlite-selected
       background: #f1f4dc
+
+#modal
+  width: 600px
+  padding: 20px
+  background: #fff
+  z-index: 999
+  #choose_collections
+    h2
+      font-size: 1.33em
+      margin: 0 0 10px 0
+    fieldset.new_collection
+      overflow: hidden
+      margin: 0 0 20px 0
+      input[type="text"]
+        float: left
+        +input(210px)
+        margin: 0 10px 0 0
+      input[type="submit"]
+        padding-left: 20px
+        padding-right: 20px
+    ul
+      border: 1px solid #cad3db
+      height: 230px
+      overflow-y: scroll
+      margin: 0 0 20px 0
+      li
+        font-weight: bold
+        a
+          display: block
+          padding: 5px 10px
+          text-decoration: none
+          small
+            color: #5f6c76
+          &:hover
+            background: #e6f1f8
+        & + li
+          a
+            border-top: 1px solid #cad3db
+
+#modal_layer
+  display: none
+  z-index: 998
+  position: fixed
+  background: #28323a
+  +opacity(.8)
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%

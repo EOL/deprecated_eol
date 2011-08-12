@@ -8,7 +8,6 @@
     %ul
       - @taxon_concept.top_communities.each do |community|
         %li
-          - #TODO: Do communities have images? If so put them here, also do we have good alt text from users?
           = link_to image_tag(community.logo_url(:small), :alt => ''), community_url(community)
           .details
             %h4= community.name

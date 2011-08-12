@@ -1,0 +1,77 @@
+#content_partner_statistics.main_container
+  .heading
+    - form_tag({}, :method => :get) do
+      %fieldset
+        = label_tag :month
+        = select_month(@month.to_i)
+        = label_tag :year
+        = select_year(@year.to_i, :start_year => Date.current.year, :end_year => 2008)
+      %fieldset.actions
+        = submit_tag I18n.t(:change), :name => nil
+  - if @partner_summary.blank?
+    .article
+      .empty
+        %p= I18n.t(:content_partner_statistics_empty, :month_name => @month_name, :year => @year)
+  - else
+    %table.standard
+      %caption
+        = I18n.t(:content_partner_statistics_information, :partner_name => @partner.name)
+      %thead
+        %th= I18n.t(:content_partner_statistics_column_header_statistic, :month_name => @month_name, :year => @year)
+        %th= I18n.t(:content_partner_statistics_column_header_provider_count)
+        %th= I18n.t(:content_partner_statistics_column_header_total_count)
+        %th= I18n.t(:content_partner_statistics_column_header_provider_proportion)
+      %tbody
+        %tr
+          %td= I18n.t('helpers.label.google_analytics_partner_summaries.taxa_pages')
+          %td= @partner_summary.taxa_pages
+          %td= @site_summary.taxa_pages
+          %td= @partner_summary.percent_overall_taxa_pages(@site_summary).round(2)
+        %tr
+          %td= I18n.t('helpers.label.google_analytics_partner_summaries.taxa_pages_viewed')
+          %td= @partner_summary.taxa_pages_viewed
+          %td= @site_summary.taxa_pages_viewed
+          %td= @partner_summary.percent_overall_taxa_pages_viewed(@site_summary).round(2)
+        %tr
+          %td= I18n.t('helpers.label.google_analytics_partner_summaries.unique_page_views')
+          %td= @partner_summary.unique_page_views
+          %td= @site_summary.unique_pageviews
+          %td= @partner_summary.percent_overall_unique_page_views(@site_summary).round(2)
+        %tr
+          %td= I18n.t('helpers.label.google_analytics_partner_summaries.page_views')
+          %td= @partner_summary.page_views
+          %td= @site_summary.pageviews
+          %td= @partner_summary.percent_overall_page_views(@site_summary).round(2)
+        %tr
+          %td= I18n.t('helpers.label.google_analytics_partner_summaries.time_on_page')
+          %td= @partner_summary.time_on_page_in_hours.round(2)
+          %td= @site_summary.time_on_pages_in_hours.round(2)
+          %td= @partner_summary.percent_overall_time_on_page_in_hours(@site_summary).round(2)
+
+  - if !@pages.blank?
+    = will_paginate @pages
+    %table.standard
+      %caption
+        = I18n.t(:content_partner_statistics_taxa_page)
+      %thead
+        %th= I18n.t(:id)
+        %th= I18n.t(:scientific_name)
+        %th= I18n.t(:content_partner_statistics_column_header_taxa_page_page_views)
+        %th= I18n.t(:content_partner_statistics_column_header_taxa_page_unique_page_views)
+        %th= I18n.t(:content_partner_statistics_column_header_taxa_page_time_on_page_seconds)
+      %tbody
+        - count = 0
+        - @pages.each do |post|
+          - column_class=cycle('odd','even')
+          - count += 1
+          - concept = TaxonConcept.find(post.taxon_concept_id)
+          - name = concept.quick_scientific_name(:italicized)
+          %tr
+            %td= post.taxon_concept_id
+            %td
+              %i
+                = name
+            %td= post.page_views
+            %td= post.unique_page_views
+            %td= post.timeonpage
+    = will_paginate @pages

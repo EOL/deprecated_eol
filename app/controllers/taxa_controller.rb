@@ -348,6 +348,7 @@ class TaxaController < ApplicationController
 private
   def instantiate_taxon_concept
     @taxon_concept = find_taxon_concept
+    @taxon_concept.current_user = current_user if @taxon_concept
     # TODO: is this the best name for this?
     @selected_hierarchy_entry_id = params[:hierarchy_entry_id]
     if @selected_hierarchy_entry_id
@@ -372,6 +373,11 @@ private
       raise "TaxonConcept not found" if @taxon_concept.nil?
       raise "Page not accessible" unless accessible_page?(@taxon_concept)
     end
+  end
+
+  def redirect_if_superceded
+    redirect_to taxon_overview_path(@taxon_concept, params.merge(:status => :moved_permanently).
+        except(:controller, :action, :id, :taxon_id)) and return false if @taxon_concept.superceded_the_requested_id?
   end
 
   def get_content_variables(options = {})
@@ -411,16 +417,6 @@ private
   def show_unvetted_videos
     videos = @taxon_concept.video_data_objects(:unvetted => true) unless @default_videos.blank?
     return videos
-  end
-
-  def redirect_to_missing_page_on_error(&block)
-    begin
-      yield
-    rescue => e
-      @message = e.message
-      render(:layout => 'v2/basic', :template => "content/missing", :status => 404)
-      return false
-    end
   end
 
   # wich TOC item choose to show

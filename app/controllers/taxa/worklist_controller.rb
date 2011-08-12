@@ -53,6 +53,7 @@ class Taxa::WorklistController < TaxaController
     params.delete(:data_object_id)
     params.delete(:action)
     params[:worklist_return_to] = taxon_worklist_data_object_path(@taxon_concept, @current_data_object)
+    params[:force_return_to] = taxon_worklist_data_object_path(@taxon_concept, @current_data_object)
     render(:partial => 'curation_content')
   end
 private

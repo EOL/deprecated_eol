@@ -123,12 +123,13 @@ $(function() {
     });
   });
 
-  // Add to collection buttons should be Ajaxy:
-  $('form#new_collection_item').find('input.button').click(function() {
-    var $f = $(this).closest('form');
-    EOL.ajax_submit($(this), {update: $f})
-    return(false);
-  });
+  (function($page_heading) {
+    $page_heading.find(".page_actions li.collect a").modal({
+      beforeSend: function() { $('#page_heading .page_actions li.collect a').fadeTo(225, 0.3); },
+      afterClose: function() { var $cell = $('#page_heading .page_actions li.collect a'); $cell.delay(25).fadeTo(100, 1, function() {$cell.css({filter:''});}); },
+      duration: 200
+    });
+  })($("#page_heading"));
 
   // initiates march of life on homepage
   $('.thumbnails ul li').each(function() {

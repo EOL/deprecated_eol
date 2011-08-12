@@ -3,13 +3,14 @@
     - @data_objects.each do |data_object|
       - en_type = en_type(data_object)
       - task_class = @current_data_object.id == data_object.id ? "#{en_type} active" : en_type
-      - saved_label = "Saved" unless (@saved_tasks.blank? || @saved_tasks.include?(data_object.id) == false)
-      - ignored_label = "Ignored" unless (@ignored_tasks.blank? || @ignored_tasks.include?(data_object.id) == false)
-      - status_class = ignored_label.blank? ? (saved_label.blank? ? "" : "saved") : "ignored"
-      - status_indicator = ignored_label.blank? ? (saved_label.blank? ? "" : saved_label) : ignored_label
-      %li{:class => "#{task_class} #{status_class} #{en_type}"}
+      - status_indicator = nil
+      - status_indicator = 'Ignored' if @task_status == 'ignored'
+      - status_indicator = 'Saved' if @task_status == 'curated'
+      %li{:class => "#{task_class} #{en_type}"}
         %span.icon
-        - unless status_indicator.blank?
+        - if status_indicator.blank?
+          %span.indicator.invisible
+        - else
           %span.indicator= status_indicator
         - if ['image', 'video', 'sound'].include?(en_type)
           = render :partial => "media_data_object.html.haml", :locals => { :item => data_object, :en_type => en_type }

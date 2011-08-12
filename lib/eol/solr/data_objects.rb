@@ -34,6 +34,8 @@ module EOL
         url << CGI.escape("#{options[:visibility_type]}_ancestor_id:#{taxon_concept_id} AND published:1")
         if options[:data_type_ids]
           url << CGI.escape(" AND (data_type_id:#{options[:data_type_ids].join(' OR data_type_id:')})")
+        else
+          url << CGI.escape(" NOT (data_type_id:#{DataType.iucn.id})")
         end
         # filter
         if options[:filter] == 'curated' && options[:user]

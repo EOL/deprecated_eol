@@ -12,7 +12,7 @@ $(function() {
   $('#worklist #task .ratings .rating a').unbind('click');
   $('#worklist #task .ratings .rating a').click(function() {
     var $update = $(this).closest('#worklist').find('#task');
-    EOL.ajax_get($(this), {update: $update, type: 'GET'});
+    EOL.ajax_get($(this), {update: $update, type: 'GET', complete: update_active_indicator('Rated')});
     return(false);
   });
   
@@ -20,7 +20,7 @@ $(function() {
   $('#worklist #task form.comment input[type=submit]').click(function() {
     var $f = $(this).closest('form');
     $f.find("#return_to").val($f.find("#worklist_return_to").val());
-    EOL.ajax_submit($(this).closest('form'), {update: $(this).closest('#task')});
+    EOL.ajax_submit($(this).closest('form'), {update: $(this).closest('#task'), complete: update_active_indicator('Commented')});
     return(false);
   });
   
@@ -28,7 +28,7 @@ $(function() {
   $('#worklist #task form.review_status input[type=submit]').click(function() {
     var $f = $(this).closest('form');
     $f.find("#return_to").val($f.find("#worklist_return_to").val());
-    EOL.ajax_submit($(this).closest('form'), {update: $(this).closest('#task')});
+    EOL.ajax_submit($(this).closest('form'), {update: $(this).closest('#task'), complete: update_active_indicator('Saved')});
     return(false);
   });
   
@@ -36,9 +36,15 @@ $(function() {
   $('#worklist #task form.ignore_data_object input[type=submit]').click(function() {
     var $f = $(this).closest('form');
     $f.find("#return_to").val($f.find("#worklist_return_to").val());
-    EOL.ajax_submit($(this).closest('form'), {update: $(this).closest('#task')});
+    EOL.ajax_submit($(this).closest('form'), {update: $(this).closest('#task'), complete: update_active_indicator('Ignored')});
     return(false);
   });
   
   
 });
+
+function update_active_indicator(message) {
+  $('#worklist #tasks li.active span.indicator').html(message);
+  $('#worklist #tasks li.active span.indicator').removeClass('invisible');
+}
+

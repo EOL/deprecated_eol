@@ -702,3 +702,10 @@ h1.notice {
 
 #sidebar p {
   padding-bottom: 1em; }
+
+#task .media img {
+  margin: 0 auto;
+  display: block; }
+
+.invisible {
+  opacity: 0; }

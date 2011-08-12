@@ -279,6 +279,8 @@ EOL.ajax_submit = function(el, args) {
 EOL.ajax_get = function(el, args) {
   var cell = '';
   if(typeof(args.update) != 'undefined') { cell = args.update; } else { cell = el.closest('.editable'); }
+  complete = '';
+  if(typeof(args.complete) != 'undefined') { complete = args.complete; }
   $.ajax({
     url: el.attr('href'),
     dataType: 'html',
@@ -287,6 +289,9 @@ EOL.ajax_get = function(el, args) {
     error: function(xhr, stat, err) { cell.html('<p>Sorry, there was an error: '+stat+'</p>'); },
     complete: function() {
       cell.delay(25).fadeTo(100, 1, function() {cell.css({filter:''});});
+      if(complete != '') {
+        complete();
+      }
     }
   });
   return(false); // stop event... there's a better way to do this?

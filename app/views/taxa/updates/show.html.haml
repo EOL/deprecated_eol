@@ -1,6 +1,16 @@
 #content
-  #taxon_updates.site_column
-    .main_container
+  .site_column#taxon_updates
+    = render :partial => 'menu'
+    .main_container.update_feed
+      - log = @taxon_concept.activity_log(:per_page => 10, :page => @page)
+      .header
+        - start_number = (log.current_page - 1) * log.per_page + 1
+        - end_number = [ (start_number + log.per_page - 1), log.total_entries ].min
+        %h3= I18n.t(:displaying_numerical_range, :start_number => start_number, :end_number => end_number, :total => log.total_entries)
+        = will_paginate log, |
+          :previous_label => I18n.t(:pagination_previous_with_count, :count => log.per_page), |
+          :next_label => I18n.t(:pagination_next_with_count, :count => log.per_page), |
+          :page_links=>false
       .article.list.updates
-        = render(:partial => 'activity_logs/index', :locals => {:log => @taxon_concept.activity_log(:per_page => 10, :page => @page) })
+        = render(:partial => 'activity_logs/index', :locals => {:log => log })
 

@@ -229,6 +229,7 @@ Rails::Initializer.run do |config|
   $HOMEPAGE_MARCH_RICHNESS_THRESHOLD = 0.4
 
   APPLICATION_DEFAULT_LANGUAGE_ISO = 'en'
+  APPROVED_LANGUAGES = ['en', 'es', 'ar']
 
   # for those class that are using CACHE_ALL_ROWS, when the row is looked up in memcached, retain that value
   # in an array in a class variable. That way future lookups will read from local memory and will not require
@@ -318,6 +319,7 @@ end
 # Default values for some footer elements:
 $EOL_TWITTER_ACCOUNT = "http://twitter.com/#!/EOL"
 $EOL_FACEBOOK_ACCOUNT = "http://www.facebook.com/pages/Encyclopedia-of-Life/62911075968?sk=wall"
+$EOL_TUMBLR_ACCOUNT = "http://blog.eol.org"
 
 # load the system configuration
 require File.dirname(__FILE__) + '/system' if File.file?(File.dirname(__FILE__) + '/system.rb')

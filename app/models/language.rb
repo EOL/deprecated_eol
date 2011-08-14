@@ -10,6 +10,13 @@ class Language < SpeciesSchemaModel
       self.find(:all, :conditions => ['activated_on <= ?', Time.now.to_s(:db)], :order => 'sort_order ASC, source_form ASC')
     end
   end
+  
+  def self.approved_languages
+    approved_language_iso_codes = APPROVED_LANGUAGES rescue ['en', 'sp', 'ar']
+    cached("approved_languages") do
+      self.find_all_by_iso_639_1(approved_language_iso_codes, :order => 'sort_order ASC, source_form ASC')
+    end
+  end
 
   def self.scientific
     cached_find_translated(:label, 'Scientific Name')

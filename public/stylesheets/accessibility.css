@@ -23,7 +23,9 @@ body.home > #header {
 
 /*adding facebook icon to social media */
 body > #footer ul.social_media li a.facebook {
-  background-position: 0 center; }
+  background-position: 0px -25px; }
+body > #footer ul.social_media li a.tumblr {
+  background-position: 0px -75px; }
 
 /*Override for layout on users edit - we have extra nested div so we need to remove padding,
  * we added extra fieldset - but check HR might give us an update for the fieldset */
@@ -719,3 +721,35 @@ h1.notice {
 
 #worklist #tasks li:hover {
   background-color: white !important; }
+
+#taxon_updates .update_feed .header, #taxon_updates .page_statistics .header {
+  position: relative;
+  padding: 10px 0;
+  text-align: center;
+  border-bottom: 1px solid #394651; }
+  #taxon_updates .update_feed .header h3, #taxon_updates .page_statistics .header h3 {
+    font-size: 1.33em; }
+#taxon_updates .page_statistics dl {
+  float: right;
+  line-height: 140%;
+  width: 200px;
+  padding: 50px 30px 30px 0; }
+  #taxon_updates .page_statistics dl dt {
+    font-size: 1.8em;
+    margin: 0 0 10px 0; }
+    #taxon_updates .page_statistics dl dt + dd {
+      font-size: 2em; }
+      #taxon_updates .page_statistics dl dt + dd + dt {
+        font-size: 1.2em; }
+        #taxon_updates .page_statistics dl dt + dd + dt + dd {
+          font-size: 1.6em; }
+  #taxon_updates .page_statistics dl dd {
+    font-weight: bold;
+    margin: 0 0 20px 0; }
+#taxon_updates .page_statistics .copy {
+  float: left;
+  width: 380px;
+  margin-top: 30px;
+  background: #f3f7fa;
+  border: 1px solid #cad3db;
+  padding: 20px 20px 0 20px; }

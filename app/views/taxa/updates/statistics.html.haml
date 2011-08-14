@@ -1,0 +1,22 @@
+#content
+  .site_column#taxon_updates
+    = render :partial => 'menu'
+    .main_container.page_statistics
+      .header
+        %h3= I18n.t(:page_statistics)
+      .copy
+        %h4= I18n.t(:what_do_these_numbers_mean)
+        = I18n.t(:page_statistics_explanation)
+      %dl
+        %dt= I18n.t(:richness_score)
+        %dd= @metrics.richness_for_display
+        %dt= I18n.t(:descendants)
+        %dd= number_with_delimiter(@taxon_concept.number_of_descendants, :delimiter => ",")
+        %dt= I18n.t(:trusted_images)
+        %dd= number_with_delimiter(@media_facets['ancestor_trusted_image'], :delimiter => ",")
+        %dt= I18n.t(:unreviewed_images)
+        %dd= number_with_delimiter(@media_facets['ancestor_unreviewed_image'], :delimiter => ",")
+        %dt= I18n.t(:trusted_text_objects)
+        %dd= number_with_delimiter(@media_facets['trusted_text'], :delimiter => ",")
+        %dt= I18n.t(:unreviewed_text_objects)
+        %dd= number_with_delimiter(@media_facets['unreviewed_text'], :delimiter => ",")

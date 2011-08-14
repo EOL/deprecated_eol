@@ -6,10 +6,11 @@
       = resource_form.label :title
     %dd
       = resource_form.text_field :title, :maxlength => 255
+
   %dl.resources
     %dt
-      = radio_button_tag :resource, :url, !@resource.accesspoint_url.blank?
-      = label_tag :resource, I18n.t('helpers.label.resource.resource_choose_url')
+      = radio_button_tag :resource_url_or_upload, :url, !@resource.accesspoint_url.blank?
+      = label_tag :resource_url_or_upload, I18n.t('helpers.label.resource.resource_url_or_upload_url')
     %dd
       %dl
         %dt.required
@@ -21,8 +22,8 @@
         %dd
           = resource_form.select :refresh_period_hours, options_for_select(@import_frequencies, @resource.refresh_period_hours)
     %dt
-      = radio_button_tag :resource, :file, !@resource.dataset.blank?
-      = label_tag :resource, I18n.t('helpers.label.resource.resource_choose_file')
+      = radio_button_tag :resource_url_or_upload, :upload, !@resource.dataset.instance.dataset_file_name.blank?
+      = label_tag :resource_url_or_upload, I18n.t('helpers.label.resource.resource_url_or_upload_upload')
     %dd
       %dl
         %dt.required

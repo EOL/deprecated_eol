@@ -341,8 +341,8 @@ en:
         dwc_archive_url: "If there is a Darwin Core Archive associated with this resource, enter the URL here <small>(TAR or GZIP only)</small>:"
         refresh_period_hours: "Frequency"
         resource_status_id: "Status"
-        resource_choose_url: "Load resource from URL"
-        resource_choose_file: "Upload resource file"
+        resource_url_or_upload_url: "Load resource from URL"
+        resource_url_or_upload_upload: "Upload resource file"
         title: "Resource name"
       session:
         password: "Password"

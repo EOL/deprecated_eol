@@ -205,7 +205,7 @@ $(function() {
         var $dd = $radio.closest("dt").next("dd");
         $radio.is(":checked") ? $dd.slideDown(200) : $dd.slideUp(200);
       });
-    }).closest("dt").next("dd").hide();
+    }).not(":checked").closest("dt").next("dd").hide();
   })($("#content_partner_resources"));
 
 });

@@ -28,9 +28,7 @@ class Resource < SpeciesSchemaModel
       :message => "dataset file is not a valid file type"
 
   validates_presence_of :title
-  validates_presence_of :subject
   validates_presence_of :license_id
-  validates_presence_of :resource_created_at
   validates_presence_of :refresh_period_hours, :if => :accesspoint_url_provided?
 
   # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we move to many to many

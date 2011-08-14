@@ -41,7 +41,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
 
   # GET /content_partners/:content_partner_id/resources/:id/edit
   def edit
-    @partner = ContentPartner.find(params[:content_partner_id])
+    @partner = ContentPartner.find(params[:content_partner_id], :include => [:resources])
     set_resource_options
     @resource = @partner.resources.find(params[:id])
     @page_subheader = I18n.t(:content_partner_resource_edit_subheader)

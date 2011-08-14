@@ -175,6 +175,9 @@ form#switch_hierarchy_entry fieldset {
     clear: none; }
 
 /*content partners overrides/additions */
+.cms_page #content_partners #sidebar input[type="text"] {
+  width: 118px; }
+
 #content_partner_show .empty {
   font-size: 1em; }
 

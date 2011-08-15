@@ -3,67 +3,35 @@
 # Export driver: syck-pecl
 # Author: Akkhaporn
 th: 
-  about_eol: เกี่ยวกับ EOL
   account_information: ข้อมูลเกี่ยวกับบัญชี
   account_registered_but_not_ready_try_later: บัญชีผู้ใช้ของคุณถูกลงทะเบียนแล้ว แต่ไม่พร้อมสำหรับคุณในการเข้าถึง กรุณาลองอีกครั้งใน 5 นาที
-  add_a_role: เพิ่มบทบาท
   add_to_my_collection_button: เพิ่มคอลเลกชันของฉัน
-  added_date: เพิ่ม %{date}
-  admin: ผู้ดูแลระบบ
-  all_information: ข้อมูลทั้งหมด
   all_pages: หน้าทั้งหมด
   already_a_member_question: เป็นสมาชิกอยู่แล้ว?
-  already_member_of_community: คุณเป็นสมาชิกของชุมชนนี้อยู่แล้ว
-  alternate_classification: การจำแนกประเภทอื่น
   application_version_advisory_information: รุ่นแอพลิเคชัน
   are_you_sure: คุณแน่ใจหรือ?
   assistive_details_header: รายละเอียด
   assistive_media_header: มีเดีย
   assistive_overview_header: ภาพรวม
-  authoritative_information: ข้อมูลที่เชื่อถือ
   average_rating_value_of_total: "คะแนนเฉลี่ย: %{rating} จาก %{total}"
-  browse_gallery: ดูแกลเลอรี่ของเรา
-  cancel: ยกเลิก
   cannot_be_associated_with_both_a_user_and_a_community: ไม่สามารถเชื่อมโยงกับทั้งผู้ใช้และชุมชน
   cannot_be_empty: ไม่สามารถว่างเปล่า
-  change_rating_to_1_of_5: เปลี่ยนการจัดอันดับเป็น 1 ใน 5
-  change_rating_to_2_of_5: เปลี่ยนการจัดอันดับที่ 2 ของ 5
-  change_rating_to_3_of_5: เปลี่ยนการจัดอันดับ 3 จาก 5
-  change_rating_to_4_of_5: เปลี่ยนการจัดอันดับ 4 จาก 5
-  change_rating_to_5_of_5: เปลี่ยนการจัดอันดับ 5 ของ 5
   citation: การอ้างอิง
   classifications_summary_header_with_count: 
     one: ส่วนของ %{count} การจัดหมวดหมู่ได้รับการอนุมัติ
     other: ส่วนของ %{count} การจัดหมวดหมู่ได้รับการอนุมัติ
-  collected_by: รวบรวมโดย
-  collected_items_with_count: 
-    one: "%{count} รายการจัดเก็บ"
-    other: "%{count} รายการจัดเก็บ"
-  collection_item_type_with_label: "ประเภท: %{type}"
   collections: คอลเลกชัน
   collections_summary_header_with_count: 
     one: ในปัจจุบันมี %{count} คอลเลกชัน
     other: ในปัจจุบันมี %{count} คอลเลกชัน
-  collections_with_count: 
-    one: "%{count} คอลเลกชัน"
-    other: "%{count} คอลเลกชัน"
   common_names_advisory_information: ชื่อสามัญที่เกี่ยวข้องกับอนุกรมวิธานนี้
   common_names_with_count: 
     one: "%{count} ชื่อสามัญ"
     other: "%{count} ชื่อสามัญ"
   communities: ชุมชน
-  communities_summary_header_with_count: 
-    one: ไปอยู่ใน %{count} ชุมชน
-    other: ไปอยู่ใน %{count} ชุมชน
-  communities_with_count: 
-    one: "%{count} ชุมชน"
-    other: "%{count} ชุมชน"
   community: ชุมชน
   community_activity: กิจกรรมชุมชน
   community_focus: มุ่งเน้นชุมชน
-  community_members: สมาชิกในชุมชน
-  community_roles: บทบาทของชุมชน
-  community_watching_this_note: กำลังมองดู %{name} ในขณะนี้
   contact_us_link: ติดต่อเรา
   content_partners: พันธมิตรเนื้อหา
   content_summary_table_caption: สรุปเนื้อหาที่เกี่ยวข้องกับการ %{taxon_name} และลูกหลานมันจะอยู่ใน %{hierarchy_label}
@@ -75,91 +43,42 @@ th:
   content_summary_table_type_trusted_text_row: จำนวนคนรายการข้อความ
   content_summary_table_type_unreviewed_images_row: จำนวนรูปที่ไม่มีความเห็น
   content_summary_table_type_unreviewed_text_row: หมายเลขของรายการข้อความไม่แสดงความเห็น
-  content_update: ปรับปรุงเนื้อหา
-  contribute_to_page_button: สนับสนุนหน้านี้
-  contributors_like_you: ร่วมให้ข้อมูลเช่นเดียวกับคุณ
-  could_not_find_user: ไม่พบสมาชิกสำหรับผู้ใช้นี้
   create_a_collection: สร้างคอลเลกชัน
   create_a_community: สร้างชุมชน
-  create_account: สร้างบัญชี
-  created_community: ชุมชนถูกสร้างเรียบร้อยแล้ว
-  created_time_ago: สร้างเมื่อ %{time_passed} ก่อน
-  curate_this_text: ดูแลบทความนี้
-  curator_activity: การกระทำผู้ดูแลระบบ
-  curator_comment: ความคิดเห็นผู้ดูแล
   curators_summary_header_with_count: 
     one: "%{count} ผู้ดูแล"
     other: "%{count} ผู้ดูแล"
   currently_in_eol: อยู่ในสารานุกรมชีวิต
-  dashboard: แผงควบคุม
-  dato_rating_note: "%{username} ให้คะแนนนี้ของ %{rating}."
-  delete_allcaps: ลบ
   delete_community: ลบชุมชนนี้
   detail: รายละเอียด
   development_version_name: รุ่นพัฒนา V2 -- ไม่ใช้สาธารณะ
-  displaying_numerical_range: แสดง %{start_number} &mdash; %{end_number}
-  donate: บริจาค
-  donation_error_no_amount: กรุณาเลือกจำนวนเงินที่บริจาค
-  donation_error_only_numbers: โปรดป้อนจำนวนเงินโดยใช้เพียงตัวเลขเท่านั้น
   edit_collection: แก้ไขคอลเลกชัน
   edit_community: แก้ไขชุมชน
-  edit_membership: แก้ไขสมาชิก
   edit_my_profile: แก้ไขโปรไฟล์
   encyclopedia_of_life: สารานุกรมชีวิต
   endorsed_collections_with_count: 
     one: "%{count} คอลเลกชันรับรอง "
     other: "%{count} คอลเลกชันรับรอง "
-  eol_colon: "EOL :"
-  eol_glossary: อภิธานศัพท์ EOL
   eol_news: ข่าว EOL
-  error_page_header: ขออภัย เราได้พบปัญหา
-  esc_key_hides_this_message: (ปุ่ม ESC ซ่อนข้อความนี้)
   explore: สำรวจ
-  feedback: คำติชม
   filter_by_status: กรองตามสถานะ
-  filter_by_status_all_option: สถานะทั้งหมด
-  filter_by_status_inappropriate_option: ไม่เหมาะสม
-  filter_by_status_trusted_option: เชื่อถือได้
-  filter_by_status_unreviewed_option: ไม่มีความคิดเห็น
-  filter_by_status_untrusted_option: ไม่น่าเชื่อถือ
   filter_by_type: กรองตามประเภท
-  filter_by_type_all_option: ทุกประเภท
-  filter_by_type_audio_option: เสียง
-  filter_by_type_images_option: รูปภาพ
-  filter_by_type_photosynths_option: ทำภาพให้ตรง
-  filter_by_type_videos_option: วิดีโอ
-  filter_feeds_all_option: ปรับปรุงจากฟีดทั้งหมด
-  filter_feeds_button: ตัวกรอง
-  filter_feeds_label: แสดง
   filter_media: ตัวกรองสื่อ
-  filtered_information: กรองข้อมูล
-  founder: ผู้ก่อตั้ง
   general_error_occurred: ขออภัยมีข้อผิดพลาดเกิดขึ้น กรุณาทำให้หนึ่งในความพยายามมากขึ้นในการดำเนินงานของคุณ ถ้าผิดพลาดยังคงอยู่โปรดส่งอีเมล์ไปที่ %{EMAIL} พร้อมกับข้อความข้อผิดพลาดด้านล่างและข้อมูลอื่น ๆ ที่คุณต้องการร่วมกับเรา เรากำลังทำงานอย่างหนักเพื่อให้คุณมีบริการที่ดีที่สุดเท่าที่จะทำได้และเราขอขอบคุณการสนับสนุนของคุณ -- ทีมงาน EOL
-  get_involved: เกี่ยวข้องกับ
   global_access_tagline: การเข้าถึงทั่วไปเพื่อให้รู้ชีวิตบนโลก
   global_navigation: ป้ายบอกทางทั่วไป
   go: ไป
   google_translate: Google แปลภาษา
   google_translate_advisory_information: ใช้เครื่องมือของ Google Translate เพื่อแปลงเนื้อหาของไซต์ลงในภาษาอื่น
   has_already_been_taken: ได้ถูก
-  hello_user: สวัสดี %{user }
   help: วิธีใช้
-  home: หน้าหลัก
   home_page_link_advisory_information: ลิงค์นี้จะนำคุณไปยังหน้าหลักของเว็บไซต์สารานุกรมชีวิต
   image_thumbnail_alt_text: รูปภาพ %{vetted_status} นี้เป็นของ %{scientific_name}
   images: รูปภาพ
-  images_with_count: 
-    one: "%{count} รูปภาพ"
-    other: "%{count} รูปภาพ"
   in_my_collection_button: ในคอลเลกชันของฉัน
   indexed: การจัดทำดัชนี
-  invalid_login_or_password: ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง
-  item_was_added_to_your_recently_collected_items: รายการถูกบันทึกอยู่ในรายการที่เก็บรวบรวมล่าสุดของคุณ
-  item_was_added_to_your_watched_items_collection: รายการถูกบันทึกเก็บรายการเฝ้าดูของคุณ
   iucn_red_list_status_advisory_information: การเชื่อมโยงนี้จะพาคุณไปนานาชาติร่วมอนุรักษ์ของธรรมชาติ (IUCN) เว็บไซต์ซึ่งคุณสามารถค้นหาข้อมูลเพิ่มเติมเกี่ยวกับ IUCN Red รายการของการข่มขู่ Species
-  join_community: เข้าร่วมชุมชนนี้
   join_community_button: เข้าร่วมชุมชนนี้
-  join_community_login_required_advisory: คุณจะถูกถามเพื่อเข้าสู่ระบบก่อนเข้าร่วมชุมชนนี้
   join_eol_button_html: เข้าร่วม <abbr title="สารานุกรมชีวิต">EOL</abbr> เดี๋ยวนี้
   join_eol_community_html: กลายเป็นส่วนหนึ่งของชุมชน <abbr title="สารานุกรมชีวิต">EOL!</abbr>
   just_pages_with_pictures_and_text: เพียงหน้าเว็บที่มีรูปภาพและข้อความ
@@ -170,41 +89,11 @@ th:
   learn_how_to_interact: เรียนรู้วิธีการคุณสามารถโต้ตอบ
   learn_how_to_join: เรียนรู้วิธีการที่คุณสามารถเข้าร่วมได้
   leave_a_comment: แสดงความคิดเห็น
-  leave_community: ออกจากชุมชนนี้
   license: สัญญาอนุญาต
-  license_all_rights_reserved: สงวนลิขสิทธิ์
-  license_cc_by: อนุสัญญา ครีเอทีฟคอมมอนส์ แบบแสดงแหล่งที่มา (CC BY)
-  license_cc_by_2_0: อนุสัญญา ครีเอทีฟคอมมอนส์ แบบแสดงแหล่งที่มา 2.0 (CC BY 2.0)
-  license_cc_by_2_5: อนุสัญญา ครีเอทีฟคอมมอนส์ แบบแสดงแหล่งที่มา 2.5 (CC BY 2.5)
-  license_cc_by_3_0: อนุสัญญา ครีเอทีฟคอมมอนส์ แบบแสดงแหล่งที่มา 3.0 (CC BY 3.0)
-  license_cc_by_nc: อนุสัญญาครีเอทีฟคอมมอนส์ แบบแสดงที่มาและไม่ใช้เพื่อการค้า (CC BY-NC)
-  license_cc_by_nc_2_0: อนุสัญญาครีเอทีฟคอมมอนส์ แบบแสดงที่มาและไม่ใช้เพื่อการค้า 2.0 (CC BY-NC 2.0)
-  license_cc_by_nc_2_5: อนุสัญญาครีเอทีฟคอมมอนส์ แบบแสดงที่มาและไม่ใช้เพื่อการค้า 2.5 (CC BY-NC 2.5)
-  license_cc_by_nc_3_0: อนุสัญญาครีเอทีฟคอมมอนส์ แบบแสดงที่มาและไม่ใช้เพื่อการค้า (CC BY-NC)
-  license_cc_by_nc_sa: อนุสัญญาครีเอทีฟคอมมอนส์ แบบแสดงที่มาและไม่ใช้เพื่อการค้าและอนุญาติแบบเดียวกัน (CC BY-NC-SA)
-  license_cc_by_nc_sa_1_0: อนุสัญญาครีเอทีฟคอมมอนส์ แบบแสดงที่มาและไม่ใช้เพื่อการค้าและอนุญาติแบบเดียวกัน 1.0 (CC BY-NC-SA 1.0)
-  license_cc_by_nc_sa_2_0: อนุสัญญา ครีเอทีฟคอมมอนส์ แสดงที่มาและอนุญาติแบบเดียวกันเสมอ 2.0 (CC BY-SA 2.0)
-  license_cc_by_nc_sa_2_5: อนุสัญญาครีเอทีฟคอมมอนส์ แบบแสดงที่มาและไม่ใช้เพื่อการค้าและอนุญาติแบบเดียวกัน 2.5 (CC BY-NC-SA 2.5)
-  license_cc_by_nc_sa_3_0: อนุสัญญาครีเอทีฟคอมมอนส์ แบบแสดงที่มาและไม่ใช้เพื่อการค้าและอนุญาติแบบเดียวกัน 3.0 (CC BY-NC-SA 3.0)
-  license_cc_by_sa: อนุสัญญา ครีเอทีฟคอมมอนส์ แสดงที่มาและอนุญาติแบบเดียวกันเสมอ (CC BY-SA)
-  license_cc_by_sa_1_0: อนุสัญญา ครีเอทีฟคอมมอนส์ แสดงที่มาและอนุญาติแบบเดียวกันเสมอ 1.0 (CC BY-SA 1.0)
-  license_cc_by_sa_2_0: อนุสัญญา ครีเอทีฟคอมมอนส์ แสดงที่มาและอนุญาติแบบเดียวกันเสมอ (CC BY-SA 2.0)
-  license_cc_by_sa_2_5: อนุสัญญา ครีเอทีฟคอมมอนส์ แสดงที่มาและอนุญาติแบบเดียวกันเสมอ 2.5 (CC BY-SA 2.5)
-  license_cc_by_sa_3_0: อนุสัญญา ครีเอทีฟคอมมอนส์ แสดงที่มาและอนุญาติแบบเดียวกันเสมอ 3.0 (CC BY-SA 3.0)
-  license_gnu_fdl: GNU เอกสารลิขสิทธิ์ (GNU FDL)
-  license_gnu_gpl: GNU ลิขสิทธิ์เผยแพร่ทั่วไป (GNU GPL)
-  license_not_applicable: ใบอนุญาตไม่สามารถใช้ได้
-  license_public_domain: โดเมนสาธารณะ
-  link_to_add_role_to_community_to_control_privs: "%{link} ไปยังแผงควบคุมสิทธิ์สมาชิก"
-  link_to_join_this_community: คุณต้อง <a href='%{link}'>เข้าสู่ระบบ</a> เพื่อไปเข้าร่วมชุมชน
   literature: วรรณกรรม
   location: ที่อยู่
-  log_in: เข้าสู่ระบบ
-  login: ล็อกอิน
   login_or_create_account: ล็อกอิน / สร้างบัญชีผู้ใช้
-  logout: ออกจากระบบ
   manage_community: จัดการชุมชน
-  manage_roles: จัดการบทบาท
   maps_with_count: 
     one: "%{count} แผนที่"
     other: "%{count} แผนที่"
@@ -212,53 +101,29 @@ th:
   media_with_count: 
     one: "%{count} มีเดีย"
     other: "%{count} มีเดีย"
-  members_count_in_parens: 
-    one: (หนึ่งสมาชิก)
-    other: (%{count} สมาชิก)
   members_with_count: 
     one: "%{count} สมาชิก"
     other: "%{count} สมาชิก"
   minimal_page: หน้าที่น้อยที่สุด
   most_active_members: สมาชิกที่ใช้งานมากที่สุด
-  most_visited_taxa: อนุกรมวิธานเข้าชมมากที่สุด
   must_be_associated_with_either_a_user_or_a_community: ต้องเชื่อมโยงกับผู้ใช้หรือชุมชน
   must_be_less_than_128_characters_long: ต้องมีความยาวน้อยกว่า 128 อักขระ
   must_be_logged_in: คุณต้องล็อกอินในก่อนกระทำการนี้
   my_activity: กิจกรรมของฉัน
   my_info: ข้อมูลของฉัน
   newsfeed: ฟีดข่าว
-  no_activity: ไม่มีกิจกรรม
-  no_members_in_parens: (ไม่มีสมาชิก)
-  nomenclature: ศัพท์เฉพาะ
   not_evaluated: ไม่ได้รับการประเมิน
   other_collection_items_with_count: 
     one: "%{count} รายการอื่นๆ"
     other: "%{count} รายการอื่นๆ"
-  other_community_items_with_count: 
-    one: "%{count} รายการอื่น"
-    other: "%{count} รายการอื่น"
   overview: ภาพรวม
   pages_with_pictures_and_text: หน้าเว็บที่มีรูปภาพและข้อความ
   pages_with_pictures_or_text: หน้าเว็บที่มีภาพหรือข้อความ
-  pending_collections_with_count: 
-    one: "%{count} คอลเลกชันที่รอการอนุมัติ"
-    other: "%{count} คอลเลกชันที่รอการอนุมัติ"
-  pending_members_with_count: 
-    one: "%{count} สมาชิกที่รอการอนุมัติ"
-    other: "%{count} สมาชิกที่รอการอนุมัติ"
-  people_with_count: 
-    one: "%{count} คน"
-    other: "%{count} คน"
-  personal_space: พื้นที่ส่วนตัว
   post_comment: แสดงความคิดเห็น
-  preferences: ตั้งค่าส่วนตัว
   preferred_common_name_advisory_information: นี้เป็นชื่อสามัญที่ต้องการสำหรับอนุกรมวิธานนี้
-  press_room: ห้องข่าว
-  print_this_page_link: พิมพ์หน้านี้
   profile: โปรไฟล์
   profile_image_alt_text_curator: ภาพโปรไฟล์สำหรับผูดูแล %{user_given_name } %{user_family_name }
   profile_image_alt_text_member: ภาพโปรไฟล์สำหรับสมาชิก %{user_given_name } %{user_family_name }
-  punctuation_comma: ","
   rated_by_count_people: 
     one: from %{count} คน
     other: from %{count} คน
@@ -267,7 +132,6 @@ th:
   resources: แหล่งข้อมูล
   rights: ถูกต้อง
   rights_holder: ผู้ถือสิทธิ
-  roles: บทบาท
   rss_abbr_html: <abbr title="Really Simple Syndication">RSS</abbr>
   search_field_label: ค้นหา EOL
   search_input_advisory_information: ใส่ชื่อสามัญหรือทางวิทยาศาสตร์ของสิ่งมีชีวิตที่คุณต้องการทราบเพิ่มเติมเกี่ยวกับตัวอย่างเช่นลองใส่มะเขือเทศ
@@ -282,58 +146,24 @@ th:
   see_all_comments_with_count_for_text: 
     one: ดู %{count} ความคิดเห็นสำหรับทความนี้
     other: ดูทั้งหมด %{count} ความคิดเห็นสำหรับบทความนี้
-  see_all_communities_with_count_html: 
-    one: ดู <span class="assistive">%{count} ชุมชนที่เน้นอนุกรมวิธานนี้.</span>
-    other: ดูทั้หมด <span class="assistive">%{count} ชุมชนที่เน้นอนุกรมวิธานนี้</span>
   see_all_media_link: ดูสื่อทั้งหมด
-  see_next_with_count: 
-    one: ดูต่อไป %{count}}
-    other: ดูต่อไป %{count}
-  see_previous_with_count: 
-    one: ดูก่อหน้านี้ %{count}}
-    other: ดูก่อหน้านี้ %{count}
   select_topic: กรุณาเลือกพื้นที่หัวข้อ
   selected_language_advisory_information: นี้เป็นภาษาที่เลือกในปัจจุบัน
   set_as_exemplar: ตั้งค่าให้เป็นแบบอย่าง
-  show_status_message: แสดงข้อความสถานะ
-  show_warning_message: แสดงข้อความแจ้งเตือน
   sign_in: เข้าสู่ระบบ
   sign_out: ออกจากระบบ
   site_information: ข้อมูลเว็บไซต์
   skip_to_content: ข้ามไปยังเนื้อหา
-  skip_to_navigation: ข้ามการนำทาง
-  skip_to_table_of_contents: ข้ามสู่สารบัญ
   sort_by: เรียงตาม
-  sort_by_button: เรียงลำดับ
-  sort_by_data_type_option: ชนิดข้อมูล
-  sort_by_default_option: ค่าเริ่มต้น
-  sort_by_label: เรียงตาม
-  sort_by_newest_option: ใหม่ล่าสุด
-  sort_by_oldest_option: เก่าที่สุด
-  sort_by_rating_option: "อันดับ:"
-  sort_by_vetted_option: สถานะการตรวจสอบ
   sound_thumbnail_alt_text: เทปบันทึกเสียง %{vetted_status} นี้เป็นของ %{scientific_name}
-  sounds_with_count: 
-    one: "%{count} เสียง"
-    other: "%{count} เสียง"
-  source_information_link: ข้อมูลแหล่งที่มา
   source_url: "URL ที่มา:"
   supplier: ผู้จัดจำหน่าย
   switch_language_advisory_information: สลับภาษาเว็บไซต์เป็น %{language_label}
   table_of_contents: สารบัญ
   taxa: อนุกรมวิธาน
-  taxa_with_count: 
-    one: "%{count} อนุกรมวิธาน"
-    other: "%{count} อนุกรมวิธาน"
   taxon: อนุกรมวิธาน
   text_summary_more_link: อ่านรายการทั้งหมด
-  text_with_count: 
-    one: "%{count} บทความ"
-    other: "%{count} บทความ"
-  thanks_for_feedback: ขอบคุณสำหรับคำติชมของคุณ
-  the_email_address_is_not_unique_you_must_enter_a_username: ที่อยู่อื่เมล์ที่ไซ้ำ - คุณต้องป้อนชื่อผู้ใช้
   there_are_currently_no_members_in_this_community: ขณะนี้มีไม่มีสมาชิกในชุมชนนี้
-  there_are_currently_no_roles_for_this_community: ในขณะนี้ไม่มีบทบาทสำหรับชุมชนนี้
   threat_status_header_colon: "สถานะภัยคุกคาม IUCN :"
   time_ago: "%{time_passed} ก่อน"
   total_items_with_count: 
@@ -344,37 +174,13 @@ th:
   twitter: ทวิตเตอร์
   unknown: ไม่ทราบ
   unreviewed: ไม่มีความคิดเห็น
-  updated_community: ชุมชนถูกปรับปรุงเรียบร้อยแล้ว
-  user_became_role_note: "%{username} กลายเป็น %{role}."
-  user_comment: ความเห็นผู้ใช้
-  user_joined_community_note: "%{username} เข้าร่วมชุมชน"
-  user_left_community_note: "%{username} เข้าร่วมชุมชนแล้ว"
   user_system_down: เราขออภัย แต่ระบบลงทะเบียนผู้ใช้ยังไม่สามารถใช้ได้ โปรดลองอีกครั้งในภายหลัง
-  using_the_site: ใช้เว็บไซต์
-  verification_phrase_did_not_match: การตรวจสอบวลีที่คุณป้อนไม่ตรงกัน
   video_thumbnail_alt_text: วีดีโอนี้ %{vetted_status} เป็นของ %{scientific_name}
-  videos_with_count: 
-    one: "%{count} วีดิโอ"
-    other: "%{count} วีดิโอ"
   view_only_pages_with_at_least_a_picture_or_piece_of_text: ดูเฉพาะเพจที่ มีรูปภาพหรือข้อความอย่างน้อย
   what_is_a_taxon: อะไรคืออนุกรมวิธาน?
   what_is_eol: EOL คืออะไร?
   what_is_this_question: นี้คืออะไร?
-  wikipedia_article_will_be_harvested_tonight: วิกิพีเดียมี %{article} บทความ ปรับปรุง %{rev}  อาจจะได้รับคืนนี้
-  wikipedia_revisions_must_match_pattern_error: ารตรวจทานแก้ไข URL ต้องตรงกับ http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
   you_are_an_admin_so_i_will_show_you_that_the_error_was: "คุณผู้ดูแลระบบ ดังนั้นผมจะแสดงว่าข้อผิดพลาดที่ :"
   you_are_not_authorized_to_perform_this_action: คุณไม่ได้รับอนุญาตให้ทำการนี้
-  you_have_been_a_member_of_this_community_since: คุณเป็นสมาชิกของชุมฃนนี้ตั้งแต่ %{since}
-  you_in_parens: (คุณ)
-  you_joined_community: คุณได้เข้าร่วมชุมชนนี้เสร็จเรียบร้อยแล้ว
-  you_left_community: คุณออกจากชุมชนเรียบร้อยแล้ว
-  you_must_be_logged_in_to_add_tags: คุณต้องล็อกอินในการเพิ่มแท็ก
-  your_current_rating_0_of_5: "คะแนนปัจจุบันของคุณ : 0 จาก 5"
-  your_current_rating_1_of_5: "คะแนนปัจจุบันของคุณ : 1 จาก 5"
-  your_current_rating_2_of_5: "คะแนนปัจจุบันของคุณ : 2 จาก 5"
-  your_current_rating_3_of_5: "คะแนนปัจจุบันของคุณ : 3 จาก 5"
-  your_current_rating_4_of_5: "คะแนนปัจจุบันของคุณ : 4 จาก 5"
-  your_current_rating_5_of_5: "คะแนนปัจจุบันของคุณ : 5 จาก 5"
-  your_message_was_sent: ส่งข้อความของคุณ
   your_preferences: การตั้งค่าของคุณ
   your_rating: คะแนนของคุณ

@@ -1,0 +1,20 @@
+# Messages for Colognian (Ripoarisch)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Purodha
+ksh: 
+  all_pages: All Sigge
+  content_summary_table_count_column_header: Aanzahl
+  curators_summary_header_with_count: 
+    one: Eine Kurator
+    other: "%{count} Kuratore"
+    zero: Keine Kurator
+  edit_my_profile: Et eijene Profil ändere
+  help: Hölp
+  images: Belder
+  license: Lizänz
+  location: Der Plaz
+  rights: Rääschde
+  sign_out: Ußlogge
+  twitter: <i lang="en">Twitter</i>
+  unknown: Onbikannt

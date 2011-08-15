@@ -1,0 +1,33 @@
+# Messages for Russian (Русский)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Александр Сигачёв
+ru: 
+  account_information: Информация профиля
+  all_pages: Все страницы
+  community: Сообщество
+  content_partners: Content Partners
+  curators_of_taxon_page_title: Кураторы %{taxon}
+  encyclopedia_of_life: Энциклопедия жизни
+  eol_news: Новости EOL
+  explore: Ознакомление
+  global_navigation: Общая навигация
+  help: Помощь
+  image_thumbnail_alt_text: Это %{vetted_status} изображение относится к %{scientific_name}
+  images: Иллюстрации
+  just_pages_with_pictures_and_text: Только страницы с иллюстрациями и текстом
+  license: Лицензия
+  members_with_count: 
+    few: "%{count} участника"
+    one: "%{count} участник"
+    other: "%{count} участников"
+  minimal_page: Минимальная страница
+  pages_with_pictures_and_text: Страницы с иллюстрациями и текстом
+  rights: Права
+  select_topic: Пожалуйста, выберите тему сообщения
+  sign_out: Выйти
+  skip_to_content: Перейти к данным
+  source_url: URL источника
+  user_system_down: Извините, но система регистрации недоступна в данный момент, пожалуйста попробуйте позже.
+  your_preferences: Ваши установки
+  your_preferences_have_been_updated: Ваш профиль был обновлён.

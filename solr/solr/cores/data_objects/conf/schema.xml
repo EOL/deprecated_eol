@@ -4,6 +4,7 @@
     <!-- define data types -->
     <types>
         <fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
+        <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true" omitNorms="true"/>
         <fieldType name="int" class="solr.TrieIntField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
         <fieldType name="float" class="solr.TrieFloatField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
         <fieldType name="date" class="solr.TrieDateField" omitNorms="true" precisionStep="0" positionIncrementGap="0"/>
@@ -29,10 +30,13 @@
         <field name="data_object_id" type="int" indexed="true" stored="true" required="true"/>
         <field name="guid" type="string" indexed="true" stored="true" required="true"/>
         <field name="data_type_id" type="int" indexed="true" stored="true" required="true"/>
+        <field name="data_subtype_id" type="int" indexed="true" stored="true" required="false"/>
         <field name="published" type="int" indexed="true" stored="true" required="true"/>
         <field name="data_rating" type="float" indexed="true" stored="true" required="true"/>
         <field name="description" type="text" indexed="true" stored="true" required="false"/>
         <field name="created_at" type="date" indexed="true" stored="true" required="true"/>
+        <field name="added_by_user" type="boolean" indexed="true" stored="true" required="false"/>
+        <field name="is_translation" type="boolean" indexed="true" stored="true" required="false"/>
         <field name="taxon_concept_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
         <field name="ancestor_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
         <field name="resource_id" type="int" indexed="true" stored="true" required="false"/>

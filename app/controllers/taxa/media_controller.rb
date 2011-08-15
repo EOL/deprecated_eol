@@ -12,8 +12,7 @@ class Taxa::MediaController < TaxaController
       { :top_concept_images => { :data_object => [ :users_data_object, { :toc_items => :info_items }, { :data_objects_hierarchy_entries => :hierarchy_entry },
           { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ] } },
       { :curator_activity_logs => :user },
-      { :users_data_objects => [ { :data_object => :toc_items }, { :data_objects_hierarchy_entries => :hierarchy_entry },
-        { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ] },
+      { :users_data_objects => [ { :data_object => :toc_items } ] },
       { :taxon_concept_exemplar_image => :data_object }]
     selects = {
       :taxon_concepts => '*',

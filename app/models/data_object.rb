@@ -172,7 +172,6 @@ class DataObject < SpeciesSchemaModel
       if options[:user].is_admin?
         vetted_ids += [Vetted.untrusted.id, Vetted.unknown.id, Vetted.inappropriate.id]
         visibility_ids = Visibility.all_ids.dup
-        show_preview = true
       # curators see invisible objects
       elsif options[:user].is_curator? && options[:user].min_curator_level?(:full)
         visibility_ids << Visibility.invisible.id
@@ -194,12 +193,8 @@ class DataObject < SpeciesSchemaModel
       dato_vetted_id = dato_association.vetted_id unless dato_association.nil?
       dato_visibility_id = dato_association.visibility_id unless dato_association.nil?
       # partners see all their PREVIEW or PUBLISHED objects
-      if options[:user] && options[:user].is_content_partner? && d.data_supplier_agent.id == options[:user].agent.id
-        if (dato_visibility_id == Visibility.preview.id) || d.published == true
-          true
-        end
       # user can see preview objects
-      elsif show_preview && dato_visibility_id == Visibility.preview.id
+      if show_preview && dato_visibility_id == Visibility.preview.id
         true
       # otherwise object must be PUBLISHED and in the vetted and visibility selection
       elsif d.published == true && vetted_ids.include?(dato_vetted_id) && visibility_ids.include?(dato_visibility_id)
@@ -805,8 +800,6 @@ class DataObject < SpeciesSchemaModel
     if options[:filter_by_hierarchy] && !options[:hierarchy].nil?
       options[:filter_hierarchy] = options[:hierarchy]
     end
-    # the user/agent has the ability to see some unpublished images, so create a UNION
-    show_unpublished = (options[:user].is_content_partner? || options[:user].is_curator? || options[:user].is_admin?)
 
     if options[:filter_hierarchy]
       # strict lookup
@@ -815,12 +808,6 @@ class DataObject < SpeciesSchemaModel
           [ :top_images => :data_object ],
           :select => { :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating ] } )
         image_data_objects = entry_in_hierarchy.top_images.collect{ |ti| ti.data_object }
-        if show_unpublished
-          HierarchyEntry.preload_associations(entry_in_hierarchy,
-            [ :top_unpublished_images => :data_object ],
-            :select => { :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating ] } )
-          image_data_objects += entry_in_hierarchy.top_unpublished_images.collect{ |ti| ti.data_object }
-        end
       end
     else
       image_data_objects = taxon_concept.top_concept_images.collect{ |tci| tci.data_object }
@@ -832,15 +819,6 @@ class DataObject < SpeciesSchemaModel
           :select => {
             :hierarchy_entries => :hierarchy_id,
             :agents => [:id, :full_name, :homepage, :logo_cache_url] } )
-      end
-      if show_unpublished
-        TaxonConcept.preload_associations(taxon_concept,
-          [ :top_unpublished_concept_images => { :data_object => { :hierarchy_entries => { :hierarchy => :agent } } } ],
-          :select => {
-            :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating ],
-            :hierarchy_entries => :hierarchy_id,
-            :agents => [:id, :full_name, :homepage, :logo_cache_url] } )
-        image_data_objects += taxon_concept.top_unpublished_concept_images.collect{ |tci| tci.data_object }
       end
     end
 

@@ -1,99 +1,100 @@
+- locale ||= :en
 .agreement
-  %h3= I18n.t(:content_partner_agreement_header, :content_partner_name => @partner.full_name)
+  %h3= I18n.t(:content_partner_agreement_header, :content_partner_name => @partner.full_name, :locale => locale)
 
   - unless agreement.created_at.blank?
-    %p= I18n.t(:content_partner_agreement_created_on, :date_time => format_date_time(agreement.created_at))
+    %p= I18n.t(:content_partner_agreement_created_on, :date_time => format_date_time(agreement.created_at), :locale => locale)
 
-  %h4= I18n.t(:content_partner_agreement_introduction_header)
-  %p= I18n.t(:content_partner_agreement_introduction, :content_partner_name => @partner.full_name)
+  %h4= I18n.t(:content_partner_agreement_introduction_header, :locale => locale)
+  %p= I18n.t(:content_partner_agreement_introduction, :content_partner_name => @partner.full_name, :locale => locale)
 
-  %h4= I18n.t(:content_partner_agreement_parties_header)
-  %p= I18n.t(:content_partner_agreement_parties, :cornerstone_institutions_list_url => "/placeholder/FIXME")
+  %h4= I18n.t(:content_partner_agreement_parties_header, :locale => locale)
+  %p= I18n.t(:content_partner_agreement_parties, :cornerstone_institutions_list_url => "/placeholder/FIXME", :locale => locale)
 
   %dl
     %dt
-      = I18n.t(:content_partner_agreement_parties_species_pages_group_name)
+      = I18n.t(:content_partner_agreement_parties_species_pages_group_name, :locale => locale)
     %dd
-      = I18n.t(:content_partner_agreement_parties_species_pages_group_definition)
+      = I18n.t(:content_partner_agreement_parties_species_pages_group_definition, :locale => locale)
     %dt
-      = I18n.t(:content_partner_agreement_parties_biodiversity_informatics_group_name)
+      = I18n.t(:content_partner_agreement_parties_biodiversity_informatics_group_name, :locale => locale)
     %dd
-      = I18n.t(:content_partner_agreement_parties_biodiversity_informatics_group_definition)
+      = I18n.t(:content_partner_agreement_parties_biodiversity_informatics_group_definition, :locale => locale)
     %dt
-      = I18n.t(:content_partner_agreement_parties_scanning_digitization_group_name)
+      = I18n.t(:content_partner_agreement_parties_scanning_digitization_group_name, :locale => locale)
     %dd
-      = I18n.t(:content_partner_agreement_parties_scanning_digitization_group_definition)
+      = I18n.t(:content_partner_agreement_parties_scanning_digitization_group_definition, :locale => locale)
     %dt
-      = I18n.t(:content_partner_agreement_parties_education_outreach_group_name)
+      = I18n.t(:content_partner_agreement_parties_education_outreach_group_name, :locale => locale)
     %dd
-      = I18n.t(:content_partner_agreement_parties_education_outreach_group_definition)
+      = I18n.t(:content_partner_agreement_parties_education_outreach_group_definition, :locale => locale)
     %dt
-      = I18n.t(:content_partner_agreement_parties_biodiversity_synthesis_group_name)
+      = I18n.t(:content_partner_agreement_parties_biodiversity_synthesis_group_name, :locale => locale)
     %dd
-      = I18n.t(:content_partner_agreement_parties_biodiversity_synthesis_group_definition)
+      = I18n.t(:content_partner_agreement_parties_biodiversity_synthesis_group_definition, :locale => locale)
 
   %p= @partner.description
 
-  %h4= I18n.t(:content_partner_agreement_licensing_header)
-  %p= I18n.t(:content_partner_agreement_licensing)
+  %h4= I18n.t(:content_partner_agreement_licensing_header, :locale => locale)
+  %p= I18n.t(:content_partner_agreement_licensing, :locale => locale)
 
   %ol
-    %li= I18n.t(:content_partner_agreement_licensing_provision_rights_holder_permission)
-    %li= I18n.t(:content_partner_agreement_licensing_provision_public_domain_ipr)
-    %li= I18n.t(:content_partner_agreement_licensing_provision_preferred_license)
-    %li= I18n.t(:content_partner_agreement_licensing_provision_alternate_restrictive_license)
-    %li= I18n.t(:content_partner_agreement_licensing_provision_attribution)
+    %li= I18n.t(:content_partner_agreement_licensing_provision_rights_holder_permission, :locale => locale)
+    %li= I18n.t(:content_partner_agreement_licensing_provision_public_domain_ipr, :locale => locale)
+    %li= I18n.t(:content_partner_agreement_licensing_provision_preferred_license, :locale => locale)
+    %li= I18n.t(:content_partner_agreement_licensing_provision_alternate_restrictive_license, :locale => locale)
+    %li= I18n.t(:content_partner_agreement_licensing_provision_attribution, :locale => locale)
 
-  %p= I18n.t(:content_partner_agreement_licensing_creative_commons_information)
+  %p= I18n.t(:content_partner_agreement_licensing_creative_commons_information, :locale => locale)
 
-  %h4= I18n.t(:content_partner_agreement_attribution_header)
-  %p= I18n.t(:content_partner_agreement_attribution, :content_partner_name => @partner.full_name)
+  %h4= I18n.t(:content_partner_agreement_attribution_header, :locale => locale)
+  %p= I18n.t(:content_partner_agreement_attribution, :content_partner_name => @partner.full_name, :locale => locale)
 
-  %h4= I18n.t(:content_partner_agreement_roles_use_terms_header)
-  %p= I18n.t(:content_partner_agreement_roles_use_terms_partner, :content_partner_name => @partner.full_name)
-
-  %ul
-    %li= I18n.t(:content_partner_agreement_roles_use_terms_partner_term_content_format)
-    %li= I18n.t(:content_partner_agreement_roles_use_terms_partner_term_fitness_for_purpose)
-    %li= I18n.t(:content_partner_agreement_roles_use_terms_partner_term_respond_to_feedback, :content_partner_name => @partner.full_name)
-    %li= I18n.t(:content_partner_agreement_roles_use_terms_partner_term_improve_quality)
-    %li= I18n.t(:content_partner_agreement_roles_use_terms_partner_term_license_compliance)
-    %li= I18n.t(:content_partner_agreement_roles_use_terms_partner_term_eol_logo)
-
-
-  %p= I18n.t(:content_partner_agreement_roles_use_terms_eol, :content_partner_name => @partner.full_name)
+  %h4= I18n.t(:content_partner_agreement_roles_use_terms_header, :locale => locale)
+  %p= I18n.t(:content_partner_agreement_roles_use_terms_partner, :content_partner_name => @partner.full_name, :locale => locale)
 
   %ul
-    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_provide_tools, :content_partner_name => @partner.full_name)
-    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_cache, :content_partner_name => @partner.full_name)
-    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_attribution, :content_partner_name => @partner.full_name)
-    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_api, :content_partner_name => @partner.full_name)
-    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_reuse_requests, :content_partner_name => @partner.full_name)
-    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_not_alter)
-    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_feedback_notification, :content_partner_name => @partner.full_name)
-    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_improve_quality, :content_partner_name => @partner.full_name)
-    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_usage_notification, :content_partner_name => @partner.full_name)
-    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_access_content, :content_partner_name => @partner.full_name)
-    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_partner_logo, :content_partner_name => @partner.full_name)
-    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_copyright_notice)
-    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_reserves_right_to_unpublish, :content_partner_name => @partner.full_name)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_partner_term_content_format, :locale => locale)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_partner_term_fitness_for_purpose, :locale => locale)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_partner_term_respond_to_feedback, :content_partner_name => @partner.full_name, :locale => locale)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_partner_term_improve_quality, :locale => locale)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_partner_term_license_compliance, :locale => locale)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_partner_term_eol_logo, :locale => locale)
 
-  %p= I18n.t(:content_partner_agreement_roles_use_terms_not_creating_legal_partnership)
-  %p= I18n.t(:content_partner_agreement_roles_use_terms_not_exclusive, :content_partner_name => @partner.full_name)
-  %p= I18n.t(:content_partner_agreement_roles_use_terms_not_financial_obligation)
-  %p= I18n.t(:content_partner_agreement_roles_use_terms_not_exploit_association_with_eol, :content_partner_name => @partner.full_name)
-  %p= I18n.t(:content_partner_agreement_roles_use_terms_amending_or_terminating_agreement, :content_partner_name => @partner.full_name)
 
-  %h4= I18n.t(:content_partner_agreement_contact_information_header)
+  %p= I18n.t(:content_partner_agreement_roles_use_terms_eol, :content_partner_name => @partner.full_name, :locale => locale)
+
+  %ul
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_provide_tools, :content_partner_name => @partner.full_name, :locale => locale)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_cache, :content_partner_name => @partner.full_name, :locale => locale)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_attribution, :content_partner_name => @partner.full_name, :locale => locale)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_api, :content_partner_name => @partner.full_name, :locale => locale)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_reuse_requests, :content_partner_name => @partner.full_name, :locale => locale)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_not_alter, :locale => locale)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_feedback_notification, :content_partner_name => @partner.full_name, :locale => locale)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_improve_quality, :content_partner_name => @partner.full_name, :locale => locale)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_usage_notification, :content_partner_name => @partner.full_name, :locale => locale)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_access_content, :content_partner_name => @partner.full_name, :locale => locale)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_partner_logo, :content_partner_name => @partner.full_name, :locale => locale)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_copyright_notice, :locale => locale)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_reserves_right_to_unpublish, :content_partner_name => @partner.full_name, :locale => locale)
+
+  %p= I18n.t(:content_partner_agreement_roles_use_terms_not_creating_legal_partnership, :locale => locale)
+  %p= I18n.t(:content_partner_agreement_roles_use_terms_not_exclusive, :content_partner_name => @partner.full_name, :locale => locale)
+  %p= I18n.t(:content_partner_agreement_roles_use_terms_not_financial_obligation, :locale => locale)
+  %p= I18n.t(:content_partner_agreement_roles_use_terms_not_exploit_association_with_eol, :content_partner_name => @partner.full_name, :locale => locale)
+  %p= I18n.t(:content_partner_agreement_roles_use_terms_amending_or_terminating_agreement, :content_partner_name => @partner.full_name, :locale => locale)
+
+  %h4= I18n.t(:content_partner_agreement_contact_information_header, :locale => locale)
   %address.partner
     %strong= @partner.full_name
     %br/
     = @partner.homepage unless @partner.homepage.blank?
 
   %address.eol
-    %strong= I18n.t(:content_partner_agreement_contact_information_eol_organisation)
+    %strong= I18n.t(:content_partner_agreement_contact_information_eol_organisation, :locale => locale)
     %br/
-    = I18n.t(:content_partner_agreement_contact_information_eol_organisation_url)
+    = I18n.t(:content_partner_agreement_contact_information_eol_organisation_url, :locale => locale)
     %br/
-    = I18n.t(:content_partner_agreement_contact_information_eol_representative_name_role_email_phone)
-    %p= I18n.t(:content_partner_agreement_contact_information_eol_representative_note)
+    = I18n.t(:content_partner_agreement_contact_information_eol_representative_name_role_email_phone, :locale => locale)
+    %p= I18n.t(:content_partner_agreement_contact_information_eol_representative_note, :locale => locale)

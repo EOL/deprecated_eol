@@ -1,5 +1,4 @@
 %fieldset
-  %h3= I18n.t(:content_partner_resource_new_edit_form_header)
   %p.tip= I18n.t(:content_partner_resource_new_edit_form_tip,
     :required_icon => image_tag('/images/v2/icon_required.png', :alt => ''))
   %dl
@@ -7,27 +6,39 @@
       = resource_form.label :title
     %dd
       = resource_form.text_field :title, :maxlength => 255
-    %dt.required
-      = resource_form.label :subject
+
+  %dl.resources
+    %dt
+      = radio_button_tag :resource_url_or_upload, :url, !@resource.accesspoint_url.blank?
+      = label_tag :resource_url_or_upload, I18n.t('helpers.label.resource.resource_url_or_upload_url')
     %dd
-      = resource_form.text_field :subject, :maxlength => 255
-    %dt.required
-      = resource_form.label :resource_created_at
+      %dl
+        %dt.required
+          = resource_form.label :accesspoint_url
+        %dd
+          = resource_form.text_field :accesspoint_url, :maxlength => 255
+        %dt.required
+          = resource_form.label :refresh_period_hours
+        %dd
+          = resource_form.select :refresh_period_hours, options_for_select(@import_frequencies, @resource.refresh_period_hours)
+    %dt
+      = radio_button_tag :resource_url_or_upload, :upload, !@resource.dataset.instance.dataset_file_name.blank?
+      = label_tag :resource_url_or_upload, I18n.t('helpers.label.resource.resource_url_or_upload_upload')
     %dd
-      = resource_form.date_select :resource_created_at, :order => [:day,:month,:year],
-        :start_year => (Time.now.year - 10), :end_year => Time.now.year, :use_month_numbers => true
+      %dl
+        %dt.required
+          = resource_form.label :dataset
+        %dd
+          = resource_form.file_field :dataset
+  %dl
+    %dt
+      = resource_form.label :dwc_archive_url
+    %dd
+      = resource_form.text_field :dwc_archive_url, :maxlength => 255
     %dt.required
       = resource_form.label :license_id
     %dd
       = resource_form.select :license_id, options_from_collection_for_select(@licenses, :id, :title, @resource.license_id)
-    %dt.required
-      = resource_form.label :language_id
-    %dd
-      = resource_form.select :language_id, options_from_collection_for_select(@languages, :id, :source_form, @resource.language_id)
-    %dt
-      = resource_form.label :description
-    %dd
-      = resource_form.text_area :description
     %dt
       = resource_form.label :rights_holder
     %dd
@@ -40,37 +51,11 @@
       = resource_form.label :bibliographic_citation
     %dd
       = resource_form.text_area :bibliographic_citation
-
-
-
-
-%fieldset
-  .header
-    %h3= I18n.t(:content_partner_resource_file_or_url_header)
-  %dl
     %dt.required
-      = resource_form.label :accesspoint_url
+      = resource_form.label :language_id
     %dd
-      = resource_form.text_field :accesspoint_url, :maxlength => 255
-    %dt.required
-      = resource_form.label :refresh_period_hours
-    %dd
-      = resource_form.select :refresh_period_hours, options_for_select(@import_frequencies, @resource.refresh_period_hours)
-
-
-  %br/
-  = I18n.t(:or_between_form_items)
-  %br/
-  %dl
-    %dt.required
-      = resource_form.label :dataset
-    %dd
-      = resource_form.file_field :dataset
-%fieldset.taxonomy
-  .header
-    %h3= I18n.t(:content_partner_resource_taxonomy_header)
-  %dl
+      = resource_form.select :language_id, options_from_collection_for_select(@languages, :id, :source_form, @resource.language_id)
     %dt
-      = resource_form.label :dwc_archive_url
+      = resource_form.label :description
     %dd
-      = resource_form.text_field :dwc_archive_url, :maxlength => 255
+      = resource_form.text_area :description

@@ -1,4 +1,6 @@
-.session
+- # TODO: Fix HR css so we don't need different classes here
+- session_class = @home_page ? 'session signed_in' : 'session'
+%div{:class => session_class}
   %h2.assistive= I18n.t(:account_information)
   = image_tag current_user.logo_url('small'), :alt => I18n.t(:profile_image_alt_text_member, :user_full_name => h(current_user.full_name))
   .details

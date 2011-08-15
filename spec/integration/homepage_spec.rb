@@ -45,12 +45,12 @@ describe 'Home page' do
 #    body.should     have_tag('#header a[href*=?]', /logout/)
 #    visit('/logout')
 
-  it 'should have a language picker with all active languages' do
+  it 'should have a language picker with all approved languages' do
     en = Language.english
     # Let's add a new language to be sure it shows up:
-    Language.gen(:source_form => 'Supernal', :iso_639_1 => 'sp', :activated_on => 24.hours.ago )
-    active = Language.find_active
-    active.map(&:source_form).should include('Supernal')
+    Language.gen_if_not_exists(:iso_639_1 => 'es', :label => 'Spanish')
+    Language.gen_if_not_exists(:iso_639_1 => 'ar', :label => 'Arabic')
+    active = Language.approved_languages
     visit('/')
     active.each do |language|
       if language.iso_639_1 == I18n.locale.to_s

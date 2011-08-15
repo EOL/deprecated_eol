@@ -63,7 +63,7 @@
                 %span
                   = I18n.t(:current_language, :iso_code => I18n.locale.to_s.upcase)
             %ul
-              - Language.find_active.each.each do |language|
+              - Language.approved_languages.each do |language|
                 %li
                   = link_to I18n.t(:language_menu_item, :language_label => language.source_form, :language_abbr => language.display_code),
                     set_language_url(:language => language.iso_639_1, :return_to => current_url(false)),
@@ -74,11 +74,7 @@
         - if logged_in?
           = render :partial => 'sessions/session_summary'
         - elsif $ALLOW_USER_LOGINS && !agent_logged_in?
-          - if @home_page
-            = render :partial => 'shared/join_eol', :locals => {:join_style => 'button'}
-          - else
-            .session
-              = render :partial => 'shared/join_eol'
+          = render :partial => 'shared/join_eol', :locals => {:join_style => @home_page ? 'button' : nil}
         - elsif $ALLOW_USER_LOGINS == false && @home_page.nil?
           .session
             %p= I18n.t(:user_system_down)
@@ -116,6 +112,7 @@
           - # TODO: add rss ? %li= link_to I18n.t(:rss_abbr_html), "/placeholder", :class => "rss"
           %li= link_to I18n.t(:twitter), $EOL_TWITTER_ACCOUNT, :class => "twitter"
           %li= link_to I18n.t(:facebook), $EOL_FACEBOOK_ACCOUNT, :class => "facebook"
+          %li= link_to I18n.t(:tumblr), $EOL_TUMBLR_ACCOUNT, :class => "tumblr"
 
     - if $ENABLE_ANALYTICS
       :javascript

@@ -27,7 +27,7 @@ class Hierarchy < SpeciesSchemaModel
   def self.sort_by_user_or_agent_name(hierarchies)
     hierarchies.sort_by do |h|
       [ h.request_publish ? 0 : 1,
-        h.browsable * -1,
+        h.browsable.to_i * -1,
         h.user_or_agent_or_label_name ]
     end
   end
@@ -130,7 +130,7 @@ class Hierarchy < SpeciesSchemaModel
       nil
     end
   end
-  
+
   def user_or_agent_or_label_name
     if user_or_agent
       user_or_agent.full_name

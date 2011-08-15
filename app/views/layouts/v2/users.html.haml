@@ -5,8 +5,8 @@
         - # user#show or user#edit
         = image_tag @user.logo_url, :alt => ""
         .hgroup
-          %h1= @user.full_name
-          %h2= @user.tag_line
+          %h1= h @user.full_name
+          %h2= h @user.tag_line
         - unless action_name == 'edit'
           .page_actions
             %ul

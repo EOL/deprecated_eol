@@ -65,6 +65,33 @@ module EOL
         JSON.load res
       end
       
+      def self.get_facet_counts(taxon_concept_id)
+        facets = {}
+        base_url =  $SOLR_SERVER + $SOLR_DATA_OBJECTS_CORE + '/select/?wt=json&q=' + CGI.escape(%Q[{!lucene}])
+        [true, false].each do |do_ancestor|
+          ['trusted', 'unreviewed'].each do |vetted_status|
+            url = base_url.dup + CGI.escape(%Q[#{vetted_status}_ancestor_id:#{taxon_concept_id} AND visible_ancestor_id:#{taxon_concept_id}])
+            url << CGI.escape(" AND taxon_concept_id:#{taxon_concept_id}") unless do_ancestor
+            url << '&facet.field=data_type_id&facet=on&rows=0'
+            res = open(url).read
+            response = JSON.load(res)
+            f = response['facet_counts']['facet_fields']['data_type_id']
+            key_prefix = vetted_status
+            key_prefix = "ancestor_" + key_prefix if do_ancestor
+            f.each_with_index do |rt, index|
+              next if index % 2 == 1 # if its odd, skip this. Solr has a strange way of returning the facets in JSON
+              data_type = DataType.find(rt.to_i)
+              key = key_prefix + "_" + data_type.label('en').downcase
+              facets[key] = f[index+1]
+            end
+            facets[key_prefix + "_video"] += facets[key_prefix + "_youtube"] if facets[key_prefix + "_youtube"]
+            facets[key_prefix + "_flash"] += facets[key_prefix + "_flash"] if facets[key_prefix + "_flash"]
+          end
+        end
+        facets
+        
+      end
+      
     end
   end
 end

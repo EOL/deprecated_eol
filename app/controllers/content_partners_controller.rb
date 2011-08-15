@@ -49,9 +49,10 @@ class ContentPartnersController < ApplicationController
   end
 
   def create
-    # TODO: create contact for current user on content partner create
+    # TODO: rethink contacts when we have many to many users and content partners - or make user a contact on create ?
     @partner = ContentPartner.new(params[:content_partner])
     access_denied unless current_user.can_create?(@partner)
+    @partner.user = current_user
     if @partner.save
       upload_logo(@partner) unless params[:content_partner][:logo].blank?
       flash[:notice] = I18n.t(:content_partner_create_successful_notice)
@@ -68,8 +69,6 @@ class ContentPartnersController < ApplicationController
     @partner = ContentPartner.find(params[:id], :include => [{ :resources => :collection }, :content_partner_contacts ])
     @partner_collections = @partner.resources.collect{|r| r.collection}.compact
     Resource.add_latest_published_harvest_event!(@partner.resources)
-    @partner_contacts = @partner.content_partner_contacts.select{|cpc| cpc.can_be_read_by?(current_user)}
-    @new_partner_contact = @partner.content_partner_contacts.build
     @head_title = @partner.name
   end
 
@@ -82,7 +81,7 @@ class ContentPartnersController < ApplicationController
 
   # PUT /content_partners/:id
   def update
-    @partner = ContentPartner.find(params[:id])
+    @partner = ContentPartner.find()
     access_denied unless current_user.can_update?(@partner)
     if @partner.update_attributes(params[:content_partner])
       upload_logo(@partner) unless params[:content_partner][:logo].blank?

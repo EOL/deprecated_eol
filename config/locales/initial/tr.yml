@@ -1,0 +1,58 @@
+# Messages for Turkish (Türkçe)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Emperyan
+# Author: Szoszv
+tr: 
+  account_information: Hesap Bilgileri
+  add_to_my_collection_button: İzleme listeme ekle
+  all_pages: Tüm sayfalar
+  are_you_sure: Emin misiniz?
+  assistive_details_header: Ayrıntılar
+  collections: Koleksiyonlar
+  communities: Topluluk(lar)
+  community: Topluluk
+  community_activity: Topluluk Etkinliği
+  contact_us_link: Bize ulaşın
+  detail: Detay
+  edit_my_profile: Profili düzenle
+  eol_news: EOL Haber
+  explore: Keşfet
+  filter_by_status: Duruma göre filtre uygula
+  go: Git
+  google_translate: Google Translate
+  help: Yardım
+  image_not_found: Resim bulunamadı
+  images: Görüntüler
+  join_eol_button_html: <abbr title="Encyclopedia of Life">EOL</abbr>'a şimdi katılın
+  join_eol_community_html: <abbr title="Encyclopedia of Life">EOL</abbr> topluluğunun bir parçası olun!
+  learn_about_content_partners: İçerik ortaklarımız hakkında bilgi edinin
+  learn_how_to_join: Nasıl katılabileceğinizi öğrenin
+  license: Lisans
+  location: Konum
+  login_or_create_account: Oturum aç / Hesap Oluştur
+  media: Medya
+  my_activity: Etkinliklerim
+  my_info: Hakkımda
+  newsfeed: Haber beslemesi
+  overview: Genel bakış
+  profile: Profil
+  recent_updates: Son güncellemeler
+  remove_membership: Üyelik kaldırma
+  resources: Kaynaklar
+  rights: Haklar
+  rights_holder: Hak Sahibi
+  search_the_site: Site içi arama
+  sign_in: Oturum aç
+  sign_out: Oturumu Kapat
+  site_information: Site bilgileri
+  skip_to_content: İçeriğe geç
+  source_url: Kaynak URL
+  threat_status_header_colon: "IUCN tehlike durumu:"
+  twitter: Twitter
+  unknown: Bilinmeyen
+  user_system_down: Özür dileriz, ancak kullanıcı kayıt sistemi şu anda kullanılabilir değil.  Lütfen daha sonra tekrar deneyin.
+  what_is_eol: EOL nedir?
+  what_is_this_question: Bu nedir?
+  your_preferences: Tercihleriniz
+  your_preferences_have_been_updated: Tercihleriniz güncellendi.

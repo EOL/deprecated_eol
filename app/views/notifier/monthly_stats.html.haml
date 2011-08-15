@@ -1,15 +1,28 @@
-=I18n.t("dear_var__contact__full_name__", :var__contact__full_name__ => @contact['full_name'])
-=""
-=I18n.t("this_is_an_automated_e_mail_no")
-=I18n.t("you_can_now_check_last_month_s")
-=""
-=I18n.t("please_login_to_your_account_i")
-=I18n.t("login_here__http___www_eol_org")
-=""
-=I18n.t("this_is_the_link_to_your_web_s")
-= "http://" + @SITE_DOMAIN_OR_IP + "/content_partner/reports/monthly_page_stats?agent_id=" + @contact["agent_id"] + "&month=" + @month + "&year=" + @year
-=""
-=I18n.t("contact_eli_eol_org_for_any_co")
-=I18n.t("thank_you_")
-=""
-=I18n.t("_encyclopedia_of_life")
+= I18n.t("dear_var__contact__full_name__", :var__contact__full_name__ => @contact['full_name'] + " (#{@contact['partner_full_name']})")
+= ""
+= I18n.t("this_is_an_automated_e_mail_no")
+= I18n.t("you_can_now_check_last_month_s")
+= ""
+= I18n.t("this_is_the_link_to_your_web_s")
+= "http://" + @SITE_DOMAIN_OR_IP + "/content_partners/#{@contact['content_partner_id']}/statistics"
+= ""
+= I18n.t("contact_eli_eol_org_for_any_co")
+= I18n.t("thank_you_")
+= ""
+= I18n.t("_encyclopedia_of_life")
+
+
+-# SAMPLE ACTUAL EMAIL:
+
+-# Dear contact_full_name (content_partner_full_name),
+-# 
+-# This is an automated e-mail notification.
+-# You can now check last month's web usage of your data in EOL.
+-# 
+-# This is the link to your web stats:
+-# http://www.eol.org/content_partners/content_partner_id/statistics
+-# 
+-# Contact eli@eol.org for any comments.
+-# Thank you.
+-# 
+-# -Encyclopedia of Life

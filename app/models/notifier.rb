@@ -86,8 +86,7 @@ class Notifier < ActionMailer::Base
   end
 
   def monthly_stats(contact_recipient,month,year)
-    subject     "EOL Monthly Statistics Notification"
-    I18n.t(:email_subject_eol_monthly_stats_notification)
+    subject     I18n.t(:email_subject_eol_monthly_stats_notification)
     recipients  contact_recipient["email"]
     from        $STATISTICS_EMAIL_FROM_ADDRESS
     body        :contact => contact_recipient , :month => month , :year => year , :SITE_DOMAIN_OR_IP => $SITE_DOMAIN_OR_IP

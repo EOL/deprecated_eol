@@ -2153,7 +2153,7 @@ body > #header {
       #worklist #tasks ul li + li {
         border-top: 1px solid #d7dadc; }
       #worklist #tasks ul li:hover {
-        background-color: white !important; }
+        background-color: white; }
       #worklist #tasks ul li p {
         padding: 6px 0 0 0;
         font-weight: bold;
@@ -2411,6 +2411,14 @@ body > #header {
       #search_results #main .header a.prev {
         right: auto;
         left: 10px; }
+#taxon_updates .update_feed .header {
+  position: relative;
+  padding: 10px 0;
+  text-align: center;
+  border-bottom: 1px solid #394651;
+  margin-bottom: 10px; }
+  #taxon_updates .update_feed .header h3 {
+    font-size: 1.33em; }
 
 #collections_endorse {
   width: 700px;
@@ -2695,4 +2703,3 @@ ul.spotlite-matches {
   left: 0;
   width: 100%;
   height: 100%; }
-

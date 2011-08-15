@@ -1,5 +1,5 @@
 - content_for :main do
-  #page_heading.with_image
+  #page_heading.with_image.with_nav
     .site_column
       = image_tag @partner.logo_url, :alt => ""
       .hgroup
@@ -22,15 +22,13 @@
           %ul
             %li= link_to I18n.t(:content_partner_edit_link), edit_content_partner_path(@partner), :class => "button"
       = render :partial => 'shared/flash_messages'
-  #content
-    %div{:id => "content_partner_#{action_name}", :class => 'site_column'}
       - if @partner && @partner.id && (action_name == 'show' || action_name == 'index')
-        #tabs_sidebar
-          %ul.tabs
-            %li{:class => resource_is_active('content_partners')}= link_to I18n.t(:content_partner_overview), content_partner_path(@partner)
-            %li{:class => resource_is_active('content_partners/statistics')}= link_to I18n.t(:content_partner_statistics_link), content_partner_statistics_path(@partner)
-            - if current_user.can_update?(@partner)
-              %li{:class => resource_is_active('content_partners/resources')}= link_to I18n.t(:content_partner_resources), content_partner_resources_path(@partner)
-      = yield
+        %ul.nav
+          %li{:class => resource_is_active('content_partners')}= link_to I18n.t(:content_partner_overview_link), content_partner_path(@partner)
+          %li{:class => resource_is_active('content_partners/statistics')}= link_to I18n.t(:content_partner_statistics_link), content_partner_statistics_path(@partner)
+          - if current_user.can_update?(@partner)
+            %li{:class => resource_is_active('content_partners/resources')}= link_to I18n.t(:content_partner_resources_link), content_partner_resources_path(@partner)
+  #content
+    = yield
 
 = render :file => 'layouts/v2/application'

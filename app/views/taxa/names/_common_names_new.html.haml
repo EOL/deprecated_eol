@@ -12,6 +12,6 @@
         %dt
           = synonym.label :language_id
         %dd
-          = synonym.collection_select(:language_id, Language.all, :id, :label)
+          = synonym.collection_select(:language_id, Language.approved_languages, :id, :label, :selected => current_user.language_id)
   %fieldset.actions
     = f.submit I18n.t('helpers.submit.name.create'), :name => :commit_add_common_name

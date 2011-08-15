@@ -6,9 +6,12 @@ class ContentPartners::ResourcesController < ContentPartnersController
 
   # GET /content_partners/:content_partner_id/resources
   def index
-    @partner = ContentPartner.find(params[:content_partner_id])
+    @partner = ContentPartner.find(params[:content_partner_id], :include => [:resources, :content_partner_agreements])
     @resources = @partner.resources
-    @page_subheader = I18n.t(:content_partner_resources)
+    @agreements = @partner.content_partner_agreements
+    @new_agreement = @partner.content_partner_agreements.build() if @agreements.blank?
+    @partner_contacts = @partner.content_partner_contacts.select{|cpc| cpc.can_be_read_by?(current_user)}
+    @new_partner_contact = @partner.content_partner_contacts.build
   end
 
   # GET /content_partners/:content_partner_id/resources/new
@@ -40,7 +43,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
 
   # GET /content_partners/:content_partner_id/resources/:id/edit
   def edit
-    @partner = ContentPartner.find(params[:content_partner_id])
+    @partner = ContentPartner.find(params[:content_partner_id], :include => [:resources])
     set_resource_options
     @resource = @partner.resources.find(params[:id])
     @page_subheader = I18n.t(:content_partner_resource_edit_subheader)

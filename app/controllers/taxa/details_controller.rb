@@ -35,7 +35,7 @@ class Taxa::DetailsController < TaxaController
     @taxon_concept.current_user = current_user
     @details = @taxon_concept.details_for_toc_items(ContentTable.details.toc_items, :language => current_user.language_abbr)
 
-    toc_items_to_show = @details.collect{|d| d[:toc_item]}
+    toc_items_to_show = @details.blank? ? [] : @details.collect{|d| d[:toc_item]}
     
     # toc_items to exclude in Details tab
     temp = []

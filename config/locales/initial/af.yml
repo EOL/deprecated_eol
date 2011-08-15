@@ -4,70 +4,50 @@
 # Author: Naudefj
 af: 
   account_information: Gebruikersgegewens
-  add_a_role: Voeg 'n rol by
   all_pages: Alle bladsye
   already_a_member_question: Reeds 'n lid?
   application_version_advisory_information: Programweergawe
   are_you_sure: Is u seker?
   cannot_be_empty: kan nie leeg wees nie.
   citation: Verwysing
-  collected_by: Versamel deur
-  collection_item_type_with_label: "Tipe: %{type}"
   collections: Versamelings
   communities: Gemeenskappe
   community: Gemeenskap
   community_focus: Gemeenskapsfokus
-  community_members: Lede van die gemeenskap
   contact_us_link: Kontak ons
-  contribute_to_page_button: Dra by tot hierdie bladsy
-  contributors_like_you: Bydraers soos u
   create_a_collection: Skep 'n versameling
   create_a_community: Skep 'n gemeenskap
-  curator_comment: Kurator se kommentaar
+  curators_of_taxon_page_title: Kurators van %{taxon}
   curators_summary_header_with_count: 
     one: "%{count} kurator"
     other: "%{count} kuratore"
-  delete_allcaps: VERWYDER
   detail: Detail
-  donate: Skenk
   edit_collection: Wysig versameling
-  edit_membership: Wysig lidmaatskap
-  eol_glossary: EOL-woordelys
+  edit_my_profile: Verander my profiel
   eol_news: EOL-nuus
-  error_page_header: Jammer, daar was 'n probleem
   explore: Verken
-  filter_feeds_button: Filtreer
-  filter_feeds_label: Wys
   global_navigation: Globale navigasie
   go: OK
   google_translate: Google Vertaal
   help: Hulp
   images: Beelde
   indexed: Geïndekseer
-  join_community: Sluit aan by hierdie gemeenskap
   join_community_button: Sluit aan by hierdie gemeenskap
   learn_how_to_join: Leer hoe u kan deelneem
-  leave_community: Verlaat hierdie gemeenskap
   license: Lisensie
-  location_: Ligging
-  log_in: Meld aan
+  location: Ligging
   login_or_create_account: Meld aan of registreer
   manage_community: Bestuur gemeenskap
-  manage_roles: Bestuur rolle
   media: Media
   minimal_page: Minimale bladsy
+  my_info: My inligting
   newsfeed: Nuusvoer
-  no_activity: Geen aktiwiteit.
-  no_members_in_parens: (geen lede)
   not_evaluated: Nie geëvalueer nie
   overview: Oorsig
-  print_this_page_link: Druk hierdie bladsy
   profile: Profiel
-  punctuation_comma: ","
   recent_updates: Onlangse bywerkings
   rights: Regte
   rights_holder: Houer van regte
-  roles: Rolle
   search_field_label: Deursoek EOL
   search_placeholder: Deursoek EOL...
   search_the_site: Deursoek die webwerf
@@ -77,17 +57,12 @@ af:
   sign_out: Meld af
   site_information: Inligting oor die webwerf
   skip_to_content: Slaan oor na inhoud
-  source_information_link: inligting oor die bron
   source_url: Bron-URL
-  supplier_: Leweransier
   text_summary_more_link: Lees volledige inskrywing
-  thanks_for_feedback: Dankie vir u terugvoer.
   total_items_with_count: 
     one: "%{count} item"
     other: "%{count} items totaal"
+  twitter: Twitter
   unknown: Onbekend
-  user_became_role_note: "%{username} word 'n %{role}."
   what_is_eol: Wat is EOL?
-  you_in_parens: (u)
-  your_message_was_sent: U boodskap is gestuur.
   your_preferences: U voorkeure

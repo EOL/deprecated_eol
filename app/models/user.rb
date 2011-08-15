@@ -40,7 +40,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   has_one :content_partner
   has_one :user_info
   belongs_to :default_hierarchy, :class_name => Hierarchy.to_s, :foreign_key => :default_hierarchy_id
-  # I wish these worked, but they need runtime evaluation.
   has_one :existing_watch_collection, :class_name => 'Collection', :conditions => 'special_collection_id = #{SpecialCollection.watch.id}'
 
   before_save :check_credentials
@@ -659,12 +658,14 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   # #collections is only a list of the collections the user *owns*.  This is a list that includes the collections the
   # user has access to through communities
+  #
+  # NOTE - this will ALWAYS put the watch collection first.
   def all_collections
-    editable_collections = collections
+    editable_collections = [watch_collection] + collections.reject {|c| c.watch_collection? }
     editable_collections += members.managers.map {|member| member.community.collection }
     editable_collections
   end
-  
+
   def ignored_data_object?(data_object)
     return false unless data_object
     return WorklistIgnoredDataObject.find_by_user_id_and_data_object_id(self.id, data_object.id)

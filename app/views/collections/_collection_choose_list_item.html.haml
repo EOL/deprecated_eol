@@ -1,0 +1,19 @@
+- form_for(collection) do |f|
+  = f.hidden_field :id
+  - if @items
+    = hidden_field_tag :for, @for
+    = hidden_field_tag :source_collection_id, @collection.id
+    = hidden_field_tag :scope, @scope
+  - if @item
+    = hidden_field_tag :item_type, @item.class.name
+    = hidden_field_tag :item_id, @item.id
+  - if @selected_collection_items
+    - @selected_collection_items.each do |collection_item_id|
+      = hidden_field_tag "collection_items[]", collection_item_id, :id => "collection_item_#{collection_item_id}"
+  %li
+    - button_text = collection.name
+    - if collection.community_id
+      - button_text += " " + I18n.t(:from_community, :community => collection.community.name)
+    - if collection.has_item?(@item)
+      - button_text += " " + I18n.t(:already_in_collection)
+    = submit_tag(button_text)

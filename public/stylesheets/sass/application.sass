@@ -2096,9 +2096,11 @@ ul.spotlite-matches
         float: left
         +input(210px)
         margin: 0 10px 0 0
-      input[type="submit"]
-        padding-left: 20px
-        padding-right: 20px
+    input[type="submit"]
+      padding-left: 20px
+      padding-right: 20px
+      font-size: 1.08em
+      padding: 5px 10px 6px 10px
     ul
       border: 1px solid #cad3db
       height: 230px
@@ -2106,17 +2108,15 @@ ul.spotlite-matches
       margin: 0 0 20px 0
       li
         font-weight: bold
-        a
-          display: block
-          padding: 5px 10px
-          text-decoration: none
-          small
-            color: #5f6c76
-          &:hover
-            background: #e6f1f8
+        padding: 5px 10px
+        &.collected
+          background: #f4f4f4
+        input[type="checkbox"]
+          margin: 0 5px 0 0
+        a, span
+          font-size: .95em
         & + li
-          a
-            border-top: 1px solid #cad3db
+          border-top: 1px solid #cad3db
 
 #modal_layer
   display: none

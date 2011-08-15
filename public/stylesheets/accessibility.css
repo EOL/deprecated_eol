@@ -180,6 +180,21 @@ form#switch_hierarchy_entry fieldset {
 
 #content_partner_show .empty {
   font-size: 1em; }
+#content_partner_show .agreement dl {
+  margin: 0 40px 15px 40px;
+  line-height: 170%; }
+  #content_partner_show .agreement dl dt {
+    font-weight: bold; }
+  #content_partner_show .agreement dl dd {
+    margin: 0 0 10px 0; }
+#content_partner_show .agreement address {
+  display: block;
+  width: 40%;
+  line-height: 170%; }
+  #content_partner_show .agreement address.partner {
+    float: left; }
+  #content_partner_show .agreement address.eol {
+    float: right; }
 
 #content_partner_edit.site_column, #content_partner_new.site_column {
   width: 640px; }

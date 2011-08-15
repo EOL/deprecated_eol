@@ -6,8 +6,10 @@ class ContentPartners::ResourcesController < ContentPartnersController
 
   # GET /content_partners/:content_partner_id/resources
   def index
-    @partner = ContentPartner.find(params[:content_partner_id])
+    @partner = ContentPartner.find(params[:content_partner_id], :include => [:resources, :content_partner_agreements])
     @resources = @partner.resources
+    @agreements = @partner.content_partner_agreements
+    @new_agreement = @partner.content_partner_agreements.build() if @agreements.blank?
     @partner_contacts = @partner.content_partner_contacts.select{|cpc| cpc.can_be_read_by?(current_user)}
     @new_partner_contact = @partner.content_partner_contacts.build
   end

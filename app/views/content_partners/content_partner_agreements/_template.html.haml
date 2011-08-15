@@ -1,0 +1,99 @@
+.agreement
+  %h3= I18n.t(:content_partner_agreement_header, :content_partner_name => @partner.full_name)
+
+  - unless agreement.created_at.blank?
+    %p= I18n.t(:content_partner_agreement_created_on, :date_time => format_date_time(agreement.created_at))
+
+  %h4= I18n.t(:content_partner_agreement_introduction_header)
+  %p= I18n.t(:content_partner_agreement_introduction, :content_partner_name => @partner.full_name)
+
+  %h4= I18n.t(:content_partner_agreement_parties_header)
+  %p= I18n.t(:content_partner_agreement_parties, :cornerstone_institutions_list_url => "/placeholder/FIXME")
+
+  %dl
+    %dt
+      = I18n.t(:content_partner_agreement_parties_species_pages_group_name)
+    %dd
+      = I18n.t(:content_partner_agreement_parties_species_pages_group_definition)
+    %dt
+      = I18n.t(:content_partner_agreement_parties_biodiversity_informatics_group_name)
+    %dd
+      = I18n.t(:content_partner_agreement_parties_biodiversity_informatics_group_definition)
+    %dt
+      = I18n.t(:content_partner_agreement_parties_scanning_digitization_group_name)
+    %dd
+      = I18n.t(:content_partner_agreement_parties_scanning_digitization_group_definition)
+    %dt
+      = I18n.t(:content_partner_agreement_parties_education_outreach_group_name)
+    %dd
+      = I18n.t(:content_partner_agreement_parties_education_outreach_group_definition)
+    %dt
+      = I18n.t(:content_partner_agreement_parties_biodiversity_synthesis_group_name)
+    %dd
+      = I18n.t(:content_partner_agreement_parties_biodiversity_synthesis_group_definition)
+
+  %p= @partner.description
+
+  %h4= I18n.t(:content_partner_agreement_licensing_header)
+  %p= I18n.t(:content_partner_agreement_licensing)
+
+  %ol
+    %li= I18n.t(:content_partner_agreement_licensing_provision_rights_holder_permission)
+    %li= I18n.t(:content_partner_agreement_licensing_provision_public_domain_ipr)
+    %li= I18n.t(:content_partner_agreement_licensing_provision_preferred_license)
+    %li= I18n.t(:content_partner_agreement_licensing_provision_alternate_restrictive_license)
+    %li= I18n.t(:content_partner_agreement_licensing_provision_attribution)
+
+  %p= I18n.t(:content_partner_agreement_licensing_creative_commons_information)
+
+  %h4= I18n.t(:content_partner_agreement_attribution_header)
+  %p= I18n.t(:content_partner_agreement_attribution, :content_partner_name => @partner.full_name)
+
+  %h4= I18n.t(:content_partner_agreement_roles_use_terms_header)
+  %p= I18n.t(:content_partner_agreement_roles_use_terms_partner, :content_partner_name => @partner.full_name)
+
+  %ul
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_partner_term_content_format)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_partner_term_fitness_for_purpose)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_partner_term_respond_to_feedback, :content_partner_name => @partner.full_name)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_partner_term_improve_quality)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_partner_term_license_compliance)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_partner_term_eol_logo)
+
+
+  %p= I18n.t(:content_partner_agreement_roles_use_terms_eol, :content_partner_name => @partner.full_name)
+
+  %ul
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_provide_tools, :content_partner_name => @partner.full_name)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_cache, :content_partner_name => @partner.full_name)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_attribution, :content_partner_name => @partner.full_name)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_api, :content_partner_name => @partner.full_name)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_reuse_requests, :content_partner_name => @partner.full_name)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_not_alter)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_feedback_notification, :content_partner_name => @partner.full_name)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_improve_quality, :content_partner_name => @partner.full_name)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_usage_notification, :content_partner_name => @partner.full_name)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_access_content, :content_partner_name => @partner.full_name)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_partner_logo, :content_partner_name => @partner.full_name)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_copyright_notice)
+    %li= I18n.t(:content_partner_agreement_roles_use_terms_eol_term_reserves_right_to_unpublish, :content_partner_name => @partner.full_name)
+
+  %p= I18n.t(:content_partner_agreement_roles_use_terms_not_creating_legal_partnership)
+  %p= I18n.t(:content_partner_agreement_roles_use_terms_not_exclusive, :content_partner_name => @partner.full_name)
+  %p= I18n.t(:content_partner_agreement_roles_use_terms_not_financial_obligation)
+  %p= I18n.t(:content_partner_agreement_roles_use_terms_not_exploit_association_with_eol, :content_partner_name => @partner.full_name)
+  %p= I18n.t(:content_partner_agreement_roles_use_terms_amending_or_terminating_agreement, :content_partner_name => @partner.full_name)
+
+  %h4= I18n.t(:content_partner_agreement_contact_information_header)
+  %address.partner
+    %strong= @partner.full_name
+    %br/
+    = @partner.homepage unless @partner.homepage.blank?
+
+  %address.eol
+    %strong= I18n.t(:content_partner_agreement_contact_information_eol_organisation)
+    %br/
+    = I18n.t(:content_partner_agreement_contact_information_eol_organisation_url)
+    %br/
+    = I18n.t(:content_partner_agreement_contact_information_eol_representative_name_role_email_phone)
+    %p= I18n.t(:content_partner_agreement_contact_information_eol_representative_note)

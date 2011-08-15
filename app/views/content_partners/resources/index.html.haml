@@ -19,36 +19,44 @@
                 = contact.address
               %p= link_to I18n.t(:content_partner_contact_edit_link),
                 edit_content_partner_content_partner_contact_path(@partner, contact) if current_user.can_update?(contact)
-        = link_to I18n.t(:content_partner_contact_new_link), new_content_partner_content_partner_contact_path(@partner),
-          :class => "button" if current_user.can_create?(@new_partner_contact)
+        - if current_user.can_create?(@new_partner_contact)
+          = link_to I18n.t(:content_partner_contact_new_link), new_content_partner_content_partner_contact_path(@partner),
+            :class => "button"
   .main_container
-    .copy
-      %h3= I18n.t(:content_partner_resources_header)
-      %p= I18n.t(:content_partner_resources_information)
-      %p= link_to I18n.t(:content_partner_resource_new_link), new_content_partner_resource_path(@partner), :class => 'button'
-    - unless @resources.blank?
-      %table.standard
-        %thead
-          %th= I18n.t('helpers.label.resource.title')
-          %th= I18n.t('helpers.label.resource.accesspoint_url')
-          %th= I18n.t('helpers.label.resource.refresh_period_hours')
-          %th= I18n.t('helpers.label.resource.license_id')
-          %th= I18n.t('helpers.label.resource.resource_status_id')
-          %th= I18n.t(:table_column_header_actions)
-        %tbody
-          - @resources.each do |resource|
-            %tr
-              %td
-                = h resource.title
-              %td
-                = link_to I18n.t('helpers.label.resource.accesspoint_url'), h(resource.accesspoint_url)
-              %td
-                = frequency(resource.refresh_period_hours)
-              %td
-                = I18n.t("license_#{resource.license.title.gsub(/[- .]/, '_').strip}")
-              %td
-                = resource.status_label
-              %td.actions
-                - if current_user.can_update?(resource)
-                  = link_to I18n.t(:content_partner_resource_edit_link), edit_content_partner_resource_path(@partner, resource)
-                  = link_to I18n.t(:content_partner_resource_force_harvest_link), force_harvest_content_partner_resource_path(@partner, resource)
+    - if @new_agreement.blank?
+      .copy
+        %h3= I18n.t(:content_partner_resources_header)
+        - # FIXME: placeholder URL for eol transfer schema
+        %p= I18n.t(:content_partner_resources_information, :eol_transfer_schema_url => "/placeholder")
+        %p= link_to I18n.t(:content_partner_resource_new_link), new_content_partner_resource_path(@partner), :class => 'button'
+      - unless @resources.blank?
+        %table.standard
+          %thead
+            %th= I18n.t('helpers.label.resource.title')
+            %th= I18n.t('helpers.label.resource.accesspoint_url')
+            %th= I18n.t('helpers.label.resource.refresh_period_hours')
+            %th= I18n.t('activerecord.attributes.resource.license_id')
+            %th= I18n.t('helpers.label.resource.resource_status_id')
+            %th= I18n.t(:table_column_header_actions)
+          %tbody
+            - @resources.each do |resource|
+              %tr
+                %td
+                  = h resource.title
+                %td
+                  = link_to I18n.t('helpers.label.resource.accesspoint_url'), h(resource.accesspoint_url)
+                %td
+                  = frequency(resource.refresh_period_hours)
+                %td
+                  = I18n.t("license_#{resource.license.title.gsub(/[- .]/, '_').strip}")
+                %td
+                  = resource.status_label
+                %td.actions
+                  - if current_user.can_update?(resource)
+                    = link_to I18n.t(:content_partner_resource_edit_link), edit_content_partner_resource_path(@partner, resource)
+                    = link_to I18n.t(:content_partner_resource_force_harvest_link), force_harvest_content_partner_resource_path(@partner, resource)
+    - else
+      .copy
+        %p= I18n.t(:content_partner_resources_policy_information)
+        = render :partial => 'content_partners/content_partner_agreements/new'
+

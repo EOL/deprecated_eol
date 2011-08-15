@@ -12,7 +12,7 @@ def rebuild_convenience_method_data
   @descriptions = ['these', 'do not really', 'matter much'].sort
   @datos = @descriptions.map {|d| DataObject.gen(:description => d) }
   @dato_ids = @datos.map{|d| d.id}.sort
-  @datos.each {|dato| UsersDataObject.create(:user_id => @user.id, :data_object_id => dato.id) }
+  @datos.each {|dato| UsersDataObject.create(:user_id => @user.id, :data_object_id => dato.id, :vetted => Vetted.trusted) }
 end
 
 describe User do

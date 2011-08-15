@@ -14,7 +14,7 @@ describe EOL::ActivityLog do
     @solr_connection.delete_all_documents
     Comment.gen(:user_id => @curator.id, :created_at => 6.seconds.ago) # implies comment activity
     dato = DataObject.gen(:created_at => 5.seconds.ago)
-    UsersDataObject.gen(:user_id => @curator.id, :data_object => dato) # implies created text object activity
+    UsersDataObject.gen(:user_id => @curator.id, :data_object => dato, :vetted => Vetted.trusted) # implies created text object activity
     CuratorActivityLog.gen(:user_id => @curator.id, :activity => Activity.trusted, :created_at => 4.seconds.ago)
     CollectionActivityLog.gen(:user_id => @curator.id, :activity => Activity.create, :created_at => 3.seconds.ago)
     CommunityActivityLog.gen(:user_id => @curator.id, :activity => Activity.create, :created_at => 2.seconds.ago)
@@ -50,7 +50,7 @@ describe EOL::ActivityLog do
 
   it 'should work with DataObject' do
     dato = DataObject.gen(:created_at => 5.seconds.ago)
-    UsersDataObject.gen(:data_object => dato)
+    UsersDataObject.gen(:data_object => dato, :vetted => Vetted.trusted)
     Comment.gen(:parent => dato, :created_at => 4.seconds.ago)
     CuratorActivityLog.gen(:changeable_object_type_id => ChangeableObjectType.data_object.id,
                            :object_id => dato, :created_at => 3.seconds.ago)

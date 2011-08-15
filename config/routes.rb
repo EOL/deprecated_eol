@@ -101,7 +101,8 @@ ActionController::Routing::Routes.draw do |map|
       entries.resource :resources, :only => [:show], :controller => "taxa/resources",
         :member => { :identification_resources => :get, :education => :get , :nucleotide_sequences => :get, :biomedical_terms => :get }
       entries.resource :maps, :only => [:show], :controller => "taxa/maps"
-      entries.resource :updates, :only => [:show], :controller => "taxa/updates"
+      entries.resource :updates, :only => [:show], :controller => "taxa/updates",
+        :member => { :statistics => :get }
     end
     taxa.resource :overview, :only => [:show], :controller => "taxa/overviews"
     taxa.resources :media, :only => [:index], :controller => "taxa/media",
@@ -115,7 +116,8 @@ ActionController::Routing::Routes.draw do |map|
     taxa.resource :resources, :only => [:show], :controller => "taxa/resources",
       :member => { :identification_resources => :get, :education => :get , :nucleotide_sequences => :get , :biomedical_terms => :get }
     taxa.resource :maps, :only => [:show], :controller => "taxa/maps"
-    taxa.resource :updates, :only => [:show], :controller => "taxa/updates"
+    taxa.resource :updates, :only => [:show], :controller => "taxa/updates",
+      :member => { :statistics => :get }
     taxa.resource :worklist, :only => [:show], :controller => "taxa/worklist"
     taxa.resources :collections, :only => [:index], :controller => 'collections'
     taxa.resources :communities, :only => [:index], :controller => 'communities'
@@ -176,9 +178,9 @@ ActionController::Routing::Routes.draw do |map|
     end
     admin.resources :content_partners, :only => [:index], :namespace => 'admins/'
     admin.resources :hierarchies, :only => [:index, :edit, :show, :update], :namespace => 'admins/'
-    admin.resources :published_partners, :only => [:index], :namespace => 'admins/'
+    admin.resources :monthly_notification, :only => [:index], :namespace => 'admins/'
   end
-  #map.connect 'monthly_stats_email',         :controller => 'administrator/content_partner_report', :action => 'monthly_stats_email'
+  map.connect 'admin/published_partners', :controller => 'admins/content_partner_reports', :action => 'report_monthly_published_partners'
 
   # Old V1 /admin and /administrator namespaces (controllers)
   map.administrator 'administrator',           :controller => 'admin',           :action => 'index'

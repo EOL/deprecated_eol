@@ -1,0 +1,59 @@
+# Messages for Spanish (Español)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Fitoschido
+# Author: Mor
+es: 
+  account_information: Información de la cuenta
+  account_registered_but_not_ready_try_later: Su cuenta está registrada, pero no está lista para que tenga acceso. Por favor, inténtelo de nuevo dentro de cinco minutos.
+  all_pages: Todas las páginas
+  already_a_member_question: ¿Ya eres miembro?
+  are_you_sure: ¿Está usted seguro?
+  cannot_be_empty: no puede estar vacío.
+  collections: Colecciones
+  communities: Comunidades
+  community: Comunidad
+  community_focus: Enfoque comunitario
+  contact_us_link: Contacta con nosotros
+  detail: Detalle
+  edit_my_profile: Editar mi perfil
+  encyclopedia_of_life: Enciclopedia de la Vida
+  explore: Explorar
+  global_navigation: Navegación global
+  go: Ir
+  google_translate: Google Translate
+  help: Ayuda
+  home_page_link_advisory_information: Este enlace te llevará a la página principal de Encyclopedia Of Life
+  images: Imágenes
+  in_my_collection_button: En mi colección
+  join_community_button: Unirse a esta comunidad
+  just_pages_with_pictures_and_text: Sólo páginas con imágenes y texto
+  language: "Idioma:"
+  learn_about_content_partners: Más información sobre nuestros socios de contenido
+  learn_how_to_join: Aprender cómo puedes unirte
+  leave_a_comment: Deja un comentario
+  license: Licencia
+  location: Ubicación
+  media: Medios
+  minimal_page: Página minima
+  most_active_members: Miembros más activos
+  must_be_less_than_128_characters_long: debe tener menos de 128 caracteres.
+  overview: Vista general
+  pages_with_pictures_and_text: Páginas con imágenes y texto
+  profile: Perfil
+  recent_updates: Actualizaciones recientes
+  resources: Recursos
+  select_topic: Por favor, seleccione un área temática
+  selected_language_advisory_information: Este es el idioma seleccionado actualmente.
+  sign_in: Iniciar sesión
+  skip_to_content: Saltar a contenido
+  source_url: URL de origen
+  table_of_contents: Tabla de contenidos
+  there_are_currently_no_members_in_this_community: Actualmente no hay miembros en esta comunidad.
+  twitter: Twitter
+  unknown: Desconocido
+  what_is_eol: ¿Qué es EOL?
+  you_are_not_authorized_to_perform_this_action: No estás autorizado para realizar esta acción.
+  your_preferences: Sus preferencias
+  your_preferences_have_been_updated: Sus preferencias han sido actualizadas
+  your_rating: Tu puntuación

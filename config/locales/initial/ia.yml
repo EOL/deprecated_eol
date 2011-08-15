@@ -3,67 +3,35 @@
 # Export driver: syck-pecl
 # Author: McDutchie
 ia: 
-  about_eol: A proposito de EOL
   account_information: Informationes del conto
   account_registered_but_not_ready_try_later: Tu conto ha essite create, ma non es ancora preste pro accesso. Per favor reproba post cinque minutas.
-  add_a_role: Adder un rolo
   add_to_my_collection_button: Adder a mi collection
-  added_date: Addite le %{date}
-  admin: admin
-  all_information: Tote le informationes
   all_pages: Tote le paginas
   already_a_member_question: Tu es ja membro?
-  already_member_of_community: Tu es ja membro de iste communitate.
-  alternate_classification: Classification alternative
   application_version_advisory_information: Version del application
   are_you_sure: Es tu secur?
   assistive_details_header: Detalios
   assistive_media_header: Multimedia
   assistive_overview_header: Vista general
-  authoritative_information: information de autoritate
   average_rating_value_of_total: "Evalutation medie: %{rating} de %{total}"
-  browse_gallery: Percurrer nostre galeria
-  cancel: Cancellar
   cannot_be_associated_with_both_a_user_and_a_community: Non pote esser associate e con un usator e con un communitate
   cannot_be_empty: non pote esser vacue.
-  change_rating_to_1_of_5: Cambiar evalutation a 1 de 5
-  change_rating_to_2_of_5: Cambiar evalutation a 2 de 5
-  change_rating_to_3_of_5: Cambiar evalutation a 3 de 5
-  change_rating_to_4_of_5: Cambiar evalutation a 4 de 5
-  change_rating_to_5_of_5: Cambiar evalutation a 5 de 5
   citation: Citation
   classifications_summary_header_with_count: 
     one: Parte de %{count} classification approbate
     other: Parte de %{count} classificationes approbate
-  collected_by: Colligite per
-  collected_items_with_count: 
-    one: "%{count} elemento colligite"
-    other: "%{count} elementos colligite"
-  collection_item_type_with_label: "Typo: %{type}"
   collections: Collectiones
   collections_summary_header_with_count: 
     one: Presente in %{count} collection
     other: Presente in %{count} collectiones
-  collections_with_count: 
-    one: "%{count} collection"
-    other: "%{count} collectiones"
   common_names_advisory_information: Nomines commun associate con iste taxon.
   common_names_with_count: 
     one: "%{count} nomine commun"
     other: "%{count} nomines commun"
   communities: Communitates
-  communities_summary_header_with_count: 
-    one: Pertine a %{count} communitate
-    other: Pertine a %{count} communitates
-  communities_with_count: 
-    one: "%{count} communitate"
-    other: "%{count} communitates"
   community: Communitate
   community_activity: Activitate del communitate
   community_focus: Focalisation del communitate
-  community_members: Membros del communitate
-  community_roles: Rolos in le communitate
-  community_watching_this_note: Iste %{name} es ora sub observation communitari.
   contact_us_link: Contactar nos
   content_partners: Partners de contento
   content_summary_introduction_html: Le sequente valores representa le summa de differente typos de contento pro iste taxon e tote su descendentes taxonomic. Le contento %{glossary_term_trusted} o ha essite approbate per un curator de EOL o proveni de un suppletor digne de fide. Le contento %{glossary_term_unreviewed} non ha ancora essite evalutate per un curator de EOL. Cata hierarchia taxonomic es unic, dunque cata hierarchia navigabile es listate pro comparation.
@@ -76,91 +44,44 @@ ia:
   content_summary_table_type_trusted_text_row: Numero de elementos textual digne de confidentia
   content_summary_table_type_unreviewed_images_row: Numero de imagines non revidite
   content_summary_table_type_unreviewed_text_row: Numero de elementos textual non revidite
-  content_update: Actualisation de contento
-  contribute_to_page_button: Contribuer a iste pagina
-  contributors_like_you: Contributores como te
-  could_not_find_user: Non poteva trovar un membro pro iste usator
   create_a_collection: Crear un collection
   create_a_community: Crear un communitate
-  create_account: crear un conto
-  created_community: Le communitate ha essite create con successo.
-  created_time_ago: Create %{time_passed} retro
-  curate_this_text: curar iste articulo
-  curator_activity: Activitate del curator
-  curator_comment: Commento del curator
+  curators_of_taxon_page_title: Curatores de %{taxon}
   curators_summary_header_with_count: 
     one: "%{count} curator"
     other: "%{count} curatores"
   currently_in_eol: Actualmente in le Encyclopedia del Vita
-  dashboard: Pannello de instrumentos
-  dato_rating_note: "%{username} dava isto un evalutation de %{rating}."
-  delete_allcaps: DELER
   delete_community: Deler iste communitate
   detail: Detalio
   development_version_name: V2 VERSION IN DISVELOPPAMENTO - non pro uso public
-  displaying_numerical_range: Lista de %{start_number} a %{end_number}
-  donate: Donar
-  donation_error_no_amount: Per favor selige un amonta a donar.
-  donation_error_only_numbers: Per favor entra un quantitate usante solmente numeros.
   edit_collection: Modificar collection
   edit_community: Modificar communitate
-  edit_membership: Modificar membrato
   edit_my_profile: Modificar mi profilo
   encyclopedia_of_life: Encyclopedia del Vita
   endorsed_collections_with_count: 
     one: "%{count} collection approbate"
     other: "%{count} collectiones approbate"
-  eol_colon: "EOL:"
-  eol_glossary: Glossario de EOL
   eol_news: Novas de EOL
-  error_page_header: Pardono, nos ha incontrate un problema
-  esc_key_hides_this_message: (preme le clave Esc pro celar iste message)
   explore: Explorar
-  feedback: Commentos
   filter_by_status: Filtrar per stato
-  filter_by_status_all_option: tote le statos
-  filter_by_status_inappropriate_option: inappropriate
-  filter_by_status_trusted_option: digne de confidentia
-  filter_by_status_unreviewed_option: non revidite
-  filter_by_status_untrusted_option: non digne de confidentia
   filter_by_type: Filtrar per typo
-  filter_by_type_all_option: tote le typos
-  filter_by_type_audio_option: audio
-  filter_by_type_images_option: imagines
-  filter_by_type_photosynths_option: photosynthese
-  filter_by_type_videos_option: videos
-  filter_feeds_all_option: Actualisationes de tote le syndicationes
-  filter_feeds_button: Filtrar
-  filter_feeds_label: Monstrar
   filter_media: filtrar multimedia
-  filtered_information: Information filtrate
-  founder: Fundator
   general_error_occurred: Nos regretta que un error ha occurrite. Per favor face un altere tentativa de exequer iste carga. Si le error persiste, per favor invia un e-mail a %{email} con le message de error sequente e con omne altere information que tu vole communicar. Nos labora durmente pro fornir te le melior servicio possibile e nos apprecia vostre appoio. -- Le equipa de EOL
-  get_involved: Participar
   global_access_tagline: Accesso global al cognoscentia del vita super le terra.
   global_navigation: Navigation global
   go: Ir
   google_translate: Google Translate
   google_translate_advisory_information: Usa le widget de Google Translate pro traducer le contento del sito in un altere lingua.
   has_already_been_taken: ha jam essite prendite.
-  hello_user: Salute %{user}
   help: Adjuta
-  home: Initio
   home_page_link_advisory_information: Iste ligamine te porta al pagina principal del sito web del Encyclopedia del Vita
   image_thumbnail_alt_text: Iste imagine %{vetted_status} es de %{scientific_name}
   images: Imagines
-  images_with_count: 
-    one: "%{count} imagine"
-    other: "%{count} imagines"
   in_my_collection_button: In mi collection
   indexed: Indexate
-  invalid_login_or_password: Nomine de usator o contrasigno invalide
-  item_was_added_to_your_recently_collected_items: Le elemento ha essite addite a tu elementos recentemente colligite
-  item_was_added_to_your_watched_items_collection: Le elemento ha essite addite a tu collection de elementos sub observation
+  insufficient_privileges_to_add_common_name: Tu non ha le privilegios necessari pro adder un nomine commun a iste taxon.
   iucn_red_list_status_advisory_information: Iste ligamine mena al sito web del Union International pro le Conservation del Natura (IUCN) ubi se trova plus informationes a proposito del Lista Rubie de Species Menaciate del IUCN.
-  join_community: Adherer a iste communitate
   join_community_button: Adherer a iste communitate
-  join_community_login_required_advisory: Le systema te demandara de aperir session ante de adherer a iste communitate.
   join_eol_button_html: Inscribe te ora a <abbr title="Encyclopedia of Life">EOL</abbr>
   join_eol_community_html: Face parte del communitate de <abbr title="Encyclopedia del Vita (of Life)">EOL</abbr>!
   just_pages_with_pictures_and_text: Solmente le paginas con imagines e texto
@@ -171,41 +92,11 @@ ia:
   learn_how_to_interact: Discoperir como interager
   learn_how_to_join: Discoperir como adherer
   leave_a_comment: Lassar un commento
-  leave_community: Quitar iste communitate
   license: Licentia
-  license_all_rights_reserved: Tote le derectos reservate
-  license_cc_by: Creative Commons Attribution (CC BY)
-  license_cc_by_2_0: Creative Commons Attribution 2.0 (CC BY 2.0)
-  license_cc_by_2_5: Creative Commons Attribution 2.5 (CC BY 2.5)
-  license_cc_by_3_0: Creative Commons Attribution 3.0 (CC BY 3.0)
-  license_cc_by_nc: Creative Commons Attribution Non-commercial (CC BY-NC)
-  license_cc_by_nc_2_0: Creative Commons Attribution Non-commercial 2.0 (CC BY-NC 2.0)
-  license_cc_by_nc_2_5: Creative Commons Attribution Non-commercial 2.5 (CC BY-NC 2.5)
-  license_cc_by_nc_3_0: Creative Commons Attribution Non-commercial 3.0 (CC BY-NC 3.0)
-  license_cc_by_nc_sa: Creative Commons Attribution Non-commercial Share-Alike (CC BY-NC-SA)
-  license_cc_by_nc_sa_1_0: Creative Commons Attribution Non-commercial Share-Alike 1.0 (CC BY-NC-SA 1.0)
-  license_cc_by_nc_sa_2_0: Creative Commons Attribution Non-commercial Share-Alike 2.0 (CC BY-NC-SA 2.0)
-  license_cc_by_nc_sa_2_5: Creative Commons Attribution Non-commercial Share-Alike 2.5 (CC BY-NC-SA 2.5)
-  license_cc_by_nc_sa_3_0: Creative Commons Attribution Non-commercial Share-Alike 3.0 (CC BY-NC-SA 3.0)
-  license_cc_by_sa: Creative Commons Attribution Share-alike (CC BY-SA)
-  license_cc_by_sa_1_0: Creative Commons Attribution Share-Alike 1.0 (CC BY-SA 1.0)
-  license_cc_by_sa_2_0: Creative Commons Attribution Share-Alike 2.0 (CC BY-SA 2.0)
-  license_cc_by_sa_2_5: Creative Commons Attribution Share-Alike 2.5 (CC BY-SA 2.5)
-  license_cc_by_sa_3_0: Creative Commons Attribution Share-Alike 3.0 (CC BY-SA 3.0)
-  license_gnu_fdl: Licentia GNU pro Documentation Libere (GNU FDL)
-  license_gnu_gpl: Licentia Public General de GNU (GNU GPL)
-  license_not_applicable: Licentia non applicabile
-  license_public_domain: Dominio public
-  link_to_add_role_to_community_to_control_privs: "%{link} pro gerer privilegios de membros."
-  link_to_join_this_community: Tu debe <a href='%{link}'>aperir session</a> pro poter adherer a iste communitate.
   literature: Litteratura
   location: Loco
-  log_in: Aperir session
-  login: aperir session
   login_or_create_account: Aperir session o crear conto
-  logout: Clauder session
   manage_community: Gerer communitate
-  manage_roles: Gerer rolos
   maps_with_count: 
     one: "%{count} carta"
     other: "%{count} cartas"
@@ -213,53 +104,29 @@ ia:
   media_with_count: 
     one: "%{count} imagine"
     other: "%{count} imagines"
-  members_count_in_parens: 
-    one: (un membro)
-    other: (%{count} membros)
   members_with_count: 
     one: "%{count} membro"
     other: "%{count} membros"
   minimal_page: Pagina minimal
   most_active_members: Le membros le plus active
-  most_visited_taxa: Taxones le plus visitate
   must_be_associated_with_either_a_user_or_a_community: Debe esser associate con un usator o communitate
   must_be_less_than_128_characters_long: debe haber minus de 128 characteres.
   must_be_logged_in: Es necessari aperir session pro exequer iste action.
   my_activity: Mi activitate
   my_info: Mi information
   newsfeed: Syndication de novas
-  no_activity: Nulle activitate.
-  no_members_in_parens: (sin membros)
-  nomenclature: Nomenclatura
   not_evaluated: Non evalutate
   other_collection_items_with_count: 
-    one: "%{count} altere elemento"
-    other: "%{count} altere elementos"
-  other_community_items_with_count: 
     one: "%{count} altere elemento"
     other: "%{count} altere elementos"
   overview: Vista general
   pages_with_pictures_and_text: Paginas con imagines e texto
   pages_with_pictures_or_text: Paginas con imagines o texto
-  pending_collections_with_count: 
-    one: "%{count} collection pendente"
-    other: "%{count} collectiones pendente"
-  pending_members_with_count: 
-    one: "%{count} membro pendente"
-    other: "%{count} membros pendente"
-  people_with_count: 
-    one: "%{count} persona"
-    other: "%{count} personas"
-  personal_space: Spatio personal
   post_comment: Publicar commento
-  preferences: Preferentias
   preferred_common_name_advisory_information: Iste es le nomine preferite pro iste taxon.
-  press_room: Sala de pressa
-  print_this_page_link: Imprimer iste pagina
   profile: Profilo
   profile_image_alt_text_curator: Imagine de profilo del curator %{user_given_name} %{user_family_name}
   profile_image_alt_text_member: Imagine de profilo del membro %{user_given_name} %{user_family_name}
-  punctuation_comma: ","
   rated_by_count_people: 
     one: de %{count} persona
     other: de %{count} personas
@@ -268,7 +135,6 @@ ia:
   resources: Ressources
   rights: Derectos
   rights_holder: Detentor del derectos
-  roles: Rolos
   rss_abbr_html: <abbr title="Really (=multo) Simple Syndication">RSS</abbr>
   search_field_label: Cercar in EOL
   search_input_advisory_information: Entra nomines commun o scientific de organismos vive de que tu vole saper plus. Per exemplo, tenta scriber "tomate".
@@ -283,58 +149,24 @@ ia:
   see_all_comments_with_count_for_text: 
     one: vider un commento super iste articulo
     other: vider tote le %{count} commentos super iste articulo
-  see_all_communities_with_count_html: 
-    one: Vider le <span class="assistive">%{count} communitate que se concentra super iste taxon.</span>
-    other: Vider tote le <span class="assistive">%{count} communitates que se concentra super iste taxon.</span>
   see_all_media_link: Vider tote le multimedia
-  see_next_with_count: 
-    one: Vider le proxime}
-    other: Vider le proxime %{count}
-  see_previous_with_count: 
-    one: Vider le previe}
-    other: Vider le previe %{count}
   select_topic: Per favor selige un thema
   selected_language_advisory_information: Iste es le lingua actualmente seligite.
   set_as_exemplar: Marcar como exemplar
-  show_status_message: Monstrar message de stato
-  show_warning_message: Monstrar message de advertimento
   sign_in: Aperir session
   sign_out: Clauder session
   site_information: Information del sito
   skip_to_content: Saltar al contento
-  skip_to_navigation: Saltar al navigation
-  skip_to_table_of_contents: Saltar al tabula de contento
   sort_by: Ordinar per
-  sort_by_button: Ordinar
-  sort_by_data_type_option: Typo de datos
-  sort_by_default_option: Predefinition
-  sort_by_label: Ordinar per
-  sort_by_newest_option: Le plus nove
-  sort_by_oldest_option: Le plus ancian
-  sort_by_rating_option: Evalutation
-  sort_by_vetted_option: Stato de revision
   sound_thumbnail_alt_text: Iste registration audio %{vetted_status} es de %{scientific_name}
-  sounds_with_count: 
-    one: "%{count} sono"
-    other: "%{count} sonos"
-  source_information_link: information del origine
   source_url: URL de origine
   supplier: Suppletor
   switch_language_advisory_information: Cambiar le lingua del sito a %{language_label}
   table_of_contents: Tabula de contento
   taxa: Taxones
-  taxa_with_count: 
-    one: "%{count} taxon"
-    other: "%{count} taxones"
   taxon: taxon
   text_summary_more_link: Leger articulo complete
-  text_with_count: 
-    one: "%{count} articulo"
-    other: "%{count} articulos"
-  thanks_for_feedback: Gratias pro tu contribution.
-  the_email_address_is_not_unique_you_must_enter_a_username: Le adresse de e-mail non es unic; es necessari entrar un nomine de usator.
   there_are_currently_no_members_in_this_community: Actualmente il non ha membros in iste communitate.
-  there_are_currently_no_roles_for_this_community: Actualmente il non ha rolos pro iste communitate.
   threat_status_header_colon: "Stato de menacia de IUCN:"
   time_ago: "%{time_passed} retro"
   total_items_with_count: 
@@ -345,37 +177,13 @@ ia:
   twitter: Twitter
   unknown: Incognite
   unreviewed: Non revidite
-  updated_community: Le communitate ha essite actualisate con successo.
-  user_became_role_note: "%{username} ha devenite %{role}."
-  user_comment: Commento de usator
-  user_joined_community_note: "%{username} ha adherite al communitate."
-  user_left_community_note: "%{username} ha quitate le communitate."
   user_system_down: Nos regretta que le systema pro le creation de contos non es disponibile al momento. Per favor reproba plus tarde.
-  using_the_site: Usar iste sito
-  verification_phrase_did_not_match: Le phrase de verification que tu entrava non coincideva.
   video_thumbnail_alt_text: Iste video %{vetted_status} es de %{scientific_name}
-  videos_with_count: 
-    one: "%{count} video"
-    other: "%{count} videos"
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Vider solmente paginas con al minus un imagine o pecia de texto
   what_is_a_taxon: Que es un taxon?
   what_is_eol: Que es EOL?
   what_is_this_question: Que es isto?
-  wikipedia_article_will_be_harvested_tonight: Le version %{rev} del articulo de Wikipedia "%{article}" essera recolligite iste nocte
-  wikipedia_revisions_must_match_pattern_error: Le URL del version debe corresponder a http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
   you_are_an_admin_so_i_will_show_you_that_the_error_was: "Post que tu es administrator, le message de error es revelate a te:"
   you_are_not_authorized_to_perform_this_action: Tu non es autorisate a exequer iste action.
-  you_have_been_a_member_of_this_community_since: Tu es membro de iste communitate desde %{since}.
-  you_in_parens: (tu)
-  you_joined_community: Tu ha adherite a iste communitate.
-  you_left_community: Tu ha quitate iste communitate.
-  you_must_be_logged_in_to_add_tags: Tu debe aperir un session pro poter adder etiquettas.
-  your_current_rating_0_of_5: "Tu evalutation actual: 0 de 5"
-  your_current_rating_1_of_5: "Tu evalutation actual: 1 de 5"
-  your_current_rating_2_of_5: "Tu evalutation actual: 2 de 5"
-  your_current_rating_3_of_5: "Tu evalutation actual: 3 de 5"
-  your_current_rating_4_of_5: "Tu evalutation actual: 4 de 5"
-  your_current_rating_5_of_5: "Tu evalutation actual: 5 de 5"
-  your_message_was_sent: Tu message ha essite inviate.
   your_preferences: Tu preferentias
   your_rating: Tu evalutation

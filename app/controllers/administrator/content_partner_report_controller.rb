@@ -174,18 +174,8 @@ class Administrator::ContentPartnerReportController < AdminController
     render_check_or_uncheck('auto_publish_img', @agent.auto_publish?)
   end
 
-  def monthly_stats_email
-    last_month = Time.now - 1.month
-    @year = last_month.year.to_s
-    @month = last_month.month.to_s
-
-    Agent.content_partners_contact_info(@month,@year).each do |recipient|
-      Notifier.deliver_monthly_stats(recipient,@month,@year)
-    end
-
-    #for testing the query result
-    @rset = Agent.content_partners_contact_info(@month,@year)
-  end
+  # Moved to V2
+  # def monthly_stats_email
 
   def get_year_month_list()
     arr=[]
@@ -200,23 +190,8 @@ class Administrator::ContentPartnerReportController < AdminController
     return arr
   end
 
-  def report_monthly_published_partners
-    @page_title = I18n.t("published_content_partners")
-    @year_month_list = get_year_month_list()
-    if(params[:year_month]) then
-      params[:year], params[:month] = params[:year_month].split("_") if params[:year_month]
-      @report_year  = params[:year].to_i
-      @report_month = params[:month].to_i
-      @year_month   = params[:year] + "_" + "%02d" % params[:month].to_i
-    else
-      last_month = Time.now - 1.month
-      @report_year = last_month.year.to_s
-      @report_month = last_month.month.to_s
-      @year_month   = @report_year + "_" + "%02d" % @report_month.to_i
-    end
-    page = params[:page] || 1
-    @published_content_partners = ContentPartner.partners_published_in_month(@report_year, @report_month)
-  end
+  # Moved to V2
+  # def report_monthly_published_partners
 
 
   def report_partner_curated_data

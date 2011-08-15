@@ -7,8 +7,8 @@ module EOL
       
       def self.search_with_pagination(query, options = {})
         options[:page]        ||= 1
-        options[:per_page]    ||= 10
-        options[:per_page]      = 10 if options[:per_page] == 0
+        options[:per_page]    ||= 25
+        options[:per_page]      = 25 if options[:per_page] == 0
         
         response = solr_search(query, options)
 

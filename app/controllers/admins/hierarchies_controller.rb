@@ -1,15 +1,7 @@
-#class Administrator::HierarchyController < AdminController
 class Admins::HierarchiesController < AdminsController
 
-
-  #layout 'left_menu'
-
-  #before_filter :set_layout_variables
-
   helper :resources
-
   helper_method :current_agent, :agent_logged_in?
-
   before_filter :restrict_to_admins
 
   def index

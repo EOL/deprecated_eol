@@ -1,0 +1,5 @@
+.main_container
+  = I18n.t("This will send out an email to all content partner contacts informing them that they can now check the last month's web usage of their data in EOL.")
+  - form_tag({:controller => '/admins/monthly_notification', :action => 'send_email'}) do
+    %fieldset.actions
+      = submit_tag I18n.t('helpers.label.admin.button_send_email')

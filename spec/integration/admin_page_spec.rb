@@ -138,14 +138,14 @@ describe 'Admin Pages' do
 
   it "should show report_monthly_published_partners page" do
     login_as(@user)
-    visit("/administrator/content_partner_report/report_monthly_published_partners")
+    visit("/admin/published_partners")
     body.should include "New content partners for the month"
   end
 
   it "should get data from a form and display published partners" do
     login_as(@user)
-    visit("/administrator/content_partner_report/report_monthly_published_partners", :method => :post, :params => {:year_month => @year_month})
-    body.should have_tag("form[action=/administrator/content_partner_report/report_monthly_published_partners]")
+    visit("/admin/published_partners", :method => :post, :params => {:year_month => @year_month})
+    body.should have_tag("form[action=/admin/published_partners]")
     body.should include "New content partners for the month"
     body.should include @content_parnter.user.full_name
   end

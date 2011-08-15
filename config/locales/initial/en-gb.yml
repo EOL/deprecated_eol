@@ -1,0 +1,7 @@
+# Messages for British English (British English)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Reedy
+en-gb: 
+  user_system_down: We apologise, but the user registration system is not currently available.  Please try again later.
+  you_are_not_authorized_to_perform_this_action: You are not authorised to perform this action.

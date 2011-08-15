@@ -1,0 +1,31 @@
+# Messages for Telugu (తెలుగు)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Veeven
+te: 
+  account_information: ఖాతా సమాచారం
+  all_pages: అన్ని పుటలు
+  already_a_member_question: ఇప్పటికే సభ్యులా?
+  assistive_details_header: వివరాలు
+  collections: సేకరణలు
+  contact_us_link: మమ్మల్ని సంప్రదించండి
+  encyclopedia_of_life: జీవ విజ్ఞాన సర్వస్వం
+  eol_news: EOL వార్తలు
+  go: వెళ్ళు
+  google_translate: గూగుల్ అనువాదం
+  help: సహాయం
+  language: "భాష:"
+  language_menu_item: "%{language_label} <abbr>(%{language_abbr})</abbr>"
+  learn_how_to_join: మీరు ఎలా చేరవచ్చో తెలుసుకోండి
+  location: ప్రాంతం
+  maps_with_count: 
+    one: "%{count} పటం"
+    other: "%{count} పటాలు"
+  my_info: నా సమాచారం
+  overview: అవలోకనం
+  rights: హక్కులు
+  site_information: సైటు సమాచారం
+  twitter: ట్విట్టర్
+  what_is_eol: EOL అంటే ఏమిటి?
+  what_is_this_question: ఇది ఏమిటి?
+  your_preferences: మీ అభిరుచులు

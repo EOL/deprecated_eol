@@ -28,8 +28,11 @@ body.home
 .busy
   cursor: wait
 /** adding facebook icon to social media **/
-body > #footer ul.social_media li a.facebook
-  background-position: 0 center
+body > #footer ul.social_media li
+  a.facebook
+    background-position: 0px -25px
+  a.tumblr
+    background-position: 0px -75px
 /** Override for layout on users edit - we have extra nested div so we need to remove padding,
   * we added extra fieldset - but check HR might give us an update for the fieldset */
 #profile_edit
@@ -843,3 +846,36 @@ h1.notice
   font-weight: bold
 #worklist #tasks li:hover
   background-color: #ffffff !important
+#taxon_updates
+  .update_feed .header, .page_statistics .header
+    position: relative
+    padding: 10px 0
+    text-align: center
+    border-bottom: 1px solid #394651
+    h3
+      font-size: 1.33em
+  .page_statistics
+    dl
+      float: right
+      line-height: 140%
+      width: 200px
+      padding: 50px 30px 30px 0
+      dt
+        font-size: 1.8em
+        margin: 0 0 10px 0
+        & + dd
+          font-size: 2em
+          & + dt
+            font-size: 1.2em
+            & + dd
+              font-size: 1.6em
+      dd
+        font-weight: bold
+        margin: 0 0 20px 0
+    .copy
+      float: left
+      width: 380px
+      margin-top: 30px
+      background: #f3f7fa
+      border: 1px solid #cad3db
+      padding: 20px 20px 0 20px

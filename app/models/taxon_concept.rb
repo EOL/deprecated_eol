@@ -1406,6 +1406,15 @@ class TaxonConcept < SpeciesSchemaModel
     other_media_count = self.data_objects.count(:conditions => "data_objects.published=1 AND data_objects.data_type_id IN (#{(DataType.video_type_ids + DataType.sound_type_ids).join(',')})")
     @media_count = image_count + other_media_count
   end
+  
+  def media_facet_counts
+    EOL::Solr::DataObjects.get_facet_counts(self.id)
+  end
+  
+  def number_of_descendants
+    connection.select_values("SELECT count(*) as count FROM taxon_concepts_flattened WHERE ancestor_id=#{self.id}")[0].to_i rescue 0
+  end
+  
 
 
 private

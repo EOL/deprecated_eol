@@ -1011,8 +1011,10 @@ en:
   content_partner_contacts_with_count:
     one: "%{count} contact"
     other: "%{count} contacts"
-  content_partner_update_successful_notice: "Content partner successfully added."
-  content_partner_update_unsuccessful_error: "Sorry, an error occurred, content partner was not added."
+  content_partner_create_successful_notice: "Content partner successfully created."
+  content_partner_create_unsuccessful_error: "Sorry, an error occurred, content partner was not created."
+  content_partner_update_successful_notice: "Content partner successfully updated."
+  content_partner_update_unsuccessful_error: "Sorry, an error occurred, content partner details were not updated."
   content_partner_curated_data: "content partner curated data"
   content_partner_data_description_header: "Project data"
   content_partner_data_description_empty: "No one has added a description of the data provided."

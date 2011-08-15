@@ -58,9 +58,11 @@
             %td{ :class => row_class }
               = udo.data_object.toc_items[0].label
             %td{ :class => row_class }
-              = udo.vetted.label
+              - unless udo.vetted.blank?
+                = udo.vetted.label
               %br
-              = udo.visibility.label
+              - unless udo.visibility.blank?
+                = udo.visibility.label
               %br
               = h udo.data_object.published
             %td{ :class => row_class }

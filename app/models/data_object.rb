@@ -303,6 +303,9 @@ class DataObject < SpeciesSchemaModel
       UUID.state_file(0664) # Makes the file writable, which we seem to need to do with Passenger...
     end
 
+    rights_holder = ERB::Util.h(all_params[:data_object][:rights_holder])
+    rights_holder ||= user.full_name
+    
     do_params = {
       :guid => UUID.generate.gsub('-',''),
       :identifier => '',
@@ -318,7 +321,7 @@ class DataObject < SpeciesSchemaModel
       :description => all_params[:data_object][:description].allow_some_html,
       :language_id => all_params[:data_object][:language_id],
       :license_id => all_params[:data_object][:license_id],
-      :rights_holder => ERB::Util.h(all_params[:data_object][:rights_holder]), # No HTML allowed
+      :rights_holder => rights_holder, # No HTML allowed
       :rights_statement => ERB::Util.h(all_params[:data_object][:rights_statement]), # No HTML allowed
       :bibliographic_citation => ERB::Util.h(all_params[:data_object][:bibliographic_citation]), # No HTML allowed
       :source_url => ERB::Util.h(all_params[:data_object][:source_url]), # No HTML allowed
@@ -339,7 +342,8 @@ class DataObject < SpeciesSchemaModel
     dato.save
     return dato if dato.nil? || dato.errors.any?
 
-    udo = UsersDataObject.create(:user => user, :data_object => dato, :taxon_concept => taxon_concept, :visibility => Visibility.visible, :vetted => Vetted.unknown)
+    vettedness = user.is_curator? ? Vetted.trusted : Vetted.unknown
+    udo = UsersDataObject.create(:user => user, :data_object => dato, :taxon_concept => taxon_concept, :visibility => Visibility.visible, :vetted => vettedness)
     dato.users_data_object = udo
     dato
   end

@@ -1096,3 +1096,43 @@ a.other_actions {
 
 form#new_collection_item fieldset.actions {
   margin: 0; }
+
+.site_column > #choose_collections h2, body > #header .section > #choose_collections h2, body > #footer .section > #choose_collections h2, .thumbnails ul > #choose_collections h2 {
+  font-size: 1.33em;
+  margin: 0 0 10px 0; }
+.site_column > #choose_collections fieldset.new_collection, body > #header .section > #choose_collections fieldset.new_collection, body > #footer .section > #choose_collections fieldset.new_collection, .thumbnails ul > #choose_collections fieldset.new_collection {
+  overflow: hidden;
+  margin: 0 0 20px 0; }
+  .site_column > #choose_collections fieldset.new_collection input[type="text"], body > #header .section > #choose_collections fieldset.new_collection input[type="text"], body > #footer .section > #choose_collections fieldset.new_collection input[type="text"], .thumbnails ul > #choose_collections fieldset.new_collection input[type="text"] {
+    float: left;
+    width: 210px;
+    height: 22px;
+    padding: 2px 5px;
+    font: normal 1em Helvetica, Arial, sans-serif;
+    border: 1px solid #cad3db;
+    background-color: white;
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+    background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
+    margin: 0 10px 0 0; }
+.site_column > #choose_collections input[type="submit"], body > #header .section > #choose_collections input[type="submit"], body > #footer .section > #choose_collections input[type="submit"], .thumbnails ul > #choose_collections input[type="submit"] {
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 1.08em;
+  padding: 5px 10px 6px 10px; }
+.site_column > #choose_collections ul, body > #header .section > #choose_collections ul, body > #footer .section > #choose_collections ul, .thumbnails ul > #choose_collections ul {
+  border: 1px solid #cad3db;
+  height: 230px;
+  overflow-y: scroll;
+  margin: 0 0 20px 0; }
+  .site_column > #choose_collections ul li, body > #header .section > #choose_collections ul li, body > #footer .section > #choose_collections ul li, .thumbnails ul > #choose_collections ul li {
+    font-weight: bold;
+    padding: 5px 10px; }
+    .site_column > #choose_collections ul li.collected, body > #header .section > #choose_collections ul li.collected, body > #footer .section > #choose_collections ul li.collected, .thumbnails ul > #choose_collections ul li.collected {
+      background: #f4f4f4; }
+    .site_column > #choose_collections ul li input[type="checkbox"], body > #header .section > #choose_collections ul li input[type="checkbox"], body > #footer .section > #choose_collections ul li input[type="checkbox"], .thumbnails ul > #choose_collections ul li input[type="checkbox"] {
+      margin: 0 5px 0 0; }
+    .site_column > #choose_collections ul li a, body > #header .section > #choose_collections ul li a, body > #footer .section > #choose_collections ul li a, .thumbnails ul > #choose_collections ul li a, .site_column > #choose_collections ul li span, body > #header .section > #choose_collections ul li span, body > #footer .section > #choose_collections ul li span, .thumbnails ul > #choose_collections ul li span {
+      font-size: 0.95em; }
+    .site_column > #choose_collections ul li + li, body > #header .section > #choose_collections ul li + li, body > #footer .section > #choose_collections ul li + li, .thumbnails ul > #choose_collections ul li + li {
+      border-top: 1px solid #cad3db; }

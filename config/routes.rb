@@ -17,8 +17,8 @@ ActionController::Routing::Routes.draw do |map|
       community.resources :members, :member => {'grant_manager' => :get, 'revoke_manager' => :get}
     end
 
-  map.resources :collections, :member => { :choose_collect_target => :get, :choose => :get },
-                              :collection => { :collect_item => :post }
+  map.resources :collections, :member => { :choose => :get },
+                              :collection => { :choose_collect_target => :get, :collect_item => :post }
   map.resources :collection_items, :except => [:index, :show, :new, :destroy]
   #used in collections show page, when user clicks on left tabs
   map.connect 'collections/:id/:filter', :controller => 'collections', :action => 'show'

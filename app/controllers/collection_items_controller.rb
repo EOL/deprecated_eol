@@ -92,7 +92,7 @@ private
   def create_collection_item(data)
     @collection_item = CollectionItem.new(data)
     @collection_item.collection ||= current_user.watch_collection unless current_user.blank?
-    if @collection_item.object_type == 'Collection' && @collection_item.object_id == @collection_item.collection.d
+    if @collection_item.object_type == 'Collection' && @collection_item.object_id == @collection_item.collection.id
       @notices << I18n.t(:item_not_added_to_itself_notice,
                                :collection_name => @collection_item.collection.name)
     elsif @collection_item.save

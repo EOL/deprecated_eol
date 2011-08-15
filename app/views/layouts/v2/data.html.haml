@@ -2,14 +2,13 @@
   #page_heading
     .site_column
       .hgroup
-        %h1= @page_title
+        %h1= h @page_title
         %h2<
-          = render :partial => 'owner', :locals => { :data_object => @data_object }
+          = render :partial => 'data_objects/owner', :locals => { :data_object => @data_object }
       .page_actions
         %ul
           %li
             = render :partial => 'shared/add_to_my_collection', :locals => { :item => @data_object, :my_collection => @watch_collection }
-          
           - if @data_object.users_data_object && @data_object.users_data_object.user.id == current_user.id
             %li
               = link_to I18n.t(:dato_edit_text_link_button), edit_data_object_path(@data_object), :class => 'button'

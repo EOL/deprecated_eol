@@ -798,6 +798,7 @@ en:
   collection_created_with_count_notice:
     one: "Collection <em>%{collection_name}</em> successfully created with %{count} collection item."
     other: "Collection <em>%{collection_name}</em> successfully created with %{count} collection item."
+  collection_created_notice: "Collection <em>%{collection_name}</em> successfully created."
   collection_delete_link: "Permanently delete this collection"
   collection_destroyed: "The collection was deleted."
   collection_image: "Collection image"
@@ -1116,6 +1117,9 @@ en:
   content_update: "Content Update"
   contribute: "Contribute"
   contribute_to_page_button: "Contribute to this page"
+  copied_items_to_collection_with_count_notice:
+    one: "Copied %{count} item to %{name}"
+    other: "Copied %{count} items to %{name}"
   copied_items_from_collection_with_count_notice:
     one: "Copied %{count} item from %{name}."
     other: "Copied %{count} items from %{name}."
@@ -2039,6 +2043,9 @@ en:
   move_to_ignored_list: "Move to ignored list"
   move_to_top: "move to top"
   move_up: "Move up"
+  moved_items_to_collection_with_count_notice:
+    one: "Moved %{count} item to %{name}"
+    other: "Moved %{count} items to %{name}"
   moved_items_from_collection_with_count_notice:
     one: "Moved %{count} item from %{name}."
     other: "Moved %{count} items from %{name}."
@@ -2112,7 +2119,7 @@ en:
   no_data_for_selected_period: "No data for selected period"
   no_errors_are_available: "No errors are available."
   no_harvesting_logs_for_this_da: "No harvesting logs for this date"
-  no_items_were_copied_error: "Sorry, no items were copied."
+  no_items_were_copied_to_collection_error: "Sorry, no items were copied to %{name}."
   no_images_for_this_taxon: "No images for this taxon"
   no_map_available: "No map available"
   no_members_in_parens: "(no members)"
@@ -3040,7 +3047,7 @@ en:
   type_: "Type:"
   type: "Type"
   ukrainian: "Ukrainian"
-  unable_to_copy_items_error: "Sorry, I was unable to copy the collection items."
+  unable_to_copy_items_to_collection_error: "Sorry, I was unable to copy the collection items to %{name}."
   unable_to_invite_users_to_community_error: "Invitations could not be sent to %{users}."
   uncheck_to_unvet_this_entire_r: "Uncheck to unvet this entire resource (all uncurated data objects will be untrusted)"
   unhide: "unhide"

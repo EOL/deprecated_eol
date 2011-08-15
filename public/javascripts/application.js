@@ -123,27 +123,25 @@ $(function() {
     });
   });
 
-  (function($page_heading) {
-    $page_heading.find(".page_actions li.collect a").modal({
-      beforeSend: function() { $('#page_heading .page_actions li.collect a').fadeTo(225, 0.3); },
-      beforeShow: function() {
-        $('#choose_collections form :submit').click(function() {
-          if($('#flashes')[0] == undefined) {
-            $('#page_heading div.page_actions').after('<div id="flashes"></div>');
-          }
-          var $flashes = $('#flashes');
-          EOL.ajax_submit($(this), { update: $flashes });
-          $('#choose_collections a.close').click();
-          return(false);
-        });
-      },
-      afterClose: function() {
-        var $cell = $('#page_heading .page_actions li.collect a');
-        $cell.delay(25).fadeTo(100, 1, function() {$cell.css({filter:''}); });
-      },
-      duration: 200
-    });
-  })($("#page_heading"));
+  // Collecting happens through a modal dialog box:
+  $('a.collect').modal({
+    beforeSend: function() { $('a.collect').fadeTo(225, 0.3); },
+    beforeShow: function() {
+      $('#choose_collections form :submit').click(function() {
+        if($('#flashes')[0] == undefined) {
+          $('#page_heading div.page_actions').after('<div id="flashes"></div>');
+        }
+        var $flashes = $('#flashes');
+        EOL.ajax_submit($(this), { update: $flashes });
+        $('#choose_collections a.close').click();
+        return(false);
+      });
+    },
+    afterClose: function() {
+      $('a.collect').delay(25).fadeTo(100, 1, function() {$('a.collect').css({filter:''}); });
+    },
+    duration: 200
+  });
 
   // initiates march of life on homepage
   $('.thumbnails ul li').each(function() {

@@ -49,9 +49,10 @@ class ContentPartnersController < ApplicationController
   end
 
   def create
-    # TODO: create contact for current user on content partner create
+    # TODO: rethink contacts when we have many to many users and content partners - or make user a contact on create ?
     @partner = ContentPartner.new(params[:content_partner])
     access_denied unless current_user.can_create?(@partner)
+    @partner.user = current_user
     if @partner.save
       upload_logo(@partner) unless params[:content_partner][:logo].blank?
       flash[:notice] = I18n.t(:content_partner_create_successful_notice)

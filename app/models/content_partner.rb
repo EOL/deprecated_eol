@@ -9,8 +9,12 @@ class ContentPartner < SpeciesSchemaModel
   has_many :google_analytics_partner_taxa
   has_many :content_partner_agreements
 
+  before_validation_on_create :set_default_content_partner_status
+
   validates_presence_of :full_name
   validates_presence_of :description
+  validates_presence_of :content_partner_status
+  validates_presence_of :user
   validates_length_of :display_name, :maximum => 255, :allow_nil => true
   validates_length_of :acronym, :maximum => 20, :allow_nil => true
   validates_length_of :homepage, :maximum => 255, :allow_nil => true
@@ -421,13 +425,17 @@ class ContentPartner < SpeciesSchemaModel
     self.paginate_by_sql [query, content_partner_id], :page => page, :per_page => 30
   end
 
-  def self.contacts_for_monthly_stats(month, year)    
+  def self.contacts_for_monthly_stats(month, year)
     # cpc.email => 'eli@eol.org' email
     SpeciesSchemaModel.connection.select_all("
     SELECT DISTINCT cpc.full_name, cpc.email, cp.id content_partner_id, cp.user_id, cp.full_name partner_full_name from content_partners cp
     JOIN content_partner_contacts cpc ON cp.id = cpc.content_partner_id
     JOIN google_analytics_partner_summaries gaps ON gaps.user_id = cp.user_id
-    WHERE gaps.`year` = #{year} AND gaps.`month` = #{month} AND cpc.email IS NOT NULL") 
+    WHERE gaps.`year` = #{year} AND gaps.`month` = #{month} AND cpc.email IS NOT NULL")
   end
 
+private
+  def set_default_content_partner_status
+    self.content_partner_status = ContentPartnerStatus.active if self.content_partner_status.blank?
+  end
 end

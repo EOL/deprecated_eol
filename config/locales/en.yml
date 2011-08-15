@@ -302,6 +302,15 @@ en:
         curation_application: "Apply now"
         curation_privileges: "Submit request"
     label:
+      admin:
+        administration_console: "Administration Console"
+        button_send_email: "Send monthly e-mail notification now >>"
+        content_management: "Content Management"
+        content_partners: "Content partners"
+        content_partner_hierarchies: "Content partner hierarchies"
+        monthly_notification: "Monthly Notification"
+        monthly_partner_notification: "Monthly partner notification"
+        monthly_published_partners: "Monthly published partners"
       content_page:
         active: "Published"
         active_more: "Published pages will be publicly visible. Uncheck <em>published</em> if you want to prevent general users from viewing versions of this page in any language."

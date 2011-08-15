@@ -421,4 +421,13 @@ class ContentPartner < SpeciesSchemaModel
     self.paginate_by_sql [query, content_partner_id], :page => page, :per_page => 30
   end
 
+  def self.contacts_for_monthly_stats(month, year)    
+    # cpc.email => 'eli@eol.org' email
+    SpeciesSchemaModel.connection.select_all("
+    SELECT DISTINCT cpc.full_name, cpc.email, cp.id content_partner_id, cp.user_id, cp.full_name partner_full_name from content_partners cp
+    JOIN content_partner_contacts cpc ON cp.id = cpc.content_partner_id
+    JOIN google_analytics_partner_summaries gaps ON gaps.user_id = cp.user_id
+    WHERE gaps.`year` = #{year} AND gaps.`month` = #{month} AND cpc.email IS NOT NULL") 
+  end
+
 end

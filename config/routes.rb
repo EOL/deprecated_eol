@@ -175,9 +175,9 @@ ActionController::Routing::Routes.draw do |map|
     end
     admin.resources :content_partners, :only => [:index], :namespace => 'admins/'
     admin.resources :hierarchies, :only => [:index, :edit, :show, :update], :namespace => 'admins/'
-    admin.resources :published_partners, :only => [:index], :namespace => 'admins/'
+    admin.resources :monthly_notification, :only => [:index], :namespace => 'admins/'
   end
-  #map.connect 'monthly_stats_email',         :controller => 'administrator/content_partner_report', :action => 'monthly_stats_email'
+  map.connect 'admin/published_partners', :controller => 'admins/content_partner_reports', :action => 'report_monthly_published_partners'
 
   # Old V1 /admin and /administrator namespaces (controllers)
   map.administrator 'administrator',           :controller => 'admin',           :action => 'index'

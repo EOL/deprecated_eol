@@ -3,7 +3,7 @@
     = @page_header
   %p
     - if(@content_partner_id != "All")
-      =I18n.t("the_list_represents_the_curation_activity", :link => link_to(@partner_fullname, { :action => 'show', :id => @content_partner_id }))
+      =I18n.t("the_list_represents_the_curation_activity", :link => link_to(@partner_fullname, content_partner_path(:id => @content_partner_id)))
     =I18n.t("this_report_is_also_available_")
     - if(@year_month == "All")
       = link_to image_tag('rss.png'), {:controller => '/feeds', :action => :partner_curation, :content_partner_id => @content_partner_id}

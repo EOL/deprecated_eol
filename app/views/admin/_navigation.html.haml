@@ -27,10 +27,6 @@
     = link_to I18n.t("view_added_text"), {:controller => 'administrator/user_data_object', :action => 'index'}, {:class=>'toc_item active'}
   %li
     = link_to I18n.t("view_user_activity"), {:controller => 'administrator/user', :action => 'view_user_activity'}, {:class=>'toc_item active'}
-  /
-    =I18n.t("disabled_for_now")
-    %li
-      = link_to I18n.t("view_common_activities"), {:controller => 'administrator/user', :action => 'view_common_activities'}, {:class=>'toc_item active'}
 
   %h3
     =I18n.t("web_users")
@@ -42,9 +38,7 @@
   -# commented in V2, no final decision yet
   -#%h3
   -#  =I18n.t("contact_us_functions")
-  -#%li
   -#  = link_to I18n.t("edit_contact_us_topics"),{:controller=>'administrator/contact_subject', :action=>'index'}, {:class=>'toc_item active'}
-  -#%li
   -#  = link_to I18n.t("view_contact_us_submissions"), {:controller => 'administrator/contact', :action => 'index'}, {:class=>'toc_item active'}
 
   %h3
@@ -58,16 +52,16 @@
   %li
     = link_to I18n.t("content_partner_details"), {:controller => 'administrator/content_partner_report', :action => 'index'}, {:class=>'toc_item active'}
 
-  / Moved to v2
-  /  = link_to I18n.t("content_partner_hierarchies"), {:controller => 'administrator/hierarchy', :action => 'index'}, {:class=>'toc_item active'}
-  /  = link_to I18n.t("monthly_notification"), {:controller => 'administrator/content_partner_report', :action => 'monthly_stats_email'}, {:class => 'toc_item active', :confirm => I18n.t("send_email_notification_to_all")}
-  /  = link_to I18n.t("monthly_published_partners"), {:controller => 'administrator/content_partner_report', :action => 'report_monthly_published_partners'}, {:class=>'toc_item active'}
+  -# Moved to v2
+  -#  = link_to I18n.t("content_partner_hierarchies"), {:controller => 'administrator/hierarchy', :action => 'index'}, {:class=>'toc_item active'}
+  -#  = link_to I18n.t("monthly_notification"), {:controller => 'administrator/content_partner_report', :action => 'monthly_stats_email'}, {:class => 'toc_item active', :confirm => I18n.t("send_email_notification_to_all")}
+  -#  = link_to I18n.t("monthly_published_partners"), {:controller => 'administrator/content_partner_report', :action => 'report_monthly_published_partners'}, {:class=>'toc_item active'}
   
   %li
     = link_to I18n.t("content_partner_curated_data"), {:controller => 'administrator/content_partner_report', :action => 'report_partner_curated_data'}, {:class=>'toc_item active'}
   
-  / TODO: queries are expensive, may need to re-visit the queries used
-  /  = link_to I18n.t("content_partner_objects_stats"), {:controller => 'administrator/content_partner_report', :action => 'report_partner_objects_stats'}, {:class=>'toc_item active'}
+  -# TODO: queries are expensive, may need to re-visit the queries used
+  -#  = link_to I18n.t("content_partner_objects_stats"), {:controller => 'administrator/content_partner_report', :action => 'report_partner_objects_stats'}, {:class=>'toc_item active'}
   
   %li
     = link_to I18n.t("view_harvesting_log"), {:controller => 'administrator/harvesting_log', :action => 'index'}, {:class=>'toc_item active'}

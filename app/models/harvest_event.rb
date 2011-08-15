@@ -53,7 +53,7 @@ class HarvestEvent < SpeciesSchemaModel
     year = Time.now.year if year.nil?
     month = 0 if month.nil?
     lower_date_range = "#{year}-#{month}-00"
-    if month == 0
+    if month.to_i == 0
       upper_date = Time.local(year, 1) + 1.year
       upper_date_range = "#{upper_date.year}-#{upper_date.month}-00"
     else

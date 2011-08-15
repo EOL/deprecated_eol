@@ -96,8 +96,8 @@ describe 'Feeds' do
     end
 
     it "should show feed with all curation activity for a content partner" do
-      visit("/feeds/partner_curation?user_id=#{@user.id}")
-      body.should include "#{@user.full_name} curation activity"
+      visit("/feeds/partner_curation?content_partner_id=#{@content_partner.id}")
+      body.should include "#{@content_partner.full_name} curation activity"
     end
 
     it "should show feed for a month's curation activity for a content partner" do
@@ -105,8 +105,8 @@ describe 'Feeds' do
       @report_year = last_month.year.to_s
       @report_month = last_month.month.to_s
       @year_month   = @report_year + "_" + "%02d" % @report_month.to_i
-      visit("/feeds/partner_curation?user_id=#{@user.id}&year_month=#{URI.escape @year_month}")
-      body.should include "#{@user.full_name} curation activity"
+      visit("/feeds/partner_curation?content_partner_id=#{@content_partner.id}&year_month=#{URI.escape @year_month}")
+      body.should include "#{@content_partner.full_name} curation activity"
     end
   end
 

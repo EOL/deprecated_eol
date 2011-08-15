@@ -98,7 +98,7 @@ en:
   year: Year
   you_are_an_admin_so_i_will_show_you_that_the_error_was: "You are an admin.  So, I will show you that the error was:"
   you_are_not_authorized_to_perform_this_action: "You are not authorized to perform this action."
-  you_are_viewing_this_rank_as_classified_by: "You are viewing this %{rank} as classified by: "
+  you_are_viewing_this_rank_as_classified_by: "You are viewing this %{rank} as classified by:"
   you_have_been_logged_out: "You have been logged out."
   you_removed_the_member_from_the_community: "You have successfully removed this member from the community."
   wikipedia_article_revision_for_ingestion: "EOL is now allowing curators to submit a revision of a Wikipedia page to be ingested into EOL as a vetted text object. To find the revision URL of a Wikipedia article first go to the article main page (e.g. <a href='http://en.wikipedia.org/w/index.php?title=Giraffe'>http://en.wikipedia.org/w/index.php?title=Giraffe</a>) and expand in the left hand menu the 'Toolbox' menu item. You should now see the 'Permanent link' item. Either copy the URL of that link, or click the link and copy the URL in your browser's address bar. The revision URL will look something like <a href='http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069'>http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>."

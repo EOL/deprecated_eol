@@ -131,11 +131,11 @@ $(function() {
         if($('#flashes')[0] == undefined) {
           $('#page_heading div.page_actions').after('<div id="flashes"></div>');
         }
-        var $flashes = $('#flashes');
-        EOL.ajax_submit($(this), { update: $flashes });
+        EOL.ajax_submit($(this), { update: $('#flashes') });
         $('#choose_collections a.close').click();
         return(false);
       });
+      $('#choose_collections a.other_actions').click(function() { $('#choose_collections a.close').click(); });
     },
     afterClose: function() {
       $('a.collect').delay(25).fadeTo(100, 1, function() {$('a.collect').css({filter:''}); });

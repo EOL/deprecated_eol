@@ -80,7 +80,7 @@ describe 'Taxa page' do
 
     it 'should show actions for text objects' do
       body.should have_tag('div.actions') do # note this should be a div.actions and not the p.actions defined in HR markup
-        with_tag('form#new_collection_item')
+        with_tag('a.collect')
         with_tag('a.comment')
       end
     end
@@ -135,7 +135,7 @@ describe 'Taxa page' do
       end
     end
   end
-  
+
   shared_examples_for 'taxon resources tab' do
     it 'should include Identification Resources' do
       body.should include('Identification Resources')
@@ -147,7 +147,7 @@ describe 'Taxa page' do
       body.should include('Content Partners')
     end
   end
-  
+
   shared_examples_for 'taxon names tab' do
     it 'should list the classifications that recognise the taxon' do
       visit logout_url
@@ -313,7 +313,7 @@ describe 'Taxa page' do
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon overview tab'
   end
-  
+
   # resources tab - taxon_concept
   context 'resources when taxon has all expected data - taxon_concept' do
     before(:all) do
@@ -327,7 +327,7 @@ describe 'Taxa page' do
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon resources tab'
   end
-  
+
   # resources tab - hierarchy_entry
   context 'resources when taxon has all expected data - hierarchy_entry' do
     before(:all) do

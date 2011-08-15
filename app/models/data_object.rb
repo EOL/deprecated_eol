@@ -545,10 +545,6 @@ class DataObject < SpeciesSchemaModel
   end
   alias is_image? image?
 
-  def map?
-    return DataType.map_type_ids.include?(data_type_id)
-  end
-
   def text?
     return DataType.text_type_ids.include?(data_type_id)
   end
@@ -640,15 +636,6 @@ class DataObject < SpeciesSchemaModel
     end
   end
 
-  def map_image
-    # Sometimes, we want to serve map images right from the source:
-    if ($PREFER_REMOTE_IMAGES and not object_url.blank?) or (object_cache_url.blank?)
-      return object_url
-    else
-      return DataObject.cache_path(object_cache_url) + "_orig.jpg"
-    end
-  end
-
   # TODO - wow, this is expensive (IFF you pass in :published) ... we should really consider optimizing this, since
   # it's actually used quite often. ...and in some cases, just to get the ID of the first one.  Ouch.
   # :published -> :strict - return only published taxon concepts
@@ -670,23 +657,6 @@ class DataObject < SpeciesSchemaModel
   def linked_taxon_concept
     get_taxon_concepts.first
   end
-
-  # def update_solr_index
-  #   begin
-  #     # query Solr for the index record for this data object
-  #     solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
-  #     response = solr_connection.query_lucene("data_object_id:#{id}")
-  #     pp response
-  #     data_object_hash = response['response']['docs'][0]
-  #     return false unless data_object_hash
-  #     modified_object_hash = data_object_hash.dup
-  #     pp modified_object_hash
-  #     # if data_object_hash != modified_object_hash
-  #     #   solr_connection.create(modified_object_hash)
-  #     # end
-  #   rescue
-  #   end
-  # end
   
   def update_solr_index
     hash = {
@@ -810,7 +780,7 @@ class DataObject < SpeciesSchemaModel
       if entry_in_hierarchy = taxon_concept.entry(options[:filter_hierarchy], true)
         HierarchyEntry.preload_associations(entry_in_hierarchy,
           [ :top_images => :data_object ],
-          :select => { :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating ] } )
+          :select => { :data_objects => [ :id, :data_type_id, :data_subtype_id, :published, :guid, :data_rating ] } )
         image_data_objects = entry_in_hierarchy.top_images.collect{ |ti| ti.data_object }
       end
     else
@@ -847,7 +817,9 @@ class DataObject < SpeciesSchemaModel
       unique_image_objects.delete_if{ |d| d.id == exemplar_image.id }
       unique_image_objects.unshift(exemplar_image)
     end
-
+    # removing maps
+    unique_image_objects.delete_if{ |d| DataType.map_type_ids.include?(d.data_subtype_id) }
+    
     # get the rest of the metadata for the selected page
     image_page  = (options[:image_page] ||= 1).to_i
     start       = $MAX_IMAGES_PER_PAGE * (image_page - 1)

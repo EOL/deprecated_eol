@@ -20,7 +20,7 @@ class Taxa::OverviewsController < TaxaController
       :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
       :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
       :vetted => :view_order,
-      :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating, :language_id ],
+      :data_objects => [ :id, :data_type_id, :data_subtype_id, :published, :guid, :data_rating, :language_id ],
       :table_of_contents => '*',
       :data_objects_hierarchy_entries => '*',
       :curated_data_objects_hierarchy_entries => '*',

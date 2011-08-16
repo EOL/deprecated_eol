@@ -30,12 +30,12 @@
 
   -# video/quicktime
   - if data_object.mime_type == MimeType.mov
-    %OBJECT{:classid=>"clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B", :codebase=>"http://www.apple.com/qtactivex/qtplugin.cab", :height=>"300", :width=>"450" }
+    %OBJECT{:classid=>"clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B", :codebase=>"http://www.apple.com/qtactivex/qtplugin.cab", :height=>"400", :width=>"500" }
       %PARAM{:name => "src", :value => "#{data_object.video_url}"}
       %PARAM{:name => "autoplay", :value => "true"}
-      %PARAM{:name => "type", :value => "video/quicktime", :height => "300", :width => "450"}
+      %PARAM{:name => "type", :value => "video/quicktime", :height => "400", :width => "500"}
       %PARAM{:name => "controller", :VALUE => "true"}
-      %EMBED{:src => "#{data_object.video_url}", :controller => "true", :height => "300", :width => "450",
+      %EMBED{:src => "#{data_object.video_url}", :controller => "true", :height => "400", :width => "500",
               :autoplay => "true", :type => "video/quicktime", :pluginspage => "http://www.apple.com/quicktime/download/"}
 
   -# video/x-flv

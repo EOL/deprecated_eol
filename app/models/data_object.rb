@@ -877,7 +877,7 @@ class DataObject < SpeciesSchemaModel
       rset = DataObject.find_by_sql([sql])
       rset.each do |post|
         obj_tc_id["#{post.do_id}"] = post.tc_id
-        if(post.data_type_id == 3)then obj_tc_id["datatype#{post.do_id}"] = "text"
+        if(post.data_type_id == DataType.text.id)then obj_tc_id["datatype#{post.do_id}"] = "text"
                                   else obj_tc_id["datatype#{post.do_id}"] = "image"
         end
       end

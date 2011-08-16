@@ -342,9 +342,9 @@ class ContentPartner < SpeciesSchemaModel
     ipr_accept? && attribution_accept? && roles_accept?
   end
 
-#  def ready_for_agreement?
-#    content_partner_contacts.any? && partner_complete_step? && terms_agreed_to?
-#  end
+  def ready_for_agreement?
+    content_partner_contacts.any? && partner_complete_step? && terms_agreed_to?
+  end
 
   def agreement
     current_agreements = content_partner_agreements.select{ |cpa| cpa.is_current == true }

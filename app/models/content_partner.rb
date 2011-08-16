@@ -51,9 +51,9 @@ class ContentPartner < SpeciesSchemaModel
   def can_be_updated_by?(user)
     user.id == user_id || user.is_admin?
   end
-  # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we go to many to many
+
   def can_be_created_by?(user)
-    user.id == user_id || user.is_admin?
+    user.id
   end
 
 #  TODO: change latests published harvest event to eager load or make it work without eager loading

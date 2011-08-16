@@ -64,6 +64,41 @@ body > #footer ul.social_media li a.tumblr {
     width: 282px;
     height: 120px; }
 
+/*Content partner various */
+#sidebar .content_partner_managers {
+  margin: 0 0 20px 0; }
+  #sidebar .content_partner_managers li {
+    overflow: hidden;
+    padding: 0 0 20px 0;
+    line-height: 140%; }
+  #sidebar .content_partner_managers img {
+    float: left;
+    margin: 0 10px 0 0;
+    border: 1px solid #394651; }
+  #sidebar .content_partner_managers h4 a {
+    color: inherit;
+    text-decoration: none; }
+    #sidebar .content_partner_managers h4 a:hover {
+      text-decoration: underline; }
+
+#profile_content_partner form dt {
+  clear: both; }
+#profile_content_partner form dd.managed_by {
+  overflow: hidden; }
+  #profile_content_partner form dd.managed_by img {
+    float: left;
+    margin: 0 10px 0 0;
+    border: 1px solid #394651; }
+  #profile_content_partner form dd.managed_by .details {
+    padding: 5px 0 0 0;
+    overflow: hidden; }
+
+form fieldset.dataset legend.required {
+  font-weight: bold;
+  background: url("/images/v2/icon_required.png") 0 45% no-repeat;
+  padding-left: 10px;
+  margin-left: -10px; }
+
 /*Styles for form required (HR overrides) and form validation errors (custom no equivalent from HR)  */
 form dt.required label {
   background: url("/images/v2/icon_required.png") 0 45% no-repeat;

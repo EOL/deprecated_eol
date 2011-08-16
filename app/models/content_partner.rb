@@ -47,13 +47,21 @@ class ContentPartner < SpeciesSchemaModel
   validates_attachment_size :logo, :in => 0..$LOGO_UPLOAD_MAX_SIZE,
     :if => self.column_names.include?('logo_file_name')
 
-  # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we go to many to many
-  def can_be_updated_by?(user)
-    user.id == user_id || user.is_admin?
+
+  def can_be_read_by?(user_wanting_access)
+    public || (user_wanting_access.id == user_id || user_wanting_access.is_admin?)
   end
   # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we go to many to many
-  def can_be_created_by?(user)
-    user.id == user_id || user.is_admin?
+  def can_be_updated_by?(user_wanting_access)
+    user_wanting_access.id == user_id || user_wanting_access.is_admin?
+  end
+  # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we go to many to many
+  def can_be_created_by?(user_wanting_access)
+    # self requires user before create because:
+    # admins can create content partners for users, in addition:
+    # user can only have one content partner
+    # user can only create content partner for themselves
+    user && user.content_partner.nil? && (user_wanting_access.id == user.id || user_wanting_access.is_admin?)
   end
 
 #  TODO: change latests published harvest event to eager load or make it work without eager loading
@@ -386,18 +394,6 @@ class ContentPartner < SpeciesSchemaModel
     self.vetted = vetted
   end
 
-  # Set these fields to blank because insistence on having NOT NULL columns on things that aren't populated
-  # until certain steps.
-  def blank_not_null_fields
-    self.notes ||= ""
-    self.description_of_data ||= ""
-    self.description ||=""
-  end
-
-  def strip_urls
-    self.homepage.strip unless self.homepage.blank?
-  end
-
   # override the logo_url column in the database to construct the path on the content server
   def logo_url(size = 'large')
     if logo_cache_url.blank?
@@ -438,4 +434,17 @@ private
   def set_default_content_partner_status
     self.content_partner_status = ContentPartnerStatus.active if self.content_partner_status.blank?
   end
+
+  # Set these fields to blank because insistence on having NOT NULL columns on things that aren't populated
+  # until certain steps.
+  def blank_not_null_fields
+    self.notes ||= ""
+    self.description_of_data ||= ""
+    self.description ||=""
+  end
+
+  def strip_urls
+    self.homepage.strip unless self.homepage.blank?
+  end
+
 end

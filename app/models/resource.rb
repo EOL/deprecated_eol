@@ -21,15 +21,31 @@ class Resource < SpeciesSchemaModel
   attr_accessor :latest_published_harvest_event
   attr_protected :latest_published_harvest_event
 
-  before_save :strip_urls
+  before_validation :strip_urls
+  before_save :convert_nulls_to_blank # TODO: Make migration to allow null on subject or remove it altogether if its no longer needed
 
   validates_attachment_content_type :dataset,
       :content_type => ['application/x-gzip','application/x-tar','text/xml'],
-      :message => "dataset file is not a valid file type"
+      :message => I18n.t('activerecord.errors.models.resource.attributes.dataset.wrong_type')
 
-  validates_presence_of :title
-  validates_presence_of :license_id
+  validates_presence_of :title, :license_id
   validates_presence_of :refresh_period_hours, :if => :accesspoint_url_provided?
+  validates_presence_of :accesspoint_url, :unless => :dataset_file_provided?
+  validates_format_of :accesspoint_url, :allow_blank => true, :allow_nil => true,
+                      :with => /\.xml(\.gz|\.gzip)?/
+  validates_format_of :dwc_archive_url, :allow_blank => true, :allow_nil => true,
+                      :with => /(\.tar\.(gz|gzip)|.tgz)/
+  validates_length_of :title, :maximum => 255
+  validates_length_of :accesspoint_url, :allow_blank => true, :allow_nil => true, :maximum => 255
+  validates_length_of :dwc_archive_url, :allow_blank => true, :allow_nil => true, :maximum => 255
+  validates_length_of :description, :allow_blank => true, :allow_nil => true, :maximum => 255
+  validates_length_of :rights_holder, :allow_blank => true, :allow_nil => true, :maximum => 255
+  validates_length_of :rights_statement, :allow_blank => true, :allow_nil => true, :maximum => 400
+  validates_length_of :bibliographic_citation, :allow_blank => true, :allow_nil => true, :maximum => 400
+  validates_each :accesspoint_url, :dwc_archive_url do |record, attr, value|
+    record.errors.add attr, I18n.t(:inaccessible, :scope => [:activerecord, :errors, :messages, :models]) unless value.blank? || EOLWebService.url_accepted?(value)
+  end
+  validate :url_or_dataset_not_both
 
   # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we move to many to many
   def can_be_created_by?(user)
@@ -103,28 +119,6 @@ class Resource < SpeciesSchemaModel
                               :order => 'completed_at desc')
   end
 
-  def validate
-    if accesspoint_url.blank? && dataset_file_name.blank?
-       errors.add_to_base("You must either provide a URL or upload a resource file")
-    elsif dataset_file_name.blank? && !accesspoint_url.blank?  # gave a URL
-      accesspoint_url.strip!
-      if !accesspoint_url.match(/\.xml(\.gz|\.gzip)?/)  # URL is not .xml, .xml.gz, .xml.gzip
-        errors.add_to_base("The resource file URL must be .xml or .xml.gz(ip)")
-      elsif !EOLWebService.url_accepted?(accesspoint_url)  # URL doesn't return 200
-        errors.add_to_base("The resource file URL is not valid")
-      end
-    end
-
-    unless dwc_archive_url.blank?
-      dwc_archive_url.strip!
-      if !dwc_archive_url.match(/(\.tar\.(gz|gzip)|.tgz)/)  # dwca url not a .tar.gz, .tar.gzip, .tgz
-        errors.add_to_base("The Darwin Core Archive must be a tar/gzip file")
-      elsif !EOLWebService.url_accepted?(dwc_archive_url)  # dwca url does't return 200
-        errors.add_to_base("The Darwin Core Archive URL is not valid")
-      end
-    end
-  end
-
   # vet or unvet entire resource (0 = unknown, 1 = vet)
   def set_vetted_status(vetted)
     set_to_state = EOLConvert.to_boolean(vetted) ? Vetted.trusted.id : Vetted.unknown.id
@@ -142,37 +136,24 @@ class Resource < SpeciesSchemaModel
     true
   end
 
-  def upload_resource_to_content_master(application_server_url)
-    resource_status = ResourceStatus.uploaded if accesspoint_url.blank?
-
-    file_path = (accesspoint_url.blank? ? application_server_url + $DATASET_UPLOAD_PATH + id.to_s + "."+ dataset_file_name.split(".")[-1] : accesspoint_url)
-    parameters = 'function=upload_resource&resource_id=' + id.to_s + '&file_path=' + file_path
-    begin
-      response = EOLWebService.call(:parameters => parameters)
-    rescue
-      ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "content provider dataset service has an error") if $ERROR_LOGGING
-      resource_status = ResourceStatus.upload_failed
-    end
-    if response.nil? || response.blank?
-      ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "content provider dataset service timed out") if $ERROR_LOGGING
-      resource_status = ResourceStatus.upload_failed
+  def upload_resource_to_content_master(port = nil)
+    if self.accesspoint_url.blank?
+      self.resource_status = ResourceStatus.uploaded
+      ip_with_port = $IP_ADDRESS_OF_SERVER.dup
+      ip_with_port += ":" + port if port && !ip_with_port.match(/:[0-9]+$/)
+      file_url = ip_with_port + $DATASET_UPLOAD_PATH + id.to_s + "."+ dataset_file_name.split(".")[-1]
     else
-      response = Hash.from_xml(response)
-      # response is an error
-      if response["response"].key? "error"
-        error = response["response"]["error"]
-        ErrorLog.create(:url=>$WEB_SERVICE_BASE_URL,:exception_name=>"content partner dataset service failed", :backtrace=>parameters) if $ERROR_LOGGING
-        notes = error
-        resource_status = ResourceStatus.upload_failed
-      # else set status to response
-      elsif response["response"].key? "status"
-        status = response["response"]["status"]
-        resource_status = ResourceStatus.send(status.downcase.gsub(" ","_"))
-        if response["response"].key? "error"
-          error = response["response"]["error"]
-          ErrorLog.create(:url=>$WEB_SERVICE_BASE_URL,:exception_name=>"content partner dataset service failed", :backtrace=>parameters) if $ERROR_LOGGING
-          notes = error if status.strip == 'Validation failed'
-        end
+      file_url = accesspoint_url
+    end
+    status, response_message = ContentServer.upload_resource(file_url, self.id)
+    if status == 'success'
+      self.resource_status = response_message
+    else
+      if response_message
+        notes = response_message
+        self.resource_status = ResourceStatus.validation_failed
+      else
+        self.resource_status = ResourceStatus.upload_failed
       end
     end
     self.save!
@@ -180,13 +161,29 @@ class Resource < SpeciesSchemaModel
   end
 
 private
+
+  def url_or_dataset_not_both
+    if dataset_file_provided? && accesspoint_url_provided?
+      errors.add_to_base I18n.t('content_partner_resource_url_or_dataset_not_both_error')
+    end
+  end
+
   def accesspoint_url_provided?
     !accesspoint_url.blank?
+  end
+
+  # checks to see a new file has been attached or we already have a dataset file.
+  def dataset_file_provided?
+    dataset? || !dataset_file_name.blank?
   end
 
   def strip_urls
     accesspoint_url.strip! if accesspoint_url
     dwc_archive_url.strip! if dwc_archive_url
+  end
+
+  def convert_nulls_to_blank
+    self.subject = '' if self.subject.nil?
   end
 end
 

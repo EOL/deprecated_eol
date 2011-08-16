@@ -178,6 +178,8 @@ en:
       less_than_or_equal_to: "must be less than or equal to %{count}"
       odd: "must be odd"
       even: "must be even"
+      inaccessible: "is inaccessible"
+      wrong_type: "is the wrong type"
   activerecord:
     models:
       user: "account"
@@ -207,7 +209,7 @@ en:
       name:
         string: "Name"
       resource:
-        dataset_url: "Dataset URL"
+        accesspoint_url: "Dataset URL"
         dataset: "Dataset file"
         description: "Resource description"
         dwc_archive_url: "Darwin Core Archive URL"
@@ -261,6 +263,19 @@ en:
         <<: *errors_messages
       full_messages:
         format: "%{attribute} %{message}"
+      models:
+        resource:
+          attributes:
+            accesspoint_url:
+              blank: "can't be blank, unless you upload a resource file instead"
+              inaccessible: "is inaccessible, the URL must be publicly accessible"
+              invalid: "is invalid, it should point to a XML, XML.GZIP or XML.GZ file."
+            dataset:
+              blank: "can't be blank unless you provide a dataset URL instead"
+              wrong_type: "is the wrong type, it should be a GZIP, TAR or XML file"
+            dwc_archive_url:
+              inaccessible: "is inaccessible, the URL must be publicly accessible"
+              invalid: "is invalid, it should point to a TAR.GZIP, TAR.GZ or TGZ file."
   helpers:
     select:
       prompt: "Please select"
@@ -348,12 +363,16 @@ en:
         page_views: "Page views <small>(number of visits to pages)</small>"
         time_on_page: "Total time spent on pages <small>(hours)</small>"
       resource:
-        accesspoint_url: "Dataset URL"
-        dwc_archive_url: "If there is a Darwin Core Archive associated with this resource, enter the URL here <small>(TAR or GZIP only)</small>:"
+        dataset: "Dataset"
+        dataset_existing_replace: "The file <em>%{file_name}</em> is currently associated with this resource. Upload a new file to replace the existing <em>%{file_name}</em> file."
+        dataset_existing_remove: "The file <em>%{file_name}</em> is currently associated with this resource. Enter a URL if you would like to replace the existing <em>%{file_name}</em> file and load the resource from a URL instead (recommended)."
+        accesspoint_url: "Dataset URL <small>(XML, XML.GZIP or XML.GZ only)</small>"
+        accesspoint_url_existing_remove: "This resource is currently being loaded from the URL ending <em>%{accesspoint_url}</em>. Upload a file if you would like to remove the existing URL and load the resource from a file instead (not recommended)."
+        dwc_archive_url: "If there is a Darwin Core Archive associated with this resource, enter the URL here <small>(TAR.GZIP, TAR.GZ or TGZ only)</small>:"
         refresh_period_hours: "Frequency"
         resource_status_id: "Status"
-        resource_url_or_upload_url: "Load resource from URL"
-        resource_url_or_upload_upload: "Upload resource file"
+        resource_url_or_file_url: "Load resource from URL"
+        resource_url_or_file_upload: "Upload resource file"
         title: "Resource name"
       session:
         password: "Password"
@@ -1043,7 +1062,7 @@ en:
   content_partner_profiles_can_b: "Content partner profiles can be updated below.  Only enter a new password to change it."
   content_partner_registered_time_ago: "Registered %{time_passed} ago"
   content_partner_reports: "Content Partner Reports"
-  content_partner_resource_create_successful_notice: "Content partner resource successfully added."
+  content_partner_resource_create_successful_notice: "Content partner resource details successfully added. Current status of resource data: %{resource_status}."
   content_partner_resource_create_unsuccessful_error: "Sorry, an error occurred, the resource was not added."
   content_partner_resource_edit_link: "Edit"
   content_partner_resource_edit_subheader: "Edit resource"
@@ -1052,6 +1071,9 @@ en:
   content_partner_resource_new_link: "Add a new resource"
   content_partner_resource_new_subheader: "Add a new resource"
   content_partner_resource_resource_status_new: "Created"
+  content_partner_resource_update_successful_notice: "Content partner resource details successfully updated. Current status of resource data: %{resource_status}."
+  content_partner_resource_update_unsuccessful_error: "Sorry, an error occurred, the resource was not updated."
+  content_partner_resource_url_or_dataset_not_both_error: "Dataset URL or file per resource, not both. Please decide whether you want to provide a URL or upload a file for this described resource. Additional resources can be added later."
   content_partner_resources_information: "Resources are datasets that are available for harvesting by EOL. Harvested data is integrated into the EOL database and served to the public through the EOL Web site and API. Resource files can either be uploaded directly to EOL or, if you make your resource file available on a public Web server, EOL can automatically extract the data at regular intervals which you can define. Each resource file must be in the <a href=\"%{eol_transfer_schema_url}\">EOL Transfer Schema</a> format"
   content_partner_resources_header: "Resources"
   content_partner_resources_link: "Resources &amp; Contacts"

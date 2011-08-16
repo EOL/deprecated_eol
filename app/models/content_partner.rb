@@ -3,7 +3,7 @@ class ContentPartner < SpeciesSchemaModel
   belongs_to :user
   belongs_to :content_partner_status
 
-  has_many :resources
+  has_many :resources, :dependent => :destroy
   has_many :content_partner_contacts, :dependent => :destroy
   has_many :google_analytics_partner_summaries
   has_many :google_analytics_partner_taxa
@@ -302,25 +302,25 @@ class ContentPartner < SpeciesSchemaModel
     end
   end
 
-  # Called when contact_step? is true
-  def validate_atleast_one_contact
-    errors.add_to_base('You must have at least one contact') unless self.content_partner_contacts.any?
-  end
+#  # Called when contact_step? is true
+#  def validate_atleast_one_contact
+#    errors.add_to_base('You must have at least one contact') unless self.content_partner_contacts.any?
+#  end
 
-  # Called when licensing_step? is true
-  def validate_ipr_acceptance
-   errors.add_to_base('You must accept the EOL Licensing Policy') unless self.ipr_accept.to_i == 1
-  end
+#  # Called when licensing_step? is true
+#  def validate_ipr_acceptance
+#   errors.add_to_base('You must accept the EOL Licensing Policy') unless self.ipr_accept.to_i == 1
+#  end
 
-  # Called when attribution_step? is true
-  def validate_attribution_acceptance
-    errors.add_to_base('You must accept the EOL Attribution Guidelines') unless self.attribution_accept.to_i == 1
-  end
+#  # Called when attribution_step? is true
+#  def validate_attribution_acceptance
+#    errors.add_to_base('You must accept the EOL Attribution Guidelines') unless self.attribution_accept.to_i == 1
+#  end
 
-  # Called when roles_step? is true
-  def validate_roles_acceptance
-    errors.add_to_base('You must accept the EOL Roles Guidelines') unless self.roles_accept.to_i == 1
-  end
+#  # Called when roles_step? is true
+#  def validate_roles_acceptance
+#    errors.add_to_base('You must accept the EOL Roles Guidelines') unless self.roles_accept.to_i == 1
+#  end
 
   def roles_accept?
     EOLConvert.to_boolean(roles_accept)
@@ -342,9 +342,9 @@ class ContentPartner < SpeciesSchemaModel
     ipr_accept? && attribution_accept? && roles_accept?
   end
 
-  def ready_for_agreement?
-    content_partner_contacts.any? && partner_complete_step? && terms_agreed_to?
-  end
+#  def ready_for_agreement?
+#    content_partner_contacts.any? && partner_complete_step? && terms_agreed_to?
+#  end
 
   def agreement
     current_agreements = content_partner_agreements.select{ |cpa| cpa.is_current == true }

@@ -9,26 +9,35 @@
 
   %dl.resources
     %dt
-      = radio_button_tag :resource_url_or_upload, :url, !@resource.accesspoint_url.blank?
-      = label_tag :resource_url_or_upload, I18n.t('helpers.label.resource.resource_url_or_upload_url')
+      = radio_button_tag :resource_url_or_file, :url, !@resource.accesspoint_url.blank?
+      = label_tag :resource_url_or_file, I18n.t('helpers.label.resource.resource_url_or_file_url')
     %dd
       %dl
         %dt.required
           = resource_form.label :accesspoint_url
         %dd
+          - unless @resource.dataset_file_name.blank?
+            %p= I18n.t('helpers.label.resource.dataset_existing_remove', :file_name => @resource.dataset_file_name)
           = resource_form.text_field :accesspoint_url, :maxlength => 255
         %dt.required
           = resource_form.label :refresh_period_hours
         %dd
           = resource_form.select :refresh_period_hours, options_for_select(@import_frequencies, @resource.refresh_period_hours)
     %dt
-      = radio_button_tag :resource_url_or_upload, :upload, !@resource.dataset.instance.dataset_file_name.blank?
-      = label_tag :resource_url_or_upload, I18n.t('helpers.label.resource.resource_url_or_upload_upload')
+      = radio_button_tag :resource_url_or_file, :upload, @resource.accesspoint_url.blank? && @resource.dataset?
+      = label_tag :resource_url_or_file, I18n.t('helpers.label.resource.resource_url_or_file_upload')
     %dd
       %dl
         %dt.required
           = resource_form.label :dataset
         %dd
+          - # resources should have either a URL or a file, not both, however if some have slipped through with both
+          - # we only want to show one message here lest we confuse the user - URL takes precedence.
+          - if @resource.accesspoint_url.blank?
+            - unless @resource.dataset_file_name.blank?
+              %p= I18n.t('helpers.label.resource.dataset_existing_replace', :file_name => @resource.dataset_file_name)
+          - else
+            %p= I18n.t('helpers.label.resource.accesspoint_url_existing_remove', :accesspoint_url => @resource.accesspoint_url.sub(/^.*\//, ''))
           = resource_form.file_field :dataset
   %dl
     %dt

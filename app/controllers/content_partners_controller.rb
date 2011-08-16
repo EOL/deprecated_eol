@@ -81,7 +81,7 @@ class ContentPartnersController < ApplicationController
 
   # PUT /content_partners/:id
   def update
-    @partner = ContentPartner.find()
+    @partner = ContentPartner.find(params[:id])
     access_denied unless current_user.can_update?(@partner)
     if @partner.update_attributes(params[:content_partner])
       upload_logo(@partner) unless params[:content_partner][:logo].blank?

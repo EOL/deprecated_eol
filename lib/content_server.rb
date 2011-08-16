@@ -5,7 +5,7 @@ class ContentServer
   @@cache_url_re = /(\d{4})(\d{2})(\d{2})(\d{2})(\d+)/
 
   def self.next
-    @@next += 1 
+    @@next += 1
     @@next = 0 if @@next > $CONTENT_SERVERS.length - 1
     return $CONTENT_SERVERS[@@next]
   end
@@ -18,7 +18,7 @@ class ContentServer
     else
       "#{self.next}#{$CONTENT_SERVER_AGENT_LOGOS_PATH}#{url}#{logo_size}"
     end
-    
+
   end
 
   def self.cache_path(cache_url, subdir = $CONTENT_SERVER_CONTENT_PATH)
@@ -37,7 +37,8 @@ class ContentServer
     return self.blank if url.blank?
     (self.next + $CONTENT_SERVER_CONTENT_PATH + self.cache_url_to_path(url) + ext)
   end
-  
+
+  # only uploading logos
   def self.upload_content(path_from_root, port = nil)
     ip_with_port = $IP_ADDRESS_OF_SERVER.dup
     ip_with_port += ":" + port if port && !ip_with_port.match(/:[0-9]+$/)
@@ -60,5 +61,44 @@ class ContentServer
     end
     nil
   end
+
+  # only uploading resources
+  # returns [status, message]
+  def self.upload_resource(file_url, resource_id)
+    return nil if file_url.blank?
+    return nil if resource_id.blank?
+    parameters = "function=upload_resource&resource_id=#{resource_id}&file_path=#{file_url}"
+    begin
+      response = EOLWebService.call(:parameters => parameters)
+    rescue
+      ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "content provider dataset service has an error") if $ERROR_LOGGING
+    end
+    if response.blank?
+      ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "content provider dataset service timed out") if $ERROR_LOGGING
+    else
+      response = Hash.from_xml(response)
+      # response is an error
+      if response["response"].key? "error"
+        error = response["response"]["error"]
+        ErrorLog.create(:url=>$WEB_SERVICE_BASE_URL,:exception_name=>"content partner dataset service failed", :backtrace=>parameters) if $ERROR_LOGGING
+        return ['error', nil]
+      # else set status to response - we've validated the resource
+      elsif response["response"].key? "status"
+        status = response["response"]["status"]
+        resource_status = ResourceStatus.send(status.downcase.gsub(" ","_"))
+        # validation failed
+        if response["response"].key? "error"
+          error = response["response"]["error"]
+          ErrorLog.create(:url=>$WEB_SERVICE_BASE_URL,:exception_name=>"content partner dataset service failed", :backtrace=>parameters) if $ERROR_LOGGING
+          return ['error', error]
+        # validation succeeded
+        else
+          return ['success', resource_status]
+        end
+      end
+    end
+    ['error', nil]
+  end
+
 
 end

@@ -33,7 +33,7 @@
         %table.standard
           %thead
             %th= I18n.t('helpers.label.resource.title')
-            %th= I18n.t('helpers.label.resource.accesspoint_url')
+            %th= I18n.t('helpers.label.resource.dataset')
             %th= I18n.t('helpers.label.resource.refresh_period_hours')
             %th= I18n.t('activerecord.attributes.resource.license_id')
             %th= I18n.t('helpers.label.resource.resource_status_id')
@@ -44,7 +44,10 @@
                 %td
                   = h resource.title
                 %td
-                  = link_to I18n.t('helpers.label.resource.accesspoint_url'), h(resource.accesspoint_url)
+                  - if resource.accesspoint_url.blank?
+                    = resource.dataset_file_name unless resource.dataset_file_name.blank?
+                  - else
+                    = link_to resource.accesspoint_url.sub(/^.*\//, ''), resource.accesspoint_url
                 %td
                   = frequency(resource.refresh_period_hours)
                 %td

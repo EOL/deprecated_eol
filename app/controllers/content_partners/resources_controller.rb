@@ -6,7 +6,8 @@ class ContentPartners::ResourcesController < ContentPartnersController
 
   # GET /content_partners/:content_partner_id/resources
   def index
-    @partner = ContentPartner.find(params[:content_partner_id], :include => [:resources, :content_partner_agreements])
+    @partner = ContentPartner.find(params[:content_partner_id],
+                 :include => [ { :resources => :resource_status }, :content_partner_agreements])
     @resources = @partner.resources
     @agreements = @partner.content_partner_agreements
     @new_agreement = @partner.content_partner_agreements.build() if @agreements.blank?
@@ -30,9 +31,11 @@ class ContentPartners::ResourcesController < ContentPartnersController
     @resource = @partner.resources.build(params[:resource])
     access_denied unless current_user.can_create?(@resource)
     if @resource.save
-      @resource.resource_status = @resource.upload_resource_to_content_master('http://' + $IP_ADDRESS_OF_SERVER + ":" + request.port.to_s)
-      @resource.save # TODO: Do we need a check here to see if resource was uploaded?
-      flash[:notice] = I18n.t(:content_partner_resource_create_successful_notice)
+      @resource.resource_status = @resource.upload_resource_to_content_master(request.port.to_s)
+      # TODO: if we failed to transfer the resource to content master the status will show up in
+      # index, but should we provide the user with more information on upload errors here?
+      flash[:notice] = I18n.t(:content_partner_resource_create_successful_notice,
+                              :resource_status => @resource.status_label)
       redirect_to content_partner_resources_path(@partner)
     else
       set_new_resource_options
@@ -51,10 +54,45 @@ class ContentPartners::ResourcesController < ContentPartnersController
 
   # PUT /content_partners/:content_partner_id/resources/:id
   def update
-
+    ContentPartner.with_master do
+      @partner = ContentPartner.find(params[:content_partner_id], :include => {:resources => :resource_status })
+      @resource = @partner.resources.find(params[:id])
+    end
+    access_denied unless current_user.can_update?(@resource)
+    choose_url_or_file
+    @existing_dataset_file_size = @resource.dataset_file_size
+    if @resource.update_attributes(params[:resource])
+      if upload_required?
+        @resource.resource_status = @resource.upload_resource_to_content_master(request.port.to_s)
+        # TODO: if we failed to transfer the resource to content master the status will show up in
+        # index, but should we provide the user with more information on upload errors here?
+      end
+      flash[:notice] = I18n.t(:content_partner_resource_update_successful_notice,
+                              :resource_status => @resource.status_label)
+      redirect_to content_partner_resources_path(@partner)
+    else
+      set_resource_options
+      flash.now[:error] = I18n.t(:content_partner_resource_update_unsuccessful_error)
+      render :edit
+    end
   end
 
 private
+  def choose_url_or_file
+    case params[:resource_url_or_file]
+    when 'url'
+      params[:resource][:dataset] = nil
+    when 'upload'
+      params[:resource][:accesspoint_url] = ''
+    end
+  end
+
+  def upload_required?
+    @resource &&
+    (@resource.accesspoint_url != params[:resource][:accesspoint_url] ||
+    @resource.dataset_file_size != @existing_dataset_file_size)
+  end
+
   def set_resource_options
     @licenses = License.find_all_by_show_to_content_partners(true)
     @languages = Language.find_active

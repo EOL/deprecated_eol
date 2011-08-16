@@ -3,7 +3,6 @@ class Mobile::TaxaController < Mobile::MobileController
   include SharedTaxaController
   
   before_filter :instantiate_taxon_concept
-  before_filter :set_session_hierarchy_variable
   
   #before_filter :redirect_if_superceded, :redirect_if_invalid
   #before_filter :add_page_view_log_entry, :update_user_content_level
@@ -27,6 +26,10 @@ class Mobile::TaxaController < Mobile::MobileController
       :curator_activity_logs => '*',
       :users => [ :given_name, :family_name, :logo_cache_url, :credentials ] }
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
+    @browsable_hierarchy_entries ||= @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
+    @browsable_hierarchy_entries = [@dropdown_hierarchy_entry] if @browsable_hierarchy_entries.blank? # TODO: Check this - we are getting here with a hierarchy entry that has a hierarchy that is not browsable.
+    @browsable_hierarchy_entries.compact!
+    @hierarchies = @browsable_hierarchy_entries.collect{|he| he.hierarchy }.uniq
 
     toc_items = [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution]
     options = { :limit => 1 }

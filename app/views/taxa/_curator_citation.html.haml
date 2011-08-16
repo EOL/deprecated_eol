@@ -8,7 +8,7 @@
     - elsif curators.size > 1
       = "Editors."
   - this_url = url_for(:controller=>'/taxa', :action=>'show', :id=>@taxon_concept.id)
-  = I18n.t(:page_reference, :title => @taxon_concept.title(@session_hierarchy), :domain_or_ip => $SITE_DOMAIN_OR_IP, :this_url => this_url, :date => Time.now.strftime("%d %b %Y"))
+  = I18n.t(:page_reference, :title => @taxon_concept.title, :domain_or_ip => $SITE_DOMAIN_OR_IP, :this_url => this_url, :date => Time.now.strftime("%d %b %Y"))
 
   /
     =I18n.t("example_")

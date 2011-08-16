@@ -29,6 +29,8 @@
           %li{:class => "#{index.modulo(4) == 0 ? 'first' : nil} #{vetted_id_class(item_vetted_id)}"}
             .figure
               %a{ :data => { :data_object_id => item.id }, :class => vetted_id_class(item_vetted_id), :href => data_object_path(item) }
+                - if en_type == 'video'
+                  .video_overlay
                 = render :partial => "data_objects/data_object_#{en_type}",
                   :locals => { :data_object => item, :thumbnail => true, :size => '260_190' }
               - if item.data_type.id == DataType.image.id && current_user.min_curator_level?(:assistant)

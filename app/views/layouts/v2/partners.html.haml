@@ -1,5 +1,5 @@
 - content_for :main do
-  #page_heading.with_image.with_nav
+  #page_heading{:class => display_navigation? ? 'with_image with_nav' : 'with_image'}
     .site_column
       = image_tag @partner.logo_url, :alt => ""
       .hgroup
@@ -15,14 +15,18 @@
               = link_to @partner.homepage, @partner.homepage
 
         - else
-          %h2= @page_subheader unless @page_subheader.blank?
+          %h2= @page_subheader
 
-      - if current_user.can_update?(@partner) && action_name == 'show'
-        .page_actions
-          %ul
+      .page_actions
+        %ul
+          - if current_user.can_update?(@partner) && action_name == 'show' && controller_name != 'resources'
             %li= link_to I18n.t(:content_partner_edit_link), edit_content_partner_path(@partner), :class => "button"
+          - elsif action_name == 'show' && controller_name == 'resources'
+            - if @resource && @resource.id && current_user.can_update?(@resource)
+              %li= link_to I18n.t(:content_partner_resource_edit_link), edit_content_partner_resource_path(@partner, @resource), :class => 'button'
+            %li= link_to I18n.t(:content_partner_resources_link_back_to), content_partner_resources_path(@partner)
       = render :partial => 'shared/flash_messages'
-      - if @partner && @partner.id && (action_name == 'show' || action_name == 'index')
+      - if display_navigation?
         %ul.nav
           %li{:class => resource_is_active('content_partners')}= link_to I18n.t(:content_partner_overview_link), content_partner_path(@partner)
           %li{:class => resource_is_active('content_partners/statistics')}= link_to I18n.t(:content_partner_statistics_link), content_partner_statistics_path(@partner)

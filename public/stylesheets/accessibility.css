@@ -555,7 +555,9 @@ body > #header .section .session.join {
 #sidebar.filters dd li.no_results label {
   color: #6f7e8b; }
 
-/*page heading actions */
+/*page heading actions, making header group narrow to fit actions in */
+#page_heading.with_image .hgroup {
+  width: 630px; }
 #page_heading .page_actions {
   padding-top: 10px; }
   #page_heading .page_actions fieldset.actions {

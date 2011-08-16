@@ -35,14 +35,13 @@
             %th= I18n.t('helpers.label.resource.title')
             %th= I18n.t('helpers.label.resource.dataset')
             %th= I18n.t('helpers.label.resource.refresh_period_hours')
-            %th= I18n.t('activerecord.attributes.resource.license_id')
             %th= I18n.t('helpers.label.resource.resource_status_id')
             %th= I18n.t(:table_column_header_actions)
           %tbody
             - @resources.each do |resource|
               %tr
                 %td
-                  = h resource.title
+                  = link_to h(resource.title), content_partner_resource_path(@partner, resource)
                 %td
                   - if resource.accesspoint_url.blank?
                     = resource.dataset_file_name unless resource.dataset_file_name.blank?
@@ -51,12 +50,10 @@
                 %td
                   = frequency(resource.refresh_period_hours)
                 %td
-                  = I18n.t("license_#{resource.license.title.gsub(/[- .]/, '_').strip}")
-                %td
                   = resource.status_label
                 %td.actions
                   - if current_user.can_update?(resource)
-                    = link_to I18n.t(:content_partner_resource_edit_link), edit_content_partner_resource_path(@partner, resource)
+                    = link_to I18n.t(:edit), edit_content_partner_resource_path(@partner, resource)
                     = link_to I18n.t(:content_partner_resource_force_harvest_link), force_harvest_content_partner_resource_path(@partner, resource)
     - else
       .copy

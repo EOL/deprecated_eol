@@ -77,6 +77,34 @@ class ContentPartners::ResourcesController < ContentPartnersController
     end
   end
 
+  # GET /content_partners/:content_partner_id/resources/:id
+  def show
+    ContentPartner.with_master do
+      @partner = ContentPartner.find(params[:content_partner_id], :include => {
+                   :resources => [ :resource_status, :collection, :preview_collection, :license, :language ]})
+      @resource = @partner.resources.find(params[:id])
+    end
+    access_denied unless current_user.can_read?(@resource)
+    @page_subheader = I18n.t(:content_partner_resource_show_subheader, :resource_title => Sanitize.clean(@resource.title))
+  end
+
+  # GET /content_partners/:content_partner_id/resources/:id/force_harvest
+  def force_harvest
+    ContentPartner.with_master do
+      @partner = ContentPartner.find(params[:content_partner_id], :include => {:resources => :resource_status })
+      @resource = @partner.resources.find(params[:id])
+    end
+    access_denied unless current_user.can_update?(@resource)
+    @resource.resource_status = ResourceStatus.force_harvest
+    if @resource.save
+      flash[:notice] = I18n.t(:content_partner_resource_update_successful_notice,
+                              :resource_status => @resource.status_label)
+    else
+      flash.now[:error] = I18n.t(:content_partner_resource_update_unsuccessful_error)
+    end
+    redirect_to content_partner_resources_path(@partner)
+  end
+
 private
   def choose_url_or_file
     case params[:resource_url_or_file]

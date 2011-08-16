@@ -596,8 +596,11 @@ body
         &.no_results
           label
             color: #6F7E8B
-/** page heading actions **/
+/** page heading actions, making header group narrow to fit actions in **/
 #page_heading
+  &.with_image
+    .hgroup
+      width: 630px
   .page_actions
     padding-top: 10px
     fieldset.actions

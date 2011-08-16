@@ -1,0 +1,60 @@
+#content_partner_show.site_column
+  #sidebar
+    - if @resource.collection.blank? && @resource.preview_collection.blank?
+      %h3= I18n.t(:content_partner_resource_collections_header)
+      .article
+        .empty
+          %p= I18n.t(:content_partner_resource_collection_empty)
+    - unless @resource.collection.blank?
+      .collection_list
+        %h3= I18n.t(:content_partner_resource_collection_header)
+        %ul.collection.list
+          = render :partial => 'collections/collection_summary',
+            :locals => { :collection => @resource.collection, :show_description => false }
+    - unless @resource.preview_collection.blank?
+      .collection_list
+        %h3= I18n.t(:content_partner_resource_preview_collection_header)
+        %ul.collection.list
+          = render :partial => 'collections/collection_summary',
+            :locals => { :collection => @resource.preview_collection, :show_description => false }
+  #profile_info.main_container
+    .article
+      .header
+        %h3= I18n.t(:content_partner_resource_about_header)
+      - if @resource.description.blank?
+        .empty
+          %p= I18n.t(:content_partner_resource_description_empty)
+      - else
+        .copy
+          %p= h @resource.description
+    .article.half
+      .header
+        %h3= I18n.t(:content_partner_resource_dataset_details_header)
+      %dl
+        %dt= I18n.t('helpers.label.resource.dataset')
+        %dd
+          - if @resource.accesspoint_url.blank?
+            = @resource.dataset_file_name unless @resource.dataset_file_name.blank?
+          - else
+            = link_to @resource.accesspoint_url.sub(/^.*\//, ''), @resource.accesspoint_url
+        %dt= I18n.t('activerecord.attributes.resource.resource_status_id')
+        %dd= @resource.status_label
+        %dt= I18n.t('activerecord.attributes.resource.dwc_archive_url')
+        %dd
+          - unless @resource.dwc_archive_url.blank?
+            = link_to @resource.dwc_archive_url.sub(/^.*\//, ''), @resource.dwc_archive_url
+        %dt= I18n.t('activerecord.attributes.resource.language_id')
+        %dd= @resource.language.label
+
+    .article.half
+      .header
+        %h3= I18n.t(:content_partner_resource_licensing_details_header)
+      %dl
+        %dt= I18n.t('activerecord.attributes.resource.license_id')
+        %dd= I18n.t("license_#{@resource.license.title.gsub(/[- .]/, '_').strip}")
+        %dt= I18n.t('activerecord.attributes.resource.rights_holder')
+        %dd= @resource.rights_holder
+        %dt= I18n.t('activerecord.attributes.resource.rights_statement')
+        %dd= @resource.rights_statement
+        %dt= I18n.t('activerecord.attributes.resource.bibliographic_citation')
+        %dd= @resource.bibliographic_citation

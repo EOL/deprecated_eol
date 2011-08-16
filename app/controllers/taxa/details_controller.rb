@@ -23,7 +23,7 @@ class Taxa::DetailsController < TaxaController
       :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
       :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
       :vetted => :view_order,
-      :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating, :object_cache_url, :language_id ],
+      :data_objects => [ :id, :data_type_id, :data_subtype_id, :published, :guid, :data_rating, :object_cache_url, :language_id ],
       :data_objects_hierarchy_entries => '*',
       :curated_data_objects_hierarchy_entries => '*',
       :data_object_translations => '*',
@@ -35,7 +35,7 @@ class Taxa::DetailsController < TaxaController
     @taxon_concept.current_user = current_user
     @details = @taxon_concept.details_for_toc_items(ContentTable.details.toc_items, :language => current_user.language_abbr)
 
-    toc_items_to_show = @details.collect{|d| d[:toc_item]}
+    toc_items_to_show = @details.blank? ? [] : @details.collect{|d| d[:toc_item]}
     
     # toc_items to exclude in Details tab
     temp = []

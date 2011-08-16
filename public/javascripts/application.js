@@ -123,11 +123,24 @@ $(function() {
     });
   });
 
-  // Add to collection buttons should be Ajaxy:
-  $('form#new_collection_item').find('input.button').click(function() {
-    var $f = $(this).closest('form');
-    EOL.ajax_submit($(this), {update: $f})
-    return(false);
+  // Collecting happens through a modal dialog box:
+  $('a.collect').modal({
+    beforeSend: function() { $('a.collect').fadeTo(225, 0.3); },
+    beforeShow: function() {
+      $('#choose_collections form :submit').click(function() {
+        if($('#flashes')[0] == undefined) {
+          $('#page_heading div.page_actions').after('<div id="flashes"></div>');
+        }
+        EOL.ajax_submit($(this), { update: $('#flashes') });
+        $('#choose_collections a.close').click();
+        return(false);
+      });
+      $('#choose_collections a.other_actions').click(function() { $('#choose_collections a.close').click(); });
+    },
+    afterClose: function() {
+      $('a.collect').delay(25).fadeTo(100, 1, function() {$('a.collect').css({filter:''}); });
+    },
+    duration: 200
   });
 
   // initiates march of life on homepage

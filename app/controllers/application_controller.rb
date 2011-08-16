@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
   helper :all
 
   helper_method :logged_in?, :current_url, :current_user, :return_to_url, :current_agent, :agent_logged_in?,
-    :allow_page_to_be_cached?
+    :allow_page_to_be_cached?, :link_to_item
 
   before_filter :set_locale
 
@@ -529,6 +529,34 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
+  def convert_flash_messages_for_ajax
+    [:notice, :error].each do |type|
+      if flash[type]
+        temp = flash[type]
+        flash[type] = ''
+        flash.now[type] = temp
+      end
+    end
+  end
+
+  def link_to_item(item)
+    case item.class.name
+    when 'DataObject'
+      data_object_url(item)
+    when 'TaxonConcept'
+      taxon_concept_url(item)
+    when 'User'
+      user_url(item)
+    when 'Community'
+      community_url(item)
+    when 'Collection'
+      collection_url(item)
+    else
+      raise EOL::Exceptions::ObjectNotFound
+    end
+  end
+
 
 private
 

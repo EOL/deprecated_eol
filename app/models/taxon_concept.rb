@@ -93,7 +93,7 @@ class TaxonConcept < SpeciesSchemaModel
       :names => :string,
       :vetted => :view_order,
       :canonical_forms => :string,
-      :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating, :language_id ],
+      :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating, :language_id, :object_cache_url ],
       :licenses => :title,
       :table_of_contents => '*' },
     :include => [{ :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] }, { :data_objects => [ { :toc_items => :info_items }, :license] },
@@ -1286,6 +1286,10 @@ class TaxonConcept < SpeciesSchemaModel
     @length_of_sounds = sounds.length # cached, so we don't have to query this again.
     sounds
   end
+  
+  def map_images(options ={})
+    filter_data_objects_by_type(options.merge({ :data_type_ids => DataType.image_type_ids, :data_subtype_ids => DataType.map_type_ids }))
+  end
 
   def curated_hierarchy_entries
     published_hierarchy_entries.select do |he|
@@ -1429,6 +1433,9 @@ private
     end
 
     objects = data_objects.select{ |d| options[:data_type_ids].include?(d.data_type_id) }
+    if options[:data_subtype_ids]
+      objects = objects.select{ |d| options[:data_subtype_ids].include?(d.data_subtype_id) }
+    end
     filtered_objects = DataObject.filter_list_for_user(objects, :taxon_concept => self, :user => usr)
 
     add_include = [:agents_data_objects, :all_comments]

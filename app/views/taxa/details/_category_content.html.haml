@@ -22,7 +22,6 @@
         - if dato.all_comments.count > 0
           %p= link_to I18n.t(:see_all_comments_with_count_for_text, :count => dato.all_comments.count), data_object_path(dato)
 
-        -# Bibalex added this?  Or didn't replace it?  Or changed it: = render :partial => "taxa/details/category_content_part", :locals => {:dato => dato}
   - else
     .article
       .copy

@@ -172,7 +172,6 @@ class DataObject < SpeciesSchemaModel
       if options[:user].is_admin?
         vetted_ids += [Vetted.untrusted.id, Vetted.unknown.id, Vetted.inappropriate.id]
         visibility_ids = Visibility.all_ids.dup
-        show_preview = true
       # curators see invisible objects
       elsif options[:user].is_curator? && options[:user].min_curator_level?(:full)
         visibility_ids << Visibility.invisible.id
@@ -194,12 +193,8 @@ class DataObject < SpeciesSchemaModel
       dato_vetted_id = dato_association.vetted_id unless dato_association.nil?
       dato_visibility_id = dato_association.visibility_id unless dato_association.nil?
       # partners see all their PREVIEW or PUBLISHED objects
-      if options[:user] && options[:user].is_content_partner? && d.data_supplier_agent.id == options[:user].agent.id
-        if (dato_visibility_id == Visibility.preview.id) || d.published == true
-          true
-        end
       # user can see preview objects
-      elsif show_preview && dato_visibility_id == Visibility.preview.id
+      if show_preview && dato_visibility_id == Visibility.preview.id
         true
       # otherwise object must be PUBLISHED and in the vetted and visibility selection
       elsif d.published == true && vetted_ids.include?(dato_vetted_id) && visibility_ids.include?(dato_visibility_id)
@@ -308,6 +303,9 @@ class DataObject < SpeciesSchemaModel
       UUID.state_file(0664) # Makes the file writable, which we seem to need to do with Passenger...
     end
 
+    rights_holder = ERB::Util.h(all_params[:data_object][:rights_holder])
+    rights_holder ||= user.full_name
+    
     do_params = {
       :guid => UUID.generate.gsub('-',''),
       :identifier => '',
@@ -323,7 +321,7 @@ class DataObject < SpeciesSchemaModel
       :description => all_params[:data_object][:description].allow_some_html,
       :language_id => all_params[:data_object][:language_id],
       :license_id => all_params[:data_object][:license_id],
-      :rights_holder => ERB::Util.h(all_params[:data_object][:rights_holder]), # No HTML allowed
+      :rights_holder => rights_holder, # No HTML allowed
       :rights_statement => ERB::Util.h(all_params[:data_object][:rights_statement]), # No HTML allowed
       :bibliographic_citation => ERB::Util.h(all_params[:data_object][:bibliographic_citation]), # No HTML allowed
       :source_url => ERB::Util.h(all_params[:data_object][:source_url]), # No HTML allowed
@@ -344,7 +342,8 @@ class DataObject < SpeciesSchemaModel
     dato.save
     return dato if dato.nil? || dato.errors.any?
 
-    udo = UsersDataObject.create(:user => user, :data_object => dato, :taxon_concept => taxon_concept, :visibility => Visibility.visible, :vetted => Vetted.unknown)
+    vettedness = user.is_curator? ? Vetted.trusted : Vetted.unknown
+    udo = UsersDataObject.create(:user => user, :data_object => dato, :taxon_concept => taxon_concept, :visibility => Visibility.visible, :vetted => vettedness)
     dato.users_data_object = udo
     dato
   end
@@ -546,10 +545,6 @@ class DataObject < SpeciesSchemaModel
   end
   alias is_image? image?
 
-  def map?
-    return DataType.map_type_ids.include?(data_type_id)
-  end
-
   def text?
     return DataType.text_type_ids.include?(data_type_id)
   end
@@ -641,15 +636,6 @@ class DataObject < SpeciesSchemaModel
     end
   end
 
-  def map_image
-    # Sometimes, we want to serve map images right from the source:
-    if ($PREFER_REMOTE_IMAGES and not object_url.blank?) or (object_cache_url.blank?)
-      return object_url
-    else
-      return DataObject.cache_path(object_cache_url) + "_orig.jpg"
-    end
-  end
-
   # TODO - wow, this is expensive (IFF you pass in :published) ... we should really consider optimizing this, since
   # it's actually used quite often. ...and in some cases, just to get the ID of the first one.  Ouch.
   # :published -> :strict - return only published taxon concepts
@@ -671,23 +657,6 @@ class DataObject < SpeciesSchemaModel
   def linked_taxon_concept
     get_taxon_concepts.first
   end
-
-  # def update_solr_index
-  #   begin
-  #     # query Solr for the index record for this data object
-  #     solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
-  #     response = solr_connection.query_lucene("data_object_id:#{id}")
-  #     pp response
-  #     data_object_hash = response['response']['docs'][0]
-  #     return false unless data_object_hash
-  #     modified_object_hash = data_object_hash.dup
-  #     pp modified_object_hash
-  #     # if data_object_hash != modified_object_hash
-  #     #   solr_connection.create(modified_object_hash)
-  #     # end
-  #   rescue
-  #   end
-  # end
   
   def update_solr_index
     hash = {
@@ -805,22 +774,14 @@ class DataObject < SpeciesSchemaModel
     if options[:filter_by_hierarchy] && !options[:hierarchy].nil?
       options[:filter_hierarchy] = options[:hierarchy]
     end
-    # the user/agent has the ability to see some unpublished images, so create a UNION
-    show_unpublished = (options[:user].is_content_partner? || options[:user].is_curator? || options[:user].is_admin?)
 
     if options[:filter_hierarchy]
       # strict lookup
       if entry_in_hierarchy = taxon_concept.entry(options[:filter_hierarchy], true)
         HierarchyEntry.preload_associations(entry_in_hierarchy,
           [ :top_images => :data_object ],
-          :select => { :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating ] } )
+          :select => { :data_objects => [ :id, :data_type_id, :data_subtype_id, :published, :guid, :data_rating, :object_cache_url ] } )
         image_data_objects = entry_in_hierarchy.top_images.collect{ |ti| ti.data_object }
-        if show_unpublished
-          HierarchyEntry.preload_associations(entry_in_hierarchy,
-            [ :top_unpublished_images => :data_object ],
-            :select => { :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating ] } )
-          image_data_objects += entry_in_hierarchy.top_unpublished_images.collect{ |ti| ti.data_object }
-        end
       end
     else
       image_data_objects = taxon_concept.top_concept_images.collect{ |tci| tci.data_object }
@@ -832,15 +793,6 @@ class DataObject < SpeciesSchemaModel
           :select => {
             :hierarchy_entries => :hierarchy_id,
             :agents => [:id, :full_name, :homepage, :logo_cache_url] } )
-      end
-      if show_unpublished
-        TaxonConcept.preload_associations(taxon_concept,
-          [ :top_unpublished_concept_images => { :data_object => { :hierarchy_entries => { :hierarchy => :agent } } } ],
-          :select => {
-            :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating ],
-            :hierarchy_entries => :hierarchy_id,
-            :agents => [:id, :full_name, :homepage, :logo_cache_url] } )
-        image_data_objects += taxon_concept.top_unpublished_concept_images.collect{ |tci| tci.data_object }
       end
     end
 
@@ -865,7 +817,9 @@ class DataObject < SpeciesSchemaModel
       unique_image_objects.delete_if{ |d| d.id == exemplar_image.id }
       unique_image_objects.unshift(exemplar_image)
     end
-
+    # removing maps
+    unique_image_objects.delete_if{ |d| DataType.map_type_ids.include?(d.data_subtype_id) }
+    
     # get the rest of the metadata for the selected page
     image_page  = (options[:image_page] ||= 1).to_i
     start       = $MAX_IMAGES_PER_PAGE * (image_page - 1)

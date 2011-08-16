@@ -1,11 +1,14 @@
 %td{ :class => column_class }
   = link_to user.username, { :controller => :user, :action => :edit, :id => user.id }
-  - if user.curator_approved
-    %br
-    %small
-      (
-      = link_to(I18n.t(:curator_profile), { :controller => '/curators', :action => :profile, :id => user.id })
-      )
+  
+  -# TODO: No V2 replacement yet
+  -# - if user.curator_approved
+  -#   %br
+  -#   %small
+  -#     (
+  -#     = link_to(I18n.t(:curator_profile), { :controller => '/curators', :action => :profile, :id => user.id })
+  -#     )
+
 %td{ :class => column_class }
   .toggle-credentials.linky
     = truncate(h(user.credentials))
@@ -33,4 +36,8 @@
 %td{ :class => column_class, :id => "#{form_id}_at" }
   = I18n.l(user.curator_verdict_at, :format => :short) unless user.curator_verdict_at.nil?
 %td{ :class => column_class, :id => "#{form_id}_by" }
-  = link_to(user.curator_verdict_by.username, :action=>'edit', :id=>user.id) unless user.curator_verdict_by.nil?
+  
+  -# TODO: No V2 replacement yet
+  -# = link_to(user.curator_verdict_by.username, :action=>'edit', :id=>user.id) unless user.curator_verdict_by.nil?
+  = link_to(user.curator_verdict_by.username, user_path(:id => user.curator_verdict_by.id)) unless user.curator_verdict_by.nil?
+  

@@ -9,7 +9,10 @@
         = I18n.t(:page_statistics_explanation)
       %dl
         %dt= I18n.t(:richness_score)
-        %dd= @metrics.richness_for_display
+        - unless @metrics.blank?
+          %dd= @metrics.richness_for_display
+        - else
+          %dd
         %dt= I18n.t(:descendants)
         %dd= number_with_delimiter(@taxon_concept.number_of_descendants, :delimiter => ",")
         %dt= I18n.t(:trusted_images)

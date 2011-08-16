@@ -97,6 +97,7 @@ DataType.gen_if_not_exists(:label => 'GBIF Image')
 DataType.gen_if_not_exists(:label => 'IUCN',      :schema_value => 'IUCN')
 DataType.gen_if_not_exists(:label => 'Flash',     :schema_value => 'Flash')
 DataType.gen_if_not_exists(:label => 'YouTube',   :schema_value => 'YouTube')
+DataType.gen_if_not_exists(:label => 'Map',   :schema_value => 'Map')
 
 Hierarchy.gen_if_not_exists(:agent => Agent.catalogue_of_life, :label => $DEFAULT_HIERARCHY_NAME, :browsable => 1)
 default_hierarchy = Hierarchy.gen_if_not_exists(:agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2010", :browsable => 1)

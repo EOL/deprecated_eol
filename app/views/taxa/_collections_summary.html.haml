@@ -14,6 +14,6 @@
           - # NOTE: Unless we have alt text that describes the image contents, leave it blank.
           = link_to image_tag(collection.logo_url(:small), :alt => ''), collection_path(collection)
           .details
-            %h4= collection.name
+            %h4= link_to collection.name, collection_path(collection)
             - count = collection.collection_items.count - 1
             %p= I18n.t(:other_collection_items_with_count, :count => count)

@@ -8,12 +8,14 @@
 # NOTE - we use these commit_* button names because we don't want to parse the I18n of the button name (hard).
 class CollectionsController < ApplicationController
 
-  before_filter :find_collection, :except => [:new, :create]
+  before_filter :modal, :only => [:choose_collect_target]
+  before_filter :find_collection, :except => [:new, :create, :choose_collect_target]
   before_filter :user_able_to_edit_collection, :only => [:edit, :destroy] # authentication of update in the method
   before_filter :user_able_to_view_collection, :only => [:show]
   before_filter :find_parent, :only => [:show]
-  before_filter :find_parent_for_current_user_only, :except => [:show, :collect, :watch]
+  before_filter :find_parent_for_current_user_only, :except => [:show, :collect, :watch, :choose_collect_target]
   before_filter :build_collection_items_with_sorting_and_filtering, :only => [:show, :update]
+  before_filter :load_item, :only => [:choose_collect_target, :create]
 
   layout 'v2/collections'
 
@@ -36,25 +38,13 @@ class CollectionsController < ApplicationController
   def create
     @collection = Collection.new(params[:collection])
     if @collection.save
-      flash[:notice] = I18n.t(:collection_created_notice, :collection_name => link_to_name(@collection))
-      source = Collection.find(params[:source_collection_id])
-      if source.nil?
-        @collection.destroy
-        flash[:notice] = nil # We're undoing the create.
-        flash[:error] = I18n.t(:could_not_find_collection_error)
-        return redirect_to collection_path(@collection)
-      end
-      if params[:for] == 'copy'
-        CollectionActivityLog.create(:collection => @collection, :user => current_user, :activity => Activity.create)
-        return copy_items_and_redirect(source, @collection)
-      elsif params[:for] == 'move'
-        CollectionActivityLog.create(:collection => @collection, :user => current_user, :activity => Activity.create)
-        return copy_items_and_redirect(source, @collection, :move => true)
+      flash[:notice] = I18n.t(:collection_created_with_count_notice,
+                              :collection_name => link_to_name(@collection),
+                              :count => @collection.collection_items.count)
+      if params[:source_collection_id] # We got here by creating a new collection FROM an existing collection:
+        return create_collection_from_existing
       else
-        @collection.destroy
-        flash[:notice] = nil # We're undoing the create.
-        flash[:error] = I18n.t(:collection_not_created_error, :collection_name => @collection.name)
-        return redirect_to collection_path(@collection)
+        return create_collection_from_item
       end
     else
       flash[:error] = I18n.t(:collection_not_created_error, :collection_name => @collection.name)
@@ -77,12 +67,11 @@ class CollectionsController < ApplicationController
     return redirect_to_choose(:move) if params[:commit_move]
     return remove_and_redirect if params[:commit_remove]
     return annotate if params[:commit_annotation]
-    return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect) if params[:commit_sort]
     return chosen if params[:scope] # Note that updating the collection params doesn't specify a scope.
     if @collection.update_attributes(params[:collection])
       upload_logo(@collection) unless params[:collection][:logo].blank?
       flash[:notice] = I18n.t(:collection_updated_notice, :collection_name => @collection.name) if
-        params[:colleciton] # NOTE - when we sort, we don't *actually* update params...
+        params[:collection] # NOTE - when we sort, we don't *actually* update params...
       redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect)
     else
       set_edit_vars
@@ -114,15 +103,52 @@ class CollectionsController < ApplicationController
     @selected_collection_items = params[:collection_items]
     @for   = params[:for]
     @scope = params[:scope]
+    # Annoying that we have to do this to get the count, but it really does help to have it!:
+    @items = collection_items_with_scope(:from => @collection, :items => params[:collection_items], :scope => @scope)
     @collections = current_user.all_collections.delete_if{ |c| c.is_resource_collection? }
     @page_title = I18n.t(:choose_collection_header)
+  end
+
+  def choose_collect_target
+    @collections = current_user.all_collections.delete_if{ |c| c.is_resource_collection? }
+    return EOL::Exceptions::ObjectNotFound unless @item
+    @page_title = I18n.t(:collect_item) + " - " + @item.summary_name
+    respond_to do |format|
+      format.html do
+        # We want to show a "summary" of the object, using it's appropriate layout:
+        use_layout = case params[:item_type]
+                     when 'DataObject'
+                       @data_object = @item
+                       'v2/data'
+                     when 'User'
+                       @user = @item
+                       'v2/users'
+                     when 'Community'
+                       @community = @item
+                       'v2/collections'
+                     when 'TaxonConcept'
+                       @taxon_concept = @item
+                       'v2/taxa'
+                     when 'Collection'
+                       @collection = @item
+                       'v2/collections'
+                     end
+        render :partial => 'choose_collect_target', :layout => use_layout
+      end
+      format.js { render :partial => 'choose_collect_target' }
+    end
   end
 
 private
 
   def find_collection
     begin
-      @collection = Collection.find(params[:collection_id] || params[:id])
+      if params[:collection_id] && params[:collection_id].is_a?(Array)
+        @collections = Collection.find(params[:collection_id]) # target collections for move/copy
+        @collection = Collection.find(params[:id])
+      else
+        @collection = Collection.find(params[:collection_id] || params[:id])
+      end
     rescue ActiveRecord::RecordNotFound
       flash[:error] = I18n.t(:collection_not_found_error)
       return redirect_back_or_default
@@ -170,37 +196,57 @@ private
   end
 
   def chosen
-    source = Collection.find(params[:source_collection_id])
-    if source.nil?
-      flash[:error] = I18n.t(:could_not_find_collection_error)
-      return redirect_to collection_path(@collection)
-    end
     case params[:for]
     when 'move'
-      return copy_items_and_redirect(source, @collection, :move => true)
+      return copy_items_and_redirect(@collection, @collections, :move => true)
     when 'copy'
-      return copy_items_and_redirect(source, @collection)
+      return copy_items_and_redirect(@collection, @collections)
     else
       flash[:error] = I18n.t(:action_not_available_error)
-      return redirect_to collection_path(source)
+      return redirect_to collection_path(@collection)
     end
   end
 
-  def copy_items_and_redirect(source, destination, options = {})
-    copied = copy_items(:from => source, :to => destination, :items => params[:collection_items],
-                        :scope => params[:scope])
-    if copied > 0
+  def copy_items_and_redirect(source, destinations, options = {})
+    copied = {}
+    @copied_to = []
+    destinations.each do |destination|
+      count = copy_items(:from => source, :to => destination, :items => params[:collection_items],
+                         :scope => params[:scope])
+      copied[link_to_name(destination)] = count
+    end
+    if copied.values.sum > 0
       if options[:move]
         # Not handling any weird errors here, to simplify flash notice handling.
         remove_items(:from => source, :items => params[:collection_items], :scope => params[:scope])
         @collection_items.delete_if {|ci| params['collection_items'].include?(ci.id.to_s) } if @collection_items
-        flash[:notice] = I18n.t(:moved_items_from_collection_with_count_notice, :count => copied,
-                                :name => link_to_name(source))
-        return redirect_to collection_path(destination)
+        if destinations.length == 1
+          flash[:notice] = I18n.t(:moved_items_from_collection_with_count_notice, :count => copied,
+                                  :name => link_to_name(source))
+          return redirect_to collection_path(destinations.first)
+        else
+          flashes = []
+          copied.keys.each do |coll|
+            flashes << I18n.t(:moved_items_to_collection_with_count_notice, :count => copied[coll],
+                              :name => coll)
+          end
+          flash[:notice] = flashes.to_sentence
+          return redirect_to collection_path(source)
+        end
       else
-        flash[:notice] = I18n.t(:copied_items_from_collection_with_count_notice, :count => copied,
-                                :name => link_to_name(source))
-        return redirect_to collection_path(destination)
+        if destinations.length == 1
+          flash[:notice] = I18n.t(:copied_items_from_collection_with_count_notice, :count => copied,
+                                  :name => link_to_name(source))
+          return redirect_to collection_path(destinations.first)
+        else
+          flashes = []
+          copied.keys.each do |coll|
+            flashes << I18n.t(:copied_items_to_collection_with_count_notice, :count => copied[coll],
+                              :name => coll)
+          end
+          flash[:notice] = flashes.to_sentence
+          return redirect_to collection_path(source)
+        end
       end
     elsif copied == 0
       # Assume the flash message was set by #copy_items
@@ -215,6 +261,7 @@ private
     collection_items = collection_items_with_scope(options)
     already_have = options[:to].collection_items.map {|i| [i.object_id, i.object_type]}
     new_collection_items = []
+    count = 0
     collection_items.each do |collection_item|
       collection_item = CollectionItem.find(collection_item) # sometimes this is just an id.
       unless already_have.include?([collection_item.object.id, collection_item.object_type])
@@ -222,19 +269,22 @@ private
                                   :object_type => collection_item.object_type,
                                   :annotation => collection_item.annotation,
                                   :added_by_user_id => current_user.id }
-        CollectionActivityLog.create(:collection => @collection, :user => current_user,
+        count += 1
+        CollectionActivityLog.create(:collection => options[:to], :user => current_user,
                                      :activity => Activity.collect, :collection_item => collection_item)
       end
     end
     if new_collection_items.empty?
-      flash[:error] = I18n.t(:no_items_were_copied_error)
+      flash[:error] ||= ""
+      flash[:error] += " " + I18n.t(:no_items_were_copied_to_collection_error, :name => link_to_name(options[:to]))
       return(0)
     end
     options[:to].collection_items_attributes = new_collection_items
     if options[:to].save
       return new_collection_items.length
     else
-      flash[:error] = I18n.t(:unable_to_copy_items_error)
+      flash[:error] ||= ""
+      flash[:error] = " " + I18n.t(:unable_to_copy_items_to_collection_error, :name => link_to_name(options[:to]))
     end
   end
 
@@ -337,6 +387,65 @@ private
       access_denied
       return true
     end
+  end
+
+  def create_collection_from_existing
+    source = Collection.find(params[:source_collection_id])
+    if source.nil?
+      @collection.destroy
+      flash[:notice] = nil # We're undoing the create.
+      flash[:error] = I18n.t(:could_not_find_collection_error)
+      return redirect_to collection_path(@collection)
+    end
+    if params[:for] == 'copy'
+      CollectionActivityLog.create(:collection => @collection, :user => current_user, :activity => Activity.create)
+      return copy_items_and_redirect(source, @collection)
+    elsif params[:for] == 'move'
+      CollectionActivityLog.create(:collection => @collection, :user => current_user, :activity => Activity.create)
+      return copy_items_and_redirect(source, @collection, :move => true)
+    else
+      @collection.destroy
+      flash[:notice] = nil # We're undoing the create.
+      flash[:error] = I18n.t(:collection_not_created_error, :collection_name => @collection.name)
+      return redirect_to collection_path(@collection)
+    end
+  end
+
+  # Use this when your JS wants to render the flash messages.
+  def create_collection_from_item
+    @collection.add(@item)
+    flash[:notice] = I18n.t(:collection_created_notice, :collection_name => link_to_name(@collection))
+    respond_to do |format|
+      format.html { redirect_to link_to_item(@item) }
+      format.js do
+        convert_flash_messages_for_ajax
+        render :partial => 'shared/flash_messages', :layout => false
+      end
+    end
+  end
+
+  def load_item
+    if params[:item_type] && params[:item_id]
+      case params[:item_type]
+      when 'DataObject'
+        @item = DataObject.find(params[:item_id])
+      when 'TaxonConcept'
+        @item = TaxonConcept.find(params[:item_id])
+      when 'User'
+        @item = User.find(params[:item_id])
+      when 'Community'
+        @item = Community.find(params[:item_id])
+      when 'Collection'
+        @item = Collection.find(params[:item_id])
+      else
+        raise EOL::Exceptions::ObjectNotFound
+      end
+    end
+  end
+
+  def modal
+    @modal = true # When this is JS, we need a "go back" link at the bottom if there's an error, and this needs
+                  # to be set super-early!
   end
 
 end

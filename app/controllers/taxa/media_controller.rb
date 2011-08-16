@@ -12,8 +12,7 @@ class Taxa::MediaController < TaxaController
       { :top_concept_images => { :data_object => [ :users_data_object, { :toc_items => :info_items }, { :data_objects_hierarchy_entries => :hierarchy_entry },
           { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ] } },
       { :curator_activity_logs => :user },
-      { :users_data_objects => [ { :data_object => :toc_items }, { :data_objects_hierarchy_entries => :hierarchy_entry },
-        { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ] },
+      { :users_data_objects => [ { :data_object => :toc_items } ] },
       { :taxon_concept_exemplar_image => :data_object }]
     selects = {
       :taxon_concepts => '*',
@@ -22,7 +21,7 @@ class Taxa::MediaController < TaxaController
       :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
       :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
       :vetted => :view_order,
-      :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating, :object_cache_url, :source_url, :object_title, :description ],
+      :data_objects => [ :id, :data_type_id, :data_subtype_id, :published, :guid, :data_rating, :object_cache_url, :source_url, :object_title, :description ],
       :data_objects_hierarchy_entries => '*',
       :curated_data_objects_hierarchy_entries => '*',
       :table_of_contents => '*',

@@ -26,7 +26,7 @@
               %li= link_to I18n.t(:content_partner_resource_edit_link), edit_content_partner_resource_path(@partner, @resource), :class => 'button'
             %li= link_to I18n.t(:content_partner_resources_link_back_to), content_partner_resources_path(@partner)
       = render :partial => 'shared/flash_messages'
-      - if display_navigation?
+      - if display_content_partners_navigation?
         %ul.nav
           %li{:class => resource_is_active('content_partners')}= link_to I18n.t(:content_partner_overview_link), content_partner_path(@partner)
           %li{:class => resource_is_active('content_partners/statistics')}= link_to I18n.t(:content_partner_statistics_link), content_partner_statistics_path(@partner)

@@ -1,7 +1,7 @@
 - content_for :head do
   = eol_lang_main_stylesheet 'admin', :media => "all"
 - content_for :main do
-  #page_heading
+  #page_heading{:class => display_admins_navigation? ? 'with_nav' : nil}
     .site_column
       .hgroup
         %h1= @page_title
@@ -10,18 +10,14 @@
         - unless @page_description.blank?
           %p= @page_description
       = render :partial => 'shared/flash_messages'
+      - if display_admins_navigation?
+        %ul.nav
+          %li{:class => resource_is_active('admins')}= link_to I18n.t(:admin_link), admin_path
+          %li{:class => resource_is_active('admins/content_pages')}= link_to I18n.t(:admin_content_pages_link), admin_content_pages_path
+          %li{:class => resource_is_active('admins/content_partners')}= link_to I18n.t(:admin_content_partners_link), admin_content_partners_path
+
   #content.admin
     .site_column
-      - # TODO: Turn decision to show admin nav into a helper.
-      - if display_navigation?
-        #tabs_sidebar
-          %ul.tabs
-            %li{:class => resource_is_active('admins')}=                      link_to I18n.t('helpers.label.admin.administration_console'), admin_path
-            %li{:class => resource_is_active('admins/content_pages')}=        link_to I18n.t('helpers.label.admin.content_management'), admin_content_pages_path
-            %li{:class => resource_is_active('admins/content_partners')}=     link_to I18n.t('helpers.label.admin.content_partners'), admin_content_partners_path
-            %li{:class => resource_is_active('admins/hierarchies')}=          link_to I18n.t('helpers.label.admin.content_partner_hierarchies'), admin_hierarchies_path
-            %li{:class => resource_is_active('admins/monthly_notification')}= link_to I18n.t('helpers.label.admin.monthly_partner_notification'), admin_monthly_notification_index_path
-            %li{:class => resource_is_active('admins/published_partners')}=   link_to I18n.t('helpers.label.admin.monthly_published_partners'), '/admin/published_partners'
       = yield
 
 = render :file => 'layouts/v2/application'

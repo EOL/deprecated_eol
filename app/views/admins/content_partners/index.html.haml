@@ -1,3 +1,10 @@
+#tabs_sidebar
+  %ul.tabs
+    %li{:class => resource_is_active('admins/hierarchies')}= link_to I18n.t(:admin_content_partners_hierarchies_link), admin_hierarchies_path
+    %li{:class => resource_is_active('admins/monthly_notification')}= link_to I18n.t(:admin_content_partner_notification_link), admin_monthly_notification_index_path
+    %li{:class => resource_is_active('admins/published_partners')}=   link_to I18n.t(:admin_content_partners_published_link), '/admin/published_partners'
+
+
 #sidebar
   .filters.small
     = render :partial => 'content_partners/sort_form'
@@ -11,7 +18,7 @@
           %dd
             = text_field_tag :name, @name
           %dt
-            = label_tag :resource_status_id, I18n.t('activerecord.attributes.resource.resource_status')
+            = label_tag :resource_status_id, I18n.t('activerecord.attributes.resource.resource_status_id')
           %dd
             = select_tag :resource_status_id,
               option_please_select + options_from_collection_for_select(@resource_statuses, :id, :label, @resource_status_id.to_i)

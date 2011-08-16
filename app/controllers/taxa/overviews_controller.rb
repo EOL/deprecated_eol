@@ -43,10 +43,6 @@ class Taxa::OverviewsController < TaxaController
     @watch_collection = logged_in? ? current_user.watch_collection : nil
     @assistive_section_header = I18n.t(:assistive_overview_header)
 
-    # add the user's hierarchy in case the current concept is it
-    # we'll need to default the list to the user's hierarchy no matter what
-    # @hierarchies_to_offer << @session_hierarchy
-    # @hierarchies_to_offer = @hierarchies_to_offer.uniq.sort_by{|h| h.form_label}
     current_user.log_activity(:viewed_taxon_concept_overview, :taxon_concept_id => @taxon_concept.id)
   end
 

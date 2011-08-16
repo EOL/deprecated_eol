@@ -6,7 +6,6 @@ class ContentController < ApplicationController
   caches_page :tc_api
 
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN
-  before_filter :set_session_hierarchy_variable, :only => [:index, :explore_taxa, :replace_single_explore_taxa]
   before_filter :redirect_if_curator , :only => [:page]
   before_filter :check_user_agreed_with_terms, :except => [:page]
 
@@ -27,13 +26,6 @@ class ContentController < ApplicationController
       @explore_taxa = @explore_taxa.dup
       @explore_taxa.shuffle!
     end
-  end
-
-  # just shows the top set of species --- can be included on other websites
-  def species_bar
-     @explore_taxa  = RandomHierarchyImage.random_set(6, nil, {:language => current_user.language, :size => :medium})
-     @new_window = true
-     render(:partial => 'explore_taxa')
   end
 
   def news
@@ -108,71 +100,6 @@ class ContentController < ApplicationController
 
     respond_to do |format|
       format.rss { render :layout => false }
-    end
-
-  end
-
-  # ------ /API -------
-
-  def exemplars
-    respond_to do |format|
-      format.html do
-        @page_title = I18n.t(:exemplar_pages)
-        unless read_fragment(:controller => 'content', :part => 'exemplars')
-          @exemplars = TaxonConcept.exemplars # This is stored by memcached, so should go quite fast.
-        end
-        current_user.log_activity(:viewed_exemplars)
-      end
-      format.xml do
-        xml = $CACHE.fetch('examplars/xml') do
-          TaxonConcept.exemplars.to_xml(:root => 'taxon-pages') # I don't know why the :root in TC doesn't work
-        end
-        render :xml => xml
-      end
-    end
-  end
-
-  #AJAX call to show more explore taxa on the home page
-  def explore_taxa
-    @explore_taxa = RandomHierarchyImage.random_set(6, @session_hierarchy,
-                                                    {:language => current_user.language, :size => :medium})
-    render :layout => false, :partial => 'explore_taxa'
-  end
-
-  #AJAX call to replace a single explore taxa for the home page
-  def replace_single_explore_taxa
-
-    params[:current_taxa] ||= ''
-    params[:taxa_number] ||= '1'
-
-    current_taxa = params[:current_taxa].split(',')
-    explore_taxa = RandomHierarchyImage.random(@session_hierarchy, {:language => current_user.language, :size => :medium})
-
-    # Ensure that we don't end up with duplicates, but not in development/test mode, where it makes things go a
-    # bit haywire since there are very few random taxa created by scenarios.
-    num_tries = 0
-    while(num_tries < 30 and
-          $PRODUCTION_MODE and
-          !explore_taxa.blank? and
-          current_taxa.include?(explore_taxa['taxon_concept_id'].to_s))
-      explore_taxa = RandomHierarchyImage.random(@session_hierarchy, {:language => current_user.language, :size => :medium})
-      num_tries += 1
-    end
-
-    taxa_number = params[:taxa_number]
-
-    unless explore_taxa.nil? or taxa_number.nil? or taxa_number.empty?
-      render :update do |page|
-        name_div_contents = (random_image_linked_name(explore_taxa)).gsub(/'/, '&apos;')
-        page << "$('#top_name_#{taxa_number}').html('#{name_div_contents}');"
-
-        # we're now replacing the entire img tag which should prevent images from getting
-        # stretched out in Safari and possibly other browsers
-        image_div_contents = random_image_thumb_partial(explore_taxa, 'top_image_tag_'+taxa_number).gsub(/'/, '&apos;')
-        page << "$('#top_image_tag_#{taxa_number}').parents('td').html('#{image_div_contents}');"
-      end
-    else
-      render :nothing => true
     end
 
   end

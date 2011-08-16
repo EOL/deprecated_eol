@@ -298,7 +298,7 @@ class ApplicationController < ActionController::Base
 
   # check if the requesting IP address is allowed (used to resrict methods to specific IPs, such as MBL/EOL IPs)
   def allowed_request
-    !((request.remote_ip =~ /127.0.0.1/).nil? && (request.remote_ip =~ /128.128./).nil? && (request.remote_ip =~ /10.19./).nil?)
+    !((request.remote_ip =~ /127\.0\.0\.1/).nil? && (request.remote_ip =~ /128\.128\./).nil? && (request.remote_ip =~ /10\.19\./).nil?)
   end
 
 
@@ -473,13 +473,6 @@ class ApplicationController < ActionController::Base
   # pulled over from Rails core helper file so it can be used in controllers as well
   def escape_javascript(javascript)
      (javascript || '').gsub('\\', '\0\0').gsub('</', '<\/').gsub(/\r\n|\n|\r/, "\\n").gsub(/["']/) { |m| "\\#{m}" }
-  end
-
-  def set_session_hierarchy_variable
-    hierarchy_id = current_user.default_hierarchy_valid? ? current_user.default_hierarchy_id : Hierarchy.default.id
-    secondary_hierarchy_id = current_user.secondary_hierarchy_id rescue nil
-    @session_hierarchy = Hierarchy.find(hierarchy_id)
-    @session_secondary_hierarchy = secondary_hierarchy_id.nil? ? nil : Hierarchy.find(secondary_hierarchy_id)
   end
 
   # logged in users will be redirected to terms agreement if they have not yet accepted.

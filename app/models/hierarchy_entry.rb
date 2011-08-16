@@ -200,18 +200,6 @@ class HierarchyEntry < SpeciesSchemaModel
     return images.blank? ? nil : images.first.smart_image
   end
 
-  def classification_attribution(params={})
-    attribution = []
-
-    # its possible that the hierarchy is not associated with an agent
-    if hierarchy && hierarchy.agent
-      citable_agent =  (hierarchy.agent.homepage?) ? hierarchy.agent.citable : Agent.find(hierarchy.agent).citable
-      citable_agent.display_string = hierarchy.label # To change the name from just "Catalogue of Life"
-      attribution << citable_agent
-    end
-    attribution += agents.map{|a| a.citable }
-  end
-
   def agents_roles
     agents_roles = []
 

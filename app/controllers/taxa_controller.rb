@@ -3,7 +3,6 @@ class TaxaController < ApplicationController
   layout 'v2/taxa'
 
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN   # if we happen to be on an SSL page, go back to http
-  before_filter :set_session_hierarchy_variable, :only => [:show, :classification_attribution, :content, :curators]
   after_filter :set_meta_description_and_keys
 
   # this is cheating because of mixing taxon and taxon concept use of the controller
@@ -55,13 +54,6 @@ class TaxaController < ApplicationController
       raise "TaxonConcept not found" if tc.nil?
       raise "Page not accessible" unless accessible_page?(tc)
     end
-  end
-
-  def classification_attribution
-    @taxon_concept = find_taxon_concept
-    return if taxon_concept_invalid?(@taxon_concept)
-    current_user.log_activity(:viewed_classification_attribution_on_taxon_concept, :taxon_concept_id => @taxon_concept.id)
-    render :partial => 'classification_attribution', :locals => {:taxon_concept => @taxon_concept}
   end
 
   # page that will allows a non-logged in user to change content settings
@@ -338,7 +330,7 @@ class TaxaController < ApplicationController
     # in Firefox those feeds are evaluated when the pages loads, so this should save some queries
     @concept = find_taxon_concept
     return if taxon_concept_invalid?(@concept)
-    @page_title = I18n.t(:curators_of_taxon_page_title, :taxon => @concept.title(@session_hierarchy))
+    @page_title = I18n.t(:curators_of_taxon_page_title, :taxon => @concept.title)
     curators = @concept.curators(:add_names => true)
     @curators = User.find_all_by_id(curators.collect{ |c| c.id })
     @curators = User.sort_by_name(@curators)

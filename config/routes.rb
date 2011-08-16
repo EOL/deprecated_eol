@@ -162,7 +162,6 @@ ActionController::Routing::Routes.draw do |map|
   map.expire_taxon 'expire_taxon/:id',  :controller => 'content', :action => 'expire_taxon',
                                         :requirements => { :id => /\d+/ }
   map.expire_taxa  'expire_taxa',       :controller => 'content', :action => 'expire_multiple'
-  map.exemplars    'exemplars.:format', :controller => 'content', :action => 'exemplars'
 
   map.external_link 'external_link', :controller => 'application', :action => 'external_link'
 

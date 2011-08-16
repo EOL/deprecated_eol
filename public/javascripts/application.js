@@ -135,7 +135,7 @@ $(function() {
         $('#choose_collections a.close').click();
         return(false);
       });
-      $('#choose_collections a.other_actions').click(function() { $('#choose_collections a.close').click(); });
+      $('#choose_collections a.close_and_go').click(function() { $('#choose_collections a.close').click(); });
     },
     afterClose: function() {
       $('a.collect').delay(25).fadeTo(100, 1, function() {$('a.collect').css({filter:''}); });

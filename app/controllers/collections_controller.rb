@@ -22,7 +22,7 @@ class CollectionsController < ApplicationController
   def show
     @page = params[:page] || 1
     render :action => 'newsfeed' if @filter == 'newsfeed'
-    return copy_items_and_redirect(@collection, current_user.watch_collection) if params[:commit_collect]
+    return copy_items_and_redirect(@collection, [current_user.watch_collection]) if params[:commit_collect]
     # NOTE - this is complicated. It's getting the various collection item types and doing i18n on the name as well
     # as passing the raw facet type (used by Solr) as the values in the option hash that will be built in the view:
     types = CollectionItem.types
@@ -215,41 +215,32 @@ private
                          :scope => params[:scope])
       copied[link_to_name(destination)] = count
     end
+    flash_i18n_name = :copied_items_to_collections_with_count_notice
     if copied.values.sum > 0
       if options[:move]
         # Not handling any weird errors here, to simplify flash notice handling.
         remove_items(:from => source, :items => params[:collection_items], :scope => params[:scope])
         @collection_items.delete_if {|ci| params['collection_items'].include?(ci.id.to_s) } if @collection_items
         if destinations.length == 1
-          flash[:notice] = I18n.t(:moved_items_from_collection_with_count_notice, :count => copied,
+          flash[:notice] = I18n.t(:moved_items_from_collection_with_count_notice, :count => copied.values.sum,
                                   :name => link_to_name(source))
           return redirect_to collection_path(destinations.first)
         else
-          flashes = []
-          copied.keys.each do |coll|
-            flashes << I18n.t(:moved_items_to_collection_with_count_notice, :count => copied[coll],
-                              :name => coll)
-          end
-          flash[:notice] = flashes.to_sentence
-          return redirect_to collection_path(source)
+          flash_i18n_name = :moved_items_to_collections_with_count_notice
         end
       else
         if destinations.length == 1
-          flash[:notice] = I18n.t(:copied_items_from_collection_with_count_notice, :count => copied,
+          flash[:notice] = I18n.t(:copied_items_from_collection_with_count_notice, :count => copied.values.sum,
                                   :name => link_to_name(source))
           return redirect_to collection_path(destinations.first)
-        else
-          flashes = []
-          copied.keys.each do |coll|
-            flashes << I18n.t(:copied_items_to_collection_with_count_notice, :count => copied[coll],
-                              :name => coll)
-          end
-          flash[:notice] = flashes.to_sentence
-          return redirect_to collection_path(source)
         end
       end
-    elsif copied == 0
-      # Assume the flash message was set by #copy_items
+      flash[:notice] = I18n.t(flash_i18n_name,
+                              :count => copied.values.sum,
+                              :names => copied.keys.map {|c| "#{c} (#{copied[c]})"}.to_sentence)
+      return redirect_to collection_path(source)
+    elsif copied.values.sum == 0
+      flash[:error] = I18n.t(:no_items_were_copied_to_collections_error, :names => @no_items_to_collections.to_sentence)
       return redirect_to collection_path(source)
     else
       # Assume the flash message was set by #copy_items
@@ -275,8 +266,8 @@ private
       end
     end
     if new_collection_items.empty?
-      flash[:error] ||= ""
-      flash[:error] += " " + I18n.t(:no_items_were_copied_to_collection_error, :name => link_to_name(options[:to]))
+      @no_items_to_collections ||= []
+      @no_items_to_collections << link_to_name(options[:to])
       return(0)
     end
     options[:to].collection_items_attributes = new_collection_items
@@ -399,10 +390,10 @@ private
     end
     if params[:for] == 'copy'
       CollectionActivityLog.create(:collection => @collection, :user => current_user, :activity => Activity.create)
-      return copy_items_and_redirect(source, @collection)
+      return copy_items_and_redirect(source, [@collection])
     elsif params[:for] == 'move'
       CollectionActivityLog.create(:collection => @collection, :user => current_user, :activity => Activity.create)
-      return copy_items_and_redirect(source, @collection, :move => true)
+      return copy_items_and_redirect(source, [@collection], :move => true)
     else
       @collection.destroy
       flash[:notice] = nil # We're undoing the create.
@@ -411,7 +402,6 @@ private
     end
   end
 
-  # Use this when your JS wants to render the flash messages.
   def create_collection_from_item
     @collection.add(@item)
     flash[:notice] = I18n.t(:collection_created_notice, :collection_name => link_to_name(@collection))

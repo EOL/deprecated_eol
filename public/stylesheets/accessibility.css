@@ -833,7 +833,9 @@ form#new_collection_item fieldset.actions {
       background: #f4f4f4; }
     .site_column > #choose_collections ul li input[type="checkbox"] {
       margin: 0 5px 0 0; }
-    .site_column > #choose_collections ul li a, .site_column > #choose_collections ul li span {
+    .site_column > #choose_collections ul li a {
+      font-size: 0.95em; }
+    .site_column > #choose_collections ul li span {
       font-size: 0.95em; }
     .site_column > #choose_collections ul li + li {
       border-top: 1px solid #cad3db; }

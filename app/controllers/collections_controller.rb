@@ -26,8 +26,8 @@ class CollectionsController < ApplicationController
     # NOTE - this is complicated. It's getting the various collection item types and doing i18n on the name as well
     # as passing the raw facet type (used by Solr) as the values in the option hash that will be built in the view:
     types = CollectionItem.types
-    @collection_item_scopes = [[I18n.t(:selected_items), :selected_items], [I18n.t(:all_items), :all_items]] +
-      types.keys.map {|k| [I18n.t("all_#{types[k][:i18n_key]}"), k]}
+    @collection_item_scopes = [[I18n.t(:selected_items), :selected_items], [I18n.t(:all_items), :all_items]]
+    @collection_item_scopes << [I18n.t("all_#{types[@filter.to_sym][:i18n_key]}"), @filter] if @filter
   end
 
   def new

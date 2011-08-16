@@ -1150,9 +1150,9 @@ en:
   content_update: "Content Update"
   contribute: "Contribute"
   contribute_to_page_button: "Contribute to this page"
-  copied_items_to_collection_with_count_notice:
-    one: "Copied %{count} item to %{name}"
-    other: "Copied %{count} items to %{name}"
+  copied_items_to_collections_with_count_notice:
+    one: "Copied %{count} item to collections: %{names}"
+    other: "Copied %{count} items to collections: %{names}"
   copied_items_from_collection_with_count_notice:
     one: "Copied %{count} item from %{name}."
     other: "Copied %{count} items from %{name}."
@@ -1281,6 +1281,7 @@ en:
   your_current_rating_3_of_5: "Your current rating: 3 of 5"
   your_current_rating_4_of_5: "Your current rating: 4 of 5"
   your_current_rating_5_of_5: "Your current rating: 5 of 5"
+  your_watch_collection: "your watch collection"
   current_language: "Language: %{iso_code}"
   currently_in_eol: "Currently in the Encyclopedia of Life"
   currently_published: "currently published"
@@ -2076,9 +2077,9 @@ en:
   move_to_ignored_list: "Move to ignored list"
   move_to_top: "move to top"
   move_up: "Move up"
-  moved_items_to_collection_with_count_notice:
-    one: "Moved %{count} item to %{name}"
-    other: "Moved %{count} items to %{name}"
+  moved_items_to_collections_with_count_notice:
+    one: "Moved %{count} item to collections: %{names}"
+    other: "Moved %{count} items to collections: %{names}"
   moved_items_from_collection_with_count_notice:
     one: "Moved %{count} item from %{name}."
     other: "Moved %{count} items from %{name}."
@@ -2152,7 +2153,7 @@ en:
   no_data_for_selected_period: "No data for selected period"
   no_errors_are_available: "No errors are available."
   no_harvesting_logs_for_this_da: "No harvesting logs for this date"
-  no_items_were_copied_to_collection_error: "Sorry, no items were copied to %{name}."
+  no_items_were_copied_to_collections_error: "No items were copied to collections: %{names}. They may have duplicate items."
   no_images_for_this_taxon: "No images for this taxon"
   no_map_available: "No map available"
   no_members_in_parens: "(no members)"

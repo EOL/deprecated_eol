@@ -3,9 +3,12 @@
   = label_tag('collection_name', h(collection.name))
   - if collection.community_id || has_item
     %span
-    - if collection.community_id
-      •
-      = I18n.t(:from_community, :community => collection.community.name)
-    - if has_item
-      •
-      = I18n.t(:in_collection)
+      - if collection.community_id
+        •
+        = I18n.t(:from_community, :community => collection.community.name)
+      - if collection.id == current_user.watch_collection.id
+        •
+        = I18n.t(:your_watch_collection)
+      - if has_item
+        •
+        = link_to(I18n.t(:in_collection), collection_url(collection), :class => 'close_and_go')

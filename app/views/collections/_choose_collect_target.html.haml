@@ -45,7 +45,7 @@
           - collections.reject {|c| c.id == current_user.watch_collection.id }.each do |collection|
             = render :partial => 'collection_choose_collect_target_list_item', :locals => { :collection => collection, :has_item => collection.has_item?(@item) }
       %fieldset.actions
-        = link_to(I18n.t(:see_all_of_your_collections), user_collections_path(current_user), :class => 'other_actions')
+        = link_to(I18n.t(:see_all_of_your_collections), user_collections_path(current_user), :class => 'other_actions close_and_go')
         = submit_tag(I18n.t(:collect_item))
         - if @item
           = link_to(I18n.t(:go_back), link_to_item(@item), :class => 'close')

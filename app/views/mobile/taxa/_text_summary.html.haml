@@ -8,7 +8,4 @@
         %div{:class => vetted_id_class(item_vetted_id), :data => { :text_id =>  item.id } }
           .header
             %h3= h item.toc_items[0].label
-          - # TODO: If our text data object does not contain p tags can we add them?
-          - # Without them the text block does not have any semantic meaning.
           = item.description.balance_tags
-          = link_to(I18n.t(:text_summary_more_link), details_mobile_taxon_path(@taxon_concept.id))

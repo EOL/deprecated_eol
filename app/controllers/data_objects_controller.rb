@@ -6,7 +6,7 @@ class DataObjectsController < ApplicationController
   before_filter :load_data_object, :except => [:index, :new, :create, :preview]
   before_filter :authentication_own_user_added_text_objects_only, :only => [:edit, :update]
   before_filter :allow_login_then_submit, :only => [:rate]
-  before_filter :curator_only, :only => [:curate, :add_association, :remove_association]
+  before_filter :curator_only, :only => [:curate_associations, :add_association, :remove_association]
 
   # GET /pages/:taxon_id/data_objects/new
   # We're only creating new data objects in the context of a taxon concept so we for taxon_id to be provided in route
@@ -203,6 +203,7 @@ class DataObjectsController < ApplicationController
                        :visibility_id => visibility_id,
                        :curation_comment => comment,
                        :untrust_reason_ids => params["untrust_reasons_#{phe.id}"],
+                       :hide_reason_ids => params["hide_reasons_#{phe.id}"],
                        :untrust_reasons_comment => params["untrust_reasons_comment_#{phe.id}"],
                        :vet? => (vetted_id == 0) ? false : (phe.vetted_id != vetted_id),
                        :visibility? => visibility_changed,
@@ -350,6 +351,9 @@ private
         unless opts[:untrust_reason_ids].blank?
           save_untrust_reasons(log, action, opts[:untrust_reason_ids])
         end
+        unless opts[:hide_reason_ids].blank?
+          save_hide_reasons(log, action, opts[:hide_reason_ids])
+        end
       end
       # TODO - Update Solr Index
     end
@@ -374,12 +378,12 @@ private
   def handle_curation(object, user, opts)
     actions = []
     raise "Curator should supply at least visibility or vetted information" unless (opts[:vet?] || opts[:visibility?])
-    actions << handle_vetting(object, opts[:vetted_id].to_i, opts) if opts[:vet?]
-    actions << handle_visibility(object, opts[:visibility_id].to_i, opts) if opts[:visibility?]
+    actions << handle_vetting(object, opts[:vetted_id].to_i, opts[:visibility_id].to_i, opts) if opts[:vet?]
+    actions << handle_visibility(object, opts[:vetted_id].to_i, opts[:visibility_id].to_i, opts) if opts[:visibility?]
     return actions.flatten
   end
 
-  def handle_vetting(object, vetted_id, opts)
+  def handle_vetting(object, vetted_id, visibility_id, opts)
     if vetted_id
       case vetted_id
       when Vetted.inappropriate.id
@@ -390,9 +394,15 @@ private
         object.untrust(current_user)
         return :untrusted
       when Vetted.trusted.id
+        if visibility_id == Visibility.invisible.id && opts[:hide_reason_ids].blank? && opts[:curation_comment].nil?
+          raise "Curator should supply at least reason(s) to hide and/or curation comment"
+        end
         object.trust(current_user)
         return :trusted
       when Vetted.unknown.id
+        if visibility_id == Visibility.invisible.id && opts[:hide_reason_ids].blank? && opts[:curation_comment].nil?
+          raise "Curator should supply at least reason(s) to hide and/or curation comment"
+        end
         object.unreviewed(current_user)
         return :unreviewed
       else
@@ -401,7 +411,7 @@ private
     end
   end
 
-  def handle_visibility(object, visibility_id, opts)
+  def handle_visibility(object, vetted_id, visibility_id, opts)
     if visibility_id
       changeable_object_type = opts[:changeable_object_type]
       case visibility_id
@@ -409,7 +419,9 @@ private
         object.show(current_user)
         return :show
       when Visibility.invisible.id
-        raise "Curator should supply at least reason(s) to hide and/or curation comment" if (opts[:untrust_reason_ids].blank? && opts[:curation_comment].nil?)
+        if vetted_id != Vetted.untrusted.id && opts[:hide_reason_ids].blank? && opts[:curation_comment].nil?
+          raise "Curator should supply at least reason(s) to hide and/or curation comment"
+        end
         # TODO - when I tried this, it actually removed the association entirely.
         object.hide(current_user)
         return :hide
@@ -421,8 +433,9 @@ private
 
   # TODO - Remove the opts parameter if we not intend to use it.
   def log_action(object, method, opts)
-    object_id = object.class == "DataObjectsHierarchyEntry" ? @data_object.id : object.id
-    he = object.hierarchy_entry unless object.class == "HierarchyEntry"
+    object_id = object.data_object_id if object.class.name == "DataObjectsHierarchyEntry" || object.class.name == "CuratedDataObjectsHierarchyEntry" || object.class.name == "UsersDataObject"
+    object_id = object.id if object_id.blank?
+    he = object.hierarchy_entry if object.class.name == "DataObjectsHierarchyEntry" || object.class.name == "CuratedDataObjectsHierarchyEntry"
     CuratorActivityLog.create(
       :user => current_user,
       :changeable_object_type => ChangeableObjectType.send(object.class.name.underscore.to_sym),
@@ -441,12 +454,21 @@ private
         log.untrust_reasons << UntrustReason.misidentified if action == :untrusted
       when UntrustReason.incorrect.id
         log.untrust_reasons << UntrustReason.incorrect if action == :untrusted
+      else
+        raise "Please re-check the provided untrust reasons"
+      end
+    end
+  end
+
+  def save_hide_reasons(log, action, hide_reason_ids)
+    hide_reason_ids.each do |hide_reason_id|
+      case hide_reason_id.to_i
       when UntrustReason.poor.id
         log.untrust_reasons << UntrustReason.poor if action == :hide
       when UntrustReason.duplicate.id
         log.untrust_reasons << UntrustReason.duplicate if action == :hide
       else
-        raise "Please re-check the provided untrust reasons"
+        raise "Please re-check the provided hide reasons"
       end
     end
   end

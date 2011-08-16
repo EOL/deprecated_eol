@@ -77,7 +77,7 @@ describe EOL::ActivityLog do
       @testy[:taxon_concept].activity_log.first['instance'].parent_id.should == @testy[:child1].id
       expect 'Comments on user-submitted text show up'
       dato = DataObject.gen(:created_at => 2.seconds.ago)
-      UsersDataObject.gen(:taxon_concept_id => @testy[:id], :data_object => dato)
+      UsersDataObject.gen(:taxon_concept_id => @testy[:id], :data_object => dato, :vetted => Vetted.trusted)
       @testy[:taxon_concept].reload
       @testy[:taxon_concept].activity_log.first['instance'].class.should == UsersDataObject
       expect 'Curation of data objects on the page show up'

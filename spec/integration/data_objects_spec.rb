@@ -40,6 +40,7 @@ describe 'Data Object Page' do
     :object_cache_url => Factory.next(:image),
     :vetted => Vetted.untrusted,
     :visibility => Visibility.invisible)
+    @user_submitted_text = @tc.add_user_submitted_text(:user => @curator)
   end
 
   it "should render" do
@@ -100,17 +101,6 @@ describe 'Data Object Page' do
     page.body.should_not include(page_link)
   end
 
-  it 'should allow a curator to remove an association' do
-    login_as @curator
-    visit("/data_objects/#{@image.id}")
-    page.body.should have_tag('form.review_status') do
-      with_tag('a', :text => 'Remove association')
-    end
-    page.body.should have_tag('a', :text => @another_name)
-    click_link "remove_association_#{@extra_he.id}"
-    page.body.should_not have_tag('a', :text => @another_name)
-  end
-
   # NOTE - I wanted to see how it "felt" to write longer individual tests.  These run faster, but how does it
   # actually work in practice?  This is an experiment.
   # The first thing I have to say about it is that the name is obnoxiously long.
@@ -134,4 +124,198 @@ describe 'Data Object Page' do
 #    page.body.should_not have_tag('a[href=?]', remove_path)
 #  end
 
+  it 'should show proper vetted & visibility statuses of associations to the anonymous users' do
+    visit("/data_objects/#{@image.id}")
+    page.body.should have_tag("ul.review_status") do
+      with_tag("li:first-child .trusted", :text => "Trusted")
+    end
+    visit("/data_objects/#{@dato_untrusted.id}")
+    page.body.should_not have_tag("ul.review_status")
+    page.body.should include("This data object is not associated with any hierarchies.")
+  end
+
+  it 'should be able curate a DOHE association as Unreviewed, Untrusted and Trusted' do
+    login_as @curator
+    visit("/data_objects/#{@image.id}")
+    trusted_association = @image.all_associations.first
+    page.body.should have_tag("form.review_status") do
+      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Trusted")
+      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Visible")
+    end
+    select "Unreviewed", :from => "vetted_id_#{trusted_association.id}"
+    select "Hidden", :from => "visibility_id_#{trusted_association.id}"
+    click_button "Save changes"
+    page.body.should include("Curator should supply at least reason(s) to hide and/or curation comment")
+    page.body.should have_tag("form.review_status") do
+      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Trusted")
+      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Visible")
+      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_duplicate")
+      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_poor")
+    end
+    select "Unreviewed", :from => "vetted_id_#{trusted_association.id}"
+    select "Hidden", :from => "visibility_id_#{trusted_association.id}"
+    check "#{trusted_association.id}_untrust_reason_duplicate"
+    click_button "Save changes"
+    page.body.should have_tag("form.review_status") do
+      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Unreviewed")
+      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Hidden")
+      with_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_duplicate")
+      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_poor")
+    end
+    select "Untrusted", :from => "vetted_id_#{trusted_association.id}"
+    click_button "Save changes"
+    page.body.should include("Curator should supply at least untrust reason(s) and/or curation comment")
+    page.body.should have_tag("form.review_status") do
+      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Unreviewed")
+      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Hidden")
+      with_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_duplicate")
+      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_poor")
+    end
+    select "Untrusted", :from => "vetted_id_#{trusted_association.id}"
+    check "#{trusted_association.id}_untrust_reason_misidentified"
+    click_button "Save changes"
+    page.body.should have_tag("form.review_status") do
+      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Untrusted")
+      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Hidden")
+      with_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_misidentified")
+      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_incorrect")
+    end
+    select "Trusted", :from => "vetted_id_#{trusted_association.id}"
+    select "Visible", :from => "visibility_id_#{trusted_association.id}"
+    check "#{trusted_association.id}_untrust_reason_misidentified"
+    click_button "Save changes"
+    page.body.should have_tag("form.review_status") do
+      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Trusted")
+      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Visible")
+      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_misidentified")
+      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_incorrect")
+    end
+  end
+
+  it 'should be able curate a CDOHE association as Unreviewed, Untrusted and Trusted' do
+    login_as @curator
+    visit("/data_objects/#{@image.id}")
+    trusted_association = @image.all_associations.last
+    page.body.should have_tag("form.review_status") do
+      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Trusted")
+      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Visible")
+    end
+    select "Unreviewed", :from => "vetted_id_#{trusted_association.id}"
+    select "Hidden", :from => "visibility_id_#{trusted_association.id}"
+    click_button "Save changes"
+    page.body.should include("Curator should supply at least reason(s) to hide and/or curation comment")
+    page.body.should have_tag("form.review_status") do
+      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Trusted")
+      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Visible")
+      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_duplicate")
+      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_poor")
+    end
+    select "Unreviewed", :from => "vetted_id_#{trusted_association.id}"
+    select "Hidden", :from => "visibility_id_#{trusted_association.id}"
+    check "#{trusted_association.id}_untrust_reason_duplicate"
+    click_button "Save changes"
+    page.body.should have_tag("form.review_status") do
+      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Unreviewed")
+      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Hidden")
+      with_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_duplicate")
+      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_poor")
+    end
+    select "Untrusted", :from => "vetted_id_#{trusted_association.id}"
+    click_button "Save changes"
+    page.body.should include("Curator should supply at least untrust reason(s) and/or curation comment")
+    page.body.should have_tag("form.review_status") do
+      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Unreviewed")
+      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Hidden")
+      with_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_duplicate")
+      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_poor")
+    end
+    select "Untrusted", :from => "vetted_id_#{trusted_association.id}"
+    check "#{trusted_association.id}_untrust_reason_misidentified"
+    click_button "Save changes"
+    page.body.should have_tag("form.review_status") do
+      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Untrusted")
+      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Hidden")
+      with_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_misidentified")
+      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_incorrect")
+    end
+    select "Trusted", :from => "vetted_id_#{trusted_association.id}"
+    select "Visible", :from => "visibility_id_#{trusted_association.id}"
+    check "#{trusted_association.id}_untrust_reason_misidentified"
+    click_button "Save changes"
+    page.body.should have_tag("form.review_status") do
+      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Trusted")
+      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Visible")
+      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_misidentified")
+      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_incorrect")
+    end
+  end
+
+  it 'should be able curate a UDO association as Unreviewed, Untrusted and Trusted' do
+    login_as @curator
+    visit("/data_objects/#{@user_submitted_text.id}")
+    trusted_association = @user_submitted_text.all_associations.first
+    page.body.should have_tag("form.review_status") do
+      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Trusted")
+      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Visible")
+    end
+    select "Unreviewed", :from => "vetted_id_#{trusted_association.id}"
+    select "Hidden", :from => "visibility_id_#{trusted_association.id}"
+    click_button "Save changes"
+    page.body.should include("Curator should supply at least reason(s) to hide and/or curation comment")
+    page.body.should have_tag("form.review_status") do
+      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Trusted")
+      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Visible")
+      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_duplicate")
+      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_poor")
+    end
+    select "Unreviewed", :from => "vetted_id_#{trusted_association.id}"
+    select "Hidden", :from => "visibility_id_#{trusted_association.id}"
+    check "#{trusted_association.id}_untrust_reason_duplicate"
+    click_button "Save changes"
+    page.body.should have_tag("form.review_status") do
+      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Unreviewed")
+      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Hidden")
+      with_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_duplicate")
+      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_poor")
+    end
+    select "Untrusted", :from => "vetted_id_#{trusted_association.id}"
+    click_button "Save changes"
+    page.body.should include("Curator should supply at least untrust reason(s) and/or curation comment")
+    page.body.should have_tag("form.review_status") do
+      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Unreviewed")
+      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Hidden")
+      with_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_duplicate")
+      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_poor")
+    end
+    select "Untrusted", :from => "vetted_id_#{trusted_association.id}"
+    check "#{trusted_association.id}_untrust_reason_misidentified"
+    click_button "Save changes"
+    page.body.should have_tag("form.review_status") do
+      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Untrusted")
+      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Hidden")
+      with_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_misidentified")
+      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_incorrect")
+    end
+    select "Trusted", :from => "vetted_id_#{trusted_association.id}"
+    select "Visible", :from => "visibility_id_#{trusted_association.id}"
+    check "#{trusted_association.id}_untrust_reason_misidentified"
+    click_button "Save changes"
+    page.body.should have_tag("form.review_status") do
+      with_tag("select#vetted_id_#{trusted_association.id} option[selected=selected]", :text => "Trusted")
+      with_tag("select#visibility_id_#{trusted_association.id} option[selected=selected]", :text => "Visible")
+      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_misidentified")
+      without_tag("input[id=?][checked]", "#{trusted_association.id}_untrust_reason_incorrect")
+    end
+  end
+
+  it 'should allow a curator to remove an association' do
+    login_as @curator
+    visit("/data_objects/#{@image.id}")
+    page.body.should have_tag('form.review_status') do
+      with_tag('a', :text => 'Remove association')
+    end
+    page.body.should have_tag('a', :text => @another_name)
+    click_link "remove_association_#{@extra_he.id}"
+    page.body.should_not have_tag('a', :text => @another_name)
+  end
 end

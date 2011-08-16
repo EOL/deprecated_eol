@@ -14,7 +14,7 @@
       - elsif (@community && !@community.name.blank?)
         - head_title = "EOL: #{@community.name}"
       - elsif (@collection && !@collection.name.blank?)
-        - head_title = "EOL: #{@collection.name}"
+        - head_title = "Collection: #{@collection.name}"
       &= strip_tags(head_title)
 
     %meta{ :charset => "utf-8" }

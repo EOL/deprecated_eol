@@ -40,9 +40,9 @@ class Administrator::TableOfContentsController < AdminController
 
   def update
     if !params[:label].blank?
-      if toc_item = TocItem.find(params[:id])
-        toc_item.label = params[:label]
-        toc_item.save
+      if translated_toc_item = TranslatedTocItem.find_by_table_of_contents_id(params[:id])
+        translated_toc_item.label = params[:label]
+        translated_toc_item.save
       end
     end
     render :layout => false, :partial => 'show_tree'

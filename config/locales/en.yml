@@ -2722,6 +2722,7 @@ en:
   sort_by_status_option: "Status"
   sort_by_title_descending: "Title Descending"
   sort_by_year_descending: "Year Descending"
+  sort_collection_by_label: "Sort collection by"
   sort_items_button: "Sort"
   sort_items_label: "Sort items by"
   sort_order_: "Sort Order:"

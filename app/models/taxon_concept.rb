@@ -93,7 +93,7 @@ class TaxonConcept < SpeciesSchemaModel
       :names => :string,
       :vetted => :view_order,
       :canonical_forms => :string,
-      :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating, :language_id ],
+      :data_objects => [ :id, :data_type_id, :published, :guid, :data_rating, :language_id, :object_cache_url ],
       :licenses => :title,
       :table_of_contents => '*' },
     :include => [{ :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] }, { :data_objects => [ { :toc_items => :info_items }, :license] },

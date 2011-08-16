@@ -1232,7 +1232,7 @@ en:
   curator_status_changed_by: "Curator status changed by %{user} on %{date}"
   curator_to_do_list: "Curator To Do List"
   curators: "Curators"
-  curators_empty: "Our curators haven't contributed information to this taxon yet."
+  curators_empty: "Our curators haven't taken any action on this page yet."
   curators_of_taxon_page_title: "Curators of %{taxon}"
   curators_summary_header_with_count:
     one: "Reviewed by %{count} curator"

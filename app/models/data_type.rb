@@ -47,13 +47,14 @@ class DataType < SpeciesSchemaModel
     cached_find_translated(:label, 'Flash')
   end
 
-  def self.gbif_image
-    cached_find_translated(:label, 'GBIF Image')
-  end
-
   def self.iucn
     cached_find_translated(:label, 'IUCN')
   end
+  
+  def self.map
+    cached_find_translated(:label, 'Map')
+  end
+  
 
   def self.sound_type_ids
     ids = [DataType.sound.id]
@@ -67,13 +68,14 @@ class DataType < SpeciesSchemaModel
     ids = [DataType.youtube.id, DataType.flash.id, DataType.video.id]
   end
 
-  def self.map_type_ids
-    ids = [DataType.gbif_image.id]
-  end
-
   def self.text_type_ids
     ids = [DataType.text.id]
   end
+  
+  def self.map_type_ids
+    ids = [DataType.map.id]
+  end
+  
 
   # Not all unique data types DISPLAY with their label... translations come from the DB on the labels we know we
   # like:

@@ -49,10 +49,9 @@
     = link_to I18n.t("view_error_log"), {:controller => 'administrator/error_log', :action => 'index'}, {:class=>'toc_item active'}
   %h3
     =I18n.t("content_partners")
-  %li
-    = link_to I18n.t("content_partner_details"), {:controller => 'administrator/content_partner_report', :action => 'index'}, {:class=>'toc_item active'}
 
   -# Moved to v2
+  -#  = link_to I18n.t("content_partner_details"), {:controller => 'administrator/content_partner_report', :action => 'index'}, {:class=>'toc_item active'}
   -#  = link_to I18n.t("content_partner_hierarchies"), {:controller => 'administrator/hierarchy', :action => 'index'}, {:class=>'toc_item active'}
   -#  = link_to I18n.t("monthly_notification"), {:controller => 'administrator/content_partner_report', :action => 'monthly_stats_email'}, {:class => 'toc_item active', :confirm => I18n.t("send_email_notification_to_all")}
   -#  = link_to I18n.t("monthly_published_partners"), {:controller => 'administrator/content_partner_report', :action => 'report_monthly_published_partners'}, {:class=>'toc_item active'}
@@ -71,8 +70,11 @@
     = link_to I18n.t("page_statistics_and_tools"), {:controller => 'administrator/stats', :action => 'index'}, {:class=>'toc_item active'}
   %li
     = link_to I18n.t("taxonomic_summary_of_content"), {:controller => 'administrator/stats', :action => 'content_taxonomic'}, {:class => 'toc_item active'}
-  %li
-    = link_to I18n.t("search_term_reports"), search_logs_url(:reverse => true, :averages => false), {:class=>'toc_item active'}
+
+  -# Disabled in V1
+  -# %li
+  -#   = link_to I18n.t("search_term_reports"), search_logs_url(:reverse => true, :averages => false), {:class=>'toc_item active'}
+
   %li
     = link_to I18n.t("table_of_contents_breakdown"), {:controller => 'administrator/stats', :action => 'toc_breakdown'}, {:class=>'toc_item active'}
   %li

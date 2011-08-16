@@ -147,8 +147,13 @@ class Collection < ActiveRecord::Base
   end
 
   def deep_copy(other)
+    copy_annotations = user_id && other.user_id && user_id == other.user_id
     other.collection_items.each do |item|
-      add(item.object, :annotation => item.annotation)
+      if copy_annotations
+        add(item.object, :annotation => item.annotation)
+      else
+        add(item.object)
+      end
     end
   end
 

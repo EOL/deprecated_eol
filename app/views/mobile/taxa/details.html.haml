@@ -3,7 +3,7 @@
   %h1=t "mobile.taxa.taxon_details"
 
 %div{"data-role"=>"content"}
-  %h3= @taxon_concept.title(@session_hierarchy) unless @taxon_concept.title(@session_hierarchy).blank?
+  %h3= @taxon_concept.title unless @taxon_concept.title.blank?
   
   - roots = @toc.collect{|t| t unless t.is_child?}.compact
   #taxonomy_detail

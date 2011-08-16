@@ -11,8 +11,9 @@
   - else
     #sidebar.filters
       = image_tag @exemplar_image.thumb_or_object('260_190'), :alt => '' unless @exemplar_image.blank?
-      %h3= I18n.t(:media)
-      = render :partial => "media_sort_filter"
+      #filters
+        %h3= I18n.t(:media)
+        = render :partial => "media_sort_filter"
     #main
       .header
         - start_number = (@media.current_page - 1) * @media.per_page + 1
@@ -29,6 +30,8 @@
           %li{:class => "#{index.modulo(4) == 0 ? 'first' : nil} #{vetted_id_class(item_vetted_id)}"}
             .figure
               %a{ :data => { :data_object_id => item.id }, :class => vetted_id_class(item_vetted_id), :href => data_object_path(item) }
+                - if en_type == 'video'
+                  .video_overlay
                 = render :partial => "data_objects/data_object_#{en_type}",
                   :locals => { :data_object => item, :thumbnail => true, :size => '260_190' }
               - if item.data_type.id == DataType.image.id && current_user.min_curator_level?(:assistant)

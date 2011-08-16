@@ -1,7 +1,6 @@
 class FeedsController < ApplicationController
 
   #/feeds/images/25 or texts or comments or all
-  before_filter :set_session_hierarchy_variable
   caches_page :all, :images, :texts, :comments, :expires_in => 2.minutes
   @@maximum_feed_entries = 50
 
@@ -33,7 +32,7 @@ class FeedsController < ApplicationController
     end
 
     feed_link = url_for(:controller => :taxa, :action => :show, :id => taxon_concept.id)
-    options[:title] += " for #{taxon_concept.quick_scientific_name(:normal, @session_hierarchy)}"
+    options[:title] += " for #{taxon_concept.quick_scientific_name(:normal)}"
 
     feed_items = []
     if options[:type] != :comments

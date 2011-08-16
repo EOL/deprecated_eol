@@ -240,7 +240,7 @@ private
 
   # expire the header and footer caches
   def expire_menu_caches(page = nil)
-    list = ['top_nav', 'footer', 'exemplars'] # TODO - i18n
+    list = ['top_nav', 'footer'] # TODO - i18n
     list << page.page_name unless page.nil?
     expire_pages(list)
   end

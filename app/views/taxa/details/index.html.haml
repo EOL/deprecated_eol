@@ -11,15 +11,16 @@
   - else
     #sidebar
       = image_tag @exemplar_image.thumb_or_object('260_190') unless @exemplar_image.blank?
-      %h3= I18n.t(:table_of_contents)
-      - for root in roots
-        .section
-          %h4= link_to root.label, url_for(:anchor => category_anchor(root))
-          - children = @toc.collect{|t| t if t.parent_id == root.category_id}.compact
-          - unless children.empty?
-            %ul
-              - for child in children
-                %li= link_to child.label, url_for(:anchor => category_anchor(child))
+      #toc
+        %h3= I18n.t(:table_of_contents)
+        - for root in roots
+          .section
+            %h4= link_to root.label, url_for(:anchor => category_anchor(root))
+            - children = @toc.collect{|t| t if t.parent_id == root.category_id}.compact
+            - unless children.empty?
+              %ul
+                - for child in children
+                  %li= link_to child.label, url_for(:anchor => category_anchor(child))
     #main
       - for root in roots
         - root_content = @details.collect{|d| d if d[:toc_item].id == root.category_id}.compact

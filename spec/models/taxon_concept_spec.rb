@@ -152,8 +152,8 @@ describe TaxonConcept do
 
   it 'should have visible comments that don\'t show invisible comments' do
     user = User.gen
-    @taxon_concept.visible_comments.should_not be_nil
-    @taxon_concept.visible_comments.map(&:body).should == [@comment_1, @comment_2] # Order DOES matter, now.
+    @taxon_concept.comments.find_all {|comment| comment.visible? }.should_not be_nil
+    @taxon_concept.comments.find_all {|comment| comment.visible? }.map(&:body).should == [@comment_1, @comment_2] # Order DOES matter, now.
   end
 
   it 'should be able to show a table of contents' do

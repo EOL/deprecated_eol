@@ -1,7 +1,7 @@
 %li{:class => has_item ? 'collected' : nil}
   = check_box_tag 'collection_id[]', collection.id, has_item, :disabled => has_item
   = label_tag('collection_name', h(collection.name))
-  - if collection.community_id || has_item
+  - if collection.community_id || has_item || collection.id == current_user.watch_collection.id
     %span
       - if collection.community_id
         •

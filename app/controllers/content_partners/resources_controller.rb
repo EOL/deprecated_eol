@@ -61,13 +61,18 @@ class ContentPartners::ResourcesController < ContentPartnersController
     access_denied unless current_user.can_update?(@resource)
     choose_url_or_file
     @existing_dataset_file_size = @resource.dataset_file_size
+    # we need to check the accesspoint URL before saving the updated resource
+    upload_required = (@resource.accesspoint_url != params[:resource][:accesspoint_url] || !params[:resource][:dataset].blank?)
     if @resource.update_attributes(params[:resource])
-      if upload_required?
-        @resource.resource_status = @resource.upload_resource_to_content_master(request.port.to_s)
+      if upload_required
+        @resource.upload_resource_to_content_master!(request.port.to_s)
+        unless [ResourceStatus.uploaded.id, ResourceStatus.validated.id].include?(@resource.resource_status_id)
+          notice = I18n.t(:content_partner_resource_update_failed_notice, :resource_status => @resource.status_label)
+        end
         # TODO: if we failed to transfer the resource to content master the status will show up in
         # index, but should we provide the user with more information on upload errors here?
       end
-      flash[:notice] = I18n.t(:content_partner_resource_update_successful_notice,
+      flash[:notice] = notice || I18n.t(:content_partner_resource_update_successful_notice,
                               :resource_status => @resource.status_label)
       redirect_to content_partner_resources_path(@partner)
     else
@@ -113,12 +118,6 @@ private
     when 'upload'
       params[:resource][:accesspoint_url] = ''
     end
-  end
-
-  def upload_required?
-    @resource &&
-    (@resource.accesspoint_url != params[:resource][:accesspoint_url] ||
-    @resource.dataset_file_size != @existing_dataset_file_size)
   end
 
   def set_resource_options

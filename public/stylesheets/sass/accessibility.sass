@@ -397,9 +397,14 @@ form#new_data_object, form.edit_data_object
             bottom: 0
             width: 160px
             z-index: 1
+        .video_overlay
+          background: url('/images/v2/video_play.png') no-repeat 50% 50% transparent
+          width: 160px
+          height: 125px
+          z-index: 300
+          position: absolute
         .video
           border: 1px solid #CAD3DB
-          background: #F3F7FA url('/images/v2/icon_videos_tabs.png') no-repeat 50% 50%
           width: 158px
           height: 123px
       >a
@@ -969,3 +974,24 @@ form#new_collection_item fieldset.actions
   white-space: nowrap
 #taxon_maps #media_list
   padding: 0
+// Trying (again) to center and size the sidebar image (this time including markup changes, yuck.):
+#taxon_detail #sidebar
+  padding: 0
+  padding-bottom: 20px
+  width: 260px
+  #toc
+    margin: 0px 20px
+#media_list #sidebar
+  padding: 0
+  padding-bottom: 20px
+  width: 220px
+  #filters
+    margin: 0px 20px
+// This was not marked up by HR, AFAIK:
+#disclaimer
+  border-top: 1px solid #CAD3DB
+  text-align: center
+  font-size: 0.9em
+  padding: 4pt 0
+  background-color: #F3F7FA
+  color: #394651

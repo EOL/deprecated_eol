@@ -78,9 +78,6 @@ module TaxaHelper
     params[:taxon_concept] ||= false
 
     is_default_col = false
-    if(params[:taxon_concept] && @session_hierarchy == Hierarchy.default && params[:taxon_concept].col_entry)
-      is_default_col = true
-    end
 
     citables = original_citables.clone # so we can be destructive.
     citables = [citables] unless citables.class == Array # Allows us to pass in a single agent, if needed.

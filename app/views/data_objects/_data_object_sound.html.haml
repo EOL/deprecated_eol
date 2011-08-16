@@ -6,5 +6,24 @@
   .audio
     - if thumbnail
       %p= link_to data_object.best_title, data_object_path(data_object)
-    %audio{:controls => true, :loop => false, :autoplay => false, :preload => 'metadata'}
-      %source{:type => en_mime_type, :src => data_object.sound_url}
+
+    - else
+
+      -# not working...
+      -# %audio{:controls => true, :loop => false, :autoplay => false, :preload => 'metadata'}
+      -#   %source{:type => en_mime_type, :src => data_object.sound_url}
+
+      - if en_mime_type == 'audio/mpeg'
+        %embed{:type => "application/x-shockwave-flash", :flashvars => "audioUrl=#{data_object.sound_url}", 
+               :src => "http://www.google.com/reader/ui/3523697345-audio-player.swf", 
+               :width => "400", :height => "27", :quality => "best"}
+
+      - if en_mime_type == 'audio/x-wav'
+        %embed{:src => "#{data_object.sound_url}", :autostart => false, :loop => false, :volume => 100, :hidden => false}
+
+
+-# TODO: find sound players for 3 more sound types. Not priority as we don't have partners providing such audio types.
+-# audio/x-ms-wma  
+-# audio/x-pn-realaudio  
+-# audio/x-realaudio 
+

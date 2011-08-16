@@ -195,13 +195,6 @@ class TaxonConcept < SpeciesSchemaModel
     self.quick_scientific_names(taxon_concept_ids, hierarchy)
   end
 
-  # If you just call "comments", you are actually getting comments that should really be invisible.  This method gets around this,
-  # and didn't see appropriate to do with a named_scpope:
-  def visible_comments(user = @current_user)
-    return comments if user and user.is_admin?
-    comments.find_all {|comment| comment.visible? }
-  end
-
   def tocitem_for_new_text
     table_of_contents.each do |toc|
       return TocItem.find(toc.category_id) if toc.allow_user_text?
@@ -390,48 +383,6 @@ class TaxonConcept < SpeciesSchemaModel
     entry.children.map(&:taxon_concept)
   end
 
-  # Get a list of some of our best TaxonConcept examples.  Results will be sorted by scientific name.
-  #
-  # The sorting is actually a moderately expensive operation, so this is cached.
-  #
-  # Lastly, note that the TaxonConcept IDs are hard-coded to our production database. TODO - move those IDs to a
-  # table somewhere.
-  #
-  # EXEMPLARS THAT WE NO LONGER TRUST: 482935,
-  def self.exemplars(options = {})
-    cached('exemplars') do
-      TaxonConcept.lookup_exemplars(options)
-    end
-  end
-
-  def self.lookup_exemplars(options = {})
-    options[:language] ||= Language.english
-    options[:size] ||= :medium
-    exemplar_taxon_concept_ids = [910093, 1009706, 912371, 976559, 597748, 1061748, 373667, 392557,
-      484592, 581125, 467045, 593213, 209984, 795869, 1049164, 604595, 983558,
-      253397, 740699, 1044544, 683359, 1194666]
-    exemplar_hashes = SpeciesSchemaModel.connection.select_all("
-      SELECT rhi.taxon_concept_id, rhi.name scientific_name, n.string common_name, do.object_cache_url
-        FROM random_hierarchy_images rhi
-        JOIN data_objects do ON (rhi.data_object_id=do.id)
-        LEFT JOIN (
-          taxon_concept_names tcn
-          JOIN names n ON (tcn.name_id=n.id AND tcn.language_id=#{options[:language].id} AND tcn.preferred=1)
-        ) ON (rhi.taxon_concept_id=tcn.taxon_concept_id)
-      WHERE rhi.taxon_concept_id IN (#{exemplar_taxon_concept_ids.join(',')})
-      AND rhi.hierarchy_id=#{Hierarchy.default.id}")
-
-    used_concepts = {}
-    exemplar_taxa = []
-    exemplar_hashes.each do |ex|
-      next if !used_concepts[ex['taxon_concept_id']].nil?
-      ex['image_cache_path'] = DataObject.image_cache_path(ex['object_cache_url'], options[:size])
-      exemplar_taxa << ex
-      used_concepts[ex['taxon_concept_id']] = true
-    end
-    exemplar_taxa.sort_by {|ex| ex['scientific_name']}
-  end
-
   # Call this instead of @current_user, so that you will be given the appropriate (and DRY) defaults.
   def current_user
     @current_user ||= User.create_new
@@ -520,10 +471,6 @@ class TaxonConcept < SpeciesSchemaModel
         return he.identifier
       end
     end
-  end
-
-  def has_citation?
-    return false
   end
 
   # Singleton method to fetch the Hierarchy Entry, used for taxonomic relationships
@@ -656,11 +603,6 @@ class TaxonConcept < SpeciesSchemaModel
       :select => 'ancestor_id').collect{ |tcf| tcf.ancestor_id } + [id]
   end
 
-  # # general versions of the above methods for any hierarchy
-  # def find_ancestor_in_hierarchy(hierarchy)
-  #   entry_in_hierarchy = HierarchyEntry.find_by_taxon_concept_id_and_hierarchy_id(all_ancestor_taxon_concept_ids, hierarchy.id, :order => 'lft desc')
-  # end
-
   # general versions of the above methods for any hierarchy
   def find_ancestor_in_hierarchy(hierarchy)
     if he = published_hierarchy_entries.detect {|he| he.hierarchy_id == hierarchy.id }
@@ -683,45 +625,8 @@ class TaxonConcept < SpeciesSchemaModel
     return HierarchyEntry.find_by_sql("SELECT he.* FROM hierarchy_entries he WHERE taxon_concept_id=#{taxon_concept_id} AND hierarchy_id=#{hierarchy_id} LIMIT 1").first
   end
 
-  # We do have some content that is specific to COL, so we need a method that will ALWAYS reference it:
-  def col_entry
-    return @col_entry unless @col_entry.nil?
-    hierarchy_id = Hierarchy.default.id
-    return @col_entry = published_hierarchy_entries.detect{ |he| he.hierarchy_id == hierarchy_id }
-  end
-
-  # TODO - we won't need this, soon.  Delete it.  (ATM it's still used in an old videos partial)
-  def has_video
-    available_media if @has_media.nil?
-    @has_media[:video]
-  end
-
-  # TODO - we won't need this, soon.  Delete it.  (ATM it's still used in an old mediacenter partial)
-  def show_video_tab
-    # checks logged-in user and/or logged-in content partner and also considers the existence of un-published videos, if Video tab is to be displayed
-    return (videos.length > 0 ? true : false)
-  end
-
-  # TODO - we won't need this, soon.  Delete it.  (ATM it's still used in an old mediacenter partial) - it has been used in V2 maps tab, what is recommended alternative?
   def has_map
     return true if gbif_map_id
-  end
-
-  def available_media
-    # This method disregards whether there is a logged-in user or none
-    images = video = map = false
-    published_hierarchy_entries.each do |entry|
-        next if entry.hierarchies_content.blank?
-        images = true if entry.hierarchies_content.image != 0 || entry.hierarchies_content.child_image != 0
-        video = true if entry.hierarchies_content.flash != 0 || entry.hierarchies_content.youtube != 0
-        break if images && video
-    end
-    map = true if gbif_map_id
-    @has_media = {:images => images, :video => video, :map => map}
-  end
-
-  def has_name?
-    return content_level != 0
   end
 
   def quick_common_name(language = nil, hierarchy = nil)
@@ -862,24 +767,7 @@ class TaxonConcept < SpeciesSchemaModel
     return [] unless desired_entry
     return desired_entry.ancestors
   end
-
-  def classification_attribution(hierarchy = nil)
-    hierarchy ||= Hierarchy.default
-    e = entry(hierarchy)
-    return '' unless e
-    return e.classification_attribution
-  end
-
-  # def classification_attribution_hierarchy_entry(hierarchy_entry = nil)
-  #   return '' if hierarchy_entry.blank?
-  #   hierarchy = hierarchy_entry.hierarchy
-  #   e = entry(hierarchy)
-  #   return '' unless e
-  #   return e.classification_attribution
-  # end
-
-
-  # TODO - we only want PUBLISHED hierarchies, here:
+  
   def classifications
     hierarchy_entries.map do |entry|
       { :name => entry.hierarchy.agent.citable.display_string,
@@ -888,7 +776,7 @@ class TaxonConcept < SpeciesSchemaModel
       }
     end
   end
-
+  
   def media(opts = {}, hierarchy_entry = nil)
     DataObject.sort_by_rating(images({}, hierarchy_entry) + videos + sounds, self, opts).compact
   end
@@ -1397,17 +1285,50 @@ class TaxonConcept < SpeciesSchemaModel
     end
     return keywords
   end
-
+  
+  def maps_count
+    count = 0
+    count +=1 if self.has_map
+    map_image_count = connection.select_values("
+      SELECT COUNT(distinct do.id) AS count_all
+      FROM data_objects_taxon_concepts dotc
+      JOIN data_objects do ON (dotc.data_object_id=do.id)
+      JOIN data_objects_hierarchy_entries dohe on (do.id=dohe.data_object_id)
+      WHERE (dotc.taxon_concept_id = #{self.id})
+      AND do.published = 1
+      AND dohe.visibility_id = #{Visibility.visible.id}
+      AND do.data_type_id IN (#{DataType.image_type_ids.join(',')})
+      AND do.data_subtype_id IN (#{DataType.map_type_ids.join(',')})")[0].to_i
+    count += map_image_count
+  end
+  
   def media_count(filter_hierarchy_entry = nil)
     # may not be accurate, but will be faster than loading everything then counting it
     return @media_count if @media_count
+    # TODO: I'm purposely using SQL here as I don't want to have to load ALL images on ALL page loads. It
+    # would be great if someone would take the time to re-write this HE count
     if filter_hierarchy_entry
       image_count = filter_hierarchy_entry.top_images.count
     else
-      image_count = connection.select_values("SELECT count(*) AS count_all FROM `top_concept_images` tci JOIN `data_objects` do ON (tci.data_object_id=do.id) WHERE ((tci.taxon_concept_id = #{self.id})) AND do.published=1")[0].to_i
+      image_count = connection.select_values("
+        SELECT COUNT(distinct do.id) AS count_all
+        FROM top_concept_images tci
+        JOIN data_objects do ON (tci.data_object_id=do.id)
+        JOIN data_objects_hierarchy_entries dohe on (do.id=dohe.data_object_id)
+        WHERE (tci.taxon_concept_id = #{self.id})
+        AND do.published = 1
+        AND dohe.visibility_id = #{Visibility.visible.id}
+        AND (do.data_subtype_id IS NULL OR do.data_subtype_id NOT IN (#{DataType.map_type_ids.join(',')}))")[0].to_i
     end
-    # TODO - Fix the other_media_count by counting only media with visibility as visible
-    other_media_count = self.data_objects.count(:conditions => "data_objects.published=1 AND data_objects.data_type_id IN (#{(DataType.video_type_ids + DataType.sound_type_ids).join(',')})")
+    other_media_count = connection.select_values("
+      SELECT COUNT(distinct do.id) AS count_all
+      FROM data_objects_taxon_concepts dotc
+      JOIN data_objects do ON (dotc.data_object_id=do.id)
+      JOIN data_objects_hierarchy_entries dohe on (do.id=dohe.data_object_id)
+      WHERE (dotc.taxon_concept_id = #{self.id})
+      AND do.published = 1
+      AND dohe.visibility_id = #{Visibility.visible.id}
+      AND do.data_type_id IN (#{(DataType.video_type_ids + DataType.sound_type_ids).join(',')})")[0].to_i
     @media_count = image_count + other_media_count
   end
   

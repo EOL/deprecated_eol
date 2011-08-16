@@ -3,6 +3,7 @@ class HarvestEvent < SpeciesSchemaModel
   belongs_to :resource
   has_many :data_objects_harvest_events
   has_many :data_objects, :through => :data_objects_harvest_events
+  has_many :harvest_events_hierarchy_entries
   has_and_belongs_to_many :hierarchy_entries
 
   before_destroy :remove_related_data_objects

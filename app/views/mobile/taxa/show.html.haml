@@ -3,7 +3,7 @@
   %h1=t "mobile.taxa.taxon_overview"
 
 %div{"data-role"=>"content"}
-  %h3=@taxon_concept.title(@session_hierarchy) unless @taxon_concept.title(@session_hierarchy).blank?
+  %h3=@taxon_concept.title unless @taxon_concept.title.blank?
   %div.image_container
     - first_image = @media.select {|m| m.image?}.first
     = image_tag first_image.blank? ? "/images/v2/icon_taxon.png" : first_image.original_image 

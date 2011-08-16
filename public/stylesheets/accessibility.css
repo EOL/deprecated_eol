@@ -383,9 +383,14 @@ form#new_data_object fieldset.information, form.edit_data_object fieldset.inform
       bottom: 0;
       width: 160px;
       z-index: 1; }
+  #media_list #main > ul > li .figure .video_overlay {
+    background: url("/images/v2/video_play.png") no-repeat 50% 50% transparent;
+    width: 160px;
+    height: 125px;
+    z-index: 300;
+    position: absolute; }
   #media_list #main > ul > li .figure .video {
     border: 1px solid #cad3db;
-    background: #f3f7fa url("/images/v2/icon_videos_tabs.png") no-repeat 50% 50%;
     width: 158px;
     height: 123px; }
 #media_list #main > ul > li > a {
@@ -880,3 +885,25 @@ form#new_collection_item fieldset.actions {
 
 #taxon_maps #media_list {
   padding: 0; }
+
+#taxon_detail #sidebar {
+  padding: 0;
+  padding-bottom: 20px;
+  width: 260px; }
+  #taxon_detail #sidebar #toc {
+    margin: 0px 20px; }
+
+#media_list #sidebar {
+  padding: 0;
+  padding-bottom: 20px;
+  width: 220px; }
+  #media_list #sidebar #filters {
+    margin: 0px 20px; }
+
+#disclaimer {
+  border-top: 1px solid #cad3db;
+  text-align: center;
+  font-size: 0.9em;
+  padding: 4pt 0;
+  background-color: #f3f7fa;
+  color: #394651; }

@@ -7,8 +7,6 @@
     =I18n.t("tools")
   %li
     = link_to I18n.t("images_work_list"), { :action => :curate_images, :hierarchy_entry_id => params[:hierarchy_entry_id] }, { :class => active_if_action_is('curate_images') }
-  / %li
-  /   = link_to I18n.t("ignored_images"), { :action => :ignored_images, :hierarchy_entry_id => params[:hierarchy_entry_id] }, { :class => active_if_action_is('ignored_images') }
   %li
     = link_to I18n.t("wikipedia_import"), { :action => :wiki_import }, { :class => active_if_action_is('wiki_import') }
   %h3

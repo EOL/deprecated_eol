@@ -288,7 +288,7 @@ class DataObject < SpeciesSchemaModel
 
     current_visibility = old_dato.users_data_object.visibility
     current_vetted = old_dato.users_data_object.vetted
-    udo = UsersDataObject.create(:user => user, :data_object => new_dato, :taxon_concept => taxon_concept, 
+    udo = UsersDataObject.create(:user => user, :data_object => new_dato, :taxon_concept => taxon_concept,
                                  :visibility => current_visibility, :vetted => current_vetted)
     new_dato.users_data_object = udo
     new_dato
@@ -305,7 +305,7 @@ class DataObject < SpeciesSchemaModel
 
     rights_holder = ERB::Util.h(all_params[:data_object][:rights_holder])
     rights_holder ||= user.full_name
-    
+
     do_params = {
       :guid => UUID.generate.gsub('-',''),
       :identifier => '',
@@ -590,8 +590,10 @@ class DataObject < SpeciesSchemaModel
   def thumb_or_object(size = :large)
     if self.is_video?
       return DataObject.image_cache_path(thumbnail_cache_url, size)
-    else
+    elsif has_object_cache_url?
       return DataObject.image_cache_path(object_cache_url, size)
+    else
+      return '#' # Really, this is an error, but we want to handle it pseudo-gracefully.
     end
   end
 
@@ -657,7 +659,7 @@ class DataObject < SpeciesSchemaModel
   def linked_taxon_concept
     get_taxon_concepts.first
   end
-  
+
   def update_solr_index
     hash = {
       'data_object_id' => self.id,
@@ -676,7 +678,7 @@ class DataObject < SpeciesSchemaModel
       hash['toc_id'] ||= []
       hash['toc_id'] << dotoc.toc_id
     end
-    
+
     # add ignored users
     self.worklist_ignored_data_objects.each do |ido|
       hash['ignored_by_user_id'] ||= []
@@ -735,7 +737,7 @@ class DataObject < SpeciesSchemaModel
     rescue
     end
   end
-  
+
 
   def in_wikipedia?
     toc_items.include?(TocItem.wikipedia)
@@ -748,12 +750,12 @@ class DataObject < SpeciesSchemaModel
 
     SpeciesSchemaModel.connection.execute("UPDATE data_objects SET published=0 WHERE guid='#{guid}'");
     reload
-    
+
     dato_vetted = self.vetted_by_taxon_concept(taxon_concept)
     dato_vetted_id = dato_vetted.id unless dato_vetted.nil?
     dato_visibility = self.visibility_by_taxon_concept(taxon_concept)
     dato_visibility_id = dato_visibility.id unless dato_visibility.nil?
-    
+
     dato_association.visibility_id = Visibility.visible.id
     dato_association.vetted_id = Vetted.trusted.id
     dato_association.save!
@@ -819,7 +821,7 @@ class DataObject < SpeciesSchemaModel
     end
     # removing maps
     unique_image_objects.delete_if{ |d| DataType.map_type_ids.include?(d.data_subtype_id) }
-    
+
     # get the rest of the metadata for the selected page
     image_page  = (options[:image_page] ||= 1).to_i
     start       = $MAX_IMAGES_PER_PAGE * (image_page - 1)
@@ -877,7 +879,7 @@ class DataObject < SpeciesSchemaModel
       rset = DataObject.find_by_sql([sql])
       rset.each do |post|
         obj_tc_id["#{post.do_id}"] = post.tc_id
-        if(post.data_type_id == 3)then obj_tc_id["datatype#{post.do_id}"] = "text"
+        if(post.data_type_id == DataType.text.id)then obj_tc_id["datatype#{post.do_id}"] = "text"
                                   else obj_tc_id["datatype#{post.do_id}"] = "image"
         end
       end
@@ -930,7 +932,7 @@ class DataObject < SpeciesSchemaModel
     return nil
   end
 
-  # To retrieve an exact association(if exists) for the given taxon concept, 
+  # To retrieve an exact association(if exists) for the given taxon concept,
   # otherwise retrieve an association with best vetted status.
   def association_with_exact_or_best_vetted_status(taxon_concept)
     association = association_for_taxon_concept(taxon_concept)
@@ -952,17 +954,13 @@ class DataObject < SpeciesSchemaModel
   # To retrieve the reasons provided while untrusting an association
   def untrust_reasons(hierarchy_entry)
     if hierarchy_entry.class == UsersDataObject
-      object_id = UsersDataObject.find_by_data_object_id(id)
       log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_activity_id(
-        object_id, ChangeableObjectType.users_data_object.id, Activity.untrusted.id
+        id, ChangeableObjectType.users_data_object.id, Activity.untrusted.id
       ).last
       log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
     elsif hierarchy_entry.associated_by_curator
-      object_id = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id_and_user_id(
-        id,hierarchy_entry.id,hierarchy_entry.associated_by_curator
-      ).id
-      log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_activity_id(
-        object_id, ChangeableObjectType.curated_data_objects_hierarchy_entry.id, Activity.untrusted.id
+      log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_activity_id_and_hierarchy_entry_id(
+        id, ChangeableObjectType.curated_data_objects_hierarchy_entry.id, Activity.untrusted.id, hierarchy_entry.id
       ).last
       log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
     else
@@ -976,17 +974,13 @@ class DataObject < SpeciesSchemaModel
   # To retrieve the reasons provided while hiding an association
   def hide_reasons(hierarchy_entry)
     if hierarchy_entry.class == UsersDataObject
-      object_id = UsersDataObject.find_by_data_object_id(id)
       log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_activity_id(
-        object_id, ChangeableObjectType.users_data_object.id, Activity.hide.id
+        id, ChangeableObjectType.users_data_object.id, Activity.hide.id
       ).last
       log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
     elsif hierarchy_entry.associated_by_curator
-      object_id = CuratedDataObjectsHierarchyEntry.find_by_data_object_id_and_hierarchy_entry_id_and_user_id(
-        id,hierarchy_entry.id,hierarchy_entry.associated_by_curator
-      ).id
-      log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_activity_id(
-        object_id, ChangeableObjectType.curated_data_objects_hierarchy_entry.id, Activity.hide.id
+      log = CuratorActivityLog.find_all_by_object_id_and_changeable_object_type_id_and_activity_id_and_hierarchy_entry_id(
+        id, ChangeableObjectType.curated_data_objects_hierarchy_entry.id, Activity.hide.id, hierarchy_entry.id
       ).last
       log ? log.untrust_reasons.collect{|ur| ur.untrust_reason_id} : []
     else
@@ -1106,7 +1100,7 @@ class DataObject < SpeciesSchemaModel
     raise EOL::Exceptions::ObjectNotFound if cdohe.nil?
     raise EOL::Exceptions::WrongCurator.new("user did not create this association") unless cdohe.user_id = user.id
     cdohe.destroy
-    if self.data_type == DataType.image                                      
+    if self.data_type == DataType.image
       tci_exists = TopConceptImage.find_by_taxon_concept_id_and_data_object_id(hierarchy_entry.taxon_concept.id, self.id)
       tci_exists.destroy unless tci_exists.nil?
       ti_exists = TopImage.find_by_hierarchy_entry_id_and_data_object_id(hierarchy_entry.id, self.id)
@@ -1165,7 +1159,7 @@ class DataObject < SpeciesSchemaModel
     return nil
 
   end
-  
+
   def log_activity_in_solr(options)
     base_index_hash = {
       'activity_log_unique_key' => "UsersDataObject_#{id}",
@@ -1176,7 +1170,7 @@ class DataObject < SpeciesSchemaModel
     base_index_hash[:user_id] = options[:user].id if options[:user]
     EOL::Solr::ActivityLog.index_activities(base_index_hash, activity_logs_affected(options))
   end
-  
+
   def activity_logs_affected(options)
     logs_affected = {}
     # activity feed of user making comment

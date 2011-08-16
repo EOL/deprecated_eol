@@ -661,9 +661,9 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   #
   # NOTE - this will ALWAYS put the watch collection first.
   def all_collections
-    editable_collections = [watch_collection] + collections.reject {|c| c.watch_collection? }
+    editable_collections = collections.reject {|c| c.watch_collection? }
     editable_collections += members.managers.map {|member| member.community.collection }
-    editable_collections
+    editable_collections = [watch_collection] + editable_collections.sort_by(&:name)
   end
 
   def ignored_data_object?(data_object)

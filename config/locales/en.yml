@@ -3184,9 +3184,9 @@ en:
   users_content_partners_with_count:
     one: "%{count} current content partner"
     other: "%{count} current content partners"
-  users_curation_header: "Curation qualifications"
+  users_curation_header: "Curator qualifications"
   users_form_account_header: "Your account"
-  users_form_curation_header: "Curation qualifications"
+  users_form_curation_header: "Curator qualifications"
   users_form_profile_info_header: "Public profile information"
   users_form_tip: "Username is required for all users, other items marked as required %{required_icon} are optional for general users but required for curators."
   users_member_of_count_communities:

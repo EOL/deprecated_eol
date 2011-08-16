@@ -39,17 +39,6 @@ class CuratorsController < ApplicationController
     render :layout => false
   end
 
-  # def ignored_images
-  #   @page_title += ": " + I18n.t("ignored_images_")
-  #   session['ignored_images_hierarchy_entry_id'] = params['hierarchy_entry_id'] if params['hierarchy_entry_id']
-  #   session['ignored_images_hierarchy_entry_id'] = nil if session['ignored_images_hierarchy_entry_id'].blank?
-  #   @name = params['hierarchy_entry_id'].blank? ? '' : Name.find_by_id(HierarchyEntry.find_by_id(params['hierarchy_entry_id'], :select => 'name_id').name_id)
-  #   all_images = current_user.ignored_data_objects(
-  #     :hierarchy_entry_id => session['ignored_images_hierarchy_entry_id'],
-  #     :data_type_id => DataType.image.id)
-  #   @ignored_images = all_images
-  # end
-
   def comment
     @data_object = DataObject.find(params[:data_object_id])
     @data_object.comment(current_user, params['comment'])

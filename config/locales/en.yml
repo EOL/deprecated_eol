@@ -1092,6 +1092,7 @@ en:
   content_partner_resource_resource_status_new: "Created"
   content_partner_resource_show_subheader: "Details for resource <em>%{resource_title}</em>"
   content_partner_resource_update_successful_notice: "Content partner resource details successfully updated. Current status of resource data: %{resource_status}."
+  content_partner_resource_update_unsuccessful_notice: "Sorry, an error occurred, the resource was not updated: %{resource_status}."
   content_partner_resource_update_unsuccessful_error: "Sorry, an error occurred, the resource was not updated."
   content_partner_resource_url_or_dataset_not_both_error: "Dataset URL or file per resource, not both. Please decide whether you want to provide a URL or upload a file for this described resource. Additional resources can be added later."
   content_partner_resources_information: "Resources are datasets that are available for harvesting by EOL. Harvested data is integrated into the EOL database and served to the public through the EOL Web site and API. Resource files can either be uploaded directly to EOL or, if you make your resource file available on a public Web server, EOL can automatically extract the data at regular intervals which you can define. Each resource file must be in the <a href=\"%{eol_transfer_schema_url}\">EOL Transfer Schema</a> format"

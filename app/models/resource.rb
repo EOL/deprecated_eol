@@ -136,12 +136,12 @@ class Resource < SpeciesSchemaModel
     true
   end
 
-  def upload_resource_to_content_master(port = nil)
+  def upload_resource_to_content_master!(port = nil)
     if self.accesspoint_url.blank?
       self.resource_status = ResourceStatus.uploaded
       ip_with_port = $IP_ADDRESS_OF_SERVER.dup
       ip_with_port += ":" + port if port && !ip_with_port.match(/:[0-9]+$/)
-      file_url = ip_with_port + $DATASET_UPLOAD_PATH + id.to_s + "."+ dataset_file_name.split(".")[-1]
+      file_url = "http://" + ip_with_port + $DATASET_UPLOAD_PATH + id.to_s + "."+ dataset_file_name.split(".")[-1]
     else
       file_url = accesspoint_url
     end

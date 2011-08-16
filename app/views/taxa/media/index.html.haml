@@ -11,8 +11,9 @@
   - else
     #sidebar.filters
       = image_tag @exemplar_image.thumb_or_object('260_190'), :alt => '' unless @exemplar_image.blank?
-      %h3= I18n.t(:media)
-      = render :partial => "media_sort_filter"
+      #filters
+        %h3= I18n.t(:media)
+        = render :partial => "media_sort_filter"
     #main
       .header
         - start_number = (@media.current_page - 1) * @media.per_page + 1

@@ -850,3 +850,17 @@ form#new_collection_item fieldset.actions {
 
 #taxon_maps #media_list {
   padding: 0; }
+
+#taxon_detail #sidebar {
+  padding: 0;
+  padding-bottom: 20px;
+  width: 260px; }
+  #taxon_detail #sidebar #toc {
+    margin: 0px 20px; }
+
+#media_list #sidebar {
+  padding: 0;
+  padding-bottom: 20px;
+  width: 220px; }
+  #media_list #sidebar #filters {
+    margin: 0px 20px; }

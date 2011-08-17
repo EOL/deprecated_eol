@@ -1,12 +1,17 @@
 - content.each do |item|
   - if item[:data_objects]
     - item[:data_objects].each do |dato|
-      - en_type = dato.data_type.label('en').downcase.strip
-      .article.copy
-        .meta.attribution
+      - dato_vetted = dato.vetted_by_taxon_concept(@taxon_concept, :find_best => true)
+      - dato_vetted_id = dato_vetted.id unless dato_vetted.nil?
+      - dato_vetted_label = dato_vetted.label unless dato_vetted.nil?
+      %div{:id => "data_object_#{dato.id}", :class => 'article'}
         - unless dato.object_title.blank?
           %h4= dato.object_title
-        = render :partial => 'data_objects/data_object_article', :locals => { :data_object => dato }
+        .meta.learn_more
+          = render :partial => 'data_objects/view_translation', :locals => { :data_object => dato, :taxon => @taxon_concept }
+          = render :partial => 'data_objects/data_object_article', :locals => { :data_object => dato , :show_view_source => 'false'}
+
   - else
-    .article.copy
-      = render :partial => "taxa/content/content_#{item[:content_type]}", :locals => { :content => item } rescue nil
+    .article
+      .copy
+        = render :partial => "taxa/content/content_#{item[:content_type]}", :locals => { :content => item } rescue nil

@@ -1,7 +1,7 @@
 %li
   = render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => hierarchy_entry, :include_common_names => true, :node_class => 'bold'})
   %ul.branch
-    - he_children = hierarchy_entry.children.sort_by {|e| e.common_name_in_language(current_user.language) }
+    - he_children = hierarchy_entry.children(:include_common_names => true, :common_name_language => current_user.language).sort_by {|e| e.common_name_in_language(current_user.language) }
     - if he_children && ! he_children.empty?
       %ul.branch
         - he_children[0..2].each do |child|

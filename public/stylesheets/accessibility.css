@@ -808,6 +808,9 @@ h1.notice {
   float: none;
   padding: 0px !important; }
 
+#worklist #tasks ul li {
+  z-index: 300; }
+
 #worklist #tasks li img {
   max-width: 60pxpx;
   max-height: 60pxpx;

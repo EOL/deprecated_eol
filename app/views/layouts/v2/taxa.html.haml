@@ -65,6 +65,7 @@
   #content
     .site_column
       = yield
-
-  #disclaimer= I18n.t(:taxon_page_content_disclaimer)
+      .disclaimer
+        %h3.assistive= I18n.t(:taxon_page_content_disclaimer_header)
+        %p= I18n.t(:taxon_page_content_disclaimer)
 = render :file => 'layouts/v2/application'

@@ -159,7 +159,7 @@ class Collection < ActiveRecord::Base
 
   def logo_url(size = 'large')
     if logo_cache_url.blank?
-      return "v2/logos/empty_collection.png"
+      return "v2/logos/collection_default.png"
     elsif size.to_s == 'small'
       DataObject.image_cache_path(logo_cache_url, '88_88')
     else
@@ -187,6 +187,10 @@ class Collection < ActiveRecord::Base
   def items_from_solr(options={})
     sort_by_style = SortStyle.find(options[:sort_by].blank? ? default_sort_style : options[:sort_by])
     EOL::Solr::CollectionItems.search_with_pagination(self.id, options.merge(:sort_by => sort_by_style))
+  end
+
+  def facet_count(type)
+    EOL::Solr::CollectionItems.get_facet_counts(self.id)[type]
   end
 
   def facet_counts

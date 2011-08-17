@@ -80,7 +80,7 @@ class Community < ActiveRecord::Base
 
   def logo_url(size = 'large')
     if logo_cache_url.blank?
-      return "v2/icon_communities_tabs.png"
+      return "v2/logos/community_default.png"
     elsif size.to_s == 'small'
       DataObject.image_cache_path(logo_cache_url, '88_88')
     else

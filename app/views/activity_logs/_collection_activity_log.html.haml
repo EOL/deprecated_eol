@@ -24,6 +24,8 @@
           = I18n.t(:activity_user_added_item_to_collection, :user => h(item.user.short_name), :collection => link_to(item.collection.summary_name, collection_path(item.collection)), :item => item.collection_item.object.summary_name)
     - when Activity.remove.id
       = I18n.t(:activity_user_removed_item_from_collection, :user => h(item.user.short_name), :collection => link_to(item.collection.summary_name, collection_path(item.collection)), :item => item.collection_item.object.summary_name)
+    - when Activity.remove_all.id
+      = I18n.t(:activity_user_removed_all_items_from_collection, :user => h(item.user.short_name), :collection => link_to(item.collection.summary_name, collection_path(item.collection)))
     - else
       = I18n.t(:activity_user_modified_collection, :user => h(item.user.short_name), :collection => link_to(item.collection.summary_name, collection_path(item.collection)))
   %p.meta= I18n.t(:time_ago, :time_passed => time_ago_in_words(item.created_at))

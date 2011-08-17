@@ -14,7 +14,7 @@
     %p
       Created on
       = created_on_date
-    
+
     %h2
       Introduction
     %p
@@ -25,7 +25,7 @@
       and
       = agent.project_name
       will have access to the resources of the Encyclopedia of Life, including species pages, scanned literature, and informatics tools in accordance with the terms listed below.
-    
+
     %h2
       The Parties
     %p
@@ -54,9 +54,9 @@
         %em
           Biodiversity Synthesis Group
         \- holds synthesis meetings to help reach taxonomic consensus on megadiverse groups; develops tools for analyzing and synthesizing information across species pages.
-        
+
     %p
-      = agent.project_description
+      = sanitize agent.project_description
     %h2
       Content Licensing
     %p
@@ -76,7 +76,7 @@
       Full information about the Creative Commons licensing can be found at
       %a{ :href => "http://www.creativecommons.org", :target => "_blank" }
         http://www.creativecommons.org
-        
+
     %h2
       Content Attribution
     %p
@@ -87,7 +87,7 @@
       is fundamentally based on multi-level text strings and/or logos at the level of individual data objects.
       = agent.project_name
       will submit attribution information via the Transfer Schema. Note: The specific style and techniques employed for display of attribution for data objects may change as the EOL evolves.
-        
+
     %h2
       Roles and Conditions of Use
     %p
@@ -109,7 +109,7 @@
         Comply with the Creative Commons licenses of any EOL content from other Content Partners that it may choose to use for its own purposes and to provide full attribution in the specified manner of the license.
       %li
         Be able to display the EOL logo on its web site.
-        
+
     %p
       In handling the content provided by
       = agent.project_name
@@ -170,7 +170,7 @@
         EOL may elect at its sole discretion to present all, portions or none of any data objects provided by
         = agent.project_name
         and reserves the right to redact or remove any illegal, offensive, or objectionable content.
-        
+
     %p
       The parties do not intend to create a legal partnership, principal/agent, or joint venture relationship and nothing in this agreement shall be construed as creating such a relationship between the parties. Neither party may incur any obligation on behalf of the other.
     %p
@@ -190,7 +190,7 @@
       withdraw from the agreement, EOL will remove
       = agent.project_name
       content within one month.
-      
+
     %h2
       Contact Information
     %table{ :width => "100%" }

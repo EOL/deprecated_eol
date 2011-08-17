@@ -26,7 +26,7 @@
           %p= I18n.t(:content_partner_resource_description_empty)
       - else
         .copy
-          %p= h @resource.description
+          %p= sanitize @resource.description
     .article.half
       .header
         %h3= I18n.t(:content_partner_resource_dataset_details_header)

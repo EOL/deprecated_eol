@@ -28,7 +28,7 @@ All Hierarchies
         -else
           = link_to(hierarchy.form_label, { :action => 'browse', :id => hierarchy.id })
           %br
-          = hierarchy.description
+          = sanitize hierarchy.description
       %td{:class => column_class}
         - browsable = 'no'
         - browsable = 'yes' if hierarchy.browsable==1

@@ -20,14 +20,14 @@
             - if hierarchy.resource && hierarchy.resource.content_partner
               %small
                 = "("+ link_to(I18n.t("partner_page"), content_partner_path(:id => hierarchy.resource.content_partner.id) ) +")"
-        
+
           %td{:class => column_class}
             - if hierarchy.user_or_agent_or_label_name == 'uBio'
               =I18n.t("this_is_a_flat_list_of_10_mill")
             -else
               = link_to(hierarchy.form_label, { :action => 'show', :id => hierarchy.id })
               %br
-              = hierarchy.description
+              = sanitize hierarchy.description
           %td{:class => column_class}
             - browsable = 'no'
             - browsable = 'yes' if hierarchy.browsable==1

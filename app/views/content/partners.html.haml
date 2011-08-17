@@ -11,7 +11,7 @@
               %li
                 = agent_logo(partner,'large') if !partner.logo_cache_url.blank?
                 %h2= external_link_to(partner.display_name,partner.homepage, {:show_link_icon => true})
-                %p= partner.project_description
+                %p= sanitize partner.project_description
                 - if partner.show_mou_on_partner_page?
                   = link_to(I18n.t("see_var_partner_display_name_a", :var_partner_display_name => partner.display_name), {:controller=>'content_partner', :action=>'agreement', :id=>partner.id}, {:target=>'_blank'})
                   \.

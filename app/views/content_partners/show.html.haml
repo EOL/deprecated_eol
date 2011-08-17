@@ -36,7 +36,7 @@
         %p= @partner.admin_notes
   .main_container.copy
     %h3= I18n.t(:content_partner_about_header, :partner_name => @partner.name)
-    %p= @partner.description
+    %p= sanitize @partner.description
     - unless @partner.homepage.blank?
       %p= link_to I18n.t(:content_partner_homepage_link), @partner.homepage
 
@@ -47,4 +47,4 @@
           .empty
             %p= I18n.t(:content_partner_data_description_empty)
       - else
-        %p= @partner.description_of_data
+        %p= sanitize @partner.description_of_data

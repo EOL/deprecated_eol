@@ -33,7 +33,7 @@
     %dd
       = I18n.t(:content_partner_agreement_parties_biodiversity_synthesis_group_definition, :locale => locale)
 
-  %p= @partner.description
+  %p= sanitize @partner.description
 
   %h4= I18n.t(:content_partner_agreement_licensing_header, :locale => locale)
   %p= I18n.t(:content_partner_agreement_licensing, :locale => locale)

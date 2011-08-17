@@ -5,7 +5,7 @@
         = image_tag @community.logo_url, :alt => ""
         .hgroup
           %h1= h @community.name
-          %p= h @community.description
+          %p= sanitize @community.description
         .page_actions
           %ul
             %li= render :partial => 'shared/add_to_my_collection', :locals => { :item => @community }

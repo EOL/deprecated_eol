@@ -8,4 +8,4 @@
         %div{:class => vetted_id_class(item_vetted_id), :data => { :text_id =>  item.id } }
           .header
             %h3= h item.toc_items[0].label
-          = item.description.balance_tags
+          = sanitize item.description.balance_tags

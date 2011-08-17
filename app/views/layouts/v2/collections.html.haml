@@ -7,7 +7,7 @@
         = image_tag @collection.logo_url, :alt => I18n.t(:collection_image)
         .hgroup
           %h1= h @collection.name
-          %p= h @collection.description
+          %p= sanitize @collection.description
           - if @collection.community_id
             %p= I18n.t(:this_is_a_focus_collection_for_community, :community => link_to(@collection.community.name, community_path(@collection.community)))
         .page_actions

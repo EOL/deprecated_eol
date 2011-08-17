@@ -25,12 +25,12 @@
             <li><em><%= I18n.t("education_and_outreach_group") %></em> - <%= I18n.t("exploits_the_eol_s_potential_b") %></li>
             <li><em><%= I18n.t("biodiversity_synthesis_group") %></em> - <%= I18n.t("holds_synthesis_meetings_to_he") %></li>
         </ul>
-        
-        <p><%= @agent.project_description %></p>
-        
+
+        <p><%= sanitize @agent.project_description %></p>
+
         <h2><%=  I18n.t("content_licensing") %></h2>
         <p><%= I18n.t("to_the_greatest_extent_possibl_") %></p>
-        
+
         <ol>
             <li><%= I18n.t("content_providers_warrant_and__") %></li>
             <li><%= I18n.t("all_information_currently_in_t_") %></li>
@@ -39,14 +39,14 @@
             <li><%= I18n.t("the_eol_will_provide_attributi_") %></li>
         </ol>
 
-        <p><%= I18n.t("full_information_about_the_cre") %> <a href="http://www.creativecommons.org" target="_blank">http://www.creativecommons.org</a>. 
-        
+        <p><%= I18n.t("full_information_about_the_cre") %> <a href="http://www.creativecommons.org" target="_blank">http://www.creativecommons.org</a>.
+
         <h2><%= I18n.t("content_attribution") %></h2>
 
         <p><%=  I18n.t("eol_intends_to_provide_attribu", :var__agent_project_name => @agent.project_name, :var__agent_project_name => @agent.project_name, :var__agent_project_name => @agent.project_name) %></p>
 
         <h2><%= I18n.t("roles_and_conditions_of_use") %></h2>
-        
+
         <p><%= I18n.t("in_providing_its_content_to_eo_", :var__agent_project_name => @agent.project_name) %></p>
 
         <ul>
@@ -54,10 +54,10 @@
             <li><%= I18n.t("provide_data_objects_as_is_wit") %></li>
             <li><%= I18n.t("respond_to_the_originators_of__", :var__agent_project_name => @agent.project_name) %></li>
             <li><%= I18n.t("work_with_the_eol_to_improve_t") %></li>
-            <li><%= I18n.t("comply_with_the_creative_commo") %></li>  
+            <li><%= I18n.t("comply_with_the_creative_commo") %></li>
             <li><%= I18n.t("be_able_to_display_the_eol_log") %></li>
         </ul>
-        
+
         <p><%= I18n.t("in_handling_the_content_provid_", :var__agent_project_name => @agent.project_name) %></p>
 
         <ul>
@@ -75,19 +75,19 @@
             <li><%= I18n.t("post_on_the_eol_site_a_stateme") %></li>
             <li><%= I18n.t("eol_may_elect_at_its_sole_disc_", :var__agent_project_name => @agent.project_name) %></li>
         </ul>
-        
+
         <p><%= I18n.t("the_parties_do_not_intend_to_c") %></p>
 
         <p><%= I18n.t("this_agreement_is_non_exclusiv", :var__agent_project_name => @agent.project_name) %></p>
 
         <p><%= I18n.t("this_agreement_and_the_obligat") %></p>
-        
+
         <p><%= I18n.t("var__agent_project_name_agrees", :var__agent_project_name => @agent.project_name, :var_agent_project_name => agent.project_name) %></p>
-        
+
         <p><%= I18n.t("_either_party_may_amend_or_mod", :var__agent_project_name => @agent.project_name, :var__agent_project_name => @agent.project_name) %></p>
-        
+
         <h2><%= I18n.t("contact_information") %></h2>
-        
+
         <table width="100%">
             <tr valign="top">
                 <td width="50%">
@@ -96,7 +96,7 @@
                     <%= @primary_contact.full_name %><br />
                     <%= I18n.t("e_mail_") %> <%= mail_to @primary_contact.email %><br />
                     <%= I18n.t("phone_") %> <%= @primary_contact.telephone %><br />
-                </td>                    
+                </td>
                 <td width="50%">
                     <strong><%= I18n.t("encyclopedia_of_life") %></strong><br />
                     <a href="http://www.eol.org">www.eol.org</a><br />

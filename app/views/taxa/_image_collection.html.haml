@@ -84,7 +84,7 @@
           - unless image.rights_holder.blank?
             = "&#169 #{image.rights_holder}."
             %br/
-          = image.license.description
+          = sanitize image.license.description
         - unless image.license.blank? || image.license.logo_url.blank?
           = '&nbsp;&nbsp;'
           = link_to(image_tag(image.license.logo_url), image.license.source_url, :class => "external_link")
@@ -120,4 +120,4 @@
           %br/
 
         %br/
-        = image.description.balance_tags
+        = sanitize image.description.balance_tags

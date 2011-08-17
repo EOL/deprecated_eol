@@ -12,7 +12,7 @@
         .header
           %h3= I18n.t(:description)
         .copy
-          = @data_object.description.balance_tags
+          = sanitize @data_object.description.balance_tags
     .article.list.updates
       .header
         %h3= I18n.t(:add_a_taxon_association_label)

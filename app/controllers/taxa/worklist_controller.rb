@@ -13,6 +13,7 @@ class Taxa::WorklistController < TaxaController
     @object_visibility = params[:object_visibility] ||= 'visible'
     @task_status = params[:task_status] ||= 'active'
     # checking approved values
+    @sort_by = 'newest' unless ['newest', 'oldest', 'rating'].include?(@sort_by)
     @object_type = 'all' unless ['all', 'text', 'image', 'video', 'sound'].include?(@object_type)
     @object_status = 'all' unless ['all', 'trusted', 'unreviewed', 'untrusted'].include?(@object_status)
     @object_visibility = 'all' unless ['all', 'visible', 'invisible'].include?(@object_visibility)
@@ -27,6 +28,7 @@ class Taxa::WorklistController < TaxaController
     
     @data_objects = EOL::Solr::DataObjects.search_with_pagination(@taxon_concept.id, {
       :page => @page,
+      :per_page => 15,
       :sort_by => @sort_by,
       :data_type_ids => data_type_ids,
       :vetted_type => @object_status,

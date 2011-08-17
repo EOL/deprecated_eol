@@ -31,6 +31,13 @@
           - task_status_options = {}
           - [:active, :ignored, :curated].each{|opt| task_status_options[I18n.t("task_status_#{opt}_option")] = opt }
           = select_tag :task_status, options_for_select(task_status_options, @task_status.to_sym)
+      %dl
+        %dt
+          %label{:for => 'sort_by'}= I18n.t(:sort_by)
+        %dd
+          - sort_options = {}
+          - [:newest, :oldest, :rating].each{|opt| sort_options[I18n.t("sort_by_#{opt}_option")] = opt }
+          = select_tag :sort_by, options_for_select(sort_options, @sort_by.to_sym)
     %fieldset.actions
       %input(type="submit" value="#{I18n.t(:show_tasks)}")
       %label

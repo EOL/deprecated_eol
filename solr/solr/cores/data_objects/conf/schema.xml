@@ -35,10 +35,12 @@
         <field name="data_rating" type="float" indexed="true" stored="true" required="true"/>
         <field name="description" type="text" indexed="true" stored="true" required="false"/>
         <field name="created_at" type="date" indexed="true" stored="true" required="true"/>
-        <field name="added_by_user" type="boolean" indexed="true" stored="true" required="false"/>
+        <field name="added_by_user_id" type="int" indexed="true" stored="true" required="false"/>
         <field name="is_translation" type="boolean" indexed="true" stored="true" required="false"/>
         <field name="taxon_concept_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
         <field name="ancestor_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="hierarchy_entry_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="hierarchy_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
         <field name="resource_id" type="int" indexed="true" stored="true" required="false"/>
         <field name="toc_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
         <!-- vetted states -->

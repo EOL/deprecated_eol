@@ -2,6 +2,13 @@
   %h3= I18n.t(:content_partner_new_edit_form_profile_header)
   %p.tip= I18n.t(:content_partner_new_edit_form_tip, :required_icon => image_tag('/images/v2/icon_required.png', :alt => ''))
   %dl
+    %dt
+      = partner_form.label :user_id
+    %dd.managed_by
+      = partner_form.hidden_field :user_id
+      = link_to image_tag(@partner.user.logo_url), @partner.user
+      .details
+        = link_to @partner.user.full_name, @partner.user
     %dt.required
       = partner_form.label :full_name
       %small.assistive= I18n.t(:required_form_element)

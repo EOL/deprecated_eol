@@ -42,21 +42,22 @@ class ContentPartnersController < ApplicationController
   end
 
   # GET /content_partners/new
+  # POST /content_partners/new
   def new
-    @partner = ContentPartner.new
+    # Use post to pass in user_id for new content partner otherwise you'll get access denied
+    @partner = ContentPartner.new(params[:content_partner])
     access_denied unless current_user.can_create?(@partner)
     set_new_partner_options
   end
 
+  # POST /content_partners
   def create
-    # TODO: rethink contacts when we have many to many users and content partners - or make user a contact on create ?
     @partner = ContentPartner.new(params[:content_partner])
     access_denied unless current_user.can_create?(@partner)
-    @partner.user = current_user
     if @partner.save
       upload_logo(@partner) unless params[:content_partner][:logo].blank?
       flash[:notice] = I18n.t(:content_partner_create_successful_notice)
-      redirect_to @partner
+      redirect_to content_partner_resources_path(@partner)
     else
       set_new_partner_options
       flash.now[:error] = I18n.t(:content_partner_create_unsuccessful_error)

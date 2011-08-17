@@ -171,13 +171,17 @@ class TocItem < SpeciesSchemaModel
     max_view_order = TocItem.connection.select_values("SELECT max(view_order) FROM table_of_contents WHERE id=#{id} OR parent_id=#{id}")[0].to_i
     next_view_order = max_view_order + 1
     TocItem.connection.execute("UPDATE table_of_contents SET view_order=view_order+1 WHERE view_order >= #{next_view_order}")
-    TocItem.create(:label => new_label, :parent_id => id, :view_order => next_view_order)
+    TocItem.create(:parent_id => id, :view_order => next_view_order)
+    new_toc_item_id = TocItem.connection.select_values("SELECT max(id) FROM table_of_contents")[0].to_i
+    TranslatedTocItem.create(:table_of_contents_id => new_toc_item_id, :language_id => Language.english.id, :label => new_label)
   end
   def self.add_major_chapter(new_label)
     return if new_label.blank?
     max_view_order = TocItem.connection.select_values("SELECT max(view_order) FROM table_of_contents")[0].to_i
     next_view_order = max_view_order + 1
-    TocItem.create(:label => new_label, :parent_id => 0, :view_order => next_view_order)
+    TocItem.create(:parent_id => 0, :view_order => next_view_order)
+    new_toc_item_id = TocItem.connection.select_values("SELECT max(id) FROM table_of_contents")[0].to_i
+    TranslatedTocItem.create(:table_of_contents_id => new_toc_item_id, :language_id => Language.english.id, :label => new_label)
   end
 
   # I suppose we just need a move_up method and move_down could fire off a move_up to its next chapter

@@ -327,15 +327,19 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def can_create?(resource)
+    return false if resource.nil?
     resource.can_be_created_by?(self)
   end
   def can_read?(resource)
+    return false if resource.nil?
     resource.can_be_read_by?(self)
   end
   def can_update?(resource)
+    return false if resource.nil?
     resource.can_be_updated_by?(self)
   end
   def can_delete?(resource)
+    return false if resource.nil?
     resource.can_be_deleted_by?(self)
   end
 

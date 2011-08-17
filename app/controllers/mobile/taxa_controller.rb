@@ -27,7 +27,7 @@ class Mobile::TaxaController < Mobile::MobileController
       :users => [ :given_name, :family_name, :logo_cache_url, :credentials ] }
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
     @browsable_hierarchy_entries ||= @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
-    @browsable_hierarchy_entries = [@dropdown_hierarchy_entry] if @browsable_hierarchy_entries.blank? # TODO: Check this - we are getting here with a hierarchy entry that has a hierarchy that is not browsable.
+    @browsable_hierarchy_entries = [@selected_hierarchy_entry] if @browsable_hierarchy_entries.blank? # TODO: Check this - we are getting here with a hierarchy entry that has a hierarchy that is not browsable.
     @browsable_hierarchy_entries.compact!
     @hierarchies = @browsable_hierarchy_entries.collect{|he| he.hierarchy }.uniq
 

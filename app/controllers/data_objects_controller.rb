@@ -52,6 +52,24 @@ class DataObjectsController < ApplicationController
       CollectionActivityLog.create(:collection => current_user.watch_collection, :user => current_user,
                                    :activity => Activity.collect, :collection_item => collection_item)
       @data_object.log_activity_in_solr(:keyword => 'create', :user => current_user, :taxon_concept => @taxon_concept)
+
+      # Will try to redirect to the appropriate tab/section after adding text
+      toc_item_id = params[:data_object][:toc_items][:id].to_i
+      subchapter = TocItem.find(toc_item_id).label.downcase
+      subchapter = 'literature' if subchapter == 'literature references'
+      subchapter.sub( " ", "_" )
+      temp = ["education", "identification_resources", "nucleotide_sequences", "biomedical_terms"] # to Resources tab
+      if temp.include?(subchapter)
+        redirect_to education_taxon_resources_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}") if subchapter == 'education'
+        redirect_to identification_resources_taxon_resources_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}") if subchapter == 'identification_resources'
+        redirect_to nucleotide_sequences_taxon_resources_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}") if subchapter == 'nucleotide_sequences'
+        redirect_to biomedical_terms_taxon_resources_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}") if subchapter == 'biomedical_terms'
+        return
+      elsif ["literature"].include?(subchapter)
+        redirect_to literature_taxon_literature_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}") if subchapter == 'literature'
+        return
+      end
+      
       redirect_to taxon_details_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}")
     end
   end

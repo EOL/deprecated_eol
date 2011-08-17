@@ -2,7 +2,7 @@
 =I18n.t("click_on_a_user_to_view_the_us")
 #comments
   - form_tag({:action=>'index'},:method=>'get') do
-    =I18n.t("select_")
+    =I18n.t("select_colon")
     %select{ :name => "user_id" }
       %option
         =I18n.t("all_title")
@@ -15,7 +15,7 @@
     %br
     %br
     - if @users_data_objects.nil? == false && @users_data_objects.length > 0
-      =I18n.t("user_submitted_text_found_")
+      =I18n.t("user_submitted_text_found")
       = @users_data_objects.total_entries
       %br
       = will_paginate @users_data_objects
@@ -32,7 +32,7 @@
           %th
             =I18n.t("vetted")
             %br
-            =I18n.t("visible_")
+            =I18n.t("visible_title")
             %br
             =I18n.t("published")
           %th

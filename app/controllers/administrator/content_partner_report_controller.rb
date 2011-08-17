@@ -105,7 +105,7 @@ class Administrator::ContentPartnerReportController < AdminController
       agreement=params[:agreement].merge(:agent_id=>@agent.id)
       @agreement=ContentPartnerAgreement.create_new(agreement)
       if @agreement.valid?
-        flash[:notice]= I18n.t("content_partner_agreement_was_")
+        flash[:notice]= I18n.t("content_partner_agreement_was_updated")
         redirect_to :action=>'show',:id=>params[:id]
         return
       end

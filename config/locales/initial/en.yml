@@ -1,9 +1,129 @@
 en:
-  choose: Choose
-  cannot_be_associated_with_both_a_user_and_a_community: "Cannot be associated with both a user and a community"
-  biodiversity_heritage_library: "Biodiversity Heritage Library"
-  average_rating_value_of_total: "Average rating: %{rating} of %{total}"
-  admin_information: "This is the new administration console for EOL V2. We are in the process of transferring administration functionality from V1. If the administration section you are looking for is not listed please visit the <a href=\"/administrator\">V1 Administration Console</a>."
+  _encyclopedia_of_life: "-Encyclopedia of Life"
+  about_eol: "About EOL"
+  account_information: "Account Information"
+  account_registered_but_not_ready_try_later: "Your account is registered but not ready for you to access. Please try again in five minutes."
+  action_not_available_error: "Sorry, that action is not available."
+  actions: Actions
+  active_colon: "Active:"
+  activerecord:
+    attributes:
+      collection:
+        description: "Collection description"
+        logo: "Primary collection image"
+        name: "Collection name"
+        sort_style_id: "Default sorting direction"
+      community:
+        description: "Community description"
+        logo: "Upload a logo"
+        name: "Community name"
+      content_page:
+        active: Published
+        page_name: "Unique name"
+        sort_order: "Sort order"
+      content_partner:
+        acronym: "Project abbreviation"
+        admin_notes: "Administration notes"
+        content_partner_status: "Project status"
+        created_at: Created
+        description: "Project description"
+        display_name: "Display name"
+        full_name: "Project name"
+        homepage: "Project URL"
+        notes: "Project notes"
+        user_id: "Managed by"
+        vetted: Vetted
+      data_object:
+        bibliographic_citation: "Bibliographic citation"
+        description: Description
+        object_title: Title
+        rights_holder: "Rights holder"
+        rights_statement: "Rights statement"
+        source_url: "Source URL"
+      name:
+        string: Name
+      resource:
+        accesspoint_url: "Dataset URL"
+        bibliographic_citation: "Bibliographic citation"
+        dataset: "Dataset file"
+        description: "Resource description"
+        dwc_archive_url: "Darwin Core Archive URL"
+        language_id: "Default language"
+        license_id: "Default license"
+        resource_status_id: "Resource status"
+        rights_holder: "Default rights holder"
+        rights_statement: "Default rights statement"
+        title: "Resource name"
+      translated_content_page:
+        active_translation: Published
+        left_content: Navigation
+        main_content: Body
+        meta_description: "Metadata description"
+        meta_keywords: "Metadata keywords"
+        title: Title
+      user:
+        agreed_with_terms: "Terms of use agreement"
+        api_key: "API key"
+        bio: Bio
+        credentials: Credentials
+        curator_scope: "Curation scope"
+        email: "Email address"
+        entered_password: Password
+        entered_password_confirmation: "Password again <small>(to confirm)</small>"
+        family_name: "Last name"
+        full_name: "Full name"
+        given_name: "First name"
+        language_abbr: "Preferred language"
+        requested_curator_level_id: "Desired curation level"
+        tag_line: Tagline
+        username: Username
+    errors:
+      full_messages:
+        format: "%{attribute} %{message}"
+      messages:
+        accepted: "must be accepted"
+        blank: "can't be blank"
+        confirmation: "doesn't match confirmation"
+        empty: "can't be empty"
+        equal_to: "must be equal to %{count}"
+        even: "must be even"
+        exclusion: "is reserved"
+        greater_than: "must be greater than %{count}"
+        greater_than_or_equal_to: "must be greater than or equal to %{count}"
+        inaccessible: "is inaccessible"
+        inclusion: "is not included in the list"
+        invalid: "is invalid"
+        less_than: "must be less than %{count}"
+        less_than_or_equal_to: "must be less than or equal to %{count}"
+        not_a_number: "is not a number"
+        not_an_integer: "must be an integer"
+        odd: "must be odd"
+        record_invalid: "Validation failed: %{errors}"
+        taken: "has already been taken"
+        too_long: "is too long (maximum is %{count} characters)"
+        too_short: "is too short (minimum is %{count} characters)"
+        wrong_length: "is the wrong length (should be %{count} characters)"
+        wrong_type: "is the wrong type"
+      models:
+        resource:
+          attributes:
+            accesspoint_url:
+              blank: "can't be blank, unless you upload a resource file instead"
+              inaccessible: "is inaccessible, the URL must be publicly accessible"
+              invalid: "is invalid, it should point to a XML, XML.GZIP or XML.GZ file."
+            dataset:
+              blank: "can't be blank unless you provide a dataset URL instead"
+              wrong_type: "is the wrong type, it should be a GZIP, TAR or XML file"
+            dwc_archive_url:
+              inaccessible: "is inaccessible, the URL must be publicly accessible"
+              invalid: "is invalid, it should point to a TAR.GZIP, TAR.GZ or TGZ file."
+      template:
+        body: "The following fields failed validation:"
+        header:
+          one: "%{count} validation error found"
+          other: "%{count} validation errors found"
+    models:
+      user: account
   activity: Activity
   activity_log_empty: "No one has provided updates yet."
   activity_log_empty_learn_more_link: "Learn how to contribute"
@@ -41,14 +161,61 @@ en:
   add_a_taxon_association_label: "Add a taxon association"
   add_article_to_page_link_button: "Add an article to this page"
   add_brief_summary_to_page_link_button: "Add a brief summary to this page"
+  add_item_to_new_collection: "Add \"%{item}\" to a new collection"
+  add_language: "Add language"
   add_new_association_link: "Add new association"
-  add_to_my_collection_button: "Add to my collection"
-  admin_content_partners_index_link: "Content partners"
-  admin_link: "Administration Console"
-  admin_page_title: "Administration Console"
+  add_page: "Add Page"
+  add_to_my_collection_button: "Add to a collection"
+  admin: admin
+  admin_content_page_child_new_link: "Create child page"
+  admin_content_page_create_successful_notice: "Page <em>%{page_name}</em> created successfully."
+  admin_content_page_create_unsuccessful_error: "Sorry, an error occurred, the page was not created."
+  admin_content_page_delete_confirmation: "Are you sure you want to delete \"%{page_name}\" and all translations. Delete actions cannot be undone."
+  admin_content_page_delete_successful_notice: "Page %{page_name} and associated translations have been deleted."
+  admin_content_page_edit_header: "Update basic page information for <em>%{page_name}</em>"
+  admin_content_page_edit_tip: "It is recommended that you do not edit the unique name of this page unless you are fully aware of the consequences, including the impact on links to this page, or to named routes. Unique name is %{required_icon} required."
+  admin_content_page_new_header: "Create a new content page"
+  admin_content_page_new_link: "Create new page"
+  admin_content_page_new_tip: "Enter basic information about this page. Unique name is %{required_icon} required."
+  admin_content_page_parent_option_root: "No parent"
+  admin_content_page_sort_order_updated: "Order of pages has been changed."
+  admin_content_page_update_successful_notice: "Page <em>%{page_name}</em> updated successfully."
+  admin_content_page_update_unsuccessful_error: "Sorry, an error occurred, the page could not be updated."
+  admin_content_pages_empty: "No content pages found."
+  admin_content_pages_index_information: "The following list includes all of the static pages currently available on the EOL Website. Each page has one or more translations. When you create a new page you will be asked to add a translation. Published translations are publicly accessible."
+  admin_content_pages_link: "Content Management"
+  admin_content_pages_page_title: "Administration: Content Management"
+  admin_content_partner_notification_link: "Monthly Notification"
+  admin_content_partners_hierarchies_link: "Content partner hierarchies"
+  admin_content_partners_link: "Administration: Content partners"
+  admin_content_partners_published_link: "Monthly published partners"
+  admin_home: "admin home"
+  admin_information: "This is the new administration console for EOL V2. We are in the process of transferring administration functionality from V1. If the administration section you are looking for is not listed please visit the <a href=\"/administrator\">V1 Administration Console</a>."
+  admin_link: Overview
+  admin_notes_not_visible_to_user: "Admin notes (not visible to user):"
+  admin_page_title: "Administration: Overview"
+  admin_translated_content_page_create_successful_notice: "Translation has been added to <em>%{page_name}</em>"
+  admin_translated_content_page_create_unsuccessful_error: "Sorry, an error occurred, the translation could not be added."
+  admin_translated_content_page_delete_confirmation: "Are you sure you want to delete the %{language} version of \"%{page_name}\". Delete action cannot be undone."
+  admin_translated_content_page_delete_successful_notice: "%{language} translation of page <em>%{page_name}</em> has been deleted."
+  admin_translated_content_page_edit_subheader: "Edit %{language} translation for <em>%{page_name}</em>"
+  admin_translated_content_page_edit_tip: "Title and body are %{required_icon} required."
+  admin_translated_content_page_new_header: "Choose language and add content"
+  admin_translated_content_page_new_link: "Add translation"
+  admin_translated_content_page_new_subheader: "Add translation for <em>%{page_name}</em>"
+  admin_translated_content_page_new_tip: "Language, title and body are %{required_icon} required."
+  admin_translated_content_page_update_successful_notice: "%{language} translation for <em>%{page_name}</em> has been updated."
+  admin_translated_content_page_update_unsuccessful_error: "Sorry, an error occurred, the translation could not be updated."
+  agent: Agent
+  all_changes: "All changes"
+  all_information: "All information"
   all_items: "All items"
   all_pages: "All pages"
+  all_title: All
+  all_user_submitted_texts_on_th: "All user-submitted texts on the website are shown below, sorted inversely by time created."
   already_a_member_question: "Already a member?"
+  already_member_of_community: "You are already a member of this community."
+  alternate_classification: "Alternate classification"
   and: and
   and_between_form_items: and
   application_version_advisory_information: "Application version"
@@ -64,16 +231,40 @@ en:
   assistive_names_synonyms_header: Synonyms
   assistive_overview_header: Overview
   assistive_updates_header: Updates
+  associated_with_article_header: "Associated with"
+  associated_with_image_header: "In this image"
+  associated_with_sound_header: "Associated with"
+  associated_with_video_header: "In this video"
+  attribute: Attribute
+  authoritative_information: "authoritative information"
+  auto_email_notifications_were_sent_to_colon: "Auto email notifications were sent to:"
+  automated_translation_of_eol: "Automated Translation of EOL"
+  average_rating_value_of_total: "Average rating: %{rating} of %{total}"
   back_to_profile: "Back to profile"
+  belongs_in_count_communities:
+    one: "Belongs to %{count} Communities"
+    other: "Belongs to %{count} Communities"
+  bi_monthly: Bi-Monthly
+  biodiversity_heritage_library: "Biodiversity Heritage Library"
   biology_of_aging_project: "Biology of Aging project"
   biomedical_terms: "Biomedical terms"
+  browsable: Browsable
   browse_eol: "browse EOL"
+  browse_hierarchy: "browse hierarchy"
   build_communities: "Build communities"
   by_entering_a_wikipedia_revision: "By entering a Wikipedia revision URL you are requesting that EOL ingests that particular revision as vetted. It will replace the current version of that article in EOL if we have it already."
+  cancel: Cancel
+  cannot_be_associated_with_both_a_user_and_a_community: "Cannot be associated with both a user and a community"
   cannot_be_empty: "cannot be empty."
   cannot_create_collection_item_from_class_error: "I cannot create a collection item from a %{klass}"
   cannot_find_member: "Cannot find a member with this id."
   cannot_index_collection_item_type_error: "I cannot index a collection item from a %{type}"
+  change: Change
+  change_rating_to_1_of_5: "Change rating to 1 of 5"
+  change_rating_to_2_of_5: "Change rating to 2 of 5"
+  change_rating_to_3_of_5: "Change rating to 3 of 5"
+  change_rating_to_4_of_5: "Change rating to 4 of 5"
+  change_rating_to_5_of_5: "Change rating to 5 of 5"
   choose_collection_header: "Choose collection"
   citation: Citation
   classification_tree_header: Classification
@@ -81,417 +272,398 @@ en:
   classifications_summary_header_with_count:
     one: "Found in %{count} classification"
     other: "Found in %{count} classifications"
+  click_on_a_user_to_view_the_us: "Click on a user to view the user's detailed profile, click on the species to view the page where the text exists (use your browser back button to return here)."
+  close_this_window_to_return_to: "CLOSE THIS WINDOW TO RETURN TO EDIT WINDOW"
   clouds_provided_by_the_mbl: "Clouds provided by the MBL %{link}."
   cms_available_in_languages: "This page is available in:"
   cms_missing_content_message: "Sorry, this page is not available for this language."
+  cms_missing_content_title: "Missing content"
+  collect_item: "Collect item"
+  collection_created_notice: "Collection <em>%{collection_name}</em> successfully created."
+  collection_created_with_count_notice:
+    one: "Collection <em>%{collection_name}</em> successfully created with %{count} collection item."
+    other: "Collection <em>%{collection_name}</em> successfully created with %{count} collection item."
+  collection_delete_link: "Permanently delete this collection"
+  collection_destroyed: "The collection was deleted."
+  collection_image: "Collection image"
+  collection_is_empty: "This collection is currently empty."
+  collection_item_annotation_label: "Collection item annotation"
+  collection_item_not_found_error: "That collection item could not be found."
+  collection_name_label: "Collection name"
+  collection_not_created_error: "Sorry, an error occurred, the collection <em>%{collection_name}</em> could not be created."
+  collection_not_destroyed_error: "Sorry, the collection was not deleted."
+  collection_not_found_error: "Sorry, that collection cound not be found."
+  collection_updated_notice: "Collection <em>%{collection_name}</em> successfully updated."
+  collection_was_removed_by_owner: "This collection was removed by its owner."
+  collections: Collections
+  collections_summary_empty: "This taxon isn't in any collections yet."
+  collections_summary_header_with_count:
+    one: "Present in %{count} collection"
+    other: "Present in %{count} collections"
+  collections_with_count:
+    one: "%{count} Collection"
+    other: "%{count} Collections"
+  comment: Comment
+  comment_added_notice: "Comment successfully added."
+  comment_body_label: "Your comment"
+  comment_new_posters_image_advisory_info: "Your profile picture and name will appear next to your comment in listings."
+  comment_new_posters_image_alt: "Your profile picture, if you have provided one."
+  comment_not_added_error: "Sorry, an error occurred, comment could not be added."
+  comment_show_posters_image_alt: "Profile picture of %{posters_name} who added this comment."
+  comments_and_tags: "Comments and Tags"
+  comments_moderated: "Comments Moderated"
+  comments_with_count:
+    one: "%{count} Comment"
+    other: "%{count} Comments"
+  common_names_advisory_information: "Common names associated with this taxon."
+  common_names_with_count:
+    one: "%{count} common name"
+    other: "%{count} common names"
+  communities: Communities
+  communities_index_empty: "There are no active communities."
+  communities_index_header: "Active communities"
+  communities_summary_empty: "This taxon hasn't been endorsed by a community yet."
+  communities_summary_header_with_count:
+    one: "Belongs to %{count} community"
+    other: "Belongs to %{count} communities"
+  community: Community
+  community_activity: "Community Activity"
+  community_contributions_with_count:
+    one: "%{count} Contribution"
+    other: "%{count} Contributions"
+  community_destroyed: "Community was deleted."
+  community_empty_notice: "This community has no members."
+  community_focus: "Community focus"
+  community_invitation_comment: "I would like to invite you to join \"%{community}\"."
+  community_managers_with_count:
+    one: "%{count} Community Manager"
+    other: "%{count} Community Managers"
+  community_members_with_count:
+    one: "%{count} Community Members"
+    other: "%{count} Community Members"
+  community_must_have_one_manager_error: "Sorry, communities must have at least one manager, and this member is the last one."
+  community_not_destroyed_error: "Sorry, the community was not deleted."
+  community_removed_by_owner: "This community was removed by its owner."
+  community_tab_collections_description: "Collections are created by EOL users to highlight the relationships between species, whether that relationship is geographic, ecological, or personal. Communities can \"feature\" collections that are of particular interest and value."
+  community_tab_communities_description: "Communities are groups of EOL users united around a single purpose, from protecting shorebirds to sharing their passion for primates. Collections are also an opportunity for like-minded individuals to find one another and interact both on and off the EOL website."
+  community_tab_curators_description: "Curators are EOL users with taxonomic expertise who have given their time to vet the content you see on EOL, ensuring what you see is accurate and of quality."
+  confirm_leave: "Are you sure you want to leave this community?"
+  confirm_password_colon: "Confirm Password:"
+  contact_about_sponsorship_preamble: "If you would like to learn more about specific programs available for sponsorship, or would like to make a recurring gift, please contact the Encyclopedia of Life Secretariat at %{email} or by phone at (202)633-8730."
+  contact_eli_eol_org_for_any_co: "Contact eli@eol.org for any comments."
+  contact_us_functions: "Contact Us Functions"
+  contact_us_link: "Contact us"
+  contact_us_title: "Contact Us"
+  content_has_been_updated: "Content has been updated."
+  content_partner: "Content Partner"
+  content_partner_about_header: "About %{partner_name}"
+  content_partner_administration_notes_empty: "There are no administration notes."
+  content_partner_administration_notes_header: "Administration notes"
+  content_partner_agreement_attribution: "EOL intends to provide attribution for all provided content in the manner specified by %{content_partner_name}. The methodology EOL uses to attribute the content provided by %{content_partner_name} is fundamentally based on multi-level text strings and/or logos at the level of individual data objects. %{content_partner_name} will submit attribution information via the Transfer Schema. Note: The specific style and techniques employed for display of attribution for data objects may change as the EOL evolves."
+  content_partner_agreement_attribution_header: "Content attribution"
+  content_partner_agreement_contact_information_eol_organisation: "Encyclopedia of Life"
+  content_partner_agreement_contact_information_eol_organisation_url: www.eol.org
+  content_partner_agreement_contact_information_eol_representative_name_role_email_phone: "Cynthia Parr, Species Pages Director<br/>E-mail: parrc@si.edu<br/>Phone: 202.633.8730"
+  content_partner_agreement_contact_information_eol_representative_note: "On behalf of the Smithsonian Institution, representing the EOL for purposes of the day-to-day administration of this Agreement."
+  content_partner_agreement_contact_information_header: "Contact information"
+  content_partner_agreement_create_successful_notice: "You have successfully agreed to the content partner terms, you may now add data resources."
+  content_partner_agreement_create_unsuccessful_error: "Sorry, an error occurred, there appears to be a technical problem with content partner agreements. Please try again, if the problem persists please notify EOL."
+  content_partner_agreement_created_on: "Created on: %{date_time}"
+  content_partner_agreement_header: "Content partner agreement between the Encyclopedia of Life and %{content_partner_name}"
+  content_partner_agreement_introduction: "The Encyclopedia of Life and %{content_partner_name} agree to work together to develop and share critical biodiversity content to aid in assembling the Encyclopedia of Life. The Encyclopedia of Life will have access to data objects provided by %{content_partner_name} and %{content_partner_name} will have access to the resources of the Encyclopedia of Life, including species pages, scanned literature, and informatics tools in accordance with the terms listed below."
+  content_partner_agreement_introduction_header: Introduction
+  content_partner_agreement_licensing: "To the greatest extent possible, the Encyclopedia of Life promotes an open-source, open-access approach. Therefore, it requires that content providers (including the EOL's core participants) serving information through the EOL agree to the following provisions:"
+  content_partner_agreement_licensing_creative_commons_information: "Full information about the Creative Commons licensing can be found at http://www.creativecommons.org."
+  content_partner_agreement_licensing_header: "Content licensing"
+  content_partner_agreement_licensing_provision_alternate_restrictive_license: "Content providers who request some restrictions on re-use of their information may select an alternate Creative Commons license: CC-BY-SA (Attribution-ShareAlike), CC-BY-NC (Attribution-NonCommercial) or CC-BY-NC-SA (Attribution-NonCommercial-ShareAlike)."
+  content_partner_agreement_licensing_provision_attribution: "The EOL will provide attribution information for all content that it serves. EOL will also indicate the Creative Commons license attached to each object (text, structured data, graphics, multimedia, etc.)."
+  content_partner_agreement_licensing_provision_preferred_license: "Content providers are required to adopt a Creative Commons license for the information subject to copyright that they serve through the EOL. The default and preferred license is CC-BY (Attribution), which allows users to copy, transmit and reuse the information, and to remix or adapt the information, as long as attribution regarding the source of the information is maintained."
+  content_partner_agreement_licensing_provision_public_domain_ipr: "All information currently in the public domain will remain in the public domain. Neither the EOL nor the content providers will seek to assert any IPR over any public domain materials that are made available through the EOL."
+  content_partner_agreement_licensing_provision_rights_holder_permission: "Content providers warrant and represent that the content they provide under this Agreement either is in the public domain, that they hold the rights, or that they have obtained the necessary permissions from the rights-holders to use, reproduce and disseminate the content for use in the Encyclopedia, and that the content providers will hold EOL and the members of the EOL consortium harmless in the event of a claim arising from the submitted content."
+  content_partner_agreement_parties: "The Encyclopedia of Life (EOL) is an informal consortium of organizations dedicated to building an on-line Encyclopedia of Life composed of content-rich multi-media species pages for all of the presently known species on Earth. The cornerstone institutions of the EOL are listed at %{cornerstone_institutions_list_url}. Currently, the EOL is composed of five working groups:"
+  content_partner_agreement_parties_biodiversity_informatics_group_definition: "Conceptualizes and prepares the software needed to host and to search the species pages; applies taxonomic intelligence to the scientific names on the species pages and in the literature."
+  content_partner_agreement_parties_biodiversity_informatics_group_name: "Biodiversity Informatics Group"
+  content_partner_agreement_parties_biodiversity_synthesis_group_definition: "Holds synthesis meetings to help reach taxonomic consensus on megadiverse groups; develops tools for analyzing and synthesizing information across species pages."
+  content_partner_agreement_parties_biodiversity_synthesis_group_name: "Biodiversity Synthesis Group"
+  content_partner_agreement_parties_education_outreach_group_definition: "Exploits the EOL's potential by exploring and promoting its educational uses."
+  content_partner_agreement_parties_education_outreach_group_name: "Education and Outreach Group"
+  content_partner_agreement_parties_header: "The parties"
+  content_partner_agreement_parties_scanning_digitization_group_definition: "Working with the Biodiversity Heritage Library, a consortium of many of the world's largest natural history libraries, digitizes and marks up the world's biodiversity literature."
+  content_partner_agreement_parties_scanning_digitization_group_name: "Scanning and Digitization Group"
+  content_partner_agreement_parties_species_pages_group_definition: "Defines the composition of information on species pages; works with the scientific community to identify potential sources of information (such as the Content Partner) for the species pages and to authenticate the information on the species pages; establishes licensing agreements with data providers."
+  content_partner_agreement_parties_species_pages_group_name: "Species Pages Group"
+  content_partner_agreement_roles_use_terms_amending_or_terminating_agreement: "Either Party may amend or modify this Agreement by notifying the other Party in writing and with the prior written agreement of the other Party. Either Party may withdraw from the Agreement by providing written notification to the other Party 90 days in advance of withdrawal. Should %{content_partner_name} withdraw from the agreement, EOL will remove %{content_partner_name} content within one month."
+  content_partner_agreement_roles_use_terms_eol: "In handling the content provided by %{content_partner_name}, EOL will:"
+  content_partner_agreement_roles_use_terms_eol_term_access_content: "Enable %{content_partner_name} to access content from the EOL and to use that content on %{content_partner_name}'s own server or site according to the terms of the Creative Commons licenses, if any, for that content."
+  content_partner_agreement_roles_use_terms_eol_term_api: "Present or pass along %{content_partner_name}'s data objects to others using web services (such as APIs) which will carry the same Creative Commons licenses and specified manner of attribution."
+  content_partner_agreement_roles_use_terms_eol_term_attribution: "Attribute all of %{content_partner_name}'s data objects according to its preferred Creative Commons licenses and in the manner specified by %{content_partner_name}."
+  content_partner_agreement_roles_use_terms_eol_term_cache: "Cache %{content_partner_name}'s data objects along with similar content from other sources on EOL's servers."
+  content_partner_agreement_roles_use_terms_eol_term_copyright_notice: "Post on the EOL site a statement designating an agent for receiving notice of any content alleged to violate copyright or other rights; remove any content upon receiving such notice or upon otherwise discovering infringing content."
+  content_partner_agreement_roles_use_terms_eol_term_feedback_notification: "Notify %{content_partner_name} of any comments or feedback received about its data objects."
+  content_partner_agreement_roles_use_terms_eol_term_improve_quality: "Work with %{content_partner_name} to improve the quality of the provided data objects and reduce errors."
+  content_partner_agreement_roles_use_terms_eol_term_not_alter: "Not alter the data objects provided; however EOL will enable annotations or comments to be added."
+  content_partner_agreement_roles_use_terms_eol_term_partner_logo: "Show %{content_partner_name}'s logo and project description on its list of data partners."
+  content_partner_agreement_roles_use_terms_eol_term_provide_tools: "Provide tools and methods to enable %{content_partner_name} to provide its content to the EOL."
+  content_partner_agreement_roles_use_terms_eol_term_reserves_right_to_unpublish: "EOL may elect at its sole discretion to present all, portions or none of any data objects provided by %{content_partner_name} and reserves the right to redact or remove any illegal, offensive, or objectionable content."
+  content_partner_agreement_roles_use_terms_eol_term_reuse_requests: "Refer all requests for re-usage of %{content_partner_name}'s content to %{content_partner_name}."
+  content_partner_agreement_roles_use_terms_eol_term_usage_notification: "Notify %{content_partner_name} of statistics about the usage of its data objects."
+  content_partner_agreement_roles_use_terms_header: "Roles and conditions of use"
+  content_partner_agreement_roles_use_terms_not_creating_legal_partnership: "The parties do not intend to create a legal partnership, principal/agent, or joint venture relationship and nothing in this agreement shall be construed as creating such a relationship between the parties. Neither party may incur any obligation on behalf of the other."
+  content_partner_agreement_roles_use_terms_not_exclusive: "This agreement is non-exclusive, and in no way restricts either EOL or %{content_partner_name} from participating in similar activities or arrangements with other public or private initiatives, organizations, or individuals."
+  content_partner_agreement_roles_use_terms_not_exploit_association_with_eol: "%{content_partner_name} agrees that it shall not use the names or logos of EOL or any EOL cornerstone institution in any manner or through any medium without EOL’s or the EOL cornerstone institution’s prior, written consent. Upon the expiration or termination of this Agreement, %{content_partner_name} shall immediately cease to use the names or logos of EOL or any EOL cornerstone institution and shall not exploit in any manner its association with EOL or any EOL cornerstone institution unless otherwise agreed to in writing by EOL or any EOL cornerstone institution at the time of such expiration or termination."
+  content_partner_agreement_roles_use_terms_not_financial_obligation: "This agreement and the obligations set forth herein shall be subject to available funding and nothing in this agreement creates any financial obligation on the part of either party."
+  content_partner_agreement_roles_use_terms_partner: "In providing its content to EOL, %{content_partner_name} will:"
+  content_partner_agreement_roles_use_terms_partner_term_content_format: "Provide its content via a format and interchange method compatible with the EOL."
+  content_partner_agreement_roles_use_terms_partner_term_eol_logo: "Be able to display the EOL logo on its web site."
+  content_partner_agreement_roles_use_terms_partner_term_fitness_for_purpose: "Provide data objects as-is with no warranty or claim of fitness for purpose."
+  content_partner_agreement_roles_use_terms_partner_term_improve_quality: "Work with the EOL to improve the quality of the provided data objects and reduce errors."
+  content_partner_agreement_roles_use_terms_partner_term_license_compliance: "Comply with the Creative Commons licenses of any EOL content from other Content Partners that it may choose to use for its own purposes and to provide full attribution in the specified manner of the license."
+  content_partner_agreement_roles_use_terms_partner_term_respond_to_feedback: "Respond to the originators of comments or feedback communicated to %{content_partner_name} via the EOL regarding its content."
+  content_partner_agreement_was_updated: "Content partner agreement was updated."
+  content_partner_collections_empty: "Content partner collections list data that the partner has provided through their resources. No published collections were found at this time."
+  content_partner_column_header_partner: Partner
+  content_partner_column_header_registered: Registered
+  content_partner_column_header_status: Status
+  content_partner_contact_create_successful_notice: "Contact has been added."
+  content_partner_contact_create_unsuccessful_error: "Sorry, an error occurred, the contact was not added."
+  content_partner_contact_delete_successful_notice: "Contact has been deleted."
+  content_partner_contact_delete_unsuccessful_error: "Sorry, an error occurred, the contact was not deleted."
+  content_partner_contact_edit_link: "Edit contact"
+  content_partner_contact_edit_page_subheader: "Edit contact"
+  content_partner_contact_new_edit_form_header: "Content partner contact information"
+  content_partner_contact_new_edit_form_tip: "First name, last name and email are %{required_icon} required."
+  content_partner_contact_new_link: "Add new contact"
+  content_partner_contact_new_page_subheader: "Add a contact"
+  content_partner_contacts_header: Contacts
+  content_partner_contacts_page_title: "Content Partner Contacts - %{name}"
+  content_partner_contacts_with_count:
+    one: "%{count} contact"
+    other: "%{count} contacts"
+  content_partner_create_successful_notice: "Content partner successfully created."
+  content_partner_create_unsuccessful_error: "Sorry, an error occurred, content partner was not created."
+  content_partner_curated_data: "content partner curated data"
+  content_partner_data_description_empty: "No one has added a description of the data provided."
+  content_partner_data_description_header: "Description of data"
+  content_partner_detail: "Content Partner Detail"
+  content_partner_details: "content partner details"
+  content_partner_edit_link: "Edit content partner"
+  content_partner_empty: "No content partner found."
+  content_partner_has_unpublished_content_false: "No unpublished content"
+  content_partner_has_unpublished_content_true: "Unpublished content"
+  content_partner_hierarchies: "content partner hierarchies"
+  content_partner_homepage_link: "Visit partner Web site"
+  content_partner_latest_published_harvest_event_time_ago: "Last harvested %{time_passed} ago"
+  content_partner_logo_alt_text: "Logo for content partner %{partner_name}"
+  content_partner_managed_by_header: "Managed by"
+  content_partner_new_edit_form_profile_header: "Content partner profile information"
+  content_partner_new_edit_form_tip: "Some of the information you enter here will be publicly visible. Project name and description are %{required_icon} required."
+  content_partner_new_link: "Add new content partner"
+  content_partner_new_page_subheader: "Add a new content partner"
+  content_partner_notes_empty: "There aren't any additional notes for this project."
+  content_partner_notes_header: "Project notes"
+  content_partner_objects_stats: "content partner objects stats"
+  content_partner_overview_link: "Partner Overview"
+  content_partner_registered_time_ago: "Registered %{time_passed} ago"
+  content_partner_resource_about_header: "About resource"
+  content_partner_resource_collection_empty: "A collection has not been generated for this resource."
+  content_partner_resource_collection_header: "Published collection"
+  content_partner_resource_collections_header: Collections
+  content_partner_resource_create_successful_notice: "Content partner resource details successfully added. Current status of resource data: %{resource_status}."
+  content_partner_resource_create_unsuccessful_error: "Sorry, an error occurred, the resource was not added."
+  content_partner_resource_dataset_details_header: Dataset
+  content_partner_resource_description_empty: "A description has not been provided for this resource."
+  content_partner_resource_edit_link: "Edit resource"
+  content_partner_resource_edit_subheader: "Edit resource"
+  content_partner_resource_force_harvest_link: "Force harvest"
+  content_partner_resource_licensing_details_header: "Rights &amp; attribution"
+  content_partner_resource_new_edit_form_tip: "Enter information about your data resource. Resource name, license and language are %{required_icon} required. In addition, please enter the public URL of your EOL Transfer Schema data resource, and specify how often you would like your data to be harvested by EOL. If you do not have a public URL for your data resource you may directly upload an EOL Transfer Schema data file in GZIP, TAR or XML format."
+  content_partner_resource_new_link: "Add a new resource"
+  content_partner_resource_new_subheader: "Add a new resource"
+  content_partner_resource_preview_collection_header: "Preview collection"
+  content_partner_resource_resource_status_new: Created
+  content_partner_resource_show_subheader: "Details for resource <em>%{resource_title}</em>"
+  content_partner_resource_update_successful_notice: "Content partner resource details successfully updated. Current status of resource data: %{resource_status}."
+  content_partner_resource_update_unsuccessful_error: "Sorry, an error occurred, the resource was not updated."
+  content_partner_resource_url_or_dataset_not_both_error: "Dataset URL or file per resource, not both. Please decide whether you want to provide a URL or upload a file for this described resource. Additional resources can be added later."
+  content_partner_resources_header: Resources
+  content_partner_resources_information: "Resources are datasets that are available for harvesting by EOL. Harvested data is integrated into the EOL database and served to the public through the EOL Web site and API. Resource files can either be uploaded directly to EOL or, if you make your resource file available on a public Web server, EOL can automatically extract the data at regular intervals which you can define. Each resource file must be in the <a href=\"%{eol_transfer_schema_url}\">EOL Transfer Schema</a> format"
+  content_partner_resources_link: "Resources &amp; Contacts"
+  content_partner_resources_link_back_to: "go back to resources &amp; contacts"
+  content_partner_resources_policy_information: "Before adding your data resources please review and agree to the following content partner terms of use agreement."
+  content_partner_resources_unpublished_with_count:
+    one: "%{count} unpublished"
+    other: "%{count} unpublished"
+  content_partner_resources_with_count:
+    one: "%{count} resource"
+    other: "%{count} resources"
+  content_partner_statistics_column_header_provider_count: "Pages containing provider content"
+  content_partner_statistics_column_header_provider_proportion: "Provider percentage"
+  content_partner_statistics_column_header_statistic: "Statistic measured for the month of %{month_name}, %{year}"
+  content_partner_statistics_column_header_taxa_page_page_views: "Page Views"
+  content_partner_statistics_column_header_taxa_page_time_on_page_seconds: "Time On Page (seconds)"
+  content_partner_statistics_column_header_taxa_page_unique_page_views: "Unique Page Views"
+  content_partner_statistics_column_header_total_count: "All pages"
+  content_partner_statistics_empty: "No statistics found for %{month_name} %{year}."
+  content_partner_statistics_link: "Usage Statistics"
+  content_partner_statistics_summary_caption: "Summary of usage statistics for taxon pages containing content provided by %{partner_name} relative to total usage of the EOL Web site."
+  content_partner_statistics_taxa_page_caption: "Detailed usage statistics for taxon pages containing content provided by %{partner_name}."
+  content_partner_terms_agreed_to_false: "Pending agreement"
+  content_partner_terms_agreed_to_true: Agreed
+  content_partner_unvetted: Unreviewed
+  content_partner_update_successful_notice: "Partner details successfully updated."
+  content_partner_update_unsuccessful_error: "Sorry, an error occurred, partner details were not updated."
+  content_partner_vetted: Vetted
+  content_partners: "Content Partners"
+  content_partners_empty: "No content partners found."
+  content_partners_intro: "Below is a list of partners, including content partners, with information on this taxon. Where possible the links will take you to the corresponding content on the given partner's website. The unique identifier for this taxon used by each partner is embedded in these links, and these identifiers are also accessible through the %{link}"
+  content_partners_page_description: "Encyclopedia of Life content partners serve authenticated species information through the EOL portal. After developing a joint commitment, the content partners work closely with the EOL component groups to make their data visible within EOL. Learn more about <a href=\"%{more_url}\">becoming a content partner.</a>"
+  content_partners_page_title: "Content Partners"
+  content_partners_with_count:
+    one: "%{count} Content partner"
+    other: "%{count} Content partners"
+  content_setting_colon: "Content Setting:"
+  content_summary_introduction_html: "The following values represent the sum of different types of content for this taxon and all of its taxonomic descendants. %{glossary_term_trusted} content has either been approved by an EOL curator or comes from a trusted provider. %{glossary_term_unreviewed} content has not yet been assessed by an EOL curator. Every taxonomic hierarchy is unique, so each browsable hierarchy is listed for comparison."
+  content_summary_table_caption: "A summary of content associated with %{taxon_name} and it's descendants in %{hierarchy_label}"
+  content_summary_table_count_column_header: Count
+  content_summary_table_summary: "This table contains counts of different types of content separated by content state."
+  content_summary_table_type_descendants_row: "Number of descendants"
+  content_summary_table_type_status_column_header: "Content type and status"
+  content_summary_table_type_trusted_images_row: "Number of trusted images"
+  content_summary_table_type_trusted_text_row: "Number of trusted text items"
+  content_summary_table_type_unreviewed_images_row: "Number of unreviewed images"
+  content_summary_table_type_unreviewed_text_row: "Number of unreviewed text items"
+  copied_items_from_collection_with_count_notice:
+    one: "Copied %{count} item from %{name}."
+    other: "Copied %{count} items from %{name}."
+  copy: Copy
+  copy_all_articles_button: "copy all articles"
+  copy_all_collections_button: "copy all collections"
+  copy_all_communities_button: "copy all communities"
+  copy_all_images_button: "copy all images"
+  copy_all_items_button: "copy entire collection"
+  copy_all_people_button: "copy all people"
+  copy_all_sounds_button: "copy all sounds"
+  copy_all_taxa_button: "copy all taxa"
+  copy_all_videos_button: "copy all videos"
+  copy_of_name: "Copy of %{name}"
+  correct_donation_message: "If this information is not correct, please %{go_back_link} to make changes"
+  could_not_find_collection_error: "Sorry, that collection could not be found."
+  could_not_find_user: "Couldn't find a member for this user"
+  count_results_for_search_term:
+    one: "%{count} result for <em>%{search_term}</em>"
+    other: "%{count} results for <em>%{search_term}</em>"
+  create_a_collection: "Create a collection"
+  create_a_community: "Create a community"
+  create_a_community_login_advisory: "You will be asked to login before creating your community"
+  create_account: "create an account"
+  create_collection_button: "Create collection"
+  create_community: "Create community"
+  create_community_about_heading: "About creating a community"
+  create_community_about_text: "You are about to create a community around the contents of \"%{collection_name}\".  All users will be able to join your community, but only those members to whom you grant \"manager\" status will be allowed to edit the community itself or the collection associated with your community."
+  create_community_around_this_collection_header: "Create a community around this collection"
+  create_community_unsuccessful_error: "Sorry, an error occurred, your community was not created. Please ensure all fields are completed correctly."
+  create_user_form_header: "Create a new <abbr title=\"Encyclopedia of Life\">EOL</abbr> account"
+  create_user_unsuccessful_error: "Sorry, an error occurred, your new account was not created. Please ensure all fields are completed correctly."
+  created: Created
+  created_colon: "Created:"
+  created_community: "Community was successfully created."
+  credentials: Credentials
+  curated: Curated
+  curated_association_update_button: "Save changes"
+  curation_activity_colon: "Curation activity:"
+  curation_comment: "Curation Comment"
+  curation_privileges_page_description: "Select your desired curation level, assistant, full or master curator. Full and master curator applications must include scope and credentials, you will be notified by email once your details have been reviewed and accepted. Assistant curator applications are not moderated and will be instantly approved. Learn more about <a href=\"%{curator_faq_url}\">becoming a curator</a>."
+  curation_privileges_page_title: "Become a curator"
+  curation_reason_placeholder: "additional details (optional)"
+  curator_title: Curator
+  curator_clade: "Curator Clade"
   curator_colon: "Curator:"
-  moderator_colon: "Moderator:"
-  account_information: "Account Information"
-  account_registered_but_not_ready_try_later: "Your account is registered but not ready for you to access. Please try again in five minutes."
-  action_not_available_error: "Sorry, that action is not available."
-  actions: Actions
-  your_preferences: "Your Preferences"
-  your_preferences_have_been_updated: "Your preferences have been updated."
-  your_rating: "Your rating"
-  your_rating_colon: "Your Rating:"
-  worklist: Worklist
-  year: Year
-  you_are_an_admin_so_i_will_show_you_that_the_error_was: "You are an admin.  So, I will show you that the error was:"
-  you_are_not_authorized_to_perform_this_action: "You are not authorized to perform this action."
-  you_are_viewing_this_rank_as_classified_by: "You are viewing this %{rank} as classified by:"
-  you_have_been_logged_out: "You have been logged out."
-  you_removed_the_member_from_the_community: "You have successfully removed this member from the community."
-  wikipedia_article_revision_for_ingestion: "EOL is now allowing curators to submit a revision of a Wikipedia page to be ingested into EOL as a vetted text object. To find the revision URL of a Wikipedia article first go to the article main page (e.g. <a href='http://en.wikipedia.org/w/index.php?title=Giraffe'>http://en.wikipedia.org/w/index.php?title=Giraffe</a>) and expand in the left hand menu the 'Toolbox' menu item. You should now see the 'Permanent link' item. Either copy the URL of that link, or click the link and copy the URL in your browser's address bar. The revision URL will look something like <a href='http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069'>http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>."
-  what_is_a_taxon: "What is a taxon?"
-  what_is_eol: "What is EOL?"
-  what_is_this_question: "What's this?"
-  view_only_pages_with_at_least_a_picture_or_piece_of_text: "View only pages with at least a picture or piece of text"
-  view_protein_and_nucleotide_se: "View protein and nucleotide sequences in NCBI"
-  view_translation_source_link: "View translation source"
-  visible_title: Visible
-  wants_colon: "Wants:"
-  watch_list: "Watch list"
-  view_full_size_image: "View full-size image"
-  vetted: Vetted
-  video_thumbnail_alt_text: "This %{vetted_status} video is of %{scientific_name}"
-  the_amount_entered_was: "The amount entered was : US %{number}"
-  the_mission_of_the: "The mission of the %{link} is to develop new information technologies to aid in the understanding of fundamental molecular and genetic processes that control health and disease."
-  the_ncbi_taxonomy_contains_names_using: "The %{linka} database contains the names of all organisms that are represented in the genetic databases with at least one nucleotide or protein sequence. You can %{linkb} using the NCBI Taxonomy."
-  the_results_are_analyzed_with_the_tool: "The results are analyzed with the %{link_ligercat} tool, which builds the cloud from the most relevant Medical Subject Headings (%{link_mesh}). Each term's relative size indicates how many times it appears in the PubMed search results. Click on a term to access the full LigerCat cloud, with live PubMed search capabilities."
-  there_are_currently_no_members_in_this_community: "There are currently no members in this community."
-  there_was_an_error_posting_your_text: "There was an error posting your text."
-  these_terms_are_derived_by_searching: "These terms are derived by searching the biomedical literature database, %{link} for the name \"%{scientific_name}\"."
-  this_community_has_no_endorsed_collections: "This community has not featured any collections."
-  this_community_has_no_focus_list: "This community has no focus list."
-  this_is_a_focus_collection_for_community: "This collection is the focus of \"%{community}\"."
-  threat_status_header_colon: "IUCN threat status:"
-  time_ago: "%{time_passed} ago"
-  title: Title
-  to_process_your_donation_please_proceed: "To process your donation please proceed"
-  toc: TOC
-  total_items_with_count:
-    one: "%{count} item"
-    other: "%{count} total items"
-  translations_submit: "View translation"
-  trusted: Trusted
-  try_your_request_again: "Try your request again"
-  twitter: Twitter
-  type: Type
-  unable_to_copy_items_error: "Sorry, I was unable to copy the collection items."
-  unknown: Unknown
-  unreviewed: Unreviewed
-  untrusted: Untrusted
-  update_collection_submit_button: "Update collection details"
-  update_user_successful_notice: "Account successfully updated."
-  update_user_unsuccessful_error: "Sorry, an error occurred, your account was not updated. Please ensure all fields are completed correctly."
-  updated: Updated
-  updated_member: "Member was successfully updated."
-  updates: Updates
-  updates_with_count:
-    one: "%{count} Update"
-    other: "%{count} Updates"
-  upload_logo_help_text: "This will be the primary image representing your community – it can be whatever you like."
-  us_dolars_75: "US $75"
-  us_dollars_100: "US $100"
-  us_dollars_35: "US $35"
-  us_dollars_50: "US $50"
-  user: User
-  user_activation_failed_resent_validation_email_error: "Sorry, an error occurred, your account could not be verified. This usually occurs when the verficiation link you entered or selected is not recognised. Activation instructions have been resent to the email address you registered with, please ensure the verficiation link you use matches the one provided in the activation email."
-  user_activation_failed_user_not_found_error: "Sorry, an error occurred, the account you are trying to verify could not be found. Please ensure the verficiation link you use matches the one provided in the activation email you received after registering."
-  user_activation_successful_notice: "Welcome, and thanks for joining the Encyclopedia Of Life team. Your account with username <em>%{username}</em> is now active, please login."
-  user_already_active_notice: "Your account is already active, please login."
-  user_commented_on_something_colon: "<strong>%{user}</strong> commented on %{what}:"
-  user_left_comment_on_date: "%{username} left a comment on %{date}."
-  user_says_colon: "%{users_name} says:"
-  user_system_down: "We apologize, but the user registration system is not currently available.  Please try again later."
-  username_taken: "%{name} is already taken"
-  users_about_me_header: "About me"
-  users_content_partners_header: "Content partners"
-  users_content_partners_information: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt hendrerit tortor, commodo faucibus turpis imperdiet non. Nullam tincidunt, est vel euismod volutpat, libero turpis suscipit neque, nec viverra magna augue non nisl. Praesent et risus sit amet quam sagittis pulvinar eu at odio. Etiam mattis enim turpis, cursus rutrum massa. Ut blandit varius tellus, vitae interdum nulla pulvinar nec."
-  users_content_partners_link: "Content partners"
-  users_content_partners_with_count:
-    one: "%{count} current content partner"
-    other: "%{count} current content partners"
-  users_curation_header: "Curator qualifications"
-  users_form_account_header: "Your account"
-  users_form_curation_header: "Curator qualifications"
-  users_form_profile_info_header: "Public profile information"
-  users_form_tip: "Username is required for all users, other items marked as required %{required_icon} are optional for general users but required for curators."
-  users_member_of_count_communities:
-    one: "Member of %{count} community"
-    other: "Member of %{count} communities"
-  users_my_info_header: "My info"
-  users_pending_activation_message: "A confirmation message has been sent to the email address you have provided. To complete the registration process and become an EOL member, please click on the link included in that email. Thank you!"
-  stats_last_count_less_than_minutes_ago: "Counts last udpated less than %{minutes} minutes ago."
-  submit: Submit
-  supplier: Supplier
-  supplier_colon: "Supplier:"
-  switch_language_advisory_information: "Switch the site language to %{language_label}"
-  synonym: Synonym
-  synonyms_with_count:
-    one: "%{count} synonym"
-    other: "%{count} synonyms"
-  table_of_contents: "Table of Contents"
-  task_status: "Task status"
-  tasks_with_count:
-    one: "%{count} task found"
-    other: "%{count} tasks found"
-  taxa: Taxa
-  taxon: taxon
-  taxon_details_empty: "No one has contributed any details about this taxon yet."
-  taxon_id: "Taxon ID"
-  taxon_recognised_by_header: "Recognized by"
-  terms_agreement_beta_intro: "Thank you for participating in the EOL Version 2 Beta. Before proceeding we need you to agree to the following:"
-  terms_agreement_form_fallback: "Please review and agree to the <a href=\"%{terms_url}\">terms of use</a> before accessing your account."
-  terms_agreement_form_header: "Terms Of use"
-  terms_agreement_form_submit: "I agree"
-  terms_provided_by: "Terms provided by %{link}."
-  test: Test.
-  text_summary_empty: "No one has contributed a brief summary for this taxon yet."
-  text_summary_empty_header: "Brief summary"
-  text_summary_more_link: "Read full entry"
-  thank_you_for_your_generous_support: "Thank you for your generous support"
-  sort_by_title_descending: "Title Descending"
-  sort_by_year_descending: "Year Descending"
-  sound_thumbnail_alt_text: "This %{vetted_status} audio recording is of %{scientific_name}"
-  source_and_additional_information: "Source and Additional Information"
-  source_information_header: "Source information"
-  source_url: "Source URL"
-  special_collections_cannot_be_destroyed: "This collection is special and cannot be destroyed."
-  species_curated: "Species Curated"
-  rss_abbr_html: "<abbr title=\"Really Simple Syndication\">RSS</abbr>"
-  save: Save
-  save_annotation_submit_button: "Save annotation"
-  save_curated_association_submit_button: "Save association"
-  scientific_name: "Scientific Name"
-  search_by_term_page_title: "Search: %{term}"
-  search_field_label: "Search EOL"
-  search_input_advisory_information: "Enter common or scientific names of living organisms that you would like to know more about, for example try entering tomato."
-  search_placeholder: "Search EOL ..."
-  search_results: "Search Results"
-  search_the_site: "Search the site"
-  see_all_classifications_with_count_html:
-    one: "See the <span class=\"assistive\">%{count} approved classification in which this taxon appears.</span>"
-    other: "See all <span class=\"assistive\">%{count} approved classifications in which this taxon appears.</span>"
-  see_all_collections_with_count_html:
-    one: "See the <span class=\"assistive\">%{count} collection in which this taxon appears.</span>"
-    other: "See all <span class=\"assistive\">%{count} collections in which this taxon appears.</span>"
-  see_all_comments_with_count_for_text:
-    one: "see %{count} comment for this article"
-    other: "see all %{count} comments for this article"
-  see_all_media_link: "See all media"
-  see_all_updates_with_count_html:
-    one: "See all <span class=\"assistive\">%{count} updates for this taxon.</span>"
-    other: "See all <span class=\"assistive\">%{count} updates for this taxon.</span>"
-  select_topic: "Please select a topic area"
-  selected_items: "Selected items"
-  selected_language_advisory_information: "This is the currently selected language."
-  set_as_exemplar: "Set as exemplar"
-  show: Show
-  show_data_from_all_content_partners: "show data from all content partners"
-  show_full_tree: "show full tree"
-  show_tasks: "show tasks"
-  sign_in: "Sign in"
-  sign_in_remember_me_disallowed_for_admins_notice: "For security reasons, administrators cannot use the remember me feature."
-  sign_in_successful_notice: "Login successful."
-  sign_in_unsuccessful_error: "Login failed. Invalid username, email address or password."
-  sign_out: "Sign Out"
-  site_information: "Site information"
-  skip_to_content: "Skip to content"
-  sort_by: "Sort by"
-  reset_password_enter_new_password_notice: "This is a one time login, please enter a new password to continue."
-  reset_password_instructions_sent_to_user_notice: "Instructions for resetting the password on your account <em>%{username}</em> have been sent to your email address."
-  reset_password_token_expired_error: "Sorry, your password has not been reset. The link provided has expired, please fill out and submit the forgot password form again to receive a new link."
-  resources: Resources
-  revisions: Revisions
-  revoke_full_curator_link: Revoke
-  revoke_manager_link: "Revoke manager role"
-  rights: Rights
-  rights_holder: "Rights Holder"
-  rights_statement: "Rights statement"
-  remove_data_object_association: "Remove association"
-  remove_membership: "Remove membership"
-  removed_count_items_from_collection_notice:
-    one: "%{count} item has been removed from this collection."
-    other: "%{count} items have been removed from this collection."
-  request_wikipedia_article_ingestion: "Request Wikipedia article ingestion:"
-  rank_recognized_by_agent_colon: "%{rank} recognized by %{agent}:"
-  rated_by_count_people:
-    one: "from %{count} person"
-    other: "from %{count} people"
-  rating_added_notice: "Rating was added successfully."
-  rating_not_added_error: "Sorry, an error occurred, the rating could not be added."
-  recaptcha: "Type in the two words you see below"
-  recaptcha_incorrect_error_with_anchor: "The <a href=\"#%{recaptcha_anchor}\">reCaptcha characters</a> did not match, please try again."
-  recent_updates: "Latest updates"
-  recognised_by_hierarchy_agent_as_a_rank: "%{hierarchy_agent} as a %{taxon_rank} <a href=\"%{hierarchy_entry_url}\">view in classification</a>"
-  recognised_by_hierarchy_entry_agent_in_hierarchy_agent_as_a_rank: "%{hierarchy_entry_agent} in %{hierarchy_agent} as a %{taxon_rank} <a href=\"%{hierarchy_entry_url}\">view in classification</a>"
-  recognized_by: "Recognized by"
-  related_names_with_count:
-    one: "%{count} related name"
-    other: "%{count} related names"
-  remove: Remove
-  permalink: Permalink
-  please_confirm_your_donation_details: "Please confirm your donation details"
-  please_enter_a_name_to_find_taxa: "Please enter a name to search taxa"
-  please_indicate_curation_reason: "Please select a reason, and/or optionally leave a curation comment:"
-  post_comment: "Post Comment"
-  preferred_common_name_advisory_information: "This is the preferred common name for this taxon."
-  preferred_name_colon: "Preferred Name:"
-  privacy_and_security_notice: "Privacy and Security Notice:"
-  proceed_to_checkout_page: "Proceed to Checkout Page"
-  profile: Profile
-  profile_image_alt_text_curator: "Profile picture for curator %{user_full_name}"
-  profile_image_alt_text_member: "Profile picture for member %{user_full_name}"
-  public: Public
-  pubmed: PubMed
-  other_collection_items_with_count:
-    one: "%{count} other item"
-    other: "%{count} other items"
-  other_taxa_with_count:
-    one: "%{count} other taxon"
-    other: "%{count} other taxa"
-  other_us_dollars_amount: "Other: US$"
-  overall_colon: "Overall:"
-  overview: Overview
-  pages_admin_section_link: Admins
-  pages_curator_section_link: Curators
-  pages_title: Pages
-  pages_with_count:
-    one: "%{count} page"
-    other: "%{count} pages"
-  pages_with_pictures_and_text: "Pages with pictures and text"
-  pages_with_pictures_or_text: "Pages with pictures or text"
-  new_collection: "New collection"
-  newsfeed: Newsfeed
-  no_items_were_copied_error: "Sorry, no items were copied."
-  no_related_names: "There are no related names."
-  no_tasks_found: "No tasks found"
-  none: none
-  not_evaluated: "Not evaluated"
-  not_recognised_by_available_hierarchies: "Not recognised by any of the available classifications"
-  not_yet_implemented_error: "Sorry, that feature has not been implemented yet."
-  nucleotide_sequences: "Nucleotide Sequences"
-  object: Object
-  object_curation: "Object Curation"
-  object_status: "Object status"
-  object_type: "Object type"
-  object_visibility: "Object visibility"
-  objects_curated: "Objects Curated"
-  national_center_for_biotechnol: "National Center for Biotechnology Information"
-  ncbi_taxonomy: "NCBI Taxonomy"
-  moved_items_from_collection_with_count_notice:
-    one: "Moved %{count} item from %{name}."
-    other: "Moved %{count} items from %{name}."
-  must_be_associated_with_either_a_user_or_a_community: "Must be associated with either a user or a community"
-  must_be_less_than_128_characters_long: "must be less than 128 characters long."
-  must_be_logged_in: "You must be logged in to perform this action."
-  my_activity: "My activity"
-  my_info: "My info"
-  name: Name
-  name_for_community_focus_label: "Name for the community's focus list"
-  name_not_in_select_an_alternate: "Name not in %{hierarchy}. Select an alternate hierarchy from the list above"
-  name_preferred_for_language_no: "No"
-  name_preferred_for_language_yes: Preferred
-  names: Names
-  more_children_with_count:
-    one: "%{count} more..."
-    other: "%{count} more..."
-  most_active_members: "Most active members"
-  move: Move
-  media_list_empty: "No one has contributed any media for this taxon yet."
-  media_list_empty_contribute_instructions: "Learn how to contribute media to EOL."
-  media_summary_empty: "No one has contributed any images for this taxon yet."
-  media_summary_empty_contribute_instructions: "Learn how to contribute images to EOL."
-  media_with_count:
-    one: "%{count} Media"
-    other: "%{count} Media"
-  member_of: "member of"
-  members_like_you: "Members like you"
-  members_with_count:
-    one: "%{count} member"
-    other: "%{count} members"
-  mesh: MeSH
-  minimal_page: "Minimal Page"
-  ligercat: LigerCat
-  listing_collections: "Listing collections"
-  literature: Literature
-  literature_bhl_information: "The following bibliography has been generated by automated services. BHL uses taxonomic intelligence tools to locate, verify, and record scientific names located within the text of each digitized page in the BHL digital collection."
-  literature_bhl_link: "View Discovered Bibliography in BHL"
-  literature_empty: "No references found."
-  literature_header: References
-  literature_references: "Literature references"
-  location: Location
-  login_header: "Sign in to your <abbr title=\"Encyclopedia of Life\">EOL</abbr> account"
-  login_or_create_account: "Login or Create Account"
-  logo_header: Logo
-  maintained_by: "maintained by"
-  manage_community: "Manage community"
-  managed_by: "Managed by"
-  manager_endorse_collecitons_suggestion: "To feature a collection on this page, add the collection to the community's focus."
-  manager_parens: (manager)
-  maps_empty: "No one has contributed any maps for this taxon yet."
-  maps_empty_contribute_instructions: "Learn how to contribute maps to EOL."
-  maps_with_count:
-    one: "%{count} Map"
-    other: "%{count} Maps"
-  media: Media
-  items_with_count:
-    one: "%{count} item"
-    other: "%{count} items"
-  items_with_count_semi_colon:
-    one: "%{count} item;"
-    other: "%{count} items;"
-  iucn_red_list_status_advisory_information: "This link will take you to the International Union for Conservation of Nature (IUCN) Web site where you can find more information on the IUCN Red List of Threatened Species."
-  join_community_button: "Join this community"
-  join_eol_button_html: "Join <abbr title=\"Encyclopedia of Life\">EOL</abbr> now"
-  join_eol_community_html: "Become part of the <abbr title=\"Encyclopedia of Life\">EOL</abbr> community!"
-  joined_time_ago: "Joined %{time_passed} ago"
-  just_pages_with_pictures_and_text: "Just those pages with pictures and text"
-  language: "Language:"
-  language_menu_item: "%{language_label} <abbr>(%{language_abbr})</abbr>"
-  languages: Languages
-  last_updated_time_ago: "Last updated %{time_passed} ago"
-  learn_about_content_partners: "Learn about our content partners"
-  learn_how_to_contribute: "Learn how you can contribute"
-  learn_how_to_interact: "Learn how you can interact"
-  learn_how_to_join: "Learn how you can join"
-  learn_more_about_names_for_this_taxon: "learn more about names for this taxon"
-  learn_more_with_data_type: "learn more about this %{data_type}"
-  leave_a_comment: "Leave a comment"
-  leave_community_button: "Leave this community"
-  license: License
-  in_my_collection_button: "In my collection"
-  inappropriate: Inappropriate
-  indexed: Indexed
-  insufficient_privileges_to_add_common_name: "You do not have privileges to add a common name to this taxon"
-  insufficient_privileges_to_curate_names: "Sorry, you do not have sufficient privileges to curate names."
-  invite_members_help_text: "Add some EOL users here and they will receive an invitation to your new community!"
-  invite_members_label: "Invite Members"
-  item_added_to_collection_notice: "Item was added to collection <em>%{collection_name}</em>"
-  item_added_to_watch_collection_notice: "\"%{item_name}\" was added to %{collection_name}."
-  item_details_missing: "Sorry, an error occurred, item details could not be retrieved."
-  item_not_added_already_in_collection: "This item has already been added to the collection."
-  item_not_added_to_collection_error: "Sorry, an error occurred, the selected item could not be added to the collection."
-  item_not_added_to_itself_notice: "Sorry, you cannot add collection <em>%{collection_name}</em> to itself."
-  item_not_updated_in_collection_error: "Sorry, an error occurred, the collection item could not be updated."
-  item_type_article_assistive: "This item is an article"
-  item_type_collection_assistive: "This item is a collection"
-  item_type_person_assistive: "This item is a person"
-  item_type_taxon_assistive: "This item is a taxon"
-  item_updated_in_collection_notice: "Item successfully updated in <em>%{collection_name}</em> collection."
-  hidden: Hidden
-  hierarchy_entry_switch_missing_id_error: "Sorry, the hierarchy entry page you selected could not be found due to a missing identifier."
-  home_page_link_advisory_information: "This link will take you to the home page of the Encyclopedia Of Life Web site"
-  identifcation_resources_empty: "No resources found."
-  identification_resources: "Identification Resources"
-  image_is_no_longer_available: "Image is no longer available"
-  image_not_found: "Image not found"
-  image_thumbnail_alt_text: "This %{vetted_status} image is of %{scientific_name}"
-  images: Images
-  filter_media: "filter media"
-  find_taxa_submit_button: "find taxa"
-  flash_notice_redirected_from_search_html: "You've arrived here by searching for <em>%{search_string}</em>. <a href=\"%{more_results_url}\">Click here to return to the search page.</a>"
-  flash_notice_redirected_from_search_html_more_results: "You've arrived here by searching for <em>%{search_string}</em>. <a href=\"%{more_results_url}\">Click here to see other search results.</a>"
-  forgot_password: "Forgot password"
-  forgot_password_cannot_find_user_from_username_or_email_error: "Sorry, there are no user accounts with the provided username or email <em>%{username_or_email}</em>."
-  forgot_password_form_cancel: Cancel
-  forgot_password_form_choose_username_blank_error: "Please select the account you wish to reset the password for."
-  forgot_password_form_choose_username_instructions: "There are several accounts registered with the email address <em>%{email}</em>, please select one account to reset the password for."
-  forgot_password_form_choose_username_legend: "Choose an account"
-  forgot_password_form_header: "Reset your password"
-  forgot_password_form_username_or_email_blank_error: "Please enter your username or email address to reset your password."
-  gbif_occurrence_disclaimer: "This map is based on occurrence records available through GBIF and may not represent the entire taxon distribution"
-  gbif_occurrence_learn_more_link: "Learn more about GBIF occurrence maps."
-  general_error_occurred: "We're sorry but an error has occurred. Please make one more attempt to perform your task. If the error persists, please send an email to %{email} along with the error message below and any other information you'd like to share with us. We are working hard to provide you with the best service possible and we appreciate your support. -- The EOL Team"
-  get_more_tasks: "get more tasks"
-  global_access_tagline: "Global access to knowledge about life on Earth"
-  global_navigation: "Global Navigation"
-  go: Go
-  go_back: "go back"
-  google_translate: "Google Translate"
-  google_translate_advisory_information: "Use Google Translate widget to transform the site content into another language."
-  grant_full_curator_link: Grant
-  grant_manager_link: "Grant manager role"
-  has_already_been_taken: "has already been taken."
-  has_colon: "Has:"
-  help: Help
-  filter_by_type: "Filter by type"
-  explore: Explore
-  external_link_header: "External Link"
-  facebook: Facebook
-  filter_by_status: "Filter by status"
-  example_url_for_wikipedia_article_ingestion: "(eg: http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)"
-  eol_news: "EOL News"
+  curator_level: "Curator level"
+  curator_level_application_pending_notice: "Thanks for applying to become a curator, your application has been queued for review and you will be notified by email when it has been accepted."
+  curator_level_assistant_approved_notice: "Congratulations! You are now an <em>EOL Assistant Curator</em>. <a href=\"%{more_url}\">Learn more about the assistant curator role</a>."
+  curator_list: "Curator List"
+  curator_name: "Curator Name"
+  curator_profile: "curator profile"
+  curator_scope_colon: "Curator scope:"
+  curator_status_changed_by: "Curator status changed by %{user} on %{date}"
+  curators: Curators
+  curators_empty: "Our curators haven't taken any action on this page yet."
+  curators_of_taxon_page_title: "Curators of %{taxon}"
+  curators_summary_header_with_count:
+    one: "Reviewed by %{count} curator"
+    other: "Reviewed by %{count} curators"
+  curators_summary_learn_more_link: "Learn how to curate"
+  curators_with_count:
+    one: "%{count} Curator"
+    other: "%{count} Curators"
+  current_language: "Language: %{iso_code}"
+  currently_in_eol: "Currently in the Encyclopedia of Life"
+  daily: Daily
+  dashboard: Dashboard
+  data_object_not_associated_with_any_hierarchies: "This data object is not associated with any hierarchies."
+  data_usage_reports: "Data Usage Reports"
+  dato_create_cancel: Cancel
+  dato_create_update_user_text_missing_taxon_id_exception: "Unable to build a text DataObject or UsersDataObject if taxon_concept_id is missing."
+  dato_create_user_text_error: "Sorry, an error occurred, the article could not be added."
+  dato_create_user_text_missing_user_exception: "Unable to build a text DataObject or UsersDataObject if user is nil."
+  dato_edit_cancel: Cancel
+  dato_edit_text_link_button: "Edit this article"
+  dato_edit_text_page_description: "Thank you for contributing your expertise to EOL. The revised article will be added to your Watch List so you can follow any conversations related to it and check on its curation status."
+  dato_edit_text_title: "Edit article"
+  dato_new_edit_user_text_fieldset_content_header: "Article content"
+  dato_new_edit_user_text_fieldset_information_header: "Article information"
+  dato_new_edit_user_text_form_tip: "Your article will be marked as \"unreviewed\" until a curator reviews it. Text %{required_icon} is required."
+  dato_new_text_for_taxon_page_title: "Add an article to <i>%{taxon}</i>"
+  dato_new_text_page_description: "Thank you for contributing to EOL. Your article will be added to your Watch List so you can follow any conversations related to it and check on its curation status."
+  dato_update_user_text_error: "Sorry, an error occurred, the article could not be updated."
+  dato_update_users_text_not_owner_exception: "Unable to update text DataObject current user is not owner"
+  dear_contact_full_name: "Dear %{contact_full_name},"
+  default_focus_collection_name_from_community: "%{name}'s Focus"
+  default_watch_collection_name: "%{username}'s Collection"
+  delete: delete
+  descendants: Descendants
+  description: Description
+  description_of: "Description of"
+  descriptive_label: "Descriptive Label"
+  destination_inappropriate_for_logged_in_users: "You are logged in."
+  destroy: Destroy
+  detail: Detail
+  details_title: Details
+  development_version_name: "EOL V2 Beta"
+  did_you_mean: "Did you mean: %{suggestions} ?"
+  disabled_for_now: "DISABLED FOR NOW"
+  displaying_numerical_range: "Displaying %{start_number} &mdash; %{end_number} of %{total}"
+  donate: Donate
+  donation_amount_enter_other_label: "Or, enter an alternative amount to donate"
+  donation_amount_legend: "Choose the amount you would like to donate"
+  donation_amount_other_label: Other
+  donation_confirmation: "Donation Confirmation"
+  donation_error_no_amount: "Please select a donation amount."
+  donation_error_only_numbers: "Please enter an amount using only numbers."
+  donation_message: "Your generous gift to the Encyclopedia of Life supports our mission to gather and share knowledge of Earth's biodiversity.  The entire EOL team thanks you for your kind contribution."
+  donation_privacy_notice: "Please note that this page and the next confirmation page do not collect any personal information or credit card numbers, and are therefore not encrypted. After confirming the amount you wish to donate, you will be directed to a secure page to enter in your payment information.  Charges to your credit card will not be applied until you submit the page containing your personal information."
+  download_audio_mpeg: "Download MPEG"
   edit: Edit
+  edit_downcase: edit
   edit_annotation: "edit annotation"
   edit_collection: "Edit collection"
   edit_collection_details_header: "Edit collection details"
   edit_collection_head_title: "Edit: %{collection_name}"
   edit_community: "Edit community"
+  edit_contact_us_topics: "edit contact us topics"
+  edit_content_partner_agreement: "Edit Content Partner Agreement"
+  edit_eol_glossary: "edit EOL glossary"
+  edit_hierarchy: "edit hierarchy"
   edit_my_profile: "Edit my profile"
+  edit_news_items: "edit news items"
+  edit_page_contents: "edit page contents"
+  edit_search_suggestions: "edit search suggestions"
+  edit_table_of_contents: "edit table of contents"
+  edit_tag_suggestions: "edit tag suggestions"
+  edit_web_users: "edit web users"
   education: Education
   education_empty: "No education found."
+  email_colon: "Email:"
   email_subject_a_message_from_the_eol: "A message from the Encyclopedia of Life"
   email_subject_account_activated: "Your Encyclopedia of Life account has been activated"
   email_subject_eol_contact_us_with_subject: "EOL Contact Us: %{subject}"
@@ -512,151 +684,785 @@ en:
     other: "%{count} Featured collections"
   enter_revision_url_colon: "Enter revision url:"
   eol_api: "EOL API"
-  donation_message: "Your generous gift to the Encyclopedia of Life supports our mission to gather and share knowledge of Earth's biodiversity.  The entire EOL team thanks you for your kind contribution."
-  donation_privacy_notice: "Please note that this page and the next confirmation page do not collect any personal information or credit card numbers, and are therefore not encrypted. After confirming the amount you wish to donate, you will be directed to a secure page to enter in your payment information.  Charges to your credit card will not be applied until you submit the page containing your personal information."
-  donation_amount_enter_other_label: "Or, enter an alternative amount to donate"
-  donation_amount_legend: "Choose the amount you would like to donate"
-  donation_amount_other_label: Other
-  data_object_not_associated_with_any_hierarchies: "This data object is not associated with any hierarchies."
-  dato_create_cancel: Cancel
-  dato_create_update_user_text_missing_taxon_id_exception: "Unable to build a text DataObject or UsersDataObject if taxon_concept_id is missing."
-  dato_create_user_text_error: "Sorry, an error occurred, the article could not be added."
-  dato_create_user_text_missing_user_exception: "Unable to build a text DataObject or UsersDataObject if user is nil."
-  dato_edit_cancel: Cancel
-  dato_edit_text_link_button: "Edit this article"
-  dato_edit_text_page_description: "Thank you for contributing your expertise to EOL. The revised article will be added to your Watch List so you can follow any conversations related to it and check on its curation status."
-  dato_edit_text_title: "Edit article"
-  dato_new_edit_user_text_fieldset_content_header: "Article content"
-  dato_new_edit_user_text_fieldset_information_header: "Article information"
-  dato_new_edit_user_text_form_tip: "Your article will be marked as \"unreviewed\" until a curator reviews it. Text %{required_icon} is required."
-  dato_new_text_for_taxon_page_title: "Add an article to <i>%{taxon}</i>"
-  dato_new_text_page_description: "Thank you for contributing to EOL. Your article will be added to your Watch List so you can follow any conversations related to it and check on its curation status."
-  dato_update_user_text_error: "Sorry, an error occurred, the article could not be updated."
-  dato_update_users_text_not_owner_exception: "Unable to update text DataObject current user is not owner"
-  default_focus_collection_name_from_community: "%{name}'s Focus"
-  default_watch_collection_name: "%{username}'s Collection"
-  delete: delete
-  delete_community: "Delete this community"
-  description: Description
-  description_of: "Description of"
-  destination_inappropriate_for_logged_in_users: "You are logged in."
-  destroy: Destroy
-  detail: Detail
-  details_title: Details
-  development_version_name: "EOL V2 Beta"
-  did_you_mean: "Did you mean: %{suggestions} ?"
-  correct_donation_message: "If this information is not correct, please %{go_back_link} to make changes"
-  could_not_find_collection_error: "Sorry, that collection could not be found."
-  count_results_for_search_term:
-    one: "%{count} result for <em>%{search_term}</em>"
-    other: "%{count} results for <em>%{search_term}</em>"
-  create_a_collection: "Create a collection"
-  create_a_community: "Create a community"
-  create_a_community_login_advisory: "You will be asked to login before creating your community"
-  create_collection_button: "Create collection"
-  create_community: "Create community"
-  create_community_about_heading: "About creating a community"
-  create_community_about_text: "You are about to create a community around the contents of \"%{collection_name}\".  All users will be able to join your community, but only those members to whom you grant \"manager\" status will be allowed to edit the community itself or the collection associated with your community."
-  create_community_around_this_collection_header: "Create a community around this collection"
-  create_user_form_header: "Create a new <abbr title=\"Encyclopedia of Life\">EOL</abbr> account"
-  create_user_unsuccessful_error: "Sorry, an error occurred, your new account was not created. Please ensure all fields are completed correctly."
-  created: Created
-  curated_association_update_button: "Save changes"
-  curation_comment: "Curation Comment"
-  curation_privileges_page_description: "Select your desired curation level, assistant, full or master curator. Full and master curator applications must include scope and credentials, you will be notified by email once your details have been reviewed and accepted. Assistant curator applications are not moderated and will be instantly approved. Learn more about <a href=\"%{curator_faq_url}\">becoming a curator</a>."
-  curation_privileges_page_title: "Become a curator"
-  curation_reason_placeholder: "additional details (optional)"
-  curator_level_application_pending_notice: "Thanks for applying to become a curator, your application has been queued for review and you will be notified by email when it has been accepted."
-  curator_level_assistant_approved_notice: "Congratulations! You are now an <em>EOL Assistant Curator</em>. <a href=\"%{more_url}\">Learn more about the assistant curator role</a>."
-  curator_profile: "curator profile"
-  curators_empty: "Our curators haven't contributed information to this taxon yet."
-  curators_of_taxon_page_title: "Curators of %{taxon}"
-  curators_summary_header_with_count:
-    one: "Reviewed by %{count} curator"
-    other: "Reviewed by %{count} curators"
-  curators_summary_learn_more_link: "Learn how to curate"
-  current_language: "Language: %{iso_code}"
-  currently_in_eol: "Currently in the Encyclopedia of Life"
-  content_summary_introduction_html: "The following values represent the sum of different types of content for this taxon and all of its taxonomic descendants. %{glossary_term_trusted} content has either been approved by an EOL curator or comes from a trusted provider. %{glossary_term_unreviewed} content has not yet been assessed by an EOL curator. Every taxonomic hierarchy is unique, so each browsable hierarchy is listed for comparison."
-  content_summary_table_caption: "A summary of content associated with %{taxon_name} and it's descendants in %{hierarchy_label}"
-  content_summary_table_count_column_header: Count
-  content_summary_table_summary: "This table contains counts of different types of content separated by content state."
-  content_summary_table_type_descendants_row: "Number of descendants"
-  content_summary_table_type_status_column_header: "Content type and status"
-  content_summary_table_type_trusted_images_row: "Number of trusted images"
-  content_summary_table_type_trusted_text_row: "Number of trusted text items"
-  content_summary_table_type_unreviewed_images_row: "Number of unreviewed images"
-  content_summary_table_type_unreviewed_text_row: "Number of unreviewed text items"
-  copied_items_from_collection_with_count_notice:
-    one: "Copied %{count} item from %{name}."
-    other: "Copied %{count} items from %{name}."
-  copy: Copy
-  content_partners_intro: "Below is a list of partners, including content partners, with information on this taxon. Where possible the links will take you to the corresponding content on the given partner's website. The unique identifier for this taxon used by each partner is embedded in these links, and these identifiers are also accessible through the %{link}"
-  content_partner_vetted: Vetted
-  content_partners: "Content Partners"
-  content_partner_terms_agreed_to_false: "Pending agreement"
-  content_partner_terms_agreed_to_true: Agreed
-  content_partner_unvetted: Unreviewed
-  content_partner_statistics_link: "Usage statistics"
-  content_partner_resources_unpublished_with_count:
-    one: "%{count} unpublished"
-    other: "%{count} unpublished"
-  content_partner_resource_resource_status_new: Created
-  content_partner_overview: "Partner overview"
-  content_partner_has_unpublished_content_false: "No unpublished content"
-  content_partner_has_unpublished_content_true: "Unpublished content"
-  content_partner_edit_link: "Edit content partner"
-  content_partner_empty: "No content partner found."
-  content_partner_contacts_with_count:
-    one: "%{count} contact"
-    other: "%{count} contacts"
-  content_partner_column_header_registered: Registered
-  content_partner_column_header_status: Status
-  content_partner_add_link: "Add new content partner"
-  comment: Comment
-  comment_added_notice: "Comment successfully added."
-  comment_body_label: "Your comment"
-  comment_new_posters_image_advisory_info: "Your profile picture and name will appear next to your comment in listings."
-  comment_new_posters_image_alt: "Your profile picture, if you have provided one."
-  comment_not_added_error: "Sorry, an error occurred, comment could not be added."
-  comment_show_posters_image_alt: "Profile picture of %{posters_name} who added this comment."
-  comments_moderated: "Comments Moderated"
-  comments_with_count:
-    one: "%{count} Comment"
-    other: "%{count} Comments"
-  common_names_advisory_information: "Common names associated with this taxon."
-  common_names_with_count:
-    one: "%{count} common name"
-    other: "%{count} common names"
-  communities: Communities
-  communities_index_empty: "There are no active communities."
-  communities_index_header: "Active communities"
-  community: Community
-  community_activity: "Community Activity"
-  community_contributions_with_count:
-    one: "%{count} Contribution"
-    other: "%{count} Contributions"
-  community_empty_notice: "This community has no members."
-  community_focus: "Community focus"
-  community_managers_with_count:
-    one: "%{count} Community Manager"
-    other: "%{count} Community Managers"
-  community_members_with_count:
-    one: "%{count} Community Members"
-    other: "%{count} Community Members"
-  contact_about_sponsorship_preamble: "If you would like to learn more about specific programs available for sponsorship, or would like to make a recurring gift, please contact the Encyclopedia of Life Secretariat at %{email} or by phone at (202)633-8730."
-  contact_us_link: "Contact us"
-  collection_created_notice: "Collection <em>%{collection_name}</em> successfully created."
-  collection_image: "Collection image"
-  collection_is_empty: "This collection is currently empty."
-  collection_item_annotation_label: "Collection item annotation"
-  collection_item_not_found_error: "That collection item could not be found."
-  collection_name_label: "Collection name"
-  collection_not_created_error: "Sorry, an error occurred, the collection <em>%{collection_name}</em> could not be created."
-  collection_not_found_error: "Sorry, that collection cound not be found."
-  collection_updated_notice: "Collection <em>%{collection_name}</em> successfully updated."
-  collections: Collections
-  collections_summary_empty: "This taxon isn't in any collections yet."
-  collections_summary_header_with_count:
-    one: "Present in %{count} collection"
-    other: "Present in %{count} collections"
+  eol_colon: "EOL:"
+  eol_glossary: "EOL Glossary"
+  eol_news: "EOL News"
+  error_page_header: "Sorry, we have encountered a problem"
+  esc_key_hides_this_message: "(esc key hides this message)"
+  example_colon: "Example:"
+  example_url_for_wikipedia_article_ingestion: "(eg: http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)"
+  explore: Explore
+  external_link_header: "External Link"
+  facebook: Facebook
+  failed_login_attempts: "failed login attempts)- must be checked for user to log in"
+  family_name_colon: "Family Name:"
+  feedback: Feedback
+  fill_in_a_message_below_to_sen: "Fill in a message below to send an email to this user from the site.  The message will be sent when you submit the form:"
+  filter_by_status: "Filter by status"
+  filter_by_status_all_option: "All statuses"
+  filter_by_status_inappropriate_option: Inappropriate
+  filter_by_status_trusted_option: Trusted
+  filter_by_status_unknown_option: Unreviewed
+  filter_by_status_untrusted_option: Untrusted
+  filter_by_type: "Filter by type"
+  filter_by_type_all_option: "All types"
+  filter_by_type_collection_option: Collections
+  filter_by_type_community_option: Communities
+  filter_by_type_image_option: Images
+  filter_by_type_photosynth_option: Photosynths
+  filter_by_type_sound_option: Sounds
+  filter_by_type_taxon_concept_option: Taxa
+  filter_by_type_text_option: Articles
+  filter_by_type_user_option: People
+  filter_by_type_video_option: Videos
+  filter_media: "filter media"
+  filtered_information: "Filtered information"
+  find_taxa_submit_button: "find taxa"
+  citation_example: "Fisher, Brian. \"Pogonomyrmex anergismus Cole, 1954.\" Encyclopedia of Life, available from <a href=\"http://eol.org/pages/460427\" target=\"_blank\">http://eol.org/pages/460427</a>. Accessed 15 Jan 2009."
+  flash_notice_redirected_from_search_html: "You've arrived here by searching for <em>%{search_string}</em>. <a href=\"%{more_results_url}\">Click here to return to the search page.</a>"
+  flash_notice_redirected_from_search_html_more_results: "You've arrived here by searching for <em>%{search_string}</em>. <a href=\"%{more_results_url}\">Click here to see other search results.</a>"
+  focus_collection_edit_link: "You may edit this community's focus directly at the %{collection} page."
+  for_the_month_of_colon: "For the month of:"
+  forgot_password: "Forgot password"
+  forgot_password_cannot_find_user_from_username_or_email_error: "Sorry, there are no user accounts with the provided username or email <em>%{username_or_email}</em>."
+  forgot_password_form_cancel: Cancel
+  forgot_password_form_choose_username_blank_error: "Please select the account you wish to reset the password for."
+  forgot_password_form_choose_username_instructions: "There are several accounts registered with the email address <em>%{email}</em>, please select one account to reset the password for."
+  forgot_password_form_choose_username_legend: "Choose an account"
+  forgot_password_form_header: "Reset your password"
+  forgot_password_form_username_or_email_blank_error: "Please enter your username or email address to reset your password."
+  from_community: "from %{community}."
+  gbif_occurrence_disclaimer: "This map is based on occurrence records available through GBIF and may not represent the entire taxon distribution"
+  gbif_occurrence_learn_more_link: "Learn more about GBIF occurrence maps."
+  general_error_occurred: "We're sorry but an error has occurred. Please make one more attempt to perform your task. If the error persists, please send an email to %{email} along with the error message below and any other information you'd like to share with us. We are working hard to provide you with the best service possible and we appreciate your support. -- The EOL Team"
+  general_site_admin: "general site admin"
+  get_more_tasks: "get more tasks"
+  given_name_colon: "Given Name:"
+  global_access_tagline: "Global access to knowledge about life on Earth"
+  global_navigation: "Global Navigation"
+  go: Go
+  go_back: "go back"
+  google_analytics_google_account_and_access_required: "Google Analytics (Google account and access required)"
+  google_translate: "Google Translate"
+  google_translate_advisory_information: "Use Google Translate widget to transform the site content into another language."
+  grant_full_curator_link: Grant
+  grant_manager_link: "Grant manager role"
+  has_already_been_taken: "has already been taken."
+  has_colon: "Has:"
+  hello_user: "Hello %{user}"
+  help: Help
+  helpers:
+    label:
+      content_page:
+        active: Published
+        active_more: "Published pages will be publicly visible. Uncheck <em>published</em> if you want to prevent general users from viewing versions of this page in any language."
+        page_name: "Unique name <small>(lowercase ISO basic Latin alphanumeric characters and underscores only)</small>"
+        page_name_more: "Enter a unique, self descriptive, meaningful and persistent identifier for this page. The name you enter here will be used to generate the URL for this page, e.g. the unique name <em>terms_of_use</em> is converted to the URL <em>http://www.eol.org/info/terms_of_use</em>."
+        parent_content_page_id: Parent
+        parent_content_page_id_more: "Optionally select a parent under which this page should be nested."
+      content_partner:
+        admin_notes: "Administration notes <small>(only visible to EOL administrators)</small>"
+        description_of_data: "Description of data <small>(private)</small>"
+        description_of_data_more: "Please provide us with a description of the type of information you have, how many items are available, what organisms they relate to, and whether they have been assembled or checked by qualified experts or by a knowledgeable community."
+        display_name: "Display name <small>(optional)</small>"
+        display_name_more: "Provide an alternative publicly visible name to be used instead of your <em>Project name</em>."
+        logo_current: "Current logo:"
+        logo_new: "Upload a new logo:"
+        notes: "Project notes <small>(private)</small>"
+        user_id: "Content partner details managed by"
+      data_object:
+        bibliographic_citation: "Bibliographic citation"
+        description: "Text <small>(some HTML markup is allowed)</small>"
+        license_id: License
+        license_id_more: "Read the <a href=\"%{policy_url}\">EOL Licensing Policy</a>"
+        object_title: Title
+        refs: "References <small>(put each reference on a new line)</small>"
+        rights_holder: "Rights holder"
+        rights_statement: "Rights statement"
+        source_url: "URL to original data object"
+        toc_item: Subchapter
+      google_analytics_partner_summaries:
+        page_views: "Page views <small>(number of visits to pages)</small>"
+        taxa_pages: "Pages <small>(number of pages)</small>"
+        taxa_pages_viewed: "Pages viewed <small>(number of pages viewed by visitors)</small>"
+        time_on_page: "Total time spent on pages <small>(hours)</small>"
+        unique_page_views: "Unique page views <small>(number of visitors viewing pages)</small>"
+      resource:
+        accesspoint_url: "Dataset URL <small>(XML, XML.GZIP or XML.GZ only)</small>"
+        accesspoint_url_existing_remove: "This resource is currently being loaded from the URL ending <em>%{accesspoint_url}</em>. Upload a file if you would like to remove the existing URL and load the resource from a file instead (not recommended)."
+        dataset: Dataset
+        dataset_existing_remove: "The file <em>%{file_name}</em> is currently associated with this resource. Enter a URL if you would like to replace the existing <em>%{file_name}</em> file and load the resource from a URL instead (recommended)."
+        dataset_existing_replace: "The file <em>%{file_name}</em> is currently associated with this resource. Upload a new file to replace the existing <em>%{file_name}</em> file."
+        dwc_archive_url: "If there is a Darwin Core Archive associated with this resource, enter the URL here <small>(TAR.GZIP, TAR.GZ or TGZ only)</small>:"
+        refresh_period_hours: Frequency
+        resource_status_id: Status
+        resource_url_or_file: "Resource data <small>(choose to enter URL or to upload a file)</small>"
+        resource_url_or_file_upload: "Upload resource file"
+        resource_url_or_file_url: "Load resource from URL"
+        title: "Resource name"
+      session:
+        password: Password
+        remember_me: "Keep me logged in for 2 weeks"
+        username_or_email: "Username or email address"
+      translated_content_page:
+        active_translation: Published
+        active_translation_more: "Published translations will be publicly visible, unless the page itself is unpublished. Uncheck <em>published</em> if you want to prevent general users from viewing this version of the page."
+        language_id: Language
+        left_content_more: "Optionally add an unordered list of links to include a navigation column in the page. Anchor links have to be added manually by selecting <em>Source</em> and editing the HTML <em>href</em> attribute of the links. For example, to link to an anchor called <em>licensing_policy</em> in the <em>Body</em> content area your list item link <em>href</em> attribute should have the value \"#licensing_policy\""
+        main_content_more: "Enter the main page content in the body area. Use the <em>Format</em> dropdown to select the appropriate semantic text elements, for example choose <em>Heading 2</em> for a second level heading. Note: the page title is the first level heading so start your headings in the body area with <em>Heading 2</em>."
+        meta_description_more: "Provide a short description, summarising the key concepts of the page content. This description is sometimes used by Web search engines both for checking relevancy and for listing in search engine results."
+        meta_keywords_more: "Enter a comma separated list of words and short phrases that best reflect the contents of the page. These keywords and keyphrases are sometimes used by Web search engines to assess the relevancy of the page against search terms."
+        title_more: "The title of this content will appear in the header area of the page. The title should include keywords most relevant to the content."
+      user:
+        agreed_with_terms: "I agree to the <a href=\"%{terms_url}\">terms of use</a>"
+        api_key_more: "Read more about <a href=\"%{api_docs_url}\">adding a key to your API calls</a>."
+        bio: "About me"
+        credentials: Credentials
+        credentials_more: "Please state at least one specific credential from this list:"
+        credentials_more_academic: "Faculty, staff, or graduate student status in a relevant university or college department."
+        credentials_more_author: "Authorship of a peer-reviewed publication (provide reference)."
+        credentials_more_professional: "Member of a professional society."
+        curation_application: "Becoming a curator"
+        curation_application_more: "If you'd like to modify your curation privileges, just submit an application and we'll review your eligibility."
+        curator_level: "You are currently %{curator_level_with_indefinite_article}."
+        curator_scope: "Curation scope"
+        curator_scope_more: "Please indicate the scope of your expertise. For example: \"Rodents of Borneo\", \"Tri-trophic interactions\", or \"Conservation issues in fish\". This will not limit your ability to curate, but will inform the EOL community."
+        email_reports_frequency_hours: "How often would you like to receive email alerts about activity on your contributions?"
+        entered_password: "Password <small>(4 - 16 characters)</small>"
+        generate_api_key: "Requesting an API key"
+        generate_api_key_more: "If you are interested in using the EOL API you can generate an API key to identify your application. Read more about <a href=\"%{api_docs_url}\">adding a key to your API calls</a>."
+        logo: "Upload a new photo"
+        mailing_list: "I want to receive email newsletter updates?"
+        mailing_list_yes: "Yes"
+        new_password: "New password <small>(4 - 16 characters)</small>"
+        new_password_confirmation: "New password <small>(to confirm)</small>"
+        requested_curator_level: "Your request to become %{curator_level_with_indefinite_article} is pending."
+        tag_line: "Tagline or title <small>example: \"Bird enthusiast\"</small>"
+        user_identities: "I am"
+        username: "Username <small>(4 - 32 characters)</small>"
+        username_or_email: "Username or email address"
+    select:
+      prompt: "Please select"
+    submit:
+      content_page:
+        create: "Create page"
+        edit: Edit
+        preview: Preview
+        update: "Update page"
+      content_partner:
+        create: "Create content partner"
+        update: "Save content partner information"
+      content_partner_agreements:
+        create: "Agree to content partner terms"
+      content_partner_contact:
+        create: "Add contact"
+        destroy: "Delete contact"
+        update: "Update contact"
+      create: "Create %{model}"
+      data_object:
+        create: "Add article"
+        create_text: "Add article"
+        update: "Save article"
+      name:
+        create: "Add name"
+        update: "Update name"
+      resource:
+        create: "Add resource"
+        update: "Update resource"
+      session:
+        create: "Sign in"
+      submit: "Save %{model}"
+      translated_content_page:
+        create: "Add translation"
+        update: "Save changes to translation"
+      update: "Update %{model}"
+      user:
+        create: "Create account"
+        curation_application: "Apply now"
+        curation_privileges: "Submit request"
+        forgot_password: "Send email"
+        generate_api_key: "Generate a key"
+        update: "Save profile information"
+  hidden: Hidden
+  hierarchies_title: Hierarchies
+  hierarchy: Hierarchy
+  hierarchy_entry_switch_missing_id_error: "Sorry, the hierarchy entry page you selected could not be found due to a missing identifier."
+  hierarchy_updated: "Hierarchy updated"
+  home: Home
+  home_page_link_advisory_information: "This link will take you to the home page of the Encyclopedia Of Life Web site"
+  id: ID
+  identifcation_resources_empty: "No resources found."
+  identification_resources: "Identification Resources"
+  if_checked_and_user_is_saved: "If checked and user is saved, then credentials, scope, approval and selected clade are all removed and user no longer shows up as a curator.  You should add a note below to indicate the reason.  No information is sent to the user."
+  if_this_box_is_checked_the_hie: "if this box is checked the hierarchy will be an option for users to browse EOL"
+  image_is_no_longer_available: "Image is no longer available"
+  image_not_found: "Image not found"
+  images: Images
+  import_once: "Import once"
+  in_collection: "in collection"
+  in_this_data_type: "in this %{data_type}:"
+  inappropriate: Inappropriate
+  indexed: Indexed
+  information_for_any_audience: "Information for any audience"
+  information_intended_for_beginners: "Information intended for beginners"
+  information_intended_for_experts: "Information intended for experts"
+  insufficient_privileges_to_curate_names: "Sorry, you do not have sufficient privileges to curate names."
+  invite_members_help_text: "Add some EOL users here and they will receive an invitation to your new community!"
+  invite_members_label: "Invite Members"
+  item_added_to_collection_notice: "Item was added to collection <em>%{collection_name}</em>"
+  item_added_to_watch_collection_notice: "\"%{item_name}\" was added to %{collection_name}."
+  item_details_missing: "Sorry, an error occurred, item details could not be retrieved."
+  item_not_added_already_in_collection: "This item has already been added to the collection."
+  item_not_added_to_collection_error: "Sorry, an error occurred, the selected item could not be added to the collection."
+  item_not_added_to_itself_notice: "Sorry, you cannot add collection <em>%{collection_name}</em> to itself."
+  item_not_updated_in_collection_error: "Sorry, an error occurred, the collection item could not be updated."
+  item_type_article_assistive: "This item is an article"
+  item_type_collection_assistive: "This item is a collection"
+  item_type_person_assistive: "This item is a person"
+  item_type_taxon_assistive: "This item is a taxon"
+  item_updated_in_collection_notice: "Item successfully updated in <em>%{collection_name}</em> collection."
+  items_no_copy_none_selected_warning: "No items were copied as none were selected. To copy items to another collection, first check the box adjacent to the items in the list that you would like to copy."
+  items_no_move_none_selected_warning: "No items were moved as none were selected. To move items to another collection, first check the box adjacent to the items in the list that you would like to move."
+  items_no_remove_none_selected_warning: "No items were removed as none were selected. To remove items from the collection, first check the box adjacent to the items in the list that you would like to remove."
+  items_with_count_semi_colon:
+    one: "%{count} item;"
+    other: "%{count} items;"
+  iucn_red_list_status_advisory_information: "This link will take you to the International Union for Conservation of Nature (IUCN) Web site where you can find more information on the IUCN Red List of Threatened Species."
+  join_community_button: "Join this community"
+  join_eol_button_html: "Join <abbr title=\"Encyclopedia of Life\">EOL</abbr> now"
+  join_eol_community_html: "Become part of the <abbr title=\"Encyclopedia of Life\">EOL</abbr> community!"
+  joined_time_ago: "Joined %{time_passed} ago"
+  just_pages_with_pictures_and_text: "Just those pages with pictures and text"
+  label: Label
+  language: "Language:"
+  language_menu_item: "%{language_label} <abbr>(%{language_abbr})</abbr>"
+  languages: Languages
+  last_updated_time_ago: "Last updated %{time_passed} ago"
+  learn_about_content_partners: "Learn about our content partners"
+  learn_how_to_contribute: "Learn how you can contribute"
+  learn_how_to_interact: "Learn how you can interact"
+  learn_how_to_join: "Learn how you can join"
+  learn_more_about_names_for_this_taxon: "learn more about names for this taxon"
+  learn_more_with_data_type: "learn more about this %{data_type}"
+  leave_a_comment: "Leave a comment"
+  leave_community_button: "Leave this community"
+  license: License
+  license_all_rights_reserved: "All rights reserved"
+  license_cc_by: "Creative Commons Attribution (CC BY)"
+  license_cc_by_2_0: "Creative Commons Attribution 2.0 (CC BY 2.0)"
+  license_cc_by_2_5: "Creative Commons Attribution 2.5 (CC BY 2.5)"
+  license_cc_by_3_0: "Creative Commons Attribution 3.0 (CC BY 3.0)"
+  license_cc_by_nc: "Creative Commons Attribution Non Commercial (CC BY-NC)"
+  license_cc_by_nc_2_0: "Creative Commons Attribution Non Commercial 2.0 (CC BY-NC 2.0)"
+  license_cc_by_nc_2_5: "Creative Commons Attribution Non Commercial 2.5 (CC BY-NC 2.5)"
+  license_cc_by_nc_3_0: "Creative Commons Attribution Non Commercial 3.0 (CC BY-NC 3.0)"
+  license_cc_by_nc_sa: "Creative Commons Attribution Non Commercial Share Alike (CC BY-NC-SA)"
+  license_cc_by_nc_sa_1_0: "Creative Commons Attribution Non Commercial Share Alike 1.0 (CC BY-NC-SA 1.0)"
+  license_cc_by_nc_sa_2_0: "Creative Commons Attribution Non Commercial Share Alike 2.0 (CC BY-NC-SA 2.0)"
+  license_cc_by_nc_sa_2_5: "Creative Commons Attribution Non Commercial Share Alike 2.5 (CC BY-NC-SA 2.5)"
+  license_cc_by_nc_sa_3_0: "Creative Commons Attribution Non Commercial Share Alike 3.0 (CC BY-NC-SA 3.0)"
+  license_cc_by_sa: "Creative Commons Attribution Share Alike (CC BY-SA)"
+  license_cc_by_sa_1_0: "Creative Commons Attribution Share Alike 1.0 (CC BY-SA 1.0)"
+  license_cc_by_sa_2_0: "Creative Commons Attribution Share Alike 2.0 (CC BY-SA 2.0)"
+  license_cc_by_sa_2_5: "Creative Commons Attribution Share Alike 2.5 (CC BY-SA 2.5)"
+  license_cc_by_sa_3_0: "Creative Commons Attribution Share Alike 3.0 (CC BY-SA 3.0)"
+  license_gnu_fdl: "GNU Free Documentation License (GNU FDL)"
+  license_gnu_gpl: "GNU General Public License (GNU GPL)"
+  license_not_applicable: "License not applicable"
+  license_public_domain: "Public Domain"
+  ligercat: LigerCat
+  listing_collections: "Listing collections"
+  literature: Literature
+  literature_bhl_information: "The following bibliography has been generated by automated services. BHL uses taxonomic intelligence tools to locate, verify, and record scientific names located within the text of each digitized page in the BHL digital collection."
+  literature_bhl_link: "View Discovered Bibliography in BHL"
+  literature_empty: "No references found."
+  literature_header: References
+  literature_references: "Literature references"
+  location: Location
+  login: login
+  login_header: "Sign in to your <abbr title=\"Encyclopedia of Life\">EOL</abbr> account"
+  login_or_create_account: "Login or Create Account"
+  logo_header: Logo
+  logout: Logout
+  maintained_by: "maintained by"
+  managed_by: "Managed by"
+  manager_endorse_collecitons_suggestion: "To feature a collection on this community's page, add the featured collection to the community's focus."
+  manager_parens: (manager)
+  maps_empty: "No one has contributed any maps for this taxon yet."
+  maps_empty_contribute_instructions: "Learn how to contribute maps to EOL."
+  maps_with_count:
+    one: "%{count} Map"
+    other: "%{count} Maps"
+  media: Media
+  media_contact: "Media Contact"
+  media_list_empty: "No one has contributed any media for this taxon yet."
+  media_list_empty_contribute_instructions: "Learn how to contribute media to EOL."
+  media_summary_empty: "No one has contributed any images for this taxon yet."
+  media_summary_empty_contribute_instructions: "Learn how to contribute images to EOL."
+  media_with_count:
+    one: "%{count} Media"
+    other: "%{count} Media"
+  member_of: "member of"
+  members_like_you: "Members like you"
+  members_with_count:
+    one: "%{count} member"
+    other: "%{count} members"
+  mesh: MeSH
+  minimal_page: "Minimal Page"
+  moderator_colon: "Moderator:"
+  month_equals: "Month ="
+  monthly: Monthly
+  monthly_notification: "monthly notification"
+  monthly_published_partners: "monthly published partners"
+  more_children_with_count:
+    one: "%{count} more..."
+    other: "%{count} more..."
+  most_active_members: "Most active members"
+  move: Move
+  move_all_articles_button: "move all articles"
+  move_all_collections_button: "move all collections"
+  move_all_communities_button: "move all communities"
+  move_all_images_button: "move all images"
+  move_all_items_button: "move entire collection"
+  move_all_people_button: "move all people"
+  move_all_sounds_button: "move all sounds"
+  move_all_taxa_button: "move all taxa"
+  move_all_videos_button: "move all videos"
+  move_down: "Move down"
+  move_up: "Move up"
+  moved_items_from_collection_with_count_notice:
+    one: "Moved %{count} item from %{name}."
+    other: "Moved %{count} items from %{name}."
+  must_be_associated_with_either_a_user_or_a_community: "Must be associated with either a user or a community"
+  must_be_less_than_128_characters_long: "must be less than 128 characters long."
+  must_be_logged_in: "You must be logged in to perform this action."
+  my_activity: "My activity"
+  my_info: "My info"
+  name: Name
+  name_for_community_focus_label: "Name for the community's focus list"
+  name_not_in_select_an_alternate: "Name not in %{hierarchy}. Select an alternate hierarchy from the list above"
+  name_preferred_for_language_no: "No"
+  name_preferred_for_language_yes: Preferred
+  names: Names
+  names_children_column_header: Children
+  names_curation_column_header: Curation
+  names_name_column_header: Name
+  names_parents_column_header: Parents
+  names_preferred_column_header: Preferred
+  names_relationship_column_header: Relationship
+  names_sources_column_header: Sources
+  names_status_column_header: Status
+  national_center_for_biotechnol: "National Center for Biotechnology Information"
+  ncbi_taxonomy: "NCBI Taxonomy"
+  never: Never
+  new_collection: "New collection"
+  new_content_partners_for_the_m: "New content partners for the month"
+  news_items: "News Items"
+  newsfeed: Newsfeed
+  no_active_members: "There hasn't been enough activity yet."
+  no_items_were_copied_to_collections_error: "No items were copied to collections: %{names}. They may have duplicate items."
+  no_related_names: "There are no related names."
+  no_tasks_found: "No tasks found"
+  no_user_submitted_data_objects: "No user-submitted data objects match your search criteria."
+  none: none
+  not_evaluated: "Not evaluated"
+  not_recognised_by_available_hierarchies: "Not recognised by any of the available classifications"
+  not_yet_implemented_error: "Sorry, that feature has not been implemented yet."
+  note_about_homonym_problems: "NOTE: only change this attribute if you are certain - unchecking this could cause serious homonym problems"
+  nucleotide_sequences: "Nucleotide Sequences"
+  object: Object
+  object_curation: "Object Curation"
+  object_status: "Object status"
+  object_status_all_option: "All"
+  object_status_trusted_option: "Trusted"
+  object_status_unreviewed_option: "Unreviewed"
+  object_status_untrusted_option: "Untrusted"
+  object_type: "Object type"
+  object_type_all_option: "All"
+  object_type_collection_option: "Collection"
+  object_type_community_option: "Community"
+  object_type_image_option: "Image"
+  object_type_sound_option: "Sound"
+  object_type_taxon_concept_option: "Taxon Concept"
+  object_type_text_option: "Text"
+  object_type_user_option: "User"
+  object_type_video_option: "Video"
+  object_visibility: "Object visibility"
+  object_visibility_all_option: "All"
+  object_visibility_visible_option: "Visible"
+  object_visibility_invisible_option: "Hidden"
+  objects_curated: "Objects Curated"
+  only_show_authoritative_conten: "Only show authoritative content:"
+  option_please_select: "Please select"
+  or_add_it_to_an_existing_collection: "or add it to an existing collection"
+  other_collection_items_with_count:
+    one: "%{count} other item"
+    other: "%{count} other items"
+  other_community_items_with_count:
+    one: "%{count} other item"
+    other: "%{count} other items"
+  other_taxa_with_count:
+    one: "%{count} other taxon"
+    other: "%{count} other taxa"
+  other_us_dollars_amount: "Other: US$"
+  overall_colon: "Overall:"
+  overview: Overview
+  page_reference: "\"%{title}\". Encyclopedia of Life, available from \"<a href=\"http://%{domain_or_ip}%{this_url}\" target=\"_blank\">http://%{domain_or_ip}%{this_url}</a>\". Accessed %{date}"
+  page_statistics: "Page Statistics"
+  page_statistics_and_tools: "page statistics and tools"
+  page_statistics_explanation: "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dignissim ante nec dui faucibus tincidunt. Aliquam euismod nisi nec augue volutpat ut eleifend purus eleifend. Pellentesque eget luctus metus. In enim nunc, ullamcorper ut auctor id, tempor at massa.</p><p>Maecenas ac magna sapien, ac dictum magna. Vivamus sed volutpat dolor. Suspendisse sodales felis nec nisi scelerisque nec aliquet est fermentum.</p><p>Maecenas ac magna sapien, ac dictum magna. Vivamus sed volutpat dolor. Suspendisse sodales felis nec nisi scelerisque nec aliquet est fermentum.</p>"
+  pages_admin_section_link: Admins
+  pages_curator_section_link: Curators
+  pages_title: References
+  pages_with_count:
+    one: "%{count}"
+    other: "%{count}"
+  pages_with_pictures_and_text: "Pages with pictures and text"
+  pages_with_pictures_or_text: "Pages with pictures or text"
+  pagination_next: Next
+  pagination_next_with_count:
+    one: "see next %{count}"
+    other: "see next %{count}"
+  pagination_previous: Previous
+  pagination_previous_with_count:
+    one: "see previous %{count}"
+    other: "see previous %{count}"
+  partner_page: "partner page"
+  password_colon: "Password:"
+  permalink: Permalink
+  personal_space: "Personal Space"
+  please_confirm_your_donation_details: "Please confirm your donation details"
+  please_enter_a_name_to_find_taxa: "Please enter a name to search taxa"
+  please_indicate_curation_reason: "Please select a reason, and/or optionally leave a curation comment:"
+  post_comment: "Post Comment"
+  preferences: Preferences
+  preferred_common_name_advisory_information: "This is the preferred common name for this taxon."
+  preferred_name_colon: "Preferred Name:"
+  press_room: "Press Room"
+  privacy_and_security_notice: "Privacy and Security Notice:"
+  proceed_to_checkout_page: "Proceed to Checkout Page"
+  profile: Profile
+  profile_colon: "Profile:"
+  profile_image_alt_text_curator: "Profile picture for curator %{user_full_name}"
+  profile_image_alt_text_member: "Profile picture for member %{user_full_name}"
+  public: Public
+  publish_requested: "Publish Requested"
+  published: Published
+  published_content_partners: "Published Content Partners"
+  pubmed: PubMed
+  punctuation_comma: ","
+  quarterly: Quarterly
+  rank_recognized_by_agent_colon: "%{rank} recognized by %{agent}:"
+  rated_by_count_people:
+    one: "from %{count} person"
+    other: "from %{count} people"
+  rating_added_notice: "Rating was added successfully."
+  rating_not_added_error: "Sorry, an error occurred, the rating could not be added."
+  recaptcha: "Type in the two words you see below"
+  recaptcha_incorrect_error_with_anchor: "The <a href=\"#%{recaptcha_anchor}\">reCaptcha characters</a> did not match, please try again."
+  recent_updates: "Latest updates"
+  recognised_by_hierarchy_agent_as_a_rank: "%{hierarchy_agent} as a %{taxon_rank} <a href=\"%{hierarchy_entry_url}\">view in classification</a>"
+  recognised_by_hierarchy_entry_agent_in_hierarchy_agent_as_a_rank: "%{hierarchy_entry_agent} in %{hierarchy_agent} as a %{taxon_rank} <a href=\"%{hierarchy_entry_url}\">view in classification</a>"
+  recognized_by: "Recognized by"
+  related_names_with_count:
+    one: "%{count} related name"
+    other: "%{count} related names"
+  remove: Remove
+  remove_all_articles_button: "remove all articles"
+  remove_all_collections_button: "remove all collections"
+  remove_all_communities_button: "remove all communities"
+  remove_all_images_button: "remove all images"
+  remove_all_items_button: "remove entire collection"
+  remove_all_people_button: "remove all people"
+  remove_all_sounds_button: "remove all sounds"
+  remove_all_taxa_button: "remove all taxa"
+  remove_all_videos_button: "remove all videos"
+  remove_curatorship_colon: "Remove curatorship:"
+  remove_data_object_association: "Remove association"
+  remove_membership: "Remove membership"
+  removed_count_items_from_collection_notice:
+    one: "%{count} item has been removed from this collection."
+    other: "%{count} items have been removed from this collection."
+  request_mailing_list_colon: "Request Mailing List:"
+  request_wikipedia_article_ingestion: "Request Wikipedia article ingestion:"
+  required_form_element: Required
+  reset_password_enter_new_password_notice: "This is a one time login, please enter a new password to continue."
+  reset_password_instructions_sent_to_user_notice: "Instructions for resetting the password on your account <em>%{username}</em> have been sent to your email address."
+  reset_password_token_expired_error: "Sorry, your password has not been reset. The link provided has expired, please fill out and submit the forgot password form again to receive a new link."
+  resources: Resources
+  revisions: Revisions
+  revoke_full_curator_link: Revoke
+  revoke_manager_link: "Revoke manager role"
+  richness_score: "Richness Score"
+  rights: Rights
+  rights_holder: "Rights Holder"
+  rights_statement: "Rights statement"
+  roles: Roles
+  rss_abbr_html: "<abbr title=\"Really Simple Syndication\">RSS</abbr>"
+  save: Save
+  save_annotation_submit_button: "Save annotation"
+  save_curated_association_submit_button: "Save association"
+  scientific_name: "Scientific Name"
+  search: Search
+  search_by_term_page_title: "Search: %{term}"
+  search_field_label: "Search EOL"
+  search_input_advisory_information: "Enter common or scientific names of living organisms that you would like to know more about, for example try entering tomato."
+  search_placeholder: "Search EOL ..."
+  search_results: "Search Results"
+  search_term_reports: "search term reports"
+  search_the_site: "Search the site"
+  see_all_classifications_with_count_html:
+    one: "See the <span class=\"assistive\">%{count} approved classification in which this taxon appears.</span>"
+    other: "See all <span class=\"assistive\">%{count} approved classifications in which this taxon appears.</span>"
+  see_all_collections_with_count_html:
+    one: "See the <span class=\"assistive\">%{count} collection in which this taxon appears.</span>"
+    other: "See all <span class=\"assistive\">%{count} collections in which this taxon appears.</span>"
+  see_all_comments_with_count_for_text:
+    one: "see %{count} comment for this article"
+    other: "see all %{count} comments for this article"
+  see_all_communities_with_count_html:
+    one: "See the <span class=\"assistive\">%{count} community that focus on this taxon.</span>"
+    other: "See all <span class=\"assistive\">%{count} communities that focus on this taxon.</span>"
+  see_all_media_link: "See all media"
+  see_all_of_your_collections: "See all of your collections"
+  see_all_updates_with_count_html:
+    one: "See all <span class=\"assistive\">%{count} updates for this taxon.</span>"
+    other: "See all <span class=\"assistive\">%{count} updates for this taxon.</span>"
+  select_colon: "Select:"
+  select_topic: "Please select a topic area"
+  selected_items: "Selected items"
+  selected_language_advisory_information: "This is the currently selected language."
+  send_email_colon: "Send email:"
+  send_email_notification_to_all: |-
+      Send email notification to all content partners
+       about the availability of the latest monthly web stats
+  sent_invitations_to_users: "Invitations were sent to %{users}."
+  set_as_exemplar: "Set as exemplar"
+  show: Show
+  show_data_from_all_content_partners: "show data from all content partners"
+  show_email_message_area: "[show email message area]"
+  show_full_tree: "show full tree"
+  show_status_message: "Show status message"
+  show_tasks: "show tasks"
+  show_warning_message: "Show warning message"
+  sign_in: "Sign in"
+  sign_in_remember_me_disallowed_for_admins_notice: "For security reasons, administrators cannot use the remember me feature."
+  sign_in_successful_notice: "Login successful."
+  sign_in_unsuccessful_error: "Login failed. Invalid username, email address or password."
+  sign_out: "Sign Out"
+  site_cms: "Site CMS"
+  site_information: "Site information"
+  skip_to_content: "Skip to content"
+  skip_to_navigation: "Skip to navigation"
+  skip_to_table_of_contents: "Skip to table of contents"
+  some_required_fields_were_not_entered: "Some required fields were not entered (you must enter a title, and content OR a URL)."
+  sort_by: "Sort by"
+  sort_by_button: Sort
+  sort_by_label: "Sort by"
+  sort_by_newest_option: Newest
+  sort_by_oldest_option: Oldest
+  sort_by_rating_option: Rating
+  sort_by_status_option: Status
+  sort_by_title_descending: "Title Descending"
+  sort_by_year_descending: "Year Descending"
+  sort_collection_by_label: "Sort collection by"
+  source_and_additional_information: "Source and Additional Information"
+  source_information_header: "Source information"
+  source_url: "Source URL"
+  special_collections_cannot_be_destroyed: "This collection is special and cannot be destroyed."
+  species: Species
+  species_curated: "Species Curated"
+  spm_category_objects_count: "SPM category - objects count"
+  spm_category_partner_count: "SPM category - partner count"
+  statistics: Statistics
+  stats_last_count_less_than_minutes_ago: "Counts last udpated less than %{minutes} minutes ago."
+  submit: Submit
+  supplier: Supplier
+  supplier_colon: "Supplier:"
+  switch_language_advisory_information: "Switch the site language to %{language_label}"
+  synonym: Synonym
+  synonyms_with_count:
+    one: "%{count} synonym"
+    other: "%{count} synonyms"
+  table_column_header_actions: Actions
+  table_of_contents: "Table of Contents"
+  table_of_contents_breakdown: "table of contents breakdown"
+  task_status: "Task status"
+  task_status_active_option: "Active"
+  task_status_curated_option: "Curated"
+  task_status_ignored_option: "Ignored"
+  tasks_with_count:
+    one: "%{count} task found"
+    other: "%{count} tasks found"
+  taxa: Taxa
+  taxon: taxon
+  taxon_details_empty: "No one has contributed any details about this taxon yet."
+  taxon_id: "Taxon ID"
+  taxon_page_content_disclaimer: "EOL content is automatically assembled from many different content providers. As a result, from time to time you may find pages on EOL that are confusing. To request an improvement, please leave a comment on the page. Thank you!"
+  taxon_recognised_by_header: "Recognized by"
+  taxonomic_summary_of_content: "taxonomic summary of content"
+  technical_functions: "Technical Functions"
+  terms_agreement_form_fallback: "Please review and agree to the <a href=\"%{terms_url}\">terms of use</a> before accessing your account."
+  terms_agreement_form_header: "Terms Of use"
+  terms_agreement_form_submit: "I agree"
+  terms_provided_by: "Terms provided by %{link}."
+  test: Test.
+  text_capital: Text
+  text_summary_empty: "No one has contributed a brief summary for this taxon yet."
+  text_summary_empty_header: "Brief summary"
+  text_summary_more_link: "Read full entry"
+  thank_you_sentence: "Thank you."
+  thank_you_for_your_generous_support: "Thank you for your generous support"
+  thanks_for_feedback: "Thank you for your feedback."
+  the_amount_entered_was: "The amount entered was : US %{number}"
+  the_following_are_curators_of: "The following are curators of"
+  the_following_bibliography: "The following bibliography has been generated by bringing together all references provided by our content partners. There may be duplication."
+  the_list_represents_the_curation_activity: "The list represents the curation activity on <b>%{link}</b>'s data objects."
+  the_mission_of_the: "The mission of the %{link} is to develop new information technologies to aid in the understanding of fundamental molecular and genetic processes that control health and disease."
+  the_ncbi_taxonomy_contains_names_using: "The %{linka} database contains the names of all organisms that are represented in the genetic databases with at least one nucleotide or protein sequence. You can %{linkb} using the NCBI Taxonomy."
+  the_results_are_analyzed_with_the_tool: "The results are analyzed with the %{link_ligercat} tool, which builds the cloud from the most relevant Medical Subject Headings (%{link_mesh}). Each term's relative size indicates how many times it appears in the PubMed search results. Click on a term to access the full LigerCat cloud, with live PubMed search capabilities."
+  there_are_currently_no_members_in_this_community: "There are currently no members in this community."
+  there_are_no_curators_of: "There are no curators of"
+  there_was_an_error_posting_your_text: "There was an error posting your text."
+  these_terms_are_derived_by_searching: "These terms are derived by searching the biomedical literature database, %{link} for the name \"%{scientific_name}\"."
+  this_community_has_no_endorsed_collections: "This community has not featured any collections."
+  this_community_has_no_focus_list: "This community has no focus list."
+  this_is_a_flat_list_of_10_mill: "This is a flat list of 10 million strings - not going to let you browse it"
+  this_is_a_focus_collection_for_community: "This is the focus of %{community}."
+  this_is_a_list_of_first_time_p: "This is a list of first-time published content partners for the month."
+  this_is_an_automated_e_mail_no: "This is an automated e-mail notification."
+  this_is_the_label_that_will_ap: "This is the label that will appear in the hierarchy selector drop down list"
+  this_is_the_label_that_will_be: "This is the label that will be used for attribution"
+  this_is_the_link_to_your_web_s: "This is the link to your web stats:"
+  this_report_is_also_available_via_feeds: "This report is also available via feeds"
+  threat_status_header_colon: "IUCN threat status:"
+  time_ago: "%{time_passed} ago"
+  title: Title
+  to_process_your_donation_please_proceed: "To process your donation please proceed"
+  toc: TOC
+  total_items_with_count:
+    one: "%{count} item"
+    other: "%{count} total items"
+  translation_deleted: "Translation has been deleted"
+  translation_saved: "Translation has been saved"
+  translations_submit: "View translation"
+  trusted: Trusted
+  trusted_images: "Trusted images"
+  trusted_text_objects: "Trusted text objects"
+  try_your_request_again: "Try your request again"
+  tumblr: Tumblr
+  twitter: Twitter
+  type: Type
+  unable_to_copy_items_to_collection_error: "Sorry, I was unable to copy the collection items to %{name}."
+  unable_to_invite_users_to_community_error: "Invitations could not be sent to %{users}."
+  unknown: Unknown
+  unpublished: Unpublished
+  unreviewed: Unreviewed
+  unreviewed_images: "Unreviewed images"
+  unreviewed_text_objects: "Unreviewed text objects"
+  untrusted: Untrusted
+  update: Update
+  update_collection_submit_button: "Update collection details"
+  update_feed: "Update Feed"
+  update_language: "Update language"
+  update_page: "Update page"
+  update_user_successful_notice: "Account successfully updated."
+  update_user_unsuccessful_error: "Sorry, an error occurred, your account was not updated. Please ensure all fields are completed correctly."
+  updated: Updated
+  updated_colon: "Updated:"
+  updated_community: "Community was successfully updated."
+  updated_member: "Member was successfully updated."
+  updates: Updates
+  updates_with_count:
+    one: "%{count} Update"
+    other: "%{count} Updates"
+  upload_content: "upload content"
+  upload_logo_help_text: "This will be the primary image representing your community – it can be whatever you like."
+  us_dolars_75: "US $75"
+  us_dollars_100: "US $100"
+  us_dollars_35: "US $35"
+  us_dollars_50: "US $50"
+  user: User
+  user_activation_failed_resent_validation_email_error: "Sorry, an error occurred, your account could not be verified. This usually occurs when the verficiation link you entered or selected is not recognised. Activation instructions have been resent to the email address you registered with, please ensure the verficiation link you use matches the one provided in the activation email."
+  user_activation_failed_user_not_found_error: "Sorry, an error occurred, the account you are trying to verify could not be found. Please ensure the verficiation link you use matches the one provided in the activation email you received after registering."
+  user_activation_successful_notice: "Welcome, and thanks for joining the Encyclopedia Of Life team. Your account with username <em>%{username}</em> is now active, please login."
+  user_already_active_notice: "Your account is already active, please login."
+  user_commented_on_something_colon: "<strong>%{user}</strong> commented on %{what}:"
+  user_left_comment_on_date: "%{username} left a comment on %{date}."
+  user_says_colon: "%{users_name} says:"
+  user_submitted_text_found: "User-submitted text found:"
+  user_system_down: "We apologize, but the user registration system is not currently available.  Please try again later."
+  username_colon: "Username:"
+  username_taken: "%{name} is already taken"
+  users_about_me_header: "About me"
+  users_content_partners_header: "Content partners"
+  users_content_partners_information: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt hendrerit tortor, commodo faucibus turpis imperdiet non. Nullam tincidunt, est vel euismod volutpat, libero turpis suscipit neque, nec viverra magna augue non nisl. Praesent et risus sit amet quam sagittis pulvinar eu at odio. Etiam mattis enim turpis, cursus rutrum massa. Ut blandit varius tellus, vitae interdum nulla pulvinar nec."
+  users_content_partners_with_count:
+    one: "%{count} current content partner"
+    other: "%{count} current content partners"
+  users_curation_header: "Curator qualifications"
+  users_form_account_header: "Your account"
+  users_form_curation_header: "Curator qualifications"
+  users_form_profile_info_header: "Public profile information"
+  users_form_tip: "Username is required for all users, other items marked as required %{required_icon} are optional for general users but required for curators."
+  users_member_of_count_communities:
+    one: "Member of %{count} community"
+    other: "Member of %{count} communities"
+  users_my_info_header: "My info"
+  users_pending_activation_message: "A confirmation message has been sent to the email address you have provided. To complete the registration process and become an EOL member, please click on the link included in that email. Thank you!"
+  using_the_site: "Using The Site"
+  value: Value
+  verification_phrase_did_not_match: "The verification phrase you entered did not match."
+  vetted: Vetted
+  view: View
+  view_added_text: "view added text"
+  view_article_source: "View article source"
+  view_contact_us_submissions: "view contact us submissions"
+  view_curators: "view curators"
+  view_error_log: "view error log"
+  view_full_size_image: "View full-size image"
+  view_harvesting_log: "view harvesting log"
+  view_image_source: "View image source"
+  view_only_pages_with_at_least_a_picture_or_piece_of_text: "View only pages with at least a picture or piece of text"
+  view_protein_and_nucleotide_se: "View protein and nucleotide sequences in NCBI"
+  view_translation_source_link: "View translation source"
+  view_user_activity: "view user activity"
+  view_user_comments: "view user comments"
+  viewing_partner_colon: "Viewing Partner:"
+  visible_title: Visible
+  wants_colon: "Wants:"
+  watch_list: "Watch list"
+  web_users: "Web Users"
+  weekly: Weekly
+  what_do_these_numbers_mean: "What do these numbers mean?"
+  what_is_a_taxon: "What is a taxon?"
+  what_is_eol: "What is EOL?"
+  what_is_this_question: "What's this?"
+  whats_new: "What's New?"
+  wikipedia_article_revision_for_ingestion: "EOL is now allowing curators to submit a revision of a Wikipedia page to be ingested into EOL as a vetted text object. To find the revision URL of a Wikipedia article first go to the article main page (e.g. <a href='http://en.wikipedia.org/w/index.php?title=Giraffe'>http://en.wikipedia.org/w/index.php?title=Giraffe</a>) and expand in the left hand menu the 'Toolbox' menu item. You should now see the 'Permanent link' item. Either copy the URL of that link, or click the link and copy the URL in your browser's address bar. The revision URL will look something like <a href='http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069'>http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>."
+  wikipedia_article_will_be_harvested_tonight: "Wikipedia article %{article} revision %{rev} will be harvested tonight"
+  wikipedia_revisions_must_match_pattern_error: "Revision URL must match http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*"
+  worklist: Worklist
+  year: Year
+  year_equals: "Year ="
+  yes_answer: "Yes"
+  you_are_an_admin_so_i_will_show_you_that_the_error_was: "You are an admin.  So, I will show you that the error was:"
+  you_are_not_authorized_to_perform_this_action: "You are not authorized to perform this action."
+  you_are_viewing_this_rank_as_classified_by: "You are viewing this %{rank} as classified by: "
+  you_can_now_check_last_month_s: "You can now check last month's web usage of your data in EOL."
+  you_have_been_logged_out: "You have been logged out."
+  you_joined_community: "You have successfully joined this community."
+  you_left_community: "You have successfully left this community."
+  you_removed_the_member_from_the_community: "You have successfully removed this member from the community."
+  your_current_rating_0_of_5: "Your current rating: 0 of 5"
+  your_current_rating_1_of_5: "Your current rating: 1 of 5"
+  your_current_rating_2_of_5: "Your current rating: 2 of 5"
+  your_current_rating_3_of_5: "Your current rating: 3 of 5"
+  your_current_rating_4_of_5: "Your current rating: 4 of 5"
+  your_current_rating_5_of_5: "Your current rating: 5 of 5"
+  your_message_was_sent: "Your message was sent."
+  your_preferences: "Your Preferences"
+  your_preferences_have_been_updated: "Your preferences have been updated."
+  your_rating: "Your rating"
+  your_rating_colon: "Your Rating:"
+  your_watch_collection: "your watch collection"

@@ -4,14 +4,14 @@
   %p
     - if(@content_partner_id != "All")
       =I18n.t("the_list_represents_the_curation_activity", :link => link_to(@partner_fullname, content_partner_path(:id => @content_partner_id)))
-    =I18n.t("this_report_is_also_available_")
+    =I18n.t("this_report_is_also_available_via_feeds")
     - if(@year_month == "All")
       = link_to image_tag('rss.png'), {:controller => '/feeds', :action => :partner_curation, :content_partner_id => @content_partner_id}
     - else
       = link_to image_tag('rss.png'), {:controller => '/feeds', :action => :partner_curation, :content_partner_id => @content_partner_id,:year => @report_year, :month => @report_month }
 
   - form_for :hello, :url => { :action => :report_partner_curated_data } do |form|
-    =I18n.t("viewing_partner_")
+    =I18n.t("viewing_partner_colon")
 
     %select{ :name => "content_partner_id" }
       %option
@@ -21,7 +21,7 @@
           = cp.user.full_name
     = submit_tag("Change")
     %br
-    =I18n.t("for_the_month_of_")
+    =I18n.t("for_the_month_of_colon")
 
     %select{ :name => "year_month" }
       %option
@@ -34,7 +34,7 @@
   - arr = [1]
   - @arr_dataobject_ids = @arr_dataobject_ids - arr
   %br
-  =I18n.t("curation_activity_")
+  =I18n.t("curation_activity_colon")
   %strong
     = number_with_delimiter(@arr_dataobject_ids.length, :delimiter => ",")
 
@@ -56,7 +56,7 @@
         %th
 
         %th
-          =I18n.t("curator__")
+          =I18n.t("curator_title")
         %th
           =I18n.t("activity")
         %th

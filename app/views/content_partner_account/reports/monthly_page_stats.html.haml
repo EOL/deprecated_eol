@@ -9,7 +9,7 @@
   %h3
     =I18n.t("summary_statistics")
   - form_for :hello, :url => { :action => :monthly_page_stats } do |form|
-    =I18n.t("viewing_partner_")
+    =I18n.t("viewing_partner_colon")
     = select_tag :user_id, options_for_select(@content_partners_with_published_data.collect{|cp| [cp.user.full_name, cp.user_id]}, @content_partner.user_id)
     = submit_tag(I18n.t("change"))
     %br

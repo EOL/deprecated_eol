@@ -8,7 +8,7 @@ class Admins::HierarchiesController < AdminsController
     page = params[:page] || '1'
     order = params[:order_by] || 'agent'
 
-    @page_title = I18n.t("hierarchies_")
+    @page_title = I18n.t("hierarchies_title")
     hierarchies = Hierarchy.find(:all, :include => [ :agent, { :resource => { :content_partner => :user } } ])
     case order
       when 'label'

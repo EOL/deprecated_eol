@@ -78,14 +78,14 @@
   %li
     = link_to I18n.t("table_of_contents_breakdown"), {:controller => 'administrator/stats', :action => 'toc_breakdown'}, {:class=>'toc_item active'}
   %li
-    = link_to I18n.t("spm_category___objects_count"), {:controller => 'administrator/stats', :action => 'SPM_objects_count'}, {:class=>'toc_item active'}
+    = link_to I18n.t("spm_category_objects_count"), {:controller => 'administrator/stats', :action => 'SPM_objects_count'}, {:class=>'toc_item active'}
   %li
-    = link_to I18n.t("spm_category___partner_count"), {:controller => 'administrator/stats', :action => 'SPM_partners_count'}, {:class=>'toc_item active'}
+    = link_to I18n.t("spm_category_partner_count"), {:controller => 'administrator/stats', :action => 'SPM_partners_count'}, {:class=>'toc_item active'}
 
   %h3
     =I18n.t("data_usage_reports")
   %li
-    = link_to(I18n.t("google_analytics__google_accou"),'https://www.google.com/analytics/settings/?et=reset&hl=en#scid=3298646',:target=>'_blank', :class=>'toc_item active' )
+    = link_to(I18n.t("google_analytics_google_account_and_access_required"),'https://www.google.com/analytics/settings/?et=reset&hl=en#scid=3298646',:target=>'_blank', :class=>'toc_item active' )
   /
     =I18n.t("disabled_for_now")
     %li

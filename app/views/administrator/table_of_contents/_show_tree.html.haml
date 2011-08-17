@@ -39,7 +39,7 @@
             %span{:id => "toc_label_#{toc.id}"}><
               = "&nbsp;" + toc.label + "&nbsp;"
               %a{:href => '', :onclick => %Q[javascript:toc_edit_label(#{toc.id}, "#{toc.label}"); return false;]}
-                = image_tag('pencil.png', :alt => I18n.t("edit_"), :title => I18n.t("edit_"), :style => 'float: right; margin: 0px;')
+                = image_tag('pencil.png', :alt => I18n.t("edit_downcase"), :title => I18n.t("edit_downcase"), :style => 'float: right; margin: 0px;')
 
         %td{:class => cell2_class, :valign => 'top'}
           - unless toc.info_items.empty?

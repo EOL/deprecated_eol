@@ -1,0 +1,12 @@
+# Messages for Finnish (Suomi)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Nike
+# Author: Silvonen
+fi: 
+  already_a_member_question: Oletko jo jäsen?
+  are_you_sure: Oletko varma?
+  collections: Kokoelmat
+  edit_collection: Muokkaa kokoelmaa
+  eol_news: EOL-uutisia
+  what_is_a_taxon: Mikä on taksoni?

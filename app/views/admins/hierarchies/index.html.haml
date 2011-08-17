@@ -34,7 +34,7 @@
             - browsable = '<strong>pending</strong>' if hierarchy.request_publish==true
             = browsable
           %td{:class => column_class}
-            = link_to(I18n.t("edit_"), {:action => 'edit', :id => hierarchy.id })
+            = link_to(I18n.t("edit_downcase"), {:action => 'edit', :id => hierarchy.id })
 
   %br
   %br

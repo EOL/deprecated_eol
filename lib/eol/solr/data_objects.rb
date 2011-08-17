@@ -25,8 +25,6 @@ module EOL
       end
       
       def self.solr_search(taxon_concept_id, options = {})
-        options[:sort_by] ||= 'data_object_id+desc'
-        
         url =  $SOLR_SERVER + $SOLR_DATA_OBJECTS_CORE + '/select/?wt=json&q=' + CGI.escape("{!lucene}published:1 AND ancestor_id:#{taxon_concept_id}")
         if options[:vetted_type] && options[:vetted_type] != 'all'
           url << CGI.escape(" AND #{options[:vetted_type]}_ancestor_id:#{taxon_concept_id}")
@@ -50,6 +48,8 @@ module EOL
         # add sorting
         if options[:sort_by] == 'newest'
           url << '&sort=data_object_id+desc'
+        elsif options[:sort_by] == 'oldest'
+          url << '&sort=data_object_id+asc'
         else
           url << '&sort=data_rating+desc'
         end

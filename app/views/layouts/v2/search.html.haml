@@ -25,10 +25,6 @@
                           = check_box_tag "type[]", opt, @params_type.include?(opt.to_s.camelize),
                             { :name => "type[]", :id => "type_#{opt.to_s}"}
                           = I18n.t("filter_by_type_#{opt}_option")
-                          - if opt == :all
-                            = " (#{count})" 
-                          - elsif count > 0
-                            = "*"
             %fieldset.actions
               %input(type="submit" value="filter results")
         #main

@@ -3,154 +3,108 @@
 # Export driver: syck-pecl
 # Author: Peter Alberti
 da: 
-  about_eol: Om EOL
   account_information: Kontooplysninger
   account_registered_but_not_ready_try_later: Din konto er registreret, men endnu ikke klar til at blive brugt. Prøv venligst igen om fem minutter.
-  add_a_role: Tilføj en rolle
   add_to_my_collection_button: Tilføj til min samling
-  added_date: Tilføjet %{date}
-  admin: administrator
-  all_information: Alle oplysninger
   all_pages: Alle sider
   already_a_member_question: Allerede medlem?
-  already_member_of_community: Du er allerede medlem af dette fællesskab.
   application_version_advisory_information: Programversion
   are_you_sure: Er du sikker?
   assistive_details_header: Detaljer
   assistive_overview_header: Oversigt
   average_rating_value_of_total: "Gennemsnitlig bedømmelse: %{rating} ud af %{total}"
-  browse_gallery: Bladr vores galleri igennem
-  cancel: Afbryd
+  cannot_be_associated_with_both_a_user_and_a_community: Kan ikke være forbundet med både en bruger og et fællesskab
   cannot_be_empty: kan ikke være tom.
-  change_rating_to_1_of_5: Ændr bedømmelse til 1 ud af 5
-  change_rating_to_2_of_5: Ændr bedømmelse til 2 ud af 5
-  change_rating_to_3_of_5: Ændr bedømmelse til 3 ud af 5
-  change_rating_to_4_of_5: Ændr bedømmelse til 4 ud af 5
-  change_rating_to_5_of_5: Ændr bedømmelse til 5 ud af 5
-  collected_by: Indsamlet af
-  collection_item_type_with_label: "Type: %{type}"
+  citation: Citering
   collections: Samlinger
+  collections_summary_header_with_count: 
+    one: Til stede i %{count} samling
+    other: Til stede i %{count} samlinger
+  common_names_advisory_information: Almindelige navne, der tilknyttet denne taksonomiske gruppe.
+  common_names_with_count: 
+    one: "%{count} almindeligt navn"
+    other: "%{count} almindelige navne"
   communities: Fællesskaber
+  community: Fællesskab
   community_activity: Fællesskabets aktiviteter
   community_focus: Fællesskabets fokus
-  community_members: Medlemmer af fællesskabet
-  community_roles: Roller i fællesskabet
   contact_us_link: Kontakt os
   content_partners: Indholdssamarbejdspartnere
   content_summary_table_count_column_header: Antal
-  content_update: Opdatering af indhold
-  contribute_to_page_button: Bidrag til denne side
-  contributors_like_you: Bidragydere som dig
+  content_summary_table_type_status_column_header: Indholdstype og -status
   create_a_collection: Opret en samling
   create_a_community: Opret et fællesskab
-  create_account: opret en konto
-  created_community: Det lykkedes at oprette fællesskabet.
-  created_time_ago: Oprettet for %{time_passed} siden
-  dato_rating_note: "%{username} gav dette en bedømmelse på %{rating}."
-  delete_allcaps: SLET
+  curators_summary_header_with_count: 
+    one: "%{count} kurator"
+    other: "%{count} kuratorer"
+  currently_in_eol: Lige nu i Encyclopedia of Life
   delete_community: Slet dette fællesskab
+  detail: Detalje
   development_version_name: V2 UDVIKLINGSVERSION - ikke til almindelig brug
-  displaying_numerical_range: Viser %{start_number} &mdash; %{end_number}
-  donate: Doner
   edit_collection: Rediger samling
   edit_community: Rediger fællesskab
-  edit_membership: Rediger medlemskab
   edit_my_profile: Rediger min profil
-  eol_colon: "EOL:"
-  eol_glossary: EOL-ordliste
+  encyclopedia_of_life: Encyclopedia of Life
   eol_news: EOL-nyheder
-  error_page_header: Beklager, vi er stødt på et problem
-  esc_key_hides_this_message: (esc-tasten skjuler denne meddelelse)
   explore: Udforsk
   filter_by_status: Filtrer efter status
-  filter_by_status_trusted_option: betroet
   filter_by_type: Filtrer efter type
-  filter_by_type_all_option: alle typer
-  filter_by_type_videos_option: videoer
-  filter_feeds_label: Vis
-  filtered_information: Filtrerede oplysninger
-  founder: Grundlægger
+  filter_media: filtrer medier
   general_error_occurred: Vi beklager, men der opstod en fejl. Gør venligst et forsøg til på at udføre din opgave. Hvis fejlen dukker op igen, så send venligst en email til %{email} sammen med fejlbeskeden nedenfor og anden information, du ønsker at meddele os. Vi arbejder hårdt på at give dig den bedste mulige tjeneste og værdsætter din støtte. -- Holdet bag EOL
-  get_involved: Bliv involveret
+  global_access_tagline: Global adgang til viden om livet på jorden.
   global_navigation: Global Navigation
   go: Gå til
-  hello_user: Hej %{user}
+  google_translate: Google Oversæt
+  google_translate_advisory_information: Brug Google Oversæts skærmelement til at oversætte hjemmesidens indhold til et andet sprog.
+  has_already_been_taken: er allerede blevet taget.
   help: Hjælp
-  home: Hjem
+  home_page_link_advisory_information: Dette link vil tage dig til startsiden for Encyclopedia Of Life
+  image_is_no_longer_available: Billedet er ikke længere tilgængeligt
+  image_not_found: Billede ikke fundet
   image_thumbnail_alt_text: Dette %{vetted_status} billede er af %{scientific_name}
   images: Billeder
-  images_with_count: 
-    one: "%{count} billede"
-    other: "%{count} billeder"
   in_my_collection_button: I min samling
   indexed: Indekseret
-  invalid_login_or_password: Ugyldigt brugernavn eller kodeord
-  join_community: Deltage i dette fællesskab
   join_community_button: Deltag i dette fællesskab
-  join_community_login_required_advisory: Du vil blive bedt om at logge ind før du kan slutte dig til dette fællesskab
+  join_eol_button_html: Slut dig til <abbr title="Encyclopedia of Life">EOL</abbr> nu
   just_pages_with_pictures_and_text: Kun sider med billeder og tekst
   language: "Sprog:"
   language_menu_item: "%{language_label} <abbr>(%{language_abbr})</abbr>"
   last_updated_time_ago: Senest opdateret for %{time_passed} siden
   learn_about_content_partners: Lær om vores indholdssamarbejdspartnere
-  leave_community: Forlad dette fællesskab
+  learn_how_to_interact: Lær hvordan du kan interagere
+  learn_how_to_join: Lær, hvordan du kan tilmelde dig
+  leave_a_comment: Tilføj en kommentar
   license: Licens
-  license_all_rights_reserved: Alle rettigheder forbeholdes
-  license_cc_by: Creative Commons Navngivelse (CC BY)
-  license_cc_by_2_0: Creative Commons Navngivelse 2.0 (CC BY 2.0)
-  license_cc_by_2_5: Creative Commons Navngivelse 2.5 (CC BY 2.5)
-  license_cc_by_3_0: Creative Commons Navngivelse 3.0 (CC BY 3.0)
-  license_cc_by_nc: Creative Commons Navngivelse Ikke-kommerciel (CC BY-NC)
-  license_cc_by_nc_2_0: Creative Commons Navngivelse Ikke-kommerciel 2.0 (CC BY-NC 2.0)
-  license_cc_by_nc_2_5: Creative Commons Navngivelse Ikke-kommerciel 2.5 (CC BY-NC 2.5)
-  license_cc_by_nc_3_0: Creative Commons Navngivelse Ikke-kommerciel 3.0 (CC BY-NC 3.0)
-  license_cc_by_nc_sa: Creative Commons Navngivelse Ikke-kommerciel Del på samme vilkår (CC BY-NC-SA)
-  license_cc_by_nc_sa_1_0: Creative Commons Navngivelse Ikke-kommerciel Del på samme vilkår 1.0 (CC BY-NC-SA 1.0)
-  license_cc_by_nc_sa_2_0: Creative Commons Navngivelse Ikke-kommerciel Del på samme vilkår 2.0 (CC BY-NC-SA 2.0)
-  license_cc_by_nc_sa_2_5: Creative Commons Navngivelse Ikke-kommerciel Del på samme vilkår 2.5 (CC BY-NC-SA 2.5)
-  license_cc_by_nc_sa_3_0: Creative Commons Navngivelse Ikke-kommerciel Del på samme vilkår 3.0 (CC BY-NC-SA 3.0)
-  license_cc_by_sa: Creative Commons Navngivelse Del på samme vilkår (CC BY-SA)
-  license_cc_by_sa_1_0: Creative Commons Navngivelse Del på samme vilkår 1.0 (CC BY-SA 1.0)
-  license_cc_by_sa_2_0: Creative Commons Navngivelse Del på samme vilkår 2.0 (CC BY-SA 2.0)
-  license_cc_by_sa_2_5: Creative Commons Navngivelse Del på samme vilkår 2.5 (CC BY-SA 2.5)
-  license_cc_by_sa_3_0: Creative Commons Navngivelse Del på samme vilkår 3.0 (CC BY-SA 3.0)
-  license_gnu_fdl: GNU Free Documentation License (GNU FDL)
-  license_gnu_gpl: GNU General Public License (GNU GPL)
-  license_not_applicable: Licens ikke relevant
-  license_public_domain: Offentlig ejendom
-  link_to_join_this_community: Du skal være <a href='%{link}'>logget på</a> for at slutte dig til dette fællesskab.
   literature: Litteratur
   location: Sted
-  log_in: Log på
-  login: log på
   login_or_create_account: Log på eller opret en konto
-  logout: Log af
   manage_community: Håndter fællesskab
-  manage_roles: Håndter roller
   maps_with_count: 
     one: "%{count} Kort"
     other: "%{count} Kort"
+  media: Medier
+  media_with_count: 
+    one: "%{count} Medie"
+    other: "%{count} Medier"
   members_with_count: 
     one: "%{count} medlem"
     other: "%{count} medlemmer"
+  minimal_page: Minimal side
   most_active_members: Mest aktive medlemmer
   must_be_less_than_128_characters_long: skal være kortere end 128 tegn.
   must_be_logged_in: Du skal være logget på for at udføre denne handling.
   my_activity: Min aktivitet
-  no_activity: Ingen aktivitet.
-  no_members_in_parens: (ingen medlemmer)
-  nomenclature: Nomenklatur
+  my_info: Min info
+  newsfeed: Nyhedsfeed
   not_evaluated: Ikke evalueret
   overview: Oversigt
   pages_with_pictures_and_text: Sider med billeder og tekst
   pages_with_pictures_or_text: Sider med billeder eller tekst
-  personal_space: Personligt område
   post_comment: Skriv Kommentar
-  preferences: Indstillinger
-  press_room: Presserum
-  print_this_page_link: Udskriv denne side
+  preferred_common_name_advisory_information: Dette er det foretrukne almindelige navn for denne taksonomiske gruppe.
   profile: Profil
-  punctuation_comma: ","
+  profile_image_alt_text_member: Profilbillede for medlemmet %{user_given_name} %{user_family_name}
   rated_by_count_people: 
     one: fra %{count} person
     other: fra %{count} personer
@@ -159,52 +113,42 @@ da:
   resources: Ressourcer
   rights: Rettigheder
   rights_holder: Rettighedsindehaver
-  roles: Roller
+  rss_abbr_html: <abbr title="Really Simple Syndication">RSS</abbr>
+  search_by_term_page_title: "EOL-søgning: %{term}"
   search_field_label: Søg EOL
+  search_input_advisory_information: Indtast almindelige eller videnskabelige navne for levende organismer, du ønsker at vide mere om. For eksempel kan du prøve at skrive tomat.
   search_placeholder: Søg i EOL...
+  search_the_site: Søg på hjemmesiden
+  see_all_media_link: Se alle medier
+  select_topic: Vælg venligst et emneområde
   selected_language_advisory_information: Dette er det aktuelt valgte sprog.
-  show_status_message: Vis statusmeddelelse
-  show_warning_message: Vis advarselsmeddelelse
+  set_as_exemplar: Angiv som forbillede
+  sign_in: Log på
+  sign_out: Log ud
+  site_information: Oplysninger om hjemmesiden
   skip_to_content: Spring til indhold
-  skip_to_navigation: Spring til navigation
-  skip_to_table_of_contents: Spring til indholdsfortegnelsen
   sort_by: Sorter efter
-  sort_by_button: Sorter
-  sort_by_data_type_option: Datatype
-  sort_by_default_option: Standard
-  sort_by_label: Sorter efter
-  sort_by_newest_option: Nyeste
-  sort_by_oldest_option: Ældste
-  sort_by_rating_option: Bedømmelse
-  source_information_link: kildeoplysninger
   source_url: Kilde-URL
+  supplier: Leverandør
   switch_language_advisory_information: Ændr hjemmesidens sprog til %{language_label}
   table_of_contents: Indholdsfortegnelse
-  text_with_count: 
-    one: "%{count} Artikel"
-    other: "%{count} Artikler"
-  the_email_address_is_not_unique_you_must_enter_a_username: Email-adressen er ikke unik - du skal angive et brugernavn
-  there_are_currently_no_roles_for_this_community: Der er i øjeblikket ingen roller for dette fællesskab.
+  taxa: Taksonomiske grupper
+  taxon: taksonomisk gruppe
+  text_summary_more_link: Læs hele opslaget
+  there_are_currently_no_members_in_this_community: Der er i øjeblikket ikke nogen medlemmer af dette fællesskab.
   time_ago: for %{time_passed} siden
+  trusted: Betroede
+  try_your_request_again: Prøv din forespørgsel igen
+  twitter: Twitter
   unknown: Ukendt
-  updated_community: Det lykkedes at opdatere fællesskabet.
-  user_comment: Brugerkommentar
-  user_joined_community_note: "%{username} sluttede sig til fællesskabet."
-  user_left_community_note: "%{username} forlod fællesskabet."
+  unreviewed: Ikke vurderet
   user_system_down: Vi beklager, men systemet til brugerregistrering er ikke tilgængeligt i øjeblikket. Prøv venligst igen senere.
+  view_only_pages_with_at_least_a_picture_or_piece_of_text: Vis kun sider med mindst et billede eller tekststykke
+  what_is_a_taxon: Hvad er en taksonomisk gruppe?
   what_is_eol: Hvad er EOL?
   what_is_this_question: Hvad er dette?
   you_are_an_admin_so_i_will_show_you_that_the_error_was: "Du er en administrator. Derfor vil jeg vise dig, hvad fejlen var:"
   you_are_not_authorized_to_perform_this_action: Du har ikke tilladelse til at udføre denne handling.
-  you_have_been_a_member_of_this_community_since: Du har været medlem af dette fællesskab siden %{since}.
-  you_in_parens: (dig)
-  you_left_community: Du har forladt dette fællesskab.
-  your_current_rating_0_of_5: "Din nuværende bedømmelse: 0 ud af 5"
-  your_current_rating_1_of_5: "Din nuværende bedømmelse: 1 ud af 5"
-  your_current_rating_2_of_5: "Din nuværende bedømmelse: 2 ud af 5"
-  your_current_rating_3_of_5: "Din nuværende bedømmelse: 3 ud af 5"
-  your_current_rating_4_of_5: "Din nuværende bedømmelse: 4 ud af 5"
-  your_current_rating_5_of_5: "Din nuværende bedømmelse: 5 ud af 5"
-  your_message_was_sent: Din besked blev sendt.
   your_preferences: Dine Indstillinger
+  your_preferences_have_been_updated: Dine indstillinger er blevet opdateret.
   your_rating: Din bedømmelse

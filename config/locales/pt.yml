@@ -1,0 +1,23 @@
+# Messages for Portuguese (Português)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Hamilton Abreu
+pt: 
+  all_pages: Todas as páginas
+  cannot_be_empty: não pode estar vazio.
+  classifications_summary_header_with_count: 
+    one: Parte de %{count} classificação aprovada
+    other: Parte de %{count} classificações aprovadas
+  curators_of_taxon_page_title: Conservadores de %{taxon}
+  global_access_tagline: Acesso global ao conhecimento sobre a vida na Terra.
+  global_navigation: Navegação Global
+  has_already_been_taken: já não está disponível.
+  help: Ajuda
+  members_with_count: 
+    one: "%{count} colaborador"
+    other: "%{count} colaboradores"
+  must_be_logged_in: Tem de estar autenticado para realizar esta operação.
+  pages_with_pictures_and_text: Páginas com imagens e texto
+  search_field_label: Pesquisar a EOL
+  sound_thumbnail_alt_text: Esta gravação sonora %{vetted_status} é de %{scientific_name}
+  video_thumbnail_alt_text: Este vídeo %{vetted_status} é de %{scientific_name}

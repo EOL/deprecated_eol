@@ -65,10 +65,12 @@ list = Set.new()
   views/collections
   views/comments
   views/communities
+  views/content_partners
   views/data_objects
   views/members
   views/search
   views/sessions
+  views/taxa/communities
   views/taxa/details
   views/taxa/literature
   views/taxa/maps
@@ -81,19 +83,36 @@ list = Set.new()
   views/taxa/worklist
   views/users
 
+  controllers/administrator/content_page_controller.rb
+  controllers/administrator//content_partner_report_controller.rb
+  controllers/administrator/table_of_contents_controller.rb
+  controllers/admins/content_pages_controller.rb
+  controllers/admins/content_partner_reports_controller.rb
+  controllers/admins/hierarchies_controller.rb
+  controllers/admins/monthly_notification_controller.rb
+  controllers/admins/translated_content_pages_controller.rb
   controllers/admins_controller.rb
+  controllers/admins/content_pages_controller.rb
   controllers/application_controller.rb
   controllers/collection_items_controller.rb
   controllers/collections_controller.rb
   controllers/comments_controller.rb
   controllers/communities/collections_controller.rb
+  controllers/communities_controller.rb
   controllers/content_controller.rb
+  controllers/content_partners/content_partner_agreements_controller.rb
+  controllers/content_partners/content_partner_contacts_controller.rb
+  controllers/content_partners/resources_controller.rb
+  controllers/content_partners/statistics_controller.rb
+  controllers/content_partners_controller.rb
   controllers/data_objects_controller.rb
   controllers/fckeditor_controller.rb
+  controllers/feeds_controller.rb
   controllers/hierarchy_entries_controller.rb
   controllers/members_controller.rb
   controllers/search_controller.rb
   controllers/sessions_controller.rb
+  controllers/taxa/communities_controller.rb
   controllers/taxa/details_controller.rb
   controllers/taxa/literature_controller.rb
   controllers/taxa/maps_controller.rb
@@ -108,18 +127,25 @@ list = Set.new()
   controllers/users/activities_controller.rb
   controllers/users/collections_controller.rb
   controllers/users/newsfeeds_controller.rb
+  controllers/users/content_partners_controller.rb
   controllers/users_controller.rb
 
+  views/admin/_navigation.html.haml
+  views/administrator/content_partner_report/report_partner_curated_data.haml
   views/administrator/curator/_user_row.html.haml
+  views/administrator/user/_form.html.haml
+  views/administrator/user_data_object/index.html.haml
   views/content/_error.html.haml
   views/content/_march_of_life_item.html.haml
   views/content/donate.html.haml
   views/content/error.html.haml
   views/content/index.html.haml
   views/content/page.html.haml
+  views/layouts/main.html.haml
   views/navigation/_browse_page.html.haml
   views/navigation/_node_name_page.html.haml
   views/navigation/_node_with_ancestry_page.html.haml
+  views/notifier/monthly_stats.html.haml
   views/shared/_add_to_my_collection.html.haml
   views/shared/_flash_messages.html.haml
   views/shared/_google_custom_search_params.html.haml
@@ -136,10 +162,12 @@ list = Set.new()
   views/taxa/_classifications_summary_minitree_node_with_children.html.haml
   views/taxa/_collections_summary.html.haml
   views/taxa/_collections_summary_empty.html.haml
+  views/taxa/_communities_summary.html.haml
+  views/taxa/_curator_citation.html.haml
   views/taxa/_curators_summary.html.haml
+  views/taxa/curators.html.haml
   views/taxa/_iucn_status_summary.html.haml
   views/taxa/_media_summary.html.haml
-  views/taxa/_media_thumbnail.html.haml
   views/taxa/_overview_image_taxon_link.html.haml
   views/taxa/_recognised_by.html.haml
   views/taxa/_text_summary.html.haml

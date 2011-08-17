@@ -4,44 +4,44 @@
   %tr
     %td
       %strong
-        =I18n.t("username_")
+        =I18n.t("username_colon")
     %td
       = f.text_field :username, {:size => '50', :maxlength => '32'}
   %tr
     %td
       %strong
-        =I18n.t("password_")
+        =I18n.t("password_colon")
     %td
       = f.password_field :entered_password, {:size => '50', :maxlength => '16', :autocomplete => 'off'}
   %tr
     %td
       %strong
-        =I18n.t("confirm_password_")
+        =I18n.t("confirm_password_colon")
     %td
       = f.password_field :entered_password_confirmation, {:size => '50', :maxlength => '16', :autocomplete => 'off'}
   %tr
     %td
       %strong
-        =I18n.t("email_")
+        =I18n.t("email_colon")
     %td
       = f.text_field :email, {:size => '50', :maxlength => '255'}
   %tr
     %td
       %strong
-        =I18n.t("given_name_")
+        =I18n.t("given_name_colon")
     %td
       = f.text_field :given_name, {:size => '50', :maxlength => '255'}
   %tr
     %td
       %strong
-        =I18n.t("family_name_")
+        =I18n.t("family_name_colon")
     %td
       = f.text_field :family_name, {:size => '50', :maxlength => '255'}
   - if @user.curator_approved
     %tr
       %td
         %strong
-          =I18n.t("profile_")
+          =I18n.t("profile_colon")
       %td
         = external_link_to(I18n.t("curator_profile"), :controller => '/curators', :action => :profile, :id => @user.id, :show_link_icon => false)
   %tr
@@ -53,7 +53,7 @@
   %tr
     %td
       %strong
-        =I18n.t("content_setting_")
+        =I18n.t("content_setting_colon")
     %td
       = f.radio_button :expertise, "novice"
       = I18n.t(:information_intended_for_beginners)
@@ -74,24 +74,24 @@
   %tr
     %td
       %strong
-        =I18n.t("request_mailing_list_")
+        =I18n.t("request_mailing_list_colon")
     %td
       = f.check_box :mailing_list
       =I18n.t("yes_answer")
   %tr
     %td
       %strong
-        =I18n.t("active_")
+        =I18n.t("active_colon")
     %td
       = f.check_box :active
       =I18n.t("_true_")
       (
       = @user.failed_login_attempts
-      =I18n.t("failed_login_attempts___must_b")
+      =I18n.t("failed_login_attempts")
   %tr
     %td
       %strong
-        =I18n.t("curator_scope_")
+        =I18n.t("curator_scope_colon")
     %td
       = f.text_area :curator_scope, :rows => 3, :cols => 60
   %tr
@@ -115,24 +115,24 @@
   %tr
     %td
       %strong
-        =I18n.t("remove_curatorship_")
+        =I18n.t("remove_curatorship_colon")
     %td
       = check_box_tag :curator_denied
-      =I18n.t("if_checked_and_user_is_saved__")
+      =I18n.t("if_checked_and_user_is_saved")
   %tr
     %td
       %strong
-        =I18n.t("admin_notes__not_visible_to_us")
+        =I18n.t("admin_notes_not_visible_to_user")
     %td
       = f.text_area :notes, :rows => 3, :cols => 60
   - unless @user.id.nil?
     %tr
       %td
         %strong
-          =I18n.t("created_")
+          =I18n.t("created_colon")
         %br
         %strong
-          =I18n.t("updated_")
+          =I18n.t("updated_colon")
       %td
         = format_date_time(@user.created_at)
         %br
@@ -140,11 +140,11 @@
   %tr
     %td
       %strong
-        =I18n.t("send_email_")
+        =I18n.t("send_email_colon")
     %td
       #email_toggle
         %a{ :href => "#email", :onclick => "javascript:$('#email').show();$('#email_toggle').hide();return false;" }
-          =I18n.t("_show_email_message_area_")
+          =I18n.t("show_email_message_area")
       #email{ :style => "display:none;" }
         =I18n.t("fill_in_a_message_below_to_sen")
         %br

@@ -47,7 +47,7 @@ class Administrator::ContentPageController < AdminController
      expire_menu_caches(new_page)
      flash[:notice] = I18n.t("content_has_been_updated")
    else
-     flash[:error] = I18n.t("some_required_fields_were_not_")
+     flash[:error] = I18n.t("some_required_fields_were_not_entered")
    end
    redirect_to :action => 'index', :content_page_id => new_page.id
  end
@@ -87,7 +87,7 @@ class Administrator::ContentPageController < AdminController
      expire_menu_caches(new_page)
      flash[:notice] = I18n.t("content_has_been_updated")
    else
-     flash[:error] = I18n.t("some_required_fields_were_not_")
+     flash[:error] = I18n.t("some_required_fields_were_not_entered")
    end
    redirect_to :action => 'index'
  end
@@ -231,7 +231,7 @@ class Administrator::ContentPageController < AdminController
       flash[:notice] = I18n.t("content_has_been_updated")
       redirect_to :action => 'index'
     else
-      flash[:error] = I18n.t("some_required_fields_were_not_")
+      flash[:error] = I18n.t("some_required_fields_were_not_entered")
     end
 
   end

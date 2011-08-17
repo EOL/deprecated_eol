@@ -2007,6 +2007,7 @@ en:
   maps: "Maps"
   maps_empty: "No one has contributed any maps for this taxon yet."
   maps_empty_contribute_instructions: "Learn how to contribute maps to EOL."
+  maps_image_maps_header: "Media tagged as 'map'"
   matching_users_found_with_count:
     one: "A total of %{count} user was found matching your criteria."
     other: "A total of %{count} users were found matching your criteria."
@@ -2837,6 +2838,7 @@ en:
   taxon_group: "Taxon Group"
   taxon_id_: "Taxon ID:"
   taxon_id: "Taxon ID"
+  taxon_page_content_disclaimer_header: "Disclaimer"
   taxon_page_content_disclaimer: "EOL content is automatically assembled from many different content providers. As a result, from time to time you may find pages on EOL that are confusing. To request an improvement, please leave a comment on the page. Thank you!"
   taxonomic_subject_of_data__e_g: "Taxonomic subject of data (e.g. birds, mammals, etc.): <span title=\"required\">*</span>"
   taxonomic_summary_of_content: "taxonomic summary of content"

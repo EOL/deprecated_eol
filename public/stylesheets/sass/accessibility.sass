@@ -1,12 +1,21 @@
 @import "mixins"
-= screenreader-accessible
+= screenreader_accessible
   position: absolute
   left: -999em
 
 .assistive, #header .assistive
-  +screenreader-accessible
+  +screenreader_accessible
 
+$logo_size_standout: 88
+$logo_size_primary: 68
+$logo_size_secondary: 48
+$logo_size_tertiary: 35
 
+= max_dimensions($width, $height)
+  max-width: #{$width}px
+  max-height: #{$height}px
+  width: expression(this.width > #{$width} ? "#{$width}px" : true)
+  height: expression(this.height > #{$height} ? "#{$height}px" : true)
 /**
  * Changes required for HR sass files:
  *   - replace /images/<image name> with /images/v2/<image name>
@@ -73,6 +82,7 @@ body > #footer ul.social_media li
         float: left
         margin: 0 10px 0 0
         border: 1px solid #394651
+        +max_dimensions($logo_size_secondary, $logo_size_secondary)
       .details
         padding: 5px 0 0 0
         overflow: hidden
@@ -549,7 +559,15 @@ body
           left: 0
           .copy
             padding: 0 0 0 90px
-
+/** taxon disclaimer **/
+.disclaimer
+  clear: both
+  border-top: 1px solid #CAD3DB
+  padding-top: 10px
+  p
+    text-align: center
+    font-size: 0.9em
+    color: #394651
 
 /** Our classification summary is a hierarchichal list whereas HR was just links without hierarchy
   * so we override the styles here **/
@@ -671,73 +689,48 @@ body
 #map_image
   height: 350px
 
-/**
-  * TEMPORARY FIX: Forcing image sizes for V2 demo.
-  */
-= max90x90
-  max-width: 90px
-  max-height: 90px
-  width: expression(this.width > 90 ? "90px" : true)
-  height: expression(this.height > 90 ? "90px" : true)
-= max88x88
-  max-width: 88px
-  max-height: 88px
-  width: expression(this.width > 88 ? "88px" : true)
-  height: expression(this.height > 88 ? "88px" : true)
-= max60x60
-  max-width: 60x
-  max-height: 60px
-  width: expression(this.width > 60 ? "60px" : true)
-  height: expression(this.height > 60 ? "60px" : true)
-= size50x50
-  width: 50px
-  height: 50px
-= size35x35
-  width: 35px
-  height: 35px
-= size90x90
-  width: 90px
-  height: 90px
-
 #media_summary
   .image
     > img
-      max-width: 430px
-      max-height: 310px
+      +max_dimensions(430px, 310px)
 ul.feed
   li
     >a
       >img
-        +size50x50
+        +max_dimensions($logo_size_secondary, $logo_size_secondary)
 #header
   .session
     img
-      +size50x50
-#collections_summary, #communities_summary, .collection_contributors
+      +max_dimensions($logo_size_secondary, $logo_size_secondary)
+#collections_summary, #communities_summary, #curators_summary
   ul
     li
       >a
         >img
-          +size50x50
+          +max_dimensions($logo_size_secondary, $logo_size_secondary)
 #collections
   .collections
     .article
       >.header
         >a
           >img
-            +size50x50
+            +max_dimensions($logo_size_secondary, $logo_size_secondary)
+#community
+  .article.list
+    img
+      +max_dimensions($logo_size_secondary, $logo_size_secondary)
 #page_heading
   &.with_image, &.profile
     img
-      +max88x88
+      +max_dimensions($logo_size_standout, $logo_size_standout)
 #collections
   &.main_container
     .taxon>img
-      +max90x90
+      +max_dimensions($logo_size_standout, $logo_size_standout)
 #sidebar
-  .collection_list
+  .collection_list, .collection_contributors
     img
-      +size35x35
+      +max_dimensions($logo_size_tertiary, $logo_size_tertiary)
 #taxon
   .gallery
     ul.thumbnails
@@ -745,8 +738,7 @@ ul.feed
         &
           text-align: center
         img
-          max-width: 98px
-          max-height: 68px
+          +max_dimensions(98px, 68px)
           width: auto
           height: auto
           display: inline !important
@@ -755,8 +747,7 @@ ul.feed
     ul
       li
         img
-          max-width: 160px
-          max-height: 125px
+          +max_dimensions(160px, 125px)
           margin-left: auto
           margin-right: auto
   #sidebar
@@ -771,16 +762,11 @@ ul
   &.object_list
     li
       img
-        max-width: 68px
-        max-height: 68px
-        // JRice added this to force missing images to look reasonable.  ...Not sure if it's wise, though:
-        width: 68px
-        height: 68px
+        +max_dimensions($logo_size_primary, $logo_size_primary)
 form
   &.comment
     img
-      height: 50px
-      width: 50px
+      +max_dimensions($logo_size_secondary, $logo_size_secondary)
 #header
   .thumbnails
     ul
@@ -874,7 +860,7 @@ h1.notice
   float: none
   padding: 0px !important
 #worklist #tasks li img
-  +max60x60
+  +max_dimensions(60px, 60px)
 //sidebar paragraphs need space after them:
 #sidebar p
   padding-bottom: 1em
@@ -990,11 +976,3 @@ form#new_collection_item fieldset.actions
   width: 220px
   #filters
     margin: 0px 20px
-// This was not marked up by HR, AFAIK:
-#disclaimer
-  border-top: 1px solid #CAD3DB
-  text-align: center
-  font-size: 0.9em
-  padding: 4pt 0
-  background-color: #F3F7FA
-  color: #394651

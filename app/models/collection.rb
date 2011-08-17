@@ -159,7 +159,7 @@ class Collection < ActiveRecord::Base
 
   def logo_url(size = 'large')
     if logo_cache_url.blank?
-      return "v2/logos/empty_collection.png"
+      return "v2/logos/collection_default.png"
     elsif size.to_s == 'small'
       DataObject.image_cache_path(logo_cache_url, '88_88')
     else

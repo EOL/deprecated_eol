@@ -10,9 +10,6 @@ class Taxa::DetailsController < TaxaController
       { :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] },
       { :data_objects => [ :translations, :data_object_translation, { :toc_items => :info_items }, { :data_objects_hierarchy_entries => :hierarchy_entry },
         { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ] },
-      { :top_concept_images => { :data_object => [
-        { :data_objects_hierarchy_entries => :hierarchy_entry },
-        { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ] } },
       { :curator_activity_logs => :user },
       { :users_data_objects => [ { :data_object => :toc_items } ] },
       { :taxon_concept_exemplar_image => :data_object }]
@@ -57,7 +54,7 @@ class Taxa::DetailsController < TaxaController
     @toc = TocBuilder.new.toc_for_toc_items(toc_items_to_show)
 
     @exemplar_image = @taxon_concept.taxon_concept_exemplar_image.data_object unless @taxon_concept.taxon_concept_exemplar_image.blank?
-    @exemplar_image ||= @taxon_concept.best_image
+    @exemplar_image ||= @taxon_concept.best_image_from_solr(@selected_hierarchy_entry)
 
     @watch_collection = logged_in? ? current_user.watch_collection : nil
 

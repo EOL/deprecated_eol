@@ -70,8 +70,7 @@ function update_active_indicator(message) {
     $('#worklist #tasks li.active').addClass('saved');
     $('#worklist #tasks li.active span.indicator').html(message);
     $('#worklist #tasks li.active span.indicator').removeClass('invisible');
-  }
-  if(message == 'Ignored') {
+  }else if(message == 'Ignored') {
     $('#worklist #tasks li.active').removeClass('saved');
     if($('#worklist #tasks li.active').hasClass('ignored')) {
       $('#worklist #tasks li.active').removeClass('ignored');
@@ -83,6 +82,10 @@ function update_active_indicator(message) {
       $('#worklist #tasks li.active span.indicator').html(message);
       $('#worklist #tasks li.active span.indicator').removeClass('invisible');
     }
+  }else
+  {
+    $('#worklist #tasks li.active span.indicator').html(message);
+    $('#worklist #tasks li.active span.indicator').removeClass('invisible');
   }
 }
 

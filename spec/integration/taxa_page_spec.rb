@@ -103,13 +103,14 @@ describe 'Taxa page' do
 
   shared_examples_for 'taxon overview tab' do
     it 'should show a gallery of four images' do
+      SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
+      DataObject.all.each{ |d| d.update_solr_index }
       body.should have_tag("div#media_summary") do
-        with_tag("img[src$=#{@testy[:taxon_concept].images[0].thumb_or_object('580_360')[25..-1]}]")
-        with_tag("img[src$=#{@testy[:taxon_concept].images[1].thumb_or_object('580_360')[25..-1]}]")
-        with_tag("img[src$=#{@testy[:taxon_concept].images[2].thumb_or_object('580_360')[25..-1]}]")
-        with_tag("img[src$=#{@testy[:taxon_concept].images[3].thumb_or_object('580_360')[25..-1]}]")
+        with_tag("img[src$=#{@testy[:taxon_concept].images_from_solr[0].thumb_or_object('580_360')[25..-1]}]")
+        with_tag("img[src$=#{@testy[:taxon_concept].images_from_solr[1].thumb_or_object('580_360')[25..-1]}]")
+        with_tag("img[src$=#{@testy[:taxon_concept].images_from_solr[2].thumb_or_object('580_360')[25..-1]}]")
+        with_tag("img[src$=#{@testy[:taxon_concept].images_from_solr[3].thumb_or_object('580_360')[25..-1]}]")
       end
-      should_not have_tag("img[src$=#{@testy[:taxon_concept].images[4].original_image[25..-1]}]")
     end
     it 'should have sanitized descriptive text alternatives for images in gallery'
       # TODO: add html to testy image description so can test sanitization of alt tags

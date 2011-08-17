@@ -7,9 +7,6 @@ class Taxa::OverviewsController < TaxaController
       { :published_hierarchy_entries => [ { :name => :ranked_canonical_form } , :hierarchy, :hierarchies_content, :vetted ] },
       { :data_objects => [ :toc_items,  :info_items, { :data_objects_hierarchy_entries => :hierarchy_entry },
         { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ] },
-      { :top_concept_images => { :data_object => [ :users_data_object,
-        { :data_objects_hierarchy_entries => :hierarchy_entry },
-        { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ] } },
       { :curator_activity_logs => :user },
       { :users_data_objects => { :data_object => :toc_items } }]
     selects = {
@@ -39,7 +36,7 @@ class Taxa::OverviewsController < TaxaController
       @recognized_by = recognized_by
     end
 
-    @media = promote_exemplar(@taxon_concept.media({}, @selected_hierarchy_entry))
+    @media = promote_exemplar(@taxon_concept.images_from_solr(4, @selected_hierarchy_entry))
     @watch_collection = logged_in? ? current_user.watch_collection : nil
     @assistive_section_header = I18n.t(:assistive_overview_header)
 

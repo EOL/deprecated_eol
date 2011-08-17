@@ -66,17 +66,20 @@ body
         width: 274px
         height: 28px
         font-size: 1.5em
+        line-height: 28px
         background-image: url("/images/v2/icon_search_home.png")
+        float: left
       input[type="submit"]
         min-width: 40px
         min-height: 40px
         font-size: 1.08em
         line-height: 38px
         +box-shadow(0 0 4px rgba(0, 0, 0, .6))
+        float: right
     .session
       position: absolute
       right: 30px
-      top: 45px
+      top: 30px
       z-index: 2
       background: #080f13
       padding: 10px
@@ -128,37 +131,37 @@ body
       li
         clear: both
         overflow: hidden
-        padding: 10px 20px 10px 40px
+        padding: 10px 20px 10px 20px
         border-top: 1px solid #e5e8eb
-        a
+        > a
           float: left
-          margin: 17px 0 0 0
+          margin: 20px 0 0 0
         dl
           float: left
-          width: 145px
-          padding: 3px 10px 3px 80px
+          width: 175px
+          padding: 3px 10px 3px 100px
           background: 0 50% no-repeat transparent
         dd
           font-size: 2.5em
         dt
-          font-size: 1.16em
+          font-size: 1.1em
           font-weight: bold
           color: #394651
         &.taxon
           dl
-            background-image: url("/images/icon_taxon.png")
+            background-image: url("/images/v2/icon_taxon.png")
         &.contributors
           dl
-            background-image: url("/images/icon_contributors.png")
+            background-image: url("/images/v2/icon_contributors.png")
         &.collections
           dl
-            background-image: url("/images/icon_collections.png")
+            background-image: url("/images/v2/icon_collections.png")
         &.images
           dl
-            background-image: url("/images/icon_images.png")
+            background-image: url("/images/v2/icon_images.png")
         &.partners
           dl
-            background-image: url("/images/icon_partners.png")
+            background-image: url("/images/v2/icon_partners.png")
     .community
       float: right
       width: 380px

@@ -39,32 +39,29 @@ class Taxa::DetailsController < TaxaController
     
     # toc_items to exclude in Details tab
     temp = []
-    # Education: 
-    temp = temp | ["Education", "Education Links", "Education Resources", "High School Lab Series"]
-    # Physical Description: 
-    temp = temp | ["Morphology", "Size", "Diagnostic Description", "Look Alikes", "Development", "Identification Resources"]
-    # Molecular Biology and Genetics: 
-    temp = temp | ["Genetics", "Nucleotide Sequences", "Barcode", "Genome", "Molecular Biology"]
+    # Education:
+    temp = temp | ["Education", "Education Resources"] # to Resource tab
+    # Physical Description:
+    temp = temp | ["Identification Resources"] # to Resource tab
+    # Molecular Biology and Genetics:
+    temp = temp | ["Nucleotide Sequences"] # to Resource tab
     # References and More Information: 
-    temp = temp | ["Content Partners", "Literature References", "Bibliographies", "Bibliography", "Commentary", "On the Web", "Biodiversity Heritage Library", "Comments", "Search the Web", "Education Resources", "Biomedical Terms"]
-    # Names and Taxonomy: 
+    temp = temp | ["Search the Web"] # to be removed
+    temp = temp | ["Literature References", "Biodiversity Heritage Library", "Bibliographies", "Bibliography"] # to Literature Tab
+    temp = temp | ["Biomedical Terms", "On the Web"] # to Resources tab
+    # Names and Taxonomy: ---> Names Tab
     temp = temp | ["Related Names", "Synonyms", "Common Names"]
-    # Page Statistics: 
-    temp = temp | ["Content Summary"]
+    # Page Statistics:
+    temp = temp | ["Content Summary"] # to Updates tab
+
     # exclude selected toc_items
     toc_items_to_show.delete_if {|ti| temp.include?(ti.label)}
-
     @toc = TocBuilder.new.toc_for_toc_items(toc_items_to_show)
-
     @exemplar_image = @taxon_concept.taxon_concept_exemplar_image.data_object unless @taxon_concept.taxon_concept_exemplar_image.blank?
     @exemplar_image ||= @taxon_concept.best_image
-
     @watch_collection = logged_in? ? current_user.watch_collection : nil
-
     @assistive_section_header = I18n.t(:assistive_details_header)
-
     current_user.log_activity(:viewed_taxon_concept_details, :taxon_concept_id => @taxon_concept.id)
-
   end
 
 private

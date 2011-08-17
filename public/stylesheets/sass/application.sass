@@ -1210,6 +1210,7 @@ body
       width: 430px
       height: 360px
       overflow: hidden
+      padding-bottom: 20px
       .image
         width: 100%
         padding: 0 0 50px 0
@@ -1218,6 +1219,19 @@ body
           display: block
           position: relative
           margin: 0 auto
+        span.flag
+          padding: 1px 2px
+          font-size: .75em
+          line-height: 1em
+          vertical-align: 1px
+          text-transform: uppercase
+          color: #ffffff
+          &.trusted
+            border: 1px solid #6b7910
+            background: #849513
+          &.unreviewed
+            border: 1px solid #677682
+            background: #8695a1
     ul.thumbnails
       float: right
       width: 100px

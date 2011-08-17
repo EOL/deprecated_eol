@@ -346,7 +346,7 @@ module ApplicationHelper
         when "collections"
           Collection.count
         when "content_partners" then
-          ContentPartner.count
+          ContentPartner.count(:conditions => "show_on_partner_page = 1")
         else
           # TODO - This exception is really just for the developers, not sure if we should change it to make more informative to developers.
           raise EOL::Exceptions::ObjectNotFound

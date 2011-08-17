@@ -243,7 +243,9 @@ body > #footer {
         display: block;
         padding: 5px;
         background: transparent url("/images/v2/bg_home_thumbnails.png") repeat;
-        background: rgba(255, 255, 255, 0.4); }
+        background: rgba(255, 255, 255, 0.4);
+        width: 130px;
+        height: 130px; }
       .thumbnails ul li.last {
         margin: 0; }
       .thumbnails ul li:hover {

@@ -243,7 +243,9 @@ body > #footer {
         display: block;
         padding: 5px;
         background: transparent url("/images/v2/bg_home_thumbnails.png") repeat;
-        background: rgba(255, 255, 255, 0.4); }
+        background: rgba(255, 255, 255, 0.4);
+        width: 130px;
+        height: 130px; }
       .thumbnails ul li.last {
         margin: 0; }
       .thumbnails ul li:hover {
@@ -412,7 +414,8 @@ body {
         #content .section .stats li dl {
           float: left;
           width: 145px;
-          padding: 3px 10px 3px 80px; }
+          padding: 3px 10px 3px 80px;
+          background: 0 50% no-repeat transparent; }
         #content .section .stats li dd {
           font-size: 2.5em; }
         #content .section .stats li dt {
@@ -420,15 +423,15 @@ body {
           font-weight: bold;
           color: #394651; }
         #content .section .stats li.taxon dl {
-          background: transparent url("/images/v2/icon_taxon.png") 0 50% no-repeat; }
+          background-image: url("/images/icon_taxon.png"); }
         #content .section .stats li.contributors dl {
-          background: transparent url("/images/v2/icon_contributors.png") 0 2px no-repeat; }
-        #content .section .stats li.communities dl {
-          background: transparent url("/images/v2/icon_communities.png") 0 50% no-repeat; }
+          background-image: url("/images/icon_contributors.png"); }
+        #content .section .stats li.collections dl {
+          background-image: url("/images/icon_collections.png"); }
         #content .section .stats li.images dl {
-          background: transparent url("/images/v2/icon_images.png") 0 0 no-repeat; }
+          background-image: url("/images/icon_images.png"); }
         #content .section .stats li.partners dl {
-          background: transparent url("/images/v2/icon_partners.png") 0 50% no-repeat; }
+          background-image: url("/images/icon_partners.png"); }
     #content .section .community {
       float: right;
       width: 380px;

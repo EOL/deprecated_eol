@@ -243,7 +243,9 @@ body > #footer {
         display: block;
         padding: 5px;
         background: transparent url("/images/v2/bg_home_thumbnails.png") repeat;
-        background: rgba(255, 255, 255, 0.4); }
+        background: rgba(255, 255, 255, 0.4);
+        width: 130px;
+        height: 130px; }
       .thumbnails ul li.last {
         margin: 0; }
       .thumbnails ul li:hover {
@@ -1735,7 +1737,8 @@ body > #header {
       position: relative;
       width: 430px;
       height: 360px;
-      overflow: hidden; }
+      overflow: hidden;
+      padding-bottom: 20px; }
       #taxon .gallery .images .image {
         width: 100%;
         padding: 0 0 50px 0;
@@ -1744,6 +1747,19 @@ body > #header {
           display: block;
           position: relative;
           margin: 0 auto; }
+        #taxon .gallery .images .image span.flag {
+          padding: 1px 2px;
+          font-size: 0.75em;
+          line-height: 1em;
+          vertical-align: 1px;
+          text-transform: uppercase;
+          color: white; }
+          #taxon .gallery .images .image span.flag.trusted {
+            border: 1px solid #6b7910;
+            background: #849513; }
+          #taxon .gallery .images .image span.flag.unreviewed {
+            border: 1px solid #677682;
+            background: #8695a1; }
     #taxon .gallery ul.thumbnails {
       float: right;
       width: 100px;
@@ -2411,14 +2427,6 @@ body > #header {
       #search_results #main .header a.prev {
         right: auto;
         left: 10px; }
-#taxon_updates .update_feed .header {
-  position: relative;
-  padding: 10px 0;
-  text-align: center;
-  border-bottom: 1px solid #394651;
-  margin-bottom: 10px; }
-  #taxon_updates .update_feed .header h3 {
-    font-size: 1.33em; }
 
 #collections_endorse {
   width: 700px;

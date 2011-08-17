@@ -19,18 +19,20 @@
             :data => { :data_object_id => item.id, :thumb => item.thumb_or_object('98_68') }}
 
           .details{:style => "position: absolute; top: 300px; left: 0px;"}
-          
+
             %p.flag{:class => vetted_id_class(item_vetted_id)}= item_vetted_label == Vetted.unknown.label ? I18n.t(:unreviewed) : item_vetted_label
             = "&nbsp; for #{@taxon_concept.quick_scientific_name}"
             .attribution
               = render :partial => "taxa/overview_image_taxon_link", :locals => {:data_object => item}
             .copy
               = render :partial => 'data_objects/license', :locals => { :data_object => item }
-              - unless item.rights_holder.blank?
-                - if item.rights_holder.length > 60
-                  = "&copy; #{item.rights_holder[0..59]}..."
-                - else
-                  = "&copy; #{item.rights_holder}"
+              -#
+                # The latest taxon build removed this, but I'm not 100% sure it was correct to do so:
+                - unless item.rights_holder.blank?
+                  - if item.rights_holder.length > 60
+                    = "&copy; #{item.rights_holder[0..59]}..."
+                  - else
+                    = "&copy; #{item.rights_holder}"
             .copy
               = render :partial => 'data_objects/supplier', :locals => { :data_object => item }
             .copy

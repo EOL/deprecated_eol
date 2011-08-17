@@ -4,16 +4,17 @@
 # them than it is to use return values that signify success and failure and parse them.
 module EOL
   module Exceptions
+    class CommunitiesMustHaveAManager < StandardError; end
     class FailedToCreateTag < StandardError; end
     class InvalidCollectionItemType < StandardError; end
+    class MaxCollectionItemsExceeded < StandardError; end
     class MustBeLoggedIn < StandardError; end
-    class OnlyUsersCanCreateCommunitiesFromCollections < StandardError; end
     class ObjectNotFound < StandardError; end
+    class OnlyUsersCanCreateCommunitiesFromCollections < StandardError; end
     class Pending < StandardError; end
     class SecurityViolation < StandardError; end
     class UnknownFeedType < StandardError; end
     class WrongCurator < StandardError; end
-    class CommunitiesMustHaveAManager < StandardError; end
   end
 end
 

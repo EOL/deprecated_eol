@@ -189,6 +189,10 @@ class Collection < ActiveRecord::Base
     EOL::Solr::CollectionItems.search_with_pagination(self.id, options.merge(:sort_by => sort_by_style))
   end
 
+  def facet_count(type)
+    EOL::Solr::CollectionItems.get_facet_counts(self.id)[type]
+  end
+
   def facet_counts
     EOL::Solr::CollectionItems.get_facet_counts(self.id)
   end

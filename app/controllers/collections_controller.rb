@@ -23,8 +23,6 @@ class CollectionsController < ApplicationController
     @page = params[:page] || 1
     render :action => 'newsfeed' if @filter == 'newsfeed'
     return copy_items_and_redirect(@collection, [current_user.watch_collection]) if params[:commit_collect]
-    # NOTE - this is complicated. It's getting the various collection item types and doing i18n on the name as well
-    # as passing the raw facet type (used by Solr) as the values in the option hash that will be built in the view:
     types = CollectionItem.types
     @collection_item_scopes = [[I18n.t(:selected_items), :selected_items], [I18n.t(:all_items), :all_items]]
     @collection_item_scopes << [I18n.t("all_#{types[@filter.to_sym][:i18n_key]}"), @filter] if @filter
@@ -104,7 +102,12 @@ class CollectionsController < ApplicationController
     @for   = params[:for]
     @scope = params[:scope]
     # Annoying that we have to do this to get the count, but it really does help to have it!:
-    @items = collection_items_with_scope(:from => @collection, :items => params[:collection_items], :scope => @scope)
+    begin
+      @items = collection_items_with_scope(:from => @collection, :items => params[:collection_items], :scope => @scope)
+    rescue EOL::Exceptions::MaxCollectionItemsExceeded
+      flash[:error] = I18n.t(:max_collection_items_error, :max => $MAX_COLLECTION_ITEMS_TO_MANIPULATE)
+      redirect_to collection_path(@collection)
+    end
     @collections = current_user.all_collections.delete_if{ |c| c.is_resource_collection? }
     @page_title = I18n.t(:choose_collection_header)
   end
@@ -211,9 +214,14 @@ private
     copied = {}
     @copied_to = []
     destinations.each do |destination|
-      count = copy_items(:from => source, :to => destination, :items => params[:collection_items],
-                         :scope => params[:scope])
-      copied[link_to_name(destination)] = count
+      begin
+        count = copy_items(:from => source, :to => destination, :items => params[:collection_items],
+                           :scope => params[:scope])
+        copied[link_to_name(destination)] = count
+      rescue EOL::Exceptions::MaxCollectionItemsExceeded
+        flash[:error] = I18n.t(:max_collection_items_error, :max => $MAX_COLLECTION_ITEMS_TO_MANIPULATE)
+        return redirect_to collection_path(@collection)
+      end
     end
     flash_i18n_name = :copied_items_to_collections_with_count_notice
     if copied.values.sum > 0
@@ -280,7 +288,12 @@ private
   end
 
   def remove_and_redirect
-    count = remove_items(:from => @collection, :items => params[:collection_items], :scope => params[:scope])
+    begin
+      count = remove_items(:from => @collection, :items => params[:collection_items], :scope => params[:scope])
+    rescue EOL::Exceptions::MaxCollectionItemsExceeded
+      flash[:error] = I18n.t(:max_collection_items_error, :max => $MAX_COLLECTION_ITEMS_TO_MANIPULATE)
+      return redirect_to collection_path(@collection)
+    end
     flash[:notice] = I18n.t(:removed_count_items_from_collection_notice, :count => count)
     return redirect_to collection_path(@collection)
   end
@@ -307,18 +320,24 @@ private
   end
 
   def remove_items(options)
-    collection_items = collection_items_with_scope(options)
+    collection_items = collection_items_with_scope(options.merge(:allow_all => true))
+    bulk_log = params[:scope] == 'all_items'
     count = 0
     collection_items.each do |item|
       item = CollectionItem.find(item) # Sometimes, this is just an id.
       if item.update_attribute(:collection_id, nil) # Not actually destroyed, so that we can talk about it in feeds.
         item.remove_collection_item_from_solr # TODO - needed?  Or does the #after_save method handle this?
         count += 1
-        CollectionActivityLog.create(:collection => @collection, :user => current_user,
-                                     :activity => Activity.remove, :collection_item => item)
+        unless bulk_log
+          CollectionActivityLog.create(:collection => @collection, :user => current_user,
+                                       :activity => Activity.remove, :collection_item => item)
+        end
       end
     end
     @collection_items.delete_if {|ci| collection_items.include?(ci.id.to_s) } if @collection_items
+    if bulk_log
+      CollectionActivityLog.create(:collection => @collection, :user => current_user, :activity => Activity.remove_all)
+    end
     return count
   end
 
@@ -327,9 +346,15 @@ private
     if params[:scope].nil? || params[:scope] == 'selected_items'
       collection_items = options[:items] # NOTE - no limit, since these are HTML parms, which are limited already.
     elsif params[:scope] == 'all_items'
-      collection_items = options[:from].collection_items[0..$MAX_COLLECTION_ITEMS_TO_MANIPULATE]
+      raise EOL::Exceptions::MaxCollectionItemsExceeded if
+        options[:from].collection_items.count > $MAX_COLLECTION_ITEMS_TO_MANIPULATE && ! options[:allow_all]
+      collection_items = options[:from].collection_items
     else # It's a particular type of item.
-      collection_items = options[:from].items_from_solr(:facet_type => params[:scope], :page => 1, :per_page => $MAX_COLLECTION_ITEMS_TO_MANIPULATE).map { |i| i['instance'] }
+      count = options[:from].facet_count(CollectionItem.types[params[:scope].to_sym][:facet])
+      raise EOL::Exceptions::MaxCollectionItemsExceeded if count > $MAX_COLLECTION_ITEMS_TO_MANIPULATE
+      results = options[:from].items_from_solr(:facet_type => params[:scope], :page => 1,
+                                               :per_page   => $MAX_COLLECTION_ITEMS_TO_MANIPULATE)
+      collection_items = results.map { |i| i['instance'] }
     end
     collection_items
   end

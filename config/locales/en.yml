@@ -457,6 +457,7 @@ en:
   activity_user_unreviewed_unknown_object: "<strong>%{user}</strong> marked an unknown object as unreviewed."
   activity_user_modified_collection: "<strong>%{user}</strong> modified the collection \"%{collection}\"."
   activity_user_removed_item_from_collection: "<strong>%{user}</strong> removed \"%{item}\" from the collection \"%{collection}\"."
+  activity_user_removed_all_items_from_collection: "<strong>%{user}</strong> removed all items from the collection \"%{collection}\"."
   activity_user_added_unknown_item_to_collection: "<strong>%{user}</strong> added an unknown item to the collection \"%{collection}\"."
   activity_user_added_item_to_collection: "<strong>%{user}</strong> added \"%{item}\" to the collection \"%{collection}\"."
   activity_user_created_collection: "<strong>%{user}</strong> created the collection \"%{collection}\"."
@@ -2010,6 +2011,7 @@ en:
   matching_users_found_with_count:
     one: "A total of %{count} user was found matching your criteria."
     other: "A total of %{count} users were found matching your criteria."
+  max_collection_items_error: "Sorry, your request exceeds the limit of %{max} collection items."
   media: "Media"
   media_list_empty: "No one has contributed any media for this taxon yet."
   media_list_empty_contribute_instructions: "Learn how to contribute media to EOL."

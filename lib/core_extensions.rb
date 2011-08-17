@@ -36,7 +36,7 @@ module ActiveSupport
       end
     end
   end
-  
+
   class TimeWithZone
     def mysql_timestamp
       # 2010-12-31 03:50:09
@@ -75,7 +75,7 @@ class String
   # Note that I change strong to b, 'cause strong appears to be overridden in our CSS.  Hrmph.
   def allow_some_html
     # inline RegEx passed to gsub calls leak memory! We declare them first:
-    @allowed_attributes_in_allow_some_html = /\s*\/|\s+href=['"][^'"]+['"]/ 
+    @allowed_attributes_in_allow_some_html = /\s*\/|\s+href=['"][^'"]+['"]/
     start_tag   = /</
     end_tag     = />/
     line_breaks = /\r\n/
@@ -92,20 +92,20 @@ class String
     @firstcap_regex = /^(<[^>]*>)?(['"])?([^ ]+)( |$)/
     self.gsub(@firstcap_regex) { $1.to_s + $2.to_s + $3.capitalize + $4 }
   end
-  
+
   def firstcap!
     @firstcap_regex = /^(<[^>]*>)?(['"])?([^ ]+)( |$)/
     self.gsub!(@firstcap_regex) { $1.to_s + $2.to_s + $3.capitalize + $4 }
   end
-  
-  
+
+
   #  old list from gem:
   # [ 'a', 'b', 'blockquote', 'br', 'caption', 'cite', 'code', 'col', 'colgroup', 'dd', 'dl', 'dt', 'em', 'embed', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'i', 'img', 'li', 'ol', 'p', 'pre', 'q', 'small', 'strike', 'strong', 'sub', 'sup', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr', 'u', 'ul' ],
   # more full list:
   def appropriate_html_tags
     ['address', 'applet', 'area', 'a', 'base', 'basefont', 'big', 'blockquote', 'br', 'b', 'caption', 'center', 'cite', 'code', 'dd', 'dfn', 'dir', 'div', 'dl', 'dt', 'em', 'embed', 'font', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'img', 'input', 'isindex', 'i', 'kbd', 'link', 'li', 'map', 'menu', 'meta', 'ol', 'option', 'param', 'pre', 'p', 'samp', 'script', 'select', 'small', 'span', 'strike', 'strong', 'style', 'sub', 'sup', 'table', 'td', 'textarea', 'th', 'title', 'tr', 'tt', 'ul', 'u', 'var', 'legend', 'fieldset']
   end
-  
+
   # this method is designed to make sure a text string has equal numbers of opening and closing forms of certain
   # tags in the proper order (shouln't open one after closing one for example - that is not balanced)
   def balance_tags
@@ -127,7 +127,7 @@ class String
           total_open += 1
           current_balance += 1
         end
-        
+
         if current_balance < 0 && current_balance < previous_balance
           number_of_opening_tags_needed += 1
           current_balance += 1
@@ -137,7 +137,7 @@ class String
       # adding to the beginning opening tags if there are close tags before open tags of the same type
       text = "<#{tag}>" * number_of_opening_tags_needed + text
       total_open += number_of_opening_tags_needed
-      
+
       difference = total_open - total_closed
       if difference < 0  # more closed tags than open
         text = "<#{tag}>" * difference.abs + text
@@ -155,15 +155,15 @@ class String
       self
     end
   end
-  
+
   def remove_diacritics
     self.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n,'').to_s
   end
-  
+
   def word_count
     split(/ /).length
   end
-  
+
   def is_numeric?
     begin
       Float(self)
@@ -173,7 +173,7 @@ class String
       true # numeric
     end
   end
-  
+
   def is_int?
     begin
       Integer(self)
@@ -187,20 +187,20 @@ class String
   def cleanup_for_presentation
     self.gsub(/[_]{20,}/, ' ')
   end
-  
+
 end
 
 class Array
 
-  # some methods on Hash return an Array like [ [key,value], [key,value] ] instead 
+  # some methods on Hash return an Array like [ [key,value], [key,value] ] instead
   # of returning a Hash.  this turns an Array of that style back into a Hash.
   def hashify
     inject({}) do |all,this|
       all[this.first] = this.last
-      all 
+      all
     end
   end
-  
+
   # expects an array of Hashes
   # [ {'id' => 1 , 'label' => first},
   #   {'id' => 2 , 'label' => first}]
@@ -217,7 +217,7 @@ class Array
       self.delete(h)
     end
   end
-  
+
   # expects an array of objects
   # will create a new array where $attribute is unique by taking the first instance and deleting the rest
   # mimics some of what the MySQL GROUP BY does
@@ -242,13 +242,13 @@ class Hash
   def self.from_array array
     array.hashify
   end
-  
+
   # creates an entirely new Hash with new keys and values with the same information but not pointing
   # to the same place in memory. For some reason neither Hash.dup nor Hash.clone were making a true deep copy
   def deepcopy
     Marshal::load(Marshal::dump(self))
   end
-  
+
 
 end
 
@@ -270,7 +270,7 @@ module ActiveRecord
   class Base
     class << self
 
-      # returns the full table name of this ActiveRecord::Base, 
+      # returns the full table name of this ActiveRecord::Base,
       # including the database name.
       #
       #   >> User.full_table_name
@@ -282,21 +282,21 @@ module ActiveRecord
 
       # returns a hash of configuration variables for this ActiveRecord::Base's connection adapter
       def database_config
-        # in production, we have a ConnectionProxy with many adapters 
+        # in production, we have a ConnectionProxy with many adapters
         # otherwise #connection directly returns the adapter
         adapter = self.connection.instance_eval { @current } || self.connection
         adapter.instance_eval { @config }
       end
-      
+
       def reset_database_name
         @database_name = nil
       end
-      
+
       # returns the name of the database for this ActiveRecord::Base
       def database_name
         @database_name ||= self.connection.execute('select database()').fetch_row[0]
       end
-      
+
       def reload
         self.with_master do
           super
@@ -304,7 +304,7 @@ module ActiveRecord
       end
 
     end
-    
+
     def self.with_master(&block)
       if self.connection.respond_to? 'with_master'
         self.connection.set_to_master!
@@ -316,13 +316,13 @@ module ActiveRecord
       end
     end
   end
-  
+
   module ConnectionAdapters
     class MysqlAdapter
       def config
         return @config
       end
-      
+
       def command_line_parameters
         mysql_params = "--host='#{@config[:host]}' --user='#{@config[:username]}' --password='#{@config[:password]}'"
         mysql_params += " --port='#{@config[:port]}'" unless @config[:port].blank?
@@ -345,5 +345,15 @@ class Float
 
   def floor_to(x)
     (self * 10**x).floor.to_f / 10**x
+  end
+end
+
+# We don't want the code poking around ifconfig (that's dangerous), and we don't mind terribly if this is random:
+module Mac
+  def self.addr
+    addr = (0..5).map { sprintf("%02x", rand(256)) }.join(':')
+  end
+  def self.address
+    addr = (0..5).map { sprintf("%02x", rand(256)) }.join(':')
   end
 end

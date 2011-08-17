@@ -266,6 +266,10 @@ class DataObject < SpeciesSchemaModel
       :published => 1, #not sure if this is right
     }
 
+    # this is to support problems with things on version2 and prelaunch and will NOT be needed later:
+    do_params[:vetted_id] = Vetted.untrusted.id if DataObject.column_names.include?('vetted_id')
+    do_params[:visibility_id] = Visibility.visible.id if DataObject.column_names.include?('visibility_id')
+
     new_dato = DataObject.new(do_params)
     new_dato.toc_items << TocItem.find(all_params[:data_object][:toc_items][:id])
 
@@ -325,8 +329,12 @@ class DataObject < SpeciesSchemaModel
       :rights_statement => ERB::Util.h(all_params[:data_object][:rights_statement]), # No HTML allowed
       :bibliographic_citation => ERB::Util.h(all_params[:data_object][:bibliographic_citation]), # No HTML allowed
       :source_url => ERB::Util.h(all_params[:data_object][:source_url]), # No HTML allowed
-      :published => 1, #not sure if this is right
+      :published => 1
     }
+
+    # this is to support problems with things on version2 and prelaunch and will NOT be needed later:
+    do_params[:vetted_id] = Vetted.untrusted.id if DataObject.column_names.include?('vetted_id')
+    do_params[:visibility_id] = Visibility.visible.id if DataObject.column_names.include?('visibility_id')
 
     dato = DataObject.new(do_params)
     dato.toc_items << TocItem.find(all_params[:data_object][:toc_items][:id])

@@ -141,8 +141,8 @@ class TocItem < SpeciesSchemaModel
   end
 
   def self.selectable_toc
+    InfoItem
     cached("selectable_toc/#{I18n.locale}") {
-      InfoItem
       all = TocItem.find(:all, :include => :info_items).reject {|toc|
         toc.info_items.empty? || ['Wikipedia', 'Barcode'].include?(toc.label('en'))
       }.sort_by { |toc| toc.label.to_s }

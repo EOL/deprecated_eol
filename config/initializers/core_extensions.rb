@@ -50,7 +50,7 @@ module ActiveRecord
         name = cached_name_for(key)
         $CACHE.read(name)
       end
-      
+
       def cached_with_local_cache(key, options = {}, &block)
         if $USE_LOCAL_CACHE_CLASSES && r = check_local_cache(key)
           return r.dup
@@ -121,7 +121,7 @@ module ActiveRecord
                 # then none of thise will happen
                 unless column_names.include?(a)
                   attr_accessor "translated_#{a}".to_sym
-			
+
                   # creating a method with the name of the translated attribute. For example
                   # if we translated label, we're making
                   # def label(language_iso)

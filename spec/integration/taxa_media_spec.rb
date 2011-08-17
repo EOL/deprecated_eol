@@ -10,6 +10,8 @@ describe 'Taxa media' do
     @taxon_concept = @data[:taxon_concept]
     Capybara.reset_sessions!
     CuratorLevel.create_defaults
+    SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
+    DataObject.all.each{ |d| d.update_solr_index }
   end
 
   it 'should show the taxon header' do

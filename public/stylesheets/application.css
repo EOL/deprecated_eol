@@ -570,7 +570,7 @@ ul.tabs {
     ul.tabs li.people a {
       background: transparent url("/images/v2/icon_people_tabs.png") 9px 10px no-repeat; }
     ul.tabs li.collections a {
-      background: transparent url("/images/v2/icon_collections_tabs.png") 12px 9px no-repeat; }
+      background: transparent url("/images/v2/icon_collections_tabs.png") 6px 8px no-repeat; }
     ul.tabs li.articles a {
       background: transparent url("/images/v2/icon_articles_tabs.png") 9px 9px no-repeat; }
   ul.tabs.with_icons li {
@@ -585,7 +585,7 @@ ul.tabs {
 p.status {
   clear: both;
   padding: 7px 10px;
-  margin: 0 0 10px 0;
+  margin: 10px 0;
   font-size: 1.16em;
   font-weight: bold;
   text-align: center;
@@ -616,7 +616,7 @@ p.status {
   font-size: 1.33em; }
 .copy h4 {
   margin: 0 0 15px 0;
-  font-size: 1em; }
+  font-size: 1.08em; }
 .copy p {
   margin: 0 0 15px 0;
   line-height: 170%; }
@@ -958,13 +958,6 @@ form.select_content_partner {
       filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#d7dde1);
       background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white);
       background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1)); }
-
-ul.classification li {
-  line-height: 160%; }
-ul.classification > li > a {
-  font-weight: bold; }
-ul.classification ul {
-  padding: 0 0 0 10px; }
 
 body > #header {
   background: #394651; }
@@ -1730,7 +1723,6 @@ body > #header {
   #taxon .gallery {
     overflow: hidden;
     padding: 20px 20px 0 20px;
-    margin: 0 0 35px 0;
     border: 1px solid #cad3db; }
     #taxon .gallery .images {
       float: left;
@@ -1804,19 +1796,19 @@ body > #header {
       padding: 5px 0 0 0;
       font-weight: bold;
       text-transform: lowercase; }
-    #taxon .gallery + p.status {
-      margin: -20px 0 35px 0; }
-  #taxon .article.overview .meta.learn_more {
-    padding: 0 0 10px 0; }
-    #taxon .article.overview .meta.learn_more p, #taxon .article.overview .meta.learn_more form {
-      float: none;
-      display: inline;
-      margin: 0 10px 0 0; }
-      #taxon .article.overview .meta.learn_more p:after, #taxon .article.overview .meta.learn_more form:after {
-        content: "•";
-        margin: 0 0 0 10px; }
-      #taxon .article.overview .meta.learn_more p.last:after, #taxon .article.overview .meta.learn_more form.last:after {
-        content: ""; }
+  #taxon .article.overview {
+    margin: 35px 0 0 0; }
+    #taxon .article.overview .meta.learn_more {
+      padding: 0 0 10px 0; }
+      #taxon .article.overview .meta.learn_more p, #taxon .article.overview .meta.learn_more form {
+        float: none;
+        display: inline;
+        margin: 0 10px 0 0; }
+        #taxon .article.overview .meta.learn_more p:after, #taxon .article.overview .meta.learn_more form:after {
+          content: "•";
+          margin: 0 0 0 10px; }
+        #taxon .article.overview .meta.learn_more p.last:after, #taxon .article.overview .meta.learn_more form.last:after {
+          content: ""; }
   #taxon .article.half {
     float: left;
     width: 260px; }
@@ -1829,22 +1821,25 @@ body > #header {
     #taxon + #sidebar h3 {
       padding: 0 10px 3px 10px;
       font-size: 1.16em; }
-    #taxon + #sidebar .classifications .header {
-      margin-bottom: 20px; }
-    #taxon + #sidebar .classifications h4 {
-      padding: 0 0 5px 0; }
-    #taxon + #sidebar .classifications p {
-      overflow: hidden;
-      padding: 0 0 15px 10px;
-      font-size: 1.16em; }
-      #taxon + #sidebar .classifications p a {
-        float: left;
+    #taxon + #sidebar .classifications {
+      padding: 0; }
+      #taxon + #sidebar .classifications a.current {
         font-weight: bold; }
-        #taxon + #sidebar .classifications p a + a {
-          padding: 0 0 0 23px;
-          margin: 0 0 0 10px;
-          font-weight: normal;
-          background: transparent url("/images/v2/icon_classification_arrow.png") 0 0 no-repeat; }
+      #taxon + #sidebar .classifications > ul {
+        line-height: 160%; }
+        #taxon + #sidebar .classifications > ul > li {
+          white-space: nowrap;
+          overflow-x: auto;
+          border: 1px solid #d7dadc;
+          padding: 10px 15px;
+          margin: 0 -10px 20px -10px; }
+          #taxon + #sidebar .classifications > ul > li h4 {
+            font-weight: normal;
+            font-size: 1.1em; }
+            #taxon + #sidebar .classifications > ul > li h4 a {
+              font-weight: bold; }
+          #taxon + #sidebar .classifications > ul > li ul {
+            margin-left: 10px; }
     #taxon + #sidebar .updates ul {
       border-bottom: 1px solid #d7dadc; }
     #taxon + #sidebar .updates form.comment {
@@ -1884,7 +1879,23 @@ body > #header {
       color: #394651; }
 #taxon_detail #main {
   overflow: hidden; }
-  #taxon_detail #main h2 {
+  #taxon_detail #main .languages {
+    padding: 15px 20px 0 20px;
+    border: 1px solid #cad3db;
+    background: #f3f7fa;
+    margin: 0 0 20px 0;
+    line-height: 160%; }
+    #taxon_detail #main .languages.clickable:hover {
+      cursor: pointer;
+      border: 1px solid #93a4b0; }
+    #taxon_detail #main .languages p {
+      font-weight: bold;
+      margin: 0 0 15px 0; }
+    #taxon_detail #main .languages ul {
+      margin: 0 40px 15px 40px; }
+      #taxon_detail #main .languages ul li {
+        list-style-type: disc; }
+  #taxon_detail #main > h2 {
     padding: 10px 20px;
     margin: 0 0 20px 0;
     text-transform: uppercase;
@@ -1892,68 +1903,68 @@ body > #header {
     border: 1px solid #ccd399;
     border-width: 1px 0;
     background: #f1f4dc; }
-  #taxon_detail #main h3 {
+  #taxon_detail #main > .section > h3 {
     padding: 20px;
     margin: 0 0 40px 0;
     font-size: 2.16em;
     border: 1px solid #ccd399;
     border-width: 1px 0;
     background: #f1f4dc; }
-  #taxon_detail #main h4 {
-    padding: 0 0 8px 0;
-    font-size: 1.5em; }
-  #taxon_detail #main .article {
+  #taxon_detail #main > .section > .article {
     padding: 0 20px 40px 20px; }
-    #taxon_detail #main .article + .article {
+    #taxon_detail #main > .section > .article + .article {
       padding-top: 40px;
       border-top: 1px solid #d4dce2; }
-    #taxon_detail #main .article .meta {
+    #taxon_detail #main > .section > .article > h4 {
+      padding: 0 0 8px 0;
+      font-size: 1.5em; }
+    #taxon_detail #main > .section > .article > .meta {
       padding-top: 10px; }
-    #taxon_detail #main .article .meta.learn_more p, #taxon_detail #main .article .meta.learn_more form {
-      float: none;
-      display: inline;
-      margin: 0 10px 0 0; }
-      #taxon_detail #main .article .meta.learn_more p:after, #taxon_detail #main .article .meta.learn_more form:after {
-        content: "•";
-        margin: 0 0 0 10px; }
-      #taxon_detail #main .article .meta.learn_more p.last:after, #taxon_detail #main .article .meta.learn_more form.last:after {
-        content: ""; }
-    #taxon_detail #main .article p.flag {
+      #taxon_detail #main > .section > .article > .meta.learn_more p, #taxon_detail #main > .section > .article > .meta.learn_more form {
+        float: none;
+        display: inline;
+        margin: 0 10px 0 0; }
+        #taxon_detail #main > .section > .article > .meta.learn_more p:after, #taxon_detail #main > .section > .article > .meta.learn_more form:after {
+          content: "•";
+          margin: 0 0 0 10px; }
+        #taxon_detail #main > .section > .article > .meta.learn_more p.last:after, #taxon_detail #main > .section > .article > .meta.learn_more form.last:after {
+          content: ""; }
+    #taxon_detail #main > .section > .article > p.flag {
       float: left;
       padding: 1px 2px;
       font-size: 0.83em;
       text-transform: uppercase;
       color: white;
       margin: 0 40px 0 0; }
-      #taxon_detail #main .article p.flag.trusted {
+      #taxon_detail #main > .section > .article > p.flag.trusted {
         border: 1px solid #6b7910;
         background: #849513; }
-      #taxon_detail #main .article p.flag.unreviewed {
+      #taxon_detail #main > .section > .article > p.flag.unreviewed {
         border: 1px solid #677682;
         background: #8695a1; }
-    #taxon_detail #main .article .average_rating {
+    #taxon_detail #main > .section > .article > .average_rating {
       float: left;
       padding: 2px 40px 0 0;
       margin: 0 0 20px 0; }
-    #taxon_detail #main .article > .rating {
+    #taxon_detail #main > .section > .article > .rating {
       padding: 2px 0 20px 0; }
-    #taxon_detail #main .article p.actions {
+    #taxon_detail #main > .section > .article > p.actions {
       clear: both;
       margin: 0 0 20px 0; }
-    #taxon_detail #main .article a.button {
+    #taxon_detail #main > .section > .article a.button {
       display: inline-block;
       padding: 7px 20px;
       margin: 0 15px 0 0;
       font-size: 1em; }
-      #taxon_detail #main .article a.button.comment {
+      #taxon_detail #main > .section > .article a.button.comment {
         display: none; }
-  #taxon_detail #main form.comment {
+  #taxon_detail #main > .section > form.comment {
     padding: 0 15px 0 0; }
-    #taxon_detail #main form.comment textarea {
+    #taxon_detail #main > .section > form.comment textarea {
       width: 522px; }
-    #taxon_detail #main form.comment input[type="submit"] {
+    #taxon_detail #main > .section > form.comment input[type="submit"] {
       padding: 7px 20px; }
-    #taxon_detail #main form.comment a.cancel {
+    #taxon_detail #main > .section > form.comment a.cancel {
       display: none; }
 
 #taxon_resources .main_container {
@@ -2502,6 +2513,52 @@ body > #header {
   padding: 30px 0; }
   #taxon_maps #media_list ul.media {
     padding: 0 30px; }
+
+#taxon_updates .header {
+  position: relative;
+  padding: 10px 0;
+  text-align: center;
+  border-bottom: 1px solid #394651; }
+  #taxon_updates .header h3 {
+    font-size: 1.33em; }
+  #taxon_updates .header a {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    z-index: 1;
+    font-weight: bold; }
+    #taxon_updates .header a.prev {
+      right: auto;
+      left: 10px; }
+#taxon_updates .page_statistics dl {
+  float: right;
+  line-height: 140%;
+  width: 200px;
+  padding: 50px 30px 30px 0; }
+  #taxon_updates .page_statistics dl dt {
+    font-size: 1.8em;
+    margin: 0 0 10px 0; }
+    #taxon_updates .page_statistics dl dt + dd {
+      font-size: 2em; }
+      #taxon_updates .page_statistics dl dt + dd + dt {
+        font-size: 1.2em; }
+        #taxon_updates .page_statistics dl dt + dd + dt + dd {
+          font-size: 1.6em; }
+  #taxon_updates .page_statistics dl dd {
+    font-weight: bold;
+    margin: 0 0 20px 0; }
+#taxon_updates .page_statistics .copy {
+  float: left;
+  width: 380px;
+  margin-top: 30px;
+  background: #f3f7fa;
+  border: 1px solid #cad3db;
+  padding: 20px 20px 0 20px; }
+#taxon_updates .update_feed .article.updates {
+  padding: 0; }
+  #taxon_updates .update_feed .article.updates ul li {
+    padding: 20px;
+    border-bottom: 1px solid #d4dce2; }
 
 #content.session {
   background: #e2e9ef; }

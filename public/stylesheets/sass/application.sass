@@ -165,7 +165,7 @@ ul.tabs
         background: transparent url("/images/v2/icon_people_tabs.png") 9px 10px no-repeat
     &.collections
       a
-        background: transparent url("/images/v2/icon_collections_tabs.png") 12px 9px no-repeat
+        background: transparent url("/images/v2/icon_collections_tabs.png") 6px 8px no-repeat
     &.articles
       a
         background: transparent url("/images/v2/icon_articles_tabs.png") 9px 9px no-repeat
@@ -184,7 +184,7 @@ ul.tabs
 p.status
   clear: both
   padding: 7px 10px
-  margin: 0 0 10px 0
+  margin: 10px 0
   font-size: 1.16em
   font-weight: bold
   text-align: center
@@ -216,7 +216,7 @@ p.status
     font-size: 1.33em
   h4
     margin: 0 0 15px 0
-    font-size: 1em
+    font-size: 1.08em
   p
     margin: 0 0 15px 0
     line-height: 170%
@@ -275,7 +275,7 @@ table.standard
       padding: 2px 0 0 0
       font-weight: bold
       text-transform: lowercase
-  .empty
+  .empty,
     padding: 15px 15px 0 15px
     margin: 10px -10px
     font-size: 1.16em
@@ -496,15 +496,6 @@ form.select_content_partner
     +button
     padding: 3px 10px
     font-size: .92em
-
-ul.classification
-  li
-    line-height: 160%
-  > li
-    > a
-      font-weight: bold
-  ul
-    padding: 0 0 0 10px
 
 body
   > #header
@@ -1202,7 +1193,6 @@ body
   .gallery
     overflow: hidden
     padding: 20px 20px 0 20px
-    margin: 0 0 35px 0
     border: 1px solid #cad3db
     .images
       float: left
@@ -1276,9 +1266,8 @@ body
       padding: 5px 0 0 0
       font-weight: bold
       text-transform: lowercase
-    + p.status
-      margin: -20px 0 35px 0
   .article.overview
+    margin: 35px 0 0 0
     .meta.learn_more
       padding: 0 0 10px 0
       p, form
@@ -1304,22 +1293,24 @@ body
       padding: 0 10px 3px 10px
       font-size: 1.16em
     .classifications
-      .header
-        margin-bottom: 20px
-      h4
-        padding: 0 0 5px 0
-      p
-        overflow: hidden
-        padding: 0 0 15px 10px
-        font-size: 1.16em
-        a
-          float: left
-          font-weight: bold
-          + a
-            padding: 0 0 0 23px
-            margin: 0 0 0 10px
+      padding: 0
+      a.current
+        font-weight: bold
+      > ul
+        line-height: 160%
+        > li
+          white-space: nowrap
+          overflow-x: auto
+          border: 1px solid #d7dadc
+          padding: 10px 15px
+          margin: 0 -10px 20px -10px
+          h4
             font-weight: normal
-            background: transparent url("/images/v2/icon_classification_arrow.png") 0 0 no-repeat
+            font-size: 1.1em
+            a
+              font-weight: bold
+          ul
+            margin-left: 10px
     .updates
       ul
         border-bottom: 1px solid #d7dadc
@@ -1361,7 +1352,24 @@ body
         color: #394651
   #main
     overflow: hidden
-    h2
+    .languages
+      padding: 15px 20px 0 20px
+      border: 1px solid #cad3db
+      background: #f3f7fa
+      margin: 0 0 20px 0
+      line-height: 160%
+      &.clickable
+        &:hover
+          cursor: pointer
+          border: 1px solid #93a4b0
+      p
+        font-weight: bold
+        margin: 0 0 15px 0
+      ul
+        margin: 0 40px 15px 40px
+        li
+          list-style-type: disc
+    > h2
       padding: 10px 20px
       margin: 0 0 20px 0
       text-transform: uppercase
@@ -1369,72 +1377,72 @@ body
       border: 1px solid #ccd399
       border-width: 1px 0
       background: #f1f4dc
-    h3
-      padding: 20px
-      margin: 0 0 40px 0
-      font-size: 2.16em
-      border: 1px solid #ccd399
-      border-width: 1px 0
-      background: #f1f4dc
-    h4
-      padding: 0 0 8px 0
-      font-size: 1.5em
-    .article
-      padding: 0 20px 40px 20px
-      + .article
-        padding-top: 40px
-        border-top: 1px solid #d4dce2
-      .meta
-        padding-top: 10px
-      .meta.learn_more
-        p, form
-          float: none
-          display: inline
-          margin: 0 10px 0 0
-          &:after
-            content: '•'
-            margin: 0 0 0 10px
-          &.last
-            &:after
-              content: ''
-      p.flag
-        float: left
-        padding: 1px 2px
-        font-size: .83em
-        text-transform: uppercase
-        color: #ffffff
-        margin: 0 40px 0 0
-        &.trusted
-          border: 1px solid #6b7910
-          background: #849513
-        &.unreviewed
-          border: 1px solid #677682
-          background: #8695a1
-      .average_rating
-        float: left
-        padding: 2px 40px 0 0
-        margin: 0 0 20px 0
-      > .rating
-        padding: 2px 0 20px 0
-      p.actions
-        clear: both
-        margin: 0 0 20px 0
+    > .section
+      > h3
+        padding: 20px
+        margin: 0 0 40px 0
+        font-size: 2.16em
+        border: 1px solid #ccd399
+        border-width: 1px 0
+        background: #f1f4dc
+      > .article
+        padding: 0 20px 40px 20px
+        + .article
+          padding-top: 40px
+          border-top: 1px solid #d4dce2
+        > h4
+          padding: 0 0 8px 0
+          font-size: 1.5em
+        > .meta
+          padding-top: 10px
+          &.learn_more
+            p, form
+              float: none
+              display: inline
+              margin: 0 10px 0 0
+              &:after
+                content: '•'
+                margin: 0 0 0 10px
+              &.last
+                &:after
+                  content: ''
+        > p.flag
+          float: left
+          padding: 1px 2px
+          font-size: .83em
+          text-transform: uppercase
+          color: #ffffff
+          margin: 0 40px 0 0
+          &.trusted
+            border: 1px solid #6b7910
+            background: #849513
+          &.unreviewed
+            border: 1px solid #677682
+            background: #8695a1
+        > .average_rating
+          float: left
+          padding: 2px 40px 0 0
+          margin: 0 0 20px 0
+        > .rating
+          padding: 2px 0 20px 0
+        > p.actions
+          clear: both
+          margin: 0 0 20px 0
         a.button
-      a.button
-        display: inline-block
-        padding: 7px 20px
-        margin: 0 15px 0 0
-        font-size: 1em
-        &.comment
+          display: inline-block
+          padding: 7px 20px
+          margin: 0 15px 0 0
+          font-size: 1em
+          &.comment
+            display: none
+      > form.comment
+        padding: 0 15px 0 0
+        textarea
+          width: 522px
+        input[type="submit"]
+          padding: 7px 20px
+        a.cancel
           display: none
-    form.comment
-      padding: 0 15px 0 0
-      textarea
-        width: 522px
-      input[type="submit"]
-        padding: 7px 20px
-      a.cancel
-        display: none
 
 #taxon_resources
   .main_container
@@ -1981,6 +1989,56 @@ body
     padding: 30px 0
     ul.media
       padding: 0 30px
+
+#taxon_updates
+  .header
+    position: relative
+    padding: 10px 0
+    text-align: center
+    border-bottom: 1px solid #394651
+    h3
+      font-size: 1.33em
+    a
+      position: absolute
+      right: 10px
+      top: 15px
+      z-index: 1
+      font-weight: bold
+      &.prev
+        right: auto
+        left: 10px
+  .page_statistics
+    dl
+      float: right
+      line-height: 140%
+      width: 200px
+      padding: 50px 30px 30px 0
+      dt
+        font-size: 1.8em
+        margin: 0 0 10px 0
+        & + dd
+          font-size: 2em
+          & + dt
+            font-size: 1.2em
+            & + dd
+              font-size: 1.6em
+      dd
+        font-weight: bold
+        margin: 0 0 20px 0
+    .copy
+      float: left
+      width: 380px
+      margin-top: 30px
+      background: #f3f7fa
+      border: 1px solid #cad3db
+      padding: 20px 20px 0 20px
+  .update_feed
+    .article.updates
+      padding: 0
+      ul
+        li
+          padding: 20px
+          border-bottom: 1px solid #d4dce2
 
 #content.session
   background: #e2e9ef

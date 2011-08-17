@@ -26,13 +26,11 @@
               = render :partial => "taxa/overview_image_taxon_link", :locals => {:data_object => item}
             .copy
               = render :partial => 'data_objects/license', :locals => { :data_object => item }
-              -#
-                # The latest taxon build removed this, but I'm not 100% sure it was correct to do so:
-                - unless item.rights_holder.blank?
-                  - if item.rights_holder.length > 60
-                    = "&copy; #{item.rights_holder[0..59]}..."
-                  - else
-                    = "&copy; #{item.rights_holder}"
+              - unless item.rights_holder.blank?
+                - if item.rights_holder.length > 60
+                  = "&copy; #{item.rights_holder[0..59]}..."
+                - else
+                  = "&copy; #{item.rights_holder}"
             .copy
               = render :partial => 'data_objects/supplier', :locals => { :data_object => item }
             .copy

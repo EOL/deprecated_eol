@@ -84,7 +84,8 @@ class ApplicationController < ActionController::Base
 
   def must_be_logged_in
     flash[:warning] =  I18n.t(:must_be_logged_in)
-    return redirect_to(login_path(:return_to => params[:return_to]))
+    session[:return_to] = request.url if params[:return_to].nil?
+    redirect_to(login_path, :return_to => params[:return_to])
   end
 
   def view_helper_methods

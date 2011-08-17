@@ -1585,7 +1585,7 @@ en:
   filter_by_status: "Filter by status"
   filter_by_status_all_option: "All statuses"
   filter_by_status_trusted_option: "Trusted"
-  filter_by_status_unknown_option: "Unreviewed"
+  filter_by_status_unreviewed_option: "Unreviewed"
   filter_by_status_untrusted_option: "Untrusted"
   filter_by_status_inappropriate_option: "Inappropriate"
   filter_by_type: "Filter by type"
@@ -2015,6 +2015,7 @@ en:
   max_collection_items_error: "Sorry, your request exceeds the limit of %{max} collection items."
   media: "Media"
   media_list_empty: "No one has contributed any media for this taxon yet."
+  media_list_empty_search: "No media are available matching your search criteria."
   media_list_empty_contribute_instructions: "Learn how to contribute media to EOL."
   media_with_count:
     one: "%{count} Media"

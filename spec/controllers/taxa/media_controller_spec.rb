@@ -27,7 +27,7 @@ describe Taxa::MediaController do
         item_vetted = item.vetted_by_taxon_concept(@taxon_concept)
         item_vetted.id == Vetted.trusted.id
       }.count
-
+      
       @media = @taxon_concept.media.sort_by{|m| m.id}
       @newest_media = @media.last(10).reverse
       @oldest_media = @media.first(3)
@@ -95,6 +95,8 @@ describe Taxa::MediaController do
       highly_ranked_text_association.vetted_id = Vetted.trusted.id
       highly_ranked_text_association.save!
       @highly_ranked_text.save
+      SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
+      DataObject.all.each{ |d| d.update_solr_index }
     end
 
     it 'should instantiate the taxon concept' do
@@ -153,8 +155,6 @@ describe Taxa::MediaController do
       get :index, :taxon_id => @taxon_concept.id, :sort_by => 'status'
       sorted_by_status = assigns[:media]
       sorted_by_status.should == sorted_by_default
-      sorted_by_status.should == DataObject.sort_by_rating(sorted_by_status, @taxon_concept, [:visibility, :vetted, :rating, :date, :type])
-
     end
 
     it 'should sort media by rating then status' do
@@ -178,9 +178,6 @@ describe Taxa::MediaController do
       sorted_by_rating.include?(@newest_video_poorly_rated_trusted).should be_false
       sorted_by_rating.include?(@newest_sound_poorly_rated_trusted).should be_false
       sorted_by_default.should_not == sorted_by_rating
-
-      sorted_by_rating.should == DataObject.sort_by_rating(sorted_by_rating, @taxon_concept, [:visibility, :rating, :vetted, :date, :type])
-
     end
 
     it 'should sort media by newest' do
@@ -190,12 +187,15 @@ describe Taxa::MediaController do
 
       get :index, :taxon_id => @taxon_concept.id, :sort_by => 'newest'
       sorted_by_newest = assigns[:media]
-      sorted_by_newest.first(10).should == @newest_media
       sorted_by_newest.include?(@oldest_media[0]).should be_false
       sorted_by_newest.include?(@oldest_media[1]).should be_false
       sorted_by_newest.include?(@oldest_media[2]).should be_false
       sorted_by_newest.should_not == sorted_by_status
-      sorted_by_newest.should == DataObject.sort_by_rating(sorted_by_newest, @taxon_concept, [:visibility, :date, :vetted, :rating, :type])
+      previous_date = 100.days.ago
+      sorted_by_newest.reverse.each do |d|
+        d.created_at.should >= previous_date
+        previous_date = d.created_at
+      end
     end
 
     it 'should filter by type:image' do
@@ -217,13 +217,6 @@ describe Taxa::MediaController do
       assigns[:media].select{|m| ! m.is_sound?}.compact.should_not be_blank
       get :index, :taxon_id => @taxon_concept.id, :sort_by => 'status', :type => ['sound']
       assigns[:media].select{|m| ! m.is_sound?}.compact.should be_blank
-    end
-
-    it 'should filter by type:photosynth' do
-      media_do_index
-      assigns[:media].select{|m| ! m.source_url.match /photosynth.net/}.compact.should_not be_blank
-      get :index, :taxon_id => @taxon_concept.id, :sort_by => 'status', :type => ['photosynth']
-      assigns[:media].select{|m| ! m.source_url.match /photosynth.net/}.compact.should be_blank
     end
 
     it 'should filter by vetted status and visibility'

@@ -7,7 +7,7 @@ class Taxa::WorklistController < TaxaController
 
   def show
     @page = params[:page] ||= 1
-    @sort_by = params[:sort_by] ||= 'created_at'
+    @sort_by = params[:sort_by] ||= 'newest'
     @object_type = params[:object_type] ||= 'all'
     @object_status = params[:object_status] ||= 'unreviewed'
     @object_visibility = params[:object_visibility] ||= 'visible'
@@ -28,11 +28,11 @@ class Taxa::WorklistController < TaxaController
     
     @data_objects = EOL::Solr::DataObjects.search_with_pagination(@taxon_concept.id, {
       :page => @page,
-      :per_page => 15,
+      :per_page => 12,
       :sort_by => @sort_by,
       :data_type_ids => data_type_ids,
-      :vetted_type => @object_status,
-      :visibility_type => @object_visibility,
+      :vetted_types => [ @object_status ],
+      :visibility_types => [ @object_visibility ],
       :user => current_user,
       :filter => @task_status
     })

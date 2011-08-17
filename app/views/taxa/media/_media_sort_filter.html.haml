@@ -14,10 +14,10 @@
         %label= I18n.t(:filter_by_type)
       %dd
         %ul
-          - [:all, :image, :video, :sound, :photosynth].each do |opt|
+          - [:all, :image, :video, :sound].each do |opt|
             %li
               %label
-                = check_box_tag "type[]", opt, @params_type.include?(opt.to_s),
+                = check_box_tag "type[]", opt, @type.include?(opt.to_s),
                   { :name => "type[]", :id => "type_#{opt.to_s}"}
                 = I18n.t("filter_by_type_#{opt}_option")
 
@@ -28,10 +28,10 @@
           %label= I18n.t(:filter_by_status)
         %dd
           %ul
-            - [:all, :trusted, :unknown, :untrusted, :inappropriate].each do |opt|
+            - [:all, :trusted, :unreviewed, :untrusted, :inappropriate].each do |opt|
               %li
                 %label
-                  = check_box_tag "status[]", opt, @params_status.include?(opt.to_s),
+                  = check_box_tag "status[]", opt, @status.include?(opt.to_s),
                     { :name => "status[]", :id => "status_#{opt.to_s}" }
                   = I18n.t("filter_by_status_#{opt}_option")
 

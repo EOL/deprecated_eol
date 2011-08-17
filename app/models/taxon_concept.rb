@@ -848,6 +848,24 @@ class TaxonConcept < SpeciesSchemaModel
   def smart_image
     return images(:skip_metadata => true).blank? ? nil : images(:skip_metadata => true)[0].smart_image
   end
+  
+  def best_image_from_solr(selected_hierarchy_entry = nil)
+    cache_key = "best_image_#{self.id}"
+    cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
+    @best_image ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 3.days) do
+      best_images = EOL::Solr::DataObjects.search_with_pagination(self.id, {
+        :per_page => 1,
+        :sort_by => 'status',
+        :data_type_ids => DataType.image_type_ids,
+        :vetted_types => ['all'],
+        :visibility_types => 'visible',
+        :filter_hierarchy_entry => selected_hierarchy_entry
+      })
+      (best_images.empty?) ? 'none' : best_images.first
+    end
+    @best_image = nil if @best_image == 'none'
+    @best_image
+  end
 
   # comment on this
   def comment user, body
@@ -1302,35 +1320,52 @@ class TaxonConcept < SpeciesSchemaModel
     count += map_image_count
   end
   
-  def media_count(filter_hierarchy_entry = nil)
-    # may not be accurate, but will be faster than loading everything then counting it
-    return @media_count if @media_count
-    # TODO: I'm purposely using SQL here as I don't want to have to load ALL images on ALL page loads. It
-    # would be great if someone would take the time to re-write this HE count
-    if filter_hierarchy_entry
-      image_count = filter_hierarchy_entry.top_images.count
-    else
-      image_count = connection.select_values("
-        SELECT COUNT(distinct do.id) AS count_all
-        FROM top_concept_images tci
-        JOIN data_objects do ON (tci.data_object_id=do.id)
-        JOIN data_objects_hierarchy_entries dohe on (do.id=dohe.data_object_id)
-        WHERE (tci.taxon_concept_id = #{self.id})
-        AND do.published = 1
-        AND dohe.visibility_id = #{Visibility.visible.id}
-        AND (do.data_subtype_id IS NULL OR do.data_subtype_id NOT IN (#{DataType.map_type_ids.join(',')}))")[0].to_i
+  def media_count(selected_hierarchy_entry = nil)
+    cache_key = "media_count_#{self.id}"
+    cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
+    @media_count ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 3.days) do
+      best_images = EOL::Solr::DataObjects.search_with_pagination(self.id, {
+        :per_page => 1,
+        :sort_by => 'status',
+        :data_type_ids => DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids,
+        :vetted_types => ['all'],
+        :visibility_types => 'visible',
+        :ignore_maps => true,
+        :filter_hierarchy_entry => selected_hierarchy_entry,
+      }).total_entries
     end
-    other_media_count = connection.select_values("
-      SELECT COUNT(distinct do.id) AS count_all
-      FROM data_objects_taxon_concepts dotc
-      JOIN data_objects do ON (dotc.data_object_id=do.id)
-      JOIN data_objects_hierarchy_entries dohe on (do.id=dohe.data_object_id)
-      WHERE (dotc.taxon_concept_id = #{self.id})
-      AND do.published = 1
-      AND dohe.visibility_id = #{Visibility.visible.id}
-      AND do.data_type_id IN (#{(DataType.video_type_ids + DataType.sound_type_ids).join(',')})")[0].to_i
-    @media_count = image_count + other_media_count
   end
+  
+  def best_image_from_solr(selected_hierarchy_entry = nil)
+    cache_key = "best_image_#{self.id}"
+    cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
+    @best_image ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 3.days) do
+      best_images = EOL::Solr::DataObjects.search_with_pagination(self.id, {
+        :per_page => 1,
+        :sort_by => 'status',
+        :data_type_ids => DataType.image_type_ids,
+        :vetted_types => ['all'],
+        :visibility_types => 'visible',
+        :filter_hierarchy_entry => selected_hierarchy_entry
+      })
+      (best_images.empty?) ? 'none' : best_images.first
+    end
+    @best_image = nil if @best_image == 'none'
+    @best_image
+  end
+  
+  
+  def images_from_solr(limit = 4, selected_hierarchy_entry = nil)
+    @images_from_solr ||=  EOL::Solr::DataObjects.search_with_pagination(self.id, {
+      :per_page => limit,
+      :sort_by => 'status',
+      :data_type_ids => DataType.image_type_ids,
+      :vetted_types => ['all'],
+      :visibility_types => 'visible',
+      :filter_hierarchy_entry => selected_hierarchy_entry
+    })
+  end
+  
   
   def media_facet_counts
     EOL::Solr::DataObjects.get_facet_counts(self.id)

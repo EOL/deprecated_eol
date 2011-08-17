@@ -4,53 +4,43 @@ class Taxa::MediaController < TaxaController
   before_filter :add_page_view_log_entry, :update_user_content_level
 
   def index
-
-    includes = [
-      { :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] },
-      { :data_objects => [ :users_data_object, { :toc_items => :info_items }, { :data_objects_hierarchy_entries => :hierarchy_entry },
-        { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ] },
-      { :top_concept_images => { :data_object => [ :users_data_object, { :toc_items => :info_items }, { :data_objects_hierarchy_entries => :hierarchy_entry },
-          { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ] } },
-      { :curator_activity_logs => :user },
-      { :users_data_objects => [ { :data_object => :toc_items } ] },
-      { :taxon_concept_exemplar_image => :data_object }]
-    selects = {
-      :taxon_concepts => '*',
-      :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
-      :names => [ :string, :italicized, :canonical_form_id, :ranked_canonical_form_id ],
-      :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
-      :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
-      :vetted => :view_order,
-      :data_objects => [ :id, :data_type_id, :data_subtype_id, :published, :guid, :data_rating, :object_cache_url, :source_url, :object_title, :description ],
-      :data_objects_hierarchy_entries => '*',
-      :curated_data_objects_hierarchy_entries => '*',
-      :table_of_contents => '*',
-      :curator_activity_logs => '*',
-      :users => [ :given_name, :family_name ],
-      :taxon_concept_exemplar_image => '*' }
-    @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
+    @page = params[:page] ||= 1
+    @sort_by = params[:sort_by] ||= 'status'
+    @type = params[:type] ||= ['all']
+    @type = ['all'] if @type.include?('all')
+    @status = params[:status] ||= ['all']
+    @status = ['all'] if @status.include?('all')
     @exemplar_image = @taxon_concept.taxon_concept_exemplar_image.data_object unless @taxon_concept.taxon_concept_exemplar_image.blank?
-    @exemplar_image ||= @taxon_concept.best_image
-
-    @params_type = params['type'] || ['all']
-    @params_status = params['status'] || ['all']
-    @sort_by = params[:sort_by]
-
-    sort_order = [:visibility, :vetted, :rating, :date, :type] if @sort_by.blank? || @sort_by == 'status' #default
-    sort_order = [:visibility, :rating, :vetted, :date, :type] if @sort_by == 'rating'
-    sort_order = [:visibility, :date, :vetted, :rating, :type] if @sort_by == 'newest'
-
-    @media = @taxon_concept.media(sort_order, @selected_hierarchy_entry)
-    unless @params_type.blank? && (@params_status.blank? || @params_status == 'all')
-      @media = DataObject.custom_filter(@media, @taxon_concept, @params_type, @params_status)
+    @exemplar_image ||= @taxon_concept.best_image_from_solr(@selected_hierarchy_entry)
+    
+    data_type_ids = []
+    ['image', 'video', 'sound'].each do |t|
+      next unless @type.include?(t)
+      if t == 'video'
+        data_type_ids |= DataType.video_type_ids
+      elsif data_type = DataType.cached_find_translated(:label, t, 'en')
+        data_type_ids |= [data_type.id]
+      end
     end
-    @media = promote_exemplar(@media) if @exemplar_image && (@sort_by.blank? ||
-      (@sort_by == 'status' && (@params_type.include?('all') || @params_type.include?('images'))))
-    @sort_by ||= 'status'
-    @media_total = @media.count
-    @media = @media.paginate(:page => params[:page] || 1, :per_page => $MAX_IMAGES_PER_PAGE)
+    if data_type_ids.empty?
+      data_type_ids = DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids
+    end
+    
+    @media = EOL::Solr::DataObjects.search_with_pagination(@taxon_concept.id, {
+      :page => @page,
+      :per_page => $MAX_IMAGES_PER_PAGE,
+      :sort_by => @sort_by,
+      :data_type_ids => data_type_ids,
+      :vetted_types => @status,
+      :visibility_types => 'visible',
+      :ignore_maps => true,
+      :filter_hierarchy_entry => @selected_hierarchy_entry
+    })
+    
+    DataObject.preload_associations(@media, [:users_data_object, { :data_objects_hierarchy_entries => :hierarchy_entry },
+      :curated_data_objects_hierarchy_entries])
+    
     @current_user_ratings = logged_in? ? current_user.rating_for_object_guids(@media.collect{ |m| m.guid }) : {}
-
     @watch_collection = logged_in? ? current_user.watch_collection : nil
     @assistive_section_header = I18n.t(:assistive_media_header)
     current_user.log_activity(:viewed_taxon_concept_media, :taxon_concept_id => @taxon_concept.id)

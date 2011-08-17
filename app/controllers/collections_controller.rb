@@ -104,6 +104,9 @@ class CollectionsController < ApplicationController
     # Annoying that we have to do this to get the count, but it really does help to have it!:
     begin
       @items = collection_items_with_scope(:from => @collection, :items => params[:collection_items], :scope => @scope)
+      # Helps identify where ONE item is in other collections...
+      @item = CollectionItem.find(@items.first).object if
+        @items.length == 1
     rescue EOL::Exceptions::MaxCollectionItemsExceeded
       flash[:error] = I18n.t(:max_collection_items_error, :max => $MAX_COLLECTION_ITEMS_TO_MANIPULATE)
       redirect_to collection_path(@collection)

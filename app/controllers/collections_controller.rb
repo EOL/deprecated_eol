@@ -116,6 +116,7 @@ class CollectionsController < ApplicationController
   end
 
   def choose_collect_target
+    return must_be_logged_in unless logged_in?
     @collections = current_user.all_collections.delete_if{ |c| c.is_resource_collection? }
     return EOL::Exceptions::ObjectNotFound unless @item
     @page_title = I18n.t(:collect_item) + " - " + @item.summary_name

@@ -121,7 +121,7 @@ ar:
   join_eol_button_html: أنضم إلى <abbr title="Encyclopedia of Life">EOL</abbr> الآن
   join_eol_community_html: انضم لمجتمع <abbr title="Encyclopedia of Life">EOL</abbr>!
   just_pages_with_pictures_and_text: الصفحات التي تضم صور ونصوص فقط
-  language_menu_item: "%{language_label} <abbr>(%{language_abbr})</abbr>"
+  language_menu_item: "%{language_label} - <abbr>%{language_abbr}</abbr>"
   learn_about_content_partners: تعرف على شركاء المحتوى
   learn_how_to_interact: اكتشف كيف يمكنك أن تتفاعل
   learn_how_to_join: تعرف على كيفية الإنضمام إلى

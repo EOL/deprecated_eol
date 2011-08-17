@@ -54,6 +54,8 @@ class Taxa::DetailsController < TaxaController
     # Page Statistics:
     temp = temp | ["Content Summary"] # to Updates tab
 
+    temp = temp | ["Content Partners"] # to Resource tab
+
     # exclude selected toc_items
     toc_items_to_show.delete_if {|ti| temp.include?(ti.label)}
     @toc = TocBuilder.new.toc_for_toc_items(toc_items_to_show)

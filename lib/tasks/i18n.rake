@@ -424,7 +424,7 @@ namespace :i18n do
   task (:list_db_strings => :environment) do
     en_strings = "en:\n"
     en_id = Language.english.id
-    
+
     all_models = Dir.foreach("#{RAILS_ROOT}/app/models").map do |model_path|
       if m = model_path.match(/translate/) && model_path.match(/^(([a-z]+_)*[a-z]+)\.rb$/)
         m[1].camelcase.constantize
@@ -433,7 +433,7 @@ namespace :i18n do
       end
     end.compact
     all_tables = {}
-    all_models.each do |model|      
+    all_models.each do |model|
       begin
         if excluded_tables.include?(model.table_name)
           puts "Excluding: " + model.table_name
@@ -446,7 +446,7 @@ namespace :i18n do
           cols.delete_if {|c| c =~ /_id$/ }
           cols.delete_if {|c| c =~ /^phonetic_/ }
           all_tables[model.table_name][:translatable] = cols
-        end        
+        end
       rescue ActiveRecord::StatementInvalid => e
         puts "** You seem to have a missing table:"
         puts e.message
@@ -454,7 +454,7 @@ namespace :i18n do
     end
     all_tables.each do |table|
       table_name = table[0]
-      foreign_key = all_tables[table_name][:associations].to_s        
+      foreign_key = all_tables[table_name][:associations].to_s
       translatable = ""
       all_tables[table_name][:translatable].each do |field|
         translatable << ", " if translatable != ""
@@ -464,7 +464,7 @@ namespace :i18n do
       results = ActiveRecord::Base.connection.execute("select #{foreign_key}, #{translatable} from #{table_name} where language_id=#{en_id}")
       results.each_hash do |row|
         all_tables[table_name][:translatable].each do |field|
-          
+
           # if we are in the Ranks table, ignore any rows not in our translation whitelist
           if table_name == 'translated_ranks' && field == 'label'
             lookup_rank_label = row[field].downcase.gsub(/\.$/, '')  # remove trailing periods
@@ -472,9 +472,9 @@ namespace :i18n do
           end
           en_strings << "  #{table_name}__#{field}__#{foreign_key}__#{row[foreign_key]}: \"" + row[field].gsub("\"", "\\\"").gsub("\n", "\\n") + "\"\n"
         end
-      end      
+      end
     end
-    
+
     puts "Writing to en-db.yml"
     en_file = File.join([RAILS_ROOT, "config", "locales" , "en-db.yml"])
     en_data = open(en_file, 'w')
@@ -521,11 +521,28 @@ namespace :i18n do
     end
 
     def insert_or_update_db_value(table_name, column_name, identity_column_name, lang_id, field_id, column_value)
-      results = ActiveRecord::Base.connection.execute("select * from #{table_name} where #{identity_column_name}=#{field_id} and language_id=#{lang_id};")
+      results = begin
+                  ActiveRecord::Base.connection.execute("
+                    SELECT * FROM #{table_name}
+                    WHERE #{identity_column_name}=#{field_id} and language_id=#{lang_id}
+                  ")
+                rescue => e
+                  puts "++ #{e.message}... attempting same on logging model..."
+                  begin
+                    LoggingModel.connection.execute("
+                      SELECT * FROM #{table_name}
+                      WHERE #{identity_column_name}=#{field_id} and language_id=#{lang_id}
+                    ")
+                    puts "   ...worked."
+                  rescue => e
+                    puts "**\n** FAILED, skipping.\n**"
+                    return
+                  end
+                end
       query = ""
       if (results.num_rows== 0)
         # new record
-        query = "insert into #{table_name} (#{identity_column_name}, language_id, #{column_name}) values (#{field_id}, #{lang_id}, '" + escape_new_line(clean_basic_injection(column_value.gsub)) + "')"
+        query = "insert into #{table_name} (#{identity_column_name}, language_id, #{column_name}) values (#{field_id}, #{lang_id}, '" + escape_new_line(clean_basic_injection(column_value)) + "')"
       else
         query = "update #{table_name} set #{column_name}='" + escape_new_line(clean_basic_injection(column_value)) + "'
                   where #{identity_column_name} = #{field_id}
@@ -533,9 +550,13 @@ namespace :i18n do
 
       end
 
-      ActiveRecord::Base.connection.execute(query)
+      begin
+        ActiveRecord::Base.connection.execute(query)
+      rescue
+        LoggingModel.connection.execute(query)
+      end
     end
-    
+
     en_keys = load_language_keys('en')
 
     translated_languages = get_languages

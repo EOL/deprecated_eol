@@ -23,8 +23,6 @@ class CollectionsController < ApplicationController
     @page = params[:page] || 1
     render :action => 'newsfeed' if @filter == 'newsfeed'
     return copy_items_and_redirect(@collection, [current_user.watch_collection]) if params[:commit_collect]
-    # NOTE - this is complicated. It's getting the various collection item types and doing i18n on the name as well
-    # as passing the raw facet type (used by Solr) as the values in the option hash that will be built in the view:
     types = CollectionItem.types
     @collection_item_scopes = [[I18n.t(:selected_items), :selected_items], [I18n.t(:all_items), :all_items]]
     @collection_item_scopes << [I18n.t("all_#{types[@filter.to_sym][:i18n_key]}"), @filter] if @filter
@@ -104,7 +102,15 @@ class CollectionsController < ApplicationController
     @for   = params[:for]
     @scope = params[:scope]
     # Annoying that we have to do this to get the count, but it really does help to have it!:
-    @items = collection_items_with_scope(:from => @collection, :items => params[:collection_items], :scope => @scope)
+    begin
+      @items = collection_items_with_scope(:from => @collection, :items => params[:collection_items], :scope => @scope)
+      # Helps identify where ONE item is in other collections...
+      @item = CollectionItem.find(@items.first).object if
+        @items.length == 1
+    rescue EOL::Exceptions::MaxCollectionItemsExceeded
+      flash[:error] = I18n.t(:max_collection_items_error, :max => $MAX_COLLECTION_ITEMS_TO_MANIPULATE)
+      redirect_to collection_path(@collection)
+    end
     @collections = current_user.all_collections.delete_if{ |c| c.is_resource_collection? }
     @page_title = I18n.t(:choose_collection_header)
   end
@@ -210,37 +216,50 @@ private
   def copy_items_and_redirect(source, destinations, options = {})
     copied = {}
     @copied_to = []
+    all_items = []
     destinations.each do |destination|
-      count = copy_items(:from => source, :to => destination, :items => params[:collection_items],
-                         :scope => params[:scope])
-      copied[link_to_name(destination)] = count
+      begin
+        items = copy_items(:from => source, :to => destination, :items => params[:collection_items],
+                           :scope => params[:scope])
+        copied[link_to_name(destination)] = items.count
+        all_items += items
+        # TODO - this rescue can cause SOME work to get done and others not.  It should be moved.
+      rescue EOL::Exceptions::MaxCollectionItemsExceeded
+        flash[:error] = I18n.t(:max_collection_items_error, :max => $MAX_COLLECTION_ITEMS_TO_MANIPULATE)
+        return redirect_to collection_path(@collection)
+      end
     end
+    all_items.compact!#.why_am_i_shouting!?
     flash_i18n_name = :copied_items_to_collections_with_count_notice
-    if copied.values.sum > 0
+    if all_items.count > 0
       if options[:move]
         # Not handling any weird errors here, to simplify flash notice handling.
-        remove_items(:from => source, :items => params[:collection_items], :scope => params[:scope])
+        remove_items(:items => all_items)
         @collection_items.delete_if {|ci| params['collection_items'].include?(ci.id.to_s) } if @collection_items
         if destinations.length == 1
-          flash[:notice] = I18n.t(:moved_items_from_collection_with_count_notice, :count => copied.values.sum,
+          flash[:notice] = I18n.t(:moved_items_from_collection_with_count_notice, :count => all_items.count,
                                   :name => link_to_name(source))
+          flash[:notice] += " #{I18n.t(:duplicate_items_were_ignored)}" if @duplicates
           return redirect_to collection_path(destinations.first)
         else
           flash_i18n_name = :moved_items_to_collections_with_count_notice
         end
       else
         if destinations.length == 1
-          flash[:notice] = I18n.t(:copied_items_from_collection_with_count_notice, :count => copied.values.sum,
+          flash[:notice] = I18n.t(:copied_items_from_collection_with_count_notice, :count => all_items.count,
                                   :name => link_to_name(source))
+          flash[:notice] += " #{I18n.t(:duplicate_items_were_ignored)}" if @duplicates
           return redirect_to collection_path(destinations.first)
         end
       end
       flash[:notice] = I18n.t(flash_i18n_name,
-                              :count => copied.values.sum,
+                              :count => all_items.count,
                               :names => copied.keys.map {|c| "#{c} (#{copied[c]})"}.to_sentence)
+      flash[:notice] += " #{I18n.t(:duplicate_items_were_ignored)}" if @duplicates
       return redirect_to collection_path(source)
-    elsif copied.values.sum == 0
+    elsif all_items.count == 0
       flash[:error] = I18n.t(:no_items_were_copied_to_collections_error, :names => @no_items_to_collections.to_sentence)
+      flash[:error] += " #{I18n.t(:duplicate_items_were_ignored)}" if @duplicates
       return redirect_to collection_path(source)
     else
       # Assume the flash message was set by #copy_items
@@ -252,15 +271,21 @@ private
     collection_items = collection_items_with_scope(options)
     already_have = options[:to].collection_items.map {|i| [i.object_id, i.object_type]}
     new_collection_items = []
+    old_collection_items = []
     count = 0
+    @duplicates = false
     collection_items.each do |collection_item|
       collection_item = CollectionItem.find(collection_item) # sometimes this is just an id.
-      unless already_have.include?([collection_item.object.id, collection_item.object_type])
+      if already_have.include?([collection_item.object.id, collection_item.object_type])
+        @duplicates = true
+      else
+        old_collection_items << collection_item
         new_collection_items << { :object_id => collection_item.object.id,
                                   :object_type => collection_item.object_type,
                                   :annotation => collection_item.annotation,
                                   :added_by_user_id => current_user.id }
         count += 1
+        # TODO - gak.  This points to the wrong collection item and needs to be moved to AFTER the save:
         CollectionActivityLog.create(:collection => options[:to], :user => current_user,
                                      :activity => Activity.collect, :collection_item => collection_item)
       end
@@ -268,11 +293,11 @@ private
     if new_collection_items.empty?
       @no_items_to_collections ||= []
       @no_items_to_collections << link_to_name(options[:to])
-      return(0)
+      return([])
     end
     options[:to].collection_items_attributes = new_collection_items
     if options[:to].save
-      return new_collection_items.length
+      return old_collection_items
     else
       flash[:error] ||= ""
       flash[:error] = " " + I18n.t(:unable_to_copy_items_to_collection_error, :name => link_to_name(options[:to]))
@@ -280,7 +305,12 @@ private
   end
 
   def remove_and_redirect
-    count = remove_items(:from => @collection, :items => params[:collection_items], :scope => params[:scope])
+    begin
+      count = remove_items(:from => @collection, :items => params[:collection_items], :scope => params[:scope])
+    rescue EOL::Exceptions::MaxCollectionItemsExceeded
+      flash[:error] = I18n.t(:max_collection_items_error, :max => $MAX_COLLECTION_ITEMS_TO_MANIPULATE)
+      return redirect_to collection_path(@collection)
+    end
     flash[:notice] = I18n.t(:removed_count_items_from_collection_notice, :count => count)
     return redirect_to collection_path(@collection)
   end
@@ -307,18 +337,24 @@ private
   end
 
   def remove_items(options)
-    collection_items = collection_items_with_scope(options)
+    collection_items = options[:items] || collection_items_with_scope(options.merge(:allow_all => true))
+    bulk_log = params[:scope] == 'all_items'
     count = 0
     collection_items.each do |item|
       item = CollectionItem.find(item) # Sometimes, this is just an id.
       if item.update_attribute(:collection_id, nil) # Not actually destroyed, so that we can talk about it in feeds.
         item.remove_collection_item_from_solr # TODO - needed?  Or does the #after_save method handle this?
         count += 1
-        CollectionActivityLog.create(:collection => @collection, :user => current_user,
-                                     :activity => Activity.remove, :collection_item => item)
+        unless bulk_log
+          CollectionActivityLog.create(:collection => @collection, :user => current_user,
+                                       :activity => Activity.remove, :collection_item => item)
+        end
       end
     end
     @collection_items.delete_if {|ci| collection_items.include?(ci.id.to_s) } if @collection_items
+    if bulk_log
+      CollectionActivityLog.create(:collection => @collection, :user => current_user, :activity => Activity.remove_all)
+    end
     return count
   end
 
@@ -327,9 +363,15 @@ private
     if params[:scope].nil? || params[:scope] == 'selected_items'
       collection_items = options[:items] # NOTE - no limit, since these are HTML parms, which are limited already.
     elsif params[:scope] == 'all_items'
-      collection_items = options[:from].collection_items[0..$MAX_COLLECTION_ITEMS_TO_MANIPULATE]
+      raise EOL::Exceptions::MaxCollectionItemsExceeded if
+        options[:from].collection_items.count > $MAX_COLLECTION_ITEMS_TO_MANIPULATE && ! options[:allow_all]
+      collection_items = options[:from].collection_items
     else # It's a particular type of item.
-      collection_items = options[:from].items_from_solr(:facet_type => params[:scope], :page => 1, :per_page => $MAX_COLLECTION_ITEMS_TO_MANIPULATE).map { |i| i['instance'] }
+      count = options[:from].facet_count(CollectionItem.types[params[:scope].to_sym][:facet])
+      raise EOL::Exceptions::MaxCollectionItemsExceeded if count > $MAX_COLLECTION_ITEMS_TO_MANIPULATE
+      results = options[:from].items_from_solr(:facet_type => params[:scope], :page => 1,
+                                               :per_page   => $MAX_COLLECTION_ITEMS_TO_MANIPULATE)
+      collection_items = results.map { |i| i['instance'] }
     end
     collection_items
   end

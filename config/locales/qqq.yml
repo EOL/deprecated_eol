@@ -14,3 +14,4 @@ qqq:
   taxon_suggested: "This is a column header indicating that the values in the column are the taxon names suggested as results for a search term (which is specified in another column).  So, for example, a search term of 'fox' might have 'Vulpes vulpes' as a value in this column."
   on_time_col_header: "This is meant as a header for a time column."
   create_community: "This is a button label and is not meant to be (fully) grammatical."
+  max_collection_items_error: "This wil never, ever be a small number... always at least 500."

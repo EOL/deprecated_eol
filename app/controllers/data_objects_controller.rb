@@ -213,9 +213,17 @@ class DataObjectsController < ApplicationController
       entries.each do |phe|
         comment = curation_comment(params["curation_comment_#{phe.id}"])
         vetted_id = params["vetted_id_#{phe.id}"].to_i
+        
         # make visibility hidden if curated as Inappropriate or Untrusted
         visibility_id = (vetted_id == Vetted.inappropriate.id || vetted_id == Vetted.untrusted.id) ? Visibility.invisible.id : params["visibility_id_#{phe.id}"].to_i
-        visibility_changed = (visibility_id == 0) ? false : (phe.visibility_id != visibility_id)
+        
+        # check if the visibility has been changed
+        visibility_changed = visibility_id.blank? ? false : (phe.visibility_id != visibility_id)
+        
+        # explicitly mark visibility as changed if it is already hidden and marked as trusted or unreviewed from untrusted.
+        # this is required as we don't ask for hide reasons while marking an association as untrusted
+        # if we don't do this, code will grab the last hide reason for that association if it was marked as hidden in the past.
+        # if you are here to refactor the code(and about to remove the following line) then please make sure the hiding of the association works properly
         visibility_changed = (phe.visibility_id == Visibility.invisible.id && (vetted_id == Vetted.trusted.id || vetted_id == Vetted.unknown.id)) ? true : false unless visibility_changed == true
         all_params = { :vetted_id => vetted_id,
                        :visibility_id => visibility_id,
@@ -223,7 +231,7 @@ class DataObjectsController < ApplicationController
                        :untrust_reason_ids => params["untrust_reasons_#{phe.id}"],
                        :hide_reason_ids => params["hide_reasons_#{phe.id}"],
                        :untrust_reasons_comment => params["untrust_reasons_comment_#{phe.id}"],
-                       :vet? => (vetted_id == 0) ? false : (phe.vetted_id != vetted_id),
+                       :vet? => vetted_id.blank? ? false : (phe.vetted_id != vetted_id),
                        :visibility? => visibility_changed,
                        :comment? => !comment.nil?,
                      }

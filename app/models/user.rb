@@ -432,10 +432,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     self.curator_level_id
   end
 
-  def is_pending_curator?
-    !requested_curator_level.nil? && !requested_curator_level.zero?
-  end
-
   # NOTE: Careful!  The next three methods are for checking the EXACT curator level.  See also #min_curator_level?.
   def master_curator?
     self.curator_level_id == CuratorLevel.master.id
@@ -473,7 +469,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def is_pending_curator?
-    !requested_curator_level.nil? && !requested_curator_level.zero?
+    !requested_curator_level.nil? && !requested_curator_level.id.zero?
   end
 
   def can_edit_collection?(collection)

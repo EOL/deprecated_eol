@@ -391,6 +391,8 @@ en:
         credentials_more_academic: "Faculty, staff, or graduate student status in a relevant university or college department."
         credentials_more_author: "Authorship of a peer-reviewed publication (provide reference)."
         credentials_more_professional: "Member of a professional society."
+        credentials_more_successful_assistant_curator: "History of success as an assistant curator."
+        credentials_more_referral: "Referral from current curator."
         curation_application: "Becoming a curator"
         curation_application_more: "If you'd like to modify your curation privileges, just submit an application and we'll review your eligibility."
         curator_level: "You are currently %{curator_level_with_indefinite_article}."

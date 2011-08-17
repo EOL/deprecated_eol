@@ -5,157 +5,107 @@
 # Author: Per
 # Author: WikiPhoenix
 sv: 
-  about_eol: Om EOL
   account_information: Kontoinformation
+  account_registered_but_not_ready_try_later: Ditt konto är registrerat, men inte redo för dig att få tillgång till det. Försök igen om fem minuter.
   add_to_my_collection_button: Lägg till i min samling
-  added_date: Tillagd %{date}
-  admin: administratör
-  all_information: All information
   all_pages: Alla sidor
   already_a_member_question: Redan medlem?
-  already_member_of_community: Du är redan medlem i denna gemenskap.
   application_version_advisory_information: Programversion
   are_you_sure: Är du säker?
   assistive_details_header: Detaljer
   assistive_media_header: Media
   assistive_overview_header: Översikt
-  authoritative_information: auktoritativ information
   average_rating_value_of_total: "Genomsnittligt betyg: %{rating} av %{total}"
-  browse_gallery: Bläddra i vårt galleri
-  cancel: Avbryt
+  cannot_be_associated_with_both_a_user_and_a_community: Kan inte associeras med både en användare och en gemenskap
   cannot_be_empty: kan inte vara tom.
-  change_rating_to_1_of_5: Ändra betyg till 1 av 5
-  change_rating_to_2_of_5: Ändra betyg till 2 av 5
-  change_rating_to_3_of_5: Ändra betyg till 3 av 5
-  change_rating_to_4_of_5: Ändra betyg till 4 av 5
-  change_rating_to_5_of_5: Ändra betyg till 5 av 5
   citation: Citation
-  collected_items_with_count: 
-    one: "%{count} samlade objekt"
-    other: "%{count} samlade objekt"
-  collection_item_type_with_label: "Typ: %{type}"
+  classifications_summary_header_with_count: 
+    one: Del av %{count} godkänd klassificering
+    other: Del av %{count} godkända klassificeringar
   collections: Samlingar
+  collections_summary_header_with_count: 
+    one: Finns i %{count} samling
+    other: Finns i %{count} samlingar
+  common_names_advisory_information: Vanliga namn förknippade med denna grupp.
+  common_names_with_count: 
+    one: "%{count} vanligt namn"
+    other: "%{count} vanliga namn"
   communities: Gemenskaper
-  communities_summary_header_with_count: 
-    one: Tillhör %{count} gemenskap
-    other: Tillhör %{count} gemenskaper
-  communities_with_count: 
-    one: "%{count} gemenskap"
-    other: "%{count} gemenskaper"
   community: Gemenskap
   community_activity: Gemenskapsaktivitet
-  community_members: Gemenskapsmedlemmar
+  community_focus: Gemenskapsfokus
   contact_us_link: Kontakta oss
+  content_partners: Innehållspartners
+  content_summary_introduction_html: Följande värden motsvarar summan av olika typer av innehåll för detta taxon och alla dess taxonomiska ättlingar. %{glossary_term_trusted} innehåll har antingen godkänts av en EOL-kurator eller kommer från en pålitlig leverantör. %{glossary_term_unreviewed} innehåll har ännu inte bedömts av en EOL-kurator. Varje taxonomisk hierarki är unik, så varje bläddringsbar hierarki visas för jämförelse.
+  content_summary_table_caption: En sammanfattning av innehållet som är förknippad med %{taxon_name} och dess ättlingar i %{hierarchy_label}
   content_summary_table_count_column_header: Antal
+  content_summary_table_summary: Denna tabell innehåller räkningar av olika typer av innehåll åtskilda av innehållstillstånd.
+  content_summary_table_type_descendants_row: Antal ättlingar
   content_summary_table_type_status_column_header: Innehållstyp och status
   content_summary_table_type_trusted_images_row: Antal betrodda bilder
   content_summary_table_type_trusted_text_row: Antal betrodda textobjekt
   content_summary_table_type_unreviewed_images_row: Antal ogranskade bilder
   content_summary_table_type_unreviewed_text_row: Antal ogranskade textobjekt
-  contribute_to_page_button: Bidra till denna sida
-  contributors_like_you: Bidragsgivare som du
-  could_not_find_user: Kunde inte hitta en medlem för denna användare
   create_a_collection: Skapa en samling
   create_a_community: Skapa en gemenskap
-  create_account: skapa ett konto
-  created_community: Gemenskapen har skapats.
-  created_time_ago: Skapades % {time_passed} sedan
+  curators_summary_header_with_count: 
+    one: "%{count} kurator"
+    other: "%{count} kuratorer"
   currently_in_eol: Just nu i Encyclopedia of Life
-  dato_rating_note: "%{username} gav detta ett betyg på %{rating}."
-  delete_allcaps: RADERA
   delete_community: Ta bort denna gemenskap
   detail: Detalj
   development_version_name: V2 UTVECKLINGSVERSION - inte för allmänt bruk
-  displaying_numerical_range: Visar %{start_number} &mdash; %{end_number}
-  donate: Donera
   edit_collection: Redigera samling
   edit_community: Redigera gemenskap
-  edit_membership: Redigera medlemskap
   edit_my_profile: Redigera min profil
   encyclopedia_of_life: Encyclopedia of Life
-  eol_colon: "EOL:"
+  endorsed_collections_with_count: 
+    one: "%{count} godkänd samling"
+    other: "%{count} godkända samlingar"
   eol_news: EOL-nyheter
-  error_page_header: Tyvärr, vi har stött på ett problem
-  esc_key_hides_this_message: (Esc-tangenten döljer detta meddelande)
   explore: Utforska
-  feedback: Feedback
   filter_by_status: Filtrera efter status
-  filter_by_status_all_option: alla statusar
-  filter_by_status_inappropriate_option: olämplig
-  filter_by_status_trusted_option: betrodd
-  filter_by_status_unreviewed_option: ogranskad
-  filter_by_status_untrusted_option: opålitliga
   filter_by_type: Filtrera efter typ
-  filter_by_type_all_option: alla typer
-  filter_by_type_audio_option: ljud
-  filter_by_type_images_option: bilder
-  filter_by_type_videos_option: videor
-  filter_feeds_all_option: Uppdateringar från alla flöden
-  filter_feeds_button: Filter
-  filter_feeds_label: Visa
-  filtered_information: Filtrerad information
-  founder: Grundare
+  filter_media: filtrera media
+  general_error_occurred: Vi beklagar men ett fel har uppstått. Gör ett försök till att utföra din uppgift. Om felet kvarstår, vänligen skicka ett meddelande till %{email} tillsammans med felmeddelandet nedan och eventuell annan information som du vill meddela oss. Vi arbetar hårt för att ge dig bästa möjliga service och vi uppskattar ditt stöd. - EOL laget
+  global_access_tagline: Global tillgång till kunskap om livet på jorden.
   global_navigation: Global navigation
   go: Gå
   google_translate: Google Översätt
+  google_translate_advisory_information: Använd Google Översätts widget för att omvandla webbplatsens innehåll till ett annat språk.
   has_already_been_taken: har redan tagits.
-  hello_user: Hej %{user}
   help: Hjälp
-  home: Hem
   home_page_link_advisory_information: Denna länk tar dig till startsidan för Encyclopedia Of Life
+  image_is_no_longer_available: Bilden är inte längre tillgänglig
+  image_not_found: Bilden hittades inte
+  image_thumbnail_alt_text: Denna %{vetted_status}-bild är av %​​{scientific_name}
   images: Bilder
-  images_with_count: 
-    one: "%{count} bild"
-    other: "%{count} bilder"
   in_my_collection_button: I min samling
   indexed: Indexerad
-  invalid_login_or_password: Ogiltigt användarnamn eller lösenord
-  join_community: Bli medlem i denna gemenskap
+  iucn_red_list_status_advisory_information: Denna länk tar dig till internationella naturvårdsunionens (IUCN) webbplats där du kan hitta mer information om IUCNs rödlista över hotade arter.
   join_community_button: Bli medlem i denna gemenskap
-  join_community_login_required_advisory: Du blir ombedd att logga in innan du går med i gemenskapen
   join_eol_button_html: Bli medlem i <abbr title="Encyclopedia of Life">EOL</abbr> nu
+  join_eol_community_html: Bli en del av <abbr title="Encyclopedia of Life">EOL</abbr>-gemenskapen!
+  just_pages_with_pictures_and_text: Bara sidor med bilder och text
   language: "Språk:"
   language_menu_item: "%{language_label} <abbr>(%{language_abbr})</abbr>"
   last_updated_time_ago: Senast uppdaterad för %{time_passed} sedan
+  learn_about_content_partners: Läs mer om våra innehållspartners
+  learn_how_to_interact: Lär dig hur du kan interagera
+  learn_how_to_join: Lär dig hur du kan gå med
   leave_a_comment: Lämna en kommentar
-  leave_community: Lämna denna gemenskap
   license: Licens
-  license_all_rights_reserved: Alla rättigheter reserverade
-  license_cc_by: Creative Commons Erkännande (CC BY)
-  license_cc_by_2_0: Creative Commons Erkännande 2.0 (CC BY 2.0)
-  license_cc_by_2_5: Creative Commons Erkännande 2.5 (CC BY 2.5)
-  license_cc_by_3_0: Creative Commons Erkännande 3.0 (CC BY 3.0)
-  license_cc_by_nc: Creative Commons Erkännande-IckeKommersiell (CC BY-NC)
-  license_cc_by_nc_2_0: Creative Commons Erkännande-IckeKommersiell 2.0 (CC BY-NC 2.0)
-  license_cc_by_nc_2_5: Creative Commons Erkännande-IckeKommersiell 2.5 (CC BY-NC 2.5)
-  license_cc_by_nc_3_0: Creative Commons Erkännande-IckeKommersiell 3.0 (CC BY-NC 3.0)
-  license_cc_by_nc_sa_1_0: Creative Commons Erkännande-IckeKommersiell-DelaLika 1.0 (CC BY-NC-SA 1.0)
-  license_cc_by_nc_sa_2_0: Creative Commons Erkännande-IckeKommersiell-DelaLika 2.0 (CC BY-NC-SA 2.0)
-  license_cc_by_nc_sa_2_5: Creative Commons Erkännande-IckeKommersiell-DelaLika 2.5 (CC BY-NC-SA 2.5)
-  license_cc_by_nc_sa_3_0: Creative Commons Erkännande-IckeKommersiell-DelaLika 3.0 (CC BY-NC-SA 3.0)
-  license_cc_by_sa: Creative Commons Erkännande-DelaLika (CC BY-SA)
-  license_cc_by_sa_1_0: Creative Commons Erkännande-DelaLika 1.0 (CC BY-SA 1.0)
-  license_cc_by_sa_2_0: Creative Commons Erkännande-DelaLika 2.0 (CC BY-SA 2.0)
-  license_cc_by_sa_2_5: Creative Commons Erkännande-DelaLika 2.5 (CC BY-SA 2.5)
-  license_cc_by_sa_3_0: Creative Commons Erkännande-DelaLika 3.0 (CC BY-SA 3.0)
-  license_gnu_fdl: GNU Free Documentation License (GNU FDL)
-  license_gnu_gpl: GNU General Public License (GNU GPL)
-  license_public_domain: Allmän egendom
-  link_to_join_this_community: Du måste vara <a href='%{link}'>inloggad</a> för att bli medlem i denna gemenskap.
   literature: Litteratur
   location: Plats
-  log_in: Logga in
-  login: logga in
   login_or_create_account: Logga in eller skapa konto
-  logout: Logga ut
   manage_community: Hantera gemenskap
   maps_with_count: 
     one: "%{count} karta"
     other: "%{count} kartor"
   media: Media
-  members_count_in_parens: 
-    one: (%{count} medlem)
-    other: (%{count} medlemmar)
+  media_with_count: 
+    one: "%{count} media"
+    other: "%{count} media"
   members_with_count: 
     one: "%{count} medlem"
     other: "%{count} medlemmar"
@@ -167,8 +117,6 @@ sv:
   my_activity: Min aktivitet
   my_info: Min info
   newsfeed: Nyhetsflöde
-  no_activity: Ingen aktivitet.
-  no_members_in_parens: (inga medlemmar)
   not_evaluated: Inte utvärderad
   other_collection_items_with_count: 
     one: "%{count} andra objekt"
@@ -176,16 +124,11 @@ sv:
   overview: Översikt
   pages_with_pictures_and_text: Sidor med bilder och text
   pages_with_pictures_or_text: Sidor med bilder eller text
-  people_with_count: 
-    one: "%{count} person"
-    other: "%{count} personer"
   post_comment: Skicka kommentar
-  preferences: Inställningar
-  press_room: Pressrum
-  print_this_page_link: Skriv ut denna sida
+  preferred_common_name_advisory_information: Detta är den föredragna vanliga namnet för detta taxon.
   profile: Profil
+  profile_image_alt_text_curator: Profilbild för kurator %{user_given_name} %{user_family_name}
   profile_image_alt_text_member: Profilbild för medlemmen %{user_given_name} %{user_family_name}
-  punctuation_comma: ","
   rated_by_count_people: 
     one: från %{count} person
     other: från %{count} personer
@@ -194,80 +137,56 @@ sv:
   resources: Resurser
   rights: Rättigheter
   rights_holder: Rättighetshavaren
-  roles: Roller
   rss_abbr_html: <abbr title="Really Simple Syndication">RSS</abbr>
+  search_by_term_page_title: "EOL-sök: %{term}"
   search_field_label: Sök EOL
+  search_input_advisory_information: Skriv in vanliga eller vetenskapliga namn på levande organismer som du skulle vilja veta mer om, prova t.ex. att skriva "tomat".
   search_placeholder: Sök i EOL...
   search_the_site: Sök på webbplatsen
+  see_all_classifications_with_count_html: 
+    one: Se den <span class="assistive">%{count} godkända klassificering i vilken denna taxon ingår.</span>
+    other: Se alla de <span class="assistive">%{count} godkända klassificeringar i vilka denna taxon ingår.</span>
+  see_all_collections_with_count_html: 
+    one: Se den <span class="assistive">%{count} samling i vilken denna taxon ingår.</span>
+    other: Se alla de <span class="assistive">%{count} samlingar i vilka denna taxon ingår.</span>
   see_all_comments_with_count_for_text: 
     one: se %{count} kommentar för denna artikel
     other: se alla %{count} kommentarer för denna artikel
   see_all_media_link: Se all media
-  see_next_with_count: 
-    one: Se nästa %{count}}
-    other: Se nästa %{count}
   select_topic: Välj ett ämnesområde
   selected_language_advisory_information: Detta är det valda språket.
-  show_status_message: Visa statusmeddelande
-  show_warning_message: Visa varningsmeddelande
+  set_as_exemplar: Ange som förebild
   sign_in: Logga in
   sign_out: Logga ut
   site_information: Sidinformation
   skip_to_content: Hoppa till innehåll
-  skip_to_navigation: Hoppa till navigering
-  skip_to_table_of_contents: Hoppa till innehållsförteckningen
   sort_by: Sortera efter
-  sort_by_button: Sortera
-  sort_by_data_type_option: Datatyp
-  sort_by_default_option: Standard
-  sort_by_label: Sortera efter
-  sort_by_newest_option: Nyaste
-  sort_by_oldest_option: Äldsta
-  sort_by_rating_option: Betyg
-  sounds_with_count: 
-    one: "%{count} ljud"
-    other: "%{count} ljud"
-  source_information_link: källinformation
+  sound_thumbnail_alt_text: Denna %{vetted_status}-ljud är av %{scientific_name}
   source_url: Käll-URL
+  supplier: Leverantör
   switch_language_advisory_information: Ändra sidans språk till %{language_label}
   table_of_contents: Innehållsförteckning
-  text_with_count: 
-    one: "%{count} artikel"
-    other: "%{count} artiklar"
-  thanks_for_feedback: Tack för din feedback.
-  the_email_address_is_not_unique_you_must_enter_a_username: E-postadressen är inte unik - du måste ange ett användarnamn
+  taxa: Taxa
+  taxon: taxon
+  text_summary_more_link: Läs hela posten
+  there_are_currently_no_members_in_this_community: Det finns för närvarande inga medlemmar i denna gemenskap.
+  threat_status_header_colon: "IUCN-hotstatus:"
   time_ago: "%{time_passed} sedan"
   total_items_with_count: 
     one: "%{count} objekt"
     other: totalt %{count} objekt
   trusted: Betrodd
+  try_your_request_again: Prova din begäran igen
   twitter: Twitter
   unknown: Okänd
   unreviewed: Ogranskad
-  updated_community: Gemenskapen har uppdaterats.
-  user_became_role_note: "%{username} blev en %{role}."
-  user_comment: Användarkommentar
-  user_joined_community_note: "%{username} gick med i gemenskapen."
-  user_left_community_note: "%{username} lämnade gemenskapen."
   user_system_down: Vi ber om ursäkt, men systemet för användarregistrering är inte tillgänglig. Var god försök igen senare.
-  videos_with_count: 
-    one: "%{count} video"
-    other: "%{count} videor"
+  video_thumbnail_alt_text: Denna %{vetted_status}-video är av %{scientific_name}
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Visa bara sidor med minst en bild eller ett textstycke
+  what_is_a_taxon: Vad är ett taxon?
   what_is_eol: Vad är EOL?
   what_is_this_question: Vad är detta?
-  wikipedia_revisions_must_match_pattern_error: Versionsadressen måste stämma överens med http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
   you_are_an_admin_so_i_will_show_you_that_the_error_was: "Du är en administratör. Därför kommer jag visa dig att felet var:"
-  you_have_been_a_member_of_this_community_since: Du har varit medlem i denna gemenskap sedan %{since}.
-  you_in_parens: (du)
-  you_joined_community: Du har gått med i denna gemenskap.
-  you_must_be_logged_in_to_add_tags: Du måste vara inloggad för att lägga till taggar.
-  your_current_rating_0_of_5: "Ditt nuvarande betyg: 0 av 5"
-  your_current_rating_1_of_5: "Ditt nuvarande betyg: 1 av 5"
-  your_current_rating_2_of_5: "Ditt nuvarande betyg: 2 av 5"
-  your_current_rating_3_of_5: "Ditt nuvarande betyg: 3 av 5"
-  your_current_rating_4_of_5: "Ditt nuvarande betyg: 4 av 5"
-  your_current_rating_5_of_5: "Ditt nuvarande betyg: 5 av 5"
-  your_message_was_sent: Ditt meddelande har skickats.
+  you_are_not_authorized_to_perform_this_action: Du har inte behörighet att utföra denna åtgärd.
   your_preferences: Dina inställningar
   your_rating: Ditt betyg

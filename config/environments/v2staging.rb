@@ -41,6 +41,11 @@ end
 $LOGGING_READ_FROM_MASTER = true
 
 config.log_level = :debug # :error
+if ENV['RAILS_ENV'] == 'v2staging'
+  ActiveRecord::Base.logger = Logger.new(STDOUT)
+  ActionController::Base.logger = Logger.new(STDOUT)
+  ActiveSupport::Cache::MemCacheStore.logger = Logger.new(STDOUT)
+end
 
 # set to true to force users to use SSL for the login and signup pages 
 $USE_SSL_FOR_LOGIN = false

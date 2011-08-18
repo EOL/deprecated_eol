@@ -3,11 +3,12 @@
 .details
   - time_ago = time_ago_in_words(item.data_object.created_at)
   %p
+    - name_with_link =  link_to h(item.user.short_name), user_path(item.user)
     - if item.data_object.updated_at > item.data_object.created_at + 2.minutes # ...it's an update
       - time_ago = time_ago_in_words(item.data_object.updated_at)
-      = I18n.t(:activity_user_updated_text, :user => h(item.user.short_name), :object_name => link_to(item.data_object.summary_name, data_object_path(item.data_object)), :taxon_concept => link_to(item.taxon_concept.summary_name, taxon_overview_path(item.taxon_concept)))
+      = I18n.t(:activity_user_updated_text, :user => name_with_link, :object_name => link_to(item.data_object.summary_name, data_object_path(item.data_object)), :taxon_concept => link_to(item.taxon_concept.summary_name, taxon_overview_path(item.taxon_concept)))
     - else # ...it was created
-      = I18n.t(:activity_user_created_text, :user => h(item.user.short_name), :object_name => link_to(item.data_object.summary_name, data_object_path(item.data_object)), :taxon_concept => link_to(item.taxon_concept.summary_name, taxon_overview_path(item.taxon_concept)))
+      = I18n.t(:activity_user_created_text, :user => name_with_link, :object_name => link_to(item.data_object.summary_name, data_object_path(item.data_object)), :taxon_concept => link_to(item.taxon_concept.summary_name, taxon_overview_path(item.taxon_concept)))
   %blockquote{:cite => h(item.user.short_name)}
     -# TODO - Yeesh.  This is ending up blank, and I cannot figure out why.
     %p= item.data_object.description_teaser

@@ -9,7 +9,8 @@
     - what = link_to item.parent.summary_name, data_object_path(item.parent)
   - else
     - what = item.parent.summary_name
-  %p= I18n.t(:user_commented_on_something_colon, :user => h(item.user.short_name), :what => what)
+  - name_with_link =  link_to h(item.user.short_name), user_path(item.user)
+  %p= I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => what)
   %blockquote{:cite => h(item.user.short_name)}
     %p= item.body
   %p.meta= I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))

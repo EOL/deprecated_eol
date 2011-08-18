@@ -12,7 +12,8 @@
           .details
             %h4= community.name
             %p
-              = I18n.t(:other_community_items_with_count, :count => community.focus.collection_items.count) + I18n.t(:punctuation_comma)
+              = I18n.t(:other_community_items_with_count, :count => community.focus.collection_items.count)
+              = I18n.t(:punctuation_comma)
               = I18n.t(:members_with_count, :count => community.members.count)
   - else
     .empty

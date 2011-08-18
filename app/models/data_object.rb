@@ -1167,7 +1167,7 @@ class DataObject < SpeciesSchemaModel
 
   def available_translations_data_objects(current_user, taxon)
     dobj_ids = []
-    if translations
+    if !translations.empty?
       dobj_ids << id
       translations.each do |tr|
         dobj_ids << tr.data_object.id

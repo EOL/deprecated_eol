@@ -199,7 +199,7 @@ $(function() {
   });
   $('#classifications_summary a.show_tree').click(function() {
     var $update = $(this).closest('#classifications_summary > ul > li').find('.classification.summary');
-    EOL.ajax_submit($(this), {update: $update, type: 'GET'})
+    EOL.ajax_submit($(this), {update: $update, type: 'GET'});
     return(false);
   });
   $('.button.confirm').click(function() {

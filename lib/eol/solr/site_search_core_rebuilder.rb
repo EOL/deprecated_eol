@@ -71,7 +71,7 @@ module EOL
       
       def lookup_collections(start, limit)
         max = start + limit
-        collections = Collection.find(:all, :conditions => "id BETWEEN #{start} AND #{max}", :select => 'id, community_id, name, description, created_at, updated_at')
+        collections = Collection.find(:all, :conditions => "id BETWEEN #{start} AND #{max}", :select => 'id, community_id, name, description, created_at, updated_at, special_collection_id, user_id')
         collections.each do |c|
           @objects_to_send += c.keywords_to_send_to_solr_index
         end

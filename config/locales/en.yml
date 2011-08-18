@@ -2490,7 +2490,6 @@ en:
   recent_updates: "Latest updates"
   recipients: "Recipients"
   recognised_by_hierarchy_agent_as_a_rank: '%{hierarchy_agent} as a %{taxon_rank} <a href="%{hierarchy_entry_url}">view in classification</a>'
-  recognised_by_hierarchy_entry_agent_in_hierarchy_agent_as_a_rank: '%{hierarchy_entry_agent} in %{hierarchy_agent} as a %{taxon_rank} <a href="%{hierarchy_entry_url}">view in classification</a>'
   recognized_by: "Recognized by"
   recommend: "RECOMMEND"
   redirect_to_external_url_: "Redirect to external URL:"

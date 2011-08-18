@@ -4,8 +4,8 @@ if ($.fn.spotlite != undefined) {
       url: "/users/usernames.js",
       dataType: 'json',
       success: function(data) {
-        $("#community_new dd.invite").spotlite({pool: data}).find("textarea").hide().end().find(":text").show();
-        $("form#new_community :submit").click(function() {
+        $("dd.invite").spotlite({pool: data}).find("textarea").hide().end().find(":text").show();
+        $("#community_new form :submit").click(function() {
           var i = 0
           // If you click twice for some reason, we really need to remove these:
           $(this).closest('form').find('.spotlite-results input').remove();

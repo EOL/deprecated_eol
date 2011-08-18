@@ -1,7 +1,7 @@
 module EOL
   module Solr
     class DataObjects
-      
+
       def self.search_with_pagination(taxon_concept_id, options = {})
         options[:page]        ||= 1
         options[:per_page]    ||= 30
@@ -17,13 +17,13 @@ module EOL
         end
         results
       end
-      
+
       def self.add_resource_instances!(docs)
         EOL::Solr.add_standard_instance_to_docs!(DataObject, docs, 'data_object_id',
           :includes => [ :hierarchy_entries ],
           :selects => { :data_objects => '*', :hierarchy_entries => '*' })
       end
-      
+
       def self.solr_search(taxon_concept_id, options = {})
         url =  $SOLR_SERVER + $SOLR_DATA_OBJECTS_CORE + '/select/?wt=json&q=' + CGI.escape("{!lucene}published:1 AND ancestor_id:#{taxon_concept_id}")
         if options[:filter_hierarchy_entry] && options[:filter_hierarchy_entry].class == HierarchyEntry
@@ -34,7 +34,7 @@ module EOL
           field_suffix = "ancestor_id"
           search_id = taxon_concept_id
         end
-        
+
         if options[:vetted_types] && !options[:vetted_types].include?('all')
           url << CGI.escape(" AND (")
           url << CGI.escape(options[:vetted_types].collect{ |t| "#{t}_#{field_suffix}:#{search_id}" }.join(' OR '))
@@ -45,7 +45,7 @@ module EOL
           url << CGI.escape(options[:visibility_types].collect{ |t| "#{t}_#{field_suffix}:#{search_id}" }.join(' OR '))
           url << CGI.escape(")")
         end
-        
+
         if options[:data_type_ids]
           url << CGI.escape(" AND (data_type_id:#{options[:data_type_ids].join(' OR data_type_id:')})")
         else
@@ -58,12 +58,14 @@ module EOL
           url << CGI.escape(" AND ignored_by_user_id:#{options[:user].id}")
         elsif options[:filter] == 'active'
           url << CGI.escape(" NOT curated_by_user_id:#{options[:user].id} NOT ignored_by_user_id:#{options[:user].id}")
+        elsif options[:filter] == 'visible'
+          url << CGI.escape(" AND visible_ancestor_id:#{taxon_concept_id}")
         end
-        
+
         if options[:ignore_maps]
           url << CGI.escape(" NOT data_subtype_id:#{DataType.map.id}")
         end
-        
+
         # add sorting
         if options[:sort_by] == 'newest'
           url << '&sort=data_object_id+desc'
@@ -85,13 +87,13 @@ module EOL
         res = open(url).read
         JSON.load res
       end
-      
+
       def self.get_facet_counts(taxon_concept_id)
         facets = {}
         base_url =  $SOLR_SERVER + $SOLR_DATA_OBJECTS_CORE + '/select/?wt=json&q=' + CGI.escape(%Q[{!lucene}])
         [true, false].each do |do_ancestor|
           ['trusted', 'unreviewed'].each do |vetted_status|
-            url = base_url.dup + CGI.escape(%Q[#{vetted_status}_ancestor_id:#{taxon_concept_id} AND visible_ancestor_id:#{taxon_concept_id}])
+            url = base_url.dup + CGI.escape(%Q[published:1 AND #{vetted_status}_ancestor_id:#{taxon_concept_id} AND visible_ancestor_id:#{taxon_concept_id}])
             url << CGI.escape(" AND taxon_concept_id:#{taxon_concept_id}") unless do_ancestor
             url << '&facet.field=data_type_id&facet=on&rows=0'
             res = open(url).read
@@ -105,13 +107,17 @@ module EOL
               key = key_prefix + "_" + data_type.label('en').downcase
               facets[key] = f[index+1]
             end
+            facets[key_prefix + "_video"] ||= 0
             facets[key_prefix + "_video"] += facets[key_prefix + "_youtube"] if facets[key_prefix + "_youtube"]
-            facets[key_prefix + "_flash"] += facets[key_prefix + "_flash"] if facets[key_prefix + "_flash"]
+            facets[key_prefix + "_video"] += facets[key_prefix + "_flash"] if facets[key_prefix + "_flash"]
+            facets.delete(key_prefix + "_youtube")
+            facets.delete(key_prefix + "_flash")
+            facets.delete(key_prefix + "_gbif image")
           end
         end
         facets
       end
-      
+
       def self.reindex_single_object(data_object)
         hash = {
           'data_object_id' => data_object.id,
@@ -120,6 +126,8 @@ module EOL
           'data_subtype_id' => data_object.data_subtype_id || 0,
           'published' => data_object.published? ? 1 : 0,
           'data_rating' => data_object.data_rating,
+          # 'language_id' => data_object.language_id,
+          # 'license_id' => data_object.license_id,
           'created_at' => data_object.created_at ? data_object.created_at.solr_timestamp : nil
         }
         # add resource ID
@@ -135,7 +143,7 @@ module EOL
         if data_object.translated_from
           hash['is_translation'] = true
         end
-        
+
         # add ignored users
         data_object.worklist_ignored_data_objects.each do |ido|
           hash['ignored_by_user_id'] ||= []
@@ -194,7 +202,7 @@ module EOL
               hash[prefix + '_ancestor_he_id'] ||= []
               hash[prefix + '_ancestor_he_id'] << tche.id
             end
-            
+
             tche.flattened_ancestors.each do |a|
               hash['ancestor_he_id'] ||= []
               hash['ancestor_he_id'] << a.ancestor_id
@@ -204,7 +212,7 @@ module EOL
               end
             end
           end
-          
+
         end
         # clean up and use unique values
         hash.each do |k, v|
@@ -214,7 +222,7 @@ module EOL
             v.compact!
           end
         end
-        
+
         if hash['trusted_ancestor_id']
           hash['max_vetted_weight'] = 5
         elsif hash['unreviewed_ancestor_id']
@@ -226,7 +234,7 @@ module EOL
         else
           hash['max_vetted_weight'] = 1
         end
-        
+
         if hash['visible_ancestor_id']
           hash['max_visibility_weight'] = 4
         elsif hash['invisible_ancestor_id']
@@ -236,7 +244,7 @@ module EOL
         else
           hash['max_visibility_weight'] = 1
         end
-        
+
         begin
           solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
           solr_connection.delete_by_id(data_object.id)
@@ -246,7 +254,7 @@ module EOL
         end
         return false
       end
-      
+
     end
   end
 end

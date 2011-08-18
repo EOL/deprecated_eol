@@ -39,6 +39,8 @@ module ActiveRecord
 
         define_method(:keywords_to_send_to_solr_index) do
           keywords_to_send_to_solr = []
+          # making some exceptions for the special community and its collection which are not to be returned in searches
+          return [] if self.class == Collection && self.watch_collection?
 
           params = {
             'resource_type'       => self.class.to_s,

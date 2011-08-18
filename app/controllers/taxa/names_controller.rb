@@ -88,7 +88,7 @@ private
       @hierarchy_entries = @taxon_concept.published_browsable_hierarchy_entries
     else
       @hierarchy_entries =
-        [@taxon_concept.published_browsable_hierarchy_entries.find_all_by_hierarchy_id(@selected_hierarchy_entry.id)]
+        @taxon_concept.published_browsable_hierarchy_entries.select {|he| he.id == @selected_hierarchy_entry.id}
     end
   end
 

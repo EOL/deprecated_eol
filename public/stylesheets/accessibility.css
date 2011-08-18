@@ -326,6 +326,9 @@ p.status.error {
     color: #677682; }
   #permalink .media {
     float: none; }
+    #permalink .media img {
+      max-width: 540px;
+      width: expression(this.width > 540 ? "540px" : true); }
 
 /*I say we standardise form tips everywhere */
 form p.tip {
@@ -638,10 +641,10 @@ body > #header .section .session.join {
   height: 350px; }
 
 #media_summary .image > img {
-  max-width: 430pxpx;
-  max-height: 310pxpx;
-  width: expression(this.width > 430px ? "430pxpx" : true);
-  height: expression(this.height > 310px ? "310pxpx" : true); }
+  max-width: 430px;
+  max-height: 310px;
+  width: expression(this.width > 430 ? "430px" : true);
+  height: expression(this.height > 310 ? "310px" : true); }
 
 ul.feed li > a > img {
   max-width: 48px;
@@ -694,19 +697,19 @@ ul.feed li > a > img {
 #taxon .gallery ul.thumbnails li {
   text-align: center; }
 #taxon .gallery ul.thumbnails li img {
-  max-width: 98pxpx;
-  max-height: 68pxpx;
-  width: expression(this.width > 98px ? "98pxpx" : true);
-  height: expression(this.height > 68px ? "68pxpx" : true);
+  max-width: 98px;
+  max-height: 68px;
+  width: expression(this.width > 98 ? "98px" : true);
+  height: expression(this.height > 68 ? "68px" : true);
   width: auto;
   height: auto;
   display: inline !important; }
 
 #media_list #main ul li img {
-  max-width: 160pxpx;
-  max-height: 125pxpx;
-  width: expression(this.width > 160px ? "160pxpx" : true);
-  height: expression(this.height > 125px ? "125pxpx" : true);
+  max-width: 160px;
+  max-height: 125px;
+  width: expression(this.width > 160 ? "160px" : true);
+  height: expression(this.height > 125 ? "125px" : true);
   margin-left: auto;
   margin-right: auto; }
 #media_list #sidebar.filters img {
@@ -800,8 +803,10 @@ h1.notice {
   padding: 4em; }
 
 .column.curators img, .column.collections img, .column.communities img {
-  width: 48px;
-  height: 48px; }
+  max-width: 48px;
+  max-height: 48px;
+  width: expression(this.width > 48 ? "48px" : true);
+  height: expression(this.height > 48 ? "48px" : true); }
 
 #worklist #task #sidebar {
   width: auto;
@@ -810,12 +815,11 @@ h1.notice {
 
 #worklist #tasks ul li {
   z-index: 300; }
-
-#worklist #tasks li img {
-  max-width: 60pxpx;
-  max-height: 60pxpx;
-  width: expression(this.width > 60px ? "60pxpx" : true);
-  height: expression(this.height > 60px ? "60pxpx" : true); }
+  #worklist #tasks ul li img {
+    max-width: 48px;
+    max-height: 48px;
+    width: expression(this.width > 48 ? "48px" : true);
+    height: expression(this.height > 48 ? "48px" : true); }
 
 #sidebar p {
   padding-bottom: 1em; }

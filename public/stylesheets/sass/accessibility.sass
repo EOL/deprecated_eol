@@ -340,6 +340,9 @@ p.status.error
   /* added float non to video as description box wasn't showing up properly on DO page */
   .media
     float: none
+    img
+      max-width: 540px
+      width: expression(this.width > 540 ? "540px" : true)
 /** I say we standardise form tips everywhere **/
 form
   p.tip
@@ -692,7 +695,7 @@ body
 #media_summary
   .image
     > img
-      +max_dimensions(430px, 310px)
+      +max_dimensions(430, 310)
 ul.feed
   li
     >a
@@ -738,7 +741,7 @@ ul.feed
         &
           text-align: center
         img
-          +max_dimensions(98px, 68px)
+          +max_dimensions(98, 68)
           width: auto
           height: auto
           display: inline !important
@@ -747,7 +750,7 @@ ul.feed
     ul
       li
         img
-          +max_dimensions(160px, 125px)
+          +max_dimensions(160, 125)
           margin-left: auto
           margin-right: auto
   #sidebar
@@ -853,16 +856,18 @@ h1.notice
 // image sizes too large from the DB:
 .column.curators, .column.collections, .column.communities
   img
-    width: 48px
-    height: 48px
+    +max_dimensions($logo_size_secondary, $logo_size_secondary)
 #worklist #task #sidebar
   width: auto
   float: none
   padding: 0px !important
-#worklist #tasks ul li
-  z-index: 300
-#worklist #tasks li img
-  +max_dimensions(60px, 60px)
+#worklist
+  #tasks
+    ul
+      li
+        z-index: 300
+        img
+          +max_dimensions($logo_size_secondary, $logo_size_secondary)
 //sidebar paragraphs need space after them:
 #sidebar p
   padding-bottom: 1em

@@ -849,24 +849,6 @@ class TaxonConcept < SpeciesSchemaModel
     return images(:skip_metadata => true).blank? ? nil : images(:skip_metadata => true)[0].smart_image
   end
   
-  def best_image_from_solr(selected_hierarchy_entry = nil)
-    cache_key = "best_image_#{self.id}"
-    cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
-    @best_image ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 3.days) do
-      best_images = EOL::Solr::DataObjects.search_with_pagination(self.id, {
-        :per_page => 1,
-        :sort_by => 'status',
-        :data_type_ids => DataType.image_type_ids,
-        :vetted_types => ['all'],
-        :visibility_types => 'visible',
-        :filter_hierarchy_entry => selected_hierarchy_entry
-      })
-      (best_images.empty?) ? 'none' : best_images.first
-    end
-    @best_image = nil if @best_image == 'none'
-    @best_image
-  end
-
   # comment on this
   def comment user, body
     comment = comments.create :user => user, :body => body
@@ -1323,7 +1305,7 @@ class TaxonConcept < SpeciesSchemaModel
   def media_count(selected_hierarchy_entry = nil)
     cache_key = "media_count_#{self.id}"
     cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
-    @media_count ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 3.days) do
+    @media_count ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
       best_images = EOL::Solr::DataObjects.search_with_pagination(self.id, {
         :per_page => 1,
         :sort_by => 'status',
@@ -1339,16 +1321,20 @@ class TaxonConcept < SpeciesSchemaModel
   def best_image_from_solr(selected_hierarchy_entry = nil)
     cache_key = "best_image_#{self.id}"
     cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
-    @best_image ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 3.days) do
-      best_images = EOL::Solr::DataObjects.search_with_pagination(self.id, {
-        :per_page => 1,
-        :sort_by => 'status',
-        :data_type_ids => DataType.image_type_ids,
-        :vetted_types => ['all'],
-        :visibility_types => 'visible',
-        :filter_hierarchy_entry => selected_hierarchy_entry
-      })
-      (best_images.empty?) ? 'none' : best_images.first
+    @best_image ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
+      if self.taxon_concept_exemplar_image
+        self.taxon_concept_exemplar_image.data_object
+      else
+        best_images = EOL::Solr::DataObjects.search_with_pagination(self.id, {
+          :per_page => 1,
+          :sort_by => 'status',
+          :data_type_ids => DataType.image_type_ids,
+          :vetted_types => ['all'],
+          :visibility_types => 'visible',
+          :filter_hierarchy_entry => selected_hierarchy_entry
+        })
+        (best_images.empty?) ? 'none' : best_images.first
+      end
     end
     @best_image = nil if @best_image == 'none'
     @best_image

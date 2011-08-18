@@ -5,6 +5,8 @@ class Taxa::MediaController < TaxaController
 
   def index
     @page = params[:page] ||= 1
+    @per_page = params[:per_page] ||= $MAX_IMAGES_PER_PAGE
+    @per_page = 100 if @per_page.to_i > 100
     @sort_by = params[:sort_by] ||= 'status'
     @type = params[:type] ||= ['all']
     @type = ['all'] if @type.include?('all')
@@ -28,7 +30,7 @@ class Taxa::MediaController < TaxaController
     
     @media = EOL::Solr::DataObjects.search_with_pagination(@taxon_concept.id, {
       :page => @page,
-      :per_page => $MAX_IMAGES_PER_PAGE,
+      :per_page => @per_page,
       :sort_by => @sort_by,
       :data_type_ids => data_type_ids,
       :vetted_types => @status,

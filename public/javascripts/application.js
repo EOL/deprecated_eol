@@ -185,8 +185,6 @@ $(function() {
   $("#main_search_type_filter input[type=checkbox][value='all']").click(function() {
     $("#main_search_type_filter input[type=checkbox][value!='all']").removeAttr("checked");
   });
-  // disable the checkboxes for filter categories with no results
-  $("#main_search_type_filter li.no_results input[type=checkbox]").attr("disabled", true);
 
 
   // uncheck media list filter All when other options are selected

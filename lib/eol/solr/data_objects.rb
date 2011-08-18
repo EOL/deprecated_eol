@@ -120,6 +120,8 @@ module EOL
           'data_subtype_id' => data_object.data_subtype_id || 0,
           'published' => data_object.published? ? 1 : 0,
           'data_rating' => data_object.data_rating,
+          # 'language_id' => data_object.language_id,
+          # 'license_id' => data_object.license_id,
           'created_at' => data_object.created_at ? data_object.created_at.solr_timestamp : nil
         }
         # add resource ID

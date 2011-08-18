@@ -619,7 +619,7 @@ en:
   dato_update_users_text_not_owner_exception: "Unable to update text DataObject current user is not owner"
   dear_contact_full_name: "Dear %{contact_full_name},"
   default_focus_collection_name_from_community: "%{name}'s Focus"
-  default_watch_collection_name: "%{username}'s Collection"
+  default_watch_collection_name: "%{username}'s Watch List"
   delete: delete
   descendants: Descendants
   description: Description

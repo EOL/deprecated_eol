@@ -185,6 +185,8 @@ $(function() {
   $("#main_search_type_filter input[type=checkbox][value='all']").click(function() {
     $("#main_search_type_filter input[type=checkbox][value!='all']").removeAttr("checked");
   });
+  // disable the checkboxes for filter categories with no results
+  $("#main_search_type_filter li.no_results input[type=checkbox]").attr("disabled", true);
 
 
   // uncheck media list filter All when other options are selected
@@ -197,7 +199,7 @@ $(function() {
   });
   $('#classifications_summary a.show_tree').click(function() {
     var $update = $(this).closest('#classifications_summary > ul > li').find('.classification.summary');
-    EOL.ajax_submit($(this), {update: $update, type: 'GET'})
+    EOL.ajax_submit($(this), {update: $update, type: 'GET'});
     return(false);
   });
   $('.button.confirm').click(function() {

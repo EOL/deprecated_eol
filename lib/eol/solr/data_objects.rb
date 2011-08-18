@@ -58,6 +58,8 @@ module EOL
           url << CGI.escape(" AND ignored_by_user_id:#{options[:user].id}")
         elsif options[:filter] == 'active'
           url << CGI.escape(" NOT curated_by_user_id:#{options[:user].id} NOT ignored_by_user_id:#{options[:user].id}")
+        elsif options[:filter] == 'visible'
+          url << CGI.escape(" AND visible_ancestor_id:#{taxon_concept_id}")
         end
 
         if options[:ignore_maps]
@@ -91,7 +93,7 @@ module EOL
         base_url =  $SOLR_SERVER + $SOLR_DATA_OBJECTS_CORE + '/select/?wt=json&q=' + CGI.escape(%Q[{!lucene}])
         [true, false].each do |do_ancestor|
           ['trusted', 'unreviewed'].each do |vetted_status|
-            url = base_url.dup + CGI.escape(%Q[#{vetted_status}_ancestor_id:#{taxon_concept_id} AND visible_ancestor_id:#{taxon_concept_id}])
+            url = base_url.dup + CGI.escape(%Q[published:1 AND #{vetted_status}_ancestor_id:#{taxon_concept_id} AND visible_ancestor_id:#{taxon_concept_id}])
             url << CGI.escape(" AND taxon_concept_id:#{taxon_concept_id}") unless do_ancestor
             url << '&facet.field=data_type_id&facet=on&rows=0'
             res = open(url).read
@@ -108,6 +110,9 @@ module EOL
             facets[key_prefix + "_video"] ||= 0
             facets[key_prefix + "_video"] += facets[key_prefix + "_youtube"] if facets[key_prefix + "_youtube"]
             facets[key_prefix + "_video"] += facets[key_prefix + "_flash"] if facets[key_prefix + "_flash"]
+            facets.delete(key_prefix + "_youtube")
+            facets.delete(key_prefix + "_flash")
+            facets.delete(key_prefix + "_gbif image")
           end
         end
         facets

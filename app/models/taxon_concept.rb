@@ -1213,7 +1213,7 @@ class TaxonConcept < SpeciesSchemaModel
   #  - collections with the FEWEST items show up next.
   def top_collections
     return @top_collections if @top_collections
-    all_containing_collections = Collection.which_contain(self)
+    all_containing_collections = Collection.which_contain(self).select{ |c| !c.watch_collection? }
     Collection.add_taxa_counts!(all_containing_collections)
     Collection.add_counts!(all_containing_collections)
     @top_collections = Collection.sort_for_overview(all_containing_collections)[0..2]
@@ -1356,6 +1356,8 @@ class TaxonConcept < SpeciesSchemaModel
   def media_facet_counts
     EOL::Solr::DataObjects.get_facet_counts(self.id)
   end
+  
+  
   
   def number_of_descendants
     connection.select_values("SELECT count(*) as count FROM taxon_concepts_flattened WHERE ancestor_id=#{self.id}")[0].to_i rescue 0

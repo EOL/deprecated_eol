@@ -60,10 +60,13 @@ class CommunitiesController < ApplicationController
     #TODO = icon_change
     respond_to do |format|
       if @community.update_attributes(params[:community])
+        invitees = params[:invite_list] ? params[:invite_list].values : params[:invitations].split(/[,\s]/).grep(/\w/)
+        sent_to = send_invitations(invitees)
+        notice = sent_to.empty? ? nil : I18n.t(:sent_invitations_to_users, :users => sent_to.to_sentence)
         upload_logo(@community) unless params[:community][:logo].blank?
         log_action(:change_name) if name_change
         log_action(:change_description) if description_change
-        format.html { redirect_to(@community, :notice => I18n.t(:updated_community) ) }
+        format.html { redirect_to(@community, :notice => [I18n.t(:updated_community), notice].compact.to_sentence) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

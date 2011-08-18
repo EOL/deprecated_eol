@@ -1,4 +1,10 @@
 .site_column#taxon_maps
+  - if ! @taxon_concept.has_map && @maps.blank?
+    .article
+      .empty
+        %p= I18n.t(:maps_empty)
+        - # FIXME: add url for faq on contributing images
+        %p= link_to I18n.t(:maps_empty_contribute_instructions), '/placeholder'
   - if @taxon_concept.has_map
     #map
       = render :partial => 'maps'
@@ -6,7 +12,7 @@
     #media_list
       .article
         .header
-          %h3 Media tagged as 'map'
+          %h3= I18n.t(:maps_image_maps_header)
       #main
         %ul.media
           - @maps.each_with_index do |item, index|

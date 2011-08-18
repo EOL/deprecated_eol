@@ -2,7 +2,7 @@
   .empty
     %p= I18n.t(:not_recognised_by_available_hierarchies)
 - else
-  %ul
+  %ul#recognized_by
     - @hierarchy_entries.each do |hierarchy_entry|
       %li
         - taxon_rank = hierarchy_entry.rank.blank? ? 'taxon' : hierarchy_entry.rank.label
@@ -11,6 +11,6 @@
         - if sources.blank?
           = I18n.t(:recognised_by_hierarchy_agent_as_a_rank, :hierarchy_agent => agents, :taxon_rank => taxon_rank, :hierarchy_entry_url => taxon_hierarchy_entry_overview_path(@taxon_concept, hierarchy_entry))
         - else
-          = I18n.t(:recognised_by_hierarchy_agent_from_source_as_a_rank, :hierarchy_agent => agents, :taxon_rank => taxon_rank, :source => sources
-          •
-          %span= link_to(I18n.t(:view_in_classification), taxon_hierarchy_entry_overview_path(@taxon_concept, hierarchy_entry))
+          = I18n.t(:recognised_by_hierarchy_agent_from_source_as_a_rank, :hierarchy_agent => agents, :taxon_rank => taxon_rank, :source => sources)
+        &emsp;•&emsp;
+        %span= link_to(I18n.t(:view_in_classification), taxon_hierarchy_entry_overview_path(@taxon_concept, hierarchy_entry))

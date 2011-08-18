@@ -943,3 +943,6 @@ form#new_collection_item fieldset.actions {
   width: 220px; }
   #media_list #sidebar #filters {
     margin: 0px 20px; }
+
+#recognized_by span {
+  font-size: 0.95em; }

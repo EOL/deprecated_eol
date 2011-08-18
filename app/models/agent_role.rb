@@ -26,6 +26,10 @@ class AgentRole < SpeciesSchemaModel
     cached_find_translated(:label, 'Source')
   end
 
+  def self.source_database
+    cached_find_translated(:label, 'Source Database')
+  end
+
   # Find the "contributor" AgentRole.
   def self.contributor
     cached_find_translated(:label, 'Contributor')

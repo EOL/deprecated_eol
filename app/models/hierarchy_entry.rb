@@ -202,6 +202,10 @@ class HierarchyEntry < SpeciesSchemaModel
     return images.blank? ? nil : images.first.smart_image
   end
 
+  def source_database_agents
+    agents_roles.reject {|ar| ar.agent_role_id != AgentRole.source_database.id }.map(&:agent)
+  end
+
   def source_agents
     agents_roles.reject {|ar| ar.agent_role_id != AgentRole.source.id }.map(&:agent)
   end

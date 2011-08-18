@@ -80,6 +80,7 @@ AgentRole.gen_if_not_exists(:label => 'Author')
 AgentRole.gen_if_not_exists(:label => 'Photographer')
 AgentRole.gen_if_not_exists(:label => 'Contributor')
 AgentRole.gen_if_not_exists(:label => 'Source')
+AgentRole.gen_if_not_exists(:label => 'Source Database')
 
 ContentPartnerStatus.gen_if_not_exists(:label => 'Active')
 ContentPartnerStatus.gen_if_not_exists(:label => 'Archived')
@@ -229,7 +230,7 @@ InfoItem.gen_if_not_exists(:schema_value => 'http://rs.tdwg.org/ontology/voc/SPM
 InfoItem.gen_if_not_exists(:schema_value => 'http://www.eol.org/voc/table_of_contents#Education',
   :label => 'Education', :toc_item => education)
 InfoItem.gen_if_not_exists(:schema_value => 'http://www.eol.org/voc/table_of_contents#IdentificationResources',
-  :label => 'IdentificationResources', :toc_item => description)  
+  :label => 'IdentificationResources', :toc_item => description)
 
 ServiceType.gen_if_not_exists(:label => 'EOL Transfer Schema')
 

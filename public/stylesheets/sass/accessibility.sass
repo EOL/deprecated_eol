@@ -253,6 +253,13 @@ form#switch_hierarchy_entry
     #sidebar
       input[type="text"]
         width: 118px
+#new_content_partner_agreement
+  dl
+    clear: both
+    dd
+      margin: 0 0 10px 0
+      input[type="text"]
+        +input
 #content_partner_show
   .empty
     font-size: 1em
@@ -272,6 +279,12 @@ form#switch_hierarchy_entry
         float: left
       &.eol
         float: right
+  dl.agreement
+    line-height: 140%
+    dt
+      font-weight: bold
+    dd
+      margin: 0 0 5px 20px
 #content_partner_edit, #content_partner_new
   &.site_column
     width: 640px
@@ -443,7 +456,7 @@ p.flag
   &.untrusted
     border: 1px solid #f2d2cc
     background: #ffeae6
-    color: #677682
+    color: #677682 !important
 
 /** We share rating partial across many pages so need extra styles here. **/
 #taxon_detail
@@ -680,6 +693,19 @@ body
     width: 100%
     margin: 0 0 15px 0
     line-height: 170%
+    thead
+      tr
+        border: 1px solid #CAD3DB
+        th
+          background: #EFF2F4
+          padding: 5px 20px
+          font-weight: bold
+          text-align: left
+    tbody
+      tr
+        border: 1px solid #CAD3DB
+        td
+          padding: 5px 20px
 
 /** collections overides **/
 .object_list
@@ -733,7 +759,7 @@ ul.feed
     .taxon>img
       +max_dimensions($logo_size_standout, $logo_size_standout)
 #sidebar
-  .collection_list, .collection_contributors
+  .collection_list, .collection_contributors, .content_partner_managers
     img
       +max_dimensions($logo_size_tertiary, $logo_size_tertiary)
 #taxon

@@ -16,7 +16,8 @@
       - content_page.translations.each do |translated_content_page|
         %li
           %strong= "#{translated_content_page.language.label}:"
-          = I18n.t(:last_updated_time_ago, :time_passed => time_ago_in_words(translated_content_page.updated_at))
+          = I18n.t(:last_updated_time_ago,
+            :time_passed => translated_content_page.updated_at.blank? ? I18n.t(:never) : time_ago_in_words(translated_content_page.updated_at))
           &bull;
           = translated_content_page.active_translation ? I18n.t(:published) : I18n.t(:unpublished)
           &bull;

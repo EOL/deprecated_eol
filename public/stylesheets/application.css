@@ -295,8 +295,9 @@ input[type="submit"].button {
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#d7dde1);
     background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white);
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1)); }
-a.in_collection,
-input[type="submit"].in_collection {
+a.in_collection, a.associated,
+input[type="submit"].in_collection,
+input[type="submit"].associated {
   padding: 5px 10px 6px 10px;
   overflow: visible;
   font: bold 1.08em Helvetica, Arial, sans-serif;
@@ -314,14 +315,16 @@ input[type="submit"].in_collection {
   color: white;
   text-shadow: 0 1px 1px #222222;
   border-color: #1e5587; }
-  a.in_collection:hover,
-  input[type="submit"].in_collection:hover {
+  a.in_collection:hover, a.associated:hover,
+  input[type="submit"].in_collection:hover,
+  input[type="submit"].associated:hover {
     background-color: #2566a2;
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#87b0d3, endColorstr=#2566a2);
     background-image: -moz-linear-gradient(100% 100% 90deg, #2566a2, #87b0d3);
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#87b0d3), to(#2566a2)); }
-  a.in_collection:active,
-  input[type="submit"].in_collection:active {
+  a.in_collection:active, a.associated:active,
+  input[type="submit"].in_collection:active,
+  input[type="submit"].associated:active {
     background-color: #1e5587;
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#7e9eba, endColorstr=#1e5587);
     background-image: -moz-linear-gradient(100% 100% 90deg, #1e5587, #7e9eba);
@@ -1722,35 +1725,33 @@ body > #header {
   width: 580px; }
   #taxon .gallery {
     overflow: hidden;
-    padding: 20px 20px 0 20px;
+    padding: 20px 20px 10px 20px;
     border: 1px solid #cad3db; }
     #taxon .gallery .images {
       float: left;
       position: relative;
-      width: 430px;
-      height: 360px;
-      overflow: hidden;
-      padding-bottom: 20px; }
-      #taxon .gallery .images .image {
-        width: 100%;
-        padding: 0 0 50px 0;
-        background: white; }
-        #taxon .gallery .images .image > a img {
+      width: 430px; }
+      #taxon .gallery .images .image > a {
+        display: block;
+        position: relative;
+        width: 430px;
+        height: 310px; }
+        #taxon .gallery .images .image > a > img {
           display: block;
           margin: 0 auto; }
-        #taxon .gallery .images .image span.flag {
-          padding: 1px 2px;
-          font-size: 0.75em;
-          line-height: 1em;
-          vertical-align: 1px;
-          text-transform: uppercase;
-          color: white; }
-          #taxon .gallery .images .image span.flag.trusted {
-            border: 1px solid #6b7910;
-            background: #849513; }
-          #taxon .gallery .images .image span.flag.unreviewed {
-            border: 1px solid #677682;
-            background: #8695a1; }
+      #taxon .gallery .images .image span.flag {
+        padding: 1px 2px;
+        font-size: 0.75em;
+        line-height: 1em;
+        vertical-align: 1px;
+        text-transform: uppercase;
+        color: white; }
+        #taxon .gallery .images .image span.flag.trusted {
+          border: 1px solid #6b7910;
+          background: #849513; }
+        #taxon .gallery .images .image span.flag.unreviewed {
+          border: 1px solid #677682;
+          background: #8695a1; }
     #taxon .gallery ul.thumbnails {
       float: right;
       width: 100px;
@@ -1774,11 +1775,9 @@ body > #header {
           #taxon .gallery ul.thumbnails li.active img {
             margin: -2px 0 0 -2px; }
     #taxon .gallery .attribution {
-      position: absolute;
-      left: 0;
-      top: 315px;
+      position: relative;
+      margin: 5px 0 0 0;
       z-index: 100;
-      width: 430px;
       font-size: 0.92em; }
       #taxon .gallery .attribution p {
         margin: 0;
@@ -1795,6 +1794,16 @@ body > #header {
       padding: 5px 0 0 0;
       font-weight: bold;
       text-transform: lowercase; }
+  #taxon p.languages {
+    padding: 2px 20px;
+    border-top: 1px solid #cad3db;
+    border-bottom: 1px solid #cad3db;
+    background: #f3f7fa;
+    margin: 10px 0;
+    line-height: 160%;
+    font-weight: bold;
+    font-size: 0.9em;
+    text-align: center; }
   #taxon .article.overview {
     margin: 35px 0 0 0; }
     #taxon .article.overview .meta.learn_more {
@@ -1878,22 +1887,15 @@ body > #header {
       color: #394651; }
 #taxon_detail #main {
   overflow: hidden; }
-  #taxon_detail #main .languages {
-    padding: 15px 20px 0 20px;
-    border: 1px solid #cad3db;
+  #taxon_detail #main p.languages {
+    padding: 2px 20px;
+    border-top: 1px solid #cad3db;
+    border-bottom: 1px solid #cad3db;
     background: #f3f7fa;
     margin: 0 0 20px 0;
-    line-height: 160%; }
-    #taxon_detail #main .languages.clickable:hover {
-      cursor: pointer;
-      border: 1px solid #93a4b0; }
-    #taxon_detail #main .languages p {
-      font-weight: bold;
-      margin: 0 0 15px 0; }
-    #taxon_detail #main .languages ul {
-      margin: 0 40px 15px 40px; }
-      #taxon_detail #main .languages ul li {
-        list-style-type: disc; }
+    line-height: 160%;
+    font-weight: bold;
+    font-size: 0.9em; }
   #taxon_detail #main > h2 {
     padding: 10px 20px;
     margin: 0 0 20px 0;
@@ -2134,6 +2136,82 @@ body > #header {
     #permalink form.review_status ul li input {
       margin: 0 3px 0 0; }
 
+#permalink_add_association {
+  width: 700px; }
+  #permalink_add_association > form {
+    background: #f1f4dc;
+    border-top: 1px solid #ccd399;
+    border-bottom: 1px solid #ccd399;
+    text-align: center;
+    padding: 20px 0;
+    margin: 0 0 20px 0; }
+    #permalink_add_association > form label {
+      font-weight: bold;
+      margin: 0 20px 0 0; }
+    #permalink_add_association > form input[type="text"] {
+      width: 200px;
+      height: 22px;
+      padding: 2px 5px;
+      font: normal 1em Helvetica, Arial, sans-serif;
+      border: 1px solid #cad3db;
+      background-color: white;
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+      background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
+    #permalink_add_association > form input[type="submit"] {
+      padding-right: 20px;
+      padding-left: 20px;
+      margin: 0 20px 0 10px; }
+  #permalink_add_association #main .header {
+    position: relative;
+    padding: 10px 0;
+    text-align: center;
+    border-bottom: 1px solid #394651; }
+    #permalink_add_association #main .header h3 {
+      font-size: 1.33em; }
+    #permalink_add_association #main .header a {
+      position: absolute;
+      right: 10px;
+      top: 15px;
+      z-index: 1;
+      font-weight: bold; }
+      #permalink_add_association #main .header a.prev {
+        right: auto;
+        left: 10px; }
+  #permalink_add_association #main > ul > li {
+    overflow: hidden;
+    padding: 10px;
+    border-bottom: 1px solid #d7dadc; }
+    #permalink_add_association #main > ul > li img {
+      float: left;
+      margin: 0 20px 0 0; }
+    #permalink_add_association #main > ul > li .details {
+      float: left; }
+      #permalink_add_association #main > ul > li .details h4 {
+        font-size: 1.2em;
+        margin: 15px 0 3px 0; }
+        #permalink_add_association #main > ul > li .details h4 a {
+          color: #28323a;
+          text-decoration: none; }
+          #permalink_add_association #main > ul > li .details h4 a:hover {
+            text-decoration: underline; }
+      #permalink_add_association #main > ul > li .details p {
+        color: #5f6c76;
+        margin: 0 0 10px 0; }
+      #permalink_add_association #main > ul > li .details ul li {
+        margin: 0 0 3px 0;
+        font-size: 0.9em;
+        color: #5f6c76; }
+        #permalink_add_association #main > ul > li .details ul li form {
+          display: inline; }
+          #permalink_add_association #main > ul > li .details ul li form input[type="submit"] {
+            font-size: 0.9em;
+            padding: 2px 0;
+            width: 100px;
+            margin: 0 10px 0 0; }
+        #permalink_add_association #main > ul > li .details ul li span {
+          margin: 0 5px; }
+
 #worklist .filters {
   overflow: hidden;
   padding: 15px 40px;
@@ -2151,12 +2229,12 @@ body > #header {
       #worklist .filters fieldset dl dd {
         padding: 0; }
   #worklist .filters fieldset.actions {
-    padding: 17px 0 0 0; }
+    margin: 18px 0 0 0; }
     #worklist .filters fieldset.actions input[type="submit"] {
       float: left;
       margin: 0 20px 0 0; }
     #worklist .filters fieldset.actions p {
-      overflow: hidden;
+      display: inline;
       font-weight: bold;
       line-height: 170%;
       color: #667309; }
@@ -2167,7 +2245,9 @@ body > #header {
     float: left;
     width: 360px;
     margin: 0 20px 25px 0;
-    border: 1px solid #93a4b0; }
+    border: 1px solid #93a4b0;
+    border-top: none;
+    border-bottom: none; }
     #worklist #tasks ul li {
       clear: both;
       float: left;
@@ -2175,9 +2255,12 @@ body > #header {
       width: 340px;
       padding: 10px;
       cursor: pointer;
-      background: #f3f7fa; }
+      background: #f3f7fa;
+      border-top: 1px solid #93a4b0; }
       #worklist #tasks ul li + li {
         border-top: 1px solid #d7dadc; }
+      #worklist #tasks ul li.last {
+        border-bottom: 1px solid #93a4b0; }
       #worklist #tasks ul li:hover {
         background-color: white; }
       #worklist #tasks ul li p {

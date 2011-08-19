@@ -1078,7 +1078,7 @@ en:
   content_partners_empty: "No content partners found."
   content_partners_intro: "Below is a list of partners, including content partners, with information on this taxon. Where possible the links will take you to the corresponding content on the given partner's website. The unique identifier for this taxon used by each partner is embedded in these links, and these identifiers are also accessible through the %{link}"
   content_partners_page_title: "Content Partners"
-  content_partners_page_description: "Encyclopedia of Life content partners serve authenticated species information through the EOL portal. After developing a joint commitment, the content partners work closely with the EOL component groups to make their data visible within EOL. Learn more about <a href=\"%{more_url}\">becoming a content partner.</a>"
+  content_partners_page_description: "Encyclopedia of Life content partners have large amounts of information about biodiversity in their own websites or databases that they also share via EOL pages. We greatly appreciate their critical contributions to the EOL mission and encourage you to learn more about them. Learn more about <a href=\"%{more_url}\">becoming a content partner.</a>"
   content_partners_with_count:
     one: "%{count} Content partner"
     other: "%{count} Content partners"

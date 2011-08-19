@@ -281,9 +281,11 @@ private
         @duplicates = true
       else
         old_collection_items << collection_item
+        # Annotations may only be copied when the user has a right to edit them. This avoids some IP problems.
+        annotate = options[:from].editable_by?(current_user) ? collection_item.annotation : nil
         new_collection_items << { :object_id => collection_item.object.id,
                                   :object_type => collection_item.object_type,
-                                  :annotation => collection_item.annotation,
+                                  :annotation => annotate,
                                   :added_by_user_id => current_user.id }
         count += 1
         # TODO - gak.  This points to the wrong collection item and needs to be moved to AFTER the save:

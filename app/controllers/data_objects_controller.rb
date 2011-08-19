@@ -1,7 +1,7 @@
 class DataObjectsController < ApplicationController
 
   layout :data_objects_layout
-
+  @@results_per_page = 20
   before_filter :check_authentication, :only => [:new, :create, :edit, :update, :ignore] # checks login only
   before_filter :load_data_object, :except => [:index, :new, :create, :preview]
   before_filter :authentication_own_user_added_text_objects_only, :only => [:edit, :update]
@@ -192,14 +192,28 @@ class DataObjectsController < ApplicationController
   end
 
   def add_association
-    name = params[:name]
-    form_submitted = params[:commit]
-    unless form_submitted.blank?
-      unless name.blank?
-        entries_for_name(name)
-      else
-        flash[:error] = I18n.t(:please_enter_a_name_to_find_taxa)
+    @querystring = params[:q]
+    if @querystring.blank?
+      @all_results = empty_paginated_set
+    else
+      search_response = EOL::Solr::SiteSearch.search_with_pagination(@querystring, params.merge({ :per_page => @@results_per_page }))
+      unless search_response[:results].blank?
+        @all_results = search_response[:results]
+        search_response[:results].each do |result|
+          browsable_entries = []
+          unbrowsable_entries = []
+          result_instance = result['instance']
+          if result_instance.class == TaxonConcept
+            hierarchy_entries = result_instance.published_hierarchy_entries.blank? ? result_instance.hierarchy_entries : result_instance.published_hierarchy_entries
+            hierarchy_entries.each do |hierarchy_entry|
+              hierarchy_entry.hierarchy.browsable? ? browsable_entries << hierarchy_entry : unbrowsable_entries << hierarchy_entry
+            end
+          end
+          result_instance['entries'] = browsable_entries.blank? ? unbrowsable_entries : browsable_entries
+        end
       end
+      params.delete(:commit) unless params[:commit].blank?
+      @all_results
     end
   end
 
@@ -266,6 +280,8 @@ private
     case action_name
     when 'new', 'create', 'update', 'edit'
       'v2/basic'
+    when 'add_association'
+      'v2/association'
     else
       'v2/data'
     end
@@ -292,26 +308,6 @@ private
       # TODO - we really don't need this from_curator flag now:
       return Comment.create(:parent => @data_object, :body => comment, :user => current_user, :from_curator => true)
     end
-  end
-
-  def entries_for_name(name)
-    search_response = EOL::Solr::SiteSearch.search_with_pagination(name, :type => ['taxon_concept'])
-    @concepts = search_response[:results]
-    unless search_response[:results].blank?
-      search_response[:results].each do |result|
-        browsable_entries = []
-        unbrowsable_entries = []
-        result_instance = result['instance']
-        if result_instance.class == TaxonConcept
-          hierarchy_entries = result_instance.published_hierarchy_entries.blank? ? result_instance.hierarchy_entries : result_instance.published_hierarchy_entries
-          hierarchy_entries.each do |hierarchy_entry|
-            hierarchy_entry.hierarchy.browsable? ? browsable_entries << hierarchy_entry : unbrowsable_entries << hierarchy_entry
-          end
-        end
-        result_instance['entries'] = browsable_entries.blank? ? unbrowsable_entries : browsable_entries
-      end
-    end
-    @concepts
   end
 
   def load_data_object
@@ -499,4 +495,7 @@ private
     end
   end
 
+  def empty_paginated_set
+    [].paginate(:page => 1, :per_page => @@results_per_page, :total_entries => 0)
+  end
 end

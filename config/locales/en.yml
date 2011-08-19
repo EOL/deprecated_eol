@@ -2201,7 +2201,7 @@ en:
   not_applicable: "not applicable"
   not_encourage_or_answer_request: "Not encourage or answer requests to provide all or major components of %{projecta}'s content to other data providers. Rather, such requests for re-usage will be forwarded to %{projectb}."
   not_evaluated: "Not evaluated"
-  not_recognised_by_available_hierarchies: "Not recognised by any of the available classifications"
+  not_recognised_by_available_hierarchies: "Not recognized by any of the available classifications"
   not_yet_implemented_error: "Sorry, that feature has not been implemented yet."
   note: "Note:"
   note_about_homonym_problems: "NOTE: only change this attribute if you are certain - unchecking this could cause serious homonym problems"
@@ -2503,7 +2503,7 @@ en:
   recent_updates: "Latest updates"
   recipients: "Recipients"
   recognised_by_hierarchy_agent_as_a_rank: '%{hierarchy_agent} as a %{taxon_rank}'
-  recognised_by_hierarchy_agent_from_source_as_a_rank: '%{hierarchy_agent} from %{source} as a %{taxon_rank}'
+  recognised_by_from_source_as_a_rank: '%{recognized_by} in %{source} as a %{taxon_rank}'
   recognized_by: "Recognized by"
   recommend: "RECOMMEND"
   redirect_to_external_url_: "Redirect to external URL:"

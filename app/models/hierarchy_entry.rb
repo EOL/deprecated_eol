@@ -202,24 +202,48 @@ class HierarchyEntry < SpeciesSchemaModel
     return images.blank? ? nil : images.first.smart_image
   end
 
+  # Some HEs have a "source database" agent, which needs to be considered in addition to normal sources.
   def source_database_agents
-    agents_roles.reject {|ar| ar.agent_role_id != AgentRole.source_database.id }.map(&:agent)
+    @source_db_agents ||=
+      agents_hierarchy_entries.select {|ar| ar.agent_role_id == AgentRole.source_database.id }.map(&:agent)
   end
 
+  # If a HE *does* have a source database, some behavior changes (we must consider the hierarchy agent source
+  # separately), so:
+  def has_source_database?
+    source_database_agents && ! source_database_agents.empty?
+  end
+
+  # These are all of the agents, NOT including the hierarchy agent:
   def source_agents
-    agents_roles.reject {|ar| ar.agent_role_id != AgentRole.source.id }.map(&:agent)
+    agents_hierarchy_entries.select {|ar| ar.agent_role_id == AgentRole.source.id }.map(&:agent)
   end
 
-  def agents_roles
-    agents_roles = []
+  # This gives you the correct array of source agents that recognize the taxon.  Keep in mind that if there is a
+  # source database, you MUST cite the hiearchy agent SEPARATELY, so it is not included; otherwise, it is:
+  def recognized_by_agents
+    if has_source_database?
+      [source_database_agents, source_agents].compact
+    else
+      [hierarchy.agent, source_agents].compact
+    end
+  end
 
-    # its possible that the hierarchy is not associated with an agent
+  # This is a full list of AgentsHierarchyEntry models associated with this HE, and should only be used when you know
+  # there is no source database (the API code uses this method a lot, at the time of this writing).
+  def agents_roles
+    ([agent_from_hierarchy] + agents_hierarchy_entries).compact
+  end
+
+  # This is only used by #agents_roles, to add it to the list when it's actually there. Don't use this to get an Agent.
+  def agent_from_hierarchy
     if h_agent = hierarchy.agent
       h_agent.full_name = hierarchy.label # To change the name from just "Catalogue of Life"
-      role = AgentRole.source
-      agents_roles << AgentsHierarchyEntry.new(:hierarchy_entry => self, :agent => h_agent, :agent_role => role, :view_order => 0)
+      AgentsHierarchyEntry.new(:hierarchy_entry => self, :agent => h_agent,
+                               :agent_role => AgentRole.source, :view_order => 0)
+    else
+      nil
     end
-    agents_roles += agents_hierarchy_entries
   end
 
   # Walk up the list of ancestors until you find a node that we can map to the specified hierarchy.

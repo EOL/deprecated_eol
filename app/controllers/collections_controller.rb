@@ -343,11 +343,12 @@ private
     count = 0
     collection_items.each do |item|
       item = CollectionItem.find(item) # Sometimes, this is just an id.
+      removed_from_id = item.collection_id
       if item.update_attribute(:collection_id, nil) # Not actually destroyed, so that we can talk about it in feeds.
         item.remove_collection_item_from_solr # TODO - needed?  Or does the #after_save method handle this?
         count += 1
         unless bulk_log
-          CollectionActivityLog.create(:collection => @collection, :user => current_user,
+          CollectionActivityLog.create(:collection_id => removed_from_id, :user => current_user,
                                        :activity => Activity.remove, :collection_item => item)
         end
       end

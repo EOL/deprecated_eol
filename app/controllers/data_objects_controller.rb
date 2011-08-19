@@ -57,7 +57,7 @@ class DataObjectsController < ApplicationController
       toc_item_id = params[:data_object][:toc_items][:id].to_i
       subchapter = TocItem.find(toc_item_id).label.downcase
       subchapter = 'literature' if subchapter == 'literature references'
-      subchapter.sub( " ", "_" )
+      subchapter.sub!( " ", "_" )
       temp = ["education", "identification_resources", "nucleotide_sequences", "biomedical_terms"] # to Resources tab
       if temp.include?(subchapter)
         redirect_to education_taxon_resources_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}") if subchapter == 'education'

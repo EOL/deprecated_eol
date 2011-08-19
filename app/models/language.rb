@@ -12,10 +12,14 @@ class Language < SpeciesSchemaModel
   end
   
   def self.approved_languages
-    approved_language_iso_codes = APPROVED_LANGUAGES rescue ['en', 'sp', 'ar']
+    approved_language_iso_codes = APPROVED_LANGUAGES rescue ['en', 'es', 'ar']
     cached("approved_languages") do
       self.find_all_by_iso_639_1(approved_language_iso_codes, :order => 'sort_order ASC, source_form ASC')
     end
+  end
+  
+  def self.approved_languages_except_english
+    items = approved_languages.map{ |l| l.id if l.id != Language.english.id}.compact
   end
 
   def self.scientific

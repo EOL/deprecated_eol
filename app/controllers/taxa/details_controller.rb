@@ -50,7 +50,7 @@ class Taxa::DetailsController < TaxaController
     temp = temp | ["Related Names", "Synonyms", "Common Names"]
     # Page Statistics:
     temp = temp | ["Content Summary"] # to Updates tab
-
+    # Others:
     temp = temp | ["Content Partners"] # to Resource tab
 
     # exclude selected toc_items

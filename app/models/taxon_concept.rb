@@ -250,10 +250,18 @@ class TaxonConcept < SpeciesSchemaModel
     text_objects = DataObject.sort_by_rating(text_objects, self)
 
     datos_to_load = []
+    ids_for_approved_languages_except_english = Language.approved_languages_except_english
     toc_items.each do |toc_item|
       unless toc_item.nil?
 
-        items = text_objects.select{ |t| t.toc_items && t.toc_items.include?(toc_item) && t[:language_id]==Language.id_from_iso(options[:language])}
+        # # In an English page, we should show all languages except for those in the approved languages ('sp', 'ar')
+        # # because we have many erroneous language_id values in DataObjects. Many are actual English text but the language_id is not for English.
+        # # Until we correct all these language_id's (through content partners' harvest) we have to do it this way.
+        if options[:language] == Language.english.iso_code
+          items = text_objects.select{ |t| t.toc_items && t.toc_items.include?(toc_item) && !ids_for_approved_languages_except_english.include?(t[:language_id])}
+        else
+          items = text_objects.select{ |t| t.toc_items && t.toc_items.include?(toc_item) && t[:language_id] == Language.id_from_iso(options[:language])}
+        end
 
         unless items.blank? || items.nil?
           if options[:limit].nil? || options[:limit].to_i == 0

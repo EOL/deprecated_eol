@@ -21,8 +21,8 @@ require "email_spec/matchers"
 
 # Capybara.default_driver = :selenium
 
-
-require File.expand_path(File.dirname(__FILE__) + "/factories")
+# commented out as these were getting loaded too many times
+# require File.expand_path(File.dirname(__FILE__) + "/factories")
 require File.expand_path(File.dirname(__FILE__) + "/eol_spec_helpers")
 require File.expand_path(File.dirname(__FILE__) + "/custom_matchers")
 

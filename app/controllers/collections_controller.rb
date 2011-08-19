@@ -60,12 +60,13 @@ class CollectionsController < ApplicationController
   def update
     return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect) if params[:commit_sort]
     return redirect_to_choose(:copy) if params[:commit_copy]
+    return chosen if params[:scope] && params[:for] = 'copy'
     # copy is the only update action allowed for non-owners
     return if user_able_to_edit_collection
+    return chosen if params[:scope] # Note that updating the collection params doesn't specify a scope.
     return redirect_to_choose(:move) if params[:commit_move]
     return remove_and_redirect if params[:commit_remove]
     return annotate if params[:commit_annotation]
-    return chosen if params[:scope] # Note that updating the collection params doesn't specify a scope.
     if @collection.update_attributes(params[:collection])
       upload_logo(@collection) unless params[:collection][:logo].blank?
       flash[:notice] = I18n.t(:collection_updated_notice, :collection_name => @collection.name) if

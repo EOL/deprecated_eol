@@ -10,6 +10,8 @@ require File.join(File.dirname(__FILE__), 'boot')
 require 'eol_web_service'
 require 'eol'
 RAILS_GEM_VERSION = '2.3.8' unless defined? RAILS_GEM_VERSION
+require "rubygems"
+require "bundler/setup"
 
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here

@@ -1330,6 +1330,9 @@ class TaxonConcept < SpeciesSchemaModel
   def best_image_from_solr(selected_hierarchy_entry = nil)
     cache_key = "best_image_#{self.id}"
     cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
+    # there's some strange problem here where I was getting the error: undefined class/module TaxonConceptExemplarImage
+    # simply placing the class name here will force the app to load the class, thus defining it
+    TaxonConceptExemplarImage
     @best_image ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
       if self.taxon_concept_exemplar_image
         self.taxon_concept_exemplar_image.data_object

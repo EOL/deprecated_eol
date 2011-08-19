@@ -18,7 +18,7 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       selenium-webdriver (>= 0.0.3)
-    childprocess (0.2.0)
+    childprocess (0.2.1)
       ffi (~> 1.0.6)
     columnize (0.3.4)
     composite_primary_keys (2.3.5.1)
@@ -29,7 +29,7 @@ GEM
     eol_scenarios (0.3.4)
     escape (0.0.4)
     ezcrypto (0.7.2)
-    factory_girl (2.0.2)
+    factory_girl (2.0.4)
     faker (0.9.5)
       i18n (~> 0.4)
     fastercsv (1.5.4)
@@ -41,7 +41,8 @@ GEM
     json_pure (1.5.3)
     linecache (0.46)
       rbx-require-relative (> 0.0.4)
-    macaddr (1.0.0)
+    macaddr (1.4.0)
+      systemu (~> 2.2.0)
     mime-types (1.16)
     mysql (2.8.1)
     nokogiri (1.4.7)
@@ -71,14 +72,15 @@ GEM
     sanitize (2.0.1)
       nokogiri (~> 1.4.4)
     sass (3.1.1)
-    selenium-webdriver (2.2.0)
-      childprocess (>= 0.1.9)
+    selenium-webdriver (2.4.0)
+      childprocess (>= 0.2.1)
       ffi (>= 1.0.7)
       json_pure
       rubyzip
-    uuid (2.3.2)
+    systemu (2.2.0)
+    uuid (2.3.3)
       macaddr (~> 1.0)
-    will_paginate (2.3.15)
+    will_paginate (2.3.16)
 
 PLATFORMS
   ruby
@@ -109,4 +111,4 @@ DEPENDENCIES
   sanitize (= 2.0.1)
   sass (= 3.1.1)
   uuid
-  will_paginate
+  will_paginate (= 2.3.16)

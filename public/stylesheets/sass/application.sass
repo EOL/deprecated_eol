@@ -4,7 +4,7 @@ a,
 input[type="submit"]
   &.button
     +button
-  &.in_collection
+  &.in_collection, &.associated
     +button(#7e9eba, #1e5587)
     color: #ffffff
     text-shadow: 0 1px 1px #222222
@@ -1192,23 +1192,21 @@ body
   width: 580px
   .gallery
     overflow: hidden
-    padding: 20px 20px 0 20px
+    padding: 20px 20px 10px 20px
     border: 1px solid #cad3db
     .images
       float: left
       position: relative
       width: 430px
-      height: 360px
-      overflow: hidden
-      padding-bottom: 20px
       .image
-        width: 100%
-        padding: 0 0 50px 0
-        background: #ffffff
-        > img
+        > a
           display: block
           position: relative
-          margin: 0 auto
+          width: 430px
+          height: 310px
+          > img
+            display: block
+            margin: 0 auto
         span.flag
           padding: 1px 2px
           font-size: .75em
@@ -1245,11 +1243,9 @@ body
           img
             margin: -2px 0 0 -2px
     .attribution
-      position: absolute
-      left: 0
-      top: 315px
+      position: relative
+      margin: 5px 0 0 0
       z-index: 100
-      width: 430px
       font-size: .92em
       p
         margin: 0
@@ -1266,6 +1262,16 @@ body
       padding: 5px 0 0 0
       font-weight: bold
       text-transform: lowercase
+  p.languages
+    padding: 2px 20px
+    border-top: 1px solid #cad3db
+    border-bottom: 1px solid #cad3db
+    background: #f3f7fa
+    margin: 10px 0
+    line-height: 160%
+    font-weight: bold
+    font-size: .9em
+    text-align: center
   .article.overview
     margin: 35px 0 0 0
     .meta.learn_more
@@ -1352,23 +1358,15 @@ body
         color: #394651
   #main
     overflow: hidden
-    .languages
-      padding: 15px 20px 0 20px
-      border: 1px solid #cad3db
+    p.languages
+      padding: 2px 20px
+      border-top: 1px solid #cad3db
+      border-bottom: 1px solid #cad3db
       background: #f3f7fa
       margin: 0 0 20px 0
       line-height: 160%
-      &.clickable
-        &:hover
-          cursor: pointer
-          border: 1px solid #93a4b0
-      p
-        font-weight: bold
-        margin: 0 0 15px 0
-      ul
-        margin: 0 40px 15px 40px
-        li
-          list-style-type: disc
+      font-weight: bold
+      font-size: .9em
     > h2
       padding: 10px 20px
       margin: 0 0 20px 0
@@ -1600,6 +1598,77 @@ body
         input
           margin: 0 3px 0 0
 
+#permalink_add_association
+  width: 700px
+  > form
+    background: #f1f4dc
+    border-top: 1px solid #ccd399
+    border-bottom: 1px solid #ccd399
+    text-align: center
+    padding: 20px 0
+    margin: 0 0 20px 0
+    label
+      font-weight: bold
+      margin: 0 20px 0 0
+    input[type="text"]
+      +input(200px)
+    input[type="submit"]
+      padding-right: 20px
+      padding-left: 20px
+      margin: 0 20px 0 10px
+  #main
+    .header
+      position: relative
+      padding: 10px 0
+      text-align: center
+      border-bottom: 1px solid #394651
+      h3
+        font-size: 1.33em
+      a
+        position: absolute
+        right: 10px
+        top: 15px
+        z-index: 1
+        font-weight: bold
+        &.prev
+          right: auto
+          left: 10px
+    > ul
+      > li
+        overflow: hidden
+        padding: 10px
+        border-bottom: 1px solid #d7dadc
+        img
+          float: left
+          margin: 0 20px 0 0
+        .details
+          float: left
+          h4
+            font-size: 1.2em
+            margin: 15px 0 3px 0
+            a
+              color: #28323a
+              text-decoration: none
+              &:hover
+                text-decoration: underline
+          p
+            color: #5f6c76
+            margin: 0 0 10px 0
+          ul
+            li
+              margin: 0 0 3px 0
+              font-size: .9em
+              color: #5f6c76
+              form
+                display: inline
+                input[type="submit"]
+                  font-size: .9em
+                  padding: 2px 0
+                  width: 100px
+                  margin: 0 10px 0 0
+              span
+                margin: 0 5px
+
 #worklist
   .filters
     overflow: hidden
@@ -1619,12 +1688,12 @@ body
         dd
           padding: 0
     fieldset.actions
-      padding: 17px 0 0 0
+      margin: 18px 0 0 0
       input[type="submit"]
         float: left
         margin: 0 20px 0 0
       p
-        overflow: hidden
+        display: inline
         font-weight: bold
         line-height: 170%
         color: #667309
@@ -1636,6 +1705,8 @@ body
       width: 360px
       margin: 0 20px 25px 0
       border: 1px solid #93a4b0
+      border-top: none
+      border-bottom: none
       li
         clear: both
         float: left
@@ -1644,8 +1715,11 @@ body
         padding: 10px
         cursor: pointer
         background: #f3f7fa
+        border-top: 1px solid #93a4b0
         + li
           border-top: 1px solid #d7dadc
+        &.last
+          border-bottom: 1px solid #93a4b0
         &:hover
           background-color: #ffffff
         p

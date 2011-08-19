@@ -10,6 +10,8 @@
 #        "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2008"
 #      ]
 #
+require 'invert' # TEMP - Ant and JRice are attempting a fix
+
 class Hierarchy < SpeciesSchemaModel
   CACHE_ALL_ROWS = true
   belongs_to :agent           # This is the attribution.

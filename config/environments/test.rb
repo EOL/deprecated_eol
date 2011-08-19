@@ -65,8 +65,6 @@ $SKIP_URL_VALIDATIONS = true
 $HOMEPAGE_MARCH_RICHNESS_THRESHOLD = nil
 
 config.gem 'faker'
-config.gem "remi-rspec-custom-matchers", :lib => false
-config.gem "remi-indifferent-variable-hash", :lib => false
 config.gem "eol_scenarios", :lib => "eol_scenarios"
 config.gem "rspec", :lib => false
 config.gem "rspec-rails", :lib => false

@@ -32,7 +32,7 @@ config.cache_store = :memory_store
 
 config.log_level = :debug # :error
 
-$PARENT_CLASS_MUST_USE_MASTER = ActiveRecord::Base 
+$PARENT_CLASS_MUST_USE_MASTER = ActiveRecord::Base
 
 $EXCEPTION_NOTIFY=false # set to false to not be notified of exceptions via email in production mode (set email addresses below)
 $ENABLE_RECAPTCHA=false # set to true to enable recaptcha on registration and contact us form
@@ -48,8 +48,6 @@ $SOLR_SITE_SEARCH_CORE = 'site_search'
 $SOLR_DIR    = File.join(RAILS_ROOT, 'solr', 'solr')
 
 config.gem 'faker'
-config.gem "remi-rspec-custom-matchers", :lib => false
-config.gem "remi-indifferent-variable-hash", :lib => false
 config.gem "eol_scenarios", :lib => "eol_scenarios"
 config.gem "rspec", :lib => false
 config.gem "rspec-rails", :lib => false

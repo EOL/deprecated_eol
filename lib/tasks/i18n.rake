@@ -10,7 +10,7 @@ namespace :i18n do
   tmp_file = File.join([lang_dir, "tmp.yml"])
   en_yml = File.join([lang_dir, "en.yml"])
   trans_tmp = File.join([lang_dir, "translation_template.yml"])
-  excluded_tables = ["translated_mime_types"]
+  excluded_tables = ["translated_mime_types", "translated_news_items"]
 
 
   desc 'convert old yml language files from Gibberish format to support i18n '
@@ -470,7 +470,6 @@ namespace :i18n do
             lookup_rank_label = row[field].downcase.gsub(/\.$/, '')  # remove trailing periods
             next unless Rank.english_rank_labels_to_translate.include?(lookup_rank_label)
           end
-          en_strings << "  #{table_name}__#{field}__#{foreign_key}__#{row[foreign_key]}: \"" + row[field].gsub("\"", "\\\"").gsub("\n", "\\n") + "\"\n"
         end
       end
     end

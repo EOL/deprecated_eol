@@ -536,16 +536,16 @@ class ApplicationController < ActionController::Base
 
   def link_to_item(item)
     case item.class.name
-    when 'DataObject'
-      data_object_url(item)
-    when 'TaxonConcept'
-      taxon_concept_url(item)
-    when 'User'
-      user_url(item)
-    when 'Community'
-      community_url(item)
     when 'Collection'
       collection_url(item)
+    when 'Community'
+      community_url(item)
+    when 'DataObject'
+      data_object_url(item)
+    when 'User'
+      user_url(item)
+    when 'TaxonConcept'
+      taxon_concept_url(item)
     else
       raise EOL::Exceptions::ObjectNotFound
     end

@@ -2489,8 +2489,8 @@ en:
   recently_published_resources__: "Recently published resources (last 20)"
   recent_updates: "Latest updates"
   recipients: "Recipients"
-  recognised_by_hierarchy_agent_as_a_rank: '%{hierarchy_agent} as a %{taxon_rank} <a href="%{hierarchy_entry_url}">view in classification</a>'
-  recognised_by_hierarchy_entry_agent_in_hierarchy_agent_as_a_rank: '%{hierarchy_entry_agent} in %{hierarchy_agent} as a %{taxon_rank} <a href="%{hierarchy_entry_url}">view in classification</a>'
+  recognised_by_hierarchy_agent_as_a_rank: '%{hierarchy_agent} as a %{taxon_rank}'
+  recognised_by_hierarchy_agent_from_source_as_a_rank: '%{hierarchy_agent} from %{source} as a %{taxon_rank}'
   recognized_by: "Recognized by"
   recommend: "RECOMMEND"
   redirect_to_external_url_: "Redirect to external URL:"
@@ -3252,6 +3252,7 @@ en:
   view_contact_us_submissions: "view contact us submissions"
   view_curators: "view curators"
   view_discovered_bibliography_in_bhl: "View Discovered Bibliography in BHL"
+  view_in_classification: view in classification
   view_translation_source_link: "View translation source"
   viewed: "Viewed"
   not_viewed: "Not Viewed"

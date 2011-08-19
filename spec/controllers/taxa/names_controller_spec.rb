@@ -15,10 +15,6 @@ describe Taxa::NamesController do
     it 'should instantiate the taxon concept' do
       assigns[:taxon_concept].should == @testy[:taxon_concept]
     end
-    it 'should instantiate hierarchies' do
-      get :show, :taxon_id => @testy[:taxon_concept].id.to_i
-      assigns[:hierarchies].should == @testy[:taxon_concept].published_hierarchy_entries.collect{|he| he.hierarchy if he.hierarchy.browsable?}.uniq
-    end
   end
 
 

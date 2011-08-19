@@ -223,9 +223,9 @@ class HierarchyEntry < SpeciesSchemaModel
   # source database, you MUST cite the hiearchy agent SEPARATELY, so it is not included; otherwise, it is:
   def recognized_by_agents
     if has_source_database?
-      [source_database_agents, source_agents].compact
+      (source_database_agents + source_agents).compact
     else
-      [hierarchy.agent, source_agents].compact
+      ([hierarchy.agent] + source_agents).compact
     end
   end
 

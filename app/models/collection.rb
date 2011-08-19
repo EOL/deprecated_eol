@@ -146,8 +146,8 @@ class Collection < ActiveRecord::Base
     what # Convenience.  Allows us to chain this command and continue using the object passed in.
   end
 
-  def deep_copy(other)
-    copy_annotations = user_id && other.user_id && user_id == other.user_id
+  def deep_copy(other, options = {})
+    copy_annotations = options[:keep_annotations] || user_id && other.user_id && user_id == other.user_id
     other.collection_items.each do |item|
       if copy_annotations
         add(item.object, :annotation => item.annotation)

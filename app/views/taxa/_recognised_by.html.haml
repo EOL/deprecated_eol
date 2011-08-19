@@ -6,7 +6,7 @@
     - @hierarchy_entries.each do |hierarchy_entry|
       %li
         - taxon_rank = hierarchy_entry.rank.blank? ? 'taxon' : hierarchy_entry.rank.label
-        - recognized_by = hierarchy_entry.recognized_by_agents.map(&:  …full_name).to_sentence
+        - recognized_by = hierarchy_entry.recognized_by_agents.map(&:full_name).to_sentence
         - if hierarchy_entry.has_source_database?
           = I18n.t(:recognised_by_from_source_as_a_rank, :recognized_by => recognized_by, :source => hierarchy_entry.hierarchy.agent.full_name, :taxon_rank => taxon_rank)
         - else

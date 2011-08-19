@@ -7,10 +7,11 @@ class ContentPartners::ResourcesController < ContentPartnersController
   # GET /content_partners/:content_partner_id/resources
   def index
     @partner = ContentPartner.find(params[:content_partner_id],
-                 :include => [ { :resources => :resource_status }, :content_partner_agreements])
+                 :include => [ { :resources => :resource_status }, :content_partner_agreements, :content_partner_contacts])
+    access_denied unless current_user.can_update?(@partner)
     @resources = @partner.resources
-    @agreements = @partner.content_partner_agreements
-    @new_agreement = @partner.content_partner_agreements.build() if @agreements.blank?
+    @agreement = @partner.agreement
+    @new_agreement = @partner.content_partner_agreements.build if @agreement.blank?
     @partner_contacts = @partner.content_partner_contacts.select{|cpc| cpc.can_be_read_by?(current_user)}
     @new_partner_contact = @partner.content_partner_contacts.build
   end

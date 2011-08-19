@@ -19,12 +19,14 @@
 
       .page_actions
         %ul
-          - if current_user.can_update?(@partner) && action_name == 'show' && controller_name != 'resources'
+          - if current_user.can_update?(@partner) && action_name == 'show' && controller_name == 'content_partners'
             %li= link_to I18n.t(:content_partner_edit_link), edit_content_partner_path(@partner), :class => "button"
           - elsif action_name == 'show' && controller_name == 'resources'
             - if @resource && @resource.id && current_user.can_update?(@resource)
               %li= link_to I18n.t(:content_partner_resource_edit_link), edit_content_partner_resource_path(@partner, @resource), :class => 'button'
             %li= link_to I18n.t(:content_partner_resources_link_back_to), content_partner_resources_path(@partner)
+          - elsif action_name == 'show' && controller_name == 'content_partner_agreements'
+            %li= link_to I18n.t(:content_partner_overview_link_back_to), @partner
       = render :partial => 'shared/flash_messages'
       - if display_content_partners_navigation?
         %ul.nav

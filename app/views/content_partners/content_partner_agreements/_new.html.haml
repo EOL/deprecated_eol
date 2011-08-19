@@ -1,13 +1,12 @@
-- template = render :partial => 'content_partners/content_partner_agreements/template',
-  :locals => {:agreement => @new_agreement}
-= template
 - form_for [@partner, @new_agreement] do |form|
   %fieldset
-    = form.hidden_field :template, :value => template
+    = @new_agreement.body
+    = form.hidden_field :body, :value => @new_agreement.body
+    = form.hidden_field :created_at, :value => @new_agreement.created_at
     %dl
       %dt
         = form.label :signed_by
       %dd
         = form.text_field :signed_by, {:maxlength => 255}
   %fieldset.actions
-    = form.submit I18n.t('helpers.submit.content_partner_agreements.create')
+    = form.submit I18n.t('helpers.submit.content_partner_agreements.create'), :name => :commit_agree_to_terms

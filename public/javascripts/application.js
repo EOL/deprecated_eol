@@ -201,19 +201,15 @@ $(function() {
   });
   // disable the checkboxes for filter categories with no results
   $("#media_list #sidebar li.no_results input[type=checkbox]").attr("disabled", true);
-  
-  
+
+  // Expand the mini-tree on the taxon overview:
   $('#classifications_summary a.show_tree').click(function() {
-    var $update = $(this).closest('#classifications_summary > ul > li').find('.classification.summary');
+    var $update = $(this).closest('#classifications_summary > ul > li');
     EOL.ajax_submit($(this), {update: $update, type: 'GET'});
     return(false);
   });
   $('.button.confirm').click(function() {
-    if(confirm($(this).attr('data_confirm'))) {
-      return true;
-    } else {
-      return false;
-    }
+    if(confirm($(this).attr('data_confirm'))) { return true; } else { return false; }
   });
 
   (function($content_partner_resources) {

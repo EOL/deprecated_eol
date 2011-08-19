@@ -9,7 +9,8 @@
         - taxon = @taxon_concept.quick_scientific_name(:italicized, @selected_hierarchy_entry.hierarchy)
       - else
         - taxon = "<i>#{@taxon_concept.title_canonical()}</i>"
-      %p= I18n.t(:explore_what_we_know_about_taxon, :taxon => link_to(taxon, taxon_details_path(@taxon_concept.id)))
+      - if @taxon_concept.has_details?
+        %p= I18n.t(:explore_what_we_know_about_taxon, :taxon => link_to(taxon, taxon_details_path(@taxon_concept.id)))
       %p= link_to I18n.t(:add_brief_summary_to_page_link_button), new_taxon_data_object_path(@taxon_concept), :class => 'button'
   - else
     - @summary_text.each do |item|

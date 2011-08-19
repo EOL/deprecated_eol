@@ -5,7 +5,7 @@
   %ul.object_list
     = render :partial => 'collections/collection_summary', :locals => { :collection => @user.watch_collection }
   .heading
-    %h3= I18n.t(:endorsed_collections_with_count, :count => @featured_collections.size)
+    %h3= I18n.t(:collections_with_count, :count => @featured_collections.size)
     - if @featured_collections.size > 1
       = render :partial => 'shared/sort_by_date_form'
   - unless @featured_collections.empty?

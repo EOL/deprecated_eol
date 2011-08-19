@@ -18,8 +18,6 @@ class Taxa::ResourcesController < TaxaController
   def education
     toc_id = TocItem.education.id
     @assistive_section_header = I18n.t(:resources)
-
-    #debugger
     @contents = @taxon_concept.details_for_toc_items(ContentTable.details.toc_items, :language => current_user.language_abbr).collect{|d| d if d[:toc_item].parent_id == toc_id}.compact
     current_user.log_activity(:viewed_taxon_concept_resources_education, :taxon_concept_id => @taxon_concept.id)
   end

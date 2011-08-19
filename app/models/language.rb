@@ -18,10 +18,6 @@ class Language < SpeciesSchemaModel
     end
   end
   
-  def self.approved_languages_except_english
-    items = approved_languages.map{ |l| l.id if l.id != Language.english.id}.compact
-  end
-
   def self.scientific
     cached_find_translated(:label, 'Scientific Name')
   end

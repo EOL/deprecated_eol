@@ -6,9 +6,10 @@
     - @hierarchy_entries.each do |hierarchy_entry|
       %li
         - taxon_rank = hierarchy_entry.rank.blank? ? 'taxon' : hierarchy_entry.rank.label
+        - recognized_by = hierarchy_entry.recognized_by_agents.map(&:  …full_name).to_sentence
         - if hierarchy_entry.has_source_database?
-          = I18n.t(:recognised_by_from_source_as_a_rank, :recognized_by => hierarchy_entry.recognized_by_agents.map(&:full_name).to_sentence, :source => hierarchy_entry.hierarchy.agent.full_name, :taxon_rank => taxon_rank)
+          = I18n.t(:recognised_by_from_source_as_a_rank, :recognized_by => recognized_by, :source => hierarchy_entry.hierarchy.agent.full_name, :taxon_rank => taxon_rank)
         - else
-          = I18n.t(:recognised_by_hierarchy_agent_as_a_rank, :hierarchy_agent => hierarchy_entry.source_agents.map(&:full_name).to_sentence, :taxon_rank => taxon_rank, :hierarchy_entry_url => taxon_hierarchy_entry_overview_path(@taxon_concept, hierarchy_entry))
+          = I18n.t(:recognised_by_as_a_rank, :recognized_by => recognized_by, :taxon_rank => taxon_rank)
         &emsp;•&emsp;
         %span= link_to(I18n.t(:view_in_classification), taxon_hierarchy_entry_overview_path(@taxon_concept, hierarchy_entry))

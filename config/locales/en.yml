@@ -2502,7 +2502,7 @@ en:
   recently_published_resources__: "Recently published resources (last 20)"
   recent_updates: "Latest updates"
   recipients: "Recipients"
-  recognised_by_hierarchy_agent_as_a_rank: '%{hierarchy_agent} as a %{taxon_rank}'
+  recognised_by_as_a_rank: '%{recognized_by} as a %{taxon_rank}'
   recognised_by_from_source_as_a_rank: '%{recognized_by} in %{source} as a %{taxon_rank}'
   recognized_by: "Recognized by"
   recommend: "RECOMMEND"

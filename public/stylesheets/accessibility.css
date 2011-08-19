@@ -248,6 +248,21 @@ form#switch_hierarchy_entry fieldset {
 .cms_page #content_partners #sidebar input[type="text"] {
   width: 118px; }
 
+#new_content_partner_agreement dl {
+  clear: both; }
+  #new_content_partner_agreement dl dd {
+    margin: 0 0 10px 0; }
+    #new_content_partner_agreement dl dd input[type="text"] {
+      width: 308px;
+      height: 22px;
+      padding: 2px 5px;
+      font: normal 1em Helvetica, Arial, sans-serif;
+      border: 1px solid #cad3db;
+      background-color: white;
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+      background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
+
 #content_partner_show .empty {
   font-size: 1em; }
 #content_partner_show .agreement dl {
@@ -265,6 +280,12 @@ form#switch_hierarchy_entry fieldset {
     float: left; }
   #content_partner_show .agreement address.eol {
     float: right; }
+#content_partner_show dl.agreement {
+  line-height: 140%; }
+  #content_partner_show dl.agreement dt {
+    font-weight: bold; }
+  #content_partner_show dl.agreement dd {
+    margin: 0 0 5px 20px; }
 
 #content_partner_edit.site_column, #content_partner_new.site_column {
   width: 640px; }
@@ -424,7 +445,7 @@ p.flag {
   p.flag.untrusted {
     border: 1px solid #f2d2cc;
     background: #ffeae6;
-    color: #677682; }
+    color: #677682 !important; }
 
 /*We share rating partial across many pages so need extra styles here. */
 #taxon_detail .rating h5 {
@@ -630,6 +651,17 @@ body > #header .section .session.join {
   width: 100%;
   margin: 0 0 15px 0;
   line-height: 170%; }
+  .cms_page table thead tr {
+    border: 1px solid #cad3db; }
+    .cms_page table thead tr th {
+      background: #eff2f4;
+      padding: 5px 20px;
+      font-weight: bold;
+      text-align: left; }
+  .cms_page table tbody tr {
+    border: 1px solid #cad3db; }
+    .cms_page table tbody tr td {
+      padding: 5px 20px; }
 
 /*collections overides */
 .object_list div.checkbox {
@@ -690,7 +722,7 @@ ul.feed li > a > img {
   width: expression(this.width > 88 ? "88px" : true);
   height: expression(this.height > 88 ? "88px" : true); }
 
-#sidebar .collection_list img, #sidebar .collection_contributors img {
+#sidebar .collection_list img, #sidebar .collection_contributors img, #sidebar .content_partner_managers img {
   max-width: 35px;
   max-height: 35px;
   width: expression(this.width > 35 ? "35px" : true);

@@ -15,3 +15,6 @@ qqq:
   on_time_col_header: "This is meant as a header for a time column."
   create_community: "This is a button label and is not meant to be (fully) grammatical."
   max_collection_items_error: "This wil never, ever be a small number... always at least 500."
+  faker:
+    lorem:
+      words: No need to translate this set of words, obviously.

@@ -26,12 +26,16 @@ class Taxa::WorklistController < TaxaController
       data_type_ids = [data_type.id]
     end
     
+    search_vetted_types = [ @object_status ]
+    if search_vetted_types == ['all']
+      search_vetted_types = ['trusted', 'unreviewed', 'untrusted']
+    end
     @data_objects = EOL::Solr::DataObjects.search_with_pagination(@taxon_concept.id, {
       :page => @page,
-      :per_page => 12,
+      :per_page => 16,
       :sort_by => @sort_by,
       :data_type_ids => data_type_ids,
-      :vetted_types => [ @object_status ],
+      :vetted_types => search_vetted_types,
       :visibility_types => [ @object_visibility ],
       :user => current_user,
       :filter => @task_status

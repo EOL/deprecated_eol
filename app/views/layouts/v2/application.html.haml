@@ -12,7 +12,7 @@
       - elsif (@taxon_concept && t = @taxon_concept.title.blank?)
         - head_title = "EOL: #{@taxon_concept.title} - #{head_title}"
       - elsif (@community && !@community.name.blank?)
-        - head_title = "EOL: #{@community.name}"
+        - head_title = "Community: #{@community.name}"
       - elsif (@collection && !@collection.name.blank?)
         - head_title = "Collection: #{@collection.name}"
       &= strip_tags(head_title)
@@ -116,6 +116,7 @@
           %li= link_to I18n.t(:twitter), $EOL_TWITTER_ACCOUNT, :class => "twitter"
           %li= link_to I18n.t(:facebook), $EOL_FACEBOOK_ACCOUNT, :class => "facebook"
           %li= link_to I18n.t(:tumblr), $EOL_TUMBLR_ACCOUNT, :class => "tumblr"
+          %li= link_to I18n.t(:flickr), $EOL_FLICKR_ACCOUNT, :class => "flickr"
 
     - if $ENABLE_ANALYTICS
       :javascript

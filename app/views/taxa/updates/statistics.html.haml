@@ -13,8 +13,6 @@
           %dd= @metrics.richness_for_display
         - else
           %dd
-        %dt= I18n.t(:descendants)
-        %dd= number_with_delimiter(@taxon_concept.number_of_descendants, :delimiter => ",")
         %dt= I18n.t(:trusted_images)
         %dd= number_with_delimiter(@media_facets['ancestor_trusted_image'], :delimiter => ",")
         %dt= I18n.t(:unreviewed_images)

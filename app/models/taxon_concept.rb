@@ -849,24 +849,6 @@ class TaxonConcept < SpeciesSchemaModel
     return images(:skip_metadata => true).blank? ? nil : images(:skip_metadata => true)[0].smart_image
   end
   
-  def best_image_from_solr(selected_hierarchy_entry = nil)
-    cache_key = "best_image_#{self.id}"
-    cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
-    @best_image ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 3.days) do
-      best_images = EOL::Solr::DataObjects.search_with_pagination(self.id, {
-        :per_page => 1,
-        :sort_by => 'status',
-        :data_type_ids => DataType.image_type_ids,
-        :vetted_types => ['all'],
-        :visibility_types => 'visible',
-        :filter_hierarchy_entry => selected_hierarchy_entry
-      })
-      (best_images.empty?) ? 'none' : best_images.first
-    end
-    @best_image = nil if @best_image == 'none'
-    @best_image
-  end
-
   # comment on this
   def comment user, body
     comment = comments.create :user => user, :body => body
@@ -1231,7 +1213,7 @@ class TaxonConcept < SpeciesSchemaModel
   #  - collections with the FEWEST items show up next.
   def top_collections
     return @top_collections if @top_collections
-    all_containing_collections = Collection.which_contain(self)
+    all_containing_collections = Collection.which_contain(self).select{ |c| !c.watch_collection? }
     Collection.add_taxa_counts!(all_containing_collections)
     Collection.add_counts!(all_containing_collections)
     @top_collections = Collection.sort_for_overview(all_containing_collections)[0..2]
@@ -1320,15 +1302,19 @@ class TaxonConcept < SpeciesSchemaModel
     count += map_image_count
   end
   
-  def media_count(selected_hierarchy_entry = nil)
+  def media_count(user, selected_hierarchy_entry = nil)
     cache_key = "media_count_#{self.id}"
     cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
-    @media_count ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 3.days) do
+    vetted_types = ['trusted', 'unreviewed']
+    if user && user.is_curator?
+      cache_key += "_curator"
+      vetted_types << 'untrusted'
+    end
+    @media_count ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
       best_images = EOL::Solr::DataObjects.search_with_pagination(self.id, {
         :per_page => 1,
-        :sort_by => 'status',
         :data_type_ids => DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids,
-        :vetted_types => ['all'],
+        :vetted_types => vetted_types,
         :visibility_types => 'visible',
         :ignore_maps => true,
         :filter_hierarchy_entry => selected_hierarchy_entry,
@@ -1339,16 +1325,20 @@ class TaxonConcept < SpeciesSchemaModel
   def best_image_from_solr(selected_hierarchy_entry = nil)
     cache_key = "best_image_#{self.id}"
     cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
-    @best_image ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 3.days) do
-      best_images = EOL::Solr::DataObjects.search_with_pagination(self.id, {
-        :per_page => 1,
-        :sort_by => 'status',
-        :data_type_ids => DataType.image_type_ids,
-        :vetted_types => ['all'],
-        :visibility_types => 'visible',
-        :filter_hierarchy_entry => selected_hierarchy_entry
-      })
-      (best_images.empty?) ? 'none' : best_images.first
+    @best_image ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
+      if self.taxon_concept_exemplar_image
+        self.taxon_concept_exemplar_image.data_object
+      else
+        best_images = EOL::Solr::DataObjects.search_with_pagination(self.id, {
+          :per_page => 1,
+          :sort_by => 'status',
+          :data_type_ids => DataType.image_type_ids,
+          :vetted_types => ['trusted', 'unreviewed'],
+          :visibility_types => 'visible',
+          :filter_hierarchy_entry => selected_hierarchy_entry
+        })
+        (best_images.empty?) ? 'none' : best_images.first
+      end
     end
     @best_image = nil if @best_image == 'none'
     @best_image
@@ -1360,7 +1350,7 @@ class TaxonConcept < SpeciesSchemaModel
       :per_page => limit,
       :sort_by => 'status',
       :data_type_ids => DataType.image_type_ids,
-      :vetted_types => ['all'],
+      :vetted_types => ['trusted', 'unreviewed'],
       :visibility_types => 'visible',
       :filter_hierarchy_entry => selected_hierarchy_entry
     })
@@ -1368,7 +1358,7 @@ class TaxonConcept < SpeciesSchemaModel
   
   
   def media_facet_counts
-    EOL::Solr::DataObjects.get_facet_counts(self.id)
+    @media_facet_counts ||= EOL::Solr::DataObjects.get_facet_counts(self.id)
   end
   
   def number_of_descendants

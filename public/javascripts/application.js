@@ -24,7 +24,7 @@ $(function() {
       var $gallery = $(this),
           thumbs = [];
       $("<ul />", { "class": "thumbnails" }).insertBefore($gallery.find("p.all"));
-      $gallery.find(".image > img").each(function() {
+      $gallery.find(".image > a img").each(function() {
         var $e = $(this),
             li;
         if ($e.is("[data-thumb]")) {
@@ -43,12 +43,12 @@ $(function() {
     });
 
     var loading_complete = $ss.find(".image").length;
-    $ss.find(".image > img").each(function() {
+    $ss.find(".image > a img").each(function() {
       this.onload = function() {
         if (!--loading_complete) {
           var h = $ss.find(".images").height();
           h -= parseInt($ss.find(".image").css("padding-bottom"), 10);
-          $ss.find(".image > img").each(function() {
+          $ss.find(".image > a img").each(function() {
             var top = (h / 2 - this.height / 2);
             top = top < 0 ? 0 : top;
             $(this).css("top", top + "px");
@@ -160,16 +160,18 @@ $(function() {
 
   // properly shows the march of life name on mouseover
   $(".thumbnails li img").unbind().mouseover(function() {
-    var $e = $(this).parent().parent(),
-        $thumbs = $e.closest(".thumbnails"),
-        margin = $thumbs.find("li").eq(0).outerWidth(true) - $e.outerWidth();
-        direction = ($e.index() > $thumbs.find("li").length / 2 - 1) ? "right" : "left";
-        pos = $e.position();
-    pos.right = $thumbs.find("ul").width() - $e.outerWidth() - pos.left + margin;
-    $thumbs.find(".term p").css({
-      margin: 0,
-      textAlign: direction
-    }).css("margin-" + direction, pos[direction]).text($(this).attr("alt"));
+    var $e = $(this).parent().parent();
+    $thumbs = $e.closest(".thumbnails");
+    // margin = $thumbs.find("li").eq(0).outerWidth(true) - $e.outerWidth();
+    var term_p = $thumbs.find(".term p");
+    var left_pos = $e.position().left - 100 + 5;
+    var right_pos = term_p.outerWidth(true) - $e.position().left - $e.outerWidth(true) - 100;
+    if($e.is($(".thumbnails li:last"))) {
+      right_pos = right_pos - 15;
+    }
+    term_p.css({
+      textAlign: 'center'
+    }).css("margin-left", left_pos+"px").css("margin-right", right_pos+"px").text($(this).attr("alt"));
   }).eq(0).mouseover();
 
   // removes the homepage march of life name on mouseout
@@ -197,9 +199,13 @@ $(function() {
   $("#media_list #sidebar input[type=checkbox][value='all']").click(function() {
     $("#media_list #sidebar input[type=checkbox][value!='all'][name='"+ $(this).attr('name') +"']").removeAttr("checked");
   });
+  // disable the checkboxes for filter categories with no results
+  $("#media_list #sidebar li.no_results input[type=checkbox]").attr("disabled", true);
+  
+  
   $('#classifications_summary a.show_tree').click(function() {
     var $update = $(this).closest('#classifications_summary > ul > li').find('.classification.summary');
-    EOL.ajax_submit($(this), {update: $update, type: 'GET'})
+    EOL.ajax_submit($(this), {update: $update, type: 'GET'});
     return(false);
   });
   $('.button.confirm').click(function() {

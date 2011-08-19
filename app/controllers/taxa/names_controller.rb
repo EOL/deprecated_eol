@@ -48,7 +48,7 @@ class Taxa::NamesController < TaxaController
     TaxonConcept.preload_associations(@taxon_concept, associations, options )
     @assistive_section_header = I18n.t(:assistive_names_synonyms_header)
     current_user.log_activity(:viewed_taxon_concept_names_synonyms, :taxon_concept_id => @taxon_concept.id)
-    
+
     # for common names count
     @common_names_count = get_common_names.count
   end
@@ -74,19 +74,22 @@ private
   end
 
   def preload_core_relationships_for_names
-    includes = [
-      { :published_hierarchy_entries => [ :name, { :hierarchy => :agent }, :hierarchies_content, :vetted ] }]
     selects = {
       :taxon_concepts => '*',
-      :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
+      :hierarchy_entries => [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published,
+                              :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
       :names => [ :string, :italicized, :canonical_form_id, :ranked_canonical_form_id ],
       :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
       :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
       :vetted => :view_order,
       :agents => '*' }
-    @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
-    @hierarchies = @taxon_concept.published_hierarchy_entries.collect{|he| he.hierarchy if he.hierarchy.browsable? }.uniq
-    # TODO: Eager load hierarchy entry agents?
+    @taxon_concept = TaxonConcept.core_relationships(:select => selects).find_by_id(@taxon_concept.id)
+    if @selected_hierarchy_entry.blank?
+      @hierarchy_entries = @taxon_concept.published_browsable_hierarchy_entries
+    else
+      @hierarchy_entries =
+        @taxon_concept.published_browsable_hierarchy_entries.select {|he| he.id == @selected_hierarchy_entry.id}
+    end
   end
 
   def authentication_for_names

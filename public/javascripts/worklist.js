@@ -2,7 +2,12 @@ $(function() {
   
   $("#tasks li").unbind('click');
   $('#worklist #tasks li').click(function() {
+    if($('#worklist #tasks li.active span.indicator').html() != '') {
+      $('#worklist #tasks li.active span.indicator').removeClass('invisible');
+    }
+    
     $(this).closest('ul').find("li").removeClass("active");
+    $(this).find('span.indicator').addClass('invisible');
     $(this).addClass("active");
     var $update = $(this).closest('#worklist').find('#task');
     EOL.ajax_get($(this).find("a"), {update: $update, type: 'GET'});
@@ -61,31 +66,38 @@ $(function() {
     return(false);
   });
   
-  
+  $('#worklist #task').ajaxSuccess(function() {
+    resize_task_panel();
+  });
 });
 
+$(window).load(function() {
+  resize_task_panel();
+});
+
+function resize_task_panel() {
+  if($('#task #sidebar').outerHeight() <= $('#tasks ul').outerHeight()) {
+    $('#task').css('height', $('#tasks ul').css('height'));
+  }
+}
 function update_active_indicator(message) {
   if(message == 'Saved') {
     $('#worklist #tasks li.active').removeClass('ignored');
     $('#worklist #tasks li.active').addClass('saved');
     $('#worklist #tasks li.active span.indicator').html(message);
-    $('#worklist #tasks li.active span.indicator').removeClass('invisible');
   }else if(message == 'Ignored') {
     $('#worklist #tasks li.active').removeClass('saved');
     if($('#worklist #tasks li.active').hasClass('ignored')) {
       $('#worklist #tasks li.active').removeClass('ignored');
       $('#worklist #tasks li.active span.indicator').html('');
-      $('#worklist #tasks li.active span.indicator').addClass('invisible');
     }else
     {
       $('#worklist #tasks li.active').addClass('ignored');
       $('#worklist #tasks li.active span.indicator').html(message);
-      $('#worklist #tasks li.active span.indicator').removeClass('invisible');
     }
   }else
   {
     $('#worklist #tasks li.active span.indicator').html(message);
-    $('#worklist #tasks li.active span.indicator').removeClass('invisible');
   }
 }
 

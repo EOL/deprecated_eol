@@ -5,9 +5,9 @@
       :render_taxon_overview_collection_summary => true })
   - else
     .header
-      %h3= I18n.t(:collections_summary_header_with_count, :count => count)
+      %h3= I18n.t(:collections_summary_header_with_count, :count => @taxon_concept.collections.select{ |c| !c.watch_collection? }.count)
       - if count > 1
-        = link_to I18n.t(:see_all_collections_with_count_html, :count => count), taxon_collections_path(@taxon_concept)
+        = link_to I18n.t(:see_all_collections_with_count_html, :count => count), taxon_community_path(@taxon_concept)
     %ul
       - @taxon_concept.top_collections.each do |collection|
         %li

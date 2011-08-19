@@ -54,8 +54,10 @@ class HierarchyEntry < SpeciesSchemaModel
   def self.sort_by_vetted(hierarchy_entries)
     hierarchy_entries.sort_by do |he|
       vetted_view_order = he.vetted.blank? ? 0 : he.vetted.view_order
+      browsable = he.hierarchy.browsable? ? 0 : 1
       [Invert(he.published),
        vetted_view_order,
+       browsable,
        he.taxon_concept_id,
        he.id]
     end
@@ -198,6 +200,14 @@ class HierarchyEntry < SpeciesSchemaModel
 
   def smart_image
     return images.blank? ? nil : images.first.smart_image
+  end
+
+  def source_database_agents
+    agents_roles.reject {|ar| ar.agent_role_id != AgentRole.source_database.id }.map(&:agent)
+  end
+
+  def source_agents
+    agents_roles.reject {|ar| ar.agent_role_id != AgentRole.source.id }.map(&:agent)
   end
 
   def agents_roles

@@ -1735,9 +1735,8 @@ body > #header {
         width: 100%;
         padding: 0 0 50px 0;
         background: white; }
-        #taxon .gallery .images .image > img {
+        #taxon .gallery .images .image > a img {
           display: block;
-          position: relative;
           margin: 0 auto; }
         #taxon .gallery .images .image span.flag {
           padding: 1px 2px;

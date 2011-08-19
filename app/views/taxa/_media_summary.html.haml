@@ -15,8 +15,8 @@
         - item_vetted_id = item_vetted.id unless item_vetted.nil?
         - item_vetted_label = item_vetted.label unless item_vetted.nil?
         .image
-          %img{:src => item.thumb_or_object('580_360'), :alt => alternative_text(item, en_type(item), @taxon_concept),
-            :data => { :data_object_id => item.id, :thumb => item.thumb_or_object('98_68') }}
+          %a{:href => data_object_path(item.id)}
+            %img{:src => item.thumb_or_object('580_360'), :alt => alternative_text(item, en_type(item), @taxon_concept), :data => { :data_object_id => item.id, :thumb => item.thumb_or_object('98_68') }}
 
           .details{:style => "position: absolute; top: 300px; left: 0px;"}
 

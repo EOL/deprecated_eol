@@ -24,7 +24,7 @@ $(function() {
       var $gallery = $(this),
           thumbs = [];
       $("<ul />", { "class": "thumbnails" }).insertBefore($gallery.find("p.all"));
-      $gallery.find(".image > img").each(function() {
+      $gallery.find(".image > a img").each(function() {
         var $e = $(this),
             li;
         if ($e.is("[data-thumb]")) {
@@ -43,12 +43,12 @@ $(function() {
     });
 
     var loading_complete = $ss.find(".image").length;
-    $ss.find(".image > img").each(function() {
+    $ss.find(".image > a img").each(function() {
       this.onload = function() {
         if (!--loading_complete) {
           var h = $ss.find(".images").height();
           h -= parseInt($ss.find(".image").css("padding-bottom"), 10);
-          $ss.find(".image > img").each(function() {
+          $ss.find(".image > a img").each(function() {
             var top = (h / 2 - this.height / 2);
             top = top < 0 ? 0 : top;
             $(this).css("top", top + "px");

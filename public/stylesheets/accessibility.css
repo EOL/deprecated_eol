@@ -640,7 +640,7 @@ body > #header .section .session.join {
 #map_image {
   height: 350px; }
 
-#media_summary .image > img {
+#media_summary .image > a img {
   max-width: 430px;
   max-height: 310px;
   width: expression(this.width > 430 ? "430px" : true);

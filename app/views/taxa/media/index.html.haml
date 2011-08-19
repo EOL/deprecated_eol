@@ -8,10 +8,10 @@
       %h3= I18n.t(:media)
       = render :partial => "media_sort_filter"
   #main
-    - if @media.total_entries == 0 || @taxon_concept.media_count(@selected_hierarchy_entry) == 0
+    - if @media.total_entries == 0 || @taxon_concept.media_count(current_user, @selected_hierarchy_entry) == 0
       .article
         .empty
-          - if @taxon_concept.media_count(@selected_hierarchy_entry) == 0
+          - if @taxon_concept.media_count(current_user, @selected_hierarchy_entry) == 0
             %p= I18n.t(:media_list_empty)
           - else
             %p= I18n.t(:media_list_empty_search)

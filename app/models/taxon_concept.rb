@@ -1302,15 +1302,19 @@ class TaxonConcept < SpeciesSchemaModel
     count += map_image_count
   end
   
-  def media_count(selected_hierarchy_entry = nil)
+  def media_count(user, selected_hierarchy_entry = nil)
     cache_key = "media_count_#{self.id}"
     cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
+    vetted_types = ['trusted', 'unreviewed']
+    if user && user.is_curator?
+      cache_key += "_curator"
+      vetted_types << 'untrusted'
+    end
     @media_count ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
       best_images = EOL::Solr::DataObjects.search_with_pagination(self.id, {
         :per_page => 1,
-        :sort_by => 'status',
         :data_type_ids => DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids,
-        :vetted_types => ['all'],
+        :vetted_types => vetted_types,
         :visibility_types => 'visible',
         :ignore_maps => true,
         :filter_hierarchy_entry => selected_hierarchy_entry,
@@ -1329,7 +1333,7 @@ class TaxonConcept < SpeciesSchemaModel
           :per_page => 1,
           :sort_by => 'status',
           :data_type_ids => DataType.image_type_ids,
-          :vetted_types => ['all'],
+          :vetted_types => ['trusted', 'unreviewed'],
           :visibility_types => 'visible',
           :filter_hierarchy_entry => selected_hierarchy_entry
         })
@@ -1346,7 +1350,7 @@ class TaxonConcept < SpeciesSchemaModel
       :per_page => limit,
       :sort_by => 'status',
       :data_type_ids => DataType.image_type_ids,
-      :vetted_types => ['all'],
+      :vetted_types => ['trusted', 'unreviewed'],
       :visibility_types => 'visible',
       :filter_hierarchy_entry => selected_hierarchy_entry
     })
@@ -1354,10 +1358,8 @@ class TaxonConcept < SpeciesSchemaModel
   
   
   def media_facet_counts
-    EOL::Solr::DataObjects.get_facet_counts(self.id)
+    @media_facet_counts ||= EOL::Solr::DataObjects.get_facet_counts(self.id)
   end
-  
-  
   
   def number_of_descendants
     connection.select_values("SELECT count(*) as count FROM taxon_concepts_flattened WHERE ancestor_id=#{self.id}")[0].to_i rescue 0

@@ -174,10 +174,13 @@ describe Taxa::MediaController do
       get :index, :taxon_id => @taxon_concept.id, :sort_by => 'rating'
       sorted_by_rating = assigns[:media]
       sorted_by_rating.first(3).should == highly_rated_unreviewed
-      sorted_by_rating.include?(@newest_image_poorly_rated_trusted).should be_false
-      sorted_by_rating.include?(@newest_video_poorly_rated_trusted).should be_false
-      sorted_by_rating.include?(@newest_sound_poorly_rated_trusted).should be_false
       sorted_by_default.should_not == sorted_by_rating
+      previous_rating = 50000
+      sorted_by_rating.each do |d|
+        d.data_rating.should <= previous_rating
+        previous_rating = d.data_rating
+      end
+      
     end
 
     it 'should sort media by newest' do
@@ -187,9 +190,6 @@ describe Taxa::MediaController do
 
       get :index, :taxon_id => @taxon_concept.id, :sort_by => 'newest'
       sorted_by_newest = assigns[:media]
-      sorted_by_newest.include?(@oldest_media[0]).should be_false
-      sorted_by_newest.include?(@oldest_media[1]).should be_false
-      sorted_by_newest.include?(@oldest_media[2]).should be_false
       sorted_by_newest.should_not == sorted_by_status
       previous_date = 100.days.ago
       sorted_by_newest.reverse.each do |d|

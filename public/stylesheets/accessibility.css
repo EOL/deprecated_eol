@@ -53,6 +53,8 @@ body > #footer ul.social_media li a.facebook {
   background-position: 0px -25px; }
 body > #footer ul.social_media li a.tumblr {
   background-position: 0px -75px; }
+body > #footer ul.social_media li a.flickr {
+  background-position: 0px -100px; }
 
 /*Override for layout on users edit - we have extra nested div so we need to remove padding,
  * we added extra fieldset - but check HR might give us an update for the fieldset */
@@ -946,3 +948,9 @@ form#new_collection_item fieldset.actions {
 
 #recognized_by span {
   font-size: 0.95em; }
+
+#taxon_updates form.comment {
+  margin: 0 0 15px;
+  border-bottom: 1px solid #d4dce2; }
+  #taxon_updates form.comment textarea {
+    width: 500px; }

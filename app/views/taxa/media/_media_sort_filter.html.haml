@@ -15,25 +15,30 @@
       %dd
         %ul
           - [:all, :image, :video, :sound].each do |opt|
-            %li
+            - count = @facets[opt.to_s] || 0
+            - item_class = (opt == :all || count > 0) ? nil : 'no_results'
+            %li{ :class => item_class }
               %label
                 = check_box_tag "type[]", opt, @type.include?(opt.to_s),
                   { :name => "type[]", :id => "type_#{opt.to_s}"}
-                = I18n.t("filter_by_type_#{opt}_option")
-
-  - if current_user.min_curator_level?(:full)
-    %fieldset
-      %dl
-        %dt
-          %label= I18n.t(:filter_by_status)
-        %dd
-          %ul
-            - [:all, :trusted, :unreviewed, :untrusted, :inappropriate].each do |opt|
-              %li
-                %label
-                  = check_box_tag "status[]", opt, @status.include?(opt.to_s),
-                    { :name => "status[]", :id => "status_#{opt.to_s}" }
-                  = I18n.t("filter_by_status_#{opt}_option")
+                - if count == 0
+                  = I18n.t("filter_by_type_#{opt}_option")
+                - else
+                  = I18n.t("filter_by_type_#{opt}_option_with_count", :count => count)
+  %fieldset
+    %dl
+      %dt
+        %label= I18n.t(:filter_by_status)
+      %dd
+        %ul
+          - statuses = [:all, :trusted, :unreviewed]
+          - statuses << :untrusted if current_user.is_curator?
+          - statuses.each do |opt|
+            %li
+              %label
+                = check_box_tag "status[]", opt, @status.include?(opt.to_s),
+                  { :name => "status[]", :id => "status_#{opt.to_s}" }
+                = I18n.t("filter_by_status_#{opt}_option")
 
   %fieldset.actions
     = submit_tag I18n.t(:filter_media), :name => nil

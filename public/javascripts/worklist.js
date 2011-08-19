@@ -61,9 +61,20 @@ $(function() {
     return(false);
   });
   
-  
+  $('#worklist #task').ajaxSuccess(function() {
+    resize_task_panel();
+  });
 });
 
+$(window).load(function() {
+  resize_task_panel();
+});
+
+function resize_task_panel() {
+  if($('#task').outerHeight() <= $('#tasks ul').outerHeight()) {
+    $('#task').css('height', $('#tasks ul').css('height'));
+  }
+}
 function update_active_indicator(message) {
   if(message == 'Saved') {
     $('#worklist #tasks li.active').removeClass('ignored');

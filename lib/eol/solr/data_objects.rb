@@ -87,7 +87,54 @@ module EOL
         res = open(url).read
         JSON.load res
       end
-
+      
+      def self.get_aggregated_media_facet_counts(taxon_concept_id, options = {})
+        url =  $SOLR_SERVER + $SOLR_DATA_OBJECTS_CORE + '/select/?wt=json&q='
+        url << CGI.escape("{!lucene}published:1 AND ancestor_id:#{taxon_concept_id} AND visible_ancestor_id:#{taxon_concept_id}")
+        if options[:filter_hierarchy_entry] && options[:filter_hierarchy_entry].class == HierarchyEntry
+          field_suffix = "ancestor_he_id"
+          search_id = options[:filter_hierarchy_entry].id
+          url << CGI.escape(" AND ancestor_he_id:#{options[:filter_hierarchy_entry].id}")
+        else
+          field_suffix = "ancestor_id"
+          search_id = taxon_concept_id
+        end
+        
+        options[:vetted_types] = ['trusted', 'unreviewed']
+        options[:vetted_types] << 'untrusted' if options[:user] && options[:user].is_curator?
+        url << CGI.escape(" AND (")
+        url << CGI.escape(options[:vetted_types].collect{ |t| "#{t}_#{field_suffix}:#{search_id}" }.join(' OR '))
+        url << CGI.escape(")")
+        
+        options[:data_type_ids] = DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids
+        url << CGI.escape(" AND (data_type_id:#{options[:data_type_ids].join(' OR data_type_id:')})")
+        # ignore maps
+        url << CGI.escape(" NOT data_subtype_id:#{DataType.map.id}")
+        
+        # we only need a couple fields
+        url << '&facet.field=data_type_id&facet=on&rows=0'
+        res = open(url).read
+        res = open(url).read
+        response = JSON.load(res)
+        facets = {}
+        f = response['facet_counts']['facet_fields']['data_type_id']
+        f.each_with_index do |rt, index|
+          next if index % 2 == 1 # if its odd, skip this. Solr has a strange way of returning the facets in JSON
+          data_type = DataType.find(rt.to_i)
+          key = data_type.label('en').downcase
+          facets[key] = f[index+1].to_i
+        end
+        facets['all'] = response['response']['numFound']
+        
+        facets["video"] ||= 0
+        facets["video"] += facets["youtube"] if facets["youtube"]
+        facets["video"] += facets["flash"] if facets["flash"]
+        facets.delete("youtube")
+        facets.delete("flash")
+        facets.delete("gbif image")
+        facets
+      end
+      
       def self.get_facet_counts(taxon_concept_id)
         facets = {}
         base_url =  $SOLR_SERVER + $SOLR_DATA_OBJECTS_CORE + '/select/?wt=json&q=' + CGI.escape(%Q[{!lucene}])
@@ -105,8 +152,10 @@ module EOL
               next if index % 2 == 1 # if its odd, skip this. Solr has a strange way of returning the facets in JSON
               data_type = DataType.find(rt.to_i)
               key = key_prefix + "_" + data_type.label('en').downcase
-              facets[key] = f[index+1]
+              facets[key] = f[index+1].to_i
             end
+            facets['all'] = response['response']['numFound']
+            
             facets[key_prefix + "_video"] ||= 0
             facets[key_prefix + "_video"] += facets[key_prefix + "_youtube"] if facets[key_prefix + "_youtube"]
             facets[key_prefix + "_video"] += facets[key_prefix + "_flash"] if facets[key_prefix + "_flash"]

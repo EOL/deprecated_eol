@@ -4,6 +4,7 @@
       %h1= I18n.t(:terms_agreement_form_header)
       %p= I18n.t(:terms_agreement_form_fallback, :terms_url => 'terms_of_use_path')
     - else
+      %p= I18n.t(:terms_agreement_beta_intro)
       %h1= I18n.t(:terms_agreement_form_header)
       = @terms.main_content
   %fieldset.actions

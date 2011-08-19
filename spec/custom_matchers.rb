@@ -1,5 +1,3 @@
-require 'rspec-custom-matchers'
-
 # a place for us to define our custom matchers
 #
 # do you want a custom matcher that has prettier

@@ -69,7 +69,7 @@ class DataObjectsController < ApplicationController
         redirect_to literature_taxon_literature_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}") if subchapter == 'literature'
         return
       end
-      
+
       redirect_to taxon_details_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}")
     end
   end
@@ -209,17 +209,17 @@ class DataObjectsController < ApplicationController
     begin
       entries = []
       entries = @data_object.all_associations
-      
+
       entries.each do |phe|
         comment = curation_comment(params["curation_comment_#{phe.id}"])
         vetted_id = params["vetted_id_#{phe.id}"].to_i
-        
+
         # make visibility hidden if curated as Inappropriate or Untrusted
         visibility_id = (vetted_id == Vetted.inappropriate.id || vetted_id == Vetted.untrusted.id) ? Visibility.invisible.id : params["visibility_id_#{phe.id}"].to_i
-        
+
         # check if the visibility has been changed
         visibility_changed = visibility_id.blank? ? false : (phe.visibility_id != visibility_id)
-        
+
         # explicitly mark visibility as changed if it is already hidden and marked as trusted or unreviewed from untrusted.
         # this is required as we don't ask for hide reasons while marking an association as untrusted
         # if we don't do this, code will grab the last hide reason for that association if it was marked as hidden in the past.
@@ -243,7 +243,7 @@ class DataObjectsController < ApplicationController
     end
     redirect_back_or_default
   end
-  
+
   def ignore
     return_to = params[:return_to] unless params[:return_to].blank?
     store_location(return_to)

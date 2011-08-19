@@ -10,21 +10,9 @@
       - if item.collection_item.nil?
         = I18n.t(:activity_user_added_unknown_item_to_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)))
       - else
-        - case item.collection_item.object_type
-        - when 'TaxonConcept'
-          = I18n.t(:activity_user_added_item_to_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)), :item => link_to(item.collection_item.object.summary_name, taxon_overview_path(item.collection_item.object)))
-        - when 'DataObject'
-          = I18n.t(:activity_user_added_item_to_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)), :item => link_to(item.collection_item.object.summary_name, data_object_path(item.collection_item.object)))
-        - when 'User'
-          = I18n.t(:activity_user_added_item_to_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)), :item => link_to(item.collection_item.object.summary_name, user_path(item.collection_item.object)))
-        - when 'Collection'
-          = I18n.t(:activity_user_added_item_to_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)), :item => link_to(item.collection_item.object.summary_name, collection_path(item.collection_item.object)))
-        - when 'Community'
-          = I18n.t(:activity_user_added_item_to_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)), :item => link_to(item.collection_item.object.summary_name, community_path(item.collection_item.object)))
-        - else
-          = I18n.t(:activity_user_added_item_to_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)), :item => item.collection_item.object.summary_name)
+        = I18n.t(:activity_user_added_item_to_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)), :item => link_to(item.collection_item.object.summary_name, link_to_item(item.collection_item.object)))
     - when Activity.remove.id
-      = I18n.t(:activity_user_removed_item_from_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)), :item => item.collection_item.object.summary_name)
+      = I18n.t(:activity_user_removed_item_from_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)), :item =>  link_to(item.collection_item.object.summary_name, link_to_item(item.collection_item.object)))
     - when Activity.remove_all.id
       = I18n.t(:activity_user_removed_all_items_from_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)))
     - else

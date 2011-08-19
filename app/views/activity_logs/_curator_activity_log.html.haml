@@ -2,44 +2,40 @@
   :posters_name => h(item.user.short_name))), user_path(item.user), :class => 'avatar'
 .details
   %p
-    - name_with_link =  link_to h(item.user.short_name), user_path(item.user)
+    -# TODO - these ChangeableObjectType checks are all failing because they are NOT on datos, they are on dohe and cdohe's.  Fix.
+    - name_with_link = link_to(h(item.user.short_name), user_path(item.user))
+    - object_link = item.data_object ? link_to(item.data_object.summary_name, data_object_path(item.data_object)) : nil
     - case item.activity_id
     - when Activity.trusted.id
-      - case item.changeable_object_type_id
-      - when ChangeableObjectType.data_object.id
-        = I18n.t(:activity_user_trusted_data_object, :user => name_with_link, :object_name => link_to(item.data_object.summary_name, data_object_path(item.data_object)))
+      - if object_link
+        = I18n.t(:activity_user_trusted_data_object, :user => name_with_link, :object_name => object_link)
       - else
         = I18n.t(:activity_user_trusted_unknown_object, :user => name_with_link)
     - when Activity.untrusted.id
-      - case item.changeable_object_type_id
-      - when ChangeableObjectType.data_object.id
-        = I18n.t(:activity_user_untrusted_data_object, :user => name_with_link, :object_name => link_to(item.data_object.summary_name, data_object_path(item.data_object)))
+      - if object_link
+        = I18n.t(:activity_user_untrusted_data_object, :user => name_with_link, :object_name => object_link)
       - else
         = I18n.t(:activity_user_untrusted_unknown_object, :user => name_with_link)
     - when Activity.show.id
-      - case item.changeable_object_type_id
-      - when ChangeableObjectType.data_object.id
-        = I18n.t(:activity_user_showed_data_object, :user => name_with_link, :object_name => link_to(item.data_object.summary_name, data_object_path(item.data_object)))
+      - if object_link
+        = I18n.t(:activity_user_showed_data_object, :user => name_with_link, :object_name => object_link)
       - else
         = I18n.t(:activity_user_showed_unknown_object, :user => name_with_link)
     - when Activity.hide.id
-      - case item.changeable_object_type_id
-      - when ChangeableObjectType.data_object.id
-        = I18n.t(:activity_user_hid_data_object, :user => name_with_link, :object_name => link_to(item.data_object.summary_name, data_object_path(item.data_object)))
+      - if object_link
+        = I18n.t(:activity_user_hid_data_object, :user => name_with_link, :object_name => object_link)
       - else
         = I18n.t(:activity_user_hid_unknown_object, :user => name_with_link)
     - when Activity.inappropriate.id
       = I18n.t(:activity_user_marked_content_as_inappropriate, :user => name_with_link)
     - when Activity.rate.id
-      - case item.changeable_object_type_id
-      - when ChangeableObjectType.data_object.id
-        = I18n.t(:activity_user_rated_data_object, :user => name_with_link, :object_name => link_to(item.data_object.summary_name, data_object_path(item.data_object)))
+      - if object_link
+        = I18n.t(:activity_user_rated_data_object, :user => name_with_link, :object_name => object_link)
       - else
         = I18n.t(:activity_user_rated_unknown_object, :user => name_with_link)
     - when Activity.unreviewed.id
-      - case item.changeable_object_type_id
-      - when ChangeableObjectType.data_object.id
-        = I18n.t(:activity_user_unreviewed_data_object, :user => name_with_link, :object_name => link_to(item.data_object.summary_name, data_object_path(item.data_object)))
+      - if object_link
+        = I18n.t(:activity_user_unreviewed_data_object, :user => name_with_link, :object_name => object_link)
       - else
         = I18n.t(:activity_user_unreviewed_unknown_object, :user => name_with_link)
     - when Activity.add_association.id

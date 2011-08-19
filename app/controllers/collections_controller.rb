@@ -60,12 +60,13 @@ class CollectionsController < ApplicationController
   def update
     return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect) if params[:commit_sort]
     return redirect_to_choose(:copy) if params[:commit_copy]
+    return chosen if params[:scope] && params[:for] = 'copy'
     # copy is the only update action allowed for non-owners
     return if user_able_to_edit_collection
+    return chosen if params[:scope] # Note that updating the collection params doesn't specify a scope.
     return redirect_to_choose(:move) if params[:commit_move]
     return remove_and_redirect if params[:commit_remove]
     return annotate if params[:commit_annotation]
-    return chosen if params[:scope] # Note that updating the collection params doesn't specify a scope.
     if @collection.update_attributes(params[:collection])
       upload_logo(@collection) unless params[:collection][:logo].blank?
       flash[:notice] = I18n.t(:collection_updated_notice, :collection_name => @collection.name) if
@@ -281,9 +282,11 @@ private
         @duplicates = true
       else
         old_collection_items << collection_item
+        # Annotations may only be copied when the user has a right to edit them. This avoids some IP problems.
+        annotate = options[:from].editable_by?(current_user) ? collection_item.annotation : nil
         new_collection_items << { :object_id => collection_item.object.id,
                                   :object_type => collection_item.object_type,
-                                  :annotation => collection_item.annotation,
+                                  :annotation => annotate,
                                   :added_by_user_id => current_user.id }
         count += 1
         # TODO - gak.  This points to the wrong collection item and needs to be moved to AFTER the save:
@@ -343,11 +346,12 @@ private
     count = 0
     collection_items.each do |item|
       item = CollectionItem.find(item) # Sometimes, this is just an id.
+      removed_from_id = item.collection_id
       if item.update_attribute(:collection_id, nil) # Not actually destroyed, so that we can talk about it in feeds.
         item.remove_collection_item_from_solr # TODO - needed?  Or does the #after_save method handle this?
         count += 1
         unless bulk_log
-          CollectionActivityLog.create(:collection => @collection, :user => current_user,
+          CollectionActivityLog.create(:collection_id => removed_from_id, :user => current_user,
                                        :activity => Activity.remove, :collection_item => item)
         end
       end

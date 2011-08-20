@@ -1,48 +1,24 @@
-- data_object ||= @data_object
 - en_type ||= en_type(@data_object)
-- # TODO: Looks like HR have moved from using article to text css class - need to check across the site and adjust en_type
-#permalink{:class => en_type == 'article' ? 'text' : en_type}
-  #main
-    %div{:class => @data_object.is_text? ? 'article copy' : 'media'}
-      - if @data_object.is_text? && ! @data_object.object_title.blank?
-        %h2= @data_object.object_title
-      = render :partial => "data_objects/data_object_#{en_type}", :locals => { :size => '580_360' }
-    - unless @data_object.is_text? # NOTE - if it IS text, it was already shown, above.
-      .article
-        .header
-          %h3= I18n.t(:description)
-        .copy
-          = sanitize @data_object.description.balance_tags
-    .article.list.updates
-      .header
-        %h3= I18n.t(:add_a_taxon_association_label)
-    - form_tag({:controller => 'data_objects', :action => 'add_association'}) do
-      = hidden_field_tag 'id', data_object.id
-      -# = label_tag 'add_association', I18n.t(:add_a_taxon_association_label)
-      -# = link_to I18n.t(:go_back), data_object_path(data_object)
-      = text_field_tag 'name'
-      = submit_tag I18n.t(:find_taxa_submit_button), :class => 'button'
-      - unless @concepts.blank?
-        %p= "#{@concepts.count} taxa found"
-        %ul.object_list
-          - @concepts.each do |result|
-            - result_instance = result['instance']
-            - unless result_instance.nil? # TODO: result_instance is sometimes nil - remove this comment if that is okay, or fix if not.
-              - en_type = en_type(result_instance)
-              %li{:class => en_type}
-                - if en_type == "taxon"
-                  = render :partial => "shared/item_summary_hierarchy_entry.html.haml", :locals => { :item => result_instance, :data_object => data_object }
-  #sidebar
-    .article.list
-      .header
-        %h3= I18n.t("associated_with_#{en_type(@data_object)}_header")
-      = render :partial => 'associations_index'
-    .article.source
-      .header
-        %h3= I18n.t(:source_information_header)
-      = render :partial => 'attribution'
-      - if data_object.is_image?
-        %p= link_to I18n.t(:view_full_size_image), data_object.thumb_or_object(:orig)
-      - if data_object.is_sound?
-        - en_mime_type = data_object.mime_type ? data_object.mime_type.label('en') : DataType.sound.simple_type
-        %p= link_to I18n.t("download_#{en_mime_type.sub(/\//, '_')}"), data_object.sound_url, { :title => I18n.t("download_#{en_mime_type.sub(/\//, '_')}_assistive") }
+- unless @all_results.blank?
+  .header
+    - start_number = (@all_results.current_page - 1) * @all_results.per_page + 1
+    - end_number = [ (start_number + @all_results.per_page - 1), @all_results.total_entries ].min
+    %h3= I18n.t(:displaying_numerical_range, :start_number => start_number, :end_number => end_number, :total => @all_results.total_entries)
+    = will_paginate @all_results, |
+      :previous_label => I18n.t(:pagination_previous_with_count, :count => @all_results.per_page), |
+      :next_label => I18n.t(:pagination_next_with_count, :count => @all_results.per_page), |
+      :page_links=>false
+%ul
+  - @all_results.each do |result|
+    - result_instance = result['instance']
+    - unless result_instance.nil? # TODO: result_instance is sometimes nil - remove this comment if that is okay, or fix if not.
+      - en_type = en_type(result_instance)
+      - if en_type == "taxon"
+        %li.taxon
+          = render :partial => "add_association.html.haml", :locals => { :item => result_instance, :data_object => @data_object }
+  .footer
+    = will_paginate @all_results, |
+    :previous_label => I18n.t(:pagination_previous_with_count, :count => @all_results.per_page), |
+    :next_label => I18n.t(:pagination_next_with_count, :count => @all_results.per_page), |
+    :page_links=>false
+  

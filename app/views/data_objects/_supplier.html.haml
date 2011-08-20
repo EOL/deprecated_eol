@@ -5,7 +5,11 @@
     - if agent.user && agent.user.content_partner
       = link_to agent.user.content_partner.full_name,  content_partner_path(:id => agent.user.content_partner.id)
     - else
-      = agent.full_name
+      - content_partner = ContentPartner.find_by_full_name(agent.full_name)
+      - unless content_partner.blank?
+        = link_to content_partner.full_name,  content_partner_path(:id => content_partner.id)
+      - else
+        = agent.full_name
   - else
     - unless data_object.users_data_object.blank?
       = I18n.t(:supplier_colon) + " "

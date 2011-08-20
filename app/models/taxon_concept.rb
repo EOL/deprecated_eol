@@ -252,9 +252,7 @@ class TaxonConcept < SpeciesSchemaModel
     datos_to_load = []
     toc_items.each do |toc_item|
       unless toc_item.nil?
-
-        items = text_objects.select{ |t| t.toc_items && t.toc_items.include?(toc_item) && t[:language_id]==Language.id_from_iso(options[:language])}
-
+        items = text_objects.select{ |t| t.toc_items && t.toc_items.include?(toc_item) && t[:language_id] == Language.id_from_iso(options[:language])}
         unless items.blank? || items.nil?
           if options[:limit].nil? || options[:limit].to_i == 0
             datos_to_load += items
@@ -411,10 +409,10 @@ class TaxonConcept < SpeciesSchemaModel
   def has_details?
     exclude = TocItem.exclude_from_details.map(&:id)
     dato_toc_items = data_objects.select{ |d| d.is_text? }
-    return false unless dato_toc_items && ! dato_toc_items.empty?
-    dato_toc_items.map(&:toc_items).flatten.reject {|i| exclude.include?(i.id) }
-    return false unless dato_toc_items && ! dato_toc_items.empty?
-    return true
+    return false unless dato_toc_items && ! dato_toc_items.empty? # No text at all.
+    dato_toc_items.map(&:toc_items).flatten.reject {|i| exclude.include?(i.id) } # Only things from details tab.
+    return false unless dato_toc_items && ! dato_toc_items.empty? # Nothing on details tab.
+    return true # Something's left; we must have details...
   end
 
   def has_outlinks?

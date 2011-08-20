@@ -1,10 +1,13 @@
+= javascript_include_tag "taxonomy"
 #content
   #taxon_literature.site_column
     = render :partial => 'resources_menu'
     .main_container.copy
-      %h2= I18n.t(:education)
-      .section
-      - unless @contents.blank?
-        = render :partial => 'taxa/details/category_content', :locals => { :content => @contents }
-      - else
-        = I18n.t(:education_empty)
+      #taxon_detail
+        #main
+          %h2= I18n.t(:education)
+          .section
+          - unless @contents.blank?
+            = render :partial => 'taxa/details/category_content', :locals => { :content => @contents }
+          - else
+            = I18n.t(:education_empty)

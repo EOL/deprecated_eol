@@ -73,7 +73,12 @@ class Resource < SpeciesSchemaModel
 
   def self.ligercat
     cached('ligercat') do
-      Agent.boa.user.content_partner.resources[0]
+      unless Agent.boa.user.blank?
+        Agent.boa.user.content_partner.resources[0]
+      else
+        content_partner = ContentPartner.find_by_full_name(Agent.boa.full_name)
+        content_partner.resources[0]
+      end
     end
   end
 

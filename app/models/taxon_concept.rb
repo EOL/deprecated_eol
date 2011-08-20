@@ -252,9 +252,7 @@ class TaxonConcept < SpeciesSchemaModel
     datos_to_load = []
     toc_items.each do |toc_item|
       unless toc_item.nil?
-
-        items = text_objects.select{ |t| t.toc_items && t.toc_items.include?(toc_item) && t[:language_id]==Language.id_from_iso(options[:language])}
-
+        items = text_objects.select{ |t| t.toc_items && t.toc_items.include?(toc_item) && t[:language_id] == Language.id_from_iso(options[:language])}
         unless items.blank? || items.nil?
           if options[:limit].nil? || options[:limit].to_i == 0
             datos_to_load += items

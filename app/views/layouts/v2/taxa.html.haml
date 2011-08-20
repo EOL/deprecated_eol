@@ -29,7 +29,7 @@
         %ul
           %li
             = render :partial => 'shared/add_to_my_collection', :locals => { :item => @taxon_concept, :my_collection => @watch_collection }
-          - if current_page?(:controller => 'taxa/details', :action => 'index')
+          - if current_page?(:controller => 'taxa/details', :action => 'index') || current_page?(:controller => 'taxa/resources', :action => 'show') || current_page?(:controller => 'taxa/resources', :action => 'education') || current_page?(:controller => 'taxa/resources', :action => 'identification_resources')
             %li= link_to I18n.t(:add_article_to_page_link_button), new_taxon_data_object_path(@taxon_concept), :class => 'button'
           - if @selected_hierarchy_entry
             %li= link_to I18n.t(:show_data_from_all_content_partners), taxon_overview_path(@taxon_concept)

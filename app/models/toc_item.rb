@@ -123,6 +123,78 @@ class TocItem < SpeciesSchemaModel
     cached_find_translated(:label, label, :include => [ :info_items, { :parent => :info_items } ])
   end
 
+  def self.exclude_from_details
+    temp = []
+    # Education:
+    temp = temp | ["Education", "Education Resources"] # to Resource tab
+    # Physical Description:
+    temp = temp | ["Identification Resources"] # to Resource tab
+    # Molecular Biology and Genetics:
+    temp = temp | ["Nucleotide Sequences"] # to Resource tab
+    # References and More Information:
+    temp = temp | ["Search the Web"] # to be removed
+    temp = temp | ["Literature References", "Biodiversity Heritage Library", "Bibliographies", "Bibliography"] # to Literature Tab
+    temp = temp | ["Biomedical Terms", "On the Web"] # to Resources tab
+    # Names and Taxonomy: ---> Names Tab
+    temp = temp | ["Related Names", "Synonyms", "Common Names"]
+    # Page Statistics:
+    temp = temp | ["Content Summary"] # to Updates tab
+    # Resources:
+    temp = temp | ["Content Partners"] # to Resource tab
+    temp
+  end
+
+  def self.last_major_chapter
+    TocItem.find_all_by_parent_id(0, :order => 'view_order desc')[0]
+  end
+
+  def self.swap_enries(toc1, toc2)
+    return unless toc1.class==TocItem && toc2.class==TocItem
+    return if toc1.is_major? != toc2.is_major?
+
+    if toc1.is_sub?
+      swap_view_order = toc1.view_order
+      toc1.view_order = toc2.view_order
+      toc2.view_order = swap_view_order
+      toc1.save
+      toc2.save
+    else
+      # make sure toc1 is higher in the list
+      if toc1.view_order > toc2.view_order
+        toc1, toc2 = toc2, toc1
+      end
+      to_subtract = toc1.chapter_length
+      TocItem.connection.execute("UPDATE table_of_contents SET view_order=view_order+#{toc2.chapter_length} WHERE id=#{toc1.id} OR parent_id=#{toc1.id}")
+      TocItem.connection.execute("UPDATE table_of_contents SET view_order=view_order-#{to_subtract} WHERE id=#{toc2.id} OR parent_id=#{toc2.id}")
+    end
+  end
+
+  def self.selectable_toc
+    InfoItem
+    cached("selectable_toc/#{I18n.locale}") {
+      all = TocItem.find(:all, :include => :info_items).reject {|toc|
+        toc.info_items.empty? || ['Wikipedia', 'Barcode'].include?(toc.label('en'))
+      }.sort_by { |toc| toc.label.to_s }
+    }
+  end
+
+  def self.roots
+    TocItem.find_all_by_parent_id(0, :order => 'view_order', :include => :info_items)
+  end
+
+  def self.whole_tree
+    TocItem.all(:order => 'view_order', :include => :info_items)
+  end
+
+  def self.add_major_chapter(new_label)
+    return if new_label.blank?
+    max_view_order = TocItem.connection.select_values("SELECT max(view_order) FROM table_of_contents")[0].to_i
+    next_view_order = max_view_order + 1
+    TocItem.create(:parent_id => 0, :view_order => next_view_order)
+    new_toc_item_id = TocItem.connection.select_values("SELECT max(id) FROM table_of_contents")[0].to_i
+    TranslatedTocItem.create(:table_of_contents_id => new_toc_item_id, :language_id => Language.english.id, :label => new_label)
+  end
+
   def object_count
     counts = TocItem.toc_object_counts
     return counts[id] || 0
@@ -140,29 +212,12 @@ class TocItem < SpeciesSchemaModel
     self.info_items.length > 0 && !["Wikipedia", "Barcode"].include?(self.label('en'))
   end
 
-  def self.selectable_toc
-    InfoItem
-    cached("selectable_toc/#{I18n.locale}") {
-      all = TocItem.find(:all, :include => :info_items).reject {|toc|
-        toc.info_items.empty? || ['Wikipedia', 'Barcode'].include?(toc.label('en'))
-      }.sort_by { |toc| toc.label.to_s }
-    }
-  end
-
   def wikipedia?
     self.label('en') == "Wikipedia"
   end
 
-  def self.roots
-    TocItem.find_all_by_parent_id(0, :order => 'view_order', :include => :info_items)
-  end
-
   def children
     TocItem.find_all_by_parent_id(self.id, :order => 'view_order', :include => :info_items)
-  end
-
-  def self.whole_tree
-    TocItem.all(:order => 'view_order', :include => :info_items)
   end
 
   def add_child(new_label)
@@ -172,14 +227,6 @@ class TocItem < SpeciesSchemaModel
     next_view_order = max_view_order + 1
     TocItem.connection.execute("UPDATE table_of_contents SET view_order=view_order+1 WHERE view_order >= #{next_view_order}")
     TocItem.create(:parent_id => id, :view_order => next_view_order)
-    new_toc_item_id = TocItem.connection.select_values("SELECT max(id) FROM table_of_contents")[0].to_i
-    TranslatedTocItem.create(:table_of_contents_id => new_toc_item_id, :language_id => Language.english.id, :label => new_label)
-  end
-  def self.add_major_chapter(new_label)
-    return if new_label.blank?
-    max_view_order = TocItem.connection.select_values("SELECT max(view_order) FROM table_of_contents")[0].to_i
-    next_view_order = max_view_order + 1
-    TocItem.create(:parent_id => 0, :view_order => next_view_order)
     new_toc_item_id = TocItem.connection.select_values("SELECT max(id) FROM table_of_contents")[0].to_i
     TranslatedTocItem.create(:table_of_contents_id => new_toc_item_id, :language_id => Language.english.id, :label => new_label)
   end
@@ -219,27 +266,6 @@ class TocItem < SpeciesSchemaModel
           TocItem.swap_enries(previous_toc, self)
         end
       end
-    end
-  end
-
-  def self.swap_enries(toc1, toc2)
-    return unless toc1.class==TocItem && toc2.class==TocItem
-    return if toc1.is_major? != toc2.is_major?
-
-    if toc1.is_sub?
-      swap_view_order = toc1.view_order
-      toc1.view_order = toc2.view_order
-      toc2.view_order = swap_view_order
-      toc1.save
-      toc2.save
-    else
-      # make sure toc1 is higher in the list
-      if toc1.view_order > toc2.view_order
-        toc1, toc2 = toc2, toc1
-      end
-      to_subtract = toc1.chapter_length
-      TocItem.connection.execute("UPDATE table_of_contents SET view_order=view_order+#{toc2.chapter_length} WHERE id=#{toc1.id} OR parent_id=#{toc1.id}")
-      TocItem.connection.execute("UPDATE table_of_contents SET view_order=view_order-#{to_subtract} WHERE id=#{toc2.id} OR parent_id=#{toc2.id}")
     end
   end
 
@@ -304,10 +330,6 @@ class TocItem < SpeciesSchemaModel
 
   def is_sub?
     return parent_id != 0
-  end
-
-  def self.last_major_chapter
-    TocItem.find_all_by_parent_id(0, :order => 'view_order desc')[0]
   end
 
   def is_reserved?

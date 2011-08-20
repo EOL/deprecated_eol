@@ -33,28 +33,9 @@ class Taxa::DetailsController < TaxaController
     @details = @taxon_concept.details_for_toc_items(ContentTable.details.toc_items, :language => current_user.language_abbr)
 
     toc_items_to_show = @details.blank? ? [] : @details.collect{|d| d[:toc_item]}
-    
-    # toc_items to exclude in Details tab
-    temp = []
-    # Education:
-    temp = temp | ["Education", "Education Resources"] # to Resource tab
-    # Physical Description:
-    temp = temp | ["Identification Resources"] # to Resource tab
-    # Molecular Biology and Genetics:
-    temp = temp | ["Nucleotide Sequences"] # to Resource tab
-    # References and More Information: 
-    temp = temp | ["Search the Web"] # to be removed
-    temp = temp | ["Literature References", "Biodiversity Heritage Library", "Bibliographies", "Bibliography"] # to Literature Tab
-    temp = temp | ["Biomedical Terms", "On the Web"] # to Resources tab
-    # Names and Taxonomy: ---> Names Tab
-    temp = temp | ["Related Names", "Synonyms", "Common Names"]
-    # Page Statistics:
-    temp = temp | ["Content Summary"] # to Updates tab
 
-    temp = temp | ["Content Partners"] # to Resource tab
-
-    # exclude selected toc_items
-    toc_items_to_show.delete_if {|ti| temp.include?(ti.label)}
+    exclude = TocItem.exclude_from_details
+    toc_items_to_show.delete_if {|ti| exclude.include?(ti.label) }
     @toc = TocBuilder.new.toc_for_toc_items(toc_items_to_show)
     @exemplar_image = @taxon_concept.taxon_concept_exemplar_image.data_object unless @taxon_concept.taxon_concept_exemplar_image.blank?
     @exemplar_image ||= @taxon_concept.best_image_from_solr(@selected_hierarchy_entry)

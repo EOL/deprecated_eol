@@ -242,41 +242,19 @@ class TaxonConcept < SpeciesSchemaModel
   #   :required will return the next available text object if no text is returned by toc_items
   #   :limit returns a subset of objects for each toc_item
   def text_objects_for_toc_items(toc_items, options={})
-    datos_to_load = datos_to_load_for_toc_items(toc_items, options)
-    return nil if (! datos_to_load) || datos_to_load.empty?
-    add_include = [
-      :translations, :data_object_translation, :users_data_objects_ratings, :comments, :agents_data_objects,
-      :info_items, :toc_items, { :users_data_object => [:user, :taxon_concept, :vetted, :visibility] },
-      { :published_refs => { :ref_identifiers => :ref_identifier_type } }, :all_comments
-    ]
-    add_select = {
-      :users_data_objects_ratings => '*',
-      :refs => '*',
-      :ref_identifiers => '*',
-      :ref_identifier_types => '*',
-      :users => '*',
-      :data_object_translations => '*',
-      :comments => [:parent_id, :visible_at]
-    }
-    objects = DataObject.core_relationships(:add_include => add_include, :add_select => add_select).
-        find_all_by_id(datos_to_load.collect{ |d| d.id })
-    if options[:user] && options[:user].is_curator? && options[:user].min_curator_level?(:full)
-      DataObject.preload_associations(objects, :users_data_objects_ratings,
-                                      :conditions => "users_data_objects_ratings.user_id=#{options[:user].id}")
-    end
-    objects
-  end
-
-  def datos_to_load_for_toc_items(toc_items, options = {})
     options[:language] ||= 'en'
     text_objects = text
+
     return nil if text_objects.empty? || text_objects.nil?
     toc_items = [toc_items] unless toc_items.is_a?(Array)
     text_objects = DataObject.sort_by_rating(text_objects, self)
+
     datos_to_load = []
     toc_items.each do |toc_item|
       unless toc_item.nil?
+
         items = text_objects.select{ |t| t.toc_items && t.toc_items.include?(toc_item) && t[:language_id]==Language.id_from_iso(options[:language])}
+
         unless items.blank? || items.nil?
           if options[:limit].nil? || options[:limit].to_i == 0
             datos_to_load += items
@@ -289,6 +267,28 @@ class TaxonConcept < SpeciesSchemaModel
       end
     end
     datos_to_load << text_objects[0] if datos_to_load.blank? && options[:required]
+
+    return nil if datos_to_load.empty?
+
+    add_include = [ :translations, :data_object_translation, :users_data_objects_ratings, :comments, :agents_data_objects, :info_items, :toc_items, { :users_data_object => [:user, :taxon_concept, :vetted, :visibility] },
+      { :published_refs => { :ref_identifiers => :ref_identifier_type } }, :all_comments]
+    add_select = {
+      :users_data_objects_ratings => '*',
+      :refs => '*',
+      :ref_identifiers => '*',
+      :ref_identifier_types => '*',
+      :users => '*',
+      :data_object_translations => '*',
+      :comments => [:parent_id, :visible_at] }
+
+    objects = DataObject.core_relationships(:add_include => add_include, :add_select => add_select).
+        find_all_by_id(datos_to_load.collect{ |d| d.id })
+    if options[:user] && options[:user].is_curator? && options[:user].min_curator_level?(:full)
+      DataObject.preload_associations(objects, :users_data_objects_ratings, :conditions => "users_data_objects_ratings.user_id=#{options[:user].id}")
+    end
+
+    objects
+
   end
 
   # Return a list of data objects associated with this TC's Overview toc (returns nil if it doesn't have one)
@@ -409,71 +409,12 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def has_details?
-    items = text_objects_for_toc_items(ContentTable.details.toc_items, :language => current_user.language_abbr)
-    return false if items.nil?
-    return !items.empty?
-  end
-
-  def has_feed?
-    feed_object = FeedDataObject.find_by_taxon_concept_id(self.id, :limit => 1)
-    return !feed_object.blank?
-  end
-
-  def has_map
-    return true if gbif_map_id
-  end
-
-  def has_stats?
-    HierarchyEntryStat.count_by_sql("SELECT 1
-      FROM hierarchy_entries he
-      JOIN hierarchies h ON (he.hierarchy_id = h.id)
-      JOIN hierarchy_entry_stats hes ON (he.id = hes.hierarchy_entry_id)
-      WHERE he.taxon_concept_id = #{self.id}
-      AND h.browsable = 1
-      AND he.published = 1
-      AND he.visibility_id = #{Visibility.visible.id}
-      LIMIT 1") > 0
-  end
-
-  def has_related_names?
-    entries_with_parents = published_hierarchy_entries.select{ |he| he.hierarchy.browsable? && he.parent_id != 0 }
-    return true unless entries_with_parents.empty?
-    return TaxonConcept.count_by_sql("SELECT 1
-                                      FROM hierarchy_entries he
-                                      JOIN hierarchy_entries he_children ON (he.id=he_children.parent_id)
-                                      JOIN hierarchies h ON (he_children.hierarchy_id=h.id)
-                                      WHERE he.taxon_concept_id=#{id}
-                                      AND h.browsable=1
-                                      AND he_children.published=1
-                                      LIMIT 1") > 0
-  end
-
-  def has_synonyms?
-    return TaxonConcept.count_by_sql("SELECT 1
-      FROM hierarchy_entries he
-      JOIN hierarchies h ON (he.hierarchy_id = h.id)
-      JOIN synonyms s ON (he.id = s.hierarchy_entry_id)
-      WHERE he.taxon_concept_id = #{self.id}
-      AND he.published = 1
-      AND h.browsable = 1
-      AND s.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})
-      LIMIT 1") > 0
-  end
-
-  def has_common_names?
-    return TaxonConcept.count_by_sql("SELECT 1
-      FROM hierarchy_entries he
-      JOIN hierarchies h ON (he.hierarchy_id = h.id)
-      JOIN synonyms s ON (he.id = s.hierarchy_entry_id)
-      WHERE he.taxon_concept_id = #{self.id}
-      AND he.published = 1
-      AND h.browsable = 1
-      AND s.synonym_relation_id IN (#{SynonymRelation.common_name_ids.join(',')})
-      LIMIT 1") > 0
-  end
-
-  def has_literature_references?
-    Ref.literature_references_for?(self.id)
+    exclude = TocItem.exclude_from_details.map(&:id)
+    dato_toc_items = data_objects.select{ |d| d.is_text? }
+    return false unless dato_toc_items && ! dato_toc_items.empty?
+    dato_toc_items.map(&:toc_items).flatten.reject {|i| exclude.include?(i.id) }
+    return false unless dato_toc_items && ! dato_toc_items.empty?
+    return true
   end
 
   def has_outlinks?
@@ -691,6 +632,10 @@ class TaxonConcept < SpeciesSchemaModel
 
   def self.find_entry_in_hierarchy(taxon_concept_id, hierarchy_id)
     return HierarchyEntry.find_by_sql("SELECT he.* FROM hierarchy_entries he WHERE taxon_concept_id=#{taxon_concept_id} AND hierarchy_id=#{hierarchy_id} LIMIT 1").first
+  end
+
+  def has_map
+    return true if gbif_map_id
   end
 
   def quick_common_name(language = nil, hierarchy = nil)
@@ -1114,6 +1059,60 @@ class TaxonConcept < SpeciesSchemaModel
                          WHERE tcn.taxon_concept_id = ? AND vern = 0', id])
   end
 
+  def has_stats?
+    HierarchyEntryStat.count_by_sql("SELECT 1
+      FROM hierarchy_entries he
+      JOIN hierarchies h ON (he.hierarchy_id = h.id)
+      JOIN hierarchy_entry_stats hes ON (he.id = hes.hierarchy_entry_id)
+      WHERE he.taxon_concept_id = #{self.id}
+      AND h.browsable = 1
+      AND he.published = 1
+      AND he.visibility_id = #{Visibility.visible.id}
+      LIMIT 1") > 0
+  end
+
+  def has_related_names?
+    entries_with_parents = published_hierarchy_entries.select{ |he| he.hierarchy.browsable? && he.parent_id != 0 }
+    return true unless entries_with_parents.empty?
+    return TaxonConcept.count_by_sql("SELECT 1
+                                      FROM hierarchy_entries he
+                                      JOIN hierarchy_entries he_children ON (he.id=he_children.parent_id)
+                                      JOIN hierarchies h ON (he_children.hierarchy_id=h.id)
+                                      WHERE he.taxon_concept_id=#{id}
+                                      AND h.browsable=1
+                                      AND he_children.published=1
+                                      LIMIT 1") > 0
+  end
+
+  def has_synonyms?
+    return TaxonConcept.count_by_sql("SELECT 1
+      FROM hierarchy_entries he
+      JOIN hierarchies h ON (he.hierarchy_id = h.id)
+      JOIN synonyms s ON (he.id = s.hierarchy_entry_id)
+      WHERE he.taxon_concept_id = #{self.id}
+      AND he.published = 1
+      AND h.browsable = 1
+      AND s.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})
+      LIMIT 1") > 0
+  end
+
+  def has_common_names?
+    return TaxonConcept.count_by_sql("SELECT 1
+      FROM hierarchy_entries he
+      JOIN hierarchies h ON (he.hierarchy_id = h.id)
+      JOIN synonyms s ON (he.id = s.hierarchy_entry_id)
+      WHERE he.taxon_concept_id = #{self.id}
+      AND he.published = 1
+      AND h.browsable = 1
+      AND s.synonym_relation_id IN (#{SynonymRelation.common_name_ids.join(',')})
+      LIMIT 1") > 0
+  end
+
+  def has_literature_references?
+    Ref.literature_references_for?(self.id)
+  end
+
+
   def add_common_name_synonym(name_string, options = {})
     agent     = options[:agent]
     preferred = !!options[:preferred]
@@ -1130,6 +1129,11 @@ class TaxonConcept < SpeciesSchemaModel
     language_id = taxon_concept_name.language.id
     syn_id = taxon_concept_name.synonym.id
     Synonym.find(syn_id).destroy
+  end
+
+  def has_feed?
+    feed_object = FeedDataObject.find_by_taxon_concept_id(self.id, :limit => 1)
+    return !feed_object.blank?
   end
 
   # This needs to work on both TCNs and Synonyms.  Which, of course, smells like bad design, so.... TODO - review.
@@ -1330,9 +1334,6 @@ class TaxonConcept < SpeciesSchemaModel
   def best_image_from_solr(selected_hierarchy_entry = nil)
     cache_key = "best_image_#{self.id}"
     cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
-    # there's some strange problem here where I was getting the error: undefined class/module TaxonConceptExemplarImage
-    # simply placing the class name here will force the app to load the class, thus defining it
-    TaxonConceptExemplarImage
     @best_image ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
       if self.taxon_concept_exemplar_image
         self.taxon_concept_exemplar_image.data_object

@@ -95,9 +95,9 @@ Rails::Initializer.run do |config|
   $IMAGE_LIMIT = 200
 
   # THIS IS WHERE ALL THE IMAGES/VIDEOS LIVE:
-#  $CONTENT_SERVERS = ['http://content1.eol.org/', 'http://content2.eol.org/', 'http://content3.eol.org/', 'http://content4.eol.org/', 'http://content5.eol.org/',
-#                      'http://content6.eol.org/', 'http://content7.eol.org/', 'http://content8.eol.org/', 'http://content9.eol.org/', 'http://content10.eol.org/']
-  $CONTENT_SERVERS = ['http://localhost/']
+  $CONTENT_SERVERS = ['http://content1.eol.org/', 'http://content2.eol.org/', 'http://content3.eol.org/', 'http://content4.eol.org/', 'http://content5.eol.org/',
+                      'http://content6.eol.org/', 'http://content7.eol.org/', 'http://content8.eol.org/', 'http://content9.eol.org/', 'http://content10.eol.org/']
+  #$CONTENT_SERVERS = ['http://localhost/']
   $CONTENT_SERVER_CONTENT_PATH = "content" # if you put leading and trailing slashes here you get double slashes in the URLs, which work fine but aren't right
   $CONTENT_SERVER_RESOURCES_PATH = "/resources/"
   $CONTENT_SERVER_AGENT_LOGOS_PATH = "/content_partners/"
@@ -187,7 +187,8 @@ Rails::Initializer.run do |config|
   $WEB_SERVICE_BASE_URL = '' # web service is used for importing content partners' data
 
 
-  $SOLR_SERVER = 'http://localhost:8983/solr/'
+  #$SOLR_SERVER = 'http://localhost:8983/solr/'
+  $SOLR_SERVER = 'http://10.19.19.244:8983/solr/'
   $SOLR_TAXON_CONCEPTS_CORE = 'taxon_concepts'
   $SOLR_DATA_OBJECTS_CORE = 'data_objects'
   $SOLR_SITE_SEARCH_CORE = 'site_search'

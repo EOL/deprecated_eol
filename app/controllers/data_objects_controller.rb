@@ -132,6 +132,7 @@ class DataObjectsController < ApplicationController
 
     respond_to do |format|
       if rated_successfully
+        @data_object.update_solr_index
         flash[:notice] = I18n.t(:rating_added_notice)
       else
         # TODO: Ideally examine validation error and provide more informative error message.

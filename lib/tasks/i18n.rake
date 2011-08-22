@@ -10,7 +10,8 @@ namespace :i18n do
   tmp_file = File.join([lang_dir, "tmp.yml"])
   en_yml = File.join([lang_dir, "en.yml"])
   trans_tmp = File.join([lang_dir, "translation_template.yml"])
-  excluded_tables = ["translated_mime_types", "translated_news_items"]
+  excluded_tables = ["translated_mime_types", "translated_news_items", "translated_privileges",
+    "translated_info_items"]
 
 
   desc 'convert old yml language files from Gibberish format to support i18n '
@@ -470,6 +471,21 @@ namespace :i18n do
             lookup_rank_label = row[field].downcase.gsub(/\.$/, '')  # remove trailing periods
             next unless Rank.english_rank_labels_to_translate.include?(lookup_rank_label)
           end
+
+          # Some fields should never get translated for obvious reasons:
+          next if field == 'updated_at'
+          next if field == 'created_at'
+          next if field == 'active_translation'
+
+          value = row[field].gsub("\"", "\\\"").gsub("\n", "\\n")
+
+          # Skip empty values:
+          next if value == ''
+
+          # If we are in the Activities table, ignore any keys with underscores:
+          next if table_name == 'translated_activities' && value =~ /_/
+
+          en_strings << "  #{table_name}__#{field}__#{foreign_key}__#{row[foreign_key]}: \"#{value}\"\n"
         end
       end
     end

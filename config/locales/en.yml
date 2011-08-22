@@ -2631,7 +2631,7 @@ en:
   server_ip_address: "Server IP Address"
   set_as_exemplar: "Set as exemplar"
   show_email_message_area: "[show email message area]"
-  show_data_from_all_content_partners: "show data from all content partners"
+  show_data_from_all_content_partners: "Remove classification filter"
   show_full_tree: "show full tree"
   showing_errors_the_error_log_f: "Showing errors the error log for:"
   showing_processes_from_: "Showing processes from:"

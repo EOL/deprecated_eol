@@ -187,8 +187,7 @@ Rails::Initializer.run do |config|
   $WEB_SERVICE_BASE_URL = '' # web service is used for importing content partners' data
 
 
-  #$SOLR_SERVER = 'http://localhost:8983/solr/'
-  $SOLR_SERVER = 'http://10.19.19.244:8983/solr/'
+  $SOLR_SERVER = 'http://localhost:8983/solr/'
   $SOLR_TAXON_CONCEPTS_CORE = 'taxon_concepts'
   $SOLR_DATA_OBJECTS_CORE = 'data_objects'
   $SOLR_SITE_SEARCH_CORE = 'site_search'

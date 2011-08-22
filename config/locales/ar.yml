@@ -142,7 +142,7 @@ ar:
         other: '%{count} ثانية'
       less_than_x_minutes:
         one: 'أقل من دقيقة'
-        two: 'أقل من دقيقتان' 
+        two: 'أقل من دقيقتان'
         few: 'أقل من %{count} دقائق'
         other: 'أقل من %{count} دقيقة'
       x_minutes:
@@ -645,8 +645,7 @@ ar:
 رخصة تشارك إبداعي بديلة من القائمة التالية: النسب-الترخيص بالمثل (CC-BY-SA)، والنسب-غيرالتجاري (CC-BY-NC)، والنسب-غيرالتجاري-الترخيص بالمثل (CC-BY-NC-SA)."
   content_partner_agreement_licensing_provision_attribution: "سوف تقدم موسوعة الحياة بنسب المعلومات التي يقدمها المحتوى بأكمله لمؤلفيها. وسوف تقوم موسوعة الحياة بالإشارة إلى رخصة التشارك الإبداعي المصاحبة لكل موضوع (النص، البيانات المهيكلة، ورسوم الجرافيكس، والوسائط المتعددة، وما إلى ذلك)."
   content_partner_agreement_licensing_provision_preferred_license: "يجب أن يتبنى مقدمو المحتوى رخصة التشارك الإبداعي للمعلومات التي يتم تقديمها عبر موسوعة الحياة. ما عدا محتوى القسم العام، حيث إن الرخصة المفضلة والأساسية هي رخصة نسب التشارك الإبداعي، والتي تسمح للمستخدمين بنسخ ونقل وإعادة استخدام المعلومات، مع الحفاظ على المعلومات."
-  content_partner_agreement_licensing_provision_public_domain_ipr: "جميع المعلومات الموجودة حاليًّا في القسم العام سوف تظل موجودة به. ولن تسعى موسوعة الحياة أو 
-مقدمو المحتوى إلى تأكيد  حقوق الملكية الفكرية لأي من محتويات القسم العام والمتاحة عبر موسوعة الحياة."
+  content_partner_agreement_licensing_provision_public_domain_ipr: "جميع المعلومات الموجودة حاليًّا في القسم العام سوف تظل موجودة به. ولن تسعى موسوعة الحياة أو مقدمو المحتوى إلى تأكيد  حقوق الملكية الفكرية لأي من محتويات القسم العام والمتاحة عبر موسوعة الحياة."
   content_partner_agreement_licensing_provision_rights_holder_permission: "يتعهد مقدمو المحتوى أنهم يحملون الحقوق الخاصة به، وذلك بموجب الاتفاق في القسم العام، أو أخذوا الإجازات الضرورية من أصحاب الحقوق لاستخدام، وإعادة استخدام ونشر المحتوى في الموسوعة، وأن مقدمي المحتوى لن يقوموا بتحميل موسوعة الحياة وأعضاء اتحاد موسوعة الحياة أية مسئولية في حال ظهور أي ادعاء بخصوص المحتوى المقدم."
   content_partner_agreement_parties: "The Encyclopedia of Life (EOL) is an informal consortium of organizations dedicated to building an on-line Encyclopedia of Life composed of content-rich multi-media species pages for all of the presently known species on Earth. The cornerstone institutions of the EOL are listed at %{cornerstone_institutions_list_url}. Currently, the EOL is composed of five working groups:"
   content_partner_agreement_parties_biodiversity_informatics_group_definition: "يضع مفهومًا، ويقوم بإعداد البرنامج المطلوب للاستضافة والبحث في صفحات الأنواع؛ ويطبق الذكاء

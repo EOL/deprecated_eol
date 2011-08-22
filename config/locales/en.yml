@@ -1200,7 +1200,7 @@ en:
   curator: "curator"
   curator_title: "Curator"
   curator_: "Curator?"
-  curator_level_application_pending_notice: 'Thanks for applying to become a curator, your application has been queued for review and you will be notified by email when it has been accepted.'
+  curator_level_application_pending_notice: 'Thanks for applying to become a curator. We will notify you by email when we have reviewed your application.'
   curator_level_assistant_approved_notice: 'Congratulations! You are now an <em>EOL Assistant Curator</em>. <a href="%{more_url}">Learn more about the assistant curator role</a>.'
   curator_level_assistant_curator: "Assistant Curator"
   curator_level_full_curator: "Full Curator"

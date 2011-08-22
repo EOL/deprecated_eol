@@ -16,9 +16,6 @@ require 'tasks/rails'
 
 require 'eol_scenarios/tasks'
 EolScenario.load_paths = [ File.join(RAILS_ROOT, 'scenarios') ]
-EolScenario.before do
-  require File.join(RAILS_ROOT, 'spec', 'factories')
-end
 # EolScenario.verbose = true
 
 # We have some pretty customized stat directories, so:

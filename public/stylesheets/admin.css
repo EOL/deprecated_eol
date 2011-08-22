@@ -267,6 +267,10 @@ body > #footer {
       font-weight: bold;
       color: #28323a; }
 
+#admin_overview.main_container, #cms_index.main_container {
+  border: none;
+  padding: 0; }
+
 #cms_index ul {
   border-top: 3px solid #93a4b0;
   clear: both;

@@ -5,16 +5,16 @@
       %h2.assistive= I18n.t(:global_navigation)
     %ul.nav
       %li
-        = link_to I18n.t(:help) , "/help"
+        = link_to I18n.t(:help), help_url
       %li
-        = link_to I18n.t(:what_is_eol) , "/what_is_eol"
+        = link_to I18n.t(:what_is_eol), about_path
       %li
-        = link_to I18n.t(:eol_news) , "/eol_news"
+        = link_to I18n.t(:eol_news), news_path
       %li
-        = link_to I18n.t(:donate) , { :controller => "/content", :action => "donate" }
+        = link_to I18n.t(:donate), donate_path
       - if position == :footer
         %li
-          = link_to I18n.t(:contact_us_link), "/contact_us"
+          = link_to I18n.t(:contact_us_link), contact_path
       - if mobile_agent_request?
         %li
           = link_to "Mobile site", enable_mobile_contents_path

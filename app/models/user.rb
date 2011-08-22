@@ -89,6 +89,10 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   alias_attribute :summary_name, :username
 
+  def can_be_updated_by?(user_wanting_access)
+    user_wanting_access.id == id || user_wanting_access.is_admin?
+  end
+
   def self.sort_by_name(users)
     users.sort_by do |u|
       given = u.given_name.blank? ? u.family_name : u.given_name.strip

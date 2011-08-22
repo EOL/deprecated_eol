@@ -14,8 +14,10 @@ class SessionsController < ApplicationController
     success, user = User.authenticate(params[:session][:username_or_email], params[:session][:password])
     if success && user.is_a?(User) # authentication successful
       log_in user
-      store_location(params[:session][:return_to]) unless params[:session][:return_to].blank?
-      redirect_back_or_default(current_user)
+      unless params[:session][:return_to].blank? || params[:session][:return_to] == root_url
+        store_location(params[:session][:return_to])
+      end
+      redirect_back_or_default(user_newsfeed_path(current_user))
     else # authentication unsuccessful
       if user.blank? && User.active_on_master?(params[:session][:username_or_email])
         flash[:notice] = I18n.t(:account_registered_but_not_ready_try_later)

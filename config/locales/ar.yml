@@ -142,7 +142,7 @@ ar:
         other: '%{count} ثانية'
       less_than_x_minutes:
         one: 'أقل من دقيقة'
-        two: 'أقل من دقيقتان' 
+        two: 'أقل من دقيقتان'
         few: 'أقل من %{count} دقائق'
         other: 'أقل من %{count} دقيقة'
       x_minutes:
@@ -641,16 +641,13 @@ ar:
   content_partner_agreement_licensing: "To the greatest extent possible, the Encyclopedia of Life promotes an open-source, open-access approach. Therefore, it requires that content providers (including the EOL's core participants) serving information through the EOL agree to the following provisions:"
   content_partner_agreement_licensing_creative_commons_information: "Full information about the Creative Commons licensing can be found at http://www.creativecommons.org."
   content_partner_agreement_licensing_header: "ترخيص المحتوى"
-  content_partner_agreement_licensing_provision_alternate_restrictive_license: "يمكن لمقدمي المحتوى الراغبين في وضع قيود على إعادة استخدام المعلومات القيام باختيار
-رخصة تشارك إبداعي بديلة من القائمة التالية: النسب-الترخيص بالمثل (CC-BY-SA)، والنسب-غيرالتجاري (CC-BY-NC)، والنسب-غيرالتجاري-الترخيص بالمثل (CC-BY-NC-SA)."
+  content_partner_agreement_licensing_provision_alternate_restrictive_license: "يمكن لمقدمي المحتوى الراغبين في وضع قيود على إعادة استخدام المعلومات القيام باختيار رخصة تشارك إبداعي بديلة من القائمة التالية: النسب-الترخيص بالمثل (CC-BY-SA)، والنسب-غيرالتجاري (CC-BY-NC)، والنسب-غيرالتجاري-الترخيص بالمثل (CC-BY-NC-SA)."
   content_partner_agreement_licensing_provision_attribution: "سوف تقدم موسوعة الحياة بنسب المعلومات التي يقدمها المحتوى بأكمله لمؤلفيها. وسوف تقوم موسوعة الحياة بالإشارة إلى رخصة التشارك الإبداعي المصاحبة لكل موضوع (النص، البيانات المهيكلة، ورسوم الجرافيكس، والوسائط المتعددة، وما إلى ذلك)."
   content_partner_agreement_licensing_provision_preferred_license: "يجب أن يتبنى مقدمو المحتوى رخصة التشارك الإبداعي للمعلومات التي يتم تقديمها عبر موسوعة الحياة. ما عدا محتوى القسم العام، حيث إن الرخصة المفضلة والأساسية هي رخصة نسب التشارك الإبداعي، والتي تسمح للمستخدمين بنسخ ونقل وإعادة استخدام المعلومات، مع الحفاظ على المعلومات."
-  content_partner_agreement_licensing_provision_public_domain_ipr: "جميع المعلومات الموجودة حاليًّا في القسم العام سوف تظل موجودة به. ولن تسعى موسوعة الحياة أو 
-مقدمو المحتوى إلى تأكيد  حقوق الملكية الفكرية لأي من محتويات القسم العام والمتاحة عبر موسوعة الحياة."
+  content_partner_agreement_licensing_provision_public_domain_ipr: "جميع المعلومات الموجودة حاليًّا في القسم العام سوف تظل موجودة به. ولن تسعى موسوعة الحياة أو مقدمو المحتوى إلى تأكيد  حقوق الملكية الفكرية لأي من محتويات القسم العام والمتاحة عبر موسوعة الحياة."
   content_partner_agreement_licensing_provision_rights_holder_permission: "يتعهد مقدمو المحتوى أنهم يحملون الحقوق الخاصة به، وذلك بموجب الاتفاق في القسم العام، أو أخذوا الإجازات الضرورية من أصحاب الحقوق لاستخدام، وإعادة استخدام ونشر المحتوى في الموسوعة، وأن مقدمي المحتوى لن يقوموا بتحميل موسوعة الحياة وأعضاء اتحاد موسوعة الحياة أية مسئولية في حال ظهور أي ادعاء بخصوص المحتوى المقدم."
   content_partner_agreement_parties: "The Encyclopedia of Life (EOL) is an informal consortium of organizations dedicated to building an on-line Encyclopedia of Life composed of content-rich multi-media species pages for all of the presently known species on Earth. The cornerstone institutions of the EOL are listed at %{cornerstone_institutions_list_url}. Currently, the EOL is composed of five working groups:"
-  content_partner_agreement_parties_biodiversity_informatics_group_definition: "يضع مفهومًا، ويقوم بإعداد البرنامج المطلوب للاستضافة والبحث في صفحات الأنواع؛ ويطبق الذكاء
- التصنيفي على الأسماء العلمية بصفحات الأنواع وفي المؤلفات."
+  content_partner_agreement_parties_biodiversity_informatics_group_definition: "يضع مفهومًا، ويقوم بإعداد البرنامج المطلوب للاستضافة والبحث في صفحات الأنواع؛ ويطبق الذكاء التصنيفي على الأسماء العلمية بصفحات الأنواع وفي المؤلفات."
   content_partner_agreement_parties_biodiversity_informatics_group_name: "مجموعة معلوماتية التنوع البيولوجي"
   content_partner_agreement_parties_biodiversity_synthesis_group_definition: "إقامة اجتماعات لتجميع المحتوى من أجل المساعدة على التوصل إلى إجماع على مجموعات التنوع  البيولوجي الكبير؛ وتطوير أدوات لتحليل وتوفيق المعلومات عبر صفحات الأنواع."
   content_partner_agreement_parties_biodiversity_synthesis_group_name: "مجموعة مؤلفات التنوع البيولوجي"
@@ -659,9 +656,7 @@ ar:
   content_partner_agreement_parties_header: "الأطراف"
   content_partner_agreement_parties_scanning_digitization_group_definition: "Working with the Biodiversity Heritage Library, a consortium of many of the world's largest natural history libraries, digitizes and marks up the world's biodiversity literature."
   content_partner_agreement_parties_scanning_digitization_group_name: "مجموعة المسح الضوئي والرقمنة"
-  content_partner_agreement_parties_species_pages_group_definition: "تقوم بتعريف تركيب المعلومات بصفحات الأنواع؛ وتعمل مع المجتمع العلمي لتحديد مصادر ممكنة
-للمعلومات (مثل شريك المحتوى) من أجل صفحات الأنواع، وللتحقق من صحة المعلومات الموجودة بتلك
-الصفحات؛ وإنشاء اتفاقيات الترخيص مع مقدمي المعلومات."
+  content_partner_agreement_parties_species_pages_group_definition: "تقوم بتعريف تركيب المعلومات بصفحات الأنواع؛ وتعمل مع المجتمع العلمي لتحديد مصادر ممكنة للمعلومات (مثل شريك المحتوى) من أجل صفحات الأنواع، وللتحقق من صحة المعلومات الموجودة بتلك الصفحات؛ وإنشاء اتفاقيات الترخيص مع مقدمي المعلومات."
   content_partner_agreement_parties_species_pages_group_name: "مجموعة صفحات الأنواع"
   content_partner_agreement_roles_use_terms_amending_or_terminating_agreement: "Either Party may amend or modify this Agreement by notifying the other Party in writing and with the prior written agreement of the other Party. Either Party may withdraw from the Agreement by providing written notification to the other Party 90 days in advance of withdrawal. Should %{content_partner_name} withdraw from the agreement, EOL will remove %{content_partner_name} content within one month."
   content_partner_agreement_roles_use_terms_eol: "In handling the content provided by %{content_partner_name}, EOL will:"
@@ -679,8 +674,7 @@ ar:
   content_partner_agreement_roles_use_terms_eol_term_reuse_requests: "Refer all requests for re-usage of %{content_partner_name}'s content to %{content_partner_name}."
   content_partner_agreement_roles_use_terms_eol_term_usage_notification: "Notify %{content_partner_name} of statistics about the usage of its data objects."
   content_partner_agreement_roles_use_terms_header: "أدوار الاستخدام وشروطه"
-  content_partner_agreement_roles_use_terms_not_creating_legal_partnership: "لا تنتوي الأطراف إنشاء شراكة قانونية، أو مبدأ/وكيل، أو رابط مسعى مشترك ولا يمكن أن يتم تفسير
- أي شيء من تلك الاتفاقية بأنها تكون مثل ذلك الرابط بين الأطراف. لا يمكن لأي طرف أن يتعهد بالتزام بالنيابة عن طرف آخر."
+  content_partner_agreement_roles_use_terms_not_creating_legal_partnership: "لا تنتوي الأطراف إنشاء شراكة قانونية، أو مبدأ/وكيل، أو رابط مسعى مشترك ولا يمكن أن يتم تفسير أي شيء من تلك الاتفاقية بأنها تكون مثل ذلك الرابط بين الأطراف. لا يمكن لأي طرف أن يتعهد بالتزام بالنيابة عن طرف آخر."
   content_partner_agreement_roles_use_terms_not_exclusive: "This agreement is non-exclusive, and in no way restricts either EOL or %{content_partner_name} from participating in similar activities or arrangements with other public or private initiatives, organizations, or individuals."
   content_partner_agreement_roles_use_terms_not_exploit_association_with_eol: "%{content_partner_name} agrees that it shall not use the names or logos of EOL or any EOL cornerstone institution in any manner or through any medium without EOL’s or the EOL cornerstone institution’s prior, written consent. Upon the expiration or termination of this Agreement, %{content_partner_name} shall immediately cease to use the names or logos of EOL or any EOL cornerstone institution and shall not exploit in any manner its association with EOL or any EOL cornerstone institution unless otherwise agreed to in writing by EOL or any EOL cornerstone institution at the time of such expiration or termination."
   content_partner_agreement_roles_use_terms_not_financial_obligation: "سوف تكون تلك الاتفاقية والالتزامات المذكورة هنا معرضة للتمويل المتاح، ولا يجلب أي التزامات مادية على أي الطرفين."
@@ -1184,8 +1178,7 @@ ar:
   identifcation_resources_empty: "No resources found."
   identification_resources: "Identification Resources"
   if_checked_and_user_is_saved: "إذا تم الاختيار وحفظ المستخدم، فسوف يتم حذف الاعتمادات، والنطاق، والموافقة والفرع الحيوي المختار، ولن يظهر المستخدم كمشرف بعد ذلك. لم يتم إرسال معلومات حول ذلك المستخدم."
-  if_this_box_is_checked_the_hie: "إذا تم وضع علامة في ذلك المربع، سوف يصبح التسلسل الهرمي أحد خيارات المستخدمين لتصفح
-موسوعة الحياة."
+  if_this_box_is_checked_the_hie: "إذا تم وضع علامة في ذلك المربع، سوف يصبح التسلسل الهرمي أحد خيارات المستخدمين لتصفح موسوعة الحياة."
   image_is_no_longer_available: "الصورة غير متاحة حاليًا"
   image_not_found: "لا توجد صورة"
   images: "الصور"

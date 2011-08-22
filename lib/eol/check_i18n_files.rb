@@ -1,6 +1,6 @@
 module EOL
   class CheckI18nFiles
-    
+
     def initialize
       @lang_dir = File.join([RAILS_ROOT, "config", "locales"])
       @en_yml = File.join([@lang_dir, "en.yml"])
@@ -54,18 +54,18 @@ module EOL
       end
 
     end
-    
+
     def check_parameter_consistency
       error_log = ''
       all_files = get_all_files_in_app
       error_count = 0
-      
+
       Dir.glob(File.join([@lang_dir, "*"])).each do |file|
         file_name = File.split(file)[-1]
         if file_name.match(/^[a-z]{2}\.yml\b/)
           yml_keys = load_yml_file(file)
           error_log << "\n#{file_name}\n"
-          
+
           all_files.each do |file|
             inconsistent_keys = get_inconsistent_parameters(file, yml_keys)
             if inconsistent_keys.size > 0
@@ -301,7 +301,7 @@ module EOL
       end
 
     end
-    
+
     def load_parameters_from_key(value)
       return_array = Array.new
       if value.index('%{')
@@ -312,22 +312,22 @@ module EOL
       end
       return return_array
     end
-    
+
     def load_full_i18_function_call(function_parameters)
       string_in_lines = function_parameters.split("\n")
-      i=0      
+      i=0
       current_line = string_in_lines[i]
       return_call = current_line
-      
+
       while (current_line.strip[-1] == ',' and i < string_in_lines.size)
         i = i + 1
         return_call << " " + current_line
         current_line = string_in_lines[i]
       end
-      
+
       return return_call
     end
-    
+
     def check_call_inconsistency(yml_keys, key_name, function_call)
       if (yml_keys[key_name])
         params = load_parameters_from_key(yml_keys[key_name])
@@ -344,7 +344,7 @@ module EOL
       end
       return false
     end
-    
+
     def get_inconsistent_parameters(file_path, yml_keys)
       file_open = open(file_path, "r")
       file_content = file_open.read
@@ -368,31 +368,31 @@ module EOL
                 keys_having_incorrect_parameters << key_name
               end
             end
-          elsif temp_keys[i].match(/^\s(\')/) # matchs I18n.t 'xxx'                        
+          elsif temp_keys[i].match(/^\s(\')/) # matchs I18n.t 'xxx'
             key_name = temp_keys[i].strip[1..-1].split("'")[0] # trim then remove the first ' then split on the next ' and get the key
             full_call = load_full_i18_function_call(temp_keys[i])
             if check_call_inconsistency(yml_keys, key_name, full_call)
               keys_having_incorrect_parameters << key_name
-            end            
+            end
           elsif temp_keys[i].match(/^\s(\")/) # matchs I18n.t "xxx"
             key_name = temp_keys[i].strip[1..-1].split('"')[0].strip # trim then remove the first " then split on the next " and get the key
             full_call = load_full_i18_function_call(temp_keys[i])
             if check_call_inconsistency(yml_keys, key_name, full_call)
               keys_having_incorrect_parameters << key_name
-            end            
+            end
           elsif temp_keys[i].match(/^\s(\:)/) # matchs I18n.t :xxx
             key_name = temp_keys[i].strip[1..-1].split(/(,|\s|$|\Z)/)[0].strip # trim then remove the first : then split on the next comma, space, or a new line, end of line, or end of string
             full_call = load_full_i18_function_call(temp_keys[i])
             if check_call_inconsistency(yml_keys, key_name, full_call)
               keys_having_incorrect_parameters << key_name
-            end        
+            end
           end
         end
         return keys_having_incorrect_parameters
       end
 
     end
-    
+
     def get_missing_keys_in_file(file_path, en_yml_keys)
       file_open = open(file_path, "r")
       file_content = file_open.read
@@ -546,7 +546,12 @@ module EOL
 
       end
       read_file.close
-      return YAML.load(file_content)
+      begin
+        yaml = YAML.load(file_content)
+        return yaml
+      rescue => e
+        raise "** ERROR: Could not parse '#{file_path}': #{e.message}"
+      end
     end
 
     def get_missing_keys_count(file_path, en_keys, missing_keys, en_yml_keys)

@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
     success, user = User.authenticate(params[:session][:username_or_email], params[:session][:password])
     if success && user.is_a?(User) # authentication successful
       log_in user
-      store_location(params[:return_to]) unless params[:return_to].blank?
+      store_location(params[:session][:return_to]) unless params[:session][:return_to].blank?
       redirect_back_or_default(current_user)
     else # authentication unsuccessful
       if user.blank? && User.active_on_master?(params[:session][:username_or_email])

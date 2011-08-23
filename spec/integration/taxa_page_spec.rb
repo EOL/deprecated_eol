@@ -130,7 +130,7 @@ describe 'Taxa page' do
 
     it 'should show curators' do
       body.should have_tag('div#curators_summary') do
-        with_tag('.details h4', @testy[:curator].given_name)
+        with_tag('.details h4', @testy[:curator].full_name)
       end
     end
   end

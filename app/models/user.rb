@@ -474,7 +474,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def is_curator?
-    curator_approved
+    has_attribute?(:curator_approved) && curator_approved
   end
 
   def is_pending_curator?

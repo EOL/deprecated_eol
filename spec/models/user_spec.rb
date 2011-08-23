@@ -176,13 +176,14 @@ describe User do
     user.valid?.should_not be_true
   end
 
-  it 'should build a full name out of a given name if that is all they provided' do
+  it '#full_name should resort to username if a given name is all they provided' do
     given = 'bubba'
-    user = User.create_new(:given_name => given, :family_name => '')
-    user.full_name.should == given
+    username = 'carryoncarryon'
+    user = User.create_new(:username => username, :given_name => given, :family_name => '')
+    user.full_name.should == username
   end
 
-  it 'should build a full name out of a given and family names' do
+  it '#full_name should build a full name out of a given and family names' do
     given = 'santa'
     family = 'klaws'
     user = User.create_new(:given_name => given, :family_name => family)
@@ -229,7 +230,7 @@ describe User do
    #    Visibility.gen_if_not_exists(:label => 'Invisible') unless Visibility.find_by_translated(:label, 'Invisible')
    #    @user.hide_all_submitted_datos
    #    @datos.each do |stored_dato|
-   #      
+   #
    #      new_dato = DataObject.find(stored_dato.id) # we changed the values, so must re-load them.
    #      new_dato.vetted.should == Vetted.untrusted
    #      new_dato.visibility.should == Visibility.invisible

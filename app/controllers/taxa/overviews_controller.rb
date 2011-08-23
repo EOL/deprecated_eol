@@ -48,7 +48,8 @@ private
   def recognized_by
     @recognized_by = I18n.t(:recognized_by)
     if !@selected_hierarchy_entry.hierarchy.url.blank?
-      @recognized_by << ' ' << self.class.helpers.link_to( @selected_hierarchy_entry.hierarchy.label , @selected_hierarchy_entry.hierarchy.url)
+      @recognized_by << ' ' <<
+        self.class.helpers.link_to(@selected_hierarchy_entry.hierarchy.label, @selected_hierarchy_entry.hierarchy.url)
     else
       @recognized_by << ' ' << @selected_hierarchy_entry.hierarchy.label
     end

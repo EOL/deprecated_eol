@@ -918,8 +918,6 @@ a.other_actions {
   float: right;
   margin-top: 1em; }
 
-.site_column > #choose_collections form#new_collection_item fieldset.actions {
-  margin: 0; }
 .site_column > #choose_collections h2 {
   font-size: 1.33em;
   margin: 0 0 10px 0; }

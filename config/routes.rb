@@ -110,13 +110,14 @@ ActionController::Routing::Routes.draw do |map|
     taxa.resources :media, :only => [:index], :controller => "taxa/media",
                            :collection => { :set_as_exemplar => [:get, :post] }
     taxa.resources :details, :except => [:show], :controller => "taxa/details"
-    taxa.resource :community, :only => [:show], :controller => "taxa/communities"
     taxa.resources :names, :only => [:index, :create, :update], :controller => "taxa/names",
                           :collection => { :common_names => :get, :synonyms => :get }
     taxa.resource :literature, :only => [:show], :controller => "taxa/literature",
       :member => { :bhl => :get }
     taxa.resource :resources, :only => [:show], :controller => "taxa/resources",
       :member => { :identification_resources => :get, :education => :get , :nucleotide_sequences => :get , :biomedical_terms => :get }
+    taxa.resource :community, :only => [:show], :controller => "taxa/communities",
+       :member => { :collections => :get, :communities => :get }
     taxa.resource :maps, :only => [:show], :controller => "taxa/maps"
     taxa.resource :updates, :only => [:show], :controller => "taxa/updates",
       :member => { :statistics => :get }

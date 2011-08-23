@@ -1,5 +1,3 @@
-
-
 - data_object ||= @data_object
 - thumbnail ||= false
 - unless data_object.blank?
@@ -16,10 +14,8 @@
     -# %audio{:controls => true, :loop => false, :autoplay => false, :preload => 'metadata'}
     -#   %source{:type => en_mime_type, :src => data_object.sound_url}
 
-
     - if en_mime_type == 'audio/mpeg'
-      = render :partial => 'data_objects/jplayer', :locals => {:sound_url => data_object.sound_url, :type => "big"}
-      -# = render :partial => 'data_objects/sound_player', :locals => {:width => 400, :sound_url => data_object.sound_url}
+      = render :partial => 'data_objects/jplayer', :locals => {:sound_url => data_object.sound_url, :type => "big", :en_mime_type => en_mime_type}
 
     - if en_mime_type == 'audio/x-wav'
       %embed{:src => "#{data_object.sound_url}", :autostart => false, :loop => false, :volume => 100, :hidden => false}

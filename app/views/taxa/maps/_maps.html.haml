@@ -15,6 +15,10 @@
       tileServers[1] = '#{$MAP_TILE_SERVER_2}';
       tileServers[2] = '#{$MAP_TILE_SERVER_3}';
       tileServers[3] = '#{$MAP_TILE_SERVER_4}';
+      so.addVariable("zoom", 2);
+      so.addVariable("center_lat", 20);
+      so.addVariable("center_lon", 0);
+
       so.addVariable("tile_servers", tileServers);
       so.write("map_image");
     %p

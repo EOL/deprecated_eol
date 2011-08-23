@@ -132,28 +132,11 @@ ActionController::Routing::Routes.draw do |map|
   map.taxon_worklist_data_object 'pages/:id/worklist/data_objects/:data_object_id', :controller => 'taxa/worklist', :action => 'data_objects'
 
 
-  # Named routes
+  # Named routes (are these obsolete?)
   map.settings 'settings', :controller => 'taxa', :action => 'settings'
   map.taxon_concept 'pages/:id', :controller => 'taxa', :action => 'show'
   map.page_curators 'pages/:id/curators', :controller => 'taxa', :action => 'curators'
-
   map.set_language 'set_language', :controller => 'application', :action => 'set_language'
-
-  # some of V1 links - temporarily commented until further notice
-  #map.contact_us    'contact_us',    :controller => 'content', :action => 'contact_us'
-  #map.media_contact 'media_contact', :controller => 'content', :action => 'media_contact'
-  #map.help         'help',         :controller => 'content', :action => 'page', :id => 'screencasts'
-  #map.screencasts  'screencasts',  :controller => 'content', :action => 'page', :id => 'screencasts'
-  #map.faq          'faq',          :controller => 'content', :action => 'page', :id => 'faqs'
-
-  # V2 header links
-  map.help        'help',        :controller => 'content', :action => 'page', :id => 'help'
-  map.what_is_eol 'what_is_eol', :controller => 'content', :action => 'page', :id => 'what_is_eol'
-  map.eol_news    'eol_news',    :controller => 'content', :action => 'page', :id => 'eol_news'
-  map.contact_us  'contact_us',  :controller => 'content', :action => 'page', :id => 'contact_us'
-  map.donate      'donate',      :controller => 'content', :action => 'donate'
-  map.cms_page    'info/:id',    :controller => 'content', :action => 'page'
-  map.terms_of_use 'terms_of_use', :controller => 'content', :action => 'page', :id => 'terms_of_use'
 
   map.clear_caches 'clear_caches',      :controller => 'content', :action => 'clear_caches'
   map.expire_all   'expire_all',        :controller => 'content', :action => 'expire_all'
@@ -199,8 +182,6 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/taxon_concepts/:taxon_concept_id/comments/', :controller => 'comments', :action => 'create',
                                                              :conditions => {:method => :post}
 
-  map.podcast 'podcast', :controller=>'content', :action=>'page', :id=>'podcast'
-
   # by default /api goes to the docs
   map.connect 'api', :controller => 'api/docs', :action => 'index'
   # not sure why this didn't work in some places - but this is for documentation
@@ -227,6 +208,20 @@ ActionController::Routing::Routes.draw do |map|
   #  mobile.search 'search/:id', :controller => 'search', :action => 'index' # this looks for mobile/search controller but I'm using the main search controller instead
   end
   map.mobile_search 'mobile/search/:id', :controller => 'search', :action => 'index'
+
+  map.with_options :controller => 'content', :action => 'show', :conditions => { :method => :get } do |content_page|
+    content_page.help         '/help',         :id => 'help'
+    content_page.about        '/about',        :id => 'about'
+    content_page.news         '/news',         :id => 'news'
+    content_page.contact      '/contact',      :id => 'contact'
+    content_page.terms_of_use '/terms_of_use', :id => 'terms_of_use'
+    content_page.citing       '/citing',       :id => 'citing'
+    content_page.privacy      '/privacy',      :id => 'privacy'
+    content_page.podcast      '/podcast',      :id => 'podcast'
+    content_page.cms_page     '/info/:id'
+    content_page.cms_crumbs   '/info/*crumbs'
+  end
+  map.donate '/donate', :controller => 'content', :action => 'donate'
 
 
   ##### ALL ROUTES BELOW SHOULD PROBABLY ALWAYS BE AT THE BOTTOM SO THEY ARE RUN LAST ####

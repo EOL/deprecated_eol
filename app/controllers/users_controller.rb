@@ -117,16 +117,25 @@ class UsersController < ApplicationController
   # GET and POST for member /users/:user_id/terms_agreement
   def terms_agreement
     # @user instantiated by authentication before filter and matched to current user
+    access_denied unless current_user.can_update?(@user)
     if request.post? && params[:commit_agreed]
-      alter_current_user do |user|
-        user.agreed_with_terms = true
+      @user.agreed_with_terms = true
+      @user.save(false) # saving without validation to avoid issues with invalid legacy users
+      # validation will more appropriately happen when user attempts to edit profile
+      # avoiding alter_current_user as this would try to save again but fail if any validation issues
+      if current_user.id == @user.id
+        $CACHE.delete("users/#{session[:user_id]}")
+        set_current_user(@user)
       end
       redirect_back_or_default(user_path(current_user))
     else
       # FIXME: is this the right content for terms agreement and the right call for it?
       # FIXME: this seems flakey, do we have unique machine names for content rather than page name?
-      page = ContentPage.find_by_page_name('Terms Of Use')
-      @terms = TranslatedContentPage.find_by_content_page_id_and_language_id(page, @user.language_id) unless page.nil?
+      page = ContentPage.find_by_page_name('terms_of_use')
+      unless page.nil?
+        @terms = TranslatedContentPage.find_by_content_page_id_and_language_id_and_active_translation(page, @user.language_id, 1)
+        @terms = TranslatedContentPage.find_by_content_page_id_and_language_id_and_active_translation(page, Language.english.id, 1) if @terms.blank?
+      end
     end
   end
 

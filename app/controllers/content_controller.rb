@@ -28,26 +28,26 @@ class ContentController < ApplicationController
     end
   end
 
-  def news
-    id = params[:id]
-    @term_search_string = params[:term_search_string] || ''
-    search_string_parameter = '%' + @term_search_string + '%'
-    if id.blank?
-      @page_title = I18n.t(:whats_new)
-      @news_items = NewsItem.paginate(:conditions => ['active = 1 and body like ?', search_string_parameter],
-                                      :order => 'display_date desc',
-                                      :page => params[:page])
-      current_user.log_activity(:viewed_news_index)
-    else
-      @news_item = NewsItem.find(id)
-      @page_title = @news_item.title # TODO: What happens if @news_item or title is nil
-      current_user.log_activity(:viewed_news_item_id, :value => @news_item.id)
-    end
-    respond_to do |format|
-       format.html
-       format.rss { render :layout => false }
-    end
-  end
+#  def news
+#    id = params[:id]
+#    @term_search_string = params[:term_search_string] || ''
+#    search_string_parameter = '%' + @term_search_string + '%'
+#    if id.blank?
+#      @page_title = I18n.t(:whats_new)
+#      @news_items = NewsItem.paginate(:conditions => ['active = 1 and body like ?', search_string_parameter],
+#                                      :order => 'display_date desc',
+#                                      :page => params[:page])
+#      current_user.log_activity(:viewed_news_index)
+#    else
+#      @news_item = NewsItem.find(id)
+#      @page_title = @news_item.title # TODO: What happens if @news_item or title is nil
+#      current_user.log_activity(:viewed_news_item_id, :value => @news_item.id)
+#    end
+#    respond_to do |format|
+#       format.html
+#       format.rss { render :layout => false }
+#    end
+#  end
 
   def translate
     @page_title = I18n.t("automated_translation_of_eol")
@@ -104,93 +104,89 @@ class ContentController < ApplicationController
 
   end
 
-  def contact_us
+#  def contact_us
+#
+#    @page_title = I18n.t(:contact_us_title)
+#    @subjects = ContactSubject.find(:all, :conditions => 'active = 1', :order => 'translated_contact_subjects.title')
+#
+#    @contact = Contact.new(params[:contact])
+#    store_location(params[:return_to]) if !params[:return_to].nil? && request.get? # store the page we came from so we can return there if it's passed in the URL
+#
+#    if request.post? == false
+#      return_to = params[:return_to] || ''
+#      # grab default subject to select in list if it's passed in the querystring
+#      @contact.contact_subject = ContactSubject.find_by_title(params[:default_subject]) if params[:default_subject].nil? == false
+#      @contact.name = params[:default_name] if params[:default_name].nil? == false
+#      @contact.email = params[:default_email] if params[:default_email].nil? == false
+#      return
+#    end
+#
+#    @contact.ip_address = request.remote_ip
+#    @contact.user_id = current_user.id
+#    @contact.referred_page = return_to_url
+#
+#    if verify_recaptcha && @contact.save
+#      Notifier.deliver_contact_us_auto_response(@contact)
+#      flash[:notice] =  I18n.t(:thanks_for_feedback)
+#      current_user.log_activity(:sent_contact_us_id, :value => @contact.id)
+#      redirect_back_or_default
+#    else
+#      @verification_did_not_match =  I18n.t(:verification_phrase_did_not_match)  if verify_recaptcha == false
+#    end
+#
+#  end
+#
+#  def media_contact
+#    @page_title = I18n.t(:media_contact)
+#    @contact = Contact.new(params[:contact])
+#    @contact.contact_subject = ContactSubject.find($MEDIA_INQUIRY_CONTACT_SUBJECT_ID)
+#
+#    if request.post? == false
+#      store_location
+#      return
+#    end
+#
+#    @contact.ip_address = request.remote_ip
+#    @contact.user_id = current_user.id
+#    @contact.referred_page = return_to_url
+#
+#    if verify_recaptcha && @contact.save
+#      Notifier.deliver_media_contact_auto_response(@contact)
+#      flash[:notice] =  I18n.t(:your_message_was_sent)
+#      current_user.log_activity(:sent_media_contact_us_id, :value => @contact.id)
+#      redirect_back_or_default
+#    else
+#      @verification_did_not_match =  I18n.t(:verification_phrase_did_not_match)  if verify_recaptcha == false
+#    end
+#
+#  end
 
-    @page_title = I18n.t(:contact_us_title)
-    @subjects = ContactSubject.find(:all, :conditions => 'active = 1', :order => 'translated_contact_subjects.title')
-
-    @contact = Contact.new(params[:contact])
-    store_location(params[:return_to]) if !params[:return_to].nil? && request.get? # store the page we came from so we can return there if it's passed in the URL
-
-    if request.post? == false
-      return_to = params[:return_to] || ''
-      # grab default subject to select in list if it's passed in the querystring
-      @contact.contact_subject = ContactSubject.find_by_title(params[:default_subject]) if params[:default_subject].nil? == false
-      @contact.name = params[:default_name] if params[:default_name].nil? == false
-      @contact.email = params[:default_email] if params[:default_email].nil? == false
-      return
-    end
-
-    @contact.ip_address = request.remote_ip
-    @contact.user_id = current_user.id
-    @contact.referred_page = return_to_url
-
-    if verify_recaptcha && @contact.save
-      Notifier.deliver_contact_us_auto_response(@contact)
-      flash[:notice] =  I18n.t(:thanks_for_feedback)
-      current_user.log_activity(:sent_contact_us_id, :value => @contact.id)
-      redirect_back_or_default
-    else
-      @verification_did_not_match =  I18n.t(:verification_phrase_did_not_match)  if verify_recaptcha == false
-    end
-
-  end
-
-  def media_contact
-    @page_title = I18n.t(:media_contact)
-    @contact = Contact.new(params[:contact])
-    @contact.contact_subject = ContactSubject.find($MEDIA_INQUIRY_CONTACT_SUBJECT_ID)
-
-    if request.post? == false
-      store_location
-      return
-    end
-
-    @contact.ip_address = request.remote_ip
-    @contact.user_id = current_user.id
-    @contact.referred_page = return_to_url
-
-    if verify_recaptcha && @contact.save
-      Notifier.deliver_media_contact_auto_response(@contact)
-      flash[:notice] =  I18n.t(:your_message_was_sent)
-      current_user.log_activity(:sent_media_contact_us_id, :value => @contact.id)
-      redirect_back_or_default
-    else
-      @verification_did_not_match =  I18n.t(:verification_phrase_did_not_match)  if verify_recaptcha == false
-    end
-
-  end
-
-  # the template for a static page with content from the database
-  def page
+  # GET /info/:id
+  # GET /info/:crumbs where crumbs is an array of path segments
+  def show
     # get the id parameter, which can be either a page ID # or a page name
-    @page_id = params[:id]
+    @page_id = params[:id] || params[:crumbs].last
     @selected_language = params[:language] ? Language.from_iso(params[:language]) : nil
     raise "static page without id" if @page_id.blank?
 
     if @page_id.is_int?
-      @content = ContentPage.find_by_id(@page_id)
+      @content = ContentPage.find(@page_id, :include => :parent)
     else # assume it's a page name
-      page_name = @page_id.gsub(' ', '_').gsub('_', ' ')
-      @content = ContentPage.find_by_page_name(page_name)
+      @content = ContentPage.find_by_page_name(@page_id)
+      @content ||= ContentPage.find_by_page_name(@page_id.gsub('_', ' ')) # will become obsolete once validation on page_name is in place
     end
 
-    if @content.nil?
-      raise "static page content #{@page_id} for #{current_user.language_abbr} not found"
+    return render_404 if @content.nil?
+
+    @navigation_tree_breadcrumbs = ContentPage.get_navigation_tree_with_links(@content.id)
+    current_language = @selected_language || Language.from_iso(current_user.language_abbr)
+    @translated_content = TranslatedContentPage.find_by_content_page_id_and_language_id(@content.id, current_language.id)
+    if @translated_content.nil?
+      @page_title = I18n.t(:cms_missing_content_title)
+      @translated_pages = TranslatedContentPage.find_all_by_content_page_id(@content.id)
     else
-      @navigation_tree_breadcrumbs = ContentPage.get_navigation_tree_with_links(@content.id)
-      current_language = @selected_language || Language.from_iso(current_user.language_abbr)
-      @translated_content = TranslatedContentPage.find_by_content_page_id_and_language_id(@content.id, current_language.id)
-      if @translated_content.nil?
-        @page_title = I18n.t("cms_missing_content_title")
-        @translated_pages = TranslatedContentPage.find_all_by_content_page_id(@content.id)
-      else
-        @page_title = @translated_content.title
-      end
-
+      @page_title = @translated_content.title
     end
-
-    # if this static page is simply a redirect, then go there
     current_user.log_activity(:viewed_content_page_id, :value => @page_id)
   end
 

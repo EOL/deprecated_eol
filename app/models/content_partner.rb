@@ -64,6 +64,10 @@ class ContentPartner < SpeciesSchemaModel
     user && user.content_partner.nil? && (user_wanting_access.id == user.id || user_wanting_access.is_admin?)
   end
 
+  def public
+    show_on_partner_page?
+  end
+
 #  TODO: change latests published harvest event to eager load or make it work without eager loading
 #  def concepts_for_gallery(page, per_page)
 #    page = page - 1

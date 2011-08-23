@@ -21,6 +21,7 @@ class TurnContentPartnersIntoUsers < ActiveRecord::Migration
     user.logo_content_type = content_partner_agent.logo_content_type
     user.logo_file_size = content_partner_agent.logo_file_size
     user.agent_id = content_partner_agent.id
+    user.active = 1
     user.save
 
     content_partner.content_partner_status_id = content_partner_agent.agent_status_id
@@ -90,7 +91,7 @@ class TurnContentPartnersIntoUsers < ActiveRecord::Migration
         existing_user = User.find_by_username(cp_agent.username)
         if existing_user
           # same password so add to existing user
-          if existing_user.hashed_password == cp_agent.hashed_password
+          if existing_user.hashed_password == cp_agent.hashed_password || existing_user.email == cp_agent.email
             self.update_content_partners_user(cp, cp_agent, existing_user)
             next
           else # a user exists with the same username but different password, so create a new user

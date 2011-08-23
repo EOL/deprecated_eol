@@ -33,12 +33,10 @@ class Taxa::DetailsController < TaxaController
     @details = @taxon_concept.details_for_toc_items(ContentTable.details.toc_items, :language => current_user.language_abbr)
 
     toc_items_to_show = @details.blank? ? [] : @details.collect{|d| d[:toc_item]}
-
     exclude = TocItem.exclude_from_details
     toc_items_to_show.delete_if {|ti| exclude.include?(ti.label) }
     @toc = TocBuilder.new.toc_for_toc_items(toc_items_to_show)
-    @exemplar_image = @taxon_concept.taxon_concept_exemplar_image.data_object unless @taxon_concept.taxon_concept_exemplar_image.blank?
-    @exemplar_image ||= @taxon_concept.best_image_from_solr(@selected_hierarchy_entry)
+    @exemplar_image = @taxon_concept.exemplar_or_best_image_from_solr(@selected_hierarchy_entry)
 
     @watch_collection = logged_in? ? current_user.watch_collection : nil
     @assistive_section_header = I18n.t(:assistive_details_header)

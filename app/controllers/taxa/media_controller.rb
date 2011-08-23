@@ -12,8 +12,7 @@ class Taxa::MediaController < TaxaController
     @type = ['all'] if @type.include?('all')
     @status = params[:status] ||= ['all']
     @status = ['all'] if @status.include?('all')
-    @exemplar_image = @taxon_concept.taxon_concept_exemplar_image.data_object unless @taxon_concept.taxon_concept_exemplar_image.blank?
-    @exemplar_image ||= @taxon_concept.best_image_from_solr(@selected_hierarchy_entry)
+    @exemplar_image = @taxon_concept.exemplar_or_best_image_from_solr(@selected_hierarchy_entry)
     
     data_type_ids = []
     ['image', 'video', 'sound'].each do |t|

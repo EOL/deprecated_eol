@@ -7,7 +7,6 @@
         .attribution
           .copy
             %p= I18n.t(:media_summary_empty)
-            - # FIXME: add url for faq on contributing images
             %p= link_to I18n.t(:media_summary_empty_contribute_instructions), '/placeholder'
     - else
       - @media[0..3].each do |item|
@@ -17,9 +16,7 @@
         .image
           %a{:href => data_object_path(item.id)}
             %img{:src => item.thumb_or_object('580_360'), :alt => alternative_text(item, en_type(item), @taxon_concept), :data => { :data_object_id => item.id, :thumb => item.thumb_or_object('98_68') }}
-
           .details{:style => "position: absolute; top: 300px; left: 0px;"}
-
             %p.flag{:class => vetted_id_class(item_vetted_id)}= item_vetted_label == Vetted.unknown.label ? I18n.t(:unreviewed) : item_vetted_label
             = "&nbsp; for #{@taxon_concept.quick_scientific_name}"
             .attribution
@@ -27,13 +24,9 @@
             .copy
               = render :partial => 'data_objects/license', :locals => { :data_object => item }
               - unless item.rights_holder.blank?
-                - if item.rights_holder.length > 60
-                  = "&copy; #{item.rights_holder[0..59]}..."
-                - else
-                  = "&copy; #{item.rights_holder}"
+                = "&copy; #{truncate(item.rights_holder, :length => 60)}"
             .copy
               = render :partial => 'data_objects/supplier', :locals => { :data_object => item }
             .copy
               = link_to I18n.t(:learn_more_with_data_type, :data_type => item.data_type.to_s.downcase), data_object_path(item)
-
   %p.all= link_to I18n.t(:see_all_media_link), taxon_media_path(@taxon_concept.id)

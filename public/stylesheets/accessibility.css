@@ -562,7 +562,8 @@ body > #header .section .session.join {
   .disclaimer p {
     text-align: center;
     font-size: 0.9em;
-    color: #394651; }
+    color: #394651;
+    margin: 0; }
 
 /*Our classification summary is a hierarchichal list whereas HR was just links without hierarchy
  * so we override the styles here */
@@ -610,13 +611,14 @@ body > #header .section .session.join {
   #taxon_detail form#new_collection_item fieldset {
     display: inline-block; }
 
-#taxon form#new_collection_item {
+#taxon #collections_summary form {
   margin-top: 0; }
-  #taxon form#new_collection_item fieldset.actions {
-    margin-top: -3px; }
-    #taxon form#new_collection_item fieldset.actions input[type="submit"] {
-      font-size: 0.78em;
-      padding: 7px 10px; }
+  #taxon #collections_summary form fieldset.actions {
+    margin-top: 0; }
+
+.empty fieldset.actions input.button {
+  font-size: 0.82em;
+  padding: 5px 10px 6px 10px; }
 
 /*HR styles assume text descriptions are nicely wrapped in p tags - in reality they may or may not be so we add
  * extra div.description and assign styles to the div - check this, particularly line-height as we probably need
@@ -916,9 +918,8 @@ a.other_actions {
   float: right;
   margin-top: 1em; }
 
-form#new_collection_item fieldset.actions {
+.site_column > #choose_collections form#new_collection_item fieldset.actions {
   margin: 0; }
-
 .site_column > #choose_collections h2 {
   font-size: 1.33em;
   margin: 0 0 10px 0; }

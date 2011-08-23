@@ -13,8 +13,10 @@ class Admins::TranslatedContentPagesController < AdminsController
     @translated_content_page = @content_page.translations.build(params[:translated_content_page])
     @content_page.last_update_user_id = current_user.id unless @content_page.blank?
     if @content_page.save
-      flash[:notice] = I18n.t(:admin_translated_content_page_create_successful_notice, :page_name => @content_page.page_name)
-      redirect_to admin_content_pages_path
+      flash[:notice] = I18n.t(:admin_translated_content_page_create_successful_notice,
+                              :page_name => @content_page.page_name,
+                              :anchor => @content_page.page_name.gsub(' ', '_').downcase)
+      redirect_to admin_content_pages_path(:anchor => @content_page.page_name.gsub(' ', '_').downcase)
     else
       flash.now[:error] = I18n.t(:admin_translated_content_page_create_unsuccessful_error)
       set_translated_content_page_new_options
@@ -38,8 +40,9 @@ class Admins::TranslatedContentPagesController < AdminsController
       @content_page.save
       flash[:notice] = I18n.t(:admin_translated_content_page_update_successful_notice,
                               :page_name => @content_page.page_name,
-                              :language => @translated_content_page.language.label)
-      redirect_to admin_content_pages_path
+                              :language => @translated_content_page.language.label,
+                              :anchor => @content_page.page_name.gsub(' ', '_').downcase)
+      redirect_to admin_content_pages_path(:anchor => @content_page.page_name.gsub(' ', '_').downcase)
     else
       @content_page = ContentPage.find(params[:content_page_id], :include => :translations)
       flash.now[:error] = I18n.t(:admin_translated_content_page_update_unsuccessful_error)

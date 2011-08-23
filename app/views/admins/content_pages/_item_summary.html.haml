@@ -1,5 +1,5 @@
 %li
-  %h3
+  %h3{:id => content_page.page_name.gsub(' ', '_').downcase}
     = content_page.page_name
     %small= link_to " (#{I18n.t(:edit)})", edit_admin_content_page_path(content_page)
   .actions

@@ -133,6 +133,7 @@ list = Set.new()
   views/admin/_navigation.html.haml
   views/administrator/content_partner_report/report_partner_curated_data.haml
   views/administrator/curator/_user_row.html.haml
+  views/administrator/hierarchy/index.html.haml
   views/administrator/user/_form.html.haml
   views/administrator/user_data_object/index.html.haml
   views/content/_error.html.haml
@@ -140,7 +141,7 @@ list = Set.new()
   views/content/donate.html.haml
   views/content/error.html.haml
   views/content/index.html.haml
-  views/content/page.html.haml
+  views/content/show.html.haml
   views/layouts/main.html.haml
   views/navigation/_browse_page.html.haml
   views/navigation/_node_name_page.html.haml
@@ -178,9 +179,6 @@ list = Set.new()
 end
 
 # ADD THESE:
-list << "video_thumbnail_alt_text"
-list << "sound_thumbnail_alt_text"
-list << "image_thumbnail_alt_text"
 list << "roles"
 
 list << "view_article_source"

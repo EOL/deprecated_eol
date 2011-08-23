@@ -2,6 +2,7 @@ qqq:
   cannot_be_associated_with_both_a_user_and_a_community: "this is an error message which will almost never appear, wherein a collection was associated with both a user and community. This is wrong because a collection can only be created by one or the other."
   cannot_index_collection_item_type_error: "Yes, there is a problem here with the gender/etc of the 'type' argument.  But this is a RARE error (it should really never show up, since it means some new kind of object was introduced to the code) and thus we don't really mind if the error here isn't perfect."
   create_community: "This is a button label and is not meant to be (fully) grammatical."
+  max_collection_items_error: "This wil never, ever be a small number... always at least 500."
   punctuation_comma: "This is the symbol used to join lists. (A comma in English.)"
   see_all_collections_with_count_html: "This will ALWAYS have more than 1 for the count."
   see_all_communities_with_count_html: "This will ALWAYS have more than 1 for the count."

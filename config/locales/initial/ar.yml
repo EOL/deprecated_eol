@@ -1,49 +1,291 @@
 ar:
-  _encyclopedia_of_life: "-Encyclopedia of Life"
+  date:
+    formats:
+      default: "%Y-%m-%d"
+      short: "%e %b"
+      long: "%B %e, %Y"
+
+    day_names:
+      - الأحد
+      - الإثنين
+      - الثلاثاء
+      - الأربعاء
+      - الخميس
+      - الجمعة
+      - السبت
+    abbr_day_names:
+      - الأحد
+      - الإثنين
+      - الثلاثاء
+      - الأربعاء
+      - الخميس
+      - الجمعة
+      - السبت
+
+    month_names:
+      - ~
+      - يناير
+      - فبراير
+      - مارس
+      - ابريل
+      - مايو
+      - يونيو
+      - يوليو
+      - اغسطس
+      - سبتمبر
+      - اكتوبر
+      - نوفمبر
+      - ديسمبر
+    abbr_month_names:
+      - ~
+      - يناير
+      - فبراير
+      - مارس
+      - ابريل
+      - مايو
+      - يونيو
+      - يوليو
+      - اغسطس
+      - سبتمبر
+      - اكتوبر
+      - نوفمبر
+      - ديسمبر
+    order:
+      - :day
+      - :month
+      - :year
+
+  time:
+    formats:
+      default: "%a %b %d %H:%M:%S %Z %Y"
+      short: "%d %b %H:%M"
+      long: "%B %d, %Y %H:%M"
+      only_second: "%S"
+    am: 'صباحا'
+    pm: 'مساءا'
+
+  support:
+    array:
+      sentence_connector: "و"
+      words_connector: ", "
+      two_words_connector: " و "
+      last_word_connector: ", و "
+      skip_last_comma: false
+
+    select:
+      prompt: "الرجاء اختيار"
+
+  number:
+    format:
+      separator: "."
+      delimiter: ","
+      precision: 3
+      significant: false
+      strip_insignificant_zeros: false
+
+    currency:
+      format:
+        format: "%u%n"
+        unit: "$"
+        separator: "."
+        delimiter: ","
+        precision: 2
+        significant: false
+        strip_insignificant_zeros: false
+
+    percentage:
+      format:
+        delimiter: ""
+
+    precision:
+      format:
+        delimiter: ""
+
+    human:
+      format:
+        delimiter: ""
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one:   "Byte"
+            other: "Bytes"
+          kb: "KB"
+          mb: "MB"
+          gb: "GB"
+          tb: "TB"
+      decimal_units:
+        format: "%n %u"
+        units:
+          unit: ""
+          thousand: ألف
+          million: مليون
+          billion: مليار
+          trillion: تريليون
+          quadrillion: الكدريليون رقم
+
+  datetime:
+    distance_in_words:
+      half_a_minute: 'نصف دقيقة'
+      less_than_x_seconds:
+        one: 'أقل من ثانية'
+        two: 'أقل من ثانيتين'
+        few: 'أقل من %{count} ثوان'
+        other: 'أقل من %{count} ثانية'
+      x_seconds:
+        one: 'ثانية واحدة'
+        two: 'ثانيتين'
+        few: '%{count} ثوان'
+        other: '%{count} ثانية'
+      less_than_x_minutes:
+        one: 'أقل من دقيقة'
+        two: 'أقل من دقيقتان'
+        few: 'أقل من %{count} دقائق'
+        other: 'أقل من %{count} دقيقة'
+      x_minutes:
+        one: 'دقيقة واحدة'
+        two: 'دقيقتان'
+        few: '%{count} دقائق'
+        other: '%{count} دقيقة'
+      about_x_hours:
+        one: 'حوالي ساعة واحدة'
+        two: 'حوالي ساعتين'
+        few: 'حوالي %{count} ساعات'
+        other: 'حوالي %{count} ساعة'
+      x_days:
+        one: 'يوم واحد'
+        two: 'يومين'
+        few: '%{count} أيام'
+        other: '%{count} يوم'
+      about_x_months:
+        one: 'حوالي شهر واحد'
+        two: 'حوالى شهرين'
+        few: 'حوالى %{count} أشهر'
+        other: 'حوالى %{count} شهر'
+      x_months:
+        one: 'شهر واحد'
+        two: 'شهرين'
+        few: '%{count} أشهر'
+        other: '%{count} شهر'
+      about_x_years:
+        one: 'حوالي سنة'
+        two: 'حوالى سنتين'
+        few: 'حوالى %{count} سنوات'
+        other: 'حوالى %{count} سنة'
+      over_x_years:
+        one: 'أكثر من سنة'
+        two: 'أكثر من سنتين'
+        few: 'أكثر من %{count} سنوات'
+        other: 'أكثر من %{count} سنة'
+      almost_x_years:
+        one:   "تقريبا سنة واحدة"
+        two: 'تقريبا سنتان'
+        few: 'ما يقرب من %{count} سنوات '
+        other: "ما يقرب من %{count} سنة"
+    prompts:
+      year:   "السنة"
+      month:  "الشهر"
+      day:    "اليوم"
+      hour:   "ساعة"
+      minute: "دقيقة"
+      second: "ثانية"
+
+  helpers:
+    select:
+      prompt: "الرجاء اختيار"
+
+    submit:
+      create: "%{model} إنشاء"
+      update: "%{model} نموذج"
+      submit: "%{model} حفظ"
+
+  errors:
+    format: "%{attribute} %{message}"
+
+    messages: &errors_messages
+      inclusion: "ليس خيارا مقبولا"
+      exclusion: "محجوز"
+      invalid: "غير معرف أو محدد"
+      confirmation: "لا تتوافق مع التأكيد"
+      accepted: "يجب أن تقبل"
+      empty: "فارغ، يرجى ملء الحقل"
+      blank: "فارغ، يرجى ملء الحقل"
+      too_long: "أطول من اللازم (الحد الأقصى هو %{count})"
+      too_short: "أقصر من اللازم (الحد الأدنى هو %{count})"
+      wrong_length: "بطول غير مناسب (يجب أن يكون %{count})"
+      not_an_integer: "يجب أن يكون صحيحا"
+      not_a_number: "ليس رقما"
+      greater_than: "يجب أن يكون أكبر من %{count}"
+      greater_than_or_equal_to: "يجب أن يكون أكبر من أو يساوي %{count}"
+      equal_to: "يجب أن يساوي %{count}"
+      less_than: "يجب أن يكون أصغر من %{count}"
+      less_than_or_equal_to: "يجب أن يكون أصغر من أو يساوي %{count}"
+      odd: "يجب أن يكون فردي"
+      even: "يجب أن يكون زوجي"
+
+  activerecord:
+    errors:
+      template:
+        header:
+          one: "ليس بالامكان حفظ %{model}: خطأ واحد."
+          other: "ليس بالامكان حفظ %{model}: %{count} أخطاء."
+        body: "يرجى التحقق من الحقول التالية:"
+
+      messages:
+        taken: "غير متوفر (مستخدم)"
+        record_invalid: "%{errors} فشل التحقق من صحة"
+        <<: *errors_messages
+
+      full_messages:
+        format: "%{attribute} %{message}"
+  _encyclopedia_of_life: "موسوعة الحياة"
   about_eol: "About EOL"
   account_information: "بيانات الحساب"
   account_registered_but_not_ready_try_later: "تم تسجيل الحساب ولكنه غير جاهز لتسجيل الدخول. يرجى المحاولة مرة أخرى خلال خمس دقائق."
-  action_not_available_error: "Sorry, that action is not available."
-  actions: Actions
-  active_colon: "Active:"
+  action_not_available_error: "عفوًا، لا يمكن تنفيذ تلك الخطوة"
+  actions: خطوات
+  active_colon: "نشط:"
   activerecord:
     attributes:
       collection:
-        description: "Collection description"
-        logo: "Primary collection image"
-        name: "Collection name"
-        sort_style_id: "Default sorting direction"
+        description: "وصف المجموعة"
+        logo: "صورة المجموعة الأساسية"
+        name: "أسم المجموعة"
+        sort_style_id: "اتجاه التصنيف الافتراضي"
       community:
         description: "Community description"
         logo: "Upload a logo"
         name: "Community name"
       content_page:
-        active: Published
+        active: نشر
         page_name: "Unique name"
         sort_order: "Sort order"
       content_partner:
-        acronym: "Project abbreviation"
+        acronym: "اختصار المشروع"
         admin_notes: "Administration notes"
         content_partner_status: "Project status"
-        created_at: Created
+        created_at: "أنشئ في"
         description: "Project description"
-        display_name: "Display name"
-        full_name: "Project name"
-        homepage: "Project URL"
+        display_name: "الاسم الظاهر"
+        full_name: "اسم المشروع"
+        homepage: "العنوان الإلكتروني للمشروع"
         notes: "Project notes"
-        user_id: "Managed by"
-        vetted: Vetted
+        user_id: يديرها
+        vetted: "تم تقييمه"
       data_object:
         bibliographic_citation: "Bibliographic citation"
-        description: Description
-        object_title: Title
-        rights_holder: "Rights holder"
-        rights_statement: "Rights statement"
-        source_url: "Source URL"
+        description: الوصف
+        object_title: "عنوان "
+        rights_holder: "صاحب حقوق الملكية"
+        rights_statement: "إقرار الحقوق"
+        source_url: "رابط المصدر"
       name:
-        string: Name
+        string: الاسم
       resource:
-        accesspoint_url: "Dataset URL"
+        accesspoint_url: "عنوان إلكتروني لمجموعة بيانات"
         bibliographic_citation: "Bibliographic citation"
         dataset: "Dataset file"
         description: "Resource description"
@@ -55,54 +297,54 @@ ar:
         rights_statement: "Default rights statement"
         title: "Resource name"
       translated_content_page:
-        active_translation: Published
+        active_translation: نشر
         left_content: Navigation
-        main_content: Body
+        main_content: النص
         meta_description: "Metadata description"
         meta_keywords: "Metadata keywords"
-        title: Title
+        title: "عنوان "
       user:
-        agreed_with_terms: "Terms of use agreement"
-        api_key: "API key"
-        bio: Bio
-        credentials: Credentials
-        curator_scope: "Curation scope"
-        email: "Email address"
-        entered_password: Password
-        entered_password_confirmation: "Password again <small>(to confirm)</small>"
-        family_name: "Last name"
-        full_name: "Full name"
-        given_name: "First name"
-        language_abbr: "Preferred language"
-        requested_curator_level_id: "Desired curation level"
-        tag_line: Tagline
-        username: Username
+        agreed_with_terms: "اتفاقية شروط الاستخدام"
+        api_key: "مفتاح واجهة برمجة التطبيقات"
+        bio: "السيرة الذاتية"
+        credentials: الاعتمادات
+        curator_scope: "نطاق الإشراف"
+        email: "البريد الإلكتروني "
+        entered_password: "كلمة السر"
+        entered_password_confirmation: "أعد كتابة كلمة السر <small>(للتأكيد)</small>"
+        family_name: "أسم العائلة"
+        full_name: "الأسم بالكامل"
+        given_name: "الأسم الأول"
+        language_abbr: "اللغة المفضلة"
+        requested_curator_level_id: "مستوى الأشراف المرغوب به"
+        tag_line: الشعار
+        username: "اسم المستخدم"
     errors:
       full_messages:
         format: "%{attribute} %{message}"
       messages:
-        accepted: "must be accepted"
-        blank: "can't be blank"
-        confirmation: "doesn't match confirmation"
+        accepted: "يجب أن يتم قبوله"
+        blank: "لا يمكن أن يترك فارغًا"
+        confirmation: "لا يطابق التأكيد"
         empty: "can't be empty"
-        equal_to: "must be equal to %{count}"
-        even: "must be even"
-        exclusion: "is reserved"
-        greater_than: "must be greater than %{count}"
-        greater_than_or_equal_to: "must be greater than or equal to %{count}"
+        equal_to: "يجب أن يساوي %{count}"
+        even: "يجب أن يكون عدد زوجي"
+        exclusion: محجوز
+        greater_than: "يجب أن يكون أكبر من %{count}"
+        greater_than_or_equal_to: "يجب أن يكون أكبر من أو يساوي %{count}"
         inaccessible: "is inaccessible"
-        inclusion: "is not included in the list"
-        invalid: "is invalid"
-        less_than: "must be less than %{count}"
-        less_than_or_equal_to: "must be less than or equal to %{count}"
-        not_a_number: "is not a number"
-        not_an_integer: "must be an integer"
-        odd: "must be odd"
-        record_invalid: "Validation failed: %{errors}"
-        taken: "has already been taken"
-        too_long: "is too long (maximum is %{count} characters)"
-        too_short: "is too short (minimum is %{count} characters)"
-        wrong_length: "is the wrong length (should be %{count} characters)"
+        inclusion: "غير موجود بالقائمة"
+        invalid: "غير صالح"
+        less_than: "يجب ان يكون أقل من %{count}"
+        less_than_or_equal_to: "يجب أن يكون أقل من أو يساوي"
+        not_a_number: "ليس رقم"
+        not_an_integer: "يجب ان يكون عدد صحيح"
+        odd: "يجب ان يكون عدد فردي"
+        record_invalid: "تعذر التحقق: %{errors}"
+        taken: "غير متاح"
+        too_long: "طويلة جدًا (الحد الأقصى %{count} حرف) "
+        too_short: "قصيرة جدًا (الحد الأدنى %{count} حرف)"
+        wrong_length: "عدد الحروف خاطئ (يجب أن يكون %{count} حرف)"
         wrong_type: "is the wrong type"
       models:
         resource:
@@ -118,54 +360,58 @@ ar:
               inaccessible: "is inaccessible, the URL must be publicly accessible"
               invalid: "is invalid, it should point to a TAR.GZIP, TAR.GZ or TGZ file."
       template:
-        body: "The following fields failed validation:"
+        body: "تعذر التحقق من الخانات التالية:"
         header:
-          one: "%{count} validation error found"
-          other: "%{count} validation errors found"
+          few: "%{count} أخطاء في االتحقق"
+          one: "خطأ واحد في التحقق "
+          other: "%{count} خطاء في التحقق"
+          two: "خطأين في التحقق"
     models:
-      user: account
-  activity: Activity
-  activity_log_empty: "No one has provided updates yet."
-  activity_log_empty_learn_more_link: "Learn how to contribute"
+      user: حساب
+  activity: نشاط
+  activity_log_empty: "لم يتم إضافة تحديثات بعد."
+  activity_log_empty_learn_more_link: "تعرف على كيفية المشاركة"
   activity_user_added_community_manager: "<strong>%{user}</strong> made %{manager} a manager of the community \"%{community}\"."
-  activity_user_added_item_to_collection: "<strong>%{user}</strong> added \"%{item}\" to the collection \"%{collection}\"."
-  activity_user_added_unknown_item_to_collection: "<strong>%{user}</strong> added an unknown item to the collection \"%{collection}\"."
+  activity_user_added_item_to_collection: "<strong>%{user}</strong> أضاف \"%{item}\" إلى مجموعة \"%{collection}\"."
+  activity_user_added_unknown_item_to_collection: "<strong>%{user}</strong> أضاف عنصر غير معروف إلى مجموعة \"%{collection}\"."
   activity_user_changed_community_description: "<strong>%{user}</strong> updated the description of the community \"%{community}\"."
   activity_user_changed_community_icon: "<strong>%{user}</strong> changed the logo of the community \"%{community}\"."
   activity_user_changed_community_name: "<strong>%{user}</strong> changed the name of the community \"%{community}\"."
-  activity_user_created_collection: "<strong>%{user}</strong> created the collection \"%{collection}\"."
+  activity_user_created_collection: "<strong>%{user}</strong> كون مجموعة \"%{collection}\"."
   activity_user_created_community: "<strong>%{user}</strong> created the community \"%{community}\"."
-  activity_user_created_text: "<strong>%{user}</strong> added text to \"%{object_name}\" on \"%{taxon_concept}\"."
-  activity_user_curated_an_unknown_object: "<strong>%{user}</strong> curated an unknown object."
+  activity_user_created_text: "<strong>%{user}</strong> أضاف نص إلى \"%{object_name}\" في \"%{taxon_concept}\"."
+  activity_user_curated_an_unknown_object: "<strong>%{user}</strong> أشرف على عنصر غير معروف."
   activity_user_deleted_community: "<strong>%{user}</strong> deleted the community \"%{community}\"."
-  activity_user_hid_data_object: "<strong>%{user}</strong> marked \"%{object_name}\" as hidden."
-  activity_user_hid_unknown_object: "<strong>%{user}</strong> marked an unknown object as hidden."
+  activity_user_hid_data_object: "<strong>%{user}</strong> صنف \"%{object_name}\" كمخفي."
+  activity_user_hid_unknown_object: "<strong>%{user}</strong> صنف عنصر غير معروف كمخفي."
   activity_user_joined_community: "<strong>%{user}</strong> joined the community \"%{community}\"."
-  activity_user_marked_content_as_inappropriate: "<strong>%{user}</strong> marked content as inappropriate."
-  activity_user_modified_collection: "<strong>%{user}</strong> modified the collection \"%{collection}\"."
+  activity_user_marked_content_as_inappropriate: "<strong>%{user}</strong> صنف المحتوى كغير لائق."
+  activity_user_modified_collection: "<strong>%{user}</strong> عدل مجموعة \"%{collection}\"."
   activity_user_modified_community: "<strong>%{user}</strong> modified the community \"%{community}\"."
-  activity_user_rated_data_object: "<strong>%{user}</strong> rated \"%{object_name}\"."
-  activity_user_rated_unknown_object: "<strong>%{user}</strong> rated an unknown object."
-  activity_user_removed_item_from_collection: "<strong>%{user}</strong> removed \"%{item}\" from the collection \"%{collection}\"."
-  activity_user_showed_data_object: "<strong>%{user}</strong> marked \"%{object_name}\" as visibile."
-  activity_user_showed_unknown_object: "<strong>%{user}</strong> marked an unknown object as visibile."
-  activity_user_trusted_data_object: "<strong>%{user}</strong> marked \"%{object_name}\" as trusted."
-  activity_user_trusted_unknown_object: "<strong>%{user}</strong> marked an unknown object as trusted."
-  activity_user_unreviewed_data_object: "<strong>%{user}</strong> marked \"%{object_name}\" as unreviewed."
-  activity_user_unreviewed_unknown_object: "<strong>%{user}</strong> marked an unknown object as unreviewed."
-  activity_user_untrusted_data_object: "<strong>%{user}</strong> marked \"%{object_name}\" as untrusted."
-  activity_user_untrusted_unknown_object: "<strong>%{user}</strong> marked an unknown object as untrusted."
-  activity_user_updated_text: "<strong>%{user}</strong> updated \"%{object_name}\" text on \"%{taxon_concept}\"."
-  add_a_comment_colon: "Add a Comment:"
-  add_a_new_common_name: "Add a new common name"
-  add_a_taxon_association_label: "Add a taxon association"
-  add_article_to_page_link_button: "Add an article to this page"
-  add_brief_summary_to_page_link_button: "Add a brief summary to this page"
+  activity_user_rated_data_object: "<strong>%{user}</strong> قيم \"%{object_name}\"."
+  activity_user_rated_unknown_object: "<strong>%{user}</strong> قيم عنصر غير معروف."
+  activity_user_removed_all_items_from_collection: "<strong>%{user}</strong> removed all items from the collection \"%{collection}\"."
+  activity_user_removed_item_from_collection: "<strong>%{user}</strong> حذف \"%{item}\" من مجموعة \"%{collection}\"."
+  activity_user_showed_data_object: "<strong>%{user}</strong> صنف \"%{object_name}\" كظاهر."
+  activity_user_showed_unknown_object: "<strong>%{user}</strong> صنف عنصر غير معروف كظاهر."
+  activity_user_trusted_data_object: "<strong>%{user}</strong> صنف \"%{object_name}\" كموثوق به."
+  activity_user_trusted_unknown_object: "<strong>%{user}</strong> صنف عنصر غير معروف كموثوق به."
+  activity_user_unreviewed_data_object: "<strong>%{user}</strong> صنف \"%{object_name}\" كغير مراجع."
+  activity_user_unreviewed_unknown_object: "<strong>%{user}</strong> صنف عنصر غير معروف كغير مراجع."
+  activity_user_untrusted_data_object: "<strong>%{user}</strong> صنف \"%{object_name}\" كغير موثوق به."
+  activity_user_untrusted_unknown_object: "<strong>%{user}</strong> صنف عنصر غير معروف كغير موثوق به."
+  activity_user_updated_text: "<strong>%{user}</strong> حدث نص \"%{object_name}\" في \"%{taxon_concept}\" ."
+  add_a_comment_colon: "أضف تعليقًا:"
+  add_a_new_common_name: "أضف اسمًا شائعًا جديدًا"
+  add_a_taxon_association_label: "أضف رابط أصنوفة"
+  add_article_to_page_link_button: "أضف مقال إلى تلك الصفحة"
+  add_association_submit_button: "add association"
+  add_brief_summary_to_page_link_button: "أضف نبذة مختصرة إلى تلك الصفحة"
   add_item_to_new_collection: "Add \"%{item}\" to a new collection"
   add_language: "Add language"
-  add_new_association_link: "Add new association"
+  add_new_association_link: "أضف رابط جديد"
   add_page: "Add Page"
-  add_to_my_collection_button: "أضف إلى مجموعتي"
+  add_to_my_collection_button: "أضف الى مجموعتى"
   admin: admin
   admin_content_page_child_new_link: "Create child page"
   admin_content_page_create_successful_notice: "Page <em>%{page_name}</em> created successfully."
@@ -185,14 +431,14 @@ ar:
   admin_content_pages_index_information: "The following list includes all of the static pages currently available on the EOL Website. Each page has one or more translations. When you create a new page you will be asked to add a translation. Published translations are publicly accessible."
   admin_content_pages_link: "Content Management"
   admin_content_pages_page_title: "Administration: Content Management"
-  admin_content_partner_notification_link: "Monthly Notification"
-  admin_content_partners_hierarchies_link: "Content partner hierarchies"
+  admin_content_partner_notification_link: "إشعار شهري"
+  admin_content_partners_hierarchies_link: "عرض التسلسل الهرمي للشركاء في المحتوى"
   admin_content_partners_link: "Administration: Content partners"
-  admin_content_partners_published_link: "Monthly published partners"
-  admin_home: "admin home"
+  admin_content_partners_published_link: "الشركاء الذين يقومون بالنشر شهريًّا"
+  admin_home: "الصفحة الرئيسية للمشرفين"
   admin_information: "This is the new administration console for EOL V2. We are in the process of transferring administration functionality from V1. If the administration section you are looking for is not listed please visit the <a href=\"/administrator\">V1 Administration Console</a>."
-  admin_link: Overview
-  admin_notes_not_visible_to_user: "Admin notes (not visible to user):"
+  admin_link: "نظرة عامة"
+  admin_notes_not_visible_to_user: "ملاحظات المشرف (غير ظاهرة للمستخدم):"
   admin_page_title: "Administration: Overview"
   admin_translated_content_page_create_successful_notice: "Translation has been added to <em>%{page_name}</em>"
   admin_translated_content_page_create_unsuccessful_error: "Sorry, an error occurred, the translation could not be added."
@@ -206,151 +452,173 @@ ar:
   admin_translated_content_page_new_tip: "Language, title and body are %{required_icon} required."
   admin_translated_content_page_update_successful_notice: "%{language} translation for <em>%{page_name}</em> has been updated."
   admin_translated_content_page_update_unsuccessful_error: "Sorry, an error occurred, the translation could not be updated."
-  agent: Agent
-  all_changes: "All changes"
-  all_information: "All information"
-  all_items: "All items"
+  agent: وكيل
+  all_articles: All articles
+  all_changes: "جميع التغييرات"
+  all_collections: All collections
+  all_communities: All communities
+  all_images: All images
+  all_information: "جميع المعلومات"
+  all_items: "جميع العناصر"
   all_pages: "جميع الصفحات"
-  all_title: All
-  all_user_submitted_texts_on_th: "All user-submitted texts on the website are shown below, sorted inversely by time created."
+  all_people: All people
+  all_sounds: All sounds
+  all_taxa: All taxa
+  all_title: الكل
+  all_user_submitted_texts_on_th: "يعرض فيما يلي جميع النصوص التي أضافها المستخدمون إلى الموقع الإلكتروني، مرتبين عكسيًّا وفقًا لوقت إضافتها."
+  all_videos: All videos
   already_a_member_question: "هل أنت عضو؟"
-  already_member_of_community: "أنت عضو في هذا المجتمع"
+  already_member_of_community: "أنت عضو في هذا المجتمع  "
   alternate_classification: "Alternate classification"
-  and: and
-  and_between_form_items: and
+  and: و
+  and_between_form_items: و
   application_version_advisory_information: "نسخة التطبيق"
   are_you_sure: "هل أنت متأكد؟"
   article_from: "article from"
-  article_more_about: "Learn more about this article"
-  assistive_details_header: Details
-  assistive_literature_header: Literature
-  assistive_maps_header: Maps
-  assistive_media_header: Media
-  assistive_names_common_header: "Common names"
-  assistive_names_related_header: "Related names"
-  assistive_names_synonyms_header: Synonyms
-  assistive_overview_header: Overview
-  assistive_updates_header: Updates
-  associated_with_article_header: "Associated with"
-  associated_with_image_header: "In this image"
-  associated_with_sound_header: "Associated with"
-  associated_with_video_header: "In this video"
-  attribute: Attribute
+  article_more_about: "تعرف على المزيد عن تلك المقال"
+  assistive_details_header: التفاصيل
+  assistive_literature_header: "المواد المطبوعة"
+  assistive_maps_header: الخرائط
+  assistive_media_header: الوسائط
+  assistive_names_common_header: "الأسماء الشائعة"
+  assistive_names_related_header: "الأسماء ذات الصلة"
+  assistive_names_synonyms_header: المترادفات
+  assistive_overview_header: "نظرة عامة"
+  assistive_updates_header: تحديثات
+  associated_submit_button: associated
+  associated_with_article_header: "مرتبط بـ"
+  associated_with_image_header: "في تلك الصورة"
+  associated_with_sound_header: "مرتبط بـ"
+  associated_with_video_header: "في ذلك الفيديو"
+  attribute: نسب
   authoritative_information: "authoritative information"
-  auto_email_notifications_were_sent_to_colon: "Auto email notifications were sent to:"
-  automated_translation_of_eol: "Automated Translation of EOL"
-  average_rating_value_of_total: "Average rating: %{rating} of %{total}"
-  back_to_profile: "Back to profile"
+  auto_email_notifications_were_sent_to_colon: "تم إرسال الإشعارات الأوتوماتيكية عبر البريد الإلكتروني إلى:"
+  automated_translation_of_eol: "الترجمة الآلية لموسوعة الحياة"
+  average_rating_value_of_total: "متوسط التقييم: %{rating} من %{total}"
+  back_to_profile: "الرجوع إلى الصفحة الشخصية"
   belongs_in_count_communities:
-    one: "Belongs to %{count} Communities"
-    other: "Belongs to %{count} Communities"
-  bi_monthly: Bi-Monthly
-  biodiversity_heritage_library: "Biodiversity Heritage Library"
-  biology_of_aging_project: "Biology of Aging project"
-  biomedical_terms: "Biomedical terms"
-  browsable: Browsable
-  browse_eol: "browse EOL"
-  browse_hierarchy: "browse hierarchy"
-  build_communities: "Build communities"
-  by_entering_a_wikipedia_revision: "By entering a Wikipedia revision URL you are requesting that EOL ingests that particular revision as vetted. It will replace the current version of that article in EOL if we have it already."
-  cancel: Cancel
+    few: "ينتمي إلى %{count} مجتمعات "
+    one: "ينتمى إلى مجتمع واحد"
+    other: "ينتمي إلى %{count} واحد "
+    two: "ينتمى الى مجتمعين"
+  bi_monthly: "نصف شهريًّا"
+  biodiversity_heritage_library: "مكتبة تراث التنوع البيولوجي"
+  biology_of_aging_project: "مشروع بيولوجيا الشيخوخة"
+  biomedical_terms: "مصطلحات بيولوجية طبية"
+  browsable: "يمكن تصفحه"
+  browse_eol: "تصفح موسوعة الحياة"
+  browse_hierarchy: "تصفح التسلسل الهرمي"
+  build_communities: "إنشاء مجتمعات"
+  by_entering_a_wikipedia_revision: "عند إضافة عنوان إلكتروني لنسخة مراجعة من إحدى مقالات موقع ويكيبيديا، فإنك تطلب أن تضيف موسوعة الحياة تلك النسخة المراجعة بالتحديد باعتبارها مقيمة. وسوف تستبدل النسخة الحالية من المقالة في موسوعة الحياة إذا كانت لدينا مسبقًا."
+  cancel: إلغاء
   cannot_be_associated_with_both_a_user_and_a_community: "لا يمكن أن يكون مرتبطًا بمستخدم ومجتمع"
   cannot_be_empty: "لا يمكن أن يكون خاليًا"
-  cannot_create_collection_item_from_class_error: "I cannot create a collection item from a %{klass}"
-  cannot_find_member: "Cannot find a member with this id."
-  cannot_index_collection_item_type_error: "I cannot index a collection item from a %{type}"
-  change: Change
-  change_rating_to_1_of_5: "Change rating to 1 of 5"
-  change_rating_to_2_of_5: "Change rating to 2 of 5"
-  change_rating_to_3_of_5: "Change rating to 3 of 5"
-  change_rating_to_4_of_5: "Change rating to 4 of 5"
-  change_rating_to_5_of_5: "Change rating to 5 of 5"
-  choose_collection_header: "Choose collection"
+  cannot_create_collection_item_from_class_error: "لا استطيع أن أكون عنصر مجموعة من #{klass}"
+  cannot_find_member: "لم يتم العثور على مستخدم بذلك التعريف."
+  cannot_index_collection_item_type_error: "لا أستطيع أن أفهرس عنصر مجموعة من %{type}"
+  change: تغيير
+  change_rating_to_1_of_5: "عدل التقييم إلى 1 من 5"
+  change_rating_to_2_of_5: "عدل التقييم إلى 2 من 5"
+  change_rating_to_3_of_5: "عدل التقييم إلى 3 من 5"
+  change_rating_to_4_of_5: "عدل التقييم إلى 4 من 5"
+  change_rating_to_5_of_5: "عدل التقييم إلى 5 من 5"
+  choose_collection_header: "أختر مجموعة"
   citation: الإقتباس
-  classification_tree_header: Classification
-  classifications_empty: "This taxon is not in any classifications that are browsable in EOL."
+  citation_example: "Fisher, Brian. \"Pogonomyrmex anergismus Cole, 1954.\" Encyclopedia of Life, available from <a href=\"http://eol.org/pages/460427\" target=\"_blank\">http://eol.org/pages/460427</a>. Accessed 15 Jan 2009."
+  classification_tree_header: تصنيف
+  classifications_empty: "تلك الأصنوفة غير متواجدة في أي من التصنيفات التي يمكن تصفحها بموسوعة الحياة"
   classifications_summary_header_with_count:
-    few: "جزء من %{count} تصنيفات معترف بها"
-    one: "جزء من تصنيف معترف به"
-    other: "جزء من %{count} تصنيف معترف به"
-    two: "جزء من تصنيفان معترف بهما"
+    few: "وجدت في %{count} تصنيفات"
+    one: "وجدت في تصنيف واحد"
+    other: "وجدت في %{count} تصنيف"
+    two: "وجدت في تصنيفين"
   click_on_a_user_to_view_the_us: "Click on a user to view the user's detailed profile, click on the species to view the page where the text exists (use your browser back button to return here)."
-  close_this_window_to_return_to: "CLOSE THIS WINDOW TO RETURN TO EDIT WINDOW"
+  close_this_window_to_return_to: "أغلق تلك النافذة للعودة إلى نافذة التعديل"
   clouds_provided_by_the_mbl: "Clouds provided by the MBL %{link}."
-  cms_available_in_languages: "هذه الصفحة متاحة باللغات التالية:"
-  cms_missing_content_message: "نأسف لعدم توفر هذه الصفحة لهذه اللغة."
+  cms_available_in_languages: "الصفحة غير متاحة باللغة:"
+  cms_missing_content_message: "عفوًا، الصفحة غير متاحة بتلك اللغة."
   cms_missing_content_title: "محتوى مفقود"
   collect_item: "Collect item"
-  collection_created_notice: "Collection <em>%{collection_name}</em> successfully created."
+  collection_created_notice: "تم إنشاء مجموعة <em>%{collection_name}</em> بنجاح."
   collection_created_with_count_notice:
+    few: "Collection <em>%{collection_name}</em> successfully created with %{count} collection item."
     one: "Collection <em>%{collection_name}</em> successfully created with %{count} collection item."
     other: "Collection <em>%{collection_name}</em> successfully created with %{count} collection item."
+    two: "Collection <em>%{collection_name}</em> successfully created with %{count} collection item."
   collection_delete_link: "Permanently delete this collection"
   collection_destroyed: "The collection was deleted."
   collection_image: "Collection image"
-  collection_is_empty: "This collection is currently empty."
-  collection_item_annotation_label: "Collection item annotation"
-  collection_item_not_found_error: "That collection item could not be found."
-  collection_name_label: "Collection name"
-  collection_not_created_error: "Sorry, an error occurred, the collection <em>%{collection_name}</em> could not be created."
+  collection_is_empty: "المجموعة خالية حاليًا"
+  collection_item_annotation_label: "شرع عنصر المجموعة"
+  collection_item_not_found_error: "تعذر عنصر المجموعة "
+  collection_name_label: "أسم المجموعة"
+  collection_not_created_error: "عفوًا، حدث خطأ، تعذر إنشاء مجموعة <em>%{collection_name}</em> "
   collection_not_destroyed_error: "Sorry, the collection was not deleted."
-  collection_not_found_error: "Sorry, that collection cound not be found."
-  collection_updated_notice: "Collection <em>%{collection_name}</em> successfully updated."
+  collection_not_found_error: "عفوًا، لم يتم العثور على المجموعة"
+  collection_updated_notice: "تم تحديث مجموعة <em>%{collection_name}</em> بنجاح"
   collection_was_removed_by_owner: "This collection was removed by its owner."
   collections: المجموعات
-  collections_summary_empty: "This taxon isn't in any collections yet."
+  collections_summary_empty: "تلك الأصنوفة غير متواجدة في أي مجموعة إلى الآن"
   collections_summary_header_with_count:
-    few: "متواجد في %{count} مجموعات"
-    one: "متواجد في مجموعة واحدة"
-    other: "متواجد في %{count} مجموعة"
-    two: "متواجد في مجموعتين"
+    few: "موجود في %{count} مجموعات"
+    one: "موجود في مجموعة واحدة"
+    other: "موجود في %{count} مجموعة"
+    two: "موجود في مجموعتين"
   collections_with_count:
-    few: "%{count} مجموعات"
-    one: "مجموعة واحدة"
-    other: "%{count} مجموعة"
-    two: مجموعتان
-  comment: Comment
-  comment_added_notice: "Comment successfully added."
-  comment_body_label: "Your comment"
-  comment_new_posters_image_advisory_info: "Your profile picture and name will appear next to your comment in listings."
-  comment_new_posters_image_alt: "Your profile picture, if you have provided one."
-  comment_not_added_error: "Sorry, an error occurred, comment could not be added."
-  comment_show_posters_image_alt: "Profile picture of %{posters_name} who added this comment."
-  comments_and_tags: "Comments and Tags"
-  comments_moderated: "Comments Moderated"
+    few: "موجود في %{count} مجموعات"
+    one: "موجود في مجموعة واحدة"
+    other: "موجود في %{count} مجموعة"
+    two: "موجود في مجموعتين"
+  comment: تعليق
+  comment_added_notice: "تم إضافة التعليق بنجاح"
+  comment_body_label: تعليقك
+  comment_new_posters_image_advisory_info: "سوف تظهر صورتك الشخصية وأسمك بجانب تعليقك في القوائم."
+  comment_new_posters_image_alt: "صورتك الشخصية، إذا كنت قد أضفت واحدة."
+  comment_not_added_error: "عفوًا، حدث خطأ، تعذر إضافة التعليق."
+  comment_show_posters_image_alt: "الصورة الشخصية لـ%{posters_name} الذي أضاف ذلك التعليق."
+  comments_and_tags: "التعليقات والعلامات"
+  comments_moderated: "التعليقات المعدلة"
   comments_with_count:
-    one: "%{count} Comment"
-    other: "%{count} Comments"
+    few: "%{count} تعليقات"
+    one: "تعليق واحد"
+    other: "%{count} تعليق"
+    two: تعليقان
   common_names_advisory_information: "الأسماء الشائعة المرتبطة بتلك الأصنوفة"
   common_names_with_count:
     few: "%{count} أسماء شائعة"
-    one: "أسم شائع واحد"
-    other: "%{count} أسم شائع"
-    two: "أسمان شائعان"
+    one: "اسم شائع واحد"
+    other: "%{count} اسم شائع"
+    two: "اسمان شائعان"
   communities: المجتمعات
   communities_index_empty: "There are no active communities."
-  communities_index_header: "Active communities"
-  communities_summary_empty: "This taxon hasn't been endorsed by a community yet."
+  communities_index_header: "مجتمعات نشطة"
+  communities_summary_empty: "لم تقوم أي مجموعة بإجازة تلك الأصنوفة إلى الأن"
   communities_summary_header_with_count:
-    few: "ينتمي إلى %{count} مجتمعات"
-    one: "ينتمي إلى مجتمع واحد"
-    other: "ينتمي إلى %{count} مجتمع"
-    two: "ينتمي إلى مجتمعان"
+    few: "ينتمي إلى %{count} مجتمعات "
+    one: "ينتمى إلى مجتمع واحد"
+    other: "ينتمي إلى %{count} واحد "
+    two: "ينتمى الى مجتمعين"
   community: "عرض المجتمع"
   community_activity: "نشاط المجتمع"
   community_contributions_with_count:
-    one: "%{count} Contribution"
-    other: "%{count} Contributions"
+    few: "%{count} مساهمات"
+    one: "مساهمة واحدة"
+    other: "%{count} مساهمة"
+    two: مساهمتين
   community_destroyed: "Community was deleted."
   community_empty_notice: "This community has no members."
   community_focus: "محور اهتمام المجتمع"
   community_invitation_comment: "I would like to invite you to join \"%{community}\"."
   community_managers_with_count:
-    one: "%{count} Community Manager"
-    other: "%{count} Community Managers"
+    few: "مدير %{count} مجتمعات"
+    one: "مدير مجتمع واحد"
+    other: "مدير %{count} مجتمع"
+    two: " مدير مجتمعين"
   community_members_with_count:
-    one: "%{count} Community Members"
-    other: "%{count} Community Members"
+    few: " %{count} أعضاء بمجتمع"
+    one: "عضو واحد بمجتمع "
+    other: " %{count} عضو بمجتمع"
+    two: "عضوان بمجتمع"
   community_must_have_one_manager_error: "Sorry, communities must have at least one manager, and this member is the last one."
   community_not_destroyed_error: "Sorry, the community was not deleted."
   community_removed_by_owner: "This community was removed by its owner."
@@ -358,82 +626,26 @@ ar:
   community_tab_communities_description: "Communities are groups of EOL users united around a single purpose, from protecting shorebirds to sharing their passion for primates. Collections are also an opportunity for like-minded individuals to find one another and interact both on and off the EOL website."
   community_tab_curators_description: "Curators are EOL users with taxonomic expertise who have given their time to vet the content you see on EOL, ensuring what you see is accurate and of quality."
   confirm_leave: "Are you sure you want to leave this community?"
-  confirm_password_colon: "Confirm Password:"
-  contact_about_sponsorship_preamble: "If you would like to learn more about specific programs available for sponsorship, or would like to make a recurring gift, please contact the Encyclopedia of Life Secretariat at %{email} or by phone at (202)633-8730."
-  contact_eli_eol_org_for_any_co: "Contact eli@eol.org for any comments."
-  contact_us_functions: "Contact Us Functions"
+  confirm_password_colon: "تأكيد كلمة السر:"
+  contact_about_sponsorship_preamble: "للتعرف على المزيد عن برامج محددة متاحة للرعاية، أو إذا كنت ترغب في تقديم مساهمة بصورة دورية، يرجى الاتصال بالأمانة العامة لموسوعة الحياة عن طريق البريد الإلكتروني أو عن طريق الهاتف على رقم 6338730 (202)."
+  contact_eli_eol_org_for_any_co: " في حال وجود أي تعليقات يرجى مراسلة  eli@eol.org"
+  contact_for_providing_education_resource_if_empty: "There are no education resources available at this time. To provide a resource to EOL for inclusion here, please contact %{email}. To learn more about EOL educational resources please visit %{link}."
+  contact_us_functions: "وظائف الاتصال بنا"
   contact_us_link: "اتصل بنا"
-  contact_us_title: "Contact Us"
-  content_has_been_updated: "Content has been updated."
-  content_partner: "Content Partner"
+  contact_us_title: "اتصل بنا"
+  content_has_been_updated: "تم تحديث المحتوى."
+  content_partner: "شريك في المحتوى"
   content_partner_about_header: "About %{partner_name}"
   content_partner_administration_notes_empty: "There are no administration notes."
   content_partner_administration_notes_header: "Administration notes"
-  content_partner_agreement_attribution: "EOL intends to provide attribution for all provided content in the manner specified by %{content_partner_name}. The methodology EOL uses to attribute the content provided by %{content_partner_name} is fundamentally based on multi-level text strings and/or logos at the level of individual data objects. %{content_partner_name} will submit attribution information via the Transfer Schema. Note: The specific style and techniques employed for display of attribution for data objects may change as the EOL evolves."
-  content_partner_agreement_attribution_header: "Content attribution"
-  content_partner_agreement_contact_information_eol_organisation: "Encyclopedia of Life"
-  content_partner_agreement_contact_information_eol_organisation_url: www.eol.org
-  content_partner_agreement_contact_information_eol_representative_name_role_email_phone: "Cynthia Parr, Species Pages Director<br/>E-mail: parrc@si.edu<br/>Phone: 202.633.8730"
-  content_partner_agreement_contact_information_eol_representative_note: "On behalf of the Smithsonian Institution, representing the EOL for purposes of the day-to-day administration of this Agreement."
-  content_partner_agreement_contact_information_header: "Contact information"
   content_partner_agreement_create_successful_notice: "You have successfully agreed to the content partner terms, you may now add data resources."
   content_partner_agreement_create_unsuccessful_error: "Sorry, an error occurred, there appears to be a technical problem with content partner agreements. Please try again, if the problem persists please notify EOL."
-  content_partner_agreement_created_on: "Created on: %{date_time}"
-  content_partner_agreement_header: "Content partner agreement between the Encyclopedia of Life and %{content_partner_name}"
-  content_partner_agreement_introduction: "The Encyclopedia of Life and %{content_partner_name} agree to work together to develop and share critical biodiversity content to aid in assembling the Encyclopedia of Life. The Encyclopedia of Life will have access to data objects provided by %{content_partner_name} and %{content_partner_name} will have access to the resources of the Encyclopedia of Life, including species pages, scanned literature, and informatics tools in accordance with the terms listed below."
-  content_partner_agreement_introduction_header: Introduction
-  content_partner_agreement_licensing: "To the greatest extent possible, the Encyclopedia of Life promotes an open-source, open-access approach. Therefore, it requires that content providers (including the EOL's core participants) serving information through the EOL agree to the following provisions:"
-  content_partner_agreement_licensing_creative_commons_information: "Full information about the Creative Commons licensing can be found at http://www.creativecommons.org."
-  content_partner_agreement_licensing_header: "Content licensing"
-  content_partner_agreement_licensing_provision_alternate_restrictive_license: "Content providers who request some restrictions on re-use of their information may select an alternate Creative Commons license: CC-BY-SA (Attribution-ShareAlike), CC-BY-NC (Attribution-NonCommercial) or CC-BY-NC-SA (Attribution-NonCommercial-ShareAlike)."
-  content_partner_agreement_licensing_provision_attribution: "The EOL will provide attribution information for all content that it serves. EOL will also indicate the Creative Commons license attached to each object (text, structured data, graphics, multimedia, etc.)."
-  content_partner_agreement_licensing_provision_preferred_license: "Content providers are required to adopt a Creative Commons license for the information subject to copyright that they serve through the EOL. The default and preferred license is CC-BY (Attribution), which allows users to copy, transmit and reuse the information, and to remix or adapt the information, as long as attribution regarding the source of the information is maintained."
-  content_partner_agreement_licensing_provision_public_domain_ipr: "All information currently in the public domain will remain in the public domain. Neither the EOL nor the content providers will seek to assert any IPR over any public domain materials that are made available through the EOL."
-  content_partner_agreement_licensing_provision_rights_holder_permission: "Content providers warrant and represent that the content they provide under this Agreement either is in the public domain, that they hold the rights, or that they have obtained the necessary permissions from the rights-holders to use, reproduce and disseminate the content for use in the Encyclopedia, and that the content providers will hold EOL and the members of the EOL consortium harmless in the event of a claim arising from the submitted content."
-  content_partner_agreement_parties: "The Encyclopedia of Life (EOL) is an informal consortium of organizations dedicated to building an on-line Encyclopedia of Life composed of content-rich multi-media species pages for all of the presently known species on Earth. The cornerstone institutions of the EOL are listed at %{cornerstone_institutions_list_url}. Currently, the EOL is composed of five working groups:"
-  content_partner_agreement_parties_biodiversity_informatics_group_definition: "Conceptualizes and prepares the software needed to host and to search the species pages; applies taxonomic intelligence to the scientific names on the species pages and in the literature."
-  content_partner_agreement_parties_biodiversity_informatics_group_name: "Biodiversity Informatics Group"
-  content_partner_agreement_parties_biodiversity_synthesis_group_definition: "Holds synthesis meetings to help reach taxonomic consensus on megadiverse groups; develops tools for analyzing and synthesizing information across species pages."
-  content_partner_agreement_parties_biodiversity_synthesis_group_name: "Biodiversity Synthesis Group"
-  content_partner_agreement_parties_education_outreach_group_definition: "Exploits the EOL's potential by exploring and promoting its educational uses."
-  content_partner_agreement_parties_education_outreach_group_name: "Education and Outreach Group"
-  content_partner_agreement_parties_header: "The parties"
-  content_partner_agreement_parties_scanning_digitization_group_definition: "Working with the Biodiversity Heritage Library, a consortium of many of the world's largest natural history libraries, digitizes and marks up the world's biodiversity literature."
-  content_partner_agreement_parties_scanning_digitization_group_name: "Scanning and Digitization Group"
-  content_partner_agreement_parties_species_pages_group_definition: "Defines the composition of information on species pages; works with the scientific community to identify potential sources of information (such as the Content Partner) for the species pages and to authenticate the information on the species pages; establishes licensing agreements with data providers."
-  content_partner_agreement_parties_species_pages_group_name: "Species Pages Group"
-  content_partner_agreement_roles_use_terms_amending_or_terminating_agreement: "Either Party may amend or modify this Agreement by notifying the other Party in writing and with the prior written agreement of the other Party. Either Party may withdraw from the Agreement by providing written notification to the other Party 90 days in advance of withdrawal. Should %{content_partner_name} withdraw from the agreement, EOL will remove %{content_partner_name} content within one month."
-  content_partner_agreement_roles_use_terms_eol: "In handling the content provided by %{content_partner_name}, EOL will:"
-  content_partner_agreement_roles_use_terms_eol_term_access_content: "Enable %{content_partner_name} to access content from the EOL and to use that content on %{content_partner_name}'s own server or site according to the terms of the Creative Commons licenses, if any, for that content."
-  content_partner_agreement_roles_use_terms_eol_term_api: "Present or pass along %{content_partner_name}'s data objects to others using web services (such as APIs) which will carry the same Creative Commons licenses and specified manner of attribution."
-  content_partner_agreement_roles_use_terms_eol_term_attribution: "Attribute all of %{content_partner_name}'s data objects according to its preferred Creative Commons licenses and in the manner specified by %{content_partner_name}."
-  content_partner_agreement_roles_use_terms_eol_term_cache: "Cache %{content_partner_name}'s data objects along with similar content from other sources on EOL's servers."
-  content_partner_agreement_roles_use_terms_eol_term_copyright_notice: "Post on the EOL site a statement designating an agent for receiving notice of any content alleged to violate copyright or other rights; remove any content upon receiving such notice or upon otherwise discovering infringing content."
-  content_partner_agreement_roles_use_terms_eol_term_feedback_notification: "Notify %{content_partner_name} of any comments or feedback received about its data objects."
-  content_partner_agreement_roles_use_terms_eol_term_improve_quality: "Work with %{content_partner_name} to improve the quality of the provided data objects and reduce errors."
-  content_partner_agreement_roles_use_terms_eol_term_not_alter: "Not alter the data objects provided; however EOL will enable annotations or comments to be added."
-  content_partner_agreement_roles_use_terms_eol_term_partner_logo: "Show %{content_partner_name}'s logo and project description on its list of data partners."
-  content_partner_agreement_roles_use_terms_eol_term_provide_tools: "Provide tools and methods to enable %{content_partner_name} to provide its content to the EOL."
-  content_partner_agreement_roles_use_terms_eol_term_reserves_right_to_unpublish: "EOL may elect at its sole discretion to present all, portions or none of any data objects provided by %{content_partner_name} and reserves the right to redact or remove any illegal, offensive, or objectionable content."
-  content_partner_agreement_roles_use_terms_eol_term_reuse_requests: "Refer all requests for re-usage of %{content_partner_name}'s content to %{content_partner_name}."
-  content_partner_agreement_roles_use_terms_eol_term_usage_notification: "Notify %{content_partner_name} of statistics about the usage of its data objects."
-  content_partner_agreement_roles_use_terms_header: "Roles and conditions of use"
-  content_partner_agreement_roles_use_terms_not_creating_legal_partnership: "The parties do not intend to create a legal partnership, principal/agent, or joint venture relationship and nothing in this agreement shall be construed as creating such a relationship between the parties. Neither party may incur any obligation on behalf of the other."
-  content_partner_agreement_roles_use_terms_not_exclusive: "This agreement is non-exclusive, and in no way restricts either EOL or %{content_partner_name} from participating in similar activities or arrangements with other public or private initiatives, organizations, or individuals."
-  content_partner_agreement_roles_use_terms_not_exploit_association_with_eol: "%{content_partner_name} agrees that it shall not use the names or logos of EOL or any EOL cornerstone institution in any manner or through any medium without EOL’s or the EOL cornerstone institution’s prior, written consent. Upon the expiration or termination of this Agreement, %{content_partner_name} shall immediately cease to use the names or logos of EOL or any EOL cornerstone institution and shall not exploit in any manner its association with EOL or any EOL cornerstone institution unless otherwise agreed to in writing by EOL or any EOL cornerstone institution at the time of such expiration or termination."
-  content_partner_agreement_roles_use_terms_not_financial_obligation: "This agreement and the obligations set forth herein shall be subject to available funding and nothing in this agreement creates any financial obligation on the part of either party."
-  content_partner_agreement_roles_use_terms_partner: "In providing its content to EOL, %{content_partner_name} will:"
-  content_partner_agreement_roles_use_terms_partner_term_content_format: "Provide its content via a format and interchange method compatible with the EOL."
-  content_partner_agreement_roles_use_terms_partner_term_eol_logo: "Be able to display the EOL logo on its web site."
-  content_partner_agreement_roles_use_terms_partner_term_fitness_for_purpose: "Provide data objects as-is with no warranty or claim of fitness for purpose."
-  content_partner_agreement_roles_use_terms_partner_term_improve_quality: "Work with the EOL to improve the quality of the provided data objects and reduce errors."
-  content_partner_agreement_roles_use_terms_partner_term_license_compliance: "Comply with the Creative Commons licenses of any EOL content from other Content Partners that it may choose to use for its own purposes and to provide full attribution in the specified manner of the license."
-  content_partner_agreement_roles_use_terms_partner_term_respond_to_feedback: "Respond to the originators of comments or feedback communicated to %{content_partner_name} via the EOL regarding its content."
-  content_partner_agreement_was_updated: "Content partner agreement was updated."
+  content_partner_agreement_subheader: "Content Partner Agreement"
+  content_partner_agreement_was_updated: "تم تحديث اتفاقية شريك المحتوى بنجاح."
   content_partner_collections_empty: "Content partner collections list data that the partner has provided through their resources. No published collections were found at this time."
-  content_partner_column_header_partner: Partner
-  content_partner_column_header_registered: Registered
-  content_partner_column_header_status: Status
+  content_partner_column_header_partner: شريك
+  content_partner_column_header_registered: مسجل
+  content_partner_column_header_status: وضع
   content_partner_contact_create_successful_notice: "Contact has been added."
   content_partner_contact_create_unsuccessful_error: "Sorry, an error occurred, the contact was not added."
   content_partner_contact_delete_successful_notice: "Contact has been deleted."
@@ -442,42 +654,47 @@ ar:
   content_partner_contact_edit_page_subheader: "Edit contact"
   content_partner_contact_new_edit_form_header: "Content partner contact information"
   content_partner_contact_new_edit_form_tip: "First name, last name and email are %{required_icon} required."
-  content_partner_contact_new_link: "Add new contact"
+  content_partner_contact_new_link: "إضافة جهة اتصال جديدة"
   content_partner_contact_new_page_subheader: "Add a contact"
-  content_partner_contacts_header: Contacts
+  content_partner_contacts_header: "جهات الاتصال"
   content_partner_contacts_page_title: "Content Partner Contacts - %{name}"
   content_partner_contacts_with_count:
+    few: "%{count} contacts"
     one: "%{count} contact"
     other: "%{count} contacts"
+    two: "%{count} contacts"
   content_partner_create_successful_notice: "Content partner successfully created."
   content_partner_create_unsuccessful_error: "Sorry, an error occurred, content partner was not created."
-  content_partner_curated_data: "content partner curated data"
+  content_partner_curated_data: "بيانات الشريك في المحتوى التي تم الإشراف عليها"
   content_partner_data_description_empty: "No one has added a description of the data provided."
-  content_partner_data_description_header: "Description of data"
-  content_partner_detail: "Content Partner Detail"
-  content_partner_details: "content partner details"
+  content_partner_data_description_header: "وصف البيانات"
+  content_partner_detail: "بيانات شريك المحتوى"
+  content_partner_details: "عرض بيانات الشركاء في المحتوى"
   content_partner_edit_link: "Edit content partner"
   content_partner_empty: "No content partner found."
   content_partner_has_unpublished_content_false: "No unpublished content"
   content_partner_has_unpublished_content_true: "Unpublished content"
-  content_partner_hierarchies: "content partner hierarchies"
+  content_partner_hierarchies: "عرض التسلسل الهرمي للشركاء في المحتوى"
   content_partner_homepage_link: "Visit partner Web site"
   content_partner_latest_published_harvest_event_time_ago: "Last harvested %{time_passed} ago"
   content_partner_logo_alt_text: "Logo for content partner %{partner_name}"
-  content_partner_managed_by_header: "Managed by"
+  content_partner_managed_by_header: يديرها
   content_partner_new_edit_form_profile_header: "Content partner profile information"
   content_partner_new_edit_form_tip: "Some of the information you enter here will be publicly visible. Project name and description are %{required_icon} required."
   content_partner_new_link: "Add new content partner"
   content_partner_new_page_subheader: "Add a new content partner"
   content_partner_notes_empty: "There aren't any additional notes for this project."
   content_partner_notes_header: "Project notes"
-  content_partner_objects_stats: "content partner objects stats"
+  content_partner_objects_stats: "إحصائيات موضوعات الشركاء في المحتوى"
+  content_partner_overview_agreement_header: "Partner agreement"
+  content_partner_overview_agreement_link: "View current agreement"
   content_partner_overview_link: "Partner Overview"
+  content_partner_overview_link_back_to: "go back to partner overview"
   content_partner_registered_time_ago: "Registered %{time_passed} ago"
   content_partner_resource_about_header: "About resource"
   content_partner_resource_collection_empty: "A collection has not been generated for this resource."
   content_partner_resource_collection_header: "Published collection"
-  content_partner_resource_collections_header: Collections
+  content_partner_resource_collections_header: المجموعات
   content_partner_resource_create_successful_notice: "Content partner resource details successfully added. Current status of resource data: %{resource_status}."
   content_partner_resource_create_unsuccessful_error: "Sorry, an error occurred, the resource was not added."
   content_partner_resource_dataset_details_header: Dataset
@@ -490,283 +707,300 @@ ar:
   content_partner_resource_new_link: "Add a new resource"
   content_partner_resource_new_subheader: "Add a new resource"
   content_partner_resource_preview_collection_header: "Preview collection"
-  content_partner_resource_resource_status_new: Created
+  content_partner_resource_resource_status_new: "أنشئ في"
   content_partner_resource_show_subheader: "Details for resource <em>%{resource_title}</em>"
   content_partner_resource_update_successful_notice: "Content partner resource details successfully updated. Current status of resource data: %{resource_status}."
   content_partner_resource_update_unsuccessful_error: "Sorry, an error occurred, the resource was not updated."
   content_partner_resource_url_or_dataset_not_both_error: "Dataset URL or file per resource, not both. Please decide whether you want to provide a URL or upload a file for this described resource. Additional resources can be added later."
-  content_partner_resources_header: Resources
+  content_partner_resources_header: المراجع
   content_partner_resources_information: "Resources are datasets that are available for harvesting by EOL. Harvested data is integrated into the EOL database and served to the public through the EOL Web site and API. Resource files can either be uploaded directly to EOL or, if you make your resource file available on a public Web server, EOL can automatically extract the data at regular intervals which you can define. Each resource file must be in the <a href=\"%{eol_transfer_schema_url}\">EOL Transfer Schema</a> format"
   content_partner_resources_link: "Resources &amp; Contacts"
   content_partner_resources_link_back_to: "go back to resources &amp; contacts"
   content_partner_resources_policy_information: "Before adding your data resources please review and agree to the following content partner terms of use agreement."
   content_partner_resources_unpublished_with_count:
+    few: "%{count} unpublished"
     one: "%{count} unpublished"
     other: "%{count} unpublished"
+    two: "%{count} unpublished"
   content_partner_resources_with_count:
+    few: "%{count} resources"
     one: "%{count} resource"
     other: "%{count} resources"
+    two: "%{count} resources"
   content_partner_statistics_column_header_provider_count: "Pages containing provider content"
   content_partner_statistics_column_header_provider_proportion: "Provider percentage"
   content_partner_statistics_column_header_statistic: "Statistic measured for the month of %{month_name}, %{year}"
-  content_partner_statistics_column_header_taxa_page_page_views: "Page Views"
+  content_partner_statistics_column_header_taxa_page_page_views: "عدد مشاهدات الصفحة"
   content_partner_statistics_column_header_taxa_page_time_on_page_seconds: "Time On Page (seconds)"
   content_partner_statistics_column_header_taxa_page_unique_page_views: "Unique Page Views"
-  content_partner_statistics_column_header_total_count: "All pages"
+  content_partner_statistics_column_header_total_count: "جميع الصفحات"
   content_partner_statistics_empty: "No statistics found for %{month_name} %{year}."
   content_partner_statistics_link: "Usage Statistics"
   content_partner_statistics_summary_caption: "Summary of usage statistics for taxon pages containing content provided by %{partner_name} relative to total usage of the EOL Web site."
   content_partner_statistics_taxa_page_caption: "Detailed usage statistics for taxon pages containing content provided by %{partner_name}."
   content_partner_terms_agreed_to_false: "Pending agreement"
   content_partner_terms_agreed_to_true: Agreed
-  content_partner_unvetted: Unreviewed
+  content_partner_unvetted: "لم تتم مراجعته"
   content_partner_update_successful_notice: "Partner details successfully updated."
   content_partner_update_unsuccessful_error: "Sorry, an error occurred, partner details were not updated."
-  content_partner_vetted: Vetted
+  content_partner_vetted: "تم تقييمه"
   content_partners: "شركاء المحتوى"
   content_partners_empty: "No content partners found."
   content_partners_intro: "Below is a list of partners, including content partners, with information on this taxon. Where possible the links will take you to the corresponding content on the given partner's website. The unique identifier for this taxon used by each partner is embedded in these links, and these identifiers are also accessible through the %{link}"
   content_partners_page_description: "Encyclopedia of Life content partners serve authenticated species information through the EOL portal. After developing a joint commitment, the content partners work closely with the EOL component groups to make their data visible within EOL. Learn more about <a href=\"%{more_url}\">becoming a content partner.</a>"
-  content_partners_page_title: "Content Partners"
+  content_partners_page_title: "شركاء المحتوى"
   content_partners_with_count:
+    few: "%{count} Content partners"
     one: "%{count} Content partner"
     other: "%{count} Content partners"
-  content_setting_colon: "Content Setting:"
-  content_summary_introduction_html: "The following values represent the sum of different types of content for this taxon and all of its taxonomic descendants. %{glossary_term_trusted} content has either been approved by an EOL curator or comes from a trusted provider. %{glossary_term_unreviewed} content has not yet been assessed by an EOL curator. Every taxonomic hierarchy is unique, so each browsable hierarchy is listed for comparison."
-  content_summary_table_caption: "A summary of content associated with %{taxon_name} and it's descendants in %{hierarchy_label}"
-  content_summary_table_count_column_header: Count
-  content_summary_table_summary: "This table contains counts of different types of content separated by content state."
-  content_summary_table_type_descendants_row: "Number of descendants"
-  content_summary_table_type_status_column_header: "Content type and status"
-  content_summary_table_type_trusted_images_row: "Number of trusted images"
-  content_summary_table_type_trusted_text_row: "Number of trusted text items"
-  content_summary_table_type_unreviewed_images_row: "Number of unreviewed images"
-  content_summary_table_type_unreviewed_text_row: "Number of unreviewed text items"
+    two: "%{count} Content partners"
+  content_setting_colon: "إعدادات المحتوى:"
+  content_summary_introduction_html: "تمثل القيم التالية مجموع أنواع المحتوى المختلفة عن تلك الأصنوفة وجميع سلالتها التصنيفية. إن محتوى %{glossary_term_trusted} إما تم الموافقة عليه من قبل أحد مشرفي موسوعة الحياة أو قدم من مصدر موثوق. لم يتم تقييم محتوى %{glossary_term_unreviewed} من قبل أحد مشرفي موسوعة الحياة إلى الأن. يتميز كل تسلسل هرمي تصنيفي عن غيره، لذلك تم إضافة كل تسلسل هرمي يمكن تصفحه إلى قائمة بهدف إجراء المقارنات."
+  content_summary_table_caption: "ملخص للمحتوى المتعلق بـ%{taxon_name} وسلالاته في %{hierarchy_label}"
+  content_summary_table_count_column_header: عدد
+  content_summary_table_summary: "يضم ذلك الجدول إحصاء لأنواع المحتوى المختلفة مقسمة وفقًا لوضع المحتوى."
+  content_summary_table_type_descendants_row: "عدد السلالات"
+  content_summary_table_type_status_column_header: "حالة ونوع المحتوى"
+  content_summary_table_type_trusted_images_row: "عدد الصور الموثوق بها"
+  content_summary_table_type_trusted_text_row: "عدد النصوص الموثوق بها"
+  content_summary_table_type_unreviewed_images_row: "عدد الصور غير المراجعة"
+  content_summary_table_type_unreviewed_text_row: "عدد النصوص غير المراجعة"
   copied_items_from_collection_with_count_notice:
-    one: "Copied %{count} item from %{name}."
-    other: "Copied %{count} items from %{name}."
-  copy: Copy
-  copy_all_articles_button: "copy all articles"
-  copy_all_collections_button: "copy all collections"
-  copy_all_communities_button: "copy all communities"
-  copy_all_images_button: "copy all images"
-  copy_all_items_button: "copy entire collection"
-  copy_all_people_button: "copy all people"
-  copy_all_sounds_button: "copy all sounds"
-  copy_all_taxa_button: "copy all taxa"
-  copy_all_videos_button: "copy all videos"
+    few: "تم نسخ %{count} عناصر من %{name}."
+    one: "تم نسخ عنصر واحد من %{name}."
+    other: "تم نسخ %{count} عنصر من %{name}."
+    two: "تم نسخ عنصرين من %{name}."
+  copy: نسخ
+  copy_all_articles_button: "نسخ جميع المقالات"
+  copy_all_collections_button: "نسخ جيع المجموعات"
+  copy_all_communities_button: "نسخ جميع المجموعات"
+  copy_all_images_button: "نسخ جميع الصور"
+  copy_all_items_button: "نسخ المجموعة بأكملها"
+  copy_all_people_button: "نسخ جميع الأفراد"
+  copy_all_sounds_button: "نسخ جميع الأصوات"
+  copy_all_taxa_button: "نسخ جميع الأصناف"
+  copy_all_videos_button: "نسخ جميع مقاطع الفيديو"
   copy_of_name: "Copy of %{name}"
-  correct_donation_message: "If this information is not correct, please %{go_back_link} to make changes"
-  could_not_find_collection_error: "Sorry, that collection could not be found."
+  correct_donation_message: "إذا كانت تلك المعلومات صحيحة، يرجى %{go_back_link} لإضافة تعديلات"
+  could_not_find_collection_error: "عفوًا، لم يتم العثور على تلك المجموعة."
   could_not_find_user: "لم يتم العثور على عضو لهذا المستخدم"
   count_results_for_search_term:
-    one: "%{count} result for <em>%{search_term}</em>"
-    other: "%{count} results for <em>%{search_term}</em>"
+    few: "%{count} نتائج لـ <em>%{search_term}</em>"
+    one: "نتيجة واحدة لـ <em>%{search_term}</em>"
+    other: "%{count} نتيجة لـ <em>%{search_term}</em>"
+    two: "نتيجتين لـ <em>%{search_term}</em>"
   create_a_collection: "إنشاء مجموعة"
   create_a_community: "إنشاء مجتمع"
   create_a_community_login_advisory: "You will be asked to login before creating your community"
-  create_account: "create an account"
-  create_collection_button: "Create collection"
+  create_account: "إنشاء حساب"
+  create_collection_button: "إنشاء مجموعة"
   create_community: "Create community"
   create_community_about_heading: "About creating a community"
-  create_community_about_text: "You are about to create a community around the contents of \"%{collection_name}\".  All users will be able to join your community, but only those members to whom you grant \"manager\" status will be allowed to edit the community itself or the collection associated with your community."
+  create_community_about_text: "You are about to create a community around the contents of \"%{collection_name}\". All users will be able to join your community, but only those members to whom you grant \"manager\" status will be allowed to edit the community itself or the collection associated with your community."
   create_community_around_this_collection_header: "Create a community around this collection"
   create_community_unsuccessful_error: "Sorry, an error occurred, your community was not created. Please ensure all fields are completed correctly."
-  create_user_form_header: "Create a new <abbr title=\"Encyclopedia of Life\">EOL</abbr> account"
-  create_user_unsuccessful_error: "Sorry, an error occurred, your new account was not created. Please ensure all fields are completed correctly."
-  created: Created
-  created_colon: "Created:"
-  created_community: "تم إنشاء المجتمع بنجاح"
-  credentials: Credentials
-  curated: Curated
-  curated_association_update_button: "Save changes"
-  curation_activity_colon: "Curation activity:"
-  curation_comment: "Curation Comment"
-  curation_privileges_page_description: "Select your desired curation level, assistant, full or master curator. Full and master curator applications must include scope and credentials, you will be notified by email once your details have been reviewed and accepted. Assistant curator applications are not moderated and will be instantly approved. Learn more about <a href=\"%{curator_faq_url}\">becoming a curator</a>."
-  curation_privileges_page_title: "Become a curator"
-  curation_reason_placeholder: "additional details (optional)"
-  curator_title: Curator
-  curator_clade: "Curator Clade"
+  create_user_form_header: "إنشاء حساب <abbr title=\"Encyclopedia of Life\">EOL</abbr> جديد بموسوعة الحياة"
+  create_user_unsuccessful_error: "عفوًا، حدث خطأ، لم يتم إنشاء حسابك الجديد. يرجى التأكد من ملء جميع الخانات بشكل صحيح."
+  created: "أنشئ في"
+  created_colon: "أضيف في"
+  created_community: "تم إنشاء المجموعة بنجاح."
+  credentials: الاعتمادات
+  curated: "تم تقييمه"
+  curated_association_update_button: "حفظ التغييرات"
+  curation_activity_colon: "نشاط الإشراف:"
+  curation_comment: "تعليق الإشراف"
+  curation_privileges_page_description: "أختار مستوى الإشراف الذي ترغب به؛ مساعد، كامل، أو رئيسي. يجب أن تضم طلبات الأشراف الكامل والرئيسي المجال والاعتمادات، سوف يتم إخطارك عن طريق رسالة بريد إلكتروني حالما يتم مراجعة وقبول معلوماتك. لا يتم تقييم طلبات المشرف المساعد وسوف يتم قبولها فورًا. تعرف على المزيد عن <a href=\"%{curator_faq_url}\">becoming a curator</a> التحول إلى مشرف بموسوعة الحياة."
+  curation_privileges_page_title: "كن مشرفًا"
+  curation_reason_placeholder: "المزيد من المعلومات (اختياريًا)"
+  curator_clade: "النوع الحيوي الخاص بالمشرف"
   curator_colon: "Curator:"
   curator_level: "Curator level"
-  curator_level_application_pending_notice: "Thanks for applying to become a curator, your application has been queued for review and you will be notified by email when it has been accepted."
-  curator_level_assistant_approved_notice: "Congratulations! You are now an <em>EOL Assistant Curator</em>. <a href=\"%{more_url}\">Learn more about the assistant curator role</a>."
-  curator_list: "Curator List"
-  curator_name: "Curator Name"
-  curator_profile: "curator profile"
-  curator_scope_colon: "Curator scope:"
+  curator_level_application_pending_notice: "نشكرك على التقدم لتصبح مشرفًا، لقد تم إضافة طلبك ليتم مراجعته وسوف يتم إخطارك عن طريق البريد الإلكتروني عند قبوله."
+  curator_level_assistant_approved_notice: "مبروك! لقد أصبحت <em> مشرفًا مساعدًا بموسوعة الحياة </em>. <a href=\"%{more_url}\">تعرف على المزيد عن دور المشرف المساعد</a>."
+  curator_list: "قائمة المشرفين"
+  curator_name: "اسم المشرف"
+  curator_profile: "معلومات المشرف"
+  curator_scope_colon: "نطاق المشرف:"
   curator_status_changed_by: "Curator status changed by %{user} on %{date}"
-  curators: Curators
+  curator_title: المشرف
+  curators: المشرفون
   curators_empty: "Our curators haven't taken any action on this page yet."
-  curators_of_taxon_page_title: "Curators of %{taxon}"
+  curators_of_taxon_page_title: "المشرفون على %{taxon}"
   curators_summary_header_with_count:
-    few: "%{count} مشرفين"
-    one: "مشرف واحد"
-    other: "%{count} مشرف"
-    two: مشرفان
-  curators_summary_learn_more_link: "Learn how to curate"
+    few: "تم مراجعته من قبل %{count} مشرفين"
+    one: "تم مراجعته من قبل مشرف واحد"
+    other: "تم مراجعته من قبل %{count} مشرف "
+    two: "تم مراجعته من قبل مشرفان"
+  curators_summary_learn_more_link: "تعلم كيفية الإشراف"
   curators_with_count:
-    one: "%{count} Curator"
-    other: "%{count} Curators"
+    few: "تم مراجعته من قبل %{count} مشرفين"
+    one: "تم مراجعته من قبل مشرف واحد"
+    other: "تم مراجعته من قبل %{count} مشرف "
+    two: "تم مراجعته من قبل مشرفان"
   current_language: "Language: %{iso_code}"
   currently_in_eol: "حاليًا في موسوعة الحياة"
-  daily: Daily
-  dashboard: Dashboard
-  data_object_not_associated_with_any_hierarchies: "This data object is not associated with any hierarchies."
-  data_usage_reports: "Data Usage Reports"
-  dato_create_cancel: Cancel
+  daily: يوميًّا
+  dashboard: "لوحة البيانات"
+  data_object_ignore: "ignore this item"
+  data_object_undo_ignore: "remove from ignore list"
+  data_object_not_associated_with_any_hierarchies: "ذلك الموضوع غير مرتبط بأية تسلسلات هرمية"
+  data_usage_reports: "تقارير استخدام البيانات"
+  dato_create_cancel: إلغاء
   dato_create_update_user_text_missing_taxon_id_exception: "Unable to build a text DataObject or UsersDataObject if taxon_concept_id is missing."
   dato_create_user_text_error: "Sorry, an error occurred, the article could not be added."
+  dato_create_user_text_missing_taxon_id_exception: "Unable to build a text DataObject or UsersDataObject if taxon id is nil."
   dato_create_user_text_missing_user_exception: "Unable to build a text DataObject or UsersDataObject if user is nil."
-  dato_edit_cancel: Cancel
-  dato_edit_text_link_button: "Edit this article"
-  dato_edit_text_page_description: "Thank you for contributing your expertise to EOL. The revised article will be added to your Watch List so you can follow any conversations related to it and check on its curation status."
-  dato_edit_text_title: "Edit article"
+  dato_edit_cancel: إلغاء
+  dato_edit_text_link_button: "عدل تلك المقال"
+  dato_edit_text_page_description: "بعض المعلومات عن التعديل..ربما"
+  dato_edit_text_title: "تعديل المقال"
   dato_new_edit_user_text_fieldset_content_header: "Article content"
   dato_new_edit_user_text_fieldset_information_header: "Article information"
   dato_new_edit_user_text_form_tip: "Your article will be marked as \"unreviewed\" until a curator reviews it. Text %{required_icon} is required."
-  dato_new_text_for_taxon_page_title: "Add an article to <i>%{taxon}</i>"
-  dato_new_text_page_description: "Thank you for contributing to EOL. Your article will be added to your Watch List so you can follow any conversations related to it and check on its curation status."
+  dato_new_text_for_taxon_page_title: "أضف مقال إلى <i>%{taxon}</i>"
+  dato_new_text_page_description: "أدخل النص لإضافة مقال"
   dato_update_user_text_error: "Sorry, an error occurred, the article could not be updated."
   dato_update_users_text_not_owner_exception: "Unable to update text DataObject current user is not owner"
   dear_contact_full_name: "Dear %{contact_full_name},"
-  default_focus_collection_name_from_community: "%{name}'s Focus"
+  default_focus_collection_name_from_community: "اهتمامات %{name}"
   default_watch_collection_name: "%{username}'s Watch List"
-  delete: delete
-  descendants: Descendants
-  description: Description
-  description_of: "Description of"
-  descriptive_label: "Descriptive Label"
-  destination_inappropriate_for_logged_in_users: "You are logged in."
-  destroy: Destroy
+  delete: حذف
+  description: الوصف
+  description_of: شرح
+  descriptive_label: "تصنيف وصفي"
+  destination_inappropriate_for_logged_in_users: "تم تسجيل الدخول"
+  destroy: تدمير
   detail: تفاصيل
-  details_title: Details
-  development_version_name: "نسخة التطوير V2 - غير مخصصة للاستخدام العام"
-  did_you_mean: "Did you mean: %{suggestions} ?"
-  disabled_for_now: "DISABLED FOR NOW"
-  displaying_numerical_range: "Displaying %{start_number} &mdash; %{end_number} of %{total}"
+  details_title: التفاصيل
+  development_version_name: "نموذج النسخة الثانية من موقع موسوعة الحياة"
+  did_you_mean: "هل تقصد: %{suggestions}؟"
+  disabled_for_now: "معطل حاليًّا"
+  displaying_numerical_range: "عرض %{start_number} &mdash; %{end_number} من %{total}"
   donate: تبرع
-  donation_amount_enter_other_label: "Or, enter an alternative amount to donate"
-  donation_amount_legend: "Choose the amount you would like to donate"
-  donation_amount_other_label: Other
-  donation_confirmation: "Donation Confirmation"
+  donation_amount_enter_other_label: "أو، أدخل قيمة بديلة للتبرع"
+  donation_amount_legend: "أختر القيمة التي تود التبرع بها"
+  donation_amount_other_label: أخرى
+  donation_confirmation: "تأكيد التبرع"
   donation_error_no_amount: "يرجى اختيار قيمة التبرع"
   donation_error_only_numbers: "يرجى ادخال القيمة بالأرقام فقط"
-  donation_message: "Your generous gift to the Encyclopedia of Life supports our mission to gather and share knowledge of Earth's biodiversity.  The entire EOL team thanks you for your kind contribution."
-  donation_privacy_notice: "Please note that this page and the next confirmation page do not collect any personal information or credit card numbers, and are therefore not encrypted. After confirming the amount you wish to donate, you will be directed to a secure page to enter in your payment information.  Charges to your credit card will not be applied until you submit the page containing your personal information."
-  download_audio_mpeg: "Download MPEG"
-  edit: Edit
-  edit_downcase: edit
-  edit_annotation: "edit annotation"
+  donation_message: "يدعم تبرعك السخي لموسوعة الحياة مهمتنا في جمع ومشاركة المعرفة بالتنوع البيولوجي لكوكب الأرض. يقدم لك فريق موسوعة الحياة الشكر لمساهمتك الكريمة."
+  donation_privacy_notice: "يرجى الانتباه إلى أن هذه الصفحة وصفحة التأكيد التي تليها لا تجمع أي معلومات شخصية أو أرقام بطاقات الائتمان، ولذلك لم يتم تشفيرهما. وبعد تأكيد القيمة التي ترغب في منحها، سوف يتم تحويلك إلى صفحة آمنة لإدخال معلومات الدفع. لن يتم خصم المبلغ من بطاقة الائتمان إلا عند ملء الصفحة التي تحتوي على معلوماتك الشخصية."
+  download_audio_mpeg: "تحميل ملفات إم بي إي جي"
+  duplicate_items_were_ignored: "Duplicate items were ignored."
+  edit: تعديل
+  edit_annotation: "تعديل التعليق"
   edit_collection: "تعديل المجموعة"
-  edit_collection_details_header: "Edit collection details"
-  edit_collection_head_title: "Edit: %{collection_name}"
+  edit_collection_details_header: "تعديل شرح المجموعة"
+  edit_collection_head_title: "تعديل %{collection_name}"
   edit_community: "تعديل مجتمع"
-  edit_contact_us_topics: "edit contact us topics"
-  edit_content_partner_agreement: "Edit Content Partner Agreement"
-  edit_eol_glossary: "edit EOL glossary"
-  edit_hierarchy: "edit hierarchy"
-  edit_my_profile: "Edit my profile"
-  edit_news_items: "edit news items"
-  edit_page_contents: "edit page contents"
-  edit_search_suggestions: "edit search suggestions"
-  edit_table_of_contents: "edit table of contents"
-  edit_tag_suggestions: "edit tag suggestions"
-  edit_web_users: "edit web users"
+  edit_contact_us_topics: "تعديل موضوعات الاتصال بنا"
+  edit_content_partner_agreement: "تعديل اتفاقية شريك المحتوى"
+  edit_downcase: تعديل
+  edit_eol_glossary: "تعديل قائمة مصطلحات موسوعة الحياة"
+  edit_hierarchy: "تعديل التسلسل الهرمي"
+  edit_my_profile: "تعديل الصفحة الشخصية"
+  edit_news_items: "تعديل المواضيع الجديدة"
+  edit_page_contents: "تعديل محتويات الصفحة"
+  edit_search_suggestions: "تعديل مقترحات البحث"
+  edit_table_of_contents: "تعديل الفهرس"
+  edit_tag_suggestions: "تعديل مقتراحات العلامات"
+  edit_web_users: "تعديل مستخدمي شبكة الإنترنت"
   education: Education
-  education_empty: "No education found."
-  email_colon: "Email:"
+  email_colon: "البريد الإلكتروني:"
   email_subject_a_message_from_the_eol: "A message from the Encyclopedia of Life"
-  email_subject_account_activated: "Your Encyclopedia of Life account has been activated"
+  email_subject_account_activated: "تم تفعيل حسابك بموسوعة الحياة"
   email_subject_eol_contact_us_with_subject: "EOL Contact Us: %{subject}"
   email_subject_eol_monthly_stats_notification: "EOL Monthly Statistics Notification"
   email_subject_eol_user_changed_their_mail_settings: "EOL user changed their mailing list or email address setting"
   email_subject_partner_ready_for_agreement: "EOL Content Partner Ready For Agreement"
-  email_subject_reset_password: "Password reset request"
+  email_subject_reset_password: "طلب إعادة ضبط كلمة السر"
   email_subject_summary_of_recent_comments_and_curator_actions_for_your_eol_content: "Summary of recent comments & curator actions for your Encyclopedia of Life content"
   email_subject_thanks_for_contacting_the_eol: "Thanks for contacting the Encyclopedia of Life"
-  email_subject_verify_user: "Encyclopedia of Life account activation"
+  email_subject_verify_user: "تفعيل الحساب بموسوعة الحياة"
   email_subject_your_request_tobe_a_curator_is_approved: "Your request to be a curator for the Encyclopedia of Life has been approved"
   email_subject_your_request_tobe_a_curator_is_disapproved: "Your curator privileges for the Encyclopedia of Life have been removed"
   encyclopedia_of_life: "موسوعة الحياة"
-  endorsed_by: "Featured by"
-  endorsed_collections: "Featured collections"
+  endorsed_by: "معروضة من قبل"
+  endorsed_collections: "المجموعات المعروضة"
   endorsed_collections_with_count:
-    one: "%{count} Featured collection"
-    other: "%{count} Featured collections"
-  enter_revision_url_colon: "Enter revision url:"
-  eol_api: "EOL API"
-  eol_colon: EOL
+    few: "%{count} مجموعات معروضة "
+    one: "مجموعة واحدة معروضة "
+    other: "%{count} مجموعة معروضة "
+    two: "مجموعتين معروضتين "
+  enter_revision_url_colon: "أدخل العنوان الإلكتروني للنسخة المراجعة:"
+  eol_api: "واجهة برمجة التطبيقات الخاصة بموسوعة الحياة"
+  eol_colon: "موسوعة الحياة:"
   eol_glossary: "قائمة مصطلحات موسوعة الحياة"
+  eol_learning_and_education: "EOL Learning + Education"
   eol_news: "أخبار موسوعة الحياة"
   error_page_header: "عفوًا، طرأت مشكلة"
   esc_key_hides_this_message: "(esc key hides this message)"
-  example_colon: "Example:"
+  example_colon: "مثال:"
   example_url_for_wikipedia_article_ingestion: "(eg: http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)"
   explore: استكشف
+  explore_what_we_know_about_taxon: "Explore what EOL knows about %{taxon}."
   external_link_header: "External Link"
-  facebook: Facebook
-  failed_login_attempts: "failed login attempts)- must be checked for user to log in"
-  family_name_colon: "Family Name:"
-  feedback: Feedback
-  fill_in_a_message_below_to_sen: "Fill in a message below to send an email to this user from the site.  The message will be sent when you submit the form:"
-  filter_by_status: "Filter by status"
-  filter_by_status_all_option: "All statuses"
-  filter_by_status_inappropriate_option: Inappropriate
-  filter_by_status_trusted_option: Trusted
-  filter_by_status_unknown_option: Unreviewed
-  filter_by_status_untrusted_option: Untrusted
-  filter_by_type: "Filter by type"
-  filter_by_type_all_option: "All types"
-  filter_by_type_collection_option: Collections
-  filter_by_type_community_option: Communities
-  filter_by_type_image_option: Images
-  filter_by_type_photosynth_option: Photosynths
-  filter_by_type_sound_option: Sounds
-  filter_by_type_taxon_concept_option: Taxa
-  filter_by_type_text_option: Articles
-  filter_by_type_user_option: People
-  filter_by_type_video_option: Videos
-  filter_media: "filter media"
+  facebook: "موقع فايسبوك"
+  failed_login_attempts: "باءت محاولات تسجيل الدخول بالفشل)- يجب أن يتم التحقق من المشكلة ليتمكن المستخدم من تسجيل الدخول"
+  family_name_colon: "اسم العائلة:"
+  feedback: التعليقات
+  fill_in_a_message_below_to_sen: "قم بإدخال رسالة فيما يلي لإرسال بريد إلكتروني من الموقع إلى ذلك المستخدم . سوف يتم إرسال الرسالة عند إضافة النموذج:"
+  filter_button: Filter
+  filter_by_status: "ترشيح بالحالة"
+  filter_by_status_all_option: "جميع الحالات"
+  filter_by_status_inappropriate_option: "غير لائق"
+  filter_by_status_trusted_option: "موثوق به"
+  filter_by_status_unknown_option: "لم تتم مراجعته"
+  filter_by_status_untrusted_option: "غير موثوق به"
+  filter_by_type: "ترشيح بالنوع"
+  filter_by_type_all_option: "جميع الأنواع"
+  filter_by_type_collection_option: المجموعات
+  filter_by_type_community_option: المجتمعات
+  filter_by_type_image_option: الصور
+  filter_by_type_photosynth_option: "تطبيق فوتوسينث"
+  filter_by_type_sound_option: الأصوات
+  filter_by_type_taxon_concept_option: الأصنوفات
+  filter_by_type_text_option: المقالات
+  filter_by_type_user_option: الأشخاص
+  filter_by_type_video_option: "مقاطع الفيديو"
+  filter_media: "ترشيح الوسائط"
   filtered_information: "Filtered information"
-  find_taxa_submit_button: "find taxa"
-  citation_example: "Fisher, Brian. \"Pogonomyrmex anergismus Cole, 1954.\" Encyclopedia of Life, available from <a href=\"http://eol.org/pages/460427\" target=\"_blank\">http://eol.org/pages/460427</a>. Accessed 15 Jan 2009."
-  flash_notice_redirected_from_search_html: "You've arrived here by searching for <em>%{search_string}</em>. <a href=\"%{more_results_url}\">Click here to return to the search page.</a>"
-  flash_notice_redirected_from_search_html_more_results: "You've arrived here by searching for <em>%{search_string}</em>. <a href=\"%{more_results_url}\">Click here to see other search results.</a>"
+  find_taxa_submit_button: "البحث عن أصنوفة"
+  flash_notice_redirected_from_search_html: "لقد وصلت إلى تلك الصفحة من خلال البحث عن <em>%{search_string}</em>. <a href=\"%{more_results_url}\">أضغط هنا للرجوع إلى صفحة البحث</a>."
+  flash_notice_redirected_from_search_html_more_results: "لقد وصلت إلى تلك الصفحة من خلال البحث عن <em>%{search_string}</em>. <a href=\"%{more_results_url}\"> أضغط هنا للرؤية نتائج أخرى للبحث</a>."
+  flickr: Flickr
   focus_collection_edit_link: "You may edit this community's focus directly at the %{collection} page."
-  for_the_month_of_colon: "For the month of:"
-  forgot_password: "Forgot password"
-  forgot_password_cannot_find_user_from_username_or_email_error: "Sorry, there are no user accounts with the provided username or email <em>%{username_or_email}</em>."
-  forgot_password_form_cancel: Cancel
-  forgot_password_form_choose_username_blank_error: "Please select the account you wish to reset the password for."
+  for_the_month_of_colon: "لشهر:"
+  forgot_password: "هل نسيت كلمة السر؟"
+  forgot_password_cannot_find_user_from_username_or_email_error: "عفوًا، لا يوجد حسابات للمستخدمين بأسم المستخدم أو البريد الإلكتروني المدخلين <em>%{username_or_email}</em>."
+  forgot_password_form_cancel: إلغاء
+  forgot_password_form_choose_username_blank_error: "يرجى إختيار الحساب الذي ترغب في إعادة ضبط كلمة السر الخاصة به."
   forgot_password_form_choose_username_instructions: "There are several accounts registered with the email address <em>%{email}</em>, please select one account to reset the password for."
   forgot_password_form_choose_username_legend: "Choose an account"
-  forgot_password_form_header: "Reset your password"
-  forgot_password_form_username_or_email_blank_error: "Please enter your username or email address to reset your password."
+  forgot_password_form_header: "إعادة ضبط كلمة السر"
+  forgot_password_form_username_or_email_blank_error: "يرجى إدخال أسم المستخدم أو البريد الإلكتروني لإعادة ضبط كلمة السر."
   from_community: "from %{community}."
-  gbif_occurrence_disclaimer: "This map is based on occurrence records available through GBIF and may not represent the entire taxon distribution"
-  gbif_occurrence_learn_more_link: "Learn more about GBIF occurrence maps."
-  general_error_occurred: "عفوًا، طرأ خلل ما. يرجى إعادة محاولة تنفيذ هذه الخطوة. وفي حال استمرار الخلل، يرجى إرسال رسالة إلكترونية إلى %{email} مُرفق بها رسالة العطل التالية وأي معلومات تود مشاركتها. نحن نعمل جاهدين لتقديم أفضل خدمة ممكنة ونقدر دعمكم. فريق عمل موسوعة الحياة."
-  general_site_admin: "general site admin"
+  gbif_occurrence_disclaimer: "تعتمد تلك الخريطة على سجلات الأحداث المتاحة من خلال جي بي آي إف (GBIF) ويمكن ألا تمثل التوزيع التصنيفي الكامل"
+  gbif_occurrence_learn_more_link: "تعرف على المزيد عن خرائط توزيع المرفق العالمي للتنوع الحيوي"
+  general_error_occurred: "نعتذر ولكن طرأ خطأ. يرجى المحاولة مرة أخرى لتنفيذ المهمة. إذا استمر الخطأ، يرجى إرسال رسالة بريد إلكتروني إلى %{email} مرفق به رسالة الخطأ التالية وأية معلومات أخرى ترغب في مشاركتنا بها. نحن نعمل بجهد لنقدم لك أفضل خدمة ممكنة ونقدر دعمك.--فريق موسوعة الحياة."
+  general_site_admin: "مشرف الموقع العام"
   get_more_tasks: "get more tasks"
-  given_name_colon: "Given Name:"
+  given_name_colon: "الاسم الأول:"
   global_access_tagline: "إمكانية عالمية للوصول إلى معلومات حول الحياة على كوكب الأرض"
   global_navigation: "التصفح العالمي"
   go: بحث
-  go_back: "go back"
-  google_analytics_google_account_and_access_required: "Google Analytics (Google account and access required)"
-  google_translate: "ترجمة جوجل"
-  google_translate_advisory_information: "استخدم أداة ترجمة جوجل لتحويل محتوى الموقع إلى لغة أخرى"
+  go_back: رجوع
+  google_analytics_google_account_and_access_required: "تحليلات جوجل (يتطلب حساب وإمكانية الدخول على موقع جوجل)"
   grant_full_curator_link: Grant
   grant_manager_link: "Grant manager role"
-  has_already_been_taken: "مستخدم مسبقًا"
+  has_already_been_taken: "مستخدم مسبقًا "
   has_colon: "Has:"
   hello_user: "Hello %{user}"
   help: المساعدة
   helpers:
     label:
       content_page:
-        active: Published
+        active: نشر
         active_more: "Published pages will be publicly visible. Uncheck <em>published</em> if you want to prevent general users from viewing versions of this page in any language."
         page_name: "Unique name <small>(lowercase ISO basic Latin alphanumeric characters and underscores only)</small>"
         page_name_more: "Enter a unique, self descriptive, meaningful and persistent identifier for this page. The name you enter here will be used to generate the URL for this page, e.g. the unique name <em>terms_of_use</em> is converted to the URL <em>http://www.eol.org/info/terms_of_use</em>."
@@ -785,12 +1019,12 @@ ar:
       data_object:
         bibliographic_citation: "Bibliographic citation"
         description: "Text <small>(some HTML markup is allowed)</small>"
-        license_id: License
-        license_id_more: "Read the <a href=\"%{policy_url}\">EOL Licensing Policy</a>"
-        object_title: Title
+        license_id: الرخصة
+        license_id_more: "استعرض <a href='%{policy_url}'> EOL سياسة ترخيص</a>"
+        object_title: "عنوان "
         refs: "References <small>(put each reference on a new line)</small>"
-        rights_holder: "Rights holder"
-        rights_statement: "Rights statement"
+        rights_holder: "صاحب حقوق الملكية"
+        rights_statement: "إقرار الحقوق"
         source_url: "URL to original data object"
         toc_item: Subchapter
       google_analytics_partner_summaries:
@@ -806,18 +1040,18 @@ ar:
         dataset_existing_remove: "The file <em>%{file_name}</em> is currently associated with this resource. Enter a URL if you would like to replace the existing <em>%{file_name}</em> file and load the resource from a URL instead (recommended)."
         dataset_existing_replace: "The file <em>%{file_name}</em> is currently associated with this resource. Upload a new file to replace the existing <em>%{file_name}</em> file."
         dwc_archive_url: "If there is a Darwin Core Archive associated with this resource, enter the URL here <small>(TAR.GZIP, TAR.GZ or TGZ only)</small>:"
-        refresh_period_hours: Frequency
-        resource_status_id: Status
+        refresh_period_hours: تردد
+        resource_status_id: وضع
         resource_url_or_file: "Resource data <small>(choose to enter URL or to upload a file)</small>"
         resource_url_or_file_upload: "Upload resource file"
         resource_url_or_file_url: "Load resource from URL"
         title: "Resource name"
       session:
-        password: Password
-        remember_me: "Keep me logged in for 2 weeks"
-        username_or_email: "Username or email address"
+        password: "كلمة السر"
+        remember_me: "أحتفظ بتسجيل الدخول لمدة أسبوعين"
+        username_or_email: "اسم المستخدم أو البريد الإلكتروني"
       translated_content_page:
-        active_translation: Published
+        active_translation: نشر
         active_translation_more: "Published translations will be publicly visible, unless the page itself is unpublished. Uncheck <em>published</em> if you want to prevent general users from viewing this version of the page."
         language_id: Language
         left_content_more: "Optionally add an unordered list of links to include a navigation column in the page. Anchor links have to be added manually by selecting <em>Source</em> and editing the HTML <em>href</em> attribute of the links. For example, to link to an anchor called <em>licensing_policy</em> in the <em>Body</em> content area your list item link <em>href</em> attribute should have the value \"#licensing_policy\""
@@ -827,39 +1061,39 @@ ar:
         title_more: "The title of this content will appear in the header area of the page. The title should include keywords most relevant to the content."
       user:
         agreed_with_terms: "I agree to the <a href=\"%{terms_url}\">terms of use</a>"
-        api_key_more: "Read more about <a href=\"%{api_docs_url}\">adding a key to your API calls</a>."
-        bio: "About me"
-        credentials: Credentials
-        credentials_more: "Please state at least one specific credential from this list:"
-        credentials_more_academic: "Faculty, staff, or graduate student status in a relevant university or college department."
-        credentials_more_author: "Authorship of a peer-reviewed publication (provide reference)."
-        credentials_more_professional: "Member of a professional society."
-        curation_application: "Becoming a curator"
-        curation_application_more: "If you'd like to modify your curation privileges, just submit an application and we'll review your eligibility."
-        curator_level: "You are currently %{curator_level_with_indefinite_article}."
-        curator_scope: "Curation scope"
-        curator_scope_more: "Please indicate the scope of your expertise. For example: \"Rodents of Borneo\", \"Tri-trophic interactions\", or \"Conservation issues in fish\". This will not limit your ability to curate, but will inform the EOL community."
-        email_reports_frequency_hours: "How often would you like to receive email alerts about activity on your contributions?"
-        entered_password: "Password <small>(4 - 16 characters)</small>"
-        generate_api_key: "Requesting an API key"
-        generate_api_key_more: "If you are interested in using the EOL API you can generate an API key to identify your application. Read more about <a href=\"%{api_docs_url}\">adding a key to your API calls</a>."
-        logo: "Upload a new photo"
-        mailing_list: "I want to receive email newsletter updates?"
-        mailing_list_yes: "Yes"
-        new_password: "New password <small>(4 - 16 characters)</small>"
-        new_password_confirmation: "New password <small>(to confirm)</small>"
-        requested_curator_level: "Your request to become %{curator_level_with_indefinite_article} is pending."
+        api_key_more: "أقراء المزيد عن <a href='%{api_docs_url}'>إضافة مفتاح إلى واجهة برمجة التطبيقات الخاصة بك</a> ."
+        bio: "التعريف بي"
+        credentials: الاعتمادات
+        credentials_more: "يرجى اختيار واحد على الأقل من الاعتمادات المتضمنة في هذه القائمة:"
+        credentials_more_academic: "حالة هيئة التدريس، أو العاملين، أو الخريجين في قسم بكلية أو جامعة ذات صلة"
+        credentials_more_author: "حقوق تأليف إصدار مراجع من قبل الزملاء (قدم مرجعًا)"
+        credentials_more_professional: "عضو بمجتمع احترافي"
+        curation_application: "التحول إلى مشرف"
+        curation_application_more: "إذا كنت ترغب في تعديل امتيازات الإشراف الخاصة بك، قم بتقديم طلب وسوف نقيم أهليتك."
+        curator_level: "أنت الأن %{curator_level_with_indefinite_article}."
+        curator_scope: "نطاق الإشراف"
+        curator_scope_more: "يرجى توضيح مجال خبراتك. على سبيل المثال؛ 'قوارض بورنيو'، أو 'تفاعلات المستويات الغذائية الثلاثية'، أو 'قضايا حفظ الأسماك'. لن يحد ذلك من قدرتك على الأشراف، ولكن سوف يخطر موسوعة الحياة."
+        email_reports_frequency_hours: "كم عدد المرات التي ترغب فيها بتلقي أخطارات عن طريق البريد الإلكتروني عن النشاط حول مساهماتك؟"
+        entered_password: "كلمة السر <small>(4-16 حرف)</small>"
+        generate_api_key: "طلب مفتاح واجهة برمجة التطبيقات"
+        generate_api_key_more: "إذا كنت ترغب في استخدام واجهة برمجة التطبيقات الخاصة بموسوعة الحياة، يمكنك توليد مقتاح واجهة التطبيقات لتحديد طلبك. إقرأ المزيد عن <a href='%{api_docs_url}'>إضافى مفتاح إلى واجهة برمجة التطبيقات</a> ."
+        logo: "رفع صورة جديدة"
+        mailing_list: "أرغب في تلقي نشرة التحديثات عن طريق البريد الإلكتروني."
+        mailing_list_yes: نعم
+        new_password: "كلمة سر جديدة <small>(4-16 حرف)</small>"
+        new_password_confirmation: "كلمة سر جديدة <small>(للتأكيد)</small>"
+        requested_curator_level: "إن طلبك لتصبح %{curator_level_with_indefinite_article} معلق."
         tag_line: "Tagline or title <small>example: \"Bird enthusiast\"</small>"
-        user_identities: "I am"
-        username: "Username <small>(4 - 32 characters)</small>"
-        username_or_email: "Username or email address"
+        user_identities: "أنا أكون"
+        username: "أسم المستخدم <small>(4-32 حرف)</small>"
+        username_or_email: "اسم المستخدم أو البريد الإلكتروني"
     select:
-      prompt: "Please select"
+      prompt: "يرجى الاختيار"
     submit:
       content_page:
         create: "Create page"
-        edit: Edit
-        preview: Preview
+        edit: تعديل
+        preview: عرض
         update: "Update page"
       content_partner:
         create: "Create content partner"
@@ -870,233 +1104,245 @@ ar:
         create: "Add contact"
         destroy: "Delete contact"
         update: "Update contact"
-      create: "Create %{model}"
+      create: "إنشاء %{model}"
       data_object:
-        create: "Add article"
-        create_text: "Add article"
+        create: "أضف مقال"
+        create_text: "أضف مقال"
         update: "Save article"
       name:
-        create: "Add name"
-        update: "Update name"
+        create: "أضف أسم"
+        update: "تحديث أسم"
       resource:
         create: "Add resource"
         update: "Update resource"
       session:
-        create: "Sign in"
-      submit: "Save %{model}"
+        create: "تسجيل الدخول"
+      submit: "حفظ %{model}"
       translated_content_page:
         create: "Add translation"
         update: "Save changes to translation"
-      update: "Update %{model}"
+      update: "تحديث %{model}"
       user:
-        create: "Create account"
-        curation_application: "Apply now"
+        create: "إنشاء حساب"
+        curation_application: "قدم الطلب الأن"
         curation_privileges: "Submit request"
-        forgot_password: "Send email"
-        generate_api_key: "Generate a key"
-        update: "Save profile information"
-  hidden: Hidden
-  hierarchies_title: Hierarchies
-  hierarchy: Hierarchy
-  hierarchy_entry_switch_missing_id_error: "Sorry, the hierarchy entry page you selected could not be found due to a missing identifier."
-  hierarchy_updated: "Hierarchy updated"
+        forgot_password: "أرسل رسالة بريد إلكتروني"
+        generate_api_key: "إضافة مفتاح"
+        update: "حفظ المعلومات الشخصية"
+  hidden: مخفي
+  hierarchies_title: "التسلسلات الهرمية"
+  hierarchy: "تسلسل هرمي"
+  hierarchy_entry_switch_missing_id_error: "عفوًا، لم نتمكن من العثور على صفحة مدخل التسلسل الهرمي الذي قمت باختياره نتيجة لفقدان المعرف."
+  hierarchy_updated: "تم تحديث التسلسل الهرمي"
   home: Home
-  home_page_link_advisory_information: "سينقلك هذا الرابط إلى الصفحة الرئيسية لموسوعة الحياة"
-  id: ID
+  home_page_link_advisory_information: "سوف يحولك ذلك الرابط إلى الصفحة الرئيسية لموسوعة الحياة"
+  id: الهوية
   identifcation_resources_empty: "No resources found."
   identification_resources: "Identification Resources"
-  if_checked_and_user_is_saved: "If checked and user is saved, then credentials, scope, approval and selected clade are all removed and user no longer shows up as a curator.  You should add a note below to indicate the reason.  No information is sent to the user."
-  if_this_box_is_checked_the_hie: "if this box is checked the hierarchy will be an option for users to browse EOL"
-  image_is_no_longer_available: "Image is no longer available"
-  image_not_found: "Image not found"
-  image_thumbnail_alt_text: "هذه الصورة%{vetted_status} خاصة بـ %{scientific_name}"
+  if_checked_and_user_is_saved: "إذا تم الاختيار وحفظ المستخدم، فسوف يتم حذف الاعتمادات، والنطاق، والموافقة والفرع الحيوي المختار، ولن يظهر المستخدم كمشرف بعد ذلك. لم يتم إرسال معلومات حول ذلك المستخدم."
+  if_this_box_is_checked_the_hie: "إذا تم وضع علامة في ذلك المربع، سوف يصبح التسلسل الهرمي أحد خيارات المستخدمين لتصفح موسوعة الحياة."
+  image_is_no_longer_available: "الصورة غير متاحة حاليًا"
+  image_not_found: "لا توجد صورة"
   images: الصور
-  import_once: "Import once"
+  import_once: "ضف مرة واحدة"
   in_collection: "in collection"
   in_this_data_type: "in this %{data_type}:"
-  inappropriate: Inappropriate
+  inappropriate: "غير لائق"
   indexed: مفهرس
-  information_for_any_audience: "Information for any audience"
-  information_intended_for_beginners: "Information intended for beginners"
-  information_intended_for_experts: "Information intended for experts"
-  insufficient_privileges_to_curate_names: "Sorry, you do not have sufficient privileges to curate names."
+  information_for_any_audience: "معلومات لعامة الجمهور"
+  information_intended_for_beginners: "معلومات للمبتدئين"
+  information_intended_for_experts: "معلومات للخبراء"
+  insufficient_privileges_to_curate_names: "عفوًا، لا تتمتع بالامتيازات اللازمة لتقييم الأسماء."
   invite_members_help_text: "Add some EOL users here and they will receive an invitation to your new community!"
   invite_members_label: "Invite Members"
-  item_added_to_collection_notice: "Item was added to collection <em>%{collection_name}</em>"
-  item_added_to_watch_collection_notice: "\"%{item_name}\" was added to %{collection_name}."
-  item_details_missing: "Sorry, an error occurred, item details could not be retrieved."
-  item_not_added_already_in_collection: "This item has already been added to the collection."
-  item_not_added_to_collection_error: "Sorry, an error occurred, the selected item could not be added to the collection."
-  item_not_added_to_itself_notice: "Sorry, you cannot add collection <em>%{collection_name}</em> to itself."
-  item_not_updated_in_collection_error: "Sorry, an error occurred, the collection item could not be updated."
-  item_type_article_assistive: "This item is an article"
-  item_type_collection_assistive: "This item is a collection"
-  item_type_person_assistive: "This item is a person"
-  item_type_taxon_assistive: "This item is a taxon"
-  item_updated_in_collection_notice: "Item successfully updated in <em>%{collection_name}</em> collection."
-  items_no_copy_none_selected_warning: "No items were copied as none were selected. To copy items to another collection, first check the box adjacent to the items in the list that you would like to copy."
-  items_no_move_none_selected_warning: "No items were moved as none were selected. To move items to another collection, first check the box adjacent to the items in the list that you would like to move."
-  items_no_remove_none_selected_warning: "No items were removed as none were selected. To remove items from the collection, first check the box adjacent to the items in the list that you would like to remove."
+  item_added_to_collection_notice: "تم إضافة العنصر إلى مجموعة <em>%{collection_name}</em>"
+  item_added_to_watch_collection_notice: "تم إضافة \"%{item_name}\" إلى %{collection_name}."
+  item_details_missing: "عفوًا، حدث خطأ، لم نتمكن من استرجاع معلومات العنصر."
+  item_not_added_already_in_collection: "تم إضافة ذلك العنصر إلى المجموعة مسبقًا"
+  item_not_added_to_collection_error: "عفوًا، حدث خطأ، لم يتم إضافة العنصر المختار إلى المجموعة."
+  item_not_added_to_itself_notice: "عفوًا، لا يمكنك إضافة مجموعة <em>%{collection_name}</em> إلى نفسها."
+  item_not_updated_in_collection_error: "عفوًا، حدث خطأ، تعذر تحديث عنصر المجموعة."
+  item_type_article_assistive: "ذلك العنصر مقال"
+  item_type_collection_assistive: "ذلك العنصر مجموعة"
+  item_type_community_assistive: "This item is a community"
+  item_type_image_assistive: "This item is an image"
+  item_type_person_assistive: "ذلك العنصر شخص"
+  item_type_sound_assistive: "This item is a sound"
+  item_type_taxon_assistive: "ذلك العنصر أصنوفة"
+  item_type_video_assistive: "This item is a video"
+  item_updated_in_collection_notice: "تم تحديث العنصر بنجاح في مجموعة <em>%{collection_name}</em>."
+  items_no_copy_none_selected_warning: "لم يتم النسخ لعدم اختيار أي عنصر. لنسخ العناصر إلى مجموعة أخرى، تحقق من الصندوق المجاور للعناصر في القائمة التي ترغب في نسخها."
+  items_no_move_none_selected_warning: "لم يتم النقل لعدم اختيار أي عنصر. لنقل العناصر إلى مجموعة أخرى، تحقق من الصندوق المجاور للعناصر في القائمة التي ترغب في نقلها."
+  items_no_remove_none_selected_warning: "لم يتم الحذف لعدم اختيار أي عنصر. لحذف العناصر إلى مجموعة أخرى، تحقق من الصندوق المجاور للعناصر في القائمة التي ترغب في حذفها."
   items_with_count_semi_colon:
-    one: "%{count} item;"
-    other: "%{count} items;"
-  iucn_red_list_status_advisory_information: "سيحولك هذا الرابط للموقع الإلكتروني الخاص بالاتحاد الدولي للحفاظ على الطبيعة (IUCN) حيث يمكنك اكتشاف المزيد من المعلومات حول القائمة الحمراء للأنواع المهددة بالإنقراض."
+    few: "%{count} عناصر؛"
+    one: " عنصر واحد؛"
+    other: "%{count} عنصر؛"
+    two: " عنصران؛"
+  iucn_red_list_status_advisory_information: "سوف يحولك ذلك الرابط إلى موقع الاتحاد العالمي للحفاظ على الطبيعة (IUCN)، حيث يمكنك أن تجد المزيد من المعلومات عن القائمة الحمراء للأنواع المهددة بالأنقراض."
   join_community_button: "انضم لهذا المجتمع"
-  join_eol_button_html: "أنضم إلى <abbr title=\"Encyclopedia of Life\">EOL</abbr> الآن"
-  join_eol_community_html: "انضم لمجتمع <abbr title=\"Encyclopedia of Life\">EOL</abbr>!"
-  joined_time_ago: "Joined %{time_passed} ago"
+  join_eol_button_html: "أنضم إلى <abbr title=\"Encyclopedia of Life\">موسوعة الحياة</abbr> الأن."
+  join_eol_community_html: "كن جزءًا من مجتمع <abbr title=\"Encyclopedia of Life\">موسوعة الحياة</abbr>."
+  joined_time_ago: "أنضم منذ %{time_passed}"
   just_pages_with_pictures_and_text: "الصفحات التي تضم صور ونصوص فقط"
-  label: Label
-  language: "Language:"
+  label: صنف
+  language: اللغة
   language_menu_item: "%{language_label} <abbr>(%{language_abbr})</abbr>"
-  languages: Languages
-  last_updated_time_ago: "Last updated %{time_passed} ago"
+  languages: اللغات
+  last_updated_time_ago: "أخر تحديث منذ %{time_passed}"
   learn_about_content_partners: "تعرف على شركاء المحتوى"
-  learn_how_to_contribute: "Learn how you can contribute"
+  learn_how_to_contribute: "تعرف على كيفية المساهمة"
   learn_how_to_interact: "اكتشف كيف يمكنك أن تتفاعل"
   learn_how_to_join: "تعرف على كيفية الإنضمام إلى"
   learn_more_about_names_for_this_taxon: "learn more about names for this taxon"
   learn_more_with_data_type: "learn more about this %{data_type}"
-  leave_a_comment: "Leave a comment"
-  leave_community_button: "Leave this community"
+  leave_a_comment: "أضف تعليق"
+  leave_community_button: "مغادرة المجتمع"
   license: الرخصة
-  license_all_rights_reserved: "All rights reserved"
-  license_cc_by: "Creative Commons Attribution (CC BY)"
-  license_cc_by_2_0: "Creative Commons Attribution 2.0 (CC BY 2.0)"
-  license_cc_by_2_5: "Creative Commons Attribution 2.5 (CC BY 2.5)"
-  license_cc_by_3_0: "Creative Commons Attribution 3.0 (CC BY 3.0)"
-  license_cc_by_nc: "Creative Commons Attribution Non Commercial (CC BY-NC)"
-  license_cc_by_nc_2_0: "Creative Commons Attribution Non Commercial 2.0 (CC BY-NC 2.0)"
-  license_cc_by_nc_2_5: "Creative Commons Attribution Non Commercial 2.5 (CC BY-NC 2.5)"
-  license_cc_by_nc_3_0: "Creative Commons Attribution Non Commercial 3.0 (CC BY-NC 3.0)"
-  license_cc_by_nc_sa: "Creative Commons Attribution Non Commercial Share Alike (CC BY-NC-SA)"
-  license_cc_by_nc_sa_1_0: "Creative Commons Attribution Non Commercial Share Alike 1.0 (CC BY-NC-SA 1.0)"
-  license_cc_by_nc_sa_2_0: "Creative Commons Attribution Non Commercial Share Alike 2.0 (CC BY-NC-SA 2.0)"
-  license_cc_by_nc_sa_2_5: "Creative Commons Attribution Non Commercial Share Alike 2.5 (CC BY-NC-SA 2.5)"
-  license_cc_by_nc_sa_3_0: "Creative Commons Attribution Non Commercial Share Alike 3.0 (CC BY-NC-SA 3.0)"
-  license_cc_by_sa: "Creative Commons Attribution Share Alike (CC BY-SA)"
-  license_cc_by_sa_1_0: "Creative Commons Attribution Share Alike 1.0 (CC BY-SA 1.0)"
-  license_cc_by_sa_2_0: "Creative Commons Attribution Share Alike 2.0 (CC BY-SA 2.0)"
-  license_cc_by_sa_2_5: "Creative Commons Attribution Share Alike 2.5 (CC BY-SA 2.5)"
-  license_cc_by_sa_3_0: "Creative Commons Attribution Share Alike 3.0 (CC BY-SA 3.0)"
-  license_gnu_fdl: "GNU Free Documentation License (GNU FDL)"
-  license_gnu_gpl: "GNU General Public License (GNU GPL)"
-  license_not_applicable: "License not applicable"
-  license_public_domain: "Public Domain"
-  ligercat: LigerCat
-  listing_collections: "Listing collections"
-  literature: Literature
-  literature_bhl_information: "The following bibliography has been generated by automated services. BHL uses taxonomic intelligence tools to locate, verify, and record scientific names located within the text of each digitized page in the BHL digital collection."
-  literature_bhl_link: "View Discovered Bibliography in BHL"
-  literature_empty: "No references found."
-  literature_header: References
-  literature_references: "Literature references"
+  license_all_rights_reserved: "جميع الحقوق محفوظة"
+  license_cc_by: "نسب المصنف (CC BY)"
+  license_cc_by_2_0: "نسب المصنف 2.0 (CC BY 2.0)"
+  license_cc_by_2_5: "نسب المصنف 2.5 (CC BY 2.5)"
+  license_cc_by_3_0: "نسب المصنف 3.0 (CC BY3.0)"
+  license_cc_by_nc: "نسب المصنف غير التجاري (CC BY-NC)"
+  license_cc_by_nc_2_0: "نسب المصنف غير التجاري 2.0 ( 2.0 CC BY-NC)"
+  license_cc_by_nc_2_5: "نسب المصنف غير التجاري 2.5 ( 2.5 CC BY-NC)"
+  license_cc_by_nc_3_0: "نسب المصنف غير التجاري 3.0 ( 3.0 CC BY-NC)"
+  license_cc_by_nc_sa: "نسب المصنف غير التجاري-الترخيص بالمثل (CC BY-NC-SA)"
+  license_cc_by_nc_sa_1_0: "نسب المصنف غير التجاري-الترخيص بالمثل 1.0 (CC BY-NC-SA 1.0)"
+  license_cc_by_nc_sa_2_0: "نسب المصنف غير التجاري-الترخيص بالمثل 2.0 (CC BY-NC-SA 2.0)"
+  license_cc_by_nc_sa_2_5: "نسب المصنف غير التجاري-الترخيص بالمثل 2.5 (CC BY-NC-SA 2.5)"
+  license_cc_by_nc_sa_3_0: "نسب المصنف غير التجاري-الترخيص بالمثل 3.0 (CC BY-NC-SA 3.0)"
+  license_cc_by_sa: "نسب المصنف الترخيص بالمثل (CC BY-SA)"
+  license_cc_by_sa_1_0: "نسب المصنف الترخيص بالمثل 1.0 (CC BY-SA 1.0)"
+  license_cc_by_sa_2_0: "نسب المصنف الترخيص بالمثل 2.0 (CC BY-SA 2.0)"
+  license_cc_by_sa_2_5: "نسب المصنف الترخيص بالمثل 2.5 (CC BY-SA 2.5)"
+  license_cc_by_sa_3_0: "نسب المصنف الترخيص بالمثل 3.0 (CC BY-SA 3.0)"
+  license_gnu_fdl: "رخصة جنو للوثائق الحرة (GNU FDL)"
+  license_gnu_gpl: "رخصة جنو العمومية (GNU GPL)"
+  license_not_applicable: "الرخصة لا تنطبق"
+  license_public_domain: "مجال عام"
+  ligercat: ليجركات
+  listing_collections: "عرض المجموعات"
+  literature: "المواد المطبوعة"
+  literature_bhl_information: "تم تقديم المراجع التالية عن طريق الخدمات الإلكترونية. تستخدم مكتبة تراث التنوع البيولوجي أدوات الذكاء التصنيفي لتحديد موقع، والتحقق من الأسماء العلمية الموجودة ضمن نص كل صفحة رقمية في مجتمع مكتبة تراث التنوع البيولوجي الرقمية، وتسجيلها."
+  literature_bhl_link: "عرض قائمة المراجع في مكتبة تراث التنوع البيولوجي"
+  literature_empty: "لم يتم العثور على مراجع"
+  literature_header: المراجع
+  literature_references: "مراجع المطبوعات"
   location: الموقع
-  login: login
-  login_header: "Sign in to your <abbr title=\"Encyclopedia of Life\">EOL</abbr> account"
+  login: "تسجيل الدخول"
+  login_header: "قم بتسجيل الدخول إلى حسابك <abbr title=\"Encyclopedia of Life\">بموسوعة الحياة</abbr>"
   login_or_create_account: "تسجيل الدخول أو إنشاء حساب"
   logo_header: Logo
-  logout: Logout
-  maintained_by: "maintained by"
-  managed_by: "Managed by"
+  logout: "تسجيل الخروج"
+  maintained_by: يحفظها
+  managed_by: يديرها
   manager_endorse_collecitons_suggestion: "To feature a collection on this community's page, add the featured collection to the community's focus."
   manager_parens: (manager)
-  maps_empty: "No one has contributed any maps for this taxon yet."
-  maps_empty_contribute_instructions: "Learn how to contribute maps to EOL."
+  maps_empty: "لم يساهم أحد بأية خرائط لتلك الأصنوفة حتى الأن."
+  maps_empty_contribute_instructions: "تعلم كيفية إضافة خرائط إلى موسوعة الحياة"
+  maps_image_maps_header: "Media tagged as 'map'"
   maps_with_count:
     few: "%{count} خرائط"
     one: "خريطة واحدة"
     other: "%{count} خريطة"
     two: خريطتان
+  max_collection_items_error: "Sorry, your request exceeds the limit of %{max} collection items."
   media: الوسائط
-  media_contact: "Media Contact"
-  media_list_empty: "No one has contributed any media for this taxon yet."
-  media_list_empty_contribute_instructions: "Learn how to contribute media to EOL."
-  media_summary_empty: "No one has contributed any images for this taxon yet."
-  media_summary_empty_contribute_instructions: "Learn how to contribute images to EOL."
+  media_contact: "جهة اتصال إعلامية"
+  media_list_empty: "لم يساهم أحد بأية وسائط لتلك الأصنوفة حتى الأن."
+  media_list_empty_contribute_instructions: "تعلم كيفية إضافة وسائط إلى موسوعة الحياة"
+  media_list_empty_search: "No media are available matching your search criteria."
+  media_summary_empty: "لم يساهم أحد بأية صور لتلك الأصنوفة حتى الأن."
+  media_summary_empty_contribute_instructions: "تعلم كيفية إضافة صور إلى موسوعة الحياة"
   media_with_count:
     few: "%{count} وسائل وسائطية"
     one: "وسيلة وسائطية واحدة"
     other: "%{count} وسيلة وسائطية"
-    two: "وسيلتان وسائطتان"
-  member_of: "member of"
-  members_like_you: "Members like you"
+    two: "وسيلتان وسائطتيتان"
+  member_of: "عضو في:"
+  members_like_you: "عضو مثلك"
   members_with_count:
-    few: "%{count} مساهمين"
-    one: "مساهم واحد"
-    other: "%{count} مساهم"
-    two: مساهمان
-  mesh: MeSH
+    few: "%{count} أعضاء"
+    one: "عضو واحد"
+    other: "%{count} عضو "
+    two: عضوان
+  mesh: "عناوين المواضيع الطبية (MeSH)"
   minimal_page: "صفحة صغرى"
   moderator_colon: "Moderator:"
-  month_equals: "Month ="
-  monthly: Monthly
-  monthly_notification: "monthly notification"
-  monthly_published_partners: "monthly published partners"
+  month_equals: "شهر ="
+  monthly: شهريًّا
+  monthly_notification: "إشعار شهري"
+  monthly_published_partners: "الشركاء الذين يقومون بالنشر شهريًّا"
   more_children_with_count:
+    few: "%{count} more..."
     one: "%{count} more..."
     other: "%{count} more..."
+    two: "%{count} more..."
   most_active_members: "Most active members"
-  move: Move
-  move_all_articles_button: "move all articles"
-  move_all_collections_button: "move all collections"
+  move: نقل
+  move_all_articles_button: "نقل جميع المقالات"
+  move_all_collections_button: "نقل جميع المجموعات"
   move_all_communities_button: "move all communities"
-  move_all_images_button: "move all images"
-  move_all_items_button: "move entire collection"
-  move_all_people_button: "move all people"
-  move_all_sounds_button: "move all sounds"
-  move_all_taxa_button: "move all taxa"
-  move_all_videos_button: "move all videos"
-  move_down: "Move down"
-  move_up: "Move up"
+  move_all_images_button: "نقل جميع الصور"
+  move_all_items_button: "نقل المجموعة بأكملها"
+  move_all_people_button: "نقل جميع الأشخاص"
+  move_all_sounds_button: "نقل جميع الأصوات"
+  move_all_taxa_button: "نقل جميع الأصناف"
+  move_all_videos_button: "نقل جميع مقاطع الفيديو"
+  move_down: "الانتقال إلى الأسفل"
+  move_up: "الانتقال إلى الأعلى"
   moved_items_from_collection_with_count_notice:
-    one: "Moved %{count} item from %{name}."
-    other: "Moved %{count} items from %{name}."
+    few: "تم نقل %{count} عناصر من %{name}"
+    one: "تم نقل عنصر واحد من %{name}"
+    other: "تم نقل %{count} عنصر من %{name}"
+    two: "تم نقل عنصران من %{name}"
   must_be_associated_with_either_a_user_or_a_community: "يجب أن يكون مرتبط بمستخدم أو بمجتمع"
   must_be_less_than_128_characters_long: "يجب أن يكون أقل من 128 حرف ورقم"
   must_be_logged_in: "يجب تسجيل الدخول لتنفيذ هذه الخطوة"
-  my_activity: "My activity"
-  my_info: "My info"
-  name: Name
+  my_activity: نشاطي
+  my_info: "معلومات عني"
+  name: الاسم
   name_for_community_focus_label: "Name for the community's focus list"
-  name_not_in_select_an_alternate: "Name not in %{hierarchy}. Select an alternate hierarchy from the list above"
-  name_preferred_for_language_no: "No"
-  name_preferred_for_language_yes: Preferred
-  names: Names
-  names_children_column_header: Children
-  names_curation_column_header: Curation
-  names_name_column_header: Name
-  names_parents_column_header: Parents
-  names_preferred_column_header: Preferred
-  names_relationship_column_header: Relationship
-  names_sources_column_header: Sources
-  names_status_column_header: Status
-  national_center_for_biotechnol: "National Center for Biotechnology Information"
-  ncbi_taxonomy: "NCBI Taxonomy"
-  never: Never
-  new_collection: "New collection"
-  new_content_partners_for_the_m: "New content partners for the month"
-  news_items: "News Items"
+  name_not_in_select_an_alternate: "الأسم غير متواجد في %{hierarchy}. أختر تسلسل هرمي بديل من القائمة السابقة."
+  name_preferred_for_language_no: لا
+  name_preferred_for_language_yes: المفضل
+  names: أسماء
+  names_children_column_header: الأطفال
+  names_curation_column_header: الإشراف
+  names_name_column_header: الاسم
+  names_parents_column_header: الأباء
+  names_preferred_column_header: المفضل
+  names_relationship_column_header: العلاقة
+  names_sources_column_header: المصادر
+  names_status_column_header: وضع
+  national_center_for_biotechnol: "المركز القومي للمعلومات التكنولوجية الحيوية"
+  ncbi_taxonomy: "تصنيف المركزالقومي للمعلومات التكنولوجية الحيوية"
+  never: أبدًا
+  new_collection: "مجموعة جديدة"
+  new_content_partners_for_the_m: "شركاء المحتوى الجدد لذلك الشهر"
+  news_items: "مواضيع جديدة"
   newsfeed: "آخر الأخبار"
   no_active_members: "There hasn't been enough activity yet."
   no_items_were_copied_to_collections_error: "No items were copied to collections: %{names}. They may have duplicate items."
-  no_related_names: "There are no related names."
+  no_related_names: "لا يوجد أسماء ذات صلة."
   no_tasks_found: "No tasks found"
-  no_user_submitted_data_objects: "No user-submitted data objects match your search criteria."
-  none: none
+  no_user_submitted_data_objects: "لا توجد نصوص مطابقة لمعيار بحثك مضافة من قبل المستخدم "
+  none: "لا يوجد"
   not_evaluated: "لم يتم تقييمه"
-  not_recognised_by_available_hierarchies: "Not recognised by any of the available classifications"
-  not_yet_implemented_error: "Sorry, that feature has not been implemented yet."
-  note_about_homonym_problems: "NOTE: only change this attribute if you are certain - unchecking this could cause serious homonym problems"
+  not_recognised_by_available_hierarchies: "لم يتم التعرف عليه من قبل أي من التصنيفات المتاحة."
+  not_yet_implemented_error: "عفوًا، لم يتم تطبيق تلك الخاصية بعد."
+  note_about_homonym_problems: "ملحوظة: لا تقم بتغيير ذلك النسب إلا إذا كنت متأكدًا - يمكن أن يتسبب إلغاء ذلك الاختيار في مشكلات خطيرة تتعلق بتجانس الألفاظ"
   nucleotide_sequences: "Nucleotide Sequences"
-  object: Object
-  object_curation: "Object Curation"
+  object: موضوع
+  object_curation: "تقييم موضوع"
   object_status: "Object status"
   object_status_all_option: "All"
   object_status_trusted_option: "Trusted"
   object_status_unreviewed_option: "Unreviewed"
   object_status_untrusted_option: "Untrusted"
-  object_type: "Object type"
+  object_type: "نوع الموضوع"
   object_type_all_option: "All"
   object_type_collection_option: "Collection"
   object_type_community_option: "Community"
@@ -1110,392 +1356,418 @@ ar:
   object_visibility_all_option: "All"
   object_visibility_visible_option: "Visible"
   object_visibility_invisible_option: "Hidden"
-  objects_curated: "Objects Curated"
-  only_show_authoritative_conten: "Only show authoritative content:"
-  option_please_select: "Please select"
+  objects_curated: "المواضيع التي تم الإشراف عليها"
+  only_show_authoritative_conten: "عرض المحتوى الموثوق به فقط"
+  option_please_select: "يرجى الاختيار"
   or_add_it_to_an_existing_collection: "or add it to an existing collection"
   other_collection_items_with_count:
     few: "%{count} موضوعات أخرى"
     one: "موضوع آخر"
-    other: "%{count} موضوع أخر"
+    other: "%{count} موضوع آخر"
     two: "موضوعان آخران"
   other_community_items_with_count:
     few: "%{count} موضوعات أخرى"
-    one: "موضوع أخر"
-    other: "%{count} موضوع أخر"
-    two: "موضوعان أخران"
+    one: "موضوع آخر"
+    other: "%{count} موضوع آخر"
+    two: "موضوعان آخران"
   other_taxa_with_count:
-    one: "%{count} other taxon"
-    other: "%{count} other taxa"
-  other_us_dollars_amount: "Other: US$"
-  overall_colon: "Overall:"
+    few: "%{count} أصنوفات أخرى"
+    one: "أصنوفة واحدة أخرى"
+    other: "%{count} أصنوفة أخرى"
+    two: "أصنوفتين أخرتين"
+  other_us_dollars_amount: "أخرى: دولار أمريكي"
+  overall_colon: "الإجمالي:"
   overview: "نظرة عامة"
   page_reference: "\"%{title}\". Encyclopedia of Life, available from \"<a href=\"http://%{domain_or_ip}%{this_url}\" target=\"_blank\">http://%{domain_or_ip}%{this_url}</a>\". Accessed %{date}"
   page_statistics: "Page Statistics"
-  page_statistics_and_tools: "page statistics and tools"
+  page_statistics_and_tools: "إحصائيات وأدوات الصفحة"
   page_statistics_explanation: "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dignissim ante nec dui faucibus tincidunt. Aliquam euismod nisi nec augue volutpat ut eleifend purus eleifend. Pellentesque eget luctus metus. In enim nunc, ullamcorper ut auctor id, tempor at massa.</p><p>Maecenas ac magna sapien, ac dictum magna. Vivamus sed volutpat dolor. Suspendisse sodales felis nec nisi scelerisque nec aliquet est fermentum.</p><p>Maecenas ac magna sapien, ac dictum magna. Vivamus sed volutpat dolor. Suspendisse sodales felis nec nisi scelerisque nec aliquet est fermentum.</p>"
-  pages_admin_section_link: Admins
-  pages_curator_section_link: Curators
-  pages_title: References
+  pages_admin_section_link: المشرفون
+  pages_curator_section_link: المشرفون
+  pages_title: المراجع
   pages_with_count:
+    few: "%{count}"
     one: "%{count}"
     other: "%{count}"
+    two: "%{count}"
   pages_with_pictures_and_text: "الصفحات التي تضم صور ونص"
   pages_with_pictures_or_text: "الصفحات التي تضم صور أو نص"
-  pagination_next: Next
+  pagination_next: التالي
   pagination_next_with_count:
+    few: "see next %{count}"
     one: "see next %{count}"
     other: "see next %{count}"
-  pagination_previous: Previous
+    two: "see next %{count}"
+  pagination_previous: السابق
   pagination_previous_with_count:
+    few: "see previous %{count}"
     one: "see previous %{count}"
     other: "see previous %{count}"
-  partner_page: "partner page"
-  password_colon: "Password:"
-  permalink: Permalink
+    two: "see previous %{count}"
+  partner_page: "صفحة الشريك"
+  password_colon: "كلمة السر"
+  permalink: "رابط ثابت"
   personal_space: "Personal Space"
-  please_confirm_your_donation_details: "Please confirm your donation details"
-  please_enter_a_name_to_find_taxa: "Please enter a name to search taxa"
-  please_indicate_curation_reason: "Please select a reason, and/or optionally leave a curation comment:"
+  please_confirm_your_donation_details: "يرجى تأكيد تفاصيل التبرع"
+  please_indicate_curation_reason: "يرجى اختيار سبب، و/أو أضف تعليق تقييمي اختياريًّا:"
   post_comment: "إضافة تعليق"
   preferences: Preferences
   preferred_common_name_advisory_information: "هذا هو الأسم الشائع المفضل لتلك الأصنوفة"
-  preferred_name_colon: "Preferred Name:"
-  press_room: "Press Room"
-  privacy_and_security_notice: "Privacy and Security Notice:"
-  proceed_to_checkout_page: "Proceed to Checkout Page"
+  preferred_name_colon: "الاسم المفضل:"
+  press_room: "المركز الإعلامي"
+  privacy_and_security_notice: "بيان الخصوصية والحماية:"
+  proceed_to_checkout_page: "استمر لصفحة الخروج"
   profile: "الصفحة الشخصية"
-  profile_colon: "Profile:"
-  profile_image_alt_text_curator: "الصورة الشخصية للمشرف  %{user_full_name}"
+  profile_colon: "المعلومات الشخصية:"
+  profile_image_alt_text_curator: "الصورة الشخصية للمشرف %{user_full_name}"
   profile_image_alt_text_member: "الصورة الشخصية للعضو %{user_full_name}"
-  public: Public
-  publish_requested: "Publish Requested"
-  published: Published
-  published_content_partners: "Published Content Partners"
-  pubmed: PubMed
+  public: عام
+  publish_requested: "تم طلب النشر"
+  published: نشر
+  published_content_partners: "شركاء المحتوى التي تنشهر موضوعاتهم"
+  pubmed: "باب ميد"
   punctuation_comma: ،
-  quarterly: Quarterly
+  quarterly: "كل ثلاثة أشهر"
   rank_recognized_by_agent_colon: "%{rank} recognized by %{agent}:"
   rated_by_count_people:
-    one: "from %{count} person"
-    other: "from %{count} people"
-  rating_added_notice: "Rating was added successfully."
-  rating_not_added_error: "Sorry, an error occurred, the rating could not be added."
-  recaptcha: "Type in the two words you see below"
-  recaptcha_incorrect_error_with_anchor: "The <a href=\"#%{recaptcha_anchor}\">reCaptcha characters</a> did not match, please try again."
-  recent_updates: "تحديثات جديدة"
-  recognised_by_hierarchy_agent_as_a_rank: "%{hierarchy_agent} as a %{taxon_rank} <a href=\"%{hierarchy_entry_url}\">view in classification</a>"
-  recognised_by_hierarchy_entry_agent_in_hierarchy_agent_as_a_rank: "%{hierarchy_entry_agent} in %{hierarchy_agent} as a %{taxon_rank} <a href=\"%{hierarchy_entry_url}\">view in classification</a>"
-  recognized_by: "Recognized by"
+    few: "من %{count} أشخاص"
+    one: "من شخص واحد"
+    other: "من %{count} شخص"
+    two: "من شخصين"
+  rating_added_notice: "تم إضافة التقييم بنجاح"
+  rating_not_added_error: "عفوًا، حدث خطأ، تعذر إضافة التقييم"
+  recaptcha: "أدخل الكلمتين التاليتين"
+  recaptcha_incorrect_error_with_anchor: "لم تتطابق رموز نظام <a href=\"#%{recaptcha_anchor}\">ريكابتشا</a>، يرجى المحاولة مرة أخرى."
+  recent_updates: "آخر التحديثات"
+  recognised_by_as_a_rank: "%{recognized_by} as a %{taxon_rank}"
+  recognised_by_from_source_as_a_rank: "%{recognized_by} in %{source} as a %{taxon_rank}"
+  recognized_by: "إقر من قبل"
   related_names_with_count:
-    one: "%{count} related name"
-    other: "%{count} related names"
-  remove: Remove
-  remove_all_articles_button: "remove all articles"
-  remove_all_collections_button: "remove all collections"
+    few: "%{count} أسماء ذات صلة"
+    one: "أسم واحد ذا صلة"
+    other: "%{count} أسم ذا صلة"
+    two: "أسمان ذو صلة"
+  remove: حذف
+  remove_all_articles_button: "حذف جميع المقالات"
+  remove_all_collections_button: "حذف جميع المجموعات"
   remove_all_communities_button: "remove all communities"
-  remove_all_images_button: "remove all images"
-  remove_all_items_button: "remove entire collection"
-  remove_all_people_button: "remove all people"
-  remove_all_sounds_button: "remove all sounds"
-  remove_all_taxa_button: "remove all taxa"
-  remove_all_videos_button: "remove all videos"
-  remove_curatorship_colon: "Remove curatorship:"
-  remove_data_object_association: "Remove association"
-  remove_membership: "إلغاء العضوية"
+  remove_all_images_button: "حذف جميع الصور"
+  remove_all_items_button: "حذف المجموعة بأكملها"
+  remove_all_people_button: "حذف جميع الأشخاص"
+  remove_all_sounds_button: "حذف جميع الأصوات"
+  remove_all_taxa_button: "حذف جميع الأصناف"
+  remove_all_videos_button: "حذف جميع مقاطع الفيديو"
+  remove_curatorship_colon: "إلغاء الإشراف:"
+  remove_data_object_association: "حذف الرابط"
+  remove_membership: "إلغاء العضوية "
   removed_count_items_from_collection_notice:
-    one: "%{count} item has been removed from this collection."
-    other: "%{count} items have been removed from this collection."
-  request_mailing_list_colon: "Request Mailing List:"
-  request_wikipedia_article_ingestion: "Request Wikipedia article ingestion:"
-  required_form_element: Required
-  reset_password_enter_new_password_notice: "This is a one time login, please enter a new password to continue."
-  reset_password_instructions_sent_to_user_notice: "Instructions for resetting the password on your account <em>%{username}</em> have been sent to your email address."
-  reset_password_token_expired_error: "Sorry, your password has not been reset. The link provided has expired, please fill out and submit the forgot password form again to receive a new link."
-  resources: Resources
-  revisions: Revisions
+    few: "تم حذف %{count} عناصر من تلك المجموعة"
+    one: "تم حذف عنصر واحد من تلك المجموعة"
+    other: "تم حذف %{count} عنصر من تلك المجموعة"
+    two: "تم حذف عنصران من تلك المجموعة"
+  request_mailing_list_colon: "طلب قائمة مراسلة:"
+  request_wikipedia_article_ingestion: "طلب إضافة إحدى مقالات موقع ويكيبيديا:"
+  required_form_element: مطلوب
+  reset_password_enter_new_password_notice: "تسجيل الدخول لمرة واحدة، يرجى أدخال كلمة سر جديدة للمتابعة"
+  reset_password_instructions_sent_to_user_notice: "تم إرسال إرشادات إعادة ضبط كلمة السر الخاصة بحسابك <em>%{username}</em> إلى بريدك الإلكتروني."
+  reset_password_token_expired_error: "عفوًا، لم يتم إعادة ضبط كلمة السر الخاصة بك. لقد انتهت صلاحية الرابط، يرجى ملء استمارة نسيان كلمة السر مرة أخرى لتلقي رابط جديد."
+  resources: المراجع
+  revisions: المراجعات
   revoke_full_curator_link: Revoke
   revoke_manager_link: "Revoke manager role"
   richness_score: "Richness Score"
   rights: الحقوق
   rights_holder: "صاحب حقوق الملكية"
-  rights_statement: "Rights statement"
+  rights_statement: "إقرار الحقوق"
   roles: الأدوار
-  rss_abbr_html: "<abbr title=\"Really Simple Syndication\">RSS</abbr>"
-  save: Save
-  save_annotation_submit_button: "Save annotation"
-  save_curated_association_submit_button: "Save association"
-  scientific_name: "Scientific Name"
-  search: Search
-  search_by_term_page_title: "Search: %{term}"
+  rss_abbr_html: "<abbr title=\"تلقيم بسيط جداً\">RSS</abbr>"
+  save: حفظ
+  save_annotation_submit_button: "حفظ التعليق "
+  save_curated_association_submit_button: "حفظ الارتباط"
+  scientific_name: "اسم علمي"
+  search: بحث
+  search_by_term_page_title: "البحث: %{term}"
   search_field_label: "البحث في موسوعة الحياة"
-  search_input_advisory_information: "أدخل الأسماء الشائعة أو العلمية للكائنات الحية التي تود معرفة المزيد عنها، على سبيل المثال، أدخل طماطم."
+  search_input_advisory_information: "أدخل الأسماء الشائعة أو العلمية للكائنات الحية التي ترغب في معرفة المزيد عنها؛ أدخل طماطم على سبيل المثال."
   search_placeholder: "البحث في موسوعة الحياة..."
-  search_results: "Search Results"
-  search_term_reports: "search term reports"
+  search_results: "نتائج البحث"
+  search_term_reports: "البحث في تقارير المصطلحات"
   search_the_site: "أبحث في الموقع"
   see_all_classifications_with_count_html:
-    few: "عرض جميع التصنيفات<span class=\"assistive\">%{count} المعترف بها والتي تظهر بها هذه الأصنوفة <span/>"
-    one: "عرض <span class=\"assistive\">التصنيف المعترف بها والذى تظهر به هذه الأصنوفة <span/>"
-    other: "عرض جميع التصنيفات<span class=\"assistive\">%{count} المعترف بها والتي تظهر بها هذه الأصنوفة <span/>"
-    two: "عرض <span class=\"assistive\">التصنيفين المعترف بهما والذين تظهر بهما هذه الأصنوفة <span/>"
+    few: "استعرض <span class='assistive'>%{count} التصنيفات المقبولة التي تظهر بها تلك الأصنوفة. </span>"
+    one: "استعرض <span class='assistive'> التصنيف الواحد المقبول الذي تظهر به تلك الأصنوفة. </span>"
+    other: "استعرض <span class='assistive'>%{count} التصنيف المقبول الذي تظهر به تلك الأصنوفة. </span>"
+    two: "استعرض <span class='assistive'> التصنيفين المقبولين اللذان تظهر بهما تلك الأصنوفة. </span>"
   see_all_collections_with_count_html:
-    few: "عرض كل المجموعات <span class=\"assistive\">%{count} التي تظهر بها هذه الأصنوفة .</span>"
-    one: "عرض <span class=\"assistive\">المجموعة التي تظهر بها هذه الأصنوفة.</span>"
-    other: "عرض كل المجموعات <span class=\"assistive\">%{count} التي تظهر بها هذه الأصنوفة .</span>"
-    two: "عرض <span class=\"assistive\">المجموعتين التين تظهر بهما هذه الأصنوفة.</span>"
+    few: "استعرض <span class='assistive'>%{count} المجموعات التي تتواجد بها تلك الأصنوفة.</span>"
+    one: "استعرض <span class='assistive'> المجموعة الوحيدة التي تتواجد بها تلك الأصنوفة.</span>"
+    other: "استعرض <span class='assistive'>%{count} المجموعة التي تتواجد بها تلك الأصنوفة.</span>"
+    two: "استعرض <span class='assistive'> المجموعتين التي تتواجد بهما تلك الأصنوفة.</span>"
   see_all_comments_with_count_for_text:
-    one: "see %{count} comment for this article"
-    other: "see all %{count} comments for this article"
+    few: "عرض %{count} تعليقات على تلك المقال"
+    one: "عرض التعليق الوحيد على تلك المقال"
+    other: "عرض %{count} تعليق على تلك المقال"
+    two: "عرض تعليقان على تلك المقال"
   see_all_communities_with_count_html:
-    few: "عرض جميع المجموعات <span class=\"assistive\">%{count} التيتركز على هذه الأصنوفة.</span>"
-    one: "عرض <span class=\"assistive\">المجموعة التي تركز على هذه الأصنوفة.</span>"
-    other: "عرض جميع المجموعات <span class=\"assistive\">%{count} التيتركز على هذه الأصنوفة.</span>"
-    two: "عرض <span class=\"assistive\">المجموعتين التين تركزان على هذه الأصنوفة.</span>"
+    few: "عرض <span class='assistive'>%{count} مجتمعات التي تركز على تلك الأصنوفة.</span>"
+    one: "عرض <span class='assistive'> المجتمع الوحيد الذى يركز على تلك الأصنوفة.</span>"
+    other: "عرض <span class='assistive'>%{count} مجتمع الذى يركز على تلك الأصنوفة.</span>"
+    two: "عرض <span class='assistive'> المجتمعين الذين يركزان على تلك الأصنوفة.</span>"
   see_all_media_link: "عرض جميع الوسائط"
   see_all_of_your_collections: "See all of your collections"
   see_all_updates_with_count_html:
+    few: "See all <span class=\"assistive\">%{count} updates for this taxon.</span>"
     one: "See all <span class=\"assistive\">%{count} updates for this taxon.</span>"
     other: "See all <span class=\"assistive\">%{count} updates for this taxon.</span>"
-  select_colon: "Select:"
+    two: "See all <span class=\"assistive\">%{count} updates for this taxon.</span>"
+  select_colon: "اختر:"
   select_topic: "يرجى أختيار مجال موضوع"
-  selected_items: "Selected items"
+  selected_items: "العناصر المختارة"
   selected_language_advisory_information: "هذه هي اللغة المختارة حاليًا"
-  send_email_colon: "Send email:"
-  send_email_notification_to_all: |-
-      Send email notification to all content partners
-       about the availability of the latest monthly web stats
+  send_email_colon: "إرسال بريد إلكتروني:"
+  send_email_notification_to_all: "Send email notification to all content partners about the availability of the latest monthly web stats"
   sent_invitations_to_users: "Invitations were sent to %{users}."
-  set_as_exemplar: "Set as exemplar"
-  show: Show
-  show_data_from_all_content_partners: "show data from all content partners"
-  show_email_message_area: "[show email message area]"
+  set_as_exemplar: "أضف كنموذج"
+  show: إظهار
+  show_data_from_all_content_partners: "عرض جميع البيانات المقدمة من شركاء المحتوى"
+  show_email_message_area: "[عرض رسالة البريد الإلكتروني هنا]"
   show_full_tree: "show full tree"
   show_status_message: "Show status message"
   show_tasks: "show tasks"
   show_warning_message: "Show warning message"
   sign_in: "تسجيل الدخول"
-  sign_in_remember_me_disallowed_for_admins_notice: "For security reasons, administrators cannot use the remember me feature."
-  sign_in_successful_notice: "Login successful."
-  sign_in_unsuccessful_error: "Login failed. Invalid username, email address or password."
+  sign_in_remember_me_disallowed_for_admins_notice: "للأسباب تتعلق بالأمان، لا يستطيع المشرفون استخدام خاصية تذكرني."
+  sign_in_successful_notice: "تم تسجيل الدخول بنجاح."
+  sign_in_unsuccessful_error: "لم يتم تسجيل الدخول. أسم المستخدم، أو البريد الإلكتروني، أو كلمة السر غير صحيحين."
   sign_out: "تسجيل الخروج"
-  site_cms: "Site CMS"
+  site_cms: "موقع نظام إدارة المحتوى"
   site_information: "معلومات عن الموقع"
   skip_to_content: "انتقل إلى المحتوي"
   skip_to_navigation: "Skip to navigation"
   skip_to_table_of_contents: "Skip to table of contents"
-  some_required_fields_were_not_entered: "Some required fields were not entered (you must enter a title, and content OR a URL)."
-  sort_by: "Sort by"
-  sort_by_button: Sort
-  sort_by_label: "Sort by"
-  sort_by_newest_option: Newest
-  sort_by_oldest_option: Oldest
-  sort_by_rating_option: Rating
-  sort_by_status_option: Status
-  sort_by_title_descending: "Title Descending"
-  sort_by_year_descending: "Year Descending"
+  some_required_fields_were_not_entered: "هناك خانات إلزامية لم تُملأ (يجب أن تضيف عنوانًا، ومحتوى أو عنوانًا إلكترونيًّا)."
+  sort_by: "رتب وفقًا لـ"
+  sort_by_button: ترتيب
+  sort_by_label: "رتب وفقًا لـ"
+  sort_by_newest_option: الأحدث
+  sort_by_oldest_option: الأقدم
+  sort_by_rating_option: التقييم
+  sort_by_status_option: وضع
+  sort_by_title_descending: "العنوان تنازليًا"
+  sort_by_year_descending: "العام تنازليًا"
   sort_collection_by_label: "Sort collection by"
-  sound_thumbnail_alt_text: "هذا التسجيل الصوتي %{vetted_status} خاص بـ %{scientific_name}"
-  source_and_additional_information: "Source and Additional Information"
-  source_information_header: "Source information"
+  source_and_additional_information: "المصدر والمزيد من المعلومات"
+  source_information_header: "معلومات المصدر"
   source_url: "رابط المصدر"
-  special_collections_cannot_be_destroyed: "This collection is special and cannot be destroyed."
-  species: Species
-  species_curated: "Species Curated"
-  spm_category_objects_count: "SPM category - objects count"
-  spm_category_partner_count: "SPM category - partner count"
-  statistics: Statistics
-  stats_last_count_less_than_minutes_ago: "Counts last udpated less than %{minutes} minutes ago."
-  submit: Submit
+  special_collections_cannot_be_destroyed: "تلك مجموعة مميزة، لا يمكن تدميرها. "
+  species: أنواع
+  species_curated: "الأنواع التي تم الإشراف عليها"
+  spm_category_objects_count: "فئة التخطيط الإحصائي المتكرر - عدد الموضوعات"
+  spm_category_partner_count: "فئة التخطيط الإحصائي المتكرر - عدد المشاركين"
+  statistics: الإحصائيات
+  stats_last_count_less_than_minutes_ago: "يحصى آخر تحديث منذ أقل من %{minutes} دقائق."
+  submit: إدخال
   supplier: المُورِّد
-  supplier_colon: "Supplier:"
+  supplier_colon: "المورد:"
   switch_language_advisory_information: "تغيير لغة الموقع إلى %{language_label}"
-  synonym: Synonym
+  synonym: مرادف
   synonyms_with_count:
-    one: "%{count} synonym"
-    other: "%{count} synonyms"
-  table_column_header_actions: Actions
-  table_of_contents: "Table of Contents"
-  table_of_contents_breakdown: "table of contents breakdown"
+    few: "%{count} مرادفات"
+    one: " مرادف واحد"
+    other: "%{count} مرادف "
+    two: " مرادفان"
+  table_column_header_actions: خطوات
+  table_of_contents: المحتويات
+  table_of_contents_breakdown: "تفصيل الفهرس"
   task_status: "Task status"
   task_status_active_option: "Active"
   task_status_curated_option: "Curated"
   task_status_ignored_option: "Ignored"
   tasks_with_count:
+    few: "%{count} tasks found"
     one: "%{count} task found"
     other: "%{count} tasks found"
+    two: "%{count} tasks found"
   taxa: الأصنوفات
   taxon: أصنوفة
-  taxon_details_empty: "No one has contributed any details about this taxon yet."
-  taxon_id: "Taxon ID"
+  taxon_details_empty: "لم يتم تقديم أي معلومات حول تلك الأصنوفة بعد."
+  taxon_id: "تعريف الفئة تصنيفية"
   taxon_page_content_disclaimer: "EOL content is automatically assembled from many different content providers. As a result, from time to time you may find pages on EOL that are confusing. To request an improvement, please leave a comment on the page. Thank you!"
-  taxon_recognised_by_header: "Recognized by"
-  taxonomic_summary_of_content: "taxonomic summary of content"
-  technical_functions: "Technical Functions"
-  terms_agreement_form_fallback: "Please review and agree to the <a href=\"%{terms_url}\">terms of use</a> before accessing your account."
-  terms_agreement_form_header: "Terms Of use"
-  terms_agreement_form_submit: "I agree"
+  taxon_page_content_disclaimer_header: Disclaimer
+  taxon_recognised_by_header: "إقر من قبل"
+  taxonomic_summary_of_content: "الملخص التصنيفي للمحتوى"
+  technical_functions: "الوظائف التقنية"
+  terms_agreement_beta_intro: "Thank you for participating in the EOL Version 2 Beta. Before proceeding we need you to agree to the following:"
+  terms_agreement_form_fallback: "يرجى استعراض والموافقة على <a href=\"%{terms_url}\">شروط الاستخدام</a> قبيل الدخول غلى حسابك."
+  terms_agreement_form_header: "شروط وأحكام الاستخدام"
+  terms_agreement_form_submit: أوافق
   terms_provided_by: "Terms provided by %{link}."
-  test: Test.
-  text_capital: Text
-  text_summary_empty: "No one has contributed a brief summary for this taxon yet."
-  text_summary_empty_header: "Brief summary"
+  test: اختبار.
+  text_capital: نص
+  text_summary_empty: "لم يتم تقديم نبذة مختصرة عن تلك الأصنوفة بعد."
+  text_summary_empty_header: "نبذة مختصرة"
   text_summary_more_link: "الإطلاع على المشاركة بأكملها"
-  thank_you_sentence: "Thank you."
-  thank_you_for_your_generous_support: "Thank you for your generous support"
+  thank_you_for_your_generous_support: "شكرًا لدعمكم الكريم"
+  thank_you_sentence: "شكرًا لك."
   thanks_for_feedback: "شكرًا لآرائكم"
-  the_amount_entered_was: "The amount entered was : US %{number}"
-  the_following_are_curators_of: "The following are curators of"
+  the_amount_entered_was: "القيمة المدخلة: %{number} دولار أمريكي"
+  the_following_are_curators_of: "يوجد فيما يلي مشرفون على"
   the_following_bibliography: "The following bibliography has been generated by bringing together all references provided by our content partners. There may be duplication."
   the_list_represents_the_curation_activity: "The list represents the curation activity on <b>%{link}</b>'s data objects."
   the_mission_of_the: "The mission of the %{link} is to develop new information technologies to aid in the understanding of fundamental molecular and genetic processes that control health and disease."
   the_ncbi_taxonomy_contains_names_using: "The %{linka} database contains the names of all organisms that are represented in the genetic databases with at least one nucleotide or protein sequence. You can %{linkb} using the NCBI Taxonomy."
   the_results_are_analyzed_with_the_tool: "The results are analyzed with the %{link_ligercat} tool, which builds the cloud from the most relevant Medical Subject Headings (%{link_mesh}). Each term's relative size indicates how many times it appears in the PubMed search results. Click on a term to access the full LigerCat cloud, with live PubMed search capabilities."
   there_are_currently_no_members_in_this_community: "لا يوجد حاليًا أي أعضاء بهذا المجتمع"
-  there_are_no_curators_of: "There are no curators of"
-  there_was_an_error_posting_your_text: "There was an error posting your text."
+  there_are_no_curators_of: "لا يوجد مشرفون على"
+  there_was_an_error_posting_your_text: "حدث خطأ خلال إضافة النص"
   these_terms_are_derived_by_searching: "These terms are derived by searching the biomedical literature database, %{link} for the name \"%{scientific_name}\"."
-  this_community_has_no_endorsed_collections: "This community has not featured any collections."
-  this_community_has_no_focus_list: "This community has no focus list."
-  this_is_a_flat_list_of_10_mill: "This is a flat list of 10 million strings - not going to let you browse it"
+  this_community_has_no_endorsed_collections: "لم يقدم هذا المجتمع أي مجموعات."
+  this_community_has_no_focus_list: "لا توجد قائمة اهتمامات لهذا المجتمع"
+  this_is_a_flat_list_of_10_mill: "تلك قائمة مسطحة تضم 10 مليون تسلسل - غير مسموح لك بتصفحها"
   this_is_a_focus_collection_for_community: "This is the focus of %{community}."
-  this_is_a_list_of_first_time_p: "This is a list of first-time published content partners for the month."
-  this_is_an_automated_e_mail_no: "This is an automated e-mail notification."
-  this_is_the_label_that_will_ap: "This is the label that will appear in the hierarchy selector drop down list"
-  this_is_the_label_that_will_be: "This is the label that will be used for attribution"
-  this_is_the_link_to_your_web_s: "This is the link to your web stats:"
-  this_report_is_also_available_via_feeds: "This report is also available via feeds"
-  threat_status_header_colon: "حالة التهديد:"
-  time_ago: "%{time_passed} ago"
-  title: Title
-  to_process_your_donation_please_proceed: "To process your donation please proceed"
-  toc: TOC
+  this_is_a_list_of_first_time_p: "تلك قائمة بشركاء المحتوى التي تنشهر موضوعاتهم لأول مرة ذلك الشهر."
+  this_is_an_automated_e_mail_no: "إشعار أوتوماتيكي بالبريد الإلكتروني"
+  this_is_the_label_that_will_ap: "ذلك هو التصنيف الذي سوف يظهر في لائحة اختيار التسلسل الهرمي المنسدلة"
+  this_is_the_label_that_will_be: "ذلك هو التصنيف الذي سوف يتم استخدامه لذلك النسب"
+  this_is_the_link_to_your_web_s: "الرابط إلى إحصائياتك:"
+  this_report_is_also_available_via_feeds: "ذلك التقرير متاح أيضًا عبر خدمة التحديثات"
+  threat_status_header_colon: "حالة التهديد وفقًا للاتحاد العالمي للحفاظ على الطبيعة (IUCN)"
+  time_ago: "منذ %{time_passed}"
+  title: "عنوان "
+  to_process_your_donation_please_proceed: "رجاء الاستمرار لتنفيذ التبرع"
+  toc: الفهرس
   total_items_with_count:
     few: "%{count} موضوعات"
-    one: "موضوع واحد"
+    one: "واحد موضوع"
     other: "%{count} موضوع"
-    two: موضوعان
+    two: " موضوعان"
   translation_deleted: "Translation has been deleted"
   translation_saved: "Translation has been saved"
-  translations_submit: "View translation"
-  trusted: Trusted
+  translations_submit: "عرض الترجمة"
+  trusted: "موثوق به"
   trusted_images: "Trusted images"
   trusted_text_objects: "Trusted text objects"
   try_your_request_again: "حاول تنفيذ طلبك مرة أخرى"
   tumblr: Tumblr
-  twitter: Twitter
-  type: Type
+  twitter: "موقع تويتر"
+  type: النوع
   unable_to_copy_items_to_collection_error: "Sorry, I was unable to copy the collection items to %{name}."
   unable_to_invite_users_to_community_error: "Invitations could not be sent to %{users}."
   unknown: "غير معروف"
-  unpublished: Unpublished
-  unreviewed: Unreviewed
+  unpublished: "لم يتم نشره"
+  unreviewed: "لم تتم مراجعته"
   unreviewed_images: "Unreviewed images"
   unreviewed_text_objects: "Unreviewed text objects"
-  untrusted: Untrusted
-  update: Update
-  update_collection_submit_button: "Update collection details"
+  untrusted: "غير موثوق به"
+  update: تحديث
+  update_collection_submit_button: "تحديث معلومات المجموعة"
   update_feed: "Update Feed"
   update_language: "Update language"
   update_page: "Update page"
-  update_user_successful_notice: "Account successfully updated."
-  update_user_unsuccessful_error: "Sorry, an error occurred, your account was not updated. Please ensure all fields are completed correctly."
-  updated: Updated
-  updated_colon: "Updated:"
-  updated_community: "تم تحديث المجتمع بنجاح"
-  updated_member: "Member was successfully updated."
-  updates: Updates
+  update_user_successful_notice: "تم تحديث الحساب بنجاح"
+  update_user_unsuccessful_error: "عفوًا، حدث خطأ، لم يتم تحديث حسابك. يرجى التأكد من ملء جميع الخانات بشكل صحيح."
+  updated: "تم تحديثه "
+  updated_colon: "تم التحديث:"
+  updated_community: "تم تحديث المجموعة بنجاح."
+  updated_member: "تم تحديث العضو"
+  updates: تحديثات
   updates_with_count:
-    one: "%{count} Update"
-    other: "%{count} Updates"
-  upload_content: "upload content"
+    few: "%{count} تحديثات"
+    one: "تحديث واحد"
+    other: "%{count} تحديث"
+    two: تحديثان
+  upload_content: "رفع المحتوى"
   upload_logo_help_text: "This will be the primary image representing your community – it can be whatever you like."
-  us_dolars_75: "US $75"
-  us_dollars_100: "US $100"
-  us_dollars_35: "US $35"
-  us_dollars_50: "US $50"
-  user: User
-  user_activation_failed_resent_validation_email_error: "Sorry, an error occurred, your account could not be verified. This usually occurs when the verficiation link you entered or selected is not recognised. Activation instructions have been resent to the email address you registered with, please ensure the verficiation link you use matches the one provided in the activation email."
-  user_activation_failed_user_not_found_error: "Sorry, an error occurred, the account you are trying to verify could not be found. Please ensure the verficiation link you use matches the one provided in the activation email you received after registering."
-  user_activation_successful_notice: "Welcome, and thanks for joining the Encyclopedia Of Life team. Your account with username <em>%{username}</em> is now active, please login."
-  user_already_active_notice: "Your account is already active, please login."
-  user_commented_on_something_colon: "<strong>%{user}</strong> commented on %{what}:"
-  user_left_comment_on_date: "%{username} left a comment on %{date}."
-  user_says_colon: "%{users_name} says:"
-  user_submitted_text_found: "User-submitted text found:"
-  user_system_down: "عفوًا، نظام تسجيل المستخدم غير متاح حاليًا. يرجى المحاولة لاحقًا."
-  username_colon: "Username:"
-  username_taken: "%{name} is already taken"
-  users_about_me_header: "About me"
-  users_content_partners_header: "Content partners"
+  us_dolars_75: "75 دولارًا أمريكيًّا"
+  us_dollars_100: "100 دولار أمريكي"
+  us_dollars_35: "35 دولارًا أمريكيًّا"
+  us_dollars_50: "50 دولارًا أمريكيًّا"
+  user: مستخدم
+  user_activation_failed_resent_validation_email_error: "عفوًا، حدث خطأ، تعذر التحقق من حسابك. عادة ما يحدث ذلك نتيجة لعدم التعرف على رابط التحقق الذي تم إدخاله أو اختياره. تم إرسال إرشادات التفعيل إلى بريدك الإلكتروني المسجل مرة أخرى، يرجى التأكد من أن رابط التحقق المستخدم يطابق ذلك المتواجد في رسالة البريد الإلكتروني."
+  user_activation_failed_user_not_found_error: "عفوًا، حدث خطأ، لم نتمكن من إيجاد الحساب الذي تحاول التحقق منه. يرجى التأكد من أن رابط التحقق المستخدم يطابق ذلك المتواجد في رسالة التفعيل التي تلقيتها عقب التسجيل."
+  user_activation_successful_notice: "مرحبا بك، وشكرًا لإنضمامك لفريق موسوعة الحياة. تم تفعيل حسابك بإسم المستخدم <em>%{username}</em> ، يرجى تسجيل الدخول."
+  user_already_active_notice: "تم تفعيل حسابك، يرجى تسجيل الدخول."
+  user_commented_on_something_colon: "<strong>%{user}</strong> علق على %{what}:"
+  user_left_comment_on_date: "%{username} أضاف تعليق في %{date}."
+  user_says_colon: "%{users_name} يقول:"
+  user_submitted_text_found: "النص المضاف من قبل المستخدم:"
+  user_system_down: "نعتذر، فنظام تسجيل المستخدمين غير متاح حاليًّا. يرجى المحاولة لاحقًا."
+  username_colon: "اسم المستخدم:"
+  username_taken: "مستخدم مسبقًا  %{name} "
+  users_about_me_header: "التعريف بي"
+  users_content_partners_header: "شركاء المحتوى"
   users_content_partners_information: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt hendrerit tortor, commodo faucibus turpis imperdiet non. Nullam tincidunt, est vel euismod volutpat, libero turpis suscipit neque, nec viverra magna augue non nisl. Praesent et risus sit amet quam sagittis pulvinar eu at odio. Etiam mattis enim turpis, cursus rutrum massa. Ut blandit varius tellus, vitae interdum nulla pulvinar nec."
   users_content_partners_with_count:
+    few: "%{count} current content partners"
     one: "%{count} current content partner"
     other: "%{count} current content partners"
+    two: "%{count} current content partners"
   users_curation_header: "Curator qualifications"
-  users_form_account_header: "Your account"
+  users_form_account_header: حسابك
   users_form_curation_header: "Curator qualifications"
-  users_form_profile_info_header: "Public profile information"
-  users_form_tip: "Username is required for all users, other items marked as required %{required_icon} are optional for general users but required for curators."
+  users_form_profile_info_header: "المعلومات الشخصية العامة"
+  users_form_tip: "يلزم على جميع المستخدمين إدخال أسم المستخدم، الخانات الأخرى المشار إلي أنها مطلوبة اختيارية بالنسبة لعامة المستخدمين ولكن يلزم على المشرفين ملئها."
   users_member_of_count_communities:
-    one: "Member of %{count} community"
-    other: "Member of %{count} communities"
-  users_my_info_header: "My info"
-  users_pending_activation_message: "A confirmation message has been sent to the email address you have provided. To complete the registration process and become an EOL member, please click on the link included in that email. Thank you!"
-  using_the_site: "Using The Site"
-  value: Value
+    few: "عضو فى %{count} مجتمعات"
+    one: "عضو فى مجتمع واحد"
+    other: "%{count} عضو في مجتمع"
+    two: "عضو فى مجتمعين"
+  users_my_info_header: "معلومات عني"
+  users_pending_activation_message: "تم إرسال رسالة تأكيد إلى البريد الإلكتروني الذي أضفته. لاستكمال عملية التسجيل لتصبح عضو بموسوعة الحياة، يرجى الضغط على الرابط المتضمن في تلك الرسالة. شكرًا لك!"
+  using_the_site: "استخدام الموقع"
+  value: القيمة
   verification_phrase_did_not_match: "عبارة التعريف التي أدخلتها لم تتطابق"
-  vetted: Vetted
-  video_thumbnail_alt_text: "مقطع الفيديو هذا %{vetted_status} لـ %{scientific_name}"
+  vetted: "تم تقييمه"
   view: View
-  view_added_text: "view added text"
-  view_article_source: "View article source"
-  view_contact_us_submissions: "view contact us submissions"
-  view_curators: "view curators"
-  view_error_log: "view error log"
-  view_full_size_image: "View full-size image"
-  view_harvesting_log: "view harvesting log"
-  view_image_source: "View image source"
+  view_added_text: "عرض النص المضاف"
+  view_article_source: "عرض مصدر المقال"
+  view_contact_us_submissions: "عرض إضافات الاتصال بنا"
+  view_curators: "عرض المشرفين"
+  view_error_log: "عرض سجل الأخطاء"
+  view_full_size_image: "عرض الصورة بالحجم الكامل"
+  view_harvesting_log: "عرض سجل الطلبات"
+  view_image_source: "عرض مصدر الصورة"
+  view_in_classification: "view in classification"
   view_only_pages_with_at_least_a_picture_or_piece_of_text: "عرض الصفحات التي تضم صورة أو جزء من نص"
-  view_protein_and_nucleotide_se: "View protein and nucleotide sequences in NCBI"
-  view_translation_source_link: "View translation source"
-  view_user_activity: "view user activity"
-  view_user_comments: "view user comments"
-  viewing_partner_colon: "Viewing Partner:"
-  visible_title: Visible
+  view_protein_and_nucleotide_se: "عرض تسلسلات البروتينات والنوكليوتيدات في المركزالقومي للمعلومات التكنولوجية الحيوية"
+  view_translation_source_link: "عرض مصدر الترجمة"
+  view_user_activity: "عرض نشاط المستخدم"
+  view_user_comments: "عرض تعليقات المستخدم"
+  viewing_partner_colon: "مشاهدة الشريك"
+  visible_title: مرئي
   wants_colon: "Wants:"
-  watch_list: "Watch list"
-  web_users: "Web Users"
-  weekly: Weekly
+  watch_list: "قائمة المشاهدة"
+  web_users: "مستخدمي شبكة الإنترنت"
+  weekly: أسبوعيًّا
   what_do_these_numbers_mean: "What do these numbers mean?"
   what_is_a_taxon: "ما هي الأصنوفة؟"
   what_is_eol: "ما هي موسوعة الحياة؟"
-  what_is_this_question: "What's this?"
-  whats_new: "What's New?"
-  wikipedia_article_revision_for_ingestion: "EOL is now allowing curators to submit a revision of a Wikipedia page to be ingested into EOL as a vetted text object. To find the revision URL of a Wikipedia article first go to the article main page (e.g. <a href='http://en.wikipedia.org/w/index.php?title=Giraffe'>http://en.wikipedia.org/w/index.php?title=Giraffe</a>) and expand in the left hand menu the 'Toolbox' menu item. You should now see the 'Permanent link' item. Either copy the URL of that link, or click the link and copy the URL in your browser's address bar. The revision URL will look something like <a href='http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069'>http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>."
-  wikipedia_article_will_be_harvested_tonight: "ستضاف الليلة المراجعة %{rev} لمقال ويكبيديا %{article}"
+  what_is_this_question: "ما هذا؟"
+  whats_new: "ما الجديد؟"
+  wikipedia_article_revision_for_ingestion: "تسمح موسوعة الحياة للمشرفين بإضافة نسخ مراجعة لصفحات موقع ويكيبيديا ليتم إضافتها إلى موسوعة الحياة كموضوع تم تقييمه. لإيجاد رابط النص المراجع لأحدى مقالات ويكيبيديا، أذهب إلى الصفحة الرئيسية للمقال (e.g. <a href=\"http://en.wikipedia.org/w/index.php?title=Giraffe\"> http://en.wikipedia.org/w/index.php?title=Giraffe</a>) وقم بتوسيع \"صندوق الأدوات\" في القائمة المتواجدة يسار الصفحة. يجب أن تتمكن من رؤية \"رابط دائم\". قم بنسخ الرابط، أو أضغط على الرابط وانسخه في شريط العناوين بالمتصفح. سوف يبدوا العنوان مشابهًا للتالي <a href=\"http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069\"> http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>."
+  wikipedia_article_will_be_harvested_tonight: "سوف يتم إضافة مراجعة %{rev} مقال ويكيبيديا %{article} الليلة."
   wikipedia_revisions_must_match_pattern_error: "يجب أن يتوافق العنوان الإلكتروني لنسخة المراجعة مع http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*"
   worklist: Worklist
-  year: Year
-  year_equals: "Year ="
-  yes_answer: "Yes"
-  you_are_an_admin_so_i_will_show_you_that_the_error_was: "أنت مشرف. لذلك، سأعرض عليك الخطأ"
+  year: عام
+  year_equals: "عام ="
+  yes_answer: نعم
+  you_are_an_admin_so_i_will_show_you_that_the_error_was: "أنت مشرف؛ لذلك سأطلعك على المشكلات، وهي:"
   you_are_not_authorized_to_perform_this_action: "أنت غير مخول لتنفيذ تلك الخطوة"
-  you_are_viewing_this_rank_as_classified_by: "You are viewing this %{rank} as classified by: "
+  you_are_viewing_this_rank_as_classified_by: "تشاهد تلك %{rank} وفقًا لتصنيف:"
   you_can_now_check_last_month_s: "You can now check last month's web usage of your data in EOL."
-  you_have_been_logged_out: "You have been logged out."
-  you_joined_community: "لقد إنضممت للمجتمع بنجاح"
-  you_left_community: "لقد غادرت المجتمع بنجاح"
-  you_removed_the_member_from_the_community: "You have successfully removed this member from the community."
-  your_current_rating_0_of_5: "Your current rating: 0 of 5"
-  your_current_rating_1_of_5: "Your current rating: 1 of 5"
-  your_current_rating_2_of_5: "Your current rating: 2 of 5"
-  your_current_rating_3_of_5: "Your current rating: 3 of 5"
-  your_current_rating_4_of_5: "Your current rating: 4 of 5"
-  your_current_rating_5_of_5: "Your current rating: 5 of 5"
+  you_have_been_logged_out: "تم تسجيل الخروج."
+  you_joined_community: "لقد انضممت للمجموعة بنجاح."
+  you_left_community: "لقد غادرت المجموعة بنجاح."
+  you_removed_the_member_from_the_community: "تم حذف العضو من المجتمع بنجاح."
+  your_current_rating_0_of_5: "تقييمك الحالي 0 من 5"
+  your_current_rating_1_of_5: "تقييمك الحالي 1 من 5"
+  your_current_rating_2_of_5: "تقييمك الحالي 2 من 5"
+  your_current_rating_3_of_5: "تقييمك الحالي 3 من 5"
+  your_current_rating_4_of_5: "تقييمك الحالي 4 من 5"
+  your_current_rating_5_of_5: "تقييمك الحالي 5 من 5"
   your_message_was_sent: "تم إرسال الرسالة"
   your_preferences: تفضيلاتك
-  your_preferences_have_been_updated: "Your preferences have been updated."
-  your_rating: "Your rating"
-  your_rating_colon: "Your Rating:"
+  your_preferences_have_been_updated: "تم تحديث تفضيلاتك"
+  your_rating: تقييمك
+  your_rating_colon: "تقييمك:"
   your_watch_collection: "your watch collection"

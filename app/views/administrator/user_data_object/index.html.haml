@@ -54,7 +54,7 @@
             %td{ :class => row_class }
               = link_to I18n.t("permalink"), :controller => '/data_objects', :action => :show, :id => udo.data_object_id
               %br
-              = h truncate(udo.data_object.description, 500)
+              = h truncate(udo.data_object.description, :length => 500)
             %td{ :class => row_class }
               = udo.data_object.toc_items[0].label
             %td{ :class => row_class }

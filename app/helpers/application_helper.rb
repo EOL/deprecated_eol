@@ -151,15 +151,6 @@ module ApplicationHelper
     image_tag("indicator_arrows_black.gif", :alt =>  I18n.t(:please_wait) , :class => 'hidden spinner')
   end
 
-  # truncate a string to the maxlength passed and then add "..." if truncated
-  # I don't know why we've overridden Rails' built-in function of the same name.  This likely doesn't handle unicode, and I
-  # don't understand the syntax of the last line.  ...I wish someone had left better notes.  TODO
-  def truncate(text, length = 30, truncate_string = "...")
-    return if text.nil?
-    l = length - truncate_string.length
-    text.length > length ? text[/\A.{#{l}}\w*\;?/m][/.*[\w\;]/m] + truncate_string : text
-  end
-
   def format_date_time(inTime,params={})
     return '[blank]' if inTime.blank?
     if inTime.is_a? String

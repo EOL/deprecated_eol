@@ -934,6 +934,7 @@ en:
   contact_deleted: "Contact deleted"
   contact_eli_eol_org_for_any_co: "Contact eli@eol.org for any comments."
   contact_errors: "Contact Errors"
+  contact_for_providing_education_resource_if_empty: "There are no education resources available at this time. To provide a resource to EOL for inclusion here, please contact %{email}. To learn more about EOL educational resources please visit %{link}."
   contact_information_added: "Contact Information Added"
   contact_information: "Contact Information"
   contact_information_: "CONTACT INFORMATION"
@@ -1482,6 +1483,7 @@ en:
   eol_glossary: "EOL Glossary"
   eol_has_the_ability_to_filter_: "EOL has the ability to filter its content by a classification (or hierarchy).  This allows you to change the list of taxa shown in the classification browser on the right side of a species page and, optionally, create a filter for EOL based on this classification."
   eol_intends_to_provide_attribu: "EOL intends to provide attribution for all provided content in the manner specified by %{var__agent_project_name}.  The methodology EOL uses to attribute the content provided by %{var__agent_project_name} is fundamentally based on multi-level text strings and/or logos at the level of individual data objects.  %{var__agent_project_name} will submit attribution information via the Transfer Schema.  Note:  The specific style and techniques employed for display of attribution for data objects may change as the EOL evolves."
+  eol_learning_and_education: "EOL Learning + Education"
   eol_may_elect_at_its_sole_disc_: "EOL may elect at its sole discretion to present all, portions or none of any data objects provided by %{var__agent_project_name} and reserves the right to redact or remove any illegal, offensive, or objectionable content."
   eol_news: "EOL News"
   search_by_term_page_title: "Search: %{term}"
@@ -2631,7 +2633,7 @@ en:
   server_ip_address: "Server IP Address"
   set_as_exemplar: "Set as exemplar"
   show_email_message_area: "[show email message area]"
-  show_data_from_all_content_partners: "show data from all content partners"
+  show_data_from_all_content_partners: "Remove classification filter"
   show_full_tree: "show full tree"
   showing_errors_the_error_log_f: "Showing errors the error log for:"
   showing_processes_from_: "Showing processes from:"
@@ -3455,7 +3457,6 @@ en:
   education: Education
   nucleotide_sequences: Nucleotide Sequences
   content_partner_empty: "No content partner found."
-  education_empty: "No education found."
   identifcation_resources_empty: "No resources found."
   logo_header: "Logo"
   external_link_header: "External Link"

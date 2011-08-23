@@ -12,7 +12,7 @@
       - @browsable_hierarchy_entries.shuffle[0..1].each do |hierarchy_entry|
         %li
           - taxon_rank = (hierarchy_entry.rank.blank? || hierarchy_entry.rank.label.blank?) ? I18n.t(:taxon).firstcap : hierarchy_entry.rank.label.firstcap
-          = I18n.t(:rank_recognized_by_agent_colon, :rank => taxon_rank, :agent => link_to(hierarchy_entry.hierarchy.agent.full_name, taxon_hierarchy_entry_overview_path(@taxon_concept, hierarchy_entry)))
+          = I18n.t(:rank_recognized_by_agent_colon, :rank => taxon_rank, :agent => link_to(hierarchy_entry.hierarchy.agent.full_name, content_partner_path(hierarchy_entry.hierarchy.agent.user.content_partner)))
           %ul#taxonomictext.classification.summary
             - if hierarchy_entry.has_parent?
               %li

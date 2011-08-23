@@ -2451,6 +2451,7 @@ en:
   quarterly: "Quarterly"
   rails_databases: "Rails databases"
   rails_environment: "Rails environment"
+  rank_recognized_by_agent: "%{rank} recognized by %{agent}."
   rank_recognized_by_agent_colon: "%{rank} recognized by %{agent}:"
   rated_by_count_people:
     one: "from %{count} person"

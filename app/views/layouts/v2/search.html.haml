@@ -26,7 +26,7 @@
                             { :name => "type[]", :id => "type_#{opt.to_s}"}
                           = I18n.t("filter_by_type_#{opt}_option")
             %fieldset.actions
-              %input(type="submit" value="filter results")
+              = submit_tag I18n.t(:filter_button)
         #main
           = yield
 

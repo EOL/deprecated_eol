@@ -12,7 +12,7 @@
               %dd
                 = text_field_tag :name, @name
           %fieldset.actions
-            = submit_tag I18n.t(:filter), :name => nil
+            = submit_tag I18n.t(:filter_button), :name => nil
             %small= link_to I18n.t(:cancel), content_partners_path
     .copy
       - if @partners.blank?

@@ -43,8 +43,10 @@ ul, ol {
   margin: 0 40px 15px 40px;
   line-height: 170%; }
   ul li, ol li {
-    margin: 0 0 10px 0;
-    list-style-type: disc; }
+    margin: 0 0 10px 0; }
+
+ul li {
+  list-style-type: disc; }
 
 blockquote {
   background: #eff2f4;
@@ -52,11 +54,15 @@ blockquote {
   margin: 0 0 25px 0;
   padding: 15px 20px 0 20px; }
 
+address {
+  font-style: normal; }
+
 table {
   border-collapse: collapse;
   width: 100%;
   margin: 0 0 15px 0;
-  line-height: 170%; }
+  line-height: 170%;
+  font-size: 1em; }
   table thead th {
     background: #eff2f4;
     padding: 5px 20px;

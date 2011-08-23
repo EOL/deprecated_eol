@@ -590,6 +590,7 @@ body
     text-align: center
     font-size: 0.9em
     color: #394651
+    margin: 0
 
 /** Our classification summary is a hierarchichal list whereas HR was just links without hierarchy
   * so we override the styles here **/
@@ -642,14 +643,16 @@ body
       fieldset
         display: inline-block
 #taxon
-  form#new_collection_item
-    margin-top: 0
-    fieldset.actions
-      margin-top: -3px
-      input[type="submit"]
-        font-size: 0.78em
-        padding: 7px 10px
-
+  #collections_summary
+    form
+      margin-top: 0
+      fieldset.actions
+        margin-top: 0
+.empty
+  fieldset.actions
+    input.button
+      font-size: 0.82em
+      padding: 5px 10px 6px 10px
 /** HR styles assume text descriptions are nicely wrapped in p tags - in reality they may or may not be so we add
   * extra div.description and assign styles to the div - check this, particularly line-height as we probably need
   * to remove some HR styles from nested p. Check latest HR and remove the table styles here if possible.
@@ -956,11 +959,6 @@ h1.notice
 a.other_actions
   float: right
   margin-top: 1em
-
-// Too much space in modal dialogue:
-form#new_collection_item fieldset.actions
-  margin: 0
-
 // "Modal" static page (this is a copy/paste, sigh):
 .site_column > #choose_collections
   h2

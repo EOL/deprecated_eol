@@ -14,6 +14,8 @@
           - taxon_rank = (hierarchy_entry.rank.blank? || hierarchy_entry.rank.label.blank?) ? I18n.t(:taxon).firstcap : hierarchy_entry.rank.label.firstcap
           - if hierarchy_entry.hierarchy.agent.user
             - agent = link_to(hierarchy_entry.hierarchy.agent.full_name, content_partner_path(hierarchy_entry.hierarchy.agent.user.content_partner))
+          - elsif hierarchy_entry.hierarchy.resource
+            - agent = link_to(hierarchy_entry.hierarchy.agent.full_name, content_partner_path(hierarchy_entry.hierarchy.resource.content_partner))
           - else
             - agent = hierarchy_entry.hierarchy.agent.full_name
           = I18n.t(:rank_recognized_by_agent_colon, :rank => taxon_rank, :agent => agent)

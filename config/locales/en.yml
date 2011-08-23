@@ -2083,6 +2083,7 @@ en:
   name_preferred_for_language_no: "No"
   name_preferred_for_language_yes: "Preferred"
   names_et_al: "%{names}, et al."
+  names_explanation: "Scientists aim to describe a single 'tree of life' that reflects the evolutionary relationships of living things. However, evolutionary relationships are a matter of ongoing discovery, and there are different opinions about how living things should be grouped and named. EOL reflects these differences by supporting several different 'classifications'."
   names_in_red_are_not_trusted: "Names in red are not trusted."
   names_in_yellow_are_not_reviewed: "Names in yellow are not reviewed."
   names: "Names"

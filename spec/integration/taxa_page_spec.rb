@@ -445,15 +445,15 @@ describe 'Taxa page' do
     it_should_behave_like 'taxon community tab'
     it "should render communities - curators page" do
       visit(taxon_community_path(@testy[:taxon_concept]))
-      body.should have_tag("h2", :text => "Curators")      
+      body.should have_tag("h2", :text => "Curators")
     end
     it "should render communities - collections page" do
       visit(collections_taxon_community_path(@testy[:taxon_concept]))
-      body.should have_tag("h2", :text => "Collections")      
+      body.should have_tag("h2", :text => "Collections")
     end
     it "should render communities - curators page" do
       visit(communities_taxon_community_path(@testy[:taxon_concept]))
-      body.should have_tag("h2", :text => "Communities")      
+      body.should have_tag("h2", :text => "Communities")
     end
   end
 

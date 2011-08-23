@@ -37,8 +37,14 @@
       - if @selected_hierarchy_entry
         %p#citation.status
           - taxon_rank = (@selected_hierarchy_entry.rank.blank? || @selected_hierarchy_entry.rank.label.blank?) ? I18n.t(:taxon).firstcap : @selected_hierarchy_entry.rank.label.firstcap
-          = I18n.t(:rank_recognized_by_agent, :rank => taxon_rank, :agent => link_to(@selected_hierarchy_entry.hierarchy.agent.full_name, content_partner_path(@selected_hierarchy_entry.hierarchy.agent.user.content_partner)))
+          - recognized_by = @selected_hierarchy_entry.recognized_by_agents.map {|a| (a.respond_to?(:user) && a.user) ? link_to(a.full_name, content_partner_path(a.user.content_partner)) : a.full_name }.to_sentence
+          - if @selected_hierarchy_entry.has_source_database?
+            = I18n.t(:rank_recognized_by_from_source, :recognized_by => recognized_by, :source => link_to(@selected_hierarchy_entry.hierarchy.agent.full_name, content_partner_path(@selected_hierarchy_entry.hierarchy.agent.user.content_partner)), :taxon_rank => taxon_rank)
+          - else
+            = I18n.t(:rank_recognized_by_agent, :agent => recognized_by, :rank => taxon_rank)
+          &emsp;•&emsp;
           = link_to I18n.t(:show_data_from_all_content_partners), taxon_overview_path(@taxon_concept)
+
       %ul.nav
         -# NOTE the "if" and, below, the "else". If you're having trouble, you may have edited one and not the other!
         - if @selected_hierarchy_entry

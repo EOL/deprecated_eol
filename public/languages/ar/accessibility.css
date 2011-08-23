@@ -1,8 +1,40 @@
+/*
+----------------------------------------
+Tantek Celik's Whitepsace Reset
+     Author:  	Tantek Celik, Shane Riley
+    Version:  	(CC) 2010 Some Rights Reserved - http://creativecommons.org/licenses/by/2.0
+Description:	Resets default styling of common browsers to a common base
+----------------------------------------
+*/
+ul, ol {
+  list-style: none; }
+
+h1, h2, h3, h4, h5, h6, pre, code {
+  font-size: 1em; }
+
+ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, body, html, p, blockquote, fieldset, input, dl, dt, dd {
+  margin: 0;
+  padding: 0; }
+
+a img, :link img, :visited img, fieldset {
+  border: none; }
+
+address {
+  font-style: normal; }
+
+header, section, article, nav, footer, hgroup {
+  display: block; }
+
 .assistive, #header .assistive {
   position: absolute;
   right: -999em; }
 
 /*
+ * Changes required for HR sass files:
+ *   - replace /images/<image name> with /images/v2/<image name>
+ *   - replace #profile_edit with form.edit_user
+ *
+ *
  * Temporary placement of needed CSS for V2
  * I don't want to edit/add to HashRocket's SASS files until they are done making changes
  * so I am temporarily adding some CSS here needed for V2 demo. This CSS should be integrated
@@ -18,9 +50,11 @@ body.home > #header {
 
 /*adding facebook icon to social media */
 body > #footer ul.social_media li a.facebook {
-  background-position: 0px -25px; }
+  background-position: right -25px; }
 body > #footer ul.social_media li a.tumblr {
-  background-position: 0px -75px; }
+  background-position: right -75px; }
+body > #footer ul.social_media li a.flickr {
+  background-position: right -100px; }
 
 /*Override for layout on users edit - we have extra nested div so we need to remove padding,
  * we added extra fieldset - but check HR might give us an update for the fieldset */
@@ -31,6 +65,45 @@ body > #footer ul.social_media li a.tumblr {
   #profile_edit fieldset.curation textarea {
     width: 282px;
     height: 120px; }
+
+/*Content partner various */
+#sidebar .content_partner_managers {
+  margin: 0 0 20px 0; }
+  #sidebar .content_partner_managers li {
+    overflow: hidden;
+    padding: 0 0 20px 0;
+    line-height: 140%; }
+  #sidebar .content_partner_managers img {
+    float: right;
+    margin: 0 0 0 10px;
+    border: 1px solid #394651; }
+  #sidebar .content_partner_managers h4 a {
+    color: inherit;
+    text-decoration: none; }
+    #sidebar .content_partner_managers h4 a:hover {
+      text-decoration: underline; }
+
+#profile_content_partner form dt {
+  clear: both; }
+#profile_content_partner form dd.managed_by {
+  overflow: hidden; }
+  #profile_content_partner form dd.managed_by img {
+    float: right;
+    margin: 0 0 0 10px;
+    border: 1px solid #394651;
+    max-width: 48px;
+    max-height: 48px;
+    width: expression(this.width > 48 ? "48px" : true);
+    height: expression(this.height > 48 ? "48px" : true); }
+  #profile_content_partner form dd.managed_by .details {
+    padding: 5px 0 0 0;
+    overflow: hidden; }
+
+form fieldset.dataset legend.required {
+  font-weight: bold;
+  background: url("/images/v2/icon_required.png") right 45% no-repeat;
+  padding-right: 10px;
+  margin-right: -10px; }
 
 /*Styles for form required (HR overrides) and form validation errors (custom no equivalent from HR)  */
 form dt.required label {
@@ -95,6 +168,9 @@ form#switch_hierarchy_entry fieldset {
     margin: 0 !important; }
 
 /*pending eol user account */
+#content.session form.terms_agreement {
+  padding: 75px 69px;
+  width: 500px; }
 #content.session .pending {
   width: 320px;
   min-height: 225px;
@@ -151,7 +227,7 @@ form#switch_hierarchy_entry fieldset {
   float: right;
   margin: 0 30px 30px 20px; }
 
-/*content partners */
+/*cms page styles for public content partners listing */
 .cms_page .header {
   border-bottom: 1px solid #cad3db;
   padding-bottom: 1em;
@@ -171,19 +247,58 @@ form#switch_hierarchy_entry fieldset {
   .cms_page ul.object_list li p {
     clear: none; }
 
+/*content partners overrides/additions */
+.cms_page #content_partners #sidebar input[type="text"] {
+  width: 118px; }
+
+#new_content_partner_agreement dl {
+  clear: both; }
+  #new_content_partner_agreement dl dd {
+    margin: 0 0 10px 0; }
+    #new_content_partner_agreement dl dd input[type="text"] {
+      width: 308px;
+      height: 22px;
+      padding: 2px 5px;
+      font: normal 1em Helvetica, Arial, sans-serif;
+      border: 1px solid #cad3db;
+      background-color: white;
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+      background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
+
+#content_partner_show .empty {
+  font-size: 1em; }
+#content_partner_show .agreement dl {
+  margin: 0 40px 15px 40px;
+  line-height: 170%; }
+  #content_partner_show .agreement dl dt {
+    font-weight: bold; }
+  #content_partner_show .agreement dl dd {
+    margin: 0 0 10px 0; }
+#content_partner_show .agreement address {
+  display: block;
+  width: 40%;
+  line-height: 170%; }
+  #content_partner_show .agreement address.partner {
+    float: right; }
+  #content_partner_show .agreement address.eol {
+    float: left; }
+#content_partner_show dl.agreement {
+  line-height: 140%; }
+  #content_partner_show dl.agreement dt {
+    font-weight: bold; }
+  #content_partner_show dl.agreement dd {
+    margin: 0 20px 5px 0; }
+
 #content_partner_edit.site_column, #content_partner_new.site_column {
   width: 640px; }
-
-#content_partner_show .main_container {
-  padding: 40px;
-  border: 1px solid #93a4b0;
-  border-width: 0 1px; }
-#content_partner_show #sidebar {
-  width: 200px; }
 
 ul.content_partner_contacts li {
   margin: 0 0 20px 0; }
 
+#content_partner_statistics .main_container {
+  border: none;
+  padding: 0; }
 #content_partner_statistics .heading {
   text-align: center; }
   #content_partner_statistics .heading fieldset, #content_partner_statistics .heading input[type="submit"] {
@@ -192,6 +307,7 @@ ul.content_partner_contacts li {
 #content_partner_statistics table {
   margin-top: 20px; }
 
+/*warning messages - check HR commits for updates to this */
 p.status.error {
   border: 1px solid #f2d2cc;
   background: #ffeae6; }
@@ -236,36 +352,41 @@ p.status.error {
     color: #677682; }
   #permalink .media {
     float: none; }
+    #permalink .media img {
+      max-width: 540px;
+      width: expression(this.width > 540 ? "540px" : true); }
 
-/*Add article interface we have error fieldset and a textarea box in information fieldset that HR didn't expect */
-#object_text_new p.tip {
+/*I say we standardise form tips everywhere */
+form p.tip {
   background: #f3f7fa;
   border: 1px solid #cad3db;
   padding: 10px;
   margin: 0 0 20px 40px;
   line-height: 140%; }
-#object_text_new form#new_data_object fieldset dt, #object_text_new form.edit_data_object fieldset dt {
+  form p.tip img {
+    margin: -2px 5px 0 5px; }
+
+/*Add article interface we have error fieldset and a textarea box in information fieldset that HR didn't expect */
+form#new_data_object fieldset dt, form.edit_data_object fieldset dt {
   font-size: 1.08em; }
-#object_text_new form#new_data_object fieldset.content, #object_text_new form.edit_data_object fieldset.content {
+form#new_data_object fieldset.content, form.edit_data_object fieldset.content {
   width: 640px; }
-  #object_text_new form#new_data_object fieldset.content input[type="text"], #object_text_new form.edit_data_object fieldset.content input[type="text"] {
+  form#new_data_object fieldset.content input[type="text"], form.edit_data_object fieldset.content input[type="text"] {
     width: 308px; }
-  #object_text_new form#new_data_object fieldset.content textarea, #object_text_new form.edit_data_object fieldset.content textarea {
+  form#new_data_object fieldset.content textarea, form.edit_data_object fieldset.content textarea {
     width: 580px;
     height: 200px; }
-#object_text_new form#new_data_object fieldset.information, #object_text_new form.edit_data_object fieldset.information {
+form#new_data_object fieldset.information, form.edit_data_object fieldset.information {
   width: 300px; }
-  #object_text_new form#new_data_object fieldset.information input[type="text"], #object_text_new form.edit_data_object fieldset.information input[type="text"] {
+  form#new_data_object fieldset.information input[type="text"], form.edit_data_object fieldset.information input[type="text"] {
     width: 288px; }
-  #object_text_new form#new_data_object fieldset.information textarea, #object_text_new form.edit_data_object fieldset.information textarea {
+  form#new_data_object fieldset.information textarea, form.edit_data_object fieldset.information textarea {
     width: 282px;
     height: 80px; }
 
 /*Adjustments for when missing exemplar image */
 #media_list #sidebar img, #taxon_detail #sidebar img {
-  margin-bottom: 0;
-  margin-left: auto;
-  margin-right: auto; }
+  margin: auto; }
 #media_list #sidebar h3, #taxon_detail #sidebar h3 {
   margin-top: 20px; }
 #media_list #sidebar h4 a, #taxon_detail #sidebar h4 a {
@@ -295,9 +416,14 @@ p.status.error {
       bottom: 0;
       width: 160px;
       z-index: 1; }
+  #media_list #main > ul > li .figure .video_overlay {
+    background: url("/images/v2/video_play.png") no-repeat 50% 50% transparent;
+    width: 160px;
+    height: 125px;
+    z-index: 300;
+    position: absolute; }
   #media_list #main > ul > li .figure .video {
     border: 1px solid #cad3db;
-    background: #f3f7fa url("/images/v2/icon_videos_tabs.png") no-repeat 50% 50%;
     width: 158px;
     height: 123px; }
 #media_list #main > ul > li > a {
@@ -322,7 +448,7 @@ p.flag {
   p.flag.untrusted {
     border: 1px solid #f2d2cc;
     background: #ffeae6;
-    color: #677682; }
+    color: #677682 !important; }
 
 /*We share rating partial across many pages so need extra styles here. */
 #taxon_detail .rating h5 {
@@ -354,31 +480,20 @@ p.flag {
 .join abbr {
   border: none; }
 
-body.home > #header .session {
-  position: absolute;
-  left: 40px;
-  top: 55px;
-  z-index: 2; }
-  body.home > #header .session img {
-    float: left;
-    margin: 0 10px 0 0;
-    border: 1px solid #cad3db; }
-  body.home > #header .session .details {
-    overflow: hidden;
-    padding: 5px 0 0 0;
-    font-size: 0.92em;
-    line-height: 130%;
-    text-align: left;
-    color: white; }
+/*HR z-indexes were messed up in header, also we're putting session partial on home page for logged in users */
+body.home > #header .session.join {
+  text-align: center !important; }
+  body.home > #header .session.join a {
+    color: white !important; }
 body > #header .section .actions {
   z-index: 5; }
-body > #header .section .session .join {
+body > #header .section .session.join {
   float: left;
   text-align: left;
   color: white; }
-  body > #header .section .session .join p {
+  body > #header .section .session.join p {
     line-height: 1.4em; }
-  body > #header .section .session .join a {
+  body > #header .section .session.join a {
     color: #90bce4; }
 
 /*IUCN styles, we use a h3 header instead of just a paragraph so its easier to find with screenreaders. */
@@ -438,6 +553,16 @@ body > #header .section .session .join {
       right: 0; }
       #taxon .gallery .images .details .attribution .copy {
         padding: 0 90px 0 0; }
+
+/*taxon disclaimer */
+.disclaimer {
+  clear: both;
+  border-top: 1px solid #cad3db;
+  padding-top: 10px; }
+  .disclaimer p {
+    text-align: center;
+    font-size: 0.9em;
+    color: #394651; }
 
 /*Our classification summary is a hierarchichal list whereas HR was just links without hierarchy
  * so we override the styles here */
@@ -513,7 +638,9 @@ body > #header .section .session .join {
 #sidebar.filters dd li.no_results label {
   color: #6f7e8b; }
 
-/*page heading actions */
+/*page heading actions, making header group narrow to fit actions in */
+#page_heading.with_image .hgroup {
+  width: 630px; }
 #page_heading .page_actions {
   padding-top: 10px; }
   #page_heading .page_actions fieldset.actions {
@@ -527,6 +654,17 @@ body > #header .section .session .join {
   width: 100%;
   margin: 0 0 15px 0;
   line-height: 170%; }
+  .cms_page table thead tr {
+    border: 1px solid #cad3db; }
+    .cms_page table thead tr th {
+      background: #eff2f4;
+      padding: 5px 20px;
+      font-weight: bold;
+      text-align: right; }
+  .cms_page table tbody tr {
+    border: 1px solid #cad3db; }
+    .cms_page table tbody tr td {
+      padding: 5px 20px; }
 
 /*collections overides */
 .object_list div.checkbox {
@@ -539,28 +677,41 @@ body > #header .section .session .join {
 #map_image {
   height: 350px; }
 
-/*
- * TEMPORARY FIX: Forcing image sizes for V2 demo.
- */
-#media_summary .image > img {
+#media_summary .image > a img {
   max-width: 430px;
-  max-height: 310px; }
+  max-height: 310px;
+  width: expression(this.width > 430 ? "430px" : true);
+  height: expression(this.height > 310 ? "310px" : true); }
 
 ul.feed li > a > img {
-  width: 50px;
-  height: 50px; }
+  max-width: 48px;
+  max-height: 48px;
+  width: expression(this.width > 48 ? "48px" : true);
+  height: expression(this.height > 48 ? "48px" : true); }
 
 #header .session img {
-  width: 50px;
-  height: 50px; }
+  max-width: 48px;
+  max-height: 48px;
+  width: expression(this.width > 48 ? "48px" : true);
+  height: expression(this.height > 48 ? "48px" : true); }
 
-#collections_summary ul li > a > img, #communities_summary ul li > a > img, .collection_contributors ul li > a > img {
-  width: 50px;
-  height: 50px; }
+#collections_summary ul li > a > img, #communities_summary ul li > a > img, #curators_summary ul li > a > img {
+  max-width: 48px;
+  max-height: 48px;
+  width: expression(this.width > 48 ? "48px" : true);
+  height: expression(this.height > 48 ? "48px" : true); }
 
 #collections .collections .article > .header > a > img {
-  width: 50px;
-  height: 50px; }
+  max-width: 48px;
+  max-height: 48px;
+  width: expression(this.width > 48 ? "48px" : true);
+  height: expression(this.height > 48 ? "48px" : true); }
+
+#community .article.list img {
+  max-width: 48px;
+  max-height: 48px;
+  width: expression(this.width > 48 ? "48px" : true);
+  height: expression(this.height > 48 ? "48px" : true); }
 
 #page_heading.with_image img, #page_heading.profile img {
   max-width: 88px;
@@ -569,20 +720,24 @@ ul.feed li > a > img {
   height: expression(this.height > 88 ? "88px" : true); }
 
 #collections.main_container .taxon > img {
-  max-width: 90px;
-  max-height: 90px;
-  width: expression(this.width > 90 ? "90px" : true);
-  height: expression(this.height > 90 ? "90px" : true); }
+  max-width: 88px;
+  max-height: 88px;
+  width: expression(this.width > 88 ? "88px" : true);
+  height: expression(this.height > 88 ? "88px" : true); }
 
-#sidebar .collection_list img {
-  width: 35px;
-  height: 35px; }
+#sidebar .collection_list img, #sidebar .collection_contributors img, #sidebar .content_partner_managers img {
+  max-width: 35px;
+  max-height: 35px;
+  width: expression(this.width > 35 ? "35px" : true);
+  height: expression(this.height > 35 ? "35px" : true); }
 
 #taxon .gallery ul.thumbnails li {
   text-align: center; }
 #taxon .gallery ul.thumbnails li img {
   max-width: 98px;
   max-height: 68px;
+  width: expression(this.width > 98 ? "98px" : true);
+  height: expression(this.height > 68 ? "68px" : true);
   width: auto;
   height: auto;
   display: inline !important; }
@@ -590,8 +745,12 @@ ul.feed li > a > img {
 #media_list #main ul li img {
   max-width: 160px;
   max-height: 125px;
+  width: expression(this.width > 160 ? "160px" : true);
+  height: expression(this.height > 125 ? "125px" : true);
   margin-left: auto;
   margin-right: auto; }
+#media_list #sidebar.filters img {
+  max-width: 220px; }
 
 #taxon_detail #sidebar img {
   max-width: 260px; }
@@ -599,12 +758,14 @@ ul.feed li > a > img {
 ul.object_list li img {
   max-width: 68px;
   max-height: 68px;
-  width: 68px;
-  height: 68px; }
+  width: expression(this.width > 68 ? "68px" : true);
+  height: expression(this.height > 68 ? "68px" : true); }
 
 form.comment img {
-  height: 50px;
-  width: 50px; }
+  max-width: 48px;
+  max-height: 48px;
+  width: expression(this.width > 48 ? "48px" : true);
+  height: expression(this.height > 48 ? "48px" : true); }
 
 #header .thumbnails ul li {
   width: 140px;
@@ -679,19 +840,23 @@ h1.notice {
   padding: 4em; }
 
 .column.curators img, .column.collections img, .column.communities img {
-  width: 48px;
-  height: 48px; }
+  max-width: 48px;
+  max-height: 48px;
+  width: expression(this.width > 48 ? "48px" : true);
+  height: expression(this.height > 48 ? "48px" : true); }
 
 #worklist #task #sidebar {
   width: auto;
   float: none;
   padding: 0px !important; }
 
-#worklist #tasks li img {
-  max-width: 60x;
-  max-height: 60px;
-  width: expression(this.width > 60 ? "60px" : true);
-  height: expression(this.height > 60 ? "60px" : true); }
+#worklist #tasks ul li {
+  z-index: 300; }
+  #worklist #tasks ul li img {
+    max-width: 48px;
+    max-height: 48px;
+    width: expression(this.width > 48 ? "48px" : true);
+    height: expression(this.height > 48 ? "48px" : true); }
 
 #sidebar p {
   padding-bottom: 1em; }
@@ -709,6 +874,8 @@ h1.notice {
   color: #667309;
   text-transform: uppercase;
   font-weight: bold; }
+#worklist .filters fieldset dl {
+  padding: 0 0 0 30px; }
 
 #worklist #tasks li:hover {
   background-color: white !important; }
@@ -744,3 +911,81 @@ h1.notice {
   background: #f3f7fa;
   border: 1px solid #cad3db;
   padding: 20px 20px 0 20px; }
+
+a.other_actions {
+  float: left;
+  margin-top: 1em; }
+
+form#new_collection_item fieldset.actions {
+  margin: 0; }
+
+.site_column > #choose_collections h2 {
+  font-size: 1.33em;
+  margin: 0 0 10px 0; }
+.site_column > #choose_collections fieldset.new_collection {
+  overflow: hidden;
+  margin: 0 0 20px 0; }
+  .site_column > #choose_collections fieldset.new_collection input[type="text"] {
+    float: right;
+    width: 210px;
+    height: 22px;
+    padding: 2px 5px;
+    font: normal 1em Helvetica, Arial, sans-serif;
+    border: 1px solid #cad3db;
+    background-color: white;
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+    background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
+    margin: 0 0 0 10px; }
+.site_column > #choose_collections input[type="submit"] {
+  padding-right: 20px;
+  padding-left: 20px;
+  font-size: 1.08em;
+  padding: 5px 10px 6px 10px; }
+.site_column > #choose_collections ul {
+  border: 1px solid #cad3db;
+  height: 230px;
+  overflow-y: scroll;
+  margin: 0 0 20px 0; }
+  .site_column > #choose_collections ul li {
+    font-weight: bold;
+    padding: 5px 10px; }
+    .site_column > #choose_collections ul li.collected {
+      background: #f4f4f4; }
+    .site_column > #choose_collections ul li input[type="checkbox"] {
+      margin: 0 0 0 5px; }
+    .site_column > #choose_collections ul li a {
+      font-size: 0.95em; }
+    .site_column > #choose_collections ul li span {
+      font-size: 0.95em; }
+    .site_column > #choose_collections ul li + li {
+      border-top: 1px solid #cad3db; }
+
+#search_results ul.object_list li {
+  white-space: nowrap; }
+
+#taxon_maps #media_list {
+  padding: 0; }
+
+#taxon_detail #sidebar {
+  padding: 0;
+  padding-bottom: 20px;
+  width: 260px; }
+  #taxon_detail #sidebar #toc {
+    margin: 0px 0 0 20px; }
+
+#media_list #sidebar {
+  padding: 0;
+  padding-bottom: 20px;
+  width: 220px; }
+  #media_list #sidebar #filters {
+    margin: 0px 0 0 20px; }
+
+#recognized_by span {
+  font-size: 0.95em; }
+
+#taxon_updates form.comment {
+  margin: 0 0 15px;
+  border-bottom: 1px solid #d4dce2; }
+  #taxon_updates form.comment textarea {
+    width: 580px; }

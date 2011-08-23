@@ -22,6 +22,7 @@ config/environments/v2demo*
 config/environments/v2prelaunch*
 config/remi-deploy.rb
 config/systems/
+config/newrelic.yml
 db/*_structure.sql
 db/schema.rb
 doc/app

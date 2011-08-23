@@ -20,7 +20,7 @@
           %li
             = link_to image_tag(curator.logo_url(:small), :alt => I18n.t(:profile_image_alt_text_curator, :user_full_name => h(curator.full_name))), curator
             .details
-              %h4= link_to h(curator.short_name), curator
+              %h4= link_to h(curator.full_name), curator
               %p.meta= h(curator.tag_line)
   .column.collections
     .article.list
@@ -68,6 +68,6 @@
             .details
               %h4= link_to(community.name, community_path(community))
               %p
-                = I18n.t(:other_community_items_with_count, :count => community.focus.collection_items.count - 1) 
+                = I18n.t(:other_community_items_with_count, :count => community.focus.collection_items.count - 1)
                 = I18n.t(:punctuation_comma)
                 = I18n.t(:members_with_count, :count => community.members.count)

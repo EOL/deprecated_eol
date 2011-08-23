@@ -11,7 +11,10 @@
       - else
         = agent.full_name
   - else
-    - unless data_object.users_data_object.blank?
+    - if data_object.users_data_object.blank?
+      = render :partial => 'data_objects/owner', :locals => { :data_object => data_object, :linked => true }
+    - else
       = I18n.t(:supplier_colon) + " "
       - user = data_object.users_data_object.user
       = link_to user.full_name,  user_path(:id => user.id)
+

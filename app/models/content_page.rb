@@ -25,6 +25,19 @@ class ContentPage < $PARENT_CLASS_MUST_USE_MASTER
   # TODO: add unique index of page_name in db ?
   # TODO: Validate format of page name alphanumeric and underscores only - when we move to machine names
 
+  def can_be_read_by?(user_wanting_access)
+    user_wanting_access.is_admin? || active?
+  end
+  def can_be_created_by?(user_wanting_access)
+    user_wanting_access.is_admin?
+  end
+  def can_be_updated_by?(user_wanting_access)
+    user_wanting_access.is_admin?
+  end
+  def can_be_deleted_by?(user_wanting_access)
+    user_wanting_access.is_admin?
+  end
+
   def self.get_navigation_tree(page_id)
     if (page_id)
       content_page = ContentPage.find(page_id)

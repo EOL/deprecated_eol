@@ -1,0 +1,10 @@
+%li
+  %strong= "#{translated_content_page.language.label}:"
+  = I18n.t(:last_updated_time_ago,
+    :time_passed => translated_content_page.updated_at.blank? ? I18n.t(:never) : time_ago_in_words(translated_content_page.updated_at))
+  &bull;
+  = translated_content_page.active_translation? ? I18n.t(:published) : I18n.t(:unpublished)
+  &bull;
+  = link_to I18n.t(:view), cms_page_path(content_page, :language => translated_content_page.language.iso_639_1)
+  &bull;
+  = link_to I18n.t(:edit), edit_admin_content_page_translated_content_page_path(content_page, translated_content_page)

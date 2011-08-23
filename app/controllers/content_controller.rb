@@ -6,8 +6,8 @@ class ContentController < ApplicationController
   caches_page :tc_api
 
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN
-  before_filter :redirect_if_curator , :only => [:page]
-  before_filter :check_user_agreed_with_terms, :except => [:page]
+  before_filter :redirect_if_curator , :only => [:show]
+  before_filter :check_user_agreed_with_terms, :except => [:show]
 
   def index
     @home_page = true
@@ -176,14 +176,17 @@ class ContentController < ApplicationController
       @content ||= ContentPage.find_by_page_name(@page_id.gsub('_', ' ')) # will become obsolete once validation on page_name is in place
     end
 
-    return render_404 if @content.nil?
+    return render_404 if @content.nil? || !current_user.can_read?(@content)
 
     @navigation_tree_breadcrumbs = ContentPage.get_navigation_tree_with_links(@content.id)
     current_language = @selected_language || Language.from_iso(current_user.language_abbr)
     @translated_content = TranslatedContentPage.find_by_content_page_id_and_language_id(@content.id, current_language.id)
+    @translated_content = nil unless current_user.can_read?(@translated_content)
     if @translated_content.nil?
-      @page_title = I18n.t(:cms_missing_content_title)
       @translated_pages = TranslatedContentPage.find_all_by_content_page_id(@content.id)
+      @translated_pages.reject!{|tp| !current_user.can_read?(tp)}
+      return render_404 if @translated_pages.blank?
+      @page_title = I18n.t(:cms_missing_content_title)
     else
       @page_title = @translated_content.title
     end

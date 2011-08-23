@@ -1,0 +1,36 @@
+#content
+  #taxon_literature.site_column
+    = render :partial => 'communities_menu'
+    .main_container.copy
+      %h2= I18n.t(:collections)
+      %p
+
+      .column.collections
+        .summary
+          %p= I18n.t(:community_tab_collections_description)
+
+      .column.collections
+        .article.list
+          /.header
+          %h4= I18n.t(:collections_summary_header_with_count, :count => @collections.count)
+          /
+            -# TODO
+            .heading
+              %form.filter(action="" method="post")
+                %fieldset
+                  %label Sort By
+                  %select
+                    %option recently updated
+                %fieldset.actions
+                  %input(type="submit" value="filter")
+          %ul
+            - @collections.each do |collection|
+              %li
+                = link_to image_tag(collection.logo_url(:small), :alt => ''), collection_path(collection)
+                .details
+                  %h4= link_to(collection.name, collection_path(collection))
+                  - count = collection.collection_items.count - 1
+                  %p= I18n.t(:other_collection_items_with_count, :count => count)
+          /
+            -# TODO ... when we add sorting / pagination
+            %p.more= link_to "Show all 37 collections", "#"

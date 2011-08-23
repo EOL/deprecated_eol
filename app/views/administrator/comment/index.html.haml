@@ -30,9 +30,9 @@
             %td{ :class => column_class }
               = link_to (comment.user.full_name,:controller=>'/administrator/user',:action=>'edit',:id=>comment.user_id)
             %td{ :class => column_class }
-              = h truncate(comment.body,100)
+              = h truncate(comment.body, :length => 100)
             %td{ :class => column_class }
-              = truncate(comment.parent_name.gsub!(/(<[^>]*>)|\n|\t/s) {" "},50)
+              = truncate(comment.parent_name.gsub!(/(<[^>]*>)|\n|\t/s) {" "}, :length => 50)
               %br
               (
               = link_to (comment.parent_type_name,comment.parent_url)

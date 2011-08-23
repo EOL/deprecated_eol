@@ -1,4 +1,4 @@
 - current_member_is_an_admin = @current_member && @current_member.manager?
 %h1
-  = "#{ link_to @member.user.username, @member.user } #{I18n.t(:member_of)} #{ link_to(h(@community.name), @community) } "
+  = "#{ link_to @member.user.full_name, @member.user } #{I18n.t(:member_of)} #{ link_to(h(@community.name), @community) } "
   = I18n.t(:manager_parens) if @member.manager?

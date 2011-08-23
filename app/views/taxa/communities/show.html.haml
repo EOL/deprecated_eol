@@ -1,73 +1,22 @@
-#taxon_community.main_container
-  .column.curators
-    .summary
-      %h3= I18n.t(:curators)
-      %p= I18n.t(:community_tab_curators_description)
-  .column.collections
-    .summary
-      %h3= I18n.t(:collections)
-      %p= I18n.t(:community_tab_collections_description)
-  .column.communities
-    .summary
-      %h3= I18n.t(:communities)
-      %p=  I18n.t(:community_tab_communities_description)
-  .column.curators
-    .article.list
-      .header
-        %h3= I18n.t(:curators_with_count, :count => @curators.count)
-      %ul
-        - @curators.each do |curator|
-          %li
-            = link_to image_tag(curator.logo_url(:small), :alt => I18n.t(:profile_image_alt_text_curator, :user_full_name => h(curator.full_name))), curator
-            .details
-              %h4= link_to h(curator.short_name), curator
-              %p.meta= h(curator.tag_line)
-  .column.collections
-    .article.list
-      .header
-        %h3= I18n.t(:collections_summary_header_with_count, :count => @collections.count)
-      /
-        -# TODO
-        .heading
-          %form.filter(action="" method="post")
-            %fieldset
-              %label Sort By
-              %select
-                %option recently updated
-            %fieldset.actions
-              %input(type="submit" value="filter")
-      %ul
-        - @collections.each do |collection|
-          %li
-            = link_to image_tag(collection.logo_url(:small), :alt => ''), collection_path(collection)
-            .details
-              %h4= link_to(collection.name, collection_path(collection))
-              - count = collection.collection_items.count - 1
-              %p= I18n.t(:other_collection_items_with_count, :count => count)
-      /
-        -# TODO ... when we add sorting / pagination
-        %p.more= link_to "Show all 37 collections", "#"
-  .column.communities
-    .article.list
-      .header
-        %h3= I18n.t(:belongs_in_count_communities, :count => @communities.count)
-      /
-        -# TODO
-        .heading
-          %form.filter(action="" method="post")
-            %fieldset
-              %label Sort By
-              %select
-                %option recently updated
-            %fieldset.actions
-              %input(type="submit" value="filter")
-      %ul
-        - @communities.each do |community|
-          %li
-            = link_to image_tag(community.logo_url(:small), :alt => ''), community_path(community)
-            .details
-              %h4= link_to(community.name, community_path(community))
-              %p
-                = I18n.t(:other_community_items_with_count, :count => community.focus.collection_items.count - 1) 
-                = I18n.t(:punctuation_comma)
-                = I18n.t(:members_with_count, :count => community.members.count)
+#content
+  #taxon_literature.site_column
+    = render :partial => 'communities_menu'
+    .main_container.copy
+      %h2= I18n.t(:curators)
+      %p
+
+      .column.curators
+        .summary
+          %p= I18n.t(:community_tab_curators_description)
+
+      .column.curators
+        .article.list
+          /.header
+          %h4= I18n.t(:curators_with_count, :count => @curators.count)
+          %ul
+            - @curators.each do |curator|
+              %li
+                = link_to image_tag(curator.logo_url(:small), :alt => I18n.t(:profile_image_alt_text_curator, :user_full_name => h(curator.full_name))), curator
+                .details
+                  %h4= link_to h(curator.full_name), curator
+                  %p.meta= h(curator.tag_line)

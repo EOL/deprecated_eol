@@ -47,7 +47,7 @@
               %h6
                 = I18n.t(:location_colon)
               - data_object_location = strip_tags(data_object.location).cleanup_for_presentation
-              = truncate(data_object_location, 48)
+              = truncate(data_object_location, :length => 48)
         %td{ :class => data_object.vetted.label.downcase }
           = render :partial => 'curation_tools', :locals => {:data_object => data_object, :comment_height => 3, :comment_width => 24}
   = will_paginate(@images_to_curate, :params => params)

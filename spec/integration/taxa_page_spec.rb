@@ -130,7 +130,7 @@ describe 'Taxa page' do
 
     it 'should show curators' do
       body.should have_tag('div#curators_summary') do
-        with_tag('.details h4', @testy[:curator].given_name)
+        with_tag('.details h4', @testy[:curator].full_name)
       end
     end
   end
@@ -144,6 +144,18 @@ describe 'Taxa page' do
     end
     it 'should include Content Partners' do
       body.should include('Content Partners')
+    end
+  end
+
+  shared_examples_for 'taxon community tab' do
+    it 'should include Curators' do
+      body.should include('Curators')
+    end
+    it 'should include Collections' do
+      body.should include('Collections')
+    end
+    it 'should include Communities' do
+      body.should include('Communities')
     end
   end
 
@@ -420,6 +432,31 @@ describe 'Taxa page' do
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon literature tab'
   end
+
+
+  # community tab
+  context 'community tab' do
+    before(:all) do
+      visit("pages/#{@testy[:id]}/community")
+      @section = 'community'
+    end
+    subject { body }
+    it_should_behave_like 'taxon name - taxon_concept page'
+    it_should_behave_like 'taxon community tab'
+    it "should render communities - curators page" do
+      visit(taxon_community_path(@testy[:taxon_concept]))
+      body.should have_tag("h2", :text => "Curators")      
+    end
+    it "should render communities - collections page" do
+      visit(collections_taxon_community_path(@testy[:taxon_concept]))
+      body.should have_tag("h2", :text => "Collections")      
+    end
+    it "should render communities - curators page" do
+      visit(communities_taxon_community_path(@testy[:taxon_concept]))
+      body.should have_tag("h2", :text => "Communities")      
+    end
+  end
+
 
 #  context 'when taxon does not have any common names'
 # TODO: figure out if this should be true and fix/remove as appropriate

@@ -1,9 +1,9 @@
 = link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
-  :posters_name => h(item.user.short_name))), user_path(item.user), :class => 'avatar'
+  :posters_name => h(item.user.full_name))), user_path(item.user), :class => 'avatar'
 .details
   %p
     -# TODO - these ChangeableObjectType checks are all failing because they are NOT on datos, they are on dohe and cdohe's.  Fix.
-    - name_with_link = link_to(h(item.user.short_name), user_path(item.user))
+    - name_with_link = link_to(h(item.user.full_name), user_path(item.user))
     - object_link = item.data_object ? link_to(item.data_object.summary_name, data_object_path(item.data_object)) : nil
     - case item.activity_id
     - when Activity.trusted.id

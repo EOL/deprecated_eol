@@ -87,12 +87,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   attr_accessor :entered_password, :entered_password_confirmation, :curator_request
 
-  alias_attribute :summary_name, :username
-
-  def can_be_updated_by?(user_wanting_access)
-    user_wanting_access.id == id || user_wanting_access.is_admin?
-  end
-
   def self.sort_by_name(users)
     users.sort_by do |u|
       given = u.given_name.blank? ? u.family_name : u.given_name.strip
@@ -231,6 +225,29 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     end
   end
 
+  # Please use consistent format for naming Users across the site.  At the moment, this means using #full_name unless
+  # you KNOW you have an exception.
+  def full_name
+    if is_curator? # MUST show their name:
+      return [given_name, family_name].join(' ').strip
+    else # Other users show their full name when available, otherwise their username:
+      return username if given_name.blank? || family_name.blank?
+      return [given_name, family_name].join(' ').strip
+    end
+  end
+  alias summary_name full_name # This is for collection item duck-typing, you need not use this elsewhere.
+
+  # Don't use short_name unless you KNOW you should.
+  def short_name
+    return given_name unless given_name.blank?
+    return family_name unless family_name.blank?
+    username
+  end
+
+  def can_be_updated_by?(user_wanting_access)
+    user_wanting_access.id == id || user_wanting_access.is_admin?
+  end
+
   def curator_request
     return true unless is_curator? || (curator_scope.blank? && credentials.blank?)
   end
@@ -250,18 +267,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   def password
     self.entered_password
-  end
-
-  def full_name
-    full_name = [given_name, family_name].join(' ').strip
-    return full_name unless full_name.blank?
-    username # last resort since given and family are no longer required
-  end
-
-  def short_name
-    return given_name unless given_name.blank?
-    return family_name unless family_name.blank?
-    username
   end
 
   # TODO
@@ -469,7 +474,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def is_curator?
-    curator_approved
+    has_attribute?(:curator_approved) && curator_approved
   end
 
   def is_pending_curator?
@@ -575,15 +580,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     # if you add to this, use 'and'; KEEP ALL OLD METHOD CHECKS.
     return true unless attributes.keys.include?("filter_content_by_hierarchy")
   end
-
-#  I commented this out because instead I used a route path and I don't think we are using ssl right now ?
-#  def password_reset_url(original_port)
-#    port = ["80", "443"].include?(original_port.to_s) ? "" : ":#{original_port}"
-#    new_token = User.generate_key
-#    self.update_attributes(:password_reset_token => new_token, :password_reset_token_expires_at => 24.hours.from_now)
-#    http_string = $USE_SSL_FOR_LOGIN ? "https" : "http"
-#    "#{http_string}://#{$SITE_DOMAIN_OR_IP}#{port}/users/reset_password/#{new_token}"
-#  end
 
   def ensure_unique_username_against_master
     errors.add('username', I18n.t(:username_taken, :name => username)) unless User.unique_user?(username, id)

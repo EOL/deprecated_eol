@@ -1,16 +1,16 @@
 - form_for :user, :html => { :class => "single_body_form warning-warn invalid-invalid styleLabelOnErr" } do |f|
-  %label=I18n.t("username____4___32_characters_")
+  %label=I18n.t(:username_with_length_label)
   = @user.username
   %span#username_warn.error
   %br
   %br
-  =  I18n.t(:only_enter_new_password_if_needed) 
+  =  I18n.t(:only_enter_new_password_if_needed)
   %label{ :for => "entered_password" }== #{ I18n.t(:new_password) } (4 - 16 characters)
   = f.password_field :entered_password, { :maxlength => 16, :autocomplete => 'off' }
-  %label{ :for => "password_confirmation" }= I18n.t(:confirm_new_password) 
+  %label{ :for => "password_confirmation" }= I18n.t(:confirm_new_password)
   = f.password_field :entered_password_confirmation, {:maxlength=>16, :onblur=>'javascript:check_passwords();', :autocomplete => 'off'}
   %span#password_warn.error
   %br
   %br
   .button
-    = submit_tag I18n.t(:update_account) 
+    = submit_tag I18n.t(:update_account)

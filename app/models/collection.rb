@@ -172,8 +172,8 @@ class Collection < ActiveRecord::Base
   end
 
   def maintained_by
-    return user.full_name if !user_id.blank?
-    return community.name if !community_id.blank?
+    return user if !user_id.blank?
+    return community if !community_id.blank?
   end
 
   def has_item? item

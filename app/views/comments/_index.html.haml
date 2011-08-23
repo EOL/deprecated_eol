@@ -2,11 +2,11 @@
   - @comments.each do |comment|
     %li
       = link_to image_tag(comment.user.logo_url, :alt => I18n.t(:comment_show_posters_image_alt,
-        :posters_name => h(comment.user.short_name))), user_path(comment.user), :class => 'avatar'
+        :posters_name => h(comment.user.full_name))), user_path(comment.user), :class => 'avatar'
       .details
         %p
-          %strong= I18n.t(:user_says_colon, :users_name => h(comment.user.short_name))
-        %blockquote{:cite => h(comment.user.short_name)}
+          %strong= I18n.t(:user_says_colon, :users_name => h(comment.user.full_name))
+        %blockquote{:cite => h(comment.user.full_name)}
           %p= h comment.body
         %p.meta= I18n.t(:time_ago, :time_passed => time_ago_in_words(comment.updated_at))
 

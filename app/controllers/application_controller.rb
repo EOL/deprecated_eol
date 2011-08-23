@@ -502,7 +502,7 @@ class ApplicationController < ActionController::Base
     if collection_item.nil?
       collection_item = begin # No care if this fails.
         CollectionItem.create(
-          :annotation => I18n.t(:user_left_comment_on_date, :username => current_user.short_name, :date => I18n.l(Date.today)),
+          :annotation => I18n.t(:user_left_comment_on_date, :username => current_user.full_name, :date => I18n.l(Date.today)),
           :object => what,
           :collection_id => watchlist.id
         )

@@ -2,7 +2,7 @@
 %li
   = link_to image_tag(member.user.logo_url(:small)), member.user
   .details
-    %h4= link_to member.user.short_name, member.user
+    %h4= link_to member.user.full_name, member.user
     %p= member.user.tag_line
     - unless minimal
       %p.meta

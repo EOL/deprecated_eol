@@ -31,7 +31,7 @@ describe SessionsController do
         user = User.gen(:password => password)
         post :create, :session => { :username_or_email => user.email, :password => password }
         flash[:notice].should =~ /login successful/i
-        response.should redirect_to(user_path(user))
+        response.should redirect_to(user_newsfeed_path(user))
       end
     end
   end

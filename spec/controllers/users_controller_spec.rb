@@ -167,7 +167,9 @@ describe UsersController do
 
     it 'should render terms agreement' do
       User.find(@disagreeable_user).agreed_with_terms.should be_false
-      TranslatedContentPage.gen(:content_page => ContentPage.gen(:page_name => 'Terms Of Use'))
+      TranslatedContentPage.gen(:content_page => ContentPage.gen(:page_name => 'terms_of_use'),
+                                :active_translation => 1,
+                                :language => Language.english)
       get :terms_agreement, { :id => @disagreeable_user.id }, { :user => @disagreeable_user, :user_id => @disagreeable_user.id }
       assigns[:user].should == @disagreeable_user
       assigns[:terms].should be_a(TranslatedContentPage)

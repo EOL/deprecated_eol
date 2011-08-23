@@ -37,13 +37,13 @@ describe 'Login' do
   it 'should redirect to user show after a successful login' do
     user = User.gen
     login_as user
-    current_path.should == user_path(user)
+    current_path.should == user_newsfeed_path(user)
   end
 
   it 'should set a remember token for us if we asked to be remembered' do
     user = User.gen
     login_as(user, :remember_me => '1')
-    current_path.should == user_path(user)
+    current_path.should == user_newsfeed_path(user)
     user.reload.remember_token.should_not be_blank
   end
 

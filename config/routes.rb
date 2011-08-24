@@ -200,8 +200,6 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'api/:action/:version/:id', :controller => 'api', :version => /[0-1]\.[0-9]/
   map.connect 'api/:action/:version/:id.:format', :controller => 'api', :version => /[0-1]\.[0-9]/
 
-  map.connect 'curators', :controller => 'curators'
-
   ## Mobile app namespace routes
   map.mobile 'mobile', :controller => 'mobile/contents'
   map.namespace :mobile do |mobile|
@@ -225,6 +223,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.donate '/donate', :controller => 'content', :action => 'donate'
 
+  map.resources :wikipedia_queues, :as => :wikipedia_imports, :only => [:new, :create]
 
   ##### ALL ROUTES BELOW SHOULD PROBABLY ALWAYS BE AT THE BOTTOM SO THEY ARE RUN LAST ####
   # this represents a URL with just a random namestring -- send to search page (e.g. www.eol.org/animalia)

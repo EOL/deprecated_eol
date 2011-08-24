@@ -16,22 +16,3 @@
           = @translated_content.left_content
       .article.copy
         = @translated_content.main_content
-        - # TODO: figure out if we need separate view for curator central, this is messy
-        - # curator page only - curators can submit a Wikipedia article for ingestion
-        - if @page_id == 'curator_central' && current_user.curator_approved
-          %a{:name => 'wikipedia'}
-          %br/
-          %h2
-            =I18n.t("request_wikipedia_article_ingestion")
-          %br/
-          =I18n.t("wikipedia_article_revision_for_ingestion")
-          %br/
-          %br/
-          = I18n.t("by_entering_a_wikipedia_revision")
-          %form{:action => '/content/wikipedia', :method => 'post'}
-            %strong
-              =I18n.t("enter_revision_url_colon")
-            %input{:type => 'text', :name => 'revision_url', :size => 60}
-            %input{:type => 'submit', :value => 'Submit'}
-          %i
-            =I18n.t("example_url_for_wikipedia_article_ingestion")

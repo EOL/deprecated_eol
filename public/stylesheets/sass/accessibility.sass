@@ -223,15 +223,8 @@ form#switch_hierarchy_entry
         top: 0 !important /* Override HR */
         left: 0 !important /* Override HR */
 
-/** Static pages **/
-.exemplars
-  ul
-    img
-      clear: both
-      float: left
-      margin: 0 20px 30px 30px
-/** cms page styles for public content partners listing **/
-.cms_page
+/** cms page styles **/
+#content.cms_page
   .header
     border-bottom: 1px solid #CAD3DB
     padding-bottom: 1em
@@ -239,18 +232,57 @@ form#switch_hierarchy_entry
   .footer
     border-top: 1px solid #CAD3DB
     padding-top: 1em
-  ul.object_list
-    list-style_type: none
-    li
-      img
-        max-width: 68px
-      h4
-        margin-bottom: 0.5em
-        a
-          color: #195184
-          text-decoration: underline
-      p
-        clear: none
+  table
+    border-collapse: collapse
+    width: 100%
+    margin: 0 0 15px 0
+    line-height: 170%
+    thead
+      tr
+        border: 1px solid #CAD3DB
+        th
+          background: #EFF2F4
+          padding: 5px 20px
+          font-weight: bold
+          text-align: left
+    tbody
+      tr
+        border: 1px solid #CAD3DB
+        td
+          padding: 5px 20px
+  a
+    &.pdf
+      background: url('/images/v2/icon_pdf.png') right top no-repeat
+      padding: 0 20px 3px 0
+  ul
+    &.with_images
+      li
+        overflow: hidden
+        list-style-type: none
+        clear: both
+        border-bottom: 1px solid #CAD3DB
+        padding: 10px
+        img
+          max-width: 88px
+          padding: 0
+          border: none
+          float: left
+          margin: 0 0 10px 0
+        h2, h3, h4, h5, p
+          margin-left: 110px
+    &.object_list
+      list-style_type: none
+      li
+        img
+          max-width: 68px
+        h4
+          margin-bottom: 0.5em
+          a
+            color: #195184
+            text-decoration: underline
+        p
+          clear: none
+
 /** content partners overrides/additions **/
 .cms_page
   #content_partners
@@ -692,26 +724,22 @@ body
       margin: 0
       input[type="submit"]
         margin: 0
-/** CMS pages **/
-.cms_page
-  table
-    border-collapse: collapse
-    width: 100%
-    margin: 0 0 15px 0
-    line-height: 170%
-    thead
-      tr
-        border: 1px solid #CAD3DB
-        th
-          background: #EFF2F4
-          padding: 5px 20px
-          font-weight: bold
-          text-align: left
-    tbody
-      tr
-        border: 1px solid #CAD3DB
-        td
-          padding: 5px 20px
+/** wikipedia import request **/
+#wikipedia_queue
+  width: 640px
+  form
+    margin-top: 40px
+    dt
+      p
+        margin-bottom: 0
+    dd
+      margin: 0 0 10px 0
+      input[type="text"]
+        +input
+        width: 600px
+    input[type="submit"]
+      padding: 7px 10px
+      font-size: 1em
 
 /** collections overides **/
 .object_list

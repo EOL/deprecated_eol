@@ -15,6 +15,8 @@
       - if position == :footer
         %li
           = link_to I18n.t(:contact_us_link), contact_path
+        %li
+          = link_to I18n.t(:terms_of_use_link), terms_of_use_path
       - if mobile_agent_request?
         %li
           = link_to "Mobile site", enable_mobile_contents_path

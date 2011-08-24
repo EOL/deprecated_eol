@@ -6,7 +6,6 @@ class ContentController < ApplicationController
   caches_page :tc_api
 
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN
-  before_filter :redirect_if_curator , :only => [:show]
   before_filter :check_user_agreed_with_terms, :except => [:show]
 
   def index
@@ -25,40 +24,6 @@ class ContentController < ApplicationController
     rescue TypeError => e # it's a frozen array, it's been cached somwhere.
       @explore_taxa = @explore_taxa.dup
       @explore_taxa.shuffle!
-    end
-  end
-
-#  def news
-#    id = params[:id]
-#    @term_search_string = params[:term_search_string] || ''
-#    search_string_parameter = '%' + @term_search_string + '%'
-#    if id.blank?
-#      @page_title = I18n.t(:whats_new)
-#      @news_items = NewsItem.paginate(:conditions => ['active = 1 and body like ?', search_string_parameter],
-#                                      :order => 'display_date desc',
-#                                      :page => params[:page])
-#      current_user.log_activity(:viewed_news_index)
-#    else
-#      @news_item = NewsItem.find(id)
-#      @page_title = @news_item.title # TODO: What happens if @news_item or title is nil
-#      current_user.log_activity(:viewed_news_item_id, :value => @news_item.id)
-#    end
-#    respond_to do |format|
-#       format.html
-#       format.rss { render :layout => false }
-#    end
-#  end
-
-  def translate
-    @page_title = I18n.t("automated_translation_of_eol")
-    if params[:return_to].blank?
-      @translate_url = root_url
-    else
-      if params[:return_to][0..3] != 'http'
-        @translate_url = "http://#{request.host}#{params[:return_to]}"
-      else
-        @translate_url = params[:return_to]
-      end
     end
   end
 
@@ -103,63 +68,6 @@ class ContentController < ApplicationController
     end
 
   end
-
-#  def contact_us
-#
-#    @page_title = I18n.t(:contact_us_title)
-#    @subjects = ContactSubject.find(:all, :conditions => 'active = 1', :order => 'translated_contact_subjects.title')
-#
-#    @contact = Contact.new(params[:contact])
-#    store_location(params[:return_to]) if !params[:return_to].nil? && request.get? # store the page we came from so we can return there if it's passed in the URL
-#
-#    if request.post? == false
-#      return_to = params[:return_to] || ''
-#      # grab default subject to select in list if it's passed in the querystring
-#      @contact.contact_subject = ContactSubject.find_by_title(params[:default_subject]) if params[:default_subject].nil? == false
-#      @contact.name = params[:default_name] if params[:default_name].nil? == false
-#      @contact.email = params[:default_email] if params[:default_email].nil? == false
-#      return
-#    end
-#
-#    @contact.ip_address = request.remote_ip
-#    @contact.user_id = current_user.id
-#    @contact.referred_page = return_to_url
-#
-#    if verify_recaptcha && @contact.save
-#      Notifier.deliver_contact_us_auto_response(@contact)
-#      flash[:notice] =  I18n.t(:thanks_for_feedback)
-#      current_user.log_activity(:sent_contact_us_id, :value => @contact.id)
-#      redirect_back_or_default
-#    else
-#      @verification_did_not_match =  I18n.t(:verification_phrase_did_not_match)  if verify_recaptcha == false
-#    end
-#
-#  end
-#
-#  def media_contact
-#    @page_title = I18n.t(:media_contact)
-#    @contact = Contact.new(params[:contact])
-#    @contact.contact_subject = ContactSubject.find($MEDIA_INQUIRY_CONTACT_SUBJECT_ID)
-#
-#    if request.post? == false
-#      store_location
-#      return
-#    end
-#
-#    @contact.ip_address = request.remote_ip
-#    @contact.user_id = current_user.id
-#    @contact.referred_page = return_to_url
-#
-#    if verify_recaptcha && @contact.save
-#      Notifier.deliver_media_contact_auto_response(@contact)
-#      flash[:notice] =  I18n.t(:your_message_was_sent)
-#      current_user.log_activity(:sent_media_contact_us_id, :value => @contact.id)
-#      redirect_back_or_default
-#    else
-#      @verification_did_not_match =  I18n.t(:verification_phrase_did_not_match)  if verify_recaptcha == false
-#    end
-#
-#  end
 
   # GET /info/:id
   # GET /info/:crumbs where crumbs is an array of path segments
@@ -290,13 +198,6 @@ class ContentController < ApplicationController
     end
   end
 
-  # show the user some taxon stats
-  def stats
-    @page_title = I18n.t("statistics")
-    redirect_to root_url unless current_user.is_admin?  # don't release this yet...it's not ready for public consumption
-    @stats = PageStatsTaxon.latest
-  end
-
   # link to uservoice
   def feedback
     # FIXME: account/uservoice_login doesn't seem to exist ?
@@ -330,23 +231,6 @@ class ContentController < ApplicationController
       render :text => "Taxa IDs #{taxa_ids} and their ancestors expired.", :layout => false
     else
       redirect_to root_url
-    end
-  end
-
-  def wikipedia
-    @revision_url = params[:revision_url]
-    current_user.log_activity(:left_for_wikipedia_url, :value => @revision_url)
-    @error = false
-    if current_user.curator_approved
-      if matches = @revision_url.match(/^http:\/\/en\.wikipedia\.org\/w\/index\.php\?title=(.*?)&oldid=([0-9]{9})$/i)
-        flash[:notice] = I18n.t(:wikipedia_article_will_be_harvested_tonight, :article => matches[1], :rev => matches[2])
-        WikipediaQueue.create(:revision_id => matches[2], :user_id => current_user.id)
-        redirect_to :action => 'page', :id => 'curator_central'
-      else
-        flash[:notice] = I18n.t(:wikipedia_revisions_must_match_pattern_error)
-        @revision_url = nil
-        redirect_to :action => 'page', :id => 'curator_central'
-      end
     end
   end
 

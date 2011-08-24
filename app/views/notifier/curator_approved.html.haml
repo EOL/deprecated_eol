@@ -1,7 +1,7 @@
-= I18n.t("dear_") + @user.full_name + ","
-=""
-=I18n.t("thank_you_for_requesting_curat")
-=""
-=I18n.t("your_request_has_been_approved")
-=""
-=I18n.t("__the_encyclopedia_of_life_tea")
+= I18n.t(:dear_user_with_comma, :user => @user.full_name)
+= ""
+= I18n.t("thank_you_for_requesting_curat")
+= ""
+= I18n.t("your_request_has_been_approved")
+= ""
+= I18n.t(:activate_email_footer)

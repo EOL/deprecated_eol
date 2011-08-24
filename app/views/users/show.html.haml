@@ -5,39 +5,37 @@
         %h3= I18n.t(:users_about_me_header)
       .copy
         %p= allow_some_html @user.bio
-  .article.half.info
-    .header
-      %h3= I18n.t(:users_my_info_header)
-    %dl
-      %dt= I18n.t('activerecord.attributes.user.full_name')
-      %dd= h @user.full_name
-      %dt= I18n.t('activerecord.attributes.user.username')
-      %dd= h @user.username
-      - unless @user.user_identities.blank?
-        %dt= I18n.t('helpers.label.user.user_identities')
-        %dd= @user.user_identities.collect{|ui| ui.label}.join(', ')
-  - if @user.is_curator?
-    .article.half.info
+  .section.half
+    .article
       .header
-        %h3= I18n.t(:users_curation_header)
-      %dl
-        %dt= I18n.t('activerecord.attributes.user.credentials')
-        %dd= @user.credentials
-        %dt= I18n.t('activerecord.attributes.user.curator_scope')
-        %dd= h @user.curator_scope
-  .article.half.list
-    .header
-      %h3= I18n.t(:activity)
-    %ul
-      %li
-        Objects Curated:
-        = @user.total_data_objects_curated
-      %li
-        Comments Moderated:
-        = @user.total_comments_curated
-      %li
-        Species Curated:
-        = @user.total_species_curated
-      %li
-        User-submitted text:
-        = @user_submitted_text_count
+        %h3= I18n.t(:users_my_info_header)
+      %dl.info
+        %dt= I18n.t('activerecord.attributes.user.full_name')
+        %dd= h @user.full_name
+        %dt= I18n.t('activerecord.attributes.user.username')
+        %dd= h @user.username
+        - unless @user.user_identities.blank?
+          %dt= I18n.t('helpers.label.user.user_identities')
+          %dd= @user.user_identities.collect{|ui| ui.label}.join(', ')
+  - if @user.is_curator?
+    .section.half
+      .article
+        .header
+          %h3= I18n.t(:users_curation_header)
+        %dl
+          %dt= I18n.t('activerecord.attributes.user.credentials')
+          %dd= @user.credentials
+          %dt= I18n.t('activerecord.attributes.user.curator_scope')
+          %dd= h @user.curator_scope
+      .article
+        .header
+          %h3= I18n.t(:user_activity_stats_header)
+        %dl.activity
+          %dt= I18n.t(:user_activity_stats_objects_curated)
+          %dd= @user.total_data_objects_curated
+          %dt= I18n.t(:user_activity_stats_comments_moderated)
+          %dd= @user.total_comments_curated
+          %dt= I18n.t(:user_activity_stats_taxa_curated)
+          %dd= @user.total_species_curated
+          %dt= I18n.t(:user_activity_stats_articles_added)
+          %dd= @user_submitted_text_count

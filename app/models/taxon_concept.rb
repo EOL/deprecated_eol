@@ -242,7 +242,6 @@ class TaxonConcept < SpeciesSchemaModel
   #   :required will return the next available text object if no text is returned by toc_items
   #   :limit returns a subset of objects for each toc_item
   def text_objects_for_toc_items(toc_items, options={})
-    options[:language] ||= 'en'
     text_objects = text
 
     return nil if text_objects.empty? || text_objects.nil?
@@ -252,7 +251,10 @@ class TaxonConcept < SpeciesSchemaModel
     datos_to_load = []
     toc_items.each do |toc_item|
       unless toc_item.nil?
-        items = text_objects.select{ |t| t.toc_items && t.toc_items.include?(toc_item) && t[:language_id] == Language.id_from_iso(options[:language])}
+        items = text_objects.select{ |t| t.toc_items && t.toc_items.include?(toc_item) }
+        if options[:language]
+          items = items.select{ |t| t[:language_id] == Language.id_from_iso(options[:language]) }
+        end
         unless items.blank? || items.nil?
           if options[:limit].nil? || options[:limit].to_i == 0
             datos_to_load += items

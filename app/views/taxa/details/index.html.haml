@@ -4,10 +4,15 @@
 - roots = @toc.collect{|t| t unless t.is_child?}.compact
 #taxon_detail
   - if roots.empty?
-    .article
-      .empty
-        %p= I18n.t(:taxon_details_empty)
-        %p= link_to I18n.t(:add_article_to_page_link_button), new_taxon_data_object_path(@taxon_concept), :class => 'button'
+    #main
+      - unless @details_count_by_language.blank?
+        %p.languages
+          = I18n.t(:articles_in_languages_with_count, :count => @details_count_by_language.size)
+          = @details_count_by_language.collect{ |language, count| link_to(I18n.t(:language_with_count, :language => language.label, :count => count), set_language_url(:language => language.iso_639_1, :return_to => current_url(false))) }.join(', ')
+      .article
+        .empty
+          %p= I18n.t(:taxon_details_empty)
+          %p= link_to I18n.t(:add_article_to_page_link_button), new_taxon_data_object_path(@taxon_concept), :class => 'button'
   - else
     #sidebar
       = image_tag @exemplar_image.thumb_or_object('260_190') unless @exemplar_image.blank?
@@ -22,6 +27,10 @@
                 - for child in children
                   %li= link_to child.label, url_for(:anchor => category_anchor(child))
     #main
+      - unless @details_count_by_language.blank?
+        %p.languages
+          = I18n.t(:articles_in_other_languages_with_count, :count => @details_count_by_language.size)
+          = @details_count_by_language.collect{ |language, count| link_to(I18n.t(:language_with_count, :language => language.label, :count => count), set_language_url(:language => language.iso_639_1, :return_to => current_url(false))) }.join(', ')
       - for root in roots
         - root_content = @details.collect{|d| d if d[:toc_item].id == root.category_id}.compact
         - children = @toc.collect{|t| t if t.parent_id == root.category_id}.compact

@@ -30,14 +30,34 @@ class Taxa::DetailsController < TaxaController
       :taxon_concept_exemplar_image => '*' }
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
     @taxon_concept.current_user = current_user
-    @details = @taxon_concept.details_for_toc_items(ContentTable.details.toc_items, :language => current_user.language_abbr)
-
+    @details = @taxon_concept.details_for_toc_items(ContentTable.details.toc_items)
+    @details.delete_if{ |d| d[:data_objects].blank? }
+    
+    @details_count_by_language = {}
+    @details.each do |det|
+      unless TocItem.exclude_from_details.include?(det[:toc_item])
+        if det[:data_objects]
+          det[:data_objects].each do |d|
+            @details_count_by_language[d.language] ||= 0
+            @details_count_by_language[d.language] += 1
+            det[:data_objects].delete(d) unless d.language_id == current_user.language_id
+          end
+          # remove anything not in the current users language
+          det[:data_objects].delete_if{ |d| d.language_id != current_user.language_id }
+        end
+      end
+    end
+    @details_count_by_language.delete_if{ |k,v| k == current_user.language }
+    # some sections may be empty now that other languages have been removed
+    @details.delete_if{ |d| d[:data_objects].blank? }
+    
     toc_items_to_show = @details.blank? ? [] : @details.collect{|d| d[:toc_item]}
     exclude = TocItem.exclude_from_details
     toc_items_to_show.delete_if {|ti| exclude.include?(ti.label) }
     @toc = TocBuilder.new.toc_for_toc_items(toc_items_to_show)
     @exemplar_image = @taxon_concept.exemplar_or_best_image_from_solr(@selected_hierarchy_entry)
-
+    
+    
     @watch_collection = logged_in? ? current_user.watch_collection : nil
     @assistive_section_header = I18n.t(:assistive_details_header)
     current_user.log_activity(:viewed_taxon_concept_details, :taxon_concept_id => @taxon_concept.id)

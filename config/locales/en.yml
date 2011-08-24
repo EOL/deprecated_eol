@@ -667,6 +667,12 @@ en:
   articles_with_count:
     one: "%{count} Article"
     other: "%{count} Articles"
+  articles_in_languages_with_count:
+    one: "Articles about this taxon are available in %{count} language:"
+    other: "Articles about this taxon are available in %{count} languages:"
+  articles_in_other_languages_with_count:
+    one: "Articles about this taxon are available in %{count} other language:"
+    other: "Articles about this taxon are available in %{count} other languages:"
   as_of_time: "as of %{time}"
   as_of_time_there_were_unique_visitors:
     one: "As of %{time} there was %{count} unique visitor"
@@ -1880,6 +1886,7 @@ en:
   language_preference_advisory_information: "Select a language from the drop down select box, then content available in the language you choose will be displayed by default across the site."
   language_selector_advisory_information: "The following is a list of languages that the site's content is available in, to change the current language select an alternative language from this list."
   language_settings: "Language settings"
+  language_with_count: "%{language} (%{count})"
   large_: "Large:"
   large_size: "Large"
   last_action__: "Last action:"

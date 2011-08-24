@@ -15,9 +15,9 @@ class ContentPartner < SpeciesSchemaModel
   validates_presence_of :description
   validates_presence_of :content_partner_status
   validates_presence_of :user
-  validates_length_of :display_name, :maximum => 255, :allow_nil => true
-  validates_length_of :acronym, :maximum => 20, :allow_nil => true
-  validates_length_of :homepage, :maximum => 255, :allow_nil => true
+  validates_length_of :display_name, :maximum => 255, :allow_nil => true, :if => Proc.new {|s| s.class.column_names.include?('display_name') }
+  validates_length_of :acronym, :maximum => 20, :allow_nil => true, :if => Proc.new {|s| s.class.column_names.include?('acronym') }
+  validates_length_of :homepage, :maximum => 255, :allow_nil => true, :if => Proc.new {|s| s.class.column_names.include?('homepage') }
 
   #STEPS = [:partner, :contacts, :licensing, :attribution, :roles, :transfer_overview, :transfer_upload, :specialist_overview, :specialist_formatting]
 
@@ -210,6 +210,10 @@ class ContentPartner < SpeciesSchemaModel
     JOIN harvest_events he ON (r.id = he.resource_id)
     WHERE he.published_at IS NOT NULL")
     ContentPartner.find_all_by_id(published_partner_ids, :order => "full_name")
+  end
+
+  def self.boa
+    cached_find(:full_name, 'Biology of Aging')
   end
 
   def all_harvest_events

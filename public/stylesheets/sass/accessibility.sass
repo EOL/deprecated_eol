@@ -37,14 +37,7 @@ body.home
 /** Busy indicator for JS submitted forms e.g. exemplar image **/
 .busy
   cursor: wait
-/** adding facebook icon to social media **/
-body > #footer ul.social_media li
-  a.facebook
-    background-position: 0px -25px
-  a.tumblr
-    background-position: 0px -75px
-  a.flickr
-    background-position: 0px -100px
+
 /** Override for layout on users edit - we have extra nested div so we need to remove padding,
   * we added extra fieldset - but check HR might give us an update for the fieldset */
 #profile_edit
@@ -56,7 +49,16 @@ body > #footer ul.social_media li
       textarea
         width: 282px
         height: 120px
+#user_communities
+  ul.object_list
+    img
+      float: left
+      margin: 0 20px 0 0
 /** Content partner various **/
+#profile_content_connections
+  li
+    img
+      +max_dimensions($logo_size_primary, $logo_size_primary)
 #sidebar
   .content_partner_managers
     margin: 0 0 20px 0
@@ -1045,7 +1047,6 @@ a.other_actions
   font-size: 0.95em
 #taxon_updates form.comment
   margin: 0 0 15px
-  border-bottom: 1px solid #D4DCE2
   textarea
     width: 580px
 
@@ -1057,3 +1058,25 @@ a.other_actions
   font-size: 0.95em
   line-height: 100%
   font-weight: normal
+
+ul li.newsfeed
+  margin-bottom: 20px !important
+  a
+    padding: 7px 10px 6px !important
+    font-size: 12px !important
+
+div.newsfeed_heading
+  padding: 6px 10px 5px
+  text-align: left
+  font-weight: bold
+  text-transform: uppercase
+  background: none repeat scroll 0 0 #F1F4DC
+  border-bottom: 1px solid #CCD399
+  h3
+    color: #828D33
+    font-weight: bold
+    text-transform: uppercase
+    font-size: 1em
+
+
+

@@ -202,7 +202,7 @@ describe 'Taxa page' do
         with_tag('thead tr th:nth-of-type(2)', /name/i)
         with_tag('thead tr th:nth-of-type(3)', /source/i)
         with_tag('thead tr th:nth-of-type(4)', /status/i)
-        with_tag('tbody tr:first-of-type td:first-of-type', /#{@common_names.first.preferred ? 'preferred' : 'no'}/i)
+        with_tag('tbody tr:first-of-type td:first-of-type', /#{@common_names.first.preferred == 1 ? 'preferred' : 'no'}/i)
         with_tag('tbody tr:first-of-type td:nth-of-type(2)', /#{@common_names.first.name_string}/i)
         with_tag('tbody tr:first-of-type td:nth-of-type(3)', /#{@common_names.first.sources.first.full_name}/i)
         with_tag('tbody tr:first-of-type td:nth-of-type(4)', /#{Vetted.find_by_id(@common_names.first.vetted_id).label}/i)

@@ -76,8 +76,9 @@ class Resource < SpeciesSchemaModel
       unless Agent.boa.user.blank?
         Agent.boa.user.content_partner.resources[0]
       else
-        content_partner = ContentPartner.find_by_full_name(Agent.boa.full_name)
-        content_partner.resources[0]
+        content_partner = ContentPartner.boa
+        return nil unless content_partner && content_partner.resources && content_partner.resources.first
+        content_partner.resources.first
       end
     end
   end

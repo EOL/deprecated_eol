@@ -30,6 +30,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   has_many :collection_items, :as => :object
   has_many :containing_collections, :through => :collection_items, :source => :collection
   has_many :collections, :conditions => 'collections.published = 1'
+  has_many :communities, :through => :members
   has_many :google_analytics_partner_summaries
   has_many :google_analytics_partner_taxa
   has_many :resources, :through => :content_partner

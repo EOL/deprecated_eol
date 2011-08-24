@@ -1,11 +1,11 @@
 class Admins::MonthlyNotificationController < AdminsController
 
   def index
-    @page_title = I18n.t(:admin_content_partner_notification)
+    @page_title = I18n.t(:admin_content_partner_notification_link)
   end
 
   def send_email
-    @page_title = I18n.t(:admin_content_partner_notification)
+    @page_title = I18n.t(:admin_content_partner_notification_link)
     last_month = Time.now - 1.month
     @year = last_month.year.to_s
     @month = last_month.month.to_s

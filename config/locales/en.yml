@@ -324,6 +324,8 @@ en:
         generate_api_key: "Generate a key"
         curation_application: "Apply now"
         curation_privileges: "Submit request"
+      wikipedia_queue:
+        create: "Submit request"
     label:
       content_page:
         active: "Published"
@@ -415,6 +417,9 @@ en:
         user_identities: "I am"
         username: "Username <small>(4 - 32 characters)</small>"
         username_or_email: "Username or email address"
+      wikipedia_queue:
+        revision_url: "Revision URL <small>(e.g. http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>"
+        revision_url_more: "By entering a Wikipedia revision URL you are requesting that EOL ingests that particular revision as vetted. It will replace the current version of that article in EOL if we have it already."
   will_paginate:
     previous_label: "&#8592; Previous"
     next_label: "Next &#8594;"
@@ -521,6 +526,8 @@ en:
   added_date: "Added %{date}"
   added_date_by: "Added %{date} by %{name}"
   admin: "admin"
+  admin_content_page_active: "Published"
+  admin_content_page_active: "Unpublished"
   admin_content_page_child_new_link: "Create child page"
   admin_content_page_create_successful_notice: "Page <a href=\"#%{anchor}\"><em>%{page_name}</em></a> created successfully."
   admin_content_page_create_unsuccessful_error: "Sorry, an error occurred, the page was not created."
@@ -2840,6 +2847,7 @@ en:
   terms_agreement_form_submit: "I agree"
   terms_agreement_beta_intro: "Thank you for participating in the EOL Version 2 Beta. Before proceeding we need you to agree to the following:"
   terms_of_use: "Terms of Use"
+  terms_of_use_link: "Terms of use &amp; privacy"
   terms_provided_by: "Terms provided by %{link}."
   term: "Term"
   test: "Test."
@@ -3296,8 +3304,15 @@ en:
   __which_means_it_belongs_to_th: ", which means it belongs to the genus called \"canis\" and its species name is \"lupus\".  If you were to look at the genus"
   who_can_curate_this_page_: "Who can curate this page?"
   who_registered_from: "who registered from"
-  wikipedia_article_will_be_harvested_tonight: "Wikipedia article %{article} revision %{rev} will be harvested tonight"
-  wikipedia_revisions_must_match_pattern_error: "Revision URL must match http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*"
+  wikipedia_queue_create_successful_notice: "Wikipedia article %{article} revision %{rev} has been queued for import."
+  wikipedia_queue_create_unsuccessful_error: "Sorry an error occurred, the Wikipedia article was not queued for import.<br/>Revision URL must match http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*"
+  wikipedia_queue_new_intro: "Submit a revision of a Wikipedia article to be ingested into EOL as a vetted text object."
+  wikipedia_queue_new_instructions_intro: "To find the revision URL of a Wikipedia article:"
+  wikipedia_queue_new_instructions_step_one: "Go to the article page on Wikipedia, e.g. <a href=\"http://en.wikipedia.org/w/index.php?title=Giraffe\">http://en.wikipedia.org/w/index.php?title=Giraffe</a>"
+  wikipedia_queue_new_instructions_step_two: "Expand the 'Toolbox' menu listed in the navigation column, and nested inside you should see the 'Permanent link' menu item."
+  wikipedia_queue_new_instructions_step_three: "Follow the 'Permanent link' menu item, this is the current revision URL and will take you to the current version of the article from which you can navigate to previous versions."
+  wikipedia_queue_new_instructions_step_four: "Copy the revision URL from your browser and paste it into the Wikipedia import request form displayed here, the revision URL should look something like <a href=\"http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069\">http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>"
+  wikipedia_queue_new_page_title: "Request an import of a Wikipedia article"
   wikipedia_import: "Wikipedia Import"
   will_find_taxon_pages_if_the_p: "will find taxon pages if the preferred name or any synonym or common name exactly matches the search term"
   will_have_access_to_the_resour: "will have access to the resources of the Encyclopedia of Life, including species pages, scanned literature, and informatics tools in accordance with the terms listed below."

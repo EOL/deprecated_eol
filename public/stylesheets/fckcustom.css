@@ -29,6 +29,9 @@ h4, h5, h6 {
 
 a {
   color: #195184; }
+  a.pdf {
+    background: url("/images/v2/icon_pdf.png") right top no-repeat;
+    padding: 0 20px 3px 0; }
 
 img {
   float: right;
@@ -47,6 +50,20 @@ ul, ol {
 
 ul li {
   list-style-type: disc; }
+ul.with_images li {
+  overflow: hidden;
+  list-style-type: none;
+  clear: both;
+  border-bottom: 1px solid #cad3db;
+  padding: 10px; }
+  ul.with_images li img {
+    max-width: 88px;
+    padding: 0;
+    border: none;
+    float: left;
+    margin: 0 0 10px 0; }
+  ul.with_images li h2, ul.with_images li h3, ul.with_images li h4, ul.with_images li h5, ul.with_images li p {
+    margin-left: 110px; }
 
 blockquote {
   background: #eff2f4;

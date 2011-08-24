@@ -13,7 +13,7 @@
         = link_to I18n.t(:pages_admin_section_link), admin_path
         &bull;
       - if current_user.is_curator?
-        = link_to I18n.t(:pages_curator_section_link), {:controller => '/content', :action => 'page', :id => 'curator_central'}
+        = link_to I18n.t(:pages_curator_section_link), cms_page_path(:id => 'curator_central')
         &bull;
       = link_to I18n.t(:profile), user_newsfeed_path(current_user)
       &bull;

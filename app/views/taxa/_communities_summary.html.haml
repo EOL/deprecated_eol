@@ -13,7 +13,7 @@
         %li
           = link_to image_tag(community.logo_url(:small), :alt => ''), community_url(community)
           .details
-            %h4= community.name
+            %h4= link_to community.name, community_url(community)
             %p
               = I18n.t(:other_community_items_with_count, :count => community.focus.collection_items.count)
               = I18n.t(:punctuation_comma)

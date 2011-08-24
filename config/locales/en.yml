@@ -527,7 +527,7 @@ en:
   added_date_by: "Added %{date} by %{name}"
   admin: "admin"
   admin_content_page_active: "Published"
-  admin_content_page_active: "Unpublished"
+  admin_content_page_not_active: "Unpublished"
   admin_content_page_child_new_link: "Create child page"
   admin_content_page_create_successful_notice: "Page <a href=\"#%{anchor}\"><em>%{page_name}</em></a> created successfully."
   admin_content_page_create_unsuccessful_error: "Sorry, an error occurred, the page was not created."
@@ -540,6 +540,7 @@ en:
   admin_content_page_new_tip: "Enter basic information about this page. Unique name is %{required_icon} required."
   admin_content_page_parent_option_root: "No parent"
   admin_content_page_preview_unsuccessful_error: "Sorry, an error occurred, the page could not be previewed."
+  admin_content_page_root: "Root"
   admin_content_page_sort_order_updated: "Order of pages has been changed."
   admin_content_page_update_successful_notice: "Page <a href=\"#%{anchor}\"><em>%{page_name}</em></a> updated successfully."
   admin_content_page_update_unsuccessful_error: "Sorry, an error occurred, the page could not be updated."
@@ -667,6 +668,12 @@ en:
   articles_with_count:
     one: "%{count} Article"
     other: "%{count} Articles"
+  articles_in_languages_with_count:
+    one: "Articles about this taxon are available in %{count} language:"
+    other: "Articles about this taxon are available in %{count} languages:"
+  articles_in_other_languages_with_count:
+    one: "Articles about this taxon are available in %{count} other language:"
+    other: "Articles about this taxon are available in %{count} other languages:"
   as_of_time: "as of %{time}"
   as_of_time_there_were_unique_visitors:
     one: "As of %{time} there was %{count} unique visitor"
@@ -842,7 +849,7 @@ en:
   collection_item_not_found_error: "That collection item could not be found."
   collection_not_created_error: "Sorry, an error occurred, the collection <em>%{collection_name}</em> could not be created."
   collection_not_destroyed_error: "Sorry, the collection was not deleted."
-  collection_not_found_error: Sorry, that collection cound not be found.
+  collection_not_found_error: Sorry, that collection could not be found.
   collection_not_updated_error: "Sorry, an error occurred, the collection could not be updated."
   collection_updated_notice: "Collection <em>%{collection_name}</em> successfully updated."
   collection_was_removed_by_owner: "This collection was removed by its owner."
@@ -1881,6 +1888,7 @@ en:
   language_preference_advisory_information: "Select a language from the drop down select box, then content available in the language you choose will be displayed by default across the site."
   language_selector_advisory_information: "The following is a list of languages that the site's content is available in, to change the current language select an alternative language from this list."
   language_settings: "Language settings"
+  language_with_count: "%{language} (%{count})"
   large_: "Large:"
   large_size: "Large"
   last_action__: "Last action:"

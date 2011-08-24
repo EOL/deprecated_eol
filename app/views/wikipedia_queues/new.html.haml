@@ -1,0 +1,21 @@
+#content
+  #wikipedia_queue.site_column
+    .article.copy
+      %p= I18n.t(:wikipedia_queue_new_intro)
+      %p= I18n.t(:wikipedia_queue_new_instructions_intro)
+      %ol
+        %li= I18n.t(:wikipedia_queue_new_instructions_step_one)
+        %li= I18n.t(:wikipedia_queue_new_instructions_step_two)
+        %li= I18n.t(:wikipedia_queue_new_instructions_step_three)
+        %li= I18n.t(:wikipedia_queue_new_instructions_step_four)
+      - form_for @new_wikipedia_queue do |form|
+        %fieldset
+          %dl
+            %dt.required
+              = form.label :revision_url
+            %dd
+              = form.text_field :revision_url
+              %p
+                = I18n.t('helpers.label.wikipedia_queue.revision_url_more')
+        %fieldset.actions
+          = submit_tag I18n.t('helpers.submit.wikipedia_queue.create')

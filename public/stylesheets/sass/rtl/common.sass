@@ -83,8 +83,9 @@ body
           float: right
           position: relative
           margin: 0 0 0 10px
+          width: 100px
           a
-            background: transparent url("/images/v2/icon_dropdown.png") 98px 6px no-repeat
+            background: transparent url("/images/v2/icon_dropdown.png") 84px 6px no-repeat
           ul
             display: none
             position: absolute
@@ -99,6 +100,8 @@ body
               border-top: none
             a
               background: transparent
+              direction: ltr
+              text-align: right
     form
       position: relative
       z-index: 2
@@ -217,6 +220,8 @@ body
         padding: 5px
         background: transparent url("/images/v2/bg_home_thumbnails.png") repeat
         background: rgba(255, 255, 255, .4)
+        width: 130px
+        height: 130px
       &.last
         margin: 0
       &:hover

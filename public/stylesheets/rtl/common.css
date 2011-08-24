@@ -104,9 +104,10 @@ body > #header .section {
     body > #header .section .actions .language {
       float: right;
       position: relative;
-      margin: 0 0 0 10px; }
+      margin: 0 0 0 10px;
+      width: 100px; }
       body > #header .section .actions .language a {
-        background: transparent url("/images/v2/icon_dropdown.png") 98px 6px no-repeat; }
+        background: transparent url("/images/v2/icon_dropdown.png") 84px 6px no-repeat; }
       body > #header .section .actions .language ul {
         display: none;
         position: absolute;
@@ -120,7 +121,9 @@ body > #header .section {
           border: 1px solid #444749;
           border-top: none; }
         body > #header .section .actions .language ul a {
-          background: transparent; }
+          background: transparent;
+          direction: ltr;
+          text-align: right; }
 body > #header form {
   position: relative;
   z-index: 2;
@@ -247,7 +250,9 @@ body > #footer {
         display: block;
         padding: 5px;
         background: transparent url("/images/v2/bg_home_thumbnails.png") repeat;
-        background: rgba(255, 255, 255, 0.4); }
+        background: rgba(255, 255, 255, 0.4);
+        width: 130px;
+        height: 130px; }
       .thumbnails ul li.last {
         margin: 0; }
       .thumbnails ul li:hover {

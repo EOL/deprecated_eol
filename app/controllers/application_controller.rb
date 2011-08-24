@@ -308,15 +308,6 @@ class ApplicationController < ActionController::Base
     redirect_to :protocol => "http://" if request.ssl?
   end
 
-  # check if user is curator and display the curator documentation pages from curator central with the left sidebar
-  # navigation
-  def redirect_if_curator
-    if current_user.is_curator?
-      redirect_pages = ["curator_central", "curator_todo", "curation", "curate_wiki", "curation_standards"]
-      redirect_to :controller => :curators, :action => :index, :id => params[:id] if redirect_pages.include? params[:id]
-    end
-  end
-
   # default new user when we don't have a logged in user
   def create_new_user
     session[:user_id] = nil
@@ -495,16 +486,17 @@ class ApplicationController < ActionController::Base
   end
 
   # Ensure that the user has this in their watch_colleciton, so they will get replies in their newsfeed:
-  def auto_collect(what)
+  def auto_collect(what, options = {})
+    options[:annotation] ||= I18n.t(:user_left_comment_on_date, :username => current_user.full_name,
+                                    :date => I18n.l(Date.today))
     watchlist = current_user.watch_collection
     collection_item = CollectionItem.find_by_collection_id_and_object_id_and_object_type(watchlist.id, what.id,
                                                                                          what.class.name)
     if collection_item.nil?
       collection_item = begin # No care if this fails.
         CollectionItem.create(
-          :annotation => I18n.t(:user_left_comment_on_date, :username => current_user.full_name, :date => I18n.l(Date.today)),
-          :object => what,
-          :collection_id => watchlist.id
+          :annotation => options[:annotation], :username => current_user.full_name, :date => I18n.l(Date.today),
+          :object => what, :collection_id => watchlist.id
         )
       rescue => e
         logger.error "** ERROR COLLECTING: #{e.message} FROM #{e.backtrace.first}"

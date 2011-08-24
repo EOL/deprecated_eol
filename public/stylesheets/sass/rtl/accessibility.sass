@@ -1,11 +1,27 @@
-= screenreader-accessible
+@import "mixins"
+= screenreader_accessible
   position: absolute
   right: -999em
 
 .assistive, #header .assistive
-  +screenreader-accessible
+  +screenreader_accessible
 
+$logo_size_standout: 88
+$logo_size_primary: 68
+$logo_size_secondary: 48
+$logo_size_tertiary: 35
+
+= max_dimensions($width, $height)
+  max-width: #{$width}px
+  max-height: #{$height}px
+  width: expression(this.width > #{$width} ? "#{$width}px" : true)
+  height: expression(this.height > #{$height} ? "#{$height}px" : true)
 /**
+ * Changes required for HR sass files:
+ *   - replace /images/<image name> with /images/v2/<image name>
+ *   - replace #profile_edit with form.edit_user
+ *
+ *
  * Temporary placement of needed CSS for V2
  * I don't want to edit/add to HashRocket's SASS files until they are done making changes
  * so I am temporarily adding some CSS here needed for V2 demo. This CSS should be integrated
@@ -21,16 +37,16 @@ body.home
 /** Busy indicator for JS submitted forms e.g. exemplar image **/
 .busy
   cursor: wait
-  
 /** adding facebook icon to social media **/
 body > #footer ul.social_media li
   a.facebook
-    background-position: 0px -25px
+    background-position: right -25px
   a.tumblr
-    background-position: 0px -75px
+    background-position: right -75px
+  a.flickr
+    background-position: right -100px
 /** Override for layout on users edit - we have extra nested div so we need to remove padding,
   * we added extra fieldset - but check HR might give us an update for the fieldset */
- 
 #profile_edit
   &.article
     padding: 0 0 25px 0
@@ -40,7 +56,45 @@ body > #footer ul.social_media li
       textarea
         width: 282px
         height: 120px
-
+/** Content partner various **/
+#sidebar
+  .content_partner_managers
+    margin: 0 0 20px 0
+    li
+      overflow: hidden
+      padding: 0 0 20px 0
+      line-height: 140%
+    img
+      float: right
+      margin: 0 0 0 10px
+      border: 1px solid #394651
+    h4
+      a
+        color: inherit
+        text-decoration: none
+        &:hover
+          text-decoration: underline
+#profile_content_partner
+  form
+    dt
+      clear: both
+    dd.managed_by
+      overflow: hidden
+      img
+        float: right
+        margin: 0 0 0 10px
+        border: 1px solid #394651
+        +max_dimensions($logo_size_secondary, $logo_size_secondary)
+      .details
+        padding: 5px 0 0 0
+        overflow: hidden
+form
+  fieldset.dataset
+    legend.required
+      font-weight: bold
+      background: url("/images/v2/icon_required.png") right 45% no-repeat
+      padding-right: 10px
+      margin-right: -10px
 /** Styles for form required (HR overrides) and form validation errors (custom no equivalent from HR)  **/
 form
   dt
@@ -94,7 +148,7 @@ form
 form#switch_hierarchy_entry
   fieldset
     display: inline
-      
+
 /** Making lanugage switcher accessible on overview and details pages **/
 .learn_more
   fieldset.actions
@@ -116,6 +170,10 @@ form#switch_hierarchy_entry
         margin: 0 !important
 /** pending eol user account **/
 #content.session
+  form
+    &.terms_agreement
+      padding: 75px 69px
+      width: 500px
   .pending
     width: 320px
     min-height: 225px
@@ -145,7 +203,7 @@ form#switch_hierarchy_entry
     color: #616e7a
 #taxon_literature
   .pagination
-    margin-bottom: 15px    
+    margin-bottom: 15px
 #main
   .footer
     clear: both
@@ -165,15 +223,8 @@ form#switch_hierarchy_entry
         top: 0 !important /* Override HR */
         right: 0 !important /* Override HR */
 
-/** Static pages **/
-.exemplars
-  ul
-    img
-      clear: both
-      float: right
-      margin: 0 30px 30px 20px
-/** content partners **/
-.cms_page
+/** cms page styles **/
+#content.cms_page
   .header
     border-bottom: 1px solid #CAD3DB
     padding-bottom: 1em
@@ -181,42 +232,116 @@ form#switch_hierarchy_entry
   .footer
     border-top: 1px solid #CAD3DB
     padding-top: 1em
-  ul.object_list
-    list-style_type: none
-    li
-      img
-        max-width: 68px
-      h4
-        margin-bottom: 0.5em
-        a
-          color: #195184
-          text-decoration: underline
-      p
-        clear: none
+  table
+    border-collapse: collapse
+    width: 100%
+    margin: 0 0 15px 0
+    line-height: 170%
+    thead
+      tr
+        border: 1px solid #CAD3DB
+        th
+          background: #EFF2F4
+          padding: 5px 20px
+          font-weight: bold
+          text-align: right
+    tbody
+      tr
+        border: 1px solid #CAD3DB
+        td
+          padding: 5px 20px
+  a
+    &.pdf
+      background: url('/images/v2/icon_pdf.png') right top no-repeat
+      padding: 0 0 3px 20px
+  ul
+    &.with_images
+      li
+        overflow: hidden
+        list-style-type: none
+        clear: both
+        border-bottom: 1px solid #CAD3DB
+        padding: 10px
+        img
+          max-width: 88px
+          padding: 0
+          border: none
+          float: right
+          margin: 0 0 10px 0
+        h2, h3, h4, h5, p
+          margin-right: 110px
+    &.object_list
+      list-style_type: none
+      li
+        img
+          max-width: 68px
+        h4
+          margin-bottom: 0.5em
+          a
+            color: #195184
+            text-decoration: underline
+        p
+          clear: none
+/** content partners overrides/additions **/
+.cms_page
+  #content_partners
+    #sidebar
+      input[type="text"]
+        width: 118px
+#new_content_partner_agreement
+  dl
+    clear: both
+    dd
+      margin: 0 0 10px 0
+      input[type="text"]
+        +input
+#content_partner_show
+  .empty
+    font-size: 1em
+  .agreement
+    dl
+      margin: 0 40px 15px 40px
+      line-height: 170%
+      dt
+        font-weight: bold
+      dd
+        margin: 0 0 10px 0
+    address
+      display: block
+      width: 40%
+      line-height: 170%
+      &.partner
+        float: right
+      &.eol
+        float: left
+  dl.agreement
+    line-height: 140%
+    dt
+      font-weight: bold
+    dd
+      margin: 0 20px 5px 0
 #content_partner_edit, #content_partner_new
   &.site_column
     width: 640px
-#content_partner_show
-  .main_container
-    padding: 40px
-    border: 1px solid #93A4B0
-    border-width: 0 1px
-  #sidebar
-    width: 200px
+
 ul.content_partner_contacts
   li
     margin: 0 0 20px 0
 #content_partner_statistics
+  .main_container
+    border: none
+    padding: 0
   .heading
     text-align: center
     fieldset, input[type="submit"]
       display: inline
       margin: 0
   table
-    margin-top: 20px      
+    margin-top: 20px
+/** warning messages - check HR commits for updates to this **/
 p.status.error
   border: 1px solid #f2d2cc
-  background: #ffeae6 
+  background: #ffeae6
 /** move to home.css once HR involvement ceases **/
 .home
   p.status
@@ -248,7 +373,7 @@ p.status.error
  * article as that's what en_type is returning... at some point we should go through and change all 'article'
  * classes that mean data_object text to text, as article clashes with the HR generic article class but right
  * now we have I18n keys and various classes around the site depending on 'article' for text data object.
- */  
+ */
 #permalink
   &.article
     padding: 0
@@ -265,40 +390,44 @@ p.status.error
   /* added float non to video as description box wasn't showing up properly on DO page */
   .media
     float: none
-/** Add article interface we have error fieldset and a textarea box in information fieldset that HR didn't expect **/
-#object_text_new
+    img
+      max-width: 540px
+      width: expression(this.width > 540 ? "540px" : true)
+/** I say we standardise form tips everywhere **/
+form
   p.tip
     background: #F3F7FA
     border: 1px solid #CAD3DB
     padding: 10px
     margin: 0 0 20px 40px
     line-height: 140%
-  form#new_data_object, form.edit_data_object
-    fieldset
-      dt
-        font-size: 1.08em
-      &.content
-        width: 640px
-        input[type="text"]
-          width: 308px
-        textarea
-          width: 580px
-          height: 200px
-      &.information
-        width: 300px
-        input[type="text"]
-          width: 288px
-        textarea
-          width: 282px
-          height: 80px
+    img
+      margin: -2px 5px 0 5px
+/** Add article interface we have error fieldset and a textarea box in information fieldset that HR didn't expect **/
+form#new_data_object, form.edit_data_object
+  fieldset
+    dt
+      font-size: 1.08em
+    &.content
+      width: 640px
+      input[type="text"]
+        width: 308px
+      textarea
+        width: 580px
+        height: 200px
+    &.information
+      width: 300px
+      input[type="text"]
+        width: 288px
+      textarea
+        width: 282px
+        height: 80px
 
 /** Adjustments for when missing exemplar image **/
 #media_list, #taxon_detail
   #sidebar
     img
-      margin-bottom: 0
-      margin-left: auto
-      margin-right: auto
+      margin: auto
     h3
       margin-top: 20px
     h4
@@ -330,19 +459,23 @@ p.status.error
             right: 0
             bottom: 0
             width: 160px
-            z-index: 1            
+            z-index: 1
+        .video_overlay
+          background: url('/images/v2/video_play.png') no-repeat 50% 50% transparent
+          width: 160px
+          height: 125px
+          z-index: 300
+          position: absolute
         .video
           border: 1px solid #CAD3DB
-          background: #F3F7FA url('/images/v2/icon_videos_tabs.png') no-repeat 50% 50%
           width: 158px
           height: 123px
       >a
-        display: inline-block        
+        display: inline-block
         overflow: hidden
       form
         display: block
         clear: both
-        
 /** style for vetted status flags - various locations **/
 p.flag
   color: white
@@ -358,8 +491,8 @@ p.flag
   &.untrusted
     border: 1px solid #f2d2cc
     background: #ffeae6
-    color: #677682        
-        
+    color: #677682 !important
+
 /** We share rating partial across many pages so need extra styles here. **/
 #taxon_detail
   .rating
@@ -369,7 +502,7 @@ p.flag
       text-transform: lowercase
       font-size: 0.83em
     ul
-      display: inline      
+      display: inline
   .average_rating
     h5
       float: right
@@ -377,7 +510,7 @@ p.flag
       text-transform: lowercase
       small
         font-size: 1em
-      
+
 .rating
   ul
     li
@@ -395,40 +528,29 @@ p.flag
 .join
   abbr
     border: none
+
+/** HR z-indexes were messed up in header, also we're putting session partial on home page for logged in users **/
 body
   &.home
     >#header
-      .session
-        position: absolute
-        left: 40px
-        top: 55px
-        z-index: 2
-        img
-          float: left
-          margin: 0 10px 0 0 
-          border: 1px solid #CAD3DB
-        .details
-          overflow: hidden
-          padding: 5px 0 0 0
-          font-size: 0.92em
-          line-height: 130%
-          text-align: left
-          color: white        
+      .session.join
+        text-align: center !important
+        a
+          color: white !important
   >#header
     .section
       .actions
         z-index: 5 /* otherwise language list goes behind logo */
-      .session
-        .join
-          float: left
-          text-align: left
-          color: #fff
-          p
-            line-height: 1.4em
-          a
-            color: #90bce4
+      .session.join
+        float: left
+        text-align: left
+        color: #fff
+        p
+          line-height: 1.4em
+        a
+          color: #90bce4
 
-/** IUCN styles, we use a h3 header instead of just a paragraph so its easier to find with screenreaders. **/            
+/** IUCN styles, we use a h3 header instead of just a paragraph so its easier to find with screenreaders. **/
 #iucn_status
   border: 1px solid #cad3db
   background: #f1f4f7
@@ -462,7 +584,6 @@ body
     img
       float: right
       margin: 0 0 0 10px
-      
 #taxon
   .gallery
     .images
@@ -490,7 +611,16 @@ body
           right: 0
           .copy
             padding: 0 90px 0 0 
-
+/** taxon disclaimer **/
+.disclaimer
+  clear: both
+  border-top: 1px solid #CAD3DB
+  padding-top: 10px
+  p
+    text-align: center
+    font-size: 0.9em
+    color: #394651
+    margin: 0
 
 /** Our classification summary is a hierarchichal list whereas HR was just links without hierarchy
   * so we override the styles here **/
@@ -512,7 +642,6 @@ body
     font-size: 1em !important
 /** classification tree **/
 #classification_tree
-  padding: 0
   #browser-text
     width: 360px
     margin: 0 -10px
@@ -545,13 +674,16 @@ body
       fieldset
         display: inline-block
 #taxon
-  form#new_collection_item
-    margin-top: 0
-    fieldset.actions
-      margin-top: -3px
-      input[type="submit"]
-        font-size: 0.78em
-        padding: 7px 10px
+  #collections_summary
+    form
+      margin-top: 0
+      fieldset.actions
+        margin-top: 0
+.empty
+  fieldset.actions
+    input.button
+      font-size: 0.82em
+      padding: 5px 10px 6px 10px
 
 /** HR styles assume text descriptions are nicely wrapped in p tags - in reality they may or may not be so we add
   * extra div.description and assign styles to the div - check this, particularly line-height as we probably need
@@ -581,21 +713,34 @@ body
         &.no_results
           label
             color: #6F7E8B
-/** page heading actions **/
+/** page heading actions, making header group narrow to fit actions in **/
 #page_heading
+  &.with_image
+    .hgroup
+      width: 630px
   .page_actions
     padding-top: 10px
     fieldset.actions
       margin: 0
       input[type="submit"]
         margin: 0
-/** CMS pages **/
-.cms_page
-  table
-    border-collapse: collapse
-    width: 100%
-    margin: 0 0 15px 0
-    line-height: 170%
+/** wikipedia import request **/
+#wikipedia_queue
+  width: 640px
+  form
+    margin-top: 40px
+    dt
+      p
+        margin-bottom: 0
+    dd
+      margin: 0 0 10px 0
+      input[type="text"]
+        +input
+        width: 600px
+    input[type="submit"]
+      padding: 7px 10px
+      font-size: 1em
+
 /** collections overides **/
 .object_list
   div.checkbox
@@ -609,74 +754,48 @@ body
 #map_image
   height: 350px
 
-/**
-  * TEMPORARY FIX: Forcing image sizes for V2 demo.
-  */
-= max90x90
-  max-width: 90px
-  max-height: 90px
-  width: expression(this.width > 90 ? "90px" : true)
-  height: expression(this.height > 90 ? "90px" : true)
-= max88x88
-  max-width: 88px
-  max-height: 88px
-  width: expression(this.width > 88 ? "88px" : true)
-  height: expression(this.height > 88 ? "88px" : true)
-= max60x60
-  max-width: 60x
-  max-height: 60px
-  width: expression(this.width > 60 ? "60px" : true)
-  height: expression(this.height > 60 ? "60px" : true)
-= size50x50
-  width: 50px
-  height: 50px
-= size35x35
-  width: 35px
-  height: 35px
-= size90x90
-  width: 90px
-  height: 90px  
-
 #media_summary
   .image
-    > img
-      max-width: 430px
-      max-height: 310px
+    > a img
+      +max_dimensions(430, 310)
 ul.feed
   li
     >a
       >img
-        +size50x50
+        +max_dimensions($logo_size_secondary, $logo_size_secondary)
 #header
   .session
     img
-      +size50x50         
-#collections_summary, #communities_summary, .collection_contributors
+      +max_dimensions($logo_size_secondary, $logo_size_secondary)
+#collections_summary, #communities_summary, #curators_summary
   ul
     li
       >a
         >img
-          +size50x50
+          +max_dimensions($logo_size_secondary, $logo_size_secondary)
 #collections
   .collections
     .article
       >.header
         >a
           >img
-            +size50x50
+            +max_dimensions($logo_size_secondary, $logo_size_secondary)
+#community
+  .article.list
+    img
+      +max_dimensions($logo_size_secondary, $logo_size_secondary)
 #page_heading
   &.with_image, &.profile
     img
-      +max88x88
+      +max_dimensions($logo_size_standout, $logo_size_standout)
 #collections
   &.main_container
     .taxon>img
-      +max90x90
+      +max_dimensions($logo_size_standout, $logo_size_standout)
 #sidebar
-  .collection_list
+  .collection_list, .collection_contributors, .content_partner_managers
     img
-      +size35x35
-
+      +max_dimensions($logo_size_tertiary, $logo_size_tertiary)
 #taxon
   .gallery
     ul.thumbnails
@@ -684,8 +803,7 @@ ul.feed
         &
           text-align: center
         img
-          max-width: 98px
-          max-height: 68px
+          +max_dimensions(98, 68)
           width: auto
           height: auto
           display: inline !important
@@ -694,13 +812,13 @@ ul.feed
     ul
       li
         img
-          max-width: 160px
-          max-height: 125px
+          +max_dimensions(160, 125)
           margin-left: auto
           margin-right: auto
   #sidebar
     &.filters
       img
+        max-width: 220px
 #taxon_detail
   #sidebar
     img
@@ -709,26 +827,21 @@ ul
   &.object_list
     li
       img
-        max-width: 68px
-        max-height: 68px
-        // JRice added this to force missing images to look reasonable.  ...Not sure if it's wise, though:
-        width: 68px
-        height: 68px        
+        +max_dimensions($logo_size_primary, $logo_size_primary)
 form
   &.comment
     img
-      height: 50px
-      width: 50px
+      +max_dimensions($logo_size_secondary, $logo_size_secondary)
 #header
   .thumbnails
     ul
       li
         width: 140px
         height: 140px
-        
+
 // Tiny Link below Ajax fields
 .editable_link
-  font-size: 0.8em        
+  font-size: 0.8em
 // Buttons are too far over (and this is only in English!):
 .edit_collection #sidebar fieldset.actions
   padding: 0
@@ -805,14 +918,18 @@ h1.notice
 // image sizes too large from the DB:
 .column.curators, .column.collections, .column.communities
   img
-    width: 48px
-    height: 48px
+    +max_dimensions($logo_size_secondary, $logo_size_secondary)
 #worklist #task #sidebar
   width: auto
   float: none
   padding: 0px !important
-#worklist #tasks li img
-  +max60x60
+#worklist
+  #tasks
+    ul
+      li
+        z-index: 300
+        img
+          +max_dimensions($logo_size_secondary, $logo_size_secondary)
 //sidebar paragraphs need space after them:
 #sidebar p
   padding-bottom: 1em
@@ -821,12 +938,15 @@ h1.notice
   display: block
 .invisible
   opacity: 0
-#worklist .filters fieldset.actions
-  padding: 0
-  line-height: 22px
-  color: #667309
-  text-transform: uppercase
-  font-weight: bold
+#worklist .filters fieldset
+  &.actions
+    padding: 0
+    line-height: 22px
+    color: #667309
+    text-transform: uppercase
+    font-weight: bold
+  dl
+    padding: 0 30px
 #worklist #tasks li:hover
   background-color: #ffffff !important
 #taxon_updates
@@ -863,3 +983,77 @@ h1.notice
       border: 1px solid #cad3db
       padding: 20px 20px 0 20px
 
+// Wanted to add a link to the modal collect dialogue:
+a.other_actions
+  float: left
+  margin-top: 1em
+// "Modal" static page (this is a copy/paste, sigh):
+.site_column > #choose_collections
+  h2
+    font-size: 1.33em
+    margin: 0 0 10px 0
+  fieldset.new_collection
+    overflow: hidden
+    margin: 0 0 20px 0
+    input[type="text"]
+      float: right
+      +input(210px)
+      margin: 0 0 0 10px
+  input[type="submit"]
+    padding-right: 20px
+    padding-left: 20px
+    font-size: 1.08em
+    padding: 5px 10px 6px 10px
+  ul
+    border: 1px solid #cad3db
+    height: 230px
+    overflow-y: scroll
+    margin: 0 0 20px 0
+    li
+      font-weight: bold
+      padding: 5px 10px
+      &.collected
+        background: #f4f4f4
+      input[type="checkbox"]
+        margin: 0 0 0 5px
+      a
+        font-size: .95em
+      span
+        font-size: .95em
+      & + li
+        border-top: 1px solid #cad3db
+
+#search_results ul.object_list li
+  white-space: nowrap
+#taxon_maps #media_list
+  padding: 0
+// Trying (again) to center and size the sidebar image (this time including markup changes, yuck.):
+#taxon_detail #sidebar
+  padding: 0
+  padding-bottom: 20px
+  width: 260px
+  #toc
+    margin: 0px 20px
+#media_list #sidebar
+  padding: 0
+  padding-bottom: 20px
+  width: 220px
+  #filters
+    margin: 0px 20px
+// Smaller font for "view in classification" links (following pattern for choose collection):
+#recognized_by span
+  font-size: 0.95em
+#taxon_updates form.comment
+  margin: 0 0 15px
+  border-bottom: 1px solid #D4DCE2
+  textarea
+    width: 580px
+
+// New style for HE view:
+#page_heading p#citation
+  background-color: white
+  border: 1px solid #D4DCE2
+  color: #5F6C76
+  font-size: 0.95em
+  line-height: 100%
+  font-weight: normal

@@ -1,6 +1,6 @@
 @import "common"
 
-.join
+.session.join
   font-weight: bold
   text-align: center
   p
@@ -73,11 +73,35 @@ body
         font-size: 1.08em
         line-height: 38px
         +box-shadow(0 0 4px rgba(0, 0, 0, .6))
-    .join
+        float: left
+    .session
       position: absolute
       left: 40px
       top: 55px
       z-index: 2
+      background: #080f13
+      padding: 10px
+      &.signed_in
+        img
+          float: left
+          margin: 0 10px 0 0 
+          border: 1px solid #cad3db
+        .details
+          float: left
+          padding: 5px 0 0 0
+          font-size: .92em
+          line-height: 130%
+          text-align: left
+          color: #ffffff
+          strong
+            font-size: 1.09em
+          p.user_links
+            font-size: 9px
+            text-transform: uppercase
+            color: #62707d
+            a
+              color: #acd7ff
+              text-decoration: none
     .thumbnails
       position: absolute
       right: 0
@@ -107,34 +131,35 @@ body
         overflow: hidden
         padding: 10px 40px 10px 20px
         border-top: 1px solid #e5e8eb
-        a
+        > a
           float: right
-          margin: 17px 0 0 0
+          margin: 20px 0 0 0
         dl
           float: right
-          width: 145px
-          padding: 3px 80px 3px 10px
+          width: 175px
+          padding: 3px 100px 3px 10px
+          background: right 50% no-repeat transparent
         dd
           font-size: 2.5em
         dt
-          font-size: 1.16em
+          font-size: 1.1em
           font-weight: bold
           color: #394651
         &.taxon
           dl
-            background: transparent url("/images/v2/icon_taxon.png") right 50% no-repeat
+            background-image: url("/images/v2/icon_taxon.png")
         &.contributors
           dl
-            background: transparent url("/images/v2/icon_contributors.png") right 2px no-repeat
-        &.communities
+            background-image: url("/images/v2/icon_contributors.png")
+        &.collections
           dl
-            background: transparent url("/images/v2/icon_communities.png") right 50% no-repeat
+            background-image: url("/images/v2/icon_collections.png")
         &.images
           dl
-            background: transparent url("/images/v2/icon_images.png") right 0 no-repeat
+            background-image: url("/images/v2/icon_images.png")
         &.partners
           dl
-            background: transparent url("/images/v2/icon_partners.png") right 50% no-repeat
+            background-image: url("/images/v2/icon_partners.png")
     .community
       float: left
       width: 380px
@@ -160,7 +185,7 @@ body
             font-weight: bold
             text-transform: uppercase
             color: #82919e
-    .join
+    .session
       float: left
       clear: left
       width: 380px

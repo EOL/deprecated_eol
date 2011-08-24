@@ -30,14 +30,14 @@ h4, h5, h6 {
 a {
   color: #195184; }
   a.pdf {
-    background: url("/images/v2/icon_pdf.png") right top no-repeat;
-    padding: 0 20px 3px 0; }
+    background: url("/images/v2/icon_pdf.png") 0 top no-repeat;
+    padding: 0 0 3px 20px; }
 
 img {
-  float: right;
+  float: left;
   padding: 10px;
   border: 1px solid #cad3db;
-  margin: 0 0 20px 20px; }
+  margin: 0 20px 20px 0; }
 
 a img, :link img, :visited img {
   border: none; }
@@ -60,10 +60,10 @@ ul.with_images li {
     max-width: 88px;
     padding: 0;
     border: none;
-    float: left;
+    float: right;
     margin: 0 0 10px 0; }
   ul.with_images li h2, ul.with_images li h3, ul.with_images li h4, ul.with_images li h5, ul.with_images li p {
-    margin-left: 110px; }
+    margin-right: 110px; }
 
 blockquote {
   background: #eff2f4;
@@ -84,7 +84,7 @@ table {
     background: #eff2f4;
     padding: 5px 20px;
     font-weight: bold;
-    text-align: left; }
+    text-align: right; }
   table tr {
     border: 1px solid #cad3db; }
     table tr td {

@@ -221,30 +221,57 @@ form#switch_hierarchy_entry fieldset {
       top: 0 !important;
       left: 0 !important; }
 
-/*Static pages */
-.exemplars ul img {
-  clear: both;
-  float: left;
-  margin: 0 20px 30px 30px; }
-
-/*cms page styles for public content partners listing */
-.cms_page .header {
+/*cms page styles */
+#content.cms_page .header {
   border-bottom: 1px solid #cad3db;
   padding-bottom: 1em;
   margin-bottom: 30px; }
-.cms_page .footer {
+#content.cms_page .footer {
   border-top: 1px solid #cad3db;
   padding-top: 1em; }
-.cms_page ul.object_list {
+#content.cms_page table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0 0 15px 0;
+  line-height: 170%; }
+  #content.cms_page table thead tr {
+    border: 1px solid #cad3db; }
+    #content.cms_page table thead tr th {
+      background: #eff2f4;
+      padding: 5px 20px;
+      font-weight: bold;
+      text-align: left; }
+  #content.cms_page table tbody tr {
+    border: 1px solid #cad3db; }
+    #content.cms_page table tbody tr td {
+      padding: 5px 20px; }
+#content.cms_page a.pdf {
+  background: url("/images/v2/icon_pdf.png") right top no-repeat;
+  padding: 0 20px 3px 0; }
+#content.cms_page ul.with_images li {
+  overflow: hidden;
+  list-style-type: none;
+  clear: both;
+  border-bottom: 1px solid #cad3db;
+  padding: 10px; }
+  #content.cms_page ul.with_images li img {
+    max-width: 88px;
+    padding: 0;
+    border: none;
+    float: left;
+    margin: 0 0 10px 0; }
+  #content.cms_page ul.with_images li h2, #content.cms_page ul.with_images li h3, #content.cms_page ul.with_images li h4, #content.cms_page ul.with_images li h5, #content.cms_page ul.with_images li p {
+    margin-left: 110px; }
+#content.cms_page ul.object_list {
   list-style_type: none; }
-  .cms_page ul.object_list li img {
+  #content.cms_page ul.object_list li img {
     max-width: 68px; }
-  .cms_page ul.object_list li h4 {
+  #content.cms_page ul.object_list li h4 {
     margin-bottom: 0.5em; }
-    .cms_page ul.object_list li h4 a {
+    #content.cms_page ul.object_list li h4 a {
       color: #195184;
       text-decoration: underline; }
-  .cms_page ul.object_list li p {
+  #content.cms_page ul.object_list li p {
     clear: none; }
 
 /*content partners overrides/additions */
@@ -648,23 +675,29 @@ body > #header .section .session.join {
     #page_heading .page_actions fieldset.actions input[type="submit"] {
       margin: 0; }
 
-/*CMS pages */
-.cms_page table {
-  border-collapse: collapse;
-  width: 100%;
-  margin: 0 0 15px 0;
-  line-height: 170%; }
-  .cms_page table thead tr {
-    border: 1px solid #cad3db; }
-    .cms_page table thead tr th {
-      background: #eff2f4;
-      padding: 5px 20px;
-      font-weight: bold;
-      text-align: left; }
-  .cms_page table tbody tr {
-    border: 1px solid #cad3db; }
-    .cms_page table tbody tr td {
-      padding: 5px 20px; }
+/*wikipedia import request */
+#wikipedia_queue {
+  width: 640px; }
+  #wikipedia_queue form {
+    margin-top: 40px; }
+    #wikipedia_queue form dt p {
+      margin-bottom: 0; }
+    #wikipedia_queue form dd {
+      margin: 0 0 10px 0; }
+      #wikipedia_queue form dd input[type="text"] {
+        width: 308px;
+        height: 22px;
+        padding: 2px 5px;
+        font: normal 1em Helvetica, Arial, sans-serif;
+        border: 1px solid #cad3db;
+        background-color: white;
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+        background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+        background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
+        width: 600px; }
+    #wikipedia_queue form input[type="submit"] {
+      padding: 7px 10px;
+      font-size: 1em; }
 
 /*collections overides */
 .object_list div.checkbox {

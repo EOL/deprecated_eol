@@ -495,7 +495,7 @@ class ApplicationController < ActionController::Base
     if collection_item.nil?
       collection_item = begin # No care if this fails.
         CollectionItem.create(
-          :annotation => options[:annotation], :username => current_user.full_name, :date => I18n.l(Date.today)),
+          :annotation => options[:annotation], :username => current_user.full_name, :date => I18n.l(Date.today),
           :object => what, :collection_id => watchlist.id
         )
       rescue => e

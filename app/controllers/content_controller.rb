@@ -32,11 +32,13 @@ class ContentController < ApplicationController
     if request.post?
       if params[:preview] == $PREVIEW_LOCKDOWN
         session[:preview] = params[:preview]
-        redirect_to root_path
+        return redirect_to root_path
       else
         flash[:error] = "Incorrect password."
+        return render :layout => false
       end
     end
+    render :layout => false
   end
 
   def mediarss

@@ -273,3 +273,83 @@ body > #footer {
     .thumbnails .term p {
       font-weight: bold;
       color: #28323a; }
+
+#admin_overview.main_container, #cms_index.main_container {
+  border: none;
+  padding: 0; }
+
+#cms_index ul {
+  border-top: 3px solid #93a4b0;
+  clear: both;
+  margin-top: 30px; }
+  #cms_index ul ul {
+    margin-top: 0;
+    border: none; }
+  #cms_index ul li {
+    overflow: hidden;
+    border-top: 2px solid #93a4b0; }
+    #cms_index ul li li {
+      border-top: 1px solid #93a4b0;
+      margin-right: 20px; }
+    #cms_index ul li h3 {
+      font-size: 1.2em;
+      float: right;
+      margin: 20px 0 5px; }
+    #cms_index ul li .actions {
+      text-align: left;
+      margin: 15px 0 0; }
+      #cms_index ul li .actions form, #cms_index ul li .actions input, #cms_index ul li .actions form div, #cms_index ul li .actions a.button {
+        margin: 0;
+        display: inline-block; }
+      #cms_index ul li .actions form, #cms_index ul li .actions a.button {
+        margin: 0 0 5px 3px; }
+      #cms_index ul li .actions input.delete {
+        font-weight: normal; }
+      #cms_index ul li .actions a.button {
+        padding: 3px 10px;
+        font-size: 0.92em; }
+      #cms_index ul li .actions input[disabled="disabled"] {
+        cursor: default;
+        background-image: none; }
+    #cms_index ul li .translations {
+      clear: both;
+      margin: 0 0 20px 10px; }
+      #cms_index ul li .translations li {
+        border: none;
+        margin: 5px 0; }
+
+#content_page_new, #content_page_edit {
+  width: 640px;
+  margin: 0 auto; }
+  #content_page_new h3, #content_page_edit h3 {
+    margin-top: 50px; }
+  #content_page_new fieldset, #content_page_edit fieldset {
+    padding-top: 10px; }
+    #content_page_new fieldset dt, #content_page_edit fieldset dt {
+      margin: 0; }
+      #content_page_new fieldset dt p, #content_page_new fieldset dt label, #content_page_new fieldset dt ol, #content_page_new fieldset dt ol li, #content_page_edit fieldset dt p, #content_page_edit fieldset dt label, #content_page_edit fieldset dt ol, #content_page_edit fieldset dt ol li {
+        margin-bottom: 0; }
+    #content_page_new fieldset dd, #content_page_edit fieldset dd {
+      margin: 0 0 10px 0; }
+      #content_page_new fieldset dd input[type="text"], #content_page_edit fieldset dd input[type="text"] {
+        width: 308px;
+        height: 22px;
+        padding: 2px 5px;
+        font: normal 1em Helvetica, Arial, sans-serif;
+        border: 1px solid #cad3db;
+        background-color: white;
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+        background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+        background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
+      #content_page_new fieldset dd textarea, #content_page_edit fieldset dd textarea {
+        width: 600px;
+        height: 200px; }
+      #content_page_new fieldset dd.metadata input[type="text"], #content_page_edit fieldset dd.metadata input[type="text"] {
+        width: 600px; }
+    #content_page_new fieldset .checkbox p, #content_page_edit fieldset .checkbox p {
+      font-weight: normal; }
+    #content_page_new fieldset input[type="submit"], #content_page_edit fieldset input[type="submit"] {
+      padding: 7px 10px;
+      font-size: 1em; }
+  #content_page_new form div input[type="submit"].delete, #content_page_edit form div input[type="submit"].delete {
+    margin-top: 30px; }

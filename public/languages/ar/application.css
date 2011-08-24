@@ -104,9 +104,10 @@ body > #header .section {
     body > #header .section .actions .language {
       float: right;
       position: relative;
-      margin: 0 0 0 10px; }
+      margin: 0 0 0 10px;
+      width: 100px; }
       body > #header .section .actions .language a {
-        background: transparent url("/images/v2/icon_dropdown.png") 98px 6px no-repeat; }
+        background: transparent url("/images/v2/icon_dropdown.png") 84px 6px no-repeat; }
       body > #header .section .actions .language ul {
         display: none;
         position: absolute;
@@ -1059,7 +1060,7 @@ body > #header {
   background: #e2e9ef; }
   #page_heading .hgroup {
     float: right;
-    width: 720px;
+    width: 714px;
     padding: 10px 10px 20px 0; }
   #page_heading.with_nav .site_column, #page_heading.with_nav body > #header .section, body > #header #page_heading.with_nav .section, #page_heading.with_nav body > #footer .section, body > #footer #page_heading.with_nav .section, #page_heading.with_nav .thumbnails ul, .thumbnails #page_heading.with_nav ul {
     overflow: visible; }
@@ -1516,7 +1517,7 @@ body > #header {
       #profile_content_connections ul li > a {
         float: right;
         border: 1px solid #394651;
-        margin: 0 10px 0 0; }
+        margin: 0 10px; }
         #profile_content_connections ul li > a img {
           display: block; }
       #profile_content_connections ul li .details {
@@ -2156,8 +2157,8 @@ body > #header {
     border-top: 1px solid #ccd399;
     border-bottom: 1px solid #ccd399;
     text-align: center;
-    padding: 20px 0 0 0;
-    margin: 0 0 20px 0; }
+    padding: 20px 0;
+    margin: 0 0 20px; }
     #permalink_add_association > form label {
       font-weight: bold;
       margin: 0 0 0 20px; }

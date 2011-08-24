@@ -223,15 +223,8 @@ form#switch_hierarchy_entry
         top: 0 !important /* Override HR */
         right: 0 !important /* Override HR */
 
-/** Static pages **/
-.exemplars
-  ul
-    img
-      clear: both
-      float: right
-      margin: 0 30px 30px 20px
-/** cms page styles for public content partners listing **/
-.cms_page
+/** cms page styles **/
+#content.cms_page
   .header
     border-bottom: 1px solid #CAD3DB
     padding-bottom: 1em
@@ -239,18 +232,56 @@ form#switch_hierarchy_entry
   .footer
     border-top: 1px solid #CAD3DB
     padding-top: 1em
-  ul.object_list
-    list-style_type: none
-    li
-      img
-        max-width: 68px
-      h4
-        margin-bottom: 0.5em
-        a
-          color: #195184
-          text-decoration: underline
-      p
-        clear: none
+  table
+    border-collapse: collapse
+    width: 100%
+    margin: 0 0 15px 0
+    line-height: 170%
+    thead
+      tr
+        border: 1px solid #CAD3DB
+        th
+          background: #EFF2F4
+          padding: 5px 20px
+          font-weight: bold
+          text-align: right
+    tbody
+      tr
+        border: 1px solid #CAD3DB
+        td
+          padding: 5px 20px
+  a
+    &.pdf
+      background: url('/images/v2/icon_pdf.png') right top no-repeat
+      padding: 0 0 3px 20px
+  ul
+    &.with_images
+      li
+        overflow: hidden
+        list-style-type: none
+        clear: both
+        border-bottom: 1px solid #CAD3DB
+        padding: 10px
+        img
+          max-width: 88px
+          padding: 0
+          border: none
+          float: right
+          margin: 0 0 10px 0
+        h2, h3, h4, h5, p
+          margin-right: 110px
+    &.object_list
+      list-style_type: none
+      li
+        img
+          max-width: 68px
+        h4
+          margin-bottom: 0.5em
+          a
+            color: #195184
+            text-decoration: underline
+        p
+          clear: none
 /** content partners overrides/additions **/
 .cms_page
   #content_partners
@@ -589,6 +620,7 @@ body
     text-align: center
     font-size: 0.9em
     color: #394651
+    margin: 0
 
 /** Our classification summary is a hierarchichal list whereas HR was just links without hierarchy
   * so we override the styles here **/
@@ -610,7 +642,6 @@ body
     font-size: 1em !important
 /** classification tree **/
 #classification_tree
-  padding: 0
   #browser-text
     width: 360px
     margin: 0 -10px
@@ -643,13 +674,16 @@ body
       fieldset
         display: inline-block
 #taxon
-  form#new_collection_item
-    margin-top: 0
-    fieldset.actions
-      margin-top: -3px
-      input[type="submit"]
-        font-size: 0.78em
-        padding: 7px 10px
+  #collections_summary
+    form
+      margin-top: 0
+      fieldset.actions
+        margin-top: 0
+.empty
+  fieldset.actions
+    input.button
+      font-size: 0.82em
+      padding: 5px 10px 6px 10px
 
 /** HR styles assume text descriptions are nicely wrapped in p tags - in reality they may or may not be so we add
   * extra div.description and assign styles to the div - check this, particularly line-height as we probably need
@@ -690,26 +724,22 @@ body
       margin: 0
       input[type="submit"]
         margin: 0
-/** CMS pages **/
-.cms_page
-  table
-    border-collapse: collapse
-    width: 100%
-    margin: 0 0 15px 0
-    line-height: 170%
-    thead
-      tr
-        border: 1px solid #CAD3DB
-        th
-          background: #EFF2F4
-          padding: 5px 20px
-          font-weight: bold
-          text-align: right
-    tbody
-      tr
-        border: 1px solid #CAD3DB
-        td
-          padding: 5px 20px
+/** wikipedia import request **/
+#wikipedia_queue
+  width: 640px
+  form
+    margin-top: 40px
+    dt
+      p
+        margin-bottom: 0
+    dd
+      margin: 0 0 10px 0
+      input[type="text"]
+        +input
+        width: 600px
+    input[type="submit"]
+      padding: 7px 10px
+      font-size: 1em
 
 /** collections overides **/
 .object_list
@@ -916,7 +946,7 @@ h1.notice
     text-transform: uppercase
     font-weight: bold
   dl
-    padding: 0 0 0 30px
+    padding: 0 30px
 #worklist #tasks li:hover
   background-color: #ffffff !important
 #taxon_updates
@@ -957,11 +987,6 @@ h1.notice
 a.other_actions
   float: left
   margin-top: 1em
-
-// Too much space in modal dialogue:
-form#new_collection_item fieldset.actions
-  margin: 0
-
 // "Modal" static page (this is a copy/paste, sigh):
 .site_column > #choose_collections
   h2
@@ -1008,13 +1033,13 @@ form#new_collection_item fieldset.actions
   padding-bottom: 20px
   width: 260px
   #toc
-    margin: 0px 0 0 20px
+    margin: 0px 20px
 #media_list #sidebar
   padding: 0
   padding-bottom: 20px
   width: 220px
   #filters
-    margin: 0px 0 0 20px
+    margin: 0px 20px
 // Smaller font for "view in classification" links (following pattern for choose collection):
 #recognized_by span
   font-size: 0.95em
@@ -1023,3 +1048,12 @@ form#new_collection_item fieldset.actions
   border-bottom: 1px solid #D4DCE2
   textarea
     width: 580px
+
+// New style for HE view:
+#page_heading p#citation
+  background-color: white
+  border: 1px solid #D4DCE2
+  color: #5F6C76
+  font-size: 0.95em
+  line-height: 100%
+  font-weight: normal

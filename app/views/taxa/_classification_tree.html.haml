@@ -3,6 +3,10 @@
   .header
     %h3= I18n.t(:classification_tree_header)
     - if count > 1
-      = link_to(I18n.t(:see_all_classifications_with_count_html, :count => count), '/placeholder')
+      - if @selected_hierarchy_entry
+        - link_url = taxon_hierarchy_entry_names_path(@taxon_concept, @selected_hierarchy_entry.id)
+      - else
+        - link_url = taxon_names_path(@taxon_concept)
+      = link_to(I18n.t(:see_all_classifications_with_count_html, :count => count), link_url)
   #browser-text
     = render :partial => 'navigation/browse_page'

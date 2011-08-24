@@ -23,9 +23,6 @@ describe Taxa::DetailsController do
       assigns[:details].should be_a(Array)
       datos = assigns[:details].collect{|h| h[:data_objects]}.compact.flatten
       datos.take_while{|d| d.should be_a(DataObject)}.should == datos
-      # Content summary is example of 'special content'
-      content_summary = assigns[:details].collect{|h| h if h[:content_type] == 'content_summary'}.compact
-      content_summary[0][:items][0].should be_a(HierarchyEntry)
     end
     it 'should not add special content to details Array if special content is empty' do
       # Nucleotide sequences is used as example of special content that is part of

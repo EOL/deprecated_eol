@@ -607,17 +607,15 @@ body > #header .section .session.join {
   font-size: 1em !important; }
 
 /*classification tree */
-#classification_tree {
-  padding: 0; }
-  #classification_tree #browser-text {
-    width: 360px;
-    margin: 0 -10px;
-    overflow: auto;
-    border: 1px solid #cad3db; }
-    #classification_tree #browser-text ul.classification {
-      margin: 10px; }
-      #classification_tree #browser-text ul.classification li {
-        white-space: nowrap; }
+#classification_tree #browser-text {
+  width: 360px;
+  margin: 0 -10px;
+  overflow: auto;
+  border: 1px solid #cad3db; }
+  #classification_tree #browser-text ul.classification {
+    margin: 10px; }
+    #classification_tree #browser-text ul.classification li {
+      white-space: nowrap; }
 
 /*overides for empty text styles - various */
 .updates .empty p {
@@ -1021,3 +1019,11 @@ a.other_actions {
   border-bottom: 1px solid #d4dce2; }
   #taxon_updates form.comment textarea {
     width: 580px; }
+
+#page_heading p#citation {
+  background-color: white;
+  border: 1px solid #d4dce2;
+  color: #5f6c76;
+  font-size: 0.95em;
+  line-height: 100%;
+  font-weight: normal; }

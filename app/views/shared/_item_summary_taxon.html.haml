@@ -1,5 +1,5 @@
 - search_result = nil unless defined?(search_result)
-- if image = item.best_image_from_solr
+- if image = item.exemplar_or_best_image_from_solr
   = link_to image_tag(image.thumb_or_object('88_88')), taxon_overview_path(item)
 %span.icon{:title => I18n.t(:item_type_taxon_assistive)}
 %small= item.entry.preferred_classification_summary

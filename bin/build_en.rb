@@ -170,7 +170,7 @@ list = Set.new()
   views/taxa/_iucn_status_summary.html.haml
   views/taxa/_media_summary.html.haml
   views/taxa/_overview_image_taxon_link.html.haml
-  views/taxa/_recognised_by.html.haml
+  views/taxa/_recognized_by.html.haml
   views/taxa/_text_summary.html.haml
   views/taxa/content/_content_content_summary.html.haml
 

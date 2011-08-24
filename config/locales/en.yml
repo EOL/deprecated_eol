@@ -2090,6 +2090,7 @@ en:
   name_preferred_for_language_no: "No"
   name_preferred_for_language_yes: "Preferred"
   names_et_al: "%{names}, et al."
+  names_explanation: "Scientists aim to describe a single 'tree of life' that reflects the evolutionary relationships of living things. However, evolutionary relationships are a matter of ongoing discovery, and there are different opinions about how living things should be grouped and named. EOL reflects these differences by supporting several different 'classifications'."
   names_in_red_are_not_trusted: "Names in red are not trusted."
   names_in_yellow_are_not_reviewed: "Names in yellow are not reviewed."
   names: "Names"
@@ -2171,7 +2172,7 @@ en:
   not_applicable: "not applicable"
   not_encourage_or_answer_request: "Not encourage or answer requests to provide all or major components of %{projecta}'s content to other data providers. Rather, such requests for re-usage will be forwarded to %{projectb}."
   not_evaluated: "Not evaluated"
-  not_recognised_by_available_hierarchies: "Not recognized by any of the available classifications"
+  not_recognized_by_available_hierarchies: "Not recognized by any of the available classifications"
   not_yet_implemented_error: "Sorry, that feature has not been implemented yet."
   note: "Note:"
   note_about_homonym_problems: "NOTE: only change this attribute if you are certain - unchecking this could cause serious homonym problems"
@@ -2300,7 +2301,7 @@ en:
   pages_with_pictures_and_text: "Pages with pictures and text"
   pages_with_pictures_or_text: "Pages with pictures or text"
   page_statistics: "Page Statistics"
-  page_statistics_explanation: "<p>EOL automatically calculates some statistics about its pages. These statistics recalculate [how often]?</p><h5>Richness Score</h5><p>Richness Score is a composite of many different factors such as:<ul><li>how much text a page has</li><li>how many multimedia or map files are available</li><li>how many different topics are covered</li><li>how many different sources contribute information</li></ul></p><p>In addition, we consider whether the information has been reviewed or not. If a page already has a lot of multimedia or text, it may not increase the Richness Score to add more.</p><p>The Richness Score ranges from 0 to 100, where richer pages have higher scores. Don’t worry, differences in Richness Scores of a few points are probably not very important. Over time we may change the way we calculate this score to better reflect your experience with the site. Be sure to let us know what you think by leaving a comment on pages you think we’ve misjudged.</p><h5>Trusted Images</h5><p>Includes all trusted images for this page and pages that appear in a classification below this page. This number includes both images that came from trusted partners as well as images coming from partners such as Flickr or Wikimedia Commons that have been trusted by an EOL curator.</p><h5>Unreviewed Images</h5><p>Includes all unreviewed images for this page and pages that appear in a classification below this page. Some of our partners provide large numbers of high quality images that may be better than the ones that are trusted but simply haven’t been reviewed yet. It does not include images that have been untrusted by an EOL curator.</p><h5>Trusted Articles</h5><p>Includes all trusted text articles on the details tab of this page and several articles on the resources tab. This number includes text articles that came from trusted partners. It also includes articles directly contributed to EOL by its members or from Wikipedia that have been trusted by an EOL curator. It does not include articles on pages that appear in a classification below this page.</p><h5>Unreviewed Articles</h5><p>Includes all unreviewed text articles on the details tab of this page and several articles on the resources tab. This number includes text articles directly contributed to EOL by its members or from Wikipedia that are waiting for review by an EOL curator. It does not include articles on pages that appear in a classification below this page."
+  page_statistics_explanation: "<p>EOL automatically calculates some statistics about its pages. These statistics recalculate every day or two.</p><h5>Richness Score</h5><p>Richness Score is a composite of many different factors:<ul><li>how much text a page has</li><li>how many multimedia or map files are available</li><li>how many different topics are covered</li><li>how many different sources contribute information</li><li>whether information has been reviewed or not</li></ul></p><p>If a page already has a lot of multimedia or text, it may not increase the Richness Score to add more.</p><p>Richness Scores range from 0 to 100. Don’t worry, differences of a few points are not very important. Over time we may change the way we calculate this score to better reflect your experience with the site. Let us know what you think by leaving a comment on pages you think we’ve misjudged.</p><h5>Trusted Images</h5><p>Includes all trusted images for this page and pages that appear in a classification below this page. Includes both images that came from trusted partners as well as images coming from partners such as Flickr or Wikimedia Commons that have been trusted by an EOL curator.</p><h5>Unreviewed Images</h5><p>Includes all unreviewed images for this page and pages that appear in a classification below this page. Some EOL partners provide many high quality images that haven’t been reviewed yet. Does not include images that have been untrusted by an EOL curator.</p><h5>Trusted Articles</h5><p>Includes all trusted text articles on the details tab and several articles on the resources tab. Includes text articles from trusted partners. Also includes articles directly contributed to EOL by its members or from Wikipedia that have been trusted by an EOL curator. Does not include articles on pages that appear in a classification below this page.</p><h5>Unreviewed Articles</h5><p>Includes all unreviewed text articles on the details tab of this page and several articles on the resources tab. Includes text articles directly contributed to EOL by its members or from Wikipedia that are waiting for review by an EOL curator. Does not include articles on pages that appear in a classification below this page.</p>"
   page_title_language_key_: "Page Title Language Key:"
   page_view: "Page view"
   page_views: "Page Views"
@@ -2458,6 +2459,8 @@ en:
   quarterly: "Quarterly"
   rails_databases: "Rails databases"
   rails_environment: "Rails environment"
+  rank_recognized_by_agent: "%{rank} recognized by %{agent}"
+  rank_recognized_by_from_source: '%{rank} recognized by %{agent} in %{source}'
   rank_recognized_by_agent_colon: "%{rank} recognized by %{agent}:"
   rated_by_count_people:
     one: "from %{count} person"
@@ -2473,8 +2476,8 @@ en:
   recently_published_resources__: "Recently published resources (last 20)"
   recent_updates: "Latest updates"
   recipients: "Recipients"
-  recognised_by_as_a_rank: '%{recognized_by} as a %{taxon_rank}'
-  recognised_by_from_source_as_a_rank: '%{recognized_by} in %{source} as a %{taxon_rank}'
+  recognized_by_as_a_rank: '%{recognized_by} as a %{taxon_rank}'
+  recognized_by_from_source_as_a_rank: '%{recognized_by} in %{source} as a %{taxon_rank}'
   recognized_by: "Recognized by"
   recommend: "RECOMMEND"
   redirect_to_external_url_: "Redirect to external URL:"
@@ -2834,7 +2837,7 @@ en:
   taxonomic_subject_of_data__e_g: "Taxonomic subject of data (e.g. birds, mammals, etc.): <span title=\"required\">*</span>"
   taxonomic_summary_of_content: "taxonomic summary of content"
   taxonomists_also_discover_new_: "Taxonomists also discover new species and then give them a new species name and possibly a new genus name if a home for it can't be found in any other existing group.  Scientists write names according to pre-established rules, but over the years, some names have been used more than once or have changed over time, which makes it harder to find what you are looking for.  Technology is helping us solve these problems and prevent from happening with new species by drawing the links between names and information.  The Encyclopedia of Life is built to allow all this information to be collected on one page regardless of the name being referred to, be it \"Canis lupus\", \"wolf\", \"loup\" or any other language you can think of."
-  taxon_recognised_by_header: "Recognized by"
+  taxon_recognized_by_header: "Recognized by"
   taxon_recognized_by: "Taxon recognized by %{var_recognized_by}"
   taxon_selected_from_search_res: "Taxon Selected From Search Results"
   taxon_suggested: "Taxon Suggested"
@@ -3130,7 +3133,7 @@ en:
   used_for_urls___should_be_uniq: "used for URLS - should be unique (except for translated pages); if not, URLs to page must use page ID"
   _used_to_generate_a_friendly_l: "(used to generate a friendly link for users, cannot contain spaces or special characters)"
   use_google_translate_widget_to: "Use Google Translate widget to transform the site content into another language"
-  user_activation_failed_resent_validation_email_error: "Sorry, an error occurred, your account could not be verified. This usually occurs when the verficiation link you entered or selected is not recognised. Activation instructions have been resent to the email address you registered with, please ensure the verficiation link you use matches the one provided in the activation email."
+  user_activation_failed_resent_validation_email_error: "Sorry, an error occurred, your account could not be verified. This usually occurs when the verficiation link you entered or selected is not recognized. Activation instructions have been resent to the email address you registered with, please ensure the verficiation link you use matches the one provided in the activation email."
   user_activation_failed_user_not_found_error: "Sorry, an error occurred, the account you are trying to verify could not be found. Please ensure the verficiation link you use matches the one provided in the activation email you received after registering."
   user_activation_successful_notice: "Welcome, and thanks for joining the Encyclopedia Of Life team. Your account with username <em>%{username}</em> is now active, please login."
   user_activity_report___select_: "User-activity report.  Select a specific user to see his activities sorted inversely by time created. Select 'All' to see all user activities. Then click 'Search' to proceed (use your browser back button to return here)."

@@ -129,8 +129,6 @@ class TocItem < SpeciesSchemaModel
     temp = temp | ["Education", "Education Resources"] # to Resource tab
     # Physical Description:
     temp = temp | ["Identification Resources"] # to Resource tab
-    # Molecular Biology and Genetics:
-    temp = temp | ["Nucleotide Sequences"] # to Resource tab
     # References and More Information:
     temp = temp | ["Search the Web"] # to be removed
     temp = temp | ["Literature References", "Biodiversity Heritage Library", "Bibliographies", "Bibliography"] # to Literature Tab

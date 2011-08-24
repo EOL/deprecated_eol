@@ -95,6 +95,7 @@ ActionController::Routing::Routes.draw do |map|
       entries.resource :overview, :only => [:show], :controller => "taxa/overviews"
       entries.resources :media, :only => [:index], :controller => "taxa/media"
       entries.resources :details, :only => [:index], :controller => "taxa/details"
+      entries.resource :community, :only => [:show], :controller => "taxa/communities"
       entries.resources :names, :only => [:index, :create, :update], :controller => "taxa/names",
                                 :collection => { :common_names => :get, :synonyms => :get }
       entries.resource :literature, :only => [:show], :controller => "taxa/literature",

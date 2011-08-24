@@ -29,4 +29,7 @@
               = render :partial => 'data_objects/supplier', :locals => { :data_object => item }
             .copy
               = link_to I18n.t(:learn_more_with_data_type, :data_type => item.data_type.to_s.downcase), data_object_path(item)
-  %p.all= link_to I18n.t(:see_all_media_link), taxon_media_path(@taxon_concept.id)
+  - if @selected_hierarchy_entry
+    %p.all= link_to I18n.t(:see_all_media_link), taxon_hierarchy_entry_media_path(@taxon_concept.id, @selected_hierarchy_entry)
+  - else
+    %p.all= link_to I18n.t(:see_all_media_link), taxon_media_path(@taxon_concept.id)

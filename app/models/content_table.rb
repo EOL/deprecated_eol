@@ -16,7 +16,8 @@ class ContentTable < ActiveRecord::Base
       'Molecular Biology and Genetics', 'Morphology', 'Names and Taxonomy ', 'Notes', 'Nucleotide Sequences',
       'On the Web', 'Overview', 'Page Statistics', 'Physical Description', 'Physiology', 'Physiology and Cell Biology',
       'Population Biology', 'Relevance to Humans and Ecosystems', 'Reproduction', 'Risks ', 'Size',
-      'Systematics or Phylogenetics', 'Threats', 'Trends', 'Trophic Strategy', 'Wikipedia' ]
+      'Systematics or Phylogenetics', 'Threats', 'Trends', 'Trophic Strategy', 'Wikipedia',
+      'Type Information', 'Taxonomy' ]
     english = Language.english
     if english
       content_table = ContentTable.create

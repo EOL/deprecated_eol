@@ -48,14 +48,6 @@ body.home > #header {
 .busy {
   cursor: wait; }
 
-/*adding facebook icon to social media */
-body > #footer ul.social_media li a.facebook {
-  background-position: 0px -25px; }
-body > #footer ul.social_media li a.tumblr {
-  background-position: 0px -75px; }
-body > #footer ul.social_media li a.flickr {
-  background-position: 0px -100px; }
-
 /*Override for layout on users edit - we have extra nested div so we need to remove padding,
  * we added extra fieldset - but check HR might give us an update for the fieldset */
 #profile_edit.article {
@@ -364,8 +356,6 @@ p.status.error {
 .home p.status.error {
   border: 1px solid #f2d2cc;
   background: #ffeae6; }
-.home #content .section .stats li.communities dl {
-  background-image: url("/images/v2/icon_communities.png"); }
 .home #content .section .stats p.meta {
   padding: 40px 0 15px 40px;
   font-size: 0.83em;

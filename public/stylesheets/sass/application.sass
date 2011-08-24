@@ -39,6 +39,8 @@ form
       font-weight: bold
       input
         margin: 0 5px 0 0
+    span.error
+      color: #e94c1b
   fieldset.actions,
   div
     margin: 10px 0
@@ -928,7 +930,7 @@ body
 
 #profile_info
   padding: 40px
-  .article.half
+  .section.half
     float: left
     width: 299px
     margin-right: 20px
@@ -1299,11 +1301,11 @@ body
       padding: 0 10px 3px 10px
       font-size: 1.16em
     .classifications
-      padding: 0
       a.current
         font-weight: bold
       > ul
         line-height: 160%
+        font-size: .9em
         > li
           white-space: nowrap
           overflow-x: auto
@@ -1312,7 +1314,6 @@ body
           margin: 0 -10px 20px -10px
           h4
             font-weight: normal
-            font-size: 1.1em
             a
               font-weight: bold
           ul
@@ -2119,8 +2120,8 @@ body
   background: #e2e9ef
   form
     width: 320px
-    min-height: 225px
-    padding: 75px 159px
+    min-height: 295px
+    padding: 75px 159px 20px 159px
     margin: 0 auto
     border: 1px solid #cad3db
     background: #f0f4f7 url("/images/v2/bg_sign-in.gif") 0 0 no-repeat
@@ -2136,6 +2137,8 @@ body
       padding: 7px 10px
       margin: 0 10px 0 0
       font-size: 1em
+    dl.captcha
+      margin: 20px 0 20px -65px
     a
       font-weight: bold
     label.checkbox

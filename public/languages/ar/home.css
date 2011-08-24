@@ -104,9 +104,10 @@ body > #header .section {
     body > #header .section .actions .language {
       float: right;
       position: relative;
-      margin: 0 0 0 10px; }
+      margin: 0 0 0 10px;
+      width: 100px; }
       body > #header .section .actions .language a {
-        background: transparent url("/images/v2/icon_dropdown.png") 98px 6px no-repeat; }
+        background: transparent url("/images/v2/icon_dropdown.png") 84px 6px no-repeat; }
       body > #header .section .actions .language ul {
         display: none;
         position: absolute;

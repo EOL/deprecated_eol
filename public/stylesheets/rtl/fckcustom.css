@@ -29,6 +29,9 @@ h4, h5, h6 {
 
 a {
   color: #195184; }
+  a.pdf {
+    background: url("/images/v2/icon_pdf.png") 0 top no-repeat;
+    padding: 0 0 3px 20px; }
 
 img {
   float: left;
@@ -43,8 +46,24 @@ ul, ol {
   margin: 0 40px 15px 40px;
   line-height: 170%; }
   ul li, ol li {
-    margin: 0 0 10px 0;
-    list-style-type: disc; }
+    margin: 0 0 10px 0; }
+
+ul li {
+  list-style-type: disc; }
+ul.with_images li {
+  overflow: hidden;
+  list-style-type: none;
+  clear: both;
+  border-bottom: 1px solid #cad3db;
+  padding: 10px; }
+  ul.with_images li img {
+    max-width: 88px;
+    padding: 0;
+    border: none;
+    float: right;
+    margin: 0 0 10px 0; }
+  ul.with_images li h2, ul.with_images li h3, ul.with_images li h4, ul.with_images li h5, ul.with_images li p {
+    margin-right: 110px; }
 
 blockquote {
   background: #eff2f4;
@@ -52,11 +71,15 @@ blockquote {
   margin: 0 0 25px 0;
   padding: 15px 20px 0 20px; }
 
+address {
+  font-style: normal; }
+
 table {
   border-collapse: collapse;
   width: 100%;
   margin: 0 0 15px 0;
-  line-height: 170%; }
+  line-height: 170%;
+  font-size: 1em; }
   table thead th {
     background: #eff2f4;
     padding: 5px 20px;

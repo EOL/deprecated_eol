@@ -21,6 +21,9 @@ h4, h5, h6
   font-weight: bold
 a
   color: #195184
+  &.pdf
+    background: url('/images/v2/icon_pdf.png') 0 top no-repeat
+    padding: 0 0 3px 20px
 img
   float: left
   padding: 10px
@@ -33,17 +36,37 @@ ul, ol
   line-height: 170%
   li
     margin: 0 0 10px 0
+ul
+  li
     list-style-type: disc
+  &.with_images
+    li
+      overflow: hidden
+      list-style-type: none
+      clear: both
+      border-bottom: 1px solid #CAD3DB
+      padding: 10px
+      img
+        max-width: 88px
+        padding: 0
+        border: none
+        float: right
+        margin: 0 0 10px 0
+      h2, h3, h4, h5, p
+        margin-right: 110px
 blockquote
   background: #EFF2F4
   border: 1px solid #CAD3DB
   margin: 0 0 25px 0
   padding: 15px 20px 0 20px
+address
+  font-style: normal
 table
   border-collapse: collapse
   width: 100%
   margin: 0 0 15px 0
   line-height: 170%
+  font-size: 1em
   thead
     th
       background: #EFF2F4

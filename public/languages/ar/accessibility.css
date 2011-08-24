@@ -221,30 +221,57 @@ form#switch_hierarchy_entry fieldset {
       top: 0 !important;
       right: 0 !important; }
 
-/*Static pages */
-.exemplars ul img {
-  clear: both;
-  float: right;
-  margin: 0 30px 30px 20px; }
-
-/*cms page styles for public content partners listing */
-.cms_page .header {
+/*cms page styles */
+#content.cms_page .header {
   border-bottom: 1px solid #cad3db;
   padding-bottom: 1em;
   margin-bottom: 30px; }
-.cms_page .footer {
+#content.cms_page .footer {
   border-top: 1px solid #cad3db;
   padding-top: 1em; }
-.cms_page ul.object_list {
+#content.cms_page table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0 0 15px 0;
+  line-height: 170%; }
+  #content.cms_page table thead tr {
+    border: 1px solid #cad3db; }
+    #content.cms_page table thead tr th {
+      background: #eff2f4;
+      padding: 5px 20px;
+      font-weight: bold;
+      text-align: right; }
+  #content.cms_page table tbody tr {
+    border: 1px solid #cad3db; }
+    #content.cms_page table tbody tr td {
+      padding: 5px 20px; }
+#content.cms_page a.pdf {
+  background: url("/images/v2/icon_pdf.png") right top no-repeat;
+  padding: 0 0 3px 20px; }
+#content.cms_page ul.with_images li {
+  overflow: hidden;
+  list-style-type: none;
+  clear: both;
+  border-bottom: 1px solid #cad3db;
+  padding: 10px; }
+  #content.cms_page ul.with_images li img {
+    max-width: 88px;
+    padding: 0;
+    border: none;
+    float: right;
+    margin: 0 0 10px 0; }
+  #content.cms_page ul.with_images li h2, #content.cms_page ul.with_images li h3, #content.cms_page ul.with_images li h4, #content.cms_page ul.with_images li h5, #content.cms_page ul.with_images li p {
+    margin-right: 110px; }
+#content.cms_page ul.object_list {
   list-style_type: none; }
-  .cms_page ul.object_list li img {
+  #content.cms_page ul.object_list li img {
     max-width: 68px; }
-  .cms_page ul.object_list li h4 {
+  #content.cms_page ul.object_list li h4 {
     margin-bottom: 0.5em; }
-    .cms_page ul.object_list li h4 a {
+    #content.cms_page ul.object_list li h4 a {
       color: #195184;
       text-decoration: underline; }
-  .cms_page ul.object_list li p {
+  #content.cms_page ul.object_list li p {
     clear: none; }
 
 /*content partners overrides/additions */
@@ -562,7 +589,8 @@ body > #header .section .session.join {
   .disclaimer p {
     text-align: center;
     font-size: 0.9em;
-    color: #394651; }
+    color: #394651;
+    margin: 0; }
 
 /*Our classification summary is a hierarchichal list whereas HR was just links without hierarchy
  * so we override the styles here */
@@ -579,17 +607,15 @@ body > #header .section .session.join {
   font-size: 1em !important; }
 
 /*classification tree */
-#classification_tree {
-  padding: 0; }
-  #classification_tree #browser-text {
-    width: 360px;
-    margin: 0 -10px;
-    overflow: auto;
-    border: 1px solid #cad3db; }
-    #classification_tree #browser-text ul.classification {
-      margin: 10px; }
-      #classification_tree #browser-text ul.classification li {
-        white-space: nowrap; }
+#classification_tree #browser-text {
+  width: 360px;
+  margin: 0 -10px;
+  overflow: auto;
+  border: 1px solid #cad3db; }
+  #classification_tree #browser-text ul.classification {
+    margin: 10px; }
+    #classification_tree #browser-text ul.classification li {
+      white-space: nowrap; }
 
 /*overides for empty text styles - various */
 .updates .empty p {
@@ -610,13 +636,14 @@ body > #header .section .session.join {
   #taxon_detail form#new_collection_item fieldset {
     display: inline-block; }
 
-#taxon form#new_collection_item {
+#taxon #collections_summary form {
   margin-top: 0; }
-  #taxon form#new_collection_item fieldset.actions {
-    margin-top: -3px; }
-    #taxon form#new_collection_item fieldset.actions input[type="submit"] {
-      font-size: 0.78em;
-      padding: 7px 10px; }
+  #taxon #collections_summary form fieldset.actions {
+    margin-top: 0; }
+
+.empty fieldset.actions input.button {
+  font-size: 0.82em;
+  padding: 5px 10px 6px 10px; }
 
 /*HR styles assume text descriptions are nicely wrapped in p tags - in reality they may or may not be so we add
  * extra div.description and assign styles to the div - check this, particularly line-height as we probably need
@@ -648,23 +675,29 @@ body > #header .section .session.join {
     #page_heading .page_actions fieldset.actions input[type="submit"] {
       margin: 0; }
 
-/*CMS pages */
-.cms_page table {
-  border-collapse: collapse;
-  width: 100%;
-  margin: 0 0 15px 0;
-  line-height: 170%; }
-  .cms_page table thead tr {
-    border: 1px solid #cad3db; }
-    .cms_page table thead tr th {
-      background: #eff2f4;
-      padding: 5px 20px;
-      font-weight: bold;
-      text-align: right; }
-  .cms_page table tbody tr {
-    border: 1px solid #cad3db; }
-    .cms_page table tbody tr td {
-      padding: 5px 20px; }
+/*wikipedia import request */
+#wikipedia_queue {
+  width: 640px; }
+  #wikipedia_queue form {
+    margin-top: 40px; }
+    #wikipedia_queue form dt p {
+      margin-bottom: 0; }
+    #wikipedia_queue form dd {
+      margin: 0 0 10px 0; }
+      #wikipedia_queue form dd input[type="text"] {
+        width: 308px;
+        height: 22px;
+        padding: 2px 5px;
+        font: normal 1em Helvetica, Arial, sans-serif;
+        border: 1px solid #cad3db;
+        background-color: white;
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+        background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+        background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
+        width: 600px; }
+    #wikipedia_queue form input[type="submit"] {
+      padding: 7px 10px;
+      font-size: 1em; }
 
 /*collections overides */
 .object_list div.checkbox {
@@ -875,7 +908,7 @@ h1.notice {
   text-transform: uppercase;
   font-weight: bold; }
 #worklist .filters fieldset dl {
-  padding: 0 0 0 30px; }
+  padding: 0 30px; }
 
 #worklist #tasks li:hover {
   background-color: white !important; }
@@ -915,9 +948,6 @@ h1.notice {
 a.other_actions {
   float: left;
   margin-top: 1em; }
-
-form#new_collection_item fieldset.actions {
-  margin: 0; }
 
 .site_column > #choose_collections h2 {
   font-size: 1.33em;
@@ -972,14 +1002,14 @@ form#new_collection_item fieldset.actions {
   padding-bottom: 20px;
   width: 260px; }
   #taxon_detail #sidebar #toc {
-    margin: 0px 0 0 20px; }
+    margin: 0px 20px; }
 
 #media_list #sidebar {
   padding: 0;
   padding-bottom: 20px;
   width: 220px; }
   #media_list #sidebar #filters {
-    margin: 0px 0 0 20px; }
+    margin: 0px 20px; }
 
 #recognized_by span {
   font-size: 0.95em; }
@@ -989,3 +1019,11 @@ form#new_collection_item fieldset.actions {
   border-bottom: 1px solid #d4dce2; }
   #taxon_updates form.comment textarea {
     width: 580px; }
+
+#page_heading p#citation {
+  background-color: white;
+  border: 1px solid #d4dce2;
+  color: #5f6c76;
+  font-size: 0.95em;
+  line-height: 100%;
+  font-weight: normal; }

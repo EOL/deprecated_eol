@@ -7,4 +7,5 @@
     - if count > 0
       -# NOTE - a string is used for the path instead of collection_path(@collection, :filter => 'newsfeed') because
       -# that version produces an awkward-looking URL.
-      %li{:class => "#{type}#{@filter == type.to_s ? ' active' : ''}" }= link_to I18n.t("#{types[type][:i18n_key]}_with_count", :count => count), "/collections/#{@collection.id}/#{type}"
+      - li_class = (type == :text) ? 'articles' : type
+      %li{:class => "#{li_class}#{@filter == type.to_s ? ' active' : ''}" }= link_to I18n.t("#{types[type][:i18n_key]}_with_count", :count => count), "/collections/#{@collection.id}/#{type}"

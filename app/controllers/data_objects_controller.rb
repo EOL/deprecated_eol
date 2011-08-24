@@ -150,7 +150,7 @@ class DataObjectsController < ApplicationController
     get_attribution
     @comments = @data_object.all_comments.dup.paginate(:page => params[:page], :order => 'updated_at DESC', :per_page => Comment.per_page)
     @slim_container = true
-    @revisions = @data_object.revisions.sort_by(&:created_at).reverse
+    @revisions = DataObject.sort_by_created_date(@data_object.revisions).reverse
     @translations = @data_object.available_translations_data_objects(current_user, nil)
     @taxon_concepts = @data_object.get_taxon_concepts(:published => :preferred)
     @scientific_names = @taxon_concepts.inject({}) { |res, tc| res[tc.scientific_name] = { :common_name => tc.common_name, :taxon_concept_id => tc.id }; res }

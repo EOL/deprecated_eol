@@ -45,6 +45,7 @@ class Taxa::MediaController < TaxaController
       :vetted_types => search_statuses,
       :visibility_types => 'visible',
       :ignore_maps => true,
+      :ignore_translations => true,
       :filter => 'visible',
       :filter_hierarchy_entry => @selected_hierarchy_entry
     })

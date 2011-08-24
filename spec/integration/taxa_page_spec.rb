@@ -196,7 +196,6 @@ describe 'Taxa page' do
       @common_names = EOL::CommonNameDisplay.find_by_taxon_concept_id(@testy[:taxon_concept].id)
       # TODO: Test that common names from other languages are present and that current language names appear first after language is switched.
       # English by default
-      debugger
       body.should have_tag('h4:first-of-type', "English")
       body.should have_tag('table:first-of-type') do
         with_tag('thead tr th:first-of-type', /preferred/i)

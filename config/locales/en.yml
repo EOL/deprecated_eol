@@ -1412,7 +1412,7 @@ en:
   edit_eol_glossary: "edit EOL glossary"
   edit_glossary_term: "Edit Glossary Term"
   edit_hierarchy: "edit hierarchy"
-  edit_collection: "Edit collection"
+  edit_collection_details: "Edit collection details"
   edit_collection_details_header: "Edit collection details"
   edit_collection_head_title: "Edit: %{collection_name}"
   edit_this_collection_button: "Edit this collection"

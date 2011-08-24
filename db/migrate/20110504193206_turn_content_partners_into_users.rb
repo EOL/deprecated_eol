@@ -23,7 +23,7 @@ class TurnContentPartnersIntoUsers < ActiveRecord::Migration
     user.agent_id = content_partner_agent.id
     user.active = 1
     user.save
-
+    
     content_partner.content_partner_status_id = content_partner_agent.agent_status_id
     content_partner.user_id = user.id
     content_partner.save

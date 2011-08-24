@@ -51,7 +51,7 @@ class Language < SpeciesSchemaModel
         TranslatedLanguage.create(:label => 'English', :original_language_id => eng_lang.id, :language_id => eng_lang.id)
       end
     else
-      eng_lang = Language.find_by_sql('SELECT * FROM languages WHERE iso_639_1 = "en"')
+      eng_lang = Language.find_by_sql('SELECT * FROM languages WHERE iso_639_1 = "en"')[0] rescue nil
       unless eng_lang
         eng_lang = Language.create(:iso_639_1 => 'en', :iso_639_2 => 'eng', :iso_639_3 => 'eng',
           :source_form => 'English', :sort_order => 1, :label => 'English')

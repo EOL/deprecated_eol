@@ -76,6 +76,7 @@ $(window).load(function() {
 });
 
 function resize_task_panel() {
+  $('#task').css('height', '');
   if($('#task').outerHeight() <= $('#tasks ul').outerHeight()) {
     $('#task').css('height', $('#tasks ul').css('height'));
   }

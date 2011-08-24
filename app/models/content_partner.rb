@@ -212,6 +212,10 @@ class ContentPartner < SpeciesSchemaModel
     ContentPartner.find_all_by_id(published_partner_ids, :order => "full_name")
   end
 
+  def self.boa
+    cached_find(:full_name, 'Biology of Aging')
+  end
+
   def all_harvest_events
     all_harvest_events = []
     resources.each do |r|

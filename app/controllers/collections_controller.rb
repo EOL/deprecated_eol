@@ -237,7 +237,7 @@ private
       if options[:move]
         # Not handling any weird errors here, to simplify flash notice handling.
         remove_items(:items => all_items)
-        @collection_items.delete_if {|ci| params['collection_items'].include?(ci.id.to_s) } if @collection_items
+        @collection_items.delete_if {|ci| params['collection_items'].include?(ci.id.to_s) } if @collection_items && params['collection_items']
         if destinations.length == 1
           flash[:notice] = I18n.t(:moved_items_from_collection_with_count_notice, :count => all_items.count,
                                   :name => link_to_name(source))

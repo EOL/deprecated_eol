@@ -109,7 +109,7 @@
               = ENV["APP_VERSION"]
         = render :partial => '/layouts/v2/global_navigation', :locals => { :position => :footer }
         %ul.social_media
-          - # TODO: add rss ? %li= link_to I18n.t(:rss_abbr_html), "/placeholder", :class => "rss"
+          - # TODO: add rss ?
           %li= link_to I18n.t(:twitter), $EOL_TWITTER_ACCOUNT, :class => "twitter"
           %li= link_to I18n.t(:facebook), $EOL_FACEBOOK_ACCOUNT, :class => "facebook"
           %li= link_to I18n.t(:tumblr), $EOL_TUMBLR_ACCOUNT, :class => "tumblr"

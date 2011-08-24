@@ -6,7 +6,7 @@
         %li.taxon
           %dl
             %dd= number_with_delimiter(total_count("taxon_concepts"), :delimiter => ",")
-            %dt= I18n.t(:eol_pages)
+            %dt= link_to I18n.t(:eol_pages), collection_path($RICH_PAGES_COLLECTION_ID)
           = link_to I18n.t(:learn_about_eol), help_path
         %li.users
           %dl

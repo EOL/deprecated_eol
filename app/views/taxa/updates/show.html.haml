@@ -4,6 +4,8 @@
     #main
       .main_container.update_feed
         = render(:partial => 'comments/new', :locals => { :parent => @taxon_concept })
+        .newsfeed_heading
+          %h3= I18n.t(:newsfeed)
         - log = @taxon_concept.activity_log(:per_page => 10, :page => @page)
         .article.list.updates
           = render(:partial => 'activity_logs/index', :locals => {:log => log })

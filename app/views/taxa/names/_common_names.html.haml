@@ -14,7 +14,7 @@
       - names.each do |name|
         %tr
           %td
-            %span{:class => name.preferred == 1 ? 'preferred' : nil}
+            %span{:class => name.preferred == 1 ? 'preferred' : 'assistive'}
               = name.preferred == 1 ? I18n.t(:name_preferred_for_language_yes) : I18n.t(:name_preferred_for_language_no)
           %td
             = name.string

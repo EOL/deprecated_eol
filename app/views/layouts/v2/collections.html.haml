@@ -13,7 +13,7 @@
             %p= I18n.t(:this_is_a_focus_collection_for_community, :community => link_to(@collection.community.name, community_path(@collection.community)))
         .page_actions
           %ul
-            - unless @watch_collection && @collection.id == @watch_collection.id
+            - unless @watch_collection && @collection.id == @watch_collection.id || params[:action] == "edit"
               %li= render :partial => 'shared/add_to_my_collection', :locals => { :item => @collection, :my_collection => @watch_collection }
             = yield :additional_page_actions
         = render :partial => 'shared/flash_messages'

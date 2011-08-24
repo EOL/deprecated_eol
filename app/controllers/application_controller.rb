@@ -486,16 +486,17 @@ class ApplicationController < ActionController::Base
   end
 
   # Ensure that the user has this in their watch_colleciton, so they will get replies in their newsfeed:
-  def auto_collect(what)
+  def auto_collect(what, options = {})
+    options[:annotation] ||= I18n.t(:user_left_comment_on_date, :username => current_user.full_name,
+                                    :date => I18n.l(Date.today))
     watchlist = current_user.watch_collection
     collection_item = CollectionItem.find_by_collection_id_and_object_id_and_object_type(watchlist.id, what.id,
                                                                                          what.class.name)
     if collection_item.nil?
       collection_item = begin # No care if this fails.
         CollectionItem.create(
-          :annotation => I18n.t(:user_left_comment_on_date, :username => current_user.full_name, :date => I18n.l(Date.today)),
-          :object => what,
-          :collection_id => watchlist.id
+          :annotation => options[:annotation], :username => current_user.full_name, :date => I18n.l(Date.today)),
+          :object => what, :collection_id => watchlist.id
         )
       rescue => e
         logger.error "** ERROR COLLECTING: #{e.message} FROM #{e.backtrace.first}"

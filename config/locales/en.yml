@@ -2751,7 +2751,7 @@ en:
   statistics: "Statistics"
   statistic: "Statistic"
   stat: "Stat"
-  stats_last_count_less_than_minutes_ago: "Counts last udpated less than %{minutes} minutes ago."
+  stats_last_count_less_than_minutes_ago: "Counts last updated less than %{minutes} minutes ago."
   status__: "Status:"
   status: "Status"
   status__unknown: "Status: unknown"

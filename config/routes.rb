@@ -79,6 +79,7 @@ ActionController::Routing::Routes.draw do |map|
     user.resource :newsfeed, :only => [:show], :controller => "users/newsfeeds"
     user.resource :activity, :only => [:show], :controller => "users/activities"
     user.resources :collections, :only => [:index], :controller => "users/collections"
+    user.resources :communities, :only => [:index], :controller => "users/communities"
     user.resources :content_partners, :only => [:index], :namespace => "users/"
   end
   map.verify_user '/users/:username/verify/:validation_code', :controller => 'users', :action => 'verify'
@@ -212,14 +213,15 @@ ActionController::Routing::Routes.draw do |map|
   map.mobile_search 'mobile/search/:id', :controller => 'search', :action => 'index'
 
   map.with_options :controller => 'content', :action => 'show', :conditions => { :method => :get } do |content_page|
-    content_page.help         '/help',         :id => 'help'
-    content_page.about        '/about',        :id => 'about'
-    content_page.news         '/news',         :id => 'news'
-    content_page.contact      '/contact',      :id => 'contact'
-    content_page.terms_of_use '/terms_of_use', :id => 'terms_of_use'
-    content_page.citing       '/citing',       :id => 'citing'
-    content_page.privacy      '/privacy',      :id => 'privacy'
-    content_page.podcast      '/podcast',      :id => 'podcast'
+    content_page.help         '/help',             :id => 'help'
+    content_page.about        '/about',            :id => 'about'
+    content_page.news         '/news',             :id => 'news'
+    content_page.contact      '/contact',          :id => 'contact'
+    content_page.terms_of_use '/terms_of_use',     :id => 'terms_of_use'
+    content_page.citing       '/citing',           :id => 'citing'
+    content_page.privacy      '/privacy',          :id => 'privacy'
+    content_page.podcast      '/podcast',          :id => 'podcast'
+    content_page.curators     '/curators/*ignore', :id => 'curators'
     content_page.cms_page     '/info/:id'
     content_page.cms_crumbs   '/info/*crumbs'
   end

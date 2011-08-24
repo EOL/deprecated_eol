@@ -9,6 +9,8 @@ class Community < ActiveRecord::Base
   has_many :containing_collections, :through => :collection_items, :source => :collection
   has_many :comments, :as => :parent
 
+  named_scope :published, :conditions => 'published = 1'
+
   accepts_nested_attributes_for :collection
 
   after_create :attatch_focus

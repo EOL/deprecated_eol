@@ -16,14 +16,6 @@
       - unless @user.user_identities.blank?
         %dt= I18n.t('helpers.label.user.user_identities')
         %dd= @user.user_identities.collect{|ui| ui.label}.join(', ')
-  .article.half.list
-    .header
-      %h3= I18n.t(:users_member_of_count_communities, :count => @user.members.size)
-    - unless @user.members.blank?
-      %ul
-        - @user.members.each do |member|
-          - if community = member.community
-            %li= link_to h(community.name), community
   - if @user.is_curator?
     .article.half.info
       .header

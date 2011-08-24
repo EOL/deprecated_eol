@@ -6,28 +6,33 @@
         %li.taxon
           %dl
             %dd= number_with_delimiter(total_count("taxon_concepts"), :delimiter => ",")
-            %dt= I18n.t(:taxa)
-          = link_to I18n.t(:what_is_a_taxon), "/placeholder"
-        %li.contributors
+            %dt= I18n.t(:eol_pages)
+          = link_to I18n.t(:learn_about_eol), help_path
+        %li.users
           %dl
             %dd= number_with_delimiter(total_count("users"), :delimiter => ",")
             %dt= link_to I18n.t(:members_like_you), search_path('*', :type => ['user'])
-          = link_to I18n.t(:learn_how_to_join), search_path('*', :type => ['user'])
+          = link_to I18n.t(:learn_about_joining), cms_page_path(:id => 'profile')
         %li.collections
           %dl
             %dd= number_with_delimiter(total_count("collections"), :delimiter => ",")
             %dt= link_to I18n.t(:collections), search_path('*', :type => ['collection'])
-          = link_to I18n.t(:learn_how_to_interact), "/placeholder"
+          = link_to I18n.t(:learn_about_collections), cms_page_path(:id => 'collections')
+        %li.communities
+          %dl
+            %dd= number_with_delimiter(total_count("communities"), :delimiter => ",")
+            %dt= link_to I18n.t(:communities), search_path('*', :type => ['community'])
+          = link_to I18n.t(:learn_about_communities), cms_page_path(:id => 'communities')
         %li.images
           %dl
             %dd= number_with_delimiter(total_count("images"), :delimiter => ",")
             %dt= link_to I18n.t(:images), search_path('*', :type => ['image'])
-          = link_to I18n.t(:learn_how_to_contribute), "/placeholder"
+          = link_to I18n.t(:learn_about_contributing), cms_page_path(:id => 'contribute')
         %li.partners
           %dl
             %dd= number_with_delimiter(total_count("content_partners"), :delimiter => ",")
             %dt= link_to I18n.t(:content_partners), content_partners_path
-          = link_to I18n.t(:learn_about_content_partners), content_partners_path
+          = link_to I18n.t(:learn_about_content_partners), cms_page_path(:id => 'partners')
       %p.meta= I18n.t(:stats_last_count_less_than_minutes_ago, :minutes => $CACHE_STATS_COUNT_IN_MINUTES.nil? ? 60 : $CACHE_STATS_COUNT_IN_MINUTES)
 
     .article.community

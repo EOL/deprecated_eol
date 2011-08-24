@@ -336,6 +336,8 @@ module ApplicationHelper
           User.count(:conditions => "active=1")
         when "collections"
           Collection.connection.select_values("SELECT COUNT(*) count FROM collections WHERE special_collection_id IS NULL OR user_id IS NULL")[0].to_i
+        when "communities"
+          Community.count(:conditions => "published = 1")
         when "content_partners" then
           ContentPartner.count(:conditions => "show_on_partner_page = 1")
         else

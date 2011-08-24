@@ -1,0 +1,17 @@
+#content
+  .section
+    .article
+      %h3 Welcome to the EOL Version 2 Site Preview.
+      %p Briefings for media members on the new version of the Encyclopedia of Life are available on request. The   new site, <a href="http://eol.org">eol.org</a>, will open to the public by 12 noon US Eastern Daylight Time Monday,    September 5, 2011. Please do not publish the prelaunch link.
+      %p
+        For press inquiries, please contact
+        = link_to "eolv2press@eol.org", "mailto:eolv2press@eol.org"
+    - form_tag(preview_path, :method => :post) do |f|
+      %fieldset
+        %dl
+          %dt
+            %label Password
+          %dd
+            = password_field_tag :preview
+      %fieldset.actions
+        = submit_tag I18n.t(:enter)

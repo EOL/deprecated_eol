@@ -31,8 +31,11 @@
           %li
             %noscript{:id => 'no_script'}= I18n.t(:player_is_disabled) + '<br>'
             = link_to I18n.t("download_#{en_mime_type.sub(/\//, '_')}"), sound_url, { :title => I18n.t("download_#{en_mime_type.sub(/\//, '_')}_assistive") }
+            %noscript= "<br>" + I18n.t(:try_google_audio_player)
 - else
-  %noscript= '<p><p><p>' 
+  - no_script = render :partial => 'data_objects/sound_player', :locals => {:width => 150, :sound_url => sound_url}
+  %noscript= "<br><br><br>" + no_script
+
   '<br><br><br>'
   %a{:href => '#', :id => "play"}= I18n.t(:audio_play)
   %a{:href => '#', :id => "pause"}= I18n.t(:audio_pause)

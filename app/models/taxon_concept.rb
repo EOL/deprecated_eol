@@ -347,6 +347,7 @@ class TaxonConcept < SpeciesSchemaModel
     end
     special_content = special_content_for_toc_items(toc_items)
     details += special_content unless special_content.empty?
+    return details
   end
 
   # This may throw an ActiveRecord::RecordNotFound exception if the TocItem's category_id doesn't exist.

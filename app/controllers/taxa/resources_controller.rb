@@ -11,23 +11,26 @@ class Taxa::ResourcesController < TaxaController
   def identification_resources
     toc_id = TocItem.identification_resources.id
     @assistive_section_header = I18n.t(:resources)
-    @contents = @taxon_concept.details_for_toc_items(ContentTable.details.toc_items, :language => current_user.language_abbr).collect{|d| d if d[:toc_item].id == toc_id}.compact
+    identification_resources_toc_items = ContentTable.details.toc_items.select{ |ti| ti.parent_id == toc_id || ti.id == toc_id}
+    @contents = @taxon_concept.details_for_toc_items(identification_resources_toc_items, :language => current_user.language_abbr)
     current_user.log_activity(:viewed_taxon_concept_resources, :taxon_concept_id => @taxon_concept.id)
   end
   
   def education
     toc_id = TocItem.education.id
     @assistive_section_header = I18n.t(:resources)
-    @contents = @taxon_concept.details_for_toc_items(ContentTable.details.toc_items, :language => current_user.language_abbr).collect{|d| d if d[:toc_item].parent_id == toc_id}.compact
+    education_toc_items = ContentTable.details.toc_items.select{ |ti| ti.parent_id == toc_id || ti.id == toc_id}
+    @contents = @taxon_concept.details_for_toc_items(education_toc_items, :language => current_user.language_abbr)
     current_user.log_activity(:viewed_taxon_concept_resources_education, :taxon_concept_id => @taxon_concept.id)
   end
-  
+
   def biomedical_terms
     if !Resource.ligercat.nil? && HierarchyEntry.find_by_hierarchy_id_and_taxon_concept_id(Resource.ligercat.hierarchy.id, @taxon_concept.id)
       @biomedical_exists = true
       toc_id = TocItem.biomedical_terms.id
+      biomedical_terms_toc_items = ContentTable.details.toc_items.select{ |ti| ti.id == toc_id}
       @assistive_section_header = I18n.t(:resources)
-      @contents = @taxon_concept.details_for_toc_items(ContentTable.details.toc_items, :language => current_user.language_abbr).collect{|d| d if d[:toc_item].id == toc_id}.compact
+      @contents = @taxon_concept.details_for_toc_items(biomedical_terms_toc_items, :language => current_user.language_abbr)
     else
       @biomedical_exists = false
     end

@@ -21,7 +21,7 @@
 #community.main_container
   .article.list.updates
     = render :partial => 'comments/new', :locals => { :parent => @community }
-    .heading
+    .newsfeed_heading
       %h3= I18n.t(:newsfeed)
     -# The #reject on this next line is a TEMP workaround to remove activities that are not actually from this collection. I think that's a data problem, but until we
     -# TODO check on that, I don't want to allow other collections' logs here:

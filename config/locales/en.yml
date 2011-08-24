@@ -919,9 +919,9 @@ en:
   community_members: "Community members"
   community_must_have_one_manager_error: "Sorry, communities must have at least one manager, and this member is the last one."
   community_not_destroyed_error: "Sorry, the community was not deleted."
-  community_tab_collections_description: "Collections are created by EOL users to highlight the relationships between species, whether that relationship is geographic, ecological, or personal. Communities can \"feature\" collections that are of particular interest and value."
+  community_tab_collections_description: 'Collections are created by EOL users to bring together species, multimedia, articles, or even members that have something in common, such as geography, ecology, or a personal meaning.  Communities can "feature" collections that are of particular interest and value to them.'
   community_tab_communities_description: "Communities are groups of EOL members who come together to share their interests and expertise. EOL communities are organized around one or more EOL collections, and offer members a way to focus on topics of common concern."
-  community_tab_curators_description: "Curators are EOL users with taxonomic expertise who have given their time to vet the content you see on EOL, ensuring what you see is accurate and of quality."
+  community_tab_curators_description: "Curators are EOL users with biological expertise who give their time to review content on EOL, ensuring that what you see is accurate and of high quality."
   community_removed_by_owner: "This community was removed by its owner."
   community_roles: "Community Roles"
   communities_summary_empty: "This taxon hasn't been endorsed by a community yet."

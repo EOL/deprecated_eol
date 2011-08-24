@@ -66,7 +66,17 @@ body > #footer ul.social_media li a.flickr {
     width: 282px;
     height: 120px; }
 
+#user_communities ul.object_list img {
+  float: left;
+  margin: 0 20px 0 0; }
+
 /*Content partner various */
+#profile_content_connections li img {
+  max-width: 68px;
+  max-height: 68px;
+  width: expression(this.width > 68 ? "68px" : true);
+  height: expression(this.height > 68 ? "68px" : true); }
+
 #sidebar .content_partner_managers {
   margin: 0 0 20px 0; }
   #sidebar .content_partner_managers li {
@@ -354,6 +364,8 @@ p.status.error {
 .home p.status.error {
   border: 1px solid #f2d2cc;
   background: #ffeae6; }
+.home #content .section .stats li.communities dl {
+  background-image: url("/images/v2/icon_communities.png"); }
 .home #content .section .stats p.meta {
   padding: 40px 0 15px 40px;
   font-size: 0.83em;

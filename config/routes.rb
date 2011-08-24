@@ -77,6 +77,7 @@ ActionController::Routing::Routes.draw do |map|
     user.resource :newsfeed, :only => [:show], :controller => "users/newsfeeds"
     user.resource :activity, :only => [:show], :controller => "users/activities"
     user.resources :collections, :only => [:index], :controller => "users/collections"
+    user.resources :communities, :only => [:index], :controller => "users/communities"
     user.resources :content_partners, :only => [:index], :namespace => "users/"
   end
   map.verify_user '/users/:username/verify/:validation_code', :controller => 'users', :action => 'verify'

@@ -56,7 +56,16 @@ body > #footer ul.social_media li
       textarea
         width: 282px
         height: 120px
+#user_communities
+  ul.object_list
+    img
+      float: left
+      margin: 0 20px 0 0
 /** Content partner various **/
+#profile_content_connections
+  li
+    img
+      +max_dimensions($logo_size_primary, $logo_size_primary)
 #sidebar
   .content_partner_managers
     margin: 0 0 20px 0
@@ -363,6 +372,10 @@ p.status.error
   #content
     .section
       .stats
+        li
+          &.communities
+            dl
+              background-image: url("/images/v2/icon_communities.png")
         p.meta
           padding: 40px 0 15px 40px
           font-size: 0.83em

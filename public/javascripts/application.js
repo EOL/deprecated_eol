@@ -55,15 +55,6 @@ $(function() {
       return false;
     });
     if ("cycle" in $.fn) {
-      $ss.find(".images").cycle({
-        speed: 500,
-        timeout: 0,
-        onPagerEvent: toggleImg,
-        pagerAnchorBuilder: function(idx) {
-          return $ss.selector + " .thumbnails a:eq(" + idx + ")";
-        }
-      });
-
       function toggleImg(idx) {
         var $image = $ss.find(".image:eq(" + idx + ")");
         var $a = $image.find("a");
@@ -73,6 +64,15 @@ $(function() {
       }
 
       toggleImg(0);
+
+      $ss.find(".images").cycle({
+        speed: 500,
+        timeout: 0,
+        onPagerEvent: toggleImg,
+        pagerAnchorBuilder: function(idx) {
+          return $ss.selector + " .thumbnails a:eq(" + idx + ")";
+        }
+      });
 
     }
   })($(".gallery"));

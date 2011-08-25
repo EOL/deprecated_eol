@@ -1,22 +1,13 @@
 #content
-  #taxon_literature.site_column
+  #taxon_resources.site_column
     = render :partial => 'resources_menu'
-    .main_container.copy
-      %h2= I18n.t(:nucleotide_sequences)
-      - unless @identifier.blank?
-        %table{ :cellspacing => "5", :border => "0", :width => "100%", :cellpadding => "5" }
-          %tr
-            %td{ :align => "center", :valign => "top", :width => "20%" }
-              = external_link_to(image_tag('/images/ncbi.gif'),"http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=#{@identifier}&lvl=0", {:show_link_icon => false})
-            %td{:valign => "top"}
-              %span.smalltext
-                =I18n.t("the_mission_of_the", :link => external_link_to(I18n.t("national_center_for_biotechnol"), 'http://www.ncbi.nlm.nih.gov/', {:show_link_icon => false}))
-              %br
-              %span.smalltext
-                =I18n.t("the_ncbi_taxonomy_contains_names_using", :linka => external_link_to(I18n.t("ncbi_taxonomy"), 'http://www.ncbi.nlm.nih.gov/sites/entrez?db=taxonomy', {:show_link_icon => false}), :linkb =>  link_to(I18n.t("browse_eol"), url_for(settings_url)))
-              %br
-        %br
-        %p{ :align => "center" }
-          = external_link_to I18n.t("view_protein_and_nucleotide_se"), "http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=#{@identifier}&lvl=0"
-        
+    #nucleotide_sequences.main_container
+      .copy
+        %h3= I18n.t(:nucleotide_sequences)
+        - unless @identifier.blank?
+          = link_to image_tag('/images/v2/ncbi.gif'), "http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=#{@identifier}&lvl=0"
+          %p= I18n.t(:nucleotide_sequences_ncbi_mission, :ncbi_link => 'http://www.ncbi.nlm.nih.gov/')
+          %p= I18n.t(:nucleotide_sequences_ncbi_database, :ncbi_taxonomy_link => 'http://www.ncbi.nlm.nih.gov/sites/entrez?db=taxonomy')
+          %p= link_to I18n.t(:nucleotide_sequences_proteins_link), "http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=#{@identifier}&lvl=0"
+
 

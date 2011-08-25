@@ -8,5 +8,5 @@
         %p= I18n.t(:focus_collection_edit_link, :collection => link_to(@community.collection.name, collection_path(@community.collection)))
     .collection_list
       %h3= I18n.t(:endorsed_collections)
-      %p= I18n.t(:manager_endorse_collecitons_suggestion)
+      %p= I18n.t(:manager_endorse_collections_suggestion)
   = render :partial => 'form', :locals => {:submit_label => I18n.t(:save) }

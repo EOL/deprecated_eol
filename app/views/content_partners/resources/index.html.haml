@@ -26,8 +26,7 @@
     - if @new_agreement.blank?
       .copy
         %h3= I18n.t(:content_partner_resources_header)
-        - # FIXME: placeholder URL for eol transfer schema
-        %p= I18n.t(:content_partner_resources_information, :eol_transfer_schema_url => "/placeholder")
+        %p= I18n.t(:content_partner_resources_information, :eol_transfer_schema_url => cms_page_path(:id => 'cp plan export'))
         %p= link_to I18n.t(:content_partner_resource_new_link), new_content_partner_resource_path(@partner), :class => 'button'
       - unless @resources.blank?
         %table.standard

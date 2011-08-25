@@ -269,14 +269,19 @@ private
   def instantiate_variables_for_curation_privileges
     @curator_levels = CuratorLevel.find(:all, :order => "label ASC")
     @page_title = I18n.t(:curation_privileges_page_title)
-    @page_description = I18n.t(:curation_privileges_page_description, :curator_faq_url => '/content/page/help_build_eol#curators')
+    @page_description = I18n.t(:curation_privileges_page_description, :curators_url => curators_path)
   end
 
   def provide_feedback
     if params[:commit_curation_privileges_put]
-      if params[:user][:requested_curator_level_id] == CuratorLevel.assistant_curator.id
-        flash[:notice] = I18n.t(:curator_level_assistant_approved_notice)
-      elsif !@user.requested_curator_level_id.nil? && !@user.requested_curator_level_id.zero?
+      case params[:user][:requested_curator_level_id].to_i
+      when CuratorLevel.assistant.id
+        flash[:notice] = I18n.t(:curator_level_assistant_approved_notice, :more_url => curators_path)
+      when CuratorLevel.full.id
+        flash[:notice] = I18n.t(:curator_level_full_pending_notice)
+      when CuratorLevel.master.id
+        flash[:notice] = I18n.t(:curator_level_master_pending_notice)
+      else !@user.requested_curator_level_id.nil? && !@user.requested_curator_level_id.zero?
         flash[:notice] = I18n.t(:curator_level_application_pending_notice)
       end
     else

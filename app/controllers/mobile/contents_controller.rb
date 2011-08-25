@@ -1,7 +1,7 @@
 class Mobile::ContentsController < Mobile::MobileController
 
   def index
-    @explore_taxa = RandomHierarchyImage.random_set(4)
+    @explore_taxa = RandomHierarchyImage.random_set(6)
   end
 
   def enable

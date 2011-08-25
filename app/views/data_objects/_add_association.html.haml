@@ -1,5 +1,5 @@
 - search_result = nil unless defined?(search_result)
-- if image = item.best_image_from_solr
+- if image = item.exemplar_or_best_image_from_solr
   = link_to image_tag(image.thumb_or_object('88_88')), taxon_overview_path(item)
 - else
   - if item.taxon_concept_content && item.taxon_concept_content.image_object

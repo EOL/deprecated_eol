@@ -4,9 +4,11 @@
     = render :partial => 'resources_menu'
     #taxon_detail
       #main.main_container
-        %h2= I18n.t(:education)
+        %h3= I18n.t(:education)
         .section
           - unless @contents.blank?
             = render :partial => 'taxa/details/category_content', :locals => { :content => @contents }
           - else
-            = I18n.t(:contact_for_providing_education_resource_if_empty, :email => link_to('education@eol.org', "mailto:education@eol.org"), :link => link_to(I18n.t("eol_learning_and_education"), 'http://education.eol.org'))
+            .article
+              .empty
+                %p= I18n.t(:contact_for_providing_education_resource_if_empty, :email => link_to('education@eol.org', "mailto:education@eol.org"), :link => link_to(I18n.t("eol_learning_and_education"), 'http://education.eol.org'))

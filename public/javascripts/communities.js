@@ -1,7 +1,7 @@
 if ($.fn.spotlite != undefined) {
   $(function() {
     $.ajax({
-      url: "/users/usernames.js",
+      url: "/users/usernames",
       dataType: 'json',
       success: function(data) {
         $("dd.invite").spotlite({pool: data}).find("textarea").hide().end().find(":text").show();

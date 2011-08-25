@@ -1,10 +1,5 @@
-- linked ||= false
-- supplier ||= false
 = render :partial => 'data_objects/license', :locals => { :data_object => data_object }
 .copy
-  %p<
+  %p.owner
     = render :partial => 'data_objects/owner', :locals => { :data_object => data_object, :linked => true }
-    - if linked
-      &mdash;
-      = link_to I18n.t(:learn_more_with_data_type, :data_type => data_object.data_type.to_s.downcase), data_object_path(data_object)
   = render :partial => 'data_objects/supplier', :locals => { :data_object => data_object }

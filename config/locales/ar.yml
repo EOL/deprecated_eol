@@ -1272,7 +1272,7 @@ ar:
   logout: "تسجيل الخروج"
   maintained_by: "يحفظها"
   managed_by: "يديرها"
-  manager_endorse_collecitons_suggestion: "لعرض مجموعة في الصفحة الخاصة بذلك المجتمع، أضف المجموعة إلى اهتمامات المجتمع."
+  manager_endorse_collections_suggestion: "لعرض مجموعة في الصفحة الخاصة بذلك المجتمع، أضف المجموعة إلى اهتمامات المجتمع."
   manager_parens: "(مدير)"
   maps_empty: "لم يساهم أحد بأية خرائط لتلك الأصنوفة حتى الأن."
   maps_empty_contribute_instructions: "تعلم كيفية إضافة خرائط إلى موسوعة الحياة"

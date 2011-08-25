@@ -24,7 +24,7 @@ $(function() {
       var $gallery = $(this),
           thumbs = [];
       $("<ul />", { "class": "thumbnails" }).insertBefore($gallery.find("p.all"));
-      $gallery.find(".image > a img").each(function() {
+      $gallery.find(".image > a > img").each(function() {
         var $e = $(this),
             li;
         if ($e.is("[data-thumb]")) {
@@ -35,25 +35,16 @@ $(function() {
         else { li = placeholder; }
         thumbs.push(li);
       });
-      for (var i = 1, len = 4 - thumbs.length; i < len; i++) {
+      for (var i = 1, len = 4 - thumbs.length; i <= len; i++) {
         thumbs.push(placeholder);
       }
       $gallery.find(".thumbnails").html(thumbs.join(""));
       $gallery.find(".thumbnails li").not(".placeholder").eq(0).addClass("active");
     });
 
-    var loading_complete = $ss.find(".image").length;
-    $ss.find(".image > a img").each(function() {
+    $ss.find(".image img").each(function() {
       this.onload = function() {
-        if (!--loading_complete) {
-          var h = $ss.find(".images").height();
-          h -= parseInt($ss.find(".image").css("padding-bottom"), 10);
-          $ss.find(".image > a img").each(function() {
-            var top = (h / 2 - this.height / 2);
-            top = top < 0 ? 0 : top;
-            $(this).css("top", top + "px");
-          });
-        };
+        $(this).data("height", this.height);
       };
     });
 
@@ -63,15 +54,31 @@ $(function() {
       $e.addClass("active");
       return false;
     });
+
+    function toggleImg(idx) {
+      var $image = $ss.find(".image:eq(" + idx + ")");
+      var $a = $image.find("> a");
+      var $img = $image.find("img");
+      $img.css("paddingTop", ($a.height() / 2 - $img.data("height") / 2) + "px");
+      $ss.find(".images").css("height", $image.height());
+    }
+
     if ("cycle" in $.fn) {
       $ss.find(".images").cycle({
         speed: 500,
         timeout: 0,
+        onPagerEvent: toggleImg,
         pagerAnchorBuilder: function(idx) {
           return $ss.selector + " .thumbnails a:eq(" + idx + ")";
         }
       });
+
+      if ($ss.find(".image").length > 1) {
+        toggleImg(0);
+      }
+
     }
+
   })($(".gallery"));
 
   (function($media_list) {

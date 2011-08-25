@@ -65,18 +65,15 @@ describe "Communities" do
       it 'should ask for the new community name and description' do
         body.should have_tag("input#community_name")
         body.should have_tag("textarea#community_description")
-        body.should have_tag("input#community_collection_attributes_name")
       end
       it 'should create a community, add the user, and redirect to community default view' do
         new_name = Factory.next(:string)
         new_col_name = Factory.next(:string)
         fill_in('community_name', :with => new_name)
         fill_in('community_description', :with => 'This is a long description.')
-        fill_in('community_collection_attributes_name', :with => new_col_name)
         click_button('Create community')
         new_comm = Community.last
         new_comm.name.should == new_name
-        new_comm.collection.name.should == new_col_name
         new_comm.description.should == 'This is a long description.'
         current_path.should match /#{community_path(new_comm)}/
       end

@@ -20,6 +20,16 @@ module TaxaHelper
     end
   end
 
+  # entries can be an array of class types HierarchyEntry and UserDataObject and could be dirty
+  # i.e. entry.vetted and entry.visibility might be overrides from e.g. DataObjectHierarchyEntry
+  def collect_names_and_status(entries)
+    return entries.collect do |entry|
+      vetted_class = vetted_id_class(entry.vetted_id)
+      vetted_label = entry.vetted == Vetted.unknown ? I18n.t(:unreviewed) : entry.vetted.label
+      "#{entry.taxon_concept.canonical_form_object.string} <span class='flag #{vetted_class}'>#{vetted_label}</span>"
+    end
+  end
+
   # used in v2 taxa details
   def category_anchor(toc_entry)
     # TODO: This probably only works if set and then used in the same page since labels on TocEntry's
@@ -152,11 +162,11 @@ module TaxaHelper
   #   data_supplier_name = data_supplier ? data_supplier.full_name : ''
   #   data_supplier_url = data_supplier ? data_supplier.homepage : ''
   #   data_supplier_icon = data_supplier ? citables_to_icons(video.citable_data_supplier) : ''
-  # 
+  #
   #   trust = ''
   #   trust = 'unknown' if video.unknown?
   #   trust = 'untrusted' if video.untrusted?
-  # 
+  #
   #   return "{author: '"               + escape_javascript(citables_to_string(video.authors.collect{ |a| a.citable })) +
   #          "', nameString: '"         + escape_javascript(video.first_concept_name.to_s) +
   #          "', collection: '"         + escape_javascript(citables_to_string(video.sources.collect{ |a| a.citable })) +
@@ -179,7 +189,7 @@ module TaxaHelper
   #          "', mime_type_id:'"        + escape_javascript(video.mime_type_id.to_s) +
   #          "', object_cache_url:'"    + escape_javascript(video.object_cache_url.to_s) +
   #          "', taxon_concept_id:'#{taxon_concept_id}'}"
-  # 
+  #
   # end
 
   def reformat_specialist_projects(projects)

@@ -1118,7 +1118,7 @@ ar:
   logout: "تسجيل الخروج"
   maintained_by: يحفظها
   managed_by: يديرها
-  manager_endorse_collecitons_suggestion: "To feature a collection on this community's page, add the featured collection to the community's focus."
+  manager_endorse_collections_suggestion: "To feature a collection on this community's page, add the featured collection to the community's focus."
   manager_parens: (manager)
   maps_empty: "لم يساهم أحد بأية خرائط لتلك الأصنوفة حتى الأن."
   maps_empty_contribute_instructions: "تعلم كيفية إضافة خرائط إلى موسوعة الحياة"

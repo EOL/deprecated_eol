@@ -3,7 +3,7 @@
   .article
     .empty
       %p= I18n.t(:activity_log_empty)
-      %p= link_to I18n.t(:activity_log_empty_learn_more_link), '/placeholder'
+      %p= link_to I18n.t(:activity_log_empty_learn_more_link), cms_page_path(:id => 'contribute')
 - else
   %ul.feed
     - log.each do |result|

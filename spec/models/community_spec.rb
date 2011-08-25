@@ -57,12 +57,6 @@ describe Community do
     community.has_member?(user).should_not be_true
   end
 
-  it 'should have a #focus named "{name}\'s Focus"' do
-    community = Community.gen(:name => 'Bob')
-    community.focus.should_not be_nil
-    community.focus.name.should == "Bob's Focus"
-  end
-
   it 'should have an activity log' do
     community = Community.gen
     community.respond_to?(:activity_log).should be_true

@@ -15,8 +15,7 @@
             %p= I18n.t(:media_list_empty)
           - else
             %p= I18n.t(:media_list_empty_search)
-          - # FIXME: add url for faq on contributing images
-          %p= link_to I18n.t(:media_list_empty_contribute_instructions), '/placeholder'
+          %p= link_to I18n.t(:media_list_empty_contribute_instructions), cms_page_path(:id => 'contribute')
     - else
       .header
         - start_number = (@media.current_page - 1) * @media.per_page + 1

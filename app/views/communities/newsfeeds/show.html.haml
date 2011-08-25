@@ -2,17 +2,21 @@
   .collection_list
     %h3= I18n.t(:community_focus)
     - if @community.focus.nil?
-      %p= I18n.t(:this_community_has_no_focus_list)
+      .article
+        .empty
+          %p= I18n.t(:this_community_has_no_focus_list)
     - else
       %ul
         = render :partial => 'collections/collection_summary', :locals => {:collection => @community.focus, :minimal => true}
   .collection_list
     %h3= I18n.t(:endorsed_collections)
     - if @community_collections.empty?
-      %p
-        = I18n.t(:this_community_has_no_endorsed_collections)
-        - if @current_member && @current_member.manager?
-          = I18n.t(:manager_endorse_collecitons_suggestion)
+      .article
+        .empty
+          %p
+            = I18n.t(:this_community_has_no_endorsed_collections)
+            - if @current_member && @current_member.manager?
+              = I18n.t(:manager_endorse_collections_suggestion)
     - else
       %ul
         - @community_collections[0..3].each do |ci|

@@ -3,8 +3,7 @@
     .article
       .empty
         %p= I18n.t(:maps_empty)
-        - # FIXME: add url for faq on contributing images
-        %p= link_to I18n.t(:maps_empty_contribute_instructions), '/placeholder'
+        %p= link_to I18n.t(:maps_empty_contribute_instructions), cms_page_path(:id => 'partners')
   - if @taxon_concept.has_map
     #map
       = render :partial => 'maps'

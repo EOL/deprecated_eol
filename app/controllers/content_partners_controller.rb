@@ -38,7 +38,7 @@ class ContentPartnersController < ApplicationController
 
     set_sort_options
     @page_title = I18n.t(:content_partners_page_title)
-    @page_description = I18n.t(:content_partners_page_description, :more_url => '/placeholder') # FIXME: placeholder to CMS page
+    @page_description = I18n.t(:content_partners_page_description, :more_url => cms_page_path(:id => 'partners'))
   end
 
   # GET /content_partners/new

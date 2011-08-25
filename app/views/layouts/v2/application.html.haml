@@ -58,7 +58,7 @@
         .actions
           .language
             %p{ :title => I18n.t(:selected_language_advisory_information) }
-              -# FIXME: Where should this link go? To separate 'select language' page?
+              - # TODO: Link to nowhere is undesirable for accessibility - make this work without link?
               - link_to "#" do
                 %span
                   = I18n.t(:current_language, :iso_code => I18n.locale.to_s.upcase)

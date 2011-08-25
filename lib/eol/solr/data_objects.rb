@@ -114,6 +114,7 @@ module EOL
         url << CGI.escape(" AND (data_type_id:#{options[:data_type_ids].join(' OR data_type_id:')})")
         # ignore maps
         url << CGI.escape(" NOT data_subtype_id:#{DataType.map.id}")
+        url << CGI.escape(" NOT is_translation:true")
         
         # we only need a couple fields
         url << '&facet.field=data_type_id&facet=on&rows=0'

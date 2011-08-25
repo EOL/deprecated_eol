@@ -76,10 +76,7 @@ $(window).load(function() {
 });
 
 function resize_task_panel() {
-  $('#task').css('height', '');
-  if($('#task').outerHeight() <= $('#tasks ul').outerHeight()) {
-    $('#task').css('height', $('#tasks ul').css('height'));
-  }
+  $('#task').css('min-height', $('#tasks ul').css('height'));
 }
 function update_active_indicator(message) {
   if(message == 'Saved') {

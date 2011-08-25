@@ -26,7 +26,7 @@ class TaxonConcept < SpeciesSchemaModel
     :conditions => 'hierarchy_entries.published=1 AND hierarchy_entries.visibility_id=#{Visibility.visible.id}'
 
   has_many :published_browsable_hierarchy_entries, :class_name => HierarchyEntry.to_s, :foreign_key => 'hierarchy_entry_id',
-    :finder_sql => 'SELECT he.id, h.id hierarchy_id, h.label hierarchy_label
+    :finder_sql => 'SELECT he.id, he.rank_id, h.id hierarchy_id, h.label hierarchy_label
     FROM hierarchies h
     JOIN hierarchy_entries he ON h.id = he.hierarchy_id
     WHERE he.taxon_concept_id = \'#{id}\' AND he.published = 1 and h.browsable = 1

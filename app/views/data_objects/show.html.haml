@@ -34,7 +34,7 @@
         %p= link_to I18n.t("download_#{en_mime_type.sub(/\//, '_')}"), @data_object.sound_url, { :title => I18n.t("download_#{en_mime_type.sub(/\//, '_')}_assistive") }
     .article.list
       .header
-        %h3= I18n.t("associated_with_#{en_type}_header")
+        %h3= I18n.t(:associated_with_header)
         - if current_user.is_curator?
           = link_to I18n.t(:add_new_association_link), :action => :add_association, :id => @data_object.id
       - if current_user.is_curator?

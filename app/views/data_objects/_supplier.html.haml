@@ -1,20 +1,6 @@
 %p
-  - agent  ||= data_object.data_supplier_agent
-  - unless agent.blank?
-    = I18n.t(:supplier_colon) + " "
-    - if agent.user && agent.user.content_partner
-      = link_to agent.user.content_partner.full_name,  content_partner_path(:id => agent.user.content_partner.id)
-    - else
-      - content_partner = ContentPartner.find_by_full_name(agent.full_name)
-      - unless content_partner.blank?
-        = link_to content_partner.full_name,  content_partner_path(:id => content_partner.id)
-      - else
-        = agent.full_name
+  = I18n.t(:supplier_colon)
+  - if data_object.added_by_user? && !data_object.users_data_object.blank?
+    = link_to data_object.users_data_object.user.full_name, data_object.users_data_object.user rescue nil
   - else
-    - if data_object.users_data_object.blank?
-      = render :partial => 'data_objects/owner', :locals => { :data_object => data_object, :linked => true }
-    - else
-      = I18n.t(:supplier_colon) + " "
-      - user = data_object.users_data_object.user
-      = link_to user.full_name,  user_path(:id => user.id)
-
+    = link_to data_object.content_partner.name, data_object.content_partner rescue nil

@@ -493,6 +493,11 @@ class DataObject < SpeciesSchemaModel
     citables
   end
 
+  # need supplier as content partner object, is this right ?
+  def content_partner
+    harvest_events.last.resource.content_partner rescue nil
+  end
+
   # 'owner' chooses someone responsible for this data object in order of preference
   def owner
     # rights holder is preferred

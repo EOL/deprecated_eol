@@ -2,12 +2,11 @@
 - unless data_object.blank?
   - en_type ||= en_type(data_object)
   = render :partial => 'data_objects/license', :locals => { :data_object => data_object }
-  = render :partial => 'data_objects/rights_holder', :locals => { :data_object => data_object }
   = render :partial => 'data_objects/rights_statement', :locals => { :data_object => data_object }
-  - # do wen need data supplier as well as agents? or will data supplier be in agents?
+  = render :partial => 'data_objects/rights_holder', :locals => { :data_object => data_object }
+  = render :partial => 'data_objects/supplier', :locals => { :data_object => data_object }
   = render :partial => 'data_objects/agents', :locals => { :data_object => data_object }
   - unless data_object.bibliographic_citation.blank?
     %p= data_object.bibliographic_citation
   - unless data_object.source_url.blank?
     %p= link_to I18n.t("view_#{en_type}_source"), data_object.source_url
-  = render :partial => 'data_objects/supplier', :locals => { :data_object => data_object }

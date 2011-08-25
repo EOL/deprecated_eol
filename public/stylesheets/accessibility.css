@@ -711,7 +711,7 @@ body > #header .section .session.join {
       filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
       background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
       background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
-      width: 600px; }
+      width: 540px; }
   #wikipedia_queue form input[type="submit"] {
     padding: 7px 10px;
     font-size: 1em; }

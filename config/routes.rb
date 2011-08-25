@@ -119,7 +119,7 @@ ActionController::Routing::Routes.draw do |map|
       :member => { :bhl => :get }
     taxa.resource :resources, :only => [:show], :controller => "taxa/resources",
       :member => { :identification_resources => :get, :education => :get , :nucleotide_sequences => :get , :biomedical_terms => :get }
-    taxa.resource :community, :only => [:show], :controller => "taxa/communities",
+    taxa.resource :community, :only => [:show], :controller => "taxa/community",
        :member => { :collections => :get, :communities => :get }
     taxa.resource :maps, :only => [:show], :controller => "taxa/maps"
     taxa.resource :updates, :only => [:show], :controller => "taxa/updates",

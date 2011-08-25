@@ -646,6 +646,14 @@ body > #header .section .session.join {
   margin: 0 0 15px 0;
   line-height: 170%; }
 
+#taxon_community .main_container {
+  padding: 40px; }
+  #taxon_community .main_container .list img {
+    max-width: 68px;
+    max-height: 68px;
+    width: expression(this.width > 68 ? "68px" : true);
+    height: expression(this.height > 68 ? "68px" : true); }
+
 #taxon_resources .empty p {
   margin: 0; }
 #taxon_resources table.standard tbody > tr > td > a > img {

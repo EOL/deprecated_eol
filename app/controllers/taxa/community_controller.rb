@@ -1,4 +1,4 @@
-class Taxa::CommunitiesController < TaxaController
+class Taxa::CommunityController < TaxaController
 
   before_filter :instantiate_taxon_concept
 

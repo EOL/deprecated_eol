@@ -1,31 +1,31 @@
 #content
-  #taxon_literature.site_column
+  #taxon_resources.site_column
     = render :partial => 'resources_menu'
-    .main_container.copy
-      %h2= I18n.t(:content_partners)
-      - unless @links.empty?
-        %p
-          =  I18n.t(:content_partners_intro, :link => link_to(I18n.t(:eol_api) , url_for(:controller => 'api', :action => 'docs', :only_path => false)))
-        %table.results_table{:cellspacing => "0"}
-          %tr
-            %th
-              = I18n.t(:logo_header)
-            %th  
-              = I18n.t(:name)
-            %th
-              = I18n.t(:external_link_header)
-          - @links.each do |outlink|
-            - if outlink
+    .main_container
+      .copy
+        %h3= I18n.t(:content_partners)
+        - if @links.empty?
+          .article
+            .empty
+              %p= I18n.t(:taxon_content_partners_empty)
+        - else
+          %p= I18n.t(:taxon_content_partners_intro, :eol_api_link => url_for(:controller => 'api/docs', :action => 'index', :only_path => false))
+          %table.standard
+            %thead
               %tr
-                %td
-                  - link_text = hierarchy_outlink_collection_types(outlink[:hierarchy])
-                  = external_link_to(agent_logo(outlink[:hierarchy].agent, "small"), outlink[:hierarchy].url, :show_link_icon => false)
-                %td
-                  - no_link_text = hierarchy_or_resource_name(outlink[:hierarchy])
-                  - unless link_text == no_link_text
-                    = no_link_text 
-                %td
-                  = external_link_to(link_text, outlink[:outlink_url], :show_link_icon => false)
-                
-      - else
-        = I18n.t(:content_partner_empty)
+                %th
+                  = I18n.t(:logo_header)
+                %th
+                  = I18n.t(:name)
+                %th
+                  = I18n.t(:external_link_header)
+            %tbody
+              - @links.each do |outlink|
+                - if outlink
+                  %tr
+                    %td
+                      = link_to agent_logo(outlink[:hierarchy].agent, "small"), outlink[:hierarchy].url
+                    %td
+                      = hierarchy_or_resource_name(outlink[:hierarchy])
+                    %td
+                      = link_to hierarchy_outlink_collection_types(outlink[:hierarchy]), outlink[:outlink_url]

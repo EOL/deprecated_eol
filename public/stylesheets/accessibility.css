@@ -646,6 +646,21 @@ body > #header .section .session.join {
   margin: 0 0 15px 0;
   line-height: 170%; }
 
+#taxon_resources .empty p {
+  margin: 0; }
+#taxon_resources table.standard tbody > tr > td > a > img {
+  max-width: 90px; }
+#taxon_resources #taxon_detail > #main > h3 {
+  margin: 0 0 15px 0;
+  font-size: 1.33em; }
+#taxon_resources #taxon_detail > #main .article {
+  padding: 0 10px 25px 10px; }
+#taxon_resources #nucleotide_sequences .copy img {
+  float: left;
+  max-width: 60px; }
+#taxon_resources #nucleotide_sequences .copy p {
+  padding-left: 90px; }
+
 /*Recognized by is looking too cramped */
 .recognized ul li {
   padding: 5px 0; }

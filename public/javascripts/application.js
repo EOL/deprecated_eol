@@ -35,7 +35,7 @@ $(function() {
         else { li = placeholder; }
         thumbs.push(li);
       });
-      for (var i = 1, len = 4 - thumbs.length; i < len; i++) {
+      for (var i = 1, len = 4 - thumbs.length; i <= len; i++) {
         thumbs.push(placeholder);
       }
       $gallery.find(".thumbnails").html(thumbs.join(""));
@@ -54,17 +54,16 @@ $(function() {
       $e.addClass("active");
       return false;
     });
+
+    function toggleImg(idx) {
+      var $image = $ss.find(".image:eq(" + idx + ")");
+      var $a = $image.find("> a");
+      var $img = $image.find("img");
+      $img.css("paddingTop", ($a.height() / 2 - $img.data("height") / 2) + "px");
+      $ss.find(".images").css("height", $image.height());
+    }
+
     if ("cycle" in $.fn) {
-      function toggleImg(idx) {
-        var $image = $ss.find(".image:eq(" + idx + ")");
-        var $a = $image.find("a");
-        var $img = $image.find("img");
-        $img.css("paddingTop", ($a.height() / 2 - $img.data("height") / 2) + "px");
-        $ss.find(".images").css("height", $image.height());
-      }
-
-      toggleImg(0);
-
       $ss.find(".images").cycle({
         speed: 500,
         timeout: 0,
@@ -74,7 +73,12 @@ $(function() {
         }
       });
 
+      if ($ss.find(".image").length > 1) {
+        toggleImg(0);
+      }
+
     }
+
   })($(".gallery"));
 
   (function($media_list) {

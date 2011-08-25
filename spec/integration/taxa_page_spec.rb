@@ -142,8 +142,8 @@ describe 'Taxa page' do
     it 'should include Education' do
       body.should include('Education')
     end
-    it 'should include Content Partners' do
-      body.should include('Content partners')
+    it 'should include Partner Links' do
+      body.should include('Partner links')
     end
   end
 

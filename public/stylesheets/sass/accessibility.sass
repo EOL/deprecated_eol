@@ -586,16 +586,6 @@ body
     a
       #E84226
 
-/** we share attribution across multiple pages so we need some overrides of HR here **/
-#text_summary
-  p.flag
-    float: left
-  .attribution
-    clear: none
-    font-size: 0.92em
-    img
-      float: left
-      margin: 0 10px
 /** taxon disclaimer **/
 .disclaimer
   clear: both
@@ -816,6 +806,17 @@ ul.feed
   .collection_list, .collection_contributors, .content_partner_managers
     img
       +max_dimensions($logo_size_tertiary, $logo_size_tertiary)
+/** we share attribution across multiple pages so we need some overrides of HR here **/
+#text_summary
+  p.flag
+    float: left
+  .attribution
+    clear: none
+    .copy
+      padding-left: 120px
+    img, span.license
+      float: left
+      margin: 0 10px
 #taxon
   .gallery
     ul.thumbnails
@@ -837,14 +838,21 @@ ul.feed
         font-size: 0.92em
         .copy
           p
-            margin: 0
+            margin: 0 0 4px
             line-height: 120%
-            padding-left: 90px
+            &.owner
+              padding-left: 85px
         .attribution
           margin: 0
           font-size: 1em
+          img, span.license
+            display: block
+            position: absolute
+            top: 0
+            left: 0
+            margin: 0
           img
-            top: 8px
+            margin-top: -1px
 #media_list
   #main
     ul

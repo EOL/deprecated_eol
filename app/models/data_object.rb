@@ -104,6 +104,13 @@ class DataObject < SpeciesSchemaModel
       sort
     end
   end
+  
+  def self.sort_by_created_date(data_objects)
+    data_objects.sort_by do |obj|
+      created_at = obj.created_at || 0
+      created_at
+    end
+  end
 
   def self.custom_filter(data_objects, taxon_concept, type, status)
 
@@ -491,6 +498,11 @@ class DataObject < SpeciesSchemaModel
     end
 
     citables
+  end
+
+  # need supplier as content partner object, is this right ?
+  def content_partner
+    harvest_events.last.resource.content_partner rescue nil
   end
 
   # 'owner' chooses someone responsible for this data object in order of preference

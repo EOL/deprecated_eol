@@ -258,6 +258,7 @@ private
     @user = alter_current_user do |user|
       user.update_attributes({ :api_key => User.generate_key })
     end
+    instantiate_variables_for_edit
     render :edit
   end
 

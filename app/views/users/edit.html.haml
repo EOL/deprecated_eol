@@ -38,11 +38,12 @@
         %dd
           = hidden_field_tag 'user[user_identity_ids][]', '', :id => "user_user_identity_ids"
           %ul
-            - @user_identities.each do |identity|
-              %li
-                %label
-                  = check_box_tag "user[user_identity_ids][]", identity.id, @user.user_identities.include?(identity), :id => "user_user_identity_ids_#{identity.id}"
-                  = identity.label
+            - unless @user_identities.blank?
+              - @user_identities.each do |identity|
+                %li
+                  %label
+                    = check_box_tag "user[user_identity_ids][]", identity.id, @user.user_identities.include?(identity), :id => "user_user_identity_ids_#{identity.id}"
+                    = identity.label
     %fieldset.account
       .header
         %h3= I18n.t(:users_form_account_header)

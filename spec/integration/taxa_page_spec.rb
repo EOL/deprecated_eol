@@ -137,13 +137,13 @@ describe 'Taxa page' do
 
   shared_examples_for 'taxon resources tab' do
     it 'should include Identification Resources' do
-      body.should include('Identification Resources')
+      body.should include('Identification resources')
     end
     it 'should include Education' do
       body.should include('Education')
     end
     it 'should include Content Partners' do
-      body.should include('Content Partners')
+      body.should include('Content partners')
     end
   end
 

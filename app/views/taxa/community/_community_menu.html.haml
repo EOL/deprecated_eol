@@ -1,12 +1,11 @@
 #tabs_sidebar
   %ul.tabs
-
-    %li{:class => resource_is_active('taxa/communities', 'show')}  
+    %li{:class => resource_is_active('taxa/community', 'show')}
       = link_to I18n.t(:curators), taxon_community_path(@taxon_concept)
 
-    %li{:class => resource_is_active('taxa/communities', 'collections')}  
+    %li{:class => resource_is_active('taxa/community', 'collections')}
       = link_to I18n.t(:collections), collections_taxon_community_path(@taxon_concept)
 
-    %li{:class => resource_is_active('taxa/communities', 'communities')}  
+    %li{:class => resource_is_active('taxa/community', 'communities')}
       = link_to I18n.t(:communities), communities_taxon_community_path(@taxon_concept)
 

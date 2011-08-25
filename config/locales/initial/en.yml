@@ -1261,7 +1261,7 @@ en:
   logout: Logout
   maintained_by: "maintained by"
   managed_by: "Managed by"
-  manager_endorse_collecitons_suggestion: "To feature a collection on this community's page, add the featured collection to the community's focus."
+  manager_endorse_collections_suggestion: "To feature a collection on this community's page, add the featured collection to the community's focus."
   manager_parens: (manager)
   maps_empty: "No one has contributed any maps for this taxon yet."
   maps_empty_contribute_instructions: "Learn how to contribute maps to EOL."

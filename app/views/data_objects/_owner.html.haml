@@ -1,12 +1,11 @@
 -# owner basically means choose someone responsible for this object
-- linked ||= false
 - owner = nil
 - if data_object.rights_holder.blank?
   - owner, user = data_object.owner
 - else
-  - owner = data_object.rights_holder
+  - owner = "&copy; #{data_object.rights_holder}"
 - unless owner.blank?
-  - if linked && !user.blank? && ! user.id.blank?
+  - if defined?(linked) && linked && !user.blank? && !user.id.blank?
     = link_to owner, user_path(user)
   - else
-    = "&copy; #{owner}"
+    = owner

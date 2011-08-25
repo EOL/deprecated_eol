@@ -65,7 +65,11 @@ module EOL
         if options[:ignore_maps]
           url << CGI.escape(" NOT data_subtype_id:#{DataType.map.id}")
         end
-
+        
+        if options[:ignore_translations]
+          url << CGI.escape(" NOT is_translation:true")
+        end
+        
         # add sorting
         if options[:sort_by] == 'newest'
           url << '&sort=data_object_id+desc'

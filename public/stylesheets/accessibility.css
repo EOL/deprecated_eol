@@ -480,6 +480,11 @@ p.flag {
     color: #677682 !important; }
 
 /*We share rating partial across many pages so need extra styles here. */
+#permalink .ratings h5 {
+  margin-top: 2px;
+  font-size: 1.1em;
+  padding: 0; }
+
 #taxon_detail .rating h5 {
   float: left;
   margin: 0 10px 0 0;
@@ -487,12 +492,16 @@ p.flag {
   font-size: 0.83em; }
 #taxon_detail .rating ul {
   display: inline; }
-#taxon_detail .average_rating h5 {
+#taxon_detail .average_rating {
   float: left;
-  margin: 0 10px 0 0;
-  text-transform: lowercase; }
-  #taxon_detail .average_rating h5 small {
-    font-size: 1em; }
+  padding: 2px 40px 0 0;
+  margin: 0 0 20px 0; }
+  #taxon_detail .average_rating h5 {
+    float: left;
+    margin: 0 10px 0 0;
+    text-transform: lowercase; }
+    #taxon_detail .average_rating h5 small {
+      font-size: 1em; }
 
 .rating ul li.current_rating_0 {
   position: absolute;
@@ -532,7 +541,7 @@ body > #header .section .session.join {
   text-align: center;
   padding: 7px 10px;
   font-size: 1.16em;
-  margin-bottom: 20px;
+  margin: 20px 0;
   color: #394651; }
   #iucn_status h3, #iucn_status p {
     display: inline; }
@@ -556,32 +565,6 @@ body > #header .section .session.join {
   #text_summary .attribution img {
     float: left;
     margin: 0 10px; }
-
-#taxon .gallery .images {
-  height: 380px; }
-  #taxon .gallery .images .image {
-    padding-bottom: 60px; }
-  #taxon .gallery .images .details {
-    position: absolute;
-    top: 320px;
-    width: 430px; }
-    #taxon .gallery .images .details p {
-      line-height: 120%;
-      margin: 0; }
-      #taxon .gallery .images .details p.flag {
-        float: left;
-        margin-top: 1px; }
-    #taxon .gallery .images .details .caption {
-      font-size: 0.92em;
-      padding: 0 0 0 5em; }
-    #taxon .gallery .images .details .attribution {
-      margin-top: 5px;
-      padding-bottom: 5px;
-      position: relative;
-      top: 0;
-      left: 0; }
-      #taxon .gallery .images .details .attribution .copy {
-        padding: 0 0 0 90px; }
 
 /*taxon disclaimer */
 .disclaimer {
@@ -626,6 +609,10 @@ body > #header .section .session.join {
 #taxon_maps .empty p {
   margin: 0 !important; }
 
+#sidebar .collection_list .article .empty, #sidebar .collection_contributors .article .empty {
+  font-size: 1em;
+  margin-top: 0; }
+
 /*Add to my collection button is a form not an a tag as assumed by HR so we have to add some styles */
 #taxon_detail div.actions {
   clear: both;
@@ -659,6 +646,29 @@ body > #header .section .session.join {
   margin: 0 0 15px 0;
   line-height: 170%; }
 
+#taxon_community .main_container {
+  padding: 40px; }
+  #taxon_community .main_container .list img {
+    max-width: 68px;
+    max-height: 68px;
+    width: expression(this.width > 68 ? "68px" : true);
+    height: expression(this.height > 68 ? "68px" : true); }
+
+#taxon_resources .empty p {
+  margin: 0; }
+#taxon_resources table.standard tbody > tr > td > a > img {
+  max-width: 90px; }
+#taxon_resources #taxon_detail > #main > h3 {
+  margin: 0 0 15px 0;
+  font-size: 1.33em; }
+#taxon_resources #taxon_detail > #main .article {
+  padding: 0 10px 25px 10px; }
+#taxon_resources #nucleotide_sequences .copy img {
+  float: left;
+  max-width: 60px; }
+#taxon_resources #nucleotide_sequences .copy p {
+  padding-left: 90px; }
+
 /*Recognized by is looking too cramped */
 .recognized ul li {
   padding: 5px 0; }
@@ -676,6 +686,8 @@ body > #header .section .session.join {
     margin: 0; }
     #page_heading .page_actions fieldset.actions input[type="submit"] {
       margin: 0; }
+#page_heading .hgroup .copy p {
+  margin: 10px 0; }
 
 /*wikipedia import request */
 #wikipedia_queue {
@@ -766,8 +778,6 @@ ul.feed li > a > img {
   width: expression(this.width > 35 ? "35px" : true);
   height: expression(this.height > 35 ? "35px" : true); }
 
-#taxon .gallery ul.thumbnails li {
-  text-align: center; }
 #taxon .gallery ul.thumbnails li img {
   max-width: 98px;
   max-height: 68px;
@@ -775,7 +785,27 @@ ul.feed li > a > img {
   height: expression(this.height > 68 ? "68px" : true);
   width: auto;
   height: auto;
-  display: inline !important; }
+  margin: 0 auto; }
+#taxon .gallery ul.thumbnails li.active img {
+  max-width: 96px;
+  max-height: 66px;
+  width: expression(this.width > 96 ? "96px" : true);
+  height: expression(this.height > 66 ? "66px" : true);
+  margin: 0 auto; }
+#taxon .gallery .images .details {
+  position: relative;
+  margin: 5px 0 0 0;
+  z-index: 100;
+  font-size: 0.92em; }
+  #taxon .gallery .images .details .copy p {
+    margin: 0;
+    line-height: 120%;
+    padding-left: 90px; }
+  #taxon .gallery .images .details .attribution {
+    margin: 0;
+    font-size: 1em; }
+    #taxon .gallery .images .details .attribution img {
+      top: 8px; }
 
 #media_list #main ul li img {
   max-width: 160px;
@@ -892,9 +922,6 @@ h1.notice {
     max-height: 48px;
     width: expression(this.width > 48 ? "48px" : true);
     height: expression(this.height > 48 ? "48px" : true); }
-
-#sidebar p {
-  padding-bottom: 1em; }
 
 #task .media img {
   margin: 0 auto;
@@ -1047,3 +1074,6 @@ div.newsfeed_heading {
     font-weight: bold;
     text-transform: uppercase;
     font-size: 1em; }
+
+ul.media li .overlay {
+  height: auto !important; }

@@ -497,6 +497,12 @@ p.flag
     color: #677682 !important
 
 /** We share rating partial across many pages so need extra styles here. **/
+#permalink
+  .ratings
+    h5
+      margin-top: 2px
+      font-size: 1.1em
+      padding: 0
 #taxon_detail
   .rating
     h5
@@ -507,13 +513,15 @@ p.flag
     ul
       display: inline
   .average_rating
+    float: left
+    padding: 2px 40px 0 0
+    margin: 0 0 20px 0
     h5
       float: left
       margin: 0 10px 0 0
       text-transform: lowercase
       small
         font-size: 1em
-
 .rating
   ul
     li
@@ -561,7 +569,7 @@ body
   text-align: center
   padding: 7px 10px
   font-size: 1.16em
-  margin-bottom: 20px
+  margin: 20px 0
   color: #394651
   h3, p
     display: inline
@@ -588,33 +596,6 @@ body
     img
       float: left
       margin: 0 10px
-#taxon
-  .gallery
-    .images
-      height: 380px
-      .image
-        padding-bottom: 60px
-      .details
-        position: absolute
-        top: 320px
-        width: 430px
-        p
-          line-height: 120%
-          margin: 0
-          &.flag
-            float: left
-            margin-top: 1px
-        .caption
-          font-size: 0.92em
-          padding: 0 0 0 5em
-        .attribution
-          margin-top: 5px
-          padding-bottom: 5px
-          position: relative
-          top: 0
-          left: 0
-          .copy
-            padding: 0 0 0 90px
 /** taxon disclaimer **/
 .disclaimer
   clear: both
@@ -663,6 +644,12 @@ body
   .empty
     p
       margin: 0 !important
+#sidebar
+  .collection_list, .collection_contributors
+    .article
+      .empty
+        font-size: 1em
+        margin-top: 0
 /** Add to my collection button is a form not an a tag as assumed by HR so we have to add some styles **/
 #taxon_detail
   div.actions
@@ -701,6 +688,33 @@ body
   .copy
     margin: 0 0 15px 0
     line-height: 170%
+#taxon_community
+  .main_container
+    padding: 40px
+    .list
+      img
+        +max_dimensions($logo_size_primary, $logo_size_primary)
+#taxon_resources
+  .empty
+    p
+      margin: 0
+  table
+    &.standard
+      tbody > tr > td > a > img
+        max-width: 90px
+  #taxon_detail > #main
+    > h3
+      margin: 0 0 15px 0
+      font-size: 1.33em
+    .article
+      padding: 0 10px 25px 10px
+  #nucleotide_sequences
+    .copy
+      img
+        float: left
+        max-width: 60px
+      p
+        padding-left: 90px
 /** Recognized by is looking too cramped **/
 .recognized
   ul
@@ -726,6 +740,10 @@ body
       margin: 0
       input[type="submit"]
         margin: 0
+  .hgroup
+    .copy
+      p
+        margin: 10px 0
 /** wikipedia import request **/
 #wikipedia_queue
   width: 640px
@@ -802,13 +820,31 @@ ul.feed
   .gallery
     ul.thumbnails
       li
-        &
-          text-align: center
         img
           +max_dimensions(98, 68)
           width: auto
           height: auto
-          display: inline !important
+          margin: 0 auto
+        &.active
+          img
+            +max_dimensions(96, 66)
+            margin: 0 auto
+    .images
+      .details
+        position: relative
+        margin: 5px 0 0 0
+        z-index: 100
+        font-size: 0.92em
+        .copy
+          p
+            margin: 0
+            line-height: 120%
+            padding-left: 90px
+        .attribution
+          margin: 0
+          font-size: 1em
+          img
+            top: 8px
 #media_list
   #main
     ul
@@ -932,9 +968,6 @@ h1.notice
         z-index: 300
         img
           +max_dimensions($logo_size_secondary, $logo_size_secondary)
-//sidebar paragraphs need space after them:
-#sidebar p
-  padding-bottom: 1em
 #task .media img
   margin: 0 auto
   display: block
@@ -1078,5 +1111,6 @@ div.newsfeed_heading
     text-transform: uppercase
     font-size: 1em
 
-
+ul.media li .overlay
+  height: auto !important
 

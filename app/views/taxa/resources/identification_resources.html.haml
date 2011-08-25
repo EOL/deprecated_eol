@@ -4,9 +4,11 @@
     = render :partial => 'resources_menu'
     #taxon_detail
       #main.main_container
-        %h2= I18n.t(:identification_resources)
+        %h3= I18n.t(:identification_resources)
         .section
           - unless @contents.blank?
             = render :partial => 'taxa/details/category_content', :locals => { :content => @contents }
           - else
-            = I18n.t(:identifcation_resources_empty)
+            .article
+              .empty
+                %p= I18n.t(:identifcation_resources_empty)

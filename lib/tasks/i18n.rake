@@ -11,7 +11,7 @@ namespace :i18n do
   en_yml = File.join([lang_dir, "en.yml"])
   trans_tmp = File.join([lang_dir, "translation_template.yml"])
   excluded_tables = ["translated_mime_types", "translated_news_items", "translated_privileges",
-    "translated_info_items"]
+    "translated_info_items", "translated_content_pages"]
   db_field_delim = '-' # Double-underscore does not work with TW.
 
 

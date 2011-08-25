@@ -12,6 +12,7 @@ namespace :i18n do
   trans_tmp = File.join([lang_dir, "translation_template.yml"])
   excluded_tables = ["translated_mime_types", "translated_news_items", "translated_privileges",
     "translated_info_items"]
+  db_field_delim = '-' # Double-underscore does not work with TW.
 
 
   desc 'convert old yml language files from Gibberish format to support i18n '
@@ -485,7 +486,7 @@ namespace :i18n do
           # If we are in the Activities table, ignore any keys with underscores:
           next if table_name == 'translated_activities' && value =~ /_/
 
-          en_strings << "  #{table_name}__#{field}__#{foreign_key}__#{row[foreign_key]}: \"#{value}\"\n"
+          en_strings << "  #{table_name}#{db_field_delim}#{field}#{db_field_delim}#{foreign_key}#{db_field_delim}#{row[foreign_key]}: \"#{value}\"\n"
         end
       end
     end
@@ -583,10 +584,10 @@ namespace :i18n do
         lang_keys = load_language_keys(lang)
         en_keys.each do |key, value|
           if (lang_keys[key])
-            table_name = key.split("__")[0]
-            column_name = key.split("__")[1]
-            identity_column_name = key.split("__")[2]
-            field_id = key.split("__")[3]
+            table_name = key.split(db_field_delim)[0]
+            column_name = key.split(db_field_delim)[1]
+            identity_column_name = key.split(db_field_delim)[2]
+            field_id = key.split(db_field_delim)[3]
 
             insert_or_update_db_value(table_name, column_name, identity_column_name, lang_id, field_id, lang_keys[key])
           end

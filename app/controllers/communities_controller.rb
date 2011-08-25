@@ -34,13 +34,15 @@ class CommunitiesController < ApplicationController
 
   def create
     # accepts_nested_attributes_for doesn't fully work on create... it'll work on update, though, so we deal w/ it:
-    collection = Collection.new(params[:community].delete(:collection_attributes))
+    if @collection.special?
+      flash[:error] = I18n.t(:cannot_create_community_from_watch_collection_error)
+      return redirect_to @collection
+    end
     @community = Community.new(params[:community])
     if @community.save
+      @collection.update_attribute(:user_id, nil)
+      @collection.update_attribute(:community_id, @community.id)
       @community.initialize_as_created_by(current_user)
-      # NOTE - Because the collection is actually created by the on_create of the community, we need to update it:
-      @community.collection.update_attribute(:name, collection.name)
-      @community.collection.deep_copy(@collection, :keep_annotations => @collection.user_id == current_user.id)
       invitees = params[:invite_list] ? params[:invite_list].values : params[:invitations].split(/[,\s]/).grep(/\w/)
       sent_to = send_invitations(invitees)
       notice = I18n.t(:created_community)
@@ -75,16 +77,22 @@ class CommunitiesController < ApplicationController
     end
   end
 
-  def destroy
+  # Note this is not "destroy".  That's because it's different: the community instance is not destroyed, AND this is a :get, not a :post.
+  def delete
     if @community.update_attribute(:published, false)
+      begin
+        @community.remove_member(current_user)
+      rescue EOL::Exceptions::ObjectNotFound => e
+        flash[:error] = I18n.t(:could_not_find_user)
+      end
+      log_action(:delete)
+      # TODO - it might make sense (?) to remove this community from any collection_items that once pointed to it... that would remove it from watchlists and the like,
+      # though, and I don't know if that's wise (since then they wouldn't see the delete log item).
       flash[:notice] = I18n.t(:community_destroyed)
     else
       flash[:error] = I18n.t(:community_not_destroyed_error)
     end
-    respond_to do |format|
-      format.html { redirect_to(root_url) }
-      format.xml  { head :ok }
-    end
+    redirect_to(community_path(@community))
   end
 
   def join
@@ -104,8 +112,6 @@ class CommunitiesController < ApplicationController
     respond_to do |format|
       begin
         @community.remove_member(current_user)
-      rescue EOL::Exceptions::CommunitiesMustHaveAManager => e
-        format.html { redirect_to(@community, :notice => I18n.t(:community_must_have_one_manager_error)) }
       rescue EOL::Exceptions::ObjectNotFound => e
         format.html { redirect_to(@community, :notice => I18n.t(:could_not_find_user)) }
       end
@@ -123,11 +129,9 @@ private
       render(:layout => 'v2/basic', :template => "content/missing", :status => 404)
       return false
     end
-    unless @community.published?
-      render :action => 'show'
-      return false
-    end
-    @community_collections = @community.collections # NOTE these are collection_items, really.
+    # It's okay (perfectly) if this gets overridden elsewhere:
+    flash[:notice] = I18n.t(:this_community_was_deleted) unless @community.published?
+    @community_collections = @community.collections || [] # NOTE these are collection_items, really.
     @members = @community.members # Because we pull in partials from the members controller.
     @current_member = current_user.member_of(@community)
   end

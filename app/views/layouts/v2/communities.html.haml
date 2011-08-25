@@ -11,13 +11,16 @@
         .page_actions
           %ul
             %li= render :partial => 'shared/add_to_my_collection', :locals => { :item => @community }
-            - if @community.has_member?(current_user)
-              - if @current_member && @current_member.manager? && controller.action_name != 'edit'
+            - if @current_member
+              - if @current_member.manager? && controller.action_name != 'edit'
                 %li
-                  = link_to I18n.t(:edit_community) , edit_community_path(@community.id), :class => "button"
+                  = link_to I18n.t(:edit_community), edit_community_path(@community.id), :class => "button"
               %li
-                = link_to I18n.t(:leave_community_button) , leave_community_path(@community.id, :return_to => communities_path), :class => "button confirm", :data_confirm => I18n.t(:confirm_leave)
-            - elsif @community.published?
+                - if @current_member.manager? && @community.members.managers.count <= 1
+                  = link_to I18n.t(:delete_community), delete_community_path(@community.id, :return_to => communities_path), :class => "button confirm", :data_confirm => I18n.t(:confirm_delete_community)
+                - else
+                  = link_to I18n.t(:leave_community_button), leave_community_path(@community.id, :return_to => communities_path), :class => "button confirm", :data_confirm => I18n.t(:confirm_leave)
+            - else
               %li
                 = link_to I18n.t(:join_community_button), join_community_path(@community, :return_to => community_path(@community)), :class => "button"
       - else

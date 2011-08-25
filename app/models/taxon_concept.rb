@@ -1327,6 +1327,7 @@ class TaxonConcept < SpeciesSchemaModel
         :vetted_types => vetted_types,
         :visibility_types => 'visible',
         :ignore_maps => true,
+        :ignore_translations => true,
         :filter_hierarchy_entry => selected_hierarchy_entry,
       }).total_entries
     end

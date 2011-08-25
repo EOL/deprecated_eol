@@ -939,7 +939,7 @@ en:
   community_tab_curators_description: "Curators are EOL users with biological expertise who give their time to review content on EOL, ensuring that what you see is accurate and of high quality."
   community_removed_by_owner: "This community was removed by its owner."
   community_roles: "Community Roles"
-  communities_summary_empty: "This taxon hasn't been endorsed by a community yet."
+  communities_summary_empty: "This taxon hasn't been featured by a community yet."
   communities_summary_header_with_count:
     one: "Belongs to %{count} community"
     other: "Belongs to %{count} communities"

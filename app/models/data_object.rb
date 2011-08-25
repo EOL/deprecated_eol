@@ -104,7 +104,7 @@ class DataObject < SpeciesSchemaModel
       sort
     end
   end
-  
+
   def self.sort_by_created_date(data_objects)
     data_objects.sort_by do |obj|
       created_at = obj.created_at || 0
@@ -956,20 +956,24 @@ class DataObject < SpeciesSchemaModel
 
   # TODO - we need to make sure that the user_id of curated_dohe is added to the HE...
   def curated_hierarchy_entries
-    dohe = data_objects_hierarchy_entries.map do |dohe|
+    dohes = data_objects_hierarchy_entries.map { |dohe|
       he = dohe.hierarchy_entry
-      he.vetted_id = dohe.vetted_id
-      he.visibility_id = dohe.visibility_id
+      if he
+        he.vetted_id = dohe.vetted_id
+        he.visibility_id = dohe.visibility_id
+      end
       he
-    end
-    cdohe = curated_data_objects_hierarchy_entries.map do |cdohe|
+    }.compact
+    cdohes = curated_data_objects_hierarchy_entries.map { |cdohe|
       he = cdohe.hierarchy_entry
-      he.associated_by_curator = cdohe.user
-      he.vetted_id = cdohe.vetted_id
-      he.visibility_id = cdohe.visibility_id
+      if he
+        he.associated_by_curator = cdohe.user
+        he.vetted_id = cdohe.vetted_id
+        he.visibility_id = cdohe.visibility_id
+      end
       he
-    end
-    dohe + cdohe
+    }.compact
+    dohes + cdohes
   end
 
   def published_entries

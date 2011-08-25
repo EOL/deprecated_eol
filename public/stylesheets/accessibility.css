@@ -695,28 +695,26 @@ body > #header .section .session.join {
   margin: 10px 0; }
 
 /*wikipedia import request */
-#wikipedia_queue {
-  width: 640px; }
-  #wikipedia_queue form {
-    margin-top: 40px; }
-    #wikipedia_queue form dt p {
-      margin-bottom: 0; }
-    #wikipedia_queue form dd {
-      margin: 0 0 10px 0; }
-      #wikipedia_queue form dd input[type="text"] {
-        width: 308px;
-        height: 22px;
-        padding: 2px 5px;
-        font: normal 1em Helvetica, Arial, sans-serif;
-        border: 1px solid #cad3db;
-        background-color: white;
-        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
-        background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
-        background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
-        width: 600px; }
-    #wikipedia_queue form input[type="submit"] {
-      padding: 7px 10px;
-      font-size: 1em; }
+#wikipedia_queue form {
+  margin-top: 40px; }
+  #wikipedia_queue form dt p {
+    margin-bottom: 0; }
+  #wikipedia_queue form dd {
+    margin: 0 0 10px 0; }
+    #wikipedia_queue form dd input[type="text"] {
+      width: 308px;
+      height: 22px;
+      padding: 2px 5px;
+      font: normal 1em Helvetica, Arial, sans-serif;
+      border: 1px solid #cad3db;
+      background-color: white;
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+      background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
+      width: 600px; }
+  #wikipedia_queue form input[type="submit"] {
+    padding: 7px 10px;
+    font-size: 1em; }
 
 /*collections overides */
 .object_list div.checkbox {

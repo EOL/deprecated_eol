@@ -1,5 +1,8 @@
-#content
+#content.cms_page
   #wikipedia_queue.site_column
+    - unless @navigation_menu.blank?
+      .nav
+        = @navigation_menu
     .article.copy
       %p= I18n.t(:wikipedia_queue_new_intro)
       %p= I18n.t(:wikipedia_queue_new_instructions_intro)

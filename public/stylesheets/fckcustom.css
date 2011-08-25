@@ -65,6 +65,14 @@ ul.with_images li {
   ul.with_images li h2, ul.with_images li h3, ul.with_images li h4, ul.with_images li h5, ul.with_images li p {
     margin-left: 110px; }
 
+dl {
+  line-height: 140%;
+  margin: 0 0 40px 0; }
+  dl dt {
+    font-weight: bold; }
+  dl dd {
+    margin: 0 0 5px 20px; }
+
 blockquote {
   background: #eff2f4;
   border: 1px solid #cad3db;

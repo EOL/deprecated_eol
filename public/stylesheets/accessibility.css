@@ -275,6 +275,21 @@ form#switch_hierarchy_entry fieldset {
       text-decoration: underline; }
   #content.cms_page ul.object_list li p {
     clear: none; }
+#content.cms_page dl {
+  line-height: 140%;
+  margin: 0 0 40px 0; }
+  #content.cms_page dl dt {
+    font-weight: bold; }
+  #content.cms_page dl dd {
+    margin: 0 0 5px 20px; }
+
+.donate label.other {
+  padding-left: 15px;
+  margin-top: -27px; }
+.donate fieldset.actions {
+  margin-bottom: 40px; }
+.donate em {
+  font-weight: bold; }
 
 /*content partners overrides/additions */
 .cms_page #content_partners #sidebar input[type="text"] {

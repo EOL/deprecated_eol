@@ -84,7 +84,7 @@ class CollectionsController < ApplicationController
       return redirect_to collection_url(@collection)
     else
       back = @collection.user ? user_collections_url(current_user) : collection_url(@collection.community)
-      if @collection.update_attribute(:published, false)
+      if @collection.update_attributes(:published => false)
         flash[:notice] = I18n.t(:collection_destroyed)
       else
         flash[:error] = I18n.t(:collection_not_destroyed_error)

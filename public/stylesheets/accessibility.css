@@ -678,6 +678,8 @@ body > #header .section .session.join {
     margin: 0; }
     #page_heading .page_actions fieldset.actions input[type="submit"] {
       margin: 0; }
+#page_heading .hgroup .copy p {
+  margin: 10px 0; }
 
 /*wikipedia import request */
 #wikipedia_queue {

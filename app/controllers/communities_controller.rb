@@ -131,7 +131,7 @@ private
       return false
     end
     # It's okay (perfectly) if this gets overridden elsewhere:
-    flash[:notice] = I18n.t(:this_community_was_deleted) unless @community.published?
+    flash.now[:notice] = I18n.t(:this_community_was_deleted) unless @community.published?
     @community_collections = @community.collections || [] # NOTE these are collection_items, really.
     @members = @community.members # Because we pull in partials from the members controller.
     @current_member = current_user.member_of(@community)

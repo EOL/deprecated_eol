@@ -492,12 +492,16 @@ p.flag {
   font-size: 0.83em; }
 #taxon_detail .rating ul {
   display: inline; }
-#taxon_detail .average_rating h5 {
+#taxon_detail .average_rating {
   float: left;
-  margin: 0 10px 0 0;
-  text-transform: lowercase; }
-  #taxon_detail .average_rating h5 small {
-    font-size: 1em; }
+  padding: 2px 40px 0 0;
+  margin: 0 0 20px 0; }
+  #taxon_detail .average_rating h5 {
+    float: left;
+    margin: 0 10px 0 0;
+    text-transform: lowercase; }
+    #taxon_detail .average_rating h5 small {
+      font-size: 1em; }
 
 .rating ul li.current_rating_0 {
   position: absolute;

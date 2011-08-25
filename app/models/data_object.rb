@@ -956,14 +956,12 @@ class DataObject < SpeciesSchemaModel
 
   # TODO - we need to make sure that the user_id of curated_dohe is added to the HE...
   def curated_hierarchy_entries
-    dohe = data_objects_hierarchy_entries.compact.map do |dohe|
-      he = dohe.hierarchy_entry
+    dohe = data_objects_hierarchy_entries.map(&:hierarchy_entry).compact.map do |he|
       he.vetted_id = dohe.vetted_id
       he.visibility_id = dohe.visibility_id
       he
     end
-    cdohe = curated_data_objects_hierarchy_entries.compact.map do |cdohe|
-      he = cdohe.hierarchy_entry
+    cdohe = curated_data_objects_hierarchy_entries.map(&:hierarchy_entry).compact.map do |he|
       he.associated_by_curator = cdohe.user
       he.vetted_id = cdohe.vetted_id
       he.visibility_id = cdohe.visibility_id

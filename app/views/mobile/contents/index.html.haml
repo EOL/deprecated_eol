@@ -9,7 +9,7 @@
       %input{"type"=>"search","name"=>"mobile_search","id"=>"search_field","value"=>""}
 
   %ul#random_taxa_index{"data-role" => "listview", "data-inset"=>"true"}
-    %li{"data-role"=>"list-divider"}=t "mobile.contents.species"
+    %li{"data-role"=>"list-divider"}=t "mobile.contents.explore_eol"
     -@explore_taxa.map do |t|
       - if thumb = t.data_object.thumb_or_object('130_130')
         %li
@@ -19,28 +19,6 @@
             %h3= t.taxon_concept.title_canonical
             - if t.taxon_concept.entry.respond_to? :preferred_classification_summary
               %p= t.taxon_concept.entry.preferred_classification_summary
-
-  %ul{"data-role" => "listview", "data-inset"=>"true", "data-theme"=>"c", "list-divider-theme"=>"e"}
-    %li.taxon
-      =image_tag("/images/v2/icon_taxon.png", :class => "index_static_content_img")
-      %h3= "#{total_count('taxon_concepts')} #{t(:taxa)}"
-      %p= link_to t(:what_is_a_taxon), ""
-    %li.contributors
-      =image_tag("/images/v2/icon_contributors.png", :class => "index_static_content_img")
-      %h3= "#{total_count('users')} #{t(:members_like_you)}"
-      %p= link_to I18n.t(:learn_how_to_join), ""
-    %li.communities
-      =image_tag("/images/v2/icon_communities.png", :class => "index_static_content_img")
-      %h3= "#{total_count('collections')} #{t(:collections)}"
-      %p= link_to I18n.t(:learn_how_to_interact), ""
-    / %li.images
-    /   =image_tag("/images/v2/icon_partners.png", :class => "index_static_content_img")
-    /   %h3= "#{total_count('data_objects')} #{t(:images)}"
-    /   %p= link_to t(:learn_how_to_contribute), ""
-    %li.partners
-      =image_tag("/images/v2/icon_images.png", :class => "index_static_content_img")
-      %h3= "#{total_count('content_partners')} #{t(:content_partners)}"
-      %p= link_to t(:learn_about_content_partners), ""
 
 %div{"data-role"=>"footer"}
   %h3#go_to_full{"data-inline"=>"true"}

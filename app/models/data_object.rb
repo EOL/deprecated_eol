@@ -104,6 +104,13 @@ class DataObject < SpeciesSchemaModel
       sort
     end
   end
+  
+  def self.sort_by_created_date(data_objects)
+    data_objects.sort_by do |obj|
+      created_at = obj.created_at || 0
+      created_at
+    end
+  end
 
   def self.custom_filter(data_objects, taxon_concept, type, status)
 

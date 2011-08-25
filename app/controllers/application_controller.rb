@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  before_filter :preview_lockdown if $PREVIEW_LOCKDOWN
   before_filter :check_if_mobile
 
   prepend_before_filter :redirect_to_http_if_https
@@ -35,6 +36,12 @@ class ApplicationController < ActionController::Base
     :allow_page_to_be_cached?, :link_to_item
 
   before_filter :set_locale
+
+  def preview_lockdown
+    unless session[:preview] == $PREVIEW_LOCKDOWN
+      return redirect_to preview_url unless params[:controller] == 'content' && params[:action] == 'preview'
+    end
+  end
 
   def set_locale
     I18n.locale = current_user.language_abbr

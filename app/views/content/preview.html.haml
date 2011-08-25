@@ -1,0 +1,48 @@
+!!! 5
+%html(lang="en-US")
+  %head
+    %title EOL
+    %meta(charset="UTF-8")
+    = stylesheet_link_tag "home"
+    = javascript_include_tag "jquery-1.6.1.min", "rails", "application", "jquery.modal", "jquery.spotlite"
+
+  %body#prelaunch
+    #header
+      .section
+        %h1= link_to "Encyclopedia of Life", "#"
+        %h2 Global access to knowledge about life on Earth.
+    = render :partial => 'shared/flash_messages'
+    #content
+      .section
+        .article
+          %h3 Welcome to the EOL Version 2 Site Preview.
+          %p Briefings for media members on the new version of the Encyclopedia of Life are available on request. The new site, <a href="http://eol.org">eol.org</a>, will open to the public by 12 noon US Eastern Daylight Time Monday,    September 5, 2011. Please do not publish the prelaunch link.
+          %p
+            For press inquiries, please contact
+            = link_to "eolv2press@eol.org", "mailto:eolv2press@eol.org"
+        - form_tag(preview_path, :method => :post) do |f|
+          %fieldset
+            %dl
+              %dt
+                %label Password
+              %dd
+                = password_field_tag :preview
+          %fieldset.actions
+            = submit_tag I18n.t(:enter)
+    #footer{ :role => "contentinfo" }
+      .section
+        %h2.assistive= I18n.t(:site_information)
+        .copyright
+          %h6= link_to I18n.t(:encyclopedia_of_life), root_url
+          %p{ :title => I18n.t(:application_version_advisory_information) }
+            - if ENV["APP_VERSION"].blank?
+              = I18n.t(:development_version_name)
+            - else
+              = ENV["APP_VERSION"]
+        %ul.social_media
+          - # TODO: add rss ?
+          %li= link_to I18n.t(:twitter), $EOL_TWITTER_ACCOUNT, :class => "twitter"
+          %li= link_to I18n.t(:facebook), $EOL_FACEBOOK_ACCOUNT, :class => "facebook"
+          %li= link_to I18n.t(:tumblr), $EOL_TUMBLR_ACCOUNT, :class => "tumblr"
+          %li= link_to I18n.t(:flickr), $EOL_FLICKR_ACCOUNT, :class => "flickr"
+

@@ -1,5 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
 
+  map.preview '/preview', :controller => 'content', :action => 'preview'
+
   map.resources :tasks
   map.resources :task_states
   map.resources :task_names

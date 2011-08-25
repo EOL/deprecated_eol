@@ -12,7 +12,7 @@ describe DataObject do
 
     @curator         = @testy[:curator]
     @another_curator = create_curator
-    
+
     @dato = DataObject.gen(:description => 'That <b>description has unclosed <i>html tags')
     DataObjectsTaxonConcept.gen(:taxon_concept_id => @taxon_concept.id, :data_object_id => @dato.id)
     @tag1 = DataObjectTag.gen(:key => 'foo',    :value => 'bar')
@@ -363,7 +363,7 @@ describe DataObject do
 
   it '#all_associations should return all associations for the data object' do
     all_associations_count_for_udo = @user_submitted_text.all_associations.count
-    CuratedDataObjectsHierarchyEntry.find_or_create_by_hierarchy_entry_id_and_data_object_id( @hierarchy_entry.id, 
+    CuratedDataObjectsHierarchyEntry.find_or_create_by_hierarchy_entry_id_and_data_object_id( @hierarchy_entry.id,
         @user_submitted_text.id, :vetted => Vetted.trusted, :visibility => Visibility.visible, :user => @curator)
     @user_submitted_text.reload
     @user_submitted_text.all_associations.count.should == all_associations_count_for_udo + 1

@@ -413,6 +413,7 @@ en:
         new_password: "New password <small>(4 - 16 characters)</small>"
         new_password_confirmation: "New password <small>(to confirm)</small>"
         requested_curator_level: "Your request to become %{curator_level_with_indefinite_article} is pending."
+        requested_curator_level_id_more: "Choose <em>Assistant Curator</em> if you do not yet have any credentials.  Choose <em>Full Curator</em> if you are a professional scientist or graduate student with credentials.  Choose <em>Master Curator</em> if you are an experienced EOL curator and want to take on more responsibilities."
         tag_line: 'Tagline or title <small>example: "Bird enthusiast"</small>'
         user_identities: "I am"
         username: "Username <small>(4 - 32 characters)</small>"
@@ -708,6 +709,7 @@ en:
   associated_with_sound_header: "Associated with"
   associated_with_article_header: "Associated with"
   associated_with_video_header: "In this video"
+  associations_more_link: "more <span class=\"assistive\">taxon associations</span>"
   a_taxon: "a taxon"
   attempts_: "Attempts:"
   attribute_all_of_var__agent_pr: "Attribute all of %{var__agent_project_name}'s data objects according to its preferred Creative Commons licenses and in the manner specified by %{var__agent_project_name}."
@@ -1210,7 +1212,7 @@ en:
   curation_and_comments: "Curation and Comments"
   curation_comment: "Curation Comment"
   curation: "Curation"
-  curation_privileges_page_description: 'Select your desired curation level, assistant, full or master curator. Full and master curator applications must include scope and credentials, you will be notified by email once your details have been reviewed and accepted. Assistant curator applications are not moderated and will be instantly approved. Learn more about <a href="%{curator_faq_url}">becoming a curator</a>.'
+  curation_privileges_page_description: 'Select your desired curation level, assistant, full or master curator. Full and master curator applications must include scope and credentials, you will be notified by email once your details have been reviewed and accepted. Assistant curator applications are not moderated and will be instantly approved. Learn more about <a href="%{curators_url}">becoming a curator</a>.'
   curation_privileges_page_title: "Become a curator"
   curation_scope: "Curation Scope"
   curation_standards: "Curation Standards"
@@ -1226,10 +1228,12 @@ en:
   curator_title: "Curator"
   curator_: "Curator?"
   curator_level_application_pending_notice: 'Thanks for applying to become a curator. We will notify you by email when we have reviewed your application.'
-  curator_level_assistant_approved_notice: 'Congratulations! You are now an <em>EOL Assistant Curator</em>. <a href="%{more_url}">Learn more about the assistant curator role</a>.'
+  curator_level_assistant_approved_notice: 'Congratulations! You are now an <em>assistant curator</em>. <a href="%{more_url}">Learn more about the assistant curator role</a>.'
   curator_level_assistant_curator: "Assistant Curator"
   curator_level_full_curator: "Full Curator"
+  curator_level_full_pending_notice: 'Thanks for applying to become a <em>full curator</em>. We will notify you by email when we have reviewed your application.'
   curator_level_master_curator: "Master Curator"
+  curator_level_master_pending_notice: 'Thanks for applying to become a <em>master curator</em>. We will notify you by email when we have reviewed your application.'
   curator_level_with_indefinite_article_master_curator: "a <strong>master curator</strong>"
   curator_level_with_indefinite_article_full_curator: "a <strong>full curator</strong>"
   curator_level_with_indefinite_article_assistant_curator: "an <strong>assistant curator</strong>"

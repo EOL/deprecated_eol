@@ -5,7 +5,4 @@
 - else
   - owner = "&copy; #{data_object.rights_holder}"
 - unless owner.blank?
-  - if defined?(linked) && linked && !user.blank? && !user.id.blank?
-    = link_to owner, user_path(user)
-  - else
-    = owner
+  = owner

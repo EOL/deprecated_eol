@@ -556,16 +556,6 @@ body > #header .section .session.join {
     border-color: #f2d2cc;
     background: #ffeae6; }
 
-/*we share attribution across multiple pages so we need some overrides of HR here */
-#text_summary p.flag {
-  float: left; }
-#text_summary .attribution {
-  clear: none;
-  font-size: 0.92em; }
-  #text_summary .attribution img {
-    float: left;
-    margin: 0 10px; }
-
 /*taxon disclaimer */
 .disclaimer {
   clear: both;
@@ -778,6 +768,16 @@ ul.feed li > a > img {
   width: expression(this.width > 35 ? "35px" : true);
   height: expression(this.height > 35 ? "35px" : true); }
 
+/*we share attribution across multiple pages so we need some overrides of HR here */
+#text_summary p.flag {
+  float: left; }
+#text_summary .attribution {
+  clear: none;
+  font-size: 0.92em; }
+  #text_summary .attribution img {
+    float: left;
+    margin: 0 10px; }
+
 #taxon .gallery ul.thumbnails li img {
   max-width: 98px;
   max-height: 68px;
@@ -798,14 +798,21 @@ ul.feed li > a > img {
   z-index: 100;
   font-size: 0.92em; }
   #taxon .gallery .images .details .copy p {
-    margin: 0;
-    line-height: 120%;
-    padding-left: 90px; }
+    margin: 0 0 4px;
+    line-height: 120%; }
+    #taxon .gallery .images .details .copy p.owner {
+      padding-left: 85px; }
   #taxon .gallery .images .details .attribution {
     margin: 0;
     font-size: 1em; }
+    #taxon .gallery .images .details .attribution img, #taxon .gallery .images .details .attribution span.license {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      margin: 0; }
     #taxon .gallery .images .details .attribution img {
-      top: 8px; }
+      margin-top: -1px; }
 
 #media_list #main ul li img {
   max-width: 160px;

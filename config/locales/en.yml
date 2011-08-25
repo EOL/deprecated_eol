@@ -3487,6 +3487,7 @@ en:
       taxa: "Taxa"
       full_site: "Full site"
       species: "Species"
+      explore_eol: "Explore EOL"
     taxa:
       taxon_overview: "Taxon Overview"
       overview: "Overview"

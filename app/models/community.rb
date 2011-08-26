@@ -13,8 +13,6 @@ class Community < ActiveRecord::Base
 
   accepts_nested_attributes_for :collection
 
-  after_create :attatch_focus
-
   # These are for will_paginate:
   cattr_reader :per_page
   @@per_page = 30
@@ -71,7 +69,6 @@ class Community < ActiveRecord::Base
       Member.find_by_user_id_and_community_id(user_or_member.id, id) :
       user_or_member
     raise EOL::Exceptions::ObjectNotFound unless member
-    raise EOL::Exceptions::CommunitiesMustHaveAManager if member.manager? && members.managers.count <= 1
     member.destroy
     self.reload
   end
@@ -99,10 +96,11 @@ class Community < ActiveRecord::Base
     }.compact[0..3]
   end
 
-private
-
+  # This is a convenience method, nothing more:  TODO - do we even need this anymore?
   def attatch_focus
-    Collection.create(:name => I18n.t(:default_focus_collection_name_from_community, :name => self.name), :special_collection_id => SpecialCollection.focus.id, :community_id => self.id)
+    unless collection
+      Collection.create(:name => I18n.t(:default_focus_collection_name_from_community, :name => self.name), :special_collection_id => SpecialCollection.focus.id, :community_id => self.id, :user_id => nil)
+    end
   end
 
 end

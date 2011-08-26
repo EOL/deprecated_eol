@@ -18,4 +18,5 @@
     = f.text_area :body, :rows => rows, :cols => cols
   %fieldset.actions
     = submit_tag I18n.t(:post_comment)
-    = link_to I18n.t(:cancel), current_url, :class => 'cancel'
+    - if defined?(cancel) && cancel
+      = link_to I18n.t(:cancel), current_url, :class => 'cancel'

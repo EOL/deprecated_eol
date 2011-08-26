@@ -285,9 +285,9 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   # TODO - test
   def total_data_objects_curated
-      return curator_activity_logs_on_data_objects.count(
-              :conditions => "activity_id IN (#{Activity.raw_curator_action_ids.join(",")})",
-              :group => 'curator_activity_logs.object_id').count
+    return curator_activity_logs_on_data_objects.count(
+            :conditions => "activity_id IN (#{Activity.raw_curator_action_ids.join(",")})",
+            :group => 'curator_activity_logs.object_id').count
   end
 
   # TODO - test

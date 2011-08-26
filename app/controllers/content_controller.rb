@@ -34,7 +34,7 @@ class ContentController < ApplicationController
         session[:preview] = params[:preview]
         return redirect_to root_path
       else
-        flash[:error] = "Incorrect password."
+        flash.now[:error] = "Incorrect password."
         return render :layout => false
       end
     end

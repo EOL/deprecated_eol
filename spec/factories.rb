@@ -402,6 +402,7 @@ end
 Factory.define :community do |c|
   c.name        { Faker::Lorem.words.join(' ').titleize }
   c.description { Faker::Lorem.paragraph }
+  c.after_create { |com| Factory(:collection, :community => com, :user => nil) }
 end
 
 Factory.define :community_activity_log do |cal|

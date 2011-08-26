@@ -781,6 +781,7 @@ en:
   cannot_be_associated_with_both_a_user_and_a_community: "Cannot be associated with both a user and a community"
   cannot_be_empty: "cannot be empty."
   cannot_create_collection_item_from_class_error: "I cannot create a collection item from a %{klass}"
+  cannot_create_community_from_watch_collection_error: "You cannot create a community from a watch collection."
   cannot_expand_children: "cannot expand children"
   cannot_find_member: "Cannot find a member with this id."
   cannot_index_collection_item_type_error: "I cannot index a collection item from a %{type}"
@@ -921,7 +922,7 @@ en:
   community_contributions_with_count:
     one: "%{count} Contribution"
     other: "%{count} Contributions"
-  community_destroyed: "Community was deleted."
+  community_destroyed: "You have deleted this community. It will no longer show up on taxon pages or in searches."
   community_empty_notice: "This community has no members."
   community_focus: "Community focus"
   community_focus_items_with_count:
@@ -935,8 +936,7 @@ en:
     one: "%{count} Community Members"
     other: "%{count} Community Members"
   community_members: "Community members"
-  community_must_have_one_manager_error: "Sorry, communities must have at least one manager, and this member is the last one."
-  community_not_destroyed_error: "Sorry, the community was not deleted."
+  community_not_destroyed_error: "Sorry, there was a problem and the community was not deleted."
   community_tab_collections_description: 'Collections are created by EOL users to bring together species, multimedia, articles, or even members that have something in common, such as geography, ecology, or a personal meaning.  Communities can "feature" collections that are of particular interest and value to them.'
   community_tab_communities_description: "Communities are groups of EOL members who come together to share their interests and expertise. EOL communities are organized around one or more EOL collections, and offer members a way to focus on topics of common concern."
   community_tab_curators_description: "Curators are EOL users with biological expertise who give their time to review content on EOL, ensuring that what you see is accurate and of high quality."
@@ -954,6 +954,7 @@ en:
   conceptualizes_and_prepares_th: "conceptualizes and prepares the software needed to host and to search the species pages; applies taxonomic intelligence to the scientific names on the species pages and in the literature."
   confirmation_sent: "Confirmation Sent"
   confirm: "Confirm"
+  confirm_delete_community: "Are you sure you want to delete this community? Remaining members will still be able to see it and the newsfeed will be maintained, but it will not show up in searches or on taxon pages, and will no longer be editable."
   confirm_leave: "Are you sure you want to leave this community?"
   confirm_new_password: "Confirm New Password"
   confirm_password_colon: "Confirm Password:"
@@ -3013,6 +3014,7 @@ en:
   this_community_has_no_endorsed_collections: "This community has not featured any collections."
   this_community_has_no_focus_items_associated_with_it: "This community has no focus items associated with it."
   this_community_has_no_focus_list: "This community has no focus list."
+  this_community_was_deleted: "This community was deleted by its owner."
   this_does_not_necessarily_mean: "* this does not necessarily mean the connections are being used, just that they are defined in the database.yml --- you must check the \"config/environments/%{env}.rb\" file to see if the master connections are setup"
   this_email_is_to_notify_you_th: "This email is to notify you that your curator privileges have been removed"
   this_form_is_used_to_notify_eo: "This form is used to notify EOL of a resource that is available for processing.  You can either upload your resource or place it on a public server and indicate its URL, but you should not do both.  Providing a URL is preferable since you can then schedule a regular interval for your data to be updated. Currently, the resource must be in the EOL Transfer Schema format. <br />* indicates a required field."

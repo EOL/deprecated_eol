@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :preview_lockdown if $PREVIEW_LOCKDOWN
   before_filter :global_warning if $GLOBAL_WARNING
-  before_filter :check_if_mobile
+  before_filter :check_if_mobile if $ENABLE_MOBILE
 
   prepend_before_filter :redirect_to_http_if_https
   prepend_before_filter :set_session

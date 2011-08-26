@@ -1,24 +1,30 @@
 - names_by_language = common_names_by_language(@common_names, current_user.language_id).uniq
-- names_by_language.each_with_index do |language_names_pair, index|
-  - language = language_names_pair[0]
-  - names = language_names_pair[1]
-  %h4= language
-  %table.standard
-    %thead
-      %tr
-        %th= I18n.t(:names_preferred_column_header)
-        %th= I18n.t(:names_name_column_header)
-        %th= I18n.t(:names_sources_column_header)
-        %th= I18n.t(:names_status_column_header)
-    %tbody
-      - names.each do |name|
+- if names_by_language.blank?
+  .article
+    .empty
+      %p= I18n.t(:names_common_empty)
+- else
+  %p.help_text
+    = I18n.t(:name_preferred_help_tip,
+      :icon => image_tag("/images/v2/icon_required.png", :alt => I18n.t(:name_preferred_for_language_yes), :class => 'indicator'))
+
+  - names_by_language.each_with_index do |language_names_pair, index|
+    - language = language_names_pair[0]
+    - names = language_names_pair[1]
+    %h4= language
+    %table.standard
+      %thead
         %tr
-          %td
-            %span{:class => name.preferred == 1 ? 'preferred' : 'assistive'}
-              = name.preferred == 1 ? I18n.t(:name_preferred_for_language_yes) : I18n.t(:name_preferred_for_language_no)
-          %td
-            = name.string
-          %td
-            = name.agent_names
-          %td
-            %span.flag{:class => vetted_id_class(name.vetted_id)}= Vetted.find_by_id(name.vetted_id).label
+          %th= I18n.t(:names_name_column_header)
+          %th= I18n.t(:names_sources_column_header)
+          %th= I18n.t(:names_status_column_header)
+      %tbody
+        - names.each do |name|
+          %tr
+            %td{:class => name.preferred == 1 ? 'preferred' : nil,
+              :title => name.preferred == 1 ? I18n.t(:name_preferred_for_language_yes) : nil}
+              = name.string
+            %td
+              = name.agent_names
+            %td
+              = Vetted.find_by_id(name.vetted_id).label

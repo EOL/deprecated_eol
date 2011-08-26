@@ -4,8 +4,8 @@
       .header
         %h3= I18n.t(:taxon_recognized_by_header)
       = render :partial => 'taxa/recognized_by'
-    = render :partial => 'filter_by_name_category'
-    #taxon_names.main_container
+    = render :partial => 'names_menu'
+    .main_container
       - hierarchy_entries = @selected_hierarchy_entry.blank? ? @taxon_concept.published_hierarchy_entries : [@selected_hierarchy_entry]
       - hierarchy_entries.delete_if{ |he| !he.hierarchy.browsable? }
       - for he in hierarchy_entries

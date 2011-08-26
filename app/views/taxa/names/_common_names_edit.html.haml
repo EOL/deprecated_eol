@@ -12,7 +12,7 @@
     = hidden_field_tag 'language_id', names[0].language_id
     = hidden_field_tag "hierarchy_entry_id", @selected_hierarchy_entry_id
     %h4= language
-    %table.standard
+    %table.standard.common_names
       %thead
         %tr
           %th= I18n.t(:names_preferred_column_header)

@@ -1,17 +1,18 @@
 - form_for Name.new, :url => taxon_names_path(@taxon_concept) do |f|
-  %fieldset
+  .copy
     %h3=I18n.t(:add_a_new_common_name)
+  %fieldset
     %dl
-      %dt
-        = f.label :string
-      %dd
-        = f.text_field :string, { :maxlength => 300, :size => 40 }
-
       - f.fields_for :synonym do |synonym|
-        = synonym.hidden_field :hierarchy_entry_id, :value => @selected_hierarchy_entry_id
         %dt
           = synonym.label :language_id
         %dd
           = synonym.collection_select(:language_id, Language.approved_languages, :id, :label, :selected => current_user.language_id)
+          = synonym.hidden_field :hierarchy_entry_id, :value => @selected_hierarchy_entry_id
+      %dt
+        = f.label :string
+      %dd
+        = f.text_field :string, { :maxlength => 300 }
+
   %fieldset.actions
     = f.submit I18n.t('helpers.submit.name.create'), :name => :commit_add_common_name

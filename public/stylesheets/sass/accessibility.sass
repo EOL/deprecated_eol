@@ -670,6 +670,29 @@ body
   .empty
     p
       padding: 0 0 15px 0 !important
+#taxon_names
+  form
+    &#new_name
+      background: #F3F7FA
+      border: 1px solid #CAD3DB
+      margin-bottom: 40px
+      padding: 5px 20px
+      .copy
+        margin-bottom: 3px
+        h3
+          margin-bottom: 0
+      dt, dd, fieldset, input[type="submit"]
+        display: inline-block
+      dl
+        margin-left: 20px
+        dt
+          padding-right: 5px
+        dd
+          margin-right: 20px
+      input[type="text"]
+        +input(200px)
+  .recognized
+    line-height: 170%
 #taxon_maps
   .empty
     p
@@ -745,11 +768,6 @@ body
         max-width: 60px
       p
         padding-left: 90px
-/** Recognized by is looking too cramped **/
-.recognized
-  ul
-    li
-      padding: 5px 0
 
 /* TODO: this hasn't been really thought out and should be changed: */
 #sidebar
@@ -1122,9 +1140,6 @@ a.other_actions
   width: 220px
   #filters
     margin: 0px 20px
-// Smaller font for "view in classification" links (following pattern for choose collection):
-#recognized_by span
-  font-size: 0.95em
 #taxon_updates form.comment
   margin: 0 0 15px
   textarea

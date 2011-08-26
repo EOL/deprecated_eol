@@ -4,8 +4,8 @@
       .header
         %h3= I18n.t(:taxon_recognized_by_header)
       = render :partial => 'taxa/recognized_by'
-    = render :partial => 'filter_by_name_category'
-    #taxon_names.main_container
+    = render :partial => 'names_menu'
+    .main_container
       - if current_user.min_curator_level?(:assistant)
         = render :partial => 'common_names_edit'
       - else

@@ -44,7 +44,10 @@
       %h3
         =I18n.t("description")
       %p
-        =I18n.t("this_method_takes_an_integer_or_string", :link_provider => link_to("provider_hierarchies", :action => "provider_hierarchies"), :link_url => link_to(url, url))
+        = I18n.t("this_method_takes_an_integer_or_string",
+          :link_provider => link_to("provider_hierarchies", :action => "provider_hierarchies"),
+          :link_url => link_to(url, url),
+          :itis_id => itis.id)
       %h3
         =I18n.t("xml_response")
       %code<

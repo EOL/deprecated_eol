@@ -369,6 +369,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       end
     end
     self.update_attributes(:requested_curator_level_id => nil)
+    clear_cached_user
   end
   alias approve_to_curate grant_curator
 
@@ -380,6 +381,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     self.update_attributes(:curator_verdict_by => nil,
                            :curator_verdict_at => nil,
                            :requested_curator_level_id => nil)
+    clear_cached_user
   end
   alias revoke_curatorship revoke_curator
 

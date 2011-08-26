@@ -9,15 +9,15 @@
         = I18n.t(:page_statistics_explanation)
       %dl
         %dt= I18n.t(:richness_score)
-        - unless @metrics.blank?
-          %dd= @metrics.richness_for_display
+        - if @metrics.blank?
+          %dd= 0.to_s
         - else
-          %dd
+          %dd= @metrics.richness_for_display
         %dt= I18n.t(:trusted_images)
-        %dd= number_with_delimiter(@media_facets['ancestor_trusted_image'], :delimiter => ",")
+        %dd= number_with_delimiter(@media_facets['ancestor_trusted_image'] || 0, :delimiter => ",")
         %dt= I18n.t(:unreviewed_images)
-        %dd= number_with_delimiter(@media_facets['ancestor_unreviewed_image'], :delimiter => ",")
+        %dd= number_with_delimiter(@media_facets['ancestor_unreviewed_image'] || 0, :delimiter => ",")
         %dt= I18n.t(:trusted_text_objects)
-        %dd= number_with_delimiter(@media_facets['trusted_text'], :delimiter => ",")
+        %dd= number_with_delimiter(@media_facets['trusted_text'] || 0, :delimiter => ",")
         %dt= I18n.t(:unreviewed_text_objects)
-        %dd= number_with_delimiter(@media_facets['unreviewed_text'], :delimiter => ",")
+        %dd= number_with_delimiter(@media_facets['unreviewed_text'] || 0, :delimiter => ",")

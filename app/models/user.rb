@@ -283,27 +283,17 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     end
   end
 
-  # TODO - test
   def total_data_objects_curated
-    return curator_activity_logs_on_data_objects.count(
-            :conditions => "activity_id IN (#{Activity.raw_curator_action_ids.join(",")})",
-            :group => 'curator_activity_logs.object_id').count
+    connection.select_values("
+      SELECT cal.object_id
+      FROM #{CuratorActivityLog.database_name}.curator_activity_logs cal
+        JOIN #{LoggingModel.database_name}.activities acts ON (cal.activity_id = acts.id)
+      WHERE cal.user_id=#{id}
+        AND cal.changeable_object_type_id IN(#{ChangeableObjectType.data_object_scope.join(",")})
+        AND acts.id IN (#{Activity.raw_curator_action_ids.join(",")})
+      ").uniq.length
   end
 
-  # TODO - test
-  def comment_curation_actions
-    CuratorActivityLog.find_all_by_user_id_and_changeable_object_type_id(id, ChangeableObjectType.comment.id,
-      :include => [ :activity, :affected_comment ],
-      :select => { :curator_activity_logs => '*', :comments => '*' },
-      :conditions => "activity_id != #{Activity.create.id}")
-  end
-
-  # TODO - test
-  def total_comments_curated
-    comment_curation_actions.length
-  end
-
-  # TODO - test
   def taxon_concept_ids_curated
     connection.select_values("
       SELECT dotc.taxon_concept_id
@@ -311,16 +301,32 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
         JOIN #{LoggingModel.database_name}.activities acts ON (cal.activity_id = acts.id)
         JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (cal.object_id = dotc.data_object_id)
       WHERE cal.user_id=#{id}
-        AND cal.changeable_object_type_id=#{ChangeableObjectType.data_object.id}
+        AND cal.changeable_object_type_id IN(#{ChangeableObjectType.data_object_scope.join(",")})
         AND acts.id!=#{Activity.rate.id}
-      GROUP BY cal.object_id
       ORDER BY cal.updated_at DESC").uniq
   end
 
-  # TODO - test
   def total_species_curated
     taxon_concept_ids_curated.length
   end
+
+  # Not sure yet its status in V2, commented temporarily
+  # # TODO - test
+  # def comment_curation_actions
+  #   connection.select_values("
+  #     SELECT cal.object_id
+  #     FROM #{CuratorActivityLog.database_name}.curator_activity_logs cal
+  #       JOIN #{LoggingModel.database_name}.activities acts ON (cal.activity_id = acts.id)
+  #     WHERE cal.user_id=#{id}
+  #       AND cal.changeable_object_type_id = #{ChangeableObjectType.comment.id}
+  #       AND acts.id != #{Activity.create.id}
+  #     ").uniq
+  # end
+  # 
+  # # TODO - test
+  # def total_comments_curated
+  #   comment_curation_actions.length
+  # end
 
   # TODO - test all of these taggy things.  And move this to a module, I think.
   def data_object_tags_for data_object
@@ -354,32 +360,34 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def grant_admin
-    self.update_attribute(:admin, true)
+    self.update_attributes(:admin => true)
     clear_cached_user
   end
 
   def grant_curator(level = :full, options = {})
     level = CuratorLevel.send(level)
     unless curator_level_id == level.id
-      self.update_attribute(:curator_level_id, level.id)
+      self.update_attributes(:curator_level_id => level.id)
       Notifier.deliver_curator_approved(self) if $PRODUCTION_MODE
       if options[:user]
-        self.update_attribute(:curator_verdict_by, options[:user])
-        self.update_attribute(:curator_verdict_at, Time.now)
+        self.update_attributes(:curator_verdict_by => options[:user],
+                               :curator_verdict_at => Time.now)
       end
     end
-    self.update_attribute(:requested_curator_level_id, nil)
+    self.update_attributes(:requested_curator_level_id => nil)
+    clear_cached_user
   end
   alias approve_to_curate grant_curator
 
   def revoke_curator
     unless curator_level_id == nil
-      self.update_attribute(:curator_level_id, nil)
+      self.update_attributes(:curator_level_id => nil)
       Notifier.deliver_curator_unapproved(self) if $PRODUCTION_MODE
     end
-    self.update_attribute(:curator_verdict_by, nil)
-    self.update_attribute(:curator_verdict_at, nil)
-    self.update_attribute(:requested_curator_level_id, nil)
+    self.update_attributes(:curator_verdict_by => nil,
+                           :curator_verdict_at => nil,
+                           :requested_curator_level_id => nil)
+    clear_cached_user
   end
   alias revoke_curatorship revoke_curator
 

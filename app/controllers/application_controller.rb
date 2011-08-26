@@ -22,6 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   before_filter :preview_lockdown if $PREVIEW_LOCKDOWN
+  before_filter :global_warning if $GLOBAL_WARNING
   before_filter :check_if_mobile
 
   prepend_before_filter :redirect_to_http_if_https
@@ -36,6 +37,13 @@ class ApplicationController < ActionController::Base
     :allow_page_to_be_cached?, :link_to_item
 
   before_filter :set_locale
+
+  # Continuously display a warning message.  This is used for things like "System Shutting down at 15 past" and the
+  # like.  And, yes, if there's a "real" error, they won't see the message because flash[:error] will be
+  # over-written.  But so it goes.  This is the final countdown.
+  def global_warning
+    flash[:error] ||= $GLOBAL_WARNING # Global warning is not a myth.
+  end
 
   def preview_lockdown
     unless session[:preview] == $PREVIEW_LOCKDOWN
@@ -443,6 +451,9 @@ class ApplicationController < ActionController::Base
 
   # A user is not authorized for the particular controller/action:
   def access_denied
+    unless logged_in?
+      return redirect_to root_url
+    end
     store_location(request.referer) unless session[:return_to] || request.referer.blank?
     flash_and_redirect_back(I18n.t(:you_are_not_authorized_to_perform_this_action))
   end

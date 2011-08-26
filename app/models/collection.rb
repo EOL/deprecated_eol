@@ -142,7 +142,7 @@ class Collection < ActiveRecord::Base
       raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_create_collection_item_from_class_error,
                                                                   :klass => what.class.name))
     end
-    collection_items.last.update_attribute(:annotation, opts[:annotation]) if opts[:annotation]
+    collection_items.last.update_attributes(:annotation => opts[:annotation]) if opts[:annotation]
     what # Convenience.  Allows us to chain this command and continue using the object passed in.
   end
 

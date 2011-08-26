@@ -1,1 +1,5 @@
 = render :partial => 'sessions/new'
+
+- unless flash.now[:notice].blank?
+  - if flash.now[:notice].include? "Welcome, and thanks for joining the Encyclopedia Of Life team"
+    = render :partial => 'users/add_words_tracking_code_snippet'

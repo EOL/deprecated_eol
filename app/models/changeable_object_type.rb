@@ -50,4 +50,9 @@ class ChangeableObjectType < ActiveRecord::Base
     cached_find(:ch_object_type, 'curated_data_objects_hierarchy_entry')
   end
 
+  def self.data_object_scope
+    [ChangeableObjectType.data_object.id, ChangeableObjectType.users_data_object.id, 
+     ChangeableObjectType.curated_data_objects_hierarchy_entry.id, ChangeableObjectType.data_objects_hierarchy_entry.id]
+  end
+
 end

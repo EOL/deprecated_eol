@@ -161,12 +161,12 @@ class Comment < ActiveRecord::Base
 
   def show(by)
     self.vetted_by = by if by
-    self.update_attribute :visible_at, Time.now unless visible_at
+    self.update_attributes(:visible_at => Time.now) unless visible_at
   end
 
   def hide(by)
     self.vetted_by = by if by
-    self.update_attribute :visible_at, nil
+    self.update_attributes(:visible_at => nil)
   end
 
   # aliases to satisfy curation
@@ -188,7 +188,7 @@ class Comment < ActiveRecord::Base
     raise "Don't know how to handle a parent type of #{self.parent_type} (or t_c was nil)" if return_t_c.nil?
     return return_t_c
   end
-  
+
   def log_activity_in_solr
     base_index_hash = {
       'activity_log_unique_key' => "Comment_#{id}",
@@ -199,7 +199,7 @@ class Comment < ActiveRecord::Base
       'date_created' => self.created_at.solr_timestamp }
     EOL::Solr::ActivityLog.index_activities(base_index_hash, activity_logs_affected)
   end
-  
+
   def activity_logs_affected
     logs_affected = {}
     return {} if self.parent.nil?
@@ -209,10 +209,10 @@ class Comment < ActiveRecord::Base
     logs_affected['Collection'] = [ watch_collection_id ] if watch_collection_id
     if self.parent_type == 'User'
       # news feed of user commented on
-      logs_affected['UserNews'] = [ self.parent_id ] 
+      logs_affected['UserNews'] = [ self.parent_id ]
     else
       # news feed of other types
-      logs_affected[self.parent.class.name] = [ self.parent_id ] 
+      logs_affected[self.parent.class.name] = [ self.parent_id ]
     end
     # news feed of collections which contain the thing commented on
     self.parent.containing_collections.each do |c|

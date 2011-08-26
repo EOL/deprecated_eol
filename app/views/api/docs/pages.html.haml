@@ -1,129 +1,131 @@
 = render(:partial=>'uservoice')
 - url = url_for(:controller => '/api', :action => 'pages', :version => '1.0', :id => '1045608', :images => 2, :text => 2, :subjects => 'all', :details => 1, :common_names => 1, :only_path => false)
-#content
-  #page-separator-general
-  #page-title
-    %h1
-      =I18n.t("eol_api__pages")
-    %hr
-  #page-content.clearfix
-    #full-page-content
-      = render(:partial=>'jump_to_nav')
+#content.cms_page
+  #api_doc.site_column
+    .nav
+      = @navigation_menu
+    .article.copy
       %h3
         =I18n.t("request")
-      %p.indent
+      %p
         %a{ :href => url }
           = url
       %h3
         =I18n.t("parameters")
-      %table.results_table
-        %tr
-          %th
-            =I18n.t("name")
-          %th
-            =I18n.t("values")
-          %th
-            =I18n.t("default")
-          %th
-            =I18n.t("notes")
-        %tr
-          %td.odd.strong
-            images
-          %td.odd
-            0-75
-          %td.odd
-            1
-          %td.odd
-            =I18n.t("limits_the_number_of_returned_")
-        %tr
-          %td.even.strong
-            videos
-          %td.even
-            0-75
-          %td.even
-            1
-          %td.even
-            =I18n.t("limits_the_number_of_returned__")
-        %tr
-          %td.odd.strong
-            text
-          %td.odd
-            0-75
-          %td.odd
-            1
-          %td.odd
-            =I18n.t("limits_the_number_of_returned___")
-        %tr
-          %td.even.strong
-            =I18n.t("subject")
-          %td.even
-            %i
-              =I18n.t("see_notes")
-          %td.even
-            =I18n.t("taxonbiology_generaldescriptio")
-          %td.even
-            =I18n.t("a_pipe___delimited_list_of_spm") 
-        %tr
-          %td.odd.strong
-            licenses
-          %td.odd
-            = "cc-by, cc-by-nc, cc-by-sa, cc-by-nc-sa, pd ["+ I18n.t("public_domain") +"], na ["+ I18n.t("not_applicable") +"], all"
-          %td.odd
-            all
-          %td.odd
-            =I18n.t("a_pipe___delimited_list_of_lic")
-            = link_to I18n.t("creative_commons"), "http://creativecommons.org/licenses/"
-            =I18n.t("licenses__visit_their_site_for")
-        %tr
-          %td.even.strong
-            details
-          %td.even
-            =I18n.t("0_or_1")
-          %td.even
-            0
-          %td.even
-            =I18n.t("include_all_metadata")
-        %tr
-          %td.odd.strong
-            common_names
-          %td.odd
-            =I18n.t("0_or_1")
-          %td.odd
-            0
-          %td.odd
-            =I18n.t("return_common_names_for_the_pa")
-        %tr
-          %td.even.strong
-            vetted
-          %td.even
-            =I18n.t("0_1_or_2")
-          %td.even
-            0
-          %td.even
-            =I18n.t("if_vetted_is_1_only__trusted__") 
-        %tr
-          %td.odd.strong
-            version
-          %td.odd
-            0.4, 1.0
-          %td.odd
-            0.4
-          %td.odd
-            =I18n.t("version_1_0_uses_fields_from_the_latest_version", :link => link_to(I18n.t("darwin_core"), 'http://rs.tdwg.org/dwc/terms/index.htm'))
-      %br
+      %table
+        %col.name
+        %col.values
+        %col.default
+        %col.notes
+        %thead
+          %tr
+            %th
+              =I18n.t("name")
+            %th
+              =I18n.t("values")
+            %th
+              =I18n.t("default")
+            %th
+              =I18n.t("notes")
+        %tbody
+          %tr
+            %td
+              images
+            %td
+              0-75
+            %td
+              1
+            %td
+              =I18n.t("limits_the_number_of_returned_")
+          %tr
+            %td
+              videos
+            %td
+              0-75
+            %td
+              1
+            %td
+              =I18n.t("limits_the_number_of_returned__")
+          %tr
+            %td
+              text
+            %td
+              0-75
+            %td
+              1
+            %td
+              =I18n.t("limits_the_number_of_returned___")
+          %tr
+            %td
+              =I18n.t("subject")
+            %td
+              %i
+                =I18n.t("see_notes")
+            %td
+              =I18n.t("taxonbiology_generaldescriptio")
+            %td
+              =I18n.t("a_pipe___delimited_list_of_spm")
+          %tr
+            %td
+              licenses
+            %td
+              = "cc-by, cc-by-nc, cc-by-sa, cc-by-nc-sa, pd ["+ I18n.t("public_domain") +"], na ["+ I18n.t("not_applicable") +"], all"
+            %td
+              all
+            %td
+              =I18n.t("a_pipe___delimited_list_of_lic")
+              = link_to I18n.t("creative_commons"), "http://creativecommons.org/licenses/"
+              =I18n.t("licenses__visit_their_site_for")
+          %tr
+            %td
+              details
+            %td
+              =I18n.t("0_or_1")
+            %td
+              0
+            %td
+              =I18n.t("include_all_metadata")
+          %tr
+            %td
+              common_names
+            %td
+              =I18n.t("0_or_1")
+            %td
+              0
+            %td
+              =I18n.t("return_common_names_for_the_pa")
+          %tr
+            %td
+              vetted
+            %td
+              =I18n.t("0_1_or_2")
+            %td
+              0
+            %td
+              =I18n.t("if_vetted_is_1_only__trusted__")
+          %tr
+            %td
+              version
+            %td
+              0.4, 1.0
+            %td
+              0.4
+            %td
+              =I18n.t("version_1_0_uses_fields_from_the_latest_version", :link => link_to(I18n.t("darwin_core"), 'http://rs.tdwg.org/dwc/terms/index.htm'))
+
       %h3
         =I18n.t("description")
-      %p.indent
+      %p
         =I18n.t("this_method_takes_an_eol_page_")
-      %p.indent       
+      %p
         =I18n.t("the_darwin_core_taxon_elements")
         =I18n.t("for_example_for_the_taxon_el", :link => link_to("hierarchy_entries", :action => "hierarchy_entries"))
         =I18n.t("there_is_no_singular_eol", :link =>link_to("hierarchy_entries", :action => "hierarchy_entries"))
-      %p.indent
+      %p
         =I18n.t("if_the_details_parameter_is_no", :linka => link_to(I18n.t("dublin_core"), 'http://dublincore.org/documents/dcmi-type-vocabulary/'), :linkb=> link_to(I18n.t("species_profile_model"), 'http://rs.tdwg.org/ontology/voc/SPMInfoItems'))
       %h3
         =I18n.t("xml_response")
-      .formatted_code<
+      %code<
         :escaped
           <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
           <response xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dwc="http://rs.tdwg.org/dwc/terms/" xmlns="http://www.eol.org/transfer/content/1.0" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#" xsi:schemaLocation="http://www.eol.org/transfer/content/1.0 http://services.eol.org/schema/content_1_0.xsd">
@@ -289,7 +291,7 @@
           </response>
       %h3
         =I18n.t("json_response")
-      .formatted_code<
+      %code<
         :escaped
           {
               "taxonConcepts":
@@ -645,4 +647,4 @@
                   }
               ]
           }
-          
+

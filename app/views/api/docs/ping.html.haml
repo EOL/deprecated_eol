@@ -1,31 +1,26 @@
 = render(:partial=>'uservoice')
 - url = url_for(:controller => '/api', :action => 'ping', :only_path => false)
-#content
-  #page-separator-general
-  #page-title
-    %h1
-      =I18n.t("eol_api__ping")
-    %hr
-  #page-content.clearfix
-    #full-page-content
-      = render(:partial=>'jump_to_nav')
+#content.cms_page
+  #api_doc.site_column
+    .nav
+      = @navigation_menu
+    .article.copy
       %h3
-        =I18n.t("request")
-      %p.indent
-        %a{ :href => url }
-          = url
+        = I18n.t("request")
+      %p
+        = link_to url, url
       %h3
-        =I18n.t("parameters")
-      %p.indent
+        = I18n.t("parameters")
+      %p
         %i
           =I18n.t("none")
       %h3
         =I18n.t("description")
-      %p.indent
+      %p
         =I18n.t("this_method_will_either_fail__")
       %h3
         =I18n.t("xml_response")
-      .formatted_code<
+      %code<
         :escaped
           <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
           <response>
@@ -33,7 +28,7 @@
           </response>
       %h3
         =I18n.t("json_response")
-      .formatted_code<
+      %code<
         :escaped
           {
               "response":

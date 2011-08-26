@@ -36,8 +36,10 @@ class Api::DocsController < ApiController
 private
   def set_navigation_menu
     api_overview = ContentPage.find_by_page_name('api_overview', :include => :translations)
-    translation = api_overview.translations.select{|t| t.language_id == current_user.language_id}.compact
-    translation ||= api_overview.translations.select{|t| t.language_id == Language.english.id}.compact
-    @navigation_menu =  translation.first.left_content rescue nil
+    unless api_overview.blank?
+      translation = api_overview.translations.select{|t| t.language_id == current_user.language_id}.compact
+      translation ||= api_overview.translations.select{|t| t.language_id == Language.english.id}.compact
+      @navigation_menu =  translation.first.left_content rescue nil
+    end
   end
 end

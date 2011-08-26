@@ -634,6 +634,45 @@ body > #header .section .session.join {
 .updates .empty p {
   padding: 0 0 15px 0 !important; }
 
+#taxon_names table.standard.common_names td {
+  position: relative;
+  width: 33%; }
+#taxon_names table.standard.edit_common_names td {
+  position: relative;
+  width: 25%; }
+#taxon_names table.standard.synonyms td, #taxon_names table.standard.related_names td {
+  position: relative;
+  width: 50%; }
+#taxon_names form#new_name {
+  background: #f3f7fa;
+  border: 1px solid #cad3db;
+  margin-bottom: 40px;
+  padding: 5px 20px; }
+  #taxon_names form#new_name .copy {
+    margin-bottom: 3px; }
+    #taxon_names form#new_name .copy h3 {
+      margin-bottom: 0; }
+  #taxon_names form#new_name dt, #taxon_names form#new_name dd, #taxon_names form#new_name fieldset, #taxon_names form#new_name input[type="submit"] {
+    display: inline-block; }
+  #taxon_names form#new_name dl {
+    margin-left: 20px; }
+    #taxon_names form#new_name dl dt {
+      padding-right: 5px; }
+    #taxon_names form#new_name dl dd {
+      margin-right: 20px; }
+  #taxon_names form#new_name input[type="text"] {
+    width: 200px;
+    height: 22px;
+    padding: 2px 5px;
+    font: normal 1em Helvetica, Arial, sans-serif;
+    border: 1px solid #cad3db;
+    background-color: white;
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+    background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
+#taxon_names .recognized {
+  line-height: 170%; }
+
 #taxon_maps .empty p {
   margin: 0 !important; }
 
@@ -696,10 +735,6 @@ body > #header .section .session.join {
   max-width: 60px; }
 #taxon_resources #nucleotide_sequences .copy p {
   padding-left: 90px; }
-
-/*Recognized by is looking too cramped */
-.recognized ul li {
-  padding: 5px 0; }
 
 /* TODO: this hasn't been really thought out and should be changed: */
 #sidebar.filters dd li.no_results label {
@@ -1083,9 +1118,6 @@ a.other_actions {
   width: 220px; }
   #media_list #sidebar #filters {
     margin: 0px 20px; }
-
-#recognized_by span {
-  font-size: 0.95em; }
 
 #taxon_updates form.comment {
   margin: 0 0 15px; }

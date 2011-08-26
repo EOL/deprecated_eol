@@ -198,14 +198,13 @@ describe 'Taxa page' do
       # English by default
       body.should have_tag('h4:first-of-type', "English")
       body.should have_tag('table:first-of-type') do
-        with_tag('thead tr th:first-of-type', /preferred/i)
-        with_tag('thead tr th:nth-of-type(2)', /name/i)
-        with_tag('thead tr th:nth-of-type(3)', /source/i)
-        with_tag('thead tr th:nth-of-type(4)', /status/i)
-        with_tag('tbody tr:first-of-type td:first-of-type', /#{@common_names.first.preferred == 1 ? 'preferred' : 'no'}/i)
-        with_tag('tbody tr:first-of-type td:nth-of-type(2)', /#{@common_names.first.name_string}/i)
-        with_tag('tbody tr:first-of-type td:nth-of-type(3)', /#{@common_names.first.sources.first.full_name}/i)
-        with_tag('tbody tr:first-of-type td:nth-of-type(4)', /#{Vetted.find_by_id(@common_names.first.vetted_id).label}/i)
+        with_tag('thead tr th:first-of-type', /name/i)
+        with_tag('thead tr th:nth-of-type(2)', /source/i)
+        with_tag('thead tr th:nth-of-type(3)', /status/i)
+        with_tag('tbody tr:first-of-type td:first-of-type', :attribute => {:class => 'preferred'})
+        with_tag('tbody tr:first-of-type td:first-of-type', /#{@common_names.first.name_string}/i)
+        with_tag('tbody tr:first-of-type td:nth-of-type(2)', /#{@common_names.first.sources.first.full_name}/i)
+        with_tag('tbody tr:first-of-type td:nth-of-type(3)', /#{Vetted.find_by_id(@common_names.first.vetted_id).label}/i)
       end
     end
 

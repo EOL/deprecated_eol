@@ -4,26 +4,32 @@
       .header
         %h3= I18n.t(:taxon_recognized_by_header)
       = render :partial => 'taxa/recognized_by'
-    = render :partial => 'filter_by_name_category'
-    #taxon_names.main_container
+    = render :partial => 'names_menu'
+    .main_container
+      %p.help_text
+        = I18n.t(:name_preferred_taxonomically_for_source_help_tip,
+          :icon => image_tag("/images/v2/icon_required.png", :alt => I18n.t(:name_preferred_for_language_yes), :class => 'indicator'))
+
       - hierarchy_entries = @selected_hierarchy_entry.blank? ? @taxon_concept.published_hierarchy_entries : [@selected_hierarchy_entry]
       - hierarchy_entries.delete_if{ |he| !he.hierarchy.browsable? }
       - for he in hierarchy_entries
         - unless he.scientific_synonyms.blank?
           %h4= he.hierarchy.label
-          %p
-            = I18n.t(:preferred_name_colon)
-            = he.name.string
-          %table.standard
+          %table.standard.synonyms
             %thead
               %tr
                 %th= I18n.t(:names_name_column_header)
                 %th= I18n.t(:names_relationship_column_header)
             %tbody
+              %tr
+                %td.preferred
+                  = he.name.string
+                %td
+                  = I18n.t(:name_preferred_taxonomically_for_source_yes)
               - for s in he.scientific_synonyms
                 %tr
                   %td
                     = s.name.string
                   %td
-                    = s.synonym_relation ? s.synonym_relation.label : I18n.t(:synonym)
+                    = s.synonym_relation ? s.synonym_relation.label.capitalize! : I18n.t(:synonym)
 

@@ -33,7 +33,6 @@
             %dd= number_with_delimiter(total_count("content_partners"), :delimiter => ",")
             %dt= link_to I18n.t(:content_partners), content_partners_path
           = link_to I18n.t(:learn_about_content_partners), cms_page_path('partners')
-      %p.meta= I18n.t(:stats_last_count_less_than_minutes_ago, :minutes => $CACHE_STATS_COUNT_IN_MINUTES.nil? ? 60 : $CACHE_STATS_COUNT_IN_MINUTES)
 
     .article.community
       %h3= I18n.t(:community_activity)

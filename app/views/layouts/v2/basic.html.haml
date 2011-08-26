@@ -7,8 +7,10 @@
         .hgroup
           = render :partial => 'content/breadcrumbs'
           %h1= @page_title
-          %h2= @page_subtitle unless @page_subtitle.blank?
-          %p= @page_description unless @page_description.blank?
+          - unless @page_subtitle.blank?
+            %h2= @page_subtitle
+          - unless @page_description.blank?
+            %p= @page_description
         = render :partial => 'shared/flash_messages'
   = yield
 = render :file => 'layouts/v2/application'

@@ -1,59 +1,61 @@
 = render(:partial=>'uservoice')
 - taxon_concept = TaxonConcept.find(205264)
 - url = url_for(:controller => '/api', :action => 'hierarchy_entries', :version => '1.0', :id => taxon_concept.entry.id, :only_path => false)
-#content
-  #page-separator-general
-  #page-title
-    %h1
-      =I18n.t("eol_api__hierarchy_entries")
-    %hr
-  #page-content.clearfix
-    #full-page-content
-      = render(:partial=>'jump_to_nav')
+#content.cms_page
+  #api_doc.site_column
+    .nav
+      = @navigation_menu
+    .article.copy
       %h3
         =I18n.t("request")
-      %p.indent
+      %p
         %a{ :href => url }
           = url
       %h3
         =I18n.t("parameters")
-      %table.results_table
-        %tr
-          %th
-            =I18n.t("name")
-          %th
-            =I18n.t("values")
-          %th
-            =I18n.t("default")
-          %th
-            =I18n.t("notes")
-        %tr
-          %td.odd.strong
-            common_names
-          %td.odd
-            0 or 1
-          %td.odd
-            1
-          %td.odd
-            =I18n.t("return_all_common_names_for_this_taxon")
-        %tr
-          %td.even.strong
-            synonyms
-          %td.even
-            0 or 1
-          %td.even
-            1
-          %td.even
-            =I18n.t("return_all_synonyms_for_this_taxon")
+      %table
+        %col.name
+        %col.values
+        %col.default
+        %col.notes
+        %thead
+          %tr
+            %th
+              =I18n.t("name")
+            %th
+              =I18n.t("values")
+            %th
+              =I18n.t("default")
+            %th
+              =I18n.t("notes")
+        %tbody
+          %tr
+            %td
+              common_names
+            %td
+              0 or 1
+            %td
+              1
+            %td
+              =I18n.t("return_all_common_names_for_this_taxon")
+          %tr
+            %td
+              synonyms
+            %td
+              0 or 1
+            %td
+              1
+            %td
+              =I18n.t("return_all_synonyms_for_this_taxon")
       %h3
         =I18n.t("description")
-      %p.indent
+      %p
         =I18n.t("the_encyclopedia_of_life_does__")
-      %p.indent
+      %p
         =I18n.t("the_json_response_for_this_met")
       %h3
         =I18n.t("xml_response")
-      .formatted_code<
+      %code<
         :escaped
           <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
           <dwr:DarwinRecordSet xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dwc="http://rs.tdwg.org/dwc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dwr="http://rs.tdwg.org/dwc/dwcrecord/" xmlns:dc="http://purl.org/dc/elements/1.1/" xsi:schemaLocation="http://rs.tdwg.org/dwc/dwcrecord/  http://rs.tdwg.org/dwc/xsd/tdwg_dwc_classes.xsd">
@@ -315,7 +317,7 @@
           </dwr:DarwinRecordSet>
       %h3
         =I18n.t("json_response")
-      .formatted_code<
+      %code<
         :escaped
           {
               "total_unreviewed_text":1,

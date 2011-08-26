@@ -33,12 +33,10 @@ class ContentPartnersController < ApplicationController
                   :include => include,
                   :conditions => [ conditions, conditions_replacements],
                   :order => order)
-    # eager load latest published harvest event
-    Resource.add_latest_published_harvest_event!(@partners.collect(&:resources).flatten.compact)
 
     set_sort_options
     @page_title = I18n.t(:content_partners_page_title)
-    @page_description = I18n.t(:content_partners_page_description, :more_url => cms_page_path(:id => 'partners'))
+    @page_description = I18n.t(:content_partners_page_description, :more_url => cms_page_path('partners'))
   end
 
   # GET /content_partners/new
@@ -69,7 +67,6 @@ class ContentPartnersController < ApplicationController
   def show
     @partner = ContentPartner.find(params[:id], :include => [{ :resources => :collection }, :content_partner_contacts ])
     @partner_collections = @partner.resources.collect{|r| r.collection}.compact
-    Resource.add_latest_published_harvest_event!(@partner.resources)
     @head_title = @partner.name
   end
 

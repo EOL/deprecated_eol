@@ -3,7 +3,6 @@ class ContentPartners::StatisticsController < ContentPartnersController
   # GET /content_partners/:content_partner_id/statistics
   def show
     @partner = ContentPartner.find(params[:content_partner_id], :include => :user)
-    Resource.add_latest_published_harvest_event!(@partner.resources)
     @page = params[:page] || 1
     last_month = Date.today - 1.month
     @year = (params[:date].blank? || params[:date][:year].blank?) ? last_month.year : params[:date][:year]

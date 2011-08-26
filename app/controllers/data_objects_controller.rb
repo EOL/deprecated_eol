@@ -16,8 +16,12 @@ class DataObjectsController < ApplicationController
     @data_object = DataObject.new(:data_type => DataType.text,
                                   :license_id => License.by_nc.id,
                                   :language_id => current_user.language_id)
-    # default to brief summary if selectable otherwise just the first toc item
-    @selected_toc_item = @toc_items.select{|ti| ti == TocItem.brief_summary}.first || @toc_items[0]
+    # default to passed in toc param or brief summary if selectable, otherwise just the first selectable toc item
+
+    @selected_toc_item = @toc_items.select{|ti| ti.id == params[:toc].to_i}.first
+    @selected_toc_item ||= @toc_items.select{|ti| ti == TocItem.brief_summary}.first
+    @selected_toc_item ||= @toc_items[0]
+
     @page_title = I18n.t(:dato_new_text_for_taxon_page_title, :taxon => Sanitize.clean(@taxon_concept.title_canonical))
     @page_description = I18n.t(:dato_new_text_page_description)
     current_user.log_activity(:creating_new_data_object, :taxon_concept_id => @taxon_concept.id)

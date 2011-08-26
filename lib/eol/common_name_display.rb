@@ -131,8 +131,9 @@ module EOL
     end
 
     def agent_names
-      names = @sources.map {|a| a.user ? a.user.full_name : nil }.compact.join(', ')
-      names = "Unknown"
+      names = @sources.map {|a| a.user ? a.user.full_name : a.full_name }.compact.uniq.sort.join(', ')
+      names = "Unknown" if names.blank?
+      names
     end
 
     def merge!(other)

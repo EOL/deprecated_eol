@@ -93,28 +93,11 @@ class Resource < SpeciesSchemaModel
                               :order => 'completed_at desc')
   end
 
-  # custom method to eager load latest_published_harvest_event
-  def self.add_latest_published_harvest_event!(resources)
-    resources_ids = resources.collect(&:id)
-    return if resources_ids.empty?
-    latest_published_harvest_events = HarvestEvent.all(
-      :conditions => [
-        'published_at IS NOT NULL AND completed_at IS NOT NULL AND resource_id IN (:resources_ids)',
-        { :resources_ids => resources_ids }
-      ],
-      :group => 'resource_id',
-      :order => 'published_at DESC')
-    resources.each do |resource|
-      resource.latest_published_harvest_event = latest_published_harvest_events.select{|he| he.resource_id == resource.id}.first
-    end
-  end
-
-#  TODO: Added eager loading self.add_latest_published_harvest_event!(resources), how to stop this querying if already eager loaded
-#  def latest_published_harvest_event
-#    HarvestEvent.find(:first, :conditions => ["published_at IS NOT NULL AND completed_at IS NOT NULL AND resource_id = ?", id],
-#                              :limit => 1,
-#                              :order => 'published_at desc')
-#  end
+ def latest_published_harvest_event
+   @latest_harvest ||= HarvestEvent.find(:first, :conditions => ["published_at IS NOT NULL AND completed_at IS NOT NULL AND resource_id = ?", id],
+                             :limit => 1,
+                             :order => 'published_at desc')
+ end
 
   def latest_harvest_event
     HarvestEvent.find(:first, :limit => 1, :order => 'id desc', :conditions => ["resource_id = ?", id])

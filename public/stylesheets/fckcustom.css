@@ -1,78 +1,112 @@
-/*
-Syntax error: The line was indented 2 levels deeper than the previous line.
-        on line 35 of /Users/lwalley/Sites/eol/public/stylesheets/sass/fckcustom.sass
+body {
+  font: normal 12px Helvetica, Arial, sans-serif;
+  color: #394651;
+  padding: 10px;
+  margin: 0px; }
 
-30:   border: 1px solid #CAD3DB
-31:   margin: 0 0 20px 20px
-32: a img, :link img, :visited img
-33:   border: none
-34: code
-35:     clear: both
-36:     display: block
-37:     font-family: "courier new", courier, monospace
-38:     line-height: 1.3
-39:     margin-top: 5px
-40:     margin-bottom: 15px
+ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, body, html, p, blockquote, fieldset, input, dl, dt, dd {
+  margin: 0;
+  padding: 0; }
 
-Backtrace:
-/Users/lwalley/Sites/eol/public/stylesheets/sass/fckcustom.sass:35
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/sass-3.1.1/lib/sass/../sass/engine.rb:434:in `tree'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/sass-3.1.1/lib/sass/../sass/engine.rb:322:in `_to_tree'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/sass-3.1.1/lib/sass/../sass/engine.rb:291:in `_render'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/sass-3.1.1/lib/sass/../sass/engine.rb:239:in `render'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/sass-3.1.1/lib/sass/../sass/util.rb:298:in `silence_sass_warnings'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/sass-3.1.1/lib/sass/../sass/engine.rb:239:in `render'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/sass-3.1.1/rails/../lib/sass/plugin/compiler.rb:319:in `update_stylesheet'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/sass-3.1.1/rails/../lib/sass/plugin/compiler.rb:181:in `update_stylesheets'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/sass-3.1.1/rails/../lib/sass/plugin/compiler.rb:175:in `each'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/sass-3.1.1/rails/../lib/sass/plugin/compiler.rb:175:in `update_stylesheets'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/sass-3.1.1/rails/../lib/sass/plugin/compiler.rb:173:in `each'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/sass-3.1.1/rails/../lib/sass/plugin/compiler.rb:173:in `update_stylesheets'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/sass-3.1.1/rails/../lib/sass/plugin.rb:81:in `update_stylesheets'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/sass-3.1.1/rails/../lib/sass/plugin.rb:54:in `check_for_updates'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/sass-3.1.1/rails/../lib/sass/plugin/rack.rb:51:in `call'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/actionpack-2.3.8/lib/action_controller/string_coercion.rb:25:in `call'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/rack-1.1.0/lib/rack/head.rb:9:in `call'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/rack-1.1.0/lib/rack/methodoverride.rb:24:in `call'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/actionpack-2.3.8/lib/action_controller/params_parser.rb:15:in `call'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/actionpack-2.3.8/lib/action_controller/session/cookie_store.rb:99:in `call'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/actionpack-2.3.8/lib/action_controller/failsafe.rb:26:in `call'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/rack-1.1.0/lib/rack/lock.rb:11:in `call'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/rack-1.1.0/lib/rack/lock.rb:11:in `synchronize'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/rack-1.1.0/lib/rack/lock.rb:11:in `call'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/actionpack-2.3.8/lib/action_controller/dispatcher.rb:106:in `call'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/rails-2.3.8/lib/rails/rack/static.rb:31:in `call'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/rack-1.1.0/lib/rack/urlmap.rb:47:in `call'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/rack-1.1.0/lib/rack/urlmap.rb:41:in `each'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/rack-1.1.0/lib/rack/urlmap.rb:41:in `call'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/rack-test-0.6.1/lib/rack/mock_session.rb:30:in `request'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/rack-test-0.6.1/lib/rack/test.rb:219:in `process_request'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/rack-test-0.6.1/lib/rack/test.rb:57:in `get'
-(__FORWARDABLE__):3:in `__send__'
-(__FORWARDABLE__):3:in `get'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/capybara-0.3.9/lib/capybara/driver/rack_test_driver.rb:242:in `get'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/capybara-0.3.9/lib/capybara/driver/rack_test_driver.rb:203:in `send'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/capybara-0.3.9/lib/capybara/driver/rack_test_driver.rb:203:in `process'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/capybara-0.3.9/lib/capybara/driver/rack_test_driver.rb:198:in `visit'
-(__FORWARDABLE__):3:in `__send__'
-(__FORWARDABLE__):3:in `visit'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/capybara-0.3.9/lib/capybara/dsl.rb:55:in `visit'
-./spec/integration/taxa_page_spec.rb:304
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/rspec-1.3.0/lib/spec/example/example_methods.rb:74:in `instance_eval'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/rspec-1.3.0/lib/spec/example/example_methods.rb:74:in `eval_each_fail_fast'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/rspec-1.3.0/lib/spec/example/example_methods.rb:74:in `each'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/rspec-1.3.0/lib/spec/example/example_methods.rb:74:in `eval_each_fail_fast'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/rspec-1.3.0/lib/spec/example/example_group_hierarchy.rb:13:in `run_before_all'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/rspec-1.3.0/lib/spec/example/example_group_methods.rb:199:in `run_before_all'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/rspec-1.3.0/lib/spec/example/example_group_methods.rb:102:in `run'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/rspec-1.3.0/lib/spec/runner/example_group_runner.rb:23:in `run'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/rspec-1.3.0/lib/spec/runner/example_group_runner.rb:22:in `each'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/rspec-1.3.0/lib/spec/runner/example_group_runner.rb:22:in `run'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/rspec-1.3.0/lib/spec/runner/options.rb:152:in `run_examples'
-/Users/lwalley/.rvm/gems/ruby-1.8.7-p352/gems/rspec-1.3.0/lib/spec/runner/command_line.rb:9:in `run'
-script/spec:10
-*/
-body:before {
+p, h2, h3 {
+  margin: 0 0 15px 0; }
+
+h3, h4, h5, h6 {
+  padding-top: 20px; }
+
+p {
+  line-height: 170%; }
+
+h2 {
+  font-size: 1.5em; }
+
+h3 {
+  font-size: 1.33em; }
+
+h4, h5, h6 {
+  font-size: 1em;
+  font-weight: bold; }
+
+a {
+  color: #195184; }
+  a.pdf {
+    background: url("/images/v2/icon_pdf.png") right top no-repeat;
+    padding: 0 20px 3px 0; }
+
+img {
+  float: right;
+  padding: 10px;
+  border: 1px solid #cad3db;
+  margin: 0 0 20px 20px; }
+
+a img, :link img, :visited img {
+  border: none; }
+
+code {
+  clear: both;
+  display: block;
+  font-family: "courier new", courier, monospace;
+  line-height: 1.3;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  background-color: #eeeeee;
+  border: 1px dashed #999999;
+  padding: 10px;
   white-space: pre;
-  font-family: monospace;
-  content: "Syntax error: The line was indented 2 levels deeper than the previous line.\A         on line 35 of /Users/lwalley/Sites/eol/public/stylesheets/sass/fckcustom.sass\A \A 30:   border: 1px solid #CAD3DB\A 31:   margin: 0 0 20px 20px\A 32: a img, :link img, :visited img\A 33:   border: none\A 34: code\A 35:     clear: both\A 36:     display: block\A 37:     font-family: \"courier new\", courier, monospace\A 38:     line-height: 1.3\A 39:     margin-top: 5px\A 40:     margin-bottom: 15px"; }
+  overflow-x: auto; }
+
+ul, ol {
+  margin: 0 40px 15px 40px;
+  line-height: 170%; }
+  ul li, ol li {
+    margin: 0 0 10px 0; }
+
+ul li {
+  list-style-type: disc; }
+ul.with_images li {
+  overflow: hidden;
+  list-style-type: none;
+  clear: both;
+  border-bottom: 1px solid #cad3db;
+  padding: 10px; }
+  ul.with_images li img {
+    max-width: 88px;
+    padding: 0;
+    border: none;
+    float: left;
+    margin: 0 0 10px 0; }
+  ul.with_images li h2, ul.with_images li h3, ul.with_images li h4, ul.with_images li h5, ul.with_images li p {
+    margin-left: 110px; }
+
+dl {
+  line-height: 140%;
+  margin: 0 0 40px 0; }
+  dl dt {
+    font-weight: bold; }
+  dl dd {
+    margin: 0 0 5px 20px; }
+
+blockquote {
+  background: #eff2f4;
+  border: 1px solid #cad3db;
+  margin: 0 0 25px 0;
+  padding: 15px 20px 0 20px; }
+
+address {
+  font-style: normal; }
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0 0 15px 0;
+  line-height: 170%;
+  font-size: 1em; }
+  table thead th {
+    background: #eff2f4;
+    padding: 5px 20px;
+    font-weight: bold;
+    text-align: left; }
+  table tr {
+    border: 1px solid #cad3db; }
+    table tr td {
+      padding: 5px 20px; }

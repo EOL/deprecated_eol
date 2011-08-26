@@ -120,8 +120,8 @@ Language.gen_if_not_exists(:label => 'Arabic', :iso_639_1 => 'ar', :source_form 
 sci_name = Language.gen_if_not_exists(:label => 'Scientific Name', :iso_639_1 => '', :source_form => 'Scientific Name')
 unknown  = Language.gen_if_not_exists(:label => 'Unknown', :iso_639_1 => '', :source_form => 'Unknown')
 
-sci_name.update_attribute(:activated_on, nil)
-unknown.update_attribute(:activated_on, nil)
+sci_name.update_attributes(:activated_on => nil)
+unknown.update_attributes(:activated_on => nil)
 
 License.gen_if_not_exists(:title => 'public domain',
                           :description => 'No rights reserved',

@@ -6,7 +6,7 @@ class TaxonConceptExemplarImage < SpeciesSchemaModel
   def self.set_exemplar(taxon_concept, data_object_id)
     return if taxon_concept.nil?
     exemplar = self.find_or_create_by_taxon_concept_id(taxon_concept.id)
-    exemplar.update_attribute(:data_object_id, data_object_id)
+    exemplar.update_attributes(:data_object_id => data_object_id)
 
     tci_exists = TopConceptImage.find_by_taxon_concept_id_and_data_object_id(taxon_concept.id, data_object_id)
     tci_exists.destroy unless tci_exists.nil?

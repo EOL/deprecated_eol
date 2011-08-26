@@ -354,32 +354,32 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def grant_admin
-    self.update_attribute(:admin, true)
+    self.update_attributes(:admin => true)
     clear_cached_user
   end
 
   def grant_curator(level = :full, options = {})
     level = CuratorLevel.send(level)
     unless curator_level_id == level.id
-      self.update_attribute(:curator_level_id, level.id)
+      self.update_attributes(:curator_level_id => level.id)
       Notifier.deliver_curator_approved(self) if $PRODUCTION_MODE
       if options[:user]
-        self.update_attribute(:curator_verdict_by, options[:user])
-        self.update_attribute(:curator_verdict_at, Time.now)
+        self.update_attributes(:curator_verdict_by => options[:user],
+                               :curator_verdict_at => Time.now)
       end
     end
-    self.update_attribute(:requested_curator_level_id, nil)
+    self.update_attributes(:requested_curator_level_id => nil)
   end
   alias approve_to_curate grant_curator
 
   def revoke_curator
     unless curator_level_id == nil
-      self.update_attribute(:curator_level_id, nil)
+      self.update_attributes(:curator_level_id => nil)
       Notifier.deliver_curator_unapproved(self) if $PRODUCTION_MODE
     end
-    self.update_attribute(:curator_verdict_by, nil)
-    self.update_attribute(:curator_verdict_at, nil)
-    self.update_attribute(:requested_curator_level_id, nil)
+    self.update_attributes(:curator_verdict_by => nil,
+                           :curator_verdict_at => nil,
+                           :requested_curator_level_id => nil)
   end
   alias revoke_curatorship revoke_curator
 

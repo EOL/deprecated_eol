@@ -68,7 +68,7 @@ class UsersController < ApplicationController
       begin
         # FIXME: Figure out whether we still need an agent to be created for a user in V2
         # If we do note that user does not have full_name on creation.
-        @user.update_attribute :agent_id, Agent.create_agent_from_user(@user.full_name).id
+        @user.update_attributes(:agent_id => Agent.create_agent_from_user(@user.full_name).id)
       rescue ActiveRecord::StatementInvalid
         # Interestingly, we are getting users who already have agents attached to them.  I'm not sure why, but it's causing registration to fail (or seem to; the user is created), and this is bad.
       end

@@ -53,7 +53,7 @@ class Community < ActiveRecord::Base
   # Auto-joins the user to the community, and makes that person the owner.
   def initialize_as_created_by(user)
     mem = add_member(user)
-    mem.update_attribute(:manager, true)
+    mem.update_attributes(:manager => true)
     mem
   end
 

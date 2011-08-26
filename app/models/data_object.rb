@@ -295,7 +295,7 @@ class DataObject < SpeciesSchemaModel
     old_dato.save!
 
     comments_from_old_dato = Comment.find(:all, :conditions => {:parent_id => old_dato.id, :parent_type => 'DataObject'})
-    comments_from_old_dato.map { |c| c.update_attribute :parent_id, new_dato.id  }
+    comments_from_old_dato.map { |c| c.update_attributes(:parent_id => new_dato.id) }
 
     current_visibility = old_dato.users_data_object.visibility
     current_vetted = old_dato.users_data_object.vetted

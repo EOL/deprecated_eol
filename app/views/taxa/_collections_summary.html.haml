@@ -1,8 +1,7 @@
 #collections_summary.article.half.list.clear
   - count = @taxon_concept.top_collections.count
   - if count == 0
-    = render(:partial => 'collection_items/new', :locals => { :object_being_collected => @taxon_concept, :collection => @watch_collection,
-      :render_taxon_overview_collection_summary => true })
+    = render(:partial => 'taxa/collections_summary_empty', :locals => { :render_taxon_overview_collection_summary => true })
   - else
     .header
       %h3= I18n.t(:collections_summary_header_with_count, :count => @taxon_concept.collections.select{ |c| !c.watch_collection? }.count)

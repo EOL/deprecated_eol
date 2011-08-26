@@ -938,7 +938,7 @@ en:
   community_members: "Community members"
   community_not_destroyed_error: "Sorry, there was a problem and the community was not deleted."
   community_tab_collections_description: 'Collections are created by EOL users to bring together species, multimedia, articles, or even members that have something in common, such as geography, ecology, or a personal meaning.  Communities can "feature" collections that are of particular interest and value to them.'
-  community_tab_communities_description: "Communities are groups of EOL members who come together to share their interests and expertise. EOL communities are organized around one or more EOL collections, and offer members a way to focus on topics of common concern."
+  community_tab_communities_description: "Communities are groups of EOL members who come together to share their interests and expertise. EOL communities are organized around one or more EOL collections, and offer members a way to focus on topics of common concern. More information on EOL communities, including instructions for creating your own, is available on the <a href='/info/communities'>help page</a>."
   community_tab_curators_description: "Curators are EOL users with biological expertise who give their time to review content on EOL, ensuring that what you see is accurate and of high quality."
   community_removed_by_owner: "This community was removed by its owner."
   community_roles: "Community Roles"

@@ -79,7 +79,7 @@ class CollectionsController < ApplicationController
   end
 
   def destroy
-    if @collection.special?
+    if @collection.special? || @collection.community_id
       flash[:error] = I18n.t(:special_collections_cannot_be_destroyed)
       return redirect_to collection_url(@collection)
     else

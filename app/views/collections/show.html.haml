@@ -1,7 +1,7 @@
 - editable = @collection.editable_by?(current_user)
 = content_for :additional_page_actions do
   - if editable
-    - unless @collection.special? # You cannot create a community from either special collection type!
+    - unless @collection.special? || @collection.community_id # You cannot create a community from either special collection type!
       %li= link_to I18n.t(:create_community), new_community_path(:collection_id => @collection), :class => 'button'
     %li= link_to I18n.t(:edit_collection_details), edit_collection_path(@collection), :class => 'button'
 - if @collection_items.blank?

@@ -1,51 +1,56 @@
 = render(:partial=>'uservoice')
 - itis = Hierarchy.find_by_label('Integrated Taxonomic Information System (ITIS)', :order => 'id desc')
 - url = url_for(:controller => '/api', :action => 'search_by_provider', :version => '1.0', :id => '180542', :hierarchy_id => itis.id, :only_path => false)
-#content
-  #page-separator-general
-  #page-title
-    %h1
-      =I18n.t("eol_api__search_by_provider")
-    %hr
-  #page-content.clearfix
-    #full-page-content
-      = render(:partial=>'jump_to_nav')
+#content.cms_page
+  #api_doc.site_column
+    .nav
+      = @navigation_menu
+    .article.copy
       %h3
         =I18n.t("request")
-      %p.indent
+      %p
         %a{ :href => url }
           = url
       %h3
         =I18n.t("parameters")
-      %table.results_table
-        %tr
-          %th
-            =I18n.t("name")
-          %th
-            =I18n.t("values")
-          %th
-            =I18n.t("default")
-          %th
-            =I18n.t("notes")
-        %tr
-          %td.odd.strong
-            hierarchy_id
-          %td.odd
-            %i
-              =I18n.t("any_integer")
-          %td.odd
-            %i
-              =I18n.t("none")
-          %td.odd
-            =I18n.t("the_id_of_the_provider_s_hiera", :link => link_to('provider_hierarchies', :controller => 'api/docs', :action => 'provider_hierarchies'))
-      %br
+      %table
+        %col.name
+        %col.values
+        %col.default
+        %col.notes
+        %thead
+          %tr
+            %th
+              =I18n.t("name")
+            %th
+              =I18n.t("values")
+            %th
+              =I18n.t("default")
+            %th
+              =I18n.t("notes")
+        %tbody
+          %tr
+            %td
+              hierarchy_id
+            %td
+              %i
+                =I18n.t("any_integer")
+            %td
+              %i
+                =I18n.t("none")
+            %td
+              =I18n.t("the_id_of_the_provider_s_hiera", :link => link_to('provider_hierarchies', :controller => 'api/docs', :action => 'provider_hierarchies'))
+
       %h3
         =I18n.t("description")
-      %p.indent
-        =I18n.t("this_method_takes_an_integer_or_string", :link_provider => link_to("provider_hierarchies", :action => "provider_hierarchies"), :link_url => link_to(url, url))
+      %p
+        = I18n.t("this_method_takes_an_integer_or_string",
+          :link_provider => link_to("provider_hierarchies", :action => "provider_hierarchies"),
+          :link_url => link_to(url, url),
+          :itis_id => itis.id)
       %h3
         =I18n.t("xml_response")
-      .formatted_code<
+      %code<
         :escaped
           <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
           <results>
@@ -53,7 +58,7 @@
           </results>
       %h3
         =I18n.t("json_response")
-      .formatted_code<
+      %code<
         :escaped
           [
               {

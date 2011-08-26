@@ -40,8 +40,7 @@ class CommunitiesController < ApplicationController
     end
     @community = Community.new(params[:community])
     if @community.save
-      @collection.update_attribute(:user_id, nil)
-      @collection.update_attribute(:community_id, @community.id)
+      @collection.update_attributes(:user_id => nil, :community_id => @community.id)
       @community.initialize_as_created_by(current_user)
       invitees = params[:invite_list] ? params[:invite_list].values : params[:invitations].split(/[,\s]/).grep(/\w/)
       sent_to = send_invitations(invitees)
@@ -79,7 +78,8 @@ class CommunitiesController < ApplicationController
 
   # Note this is not "destroy".  That's because it's different: the community instance is not destroyed, AND this is a :get, not a :post.
   def delete
-    if @community.update_attribute(:published, false)
+    if @community.update_attributes(:published => false)
+      @community.collection.update_attributes(:published => false) rescue nil # Yeah, I really don't care if this fails. It's just convenience.
       begin
         @community.remove_member(current_user)
       rescue EOL::Exceptions::ObjectNotFound => e
@@ -130,7 +130,7 @@ private
       return false
     end
     # It's okay (perfectly) if this gets overridden elsewhere:
-    flash[:notice] = I18n.t(:this_community_was_deleted) unless @community.published?
+    flash.now[:notice] = I18n.t(:this_community_was_deleted) unless @community.published?
     @community_collections = @community.collections || [] # NOTE these are collection_items, really.
     @members = @community.members # Because we pull in partials from the members controller.
     @current_member = current_user.member_of(@community)

@@ -63,7 +63,7 @@ module EOL
       
       def lookup_communities(start, limit)
         max = start + limit
-        communities = Community.find(:all, :conditions => "id BETWEEN #{start} AND #{max}", :select => 'id, name, description, created_at, updated_at')
+        communities = Community.find(:all, :conditions => "id BETWEEN #{start} AND #{max}", :select => 'id, name, description, created_at, updated_at, published')
         communities.each do |c|
           @objects_to_send += c.keywords_to_send_to_solr_index
         end
@@ -71,7 +71,7 @@ module EOL
       
       def lookup_collections(start, limit)
         max = start + limit
-        collections = Collection.find(:all, :conditions => "id BETWEEN #{start} AND #{max}", :select => 'id, community_id, name, description, created_at, updated_at, special_collection_id, user_id')
+        collections = Collection.find(:all, :conditions => "id BETWEEN #{start} AND #{max}", :select => 'id, community_id, name, description, created_at, updated_at, special_collection_id, user_id, published')
         collections.each do |c|
           @objects_to_send += c.keywords_to_send_to_solr_index
         end

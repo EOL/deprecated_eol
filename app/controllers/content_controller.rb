@@ -1,9 +1,10 @@
 class ContentController < ApplicationController
 
-  layout 'v2/basic'
   include ActionView::Helpers::SanitizeHelper
 
   caches_page :tc_api
+
+  layout :choose_layout
 
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN
   before_filter :check_user_agreed_with_terms, :except => [:show]
@@ -29,12 +30,13 @@ class ContentController < ApplicationController
 
   def preview
     @home_page = true
+    return redirect_to root_path unless $PREVIEW_LOCKDOWN
     if request.post?
       if params[:preview] == $PREVIEW_LOCKDOWN
         session[:preview] = params[:preview]
         return redirect_to root_path
       else
-        flash[:error] = "Incorrect password."
+        flash.now[:error] = "Incorrect password."
         return render :layout => false
       end
     end
@@ -143,7 +145,7 @@ class ContentController < ApplicationController
 
   # error page
   def error
-    @page_title = I18n.t(:error_page_header)
+    @page_title = I18n.t(:error_page_title)
   end
 
   def donate
@@ -252,4 +254,14 @@ class ContentController < ApplicationController
     @page_title = I18n.t("eol_glossary")
   end
 
+private
+
+  def choose_layout
+    case action_name
+    when 'error'
+      'v2/errors'
+    else
+      'v2/basic'
+    end
+  end
 end

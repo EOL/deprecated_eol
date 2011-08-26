@@ -7,7 +7,7 @@
         .attribution
           .copy
             %p= I18n.t(:media_summary_empty)
-            %p= link_to I18n.t(:media_summary_empty_contribute_instructions), cms_page_path(:id => 'contribute')
+            %p= link_to I18n.t(:media_summary_empty_contribute_instructions), cms_page_path('contribute')
     - else
       - @media[0..3].each do |item|
         .image

@@ -79,7 +79,7 @@ class CollectionsController < ApplicationController
   end
 
   def destroy
-    if @collection.special?
+    if @collection.special? || @collection.community_id
       flash[:error] = I18n.t(:special_collections_cannot_be_destroyed)
       return redirect_to collection_url(@collection)
     else
@@ -347,7 +347,7 @@ private
     collection_items.each do |item|
       item = CollectionItem.find(item) # Sometimes, this is just an id.
       removed_from_id = item.collection_id
-      if item.update_attribute(:collection_id, nil) # Not actually destroyed, so that we can talk about it in feeds.
+      if item.update_attributes(:collection_id => nil) # Not actually destroyed, so that we can talk about it in feeds.
         item.remove_collection_item_from_solr # TODO - needed?  Or does the #after_save method handle this?
         count += 1
         unless bulk_log

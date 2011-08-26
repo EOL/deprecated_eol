@@ -41,7 +41,7 @@ class Administrator::ContentPageController < AdminController
  def update
    current_page = ContentPage.find(params[:id])
    new_page = ContentPage.update(params[:id], params[:page])
-   new_page.update_attribute(:last_update_user_id, current_user.id)
+   new_page.update_attributes(:last_update_user_id => current_user.id)
    if new_page.valid?
      ContentPageArchive.backup(current_page) # backup old page
      expire_menu_caches(new_page)
@@ -81,7 +81,7 @@ class Administrator::ContentPageController < AdminController
  def save_updated_page
    current_page = ContentPage.find(params[:id])
    new_page = ContentPage.update(params[:id], params[:page])
-   new_page.update_attribute(:last_update_user_id, current_user.id)
+   new_page.update_attributes(:last_update_user_id => current_user.id)
    if new_page.valid?
      ContentPageArchive.backup(current_page) # backup old page
      expire_menu_caches(new_page)

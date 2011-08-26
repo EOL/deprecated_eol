@@ -59,7 +59,7 @@ class Activity < LazyLoggingModel
       act.save! # NOTE: #create wasn't working; the ID wasn't being set correctly.  Second time this has been a prob.
       begin
         if transact = TranslatedActivity.find_by_language_id_and_name(Language.english.id, key)
-          transact.update_attributes(:activity_id, act.id)
+          transact.update_attributes(:activity_id => act.id)
         else
           TranslatedActivity.connection.execute(ActiveRecord::Base.sanitize_sql_array(['INSERT INTO translated_activities (name, activity_id, language_id) VALUES (?, ?, ?)', key, act.id, Language.english.id]))
         end

@@ -1,10 +1,7 @@
-#content
-  .site_column
-    .article.copy
-      %h2= I18n.t(:sorry_page_does_not_exist)
-      =  I18n.t(:you_requested_a_page_that_does_not_exist)
-      =  I18n.t(:if_you_followed_a_link_here_tell_the_author)
-      - if @message and current_user.is_admin?
-        %p= I18n.t(:you_are_an_admin_so_i_will_show_you_that_the_error_was)
-        %code= @message
-      %p= link_to I18n.t("return_to_the_home_page"), root_url
+%p= I18n.t(:error_404_description)
+- if @message and current_user.is_admin?
+  %p= I18n.t(:you_are_an_admin_so_i_will_show_you_that_the_error_was)
+  %code= @message
+
+%p= I18n.t(:error_homepage_or_search_option)
+= render :partial => "/layouts/v2/search"

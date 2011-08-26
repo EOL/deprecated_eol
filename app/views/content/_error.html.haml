@@ -1,13 +1,18 @@
-%p
-  -# TODO: That email addy should be in the config file, not here:
-  =  I18n.t(:general_error_occurred, :email => 'error@eol.org')
-  -# Extra tests because errors can be caused by weird things:
+- # No I18n req'd on error, this in internal marker, hover over mailto link in browser to see the error.
+- error = defined?(@solr_connection_refused) && @solr_connection_refused ? "EOL Error: Solr [#{current_url}]" : "EOL Error [#{current_url}]"
+- # TODO: That email addy should be in the config file, not here:
+%p= I18n.t(:error_description, :email_address => 'error@eol.org', :error => error)
+
 - if current_user && current_user.is_admin? && defined?(message)
   %p= I18n.t(:you_are_an_admin_so_i_will_show_you_that_the_error_was)
   %code= message
-- unless defined?(supress_try_again_link)
-  %p= link_to I18n.t(:try_your_request_again), current_url
-- if defined?(@solr_connection_refused) && @solr_connection_refused
-  %p= "(Solr)" # No I18n req'd, this in internal marker.
-- if defined?(@modal) && @modal
-  %a.close{:href => "#"}= I18n.t(:go_back)
+
+%p
+  - if defined?(@modal) && @modal
+    %a.close{:href => "#"}= I18n.t(:go_back)
+  - else
+    - if defined?(provide_try_again_link) && provide_try_again_link
+      = I18n.t(:error_try_again_or_homepage_or_search_option, :try_again_url => current_url)
+    - else
+      = I18n.t(:error_homepage_or_search_option)
+    = render :partial => "/layouts/v2/search"

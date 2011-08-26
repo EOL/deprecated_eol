@@ -1,31 +1,27 @@
 = render(:partial=>'uservoice')
 - url = url_for(:controller => '/api', :action => 'provider_hierarchies', :version => '1.0', :only_path => false)
-#content
-  #page-separator-general
-  #page-title
-    %h1
-      =I18n.t("eol_api__provider_hierarchies")
-    %hr
-  #page-content.clearfix
-    #full-page-content
-      = render(:partial=>'jump_to_nav')
+#content.cms_page
+  #api_doc.site_column
+    .nav
+      = @navigation_menu
+    .article.copy
       %h3
         =I18n.t("request")
-      %p.indent
+      %p
         %a{ :href => url }
           = url
       %h3
         =I18n.t("parameters")
-      %p.indent
+      %p
         %i
           =I18n.t("none")
       %h3
         =I18n.t("description")
-      %p.indent
+      %p
         =I18n.t("this_method_will_return_refere")
       %h3
         =I18n.t("xml_response")
-      .formatted_code<
+      %code<
         :escaped
           <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
           <results>
@@ -41,7 +37,7 @@
           </results>
       %h3
         =I18n.t("json_response")
-      .formatted_code<
+      %code<
         :escaped
           [
               {

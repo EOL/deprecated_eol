@@ -22,7 +22,8 @@ class ApplicationController < ActionController::Base
   end
 
   before_filter :preview_lockdown if $PREVIEW_LOCKDOWN
-  before_filter :check_if_mobile
+  before_filter :global_warning if $GLOBAL_WARNING
+  before_filter :check_if_mobile if $ENABLE_MOBILE
 
   prepend_before_filter :redirect_to_http_if_https
   prepend_before_filter :set_session
@@ -36,6 +37,13 @@ class ApplicationController < ActionController::Base
     :allow_page_to_be_cached?, :link_to_item
 
   before_filter :set_locale
+
+  # Continuously display a warning message.  This is used for things like "System Shutting down at 15 past" and the
+  # like.  And, yes, if there's a "real" error, they won't see the message because flash[:error] will be
+  # over-written.  But so it goes.  This is the final countdown.
+  def global_warning
+    flash[:error] ||= $GLOBAL_WARNING # Global warning is not a myth.
+  end
 
   def preview_lockdown
     unless session[:preview] == $PREVIEW_LOCKDOWN
@@ -64,8 +72,9 @@ class ApplicationController < ActionController::Base
       else
         log_error_cleanly(e)
       end
+      @page_title = I18n.t(:error_page_title)
       respond_to do |format|
-        format.html { render :layout => 'v2/basic', :template => "content/error" }
+        format.html { render :layout => 'v2/errors', :template => "content/error" }
         format.js { @retry = false; render :layout => false, :template => "content/error" }
       end
     end
@@ -109,8 +118,9 @@ class ApplicationController < ActionController::Base
   # override exception notifiable default methods to redirect to our special error pages instead of the usual 404
   # and 500 and to do error logging
   def render_404
+    @page_title = I18n.t(:error_404_page_title)
     respond_to do |type|
-      type.html { render :layout => 'v2/basic', :template => "content/missing", :status => 404} # status may be redundant
+      type.html { render :layout => 'v2/errors', :template => "content/missing", :status => 404} # status may be redundant
       type.all  { render :nothing => true }
     end
   end
@@ -125,9 +135,10 @@ class ApplicationController < ActionController::Base
          :exception_name => exception.to_s,
          :backtrace => "Application Server: " + $IP_ADDRESS_OF_SERVER + "\r\n" + exception.backtrace.to_s
          )
-     end
+    end
+    @page_title = I18n.t(:error_500_page_title)
     respond_to do |type|
-     type.html { render :layout => 'v2/basic', :template => "content/error"}
+     type.html { render :layout => 'v2/errors', :template => "content/error"}
      type.all  { render :nothing => true }
     end
   end
@@ -440,6 +451,9 @@ class ApplicationController < ActionController::Base
 
   # A user is not authorized for the particular controller/action:
   def access_denied
+    unless logged_in?
+      return redirect_to root_url
+    end
     store_location(request.referer) unless session[:return_to] || request.referer.blank?
     flash_and_redirect_back(I18n.t(:you_are_not_authorized_to_perform_this_action))
   end
@@ -486,8 +500,9 @@ class ApplicationController < ActionController::Base
     begin
       yield
     rescue => e
+      @page_title = I18n.t(:error_404_page_title)
       @message = e.message
-      render(:layout => 'v2/basic', :template => "content/missing", :status => 404)
+      render(:layout => 'v2/errors', :template => "content/missing", :status => 404)
       return false
     end
   end

@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
   # like.  And, yes, if there's a "real" error, they won't see the message because flash[:error] will be
   # over-written.  But so it goes.  This is the final countdown.
   def global_warning
-    flash[:error] = $GLOBAL_WARNING # Global warning is not a myth.
+    flash[:error] ||= $GLOBAL_WARNING # Global warning is not a myth.
   end
 
   def preview_lockdown

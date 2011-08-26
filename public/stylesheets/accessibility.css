@@ -608,6 +608,9 @@ body > #header .section .session.join {
       white-space: nowrap; }
 
 /*overides for empty text styles - various */
+.article .empty a.button {
+  font-size: 0.78em !important; }
+
 .updates .empty p {
   padding: 0 0 15px 0 !important; }
 

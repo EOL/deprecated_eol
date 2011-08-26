@@ -1929,6 +1929,8 @@ en:
   learn_more_about_browse_classification_and_filtering: "Learn more about browse classification and filtering"
   learn_more: "Learn More"
   learn_more_about_names_for_this_taxon: "learn more about names for this taxon"
+  learn_more_link: "(%{learn_more})"
+  learn_more_lowercase: "learn more"
   learn_more_with_data_type: "learn more about this %{data_type}"
   leave_community: "Leave this community"
   leave_community_button: "Leave this community"

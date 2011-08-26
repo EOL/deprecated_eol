@@ -152,10 +152,10 @@ ActionController::Routing::Routes.draw do |map|
 
   map.external_link 'external_link', :controller => 'application', :action => 'external_link'
 
-  map.connect 'search',         :controller => 'search', :action => 'index'
-  map.search  'search/:id',     :controller => 'search', :action => 'index'
-  map.connect 'search.:format', :controller => 'search', :action => 'index'
-  map.found   'found/:id',      :controller => 'search', :action => 'found'
+  map.search_q  'search',         :controller => 'search', :action => 'index'
+  map.search    'search/:id',     :controller => 'search', :action => 'index'
+  map.connect   'search.:format', :controller => 'search', :action => 'index'
+  map.found     'found/:id',      :controller => 'search', :action => 'found'
 
   # New V2 /admins namespace with singular resource admin
   map.resource :admin, :only => [:show] do |admin|

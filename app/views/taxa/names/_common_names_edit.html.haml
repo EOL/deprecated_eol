@@ -29,8 +29,7 @@
             %td
               = name.string
             %td
-              - name.sources.each do |source|
-                = source.full_name
+              = name.agent_names
             %td{:class => 'vet_common_name'}
               - if name.added_by_user?(current_user)
                 = link_to( I18n.t(:delete), url_for(:controller => '/taxa', :action => 'delete_common_name',

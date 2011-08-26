@@ -5,7 +5,7 @@
       %p= I18n.t(:names_common_empty)
 - else
   %p.help_text
-    = I18n.t(:name_preferred_help_tip,
+    = I18n.t(:name_preferred_for_language_help_tip,
       :icon => image_tag("/images/v2/icon_required.png", :alt => I18n.t(:name_preferred_for_language_yes), :class => 'indicator'))
 
   - names_by_language.each_with_index do |language_names_pair, index|
@@ -21,8 +21,8 @@
       %tbody
         - names.each do |name|
           %tr
-            %td{:class => name.preferred == 1 ? 'preferred' : nil,
-              :title => name.preferred == 1 ? I18n.t(:name_preferred_for_language_yes) : nil}
+            %td{:class => name.preferred.to_i == 1 ? 'preferred' : nil,
+              :title => name.preferred.to_i == 1 ? I18n.t(:name_preferred_for_language_yes) : nil}
               = name.string
             %td
               = name.agent_names

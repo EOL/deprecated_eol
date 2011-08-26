@@ -634,6 +634,15 @@ body > #header .section .session.join {
 .updates .empty p {
   padding: 0 0 15px 0 !important; }
 
+#taxon_names table.standard.common_names td {
+  position: relative;
+  width: 33%; }
+#taxon_names table.standard.edit_common_names td {
+  position: relative;
+  width: 25%; }
+#taxon_names table.standard.synonyms td, #taxon_names table.standard.related_names td {
+  position: relative;
+  width: 50%; }
 #taxon_names form#new_name {
   background: #f3f7fa;
   border: 1px solid #cad3db;

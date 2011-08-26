@@ -79,8 +79,8 @@ class CommunitiesController < ApplicationController
 
   # Note this is not "destroy".  That's because it's different: the community instance is not destroyed, AND this is a :get, not a :post.
   def delete
-    if @community.update_attribute(:published, false)
-      @community.collection.update_attribute(:published, false) rescue nil # Yeah, I really don't care if this fails. It's just convenience.
+    if @community.update_attributes(:published => false)
+      @community.collection.update_attributes(:published => false) rescue nil # Yeah, I really don't care if this fails. It's just convenience.
       begin
         @community.remove_member(current_user)
       rescue EOL::Exceptions::ObjectNotFound => e

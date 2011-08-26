@@ -488,18 +488,18 @@ describe 'Taxa page' do
   context 'when taxon is unpublished' do
     it 'should show unauthorised user a missing content error message' do
       visit("/pages/#{@testy[:unpublished_taxon_concept].id}")
-      body.should have_tag('h2', /^Sorry.*?does not exist/)
+      body.should have_tag('h1', /^Not found/)
       visit("/pages/#{@testy[:unpublished_taxon_concept].id}/details")
-      body.should have_tag('h2', /^Sorry.*?does not exist/)
+      body.should have_tag('h1', /^Not found/)
     end
   end
 
   context 'when taxon does not exist' do
     it 'should show a missing content error message' do
       visit("/pages/#{TaxonConcept.missing_id}")
-      body.should have_tag('h2', /Sorry.*?does not exist/)
+      body.should have_tag('h1', /Not found/)
       visit("/pages/#{TaxonConcept.missing_id}/details")
-      body.should have_tag('h2', /Sorry.*?does not exist/)
+      body.should have_tag('h1', /Not found/)
     end
   end
 

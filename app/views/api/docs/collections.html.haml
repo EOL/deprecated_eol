@@ -1,72 +1,74 @@
 = render(:partial=>'uservoice')
 - url = url_for(:controller => '/api', :action => 'collections', :version => '1.0', :id => '5', :only_path => false)
-#content
-  #page-separator-general
-  #page-title
-    %h1
-      =I18n.t("eol_api__collections")
-    %hr
-  #page-content.clearfix
-    #full-page-content
-      = render(:partial=>'jump_to_nav')
+#content.cms_page
+  #api_doc.site_column
+    .nav
+      = @navigation_menu
+    .article.copy
       %h3
-        =I18n.t("request")
-      %p.indent
+        = I18n.t("request")
+      %p
         %a{ :href => url }
           = url
       %h3
         =I18n.t("parameters")
-      %table.results_table
-        %tr
-          %th
-            =I18n.t("name")
-          %th
-            =I18n.t("values")
-          %th
-            =I18n.t("default")
-          %th
-            =I18n.t("notes")
-        %tr
-          %td.odd.strong
-            page
-          %td.odd
-            %i
-              =I18n.t("any_integer")
-          %td.odd
-            1
-          %td.odd
-        %tr
-          %td.even.strong
-            per_page
-          %td.even
-            %i
-              =I18n.t("any_integer")
-          %td.even
-            20
-          %td.even
-        %tr
-          %td.odd.strong
-            filter
-          %td.odd
-            articles, collections, communities, images, sounds, taxa, users, video
-          %td.odd
-          %td.odd
-        %tr
-          %td.even.strong
-            sort_by
-          %td.even
-            = SortStyle.all.map{ |ss| ss.name.downcase.gsub(' ', '_') rescue nil }.compact.join(', ')
-          %td.even
-            = SortStyle.newest.name.downcase.gsub(' ', '_')
-          %td.even
-      %br
+      %table
+        %col.name
+        %col.values
+        %col.default
+        %col.notes
+        %thead
+          %tr
+            %th
+              =I18n.t("name")
+            %th
+              =I18n.t("values")
+            %th
+              =I18n.t("default")
+            %th
+              =I18n.t("notes")
+        %tbody
+          %tr
+            %td
+              page
+            %td
+              %i
+                = I18n.t("any_integer")
+            %td
+              1
+            %td
+          %tr
+            %td
+              per_page
+            %td
+              %i
+                =I18n.t("any_integer")
+            %td
+              20
+            %td
+          %tr
+            %td
+              filter
+            %td
+              articles, collections, communities, images, sounds, taxa, users, video
+            %td
+            %td
+          %tr
+            %td
+              sort_by
+            %td
+              = SortStyle.all.map{ |ss| ss.name.downcase.gsub(' ', '_') rescue nil }.compact.join(', ')
+            %td
+              = SortStyle.newest.name.downcase.gsub(' ', '_')
+            %td
+
       %h3
         =I18n.t("description")
-      %p.indent
-        =I18n.t(:api_docs_collections_description)
+      %p
+        = I18n.t(:api_docs_collections_description)
       %h3
         =I18n.t("xml_response")
-      .formatted_code<
+      %code<
         :escaped
           <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
           <response>
@@ -308,9 +310,9 @@
           </response>
       %h3
         =I18n.t("json_response")
-      .formatted_code<
+      %code<
         :escaped
-          
+
           {
               "collection_items":
               [

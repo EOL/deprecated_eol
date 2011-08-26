@@ -3,7 +3,7 @@
     .article
       .empty
         %p= I18n.t(:maps_empty)
-        %p= link_to I18n.t(:maps_empty_contribute_instructions), cms_page_path(:id => 'partners')
+        %p= link_to I18n.t(:maps_empty_contribute_instructions), cms_page_path('partners')
   - if @taxon_concept.has_map
     #map
       = render :partial => 'maps'

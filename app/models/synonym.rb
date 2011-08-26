@@ -116,14 +116,25 @@ private
 
   def create_taxon_concept_name
     vern = (language_id == 0 or language_id == Language.scientific.id) ? false : true
-    TaxonConceptName.create(:synonym_id => id,
-                            :language_id => language_id,
-                            :name_id => name_id,
-                            :preferred => self.preferred,
-                            :source_hierarchy_entry_id => hierarchy_entry_id,
-                            :taxon_concept_id => hierarchy_entry.taxon_concept_id,
-                            :vetted_id => vetted_id,
-                            :vern => vern)
+    if tcn = TaxonConceptName.find(:first, :conditions => {
+      :taxon_concept_id => hierarchy_entry.taxon_concept_id,
+      :name_id => name_id,
+      :source_hierarchy_entry_id => hierarchy_entry_id,
+      :language_id => language_id})
+      tcn.preferred = self.preferred
+      tcn.vetted_id = vetted_id
+      tcn.vern = vern
+      tcn.save
+    else
+      TaxonConceptName.create(:synonym_id => id,
+        :language_id => language_id,
+        :name_id => name_id,
+        :preferred => self.preferred,
+        :source_hierarchy_entry_id => hierarchy_entry_id,
+        :taxon_concept_id => hierarchy_entry.taxon_concept_id,
+        :vetted_id => vetted_id,
+        :vern => vern)
+    end
   end
 
   def set_preferred_true_for_last_synonym

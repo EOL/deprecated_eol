@@ -64,8 +64,9 @@ class ApplicationController < ActionController::Base
       else
         log_error_cleanly(e)
       end
+      @page_title = I18n.t(:error_page_title)
       respond_to do |format|
-        format.html { render :layout => 'v2/basic', :template => "content/error" }
+        format.html { render :layout => 'v2/errors', :template => "content/error" }
         format.js { @retry = false; render :layout => false, :template => "content/error" }
       end
     end
@@ -109,8 +110,9 @@ class ApplicationController < ActionController::Base
   # override exception notifiable default methods to redirect to our special error pages instead of the usual 404
   # and 500 and to do error logging
   def render_404
+    @page_title = I18n.t(:error_404_page_title)
     respond_to do |type|
-      type.html { render :layout => 'v2/basic', :template => "content/missing", :status => 404} # status may be redundant
+      type.html { render :layout => 'v2/errors', :template => "content/missing", :status => 404} # status may be redundant
       type.all  { render :nothing => true }
     end
   end
@@ -125,9 +127,10 @@ class ApplicationController < ActionController::Base
          :exception_name => exception.to_s,
          :backtrace => "Application Server: " + $IP_ADDRESS_OF_SERVER + "\r\n" + exception.backtrace.to_s
          )
-     end
+    end
+    @page_title = I18n.t(:error_500_page_title)
     respond_to do |type|
-     type.html { render :layout => 'v2/basic', :template => "content/error"}
+     type.html { render :layout => 'v2/errors', :template => "content/error"}
      type.all  { render :nothing => true }
     end
   end
@@ -489,8 +492,9 @@ class ApplicationController < ActionController::Base
     begin
       yield
     rescue => e
+      @page_title = I18n.t(:error_404_page_title)
       @message = e.message
-      render(:layout => 'v2/basic', :template => "content/missing", :status => 404)
+      render(:layout => 'v2/errors', :template => "content/missing", :status => 404)
       return false
     end
   end

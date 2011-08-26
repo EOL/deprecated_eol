@@ -19,7 +19,6 @@
           %td
             = name.string
           %td
-            - name.sources.each do |source|
-              = source.full_name
+            = name.agent_names
           %td
             %span.flag{:class => vetted_id_class(name.vetted_id)}= Vetted.find_by_id(name.vetted_id).label

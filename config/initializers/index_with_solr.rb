@@ -42,6 +42,7 @@ module ActiveRecord
           # making some exceptions for the special community and its collection which are not to be returned in searches
           return [] if self.class == Collection && self.watch_collection?
           return [] if self.class == Collection && !self.published?
+          return [] if self.class == Community && !self.published?
 
           params = {
             'resource_type'       => self.class.to_s,

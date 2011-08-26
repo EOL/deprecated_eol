@@ -1332,7 +1332,7 @@ class TaxonConcept < SpeciesSchemaModel
       }).total_entries
     end
   end
-  
+
   def exemplar_or_best_image_from_solr(selected_hierarchy_entry = nil)
     cache_key = "best_image_#{self.id}"
     cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
@@ -1355,12 +1355,11 @@ class TaxonConcept < SpeciesSchemaModel
     @best_image = nil if @best_image == 'none'
     @best_image
   end
-  
+
   def reset_instance_best_image_cache
     @best_image = nil
   end
-  
-  
+
   def images_from_solr(limit = 4, selected_hierarchy_entry = nil)
     @images_from_solr ||=  EOL::Solr::DataObjects.search_with_pagination(self.id, {
       :per_page => limit,
@@ -1372,7 +1371,6 @@ class TaxonConcept < SpeciesSchemaModel
     })
   end
 
-
   def media_facet_counts
     @media_facet_counts ||= EOL::Solr::DataObjects.get_facet_counts(self.id)
   end
@@ -1380,8 +1378,6 @@ class TaxonConcept < SpeciesSchemaModel
   def number_of_descendants
     connection.select_values("SELECT count(*) as count FROM taxon_concepts_flattened WHERE ancestor_id=#{self.id}")[0].to_i rescue 0
   end
-
-
 
 private
 

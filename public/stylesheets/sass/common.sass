@@ -4,6 +4,7 @@ body
   font: normal 12px Helvetica, Arial, sans-serif
   color: #394651
   border-top: 32px solid #28323a
+  min-width: 940px
 body, html
   background: #394651
 
@@ -268,6 +269,7 @@ body
 .pagination
   text-align: right
   font-weight: bold
+  margin: 0 0 10px 0
   span, a
     &.prev_page
       float: left
@@ -276,8 +278,15 @@ body
       border: none
       background: none
       margin: 0
+  a
+    &.prev_page,
+    &.next_page
       &:hover
         text-decoration: underline
+  span
+    &.prev_page,
+    &.next_page
+      color: #616e7a
   span, a
     margin: 0 4px 0 0
     line-height: 180%

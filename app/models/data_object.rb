@@ -359,7 +359,6 @@ class DataObject < SpeciesSchemaModel
 
     vettedness = user.is_curator? ? Vetted.trusted : Vetted.unknown
     udo = UsersDataObject.create(:user => user, :data_object => dato, :taxon_concept => taxon_concept, :visibility => Visibility.visible, :vetted => vettedness)
-    dato.users_data_object = udo
     dato
   end
 

@@ -25,7 +25,7 @@ class CollectionItemsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_back_or_default }
+      format.html { redirect_to @collection_item.object }
       format.js do
         # this means we came from the collections summary on the overview page,
         # so render that entire summary box again

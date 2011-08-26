@@ -30,6 +30,7 @@ class ContentController < ApplicationController
 
   def preview
     @home_page = true
+    return redirect_to root_path unless $PREVIEW_LOCKDOWN
     if request.post?
       if params[:preview] == $PREVIEW_LOCKDOWN
         session[:preview] = params[:preview]

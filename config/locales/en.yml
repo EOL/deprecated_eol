@@ -739,7 +739,7 @@ en:
   began: "Began"
   belongs_to_: "belongs to"
   belongs_in_count_communities:
-    one: "Belongs to %{count} Communities"
+    one: "Belongs to %{count} Community"
     other: "Belongs to %{count} Communities"
   below_is_the_list_of_harvest_e: "Below is the list of harvest events for %{link}"
   bhl_publication: "BHL publication"
@@ -933,7 +933,7 @@ en:
     one: "%{count} Community Manager"
     other: "%{count} Community Managers"
   community_members_with_count:
-    one: "%{count} Community Members"
+    one: "%{count} Community Member"
     other: "%{count} Community Members"
   community_members: "Community members"
   community_not_destroyed_error: "Sorry, there was a problem and the community was not deleted."

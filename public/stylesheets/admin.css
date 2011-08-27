@@ -28,7 +28,8 @@ header, section, article, nav, footer, hgroup {
 body {
   font: normal 12px Helvetica, Arial, sans-serif;
   color: #394651;
-  border-top: 32px solid #28323a; }
+  border-top: 32px solid #28323a;
+  min-width: 940px; }
 
 body, html {
   background: #394651; }
@@ -299,15 +300,18 @@ body > #footer {
 
 .pagination {
   text-align: right;
-  font-weight: bold; }
+  font-weight: bold;
+  margin: 0 0 10px 0; }
   .pagination span.prev_page, .pagination a.prev_page {
     float: left; }
   .pagination span.prev_page, .pagination span.next_page, .pagination a.prev_page, .pagination a.next_page {
     border: none;
     background: none;
     margin: 0; }
-    .pagination span.prev_page:hover, .pagination span.next_page:hover, .pagination a.prev_page:hover, .pagination a.next_page:hover {
-      text-decoration: underline; }
+  .pagination a.prev_page:hover, .pagination a.next_page:hover {
+    text-decoration: underline; }
+  .pagination span.prev_page, .pagination span.next_page {
+    color: #616e7a; }
   .pagination span, .pagination a {
     margin: 0 4px 0 0;
     line-height: 180%;

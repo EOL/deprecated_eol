@@ -9,6 +9,18 @@ input[type="submit"]
     color: #ffffff
     text-shadow: 0 1px 1px #222222
     border-color: #1e5587
+
+.help_text
+  background: #f3f7fa
+  border: 1px solid #cad3db
+  padding: 10px
+  margin: 0 0 20px 0
+  line-height: 140%
+  img.indicator
+    position: relative
+    margin: 0 5px
+    top: -1px
+
 form
   &.button_to
     margin-top: 20px
@@ -476,13 +488,23 @@ ul.object_list
 #taxon_names
   .article.recognized
     ul
+      span
+        margin: 0 10px
       a.view
-        font-weight: bold
-        margin-left: 10px
+        font-size: .9em
+  .main_container
+    h4
+      font-size: 1.2em
+      margin: 0 0 10px 20px
   table.standard
-    td
-      a
-        font-weight: bold
+    tr
+      td
+        position: relative
+        width: 33%
+        a
+          font-weight: bold
+        &.preferred
+          background: url("/images/v2/icon_required.png") 7px 50% no-repeat
 
 form.select_content_partner
   padding: 5px 0
@@ -854,8 +876,6 @@ body
         border-bottom: 1px solid #d4dce2
   ul.object_list
     li
-      padding-top: 20px
-      padding-bottom: 20px
       img
         margin-right: -1px
       .checkbox
@@ -864,8 +884,6 @@ body
         height: 68px
         line-height: 68px
         padding: 0 3px
-      span.icon
-        margin-bottom: 10px
       textarea
         display: block
         clear: both
@@ -1921,9 +1939,14 @@ body
         .figure
           img
             +opacity(.5)
-      img
+      a.image
         display: block
+        height: 125px
+        width: 160px
         margin: 0 0 5px 0
+        img
+          display: block
+          margin: 0 auto
       fieldset
         clear: both
         select
@@ -2145,14 +2168,6 @@ body
       padding: 0 0 15px 0
 
 #profile_edit
-  p.tip
-    background: #f3f7fa
-    border: 1px solid #cad3db
-    padding: 10px
-    margin: 0 0 20px 0
-    line-height: 140%
-    img
-      margin: -2px 5px 0 5px
   input[type="text"], input[type="password"]
     +input(248px)
   .header

@@ -400,7 +400,7 @@ Factory.define :comment do |x|
 end
 
 Factory.define :community do |c|
-  c.name        { Faker::Lorem.words.join(' ').titleize }
+  c.name        { (Faker::Lorem.words << Factory.next(:string)).join(' ').titleize }
   c.description { Faker::Lorem.paragraph }
   c.published   true
   c.after_create { |com| Factory(:collection, :community => com, :user => nil) }

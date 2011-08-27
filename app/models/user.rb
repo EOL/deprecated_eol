@@ -482,10 +482,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     content_partner ? true : false
   end
 
-  def is_curator?
-    has_attribute?(:curator_approved) && curator_approved
-  end
-
   def is_pending_curator?
     !requested_curator_level.nil? && !requested_curator_level.id.zero?
   end

@@ -22,7 +22,7 @@ class Taxa::OverviewsController < TaxaController
       :data_objects_hierarchy_entries => '*',
       :curated_data_objects_hierarchy_entries => '*',
       :curator_activity_logs => '*',
-      :users => [ :given_name, :family_name, :logo_cache_url, :tag_line ] }
+      :users => [ :given_name, :family_name, :logo_cache_url, :tag_line, :curator_level_id ] }
     @taxon_concept = TaxonConcept.core_relationships(:include => includes, :select => selects).find_by_id(@taxon_concept.id)
     @browsable_hierarchy_entries ||= @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
     @browsable_hierarchy_entries = [@selected_hierarchy_entry] if @browsable_hierarchy_entries.blank? # TODO: Check this - we are getting here with a hierarchy entry that has a hierarchy that is not browsable.

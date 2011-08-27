@@ -1,0 +1,3 @@
+qqq-db:
+  translated_synonym_relations-label-synonym_relation_id-11: "\"in-part\" is a label given to \"incorrect\" names of species... not that this is a real example, but you might call \"leopard\" an \"in-part\" name for the \"Clouded leopard\".  It's part of the data that lets us look up species elswhere based on \"near-matches\"."
+  translated_resource_statuses: "a button/state label used by Content Partners to say \"please re-load this data set into our database\".  \"Harvest\" is the term we use for this process, throughout the UI."

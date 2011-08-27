@@ -358,7 +358,7 @@ Factory.define :canonical_form do |cform|
 end
 
 Factory.define :collection do |c|
-  c.name                  { Factory.next(:string) }
+  c.name                  { (Faker::Lorem.words << Factory.next(:string)).join(' ').titleize }
   c.published             true
   c.special_collection_id nil
   c.association           :sort_style

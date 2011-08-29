@@ -1,6 +1,7 @@
 # Messages for Spanish (Español)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Crazymadlover
 # Author: Erick mata
 # Author: Fitoschido
 # Author: Mor
@@ -269,7 +270,9 @@ es:
   biodiversity_heritage_library: Biodiversity Heritage Library
   biology_of_aging_project: Biología de los proyectos Envejecimiento
   biomedical_terms: Términos biomédicos
+  browsable: Navegable
   browse_eol: navegar EOL
+  browse_hierarchy: navegar por la jerarquía
   build_communities: Construir comunidades
   by_entering_a_wikipedia_revision: Quando escribes una dirección URL revisión de Wikipedia, estás solicitando que ingiere EOL que la revisión particular investigados. Que reemplazará a la versión actual de este artículo en EOL si lo ha hecho.
   cancel: Cancelar
@@ -626,6 +629,7 @@ es:
   edit_page_contents: editar el contenido de la página
   edit_search_suggestions: Editar sugerencias de búsqueda
   edit_table_of_contents: editar la tabla de contenidos
+  edit_tag_suggestions: editar sugerencias de etiqueta
   edit_web_users: editar usuarios de la web
   education: Educación
   email_colon: "Correo electrónico:"
@@ -644,6 +648,9 @@ es:
   encyclopedia_of_life: Enciclopedia de la Vida
   endorsed_by: Presentado por
   endorsed_collections: Colecciones destacadas
+  endorsed_collections_with_count: 
+    one: "%{count} Colección destacada"
+    other: "%{count} Colecciones destacadas"
   enter_revision_url_colon: "Escriba la url de revisión:"
   eol_api: EOL API
   eol_colon: "EOL:"
@@ -679,6 +686,9 @@ es:
   example_url_for_wikipedia_article_ingestion: "(Por ejemplo: http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)"
   explore: Explorar
   explore_what_we_know_about_taxon: Explorar qué sabe EOL de %{taxon}.
+  external_link_header: Enlace externo
+  facebook: Facebook
+  failed_login_attempts: intentos fallidos de inicio de sesión) - se debe comprobar para que el usuario pueda iniciar sesión
   family_name_colon: "Apellido:"
   feedback: Realimentación
   fill_in_a_message_below_to_sen: "Llenar un mensaje a continuación para enviar un correo electrónico a este usuario.  El mensaje se enviará cuando usted envíe el formulario:"
@@ -706,6 +716,21 @@ es:
   flash_notice_redirected_from_search_html: Ha llegado aquí buscando <em>% {search_string}</em>. <a href="%{more_results_url}">Haga clic aquí para volver a la página de búsqueda.</a>
   flash_notice_redirected_from_search_html_more_results: Ha llegado aquí buscando <em>% {search_string}</em>. <a href="%{more_results_url}">Haga clic aquí para volver a la página de búsqueda.</a>
   flickr: Flickr
+  focus_collection_edit_link: Puede editar el foco de esta comunidad directamente en la página de %{collection}.
+  for_the_month_of_colon: "Para el mes de:"
+  forgot_password: Olvidó su contraseña
+  forgot_password_cannot_find_user_from_username_or_email_error: Lo sentimos, no hay cuentas de usuario con el nombre de usuario o dirección de correro <em>%{username_or_email}</em> proporcionados.
+  forgot_password_form_cancel: Cancelar
+  forgot_password_form_choose_username_blank_error: Por favor, seleccione la cuenta para la que desea restablecer la contraseña.
+  forgot_password_form_choose_username_instructions: Hay varias cuentas registradas en la dirección de correo <em>%{email}</em>, por favor, seleccione una cuenta para restablecerle la contraseña.
+  forgot_password_form_choose_username_legend: Seleccione una cuenta
+  forgot_password_form_header: Restablecer su contraseña
+  forgot_password_form_username_or_email_blank_error: Por favor ingrese su nombre de usuario o dirección de correo electrónico para restablecer su contraseña.
+  from_community: de %{community}.
+  gbif_occurrence_disclaimer: Este mapa se basa en registros de ocurrencias disponibles a través de GBIF y puede no representar la distribución total de un taxón
+  gbif_occurrence_learn_more_link: Obtenga más información sobre mapas de ocurrencias de GBIF.
+  general_error_occurred: Lo sentimos, pero ha ocurrido un error. Por favor, haga un nuevo intento para llevar a cabo su tarea. Si el error persiste, por favor, envíe un correo electrónico a %{email} junto con el siguiente mensaje de error y cualquier otra información que desee compartir con nosotros. Estamos trabajando fuertemente para ofrecerle el mejor servicio posible y le agradecemos su apoyo. - El equipo de EOL
+  general_site_admin: administrador general del sitio
   get_more_tasks: obtener más tareas
   given_name_colon: "Nombre dado:"
   global_access_tagline: Acceso global al conocimiento sobre la vida en la Tierra
@@ -714,6 +739,7 @@ es:
   go_back: Regresar
   google_analytics_google_account_and_access_required: Google Analytics (cuenta de Google y acceso requerido)
   grant_full_curator_link: Conceder
+  grant_manager_link: Otorgar papel de administrador
   has_already_been_taken: ya ha sido tomado.
   has_colon: "Tiene:"
   hello_user: Hola %{user}
@@ -862,6 +888,7 @@ es:
   id: ID
   identifcation_resources_empty: No se encontraron recursos.
   identification_resources: Recursos de identificación
+  if_checked_and_user_is_saved: Si se marca y el usuario se guarda, a continuación, los credenciales, alcance, aprobación y clade seleccionados se borran y el usuario ya no aparece como curador.  Usted debería agregar una nota a continuación para indicar la razón.  No se envía información al usuario.
   if_this_box_is_checked_the_hie: Si esta casilla está marcada, la jerarquía será una opción para que los usuarios naveguen en EOL
   image_is_no_longer_available: La imagen ya no está disponible
   image_not_found: Imagen no encontrada
@@ -893,6 +920,13 @@ es:
   item_type_taxon_assistive: Este elemento es un taxón
   item_type_video_assistive: Este elemento es un video
   item_updated_in_collection_notice: Elemento actualizado exitosamente en la colección de <em>% {collection_name}</em> .
+  items_no_copy_none_selected_warning: No se copió ningún elemento porque ninguno fue seleccionado. Para copiar elementos a otra colección, primero seleccione la casilla adyacente a los elementos de la lista que desea copiar.
+  items_no_move_none_selected_warning: Ningún elemento fue trasladado porque ninguno fue seleccionado. Para trasladar elementos a otra colección, primero seleccione la casilla adyacente a los elementos de la lista que desea trasladar.
+  items_no_remove_none_selected_warning: Ningún elemento fue borrado porque ninguno fue seleccionado. Para borrar elementos de la colección, primero seleccione la casilla adyacente a los elementos de la lista que desea borrar.
+  items_with_count_semi_colon: 
+    one: "%{count} elemento;"
+    other: "%{count} elementos;"
+  iucn_red_list_status_advisory_information: Este vínculo le llevará al sitio web de la Unión Internacional para la Conservación de sitio Web de la Naturaleza (UICN), donde podrá encontrar más información en la Lista Roja de Especies Amenazadas  de la UICN.
   join_community_button: Unirse a esta comunidad
   join_eol_button_html: Únase ya a <abbr title="Encyclopedia of Life">EOL</abbr>
   join_eol_community_html: Forme parte de la comunidad <abbr title="Encyclopedia of Life">EOL</abbr> !
@@ -963,6 +997,7 @@ es:
     other: "%{count} Mapas"
   max_collection_items_error: Lo sentimos, su solicitud supera el límite de % {max} elementos en una colección.
   media: Medios
+  media_contact: Contacto con los medios
   media_list_empty: Nadie ha contribuido con algún medio para este taxón.
   media_list_empty_contribute_instructions: Aprenda cómo contribuir con medios a EOL.
   media_list_empty_search: Ningún medio disponible coincide con su criterio de búsqueda.
@@ -986,16 +1021,21 @@ es:
     one: "%{count} más..."
     other: "%{count} más..."
   most_active_members: Miembros más activos
+  move: Trasladar
   move_all_articles_button: mover todos los artículos
   move_all_collections_button: mover todas las colecciones
   move_all_communities_button: mover todas las comunidades
   move_all_images_button: mover todas las imágenes
   move_all_items_button: mover toda la colección
   move_all_people_button: mover a todas las personas
+  move_all_sounds_button: trasladar todos los sonidos
   move_all_taxa_button: mover todos los taxones
   move_all_videos_button: mover todos los vídeos
   move_down: Mover hacia abajo
   move_up: Mover hacia arriba
+  moved_items_from_collection_with_count_notice: 
+    one: Trasladó %{count} elemento de %{name}.
+    other: Trasladó %{count} elementos de %{name}.
   must_be_associated_with_either_a_user_or_a_community: Debe estar asociado a un usuario o una comunidad
   must_be_less_than_128_characters_long: debe tener menos de 128 caracteres.
   must_be_logged_in: Debe haber iniciado una sesión para realizar esta acción.
@@ -1007,6 +1047,7 @@ es:
   name_preferred_for_language_no: 'No'
   name_preferred_for_language_yes: Preferido
   names: Nombres
+  names_children_column_header: Niños
   names_curation_column_header: Curación
   names_name_column_header: Nombre
   names_parents_column_header: Padres
@@ -1015,6 +1056,7 @@ es:
   names_sources_column_header: Fuentes
   names_status_column_header: Estado
   national_center_for_biotechnol: Centro Nacional de Información Biotecnológica (NCBI)
+  ncbi_taxonomy: Taxonomía de NCBI
   never: Nunca
   new_collection: Nueva colección
   new_content_partners_for_the_m: Nuevos socios de contenidos del mes
@@ -1029,6 +1071,8 @@ es:
   not_evaluated: No evaluado
   not_recognised_by_available_hierarchies: No reconocido por ninguna de las clasificaciones disponibles
   not_yet_implemented_error: Lo sentimos, esta función no ha sido implementada.
+  note_about_homonym_problems: "NOTA: cambiar este atributo sólo si está seguro - restaurarlo después del cambio podría causar serios problemas de homonimia"
+  nucleotide_sequences: Secuencias de Nucleótidos
   object: Objeto
   object_curation: Curación de Objeto
   object_status: Estado del objeto
@@ -1060,12 +1104,32 @@ es:
   other_community_items_with_count: 
     one: "%{count} otro elemento"
     other: "%{count} otros elementos"
+  other_taxa_with_count: 
+    one: "%{count} taxón"
+    other: "%{count} taxones"
   other_us_dollars_amount: "Otros: US$"
   overall_colon: "General:"
   overview: Vista general
+  page_reference: "\"%{title}\". Enciclopedia de la vida, disponible desde \"<a href=\"http://%{domain_or_ip}%{this_url}\" target=\"_blank\">http://%{domain_or_ip}%{this_url}</a>\". Accedido %{date}"
   page_statistics: Estadísticas de la página
+  page_statistics_and_tools: estadísticas y herramientas de la página
+  page_statistics_explanation: <p>EOL calcula automáticamente algunas estadísticas sobre sus páginas. Estas estadísticas recalculan [how often]?</p><h5>Puntuación de Riqueza</h5><p>Puntuación de Riqueza es una combinación de muchos factores como:<ul><li>¿Cuánto texto tiene una página</li><li>¿Cuántos multimedia o archivos de mapas están disponibles</li><li>¿Cuántos temas diferentes están cubiertos</li><li>¿Cuántas diferentes fuentes aportan información</li></ul></p><p>Además, consideramos si se ha revisado la información o no. Si una página tiene ya un mucho texto o multimedia, no aumentar la puntuación de riqueza al agregar más.</p><p>La puntuación de riqueza oscila entre 0 y 100, donde las páginas más ricas tienen las puntuaciones más altas. No te preocupes, probablemente no son muy importantes las diferencias en las puntuaciones de riqueza de unos pocos puntos. Con el tiempo podemos cambiar la manera calculamos esta puntuación para reflejar mejor su experiencia en el sitio. Asegúrese de hacernos saber qué piensa dejando un comentario en las páginas que crea que hemos juzgado mal.</p><h5>Imágenes de confianza</h5><p>Incluye todas las imágenes de confianza para esta página y las páginas que aparecen en una clasificación por debajo de esta página. Este número incluye imágenes que proveinen de socios confiables, así como imágenes procedentes de socios como Flickr o Wikimedia Commons que han sido declaradas de confianza por un curador EOL.</p><h5>Imágenes no revisadas</h5><p>Incluye todas las imágenes no revisadas para esta página y las páginas que aparecen en una clasificación por debajo de esta página. Algunos de nuestros socios ofrecen gran cantidad de imágenes de alta calidad que pueden ser mejores que las que son de confianza, pero simplemente no han sido revisadas aún. No incluye imágenes que han sido declaradas de no confianza por un curador EOL.</p><h5>Artículos de confianza</h5><p>Incluye todos los artículos de texto confianza en la pestaña Detalles de esta página y varios artículos de la pestaña de recursos. Este número incluye artículos de texto que provienen de socios de confianza. También incluye artículos contribuidos directamente a EOL por sus miembros o de Wikipedia que han sido confiados por un curador de EOL. No incluye artículos sobre las páginas que aparecen en una clasificación por debajo de esta página.</p><h5>Artículos no revisados</h5><p>Incluye todos los artículos de texto no revisados en la pestaña Detalles de esta página y varios artículos de la pestaña de recursos. Este número incluye artículos de texto contribuidos directamente a EOL por sus miembros o de Wikipedia que están esperando la revisión de un curador EOL. No incluye artículos sobre las páginas que aparecen en una clasificación por debajo de esta página.</p>
   pages_curator_section_link: Curadores
+  pages_title: Referencias
+  pages_with_count: 
+    one: "%{count}}"
+    other: "%{count}"
   pages_with_pictures_and_text: Páginas con imágenes y texto
+  pages_with_pictures_or_text: Páginas con imágenes o texto
+  pagination_next: Siguiente
+  pagination_next_with_count: 
+    one: ver próximo %{count}}
+    other: ver próximos %{count}
+  pagination_previous: Anterior
+  pagination_previous_with_count: 
+    one: ver anterior %{count}}
+    other: ver anterior %{count}
+  partner_page: página de socio
   password_colon: "Contraseña:"
   personal_space: Espacio personal
   please_confirm_your_donation_details: Por favor confirmar los detalles de su donación
@@ -1082,8 +1146,27 @@ es:
   profile_image_alt_text_curator: Imagen de perfil del curador % {user_full_name}
   profile_image_alt_text_member: Imagen de perfil del miembro % {user_full_name}
   public: Público
+  publish_requested: Publicar solicitado
   published: Publicado
+  published_content_partners: Socios de Contenidos Publicados
+  punctuation_comma: ","
+  quarterly: Trimestral
+  rank_recognized_by_agent_colon: "%{rank} reconocido por %{agent}:"
+  rated_by_count_people: 
+    one: de %{count} persona
+    other: de %{count} personas
+  rating_added_notice: Puntaje se agregó exitosamente.
+  rating_not_added_error: Lo sentimos, ha ocurrido un error, el puntaje no se pudo agregar.
+  recaptcha: Escriba las dos palabras que ve abajo
+  recaptcha_incorrect_error_with_anchor: Los caracteres <a href="#%{recaptcha_anchor}"></a> no coinciden, por favor, vuelva a intentarlo.
   recent_updates: Actualizaciones recientes
+  recognised_by_as_a_rank: "%{recognized_by} como un %{taxon_rank}"
+  recognised_by_from_source_as_a_rank: "%{recognized_by} en %{source} como %{taxon_rank}"
+  recognized_by: Reconocido por
+  related_names_with_count: 
+    one: "%{count} nombre relacionado"
+    other: "%{count} nombres relacionados"
+  remove: Borrar
   remove_all_articles_button: eliminar todos los artículos
   remove_all_collections_button: eliminar todas las colecciones
   remove_all_communities_button: eliminar todas las comunidades
@@ -1096,10 +1179,15 @@ es:
   remove_curatorship_colon: "Eliminar la curaduría:"
   remove_data_object_association: Eliminar asociación
   remove_membership: Eliminar afiliación.
+  removed_count_items_from_collection_notice: 
+    one: "%{count} elemento ha sido borrado de esta colección."
+    other: "%{count} elementos han sido borrados de esta colección."
   request_mailing_list_colon: "Solicitar lista de correo:"
   request_wikipedia_article_ingestion: "Solicitar ingestión de artículo de Wikipedia:"
   required_form_element: Obligatorio
   reset_password_enter_new_password_notice: Este es un inicio de sesión que debe hacer una sola vez, por favor, introduzca una nueva contraseña para continuar.
+  reset_password_instructions_sent_to_user_notice: Las instrucciones para restablecer la contraseña de su cuenta <em>%{username}</em> se han enviado a su dirección de correo electrónico.
+  reset_password_token_expired_error: Lo sentimos, su contraseña no se ha restablecido. El enlace proporcionado ha expirado. Por favor, complete y envíe el formulario para contraseñas olvidadas otra vez para recibir un nuevo vínculo.
   resources: Recursos
   revisions: Revisiones
   revoke_full_curator_link: Revocar
@@ -1109,8 +1197,38 @@ es:
   rights_holder: Titular de los derechos
   rights_statement: Declaración de los derechos
   roles: Roles
+  rss_abbr_html: <abbr title="Really Simple Syndication">RSS</abbr>
+  save: Guardar
+  save_annotation_submit_button: Guardar anotación
+  save_curated_association_submit_button: Guardar asociación
+  scientific_name: Nombre científico
+  search: Buscar
+  search_by_term_page_title: "Buscar: %{term}"
+  search_field_label: Buscar en EOL
+  search_input_advisory_information: Escriba un nombre común o un nombre científico de una criatura viviente de la que le gustaría saber más. También puede buscar miembros de EOL, colecciones y comunidades.
+  search_placeholder: Buscar en EOL ...
+  search_results: Resultados de la búsqueda
+  search_the_site: Buscar en el sitio
+  see_all_classifications_with_count_html: 
+    one: Ver <span class="assistive">%{count} clasificación aprobada en la que aparece este taxón.</span>
+    other: Ver las <span class="assistive">%{count} clasificaciones aprobadas en las que aparece este taxón.</span>
+  see_all_collections_with_count_html: 
+    one: Ver <span class="assistive">%{count} colección en la que aparece este taxón.</span>
+    other: Ver las <span class="assistive">%{count} colecciones en las que aparece este taxón.</span>
+  see_all_comments_with_count_for_text: 
+    one: ver %{count} comentario para este artículo
+    other: ver todos losl %{count} comentarios para este artículo
+  see_all_communities_with_count_html: 
+    one: Ver la <span class="assistive">%{count} comunidad que tiene como foco este taxón.</span>
+    other: Ver las <span class="assistive">%{count} comunidades que tienen como foco este taxón.</span>
+  see_all_of_your_collections: Ver todas sus colecciones
+  select_colon: Seleccionar
   select_topic: Por favor, seleccione un área temática
+  selected_items: Elementos seleccionados
   selected_language_advisory_information: Este es el idioma seleccionado actualmente.
+  send_email_colon: "Enviar correo electrónico:"
+  send_email_notification_to_all: Enviar notificación por correo electrónico a todos los socios de contenidos acerca de la disponibilidad de las estadísticas mensuales más recientes del sitio web
+  sent_invitations_to_users: Se enviaron invitaciones a %{users}.
   set_as_exemplar: Establecer como ejemplar
   show: Mostrar
   show_data_from_all_content_partners: Eliminar filtro de clasificación
@@ -1153,18 +1271,64 @@ es:
   submit: Enviar
   supplier: Proveedor
   supplier_colon: "Proveedor:"
+  switch_language_advisory_information: Cambiar el idioma del sitio a %{language_label}
+  synonym: Sinónimo
+  synonyms_with_count: 
+    one: "%{count} sinónimo"
+    other: "%{count} sinónimos"
+  table_column_header_actions: Acciones
   table_of_contents: Tabla de contenidos
+  table_of_contents_breakdown: Desglose de tabla de contenidos
+  task_status: Estado de la tarea
+  task_status_active_option: Activo
+  task_status_curated_option: Curado
+  task_status_ignored_option: Ignorado
+  tasks_with_count: 
+    one: "%{count} tarea encontrada"
+    other: "%{count} tareas encontradas"
+  taxa: Taxones
+  taxon: taxón
+  taxon_details_empty: Nadie ha contribuido aún con algún detalle sobre este taxón.
+  taxon_id: Taxon ID
+  taxon_page_content_disclaimer: El contenido de EOL se ensambla automáticamente de muchos proveedores de contenido. Como resultado, de vez en cuando pueden encontrar páginas en EOL que son confusas. Para solicitar una mejoría, por favor, deje un comentario en la página. ¡Gracias!
+  taxon_page_content_disclaimer_header: Descargo de responsabilidad
+  taxon_recognised_by_header: Reconocido por
+  taxonomic_summary_of_content: Resumen taxonómico de contenido
+  technical_functions: Funciones Técnicas
+  terms_agreement_beta_intro: "Gracias por participar en la versión Beta de la versión 2 de EOL. Antes de continuar, necesitamos que esté de acuerdo con lo siguiente:"
+  terms_agreement_form_fallback: Por favor, lea y acepte los <a href="%{terms_url}">términos de uso</a> antes de acceder a su cuenta.
+  terms_agreement_form_header: Términos de uso
+  terms_agreement_form_submit: Estoy de acuerdo
+  terms_provided_by: Términos proporcionados por %{link}.
+  test: Probar
+  text_capital: Texto
+  text_summary_empty: Nadie ha contribuido aún con un breve resumen para este taxón.
+  text_summary_empty_header: Breve resumen
+  text_summary_more_link: Leer entrada completa
+  thank_you_for_your_generous_support: Gracias por su generoso apoyo
+  thank_you_sentence: ¡Gracias!
   thanks_for_feedback: Gracias por las observaciones
   the_amount_entered_was: "La cantidad entrada era : US %{number}"
+  the_following_are_curators_of: Los siguientes son curadores de
+  the_following_bibliography: La siguiente bibliografía se ha generado al reunir todas las referencias proporcionadas por nuestros socios de contenidos. Es posible que haya duplicación de información.
+  the_list_represents_the_curation_activity: La lista representa la actividad de curación en objetos de datos de <b>%{link}</b>.
   the_mission_of_the: La misión de el %{link} es el desarrollo de nuevas tecnologías de información para ayudar en la comprensión de los procesos fundamentales moleculares y genéticos que controlan la salud y la enfermedad.
   the_ncbi_taxonomy_contains_names_using: La base de datos % {linka} contiene los nombres de todos los organismos que estén representados en las bases de datos genéticos con al menos una secuencia de nucleótidos o proteínas. Se puede % {linkb} con la taxonomía de NCBI.
   the_results_are_analyzed_with_the_tool: Los resultados son analizados con la herramienta % {link_ligercat}, que se basa la nube de los más relevantes Medical Subject Headings (% {link_mesh}). Tamaño relativo de cada término indica cuántas veces aparece en los resultados de búsqueda de PubMed. Haga clic en un término a la nube de LigerCat completa, con capacidades de búsqueda de PubMed vivos.
   there_are_currently_no_members_in_this_community: Actualmente no hay miembros en esta comunidad.
+  there_are_no_curators_of: No hay ningún curador de
   there_was_an_error_posting_your_text: Hubo un error al publicar su texto.
   these_terms_are_derived_by_searching: Estos términos se derivan mediante búsquedas en la base de datos de literatura biomédica, % {link} para el nombre "% {scientific_name}".
   this_community_has_no_endorsed_collections: Esta comunidad no ha promovido ninguna colección.
   this_community_has_no_focus_list: Esta comunidad no tiene ninguna lista de foco.
+  this_is_a_flat_list_of_10_mill: Esta es una lista plana de 10 millones de hileras - no se permite navegar en ella
   this_is_a_focus_collection_for_community: Esta colección es el enfoque de "% {community}".
+  this_is_a_list_of_first_time_p: Esta es una lista de socios de contenidos publicados por primera vez para el mes.
+  this_is_an_automated_e_mail_no: Esta es una notificación automatizada por correo electrónico.
+  this_is_the_label_that_will_ap: Esta es la etiqueta que aparecerá en el menú desplegable de selección de jerarquía
+  this_is_the_label_that_will_be: Esta es la etiqueta que se utilizará para la atribución
+  this_is_the_link_to_your_web_s: "Este es el enlace para sus estadísticas web:"
+  this_report_is_also_available_via_feeds: Este informe también está disponible a través de "feeds"
   threat_status_header_colon: "Estado de amenaza de la UICN:"
   time_ago: "% {time_passed} hace"
   title: Título
@@ -1173,21 +1337,72 @@ es:
   total_items_with_count: 
     one: "% {count} artículo "
     other: " {count} % total artículos"
+  translation_deleted: Se ha eliminado la traducción
+  translation_saved: Se ha guardado la traducción
   translations_submit: Mira la traducción
   trusted: Con confianza
+  trusted_images: Imágenes de confianza
+  trusted_text_objects: Artículos de confianza
   try_your_request_again: Trata su solicitud otra ves
   twitter: Twitter
   type: Tipo
+  unable_to_copy_items_to_collection_error: Lo siento, no se pudo copiar los elementos de la colección a %{name}.
+  unable_to_invite_users_to_community_error: No se pudo enviar invitaciones a %{users}.
   unknown: Desconocido
+  unpublished: Sin publicar
   unreviewed: Sin revisar
+  unreviewed_images: Imágenes sin revisar
+  unreviewed_text_objects: Artículos sin revisar
   untrusted: Sin confianza
+  update: Actualizar
   update_collection_submit_button: Actualizar los detalles del colección
+  update_feed: Actualizar "Feed"
+  update_language: Actualizar idioma
+  update_page: Actualizar página
   update_user_successful_notice: Cuenta actualizado correctamente.
   update_user_unsuccessful_error: Lo sentimos, ha ocurrido un error, su cuenta no se ha actualizado. Asegúrese de que todos los formularios han completado correctamente.
   updated: Actualizado
+  updated_colon: "Actualizado:"
   updated_community: La comunidad se ha actualizado correctamente.
   updated_member: Miembro se ha actualizado correctamente.
   updates: Actualizaciones
+  updates_with_count: 
+    one: "%{count} Actualización"
+    other: "%{count} Actualizaciones"
+  upload_content: subir el contenido
+  upload_logo_help_text: Esta será la imagen principal que representa a su comunidad - puede ser lo que quiera.
+  us_dolars_75: US $75
+  us_dollars_100: US $100
+  us_dollars_35: US $35
+  us_dollars_50: US $50
+  user: Usuario
+  user_activation_failed_resent_validation_email_error: Lo sentimos, ha ocurrido un error, su cuenta no pudo ser verificada. Esto generalmente ocurre cuando el enlace de verficiación que ha introducido o seleccionado no es reconocido. Las instrucciones de activación han sido reenviadas a la dirección de correo electrónico que se registró con, asegúrese de que el enlace de verficiación que utiliza coincide con el proporcionado en el email de activación.
+  user_activation_failed_user_not_found_error: Lo sentimos, ha ocurrido un error, la cuenta que están tratando de verificar que no se pudo encontrar. Asegúrese de que el enlace de verficiación que utiliza coincida con el proporcionado en el correo electrónico de activación que recibió después de registrarse.
+  user_activation_successful_notice: Bienvenido y gracias por unirse al equipo de la Enciclopedia de la Vida. Su cuenta, con nombre de usuario <em>%{username}</em> ya está activa, por favor inicie una sesión.
+  user_already_active_notice: Su cuenta ya está activa, por favor, inicie sesión.
+  user_commented_on_something_colon: "<strong>%{user}</strong> comentó sobre %{what}:"
+  user_left_comment_on_date: "%{username} dejó un comentario en fecha %{date}."
+  user_says_colon: "%{users_name} dice:"
+  user_submitted_text_found: "Se encontró el siguiente texto enviado por usuario:"
+  user_system_down: Lo sentimos, pero el sistema de registro de usuario no está disponible en este momento. Por favor, inténtelo de nuevo más tarde.
+  username_colon: "Nombre de usuario:"
+  username_taken: "%{name} ya está en uso"
+  users_about_me_header: Acerca de mí
+  users_content_partners_header: Socios de Contenidos
+  users_content_partners_information: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt hendrerit tortor, commodo faucibus turpis imperdiet non. Nullam tincidunt, est vel euismod volutpat, libero turpis suscipit neque, nec viverra magna augue non nisl. Praesent et risus sit amet quam sagittis pulvinar eu at odio. Etiam mattis enim turpis, cursus rutrum massa. Ut blandit varius tellus, vitae interdum nulla pulvinar nec.
+  users_content_partners_with_count: 
+    one: "%{count} Socio de contenidos "
+    other: "%{count} Socios de contenidos"
+  users_curation_header: Cualidades del curador
+  users_form_account_header: Su cuenta
+  users_form_curation_header: Cualidades del curador
+  users_form_profile_info_header: Información pública del perfil
+  users_form_tip: Nombre de usuario es obligatorio para todos los usuarios, otros elementos marcados como requeridos %{required_icon} son opcionales para los usuarios generales pero obligatorios para los curadores.
+  users_member_of_count_communities: 
+    one: "Pertenece a %{count} comunidad "
+    other: Pertenece a %{count} comunidades
+  users_my_info_header: Mi información
+  users_pending_activation_message: Se ha enviado un mensaje de confirmación a la dirección de correo electrónico proporcionada. Para completar el proceso de registro y convertirse en miembro de EOL, haga clic en el enlace incluido en ese correo electrónico. ¡Gracias!
   using_the_site: Uso del sitio
   value: Valor
   verification_phrase_did_not_match: La frase de verificación que ha introducido no coincide.
@@ -1235,6 +1450,7 @@ es:
   you_can_now_check_last_month_s: Ahora puede comprobar el uso en la web de sus datos en EOL durante el mes pasado.
   you_have_been_logged_out: Hemos cerrado su sesión.
   you_joined_community: Se ha unido exitosamente a esta comunidad.
+  you_left_community: Has dejado esta comunidad.
   you_removed_the_member_from_the_community: Usted ha eliminado este miembro de la comunidad.
   your_current_rating_0_of_5: "Tu calificación actual: 0 de 5"
   your_current_rating_1_of_5: "Su puntuación actual: 1 de 5"

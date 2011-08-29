@@ -2137,6 +2137,7 @@ en:
   name_preferred_taxonomically_for_source_yes: "Preferred"
   names: "Names"
   names_common_empty: "No common names have been associated with this taxon yet"
+  names_common_list_by_language_assistive_header: "Common names listed by language"
   names_children_column_header: "Children"
   names_curation_column_header: "Curation"
   names_et_al: "%{names}, et al."

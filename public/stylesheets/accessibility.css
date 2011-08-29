@@ -1,30 +1,3 @@
-/*
-----------------------------------------
-Tantek Celik's Whitepsace Reset
-     Author:  	Tantek Celik, Shane Riley
-    Version:  	(CC) 2010 Some Rights Reserved - http://creativecommons.org/licenses/by/2.0
-Description:	Resets default styling of common browsers to a common base
-----------------------------------------
-*/
-ul, ol {
-  list-style: none; }
-
-h1, h2, h3, h4, h5, h6, pre, code {
-  font-size: 1em; }
-
-ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, body, html, p, blockquote, fieldset, input, dl, dt, dd {
-  margin: 0;
-  padding: 0; }
-
-a img, :link img, :visited img, fieldset {
-  border: none; }
-
-address {
-  font-style: normal; }
-
-header, section, article, nav, footer, hgroup {
-  display: block; }
-
 .assistive, #header .assistive {
   position: absolute;
   left: -999em; }
@@ -602,32 +575,31 @@ body > #header .section .session.join {
     color: #394651;
     margin: 0; }
 
-/*Our classification summary is a hierarchichal list whereas HR was just links without hierarchy
- * so we override the styles here */
-#classifications_summary h4 {
-  padding-bottom: 15px !important; }
-#classifications_summary li li p {
-  font-weight: bold;
-  float: left; }
-#classifications_summary li li li p {
-  padding-left: 23px !important;
-  margin-left: 10px;
-  background: transparent url("/images/v2/icon_classification_arrow.png") 0 0 no-repeat; }
+/*Hierarchy Entry classification browser does not have styles from HR
+ * HR assumes a list of classifications, where each top level list item is the container
+ * On hierarchy entry page the container is a div not a list item, and top level list items are kingdoms
+ * so we can't re-use HR SASS as it is - we need to refactor markup and SASS so we can share SASS or create mixin.
+ */
+#classification_browser {
+  border: 1px solid #d7dadc;
+  overflow-x: auto;
+  padding: 10px 15px;
+  margin: 0 -10px 20px -10px; }
+  #classification_browser > ul {
+    line-height: 160%;
+    font-size: 0.9em; }
+    #classification_browser > ul li {
+      white-space: nowrap; }
+      #classification_browser > ul li ul {
+        margin-left: 10px; }
+
+#classification_browser .open, .classifications .open {
+  font-weight: bold; }
+
+/*overides for empty text styles - various */
 #classifications_summary .empty p {
   font-size: 1em !important; }
 
-/*classification tree */
-#classification_tree #browser-text {
-  width: 360px;
-  margin: 0 -10px;
-  overflow: auto;
-  border: 1px solid #cad3db; }
-  #classification_tree #browser-text ul.classification {
-    margin: 10px; }
-    #classification_tree #browser-text ul.classification li {
-      white-space: nowrap; }
-
-/*overides for empty text styles - various */
 .article .empty a.button {
   font-size: 0.78em !important; }
 
@@ -951,28 +923,6 @@ table.standard td.nowrap {
 .article .pagination {
   margin-top: 1em; }
 
-ul.classification > li > a {
-  font-weight: normal; }
-
-ul.classification a.bold {
-  font-weight: bold; }
-
-ul.classification.summary {
-  margin-left: 1em; }
-
-#classifications_summary > ul > li {
-  margin-bottom: 1em; }
-
-ul#taxonomictext #taxonomic-text-container {
-  width: 315px;
-  margin: 1em -1em;
-  overflow: auto;
-  border: 1px solid #cad3db; }
-  ul#taxonomictext #taxonomic-text-container ul.classification {
-    margin: 10px; }
-    ul#taxonomictext #taxonomic-text-container ul.classification li {
-      white-space: nowrap; }
-
 #page_heading .page_actions li + li {
   margin: 10px 0; }
 
@@ -1161,8 +1111,3 @@ body#prelaunch p.status {
   color: #394651;
   border: 2px solid #c7d471;
   background: #edf6b2; }
-
-#taxon + #sidebar .classification {
-  font-size: 0.9em; }
-  #taxon + #sidebar .classification .branch {
-    margin-left: 10px; }

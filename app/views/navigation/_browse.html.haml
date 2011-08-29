@@ -11,5 +11,5 @@
     %b
       =I18n.t("hierarchy_roots_")
     - for kingdom in @hierarchy.kingdoms
-      %li.node.bold
-        = render(:partial => 'navigation/node_name', :locals => { :hierarchy_entry => kingdom, :node_class => 'bold' })
+      %li.node
+        = render(:partial => 'navigation/node_name', :locals => { :hierarchy_entry => kingdom })

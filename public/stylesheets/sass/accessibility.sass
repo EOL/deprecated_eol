@@ -1,4 +1,5 @@
 @import "mixins"
+
 = screenreader_accessible
   position: absolute
   left: -999em
@@ -632,36 +633,30 @@ body
     font-size: 0.9em
     color: #394651
     margin: 0
-
-/** Our classification summary is a hierarchichal list whereas HR was just links without hierarchy
-  * so we override the styles here **/
-#classifications_summary
-  h4
-    padding-bottom: 15px !important
-  li
+/** Hierarchy Entry classification browser does not have styles from HR
+  * HR assumes a list of classifications, where each top level list item is the container
+  * On hierarchy entry page the container is a div not a list item, and top level list items are kingdoms
+  * so we can't re-use HR SASS as it is - we need to refactor markup and SASS so we can share SASS or create mixin.
+  **/
+#classification_browser
+  border: 1px solid #D7DADC
+  overflow-x: auto
+  padding: 10px 15px
+  margin: 0 -10px 20px -10px
+  > ul
+    line-height: 160%
+    font-size: 0.9em
     li
-      p
-        font-weight: bold
-        float: left
-      li
-        p
-          padding-left: 23px !important
-          margin-left: 10px
-          background: transparent url('/images/v2/icon_classification_arrow.png') 0 0 no-repeat
+      white-space: nowrap
+      ul
+        margin-left: 10px
+#classification_browser, .classifications
+  .open
+    font-weight: bold
+/** overides for empty text styles - various **/
+#classifications_summary
   .empty p
     font-size: 1em !important
-/** classification tree **/
-#classification_tree
-  #browser-text
-    width: 360px
-    margin: 0 -10px
-    overflow: auto
-    border: 1px solid #cad3db
-    ul.classification
-      margin: 10px
-      li
-        white-space: nowrap
-/** overides for empty text styles - various **/
 .article
   .empty
     a.button
@@ -996,31 +991,6 @@ table.standard
 // pagination for news feeds
 .article .pagination
   margin-top: 1em
-// The application sass wants the first node of the classification tree to be bold, ALWAYS.  This doesn't work for
-// the overview tab anymore (besides, it's given the "bold" class anyway):
-ul.classification
-  > li
-    > a
-      font-weight: normal
-// The "bold" class on tree nodes is not honored for some reason:
-ul.classification a.bold
-  font-weight: bold
-// Classification browser for summary needs to be bumped over slightly:
-ul.classification.summary
-  margin-left: 1em
-// Classification summary needs breathing space:
-#classifications_summary > ul > li
-  margin-bottom: 1em
-// Stealing this from #classification_tree #browser-text ... should be generalized:
-ul#taxonomictext #taxonomic-text-container
-  width: 315px
-  margin: 1em -1em
-  overflow: auto
-  border: 1px solid #cad3db
-  ul.classification
-    margin: 10px
-    li
-      white-space: nowrap
 // This is specified incorrectly in the application sass, and caused buttons to touch.  This keeps them apart:
 #page_heading .page_actions li + li
   margin: 10px 0
@@ -1198,9 +1168,3 @@ body#prelaunch
     color: #394651
     border: 2px solid #c7d471
     background: #edf6b2
-
-// HE Classification browser is not indented.  Not sure why.
-#taxon + #sidebar .classification
-  font-size: 0.9em
-  .branch
-    margin-left: 10px

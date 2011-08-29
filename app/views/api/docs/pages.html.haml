@@ -36,7 +36,7 @@
             %td
               1
             %td
-              =I18n.t("limits_the_number_of_returned_")
+              =I18n.t("limits_the_number_of_returned_image_objects")
           %tr
             %td
               videos
@@ -45,7 +45,7 @@
             %td
               1
             %td
-              =I18n.t("limits_the_number_of_returned__")
+              =I18n.t("limits_the_number_of_returned_video_objects")
           %tr
             %td
               text
@@ -54,7 +54,7 @@
             %td
               1
             %td
-              =I18n.t("limits_the_number_of_returned___")
+              =I18n.t("limits_the_number_of_returned_text_objects")
           %tr
             %td
               =I18n.t("subject")
@@ -64,7 +64,7 @@
             %td
               =I18n.t("taxonbiology_generaldescriptio")
             %td
-              =I18n.t("a_pipe___delimited_list_of_spm")
+              =I18n.t("a_pipe_delimited_list_of_spm_info_item_subject_names")
           %tr
             %td
               licenses
@@ -73,9 +73,9 @@
             %td
               all
             %td
-              =I18n.t("a_pipe___delimited_list_of_lic")
+              =I18n.t("a_pipe_delimited_list_of_licenses")
               = link_to I18n.t("creative_commons"), "http://creativecommons.org/licenses/"
-              =I18n.t("licenses__visit_their_site_for")
+              =I18n.t("licenses_visit_their_site_for")
           %tr
             %td
               details
@@ -93,7 +93,7 @@
             %td
               0
             %td
-              =I18n.t("return_common_names_for_the_pa")
+              =I18n.t("return_common_names_for_the_page_taxon")
           %tr
             %td
               vetted
@@ -102,7 +102,7 @@
             %td
               0
             %td
-              =I18n.t("if_vetted_is_1_only__trusted__")
+              =I18n.t("return_content_by_vettedness")
           %tr
             %td
               version
@@ -116,7 +116,7 @@
       %h3
         =I18n.t("description")
       %p
-        =I18n.t("this_method_takes_an_eol_page_")
+        =I18n.t("page_method_description")
       %p
         =I18n.t("the_darwin_core_taxon_elements")
         =I18n.t("for_example_for_the_taxon_el", :link => link_to("hierarchy_entries", :action => "hierarchy_entries"))

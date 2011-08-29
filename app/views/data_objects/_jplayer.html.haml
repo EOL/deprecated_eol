@@ -1,7 +1,4 @@
-= javascript_include_tag 'jquery-1.6.1.min'
-= javascript_include_tag 'jplayer/js/jquery.jplayer.min'
-
-%link{:href=>"/javascripts/jplayer/skin/jplayer.blue.monday.css", :rel=>"stylesheet", :type=>"text/css"}
+- download_link = link_to I18n.t("download_#{en_mime_type.sub(/\//, '_')}"), sound_url, { :title => I18n.t("download_#{en_mime_type.sub(/\//, '_')}_assistive") }
 
 - if type == 'big'
   .jp-jplayer{:id => "jquery_jplayer_1"}  
@@ -30,20 +27,15 @@
         %ul
           %li
             %noscript{:id => 'no_script'}= I18n.t(:player_is_disabled) + '<br>'
-            = link_to I18n.t("download_#{en_mime_type.sub(/\//, '_')}"), sound_url, { :title => I18n.t("download_#{en_mime_type.sub(/\//, '_')}_assistive") }
-            %noscript= "<br>" + I18n.t(:try_google_audio_player)
+            = download_link
 - else
-  - no_script = render :partial => 'data_objects/sound_player', :locals => {:width => 150, :sound_url => sound_url}
-  %noscript= "<br><br><br>" + no_script
+  - no_script = download_link
+  %noscript= no_script
 
-  '<br><br><br>'
   %a{:href => '#', :id => "play"}= I18n.t(:audio_play)
   %a{:href => '#', :id => "pause"}= I18n.t(:audio_pause)
   |
   %a{:href => '#', :id => "stop"}= I18n.t(:audio_stop)
-  |
-  %a{:href => '#', :id => "mute"}= I18n.t(:audio_mute)
-  %a{:href => '#', :id => "unmute"}= I18n.t(:audio_unmute)
   .jp-jplayer{:id => "jquery_jplayer_2"}  
 
 
@@ -75,16 +67,7 @@
     cssSelector: {
       play: "#play",
       pause: "#pause",
-      stop: "#stop",
-      videoPlay: "",
-      seekBar: "",
-      playBar: "",
-      mute: "#mute",
-      unmute: "#unmute",
-      volumeBar: "",
-      volumeBarValue: "",
-      currentTime: "#currentTime",
-      duration: "#duration"
+      stop: "#stop"
     }
     });
   });

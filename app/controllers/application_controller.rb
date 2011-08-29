@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
   end
 
   def preview_lockdown
-    unless session[:preview] == $PREVIEW_LOCKDOWN
+    if $PREVIEW_LOCKDOWN == true || session[:preview] != $PREVIEW_LOCKDOWN
       return redirect_to preview_url unless params[:controller] == 'content' && params[:action] == 'preview'
     end
   end

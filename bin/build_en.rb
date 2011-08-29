@@ -61,10 +61,12 @@ list = Set.new()
 
   views/activity_logs
   views/admins
+  views/api/docs
   views/collection_items
   views/collections
   views/comments
   views/communities
+  views/content
   views/content_partners
   views/data_objects
   views/members
@@ -82,17 +84,21 @@ list = Set.new()
   views/taxa/updates
   views/taxa/worklist
   views/users
+  views/wikipedia_queues
 
   controllers/administrator/content_page_controller.rb
-  controllers/administrator//content_partner_report_controller.rb
+  controllers/administrator/content_partner_report_controller.rb
   controllers/administrator/table_of_contents_controller.rb
+  controllers/administrator/user_data_object_controller.rb
   controllers/admins/content_pages_controller.rb
   controllers/admins/content_partner_reports_controller.rb
+  controllers/admins/content_partners_controller.rb
   controllers/admins/hierarchies_controller.rb
   controllers/admins/monthly_notification_controller.rb
   controllers/admins/translated_content_pages_controller.rb
   controllers/admins_controller.rb
   controllers/admins/content_pages_controller.rb
+  controllers/api/docs_controller.rb
   controllers/application_controller.rb
   controllers/collection_items_controller.rb
   controllers/collections_controller.rb
@@ -126,30 +132,40 @@ list = Set.new()
   controllers/taxa_controller.rb
   controllers/users/activities_controller.rb
   controllers/users/collections_controller.rb
-  controllers/users/newsfeeds_controller.rb
+  controllers/users/communities_controller.rb
   controllers/users/content_partners_controller.rb
+  controllers/users/newsfeeds_controller.rb
   controllers/users_controller.rb
+  controllers/wikipedia_queues_controller.rb
 
   views/admin/_navigation.html.haml
+  views/administrator/comment/index.html.haml
   views/administrator/content_partner_report/report_partner_curated_data.haml
   views/administrator/curator/_user_row.html.haml
   views/administrator/hierarchy/index.html.haml
   views/administrator/user/_form.html.haml
+  views/administrator/user/index.html.haml
   views/administrator/user_data_object/index.html.haml
-  views/content/_error.html.haml
-  views/content/_march_of_life_item.html.haml
-  views/content/donate.html.haml
-  views/content/error.html.haml
-  views/content/index.html.haml
-  views/content/show.html.haml
+  views/content_partner_account/reports/_comments_report.html.haml
+  views/content_partner_account/reports/_taxa_comments_report.html.haml
+  views/content_partner_account/reports/_user_submitted_text_report.html.haml
   views/layouts/main.html.haml
   views/navigation/_browse_page.html.haml
   views/navigation/_node_name_page.html.haml
   views/navigation/_node_with_ancestry_page.html.haml
+  views/notifier/account_activated.html.haml
+  views/notifier/contact_us_auto_response.html.haml
+  views/notifier/curator_approved.html.haml
+  views/notifier/curator_unapproved.html.haml
+  views/notifier/media_contact_auto_response.html.haml
   views/notifier/monthly_stats.html.haml
+  views/notifier/reset_password.html.haml
+  views/notifier/user_message.html.haml
+  views/notifier/verify_user.html.haml
   views/shared/_add_to_my_collection.html.haml
   views/shared/_flash_messages.html.haml
   views/shared/_google_custom_search_params.html.haml
+  views/shared/_hierarchy_citation.html.haml
   views/shared/_item_summary_article.html.haml
   views/shared/_item_summary_collection.html.haml
   views/shared/_item_summary_media.html.haml
@@ -166,14 +182,13 @@ list = Set.new()
   views/taxa/_communities_summary.html.haml
   views/taxa/_curator_citation.html.haml
   views/taxa/_curators_summary.html.haml
-  views/taxa/curators.html.haml
   views/taxa/_iucn_status_summary.html.haml
   views/taxa/_media_summary.html.haml
   views/taxa/_overview_image_taxon_link.html.haml
   views/taxa/_recognized_by.html.haml
   views/taxa/_text_summary.html.haml
   views/taxa/content/_content_content_summary.html.haml
-
+  views/taxa/curators.html.haml
 ].compact.each do |dir|
   list += grepper(dir)
 end

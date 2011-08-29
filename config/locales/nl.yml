@@ -5,41 +5,269 @@
 # Author: SPQRobin
 # Author: Siebrand
 nl: 
+  dash_encyclopedia_of_life: "- Encyclopedia of Life"
+  about_eol: Over EOL
   account_information: Gebruikersgegevens
   account_registered_but_not_ready_try_later: Uw account is aangemaakt, maar kan nog niet gebruikt worden. Probeer het over vijf minuten nog een keer.
+  action_not_available_error: Die handeling is niet beschikbaar.
+  actions: Handelingen
+  active_colon: "Actief:"
+  activerecord: 
+    attributes: 
+      collection: 
+        description: Collectiebeschrijving
+        logo: Primaire collectie-afbeelding
+        name: Collectienaam
+        sort_style_id: Standaard sorteerrichting
+      community: 
+        description: Communitybeschrijving
+        logo: Upload een logo
+        name: Communitynaam
+      content_page: 
+        active: Gepubliceerd
+        page_name: Unieke naam
+        sort_order: Sorteervolgorde
+      content_partner: 
+        acronym: Projectafkorting
+        admin_notes: Administratieve notities
+        content_partner_status: Projectstatus
+        created_at: Aangemaakt
+        description: Projectbeschrijving
+        display_name: Weergegeven naam
+        full_name: Projectnaam
+        homepage: Project-URL
+        notes: Projectnotities
+        user_id: Beheerd door
+        vetted: Doorgelicht
+      content_partner_agreement: 
+        signed_by: Ondertekend door
+        signed_on_date: Ondertekend op datum
+      data_object: 
+        bibliographic_citation: Bibliografische bronvermelding
+        description: Beschrijving
+        object_title: Naam
+        rights_holder: Rechtenhouder
+        rights_statement: Verklaring van de rechten
+        source_url: Bron-URL
+      name: 
+        string: Naam
+      resource: 
+        accesspoint_url: URL dataset
+        bibliographic_citation: Bibliografische bronvermelding
+        dataset: Datasetbestand
+        description: Bronbeschrijving
+        dwc_archive_url: URL Darwin Core Archive
+        language_id: Standaard taal
+        license_id: Standaard licentie
+        resource_status_id: Bronstatus
+        rights_holder: Standaard rechthebbende
+        rights_statement: Standaard verklaring van de rechten
+        title: Bronnaam
+      translated_content_page: 
+        active_translation: Gepubliceerd
+        left_content: Navigatie
+        main_content: Bericht
+        meta_description: Metadatabeschrijving
+        meta_keywords: Metagegevenstrefwoorden
+        title: Naam
+      user: 
+        agreed_with_terms: Gebruiksovereenkomst
+        api_key: API-sleutel
+        bio: Bio
+        credentials: Gebruikersgegevens
+        curator_scope: Curatie-omvang
+        email: "E-mailadres:"
+        entered_password: Wachtwoord
+        entered_password_confirmation: Herhaling wachtwoord <small>(ter bevestiging)</small>
+        family_name: Achternaam
+        full_name: Volledige naam
+        given_name: Voornaam
+        language_abbr: Voorkeurstaal
+        requested_curator_level_id: Gewenst curatieniveau
+        tag_line: Motto
+        username: Gebruikersnaam
+    errors: 
+      full_messages: 
+        format: "%{attribute} %{message}"
+      messages: 
+        accepted: moet aanvaard worden
+        blank: mag niet leeg blijven
+        confirmation: komt niet overeen met de bevestiging
+        empty: mag niet leeg blijven
+        equal_to: moet gelijk zijn aan %{count}
+        even: moet even getal zijn
+        exclusion: is gereserveerd
+        greater_than: moet groter zijn dan %{count}
+        greater_than_or_equal_to: moet groter dan of gelijk zijn aan %{count}
+        inaccessible: is niet toegankelijk
+        inclusion: wordt niet opgenomen in de lijst
+        invalid: is ongeldig
+        less_than: moet kleiner zijn dan %{count}
+        less_than_or_equal_to: moet kleiner of gelijk zijn aan %{count}
+        not_a_number: is geen getal
+        not_an_integer: moet een geheel getal zijn
+        odd: moet oneven getal zijn
+        record_invalid: "Validatie is mislukt: %{errors}"
+        taken: bestaat al
+        too_long: is te lang (maximum is %{count} tekens)
+        too_short: is te kort (minimum is %{count} tekens)
+        wrong_length: heeft de verkeerde lengte (moet %{count} tekens zijn)
+        wrong_type: is van het verkeerde type
+      models: 
+        resource: 
+          attributes: 
+            accesspoint_url: 
+              blank: mag niet leeg blijven, tenzij u in plaats daarvan een bronbestand uploadt
+              inaccessible: ontoegankelijk is; de URL voor het publiek toegankelijk zijn
+              invalid: ongeldig is; dit veld moet wijzen naar een XML-, XML.GZIP- of XML.GZ-bestand.
+            dataset: 
+              blank: mag niet leeg blijven, tenzij u een URL naar een dataset opgeeft
+              wrong_type: is van het verkeerde type; dit moet een GZIP-, TAR- of XML-bestand zijn
+            dwc_archive_url: 
+              inaccessible: is ontoegankelijk; de URL moet publiek toegankelijk zijn
+              invalid: is ongeldig; dit moet naar een TAR.GZIP-, tar.gz- of tgz-bestand wijzen.
+      template: 
+        body: "Voor de volgende velden is de validatie mislukt:"
+        header: 
+          one: Eén validatiefout gevonden
+          other: "%{count} validatiefouten gevonden"
+    models: 
+      user: gebruiker
   activity: Activiteit
+  activity_log_empty: Niemand heeft de gegevens nog bijgewerkt.
+  activity_log_empty_learn_more_link: Hoe u kunt bijdragen
   activity_user_added_community_manager: <strong>%{user}</strong> heeft %{manager} manager gemaakt van de gemeenschap "%{community}".
   activity_user_added_item_to_collection: <strong>%{user}</strong> heeft "%{item}" toegevoegd aan de collectie "%{collection}".
   activity_user_added_unknown_item_to_collection: <strong>%{user}</strong> heeft een onbekend object toegevoegd aan de collectie "%{collection}".
+  activity_user_changed_community_description: <strong>%{user}</strong> heeft de beschijving van de gemeenschap "%{community}" bijgewerkt.
+  activity_user_changed_community_icon: <strong>%{user}</strong> heeft het logo van de gemeenschap "%{community}" bijgewerkt.
+  activity_user_changed_community_name: <strong>%{user}</strong> heeft de naam van de gemeenschap "%{community}" bijgewerkt.
+  activity_user_created_collection: <strong>%{user}</strong> heeft de collectie "%{collection}" aangemaakt.
+  activity_user_created_community: <strong>%{user}</strong> heeft de gemeenschap "%{collection}" aangemaakt.
+  activity_user_created_text: <strong>%{user}</strong> heeft tekst toegevoegd aan "%{object_name}" in "%{taxon_concept}".
+  activity_user_curated_an_unknown_object: <strong>%{user}</strong> heeft een onbekend object gecureerd.
+  activity_user_deleted_community: <strong>%{user}</strong> heeft de gemeenschap "%{collection}" verwijderd.
+  add_a_comment_colon: "Opmerking toevoegen:"
+  add_a_new_common_name: Nieuwe gemeenschappelijke naam toevoegen
+  add_a_taxon_association_label: Taxonassociatie toevoegen
+  add_article_to_page_link_button: Artikel aan deze pagina toevoegen
+  add_brief_summary_to_page_link_button: Korte samenvatting aan deze pagina toevoegen
+  add_language: Taal toevoegen
+  add_new_association_link: Nieuwe associatie toevoegen
+  add_page: Pagina toevoegen
   add_to_my_collection_button: Aan mijn collectie toevoegen
+  admin: beheer
+  admin_content_page_parent_option_root: Geen bovenliggende pagina
+  admin_content_pages_link: Content management
+  admin_home: startpagina beheer
+  admin_information: Dit is het beheermenu voor EOL V2. Op dit moment zijn we bezig met het omzetten van de functionaliteit uit V1. Als de beheerfunctie die u zoekt niet in dit menu staat, ga dan naar het <a href="/administrator">beheermenu van V1</a>.
+  admin_link: Beheerconsole
+  admin_translated_content_page_new_link: Vertaling toevoegen
+  agent: Agent
+  all_changes: Alle wijzigingen
+  all_information: Alle gegevens
+  all_items: Alle items
   all_pages: Alle pagina's
+  all_title: Alle
   already_a_member_question: Al lid?
+  already_member_of_community: U bent al lid van deze gemeenschap.
+  alternate_classification: Alternatieve classificatie
+  and: en
+  and_between_form_items: en
   application_version_advisory_information: Programmaversie
   are_you_sure: Weet u het zeker?
+  article_from: artikel uit
   assistive_details_header: Gegevens
+  assistive_literature_header: Literatuur
+  assistive_maps_header: Kaarten
   assistive_media_header: Media
+  assistive_names_common_header: Gewone namen
+  assistive_names_related_header: Gerelateerde namen
+  assistive_names_synonyms_header: Synoniemen
   assistive_overview_header: Overzicht
+  assistive_updates_header: Updates
+  associated_with_article_header: Gekoppeld met
+  associated_with_image_header: In deze afbeelding
+  associated_with_sound_header: Gekoppeld met
+  associated_with_video_header: In deze video
+  attribute: Eigenschap
+  authoritative_information: gezaghebbende gegevens
+  auto_email_notifications_were_sent_to_colon: "Er zijn automatische e-mails verzonden naar:"
+  automated_translation_of_eol: Automatische vertaling van EOL
   average_rating_value_of_total: "Gemiddelde waardering: %{rating} van %{total}"
+  back_to_profile: Terug naar het profiel
+  bi_monthly: Tweemaandelijks
+  biodiversity_heritage_library: Biodiversity Heritage Library
+  cancel: Annuleren
   cannot_be_associated_with_both_a_user_and_a_community: Kan niet gekoppeld zijn aan een gebruiker en een gemeenschap
-  cannot_be_empty: kan niet leeg zijn.
-  choose: Kiezen
+  cannot_be_empty: mag niet leeg zijn.
+  change_rating_to_1_of_5: Waardering naar 1 van 5 wijzigen
+  change_rating_to_2_of_5: Waardering wijzigen naar 2 van 5
+  change_rating_to_3_of_5: Waardering naar 3 van 5 wijzigen
+  change_rating_to_4_of_5: Waardering naar 4 van 5 wijzigen
+  change_rating_to_5_of_5: Waardering naar 5 van 5 wijzigen
+  choose_collection_header: Kies een collectie
   citation: Referentie
+  classification_tree_header: Classificatie
   classifications_summary_header_with_count: 
     one: Gevonden in één goedgekeurde classificatie
     other: Gevonden in %{count} classificaties
+  cms_missing_content_title: Ontbrekende inhoud
+  collect_item: Item in collectie opnemen
+  collection_image: Collectie-afbeelding
+  collection_name_label: Collectienaam
+  collection_not_created_error: Er is een fout opgetreden. De collectie <em>%{collection_name}</em> kon niet aangemaakt worden.
+  collection_not_found_error: Die collectie kon niet gevonden worden.
+  collection_updated_notice: De collectie <em>%{collection_name}</em> is bijgewerkt.
   collections: Verzamelingen
+  collections_summary_empty: Dit taxon is nog geen onderdeel van een collectie.
   collections_summary_header_with_count: 
     one: Aanwezig in één collectie
     other: Aanwezig in %{count} collecties
+  collections_with_count: 
+    one: Eén collectie
+    other: "%{count} collecties"
+  comment: Opmerking
+  comment_added_notice: De opmerking is toegevoegd.
+  comment_body_label: Uw opmerking
+  comment_new_posters_image_advisory_info: Uw profielafbeelding en uw naam verschijnen naast uw opmerkingen in overzichten.
+  comment_new_posters_image_alt: Uw profielafbeelding, als u die hebt opgegeven.
+  comment_not_added_error: Er is een fout opgetreden. De opmerking kon niet worden toegevoegd.
+  comment_show_posters_image_alt: Profielafbeelding van %{posters_name} die deze opmerking heeft toegevoegd.
+  comments_moderated: Opmerkingen gemodereerd
+  comments_with_count: 
+    one: Eén opmerking
+    other: "%{count} opmerkingen"
   common_names_advisory_information: Triviale namen die gekoppeld zijn aan dit taxon.
   common_names_with_count: 
     one: Eén triviale naam
     other: "%{count} triviale namen"
   communities: Gemeenschappen
+  communities_index_empty: Er zijn geen actieve gemeenschappen.
+  communities_index_header: Actieve gemeenschappen
+  communities_summary_header_with_count: 
+    one: Hoort bij één gemeenschap
+    other: Hoort bij %{count} gemeenschappen
   community: Gemeenschap
   community_activity: Activiteit in de gemeenschap
+  community_contributions_with_count: 
+    one: Eén bijdrage
+    other: "%{count} bijdragen"
   community_focus: Gemeenschapsfocus
+  community_managers_with_count: 
+    one: Eén gemeenschapsmanager
+    other: "%{count} gemeenschapsmanagers"
+  community_members_with_count: 
+    one: Eén gemeenschapslid
+    other: "%{count} gemeenschapsleden"
+  confirm_password_colon: "Wachtwoord bevestigen:"
+  contact_us_functions: "\"Neem contact met ons op\"-functies"
   contact_us_link: Contact opnemen
+  contact_us_title: Contact opnemen
+  content_has_been_updated: De inhoud is bijgewerkt
+  content_partner: Contentpartner
+  content_partner_column_header_registered: Geregistreerd
+  content_partner_column_header_status: Status
   content_partners: Contentpartners
   content_summary_introduction_html: De volgende waarden vertegenwoordigen de som van verschillende soorten inhoud voor dit taxon en van alle taxonomische nakomelingen. Inhoud die "%{glossary_term_trusted}" is, is goedgekeurd door een curator van EOL of is afkomstig van een vertrouwde leverancier. Inhoud die "%{glossary_term_unreviewed}" is, is nog niet beoordeeld door een EOL-curator. Elke taxonomische hiërarchie is uniek, dus elke door te bladeren hiërarchie wordt weergegeven voor de vergelijking.
   content_summary_table_caption: Een samenvatting van de inhoud die is gekoppeld aan %{taxon_name} en de afstammelingen in %{hierarchy_label}
@@ -51,16 +279,25 @@ nl:
   content_summary_table_type_trusted_text_row: Aantal vertrouwde tekstitems
   content_summary_table_type_unreviewed_images_row: Aantal niet-beoordeelde afbeeldingen
   content_summary_table_type_unreviewed_text_row: Aantal niet-beoordeelde tekstitems
+  could_not_find_user: Er is geen lidmaatschap voor deze gebruiker gevonden
   create_a_collection: Een collectie aanmaken
   create_a_community: Gemeenschap aanmaken
+  create_account: gebruiker aanmaken
+  created_community: De gemeenschap is verwijderd.
   curators_of_taxon_page_title: Curatoren van %{taxon}
   curators_summary_header_with_count: 
     one: Gecontroleerd door één curator
     other: Gecontroleerd door %{count} curatoren
   currently_in_eol: Momenteel in de Encyclopedia of Life
-  delete_community: Deze gemeenschap verwijderen
+  dashboard: Dashboard
+  dato_create_cancel: Annuleren
+  dato_edit_cancel: Annuleren
   detail: Detail
   development_version_name: EOL V2 Beta
+  displaying_numerical_range: Items van %{start_number} tot %{end_number}
+  donate: Doneren
+  donation_error_no_amount: Selecteer alstublieft een te doneren bedrag.
+  donation_error_only_numbers: Voer alstublieft een bedrag in dat alleen uit cijfers bestaat.
   edit_collection: Collectie bewerken
   edit_community: Gemeenschap bewerken
   edit_my_profile: Mijn profiel bewerken
@@ -69,27 +306,94 @@ nl:
   endorsed_collections_with_count: 
     one: Eén uitgelichte collectie
     other: "%{count} uitgelichte collecties"
+  eol_colon: "EOL:"
+  eol_glossary: EOL-woordenlijst
   eol_news: EOL-nieuws
+  error_page_header: Sorry, er is een probleem opgetreden
+  errors: 
+    messages: 
+      accepted: moet worden geaccepteerd
+      blank: mag niet leeg blijven
+      confirmation: komt niet overeen met de bevestiging
+      empty: mag niet leeg zijn
+      equal_to: moet gelijk zijn aan %{count}
+      even: moet even zijn
+      exclusion: is gereserveerd
+      greater_than: moet groter zijn dan %{count}
+      greater_than_or_equal_to: moet groter of gelijk zijn aan %{count}
+      inaccessible: is niet toegankelijk
+      inclusion: is niet opgenomen in de lijst
+      invalid: is ongeldig
+      less_than: moet lager zijn dan %{count}
+      less_than_or_equal_to: moet kleiner of gelijk zijn aan %{count}
+      not_a_number: is geen getal
+      not_an_integer: moet een geheel getal zijn
+      odd: moet oneven zijn
+      too_long: is te lang (maximaal % {count} tekens)
+      too_short: is te kort (minimaal % {count} tekens)
+      wrong_length: heeft de verkeerde lengte (moet %{count} tekens hebben)
+      wrong_type: is van het verkeerde type
+  esc_key_hides_this_message: (typ ESC om dit bericht te verbergen)
   explore: Verkennen
+  feedback: Terugkoppeling
   filter_by_status: Filteren op status
+  filter_by_status_all_option: alle statussen
+  filter_by_status_inappropriate_option: ongepast
+  filter_by_status_trusted_option: vertrouwd
+  filter_by_status_untrusted_option: niet-vertrouwd
   filter_by_type: Op type filteren
+  filter_by_type_all_option: alle typen
   filter_media: media filteren
+  filtered_information: Gefilterde gegevens
   general_error_occurred: Het spijt ons, maar er is een fout opgetreden. Probeer uw handeling nog een keer uit te voeren. Als het probleem blijft bestaan, stuurs dan alstublieft een e-mail aan %{email} met daarin de foutmelding die hieronder wordt weergegeven en een beschrijving van wat u probeerde te doen. We doen onze uiterste best om u de best mogelijk dienst te verlenen en we waarderen uw steun. -- Het EOL-team.
   global_access_tagline: Wereldwijde toegang tot kennis over het leven op aarde.
   global_navigation: Globale navigatie
   go: OK
-  google_translate: Google Vertalen
-  google_translate_advisory_information: Google Vertalen gebruiken om de inhoud van de site in een andere taal om te zetten.
   has_already_been_taken: bestaat al.
+  hello_user: Hallo %{user}
   help: Hulp
+  helpers: 
+    label: 
+      content_page: 
+        active: Gepubliceerd
+      content_partner: 
+        description_of_data: Beschrijving van gegevens <small>(beperkt zichtbaar)</small>
+        display_name: Weergegeven naam <small>(optioneel)</small>
+        logo_current: "Huidige logo:"
+        logo_new: "Een nieuwe logo uploaden:"
+        notes: Projectnotities <small>(beperkt zichtbaar)</small>
+        user_id: Gegevens contentpartner worden beheerd door
+      data_object: 
+        bibliographic_citation: Bibliografische bronvermelding
+        description: Tekst <small>(sommige HTML-opmaak is toegestaan)</small>
+        license_id: Licentie
+        license_id_more: Lees het <a href="%{policy_url}">EOL-licentiebeleid</a>
+        object_title: Naam
+        refs: Referenties <small>(zet elke verwijzing op een nieuwe regel)</small>
+        rights_holder: Rechtenhouder
+        rights_statement: Rechtenverklaring
+        source_url: URL naar het oorspronkelijke gegevensobject
+        toc_item: Subhoofdstuk
+      google_analytics_partner_summaries: 
+        page_views: Bekeken pagina's <small>(aantal bezoeken aan pagina's)</small>
+        taxa_pages: Pagina's <small>(aantal pagina's)</small>
+        taxa_pages_viewed: Bekeken pagina's <small>(aantal pagina's dat bekeken is door bezoekers)</small>
+        time_on_page: Totale tijd doorgebracht op pagina's <small>(uur)</small>
+      resource: 
+        refresh_period_hours: Frequentie
+        resource_status_id: Status
+        resource_url_or_file_upload: Bronnenbestand uploaden
+        resource_url_or_file_url: Bron van URL laden
+        title: Bronnaam
+      translated_content_page: 
+        active_translation: Gepubliceerd
+        language_id: Taal
+  home: Hoofdmenu
   home_page_link_advisory_information: Via deze verwijzing komt u op de hoofdpagina van de website Encyclopedia of Life
   image_is_no_longer_available: Afbeelding is niet meer beschikbaar
   image_not_found: Afbeelding niet gevonden
-  image_thumbnail_alt_text: Deze afbeelding met de status %{vetted_status} is van %{scientific_name}
   images: Afbeeldingen
-  in_my_collection_button: In mijn collectie
   indexed: Geïndexeerd
-  insufficient_privileges_to_add_common_name: U hebt geen bevoegdheden om een triviale naam aan dit taxon toe te voegen
   iucn_red_list_status_advisory_information: Deze verwijzing brengt u naar de website van de Internationale Unie voor het Behoud van de Natuur (IUCN) waar u meer informatie kunt vinden over de Rode Lijst van Bedreigde Soorten van de IUCN.
   join_community_button: Lid worden van deze gemeenschap
   join_eol_button_html: Meld u nu aan bij <abbr title="Encyclopedia of Life">EOL</abbr>
@@ -97,16 +401,39 @@ nl:
   just_pages_with_pictures_and_text: Alleen de pagina's met afbeeldingen en tekst
   language: "Taal:"
   language_menu_item: "%{language_label} <abbr>(%{language_abbr})</abbr>"
+  languages: Talen
   last_updated_time_ago: "%{time_passed} geleden voor het laatst bijgewerkt"
   learn_about_content_partners: Meer informatie over onze contentpartners
-  learn_how_to_interact: Lees hoe u de interactie kunt aangaan
-  learn_how_to_join: Hoe u mee kunt doen
   leave_a_comment: Opmerking achterlaten
   license: Licentie
+  license_all_rights_reserved: Alle rechten voorbehouden
+  license_cc_by: Creative Commons Naamsvermelding (CC-BY)
+  license_cc_by_2_0: Creative Commons Naamsvermelding 2.0 (CC BY 2.0)
+  license_cc_by_2_5: Creative Commons Naamsvermelding 2.5 (CC BY 2.5)
+  license_cc_by_3_0: Creative Commons Naamsvermelding 3.0 (CC-BY 3.0)
+  license_cc_by_nc: Creative Commons Naamsvermelding-Niet Commercieel (CC-BY-NC)
+  license_cc_by_nc_2_0: Creative Commons Naamsvermelding-Niet-commercieel 2.0 (CC-BY-NC 2.0)
+  license_cc_by_nc_2_5: Creative Commons Naamsvermelding-Niet-commercieel 2.5 (CC-BY-NC 2.5)
+  license_cc_by_nc_3_0: Creative Commons Naamsvermelding-Niet-commercieel 3.0 (CC BY-NC 3.0)
+  license_cc_by_nc_sa: Creative Commons Naamsvermelding-Niet Commercieel-Gelijk delen (CC-BY-NC-SA)
+  license_cc_by_nc_sa_1_0: Creative Commons Naamsvermelding-Niet-commercieel-Gelijk delen 1.0 (CC BY-NC-SA 1.0)
+  license_cc_by_nc_sa_2_0: Creative Commons Naamsvermelding-Niet-commercieel-Gelijk delen 2.0 (CC-BY-NC-SA 2.0)
+  license_cc_by_nc_sa_2_5: Creative Commons Naamsvermelding-Niet-commercieel-Gelijk delen 2.5 (CC-BY-NC-SA 2.5)
+  license_cc_by_nc_sa_3_0: Creative Commons Naamsvermelding-Niet-commercieel-Gelijk delen 3.0 (CC BY-NC-SA 3.0)
+  license_cc_by_sa: Creative Commons Naamsvermelding-Gelijk delen (CC-BY-SA)
+  license_cc_by_sa_1_0: Creative Commons Naamsvermelding-Gelijk delen 1.0 (CC-BY-SA 1.0)
+  license_cc_by_sa_2_0: Creative Commons Naamsvermelding-Gelijk delen 2.0 (CC BY-SA 2.0)
+  license_cc_by_sa_2_5: Creative Commons Naamsvermelding-Gelijk delen 2.5 (CC BY-SA 2.5)
+  license_cc_by_sa_3_0: Creative Commons Naamsvermelding-Gelijk delen 3.0 (CC-BY-SA 3.0)
+  license_gnu_fdl: GNU Free Documentation License (GNU FDL)
+  license_gnu_gpl: GNU General Public License (GNU GPL)
+  license_not_applicable: Licentie niet van toepassing
+  license_public_domain: Publiek domein
   literature: Literatuur
   location: Locatie
+  login: aanmelden
   login_or_create_account: Aanmelden of registreren
-  manage_community: Gemeenschap beheren
+  logout: Afmelden
   maps_with_count: 
     one: "%{count} kaart"
     other: "%{count} kaarten"
@@ -129,14 +456,22 @@ nl:
   other_collection_items_with_count: 
     one: "%{count} ander item"
     other: "%{count} andere items"
+  other_community_items_with_count: 
+    one: "%{count} ander item"
+    other: "%{count} andere items"
   overview: Overzicht
+  pages_title: Pagina's
   pages_with_pictures_and_text: Pagina's met afbeeldingen en tekst
   pages_with_pictures_or_text: Pagina's met afbeeldingen of tekst
+  personal_space: Persoonlijke ruimte
   post_comment: Bericht plaatsen
+  preferences: Voorkeuren
   preferred_common_name_advisory_information: Dit is de aangewezen triviale naam voor dit taxon.
+  press_room: Pers
   profile: Profiel
   profile_image_alt_text_curator: Profielfoto voor de curator %{user_given_name} %{user_family_name}
   profile_image_alt_text_member: Profielfoto voor het lid %{user_given_name} %{user_family_name}
+  punctuation_comma: ","
   rated_by_count_people: 
     one: van één person
     other: van %{count} personen
@@ -145,7 +480,9 @@ nl:
   resources: Middelen
   rights: Rechten
   rights_holder: Rechtenhouder
+  roles: Rollen
   rss_abbr_html: <abbr title="Really Simple Syndication">RSS</abbr>
+  save: Opslaan
   search_by_term_page_title: "Zoeken: %{term}"
   search_field_label: EOL doorzoeken
   search_input_advisory_information: Voer de triviale of of wetenschappelijke namen van levende organismen in waar u meer over wilt weten. Voer bijvoorbeeld "tomaat" in.
@@ -160,46 +497,77 @@ nl:
   see_all_comments_with_count_for_text: 
     one: de opmerking bij dit artikel bekijken
     other: alle %{count} opmerkingenb ij dit artikel bekijken
+  see_all_communities_with_count_html: 
+    one: De <span class="assistive">gemeenschap met focus op dit taxon</span> bekijken.
+    other: Alle <span class="assistive">%{count} gemeenschappen met focus op dit taxon</span> bekijken.
   see_all_media_link: Alle media bekijken
   select_topic: Selecteer een onderwerp
   selected_language_advisory_information: Dit is de huidige geselecteerde taal.
   set_as_exemplar: Als voorbeeld instellen
+  show_status_message: Statusbericht weergeven
+  show_warning_message: Waarschuwing weergeven
   sign_in: Aanmelden
   sign_out: Afmelden
   site_information: Siteinformatie
   skip_to_content: Doorgaan naar inhoud
+  skip_to_navigation: Naar navigatie gaan
+  skip_to_table_of_contents: Naar inhoudsopgave gaan
   sort_by: Sorteren op
-  sound_thumbnail_alt_text: Deze audio-opname met de status %{vetted_status} is van %{scientific_name}
+  sort_by_button: Sorteren
+  sort_by_label: Sorteren op
+  sort_by_newest_option: Nieuwste
+  sort_by_oldest_option: Oudste
+  sort_by_rating_option: Waardering
   source_url: Bron-URL
   supplier: Leverancier
   switch_language_advisory_information: De taal van de site veranderen naar %{language_label}
   table_of_contents: Inhoudsopgave
   taxa: Taxa
   taxon: taxon
+  terms_agreement_form_submit: Ik ga akkoord
   text_summary_more_link: Volledige vermelding lezen
+  thanks_for_feedback: Dank u voor uw terugkoppeling.
   there_are_currently_no_members_in_this_community: Er zijn momenteel geen leden in deze gemeenschap.
   this_community_has_no_focus_list: Deze gemeenschap heeft geen focuslijst.
   threat_status_header_colon: "IUCN bedreigingsstatus:"
   time_ago: "%{time_passed} geleden"
+  title: Titel
   total_items_with_count: 
     one: "%{count} item"
     other: "%{count} items totaal"
+  translations_submit: Vertaling bekijken
   trusted: Vertrouwd
   try_your_request_again: Probeer het opnieuw
   twitter: Twitter
   unknown: Onbekend
   unreviewed: Niet-beoordeeld
+  updated_community: De gemeenschap is bijgewerkt.
   updates_with_count: 
     one: "%{count} update"
     other: "%{count} updates"
   user_system_down: Onze excuses, maar het gebruikersregistratiesysteem is momenteel niet beschikbaar. Probeer het later opnieuw.
-  video_thumbnail_alt_text: Deze video met de status %{vetted_status} is van %{scientific_name}
+  users_about_me_header: Over mij
+  using_the_site: De site gebruiken
+  verification_phrase_did_not_match: De verificatiezin die u hebt ingevoerd klopt niet.
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Alleen pagina's bekijken met tenminste een afbeelding of tekst
+  visible_title: Zichtbaar
   what_is_a_taxon: Wat is een taxon?
   what_is_eol: Wat is EOL?
   what_is_this_question: Wat is dit?
+  wikipedia_article_will_be_harvested_tonight: De versie %{rev} van de Wikipediapagina %{article} wordt vannacht opgehaald
+  wikipedia_revisions_must_match_pattern_error: De versie-URL moet overeenkomen met http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
+  year: Jaar
   you_are_an_admin_so_i_will_show_you_that_the_error_was: "U bent beheerder en daarom wordt hieronder de foutmelding weergegeven:"
   you_are_not_authorized_to_perform_this_action: U mag deze handeling niet uitvoeren.
+  you_joined_community: U lid bent geworden van deze gemeenschap.
+  you_left_community: U hebt deze gemeenschap verlaten.
+  your_current_rating_0_of_5: "Uw huidige beoordeling: 0 van 5"
+  your_current_rating_1_of_5: "Uw huidige waardering: 1 van 5"
+  your_current_rating_2_of_5: "Uw huidige waardering: 2 van 5"
+  your_current_rating_3_of_5: "Uw huidige waardering: 3 van 5"
+  your_current_rating_4_of_5: "Uw huidige waardering: 4 van 5"
+  your_current_rating_5_of_5: "Uw huidige waardering: 5 van 5"
+  your_message_was_sent: Uw bericht is verzonden.
   your_preferences: Uw voorkeuren
   your_preferences_have_been_updated: Uw voorkeuren zijn bijgewerkt.
   your_rating: Uw waardering

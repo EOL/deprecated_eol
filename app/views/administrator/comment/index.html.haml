@@ -1,4 +1,4 @@
-=I18n.t("all_comments_entered_by_users_")
+=I18n.t("all_comments_entered_by_users")
 =I18n.t("click_on_a_username_to_view_th")
 #comments
   - form_tag({:action=>'index'},:method=>'get') do
@@ -21,7 +21,7 @@
           %th
             =I18n.t("type")
           %th
-            =I18n.t("created_at_")
+            =I18n.t("comment_created_at")
           %th
             =I18n.t("action")
         - for comment in @comments
@@ -44,8 +44,8 @@
             %td{ :class => column_class }
               = link_to I18n.t("edit").downcase,:action=>'edit',:id=>comment.id
               %br
-              = link_to I18n.t("delete").downcase, {:action=>'destroy',:id=>comment.id}, :confirm => I18n.t("this_cannot_be_undone__are_you"), :method => :delete
+              = link_to I18n.t("delete").downcase, {:action=>'destroy',:id=>comment.id}, :confirm => I18n.t("this_cannot_be_undone_are_you_sure"), :method => :delete
       %br
       = will_paginate @comments
     - else
-      =I18n.t("no_record_found_matching_your_")
+      =I18n.t("no_record_found_matching_your_criteria")

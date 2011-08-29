@@ -1,6 +1,8 @@
 - # TODO: Optionally integrate HashRocket rating.js it must be I18nized and allow anonymous users to login after submitting a rating.
 = content_for :head do
-  = javascript_include_tag "exemplar_image.js"
+  = javascript_include_tag "exemplar_image.js", "jplayer/js/jquery.jplayer.min"
+  %link{:href=>"/javascripts/jplayer/skin/jplayer.blue.monday.css", :rel=>"stylesheet", :type=>"text/css"}
+  
 #media_list
   #sidebar.filters
     = image_tag @exemplar_image.thumb_or_object('260_190'), :alt => '' unless @exemplar_image.blank?
@@ -31,11 +33,17 @@
           - en_type = en_type(item)
           %li{:class => "#{index.modulo(4) == 0 ? 'first' : nil} #{vetted_id_class(item_vetted_id)}"}
             .figure
-              %a{ :data => { :data_object_id => item.id }, :class => vetted_id_class(item_vetted_id), :href => data_object_path(item) }
-                - if en_type == 'video'
-                  .video_overlay
+
+              - if en_type == 'sound'
                 = render :partial => "data_objects/data_object_#{en_type}",
                   :locals => { :data_object => item, :thumbnail => true, :size => '260_190' }
+              - else
+                %a{ :data => { :data_object_id => item.id }, :class => vetted_id_class(item_vetted_id), :href => data_object_path(item) }
+                  - if en_type == 'video'
+                    .video_overlay
+                  = render :partial => "data_objects/data_object_#{en_type}",
+                    :locals => { :data_object => item, :thumbnail => true, :size => '260_190' }
+                  
               - if item.data_type_id == DataType.image.id && current_user.min_curator_level?(:assistant)
                 .overlay
                 - form_for :taxon_concept_exemplar_image, :url => set_as_exemplar_taxon_media_path(@taxon_concept),

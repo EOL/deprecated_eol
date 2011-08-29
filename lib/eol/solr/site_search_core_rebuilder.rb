@@ -88,7 +88,7 @@ module EOL
       
       def lookup_users(start, limit)
         max = start + limit
-        users = User.find(:all, :conditions => "id BETWEEN #{start} AND #{max} AND active=1", :select => 'id, username, given_name, family_name, created_at, updated_at')
+        users = User.find(:all, :conditions => "id BETWEEN #{start} AND #{max} AND active=1", :select => 'id, username, given_name, family_name, curator_level_id, created_at, updated_at')
         users.each do |u|
           @objects_to_send += u.keywords_to_send_to_solr_index
         end

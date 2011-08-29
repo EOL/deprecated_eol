@@ -42,9 +42,9 @@
             %td{ :class => column_class }
               = h format_date_time(comment.created_at,:format=>'short_no_tz')
             %td{ :class => column_class }
-              = link_to I18n.t("_edit_"),:action=>'edit',:id=>comment.id
+              = link_to I18n.t("edit").downcase,:action=>'edit',:id=>comment.id
               %br
-              = link_to I18n.t("_delete_"), {:action=>'destroy',:id=>comment.id}, :confirm => I18n.t("this_cannot_be_undone__are_you"), :method => :delete
+              = link_to I18n.t("delete").downcase, {:action=>'destroy',:id=>comment.id}, :confirm => I18n.t("this_cannot_be_undone__are_you"), :method => :delete
       %br
       = will_paginate @comments
     - else

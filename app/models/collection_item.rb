@@ -17,7 +17,7 @@ class CollectionItem < ActiveRecord::Base
   # of unused fields in collection_activity_logs, so it's actually better to have these "zombie" rows here!)
   validates_presence_of :object_id, :object_type
   validates_uniqueness_of :object_id, :scope => [:collection_id, :object_type],
-    :message => I18n.t(:item_not_added_already_in_collection)
+    :message => I18n.t(:item_not_added_already_in_collection), :if => Proc.new { |ci| ci.collection_id }
 
   after_save :index_collection_item_in_solr
   before_destroy :remove_collection_item_from_solr

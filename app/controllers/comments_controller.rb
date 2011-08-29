@@ -14,7 +14,8 @@ class CommentsController < ApplicationController
 
     @comment = Comment.new(comment_data)
     @comment.user_id = current_user.id
-    @comment.from_curator = current_user.is_curator?
+    current_user_is_curator = current_user.is_curator?
+    @comment.from_curator = current_user_is_curator.blank? ? false : true
 
     store_location(return_to)
 

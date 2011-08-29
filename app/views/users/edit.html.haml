@@ -74,7 +74,7 @@
         %dt
           = user_form.label :email_reports_frequency_hours
         %dd
-          - select_options = [['Never', 0] , ['Daily', 1*24], ['Weekly', 7*24], ['Monthly', 30*24]]
+          - select_options = [[I18n.t(:frequency_never), 0] , [I18n.t(:frequency_daily), 1*24], [I18n.t(:frequency_weekly), 7*24], [I18n.t(:frequency_monthly), 30*24]]
           = user_form.select :email_reports_frequency_hours, select_options
     %fieldset.requests
       %dl

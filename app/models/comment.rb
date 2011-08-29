@@ -241,7 +241,9 @@ private
   end
 
   def set_from_curator
-    self.from_curator = user.is_curator? if self.from_curator.nil?
+    if self.from_curator.nil?
+      self.from_curator = user.is_curator? ? true : false # Forces the value to true/false, rather than obj/nil
+    end
     return self.from_curator.to_s
   end
 

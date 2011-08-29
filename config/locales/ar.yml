@@ -1949,3 +1949,6 @@ ar:
   rank_recognized_by_agent: "%{rank} أقرت بواسطة %{agent}"
   rank_recognized_by_from_source: '%{rank} أقرت بواسطة %{agent} فى %{source}'
   taxon_nucleotide_sequences_link: "تسلسلات النيوكليوتيدات"
+  communities_with_count:
+    one: "%{count} مجتمع"
+    other: "%{count} مجتمع"

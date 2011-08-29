@@ -1142,7 +1142,7 @@ ul li.newsfeed {
 
 div.newsfeed_heading {
   padding: 6px 10px 5px;
-  text-align: left;
+  text-align: right;
   font-weight: bold;
   text-transform: uppercase;
   background: none repeat scroll 0 0 #f1f4dc;

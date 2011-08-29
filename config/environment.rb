@@ -325,5 +325,7 @@ $EOL_FACEBOOK_ACCOUNT = "http://www.facebook.com/pages/Encyclopedia-of-Life/6291
 $EOL_TUMBLR_ACCOUNT = "http://blog.eol.org"
 $EOL_FLICKR_ACCOUNT = "http://www.flickr.com/groups/encyclopedia_of_life/"
 
+$EDUCATION_EMAIL = 'education@eol.org'
+
 # load the system configuration
 require File.dirname(__FILE__) + '/system' if File.file?(File.dirname(__FILE__) + '/system.rb')

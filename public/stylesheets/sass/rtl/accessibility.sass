@@ -37,14 +37,7 @@ body.home
 /** Busy indicator for JS submitted forms e.g. exemplar image **/
 .busy
   cursor: wait
-/** adding facebook icon to social media **/
-body > #footer ul.social_media li
-  a.facebook
-    background-position: right -25px
-  a.tumblr
-    background-position: right -75px
-  a.flickr
-    background-position: right -100px
+
 /** Override for layout on users edit - we have extra nested div so we need to remove padding,
   * we added extra fieldset - but check HR might give us an update for the fieldset */
 #profile_edit
@@ -56,7 +49,16 @@ body > #footer ul.social_media li
       textarea
         width: 282px
         height: 120px
+#user_communities
+  ul.object_list
+    img
+      float: right
+      margin: 0 0 0 20px
 /** Content partner various **/
+#profile_content_connections
+  li
+    img
+      +max_dimensions($logo_size_primary, $logo_size_primary)
 #sidebar
   .content_partner_managers
     margin: 0 0 20px 0
@@ -282,6 +284,43 @@ form#switch_hierarchy_entry
             text-decoration: underline
         p
           clear: none
+  dl
+    line-height: 140%
+    margin: 0 0 40px 0
+    dt
+      font-weight: bold
+    dd
+      margin: 0 20px 5px 0
+  code
+    clear: both
+    display: block
+    font-family: "courier new", courier, monospace
+    line-height: 1.3
+    margin-top: 5px
+    margin-bottom: 15px
+    background-color: #EEE
+    border: 1px dashed #999
+    padding: 10px
+    white-space: pre
+    overflow-x: auto
+  #api_doc
+    p
+      margin-right: 40px
+    table
+      margin-bottom: 40px
+      col
+        &.name
+          font-weight: bold
+        &.notes
+          width: 25%
+.donate
+  label.other
+    padding-right: 15px
+    margin-top: -27px
+  fieldset.actions
+    margin-bottom: 40px
+  em
+    font-weight: bold
 /** content partners overrides/additions **/
 .cms_page
   #content_partners
@@ -494,6 +533,12 @@ p.flag
     color: #677682 !important
 
 /** We share rating partial across many pages so need extra styles here. **/
+#permalink
+  .ratings
+    h5
+      margin-top: 2px
+      font-size: 1.1em
+      padding: 0
 #taxon_detail
   .rating
     h5
@@ -504,13 +549,15 @@ p.flag
     ul
       display: inline
   .average_rating
+    float: right
+    padding: 2px 0 0 40px
+    margin: 0 0 20px 0
     h5
       float: right
       margin: 0 0 0 10px
       text-transform: lowercase
       small
         font-size: 1em
-
 .rating
   ul
     li
@@ -574,43 +621,6 @@ body
     a
       #E84226
 
-/** we share attribution across multiple pages so we need some overrides of HR here **/
-#text_summary
-  p.flag
-    float: right
-  .attribution
-    clear: none
-    font-size: 0.92em
-    img
-      float: right
-      margin: 0 0 0 10px
-#taxon
-  .gallery
-    .images
-      height: 380px
-      .image
-        padding-bottom: 60px
-      .details
-        position: absolute
-        top: 320px
-        width: 430px
-        p
-          line-height: 120%
-          margin: 0
-          &.flag
-            float: right
-            margin-top: 1px
-        .caption
-          font-size: 0.92em
-          padding: 0 5em 0 0 
-        .attribution
-          margin-top: 5px
-          padding-bottom: 5px
-          position: relative
-          top: 0
-          right: 0
-          .copy
-            padding: 0 90px 0 0 
 /** taxon disclaimer **/
 .disclaimer
   clear: both
@@ -652,14 +662,60 @@ body
       li
         white-space: nowrap
 /** overides for empty text styles - various **/
+.article
+  .empty
+    a.button
+      font-size: 0.78em !important
 .updates
   .empty
     p
       padding: 0 0 15px 0 !important
+#taxon_names
+  table.standard
+    &.common_names
+      td
+        position: relative
+        width: 33%
+    &.edit_common_names
+      td
+        position: relative
+        width: 25%
+    &.synonyms, &.related_names
+      td
+        position: relative
+        width: 50%
+  form
+    &#new_name
+      background: #F3F7FA
+      border: 1px solid #CAD3DB
+      margin-bottom: 40px
+      padding: 5px 20px
+      .copy
+        margin-bottom: 3px
+        h3
+          margin-bottom: 0
+      dt, dd, fieldset, input[type="submit"]
+        display: inline-block
+      dl
+        margin-right: 20px
+        dt
+          padding-left: 5px
+        dd
+          margin-left: 20px
+      input[type="text"]
+        +input(200px)
+  .recognized
+    line-height: 170%
 #taxon_maps
   .empty
     p
       margin: 0 !important
+#sidebar
+  .collection_list, .collection_contributors
+    .article
+      .empty
+        font-size: 1em
+        margin-top: 0
 /** Add to my collection button is a form not an a tag as assumed by HR so we have to add some styles **/
 #taxon_detail
   div.actions
@@ -684,7 +740,6 @@ body
     input.button
       font-size: 0.82em
       padding: 5px 10px 6px 10px
-
 /** HR styles assume text descriptions are nicely wrapped in p tags - in reality they may or may not be so we add
   * extra div.description and assign styles to the div - check this, particularly line-height as we probably need
   * to remove some HR styles from nested p. Check latest HR and remove the table styles here if possible.
@@ -699,11 +754,33 @@ body
   .copy
     margin: 0 0 15px 0
     line-height: 170%
-/** Recognized by is looking too cramped **/
-.recognized
-  ul
-    li
-      padding: 5px 0
+#taxon_community
+  .main_container
+    padding: 40px
+    .list
+      img
+        +max_dimensions($logo_size_primary, $logo_size_primary)
+#taxon_resources
+  .empty
+    p
+      margin: 0
+  table
+    &.standard
+      tbody > tr > td > a > img
+        max-width: 90px
+  #taxon_detail > #main
+    > h3
+      margin: 0 0 15px 0
+      font-size: 1.33em
+    .article
+      padding: 0 10px 25px 10px
+  #nucleotide_sequences
+    .copy
+      img
+        float: right
+        max-width: 60px
+      p
+        padding-right: 90px
 
 /* TODO: this hasn't been really thought out and should be changed: */
 #sidebar
@@ -724,6 +801,10 @@ body
       margin: 0
       input[type="submit"]
         margin: 0
+  .hgroup
+    .copy
+      p
+        margin: 10px 0
 /** wikipedia import request **/
 #wikipedia_queue
   width: 640px
@@ -796,17 +877,53 @@ ul.feed
   .collection_list, .collection_contributors, .content_partner_managers
     img
       +max_dimensions($logo_size_tertiary, $logo_size_tertiary)
+/** we share attribution across multiple pages so we need some overrides of HR here **/
+#text_summary
+  p.flag
+    float: right
+  .attribution
+    clear: none
+    .copy
+      padding-right: 120px
+    img, span.license
+      float: right
+      margin: 0 10px
 #taxon
   .gallery
     ul.thumbnails
       li
-        &
-          text-align: center
         img
           +max_dimensions(98, 68)
           width: auto
           height: auto
-          display: inline !important
+          margin: 0 auto
+        &.active
+          img
+            +max_dimensions(96, 66)
+            margin: 0 auto
+    .images
+      .details
+        position: relative
+        margin: 5px 0 0 0
+        z-index: 100
+        font-size: 0.92em
+        .copy
+          p
+            margin: 0 0 4px
+            line-height: 120%
+            &.owner
+              padding-right: 85px
+        .attribution
+          margin: 0
+          font-size: 1em
+          img, span.license
+            display: block
+            position: absolute
+            top: 0
+            right: 0
+            margin: 0
+          img
+            margin-top: -1px
 #media_list
   #main
     ul
@@ -930,9 +1047,6 @@ h1.notice
         z-index: 300
         img
           +max_dimensions($logo_size_secondary, $logo_size_secondary)
-//sidebar paragraphs need space after them:
-#sidebar p
-  padding-bottom: 1em
 #task .media img
   margin: 0 auto
   display: block
@@ -946,7 +1060,7 @@ h1.notice
     text-transform: uppercase
     font-weight: bold
   dl
-    padding: 0 30px
+    padding: 0 0 0 30px
 #worklist #tasks li:hover
   background-color: #ffffff !important
 #taxon_updates
@@ -1040,12 +1154,8 @@ a.other_actions
   width: 220px
   #filters
     margin: 0px 20px
-// Smaller font for "view in classification" links (following pattern for choose collection):
-#recognized_by span
-  font-size: 0.95em
 #taxon_updates form.comment
   margin: 0 0 15px
-  border-bottom: 1px solid #D4DCE2
   textarea
     width: 580px
 
@@ -1057,3 +1167,43 @@ a.other_actions
   font-size: 0.95em
   line-height: 100%
   font-weight: normal
+
+ul li.newsfeed
+  margin-bottom: 20px !important
+  a
+    padding: 7px 10px 6px !important
+    font-size: 12px !important
+
+div.newsfeed_heading
+  padding: 6px 10px 5px
+  text-align: right
+  font-weight: bold
+  text-transform: uppercase
+  background: none repeat scroll 0 0 #F1F4DC
+  border-bottom: 1px solid #CCD399
+  h3
+    color: #828D33
+    font-weight: bold
+    text-transform: uppercase
+    font-size: 1em
+
+ul.media li .overlay
+  height: auto !important
+
+// Prelaunch sometimes has a flash message:
+body#prelaunch
+  p.status
+    clear: both
+    padding: 7px 10px
+    font-size: 1.16em
+    font-weight: bold
+    text-align: center
+    color: #394651
+    border: 2px solid #c7d471
+    background: #edf6b2
+
+// HE Classification browser is not indented.  Not sure why.
+#taxon + #sidebar .classification
+  font-size: 0.9em
+  .branch
+    margin-left: 10px

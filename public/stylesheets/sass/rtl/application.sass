@@ -9,6 +9,18 @@ input[type="submit"]
     color: #ffffff
     text-shadow: 0 1px 1px #222222
     border-color: #1e5587
+
+.help_text
+  background: #f3f7fa
+  border: 1px solid #cad3db
+  padding: 10px
+  margin: 0 0 20px 0
+  line-height: 140%
+  img.indicator
+    position: relative
+    margin: 0 5px
+    top: -1px
+
 form
   &.button_to
     margin-top: 20px
@@ -39,6 +51,8 @@ form
       font-weight: bold
       input
         margin: 0 0 0 5px
+    span.error
+      color: #e94c1b
   fieldset.actions,
   div
     margin: 10px 0
@@ -258,7 +272,6 @@ table.standard
       td
         padding: 5px 20px
 
-
 .article
   padding: 0 10px 25px 10px
   .header
@@ -477,13 +490,23 @@ ul.object_list
 #taxon_names
   .article.recognized
     ul
+      span
+        margin: 0 10px
       a.view
-        font-weight: bold
-        margin-right: 10px
+        font-size: .9em
+  .main_container
+    h4
+      font-size: 1.2em
+      margin: 0 20px 10px 0
   table.standard
-    td
-      a
-        font-weight: bold
+    tr
+      td
+        position: relative
+        width: 33%
+        a
+          font-weight: bold
+        &.preferred
+          background: url("/images/v2/icon_required.png") 7px 50% no-repeat
 
 form.select_content_partner
   padding: 5px 0
@@ -583,6 +606,7 @@ body
         padding: 10px
         border: 1px solid #cad3db
         margin: 0 20px 20px 0
+
 #page_heading
   padding: 10px 0 0 0
   border-bottom: 1px solid #93a4b0
@@ -622,7 +646,7 @@ body
     font-weight: normal
     color: #394651
   h2
-    margin: 5px 0 0 0  
+    margin: 5px 0 0 0
     font-size: 1.66em
     font-weight: normal
     color: #5f6c76
@@ -634,19 +658,19 @@ body
     line-height: 140%
     color: #5f6c76
     &.status
-      color: #394651    
+      color: #394651
     &.message
       clear: both
       background: #fff
       border: 1px solid #d4dce2
       text-align: center
       padding: 3px 0
-      margin: 0 0 10px 0      
+      margin: 0 0 10px 0
   .page_actions
     float: left
     padding-right: 20px
     ul
-      padding: 0 0 10px 0    
+      padding: 0 0 10px 0
     li
       overflow: hidden
       margin: 0 0 10px 0
@@ -764,7 +788,7 @@ body
   .collection_list
     li
       position: relative
-      padding: 10px 45px 10px 0       
+      padding: 10px 45px 10px 0
       margin: 0 0 15px 0
       font-weight: bold
       a + a
@@ -857,7 +881,7 @@ body
       padding-top: 20px
       padding-bottom: 20px
       img
-        margin-left: -1px      
+        margin-left: -1px
       .checkbox
         float: left
         border: 1px solid #cad3db
@@ -930,7 +954,7 @@ body
 
 #profile_info
   padding: 40px
-  .article.half
+  .section.half
     float: right
     width: 299px
     margin-left: 20px
@@ -984,7 +1008,7 @@ body
       > a
         float: right
         border: 1px solid #394651
-        margin: 0 10px
+        margin: 0 0 0 10px
         img
           display: block
       .details
@@ -1045,7 +1069,7 @@ body
       tbody
         tr
           td
-            padding: 5px  10px
+            padding: 5px 10px
             &.actions
               white-space: nowrap
               a
@@ -1072,7 +1096,7 @@ body
         ul
           li
             list-style-type: none
-            margin: 2px 0 0 0
+            margin: 2px 0
       &.resources
         padding-bottom: 20px
         > dd
@@ -1265,7 +1289,7 @@ body
       font-weight: bold
       text-transform: lowercase
   p.languages
-    padding: 2px 0 0 20px
+    padding: 2px 20px
     border-top: 1px solid #cad3db
     border-bottom: 1px solid #cad3db
     background: #f3f7fa
@@ -1301,11 +1325,11 @@ body
       padding: 0 10px 3px 10px
       font-size: 1.16em
     .classifications
-      padding: 0
       a.current
         font-weight: bold
       > ul
         line-height: 160%
+        font-size: .9em
         > li
           white-space: nowrap
           overflow-x: auto
@@ -1314,7 +1338,6 @@ body
           margin: 0 -10px 20px -10px
           h4
             font-weight: normal
-            font-size: 1.1em
             a
               font-weight: bold
           ul
@@ -1361,7 +1384,7 @@ body
   #main
     overflow: hidden
     p.languages
-      padding: 2px 0 0 20px
+      padding: 2px 20px
       border-top: 1px solid #cad3db
       border-bottom: 1px solid #cad3db
       background: #f3f7fa
@@ -1369,6 +1392,8 @@ body
       line-height: 160%
       font-weight: bold
       font-size: .9em
+      a
+        direction: ltr
     > h2
       padding: 10px 20px
       margin: 0 0 20px 0
@@ -1599,6 +1624,7 @@ body
         margin: 0 0 0 10px
         input
           margin: 0 0 0 3px
+
 #permalink_add_association
   width: 700px
   > form
@@ -1607,7 +1633,7 @@ body
     border-bottom: 1px solid #ccd399
     text-align: center
     padding: 20px 0
-    margin: 0 0 20px
+    margin: 0 0 20px 0
     label
       font-weight: bold
       margin: 0 0 0 20px
@@ -1620,7 +1646,7 @@ body
   #main
     .header
       position: relative
-      padding: 10px 0 0 0
+      padding: 10px 0
       text-align: center
       border-bottom: 1px solid #394651
       h3
@@ -1921,9 +1947,14 @@ body
         .figure
           img
             +opacity(.5)
-      img
+      a.image
         display: block
+        height: 125px
+        width: 160px
         margin: 0 0 5px 0
+        img
+          display: block
+          margin: 0 auto
       fieldset
         clear: both
         select
@@ -2065,10 +2096,11 @@ body
     padding: 30px 0
     ul.media
       padding: 0 0 0 30px
+
 #taxon_updates
   .header
     position: relative
-    padding: 10px 0 0 0
+    padding: 10px 0
     text-align: center
     border-bottom: 1px solid #394651
     h3
@@ -2119,8 +2151,8 @@ body
   background: #e2e9ef
   form
     width: 320px
-    min-height: 225px
-    padding: 75px 159px
+    min-height: 295px
+    padding: 75px 159px 20px 159px
     margin: 0 auto
     border: 1px solid #cad3db
     background: #f0f4f7 url("/images/v2/bg_sign-in.gif") 0 0 no-repeat
@@ -2136,21 +2168,14 @@ body
       padding: 7px 10px
       margin: 0 0 0 10px
       font-size: 1em
+    dl.captcha
+      margin: 20px -65px 20px 0
     a
       font-weight: bold
     label.checkbox
       padding: 0 0 15px 0
 
 #profile_edit
-  p.tip
-    background: #f3f7fa
-    border: 1px solid #cad3db
-    padding: 10px
-    margin: 0 0 20px 0
-    line-height: 140%
-    width: 330px
-    img
-      margin: -2px 5px 0 5px
   input[type="text"], input[type="password"]
     +input(248px)
   .header
@@ -2220,7 +2245,7 @@ body
         font-size: 1em
       a
         font-weight: bold
- 
+
 ul.spotlite-matches
   background: #fff
   border: 1px solid #d4dce2

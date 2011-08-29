@@ -55,11 +55,6 @@ class CategoryContentBuilder
     return {:item => HierarchyEntry.find_by_hierarchy_id_and_taxon_concept_id(Resource.ligercat.hierarchy.id, options[:taxon_concept].id)}
   end
 
-  # This is all hard-coded in the view.
-  def search_the_web(options)
-    return {}
-  end
-
   def content_partners(options)
     tc_id = options[:taxon_concept].id
     tc = TaxonConcept.find(tc_id)

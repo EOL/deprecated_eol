@@ -11,8 +11,11 @@ class TocItem < SpeciesSchemaModel
   has_and_belongs_to_many :data_objects, :join_table => 'data_objects_table_of_contents', :foreign_key => 'toc_id'
   has_and_belongs_to_many :content_tables, :join_table => 'content_table_items', :foreign_key => 'toc_id'
 
-
   @@reserved_toc_labels = ['Biodiversity Heritage Library', 'Content Partners', 'Names and Taxonomy', 'Related Names', 'Synonyms', 'Common Names', 'Page Statistics', 'Content Summary', 'Education', 'Barcode', 'Wikipedia', 'Biomedical Terms', 'Literature References', 'Nucleotide Sequences']
+
+  def self.exclude_editable
+    ['Barcode', 'Education', 'Wikipedia']
+  end
 
   def self.toc_object_counts
     cached('toc_object_counts') do
@@ -81,14 +84,13 @@ class TocItem < SpeciesSchemaModel
     InfoItem
     cached_find_translated(:label, 'Education', :include => [ :info_items, { :parent => :info_items } ])
   end
+  def self.education_resources
+    InfoItem
+    cached_find_translated(:label, 'Education Resources', :include => [ :info_items, { :parent => :info_items } ])
+  end
   def self.identification_resources
     InfoItem
     cached_find_translated(:label, 'Identification Resources', :include => [ :info_items, { :parent => :info_items } ])
-  end
-  # TODO - do we need this anymore?
-  def self.search_the_web
-    InfoItem
-    cached_find_translated(:label, 'Search the Web', :include => [ :info_items, { :parent => :info_items } ])
   end
   def self.biomedical_terms
     InfoItem
@@ -170,8 +172,9 @@ class TocItem < SpeciesSchemaModel
   def self.selectable_toc
     InfoItem
     cached("selectable_toc/#{I18n.locale}") {
-      all = TocItem.find(:all, :include => :info_items).reject {|toc|
-        toc.info_items.empty? || ['Wikipedia', 'Barcode'].include?(toc.label('en'))
+      excluded = TocItem.exclude_editable
+      all = TocItem.find(:all, :include => :info_items).select {|toc|
+        toc.allow_user_text?
       }.sort_by { |toc| toc.label.to_s }
     }
   end
@@ -207,7 +210,7 @@ class TocItem < SpeciesSchemaModel
   end
 
   def allow_user_text?
-    self.info_items.length > 0 && !["Wikipedia", "Barcode"].include?(self.label('en'))
+    self.info_items.length > 0 && ! TocItem.exclude_editable.include?(self.label('en'))
   end
 
   def wikipedia?

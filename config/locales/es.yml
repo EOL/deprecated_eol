@@ -7,7 +7,7 @@
 # Author: Mor
 # Author: Sampalahnuk
 es:
-  _encyclopedia_of_life: -Enciclopedia de la Vida
+  dash_encyclopedia_of_life: -Enciclopedia de la Vida
   about_eol: Acerca de EOL
   account_information: Información de la cuenta
   account_registered_but_not_ready_try_later: Su cuenta está registrada, pero no está lista para que tenga acceso. Por favor, inténtelo de nuevo dentro de cinco minutos.
@@ -1321,13 +1321,13 @@ es:
   these_terms_are_derived_by_searching: Estos términos se derivan mediante búsquedas en la base de datos de literatura biomédica, %{link} para el nombre "%{scientific_name}".
   this_community_has_no_endorsed_collections: Esta comunidad no ha promovido ninguna colección.
   this_community_has_no_focus_list: Esta comunidad no tiene ninguna lista de foco.
-  this_is_a_flat_list_of_10_mill: Esta es una lista plana de 10 millones de hileras - no se permite navegar en ella
+  this_is_a_flat_list_of_10_million_strings: Esta es una lista plana de 10 millones de hileras - no se permite navegar en ella
   this_is_a_focus_collection_for_community: Esta colección es el enfoque de "%{community}".
-  this_is_a_list_of_first_time_p: Esta es una lista de socios de contenidos publicados por primera vez para el mes.
-  this_is_an_automated_e_mail_no: Esta es una notificación automatizada por correo electrónico.
-  this_is_the_label_that_will_ap: Esta es la etiqueta que aparecerá en el menú desplegable de selección de jerarquía
-  this_is_the_label_that_will_be: Esta es la etiqueta que se utilizará para la atribución
-  this_is_the_link_to_your_web_s: "Este es el enlace para sus estadísticas web:"
+  first_time_published_content_partners_list_for_the_month: Esta es una lista de socios de contenidos publicados por primera vez para el mes.
+  this_is_an_automated_e_mail_notification: Esta es una notificación automatizada por correo electrónico.
+  hierarchy_selector_drop_down_list_label: Esta es la etiqueta que aparecerá en el menú desplegable de selección de jerarquía
+  this_is_the_label_that_will_be_used_for_attribution: Esta es la etiqueta que se utilizará para la atribución
+  this_is_the_link_to_your_web_stats: "Este es el enlace para sus estadísticas web:"
   this_report_is_also_available_via_feeds: Este informe también está disponible a través de "feeds"
   threat_status_header_colon: "Estado de amenaza de la UICN:"
   time_ago: "%{time_passed} hace"

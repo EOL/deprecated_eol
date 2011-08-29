@@ -6,31 +6,31 @@ class Api::DocsController < ApiController
     @page_title = I18n.t(:eol_api)
   end
   def ping
-    @page_title = I18n.t(:eol_api__ping)
+    @page_title = I18n.t(:eol_api_ping)
   end
   def search
-    @page_title = I18n.t(:eol_api__search)
+    @page_title = I18n.t(:eol_api_search)
   end
   def data_objects
-    @page_title = I18n.t(:eol_api__data_objects)
+    @page_title = I18n.t(:eol_api_data_objects)
   end
   def pages
-    @page_title = I18n.t(:eol_api__pages)
+    @page_title = I18n.t(:eol_api_pages)
   end
   def hierarchy_entries
-    @page_title = I18n.t(:eol_api__hierarchy_entries)
+    @page_title = I18n.t(:eol_api_hierarchy_entries)
   end
   def provider_hierarchies
-    @page_title = I18n.t(:eol_api__provider_hierarchies)
+    @page_title = I18n.t(:eol_api_provider_hierarchies)
   end
   def hierarchies
-    @page_title = I18n.t(:eol_api__hierarchies)
+    @page_title = I18n.t(:eol_api_hierarchies)
   end
   def search_by_provider
-    @page_title = I18n.t(:eol_api__search_by_provider)
+    @page_title = I18n.t(:eol_api_search_by_provider)
   end
   def collections
-    @page_title = I18n.t(:eol_api__collections)
+    @page_title = I18n.t(:eol_api_collections)
   end
 
 private

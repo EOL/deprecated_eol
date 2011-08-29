@@ -6,7 +6,7 @@
     - if @navigation_tree && @navigation_tree != ''
       = @navigation_tree
     - else
-      = "ROOT"    
+      = I18n.t(:admin_content_page_root)
 - if ContentPage.exists?(@page)
   %tr
     %td

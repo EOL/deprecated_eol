@@ -16,4 +16,4 @@
                 %h4= link_to(community.name, community_path(community))
                 %p
                   = I18n.t(:members_with_count, :count => community.members.count)
-                  = "#{I18n.t(:community_items_with_count, :count => community.focus.collection_items.count)}#{I18n.t(:punctuation_comma)}"
+                  = "#{I18n.t(:community_focus_items_with_count, :count => community.focus.collection_items.count)}#{I18n.t(:punctuation_comma)}"

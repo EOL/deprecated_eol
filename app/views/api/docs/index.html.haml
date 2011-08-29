@@ -18,56 +18,56 @@
             %td
               = link_to I18n.t("ping"), :controller => 'api/docs', :action => 'ping'
             %td
-              =I18n.t("returns_either_a_positive_resp")
+              =I18n.t("returns_either_a_positive_or_negative_response")
           %tr
             %td
-              = link_to I18n.t("search_"), :controller => 'api/docs', :action => 'search'
+              = link_to I18n.t("search_lowercase"), :controller => 'api/docs', :action => 'search'
             %td
-              =I18n.t("given_a_value_for_a_specific_e")
+              =I18n.t("search_method_description")
           %tr
             %td
-              = link_to I18n.t("pages_"), :controller => 'api/docs', :action => 'pages'
+              = link_to I18n.t("pages_lowercase"), :controller => 'api/docs', :action => 'pages'
             %td
               =I18n.t("takes_an_eol_page_identifier_a")
           %tr
             %td
               = link_to I18n.t("collections_lowercase"), :controller => 'api/docs', :action => 'collections'
             %td
-              =I18n.t("returns_all_metadata_about_a_p")
+              =I18n.t("returns_all_metadata_about_a_particular_data_object")
           %tr
             %td
               = link_to I18n.t("data_objects"), :controller => 'api/docs', :action => 'data_objects'
             %td
-              =I18n.t("returns_all_metadata_about_a_p")
+              =I18n.t("returns_all_metadata_about_a_particular_data_object")
           %tr
             %td
               = link_to I18n.t("hierarchy_entries"), :controller => 'api/docs', :action => 'hierarchy_entries'
             %td
-              =I18n.t("gives_access_to_a_single_hiera")
+              =I18n.t("gives_access_to_a_single_hierarchy_indexed_by_eol")
           %tr
             %td
               = link_to I18n.t("provider_hierarchies"), :controller => 'api/docs', :action => 'provider_hierarchies'
             %td
-              =I18n.t("lists_the_identifiers_for_all_")
+              =I18n.t("lists_the_identifiers_for_all_hierarchies")
           %tr
             %td
               = link_to I18n.t("hierarchies"), :controller => 'api/docs', :action => 'hierarchies'
             %td
-              =I18n.t("given_a_hierarchy_identifier__")
+              =I18n.t("method_to_get_metadata_about_the_hierarchy")
           %tr
             %td
               = link_to I18n.t("search_by_provider"), :controller => 'api/docs', :action => 'search_by_provider'
             %td
-              =I18n.t("get_the_eol_page_ids_given_a_p")
+              =I18n.t("search_by_provider_method_description")
               %br
-              =I18n.t("_e_g__search_for_the_eol_page_")
+              =I18n.t("e_g_search_for_the_eol_page")
               - url = url_for(:controller => '/api', :action => 'search_by_provider', :version => '1.0', :id => '180542', :hierarchy_id => 107, :only_path => false)
               = link_to url, url
               )
       %h3
         =I18n.t("response_formats")
       %p
-        =I18n.t("all_apis_return_by_default_an_")
+        =I18n.t("all_apis_return_by_default_an_xml_response")
         %code<
           :escaped
             http://www.eol.org/api/search/Robin
@@ -80,7 +80,7 @@
           :escaped
             http://www.eol.org/api/search/Robin.json
       %p
-        =I18n.t("____and_jsonp_by_adding_a_call")
+        =I18n.t("jsonp_by_adding_a_callback_parameter")
         %code<
           :escaped
             http://www.eol.org/api/search/Robin.json?callback=some_neat_function

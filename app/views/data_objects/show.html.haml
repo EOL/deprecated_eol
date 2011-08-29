@@ -1,6 +1,6 @@
 = content_for :head do
-  = javascript_include_tag "permalink"
-
+  = javascript_include_tag "permalink", "jplayer/js/jquery.jplayer.min"
+  %link{:href=>"/javascripts/jplayer/skin/jplayer.blue.monday.css", :rel=>"stylesheet", :type=>"text/css"}
 - en_type ||= en_type(@data_object)
 - for_worklist ||= false
 - # TODO: Looks like HR have moved from using article to text css class - need to check across the site and adjust en_type

@@ -3,7 +3,7 @@
 # Export driver: syck-pecl
 # Author: Bjankuloski06
 mk: 
-  _encyclopedia_of_life: -Енциклопедија на живиот свет
+  dash_encyclopedia_of_life: -Енциклопедија на живиот свет
   about_eol: За EOL
   account_information: Информации за сметката
   account_registered_but_not_ready_try_later: Вашата сметка е регистрирана, но сè уште не може да се користи. Обидете се повторно за пет минути.
@@ -1329,13 +1329,13 @@ mk:
   these_terms_are_derived_by_searching: Овие поими се добиени со пребарување на „%{scientific_name}“ во базата на биомедицинска литература %{link} .
   this_community_has_no_endorsed_collections: Оваа заедница нема истакнато ниедна збирка.
   this_community_has_no_focus_list: Оваа заедница нема список на тематики на коишто се посветува.
-  this_is_a_flat_list_of_10_mill: Ова е рамен список на 10 милиони низи - нема да ви дозволам да го пребарувате
+  this_is_a_flat_list_of_10_million_strings: Ова е рамен список на 10 милиони низи - нема да ви дозволам да го пребарувате
   this_is_a_focus_collection_for_community: На оваа збирка се има посветено „%{community}“.
-  this_is_a_list_of_first_time_p: Ова е список на соучесници во содржините што месецов се објавени за прв пат.
-  this_is_an_automated_e_mail_no: Ова е автоматско известување по е-пошта.
-  this_is_the_label_that_will_ap: Ова е натписот што ќе фигурира во паѓачкиот список за избирање на хиерархијата
-  this_is_the_label_that_will_be: Ова е натписот што ќе се користи за оддавање заслуги
-  this_is_the_link_to_your_web_s: "Ова е врска до вашите статистики:"
+  first_time_published_content_partners_list_for_the_month: Ова е список на соучесници во содржините што месецов се објавени за прв пат.
+  this_is_an_automated_e_mail_notification: Ова е автоматско известување по е-пошта.
+  hierarchy_selector_drop_down_list_label: Ова е натписот што ќе фигурира во паѓачкиот список за избирање на хиерархијата
+  this_is_the_label_that_will_be_used_for_attribution: Ова е натписот што ќе се користи за оддавање заслуги
+  this_is_the_link_to_your_web_stats: "Ова е врска до вашите статистики:"
   this_report_is_also_available_via_feeds: Овој извештај може да се погледа и преку каналите
   threat_status_header_colon: "Засегнатост според IUCN:"
   time_ago: пред %{time_passed}

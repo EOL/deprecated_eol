@@ -3,7 +3,7 @@
 # Export driver: syck-pecl
 # Author: Anakmalaysia
 ms: 
-  _encyclopedia_of_life: -Encyclopedia of Life
+  dash_encyclopedia_of_life: -Encyclopedia of Life
   about_eol: Perihal EOL
   account_information: Maklumat Akaun
   account_registered_but_not_ready_try_later: Akaun anda berdaftar tetapi belum sedia untuk diakses. Sila cuba lagi selepas lima minit.
@@ -1210,13 +1210,13 @@ ms:
   these_terms_are_derived_by_searching: Istilah-istilah ini diperoleh dengan mencari pangkalan data kepustakaan bioperubatan, %{link} untuk nama "%{scientific_name}".
   this_community_has_no_endorsed_collections: Komuniti ini belum menampilkan sebarang himpunan.
   this_community_has_no_focus_list: Komuniti ini tiada senarai tumpuan.
-  this_is_a_flat_list_of_10_mill: Ini ialah senarai tak tertib 10 juta rentetan - bukan untuk disemak imbas
+  this_is_a_flat_list_of_10_million_strings: Ini ialah senarai tak tertib 10 juta rentetan - bukan untuk disemak imbas
   this_is_a_focus_collection_for_community: Himpunan ini ialah tumpuan "%{community}".
-  this_is_a_list_of_first_time_p: Ini ialah senarai rakan kongsi kandungan terbitan julung kali pada bulan ini.
-  this_is_an_automated_e_mail_no: Ini ialah pemberitahuan e-mel automatik.
-  this_is_the_label_that_will_ap: Inilah label yang akan muncul dalam senarai juntai bawah pemilih hierarki
-  this_is_the_label_that_will_be: Inilah label yang akan digunakan untuk atribusi
-  this_is_the_link_to_your_web_s: "Inilah pautan ke statistik web anda:"
+  first_time_published_content_partners_list_for_the_month: Ini ialah senarai rakan kongsi kandungan terbitan julung kali pada bulan ini.
+  this_is_an_automated_e_mail_notification: Ini ialah pemberitahuan e-mel automatik.
+  hierarchy_selector_drop_down_list_label: Inilah label yang akan muncul dalam senarai juntai bawah pemilih hierarki
+  this_is_the_label_that_will_be_used_for_attribution: Inilah label yang akan digunakan untuk atribusi
+  this_is_the_link_to_your_web_stats: "Inilah pautan ke statistik web anda:"
   this_report_is_also_available_via_feeds: Laporan ini juga boleh didapati melalui suapan
   threat_status_header_colon: "Status ancaman IUCN:"
   time_ago: "%{time_passed} lalu"

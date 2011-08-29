@@ -203,6 +203,9 @@ class DataObject < SpeciesSchemaModel
       # user can see preview objects
       if show_preview && dato_visibility_id == Visibility.preview.id
         true
+      # Users can see text that they have added:
+      elsif d.added_by_user? && d.users_data_object.user_id == options[:user].id
+        true
       # otherwise object must be PUBLISHED and in the vetted and visibility selection
       elsif d.published == true && vetted_ids.include?(dato_vetted_id) && visibility_ids.include?(dato_visibility_id)
         true
@@ -359,7 +362,6 @@ class DataObject < SpeciesSchemaModel
 
     vettedness = user.is_curator? ? Vetted.trusted : Vetted.unknown
     udo = UsersDataObject.create(:user => user, :data_object => dato, :taxon_concept => taxon_concept, :visibility => Visibility.visible, :vetted => vettedness)
-    dato.users_data_object = udo
     dato
   end
 

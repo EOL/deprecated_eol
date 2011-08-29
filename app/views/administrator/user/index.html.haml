@@ -80,7 +80,9 @@
             %td{ :class => column_class }
               = format_date_time(user.created_at)
             %td{ :class => column_class }
-              = user.is_curator?
+              = I18n.t(:curator_level_master_curator) + ": " + user.master_curator?.to_s if user.master_curator?
+              = I18n.t(:curator_level_full_curator) + ": " + user.full_curator?.to_s if user.full_curator?
+              = I18n.t(:curator_level_assistant_curator) + ": " + user.assistant_curator?.to_s if user.assistant_curator?
       %br
       = will_paginate @users
     - else

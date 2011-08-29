@@ -30,7 +30,10 @@ class DataObjectsController < ApplicationController
   # POST /pages/:taxon_id/data_objects
   def create
     @taxon_concept = TaxonConcept.find(params[:taxon_id])
-    return failed_to_create_data_object unless params[:data_object]
+    unless params[:data_object]
+      failed_to_create_data_object
+      return
+    end
 
     @references = params[:references] # we'll need these if validation fails and we re-render new
     params[:references] = params[:references].split("\n") unless params[:references].blank?
@@ -38,7 +41,7 @@ class DataObjectsController < ApplicationController
     @selected_toc_item = @data_object.toc_items.first unless @data_object.nil?
 
     if @data_object.nil? || @data_object.errors.any?
-      failed_to_create_data_object and return
+      failed_to_create_data_object && return
     else
       # TODO: alter_current_user is to allow the current user to see the text object they just added,
       # if their preferences were set to vetted, however - the preference of seeing only
@@ -64,14 +67,17 @@ class DataObjectsController < ApplicationController
       subchapter.sub!( " ", "_" )
       temp = ["education", "identification_resources", "nucleotide_sequences", "biomedical_terms"] # to Resources tab
       if temp.include?(subchapter)
-        redirect_to education_taxon_resources_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}") if subchapter == 'education'
-        redirect_to identification_resources_taxon_resources_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}") if subchapter == 'identification_resources'
-        redirect_to nucleotide_sequences_taxon_resources_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}") if subchapter == 'nucleotide_sequences'
-        redirect_to biomedical_terms_taxon_resources_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}") if subchapter == 'biomedical_terms'
-        return
+        return redirect_to education_taxon_resources_path(@taxon_concept,
+                             :anchor => "data_object_#{@data_object.id}") if subchapter == 'education'
+        return redirect_to identification_resources_taxon_resources_path(@taxon_concept,
+                             :anchor => "data_object_#{@data_object.id}") if subchapter == 'identification_resources'
+        return redirect_to nucleotide_sequences_taxon_resources_path(@taxon_concept,
+                             :anchor => "data_object_#{@data_object.id}") if subchapter == 'nucleotide_sequences'
+        return redirect_to biomedical_terms_taxon_resources_path(@taxon_concept,
+                             :anchor => "data_object_#{@data_object.id}") if subchapter == 'biomedical_terms'
       elsif ["literature"].include?(subchapter)
-        redirect_to literature_taxon_literature_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}") if subchapter == 'literature'
-        return
+        return redirect_to literature_taxon_literature_path(@taxon_concept,
+                             :anchor => "data_object_#{@data_object.id}") if subchapter == 'literature'
       end
 
       redirect_to taxon_details_path(@taxon_concept, :anchor => "data_object_#{@data_object.id}")

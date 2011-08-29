@@ -4,7 +4,8 @@
 - if ['image', 'video', 'sound'].include?(item_type)
   = render :partial => "shared/item_summary_media.html.haml", :locals => {:item => collection_item.object, :en_type => item_type}
 - else
-  = render :partial => "shared/item_summary_#{item_type}.html.haml", :locals => {:item => collection_item.object}
+  - unless item_type.blank?
+    = render :partial => "shared/item_summary_#{item_type}.html.haml", :locals => {:item => collection_item.object}
 -# When JS is disabled, you are taken to a page specific to the collection item, which has its own form:
 - if defined?(item_form)
   - form_for(@collection_item) do |f|

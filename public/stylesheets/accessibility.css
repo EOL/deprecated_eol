@@ -1161,3 +1161,8 @@ body#prelaunch p.status {
   color: #394651;
   border: 2px solid #c7d471;
   background: #edf6b2; }
+
+#taxon + #sidebar .classification {
+  font-size: 0.9em; }
+  #taxon + #sidebar .classification .branch {
+    margin-left: 10px; }

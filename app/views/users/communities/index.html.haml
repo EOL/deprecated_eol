@@ -1,9 +1,10 @@
 #user_communities.main_container
   .heading
-    %h3= I18n.t(:users_member_of_count_communities, :count => @user.communities.published.size)
-    - if @user.communities.published.size > 1
-      = render :partial => 'shared/sort_by_date_form'
-  - unless @user.communities.published.blank?
+    %h3
+      = I18n.t(:users_member_of_count_communities, :count => @communities.size)
+      - if @communities.size > 1
+        = render :partial => 'shared/sort_by_date_form'
+  - unless @communities.blank?
     %ul.object_list
-      - @user.communities.published.each do |community|
+      - @communities.each do |community|
         = render :partial => 'communities/community_summary', :locals => { :community => community, :show_description => true }

@@ -3,19 +3,180 @@
 # Export driver: syck-pecl
 # Author: Kghbln
 de: 
+  _encyclopedia_of_life: "- Enzyklopädie des Lebens"
+  about_eol: Über EOL
   account_information: Nutzerkontoinformationen
   account_registered_but_not_ready_try_later: Ihr Konto ist registriert aber noch nicht zum Nutzen bereit. Bitte versuchen Sie es erneut in fünf Minuten.
+  action_not_available_error: Diese Aktion ist leider nicht verfügbar.
+  actions: Aktionen
+  active_colon: "Aktiv:"
+  activerecord: 
+    attributes: 
+      collection: 
+        description: Beschreibung der Sammlung
+        logo: Hauptbild der Sammlung
+        name: Name der Sammlung
+        sort_style_id: Standardsortierrichtung
+      community: 
+        description: Beschreibung der Gemeinschaft
+        logo: Laden Sie ein Logo hoch
+        name: Name der Gemeinschaft
+      content_page: 
+        active: Veröffentlicht
+        page_name: Eindeutiger Name
+        sort_order: Sortierreihenfolge
+      content_partner: 
+        acronym: Projektabkürzung
+        admin_notes: Administrationsnotizen
+        content_partner_status: Projektstatus
+        created_at: Erstellt
+        description: Projektbeschreibung
+        display_name: Anzeigename
+        full_name: Projektname
+        homepage: Projekt-URL
+        notes: Projektnotizen
+        user_id: Verwaltet von
+        vetted: Geprüft
+      content_partner_agreement: 
+        signed_by: Signiert von
+        signed_on_date: Signierdatum
+      data_object: 
+        bibliographic_citation: Bibliographische Zitierung
+        description: Beschreibung
+        object_title: Titel
+        rights_holder: Rechteinhaber
+        rights_statement: Urheberrechtserklärung
+        source_url: Quell-URL
+      name: 
+        string: Name
+      resource: 
+        accesspoint_url: Dataset-URL
+        bibliographic_citation: Bibliographische Zitierung
+        dataset: Dataset-Datei
+        description: Quellenbeschreibung
+        dwc_archive_url: URL des Darwin Core Archive
+        language_id: Standardsprache
+        license_id: Standardlizenz
+        resource_status_id: Quellenstatus
+        rights_holder: Standardrechteinhaber
+        rights_statement: Standardrechtshinweis
+        title: Quellenname
+      translated_content_page: 
+        active_translation: Veröffentlicht
+        left_content: Navigation
+        main_content: Textkörper
+        meta_description: Metadatenbeschreibung
+        meta_keywords: Metadatenschlüsselwörter
+        title: Name
+      user: 
+        agreed_with_terms: Nutzungsbedingungen
+        api_key: API-Schlüssel
+        bio: Biografie
+        credentials: Anmeldeinformationen
+        curator_scope: Kuratierungsumfang
+        email: E-Mail-Adresse
+        entered_password: Passwort
+        entered_password_confirmation: Passwortwiederholung <small>(zur Bestätigung)</small>
+        family_name: Nachname
+        full_name: Bürgerlicher Name
+        given_name: Vorname
+        language_abbr: Bevorzugte Sprache
+        requested_curator_level_id: Gewünschtes Kuratierungsniveau
+        tag_line: Motto
+        username: Nutzername
+    errors: 
+      full_messages: 
+        format: "%{attribute} %{message}"
+      messages: 
+        accepted: muss akzeptiert werden
+        blank: darf nicht leer sein
+        confirmation: stimmt nicht mit der Bestätigung überein
+        empty: darf nicht leer sein
+        equal_to: muss mit %{count} übereinstimmen
+        even: muss gerade sein
+        exclusion: ist reserviert
+        greater_than: muss größer als %{count} sein
+        greater_than_or_equal_to: muss größer als oder gleich %{count} sein
+        inaccessible: ist unzugänglich
+        inclusion: ist nicht in der Liste vorhanden
+        invalid: ist ungültig
+        less_than: muss kleiner als %{count} sein
+        less_than_or_equal_to: muss kleiner als oder gleich %{count} sein
+        not_a_number: ist keine Zahl
+        not_an_integer: muss eine Ganzzahl sein
+        odd: muss ungerade sein
+        record_invalid: "Überprüfung ist fehlgeschlagen: %{errors}"
+        taken: ist bereits vergeben
+        too_long: ist zu lang (maximal %{count} Zeichen)
+        too_short: ist zu kurz (mindestens %{count} Zeichen)
+        wrong_length: hat die falsche Länge (sollte %{count} Zeichen lang sein)
+        wrong_type: hat den falschen Typ
+      models: 
+        resource: 
+          attributes: 
+            accesspoint_url: 
+              blank: darf nicht leer sein, es sei den Sie laden stattdessen eine Datei hoch
+              inaccessible: ist unzugänglich. Die URL muss öffentlich aufrufbar sein.
+              invalid: ist ungültig. Sie sollte auf eine XML-, XML.GZIP- oder XML.GZ-Datei verweisen.
+            dataset: 
+              blank: darf nicht leer sein, es sei denn Sie geben eine URL zu einem Dataset an.
+              wrong_type: hat den falschen Typ. Es sollte eine GZIP-, TAR- oder XML-Datei sein.
+            dwc_archive_url: 
+              inaccessible: ist unzugänglich. Die URL muss öffentlich aufrufbar sein.
+              invalid: ist ungültig. Sie sollte auf eine TAR.GZIP-, TAR.GZ- oder TGZ-Datei verweisen.
+      template: 
+        body: "Die folgenden Felder konnten nicht geprüft werden:"
+        header: 
+          one: Ein Fehler wurden bei der Überprüfung gefunden
+          other: "%{count} Fehler wurden bei der Überprüfung gefunden"
+    models: 
+      user: Konto
+  activity: Aktivität
+  activity_log_empty: Bislang hat noch niemand Aktualisierungen vorgenommen.
+  activity_log_empty_learn_more_link: Informieren Sie sich, wie sie hier beitragen können
+  add_a_comment_colon: "Fügen Sie einen Kommentar hinzu:"
+  add_a_new_common_name: Fügen Sie einen neuen gebräuchlichen Namen hinzu
+  add_a_taxon_association_label: Fügen Sie eine neue Zuordnung zu einem Taxon hinzu
+  add_article_to_page_link_button: Fügen Sie dieser Seite einen Artikel hinzu
+  add_brief_summary_to_page_link_button: Fügen Sie dieser Seite eine kurze Zusammenfassung hinzu
+  add_new_association_link: Fügen Sie eine neue Zuordnung hinzu
   add_to_my_collection_button: Zu meiner Sammlung hinzufügen
+  admin: Administrator
+  admin_link: Administrationsseite
+  admin_page_title: Administrationsseite
+  all_information: Alle Informationen
+  all_items: Alle Elemente
   all_pages: Alle Seiten
   already_a_member_question: Sind Sie bereits Mitglied?
+  already_member_of_community: Sie sind bereits Mitglied dieser Gemeinschaft.
+  alternate_classification: Alternative Klassifizierung
+  and: und
+  and_between_form_items: und
   application_version_advisory_information: Programmversion
   are_you_sure: Sind Sie sicher?
+  article_from: Artikel aus
+  article_more_about: Erfahren Sie mehr zu diesem Artikel
   assistive_details_header: Einzelheiten
+  assistive_literature_header: Literatur
+  assistive_maps_header: Karten
   assistive_media_header: Medien
+  assistive_names_common_header: Gebräuchliche Namen
+  assistive_names_related_header: Ähnliche Namen
+  assistive_names_synonyms_header: Synonyme
   assistive_overview_header: Übersicht
+  assistive_updates_header: Aktualisierungen
+  authoritative_information: Verbindliche Informationen
   average_rating_value_of_total: "Durchschnittliche Bewertung: %{rating} von %{total}"
+  back_to_profile: Zurück zum Profil
+  biodiversity_heritage_library: Biodiversity Heritage Library
+  cancel: Abbrechen
   cannot_be_associated_with_both_a_user_and_a_community: Konnte weder einem Nutzer noch einer Gemeinschaft zugeordnet werden.
   cannot_be_empty: darf nicht leer sein.
+  change_rating_to_1_of_5: Bewertung auf 1 von 5 ändern
+  change_rating_to_2_of_5: Bewertung auf 2 von 5 ändern
+  change_rating_to_3_of_5: Bewertung auf 3 von 5 ändern
+  change_rating_to_4_of_5: Bewertung auf 4 von 5 ändern
+  change_rating_to_5_of_5: Bewertung auf 5 von 5 ändern
   citation: Zitierung
   classifications_summary_header_with_count: 
     one: Teil einer genehmigten Klassifikation
@@ -24,11 +185,17 @@ de:
   collections_summary_header_with_count: 
     one: Bestandteil einer Sammlung
     other: Bestandteil von %{count} Sammlungen
+  collections_with_count: 
+    one: "%{count} Sammlung"
+    other: "%{count} Sammlungen"
   common_names_advisory_information: Diesem Taxon zugeordnete gebräuchliche Namen.
   common_names_with_count: 
-    one: "%{count} gebräuchliche Bezeichnung"
-    other: "%{count} gebräuchliche Bezeichnungen"
+    one: Ein gebräuchlicher Name
+    other: "%{count} gebräuchliche Namen"
   communities: Gemeinschaften
+  communities_summary_header_with_count: 
+    one: Gehört zu %{count} Gemeinschaft
+    other: Gehört zu %{count} Gemeinschaften
   community: Gemeinschaft
   community_activity: Aktivität der Gemeinschaft
   community_focus: Schwerpunkt der Gemeinschaft
@@ -44,16 +211,23 @@ de:
   content_summary_table_type_trusted_text_row: Anzahl vertrauenswürdiger Texte
   content_summary_table_type_unreviewed_images_row: Anzahl ungeprüfter Bilder
   content_summary_table_type_unreviewed_text_row: Anzahl ungeprüfter Texte
+  could_not_find_user: Zu diesem Nutzer konnte keine Mitgliedschaft in einer Gemeinschaft gefunden werden.
   create_a_collection: Eine Sammlung erstellen
   create_a_community: Eine Gemeinschaft erstellen
+  create_account: Nutzerkonto erstellen
+  created_community: Der Kommentar wurde erfolgreich erstellt.
   curators_of_taxon_page_title: Kuratoren von %{taxon}
   curators_summary_header_with_count: 
     one: "%{count} Kurator"
     other: "%{count} Kuratoren"
   currently_in_eol: Derzeit in der Enzyklopädie des Lebens verzeichnet.
-  delete_community: Diese Gemeinschaft löschen
+  dashboard: Übersichtsseite
   detail: Einzelheiten
   development_version_name: V2-ENTWICKLUNGSVERSION - nicht zur Nutzung durch die Öffentlichkeit bestimmt.
+  displaying_numerical_range: Anzeigen von %{start_number} bis %{end_number}
+  donate: Spenden
+  donation_error_no_amount: Bitte einen Spendenbetrag auswählen
+  donation_error_only_numbers: Bitte geben Sie eine Menge nur mit Hilfe von Ziffern an.
   edit_collection: Sammlung bearbeiten
   edit_community: Gemeinschaft bearbeiten
   edit_my_profile: Ihr Profil bearbeiten
@@ -62,27 +236,153 @@ de:
   endorsed_collections_with_count: 
     one: Eine empfohlene Sammlung
     other: "%{count} empfohlene Sammlungen"
+  eol_colon: "EOL:"
+  eol_glossary: EOL-Glossar
   eol_news: Neuigkeiten von EOL
+  error_page_header: Es ist leider ein Problem aufgetreten.
+  errors: 
+    messages: 
+      accepted: muss akzeptiert werden
+      blank: darf nicht leer sein
+      confirmation: stimmt nicht mit der Bestätigung überein
+      empty: darf nicht leer sein
+      equal_to: muss mit %{count} übereinstimmen
+      even: muss gerade sein
+      exclusion: ist reserviert
+      greater_than: muss größer als %{count} sein
+      greater_than_or_equal_to: muss größer als oder gleich %{count} sein
+      inaccessible: ist unzugänglich
+      inclusion: ist nicht in der Liste vorhanden
+      invalid: ist ungültig
+      less_than: muss kleiner als %{count} sein
+      less_than_or_equal_to: muss kleiner als oder gleich %{count} sein
+      not_a_number: ist keine Zahl
+      not_an_integer: muss eine Ganzzahl sein
+      odd: muss ungerade sein
+      too_long: ist zu lang (maximal %{count} Zeichen)
+      too_short: ist zu kurz (mindestens %{count} Zeichen)
+      wrong_length: hat die falsche Länge (sollte %{count} Zeichen lang sein)
+      wrong_type: hat den falschen Typ
+  esc_key_hides_this_message: (Die Esc-Taste blendet diese Meldung aus)
   explore: Entdecken
+  feedback: Rückmeldungen
   filter_by_status: Nach Status filtern
+  filter_by_status_all_option: alle Stati
+  filter_by_status_inappropriate_option: unangemessen
+  filter_by_status_trusted_option: vertrauenswürdig
+  filter_by_status_untrusted_option: nicht vertrauenswürdig
   filter_by_type: Nach Typ filtern
+  filter_by_type_all_option: alle Typen
   filter_media: Medien filtern
+  filtered_information: Gefilterte Informationen
   general_error_occurred: Es ist ein Fehler aufgetreten, was uns leid tut. Bitte versuchen Sie noch einmal, die von Ihnen gewünscht Aktion auszuführen. Sofern der Fehler weiterhin auftritt, bitten wir Sie uns hierzu, zusammen mit der unten angegebenen Fehlermeldung und möglichen weiteren Informationen von Ihnen, eine E-Mail an %{email} zu senden. Wir arbeiten intensiv dran, Ihnen den bestmöglichen Dienst zu bieten und schätzen sehr Ihre Unterstützung dabei. -- Das EOL-Team
   global_access_tagline: Globaler Zugang zum Wissen über das Leben auf der Erde.
   global_navigation: Globale Navigation
   go: Los
-  google_translate: „Google übersetzer“
-  google_translate_advisory_information: Verwenden Sie das „Google übersetzer“-Widget, um den Inhalt dieser Seite in eine andere Sprache zu übertragen.
   has_already_been_taken: ist bereits vergeben.
+  hello_user: Hallo %{user}
   help: Hilfe
+  helpers: 
+    label: 
+      content_page: 
+        active: Veröffentlicht
+        active_more: Veröffentlichte Seiten sind öffentlich sichtbar. Deaktivieren Sie <em>veröffentlicht</em>, sofern Sie verhindern möchten, dass Nutzer diese Seite in jeglicher Sprache ansehen können.
+        page_name: Eindeutiger Name <small>(nur Kleinbuchstaben des ISO-Basis-Lateinisch, alphanumerische Zeichen und Unterstriche)</small>
+        page_name_more: Geben Sie einen eindeutigen, aussagekräftigen, sinnvollen und dauerhaften Bezeichner für diese Seite an. Der Name, den Sie hier eingeben, wird zum Generieren der URL für diese Seite verwendet werden. Der Name <em>Nutzungsbedingungen</em> würde bspw. in der URL <em>http://www.eol.org/info/nutzungsbedingungen</em> erscheinen.
+        parent_content_page_id: Übergeordnete Seite
+        parent_content_page_id_more: Wählen Sie optional eine übergeordnete Seite aus, unter der diese Seite gruppiert werden soll.
+      content_partner: 
+        admin_notes: Administrative Hinweise <small>(wird ausschließlich Administratoren auf EOL angezeigt)</small>
+        description_of_data: Beschreibung der Daten <small>(privat)</small>
+        display_name: Anzeigename <small>(optional)</small>
+        display_name_more: Geben Sie einen alternativen Namen an, der anstatt des <em>Projektnamens</em> genutzt und öffentlich angezeigt werden soll.
+        logo_current: "Aktuelles Logo:"
+        logo_new: "Ein neues Logo hochladen:"
+        notes: Projekthinweise <small>(privat)</small>
+        user_id: Die Informationen zum Inhaltspartner werden verwaltet von
+      data_object: 
+        bibliographic_citation: Bibliographische Zitierung
+        description: Text <small>(HTML-Code ist zulässig)</small>
+        license_id: Lizenz
+        license_id_more: Lesen Sie die <a href="%{policy_url}">Lizenzbestimmungen von EOL</a>
+        object_title: Titel
+        refs: Quellen <small>(setzen Sie jeden Quelle in jeweils eine neue Zeile)</small>
+        rights_holder: Rechteinhaber
+        rights_statement: Urheberrechtserklärung
+        source_url: URL zum ursprünglichen Datenobjekt
+        toc_item: Unterkapitel
+      google_analytics_partner_summaries: 
+        page_views: Seitenaufrufe <small>(Anzahl der Besuche auf Seiten)</small>
+        taxa_pages: Seiten <small>(Anzahl der Seiten)</small>
+        taxa_pages_viewed: Seiten aufgerufen <small>(Anzahl der von Besuchern aufgerufenen Seiten)</small>
+        time_on_page: Insgesamt auf Seiten verbrachte Zeit <small>(Stunden)</small>
+        unique_page_views: Eindeutige Seitenaufrufe <small>(Anzahl der Besucher die Seiten aufrufen)</small>
+      resource: 
+        accesspoint_url: Dataset-URL <small>(nur XML, XML.GZIP oder XML.GZ)</small>
+        dataset: Dataset
+        refresh_period_hours: Häufigkeit
+        resource_status_id: Status
+        resource_url_or_file: Quelldaten <small>(entweder eine URL angeben oder eine Datei hochladen)</small>
+        resource_url_or_file_upload: Quelldatei hochladen
+        resource_url_or_file_url: Quelle von einer URL hochladen
+        title: Quellenname
+      session: 
+        password: Passwort
+        remember_me: Für zwei Wochen eingeloggt bleiben
+        username_or_email: Nutzername oder E-Mail-Adresse
+      translated_content_page: 
+        active_translation: Veröffentlicht
+        language_id: Sprache
+      user: 
+        agreed_with_terms: Ich stimme den <a href="%{terms_url}">Nutzungsbedingungen</a> zu
+        bio: Über mich
+        credentials: Anmeldeinformationen
+        curation_application: Ein Kurator werden
+        curator_level: Derzeit sind Sie %{Curator_level_with_indefinite_article}.
+        entered_password: Passwort <small>(4 bis 16 Zeichen)</small>
+        generate_api_key: Anfordern eines API-Schlüssels
+        logo: Ein neues Foto hochladen
+        mailing_list: Ich möchte den E-Mail-Newsletter erhalten?
+        mailing_list_yes: Ja
+        new_password: Neues Passwort <small>(4 bis 16 Zeichen)</small>
+        new_password_confirmation: Neues Passwort <small>(zur Bestätigung)</small>
+        user_identities: Ich bin
+        username: Nutzername <small>(4 bis 32 Zeichen)</small>
+        username_or_email: Nutzername oder E-Mail-Adresse
+    select: 
+      prompt: Bitte wählen Sie
+    submit: 
+      content_page: 
+        create: Seite erstellen
+        edit: Bearbeiten
+        preview: Vorschau
+        update: Seite aktualisieren
+      content_partner: 
+        create: Inhaltspartner erstellen
+        update: Informationen zum Inhaltspartner speichern
+      content_partner_agreements: 
+        create: Den Bedingungen des Inhaltspartners zustimmen
+      content_partner_contact: 
+        create: Kontakt hinzufügen
+        destroy: Kontakt löschen
+        update: Kontakt aktualisieren
+      create: "%{model} erstellen"
+      data_object: 
+        create: Artikel hinzufügen
+        create_text: Artikel hinzufügen
+        update: Artikel speichern
+      name: 
+        create: Namen hinzufügen
+        update: Namen aktualisieren
+      resource: 
+        create: Quelle hinzufügen
+        update: Quelle aktualisieren
+  home: Startseite
   home_page_link_advisory_information: Dieser Link führt zur Hauptseite der Enzyklopädie des Lebens.
   image_is_no_longer_available: Das Bild ist nicht mehr verfügbar.
   image_not_found: Das Bild wurde nicht gefunden.
-  image_thumbnail_alt_text: Dieses Bild im Status %{vetted_status} gehört zu %{scientific_name}
   images: Bilder
-  in_my_collection_button: In meiner Sammlung
   indexed: Indiziert
-  insufficient_privileges_to_add_common_name: Du bist nicht berechtigt diesem Taxon eine gebräuchliche Bezeichnung hinzuzufügen.
   iucn_red_list_status_advisory_information: Dieser Link führt zur Website der International Union for Conservation of Nature and Natural Resources (IUCN) auf der Sie weitere Informationen zur Roten Liste bedrohter Arten der IUCN finden können.
   join_community_button: Dieser Gemeinschaft beitreten
   join_eol_button_html: Registrieren Sie sich jetzt bei <abbr title="Encyclopedia of Life">EOL</abbr>
@@ -91,15 +391,37 @@ de:
   language: "Sprache:"
   language_menu_item: "%{language_label} <abbr>(%{language_abbr})</abbr>"
   last_updated_time_ago: Letztmalig vor %{time_passed} aktualisiert
-  learn_about_content_partners: Erfahren Sie mir über unsere Partner für Inhalte
-  learn_how_to_interact: Erfahren Sie, was Sie alles machen können
-  learn_how_to_join: Erfahren Sie, wie Sie teilnehmen können
+  learn_about_content_partners: Wie kann ich einer werden?
   leave_a_comment: Einen Kommentar hinterlassen
   license: Lizenz
+  license_all_rights_reserved: Alle Rechte vorbehalten
+  license_cc_by: Creative Commons „Namensnennung“ (CC BY)
+  license_cc_by_2_0: Creative Commons „Namensnennung“ 2.0 (CC BY 2.0)
+  license_cc_by_2_5: Creative Commons „Namensnennung“ 2.5 (CC BY 2.5)
+  license_cc_by_3_0: Creative Commons „Namensnennung“ 3.0 (CC BY 3.0)
+  license_cc_by_nc: Creative Commons „Namensnennung, nicht kommerziell“ (CC BY-NC)
+  license_cc_by_nc_2_0: Creative Commons „Namensnennung, nicht kommerziell“ 2.0 (CC BY-NC 2.0)
+  license_cc_by_nc_2_5: Creative Commons „Namensnennung, nicht kommerziell“ 2.5 (CC BY-NC 2.5)
+  license_cc_by_nc_3_0: Creative Commons „Namensnennung, nicht kommerziell“ 3.0 (CC BY-NC 3.0)
+  license_cc_by_nc_sa: Creative Commons „Namensnennung, nicht kommerziell, Weitergabe unter gleichen Bedingungen“ (CC BY-NC-SA)
+  license_cc_by_nc_sa_1_0: Creative Commons „Namensnennung, nicht kommerziell, Weitergabe unter gleichen Bedingungen“ 1.0 (CC BY-NC-SA 1.0)
+  license_cc_by_nc_sa_2_0: Creative Commons „Namensnennung, nicht kommerziell, Weitergabe unter gleichen Bedingungen“ 2.0 (CC BY-NC-SA 2.0)
+  license_cc_by_nc_sa_2_5: Creative Commons „Namensnennung, nicht kommerziell, Weitergabe unter gleichen Bedingungen“ 2.5 (CC BY-NC-SA 2.5)
+  license_cc_by_nc_sa_3_0: Creative Commons „Namensnennung, nicht kommerziell, Weitergabe unter gleichen Bedingungen“ 3.0 (CC BY-NC-SA 3.0)
+  license_cc_by_sa: Creative Commons „Namensnennung, Weitergabe unter gleichen Bedingungen“ (CC BY-SA)
+  license_cc_by_sa_1_0: Creative Commons „Namensnennung, Weitergabe unter gleichen Bedingungen“ 1.0 (CC BY-SA 1.0)
+  license_cc_by_sa_2_0: Creative Commons „Namensnennung, Weitergabe unter gleichen Bedingungen“ 2.0 (CC BY-SA 2.0)
+  license_cc_by_sa_2_5: Creative Commons „Namensnennung, Weitergabe unter gleichen Bedingungen“ 2.5 (CC BY-SA 2.5)
+  license_cc_by_sa_3_0: Creative Commons „Namensnennung, Weitergabe unter gleichen Bedingungen“ 3.0 (CC BY-SA 3.0)
+  license_gnu_fdl: GNU Lizenz für freie Dokumentation (GNU FDL)
+  license_gnu_gpl: GNU General Public License (GNU GPL)
+  license_not_applicable: Lizenz nicht zutreffend
+  license_public_domain: Gemeinfreiheit
   literature: Literatur
   location: Standort
+  login: Anmelden
   login_or_create_account: Anmelden oder Nutzerkonto erstellen
-  manage_community: Gemeinschaft verwalten
+  logout: Abmelden
   maps_with_count: 
     one: "%{count} Karte"
     other: "%{count} Karten"
@@ -121,14 +443,21 @@ de:
   other_collection_items_with_count: 
     one: "%{count} weiteres Element"
     other: "%{count} weitere Elemente"
+  other_community_items_with_count: 
+    one: "%{count} weiterer Artikel"
+    other: "%{count} weitere Artikel"
   overview: Übersicht
   pages_with_pictures_and_text: Seiten mit Bildern und Text
   pages_with_pictures_or_text: Seiten mit Bildern oder Text
+  personal_space: Persönlicher Bereich
   post_comment: Kommentieren
+  preferences: Einstellungen
   preferred_common_name_advisory_information: Dies ist die bevorzugte gebräuchliche Bezeichnung für dieses Taxon.
+  press_room: Pressebereich
   profile: Profil
   profile_image_alt_text_curator: Profilbild für den Kurator %{user_given_name} %{user_family_name}
   profile_image_alt_text_member: Profilbild für das Mitglied %{user_given_name} %{user_family_name}
+  punctuation_comma: ","
   rated_by_count_people: 
     one: von einer Person
     other: von %{count} Personen
@@ -137,10 +466,11 @@ de:
   resources: Informationsquellen
   rights: Berechtigungen
   rights_holder: Rechteinhaber
+  roles: Nutzergruppen
   rss_abbr_html: <abbr title="Really Simple Syndication">RSS</abbr>
   search_by_term_page_title: "EOL-Suche: %{term}"
   search_field_label: EOL durchsuchen
-  search_input_advisory_information: Eine gebräuchliche oder wissenschaftliche Bezeichnung für die lebenden Organismen angeben, zu denen Sie mehr in Erfahrung bringen möchten. Versuchen Sie es bspw. mit Tomate.
+  search_input_advisory_information: Bitte eine gebräuchliche oder wissenschaftliche Bezeichnung für die lebenden Organismen angeben, zu denen Sie mehr in Erfahrung bringen möchten. Sie können aber auch nach anderen EOL-Mitgliedern, Sammlungen sowie Gemeinschaften suchen.
   search_placeholder: EOL durchsuchen …
   search_the_site: Website durchsuchen
   see_all_classifications_with_count_html: 
@@ -152,16 +482,27 @@ de:
   see_all_comments_with_count_for_text: 
     one: Den Kommentar zu diesem Artikel ansehen
     other: Alle %{count} Kommentare zu diesem Artikel ansehen
+  see_all_communities_with_count_html: 
+    one: <span class="assistive">Die Gemeinschaft ansehen, die ihren Schwerpunkt auf diesem Taxon hat.</span>
+    other: <span class="assistive">Die %{count} Gemeinschaften ansehen, die ihren Schwerpunkt auf diesem Taxon haben.</span>
   see_all_media_link: Alle Medien ansehen
   select_topic: Wählen Sie ein Thema
   selected_language_advisory_information: Dies ist die derzeit ausgewählten Sprache.
   set_as_exemplar: Als Beispiel festlegen
+  show_status_message: Statusmeldung anzeigen
+  show_warning_message: Warnmeldung anzeigen
   sign_in: Anmelden
   sign_out: Abmelden
   site_information: Informationen zur Website
   skip_to_content: Zum Inhalt
+  skip_to_navigation: Direkt zur Navigation
+  skip_to_table_of_contents: Direkt zum Inhaltsverzeichnis
   sort_by: Sortieren nach
-  sound_thumbnail_alt_text: Diese Tonaufnahme im Status %{vetted_status} gehört zu %{scientific_name}
+  sort_by_button: Sortieren
+  sort_by_label: Sortieren nach
+  sort_by_newest_option: Neueste
+  sort_by_oldest_option: Älteste
+  sort_by_rating_option: Bewertung
   source_url: Quell-URL
   supplier: Datenlieferant
   switch_language_advisory_information: Sprache der Website zu %{language_label} umschalten
@@ -169,6 +510,7 @@ de:
   taxa: Taxa
   taxon: Taxon
   text_summary_more_link: Den vollständige Eintrag lesen
+  thanks_for_feedback: Vielen Dank für Ihren Beitrag.
   there_are_currently_no_members_in_this_community: Diese Gemeinschaft hat momentan keine Mitglieder.
   this_community_has_no_focus_list: Diese Gemeinschaft verfügt über keine Liste an Schwerpunkten.
   threat_status_header_colon: "IUCN Gefährdungsstufe:"
@@ -181,17 +523,34 @@ de:
   twitter: Twitter
   unknown: Unbekannt
   unreviewed: Nicht geprüft
+  updated_community: Die Gemeinschaft wurde erfolgreich aktualisiert
   updates_with_count: 
     one: "%{count} Aktualisierung"
     other: "%{count} Aktualisierungen"
+  us_dolars_75: 75 USD
+  us_dollars_100: 100 USD
+  us_dollars_35: 35 USD
+  us_dollars_50: 50 USD
   user_system_down: Das Nutzerregistrierungssystem ist momentan nicht verfügbar. Bitte versuchen Sie es später erneut.
-  video_thumbnail_alt_text: Dieses Video im Status %{vetted_status} gehört zu %{scientific_name}
+  using_the_site: Nutzung der Website
+  verification_phrase_did_not_match: Die Zeichen, die Sie zur Bestätigung eingegeben haben, stimmen nicht überein
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Nur Seiten mit mindestens einem Bild oder Text anzeigen.
   what_is_a_taxon: Was ist ein Taxon?
   what_is_eol: Was ist EOL?
   what_is_this_question: Was bedeutet dies?
+  wikipedia_article_will_be_harvested_tonight: Der Wikipediaartikel %{article} in Version %{rev} wird heute Nacht abgefragt.
+  wikipedia_revisions_must_match_pattern_error: Die URL zur Version muss mit http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID* übereinstimmen.
   you_are_an_admin_so_i_will_show_you_that_the_error_was: "Sie sind Administrator. Der Fehler bestand darin:"
   you_are_not_authorized_to_perform_this_action: Sie sind nicht berechtigt, diese Aktion durchzuführen.
+  you_joined_community: Sie sind dieser Gemeinschaft erfolgreich beigetreten.
+  you_left_community: Sie haben diese Gemeinschaft erfolgreich verlassen.
+  your_current_rating_0_of_5: "Ihre derzeitige Bewertung: 0 von 5"
+  your_current_rating_1_of_5: "Ihre derzeitige Bewertung: 1 von 5"
+  your_current_rating_2_of_5: "Ihre derzeitige Bewertung: 2 von 5"
+  your_current_rating_3_of_5: "Ihre derzeitige Bewertung: 3 von 5"
+  your_current_rating_4_of_5: "Ihre derzeitige Bewertung: 4 von 5"
+  your_current_rating_5_of_5: "Ihre derzeitige Bewertung: 5 von 5"
+  your_message_was_sent: Ihre Nachricht wurde gesendet.
   your_preferences: Ihre Einstellungen
   your_preferences_have_been_updated: Ihre Einstellungen wurden aktualisiert.
   your_rating: Ihre Bewertung

@@ -44,7 +44,7 @@
         %br
         %i
           - if @search_string.blank?
-            =I18n.t("_glossary_is_empty_")
+            =I18n.t("glossary_is_empty")
           - else
             = "#{I18n.t(:no_results_for)} \"#{@search_string}\""
         %br

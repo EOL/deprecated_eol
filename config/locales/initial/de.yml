@@ -3,7 +3,7 @@
 # Export driver: syck-pecl
 # Author: Kghbln
 de: 
-  _encyclopedia_of_life: "- Enzyklopädie des Lebens"
+  dash_encyclopedia_of_life: "- Enzyklopädie des Lebens"
   about_eol: Über EOL
   account_information: Nutzerkontoinformationen
   account_registered_but_not_ready_try_later: Ihr Konto ist registriert aber noch nicht zum Nutzen bereit. Bitte versuchen Sie es erneut in fünf Minuten.

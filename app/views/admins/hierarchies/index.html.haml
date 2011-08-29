@@ -23,7 +23,7 @@
 
           %td{:class => column_class}
             - if hierarchy.user_or_agent_or_label_name == 'uBio'
-              =I18n.t("this_is_a_flat_list_of_10_mill")
+              =I18n.t("this_is_a_flat_list_of_10_million_strings")
             -else
               = link_to(hierarchy.form_label, { :action => 'show', :id => hierarchy.id })
               %br

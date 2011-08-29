@@ -4,15 +4,13 @@
     .main_container.page_statistics
       .header
         %h3= I18n.t(:page_statistics)
-      .copy
+      .copy.help_text
         %h4= I18n.t(:what_do_these_numbers_mean)
         = I18n.t(:page_statistics_explanation)
       %dl
         %dt= I18n.t(:richness_score)
-        - unless @metrics.blank?
-          %dd= @metrics.richness_for_display
-        - else
-          %dd
+        %dd
+          = @metrics.blank? ? "&nbsp;" : @metrics.richness_for_display
         %dt= I18n.t(:trusted_images)
         %dd= number_with_delimiter(@media_facets['ancestor_trusted_image'], :delimiter => ",")
         %dt= I18n.t(:unreviewed_images)

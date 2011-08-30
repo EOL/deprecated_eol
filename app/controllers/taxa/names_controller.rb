@@ -64,13 +64,13 @@ class Taxa::NamesController < TaxaController
 private
 
   def get_common_names
-    unknown = Language.unknown.label # Just don't want to look it up every time.
+    unknown_id = Language.unknown.id
     if @selected_hierarchy_entry
       names = EOL::CommonNameDisplay.find_by_hierarchy_entry_id(@selected_hierarchy_entry.id)
     else
       names = EOL::CommonNameDisplay.find_by_taxon_concept_id(@taxon_concept.id)
     end
-    common_names = names.select {|n| n.language_label != unknown}
+    common_names = names.select {|n| n.language_id != unknown_id}
   end
 
   def preload_core_relationships_for_names

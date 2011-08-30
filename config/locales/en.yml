@@ -1333,7 +1333,7 @@ en:
   dato_unreviewed_note: "%{username} marked this %{type} as unreviewed."
   dato_untrusted_note: "%{username} untrusted this %{type}."
   activate_email_intro: "Dear %{full_name} (%{username}),"
-  activate_email_welcome: "Welcome to the Encyclopedia of Life and thank you for registering!  To learn more about how to use the site, view the FAQ pages (http://www.eol.org/faq) and read our newsletter (http://www.eol.org/content/page/newsletter)."
+  activate_email_welcome: "Welcome to the Encyclopedia of Life and thank you for registering!  To learn more about how to use the site, view the FAQ pages (%{url}/faq) and read our newsletter (%{url}/content/page/newsletter)."
   activate_email_enjoy_exploring: "Enjoy exploring the diversity of Life."
   activate_email_footer: "- The Encyclopedia of Life Team"
   dear_given_name_with_comma: "Dear %{given_name},"

@@ -24,11 +24,11 @@ class Notifier < ActionMailer::Base
     body        :user => user, :verify_user_url => url
   end
 
-  def account_activated(user)
+  def account_activated(user, url)
     subject     I18n.t(:email_subject_account_activated)
     recipients  user.email
     from        $WEBSITE_EMAIL_FROM_ADDRESS
-    body        :user => user
+    body        :user => user, :url => url
   end
 
   def contact_us_auto_response(contact)
@@ -96,13 +96,13 @@ class Notifier < ActionMailer::Base
     unless agent_or_user.email.blank?
       # by default send all emails to the curator
       recipient_email = agent_or_user.email
-  
+
       # Check to see if we have it configured to send all reports to a single email address
       parameter = SiteConfigurationOption.find_by_parameter('email_actions_to_curators_address')
       if parameter && parameter.value
         recipient_email = parameter.value
       end
-  
+
       subject     I18n.t(:email_subject_summary_of_recent_comments_and_curator_actions_for_your_eol_content)
       recipients  recipient_email
       from        $WEBSITE_EMAIL_FROM_ADDRESS

@@ -32,7 +32,7 @@ class SessionsController < ApplicationController
   def destroy
     log_out
     store_location(params[:return_to])
-    flash[:notice] =  I18n.t(:you_have_been_logged_out)
+    flash[:notice] = I18n.t(:you_have_been_logged_out)
     redirect_back_or_default
   end
 
@@ -59,6 +59,7 @@ private
 
   def log_out
     cookies.delete :user_auth_token
+    session[:language] = current_user.language_abbr # Store this, so it doesn't change on logout.
     reset_session
   end
 end

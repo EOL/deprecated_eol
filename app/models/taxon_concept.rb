@@ -438,8 +438,8 @@ class TaxonConcept < SpeciesSchemaModel
     entries_for_this_concept = HierarchyEntry.find_all_by_taxon_concept_id(id,
       :select => {
         :hierarchy_entries => [:published, :visibility_id, :identifier, :source_url],
-        :hierarchies => [:label, :outlink_uri, :url],
-        :resources => :title,
+        :hierarchies => [:label, :outlink_uri, :url, :id],
+        :resources => [ :title, :id, :content_partner_id ],
         :agents => [ :logo_cache_url, :full_name ],
         :collection_types => [ :parent_id ] },
       :include => { :hierarchy => [:resource, :agent, :collection_types] })

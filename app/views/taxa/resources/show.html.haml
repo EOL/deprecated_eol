@@ -25,7 +25,8 @@
                 - if outlink
                   %tr
                     %td
-                      = link_to agent_logo(outlink[:hierarchy].agent, "small"), outlink[:hierarchy].url
+                      - logo = image_tag(outlink[:hierarchy].resource.content_partner.logo_url, :alt => "") rescue agent_logo(outlink[:hierarchy].agent, "small")
+                      = link_to logo, outlink[:hierarchy].url
                     %td
                       = hierarchy_or_resource_name(outlink[:hierarchy])
                     %td

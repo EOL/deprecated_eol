@@ -57,7 +57,7 @@ describe 'Home page' do
         body.should have_tag('.language p a span', :text => /language.*#{language.iso_639_1}/i)
       else
         body.should have_tag('.language a[href*=?]', /set_language.*language=#{language.iso_639_1}/,
-                              :text => /#{language.source_form}.*#{language.iso_639_1}.*/i)
+                              :text => language.source_form)
       end
     end
   end

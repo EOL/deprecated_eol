@@ -365,6 +365,18 @@ form#switch_hierarchy_entry
       font-weight: bold
     dd
       margin: 0 0 5px 20px
+  #resources_show
+    .section.half
+      float: left
+      width: 299px
+      margin-right: 20px
+      dl
+        line-height: 140%
+        margin: 0 0 40px 0
+        dt
+          font-weight: bold
+        dd
+          margin: 0 0 5px 20px
 #content_partner_edit, #content_partner_new
   &.site_column
     width: 640px
@@ -552,6 +564,11 @@ p.flag
       margin-top: 2px
       font-size: 1.1em
       padding: 0
+#permalink_add_association
+  #main
+    ul > li
+      img
+        +max_dimensions($logo_size_primary, $logo_size_primary)
 #taxon_detail
   .rating
     h5

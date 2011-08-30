@@ -5,7 +5,7 @@
   - if item.taxon_concept_content && item.taxon_concept_content.image_object
     = link_to image_tag(item.taxon_concept_content.image_object.thumb_or_object('88_88')), taxon_overview_path(item)
   - else
-    %span.icon{:title => I18n.t(:item_type_taxon_assistive)}
+    = link_to image_tag("/images/v2/icon_taxon.png"), taxon_overview_path(item)
 .details
   %h4= link_to item.title_canonical, taxon_overview_path(item)
   - subtitle = item.preferred_common_name_in_language(Language.english)
@@ -25,5 +25,7 @@
             = he.hierarchy.agent.full_name
           - else
             = link_to he.hierarchy.agent.full_name, he.hierarchy.agent.homepage
-          %span<> •
-          = item.entry.preferred_classification_summary
+          - classification_summary = item.entry.preferred_classification_summary
+          - unless classification_summary.blank?
+            %span<> &bull;
+            = classification_summary

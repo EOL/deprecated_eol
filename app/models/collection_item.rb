@@ -43,19 +43,17 @@ class CollectionItem < ActiveRecord::Base
 
   def index_collection_item_in_solr
     return unless $INDEX_RECORDS_IN_SOLR_ON_SAVE
+    remove_collection_item_from_solr
+    # If there is no collection associated with this collection item, it is meant for historical indexing only, and
+    # there is no need to index this in solr.  ...In fact, it had better not be indexed!
     if collection_id
-      remove_collection_item_from_solr
       begin
         solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_COLLECTION_ITEMS_CORE)
       rescue Errno::ECONNREFUSED => e
         puts "** WARNING: Solr connection failed."
         return nil
       end
-
       solr_connection.create(solr_index_hash)
-    else # There is no collection associated with this collection item; it is meant for historical indexing only, and
-         # there is no need to index this in solr.  ...In fact, it had better not be indexed!
-      remove_collection_item_from_solr
     end
   end
 

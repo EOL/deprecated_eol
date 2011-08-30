@@ -80,38 +80,37 @@ tc = build_taxon_concept(
                        {:toc_item => testy[:toc_item_2]}, {:toc_item => testy[:toc_item_3]}, {:toc_item => testy[:toc_item_3]}]
 )
 testy[:id]            = tc.id
-testy[:taxon_concept] = TaxonConcept.find(testy[:id]) # This just makes *sure* everything is loaded...
 # The curator factory cleverly hides a lot of stuff that User.gen can't handle:
-testy[:curator]       = build_curator(testy[:taxon_concept])
+testy[:curator]       = build_curator(tc)
 # TODO - I am slowly trying to convert all of the above options to methods to make testing clearer:
 agent = testy[:curator].agent
 (testy[:common_name_obj], testy[:synonym_for_common_name], testy[:tcn_for_common_name]) =
-  testy[:taxon_concept].add_common_name_synonym(testy[:common_name], :agent => agent, :language => Language.english,
+  tc.add_common_name_synonym(testy[:common_name], :agent => agent, :language => Language.english,
                                                 :vetted => Vetted.trusted, :preferred => true)
-testy[:taxon_concept].add_common_name_synonym(testy[:unreviewed_name], :agent => agent, :language => Language.english,
+tc.add_common_name_synonym(testy[:unreviewed_name], :agent => agent, :language => Language.english,
                                               :vetted => Vetted.unknown, :preferred => false)
-testy[:taxon_concept].add_common_name_synonym(testy[:untrusted_name], :agent => agent, :language => Language.english,
+tc.add_common_name_synonym(testy[:untrusted_name], :agent => agent, :language => Language.english,
                                               :vetted => Vetted.untrusted, :preferred => false)
 # References for overview text object
-testy[:taxon_concept].overview[0].add_ref('A published visible reference for testing.',
+tc.overview[0].add_ref('A published visible reference for testing.',
   1, Visibility.visible)
-testy[:taxon_concept].overview[0].add_ref('A published invisible reference for testing.',
+tc.overview[0].add_ref('A published invisible reference for testing.',
   1, Visibility.invisible)
-testy[:taxon_concept].overview[0].add_ref('An unpublished visible reference for testing.',
+tc.overview[0].add_ref('An unpublished visible reference for testing.',
   0, Visibility.visible)
-testy[:taxon_concept].overview[0].add_ref('A published visible reference with an invalid identifier for testing.',
+tc.overview[0].add_ref('A published visible reference with an invalid identifier for testing.',
   1, Visibility.visible).add_identifier('invalid', 'An invalid reference identifier.')
-testy[:taxon_concept].overview[0].add_ref('A published visible reference with a DOI identifier for testing.',
+tc.overview[0].add_ref('A published visible reference with a DOI identifier for testing.',
   1, Visibility.visible).add_identifier('doi', '10.12355/foo/bar.baz.230')
-testy[:taxon_concept].overview[0].add_ref('A published visible reference with a URL identifier for testing.',
+tc.overview[0].add_ref('A published visible reference with a URL identifier for testing.',
   1, Visibility.visible).add_identifier('url', 'some/url.html')
 
 # And we want one comment that the world cannot see:
 Comment.find_by_body(testy[:comment_bad]).hide User.last
 testy[:user] = User.gen
 
-testy[:child1] = build_taxon_concept(:parent_hierarchy_entry_id => testy[:taxon_concept].hierarchy_entries.first.id)
-testy[:child2] = build_taxon_concept(:parent_hierarchy_entry_id => testy[:taxon_concept].hierarchy_entries.first.id)
+testy[:child1] = build_taxon_concept(:parent_hierarchy_entry_id => tc.hierarchy_entries.first.id)
+testy[:child2] = build_taxon_concept(:parent_hierarchy_entry_id => tc.hierarchy_entries.first.id)
 testy[:sub_child] = build_taxon_concept(:parent_hierarchy_entry_id => testy[:child1].hierarchy_entries.first.id)
 
 testy[:good_title] = %Q{"Good title"}
@@ -133,17 +132,17 @@ testy[:syn_count] = Synonym.count
 testy[:name_count] = Name.count
 testy[:name_string] = "Piping plover"
 testy[:agent] = agent
-testy[:synonym] = testy[:taxon_concept].add_common_name_synonym(testy[:name_string], :agent => testy[:agent], :language => Language.english)
+testy[:synonym] = tc.add_common_name_synonym(testy[:name_string], :agent => testy[:agent], :language => Language.english)
 testy[:name] = testy[:synonym].name
 testy[:tcn] = testy[:synonym].taxon_concept_name
 
-testy[:taxon_concept].current_user = testy[:curator]
-testy[:syn1] = testy[:taxon_concept].add_common_name_synonym('Some unused name', :agent => testy[:agent], :language => Language.english)
+tc.current_user = testy[:curator]
+testy[:syn1] = tc.add_common_name_synonym('Some unused name', :agent => testy[:agent], :language => Language.english)
 testy[:tcn1] = TaxonConceptName.find_by_synonym_id(testy[:syn1].id)
 testy[:name_obj] ||= Name.last
-testy[:he2]  ||= build_hierarchy_entry(1, testy[:taxon_concept], testy[:name_obj])
+he2 = build_hierarchy_entry(1, tc, testy[:name_obj])
 # Slightly different method, in order to attach it to a different HE:
-testy[:syn2] = Synonym.generate_from_name(testy[:name_obj], :entry => testy[:he2], :language => Language.english, :agent => testy[:agent])
+testy[:syn2] = Synonym.generate_from_name(testy[:name_obj], :entry => he2, :language => Language.english, :agent => testy[:agent])
 testy[:tcn2] = TaxonConceptName.find_by_synonym_id(testy[:syn2].id)
 
 testy[:superceded_taxon_concept] = TaxonConcept.gen(:supercedure_id => testy[:id])
@@ -151,5 +150,6 @@ testy[:unpublished_taxon_concept] = TaxonConcept.gen(:published => 0, :supercedu
 
 testy[:before_all_check] = User.gen(:username => 'testy_scenario')
 
+testy[:taxon_concept] = TaxonConcept.find(testy[:id]) # This just makes *sure* everything is loaded...
 
 EOL::TestInfo.save('testy', testy)

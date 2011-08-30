@@ -46,6 +46,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   before_save :check_credentials
   before_save :encrypt_password
   before_save :instantly_approve_curator_level, :if => :curator_level_can_be_instantly_approved?
+  after_save :clear_cached_user
 
   accepts_nested_attributes_for :user_info
 
@@ -363,7 +364,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   def grant_admin
     self.update_attributes(:admin => true)
-    clear_cached_user
   end
 
   def grant_curator(level = :full, options = {})
@@ -377,7 +377,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       end
     end
     self.update_attributes(:requested_curator_level_id => nil)
-    clear_cached_user
   end
   alias approve_to_curate grant_curator
 
@@ -389,13 +388,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     self.update_attributes(:curator_verdict_by => nil,
                            :curator_verdict_at => nil,
                            :requested_curator_level_id => nil)
-    clear_cached_user
   end
   alias revoke_curatorship revoke_curator
-
-  def clear_cached_user
-    $CACHE.delete("users/#{self.id}") if $CACHE
-  end
 
   def clear_entered_password
     self.entered_password = ''
@@ -747,5 +741,9 @@ private
     return false unless self.class.column_names.include?('requested_curator_level_id')
     self.requested_curator_level_id == CuratorLevel.assistant_curator.id ||
     self.requested_curator_level_id == self.curator_level_id
+  end
+
+  def clear_cached_user
+    $CACHE.delete("users/#{self.id}") if $CACHE
   end
 end

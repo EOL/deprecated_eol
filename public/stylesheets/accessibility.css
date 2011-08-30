@@ -890,9 +890,7 @@ ul.feed li > a > img {
   max-width: 160px;
   max-height: 125px;
   width: expression(this.width > 160 ? "160px" : true);
-  height: expression(this.height > 125 ? "125px" : true);
-  margin-left: auto;
-  margin-right: auto; }
+  height: expression(this.height > 125 ? "125px" : true); }
 #media_list #sidebar.filters img {
   max-width: 220px; }
 

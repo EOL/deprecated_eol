@@ -20,15 +20,23 @@
           %p
             For press inquiries, please contact
             = link_to "eolv2press@eol.org", "mailto:eolv2press@eol.org"
-        - form_tag(preview_path, :method => :post) do |f|
-          %fieldset
-            %dl
-              %dt
-                %label Password
-              %dd
-                = password_field_tag :preview
-          %fieldset.actions
-            = submit_tag I18n.t(:enter)
+        - if $PREVIEW_LOCKDOWN.is_a? String
+          - form_tag(preview_path, :method => :post) do |f|
+            %fieldset
+              %dl
+                %dt
+                  %label Password
+                %dd
+                  = password_field_tag :preview
+            %fieldset.actions
+              = submit_tag I18n.t(:enter)
+        - else
+          .update
+            %h2= "Login Unavailable"
+            %p
+              The site will be available for press previews
+              %strong
+                at 9:00 ET on Wednesday Aug 31.
     #footer{ :role => "contentinfo" }
       .section
         %h2.assistive= I18n.t(:site_information)

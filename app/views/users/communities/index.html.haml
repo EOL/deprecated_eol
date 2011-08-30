@@ -1,15 +1,10 @@
-- if params[:sort_by] == 'newest' || params[:sort_by].nil?
-  - communities = @user.communities.published.sort! { |a,b| b.created_at <=> a.created_at }
-- else
-  - communities = @user.communities.published.sort! { |a,b| a.created_at <=> b.created_at }
-
 #user_communities.main_container
   .heading
     %h3
-      = I18n.t(:users_member_of_count_communities, :count => communities.size)
-      - if communities.size > 1
+      = I18n.t(:users_member_of_count_communities, :count => @communities.size)
+      - if @communities.size > 1
         = render :partial => 'shared/sort_by_date_form'
-  - unless communities.blank?
+  - unless @communities.blank?
     %ul.object_list
-      - communities.each do |community|
+      - @communities.each do |community|
         = render :partial => 'communities/community_summary', :locals => { :community => community, :show_description => true }

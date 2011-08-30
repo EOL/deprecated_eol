@@ -19,6 +19,18 @@ body
   > #header
     a
       color: #ffffff
+    p.status
+      clear: both
+      padding: 7px 10px
+      margin: 10px 0
+      font-weight: bold
+      text-align: center
+      color: #394651
+      border: 1px solid #c7d471
+      background: #edf6b2
+      &.error
+        border-color: #f2d2cc
+        background: #ffeae6
     h1
       position: absolute
       right: 0
@@ -148,8 +160,10 @@ body
     background: #394651
     .section
       @extend .site_column
+      padding: 0
     .copyright
       float: right
+      padding: 20px 0 0 0
       h6
         padding: 0 0 5px 0
         a
@@ -164,6 +178,14 @@ body
         font-size: .83em
         font-weight: bold
         color: #6f7e8b
+    .disclaimer
+      color: #fff
+      background: #566572
+      padding: 10px 20px
+      font-size: .92em
+      color: #f0f4f7
+      line-height: 140%
+      text-align: center
     ul.nav
       float: left
       margin: 0 0 20px 0
@@ -198,8 +220,15 @@ body
           text-decoration: none
           overflow: hidden
           background: transparent url("/images/v2/icon_social-media.png") 0 0 no-repeat
+          border: 1px solid #28323a
           &.rss
-            background-position: 0 100%
+            background-position: right -25px
+          &.facebook
+            background-position: right -50px
+          &.tumblr
+            background-position: right -75px
+          &.flickr
+            background-position: right -100px
 
 
 .thumbnails

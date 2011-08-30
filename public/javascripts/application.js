@@ -219,6 +219,15 @@ $(function() {
     if(confirm($(this).attr('data_confirm'))) { return true; } else { return false; }
   });
 
+  // When you select all items, hide the checkboxes (and vice-versa) on collection items:
+  $('form.edit_collection #scope').change(function() {
+    if ($('form.edit_collection #scope').val() == 'all_items') {
+      $('.object_list :checkbox').parent().hide();
+    } else {
+      $('.object_list :checkbox').parent().show();
+    }
+  });
+
   (function($content_partner_resources) {
     var $radios = $content_partner_resources.find("dl.resources :radio");
     $radios.change(function() {

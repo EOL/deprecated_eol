@@ -31,9 +31,14 @@ body.home > #header {
     width: 282px;
     height: 120px; }
 
-#user_communities ul.object_list img {
-  float: left;
-  margin: 0 20px 0 0; }
+#collections_tab .collections {
+  padding: 20px 0 0 0; }
+
+#user_communities .communities {
+  padding: 20px 0 0 0; }
+  #user_communities .communities ul.object_list img {
+    float: left;
+    margin: 0 20px 0 0; }
 
 /*Content partner various */
 #profile_content_connections li img {
@@ -364,12 +369,6 @@ p.status.error {
 .home p.status.error {
   border: 1px solid #f2d2cc;
   background: #ffeae6; }
-.home #content .section .stats p.meta {
-  padding: 40px 0 15px 40px;
-  font-size: 0.83em;
-  font-weight: bold;
-  text-transform: uppercase;
-  color: #82919e; }
 
 /*HR change permalink class to text, but use article elsewhere for text objects so we are still using
  * article as that's what en_type is returning... at some point we should go through and change all 'article'
@@ -444,9 +443,11 @@ form#new_data_object fieldset.information, form.edit_data_object fieldset.inform
     text-align: center;
     overflow: hidden; }
     #media_list #main > ul > li .figure .audio p {
-      padding: 50px 5px 40px; }
+      padding: 50px 5px 30px; }
       #media_list #main > ul > li .figure .audio p a {
         color: #e2e9ef; }
+    #media_list #main > ul > li .figure .audio noscript a, #media_list #main > ul > li .figure .audio .player a {
+      color: #e2e9ef; }
     #media_list #main > ul > li .figure .audio audio {
       position: absolute;
       left: 0;
@@ -460,15 +461,23 @@ form#new_data_object fieldset.information, form.edit_data_object fieldset.inform
     z-index: 300;
     position: absolute; }
   #media_list #main > ul > li .figure .video {
+    text-align: center;
     border: 1px solid #cad3db;
     width: 158px;
     height: 123px; }
+    #media_list #main > ul > li .figure .video p {
+      padding: 93px 5px 0; }
 #media_list #main > ul > li > a {
   display: inline-block;
   overflow: hidden; }
 #media_list #main > ul > li form {
   display: block;
   clear: both; }
+  #media_list #main > ul > li form.taxon_concept_exemplar_image input[type="submit"] {
+    position: absolute;
+    top: 95px;
+    right: 0;
+    z-index: 3; }
 
 /*style for vetted status flags - various locations */
 p.flag {
@@ -527,6 +536,8 @@ p.flag {
   border: none; }
 
 /*HR z-indexes were messed up in header, also we're putting session partial on home page for logged in users */
+body.home > #header .session.signed_in {
+  width: 400px; }
 body.home > #header .session.join {
   text-align: center !important; }
   body.home > #header .session.join a {

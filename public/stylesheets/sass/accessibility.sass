@@ -50,11 +50,16 @@ body.home
       textarea
         width: 282px
         height: 120px
+#collections_tab
+  .collections
+    padding: 20px 0 0 0
 #user_communities
-  ul.object_list
-    img
-      float: left
-      margin: 0 20px 0 0
+  .communities
+    padding: 20px 0 0 0
+    ul.object_list
+      img
+        float: left
+        margin: 0 20px 0 0
 /** Content partner various **/
 #profile_content_connections
   li
@@ -379,11 +384,13 @@ ul.content_partner_contacts
   table
     margin-top: 20px
 /** warning messages - check HR commits for updates to this **/
-p.status.error
-  border: 1px solid #f2d2cc
-  background: #ffeae6
+p.status
+  &.error
+    border: 1px solid #f2d2cc
+    background: #ffeae6
 /** move to home.css once HR involvement ceases **/
 .home
+
   p.status
     &.notice, &.error, &.warning
       clear: both
@@ -399,15 +406,6 @@ p.status.error
     &.error
       border: 1px solid #f2d2cc
       background: #ffeae6
-  #content
-    .section
-      .stats
-        p.meta
-          padding: 40px 0 15px 40px
-          font-size: 0.83em
-          font-weight: bold
-          text-transform: uppercase
-          color: #82919E
 
 /** HR change permalink class to text, but use article elsewhere for text objects so we are still using
  * article as that's what en_type is returning... at some point we should go through and change all 'article'
@@ -491,7 +489,10 @@ form#new_data_object, form.edit_data_object
           text-align: center
           overflow: hidden
           p
-            padding: 50px 5px 40px
+            padding: 50px 5px 30px
+            a
+              color: #e2e9ef
+          noscript, .player
             a
               color: #e2e9ef
           audio
@@ -507,15 +508,25 @@ form#new_data_object, form.edit_data_object
           z-index: 300
           position: absolute
         .video
+          text-align: center
           border: 1px solid #CAD3DB
           width: 158px
           height: 123px
+          p
+            padding: 93px 5px 0
       >a
         display: inline-block
         overflow: hidden
       form
         display: block
         clear: both
+        &.taxon_concept_exemplar_image
+          input[type="submit"]
+            position: absolute
+            top: 95px
+            right: 0
+            z-index: 3
+
 /** style for vetted status flags - various locations **/
 p.flag
   color: white
@@ -582,10 +593,14 @@ p.flag
 body
   &.home
     >#header
-      .session.join
-        text-align: center !important
-        a
-          color: white !important
+      .session
+        &.signed_in
+          // temp fix for IE7 where session was extending full width when signed in - TODO: fix proper
+          width: 400px
+        &.join
+          text-align: center !important
+          a
+            color: white !important
   >#header
     .section
       .actions

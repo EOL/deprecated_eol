@@ -13,7 +13,7 @@ class Taxa::MediaController < TaxaController
     @status = params[:status] ||= ['all']
     @status = ['all'] if @status.include?('all')
     @exemplar_image = @taxon_concept.exemplar_or_best_image_from_solr(@selected_hierarchy_entry)
-    
+
     data_type_ids = []
     ['image', 'video', 'sound'].each do |t|
       next unless @type.include?(t)
@@ -26,7 +26,7 @@ class Taxa::MediaController < TaxaController
     if data_type_ids.empty?
       data_type_ids = DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids
     end
-    
+
     if @status == ['all']
       if current_user.is_curator?
         search_statuses = ['trusted', 'unreviewed', 'untrusted']
@@ -36,7 +36,7 @@ class Taxa::MediaController < TaxaController
     else
       search_statuses = @status
     end
-    
+
     @media = EOL::Solr::DataObjects.search_with_pagination(@taxon_concept.id, {
       :page => @page,
       :per_page => @per_page,
@@ -51,7 +51,7 @@ class Taxa::MediaController < TaxaController
     })
     DataObject.preload_associations(@media, [:users_data_object, { :data_objects_hierarchy_entries => :hierarchy_entry },
       :curated_data_objects_hierarchy_entries])
-    
+
     @facets = EOL::Solr::DataObjects.get_aggregated_media_facet_counts(@taxon_concept.id,
       :filter_hierarchy_entry => @selected_hierarchy_entry, :user => current_user)
     @current_user_ratings = logged_in? ? current_user.rating_for_object_guids(@media.collect{ |m| m.guid }) : {}
@@ -63,11 +63,15 @@ class Taxa::MediaController < TaxaController
   def set_as_exemplar
     taxon_concept_id = params[:taxon_id] || params[:taxon_concept_exemplar_image][:taxon_concept_id]
     taxon_concept = TaxonConcept.find(taxon_concept_id.to_i) rescue nil
-    data_object_id = params[:taxon_concept_exemplar_image][:data_object_id]
+
+    unless params[:taxon_concept_exemplar_image].nil? || params[:taxon_concept_exemplar_image][:data_object_id].blank?
+      data_object_id = params[:taxon_concept_exemplar_image][:data_object_id]
+    end
+
     unless taxon_concept_id.blank? || data_object_id.blank?
       TaxonConceptExemplarImage.set_exemplar(taxon_concept, data_object_id)
     end
-    
+
     store_location(params[:return_to] || request.referer)
     redirect_back_or_default taxon_media_path params[:taxon_concept_id]
   end

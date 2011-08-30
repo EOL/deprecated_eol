@@ -26,7 +26,8 @@ header, section, article, nav, footer, hgroup {
   display: block; }
 
 body {
-  font: normal 12px Helvetica, Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 75%;
   color: #394651;
   border-top: 32px solid #28323a;
   min-width: 940px; }

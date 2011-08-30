@@ -136,7 +136,7 @@ $(function() {
     beforeShow: function() {
       $('#choose_collections form :submit').click(function() {
         if($('#flashes')[0] == undefined) {
-          $('#page_heading div.page_actions').after('<div id="flashes"></div>');
+          $('#page_heading div.page_actions').after('<div id="flashes" style="clear: both; width: 100%;"></div>');
         }
         EOL.ajax_submit($(this), { update: $('#flashes') });
         $('#choose_collections a.close').click();

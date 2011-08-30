@@ -1,7 +1,7 @@
 - download_link = link_to I18n.t("download_#{en_mime_type.sub(/\//, '_')}"), sound_url, { :title => I18n.t("download_#{en_mime_type.sub(/\//, '_')}_assistive") }
 
 - if type == 'big'
-  .jp-jplayer{:id => "jquery_jplayer_1"}  
+  .jp-jplayer{:id => "jquery_jplayer_1"}
   .jp-audio{}
     .jp-type-single{}
       .jp-interface{:id => "jp_interface_1"}
@@ -32,11 +32,12 @@
   - no_script = download_link
   %noscript= no_script
 
-  %a{:href => '#', :id => "play"}= I18n.t(:audio_play)
-  %a{:href => '#', :id => "pause"}= I18n.t(:audio_pause)
-  |
-  %a{:href => '#', :id => "stop"}= I18n.t(:audio_stop)
-  .jp-jplayer{:id => "jquery_jplayer_2"}  
+  .player
+    %a{:href => '#', :id => "play"}= I18n.t(:audio_play)
+    %a{:href => '#', :id => "pause"}= I18n.t(:audio_pause)
+    |
+    %a{:href => '#', :id => "stop"}= I18n.t(:audio_stop)
+    .jp-jplayer{:id => "jquery_jplayer_2"}
 
 
 :javascript

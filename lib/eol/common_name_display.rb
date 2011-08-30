@@ -28,7 +28,12 @@ module EOL
         params[:name_id] = tcn.name.id
         params[:name_string] = tcn.name.string
         params[:iso_639_1] = tcn.language.iso_639_1 rescue nil
-        params[:language_label] = tcn.language.label rescue nil
+        
+        # We can bring this back when we have language label translations for all approved languages:
+        #params[:language_label] = tcn.language.label rescue nil
+        # For the meantime we can use this:
+        params[:language_label] = TranslatedLanguage.find(tcn.language.id).label rescue nil
+        
         params[:language_name] = tcn.language.source_form rescue nil
         params[:language_id] = tcn.language.id rescue nil
         params[:synonym_id] = tcn.synonym_id

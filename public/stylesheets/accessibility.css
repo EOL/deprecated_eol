@@ -331,6 +331,17 @@ form#switch_hierarchy_entry fieldset {
     font-weight: bold; }
   #content_partner_show dl.agreement dd {
     margin: 0 0 5px 20px; }
+#content_partner_show #resources_show .section.half {
+  float: left;
+  width: 299px;
+  margin-right: 20px; }
+  #content_partner_show #resources_show .section.half dl {
+    line-height: 140%;
+    margin: 0 0 40px 0; }
+    #content_partner_show #resources_show .section.half dl dt {
+      font-weight: bold; }
+    #content_partner_show #resources_show .section.half dl dd {
+      margin: 0 0 5px 20px; }
 
 #content_partner_edit.site_column, #content_partner_new.site_column {
   width: 640px; }
@@ -503,6 +514,12 @@ p.flag {
   margin-top: 2px;
   font-size: 1.1em;
   padding: 0; }
+
+#permalink_add_association #main ul > li img {
+  max-width: 68px;
+  max-height: 68px;
+  width: expression(this.width > 68 ? "68px" : true);
+  height: expression(this.height > 68 ? "68px" : true); }
 
 #taxon_detail .rating h5 {
   float: left;

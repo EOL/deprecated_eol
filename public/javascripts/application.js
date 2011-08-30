@@ -136,7 +136,7 @@ $(function() {
     beforeShow: function() {
       $('#choose_collections form :submit').click(function() {
         if($('#flashes')[0] == undefined) {
-          $('#page_heading div.page_actions').after('<div id="flashes"></div>');
+          $('#page_heading div.page_actions').after('<div id="flashes" style="clear: both; width: 100%;"></div>');
         }
         EOL.ajax_submit($(this), { update: $('#flashes') });
         $('#choose_collections a.close').click();
@@ -217,6 +217,15 @@ $(function() {
   });
   $('.button.confirm').click(function() {
     if(confirm($(this).attr('data_confirm'))) { return true; } else { return false; }
+  });
+
+  // When you select all items, hide the checkboxes (and vice-versa) on collection items:
+  $('form.edit_collection #scope').change(function() {
+    if ($('form.edit_collection #scope').val() == 'all_items') {
+      $('.object_list :checkbox').parent().hide();
+    } else {
+      $('.object_list :checkbox').parent().show();
+    }
   });
 
   (function($content_partner_resources) {

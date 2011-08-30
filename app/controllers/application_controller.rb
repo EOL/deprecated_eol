@@ -329,11 +329,13 @@ class ApplicationController < ActionController::Base
   # default new user when we don't have a logged in user
   def create_new_user
     session[:user_id] = nil
-    User.create_new(:remote_ip => request.remote_ip)
+    user = User.create_new(:remote_ip => request.remote_ip)
+    user.language_abbr= session[:language] if session[:language] # Recalls language from previous session.
+    user
   end
 
   def reset_session
-    create_new_user
+    session[:user_id] = nil
     current_agent = nil
   end
 
@@ -475,6 +477,7 @@ class ApplicationController < ActionController::Base
   def set_language
     language = params[:language].to_s
     unless language.blank?
+      session[:language] = nil # Don't want to "remember" this anymore, since they've manually changed it.
       alter_current_user do |user|
         user.language = Language.from_iso(language)
       end

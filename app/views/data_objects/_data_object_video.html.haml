@@ -5,6 +5,7 @@
 - if thumbnail
   - if data_object.thumbnail_cache_url.blank?
     .video
+      %p= data_object.best_title
   - else
     - alt ||= alternative_text(data_object, 'video', taxon_concept)
     = image_tag data_object.thumb_or_object(size), :alt => alt

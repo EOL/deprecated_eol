@@ -26,7 +26,8 @@ header, section, article, nav, footer, hgroup {
   display: block; }
 
 body {
-  font: normal 12px Helvetica, Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 75%;
   color: #394651;
   border-top: 32px solid #28323a;
   min-width: 940px; }
@@ -438,7 +439,7 @@ body {
         body > #header .session.signed_in .details strong {
           font-size: 1.09em; }
         body > #header .session.signed_in .details p.user_links {
-          font-size: 9px;
+          font-size: 0.83em;
           text-transform: uppercase;
           color: #62707d; }
           body > #header .session.signed_in .details p.user_links a {

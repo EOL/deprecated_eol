@@ -47,8 +47,8 @@ function displayNode(id, for_selection, selected_hierarchy_entry_id) {
   $.ajax({
     url: url,
     type: 'POST',
-    success: function(response){$('#browser-text').html(response);},
-    error: function(){ $('#browser-text').html("<p>Sorry, there was an error.</p>"); },
+    success: function(response){$('#classification_browser').html(response);},
+    error: function(){ $('#classification_browser').html("<p>Sorry, there was an error.</p>"); },
     data: {id: id, selected_hierarchy_entry_id: selected_hierarchy_entry_id}
   });
 }
@@ -59,7 +59,7 @@ function update_browser(hierarchy_entry_id, expand) {
     url: '/navigation/browse',
     complete: function(){scroll(0,100);},
     success: function(response){$('#hierarchy_browser').html(response);},
-    error: function(){ $('#browser-text').html("<p>Sorry, there was an error.</p>"); },
+    error: function(){ $('#classification_browser').html("<p>Sorry, there was an error.</p>"); },
     data: {id: hierarchy_entry_id, expand: expand }
   });
 }
@@ -70,7 +70,7 @@ function update_browser_stats(hierarchy_entry_id, expand) {
     url: '/navigation/browse_stats',
     complete: function(request){scroll(0,100);},
     success: function(response){$('#hierarchy_browser').html(response);},
-    error: function(){ $('#browser-text').html("<p>Sorry, there was an error.</p>"); },
+    error: function(){ $('#classification_browser').html("<p>Sorry, there was an error.</p>"); },
     data: {id: hierarchy_entry_id, expand: expand }
   });
 }
@@ -92,7 +92,7 @@ $(document).ready(function() {
     clear_clade_of_clade_selector();
     return false;
   });
-  
+
   EOL.expand_clade_behavior();
 });
 

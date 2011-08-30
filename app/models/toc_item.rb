@@ -14,7 +14,7 @@ class TocItem < SpeciesSchemaModel
   @@reserved_toc_labels = ['Biodiversity Heritage Library', 'Content Partners', 'Names and Taxonomy', 'Related Names', 'Synonyms', 'Common Names', 'Page Statistics', 'Content Summary', 'Education', 'Barcode', 'Wikipedia', 'Biomedical Terms', 'Literature References', 'Nucleotide Sequences']
 
   def self.exclude_editable
-    ['Barcode', 'Education', 'Wikipedia']
+    ['Barcode', 'Wikipedia']
   end
 
   def self.toc_object_counts

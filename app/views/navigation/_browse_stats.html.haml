@@ -14,7 +14,7 @@
             =I18n.t("hierarchy_roots_")
           - for kingdom in @hierarchy.kingdoms
             %li.node.bold
-              = render(:partial => 'navigation/node_name_stats', :locals => { :hierarchy_entry => kingdom, :node_class => 'bold' })
+              = render(:partial => 'navigation/node_name_stats', :locals => { :hierarchy_entry => kingdom })
           - unless @hierarchy_entry.nil?
             %td{ :width => '50%', :valign => 'top' }
               %table.results_table.stats

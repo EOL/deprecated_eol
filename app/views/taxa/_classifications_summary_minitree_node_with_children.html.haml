@@ -1,18 +1,18 @@
 %li
-  = render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => hierarchy_entry, :node_class => 'bold'})
-  %ul.branch
-    - he_children = HierarchyEntry.sort_by_name(hierarchy_entry.children)
-    - if he_children && ! he_children.empty?
-      %ul.branch
-        - he_children[0..2].each do |child|
-          %li= render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => child, :node_class => 'light'})
-        - if he_children.length == 4
-          %li= render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => he_children[3], :node_class => 'light'})
-        - if he_children.length > 4
-          %li
-            = I18n.t(:more_children_with_count, :count => he_children.length - 3)
-            = link_to(I18n.t(:show_full_tree), taxon_hierarchy_entry_overview_path(@taxon_concept, hierarchy_entry), :class => 'show_tree', :data_url => taxon_hierarchy_entry_tree_path(@taxon_concept, hierarchy_entry))
-        - else
-          %li= link_to(I18n.t(:show_full_tree), taxon_hierarchy_entry_overview_path(@taxon_concept, hierarchy_entry), :class => 'show_tree', :data_url => taxon_hierarchy_entry_tree_path(@taxon_concept, hierarchy_entry))
-    - else
+  = render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => hierarchy_entry, :open => 'open' })
+  - he_children = HierarchyEntry.sort_by_name(hierarchy_entry.children)
+  - if he_children && ! he_children.empty?
+    %ul.branch
+      - he_children[0..2].each do |child|
+        %li= render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => child })
+      - if he_children.length == 4
+        %li= render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => he_children[3] })
+      - if he_children.length > 4
+        %li
+          = I18n.t(:more_children_with_count, :count => he_children.length - 3)
+          = link_to(I18n.t(:show_full_tree), taxon_hierarchy_entry_overview_path(@taxon_concept, hierarchy_entry), :class => 'show_tree', :data_url => taxon_hierarchy_entry_tree_path(@taxon_concept, hierarchy_entry))
+      - else
+        %li= link_to(I18n.t(:show_full_tree), taxon_hierarchy_entry_overview_path(@taxon_concept, hierarchy_entry), :class => 'show_tree', :data_url => taxon_hierarchy_entry_tree_path(@taxon_concept, hierarchy_entry))
+  - else
+    %ul.branch
       %li= link_to(I18n.t(:show_full_tree), taxon_hierarchy_entry_overview_path(@taxon_concept, hierarchy_entry), :class => 'show_tree', :data_url => taxon_hierarchy_entry_tree_path(@taxon_concept, hierarchy_entry))

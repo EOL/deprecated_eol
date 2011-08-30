@@ -1,30 +1,3 @@
-/*
-----------------------------------------
-Tantek Celik's Whitepsace Reset
-     Author:  	Tantek Celik, Shane Riley
-    Version:  	(CC) 2010 Some Rights Reserved - http://creativecommons.org/licenses/by/2.0
-Description:	Resets default styling of common browsers to a common base
-----------------------------------------
-*/
-ul, ol {
-  list-style: none; }
-
-h1, h2, h3, h4, h5, h6, pre, code {
-  font-size: 1em; }
-
-ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, body, html, p, blockquote, fieldset, input, dl, dt, dd {
-  margin: 0;
-  padding: 0; }
-
-a img, :link img, :visited img, fieldset {
-  border: none; }
-
-address {
-  font-style: normal; }
-
-header, section, article, nav, footer, hgroup {
-  display: block; }
-
 .assistive, #header .assistive {
   position: absolute;
   left: -999em; }
@@ -58,9 +31,14 @@ body.home > #header {
     width: 282px;
     height: 120px; }
 
-#user_communities ul.object_list img {
-  float: left;
-  margin: 0 20px 0 0; }
+#collections_tab .collections {
+  padding: 20px 0 0 0; }
+
+#user_communities .communities {
+  padding: 20px 0 0 0; }
+  #user_communities .communities ul.object_list img {
+    float: left;
+    margin: 0 20px 0 0; }
 
 /*Content partner various */
 #profile_content_connections li img {
@@ -353,6 +331,17 @@ form#switch_hierarchy_entry fieldset {
     font-weight: bold; }
   #content_partner_show dl.agreement dd {
     margin: 0 0 5px 20px; }
+#content_partner_show #resources_show .section.half {
+  float: left;
+  width: 299px;
+  margin-right: 20px; }
+  #content_partner_show #resources_show .section.half dl {
+    line-height: 140%;
+    margin: 0 0 40px 0; }
+    #content_partner_show #resources_show .section.half dl dt {
+      font-weight: bold; }
+    #content_partner_show #resources_show .section.half dl dd {
+      margin: 0 0 5px 20px; }
 
 #content_partner_edit.site_column, #content_partner_new.site_column {
   width: 640px; }
@@ -377,6 +366,8 @@ p.status.error {
   background: #ffeae6; }
 
 /*move to home.css once HR involvement ceases */
+.home #content {
+  padding-bottom: 20px; }
 .home p.status.notice, .home p.status.error, .home p.status.warning {
   clear: both;
   padding: 7px 10px;
@@ -391,12 +382,6 @@ p.status.error {
 .home p.status.error {
   border: 1px solid #f2d2cc;
   background: #ffeae6; }
-.home #content .section .stats p.meta {
-  padding: 40px 0 15px 40px;
-  font-size: 0.83em;
-  font-weight: bold;
-  text-transform: uppercase;
-  color: #82919e; }
 
 /*HR change permalink class to text, but use article elsewhere for text objects so we are still using
  * article as that's what en_type is returning... at some point we should go through and change all 'article'
@@ -471,9 +456,11 @@ form#new_data_object fieldset.information, form.edit_data_object fieldset.inform
     text-align: center;
     overflow: hidden; }
     #media_list #main > ul > li .figure .audio p {
-      padding: 50px 5px 40px; }
+      padding: 50px 5px 30px; }
       #media_list #main > ul > li .figure .audio p a {
         color: #e2e9ef; }
+    #media_list #main > ul > li .figure .audio noscript a, #media_list #main > ul > li .figure .audio .player a {
+      color: #e2e9ef; }
     #media_list #main > ul > li .figure .audio audio {
       position: absolute;
       left: 0;
@@ -487,15 +474,23 @@ form#new_data_object fieldset.information, form.edit_data_object fieldset.inform
     z-index: 300;
     position: absolute; }
   #media_list #main > ul > li .figure .video {
+    text-align: center;
     border: 1px solid #cad3db;
     width: 158px;
     height: 123px; }
+    #media_list #main > ul > li .figure .video p {
+      padding: 93px 5px 0; }
 #media_list #main > ul > li > a {
   display: inline-block;
   overflow: hidden; }
 #media_list #main > ul > li form {
   display: block;
   clear: both; }
+  #media_list #main > ul > li form.taxon_concept_exemplar_image input[type="submit"] {
+    position: absolute;
+    top: 95px;
+    right: 0;
+    z-index: 3; }
 
 /*style for vetted status flags - various locations */
 p.flag {
@@ -519,6 +514,12 @@ p.flag {
   margin-top: 2px;
   font-size: 1.1em;
   padding: 0; }
+
+#permalink_add_association #main ul > li img {
+  max-width: 68px;
+  max-height: 68px;
+  width: expression(this.width > 68 ? "68px" : true);
+  height: expression(this.height > 68 ? "68px" : true); }
 
 #taxon_detail .rating h5 {
   float: left;
@@ -554,6 +555,8 @@ p.flag {
   border: none; }
 
 /*HR z-indexes were messed up in header, also we're putting session partial on home page for logged in users */
+body.home > #header .session.signed_in {
+  width: 400px; }
 body.home > #header .session.join {
   text-align: center !important; }
   body.home > #header .session.join a {
@@ -602,32 +605,31 @@ body > #header .section .session.join {
     color: #394651;
     margin: 0; }
 
-/*Our classification summary is a hierarchichal list whereas HR was just links without hierarchy
- * so we override the styles here */
-#classifications_summary h4 {
-  padding-bottom: 15px !important; }
-#classifications_summary li li p {
-  font-weight: bold;
-  float: left; }
-#classifications_summary li li li p {
-  padding-left: 23px !important;
-  margin-left: 10px;
-  background: transparent url("/images/v2/icon_classification_arrow.png") 0 0 no-repeat; }
+/*Hierarchy Entry classification browser does not have styles from HR
+ * HR assumes a list of classifications, where each top level list item is the container
+ * On hierarchy entry page the container is a div not a list item, and top level list items are kingdoms
+ * so we can't re-use HR SASS as it is - we need to refactor markup and SASS so we can share SASS or create mixin.
+ */
+#classification_browser {
+  border: 1px solid #d7dadc;
+  overflow-x: auto;
+  padding: 10px 15px;
+  margin: 0 -10px 20px -10px; }
+  #classification_browser > ul {
+    line-height: 160%;
+    font-size: 0.9em; }
+    #classification_browser > ul li {
+      white-space: nowrap; }
+      #classification_browser > ul li ul {
+        margin-left: 10px; }
+
+#classification_browser .open, .classifications .open {
+  font-weight: bold; }
+
+/*overides for empty text styles - various */
 #classifications_summary .empty p {
   font-size: 1em !important; }
 
-/*classification tree */
-#classification_tree #browser-text {
-  width: 360px;
-  margin: 0 -10px;
-  overflow: auto;
-  border: 1px solid #cad3db; }
-  #classification_tree #browser-text ul.classification {
-    margin: 10px; }
-    #classification_tree #browser-text ul.classification li {
-      white-space: nowrap; }
-
-/*overides for empty text styles - various */
 .article .empty a.button {
   font-size: 0.78em !important; }
 
@@ -951,28 +953,6 @@ table.standard td.nowrap {
 .article .pagination {
   margin-top: 1em; }
 
-ul.classification > li > a {
-  font-weight: normal; }
-
-ul.classification a.bold {
-  font-weight: bold; }
-
-ul.classification.summary {
-  margin-left: 1em; }
-
-#classifications_summary > ul > li {
-  margin-bottom: 1em; }
-
-ul#taxonomictext #taxonomic-text-container {
-  width: 315px;
-  margin: 1em -1em;
-  overflow: auto;
-  border: 1px solid #cad3db; }
-  ul#taxonomictext #taxonomic-text-container ul.classification {
-    margin: 10px; }
-    ul#taxonomictext #taxonomic-text-container ul.classification li {
-      white-space: nowrap; }
-
 #page_heading .page_actions li + li {
   margin: 10px 0; }
 
@@ -1161,8 +1141,3 @@ body#prelaunch p.status {
   color: #394651;
   border: 2px solid #c7d471;
   background: #edf6b2; }
-
-#taxon + #sidebar .classification {
-  font-size: 0.9em; }
-  #taxon + #sidebar .classification .branch {
-    margin-left: 10px; }

@@ -11,22 +11,16 @@
 
 - entry_kingdom = @hierarchy_entry.blank? ? nil : @hierarchy_entry.kingdom
 
-#taxonomic-text-container
-  %ul#taxonomictext.classification
-    - kingdoms = @hierarchy.kingdoms(:include_common_names => @include_common_names, :common_name_language => current_user.language)
-    - for kingdom in kingdoms
-      - if entry_kingdom && entry_kingdom.id == kingdom.id
-        - ancestors = @hierarchy_entry.ancestors(:include_common_names => @include_common_names, :common_name_language => current_user.language)
-        - hierarchy_entry = ancestors.pop
-        - unless kingdom == kingdoms.first
-          %br
-        = render(:partial => 'navigation/node_with_ancestry_page', :locals => { :ancestors => ancestors, :hierarchy_entry => hierarchy_entry, :node_class => 'bold' })
-        - unless kingdom == kingdoms.last
-          %br
-      - else
-        %li
-          = render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => kingdom, :node_class => 'bold' })
-    - if entry_kingdom.blank?
-      %br
-      %span.message
-        =I18n.t("name_not_in_select_an_alternate", :hierarchy => @hierarchy.label)
+%ul
+  - kingdoms = @hierarchy.kingdoms(:include_common_names => @include_common_names, :common_name_language => current_user.language)
+  - for kingdom in kingdoms
+    - if entry_kingdom && entry_kingdom.id == kingdom.id
+      - ancestors = @hierarchy_entry.ancestors(:include_common_names => @include_common_names, :common_name_language => current_user.language)
+      - hierarchy_entry = ancestors.pop
+      = render(:partial => 'navigation/node_with_ancestry_page', :locals => { :ancestors => ancestors, :hierarchy_entry => hierarchy_entry, :open => 'open' })
+    - else
+      %li
+        = render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => kingdom })
+  - if entry_kingdom.blank?
+    %li.message
+      =I18n.t("name_not_in_select_an_alternate", :hierarchy => @hierarchy.label)

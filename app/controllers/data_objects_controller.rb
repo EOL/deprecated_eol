@@ -65,10 +65,10 @@ class DataObjectsController < ApplicationController
       subchapter = TocItem.find(toc_item_id).label.downcase
       subchapter = 'literature' if subchapter == 'literature references'
       subchapter.sub!( " ", "_" )
-      temp = ["education", "identification_resources", "nucleotide_sequences", "biomedical_terms"] # to Resources tab
+      temp = ["education", "education_resources", "identification_resources", "nucleotide_sequences", "biomedical_terms"] # to Resources tab
       if temp.include?(subchapter)
         return redirect_to education_taxon_resources_path(@taxon_concept,
-                             :anchor => "data_object_#{@data_object.id}") if subchapter == 'education'
+                             :anchor => "data_object_#{@data_object.id}") if ['education', 'education_resources'].include?(subchapter)
         return redirect_to identification_resources_taxon_resources_path(@taxon_concept,
                              :anchor => "data_object_#{@data_object.id}") if subchapter == 'identification_resources'
         return redirect_to nucleotide_sequences_taxon_resources_path(@taxon_concept,

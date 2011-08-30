@@ -46,6 +46,7 @@ class Community < ActiveRecord::Base
   # NOTE that this returns the collection_item, NOT the collection it points to!  This is so you can get the
   # annotation along with it.
   def collections
+    return [] unless self.collection && self.collection.collection_items
     self.collection.collection_items.collections
   end
 

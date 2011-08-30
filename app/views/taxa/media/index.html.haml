@@ -2,7 +2,7 @@
 = content_for :head do
   = javascript_include_tag "exemplar_image.js", "jplayer/js/jquery.jplayer.min"
   %link{:href=>"/javascripts/jplayer/skin/jplayer.blue.monday.css", :rel=>"stylesheet", :type=>"text/css"}
-  
+
 #media_list
   #sidebar.filters
     = image_tag @exemplar_image.thumb_or_object('260_190'), :alt => '' unless @exemplar_image.blank?
@@ -33,23 +33,27 @@
           - en_type = en_type(item)
           %li{:class => "#{index.modulo(4) == 0 ? 'first' : nil} #{vetted_id_class(item_vetted_id)}"}
             .figure
-
               - if en_type == 'sound'
                 = render :partial => "data_objects/data_object_#{en_type}",
                   :locals => { :data_object => item, :thumbnail => true, :size => '260_190' }
               - else
-                %a{ :data => { :data_object_id => item.id }, :class => vetted_id_class(item_vetted_id), :href => data_object_path(item) }
+                - # TODO: fix this hack for styling - enable adding data type to container without conflicts with styles
+                - if en_type == 'image'
+                  - css_class = "#{vetted_id_class(item_vetted_id)} #{en_type}"
+                - else
+                  - css_class = vetted_id_class(item_vetted_id)
+                %a{ :data => { :data_object_id => item.id }, :class => css_class, :href => data_object_path(item) }
                   - if en_type == 'video'
                     .video_overlay
                   = render :partial => "data_objects/data_object_#{en_type}",
                     :locals => { :data_object => item, :thumbnail => true, :size => '260_190' }
-                  
+
               - if item.data_type_id == DataType.image.id && current_user.min_curator_level?(:assistant)
                 .overlay
                 - form_for :taxon_concept_exemplar_image, :url => set_as_exemplar_taxon_media_path(@taxon_concept),
                   :html => {:class => 'taxon_concept_exemplar_image'} do |f|
                   %label
-                    = f.radio_button :data_object_id, item.id, { :checked => @exemplar_image.id == item.id }
+                    = f.radio_button :data_object_id, item.id, { :checked => (!@exemplar_image.blank? && @exemplar_image.id == item.id) }
                     = I18n.t(:set_as_exemplar)
                   %fieldset.actions
                     = f.submit I18n.t(:set_as_exemplar)

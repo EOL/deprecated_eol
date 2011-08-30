@@ -103,6 +103,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     # NOTE - the agent_id is assigned in user controller, not in the model
     new_user = User.new
     new_user.send(:set_defaults) # It's a private method.  This is cheating, but we really DO want it private.
+    # Make sure a nil language doesn't upset things:
+    options.delete(:language_id) if options.has_key?(:language_id) && options[:language_id].nil?
     new_user.attributes = options
     new_user
   end
@@ -322,7 +324,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   #       AND acts.id != #{Activity.create.id}
   #     ").uniq
   # end
-  # 
+  #
   # # TODO - test
   # def total_comments_curated
   #   comment_curation_actions.length

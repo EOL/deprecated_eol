@@ -11,7 +11,7 @@
         = f.label :name
       %dd
         - if @collection.watch_collection?
-          %p= f.label @collection.name
+          %p= f.label :watch_collection_name, @collection.name
         -else
           = f.text_field :name, :value => @collection.name
       %dt

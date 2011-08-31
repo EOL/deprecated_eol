@@ -570,6 +570,14 @@ p.flag
       img
         +max_dimensions($logo_size_primary, $logo_size_primary)
 #taxon_detail
+  #main
+    > .section
+      > .article
+        > .meta.learn_more
+          p
+            line-height: 200%
+        > .copy
+          padding-bottom: 15px
   .rating
     h5
       float: left
@@ -784,10 +792,14 @@ body
     line-height: 170%
 #taxon_community
   .main_container
-    padding: 40px
     .list
       img
         +max_dimensions($logo_size_primary, $logo_size_primary)
+#taxon_literature, #taxon_community, #taxon_resources
+  .main_container
+    padding: 20px
+  h3
+    font-size: 2em
 #taxon_resources
   .empty
     p
@@ -798,17 +810,21 @@ body
         max-width: 90px
   #taxon_detail > #main
     > h3
-      margin: 0 0 15px 0
-      font-size: 1.33em
-    .article
-      padding: 0 10px 25px 10px
+      padding: 0 20px 20px 0
+      font-size: 2em
   #nucleotide_sequences
     .copy
+      h3
+        padding-bottom: 10px
       img
         float: left
         max-width: 60px
       p
         padding-left: 90px
+  #biomedical_terms
+    .attribution
+      h4
+        margin-bottom: 5px
 
 /* TODO: this hasn't been really thought out and should be changed: */
 #sidebar

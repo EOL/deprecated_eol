@@ -521,6 +521,10 @@ p.flag {
   width: expression(this.width > 68 ? "68px" : true);
   height: expression(this.height > 68 ? "68px" : true); }
 
+#taxon_detail #main > .section > .article > .meta.learn_more p {
+  line-height: 200%; }
+#taxon_detail #main > .section > .article > .copy {
+  padding-bottom: 15px; }
 #taxon_detail .rating h5 {
   float: left;
   margin: 0 10px 0 0;
@@ -715,23 +719,26 @@ body > #header .section .session.join {
   margin: 0 0 15px 0;
   line-height: 170%; }
 
-#taxon_community .main_container {
-  padding: 40px; }
-  #taxon_community .main_container .list img {
-    max-width: 68px;
-    max-height: 68px;
-    width: expression(this.width > 68 ? "68px" : true);
-    height: expression(this.height > 68 ? "68px" : true); }
+#taxon_community .main_container .list img {
+  max-width: 68px;
+  max-height: 68px;
+  width: expression(this.width > 68 ? "68px" : true);
+  height: expression(this.height > 68 ? "68px" : true); }
+
+#taxon_literature .main_container, #taxon_community .main_container, #taxon_resources .main_container {
+  padding: 20px; }
+#taxon_literature h3, #taxon_community h3, #taxon_resources h3 {
+  font-size: 2em; }
 
 #taxon_resources .empty p {
   margin: 0; }
 #taxon_resources table.standard tbody > tr > td > a > img {
   max-width: 90px; }
 #taxon_resources #taxon_detail > #main > h3 {
-  margin: 0 0 15px 0;
-  font-size: 1.33em; }
-#taxon_resources #taxon_detail > #main .article {
-  padding: 0 10px 25px 10px; }
+  padding: 0 20px 20px 0;
+  font-size: 2em; }
+#taxon_resources #nucleotide_sequences .copy h3 {
+  padding-bottom: 10px; }
 #taxon_resources #nucleotide_sequences .copy img {
   float: left;
   max-width: 60px; }

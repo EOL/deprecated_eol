@@ -719,11 +719,14 @@ body > #header .section .session.join {
   margin: 0 0 15px 0;
   line-height: 170%; }
 
+<<<<<<< HEAD
 #taxon_community .main_container .article .header h4 {
   float: left;
   padding: 0 10px 3px 10px;
   font-size: 1.16em;
   border-bottom: 3px solid #394651; }
+=======
+>>>>>>> 4e85f52... Updates to taxon article styles on details and resources tabs and adjusted taxon tab's padding and header sizes to be more consistent.
 #taxon_community .main_container .list img {
   max-width: 68px;
   max-height: 68px;
@@ -1156,7 +1159,6 @@ body#prelaunch p.status {
   border: 2px solid #c7d471;
   background: #edf6b2; }
 
-<<<<<<< HEAD
 #user_communities .heading {
   position: relative;
   text-align: left; }
@@ -1164,7 +1166,6 @@ body#prelaunch p.status {
     position: absolute;
     right: 10px;
     top: 4px; }
-=======
 #user_communities .heading form, #user_communities .heading a {
   position: absolute;
   right: 10px;
@@ -1172,4 +1173,3 @@ body#prelaunch p.status {
 
 body#prelaunch #footer ul.social_media {
   margin-top: 20px; }
->>>>>>> Should stop getting so many TODOs in activity logs.

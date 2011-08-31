@@ -1146,3 +1146,6 @@ body#prelaunch p.status {
   position: absolute;
   right: 10px;
   top: 4px; }
+
+body#prelaunch #footer ul.social_media {
+  margin-top: 20px; }

@@ -14,6 +14,7 @@ class CuratorActivityLog < LoggingModel
   # use these associations carefully. They don't check the changeable object type, so you might try to grab a comment
   # when you should have grabbed an object and it won't fail.
   belongs_to :data_object, :foreign_key => :object_id
+  belongs_to :synonym, :foreign_key => :object_id
   belongs_to :affected_comment, :foreign_key => :object_id, :class_name => Comment.to_s
 
   validates_presence_of :user_id, :changeable_object_type_id, :activity_id, :created_at
@@ -114,7 +115,7 @@ class CuratorActivityLog < LoggingModel
   def udo_taxon_concept
     TaxonConcept.find(users_data_object.taxon_concept_id)
   end
-  
+
   def log_activity_in_solr
     loggable_activities = {
       ChangeableObjectType.data_object.id => [ Activity.show.id, Activity.trusted.id, Activity.unreviewed.id, Activity.untrusted.id ],
@@ -136,12 +137,12 @@ class CuratorActivityLog < LoggingModel
       'date_created' => self.created_at.solr_timestamp }
     EOL::Solr::ActivityLog.index_activities(base_index_hash, activity_logs_affected)
   end
-  
+
   def activity_logs_affected
     logs_affected = {}
     # activity feed of user taking action
     logs_affected['User'] = [ self.user_id ]
-    
+
     # action on a concept
     if self.changeable_object_type_id == ChangeableObjectType.synonym.id
       logs_affected['TaxonConcept'] = [ self.taxon_concept_id ]
@@ -150,7 +151,7 @@ class CuratorActivityLog < LoggingModel
         logs_affected['Collection'] ||= []
         logs_affected['Collection'] << c.id
       end
-      
+
     # action on a data object
     elsif [ ChangeableObjectType.data_object.id, ChangeableObjectType.data_objects_hierarchy_entry.id].include?(self.changeable_object_type_id)
       logs_affected['DataObject'] = [ self.object_id ]

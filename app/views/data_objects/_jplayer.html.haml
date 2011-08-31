@@ -29,16 +29,23 @@
             %noscript{:id => 'no_script'}= I18n.t(:player_is_disabled) + '<br>'
             = download_link
 - else
+
+  %style
+    span.jsonly { display: none }
+
   - no_script = download_link
   %noscript= no_script
 
-  .player
-    %a{:href => '#', :id => "play"}= I18n.t(:audio_play)
-    %a{:href => '#', :id => "pause"}= I18n.t(:audio_pause)
-    |
-    %a{:href => '#', :id => "stop"}= I18n.t(:audio_stop)
-    .jp-jplayer{:id => "jquery_jplayer_2"}
+  %span{:id => "#{sound_id}", :class => "jsonly"}
+    .player
+      %a{:href => '#', :id => "play"}= I18n.t(:audio_play)
+      %a{:href => '#', :id => "pause"}= I18n.t(:audio_pause)
+      |
+      %a{:href => '#', :id => "stop"}= I18n.t(:audio_stop)
+      .jp-jplayer{:id => "player_" + "#{sound_id}"}
 
+  :javascript
+    document.getElementById("#{sound_id}").className = document.getElementById("#{sound_id}").className.replace('jsonly','jsOn');
 
 :javascript
   $(document).ready(function(){
@@ -55,8 +62,9 @@
       swfPath: "/javascripts/jplayer/js",
       supplied: "mp3"
     });
-
-    $("#jquery_jplayer_2").jPlayer({
+    
+    player_id = "#player_".concat("#{sound_id}");
+    $(player_id).jPlayer({
     ready: function () {
       $(this).jPlayer("setMedia", {
       mp3: "#{sound_url}"
@@ -70,5 +78,8 @@
       pause: "#pause",
       stop: "#stop"
     }
-    });
+    }).bind($.jPlayer.event.play, function() { // Using a jPlayer event to avoid both jPlayers playing together.
+        $(this).jPlayer("pauseOthers");
+        });
+    
   });

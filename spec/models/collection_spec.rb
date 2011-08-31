@@ -152,8 +152,65 @@ describe Collection do
     collection.description.should be_blank
   end
 
-  it 'should be able to find published collections in a search'
+  it 'should be able to find collections that contain an object' do
+    collection = Collection.gen
+    user = User.gen
+    collection.add user
+    Collection.which_contain(user).should == [collection]
+  end
 
-  it 'should NOT be able to find UN-published collections in a search'
+  it 'should get counts for multiple collections' do
+    collection_1 = Collection.gen
+    collection_1.add(User.gen)
+    collection_2 = Collection.gen
+    2.times { collection_2.add(User.gen) }
+    collection_3 = Collection.gen
+    3.times { collection_3.add(User.gen) }
+    collections = [collection_1, collection_2, collection_3]
+    Collection.add_counts!(collections)
+    collections[0]['collection_items_count'].should == 1
+    collections[1]['collection_items_count'].should == 2
+    collections[2]['collection_items_count'].should == 3
+  end
+
+  it 'should get taxon counts for multiple collections' do
+    tc1 = TaxonConcept.gen # Does not need to be a "real" TC...
+    tc2 = TaxonConcept.gen
+    tc3 = TaxonConcept.gen
+    collection_1 = Collection.gen
+    collection_1.add(User.gen)
+    collection_1.add(tc1)
+    collection_2 = Collection.gen
+    collection_2.add(User.gen)
+    collection_2.add(tc1)
+    collection_2.add(tc2)
+    collection_3 = Collection.gen
+    collection_3.add(User.gen)
+    collection_3.add(tc1)
+    collection_3.add(tc2)
+    collection_3.add(tc3)
+    collections = [collection_1, collection_2, collection_3]
+    Collection.add_taxa_counts!(collections)
+    collections[0]['taxa_count'].should == 1
+    collections[1]['taxa_count'].should == 2
+    collections[2]['taxa_count'].should == 3
+  end
+
+  it 'has other unimplemented tests but I will not make them all pending, see the spec file'
+  # #sort_for_overview should sort by community-featured lists first, those with fewer taxa second, and smaller collections next.
+  # should know when it is "special" TODO - do we need this anymore?  I don't think so...
+  # should know when it is a resource collection.
+  # should use DataObject#image_cache_path to handle logo_url at 88 pixels when small.
+  # should use DataObject#image_cache_path to handle logo_url at 130 pixels when default.
+  # should use v2/logos/collection_default.png when logo_url has no image.
+  # should know its #taxa elements
+  # should know when it is maintained by a user
+  # should know when it is maintained by a community
+  # should know if it has an item.
+  # should default to the SortStyle#newest for #sort_style, or use its own value
+  # should call EOL::Solr::CollectionItems.search_with_pagination with sort style to get #items_from_solr.
+  # should call EOL::Solr::CollectionItems.get_facet_counts to get #facet_counts.
+  # should call EOL::Solr::CollectionItems.get_facet_counts to get #facet_count by type.
+  # should know when it is a watch collection
 
 end

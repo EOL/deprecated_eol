@@ -22,28 +22,19 @@ class Collection < ActiveRecord::Base
   has_one :resource
   has_one :resource_preview, :class_name => Resource.to_s, :foreign_key => :preview_collection_id
 
-  # TODO = you can have collections that point to collections, so there SHOULD be a has_many relationship here to all
-  # of the collection items that contain this collection.  ...I don't know if we need that yet, but it would normally
-  # be named "collection_items", which doesn't work (because we're using that for THIS collection's children)... so
-  # we will have to re-name it and make it slightly clever.
-
   validates_presence_of :name
 
   validates_uniqueness_of :name, :scope => [:user_id]
   validates_uniqueness_of :community_id, :if => Proc.new {|l| ! l.community_id.blank? }
 
-  # TODO: remove the :if condition after migrations are run in production
   has_attached_file :logo,
     :path => $LOGO_UPLOAD_DIRECTORY,
     :url => $LOGO_UPLOAD_PATH,
-    :default_url => "/images/blank.gif",
-    :if => self.column_names.include?('logo_file_name')
+    :default_url => "/images/blank.gif"
 
   validates_attachment_content_type :logo,
-    :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'],
-    :if => self.column_names.include?('logo_file_name')
-  validates_attachment_size :logo, :in => 0..$LOGO_UPLOAD_MAX_SIZE,
-    :if => self.column_names.include?('logo_file_name')
+    :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png']
+  validates_attachment_size :logo, :in => 0..$LOGO_UPLOAD_MAX_SIZE
 
   index_with_solr :keywords => [ :name ], :fulltexts => [ :description ]
 
@@ -58,31 +49,30 @@ class Collection < ActiveRecord::Base
 
   # this method will quickly get the counts for multiple collections at the same time
   def self.add_counts!(collections)
-    collection_ids = collections.collect{ |c| c.id }.join(',')
+    collection_ids = collections.map(&:id).join(',')
     return if collection_ids.empty?
     collections_with_counts = Collection.find_by_sql("
-      SELECT c.*, count(*) as count
-      FROM collections c JOIN collection_items ci ON (c.id=ci.collection_id)
+      SELECT c.id, count(*) as count
+      FROM collections c JOIN collection_items ci ON (c.id = ci.collection_id)
       WHERE c.id IN (#{collection_ids})
       GROUP BY c.id")
     collections_with_counts.each do |cwc|
-      if c = collections.detect{ |c| c.id }
+      if c = collections.detect{ |c| c.id == cwc.id }
         c['collection_items_count'] = cwc['count'].to_i
       end
     end
   end
 
   def self.add_taxa_counts!(collections)
-    collection_ids = collections.collect{ |c| c.id }.join(',')
+    collection_ids = collections.map(&:id).join(',')
     return if collection_ids.empty?
     collections_with_counts = Collection.find_by_sql("
-      SELECT c.*, count(*) as count
-      FROM collections c JOIN collection_items ci ON (c.id=ci.collection_id)
+      SELECT c.id, count(*) as count
+      FROM collections c JOIN collection_items ci ON (c.id = ci.collection_id AND ci.object_type = 'TaxonConcept')
       WHERE c.id IN (#{collection_ids})
-      AND ci.object_type = 'TaxonConcept'
       GROUP BY c.id")
     collections_with_counts.each do |cwc|
-      if c = collections.detect{ |c| c.id }
+      if c = collections.detect{ |c| c.id == cwc.id }
         c['taxa_count'] = cwc['count'].to_i
       end
     end
@@ -142,19 +132,7 @@ class Collection < ActiveRecord::Base
       raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_create_collection_item_from_class_error,
                                                                   :klass => what.class.name))
     end
-    collection_items.last.update_attributes(:annotation => opts[:annotation]) if opts[:annotation]
     what # Convenience.  Allows us to chain this command and continue using the object passed in.
-  end
-
-  def deep_copy(other, options = {})
-    copy_annotations = options[:keep_annotations] || user_id && other.user_id && user_id == other.user_id
-    other.collection_items.each do |item|
-      if copy_annotations
-        add(item.object, :annotation => item.annotation)
-      else
-        add(item.object)
-      end
-    end
   end
 
   def logo_url(size = 'large')
@@ -168,7 +146,7 @@ class Collection < ActiveRecord::Base
   end
 
   def taxa
-    collection_items.collect{|ci| ci if ci.object_type == 'TaxonConcept'}
+    collection_items.taxa
   end
 
   def maintained_by

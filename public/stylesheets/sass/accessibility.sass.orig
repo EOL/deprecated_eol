@@ -792,6 +792,7 @@ body
     line-height: 170%
 #taxon_community
   .main_container
+<<<<<<< HEAD
     .article
       .header
         h4
@@ -799,6 +800,8 @@ body
           padding: 0 10px 3px 10px
           font-size: 1.16em
           border-bottom: 3px solid #394651
+=======
+>>>>>>> 4e85f52... Updates to taxon article styles on details and resources tabs and adjusted taxon tab's padding and header sizes to be more consistent.
     .list
       img
         +max_dimensions($logo_size_primary, $logo_size_primary)

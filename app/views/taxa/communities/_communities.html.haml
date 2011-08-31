@@ -3,11 +3,11 @@
     = render :partial => 'community_menu'
     .main_container
       .copy
-        %h2= I18n.t(:communities)
+        %h3= I18n.t(:communities)
         %p=  I18n.t(:community_tab_communities_description)
       .article.list
         .header
-          %h3= I18n.t(:belongs_in_count_communities, :count => @communities.count)
+          %h4= I18n.t(:belongs_in_count_communities, :count => @communities.count)
         %ul
           - @communities.each do |community|
             %li

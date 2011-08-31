@@ -39,15 +39,41 @@
       - else
         = I18n.t(:activity_user_unreviewed_unknown_object, :user => name_with_link)
     - when Activity.add_association.id
-      = I18n.t(:TODO)
+      - he = item.object ? item.object.italicized_name : nil
+      - if object_link
+        - if he
+          = I18n.t(:activity_user_added_named_association, :user => name_with_link, :object_name => object_link, :name => he)
+        - else
+          = I18n.t(:activity_user_added_association, :user => name_with_link, :object_name => object_link)
+      - else
+        = I18n.t(:activity_user_added_unknown_association, :user => name_with_link)
     - when Activity.remove_association.id
-      = I18n.t(:TODO)
+      - he = item.object ? item.object.italicized_name : nil
+      - if object_link
+        - if he
+          = I18n.t(:activity_user_removed_named_association, :user => name_with_link, :object_name => object_link, :name => he)
+        - else
+          = I18n.t(:activity_user_removed_association, :user => name_with_link, :object_name => object_link)
+      - else
+        = I18n.t(:activity_user_removed_unknown_association, :user => name_with_link)
     - when Activity.choose_exemplar.id
       = I18n.t(:TODO)
     - when Activity.add_common_name.id
-      = I18n.t(:TODO)
+      - if item.synonym && item.synonym.respond_to?(:name) && item.synonym.name.respond_to?(:string)
+        - if item.taxon_concept && item.taxon_concept.is_a?(TaxonConcept)
+          = I18n.t(:activity_user_added_common_name_to_taxon, :user => name_with_link, :name => item.synonym.name.string, :taxon => link_to(item.taxon_concept.quick_scientific_name, taxon_path(item.taxon_concept)))
+        - else
+          = I18n.t(:activity_user_added_common_name, :user => name_with_link, :name => item.synonym.name.string)
+      - else
+        - if item.taxon_concept && item.taxon_concept.is_a?(TaxonConcept)
+          = I18n.t(:activity_user_added_unknown_name_to_taxon, :user => name_with_link, :taxon => link_to(item.taxon_concept.quick_scientific_name, taxon_path(item.taxon_concept)))
+        - else
+          = I18n.t(:activity_user_added_unknown_name, :user => name_with_link)
     - when Activity.remove_common_name.id
-      = I18n.t(:TODO)
+      - if item.taxon_concept && item.taxon_concept.is_a?(TaxonConcept)
+        = I18n.t(:activity_user_removed_unknown_name_to_taxon, :user => name_with_link, :taxon => link_to(item.taxon_concept.quick_scientific_name, taxon_path(item.taxon_concept)))
+      - else
+        = I18n.t(:activity_user_removed_unknown_name, :user => name_with_link)
     - else
       = I18n.t(:activity_user_curated_an_unknown_object, :user => name_with_link)
   %p.meta= I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))

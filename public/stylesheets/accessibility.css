@@ -719,6 +719,11 @@ body > #header .section .session.join {
   margin: 0 0 15px 0;
   line-height: 170%; }
 
+#taxon_community .main_container .article .header h4 {
+  float: left;
+  padding: 0 10px 3px 10px;
+  font-size: 1.16em;
+  border-bottom: 3px solid #394651; }
 #taxon_community .main_container .list img {
   max-width: 68px;
   max-height: 68px;
@@ -744,6 +749,8 @@ body > #header .section .session.join {
   max-width: 60px; }
 #taxon_resources #nucleotide_sequences .copy p {
   padding-left: 90px; }
+#taxon_resources #biomedical_terms .attribution h4 {
+  margin-bottom: 5px; }
 
 /* TODO: this hasn't been really thought out and should be changed: */
 #sidebar.filters dd li.no_results label {

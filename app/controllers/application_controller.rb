@@ -524,7 +524,7 @@ class ApplicationController < ActionController::Base
         logger.error "** ERROR COLLECTING: #{e.message} FROM #{e.backtrace.first}"
         nil
       end
-      if collection_item
+      if collection_item && collection_item.save
         return unless what.respond_to?(:summary_name) # Failsafe.  Most things should.
         flash[:notice] ||= ''
         flash[:notice] += ' '

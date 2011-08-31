@@ -32,7 +32,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
     @resource = @partner.resources.build(params[:resource])
     access_denied unless current_user.can_create?(@resource)
     if @resource.save
-      @resource.resource_status = @resource.upload_resource_to_content_master(request.port.to_s)
+      @resource.resource_status = @resource.upload_resource_to_content_master!(request.port.to_s)
       # TODO: if we failed to transfer the resource to content master the status will show up in
       # index, but should we provide the user with more information on upload errors here?
       flash[:notice] = I18n.t(:content_partner_resource_create_successful_notice,

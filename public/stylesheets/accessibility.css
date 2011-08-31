@@ -1141,3 +1141,8 @@ body#prelaunch p.status {
   color: #394651;
   border: 2px solid #c7d471;
   background: #edf6b2; }
+
+#user_communities .heading form, #user_communities .heading a {
+  position: absolute;
+  right: 10px;
+  top: 4px; }

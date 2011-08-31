@@ -135,7 +135,7 @@ describe UsersController do
     it 'should verify user or return error'
     it 'should send activated account notification' do
       inactive_user = User.gen(:active => false, :validation_code => User.generate_key)
-      Notifier.should_receive(:deliver_account_activated).once.with(inactive_user)
+      Notifier.should_receive(:deliver_account_activated).once.with(inactive_user, root_url)
       get :verify, { :username => inactive_user.username, :validation_code => inactive_user.validation_code }
     end
   end

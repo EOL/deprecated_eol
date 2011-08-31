@@ -1,0 +1,1175 @@
+.assistive, #header .assistive {
+  position: absolute;
+  left: -999em; }
+
+/*
+ * Changes required for HR sass files:
+ *   - replace /images/<image name> with /images/v2/<image name>
+ *   - replace #profile_edit with form.edit_user
+ *
+ *
+ * Temporary placement of needed CSS for V2
+ * I don't want to edit/add to HashRocket's SASS files until they are done making changes
+ * so I am temporarily adding some CSS here needed for V2 demo. This CSS should be integrated
+ * into HashRocket SASS if it is still needed when design work is complete.
+ */
+/* Use the ~30K JPG form on the homepage image instead of the ~500K transparent PNG */
+body.home > #header {
+  background: transparent url("/images/v2/bg_home_earth.jpg") 50% 100% no-repeat; }
+
+/*Busy indicator for JS submitted forms e.g. exemplar image */
+.busy {
+  cursor: wait; }
+
+/*Override for layout on users edit - we have extra nested div so we need to remove padding,
+ * we added extra fieldset - but check HR might give us an update for the fieldset */
+#profile_edit.article {
+  padding: 0 0 25px 0; }
+#profile_edit fieldset.curation {
+  width: 320px; }
+  #profile_edit fieldset.curation textarea {
+    width: 282px;
+    height: 120px; }
+
+#collections_tab .collections {
+  padding: 20px 0 0 0; }
+
+#user_communities .communities {
+  padding: 20px 0 0 0; }
+  #user_communities .communities ul.object_list img {
+    float: left;
+    margin: 0 20px 0 0; }
+
+/*Content partner various */
+#profile_content_connections li img {
+  max-width: 68px;
+  max-height: 68px;
+  width: expression(this.width > 68 ? "68px" : true);
+  height: expression(this.height > 68 ? "68px" : true); }
+
+#sidebar .content_partner_managers {
+  margin: 0 0 20px 0; }
+  #sidebar .content_partner_managers li {
+    overflow: hidden;
+    padding: 0 0 20px 0;
+    line-height: 140%; }
+  #sidebar .content_partner_managers img {
+    float: left;
+    margin: 0 10px 0 0;
+    border: 1px solid #394651; }
+  #sidebar .content_partner_managers h4 a {
+    color: inherit;
+    text-decoration: none; }
+    #sidebar .content_partner_managers h4 a:hover {
+      text-decoration: underline; }
+
+#profile_content_partner form dt {
+  clear: both; }
+#profile_content_partner form dd.managed_by {
+  overflow: hidden; }
+  #profile_content_partner form dd.managed_by img {
+    float: left;
+    margin: 0 10px 0 0;
+    border: 1px solid #394651;
+    max-width: 48px;
+    max-height: 48px;
+    width: expression(this.width > 48 ? "48px" : true);
+    height: expression(this.height > 48 ? "48px" : true); }
+  #profile_content_partner form dd.managed_by .details {
+    padding: 5px 0 0 0;
+    overflow: hidden; }
+
+form fieldset.dataset legend.required {
+  font-weight: bold;
+  background: url("/images/v2/icon_required.png") 0 45% no-repeat;
+  padding-left: 10px;
+  margin-left: -10px; }
+
+/*Styles for form required (HR overrides) and form validation errors (custom no equivalent from HR)  */
+form dt.required label {
+  background: url("/images/v2/icon_required.png") 0 45% no-repeat;
+  padding-left: 10px;
+  margin-left: -10px; }
+form fieldset#errors {
+  width: 100%;
+  position: relative;
+  background: #ffeae6;
+  border: 1px solid #f2d2cc;
+  padding: 20px 0;
+  margin: 0 0 20px 0; }
+  form fieldset#errors legend {
+    position: absolute;
+    left: 20px;
+    background: transparent;
+    font-weight: bold; }
+  form fieldset#errors ul {
+    margin: 30px 20px 0 40px; }
+  form fieldset#errors li {
+    font-weight: normal;
+    display: block;
+    float: none;
+    margin-bottom: 5px; }
+form fieldset.radio {
+  margin: 20px 0; }
+  form fieldset.radio legend {
+    font-weight: bold;
+    padding-bottom: 10px; }
+  form fieldset.radio label {
+    margin: 10px;
+    display: block;
+    clear: both;
+    line-height: 1.2em; }
+form label.errors, form span.errors {
+  color: #e84226; }
+form span.errors {
+  font-weight: normal; }
+form input.errors, form textarea.errors {
+  border-color: #f2d2cc !important; }
+
+/*switching hierarchy entries form when js disabled want button to be inline if possible */
+form#switch_hierarchy_entry fieldset {
+  display: inline; }
+
+/*Making lanugage switcher accessible on overview and details pages */
+.learn_more fieldset.actions {
+  display: inline; }
+
+/*Getting rid of the dodgy dot */
+.meta.learn_more p:before, .meta.learn_more form:before {
+  content: "•";
+  margin: 0 10px 0 0; }
+.meta.learn_more p:after, .meta.learn_more form:after {
+  content: "" !important;
+  margin: 0 !important; }
+.meta.learn_more p {
+  text-transform: lowercase; }
+  .meta.learn_more p:first-child:before {
+    content: "";
+    margin: 0 !important; }
+
+/*pending eol user account */
+#content.session form.terms_agreement {
+  padding: 75px 69px;
+  width: 500px; }
+#content.session .pending {
+  width: 320px;
+  min-height: 225px;
+  padding: 75px 159px;
+  margin: 0 auto;
+  border: 1px solid #cad3db;
+  background: #f0f4f7 url("/images/v2/bg_sign-in.gif") 0 0 no-repeat; }
+
+/*recaptcha */
+#new_user iframe {
+  width: 320px;
+  overflow: auto; }
+
+/*will_paginate styling */
+.pagination {
+  text-align: right; }
+  .pagination a {
+    text-decoration: none;
+    font-weight: bold; }
+  .pagination a, .pagination span.current {
+    display: inline-block;
+    padding: 0 3px; }
+  .pagination .prev_page {
+    float: left; }
+  .pagination .next_page {
+    margin-left: 10px; }
+  .pagination .disabled {
+    color: #616e7a; }
+
+#taxon_literature .pagination {
+  margin-bottom: 15px; }
+
+#main .footer {
+  clear: both;
+  border-top: 1px solid black;
+  padding: 10px 0;
+  margin: 20px 0 0 0; }
+
+#main .header, .cms_page .header {
+  text-align: center; }
+  #main .header .pagination, .cms_page .header .pagination {
+    position: relative;
+    top: 5px;
+    left: 0;
+    width: 100%; }
+    #main .header .pagination a, .cms_page .header .pagination a {
+      position: relative !important;
+      top: 0 !important;
+      left: 0 !important; }
+
+/*cms page styles */
+#content.cms_page .header {
+  border-bottom: 1px solid #cad3db;
+  padding-bottom: 1em;
+  margin-bottom: 30px; }
+#content.cms_page .footer {
+  border-top: 1px solid #cad3db;
+  padding-top: 1em; }
+#content.cms_page table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0 0 15px 0;
+  line-height: 170%; }
+  #content.cms_page table thead tr {
+    border: 1px solid #cad3db; }
+    #content.cms_page table thead tr th {
+      background: #eff2f4;
+      padding: 5px 20px;
+      font-weight: bold;
+      text-align: left; }
+  #content.cms_page table tbody tr {
+    border: 1px solid #cad3db; }
+    #content.cms_page table tbody tr td {
+      padding: 5px 20px; }
+#content.cms_page a.pdf {
+  background: url("/images/v2/icon_pdf.png") right top no-repeat;
+  padding: 0 20px 3px 0; }
+#content.cms_page ul.with_images li {
+  overflow: hidden;
+  list-style-type: none;
+  clear: both;
+  border-bottom: 1px solid #cad3db;
+  padding: 10px; }
+  #content.cms_page ul.with_images li img {
+    max-width: 88px;
+    padding: 0;
+    border: none;
+    float: left;
+    margin: 0 0 10px 0; }
+  #content.cms_page ul.with_images li h2, #content.cms_page ul.with_images li h3, #content.cms_page ul.with_images li h4, #content.cms_page ul.with_images li h5, #content.cms_page ul.with_images li p {
+    margin-left: 110px; }
+#content.cms_page ul.object_list {
+  list-style_type: none; }
+  #content.cms_page ul.object_list li img {
+    max-width: 68px; }
+  #content.cms_page ul.object_list li h4 {
+    margin-bottom: 0.5em; }
+    #content.cms_page ul.object_list li h4 a {
+      color: #195184;
+      text-decoration: underline; }
+  #content.cms_page ul.object_list li p {
+    clear: none; }
+#content.cms_page dl {
+  line-height: 140%;
+  margin: 0 0 40px 0; }
+  #content.cms_page dl dt {
+    font-weight: bold; }
+  #content.cms_page dl dd {
+    margin: 0 0 5px 20px; }
+#content.cms_page code {
+  clear: both;
+  display: block;
+  font-family: "courier new", courier, monospace;
+  line-height: 1.3;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  background-color: #eeeeee;
+  border: 1px dashed #999999;
+  padding: 10px;
+  white-space: pre;
+  overflow-x: auto; }
+#content.cms_page #api_doc p {
+  margin-left: 40px; }
+#content.cms_page #api_doc table {
+  margin-bottom: 40px; }
+  #content.cms_page #api_doc table col.name {
+    font-weight: bold; }
+  #content.cms_page #api_doc table col.notes {
+    width: 25%; }
+
+.donate label.other {
+  padding-left: 15px;
+  margin-top: -27px; }
+.donate fieldset.actions {
+  margin-bottom: 40px; }
+.donate em {
+  font-weight: bold; }
+
+/*content partners overrides/additions */
+.cms_page #content_partners #sidebar input[type="text"] {
+  width: 118px; }
+
+#new_content_partner_agreement dl {
+  clear: both; }
+  #new_content_partner_agreement dl dd {
+    margin: 0 0 10px 0; }
+    #new_content_partner_agreement dl dd input[type="text"] {
+      width: 308px;
+      height: 22px;
+      padding: 2px 5px;
+      font: normal 1em Helvetica, Arial, sans-serif;
+      border: 1px solid #cad3db;
+      background-color: white;
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+      background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
+
+#content_partner_show .empty {
+  font-size: 1em; }
+#content_partner_show .agreement dl {
+  margin: 0 40px 15px 40px;
+  line-height: 170%; }
+  #content_partner_show .agreement dl dt {
+    font-weight: bold; }
+  #content_partner_show .agreement dl dd {
+    margin: 0 0 10px 0; }
+#content_partner_show .agreement address {
+  display: block;
+  width: 40%;
+  line-height: 170%; }
+  #content_partner_show .agreement address.partner {
+    float: left; }
+  #content_partner_show .agreement address.eol {
+    float: right; }
+#content_partner_show dl.agreement {
+  line-height: 140%; }
+  #content_partner_show dl.agreement dt {
+    font-weight: bold; }
+  #content_partner_show dl.agreement dd {
+    margin: 0 0 5px 20px; }
+#content_partner_show #resources_show .section.half {
+  float: left;
+  width: 299px;
+  margin-right: 20px; }
+  #content_partner_show #resources_show .section.half dl {
+    line-height: 140%;
+    margin: 0 0 40px 0; }
+    #content_partner_show #resources_show .section.half dl dt {
+      font-weight: bold; }
+    #content_partner_show #resources_show .section.half dl dd {
+      margin: 0 0 5px 20px; }
+
+#content_partner_edit.site_column, #content_partner_new.site_column {
+  width: 640px; }
+
+ul.content_partner_contacts li {
+  margin: 0 0 20px 0; }
+
+#content_partner_statistics .main_container {
+  border: none;
+  padding: 0; }
+#content_partner_statistics .heading {
+  text-align: center; }
+  #content_partner_statistics .heading fieldset, #content_partner_statistics .heading input[type="submit"] {
+    display: inline;
+    margin: 0; }
+#content_partner_statistics table {
+  margin-top: 20px; }
+
+/*warning messages - check HR commits for updates to this */
+p.status.error {
+  border: 1px solid #f2d2cc;
+  background: #ffeae6; }
+
+/*move to home.css once HR involvement ceases */
+.home #content {
+  padding-bottom: 20px; }
+.home p.status.notice, .home p.status.error, .home p.status.warning {
+  clear: both;
+  padding: 7px 10px;
+  margin: 0;
+  line-height: 140%;
+  font-size: 1.08em;
+  font-weight: bold;
+  text-align: center;
+  color: #394651;
+  border: 1px solid #c7d471;
+  background: #edf6b2; }
+.home p.status.error {
+  border: 1px solid #f2d2cc;
+  background: #ffeae6; }
+
+/*HR change permalink class to text, but use article elsewhere for text objects so we are still using
+ * article as that's what en_type is returning... at some point we should go through and change all 'article'
+ * classes that mean data_object text to text, as article clashes with the HR generic article class but right
+ * now we have I18n keys and various classes around the site depending on 'article' for text data object.
+ */
+#permalink {
+  /* added float non to video as description box wasn't showing up properly on DO page */ }
+  #permalink.article {
+    padding: 0; }
+  #permalink #sidebar ul.review_status p.unknown {
+    border: 1px solid #677682;
+    background: #8695a1; }
+  #permalink #sidebar ul.review_status p.untrusted {
+    border: 1px solid #f2d2cc;
+    background: #ffeae6;
+    color: #677682; }
+  #permalink .media {
+    float: none; }
+    #permalink .media img {
+      max-width: 540px;
+      width: expression(this.width > 540 ? "540px" : true); }
+
+/*I say we standardise form tips everywhere */
+form p.tip {
+  background: #f3f7fa;
+  border: 1px solid #cad3db;
+  padding: 10px;
+  margin: 0 40px 20px 0;
+  line-height: 140%; }
+  form p.tip img {
+    margin: -2px 5px 0 5px; }
+
+/*Add article interface we have error fieldset and a textarea box in information fieldset that HR didn't expect */
+form#new_data_object fieldset dt, form.edit_data_object fieldset dt {
+  font-size: 1.08em; }
+form#new_data_object fieldset.content, form.edit_data_object fieldset.content {
+  width: 640px; }
+  form#new_data_object fieldset.content input[type="text"], form.edit_data_object fieldset.content input[type="text"] {
+    width: 308px; }
+  form#new_data_object fieldset.content textarea, form.edit_data_object fieldset.content textarea {
+    width: 580px;
+    height: 200px; }
+form#new_data_object fieldset.information, form.edit_data_object fieldset.information {
+  width: 300px; }
+  form#new_data_object fieldset.information input[type="text"], form.edit_data_object fieldset.information input[type="text"] {
+    width: 288px; }
+  form#new_data_object fieldset.information textarea, form.edit_data_object fieldset.information textarea {
+    width: 282px;
+    height: 80px; }
+
+/*Adjustments for when missing exemplar image */
+#media_list #sidebar img, #taxon_detail #sidebar img {
+  margin: auto; }
+#media_list #sidebar h3, #taxon_detail #sidebar h3 {
+  margin-top: 20px; }
+#media_list #sidebar h4 a, #taxon_detail #sidebar h4 a {
+  color: #667309;
+  text-decoration: none; }
+
+/*Special styles for layering audio description on top of audio thumbnail */
+#media_list #main > ul > li .figure {
+  width: 160px;
+  height: 125px;
+  margin-bottom: 5px; }
+  #media_list #main > ul > li .figure .audio {
+    position: relative;
+    background: #394651 url("/images/v2/icon_sound_tabs.png") no-repeat 50% 20%;
+    width: 160px;
+    height: 123px;
+    margin: 0 0 5px 0;
+    text-align: center;
+    overflow: hidden; }
+    #media_list #main > ul > li .figure .audio p {
+      padding: 50px 5px 30px; }
+      #media_list #main > ul > li .figure .audio p a {
+        color: #e2e9ef; }
+    #media_list #main > ul > li .figure .audio noscript a, #media_list #main > ul > li .figure .audio .player a {
+      color: #e2e9ef; }
+    #media_list #main > ul > li .figure .audio audio {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 160px;
+      z-index: 1; }
+  #media_list #main > ul > li .figure .video_overlay {
+    background: url("/images/v2/video_play.png") no-repeat 50% 50% transparent;
+    width: 160px;
+    height: 125px;
+    z-index: 300;
+    position: absolute; }
+  #media_list #main > ul > li .figure .video {
+    text-align: center;
+    border: 1px solid #cad3db;
+    width: 158px;
+    height: 123px; }
+    #media_list #main > ul > li .figure .video p {
+      padding: 93px 5px 0; }
+#media_list #main > ul > li > a {
+  display: inline-block;
+  overflow: hidden; }
+#media_list #main > ul > li form {
+  display: block;
+  clear: both; }
+  #media_list #main > ul > li form.taxon_concept_exemplar_image input[type="submit"] {
+    position: absolute;
+    top: 95px;
+    right: 0;
+    z-index: 3; }
+
+/*style for vetted status flags - various locations */
+p.flag {
+  color: white;
+  padding: 1px 2px;
+  text-transform: uppercase;
+  font-size: 0.75em; }
+  p.flag.trusted {
+    border: 1px solid #6b7910;
+    background: #849513; }
+  p.flag.unknown {
+    border: 1px solid #677682;
+    background: #8695a1; }
+  p.flag.untrusted {
+    border: 1px solid #f2d2cc;
+    background: #ffeae6;
+    color: #677682 !important; }
+
+/*We share rating partial across many pages so need extra styles here. */
+#permalink .ratings h5 {
+  margin-top: 2px;
+  font-size: 1.1em;
+  padding: 0; }
+
+#permalink_add_association #main ul > li img {
+  max-width: 68px;
+  max-height: 68px;
+  width: expression(this.width > 68 ? "68px" : true);
+  height: expression(this.height > 68 ? "68px" : true); }
+
+#taxon_detail #main > .section > .article > .meta.learn_more p {
+  line-height: 200%; }
+#taxon_detail #main > .section > .article > .copy {
+  padding-bottom: 15px; }
+#taxon_detail .rating h5 {
+  float: left;
+  margin: 0 10px 0 0;
+  text-transform: lowercase;
+  font-size: 0.83em; }
+#taxon_detail .rating ul {
+  display: inline; }
+#taxon_detail .average_rating {
+  float: left;
+  padding: 2px 40px 0 0;
+  margin: 0 0 20px 0; }
+  #taxon_detail .average_rating h5 {
+    float: left;
+    margin: 0 10px 0 0;
+    text-transform: lowercase; }
+    #taxon_detail .average_rating h5 small {
+      font-size: 1em; }
+
+.rating ul li.current_rating_0 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 13px;
+  font-size: 0;
+  text-indent: -8685px;
+  overflow: hidden;
+  width: 0;
+  background: transparent url("/images/v2/icon_stars.png") 0 100% repeat-x; }
+
+/*We don't want border on EOL abbr tags in the shared join partial */
+.join abbr {
+  border: none; }
+
+/*HR z-indexes were messed up in header, also we're putting session partial on home page for logged in users */
+body.home > #header .session.signed_in {
+  width: 400px; }
+body.home > #header .session.join {
+  text-align: center !important; }
+  body.home > #header .session.join a {
+    color: white !important; }
+body > #header .section .actions {
+  z-index: 5; }
+body > #header .section .session.join {
+  float: right;
+  text-align: right;
+  color: white; }
+  body > #header .section .session.join p {
+    line-height: 1.4em; }
+  body > #header .section .session.join a {
+    color: #90bce4; }
+
+/*IUCN styles, we use a h3 header instead of just a paragraph so its easier to find with screenreaders. */
+#iucn_status {
+  border: 1px solid #cad3db;
+  background: #f1f4f7;
+  text-align: center;
+  padding: 7px 10px;
+  font-size: 1.16em;
+  margin: 20px 0;
+  color: #394651; }
+  #iucn_status h3, #iucn_status p {
+    display: inline; }
+  #iucn_status a {
+    color: #195184; }
+  #iucn_status.positive {
+    border-color: #c7d471;
+    background: #edf6b2; }
+    #iucn_status.positive a {
+      color: #809203; }
+  #iucn_status.negative {
+    border-color: #f2d2cc;
+    background: #ffeae6; }
+
+/*taxon disclaimer */
+.disclaimer {
+  clear: both;
+  border-top: 1px solid #cad3db;
+  padding-top: 10px; }
+  .disclaimer p {
+    text-align: center;
+    font-size: 0.9em;
+    color: #394651;
+    margin: 0; }
+
+/*Hierarchy Entry classification browser does not have styles from HR
+ * HR assumes a list of classifications, where each top level list item is the container
+ * On hierarchy entry page the container is a div not a list item, and top level list items are kingdoms
+ * so we can't re-use HR SASS as it is - we need to refactor markup and SASS so we can share SASS or create mixin.
+ */
+#classification_browser {
+  border: 1px solid #d7dadc;
+  overflow-x: auto;
+  padding: 10px 15px;
+  margin: 0 -10px 20px -10px; }
+  #classification_browser > ul {
+    line-height: 160%;
+    font-size: 0.9em; }
+    #classification_browser > ul li {
+      white-space: nowrap; }
+      #classification_browser > ul li ul {
+        margin-left: 10px; }
+
+#classification_browser .open, .classifications .open {
+  font-weight: bold; }
+
+/*overides for empty text styles - various */
+#classifications_summary .empty p {
+  font-size: 1em !important; }
+
+.article .empty a.button {
+  font-size: 0.78em !important; }
+
+.updates .empty p {
+  padding: 0 0 15px 0 !important; }
+
+#taxon_names table.standard.common_names td {
+  position: relative;
+  width: 33%; }
+#taxon_names table.standard.edit_common_names td {
+  position: relative;
+  width: 25%; }
+#taxon_names table.standard.synonyms td, #taxon_names table.standard.related_names td {
+  position: relative;
+  width: 50%; }
+#taxon_names form#new_name {
+  background: #f3f7fa;
+  border: 1px solid #cad3db;
+  margin-bottom: 40px;
+  padding: 5px 20px; }
+  #taxon_names form#new_name .copy {
+    margin-bottom: 3px; }
+    #taxon_names form#new_name .copy h3 {
+      margin-bottom: 0; }
+  #taxon_names form#new_name dt, #taxon_names form#new_name dd, #taxon_names form#new_name fieldset, #taxon_names form#new_name input[type="submit"] {
+    display: inline-block; }
+  #taxon_names form#new_name dl {
+    margin-left: 20px; }
+    #taxon_names form#new_name dl dt {
+      padding-right: 5px; }
+    #taxon_names form#new_name dl dd {
+      margin-right: 20px; }
+  #taxon_names form#new_name input[type="text"] {
+    width: 200px;
+    height: 22px;
+    padding: 2px 5px;
+    font: normal 1em Helvetica, Arial, sans-serif;
+    border: 1px solid #cad3db;
+    background-color: white;
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+    background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
+#taxon_names .recognized {
+  line-height: 170%; }
+
+#taxon_maps .empty p {
+  margin: 0 !important; }
+
+#sidebar .collection_list .article .empty, #sidebar .collection_contributors .article .empty {
+  font-size: 1em;
+  margin-top: 0; }
+
+/*Add to my collection button is a form not an a tag as assumed by HR so we have to add some styles */
+#taxon_detail div.actions {
+  clear: both;
+  margin: 0 0 20px 0; }
+#taxon_detail form#new_collection_item {
+  display: inline-block; }
+  #taxon_detail form#new_collection_item input[type="submit"] {
+    padding: 7px 20px;
+    font-size: 1em; }
+  #taxon_detail form#new_collection_item fieldset {
+    display: inline-block; }
+
+#taxon #collections_summary form {
+  margin-top: 0; }
+  #taxon #collections_summary form fieldset.actions {
+    margin-top: 0; }
+
+.empty fieldset.actions input.button {
+  font-size: 0.82em;
+  padding: 5px 10px 6px 10px; }
+
+/*HR styles assume text descriptions are nicely wrapped in p tags - in reality they may or may not be so we add
+ * extra div.description and assign styles to the div - check this, particularly line-height as we probably need
+ * to remove some HR styles from nested p. Check latest HR and remove the table styles here if possible.
+ * if we keep this we should DRY it out - same for whole file actually */
+#taxon_detail #main .article .copy, #taxon_detail #main .article .references {
+  margin: 0 0 15px 0;
+  line-height: 170%; }
+
+#text_summary.article .copy {
+  margin: 0 0 15px 0;
+  line-height: 170%; }
+
+#taxon_community .main_container .article .header h4 {
+  float: left;
+  padding: 0 10px 3px 10px;
+  font-size: 1.16em;
+  border-bottom: 3px solid #394651; }
+#taxon_community .main_container .list img {
+  max-width: 68px;
+  max-height: 68px;
+  width: expression(this.width > 68 ? "68px" : true);
+  height: expression(this.height > 68 ? "68px" : true); }
+
+#taxon_literature .main_container, #taxon_community .main_container, #taxon_resources .main_container {
+  padding: 20px; }
+#taxon_literature h3, #taxon_community h3, #taxon_resources h3 {
+  font-size: 2em; }
+
+#taxon_resources .empty p {
+  margin: 0; }
+#taxon_resources table.standard tbody > tr > td > a > img {
+  max-width: 90px; }
+#taxon_resources #taxon_detail > #main > h3 {
+  padding: 0 20px 20px 0;
+  font-size: 2em; }
+#taxon_resources #nucleotide_sequences .copy h3 {
+  padding-bottom: 10px; }
+#taxon_resources #nucleotide_sequences .copy img {
+  float: left;
+  max-width: 60px; }
+#taxon_resources #nucleotide_sequences .copy p {
+  padding-left: 90px; }
+#taxon_resources #biomedical_terms .attribution h4 {
+  margin-bottom: 5px; }
+
+/* TODO: this hasn't been really thought out and should be changed: */
+#sidebar.filters dd li.no_results label {
+  color: #6f7e8b; }
+
+/*page heading actions, making header group narrow to fit actions in */
+#page_heading.with_image .hgroup {
+  width: 630px; }
+#page_heading .page_actions {
+  padding-top: 10px; }
+  #page_heading .page_actions fieldset.actions {
+    margin: 0; }
+    #page_heading .page_actions fieldset.actions input[type="submit"] {
+      margin: 0; }
+#page_heading .hgroup .copy p {
+  margin: 10px 0; }
+
+/*wikipedia import request */
+#wikipedia_queue form {
+  margin-top: 40px; }
+  #wikipedia_queue form dt p {
+    margin-bottom: 0; }
+  #wikipedia_queue form dd {
+    margin: 0 0 10px 0; }
+    #wikipedia_queue form dd input[type="text"] {
+      width: 308px;
+      height: 22px;
+      padding: 2px 5px;
+      font: normal 1em Helvetica, Arial, sans-serif;
+      border: 1px solid #cad3db;
+      background-color: white;
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+      background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
+      width: 540px; }
+  #wikipedia_queue form input[type="submit"] {
+    padding: 7px 10px;
+    font-size: 1em; }
+
+/*collections overides */
+.object_list div.checkbox {
+  margin: 0; }
+
+#collections .heading fieldset {
+  display: inline;
+  margin: 0; }
+
+#map_image {
+  height: 350px; }
+
+#media_summary .image > a img {
+  max-width: 430px;
+  max-height: 310px;
+  width: expression(this.width > 430 ? "430px" : true);
+  height: expression(this.height > 310 ? "310px" : true); }
+
+ul.feed li > a > img {
+  max-width: 48px;
+  max-height: 48px;
+  width: expression(this.width > 48 ? "48px" : true);
+  height: expression(this.height > 48 ? "48px" : true); }
+
+#header .session img {
+  max-width: 48px;
+  max-height: 48px;
+  width: expression(this.width > 48 ? "48px" : true);
+  height: expression(this.height > 48 ? "48px" : true); }
+
+#collections_summary ul li > a > img, #communities_summary ul li > a > img, #curators_summary ul li > a > img {
+  max-width: 48px;
+  max-height: 48px;
+  width: expression(this.width > 48 ? "48px" : true);
+  height: expression(this.height > 48 ? "48px" : true); }
+
+#collections .collections .article > .header > a > img {
+  max-width: 48px;
+  max-height: 48px;
+  width: expression(this.width > 48 ? "48px" : true);
+  height: expression(this.height > 48 ? "48px" : true); }
+
+#community .article.list img {
+  max-width: 48px;
+  max-height: 48px;
+  width: expression(this.width > 48 ? "48px" : true);
+  height: expression(this.height > 48 ? "48px" : true); }
+
+#page_heading.with_image img, #page_heading.profile img {
+  max-width: 88px;
+  max-height: 88px;
+  width: expression(this.width > 88 ? "88px" : true);
+  height: expression(this.height > 88 ? "88px" : true); }
+
+#collections.main_container .taxon > img {
+  max-width: 88px;
+  max-height: 88px;
+  width: expression(this.width > 88 ? "88px" : true);
+  height: expression(this.height > 88 ? "88px" : true); }
+
+#sidebar .collection_list img, #sidebar .collection_contributors img, #sidebar .content_partner_managers img {
+  max-width: 35px;
+  max-height: 35px;
+  width: expression(this.width > 35 ? "35px" : true);
+  height: expression(this.height > 35 ? "35px" : true); }
+
+/*we share attribution across multiple pages so we need some overrides of HR here */
+#text_summary p.flag {
+  float: left; }
+#text_summary .attribution {
+  clear: none; }
+  #text_summary .attribution .copy {
+    padding-left: 120px; }
+  #text_summary .attribution img, #text_summary .attribution span.license {
+    float: left;
+    margin: 0 10px; }
+
+#taxon .gallery ul.thumbnails li img {
+  max-width: 98px;
+  max-height: 68px;
+  width: expression(this.width > 98 ? "98px" : true);
+  height: expression(this.height > 68 ? "68px" : true);
+  width: auto;
+  height: auto;
+  margin: 0 auto; }
+#taxon .gallery ul.thumbnails li.active img {
+  max-width: 96px;
+  max-height: 66px;
+  width: expression(this.width > 96 ? "96px" : true);
+  height: expression(this.height > 66 ? "66px" : true);
+  margin: 0 auto; }
+#taxon .gallery .images .details {
+  position: relative;
+  margin: 5px 0 0 0;
+  z-index: 100;
+  font-size: 0.92em; }
+  #taxon .gallery .images .details .copy p {
+    margin: 0 0 4px;
+    line-height: 120%; }
+    #taxon .gallery .images .details .copy p.owner {
+      padding-left: 85px; }
+  #taxon .gallery .images .details .attribution {
+    margin: 0;
+    font-size: 1em; }
+    #taxon .gallery .images .details .attribution img, #taxon .gallery .images .details .attribution span.license {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      margin: 0; }
+    #taxon .gallery .images .details .attribution img {
+      margin-top: -1px; }
+
+#media_list #main ul li img {
+  max-width: 160px;
+  max-height: 125px;
+  width: expression(this.width > 160 ? "160px" : true);
+  height: expression(this.height > 125 ? "125px" : true); }
+#media_list #sidebar.filters img {
+  max-width: 220px; }
+
+#taxon_detail #sidebar img {
+  max-width: 260px; }
+
+ul.object_list li img {
+  max-width: 68px;
+  max-height: 68px;
+  width: expression(this.width > 68 ? "68px" : true);
+  height: expression(this.height > 68 ? "68px" : true); }
+
+form.comment img {
+  max-width: 48px;
+  max-height: 48px;
+  width: expression(this.width > 48 ? "48px" : true);
+  height: expression(this.height > 48 ? "48px" : true); }
+
+#header .thumbnails ul li {
+  width: 140px;
+  height: 140px; }
+
+.editable_link {
+  font-size: 0.8em; }
+
+.edit_collection #sidebar fieldset.actions {
+  padding: 0; }
+
+table.standard td.nowrap {
+  white-space: nowrap; }
+
+#collections .article.updates {
+  padding: 0 0 25px 0; }
+  #collections .article.updates li {
+    overflow: hidden;
+    padding: 20px; }
+    #collections .article.updates li .details img {
+      margin: 0 8px 0 0;
+      border: 1px solid #394651; }
+
+#collections_choose h2 {
+  font-size: 1.3em;
+  margin: 2em 0 0.5em; }
+#collections_choose input[type="text"] {
+  background-color: white;
+  background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+  border: 1px solid #cad3db;
+  font: 1em Helvetica, Arial, sans-serif;
+  height: 22px;
+  padding: 2px 5px;
+  width: 248px; }
+#collections_choose ul {
+  border-top: 1px solid #394651; }
+#collections_choose li img {
+  float: left;
+  margin-right: 2em !important; }
+
+.article .pagination {
+  margin-top: 1em; }
+
+#page_heading .page_actions li + li {
+  margin: 10px 0; }
+
+h1.notice {
+  font-size: 2em;
+  text-align: center;
+  padding: 4em; }
+
+.column.curators img, .column.collections img, .column.communities img {
+  max-width: 48px;
+  max-height: 48px;
+  width: expression(this.width > 48 ? "48px" : true);
+  height: expression(this.height > 48 ? "48px" : true); }
+
+#worklist #task #sidebar {
+  width: auto;
+  float: none;
+  padding: 0px !important; }
+
+#worklist #tasks ul li {
+  z-index: 300; }
+  #worklist #tasks ul li img {
+    max-width: 48px;
+    max-height: 48px;
+    width: expression(this.width > 48 ? "48px" : true);
+    height: expression(this.height > 48 ? "48px" : true); }
+
+#task .media img {
+  margin: 0 auto;
+  display: block; }
+
+.invisible {
+  opacity: 0; }
+
+#worklist .filters fieldset.actions {
+  padding: 0;
+  line-height: 22px;
+  color: #667309;
+  text-transform: uppercase;
+  font-weight: bold; }
+#worklist .filters fieldset dl {
+  padding: 0 30px 0 0; }
+
+#worklist #tasks li:hover {
+  background-color: white !important; }
+
+#taxon_updates .update_feed .header, #taxon_updates .page_statistics .header {
+  position: relative;
+  padding: 10px 0;
+  text-align: center;
+  border-bottom: 1px solid #394651; }
+  #taxon_updates .update_feed .header h3, #taxon_updates .page_statistics .header h3 {
+    font-size: 1.33em; }
+#taxon_updates .page_statistics dl {
+  float: right;
+  line-height: 140%;
+  width: 200px;
+  padding: 50px 30px 30px 0; }
+  #taxon_updates .page_statistics dl dt {
+    font-size: 1.8em;
+    margin: 0 0 10px 0; }
+    #taxon_updates .page_statistics dl dt + dd {
+      font-size: 2em; }
+      #taxon_updates .page_statistics dl dt + dd + dt {
+        font-size: 1.2em; }
+        #taxon_updates .page_statistics dl dt + dd + dt + dd {
+          font-size: 1.6em; }
+  #taxon_updates .page_statistics dl dd {
+    font-weight: bold;
+    margin: 0 0 20px 0; }
+#taxon_updates .page_statistics .copy {
+  float: left;
+  width: 380px;
+  margin-top: 30px;
+  background: #f3f7fa;
+  border: 1px solid #cad3db;
+  padding: 20px 20px 0 20px; }
+
+a.other_actions {
+  float: right;
+  margin-top: 1em; }
+
+.site_column > #choose_collections h2 {
+  font-size: 1.33em;
+  margin: 0 0 10px 0; }
+.site_column > #choose_collections fieldset.new_collection {
+  overflow: hidden;
+  margin: 0 0 20px 0; }
+  .site_column > #choose_collections fieldset.new_collection input[type="text"] {
+    float: left;
+    width: 210px;
+    height: 22px;
+    padding: 2px 5px;
+    font: normal 1em Helvetica, Arial, sans-serif;
+    border: 1px solid #cad3db;
+    background-color: white;
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+    background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
+    margin: 0 10px 0 0; }
+.site_column > #choose_collections input[type="submit"] {
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 1.08em;
+  padding: 5px 10px 6px 10px; }
+.site_column > #choose_collections ul {
+  border: 1px solid #cad3db;
+  height: 230px;
+  overflow-y: scroll;
+  margin: 0 0 20px 0; }
+  .site_column > #choose_collections ul li {
+    font-weight: bold;
+    padding: 5px 10px; }
+    .site_column > #choose_collections ul li.collected {
+      background: #f4f4f4; }
+    .site_column > #choose_collections ul li input[type="checkbox"] {
+      margin: 0 5px 0 0; }
+    .site_column > #choose_collections ul li a {
+      font-size: 0.95em; }
+    .site_column > #choose_collections ul li span {
+      font-size: 0.95em; }
+    .site_column > #choose_collections ul li + li {
+      border-top: 1px solid #cad3db; }
+
+#search_results ul.object_list li {
+  white-space: nowrap; }
+
+#taxon_maps #media_list {
+  padding: 0; }
+
+#taxon_detail #sidebar {
+  padding: 0;
+  padding-bottom: 20px;
+  width: 260px; }
+  #taxon_detail #sidebar #toc {
+    margin: 0px 20px; }
+
+#media_list #sidebar {
+  padding: 0;
+  padding-bottom: 20px;
+  width: 220px; }
+  #media_list #sidebar #filters {
+    margin: 0px 20px; }
+
+#taxon_updates form.comment {
+  margin: 0 0 15px; }
+  #taxon_updates form.comment textarea {
+    width: 580px; }
+
+#page_heading p#citation {
+  background-color: white;
+  border: 1px solid #d4dce2;
+  color: #5f6c76;
+  font-size: 0.95em;
+  line-height: 100%;
+  font-weight: normal; }
+
+ul li.newsfeed {
+  margin-bottom: 20px !important; }
+  ul li.newsfeed a {
+    padding: 7px 10px 6px !important;
+    font-size: 12px !important; }
+
+div.newsfeed_heading {
+  padding: 6px 10px 5px;
+  text-align: left;
+  font-weight: bold;
+  text-transform: uppercase;
+  background: none repeat scroll 0 0 #f1f4dc;
+  border-bottom: 1px solid #ccd399; }
+  div.newsfeed_heading h3 {
+    color: #828d33;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1em; }
+
+ul.media li .overlay {
+  height: auto !important; }
+
+body#prelaunch p.status {
+  clear: both;
+  padding: 7px 10px;
+  font-size: 1.16em;
+  font-weight: bold;
+  text-align: center;
+  color: #394651;
+  border: 2px solid #c7d471;
+  background: #edf6b2; }
+
+<<<<<<< HEAD
+#user_communities .heading {
+  position: relative;
+  text-align: left; }
+  #user_communities .heading form, #user_communities .heading a {
+    position: absolute;
+    right: 10px;
+    top: 4px; }
+=======
+#user_communities .heading form, #user_communities .heading a {
+  position: absolute;
+  right: 10px;
+  top: 4px; }
+
+body#prelaunch #footer ul.social_media {
+  margin-top: 20px; }
+>>>>>>> Should stop getting so many TODOs in activity logs.

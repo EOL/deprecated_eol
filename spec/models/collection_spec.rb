@@ -1,5 +1,31 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
+class CollectionBuilder
+
+  @@taxa_for_collections = []
+
+  def self.gen(opts = {})
+    col = Collection.gen
+    if opts[:taxa] && ( ! defined?(@@taxa_for_collections) || @@taxa_for_collections.size <= opts[:taxa])
+      while @@taxa_for_collections.size < opts[:taxa] do
+        @@taxa_for_collections << TaxonConcept.gen # Does not need to be a "real" TC...
+      end
+    end
+    if opts[:taxa]
+      (0..opts[:taxa]).each do |i|
+        col.add(@@taxa_for_collections[i])
+      end
+    end
+    if opts[:featured]
+      @@community_for_featuring ||= Community.gen
+      @@community_for_featuring.collection.add(col)
+    end
+    opts[:users].times { col.add(User.gen) }
+    col
+  end
+
+end
+
 describe Collection do
 
   before(:all) do
@@ -142,6 +168,13 @@ describe Collection do
     @test_data[:community].focus.is_focus_list?.should be_true
   end
 
+  it 'should know when it is a focus collection' do
+    focus = Community.gen.collection
+    focus.focus?.should be_true
+    nonfocus = Collection.gen(:user => User.gen, :community => nil)
+    nonfocus.focus?.should_not be_true
+  end
+
   it 'should be able to add/modify/remove description' do
     description = "Valid description"
     collection = Collection.gen(:name => 'A name', :description => description, :user_id => @test_data[:user].id)
@@ -167,37 +200,31 @@ describe Collection do
     collection_3 = Collection.gen
     3.times { collection_3.add(User.gen) }
     collections = [collection_1, collection_2, collection_3]
-    Collection.add_counts!(collections)
+    Collection.add_counts(collections)
     collections[0]['collection_items_count'].should == 1
     collections[1]['collection_items_count'].should == 2
     collections[2]['collection_items_count'].should == 3
   end
 
   it 'should get taxon counts for multiple collections' do
-    tc1 = TaxonConcept.gen # Does not need to be a "real" TC...
-    tc2 = TaxonConcept.gen
-    tc3 = TaxonConcept.gen
-    collection_1 = Collection.gen
-    collection_1.add(User.gen)
-    collection_1.add(tc1)
-    collection_2 = Collection.gen
-    collection_2.add(User.gen)
-    collection_2.add(tc1)
-    collection_2.add(tc2)
-    collection_3 = Collection.gen
-    collection_3.add(User.gen)
-    collection_3.add(tc1)
-    collection_3.add(tc2)
-    collection_3.add(tc3)
+    collection_1 = CollectionBuilder.gen(:taxa => 1, :users => 1)
+    collection_2 = CollectionBuilder.gen(:taxa => 2, :users => 1)
+    collection_3 = CollectionBuilder.gen(:taxa => 3, :users => 1)
     collections = [collection_1, collection_2, collection_3]
-    Collection.add_taxa_counts!(collections)
+    Collection.add_taxa_counts(collections)
     collections[0]['taxa_count'].should == 1
     collections[1]['taxa_count'].should == 2
     collections[2]['taxa_count'].should == 3
   end
 
+  it 'should be able to set relevance by calculation' do
+    col = Collection.gen
+    col.should_receive(:calculate_relevance).and_return(2)
+    col.set_relevance
+    col.relevance.should == 2
+  end
+
   it 'has other unimplemented tests but I will not make them all pending, see the spec file'
-  # #sort_for_overview should sort by community-featured lists first, those with fewer taxa second, and smaller collections next.
   # should know when it is "special" TODO - do we need this anymore?  I don't think so...
   # should know when it is a resource collection.
   # should use DataObject#image_cache_path to handle logo_url at 88 pixels when small.

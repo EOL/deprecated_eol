@@ -11,6 +11,7 @@ class CollectionItem < ActiveRecord::Base
   named_scope :data_objects, :conditions => {:object_type => 'DataObject'}
   named_scope :taxa, :conditions => {:object_type => 'TaxonConcept'}
   named_scope :users, :conditions => {:object_type => 'User'}
+  named_scope :annotated, :conditions => 'annotation IS NOT NULL AND annotation != ""'
 
   # Note that it doesn't validate the presence of collection.  A "removed" collection item still exists, so we have a
   # record of what it used to point to (see CollectionsController#destroy). (Hey, the alternative is to have a bunch

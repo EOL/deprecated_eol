@@ -22,6 +22,9 @@ class Collection < ActiveRecord::Base
   has_one :resource
   has_one :resource_preview, :class_name => Resource.to_s, :foreign_key => :preview_collection_id
 
+  named_scope :focus, :conditions => 'community_id IS NOT NULL'
+  named_scope :nonfocus, :conditions => 'community_id IS NULL'
+
   validates_presence_of :name
 
   validates_uniqueness_of :name, :scope => [:user_id]
@@ -48,7 +51,7 @@ class Collection < ActiveRecord::Base
   end
 
   # this method will quickly get the counts for multiple collections at the same time
-  def self.add_counts!(collections)
+  def self.add_counts(collections)
     collection_ids = collections.map(&:id).join(',')
     return if collection_ids.empty?
     collections_with_counts = Collection.find_by_sql("
@@ -63,7 +66,7 @@ class Collection < ActiveRecord::Base
     end
   end
 
-  def self.add_taxa_counts!(collections)
+  def self.add_taxa_counts(collections)
     collection_ids = collections.map(&:id).join(',')
     return if collection_ids.empty?
     collections_with_counts = Collection.find_by_sql("
@@ -75,17 +78,6 @@ class Collection < ActiveRecord::Base
       if c = collections.detect{ |c| c.id == cwc.id }
         c['taxa_count'] = cwc['count'].to_i
       end
-    end
-  end
-
-  def self.sort_for_overview(collections)
-    col = collections.sort_by do |c|
-      is_collected_by_community = c.community_id? ? 0 : 1 # opposite so those in communities come first
-      taxa_count = c['taxa_count'] || 0
-      collection_items_count = c['collection_items_count'] || 0
-      [ is_collected_by_community,
-        taxa_count,
-        collection_items_count ]
     end
   end
 
@@ -179,7 +171,89 @@ class Collection < ActiveRecord::Base
     special? && user_id
   end
 
+  def focus?
+    community_id
+  end
+
+  def set_relevance
+    update_attributes(:relevance => calculate_relevance)
+  end
+
 private
+
+  # This should set the relevance attribute score between 0 and 100.  Use this sparringly, it's expensive to calculate:
+  def calculate_relevance
+    return 0 if watch_collection? # Watch collections are irrelevant.
+    @taxa_count = collection_items.taxa.count
+    return 0 if @taxa_count <= 0 # Collections with no taxa (ie: friend lists and the like) are irrelevant.
+    # Each sub-category should return a score between 1 and 100:
+    score = (calculate_feature_relevance * 0.4) + (calculate_taxa_relevance * 0.4) + (calculate_item_relevance * 0.2)
+    return 0 if score <= 0
+    return 100 if score >= 100
+    score.to_i
+  end
+
+  def calculate_feature_relevance
+    features = containing_collections.focus.count
+    times_featured_score = case features
+                           when 0
+                             0
+                           when 1..25
+                             2 * features
+                           else
+                             50
+                           end
+    collected = containing_collections.nonfocus.count
+    times_collected_score = case collected
+                            when 0
+                              0
+                            when 1..30
+                              collected
+                            else
+                              30
+                            end
+    is_focus_list_score = focus? ? 20 : 0
+    score = times_featured_score + times_collected_score + is_focus_list_score
+    return 0 if score <= 0
+    return 100 if score >= 100
+    return score.to_i
+  end
+
+  # Extremely focused list = high score ... too many taxa = not as relevant.
+  def calculate_taxa_relevance
+    taxa = @taxa_count || collection_items.taxa.count
+    score = case taxa
+            when 0
+              0 # No taxa = irrelvant. Really, you shouldn't get here.
+            when 1
+              100
+            when 2..4
+              100 - (taxa * 4)
+            when 5..300
+              (80 / (taxa / 4.0)).to_i
+            else
+              0 # Way too big.
+            end
+    return 0 if score <= 0
+    return 100 if score >= 100
+    return score.to_i
+  end
+
+  def calculate_item_relevance
+    items = collection_items.count
+    annotated = collection_items.annotated.count
+    item_score = case items
+                 when 0..100
+                   items
+                 else
+                   100
+                 end
+    percent_annotated = annotated <= 0 ? 0 : (items / annotated.to_f)
+    score = ((item_score / 2) + (percent_annotated * (item_score / 2)).to_i)
+    return 0 if score <= 0
+    return 100 if score >= 100
+    return score.to_i
+  end
 
   def validate
     errors.add(:user_id, I18n.t(:must_be_associated_with_either_a_user_or_a_community) ) if

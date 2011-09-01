@@ -16,9 +16,8 @@
             %small= link_to I18n.t(:cancel), content_partners_path
     .copy
       - if @partners.blank?
-        .article
-          .empty
-            %p= I18n.t(:content_partners_empty)
+        .empty
+          %p= I18n.t(:content_partners_empty)
       - else
         .header
           - start_number = (@partners.current_page - 1) * @partners.per_page + 1

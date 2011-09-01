@@ -12,11 +12,10 @@
       .collection_contributors
         = render :partial => 'collections/endorsed_by', :locals => { :collection => @collection }
   #collections.main_container
-    .article
-      .empty
-        %p= I18n.t(:collection_is_empty)
-        - if editable && ! @collection.special?
-          = button_to I18n.t(:collection_delete_link), { :action => "delete", :collection_id => @collection.id }, :confirm => I18n.t(:collection_delete_link), :method => :delete
+    .empty
+      %p= I18n.t(:collection_is_empty)
+      - if editable && ! @collection.special?
+        = button_to I18n.t(:collection_delete_link), { :action => "delete", :collection_id => @collection.id }, :confirm => I18n.t(:collection_delete_link), :method => :delete
 - else
   - form_options = { :html => {:method => :put} }
   - form_for(@collection, form_options) do |f|

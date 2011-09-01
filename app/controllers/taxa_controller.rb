@@ -325,18 +325,6 @@ class TaxaController < ApplicationController
     render :text => Net::HTTP.get(URI.parse(url))
   end
 
-  def curators
-    # if this is named taxon_concept then the RSS feeds will be added to the page
-    # in Firefox those feeds are evaluated when the pages loads, so this should save some queries
-    @concept = find_taxon_concept
-    return if taxon_concept_invalid?(@concept)
-    @page_title = I18n.t(:curators_of_taxon_page_title, :taxon => @concept.title)
-    curators = @concept.curators(:add_names => true)
-    @curators = User.find_all_by_id(curators.collect{ |c| c.id })
-    @curators = User.sort_by_name(@curators)
-    render(:layout => 'v2/basic')
-  end
-
 private
   def instantiate_taxon_concept
     @taxon_concept = find_taxon_concept

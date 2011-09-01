@@ -748,18 +748,6 @@ table.standard {
       padding: 2px 0 0 0;
       font-weight: bold;
       text-transform: lowercase; }
-  .article .empty {
-    padding: 15px 15px 0 15px;
-    margin: 10px -10px;
-    font-size: 1.16em;
-    text-align: center;
-    border: 1px solid #cad3db;
-    background: #f3f7fa; }
-    .article .empty p {
-      padding: 0 0 15px 0;
-      line-height: 150%; }
-    .article .empty a.button {
-      font-size: 0.78em; }
   .article .meta {
     clear: both;
     padding: 0 0 20px 0;
@@ -797,6 +785,19 @@ table.standard {
       color: #62707d; }
   .article.updates .details img {
     float: none; }
+
+.empty {
+  padding: 15px 15px 0 15px;
+  margin: 10px 0;
+  font-size: 1.16em;
+  text-align: center;
+  border: 1px solid #cad3db;
+  background: #f3f7fa; }
+  .empty p {
+    padding: 0 0 15px 0;
+    line-height: 150%; }
+  .empty a.button {
+    font-size: 0.78em; }
 
 .rating ul,
 .rating ul a:hover,
@@ -1311,6 +1312,9 @@ body > #header {
   #sidebar h3 {
     padding: 0 0 15px 0;
     font-size: 1.33em; }
+  #sidebar .empty {
+    font-size: 1em;
+    margin: 0 0 20px 0; }
   #sidebar .collection_contributors {
     margin: 0 0 20px 0; }
     #sidebar .collection_contributors li {

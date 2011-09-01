@@ -139,7 +139,6 @@ ActionController::Routing::Routes.draw do |map|
   # Named routes (are these obsolete?)
   map.settings 'settings', :controller => 'taxa', :action => 'settings'
   map.taxon_concept 'pages/:id', :controller => 'taxa', :action => 'show'
-  map.page_curators 'pages/:id/curators', :controller => 'taxa', :action => 'curators'
   map.set_language 'set_language', :controller => 'application', :action => 'set_language'
 
   map.clear_caches 'clear_caches',      :controller => 'content', :action => 'clear_caches'

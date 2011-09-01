@@ -10,13 +10,12 @@
       = render :partial => "media_sort_filter"
   #main
     - if @media.total_entries == 0 || @taxon_concept.media_count(current_user, @selected_hierarchy_entry) == 0
-      .article
-        .empty
-          - if @taxon_concept.media_count(current_user, @selected_hierarchy_entry) == 0
-            %p= I18n.t(:media_list_empty)
-          - else
-            %p= I18n.t(:media_list_empty_search)
-          %p= link_to I18n.t(:media_list_empty_contribute_instructions), cms_page_path('contribute')
+      .empty
+        - if @taxon_concept.media_count(current_user, @selected_hierarchy_entry) == 0
+          %p= I18n.t(:media_list_empty)
+        - else
+          %p= I18n.t(:media_list_empty_search)
+        %p= link_to I18n.t(:media_list_empty_contribute_instructions), cms_page_path('contribute')
     - else
       .header
         - start_number = (@media.current_page - 1) * @media.per_page + 1

@@ -1,9 +1,8 @@
 - hide_pagination ||= false
 - if log.blank?
-  .article
-    .empty
-      %p= I18n.t(:activity_log_empty)
-      %p= link_to I18n.t(:activity_log_empty_learn_more_link), cms_page_path('contribute')
+  .empty
+    %p= I18n.t(:activity_log_empty)
+    %p= link_to I18n.t(:activity_log_empty_learn_more_link), cms_page_path('contribute')
 - else
   %ul.feed
     - log.map {|l| l['instance'] }.compact.each do |item|

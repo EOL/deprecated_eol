@@ -1,9 +1,8 @@
 .site_column#taxon_maps
   - if ! @taxon_concept.has_map && @maps.blank?
-    .article
-      .empty
-        %p= I18n.t(:maps_empty)
-        %p= link_to I18n.t(:maps_empty_contribute_instructions), cms_page_path('partners')
+    .empty
+      %p= I18n.t(:maps_empty)
+      %p= link_to I18n.t(:maps_empty_contribute_instructions), cms_page_path('partners')
   - if @taxon_concept.has_map
     #map
       = render :partial => 'maps'

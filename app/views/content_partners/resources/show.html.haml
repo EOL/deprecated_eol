@@ -2,9 +2,8 @@
   #sidebar
     - if @resource.collection.blank? && @resource.preview_collection.blank?
       %h3= I18n.t(:content_partner_resource_collections_header)
-      .article
-        .empty
-          %p= I18n.t(:content_partner_resource_collection_empty)
+      .empty
+        %p= I18n.t(:content_partner_resource_collection_empty)
     - unless @resource.collection.blank?
       .collection_list
         %h3= I18n.t(:content_partner_resource_collection_header)
@@ -42,10 +41,17 @@
           %dd= @resource.status_label
           %dt= I18n.t('activerecord.attributes.resource.dwc_archive_url')
           %dd
-            - unless @resource.dwc_archive_url.blank?
+            - if @resource.dwc_archive_url.blank?
+              = I18n.t(:value_empty)
+            - else
               = link_to @resource.dwc_archive_url.sub(/^.*\//, ''), @resource.dwc_archive_url
           %dt= I18n.t('activerecord.attributes.resource.language_id')
-          %dd= @resource.language.label
+          %dd
+            - if @resource.language.nil?
+              = Language.english.label
+              = I18n.t(:value_default)
+            - else
+              = @resource.language.label
 
     .section.half
       .article
@@ -55,8 +61,8 @@
           %dt= I18n.t('activerecord.attributes.resource.license_id')
           %dd= I18n.t("license_#{@resource.license.title.gsub(/[- .]/, '_').strip}")
           %dt= I18n.t('activerecord.attributes.resource.rights_holder')
-          %dd= @resource.rights_holder
+          %dd= @resource.rights_holder || I18n.t(:value_empty)
           %dt= I18n.t('activerecord.attributes.resource.rights_statement')
-          %dd= @resource.rights_statement
+          %dd= @resource.rights_statement || I18n.t(:value_empty)
           %dt= I18n.t('activerecord.attributes.resource.bibliographic_citation')
-          %dd= @resource.bibliographic_citation
+          %dd= @resource.bibliographic_citation || I18n.t(:value_empty)

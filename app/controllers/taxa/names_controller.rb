@@ -16,7 +16,7 @@ class Taxa::NamesController < TaxaController
     current_user.log_activity(:viewed_taxon_concept_names_related_names, :taxon_concept_id => @taxon_concept.id)
 
     # for common names count
-    @common_names_count = get_common_names.count
+    common_names_count
   end
 
   # POST /pages/:taxon_id/names currently only used to add common_names
@@ -50,13 +50,13 @@ class Taxa::NamesController < TaxaController
     current_user.log_activity(:viewed_taxon_concept_names_synonyms, :taxon_concept_id => @taxon_concept.id)
 
     # for common names count
-    @common_names_count = get_common_names.count
+    common_names_count
   end
 
   # GET for collection common_names /pages/:taxon_id/names/common_names
   def common_names
     @common_names = get_common_names
-    @common_names_count = @common_names.count
+    @common_names_count = @common_names.collect{|cn| [cn.name_id,cn.language_id]}.uniq.count
     @assistive_section_header = I18n.t(:assistive_names_common_header)
     current_user.log_activity(:viewed_taxon_concept_names_common_names, :taxon_concept_id => @taxon_concept.id)
   end
@@ -71,6 +71,11 @@ private
       names = EOL::CommonNameDisplay.find_by_taxon_concept_id(@taxon_concept.id)
     end
     common_names = names.select {|n| n.language_id != unknown_id}
+  end
+
+  def common_names_count
+    @common_names_count = get_common_names.collect{|cn| [cn.name_id,cn.language_id]}.uniq.count if @common_names_count.nil?
+    @common_names_count
   end
 
   def preload_core_relationships_for_names

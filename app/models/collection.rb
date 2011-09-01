@@ -30,6 +30,8 @@ class Collection < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => [:user_id]
   validates_uniqueness_of :community_id, :if => Proc.new {|l| ! l.community_id.blank? }
 
+  before_update :set_relevance_if_collection_items_changed
+
   has_attached_file :logo,
     :path => $LOGO_UPLOAD_DIRECTORY,
     :url => $LOGO_UPLOAD_PATH,
@@ -101,6 +103,8 @@ class Collection < ActiveRecord::Base
     community_id
   end
 
+  # NOTE - DO NOT (!) use this method in bulk... take advantage of the accepts_nested_attributes_for if you want to
+  # add more than two things... because this runs an expensive calculation at the end.
   def add(what, opts = {})
     return if what.nil?
     name = "something"
@@ -124,6 +128,7 @@ class Collection < ActiveRecord::Base
       raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_create_collection_item_from_class_error,
                                                                   :klass => what.class.name))
     end
+    set_relevance # This is actually safe, because we don't use #add in bulk.
     what # Convenience.  Allows us to chain this command and continue using the object passed in.
   end
 
@@ -260,6 +265,10 @@ private
       self.community_id.nil? && self.user_id.nil?
     errors.add(:user_id, I18n.t(:cannot_be_associated_with_both_a_user_and_a_community) ) if
       ((! self.community_id.nil?) && (! self.user_id.nil?))
+  end
+
+  def set_relevance_if_collection_items_changed
+    relevance = calculate_relevance if collection_items.last.changed?
   end
 
 end

@@ -1220,7 +1220,7 @@ class TaxonConcept < SpeciesSchemaModel
   def top_collections
     return @top_collections if @top_collections
     all_containing_collections = Collection.which_contain(self).select{ |c| !c.watch_collection? }
-    @top_collections = all_containing_collections.sort_by(&:relevance)
+    @top_collections = all_containing_collections.sort_by(&:relevance)[0..2]
   end
 
   def flattened_ancestor_ids

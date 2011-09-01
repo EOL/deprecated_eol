@@ -100,10 +100,6 @@ class CuratorActivityLog < LoggingModel
     end
   end
 
-  def synonym
-    Synonym.find(self['object_id'])
-  end
-
   def users_data_object
     UsersDataObject.find(self['object_id'])
   end

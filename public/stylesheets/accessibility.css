@@ -630,16 +630,6 @@ body > #header .section .session.join {
 #classification_browser .open, .classifications .open {
   font-weight: bold; }
 
-/*overides for empty text styles - various */
-#classifications_summary .empty p {
-  font-size: 1em !important; }
-
-.article .empty a.button {
-  font-size: 0.78em !important; }
-
-.updates .empty p {
-  padding: 0 0 15px 0 !important; }
-
 #taxon_names table.standard.common_names td {
   position: relative;
   width: 33%; }
@@ -679,13 +669,6 @@ body > #header .section .session.join {
 #taxon_names .recognized {
   line-height: 170%; }
 
-#taxon_maps .empty p {
-  margin: 0 !important; }
-
-#sidebar .collection_list .article .empty, #sidebar .collection_contributors .article .empty {
-  font-size: 1em;
-  margin-top: 0; }
-
 /*Add to my collection button is a form not an a tag as assumed by HR so we have to add some styles */
 #taxon_detail div.actions {
   clear: both;
@@ -702,10 +685,6 @@ body > #header .section .session.join {
   margin-top: 0; }
   #taxon #collections_summary form fieldset.actions {
     margin-top: 0; }
-
-.empty fieldset.actions input.button {
-  font-size: 0.82em;
-  padding: 5px 10px 6px 10px; }
 
 /*HR styles assume text descriptions are nicely wrapped in p tags - in reality they may or may not be so we add
  * extra div.description and assign styles to the div - check this, particularly line-height as we probably need
@@ -735,8 +714,6 @@ body > #header .section .session.join {
 #taxon_literature h3, #taxon_community h3, #taxon_resources h3 {
   font-size: 2em; }
 
-#taxon_resources .empty p {
-  margin: 0; }
 #taxon_resources table.standard tbody > tr > td > a > img {
   max-width: 90px; }
 #taxon_resources #taxon_detail > #main > h3 {

@@ -786,18 +786,23 @@ table.standard {
   .article.updates .details img {
     float: none; }
 
-.empty {
-  padding: 15px 15px 0 15px;
+.empty, .copy .empty {
+  padding: 15px 15px 10px 15px;
   margin: 10px 0;
   font-size: 1.16em;
   text-align: center;
   border: 1px solid #cad3db;
   background: #f3f7fa; }
-  .empty p {
-    padding: 0 0 15px 0;
+  .empty p, .copy .empty p {
+    margin: 0;
+    padding: 0 0 5px 0;
     line-height: 150%; }
-  .empty a.button {
-    font-size: 0.78em; }
+  .empty a.button, .empty input[type="submit"], .copy .empty a.button, .copy .empty input[type="submit"] {
+    font-size: 0.78em;
+    display: inline-block;
+    margin-bottom: 5px; }
+  .empty input[type="submit"], .copy .empty input[type="submit"] {
+    padding: 5px 10px 6px 10px; }
 
 .rating ul,
 .rating ul a:hover,

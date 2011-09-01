@@ -330,18 +330,23 @@ table.standard
       img
         float: none
 
-.empty
-  padding: 15px 15px 0 15px
+.empty, .copy .empty
+  padding: 15px 15px 10px 15px
   margin: 10px 0
   font-size: 1.16em
   text-align: center
   border: 1px solid #cad3db
   background: #f3f7fa
   p
-    padding: 0 0 15px 0
+    margin: 0
+    padding: 0 0 5px 0
     line-height: 150%
-  a.button
+  a.button, input[type="submit"]
     font-size: .78em
+    display: inline-block
+    margin-bottom: 5px
+  input[type="submit"]
+    padding: 5px 10px 6px 10px
 
 = star
   position: absolute

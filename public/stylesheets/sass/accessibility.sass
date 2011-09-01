@@ -694,18 +694,6 @@ body
 #classification_browser, .classifications
   .open
     font-weight: bold
-/** overides for empty text styles - various **/
-#classifications_summary
-  .empty p
-    font-size: 1em !important
-.article
-  .empty
-    a.button
-      font-size: 0.78em !important
-.updates
-  .empty
-    p
-      padding: 0 0 15px 0 !important
 #taxon_names
   table.standard
     &.common_names
@@ -742,16 +730,6 @@ body
         +input(200px)
   .recognized
     line-height: 170%
-#taxon_maps
-  .empty
-    p
-      margin: 0 !important
-#sidebar
-  .collection_list, .collection_contributors
-    .article
-      .empty
-        font-size: 1em
-        margin-top: 0
 /** Add to my collection button is a form not an a tag as assumed by HR so we have to add some styles **/
 #taxon_detail
   div.actions
@@ -771,11 +749,6 @@ body
       margin-top: 0
       fieldset.actions
         margin-top: 0
-.empty
-  fieldset.actions
-    input.button
-      font-size: 0.82em
-      padding: 5px 10px 6px 10px
 /** HR styles assume text descriptions are nicely wrapped in p tags - in reality they may or may not be so we add
   * extra div.description and assign styles to the div - check this, particularly line-height as we probably need
   * to remove some HR styles from nested p. Check latest HR and remove the table styles here if possible.
@@ -808,9 +781,6 @@ body
   h3
     font-size: 2em
 #taxon_resources
-  .empty
-    p
-      margin: 0
   table
     &.standard
       tbody > tr > td > a > img

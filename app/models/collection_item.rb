@@ -30,9 +30,9 @@ class CollectionItem < ActiveRecord::Base
   def self.types
     @types ||= {:taxa =>        {:facet => 'TaxonConcept', :i18n_key => "taxa"},
                 :text =>        {:facet => 'Text',         :i18n_key => "articles"},
-                :videos =>      {:facet => 'Video',        :i18n_key => "videos"},
                 :images =>      {:facet => 'Image',        :i18n_key => "images"},
                 :sounds =>      {:facet => 'Sound',        :i18n_key => "sounds"},
+                :videos =>      {:facet => 'Video',        :i18n_key => "videos"},
                 :communities => {:facet => 'Community',    :i18n_key => "communities"},
                 :people =>      {:facet => 'User',         :i18n_key => "people"},
                 :collections => {:facet => 'Collection',   :i18n_key => "collections"}}

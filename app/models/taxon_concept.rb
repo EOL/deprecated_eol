@@ -266,7 +266,9 @@ class TaxonConcept < SpeciesSchemaModel
     return nil if datos_to_load.empty?
 
     add_include = [ :translations, :data_object_translation, :users_data_objects_ratings, :comments, :agents_data_objects, :info_items, :toc_items, { :users_data_object => [:user, :taxon_concept, :vetted, :visibility] },
-      { :published_refs => { :ref_identifiers => :ref_identifier_type } }, :all_comments]
+      { :published_refs => { :ref_identifiers => :ref_identifier_type } },
+      { :data_objects_hierarchy_entries => :hierarchy_entry },
+      :users_data_objects_ratings ]
     add_select = {
       :users_data_objects_ratings => '*',
       :refs => '*',
@@ -274,10 +276,12 @@ class TaxonConcept < SpeciesSchemaModel
       :ref_identifier_types => '*',
       :users => '*',
       :data_object_translations => '*',
+      :hierarchy_entries => [ :taxon_concept_id, :vetted_id, :visibility_id ],
       :comments => [:parent_id, :visible_at] }
 
     objects = DataObject.core_relationships(:add_include => add_include, :add_select => add_select).
         find_all_by_id(datos_to_load.collect{ |d| d.id })
+    DataObject.preload_associations(objects, :all_comments)
     if options[:user] && options[:user].is_curator? && options[:user].min_curator_level?(:full)
       DataObject.preload_associations(objects, :users_data_objects_ratings, :conditions => "users_data_objects_ratings.user_id=#{options[:user].id}")
     end
@@ -1386,10 +1390,9 @@ private
     end
     filtered_objects = DataObject.filter_list_for_user(objects, :taxon_concept => self, :user => usr)
 
-    add_include = [:agents_data_objects, :all_comments]
-    add_select = { :comments => [:parent_id, :visible_at] }
+    add_include = [:agents_data_objects]
 
-    objects = DataObject.core_relationships(:add_include => add_include, :add_select => add_select).
+    objects = DataObject.core_relationships(:add_include => add_include).
         find_all_by_id(filtered_objects.collect{ |d| d.id })
     objects = DataObject.sort_by_rating(objects, self)
     return objects

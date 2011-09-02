@@ -16,7 +16,7 @@
     %h5{:class => assistive_or_nil}
       = I18n.t("#{en_type}_rating")
       - unless minimal
-        %small= I18n.t(:rated_by_count_people, :count => data_object.users_data_objects_ratings.count)
+        %small= I18n.t(:rated_by_count_people, :count => data_object.users_data_objects_ratings.length)
     .rating
       %p{:style => "width: #{average_rating * 20}%"}<
         = I18n.t("average_rating_value_of_total", :rating => average_rating, :total => total)
@@ -30,4 +30,4 @@
         %li
           - link_url = params[:force_return_to] ? params[:force_return_to] : current_url(false)
           = link_to I18n.t("change_rating_to_#{i + 1}_of_#{total}"),
-            rate_data_object_path(data_object, :stars => rating, :return_to => link_url), :class => "star_#{rating}"
+            rate_data_object_path(data_object, :stars => rating, :return_to => link_url, :minimal => minimal.to_s), :class => "star_#{rating}"

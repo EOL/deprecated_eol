@@ -11,7 +11,7 @@ namespace :i18n do
   en_yml = File.join([lang_dir, "en.yml"])
   trans_tmp = File.join([lang_dir, "translation_template.yml"])
   excluded_tables = ["translated_mime_types", "translated_news_items", "translated_privileges",
-    "translated_info_items", "translated_content_pages"]
+    "translated_info_items", "translated_content_pages", "translated_content_page_archives", "translated_languages"]
   db_field_delim = '-' # Double-underscore does not work with TW.
 
 
@@ -424,7 +424,7 @@ namespace :i18n do
 
   desc 'list db strings for translation by twiki'
   task (:list_db_strings => :environment) do
-    en_strings = "en:\n"
+    en_strings = "en-db:\n"
     en_id = Language.english.id
 
     all_models = Dir.foreach("#{RAILS_ROOT}/app/models").map do |model_path|
@@ -438,37 +438,36 @@ namespace :i18n do
     all_models.each do |model|
       begin
         if excluded_tables.include?(model.table_name)
-          puts "Excluding: " + model.table_name
+          puts "Excluding: " + model.full_table_name
         else
           cols = model.column_names.dup
-          all_tables[model.table_name] = {}
+          all_tables[model.full_table_name] = {}
           cols.delete("id")
           cols.delete("language_id")
-          all_tables[model.table_name][:associations] = cols.grep(/_id$/)
+          all_tables[model.full_table_name][:associations] = cols.grep(/_id$/)
           cols.delete_if {|c| c =~ /_id$/ }
           cols.delete_if {|c| c =~ /^phonetic_/ }
-          all_tables[model.table_name][:translatable] = cols
+          all_tables[model.full_table_name][:translatable] = cols
         end
       rescue ActiveRecord::StatementInvalid => e
         puts "** You seem to have a missing table:"
         puts e.message
       end
     end
-    all_tables.each do |table|
-      table_name = table[0]
-      foreign_key = all_tables[table_name][:associations].to_s
+    all_tables.keys.each do |table_name|
+      foreign_key = all_tables[table_name][:associations].to_s # Note this COULD be an array, but we can't handle that
       translatable = ""
       all_tables[table_name][:translatable].each do |field|
         translatable << ", " if translatable != ""
         translatable << field
       end
       puts "select #{foreign_key}, #{translatable} from #{table_name} where language_id=#{en_id}"
-      results = ActiveRecord::Base.connection.execute("select #{foreign_key}, #{translatable} from #{table_name} where language_id=#{en_id}")
+      results = ActiveRecord::Base.connection.execute("SELECT #{foreign_key}, #{translatable} FROM #{table_name} WHERE language_id=#{en_id}")
       results.each_hash do |row|
         all_tables[table_name][:translatable].each do |field|
 
           # if we are in the Ranks table, ignore any rows not in our translation whitelist
-          if table_name == 'translated_ranks' && field == 'label'
+          if table_name =~ /translated_ranks$/ && field == 'label'
             lookup_rank_label = row[field].downcase.gsub(/\.$/, '')  # remove trailing periods
             next unless Rank.english_rank_labels_to_translate.include?(lookup_rank_label)
           end
@@ -477,6 +476,7 @@ namespace :i18n do
           next if field == 'updated_at'
           next if field == 'created_at'
           next if field == 'active_translation'
+          next unless row[field]
 
           value = row[field].gsub("\"", "\\\"").gsub("\n", "\\n")
 
@@ -484,9 +484,9 @@ namespace :i18n do
           next if value == ''
 
           # If we are in the Activities table, ignore any keys with underscores:
-          next if table_name == 'translated_activities' && value =~ /_/
+          next if table_name =~ /translated_activities$/ && value =~ /_/
 
-          en_strings << "  #{table_name}#{db_field_delim}#{field}#{db_field_delim}#{foreign_key}#{db_field_delim}#{row[foreign_key]}: \"#{value}\"\n"
+          en_strings << "  #{table_name.sub(/^.*\./, '')}#{db_field_delim}#{field}#{db_field_delim}#{foreign_key}#{db_field_delim}#{row[foreign_key]}: \"#{value}\"\n"
         end
       end
     end
@@ -521,7 +521,7 @@ namespace :i18n do
 
     def get_lang_id_by_lang_abbr(lang_abbr)
       results = ActiveRecord::Base.connection.execute("select id from languages where iso_639_1='" + lang_abbr + "'")
-      if (results.num_rows== 0)
+      if (results.nil? || results.num_rows== 0)
         return 0
       else
         return results.fetch_row[0]
@@ -538,25 +538,23 @@ namespace :i18n do
 
     def insert_or_update_db_value(table_name, column_name, identity_column_name, lang_id, field_id, column_value)
       results = begin
-                  ActiveRecord::Base.connection.execute("
+                  LoggingModel.connection.execute("
                     SELECT * FROM #{table_name}
                     WHERE #{identity_column_name}=#{field_id} and language_id=#{lang_id}
                   ")
                 rescue => e
-                  puts "++ #{e.message}... attempting same on logging model..."
                   begin
-                    LoggingModel.connection.execute("
+                    ActiveRecord::Base.connection.execute("
                       SELECT * FROM #{table_name}
                       WHERE #{identity_column_name}=#{field_id} and language_id=#{lang_id}
                     ")
-                    puts "   ...worked."
                   rescue => e
-                    puts "**\n** FAILED, skipping.\n**"
+                    puts "**\n** FAILED #{table_name}, skipping #{identity_column_name}=#{field_id}\n**"
                     return
                   end
                 end
       query = ""
-      if (results.num_rows== 0)
+      if (results.nil? || results.num_rows== 0)
         # new record
         query = "insert into #{table_name} (#{identity_column_name}, language_id, #{column_name}) values (#{field_id}, #{lang_id}, '" + escape_new_line(clean_basic_injection(column_value)) + "')"
       else
@@ -567,9 +565,13 @@ namespace :i18n do
       end
 
       begin
-        ActiveRecord::Base.connection.execute(query)
-      rescue
         LoggingModel.connection.execute(query)
+      rescue
+        begin
+          ActiveRecord::Base.connection.execute(query)
+        rescue => e
+          puts "** ERROR: Could not execute #{query}: #{e.class.name}, #{e.message}"
+        end
       end
     end
 

@@ -265,7 +265,6 @@ en:
       messages:
         taken: "has already been taken"
         record_invalid: "Validation failed: %{errors}"
-        <<: *errors_messages
       full_messages:
         format: "%{attribute} %{message}"
       models:

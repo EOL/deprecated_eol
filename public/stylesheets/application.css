@@ -1782,7 +1782,7 @@ body > #header {
     overflow: hidden;
     margin: 0 0 20px 0; }
     #taxon_literature .main_container .bhl_description p {
-      margin: 20px; }
+      margin: 5px 20px 10px 250px; }
     #taxon_literature .main_container .bhl_description a {
       font-weight: bold;
       text-decoration: none; }
@@ -1790,7 +1790,7 @@ body > #header {
         text-decoration: underline; }
     #taxon_literature .main_container .bhl_description img {
       float: left;
-      margin: 0 20px 0 0; }
+      margin: 0; }
   #taxon_literature .main_container .heading {
     text-align: center;
     margin: 0 0 20px 0; }

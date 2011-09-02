@@ -276,7 +276,6 @@ ar:
       messages:
         taken: "غير متوفر (مستخدم)"
         record_invalid: "%{errors} فشل التحقق من صحة"
-        <<: *errors_messages
         inclusion: "غير موجود بالقائمة"
         exclusion: "محجوز"
         invalid: "غير صالح"

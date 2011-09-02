@@ -273,7 +273,6 @@ es:
       messages:
         taken: "ya está en uso"
         record_invalid: "La validación falló: %{errors}"
-        <<: *errors_messages
       full_messages:
         format: "%{attribute} %{message}"
       models:

@@ -479,6 +479,7 @@ class ApplicationController < ActionController::Base
     unless language.blank?
       session[:language] = nil # Don't want to "remember" this anymore, since they've manually changed it.
       alter_current_user do |user|
+        I18n.locale = language
         user.language = Language.from_iso(language)
       end
     end

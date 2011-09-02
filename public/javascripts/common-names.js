@@ -9,12 +9,15 @@ if (!EOL.init_common_name_behaviors) {
       var form = $(this).closest('form');
       form.submit();
     });
-    // Colored cells need to explain themselves...
-    $('td[title]').unbind('tooltip');
-    $('td[title]').tooltip({delay:1});
     // Checkbox may ask the user to confirm; if they don't, it re-checks the box:
-    $('td.vet_common_name select').unbind('change');
-    $('td.vet_common_name select').change(function() {  // TODO - this isn't working?  Is change the wrong method?
+    $('td.vet_common_name select').change(function() {
+      var $update = $(this).closest('tr');
+      var url = $(this).attr('data_url');
+      url = url.replace(/REPLACE_ME/, $(this).val());
+      EOL.ajax_submit($(this), {url: url, update: $update, data: {}, type: 'GET'}); // data is in the url.
+    })
+    $('td.nevervet_common_name select').unbind('change');
+    $('td.nevervet_common_name select').change(function() {  // TODO - this isn't working?  Is change the wrong method?
       url = $(this).val();
       row = $(this).closest('tr');
       cell = $(this).closest('td');

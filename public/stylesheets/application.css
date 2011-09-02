@@ -641,6 +641,8 @@ ul.tabs {
       background: transparent url("/images/v2/icon_taxa_tabs.png") 9px 50% no-repeat; }
     ul.tabs li.videos a {
       background: transparent url("/images/v2/icon_videos_tabs.png") 11px 10px no-repeat; }
+    ul.tabs li.sounds a {
+      background: transparent url("/images/v2/icon_sounds_tabs.png") 14px 50% no-repeat; }
     ul.tabs li.images a {
       background: transparent url("/images/v2/icon_images_tabs.png") 7px 8px no-repeat; }
     ul.tabs li.communities a {

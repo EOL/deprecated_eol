@@ -297,6 +297,8 @@ form#switch_hierarchy_entry fieldset {
     font-weight: bold; }
   #content.cms_page #api_doc table col.notes {
     width: 25%; }
+#content.cms_page #sidebar dl {
+  margin-bottom: 10px; }
 
 .donate label.other {
   padding-left: 15px;
@@ -950,6 +952,8 @@ form.comment img {
 .editable_link {
   font-size: 0.8em; }
 
+.edit_collection #sidebar select {
+  max-width: 135px; }
 .edit_collection #sidebar fieldset.actions {
   padding: 0; }
 

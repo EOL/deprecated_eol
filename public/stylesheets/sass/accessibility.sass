@@ -336,6 +336,9 @@ form#switch_hierarchy_entry
           font-weight: bold
         &.notes
           width: 25%
+  #sidebar
+    dl
+      margin-bottom: 10px
 .donate
   label.other
     padding-left: 15px
@@ -1022,8 +1025,11 @@ form
 .editable_link
   font-size: 0.8em
 // Buttons are too far over (and this is only in English!):
-.edit_collection #sidebar fieldset.actions
-  padding: 0
+.edit_collection #sidebar
+  select
+    max-width: 135px
+  fieldset.actions
+    padding: 0
 table.standard
   td.nowrap
     white-space: nowrap

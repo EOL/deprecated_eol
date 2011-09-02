@@ -78,7 +78,8 @@ ul.march {
       border: none;
       float: none;
       margin: 0;
-      padding: 0; }
+      padding: 0;
+      max-height: 98px; }
 ul.with_images li {
   overflow: hidden;
   list-style-type: none;

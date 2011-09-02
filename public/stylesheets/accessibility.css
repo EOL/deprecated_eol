@@ -243,7 +243,8 @@ form#switch_hierarchy_entry fieldset {
       border: none;
       float: none;
       margin: 0;
-      padding: 0; }
+      padding: 0;
+      max-height: 98px; }
 #content.cms_page ul.with_images li {
   overflow: hidden;
   list-style-type: none;

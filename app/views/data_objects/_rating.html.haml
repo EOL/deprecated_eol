@@ -30,4 +30,4 @@
         %li
           - link_url = params[:force_return_to] ? params[:force_return_to] : current_url(false)
           = link_to I18n.t("change_rating_to_#{i + 1}_of_#{total}"),
-            rate_data_object_path(data_object, :stars => rating, :return_to => link_url), :class => "star_#{rating}"
+            rate_data_object_path(data_object, :stars => rating, :return_to => link_url, :minimal => minimal.to_s), :class => "star_#{rating}"

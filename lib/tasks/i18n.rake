@@ -424,7 +424,7 @@ namespace :i18n do
 
   desc 'list db strings for translation by twiki'
   task (:list_db_strings => :environment) do
-    en_strings = "en:\n"
+    en_strings = "en-db:\n"
     en_id = Language.english.id
 
     all_models = Dir.foreach("#{RAILS_ROOT}/app/models").map do |model_path|

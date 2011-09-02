@@ -108,23 +108,6 @@ describe 'Curation' do
   #   it 'should display a "view/edit" link next to the common name in the header (obsolete?)'
   # end
 
-  context "on curators show (obsolete?)" do
-    it 'should show a list of curators (obsolete?)' do
-      visit("/pages/#{@taxon_concept.id}/curators")
-      body.should include("The following are curators of")
-      body.should include(@cn_curator.family_name)
-      body.should include(@cn_curator.given_name)
-      body.should include(@first_curator.family_name)
-      body.should include(@first_curator.given_name)
-    end
-    it 'should show an empty curators list on a page with no curators (obsolete?)' do
-      new_tc = build_taxon_concept
-      new_tc.curators.each{|c| c.delete }
-      visit("/pages/#{new_tc.id}/curators")
-      body.should include("There are no curators of")
-    end
-  end
-
   it 'should expire taxon_concept from cache' do
     login_as(@first_curator)
     ActionController.should_receive(:expire_data_object).any_number_of_times.and_return(true)

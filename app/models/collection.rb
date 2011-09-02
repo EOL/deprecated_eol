@@ -268,7 +268,7 @@ private
   end
 
   def set_relevance_if_collection_items_changed
-    relevance = calculate_relevance if collection_items.last.changed?
+    relevance = calculate_relevance if collection_items && collection_items.last && collection_items.last.changed?
   end
 
 end

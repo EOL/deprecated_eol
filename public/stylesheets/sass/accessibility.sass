@@ -420,7 +420,7 @@ p.status
       border: 1px solid #f2d2cc
       background: #ffeae6
 
-/** HR change permalink class to text, but use article elsewhere for text objects so we are still using
+/** HR changed permalink class to text, but use article elsewhere for text objects so we are still using
  * article as that's what en_type is returning... at some point we should go through and change all 'article'
  * classes that mean data_object text to text, as article clashes with the HR generic article class but right
  * now we have I18n keys and various classes around the site depending on 'article' for text data object.
@@ -441,6 +441,12 @@ p.status
   /* added float non to video as description box wasn't showing up properly on DO page */
   .media
     float: none
+    .jp-audio
+      width: 100%
+      margin: 0 auto
+      .jp-interface
+        background-color: #EEEEEE
+        border: 1px solid #CAD3DB
     img
       max-width: 540px
       width: expression(this.width > 540 ? "540px" : true)
@@ -511,22 +517,32 @@ form#new_data_object, form.edit_data_object
       &.sound
         .figure
           background: #394651 url('/images/v2/icon_sound_tabs.png') no-repeat 50% 20%
+          color: #e2e9ef
           a
             color: #e2e9ef
-          noscript, .player
+          .player
+            background-color: transparent !important
+          .player_interface
             width: 160px
             position: absolute
             z-index: 4
             bottom: 0
             left: 0
-            margin-bottom: 15px
             text-align: center
-          audio
-            position: absolute
-            left: 0
-            bottom: 0
-            width: 160px
-            z-index: 1
+            line-height: 140%
+            background: #566979
+            a
+              text-decoration: none
+              display: inline-block
+              margin: 0 2px 0
+              padding: 5px 0
+              img
+                margin-bottom: -2px
+            span
+              display: inline-block
+              &.current_time
+                margin-left: 8px
+
       &.video
         .figure
           background: url('/images/v2/icon_videos_tabs.png') no-repeat 50% 20% transparent
@@ -535,6 +551,12 @@ form#new_data_object, form.edit_data_object
           height: 123px
           p
             width: 158px
+          .video_overlay
+            position: absolute
+            width: 158px
+            height: 123px
+            z-index: 3
+            background: url('/images/v2/video_play.png') no-repeat 50% 50% transparent
       form
         display: block
         clear: both
@@ -562,6 +584,11 @@ p.flag
     background: #ffeae6
     color: #677682 !important
 
+#permalink_add_association
+  #main
+    ul > li
+      img
+        +max_dimensions($logo_size_primary, $logo_size_primary)
 /** We share rating partial across many pages so need extra styles here. **/
 #permalink
   .ratings
@@ -569,11 +596,6 @@ p.flag
       margin-top: 2px
       font-size: 1.1em
       padding: 0
-#permalink_add_association
-  #main
-    ul > li
-      img
-        +max_dimensions($logo_size_primary, $logo_size_primary)
 #taxon_detail
   #main
     > .section

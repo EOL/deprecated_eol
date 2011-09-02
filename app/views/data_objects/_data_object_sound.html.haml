@@ -1,19 +1,11 @@
 - data_object ||= @data_object
+- thumbnail ||= false
 - unless data_object.blank?
-  - # TODO: Support for mime types in HTML5 audio varies across browsers, different formats of the file are required
   - en_mime_type ||= data_object.mime_type.label('en')
-  - if defined?(thumbnail) && thumbnail
+  - if thumbnail
     %p= link_to strip_tags(data_object.best_title.truncate(45)), data_object_path(data_object)
-    - if en_mime_type == 'audio/mpeg'
-      = render :partial => 'data_objects/jplayer', :locals => {:sound_url => data_object.sound_url, :type => "small", :en_mime_type => en_mime_type}
-
-    -# Not working on FireFox on Mac - this depends on the file format see TODO above. Haven't done a full list of browser/OS check. But works for Safari on Mac.
-    -# %audio{:controls => true, :loop => false, :autoplay => false, :preload => 'metadata'}
-    -#   %source{:type => en_mime_type, :src => data_object.sound_url}
-
-  - else
-    - if en_mime_type == 'audio/mpeg'
-      = render :partial => 'data_objects/jplayer', :locals => {:sound_url => data_object.sound_url, :type => "big", :en_mime_type => en_mime_type}
+  - if en_mime_type == 'audio/mpeg'
+    = render :partial => 'data_objects/jplayer', :locals => {:data_object => data_object, :en_mime_type => en_mime_type, :thumbnail => thumbnail}
 
 -# TODO: find sound players for 3 more sound types. Not priority as we don't have partners providing such audio types.
 -# audio/x-ms-wma

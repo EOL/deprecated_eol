@@ -1,6 +1,7 @@
 = content_for :head do
-  = javascript_include_tag "exemplar_image.js", "jplayer/js/jquery.jplayer.min"
-  %link{:href=>"/javascripts/jplayer/skin/jplayer.blue.monday.css", :rel=>"stylesheet", :type=>"text/css"}
+  = javascript_include_tag "exemplar_image.js"
+= content_for :footer do
+  = javascript_include_tag "jplayer/js/jquery.jplayer.min", "media_list.js"
 
 #media_list
   #sidebar.filters

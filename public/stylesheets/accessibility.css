@@ -383,7 +383,7 @@ p.status.error {
   border: 1px solid #f2d2cc;
   background: #ffeae6; }
 
-/*HR change permalink class to text, but use article elsewhere for text objects so we are still using
+/*HR changed permalink class to text, but use article elsewhere for text objects so we are still using
  * article as that's what en_type is returning... at some point we should go through and change all 'article'
  * classes that mean data_object text to text, as article clashes with the HR generic article class but right
  * now we have I18n keys and various classes around the site depending on 'article' for text data object.
@@ -401,6 +401,12 @@ p.status.error {
     color: #677682; }
   #permalink .media {
     float: none; }
+    #permalink .media .jp-audio {
+      width: 100%;
+      margin: 0 auto; }
+      #permalink .media .jp-audio .jp-interface {
+        background-color: #eeeeee;
+        border: 1px solid #cad3db; }
     #permalink .media img {
       max-width: 540px;
       width: expression(this.width > 540 ? "540px" : true); }
@@ -462,23 +468,32 @@ form#new_data_object fieldset.information, form.edit_data_object fieldset.inform
       display: inline-block;
       margin: 0 10px; }
 #media_list #main > ul > li.sound .figure {
-  background: #394651 url("/images/v2/icon_sound_tabs.png") no-repeat 50% 20%; }
+  background: #394651 url("/images/v2/icon_sound_tabs.png") no-repeat 50% 20%;
+  color: #e2e9ef; }
   #media_list #main > ul > li.sound .figure a {
     color: #e2e9ef; }
-  #media_list #main > ul > li.sound .figure noscript, #media_list #main > ul > li.sound .figure .player {
+  #media_list #main > ul > li.sound .figure .player {
+    background-color: transparent !important; }
+  #media_list #main > ul > li.sound .figure .player_interface {
     width: 160px;
     position: absolute;
     z-index: 4;
     bottom: 0;
     left: 0;
-    margin-bottom: 15px;
-    text-align: center; }
-  #media_list #main > ul > li.sound .figure audio {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 160px;
-    z-index: 1; }
+    text-align: center;
+    line-height: 140%;
+    background: #566979; }
+    #media_list #main > ul > li.sound .figure .player_interface a {
+      text-decoration: none;
+      display: inline-block;
+      margin: 0 2px 0;
+      padding: 5px 0; }
+      #media_list #main > ul > li.sound .figure .player_interface a img {
+        margin-bottom: -2px; }
+    #media_list #main > ul > li.sound .figure .player_interface span {
+      display: inline-block; }
+      #media_list #main > ul > li.sound .figure .player_interface span.current_time {
+        margin-left: 8px; }
 #media_list #main > ul > li.video .figure {
   background: url("/images/v2/icon_videos_tabs.png") no-repeat 50% 20% transparent;
   border: 1px solid #cad3db;
@@ -486,6 +501,12 @@ form#new_data_object fieldset.information, form.edit_data_object fieldset.inform
   height: 123px; }
   #media_list #main > ul > li.video .figure p {
     width: 158px; }
+  #media_list #main > ul > li.video .figure .video_overlay {
+    position: absolute;
+    width: 158px;
+    height: 123px;
+    z-index: 3;
+    background: url("/images/v2/video_play.png") no-repeat 50% 50% transparent; }
 #media_list #main > ul > li form {
   display: block;
   clear: both; }
@@ -512,17 +533,17 @@ p.flag {
     background: #ffeae6;
     color: #677682 !important; }
 
-/*We share rating partial across many pages so need extra styles here. */
-#permalink .ratings h5 {
-  margin-top: 2px;
-  font-size: 1.1em;
-  padding: 0; }
-
 #permalink_add_association #main ul > li img {
   max-width: 68px;
   max-height: 68px;
   width: expression(this.width > 68 ? "68px" : true);
   height: expression(this.height > 68 ? "68px" : true); }
+
+/*We share rating partial across many pages so need extra styles here. */
+#permalink .ratings h5 {
+  margin-top: 2px;
+  font-size: 1.1em;
+  padding: 0; }
 
 #taxon_detail #main > .section > .article > .meta.learn_more p {
   line-height: 200%; }
@@ -1143,10 +1164,6 @@ body#prelaunch p.status {
     position: absolute;
     right: 10px;
     top: 4px; }
-#user_communities .heading form, #user_communities .heading a {
-  position: absolute;
-  right: 10px;
-  top: 4px; }
 
 body#prelaunch #footer ul.social_media {
   margin-top: 20px; }

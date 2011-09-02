@@ -5,10 +5,11 @@
   - if data_object.thumbnail_cache_url.blank?
     %p
       %a{ :data => { :data_object_id => data_object.id }, :href => data_object_path(data_object) }
-        = strip_tags(data_object.best_title.truncate(45))
+        = strip_tags(data_object.best_title.truncate(70))
   - else
     - alt ||= alternative_text(data_object, 'video', taxon_concept)
     %a{ :data => { :data_object_id => data_object.id }, :href => data_object_path(data_object) }
+      .video_overlay
       = image_tag data_object.thumb_or_object(size), :alt => alt
 - else
   -# playing cached videos

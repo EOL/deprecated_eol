@@ -405,10 +405,10 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def has_details?
-    exclude = TocItem.exclude_from_details.map(&:id)
+    exclude = TocItem.exclude_from_details
     dato_toc_items = data_objects.select{ |d| d.is_text? }
     return false unless dato_toc_items && ! dato_toc_items.empty? # No text at all.
-    dato_toc_items.map(&:toc_items).flatten.reject {|i| exclude.include?(i.id) } # Only things from details tab.
+    dato_toc_items.map(&:toc_items).flatten.reject {|i| exclude.include?(i.label) } # Only things from details tab.
     return false unless dato_toc_items && ! dato_toc_items.empty? # Nothing on details tab.
     return true # Something's left; we must have details...
   end

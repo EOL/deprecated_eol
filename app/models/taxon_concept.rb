@@ -158,23 +158,18 @@ class TaxonConcept < SpeciesSchemaModel
     sorted_names.compact
   end
 
-  # Curators are those users who have special permission to "vet" data objects associated with a TC, and thus get
-  # extra credit on their associated TC pages. This method returns an Array of those users.
-  def curators(options={})
-    return @curators unless @curators.nil?
-    @curators = User.find_all_by_curator_approved(true, :select => { :users => [ :id, :username ] })
-  end
-
   # Return the curators who actually get credit for what they have done (for example, a new curator who hasn't done
   # anything yet doesn't get a citation).  Also, curators should only get credit on the pages they actually edited,
   # not all of it's children.  (For example.)
-  def acting_curators
+  def curators
     curator_activity_logs.collect{ |lcd| lcd.user }.uniq
   end
+  alias :acting_curators :curators # deprecated.  TODO - remove entirely.
 
-  def top_acting_curators
+  def top_curators
     acting_curators[0..2]
   end
+  alias :top_acting_curators :top_curators # deprecated.  TODO - remove entirely.
 
   # The International Union for Conservation of Nature keeps a status for most known species, representing how endangered that
   # species is.  This will default to "unknown" for species that are not being tracked.

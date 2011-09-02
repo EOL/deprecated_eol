@@ -1,5 +1,8 @@
 - editable = @collection.editable_by?(current_user)
 = content_for :additional_page_actions do
+  -# This is put in a comment here for convenience... so developers and those "in the know" can check the value.
+  /
+    = "relevance #{@collection.relevance}"
   - if editable
     - unless @collection.special? || @collection.community_id # You cannot create a community from either special collection type!
       %li= link_to I18n.t(:create_community), new_community_path(:collection_id => @collection), :class => 'button'

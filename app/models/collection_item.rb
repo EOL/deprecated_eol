@@ -20,7 +20,10 @@ class CollectionItem < ActiveRecord::Base
   validates_uniqueness_of :object_id, :scope => [:collection_id, :object_type],
     :message => I18n.t(:item_not_added_already_in_collection), :if => Proc.new { |ci| ci.collection_id }
 
-  after_save :index_collection_item_in_solr
+  # Note we DO NOT update relevance on the collection on save or delete, since we sometimes add/delete 1000 items at
+  # a time, and that would be a disaster, since the collection only need be recalculated once.
+  after_save     :index_collection_item_in_solr
+  after_update   :update_collection_relevance_if_annotation_switched
   before_destroy :remove_collection_item_from_solr
 
   # Information about how collection items interface with solr and views and the like...
@@ -105,6 +108,26 @@ class CollectionItem < ActiveRecord::Base
       return nil
     end
     solr_connection.delete_by_query("collection_item_id:#{self.id}")
+  end
+
+  # This is somewhat expensive (can take a second to run), so use sparringly.
+  def update_collection_relevance
+    collection.set_relevance if collection
+  end
+
+  # Because doing so is expensive, we check to make sure there's a need (which would only be if annotation was added
+  # or removed)
+  def update_collection_relevance_if_annotation_switched
+    if changed?
+      if changes.has_key?('annotation')
+        (before, after) = changes['annotation']
+        before.gsub(/\s+$/, '') if before
+        after.gsub(/\s+$/, '') if after
+        if (before.blank? && ! after.blank?) || (after.blank? && ! before.blank?)
+          update_collection_relevance
+        end
+      end
+    end
   end
 
 end

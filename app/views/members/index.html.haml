@@ -13,6 +13,8 @@
       .empty
         %p= I18n.t(:this_community_has_no_endorsed_collections)
     - else
+      - if @community_collections.count > 4
+        = link_to I18n.t(:see_all), community_collections_path(@community)
       %ul
         - @community_collections[0..3].each do |ci|
           = render :partial => 'collections/collection_summary', :locals => {:collection => ci.object, :minimal => true}

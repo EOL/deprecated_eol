@@ -1,14 +1,15 @@
 - data_object ||= @data_object
 - taxon_concept ||= @taxon_concept
 - size ||= '260_190'
-- thumbnail ||= false
-- if thumbnail
+- if defined?(thumbnail) && thumbnail
   - if data_object.thumbnail_cache_url.blank?
-    .video
-      %p= data_object.best_title
+    %p
+      %a{ :data => { :data_object_id => data_object.id }, :href => data_object_path(data_object) }
+        = strip_tags(data_object.best_title.truncate(45))
   - else
     - alt ||= alternative_text(data_object, 'video', taxon_concept)
-    = image_tag data_object.thumb_or_object(size), :alt => alt
+    %a{ :data => { :data_object_id => data_object.id }, :href => data_object_path(data_object) }
+      = image_tag data_object.thumb_or_object(size), :alt => alt
 - else
   -# playing cached videos
 

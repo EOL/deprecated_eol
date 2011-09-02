@@ -442,47 +442,50 @@ form#new_data_object fieldset.information, form.edit_data_object fieldset.inform
   color: #667309;
   text-decoration: none; }
 
-/*Special styles for layering audio description on top of audio thumbnail */
-#media_list #main > ul > li .figure {
+/*Special styles for audio and video in media list */
+#media_list #main > ul > li.sound .figure, #media_list #main > ul > li.video .figure {
+  position: relative;
   width: 160px;
   height: 125px;
-  margin-bottom: 5px; }
-  #media_list #main > ul > li .figure .audio {
-    position: relative;
-    background: #394651 url("/images/v2/icon_sound_tabs.png") no-repeat 50% 20%;
-    width: 160px;
-    height: 123px;
-    margin: 0 0 5px 0;
-    text-align: center;
-    overflow: hidden; }
-    #media_list #main > ul > li .figure .audio p {
-      padding: 50px 5px 30px; }
-      #media_list #main > ul > li .figure .audio p a {
-        color: #e2e9ef; }
-    #media_list #main > ul > li .figure .audio noscript a, #media_list #main > ul > li .figure .audio .player a {
-      color: #e2e9ef; }
-    #media_list #main > ul > li .figure .audio audio {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 160px;
-      z-index: 1; }
-  #media_list #main > ul > li .figure .video_overlay {
-    background: url("/images/v2/video_play.png") no-repeat 50% 50% transparent;
-    width: 160px;
-    height: 125px;
-    z-index: 300;
-    position: absolute; }
-  #media_list #main > ul > li .figure .video {
-    text-align: center;
-    border: 1px solid #cad3db;
-    width: 158px;
-    height: 123px; }
-    #media_list #main > ul > li .figure .video p {
-      padding: 93px 5px 0; }
-#media_list #main > ul > li > a {
-  display: inline-block;
+  margin: 0 0 5px 0;
   overflow: hidden; }
+  #media_list #main > ul > li.sound .figure p, #media_list #main > ul > li.video .figure p {
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    margin: 55px 0 10px;
+    padding: 0;
+    width: 160px;
+    text-align: center; }
+    #media_list #main > ul > li.sound .figure p a, #media_list #main > ul > li.video .figure p a {
+      display: inline-block;
+      margin: 0 10px; }
+#media_list #main > ul > li.sound .figure {
+  background: #394651 url("/images/v2/icon_sound_tabs.png") no-repeat 50% 20%; }
+  #media_list #main > ul > li.sound .figure a {
+    color: #e2e9ef; }
+  #media_list #main > ul > li.sound .figure noscript, #media_list #main > ul > li.sound .figure .player {
+    width: 160px;
+    position: absolute;
+    z-index: 4;
+    bottom: 0;
+    left: 0;
+    margin-bottom: 15px;
+    text-align: center; }
+  #media_list #main > ul > li.sound .figure audio {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 160px;
+    z-index: 1; }
+#media_list #main > ul > li.video .figure {
+  background: url("/images/v2/icon_videos_tabs.png") no-repeat 50% 20% transparent;
+  border: 1px solid #cad3db;
+  width: 158px;
+  height: 123px; }
+  #media_list #main > ul > li.video .figure p {
+    width: 158px; }
 #media_list #main > ul > li form {
   display: block;
   clear: both; }

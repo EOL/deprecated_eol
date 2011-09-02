@@ -485,51 +485,56 @@ form#new_data_object, form.edit_data_object
       a
         color: #667309
         text-decoration: none
-/** Special styles for layering audio description on top of audio thumbnail **/
+/** Special styles for audio and video in media list **/
 #media_list
-  #main>ul
-    >li
-      .figure
-        width: 160px
-        height: 125px
-        margin-bottom: 5px
-        .audio
+  #main > ul
+    > li
+      &.sound, &.video
+        .figure
           position: relative
-          background: #394651 url('/images/v2/icon_sound_tabs.png') no-repeat 50% 20%
           width: 160px
-          height: 123px
+          height: 125px
           margin: 0 0 5px 0
-          text-align: center
           overflow: hidden
           p
-            padding: 50px 5px 30px
+            position: absolute
+            z-index: 5
+            top: 0
+            left: 0
+            margin: 55px 0 10px
+            padding: 0
+            width: 160px
+            text-align: center
             a
-              color: #e2e9ef
+              display: inline-block
+              margin: 0 10px
+      &.sound
+        .figure
+          background: #394651 url('/images/v2/icon_sound_tabs.png') no-repeat 50% 20%
+          a
+            color: #e2e9ef
           noscript, .player
-            a
-              color: #e2e9ef
+            width: 160px
+            position: absolute
+            z-index: 4
+            bottom: 0
+            left: 0
+            margin-bottom: 15px
+            text-align: center
           audio
             position: absolute
             left: 0
             bottom: 0
             width: 160px
             z-index: 1
-        .video_overlay
-          background: url('/images/v2/video_play.png') no-repeat 50% 50% transparent
-          width: 160px
-          height: 125px
-          z-index: 300
-          position: absolute
-        .video
-          text-align: center
+      &.video
+        .figure
+          background: url('/images/v2/icon_videos_tabs.png') no-repeat 50% 20% transparent
           border: 1px solid #CAD3DB
           width: 158px
           height: 123px
           p
-            padding: 93px 5px 0
-      >a
-        display: inline-block
-        overflow: hidden
+            width: 158px
       form
         display: block
         clear: both

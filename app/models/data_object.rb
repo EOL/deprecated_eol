@@ -383,13 +383,6 @@ class DataObject < SpeciesSchemaModel
 
   #----- end of user submitted text --------
 
-  def best_title
-    return object_title unless object_title.blank?
-    return toc_items.first.label unless toc_items.blank?
-    return data_type.simple_type
-  end
-  alias :summary_name :best_title
-
   def rate(user, new_rating)
     existing_ratings = UsersDataObjectsRating.find_all_by_data_object_guid(guid)
     users_current_ratings, other_ratings = existing_ratings.partition { |r| r.user_id == user.id }
@@ -1005,6 +998,13 @@ class DataObject < SpeciesSchemaModel
     ratings_from_user = users_data_objects_ratings.select{ |udor| udor.user_id == u.id }
     return ratings_from_user[0] unless ratings_from_user.blank?
   end
+
+  def best_title
+    return object_title unless object_title.blank?
+    return toc_items.first.label unless toc_items.blank?
+    return data_type.simple_type
+  end
+  alias :summary_name :best_title
 
   def short_title
     return object_title unless object_title.blank?

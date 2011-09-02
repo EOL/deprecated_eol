@@ -29,23 +29,10 @@
           - item_vetted_id = item_vetted.id unless item_vetted.nil?
           - item_vetted_label = item_vetted.label unless item_vetted.nil?
           - en_type = en_type(item)
-          %li{:class => "#{index.modulo(4) == 0 ? 'first' : nil} #{vetted_id_class(item_vetted_id)}"}
+          %li{:class => "#{index.modulo(4) == 0 ? 'first' : nil} #{en_type}".strip}
             .figure
-              - if en_type == 'sound'
-                = render :partial => "data_objects/data_object_#{en_type}",
-                  :locals => { :data_object => item, :thumbnail => true, :size => '260_190' }
-              - else
-                - # TODO: fix this hack for styling - enable adding data type to container without conflicts with styles
-                - if en_type == 'image'
-                  - css_class = "#{vetted_id_class(item_vetted_id)} #{en_type}"
-                - else
-                  - css_class = vetted_id_class(item_vetted_id)
-                %a{ :data => { :data_object_id => item.id }, :class => css_class, :href => data_object_path(item) }
-                  - if en_type == 'video'
-                    .video_overlay
-                  = render :partial => "data_objects/data_object_#{en_type}",
-                    :locals => { :data_object => item, :thumbnail => true, :size => '260_190' }
-
+              = render :partial => "data_objects/data_object_#{en_type}",
+                :locals => { :data_object => item, :thumbnail => true, :size => '260_190' }
               - if item.data_type_id == DataType.image.id && current_user.min_curator_level?(:assistant)
                 .overlay
                 - form_for :taxon_concept_exemplar_image, :url => set_as_exemplar_taxon_media_path(@taxon_concept),

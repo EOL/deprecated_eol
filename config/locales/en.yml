@@ -681,8 +681,8 @@ en:
   article_more_about: "Learn more about this article"
   article_rating: "Article rating"
   articles_with_count:
-    one: "%{count} Article"
-    other: "%{count} Articles"
+    one: "%{count} article"
+    other: "%{count} articles"
   articles_in_languages_with_count:
     one: "Articles on this page are available in %{count} language:"
     other: "Articles on this page are available in %{count} languages:"

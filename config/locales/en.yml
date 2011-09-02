@@ -2683,7 +2683,7 @@ en:
   section_: "Section:"
   section_navigation: "Section Navigation"
   _see_feeds: " See feeds"
-  see_all: "see all"
+  see_all_collections: "see all collections"
   see_all_of_your_collections: "See all of your collections"
   see_all_classifications_with_count_html:
     one: "See the <span class=\"assistive\">%{count} approved classification in which this taxon appears.</span>"

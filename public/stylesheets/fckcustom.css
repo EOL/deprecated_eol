@@ -63,6 +63,22 @@ ul, ol {
 
 ul li {
   list-style-type: disc; }
+ul.march {
+  width: 100%;
+  margin: 0 0 40px;
+  padding: 0;
+  clear: both;
+  overflow: hidden; }
+  ul.march li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: inline-block; }
+    ul.march li img {
+      border: none;
+      float: none;
+      margin: 0;
+      padding: 0; }
 ul.with_images li {
   overflow: hidden;
   list-style-type: none;

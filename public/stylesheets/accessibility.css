@@ -228,6 +228,22 @@ form#switch_hierarchy_entry fieldset {
 #content.cms_page a.pdf {
   background: url("/images/v2/icon_pdf.png") right top no-repeat;
   padding: 0 20px 3px 0; }
+#content.cms_page ul.march {
+  width: 100%;
+  margin: 0 0 40px;
+  padding: 0;
+  clear: both;
+  overflow: hidden; }
+  #content.cms_page ul.march li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: inline-block; }
+    #content.cms_page ul.march li img {
+      border: none;
+      float: none;
+      margin: 0;
+      padding: 0; }
 #content.cms_page ul.with_images li {
   overflow: hidden;
   list-style-type: none;

@@ -1,6 +1,6 @@
 %fieldset
   %p.tip= I18n.t(:content_partner_resource_new_edit_form_tip,
-    :required_icon => image_tag('/images/v2/icon_required.png', :alt => ''))
+    :more_url => cms_page_path('cp_plan_export'))
   %dl
     %dt.required
       = resource_form.label :title

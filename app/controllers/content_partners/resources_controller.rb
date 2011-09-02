@@ -68,12 +68,10 @@ class ContentPartners::ResourcesController < ContentPartnersController
       if upload_required
         @resource.upload_resource_to_content_master!(request.port.to_s)
         unless [ResourceStatus.uploaded.id, ResourceStatus.validated.id].include?(@resource.resource_status_id)
-          notice = I18n.t(:content_partner_resource_update_failed_notice, :resource_status => @resource.status_label)
+          flash[:error] = I18n.t(:content_partner_resource_upload_unsuccessful_error, :resource_status => @resource.status_label)
         end
-        # TODO: if we failed to transfer the resource to content master the status will show up in
-        # index, but should we provide the user with more information on upload errors here?
       end
-      flash[:notice] = notice || I18n.t(:content_partner_resource_update_successful_notice,
+      flash[:notice] = I18n.t(:content_partner_resource_update_successful_notice,
                               :resource_status => @resource.status_label)
       redirect_to content_partner_resources_path(@partner)
     else

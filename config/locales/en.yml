@@ -2684,7 +2684,6 @@ en:
   section_: "Section:"
   section_navigation: "Section Navigation"
   _see_feeds: " See feeds"
-  see_all: "see all"
   see_all_of_your_collections: "See all of your collections"
   see_all_classifications_with_count_html:
     one: "See the <span class=\"assistive\">%{count} approved classification in which this taxon appears.</span>"
@@ -2698,6 +2697,9 @@ en:
   see_all_communities_with_count_html:
     one: "See the <span class=\"assistive\">%{count} community that features this page.</span>"
     other: "See all <span class=\"assistive\">%{count} communities that feature this page.</span>"
+  see_all_featured_collections_with_count:
+    one: "See the %{count} featured collection."
+    other: "See all %{count} featured collections."
   see_all_updates_with_count_html:
     one: "See all <span class=\"assistive\">%{count} updates for this page.</span>"
     other: "See all <span class=\"assistive\">%{count} updates for this page.</span>"

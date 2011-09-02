@@ -1315,7 +1315,7 @@ body > #header {
   width: 180px;
   padding: 0 0 0 20px; }
   #sidebar h3 {
-    padding: 0 0 15px 0;
+    padding: 0 0 10px 0;
     font-size: 1.33em; }
   #sidebar .empty {
     font-size: 1em;
@@ -1335,20 +1335,25 @@ body > #header {
       text-decoration: none; }
       #sidebar .collection_contributors h4 a:hover {
         text-decoration: underline; }
-  #sidebar .collection_list li {
-    position: relative;
-    padding: 10px 0 10px 45px;
-    margin: 0 0 15px 0;
-    font-weight: bold; }
-    #sidebar .collection_list li a + a {
-      line-height: 140%; }
-    #sidebar .collection_list li img {
-      position: absolute;
-      left: 0;
-      top: 50%;
-      z-index: 1;
-      margin: -18px 0 0 0;
-      border: 1px solid #394651; }
+  #sidebar .collection_list {
+    margin: 0 0 20px 0; }
+    #sidebar .collection_list > .copy > p {
+      font-size: 0.83em;
+      margin: 0 0 10px 0; }
+    #sidebar .collection_list li {
+      position: relative;
+      padding: 10px 0 10px 45px;
+      margin: 0 0 15px 0;
+      font-weight: bold; }
+      #sidebar .collection_list li a + a {
+        line-height: 140%; }
+      #sidebar .collection_list li img {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        z-index: 1;
+        margin: -18px 0 0 0;
+        border: 1px solid #394651; }
   #sidebar.filters {
     float: left;
     width: 180px;

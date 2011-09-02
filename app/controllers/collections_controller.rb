@@ -345,6 +345,7 @@ private
     collection_items = options[:items] || collection_items_with_scope(options.merge(:allow_all => true))
     bulk_log = params[:scope] == 'all_items'
     count = 0
+    removed_from_id = 0
     collection_items.each do |item|
       item = CollectionItem.find(item) # Sometimes, this is just an id.
       removed_from_id = item.collection_id

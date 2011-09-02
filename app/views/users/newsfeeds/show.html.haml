@@ -1,7 +1,7 @@
 #collections_tab.main_container
   .copy
-    - watch_lists = link_to I18n.t(:newsfeed_watch_lists), '/info/watch_list'
-    %p.help_text= I18n.t(:newsfeed_description_for_collection, :watch_lists => watch_lists)
+    - watch_lists = link_to I18n.t(:profile_newsfeed), '/info/watch_list'
+    %p.help_text= I18n.t(:newsfeed_help_for_profile)
 
   .article.list.updates
     = render :partial => 'comments/new'

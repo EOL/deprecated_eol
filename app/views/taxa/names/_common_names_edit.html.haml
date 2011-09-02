@@ -2,7 +2,7 @@
 = render :partial => 'data_objects/curation_js'
 = render :partial => 'common_names_new'
 - names_by_language = common_names_by_language(@common_names, current_user.language_id)
-- names_by_language.each_with_index do |language_names_pair, index|
+- names_by_language.each do |language_names_pair|
   - language = language_names_pair[0]
   - names = language_names_pair[1]
   - form_tag "/pages/#{@taxon_concept.id}/names/common_names/update", :method => :put, :class => 'update_common_names' do
@@ -22,29 +22,4 @@
       %tbody
         - names.each do |name|
           %tr
-            %td{:class => 'preferred_name_selector'}
-              = radio_button_tag 'preferred_name_id', name.id, name.preferred.to_i == 1 ? TRUE : FALSE
-              = hidden_field_tag "synonym_ids_#{name.id}", name.synonym_ids
-              = hidden_field_tag "agent_#{name.id}", name.agent_names
-            %td
-              = name.string
-            %td
-              = name.agent_names
-            %td{:class => 'vet_common_name'}
-              - if name.added_by_user?(current_user)
-                = link_to( I18n.t(:delete), url_for(:controller => '/taxa', :action => 'delete_common_name',
-                  :taxon_concept_id => @taxon_concept.id, :synonym_ids => name.synonym_ids, :hierarchy_entry_id => @selected_hierarchy_entry_id),
-                  :onclick => "javascript:if(!confirm('#{ I18n.t(:are_you_sure) }')) { return false; }")
-              - else
-                -# NOTE - this should really be a form.  But we're already *in* a form, and putting that form at a lower level would, in fact, create a lot of duplication (I think),
-                -# so I'm going to dodge the problem for now and embed URLs in the select values, which will be used by Ajax to send the proper request.
-                - url = url_for(:controller => '/taxa', :action => 'vet_common_name', :taxon_concept_id => @taxon_concept.id, :language_id => name.language_id,
-                  :name_id => name.name_id, :unique_id => name.unique_id, :vetted_id => 'REPLACE_ME')
-                = select_tag("#{name.unique_id}", options_for_select({I18n.t(:trusted) => Vetted.trusted.id.to_s, I18n.t(:unreviewed) => Vetted.unknown.id.to_s, I18n.t(:untrusted) => Vetted.untrusted.id.to_s, I18n.t(:inappropriate) => Vetted.inappropriate.id.to_s}, name.vetted_id.to_s), :onchange => "javascript:vet_common_name(#{@taxon_concept.id}, #{name.language_id}, #{name.name_id}, '#{name.unique_id}', '#{@selected_hierarchy_entry_id}')")
-
-- form_tag({:action => 'vet_common_name'}, :id => 'vet_common_name_form', :method => 'post') do
-  %input{:type => 'hidden', :id => 'form_taxon_concept_id',   :name => 'taxon_concept_id',   :value => ''}
-  %input{:type => 'hidden', :id => 'form_language_id',        :name => 'language_id',        :value => ''}
-  %input{:type => 'hidden', :id => 'form_name_id',            :name => 'name_id',            :value => ''}
-  %input{:type => 'hidden', :id => 'form_vetted_id',          :name => 'vetted_id',          :value => ''}
-  %input{:type => 'hidden', :id => 'form_hierarchy_entry_id', :name => 'hierarchy_entry_id', :value => ''}
+            = render :partial => 'common_names_edit_row', :locals => {:name => name }

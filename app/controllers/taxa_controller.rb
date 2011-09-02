@@ -41,9 +41,10 @@ class TaxaController < ApplicationController
 
   # If you want this to redirect to search, call (do_the_search && return if this_request_is_really_a_search) before this.
   def find_taxon_concept
-    tc_id = params[:id].to_i
+    # Try most specific first...
+    tc_id = params[:taxon_concept_id].to_i
     tc_id = params[:taxon_id].to_i if tc_id == 0
-    tc_id = params[:taxon_concept_id].to_i if tc_id == 0
+    tc_id = params[:id].to_i if tc_id == 0
     redirect_to_missing_page_on_error do
       TaxonConcept.find(tc_id)
     end
@@ -263,22 +264,6 @@ class TaxaController < ApplicationController
       redirect_to common_names_taxon_hierarchy_entry_names_path(tc, params[:hierarchy_entry_id])
     else
       redirect_to common_names_taxon_names_path(tc)
-    end
-  end
-
-  # TODO - This needs to add a CuratorActivityLog.
-  def vet_common_name
-    @taxon_concept = TaxonConcept.find(params[:taxon_concept_id].to_i)
-    language_id = params[:language_id].to_i
-    name_id = params[:name_id].to_i
-    vetted = Vetted.find(params[:vetted_id])
-    @taxon_concept.current_user = current_user
-    @taxon_concept.vet_common_name(:language_id => language_id, :name_id => name_id, :vetted => vetted)
-    current_user.log_activity(:vetted_common_name, :taxon_concept_id => @taxon_concept.id, :value => name_id)
-    if !params[:hierarchy_entry_id].blank?
-      redirect_to common_names_taxon_hierarchy_entry_names_path(@taxon_concept, params[:hierarchy_entry_id])
-    else
-      redirect_to common_names_taxon_names_path(@taxon_concept)
     end
   end
 

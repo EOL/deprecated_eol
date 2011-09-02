@@ -888,8 +888,8 @@ en:
     one: "Present in %{count} collection"
     other: "Present in %{count} collections"
   collections_with_count:
-    one: "%{count} Collection"
-    other: "%{count} Collections"
+    one: "%{count} collection"
+    other: "%{count} collections"
   comment: "Comment"
   comment_added_notice: "Comment successfully added."
   comment_body_label: "Your comment"
@@ -928,8 +928,8 @@ en:
     other: "%{count} common names"
   common_user_activity_page_title: "Common User Activity"
   communities_with_count:
-    one: "%{count} Community"
-    other: "%{count} Communities"
+    one: "%{count} community"
+    other: "%{count} communities"
   communities: "Communities"
   communities_index_empty: "There are no active communities."
   communities_index_header: "Active communities"

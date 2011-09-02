@@ -11,7 +11,7 @@ namespace :i18n do
   en_yml = File.join([lang_dir, "en.yml"])
   trans_tmp = File.join([lang_dir, "translation_template.yml"])
   excluded_tables = ["translated_mime_types", "translated_news_items", "translated_privileges",
-    "translated_info_items", "translated_content_pages", "translated_content_page_archives"]
+    "translated_info_items", "translated_content_pages", "translated_content_page_archives", "translated_languages"]
   db_field_delim = '-' # Double-underscore does not work with TW.
 
 
@@ -486,7 +486,7 @@ namespace :i18n do
           # If we are in the Activities table, ignore any keys with underscores:
           next if table_name =~ /translated_activities$/ && value =~ /_/
 
-          en_strings << "  #{table_name}#{db_field_delim}#{field}#{db_field_delim}#{foreign_key}#{db_field_delim}#{row[foreign_key]}: \"#{value}\"\n"
+          en_strings << "  #{table_name.sub(/^.*\./, '')}#{db_field_delim}#{field}#{db_field_delim}#{foreign_key}#{db_field_delim}#{row[foreign_key]}: \"#{value}\"\n"
         end
       end
     end

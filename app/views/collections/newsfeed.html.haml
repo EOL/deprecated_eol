@@ -10,10 +10,16 @@
   .copy
     - if @collection.watch_collection?
       %p.help_text= I18n.t(:newsfeed_help_for_watchlist)
+    - elsif @collection.focus?
+      %p.help_text= I18n.t(:newsfeed_help_for_focus_list)
     - else
       %p.help_text= I18n.t(:newsfeed_help_for_collection)
   .article.list.updates
     = render :partial => 'comments/new', :locals => {:parent => @collection}
     .newsfeed_heading
       %h3= I18n.t(:newsfeed)
-    = render :partial => 'activity_logs/index', :locals => {:log => @collection.activity_log(:page => @page) }
+    - if @collection.focus?
+      - log = @collection.community.activity_log(:page => @page)
+    - else
+      - log = @collection.activity_log(:page => @page)
+    = render :partial => 'activity_logs/index', :locals => {:log => log }

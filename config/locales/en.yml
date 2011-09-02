@@ -681,8 +681,8 @@ en:
   article_more_about: "Learn more about this article"
   article_rating: "Article rating"
   articles_with_count:
-    one: "%{count} Article"
-    other: "%{count} Articles"
+    one: "%{count} article"
+    other: "%{count} articles"
   articles_in_languages_with_count:
     one: "Articles on this page are available in %{count} language:"
     other: "Articles on this page are available in %{count} languages:"
@@ -1657,6 +1657,7 @@ en:
   flash_video: "Flash video"
   flickr: "Flickr"
   focus_collection_edit_link: "You may edit this community's focus directly at the %{collection} page."
+  focus_list_newsfeed: "Focus List Newsfeed"
   force: "Force"
   for_toc: "for \"%{toc}\""
   for: "for"
@@ -2206,6 +2207,7 @@ en:
   newsfeed: "Newsfeed"
   newsfeed_help_for_collection: "The Newsfeed for this EOL Collection gathers updates associated with the items belonging to it, including the activities of its owner and comments from other EOL users."
   newsfeed_help_for_community: "The Newsfeed for this EOL Community gathers updates associated with the items belonging to its Focus Collection, including activities of its members and comments from other EOL users."
+  newsfeed_help_for_focus_list: "The Focus List Newsfeed gathers updates associated with the items belonging to an EOL Community's primary Focus List, including activities of its managers and comments from other EOL users."
   newsfeed_help_for_profile: "The EOL Profile Newsfeed contains messages left for its owner by other members, EOL Community invitations, and gathers updates associated with the items in the owner's EOL Watch List."
   newsfeed_help_for_taxon: "The Newsfeed for this EOL Taxon Page gathers updates associated with items shown on it, including curator actions and comments from EOL users."
   newsfeed_help_for_watchlist: "The EOL Watch List Newsfeed gathers updates associated with the items in the owner's EOL Watch List, including the activities of its owner."

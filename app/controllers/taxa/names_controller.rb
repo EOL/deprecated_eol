@@ -56,6 +56,7 @@ class Taxa::NamesController < TaxaController
   # GET for collection common_names /pages/:taxon_id/names/common_names
   def common_names
     @languages = Language.with_iso_639_1.sort_by{ |l| l.label }
+    @languages.collect! {|lang|  [lang.label.to_s.truncate(20), lang.id] }
     @common_names = get_common_names
     @common_names_count = @common_names.collect{|cn| [cn.name_id,cn.language_id]}.uniq.count
     @assistive_section_header = I18n.t(:assistive_names_common_header)

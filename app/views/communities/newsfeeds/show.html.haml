@@ -23,6 +23,8 @@
           = render :partial => 'collections/collection_summary', :locals => {:collection => ci.object, :minimal => true}
   = render :partial => 'communities/active_members_sidebar'
 #community.main_container
+  .copy
+    %p.help_text= I18n.t(:newsfeed_help_for_community)
   .article.list.updates
     = render :partial => 'comments/new', :locals => { :parent => @community }
     .newsfeed_heading

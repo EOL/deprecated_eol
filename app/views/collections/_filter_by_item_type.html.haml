@@ -1,5 +1,6 @@
 %ul.tabs.with_icons
-  %li{:class => 'newsfeed' + (@filter == 'newsfeed' ? ' active' : '')}= link_to(I18n.t(:newsfeed), "/collections/#{@collection.id}/newsfeed")
+  - newsfeed_label = @collection.watch_collection? ? I18n.t(:watch_list_newsfeed) : I18n.t(:collection_newsfeed)
+  %li{:class => 'newsfeed' + (@filter == 'newsfeed' ? ' active' : '')}= link_to(newsfeed_label, "/collections/#{@collection.id}/newsfeed")
   %li{:class => 'total' + (@filter.nil? ? ' active' : '')}= link_to I18n.t(:total_items_with_count, :count => @facet_counts['All'] || 0), @collection
   - types = CollectionItem.types
   - types.keys.each do |type|

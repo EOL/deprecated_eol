@@ -7,6 +7,11 @@
     .collection_contributors
       = render :partial => 'collections/endorsed_by', :locals => { :collection => @collection }
 #collections.main_container
+  .copy
+    - if @collection.watch_collection?
+      %p.help_text= I18n.t(:newsfeed_help_for_watchlist)
+    - else
+      %p.help_text= I18n.t(:newsfeed_help_for_collection)
   .article.list.updates
     = render :partial => 'comments/new', :locals => {:parent => @collection}
     .newsfeed_heading

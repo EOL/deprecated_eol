@@ -603,7 +603,7 @@ class DataObject < SpeciesSchemaModel
   end
 
   def thumb_or_object(size = :large)
-    if self.is_video?
+    if self.is_video? || self.is_sound?
       return DataObject.image_cache_path(thumbnail_cache_url, size)
     elsif has_object_cache_url?
       return DataObject.image_cache_path(object_cache_url, size)

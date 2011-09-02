@@ -16,7 +16,7 @@
     %h5{:class => assistive_or_nil}
       = I18n.t("#{en_type}_rating")
       - unless minimal
-        %small= I18n.t(:rated_by_count_people, :count => data_object.users_data_objects_ratings.count)
+        %small= I18n.t(:rated_by_count_people, :count => data_object.users_data_objects_ratings.length)
     .rating
       %p{:style => "width: #{average_rating * 20}%"}<
         = I18n.t("average_rating_value_of_total", :rating => average_rating, :total => total)

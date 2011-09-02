@@ -9,7 +9,7 @@ class Taxa::DetailsController < TaxaController
     includes = [
       { :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] },
       { :data_objects => [ :translations, :data_object_translation, { :toc_items => :info_items }, { :data_objects_hierarchy_entries => :hierarchy_entry },
-        { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ] },
+        { :curated_data_objects_hierarchy_entries => :hierarchy_entry }, :info_items, :users_data_object ] },
       { :curator_activity_logs => :user },
       { :users_data_objects => [ { :data_object => :toc_items } ] },
       { :taxon_concept_exemplar_image => :data_object }]
@@ -25,6 +25,8 @@ class Taxa::DetailsController < TaxaController
       :curated_data_objects_hierarchy_entries => '*',
       :data_object_translations => '*',
       :table_of_contents => '*',
+      :info_items => '*',
+      :users_data_objects => '*',
       :curator_activity_logs => '*',
       :users => [ :given_name, :family_name, :logo_cache_url ] ,
       :taxon_concept_exemplar_image => '*' }
@@ -54,6 +56,7 @@ class Taxa::DetailsController < TaxaController
     toc_items_to_show = @details.blank? ? [] : @details.collect{|d| d[:toc_item]}
     exclude = TocItem.exclude_from_details
     toc_items_to_show.delete_if {|ti| exclude.include?(ti.label) }
+    TocItem.preload_associations(toc_items_to_show, :info_items)
     @toc = TocBuilder.new.toc_for_toc_items(toc_items_to_show)
     @exemplar_image = @taxon_concept.exemplar_or_best_image_from_solr(@selected_hierarchy_entry)
     

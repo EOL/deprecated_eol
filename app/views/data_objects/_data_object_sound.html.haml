@@ -3,8 +3,7 @@
   - # TODO: Support for mime types in HTML5 audio varies across browsers, different formats of the file are required
   - en_mime_type ||= data_object.mime_type.label('en')
   - if defined?(thumbnail) && thumbnail
-    %p
-      = link_to strip_tags(data_object.best_title.truncate(45)), data_object_path(data_object)
+    %p= link_to strip_tags(data_object.best_title.truncate(45)), data_object_path(data_object)
     - if en_mime_type == 'audio/mpeg'
       = render :partial => 'data_objects/jplayer', :locals => {:sound_url => data_object.sound_url, :type => "small", :en_mime_type => en_mime_type}
 
@@ -12,7 +11,7 @@
     -# %audio{:controls => true, :loop => false, :autoplay => false, :preload => 'metadata'}
     -#   %source{:type => en_mime_type, :src => data_object.sound_url}
 
-    - else
+  - else
     - if en_mime_type == 'audio/mpeg'
       = render :partial => 'data_objects/jplayer', :locals => {:sound_url => data_object.sound_url, :type => "big", :en_mime_type => en_mime_type}
 

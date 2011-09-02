@@ -46,6 +46,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   before_save :check_credentials
   before_save :encrypt_password
   before_save :instantly_approve_curator_level, :if => :curator_level_can_be_instantly_approved?
+  after_save :update_watch_collection_name
   after_save :clear_cached_user
 
   accepts_nested_attributes_for :user_info
@@ -743,6 +744,16 @@ private
     self.requested_curator_level_id == self.curator_level_id
   end
 
+  # Callback after_save
+  def update_watch_collection_name
+    collection = self.existing_watch_collection rescue nil
+    unless collection.blank?
+      collection.name = I18n.t(:default_watch_collection_name, :username => self.full_name.titleize)
+      collection.save!
+    end
+  end
+
+  # Callback after_save
   def clear_cached_user
     $CACHE.delete("users/#{self.id}") if $CACHE
   end

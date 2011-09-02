@@ -248,6 +248,19 @@ describe User do
     inactive_user = User.gen(:active => false)
     inactive_user.activate
     inactive_user.watch_collection.should_not be_nil
+    inactive_user.watch_collection.name.should == "#{inactive_user.full_name.titleize}'s Watch List"
+  end
+
+  it 'should update the "watch" collection if member updates the full name' do
+    full_name = @user.full_name
+    @user.watch_collection.name.should == "#{@user.full_name.titleize}'s Watch List"
+    @user.given_name = 'lazy'
+    @user.family_name = 'smurf'
+    @user.save
+    @user.reload
+    @user.run_callbacks(:after_save)
+    @user.full_name.should_not == full_name
+    @user.watch_collection.name.should == "#{@user.full_name.titleize}'s Watch List"
   end
 
   it 'community membership should be able to join a community' do

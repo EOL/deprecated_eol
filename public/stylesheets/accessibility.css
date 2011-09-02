@@ -1143,3 +1143,10 @@ body#prelaunch p.status {
     position: absolute;
     right: 10px;
     top: 4px; }
+#user_communities .heading form, #user_communities .heading a {
+  position: absolute;
+  right: 10px;
+  top: 4px; }
+
+body#prelaunch #footer ul.social_media {
+  margin-top: 20px; }

@@ -1,6 +1,8 @@
 - download_link = link_to I18n.t("download_#{en_mime_type.sub(/\//, '_')}"), sound_url, { :title => I18n.t("download_#{en_mime_type.sub(/\//, '_')}_assistive") }
 
 - if type == 'big'
+  -# This goes to the permalink page
+  
   .jp-jplayer{:id => "jquery_jplayer_1"}
   .jp-audio{}
     .jp-type-single{}
@@ -28,16 +30,24 @@
           %li
             %noscript{:id => 'no_script'}= I18n.t(:player_is_disabled) + '<br>'
             = download_link
+
 - else
+  -# This goes to the Media list
+
+  %style
+    span.jsonly { display: none }
+    a.jp-play, a.jp-pause, a.jp-stop {background: none;}
   - no_script = download_link
   %noscript= no_script
-
-  .player
-    %a{:href => '#', :id => "play"}= I18n.t(:audio_play)
-    %a{:href => '#', :id => "pause"}= I18n.t(:audio_pause)
-    |
-    %a{:href => '#', :id => "stop"}= I18n.t(:audio_stop)
-    .jp-jplayer{:id => "jquery_jplayer_2"}
+  %span{:id => "#{sound_id}", :class => "jsonly"}
+    .jp-jplayer{:id => "jquery_jplayer_" + "#{sound_id}"}
+    .jp-interface{:id => "jp_interface_" + "#{sound_id}"}
+      %a{:href=>"#", :class=>"jp-play", :tabindex=>"1"}= I18n.t(:audio_play)
+      %a{:href=>"#", :class=>"jp-pause", :tabindex=>"1"}= I18n.t(:audio_pause)
+      &nbsp;
+      %a{:href=>"#", :class=>"jp-stop", :tabindex=>"1"}= I18n.t(:audio_stop)
+  :javascript
+    document.getElementById("#{sound_id}").className = document.getElementById("#{sound_id}").className.replace('jsonly','jsOn');
 
 
 :javascript
@@ -49,26 +59,25 @@
           mp3: "#{sound_url}"
         }).jPlayer(""); // put 'play' here to auto-play
       },
-      ended: function (event) {
-        //$(this).jPlayer("play");
-      },
+      ended: function (event) {},
       swfPath: "/javascripts/jplayer/js",
       supplied: "mp3"
     });
-
-    $("#jquery_jplayer_2").jPlayer({
-    ready: function () {
-      $(this).jPlayer("setMedia", {
-      mp3: "#{sound_url}"
-      });
-    },
-    swfPath: "/javascripts/jplayer/js",
-    supplied: "mp3",
-    cssSelectorAncestor: "",
-    cssSelector: {
-      play: "#play",
-      pause: "#pause",
-      stop: "#stop"
-    }
+    
+    player_id = "#jquery_jplayer_".concat("#{sound_id}");
+    $(player_id).jPlayer({
+        ready: function () {
+            $(this).jPlayer("setMedia", {
+                mp3: "#{sound_url}"
+            });
+        },
+        ended: function (event) {},
+        swfPath: "/javascripts/jplayer/js",
+        supplied: "mp3",
+        cssSelectorAncestor: "#jp_interface_".concat("#{sound_id}")
+    })
+    .bind($.jPlayer.event.play, function() { // Using a jPlayer event to avoid both jPlayers playing together.
+            $(this).jPlayer("pauseOthers");
     });
+
   });

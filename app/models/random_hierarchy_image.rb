@@ -56,6 +56,9 @@ class RandomHierarchyImage < SpeciesSchemaModel
     
     random_images = self.random_set(limit, Hierarchy.default, :size => options[:size]) if random_images.blank? && hierarchy.id != Hierarchy.default.id
     #raise "Found no Random Taxa in the database (#{starting_id}, #{limit})" if random_images.blank?
+    
+    # by calling this here, the cached values will contain the pre-cached name. This saves a bunch of load time on the homepage
+    random_images.each{ |r| r.taxon_concept.title_canonical }
     return random_images
   end
   

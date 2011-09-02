@@ -1217,16 +1217,10 @@ class TaxonConcept < SpeciesSchemaModel
     ")
   end
 
-  # Returns three collections, prioritized as:
-  #  - collections with the most communities ("featured by") show up first,
-  #  - collections with the FEWEST taxa show up next (since they are more focused)
-  #  - collections with the FEWEST items show up next.
   def top_collections
     return @top_collections if @top_collections
     all_containing_collections = Collection.which_contain(self).select{ |c| !c.watch_collection? }
-    Collection.add_taxa_counts!(all_containing_collections)
-    Collection.add_counts!(all_containing_collections)
-    @top_collections = Collection.sort_for_overview(all_containing_collections)[0..2]
+    @top_collections = all_containing_collections.sort_by(&:relevance)[0..2]
   end
 
   def flattened_ancestor_ids

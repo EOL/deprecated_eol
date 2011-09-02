@@ -326,7 +326,10 @@ module ApplicationHelper
 
   # Total counts for stats on the home page
   def total_count(obj)
-    $CACHE.fetch('homepage_stats/total_' + obj, :expires_in => $CACHE_STATS_COUNT_IN_MINUTES.minutes) do
+    expire_time = $CACHE_STATS_COUNT_IN_MINUTES.minutes
+    expire_time = 24.hours if obj == 'taxon_concepts'
+    expire_time = 6.hours if obj == 'data_objects'
+    $CACHE.fetch('homepage_stats/total_' + obj, :expires_in => expire_time) do
       case obj
         when "taxon_concepts"
           TaxonConcept.connection.select_values("SELECT COUNT(*) count FROM taxon_concepts tc JOIN taxon_concept_content tcc ON (tc.id=tcc.taxon_concept_id) WHERE tc.published=1 AND tc.supercedure_id=0 AND (tcc.text=1 OR tcc.image=1 OR tcc.flash=1 OR tcc.youtube=1)")[0].to_i

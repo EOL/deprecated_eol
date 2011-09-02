@@ -206,6 +206,7 @@ class Comment < ActiveRecord::Base
     # activity feed of user making comment
     logs_affected['User'] = [ self.user_id ]
     watch_collection_id = self.user.existing_watch_collection.id rescue nil
+    # watch collection of user making comment
     logs_affected['Collection'] = [ watch_collection_id ] if watch_collection_id
     if self.parent_type == 'User'
       # news feed of user commented on
@@ -221,8 +222,10 @@ class Comment < ActiveRecord::Base
       logs_affected['Collection'] << c.id
     end
     if self.parent_type == 'TaxonConcept'
+      # page's ancestors
       logs_affected['AncestorTaxonConcept'] = self.parent.flattened_ancestor_ids
     elsif self.parent_type == 'DataObject'
+      # object's pages and pages' ancestors
       self.parent.curated_hierarchy_entries.each do |he|
         logs_affected['TaxonConcept'] ||= []
         logs_affected['TaxonConcept'] << he.taxon_concept_id

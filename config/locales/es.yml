@@ -1802,7 +1802,7 @@ es:
   user_index_intro: "Abajo se muestran todos los usuarios del web registrados en el sistema, ordenados inversamente por el tiempo de registro. Note que la fecha de registro para usuarios anteriores a 5 de enero, 2009, no están disponibles. Haga clic en un nombre de usuario para editar ese usuario."
   user_joined_community_on_date: "%{username} se unió a esta comunidad en fecha %{date}."
   user_submitted_text_titlecase: "Texto Enviado por el Usuario"
-        username: "Nombre de usuario"
+  username: "Nombre de usuario"
   values: Valores
   version_1_0_uses_fields_from_the_latest_version: "la versión 1.0 usa campos de la última versión del esquema %{link}"
   watch_list_newsfeed: "Suministro de Noticias de la Lista de Vigilancia"

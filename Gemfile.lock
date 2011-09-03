@@ -87,6 +87,7 @@ GEM
       ffi (>= 1.0.7)
       json_pure
       rubyzip
+    spruz (0.2.13)
     systemu (2.2.0)
     unicorn (4.1.1)
       kgio (~> 2.4)

@@ -40,7 +40,8 @@
     - else
       = eol_lang_main_stylesheet 'application', :media => "all"
     = eol_lang_main_stylesheet 'accessibility', :media => "all"
-
+    /[if IE 7]
+      = eol_lang_main_stylesheet 'ie7', :media => "all"
     = javascript_include_tag "jquery-1.6.1.min", "rails", "application", "jquery.cycle.all.min", "jquery.modal.js"
 
     = csrf_meta_tag # Recommended by https://github.com/rails/jquery-ujs
@@ -56,14 +57,14 @@
         = render :partial => '/layouts/v2/global_navigation'
         .actions
           .language
-            %p{ :title => I18n.t(:selected_language_advisory_information) }
+            %p{ :class => I18n.locale.to_s, :title => I18n.t(:selected_language_advisory_information) }
               - # TODO: Link to nowhere is undesirable for accessibility - make this link to a form for switching language when JS disabled.
               - link_to "#" do
                 %span
                   = I18n.t(:current_language, :iso_code => I18n.locale.to_s.upcase)
             %ul
               - Language.approved_languages.each do |language|
-                %li
+                %li{:class => language.iso_639_1}
                   = link_to language.source_form,
                     set_language_url(:language => language.iso_639_1, :return_to => current_url(false)),
                     { :title => I18n.t(:switch_language_advisory_information, :language_label => language.source_form) }

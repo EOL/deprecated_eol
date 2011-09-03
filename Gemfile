@@ -14,7 +14,7 @@ group :development, :test do
 end
 
 gem 'mysql'
-gem 'json_pure'
+gem 'json_pure', '1.5.3'
 gem 'indifferent-variable-hash'
 gem 'ruby-debug'
 gem 'rails', '2.3.8'

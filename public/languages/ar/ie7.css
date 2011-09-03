@@ -1,0 +1,9 @@
+body > #header .section .actions {
+  direction: ltr; }
+  body > #header .section .actions .language p.ar, body > #header .section .actions .language li.ar a {
+    direction: rtl; }
+
+#page_heading .site_column {
+  direction: ltr; }
+  #page_heading .site_column .hgroup {
+    direction: rtl; }

@@ -113,8 +113,7 @@ DEPENDENCIES
   haml (= 3.1.1)
   indifferent-variable-hash
   invert
-  json (= 1.5.4)
-  json_pure (= 1.5.3)
+  json
   macaddr
   memcache
   mysql

@@ -249,7 +249,7 @@ Rails::Initializer.run do |config|
   rescue LoadError
     #puts 'Could not load environments local.rb file'
   end
-  
+
   identity_yml_path = File.join(File.dirname(__FILE__), 'identity.yml')
   if FileTest.exist? identity_yml_path
     source = YAML::load(File.open(identity_yml_path))

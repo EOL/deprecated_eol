@@ -1782,7 +1782,6 @@ es:
   thanks_for_donation: "Gracias por apoyar a la Enciclopedia de la Vida. Su información a sido enviada y será procesada."
   thanks_for_registering_with_th: "Gracias por registrarse en EOL. Para confirmar su registro, por favor haga clic en el vínculo abajo. Si su programa de correo electrónico no apoya el seguir vínculos, por favor, haga copiar y pegar de la dirección completa en su navegador de web y pulse \"return\"."
   data_objects: data_objects
-
   the_darwin_core_taxon_elements: "Los \"Darwin Core Taxon elements\" (dwct:Taxon) bajo additionalInformation incluyen identificadores para nodos en jerarquía que EOL indexa. Ellos contienen un dc:identifier que es el ID único para el taxón <i>en la base de datos del proveedor.</i>"
   the_id_of_the_provider_s_hiera: "el ID de la jerarquía de proveedores dentro de la cual usted está buscando. Revise %{link} para ID válidos"
   the_json_response_for_this_met: "La respuesta JSON para este método retorna más información que la respuesta XML. Incluye varias estadísticas sobre este nodo y sus descendientes taxonómicos. Por ejemplo, hay un campo retornado denominado\"total_descendants\" el cual lista el número de nodos que son descendientes de un nodo dado, según esta jerarquía; \"total_trusted_text\" incluye el número total de objetos de datos de texto únicos vinculados con esta página o con cualquiera de sus descendientes."
@@ -1861,7 +1860,7 @@ es:
   newsfeed_help_for_focus_list: "El suministro de noticias recopia la Lista de Enfoque a las actualizaciones relacionadas con los elementos que pertenecen a la lista de una Comunidad EOL es objetivo principal, incluidas las actividades de sus directivos y los comentarios de otros usuarios de EOL."
   newsfeed_help_for_profile: "El perfil EOL suministro de noticias contiene los mensajes dejados por su propietario por otros miembros, invitaciones EOL Comunidad, y recoge las actualizaciones relacionadas con los elementos de la Watch EOL lista."
   newsfeed_help_for_taxon: "El suministro de noticias de esta página Taxón EOL recoge cambios asociados con elementos que aparecen en ella, incluyendo las acciones de comisario y los comentarios de los usuarios de EOL."
-  newsfeed_help_for_watchlist: "La lista Watch EOL Newsfeed reúne actualizaciones asociadas con los elementos en la lista del propietario Watch EOL, incluidas las actividades de su propietario. "
+  newsfeed_help_for_watchlist: "La lista Watch EOL Newsfeed reúne actualizaciones asociadas con los elementos en la lista del propietario Watch EOL, incluidas las actividades de su propietario."
   profile_newsfeed: "Newsfeed Mio"
   see_all_featured_collections_with_count:
     one: "Mira el %{count} colección especial."

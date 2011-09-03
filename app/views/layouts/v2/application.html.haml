@@ -104,10 +104,13 @@
         .copyright
           %h6= link_to I18n.t(:encyclopedia_of_life), root_url
           %p{ :title => I18n.t(:application_version_advisory_information) }
+            - ENV["APP_VERSION"] = "2.0.01.1234.45.67"
             - if ENV["APP_VERSION"].blank?
               = I18n.t(:development_version_name)
             - else
-              = ENV["APP_VERSION"]
+              = ENV["APP_VERSION"].sub(/\.\d\d\d\d.*$/, "")
+              /
+                = ENV["APP_VERSION"].sub(/.*\.(\d\d\d\d.*)$/, "\\1")
         = render :partial => '/layouts/v2/global_navigation', :locals => { :position => :footer }
         %ul.social_media
           - # TODO: add rss ?

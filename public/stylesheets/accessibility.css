@@ -597,6 +597,9 @@ p.flag, span.flag {
   width: 0;
   background: transparent url("/images/v2/icon_stars.png") 0 100% repeat-x; }
 
+#worklist #task .rating h5, #worklist #task .average_rating h5 {
+  font-size: 1em; }
+
 /*We don't want border on EOL abbr tags in the shared join partial */
 .join abbr {
   border: none; }

@@ -22,28 +22,24 @@ class Collection < ActiveRecord::Base
   has_one :resource
   has_one :resource_preview, :class_name => Resource.to_s, :foreign_key => :preview_collection_id
 
-  # TODO = you can have collections that point to collections, so there SHOULD be a has_many relationship here to all
-  # of the collection items that contain this collection.  ...I don't know if we need that yet, but it would normally
-  # be named "collection_items", which doesn't work (because we're using that for THIS collection's children)... so
-  # we will have to re-name it and make it slightly clever.
+  named_scope :focus, :conditions => 'community_id IS NOT NULL'
+  named_scope :nonfocus, :conditions => 'community_id IS NULL'
 
   validates_presence_of :name
 
   validates_uniqueness_of :name, :scope => [:user_id]
   validates_uniqueness_of :community_id, :if => Proc.new {|l| ! l.community_id.blank? }
 
-  # TODO: remove the :if condition after migrations are run in production
+  before_update :set_relevance_if_collection_items_changed
+
   has_attached_file :logo,
     :path => $LOGO_UPLOAD_DIRECTORY,
     :url => $LOGO_UPLOAD_PATH,
-    :default_url => "/images/blank.gif",
-    :if => self.column_names.include?('logo_file_name')
+    :default_url => "/images/blank.gif"
 
   validates_attachment_content_type :logo,
-    :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'],
-    :if => self.column_names.include?('logo_file_name')
-  validates_attachment_size :logo, :in => 0..$LOGO_UPLOAD_MAX_SIZE,
-    :if => self.column_names.include?('logo_file_name')
+    :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png']
+  validates_attachment_size :logo, :in => 0..$LOGO_UPLOAD_MAX_SIZE
 
   index_with_solr :keywords => [ :name ], :fulltexts => [ :description ]
 
@@ -57,45 +53,33 @@ class Collection < ActiveRecord::Base
   end
 
   # this method will quickly get the counts for multiple collections at the same time
-  def self.add_counts!(collections)
-    collection_ids = collections.collect{ |c| c.id }.join(',')
+  def self.add_counts(collections)
+    collection_ids = collections.map(&:id).join(',')
     return if collection_ids.empty?
     collections_with_counts = Collection.find_by_sql("
-      SELECT c.*, count(*) as count
-      FROM collections c JOIN collection_items ci ON (c.id=ci.collection_id)
+      SELECT c.id, count(*) as count
+      FROM collections c JOIN collection_items ci ON (c.id = ci.collection_id)
       WHERE c.id IN (#{collection_ids})
       GROUP BY c.id")
     collections_with_counts.each do |cwc|
-      if c = collections.detect{ |c| c.id }
+      if c = collections.detect{ |c| c.id == cwc.id }
         c['collection_items_count'] = cwc['count'].to_i
       end
     end
   end
 
-  def self.add_taxa_counts!(collections)
-    collection_ids = collections.collect{ |c| c.id }.join(',')
+  def self.add_taxa_counts(collections)
+    collection_ids = collections.map(&:id).join(',')
     return if collection_ids.empty?
     collections_with_counts = Collection.find_by_sql("
-      SELECT c.*, count(*) as count
-      FROM collections c JOIN collection_items ci ON (c.id=ci.collection_id)
+      SELECT c.id, count(*) as count
+      FROM collections c JOIN collection_items ci ON (c.id = ci.collection_id AND ci.object_type = 'TaxonConcept')
       WHERE c.id IN (#{collection_ids})
-      AND ci.object_type = 'TaxonConcept'
       GROUP BY c.id")
     collections_with_counts.each do |cwc|
-      if c = collections.detect{ |c| c.id }
+      if c = collections.detect{ |c| c.id == cwc.id }
         c['taxa_count'] = cwc['count'].to_i
       end
-    end
-  end
-
-  def self.sort_for_overview(collections)
-    col = collections.sort_by do |c|
-      is_collected_by_community = c.community_id? ? 0 : 1 # opposite so those in communities come first
-      taxa_count = c['taxa_count'] || 0
-      collection_items_count = c['collection_items_count'] || 0
-      [ is_collected_by_community,
-        taxa_count,
-        collection_items_count ]
     end
   end
 
@@ -119,6 +103,8 @@ class Collection < ActiveRecord::Base
     community_id
   end
 
+  # NOTE - DO NOT (!) use this method in bulk... take advantage of the accepts_nested_attributes_for if you want to
+  # add more than two things... because this runs an expensive calculation at the end.
   def add(what, opts = {})
     return if what.nil?
     name = "something"
@@ -142,19 +128,8 @@ class Collection < ActiveRecord::Base
       raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_create_collection_item_from_class_error,
                                                                   :klass => what.class.name))
     end
-    collection_items.last.update_attributes(:annotation => opts[:annotation]) if opts[:annotation]
+    set_relevance # This is actually safe, because we don't use #add in bulk.
     what # Convenience.  Allows us to chain this command and continue using the object passed in.
-  end
-
-  def deep_copy(other, options = {})
-    copy_annotations = options[:keep_annotations] || user_id && other.user_id && user_id == other.user_id
-    other.collection_items.each do |item|
-      if copy_annotations
-        add(item.object, :annotation => item.annotation)
-      else
-        add(item.object)
-      end
-    end
   end
 
   def logo_url(size = 'large')
@@ -168,7 +143,7 @@ class Collection < ActiveRecord::Base
   end
 
   def taxa
-    collection_items.collect{|ci| ci if ci.object_type == 'TaxonConcept'}
+    collection_items.taxa
   end
 
   def maintained_by
@@ -201,13 +176,99 @@ class Collection < ActiveRecord::Base
     special? && user_id
   end
 
+  def focus?
+    community_id
+  end
+
+  def set_relevance
+    update_attributes(:relevance => calculate_relevance)
+  end
+
 private
+
+  # This should set the relevance attribute score between 0 and 100.  Use this sparringly, it's expensive to calculate:
+  def calculate_relevance
+    return 0 if watch_collection? # Watch collections are irrelevant.
+    @taxa_count = collection_items.taxa.count
+    return 0 if @taxa_count <= 0 # Collections with no taxa (ie: friend lists and the like) are irrelevant.
+    # Each sub-category should return a score between 1 and 100:
+    score = (calculate_feature_relevance * 0.4) + (calculate_taxa_relevance * 0.4) + (calculate_item_relevance * 0.2)
+    return 0 if score <= 0
+    return 100 if score >= 100
+    score.to_i
+  end
+
+  def calculate_feature_relevance
+    features = containing_collections.focus.count
+    times_featured_score = case features
+                           when 0
+                             0
+                           when 1..25
+                             2 * features
+                           else
+                             50
+                           end
+    collected = containing_collections.nonfocus.count
+    times_collected_score = case collected
+                            when 0
+                              0
+                            when 1..30
+                              collected
+                            else
+                              30
+                            end
+    is_focus_list_score = focus? ? 20 : 0
+    score = times_featured_score + times_collected_score + is_focus_list_score
+    return 0 if score <= 0
+    return 100 if score >= 100
+    return score.to_i
+  end
+
+  # Extremely focused list = high score ... too many taxa = not as relevant.
+  def calculate_taxa_relevance
+    taxa = @taxa_count || collection_items.taxa.count
+    score = case taxa
+            when 0
+              0 # No taxa = irrelvant. Really, you shouldn't get here.
+            when 1
+              100
+            when 2..4
+              100 - (taxa * 4)
+            when 5..300
+              (80 / (taxa / 4.0)).to_i
+            else
+              0 # Way too big.
+            end
+    return 0 if score <= 0
+    return 100 if score >= 100
+    return score.to_i
+  end
+
+  def calculate_item_relevance
+    items = collection_items.count
+    annotated = collection_items.annotated.count
+    item_score = case items
+                 when 0..100
+                   items
+                 else
+                   100
+                 end
+    percent_annotated = annotated <= 0 ? 0 : (items / annotated.to_f)
+    score = ((item_score / 2) + (percent_annotated * (item_score / 2)).to_i)
+    return 0 if score <= 0
+    return 100 if score >= 100
+    return score.to_i
+  end
 
   def validate
     errors.add(:user_id, I18n.t(:must_be_associated_with_either_a_user_or_a_community) ) if
       self.community_id.nil? && self.user_id.nil?
     errors.add(:user_id, I18n.t(:cannot_be_associated_with_both_a_user_and_a_community) ) if
       ((! self.community_id.nil?) && (! self.user_id.nil?))
+  end
+
+  def set_relevance_if_collection_items_changed
+    relevance = calculate_relevance if collection_items && collection_items.last && collection_items.last.changed?
   end
 
 end

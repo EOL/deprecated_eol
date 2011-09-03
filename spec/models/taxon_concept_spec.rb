@@ -572,31 +572,14 @@ describe TaxonConcept do
     tc.activity_log.should be_a WillPaginate::Collection
   end
 
-  it 'should list collections in the proper order - most communities show firt' do
-    community1 = Community.gen()
-    community2 = Community.gen()
-    collection1 = Collection.gen
-    collection2 = Collection.gen
+  it 'should rely on collection for sorting #top_collections' do
     tc = TaxonConcept.gen
-    coll_item1 = CollectionItem.gen(:object_type => "TaxonConcept", :object_id => tc.id, :collection_id => collection1.id)
-    coll_item2 = CollectionItem.gen(:object_type => "TaxonConcept", :object_id => tc.id, :collection_id => collection2.id)
-    community1.collection.add(collection1)
-    community1.collection.add(collection2)
-    community2.collection.add(collection2)
-    tc.top_collections[0].name.should == collection2.name
-    tc.top_collections[1].name.should == collection1.name
-  end
-
-  it 'should list collections in the proper order - least collected taxa show first' do
-    tc1 = TaxonConcept.gen
-    tc2 = TaxonConcept.gen
-    collection1 = Collection.gen
-    collection2 = Collection.gen
-    coll_item1 = CollectionItem.gen(:object_type => "TaxonConcept", :object_id => tc1.id, :collection_id => collection1.id)
-    coll_item2 = CollectionItem.gen(:object_type => "TaxonConcept", :object_id => tc2.id, :collection_id => collection1.id)
-    coll_item3 = CollectionItem.gen(:object_type => "TaxonConcept", :object_id => tc1.id, :collection_id => collection2.id)
-    tc1.top_collections[0].name.should == collection2.name
-    tc1.top_collections[1].name.should == collection1.name
+    col1 = Collection.gen
+    col2 = Collection.gen
+    Collection.should_receive(:which_contain).with(tc).and_return([col1, col2])
+    col1.should_receive(:relevance).and_return(1)
+    col2.should_receive(:relevance).and_return(2)
+    tc.top_collections
   end
 
   it 'should list communites in the proper order - most number of members show first' do

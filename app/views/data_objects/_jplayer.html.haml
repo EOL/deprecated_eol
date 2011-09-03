@@ -1,74 +1,38 @@
-- download_link = link_to I18n.t("download_#{en_mime_type.sub(/\//, '_')}"), sound_url, { :title => I18n.t("download_#{en_mime_type.sub(/\//, '_')}_assistive") }
-
-- if type == 'big'
-  .jp-jplayer{:id => "jquery_jplayer_1"}
-  .jp-audio{}
-    .jp-type-single{}
-      .jp-interface{:id => "jp_interface_1"}
-        %ul{:class => "jp-controls"}
-          %li
-            %a{:href => '#', :class => "jp-play", :tabindex => "1"}= I18n.t(:audio_play)
-          %li
-            %a{:href => '#', :class => "jp-pause", :tabindex => "1"}= I18n.t(:audio_pause)
-          %li
-            %a{:href => '#', :class => "jp-stop", :tabindex => "1"}= I18n.t(:audio_stop)
-          %li
-            %a{:href => '#', :class => "jp-mute", :tabindex => "1"}= I18n.t(:audio_mute)
-          %li
-            %a{:href => '#', :class => "jp-unmute", :tabindex => "1"}= I18n.t(:audio_unmute)
-        .jp-progress
-          .jp-seek-bar
-            .jp-play-bar
-        .jp-volume-bar
-          .jp-volume-bar-value
-        .jp-current-time
-        .jp-duration
-      .jp-playlist{:id => "jp_playlist_1"}
-        %ul
-          %li
-            %noscript{:id => 'no_script'}= I18n.t(:player_is_disabled) + '<br>'
-            = download_link
-- else
-  - no_script = download_link
-  %noscript= no_script
-
-  .player
-    %a{:href => '#', :id => "play"}= I18n.t(:audio_play)
-    %a{:href => '#', :id => "pause"}= I18n.t(:audio_pause)
-    |
-    %a{:href => '#', :id => "stop"}= I18n.t(:audio_stop)
-    .jp-jplayer{:id => "jquery_jplayer_2"}
-
-
-:javascript
-  $(document).ready(function(){
-
-    $("#jquery_jplayer_1").jPlayer({
-      ready: function () {
-        $(this).jPlayer("setMedia", {
-          mp3: "#{sound_url}"
-        }).jPlayer(""); // put 'play' here to auto-play
-      },
-      ended: function (event) {
-        //$(this).jPlayer("play");
-      },
-      swfPath: "/javascripts/jplayer/js",
-      supplied: "mp3"
-    });
-
-    $("#jquery_jplayer_2").jPlayer({
-    ready: function () {
-      $(this).jPlayer("setMedia", {
-      mp3: "#{sound_url}"
-      });
-    },
-    swfPath: "/javascripts/jplayer/js",
-    supplied: "mp3",
-    cssSelectorAncestor: "",
-    cssSelector: {
-      play: "#play",
-      pause: "#pause",
-      stop: "#stop"
-    }
-    });
-  });
+- thumbnail ||= false
+- en_mime_type ||= data_object.mime_type.label('en')
+- unless data_object.blank? || data_object.sound_url.blank?
+  - if thumbnail
+    .player{:id => "player_#{data_object.id}"}
+    .player_interface{:id => "player_interface_#{data_object.id}"}
+      %a{:class => 'play', :title => I18n.t(:audio_play_assistive), :data => {:mime_type => en_mime_type}, :href => data_object.sound_url}
+        = image_tag '/images/v2/icon_play_mini.png', :alt => I18n.t(:audio_play)
+      - # TODO: I18nize Javascript so we can move the pause and stop links to JS so that users without JS don't have to deal with them
+      = link_to image_tag('/images/v2/icon_pause_mini.png', :alt => I18n.t(:audio_pause)), '#', { :class => 'pause', :title => I18n.t(:audio_pause_assistive) }
+      = link_to image_tag('/images/v2/icon_stop_mini.png', :alt => I18n.t(:audio_stop)), '#', { :class => 'stop', :title => I18n.t(:audio_stop_assistive) }
+      %span.current_time{:title => I18n.t(:audio_current_time_assistive)}
+      \/
+      %span.duration{:title => I18n.t(:audio_duration_assistive)}
+  - else
+    .jp-jplayer{:id => "player"}
+    .jp-audio
+      .jp-type-single
+        .jp-interface{:id => "player_interface"}
+          - # TODO: I18nize Javascript so we can move redundant tags to JS so that users without JS don't have to deal with them
+          %ul.jp-controls
+            %li
+              %a{:class => 'jp-play', :title => I18n.t(:audio_play_assistive), :data => {:mime_type => en_mime_type}, :href => data_object.sound_url}
+            %li
+              = link_to I18n.t(:audio_pause), '#', { :class => "jp-pause", :title => I18n.t(:audio_pause_assistive) }
+            %li
+              = link_to I18n.t(:audio_stop), '#', { :class => "jp-stop", :title => I18n.t(:audio_stop_assistive) }
+            %li
+              = link_to I18n.t(:audio_mute), '#', :class => "jp-mute"
+            %li
+              = link_to I18n.t(:audio_unmute), '#', :class => "jp-unmute"
+          .jp-progress
+            .jp-seek-bar
+              .jp-play-bar
+          .jp-volume-bar
+            .jp-volume-bar-value
+          .jp-current-time
+          .jp-duration

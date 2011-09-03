@@ -158,23 +158,18 @@ class TaxonConcept < SpeciesSchemaModel
     sorted_names.compact
   end
 
-  # Curators are those users who have special permission to "vet" data objects associated with a TC, and thus get
-  # extra credit on their associated TC pages. This method returns an Array of those users.
-  def curators(options={})
-    return @curators unless @curators.nil?
-    @curators = User.find_all_by_curator_approved(true, :select => { :users => [ :id, :username ] })
-  end
-
   # Return the curators who actually get credit for what they have done (for example, a new curator who hasn't done
   # anything yet doesn't get a citation).  Also, curators should only get credit on the pages they actually edited,
   # not all of it's children.  (For example.)
-  def acting_curators
+  def curators
     curator_activity_logs.collect{ |lcd| lcd.user }.uniq
   end
+  alias :acting_curators :curators # deprecated.  TODO - remove entirely.
 
-  def top_acting_curators
+  def top_curators
     acting_curators[0..2]
   end
+  alias :top_acting_curators :top_curators # deprecated.  TODO - remove entirely.
 
   # The International Union for Conservation of Nature keeps a status for most known species, representing how endangered that
   # species is.  This will default to "unknown" for species that are not being tracked.
@@ -271,7 +266,9 @@ class TaxonConcept < SpeciesSchemaModel
     return nil if datos_to_load.empty?
 
     add_include = [ :translations, :data_object_translation, :users_data_objects_ratings, :comments, :agents_data_objects, :info_items, :toc_items, { :users_data_object => [:user, :taxon_concept, :vetted, :visibility] },
-      { :published_refs => { :ref_identifiers => :ref_identifier_type } }, :all_comments]
+      { :published_refs => { :ref_identifiers => :ref_identifier_type } },
+      { :data_objects_hierarchy_entries => :hierarchy_entry },
+      :users_data_objects_ratings ]
     add_select = {
       :users_data_objects_ratings => '*',
       :refs => '*',
@@ -279,10 +276,12 @@ class TaxonConcept < SpeciesSchemaModel
       :ref_identifier_types => '*',
       :users => '*',
       :data_object_translations => '*',
+      :hierarchy_entries => [ :taxon_concept_id, :vetted_id, :visibility_id ],
       :comments => [:parent_id, :visible_at] }
 
     objects = DataObject.core_relationships(:add_include => add_include, :add_select => add_select).
         find_all_by_id(datos_to_load.collect{ |d| d.id })
+    DataObject.preload_associations(objects, :all_comments)
     if options[:user] && options[:user].is_curator? && options[:user].min_curator_level?(:full)
       DataObject.preload_associations(objects, :users_data_objects_ratings, :conditions => "users_data_objects_ratings.user_id=#{options[:user].id}")
     end
@@ -410,10 +409,10 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def has_details?
-    exclude = TocItem.exclude_from_details.map(&:id)
+    exclude = TocItem.exclude_from_details
     dato_toc_items = data_objects.select{ |d| d.is_text? }
     return false unless dato_toc_items && ! dato_toc_items.empty? # No text at all.
-    dato_toc_items.map(&:toc_items).flatten.reject {|i| exclude.include?(i.id) } # Only things from details tab.
+    dato_toc_items.map(&:toc_items).flatten.reject {|i| exclude.include?(i.label) } # Only things from details tab.
     return false unless dato_toc_items && ! dato_toc_items.empty? # Nothing on details tab.
     return true # Something's left; we must have details...
   end
@@ -438,8 +437,8 @@ class TaxonConcept < SpeciesSchemaModel
     entries_for_this_concept = HierarchyEntry.find_all_by_taxon_concept_id(id,
       :select => {
         :hierarchy_entries => [:published, :visibility_id, :identifier, :source_url],
-        :hierarchies => [:label, :outlink_uri, :url],
-        :resources => :title,
+        :hierarchies => [:label, :outlink_uri, :url, :id],
+        :resources => [ :title, :id, :content_partner_id ],
         :agents => [ :logo_cache_url, :full_name ],
         :collection_types => [ :parent_id ] },
       :include => { :hierarchy => [:resource, :agent, :collection_types] })
@@ -1217,16 +1216,11 @@ class TaxonConcept < SpeciesSchemaModel
     ")
   end
 
-  # Returns three collections, prioritized as:
-  #  - collections with the most communities ("featured by") show up first,
-  #  - collections with the FEWEST taxa show up next (since they are more focused)
-  #  - collections with the FEWEST items show up next.
   def top_collections
     return @top_collections if @top_collections
     all_containing_collections = Collection.which_contain(self).select{ |c| !c.watch_collection? }
-    Collection.add_taxa_counts!(all_containing_collections)
-    Collection.add_counts!(all_containing_collections)
-    @top_collections = Collection.sort_for_overview(all_containing_collections)[0..2]
+    # This algorithm (-relevance) was faster than either #reverse or rel * -1.
+    @top_collections = all_containing_collections.sort_by { |c| [ -c.relevance ] }[0..2]
   end
 
   def flattened_ancestor_ids
@@ -1396,10 +1390,9 @@ private
     end
     filtered_objects = DataObject.filter_list_for_user(objects, :taxon_concept => self, :user => usr)
 
-    add_include = [:agents_data_objects, :all_comments]
-    add_select = { :comments => [:parent_id, :visible_at] }
+    add_include = [:agents_data_objects]
 
-    objects = DataObject.core_relationships(:add_include => add_include, :add_select => add_select).
+    objects = DataObject.core_relationships(:add_include => add_include).
         find_all_by_id(filtered_objects.collect{ |d| d.id })
     objects = DataObject.sort_by_rating(objects, self)
     return objects

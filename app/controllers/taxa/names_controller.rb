@@ -1,6 +1,7 @@
 class Taxa::NamesController < TaxaController
 
   before_filter :instantiate_taxon_concept
+  before_filter :set_vet_options, :only => [:common_names, :vet_common_name]
   before_filter :authentication_for_names, :only => [ :create, :update ]
   before_filter :preload_core_relationships_for_names, :only => [ :index, :common_names, :synonyms ]
 
@@ -16,7 +17,7 @@ class Taxa::NamesController < TaxaController
     current_user.log_activity(:viewed_taxon_concept_names_related_names, :taxon_concept_id => @taxon_concept.id)
 
     # for common names count
-    @common_names_count = get_common_names.count
+    common_names_count
   end
 
   # POST /pages/:taxon_id/names currently only used to add common_names
@@ -50,15 +51,42 @@ class Taxa::NamesController < TaxaController
     current_user.log_activity(:viewed_taxon_concept_names_synonyms, :taxon_concept_id => @taxon_concept.id)
 
     # for common names count
-    @common_names_count = get_common_names.count
+    common_names_count
   end
 
   # GET for collection common_names /pages/:taxon_id/names/common_names
   def common_names
+    @languages = Language.with_iso_639_1.sort_by{ |l| l.label }
+    @languages.collect! {|lang|  [lang.label.to_s.truncate(20), lang.id] }
     @common_names = get_common_names
-    @common_names_count = @common_names.count
+    @common_names_count = @common_names.collect{|cn| [cn.name_id,cn.language_id]}.uniq.count
     @assistive_section_header = I18n.t(:assistive_names_common_header)
     current_user.log_activity(:viewed_taxon_concept_names_common_names, :taxon_concept_id => @taxon_concept.id)
+  end
+
+  # TODO - This needs to add a CuratorActivityLog.
+  def vet_common_name
+    language_id = params[:language_id].to_i
+    name_id = params[:id].to_i
+    vetted = Vetted.find(params[:vetted_id])
+    @taxon_concept.current_user = current_user
+    @taxon_concept.vet_common_name(:language_id => language_id, :name_id => name_id, :vetted => vetted)
+    current_user.log_activity(:vetted_common_name, :taxon_concept_id => @taxon_concept.id, :value => name_id)
+    respond_to do |format|
+      format.html do
+        if !params[:hierarchy_entry_id].blank?
+          redirect_to common_names_taxon_hierarchy_entry_names_path(@taxon_concept, params[:hierarchy_entry_id])
+        else
+          redirect_to common_names_taxon_names_path(@taxon_concept)
+        end
+      end
+      format.js do
+        # TODO - this is a huge waste of time, but I couldn't come up with a timely solution... we only need ONE set
+        # of names, here, not all of them:
+        render :partial => 'common_names_edit_row', :locals => {:common_names => get_common_names,
+          :language => TranslatedLanguage.find(language_id).label, :name_id => name_id }
+      end
+    end
   end
 
 private
@@ -71,6 +99,15 @@ private
       names = EOL::CommonNameDisplay.find_by_taxon_concept_id(@taxon_concept.id)
     end
     common_names = names.select {|n| n.language_id != unknown_id}
+  end
+
+  def common_names_count
+    @common_names_count = get_common_names.collect{|cn| [cn.name_id,cn.language_id]}.uniq.count if @common_names_count.nil?
+    @common_names_count
+  end
+
+  def set_vet_options
+    @common_name_vet_options = {I18n.t(:trusted) => Vetted.trusted.id.to_s, I18n.t(:unreviewed) => Vetted.unknown.id.to_s, I18n.t(:untrusted) => Vetted.untrusted.id.to_s, I18n.t(:inappropriate) => Vetted.inappropriate.id.to_s}
   end
 
   def preload_core_relationships_for_names

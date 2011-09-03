@@ -23,7 +23,9 @@ describe 'Taxa media' do
 
   it 'should show a gallery of mixed media' do
     visit taxon_media_path(@taxon_concept)
-    body.should have_tag("div[class=audio]")
+    body.should have_tag("li[class=sound]")
+    body.should have_tag("li[class=video]")
+    body.should have_tag("li[class=image]")
   end
 
 end

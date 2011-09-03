@@ -229,6 +229,7 @@ Rails::Initializer.run do |config|
   $RICH_PAGES_COLLECTION_ID = 34
 
   $ACTIVITIES_ON_HOME_PAGE = 6
+  $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME = 10  # minutes
   $HOMEPAGE_MARCH_RICHNESS_THRESHOLD = 0.5
 
   APPLICATION_DEFAULT_LANGUAGE_ISO = 'en'
@@ -247,6 +248,12 @@ Rails::Initializer.run do |config|
     require 'config/environments/local.rb'
   rescue LoadError
     #puts 'Could not load environments local.rb file'
+  end
+  
+  identity_yml_path = File.join(File.dirname(__FILE__), 'identity.yml')
+  if FileTest.exist? identity_yml_path
+    source = YAML::load(File.open(identity_yml_path))
+    $IP_ADDRESS_OF_SERVER = source['ip_address']
   end
 
 end

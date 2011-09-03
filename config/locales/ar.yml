@@ -2,8 +2,8 @@ ar:
   date:
     formats:
       default: "%Y-%m-%d"
-      short: "%b %d"
-      long: "%B %d, %Y"
+      short: "%e %b"
+      long: "%B %e, %Y"
     day_names:
       - الأحد
       - الإثنين
@@ -55,22 +55,25 @@ ar:
       - :day
   time:
     formats:
-      default: "%a, %d %b %Y %H:%M:%S %z"
+      default: "%a %b %d %H:%M:%S %Z %Y"
       short: "%d %b %H:%M"
       long: "%B %d, %Y %H:%M"
-    am: "صباحا"
-    pm: "مساءا"
+      only_second: "%S"
+    am: 'صباحا'
+    pm: 'مساءا'
   support:
     array:
-      words_connector: "، "
-      two_words_connector: "و"
+      sentence_connector: "و"
+      words_connector: ", "
+      two_words_connector: " و "
       last_word_connector: ", و "
+      skip_last_comma: false
     select:
       prompt: "يرجى الاختيار"
   number:
     format:
       separator: "."
-      delimiter: "،"
+      delimiter: ","
       precision: 3
       significant: false
       strip_insignificant_zeros: false
@@ -79,7 +82,7 @@ ar:
         format: "%u%n"
         unit: "$"
         separator: "."
-        delimiter: "،"
+        delimiter: ","
         precision: 2
         significant: false
         strip_insignificant_zeros: false
@@ -99,9 +102,7 @@ ar:
         format: "%n %u"
         units:
           byte:
-            one: "Byte"
-            two: "Bytes"
-            few: "Bytes"
+            one:   "Byte"
             other: "Bytes"
           kb: "KB"
           mb: "MB"
@@ -116,64 +117,41 @@ ar:
           billion: مليار
           trillion: تريليون
           quadrillion: الكدريليون رقم
-
   datetime:
     distance_in_words:
       half_a_minute: 'نصف دقيقة'
       less_than_x_seconds:
         one: 'أقل من ثانية'
-        two: 'أقل من ثانيتين'
-        few: 'أقل من %{count} ثوان'
-        other: 'أقل من %{count} ثانية'
+        other: '%{count} ثوان'
       x_seconds:
         one: 'ثانية واحدة'
-        two: 'ثانيتين'
-        few: '%{count} ثوان'
-        other: '%{count} ثانية'
+        other: '%{count} ثوان'
       less_than_x_minutes:
         one: 'أقل من دقيقة'
-        two: 'أقل من دقيقتان'
-        few: 'أقل من %{count} دقائق'
-        other: 'أقل من %{count} دقيقة'
+        other: '%{count} دقائق'
       x_minutes:
         one: 'دقيقة واحدة'
-        two: 'دقيقتان'
-        few: '%{count} دقائق'
-        other: '%{count} دقيقة'
+        other: '%{count} دقائق'
       about_x_hours:
         one: 'حوالي ساعة واحدة'
-        two: 'حوالي ساعتين'
-        few: 'حوالي %{count} ساعات'
-        other: 'حوالي %{count} ساعة'
+        other: '%{count} ساعات'
       x_days:
         one: 'يوم واحد'
-        two: 'يومين'
-        few: '%{count} أيام'
-        other: '%{count} يوم'
+        other: '%{count} أيام'
       about_x_months:
         one: 'حوالي شهر واحد'
-        two: 'حوالى شهرين'
-        few: 'حوالى %{count} أشهر'
-        other: 'حوالى %{count} شهر'
+        other: '%{count} أشهر'
       x_months:
         one: 'شهر واحد'
-        two: 'شهرين'
-        few: '%{count} أشهر'
-        other: '%{count} شهر'
+        other: '%{count} أشهر'
       about_x_years:
         one: 'حوالي سنة'
-        two: 'حوالى سنتين'
-        few: 'حوالى %{count} سنوات'
-        other: 'حوالى %{count} سنة'
+        other: '%{count} سنوات'
       over_x_years:
         one: 'أكثر من سنة'
-        two: 'أكثر من سنتين'
-        few: 'أكثر من %{count} سنوات'
-        other: 'أكثر من %{count} سنة'
+        other: '%{count} سنوات'
       almost_x_years:
         one:   "تقريبا سنة واحدة"
-        two: 'تقريبا سنتان'
-        few: 'ما يقرب من %{count} سنوات '
         other: "ما يقرب من %{count} سنة"
     prompts:
       year:   "السنة"
@@ -182,38 +160,35 @@ ar:
       hour:   "ساعة"
       minute: "دقيقة"
       second: "ثانية"
-
   helpers:
     select:
       prompt: "الرجاء اختيار"
-
     submit:
       create: "%{model} إنشاء"
       update: "%{model} نموذج"
       submit: "%{model} حفظ"
-
   errors:
     format: "%{attribute} %{message}"
-    messages:
-      inclusion: "غير موجود بالقائمة"
+    messages: &errors_messages
+      inclusion: "ليس خيارا مقبولا"
       exclusion: "محجوز"
-      invalid: "غير صالح"
-      confirmation: "لا يطابق التأكيد"
-      accepted: "يجب أن يتم قبوله"
-      empty: "لا يمكن أن يترك خاليًا"
-      blank: "لا يمكن أن يترك فارغًا"
-      too_long: "طويل جدًا (الحد الأقصى %{count} حرف) "
-      too_short: "قصير جدًا (الحد الأدنى %{count} حرف)"
-      wrong_length: "عدد الحروف خاطئ (يجب أن يكون %{count} حرف)"
-      not_a_number: "ليس رقم"
-      not_an_integer: "يجب ان يكون عدد صحيح"
+      invalid: "غير معرف أو محدد"
+      confirmation: "لا تتوافق مع التأكيد"
+      accepted: "يجب أن تقبل"
+      empty: "فارغ، يرجى ملء الحقل"
+      blank: "فارغ، يرجى ملء الحقل"
+      too_long: "أطول من اللازم (الحد الأقصى هو %{count})"
+      too_short: "أقصر من اللازم (الحد الأدنى هو %{count})"
+      wrong_length: "بطول غير مناسب (يجب أن يكون %{count})"
+      not_an_integer: "يجب أن يكون صحيحا"
+      not_a_number: "ليس رقما"
       greater_than: "يجب أن يكون أكبر من %{count}"
       greater_than_or_equal_to: "يجب أن يكون أكبر من أو يساوي %{count}"
       equal_to: "يجب أن يساوي %{count}"
-      less_than: "يجب ان يكون أقل من %{count}"
-      less_than_or_equal_to: "يجب أن يكون أقل من أو يساوي"
-      odd: "يجب ان يكون عدد فردي"
-      even: "يجب أن يكون عدد زوجي"
+      less_than: "يجب أن يكون أصغر من %{count}"
+      less_than_or_equal_to: "يجب أن يكون أصغر من أو يساوي %{count}"
+      odd: "يجب أن يكون فردي"
+      even: "يجب أن يكون زوجي"
       inaccessible: "يتعذر الوصول إليه"
       wrong_type: "صيغة خاطئة"
   activerecord:
@@ -295,14 +270,12 @@ ar:
     errors:
       template:
         header:
-          one: "خطأ واحد في التحقق "
-          two: "خطأين في التحقق"
-          few: "%{count} أخطاء في االتحقق"
-          other: "%{count} أخطاء في التحقق"
-        body: "تعذر التحقق من الخانات التالية:"
+          one: "ليس بالامكان حفظ %{model}: خطأ واحد."
+          other: "ليس بالامكان حفظ %{model}: %{count} أخطاء."
+        body: "يرجى التحقق من الحقول التالية:"
       messages:
-        taken: "غير متاح"
-        record_invalid: "تعذر التحقق: %{errors}"
+        taken: "غير متوفر (مستخدم)"
+        record_invalid: "%{errors} فشل التحقق من صحة"
         inclusion: "غير موجود بالقائمة"
         exclusion: "محجوز"
         invalid: "غير صالح"
@@ -322,8 +295,6 @@ ar:
         less_than_or_equal_to: "يجب أن يكون أقل من أو يساوي"
         odd: "يجب ان يكون عدد فردي"
         even: "يجب أن يكون عدد زوجي"
-        inaccessible: "يتعذر الوصول إليه"
-        wrong_type: "صيغة خاطئة"
       full_messages:
         format: "%{attribute} %{message}"
       models:

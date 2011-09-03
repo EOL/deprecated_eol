@@ -39,10 +39,13 @@ class DataObject < SpeciesSchemaModel
   has_many :translations, :class_name => DataObjectTranslation.to_s, :foreign_key => :original_data_object_id
   has_many :curator_activity_logs, :as => :object
   has_many :users_data_objects_ratings, :foreign_key => 'data_object_guid', :primary_key => :guid
-  has_many :all_comments, :class_name => Comment.to_s, :foreign_key => 'parent_id', :finder_sql => 'SELECT c.* FROM #{Comment.full_table_name} c JOIN #{DataObject.full_table_name} do ON (c.parent_id = do.id) WHERE do.guid=\'#{guid}\' AND c.parent_type = \'DataObject\''
-  # has_many :all_comments, :class_name => Comment.to_s, :through => :all_versions, :source => :comments, :primary_key => :guid
-  # # the select_with_include library doesn't allow to grab do.* one time, then do.id later on - but this would be a neat method,
-  # has_many :all_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :select => 'id, guid'
+  # has_many :all_comments, :class_name => Comment.to_s, :foreign_key => 'parent_id', :finder_sql => 'SELECT c.* FROM #{Comment.full_table_name} c JOIN #{DataObject.full_table_name} do ON (c.parent_id = do.id) WHERE do.guid=\'#{guid}\' AND c.parent_type = \'DataObject\''
+  # TODO - I don't have time to make sure this fix isn't going to break or slow down other parts of the site, so
+  # I'm calling this the 'better' method. DO NOT call this when using core relationships - it will not take just id and guid
+  # from data_objects and you'll have way more data returned than you want
+  has_many :all_comments, :class_name => Comment.to_s, :through => :all_versions, :source => :comments, :primary_key => :guid
+  # the select_with_include library doesn't allow to grab do.* one time, then do.id later on - but this would be a neat method,
+  has_many :all_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :select => 'id, guid'
 
   has_and_belongs_to_many :hierarchy_entries
   has_and_belongs_to_many :audiences
@@ -89,7 +92,8 @@ class DataObject < SpeciesSchemaModel
       toc_view_order = (!obj.is_text? || obj.info_items.blank? || obj.info_items[0].toc_item.blank?) ? 0 : obj.info_items[0].toc_item.view_order
       vetted_view_order = obj_vetted.blank? ? 0 : obj_vetted.view_order
       visibility_view_order = 2
-      visibility_view_order = 1 if obj_visibility.id == Visibility.preview.id
+      visibility_view_order = 1 if obj_visibility && obj_visibility.id == Visibility.preview.id
+      visibility_view_order = 0 if obj_visibility.blank?
       inverted_rating = obj.data_rating * -1
       inverted_id = obj.id * -1
       sort = []
@@ -383,13 +387,6 @@ class DataObject < SpeciesSchemaModel
 
   #----- end of user submitted text --------
 
-  def best_title
-    return object_title unless object_title.blank?
-    return toc_items.first.label unless toc_items.blank?
-    return data_type.simple_type
-  end
-  alias :summary_name :best_title
-
   def rate(user, new_rating)
     existing_ratings = UsersDataObjectsRating.find_all_by_data_object_guid(guid)
     users_current_ratings, other_ratings = existing_ratings.partition { |r| r.user_id == user.id }
@@ -504,7 +501,7 @@ class DataObject < SpeciesSchemaModel
 
   # need supplier as content partner object, is this right ?
   def content_partner
-    harvest_events.last.resource.content_partner rescue nil
+    hierarchy_entries.first.resource.content_partner rescue nil
   end
 
   # 'owner' chooses someone responsible for this data object in order of preference
@@ -610,7 +607,7 @@ class DataObject < SpeciesSchemaModel
   end
 
   def thumb_or_object(size = :large)
-    if self.is_video?
+    if self.is_video? || self.is_sound?
       return DataObject.image_cache_path(thumbnail_cache_url, size)
     elsif has_object_cache_url?
       return DataObject.image_cache_path(object_cache_url, size)
@@ -1005,6 +1002,13 @@ class DataObject < SpeciesSchemaModel
     ratings_from_user = users_data_objects_ratings.select{ |udor| udor.user_id == u.id }
     return ratings_from_user[0] unless ratings_from_user.blank?
   end
+
+  def best_title
+    return object_title unless object_title.blank?
+    return toc_items.first.label unless toc_items.blank?
+    return data_type.simple_type
+  end
+  alias :summary_name :best_title
 
   def short_title
     return object_title unless object_title.blank?

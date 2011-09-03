@@ -57,14 +57,14 @@
         .actions
           .language
             %p{ :title => I18n.t(:selected_language_advisory_information) }
-              - # TODO: Link to nowhere is undesirable for accessibility - make this work without link?
+              - # TODO: Link to nowhere is undesirable for accessibility - make this link to a form for switching language when JS disabled.
               - link_to "#" do
                 %span
                   = I18n.t(:current_language, :iso_code => I18n.locale.to_s.upcase)
             %ul
               - Language.approved_languages.each do |language|
                 %li
-                  = link_to I18n.t(:language_menu_item, :language_label => language.source_form, :language_abbr => language.display_code),
+                  = link_to language.source_form,
                     set_language_url(:language => language.iso_639_1, :return_to => current_url(false)),
                     { :title => I18n.t(:switch_language_advisory_information, :language_label => language.source_form) }
         - if @home_page
@@ -79,18 +79,19 @@
             %p= I18n.t(:user_system_down)
 
       - if @home_page
-        %h3.assistive= I18n.t(:explore)
-        .thumbnails
-          %ul
-            = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 0, :total => 6 }
-            = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 1, :total => 6 }
-            = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 2, :total => 6 }
-            = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 3, :total => 6 }
-            = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 4, :total => 6 }
-            = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 5, :total => 6 }
-          .term
-            .site_column
-              %p
+        - cache(:action => 'index', :action_suffix => 'march_of_life') do
+          %h3.assistive= I18n.t(:explore)
+          .thumbnails
+            %ul
+              = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 0, :total => 6 }
+              = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 1, :total => 6 }
+              = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 2, :total => 6 }
+              = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 3, :total => 6 }
+              = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 4, :total => 6 }
+              = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 5, :total => 6 }
+            .term
+              .site_column
+                %p
 
     #central
       .section{ :role => "main" }
@@ -113,6 +114,8 @@
           %li= link_to I18n.t(:facebook), $EOL_FACEBOOK_ACCOUNT, :class => "facebook"
           %li= link_to I18n.t(:tumblr), $EOL_TUMBLR_ACCOUNT, :class => "tumblr"
           %li= link_to I18n.t(:flickr), $EOL_FLICKR_ACCOUNT, :class => "flickr"
+
+      = yield :footer
 
     - if $GOOGLE_ANALYTICS_ID && $ENABLE_ANALYTICS != false # Weird, but in this case nil is okay: only false is bad.
       :javascript

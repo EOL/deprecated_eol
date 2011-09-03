@@ -1,8 +1,7 @@
 - names_by_language = common_names_by_language(@common_names, current_user.language_id).uniq
 - if names_by_language.blank?
-  .article
-    .empty
-      %p= I18n.t(:names_common_empty)
+  .empty
+    %p= I18n.t(:names_common_empty)
 - else
   %h3.assistive= I18n.t(:names_common_list_by_language_assistive_header)
   %p.help_text

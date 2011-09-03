@@ -58,8 +58,9 @@ private
     begin
       @community = Community.find(params[:community_id])
     rescue => e
+      @page_title = I18n.t(:error_404_page_title)
       @message = e.message
-      render(:layout => 'v2/basic', :template => "content/missing", :status => 404)
+      render(:layout => 'v2/errors', :template => "content/missing", :status => 404)
       return false
     end
     unless @community.published?

@@ -90,7 +90,7 @@ class UsersController < ApplicationController
       redirect_to login_path
     elsif @user && @user.validation_code == params[:validation_code] && ! params[:validation_code].blank?
       @user.activate
-      Notifier.deliver_account_activated(@user)
+      Notifier.deliver_account_activated(@user, root_url)
       redirect_to activated_user_path(@user)
     elsif @user
       @user.validation_code = User.generate_key if @user.validation_code.blank?

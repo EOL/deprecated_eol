@@ -263,6 +263,23 @@ form#switch_hierarchy_entry
       background: url('/images/v2/icon_pdf.png') right top no-repeat
       padding: 0 20px 3px 0
   ul
+    &.march
+      width: 100%
+      margin: 0 0 40px
+      padding: 0
+      clear: both
+      overflow: hidden
+      li
+        margin: 0
+        padding: 0
+        list-style-type: none
+        display: inline-block
+        img
+          border: none
+          float: none
+          margin: 0
+          padding: 0
+          max-height: 98px
     &.with_images
       li
         overflow: hidden
@@ -319,6 +336,9 @@ form#switch_hierarchy_entry
           font-weight: bold
         &.notes
           width: 25%
+  #sidebar
+    dl
+      margin-bottom: 10px
 .donate
   label.other
     padding-left: 15px
@@ -365,6 +385,18 @@ form#switch_hierarchy_entry
       font-weight: bold
     dd
       margin: 0 0 5px 20px
+  #resources_show
+    .section.half
+      float: left
+      width: 299px
+      margin-right: 20px
+      dl
+        line-height: 140%
+        margin: 0 0 40px 0
+        dt
+          font-weight: bold
+        dd
+          margin: 0 0 5px 20px
 #content_partner_edit, #content_partner_new
   &.site_column
     width: 640px
@@ -408,7 +440,7 @@ p.status
       border: 1px solid #f2d2cc
       background: #ffeae6
 
-/** HR change permalink class to text, but use article elsewhere for text objects so we are still using
+/** HR changed permalink class to text, but use article elsewhere for text objects so we are still using
  * article as that's what en_type is returning... at some point we should go through and change all 'article'
  * classes that mean data_object text to text, as article clashes with the HR generic article class but right
  * now we have I18n keys and various classes around the site depending on 'article' for text data object.
@@ -429,6 +461,12 @@ p.status
   /* added float non to video as description box wasn't showing up properly on DO page */
   .media
     float: none
+    .jp-audio
+      width: 100%
+      margin: 0 auto
+      .jp-interface
+        background-color: #EEEEEE
+        border: 1px solid #CAD3DB
     img
       max-width: 540px
       width: expression(this.width > 540 ? "540px" : true)
@@ -473,51 +511,72 @@ form#new_data_object, form.edit_data_object
       a
         color: #667309
         text-decoration: none
-/** Special styles for layering audio description on top of audio thumbnail **/
+/** Special styles for audio and video in media list **/
 #media_list
-  #main>ul
-    >li
-      .figure
-        width: 160px
-        height: 125px
-        margin-bottom: 5px
-        .audio
+  #main > ul
+    > li
+      &.sound, &.video
+        .figure
           position: relative
-          background: #394651 url('/images/v2/icon_sound_tabs.png') no-repeat 50% 20%
-          width: 160px
-          height: 123px
-          margin: 0 0 5px 0
-          text-align: center
-          overflow: hidden
-          p
-            padding: 50px 5px 30px
-            a
-              color: #e2e9ef
-          noscript, .player
-            a
-              color: #e2e9ef
-          audio
-            position: absolute
-            left: 0
-            bottom: 0
-            width: 160px
-            z-index: 1
-        .video_overlay
-          background: url('/images/v2/video_play.png') no-repeat 50% 50% transparent
           width: 160px
           height: 125px
-          z-index: 300
-          position: absolute
-        .video
-          text-align: center
+          margin: 0 0 5px 0
+          overflow: hidden
+          p
+            position: absolute
+            z-index: 5
+            top: 0
+            left: 0
+            margin: 55px 0 10px
+            padding: 0
+            width: 160px
+            text-align: center
+            a
+              display: inline-block
+              margin: 0 10px
+      &.sound
+        .figure
+          background: #394651 url('/images/v2/icon_sound_tabs.png') no-repeat 50% 20%
+          color: #e2e9ef
+          a
+            color: #e2e9ef
+          .player
+            background-color: transparent !important
+          .player_interface
+            width: 160px
+            position: absolute
+            z-index: 4
+            bottom: 0
+            left: 0
+            text-align: center
+            line-height: 140%
+            background: #566979
+            a
+              text-decoration: none
+              display: inline-block
+              margin: 0 2px 0
+              padding: 5px 0
+              img
+                margin-bottom: -2px
+            span
+              display: inline-block
+              &.current_time
+                margin-left: 8px
+
+      &.video
+        .figure
+          background: url('/images/v2/icon_videos_tabs.png') no-repeat 50% 20% transparent
           border: 1px solid #CAD3DB
           width: 158px
           height: 123px
           p
-            padding: 93px 5px 0
-      >a
-        display: inline-block
-        overflow: hidden
+            width: 158px
+          .video_overlay
+            position: absolute
+            width: 158px
+            height: 123px
+            z-index: 3
+            background: url('/images/v2/video_play.png') no-repeat 50% 50% transparent
       form
         display: block
         clear: both
@@ -529,7 +588,7 @@ form#new_data_object, form.edit_data_object
             z-index: 3
 
 /** style for vetted status flags - various locations **/
-p.flag
+p.flag, span.flag
   color: white
   padding: 1px 2px
   text-transform: uppercase
@@ -545,6 +604,11 @@ p.flag
     background: #ffeae6
     color: #677682 !important
 
+#permalink_add_association
+  #main
+    ul > li
+      img
+        +max_dimensions($logo_size_primary, $logo_size_primary)
 /** We share rating partial across many pages so need extra styles here. **/
 #permalink
   .ratings
@@ -553,6 +617,14 @@ p.flag
       font-size: 1.1em
       padding: 0
 #taxon_detail
+  #main
+    > .section
+      > .article
+        > .meta.learn_more
+          p
+            line-height: 200%
+        > .copy
+          padding-bottom: 15px
   .rating
     h5
       float: left
@@ -669,18 +741,6 @@ body
 #classification_browser, .classifications
   .open
     font-weight: bold
-/** overides for empty text styles - various **/
-#classifications_summary
-  .empty p
-    font-size: 1em !important
-.article
-  .empty
-    a.button
-      font-size: 0.78em !important
-.updates
-  .empty
-    p
-      padding: 0 0 15px 0 !important
 #taxon_names
   table.standard
     &.common_names
@@ -717,16 +777,6 @@ body
         +input(200px)
   .recognized
     line-height: 170%
-#taxon_maps
-  .empty
-    p
-      margin: 0 !important
-#sidebar
-  .collection_list, .collection_contributors
-    .article
-      .empty
-        font-size: 1em
-        margin-top: 0
 /** Add to my collection button is a form not an a tag as assumed by HR so we have to add some styles **/
 #taxon_detail
   div.actions
@@ -746,11 +796,6 @@ body
       margin-top: 0
       fieldset.actions
         margin-top: 0
-.empty
-  fieldset.actions
-    input.button
-      font-size: 0.82em
-      padding: 5px 10px 6px 10px
 /** HR styles assume text descriptions are nicely wrapped in p tags - in reality they may or may not be so we add
   * extra div.description and assign styles to the div - check this, particularly line-height as we probably need
   * to remove some HR styles from nested p. Check latest HR and remove the table styles here if possible.
@@ -767,31 +812,43 @@ body
     line-height: 170%
 #taxon_community
   .main_container
-    padding: 40px
+    .article
+      .header
+        h4
+          float: left
+          padding: 0 10px 3px 10px
+          font-size: 1.16em
+          border-bottom: 3px solid #394651
     .list
       img
         +max_dimensions($logo_size_primary, $logo_size_primary)
+#taxon_literature, #taxon_community, #taxon_resources
+  .main_container
+    padding: 20px
+  h3
+    font-size: 2em
 #taxon_resources
-  .empty
-    p
-      margin: 0
   table
     &.standard
       tbody > tr > td > a > img
         max-width: 90px
   #taxon_detail > #main
     > h3
-      margin: 0 0 15px 0
-      font-size: 1.33em
-    .article
-      padding: 0 10px 25px 10px
+      padding: 0 20px 20px 0
+      font-size: 2em
   #nucleotide_sequences
     .copy
+      h3
+        padding-bottom: 10px
       img
         float: left
         max-width: 60px
       p
         padding-left: 90px
+  #biomedical_terms
+    .attribution
+      h4
+        margin-bottom: 5px
 
 /* TODO: this hasn't been really thought out and should be changed: */
 #sidebar
@@ -968,8 +1025,11 @@ form
 .editable_link
   font-size: 0.8em
 // Buttons are too far over (and this is only in English!):
-.edit_collection #sidebar fieldset.actions
-  padding: 0
+.edit_collection #sidebar
+  select
+    max-width: 135px
+  fieldset.actions
+    padding: 0
 table.standard
   td.nowrap
     white-space: nowrap
@@ -1184,3 +1244,17 @@ body#prelaunch
     color: #394651
     border: 2px solid #c7d471
     background: #edf6b2
+
+// Need a floatable "what's this" on the communities tab, too (probably okay to merge this with a comma, later):
+#user_communities
+  .heading
+    position: relative
+    text-align: left
+    form, a
+      position: absolute
+      right: 10px
+      top: 4px
+
+// Preview page fix:
+body#prelaunch #footer ul.social_media
+  margin-top: 20px

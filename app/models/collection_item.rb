@@ -11,6 +11,7 @@ class CollectionItem < ActiveRecord::Base
   named_scope :data_objects, :conditions => {:object_type => 'DataObject'}
   named_scope :taxa, :conditions => {:object_type => 'TaxonConcept'}
   named_scope :users, :conditions => {:object_type => 'User'}
+  named_scope :annotated, :conditions => 'annotation IS NOT NULL AND annotation != ""'
 
   # Note that it doesn't validate the presence of collection.  A "removed" collection item still exists, so we have a
   # record of what it used to point to (see CollectionsController#destroy). (Hey, the alternative is to have a bunch
@@ -19,16 +20,19 @@ class CollectionItem < ActiveRecord::Base
   validates_uniqueness_of :object_id, :scope => [:collection_id, :object_type],
     :message => I18n.t(:item_not_added_already_in_collection), :if => Proc.new { |ci| ci.collection_id }
 
-  after_save :index_collection_item_in_solr
+  # Note we DO NOT update relevance on the collection on save or delete, since we sometimes add/delete 1000 items at
+  # a time, and that would be a disaster, since the collection only need be recalculated once.
+  after_save     :index_collection_item_in_solr
+  after_update   :update_collection_relevance_if_annotation_switched
   before_destroy :remove_collection_item_from_solr
 
   # Information about how collection items interface with solr and views and the like...
   def self.types
     @types ||= {:taxa =>        {:facet => 'TaxonConcept', :i18n_key => "taxa"},
                 :text =>        {:facet => 'Text',         :i18n_key => "articles"},
-                :videos =>      {:facet => 'Video',        :i18n_key => "videos"},
                 :images =>      {:facet => 'Image',        :i18n_key => "images"},
                 :sounds =>      {:facet => 'Sound',        :i18n_key => "sounds"},
+                :videos =>      {:facet => 'Video',        :i18n_key => "videos"},
                 :communities => {:facet => 'Community',    :i18n_key => "communities"},
                 :people =>      {:facet => 'User',         :i18n_key => "people"},
                 :collections => {:facet => 'Collection',   :i18n_key => "collections"}}
@@ -43,19 +47,17 @@ class CollectionItem < ActiveRecord::Base
 
   def index_collection_item_in_solr
     return unless $INDEX_RECORDS_IN_SOLR_ON_SAVE
+    remove_collection_item_from_solr
+    # If there is no collection associated with this collection item, it is meant for historical indexing only, and
+    # there is no need to index this in solr.  ...In fact, it had better not be indexed!
     if collection_id
-      remove_collection_item_from_solr
       begin
         solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_COLLECTION_ITEMS_CORE)
       rescue Errno::ECONNREFUSED => e
         puts "** WARNING: Solr connection failed."
         return nil
       end
-
       solr_connection.create(solr_index_hash)
-    else # There is no collection associated with this collection item; it is meant for historical indexing only, and
-         # there is no need to index this in solr.  ...In fact, it had better not be indexed!
-      remove_collection_item_from_solr
     end
   end
 
@@ -106,6 +108,26 @@ class CollectionItem < ActiveRecord::Base
       return nil
     end
     solr_connection.delete_by_query("collection_item_id:#{self.id}")
+  end
+
+  # This is somewhat expensive (can take a second to run), so use sparringly.
+  def update_collection_relevance
+    collection.set_relevance if collection
+  end
+
+  # Because doing so is expensive, we check to make sure there's a need (which would only be if annotation was added
+  # or removed)
+  def update_collection_relevance_if_annotation_switched
+    if changed?
+      if changes.has_key?('annotation')
+        (before, after) = changes['annotation']
+        before.gsub(/\s+$/, '') if before
+        after.gsub(/\s+$/, '') if after
+        if (before.blank? && ! after.blank?) || (after.blank? && ! before.blank?)
+          update_collection_relevance
+        end
+      end
+    end
   end
 
 end

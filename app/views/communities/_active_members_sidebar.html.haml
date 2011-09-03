@@ -2,9 +2,8 @@
 .collection_contributors
   %h3= I18n.t(:most_active_members)
   - if most_active.count <= 0
-    .article
-      .empty
-        %p= I18n.t(:no_active_members)
+    .empty
+      %p= I18n.t(:no_active_members)
   - else
     %ul
       - most_active.each do |member|

@@ -10,9 +10,8 @@
     .collection_list
       %h3= I18n.t(:collections_with_count, :count => @partner_collections.size)
       - if @partner_collections.blank?
-        .article
-          .empty
-            %p= I18n.t(:content_partner_collections_empty)
+        .empty
+          %p= I18n.t(:content_partner_collections_empty)
       - else
         %ul.collection.list
           - @partner_collections.each do |collection|
@@ -21,18 +20,16 @@
     - if current_user.can_update?(@partner)
       %h3= I18n.t(:content_partner_notes_header)
       - if @partner.notes.blank?
-        .article
-          .empty
-            %p= I18n.t(:content_partner_notes_empty)
+        .empty
+          %p= I18n.t(:content_partner_notes_empty)
       - else
         %p= @partner.notes
 
     - if current_user.is_admin?
       %h3= I18n.t(:content_partner_administration_notes_header)
       - if @partner.admin_notes.blank?
-        .article
-          .empty
-            %p= I18n.t(:content_partner_administration_notes_empty)
+        .empty
+          %p= I18n.t(:content_partner_administration_notes_empty)
       - else
         %p= @partner.admin_notes
   .main_container.copy
@@ -44,9 +41,8 @@
     - if current_user.can_update?(@partner)
       %h3= I18n.t(:content_partner_data_description_header)
       - if @partner.description_of_data.blank?
-        .article
-          .empty
-            %p= I18n.t(:content_partner_data_description_empty)
+        .empty
+          %p= I18n.t(:content_partner_data_description_empty)
       - else
         %p= sanitize @partner.description_of_data
 
@@ -55,10 +51,11 @@
         %p= link_to I18n.t(:content_partner_overview_agreement_link),
           @partner.agreement.mou_url? ? @partner.agreement.mou_url : content_partner_content_partner_agreement_path(@partner, @partner.agreement)
         %dl.agreement
-          %dt
-            = I18n.t('activerecord.attributes.content_partner_agreement.signed_by')
-          %dd
-            = @partner.agreement.signed_by
+          - unless @partner.agreement.signed_by.blank?
+            %dt
+              = I18n.t('activerecord.attributes.content_partner_agreement.signed_by')
+            %dd
+              = @partner.agreement.signed_by
           %dt
             = I18n.t('activerecord.attributes.content_partner_agreement.signed_on_date')
           %dd

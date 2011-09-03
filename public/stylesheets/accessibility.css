@@ -228,6 +228,23 @@ form#switch_hierarchy_entry fieldset {
 #content.cms_page a.pdf {
   background: url("/images/v2/icon_pdf.png") right top no-repeat;
   padding: 0 20px 3px 0; }
+#content.cms_page ul.march {
+  width: 100%;
+  margin: 0 0 40px;
+  padding: 0;
+  clear: both;
+  overflow: hidden; }
+  #content.cms_page ul.march li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: inline-block; }
+    #content.cms_page ul.march li img {
+      border: none;
+      float: none;
+      margin: 0;
+      padding: 0;
+      max-height: 98px; }
 #content.cms_page ul.with_images li {
   overflow: hidden;
   list-style-type: none;
@@ -280,6 +297,8 @@ form#switch_hierarchy_entry fieldset {
     font-weight: bold; }
   #content.cms_page #api_doc table col.notes {
     width: 25%; }
+#content.cms_page #sidebar dl {
+  margin-bottom: 10px; }
 
 .donate label.other {
   padding-left: 15px;
@@ -331,6 +350,17 @@ form#switch_hierarchy_entry fieldset {
     font-weight: bold; }
   #content_partner_show dl.agreement dd {
     margin: 0 0 5px 20px; }
+#content_partner_show #resources_show .section.half {
+  float: left;
+  width: 299px;
+  margin-right: 20px; }
+  #content_partner_show #resources_show .section.half dl {
+    line-height: 140%;
+    margin: 0 0 40px 0; }
+    #content_partner_show #resources_show .section.half dl dt {
+      font-weight: bold; }
+    #content_partner_show #resources_show .section.half dl dd {
+      margin: 0 0 5px 20px; }
 
 #content_partner_edit.site_column, #content_partner_new.site_column {
   width: 640px; }
@@ -372,7 +402,7 @@ p.status.error {
   border: 1px solid #f2d2cc;
   background: #ffeae6; }
 
-/*HR change permalink class to text, but use article elsewhere for text objects so we are still using
+/*HR changed permalink class to text, but use article elsewhere for text objects so we are still using
  * article as that's what en_type is returning... at some point we should go through and change all 'article'
  * classes that mean data_object text to text, as article clashes with the HR generic article class but right
  * now we have I18n keys and various classes around the site depending on 'article' for text data object.
@@ -390,6 +420,12 @@ p.status.error {
     color: #677682; }
   #permalink .media {
     float: none; }
+    #permalink .media .jp-audio {
+      width: 100%;
+      margin: 0 auto; }
+      #permalink .media .jp-audio .jp-interface {
+        background-color: #eeeeee;
+        border: 1px solid #cad3db; }
     #permalink .media img {
       max-width: 540px;
       width: expression(this.width > 540 ? "540px" : true); }
@@ -431,47 +467,65 @@ form#new_data_object fieldset.information, form.edit_data_object fieldset.inform
   color: #667309;
   text-decoration: none; }
 
-/*Special styles for layering audio description on top of audio thumbnail */
-#media_list #main > ul > li .figure {
+/*Special styles for audio and video in media list */
+#media_list #main > ul > li.sound .figure, #media_list #main > ul > li.video .figure {
+  position: relative;
   width: 160px;
   height: 125px;
-  margin-bottom: 5px; }
-  #media_list #main > ul > li .figure .audio {
-    position: relative;
-    background: #394651 url("/images/v2/icon_sound_tabs.png") no-repeat 50% 20%;
-    width: 160px;
-    height: 123px;
-    margin: 0 0 5px 0;
-    text-align: center;
-    overflow: hidden; }
-    #media_list #main > ul > li .figure .audio p {
-      padding: 50px 5px 30px; }
-      #media_list #main > ul > li .figure .audio p a {
-        color: #e2e9ef; }
-    #media_list #main > ul > li .figure .audio noscript a, #media_list #main > ul > li .figure .audio .player a {
-      color: #e2e9ef; }
-    #media_list #main > ul > li .figure .audio audio {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 160px;
-      z-index: 1; }
-  #media_list #main > ul > li .figure .video_overlay {
-    background: url("/images/v2/video_play.png") no-repeat 50% 50% transparent;
-    width: 160px;
-    height: 125px;
-    z-index: 300;
-    position: absolute; }
-  #media_list #main > ul > li .figure .video {
-    text-align: center;
-    border: 1px solid #cad3db;
-    width: 158px;
-    height: 123px; }
-    #media_list #main > ul > li .figure .video p {
-      padding: 93px 5px 0; }
-#media_list #main > ul > li > a {
-  display: inline-block;
+  margin: 0 0 5px 0;
   overflow: hidden; }
+  #media_list #main > ul > li.sound .figure p, #media_list #main > ul > li.video .figure p {
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    margin: 55px 0 10px;
+    padding: 0;
+    width: 160px;
+    text-align: center; }
+    #media_list #main > ul > li.sound .figure p a, #media_list #main > ul > li.video .figure p a {
+      display: inline-block;
+      margin: 0 10px; }
+#media_list #main > ul > li.sound .figure {
+  background: #394651 url("/images/v2/icon_sound_tabs.png") no-repeat 50% 20%;
+  color: #e2e9ef; }
+  #media_list #main > ul > li.sound .figure a {
+    color: #e2e9ef; }
+  #media_list #main > ul > li.sound .figure .player {
+    background-color: transparent !important; }
+  #media_list #main > ul > li.sound .figure .player_interface {
+    width: 160px;
+    position: absolute;
+    z-index: 4;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    line-height: 140%;
+    background: #566979; }
+    #media_list #main > ul > li.sound .figure .player_interface a {
+      text-decoration: none;
+      display: inline-block;
+      margin: 0 2px 0;
+      padding: 5px 0; }
+      #media_list #main > ul > li.sound .figure .player_interface a img {
+        margin-bottom: -2px; }
+    #media_list #main > ul > li.sound .figure .player_interface span {
+      display: inline-block; }
+      #media_list #main > ul > li.sound .figure .player_interface span.current_time {
+        margin-left: 8px; }
+#media_list #main > ul > li.video .figure {
+  background: url("/images/v2/icon_videos_tabs.png") no-repeat 50% 20% transparent;
+  border: 1px solid #cad3db;
+  width: 158px;
+  height: 123px; }
+  #media_list #main > ul > li.video .figure p {
+    width: 158px; }
+  #media_list #main > ul > li.video .figure .video_overlay {
+    position: absolute;
+    width: 158px;
+    height: 123px;
+    z-index: 3;
+    background: url("/images/v2/video_play.png") no-repeat 50% 50% transparent; }
 #media_list #main > ul > li form {
   display: block;
   clear: both; }
@@ -482,21 +536,27 @@ form#new_data_object fieldset.information, form.edit_data_object fieldset.inform
     z-index: 3; }
 
 /*style for vetted status flags - various locations */
-p.flag {
+p.flag, span.flag {
   color: white;
   padding: 1px 2px;
   text-transform: uppercase;
   font-size: 0.75em; }
-  p.flag.trusted {
+  p.flag.trusted, span.flag.trusted {
     border: 1px solid #6b7910;
     background: #849513; }
-  p.flag.unknown {
+  p.flag.unknown, span.flag.unknown {
     border: 1px solid #677682;
     background: #8695a1; }
-  p.flag.untrusted {
+  p.flag.untrusted, span.flag.untrusted {
     border: 1px solid #f2d2cc;
     background: #ffeae6;
     color: #677682 !important; }
+
+#permalink_add_association #main ul > li img {
+  max-width: 68px;
+  max-height: 68px;
+  width: expression(this.width > 68 ? "68px" : true);
+  height: expression(this.height > 68 ? "68px" : true); }
 
 /*We share rating partial across many pages so need extra styles here. */
 #permalink .ratings h5 {
@@ -504,6 +564,10 @@ p.flag {
   font-size: 1.1em;
   padding: 0; }
 
+#taxon_detail #main > .section > .article > .meta.learn_more p {
+  line-height: 200%; }
+#taxon_detail #main > .section > .article > .copy {
+  padding-bottom: 15px; }
 #taxon_detail .rating h5 {
   float: left;
   margin: 0 10px 0 0;
@@ -609,16 +673,6 @@ body > #header .section .session.join {
 #classification_browser .open, .classifications .open {
   font-weight: bold; }
 
-/*overides for empty text styles - various */
-#classifications_summary .empty p {
-  font-size: 1em !important; }
-
-.article .empty a.button {
-  font-size: 0.78em !important; }
-
-.updates .empty p {
-  padding: 0 0 15px 0 !important; }
-
 #taxon_names table.standard.common_names td {
   position: relative;
   width: 33%; }
@@ -658,13 +712,6 @@ body > #header .section .session.join {
 #taxon_names .recognized {
   line-height: 170%; }
 
-#taxon_maps .empty p {
-  margin: 0 !important; }
-
-#sidebar .collection_list .article .empty, #sidebar .collection_contributors .article .empty {
-  font-size: 1em;
-  margin-top: 0; }
-
 /*Add to my collection button is a form not an a tag as assumed by HR so we have to add some styles */
 #taxon_detail div.actions {
   clear: both;
@@ -682,10 +729,6 @@ body > #header .section .session.join {
   #taxon #collections_summary form fieldset.actions {
     margin-top: 0; }
 
-.empty fieldset.actions input.button {
-  font-size: 0.82em;
-  padding: 5px 10px 6px 10px; }
-
 /*HR styles assume text descriptions are nicely wrapped in p tags - in reality they may or may not be so we add
  * extra div.description and assign styles to the div - check this, particularly line-height as we probably need
  * to remove some HR styles from nested p. Check latest HR and remove the table styles here if possible.
@@ -698,28 +741,36 @@ body > #header .section .session.join {
   margin: 0 0 15px 0;
   line-height: 170%; }
 
-#taxon_community .main_container {
-  padding: 40px; }
-  #taxon_community .main_container .list img {
-    max-width: 68px;
-    max-height: 68px;
-    width: expression(this.width > 68 ? "68px" : true);
-    height: expression(this.height > 68 ? "68px" : true); }
+#taxon_community .main_container .article .header h4 {
+  float: left;
+  padding: 0 10px 3px 10px;
+  font-size: 1.16em;
+  border-bottom: 3px solid #394651; }
+#taxon_community .main_container .list img {
+  max-width: 68px;
+  max-height: 68px;
+  width: expression(this.width > 68 ? "68px" : true);
+  height: expression(this.height > 68 ? "68px" : true); }
 
-#taxon_resources .empty p {
-  margin: 0; }
+#taxon_literature .main_container, #taxon_community .main_container, #taxon_resources .main_container {
+  padding: 20px; }
+#taxon_literature h3, #taxon_community h3, #taxon_resources h3 {
+  font-size: 2em; }
+
 #taxon_resources table.standard tbody > tr > td > a > img {
   max-width: 90px; }
 #taxon_resources #taxon_detail > #main > h3 {
-  margin: 0 0 15px 0;
-  font-size: 1.33em; }
-#taxon_resources #taxon_detail > #main .article {
-  padding: 0 10px 25px 10px; }
+  padding: 0 20px 20px 0;
+  font-size: 2em; }
+#taxon_resources #nucleotide_sequences .copy h3 {
+  padding-bottom: 10px; }
 #taxon_resources #nucleotide_sequences .copy img {
   float: left;
   max-width: 60px; }
 #taxon_resources #nucleotide_sequences .copy p {
   padding-left: 90px; }
+#taxon_resources #biomedical_terms .attribution h4 {
+  margin-bottom: 5px; }
 
 /* TODO: this hasn't been really thought out and should be changed: */
 #sidebar.filters dd li.no_results label {
@@ -901,6 +952,8 @@ form.comment img {
 .editable_link {
   font-size: 0.8em; }
 
+.edit_collection #sidebar select {
+  max-width: 135px; }
 .edit_collection #sidebar fieldset.actions {
   padding: 0; }
 
@@ -1124,3 +1177,14 @@ body#prelaunch p.status {
   color: #394651;
   border: 2px solid #c7d471;
   background: #edf6b2; }
+
+#user_communities .heading {
+  position: relative;
+  text-align: left; }
+  #user_communities .heading form, #user_communities .heading a {
+    position: absolute;
+    right: 10px;
+    top: 4px; }
+
+body#prelaunch #footer ul.social_media {
+  margin-top: 20px; }

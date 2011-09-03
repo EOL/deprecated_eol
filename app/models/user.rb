@@ -46,6 +46,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   before_save :check_credentials
   before_save :encrypt_password
   before_save :instantly_approve_curator_level, :if => :curator_level_can_be_instantly_approved?
+  after_save :update_watch_collection_name
+  after_save :clear_cached_user
 
   accepts_nested_attributes_for :user_info
 
@@ -264,7 +266,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def build_watch_collection
     c = Collection.count(:conditions => {:special_collection_id => SpecialCollection.watch.id, :user_id => self.id})
     if c == 0
-      Collection.create(:name => I18n.t(:default_watch_collection_name, :username => self.short_name.titleize), :special_collection_id => SpecialCollection.watch.id, :user_id => self.id)
+      Collection.create(:name => I18n.t(:default_watch_collection_name, :username => self.full_name.titleize), :special_collection_id => SpecialCollection.watch.id, :user_id => self.id)
     end
   end
 
@@ -363,7 +365,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   def grant_admin
     self.update_attributes(:admin => true)
-    clear_cached_user
   end
 
   def grant_curator(level = :full, options = {})
@@ -377,7 +378,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       end
     end
     self.update_attributes(:requested_curator_level_id => nil)
-    clear_cached_user
   end
   alias approve_to_curate grant_curator
 
@@ -389,13 +389,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     self.update_attributes(:curator_verdict_by => nil,
                            :curator_verdict_at => nil,
                            :requested_curator_level_id => nil)
-    clear_cached_user
   end
   alias revoke_curatorship revoke_curator
-
-  def clear_cached_user
-    $CACHE.delete("users/#{self.id}") if $CACHE
-  end
 
   def clear_entered_password
     self.entered_password = ''
@@ -747,5 +742,19 @@ private
     return false unless self.class.column_names.include?('requested_curator_level_id')
     self.requested_curator_level_id == CuratorLevel.assistant_curator.id ||
     self.requested_curator_level_id == self.curator_level_id
+  end
+
+  # Callback after_save
+  def update_watch_collection_name
+    collection = self.existing_watch_collection rescue nil
+    unless collection.blank?
+      collection.name = I18n.t(:default_watch_collection_name, :username => self.full_name.titleize)
+      collection.save!
+    end
+  end
+
+  # Callback after_save
+  def clear_cached_user
+    $CACHE.delete("users/#{self.id}") if $CACHE
   end
 end

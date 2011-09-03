@@ -10,9 +10,8 @@
         %fieldset.actions
           = submit_tag I18n.t(:change), :name => nil
     - if @partner_summary.blank? && @pages.blank?
-      .article
-        .empty
-          %p= I18n.t(:content_partner_statistics_empty, :month_name => @month_name, :year => @year)
+      .empty
+        %p= I18n.t(:content_partner_statistics_empty, :month_name => @month_name, :year => @year)
 
     - unless @partner_summary.blank?
       %table.standard

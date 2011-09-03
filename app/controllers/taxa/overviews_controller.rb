@@ -6,7 +6,7 @@ class Taxa::OverviewsController < TaxaController
     includes = [
       { :published_hierarchy_entries => [ { :name => :ranked_canonical_form } , :hierarchy, :hierarchies_content, :vetted ] },
       { :data_objects => [ :toc_items,  :info_items, { :data_objects_hierarchy_entries => :hierarchy_entry },
-        { :curated_data_objects_hierarchy_entries => :hierarchy_entry } ] },
+        { :curated_data_objects_hierarchy_entries => :hierarchy_entry }, :users_data_object ] },
       { :curator_activity_logs => :user },
       { :users_data_objects => { :data_object => :toc_items } }]
     selects = {

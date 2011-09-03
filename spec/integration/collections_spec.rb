@@ -178,6 +178,18 @@ describe "Collections and collecting:" do
     end
     it 'should be able to delete ordinary collections'
     it 'should not be able to delete special collections'
+    it 'should not be able to edit watch collection name' do
+      visit edit_collection_path(@collection)
+      body.should have_tag('#collections_edit') do
+        with_tag('#collection_name', :val => "#{@collection.name}")
+        without_tag('label', :text => "#{@user.watch_collection.name}")
+      end
+      visit edit_collection_path(@user.watch_collection)
+      body.should have_tag('#collections_edit') do
+        without_tag('#collection_name', :val => "#{@collection.name}")
+        with_tag('label', :text => "#{@user.watch_collection.name}")
+      end
+    end
   end
 
 end

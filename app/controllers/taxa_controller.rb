@@ -41,9 +41,10 @@ class TaxaController < ApplicationController
 
   # If you want this to redirect to search, call (do_the_search && return if this_request_is_really_a_search) before this.
   def find_taxon_concept
-    tc_id = params[:id].to_i
+    # Try most specific first...
+    tc_id = params[:taxon_concept_id].to_i
     tc_id = params[:taxon_id].to_i if tc_id == 0
-    tc_id = params[:taxon_concept_id].to_i if tc_id == 0
+    tc_id = params[:id].to_i if tc_id == 0
     redirect_to_missing_page_on_error do
       TaxonConcept.find(tc_id)
     end
@@ -266,22 +267,6 @@ class TaxaController < ApplicationController
     end
   end
 
-  # TODO - This needs to add a CuratorActivityLog.
-  def vet_common_name
-    @taxon_concept = TaxonConcept.find(params[:taxon_concept_id].to_i)
-    language_id = params[:language_id].to_i
-    name_id = params[:name_id].to_i
-    vetted = Vetted.find(params[:vetted_id])
-    @taxon_concept.current_user = current_user
-    @taxon_concept.vet_common_name(:language_id => language_id, :name_id => name_id, :vetted => vetted)
-    current_user.log_activity(:vetted_common_name, :taxon_concept_id => @taxon_concept.id, :value => name_id)
-    if !params[:hierarchy_entry_id].blank?
-      redirect_to common_names_taxon_hierarchy_entry_names_path(@taxon_concept, params[:hierarchy_entry_id])
-    else
-      redirect_to common_names_taxon_names_path(@taxon_concept)
-    end
-  end
-
   def publish_wikipedia_article
     tc = TaxonConcept.find(params[:taxon_concept_id].to_i)
     data_object = DataObject.find(params[:data_object_id].to_i)
@@ -323,18 +308,6 @@ class TaxaController < ApplicationController
 
     url = endpoint + "?pid=#{pid}&output=json&q=#{URI.escape(ref.full_reference)}&callback=#{callback}"
     render :text => Net::HTTP.get(URI.parse(url))
-  end
-
-  def curators
-    # if this is named taxon_concept then the RSS feeds will be added to the page
-    # in Firefox those feeds are evaluated when the pages loads, so this should save some queries
-    @concept = find_taxon_concept
-    return if taxon_concept_invalid?(@concept)
-    @page_title = I18n.t(:curators_of_taxon_page_title, :taxon => @concept.title)
-    curators = @concept.curators(:add_names => true)
-    @curators = User.find_all_by_id(curators.collect{ |c| c.id })
-    @curators = User.sort_by_name(@curators)
-    render(:layout => 'v2/basic')
   end
 
 private

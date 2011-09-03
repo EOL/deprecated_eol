@@ -20,6 +20,17 @@ class ContentController < ApplicationController
       # TODO - FIXME  ... This appears to have to do with $CACHE.fetch (obviously)... not sure why, though.
       @explore_taxa = RandomHierarchyImage.random_set(60)
     end
+    
+    # recalculate the activity logs on homepage every $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME minutes
+    $CACHE.fetch('homepage/activity_logs_expiration', :expires_in => $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME.minutes) do
+      expire_fragment(:action => 'index', :action_suffix => "activity_#{current_user.language.iso_code}")
+    end
+    
+    # recalculate the activity logs on homepage every $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME minutes
+    $CACHE.fetch('homepage/march_of_life_expiration', :expires_in => 60.seconds) do
+      expire_fragment(:action => 'index', :action_suffix => 'march_of_life')
+    end
+    
     begin
       @explore_taxa.shuffle!
     rescue TypeError => e # it's a frozen array, it's been cached somwhere.

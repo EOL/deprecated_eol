@@ -98,6 +98,8 @@ private
     elsif @collection_item.save
       CollectionActivityLog.create(:collection => @collection_item.collection, :user => current_user,
                                    :activity => Activity.collect, :collection_item => @collection_item)
+      @collection_item.collection.updated_at = Time.now.to_s
+      @collection_item.collection.save
       @notices << I18n.t(:item_added_to_collection_notice,
                                :collection_name => self.class.helpers.link_to(@collection_item.collection.name,
                                                    collection_path(@collection_item.collection)))

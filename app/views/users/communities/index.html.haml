@@ -3,6 +3,7 @@
     .heading
       %h3
         = I18n.t(:users_member_of_count_communities, :count => @communities.size)
+      = link_to I18n.t(:what_is_this_question), cms_page_path('communities')
     - unless @communities.blank?
       %ul.object_list
         - @communities.each do |community|

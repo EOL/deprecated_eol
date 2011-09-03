@@ -10,7 +10,10 @@
       %dt
         = f.label :name
       %dd
-        = f.text_field :name, :value => @collection.name
+        - if @collection.watch_collection?
+          %p= f.label :watch_collection_name, @collection.name
+        -else
+          = f.text_field :name, :value => @collection.name
       %dt
         = f.label :description
       %dd

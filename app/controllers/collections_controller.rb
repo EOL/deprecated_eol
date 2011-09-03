@@ -301,6 +301,7 @@ private
     end
     options[:to].collection_items_attributes = new_collection_items
     if options[:to].save
+      options[:to].set_relevance
       return old_collection_items
     else
       flash[:error] ||= ""
@@ -344,6 +345,7 @@ private
     collection_items = options[:items] || collection_items_with_scope(options.merge(:allow_all => true))
     bulk_log = params[:scope] == 'all_items'
     count = 0
+    removed_from_id = 0
     collection_items.each do |item|
       item = CollectionItem.find(item) # Sometimes, this is just an id.
       removed_from_id = item.collection_id
@@ -360,6 +362,8 @@ private
     if bulk_log
       CollectionActivityLog.create(:collection => @collection, :user => current_user, :activity => Activity.remove_all)
     end
+    # Recalculate the collection's relevance (quietly):
+    (col = Collection.find(removed_from_id)) && col.set_relevance
     return count
   end
 

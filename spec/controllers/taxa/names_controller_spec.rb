@@ -31,7 +31,26 @@ describe Taxa::NamesController do
   end
 
   describe 'POST names' do
-    it 'should add a new common name'
+    before :each do
+      session[:user] = @testy[:curator]
+      @approved_languages = Language.approved_languages.collect{|l| l.id}
+    end
+    it 'should add a new common name in approved languages' do
+      approved_language_id = @approved_languages.first
+      post :create, :name => { :synonym => { :language_id => approved_language_id }, :string => "snake" }, 
+                    :commit_add_common_name => "Add name", :taxon_id => @testy[:taxon_concept].id.to_i
+      name = Name.find_by_string("snake").should be_true
+      TaxonConceptName.find_by_name_id_and_language_id(Name.find_by_string("snake").id, approved_language_id)
+      response.should redirect_to(common_names_taxon_names_path(@testy[:taxon_concept].id.to_i))
+    end
+    it 'should add a new common name in non-approved languages' do
+      non_approved_language_id = Language.find(:all, :conditions => ["id NOT IN (?)", @approved_languages]).first.id
+      post :create, :name => { :synonym => { :language_id => non_approved_language_id }, :string => "nag" }, 
+                    :commit_add_common_name => "Add name", :taxon_id => @testy[:taxon_concept].id.to_i
+      name = Name.find_by_string("nag").should be_true
+      TaxonConceptName.find_by_name_id_and_language_id(Name.find_by_string("nag").id, non_approved_language_id)
+      response.should redirect_to(common_names_taxon_names_path(@testy[:taxon_concept].id.to_i))
+    end
   end
 
   describe 'GET common_names' do

@@ -501,7 +501,9 @@ class DataObject < SpeciesSchemaModel
 
   # need supplier as content partner object, is this right ?
   def content_partner
-    hierarchy_entries.first.resource.content_partner rescue nil
+    # TODO - change this, since it would be more efficient to go through hierarchy_entries... but the first attempt
+    # (using hierarchy_entries.first) failed to find the correct data in observed cases. WEB-2850
+    harvest_events.last.resource.content_partner rescue nil
   end
 
   # 'owner' chooses someone responsible for this data object in order of preference

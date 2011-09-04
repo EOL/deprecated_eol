@@ -1923,3 +1923,6 @@ ar:
   communities_with_count:
     one: "%{count} مجتمع"
     other: "%{count} مجتمع"
+  learn_more_link: "(%{learn_more})"
+  language_with_count: "%{language} (%{count})"
+

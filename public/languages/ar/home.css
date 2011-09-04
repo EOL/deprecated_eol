@@ -26,9 +26,11 @@ header, section, article, nav, footer, hgroup {
   display: block; }
 
 body {
-  font: normal 12px Helvetica, Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 75%;
   color: #394651;
   border-top: 32px solid #28323a;
+  min-width: 940px;
   direction: rtl; }
 
 body, html {
@@ -382,8 +384,7 @@ body {
         height: 28px;
         font-size: 1.5em;
         line-height: 28px;
-        background: transparent url("/images/v2/icon_search_home.png") 286px 50% no-repeat;
-        float: right; }
+        background: transparent url("/images/v2/icon_search_home.png") 286px 50% no-repeat; }
       body > #header form input[type="submit"] {
         min-width: 40px;
         min-height: 40px;
@@ -414,7 +415,7 @@ body {
         body > #header .session.signed_in .details strong {
           font-size: 1.09em; }
         body > #header .session.signed_in .details p.user_links {
-          font-size: 9px;
+          font-size: 0.83em;
           text-transform: uppercase;
           color: #62707d; }
           body > #header .session.signed_in .details p.user_links a {
@@ -584,3 +585,16 @@ body#prelaunch {
           filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=white, endColorstr=#d7dde1);
           background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white);
           background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1)); }
+
+#prelaunch div.update {
+  background: none repeat scroll 0 0 #394651;
+  border-bottom: 1px solid #17242f;
+  border-radius: 5px 5px 5px 5px;
+  float: left;
+  margin: 0 auto;
+  padding: 40px 20px;
+  width: 212px; }
+  #prelaunch div.update h2 {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0 0 10px 0; }

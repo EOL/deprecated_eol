@@ -168,6 +168,9 @@ ul.tabs
     &.videos
       a
         background: transparent url("/images/v2/icon_videos_tabs.png") 158px 10px no-repeat
+    &.sounds
+      a
+        background: transparent url("/images/v2/icon_sounds_tabs.png") 158px 50% no-repeat
     &.images
       a
         background: transparent url("/images/v2/icon_images_tabs.png") 158px 8px no-repeat
@@ -289,18 +292,6 @@ table.standard
       padding: 2px 0 0 0
       font-weight: bold
       text-transform: lowercase
-  .empty,
-    padding: 15px 15px 0 15px
-    margin: 10px 0 0 -10px
-    font-size: 1.16em
-    text-align: center
-    border: 1px solid #cad3db
-    background: #f3f7fa
-    p
-      padding: 0 0 15px 0
-      line-height: 150%
-    a.button
-      font-size: .78em
   .meta
     clear: both
     padding: 0 0 20px 0
@@ -341,6 +332,24 @@ table.standard
     .details
       img
         float: none
+
+.empty, .copy .empty
+  padding: 15px 15px 10px 15px
+  margin: 10px 0
+  font-size: 1.16em
+  text-align: center
+  border: 1px solid #cad3db
+  background: #f3f7fa
+  p
+    margin: 0
+    padding: 0 0 5px 0
+    line-height: 150%
+  a.button, input[type="submit"]
+    font-size: .78em
+    display: inline-block
+    margin-bottom: 5px
+  input[type="submit"]
+    padding: 5px 10px 6px 10px
 
 = star
   position: absolute
@@ -613,7 +622,7 @@ body
   background: #e2e9ef
   .hgroup
     float: right
-    width: 714px
+    width: 670px
     padding: 10px 10px 20px 0  
   &.with_nav
     .site_column
@@ -767,8 +776,11 @@ body
   width: 180px
   padding: 0 20px 0 0 
   h3
-    padding: 0 0 15px 0
+    padding: 0 0 10px 0
     font-size: 1.33em
+  .empty
+    font-size: 1em
+    margin: 0 0 20px 0
   .collection_contributors
     margin: 0 0 20px 0
     li
@@ -786,6 +798,11 @@ body
         &:hover
           text-decoration: underline
   .collection_list
+    margin: 0 0 20px 0
+    > .copy
+      > p
+        font-size: .83em
+        margin: 0 0 10px 0
     li
       position: relative
       padding: 10px 45px 10px 0
@@ -888,8 +905,6 @@ body
         height: 68px
         line-height: 68px
         padding: 0 0 0 3px
-      span.icon
-        margin-bottom: 10px
       textarea
         display: block
         clear: both
@@ -1189,13 +1204,13 @@ body
       overflow: hidden
       margin: 0 0 20px 0
       p
-        margin: 20px
+        margin: 5px 220px 10px 20px
       a
         font-weight: bold
         +underline-on-hover
       img
         float: right
-        margin: 0 20px 0 0
+        margin: 0
     .heading
       text-align: center
       margin: 0 0 20px 0
@@ -1404,23 +1419,23 @@ body
       background: #f1f4dc
     > .section
       > h3
-        padding: 20px
-        margin: 0 0 40px 0
-        font-size: 2.16em
-        border: 1px solid #ccd399
-        border-width: 1px 0
-        background: #f1f4dc
+        padding: 0 20px 20px 20px
+        font-size: 2em
       > .article
-        padding: 0 20px 40px 20px
-        + .article
-          padding-top: 40px
-          border-top: 1px solid #d4dce2
+        padding: 20px
+        border: 1px solid #cad3db
+        margin: 0 0 20px 0
         > h4
-          padding: 0 0 8px 0
           font-size: 1.5em
+        > .copy
+          border-top: 1px solid #cad3db
+          border-bottom: 1px solid #cad3db
+          padding: 20px 10px 0 10px
+          margin: 0 -10px 20px -10px
         > .meta
-          padding-top: 10px
+          padding: 0 0 10px 0
           &.learn_more
+            padding: 0 0 20px 0
             p, form
               float: none
               display: inline

@@ -30,6 +30,7 @@ body {
   font-size: 75%;
   color: #394651;
   border-top: 32px solid #28323a;
+  min-width: 940px;
   direction: rtl; }
 
 body, html {
@@ -617,6 +618,8 @@ ul.tabs {
       background: transparent url("/images/v2/icon_taxa_tabs.png") 158px 50% no-repeat; }
     ul.tabs li.videos a {
       background: transparent url("/images/v2/icon_videos_tabs.png") 158px 10px no-repeat; }
+    ul.tabs li.sounds a {
+      background: transparent url("/images/v2/icon_sounds_tabs.png") 158px 50% no-repeat; }
     ul.tabs li.images a {
       background: transparent url("/images/v2/icon_images_tabs.png") 158px 8px no-repeat; }
     ul.tabs li.communities a {
@@ -724,18 +727,6 @@ table.standard {
       padding: 2px 0 0 0;
       font-weight: bold;
       text-transform: lowercase; }
-  .article .empty {
-    padding: 15px 15px 0 15px;
-    margin: 10px 0 0 -10px;
-    font-size: 1.16em;
-    text-align: center;
-    border: 1px solid #cad3db;
-    background: #f3f7fa; }
-    .article .empty p {
-      padding: 0 0 15px 0;
-      line-height: 150%; }
-    .article .empty a.button {
-      font-size: 0.78em; }
   .article .meta {
     clear: both;
     padding: 0 0 20px 0;
@@ -773,6 +764,24 @@ table.standard {
       color: #62707d; }
   .article.updates .details img {
     float: none; }
+
+.empty, .copy .empty {
+  padding: 15px 15px 10px 15px;
+  margin: 10px 0;
+  font-size: 1.16em;
+  text-align: center;
+  border: 1px solid #cad3db;
+  background: #f3f7fa; }
+  .empty p, .copy .empty p {
+    margin: 0;
+    padding: 0 0 5px 0;
+    line-height: 150%; }
+  .empty a.button, .empty input[type="submit"], .copy .empty a.button, .copy .empty input[type="submit"] {
+    font-size: 0.78em;
+    display: inline-block;
+    margin-bottom: 5px; }
+  .empty input[type="submit"], .copy .empty input[type="submit"] {
+    padding: 5px 10px 6px 10px; }
 
 .rating ul,
 .rating ul a:hover,
@@ -1113,7 +1122,7 @@ body > #header {
   background: #e2e9ef; }
   #page_heading .hgroup {
     float: right;
-    width: 714px;
+    width: 670px;
     padding: 10px 10px 20px 0; }
   #page_heading.with_nav .site_column, #page_heading.with_nav body > #header .section, body > #header #page_heading.with_nav .section, #page_heading.with_nav body > #footer .section, body > #footer #page_heading.with_nav .section, #page_heading.with_nav .thumbnails ul, .thumbnails #page_heading.with_nav ul {
     overflow: visible; }
@@ -1292,8 +1301,11 @@ body > #header {
   width: 180px;
   padding: 0 20px 0 0; }
   #sidebar h3 {
-    padding: 0 0 15px 0;
+    padding: 0 0 10px 0;
     font-size: 1.33em; }
+  #sidebar .empty {
+    font-size: 1em;
+    margin: 0 0 20px 0; }
   #sidebar .collection_contributors {
     margin: 0 0 20px 0; }
     #sidebar .collection_contributors li {
@@ -1309,20 +1321,25 @@ body > #header {
       text-decoration: none; }
       #sidebar .collection_contributors h4 a:hover {
         text-decoration: underline; }
-  #sidebar .collection_list li {
-    position: relative;
-    padding: 10px 45px 10px 0;
-    margin: 0 0 15px 0;
-    font-weight: bold; }
-    #sidebar .collection_list li a + a {
-      line-height: 140%; }
-    #sidebar .collection_list li img {
-      position: absolute;
-      right: 0;
-      top: 50%;
-      z-index: 1;
-      margin: -18px 0 0 0;
-      border: 1px solid #394651; }
+  #sidebar .collection_list {
+    margin: 0 0 20px 0; }
+    #sidebar .collection_list > .copy > p {
+      font-size: 0.83em;
+      margin: 0 0 10px 0; }
+    #sidebar .collection_list li {
+      position: relative;
+      padding: 10px 45px 10px 0;
+      margin: 0 0 15px 0;
+      font-weight: bold; }
+      #sidebar .collection_list li a + a {
+        line-height: 140%; }
+      #sidebar .collection_list li img {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        z-index: 1;
+        margin: -18px 0 0 0;
+        border: 1px solid #394651; }
   #sidebar.filters {
     float: right;
     width: 180px;
@@ -1422,8 +1439,6 @@ body > #header {
     height: 68px;
     line-height: 68px;
     padding: 0 0 0 3px; }
-  #collections ul.object_list li span.icon {
-    margin-bottom: 10px; }
   #collections ul.object_list li textarea {
     display: block;
     clear: both;
@@ -1761,7 +1776,7 @@ body > #header {
     overflow: hidden;
     margin: 0 0 20px 0; }
     #taxon_literature .main_container .bhl_description p {
-      margin: 20px; }
+      margin: 5px 220px 10px 20px; }
     #taxon_literature .main_container .bhl_description a {
       font-weight: bold;
       text-decoration: none; }
@@ -1769,7 +1784,7 @@ body > #header {
         text-decoration: underline; }
     #taxon_literature .main_container .bhl_description img {
       float: right;
-      margin: 0 20px 0 0; }
+      margin: 0; }
   #taxon_literature .main_container .heading {
     text-align: center;
     margin: 0 0 20px 0; }
@@ -1972,31 +1987,32 @@ body > #header {
     border-width: 1px 0;
     background: #f1f4dc; }
   #taxon_detail #main > .section > h3 {
-    padding: 20px;
-    margin: 0 0 40px 0;
-    font-size: 2.16em;
-    border: 1px solid #ccd399;
-    border-width: 1px 0;
-    background: #f1f4dc; }
+    padding: 0 20px 20px 20px;
+    font-size: 2em; }
   #taxon_detail #main > .section > .article {
-    padding: 0 20px 40px 20px; }
-    #taxon_detail #main > .section > .article + .article {
-      padding-top: 40px;
-      border-top: 1px solid #d4dce2; }
+    padding: 20px;
+    border: 1px solid #cad3db;
+    margin: 0 0 20px 0; }
     #taxon_detail #main > .section > .article > h4 {
-      padding: 0 0 8px 0;
       font-size: 1.5em; }
+    #taxon_detail #main > .section > .article > .copy {
+      border-top: 1px solid #cad3db;
+      border-bottom: 1px solid #cad3db;
+      padding: 20px 10px 0 10px;
+      margin: 0 -10px 20px -10px; }
     #taxon_detail #main > .section > .article > .meta {
-      padding-top: 10px; }
-      #taxon_detail #main > .section > .article > .meta.learn_more p, #taxon_detail #main > .section > .article > .meta.learn_more form {
-        float: none;
-        display: inline;
-        margin: 0 0 0 10px; }
-        #taxon_detail #main > .section > .article > .meta.learn_more p:after, #taxon_detail #main > .section > .article > .meta.learn_more form:after {
-          content: "•";
-          margin: 0 10px 0 0; }
-        #taxon_detail #main > .section > .article > .meta.learn_more p.last:after, #taxon_detail #main > .section > .article > .meta.learn_more form.last:after {
-          content: ""; }
+      padding: 0 0 10px 0; }
+      #taxon_detail #main > .section > .article > .meta.learn_more {
+        padding: 0 0 20px 0; }
+        #taxon_detail #main > .section > .article > .meta.learn_more p, #taxon_detail #main > .section > .article > .meta.learn_more form {
+          float: none;
+          display: inline;
+          margin: 0 0 0 10px; }
+          #taxon_detail #main > .section > .article > .meta.learn_more p:after, #taxon_detail #main > .section > .article > .meta.learn_more form:after {
+            content: "•";
+            margin: 0 10px 0 0; }
+          #taxon_detail #main > .section > .article > .meta.learn_more p.last:after, #taxon_detail #main > .section > .article > .meta.learn_more form.last:after {
+            content: ""; }
     #taxon_detail #main > .section > .article > p.flag {
       float: right;
       padding: 1px 2px;

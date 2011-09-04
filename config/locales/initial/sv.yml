@@ -5,7 +5,6 @@
 # Author: Per
 # Author: WikiPhoenix
 sv: 
-  dash_encyclopedia_of_life: -Encyclopedia of Life
   about_eol: Om EOL
   account_information: Kontoinformation
   account_registered_but_not_ready_try_later: Ditt konto är registrerat, men inte redo för dig att få tillgång till det. Försök igen om fem minuter.
@@ -81,28 +80,8 @@ sv:
       full_messages: 
         format: "%{attribute} %{message}"
       messages: 
-        accepted: måste accepteras
-        blank: kan inte vara tom
-        confirmation: matchar inte bekräftelsen
-        empty: kan inte vara tom
-        equal_to: måste vara stämma överens med %{count}
-        exclusion: är reserverad
-        greater_than: måste vara större än %{count}
-        greater_than_or_equal_to: måste vara större än eller lika med %{count}
-        inaccessible: är otillgänglig
-        inclusion: ingår inte i listan
-        invalid: är ogiltig
-        less_than: måste vara mindre än %{count}
-        less_than_or_equal_to: måste vara mindre än eller lika med %{count}
-        not_a_number: är inte ett nummer
-        not_an_integer: måste vara ett heltal
-        odd: måste vara udda
         record_invalid: "Validering misslyckades: %{errors}"
         taken: har redan tagits
-        too_long: är för lång (maximum är %{count} tecken)
-        too_short: är för kort (minimum är %{count} tecken)
-        wrong_length: har fel längd (ska vara %{count} tecken)
-        wrong_type: är fel typ
       models: 
         resource: 
           attributes: 
@@ -205,7 +184,6 @@ sv:
   back_to_profile: Tillbaka till profil
   biodiversity_heritage_library: Biodiversity Heritage Library
   biomedical_terms: Biomedicinska termer
-  browse_eol: bläddra EOL
   build_communities: Bygg gemenskaper
   cancel: Avbryt
   cannot_be_associated_with_both_a_user_and_a_community: Kan inte associeras med både en användare och en gemenskap
@@ -255,7 +233,6 @@ sv:
   comments_with_count: 
     one: "%{count} kommentar"
     other: "%{count} kommentarer"
-  common_names_advisory_information: Vanliga namn förknippade med denna grupp.
   common_names_with_count: 
     one: "%{count} vanligt namn"
     other: "%{count} vanliga namn"
@@ -265,6 +242,9 @@ sv:
   communities_summary_header_with_count: 
     one: Tillhör %{count} gemenskap
     other: Tillhör %{count} gemenskaper
+  communities_with_count: 
+    one: "%{count} gemenskap"
+    other: "%{count} gemenskaper"
   community: Gemenskap
   community_activity: Gemenskapsaktivitet
   community_contributions_with_count: 
@@ -282,7 +262,6 @@ sv:
   confirm_leave: Är du säker på att du vill lämna denna gemenskap?
   confirm_password_colon: "Bekräfta lösenord:"
   contact_us_link: Kontakta oss
-  contact_us_title: Kontakta oss
   content_has_been_updated: Innehåll har uppdaterats.
   content_partner: Innehållspartner
   content_partner_about_header: Om %{partner_name}
@@ -299,7 +278,6 @@ sv:
     one: "%{count} kontakt"
     other: "%{count} kontakter"
   content_partner_edit_link: Redigera innehållspartner
-  content_partner_empty: Ingen innehållspartner hittades.
   content_partner_has_unpublished_content_false: Inget opublicerat innehåll
   content_partner_has_unpublished_content_true: Opublicerat innehåll
   content_partner_registered_time_ago: Registrerades %{time_passed} sedan
@@ -404,6 +382,7 @@ sv:
   default_focus_collection_name_from_community: "%{name}s fokus"
   default_watch_collection_name: "%{username}s samling"
   delete: radera
+  delete_community: Ta bort denna gemenskap
   description: Beskrivning
   description_of: Beskrivning av
   destination_inappropriate_for_logged_in_users: Du är inloggad.
@@ -415,7 +394,6 @@ sv:
   disabled_for_now: INAKTIVERAD FÖR NU
   displaying_numerical_range: Visar %{start_number} &mdash; %{end_number}
   donate: Donera
-  donation_amount_enter_other_label: Eller ange en alternativ summa att donera
   donation_amount_legend: Välj beloppet du vill donera
   donation_amount_other_label: Andra
   donation_error_no_amount: Välj ett donationsbelopp.
@@ -423,12 +401,10 @@ sv:
   download_audio_mpeg: Ladda ner MPEG
   edit: Redigera
   edit_annotation: redigera anteckning
-  edit_collection: Redigera samling
   edit_collection_details_header: Redigera samlingsdetaljer
   edit_collection_head_title: "Redigera: %{collection_name}"
   edit_community: Redigera gemenskap
   edit_my_profile: Redigera min profil
-  education: Utbildning
   email_colon: "E-post:"
   email_subject_a_message_from_the_eol: Ett meddelande från Encyclopedia of Life
   email_subject_account_activated: Ditt Encyclopedia of Life-konto har aktiverats
@@ -447,7 +423,6 @@ sv:
   eol_colon: "EOL:"
   eol_glossary: EOL-ordlista
   eol_news: EOL-nyheter
-  error_page_header: Tyvärr, vi har stött på ett problem
   errors: 
     messages: 
       accepted: måste accepteras
@@ -473,7 +448,6 @@ sv:
       wrong_type: är fel typ
   esc_key_hides_this_message: (Tryck på ESC för att dölja detta meddelande)
   example_colon: "Exempel:"
-  example_url_for_wikipedia_article_ingestion: "(t.ex.: http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)"
   explore: Utforska
   external_link_header: Extern länk
   facebook: Facebook
@@ -507,7 +481,6 @@ sv:
   forgot_password_form_header: Återställ ditt lösenord
   forgot_password_form_username_or_email_blank_error: Ange ditt användarnamn eller e-postadress för att återställa ditt lösenord.
   from_community: från %{community}.
-  general_error_occurred: Vi beklagar men ett fel har uppstått. Gör ett försök till att utföra din uppgift. Om felet kvarstår, vänligen skicka ett meddelande till %{email} tillsammans med felmeddelandet nedan och eventuell annan information som du vill meddela oss. Vi arbetar hårt för att ge dig bästa möjliga service och vi uppskattar ditt stöd. - EOL laget
   global_access_tagline: Global tillgång till kunskap om livet på jorden.
   global_navigation: Global navigation
   go: Gå
@@ -593,7 +566,6 @@ sv:
   home: Hem
   home_page_link_advisory_information: Denna länk tar dig till startsidan för Encyclopedia Of Life
   id: ID
-  identifcation_resources_empty: Inga resurser hittades.
   image_is_no_longer_available: Bilden är inte längre tillgänglig
   image_not_found: Bilden hittades inte
   images: Bilder
@@ -637,7 +609,6 @@ sv:
   learn_about_eol: Hur kan jag använda EOL?
   learn_about_joining: Hur kan jag bli medlem?
   learn_more_about_names_for_this_taxon: Lär dig mer om namn för detta taxon
-  learn_more_with_data_type: läs mer om denna %{data_type}
   leave_a_comment: Lämna en kommentar
   leave_community_button: Lämna denna gemenskap
   license: Licens
@@ -664,7 +635,6 @@ sv:
   license_gnu_gpl: GNU General Public License (GNU GPL)
   license_not_applicable: Licens är inte tillämplig
   license_public_domain: Allmän egendom
-  ligercat: LigerCat
   listing_collections: Listar samlingar
   literature: Litteratur
   literature_empty: Inga referenser hittades.
@@ -696,7 +666,6 @@ sv:
   members_with_count: 
     one: "%{count} medlem"
     other: "%{count} medlemmar"
-  mesh: MeSH
   minimal_page: Minimal sida
   moderator_colon: "Moderator:"
   month_equals: Månad =
@@ -725,12 +694,9 @@ sv:
   my_activity: Min aktivitet
   my_info: Min info
   name: Namn
-  name_for_community_focus_label: Namn för gemenskapens fokuseringslista
-  name_preferred_for_language_no: Nej
   name_preferred_for_language_yes: Föredragen
   names: Namn
   names_name_column_header: Namn
-  ncbi_taxonomy: NCBI-taxonomi
   never: Aldrig
   new_collection: Ny samling
   newsfeed: Nyhetsflöde
@@ -778,13 +744,7 @@ sv:
   pages_with_pictures_and_text: Sidor med bilder och text
   pages_with_pictures_or_text: Sidor med bilder eller text
   pagination_next: Nästa
-  pagination_next_with_count: 
-    one: se nästa %{count}}
-    other: se nästa %{count}
   pagination_previous: Föregående
-  pagination_previous_with_count: 
-    one: se föregående %{count}}
-    other: se föregående %{count}
   password_colon: "Lösenord:"
   permalink: Permanent länk
   personal_space: Personliga utrymme
@@ -833,7 +793,6 @@ sv:
   rights: Rättigheter
   rights_holder: Rättighetshavaren
   roles: Roller
-  rss_abbr_html: <abbr title="Really Simple Syndication">RSS</abbr>
   save: Spara
   save_annotation_submit_button: Spara anteckning
   scientific_name: Vetenskapligt namn
@@ -903,16 +862,13 @@ sv:
   table_of_contents: Innehållsförteckning
   task_status_active_option: Aktiv
   task_status_curated_option: Kurerad
-  taxa: Taxa
   taxon: taxon
   taxon_details_empty: Ingen har ännu bidragit några detaljer om detta taxon ännu.
   taxon_id: Taxon-ID
-  taxon_recognised_by_header: Känns igen av
   terms_agreement_beta_intro: "Tack för att du deltar i EOL Version 2 Beta. Innan du fortsätter vill vi att du godkänner följande:"
   terms_agreement_form_fallback: Var god läs igenom och godkänn <a href="%{terms_url}">användarvillkoren</a> innan du loggar in på ditt konto.
   terms_agreement_form_header: Användarvillkor
   terms_agreement_form_submit: Jag godkänner
-  terms_provided_by: Villkor tillhandahålls av %{link}.
   test: Test.
   text_capital: Text
   text_summary_empty: Ingen har bidragit med en kort sammanfattning för detta taxon ännu.
@@ -920,7 +876,6 @@ sv:
   text_summary_more_link: Läs hela posten
   thank_you_for_your_generous_support: Tack för ditt generösa stöd
   thank_you_sentence: Tack.
-  thanks_for_feedback: Tack för din feedback.
   the_amount_entered_was: "Det angivna beloppet var: US %{number}"
   there_are_currently_no_members_in_this_community: Det finns för närvarande inga medlemmar i denna gemenskap.
   there_was_an_error_posting_your_text: Det uppstod ett fel när din text publicerades.
@@ -937,7 +892,6 @@ sv:
   translation_saved: Översättning har sparats
   translations_submit: Visa översättning
   trusted: Pålitlig
-  try_your_request_again: Prova din begäran igen
   twitter: Twitter
   type: Typ
   unknown: Okänd
@@ -951,9 +905,6 @@ sv:
   updated_community: Gemenskapen har uppdaterats
   updated_member: Medlem har uppdaterats.
   updates: Uppdateringar
-  updates_with_count: 
-    one: "%{count} uppdatering"
-    other: "%{count} uppdateringar"
   upload_content: ladda upp innehåll
   upload_logo_help_text: Detta kommer att bli den primära bilden som representerar din gemenskap – det kan vara vad du vill.
   us_dolars_75: US $75
@@ -985,7 +936,6 @@ sv:
   users_my_info_header: Min info
   using_the_site: Använda denna sida
   value: Värde
-  verification_phrase_did_not_match: Verifieringsfrasen du skrev in stämde inte överens.
   view: Visa
   view_article_source: Visa artikelkälla
   view_curators: visa kuratorer
@@ -997,12 +947,8 @@ sv:
   wants_colon: "Vill ha:"
   watch_list: Bevakningslista
   what_do_these_numbers_mean: Vad betyder dessa siffror?
-  what_is_a_taxon: Vad är ett taxon?
   what_is_eol: Vad är EOL?
   what_is_this_question: Vad är detta?
-  whats_new: Vad är nytt?
-  wikipedia_article_will_be_harvested_tonight: Wikipedia-artikeln %{article}, version %{rev} kommer att skördas kväll
-  wikipedia_revisions_must_match_pattern_error: Versionsadressen måste stämma överens med http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
   will_paginate: 
     next_label: Nästa &#8594;
     previous_label: "&#8592; Föregående"
@@ -1022,7 +968,6 @@ sv:
   your_current_rating_3_of_5: "Ditt nuvarande betyg: 3 av 5"
   your_current_rating_4_of_5: "Ditt nuvarande betyg: 4 av 5"
   your_current_rating_5_of_5: "Ditt nuvarande betyg: 5 av 5"
-  your_message_was_sent: Ditt meddelande har skickats.
   your_preferences: Dina inställningar
   your_preferences_have_been_updated: Dina inställningar har uppdaterats.
   your_rating: Ditt betyg

@@ -3,7 +3,7 @@
 # Export driver: syck-pecl
 # Author: Erick mata
 # Author: Sampalahnuk
-es-db:
+es: 
   translated_activities-name-activity_id-19: perfil
   translated_activities-name-activity_id-50: Sin confianza
   translated_activities-name-activity_id-51: mostrar
@@ -13,7 +13,7 @@ es-db:
   translated_activities-name-activity_id-55: inapropiado
   translated_activities-name-activity_id-56: borra
   translated_activities-name-activity_id-57: tasa
-  translated_activities-name-activity_id-58: De confianza
+  translated_activities-name-activity_id-58: Con confianza
   translated_activities-name-activity_id-59: Sin revisar
   translated_activities-name-activity_id-63: recopilar
   translated_activities-name-activity_id-64: quita
@@ -31,7 +31,7 @@ es-db:
   translated_agent_roles-label-agent_role_id-5: Creador
   translated_agent_roles-label-agent_role_id-6: Director
   translated_agent_roles-label-agent_role_id-7: Editor
-  translated_agent_roles-label-agent_role_id-8: Ilustrador
+  translated_agent_roles-label-agent_role_id-8: Illustrator
   translated_agent_roles-label-agent_role_id-9: Fotógrafo
   translated_agent_roles-label-agent_role_id-21: "Proveedor"
   translated_agent_roles-label-agent_role_id-22: "Traductor"
@@ -100,7 +100,7 @@ es-db:
   translated_data_types-label-data_type_id-3: Texto
   translated_data_types-label-data_type_id-4: Vídeo
   translated_data_types-label-data_type_id-5: Imagen GBIF
-  translated_data_types-label-data_type_id-6: UICN
+  translated_data_types-label-data_type_id-6: IUCN
   translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
   translated_data_types-label-data_type_id-10: mapa
@@ -193,12 +193,12 @@ es-db:
   translated_resource_statuses-label-resource_status_id-9: Proceso falló
   translated_service_types-label-service_type_id-1: Esquema de Transferencia EOL
   translated_service_types-label-service_type_id-2: Otro
-  translated_sort_styles-name-sort_style_id-1: Recientemente agregados
-  translated_sort_styles-name-sort_style_id-2: Más viejo
+  translated_sort_styles-name-sort_style_id-1: Añadidos Recientemente
+  translated_sort_styles-name-sort_style_id-2: Antiguos
   translated_sort_styles-name-sort_style_id-3: Alfabético
   translated_sort_styles-name-sort_style_id-4: Alfabético Inverso
   translated_sort_styles-name-sort_style_id-5: Riqueza
-  translated_sort_styles-name-sort_style_id-6: Puntaje
+  translated_sort_styles-name-sort_style_id-6: Clasificación
   translated_statuses-label-status_id-1: Insertado
   translated_statuses-label-status_id-2: Actualizado
   translated_statuses-label-status_id-3: Sin cambio
@@ -268,10 +268,11 @@ es-db:
   translated_synonym_relations-label-synonym_relation_id-9: genbank nombre común
   translated_table_of_contents-label-table_of_contents_id-1: Visión general
   translated_table_of_contents-label-table_of_contents_id-13: Nombres comunes
-  translated_table_of_contents-label-table_of_contents_id-14: UICN
+  translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-17: Referencias de la Literatura
   translated_table_of_contents-label-table_of_contents_id-194: Tamaño
   translated_table_of_contents-label-table_of_contents_id-2: Breve Resumen
+  translated_table_of_contents-label-table_of_contents_id-204: Recursos de educación
   translated_table_of_contents-label-table_of_contents_id-218: Dispersión
   translated_table_of_contents-label-table_of_contents_id-221: Riesgos
   translated_table_of_contents-label-table_of_contents_id-225: En la Web
@@ -359,7 +360,7 @@ es-db:
   translated_user_identities-label-user_identity_id-5: "un cientifico profesional"
   translated_vetted-label-vetted_id-0: Desconocido
   translated_vetted-label-vetted_id-4: Sin confianza
-  translated_vetted-label-vetted_id-5: De confianza
+  translated_vetted-label-vetted_id-5: Con confianza
   translated_vetted-label-vetted_id-6: Inapropiado
   translated_visibilities-label-visibility_id-0: Invisible
   translated_visibilities-label-visibility_id-1: Visible

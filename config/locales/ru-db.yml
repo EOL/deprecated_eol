@@ -1,0 +1,166 @@
+# Messages for Russian (Русский)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Lvova
+# Author: Meddoc13
+ru: 
+  translated_activities-name-activity_id-51: показать
+  translated_activities-name-activity_id-52: создать
+  translated_activities-name-activity_id-53: скрыть
+  translated_activities-name-activity_id-54: обновить
+  translated_activities-name-activity_id-56: удалить
+  translated_activities-name-activity_id-64: убрать
+  translated_agent_roles-label-agent_role_id-10: Проект
+  translated_agent_roles-label-agent_role_id-13: Источник
+  translated_agent_roles-label-agent_role_id-15: Контактное лицо
+  translated_agent_roles-label-agent_role_id-2: Автор
+  translated_agent_roles-label-agent_role_id-4: Композитор
+  translated_agent_roles-label-agent_role_id-7: Редактор
+  translated_agent_roles-label-agent_role_id-8: Иллюстратор
+  translated_agent_roles-label-agent_role_id-9: Фотограф
+  translated_audiences-label-audience_id-3: Дети
+  translated_collection_types-label-collection_type_id-1: Таксономия
+  translated_collection_types-label-collection_type_id-11: Ссылки
+  translated_collection_types-label-collection_type_id-12: Литература
+  translated_collection_types-label-collection_type_id-13: Таксономия
+  translated_collection_types-label-collection_type_id-15: Описание
+  translated_collection_types-label-collection_type_id-16: Изображения
+  translated_collection_types-label-collection_type_id-18: Природоохранный статус
+  translated_collection_types-label-collection_type_id-21: Номенклатура
+  translated_collection_types-label-collection_type_id-23: Ссылки
+  translated_collection_types-label-collection_type_id-24: Литература
+  translated_collection_types-label-collection_type_id-3: Описание
+  translated_collection_types-label-collection_type_id-4: Изображения
+  translated_collection_types-label-collection_type_id-6: Природоохранный статус
+  translated_collection_types-label-collection_type_id-9: Номенклатура
+  translated_contact_roles-label-contact_role_id-1: Основное контактное лицо
+  translated_contact_subjects-title-contact_subject_id-10: Содержание
+  translated_contact_subjects-title-contact_subject_id-11: Технические проблемы (сложности с сайтом, поиском или учётными записями)
+  translated_contact_subjects-title-contact_subject_id-12: Другое
+  translated_contact_subjects-title-contact_subject_id-18: Стать контент-партнёром
+  translated_contact_subjects-title-contact_subject_id-3: Обучение и образование
+  translated_contact_subjects-title-contact_subject_id-5: Классификация
+  translated_content_partner_statuses-label-content_partner_status_id-1: На рассмотрении
+  translated_content_partner_statuses-label-content_partner_status_id-3: Архивировано
+  translated_content_tables-label-content_table_id-1: Детали
+  translated_data_types-label-data_type_id-1: Изображение
+  translated_data_types-label-data_type_id-2: Звук
+  translated_data_types-label-data_type_id-3: Текст
+  translated_data_types-label-data_type_id-4: Видео
+  translated_data_types-label-data_type_id-6: МСОП
+  translated_data_types-label-data_type_id-8: YouTube
+  translated_licenses-description-license_id-2: © Все права защищены
+  translated_licenses-description-license_id-29: Некоторые права защищены
+  translated_licenses-description-license_id-3: Некоторые права защищены
+  translated_licenses-description-license_id-30: Некоторые права защищены
+  translated_licenses-description-license_id-31: Некоторые права защищены
+  translated_licenses-description-license_id-32: Некоторые права защищены
+  translated_licenses-description-license_id-33: Некоторые права защищены
+  translated_licenses-description-license_id-34: Общественное достояние
+  translated_licenses-description-license_id-35: Общественное достояние
+  translated_licenses-description-license_id-36: Некоторые права защищены
+  translated_licenses-description-license_id-37: Некоторые права защищены
+  translated_licenses-description-license_id-38: Некоторые права защищены
+  translated_licenses-description-license_id-39: Общественное достояние
+  translated_licenses-description-license_id-4: Некоторые права защищены
+  translated_licenses-description-license_id-42: Некоторые права защищены
+  translated_licenses-description-license_id-43: Лицензия неприменима
+  translated_licenses-description-license_id-5: Некоторые права защищены
+  translated_licenses-description-license_id-6: Некоторые права защищены
+  translated_licenses-description-license_id-7: Некоторые права защищены
+  translated_licenses-description-license_id-8: Некоторые права защищены
+  translated_licenses-description-license_id-9: Некоторые права защищены
+  translated_ranks-label-rank_id-112: род
+  translated_ranks-label-rank_id-113: род
+  translated_ranks-label-rank_id-118: род
+  translated_ranks-label-rank_id-183: царство
+  translated_ranks-label-rank_id-335: виды
+  translated_ranks-label-rank_id-370: подкласс
+  translated_ranks-label-rank_id-383: подсемейство
+  translated_ranks-label-rank_id-396: подцарство
+  translated_ranks-label-rank_id-399: подотряд
+  translated_ranks-label-rank_id-51: класс
+  translated_ranks-label-rank_id-512: разн.
+  translated_ranks-label-rank_id-513: разн.
+  translated_ranks-label-rank_id-517: разновидности
+  translated_ranks-label-rank_id-74: отдел
+  translated_resource_statuses-label-resource_status_id-1: Загрузка
+  translated_resource_statuses-label-resource_status_id-10: Опубликовано
+  translated_resource_statuses-label-resource_status_id-2: Загружено
+  translated_resource_statuses-label-resource_status_id-3: Сбой при загрузке
+  translated_resource_statuses-label-resource_status_id-7: Обрабатывается
+  translated_resource_statuses-label-resource_status_id-8: Обработано
+  translated_resource_statuses-label-resource_status_id-9: Ошибка обработки
+  translated_sort_styles-name-sort_style_id-1: Недавно добавленные
+  translated_sort_styles-name-sort_style_id-2: Старейшие
+  translated_sort_styles-name-sort_style_id-3: В алфавитном порядке
+  translated_sort_styles-name-sort_style_id-4: В обратном алфавитном порядке
+  translated_sort_styles-name-sort_style_id-6: Рейтинг
+  translated_statuses-label-status_id-2: Обновлено
+  translated_statuses-label-status_id-3: Без изменений
+  translated_synonym_relations-label-synonym_relation_id-1: синоним
+  translated_synonym_relations-label-synonym_relation_id-12: включает в себя
+  translated_synonym_relations-label-synonym_relation_id-16: неоднозначный синоним
+  translated_synonym_relations-label-synonym_relation_id-21: другое, см. комментарии
+  translated_synonym_relations-label-synonym_relation_id-3: акроним
+  translated_synonym_relations-label-synonym_relation_id-45: базионим
+  translated_synonym_relations-label-synonym_relation_id-51: принято
+  translated_synonym_relations-label-synonym_relation_id-6: эквивалентное название
+  translated_synonym_relations-label-synonym_relation_id-63: не принято
+  translated_table_of_contents-label-table_of_contents_id-1: Обзор
+  translated_table_of_contents-label-table_of_contents_id-14: МСОП
+  translated_table_of_contents-label-table_of_contents_id-17: Ссылки на литературу
+  translated_table_of_contents-label-table_of_contents_id-194: Размер
+  translated_table_of_contents-label-table_of_contents_id-2: Краткий обзор
+  translated_table_of_contents-label-table_of_contents_id-204: Образовательные ресурсы
+  translated_table_of_contents-label-table_of_contents_id-221: Риски
+  translated_table_of_contents-label-table_of_contents_id-225: В интернете
+  translated_table_of_contents-label-table_of_contents_id-227: Поиск в Интернете
+  translated_table_of_contents-label-table_of_contents_id-24: Комментарии
+  translated_table_of_contents-label-table_of_contents_id-244: Библиографии
+  translated_table_of_contents-label-table_of_contents_id-251: Преимущества
+  translated_table_of_contents-label-table_of_contents_id-267: Морфология
+  translated_table_of_contents-label-table_of_contents_id-278: Библиография
+  translated_table_of_contents-label-table_of_contents_id-285: Ассоциации
+  translated_table_of_contents-label-table_of_contents_id-286: Природоохранный статус
+  translated_table_of_contents-label-table_of_contents_id-289: Эволюция
+  translated_table_of_contents-label-table_of_contents_id-293: Диагностическое описание
+  translated_table_of_contents-label-table_of_contents_id-299: Образование
+  translated_table_of_contents-label-table_of_contents_id-3: Физическое описание
+  translated_table_of_contents-label-table_of_contents_id-300: Википедия
+  translated_table_of_contents-label-table_of_contents_id-305: Синонимы
+  translated_table_of_contents-label-table_of_contents_id-308: Подробное описание
+  translated_table_of_contents-label-table_of_contents_id-312: Миграция
+  translated_table_of_contents-label-table_of_contents_id-316: Поведение
+  translated_table_of_contents-label-table_of_contents_id-317: Цикличность
+  translated_table_of_contents-label-table_of_contents_id-318: Жизненный цикл
+  translated_table_of_contents-label-table_of_contents_id-319: Ожидаемая продолжительность жизни
+  translated_table_of_contents-label-table_of_contents_id-320: Размножение
+  translated_table_of_contents-label-table_of_contents_id-321: Рост
+  translated_table_of_contents-label-table_of_contents_id-323: Систематика или Филогенетика
+  translated_table_of_contents-label-table_of_contents_id-324: Функциональная адаптация
+  translated_table_of_contents-label-table_of_contents_id-326: Молекулярная биология и генетика
+  translated_table_of_contents-label-table_of_contents_id-327: Физиология
+  translated_table_of_contents-label-table_of_contents_id-328: Цитология
+  translated_table_of_contents-label-table_of_contents_id-329: Генетика
+  translated_table_of_contents-label-table_of_contents_id-33: Тенденции
+  translated_table_of_contents-label-table_of_contents_id-331: Штрих-код
+  translated_table_of_contents-label-table_of_contents_id-332: Геном
+  translated_table_of_contents-label-table_of_contents_id-333: Молекулярная биология
+  translated_table_of_contents-label-table_of_contents_id-334: Угрозы
+  translated_table_of_contents-label-table_of_contents_id-335: Законодательство
+  translated_table_of_contents-label-table_of_contents_id-336: Примечания
+  translated_table_of_contents-label-table_of_contents_id-337: Образование
+  translated_table_of_contents-label-table_of_contents_id-339: Образовательные ресурсы
+  translated_table_of_contents-label-table_of_contents_id-34: Комментарии
+  translated_table_of_contents-label-table_of_contents_id-345: Источники данных
+  translated_table_of_contents-label-table_of_contents_id-4: Экология
+  translated_table_of_contents-label-table_of_contents_id-41: Среда обитания
+  translated_table_of_contents-label-table_of_contents_id-5: Эволюция и систематика
+  translated_table_of_contents-label-table_of_contents_id-6: Значимость для людей и экосистем
+  translated_table_of_contents-label-table_of_contents_id-7: Ссылки и дополнительная информация
+  translated_untrust_reasons-label-untrust_reason_id-3: низкое качество
+  translated_untrust_reasons-label-untrust_reason_id-4: дубликат
+  translated_visibilities-label-visibility_id-0: Невидимый
+  translated_visibilities-label-visibility_id-1: Видимый
+  translated_visibilities-label-visibility_id-2: Предпросмотр

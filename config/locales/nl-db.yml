@@ -1,6 +1,7 @@
 # Messages for Dutch (Nederlands)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Patio
 # Author: SPQRobin
 # Author: Siebrand
 nl: 
@@ -176,6 +177,7 @@ nl:
   translated_resource_statuses-label-resource_status_id-10: Gepubliceerd
   translated_resource_statuses-label-resource_status_id-11: Publiceren in behandeling
   translated_resource_statuses-label-resource_status_id-12: Publiceren ongedaan maken in behandeling
+  translated_resource_statuses-label-resource_status_id-13: Oogstkracht
   translated_resource_statuses-label-resource_status_id-2: Geüpload
   translated_resource_statuses-label-resource_status_id-3: Uploaden is mislukt
   translated_resource_statuses-label-resource_status_id-4: Verplaatst naar contentserver
@@ -198,6 +200,7 @@ nl:
   translated_statuses-label-status_id-4: Hergebruikt
   translated_synonym_relations-label-synonym_relation_id-1: synoniem
   translated_synonym_relations-label-synonym_relation_id-10: GenBank-synoniem
+  translated_synonym_relations-label-synonym_relation_id-11: deels
   translated_synonym_relations-label-synonym_relation_id-12: bevat
   translated_synonym_relations-label-synonym_relation_id-13: verkeerd benoemd
   translated_synonym_relations-label-synonym_relation_id-14: foutieve spelling

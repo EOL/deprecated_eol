@@ -1,0 +1,238 @@
+# Messages for Breton (Brezhoneg)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Fulup
+br: 
+  translated_activities-name-activity_id-19: profil
+  translated_activities-name-activity_id-50: diasur
+  translated_activities-name-activity_id-51: diskouez
+  translated_activities-name-activity_id-52: krouiñ
+  translated_activities-name-activity_id-53: kuzhat
+  translated_activities-name-activity_id-54: hizivaat
+  translated_activities-name-activity_id-55: Na glot ket
+  translated_activities-name-activity_id-56: diverkañ
+  translated_activities-name-activity_id-57: feur
+  translated_activities-name-activity_id-58: asur
+  translated_activities-name-activity_id-59: anwiriet
+  translated_activities-name-activity_id-63: dastum
+  translated_activities-name-activity_id-64: lemel
+  translated_agent_roles-label-agent_role_id-1: Buhezour
+  translated_agent_roles-label-agent_role_id-10: Raktres
+  translated_agent_roles-label-agent_role_id-11: Embanner
+  translated_agent_roles-label-agent_role_id-12: Sonenroller
+  translated_agent_roles-label-agent_role_id-13: Mammenn
+  translated_agent_roles-label-agent_role_id-14: Mammenn an diaz roadennoù
+  translated_agent_roles-label-agent_role_id-2: Aozer
+  translated_agent_roles-label-agent_role_id-3: Kenstroller
+  translated_agent_roles-label-agent_role_id-5: Krouer
+  translated_agent_roles-label-agent_role_id-6: Rener
+  translated_agent_roles-label-agent_role_id-7: Skridaozer
+  translated_agent_roles-label-agent_role_id-8: Skeudennaouer
+  translated_agent_roles-label-agent_role_id-9: Luc'hskeudenner
+  translated_audiences-label-audience_id-1: Implijerien arroutet
+  translated_audiences-label-audience_id-2: Kevredig
+  translated_audiences-label-audience_id-3: Bugale
+  translated_collection_types-label-collection_type_id-1: Taksonomiezh
+  translated_collection_types-label-collection_type_id-10: Sonioù
+  translated_collection_types-label-collection_type_id-11: Liammoù
+  translated_collection_types-label-collection_type_id-12: Lennegezh
+  translated_collection_types-label-collection_type_id-13: Taksonomiezh
+  translated_collection_types-label-collection_type_id-14: Kodoù barrennoù molekulel
+  translated_collection_types-label-collection_type_id-15: Deskrivadur
+  translated_collection_types-label-collection_type_id-16: Skeudennoù
+  translated_collection_types-label-collection_type_id-17: Dasparzh
+  translated_collection_types-label-collection_type_id-18: Stad mirout
+  translated_collection_types-label-collection_type_id-19: Titouroù war an anv
+  translated_collection_types-label-collection_type_id-2: Kodoù barrennoù molekulel
+  translated_collection_types-label-collection_type_id-20: Roadennoù molekulel
+  translated_collection_types-label-collection_type_id-21: Nomenkladur
+  translated_collection_types-label-collection_type_id-22: Sonioù
+  translated_collection_types-label-collection_type_id-23: Liammoù
+  translated_collection_types-label-collection_type_id-24: Lennegezh
+  translated_collection_types-label-collection_type_id-3: Deskrivadur
+  translated_collection_types-label-collection_type_id-4: Skeudennoù
+  translated_collection_types-label-collection_type_id-5: Dasparzh
+  translated_collection_types-label-collection_type_id-6: Stad mirout
+  translated_collection_types-label-collection_type_id-7: Titouroù war an anv
+  translated_collection_types-label-collection_type_id-8: Roadennoù molekulel
+  translated_collection_types-label-collection_type_id-9: Nomenkladur
+  translated_contact_roles-label-contact_role_id-1: Darempred pennañ
+  translated_contact_roles-label-contact_role_id-2: Darempred melestradurel
+  translated_contact_roles-label-contact_role_id-3: Darempred teknikel
+  translated_contact_subjects-title-contact_subject_id-1: Darempred mediaoù (atersadennoù, goulennoù skeudennoù)
+  translated_contact_subjects-title-contact_subject_id-10: Danvez
+  translated_contact_subjects-title-contact_subject_id-11: Kudennoù teknikel (trubuilhoù gant al lec'hienn, al lusker enklask pe ar c'hontoù implijer)
+  translated_contact_subjects-title-contact_subject_id-12: All
+  translated_contact_subjects-title-contact_subject_id-14: Goulenn evit enporzhiañ skeudennoù
+  translated_contact_subjects-title-contact_subject_id-15: Reizhañ un dra bennak (skeudennoù, reizhskrivañ & yezhadur, titouroù)
+  translated_contact_subjects-title-contact_subject_id-16: Soñjoù diwar-benn ar raktres dre-vras
+  translated_contact_subjects-title-contact_subject_id-17: Ober un donezon arc'hant
+  translated_contact_subjects-title-contact_subject_id-18: Dont da vezañ ur c'heveler evit an danvez
+  translated_contact_subjects-title-contact_subject_id-19: Evezhiadennoù d'ar strollad Pajennoù spesadoù
+  translated_contact_subjects-title-contact_subject_id-2: Degasadennoù
+  translated_contact_subjects-title-contact_subject_id-20: Skoazell evit ar re a zegas danvez
+  translated_contact_subjects-title-contact_subject_id-21: Kas ur postel da Cynthia Parr er strollad Pajennoù Spesadoù
+  translated_contact_subjects-title-contact_subject_id-22: Barregezhioù pleg-mor Mec'hiko
+  translated_contact_subjects-title-contact_subject_id-3: Deskiñ ha Kelenn
+  translated_contact_subjects-title-contact_subject_id-5: Rummatadur
+  translated_contact_subjects-title-contact_subject_id-6: Enklask bevstlennegel
+  translated_contact_subjects-title-contact_subject_id-7: Enklask bevoniel
+  translated_contact_subjects-title-contact_subject_id-8: Bevoniezh plant
+  translated_contact_subjects-title-contact_subject_id-9: Lennegezh ha Levraoueg Hêrezh ar Vevliesseurted
+  translated_content_partner_statuses-label-content_partner_status_id-1: O c'hortoz
+  translated_content_partner_statuses-label-content_partner_status_id-2: Oberiant
+  translated_content_partner_statuses-label-content_partner_status_id-3: Diellaouet
+  translated_content_partner_statuses-label-content_partner_status_id-4: Dizoberiant
+  translated_content_tables-label-content_table_id-1: Munudoù
+  translated_data_types-label-data_type_id-1: Skeudenn
+  translated_data_types-label-data_type_id-2: Son
+  translated_data_types-label-data_type_id-3: Testenn
+  translated_data_types-label-data_type_id-4: Video
+  translated_data_types-label-data_type_id-5: Skeudenn GBIF
+  translated_data_types-label-data_type_id-6: IUCN
+  translated_data_types-label-data_type_id-7: Luc'h
+  translated_data_types-label-data_type_id-8: YouTube
+  translated_licenses-description-license_id-1: Kuit a wirioù miret
+  translated_licenses-description-license_id-2: © Pep gwir miret strizh
+  translated_licenses-description-license_id-29: Tammoù gwirioù miret
+  translated_licenses-description-license_id-3: Tammoù gwirioù miret
+  translated_licenses-description-license_id-30: Tammoù gwirioù miret
+  translated_licenses-description-license_id-31: Tammoù gwirioù miret
+  translated_licenses-description-license_id-32: Tammoù gwirioù miret
+  translated_licenses-description-license_id-33: Tammoù gwirioù miret
+  translated_licenses-description-license_id-34: Domani foran
+  translated_licenses-description-license_id-35: Domani foran
+  translated_licenses-description-license_id-36: Tammoù gwirioù miret
+  translated_licenses-description-license_id-37: Tammoù gwirioù miret
+  translated_licenses-description-license_id-38: Tammoù gwirioù miret
+  translated_licenses-description-license_id-39: Domani foran
+  translated_licenses-description-license_id-4: Tammoù gwirioù miret
+  translated_licenses-description-license_id-42: Tammoù gwirioù miret
+  translated_licenses-description-license_id-43: Ne zegouezh ket an aotre-implijout
+  translated_licenses-description-license_id-5: Tammoù gwirioù miret
+  translated_licenses-description-license_id-6: Tammoù gwirioù miret
+  translated_licenses-description-license_id-7: Tammoù gwirioù miret
+  translated_licenses-description-license_id-8: Tammoù gwirioù miret
+  translated_licenses-description-license_id-9: Tammoù gwirioù miret
+  translated_ranks-label-rank_id-112: gen.
+  translated_ranks-label-rank_id-113: gen.
+  translated_ranks-label-rank_id-118: genad
+  translated_ranks-label-rank_id-169: isurzhad
+  translated_ranks-label-rank_id-175: isspesadoù
+  translated_ranks-label-rank_id-183: rouantelezh
+  translated_ranks-label-rank_id-266: Urzhad
+  translated_ranks-label-rank_id-313: rann
+  translated_ranks-label-rank_id-314: rann.
+  translated_ranks-label-rank_id-317: rannad
+  translated_ranks-label-rank_id-324: heuliadoù
+  translated_ranks-label-rank_id-332: SP
+  translated_ranks-label-rank_id-333: sp.
+  translated_ranks-label-rank_id-335: spesadoù
+  translated_ranks-label-rank_id-352: iskerentiad
+  translated_ranks-label-rank_id-370: iskevrennad
+  translated_ranks-label-rank_id-375: isrann
+  translated_ranks-label-rank_id-383: iskerentiad
+  translated_ranks-label-rank_id-390: isgenad
+  translated_ranks-label-rank_id-391: isgenad
+  translated_ranks-label-rank_id-394: isgenad
+  translated_ranks-label-rank_id-396: isrouantelezh
+  translated_ranks-label-rank_id-399: isurzhad
+  translated_ranks-label-rank_id-408: isrannad
+  translated_ranks-label-rank_id-411: isrannadoù
+  translated_ranks-label-rank_id-413: issp.
+  translated_ranks-label-rank_id-414: issp.
+  translated_ranks-label-rank_id-415: isspesadoù
+  translated_ranks-label-rank_id-422: ismeuriad
+  translated_ranks-label-rank_id-463: uskerentiad
+  translated_ranks-label-rank_id-494: meuriad
+  translated_ranks-label-rank_id-503: dirumm
+  translated_ranks-label-rank_id-51: rummad
+  translated_ranks-label-rank_id-512: seu
+  translated_ranks-label-rank_id-513: seu.
+  translated_ranks-label-rank_id-517: Seurtadoù
+  translated_ranks-label-rank_id-518: Seurtad
+  translated_ranks-label-rank_id-74: skourrad
+  translated_ranks-label-rank_id-91: kerent.
+  translated_ranks-label-rank_id-92: kerent.
+  translated_ranks-label-rank_id-99: kerentiad
+  translated_resource_statuses-label-resource_status_id-1: Oc'h enporzhiañ
+  translated_resource_statuses-label-resource_status_id-10: Embannet
+  translated_resource_statuses-label-resource_status_id-11: O c'hortoz bezañ embannet
+  translated_resource_statuses-label-resource_status_id-12: Nullañ an embannadenn war ar stern
+  translated_resource_statuses-label-resource_status_id-13: Eostad dre heg
+  translated_resource_statuses-label-resource_status_id-2: Enporzhiet
+  translated_resource_statuses-label-resource_status_id-3: Enporzhiadenn c'hwitet
+  translated_resource_statuses-label-resource_status_id-4: Treuzkaset d'ar servijer danvez
+  translated_resource_statuses-label-resource_status_id-5: Kadarnaet
+  translated_service_types-label-service_type_id-1: Chema treuzkas EOL
+  translated_service_types-label-service_type_id-2: All
+  translated_sort_styles-name-sort_style_id-2: Koshañ
+  translated_sort_styles-name-sort_style_id-3: Lizherennek
+  translated_sort_styles-name-sort_style_id-4: Eilpennañ al lizherenneg
+  translated_sort_styles-name-sort_style_id-5: Pinvidigezh
+  translated_statuses-label-status_id-2: Hizivaet
+  translated_statuses-label-status_id-3: Digemm
+  translated_statuses-label-status_id-4: Adimplijet
+  translated_synonym_relations-label-synonym_relation_id-16: heñvelster amjestr
+  translated_synonym_relations-label-synonym_relation_id-19: anv degemeret
+  translated_synonym_relations-label-synonym_relation_id-2: anv-boutin
+  translated_synonym_relations-label-synonym_relation_id-3: gwreskanv
+  translated_synonym_relations-label-synonym_relation_id-49: anv reizh
+  translated_synonym_relations-label-synonym_relation_id-50: reizh
+  translated_synonym_relations-label-synonym_relation_id-51: Degemeret
+  translated_synonym_relations-label-synonym_relation_id-52: aotrouniezh
+  translated_synonym_relations-label-synonym_relation_id-53: anv diembann
+  translated_synonym_relations-label-synonym_relation_id-6: anv all
+  translated_table_of_contents-label-table_of_contents_id-1: Brassell
+  translated_table_of_contents-label-table_of_contents_id-13: Anvioù-boutin
+  translated_table_of_contents-label-table_of_contents_id-14: IUCN
+  translated_table_of_contents-label-table_of_contents_id-17: Daveennoù el lennegezh
+  translated_table_of_contents-label-table_of_contents_id-194: Ment
+  translated_table_of_contents-label-table_of_contents_id-2: Diverrañ krak-ha-berr
+  translated_table_of_contents-label-table_of_contents_id-221: Riskloù
+  translated_table_of_contents-label-table_of_contents_id-225: War ar Genrouedad
+  translated_table_of_contents-label-table_of_contents_id-227: Klask er Genrouedad
+  translated_table_of_contents-label-table_of_contents_id-24: Evezhiadenn
+  translated_table_of_contents-label-table_of_contents_id-242: Ekologiezh dre-vras
+  translated_table_of_contents-label-table_of_contents_id-244: Levrlennadurioù
+  translated_table_of_contents-label-table_of_contents_id-267: Morfologiezh
+  translated_table_of_contents-label-table_of_contents_id-278: Levrlennadur
+  translated_table_of_contents-label-table_of_contents_id-286: Stad mirout
+  translated_table_of_contents-label-table_of_contents_id-289: Emdroadur
+  translated_table_of_contents-label-table_of_contents_id-293: Deskrivadur an diagnostik
+  translated_table_of_contents-label-table_of_contents_id-296: Melestradurezh
+  translated_table_of_contents-label-table_of_contents_id-297: Strategiezh trofek
+  translated_table_of_contents-label-table_of_contents_id-299: Deskadurezh
+  translated_table_of_contents-label-table_of_contents_id-3: Deskrivadur fizikel
+  translated_table_of_contents-label-table_of_contents_id-300: Wikipedia
+  translated_table_of_contents-label-table_of_contents_id-303: Anvioù ha Taksonomiezh
+  translated_table_of_contents-label-table_of_contents_id-304: Anvioù kar
+  translated_table_of_contents-label-table_of_contents_id-305: Heñvelsterioù
+  translated_table_of_contents-label-table_of_contents_id-306: Stadegoù ar pajennoù
+  translated_table_of_contents-label-table_of_contents_id-307: Diverrañ war an danvez
+  translated_table_of_contents-label-table_of_contents_id-308: Deskrivadur klok
+  translated_table_of_contents-label-table_of_contents_id-309: Dasparzh
+  translated_table_of_contents-label-table_of_contents_id-310: Diorroadur
+  translated_table_of_contents-label-table_of_contents_id-321: Kresk
+  translated_table_of_contents-label-table_of_contents_id-33: Tuadurioù
+  translated_table_of_contents-label-table_of_contents_id-335: Lezennadur
+  translated_table_of_contents-label-table_of_contents_id-336: Notennoù
+  translated_table_of_contents-label-table_of_contents_id-337: Deskadurezh
+  translated_table_of_contents-label-table_of_contents_id-338: Liammoù kelenn
+  translated_table_of_contents-label-table_of_contents_id-339: Danvez pedagogel
+  translated_table_of_contents-label-table_of_contents_id-34: Evezhiadennoù
+  translated_table_of_contents-label-table_of_contents_id-4: Ekologiezh
+  translated_table_of_contents-label-table_of_contents_id-41: Annez
+  translated_table_of_contents-label-table_of_contents_id-5: Emdroadur ha sistemategezh
+  translated_table_of_contents-label-table_of_contents_id-7: Daveennoù ha titouroù ouzhpenn
+  translated_table_of_contents-label-table_of_contents_id-8: Mirerezh
+  translated_untrust_reasons-label-untrust_reason_id-2: direizh/faziek
+  translated_untrust_reasons-label-untrust_reason_id-3: kalite izel
+  translated_untrust_reasons-label-untrust_reason_id-5: All
+  translated_vetted-label-vetted_id-0: Dianav
+  translated_vetted-label-vetted_id-4: Diasur
+  translated_vetted-label-vetted_id-5: Asur
+  translated_vetted-label-vetted_id-6: Na glot ket
+  translated_visibilities-label-visibility_id-0: Diwelus
+  translated_visibilities-label-visibility_id-1: Gwelus
+  translated_visibilities-label-visibility_id-2: Rakwelet

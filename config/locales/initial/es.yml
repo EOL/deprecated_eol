@@ -742,14 +742,14 @@ es:
   content_partner_resource_edit_subheader: Editar recurso
   content_partner_resource_force_harvest_link: Obligar cosecha
   content_partner_resource_licensing_details_header: Derechos &amp; atribución
-  content_partner_resource_new_edit_form_tip: Introducir información sobre su recurso de datos. El idioma, la licencia y el nombre del recurso son %{required_icon} obligatorios . Además, escriba la dirección URL pública de su recurso de datos del Esquema de Transferencia de EOL y especifique con qué frecuencia desea que sus datos sean cosechados por EOL. Si no tiene una URL pública para su recurso de datos, puede subir directamente un archivo de datos del Esquema de Transferencia de EOL en formato GZIP, TAR o XML.
+  content_partner_resource_new_edit_form_tip: Introducre información sobre su fuente de datos. Asegúrese de proporcionar un nombre de recurso y escriba la dirección URL pública del archivo de datos o cargar el archivo en formato GZIP, TAR o XML. Si usted proporciona una dirección URL, también se puede especificar con qué frecuencia le gustaría que sus datos sean cosechados por EOL. Por favor, asegúrese de que su archivo de datos en un formato que puede ser importado por EOL.<a href=\"%{more_url}\">Más información sobre los formatos de datos</a>."
   content_partner_resource_new_link: Agregar un nuevo recurso
   content_partner_resource_new_subheader: Agregar un nuevo recurso
   content_partner_resource_preview_collection_header: Vista previa de colección
   content_partner_resource_resource_status_new: Creado
   content_partner_resource_show_subheader: Detalles de recurso <em>%{resource_title}</em>
   content_partner_resource_update_successful_notice: "Detalles de recurso de socio de contenido actualizados exitosamente. Estado actual del recurso de datos: %{resource_status}."
-  content_partner_resource_update_unsuccessful_error: Lo sentimos, ha ocurrido un error, el recurso no se ha actualizado.
+  content_partner_resource_update_unsuccessful_error: "Lo sentimos, ha ocurrido un error, los detalles de los recursos no se han actualizado."
   content_partner_resource_url_or_dataset_not_both_error: URL de conjunto de datos o archivo para cada recurso, pero no ambos. Por favor, decida si desea proporcionar una dirección URL o subir un archivo de este recurso descrito. Recursos adicionales se pueden agregar más adelante.
   content_partner_resources_header: Recursos
   content_partner_resources_information: Los recursos son conjuntos de datos que están disponibles para la recolección de EOL. Datos recogidos está integrados en la base de datos de EOL y sirvió al público a través del sitio Web de EOL y API. Tampoco se pueden cargar archivos de recursos directamente a EOL o, si haces tu archivo de recursos disponibles en un servidor Web público, EOL puede extraer automáticamente los datos a intervalos regulares que se pueden definir. Cada archivo de recursos debe estar en el formato de <a href="%{eol_transfer_schema_url}">EOL Transfer Schema</a>
@@ -1190,7 +1190,7 @@ es:
   newsfeed: Suministro de noticias
   no_active_members: No ha habido suficiente actividad todavía.
   no_items_were_copied_to_collections_error: Nimgún elemento fue copiado a las colecciones:%{names}.
-  no_related_names: No hay ningún nombre relacionado.
+  no_related_names: "Ninguno de los nombres se han relacionado con este taxón todavía."
   no_tasks_found: No encontró tareas
   no_user_submitted_data_objects: No hay objetos de datos enviados por el usuario que coincidan con sus criterios de búsqueda.
   none: ninguno
@@ -1275,7 +1275,7 @@ es:
   published_content_partners: Socios de Contenidos Publicados
   punctuation_comma: ","
   quarterly: Trimestral
-  rank_recognized_by_agent_colon: "%{rank} reconocido por %{agent}:"
+  rank_recognized_by_agent_colon: "<b>%{rank}</b> reconocido por %{agent}:"
   rated_by_count_people:
     one: de %{count} persona
     other: de %{count} personas
@@ -1353,7 +1353,7 @@ es:
   show: Mostrar
   show_data_from_all_content_partners: Eliminar filtro de clasificación
   show_email_message_area: "[mostrar el área de mensajes de correo electrónico]"
-  show_full_tree: Mostrar árbol completo
+  show_full_tree: "Mostra el árbol completo"
   show_status_message: Mostrar mensaje de estado
   show_tasks: mostrar las tareas
   show_warning_message: Mostrar mensaje de advertencia
@@ -1569,7 +1569,7 @@ es:
   activate_email_enjoy_exploring: "Disfrute explorando la diversidad de la vida"
   activate_email_footer: "- Equipo de la Enciclopedia de la Vida"
   activate_email_intro: "Estimado %{full_name} (%{username}),"
-  activate_email_welcome: "¡Bienvenido a la Enciclopedia de la Vida y muchas gracias por registrarse!  Para aprender más sobre cómo usar el sitio, vea las páginas de FAQ (http://www.eol.org/faq) y lea nuestro boletín (http://www.eol.org/content/page/newsletter)."
+  activate_email_welcome: "Bienvenidos a la Enciclopedia de la Vida y gracias por registrarse! Para obtener más información acerca de cómo usar el sitio, ver nuestras páginas de ayuda ( %{url}help )."
   add_a_new_user: "Agregar un nuevo usuario"
   add_education_resources_to_page_link_button: "Agregar recursos educativos a esta página"
   add_identification_resources_to_page_link_button: "Agregar recursos de identificación a esta página"

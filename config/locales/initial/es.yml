@@ -1856,11 +1856,11 @@ es:
   frequency_never: "Nunca"
   frequency_weekly: "Seminal"
   names_synonyms_empty: "No sinónimos se han asociado a este taxón todavía."
-  newsfeed_help_for_collection: "El suministro de noticias para esta colección reúne EOL cambios asociados con los elementos que pertenecen a la misma, incluidas las actividades de su propietario y los comentarios de otros usuarios de EOL ".
-  newsfeed_help_for_community: "El suministro de noticias para esta Comunidad EOL reúne actualizaciones asociadas con los elementos que pertenecen a la Colección Focus, incluyendo las actividades de sus miembros y los comentarios de otros usuarios de EOL ".
-  newsfeed_help_for_focus_list: "El suministro de noticias recopia la Lista de Enfoque a las actualizaciones relacionadas con los elementos que pertenecen a la lista de una Comunidad EOL es objetivo principal, incluidas las actividades de sus directivos y los comentarios de otros usuarios de EOL ".
-  newsfeed_help_for_profile: "El perfil EOL suministro de noticias contiene los mensajes dejados por su propietario por otros miembros, invitaciones EOL Comunidad, y recoge las actualizaciones relacionadas con los elementos de la Watch EOL lista".
-  newsfeed_help_for_taxon: "El suministro de noticias de esta página Taxón EOL recoge cambios asociados con elementos que aparecen en ella, incluyendo las acciones de comisario y los comentarios de los usuarios de EOL ".
+  newsfeed_help_for_collection: "El suministro de noticias para esta colección reúne EOL cambios asociados con los elementos que pertenecen a la misma, incluidas las actividades de su propietario y los comentarios de otros usuarios de EOL."
+  newsfeed_help_for_community: "El suministro de noticias para esta Comunidad EOL reúne actualizaciones asociadas con los elementos que pertenecen a la Colección Focus, incluyendo las actividades de sus miembros y los comentarios de otros usuarios de EOL."
+  newsfeed_help_for_focus_list: "El suministro de noticias recopia la Lista de Enfoque a las actualizaciones relacionadas con los elementos que pertenecen a la lista de una Comunidad EOL es objetivo principal, incluidas las actividades de sus directivos y los comentarios de otros usuarios de EOL."
+  newsfeed_help_for_profile: "El perfil EOL suministro de noticias contiene los mensajes dejados por su propietario por otros miembros, invitaciones EOL Comunidad, y recoge las actualizaciones relacionadas con los elementos de la Watch EOL lista."
+  newsfeed_help_for_taxon: "El suministro de noticias de esta página Taxón EOL recoge cambios asociados con elementos que aparecen en ella, incluyendo las acciones de comisario y los comentarios de los usuarios de EOL."
   newsfeed_help_for_watchlist: "La lista Watch EOL Newsfeed reúne actualizaciones asociadas con los elementos en la lista del propietario Watch EOL, incluidas las actividades de su propietario. "
   profile_newsfeed: "Newsfeed Mio"
   see_all_featured_collections_with_count:
@@ -1870,7 +1870,7 @@ es:
   sort_by_title_ascending: "Título Ascendente"
   sort_by_year_ascending: "Año Ascendente"
   taxon_newsfeed: "Newsfeed de Taxón"
-  monthly_email_notification_description: "Esto enviará un correo electrónico a todos los contactos de contenido socio para informarles que ahora pueden comprobar el uso de el web del mes pasado de sus datos en EOL ".
+  monthly_email_notification_description: "Esto enviará un correo electrónico a todos los contactos de contenido socio para informarles que ahora pueden comprobar el uso de el web del mes pasado de sus datos en EOL."
   value_empty: "(vacío)"
   value_default: "(por defecto)"
   view_video_source: "Ver el fuente de vídeo"

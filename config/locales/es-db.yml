@@ -3,7 +3,7 @@
 # Export driver: syck-pecl
 # Author: Erick mata
 # Author: Sampalahnuk
-es:
+es-db:
   translated_activities-name-activity_id-19: perfil
   translated_activities-name-activity_id-50: Sin confianza
   translated_activities-name-activity_id-51: mostrar

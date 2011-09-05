@@ -1,12 +1,17 @@
 - # No I18n req'd on error, this in internal marker, hover over mailto link in browser to see the error.
-- error = defined?(@solr_connection_refused) && @solr_connection_refused ? "EOL Error: Solr [#{current_url}]" : "EOL Error [#{current_url}]"
+- error = ''
+- begin
+  - error = defined?(@solr_connection_refused) && @solr_connection_refused ? "EOL Error: Solr [#{current_url}]" : "EOL Error [#{current_url}]"
+- rescue
+  - error = 'SERIOUS.'
 - # TODO: That email addy should be in the config file, not here:
 %p= I18n.t(:error_description, :email_address => 'error@eol.org', :error => error)
-
-- if current_user && current_user.is_admin? && defined?(message)
-  %p= I18n.t(:you_are_an_admin_so_i_will_show_you_that_the_error_was)
-  %code= message
-
+- begin
+  - if current_user && current_user.is_admin? && defined?(message)
+    %p= I18n.t(:you_are_an_admin_so_i_will_show_you_that_the_error_was)
+    %code= message
+- rescue
+  - nil
 %p
   - if defined?(@modal) && @modal
     %a.close{:href => "#"}= I18n.t(:go_back)

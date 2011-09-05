@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
   prepend_before_filter :set_session
   before_filter :clear_any_logged_in_session unless $ALLOW_USER_LOGINS
   before_filter :set_user_settings
-  before_filter :check_user_agreed_with_terms
+  before_filter :check_user_agreed_with_terms, :except => :error
 
   helper :all
 
@@ -52,7 +52,11 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
-    I18n.locale = current_user.language_abbr
+    begin
+      I18n.locale = current_user.language_abbr
+    rescue
+      I18n.locale = 'en' # Yes, I am hard-coding that because I don't want an error from Language.  Ever.
+    end
   end
 
   def rescue_action(e)
@@ -165,18 +169,22 @@ class ApplicationController < ActionController::Base
 
   # Set the page expertise and vetted defaults, get from querystring, update the session with this value if found
   def set_user_settings
-    return if request.path =~ /logout$/
-    expertise = params[:expertise] if ['novice', 'middle', 'expert'].include?(params[:expertise])
-    if !expertise.blank? && current_user.expertise != expertise
-      alter_current_user do |user|
-        user.expertise = expertise unless expertise.nil?
+    begin
+      return if request.path =~ /logout$/
+      expertise = params[:expertise] if ['novice', 'middle', 'expert'].include?(params[:expertise])
+      if !expertise.blank? && current_user.expertise != expertise
+        alter_current_user do |user|
+          user.expertise = expertise unless expertise.nil?
+        end
       end
-    end
-    vetted = EOLConvert.to_boolean(params[:vetted])
-    if !vetted.blank? && current_user.vetted != vetted
-      alter_current_user do |user|
-        user.vetted = vetted unless vetted.blank?
+      vetted = EOLConvert.to_boolean(params[:vetted])
+      if !vetted.blank? && current_user.vetted != vetted
+        alter_current_user do |user|
+          user.vetted = vetted unless vetted.blank?
+        end
       end
+    rescue => e
+      logger.error "** ERROR in set_user_settings: #{e.message}"
     end
   end
 
@@ -252,17 +260,25 @@ class ApplicationController < ActionController::Base
   # check to see if a session exists, and create if it not
   #  even non-logged in users get a session to store their expertise and language preferences
   def set_session
+    recover_bad_sessions_and_cookies
     unless logged_in?
+      create_new_user
+      clear_old_sessions if $USE_SQL_SESSION_MANAGEMENT
+      # expire home page fragment caches after specified internal to keep it fresh
+      if $CACHE_CLEARED_LAST.advance(:hours => $CACHE_CLEAR_IN_HOURS) < Time.now
+        expire_cache('home')
+        $CACHE_CLEARED_LAST = Time.now()
+      end
+    end
+  end
 
-       create_new_user
-       clear_old_sessions if $USE_SQL_SESSION_MANAGEMENT
-
-       # expire home page fragment caches after specified internal to keep it fresh
-       if $CACHE_CLEARED_LAST.advance(:hours => $CACHE_CLEAR_IN_HOURS) < Time.now
-         expire_cache('home')
-         $CACHE_CLEARED_LAST = Time.now()
-       end
-
+  def recover_bad_sessions_and_cookies
+    begin
+      session.values && cookies.values # Just cycle through the values. Bad values will raise exceptions.
+    rescue
+      session = nil
+      cookies = nil
+      flash[:notice] = I18n.t(:welcome_and_you_were_logged_out)
     end
   end
 

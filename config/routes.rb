@@ -226,6 +226,7 @@ ActionController::Routing::Routes.draw do |map|
     content_page.cms_crumbs   '/info/*crumbs'
   end
   map.donate '/donate', :controller => 'content', :action => 'donate'
+  map.language '/language', :controller => 'content', :action => 'language'
 
   map.resources :wikipedia_queues, :as => :wikipedia_imports, :only => [:new, :create]
 

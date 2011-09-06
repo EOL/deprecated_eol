@@ -305,7 +305,7 @@ describe User do
 
   it 'should increase no. of curated data objects for a curator' do
       temp_count = @curator.total_data_objects_curated
-      
+
       data_object = DataObject.gen()
       activity = CuratorActivityLog.gen(:user => @curator, :object_id => data_object.id, :changeable_object_type_id => ChangeableObjectType.data_objects_hierarchy_entry.id, :activity_id => TranslatedActivity.find_by_name("trusted").id )
       temp_count2 = @curator.total_data_objects_curated
@@ -329,7 +329,7 @@ describe User do
 
   it 'should increase no. of curated taxa for a curator' do
       temp_count = @curator.total_species_curated
-      
+
       taxon_concept = TaxonConcept.gen()
       data_object = DataObject.gen()
       dotc = DataObjectsTaxonConcept.gen(:taxon_concept => taxon_concept, :data_object => data_object)

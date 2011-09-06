@@ -167,6 +167,16 @@ class ContentController < ApplicationController
                   end
   end
 
+  def language
+    @page_title = I18n.t(:site_language)
+    if request.post? == false
+      store_location(request.referer)
+    else
+      selected_language = params[:site_language][:language]
+      redirect_to set_language_url(:language => selected_language)+"&return_to=#{session[:return_to]}"
+    end
+  end
+
   def donate
     @page_title = I18n.t(:donate)
     if request.post?

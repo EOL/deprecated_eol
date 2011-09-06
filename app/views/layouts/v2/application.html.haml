@@ -58,8 +58,7 @@
         .actions
           .language
             %p{ :class => I18n.locale.to_s, :title => I18n.t(:selected_language_advisory_information) }
-              - # TODO: Link to nowhere is undesirable for accessibility - make this link to a form for switching language when JS disabled.
-              - link_to "#" do
+              - link_to language_path do
                 %span
                   = I18n.t(:current_language, :iso_code => I18n.locale.to_s.upcase)
             %ul

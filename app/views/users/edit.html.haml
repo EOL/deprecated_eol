@@ -51,7 +51,7 @@
         %dt
           = user_form.label :language_abbr
         %dd
-          = user_form.select :language_abbr, Language.find_active.collect {|l| [l.source_form, l.iso_639_1]}
+          = user_form.select :language_abbr, Language.approved_languages.collect {|l| [l.source_form, l.iso_639_1]}
         %dt
           = user_form.label :email
         %dd

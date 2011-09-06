@@ -1,0 +1,14 @@
+#content.cms_page
+  .site_column
+    .article.copy.donate
+      - form_for :site_language do |f|
+        %fieldset.radio
+          %legend= I18n.t(:language_selector_advisory_information)
+          - Language.approved_languages.each do |l|
+            %p
+            = f.radio_button :language, l.iso_639_1
+            = l.source_form
+
+          %span#language_warn.error
+          %fieldset.actions
+            = submit_tag I18n.t(:submit)

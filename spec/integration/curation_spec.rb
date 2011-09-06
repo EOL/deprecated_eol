@@ -108,12 +108,6 @@ describe 'Curation' do
   #   it 'should display a "view/edit" link next to the common name in the header (obsolete?)'
   # end
 
-  it 'should expire taxon_concept from cache' do
-    login_as(@first_curator)
-    ActionController.should_receive(:expire_data_object).any_number_of_times.and_return(true)
-    visit("/data_objects/curate/#{@taxon_concept.images[0].id}?vetted_id=#{Vetted.trusted.id}")
-  end
-
   it 'should show a curator the ability to add a new common name' do
     login_as(@first_curator)
     visit("/pages/#{@taxon_concept.id}/names/common_names")

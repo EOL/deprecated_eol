@@ -723,17 +723,10 @@ private
   end
 
   def resolve_common_session_errors
-    # Things that do NOT require logout:
-    if session[:language]
-      begin
-        session[:language].downcase
-      rescue => e
-        logger.warn "!! WARNING: found a problem (#{e.class.name}) in session: #{e.message}"
-        session[:language] = nil
-      end
-    end
-    # Things that do require logout:
     begin
+      if session[:language]
+        session[:language].downcase
+      end
       if session[:user]
         session[:user].language.iso_code
         logged_in_from_session?
@@ -746,7 +739,13 @@ private
       logger.warn "!! WARNING: found a problem (#{e.class.name}) in session: #{e.message}"
       session = nil
       cookies = nil
-      flash[:notice] = I18n.t(:welcome_and_you_were_logged_out)
+      flash = {}
+      reset_session
+      flash[:notice] = begin
+                         I18n.t(:welcome_and_you_were_logged_out)
+                       rescue
+                         "There was a seious problem with your session and you have been logged out. Sorry."
+                       end
     end
   end
 

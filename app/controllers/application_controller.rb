@@ -413,6 +413,7 @@ class ApplicationController < ActionController::Base
       set_logged_in_user(user)
       return true
     else
+      cookies[:user_auth_token] = nil
       return false
     end
   end

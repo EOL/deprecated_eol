@@ -579,8 +579,10 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   #
   # YOU SHOULD ADD NEW USER ATTRIBUTES TO THIS METHOD WHEN YOU TWEAK THE USER TABLE.
   def stale?
-    # if you add to this, use 'and'; KEEP ALL OLD METHOD CHECKS.
+    # KEEP ALL OLD METHOD CHECKS
     return true unless attributes.keys.include?("filter_content_by_hierarchy")
+    return true unless attributes.keys.include?("admin") # V2
+    return false
   end
 
   def ensure_unique_username_against_master

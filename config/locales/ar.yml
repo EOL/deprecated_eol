@@ -624,7 +624,7 @@ ar:
   click_on_a_user_to_view_the_us: "أضغط على مستخدم لمشاهدة الصفحة الشخصية الخاصة به، أضغط على الأنواع لمشاهدة الصفحة التي يتواجد بها النص (استخدم مفتاح الرجوع في المتصفح للعودة إلى هنا)."
   close_this_window_to_return_to: "أغلق تلك النافذة للعودة إلى نافذة التعديل"
   clouds_provided_by_the_mbl: "غيوم مقدمة من المختبر البيولوجي البحري %{link}."
-  cms_available_in_languages: "الصفحة غير متاحة باللغة:"
+  cms_available_in_languages: "الصفحة متاحة باللغة:"
   cms_missing_content_message: "عفوًا، الصفحة غير متاحة بتلك اللغة."
   cms_missing_content_title: "محتوى مفقود"
   collect_item: "جمع العنصر"

@@ -715,6 +715,7 @@ private
 
   def log_error_cleanly(e)
     logger.error "*" * 76
+    logger.error "** #{Time.now.strftime('%Y-%m-%d %H:%M:%S')}"
     logger.error "** EXCEPTION: (#{e.class.name}) #{e.message}"
     lines_shown = 0
     index = 0

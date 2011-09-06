@@ -23,7 +23,7 @@ class ContentController < ApplicationController
 
     # recalculate the activity logs on homepage every $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME minutes
     $CACHE.fetch('homepage/activity_logs_expiration', :expires_in => $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME.minutes) do
-      expire_fragment(:action => 'index', :action_suffix => "activity_#{current_user.language.iso_code}")
+      expire_fragment(:action => 'index', :action_suffix => "activity_#{current_user.language_abbr}")
     end
 
     # recalculate the activity logs on homepage every $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME minutes

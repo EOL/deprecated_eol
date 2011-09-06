@@ -503,7 +503,7 @@ class DataObject < SpeciesSchemaModel
   def content_partner
     # TODO - change this, since it would be more efficient to go through hierarchy_entries... but the first attempt
     # (using hierarchy_entries.first) failed to find the correct data in observed cases. WEB-2850
-    harvest_events.last.resource.content_partner rescue nil
+    hierarchy_entries.first.hierarchy.resource.content_partner rescue (harvest_events.last.resource.content_partner rescue nil)
   end
 
   # 'owner' chooses someone responsible for this data object in order of preference
@@ -593,7 +593,7 @@ class DataObject < SpeciesSchemaModel
   end
 
   def self.image_cache_path(cache_url, size = :large, subdir = $CONTENT_SERVER_CONTENT_PATH)
-    return if cache_url.blank?
+    return if cache_url.blank? || cache_url == 0
     size = size ? "_" + size.to_s : ''
     cache_path(cache_url, subdir) + "#{size}.#{$SPECIES_IMAGE_FORMAT}"
   end

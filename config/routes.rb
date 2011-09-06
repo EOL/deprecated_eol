@@ -69,9 +69,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :tags, :collection => { :search => :get }
 
-  map.connect 'badsession', :controller => 'content', :action => 'badsession' # This should put illegal values in your session for testing.
   map.connect 'loggertest', :controller => 'content', :action => 'loggertest' # This is used for configuring logs and log levels.
-  map.connect 'boom', :controller => 'content', :action => 'error'
+  map.connect 'boom', :controller => 'content', :action => 'boom'
 
   # users
   map.resources :users, :path_names => { :new => :register },

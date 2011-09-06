@@ -162,11 +162,6 @@ class ContentController < ApplicationController
     redirect_to(ContentServer.uploaded_content_url(params[:id], '.' + params[:ext].to_s))#params[:id].to_s.gsub(".")[1]))
   end
 
-  def badsession
-    session[:user_id] = 9999999
-    session[:user] = User.new(:id => 9999999, :username => 'whatever') # the rest should be invalid.
-  end
-
   def loggertest
     time = Time.now.strftime('%Y-%m-%d %H:%M:%S')
     logger.fatal "~~ FATAL #{time}"
@@ -175,6 +170,10 @@ class ContentController < ApplicationController
     logger.info  "++ INFO #{time}"
     logger.debug ".. DEBUG #{time}"
     render :text => "Logs written at #{time}."
+  end
+
+  def boom
+    raise "This is an exception." # I18n not req'd
   end
 
   # error page

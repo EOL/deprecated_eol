@@ -154,6 +154,21 @@ class ContentController < ApplicationController
     redirect_to(ContentServer.uploaded_content_url(params[:id], '.' + params[:ext].to_s))#params[:id].to_s.gsub(".")[1]))
   end
 
+  def badsession
+    session[:user_id] = 9999999
+    session[:user] = User.new(:id => 9999999, :username => 'whatever') # the rest should be invalid.
+  end
+
+  def loggertest
+    time = Time.now.strftime('%Y-%m-%d %H:%M:%S')
+    logger.fatal "~~ FATAL #{time}"
+    logger.error "** ERROR #{time}"
+    logger.warn  "!! WARN #{time}"
+    logger.info  "++ INFO #{time}"
+    logger.debug ".. DEBUG #{time}"
+    render :text => "Logs written at #{time}."
+  end
+
   # error page
   def error
     @page_title = begin

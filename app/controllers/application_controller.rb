@@ -74,6 +74,7 @@ class ApplicationController < ActionController::Base
         logger.error "****\n**** ERROR: Solr connection refused.\n****"
         @solr_connection_refused = true
       else
+        resolve_common_session_errors
         log_error_cleanly(e)
       end
       @page_title = I18n.t(:error_page_title)
@@ -169,22 +170,18 @@ class ApplicationController < ActionController::Base
 
   # Set the page expertise and vetted defaults, get from querystring, update the session with this value if found
   def set_user_settings
-    begin
-      return if request.path =~ /logout$/
-      expertise = params[:expertise] if ['novice', 'middle', 'expert'].include?(params[:expertise])
-      if !expertise.blank? && current_user.expertise != expertise
-        alter_current_user do |user|
-          user.expertise = expertise unless expertise.nil?
-        end
+    return if request.path =~ /logout$/
+    expertise = params[:expertise] if ['novice', 'middle', 'expert'].include?(params[:expertise])
+    if !expertise.blank? && current_user.expertise != expertise
+      alter_current_user do |user|
+        user.expertise = expertise unless expertise.nil?
       end
-      vetted = EOLConvert.to_boolean(params[:vetted])
-      if !vetted.blank? && current_user.vetted != vetted
-        alter_current_user do |user|
-          user.vetted = vetted unless vetted.blank?
-        end
+    end
+    vetted = EOLConvert.to_boolean(params[:vetted])
+    if !vetted.blank? && current_user.vetted != vetted
+      alter_current_user do |user|
+        user.vetted = vetted unless vetted.blank?
       end
-    rescue => e
-      logger.error "** ERROR in set_user_settings: #{e.message}"
     end
   end
 
@@ -260,7 +257,6 @@ class ApplicationController < ActionController::Base
   # check to see if a session exists, and create if it not
   #  even non-logged in users get a session to store their expertise and language preferences
   def set_session
-    recover_bad_sessions_and_cookies
     unless logged_in?
       create_new_user
       clear_old_sessions if $USE_SQL_SESSION_MANAGEMENT
@@ -269,16 +265,6 @@ class ApplicationController < ActionController::Base
         expire_cache('home')
         $CACHE_CLEARED_LAST = Time.now()
       end
-    end
-  end
-
-  def recover_bad_sessions_and_cookies
-    begin
-      session.values && cookies.values # Just cycle through the values. Bad values will raise exceptions.
-    rescue
-      session = nil
-      cookies = nil
-      flash[:notice] = I18n.t(:welcome_and_you_were_logged_out)
     end
   end
 
@@ -713,24 +699,55 @@ private
   end
   helper_method :mobile_disabled_by_session?
 
+
   def log_error_cleanly(e)
-    logger.error "*" * 76
-    logger.error "** #{Time.now.strftime('%Y-%m-%d %H:%M:%S')}"
-    logger.error "** EXCEPTION: (#{e.class.name}) #{e.message}"
+    logs = []
+    logs << "*" * 76
+    logs << "** #{Time.now.strftime('%Y-%m-%d %H:%M:%S')}"
+    logs << "** EXCEPTION: (#{e.class.name}) #{e.message}"
     lines_shown = 0
     index = 0
     e.backtrace.map {|t| t.gsub(/#{RAILS_ROOT}/, '.')}.each do |trace|
       if trace =~ /\.?\/(usr|vendor).*:/
-        logger.error "       (#{trace})"
+        logs << "       (#{trace})"
       else
-        logger.error "   #{trace}"
+        logs << "   #{trace}"
         lines_shown += 1
       end
       index += 1
       break if lines_shown > 12
     end
-    logger.error "   [...#{e.backtrace.length - index} more lines omitted]" if lines_shown > 12
-    logger.error "\n\n"
+    logs << "   [...#{e.backtrace.length - index} more lines omitted]" if lines_shown > 12
+    logs << "\n\n"
+    logger.error logs.join("\n")
+  end
+
+  def resolve_common_session_errors
+    # Things that do NOT require logout:
+    if session[:language]
+      begin
+        session[:language].downcase
+      rescue => e
+        logger.warn "!! WARNING: found a problem (#{e.class.name}) in session: #{e.message}"
+        session[:language] = nil
+      end
+    end
+    # Things that do require logout:
+    begin
+      if session[:user]
+        session[:user].language.iso_code
+        logged_in_from_session?
+        logged_in_from_cookie?
+      end
+      if cookies[:user_auth_token]
+        User.find_by_remember_token(cookies[:user_auth_token])
+      end
+    rescue => e
+      logger.warn "!! WARNING: found a problem (#{e.class.name}) in session: #{e.message}"
+      session = nil
+      cookies = nil
+      flash[:notice] = I18n.t(:welcome_and_you_were_logged_out)
+    end
   end
 
 end

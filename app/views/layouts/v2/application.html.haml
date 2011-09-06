@@ -23,7 +23,7 @@
     - # Prevents generation of links to "smart tags"
     %meta{ :name => "MSSmartTagsPreventParsing", :content => "true" }
     - @meta_description ||= "The Encyclopedia of Life is an unprecedented effort to gather and share scientific knowledge about all living things in a single online resource, giving each of us a breathtaking view of our amazing world."
-    %meta{ :name => "description", :content => h(strip_tags("@meta_description")) }
+    %meta{ :name => "description", :content => h(strip_tags(@meta_description)) }
 
     - if @meta_keywords
       %meta{ :name => "keywords", :content => meta_keywords(h(@meta_keywords)) }

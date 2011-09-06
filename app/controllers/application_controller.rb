@@ -337,11 +337,6 @@ class ApplicationController < ActionController::Base
     user
   end
 
-  def reset_session
-    session[:user_id] = nil
-    current_agent = nil
-  end
-
   # return currently logged in user
   def current_user
     if logged_in?
@@ -383,7 +378,11 @@ class ApplicationController < ActionController::Base
   # this method is used as a before_filter when user logins are disabled to ensure users who may have had a previous
   # session before we switched off user logins is booted out
   def clear_any_logged_in_session
-    reset_session if logged_in?
+    if logged_in?
+      session[:user] = nil
+      session[:user_id] = nil
+      current_agent = nil
+    end
   end
 
 

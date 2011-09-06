@@ -224,6 +224,11 @@ ActionController::Routing::Routes.draw do |map|
     content_page.curators     '/curators/*ignore', :id => 'curators'
     content_page.cms_page     '/info/:id'
     content_page.cms_crumbs   '/info/*crumbs'
+    # /content/page/... are legacy V1 URLs being redirected temporarily to V2
+    # and should be removed when no longer required see http://jira.eol.org/browse/WEB-2868
+    content_page.connect '/content/page/fellows', :id => 'fellows'
+    content_page.connect '/content/page/2012eolfellowsapplication', :id => '2012_eol_fellows_application'
+    content_page.connect '/content/page/2012fellowsonlineapp', :id => '2012_fellows_online_app'
   end
   map.donate '/donate', :controller => 'content', :action => 'donate'
 

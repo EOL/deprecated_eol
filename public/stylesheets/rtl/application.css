@@ -2494,7 +2494,6 @@ body > #header {
 #media_list #main {
   overflow: hidden; }
   #media_list #main .header {
-    position: relative;
     padding: 10px 0;
     margin: 0 0 20px 0;
     text-align: center;
@@ -2556,7 +2555,6 @@ body > #header {
       margin: 0 0 3px 0; }
   #media_list ul.media > li .ratings > .rating {
     display: none;
-    float: right;
     margin: 0 0 5px 0; }
   #media_list ul.media > li .ratings:hover .average_rating {
     display: none; }
@@ -2567,7 +2565,6 @@ body > #header {
   #media_list ul.media > li .ratings.rated .average_rating {
     display: none; }
   #media_list ul.media > li .average_rating {
-    float: right;
     margin: 0 0 5px 0; }
   #media_list ul.media > li p.flag {
     float: left;
@@ -2585,7 +2582,8 @@ body > #header {
     clear: both;
     display: inline-block;
     padding: 4px 10px;
-    font-size: 0.92em; }
+    font-size: 0.92em;
+    margin-top: 5px; }
   #media_list ul.media > li.first {
     clear: both;
     padding-right: 0; }

@@ -135,6 +135,9 @@ describe 'EOL APIs' do
     
     builder = EOL::Solr::SiteSearchCoreRebuilder.new()
     builder.reindex_model(TaxonConcept)
+    SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
+    DataObject.all.each{ |d| d.update_solr_index }
+    
     visit("/api/pages/#{@taxon_concept.id}")
     @default_pages_body = body
   end

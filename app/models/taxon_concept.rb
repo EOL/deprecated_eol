@@ -991,7 +991,7 @@ class TaxonConcept < SpeciesSchemaModel
     return_data_objects = []
     # get the images
     if options[:images].to_i > 0
-      image_data_objects = top_concept_images.collect{ |tci| tci.data_object }.compact
+      image_data_objects = images_from_solr(20)
       image_data_objects = DataObject.filter_list_for_user(image_data_objects, :taxon_concept => self)
       # remove non-matching vetted and license values
       image_data_objects.delete_if do |d|

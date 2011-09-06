@@ -52,7 +52,7 @@ unless data_object.blank?
     end
     
     xml.additionalInformation do
-      xml.vettedStatus data_object.vetted.label
+      xml.vettedStatus data_object.association_with_best_vetted_status.vetted.label
       xml.dataRating data_object.data_rating
     end
   end

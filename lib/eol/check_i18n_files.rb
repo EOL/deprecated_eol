@@ -398,19 +398,21 @@ module EOL
       file_content = file_open.read
       file_open.close
 
-      keys = get_keys(file_content)
+      translations = get_keys(file_content)
 
-      if keys.size == 0
+      if translations.size == 0
         return ""
       else
-        return_results = ""
-        for i in (0..keys.size-1)
-          if !key_exists(keys[i].strip, en_yml_keys)
-            return_results << "\n" if return_results != ""
-            return_results << file_path + ": " + keys[i]
+        results = []
+        translations.each do |key|
+          val = I18n.t(key)
+          next if val.is_a? Hash # It exists... but requires arguments.
+          next if key =~ /\{.*}/ # We cannot reliably predict keys with variables in them.
+          if val =~ /^translation missing:/
+            results << "#{file_path}: #{key}"
           end
         end
-        return return_results
+        return results.join("\n")
       end
 
     end

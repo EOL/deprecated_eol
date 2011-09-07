@@ -304,8 +304,8 @@ private
       options[:to].set_relevance
       return old_collection_items
     else
-      flash[:error] ||= ""
-      flash[:error] = " " + I18n.t(:unable_to_copy_items_to_collection_error, :name => link_to_name(options[:to]))
+      [flash[:error], I18n.t(:unable_to_copy_items_to_collection_error,
+                             :name => link_to_name(options[:to]))].compact.join(" ")
     end
   end
 

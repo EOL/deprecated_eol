@@ -1,7 +1,9 @@
 -# owner basically means choose someone responsible for this object
-- owner = "&nbsp;"
 - if data_object.rights_holder.blank?
   - owner, user = data_object.owner
 - else
   - owner = "&copy; #{data_object.rights_holder}"
-= owner
+- if owner.blank?
+  = "&nbsp;"
+- else
+  = owner

@@ -12,7 +12,7 @@
     .credit-caption
       = I18n.t(:description)
     .action-value
-      = sanitize @data_object.description
+      = sanitize @data_object.description.balance_tags
 = javascript_include_tag 'rating.js' # basically, I'm only using this to update after calling the ajax, below...
 = javascript_include_tag 'curation_tools.js'
 = javascript_include_tag 'application.js' # this is needed to get the external links to open in a new window

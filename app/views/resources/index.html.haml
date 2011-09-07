@@ -50,6 +50,6 @@
             %td.resource_indented{ :colspan => "8" }
               %b
                 =I18n.t("description_")
-              = sanitize resource.description
+              = sanitize resource.description.balance_tags
   %br
   = link_to I18n.t("create_a_new_resource_descript"), new_resource_path

@@ -240,6 +240,7 @@ Rails::Initializer.run do |config|
   # back and forth from Memcached
   $USE_LOCAL_CACHE_CLASSES = true
 
+  # Note that if this is not set (and it usually isn't), the default is cookie_store.
   if $USE_SQL_SESSION_MANAGEMENT
     config.action_controller.session_store = :active_record_store
   end

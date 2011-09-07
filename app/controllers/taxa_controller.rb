@@ -384,25 +384,6 @@ private
     return videos
   end
 
-  # wich TOC item choose to show
-  def show_category_id
-    if params[:category_id] && !params[:category_id].blank?
-      params[:category_id]
-    elsif !(first_content_item = @taxon_concept.table_of_contents(:vetted_only => current_user.vetted, :agent_logged_in => agent_logged_in?).detect {|item| item.has_content? }).nil?
-      first_content_item.category_id
-    else
-      nil
-    end
-  end
-
-  def first_content_item
-    # find first valid content area to use
-    @taxon_concept.table_of_contents(:vetted_only => current_user.vetted, :agent_logged_in => agent_logged_in?).detect { |item| item.has_content? }
-  end
-
-  def handle_whats_this
-  end
-
   def this_request_is_really_a_search
     tc_id = params[:id].to_i
     tc_id = params[:taxon_id].to_i if tc_id == 0
@@ -450,9 +431,6 @@ private
 
       selected_image_index = find_selected_image_index(@images,image_id)
       if selected_image_index.nil?
-        current_user.vetted = false
-        current_user.save if logged_in?
-
         @taxon_concept.current_user = current_user
         selected_image_index = find_selected_image_index(@images,image_id)
       end

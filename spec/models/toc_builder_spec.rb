@@ -25,7 +25,6 @@ describe TocBuilder do
       )
 
       user = User.create_new
-      user.vetted = false
 
       # In order to get content_partners, we need a mapping realted to one of the tc's names.
       HierarchyEntry.gen(:hierarchy => Hierarchy.default, :taxon_concept => tc, :source_url => 'something') # Cheating.  I know that the last name built was created for this TC

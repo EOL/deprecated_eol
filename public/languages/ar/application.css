@@ -36,6 +36,9 @@ body {
 body, html {
   background: #394651; }
 
+html {
+  overflow-x: hidden; }
+
 a {
   color: #195184; }
 
@@ -2514,6 +2517,7 @@ body > #header {
     display: block; }
   #media_list ul.media > li .figure {
     position: relative;
+    float: right;
     background: white;
     cursor: pointer; }
     #media_list ul.media > li .figure .overlay {

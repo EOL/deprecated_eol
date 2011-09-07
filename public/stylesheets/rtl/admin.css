@@ -36,6 +36,9 @@ body {
 body, html {
   background: #394651; }
 
+html {
+  overflow-x: hidden; }
+
 a {
   color: #195184; }
 

@@ -549,7 +549,7 @@ namespace :i18n do
                       WHERE #{identity_column_name}=#{field_id} and language_id=#{lang_id}
                     ")
                   rescue => e
-                    puts "**\n** FAILED #{table_name}, skipping #{identity_column_name}=#{field_id}\n**"
+                    puts "**\n** MISSING #{table_name}.#{identity_column_name}##{field_id} SKIPPING #{column_name} = \"#{column_value}\"\n**"
                     return
                   end
                 end
@@ -584,9 +584,10 @@ namespace :i18n do
       if (lang_id != 0)
         puts "processing " + lang + " file"
         lang_keys = load_language_keys(lang)
-        lang_keys.each do |key|
+        lang_keys.each do |pair|
+          (key, val) = pair
           (table_name, column_name, identity_column_name, field_id) = key.split(db_field_delim)
-          insert_or_update_db_value(table_name, column_name, identity_column_name, lang_id, field_id, lang_keys[key])
+          insert_or_update_db_value(table_name, column_name, identity_column_name, lang_id, field_id, val)
         end
       end
     end

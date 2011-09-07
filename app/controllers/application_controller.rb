@@ -421,8 +421,8 @@ class ApplicationController < ActionController::Base
   end
 
   def logged_in_from_cookie?
-    user = cookies[:user_auth_token] && User.find_by_remember_token(cookies[:user_auth_token])
-    if user && user.remember_token?
+    user = cookies[:user_auth_token] && !cookies[:user_auth_token].blank? && User.find_by_remember_token(cookies[:user_auth_token])
+    if user && user.language && user.respond_to?(:stale?) && ! user.stale?
       cookies[:user_auth_token] = { :value => user.remember_token, :expires => user.remember_token_expires_at }
       set_logged_in_user(user)
       return true

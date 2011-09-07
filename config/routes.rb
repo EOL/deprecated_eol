@@ -230,6 +230,7 @@ ActionController::Routing::Routes.draw do |map|
     content_page.connect '/content/page/2012eolfellowsapplication', :id => '2012_eol_fellows_application'
     content_page.connect '/content/page/2012fellowsonlineapp', :id => '2012_fellows_online_app'
   end
+  map.connect '/content/page/:id', :controller => 'content', :action => 'show'
   map.donate '/donate', :controller => 'content', :action => 'donate'
   map.language '/language', :controller => 'content', :action => 'language'
 

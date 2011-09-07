@@ -2,8 +2,8 @@ ar:
   date:
     formats:
       default: "%Y-%m-%d"
-      short: "%b %d"
-      long: "%B %d, %Y"
+      short: "%e %b"
+      long: "%B %e, %Y"
     day_names:
       - الأحد
       - الإثنين
@@ -55,22 +55,25 @@ ar:
       - :day
   time:
     formats:
-      default: "%a, %d %b %Y %H:%M:%S %z"
+      default: "%a %b %d %H:%M:%S %Z %Y"
       short: "%d %b %H:%M"
       long: "%B %d, %Y %H:%M"
-    am: "صباحا"
-    pm: "مساءا"
+      only_second: "%S"
+    am: 'صباحا'
+    pm: 'مساءا'
   support:
     array:
-      words_connector: "، "
-      two_words_connector: "و"
+      sentence_connector: "و"
+      words_connector: ", "
+      two_words_connector: " و "
       last_word_connector: ", و "
+      skip_last_comma: false
     select:
       prompt: "يرجى الاختيار"
   number:
     format:
       separator: "."
-      delimiter: "،"
+      delimiter: ","
       precision: 3
       significant: false
       strip_insignificant_zeros: false
@@ -79,7 +82,7 @@ ar:
         format: "%u%n"
         unit: "$"
         separator: "."
-        delimiter: "،"
+        delimiter: ","
         precision: 2
         significant: false
         strip_insignificant_zeros: false
@@ -99,9 +102,7 @@ ar:
         format: "%n %u"
         units:
           byte:
-            one: "Byte"
-            two: "Bytes"
-            few: "Bytes"
+            one:   "Byte"
             other: "Bytes"
           kb: "KB"
           mb: "MB"
@@ -116,64 +117,41 @@ ar:
           billion: مليار
           trillion: تريليون
           quadrillion: الكدريليون رقم
-
   datetime:
     distance_in_words:
       half_a_minute: 'نصف دقيقة'
       less_than_x_seconds:
         one: 'أقل من ثانية'
-        two: 'أقل من ثانيتين'
-        few: 'أقل من %{count} ثوان'
-        other: 'أقل من %{count} ثانية'
+        other: '%{count} ثوان'
       x_seconds:
         one: 'ثانية واحدة'
-        two: 'ثانيتين'
-        few: '%{count} ثوان'
-        other: '%{count} ثانية'
+        other: '%{count} ثوان'
       less_than_x_minutes:
         one: 'أقل من دقيقة'
-        two: 'أقل من دقيقتان'
-        few: 'أقل من %{count} دقائق'
-        other: 'أقل من %{count} دقيقة'
+        other: '%{count} دقائق'
       x_minutes:
         one: 'دقيقة واحدة'
-        two: 'دقيقتان'
-        few: '%{count} دقائق'
-        other: '%{count} دقيقة'
+        other: '%{count} دقائق'
       about_x_hours:
         one: 'حوالي ساعة واحدة'
-        two: 'حوالي ساعتين'
-        few: 'حوالي %{count} ساعات'
-        other: 'حوالي %{count} ساعة'
+        other: '%{count} ساعات'
       x_days:
         one: 'يوم واحد'
-        two: 'يومين'
-        few: '%{count} أيام'
-        other: '%{count} يوم'
+        other: '%{count} أيام'
       about_x_months:
         one: 'حوالي شهر واحد'
-        two: 'حوالى شهرين'
-        few: 'حوالى %{count} أشهر'
-        other: 'حوالى %{count} شهر'
+        other: '%{count} أشهر'
       x_months:
         one: 'شهر واحد'
-        two: 'شهرين'
-        few: '%{count} أشهر'
-        other: '%{count} شهر'
+        other: '%{count} أشهر'
       about_x_years:
         one: 'حوالي سنة'
-        two: 'حوالى سنتين'
-        few: 'حوالى %{count} سنوات'
-        other: 'حوالى %{count} سنة'
+        other: '%{count} سنوات'
       over_x_years:
         one: 'أكثر من سنة'
-        two: 'أكثر من سنتين'
-        few: 'أكثر من %{count} سنوات'
-        other: 'أكثر من %{count} سنة'
+        other: '%{count} سنوات'
       almost_x_years:
         one:   "تقريبا سنة واحدة"
-        two: 'تقريبا سنتان'
-        few: 'ما يقرب من %{count} سنوات '
         other: "ما يقرب من %{count} سنة"
     prompts:
       year:   "السنة"
@@ -182,38 +160,28 @@ ar:
       hour:   "ساعة"
       minute: "دقيقة"
       second: "ثانية"
-
-  helpers:
-    select:
-      prompt: "الرجاء اختيار"
-
-    submit:
-      create: "%{model} إنشاء"
-      update: "%{model} نموذج"
-      submit: "%{model} حفظ"
-
   errors:
     format: "%{attribute} %{message}"
-    messages:
-      inclusion: "غير موجود بالقائمة"
+    messages: &errors_messages
+      inclusion: "ليس خيارا مقبولا"
       exclusion: "محجوز"
-      invalid: "غير صالح"
-      confirmation: "لا يطابق التأكيد"
-      accepted: "يجب أن يتم قبوله"
-      empty: "لا يمكن أن يترك خاليًا"
-      blank: "لا يمكن أن يترك فارغًا"
-      too_long: "طويل جدًا (الحد الأقصى %{count} حرف) "
-      too_short: "قصير جدًا (الحد الأدنى %{count} حرف)"
-      wrong_length: "عدد الحروف خاطئ (يجب أن يكون %{count} حرف)"
-      not_a_number: "ليس رقم"
-      not_an_integer: "يجب ان يكون عدد صحيح"
+      invalid: "غير معرف أو محدد"
+      confirmation: "لا تتوافق مع التأكيد"
+      accepted: "يجب أن تقبل"
+      empty: "فارغ، يرجى ملء الحقل"
+      blank: "فارغ، يرجى ملء الحقل"
+      too_long: "أطول من اللازم (الحد الأقصى هو %{count})"
+      too_short: "أقصر من اللازم (الحد الأدنى هو %{count})"
+      wrong_length: "بطول غير مناسب (يجب أن يكون %{count})"
+      not_an_integer: "يجب أن يكون صحيحا"
+      not_a_number: "ليس رقما"
       greater_than: "يجب أن يكون أكبر من %{count}"
       greater_than_or_equal_to: "يجب أن يكون أكبر من أو يساوي %{count}"
       equal_to: "يجب أن يساوي %{count}"
-      less_than: "يجب ان يكون أقل من %{count}"
-      less_than_or_equal_to: "يجب أن يكون أقل من أو يساوي"
-      odd: "يجب ان يكون عدد فردي"
-      even: "يجب أن يكون عدد زوجي"
+      less_than: "يجب أن يكون أصغر من %{count}"
+      less_than_or_equal_to: "يجب أن يكون أصغر من أو يساوي %{count}"
+      odd: "يجب أن يكون فردي"
+      even: "يجب أن يكون زوجي"
       inaccessible: "يتعذر الوصول إليه"
       wrong_type: "صيغة خاطئة"
   activerecord:
@@ -295,14 +263,12 @@ ar:
     errors:
       template:
         header:
-          one: "خطأ واحد في التحقق "
-          two: "خطأين في التحقق"
-          few: "%{count} أخطاء في االتحقق"
-          other: "%{count} أخطاء في التحقق"
-        body: "تعذر التحقق من الخانات التالية:"
+          one: "ليس بالامكان حفظ %{model}: خطأ واحد."
+          other: "ليس بالامكان حفظ %{model}: %{count} أخطاء."
+        body: "يرجى التحقق من الحقول التالية:"
       messages:
-        taken: "غير متاح"
-        record_invalid: "تعذر التحقق: %{errors}"
+        taken: "غير متوفر (مستخدم)"
+        record_invalid: "%{errors} فشل التحقق من صحة"
         inclusion: "غير موجود بالقائمة"
         exclusion: "محجوز"
         invalid: "غير صالح"
@@ -322,8 +288,6 @@ ar:
         less_than_or_equal_to: "يجب أن يكون أقل من أو يساوي"
         odd: "يجب ان يكون عدد فردي"
         even: "يجب أن يكون عدد زوجي"
-        inaccessible: "يتعذر الوصول إليه"
-        wrong_type: "صيغة خاطئة"
       full_messages:
         format: "%{attribute} %{message}"
       models:
@@ -481,12 +445,10 @@ ar:
       words: "[alias, consequatur, aut, perferendis, sit, voluptatem, accusantium, doloremque, aperiam, eaque, ipsa, quae, ab, illo, inventore, veritatis, et, quasi, architecto, beatae, vitae, dicta, sunt, explicabo, aspernatur, aut, odit, aut, fugit, sed, quia, consequuntur, magni, dolores, eos, qui, ratione, voluptatem, sequi, nesciunt, neque, dolorem, ipsum, quia, dolor, sit, amet, consectetur, adipisci, velit, sed, quia, non, numquam, eius, modi, tempora, incidunt, ut, labore, et, dolore, magnam, aliquam, quaerat, voluptatem, ut, enim, ad, minima, veniam, quis, nostrum, exercitationem, ullam, corporis, nemo, enim, ipsam, voluptatem, quia, voluptas, sit, suscipit, laboriosam, nisi, ut, aliquid, ex, ea, commodi, consequatur, quis, autem, vel, eum, iure, reprehenderit, qui, in, ea, voluptate, velit, esse, quam, nihil, molestiae, et, iusto, odio, dignissimos, ducimus, qui, blanditiis, praesentium, laudantium, totam, rem, voluptatum, deleniti, atque, corrupti, quos, dolores, et, quas, molestias, excepturi, sint, occaecati, cupiditate, non, provident, sed, ut, perspiciatis, unde, omnis, iste, natus, error, similique, sunt, in, culpa, qui, officia, deserunt, mollitia, animi, id, est, laborum, et, dolorum, fuga, et, harum, quidem, rerum, facilis, est, et, expedita, distinctio, nam, libero, tempore, cum, soluta, nobis, est, eligendi, optio, cumque, nihil, impedit, quo, porro, quisquam, est, qui, minus, id, quod, maxime, placeat, facere, possimus, omnis, voluptas, assumenda, est, omnis, dolor, repellendus, temporibus, autem, quibusdam, et, aut, consequatur, vel, illum, qui, dolorem, eum, fugiat, quo, voluptas, nulla, pariatur, at, vero, eos, et, accusamus, officiis, debitis, aut, rerum, necessitatibus, saepe, eveniet, ut, et, voluptates, repudiandae, sint, et, molestiae, non, recusandae, itaque, earum, rerum, hic, tenetur, a, sapiente, delectus, ut, aut, reiciendis, voluptatibus, maiores, doloribus, asperiores, repellat]"
   0_1_or_2: "0, 1 or 2"
   0_or_1: "0 or 1"
-  jsonp_by_adding_a_callback_parameter: "... and JSONP by adding a callback parameter"
-  e_g_search_for_the_eol_page: "(e.g. search for the EOL page ID for the ITIS TSN 180542:"
-  dash_encyclopedia_of_life: "موسوعة الحياة"
   a_pipe_delimited_list_of_licenses: "a pipe | delimited list of licenses or 'all' to get objects under any license. Licenses abbreviated cc- are all"
   a_pipe_delimited_list_of_spm_info_item_subject_names: "a pipe | delimited list of SPM Info Item subject names or 'all' to get text in any subject"
   a_request_to_reset_your_password_has_been_made: "A request to reset your password has been made."
+  a_taxon: "a taxon"
   a_total_of_comment_were_found_matching_your_criteria:
     one: "A total of %{count} comment was found matching your criteria."
     other: "A total of %{count} comments were found matching your criteria."
@@ -499,14 +461,21 @@ ar:
   activate_email_enjoy_exploring: "Enjoy exploring the diversity of Life."
   activate_email_footer: "- The Encyclopedia of Life Team"
   activate_email_intro: "Dear %{full_name} (%{username}),"
-  activate_email_welcome: "Welcome to the Encyclopedia of Life and thank you for registering!  To learn more about how to use the site, view the FAQ pages (http://www.eol.org/faq) and read our newsletter (http://www.eol.org/content/page/newsletter)."
+  activate_email_welcome: "Welcome to the Encyclopedia of Life and thank you for registering!  To learn more about how to use the site, view our help pages ( %{url}help )."
   active_colon: "نشط:"
   activity: نشاط
   activity_log_empty: "لم يتم إضافة تحديثات بعد."
   activity_log_empty_learn_more_link: "تعرف على كيفية المشاركة"
+  activity_user_added_association: "<strong>%{user}</strong> added an association to \"%{object_name}\"."
+  activity_user_added_common_name: "<strong>%{user}</strong> added the common name \"%{name}\" to an unknown object."
+  activity_user_added_common_name_to_taxon: "<strong>%{user}</strong> added the common name \"%{name}\" to \"%{taxon}\"."
   activity_user_added_community_manager: "<strong>%{user}</strong>  جعل من %{manager} مديرًا للمجتمع \"%{community}\"."
   activity_user_added_item_to_collection: "<strong>%{user}</strong> أضاف \"%{item}\" إلى مجموعة \"%{collection}\"."
+  activity_user_added_named_association: "<strong>%{user}</strong> added an association between \"%{object_name}\" and \"%{name}\"."
+  activity_user_added_unknown_association: "<strong>%{user}</strong> added an association to an unknown object."
   activity_user_added_unknown_item_to_collection: "<strong>%{user}</strong> أضاف عنصر غير معروف إلى مجموعة \"%{collection}\"."
+  activity_user_added_unknown_name: "<strong>%{user}</strong> added an unknown common name to an unknown object."
+  activity_user_added_unknown_name_to_taxon: "<strong>%{user}</strong> added a common name to \"%{taxon}\"."
   activity_user_changed_community_description: "<strong>%{user}</strong>  قام بتحديث وصف المجتمع \"%{community}\"."
   activity_user_changed_community_icon: "<strong>%{user}</strong>  قام بتغيير شعار المجتمع \"%{community}\"."
   activity_user_changed_community_name: "<strong>%{user}</strong>  قام بتغيير إسم المجتمع \"%{community}\"."
@@ -524,7 +493,12 @@ ar:
   activity_user_rated_data_object: "<strong>%{user}</strong> قيم \"%{object_name}\"."
   activity_user_rated_unknown_object: "<strong>%{user}</strong> قيم عنصر غير معروف."
   activity_user_removed_all_items_from_collection: السابق
+  activity_user_removed_association: "<strong>%{user}</strong> removed an association to \"%{object_name}\"."
   activity_user_removed_item_from_collection: "<strong>%{user}</strong> حذف \"%{item}\" من مجموعة \"%{collection}\"."
+  activity_user_removed_named_association: "<strong>%{user}</strong> removed an association between \"%{object_name}\" and \"%{name}\"."
+  activity_user_removed_unknown_association: "<strong>%{user}</strong> removed an association to an unknown object."
+  activity_user_removed_unknown_name: "<strong>%{user}</strong> removed an unknown common name from an unknown object."
+  activity_user_removed_unknown_name_to_taxon: "<strong>%{user}</strong> removed an unknown common name from \"%{taxon}\"."
   activity_user_showed_data_object: "<strong>%{user}</strong> صنف \"%{object_name}\" كظاهر."
   activity_user_showed_unknown_object: "<strong>%{user}</strong> صنف عنصر غير معروف كظاهر."
   activity_user_trusted_data_object: "<strong>%{user}</strong> صنف \"%{object_name}\" كموثوق به."
@@ -595,21 +569,13 @@ ar:
   admin_translated_content_page_update_unsuccessful_error: "عفوًا، حدث خطأ، تعذر تحديث الترجمة."
   agent: وكيل
   all_apis_return_by_default_an_xml_response: "All APIs return by default an XML response. The API methods may be called without a format extension to get the XML response, and adding an XML extension will give an identical response:"
-  all_articles: All articles
   all_changes: "جميع التغييرات"
-  all_collections: All collections
   all_comments_entered_by_users: "All comments entered by users on the website are shown below, sorted inversely by time created."
-  all_communities: All communities
-  all_images: All images
   all_information: "جميع المعلومات"
   all_items: "جميع العناصر"
   all_pages: "جميع الصفحات"
-  all_people: All people
-  all_sounds: All sounds
-  all_taxa: All taxa
   all_title: الكل
   all_user_submitted_texts_on_th: "يعرض فيما يلي جميع النصوص التي أضافها المستخدمون إلى الموقع الإلكتروني، مرتبين عكسيًّا وفقًا لوقت إضافتها."
-  all_videos: All videos
   already_a_member_question: "هل أنت عضو؟"
   already_member_of_community: "أنت عضو في هذا المجتمع  "
   alternate_classification: "تصنيف بديل"
@@ -645,10 +611,15 @@ ar:
   associated_with_video_header: "في ذلك الفيديو"
   associations_more_link: "more <span class=\"assistive\">taxon associations</span>"
   attribute: نسب
+  audio_current_time_assistive: "With Javascript enabled this will indicate the current playback position of the audio file in minutes and seconds."
+  audio_duration_assistive: "With Javascript enabled this will indicate the length of the audio file in minutes and seconds. Depending on the size of the file it may take a little while for the Javascript to calculate the length of the file and display a value here."
   audio_mute: mute
   audio_pause: pause
+  audio_pause_assistive: "With Javascript enabled this link will enable you to pause an adjacent audio file that is playing, otherwise please ignore this link."
   audio_play: play
+  audio_play_assistive: "With Javascript enabled this link will begin playing the audio file whilst keeping you in the same window. If Javascript is disabled this link is to an audio file and if selected will behave in accordance with your device."
   audio_stop: stop
+  audio_stop_assistive: "With Javascript enabled this link will enable you to stop an adjacent audio file that is playing, otherwise please ignore this link."
   audio_unmute: unmute
   authoritative_information: "معلومات معتمدة"
   auto_email_notifications_were_sent_to_colon: "تم إرسال الإشعارات الأوتوماتيكية عبر البريد الإلكتروني إلى:"
@@ -667,12 +638,14 @@ ar:
   biomedical_terms_provided_by: "Terms provided by <a href=\"%{supplier_url}\">PubMed</a>."
   browsable: "يمكن تصفحه"
   browse_hierarchy: "تصفح التسلسل الهرمي"
+  browsing_branch_colon: "Browsing Branch:"
   build_communities: "إنشاء مجتمعات"
   cancel: إلغاء
   cannot_be_associated_with_both_a_user_and_a_community: "لا يمكن أن يكون مرتبطًا بمستخدم ومجتمع"
   cannot_be_empty: "لا يمكن أن يكون خاليًا"
   cannot_create_collection_item_from_class_error: "لا استطيع أن أكون عنصر مجموعة من #{klass}"
   cannot_create_community_from_watch_collection_error: "You cannot create a community from a watch list."
+  cannot_expand_children: "cannot expand children"
   cannot_find_member: "لم يتم العثور على مستخدم بذلك التعريف."
   cannot_index_collection_item_type_error: "لا أستطيع أن أفهرس عنصر مجموعة من %{type}"
   change: تغيير
@@ -696,7 +669,7 @@ ar:
   click_on_a_user_to_view_the_us: "أضغط على مستخدم لمشاهدة الصفحة الشخصية الخاصة به، أضغط على الأنواع لمشاهدة الصفحة التي يتواجد بها النص (استخدم مفتاح الرجوع في المتصفح للعودة إلى هنا)."
   click_on_a_username_to_view_th: "Click on a username to view that user's detailed profile, click on the data type to view the object commented on (use your browser back button to return here), click on \"edit\" to edit the comment or click on \"delete\" the permanently delete the comment."
   close_this_window_to_return_to: "أغلق تلك النافذة للعودة إلى نافذة التعديل"
-  cms_available_in_languages: "الصفحة غير متاحة باللغة:"
+  cms_available_in_languages: "الصفحة متاحة باللغة:"
   cms_missing_content_message: "عفوًا، الصفحة غير متاحة بتلك اللغة."
   cms_missing_content_title: "محتوى مفقود"
   collect_item: "جمع العنصر"
@@ -713,6 +686,7 @@ ar:
   collection_item_annotation_label: "شرع عنصر المجموعة"
   collection_item_not_found_error: "تعذر عنصر المجموعة "
   collection_name_label: "أسم المجموعة"
+  collection_newsfeed: "Collection Newsfeed"
   collection_not_created_error: "عفوًا، حدث خطأ، تعذر إنشاء مجموعة <em>%{collection_name}</em> "
   collection_not_destroyed_error: "عفوًا، تعذر حذف المجموعة"
   collection_not_found_error: "عفوًا، لم يتم العثور على المجموعة"
@@ -788,6 +762,7 @@ ar:
     one: "عضو واحد بمجتمع "
     other: " %{count} عضو بمجتمع"
     two: "عضوان بمجتمع"
+  community_newsfeed: "Community Newsfeed"
   community_not_destroyed_error: "عفوًا، تعذر حذف المجتمع."
   community_removed_by_owner: "تم حذف ذلك المجتمع من قبل مالكها."
   community_tab_collections_description: "يقوم مستخدمون موسوعة الحياة بإنشاء المجموعات لإلقاء الضوء على العلاقات ما بين الأنواع، سواء كانت جغرافية، أو إيكولوجية، أو شخصية. يمكن للمجتمعات أن \"تعرض\" مجموعات ذات أهمية وقيمة محددة."
@@ -823,6 +798,8 @@ ar:
   content_partner_contact_new_edit_form_tip: "يجب إدخال %{required_icon} الأسم الأول، وإسم العائلة والبريد الإلكتروني."
   content_partner_contact_new_link: "إضافة جهة اتصال جديدة"
   content_partner_contact_new_page_subheader: "إضافة جهة اتصال"
+  content_partner_contact_update_successful_notice: "Contact successfully updated."
+  content_partner_contact_update_unsuccessful_error: "Sorry, an error occurred, the contact was not updated."
   content_partner_contacts_header: "جهات الاتصال"
   content_partner_contacts_page_title: "جهات االاتصال الخاصة بشريك المحتوى"
   content_partner_contacts_with_count:
@@ -879,6 +856,7 @@ ar:
   content_partner_resource_show_subheader: "معلومات المصدر <em>%{resource_title}</em>"
   content_partner_resource_update_successful_notice: "تم تحديث معلومات مصدر شريك المحتوى بنجاح. الوضع الحالي لبيانات المصدر:  %{resource_status}."
   content_partner_resource_update_unsuccessful_error: "عفوًا، حدث خطأ، تعذر تحديث المصدر."
+  content_partner_resource_upload_unsuccessful_error: "Sorry, an error occurred, the resource details were updated but the resource itself was not uploaded: %{resource_status}."
   content_partner_resource_url_or_dataset_not_both_error: "العنوان الإلكتروني لمجموعة البيانات أو ملف لكل مصدر، وليس كلاهما. يرجى تحديد ما إذا كنت ترغب في إضافة عنوان إلكتروني أو تحميل ملف لذلك المصدر. يمكن إضافة مصادر أخرى لاحقًا."
   content_partner_resources_header: المراجع
   content_partner_resources_information: "تتكون المصادر من مجموعات من البيانات المتاحة ليتم جمعها من قبل موسوعة الحياة. يتم دمج البيانات المجمعة في قاعدة بيانات موسوعة الحياة ويتم تقديمها للعامة عبر الموقع الإلكتروني وواجهة برمجة التطبيقات الخاصة بموسوعة الحياة.  يمكن أن يتم تحميل ملفات المصادر مباشرة إلى موقوع موسوعة الحياة، أو إذا كان المصدر متاح بخادم ويب عام، يمكن لموسوعة الحياة استخلاص البيانات أتوماتيكيًا بصورة منتظمة يمكنك تحديدها. يجب أن يكون كل ملف مصدر بصيغة <a href=\"%{eol_transfer_schema_url}\">EOL Transfer Schema</a> مخطط نقل موسوعة الحياة."
@@ -981,7 +959,7 @@ ar:
   curation_privileges_page_description: "أختار مستوى الإشراف الذي ترغب به؛ مساعد، كامل، أو رئيسي. يجب أن تضم طلبات الأشراف الكامل والرئيسي المجال والاعتمادات، سوف يتم إخطارك عن طريق رسالة بريد إلكتروني حالما يتم مراجعة وقبول معلوماتك. لا يتم تقييم طلبات المشرف المساعد وسوف يتم قبولها فورًا. تعرف على المزيد عن <a href=\"%{curator_faq_url}\">becoming a curator</a> التحول إلى مشرف بموسوعة الحياة."
   curation_privileges_page_title: "كن مشرفًا"
   curation_reason_placeholder: "المزيد من المعلومات (اختياريًا)"
-  curator_clade: "النوع الحيوي الخاص بالمشرف"
+  curator_question: Curator?
   curator_colon: "المشرف:"
   curator_level: "مستوى المشرف"
   curator_level_application_pending_notice: "نشكرك على التقدم لتصبح مشرفًا، لقد تم إضافة طلبك ليتم مراجعته وسوف يتم إخطارك عن طريق البريد الإلكتروني عند قبوله."
@@ -994,15 +972,13 @@ ar:
   curator_level_with_indefinite_article_assistant_curator: "an <strong>assistant curator</strong>"
   curator_level_with_indefinite_article_full_curator: "a <strong>full curator</strong>"
   curator_level_with_indefinite_article_master_curator: "a <strong>master curator</strong>"
-  curator_list: "قائمة المشرفين"
-  curator_name: "اسم المشرف"
+  curator_privileges_removed_notifier_email: "This email is to notify you that your curator privileges have been removed"
   curator_profile: "معلومات المشرف"
   curator_scope_colon: "نطاق المشرف:"
   curator_status_changed_by: "تم تغيير وضع المشرف من قبل %{user}  في %{date}."
   curator_title: المشرف
   curators: المشرفون
   curators_empty: "لم يتخذ المشروفون إي إجراء بخصوص تلك الصفحة إلى الأن."
-  curators_of_taxon_page_title: "المشرفون على %{taxon}"
   curators_summary_header_with_count:
     few: "تم مراجعته من قبل %{count} مشرفين"
     one: "تم مراجعته من قبل مشرف واحد"
@@ -1018,10 +994,12 @@ ar:
   currently_in_eol: "حاليًا في موسوعة الحياة"
   daily: يوميًّا
   darwin_core: "Darwin Core"
+  dash_encyclopedia_of_life: "موسوعة الحياة"
   dashboard: "لوحة البيانات"
+  data_object_api_description: "Given the identifier for a data object this API will return all metadata about the object as submitted to EOL by the contributing content partner. The content partner is cited in the first agent element and has the role of 'partner'."
   data_object_ignore: "ignore this item"
-  data_object_undo_ignore: "remove from ignore list"
   data_object_not_associated_with_any_hierarchies: "ذلك الموضوع غير مرتبط بأية تسلسلات هرمية"
+  data_object_undo_ignore: "remove from ignore list"
   data_objects: data_objects
   data_usage_reports: "تقارير استخدام البيانات"
   dato_create_cancel: إلغاء
@@ -1078,6 +1056,7 @@ ar:
   download_audio_mpeg: "تحميل ملفات إم بي إي جي"
   dublin_core: "Dublin Core"
   duplicate_items_were_ignored: "تم تجاهل العناصر المكررة."
+  e_g_search_for_the_eol_page: "(e.g. search for the EOL page ID for the ITIS TSN 180542:"
   each_method_s_documentation_pa: "Each method's documentation page has an example of both the XML and JSON formatted responses."
   edit: تعديل
   edit_annotation: "تعديل التعليق"
@@ -1145,10 +1124,12 @@ ar:
   esc_key_hides_this_message: "(مفتاح \"esc\" يخفي تلك الرسالة)"
   every_method_can_also_return_a: "Every method can also return a JSON response by adding a .json extension"
   example_colon: "مثال:"
+  expand_all_children: "expand all children"
   explore: استكشف
   explore_what_we_know_about_taxon: "استكشف ماذا تعرف موسوعة الحياة عن %{taxon}"
   export_this_list_as_csv: "Export this list as CSV"
   external_link_header: "رابط خارجي"
+  external_link_icon_alt_text: "External link."
   facebook: "موقع فايسبوك"
   failed_login_attempts: "باءت محاولات تسجيل الدخول بالفشل)- يجب أن يتم التحقق من المشكلة ليتمكن المستخدم من تسجيل الدخول"
   family_name_colon: "اسم العائلة:"
@@ -1175,10 +1156,12 @@ ar:
   filter_media: "ترشيح الوسائط"
   filtered_information: "المعلومات المرشحة"
   find_taxa_submit_button: "البحث عن أصنوفة"
+  first_time_published_content_partners_list_for_the_month: "تلك قائمة بشركاء المحتوى التي تنشهر موضوعاتهم لأول مرة ذلك الشهر."
   flash_notice_redirected_from_search_html: "لقد وصلت إلى تلك الصفحة من خلال البحث عن <em>%{search_string}</em>. <a href=\"%{more_results_url}\">أضغط هنا للرجوع إلى صفحة البحث</a>."
   flash_notice_redirected_from_search_html_more_results: "لقد وصلت إلى تلك الصفحة من خلال البحث عن <em>%{search_string}</em>. <a href=\"%{more_results_url}\"> أضغط هنا للرؤية نتائج أخرى للبحث</a>."
   flickr: فليكر
   focus_collection_edit_link: "يمكنك تعديل محور اهتمام المجموعة مباشرة في صفحة %{collection}."
+  focus_list_newsfeed: "Focus List Newsfeed"
   for_example_for_the_taxon_el: "For example for the Taxon element for a node in the ITIS hierarchy, the dc:identifier will be the ITIS TSN. The dwct:taxonID element contains the <i>EOL identifier</i> to be used in the %{link} API."
   for_the_month_of_colon: "لشهر:"
   forgot_password: "هل نسيت كلمة السر؟"
@@ -1189,17 +1172,18 @@ ar:
   forgot_password_form_choose_username_legend: "يرجى اختيار حساب"
   forgot_password_form_header: "إعادة ضبط كلمة السر"
   forgot_password_form_username_or_email_blank_error: "يرجى إدخال أسم المستخدم أو البريد الإلكتروني لإعادة ضبط كلمة السر."
+  form_validation_errors_for_attribute_assistive: "There is a validation error on this element"
+  frequency_daily: Daily
+  frequency_monthly: Monthly
+  frequency_never: Never
+  frequency_weekly: Weekly
   from_community: "من %{community}."
   gbif_occurrence_disclaimer: "تعتمد تلك الخريطة على سجلات الأحداث المتاحة من خلال جي بي آي إف (GBIF) ويمكن ألا تمثل التوزيع التصنيفي الكامل"
   gbif_occurrence_learn_more_link: "تعرف على المزيد عن خرائط توزيع المرفق العالمي للتنوع الحيوي"
   general_site_admin: "مشرف الموقع العام"
   get_help_choosing_a_subchapter: "Get help choosing a subchapter"
   get_more_tasks: "تلقى مهمات إضافية."
-  search_by_provider_method_description: "get the EOL page IDs given a provider's hierarchy_id and the provider's own unique identifier"
-  method_to_get_metadata_about_the_hierarchy: "given a hierarchy identifier, this method returns metadata about the hierarchy and lists the root taxa"
-  search_method_description: "given a value for a specific element (e.g. scientific name=Homo sapiens), returns a paginated list of the EOL pages containing the search term"
   given_name_colon: "الاسم الأول:"
-  data_object_api_description: "Given the identifier for a data object this API will return all metadata about the object as submitted to EOL by the contributing content partner. The content partner is cited in the first agent element and has the role of 'partner'."
   given_the_vast_number: "Given the vast number of scientific and common names (nearly 20 million in total) it is a difficult task to provide a user with exactly the species they are hoping to find. For example there are several bird species of named Robin (American Robin, Alpine Robin, Smoky Robin), and several fish species named Robin, and a taxonomist named Robin who has named dozens of species. We have included an 'exact' parameter to return only results whose name matches the search term in its entirety, but we cannot guarantee the returned taxa are taxa you intended to find. We are continuously trying to improve the relevancy of our search results so expect some improvements to search ordering in the near future."
   gives_access_to_a_single_hierarchy_indexed_by_eol: "gives access to a single hierarchy indexed by EOL and its internal relationships"
   global_access_tagline: "إمكانية عالمية للوصول إلى معلومات حول الحياة على كوكب الأرض"
@@ -1217,10 +1201,14 @@ ar:
   help: المساعدة
   hidden: مخفي
   hierarchies: hierarchies
+  hierarchies_description: "The Encyclopedia of Life does not have a singular taxonomic hierarchy upon which it creates its pages. Rather EOL indexes many hierarchies and compares them against each other. This API list metadata about a hierarchy such as the provider name and source URL, as well as lists all the taxa which are the root taxa of the taxonomic tree"
+  hierarchies_entries_description: "The Encyclopedia of Life does not have a singular taxonomic hierarchy upon which it creates its pages. Rather EOL indexes many hierarchies and compares them against each other. As a result any EOL page may relate to several nodes from various hierarchies. This API gives access to a single hierarchy and its internal relationships. Refer to the documentation on the pages API for information on accessing other hierarchies which correspond to a particular EOL page. The taxonConceptID field contains the EOL page identifier which can be used in the pages API."
   hierarchies_title: "التسلسلات الهرمية"
   hierarchy: "تسلسل هرمي"
   hierarchy_entries: hierarchy_entries
   hierarchy_entry_switch_missing_id_error: "عفوًا، لم نتمكن من العثور على صفحة مدخل التسلسل الهرمي الذي قمت باختياره نتيجة لفقدان المعرف."
+  hierarchy_roots_colon: "Hierarchy Roots:"
+  hierarchy_selector_drop_down_list_label: "ذلك هو التصنيف الذي سوف يظهر في لائحة اختيار التسلسل الهرمي المنسدلة"
   hierarchy_updated: "تم تحديث التسلسل الهرمي"
   home: "الصفحة الرئيسية"
   home_page_link_advisory_information: "سوف يحولك ذلك الرابط إلى الصفحة الرئيسية لموسوعة الحياة"
@@ -1229,7 +1217,6 @@ ar:
   if_the_above_url_does_not_work: "If the above URL does not work try copying and pasting it into your browser."
   if_the_details_parameter_is_no: "If the details parameter is not set then only the data object identifier, data type, and in the case of articles, subject will be returned. The data type will be a value from the %{linka} resource type vocabulary. The text subject will be a value from the %{linkb} ontology of info items."
   if_this_box_is_checked_the_hie: "إذا تم وضع علامة في ذلك المربع، سوف يصبح التسلسل الهرمي أحد خيارات المستخدمين لتصفح موسوعة الحياة."
-  return_content_by_vettedness: "if vetted = 1 then only trusted content will be returned. If vetted = 2 then only trusted and unreviewed content will be returned (untrusted content will not be returned). The default is to return all content"
   if_you_continue_to_have_problem_then_contact_us: "If you continue to have problem please feel free to contact us."
   if_you_did_make_this_request_j: "If you did make this request just click the link below:"
   if_you_did_not_make_this_reque: "If you did not make this request, simply ignore this email."
@@ -1279,10 +1266,11 @@ ar:
   join_eol_community_html: "كن جزءًا من مجتمع <abbr title=\"Encyclopedia of Life\">موسوعة الحياة</abbr>!"
   joined_time_ago: "أنضم منذ %{time_passed}"
   json_response: "JSON Response"
+  jsonp_by_adding_a_callback_parameter: "... and JSONP by adding a callback parameter"
   just_pages_with_pictures_and_text: "الصفحات التي تضم صور ونصوص فقط"
   label: صنف
   language: اللغة
-  language_menu_item: "%{language_label} <abbr>(%{language_abbr})</abbr>"
+  language_selector_advisory_information: "The following is a list of languages that the site's content is available in, to change the current language select an alternative language from this list."
   language_with_count: "%{language} (%{count})"
   languages: اللغات
   last_updated_time_ago: "أخر تحديث منذ %{time_passed}"
@@ -1324,8 +1312,8 @@ ar:
   license_public_domain: "مجال عام"
   licenses_visit_their_site_for: "licenses. Visit their site for more information on the various licenses they offer"
   limits_the_number_of_returned_image_objects: "limits the number of returned image objects"
-  limits_the_number_of_returned_video_objects: "limits the number of returned video objects"
   limits_the_number_of_returned_text_objects: "limits the number of returned text objects"
+  limits_the_number_of_returned_video_objects: "limits the number of returned video objects"
   listing_collections: "عرض المجموعات"
   lists_the_identifiers_for_all_hierarchies: "lists the identifiers for all hierarchies supplied by content partners"
   literature: "المواد المطبوعة"
@@ -1373,11 +1361,13 @@ ar:
     other: "%{count} عضو "
     two: عضوان
   method: Method
+  method_to_get_metadata_about_the_hierarchy: "given a hierarchy identifier, this method returns metadata about the hierarchy and lists the root taxa"
   methods: Methods
   minimal_page: "صفحة صغرى"
   moderator_colon: "مراقب:"
   month_equals: "شهر ="
   monthly: شهريًّا
+  monthly_email_notification_description: "This will send out an email to all content partner contacts informing them that they can now check the last month's web usage of their data in EOL."
   monthly_notification: "إشعار شهري"
   monthly_published_partners: "الشركاء الذين يقومون بالنشر شهريًّا"
   more_children_with_count:
@@ -1419,6 +1409,7 @@ ar:
   names_common_empty: "No common names have been associated with this taxon yet"
   names_common_list_by_language_assistive_header: "Common names listed by language"
   names_curation_column_header: الإشراف
+  names_et_al: "%{names}, et al."
   names_explanation: "Scientists aim to describe a single 'tree of life' that reflects the evolutionary relationships of living things. However, evolutionary relationships are a matter of ongoing discovery, and there are different opinions about how living things should be grouped and named. EOL reflects these differences by supporting several different scientific 'classifications'. Some species have been named more than once. Such duplicates are listed under synonyms. EOL also provides support for common names which may vary across regions as well as languages."
   names_name_column_header: الاسم
   names_parents_column_header: الأباء
@@ -1426,13 +1417,18 @@ ar:
   names_relationship_column_header: العلاقة
   names_sources_column_header: المصادر
   names_status_column_header: وضع
+  names_synonyms_empty: "No synonyms have been associated with this taxon yet."
   never: أبدًا
   new_collection: "مجموعة جديدة"
   new_content_partners_for_the_m: "شركاء المحتوى الجدد لذلك الشهر"
   news_items: "مواضيع جديدة"
   newsfeed: "آخر الأخبار"
-  newsfeed_description_for_collection: "Your Watch List Newsfeed contains updates about the comment threads and communities you participate in. Learn more about %{watch_lists}."
-  newsfeed_watch_lists: "Watch Lists"
+  newsfeed_help_for_collection: "The Newsfeed for this EOL Collection gathers updates associated with the items belonging to it, including the activities of its owner and comments from other EOL users."
+  newsfeed_help_for_community: "The Newsfeed for this EOL Community gathers updates associated with the items belonging to its Focus Collection, including activities of its members and comments from other EOL users."
+  newsfeed_help_for_focus_list: "The Focus List Newsfeed gathers updates associated with the items belonging to an EOL Community's primary Focus List, including activities of its managers and comments from other EOL users."
+  newsfeed_help_for_profile: "The EOL Profile Newsfeed contains messages left for its owner by other members, EOL Community invitations, and gathers updates associated with the items in the owner's EOL Watch List."
+  newsfeed_help_for_taxon: "The Newsfeed for this EOL Taxon Page gathers updates associated with items shown on it, including curator actions and comments from EOL users."
+  newsfeed_help_for_watchlist: "The EOL Watch List Newsfeed gathers updates associated with the items in the owner's EOL Watch List, including the activities of its owner."
   no_active_members: "لا يوجد نشاط كاف إلى الأن."
   no_items_were_copied_to_collections_error: "لم يتم نسخ أي عناصر إلى المجموعات: %{names}."
   no_record_found_matching_your_criteria: "No record found matching your criteria."
@@ -1450,6 +1446,11 @@ ar:
   nucleotide_sequences_ncbi_database: "The <a href=\"%{ncbi_taxonomy_link}\">NCBI Taxonomy</a> database contains the names of all organisms that are represented in the genetic databases with at least one nucleotide or protein sequence."
   nucleotide_sequences_ncbi_mission: "The mission of the <a href=\"%{ncbi_link}\">National Center for Biotechnology Information</a> is to develop new information technologies to aid in the understanding of fundamental molecular and genetic processes that control health and disease."
   nucleotide_sequences_proteins_link: "View protein and nucleotide sequences in NCBI"
+  number_of_taxa_at_this_entry: "# of taxa at this entry"
+  number_of_trusted_images_at_this_entry: "# of trusted images at this entry"
+  number_of_trusted_text_objects_at_this_entry: "# of trusted text objects at this entry"
+  number_of_unreviewed_images_at_this_entry: "# of unreviewed images at this entry"
+  number_of_unreviewed_text_objects_at_this_entry: "# of unreviewed text objects at this entry"
   object: موضوع
   object_curation: "تقييم موضوع"
   object_status: "حالة الكائن"
@@ -1476,6 +1477,7 @@ ar:
   only_show_authoritative_conten: "عرض المحتوى الموثوق به فقط"
   option_please_select: "يرجى الاختيار"
   or_add_it_to_an_existing_collection: "أو أضف إلى مجموعة قائمة."
+  or_email_education: "Or, email your suggestion to %{link}."
   other_collection_items_with_count:
     few: "%{count} موضوعات أخرى"
     one: "موضوع آخر"
@@ -1494,13 +1496,14 @@ ar:
   other_us_dollars_amount: "أخرى: دولار أمريكي"
   overall_colon: "الإجمالي:"
   overview: "نظرة عامة"
+  page_method_description: "This method takes an EOL page identifier and returns the scientific name for that page, and optionally returns information about common names, media (text, images and videos), and references to the hierarchies which recognize the taxon described on the page."
   page_reference: "\"%{title}\". موسوعة الحياة، متاح عبلا  \"<a href=\"http://%{domain_or_ip}%{this_url}\" target=\"_blank\">http://%{domain_or_ip}%{this_url}</a>\". Accessed %{date}"
   page_statistics: "إحصائيات الصفحة"
   page_statistics_and_tools: "إحصائيات وأدوات الصفحة"
   page_statistics_explanation: "<p>EOL automatically calculates some statistics about its pages. These statistics recalculate [how often]?</p><h5>Richness Score</h5><p>Richness Score is a composite of many different factors such as:<ul><li>how much text a page has</li><li>how many multimedia or map files are available</li><li>how many different topics are covered</li><li>how many different sources contribute information</li></ul></p><p>In addition, we consider whether the information has been reviewed or not. If a page already has a lot of multimedia or text, it may not increase the Richness Score to add more.</p><p>The Richness Score ranges from 0 to 100, where richer pages have higher scores. Don’t worry, differences in Richness Scores of a few points are probably not very important. Over time we may change the way we calculate this score to better reflect your experience with the site. Be sure to let us know what you think by leaving a comment on pages you think we’ve misjudged.</p><h5>Trusted Images</h5><p>Includes all trusted images for this page and pages that appear in a classification below this page. This number includes both images that came from trusted partners as well as images coming from partners such as Flickr or Wikimedia Commons that have been trusted by an EOL curator.</p><h5>Unreviewed Images</h5><p>Includes all unreviewed images for this page and pages that appear in a classification below this page. Some of our partners provide large numbers of high quality images that may be better than the ones that are trusted but simply haven’t been reviewed yet. It does not include images that have been untrusted by an EOL curator.</p><h5>Trusted Articles</h5><p>Includes all trusted text articles on the details tab of this page and several articles on the resources tab. This number includes text articles that came from trusted partners. It also includes articles directly contributed to EOL by its members or from Wikipedia that have been trusted by an EOL curator. It does not include articles on pages that appear in a classification below this page.</p><h5>Unreviewed Articles</h5><p>Includes all unreviewed text articles on the details tab of this page and several articles on the resources tab. This number includes text articles directly contributed to EOL by its members or from Wikipedia that are waiting for review by an EOL curator. It does not include articles on pages that appear in a classification below this page."
-  pages_lowercase: pages
   pages_admin_section_link: المشرفون
   pages_curator_section_link: المشرفون
+  pages_lowercase: pages
   pages_title: المراجع
   pages_with_count:
     few: "%{count} صفحات "
@@ -1524,13 +1527,18 @@ ar:
   parameters: Parameters
   partner_page: "صفحة الشريك"
   password_colon: "كلمة السر"
+  percentage_of_children_with_images: "% of children with images"
+  percentage_of_children_with_text: "% of children with text"
+  percentage_of_descendants_with_images: "percentage of descendants with images"
+  percentage_of_descendants_with_text: "percentage of descendants with text"
   permalink: "رابط ثابت"
   personal_space: "المساحة الشخصية"
   ping: ping
-  player_is_disabled: "Player is disabled. You can click here to listen to the audio."
+  ping_method_description: "This method will either fail (in which case the EOL error page will most likely be returned) or return a message of Success. There are no other possible messages"
   please_confirm_your_donation_details: "يرجى تأكيد تفاصيل التبرع"
   please_indicate_curation_reason: "يرجى اختيار سبب، و/أو أضف تعليق تقييمي اختياريًّا:"
   please_return_to_eol_homepage: "Please return to EOL home page"
+  please_wait: "Please wait..."
   post_comment: "إضافة تعليق"
   preferences: التفضيلات
   preferred_common_name_advisory_information: "هذا هو الأسم الشائع المفضل لتلك الأصنوفة"
@@ -1540,7 +1548,9 @@ ar:
   profile_colon: "المعلومات الشخصية:"
   profile_image_alt_text_curator: "الصورة الشخصية للمشرف %{user_full_name}"
   profile_image_alt_text_member: "الصورة الشخصية للعضو %{user_full_name}"
+  profile_newsfeed: "My Newsfeed"
   provider_hierarchies: provider_hierarchies
+  provider_hierarchies_method_description: "This method will return references to all hierarchies supplied by EOL Content Partners. The response will include the label of the hierarchy and the EOL unique ID representing the hierarchy"
   public: عام
   public_domain: "public domain"
   publish_requested: "تم طلب النشر"
@@ -1600,6 +1610,7 @@ ar:
   return_all_common_names_for_this_taxon: "return all common names for this taxon"
   return_all_synonyms_for_this_taxon: "return all synonyms for this taxon"
   return_common_names_for_the_page_taxon: "return all common names for the page's taxon"
+  return_content_by_vettedness: "if vetted = 1 then only trusted content will be returned. If vetted = 2 then only trusted and unreviewed content will be returned (untrusted content will not be returned). The default is to return all content"
   returns_all_metadata_about_a_particular_data_object: "returns all metadata about a particular data object (text, image or video) indexed by EOL"
   returns_either_a_positive_or_negative_response: "returns either a positive response (indicating APIs are functional), or returns a negative response or nothing at all (indicating APIs are not functional at that time)."
   revisions: المراجعات
@@ -1615,13 +1626,15 @@ ar:
   save_curated_association_submit_button: "حفظ الارتباط"
   scientific_name: "اسم علمي"
   search: بحث
-  search_lowercase: search
   search_by_provider: search_by_provider
+  search_by_provider_method_description: "get the EOL page IDs given a provider's hierarchy_id and the provider's own unique identifier"
   search_by_term_page_title: "البحث: %{term}"
   search_field_label: "البحث في موسوعة الحياة"
   search_for_comments_containing: "Search for comments containing the text:"
   search_for_users_containing_this_in_their_username_name_or_email_address: "Search for users containing this in their username, name or email address."
   search_input_advisory_information: "Enter a common name or a scientific name of a living creature you would like to know more about. You can also search for EOL members, collections and communities."
+  search_lowercase: search
+  search_method_description: "given a value for a specific element (e.g. scientific name=Homo sapiens), returns a paginated list of the EOL pages containing the search term"
   search_placeholder: "البحث في موسوعة الحياة..."
   search_results: "نتائج البحث"
   search_term_reports: "البحث في تقارير المصطلحات"
@@ -1646,6 +1659,9 @@ ar:
     one: "عرض <span class='assistive'> المجتمع الوحيد الذى يركز على تلك الأصنوفة.</span>"
     other: "عرض <span class='assistive'>%{count} مجتمع الذى يركز على تلك الأصنوفة.</span>"
     two: "عرض <span class='assistive'> المجتمعين الذين يركزان على تلك الأصنوفة.</span>"
+  see_all_featured_collections_with_count:
+    one: "See the %{count} featured collection."
+    other: "See all %{count} featured collections."
   see_all_media_link: "عرض جميع الوسائط"
   see_all_of_your_collections: "عرض جميع مجموعاتك"
   see_all_updates_with_count_html:
@@ -1660,6 +1676,7 @@ ar:
   selected_language_advisory_information: "هذه هي اللغة المختارة حاليًا"
   send_email_colon: "إرسال بريد إلكتروني:"
   send_email_notification_to_all: "إرسال إخطار عن طريق البريد الإلكتروني إلى جميع شركاء المحتوى حول توفر إحصائيات الويب الشهرية الأخيرة."
+  send_emails_now: "Send Emails Now"
   sent_invitations_to_users: "تم إرسال الدعوات إلى  %{users}."
   set_as_exemplar: "أضف كنموذج"
   show: إظهار
@@ -1676,6 +1693,7 @@ ar:
   sign_out: "تسجيل الخروج"
   site_cms: "موقع نظام إدارة المحتوى"
   site_information: "معلومات عن الموقع"
+  site_language: "Site language"
   skip_to_content: "انتقل إلى المحتوي"
   skip_to_navigation: "تخطي إلى التنقل"
   skip_to_table_of_contents: "تخطي إلى قائمة المحتويات"
@@ -1687,7 +1705,9 @@ ar:
   sort_by_oldest_option: الأقدم
   sort_by_rating_option: التقييم
   sort_by_status_option: وضع
+  sort_by_title_ascending: "Title Ascending"
   sort_by_title_descending: "العنوان تنازليًا"
+  sort_by_year_ascending: "Year Ascending"
   sort_by_year_descending: "العام تنازليًا"
   sort_collection_by_label: "رتب المجموعة وفقًا لـ"
   source_and_additional_information: "المصدر والمزيد من المعلومات"
@@ -1700,6 +1720,7 @@ ar:
   spm_category_objects_count: "فئة التخطيط الإحصائي المتكرر - عدد الموضوعات"
   spm_category_partner_count: "فئة التخطيط الإحصائي المتكرر - عدد المشاركين"
   start_quote: "\""
+  stat: Stat
   statistics: الإحصائيات
   subject: subject
   submit: إدخال
@@ -1716,6 +1737,7 @@ ar:
   table_of_contents: المحتويات
   table_of_contents_breakdown: "تفصيل الفهرس"
   takes_an_eol_page_identifier_a: "takes an EOL page identifier and returns the scientific  name for that page, and optionally returns information about common  names, media (text, images and videos), and references to the  hierarchies which recognize the taxon described on the"
+  target_blank_advisory_information: "If you follow this link the destination page will open in a new browser window."
   task_status: "حالة المهمة"
   task_status_active_option: "Active"
   task_status_curated_option: "Curated"
@@ -1735,6 +1757,7 @@ ar:
   taxon_identification_resources_empty: "لم يساهم أحد بأى موارد تعريفية على هذه الفحة حتى اﻵن"
   taxon_identification_resources_header: "موارد تعريفية"
   taxon_identification_resources_link: "موارد تعريفية"
+  taxon_newsfeed: "Taxon Newsfeed"
   taxon_nucleotide_sequences_link: "تسلسلات النيوكليوتيدات"
   taxon_page_content_disclaimer: "يتم جمع محتوى موسوعة الحياة اآلياً من عدة من مقدمي المحتوى. ونتيجة لذلك، من المحتمل أن تجد بين الحين والأخر صفحات مربكة."
   taxon_page_content_disclaimer_header: ""
@@ -1754,6 +1777,7 @@ ar:
   terms_agreement_form_submit: أوافق
   terms_of_use_link: "شروط الاستخدام والخصوصية"
   test: اختبار.
+  text: text
   text_capital: نص
   text_description_was_added: "Text description %{text} was added to %{toc} on \"%{link}\" by %{user} %{date} ago"
   text_summary_empty: "لم يتم تقديم نبذة مختصرة عن تلك الأصنوفة بعد."
@@ -1769,34 +1793,24 @@ ar:
   thanks_for_registering_with_th: "Thanks for registering with the Encyclopedia of Life.  In order to confirm your registration, please click the link below.  If your email program does not support following links, please copy and paste the entire address into your web browser and press \"return\"."
   the_amount_entered_was: "القيمة المدخلة: %{number} دولار أمريكي"
   the_darwin_core_taxon_elements: "The Darwin Core Taxon elements (dwct:Taxon) under additionalInformation include identifiers for nodes in hierarchies which EOL indexes. They contain a dc:identifier which is the unique ID for the taxon <i>in the provider's database.</i>"
-  hierarchies_description: "The Encyclopedia of Life does not have a singular taxonomic hierarchy upon which it creates its pages. Rather EOL indexes many hierarchies and compares them against each other. This API list metadata about a hierarchy such as the provider name and source URL, as well as lists all the taxa which are the root taxa of the taxonomic tree"
-  hierarchies_entries_description: "The Encyclopedia of Life does not have a singular taxonomic hierarchy upon which it creates its pages. Rather EOL indexes many hierarchies and compares them against each other. As a result any EOL page may relate to several nodes from various hierarchies. This API gives access to a single hierarchy and its internal relationships. Refer to the documentation on the pages API for information on accessing other hierarchies which correspond to a particular EOL page. The taxonConceptID field contains the EOL page identifier which can be used in the pages API."
-  the_following_are_curators_of: "يوجد فيما يلي مشرفون على"
   the_following_bibliography: "تم تكوين قائمة المراجع التالية عن طريق جمع كل المراجع المقدمة من شركاء المحتوى، ويمكن أن يكون هنالك تكرار بالقائمة."
   the_id_of_the_provider_s_hiera: "the ID of the provider's hierarchy you are searching within. Check %{link} for valid IDs"
   the_json_response_for_this_met: "The JSON response for this method returns more information than the XML response. The JSON response includes several statistics about this node and its taxonomic descendants. For example there is a returned field \"total_descendants\" which list the number of nodes which are descendants of the given node according to this hierarchy; \"total_trusted_text\" includes the total number of unique text data objects linked to this page or any of its descendants."
   the_list_represents_the_curation_activity: "توضح القائمة نشاط الإشراف على عناصر بيانات <b>%{link}</b>"
   the_xml_search_response_implements: "The XML search response implements the OpenSearch response format using Atom 1.0. See %{link} for the full OpenSearch specification"
   there_are_currently_no_members_in_this_community: "لا يوجد حاليًا أي أعضاء بهذا المجتمع"
-  there_are_no_curators_of: "لا يوجد مشرفون على"
   there_is_no_singular_eol: "There is no singular EOL taxonomic hierarchy, rather EOL indexes many hierarchies and compares them to figure out which nodes are referring to the same taxa. These taxon elements represent these hierarchy nodes, which is why there are potentially several of them for a given EOL page. Refer to the documentation on the %{link} API for more information."
   there_was_an_error_posting_your_text: "حدث خطأ خلال إضافة النص"
   this_cannot_be_undone_are_you_sure: "This cannot be undone; are you sure?"
   this_community_has_no_endorsed_collections: "لم يقدم هذا المجتمع أي مجموعات."
   this_community_has_no_focus_list: "لا توجد قائمة اهتمامات لهذا المجتمع"
   this_community_was_deleted: "This community was deleted by its owner."
-  curator_privileges_removed_notifier_email: "This email is to notify you that your curator privileges have been removed"
   this_is_a_flat_list_of_10_million_strings: "تلك قائمة مسطحة تضم 10 مليون تسلسل - غير مسموح لك بتصفحها"
   this_is_a_focus_collection_for_community: "ذلك هو محور اهتمام %{community}."
-  first_time_published_content_partners_list_for_the_month: "تلك قائمة بشركاء المحتوى التي تنشهر موضوعاتهم لأول مرة ذلك الشهر."
   this_is_an_automated_e_mail_notification: "إشعار أوتوماتيكي بالبريد الإلكتروني"
-  hierarchy_selector_drop_down_list_label: "ذلك هو التصنيف الذي سوف يظهر في لائحة اختيار التسلسل الهرمي المنسدلة"
   this_is_the_label_that_will_be_used_for_attribution: "ذلك هو التصنيف الذي سوف يتم استخدامه لذلك النسب"
   this_is_the_link_to_your_web_stats: "الرابط إلى إحصائياتك:"
-  page_method_description: "This method takes an EOL page identifier and returns the scientific name for that page, and optionally returns information about common names, media (text, images and videos), and references to the hierarchies which recognize the taxon described on the page."
   this_method_takes_an_integer_or_string: "This method takes an integer or string which is the unique identifier for a taxon from some provider's database, and a hierarchy_id which represents the provider and returns the EOL page ID for that taxon. For example using the %{link_provider} API I can find out that the EOL hierarchy_id for the Integrated Taxonomic Information System (ITIS) is %{itis_id}. I can then search EOL for the ITIS Taxonomic Serial Number (TSN) of 180542,<i>Ursus maritimus</i>, by calling %{link_url}"
-  ping_method_description: "This method will either fail (in which case the EOL error page will most likely be returned) or return a message of Success. There are no other possible messages"
-  provider_hierarchies_method_description: "This method will return references to all hierarchies supplied by EOL Content Partners. The response will include the label of the hierarchy and the EOL unique ID representing the hierarchy"
   this_report_is_also_available_via_feeds: "ذلك التقرير متاح أيضًا عبر خدمة التحديثات"
   threat_status_header_colon: "حالة التهديد وفقًا للاتحاد العالمي للحفاظ على الطبيعة (IUCN)"
   time_ago: "منذ %{time_passed}"
@@ -1815,7 +1829,6 @@ ar:
   trusted: "موثوق به"
   trusted_images: "صور موثوق بها"
   trusted_text_objects: "مقاﻻت موثوق بها"
-  try_google_audio_player: "Try the Google audio player"
   tumblr: "منصة تدوين تمبلر"
   twitter: "موقع تويتر"
   type: النوع
@@ -1859,8 +1872,8 @@ ar:
   user_joined_community_on_date: "%{username} joined this community on %{date}."
   user_left_comment_on_date: "%{username} أضاف تعليق في %{date}."
   user_says_colon: "%{users_name} يقول:"
-  user_submitted_text_titlecase: "User Submitted Text"
   user_submitted_text_found: "النص المضاف من قبل المستخدم:"
+  user_submitted_text_titlecase: "User Submitted Text"
   user_system_down: "نعتذر، فنظام تسجيل المستخدمين غير متاح حاليًّا. يرجى المحاولة لاحقًا."
   username: Username
   username_colon: "اسم المستخدم:"
@@ -1886,7 +1899,11 @@ ar:
   users_my_info_header: "معلومات عني"
   users_pending_activation_message: "تم إرسال رسالة تأكيد إلى البريد الإلكتروني الذي أضفته. لاستكمال عملية التسجيل لتصبح عضو بموسوعة الحياة، يرجى الضغط على الرابط المتضمن في تلك الرسالة. شكرًا لك!"
   using_the_site: "استخدام الموقع"
+  validation_error: "Validation Error"
+  validation_following_fields: "There were problems with the following fields:"
   value: القيمة
+  value_default: (default)
+  value_empty: (empty)
   values: Values
   version_1_0_uses_fields_from_the_latest_version: "version 1.0 uses fields from the latest version of the %{link} schema"
   vetted: "تم تقييمه"
@@ -1912,6 +1929,7 @@ ar:
   we_appreciate_your_feedback: "We appreciate your feedback."
   web_users: "مستخدمي شبكة الإنترنت"
   weekly: أسبوعيًّا
+  welcome_and_you_were_logged_out: "Welcome to the new EOL! There was a problem with your old login, so we have logged you out. Your old login information should work again, however. Sorry!"
   what_do_these_numbers_mean: "ماذا تعني تلك الأرقام؟"
   what_is_eol: "ما هي موسوعة الحياة؟"
   what_is_this_question: "ما هذا؟"

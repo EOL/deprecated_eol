@@ -55,6 +55,7 @@ end
 list = Set.new()
 
 %w[
+  helpers
   models
 
   views/layouts/v2
@@ -70,6 +71,7 @@ list = Set.new()
   views/content_partners
   views/data_objects
   views/members
+  views/navigation
   views/search
   views/sessions
   views/taxa/communities
@@ -150,9 +152,6 @@ list = Set.new()
   views/content_partner_account/reports/_taxa_comments_report.html.haml
   views/content_partner_account/reports/_user_submitted_text_report.html.haml
   views/layouts/main.html.haml
-  views/navigation/_browse_page.html.haml
-  views/navigation/_node_name_page.html.haml
-  views/navigation/_node_with_ancestry_page.html.haml
   views/notifier/account_activated.html.haml
   views/notifier/contact_us_auto_response.html.haml
   views/notifier/curator_approved.html.haml
@@ -188,7 +187,6 @@ list = Set.new()
   views/taxa/_recognized_by.html.haml
   views/taxa/_text_summary.html.haml
   views/taxa/content/_content_content_summary.html.haml
-  views/taxa/curators.html.haml
 ].compact.each do |dir|
   list += grepper(dir)
 end

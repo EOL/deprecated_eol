@@ -104,7 +104,7 @@ class ContentController < ApplicationController
     @selected_language = params[:language] ? Language.from_iso(params[:language]) : nil
     raise "static page without id" if @page_id.blank?
 
-    # Temporarily having to deal with some legacy V1 URLs (see routes file)
+    # Temporarily having to deal with some legacy V1 URLs (see routes file - should not be needed after October 10 2011)
     # but we don't want the user to see or bookmark them so:
     redirect_to cms_page_path(@page_id) if current_url.match(/^\/content\/page\//)
 

@@ -38,7 +38,7 @@ class ContentController < ApplicationController
       @explore_taxa.shuffle!
     end
   end
-  
+
   def replace_single_explore_taxa
     render :text => I18n.t(:please_refresh)
   end

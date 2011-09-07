@@ -315,7 +315,7 @@ class TaxonConcept < SpeciesSchemaModel
     toc_item = TocItem.education
     ccb = CategoryContentBuilder.new
     if ccb.can_handle?(toc_item)
-      ccb.content_for(toc_item, :vetted => current_user.vetted, :taxon_concept => self)
+      ccb.content_for(toc_item, :taxon_concept => self)
     else
       get_default_content(toc_item)
     end
@@ -356,7 +356,7 @@ class TaxonConcept < SpeciesSchemaModel
     toc_item = TocItem.find(category_id) # Note: this "just works" even if category_id *is* a TocItem.
     ccb = CategoryContentBuilder.new
     if ccb.can_handle?(toc_item)
-      ccb.content_for(toc_item, :vetted => current_user.vetted, :taxon_concept => self, :hierarchy_entry => options[:hierarchy_entry])
+      ccb.content_for(toc_item, :taxon_concept => self, :hierarchy_entry => options[:hierarchy_entry])
     else
       get_default_content(toc_item)
     end

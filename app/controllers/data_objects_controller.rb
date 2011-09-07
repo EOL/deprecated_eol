@@ -43,12 +43,6 @@ class DataObjectsController < ApplicationController
     if @data_object.nil? || @data_object.errors.any?
       failed_to_create_data_object && return
     else
-      # TODO: alter_current_user is to allow the current user to see the text object they just added,
-      # if their preferences were set to vetted, however - the preference of seeing only
-      # vetted may now be obsolete. I'm leaving this here for now, but maybe we can remove.
-      alter_current_user do |user|
-        user.vetted=false
-      end
       current_user.log_activity(:created_data_object_id, :value => @data_object.id,
                                 :taxon_concept_id => @taxon_concept.id)
       # add this new object to the user's watch collection
@@ -109,12 +103,6 @@ class DataObjectsController < ApplicationController
       # is now true. The edit action expects a data_object id, but we need the new values.
       failed_to_update_data_object and return
     else
-      # TODO: alter_current_user is to allow the current user to see the text object they just added,
-      # if their preferences were set to vetted, however - the preference of seeing only
-      # vetted may now be obsolete. I'm leaving this here for now, but maybe we can remove.
-      alter_current_user do |user|
-        user.vetted = false
-      end
       current_user.log_activity(:updated_data_object_id, :value => @data_object.id,
                                 :taxon_concept_id => @data_object.taxon_concept_for_users_text.id)
       redirect_to data_object_path(@data_object)

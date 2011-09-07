@@ -28,7 +28,6 @@ class ApplicationController < ActionController::Base
   prepend_before_filter :redirect_to_http_if_https
   prepend_before_filter :set_session
   before_filter :clear_any_logged_in_session unless $ALLOW_USER_LOGINS
-  before_filter :set_user_settings
   before_filter :check_user_agreed_with_terms, :except => :error
 
   helper :all
@@ -167,23 +166,6 @@ class ApplicationController < ActionController::Base
   # use redirect_back_or_default to specify a default url, do not add default here
   def return_to_url
     session[:return_to]
-  end
-
-  # Set the page expertise and vetted defaults, get from querystring, update the session with this value if found
-  def set_user_settings
-    return if request.path =~ /logout$/
-    expertise = params[:expertise] if ['novice', 'middle', 'expert'].include?(params[:expertise])
-    if !expertise.blank? && current_user.expertise != expertise
-      alter_current_user do |user|
-        user.expertise = expertise unless expertise.nil?
-      end
-    end
-    vetted = EOLConvert.to_boolean(params[:vetted])
-    if !vetted.blank? && current_user.vetted != vetted
-      alter_current_user do |user|
-        user.vetted = vetted unless vetted.blank?
-      end
-    end
   end
 
   def valid_return_to_url
@@ -413,7 +395,7 @@ class ApplicationController < ActionController::Base
       set_logged_in_user(user)
       return true
     else
-      cookies[:user_auth_token] = nil
+      reset_session
       return false
     end
   end

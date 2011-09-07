@@ -394,7 +394,6 @@ describe 'Taxa page (HTML)' do
   #
   # #image permalinks
   # it 'should load image as main image when image_id is specified'
-  # it 'should switch current_user.vetted to false when image_id is specified and is a unknown or untrusted image'
   # it 'should paginate to the correct page when image_id is specified and does not exist on the first page of thumbnails'
   # it 'should return 404 page when permalink image_id is specified that doesn\'t exist in the database'
   # it 'should return 404 page when permalink image_id is specified that isn\'t associated with species page'
@@ -405,7 +404,6 @@ describe 'Taxa page (HTML)' do
   #
   # #text permalinks
   # it 'should switch selected TOC when text_id is specified and not on the default selected TOC'
-  # it 'should current_user.vetted to false when permalink with text_id is specified for a text object which is unknown or untrusted'
   # it 'should return 404 page when loading permalink for text which doesn\'t exist in the database'
   # it 'should return 404 page when loading permalink for text which isn\'t associated with species page'
   # it 'should return 404 page when loading permalink for text which is hidden when the user isn\'t a curator'

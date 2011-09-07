@@ -25,7 +25,7 @@
           %p= I18n.t(:content_partner_resource_description_empty)
       - else
         .copy
-          %p= sanitize @resource.description
+          %p= sanitize @resource.description.balance_tags
     .section.half
       .article
         .header

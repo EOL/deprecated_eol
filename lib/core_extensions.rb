@@ -68,6 +68,9 @@ class NilClass
   def [](a,b=nil)
     return '[DATA MISSING]'
   end
+  def balance_tags
+    return nil
+  end
 end
 
 class String

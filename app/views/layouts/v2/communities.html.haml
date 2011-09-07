@@ -8,7 +8,7 @@
         .hgroup
           %h1= h @community.name
           - unless sanitize(@community.description).blank?
-            %p= sanitize @community.description
+            %p= sanitize @community.description.balance_tags
         .page_actions
           %ul
             %li= render :partial => 'shared/add_to_my_collection', :locals => { :item => @community }

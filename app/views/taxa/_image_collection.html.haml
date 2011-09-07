@@ -8,7 +8,7 @@
 #image-collection
   #thumbnails.clearfix
     - @images[0..$MAX_IMAGES_PER_PAGE-1].each do |image|
-      - name_string = sanitize(strip_tags(@taxon_concept.title))
+      - name_string = sanitize(strip_tags(@taxon_concept.title)).balance_tags
       - large_img_url = image.smart_image
       - average_rating = image.data_rating
       - user_rating = image['user_rating'] ? image['user_rating'] : 0
@@ -84,7 +84,7 @@
           - unless image.rights_holder.blank?
             = "&#169 #{image.rights_holder}."
             %br/
-          = sanitize image.license.description
+          = sanitize image.license.description.balance_tags
         - unless image.license.blank? || image.license.logo_url.blank?
           = '&nbsp;&nbsp;'
           = link_to(image_tag(image.license.logo_url), image.license.source_url, :class => "external_link")

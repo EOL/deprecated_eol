@@ -8,7 +8,7 @@
         .hgroup
           %h1= h @collection.name
           - unless sanitize(@collection.description).blank?
-            %p= sanitize @collection.description
+            %p= sanitize @collection.description.balance_tags
           %p= I18n.t(:last_updated_time_ago, :time_passed => time_ago_in_words(@collection.updated_at))
           - if @collection.community_id
             %p= I18n.t(:this_is_a_focus_collection_for_community, :community => link_to(@collection.community.name, community_path(@collection.community)))

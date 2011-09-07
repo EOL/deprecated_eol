@@ -45,6 +45,8 @@ describe 'Search' do
     visit('/logout')
     make_all_nested_sets
     flatten_hierarchies
+    ci_solr_api = SolrAPI.new($SOLR_SERVER, $SOLR_COLLECTION_ITEMS_CORE)
+    ci_solr_api.delete_all_documents
     builder = EOL::Solr::SiteSearchCoreRebuilder.new()
     builder.begin_rebuild
   end

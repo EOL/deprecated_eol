@@ -134,7 +134,7 @@ module ApiHelper
     
     return_hash['nameAccordingTo'] = []
     for agent_role in @hierarchy_entry.agents_roles
-      return_hash['nameAccordingTo'] << agent_role.agent.display_name
+      return_hash['nameAccordingTo'] << agent_role.agent.full_name
     end
     
     return_hash['vernacularNames'] = []

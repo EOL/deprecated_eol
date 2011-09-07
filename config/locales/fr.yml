@@ -13,6 +13,7 @@ fr:
   about_eol: À propos de l’EOL
   account_information: Informations sur le compte
   account_registered_but_not_ready_try_later: Votre compte est enregistré mais vous ne pouvez pas encore y accéder. Veuillez réessayer dans cinq minutes.
+  action: Action
   action_not_available_error: Désolé, cette action n’est pas disponible.
   actions: Actions
   activerecord: 
@@ -69,28 +70,8 @@ fr:
         username: Nom d’utilisateur
     errors: 
       messages: 
-        accepted: doit être accepté
-        blank: ne peut être laissé vide
-        confirmation: ne correspond pas à la confirmation
-        empty: ne peut pas être vide
-        equal_to: doit être égale à %{count}
-        even: doit être pair
-        exclusion: est protégé
-        greater_than: doit être supérieur à %{count}
-        greater_than_or_equal_to: doit être supérieur ou égal à %{count}
-        inaccessible: est inaccessible
-        inclusion: ne fait pas partie de la liste
-        invalid: est invalide
-        less_than: doit être inférieure à %{count}
-        less_than_or_equal_to: doit être inférieur ou égal à %{count}
-        not_a_number: n’est pas un nombre
-        not_an_integer: doit être un nombre entier
-        odd: doit être impair
-        record_invalid: "La validation a échoué: %{errors}"
+        record_invalid: "La validation a échoué : %{errors}"
         taken: est déjà utilisé
-        too_long: est trop long (%{count} caractères maximum)
-        too_short: est trop court (%{count} caractères minimum)
-        wrong_length: n'a pas la longueur requise (il faut %{count} caractères)
       models: 
         resource: 
           attributes: 
@@ -142,12 +123,13 @@ fr:
   add_to_my_collection_button: Ajouter à ma collection
   admin: administrateur
   admin_content_page_child_new_link: Créer une sous-page
-  admin_content_page_create_successful_notice: La page <em>%{page_name}</em> a été créée avec succès.
+  admin_content_page_create_successful_notice: La page <a href="#%{anchor}"><em>%{page_name}</em></a> a été créée avec succès.
   admin_content_page_create_unsuccessful_error: Une erreur s'est produite. La page n'a pas été créée.
   admin_content_page_delete_confirmation: Êtes-vous sûr de vouloir supprimer "%{page_name}" et toutes ses traductions ? La suppression est irréversible.
   admin_content_page_delete_successful_notice: La page %{page_name} et les traductions associées ont été supprimées.
   admin_content_page_new_header: Créer une nouvelle page de contenu.
   admin_content_page_new_link: Créer une nouvelle page.
+  admin_content_page_root: Racine
   admin_content_page_sort_order_updated: L'ordre des pages a été modifié.
   admin_content_page_update_successful_notice: La page <em>%{page_name}</em> a été mise à jour.
   admin_content_page_update_unsuccessful_error: Une erreur s'est produite. La page n'a pas pu être mise à jour.
@@ -159,7 +141,7 @@ fr:
   admin_information: Voici la nouvelle console d'administration d'EOL v2. Nous sommes entrain de transférer les fonctions de la version v1. Si une section que vous cherchez ne s'y trouve pas, rendez vous sur la <a href="/administrator">Console d'Administration v1</a>.
   admin_link: Console d'Administration
   admin_page_title: Console d'Administration
-  admin_translated_content_page_create_successful_notice: La traduction a été ajoutée à <em>%{page_name}</em>
+  admin_translated_content_page_create_successful_notice: La traduction a été ajoutée à <a href="#%{anchor}"><em>%{page_name}</em></a>
   admin_translated_content_page_create_unsuccessful_error: Une erreur s'est produite. La traduction n'a pas pu être ajoutée.
   admin_translated_content_page_delete_confirmation: Êtes-vous sûr de vouloir supprimer la version en %{language} de "%{page_name}" ? La suppression est irréversible.
   admin_translated_content_page_delete_successful_notice: La traduction en %{language} de <em>%{page_name}</em> a été supprimée.
@@ -169,12 +151,17 @@ fr:
   admin_translated_content_page_new_link: Ajouter une traduction
   admin_translated_content_page_new_subheader: Ajouter une traduction à <em>%{page_name}</em>
   admin_translated_content_page_new_tip: La langue, le titre et le corps du message sont %{required_icon} requis.
-  admin_translated_content_page_update_successful_notice: La traduction en %{language} de <em>%{page_name}</em> a été mise à jour.
+  admin_translated_content_page_update_successful_notice: La traduction en %{language} de <a href="#%{anchor}"><em>%{page_name}</em></a> a été mise à jour.
   admin_translated_content_page_update_unsuccessful_error: Une erreur s'est produite. La traduction n'a pas pu être mise à jour.
+  all_articles: Tous les articles
   all_changes: Toutes les modifications
+  all_collections: Toutes les collections
+  all_communities: Toutes les communautés
+  all_images: Toutes les images
   all_information: Toutes les informations
   all_items: Tous les éléments
   all_pages: Toutes les pages
+  all_taxa: Tous les taxons
   all_title: Tout
   all_user_submitted_texts_on_th: Tous les textes publiés sur le site par les utilisateurs sont affichés ci-dessous, triés par ordre chronologique inverse.
   already_a_member_question: Déjà membre ?
@@ -193,6 +180,7 @@ fr:
   assistive_names_common_header: Noms communs
   assistive_names_synonyms_header: Synonymes
   assistive_overview_header: Vue d’ensemble
+  assistive_taxon_community_header: Communauté
   assistive_updates_header: Mises à jour
   associated_with_article_header: Associé à
   associated_with_image_header: Sur cette image
@@ -201,13 +189,12 @@ fr:
   attribute: Attribuer
   authoritative_information: Information de référence
   auto_email_notifications_were_sent_to_colon: "Les notifications ont été envoyées à l'adresse :"
-  automated_translation_of_eol: Traduction automatique de EOL
   average_rating_value_of_total: "Note moyenne : %{rating} sur %{total}"
   back_to_profile: Retour au profil
   bi_monthly: Bimensuel
   biodiversity_heritage_library: Biodiversity Heritage Library
   browsable: Naviguable
-  browse_eol: parcourir EOL
+  browse_hierarchy: parcourir la hiérarchie
   build_communities: Créer des communautés
   cancel: Annuler
   cannot_be_associated_with_both_a_user_and_a_community: Ne peux être associé à la fois à un utilisateur et une communauté
@@ -245,6 +232,7 @@ fr:
   collection_updated_notice: La collection <em>%{collection_name}</em> a été mise à jour avec succès.
   collection_was_removed_by_owner: Cette collection a été retirée par son propriétaire.
   collections: Collections
+  collections_lowercase: collections
   collections_summary_empty: Ce taxon ne fait encore partie d'aucune collection.
   collections_summary_header_with_count: 
     one: Inclus dans %{count} collection
@@ -273,6 +261,9 @@ fr:
   communities_summary_header_with_count: 
     one: Appartient à %{count} communauté
     other: Appartient à %{count} communautés
+  communities_with_count: 
+    one: "%{count} Communauté"
+    other: "%{count} Communautés"
   community: Communauté
   community_activity: Activité de la communauté
   community_contributions_with_count: 
@@ -292,7 +283,6 @@ fr:
   confirm_password_colon: "Confirmez le mot de passe:"
   contact_eli_eol_org_for_any_co: Pour tout commentaire, contactez eli@eol.org .
   contact_us_link: Nous contacter
-  contact_us_title: Nous contacter
   content_has_been_updated: Le contenu a été mis à jour.
   content_partner_about_header: À propos de %{partner_name}
   content_partner_agreement_create_successful_notice: Vous avez accepté les conditions du partenaire de contenu. Vous pouvez maintenant ajouter des données.
@@ -304,6 +294,8 @@ fr:
   content_partner_contact_new_page_subheader: Ajouter un contact
   content_partner_contacts_header: Contacts
   content_partner_data_description_header: Description des données
+  content_partner_filter_option_vetted_no: Non
+  content_partner_filter_option_vetted_yes: Oui
   content_partner_has_unpublished_content_false: Pas de contenu non publié
   content_partner_has_unpublished_content_true: Contenu non publié
   content_partner_managed_by_header: Géré par
@@ -338,10 +330,12 @@ fr:
   current_language: "Langue : %{iso_code}"
   daily: Quotidien
   dashboard: Tableau de bord
+  dato_create_cancel: Annuler
   dato_edit_cancel: Annuler
   dato_edit_text_link_button: Modifier cet article
   dato_new_text_for_taxon_page_title: Ajouter un article à <i>%{taxon}</i>
   delete: supprimer
+  delete_community: Supprimer cette communauté
   description: Description
   description_of: Description de
   destination_inappropriate_for_logged_in_users: Vous êtes connecté.
@@ -353,7 +347,6 @@ fr:
   donation_amount_other_label: Autre
   donation_error_only_numbers: Veuillez entrer une quantité en utilisant uniquement des chiffres.
   edit: Modifier
-  edit_collection: Modifier la collection
   edit_community: Modifier la communauté
   edit_downcase: modifier
   edit_my_profile: Modifier mon profil
@@ -365,7 +358,20 @@ fr:
   eol_api: API EOL
   eol_colon: "EOL :"
   eol_news: Actualités EOL
-  error_page_header: Désolé, nous avons rencontré un problème
+  errors: 
+    messages: 
+      accepted: doit être accepté
+      blank: ne peut être laissé vide
+      empty: ne peut pas être laissé vide
+      even: doit être pair
+      exclusion: est réservé
+      inaccessible: est inaccessible
+      inclusion: ne fait pas partie de la liste
+      invalid: est invalide
+      not_a_number: n'est pas un nombre
+      not_an_integer: doit être un entier
+      odd: doit être impair
+      wrong_type: est de type incorrect
   esc_key_hides_this_message: (la touche ÉCHAP masque ce message)
   example_colon: "Exemple :"
   explore: à découvrir
@@ -386,16 +392,18 @@ fr:
   filter_by_type_text_option: Articles
   filter_by_type_video_option: Vidéos
   filtered_information: Informations filtrées
+  flickr: Flickr
   for_the_month_of_colon: "Pour le mois de :"
   forgot_password_form_cancel: Annuler
   forgot_password_form_choose_username_instructions: Il y a plusieurs comptes associés à l'email <em>%{email}</em>, merci de choisir le compte pour lequel vous souhaitez réinitialiser le mot de passe.
   forgot_password_form_choose_username_legend: Choisir un compte
   forgot_password_form_header: Réinitialiser le mot de passe
   forgot_password_form_username_or_email_blank_error: Veuillez entrer votre nom d'utilisateur et email pour réinitialiser votre mot de passe.
-  general_error_occurred: Nous sommes désolés, mais une erreur s’est produite. Veuillez faire une tentative de plus pour effectuer votre tâche. Si l’erreur persiste, veuillez envoyer un courriel à %{email} avec le message d’erreur ci-dessous et toute autre information que vous aimeriez partager avec nous. Nous travaillons dur pour vous fournir le meilleur service possible et nous apprécions votre soutien. -- L’équipe EOL
   global_access_tagline: Accès global à la connaissance sur la vie sur Terre.
   global_navigation: Navigation globale
   go: Aller
+  head_title_collection: "Collection : %{name}"
+  head_title_community: "Communauté : %{name}"
   hello_user: Bonjour %{user}
   help: Assistance
   helpers: 
@@ -471,6 +479,7 @@ fr:
     other: "%{count} membres"
   minimal_page: Page minimale
   moderator_colon: "Modérateur :"
+  month_equals: Mois =
   most_active_members: Membres les plus actifs
   move: Déplacer
   move_all_articles_button: déplacer tous les articles
@@ -486,7 +495,6 @@ fr:
   my_activity: Mon activité
   my_info: Mes infos
   name: Nom
-  name_preferred_for_language_no: Aucun
   name_preferred_for_language_yes: Préféré
   names: Noms
   names_children_column_header: Enfants
@@ -494,14 +502,17 @@ fr:
   names_parents_column_header: Parents
   names_sources_column_header: Sources
   names_status_column_header: Statut
-  ncbi_taxonomy: Taxonomie NCBI
   never: Jamais
+  new_collection: Nouvelle collection
   not_evaluated: Non évalué
   object: Objet
   object_type_collection_option: Collection
   object_type_community_option: Communauté
   object_type_image_option: Image
+  object_type_text_option: Texte
   object_type_user_option: Utilisateur
+  object_type_video_option: Vidéo
+  object_visibility_visible_option: Visible
   option_please_select: Veuillez sélectionner
   other_collection_items_with_count: 
     one: "%{count} autre élément"
@@ -509,16 +520,17 @@ fr:
   other_us_dollars_amount: "Other : $US"
   overview: Vue d’ensemble
   pages_curator_section_link: Conservateurs
+  pages_lowercase: pages
   pages_title: Références
   pages_with_pictures_and_text: Pages avec les images et le texte
   pages_with_pictures_or_text: Pages avec des images ou du texte
   pagination_next: Suivant
   pagination_previous: Précédent
+  parameters: Paramètres
   password_colon: "Mot de passe :"
   permalink: Lien permanent
   personal_space: Espace personnel
   preferences: Préférences
-  preferred_name_colon: "Nom préféré :"
   press_room: Salle de presse
   profile: Profil
   profile_colon: "Profil :"
@@ -533,7 +545,6 @@ fr:
   rights: Droits
   rights_holder: Détenteur des droits
   roles: Rôles
-  rss_abbr_html: <abbr title="Really Simple Syndication">RSS</abbr>
   save: Publier
   save_annotation_submit_button: Publier la note
   save_curated_association_submit_button: Publier l'association
@@ -573,14 +584,12 @@ fr:
   synonym: Synonyme
   table_column_header_actions: Actions
   table_of_contents: Table des matières
-  taxa: Taxons
   taxon: taxon
-  taxon_recognised_by_header: Reconnu par
   terms_agreement_form_header: Conditions d’utilisation
   terms_agreement_form_submit: J'accepte
   text_capital: Texte
   text_summary_more_link: Lire l'entrée complète
-  thanks_for_feedback: Merci pour votre contribution.
+  thank_you: Merci
   the_amount_entered_was: "Le montant indiqué était : %{number} $US"
   there_are_currently_no_members_in_this_community: Il n'y a actuellement aucun membre dans cette communauté.
   there_was_an_error_posting_your_text: Une erreur est survenue en envoyant votre texte.
@@ -599,17 +608,17 @@ fr:
   us_dollars_50: 50 US$
   user: Utilisateur
   user_system_down: Nous sommes désolés, mais le système d’enregistrement des utilisateurs n’est pas disponible actuellement.  Veuillez réessayer plus tard.
+  username: Nom d'utilisateur
   username_colon: "Nom d’utilisateur :"
   username_taken: "%{name} est déjà pris"
   users_about_me_header: À mon sujet
   users_form_account_header: Votre compte
   using_the_site: Utilisation du site
   value: Valeur
-  verification_phrase_did_not_match: La phrase de vérification que vous avez saisie ne correspond pas.
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Voir seulement les pages avec au moins une image ou un morceau de texte
   visible_title: Visible
+  wants_colon: "Veut :"
   watch_list: Liste de suivi
-  what_is_a_taxon: Qu’est-ce qu’un taxon ?
   what_is_eol: Qu'est-ce que l’EOL ?
   what_is_this_question: Qu’est-ce que c’est ?
   year: Année
@@ -625,7 +634,6 @@ fr:
   your_current_rating_3_of_5: "Votre note actuelle : 3 sur 5"
   your_current_rating_4_of_5: "Votre note actuelle : 4 sur 5"
   your_current_rating_5_of_5: "Votre note actuelle : 5 sur 5"
-  your_message_was_sent: Votre message a été envoyé
   your_preferences: Vos préférences
   your_preferences_have_been_updated: Vos préférences ont été mises à jour.
   your_rating: Votre note

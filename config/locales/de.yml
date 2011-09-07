@@ -3,12 +3,21 @@
 # Export driver: syck-pecl
 # Author: Kghbln
 de: 
-  dash_encyclopedia_of_life: "- Enzyklopädie des Lebens"
+  0_1_or_2: 0, 1 oder 2
+  0_or_1: 0 oder 1
+  a_request_to_reset_your_password_has_been_made: Eine Anforderung zum Zurücksetzen Ihres Passworts wurde erstellt.
+  a_total_of_comment_were_found_matching_your_criteria: 
+    one: Insgesamt wurde ein Kommentar gefunden, der zu Ihren Kriterien passt.
+    other: Insgesamt wurden %{count} Kommenare gefunden, die zu Ihren Kriterien passen.
   about_eol: Über EOL
   account_information: Nutzerkontoinformationen
   account_registered_but_not_ready_try_later: Ihr Konto ist registriert aber noch nicht zum Nutzen bereit. Bitte versuchen Sie es erneut in fünf Minuten.
+  action: Aktion
   action_not_available_error: Diese Aktion ist leider nicht verfügbar.
   actions: Aktionen
+  activate_email_enjoy_exploring: Erfreuen Sie sich am Erkunden der Vielfalt des Lebens.
+  activate_email_footer: "- Das Team der Enzyklopädie des Lebens (EOL)"
+  activate_email_intro: Hallo %{full_name} (%{username}),
   active_colon: "Aktiv:"
   activerecord: 
     attributes: 
@@ -27,7 +36,7 @@ de:
         sort_order: Sortierreihenfolge
       content_partner: 
         acronym: Projektabkürzung
-        admin_notes: Administrationsnotizen
+        admin_notes: Administrationshinweise
         content_partner_status: Projektstatus
         created_at: Erstellt
         description: Projektbeschreibung
@@ -88,29 +97,8 @@ de:
       full_messages: 
         format: "%{attribute} %{message}"
       messages: 
-        accepted: muss akzeptiert werden
-        blank: darf nicht leer sein
-        confirmation: stimmt nicht mit der Bestätigung überein
-        empty: darf nicht leer sein
-        equal_to: muss mit %{count} übereinstimmen
-        even: muss gerade sein
-        exclusion: ist reserviert
-        greater_than: muss größer als %{count} sein
-        greater_than_or_equal_to: muss größer als oder gleich %{count} sein
-        inaccessible: ist unzugänglich
-        inclusion: ist nicht in der Liste vorhanden
-        invalid: ist ungültig
-        less_than: muss kleiner als %{count} sein
-        less_than_or_equal_to: muss kleiner als oder gleich %{count} sein
-        not_a_number: ist keine Zahl
-        not_an_integer: muss eine Ganzzahl sein
-        odd: muss ungerade sein
         record_invalid: "Überprüfung ist fehlgeschlagen: %{errors}"
         taken: ist bereits vergeben
-        too_long: ist zu lang (maximal %{count} Zeichen)
-        too_short: ist zu kurz (mindestens %{count} Zeichen)
-        wrong_length: hat die falsche Länge (sollte %{count} Zeichen lang sein)
-        wrong_type: hat den falschen Typ
       models: 
         resource: 
           attributes: 
@@ -134,28 +122,124 @@ de:
   activity: Aktivität
   activity_log_empty: Bislang hat noch niemand Aktualisierungen vorgenommen.
   activity_log_empty_learn_more_link: Informieren Sie sich, wie sie hier beitragen können
+  activity_user_added_community_manager: <strong>%{user}</strong> machte %{manager} zu einem Manager der Gemeinschaft „%{community}“.
+  activity_user_added_item_to_collection: <strong>%{user}</strong> fügte das Objekt „%{item}“ der Sammlung „%{collection}“ hinzu.
+  activity_user_added_unknown_item_to_collection: <strong>%{user}</strong> fügte der Sammlung „%{collection}“ ein unbekanntes Objekt hinzu.
+  activity_user_changed_community_description: <strong>%{user}</strong> aktualisierte die Beschreibung der Gemeinschaft „%{community}“.
+  activity_user_changed_community_icon: <strong>%{user}</strong> änderte das Logo der Gemeinschaft „%{community}“.
+  activity_user_changed_community_name: <strong>%{user}</strong> änderte den Namen der Gemeinschaft „%{community}“.
+  activity_user_created_collection: <strong>%{user}</strong> gründete die Sammlung „%{collection}“.
+  activity_user_created_community: <strong>%{user}</strong> gründete die Gemeinschaft „%{community}“.
+  activity_user_created_text: <strong>%{user}</strong> fügte dem Objekt „%{object_name}“ bei „%{taxon_concept}“ Text hinzu.
+  activity_user_curated_an_unknown_object: <strong>%{user}</strong> kuratierte ein unbekanntes Objekt.
+  activity_user_deleted_community: <strong>%{user}</strong> löschte die Gemeinschaft „%{community}“.
+  activity_user_hid_data_object: <strong>%{user}</strong> markierte „%{object_name}“ als versteckt.
+  activity_user_hid_unknown_object: <strong>%{user}</strong> markierte ein unbekanntes Objekt als versteckt.
+  activity_user_joined_community: <strong>%{user}</strong> trat der Gemeinschaft „%{community}“ bei.
+  activity_user_marked_content_as_inappropriate: <strong>%{user}</strong> markierte einen Inhalt als unangemessen.
+  activity_user_modified_collection: <strong>%{user}</strong> änderte die Sammlung „%{collection}“.
+  activity_user_modified_community: <strong>%{user}</strong> änderte die Gemeinschaft „%{community}“.
+  activity_user_rated_data_object: <strong>%{user}</strong> bewertete „%{object_name}“.
+  activity_user_rated_unknown_object: <strong>%{user}</strong> bewertete ein unbekanntes Objekt.
+  activity_user_removed_all_items_from_collection: <strong>%{user}</strong> entfernte alle Objekte aus der Sammlung „%{collection}“.
+  activity_user_removed_item_from_collection: <strong>%{user}</strong> entfernte das Objekt „%{item}“ aus der Sammlung „%{collection}“.
+  activity_user_showed_data_object: <strong>%{user}</strong> markierte „%{object_name}“ als sichtbar.
+  activity_user_showed_unknown_object: <strong>%{user}</strong> markierte ein unbekanntes Objekt als sichtbar.
+  activity_user_trusted_data_object: <strong>%{user}</strong> markierte „%{object_name}“ als vertrauenswürdig.
+  activity_user_trusted_unknown_object: <strong>%{user}</strong> markierte ein unbekanntes Objekt als vertrauenswürdig.
+  activity_user_unreviewed_data_object: <strong>%{user}</strong> markierte „%{object_name}“ als ungeprüft.
+  activity_user_unreviewed_unknown_object: <strong>%{user}</strong> markierte ein unbekanntes Objekt als ungeprüft.
+  activity_user_untrusted_data_object: <strong>%{user}</strong> markierte „%{object_name}“ als nicht vertrauenswürdig.
+  activity_user_untrusted_unknown_object: <strong>%{user}</strong> markierte ein unbekanntes Objekt als nicht vertrauenswürdig.
+  activity_user_updated_text: <strong>%{user}</strong> änderte am Objekt „%{object_name}“ bei „%{taxon_concept}“ den Text.
   add_a_comment_colon: "Fügen Sie einen Kommentar hinzu:"
   add_a_new_common_name: Fügen Sie einen neuen gebräuchlichen Namen hinzu
+  add_a_new_user: Fügen Sie einen neuen Nutzer hinzu
   add_a_taxon_association_label: Fügen Sie eine neue Zuordnung zu einem Taxon hinzu
   add_article_to_page_link_button: Fügen Sie dieser Seite einen Artikel hinzu
+  add_association_submit_button: Zuordnung hinzufügen
   add_brief_summary_to_page_link_button: Fügen Sie dieser Seite eine kurze Zusammenfassung hinzu
+  add_education_resources_to_page_link_button: Fügen Sie dieser Seite Bildungsmaterialien hinzu
+  add_identification_resources_to_page_link_button: Fügen Sie dieser Seite Identifikationsquellen hinzu
+  add_item_to_new_collection: „%{item}“ zu einer neuen Sammlung hinzufügen
+  add_language: Sprache hinzufügen
   add_new_association_link: Fügen Sie eine neue Zuordnung hinzu
+  add_page: Seite hinzufügen
   add_to_my_collection_button: Zu meiner Sammlung hinzufügen
+  added_to_the_comment: wurde %{comment} hinzugefügt
   admin: Administrator
+  admin_content_page_active: Veröffentlicht
+  admin_content_page_child_new_link: Erstellen Sie eine untergeordnete Seite
+  admin_content_page_create_successful_notice: Die Seite <a href="#%{anchor}"><em>%{page_name}</em></a> wurde erfolgreich erstellt.
+  admin_content_page_create_unsuccessful_error: Es ist leider ein Fehler aufgetreten, so dass die Seite nicht erstellt werden konnte.
+  admin_content_page_delete_confirmation: Sind Sie sicher, dass Sie „%{page_name}“ und alle Übersetzungen löschen möchten. Löschungen können nicht rückgängig gemacht werden.
+  admin_content_page_delete_successful_notice: Die Seite %{page_name} sowie alle ihr zugeordneten Übersetzungen wurde gelöscht.
+  admin_content_page_edit_header: Die grundlegenden Informationen zur Seite <em>%{page_name}</em> aktualisieren
+  admin_content_page_new_header: Eine neue Inhaltsseite erstellen
+  admin_content_page_new_link: Neue Seite erstellen
+  admin_content_page_new_tip: Die grundlegenden Informationen zu dieser Seite. Ein eindeutiger Name ist %{required_icon} erforderlich.
+  admin_content_page_not_active: Unveröffentlicht
+  admin_content_page_parent_option_root: Keine übergeordnete Seite
+  admin_content_page_root: Basis
+  admin_content_page_sort_order_updated: Die Reihenfolge der Seiten wurde geändert.
+  admin_content_page_update_successful_notice: Die Seite <a href="#%{anchor}"><em>%{page_name}</em></a> wurde erfolgreich aktualisiert.
+  admin_content_page_update_unsuccessful_error: Es ist leider ein Fehler aufgetreten, so dass die Seite nicht aktualisiert werden konnte.
+  admin_content_pages_empty: Es wurden keine Seiten mit Inhalten gefunden.
+  admin_content_pages_link: Verwaltung der Inhalte
+  admin_content_pages_page_title: "Administration: Verwaltung der Inhalte"
+  admin_content_partner_notification_link: Monatliche Benachrichtigungen
+  admin_content_partners_hierarchies_link: Hierarchie der Inhaltspartner
+  admin_content_partners_link: Inhaltspartner
+  admin_content_partners_page_title: "Administration: Inhaltspartner verwalten"
+  admin_content_partners_published_link: Monatlich veröffentlichte Inhaltspartner
+  admin_home: Administrationsseite
   admin_link: Administrationsseite
+  admin_notes_not_visible_to_user: "Anmerkungen für Administratoren (für Benutzer nicht sichtbar):"
   admin_page_title: Administrationsseite
+  admin_translated_content_page_create_successful_notice: Die Übersetzung wurde der Seite <a href="#%{anchor}"><em>%{page_name}</em></a> hinzugefügt.
+  admin_translated_content_page_create_unsuccessful_error: Es ist leider ein Fehler aufgetreten, so dass die Übersetzung nicht hinzugefügt werden konnte.
+  admin_translated_content_page_delete_confirmation: Sind Sie sicher, dass Sie die Übersetzung auf %{language} der Seite „%{page_name}“ löschen möchten. Löschungen können nicht rückgängig gemacht werden.
+  admin_translated_content_page_delete_successful_notice: Die Übersetzung auf %{language} der Seite <em>%{page_name}</em> wurde gelöscht.
+  admin_translated_content_page_edit_subheader: Bearbeiten Sie die Übersetzung auf %{language} der Seite <em>%{page_name}</em>
+  admin_translated_content_page_edit_tip: Titel und Text sind %{required_icon} erforderlich.
+  admin_translated_content_page_new_header: Wählen Sie eine Sprache fügen Sie Inhalt hinzu
+  admin_translated_content_page_new_link: Übersetzung hinzufügen
+  admin_translated_content_page_new_subheader: Eine Übersetzung für Seite <em>%{page_name}</em> hinzufügen
+  admin_translated_content_page_new_tip: Sprache, Titel und Text sind %{required_icon} erforderlich.
+  admin_translated_content_page_update_successful_notice: Die Übersetzung auf %{language} für die Seite <a href="#<span class=" notranslate"="">%{anchor}"><em>%{page_name}</em></a> wurde aktualisiert.
+  admin_translated_content_page_update_unsuccessful_error: Es ist leider ein Fehler aufgetreten, so dass die Übersetzung nicht aktualisiert werden konnte.
+  agent: Agent
+  all_articles: Alle Artikel
+  all_changes: Alle Änderungen
+  all_collections: Alle Sammlungen
+  all_comments_entered_by_users: Alle auf der Website von Benutzer hinterlassenen Kommentare werden, in umgekehrter Reihenfolge ihrer Erstellung, unten angezeigt.
+  all_communities: Alle Gemeinschaften
+  all_images: Alle Bilder
   all_information: Alle Informationen
-  all_items: Alle Elemente
+  all_items: Alle Objekte
   all_pages: Alle Seiten
+  all_people: Alle Menschen
+  all_sounds: Alle Geräusche
+  all_taxa: Alle Taxa
+  all_title: Alles
+  all_user_submitted_texts_on_th: Alle auf der Website von Benutzer erstellten Texte werden, in umgekehrter Reihenfolge ihrer Erstellung, unten angezeigt.
+  all_videos: Alle Videos
   already_a_member_question: Sind Sie bereits Mitglied?
   already_member_of_community: Sie sind bereits Mitglied dieser Gemeinschaft.
   alternate_classification: Alternative Klassifizierung
   and: und
   and_between_form_items: und
+  any_integer: eine beliebige ganze Zahl
   application_version_advisory_information: Programmversion
   are_you_sure: Sind Sie sicher?
   article_from: Artikel aus
   article_more_about: Erfahren Sie mehr zu diesem Artikel
+  articles_in_languages_with_count: 
+    one: "Die Artikel auf dieser Seite sind in folgender Sprache vorhanden:"
+    other: "Die Artikel auf dieser Seite sind in den folgenden %{count} Sprachen vorhanden:"
+  articles_in_other_languages_with_count: 
+    one: "Die Artikel auf dieser Seite sind in einer weiteren Sprache vorhanden:"
+    other: "Die Artikel auf dieser Seite sind in den %{count} weiteren Sprachen vorhanden:"
   assistive_details_header: Einzelheiten
   assistive_literature_header: Literatur
   assistive_maps_header: Karten
@@ -164,48 +248,223 @@ de:
   assistive_names_related_header: Ähnliche Namen
   assistive_names_synonyms_header: Synonyme
   assistive_overview_header: Übersicht
+  assistive_taxon_community_header: Gemeinschaft
   assistive_updates_header: Aktualisierungen
+  associated_submit_button: verbunden
+  associated_with_article_header: Verbunden mit
+  associated_with_header: Verbunden mit
+  associated_with_image_header: Auf diesem Bild
+  associated_with_sound_header: Verbunden mit
+  associated_with_video_header: In diesem Video
+  associations_more_link: mehr <span class="assistive">Taxonverbünde</span>
+  attribute: Eigenschaft
+  audio_mute: Ton aus
+  audio_pause: Pause
+  audio_play: Abspielen
+  audio_stop: Stoppen
+  audio_unmute: Ton an
   authoritative_information: Verbindliche Informationen
+  auto_email_notifications_were_sent_to_colon: "Automatische E-Mail-Benachrichtigungen wurden gesendet an:"
   average_rating_value_of_total: "Durchschnittliche Bewertung: %{rating} von %{total}"
   back_to_profile: Zurück zum Profil
+  belongs_in_count_communities: 
+    one: Gehört zu einer Gemeinschaft
+    other: Gehört zu %{count} Gemeinschaften
+  bi_monthly: Zweimonatlich
   biodiversity_heritage_library: Biodiversity Heritage Library
+  biomedical_terms: Biomedizinische Begriffe
+  biomedical_terms_provided_by: Die Bedingungen werden von <a href="%{supplier_url}">PubMed</a> zur Verfügung gestellt.
+  browsable: Durchsuchbar
+  browse_hierarchy: Hierarchie durchsuchen
+  build_communities: Gemeinschaften aufbauen
   cancel: Abbrechen
   cannot_be_associated_with_both_a_user_and_a_community: Konnte weder einem Nutzer noch einer Gemeinschaft zugeordnet werden.
   cannot_be_empty: darf nicht leer sein.
+  cannot_create_collection_item_from_class_error: Es kann kein Objekt für eine Sammlung aus einer %{klass} erstellt werden.
+  cannot_create_community_from_watch_collection_error: Sie können keine Gemeinschaft auf Basis einer Beobachtungsliste erstellen.
+  cannot_find_member: Es kann kein Mitglied mit dieser Kennung gefunden werden.
+  cannot_index_collection_item_type_error: Es kann keine Sammlung auf Basis eines %{type} indexiert werden.
+  change: Ändern
   change_rating_to_1_of_5: Bewertung auf 1 von 5 ändern
   change_rating_to_2_of_5: Bewertung auf 2 von 5 ändern
   change_rating_to_3_of_5: Bewertung auf 3 von 5 ändern
   change_rating_to_4_of_5: Bewertung auf 4 von 5 ändern
   change_rating_to_5_of_5: Bewertung auf 5 von 5 ändern
+  changed_to_act: zu „%{act}“ geändert
+  choose_collection_header: Sammlung auswählen
   citation: Zitierung
+  citation_example: "Fisher, Brian: „Pogonomyrmex anergismus Cole, 1954.“ Enzyklopädie des Lebens, von <a href=\"http://eol.org/pages/460427\" target=\"_blank\">http://eol.org/pages/460427</a>. Abgerufen am 15. Jan. 2009."
+  citing_link: Zitieren
+  classification_tree_header: Klassifikation
+  classifications_empty: Diese Seite ist in keiner der Klassifikationen enthalten, die auf EOL durchsuchbar sind.
   classifications_summary_header_with_count: 
     one: Teil einer genehmigten Klassifikation
     other: Teil von %{count} genehmigten Klassifikationen
+  close_this_window_to_return_to: DIESES FENSTER SCHLIESSEN, UM ZUM BEARBEITUNGSFENSTER ZURÜCKZUKEHREN
+  cms_available_in_languages: "Diese Seite ist verfügbar in:"
+  cms_missing_content_message: Diese Seite ist leider nicht in dieser Sprache vorhanden.
+  cms_missing_content_title: Fehlende Inhalte
+  collect_item: Objekt sammeln
+  collection_created_notice: Die Sammlung <em>%{collection_name}</em> wurde erfolgreich erstellt.
+  collection_created_with_count_notice: 
+    one: Die Sammlung <em>%{collection_name}</em> wurde erfolgreich mit einem Sammlungsobjekt erstellt.
+    other: Die Sammlung <em>%{collection_name}</em> wurde erfolgreich mit %{count} Sammlungsobjekten erstellt.
+  collection_delete_link: Diese Sammlung dauerhaft löschen
+  collection_destroyed: Die Sammlung wurde gelöscht.
+  collection_image: Bild der Sammlung
+  collection_is_empty: Diese Sammlung enthält derzeit nichts.
+  collection_item_annotation_label: Anmerkung zum Sammlungsobjekt
+  collection_item_not_found_error: Dieses Sammlungsobjekt konnte nicht gefunden werden.
+  collection_name_label: Name der Sammlung
+  collection_not_created_error: Es ist leider ein Fehler aufgetreten, so dass die Sammlung <em>%{collection_name}</em> nicht erstellt werden konnte.
+  collection_not_destroyed_error: Die Sammlung wurde leider nicht gelöscht.
+  collection_not_found_error: Diese Sammlung konnte leider nicht gefunden werden.
+  collection_updated_notice: Die Sammlung <em>%{collection_name}</em> wurde erfolgreich aktualisiert.
+  collection_was_removed_by_owner: Diese Sammlung wurde von ihrem Besitzer entfernt.
   collections: Sammlungen
+  collections_lowercase: Sammlungen
+  collections_summary_empty: Diese Seite befindet sich noch nicht in einer Sammlung.
   collections_summary_header_with_count: 
     one: Bestandteil einer Sammlung
     other: Bestandteil von %{count} Sammlungen
   collections_with_count: 
-    one: "%{count} Sammlung"
+    one: Eine Sammlung
     other: "%{count} Sammlungen"
-  common_names_advisory_information: Diesem Taxon zugeordnete gebräuchliche Namen.
+  comment: Kommentar
+  comment_added_notice: Der Kommentar wurde erfolgreich hinzugefügt.
+  comment_body_label: Ihr Kommentar
+  comment_colon: "Kommentar:"
+  comment_created_at: Erstellt am
+  comment_new_posters_image_advisory_info: Ihr Name und Ihr Profilbild werden zusammen mit Ihrem Kommentar in Listen angezeigt.
+  comment_new_posters_image_alt: Ihr Profilbild, sofern Sie eines hochgeladen haben.
+  comment_not_added_error: Es ist leider ein Fehler aufgetreten, so dass der Kommentar nicht hinzugefügt werden konnte.
+  comment_show_posters_image_alt: Das Profilbild von %{posters_name}, der diesen Kommentar hinterlassen hat.
+  comments_and_tags: Kommentare und Stichwörter
+  comments_moderated: Moderierte Kommentare
+  comments_with_count: 
+    one: Ein Kommentar
+    other: "%{count} Kommentare"
   common_names_with_count: 
     one: Ein gebräuchlicher Name
     other: "%{count} gebräuchliche Namen"
   communities: Gemeinschaften
+  communities_index_empty: Es gibt keine aktiven Gemeinschaften.
+  communities_index_header: Aktive Gemeinschaften
+  communities_summary_empty: Dieses Taxon wurde bislang in keiner Gemeinschaft vorgestellt.
   communities_summary_header_with_count: 
     one: Gehört zu %{count} Gemeinschaft
     other: Gehört zu %{count} Gemeinschaften
+  communities_with_count: 
+    one: Eine Gemeinschaft
+    other: "%{count} Gemeinschaften"
   community: Gemeinschaft
   community_activity: Aktivität der Gemeinschaft
+  community_contributions_with_count: 
+    one: Ein Mitwirkender
+    other: "%{count} Mitwirkende"
+  community_destroyed: Sie haben diese Gemeinschaft gelöscht. Sie wird nun nicht mehr auf den Seiten zu den Taxa oder bei Suchen angezeigt.
+  community_empty_notice: Diese Gemeinschaft hat keine Mitglieder.
   community_focus: Schwerpunkt der Gemeinschaft
+  community_focus_items_with_count: 
+    one: Ein Objekt
+    other: "%{count} Objekte"
+  community_invitation_comment: Ich möchte Sie dazu einladen der Gemeinschaft „%{community}“ beizutreten.
+  community_managers_with_count: 
+    one: Ein Gemeinschaftsbetreuer
+    other: "%{count} Gemeinschaftsbetreuer"
+  community_members_with_count: 
+    one: Ein Gemeinschaftsmitglied
+    other: "%{count} Gemeinschaftsmitglieder"
+  community_not_destroyed_error: Es ist leider ein Problem aufgetreten, so dass die Gemeinschaft nicht gelöscht wurde.
+  community_removed_by_owner: Diese Gemeinschaft wurde von ihrem Besitzer entfernt.
+  confirm_leave: Sind Sie sich sicher, dass Sie diese Gemeinschaft verlassen möchten?
+  confirm_password_colon: "Passwort bestätigen:"
+  contact_eli_eol_org_for_any_co: Kontaktieren Sie <eli@eol.org> im Fall von Anmerkungen.
+  contact_us_functions: Kontaktfunktionen
   contact_us_link: Kontaktieren Sie uns
-  content_partners: Partner bezüglich Inhalten
-  content_summary_introduction_html: Die folgenden Werte stellen die Summe der verschiedenen Inhaltstypen für dieses Taxon mitsamt allen ihm untergeordneten Elemente dar. %{glossary_term_trusted} Inhalte wurden entweder von einem Kurator auf EOL genehmigt oder stammen von einem vertrauenswürdigen Datenlieferant. %{glossary_term_unreviewed} Inhalte wurden bislang nicht von einem Kurator auf EOL bewertet. Jeder taxonomische Hierarchie ist einzigartig, so dass jede durchsuchbare Hierarchie zum Vergleichen aufgelistet ist.
-  content_summary_table_caption: Eine Zusammenfassung des mit %{taxon_name} verknüpften Inhalts und seiner untergeordneten Elemente in % {Hierarchy_label}
+  content_has_been_updated: Der Inhalt wurde aktualisiert.
+  content_partner: Inhaltspartner
+  content_partner_about_header: Über %{partner_name}
+  content_partner_administration_notes_empty: Es gibt keine Administrationshinweise.
+  content_partner_administration_notes_header: Administrationshinweise
+  content_partner_agreement_create_successful_notice: Sie haben den Bedingungen des Inhaltspartners erfolgreich zugestimmt. Sie können jetzt Datenquellen hinzufügen.
+  content_partner_agreement_subheader: Vereinbarung mit dem Inhaltspartner
+  content_partner_agreement_was_updated: Die Vereinbarung mit dem Inhaltspartner wurde erfolgreich aktualisiert.
+  content_partner_collections_empty: Die Sammlungen der Inhaltspartner listen Daten auf, die er aus seinen Beständen bereitgestellt hat. Aktuell wurde keine publizierten Sammlungen gefunden.
+  content_partner_column_header_partner: Partner
+  content_partner_column_header_registered: Registriert
+  content_partner_column_header_status: Status
+  content_partner_comment_log_activity: fügte vor  %{date} etwas dem %{type} unter %{link} von %{user} hinzu
+  content_partner_contact_create_successful_notice: Der Kontakt wurde aktualisiert.
+  content_partner_contact_create_unsuccessful_error: Es ist leider ein Fehler aufgetreten, so dass der Kontakt nicht hinzugefügt werden konnte.
+  content_partner_contact_delete_successful_notice: Der Kontakt wurde gelöscht.
+  content_partner_contact_delete_unsuccessful_error: Es ist leider ein Fehler aufgetreten, so dass der Kontakt nicht gelöscht werden konnte.
+  content_partner_contact_edit_link: Kontakt bearbeiten
+  content_partner_contact_edit_page_subheader: Kontakt bearbeiten
+  content_partner_contact_new_edit_form_header: Kontaktinformationen des Inhaltspartners
+  content_partner_contact_new_edit_form_tip: Vorname, Nachname und E-Mail-Adresse sind %{required_icon} erforderlich.
+  content_partner_contact_new_link: Einen neuen Kontakt hinzufügen
+  content_partner_contact_new_page_subheader: Einen Kontakt hinzufügen
+  content_partner_contacts_header: Kontakte
+  content_partner_contacts_page_title: Kontaktpersonen beim Inhaltspartner - %{name}
+  content_partner_contacts_with_count: 
+    one: Eine Kontaktperson
+    other: "%{count} Kontaktpersonen"
+  content_partner_create_successful_notice: Der Inhaltspartner wurde erfolgreich erstellt.
+  content_partner_create_unsuccessful_error: Es ist leider ein Fehler aufgetreten, so dass der Inhaltspartner nicht erstellt werden konnte.
+  content_partner_curated_data: Vom Inhaltspartner kuratierte Daten
+  content_partner_data_description_empty: Niemand hat zu den bereitgestellten Daten eine Beschreibung hinzugefügt.
+  content_partner_data_description_header: Beschreibung der Daten
+  content_partner_detail: Informationen zum Inhaltspartner
+  content_partner_details: Informationen zum Inhaltspartner
+  content_partner_edit_link: Inhaltspartner bearbeiten
+  content_partner_filter_option_vetted_no: Nein
+  content_partner_filter_option_vetted_yes: Ja
+  content_partner_has_unpublished_content_false: Keine unveröffentlichten Inhalte
+  content_partner_has_unpublished_content_true: Unveröffentlichte Inhalte
+  content_partner_hierarchies: Hierarchie der Inhaltspartner
+  content_partner_homepage_link: Die Website des Inhaltspartners besuchen
+  content_partner_latest_published_harvest_event_time_ago: Letztmalig vor %{time_passed} abgerufen
+  content_partner_logo_alt_text: Logo für den Inhaltspartner %{partner_name}
+  content_partner_managed_by_header: Verwaltet von
+  content_partner_new_edit_form_profile_header: Profilinformationen des Inhaltspartners
+  content_partner_new_edit_form_tip: Einige der Informationen, die Sie hier angeben, werden öffentlich einsehbar sein. Projektname und -bezeichnung sind %{required_icon} erforderlich.
+  content_partner_new_link: Neuen Inhaltspartner hinzufügen
+  content_partner_new_page_subheader: Einen neuen Inhaltspartner hinzufügen
+  content_partner_notes_empty: Es gibt keine zusätzlichen Hinweise zu diesem Projekt.
+  content_partner_notes_header: Projektnotizen
+  content_partner_objects_stats: Objektstatistiken des Inhaltspartners
+  content_partner_overview_agreement_header: Partnervereinbarung
+  content_partner_overview_agreement_link: Aktuelle Vereinbarung ansehen
+  content_partner_overview_link: Übersicht der Partner
+  content_partner_overview_link_back_to: zurück zur Übersicht der Partner
+  content_partner_registered_time_ago: Vor %{time_passed} registriert
+  content_partner_resource_about_header: Über die Quelle
+  content_partner_resource_collection_empty: Für diese Quelle wurde noch keine Sammlung erzeugt.
+  content_partner_resource_collection_header: Veröffentlichte Sammlung
+  content_partner_resource_collections_header: Sammlungen
+  content_partner_resource_create_successful_notice: "Die Informationen zur Quelle des Inhaltspartners wurde erfolgreich hinzugefügt. Der aktuelle Status der Quellendaten: %{resource_status}."
+  content_partner_resource_create_unsuccessful_error: Es ist leider ein Fehler aufgetreten, so dass die Quelle nicht hinzugefügt werden konnte.
+  content_partner_resource_dataset_details_header: Dataset
+  content_partner_resource_description_empty: Für diese Quelle wurde noch keine Beschreibung bereitgestellt.
+  content_partner_resource_edit_link: Quelle bearbeiten
+  content_partner_resource_edit_subheader: Quelle bearbeiten
+  content_partner_resource_force_harvest_link: Abruf erzwingen
+  content_partner_resource_licensing_details_header: Rechte und Namensnennung
+  content_partner_resource_new_link: Eine neue Quelle hinzufügen
+  content_partner_resource_new_subheader: Eine neue Quelle hinzufügen
+  content_partner_resource_preview_collection_header: Vorschau der Sammlung
+  content_partner_resource_resource_status_new: Erstellt
+  content_partner_resource_show_subheader: Informationen zur Quelle <em>%{resource_title}</em>
+  content_partner_resource_update_successful_notice: "Die Informationen zur Quelle des Inhaltspartners wurde erfolgreich aktualisiert. Der aktuelle Status der Quellendaten: %{resource_status}."
+  content_partner_resource_update_unsuccessful_error: Es ist leider ein Fehler aufgetreten, so dass die Quelle nicht aktualisiert werden konnte.
+  content_partner_resources_header: Quellen
+  content_partners: Inhaltspartner
+  content_summary_introduction_html: Die folgenden Werte stellen die Summe der verschiedenen Inhaltstypen für dieses Taxon mitsamt allen ihm untergeordneten Objekten dar. %{glossary_term_trusted} Inhalte wurden entweder von einem Kurator auf EOL genehmigt oder stammen von einem vertrauenswürdigen Datenlieferant. %{glossary_term_unreviewed} Inhalte wurden bislang nicht von einem Kurator auf EOL bewertet. Jeder taxonomische Hierarchie ist einzigartig, so dass jede durchsuchbare Hierarchie zum Vergleichen aufgelistet ist.
+  content_summary_table_caption: Eine Zusammenfassung des mit %{taxon_name} verknüpften Inhalts und seiner untergeordneten Objekte in %{hierarchy_label}
   content_summary_table_count_column_header: Anzahl
   content_summary_table_summary: Diese Tabelle enthält, nach Status getrennt, die Anzahl der verschiedenen Inhaltstypen.
-  content_summary_table_type_descendants_row: Anzahl der untergeordneten Elemente
+  content_summary_table_type_descendants_row: Anzahl der untergeordneten Objekte
   content_summary_table_type_status_column_header: Inhaltstyp und Status
   content_summary_table_type_trusted_images_row: Anzahl vertrauenswürdiger Bildern
   content_summary_table_type_trusted_text_row: Anzahl vertrauenswürdiger Texte
@@ -221,14 +480,15 @@ de:
     one: "%{count} Kurator"
     other: "%{count} Kuratoren"
   currently_in_eol: Derzeit in der Enzyklopädie des Lebens verzeichnet.
+  dash_encyclopedia_of_life: "- Enzyklopädie des Lebens"
   dashboard: Übersichtsseite
+  delete_community: Diese Gemeinschaft löschen
   detail: Einzelheiten
   development_version_name: V2-ENTWICKLUNGSVERSION - nicht zur Nutzung durch die Öffentlichkeit bestimmt.
   displaying_numerical_range: Anzeigen von %{start_number} bis %{end_number}
   donate: Spenden
   donation_error_no_amount: Bitte einen Spendenbetrag auswählen
   donation_error_only_numbers: Bitte geben Sie eine Menge nur mit Hilfe von Ziffern an.
-  edit_collection: Sammlung bearbeiten
   edit_community: Gemeinschaft bearbeiten
   edit_my_profile: Ihr Profil bearbeiten
   encyclopedia_of_life: Enzyklopädie des Lebens
@@ -239,7 +499,6 @@ de:
   eol_colon: "EOL:"
   eol_glossary: EOL-Glossar
   eol_news: Neuigkeiten von EOL
-  error_page_header: Es ist leider ein Problem aufgetreten.
   errors: 
     messages: 
       accepted: muss akzeptiert werden
@@ -275,7 +534,6 @@ de:
   filter_by_type_all_option: alle Typen
   filter_media: Medien filtern
   filtered_information: Gefilterte Informationen
-  general_error_occurred: Es ist ein Fehler aufgetreten, was uns leid tut. Bitte versuchen Sie noch einmal, die von Ihnen gewünscht Aktion auszuführen. Sofern der Fehler weiterhin auftritt, bitten wir Sie uns hierzu, zusammen mit der unten angegebenen Fehlermeldung und möglichen weiteren Informationen von Ihnen, eine E-Mail an %{email} zu senden. Wir arbeiten intensiv dran, Ihnen den bestmöglichen Dienst zu bieten und schätzen sehr Ihre Unterstützung dabei. -- Das EOL-Team
   global_access_tagline: Globaler Zugang zum Wissen über das Leben auf der Erde.
   global_navigation: Globale Navigation
   go: Los
@@ -346,6 +604,7 @@ de:
         mailing_list_yes: Ja
         new_password: Neues Passwort <small>(4 bis 16 Zeichen)</small>
         new_password_confirmation: Neues Passwort <small>(zur Bestätigung)</small>
+        tag_line: Eine Bezeichnung oder ein Stichwort <small>z. B. „Vogelliebhaber“</small>
         user_identities: Ich bin
         username: Nutzername <small>(4 bis 32 Zeichen)</small>
         username_or_email: Nutzername oder E-Mail-Adresse
@@ -377,6 +636,22 @@ de:
       resource: 
         create: Quelle hinzufügen
         update: Quelle aktualisieren
+      session: 
+        create: Anmelden
+      submit: "%{model} speichern"
+      translated_content_page: 
+        create: Übersetzung hinzufügen
+        update: Änderungen an der Übersetzung speichern
+      update: "%{model} aktualisieren"
+      user: 
+        create: Konto erstellen
+        curation_application: Bewerben Sie sich jetzt
+        curation_privileges: Anfrage abschicken
+        forgot_password: E-Mail senden
+        generate_api_key: Einen Schlüssel generieren
+        update: Profilinformationen speichern
+      wikipedia_queue: 
+        create: Anfrage abschicken
   home: Startseite
   home_page_link_advisory_information: Dieser Link führt zur Hauptseite der Enzyklopädie des Lebens.
   image_is_no_longer_available: Das Bild ist nicht mehr verfügbar.
@@ -430,7 +705,8 @@ de:
     one: "%{count} Medium"
     other: "%{count} Medien"
   members_with_count: 
-    other: Ein Mitglied
+    one: Ein Mitglied
+    other: "%{count} Mitglieder"
   minimal_page: Minimale Seite
   most_active_members: Aktivste Mitglieder
   must_be_associated_with_either_a_user_or_a_community: Muss entweder einem Nutzer oder einer Gemeinschaft zugeordnet sein.
@@ -441,8 +717,8 @@ de:
   newsfeed: Neuigkeitenfeed
   not_evaluated: Nicht bewertet
   other_collection_items_with_count: 
-    one: "%{count} weiteres Element"
-    other: "%{count} weitere Elemente"
+    one: Ein weiteres Objekt
+    other: "%{count} weitere Objekte"
   other_community_items_with_count: 
     one: "%{count} weiterer Artikel"
     other: "%{count} weitere Artikel"
@@ -463,12 +739,11 @@ de:
     other: von %{count} Personen
   recent_updates: Letzte Aktualisierungen
   remove_membership: Gemeinschaftszugehörigkeit beenden
-  resources: Informationsquellen
+  resources: Quellen
   rights: Berechtigungen
   rights_holder: Rechteinhaber
   roles: Nutzergruppen
-  rss_abbr_html: <abbr title="Really Simple Syndication">RSS</abbr>
-  search_by_term_page_title: "EOL-Suche: %{term}"
+  search_by_term_page_title: "Suche: %{term}"
   search_field_label: EOL durchsuchen
   search_input_advisory_information: Bitte eine gebräuchliche oder wissenschaftliche Bezeichnung für die lebenden Organismen angeben, zu denen Sie mehr in Erfahrung bringen möchten. Sie können aber auch nach anderen EOL-Mitgliedern, Sammlungen sowie Gemeinschaften suchen.
   search_placeholder: EOL durchsuchen …
@@ -507,39 +782,33 @@ de:
   supplier: Datenlieferant
   switch_language_advisory_information: Sprache der Website zu %{language_label} umschalten
   table_of_contents: Inhaltsverzeichnis
-  taxa: Taxa
   taxon: Taxon
   text_summary_more_link: Den vollständige Eintrag lesen
-  thanks_for_feedback: Vielen Dank für Ihren Beitrag.
   there_are_currently_no_members_in_this_community: Diese Gemeinschaft hat momentan keine Mitglieder.
   this_community_has_no_focus_list: Diese Gemeinschaft verfügt über keine Liste an Schwerpunkten.
   threat_status_header_colon: "IUCN Gefährdungsstufe:"
   time_ago: Vor %{time_passed}
   total_items_with_count: 
-    one: "%{count} Element"
-    other: "%{count} Elemente insgesamt"
+    one: Insgesamt ein Objekt
+    other: Insgesamt %{count} Objekte
   trusted: Vertrauenswürdig
-  try_your_request_again: Wiederholen Sie bitte Ihre Anfrage.
   twitter: Twitter
   unknown: Unbekannt
   unreviewed: Nicht geprüft
   updated_community: Die Gemeinschaft wurde erfolgreich aktualisiert
-  updates_with_count: 
-    one: "%{count} Aktualisierung"
-    other: "%{count} Aktualisierungen"
   us_dolars_75: 75 USD
   us_dollars_100: 100 USD
   us_dollars_35: 35 USD
   us_dollars_50: 50 USD
   user_system_down: Das Nutzerregistrierungssystem ist momentan nicht verfügbar. Bitte versuchen Sie es später erneut.
   using_the_site: Nutzung der Website
-  verification_phrase_did_not_match: Die Zeichen, die Sie zur Bestätigung eingegeben haben, stimmen nicht überein
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Nur Seiten mit mindestens einem Bild oder Text anzeigen.
-  what_is_a_taxon: Was ist ein Taxon?
   what_is_eol: Was ist EOL?
   what_is_this_question: Was bedeutet dies?
-  wikipedia_article_will_be_harvested_tonight: Der Wikipediaartikel %{article} in Version %{rev} wird heute Nacht abgefragt.
-  wikipedia_revisions_must_match_pattern_error: Die URL zur Version muss mit http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID* übereinstimmen.
+  will_paginate: 
+    next_label: Weiter &#8594;
+    page_gap: "&hellip;"
+    previous_label: "&#8592; Zurück"
   you_are_an_admin_so_i_will_show_you_that_the_error_was: "Sie sind Administrator. Der Fehler bestand darin:"
   you_are_not_authorized_to_perform_this_action: Sie sind nicht berechtigt, diese Aktion durchzuführen.
   you_joined_community: Sie sind dieser Gemeinschaft erfolgreich beigetreten.
@@ -550,7 +819,6 @@ de:
   your_current_rating_3_of_5: "Ihre derzeitige Bewertung: 3 von 5"
   your_current_rating_4_of_5: "Ihre derzeitige Bewertung: 4 von 5"
   your_current_rating_5_of_5: "Ihre derzeitige Bewertung: 5 von 5"
-  your_message_was_sent: Ihre Nachricht wurde gesendet.
   your_preferences: Ihre Einstellungen
   your_preferences_have_been_updated: Ihre Einstellungen wurden aktualisiert.
   your_rating: Ihre Bewertung

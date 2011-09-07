@@ -377,27 +377,40 @@ class ApplicationController < ActionController::Base
   end
 
   def logged_in_from_session?
-    if session[:user_id]
-      if u = cached_user
-        return true
-      else
-        # I had a problem when switching environments when my session use didn't exist, and this should help fix that
-        session[:user_id] = nil
+    begin
+      if session[:user_id]
+        if u = cached_user
+          return true
+        else
+          # I had a problem when switching environments when my session use didn't exist, and this should help fix that
+          session[:user_id] = nil
+        end
       end
+    rescue ActionController::SessionRestoreError => e
+      reset_session
+      logger.warn "!! Rescued a corrupt session."
     end
     return false
   end
 
   def logged_in_from_cookie?
-    user = cookies[:user_auth_token] && !cookies[:user_auth_token].blank? && User.find_by_remember_token(cookies[:user_auth_token])
-    if user && user.language && user.respond_to?(:stale?) && ! user.stale?
-      cookies[:user_auth_token] = { :value => user.remember_token, :expires => user.remember_token_expires_at }
-      set_logged_in_user(user)
-      return true
-    else
+    begin
+      user = cookies[:user_auth_token] && !cookies[:user_auth_token].blank? && User.find_by_remember_token(cookies[:user_auth_token])
+      if user
+        if user.language && user.respond_to?(:stale?) && ! user.stale?
+          cookies[:user_auth_token] = { :value => user.remember_token, :expires => user.remember_token_expires_at }
+          set_logged_in_user(user)
+          return true
+        else
+          cookies[:user_auth_token] = nil
+          logger.info "++ Removed an invalid user_auth_token cookie."
+        end
+      end
+    rescue ActionController::SessionRestoreError => e
       reset_session
-      return false
+      logger.warn "!! Rescued a corrupt cookie."
     end
+    return false
   end
 
   def check_authentication

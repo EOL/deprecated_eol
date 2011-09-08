@@ -1,9 +1,16 @@
-%span.icon{:title => I18n.t(:item_type_article_assistive)}
-%h4= link_to item.best_title, data_object_path(item)
-- if he = item.first_hierarchy_entry
-  - secondary_title = I18n.t(:description_of) + ' ' + he.name.canonical_form.string
-- if item.published_entries.length > 1
-  - secondary_title += ' ' + I18n.t(:and) + ' ' + I18n.t(:other_taxa_with_count, :count => item.published_entries.length - 1)
-= secondary_title
-%br
-= item.description_teaser
+-# NOTE on cache ... These never need to expire.  If ANYTHING changes in a data object, we create a new version of it
+-# and link it to the previous version with a GUID... so the "raw" ID will always always be the same.  This is also
+-# true of user-submitted text.  memcached should handle deleting the keys that don't get used, as part of its own GC
+-# routines.  ...So we're going to try this out for articles for a while... it should speed up some of the common
+-# text-heavy collections and search results.  That said, there is one caveat:
+-# if the dato gets more associations, it will not show them.  TODO - attempt to set up an observer to handle those.
+- cache "article/summary/#{I18n.locale}/#{item.id}" do
+  %span.icon{:title => I18n.t(:item_type_article_assistive)}
+  %h4= link_to item.best_title, data_object_path(item)
+  - if he = item.first_hierarchy_entry
+    - secondary_title = I18n.t(:description_of) + ' ' + he.name.canonical_form.string
+  - if item.published_entries.length > 1
+    - secondary_title += ' ' + I18n.t(:and) + ' ' + I18n.t(:other_taxa_with_count, :count => item.published_entries.length - 1)
+  = secondary_title
+  %br
+  = item.description_teaser

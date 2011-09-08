@@ -26,11 +26,7 @@ module TaxaHelper
     return entries.collect do |entry|
       vetted_class = vetted_id_class(entry.vetted_id)
       vetted_label = entry.vetted == Vetted.unknown ? I18n.t(:unreviewed) : entry.vetted.label
-      if @selected_hierarchy_entry
-        taxon_link = link_to entry.taxon_concept.canonical_form_object.string, taxon_hierarchy_entry_path(entry.taxon_concept, entry)
-      else
-        taxon_link = link_to entry.taxon_concept.canonical_form_object.string, taxon_concept_path(entry.taxon_concept)
-      end
+      taxon_link = link_to entry.taxon_concept.canonical_form_object.string, taxon_concept_path(entry.taxon_concept)
       "#{taxon_link} <span class='flag #{vetted_class}'>#{vetted_label}</span>"
     end
   end

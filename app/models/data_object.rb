@@ -1021,7 +1021,7 @@ class DataObject < SpeciesSchemaModel
   end
 
   def description_teaser
-    full_teaser = Sanitize.clean(description, :elements => %w[b i], :remove_contents => %w[table script])
+    full_teaser = Sanitize.clean(description[0..300], :elements => %w[b i], :remove_contents => %w[table script])
     return nil if full_teaser.blank?
     truncated_teaser = full_teaser.split[0..10].join(' ').balance_tags
     truncated_teaser << '...' if full_teaser.length > truncated_teaser.length

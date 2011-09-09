@@ -81,9 +81,9 @@ class UsersController < ApplicationController
 
   # GET named route /users/:username/verify/:validation_code users come here from the activation email they receive after registering
   def verify
-    params[:username] ||= ''
+    username = params[:username] || ''
     User.with_master do
-      @user = User.find_by_username(params[:username])
+      @user = User.find_by_username(User.username_from_verify_url(username))
     end
     if @user && @user.active
       flash[:notice] = I18n.t(:user_already_active_notice)
@@ -250,7 +250,7 @@ private
   end
 
   def send_verification_email
-    Notifier.deliver_verify_user(@user, verify_user_url(@user.username, @user.validation_code))
+    Notifier.deliver_verify_user(@user, verify_user_url(@user.verify_username, @user.validation_code))
   end
 
   def generate_api_key

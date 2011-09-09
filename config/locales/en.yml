@@ -156,30 +156,6 @@ en:
       hour: "Hour"
       minute: "Minute"
       second: "Seconds"
-  errors:
-    format: "%{attribute} %{message}"
-    messages: &errors_messages
-      inclusion: "is not included in the list"
-      exclusion: "is reserved"
-      invalid: "is invalid"
-      confirmation: "doesn't match confirmation"
-      accepted: "must be accepted"
-      empty: "can't be empty"
-      blank: "can't be blank"
-      too_long: "is too long (maximum is %{count} characters)"
-      too_short: "is too short (minimum is %{count} characters)"
-      wrong_length: "is the wrong length (should be %{count} characters)"
-      not_a_number: "is not a number"
-      not_an_integer: "must be an integer"
-      greater_than: "must be greater than %{count}"
-      greater_than_or_equal_to: "must be greater than or equal to %{count}"
-      equal_to: "must be equal to %{count}"
-      less_than: "must be less than %{count}"
-      less_than_or_equal_to: "must be less than or equal to %{count}"
-      odd: "must be odd"
-      even: "must be even"
-      inaccessible: "is inaccessible"
-      wrong_type: "is the wrong type"
   activerecord:
     models:
       user: "account"
@@ -257,6 +233,7 @@ en:
         description: Community description
         logo: Upload a logo
     errors:
+      format: "%{attribute} %{message}"
       template:
         header:
           one: "%{count} validation error found"
@@ -265,6 +242,35 @@ en:
       messages:
         taken: "has already been taken"
         record_invalid: "Validation failed: %{errors}"
+        inclusion: "is not included in the list"
+        exclusion: "is reserved"
+        invalid: "is invalid"
+        confirmation: "doesn't match confirmation"
+        accepted: "must be accepted"
+        empty: "can't be empty"
+        blank: "can't be blank"
+        too_long:
+          one: "is too long (maximum is %{count} character)"
+          other: "is too long (maximum is %{count} characters)"
+        too_short:
+          one: "is too short (minimum is %{count} character)"
+          other: "is too short (minimum is %{count} characters)"
+        wrong_length: "is the wrong length (should be %{count} characters)"
+        not_a_number: "is not a number"
+        not_an_integer: "must be an integer"
+        greater_than:
+          one: "must be greater than %{count}"
+          other: "must be greater than %{count}"
+        greater_than_or_equal_to: "must be greater than or equal to %{count}"
+        equal_to: "must be equal to %{count}"
+        less_than:
+          one: "must be less than %{count}"
+          other: "must be less than %{count}"
+        less_than_or_equal_to: "must be less than or equal to %{count}"
+        odd: "must be odd"
+        even: "must be even"
+        inaccessible: "is inaccessible"
+        wrong_type: "is the wrong type"
       full_messages:
         format: "%{attribute} %{message}"
       models:
@@ -834,7 +840,7 @@ en:
   classification_tree_header: "Classification"
   classification_view_in_hierarchy: "View in %{hierarchy_label}"
   classifications: "Classifications"
-  classifications_empty: "This page is not included in any classifications that are browsable in EOL."
+  classifications_empty: "This page is not included in any of the classifications that are browsable in EOL."
   classifications_summary_header_with_count:
     one: "Found in %{count} classification"
     other: "Found in %{count} classifications"
@@ -1245,7 +1251,6 @@ en:
   curator_activity: "Curator Activity"
   curator_approved_: "Curator Approved:"
   curator_central: "Curator Central"
-  curator_clade: "Curator Clade"
   curator_comment: "Curator Comment"
   curator: "curator"
   curator_title: "Curator"
@@ -1802,7 +1807,7 @@ en:
   if_you_are_a_content_partner_p: "If you are a Content Partner please %{login_here_link}."
   if_you_are_interested_in_using: "If you are interested in using the EOL API you can generate an API key to identify your application."
   if_you_are_providing_data_to_e: "If you are providing data to EOL via a <a href='http://www.lifedesks.org/' target='_blank'>LifeDesk</a>, this XML file will be created automatically when you generate your endpoint (Site Settings:EOL Partnership:Make Endpoint). LifeDesk users do not need to review the transfer schema documentation. Simply check the box below and proceed."
-  if_you_continue_to_have_problem_then_contact_us: "If you continue to have problem please feel free to contact us."
+  if_you_continue_to_have_problem_then_contact_us: "If you continue to have a problem, please feel free to contact us."
   if_you_did_make_this_request_j: "If you did make this request just click the link below:"
   if_you_did_not_make_this_reque: "If you did not make this request, simply ignore this email."
   if_you_followed_a_link_here_tell_the_author: "If you followed a link here, please tell the author of the page with that link that this URL is not valid."

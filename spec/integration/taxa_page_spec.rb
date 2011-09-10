@@ -110,6 +110,13 @@ describe 'Taxa page' do
         with_tag("img[src$=#{@testy[:taxon_concept].images_from_solr[3].thumb_or_object('580_360')[25..-1]}]")
       end
     end
+    it 'should have taxon links for the images in the gallery' do
+      taxon_concept = @testy[:taxon_concept]
+      (0..3).each do |i|
+        taxon = @testy[:taxon_concept].images_from_solr[i].association_with_best_vetted_status.hierarchy_entry.taxon_concept.canonical_form_object.string
+        should have_tag('a', :attributes => { :href => taxon_concept_path(taxon_concept) }, :text => taxon)
+      end
+    end
     it 'should have sanitized descriptive text alternatives for images in gallery'
       # TODO: add html to testy image description so can test sanitization of alt tags
       # should have_tag('div#media_summary_gallery img[alt^=?]', /(\w+\s){5}/, { :count => 4 })

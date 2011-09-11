@@ -25,6 +25,10 @@ pt:
   translated_agent_roles-label-agent_role_id-15: Contacto
   translated_agent_roles-label-agent_role_id-16: Contribuidor
   translated_agent_roles-label-agent_role_id-2: Autor
+  translated_agent_roles-label-agent_role_id-21: fornecedor
+  translated_agent_roles-label-agent_role_id-22: Tradutor
+  translated_agent_roles-label-agent_role_id-23: Revisor científico
+  translated_agent_roles-label-agent_role_id-24: Revisor linguístico
   translated_agent_roles-label-agent_role_id-3: Compilador
   translated_agent_roles-label-agent_role_id-4: Compositor
   translated_agent_roles-label-agent_role_id-5: Criador
@@ -77,6 +81,7 @@ pt:
   translated_contact_subjects-title-contact_subject_id-20: Suporte ao Parceiro de Conteúdo
   translated_contact_subjects-title-contact_subject_id-21: Enviar uma mensagem para Cynthia Parr no grupo de páginas de espécies
   translated_contact_subjects-title-contact_subject_id-22: Recursos do Golfo do México
+  translated_contact_subjects-title-contact_subject_id-23: Enviar uma mensagem para Eli Agbayani
   translated_contact_subjects-title-contact_subject_id-3: Aprendizagem e Educação
   translated_contact_subjects-title-contact_subject_id-4: Curação de Páginas
   translated_contact_subjects-title-contact_subject_id-5: Classificação
@@ -90,6 +95,7 @@ pt:
   translated_content_partner_statuses-label-content_partner_status_id-4: Inactivo
   translated_content_tables-label-content_table_id-1: Detalhes
   translated_data_types-label-data_type_id-1: Imagem
+  translated_data_types-label-data_type_id-10: Mapa
   translated_data_types-label-data_type_id-2: Som
   translated_data_types-label-data_type_id-3: Texto
   translated_data_types-label-data_type_id-4: Vídeo
@@ -171,6 +177,7 @@ pt:
   translated_ranks-label-rank_id-91: fam
   translated_ranks-label-rank_id-92: fam.
   translated_ranks-label-rank_id-99: família
+  translated_resource_statuses-label-resource_status_id-1: A enviar...
   translated_resource_statuses-label-resource_status_id-10: Publicado
   translated_resource_statuses-label-resource_status_id-11: Publicar pendente
   translated_resource_statuses-label-resource_status_id-12: Anular a publicação pendente
@@ -264,7 +271,6 @@ pt:
   translated_table_of_contents-label-table_of_contents_id-17: Referências Bibliográficas
   translated_table_of_contents-label-table_of_contents_id-194: Tamanho
   translated_table_of_contents-label-table_of_contents_id-2: Breve Resumo
-  translated_table_of_contents-label-table_of_contents_id-204: Recursos Educativos
   translated_table_of_contents-label-table_of_contents_id-218: Dispersão
   translated_table_of_contents-label-table_of_contents_id-221: Riscos
   translated_table_of_contents-label-table_of_contents_id-225: Na Web
@@ -332,6 +338,8 @@ pt:
   translated_table_of_contents-label-table_of_contents_id-344: Dados
   translated_table_of_contents-label-table_of_contents_id-345: Fontes de Dados
   translated_table_of_contents-label-table_of_contents_id-346: Termos Biomédicos
+  translated_table_of_contents-label-table_of_contents_id-347: Taxonomia
+  translated_table_of_contents-label-table_of_contents_id-348: Informações do tipo
   translated_table_of_contents-label-table_of_contents_id-4: Ecologia
   translated_table_of_contents-label-table_of_contents_id-41: Habitat
   translated_table_of_contents-label-table_of_contents_id-5: Evolução e Sistemática
@@ -343,6 +351,11 @@ pt:
   translated_untrust_reasons-label-untrust_reason_id-3: baixa qualidade
   translated_untrust_reasons-label-untrust_reason_id-4: duplicado
   translated_untrust_reasons-label-untrust_reason_id-5: Outro
+  translated_user_identities-label-user_identity_id-1: um entusiasta
+  translated_user_identities-label-user_identity_id-2: um estudante
+  translated_user_identities-label-user_identity_id-3: um educador
+  translated_user_identities-label-user_identity_id-4: um cientista cidadão
+  translated_user_identities-label-user_identity_id-5: um cientista profissional
   translated_vetted-label-vetted_id-0: Desconhecido
   translated_vetted-label-vetted_id-4: Não confiável
   translated_vetted-label-vetted_id-5: Confiável

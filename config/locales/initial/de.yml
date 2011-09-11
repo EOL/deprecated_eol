@@ -5,7 +5,10 @@
 de: 
   0_1_or_2: 0, 1 oder 2
   0_or_1: 0 oder 1
+  a_pipe_delimited_list_of_licenses: eine mit senkrechten Strichen „|“ voneinander getrennte Liste der Lizenzen oder „alle“, um die Objekt zu allen Lizenzen zuzuordnen. Mit cc- abgekürzte Listen sind allesamt
+  a_pipe_delimited_list_of_spm_info_item_subject_names: eine mit senkrechten Strichen „|“ voneinander getrennte Liste der SMP-Informationsobjekte zu Themen oder „alle“, um Texte zu jedem Thema zu erhalten
   a_request_to_reset_your_password_has_been_made: Eine Anforderung zum Zurücksetzen Ihres Passworts wurde erstellt.
+  a_taxon: ein Taxon
   a_total_of_comment_were_found_matching_your_criteria: 
     one: Insgesamt wurde ein Kommentar gefunden, der zu Ihren Kriterien passt.
     other: Insgesamt wurden %{count} Kommenare gefunden, die zu Ihren Kriterien passen.
@@ -18,6 +21,7 @@ de:
   activate_email_enjoy_exploring: Erfreuen Sie sich am Erkunden der Vielfalt des Lebens.
   activate_email_footer: "- Das Team der Enzyklopädie des Lebens (EOL)"
   activate_email_intro: Hallo %{full_name} (%{username}),
+  activate_email_welcome: Willkommen bei der Enzyklopädie des Lebens (EOL) und vielen Dank für Ihre Registrierung. Um mehr darüber zu erfahren, wie Sie die Website nutzen können, sehen Sie sich bitte unsere Hilfeseiten an (%{url}help).
   active_colon: "Aktiv:"
   activerecord: 
     attributes: 
@@ -82,7 +86,7 @@ de:
         api_key: API-Schlüssel
         bio: Biografie
         credentials: Anmeldeinformationen
-        curator_scope: Kuratierungsumfang
+        curator_scope: Kuratierungsbereich
         email: E-Mail-Adresse
         entered_password: Passwort
         entered_password_confirmation: Passwortwiederholung <small>(zur Bestätigung)</small>
@@ -122,9 +126,16 @@ de:
   activity: Aktivität
   activity_log_empty: Bislang hat noch niemand Aktualisierungen vorgenommen.
   activity_log_empty_learn_more_link: Informieren Sie sich, wie sie hier beitragen können
+  activity_user_added_association: <strong>%{user}</strong> hat eine Zuordnung zu „%{object_name}“ vorgenommen.
+  activity_user_added_common_name: <strong>%{user}</strong> hat einem unbekannten Objekt den gebräuchlichen Namen „%{name}“ hinzugefügt.
+  activity_user_added_common_name_to_taxon: <strong>%{user}</strong> hat dem Taxon „%{taxon}“ den gebräuchlichen Namen „%{name}“ hinzugefügt.
   activity_user_added_community_manager: <strong>%{user}</strong> machte %{manager} zu einem Manager der Gemeinschaft „%{community}“.
   activity_user_added_item_to_collection: <strong>%{user}</strong> fügte das Objekt „%{item}“ der Sammlung „%{collection}“ hinzu.
+  activity_user_added_named_association: <strong>%{user}</strong> hat eine Zuordnung zwischen „%{object_name}“ und „%{name}“ vorgenommen.
+  activity_user_added_unknown_association: <strong>%{user}</strong> hat bei einem unbekannten Objekt eine Zuordnung vorgenommen.
   activity_user_added_unknown_item_to_collection: <strong>%{user}</strong> fügte der Sammlung „%{collection}“ ein unbekanntes Objekt hinzu.
+  activity_user_added_unknown_name: <strong>%{user}</strong> hat einem unbekannten Objekt einen unbekannten gebräuchlichen Namen zugeordnet.
+  activity_user_added_unknown_name_to_taxon: <strong>%{user}</strong> hat dem Taxon „%{taxon}“ einen gebräuchlichen Namen hinzugefügt.
   activity_user_changed_community_description: <strong>%{user}</strong> aktualisierte die Beschreibung der Gemeinschaft „%{community}“.
   activity_user_changed_community_icon: <strong>%{user}</strong> änderte das Logo der Gemeinschaft „%{community}“.
   activity_user_changed_community_name: <strong>%{user}</strong> änderte den Namen der Gemeinschaft „%{community}“.
@@ -142,7 +153,12 @@ de:
   activity_user_rated_data_object: <strong>%{user}</strong> bewertete „%{object_name}“.
   activity_user_rated_unknown_object: <strong>%{user}</strong> bewertete ein unbekanntes Objekt.
   activity_user_removed_all_items_from_collection: <strong>%{user}</strong> entfernte alle Objekte aus der Sammlung „%{collection}“.
+  activity_user_removed_association: <strong>%{user}</strong> hat eine Zuordnung zu „%{object_name}“ entfernt.
   activity_user_removed_item_from_collection: <strong>%{user}</strong> entfernte das Objekt „%{item}“ aus der Sammlung „%{collection}“.
+  activity_user_removed_named_association: <strong>%{user}</strong> hat eine Zuordnung zwischen „%{object_name}“ und „%{name}“ entfernt.
+  activity_user_removed_unknown_association: <strong>%{user}</strong> hat bei einem unbekannten Objekt eine Zuordnung entfernt.
+  activity_user_removed_unknown_name: <strong>%{user}</strong> hat bei einem unbekannten Objekt einen unbekannten gebräuchlichen Namen entfernt.
+  activity_user_removed_unknown_name_to_taxon: <strong>%{user}</strong> hat beim Taxon „%{taxon}“ einen gebräuchlichen Namen entfernt.
   activity_user_showed_data_object: <strong>%{user}</strong> markierte „%{object_name}“ als sichtbar.
   activity_user_showed_unknown_object: <strong>%{user}</strong> markierte ein unbekanntes Objekt als sichtbar.
   activity_user_trusted_data_object: <strong>%{user}</strong> markierte „%{object_name}“ als vertrauenswürdig.
@@ -187,7 +203,7 @@ de:
   admin_content_pages_empty: Es wurden keine Seiten mit Inhalten gefunden.
   admin_content_pages_link: Verwaltung der Inhalte
   admin_content_pages_page_title: "Administration: Verwaltung der Inhalte"
-  admin_content_partner_notification_link: Monatliche Benachrichtigungen
+  admin_content_partner_notification_link: Monatliche Benachrichtigung
   admin_content_partners_hierarchies_link: Hierarchie der Inhaltspartner
   admin_content_partners_link: Inhaltspartner
   admin_content_partners_page_title: "Administration: Inhaltspartner verwalten"
@@ -209,21 +225,13 @@ de:
   admin_translated_content_page_update_successful_notice: Die Übersetzung auf %{language} für die Seite <a href="#<span class=" notranslate"="">%{anchor}"><em>%{page_name}</em></a> wurde aktualisiert.
   admin_translated_content_page_update_unsuccessful_error: Es ist leider ein Fehler aufgetreten, so dass die Übersetzung nicht aktualisiert werden konnte.
   agent: Agent
-  all_articles: Alle Artikel
   all_changes: Alle Änderungen
-  all_collections: Alle Sammlungen
   all_comments_entered_by_users: Alle auf der Website von Benutzer hinterlassenen Kommentare werden, in umgekehrter Reihenfolge ihrer Erstellung, unten angezeigt.
-  all_communities: Alle Gemeinschaften
-  all_images: Alle Bilder
   all_information: Alle Informationen
   all_items: Alle Objekte
   all_pages: Alle Seiten
-  all_people: Alle Menschen
-  all_sounds: Alle Geräusche
-  all_taxa: Alle Taxa
   all_title: Alles
   all_user_submitted_texts_on_th: Alle auf der Website von Benutzer erstellten Texte werden, in umgekehrter Reihenfolge ihrer Erstellung, unten angezeigt.
-  all_videos: Alle Videos
   already_a_member_question: Sind Sie bereits Mitglied?
   already_member_of_community: Sie sind bereits Mitglied dieser Gemeinschaft.
   alternate_classification: Alternative Klassifizierung
@@ -270,18 +278,20 @@ de:
   belongs_in_count_communities: 
     one: Gehört zu einer Gemeinschaft
     other: Gehört zu %{count} Gemeinschaften
-  bi_monthly: Zweimonatlich
+  bi_monthly: Zweimal im Monat
   biodiversity_heritage_library: Biodiversity Heritage Library
   biomedical_terms: Biomedizinische Begriffe
   biomedical_terms_provided_by: Die Bedingungen werden von <a href="%{supplier_url}">PubMed</a> zur Verfügung gestellt.
   browsable: Durchsuchbar
   browse_hierarchy: Hierarchie durchsuchen
+  browsing_branch_colon: "Zweig durchsuchen:"
   build_communities: Gemeinschaften aufbauen
   cancel: Abbrechen
   cannot_be_associated_with_both_a_user_and_a_community: Konnte weder einem Nutzer noch einer Gemeinschaft zugeordnet werden.
   cannot_be_empty: darf nicht leer sein.
   cannot_create_collection_item_from_class_error: Es kann kein Objekt für eine Sammlung aus einer %{klass} erstellt werden.
   cannot_create_community_from_watch_collection_error: Sie können keine Gemeinschaft auf Basis einer Beobachtungsliste erstellen.
+  cannot_expand_children: die untergeordnete Objekte können nicht expandiert werden
   cannot_find_member: Es kann kein Mitglied mit dieser Kennung gefunden werden.
   cannot_index_collection_item_type_error: Es kann keine Sammlung auf Basis eines %{type} indexiert werden.
   change: Ändern
@@ -316,6 +326,7 @@ de:
   collection_item_annotation_label: Anmerkung zum Sammlungsobjekt
   collection_item_not_found_error: Dieses Sammlungsobjekt konnte nicht gefunden werden.
   collection_name_label: Name der Sammlung
+  collection_newsfeed: Neuigkeitenfeed der Sammlung
   collection_not_created_error: Es ist leider ein Fehler aufgetreten, so dass die Sammlung <em>%{collection_name}</em> nicht erstellt werden konnte.
   collection_not_destroyed_error: Die Sammlung wurde leider nicht gelöscht.
   collection_not_found_error: Diese Sammlung konnte leider nicht gefunden werden.
@@ -375,6 +386,7 @@ de:
   community_members_with_count: 
     one: Ein Gemeinschaftsmitglied
     other: "%{count} Gemeinschaftsmitglieder"
+  community_newsfeed: Neuigkeitenfeed der Gemeinschaft
   community_not_destroyed_error: Es ist leider ein Problem aufgetreten, so dass die Gemeinschaft nicht gelöscht wurde.
   community_removed_by_owner: Diese Gemeinschaft wurde von ihrem Besitzer entfernt.
   confirm_leave: Sind Sie sich sicher, dass Sie diese Gemeinschaft verlassen möchten?
@@ -405,6 +417,8 @@ de:
   content_partner_contact_new_edit_form_tip: Vorname, Nachname und E-Mail-Adresse sind %{required_icon} erforderlich.
   content_partner_contact_new_link: Einen neuen Kontakt hinzufügen
   content_partner_contact_new_page_subheader: Einen Kontakt hinzufügen
+  content_partner_contact_update_successful_notice: Der Kontakt wurde erfolgreich aktualisiert.
+  content_partner_contact_update_unsuccessful_error: Es ist leider ein Fehler aufgetreten, so dass der Kontakt nicht aktualisiert werden konnte.
   content_partner_contacts_header: Kontakte
   content_partner_contacts_page_title: Kontaktpersonen beim Inhaltspartner - %{name}
   content_partner_contacts_with_count: 
@@ -459,7 +473,39 @@ de:
   content_partner_resource_update_successful_notice: "Die Informationen zur Quelle des Inhaltspartners wurde erfolgreich aktualisiert. Der aktuelle Status der Quellendaten: %{resource_status}."
   content_partner_resource_update_unsuccessful_error: Es ist leider ein Fehler aufgetreten, so dass die Quelle nicht aktualisiert werden konnte.
   content_partner_resources_header: Quellen
+  content_partner_resources_link: Quellen und Kontaktpersonen
+  content_partner_resources_link_back_to: zurück zu Quellen und Kontaktpersonen
+  content_partner_resources_policy_information: Nehmen Sie bitte die Nutzungsbedingungen des Inhaltspartners zur Kenntnis und stimmen Sie diesen zu, bevor Sie Ihre Daten zu Quellen hinzufügen.
+  content_partner_resources_unpublished_with_count: 
+    one: Eine unveröffentlichte
+    other: "%{count} unveröffentlichte"
+  content_partner_resources_with_count: 
+    one: Eine Quelle
+    other: "%{count} Quellen"
+  content_partner_statistics_column_header_provider_count: Seiten mit Inhalten von Anbietern
+  content_partner_statistics_column_header_provider_proportion: Prozentsatz Anbieter
+  content_partner_statistics_column_header_statistic: Für den Monat %{month_name} %{year} ermittelte Statistik
+  content_partner_statistics_column_header_taxa_page_page_views: Seitenaufrufe
+  content_partner_statistics_column_header_taxa_page_time_on_page_seconds: Verweildauer auf der Seite (Sekunden)
+  content_partner_statistics_column_header_taxa_page_unique_page_views: Eindeutige Seitenzugriffe
+  content_partner_statistics_column_header_total_count: Alle Seiten
+  content_partner_statistics_empty: Es wurden keine Statistiken für den %{month_name} %{year} gefunden.
+  content_partner_statistics_link: Nutzungsstatistiken
+  content_partner_statistics_summary_caption: Zusammenfassung von Nutzungsstatistiken für Seiten zu Taxa, die von %{partner_name} bereitgestellt wurden, im relativen Verhältnis zur Gesamtnutzung der EOL-Website.
+  content_partner_statistics_taxa_page_caption: Ausführliche Nutzungsstatistiken für Seiten zu Taxa, die von %{partner_name} bereitgestellt wurden.
+  content_partner_terms_agreed_to_false: Ausstehende Vereinbarung
+  content_partner_terms_agreed_to_true: Vereinbart
+  content_partner_unvetted: Nicht geprüft
+  content_partner_update_successful_notice: Die Partnerinformationen wurden erfolgreich aktualisiert.
+  content_partner_update_unsuccessful_error: Es ist leider ein Fehler aufgetreten, so dass die Partnerinformationen nicht aktualisiert wurden.
+  content_partner_vetted: Geprüft
   content_partners: Inhaltspartner
+  content_partners_empty: Es wurden keine Inhaltspartner gefunden.
+  content_partners_page_title: Inhaltspartner
+  content_partners_with_count: 
+    one: Ein Inhaltspartner
+    other: "%{count} Inhaltspartner"
+  content_setting_colon: "Inhaltseinstellung:"
   content_summary_introduction_html: Die folgenden Werte stellen die Summe der verschiedenen Inhaltstypen für dieses Taxon mitsamt allen ihm untergeordneten Objekten dar. %{glossary_term_trusted} Inhalte wurden entweder von einem Kurator auf EOL genehmigt oder stammen von einem vertrauenswürdigen Datenlieferant. %{glossary_term_unreviewed} Inhalte wurden bislang nicht von einem Kurator auf EOL bewertet. Jeder taxonomische Hierarchie ist einzigartig, so dass jede durchsuchbare Hierarchie zum Vergleichen aufgelistet ist.
   content_summary_table_caption: Eine Zusammenfassung des mit %{taxon_name} verknüpften Inhalts und seiner untergeordneten Objekte in %{hierarchy_label}
   content_summary_table_count_column_header: Anzahl
@@ -470,35 +516,194 @@ de:
   content_summary_table_type_trusted_text_row: Anzahl vertrauenswürdiger Texte
   content_summary_table_type_unreviewed_images_row: Anzahl ungeprüfter Bilder
   content_summary_table_type_unreviewed_text_row: Anzahl ungeprüfter Texte
+  copied_items_from_collection_with_count_notice: 
+    one: Ein Objekt von %{name} kopiert.
+    other: "%{count} Objekte von %{name} kopiert."
+  copy: Kopieren
+  copy_all_articles_button: alle Artikel kopieren
+  copy_all_collections_button: alle Sammlungen kopieren
+  copy_all_communities_button: alle Gemeinschaften kopieren
+  copy_all_images_button: alle Seiten kopieren
+  copy_all_items_button: gesamte Sammlung kopieren
+  copy_all_people_button: alle Personen kopieren
+  copy_all_sounds_button: alle Geräusche kopieren
+  copy_all_taxa_button: alle Taxa kopieren
+  copy_all_videos_button: alle Videos kopieren
+  copy_of_name: Kopie von %{name}
+  correct_donation_message: Sofern diese Informationen nicht richtig sind, gehe Sie bitte zu %{go_back_link} zurück, um Änderungen vorzunehmen
+  could_not_find_collection_error: Diese Sammlung konnte leider nicht gefunden werden.
   could_not_find_user: Zu diesem Nutzer konnte keine Mitgliedschaft in einer Gemeinschaft gefunden werden.
+  count_results_for_search_term: 
+    one: Ein Ergebnis zu <em>%{search_term}</em>
+    other: "%{count} Ergebnisse zu <em>%{search_term}</em>"
   create_a_collection: Eine Sammlung erstellen
   create_a_community: Eine Gemeinschaft erstellen
+  create_a_community_login_advisory: Vor dem Erstellen dieser Gemeinschaft werden Sie gebeten werden, sich anzumelden.
   create_account: Nutzerkonto erstellen
+  create_collection_button: Sammlung erstellen
+  create_community: Gemeinschaft gründen
+  create_community_about_heading: Über das Gründen einer Gemeinschaft
+  create_community_around_this_collection_header: Gründen Sie eine Gemeinschaft zu dieser Sammlung
+  create_community_unsuccessful_error: Es ist leider ein Fehler aufgetreten, so dass Ihre Gemeinschaft nicht gegründet werden konnte. Bitte stellen Sie sicher, dass alle Felder richtig ausgefüllt wurden.
+  create_user_form_header: Erstellen Sie eine neues Konto bei <abbr title="Encyclopedia of Life">EOL</abbr>
+  create_user_unsuccessful_error: Es ist leider ein Fehler aufgetreten, so dass Ihr neues Konto nicht erstellt werden konnte. Bitte stellen Sie sicher, dass alle Felder richtig ausgefüllt wurden.
+  created: Erstellt
+  created_at: Erstellt am
+  created_colon: "Erstellt:"
   created_community: Der Kommentar wurde erfolgreich erstellt.
-  curators_of_taxon_page_title: Kuratoren von %{taxon}
+  creative_commons: Creative Commons
+  credentials: Anmeldeinformationen
+  curated: Kuratiert
+  curated_association_update_button: Änderungen speichern
+  curation_activity_colon: "Aktivität des Kurators:"
+  curation_comment: Kommentar des Kurators
+  curation_privileges_page_title: Werden Sie ein Kurator
+  curation_reason_placeholder: zusätzliche Informationen (optional)
+  curator_colon: "Kurator:"
+  curator_level: Kuratorstufe
+  curator_level_application_pending_notice: Vielen Dank für Ihre Bewerbung zum Prokurator. Wir werden Sie per E-Mail benachrichtigen, sobald wir Ihre Bewerbung geprüft haben.
+  curator_level_assistant_approved_notice: Herzlichen Glückwunsch! Sie sind jetzt ein <em>Prokurator</em>. <a href="%{more_url}">Erfahren Sie mehr über die Rolle eines Prokurators</a>.
+  curator_level_assistant_curator: Prokurator
+  curator_level_full_curator: Oberkurator
+  curator_level_full_pending_notice: Vielen Dank für Ihre Bewerbung zum Oberkurator. Wir werden Sie per E-Mail benachrichtigen, sobald wir Ihre Bewerbung geprüft haben.
+  curator_level_master_curator: Hauptkurator
+  curator_level_master_pending_notice: Vielen Dank für Ihre Bewerbung zum Hauptkurator. Wir werden Sie per E-Mail benachrichtigen, sobald wir Ihre Bewerbung geprüft haben.
+  curator_level_with_indefinite_article_assistant_curator: ein <strong>Prokurator</strong>
+  curator_level_with_indefinite_article_full_curator: ein <strong>Oberkurator</strong>
+  curator_level_with_indefinite_article_master_curator: ein <strong>Hauptkurator</strong>
+  curator_profile: Profil des Kurators
+  curator_question: Kurator fragen?
+  curator_scope_colon: "Kuratierungsbereich:"
+  curator_status_changed_by: Kuratorstatus wurde am %{date} von %{user} geändert
+  curator_title: Kurator
+  curators: Kuratoren
+  curators_empty: Unsere Kuratoren haben bislang auf dieser Seite noch nichts getan.
   curators_summary_header_with_count: 
-    one: "%{count} Kurator"
+    one: Geprüft von einem Kurator
+    other: Geprüft von %{count} Kuratoren
+  curators_summary_learn_more_link: Erfahren Sie, wie man kuratiert
+  curators_with_count: 
+    one: Ein Kurator
     other: "%{count} Kuratoren"
+  current_language: "Sprache: %{iso_code}"
   currently_in_eol: Derzeit in der Enzyklopädie des Lebens verzeichnet.
+  daily: Täglich
+  darwin_core: Darwin Core
   dash_encyclopedia_of_life: "- Enzyklopädie des Lebens"
   dashboard: Übersichtsseite
+  data_object_ignore: Dieses Objekt ignorieren
+  data_object_not_associated_with_any_hierarchies: Dieses Datenobjekt ist keiner Hierarchien zugeordnet.
+  data_object_undo_ignore: Von der Liste der zu ignorierenden Objekte entfernen
+  data_objects: data_objects
+  data_usage_reports: Datennutzungsbericht
+  dato_create_cancel: Abbrechen
+  dato_create_update_user_text_missing_taxon_id_exception: Es ist nicht möglich einen Text für das DataObject oder das UsersDataObject zu erstellen, sofern die taxon_concept_id fehlt.
+  dato_create_user_text_error: Es ist leider ein Fehler aufgetreten, so dass der Artikel nicht hinzugefügt werden konnte.
+  dato_create_user_text_missing_taxon_id_exception: Es ist nicht möglich einen Text für das DataObject oder das UsersDataObject zu erstellen, sofern die taxon_id gleich Null ist.
+  dato_create_user_text_missing_user_exception: Es ist nicht möglich einen Text für das DataObject oder das UsersDataObject zu erstellen, sofern die taxon_id gleich Null ist.
+  dato_edit_cancel: Abbrechen
+  dato_edit_text_link_button: Diesen Artikel bearbeiten
+  dato_edit_text_title: Artikel bearbeiten
+  dato_new_edit_user_text_fieldset_content_header: Artikelinhalt
+  dato_new_edit_user_text_fieldset_information_header: Artikelinformationen
+  dato_new_edit_user_text_form_tip: Ihr Artikel wird als „nicht geprüft“ gekennzeichnet werden, bis ein Kurator ihn überprüft hat. Sofern Sie ein Kurator sind, wird Ihr Artikel direkt auf der Seite des Taxons veröffentlicht. Das mit einem Punkt (%{required_icon}) markierte Textfeld ist erforderlich.
+  dato_new_text_for_taxon_page_title: Einen Artikel zu <i>%{taxon}</i> hinzufügen
+  dato_update_user_text_error: Es ist leider ein Fehler aufgetreten, so dass der Artikel nicht aktualisiert werden konnte.
+  dato_update_users_text_not_owner_exception: Es ist nicht möglich den Text DataObject zu aktualisieren, da der aktuellen Nutzer nicht der Besitzer ist.
+  dear_contact_full_name: Sehr geehrter %{contact_full_name},
+  dear_user_with_comma: Sehr geehrter %{user},
+  default: Standard
+  default_focus_collection_name_from_community: "%{name}s Schwerpunkt"
+  default_watch_collection_name: "%{username}s Beobachtungsliste"
+  delete: löschen
   delete_community: Diese Gemeinschaft löschen
+  description: Beschreibung
+  description_of: Beschreibung von
+  descriptive_label: Aussagekräftige Bezeichnung
+  destination_inappropriate_for_logged_in_users: Sie sind angemeldet.
+  destroy: Zerstören
   detail: Einzelheiten
+  details_title: Einzelheiten
   development_version_name: V2-ENTWICKLUNGSVERSION - nicht zur Nutzung durch die Öffentlichkeit bestimmt.
+  did_you_mean: "Meinten Sie: %{suggestions}?"
+  disabled_for_now: MOMENTAN DEAKTIVIERT
   displaying_numerical_range: Anzeigen von %{start_number} bis %{end_number}
   donate: Spenden
+  donation_amount_legend: Wählen Sie den Betrag, den Sie gerne spenden möchten
+  donation_amount_other_label: Anderer
+  donation_confirmation: Spendenbestätigung
   donation_error_no_amount: Bitte einen Spendenbetrag auswählen
   donation_error_only_numbers: Bitte geben Sie eine Menge nur mit Hilfe von Ziffern an.
+  donation_introduction_paragraph_two: Ihre großzügige Förderung der Enzyklopädie des Lebens (EOL) unterstützt unsere Arbeit einen weltumspannenden Zugang zum Wissen über das Leben auf unserer Erde zu schaffen.
+  donation_sponsorship_content_title: Inhaltssponsoring
+  donation_sponsorship_fellowships_title: Gönner
+  donation_sponsorship_infrastructure_title: Hauptinfrastruktur
+  dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Unbekannte Registrierungsdaten nicht anzeigen (v1.0-Benutzer, alle vor dem 5. Januar 2009)
+  download_audio_mpeg: MPEG herunterladen
+  dublin_core: Dublin Core
+  duplicate_items_were_ignored: Dubletten wurden ignoriert.
+  each_method_s_documentation_pa: Jede Dokumentationsseite zu einer Methode enthält ein Beispiel für sowohl in XML, wie auch in JSON formatierte Antworten.
+  edit: Bearbeiten
+  edit_annotation: Vermerk bearbeiten
+  edit_collection_details: Informationen zur Sammlung bearbeiten
+  edit_collection_details_header: Informationen zur Sammlung bearbeiten
+  edit_collection_head_title: "Bearbeiten: %{collection_name}"
   edit_community: Gemeinschaft bearbeiten
+  edit_contact_us_topics: Themen für die Kontaktaufnahme bearbeiten
+  edit_content_partner_agreement: Vereinbarung mit dem Inhaltspartner bearbeiten
+  edit_downcase: bearbeiten
+  edit_eol_glossary: EOL-Glossar bearbeiten
+  edit_hierarchy: Hierarchie bearbeiten
   edit_my_profile: Ihr Profil bearbeiten
+  edit_news_items: Nachrichten bearbeiten
+  edit_page_contents: Seiteninhalte bearbeiten
+  edit_search_suggestions: Suchvorschläge bearbeiten
+  edit_table_of_contents: Inhaltsverzeichnis bearbeiten
+  edit_tag_suggestions: Stichwortvorschläge bearbeiten
+  edit_web_users: Internetnutzer bearbeiten
+  email: E-Mail-Adresse
+  email_colon: "E-Mail-Adresse:"
+  email_subject_a_message_from_the_eol: Eine Nachricht von der Enzyklopädie des Lebens (EOL)
+  email_subject_account_activated: Ihr Konto bei der Enzyklopädie des Lebens (EOL) wurde aktiviert
+  email_subject_eol_contact_us_with_subject: "Kontakt zu EOL: %{subject}"
+  email_subject_eol_monthly_stats_notification: Benachrichtigung über die monatlichen Statistiken zu EOL
+  email_subject_eol_user_changed_their_mail_settings: Ein Nutzer der EOL änderte seine Einstellung zur Mailingliste oder zur E-Mail-Adresse
+  email_subject_partner_ready_for_agreement: Ein Inhaltspartner von EOL ist bereit für eine Vereinbarung
+  email_subject_reset_password: Anforderung zum Zurücksetzen des Passwortes
+  email_subject_summary_of_recent_comments_and_curator_actions_for_your_eol_content: Zusammenfassung der neuesten Kommentare und Aktivitäten von Kuratoren bezüglich Ihren Inhalten in der Enzyklopädie des Lebens (EOL)
+  email_subject_thanks_for_contacting_the_eol: Vielen Dank für Ihre Kontaktaufnahme zur Enzyklopädie des Lebens (EOL)
+  email_subject_verify_user: Kontoaktivierung bei der Enzyklopädie des Lebens (EOL)
+  email_subject_your_request_tobe_a_curator_is_approved: Ihr Antrag, ein Kurator der Enzyklopädie dies Lebens (EOL) zu werden, wurde genehmigt
+  email_subject_your_request_tobe_a_curator_is_disapproved: Ihre Berechtigungen als Kurator der Enzyklopädie des Lebens (EOL) wurden Ihnen entzogen
   encyclopedia_of_life: Enzyklopädie des Lebens
+  end_quote: “
+  endorsed_by: Präsentiert von
   endorsed_collections: Empfohlene Sammlungen
   endorsed_collections_with_count: 
     one: Eine empfohlene Sammlung
     other: "%{count} empfohlene Sammlungen"
+  enter: eingeben
+  eol_api: EOL-API
+  eol_api_collections: "EOL-API: Sammlungen"
+  eol_api_data_objects: "EOL-API: Datenobjekte"
+  eol_api_hierarchies: "EOL-API: Hierarchien"
+  eol_api_hierarchy_entries: "EOL-API: Hierarchieeinträge"
+  eol_api_pages: "EOL-API: Seiten"
+  eol_api_ping: "EOL-API: Ping"
+  eol_api_provider_hierarchies: "EOL-API: Anbieterhierarchien"
+  eol_api_search: "EOL-API: Suche"
+  eol_api_search_by_provider: "EOL-API: Suche nach Anbieter"
   eol_colon: "EOL:"
   eol_glossary: EOL-Glossar
   eol_news: Neuigkeiten von EOL
+  eol_pages: Seiten
+  error_404_description: Wir konnten leider keine Seite unter dieser URL ermitteln.
+  error_404_page_title: Nicht gefunden
+  error_500_page_title: Interner Serverfehler
+  error_description: Wir haben leider ein Problem. Sofern es weiterhin bestehen bleibt, bitten wir Sie eine E-Mail an <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a> zu senden.
+  error_homepage_or_search_option: "Sie können entweder zur <a href=\"/\">Startseite</a> zurückkehren oder unser Suchwerkzeug nutzen:"
+  error_page_title: Hoppla.
+  error_try_again_or_homepage_or_search_option: "Sie können es entweder <a href=\"%{try_again_url}\">erneut versuchen</a>, zur <a href=\"/\">Startseite</a> zurückkehren oder unser Suchwerkzeug nutzen:"
   errors: 
     messages: 
       accepted: muss akzeptiert werden
@@ -523,21 +728,69 @@ de:
       wrong_length: hat die falsche Länge (sollte %{count} Zeichen lang sein)
       wrong_type: hat den falschen Typ
   esc_key_hides_this_message: (Die Esc-Taste blendet diese Meldung aus)
+  every_method_can_also_return_a: Jeder Methode kann auch eine Antwort in JSON zurückgeben, indem man eine .json-Erweiterung anhängt.
+  example_colon: "Beispiel:"
+  expand_all_children: alle untergeordneten Objekte expandieren
   explore: Entdecken
+  explore_what_we_know_about_taxon: Erkunden Sie was EOL zu %{taxon} verfügbar hat.
+  export_this_list_as_csv: Diese Liste als CSV-Datei exportieren
+  external_link_header: Externer Link
+  external_link_icon_alt_text: Externer Link.
+  facebook: Facebook
+  failed_login_attempts: fehlgeschlagene Anmeldeversuche) - muss aktiviert werden, damit sich Nutzer anmelden können
+  family_name_colon: "Nachname:"
   feedback: Rückmeldungen
+  filter_button: Filter
   filter_by_status: Nach Status filtern
   filter_by_status_all_option: alle Stati
-  filter_by_status_inappropriate_option: unangemessen
+  filter_by_status_inappropriate_option: Ungeeignet
   filter_by_status_trusted_option: vertrauenswürdig
+  filter_by_status_unknown_option: Nicht geprüft
   filter_by_status_untrusted_option: nicht vertrauenswürdig
   filter_by_type: Nach Typ filtern
   filter_by_type_all_option: alle Typen
+  filter_by_type_collection_option: Sammlungen
+  filter_by_type_community_option: Gemeinschaften
+  filter_by_type_image_option: Bilder
+  filter_by_type_photosynth_option: Photonsynthetisch aktive
+  filter_by_type_sound_option: Geräusche
+  filter_by_type_taxon_concept_option: Taxa
+  filter_by_type_text_option: Artikel
+  filter_by_type_user_option: Menschen
+  filter_by_type_video_option: Videos
   filter_media: Medien filtern
   filtered_information: Gefilterte Informationen
+  find_taxa_submit_button: Taxa ermitteln
+  flickr: Flickr
+  focus_list_newsfeed: Neuigkeitenfeed der Schwerpunktliste
+  for_the_month_of_colon: "Für den Monat:"
+  forgot_password: Passwort vergessen?
+  forgot_password_form_cancel: Abbrechen
+  forgot_password_form_choose_username_blank_error: Wählen Sie das Konto aus, für das Sie Ihr Passwort zurücksetzen möchten.
+  forgot_password_form_choose_username_legend: Ein Nutzerkonto auswählen
+  forgot_password_form_header: Ihr Passwort zurücksetzen
+  forgot_password_form_username_or_email_blank_error: Bitte geben Sie Ihren Nutzernamen oder Ihre E-Mail-Adresse an, um Ihr Passwort zurückzusetzen.
+  form_validation_errors_for_attribute_assistive: Es ist ein Fehler bei der Überprüfung dieses Elements aufgetreten.
+  frequency_daily: Täglich
+  frequency_monthly: Monatlich
+  frequency_never: Nie
+  frequency_weekly: Wöchentlich
+  from_community: von der Gemeinschaft %{community}
+  general_site_admin: allgemeine Websiteadministration
+  get_help_choosing_a_subchapter: Holen Sie sich Hilfe zur Auswahl eines Unterkapitels
+  get_more_tasks: weitere Aufgabe abholen
+  given_name_colon: "Vorname:"
   global_access_tagline: Globaler Zugang zum Wissen über das Leben auf der Erde.
   global_navigation: Globale Navigation
   go: Los
+  go_back: zurück
+  google_analytics_google_account_and_access_required: Google Analytics (Google-Konto und -Zugang erforderlich)
+  grant_full_curator_link: Förderung
+  grant_manager_link: Förderungsverwalter
   has_already_been_taken: ist bereits vergeben.
+  has_colon: "Hat:"
+  head_title_collection: "Sammlung: %{name}"
+  head_title_community: "Gemeinschaft: %{name}"
   hello_user: Hallo %{user}
   help: Hilfe
   helpers: 
@@ -577,7 +830,11 @@ de:
         unique_page_views: Eindeutige Seitenaufrufe <small>(Anzahl der Besucher die Seiten aufrufen)</small>
       resource: 
         accesspoint_url: Dataset-URL <small>(nur XML, XML.GZIP oder XML.GZ)</small>
+        accesspoint_url_existing_remove: Diese Quelle wird aktuell über die URL <em>%{accesspoint_url}</em> eingebunden. Laden Sie eine Datei hoch, sofern Sie die vorhandene URL ersetzen wollen und die Quelle direkt als Datei eingebunden werden soll (nicht empfohlen).
         dataset: Dataset
+        dataset_existing_remove: Die Datei <em>%{file_name}</em> ist momentan dieser Quelle zugeordnet. Geben Sie eine URL an, sofern Sie die vorhandene Datei <em>%{file_name}</em> ersetzen wollen und sie nunmehr über die URL eingebunden werden soll (empfohlen).
+        dataset_existing_replace: Die Datei <em>%{file_name}</em> ist momentan dieser Quelle zugeordnet. Laden Sie eine neue Datei hoch, um die vorhandene Datei <em>%{file_name}</em> zu ersetzen.
+        dwc_archive_url: "Sofern dieser Quelle ein Darwin-Core-Archiv zugeordnet ist, geben Sie bitte dessen URL hier an <small>(nur TAR.GZIP, TAR.GZ oder TGZ )</small>:"
         refresh_period_hours: Häufigkeit
         resource_status_id: Status
         resource_url_or_file: Quelldaten <small>(entweder eine URL angeben oder eine Datei hochladen)</small>
@@ -591,12 +848,19 @@ de:
       translated_content_page: 
         active_translation: Veröffentlicht
         language_id: Sprache
+        title_more: Der Titel dieses Inhalts wird im Kopfbereich der Seite angezeigt werden. Der Titel sollte für den Inhalt relevante Stichwörter enthalten.
       user: 
         agreed_with_terms: Ich stimme den <a href="%{terms_url}">Nutzungsbedingungen</a> zu
+        api_key_more: Erfahren Sie mehr über das <a href="%{api_docs_url}">Hinzufügen eines Schlüssels für Ihre API-Aufrufe</a>.
         bio: Über mich
         credentials: Anmeldeinformationen
+        credentials_more: "Bitte geben Sie mindestens eine der Anmeldeinformationen aus dieser Liste an:"
+        credentials_more_referral: Empfehlung des aktuellen Kurators.
         curation_application: Ein Kurator werden
+        curation_application_more: Sofern Sie Ihre Berechtigungen als Kurator ändern möchten, können Sie einfach einen entsprechenden Anfrage einreichen. Wir werden dann Ihre Eignung überprüfen.
         curator_level: Derzeit sind Sie %{Curator_level_with_indefinite_article}.
+        curator_scope: Kuratierungsbereich
+        email_reports_frequency_hours: Wie oft möchten Sie E-Mail-Benachrichtigungen bezüglich der Aktivitäten bei Ihren Beiträgen erhalten?
         entered_password: Passwort <small>(4 bis 16 Zeichen)</small>
         generate_api_key: Anfordern eines API-Schlüssels
         logo: Ein neues Foto hochladen
@@ -604,6 +868,7 @@ de:
         mailing_list_yes: Ja
         new_password: Neues Passwort <small>(4 bis 16 Zeichen)</small>
         new_password_confirmation: Neues Passwort <small>(zur Bestätigung)</small>
+        requested_curator_level: Ihre Anfrage ein %{curator_level_with_indefinite_article} zu werden, wird noch überprüft.
         tag_line: Eine Bezeichnung oder ein Stichwort <small>z. B. „Vogelliebhaber“</small>
         user_identities: Ich bin
         username: Nutzername <small>(4 bis 32 Zeichen)</small>
@@ -652,22 +917,80 @@ de:
         update: Profilinformationen speichern
       wikipedia_queue: 
         create: Anfrage abschicken
+  hidden: Verborgen
+  hierarchies: Hierarchien
+  hierarchies_title: Hierarchien
+  hierarchy: Hierarchie
+  hierarchy_entries: hierarchy_entries
+  hierarchy_entry_switch_missing_id_error: Die Eingabeseite für die von Ihnen ausgewählte Hierarchie konnte leider, aufgrund einer fehlenden Kennung, nicht gefunden werden.
+  hierarchy_roots_colon: "Hierarchiezweige:"
+  hierarchy_updated: Die Hierarchie wurde aktualisiert
   home: Startseite
   home_page_link_advisory_information: Dieser Link führt zur Hauptseite der Enzyklopädie des Lebens.
+  id: Kennung
+  if_the_above_url_does_not_work: Sofern die oben angegebene URL nicht funktioniert, versuchen Sie bitte sie zu kopieren und in das Adressfeld des Browsers einzufügen.
+  if_this_box_is_checked_the_hie: sofern dieses Kästchen angekreuzt wird, wird den Nutzern die Hierarchie als eine Möglichkeit zum Durchsuchen von EOL angeboten
+  if_you_continue_to_have_problem_then_contact_us: Sofern Sie weiterhin ein Problem haben, wenden Sie sich bitte an uns.
+  if_you_did_make_this_request_j: "Sofern Sie diese Anfrage gestellt haben, klicken Sie bitte auf untenstehenden Link:"
+  if_you_did_not_make_this_reque: Sofern Sie diese Anfrage nicht gestellt habe, ignorieren Sie bitte diese E-Mail.
   image_is_no_longer_available: Das Bild ist nicht mehr verfügbar.
   image_not_found: Das Bild wurde nicht gefunden.
   images: Bilder
+  import_once: Einmal importieren
+  in_collection: in der Sammlung
+  in_this_data_type: "in diese %{data_type}:"
+  inappropriate: Ungeeignet
+  include_all_metadata: alle Metadaten zu Datenobjekten einbeziehen
   indexed: Indiziert
+  information_for_any_audience: Informationen für alle Nutzer
+  information_intended_for_beginners: Informationen für Einsteiger
+  information_intended_for_experts: Informationen für Experten
+  insufficient_privileges_to_curate_names: Sie verfügen leider nicht über ausreichende Berechtigungen Namen kuratieren zu können.
+  invite_members_help_text: Fügen Sie hier einige Nutzer von EOL hinzu. Sie werden dann eine Einladung in Ihre neue Gemeinschaft erhalten.
+  invite_members_label: Mitglieder einladen
+  item_added_to_collection_notice: Das Objekt wurde der Sammlung <em>%{collection_name}</em> hinzugefügt.
+  item_added_to_watch_collection_notice: „%{item_name}“ wurde der Sammlung %{collection_name} hinzugefügt.
+  item_details_missing: Es ist leider ein Fehler aufgetreten, so dass die Objektinformationen nicht abgerufen werden konnte.
+  item_not_added_already_in_collection: Dieses Objekt wurde bereits zur Sammlung hinzugefügt.
+  item_not_added_to_collection_error: Es ist leider ein Fehler aufgetreten, so dass das Objekt nicht zur Sammlung hinzugefügt werden konnte.
+  item_not_added_to_itself_notice: Die Sammlung <em>%{collection_name}</em> kann nicht zu sich selbst hinzugefügt werden.
+  item_not_updated_in_collection_error: Es ist leider ein Fehler aufgetreten, so dass das Sammlungsobjekt nicht aktualisiert werden konnte.
+  item_type_article_assistive: Dieses Objekt ist ein Artikel
+  item_type_collection_assistive: Dieses Objekt ist eine Sammlung
+  item_type_community_assistive: Dieses Objekt ist eine Gemeinschaft
+  item_type_image_assistive: Dieses Objekt ist ein Bild
+  item_type_person_assistive: Dieses Objekt ist eine Person
+  item_type_sound_assistive: Dieses Objekt ist ein Geräusch
+  item_type_taxon_assistive: Dieses Objekt ist ein Taxon
+  item_type_video_assistive: Dieses Objekt ist ein Video
+  item_updated_in_collection_notice: Das Objekt in der Sammlung <em>%{collection_name}</em> wurde erfolgreich aktualisiert.
+  items_with_count_semi_colon: 
+    one: Ein Objekt;
+    other: "%{count} Objekte;"
   iucn_red_list_status_advisory_information: Dieser Link führt zur Website der International Union for Conservation of Nature and Natural Resources (IUCN) auf der Sie weitere Informationen zur Roten Liste bedrohter Arten der IUCN finden können.
   join_community_button: Dieser Gemeinschaft beitreten
   join_eol_button_html: Registrieren Sie sich jetzt bei <abbr title="Encyclopedia of Life">EOL</abbr>
   join_eol_community_html: Werden Sie Mitglied der <abbr title="Encyclopedia of Life">EOL</abbr>-Gemeinschaft.
+  joined_time_ago: Seit %{time_passed} dabei
+  json_response: JSON-Antwort
   just_pages_with_pictures_and_text: Nur Seiten mit Bildern und Text
+  label: Bezeichnung
   language: "Sprache:"
-  language_menu_item: "%{language_label} <abbr>(%{language_abbr})</abbr>"
+  language_with_count: "%{language} (%{count})"
+  languages: Sprachen
   last_updated_time_ago: Letztmalig vor %{time_passed} aktualisiert
+  learn_about_collections: Wie kann ich eine erstellen?
+  learn_about_communities: Wie kann ich teilnehmen?
   learn_about_content_partners: Wie kann ich einer werden?
+  learn_about_contributing: Wie kann ich mitarbeiten?
+  learn_about_eol: Wie kann ich EOL nutzen?
+  learn_about_joining: Wie kann ich mitmachen?
+  learn_more_about_communities_link: Erfahren Sie mehr über Gemeinschaften
+  learn_more_about_names_for_this_taxon: Erfahren Sie mehr über Namen für dieses Taxon
+  learn_more_link: (%{learn_more})
+  learn_more_lowercase: mehr erfahren
   leave_a_comment: Einen Kommentar hinterlassen
+  leave_community_button: Diese Gemeinschaft verlassen
   license: Lizenz
   license_all_rights_reserved: Alle Rechte vorbehalten
   license_cc_by: Creative Commons „Namensnennung“ (CC BY)
@@ -692,52 +1015,237 @@ de:
   license_gnu_gpl: GNU General Public License (GNU GPL)
   license_not_applicable: Lizenz nicht zutreffend
   license_public_domain: Gemeinfreiheit
+  licenses_visit_their_site_for: Lizenzen. Besuchen Sie deren Website für weitere Informationen zu den unterschiedlichen Lizenzen, die sie anbieten.
+  limits_the_number_of_returned_image_objects: begrenzt die Anzahl der zurückgegebenen Bildobjekte
+  limits_the_number_of_returned_text_objects: begrenzt die Anzahl der zurückgegebenen Textobjekte
+  limits_the_number_of_returned_video_objects: begrenzt die Anzahl der zurückgegebenen Videoobjekte
+  listing_collections: Sammlungen auflisten
+  lists_the_identifiers_for_all_hierarchies: Listet die Kennungen aller Hierarchien auf, die vom Inhaltspartner zur Verfügung gestellt werden
   literature: Literatur
+  literature_bhl_link: Die in der BHL entdeckte Bibliographie ansehen
+  literature_empty: Keine Verweise gefunden.
+  literature_header: Quellen
+  literature_references: Literaturquellen
   location: Standort
   login: Anmelden
+  login_header: Melden Sie mit Ihrem Konto bei <abbr title="Encyclopedia of Life">EOL</abbr> an.
   login_or_create_account: Anmelden oder Nutzerkonto erstellen
+  login_required_button: Anmeldung erforderlich
+  logo_header: Logo
   logout: Abmelden
+  maintained_by: gepflegt von
+  managed_by: Verwaltet von
+  manager_endorse_collections_suggestion: Um eine Sammlung auf der Seite dieser Gemeinschaft präsentieren zu können, müssen Sie die zu präsentierende Sammlung dem Schwerpunkt dieser Gemeinschaft hinzufügen.
+  manager_parens: (Verwalter)
+  maps_empty: Bislang hat noch niemand Karten für diese Seite zur Verfügung gestellt.
+  maps_empty_contribute_instructions: Erfahren Sie, wie Sie EOL Karten zur Verfügung stellen können.
+  maps_image_maps_header: Als ‚Karte‘ gekennzeichnete Medien
   maps_with_count: 
     one: "%{count} Karte"
     other: "%{count} Karten"
+  max_collection_items_error: Ihre Abfrage überschreitet leider das Limit von maximal %{max} Sammlungsobjekten.
   media: Medien
+  media_list_empty: Bislang hat noch niemand Medien für diese Seite zur Verfügung gestellt.
+  media_list_empty_contribute_instructions: Erfahren Sie, wie Sie EOL Median zur Verfügung stellen können.
+  media_list_empty_search: Es stehen keine Medien zur Verfügung, die Ihren Suchkriterien entsprechen.
+  media_summary_empty: Bislang hat noch niemand Bilder für diese Seite zur Verfügung gestellt.
+  media_summary_empty_contribute_instructions: Erfahren Sie, wie Sie EOL Bilder zur Verfügung stellen können.
   media_with_count: 
     one: "%{count} Medium"
     other: "%{count} Medien"
+  member_of: Mitglied von
+  members_like_you: Mitglieder wie Sie
   members_with_count: 
     one: Ein Mitglied
     other: "%{count} Mitglieder"
+  method: Methode
+  methods: Methoden
   minimal_page: Minimale Seite
+  moderator_colon: "Moderator:"
+  month_equals: Monat =
+  monthly: Monatlich
+  monthly_notification: monatliche Benachrichtigung
+  monthly_published_partners: monatlich veröffentlichte Inhaltspartner
+  more_children_with_count: 
+    one: "%{count} mehr …"
+    other: "%{count} mehr …"
   most_active_members: Aktivste Mitglieder
+  move: Verschieben
+  move_all_articles_button: alle Artikel verschieben
+  move_all_collections_button: alle Sammlungen verschieben
+  move_all_communities_button: alle Gemeinschaften verschieben
+  move_all_images_button: alle Bilder verschieben
+  move_all_items_button: gesamte Sammlung verschieben
+  move_all_people_button: alle Personen verschieben
+  move_all_sounds_button: alle Geräusche verschieben
+  move_all_taxa_button: alle Taxa verschieben
+  move_all_videos_button: alle Videos verschieben
+  move_down: Nach unten verschieben
+  move_up: Nach oben verschieben
+  moved_items_from_collection_with_count_notice: 
+    one: Ein Objekt von %{name} verschoben.
+    other: "%{count} Objekte von %{name} verschoben."
   must_be_associated_with_either_a_user_or_a_community: Muss entweder einem Nutzer oder einer Gemeinschaft zugeordnet sein.
   must_be_less_than_128_characters_long: muss weniger als 128 Zeichen lang sein.
   must_be_logged_in: Um diese Aktion ausführen zu können, muss man angemeldet sein.
   my_activity: Meine Aktivitäten
   my_info: Meine Informationen
+  name: Name
+  name_preferred_for_language_help_tip: "%{icon} zeigt den bevorzugen Namen für jede Sprache an."
+  name_preferred_for_language_yes: Bevorzugt
+  name_preferred_taxonomically_for_source_help_tip: "%{icon} zeigt den bevorzugen Namen für jede Quelle an."
+  name_preferred_taxonomically_for_source_yes: Bevorzugt
+  names: Namen
+  names_children_column_header: Untergeordnete Namen
+  names_common_empty: Diesem Taxon wurden bislang noch keine gebräuchlichen Namen zugeordnet.
+  names_common_list_by_language_assistive_header: Nach Sprachen aufgelistete gebräuchliche Namen
+  names_curation_column_header: Kuratierung
+  names_et_al: "%{names}, et al."
+  names_name_column_header: Name
+  names_parents_column_header: Übergeordnete Namen
+  names_preferred_column_header: Bevorzugt
+  names_relationship_column_header: Verbindungen
+  names_sources_column_header: Quellen
+  names_status_column_header: Status
+  names_synonyms_empty: Diesem Taxon wurden bislang noch keine Synonyme zugeordnet.
+  never: Nie
+  new_collection: Neue Sammlung
+  new_content_partners_for_the_m: Neue Inhaltspartner dieses Monats
+  news_items: Neuigkeiten
   newsfeed: Neuigkeitenfeed
+  no_active_members: Bislang gab es noch keine ausreichenden Aktivitäten.
+  no_items_were_copied_to_collections_error: "Es wurden keine Objekte in die folgenden Sammlungen kopiert: %{names}."
+  no_record_found_matching_your_criteria: Es wurde kein Datensatz gefunden, der Ihren Suchkriterien entspricht.
+  no_related_names: Diesem Taxon wurden bislang noch keine Namen zugeordnet.
+  no_tasks_found: Es wurden keine Aufgaben gefunden
+  no_user_submitted_data_objects: Es wurden keine von Nutzern zur Verfügung gestellten Objekte gefunden, die Ihren Suchkriterien entsprechen.
+  none: keine
+  not_applicable: nicht zutreffend
   not_evaluated: Nicht bewertet
+  not_recognized_by_available_hierarchies: Von keiner der zur Verfügung stehenden Klassifikationen abgedeckt
+  not_yet_implemented_error: Diese Funktion steht leider noch nicht zur Verfügung.
+  note_about_homonym_problems: "HINWEIS: Ändern sie dieses Attribut nur, sofern Sie sich sicher sind. Es zu deaktivieren könnte schwerwiegenden Probleme bei Homonymen verursachen."
+  notes: Anmerkungen
+  nucleotide_sequences: Nukleotidsequenzen
+  nucleotide_sequences_proteins_link: Protein- und Nukleotidsequenzen bei NCBI ansehen
+  number_of_taxa_at_this_entry: Anzahl der Taxa in diesem Eintrag
+  number_of_trusted_images_at_this_entry: Anzahl der vertrauenswürdigen Bilder in diesem Eintrag
+  number_of_trusted_text_objects_at_this_entry: Anzahl der vertrauenswürdigen Textobjekte in diesem Eintrag
+  number_of_unreviewed_images_at_this_entry: Anzahl der ungeprüften Bilder in diesem Eintrag
+  number_of_unreviewed_text_objects_at_this_entry: Anzahl der ungeprüften Textobjekte in diesem Eintrag
+  object: Objekt
+  object_curation: Kuratierung des Objekts
+  object_status: Objektstatus
+  object_status_all_option: Alle
+  object_status_trusted_option: Vertrauenswürdige
+  object_status_unreviewed_option: Nicht geprüfte
+  object_status_untrusted_option: Nicht vertrauenswürdige
+  object_type: Objekttyp
+  object_type_all_option: Alle
+  object_type_collection_option: Sammlung
+  object_type_community_option: Gemeinschaft
+  object_type_image_option: Bild
+  object_type_sound_option: Geräusche
+  object_type_taxon_concept_option: Taxonkonzept
+  object_type_text_option: Text
+  object_type_user_option: Nutzer
+  object_type_video_option: Video
+  object_visibility: Objektsichtbarkeit
+  object_visibility_all_option: Alle
+  object_visibility_invisible_option: Verborgene
+  object_visibility_visible_option: Sichtbare
+  objects_curated: Kuratierte Objekte
+  only_show_authoritative_conten: "Nur maßgebliche Inhalte anzeigen:"
+  option_please_select: Bitte wählen Sie
+  or_add_it_to_an_existing_collection: oder fügen Sie es einer vorhandenen Sammlung hinzu
+  or_email_education: Oder senden Sie Ihren Vorschlag per E-Mail an %{link}.
   other_collection_items_with_count: 
     one: Ein weiteres Objekt
     other: "%{count} weitere Objekte"
   other_community_items_with_count: 
-    one: "%{count} weiterer Artikel"
-    other: "%{count} weitere Artikel"
+    one: Ein weiteres Objekt
+    other: "%{count} weitere Objekte"
+  other_taxa_with_count: 
+    one: Ein weiteres Taxon
+    other: "%{count} weitere Taxa"
+  other_us_dollars_amount: "Anderer: US$"
+  overall_colon: "Insgesamt:"
   overview: Übersicht
+  page_statistics: Seitenstatistiken
+  page_statistics_and_tools: Seitenstatistiken und Hilfsmittel
+  pages_admin_section_link: Administratoren
+  pages_curator_section_link: Kuratoren
+  pages_lowercase: Seiten
+  pages_title: Quellen
+  pages_with_count: 
+    one: "%{count}}"
+    other: "%{count}"
   pages_with_pictures_and_text: Seiten mit Bildern und Text
   pages_with_pictures_or_text: Seiten mit Bildern oder Text
+  pagination_next: Nächste
+  pagination_next_with_count: 
+    one: nächste ansehen
+    other: nächste %{count} ansehen
+  pagination_previous: Vorherige
+  pagination_previous_with_count: 
+    one: vorherige ansehen
+    other: vorherige %{count} ansehen
+  parameters: Parameter
+  partner_page: Seite zum Inhaltspartner
+  password_colon: "Passwort:"
+  percentage_of_children_with_images: Prozentsatz Untergeordneter mit Bildern
+  percentage_of_children_with_text: Prozentsatz Untergeordneter mit Text
+  percentage_of_descendants_with_images: Prozentsatz Abstammender mit Bildern
+  percentage_of_descendants_with_text: Prozentsatz Abstammender mit Text
+  permalink: Permanentlink
   personal_space: Persönlicher Bereich
+  ping: Ping
+  please_confirm_your_donation_details: Bitte bestätigen Sie die Angaben zu Ihrer Spende
+  please_indicate_curation_reason: "Wählen Sie bitte einen Grund und/ oder geben Sie alternativ einen Kommentar an:"
+  please_return_to_eol_homepage: Bitte kehren Sie zur Startseite von EOL zurück
+  please_wait: Bitte warten …
   post_comment: Kommentieren
   preferences: Einstellungen
   preferred_common_name_advisory_information: Dies ist die bevorzugte gebräuchliche Bezeichnung für dieses Taxon.
   press_room: Pressebereich
   profile: Profil
+  profile_colon: "Profil:"
   profile_image_alt_text_curator: Profilbild für den Kurator %{user_given_name} %{user_family_name}
   profile_image_alt_text_member: Profilbild für das Mitglied %{user_given_name} %{user_family_name}
+  profile_newsfeed: Mein Neuigkeitenfeed
+  provider_hierarchies: provider_hierarchies
+  public: Öffentlich
+  public_domain: Gemeinfreiheit
+  publish_requested: Veröffentlichung angefragt
+  published: Veröffentlicht
+  published_content_partners: Veröffentlichte Inhaltspartner
   punctuation_comma: ","
+  punctuation_semi_colon: ;
+  quarterly: Vierteljährlich
+  rank_recognized_by_agent: "%{rank} wurde von %{agent} anerkannt"
+  rank_recognized_by_agent_colon: "<b>%{rank}</b> wurde von %{agent} anerkannt:"
+  rank_recognized_by_from_source: "%{rank} wurde von %{agent} auf %{source} anerkannt"
   rated_by_count_people: 
     one: von einer Person
     other: von %{count} Personen
+  rating_added_notice: Die Bewertung wurde erfolgreich abgegeben.
+  recaptcha: Geben Sie bitte die beiden Wörter ein, die Sie unten sehen
   recent_updates: Letzte Aktualisierungen
+  recognized_by: Anerkannt von
+  recognized_by_as_a_rank: von %{recognized_by} als %{taxon_rank} anerkannt
+  recognized_by_from_source_as_a_rank: von %{recognized_by} auf %{source} als %{taxon_rank} anerkannt
+  remove: Entfernen
+  remove_all_articles_button: alle Artikel entfernen
+  remove_all_collections_button: alle Sammlungen entfernen
+  remove_all_communities_button: alle Gemeinschaften entfernen
+  remove_all_images_button: alle Bilder entfernen
+  remove_all_items_button: gesamte Sammlung entfernen
+  remove_all_people_button: alle Personen entfernen
+  remove_all_sounds_button: alle Geräusche entfernen
+  remove_all_taxa_button: alle Taxa entfernen
+  remove_all_videos_button: alle Videos entfernen
+  remove_curatorship_colon: "Kuratierung entfernen:"
+  remove_data_object_association: Zuordnung entfernen
   remove_membership: Gemeinschaftszugehörigkeit beenden
   resources: Quellen
   rights: Berechtigungen

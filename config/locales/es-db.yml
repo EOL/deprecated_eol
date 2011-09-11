@@ -3,7 +3,7 @@
 # Export driver: syck-pecl
 # Author: Erick mata
 # Author: Sampalahnuk
-es-db:
+es: 
   translated_activities-name-activity_id-19: perfil
   translated_activities-name-activity_id-50: Sin confianza
   translated_activities-name-activity_id-51: mostrar
@@ -26,6 +26,10 @@ es-db:
   translated_agent_roles-label-agent_role_id-15: Persona de contacto
   translated_agent_roles-label-agent_role_id-16: Contribuidor
   translated_agent_roles-label-agent_role_id-2: Autor
+  translated_agent_roles-label-agent_role_id-21: Proveedor
+  translated_agent_roles-label-agent_role_id-22: Traductor
+  translated_agent_roles-label-agent_role_id-23: Revisor científico
+  translated_agent_roles-label-agent_role_id-24: Revisor liguistico
   translated_agent_roles-label-agent_role_id-3: Compilador
   translated_agent_roles-label-agent_role_id-4: Compositor
   translated_agent_roles-label-agent_role_id-5: Creador
@@ -33,10 +37,6 @@ es-db:
   translated_agent_roles-label-agent_role_id-7: Editor
   translated_agent_roles-label-agent_role_id-8: Ilustrador
   translated_agent_roles-label-agent_role_id-9: Fotógrafo
-  translated_agent_roles-label-agent_role_id-21: "Proveedor"
-  translated_agent_roles-label-agent_role_id-22: "Traductor"
-  translated_agent_roles-label-agent_role_id-23: "Revisor científico"
-  translated_agent_roles-label-agent_role_id-24: "Revisor liguistico"
   translated_audiences-label-audience_id-1: Usuarios expertos
   translated_audiences-label-audience_id-2: Público general
   translated_audiences-label-audience_id-3: Niños
@@ -96,6 +96,7 @@ es-db:
   translated_content_partner_statuses-label-content_partner_status_id-4: Inactivo
   translated_content_tables-label-content_table_id-1: Detalles
   translated_data_types-label-data_type_id-1: Imagen
+  translated_data_types-label-data_type_id-10: mapa
   translated_data_types-label-data_type_id-2: Sonido
   translated_data_types-label-data_type_id-3: Texto
   translated_data_types-label-data_type_id-4: Vídeo
@@ -103,7 +104,6 @@ es-db:
   translated_data_types-label-data_type_id-6: UICN
   translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
-  translated_data_types-label-data_type_id-10: mapa
   translated_licenses-description-license_id-1: No hay derechos reservados
   translated_licenses-description-license_id-2: © Todos los derechos reservados
   translated_licenses-description-license_id-29: Algunos derechos reservados
@@ -352,11 +352,11 @@ es-db:
   translated_untrust_reasons-label-untrust_reason_id-3: baja calidad
   translated_untrust_reasons-label-untrust_reason_id-4: duplicado
   translated_untrust_reasons-label-untrust_reason_id-5: Otro
-  translated_user_identities-label-user_identity_id-1: "un naturalista"
-  translated_user_identities-label-user_identity_id-2: "un estudiante"
-  translated_user_identities-label-user_identity_id-3: "un educador"
-  translated_user_identities-label-user_identity_id-4: "un ciudadano cientifico"
-  translated_user_identities-label-user_identity_id-5: "un cientifico profesional"
+  translated_user_identities-label-user_identity_id-1: un naturalista
+  translated_user_identities-label-user_identity_id-2: un estudiante
+  translated_user_identities-label-user_identity_id-3: un educador
+  translated_user_identities-label-user_identity_id-4: un ciudadano cientifico
+  translated_user_identities-label-user_identity_id-5: un cientifico profesional
   translated_vetted-label-vetted_id-0: Desconocido
   translated_vetted-label-vetted_id-4: Sin confianza
   translated_vetted-label-vetted_id-5: De confianza

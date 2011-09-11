@@ -25,6 +25,10 @@ mk:
   translated_agent_roles-label-agent_role_id-15: Лице за контакт
   translated_agent_roles-label-agent_role_id-16: Соучесник
   translated_agent_roles-label-agent_role_id-2: Автор
+  translated_agent_roles-label-agent_role_id-21: добавувач
+  translated_agent_roles-label-agent_role_id-22: Преведувач
+  translated_agent_roles-label-agent_role_id-23: Научен рецензент
+  translated_agent_roles-label-agent_role_id-24: Лектор/коректор
   translated_agent_roles-label-agent_role_id-3: Собирач
   translated_agent_roles-label-agent_role_id-4: Составувач
   translated_agent_roles-label-agent_role_id-5: Творец
@@ -77,6 +81,7 @@ mk:
   translated_contact_subjects-title-contact_subject_id-20: Поддршка за соучесниците во содржините
   translated_contact_subjects-title-contact_subject_id-21: Порака за Синтија Пар од Групата на страници за видови
   translated_contact_subjects-title-contact_subject_id-22: Ресурси за Мексиканскиот Залив
+  translated_contact_subjects-title-contact_subject_id-23: Испратете му порака на Ели Агбајани
   translated_contact_subjects-title-contact_subject_id-3: Учење и образование
   translated_contact_subjects-title-contact_subject_id-4: Кустосување на страници
   translated_contact_subjects-title-contact_subject_id-5: Класификација
@@ -90,6 +95,7 @@ mk:
   translated_content_partner_statuses-label-content_partner_status_id-4: Неактивно
   translated_content_tables-label-content_table_id-1: Подробности
   translated_data_types-label-data_type_id-1: Слика
+  translated_data_types-label-data_type_id-10: Карта
   translated_data_types-label-data_type_id-2: Звук
   translated_data_types-label-data_type_id-3: Текст
   translated_data_types-label-data_type_id-4: Видео
@@ -265,7 +271,6 @@ mk:
   translated_table_of_contents-label-table_of_contents_id-17: Наводи од литературата
   translated_table_of_contents-label-table_of_contents_id-194: Големина
   translated_table_of_contents-label-table_of_contents_id-2: Краток преглед
-  translated_table_of_contents-label-table_of_contents_id-204: Образовни ресурси
   translated_table_of_contents-label-table_of_contents_id-218: Разместување
   translated_table_of_contents-label-table_of_contents_id-221: Ризици
   translated_table_of_contents-label-table_of_contents_id-225: На интернет
@@ -333,6 +338,8 @@ mk:
   translated_table_of_contents-label-table_of_contents_id-344: Податоци
   translated_table_of_contents-label-table_of_contents_id-345: Извори на податоци
   translated_table_of_contents-label-table_of_contents_id-346: Биомедицински поими
+  translated_table_of_contents-label-table_of_contents_id-347: Таксономија
+  translated_table_of_contents-label-table_of_contents_id-348: Информации за типот
   translated_table_of_contents-label-table_of_contents_id-4: Екологија
   translated_table_of_contents-label-table_of_contents_id-41: Живеалиште
   translated_table_of_contents-label-table_of_contents_id-5: Еволуција и систематика
@@ -344,6 +351,11 @@ mk:
   translated_untrust_reasons-label-untrust_reason_id-3: низок квалитет
   translated_untrust_reasons-label-untrust_reason_id-4: дупликат
   translated_untrust_reasons-label-untrust_reason_id-5: Друго
+  translated_user_identities-label-user_identity_id-1: љубител
+  translated_user_identities-label-user_identity_id-2: ученик/студент
+  translated_user_identities-label-user_identity_id-3: просветен работник
+  translated_user_identities-label-user_identity_id-4: граѓански научник
+  translated_user_identities-label-user_identity_id-5: професионален научник
   translated_vetted-label-vetted_id-0: Непознато
   translated_vetted-label-vetted_id-4: Недоверливо
   translated_vetted-label-vetted_id-5: Доверливо

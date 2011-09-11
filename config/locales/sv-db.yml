@@ -166,7 +166,6 @@ sv:
   translated_table_of_contents-label-table_of_contents_id-17: Litteraturreferenser
   translated_table_of_contents-label-table_of_contents_id-194: Storlek
   translated_table_of_contents-label-table_of_contents_id-2: Kort sammanfattning
-  translated_table_of_contents-label-table_of_contents_id-204: Utbildningsresurser
   translated_table_of_contents-label-table_of_contents_id-218: Spridning
   translated_table_of_contents-label-table_of_contents_id-221: Risker
   translated_table_of_contents-label-table_of_contents_id-225: På webben
@@ -227,6 +226,8 @@ sv:
   translated_untrust_reasons-label-untrust_reason_id-3: låg kvalitet
   translated_untrust_reasons-label-untrust_reason_id-4: duplicera
   translated_untrust_reasons-label-untrust_reason_id-5: Annat
+  translated_user_identities-label-user_identity_id-1: en entusiast
+  translated_user_identities-label-user_identity_id-2: en student
   translated_vetted-label-vetted_id-0: Okänd
   translated_vetted-label-vetted_id-4: Opålitlig
   translated_vetted-label-vetted_id-5: Pålitlig

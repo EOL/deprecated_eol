@@ -26,6 +26,10 @@ de:
   translated_agent_roles-label-agent_role_id-15: Ansprechpartner
   translated_agent_roles-label-agent_role_id-16: Mitwirkender
   translated_agent_roles-label-agent_role_id-2: Autor
+  translated_agent_roles-label-agent_role_id-21: Anbieter
+  translated_agent_roles-label-agent_role_id-22: Übersetzer
+  translated_agent_roles-label-agent_role_id-23: Wissenschaftlicher Prüfer
+  translated_agent_roles-label-agent_role_id-24: Linguistischer Prüfer
   translated_agent_roles-label-agent_role_id-3: Kompilierer
   translated_agent_roles-label-agent_role_id-4: Komponist
   translated_agent_roles-label-agent_role_id-5: Urheber
@@ -37,7 +41,7 @@ de:
   translated_audiences-label-audience_id-2: Allgemeinheit
   translated_audiences-label-audience_id-3: Kinder
   translated_collection_types-label-collection_type_id-1: Taxonomie
-  translated_collection_types-label-collection_type_id-10: Lautäußerungen
+  translated_collection_types-label-collection_type_id-10: Geräusche
   translated_collection_types-label-collection_type_id-11: Links
   translated_collection_types-label-collection_type_id-12: Literatur
   translated_collection_types-label-collection_type_id-13: Taxonomie
@@ -50,7 +54,7 @@ de:
   translated_collection_types-label-collection_type_id-2: Molekulare Barcodes
   translated_collection_types-label-collection_type_id-20: Molekulare Daten
   translated_collection_types-label-collection_type_id-21: Nomenklatur
-  translated_collection_types-label-collection_type_id-22: Lautäußerungen
+  translated_collection_types-label-collection_type_id-22: Geräusche
   translated_collection_types-label-collection_type_id-23: Links
   translated_collection_types-label-collection_type_id-24: Literatur
   translated_collection_types-label-collection_type_id-3: Beschreibung
@@ -78,6 +82,7 @@ de:
   translated_contact_subjects-title-contact_subject_id-20: Unterstützung für Inhaltepartner
   translated_contact_subjects-title-contact_subject_id-21: Eine Nachricht an Cynthia Parr von der mit Arten befassten Gruppe senden
   translated_contact_subjects-title-contact_subject_id-22: Quellen zum Golf von Mexiko
+  translated_contact_subjects-title-contact_subject_id-23: Eine Nachricht an Eli Agbayani senden
   translated_contact_subjects-title-contact_subject_id-3: Lernen und Bildung
   translated_contact_subjects-title-contact_subject_id-4: Seiten kuratieren
   translated_contact_subjects-title-contact_subject_id-5: Klassifikation
@@ -91,7 +96,8 @@ de:
   translated_content_partner_statuses-label-content_partner_status_id-4: Inaktiv
   translated_content_tables-label-content_table_id-1: Einzelheiten
   translated_data_types-label-data_type_id-1: Bild
-  translated_data_types-label-data_type_id-2: Lautäußerungen
+  translated_data_types-label-data_type_id-10: Karte
+  translated_data_types-label-data_type_id-2: Geräusche
   translated_data_types-label-data_type_id-3: Text
   translated_data_types-label-data_type_id-4: Video
   translated_data_types-label-data_type_id-5: GBIF-Bild
@@ -199,27 +205,63 @@ de:
   translated_statuses-label-status_id-4: Wiederverwendet
   translated_synonym_relations-label-synonym_relation_id-1: Synonym
   translated_synonym_relations-label-synonym_relation_id-10: GenBank - Synonym
+  translated_synonym_relations-label-synonym_relation_id-11: teilweise
+  translated_synonym_relations-label-synonym_relation_id-12: enthält
   translated_synonym_relations-label-synonym_relation_id-13: Fehlbezeichnung
   translated_synonym_relations-label-synonym_relation_id-14: Rechtschreibfehler
+  translated_synonym_relations-label-synonym_relation_id-15: Teleomorph
   translated_synonym_relations-label-synonym_relation_id-16: mehrdeutiges Synonym
   translated_synonym_relations-label-synonym_relation_id-17: falsch angewendeter Name
+  translated_synonym_relations-label-synonym_relation_id-18: vorläufig anerkannter Namen
   translated_synonym_relations-label-synonym_relation_id-19: akzeptierte Bezeichnung
   translated_synonym_relations-label-synonym_relation_id-2: Gebräuchlicher Name
   translated_synonym_relations-label-synonym_relation_id-20: Datenbankartefakt
+  translated_synonym_relations-label-synonym_relation_id-21: anderes, siehe Kommentare
+  translated_synonym_relations-label-synonym_relation_id-22: orthographische Variante (Rechtschreibfehler)
   translated_synonym_relations-label-synonym_relation_id-23: falsch angewendet
+  translated_synonym_relations-label-synonym_relation_id-24: abgelehnter Namen
+  translated_synonym_relations-label-synonym_relation_id-25: Homonym (unzulässig)
+  translated_synonym_relations-label-synonym_relation_id-26: pro parte
+  translated_synonym_relations-label-synonym_relation_id-27: überflüssige Umbenennung (unzulässig)
+  translated_synonym_relations-label-synonym_relation_id-28: nomen oblitum
+  translated_synonym_relations-label-synonym_relation_id-29: Junior Synonym
   translated_synonym_relations-label-synonym_relation_id-3: Akronym
+  translated_synonym_relations-label-synonym_relation_id-30: nicht verfügbar, Datenbankartefakt
+  translated_synonym_relations-label-synonym_relation_id-31: unnötige Ersetzung
+  translated_synonym_relations-label-synonym_relation_id-32: spätere(r) Name/ Kombination
+  translated_synonym_relations-label-synonym_relation_id-33: nicht verfügbar, Rechtschreibfehler in der Literatur
+  translated_synonym_relations-label-synonym_relation_id-34: ursprüngliche(r) Name/ Kombination
+  translated_synonym_relations-label-synonym_relation_id-35: nicht verfügbar, falsche ursprüngliche Rechtschreibung
+  translated_synonym_relations-label-synonym_relation_id-36: Junior Homonym
+  translated_synonym_relations-label-synonym_relation_id-37: Homonym und Junior Synonym
+  translated_synonym_relations-label-synonym_relation_id-38: nicht verfügbar, unterdrückt nach Übereinkunft
+  translated_synonym_relations-label-synonym_relation_id-39: ungerechtfertigte Emendation
   translated_synonym_relations-label-synonym_relation_id-4: Anamorph
+  translated_synonym_relations-label-synonym_relation_id-40: nicht verfügbar, anderes
+  translated_synonym_relations-label-synonym_relation_id-41: nicht verfügbar, nomen nudum
+  translated_synonym_relations-label-synonym_relation_id-42: nomen dubium
+  translated_synonym_relations-label-synonym_relation_id-43: ungültig veröffentlicht, anderes
+  translated_synonym_relations-label-synonym_relation_id-44: ungültig veröffentlicht, nomen nudum
   translated_synonym_relations-label-synonym_relation_id-45: Basionym
   translated_synonym_relations-label-synonym_relation_id-46: heterotypisches Synonym
+  translated_synonym_relations-label-synonym_relation_id-47: homotypisches Synonym
+  translated_synonym_relations-label-synonym_relation_id-48: nicht verfügbarer Name
+  translated_synonym_relations-label-synonym_relation_id-49: gültiger Name
   translated_synonym_relations-label-synonym_relation_id-5: Lebewesenname
+  translated_synonym_relations-label-synonym_relation_id-50: gültig
   translated_synonym_relations-label-synonym_relation_id-51: akzeptiert
   translated_synonym_relations-label-synonym_relation_id-52: Behörde
+  translated_synonym_relations-label-synonym_relation_id-53: unveröffentlichter Namen
+  translated_synonym_relations-label-synonym_relation_id-54: subjektives Synonym
+  translated_synonym_relations-label-synonym_relation_id-55: falsche Information zur Berechtigung
   translated_synonym_relations-label-synonym_relation_id-56: falsche Schreibweise
+  translated_synonym_relations-label-synonym_relation_id-57: Rechtschreibalternative
   translated_synonym_relations-label-synonym_relation_id-58: lexikalische Variante
   translated_synonym_relations-label-synonym_relation_id-59: Synonym (objektiv = homotypisch)
   translated_synonym_relations-label-synonym_relation_id-6: Gleichwertiger Name
   translated_synonym_relations-label-synonym_relation_id-60: Synonym (objektiv = heterotypisch)
   translated_synonym_relations-label-synonym_relation_id-61: objektives Synonym
+  translated_synonym_relations-label-synonym_relation_id-62: Senior Synonym
   translated_synonym_relations-label-synonym_relation_id-63: nicht akzeptiert
   translated_synonym_relations-label-synonym_relation_id-7: GenBank - Akronym
   translated_synonym_relations-label-synonym_relation_id-8: GenBank - Anamorph
@@ -230,7 +272,6 @@ de:
   translated_table_of_contents-label-table_of_contents_id-17: Literaturquellen
   translated_table_of_contents-label-table_of_contents_id-194: Größe
   translated_table_of_contents-label-table_of_contents_id-2: Kurze Zusammenfassung
-  translated_table_of_contents-label-table_of_contents_id-204: Bildungsmaterialien
   translated_table_of_contents-label-table_of_contents_id-218: Verbreitung
   translated_table_of_contents-label-table_of_contents_id-221: Risiken
   translated_table_of_contents-label-table_of_contents_id-225: Im Internet
@@ -291,9 +332,15 @@ de:
   translated_table_of_contents-label-table_of_contents_id-338: Links zu Bildungsangeboten
   translated_table_of_contents-label-table_of_contents_id-339: Bildungsmaterialien
   translated_table_of_contents-label-table_of_contents_id-34: Kommentare
+  translated_table_of_contents-label-table_of_contents_id-340: High School Lab Series
+  translated_table_of_contents-label-table_of_contents_id-341: Wissenschaft für Bürger
+  translated_table_of_contents-label-table_of_contents_id-342: Links zur Wissenschaft für Bürger
+  translated_table_of_contents-label-table_of_contents_id-343: Biodiversity Heritage Library
   translated_table_of_contents-label-table_of_contents_id-344: Daten
   translated_table_of_contents-label-table_of_contents_id-345: Datenquellen
   translated_table_of_contents-label-table_of_contents_id-346: Biomedizinische Bedingungen
+  translated_table_of_contents-label-table_of_contents_id-347: Taxonomie
+  translated_table_of_contents-label-table_of_contents_id-348: Typinformationen
   translated_table_of_contents-label-table_of_contents_id-4: Ökologie
   translated_table_of_contents-label-table_of_contents_id-41: Lebensraum
   translated_table_of_contents-label-table_of_contents_id-5: Evolution und Systematik
@@ -305,6 +352,11 @@ de:
   translated_untrust_reasons-label-untrust_reason_id-3: niedrige Qualität
   translated_untrust_reasons-label-untrust_reason_id-4: Duplikat
   translated_untrust_reasons-label-untrust_reason_id-5: Andere
+  translated_user_identities-label-user_identity_id-1: ein Enthusiast
+  translated_user_identities-label-user_identity_id-2: ein Student
+  translated_user_identities-label-user_identity_id-3: ein Ausbilder
+  translated_user_identities-label-user_identity_id-4: ein wissenschaftlich interessierter Bürger
+  translated_user_identities-label-user_identity_id-5: ein Wissenschaftler
   translated_vetted-label-vetted_id-0: Unbekannt
   translated_vetted-label-vetted_id-4: Nicht vertrauenswürdig
   translated_vetted-label-vetted_id-5: Vertrauenswürdig

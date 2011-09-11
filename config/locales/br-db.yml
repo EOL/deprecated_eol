@@ -23,6 +23,9 @@ br:
   translated_agent_roles-label-agent_role_id-13: Mammenn
   translated_agent_roles-label-agent_role_id-14: Mammenn an diaz roadennoù
   translated_agent_roles-label-agent_role_id-2: Aozer
+  translated_agent_roles-label-agent_role_id-22: Troer
+  translated_agent_roles-label-agent_role_id-23: Adlenner skiantel
+  translated_agent_roles-label-agent_role_id-24: Adlenner yezh
   translated_agent_roles-label-agent_role_id-3: Kenstroller
   translated_agent_roles-label-agent_role_id-5: Krouer
   translated_agent_roles-label-agent_role_id-6: Rener
@@ -85,6 +88,7 @@ br:
   translated_content_partner_statuses-label-content_partner_status_id-4: Dizoberiant
   translated_content_tables-label-content_table_id-1: Munudoù
   translated_data_types-label-data_type_id-1: Skeudenn
+  translated_data_types-label-data_type_id-10: Kartenn
   translated_data_types-label-data_type_id-2: Son
   translated_data_types-label-data_type_id-3: Testenn
   translated_data_types-label-data_type_id-4: Video
@@ -173,15 +177,19 @@ br:
   translated_statuses-label-status_id-2: Hizivaet
   translated_statuses-label-status_id-3: Digemm
   translated_statuses-label-status_id-4: Adimplijet
+  translated_synonym_relations-label-synonym_relation_id-1: heñvelster
+  translated_synonym_relations-label-synonym_relation_id-14: fazi reizhskrivañ
   translated_synonym_relations-label-synonym_relation_id-16: heñvelster amjestr
   translated_synonym_relations-label-synonym_relation_id-19: anv degemeret
   translated_synonym_relations-label-synonym_relation_id-2: anv-boutin
+  translated_synonym_relations-label-synonym_relation_id-24: anv distaolet
   translated_synonym_relations-label-synonym_relation_id-3: gwreskanv
   translated_synonym_relations-label-synonym_relation_id-49: anv reizh
   translated_synonym_relations-label-synonym_relation_id-50: reizh
   translated_synonym_relations-label-synonym_relation_id-51: Degemeret
   translated_synonym_relations-label-synonym_relation_id-52: aotrouniezh
   translated_synonym_relations-label-synonym_relation_id-53: anv diembann
+  translated_synonym_relations-label-synonym_relation_id-56: Fazi reizhskrivañ
   translated_synonym_relations-label-synonym_relation_id-6: anv all
   translated_table_of_contents-label-table_of_contents_id-1: Brassell
   translated_table_of_contents-label-table_of_contents_id-13: Anvioù-boutin
@@ -213,14 +221,35 @@ br:
   translated_table_of_contents-label-table_of_contents_id-308: Deskrivadur klok
   translated_table_of_contents-label-table_of_contents_id-309: Dasparzh
   translated_table_of_contents-label-table_of_contents_id-310: Diorroadur
+  translated_table_of_contents-label-table_of_contents_id-316: Emzalc'h
+  translated_table_of_contents-label-table_of_contents_id-317: Kelc'hiegezh
+  translated_table_of_contents-label-table_of_contents_id-318: Kelc'hiad ar vuhez
+  translated_table_of_contents-label-table_of_contents_id-319: Hoali
+  translated_table_of_contents-label-table_of_contents_id-320: Gouennañ
   translated_table_of_contents-label-table_of_contents_id-321: Kresk
+  translated_table_of_contents-label-table_of_contents_id-324: Azasadurioù arc'hwelel
+  translated_table_of_contents-label-table_of_contents_id-325: Fiziologiezh ha bevoniezh kelligel
+  translated_table_of_contents-label-table_of_contents_id-326: Bevoniezh volekulel ha Genetik
+  translated_table_of_contents-label-table_of_contents_id-327: Fiziologiezh
+  translated_table_of_contents-label-table_of_contents_id-328: Bevoniezh kelligel
+  translated_table_of_contents-label-table_of_contents_id-329: Genetik
   translated_table_of_contents-label-table_of_contents_id-33: Tuadurioù
+  translated_table_of_contents-label-table_of_contents_id-331: Kod barrennoù
+  translated_table_of_contents-label-table_of_contents_id-332: Genom
+  translated_table_of_contents-label-table_of_contents_id-333: Bevoniezh volekulel
+  translated_table_of_contents-label-table_of_contents_id-334: Gourdrouzioù
   translated_table_of_contents-label-table_of_contents_id-335: Lezennadur
   translated_table_of_contents-label-table_of_contents_id-336: Notennoù
   translated_table_of_contents-label-table_of_contents_id-337: Deskadurezh
   translated_table_of_contents-label-table_of_contents_id-338: Liammoù kelenn
   translated_table_of_contents-label-table_of_contents_id-339: Danvez pedagogel
   translated_table_of_contents-label-table_of_contents_id-34: Evezhiadennoù
+  translated_table_of_contents-label-table_of_contents_id-341: Skiant keodedel
+  translated_table_of_contents-label-table_of_contents_id-342: Liammoù gant Skiant keodedel
+  translated_table_of_contents-label-table_of_contents_id-344: Roadennoù
+  translated_table_of_contents-label-table_of_contents_id-345: Mammennoù ar roadennoù
+  translated_table_of_contents-label-table_of_contents_id-347: Taksonomiezh
+  translated_table_of_contents-label-table_of_contents_id-348: Seurt titouroù
   translated_table_of_contents-label-table_of_contents_id-4: Ekologiezh
   translated_table_of_contents-label-table_of_contents_id-41: Annez
   translated_table_of_contents-label-table_of_contents_id-5: Emdroadur ha sistemategezh
@@ -229,6 +258,10 @@ br:
   translated_untrust_reasons-label-untrust_reason_id-2: direizh/faziek
   translated_untrust_reasons-label-untrust_reason_id-3: kalite izel
   translated_untrust_reasons-label-untrust_reason_id-5: All
+  translated_user_identities-label-user_identity_id-2: ur studier
+  translated_user_identities-label-user_identity_id-3: un desaver
+  translated_user_identities-label-user_identity_id-4: ur c'heodedour skiantour
+  translated_user_identities-label-user_identity_id-5: ur skiantour a-vicher
   translated_vetted-label-vetted_id-0: Dianav
   translated_vetted-label-vetted_id-4: Diasur
   translated_vetted-label-vetted_id-5: Asur

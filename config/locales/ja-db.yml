@@ -24,6 +24,10 @@ ja:
   translated_agent_roles-label-agent_role_id-14: ソースデータベース
   translated_agent_roles-label-agent_role_id-16: 投稿者
   translated_agent_roles-label-agent_role_id-2: 著者
+  translated_agent_roles-label-agent_role_id-21: プロバイダー
+  translated_agent_roles-label-agent_role_id-22: 翻訳家
+  translated_agent_roles-label-agent_role_id-23: 科学レビューアー
+  translated_agent_roles-label-agent_role_id-24: 言語レビューアー
   translated_agent_roles-label-agent_role_id-3: コンパイラ
   translated_agent_roles-label-agent_role_id-4: 構成者
   translated_agent_roles-label-agent_role_id-5: 作成者
@@ -62,8 +66,12 @@ ja:
   translated_contact_roles-label-contact_role_id-2: 管理者の連絡先
   translated_contact_roles-label-contact_role_id-3: 技術的な連絡先
   translated_contact_subjects-title-contact_subject_id-10: コンテンツ
+  translated_contact_subjects-title-contact_subject_id-11: 技術的な問題（ウェブサイト、検索ツール、ユーザーアカウントの 難題）
   translated_contact_subjects-title-contact_subject_id-12: その他
   translated_contact_subjects-title-contact_subject_id-13: キュレーターの支援
+  translated_contact_subjects-title-contact_subject_id-14: 画像のアップロード要求
+  translated_contact_subjects-title-contact_subject_id-15: （画像、スペルと文法、情報）の補正を行う
+  translated_contact_subjects-title-contact_subject_id-16: プロジェクト全体のフィードバック
   translated_contact_subjects-title-contact_subject_id-17: 財政貢献を行う
   translated_contact_subjects-title-contact_subject_id-18: コンテンツパートナーになるには
   translated_contact_subjects-title-contact_subject_id-19: 種のページグループへのフィードバック
@@ -80,6 +88,7 @@ ja:
   translated_content_partner_statuses-label-content_partner_status_id-4: 非アクティブ
   translated_content_tables-label-content_table_id-1: 詳細
   translated_data_types-label-data_type_id-1: 画像
+  translated_data_types-label-data_type_id-10: 地図
   translated_data_types-label-data_type_id-2: 音声
   translated_data_types-label-data_type_id-3: テキスト
   translated_data_types-label-data_type_id-4: 動画
@@ -108,10 +117,17 @@ ja:
   translated_licenses-description-license_id-7: いくつかの権利を保有
   translated_licenses-description-license_id-8: いくつかの権利を保有
   translated_licenses-description-license_id-9: いくつかの権利を保有
+  translated_ranks-label-rank_id-107: 品種
+  translated_ranks-label-rank_id-118: 属
+  translated_ranks-label-rank_id-280: 門
+  translated_ranks-label-rank_id-317: セクション
+  translated_ranks-label-rank_id-324: シリーズ
   translated_ranks-label-rank_id-335: 種
+  translated_ranks-label-rank_id-352: 亜科
   translated_ranks-label-rank_id-370: サブクラス
   translated_ranks-label-rank_id-375: 下位区分
   translated_ranks-label-rank_id-383: 亜科
+  translated_ranks-label-rank_id-390: 亜属
   translated_ranks-label-rank_id-394: 亜属
   translated_ranks-label-rank_id-396: 亜界
   translated_ranks-label-rank_id-399: 亜目
@@ -158,6 +174,7 @@ ja:
   translated_synonym_relations-label-synonym_relation_id-17: 誤用名
   translated_synonym_relations-label-synonym_relation_id-2: 共通名
   translated_synonym_relations-label-synonym_relation_id-23: 誤用
+  translated_synonym_relations-label-synonym_relation_id-3: 頭字語
   translated_synonym_relations-label-synonym_relation_id-4: アナモルフ
   translated_synonym_relations-label-synonym_relation_id-46: 異型異名
   translated_synonym_relations-label-synonym_relation_id-47: 同型異名
@@ -166,7 +183,9 @@ ja:
   translated_synonym_relations-label-synonym_relation_id-5: ブラスト名
   translated_synonym_relations-label-synonym_relation_id-50: 有効
   translated_synonym_relations-label-synonym_relation_id-52: 権威
+  translated_synonym_relations-label-synonym_relation_id-56: 誤ったスペル
   translated_synonym_relations-label-synonym_relation_id-59: 異名 (objective = homotypic)
+  translated_synonym_relations-label-synonym_relation_id-6: 等価な名前
   translated_synonym_relations-label-synonym_relation_id-60: 異名 (subjective = heterotypic)
   translated_synonym_relations-label-synonym_relation_id-7: ジェンバンクの頭字語
   translated_synonym_relations-label-synonym_relation_id-8: ジェンバンクのアナモルフ
@@ -177,7 +196,6 @@ ja:
   translated_table_of_contents-label-table_of_contents_id-17: 参考文献
   translated_table_of_contents-label-table_of_contents_id-194: サイズ
   translated_table_of_contents-label-table_of_contents_id-2: 簡単なまとめ
-  translated_table_of_contents-label-table_of_contents_id-204: 教育リソース
   translated_table_of_contents-label-table_of_contents_id-218: 分散
   translated_table_of_contents-label-table_of_contents_id-221: リスク
   translated_table_of_contents-label-table_of_contents_id-225: ウェブ上
@@ -254,6 +272,11 @@ ja:
   translated_untrust_reasons-label-untrust_reason_id-3: 低品質
   translated_untrust_reasons-label-untrust_reason_id-4: 複製
   translated_untrust_reasons-label-untrust_reason_id-5: その他
+  translated_user_identities-label-user_identity_id-1: エンスージアスト
+  translated_user_identities-label-user_identity_id-2: 学生
+  translated_user_identities-label-user_identity_id-3: 教育者
+  translated_user_identities-label-user_identity_id-4: 市民科学者
+  translated_user_identities-label-user_identity_id-5: プロの科学者
   translated_vetted-label-vetted_id-0: 未知
   translated_vetted-label-vetted_id-4: 信頼できない
   translated_vetted-label-vetted_id-5: 信頼できる

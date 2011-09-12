@@ -277,3 +277,40 @@ body
     p
       font-weight: bold
       color: #28323a
+
+.pagination
+  text-align: left
+  font-weight: bold
+  margin: 0 0 10px 0
+  span, a
+    &.prev_page
+      float: right
+    &.prev_page,
+    &.next_page
+      border: none
+      background: none
+      margin: 0
+  a
+    &.prev_page,
+    &.next_page
+      &:hover
+        text-decoration: underline
+  span
+    &.prev_page,
+    &.next_page
+      color: #616e7a
+  span, a
+    margin: 0 0 0 4px
+    line-height: 180%
+    padding: 0 4px
+    border: 1px solid #cad3db
+    color: #394651
+    &.current
+      background: #62707d
+      border-color: #394651
+      color: #fff
+  a
+    text-decoration: none
+    background: #f3f7fa
+    &:hover
+      border-color: #394651

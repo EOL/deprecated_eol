@@ -308,3 +308,33 @@ body > #footer {
     .thumbnails .term p {
       font-weight: bold;
       color: #28323a; }
+
+.pagination {
+  text-align: left;
+  font-weight: bold;
+  margin: 0 0 10px 0; }
+  .pagination span.prev_page, .pagination a.prev_page {
+    float: right; }
+  .pagination span.prev_page, .pagination span.next_page, .pagination a.prev_page, .pagination a.next_page {
+    border: none;
+    background: none;
+    margin: 0; }
+  .pagination a.prev_page:hover, .pagination a.next_page:hover {
+    text-decoration: underline; }
+  .pagination span.prev_page, .pagination span.next_page {
+    color: #616e7a; }
+  .pagination span, .pagination a {
+    margin: 0 0 0 4px;
+    line-height: 180%;
+    padding: 0 4px;
+    border: 1px solid #cad3db;
+    color: #394651; }
+    .pagination span.current, .pagination a.current {
+      background: #62707d;
+      border-color: #394651;
+      color: white; }
+  .pagination a {
+    text-decoration: none;
+    background: #f3f7fa; }
+    .pagination a:hover {
+      border-color: #394651; }

@@ -172,7 +172,7 @@ form#switch_hierarchy_entry fieldset {
     font-weight: bold; }
   .pagination a, .pagination span.current {
     display: inline-block;
-    padding: 0 0 0 3px; }
+    padding: 0 3px; }
   .pagination .prev_page {
     float: right; }
   .pagination .next_page {

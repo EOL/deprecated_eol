@@ -122,34 +122,34 @@ ar:
       half_a_minute: 'نصف دقيقة'
       less_than_x_seconds:
         one: 'أقل من ثانية'
-        other: '%{count} ثوان'
+        other: '%{count} ثانية'
       x_seconds:
         one: 'ثانية واحدة'
-        other: '%{count} ثوان'
+        other: '%{count} ثانية'
       less_than_x_minutes:
         one: 'أقل من دقيقة'
-        other: '%{count} دقائق'
+        other: '%{count} دقيقة'
       x_minutes:
         one: 'دقيقة واحدة'
-        other: '%{count} دقائق'
+        other: '%{count} دقيقة'
       about_x_hours:
         one: 'حوالي ساعة واحدة'
-        other: '%{count} ساعات'
+        other: '%{count} ساعة'
       x_days:
         one: 'يوم واحد'
-        other: '%{count} أيام'
+        other: '%{count} يوم'
       about_x_months:
         one: 'حوالي شهر واحد'
-        other: '%{count} أشهر'
+        other: '%{count} شهر'
       x_months:
         one: 'شهر واحد'
-        other: '%{count} أشهر'
+        other: '%{count} شهر'
       about_x_years:
         one: 'حوالي سنة'
         other: '%{count} سنوات'
       over_x_years:
         one: 'أكثر من سنة'
-        other: '%{count} سنوات'
+        other: '%{count} سنة'
       almost_x_years:
         one:   "تقريبا سنة واحدة"
         other: "ما يقرب من %{count} سنة"
@@ -1839,3 +1839,4 @@ ar:
   or_email_education: "أو إرسل بريد إلكترونى بإقتراحك على %{link}."
   taxon_newsfeed: "تحديثات اﻷصنوفة"
   newsfeed_help_for_taxon: "The Newsfeed for this EOL Taxon Page gathers updates associated with items shown on it, including curator actions and comments from EOL users."
+  profile_newsfeed: "تحديثاتى"

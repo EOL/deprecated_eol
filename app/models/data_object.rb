@@ -305,9 +305,10 @@ class DataObject < SpeciesSchemaModel
     comments_from_old_dato.map { |c| c.update_attributes(:parent_id => new_dato.id) }
 
     current_visibility = old_dato.users_data_object.visibility
-    current_vetted = old_dato.users_data_object.vetted
+    # If user is normal user or assistant curator then the vetted status should be Unreviewed, otherwise Trusted.
+    current_or_new_vetted = user.min_curator_level?(:full) ? old_dato.users_data_object.vetted : Vetted.unknown
     udo = UsersDataObject.create(:user => user, :data_object => new_dato, :taxon_concept => taxon_concept,
-                                 :visibility => current_visibility, :vetted => current_vetted)
+                                 :visibility => current_visibility, :vetted => current_or_new_vetted)
     new_dato.users_data_object = udo
     new_dato
   end
@@ -364,7 +365,7 @@ class DataObject < SpeciesSchemaModel
     dato.save
     return dato if dato.nil? || dato.errors.any?
 
-    vettedness = user.is_curator? ? Vetted.trusted : Vetted.unknown
+    vettedness = user.min_curator_level?(:full) ? Vetted.trusted : Vetted.unknown
     udo = UsersDataObject.create(:user => user, :data_object => dato, :taxon_concept => taxon_concept, :visibility => Visibility.visible, :vetted => vettedness)
     dato
   end

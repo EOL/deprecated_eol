@@ -264,7 +264,7 @@ nl:
   classifications_summary_header_with_count: 
     one: Gevonden in één goedgekeurde classificatie
     other: Gevonden in %{count} classificaties
-  close_this_window_to_return_to: Sluit dit venster om terug te keren naar het bewerkingsvenster
+  close_this_window_to_return_to_edit_window: Sluit dit venster om terug te keren naar het bewerkingsvenster
   cms_available_in_languages: "Deze pagina is beschikbaar in:"
   cms_missing_content_title: Ontbrekende inhoud
   collect_item: Item in verzameling opnemen
@@ -330,7 +330,7 @@ nl:
   community_removed_by_owner: Deze gemeenschap is verwijderd door de eigenaar.
   confirm_leave: Weet u zeker dat u deze gemeenschap wilt verlaten?
   confirm_password_colon: "Wachtwoord bevestigen:"
-  contact_eli_eol_org_for_any_co: Neem contact op met eli@eol.org voor eventuele opmerkingen.
+  contact_for_any_comments: Neem contact op met eli@eol.org voor eventuele opmerkingen.
   contact_us_functions: "\"Neem contact met ons op\"-functies"
   contact_us_link: Contact opnemen
   content_has_been_updated: De inhoud is bijgewerkt

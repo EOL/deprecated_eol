@@ -304,11 +304,20 @@ class DataObject < SpeciesSchemaModel
     comments_from_old_dato = Comment.find(:all, :conditions => {:parent_id => old_dato.id, :parent_type => 'DataObject'})
     comments_from_old_dato.map { |c| c.update_attributes(:parent_id => new_dato.id) }
 
-    current_visibility = old_dato.users_data_object.visibility
-    # If user is normal user or assistant curator then the vetted status should be Unreviewed, otherwise Trusted.
-    current_or_new_vetted = user.min_curator_level?(:full) ? old_dato.users_data_object.vetted : Vetted.unknown
+    no_current_but_new_visibility = Visibility.visible
+    current_or_new_vetted = old_dato.users_data_object.vetted
+    if user.is_curator? || user.is_admin?
+      if user.assistant_curator?
+        current_or_new_vetted = (current_or_new_vetted == Vetted.trusted) ? Vetted.trusted : Vetted.unknown
+      else
+        current_or_new_vetted = Vetted.trusted
+      end
+    else
+      current_or_new_vetted = Vetted.unknown
+    end
+
     udo = UsersDataObject.create(:user => user, :data_object => new_dato, :taxon_concept => taxon_concept,
-                                 :visibility => current_visibility, :vetted => current_or_new_vetted)
+                                 :visibility => no_current_but_new_visibility, :vetted => current_or_new_vetted)
     new_dato.users_data_object = udo
     new_dato
   end
@@ -365,8 +374,8 @@ class DataObject < SpeciesSchemaModel
     dato.save
     return dato if dato.nil? || dato.errors.any?
 
-    vettedness = user.min_curator_level?(:full) ? Vetted.trusted : Vetted.unknown
-    udo = UsersDataObject.create(:user => user, :data_object => dato, :taxon_concept => taxon_concept, :visibility => Visibility.visible, :vetted => vettedness)
+    default_vetted_status = user.min_curator_level?(:full) || user.is_admin? ? Vetted.trusted : Vetted.unknown
+    udo = UsersDataObject.create(:user => user, :data_object => dato, :taxon_concept => taxon_concept, :visibility => Visibility.visible, :vetted => default_vetted_status)
     dato
   end
 

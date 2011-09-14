@@ -233,7 +233,7 @@ ms:
   all_items: Semua perkara
   all_pages: Semua halaman
   all_title: Semua
-  all_user_submitted_texts_on_th: Semua teks serahan pengguna di tapak web ini ditunjukkan di bawah, diisih secara songsang mengikut waktu penciptaan.
+  all_user_submitted_texts_on_the_website: Semua teks serahan pengguna di tapak web ini ditunjukkan di bawah, diisih secara songsang mengikut waktu penciptaan.
   already_a_member_question: Sudah jadi ahli?
   already_member_of_community: Anda sudah menjadi ahli kumpulan ini.
   alternate_classification: Pengelasan alternatif
@@ -307,9 +307,9 @@ ms:
   classification_tree_header: Pengelasan
   classifications_empty: Halaman ini tiada dalam sebarang klasifikasi yang boleh dilayari di EOL.
   classifications_summary_header_with_count: Dijumpai dalam %{count} pengelasan
-  click_on_a_user_to_view_the_us: Klik nama pengguna untuk melihat profil terperinci pengguna itu, klik nama spesies untuk melihat halaman yang mengandungi teks itu (klik butang ← pada pelayar anda untuk kembali ke sini)
-  click_on_a_username_to_view_th: Klik nama pengguna untuk melihat profil terperinci pengguna berkenaan, klik jenis data untuk melihat objek yang diulas (gunakan butang ← pada pelayar anda untuk kembali ke halaman ini), klik "sunting" untuk menyunting komen atau klik "hapuskan" untuk memadamkan komen itu dengan berkekalan.
-  close_this_window_to_return_to: TUTUP TETINGKAP INI UNTUK KEMBALI KE TETINGKAP PENYUNTINGAN
+  click_on_a_user_to_view_the_users_detailed_profile: Klik nama pengguna untuk melihat profil terperinci pengguna itu, klik nama spesies untuk melihat halaman yang mengandungi teks itu (klik butang ← pada pelayar anda untuk kembali ke sini)
+  click_on_a_username_to_view_the_users_detailed_profile: Klik nama pengguna untuk melihat profil terperinci pengguna berkenaan, klik jenis data untuk melihat objek yang diulas (gunakan butang ← pada pelayar anda untuk kembali ke halaman ini), klik "sunting" untuk menyunting komen atau klik "hapuskan" untuk memadamkan komen itu dengan berkekalan.
+  close_this_window_to_return_to_edit_window: TUTUP TETINGKAP INI UNTUK KEMBALI KE TETINGKAP PENYUNTINGAN
   cms_available_in_languages: "Laman ini boleh didapati dalam:"
   cms_missing_content_message: Maaf, laman ini tidak tersedia dalam bahasa ini.
   cms_missing_content_title: Kandungan yang tertinggal
@@ -372,7 +372,7 @@ ms:
   confirm_delete_community: Adakah anda benar-benar mahu menghapuskan komuniti ini? Ahli-ahli yang masih tinggal akan masih dapat melihatnya dan suapan berita akan dikekalkan, tetapi ia tidak akan muncul dalam hasil carian atau halaman takson, dan tidak boleh disunting lagi.
   confirm_leave: Adakah anda benar-benar ingin meninggalkan komuniti ini?
   confirm_password_colon: "Sahkan Kata Laluan:"
-  contact_eli_eol_org_for_any_co: Hubungi eli@eol.org untuk sebarang komen. (bahasa Inggeris sahaja)
+  contact_for_any_comments: Hubungi eli@eol.org untuk sebarang komen. (bahasa Inggeris sahaja)
   contact_us_functions: Fungsi Hubungi Kami
   contact_us_link: Hubungi kami
   content_has_been_updated: Kandungan telah dikemas kini.
@@ -626,7 +626,7 @@ ms:
   dublin_core: Dublin Core
   duplicate_items_were_ignored: Perkara bertindih diabaikan.
   e_g_search_for_the_eol_page: "(cth. carian untuk ID halaman EOL untuk ITIS TSN 180542:"
-  each_method_s_documentation_pa: Halaman pendokumenan setiap kaedah mempunyai contoh kedua-dua balasan berformat XML dan JSON.
+  each_method_documentation_page_has_formatted_responses: Halaman pendokumenan setiap kaedah mempunyai contoh kedua-dua balasan berformat XML dan JSON.
   edit: Sunting
   edit_annotation: sunting penjelasan
   edit_collection_details: Sunting butiran himpunan
@@ -710,7 +710,7 @@ ms:
       wrong_length: tidak betul panjangnya (mestilah %{count} aksara)
       wrong_type: tersalah jenis
   esc_key_hides_this_message: (kekunci esc menyorokkan pesanan ini)
-  every_method_can_also_return_a: Setiap kaedah juga boleh memulangkan respons JSON dengan penambahan sambungan .json
+  every_method_can_also_return_json_response: Setiap kaedah juga boleh memulangkan respons JSON dengan penambahan sambungan .json
   example_colon: "Contoh:"
   expand_all_children: kembangkan semua anak
   explore: Jelajah
@@ -722,7 +722,7 @@ ms:
   failed_login_attempts: cubaan log masuk gagal)- mesti disemak untuk membolehkan pengguna log masuk
   family_name_colon: "Nama Keluarga:"
   feedback: Maklum Balas
-  fill_in_a_message_below_to_sen: "Isikan pesanan di bawah untuk menghantar e-mel kepada pengguna ini dari tapak ini. Pesanan ini akan dihantar selepas anda menyerahkan borang:"
+  fill_in_a_message_below_to_send_email_to_user: "Isikan pesanan di bawah untuk menghantar e-mel kepada pengguna ini dari tapak ini. Pesanan ini akan dihantar selepas anda menyerahkan borang:"
   filter_button: Tapis
   filter_by_status: Tapis mengikut status
   filter_by_status_all_option: Semua status
@@ -749,7 +749,7 @@ ms:
   flash_notice_redirected_from_search_html_more_results: Anda tiba di sini dengan mencari <em>%{search_string}</em>. <a href="%{more_results_url}">Klik di sini untuk melihat hasil carian yang lain.</a>
   flickr: Flickr
   focus_collection_edit_link: Anda boleh mengubah tumpuan komuniti ini secara terus di halaman %{collection}.
-  for_example_for_the_taxon_el: Misalnya, untuk unsur Taxon untuk suatu nodus dalam hierarki ITIS, dc:identifier merupakan ITIS TSN. Unsur dwct:taxonID mengandungi <i>pengenal pasti EOL</i> yang digunakan dalam API %{link}.
+  for_example_for_the_taxon_element_for_a_node: Misalnya, untuk unsur Taxon untuk suatu nodus dalam hierarki ITIS, dc:identifier merupakan ITIS TSN. Unsur dwct:taxonID mengandungi <i>pengenal pasti EOL</i> yang digunakan dalam API %{link}.
   for_the_month_of_colon: "Untuk bulan:"
   forgot_password: Lupa kata laluan
   forgot_password_cannot_find_user_from_username_or_email_error: Maaf, tiada akaun pengguna dengan nama pengguna atau e-mel yang diberikan, <em>%{username_or_email}</em>.
@@ -942,14 +942,14 @@ ms:
   id: ID
   if_checked_and_user_is_saved: Jika petak ini diraitkan dan pengguna ini disimpan, maka kelayakan, skop, kelulusan dan klad yang dipilih semuanya akan digugurkan, dan pengguna tidak lagi tampil sebagai kurator. Anda patut menuliskan sebabnya di bawah. Pengguna ini tidak akan dimaklumkan.
   if_the_above_url_does_not_work: Jika URL di atas tidak berkesan, cuba salin dan tampalkannya pada pelayar anda.
-  if_the_details_parameter_is_no: Jika parameter butiran tidak ditetapkan, maka hanya pengenal pasti objek data, jenis data dan subjek (bagi rencana) yang dipulangkan. Jenis data itu merupakan nilai daripada perbendaharaan kata jenis sumber %{linka}. Subjek teks pula merupakan nilai daripada ontologi perkara maklumat %{linkb}.
-  if_this_box_is_checked_the_hie: jika petak ini dirait, hierarki akan menjadi pilihan kepada pengguna untuk melayari EOL
+  if_the_details_parameter_is_not_set: Jika parameter butiran tidak ditetapkan, maka hanya pengenal pasti objek data, jenis data dan subjek (bagi rencana) yang dipulangkan. Jenis data itu merupakan nilai daripada perbendaharaan kata jenis sumber %{linka}. Subjek teks pula merupakan nilai daripada ontologi perkara maklumat %{linkb}.
+  check_this_to_browse_eol_by_the_hierarchy: jika petak ini dirait, hierarki akan menjadi pilihan kepada pengguna untuk melayari EOL
   if_you_continue_to_have_problem_then_contact_us: Jika anda masih mengalami masalah, jangan berasa segan untuk menghubungi kami.
-  if_you_did_make_this_request_j: "Jika andalah yang membuat permintaan ini, sila klik pautan di bawah:"
-  if_you_did_not_make_this_reque: Jika bukan anda yang membuat permintaan ini, abaikan e-mel ini sahaja.
+  if_you_did_make_this_request_click_link_below: "Jika andalah yang membuat permintaan ini, sila klik pautan di bawah:"
+  if_you_did_not_make_this_request_ignore_email: Jika bukan anda yang membuat permintaan ini, abaikan e-mel ini sahaja.
   image_is_no_longer_available: Gambar sudah tiada lagi
   image_not_found: Gambar tidak dijumpai
-  image_objects_will_contain_two: Objek gambar akan mengandungi dua unsur mediaURL; yang pertama ialah URL gambar dalam tapak web pembekal, dan yang kedua ialah URL versi ter-<i>cache</i> bagi bahantara tersebut yang dihoskan dalam pelayan EOL. Versi EOL gambar itu akan diubah saiznya (sambil mengekalkan nisbah bidang) jika gambar asal melebihi lebar 460 piksel atau panjang 345 piksel.
+  image_objects_will_contain_two_mediaurl_elements: Objek gambar akan mengandungi dua unsur mediaURL; yang pertama ialah URL gambar dalam tapak web pembekal, dan yang kedua ialah URL versi ter-<i>cache</i> bagi bahantara tersebut yang dihoskan dalam pelayan EOL. Versi EOL gambar itu akan diubah saiznya (sambil mengekalkan nisbah bidang) jika gambar asal melebihi lebar 460 piksel atau panjang 345 piksel.
   images: Gambar
   import_once: Import sekali
   in_collection: dalam himpunan
@@ -1032,7 +1032,7 @@ ms:
   license_gnu_gpl: Lesen Awam Am GNU (GNU GPL)
   license_not_applicable: Tiada lesen yang berkenaan
   license_public_domain: Domain Awam
-  licenses_visit_their_site_for: lesen. Lawati tapak webnya untuk maklumat lanjut tentang lesen-lesen yang ditawarkan
+  more_information_on_the_various_licenses: lesen. Lawati tapak webnya untuk maklumat lanjut tentang lesen-lesen yang ditawarkan
   limits_the_number_of_returned_image_objects: menghehadkan bilangan objek gambar yang dipulangkan
   limits_the_number_of_returned_text_objects: menghehadkan bilangan objek teks yang dipulangkan
   limits_the_number_of_returned_video_objects: menghehadkan bilangan objek video yang dipulangkan
@@ -1120,7 +1120,7 @@ ms:
   names_status_column_header: Status
   never: Jangan
   new_collection: Himpunan baru
-  new_content_partners_for_the_m: Rakan kongsi kandungan baru untuk bulan ini
+  new_content_partners_for_the_month: Rakan kongsi kandungan baru untuk bulan ini
   news_items: Bahan Berita
   newsfeed: Suapan berita
   no_active_members: Kegiatan belum mencukupi lagi.
@@ -1281,7 +1281,7 @@ ms:
   search_by_provider_method_description: dapatkan ID halaman EOL dengan satu hierarchy_id pembekal dan pengenal pasti unik pembekal itu
   search_by_term_page_title: "Mencari: %{term}"
   search_field_label: Cari dalam EOL
-  search_for_comments_containing: "Cari komen yang mengandungi teks:"
+  search_for_comments_containing_the_text: "Cari komen yang mengandungi teks:"
   search_for_users_containing_this_in_their_username_name_or_email_address: Cari pengguna yang nama pengguna, nama atau alamat e-melnya mengandungi yang ini.
   search_input_advisory_information: Isikan nama am atau saintifik bagi hidupan-hidupan yang anda ingin ketahui dengan lebih lanjut. Anda juga boleh mencari ahli, himpunan dan komuniti dalam EOL.
   search_lowercase: cari
@@ -1363,7 +1363,7 @@ ms:
   table_column_header_actions: Tindakan
   table_of_contents: Jadual Kandungan
   table_of_contents_breakdown: jadual pecahan kandungan
-  takes_an_eol_page_identifier_a: mengambil pengenal pasti halaman EOL dan memulangkan nama saintifik untuk halaman itu, dan boleh juga memulangkan maklumat tentang nama am, media (teks, gambar, video), dan rujukan kepada hierarki yang mengenali takson yang diterangkan di
+  pages_method_description: mengambil pengenal pasti halaman EOL dan memulangkan nama saintifik untuk halaman itu, dan boleh juga memulangkan maklumat tentang nama am, media (teks, gambar, video), dan rujukan kepada hierarki yang mengenali takson yang diterangkan di
   task_status: Status tugas
   task_status_active_option: Aktif
   task_status_curated_option: Dikurasi
@@ -1390,7 +1390,7 @@ ms:
   taxon_partner_links_intro: Berikut ialah senarai rakan kongsi, termasuk rakan kongsi kandungan, dengan maklumat pada halaman ini. Di mana boleh, pautan itu akan membawa anda ke kandungan yang berpadanan pada tapak web rakan kongsi tersebut. Pengenal pasti unik untuk takson ini yang digunakan oleh setiap rakan kongsi dibenamkan dalam pautan-pautan ini, dan pengenal pasti ini juga boleh diakses melalui <a href="%{eol_api_link}">EOL API</a>
   taxon_partner_links_link: Pautan rakan kongsi
   taxon_recognized_by_header: Diiktiraf oleh
-  taxonbiology_generaldescriptio: TaxonBiology|GeneralDescription|Description
+  taxonbiology_generaldescription_description: TaxonBiology|GeneralDescription|Description
   taxonomic_summary_of_content: ringkasan taksonomi kandungan
   technical_functions: Fungsi Teknikal
   terms_agreement_beta_intro: "Terima kasih kerana menyertai EOL Versi 2 Beta. Sebelum meneruskan, kami mahu anda bersetuju dengan yang berikut:"
@@ -1406,16 +1406,16 @@ ms:
   text_summary_empty_header: Ringkasan
   text_summary_more_link: Baca entri penuh
   thank_you: Terima Kasih
-  thank_you_for_contacting_the_e: Terima kasih kerana menghubungi pihak projek Encyclopedia of Life. Komen-komen anda telah dihantar kepada kumpulan yang berkenaan.
-  thank_you_for_requesting_curat: Terima kasih kerana memohon keistimewaan kurator.
+  thank_you_for_contacting_the_eol: Terima kasih kerana menghubungi pihak projek Encyclopedia of Life. Komen-komen anda telah dihantar kepada kumpulan yang berkenaan.
+  thank_you_for_requesting_curator_privileges: Terima kasih kerana memohon keistimewaan kurator.
   thank_you_for_your_generous_support: Terima kasih atas sokongan ikhlas anda
   thank_you_sentence: Terima kasih.
-  thanks_for_contacting_the_ency: Terima kasih kerana menghubungi pihak projek Encyclopedia of Life. Maklumat hubungan anda telah diserahkan kepada hubungan media.
+  thanks_for_contacting_the_eol: Terima kasih kerana menghubungi pihak projek Encyclopedia of Life. Maklumat hubungan anda telah diserahkan kepada hubungan media.
   thanks_for_donation: Terima kasih kerana menyokong Encyclopedia of Life. Maklumat anda telah diterima dan akan diproses.
-  thanks_for_registering_with_th: Terima kasih kerana mendaftar dengan Encyclopedia of Life. Untuk mengesahkan pendaftaran anda, sila klik pautan di bawah. Jika perisian e-mel anda tidak menyokong pautan-pautan berikut, sila salin dan tampal seluruh alamat itu kepada pelayar web anda dan tekan "Enter".
+  thanks_for_registering_with_eol: Terima kasih kerana mendaftar dengan Encyclopedia of Life. Untuk mengesahkan pendaftaran anda, sila klik pautan di bawah. Jika perisian e-mel anda tidak menyokong pautan-pautan berikut, sila salin dan tampal seluruh alamat itu kepada pelayar web anda dan tekan "Enter".
   the_amount_entered_was: "Jumlah yang diberikan ialah : AS %{number}"
   the_following_bibliography: Bibliografi berikut telah dijana dengan mengumpulkan semua rujukan yang diberikan oleh rakan-rakan kongsi kandungan kami, tetapi mungkin ada pertindihan.
-  the_id_of_the_provider_s_hiera: ID hierarki pembekal yang anda menggelintar di dalam. Semak %{link} untuk ID-ID yang sah
+  the_id_of_provider_hierarchy_you_are_searching: ID hierarki pembekal yang anda menggelintar di dalam. Semak %{link} untuk ID-ID yang sah
   the_list_represents_the_curation_activity: Senarai ini mewakili kegiatan kurasi objek-objek data <b>%{link}</b>.
   the_xml_search_response_implements: Respons carian XML melaksanakan format respons OpenSearch yang menggunakan Atom 1.0. Lihat %{link} untuk spesifikasi penuh OpenSearch
   there_are_currently_no_members_in_this_community: Komuniti ini tiada ahli sekarang.
@@ -1548,7 +1548,7 @@ ms:
   wikipedia_queue_new_instructions_step_one: Pergi ke halaman rencana di Wikipedia, cth. <a href="http://ms.wikipedia.org/w/index.php?title=Harimau&oldid=1762971">http://ms.wikipedia.org/w/index.php?title=Harimau&oldid=1762971</a>
   wikipedia_queue_new_intro: Serahkan semakan rencana Wikipedia untuk diinges ke dalam EOL sebagai objek teks yang disemak.
   wikipedia_queue_new_page_title: Minta import rencana Wikipedia
-  will_find_taxon_pages_if_the_p: akan mencari halaman takson jika nama yang diutamakan atau sebarang sinonim atau nama am tepat-tepat sepadan dengan istilah carian
+  will_find_taxon_pages_matching_the_search_term: akan mencari halaman takson jika nama yang diutamakan atau sebarang sinonim atau nama am tepat-tepat sepadan dengan istilah carian
   will_paginate: 
     next_label: Seterusnya &#8594;
     page_gap: "&hellip;"
@@ -1561,8 +1561,8 @@ ms:
   you_are_an_admin_so_i_will_show_you_that_the_error_was: "Anda seorang pentadbir. Jadi, saya akan tunjukkan di mana ralatnya:"
   you_are_not_authorized_to_perform_this_action: Anda tidak dibenarkan melakukan tindakan ini.
   you_are_viewing_this_rank_as_classified_by: "Anda sedang melihat %{rank} ini seperti yang dikelaskan oleh:"
-  you_can_identify_yourself_to_e: "Anda boleh memperkenalkan diri kepada EOL dengan membubuh kunci API anda pada permintaan anda (log masuk dan jana kunci anda dalam halaman keutamaan anda):"
-  you_can_now_check_last_month_s: Kini, anda boleh menyemak penggunaan data anda di EOL bulan lalu.
+  you_can_identify_yourself_to_eol: "Anda boleh memperkenalkan diri kepada EOL dengan membubuh kunci API anda pada permintaan anda (log masuk dan jana kunci anda dalam halaman keutamaan anda):"
+  you_can_now_check_last_month_s_web_usage: Kini, anda boleh menyemak penggunaan data anda di EOL bulan lalu.
   you_have_been_logged_out: Anda telah log keluar.
   you_joined_community: Anda berjaya menyertai komuniti ini.
   you_left_community: Anda berjaya meninggalkan komuniti ini.

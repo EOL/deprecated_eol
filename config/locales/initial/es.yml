@@ -542,7 +542,7 @@ es:
   all_sounds: Todos los sonidos
   all_taxa: Todos los taxones
   all_title: Todos
-  all_user_submitted_texts_on_th: Todos los textos enviados por el usuario en el sitio web se muestran a continuación, ordenados inversamente por hora de creación.
+  all_user_submitted_texts_on_the_website: Todos los textos enviados por el usuario en el sitio web se muestran a continuación, ordenados inversamente por hora de creación.
   all_videos: Todos los vídeos
   already_a_member_question: ¿Ya eres miembro?
   already_member_of_community: Ya eres miembro de esta comunidad.
@@ -601,8 +601,8 @@ es:
   classifications_summary_header_with_count:
     one: "Encontrado en %{count} clasificación "
     other: Encontrado en %{count} classifications
-  click_on_a_user_to_view_the_us: Haga clic en un usuario para ver el perfil del usuario detallada, haga clic en las especies para ver la página donde existe el texto (utilice el botón Atrás del navegador para regresar aquí).
-  close_this_window_to_return_to: CIERRE ESTA VENTANA PARA VOLVER A LA VENTANA EDITAR
+  click_on_a_user_to_view_the_users_detailed_profile: Haga clic en un usuario para ver el perfil del usuario detallada, haga clic en las especies para ver la página donde existe el texto (utilice el botón Atrás del navegador para regresar aquí).
+  close_this_window_to_return_to_edit_window: CIERRE ESTA VENTANA PARA VOLVER A LA VENTANA EDITAR
   cms_available_in_languages: "Esta página está disponible en:"
   cms_missing_content_message: Lo sentimos, esta página no está disponible para ese idioma.
   cms_missing_content_title: Contenido faltante
@@ -672,7 +672,7 @@ es:
   community_tab_curators_description: Curadores son usuarios EOL con pericia taxonómica que han dado su tiempo para examinar el contenido que aparece en EOL, asegurando que lo que ves es precisa y de calidad.
   confirm_leave: ¿Está seguro de que deseas salir de esta comunidad?
   confirm_password_colon: "Confirmar contraseña:"
-  contact_eli_eol_org_for_any_co: Contacta eli@eol.org con cualquier comentario.
+  contact_for_any_comments: Contacta eli@eol.org con cualquier comentario.
   contact_us_functions: Contáctenos Funciones
   contact_us_link: Contáctenos
   content_has_been_updated: Se ha actualizado el contenido.
@@ -958,7 +958,7 @@ es:
   failed_login_attempts: intentos fallidos de inicio de sesión) - se debe comprobar para que el usuario pueda iniciar sesión
   family_name_colon: "Apellido:"
   feedback: Realimentación
-  fill_in_a_message_below_to_sen: "Llenar un mensaje a continuación para enviar un correo electrónico a este usuario.  El mensaje se enviará cuando usted envíe el formulario:"
+  fill_in_a_message_below_to_send_email_to_user: "Llenar un mensaje a continuación para enviar un correo electrónico a este usuario.  El mensaje se enviará cuando usted envíe el formulario:"
   filter_button: Filtrar
   filter_by_status: Filtrar por estado
   filter_by_status_all_option: todos los estados
@@ -1022,7 +1022,7 @@ es:
   home_page_link_advisory_information: Este enlace te llevará a la página principal de Encyclopedia Of Life
   id: ID
   if_checked_and_user_is_saved: Si se marca y el usuario se guarda, a continuación, los credenciales, alcance, aprobación y clade seleccionados se borran y el usuario ya no aparece como curador.  Usted debería agregar una nota a continuación para indicar la razón.  No se envía información al usuario.
-  if_this_box_is_checked_the_hie: Si esta casilla está marcada, la jerarquía será una opción para que los usuarios naveguen en EOL
+  check_this_to_browse_eol_by_the_hierarchy: Si esta casilla está marcada, la jerarquía será una opción para que los usuarios naveguen en EOL
   image_is_no_longer_available: La imagen ya no está disponible
   image_not_found: Imagen no encontrada
   images: Imágenes
@@ -1185,7 +1185,7 @@ es:
   names_status_column_header: Estado
   never: Nunca
   new_collection: Nueva colección
-  new_content_partners_for_the_m: Nuevos socios de contenidos del mes
+  new_content_partners_for_the_month: Nuevos socios de contenidos del mes
   news_items: Noticias
   newsfeed: Suministro de noticias
   no_active_members: No ha habido suficiente actividad todavía.
@@ -1544,7 +1544,7 @@ es:
   you_are_an_admin_so_i_will_show_you_that_the_error_was: "Usted es un administrador. Pues, yo te mostraré que fue el error :"
   you_are_not_authorized_to_perform_this_action: No estás autorizado para realizar esta acción.
   you_are_viewing_this_rank_as_classified_by: "Está viendo este %{rank} como clasificados por:"
-  you_can_now_check_last_month_s: Ahora puede comprobar el uso en la web de sus datos en EOL durante el mes pasado.
+  you_can_now_check_last_month_s_web_usage: Ahora puede comprobar el uso en la web de sus datos en EOL durante el mes pasado.
   you_have_been_logged_out: Hemos cerrado su sesión.
   you_joined_community: Se ha unido exitosamente a esta comunidad.
   you_left_community: Has dejado esta comunidad.
@@ -1602,7 +1602,7 @@ es:
   cannot_create_community_from_watch_collection_error: "No puede crear una comunidad a partir de una lista de vigilancia."
   changed_to_act: "cambiado a \"%{act}\""
   citing_link: Citando
-  click_on_a_username_to_view_th: "Haga clic en un nombre de usuario para ver el perfil detallado de ese usuario, haga clic en el tipo de datos para ver el objeto comentado (use el botón de \"back\" en su navegador para volver aquí), haga clic en \"editar\" para editar el comentario o haz clic en \"borrar\" para eliminar permanentemente el comentario."
+  click_on_a_username_to_view_the_users_detailed_profile: "Haga clic en un nombre de usuario para ver el perfil detallado de ese usuario, haga clic en el tipo de datos para ver el objeto comentado (use el botón de \"back\" en su navegador para volver aquí), haga clic en \"editar\" para editar el comentario o haz clic en \"borrar\" para eliminar permanentemente el comentario."
   collections_lowercase: colecciones
   collections_with_count:
     one: "%{count} Colección"
@@ -1646,7 +1646,7 @@ es:
   donation_sponsorship_preamble: "Si usted quiere aprender más sobre programas específicos a los que puede apoyar, o quisiera hacer una donación recurrente, por favor contáctenos, por medio de la Secretaría de EOL por <a href=\"mailto:%{email_address}\">email</a>  o por teléfono al (202) 633-8730. Entre las oportunidades para donaciones específicas tenemos:"
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: "No mostrar fechas registradas desconocidas (usuario de v1, todo anterior al 5 de enero, 2009)"
   dublin_core: "Dublin Core"
-  each_method_s_documentation_pa: "Cada página de documentación de un método tiene un ejemplo de respuesta forrajeada en XML y en JSON."
+  each_method_documentation_page_has_formatted_responses: "Cada página de documentación de un método tiene un ejemplo de respuesta forrajeada en XML y en JSON."
   edit_collection_details: "Editar detalles de colección"
   email: "Dirección de correo electrónico"
   end_quote: "\""
@@ -1668,8 +1668,8 @@ es:
   error_homepage_or_search_option: "Usted puede volver a <a href=\"/\">homepage</a> o usar nuestra herramienta de búsqueda:"
   error_page_title: Oops.
   error_try_again_or_homepage_or_search_option: "Usted puede <a href=\"%{try_again_url}\">intenar de nuevo</a>, volver a <a href=\"/\">homepage</a> o usar nuestra herramienta de búsqueda:"
-  every_method_can_also_return_a: "Todo método puede devolver una respuesta JSON agregando la Exporte esta lista como CSV"
-  for_example_for_the_taxon_el: "Por ejemplo, para el elemento de taxón de un nodo en la jerarquía de ITIS, el dc:identifier será el TSN de ITIS. El elemento dwct:taxonID contiene en <i>EOL identifier</i> que será usado en el %{link} API."
+  every_method_can_also_return_json_response: "Todo método puede devolver una respuesta JSON agregando la Exporte esta lista como CSV"
+  for_example_for_the_taxon_element_for_a_node: "Por ejemplo, para el elemento de taxón de un nodo en la jerarquía de ITIS, el dc:identifier será el TSN de ITIS. El elemento dwct:taxonID contiene en <i>EOL identifier</i> que será usado en el %{link} API."
   get_help_choosing_a_subchapter: "obtenga ayuda escogiendo un subcapítulo"
   given_the_vast_number: "Dado el vasto nñumero de nombres científicos y vernaculares (neacasi 20 millones en total) darle al usuario de exactamente las especies que esá buscando es una tarea difícil. Por ejemplo, hay varias especies de pájaros llamadas Robin (American Robin, Alpine Robin, Smoky Robin), y varias especies de pez llamadas Robin, y un taxónomo llamado Robin, que ha nombrado docenas de especies. Hemos incluido un parámetro 'exacto' para devolver solo resultados cuyo nombre coincida con el término buscado en un 100%, pero no podemos garantizar que el taxón retornado sea el que anda buscando. Estamos continuamente tratando de mejorar la relevancia de los resultados de las búsquedas, así que espere mejorías muy pronto."
   gives_access_to_a_single_hierarchy_indexed_by_eol: "da acceso a una jerarquía individual indexada por EOL y a sus relaciones internas"
@@ -1680,18 +1680,18 @@ es:
   hierarchies_entries_description: "La Enciclopedia de la Vida no crea sus páginas usando una sola jerarquía taxonómica. Más bien, EOL indexa muchas jerarquías y las compara entre sí. Como resultado, una página de EOL puede estar relacionada con varios nodos de varias jerarquías. Este API da acceso a una jerarquía individual y a sus relaciones internas. Vea la documentación el API páginas para ver cómo acceder a otras jerarquías que corresponden a una página de EOL. El campo taxonConceptID contiene el identificador de página de EOL que puede ser usado en el API páginas."
   hierarchy_entries: hierarchy_entries
   if_the_above_url_does_not_work: "Si el URL de arriba no funciona, trate copiándolo y pegándolo en su navegador."
-  if_the_details_parameter_is_no: "Si el parámetro de detalles no es establecido, entonces solamente el identificador de objeto de datos, tipo de datos, y, en el caso de artículos, el tema será retornado. EL tipo de datos será un valor del %{linka} vocabulario de tipo de datos. EL texto del tema será un valor de la %{linkb} ontología de elementos de información."
+  if_the_details_parameter_is_not_set: "Si el parámetro de detalles no es establecido, entonces solamente el identificador de objeto de datos, tipo de datos, y, en el caso de artículos, el tema será retornado. EL tipo de datos será un valor del %{linka} vocabulario de tipo de datos. EL texto del tema será un valor de la %{linkb} ontología de elementos de información."
   if_you_continue_to_have_problem_then_contact_us: "Si sigue teniendo problemas, por favor contáctenos."
-  if_you_did_make_this_request_j: "SI usted hizo esta solicitud, por favor haga clic en el enlace abajo:"
-  if_you_did_not_make_this_reque: "Si usted no hizo esta solicitud, por favor ignore este mensaje."
-  image_objects_will_contain_two: "Los objetos de Imagen tendrán dos elementos tipo mediaURL - el primero es el URL de la imagen en el sitio web del proveedor, y el segundo, el URL de la versión en cache del medio en hospedado en un servidor de EOL. La versión EOL de la imagen estará proporcionalmente escalada si la imagen original tiene un tamaño superior a 460 pixels de ancho por 345 pixeles de alto."
+  if_you_did_make_this_request_click_link_below: "SI usted hizo esta solicitud, por favor haga clic en el enlace abajo:"
+  if_you_did_not_make_this_request_ignore_email: "Si usted no hizo esta solicitud, por favor ignore este mensaje."
+  image_objects_will_contain_two_mediaurl_elements: "Los objetos de Imagen tendrán dos elementos tipo mediaURL - el primero es el URL de la imagen en el sitio web del proveedor, y el segundo, el URL de la versión en cache del medio en hospedado en un servidor de EOL. La versión EOL de la imagen estará proporcionalmente escalada si la imagen original tiene un tamaño superior a 460 pixels de ancho por 345 pixeles de alto."
   include_all_metadata: "incluir todos los metadatos para objetos de datos"
   json_response: "Respuesta JSON"
   language_with_count: "%{language} (%{count})"
   learn_more_about_communities_link: "Aprenda más sobre Comunidades"
   learn_more_link: "(%{learn_more})"
   learn_more_lowercase: "aprenda más"
-  licenses_visit_their_site_for: "licencias. Visite su sitio para más información sobre las licencias que ofrecen"
+  more_information_on_the_various_licenses: "licencias. Visite su sitio para más información sobre las licencias que ofrecen"
   limits_the_number_of_returned_image_objects: "limita el número de objetos de imagen retornados"
   limits_the_number_of_returned_text_objects: "limita el número de objetos de texto retornados"
   limits_the_number_of_returned_video_objects: "limita el número de objetos de vídeo retornados"
@@ -1743,7 +1743,7 @@ es:
   returns_either_a_positive_or_negative_response: "retorna una respuesta positiva (indicando que los API están funcionales), o una respuesta negativa, o del todo nada (indicando que en ese momento los APIs no están funcionales)."
   search_by_provider: search_by_provider
   search_by_provider_method_description: "obtener los ID de página de EOL a partir de la hierarchy_id del proveedor y su identificador único"
-  search_for_comments_containing: "Buscar comentarios que tienen el texto:"
+  search_for_comments_containing_the_text: "Buscar comentarios que tienen el texto:"
   search_for_users_containing_this_in_their_username_name_or_email_address: "Buscar los usuarios que tienen esto en su nombre de usuario, nombre, o dirección electrónica."
   search_lowercase: buscar
   search_method_description: "dado un valor para un elemento específico  (e.g., scientific name=Homo sapiens), devuelve una lista paginada de las páginas de EOL que contienen el termino buscado"
@@ -1756,7 +1756,7 @@ es:
   species_profile_model: "Modelo de Perfil de Especies (SPM)"
   start_quote: "\""
   subject: subject
-  takes_an_eol_page_identifier_a: "toma un identificador de página de EOL y retorna el nombre científico para esa página, y, opcionalmente, información sobre nombres comunes, medios (texto, imágenes y vídeos), y referencias a las jerarquías que reconocen el taxón descrito en el"
+  pages_method_description: "toma un identificador de página de EOL y retorna el nombre científico para esa página, y, opcionalmente, información sobre nombres comunes, medios (texto, imágenes y vídeos), y referencias a las jerarquías que reconocen el taxón descrito en el"
   taxon_biomedical_terms_link: "Términos biomédicos"
   taxon_education_empty: "Nadie ha contribuido aún con un recurso educativo para esta página."
   taxon_education_header: Educación
@@ -1772,20 +1772,20 @@ es:
   taxon_partner_links_intro: "Abajo aparece una lista de socios, incluidos socios de contenidos, con información sobre esta página. Donde sea posible, los vínculos lo llevarán al contenido correspondiente en el sitio web del socio. EL identificador único que usa cada socio para este taxón está empotrado en estos vínculos, y estos identificadores también están accesibles por medio de <a href=\"%{eol_api_link}\">EOL API</a>"
   taxon_partner_links_link: "Vínculos de socio"
   taxon_recognized_by_header: "Reconocido por"
-  taxonbiology_generaldescriptio: TaxonBiology|GeneralDescription|Description
+  taxonbiology_generaldescription_description: TaxonBiology|GeneralDescription|Description
   terms_of_use_link: "Términos de uso &amp; privacidad"
   text_description_was_added: "Una descripción de texto %{text} fue agregada a %{toc} en \"%{link}\" por parte de %{user} en fecha %{date}"
   thank_you: "Gracias"
-  thank_you_for_contacting_the_e: "Gracias por contactar a la Enciclopedia de la Vida. Sus comentarios han sido enviados al grupo apropiado."
-  thank_you_for_requesting_curat: "Gracias por solicitar privilegios de curador."
-  thanks_for_contacting_the_ency: "Gracias por contactar a la Enciclopedia de la Vida. Su información de contacto ha sido enviada al contacto de medios."
+  thank_you_for_contacting_the_eol: "Gracias por contactar a la Enciclopedia de la Vida. Sus comentarios han sido enviados al grupo apropiado."
+  thank_you_for_requesting_curator_privileges: "Gracias por solicitar privilegios de curador."
+  thanks_for_contacting_the_eol: "Gracias por contactar a la Enciclopedia de la Vida. Su información de contacto ha sido enviada al contacto de medios."
   thanks_for_donation: "Gracias por apoyar a la Enciclopedia de la Vida. Su información a sido enviada y será procesada."
-  thanks_for_registering_with_th: "Gracias por registrarse en EOL. Para confirmar su registro, por favor haga clic en el vínculo abajo. Si su programa de correo electrónico no apoya el seguir vínculos, por favor, haga copiar y pegar de la dirección completa en su navegador de web y pulse \"return\"."
+  thanks_for_registering_with_eol: "Gracias por registrarse en EOL. Para confirmar su registro, por favor haga clic en el vínculo abajo. Si su programa de correo electrónico no apoya el seguir vínculos, por favor, haga copiar y pegar de la dirección completa en su navegador de web y pulse \"return\"."
   data_objects: data_objects
 
   the_darwin_core_taxon_elements: "Los \"Darwin Core Taxon elements\" (dwct:Taxon) bajo additionalInformation incluyen identificadores para nodos en jerarquía que EOL indexa. Ellos contienen un dc:identifier que es el ID único para el taxón <i>en la base de datos del proveedor.</i>"
-  the_id_of_the_provider_s_hiera: "el ID de la jerarquía de proveedores dentro de la cual usted está buscando. Revise %{link} para ID válidos"
-  the_json_response_for_this_met: "La respuesta JSON para este método retorna más información que la respuesta XML. Incluye varias estadísticas sobre este nodo y sus descendientes taxonómicos. Por ejemplo, hay un campo retornado denominado\"total_descendants\" el cual lista el número de nodos que son descendientes de un nodo dado, según esta jerarquía; \"total_trusted_text\" incluye el número total de objetos de datos de texto únicos vinculados con esta página o con cualquiera de sus descendientes."
+  the_id_of_provider_hierarchy_you_are_searching: "el ID de la jerarquía de proveedores dentro de la cual usted está buscando. Revise %{link} para ID válidos"
+  the_json_response_for_this_method: "La respuesta JSON para este método retorna más información que la respuesta XML. Incluye varias estadísticas sobre este nodo y sus descendientes taxonómicos. Por ejemplo, hay un campo retornado denominado\"total_descendants\" el cual lista el número de nodos que son descendientes de un nodo dado, según esta jerarquía; \"total_trusted_text\" incluye el número total de objetos de datos de texto únicos vinculados con esta página o con cualquiera de sus descendientes."
   the_xml_search_response_implements: "La respuesta a una búsqueda implementa el formato de respuesta OpenSearch usando Atom 1.0. Ver la especificación OpenSearch completa en %{link}"
   there_is_no_singular_eol: "No existe una jerarquía taxonómica única de EOL, más bien, EOL indexa muchas jerarquías y las compara para establecer cuáles nodos se refieren a los mismos taxones. Estos elementos de taxón representan nodos de la jerarquía, por lo cual podría haber varios para una página dada de EOL. Para más información, revise la documentación sobre el API en %{lino}."
   this_cannot_be_undone_are_you_sure: "Está acción no puede deshacer; ¿está seguro?"
@@ -1817,9 +1817,9 @@ es:
   wikipedia_queue_new_instructions_step_two: "Expanda el menú 'Toolbox' presentado en la columna de navegación, usted podrá ver, anidado, el ítem de menú 'Permanent link'."
   wikipedia_queue_new_intro: "Envíe una revisión de un artículo de Wikipedia para ser ingerido por EOL como objeto de texto de confianza."
   wikipedia_queue_new_page_title: "Solicite la importación de un artículo de Wikipedia"
-  will_find_taxon_pages_if_the_p: "encontrará páginas de taxón si el nombre preferido o cualquier sinónimo o nombre común coincide exactamente con el término buscado"
+  will_find_taxon_pages_matching_the_search_term: "encontrará páginas de taxón si el nombre preferido o cualquier sinónimo o nombre común coincide exactamente con el término buscado"
   xml_response: "Respuesta XML"
-  you_can_identify_yourself_to_e: "Usted se puede identificar ante EOL si agrega su llave API a sus solicitudes (inicie una sesión y genere su llave API en su página de preferencias):"
+  you_can_identify_yourself_to_eol: "Usted se puede identificar ante EOL si agrega su llave API a sus solicitudes (inicie una sesión y genere su llave API en su página de preferencias):"
   your_request_has_been_approved: "Su solicitud ha sido aprobada. Ahora tiene funciones de curador para su caldo aprobado y todos sus descendientes. Para más información sobre curación y cuáles funciones tiene ahora a su disposición, visite http://www.eol.org/content/page/curation"
   your_watch_collection: "su lista de vigilancia"
   export_this_list_as_csv: "Exporta esta lista como CSV"

@@ -28,7 +28,7 @@
             %td
               = link_to I18n.t("pages_lowercase"), :controller => 'api/docs', :action => 'pages'
             %td
-              =I18n.t("takes_an_eol_page_identifier_a")
+              =I18n.t("pages_method_description")
           %tr
             %td
               = link_to I18n.t("collections_lowercase"), :controller => 'api/docs', :action => 'collections'
@@ -75,7 +75,7 @@
           :escaped
             http://www.eol.org/api/search/Robin.xml
       %p
-        =I18n.t("every_method_can_also_return_a")
+        =I18n.t("every_method_can_also_return_json_response")
         %code<
           :escaped
             http://www.eol.org/api/search/Robin.json
@@ -85,8 +85,8 @@
           :escaped
             http://www.eol.org/api/search/Robin.json?callback=some_neat_function
       %p#api_key_section.indent
-        =I18n.t("you_can_identify_yourself_to_e")
+        =I18n.t("you_can_identify_yourself_to_eol")
         %code<
           ="http://www.eol.org/api/search/Robin?key=1111111111111111111111111111111111"
       %p
-        =I18n.t("each_method_s_documentation_pa")
+        =I18n.t("each_method_documentation_page_has_formatted_responses")

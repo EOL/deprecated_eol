@@ -38,13 +38,20 @@ fr:
         homepage: URL du projet
         notes: Notes du projet
         user_id: Géré par
+      content_partner_agreement: 
+        signed_by: Signé par
+        signed_on_date: Signé le
       data_object: 
+        bibliographic_citation: Citation bibliographique
         description: Description
         object_title: Titre
         rights_holder: Détenteur des droits
+        rights_statement: Déclaration de droits
+        source_url: URL source
       name: 
         string: Nom
       resource: 
+        bibliographic_citation: Citation bibliographique
         description: Description de la ressource
         language_id: Langue par défaut
         license_id: Licence par défaut
@@ -58,6 +65,7 @@ fr:
         meta_keywords: Mots-clefs des métadonnées
         title: Titre
       user: 
+        agreed_with_terms: Termes de la Convention d'utilisation
         api_key: Clé API
         bio: Bio
         email: Adresse électronique
@@ -67,8 +75,11 @@ fr:
         full_name: Nom complet
         given_name: Prénom
         language_abbr: Langue préférée
+        tag_line: Slogan
         username: Nom d’utilisateur
     errors: 
+      full_messages: 
+        format: "%{attribute} %{message}"
       messages: 
         record_invalid: "La validation a échoué : %{errors}"
         taken: est déjà utilisé
@@ -77,6 +88,7 @@ fr:
           attributes: 
             accesspoint_url: 
               blank: ne peut être laissé vide, sauf si vous téléchargez un fichier ressource à la place
+              inaccessible: est inaccessible, l'URL doit être accessible au public
               invalid: est invalide. Doit pointer vers un fichier XML, XML.GZIP ou XML.GZ.
             dataset: 
               wrong_type: n'a pas le format requis. Doit être un fichier GZIP, TAR ou XML.
@@ -153,17 +165,12 @@ fr:
   admin_translated_content_page_new_tip: La langue, le titre et le corps du message sont %{required_icon} requis.
   admin_translated_content_page_update_successful_notice: La traduction en %{language} de <a href="#%{anchor}"><em>%{page_name}</em></a> a été mise à jour.
   admin_translated_content_page_update_unsuccessful_error: Une erreur s'est produite. La traduction n'a pas pu être mise à jour.
-  all_articles: Tous les articles
   all_changes: Toutes les modifications
-  all_collections: Toutes les collections
-  all_communities: Toutes les communautés
-  all_images: Toutes les images
   all_information: Toutes les informations
   all_items: Tous les éléments
   all_pages: Toutes les pages
-  all_taxa: Tous les taxons
   all_title: Tout
-  all_user_submitted_texts_on_th: Tous les textes publiés sur le site par les utilisateurs sont affichés ci-dessous, triés par ordre chronologique inverse.
+  all_user_submitted_texts_on_the_website: Tous les textes publiés sur le site par les utilisateurs sont affichés ci-dessous, triés par ordre chronologique inverse.
   already_a_member_question: Déjà membre ?
   already_member_of_community: Vous êtes déjà un membre de cette communauté.
   alternate_classification: Classement alternatif
@@ -212,8 +219,8 @@ fr:
   citation: Citation
   classification_tree_header: Classification
   classifications_empty: Ce taxon ne fait pas partie des classifications consultables sur EOL.
-  click_on_a_user_to_view_the_us: Cliquez sur un utilisateur pour afficher son profil détaillé. Cliquez sur les espèces pour afficher la page contenant le texte. (Utilisez le bouton « Précédent » de votre navigateur pour revenir ici.)
-  close_this_window_to_return_to: FERMER CETTE FENÊTRE POUR REVENIR À LA FENÊTRE D'ÉDITION
+  click_on_a_user_to_view_the_users_detailed_profile: Cliquez sur un utilisateur pour afficher son profil détaillé. Cliquez sur les espèces pour afficher la page contenant le texte. (Utilisez le bouton « Précédent » de votre navigateur pour revenir ici.)
+  close_this_window_to_return_to_edit_window: FERMER CETTE FENÊTRE POUR REVENIR À LA FENÊTRE D'ÉDITION
   cms_available_in_languages: "Cette page est disponible en :"
   cms_missing_content_message: Désolé, cette page n'est pas disponible pour cette langue.
   cms_missing_content_title: Contenu manquant
@@ -281,7 +288,7 @@ fr:
   community_tab_communities_description: Les communautés sont des groupes d'utilisateurs d'EOL qui se réunissent autour d'un objectif commun, qu'il s'agisse de protéger les oiseaux limicoles ou de partager leur passion pour les primates. Les collections permettent aussi aux personnes qui ont les mêmes centres d'intérêt d'entrer en contact et de communiquer à travers le site EOL ou en dehors de celui-ci.
   confirm_leave: Êtes-vous sûr de vouloir quitter cette communauté ?
   confirm_password_colon: "Confirmez le mot de passe:"
-  contact_eli_eol_org_for_any_co: Pour tout commentaire, contactez eli@eol.org .
+  contact_for_any_comments: Pour tout commentaire, contactez eli@eol.org .
   contact_us_link: Nous contacter
   content_has_been_updated: Le contenu a été mis à jour.
   content_partner_about_header: À propos de %{partner_name}
@@ -326,7 +333,6 @@ fr:
   curation_privileges_page_title: Devenir un conservateur
   curator_colon: "Conservateur :"
   curator_title: Conservateur
-  curators_of_taxon_page_title: Conservateurs de %{taxon}
   current_language: "Langue : %{iso_code}"
   daily: Quotidien
   dashboard: Tableau de bord
@@ -433,9 +439,23 @@ fr:
       content_page: 
         create: Créer la page
         edit: Modifier
+        preview: Aperçu
+      content_partner: 
+        create: Créer un partenaire de contenu
+        update: Enregistrer les informations du partenaires
+      content_partner_contact: 
+        create: Ajouter un contact
+        destroy: Supprimer contact
+      create: Créer %{model}
+      data_object: 
+        create: Ajouter l'article
+        create_text: Ajouter l'article
+        update: Enregistrez article
       name: 
         create: Ajouter le nom
         update: Mettre à jour le nom
+      submit: Enregistrer %{model}
+      update: Mettre à jour %{model}
       user: 
         generate_api_key: Générer une clé
   hierarchies_title: Hiérarchies
@@ -454,9 +474,9 @@ fr:
   join_community_button: Rejoindre cette communauté
   just_pages_with_pictures_and_text: Seulement des pages avec les images et le texte
   language: "Langue :"
-  language_menu_item: "%{language_label} <abbr>(%{language_abbr})</abbr>"
   languages: Langues
   learn_about_content_partners: En savoir plus sur nos partenaires de contenu
+  learn_more_link: (%{learn_more})
   leave_a_comment: Laisser un commentaire
   leave_community_button: Quitter cette communauté
   license: Licence
@@ -477,6 +497,8 @@ fr:
   members_with_count: 
     one: "%{count} membre"
     other: "%{count} membres"
+  method: Méthode
+  methods: Méthodes
   minimal_page: Page minimale
   moderator_colon: "Modérateur :"
   month_equals: Mois =

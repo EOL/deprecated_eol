@@ -170,7 +170,7 @@ fr:
   all_items: Tous les éléments
   all_pages: Toutes les pages
   all_title: Tout
-  all_user_submitted_texts_on_th: Tous les textes publiés sur le site par les utilisateurs sont affichés ci-dessous, triés par ordre chronologique inverse.
+  all_user_submitted_texts_on_the_website: Tous les textes publiés sur le site par les utilisateurs sont affichés ci-dessous, triés par ordre chronologique inverse.
   already_a_member_question: Déjà membre ?
   already_member_of_community: Vous êtes déjà un membre de cette communauté.
   alternate_classification: Classement alternatif
@@ -219,8 +219,8 @@ fr:
   citation: Citation
   classification_tree_header: Classification
   classifications_empty: Ce taxon ne fait pas partie des classifications consultables sur EOL.
-  click_on_a_user_to_view_the_us: Cliquez sur un utilisateur pour afficher son profil détaillé. Cliquez sur les espèces pour afficher la page contenant le texte. (Utilisez le bouton « Précédent » de votre navigateur pour revenir ici.)
-  close_this_window_to_return_to: FERMER CETTE FENÊTRE POUR REVENIR À LA FENÊTRE D'ÉDITION
+  click_on_a_user_to_view_the_users_detailed_profile: Cliquez sur un utilisateur pour afficher son profil détaillé. Cliquez sur les espèces pour afficher la page contenant le texte. (Utilisez le bouton « Précédent » de votre navigateur pour revenir ici.)
+  close_this_window_to_return_to_edit_window: FERMER CETTE FENÊTRE POUR REVENIR À LA FENÊTRE D'ÉDITION
   cms_available_in_languages: "Cette page est disponible en :"
   cms_missing_content_message: Désolé, cette page n'est pas disponible pour cette langue.
   cms_missing_content_title: Contenu manquant
@@ -288,7 +288,7 @@ fr:
   community_tab_communities_description: Les communautés sont des groupes d'utilisateurs d'EOL qui se réunissent autour d'un objectif commun, qu'il s'agisse de protéger les oiseaux limicoles ou de partager leur passion pour les primates. Les collections permettent aussi aux personnes qui ont les mêmes centres d'intérêt d'entrer en contact et de communiquer à travers le site EOL ou en dehors de celui-ci.
   confirm_leave: Êtes-vous sûr de vouloir quitter cette communauté ?
   confirm_password_colon: "Confirmez le mot de passe:"
-  contact_eli_eol_org_for_any_co: Pour tout commentaire, contactez eli@eol.org .
+  contact_for_any_comments: Pour tout commentaire, contactez eli@eol.org .
   contact_us_link: Nous contacter
   content_has_been_updated: Le contenu a été mis à jour.
   content_partner_about_header: À propos de %{partner_name}

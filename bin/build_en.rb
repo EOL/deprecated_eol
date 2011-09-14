@@ -101,6 +101,7 @@ list = Set.new()
   controllers/admins_controller.rb
   controllers/admins/content_pages_controller.rb
   controllers/api/docs_controller.rb
+  controllers/api_controller.rb
   controllers/application_controller.rb
   controllers/collection_items_controller.rb
   controllers/collections_controller.rb
@@ -167,6 +168,7 @@ list = Set.new()
   views/shared/_hierarchy_citation.html.haml
   views/shared/_item_summary_article.html.haml
   views/shared/_item_summary_collection.html.haml
+  views/shared/_item_summary_community.html.haml
   views/shared/_item_summary_media.html.haml
   views/shared/_item_summary_person.html.haml
   views/shared/_item_summary_taxon.html.haml

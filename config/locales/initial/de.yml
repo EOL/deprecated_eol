@@ -231,7 +231,7 @@ de:
   all_items: Alle Objekte
   all_pages: Alle Seiten
   all_title: Alles
-  all_user_submitted_texts_on_th: Alle auf der Website von Benutzer erstellten Texte werden, in umgekehrter Reihenfolge ihrer Erstellung, unten angezeigt.
+  all_user_submitted_texts_on_the_website: Alle auf der Website von Benutzer erstellten Texte werden, in umgekehrter Reihenfolge ihrer Erstellung, unten angezeigt.
   already_a_member_question: Sind Sie bereits Mitglied?
   already_member_of_community: Sie sind bereits Mitglied dieser Gemeinschaft.
   alternate_classification: Alternative Klassifizierung
@@ -310,7 +310,7 @@ de:
   classifications_summary_header_with_count: 
     one: Teil einer genehmigten Klassifikation
     other: Teil von %{count} genehmigten Klassifikationen
-  close_this_window_to_return_to: DIESES FENSTER SCHLIESSEN, UM ZUM BEARBEITUNGSFENSTER ZURÜCKZUKEHREN
+  close_this_window_to_return_to_edit_window: DIESES FENSTER SCHLIESSEN, UM ZUM BEARBEITUNGSFENSTER ZURÜCKZUKEHREN
   cms_available_in_languages: "Diese Seite ist verfügbar in:"
   cms_missing_content_message: Diese Seite ist leider nicht in dieser Sprache vorhanden.
   cms_missing_content_title: Fehlende Inhalte
@@ -391,7 +391,7 @@ de:
   community_removed_by_owner: Diese Gemeinschaft wurde von ihrem Besitzer entfernt.
   confirm_leave: Sind Sie sich sicher, dass Sie diese Gemeinschaft verlassen möchten?
   confirm_password_colon: "Passwort bestätigen:"
-  contact_eli_eol_org_for_any_co: Kontaktieren Sie <eli@eol.org> im Fall von Anmerkungen.
+  contact_for_any_comments: Kontaktieren Sie <eli@eol.org> im Fall von Anmerkungen.
   contact_us_functions: Kontaktfunktionen
   contact_us_link: Kontaktieren Sie uns
   content_has_been_updated: Der Inhalt wurde aktualisiert.
@@ -642,7 +642,7 @@ de:
   download_audio_mpeg: MPEG herunterladen
   dublin_core: Dublin Core
   duplicate_items_were_ignored: Dubletten wurden ignoriert.
-  each_method_s_documentation_pa: Jede Dokumentationsseite zu einer Methode enthält ein Beispiel für sowohl in XML, wie auch in JSON formatierte Antworten.
+  each_method_documentation_page_has_formatted_responses: Jede Dokumentationsseite zu einer Methode enthält ein Beispiel für sowohl in XML, wie auch in JSON formatierte Antworten.
   edit: Bearbeiten
   edit_annotation: Vermerk bearbeiten
   edit_collection_details: Informationen zur Sammlung bearbeiten
@@ -728,7 +728,7 @@ de:
       wrong_length: hat die falsche Länge (sollte %{count} Zeichen lang sein)
       wrong_type: hat den falschen Typ
   esc_key_hides_this_message: (Die Esc-Taste blendet diese Meldung aus)
-  every_method_can_also_return_a: Jeder Methode kann auch eine Antwort in JSON zurückgeben, indem man eine .json-Erweiterung anhängt.
+  every_method_can_also_return_json_response: Jeder Methode kann auch eine Antwort in JSON zurückgeben, indem man eine .json-Erweiterung anhängt.
   example_colon: "Beispiel:"
   expand_all_children: alle untergeordneten Objekte expandieren
   explore: Entdecken
@@ -929,10 +929,10 @@ de:
   home_page_link_advisory_information: Dieser Link führt zur Hauptseite der Enzyklopädie des Lebens.
   id: Kennung
   if_the_above_url_does_not_work: Sofern die oben angegebene URL nicht funktioniert, versuchen Sie bitte sie zu kopieren und in das Adressfeld des Browsers einzufügen.
-  if_this_box_is_checked_the_hie: sofern dieses Kästchen angekreuzt wird, wird den Nutzern die Hierarchie als eine Möglichkeit zum Durchsuchen von EOL angeboten
+  check_this_to_browse_eol_by_the_hierarchy: sofern dieses Kästchen angekreuzt wird, wird den Nutzern die Hierarchie als eine Möglichkeit zum Durchsuchen von EOL angeboten
   if_you_continue_to_have_problem_then_contact_us: Sofern Sie weiterhin ein Problem haben, wenden Sie sich bitte an uns.
-  if_you_did_make_this_request_j: "Sofern Sie diese Anfrage gestellt haben, klicken Sie bitte auf untenstehenden Link:"
-  if_you_did_not_make_this_reque: Sofern Sie diese Anfrage nicht gestellt habe, ignorieren Sie bitte diese E-Mail.
+  if_you_did_make_this_request_click_link_below: "Sofern Sie diese Anfrage gestellt haben, klicken Sie bitte auf untenstehenden Link:"
+  if_you_did_not_make_this_request_ignore_email: Sofern Sie diese Anfrage nicht gestellt habe, ignorieren Sie bitte diese E-Mail.
   image_is_no_longer_available: Das Bild ist nicht mehr verfügbar.
   image_not_found: Das Bild wurde nicht gefunden.
   images: Bilder
@@ -1015,7 +1015,7 @@ de:
   license_gnu_gpl: GNU General Public License (GNU GPL)
   license_not_applicable: Lizenz nicht zutreffend
   license_public_domain: Gemeinfreiheit
-  licenses_visit_their_site_for: Lizenzen. Besuchen Sie deren Website für weitere Informationen zu den unterschiedlichen Lizenzen, die sie anbieten.
+  more_information_on_the_various_licenses: Lizenzen. Besuchen Sie deren Website für weitere Informationen zu den unterschiedlichen Lizenzen, die sie anbieten.
   limits_the_number_of_returned_image_objects: begrenzt die Anzahl der zurückgegebenen Bildobjekte
   limits_the_number_of_returned_text_objects: begrenzt die Anzahl der zurückgegebenen Textobjekte
   limits_the_number_of_returned_video_objects: begrenzt die Anzahl der zurückgegebenen Videoobjekte
@@ -1110,7 +1110,7 @@ de:
   names_synonyms_empty: Diesem Taxon wurden bislang noch keine Synonyme zugeordnet.
   never: Nie
   new_collection: Neue Sammlung
-  new_content_partners_for_the_m: Neue Inhaltspartner dieses Monats
+  new_content_partners_for_the_month: Neue Inhaltspartner dieses Monats
   news_items: Neuigkeiten
   newsfeed: Neuigkeitenfeed
   no_active_members: Bislang gab es noch keine ausreichenden Aktivitäten.

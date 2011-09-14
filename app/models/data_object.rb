@@ -305,9 +305,10 @@ class DataObject < SpeciesSchemaModel
     comments_from_old_dato.map { |c| c.update_attributes(:parent_id => new_dato.id) }
 
     current_visibility = old_dato.users_data_object.visibility
-    current_vetted = old_dato.users_data_object.vetted
+    # If user is normal user or assistant curator then the vetted status should be Unreviewed, otherwise Trusted.
+    current_or_new_vetted = user.min_curator_level?(:full) ? old_dato.users_data_object.vetted : Vetted.unknown
     udo = UsersDataObject.create(:user => user, :data_object => new_dato, :taxon_concept => taxon_concept,
-                                 :visibility => current_visibility, :vetted => current_vetted)
+                                 :visibility => current_visibility, :vetted => current_or_new_vetted)
     new_dato.users_data_object = udo
     new_dato
   end
@@ -364,7 +365,7 @@ class DataObject < SpeciesSchemaModel
     dato.save
     return dato if dato.nil? || dato.errors.any?
 
-    vettedness = user.is_curator? ? Vetted.trusted : Vetted.unknown
+    vettedness = user.min_curator_level?(:full) ? Vetted.trusted : Vetted.unknown
     udo = UsersDataObject.create(:user => user, :data_object => dato, :taxon_concept => taxon_concept, :visibility => Visibility.visible, :vetted => vettedness)
     dato
   end
@@ -391,21 +392,36 @@ class DataObject < SpeciesSchemaModel
     existing_ratings = UsersDataObjectsRating.find_all_by_data_object_guid(guid)
     users_current_ratings, other_ratings = existing_ratings.partition { |r| r.user_id == user.id }
 
+    weight = user.is_curator? ? user.curator_level.rating_weight : 1
+    new_udor = nil
     if users_current_ratings.blank?
-      UsersDataObjectsRating.create(:data_object_guid => guid, :user_id => user.id, :rating => new_rating)
-    elsif users_current_ratings[0].rating != new_rating
-      users_current_ratings[0].rating = new_rating
-      users_current_ratings[0].save!
+      new_udor = UsersDataObjectsRating.create(:data_object_guid => guid, :user_id => user.id,
+                                               :rating => new_rating, :weight => weight)
+    elsif (new_udor = users_current_ratings.first).rating != new_rating
+      new_udor.update_attribute(:rating, new_rating)
+      new_udor.update_attribute(:weight, weight)
     end
 
-    self.data_rating = (other_ratings.inject(0) { |sum, r| sum + r.rating } + new_rating).to_f / (other_ratings.size + 1)
-    self.save!
+    self.update_attribute(:data_rating, ratings_calculator(other_ratings + [new_udor]))
   end
 
   def recalculate_rating
     ratings = UsersDataObjectsRating.find_all_by_data_object_guid(guid)
-    self.data_rating = ratings.blank? ? 2.5 : ratings.inject(0) { |sum, r| sum + r.rating }.to_f / ratings.size
-    self.save!
+    self.update_attribute(:data_rating, ratings_calculator(ratings))
+  end
+
+  def ratings_calculator(ratings)
+    count = 0
+    self.data_rating = ratings.blank? ? 2.5 : ratings.inject(0) { |sum, r|
+      if r.respond_to?(:weight)
+        sum += (r.rating * r.weight)
+        count += r.weight
+      else
+        sum += r.rating
+        count += 1
+      end
+      sum
+    }.to_f / count
   end
 
   def rating_for_user(user)

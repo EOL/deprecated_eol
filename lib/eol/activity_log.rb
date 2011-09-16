@@ -51,7 +51,21 @@ module EOL
     # loggable is declared. ...That way defining new loggable classes would not have to happen here.
 
     def self.user_activities(source, options = {})
-      results = EOL::Solr::ActivityLog.search_with_pagination("feed_type_affected:User AND feed_type_primary_key:#{source.id}", options)
+      query = "feed_type_affected:User AND feed_type_primary_key:#{source.id}"
+      if options[:filter]
+        if options[:filter] == 'comments'
+          query = "activity_log_type:Comment AND user_id:#{source.id}"
+        elsif options[:filter] == 'data_object_curation'
+          query = "activity_log_type:CuratorActivityLog AND feed_type_affected:DataObject AND user_id:#{source.id}"
+        elsif options[:filter] == 'added_data_objects'
+          query = "activity_log_type:UsersDataObject AND user_id:#{source.id}"
+        elsif options[:filter] == 'collections'
+          query = "activity_log_type:CollectionActivityLog AND user_id:#{source.id}"
+        elsif options[:filter] == 'communities'
+          query = "activity_log_type:CommunityActivityLog AND user_id:#{source.id}"
+        end
+      end
+      results = EOL::Solr::ActivityLog.search_with_pagination(query, options)
     end
 
     def self.user_news_activities(source, options = {})

@@ -1,0 +1,16 @@
+%p
+%table.standard
+  %thead
+    %tr
+      %th
+        = I18n.t("scientific_name")
+  %tbody
+    - taxon_concept_ids.each do |id|
+      - if id then
+        - name = TaxonConcept.find(id).quick_scientific_name(:italicized)
+      - else
+        - name = ""
+      %tr
+        %td
+          %i= link_to name, "/pages/#{id}"
+= will_paginate taxon_concept_ids

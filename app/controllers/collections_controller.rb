@@ -85,6 +85,7 @@ class CollectionsController < ApplicationController
     else
       back = @collection.user ? user_collections_url(current_user) : collection_url(@collection.community)
       if @collection.update_attributes(:published => false)
+        EOL::GlobalStatistics.decrement('collections')
         flash[:notice] = I18n.t(:collection_destroyed)
       else
         flash[:error] = I18n.t(:collection_not_destroyed_error)
@@ -440,9 +441,11 @@ private
       return redirect_to collection_path(@collection)
     end
     if params[:for] == 'copy'
+      EOL::GlobalStatistics.increment('collections')
       CollectionActivityLog.create(:collection => @collection, :user => current_user, :activity => Activity.create)
       return copy_items_and_redirect(source, [@collection])
     elsif params[:for] == 'move'
+      EOL::GlobalStatistics.increment('collections')
       CollectionActivityLog.create(:collection => @collection, :user => current_user, :activity => Activity.create)
       return copy_items_and_redirect(source, [@collection], :move => true)
     else
@@ -455,6 +458,7 @@ private
 
   def create_collection_from_item
     @collection.add(@item)
+    EOL::GlobalStatistics.increment('collections')
     flash[:notice] = I18n.t(:collection_created_notice, :collection_name => link_to_name(@collection))
     respond_to do |format|
       format.html { redirect_to link_to_item(@item) }

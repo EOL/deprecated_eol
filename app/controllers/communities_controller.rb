@@ -47,6 +47,7 @@ class CommunitiesController < ApplicationController
       notice = I18n.t(:created_community)
       notice += " #{I18n.t(:sent_invitations_to_users, :users => sent_to.to_sentence)}" unless sent_to.empty?
       upload_logo(@community) unless params[:community][:logo].blank?
+      EOL::GlobalStatistics.increment('communities') if @community.published?
       log_action(:create)
       redirect_to(@community, :notice => notice)
     else
@@ -85,6 +86,7 @@ class CommunitiesController < ApplicationController
       rescue EOL::Exceptions::ObjectNotFound => e
         flash[:error] = I18n.t(:could_not_find_user)
       end
+      EOL::GlobalStatistics.decrement('communities')
       log_action(:delete)
       # TODO - it might make sense (?) to remove this community from any collection_items that once pointed to it... that would remove it from watchlists and the like,
       # though, and I don't know if that's wise (since then they wouldn't see the delete log item).

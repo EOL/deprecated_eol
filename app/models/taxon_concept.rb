@@ -70,14 +70,18 @@ class TaxonConcept < SpeciesSchemaModel
         JOIN data_objects do ON (udo.data_object_id=do.id)
           WHERE udo.taxon_concept_id=#{id})'
 
+  has_many :superceded_taxon_concepts, :class_name => TaxonConcept.to_s, :foreign_key => "supercedure_id"
+
   has_one :taxon_concept_content
   has_one :taxon_concept_metric
   has_one :taxon_concept_exemplar_image
 
   has_and_belongs_to_many :data_objects
 
-  has_many :superceded_taxon_concepts, :class_name => TaxonConcept.to_s, :foreign_key => "supercedure_id"
-
+  named_scope :has_content, :joins => :taxon_concept_content,
+    :conditions => 'taxon_concepts.published=1 AND taxon_concepts.supercedure_id=0 AND
+      (taxon_concept_content.text=1 OR taxon_concept_content.image=1 OR taxon_concept_content.flash=1
+       OR taxon_concept_content.youtube=1)'
 
   attr_accessor :includes_unvetted # true or false indicating if this taxon concept has any unvetted/unknown data objects
 

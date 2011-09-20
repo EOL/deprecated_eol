@@ -73,6 +73,7 @@ class UsersController < ApplicationController
         # Interestingly, we are getting users who already have agents attached to them.  I'm not sure why, but it's causing registration to fail (or seem to; the user is created), and this is bad.
       end
       send_verification_email
+      EOL::GlobalStatistics.increment('users')
       redirect_to pending_user_path(@user)
     else
       failed_to_create_user and return

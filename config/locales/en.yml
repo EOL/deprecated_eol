@@ -2152,6 +2152,7 @@ en:
     other: "Moved %{count} items from %{name}."
   multiple_sources: "Multiple sources."
   must_be_associated_with_either_a_user_or_a_community: "Must be associated with either a user or a community"
+  must_provide_search_term_error: "You must enter a search term."
   __must_be_checked_in_order_to_: "- must be checked in order to view"
   __must_be_checked_to_show_to_u: "- must be checked to show to user"
   _must_be_less_than_10_mb_in_si: "(must be less than 10 MB in size, file will be stored as uploaded, i.e. no resizing of images will be performed)"

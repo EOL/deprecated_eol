@@ -14,6 +14,11 @@ class SearchController < ApplicationController
     @params_type.map!{ |t| t.camelize }
     @querystring = params[:q] || params[:id] || params[:mobile_search]
 
+    if @querystring == I18n.t(:search_placeholder) || @querystring == I18n.t(:must_provide_search_term_error)
+      flash[:error] = I18n.t(:must_provide_search_term_error)
+      redirect_to root_path
+    end
+
     if @querystring == '*' || @querystring == '%'
       if params[:type].size != 1 || !EOL::Solr::SiteSearch.types_to_show_all.include?(params[:type].first)
         bad_query = true

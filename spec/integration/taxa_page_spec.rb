@@ -20,6 +20,9 @@ describe 'Taxa page' do
       load_scenario_with_caching(:testy)
     end
     @testy = EOL::TestInfo.load('testy')
+    @taxon_concept = @testy[:taxon_concept]
+    @hierarchy_entry = @taxon_concept.published_browsable_hierarchy_entries[0]
+    @user = @testy[:user]
     Capybara.reset_sessions!
     HierarchiesContent.delete_all
     Activity.create_defaults
@@ -72,9 +75,9 @@ describe 'Taxa page' do
     it 'should allow logged in user to rate a text object' do
       visit logout_url
       login_as @testy[:curator]
-      visit taxon_details_path(@testy[:taxon_concept])
+      visit taxon_details_path(@taxon_concept)
       click_link('Change rating to 3 of 5')
-      current_url.should match /#{taxon_details_path(@testy[:taxon_concept])}/
+      current_url.should match /#{taxon_details_path(@taxon_concept)}/
       body.should include('Rating was added ')
     end
 
@@ -87,34 +90,39 @@ describe 'Taxa page' do
 
     it 'should allow user to rate a text object first then login to complete the action' # do
 #      visit logout_url
-#      visit taxon_details_path(@testy[:taxon_concept])
+#      visit taxon_details_path(@taxon_concept)
 #      click_link('Change rating to 3 of 5')
 #      user = User.gen(:password => 'password')
 #      page.fill_in 'session_username_or_email', :with => user.username
 #      page.fill_in 'session_password', :with => 'password'
 #      click_button 'Sign in'
-#      current_url.should match /#{taxon_details_path(@testy[:taxon_concept])}/
+#      current_url.should match /#{taxon_details_path(@taxon_concept)}/
 #      body.should include('Rating was added')
-#      visit taxon_details_path(@testy[:taxon_concept])
+#      visit taxon_details_path(@taxon_concept)
 #      click_link('Change rating to 4 of 5')
 #      body.should include('Rating was added ')
 #    end
+
+    it 'should show "Add an article to this page" button to the logged in users' do
+      page.body.should have_tag("#page_heading .page_actions") do
+        with_tag("li a", :text => "Add an article to this page")
+      end
+    end
   end
 
   shared_examples_for 'taxon overview tab' do
     it 'should show a gallery of four images' do
       body.should have_tag("div#media_summary") do
-        with_tag("img[src$=#{@testy[:taxon_concept].images_from_solr[0].thumb_or_object('580_360')[25..-1]}]")
-        with_tag("img[src$=#{@testy[:taxon_concept].images_from_solr[1].thumb_or_object('580_360')[25..-1]}]")
-        with_tag("img[src$=#{@testy[:taxon_concept].images_from_solr[2].thumb_or_object('580_360')[25..-1]}]")
-        with_tag("img[src$=#{@testy[:taxon_concept].images_from_solr[3].thumb_or_object('580_360')[25..-1]}]")
+        with_tag("img[src$=#{@taxon_concept.images_from_solr[0].thumb_or_object('580_360')[25..-1]}]")
+        with_tag("img[src$=#{@taxon_concept.images_from_solr[1].thumb_or_object('580_360')[25..-1]}]")
+        with_tag("img[src$=#{@taxon_concept.images_from_solr[2].thumb_or_object('580_360')[25..-1]}]")
+        with_tag("img[src$=#{@taxon_concept.images_from_solr[3].thumb_or_object('580_360')[25..-1]}]")
       end
     end
     it 'should have taxon links for the images in the gallery' do
-      taxon_concept = @testy[:taxon_concept]
       (0..3).each do |i|
-        taxon = @testy[:taxon_concept].images_from_solr[i].association_with_best_vetted_status.hierarchy_entry.taxon_concept.canonical_form_object.string
-        should have_tag('a', :attributes => { :href => taxon_concept_path(taxon_concept) }, :text => taxon)
+        taxon = @taxon_concept.images_from_solr[i].association_with_best_vetted_status.hierarchy_entry.taxon_concept.canonical_form_object.string
+        should have_tag('a', :attributes => { :href => taxon_concept_path(@taxon_concept) }, :text => taxon)
       end
     end
     it 'should have sanitized descriptive text alternatives for images in gallery'
@@ -169,25 +177,25 @@ describe 'Taxa page' do
   shared_examples_for 'taxon names tab' do
     it 'should list the classifications that recognise the taxon' do
       visit logout_url
-      visit taxon_names_path(@testy[:taxon_concept])
+      visit taxon_names_path(@taxon_concept)
       body.should have_tag('.article h3', /recognized by/i)
       body.should have_tag('.article ul li', /catalogue of life/i)
-      visit common_names_taxon_names_path(@testy[:taxon_concept])
+      visit common_names_taxon_names_path(@taxon_concept)
       body.should have_tag('.article h3', /recognized by/i)
       body.should have_tag('.article ul li', /catalogue of life/i)
-      visit synonyms_taxon_names_path(@testy[:taxon_concept])
+      visit synonyms_taxon_names_path(@taxon_concept)
       body.should have_tag('.article h3', /recognized by/i)
       body.should have_tag('.article ul li', /catalogue of life/i)
     end
 
     it 'should show related names and their sources' do
-      visit taxon_names_path(@testy[:taxon_concept])
+      visit taxon_names_path(@taxon_concept)
       # parents
       body.should have_tag('table:first-of-type') do
         with_tag('th:first-of-type', /parent/i)
         with_tag('th:nth-of-type(2)', /source/i)
-        with_tag('td:first-of-type', @testy[:taxon_concept].hierarchy_entries.first.parent.name.string)
-        with_tag('td:nth-of-type(2)', @testy[:taxon_concept].hierarchy_entries.first.hierarchy.label)
+        with_tag('td:first-of-type', @taxon_concept.hierarchy_entries.first.parent.name.string)
+        with_tag('td:nth-of-type(2)', @taxon_concept.hierarchy_entries.first.hierarchy.label)
       end
       # children
       body.should have_tag('table:nth-of-type(2)') do
@@ -199,8 +207,8 @@ describe 'Taxa page' do
     end
 
     it 'should show common names grouped by language with preferred flagged and status indicator' do
-      visit common_names_taxon_names_path(@testy[:taxon_concept])
-      @common_names = EOL::CommonNameDisplay.find_by_taxon_concept_id(@testy[:taxon_concept].id)
+      visit common_names_taxon_names_path(@taxon_concept)
+      @common_names = EOL::CommonNameDisplay.find_by_taxon_concept_id(@taxon_concept.id)
       # TODO: Test that common names from other languages are present and that current language names appear first after language is switched.
       # English by default
       body.should have_tag('h4:first-of-type', "English")
@@ -217,10 +225,10 @@ describe 'Taxa page' do
 
     it 'should allow curators to add common names' do
       visit logout_url
-      visit common_names_taxon_names_path(@testy[:taxon_concept])
+      visit common_names_taxon_names_path(@taxon_concept)
       body.should_not have_tag('form#new_name')
       login_as @testy[:curator]
-      visit common_names_taxon_names_path(@testy[:taxon_concept])
+      visit common_names_taxon_names_path(@taxon_concept)
       body.should have_tag('form#new_name')
       new_name = Factory.next(:string)
       fill_in 'Name', :with => new_name
@@ -234,9 +242,9 @@ describe 'Taxa page' do
 
     it 'should show synonyms grouped by their source hierarchy' do
       visit logout_url
-      visit synonyms_taxon_names_path(@testy[:taxon_concept])
-      @synonyms = @testy[:taxon_concept].published_hierarchy_entries.first.scientific_synonyms
-      body.should have_tag('h4', /#{@testy[:taxon_concept].published_hierarchy_entries.first.hierarchy.label}/)
+      visit synonyms_taxon_names_path(@taxon_concept)
+      @synonyms = @taxon_concept.published_hierarchy_entries.first.scientific_synonyms
+      body.should have_tag('h4', /#{@taxon_concept.published_hierarchy_entries.first.hierarchy.label}/)
       body.should have_tag('table') do
         with_tag('thead th:first-of-type', /name/i)
         with_tag('thead th:nth-of-type(2)', /relationship/i)
@@ -292,13 +300,22 @@ describe 'Taxa page' do
 
   shared_examples_for 'taxon name - taxon_concept page' do
     it 'should show the concepts preferred name style and ' do
-      body.should have_tag('#page_heading h1', /#{@testy[:taxon_concept].entry.name.ranked_canonical_form.string}\n/i)
+      body.should have_tag('#page_heading h1', /#{@taxon_concept.entry.name.ranked_canonical_form.string}\n/i)
     end
   end
 
   shared_examples_for 'taxon name - hierarchy_entry page' do
     it 'should show the concepts preferred name style and ' do
-      body.should have_tag('#page_heading h1', /#{@testy[:taxon_concept].quick_scientific_name(:normal)}\n/i)
+      body.should have_tag('#page_heading h1', /#{@taxon_concept.quick_scientific_name(:normal)}\n/i)
+    end
+  end
+
+  shared_examples_for 'taxon updates tab' do
+    it 'should include Taxon Newsfeed' do
+      body.should include('Taxon Newsfeed')
+    end
+    it 'should include Page Statistics' do
+      body.should include('Page Statistics')
     end
   end
 
@@ -316,6 +333,18 @@ describe 'Taxa page' do
     it_should_behave_like 'taxon name - taxon_concept page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon overview tab'
+    it 'should allow logged in users to post comment in "Latest Updates" section' do
+      visit logout_url
+      login_as @user
+      visit taxon_overview_path(@taxon_concept)
+      comment = "Test comment by a logged in user."
+      body.should have_tag(".updates .comment #comment_body")
+      fill_in 'comment_body', :with => comment
+      should have_tag(".updates .comment .actions input", :val => "Post Comment")
+      click_button "Post Comment"
+      current_url.should match /#{taxon_overview_path(@taxon_concept)}/
+      body.should include('Comment successfully added')
+    end
   end
 
   # overview tab - hierarchy_entry
@@ -323,8 +352,7 @@ describe 'Taxa page' do
     before(:all) do
       SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
       DataObject.all.each{ |d| d.update_solr_index }
-      hierarchy_entry = @testy[:taxon_concept].published_browsable_hierarchy_entries[0]
-      visit taxon_hierarchy_entry_overview_path(@testy[:taxon_concept], hierarchy_entry)
+      visit taxon_hierarchy_entry_overview_path(@taxon_concept, @hierarchy_entry)
       @section = 'overview'
     end
     subject { body }
@@ -352,8 +380,7 @@ describe 'Taxa page' do
   # resources tab - hierarchy_entry
   context 'resources when taxon has all expected data - hierarchy_entry' do
     before(:all) do
-      hierarchy_entry = @testy[:taxon_concept].published_browsable_hierarchy_entries[0]
-      visit taxon_hierarchy_entry_resources_path(@testy[:taxon_concept], hierarchy_entry)
+      visit taxon_hierarchy_entry_resources_path(@taxon_concept, @hierarchy_entry)
       @section = 'resources'
     end
     subject { body }
@@ -367,32 +394,59 @@ describe 'Taxa page' do
   # details tab - taxon_concept
   context 'details when taxon has all expected data - taxon_concept' do
     before(:all) do
-      visit taxon_details_path(@testy[:taxon_concept])
+      visit taxon_details_path(@taxon_concept)
       @section = 'details'
     end
     subject { body }
     it_should_behave_like 'taxon name - taxon_concept page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon details tab'
+    it 'should allow logged in user to comment on a text object' do
+      visit logout_url
+      login_as @user
+      visit taxon_details_path(@taxon_concept)
+      comment = "Test comment by a logged in user."
+      body.should have_tag(".comment", :text => "Leave a comment")
+      click_link "Leave a comment"
+      body.should have_tag(".comment #comment_body")
+      fill_in 'comment_body', :with => comment
+      body.should have_tag(".comment .actions input", :val => "Post Comment")
+      click_button "Post Comment"
+      current_url.should match /#{taxon_details_path(@taxon_concept)}/
+      body.should include('Comment successfully added')
+    end
   end
 
   # details tab - hierarchy_entry
   context 'details when taxon has all expected data - hierarchy_entry' do
     before(:all) do
-      hierarchy_entry = @testy[:taxon_concept].published_browsable_hierarchy_entries[0]
-      visit taxon_hierarchy_entry_details_path(@testy[:taxon_concept], hierarchy_entry)
+      visit taxon_hierarchy_entry_details_path(@taxon_concept, @hierarchy_entry)
       @section = 'details'
     end
     subject { body }
     it_should_behave_like 'taxon name - hierarchy_entry page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon details tab'
+    it 'should allow logged in user to comment on a text object' do
+      visit logout_url
+      login_as @user
+      visit taxon_hierarchy_entry_details_path(@taxon_concept, @hierarchy_entry)
+      comment = "Test comment by a logged in user."
+      body.should have_tag(".comment", :text => "Leave a comment")
+      click_link "Leave a comment"
+      body.should have_tag(".comment #comment_body")
+      fill_in 'comment_body', :with => comment
+      body.should have_tag(".comment .actions input", :val => "Post Comment")
+      click_button "Post Comment"
+      current_url.should match /#{taxon_hierarchy_entry_details_path(@taxon_concept, @hierarchy_entry)}/
+      body.should include('Comment successfully added')
+    end
   end
 
   # names tab - taxon_concept
   context 'names when taxon has all expected data - taxon_concept' do
     before(:all) do
-      visit taxon_names_path(@testy[:taxon_concept])
+      visit taxon_names_path(@taxon_concept)
       @section = 'names'
     end
     subject { body }
@@ -404,8 +458,7 @@ describe 'Taxa page' do
   # names tab - hierarchy_entry
   context 'names when taxon has all expected data - hierarchy_entry' do
     before(:all) do
-      hierarchy_entry = @testy[:taxon_concept].published_browsable_hierarchy_entries[0]
-      visit taxon_hierarchy_entry_names_path(@testy[:taxon_concept], hierarchy_entry)
+      visit taxon_hierarchy_entry_names_path(@taxon_concept, @hierarchy_entry)
       @section = 'names'
     end
     subject { body }
@@ -417,7 +470,7 @@ describe 'Taxa page' do
   # literature tab - taxon_concept
   context 'literature when taxon has all expected data - taxon_concept' do
     before(:all) do
-      visit taxon_literature_path(@testy[:taxon_concept])
+      visit taxon_literature_path(@taxon_concept)
       @section = 'literature'
     end
     subject { body }
@@ -429,8 +482,7 @@ describe 'Taxa page' do
   # literature tab - hierarchy_entry
   context 'literature when taxon has all expected data - hierarchy_entry' do
     before(:all) do
-      hierarchy_entry = @testy[:taxon_concept].published_browsable_hierarchy_entries[0]
-      visit taxon_hierarchy_entry_literature_path(@testy[:taxon_concept], hierarchy_entry)
+      visit taxon_hierarchy_entry_literature_path(@taxon_concept, @hierarchy_entry)
       @section = 'literature'
     end
     subject { body }
@@ -450,15 +502,15 @@ describe 'Taxa page' do
     it_should_behave_like 'taxon name - taxon_concept page'
     it_should_behave_like 'taxon community tab'
     it "should render communities - curators page" do
-      visit(taxon_communities_path(@testy[:taxon_concept]))
+      visit(taxon_communities_path(@taxon_concept))
       body.should have_tag("h3", :text => "Communities")
     end
     it "should render communities - collections page" do
-      visit(collections_taxon_communities_path(@testy[:taxon_concept]))
+      visit(collections_taxon_communities_path(@taxon_concept))
       body.should have_tag("h3", :text => "Collections")
     end
     it "should render communities - curators page" do
-      visit(curators_taxon_communities_path(@testy[:taxon_concept]))
+      visit(curators_taxon_communities_path(@taxon_concept))
       body.should have_tag("h3", :text => "Curators")
     end
   end
@@ -509,4 +561,51 @@ describe 'Taxa page' do
     end
   end
 
+  context 'updates tab - taxon_concept' do
+    before(:all) do
+      visit(taxon_updates_path(@taxon_concept))
+      @section = 'updates'
+    end
+    subject { body }
+    it_should_behave_like 'taxon updates tab'
+    it 'should allow logged in users to post comment' do
+      visit logout_url
+      login_as @user
+      visit taxon_updates_path(@taxon_concept)
+      
+    end
+    it 'should allow logged in users to post comment' do
+      visit logout_url
+      login_as @user
+      visit taxon_updates_path(@taxon_concept)
+      comment = "Test comment by a logged in user."
+      body.should have_tag("#main .comment #comment_body")
+      fill_in 'comment_body', :with => comment
+      body.should have_tag("#main .comment .actions input", :val => "Post Comment")
+      click_button "Post Comment"
+      current_url.should match /#{taxon_updates_path(@taxon_concept)}/
+      body.should include('Comment successfully added')
+    end
+  end
+
+  context 'updates tab - hierarchy_entry' do
+    before(:all) do
+      visit taxon_hierarchy_entry_updates_path(@taxon_concept, @hierarchy_entry)
+      @section = 'updates'
+    end
+    subject { body }
+    it_should_behave_like 'taxon updates tab'
+    it 'should allow logged in users to post comment' do
+      visit logout_url
+      login_as @user
+      visit taxon_hierarchy_entry_updates_path(@taxon_concept, @hierarchy_entry)
+      comment = "Test comment by a logged in user."
+      body.should have_tag("#main .comment #comment_body")
+      fill_in 'comment_body', :with => comment
+      body.should have_tag("#main .comment .actions input", :val => "Post Comment")
+      click_button "Post Comment"
+      current_url.should match /#{taxon_hierarchy_entry_updates_path(@taxon_concept, @hierarchy_entry)}/
+      body.should include('Comment successfully added')
+    end
+  end
 end

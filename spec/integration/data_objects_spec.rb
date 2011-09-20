@@ -13,11 +13,13 @@ describe 'Data Object Page' do
     @single_name = 'Singularus namicus'
     @singular_tc = build_taxon_concept(:images => [], :toc => [], :scientific_name => @single_name)
     @singular_he = @singular_tc.entry
-    @curator = build_curator(@tc)
-    @another_curator = build_curator(@tc)
+    @assistant_curator = build_curator(@tc, :level=>:assistant)
+    @full_curator = build_curator(@tc, :level=>:full)
+    @master_curator = build_curator(@tc, :level=>:master)
+    @admin = User.gen(:admin=>1)
     @image = @tc.data_objects.select { |d| d.data_type.label == "Image" }[0]
     @extra_he = @another_tc.entry
-    @image.add_curated_association(@curator, @extra_he)
+    @image.add_curated_association(@full_curator, @extra_he)
 
     # Build data_object without comments
     @dato_no_comments = build_data_object('Image', 'No comments',
@@ -40,7 +42,8 @@ describe 'Data Object Page' do
     :object_cache_url => Factory.next(:image),
     :vetted => Vetted.untrusted,
     :visibility => Visibility.invisible)
-    @user_submitted_text = @tc.add_user_submitted_text(:user => @curator)
+    @user_submitted_text = @tc.add_user_submitted_text(:user => @full_curator)
+    @user = User.gen
   end
 
   it "should render" do
@@ -64,7 +67,7 @@ describe 'Data Object Page' do
     body.should have_tag('.article', /Description(\n|.)*?#{@image.description}/)
   end
 
-  it "should not show comments section if there are no comments" do
+  it "should not show comments section if there are no comments (obsolete?)" do
     visit("/data_objects/#{@dato_no_comments.id}")
     page.status_code.should == 200
     page.should have_no_xpath("//div[@id='commentsContain']")
@@ -105,7 +108,7 @@ describe 'Data Object Page' do
   # actually work in practice?  This is an experiment.
   # The first thing I have to say about it is that the name is obnoxiously long.
   it 'should allow a curator to add an association... (should it? design shows just a link)' # do
-#    login_as @curator
+#    login_as @full_curator
 #    visit("/data_objects/#{@image.id}")
 #    xpect 'the page does not yet have our association'
 #    page.body.should_not have_tag('a', :text => @single_name)
@@ -135,7 +138,7 @@ describe 'Data Object Page' do
   end
 
   it 'should be able curate a DOHE association as Unreviewed, Untrusted and Trusted' do
-    login_as @curator
+    login_as @full_curator
     visit("/data_objects/#{@image.id}")
     trusted_association = @image.all_associations.first
     page.body.should have_tag("form.review_status") do
@@ -193,7 +196,7 @@ describe 'Data Object Page' do
   end
 
   it 'should be able curate a CDOHE association as Unreviewed, Untrusted and Trusted' do
-    login_as @curator
+    login_as @full_curator
     visit("/data_objects/#{@image.id}")
     trusted_association = @image.all_associations.last
     page.body.should have_tag("form.review_status") do
@@ -251,7 +254,7 @@ describe 'Data Object Page' do
   end
 
   it 'should be able curate a UDO association as Unreviewed, Untrusted and Trusted' do
-    login_as @curator
+    login_as @full_curator
     visit("/data_objects/#{@user_submitted_text.id}")
     trusted_association = @user_submitted_text.all_associations.first
     page.body.should have_tag("form.review_status") do
@@ -308,14 +311,100 @@ describe 'Data Object Page' do
     end
   end
 
-  it 'should allow a curator to remove an association' do
-    login_as @curator
+  it 'should allow a curator to remove an association if added by curator' do
+    login_as @assistant_curator
     visit("/data_objects/#{@image.id}")
-    page.body.should have_tag('form.review_status') do
-      with_tag('a', :text => 'Remove association')
-    end
+    page.body.should_not have_tag('form.review_status a', :text => 'Remove association')
+    visit('/logout')
+    login_as @master_curator
+    visit("/data_objects/#{@image.id}")
+    page.body.should_not have_tag('form.review_status a', :text => 'Remove association')
+    visit('/logout')
+    login_as @full_curator
+    visit("/data_objects/#{@image.id}")
+    page.body.should have_tag('form.review_status a', :text => 'Remove association')
     page.body.should have_tag('a', :text => @another_name)
     click_link "remove_association_#{@extra_he.id}"
     page.body.should_not have_tag('a', :text => @another_name)
+  end
+
+  it 'should allow logged in users to rate' do
+    login_as @user
+    visit data_object_path(@image)
+    body.should have_tag("#sidebar .ratings .rating") do
+      with_tag('h5', :text => "Your rating")
+    end
+    click_link('Change rating to 3 of 5')
+    current_url.should match /#{data_object_path(@image)}/
+    body.should include('Rating was added successfully')
+    body.should have_tag("#sidebar .ratings .rating") do
+      with_tag('h5', :text => "Your rating")
+      with_tag('ul li', :text => "Your current rating: 3 of 5")
+    end
+    visit('/logout')
+  end
+
+  it 'should allow logged in users to post a comment' do
+    comment = "Test comment by a logged in user."
+    login_as @user
+    visit("/data_objects/#{@image.id}")
+    body.should_not have_tag(".updates .feed .details blockquote p", :text => comment)
+    body.should have_tag(".comment #comment_body")
+    fill_in 'comment_body', :with => comment
+    body.should have_tag(".comment .actions input", :val => "Post Comment")
+    click_button "Post Comment"
+    visit("/data_objects/#{@image.id}")
+    body.should have_tag(".updates .feed .details blockquote p", :text => comment)
+    visit('/logout')
+  end
+
+  # TODO - Move this test to the taxa_page_spec.
+  it 'should allow logged in users and assistant curators to add text to EOL pages as Unreviewed' do
+    users = [@user, @assistant_curator]
+    users.each do |user|
+      login_as user
+      visit taxon_details_path(@tc)
+      click_link "Add an article to this page"
+      current_url.should match "/pages/#{@tc.id}/data_objects/new"
+      select "Overview", :from => "data_object_toc_items_id"
+      fill_in 'data_object_object_title', :with => "Unicorns"
+      fill_in 'data_object_description', :with => "Unicorn is an imaginary animal."
+      fill_in 'references', :with => "Wikipedia"
+      click_button "data_object_submit"
+      dato_id = DataObject.last.id
+      body.should have_tag("#data_object_#{dato_id}") do
+        with_tag('h4', :text => "Unicorns")
+        with_tag('.copy', :text => "Unicorn is an imaginary animal.")
+        with_tag('.references li', :text => "Wikipedia")
+        with_tag('.attribution .copy p a', :text => "#{user.full_name}")
+        with_tag('.flag', :text => "Unreviewed")
+      end
+      visit('/logout')
+    end
+  end
+
+  # TODO - Move this test to the taxa_page_spec.
+  it 'should allow logged in full/master curators and admins to add text to EOL pages as Trusted' do
+    users = [@full_curator, @master_curator, @admin]
+    users.each do |user|
+      login_as user
+      visit taxon_details_path(@tc)
+      click_link "Add an article to this page"
+      current_url.should match "/pages/#{@tc.id}/data_objects/new"
+      select "Overview", :from => "data_object_toc_items_id"
+      fill_in 'data_object_object_title', :with => "Unicorns"
+      fill_in 'data_object_description', :with => "Unicorn is an imaginary animal."
+      fill_in 'references', :with => "Wikipedia"
+      click_button "data_object_submit"
+      dato_id = DataObject.last.id
+      body.should have_tag("#data_object_#{dato_id}") do
+        with_tag('h4', :text => "Unicorns")
+        with_tag('.copy', :text => "Unicorn is an imaginary animal.")
+        with_tag('.references li', :text => "Wikipedia")
+        with_tag('.attribution .copy p a', :text => "#{user.full_name}")
+        with_tag('.flag', :text => "Trusted")
+      end
+      visit('/logout')
+    end
   end
 end

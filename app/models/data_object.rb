@@ -414,21 +414,23 @@ class DataObject < SpeciesSchemaModel
     self.update_attribute(:data_rating, ratings_calculator(other_ratings + [new_udor]))
   end
 
-  def recalculate_rating
+  def recalculate_rating(debug = false)
     ratings = UsersDataObjectsRating.find_all_by_data_object_guid(guid)
-    self.update_attribute(:data_rating, ratings_calculator(ratings))
+    self.update_attribute(:data_rating, ratings_calculator(ratings, debug))
     self.data_rating
   end
 
-  def ratings_calculator(ratings)
+  def ratings_calculator(ratings, debug = false)
     count = 0
     self.data_rating = ratings.blank? ? 2.5 : ratings.inject(0) { |sum, r|
       if r.respond_to?(:weight)
         sum += (r.rating * r.weight)
         count += r.weight
+        logger.warn ".. Giving score of #{r.rating} weight of #{r.weight}." if debug
       else
         sum += r.rating
         count += 1
+        logger.warn ".. Giving score of #{r.rating} weight of 1 (it had no weight specified)." if debug
       end
       sum
     }.to_f / count
@@ -441,7 +443,11 @@ class DataObject < SpeciesSchemaModel
 
   def safe_rating
     return self.data_rating if self.data_rating >= 1.0
-    return recalculate_rating
+    logger.warn "!! WARNING: data object #{self.id} had a rating of less than 1. Breakdown during attempted fix:"
+    rating = recalculate_rating(true)
+    return rating if rating >= 1.0
+    logger.error "** ERROR: data object #{self.id} had a *calculated* rating of less than 1. You should fix this."
+    return 1.0
   end
 
   # Add a comment to this data object

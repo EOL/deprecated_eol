@@ -239,7 +239,7 @@ class TaxaController < ApplicationController
 #                                             :vetted => Vetted.trusted)
 #        log_action(tc, synonym, :add_common_name)
 #      else
-#        flash[:error] = I18n.t(:insufficient_privileges_to_add_common_name)
+#        flash[:error] = I18n.t(:insufficient_privileges_to_add_common_names)
 #      end
 #      expire_taxa([tc.id])
 #    end

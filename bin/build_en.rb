@@ -240,8 +240,10 @@ list << "license_not_applicable"
 list << "license_public_domain"
 
 list << "download_audio_mpeg"
+list << "copied_items_to_collections_with_count_notice"
+list << "moved_items_to_collections_with_count_notice"
 
-[:all, :trusted, :unknown, :untrusted, :inappropriate].each do |opt|
+[:all, :inappropriate, :trusted, :unreviewed, :untrusted].each do |opt|
   list << "filter_by_status_#{opt}_option"
 end
 
@@ -251,7 +253,7 @@ end
 
 [:copy, :move, :remove].each do |act|
   list << "items_no_#{act}_none_selected_warning"
-  [:items, :taxa, :articles, :videos, :images, :sounds, :communities, :people, :collections].each do |type|
+  [:articles, :collections, :communities, :images, :items, :people, :sounds, :taxa, :videos].each do |type|
     list << "#{act}_all_#{type}_button"
   end
 end
@@ -260,10 +262,47 @@ end
   list << "names_#{header}_column_header"
 end
 
+[:articles, :collections, :communities, :images, :items, :people, :sounds, :taxa, :videos].each do |type|
+  list << "all_#{type}"
+end
+
+[:assistant_curator, :full_curator, :master_curator].each do |type|
+  list << "curator_level_#{type}"
+  list << "curator_level_with_indefinite_article_#{type}"
+end
+
+[:ignore, :undo_ignore].each do |action|
+  list << "data_object_#{action}"
+end
+
+[:article, :collection, :community, :image, :person, :sound, :taxon, :video].each do |type|
+  list << "item_type_#{type}_assistive"
+end
+
+[:all, :trusted, :unreviewed, :untrusted].each do |type|
+  list << "object_status_#{type}_option"
+end
+
+[:all, :image, :video, :sound, :text].each do |type|
+  list << "object_type_#{type}_option"
+end
+
+[:all, :invisible, :visible].each do |type|
+  list << "object_visibility_#{type}_option"
+end
+
+[:copy, :move].each do |action|
+  list << "or_#{action}_them_to_existing_collection"
+end
+
+[:active, :curated, :ignored].each do |type|
+  list << "task_status_#{type}_option"
+end
+
 # IGNORE THESE (unusual because the key name is set by a variable):
 @bad_keys = ["efault_alt_text", "18n", "change_rating_to_", "your_current_rating_", "sort_by_", "license_",
   "filter_by_status_", "download_", "items_no_", "remove_all_", "move_all_", "copy_all_", "associated_with_",
-  "view_", "filter_by_type_", "names_"]
+  "view_", "filter_by_type_", "names_", "all_", "curator_level_", "curator_level_with_indefinite_article_", "data_object_", "item_type_", "object_status_", "object_type_", "object_visibility_", "or_", "task_status_", "lash_i18n_name", "arams"]
 
 en_master = create_initial_file('en', list)
 create_initial_file('ar', list, en_master)

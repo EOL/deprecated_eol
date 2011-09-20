@@ -604,32 +604,32 @@ en:
   agreement_template_: "Agreement template:"
   agreement_url__e_g__full_or_re: "Agreement URL (e.g. full or relative URL to a PDF or other file)"
   all: "all"
-  all_title: "All"
   all_apis_return_by_default_an_xml_response: "All APIs return by default an XML response. The API methods may be called without a format extension to get the XML response, and adding an XML extension will give an identical response:"
-  all_items: All items
-  all_taxa: All taxa
   all_articles: All articles
-  all_videos: All videos
-  all_images: All images
-  all_sounds: All sounds
-  all_communities: All communities
-  all_people: All people
-  all_collections: All collections
   all_changes: "All changes"
+  all_collections: All collections
   all_comments_entered_by_users: "All comments entered by users on the website are shown below, sorted inversely by time created."
+  all_communities: All communities
   all_count: "All (%{count})"
   all_errors: "ALL errors"
   all_harvesting_logs: "ALL harvesting logs"
+  all_images: All images
   all_information: "All information"
   all_information_currently_in_t_: "All information currently in the public domain will remain in the public domain. Neither the EOL nor the content providers will seek to assert any IPR over any public domain materials that are made available through the EOL."
   all_information_currently_in_t: "All information currently in the public domain will remain in the public domain. Neither the EOL nor the content providers will seek to assert any IPR over any public domain materials that are made available through the EOL."
+  all_items: All items
   all_news: "all news"
+  all_pages: "All pages"
+  all_people: All people
+  all_sounds: All sounds
+  all_sources: "All sources"
+  all_taxa: All taxa
+  all_terms_agreed_to: "All Terms Agreed To"
+  all_title: "All"
+  all_user_submitted_texts_on_the_website: "All user-submitted texts on the website are shown below, sorted inversely by time created."
+  all_videos: All videos
   allow_eol_to_provide_names_from: "Allow EOL to provide names from partner's content to the <a href='http://globalnames.org' target='_blank'>%{link}</a> website.  GNI collects names and provides links back to source projects, further increasing the visibility of %{project}."
   allow_user_logins: "Allow user logins"
-  all_pages: "All pages"
-  all_sources: "All sources"
-  all_terms_agreed_to: "All Terms Agreed To"
-  all_user_submitted_texts_on_the_website: "All user-submitted texts on the website are shown below, sorted inversely by time created."
   already_a_member_question: "Already a member?"
   already_in_collections_with_count:
     one: "Already in %{count} collection."
@@ -878,7 +878,9 @@ en:
   collection_destroyed: "The collection was deleted."
   collection_image: "Collection image"
   collection_is_empty: "This collection is currently empty."
+  collection_item_annotation_label: "Collection item annotation"
   collection_item_not_found_error: "That collection item could not be found."
+  collection_name_label: "Collection name"
   collection_newsfeed: "Collection Newsfeed"
   collection_not_created_error: "Sorry, an error occurred, the collection <em>%{collection_name}</em> could not be created."
   collection_not_destroyed_error: "Sorry, the collection was not deleted."
@@ -1877,6 +1879,7 @@ en:
   in_providing_its_content_to_eo_: "In providing its content to EOL, %{var__agent_project_name} will:"
   in_this_data_type: "in this %{data_type}:"
   instructions: "Instructions"
+  insufficient_privileges_to_add_common_names: "Sorry, you do not have sufficient privileges to add common names."
   insufficient_privileges_to_curate_names: "Sorry, you do not have sufficient privileges to curate names."
   internal_ip_address: "internal IP address"
   introduction: "Introduction"

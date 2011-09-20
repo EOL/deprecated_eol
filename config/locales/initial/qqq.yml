@@ -6,6 +6,8 @@ qqq:
   create_community: "This is a button label and is not meant to be (fully) grammatical."
   max_collection_items_error: "This wil never, ever be a small number... always at least 500."
   never: "This is in regards to the frequency at which the user will receive email.  Thus, this case, it means 'never, ever', not 'never been'."
+  or_copy_them_to_existing_collection: "This is intentionally a sentence fragment, as it is much lower on the page...  as a separate header that matches an earlier one."
+  or_move_them_to_existing_collection: "This is intentionally a sentence fragment, as it is much lower on the page...  as a separate header that matches an earlier one."
   punctuation_comma: "This is the symbol used to join lists. (A comma in English.)"
   rank_recognized_by_agent: "This resolves in a format similar to this: \"Species recognized by Integrated Taxonomic Information System:\".  These do not need to read with prefect grammar, as they are meant to be citations and not flowing speech."
   rank_recognized_by_agent_colon: "This resolves to something similar to this: \"Taxon recognized by IUCN:\", and acts as the header to a navigatable tree of life, showing the relationships between various levels of taxa."

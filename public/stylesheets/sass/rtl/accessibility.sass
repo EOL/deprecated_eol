@@ -302,6 +302,7 @@ form#switch_hierarchy_entry
           max-width: 68px
         h4
           margin-bottom: 0.5em
+          +direction-alignment
           a
             color: #195184
             text-decoration: underline
@@ -353,6 +354,7 @@ form#switch_hierarchy_entry
     #sidebar
       input[type="text"]
         width: 118px
+        direction: rtl
 #new_content_partner_agreement
   dl
     clear: both
@@ -732,6 +734,7 @@ body
   * so we can't re-use HR SASS as it is - we need to refactor markup and SASS so we can share SASS or create mixin.
   **/
 #classification_browser
+  direction: ltr
   border: 1px solid #D7DADC
   overflow-x: auto
   padding: 10px 15px
@@ -742,7 +745,7 @@ body
     li
       white-space: nowrap
       ul
-        margin-right: 10px
+        margin-left: 10px
 #classification_browser, .classifications
   .open
     font-weight: bold
@@ -835,6 +838,7 @@ body
 #taxon_resources
   table
     &.standard
+      +direction-alignment(ltr, left)
       tbody > tr > td > a > img
         max-width: 90px
   #taxon_detail > #main
@@ -1264,3 +1268,30 @@ body#prelaunch
 // Preview page fix:
 body#prelaunch #footer ul.social_media
   margin-top: 20px
+
+//solve ltr direction alignments issues
+.scientific_name
+  +direction-alignment
+table 
+  &.synonyms, &.common_names, &.edit_common_names, &.related_names
+    +direction-alignment(ltr, left)
+    select
+      direction: rtl
+#classifications_summary
+  ul
+    li
+      ul
+        direction: ltr
+        li
+          &.show_full_tree
+            direction: rtl
+            text-align: left
+input#user_email, 
+input#user_username,
+input#session_username_or_email, 
+input#user_username_or_email, 
+input[type="password"]
+  direction: ltr
+
+
+

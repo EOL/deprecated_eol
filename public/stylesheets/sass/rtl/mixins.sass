@@ -46,12 +46,12 @@
     +gradient_bg(saturate($from + #111111, 10%), saturate($to + #111111, 10%))
   &:active
     +gradient-bg($from, $to)
-= input($width: 308px)
+= input($width: 308px, $direction: ltr)
   width: $width
   height: 22px
   padding: 2px 5px
   font: normal 1em Helvetica, Arial, sans-serif
-  border: 1px solid #cad3db
+  border: 1px solid #cad3db  
   +gradient-bg(#f0f4f7, #ffffff)
 = textarea
   padding: 8px
@@ -63,3 +63,6 @@
   text-decoration: none
   &:hover
     text-decoration: underline
+= direction-alignment($direction:ltr, $alignment: right)
+  direction: $direction
+  text-align: $alignment

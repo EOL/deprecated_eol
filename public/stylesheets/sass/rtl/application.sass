@@ -90,7 +90,7 @@ form
           margin: 0 0 0 5px
     input[type="submit"]
       +button
-      padding: 3px 0 0 10px
+      padding: 3px 10px
       font-size: .92em
 
 .main_container
@@ -102,7 +102,7 @@ form
   border: 1px solid #93a4b0
   border-width: 0 1px
   .heading
-    padding: 6px 10px 5px 10px
+    padding: 6px 10px 13px 10px
     border-bottom: 1px solid #ccd399
     background: #f1f4dc
     h3, label
@@ -268,7 +268,7 @@ table.standard
         background: #eff2f4
         padding: 5px 20px
         font-weight: bold
-        text-align: right
+
   tbody
     tr
       border: 1px solid #cad3db
@@ -529,7 +529,7 @@ form.select_content_partner
     font-weight: bold
   input[type="submit"]
     +button
-    padding: 3px 0 0 10px
+    padding: 3px 10px
     font-size: .92em
 
 body
@@ -1356,7 +1356,7 @@ body
             a
               font-weight: bold
           ul
-            margin-right: 10px
+            margin-left: 10px
     .updates
       ul
         border-bottom: 1px solid #d7dadc
@@ -1586,6 +1586,7 @@ body
       padding: 0 10px 3px 10px
       font-size: 1.16em
     ul.review_status
+      +direction-alignment
       p
         float: left
         padding: 1px 0 0 2px
@@ -1618,6 +1619,7 @@ body
       padding: 0 0 5px 0
       font-size: 1.16em
       font-weight: bold
+      
     p
       padding: 0 0 10px 0
       font-size: .92em
@@ -1653,7 +1655,7 @@ body
       font-weight: bold
       margin: 0 0 0 20px
     input[type="text"]
-      +input(200px)
+      +input(200px, ltr)
     input[type="submit"]
       padding-right: 20px
       padding-left: 20px
@@ -1714,7 +1716,7 @@ body
 #worklist
   .filters
     overflow: hidden
-    padding: 15px 0 0 40px
+    padding: 15px 40px
     margin: 0 0 20px 0
     border-bottom: 1px solid #ccd399
     background: #f1f4dc
@@ -1889,6 +1891,7 @@ body
         padding: 0 0 5px 0
         font-size: 1.16em
         font-weight: bold
+        +direction-alignment
       select
         margin: 0 0 5px 0
       p

@@ -301,9 +301,6 @@ class DataObject < SpeciesSchemaModel
     old_dato.published = false
     old_dato.save!
 
-    comments_from_old_dato = Comment.find(:all, :conditions => {:parent_id => old_dato.id, :parent_type => 'DataObject'})
-    comments_from_old_dato.map { |c| c.update_attributes(:parent_id => new_dato.id) }
-
     no_current_but_new_visibility = Visibility.visible
     current_or_new_vetted = old_dato.users_data_object.vetted
     if user.is_curator? || user.is_admin?

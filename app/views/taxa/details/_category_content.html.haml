@@ -19,8 +19,8 @@
           = render :partial => 'shared/add_to_my_collection', :locals => { :item => dato, :my_collection => @watch_collection }
           = link_to I18n.t(:leave_a_comment), '#new_comment', :class => 'button comment'
         = render :partial => 'comments/new', :locals => { :parent => dato, :cancel => true }
-        - if dato.all_comments.length > 0
-          %p= link_to I18n.t(:see_all_comments_with_count_for_text, :count => dato.all_comments.length), data_object_path(dato)
+        - if dato.comments.length > 0
+          %p= link_to I18n.t(:see_all_comments_with_count_for_text, :count => dato.comments.length), data_object_path(dato)
 
   - else
     .article

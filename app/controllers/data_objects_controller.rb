@@ -150,7 +150,6 @@ class DataObjectsController < ApplicationController
   def show
     @page_title = @data_object.best_title
     get_attribution
-    @comments = @data_object.all_comments.dup.paginate(:page => params[:page], :order => 'updated_at DESC', :per_page => Comment.per_page)
     @slim_container = true
     @revisions = DataObject.sort_by_created_date(@data_object.revisions).reverse
     @translations = @data_object.available_translations_data_objects(current_user, nil)

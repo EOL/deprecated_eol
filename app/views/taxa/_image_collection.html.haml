@@ -10,7 +10,7 @@
     - @images[0..$MAX_IMAGES_PER_PAGE-1].each do |image|
       - name_string = sanitize(strip_tags(@taxon_concept.title)).balance_tags
       - large_img_url = image.smart_image
-      - average_rating = image.data_rating
+      - average_rating = image.safe_rating
       - user_rating = image['user_rating'] ? image['user_rating'] : 0
       %a{ :id => "thumb-#{image.id}", :href => "/data_objects/#{image.id}", :class => vetted_id_class(image.vetted_id) }
         %span

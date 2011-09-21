@@ -1,11 +1,11 @@
-- rate_percentage = data_object.data_rating * 20.0
+- rate_percentage = data_object.safe_rating * 20.0
 - if show_controls
   =I18n.t(:overall_colon)
   %span.inline-rating
     %ul.star-rating.small-star.average-rating
       %li.current-rating{ :id => "average-rating-#{data_object.id}", :style => "width:#{rate_percentage}%;" }
         =I18n.t(:overall_colon)
-        = data_object.data_rating.to_s
+        = data_object.safe_rating.to_s
   =I18n.t(:your_rating_colon)
   %span.inline-rating
     %ul.star-rating.small-star.user-rating

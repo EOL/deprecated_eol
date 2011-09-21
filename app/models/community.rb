@@ -19,7 +19,7 @@ class Community < ActiveRecord::Base
 
   validates_presence_of :name, :message => I18n.t(:cannot_be_empty)
   validates_length_of :name, :maximum => 127, :message => I18n.t(:must_be_less_than_128_characters_long)
-  validates_uniqueness_of :name, :message => I18n.t(:has_already_been_taken)
+  validates_uniqueness_of :name, :message => I18n.t(:has_already_been_taken), :if => Proc.new {|c| c.published? }
 
   # TODO: remove the :if condition after migrations are run in production
   has_attached_file :logo,

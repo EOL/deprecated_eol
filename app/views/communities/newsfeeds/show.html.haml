@@ -32,6 +32,6 @@
       %h3= I18n.t(:newsfeed)
     -# The #reject on this next line is a TEMP workaround to remove activities that are not actually from this collection. I think that's a data problem, but until we
     -# TODO check on that, I don't want to allow other collections' logs here:
-    - featured_ids = @community.collection.collection_items.collections.map(&:id)
+    - featured_ids = @community.collection ? @community.collection.collection_items.collections.map(&:id) : []
     = render :partial => 'activity_logs/index', :locals => {:log => @newsfeed.reject {|h| l = h['instance'] ; l.respond_to?(:community_id) && l.community_id != @community.id && ! featured_ids.include?(@community.id) } }
 

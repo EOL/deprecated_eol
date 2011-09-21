@@ -6,7 +6,7 @@ class CommunitiesController < ApplicationController
   before_filter :load_community_and_dependent_vars, :except => [:index, :new, :create]
   before_filter :load_collection, :only => [:new, :create]
   before_filter :must_be_logged_in, :except => [:index, :show]
-  before_filter :restrict_edit, :only => [:edit, :update, :destroy]
+  before_filter :restrict_edit, :only => [:edit, :update, :delete]
 
   def index
     @communities = Community.paginate(:page => params[:page])
@@ -77,10 +77,12 @@ class CommunitiesController < ApplicationController
     end
   end
 
-  # Note this is not "destroy".  That's because it's different: the community instance is not destroyed, AND this is a :get, not a :post.
+  # Note this is not "destroy".  That's because it's different: the community instance is not destroyed, AND this is
+  # a :get, not a :post.
   def delete
     if @community.update_attributes(:published => false)
-      @community.collection.update_attributes(:published => false) rescue nil # Yeah, I really don't care if this fails. It's just convenience.
+      # Yeah, I really don't care if this fails. It's just convenience:
+      @community.collection.update_attributes(:published => false) rescue nil
       begin
         @community.remove_member(current_user)
       rescue EOL::Exceptions::ObjectNotFound => e
@@ -88,8 +90,9 @@ class CommunitiesController < ApplicationController
       end
       EOL::GlobalStatistics.decrement('communities')
       log_action(:delete)
-      # TODO - it might make sense (?) to remove this community from any collection_items that once pointed to it... that would remove it from watchlists and the like,
-      # though, and I don't know if that's wise (since then they wouldn't see the delete log item).
+      # TODO - it might make sense (?) to remove this community from any collection_items that once pointed to it...
+      # that would remove it from watchlists and the like, though, and I don't know if that's wise (since then they
+      # wouldn't see the delete log item).
       flash[:notice] = I18n.t(:community_destroyed)
     else
       flash[:error] = I18n.t(:community_not_destroyed_error)

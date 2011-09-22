@@ -63,7 +63,7 @@ module EOL
     end
 
     def self.community_activities(source, options = {})
-      results = EOL::Solr::ActivityLog.search_with_pagination("feed_type_affected:Community AND feed_type_primary_key:#{source.id}", options)
+      results = EOL::Solr::ActivityLog.search_with_pagination("(feed_type_affected:Community AND feed_type_primary_key:#{source.id}) OR (feed_type_affected:Collection AND feed_type_primary_key:#{source.focus.id})", options)
     end
 
     def self.collection_activities(source, options = {})

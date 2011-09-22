@@ -1230,3 +1230,6 @@ input#session_username_or_email,
 input#user_username_or_email,
 input[type="password"] {
   direction: ltr; }
+
+#taxon_literature table, #taxon_literature ul.ref_list {
+  direction: ltr; }

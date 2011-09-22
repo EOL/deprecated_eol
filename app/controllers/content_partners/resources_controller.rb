@@ -9,9 +9,8 @@ class ContentPartners::ResourcesController < ContentPartnersController
     @partner = ContentPartner.find(params[:content_partner_id],
                  :include => [ { :resources => :resource_status }, :content_partner_agreements, :content_partner_contacts])
     access_denied unless current_user.can_update?(@partner)
+    redirect_if_terms_not_accepted unless current_user.is_admin?
     @resources = @partner.resources
-    @agreement = @partner.agreement
-    @new_agreement = @partner.content_partner_agreements.build if @agreement.blank?
     @partner_contacts = @partner.content_partner_contacts.select{|cpc| cpc.can_be_read_by?(current_user)}
     @new_partner_contact = @partner.content_partner_contacts.build
   end
@@ -33,8 +32,10 @@ class ContentPartners::ResourcesController < ContentPartnersController
     access_denied unless current_user.can_create?(@resource)
     if @resource.save
       @resource.resource_status = @resource.upload_resource_to_content_master!(request.port.to_s)
-      # TODO: if we failed to transfer the resource to content master the status will show up in
-      # index, but should we provide the user with more information on upload errors here?
+      unless [ResourceStatus.uploaded.id, ResourceStatus.validated.id].include?(@resource.resource_status_id)
+        flash[:error] = I18n.t(:content_partner_resource_upload_unsuccessful_error, :resource_status => @resource.status_label)
+      end
+      Notifier.deliver_content_partner_resource_created(@partner, @resource, current_user)
       flash[:notice] = I18n.t(:content_partner_resource_create_successful_notice,
                               :resource_status => @resource.status_label)
       redirect_to content_partner_resources_path(@partner)
@@ -85,7 +86,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
   def show
     ContentPartner.with_master do
       @partner = ContentPartner.find(params[:content_partner_id], :include => {
-                   :resources => [ :resource_status, :collection, :preview_collection, :license, :language ]})
+                   :resources => [ :resource_status, :collection, :preview_collection, :license, :language, :harvest_events, :hierarchy, :dwc_hierarchy ]})
       @resource = @partner.resources.find(params[:id])
     end
     access_denied unless current_user.can_read?(@resource)
@@ -93,23 +94,67 @@ class ContentPartners::ResourcesController < ContentPartnersController
   end
 
   # GET /content_partners/:content_partner_id/resources/:id/force_harvest
+  # POST /content_partners/:content_partner_id/resources/:id/force_harvest
   def force_harvest
     ContentPartner.with_master do
       @partner = ContentPartner.find(params[:content_partner_id], :include => {:resources => :resource_status })
       @resource = @partner.resources.find(params[:id])
     end
     access_denied unless current_user.can_update?(@resource)
-    @resource.resource_status = ResourceStatus.force_harvest
-    if @resource.save
-      flash[:notice] = I18n.t(:content_partner_resource_update_successful_notice,
-                              :resource_status => @resource.status_label)
+    if @resource.resource_status.blank? || @resource.resource_status == ResourceStatus.being_processed
+      flash[:error] = I18n.t(:content_partner_resource_status_update_illegal_transition_error,
+                             :resource_title => @resource.title, :current_resource_status => @resource.status_label,
+                             :requested_resource_status => Resource.force_harvest.label)
     else
-      flash.now[:error] = I18n.t(:content_partner_resource_update_unsuccessful_error)
+      @resource.resource_status = ResourceStatus.force_harvest
+      if @resource.save
+        flash[:notice] = I18n.t(:content_partner_resource_status_update_successful_notice,
+                                :resource_status => @resource.status_label, :resource_title => @resource.title)
+      else
+        flash.now[:error] = I18n.t(:content_partner_resource_status_update_unsuccessful_error,
+                                   :resource_status => @resource.status_label, :resource_title => @resource.title)
+      end
     end
-    redirect_to content_partner_resources_path(@partner)
+    store_location request.referer unless request.referer.blank?
+    redirect_back_or_default content_partner_resources_path(@partner)
+  end
+
+  # POST /content_partners/:content_partner_id/resources/:id/publish
+  def publish
+    access_denied unless current_user.is_admin?
+    ContentPartner.with_master do
+      @partner = ContentPartner.find(params[:content_partner_id], :include => {:resources => :resource_status })
+      @resource = @partner.resources.find(params[:id])
+    end
+    if @resource.resource_status == ResourceStatus.processed
+      @resource.resource_status = ResourceStatus.publish_pending
+      if @resource.save
+        flash[:notice] = I18n.t(:content_partner_resource_status_update_successful_notice,
+                                :resource_status => @resource.status_label, :resource_title => @resource.title)
+      else
+        flash[:error] = I18n.t(:content_partner_resource_status_update_unsuccessful_error,
+                               :resource_status => @resource.status_label, :resource_title => @resource.title)
+      end
+    else
+      flash[:error] = I18n.t(:content_partner_resource_status_update_illegal_transition_error,
+                             :resource_title => @resource.title, :current_resource_status => @resource.status_label,
+                             :requested_resource_status => Resource.publish_pending.label)
+    end
+    store_location request.referer unless request.referer.blank?
+    redirect_back_or_default content_partner_resources_path(@partner)
   end
 
 private
+
+  def redirect_if_terms_not_accepted
+    @current_agreement = @partner.agreement
+    if @current_agreement.blank?
+      redirect_to new_content_partner_content_partner_agreement_path(@partner)
+    elsif !@current_agreement.is_accepted?
+      redirect_to edit_content_partner_content_partner_agreement_path(@partner, @current_agreement)
+    end
+  end
+
   def choose_url_or_file
     case params[:resource_url_or_file]
     when 'url'

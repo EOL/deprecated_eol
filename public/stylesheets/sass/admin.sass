@@ -1,5 +1,17 @@
 @import "common"
 
+.main_container
+  .heading
+    overflow: hidden
+    margin-bottom: 20px
+    h3
+      float: left
+      padding: 5px
+    form
+      float: right
+    fieldset
+      display: inline-block
+      margin: 0
 #admin_overview, #cms_index
   &.main_container
     border: none
@@ -75,3 +87,76 @@
     div
       input[type="submit"].delete
         margin-top: 30px
+#content_partners
+  &.main_container
+    > ul
+      > li
+        line-height: 140%
+        padding-bottom: 10px
+        margin-bottom: 20px
+        border-bottom: 1px solid #CAD3DB
+        img
+          +max_dimensions($logo_size_primary, $logo_size_primary)
+        h3
+          font-size: 1.33em
+          margin-bottom: 3px
+        h5
+          font-size: 1.16em
+          margin-bottom: 8px
+        ul
+          &.resources
+            li
+              background: #F3F7FA
+              border: 1px solid #CAD3DB
+              padding: 8px 10px 0 10px
+              &.unknown, &.request_publish
+                border-color: #c7d471
+                background: #edf6b2
+              &.upload_failed, &.validation_failed, &.processing_failed
+                background: #ffeae6
+                border-color: #f2d2cc
+      dl
+        &.notes
+          clear: both
+          margin-left: 10px
+        margin: 0 0 5px 0
+        overflow: hidden
+        line-height: 140%
+        dt
+          clear: both
+          float: left
+          padding-right: 0.5em
+          font-weight: bold
+      form
+        label
+          &.select
+            font-weight: bold
+            input[type="select"]
+              width: 100px
+
+      .resource_status
+        float: left
+        width: 220px
+        margin-left: 10px
+        dl
+          line-height: 160%
+          margin: 0
+        form, form div
+          display: inline-block
+        form div
+          margin: 7px 0
+      .settings
+        float: right
+        width: 200px
+#content_partners_statistics
+  .heading
+    text-align: center
+  fieldset
+    &.download
+      text-align: right
+  table
+    caption
+      font-size: 1.08em
+      margin-bottom: 5px
+    th
+      width: 25%

@@ -3,10 +3,12 @@
     .heading
       - form_tag({}, :method => :get) do
         %fieldset
-          = label_tag :month
-          = select_month(@month.to_i)
-          = label_tag :year
-          = select_year(@year.to_i, :start_year => Date.current.year, :end_year => 2008)
+          %label
+            = I18n.t(:content_partner_statistics_month_label)
+            = select_month(@month.to_i)
+          %label
+            = I18n.t(:content_partner_statistics_year_label)
+            = select_year(@year.to_i, :start_year => Date.current.year, :end_year => 2008)
         %fieldset.actions
           = submit_tag I18n.t(:change), :name => nil
     - if @partner_summary.blank? && @pages.blank?
@@ -50,7 +52,9 @@
             %td= "#{@partner_summary.percent_overall_time_on_page_in_hours(@site_summary).round(2)}%"
 
     - unless @pages.blank?
-      = will_paginate @pages
+      .header
+        = will_paginate @pages, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
+          :inner_window => 2, :outer_window => 2
       %table.standard
         %caption
           = I18n.t(:content_partner_statistics_taxa_page_caption, :partner_name => @partner.name)
@@ -75,4 +79,6 @@
               %td= page.page_views
               %td= page.unique_page_views
               %td= page.timeonpage
-      = will_paginate @pages
+      .footer
+        = will_paginate @pages, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
+          :inner_window => 2, :outer_window => 2

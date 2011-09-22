@@ -33,6 +33,7 @@ class UsersController < ApplicationController
     redirect_to curation_privileges_user_path(@user) and return if params[:commit_curation_privileges_get]
     generate_api_key and return if params[:commit_generate_api_key]
     unset_auto_managed_password if params[:user][:entered_password]
+    user_before_update = @user
     if @user.update_attributes(params[:user])
       # not using alter_current_user because it doesn't allow for validation checks
       # and we probably don't want to update current_user with invalid attributes
@@ -42,6 +43,7 @@ class UsersController < ApplicationController
       current_user.log_activity(:updated_user)
       store_location params[:return_to] if params[:return_to]
       provide_feedback
+      send_preferences_updated_email(user_before_update, @user) if user_updated_email_preferences?(user_before_update, @user)
       redirect_back_or_default @user
     else
       failed_to_update_user
@@ -90,7 +92,7 @@ class UsersController < ApplicationController
       redirect_to login_path
     elsif @user && @user.validation_code == params[:validation_code] && ! params[:validation_code].blank?
       @user.activate
-      Notifier.deliver_account_activated(@user, root_url)
+      Notifier.deliver_user_activated(@user)
       redirect_to activated_user_path(@user)
     elsif @user
       @user.validation_code = User.generate_key if @user.validation_code.blank?
@@ -158,7 +160,7 @@ class UsersController < ApplicationController
         if @users.size == 1
           user = @users[0]
           generate_password_reset_token(user)
-          Notifier.deliver_reset_password(user, reset_password_user_url(user, user.password_reset_token))
+          Notifier.deliver_user_reset_password(user, reset_password_user_url(user, user.password_reset_token))
           flash[:notice] =  I18n.t(:reset_password_instructions_sent_to_user_notice, :username => user.username)
           redirect_to login_path
         elsif @users.size > 1
@@ -174,7 +176,7 @@ class UsersController < ApplicationController
   def reset_password
     password_reset_token = params[:password_reset_token]
     user = User.find_by_password_reset_token(password_reset_token)
-    is_expired = Time.now > user.password_reset_token_expires_at if user
+    is_expired = Time.now > user.password_reset_token_expires_at if user && !user.password_reset_token_expires_at.blank?
     delete_password_reset_token(user) if is_expired
     if ! user || is_expired
       flash[:error] =  I18n.t(:reset_password_token_expired_error)
@@ -250,7 +252,7 @@ private
   end
 
   def send_verification_email
-    Notifier.deliver_verify_user(@user, verify_user_url(@user.username, @user.validation_code))
+    Notifier.deliver_user_verification(@user, verify_user_url(@user.username, @user.validation_code))
   end
 
   def generate_api_key
@@ -287,6 +289,20 @@ private
     else
       flash[:notice] = I18n.t(:update_user_successful_notice)
     end
+  end
+
+  def user_updated_email_preferences?(user_before_update, user_after_update)
+    old_user.mailing_list != new_user.mailing_list || old_user.email != new_user.email
+  end
+
+  def send_preferences_updated_email(user_before_update, user_after_update)
+    media_inquiry_subject = ContactSubject.find_by_id($MEDIA_INQUIRY_CONTACT_SUBJECT_ID)
+    if media_inquiry_subject.nil?
+      recipient = $SPECIES_PAGES_GROUP_EMAIL_ADDRESS
+    else
+      recipient = media_inquiry_subject.recipients
+    end
+    Notifier.deliver_user_updated_email_preferences(user_before_update, user_after_update, recipient)
   end
 
 end

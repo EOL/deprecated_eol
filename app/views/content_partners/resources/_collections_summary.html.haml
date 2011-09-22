@@ -1,0 +1,16 @@
+- if @resource.collection.blank? && @resource.preview_collection.blank?
+  %h3= I18n.t(:content_partner_resource_collections_header)
+  .empty
+    %p= I18n.t(:content_partner_resource_collection_empty)
+- unless @resource.collection.blank?
+  .collection_list
+    %h3= I18n.t(:content_partner_resource_collection_header)
+    %ul.collection.list
+      = render :partial => 'collections/collection_summary',
+        :locals => { :collection => @resource.collection, :show_description => false }
+- unless @resource.preview_collection.blank?
+  .collection_list
+    %h3= I18n.t(:content_partner_resource_preview_collection_header)
+    %ul.collection.list
+      = render :partial => 'collections/collection_summary',
+        :locals => { :collection => @resource.preview_collection, :show_description => false }

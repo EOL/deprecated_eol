@@ -389,7 +389,7 @@ private
     else
       recipient = media_inquiry_subject.recipients
     end
-    Notifier.deliver_user_changed_mailer_setting(old_user,new_user,recipient)
+    Notifier.deliver_user_updated_email_preferences(old_user,new_user,recipient)
   end
 
   def realm

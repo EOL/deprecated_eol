@@ -17,6 +17,7 @@ class ContentPartnersController < ApplicationController
     else
       'content_partners.full_name'
     end
+    # TODO: Select is being ignored in the following. Appears to be when conditions added. Find a solution.
     include = [ { :resources => [ :resource_status ] }, :content_partner_status, :content_partner_contacts ]
     select = 'content_partners.id, content_partners.full_name, content_partners.display_name, content_partners.description,
               content_partners.homepage, content_partners.logo_cache_url, content_partners.logo_file_name,
@@ -33,7 +34,6 @@ class ContentPartnersController < ApplicationController
                   :include => include,
                   :conditions => [ conditions, conditions_replacements],
                   :order => order)
-
     set_sort_options
     @page_title = I18n.t(:content_partners_page_title)
     @page_description = I18n.t(:content_partners_page_description, :more_url => cms_page_path('partners'))
@@ -54,6 +54,7 @@ class ContentPartnersController < ApplicationController
     access_denied unless current_user.can_create?(@partner)
     if @partner.save
       upload_logo(@partner) unless params[:content_partner][:logo].blank?
+      Notifier.deliver_content_partner_created(@partner, current_user)
       flash[:notice] = I18n.t(:content_partner_create_successful_notice)
       redirect_to content_partner_resources_path(@partner)
     else

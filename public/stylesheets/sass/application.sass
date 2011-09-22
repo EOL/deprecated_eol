@@ -237,6 +237,13 @@ p.status
   p
     margin: 0 0 15px 0
     line-height: 170%
+  dl
+    margin: 0 40px 15px 40px
+    line-height: 170%
+    dt
+      font-weight: bold
+    dd
+      margin: 0 0 10px 20px
   ul, ol
     margin: 0 40px 15px 40px
     line-height: 170%
@@ -250,7 +257,7 @@ p.status
     border: 1px solid #cad3db
     margin: 0 -20px 25px -20px
     padding: 15px 20px 0 20px
-  p, ul, ol, blockquote
+  p, ul, ol, dl, blockquote
     & + h2,
     & + h3,
     & + h4
@@ -1051,9 +1058,6 @@ body
     width: 240px
     padding-left: 40px
     padding-bottom: 20px
-    h3
-      padding: 0
-      margin: 0 0 15px 0
     ul
       li
         margin: 0 0 20px 0
@@ -1067,6 +1071,17 @@ body
           & + p
             a
               font-weight: bold
+    dl
+      margin: 0 0 5px 0
+      overflow: hidden
+      line-height: 140%
+      dt
+        clear: both
+        float: left
+        padding-right: 0.5em
+        font-weight: bold
+        &.actions
+          float: none
   .main_container
     border: none
     padding: 0
@@ -1088,6 +1103,18 @@ body
                 & + a
                   margin: 0
 
+  p
+    &.resource_status
+      border: 1px solid #cad3db
+      background: #f1f4f7
+      padding: 20px
+      margin: 0 0 10px
+      font-size: 1.66em
+      font-weight: bold
+      text-align: center
+      &.upload_failed, &.processing_failed, &.validation_failed
+        background: #ffeae6
+        border-color: #f2d2cc
 #content_partner_resources
   width: 600px
   fieldset

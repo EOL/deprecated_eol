@@ -1,4 +1,0 @@
-%li
-  %p
-    =I18n.t("text_description_was_added", :text=> truncate(curator_log.udo_parent_text.description, :length => 30),:toc=> curator_log.udo_parent_text.toc_items[0].label,:link => link_to(curator_log.taxon_concept_name, {:controller => '/taxa', :action => 'show', :id => curator_log.taxon_concept_id}, :target => "_blank"),:user => curator_or_plain_username(curator_log.user), :date => act_date)
-

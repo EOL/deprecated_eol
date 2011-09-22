@@ -1,5 +1,5 @@
-= I18n.t(:dear_user_with_comma, :user => @name)
-= ""
+= I18n.t(:greeting_dear_name_with_comma, :name => @user.full_name, :scope => :notifier)
+:plain
 = @message
-= ""
-= I18n.t(:activate_email_footer)
+:plain
+= I18n.t(:signature_basic, :scope => :notifier)

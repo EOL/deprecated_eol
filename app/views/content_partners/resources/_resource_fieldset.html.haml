@@ -70,3 +70,14 @@
       = resource_form.label :description
     %dd
       = resource_form.text_area :description
+    - if current_user.is_admin?
+      %dt
+        %strong
+          = I18n.t('helpers.label.resource.administration_settings')
+      %dd
+        - resource_form.label :auto_publish do
+          = resource_form.check_box :auto_publish
+          = I18n.t('activerecord.attributes.resource.auto_publish')
+        - resource_form.label :vetted do
+          = resource_form.check_box :vetted
+          = I18n.t('activerecord.attributes.resource.vetted')

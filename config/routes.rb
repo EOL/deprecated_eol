@@ -31,26 +31,18 @@ ActionController::Routing::Routes.draw do |map|
                                                          :except => [:index, :show],
                                                          :namespace => "content_partners/"
     content_partner.resources :content_partner_agreements, :as => :agreements,
-                                                         :only => [:create, :show],
+                                                         :except => [:index, :destroy],
                                                          :namespace => "content_partners/"
-    content_partner.resources :resources, :member => {:force_harvest => [:get]}, :namespace => "content_partners/"
+    content_partner.resources :resources, :member => {:force_harvest => [:get, :post],
+                                                      :publish => [:post],
+                                                      :unpublish => [:post]},
+                                          :namespace => "content_partners/" do |resource|
+      resource.resources :harvest_events, :only => [:index], :namespace => "content_partners/resources/"
+      resource.resources :hierarchies, :only => [:edit, :update], :member => { :request_publish => :post },
+                                       :namespace => "content_partners/resources/"
+    end
     content_partner.resource :statistics, :only => [:show], :namespace => "content_partners/"
   end
-
-# WIP
-#  map.resources :harvest_events, :has_many => [:taxa]
-#  map.resources :resources, :as => 'content_partner/resources', :has_many => [:harvest_events]
-#  map.force_harvest_resource 'content_partner/resources/force_harvest/:id', :method => :post,
-#      :controller => 'resources', :action => 'force_harvest'
-#  map.connect 'content_partner/reports', :controller => 'content_partner_account/reports', :action => 'index'
-#  map.connect 'content_partner/reports/login', :controller => 'content_partner_account', :action => 'login'
-#  map.connect 'content_partner/reports/:action', :controller => 'content_partner_account/reports'
-#  map.connect 'content_partner/content/:id', :controller => 'content_partner', :action => 'content', :requirements => { :id => /.*/}
-#  map.connect 'content_partner/stats/:id', :controller => 'content_partner_account', :action => 'stats', :requirements => { :id => /.*/}
-#  map.request_publish_hierarchy 'content_partner/resources/request_publish/:id', :method => :post,
-#      :controller => 'content_partner', :action => 'request_publish_hierarchy'
-#  map.content_partner 'content_partner', :controller => 'content_partner', :action => 'index'
-
 
   map.resources :comments, :only => [:create]
   map.resources :random_images
@@ -139,7 +131,7 @@ ActionController::Routing::Routes.draw do |map|
   map.taxon_worklist_data_object 'pages/:id/worklist/data_objects/:data_object_id', :controller => 'taxa/worklist', :action => 'data_objects'
 
 
-  # Named routes (are these obsolete?)
+  # Named routes (are some of these obsolete?)
   map.settings 'settings', :controller => 'taxa', :action => 'settings'
   map.taxon_concept 'pages/:id', :controller => 'taxa', :action => 'show'
   map.set_language 'set_language', :controller => 'application', :action => 'set_language'
@@ -165,11 +157,11 @@ ActionController::Routing::Routes.draw do |map|
       content_page.resources :children, :only => [:new, :create], :controller => 'content_pages'
       content_page.resources :translated_content_pages, :as => :translations, :except => [:show, :index], :controller => 'translated_content_pages'
     end
-    admin.resources :content_partners, :only => [:index], :namespace => 'admins/'
-    admin.resources :hierarchies, :only => [:index, :edit, :show, :update], :namespace => 'admins/'
-    admin.resources :monthly_notification, :only => [:index], :namespace => 'admins/'
+    admin.resources :content_partners, :collection => {:notifications => [:get, :post], :statistics => [:get, :post]},
+                                       :only => [:index], :namespace => 'admins/' do |content_partner|
+
+    end
   end
-  map.connect 'admin/published_partners', :controller => 'admins/content_partner_reports', :action => 'report_monthly_published_partners'
 
   # Old V1 /admin and /administrator namespaces (controllers)
   map.administrator 'administrator',           :controller => 'admin',           :action => 'index'
@@ -182,7 +174,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :public_tags, :controller => 'administrator/tag_suggestion'
   map.resources :search_logs, :controller => 'administrator/search_logs'
 
-  # TODO = make this resourceful, dammit
+  # TODO = make this resourceful, dammit - are these now obsolete?
   map.connect '/taxon_concepts/:taxon_concept_id/comments/', :controller => 'comments', :action => 'index',
                                                              :conditions => {:method => :get}
   map.connect '/taxon_concepts/:taxon_concept_id/comments/', :controller => 'comments', :action => 'create',

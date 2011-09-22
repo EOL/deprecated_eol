@@ -1,22 +1,8 @@
 @import "mixins"
 
-= screenreader_accessible
-  position: absolute
-  left: -999em
-
 .assistive, #header .assistive
   +screenreader_accessible
 
-$logo_size_standout: 88
-$logo_size_primary: 68
-$logo_size_secondary: 48
-$logo_size_tertiary: 35
-
-= max_dimensions($width, $height)
-  max-width: #{$width}px
-  max-height: #{$height}px
-  width: expression(this.width > #{$width} ? "#{$width}px" : true)
-  height: expression(this.height > #{$height} ? "#{$height}px" : true)
 /**
  * Changes required for HR sass files:
  *   - replace /images/<image name> with /images/v2/<image name>
@@ -97,12 +83,26 @@ body.home
         padding: 5px 0 0 0
         overflow: hidden
 form
-  fieldset.dataset
-    legend.required
-      font-weight: bold
-      background: url("/images/v2/icon_required.png") 0 45% no-repeat
-      padding-left: 10px
-      margin-left: -10px
+  &.edit_hierarchy
+    p
+      &.browsable, &.not_browsable, &.request_publish
+        background: #F3F7FA
+        border: 1px solid #CAD3DB
+        font-size: 1.33em
+        font-weight: bold
+        padding: 10px
+        margin-bottom: 30px
+        text-align: center
+      &.request_publish
+        border-color: #c7d471
+        background: #edf6b2
+  fieldset
+    &.dataset
+      legend.required
+        font-weight: bold
+        background: url("/images/v2/icon_required.png") 0 45% no-repeat
+        padding-left: 10px
+        margin-left: -10px
 /** Styles for form required (HR overrides) and form validation errors (custom no equivalent from HR)  **/
 form
   dt
@@ -132,7 +132,7 @@ form
         display: block
         float: none
         margin-bottom: 5px
-    &.radio
+    &.radio, &.checkboxes
       margin: 20px 0
       legend
         font-weight: bold
@@ -142,7 +142,11 @@ form
         display: block
         clear: both
         line-height: 1.2em
-
+    &.checkboxes
+      label
+        font-weight: bold
+        p
+          font-weight: normal
   label, span
     &.errors
       color: #e84226
@@ -353,24 +357,20 @@ form#switch_hierarchy_entry
     #sidebar
       input[type="text"]
         width: 118px
-#new_content_partner_agreement
+#new_content_partner_agreement, form.edit_content_partner_agreement
   dl
     clear: both
     dd
       margin: 0 0 10px 0
       input[type="text"]
         +input
+      textarea
+        +input(700px)
+        height: 400px
 #content_partner_show
   .empty
     font-size: 1em
   .agreement
-    dl
-      margin: 0 40px 15px 40px
-      line-height: 170%
-      dt
-        font-weight: bold
-      dd
-        margin: 0 0 10px 0
     address
       display: block
       width: 40%
@@ -380,16 +380,16 @@ form#switch_hierarchy_entry
       &.eol
         float: right
   dl.agreement
+    margin: 0 0 15px 0
     line-height: 140%
-    dt
-      font-weight: bold
     dd
-      margin: 0 0 5px 20px
+      margin-bottom: 5px
   #resources_show
-    .section.half
-      float: left
-      width: 299px
-      margin-right: 20px
+    .section
+      &.half
+        float: left
+        width: 299px
+        margin-right: 20px
       dl
         line-height: 140%
         margin: 0 0 40px 0
@@ -408,6 +408,10 @@ ul.content_partner_contacts
   .main_container
     border: none
     padding: 0
+  .header
+    border-top: 1px solid #CAD3DB
+    padding-top: 1em
+    margin-top: 40px
   .heading
     text-align: center
     fieldset, input[type="submit"]
@@ -415,6 +419,11 @@ ul.content_partner_contacts
       margin: 0
   table
     margin-top: 20px
+    caption
+      line-height: 170%
+      font-size: 1.08em
+      font-weight: bold
+
 /** warning messages - check HR commits for updates to this **/
 p.status
   &.error

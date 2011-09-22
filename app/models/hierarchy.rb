@@ -19,11 +19,16 @@ class Hierarchy < SpeciesSchemaModel
   has_one :resource
   has_many :hierarchy_entries
 
+  validates_presence_of :label
+  validates_length_of :label, :maximum => 255
+
+  before_save :reset_request_publish, :if => Proc.new { |hierarchy| hierarchy.browsable == 1 }
+
   named_scope :browsable, :conditions => {:browsable => 1}
 
 
   alias entries hierarchy_entries
-  
+
   def self.sort_by_user_or_agent_name(hierarchies)
     hierarchies.sort_by do |h|
       [ h.request_publish ? 0 : 1,
@@ -53,7 +58,7 @@ class Hierarchy < SpeciesSchemaModel
   def self.default
     cached_find(:label, $DEFAULT_HIERARCHY_NAME)
   end
-  
+
   def self.gbif
     cached_find(:label, 'GBIF Nub Taxonomy')
   end
@@ -120,7 +125,7 @@ class Hierarchy < SpeciesSchemaModel
       end
     end
   end
-  
+
   def user_or_agent
     if resource && resource.content_partner && resource.content_partner.user
       resource.content_partner.user
@@ -137,5 +142,15 @@ class Hierarchy < SpeciesSchemaModel
     else
       label
     end
+  end
+
+  def request_to_publish_can_be_made?
+    browsable.zero? && !request_publish
+  end
+
+private
+  def reset_request_publish
+    self.request_publish = false
+    return true
   end
 end

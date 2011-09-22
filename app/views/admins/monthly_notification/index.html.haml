@@ -1,5 +1,0 @@
-.main_container
-  = I18n.t(:monthly_email_notification_description)
-  - form_tag({:controller => '/admins/monthly_notification', :action => 'send_email'}) do
-    %fieldset.actions
-      = submit_tag I18n.t('send_emails_now')

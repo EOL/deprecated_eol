@@ -1,9 +1,0 @@
-%li
-  %p
-    = curator_log.data_object_type_label
-    - if curator_log.data_object_type_label == 'Text'
-      =I18n.t("for_toc", :toc=> curator_log.toc_label)
-    =I18n.t("on_link",: link=> link_to(curator_log.taxon_concept_name, {:controller => '/taxa', :action => 'show', :id => curator_log.taxon_concept_id}, :target => "_blank"), :act => current_act, :user => curator_or_plain_username(curator_log.user), :date=> act_date)
-    - if curator_log.data_object_type_label == 'Image'
-      %br
-      = image_tag curator_log.data_object.smart_thumb,  :alt => hh(curator_log.taxon_concept_name)

@@ -51,7 +51,6 @@ describe 'Account Pages' do
     # visit(account_show_path)
     # @page = page
     # @body = body
-    # debugger
     # visit(@show_datos_curated_path)
     # @objects_curated_page = page
     # @objects_curated_body = body

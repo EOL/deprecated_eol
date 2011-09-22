@@ -13,14 +13,18 @@ class SearchController < ApplicationController
     @params_type = ['all'] if @params_type.include?('all')
     @params_type.map!{ |t| t.camelize }
     @querystring = params[:q] || params[:id] || params[:mobile_search]
-    
+
+    if @querystring == I18n.t(:search_placeholder) || @querystring == I18n.t(:must_provide_search_term_error)
+      flash[:error] = I18n.t(:must_provide_search_term_error)
+      redirect_to root_path
+    end
+
     if @querystring == '*' || @querystring == '%'
       if params[:type].size != 1 || !EOL::Solr::SiteSearch.types_to_show_all.include?(params[:type].first)
         bad_query = true
       end
     end
-    
-    
+
     @page_title  = I18n.t(:search_by_term_page_title, :term => @querystring)
     if @querystring.blank? || bad_query
       @all_results = empty_paginated_set
@@ -90,15 +94,15 @@ class SearchController < ApplicationController
       current_user)
     @logged_search_id = logged_search.nil? ? '' : logged_search.id
   end
-  
+
   private
-  
-  # if the first returned taxon has a score greater than 3, and 
+
+  # if the first returned taxon has a score greater than 3, and
   def pick_superior_result(all_results)
     minimum_score = 3
     superior_multiple = 4
     first_taxon = nil
-    
+
     all_results.each do |r|
       break if first_taxon.nil? && r['score'] < minimum_score
       if first_taxon.nil? && r['resource_type'].include?('TaxonConcept') && r['score'] > minimum_score

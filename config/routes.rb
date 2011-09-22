@@ -224,6 +224,10 @@ ActionController::Routing::Routes.draw do |map|
     content_page.connect '/content/page/2012fellowsonlineapp', :id => '2012_fellows_online_app'
   end
   map.connect '/content/page/:id', :controller => 'content', :action => 'show'
+
+  # TODO - remove this sometime in 2012.  It was a V1 link, and should no longer be a problem by then:
+  map.connect '/content/news', :controller => 'content', :action => 'show', :id => 'news'
+
   map.donate '/donate', :controller => 'content', :action => 'donate'
   map.language '/language', :controller => 'content', :action => 'language'
 

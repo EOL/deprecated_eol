@@ -27,6 +27,10 @@ nl:
   translated_agent_roles-label-agent_role_id-15: Contactpersoon
   translated_agent_roles-label-agent_role_id-16: Bijdrager
   translated_agent_roles-label-agent_role_id-2: Auteur
+  translated_agent_roles-label-agent_role_id-21: leverancier
+  translated_agent_roles-label-agent_role_id-22: vertaler
+  translated_agent_roles-label-agent_role_id-23: wetenschappelijke reviewer
+  translated_agent_roles-label-agent_role_id-24: taalkundige reviewer
   translated_agent_roles-label-agent_role_id-3: Compiler
   translated_agent_roles-label-agent_role_id-4: Componist
   translated_agent_roles-label-agent_role_id-5: Auteur
@@ -79,6 +83,7 @@ nl:
   translated_contact_subjects-title-contact_subject_id-20: Ondersteuning voor contentpartners
   translated_contact_subjects-title-contact_subject_id-21: Stuur een bericht aan Cynthia Parr van de afdeling Soortenpagina's
   translated_contact_subjects-title-contact_subject_id-22: Bronnen over de Golf van Mexico
+  translated_contact_subjects-title-contact_subject_id-23: Bericht sturen naar Eli Agbayani
   translated_contact_subjects-title-contact_subject_id-3: Leren en onderwijs
   translated_contact_subjects-title-contact_subject_id-4: Pagina's cureren
   translated_contact_subjects-title-contact_subject_id-5: Classificatie
@@ -92,6 +97,7 @@ nl:
   translated_content_partner_statuses-label-content_partner_status_id-4: Inactief
   translated_content_tables-label-content_table_id-1: Details
   translated_data_types-label-data_type_id-1: Afbeelding
+  translated_data_types-label-data_type_id-10: Kaart
   translated_data_types-label-data_type_id-2: Geluid
   translated_data_types-label-data_type_id-3: Tekst
   translated_data_types-label-data_type_id-4: Video
@@ -177,7 +183,7 @@ nl:
   translated_resource_statuses-label-resource_status_id-10: Gepubliceerd
   translated_resource_statuses-label-resource_status_id-11: Publiceren in behandeling
   translated_resource_statuses-label-resource_status_id-12: Publiceren ongedaan maken in behandeling
-  translated_resource_statuses-label-resource_status_id-13: Oogstkracht
+  translated_resource_statuses-label-resource_status_id-13: Oogst forceren
   translated_resource_statuses-label-resource_status_id-2: Geüpload
   translated_resource_statuses-label-resource_status_id-3: Uploaden is mislukt
   translated_resource_statuses-label-resource_status_id-4: Verplaatst naar contentserver
@@ -200,7 +206,7 @@ nl:
   translated_statuses-label-status_id-4: Hergebruikt
   translated_synonym_relations-label-synonym_relation_id-1: synoniem
   translated_synonym_relations-label-synonym_relation_id-10: GenBank-synoniem
-  translated_synonym_relations-label-synonym_relation_id-11: deels
+  translated_synonym_relations-label-synonym_relation_id-11: gedeeltelijk
   translated_synonym_relations-label-synonym_relation_id-12: bevat
   translated_synonym_relations-label-synonym_relation_id-13: verkeerd benoemd
   translated_synonym_relations-label-synonym_relation_id-14: foutieve spelling
@@ -267,7 +273,6 @@ nl:
   translated_table_of_contents-label-table_of_contents_id-17: Literatuurreferenties
   translated_table_of_contents-label-table_of_contents_id-194: Grootte
   translated_table_of_contents-label-table_of_contents_id-2: Korte samenvatting
-  translated_table_of_contents-label-table_of_contents_id-204: Onderwijsmiddelen
   translated_table_of_contents-label-table_of_contents_id-218: Verspreiding
   translated_table_of_contents-label-table_of_contents_id-221: Risico's
   translated_table_of_contents-label-table_of_contents_id-225: Op het web
@@ -335,6 +340,8 @@ nl:
   translated_table_of_contents-label-table_of_contents_id-344: Gegevens
   translated_table_of_contents-label-table_of_contents_id-345: Gegevensbronnen
   translated_table_of_contents-label-table_of_contents_id-346: Biomedische voorwaarden
+  translated_table_of_contents-label-table_of_contents_id-347: Taxonomie
+  translated_table_of_contents-label-table_of_contents_id-348: Typegegevens
   translated_table_of_contents-label-table_of_contents_id-4: Ecologie
   translated_table_of_contents-label-table_of_contents_id-41: Habitat
   translated_table_of_contents-label-table_of_contents_id-5: Evolutie en systematiek
@@ -346,6 +353,11 @@ nl:
   translated_untrust_reasons-label-untrust_reason_id-3: lage kwaliteit
   translated_untrust_reasons-label-untrust_reason_id-4: duplicaat
   translated_untrust_reasons-label-untrust_reason_id-5: Overige
+  translated_user_identities-label-user_identity_id-1: een enthousiasteling
+  translated_user_identities-label-user_identity_id-2: een student
+  translated_user_identities-label-user_identity_id-3: een onderwijzer
+  translated_user_identities-label-user_identity_id-4: een burgerwetenschapper
+  translated_user_identities-label-user_identity_id-5: een professionele wetenschapper
   translated_vetted-label-vetted_id-0: Onbekend
   translated_vetted-label-vetted_id-4: Niet-vertrouwd
   translated_vetted-label-vetted_id-5: Vertrouwd

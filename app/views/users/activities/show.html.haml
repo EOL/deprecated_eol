@@ -2,5 +2,21 @@
   .article.list.updates
     .heading
       %h3= I18n.t(:my_activity)
-    = render :partial => 'activity_logs/index', :locals => {:log => @user.activity_log(:page => @page)}
-
+      %form.filter(action= "" method= "get")
+        %fieldset
+          %dl
+            %dt
+              %label= label_tag :filter_by, I18n.t(:show)
+            %dd
+              = select_tag :filter, options_for_select([ [I18n.t(:all), ''], 
+                [I18n.t(:comments), 'comments'], 
+                [I18n.t(:user_activity_stats_objects_curated), 'data_object_curation'], 
+                [I18n.t(:user_activity_stats_articles_added), 'added_data_objects'], 
+                [I18n.t(:collections), 'collections'], 
+                [I18n.t(:communities), 'communities'],
+                [I18n.t(:user_activity_stats_taxa_curated), 'curated_taxa'] ], @filter)
+          %input(type="submit" value="#{I18n.t(:filter_button)}")
+    - if @filter == "curated_taxa"
+      = render :partial => 'users/activities/taxa_curated', :locals => {:taxon_concept_ids => @user.taxon_concept_ids_curated.paginate(:page => @page, :per_page => 20)}
+    - else
+      = render :partial => 'activity_logs/index', :locals => {:log => @user.activity_log(:page => @page, :filter => @filter)}

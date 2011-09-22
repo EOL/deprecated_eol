@@ -124,6 +124,8 @@ module EOL
       # The first argument is the TaxonConcept or HierarchyEntry to associate the curator to; the second argument is
       # the options hash to use when building the User model.
       def build_curator(entry, options = {})
+        curator_level = options[:level].nil? ? :full : options[:level]
+        options.delete :level
         entry ||= Factory(:hierarchy_entry)
         tc = nil # scope
         if entry.class == TaxonConcept
@@ -144,7 +146,7 @@ module EOL
         options[:curator_verdict_at] ||= 48.hours.ago
 
         curator = User.gen(options)
-        curator.approve_to_curate
+        curator.approve_to_curate(curator_level)
 
         cot = ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'TaxonConcept')
         CuratorActivityLog.gen(:user => curator, :taxon_concept => tc, :changeable_object_type => cot,

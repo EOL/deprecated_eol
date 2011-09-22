@@ -301,13 +301,20 @@ class DataObject < SpeciesSchemaModel
     old_dato.published = false
     old_dato.save!
 
-    comments_from_old_dato = Comment.find(:all, :conditions => {:parent_id => old_dato.id, :parent_type => 'DataObject'})
-    comments_from_old_dato.map { |c| c.update_attributes(:parent_id => new_dato.id) }
+    no_current_but_new_visibility = Visibility.visible
+    current_or_new_vetted = old_dato.users_data_object.vetted
+    if user.is_curator? || user.is_admin?
+      if user.assistant_curator?
+        current_or_new_vetted = (current_or_new_vetted == Vetted.trusted) ? Vetted.trusted : Vetted.unknown
+      else
+        current_or_new_vetted = Vetted.trusted
+      end
+    else
+      current_or_new_vetted = Vetted.unknown
+    end
 
-    current_visibility = old_dato.users_data_object.visibility
-    current_vetted = old_dato.users_data_object.vetted
     udo = UsersDataObject.create(:user => user, :data_object => new_dato, :taxon_concept => taxon_concept,
-                                 :visibility => current_visibility, :vetted => current_vetted)
+                                 :visibility => no_current_but_new_visibility, :vetted => current_or_new_vetted)
     new_dato.users_data_object = udo
     new_dato
   end
@@ -364,8 +371,8 @@ class DataObject < SpeciesSchemaModel
     dato.save
     return dato if dato.nil? || dato.errors.any?
 
-    vettedness = user.is_curator? ? Vetted.trusted : Vetted.unknown
-    udo = UsersDataObject.create(:user => user, :data_object => dato, :taxon_concept => taxon_concept, :visibility => Visibility.visible, :vetted => vettedness)
+    default_vetted_status = user.min_curator_level?(:full) || user.is_admin? ? Vetted.trusted : Vetted.unknown
+    udo = UsersDataObject.create(:user => user, :data_object => dato, :taxon_concept => taxon_concept, :visibility => Visibility.visible, :vetted => default_vetted_status)
     dato
   end
 
@@ -391,25 +398,53 @@ class DataObject < SpeciesSchemaModel
     existing_ratings = UsersDataObjectsRating.find_all_by_data_object_guid(guid)
     users_current_ratings, other_ratings = existing_ratings.partition { |r| r.user_id == user.id }
 
+    weight = user.is_curator? ? user.curator_level.rating_weight : 1
+    new_udor = nil
     if users_current_ratings.blank?
-      UsersDataObjectsRating.create(:data_object_guid => guid, :user_id => user.id, :rating => new_rating)
-    elsif users_current_ratings[0].rating != new_rating
-      users_current_ratings[0].rating = new_rating
-      users_current_ratings[0].save!
+      new_udor = UsersDataObjectsRating.create(:data_object_guid => guid, :user_id => user.id,
+                                               :rating => new_rating, :weight => weight)
+    elsif (new_udor = users_current_ratings.first).rating != new_rating
+      new_udor.update_attribute(:rating, new_rating)
+      new_udor.update_attribute(:weight, weight)
     end
 
-    self.data_rating = (other_ratings.inject(0) { |sum, r| sum + r.rating } + new_rating).to_f / (other_ratings.size + 1)
-    self.save!
+    self.update_attribute(:data_rating, ratings_calculator(other_ratings + [new_udor]))
   end
 
-  def recalculate_rating
+  def recalculate_rating(debug = false)
     ratings = UsersDataObjectsRating.find_all_by_data_object_guid(guid)
-    self.data_rating = ratings.blank? ? 2.5 : ratings.inject(0) { |sum, r| sum + r.rating }.to_f / ratings.size
-    self.save!
+    self.update_attribute(:data_rating, ratings_calculator(ratings, debug))
+    self.data_rating
   end
 
-  def rating_for_user(user)
-    users_data_objects_ratings.detect{ |udor| udor.user_id == user.id }
+  def ratings_calculator(ratings, debug = false)
+    count = 0
+    self.data_rating = ratings.blank? ? 2.5 : ratings.inject(0) { |sum, r|
+      if r.respond_to?(:weight)
+        sum += (r.rating * r.weight)
+        count += r.weight
+        logger.warn ".. Giving score of #{r.rating} weight of #{r.weight}." if debug
+      else
+        sum += r.rating
+        count += 1
+        logger.warn ".. Giving score of #{r.rating} weight of 1 (it had no weight specified)." if debug
+      end
+      sum
+    }.to_f / count
+  end
+
+  def rating_from_user(u)
+    ratings_from_user = users_data_objects_ratings.select{ |udor| udor.user_id == u.id }
+    return ratings_from_user[0] unless ratings_from_user.blank?
+  end
+
+  def safe_rating
+    return self.data_rating if self.data_rating >= 1.0
+    logger.warn "!! WARNING: data object #{self.id} had a rating of less than 1. Breakdown during attempted fix:"
+    rating = recalculate_rating(true)
+    return rating if rating >= 1.0
+    logger.error "** ERROR: data object #{self.id} had a *calculated* rating of less than 1. You should fix this."
+    return 1.0
   end
 
   # Add a comment to this data object
@@ -999,12 +1034,6 @@ class DataObject < SpeciesSchemaModel
     sorted_entries[0] rescue nil
   end
 
-  # TODO - check this against rating_for_user ... why the difference?
-  def rating_from_user(u)
-    ratings_from_user = users_data_objects_ratings.select{ |udor| udor.user_id == u.id }
-    return ratings_from_user[0] unless ratings_from_user.blank?
-  end
-
   def best_title
     return object_title unless object_title.blank?
     return toc_items.first.label unless toc_items.blank?
@@ -1021,7 +1050,7 @@ class DataObject < SpeciesSchemaModel
   end
 
   def description_teaser
-    full_teaser = Sanitize.clean(description, :elements => %w[b i], :remove_contents => %w[table script])
+    full_teaser = Sanitize.clean(description[0..300], :elements => %w[b i], :remove_contents => %w[table script])
     return nil if full_teaser.blank?
     truncated_teaser = full_teaser.split[0..10].join(' ').balance_tags
     truncated_teaser << '...' if full_teaser.length > truncated_teaser.length

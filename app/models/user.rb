@@ -249,6 +249,26 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     username
   end
 
+  # Some characters are not allowed in URLs.  For example, a dot (.) would screw up rails routes (since it would
+  # think joe.user had a :username of 'joe' and a :format of 'user').  So we encode it:
+  # NOTE this means a user cannot register as foo__dot__com or the like. So what?
+  def verify_username
+    username.gsub(/\./, '__dot__').
+      gsub(/%/, '__percent__').
+      gsub(/:/, '__colon__').
+      gsub(/\?/, '__question__').
+      gsub(/\//, '__slash__').
+      gsub(/&/, '__amp__')
+  end
+  def self.username_from_verify_url(url)
+    url.gsub(/__dot__/, '.').
+      gsub(/__percent__/, '%').
+      gsub(/__colon__/, ':').
+      gsub(/__question__/, '?').
+      gsub(/__slash__/, '/').
+      gsub(/__amp__/, '&')
+  end
+
   def can_be_updated_by?(user_wanting_access)
     user_wanting_access.id == id || user_wanting_access.is_admin?
   end

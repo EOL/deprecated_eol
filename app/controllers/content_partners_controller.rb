@@ -83,6 +83,7 @@ class ContentPartnersController < ApplicationController
     @partner = ContentPartner.find(params[:id])
     access_denied unless current_user.can_update?(@partner)
     if @partner.update_attributes(params[:content_partner])
+      EOL::GlobalStatistics.clear('content_partners') # Needs to be re-calculated.
       upload_logo(@partner) unless params[:content_partner][:logo].blank?
       flash[:notice] = I18n.t(:content_partner_update_successful_notice)
       redirect_to @partner

@@ -1,7 +1,7 @@
 - # Note: this partial is shared between data object and taxa pages
 - en_type ||= en_type(data_object)
 - total = 5
-- average_rating = data_object.data_rating || 0
+- average_rating = data_object.safe_rating || 0
 - if @current_user_ratings.nil?
   - if rating_from_user = data_object.rating_from_user(current_user)
     - user_rating = rating_from_user.rating

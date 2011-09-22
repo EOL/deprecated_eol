@@ -146,7 +146,7 @@
         %a{ :href => "#email", :onclick => "javascript:$('#email').show();$('#email_toggle').hide();return false;" }
           =I18n.t("show_email_message_area")
       #email{ :style => "display:none;" }
-        =I18n.t("fill_in_a_message_below_to_sen")
+        =I18n.t("fill_in_a_message_below_to_send_email_to_user")
         %br
         = text_area_tag :message, @message, :cols => '60', :rows => '20'
 %br

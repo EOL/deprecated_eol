@@ -49,6 +49,68 @@ describe 'Users' do
     end
   end
 
+  describe 'my info' do
+    before(:each) do
+      visit(user_path(@user))
+    end
+    it "should have a 'My info' section"  do
+      body.should have_tag("h3", :text => "My info")
+      #TODO - add more tests for 'My info' section
+    end
+    it "should not see Activity section if user is not curator" do
+      if !@user.is_curator?
+        body.should_not have_tag("h3", :text => "Activity")
+        body.should_not have_tag("h3", :text => "Curator qualifications")
+      end
+    end
+    it "should see Activity section only if user is curator" do
+      # Create a user which is a curator to enable Activity section
+      tc = TaxonConcept.gen()
+      user = build_curator(tc)
+      # User added an article
+      udo = UsersDataObject.gen(:user_id => user.id, :taxon_concept => tc, :vetted_id => Visibility.visible.id)
+      user_submitted_text_count = UsersDataObject.count(:conditions => ['user_id = ?', user.id])
+      visit(user_path(user))
+      body.should have_tag("h3", :text => "Activity")
+      body.should have_tag("h3", :text => "Curator qualifications")
+      body.should have_tag("a[href=" + user_activity_path(user, :filter => "data_object_curation") + "]", :text => user.total_data_objects_curated)
+      body.should have_tag("a[href=" + user_activity_path(user, :filter => "curated_taxa") + "]", :text => user.total_species_curated)      
+      body.should have_tag("a[href=" + user_activity_path(user, :filter => "added_data_objects") + "]", :text => user_submitted_text_count)
+      #TODO - maybe generate activity logs to have real values for data_object_curation and curated_taxa
+    end
+  end
+
+  describe 'my activity' do
+    it "should have a form with dropdown filter element" do
+      visit(user_activity_path(@user))
+      body.should include "My activity"
+      body.should have_tag "form[action=]" do
+        with_tag "select[name=filter]"
+      end
+      body.should have_tag("option:nth-child(1)", :text => "all")
+      body.should have_tag("option:nth-child(2)", :text => "Comments")
+      body.should have_tag("option:nth-child(3)", :text => "Objects curated")
+      body.should have_tag("option:nth-child(4)", :text => "Articles added")
+      body.should have_tag("option:nth-child(5)", :text => "Collections")
+      body.should have_tag("option:nth-child(6)", :text => "Communities")
+      body.should have_tag("option:nth-child(7)", :text => "Taxa curated")
+    end
+    it "should get data from a form and display accordingly" do
+      visit(user_activity_path(@user, :filter => "comments"))
+      body.should have_tag("option[value=comments][selected=selected]")
+      visit(user_activity_path(@user, :filter => "data_object_curation"))
+      body.should have_tag("option[value=data_object_curation][selected=selected]")
+      visit(user_activity_path(@user, :filter => "added_data_objects"))
+      body.should have_tag("option[value=added_data_objects][selected=selected]")
+      visit(user_activity_path(@user, :filter => "collections"))
+      body.should have_tag("option[value=collections][selected=selected]")
+      visit(user_activity_path(@user, :filter => "communities"))
+      body.should have_tag("option[value=communities][selected=selected]")
+      visit(user_activity_path(@user, :filter => "curated_taxa"))
+      body.should have_tag("option[value=curated_taxa][selected=selected]")
+    end
+  end
+
   describe 'newsfeed' do
     it 'should show a newsfeed'
     it 'should allow comments to be added' do

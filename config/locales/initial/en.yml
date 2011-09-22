@@ -156,30 +156,6 @@ en:
       hour: "Hour"
       minute: "Minute"
       second: "Seconds"
-  errors:
-    format: "%{attribute} %{message}"
-    messages: &errors_messages
-      inclusion: "is not included in the list"
-      exclusion: "is reserved"
-      invalid: "is invalid"
-      confirmation: "doesn't match confirmation"
-      accepted: "must be accepted"
-      empty: "can't be empty"
-      blank: "can't be blank"
-      too_long: "is too long (maximum is %{count} characters)"
-      too_short: "is too short (minimum is %{count} characters)"
-      wrong_length: "is the wrong length (should be %{count} characters)"
-      not_a_number: "is not a number"
-      not_an_integer: "must be an integer"
-      greater_than: "must be greater than %{count}"
-      greater_than_or_equal_to: "must be greater than or equal to %{count}"
-      equal_to: "must be equal to %{count}"
-      less_than: "must be less than %{count}"
-      less_than_or_equal_to: "must be less than or equal to %{count}"
-      odd: "must be odd"
-      even: "must be even"
-      inaccessible: "is inaccessible"
-      wrong_type: "is the wrong type"
   activerecord:
     models:
       user: "account"
@@ -257,6 +233,7 @@ en:
         description: Community description
         logo: Upload a logo
     errors:
+      format: "%{attribute} %{message}"
       template:
         header:
           one: "%{count} validation error found"
@@ -265,6 +242,35 @@ en:
       messages:
         taken: "has already been taken"
         record_invalid: "Validation failed: %{errors}"
+        inclusion: "is not included in the list"
+        exclusion: "is reserved"
+        invalid: "is invalid"
+        confirmation: "doesn't match confirmation"
+        accepted: "must be accepted"
+        empty: "can't be empty"
+        blank: "can't be blank"
+        too_long:
+          one: "is too long (maximum is %{count} character)"
+          other: "is too long (maximum is %{count} characters)"
+        too_short:
+          one: "is too short (minimum is %{count} character)"
+          other: "is too short (minimum is %{count} characters)"
+        wrong_length: "is the wrong length (should be %{count} characters)"
+        not_a_number: "is not a number"
+        not_an_integer: "must be an integer"
+        greater_than:
+          one: "must be greater than %{count}"
+          other: "must be greater than %{count}"
+        greater_than_or_equal_to: "must be greater than or equal to %{count}"
+        equal_to: "must be equal to %{count}"
+        less_than:
+          one: "must be less than %{count}"
+          other: "must be less than %{count}"
+        less_than_or_equal_to: "must be less than or equal to %{count}"
+        odd: "must be odd"
+        even: "must be even"
+        inaccessible: "is inaccessible"
+        wrong_type: "is the wrong type"
       full_messages:
         format: "%{attribute} %{message}"
       models:
@@ -552,14 +558,23 @@ en:
   admin_translated_content_page_update_successful_notice: "%{language} translation for <a href=\"#%{anchor}\"><em>%{page_name}</em></a> has been updated."
   admin_translated_content_page_update_unsuccessful_error: "Sorry, an error occurred, the translation could not be updated."
   agent: Agent
+  all: all
   all_apis_return_by_default_an_xml_response: "All APIs return by default an XML response. The API methods may be called without a format extension to get the XML response, and adding an XML extension will give an identical response:"
+  all_articles: "All articles"
   all_changes: "All changes"
+  all_collections: "All collections"
   all_comments_entered_by_users: "All comments entered by users on the website are shown below, sorted inversely by time created."
+  all_communities: "All communities"
+  all_images: "All images"
   all_information: "All information"
   all_items: "All items"
   all_pages: "All pages"
+  all_people: "All people"
+  all_sounds: "All sounds"
+  all_taxa: "All taxa"
   all_title: All
-  all_user_submitted_texts_on_th: "All user-submitted texts on the website are shown below, sorted inversely by time created."
+  all_user_submitted_texts_on_the_website: "All user-submitted texts on the website are shown below, sorted inversely by time created."
+  all_videos: "All videos"
   already_a_member_question: "Already a member?"
   already_member_of_community: "You are already a member of this community."
   alternate_classification: "Alternate classification"
@@ -625,11 +640,11 @@ en:
   cancel: Cancel
   cannot_be_associated_with_both_a_user_and_a_community: "Cannot be associated with both a user and a community"
   cannot_be_empty: "cannot be empty."
-  cannot_create_collection_item_from_class_error: "I cannot create a collection item from a %{klass}"
+  cannot_create_collection_item_from_class_error: "We cannot create a collection item from a %{klass}"
   cannot_create_community_from_watch_collection_error: "You cannot create a community from a watch list."
   cannot_expand_children: "cannot expand children"
   cannot_find_member: "Cannot find a member with this id."
-  cannot_index_collection_item_type_error: "I cannot index a collection item from a %{type}"
+  cannot_index_collection_item_type_error: "We cannot index a collection item from a %{type}"
   change: Change
   change_rating_to_1_of_5: "Change rating to 1 of 5"
   change_rating_to_2_of_5: "Change rating to 2 of 5"
@@ -637,18 +652,19 @@ en:
   change_rating_to_4_of_5: "Change rating to 4 of 5"
   change_rating_to_5_of_5: "Change rating to 5 of 5"
   changed_to_act: "changed to \"%{act}\""
+  check_this_to_browse_eol_by_the_hierarchy: "if this box is checked the hierarchy will be an option for users to browse EOL"
   choose_collection_header: "Choose collection"
   citation: Citation
   citation_example: "Fisher, Brian. \"Pogonomyrmex anergismus Cole, 1954.\" Encyclopedia of Life, available from <a href=\"http://eol.org/pages/460427\" target=\"_blank\">http://eol.org/pages/460427</a>. Accessed 15 Jan 2009."
   citing_link: Citing
   classification_tree_header: Classification
-  classifications_empty: "This page is not included in any classifications that are browsable in EOL."
+  classifications_empty: "This page is not included in any of the classifications that are browsable in EOL."
   classifications_summary_header_with_count:
     one: "Found in %{count} classification"
     other: "Found in %{count} classifications"
-  click_on_a_user_to_view_the_us: "Click on a user to view the user's detailed profile, click on the species to view the page where the text exists (use your browser back button to return here)."
-  click_on_a_username_to_view_th: "Click on a username to view that user's detailed profile, click on the data type to view the object commented on (use your browser back button to return here), click on \"edit\" to edit the comment or click on \"delete\" the permanently delete the comment."
-  close_this_window_to_return_to: "CLOSE THIS WINDOW TO RETURN TO EDIT WINDOW"
+  click_on_a_user_to_view_the_users_detailed_profile: "Click on a user to view the user's detailed profile, click on the species to view the page where the text exists (use your browser back button to return here)."
+  click_on_a_username_to_view_the_users_detailed_profile: "Click on a username to view that user's detailed profile, click on the data type to view the object commented on (use your browser back button to return here), click on \"edit\" to edit the comment or click on \"delete\" the permanently delete the comment."
+  close_this_window_to_return_to_edit_window: "CLOSE THIS WINDOW TO RETURN TO EDIT WINDOW"
   cms_available_in_languages: "This page is available in:"
   cms_missing_content_message: "Sorry, this page is not available for this language."
   cms_missing_content_title: "Missing content"
@@ -688,6 +704,7 @@ en:
   comment_new_posters_image_alt: "Your profile picture, if you have provided one."
   comment_not_added_error: "Sorry, an error occurred, comment could not be added."
   comment_show_posters_image_alt: "Profile picture of %{posters_name} who added this comment."
+  comments: Comments
   comments_and_tags: "Comments and Tags"
   comments_moderated: "Comments Moderated"
   comments_with_count:
@@ -733,7 +750,7 @@ en:
   confirm_delete_community: "Are you sure you want to delete this community? Remaining members will still be able to see it and the newsfeed will be maintained, but it will not show up in searches or on taxon pages, and will no longer be editable."
   confirm_leave: "Are you sure you want to leave this community?"
   confirm_password_colon: "Confirm Password:"
-  contact_eli_eol_org_for_any_co: "Contact eli@eol.org for any comments."
+  contact_for_any_comments: "Contact eli@eol.org for any comments."
   contact_us_functions: "Contact Us Functions"
   contact_us_link: "Contact us"
   content_has_been_updated: "Content has been updated."
@@ -867,6 +884,9 @@ en:
   copied_items_from_collection_with_count_notice:
     one: "Copied %{count} item from %{name}."
     other: "Copied %{count} items from %{name}."
+  copied_items_to_collections_with_count_notice:
+    one: "Copied %{count} item to collections: %{names}"
+    other: "Copied %{count} items to collections: %{names}"
   copy: Copy
   copy_all_articles_button: "copy all articles"
   copy_all_collections_button: "copy all collections"
@@ -909,7 +929,6 @@ en:
   curation_privileges_page_description: "Select your desired curation level, assistant, full or master curator. Full and master curator applications must include scope and credentials, you will be notified by email once your details have been reviewed and accepted. Assistant curator applications are not moderated and will be instantly approved. Learn more about <a href=\"%{curators_url}\">becoming a curator</a>."
   curation_privileges_page_title: "Become a curator"
   curation_reason_placeholder: "additional details (optional)"
-  curator_question: Curator?
   curator_colon: "Curator:"
   curator_level: "Curator level"
   curator_level_application_pending_notice: "Thanks for applying to become a curator. We will notify you by email when we have reviewed your application."
@@ -924,6 +943,7 @@ en:
   curator_level_with_indefinite_article_master_curator: "a <strong>master curator</strong>"
   curator_privileges_removed_notifier_email: "This email is to notify you that your curator privileges have been removed"
   curator_profile: "curator profile"
+  curator_question: Curator?
   curator_scope_colon: "Curator scope:"
   curator_status_changed_by: "Curator status changed by %{user} on %{date}"
   curator_title: Curator
@@ -1003,7 +1023,7 @@ en:
   dublin_core: "Dublin Core"
   duplicate_items_were_ignored: "Duplicate items were ignored."
   e_g_search_for_the_eol_page: "(e.g. search for the EOL page ID for the ITIS TSN 180542:"
-  each_method_s_documentation_pa: "Each method's documentation page has an example of both the XML and JSON formatted responses."
+  each_method_documentation_page_has_formatted_responses: "Each method's documentation page has an example of both the XML and JSON formatted responses."
   edit: Edit
   edit_annotation: "edit annotation"
   edit_collection_details: "Edit collection details"
@@ -1066,7 +1086,7 @@ en:
   error_page_title: Oops.
   error_try_again_or_homepage_or_search_option: "You can either <a href=\"%{try_again_url}\">try again</a>, return to the <a href=\"/\">homepage</a> or use our search tool:"
   esc_key_hides_this_message: "(esc key hides this message)"
-  every_method_can_also_return_a: "Every method can also return a JSON response by adding a .json extension"
+  every_method_can_also_return_json_response: "Every method can also return a JSON response by adding a .json extension"
   example_colon: "Example:"
   expand_all_children: "expand all children"
   explore: Explore
@@ -1078,13 +1098,13 @@ en:
   failed_login_attempts: "failed login attempts)- must be checked for user to log in"
   family_name_colon: "Family Name:"
   feedback: Feedback
-  fill_in_a_message_below_to_sen: "Fill in a message below to send an email to this user from the site.  The message will be sent when you submit the form:"
+  fill_in_a_message_below_to_send_email_to_user: "Fill in a message below to send an email to this user from the site.  The message will be sent when you submit the form:"
   filter_button: Filter
   filter_by_status: "Filter by status"
   filter_by_status_all_option: "All statuses"
   filter_by_status_inappropriate_option: Inappropriate
   filter_by_status_trusted_option: Trusted
-  filter_by_status_unknown_option: Unreviewed
+  filter_by_status_unreviewed_option: Unreviewed
   filter_by_status_untrusted_option: Untrusted
   filter_by_type: "Filter by type"
   filter_by_type_all_option: "All types"
@@ -1106,7 +1126,7 @@ en:
   flickr: Flickr
   focus_collection_edit_link: "You may edit this community's focus directly at the %{collection} page."
   focus_list_newsfeed: "Focus List Newsfeed"
-  for_example_for_the_taxon_el: "For example for the Taxon element for a node in the ITIS hierarchy, the dc:identifier will be the ITIS TSN. The dwct:taxonID element contains the <i>EOL identifier</i> to be used in the %{link} API."
+  for_example_for_the_taxon_element_for_a_node: "For example for the Taxon element for a node in the ITIS hierarchy, the dc:identifier will be the ITIS TSN. The dwct:taxonID element contains the <i>EOL identifier</i> to be used in the %{link} API."
   for_the_month_of_colon: "For the month of:"
   forgot_password: "Forgot password"
   forgot_password_cannot_find_user_from_username_or_email_error: "Sorry, there are no user accounts with the provided username or email <em>%{username_or_email}</em>."
@@ -1159,14 +1179,13 @@ en:
   id: ID
   if_checked_and_user_is_saved: "If checked and user is saved, then credentials, scope, approval and selected clade are all removed and user no longer shows up as a curator.  You should add a note below to indicate the reason.  No information is sent to the user."
   if_the_above_url_does_not_work: "If the above URL does not work try copying and pasting it into your browser."
-  if_the_details_parameter_is_no: "If the details parameter is not set then only the data object identifier, data type, and in the case of articles, subject will be returned. The data type will be a value from the %{linka} resource type vocabulary. The text subject will be a value from the %{linkb} ontology of info items."
-  if_this_box_is_checked_the_hie: "if this box is checked the hierarchy will be an option for users to browse EOL"
-  if_you_continue_to_have_problem_then_contact_us: "If you continue to have problem please feel free to contact us."
-  if_you_did_make_this_request_j: "If you did make this request just click the link below:"
-  if_you_did_not_make_this_reque: "If you did not make this request, simply ignore this email."
+  if_the_details_parameter_is_not_set: "If the details parameter is not set then only the data object identifier, data type, and in the case of articles, subject will be returned. The data type will be a value from the %{linka} resource type vocabulary. The text subject will be a value from the %{linkb} ontology of info items."
+  if_you_continue_to_have_problem_then_contact_us: "If you continue to have a problem, please feel free to contact us."
+  if_you_did_make_this_request_click_link_below: "If you did make this request just click the link below:"
+  if_you_did_not_make_this_request_ignore_email: "If you did not make this request, simply ignore this email."
   image_is_no_longer_available: "Image is no longer available"
   image_not_found: "Image not found"
-  image_objects_will_contain_two: "Image objects will contain two mediaURL elements - the first being the URL of the image on the provider's website, and the second is the URL of the cached version of the media hosted on an EOL server. The EOL version of the image will have been resized (perserving the aspect ration) if the original image is larger than 460 pixels wide or 345 pixels in height."
+  image_objects_will_contain_two_mediaurl_elements: "Image objects will contain two mediaURL elements - the first being the URL of the image on the provider's website, and the second is the URL of the cached version of the media hosted on an EOL server. The EOL version of the image will have been resized (perserving the aspect ration) if the original image is larger than 460 pixels wide or 345 pixels in height."
   images: Images
   import_once: "Import once"
   in_collection: "in collection"
@@ -1177,6 +1196,7 @@ en:
   information_for_any_audience: "Information for any audience"
   information_intended_for_beginners: "Information intended for beginners"
   information_intended_for_experts: "Information intended for experts"
+  insufficient_privileges_to_add_common_names: "Sorry, you do not have sufficient privileges to add common names."
   insufficient_privileges_to_curate_names: "Sorry, you do not have sufficient privileges to curate names."
   invite_members_help_text: "Add some EOL users here and they will receive an invitation to your new community!"
   invite_members_label: "Invite Members"
@@ -1252,7 +1272,6 @@ en:
   license_gnu_gpl: "GNU General Public License (GNU GPL)"
   license_not_applicable: "License not applicable"
   license_public_domain: "Public Domain"
-  licenses_visit_their_site_for: "licenses. Visit their site for more information on the various licenses they offer"
   limits_the_number_of_returned_image_objects: "limits the number of returned image objects"
   limits_the_number_of_returned_text_objects: "limits the number of returned text objects"
   limits_the_number_of_returned_video_objects: "limits the number of returned video objects"
@@ -1296,6 +1315,9 @@ en:
   members_with_count:
     one: "%{count} member"
     other: "%{count} members"
+  members_with_count_semi_colon:
+    one: "%{count} member;"
+    other: "%{count} members;"
   method: Method
   method_to_get_metadata_about_the_hierarchy: "given a hierarchy identifier, this method returns metadata about the hierarchy and lists the root taxa"
   methods: Methods
@@ -1309,6 +1331,7 @@ en:
   more_children_with_count:
     one: "%{count} more..."
     other: "%{count} more..."
+  more_information_on_the_various_licenses: "licenses. Visit their site for more information on the various licenses they offer"
   most_active_members: "Most active members"
   move: Move
   move_all_articles_button: "move all articles"
@@ -1325,6 +1348,9 @@ en:
   moved_items_from_collection_with_count_notice:
     one: "Moved %{count} item from %{name}."
     other: "Moved %{count} items from %{name}."
+  moved_items_to_collections_with_count_notice:
+    one: "Moved %{count} item to collections: %{names}"
+    other: "Moved %{count} items to collections: %{names}"
   must_be_associated_with_either_a_user_or_a_community: "Must be associated with either a user or a community"
   must_be_less_than_128_characters_long: "must be less than 128 characters long."
   must_be_logged_in: "You must be logged in to perform this action."
@@ -1352,7 +1378,7 @@ en:
   names_synonyms_empty: "No synonyms have been associated with this taxon yet."
   never: Never
   new_collection: "New collection"
-  new_content_partners_for_the_m: "New content partners for the month"
+  new_content_partners_for_the_month: "New content partners for the month"
   news_items: "News Items"
   newsfeed: Newsfeed
   newsfeed_help_for_collection: "The Newsfeed for this EOL Collection gathers updates associated with the items belonging to it, including the activities of its owner and comments from other EOL users."
@@ -1386,30 +1412,28 @@ en:
   object: Object
   object_curation: "Object Curation"
   object_status: "Object status"
-  object_status_all_option: "All"
-  object_status_trusted_option: "Trusted"
-  object_status_unreviewed_option: "Unreviewed"
-  object_status_untrusted_option: "Untrusted"
+  object_status_all_option: All
+  object_status_trusted_option: Trusted
+  object_status_unreviewed_option: Unreviewed
+  object_status_untrusted_option: Untrusted
   object_type: "Object type"
-  object_type_all_option: "All"
-  object_type_collection_option: "Collection"
-  object_type_community_option: "Community"
-  object_type_image_option: "Image"
-  object_type_sound_option: "Sound"
-  object_type_taxon_concept_option: "Taxon Concept"
-  object_type_text_option: "Text"
-  object_type_user_option: "User"
-  object_type_video_option: "Video"
+  object_type_all_option: All
+  object_type_image_option: Image
+  object_type_sound_option: Sound
+  object_type_text_option: Text
+  object_type_video_option: Video
   object_visibility: "Object visibility"
-  object_visibility_all_option: "All"
-  object_visibility_visible_option: "Visible"
-  object_visibility_invisible_option: "Hidden"
+  object_visibility_all_option: All
+  object_visibility_invisible_option: Hidden
+  object_visibility_visible_option: Visible
   objects_curated: "Objects Curated"
   on_taxon_by_user_date_ago: "on \"%{taxon}\" by %{user} %{date} ago"
   only_show_authoritative_conten: "Only show authoritative content:"
   option_please_select: "Please select"
   or_add_it_to_an_existing_collection: "or add it to an existing collection"
+  or_copy_them_to_existing_collection: "or copy them to an existing collection"
   or_email_education: "Or, email your suggestion to %{link}."
+  or_move_them_to_existing_collection: "or move them to an existing collection"
   other_collection_items_with_count:
     one: "%{count} other item"
     other: "%{count} other items"
@@ -1430,6 +1454,7 @@ en:
   pages_admin_section_link: Admins
   pages_curator_section_link: Curators
   pages_lowercase: pages
+  pages_method_description: "takes an EOL page identifier and returns the scientific  name for that page, and optionally returns information about common  names, media (text, images and videos), and references to the  hierarchies which recognize the taxon described on the"
   pages_title: References
   pages_with_count:
     one: "%{count}"
@@ -1457,6 +1482,7 @@ en:
   ping_method_description: "This method will either fail (in which case the EOL error page will most likely be returned) or return a message of Success. There are no other possible messages"
   please_confirm_your_donation_details: "Please confirm your donation details"
   please_indicate_curation_reason: "Please select a reason, and/or optionally leave a curation comment:"
+  please_refresh: "Please refresh your browser to see the latest version of the EOL website"
   please_return_to_eol_homepage: "Please return to EOL home page"
   please_wait: "Please wait..."
   post_comment: "Post Comment"
@@ -1544,7 +1570,7 @@ en:
   search_by_provider_method_description: "get the EOL page IDs given a provider's hierarchy_id and the provider's own unique identifier"
   search_by_term_page_title: "Search: %{term}"
   search_field_label: "Search EOL"
-  search_for_comments_containing: "Search for comments containing the text:"
+  search_for_comments_containing_the_text: "Search for comments containing the text:"
   search_for_users_containing_this_in_their_username_name_or_email_address: "Search for users containing this in their username, name or email address."
   search_input_advisory_information: "Enter a common name or a scientific name of a living creature you would like to know more about. You can also search for EOL members, collections and communities. "
   search_lowercase: search
@@ -1640,12 +1666,11 @@ en:
   table_column_header_actions: Actions
   table_of_contents: "Table of Contents"
   table_of_contents_breakdown: "table of contents breakdown"
-  takes_an_eol_page_identifier_a: "takes an EOL page identifier and returns the scientific  name for that page, and optionally returns information about common  names, media (text, images and videos), and references to the  hierarchies which recognize the taxon described on the"
   target_blank_advisory_information: "If you follow this link the destination page will open in a new browser window."
   task_status: "Task status"
-  task_status_active_option: "Active"
-  task_status_curated_option: "Curated"
-  task_status_ignored_option: "Ignored"
+  task_status_active_option: Active
+  task_status_curated_option: Curated
+  task_status_ignored_option: Ignored
   tasks_with_count:
     one: "%{count} task found"
     other: "%{count} tasks found"
@@ -1670,7 +1695,6 @@ en:
   taxon_partner_links_intro: "Below is a list of partners, including content partners, with information on this page. Where possible the links will take you to the corresponding content on the given partner's website. The unique identifier for this taxon used by each partner is embedded in these links, and these identifiers are also accessible through the <a href=\"%{eol_api_link}\">EOL API</a>"
   taxon_partner_links_link: "Partner links"
   taxon_recognized_by_header: "Recognized by"
-  taxonbiology_generaldescriptio: TaxonBiology|GeneralDescription|Description
   taxonomic_summary_of_content: "taxonomic summary of content"
   technical_functions: "Technical Functions"
   terms_agreement_beta_intro: "Thank you for participating in the EOL Version 2 Beta. Before proceeding we need you to agree to the following:"
@@ -1686,18 +1710,18 @@ en:
   text_summary_empty_header: "Brief summary"
   text_summary_more_link: "Read full entry"
   thank_you: "Thank You"
-  thank_you_for_contacting_the_e: "Thank you for contacting the Encyclopedia of Life project.  Your comments have been sent to the appropriate group."
-  thank_you_for_requesting_curat: "Thank you for requesting curator privileges."
+  thank_you_for_contacting_the_eol: "Thank you for contacting the Encyclopedia of Life project.  Your comments have been sent to the appropriate group."
+  thank_you_for_requesting_curator_privileges: "Thank you for requesting curator privileges."
   thank_you_for_your_generous_support: "Thank you for your generous support"
   thank_you_sentence: "Thank you."
-  thanks_for_contacting_the_ency: "Thanks for contacting the Encyclopedia of Life project.  Your contact information has been passed on to the media contact."
+  thanks_for_contacting_the_eol: "Thanks for contacting the Encyclopedia of Life project.  Your contact information has been passed on to the media contact."
   thanks_for_donation: "Thank you for supporting the Encyclopedia of Life.  Your information has been submitted and will be processed."
-  thanks_for_registering_with_th: "Thanks for registering with the Encyclopedia of Life.  In order to confirm your registration, please click the link below.  If your email program does not support following links, please copy and paste the entire address into your web browser and press \"return\"."
+  thanks_for_registering_with_eol: "Thanks for registering with the Encyclopedia of Life.  In order to confirm your registration, please click the link below.  If your email program does not support following links, please copy and paste the entire address into your web browser and press \"return\"."
   the_amount_entered_was: "The amount entered was : US %{number}"
   the_darwin_core_taxon_elements: "The Darwin Core Taxon elements (dwct:Taxon) under additionalInformation include identifiers for nodes in hierarchies which EOL indexes. They contain a dc:identifier which is the unique ID for the taxon <i>in the provider's database.</i>"
   the_following_bibliography: "The following bibliography has been generated by bringing together all references provided by our content partners. There may be duplication."
-  the_id_of_the_provider_s_hiera: "the ID of the provider's hierarchy you are searching within. Check %{link} for valid IDs"
-  the_json_response_for_this_met: "The JSON response for this method returns more information than the XML response. The JSON response includes several statistics about this node and its taxonomic descendants. For example there is a returned field \"total_descendants\" which list the number of nodes which are descendants of the given node according to this hierarchy; \"total_trusted_text\" includes the total number of unique text data objects linked to this page or any of its descendants."
+  the_id_of_provider_hierarchy_you_are_searching: "the ID of the provider's hierarchy you are searching within. Check %{link} for valid IDs"
+  the_json_response_for_this_method: "The JSON response for this method returns more information than the XML response. The JSON response includes several statistics about this node and its taxonomic descendants. For example there is a returned field \"total_descendants\" which list the number of nodes which are descendants of the given node according to this hierarchy; \"total_trusted_text\" includes the total number of unique text data objects linked to this page or any of its descendants."
   the_list_represents_the_curation_activity: "The list represents the curation activity on <b>%{link}</b>'s data objects."
   the_xml_search_response_implements: "The XML search response implements the OpenSearch response format using Atom 1.0. See %{link} for the full OpenSearch specification"
   there_are_currently_no_members_in_this_community: "There are currently no members in this community."
@@ -1712,7 +1736,7 @@ en:
   this_is_an_automated_e_mail_notification: "This is an automated e-mail notification."
   this_is_the_label_that_will_be_used_for_attribution: "This is the label that will be used for attribution"
   this_is_the_link_to_your_web_stats: "This is the link to your web stats:"
-  this_method_takes_an_integer_or_string: "This method takes an integer or string which is the unique identifier for a taxon from some provider's database, and a hierarchy_id which represents the provider and returns the EOL page ID for that taxon. For example using the %{link_provider} API I can find out that the EOL hierarchy_id for the Integrated Taxonomic Information System (ITIS) is %{itis_id}. I can then search EOL for the ITIS Taxonomic Serial Number (TSN) of 180542,<i>Ursus maritimus</i>, by calling %{link_url}"
+  this_method_takes_an_integer_or_string: "This method takes an integer or string which is the unique identifier for a taxon from some provider's database, and a hierarchy_id which represents the provider and returns the EOL page ID for that taxon. For example using the %{link_provider} API, I can find out that the EOL hierarchy_id for the Integrated Taxonomic Information System (ITIS) is %{itis_id}. I can then search EOL for the ITIS Taxonomic Serial Number (TSN) of 180542,<i>Ursus maritimus</i>, by calling %{link_url}"
   this_report_is_also_available_via_feeds: "This report is also available via feeds"
   threat_status_header_colon: "IUCN threat status:"
   time_ago: "%{time_passed} ago"
@@ -1732,7 +1756,7 @@ en:
   tumblr: Tumblr
   twitter: Twitter
   type: Type
-  unable_to_copy_items_to_collection_error: "Sorry, I was unable to copy the collection items to %{name}."
+  unable_to_copy_items_to_collection_error: "Sorry, we were unable to copy the collection items to %{name}."
   unable_to_invite_users_to_community_error: "Invitations could not be sent to %{users}."
   unknown: Unknown
   unpublished: Unpublished
@@ -1839,17 +1863,17 @@ en:
   wikipedia_queue_new_instructions_step_two: "Expand the 'Toolbox' menu listed in the navigation column, and nested inside you should see the 'Permanent link' menu item."
   wikipedia_queue_new_intro: "Submit a revision of a Wikipedia article to be ingested into EOL as a vetted text object."
   wikipedia_queue_new_page_title: "Request an import of a Wikipedia article"
-  will_find_taxon_pages_if_the_p: "will find taxon pages if the preferred name or any synonym or common name exactly matches the search term"
+  will_find_taxon_pages_matching_the_search_term: "will find taxon pages if the preferred name or any synonym or common name exactly matches the search term"
   worklist: Worklist
   xml_response: "XML Response"
   year: Year
   year_equals: "Year ="
   yes_answer: "Yes"
-  you_are_an_admin_so_i_will_show_you_that_the_error_was: "You are an admin.  So, I will show you that the error was:"
+  you_are_an_admin_so_i_will_show_you_that_the_error_was: "You are an admin. You are allowed to see the error message:"
   you_are_not_authorized_to_perform_this_action: "You are not authorized to perform this action."
   you_are_viewing_this_rank_as_classified_by: "You are viewing this %{rank} as classified by: "
-  you_can_identify_yourself_to_e: "You can identify yourself to EOL by adding your API key to your requests (login and generate your key in your preference page):"
-  you_can_now_check_last_month_s: "You can now check last month's web usage of your data in EOL."
+  you_can_identify_yourself_to_eol: "You can identify yourself to EOL by adding your API key to your requests (login and generate your key in your preference page):"
+  you_can_now_check_last_month_s_web_usage: "You can now check last month's web usage of your data in EOL."
   you_have_been_logged_out: "You have been logged out."
   you_joined_community: "You have successfully joined this community."
   you_left_community: "You have successfully left this community."
@@ -1864,5 +1888,5 @@ en:
   your_preferences_have_been_updated: "Your preferences have been updated."
   your_rating: "Your rating"
   your_rating_colon: "Your Rating:"
-  your_request_has_been_approved: "Your request has been approved and you will now have curator functions available to you for your approved clade and all of its children.  For more information on curation and what functions are available to you, visit http://www.eol.org/content/page/curation"
+  your_request_has_been_approved: "Your request has been approved and you will now have curator functions available to you for your approved clade and all of its children.  For more information on curation and what functions are available to you, visit http://www.eol.org/curators"
   your_watch_collection: "your watch list"

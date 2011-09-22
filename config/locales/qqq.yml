@@ -21,6 +21,9 @@ qqq:
   rank_recognized_by_agent: "This resolves in a format similar to this: \"Species recognized by Integrated Taxonomic Information System:\".  These do not need to read with prefect grammar, as they are meant to be citations and not flowing speech."
   rank_recognized_by_from_source: "This can resolve in a format similar to this: \"Species recognized by Integrated Taxonomic Information System and T Orrell (custodian) in Catalogue of Life:\".  where the \"and\" was inserted between two values for the \"agent\" variable.  These do not need to read with prefect grammar, as they are meant to be citations and not flowing speech."
   rank_recognized_by_agent_colon: "This resolves to something similar to this: \"Taxon recognized by IUCN:\", and acts as the header to a navigatable tree of life, showing the relationships between various levels of taxa."
+  never: "This is in regards to the frequency at which the user will receive email.  Thus, this case, it means 'never, ever', not 'never been'."
+  a_pipe_delimited_list_of_licenses: "The 'all' should not be translated, it is a command used in the API."
+  a_pipe_delimited_list_of_spm_info_item_subject_names: "The 'all' should not be translated, it is a command used in the API."
   faker:
     lorem:
       words: No need to translate this set of words, obviously.

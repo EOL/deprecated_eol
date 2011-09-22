@@ -5,8 +5,8 @@
 %span.icon{:title => I18n.t(:item_type_taxon_assistive)}
 - if item.entry and item.entry.respond_to?(:preferred_classification_summary)
   %small= item.entry.preferred_classification_summary
-%h4= link_to item.title_canonical, taxon_overview_path(item)
-- subtitle = item.preferred_common_name_in_language(Language.english)
+%h4= link_to h(truncate(item.title_canonical, :length => 64)), taxon_overview_path(item)
+- subtitle = item.preferred_common_name_in_language(current_user.language)
 - unless subtitle.blank?
   = subtitle.firstcap
 - # we need the search result object, and the best match can't be in the title or subtitle

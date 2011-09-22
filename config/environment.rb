@@ -166,8 +166,8 @@ Rails::Initializer.run do |config|
 
   # CACHE CONFIGURATION
   $CACHE_CLEARED_LAST = Time.now()  # This variable will record the last time the home page cache was cleared
-  $CACHE_CLEAR_IN_HOURS = 1 # automatically expire home page cached fragment at this time interval (in hours)
-  $CACHE_STATS_COUNT_IN_MINUTES = 65 # refresh total counts of all data at this time interval (in minutes)
+  $CACHE_CLEAR_IN_HOURS = 1 # automatically expire home page cached fragment at this time interval
+  $CACHE_STATS_COUNT_IN_MINUTES = 24 * 60 # refresh total counts of all data at this time interval
 
   # CONTENT PARTNER REGISTRY CONFIGURATION
   $LOGO_UPLOAD_PATH = "/uploads/images/collection_icons/"  # directory to place uploaded content partner logos from CP registry, content server needs SFTP access to this folder (logos are not served out of this area)

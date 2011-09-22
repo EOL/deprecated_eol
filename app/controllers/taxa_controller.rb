@@ -239,7 +239,7 @@ class TaxaController < ApplicationController
 #                                             :vetted => Vetted.trusted)
 #        log_action(tc, synonym, :add_common_name)
 #      else
-#        flash[:error] = I18n.t(:insufficient_privileges_to_add_common_name)
+#        flash[:error] = I18n.t(:insufficient_privileges_to_add_common_names)
 #      end
 #      expire_taxa([tc.id])
 #    end
@@ -318,8 +318,12 @@ private
     @selected_hierarchy_entry_id = params[:hierarchy_entry_id]
     if @selected_hierarchy_entry_id
       @selected_hierarchy_entry = HierarchyEntry.find_by_id(@selected_hierarchy_entry_id) rescue nil
-      # TODO: Eager load hierarchy entry agents?
-      @browsable_hierarchy_entries = @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
+      if @selected_hierarchy_entry.hierarchy.browsable?
+        # TODO: Eager load hierarchy entry agents?
+        @browsable_hierarchy_entries = @taxon_concept.published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
+      else
+        @selected_hierarchy_entry = nil
+      end
     end
   end
 

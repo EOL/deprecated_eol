@@ -2,7 +2,7 @@
 - taxon_concept ||= @taxon_concept
 - size ||= '260_190'
 - if defined?(thumbnail) && thumbnail
-  - if data_object.thumbnail_cache_url.blank?
+  - if data_object.thumbnail_cache_url.blank? || data_object.thumbnail_cache_url == 0
     %p
       %a{ :data => { :data_object_id => data_object.id }, :href => data_object_path(data_object) }
         = strip_tags(data_object.best_title.truncate(70))

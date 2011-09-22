@@ -6,7 +6,7 @@ class DataObjectsController < ApplicationController
   before_filter :load_data_object, :except => [:index, :new, :create, :preview]
   before_filter :authentication_own_user_added_text_objects_only, :only => [:edit, :update]
   before_filter :allow_login_then_submit, :only => [:rate]
-  before_filter :curator_only, :only => [:curate_associations, :add_association, :remove_association]
+  before_filter :full_or_master_curators_only, :only => [:curate_associations, :add_association, :remove_association]
 
   # GET /pages/:taxon_id/data_objects/new
   # We're only creating new data objects in the context of a taxon concept so we for taxon_id to be provided in route
@@ -150,7 +150,6 @@ class DataObjectsController < ApplicationController
   def show
     @page_title = @data_object.best_title
     get_attribution
-    @comments = @data_object.all_comments.dup.paginate(:page => params[:page], :order => 'updated_at DESC', :per_page => Comment.per_page)
     @slim_container = true
     @revisions = DataObject.sort_by_created_date(@data_object.revisions).reverse
     @translations = @data_object.available_translations_data_objects(current_user, nil)
@@ -288,8 +287,8 @@ private
     end
   end
 
-  def curator_only
-    unless current_user.is_curator?
+  def full_or_master_curators_only
+    unless current_user.min_curator_level?(:full)
       access_denied
     end
   end

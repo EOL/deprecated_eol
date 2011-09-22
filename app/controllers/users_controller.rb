@@ -75,6 +75,7 @@ class UsersController < ApplicationController
         # Interestingly, we are getting users who already have agents attached to them.  I'm not sure why, but it's causing registration to fail (or seem to; the user is created), and this is bad.
       end
       send_verification_email
+      EOL::GlobalStatistics.increment('users')
       redirect_to pending_user_path(@user)
     else
       failed_to_create_user and return
@@ -83,9 +84,9 @@ class UsersController < ApplicationController
 
   # GET named route /users/:username/verify/:validation_code users come here from the activation email they receive after registering
   def verify
-    params[:username] ||= ''
+    username = params[:username] || ''
     User.with_master do
-      @user = User.find_by_username(params[:username])
+      @user = User.find_by_username(User.username_from_verify_url(username))
     end
     if @user && @user.active
       flash[:notice] = I18n.t(:user_already_active_notice)
@@ -252,7 +253,7 @@ private
   end
 
   def send_verification_email
-    Notifier.deliver_user_verification(@user, verify_user_url(@user.username, @user.validation_code))
+    Notifier.deliver_user_verification(@user, verify_user_url(@user.verify_username, @user.validation_code))
   end
 
   def generate_api_key

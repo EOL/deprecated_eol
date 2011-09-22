@@ -1129,6 +1129,7 @@ Factory.define :user do |u|
   u.curator_scope             ''
   u.password_reset_token      nil
   u.password_reset_token_expires_at  nil
+  u.curator_level_id          nil
 end
 
 Factory.define :user_activity_log do |al|

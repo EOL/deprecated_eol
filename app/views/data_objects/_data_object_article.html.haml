@@ -1,23 +1,31 @@
 - data_object ||= @data_object
-- data_object.description = data_object.description_linked unless data_object.description_linked.blank? rescue nil
-- show_view_source ||= 'true'
-- unless data_object.nil? || data_object.description.empty? || data_object.description.blank?
-  - show_references = true if show_references.nil?
-  .copy
-    - if data_object.added_by_user?
-      = Sanitize.clean(data_object.description.balance_tags, Sanitize::Config::RELAXED)
-    - else
-      = data_object.description.balance_tags
-  - tr_source = data_object.translation_source
-  - if tr_source && show_view_source=='true'
-    = link_to I18n.t(:view_translation_source_link), set_language_url(:language => tr_source.language.iso_639_1)+"&return_to=/data_objects/#{tr_source.id}"
-  - if show_references && ! data_object.published_refs.blank?
-    .references
-      %ul
-        - data_object.published_refs.each do |ref|
-          %li{ :ref_id => ref.id }
-            = ref.full_reference.balance_tags
-            - ref.ref_identifiers.each do |identifier|
-              - next unless identifier.display?
-              &emsp;
-              = external_link_to(identifier.identifier, identifier.link_to_identifier)
+-# NOTE on cache ... These never need to expire.  If ANYTHING changes in a data object, we create a new version of it
+-# and link it to the previous version with a GUID... so the "raw" ID will always always be the same.  This is also
+-# true of user-submitted text.  memcached should handle deleting the keys that don't get used, as part of its own GC
+-# routines.  ...So we're going to try this out for articles for a while... it should speed up some of the common
+-# text-heavy details tabs and overviews.  That said, there is one caveat:
+-# if the dato gets more associations, it will not show them.  TODO - attempt to set up an observer to handle those.
+- cache "article/#{I18n.locale}/#{data_object.id}" do
+  - data_object.description = data_object.description_linked unless data_object.description_linked.blank? rescue nil
+  - show_view_source ||= 'true'
+  - unless data_object.nil? || data_object.description.empty? || data_object.description.blank?
+    - show_references = true if show_references.nil?
+    .copy
+      - if data_object.added_by_user?
+        -# TODO - move this to a before_save or something... we don't need to do this here, just store it this way:
+        = Sanitize.clean(data_object.description.balance_tags, Sanitize::Config::RELAXED)
+      - else
+        = data_object.description.balance_tags
+    - tr_source = data_object.translation_source
+    - if tr_source && show_view_source=='true'
+      = link_to I18n.t(:view_translation_source_link), set_language_url(:language => tr_source.language.iso_639_1)+"&return_to=/data_objects/#{tr_source.id}"
+    - if show_references && ! data_object.published_refs.blank?
+      .references
+        %ul
+          - data_object.published_refs.each do |ref|
+            %li{ :ref_id => ref.id }
+              = ref.full_reference.balance_tags
+              - ref.ref_identifiers.each do |identifier|
+                - next unless identifier.display?
+                &emsp;
+                = external_link_to(identifier.identifier, identifier.link_to_identifier)

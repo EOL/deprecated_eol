@@ -1,8 +1,11 @@
 - hide_pagination ||= false
 - if log.blank?
   .empty
-    %p= I18n.t(:activity_log_empty)
-    %p= link_to I18n.t(:activity_log_empty_learn_more_link), cms_page_path('contribute')
+    -if @filter.blank?
+      %p= I18n.t(:activity_log_empty)
+      %p= link_to I18n.t(:activity_log_empty_learn_more_link), cms_page_path('contribute')
+    -else
+      %p= I18n.t(:no_record_found_matching_your_criteria)
 - else
   %ul.feed
     - log.map {|l| l['instance'] }.compact.each do |item|

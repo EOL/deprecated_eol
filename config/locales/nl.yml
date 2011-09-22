@@ -8,6 +8,7 @@
 nl: 
   0_1_or_2: 0, 1 of 2
   0_or_1: 0 of 1
+  a_taxon: een taxon
   about_eol: Over EOL
   account_information: Gebruikersgegevens
   account_registered_but_not_ready_try_later: Uw account is aangemaakt, maar kan nog niet gebruikt worden. Probeer het over vijf minuten nog een keer.
@@ -173,8 +174,10 @@ nl:
   admin_content_page_delete_confirmation: Weet u zeker dat u "%{page_name}" en alle vertalingen wilt verwijderen. Het verwijderen van pagina's kan niet ongedaan worden gemaakt.
   admin_content_page_new_header: Nieuwe inhoudspagina aanmaken
   admin_content_page_new_link: Nieuwe pagina aanmaken
+  admin_content_page_not_active: Ongepubliceerd
   admin_content_page_parent_option_root: Geen bovenliggende pagina
   admin_content_page_root: Bovenste niveau
+  admin_content_page_sort_order_updated: De volgorde van pagina's is gewijzigd.
   admin_content_pages_empty: Geen inhoudspagina's gevonden.
   admin_content_pages_link: Content management
   admin_content_pages_page_title: "Beheer: contentbeheer"
@@ -187,23 +190,19 @@ nl:
   admin_link: Beheerconsole
   admin_notes_not_visible_to_user: "Opmerkingen voor beheerders (niet zichtbaar voor gebruikers):"
   admin_page_title: "Beheer: Overzicht"
+  admin_translated_content_page_create_successful_notice: Vertaling is toegevoegd aan <a href="#%{anchor}"><em>%{page_name}</em></a>
+  admin_translated_content_page_edit_tip: Titel en inhoud zijn %{required_icon} verplicht.
   admin_translated_content_page_new_header: Kies en taal en voeg inhoud toe
   admin_translated_content_page_new_link: Vertaling toevoegen
+  admin_translated_content_page_new_subheader: Vertaling toevoegen voor <em>%{page_name}</em>
   admin_translated_content_page_new_tip: Taal, titel en inhoud zijn %{required_icon} vereist.
+  admin_translated_content_page_update_unsuccessful_error: Er is een fout opgetreden. De vertaling kon niet worden bijgewerkt.
   agent: Agent
-  all_articles: Alle artikelen
   all_changes: Alle wijzigingen
-  all_collections: Alle verzamelingen
-  all_communities: Alle gemeenschappen
-  all_images: Alle afbeeldingen
   all_information: Alle gegevens
   all_items: Alle items
   all_pages: Alle pagina's
-  all_people: Alle mensen
-  all_sounds: Alle geluiden
-  all_taxa: Alle taxa
   all_title: Alle
-  all_videos: Alle video's
   already_a_member_question: Al lid?
   already_member_of_community: U bent al lid van deze gemeenschap.
   alternate_classification: Alternatieve classificatie
@@ -213,6 +212,7 @@ nl:
   application_version_advisory_information: Programmaversie
   are_you_sure: Weet u het zeker?
   article_from: artikel uit
+  article_more_about: Meer informatie over deze pagina
   assistive_details_header: Gegevens
   assistive_literature_header: Literatuur
   assistive_maps_header: Kaarten
@@ -248,6 +248,8 @@ nl:
   cancel: Annuleren
   cannot_be_associated_with_both_a_user_and_a_community: Kan niet gekoppeld zijn aan een gebruiker en een gemeenschap
   cannot_be_empty: mag niet leeg zijn.
+  cannot_create_collection_item_from_class_error: Ik kan geen verzamelingsitem aanmaken vanuit een %{klass}
+  cannot_find_member: Kan geen lid vinden met dit nummer.
   change: Wijzigen
   change_rating_to_1_of_5: Waardering naar 1 van 5 wijzigen
   change_rating_to_2_of_5: Waardering wijzigen naar 2 van 5
@@ -262,16 +264,18 @@ nl:
   classifications_summary_header_with_count: 
     one: Gevonden in één goedgekeurde classificatie
     other: Gevonden in %{count} classificaties
-  close_this_window_to_return_to: Sluit dit venster om terug te keren naar het bewerkingsvenster
+  close_this_window_to_return_to_edit_window: Sluit dit venster om terug te keren naar het bewerkingsvenster
   cms_available_in_languages: "Deze pagina is beschikbaar in:"
   cms_missing_content_title: Ontbrekende inhoud
   collect_item: Item in verzameling opnemen
   collection_created_notice: Verzameling <em>%{collection_name}</em> is aangemaakt.
+  collection_delete_link: Deze verzameling permanent verwijderen
   collection_destroyed: De verzameling is verwijderd.
   collection_image: Verzamelingsafbeelding
   collection_is_empty: Deze verzameling is momenteel leeg.
   collection_name_label: Naam van de verzameling
   collection_not_created_error: Er is een fout opgetreden. De verzameling <em>%{collection_name}</em> kon niet aangemaakt worden.
+  collection_not_destroyed_error: De verzameling is niet verwijderd.
   collection_not_found_error: Die verzameling kon niet gevonden worden.
   collection_updated_notice: De verzameling <em>%{collection_name}</em> is bijgewerkt.
   collections: Verzamelingen
@@ -322,17 +326,27 @@ nl:
   community_members_with_count: 
     one: Eén gemeenschapslid
     other: "%{count} gemeenschapsleden"
+  community_not_destroyed_error: Er is een probleem opgetreden en de gemeenschap is niet verwijderd.
   community_removed_by_owner: Deze gemeenschap is verwijderd door de eigenaar.
+  confirm_leave: Weet u zeker dat u deze gemeenschap wilt verlaten?
   confirm_password_colon: "Wachtwoord bevestigen:"
+  contact_for_any_comments: Neem contact op met eli@eol.org voor eventuele opmerkingen.
   contact_us_functions: "\"Neem contact met ons op\"-functies"
   contact_us_link: Contact opnemen
   content_has_been_updated: De inhoud is bijgewerkt
   content_partner: Contentpartner
   content_partner_about_header: Over %{partner_name}
   content_partner_administration_notes_header: Administratieve notities
+  content_partner_agreement_subheader: Contentpartnerovereenkomst
+  content_partner_agreement_was_updated: De contentpartnerovereenkomst is bijgewerkt.
   content_partner_column_header_partner: Partner
   content_partner_column_header_registered: Geregistreerd
   content_partner_column_header_status: Status
+  content_partner_comment_log_activity: toegevoegd aan de %{type} op %{link} door %{user} %{date} geleden
+  content_partner_contact_create_successful_notice: De contactpersoon is toegevoegd.
+  content_partner_contact_create_unsuccessful_error: Er is een fout opgetreden. De contactpersoon is niet toegevoegd.
+  content_partner_contact_delete_successful_notice: De contactpersoon is verwijderd.
+  content_partner_contact_delete_unsuccessful_error: Er is een fout opgetreden. De contactpersoon is niet toegevoegd.
   content_partner_contact_edit_link: Contactpersoon bewerken
   content_partner_contact_edit_page_subheader: Contactpersoon bewerken
   content_partner_contact_new_edit_form_header: Contactgegevens contentpartner
@@ -404,6 +418,7 @@ nl:
   content_partner_resources_with_count: 
     one: Eén bron
     other: "%{count} bronnen"
+  content_partner_statistics_column_header_provider_proportion: Providerpercentage
   content_partner_statistics_column_header_taxa_page_page_views: Bekeken pagina's
   content_partner_statistics_column_header_taxa_page_time_on_page_seconds: Tijd op pagina (seconden)
   content_partner_statistics_column_header_taxa_page_unique_page_views: Unieke bekeken pagina's
@@ -481,7 +496,17 @@ nl:
   curator_colon: "Curator:"
   curator_level: Curatorniveau
   curator_level_application_pending_notice: Bedankt voor uw aanmelding als curator. We sturen u een e-mail als wij uw aanmelding hebben beoordeeld.
-  curators_of_taxon_page_title: Curatoren van %{taxon}
+  curator_level_full_curator: Volledig curator
+  curator_level_master_curator: Meestercurator
+  curator_level_master_pending_notice: Dank uw wel voor uw aanmelding als <em>meestercurator</em>. We stellen u op de hoogte als we uw aanmelding hebben beoordeeld.
+  curator_level_with_indefinite_article_assistant_curator: een <strong>assistentcurator</strong>
+  curator_level_with_indefinite_article_full_curator: een <strong>volwaardig curator</strong>
+  curator_level_with_indefinite_article_master_curator: een <strong>meestercurator</strong>
+  curator_profile: curatorprofiel
+  curator_scope_colon: "Curatorscope:"
+  curator_status_changed_by: Curatorstatus is gewijzigd door %{user} op %{date}
+  curator_title: Curator
+  curators: Curatoren
   curators_summary_header_with_count: 
     one: Gecontroleerd door één curator
     other: Gecontroleerd door %{count} curatoren
@@ -491,14 +516,26 @@ nl:
   darwin_core: Darwin Core
   dash_encyclopedia_of_life: "- Encyclopedia of Life"
   dashboard: Dashboard
+  data_object_ignore: dit item negeren
+  data_object_not_associated_with_any_hierarchies: Dit gegevensobject is niet gekoppeld aan een hiërarchie.
+  data_object_undo_ignore: uit de negeerlijst verwijderen
+  data_objects: data_objects
+  data_usage_reports: Gegevensgebruikrapportages
   dato_create_cancel: Annuleren
+  dato_create_update_user_text_missing_taxon_id_exception: Het was niet mogelijk een tekst-DataObject of -DataObject op te bouwen als taxon_concept_id niet aanwezig is.
+  dato_create_user_text_error: Er is een fout opgetreden. De pagina is niet toegevoegd.
+  dato_create_user_text_missing_taxon_id_exception: Het was niet mogelijk een tekst-DataObject of -DataObject op te bouwen als taxon_id "nil" is.
+  dato_create_user_text_missing_user_exception: Het was niet mogelijk een tekst-DataObject of -DataObject op te bouwen als taxon_id "nil" is.
   dato_edit_cancel: Annuleren
   dato_edit_text_link_button: Dit artikel bewerken
+  dato_edit_text_page_description: Dank u wel dat u uw expertise beschikbaar wilt stellen aan EOL. De aangepaste pagina wordt toegevoegd aan uw volglijst zodat u overleg over deze pagina kunt volgen en de curatiestatus kunt bijhouden.
   dato_edit_text_title: Artikel bewerken
   dato_new_edit_user_text_fieldset_content_header: Artikelinhoud
   dato_new_edit_user_text_fieldset_information_header: Artikelgegevens
+  dato_new_edit_user_text_form_tip: Uw pagina wordt gemarkeerd als "niet-beoordeeld" totdat een curator ernaar kijkt. Het tekstveld is verplicht %{required_icon}.
   dear_contact_full_name: Beste %{contact_full_name},
   dear_user_with_comma: Beste %{user},
+  default: Standaard
   delete: verwijderen
   delete_community: Deze gemeenschap verwijderen
   description: Beschrijving
@@ -541,6 +578,7 @@ nl:
   eol_pages: Pagina's
   error_404_page_title: Niet gevonden
   error_500_page_title: Interne serverfout
+  error_page_title: Oeps.
   errors: 
     messages: 
       accepted: moet worden geaccepteerd
@@ -596,6 +634,10 @@ nl:
   forgot_password: Wachtwoord vergeten
   forgot_password_form_cancel: Annuleren
   forgot_password_form_header: Uw wachtwoord opnieuw instellen
+  frequency_daily: Dagelijks
+  frequency_monthly: Maandelijks
+  frequency_never: Nooit
+  frequency_weekly: Wekelijks
   given_name_colon: "Voornaam:"
   global_access_tagline: Wereldwijde toegang tot kennis over het leven op aarde.
   global_navigation: Globale navigatie
@@ -603,6 +645,7 @@ nl:
   go_back: Teruggaan
   has_already_been_taken: bestaat al.
   has_colon: "Heeft:"
+  head_title_collection: "Verzameling: %{name}"
   head_title_community: "Gemeenschap: %{name}"
   hello_user: Hallo %{user}
   help: Hulp
@@ -661,9 +704,9 @@ nl:
         username_or_email: Gebruikersnaam of e-mailadres
       translated_content_page: 
         active_translation: Gepubliceerd
-        active_translation_more: Gepubliceerde vertalingen zullen openbaar te zien zijn tenzij de pagina zelf niet openbaar is. Vink Schakel <em>gepubliceerd</em> uit wanneer u niet wil dat iedereen deze versie van de pagina te zien krijgt.
+        active_translation_more: Gepubliceerde vertalingen zijn openbaar te zien tenzij de pagina zelf niet openbaar is. Vink <em>gepubliceerd</em> uit als u wilt voorkomen dat iedereen deze versie van de pagina te zien krijgt.
         language_id: Taal
-        left_content_more: Voeg facultatief een ongesorteerde lijst met links toe om een navigatiekolom als bijlage op de pagina in te sluiten. Ankerkoppelingen dient u handmatig toe te voegen door  <em>Bron</em>  te selecteren en de HTML-linkcode <em>href</em> te bewerken. Bij voorbeeld, om een ankerlink genaamd  <em>license_beleid</em> te maken in het <em>lichaam</em> inhoud gebied wilt koppelen moet uw lijst item link <em>href</em> attribuut de waarde "# licensing_policy"
+        left_content_more: Voeg optioneel een ongesorteerde lijst met verwijzingen toe om een navigatiekolom als bijlage in de pagina op te nemen. Voeg ankerkoppelingen handmatig toe door <em>Bron</em>  te selecteren en het HTML-attribuut <em>href</em> te bewerken. Om bijvoorbeeld een ankerkoppeling met de naam <em>licentie_beleid</em> te maken in het inhoudsgebied <em>Body</em>, moet moet het attribuut <em>href</em>  van uw lijstverwijzing de waarde "#licentie_beleid" hebben.
       user: 
         bio: Over mij
         credentials: Gebruikersgegevens
@@ -730,7 +773,7 @@ nl:
         create: Gebruiker aanmaken
         curation_application: Meld u nu aan
         curation_privileges: Aanvraag verzenden
-        forgot_password: E-mail versturen
+        forgot_password: E-mail verzenden
         generate_api_key: Sleutel aanmaken
         update: Profielgegevens opslaan
       wikipedia_queue: 
@@ -765,7 +808,6 @@ nl:
   just_pages_with_pictures_and_text: Alleen de pagina's met afbeeldingen en tekst
   label: Label
   language: "Taal:"
-  language_menu_item: "%{language_label} <abbr>(%{language_abbr})</abbr>"
   language_with_count: "%{language} (%{count})"
   languages: Talen
   last_updated_time_ago: "%{time_passed} geleden voor het laatst bijgewerkt"
@@ -774,6 +816,7 @@ nl:
   learn_about_content_partners: Hoe kan ik er een worden?
   learn_about_contributing: Hoe kan ik bijdragen?
   learn_about_eol: Hoe kan ik EOL gebruiken?
+  learn_about_joining: Hoe kan ik deelnemen?
   learn_more_link: (%{learn_more})
   leave_a_comment: Opmerking achterlaten
   leave_community_button: Deze gemeenschap verlaten
@@ -855,9 +898,13 @@ nl:
   names_name_column_header: Naam
   names_relationship_column_header: Relaties
   never: Nooit
+  new_collection: Nieuwe verzameling
   newsfeed: Nieuwsfeed
+  none: geen
   not_evaluated: Niet beoordeeld
+  object_type_collection_option: Verzameling
   object_type_community_option: Gemeenschap
+  object_type_image_option: Afbeelding
   object_type_sound_option: Geluid
   object_type_text_option: Tekst
   object_type_user_option: Gebruiker
@@ -876,6 +923,7 @@ nl:
   pages_title: Pagina's
   pages_with_pictures_and_text: Pagina's met afbeeldingen en tekst
   pages_with_pictures_or_text: Pagina's met afbeeldingen of tekst
+  pagination_next: Volgende
   pagination_previous: Vorige
   parameters: Parameters
   password_colon: "Wachtwoord:"
@@ -907,6 +955,7 @@ nl:
   remove_data_object_association: Koppeling verwijderen
   remove_membership: Lidmaatschap verwijderen
   resources: Middelen
+  revisions: Versies
   rights: Rechten
   rights_holder: Rechthebbende
   roles: Rollen
@@ -950,6 +999,7 @@ nl:
   sort_by_newest_option: Nieuwste
   sort_by_oldest_option: Oudste
   sort_by_rating_option: Waardering
+  sort_collection_by_label: Verzameling sorteren op
   source_url: Bron-URL
   species: Soorten
   start_quote: "\""
@@ -964,11 +1014,14 @@ nl:
   taxon: taxon
   terms_agreement_form_submit: Ik ga akkoord
   test: Test.
+  text: tekst
   text_capital: Tekst
+  text_summary_empty_header: Korte samenvatting
   text_summary_more_link: Volledige vermelding lezen
   thank_you: Bedankt
   thank_you_sentence: Bedankt.
   there_are_currently_no_members_in_this_community: Er zijn momenteel geen leden in deze gemeenschap.
+  this_cannot_be_undone_are_you_sure: Dit kan niet ongedaan gemaakt worden; weet u het zeker?
   this_community_has_no_focus_list: Deze gemeenschap heeft geen focuslijst.
   threat_status_header_colon: "IUCN bedreigingsstatus:"
   time_ago: "%{time_passed} geleden"
@@ -983,7 +1036,9 @@ nl:
   unknown: Onbekend
   unreviewed: Niet-beoordeeld
   updated_community: De gemeenschap is bijgewerkt
+  updated_member: Het lid is bijgewerkt.
   user: Gebruiker
+  user_activity_stats_articles_added: Artikels toegevoegd
   user_activity_stats_header: Activiteit
   user_says_colon: "%{users_name} zegt:"
   user_system_down: Onze excuses, maar het gebruikersregistratiesysteem is momenteel niet beschikbaar. Probeer het later opnieuw.

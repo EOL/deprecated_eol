@@ -1283,9 +1283,14 @@ table
       ul
         direction: ltr
         li
-          &.show_full_tree
-            direction: rtl
-            text-align: left
+          &.show_tree_count            
+            +direction-alignment(rtl,left)
+            a.show_tree
+              display: inline
+          a.show_tree
+            +direction-alignment(rtl,left)
+            display: block
+            
 input#user_email, 
 input#user_username,
 input#session_username_or_email, 

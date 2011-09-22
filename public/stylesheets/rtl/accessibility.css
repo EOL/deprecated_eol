@@ -1214,9 +1214,15 @@ table.synonyms, table.common_names, table.edit_common_names, table.related_names
 
 #classifications_summary ul li ul {
   direction: ltr; }
-  #classifications_summary ul li ul li.show_full_tree {
+  #classifications_summary ul li ul li.show_tree_count {
     direction: rtl;
     text-align: left; }
+    #classifications_summary ul li ul li.show_tree_count a.show_tree {
+      display: inline; }
+  #classifications_summary ul li ul li a.show_tree {
+    direction: rtl;
+    text-align: left;
+    display: block; }
 
 input#user_email,
 input#user_username,

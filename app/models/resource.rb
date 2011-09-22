@@ -64,6 +64,18 @@ class Resource < SpeciesSchemaModel
     content_partner.user_id == user.id || user.is_admin?
   end
 
+  def status_can_be_changed_to?(new_status)
+    return false if resource_status == new_status
+    case new_status
+      when ResourceStatus.force_harvest
+        !resource_status.blank? && resource_status != ResourceStatus.being_processed
+      when ResourceStatus.publish_pending
+        resource_status == ResourceStatus.processed
+      else
+        true
+    end
+  end
+
   # trying to change it to memcache got error after reload a page
   def self.iucn
     cached('iucn') do
@@ -84,7 +96,7 @@ class Resource < SpeciesSchemaModel
   end
 
   def status_label
-    (resource_status.nil?) ? I18n.t(:content_partner_resource_resource_status_new) : resource_status.label
+    (resource_status.nil?) ?  I18n.t(:content_partner_resource_resource_status_new) : resource_status.label
   end
 
   def latest_unpublished_harvest_event
@@ -93,11 +105,17 @@ class Resource < SpeciesSchemaModel
                               :order => 'completed_at desc')
   end
 
- def latest_published_harvest_event
+  def latest_published_harvest_event
    @latest_harvest ||= HarvestEvent.find(:first, :conditions => ["published_at IS NOT NULL AND completed_at IS NOT NULL AND resource_id = ?", id],
                              :limit => 1,
                              :order => 'published_at desc')
- end
+  end
+
+  def oldest_published_harvest_event
+    HarvestEvent.find(:first,
+        :conditions => ["published_at IS NOT NULL AND completed_at IS NOT NULL AND resource_id = ?", id],
+        :limit => 1, :order => 'published_at')
+  end
 
   def latest_harvest_event
     HarvestEvent.find(:first, :limit => 1, :order => 'id desc', :conditions => ["resource_id = ?", id])
@@ -108,22 +126,22 @@ class Resource < SpeciesSchemaModel
                               :order => 'completed_at desc')
   end
 
-  # vet or unvet entire resource (0 = unknown, 1 = vet)
-  def set_vetted_status(vetted)
-    set_to_state = EOLConvert.to_boolean(vetted) ? Vetted.trusted.id : Vetted.unknown.id
-
-    # update the vetted_id of all data_objects associated with the latest
-    SpeciesSchemaModel.connection.execute("update harvest_events he straight_join data_objects_harvest_events dohe on (he.id=dohe.harvest_event_id) straight_join data_objects do on (dohe.data_object_id=do.id) set do.vetted_id = #{set_to_state} where do.vetted_id = 0 and he.resource_id = #{self.id}")
-
-    if set_to_state == Vetted.trusted.id && !hierarchy.nil?
-      # update the vetted_id of all concepts associated with this resource - only vet them never unvet them
-      SpeciesSchemaModel.connection.execute("UPDATE hierarchy_entries he JOIN taxon_concepts tc ON (he.taxon_concept_id=tc.id) SET tc.vetted_id=#{Vetted.trusted.id} WHERE hierarchy_id=#{hierarchy.id}")
-    end
-
-    self.vetted=vetted
-
-    true
-  end
+#  # vet or unvet entire resource (0 = unknown, 1 = vet)
+#  def set_vetted_status(vetted)
+#    set_to_state = EOLConvert.to_boolean(vetted) ? Vetted.trusted.id : Vetted.unknown.id
+#
+#    # update the vetted_id of all data_objects associated with the latest
+#    SpeciesSchemaModel.connection.execute("update harvest_events he straight_join data_objects_harvest_events dohe on (he.id=dohe.harvest_event_id) straight_join data_objects do on (dohe.data_object_id=do.id) set do.vetted_id = #{set_to_state} where do.vetted_id = 0 and he.resource_id = #{self.id}")
+#
+#    if set_to_state == Vetted.trusted.id && !hierarchy.nil?
+#      # update the vetted_id of all concepts associated with this resource - only vet them never unvet them
+#      SpeciesSchemaModel.connection.execute("UPDATE hierarchy_entries he JOIN taxon_concepts tc ON (he.taxon_concept_id=tc.id) SET tc.vetted_id=#{Vetted.trusted.id} WHERE hierarchy_id=#{hierarchy.id}")
+#    end
+#
+#    self.vetted=vetted
+#
+#    true
+#  end
 
   def upload_resource_to_content_master!(port = nil)
     if self.accesspoint_url.blank?

@@ -1,9 +1,4 @@
-#tabs_sidebar
-  %ul.tabs
-    %li{:class => resource_is_active('admins/hierarchies')}= link_to I18n.t(:admin_content_partners_hierarchies_link), admin_hierarchies_path
-    %li{:class => resource_is_active('admins/monthly_notification')}= link_to I18n.t(:admin_content_partner_notification_link), admin_monthly_notification_index_path
-    %li{:class => resource_is_active('admins/published_partners')}=   link_to I18n.t(:admin_content_partners_published_link), '/admin/published_partners'
-
+= render :partial => 'menu'
 
 #sidebar
   .filters.small
@@ -34,7 +29,9 @@
       %fieldset.actions
         = submit_tag I18n.t(:filter_button), :name => nil
         %small= link_to I18n.t(:cancel), admin_content_partners_path
-.main_container
+#content_partners.main_container
+  .copy
+    %h2= I18n.t(:admin_content_partners_index_header)
   - if @partners.blank?
     .article
       .empty
@@ -42,42 +39,127 @@
   - else
     = will_paginate @partners, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
       :inner_window => 2, :outer_window => 2
-    %table.standard
-      %thead
-        %th= I18n.t(:content_partner_column_header_partner)
-        %th= I18n.t(:content_partner_column_header_registered)
-        %th= I18n.t(:content_partner_column_header_status)
-      %tbody
-        - @partners.each do |partner|
-          %tr
-            %td
-              = link_to partner.full_name, content_partner_path(partner)
-              .meta
-                = link_to I18n.t(:content_partner_resources_with_count, :count => partner.resources.size),
-                  content_partner_resources_path(partner)
-                - unless partner.resources.size.zero?
-                  - unpublished_resources = partner.resources.select{|r| r.resource_status_id != ResourceStatus.published.id}
-                  = "(#{I18n.t(:content_partner_resources_unpublished_with_count, :count => unpublished_resources.size)})"
-                &bull;
-                = link_to I18n.t(:content_partner_contacts_with_count, :count => partner.content_partner_contacts.size),
-                  content_partner_path(partner)
-            %td
-              = partner.created_at
-            %td
-              = partner.content_partner_status.label
-              %br/
-              = partner.vetted.zero? ? I18n.t(:content_partner_unvetted) : I18n.t(:content_partner_vetted)
-              %br/
-              - if partner.terms_agreed_to?
-                = I18n.t(:content_partner_terms_agreed_to_true)
-              - else
-                = I18n.t(:content_partner_terms_agreed_to_false)
-              %br/
+    %ul.article.list
+      - @partners.each do |partner|
+        %li{:id => "partner_#{partner.id}"}
+          = link_to image_tag(partner.logo_url(:small),
+            :alt => I18n.t(:content_partner_logo_alt_text, :partner_name => h(partner.name))), partner
+          .details
+            %h3= link_to h(partner.full_name), partner
+            %p
+              = partner.content_partner_status.label rescue I18n.t(:content_partner_status_empty)
+              &bull;
+              = partner.vetted.zero? ? I18n.t(:content_partner_vetted_false) : I18n.t(:content_partner_vetted_true)
+              &bull;
+              = partner.auto_publish ? I18n.t(:content_partner_auto_publish_true) : I18n.t(:content_partner_auto_publish_false)
               - if partner.has_unpublished_content?
+                &bull;
                 = I18n.t(:content_partner_has_unpublished_content_true)
-              - else
-                = I18n.t(:content_partner_has_unpublished_content_false)
+            %dl
+              %dt
+                = I18n.t('helpers.label.content_partner.last_action')
+              %dd
+                = partner.last_action
+              %dt
+                = I18n.t('helpers.label.content_partner.created_at')
+              %dd
+                = partner.created_at
+              %dt
+                = I18n.t('helpers.label.content_partner.current_agreement')
+              %dd
+                - if partner.agreement.blank?
+                  = I18n.t(:content_partner_current_agreement_empty)
+                - else
+                  - if partner.agreement.is_accepted?
+                    = I18n.t(:content_partner_current_agreement_signed_on_with_date, :date => partner.agreement.signed_on_date.strftime("%Y-%m-%d"))
+                    &bull;
+                    = link_to I18n.t(:content_partner_current_agreement_view_link),
+                      content_partner_content_partner_agreement_path(partner, partner.agreement)
+                  - else
+                    = I18n.t(:content_partner_current_agreement_not_accepted)
+                    &bull;
+                    = link_to I18n.t(:content_partner_current_agreement_edit_link), edit_content_partner_content_partner_agreement_path(partner, partner.agreement)
+                &bull;
+                = link_to I18n.t(:content_partner_current_agreement_create_link), new_content_partner_content_partner_agreement_path(partner)
+              %dt
+                = I18n.t('activerecord.attributes.content_partner.admin_notes')
+              %dd
+                = partner.admin_notes || I18n.t(:value_empty)
+          - unless partner.resources.size.zero?
+            %ul.resources
+              - partner.resources.each do |resource|
+                - en_resource_status = resource.resource_status.label('en').downcase.gsub(' ','_') rescue 'unknown'
+                - hierarchy = resource.dwc_hierarchy.blank? ? resource.hierarchy : resource.dwc_hierarchy
+                - en_browsable_status = en_browsable_status(hierarchy)
+                %li{:class => [en_resource_status, en_browsable_status].compact.join(' ')}
+                  %h5
+                    = resource.title
+                    %small
+                      [
+                      = link_to I18n.t(:content_partner_resource_view_link), content_partner_resource_path(partner, resource)
+                      &bull;
+                      = link_to I18n.t(:content_partner_resource_edit_link), edit_content_partner_resource_path(partner, resource)
+                      ]
+                  .resource_status
+                    %dl
+                      %dt
+                        = I18n.t('helpers.label.resource.resource_status')
+                      %dd
+                        = resource.status_label
+                      %dt
+                        = I18n.t('helpers.label.content_partner.oldest_published_harvest_event')
+                      %dd
+                        - if resource.oldest_published_harvest_event.blank?
+                          = I18n.t(:value_empty)
+                        - else
+                          = resource.oldest_published_harvest_event.published_at.strftime('%Y-%m-%d')
+                      %dt
+                        = I18n.t('helpers.label.content_partner.latest_published_harvest_event')
+                      %dd
+                        - if resource.latest_published_harvest_event.blank?
+                          = I18n.t(:value_empty)
+                        - else
+                          = resource.latest_published_harvest_event.published_at.strftime('%Y-%m-%d')
+                    - if resource.status_can_be_changed_to?(ResourceStatus.publish_pending)
+                      = button_to I18n.t('helpers.submit.resource.publish'), publish_content_partner_resource_path(partner, resource),
+                        :confirm => I18n.t(:content_partner_resource_confirm_publish, :resource_title => h(resource.title))
+                    - if resource.status_can_be_changed_to?(ResourceStatus.force_harvest)
+                      = button_to I18n.t('helpers.submit.resource.force_harvest'), force_harvest_content_partner_resource_path(partner, resource),
+                        :confirm => I18n.t(:content_partner_resource_confirm_force_harvest, :resource_title => h(resource.title))
 
+                  .settings
+                    - form_for [partner, resource], :builder => ApplicationHelper::EolFormBuilder do |f|
+                      = f.hidden_field :return_to, :value => current_url
+                      - f.label :refresh_period_hours, :class => 'select' do
+                        = I18n.t('helpers.label.resource.refresh_period_hours')
+                        = f.select :refresh_period_hours, options_for_select(@import_frequencies, resource.refresh_period_hours)
+                      - f.label :vetted, :class => 'checkbox' do
+                        = f.check_box :vetted
+                        = I18n.t('activerecord.attributes.resource.vetted')
+                      - f.label :auto_publish, :class => 'checkbox' do
+                        = f.check_box :auto_publish
+                        = I18n.t('activerecord.attributes.resource.auto_publish')
+                      %fieldset.actions
+                        = f.submit I18n.t('helpers.submit.resource.update_settings')
+                  %dl.notes
+                    %dt
+                      = I18n.t('activerecord.attributes.resource.hierarchy')
+                    %dd
+                      - if hierarchy.blank?
+                        = I18n.t(:value_empty)
+                      - else
+                        = I18n.t("content_partner_resource_hierarchy_#{en_browsable_status}")
+                        [
+                        = link_to I18n.t(:content_partner_resource_hierarchy_edit_link),
+                          edit_content_partner_resource_hierarchy_path(partner, resource, hierarchy, :return_to => current_url)
+                        ]
+                    %dt
+                      = I18n.t('activerecord.attributes.resource.notes')
+                    %dd
+                      - if resource.notes.blank?
+                        = I18n.t(:value_empty)
+                      - else
+                        = resource.notes.truncate(200)
     .footer
       = will_paginate @partners, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
         :inner_window => 2, :outer_window => 2

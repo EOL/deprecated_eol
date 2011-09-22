@@ -5,7 +5,10 @@ class ContentPartner < SpeciesSchemaModel
 
   has_many :resources, :dependent => :destroy
   has_many :content_partner_contacts, :dependent => :destroy
-  has_many :google_analytics_partner_summaries
+  # FIXME: http://jira.eol.org/browse/WEB-2995 has_many :google_analytics_partner_summaries is not
+  # currently true and does not work it is associated through user but should probably be linked directly
+  # to content partner instead (possibly true for partner taxa association too?)
+  # has_many :google_analytics_partner_summaries
   has_many :google_analytics_partner_taxa
   has_many :content_partner_agreements
 
@@ -19,18 +22,9 @@ class ContentPartner < SpeciesSchemaModel
   validates_length_of :acronym, :maximum => 20, :allow_nil => true, :if => Proc.new {|s| s.class.column_names.include?('acronym') }
   validates_length_of :homepage, :maximum => 255, :allow_nil => true, :if => Proc.new {|s| s.class.column_names.include?('homepage') }
 
-  #STEPS = [:partner, :contacts, :licensing, :attribution, :roles, :transfer_overview, :transfer_upload, :specialist_overview, :specialist_formatting]
-
   # Alias some partner fields so we can use validation helpers
   alias_attribute :project_description, :description
 
-  #validate :validate_atleast_one_contact, :if => :contacts_step?
-  # REMOVE VALIDATION FOR THESE STEPS TO ALLOW PEOPLE TO 'UNACCEPT', Peter Mangiafico, Sep 12, 2008
-  #validate :validate_ipr_acceptance, :if => :licensing_step?
-  #validate :validate_attribution_acceptance, :if => :attribution_step?
-  #validate :validate_roles_acceptance, :if => :roles_step?
-
-  # Callbacks
   before_save :blank_not_null_fields
   before_save :strip_urls
 
@@ -57,10 +51,7 @@ class ContentPartner < SpeciesSchemaModel
   end
   # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we go to many to many
   def can_be_created_by?(user_wanting_access)
-    # self requires user before create because:
-    # admins can create content partners for users, in addition:
-    # user can only have one content partner
-    # user can only create content partner for themselves
+    # NOTE: association with user object must exist for permissions to be checked as user can only have one content partner at the moment
     user && user.content_partner.nil? && (user_wanting_access.id == user.id || user_wanting_access.is_admin?)
   end
 
@@ -229,7 +220,11 @@ class ContentPartner < SpeciesSchemaModel
     resources.collect(&:latest_published_harvest_event).compact.sort_by{|he| he.published_at}.reverse
   end
 
-  # Returns true if the Agent's latest harvest contains this taxon_concept or taxon_concept id (the raw ID is
+  def oldest_published_harvest_events
+    resources.collect(&:oldest_published_harvest_event).compact.sort_by{|he| he.published_at}
+  end
+
+  # Returns true if the Content Partner's latest harvest contains this taxon_concept or taxon_concept id (the raw ID is
   # preferred)
   def latest_unpublished_harvest_contains?(taxon_concept_id)
     taxon_concept_id = taxon_concept_id.id if taxon_concept_id.class == TaxonConcept
@@ -247,7 +242,6 @@ class ContentPartner < SpeciesSchemaModel
         return true unless tc.blank?
       end
     end
-
     # we looked at ALL resources and found none applicable
     return false
   end
@@ -280,127 +274,43 @@ class ContentPartner < SpeciesSchemaModel
     self.content_partner_contacts.detect {|c| c.contact_role_id == ContactRole.primary.id } || self.content_partner_contacts.first
   end
 
-  # the date of the last action taken (the last time a contact was updated, or a step was viewed, or a resource was added/edited/published)
+  # the date of the last action taken
   def last_action
-    dates_to_compare = [self.partner_seen_step, self.partner_complete_step, self.contacts_seen_step, self.contacts_complete_step,
-                        self.licensing_seen_step, self.licensing_complete_step, self.attribution_seen_step, self.attribution_complete_step,
-                        self.roles_seen_step, self.roles_complete_step, self.transfer_overview_seen_step, self.transfer_overview_complete_step,
-                        self.transfer_upload_seen_step, self.transfer_upload_complete_step]
-    resources=self.agent.resources.compact!
-    if resources
-      dates_to_compare << resources.sort_by{ |m| m.created_at }[0].created_at
+    dates_to_compare = [updated_at]
+    unless resources.blank?
+      dates_to_compare << resources.sort_by{ |r| r.updated_at }[0].updated_at
+    end
+    unless content_partner_contacts.blank?
+      dates_to_compare << content_partner_contacts.sort_by{ |r| r.updated_at }[0].updated_at
+    end
+    unless content_partner_agreements.blank?
+      dates_to_compare << content_partner_agreements.sort_by{ |r| r.updated_at }[0].updated_at
     end
     dates_to_compare.compact!
-    if dates_to_compare
-      dates_to_compare.sort[0]
-    else
-      nil
-    end
-  end
-
-  # Store when the user has first 'seen' this step
-  def log_seen_step!(step)
-    step_method = "#{step}_seen_step"
-    if self.respond_to?(step_method)
-      self.update_attribute(step_method.to_sym, Time.now.utc)
-    end
-  end
-
-  # This was in a callback but just caused too many issues.
-  def log_completed_step!(step)
-    step_method = "#{step}_complete_step"
-    if self.respond_to?(step_method)
-      self.update_attribute(step_method.to_sym, Time.now.utc)
-    end
-    if self.ready_for_agreement? && eol_notified_of_acceptance.nil?
-       Notifier::deliver_agent_is_ready_for_agreement(self.user, $CONTENT_PARTNER_REGISTRY_EMAIL_ADDRESS)
-       self.update_attribute(:eol_notified_of_acceptance, Time.now.utc)
-    end
-  end
-
-#  # Called when contact_step? is true
-#  def validate_atleast_one_contact
-#    errors.add_to_base('You must have at least one contact') unless self.content_partner_contacts.any?
-#  end
-
-#  # Called when licensing_step? is true
-#  def validate_ipr_acceptance
-#   errors.add_to_base('You must accept the EOL Licensing Policy') unless self.ipr_accept.to_i == 1
-#  end
-
-#  # Called when attribution_step? is true
-#  def validate_attribution_acceptance
-#    errors.add_to_base('You must accept the EOL Attribution Guidelines') unless self.attribution_accept.to_i == 1
-#  end
-
-#  # Called when roles_step? is true
-#  def validate_roles_acceptance
-#    errors.add_to_base('You must accept the EOL Roles Guidelines') unless self.roles_accept.to_i == 1
-#  end
-
-  def roles_accept?
-    EOLConvert.to_boolean(roles_accept)
-  end
-
-  def ipr_accept?
-    EOLConvert.to_boolean(ipr_accept)
-  end
-
-  def attribution_accept?
-    EOLConvert.to_boolean(attribution_accept)
-  end
-
-  def transfer_schema_accept?
-    EOLConvert.to_boolean(transfer_schema_accept)
-  end
-
-  def terms_agreed_to?
-    ipr_accept? && attribution_accept? && roles_accept?
-  end
-
-  def ready_for_agreement?
-    content_partner_contacts.any? && partner_complete_step? && terms_agreed_to?
+    return dates_to_compare.sort[0] if dates_to_compare
   end
 
   def agreement
-    current_agreements = content_partner_agreements.select{ |cpa| cpa.is_current == true }
+    current_agreements = content_partner_agreements.select{ |cpa| cpa.is_current == true }.compact.sort_by{|cpa| cpa.created_at}.reverse
     return nil if current_agreements.empty?
     current_agreements[0]
   end
 
-  def previous_agreement
-    previous_agreements = content_partner_agreements.select{ |cpa| cpa.is_current == false }
-    return nil if previous_agreements.empty?
-    previous_agreements[0]
-  end
-
-  # returns true or false to indicate if current agreement has expired
-  def agreement_expired?
-    # if we've got an old agreement, we must have a new one --- check to see if it's been signed, if not - we have an expired agreement
-    if previous_agreement
-      return true if agreement && agreement.signed_by.blank?
-    end
-    false
-  end
-
-  def agreement_accepted?
-    agreement && !agreement.signed_by.blank?
-  end
-
-  # vet or unvet entire content partner (0 = unknown, 1 = vet)
-  def set_vetted_status(vetted)
-    set_to_state = EOLConvert.to_boolean(vetted) ? Vetted.trusted.id : Vetted.unknown.id
-    connection.execute("
-      UPDATE resources r
-      JOIN harvest_events he ON (r.id = he.resource_id)
-      JOIN data_objects_harvest_events dohe ON (he.id = dohe.harvest_event_id)
-      JOIN data_objects do ON (dohe.data_object_id = do.id)
-      SET do.vetted_id = #{set_to_state}
-      WHERE r.content_partner_id = #{self.id}
-      AND do.curated = 0
-      AND do.vetted_id != #{set_to_state}")
-    self.vetted = vetted
-  end
+#  FIXME: http://jira.eol.org/browse/WEB-2993 Fix or remove - vetted_id no longer on dato. SPG don't want to set vetted at content partner level anyway.
+#  # vet or unvet entire content partner (0 = unknown, 1 = vet)
+#  def set_vetted_status(vetted)
+#    set_to_state = EOLConvert.to_boolean(vetted) ? Vetted.trusted.id : Vetted.unknown.id
+#    connection.execute("
+#      UPDATE resources r
+#      JOIN harvest_events he ON (r.id = he.resource_id)
+#      JOIN data_objects_harvest_events dohe ON (he.id = dohe.harvest_event_id)
+#      JOIN data_objects do ON (dohe.data_object_id = do.id)
+#      SET do.vetted_id = #{set_to_state}
+#      WHERE r.content_partner_id = #{self.id}
+#      AND do.curated = 0
+#      AND do.vetted_id != #{set_to_state}")
+#    self.vetted = vetted
+#  end
 
   # override the logo_url column in the database to construct the path on the content server
   def logo_url(size = 'large')
@@ -427,15 +337,6 @@ class ContentPartner < SpeciesSchemaModel
     WHERE cp.id = #{content_partner_id}
     ORDER BY r.id desc, he.id desc"
     self.paginate_by_sql [query, content_partner_id], :page => page, :per_page => 30
-  end
-
-  def self.contacts_for_monthly_stats(month, year)
-    # cpc.email => 'eli@eol.org' email
-    SpeciesSchemaModel.connection.select_all("
-    SELECT DISTINCT cpc.full_name, cpc.email, cp.id content_partner_id, cp.user_id, cp.full_name partner_full_name from content_partners cp
-    JOIN content_partner_contacts cpc ON cp.id = cpc.content_partner_id
-    JOIN google_analytics_partner_summaries gaps ON gaps.user_id = cp.user_id
-    WHERE gaps.`year` = #{year} AND gaps.`month` = #{month} AND cpc.email IS NOT NULL")
   end
 
 private

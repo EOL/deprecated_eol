@@ -136,68 +136,6 @@ describe 'Admin Pages' do
     body.should include("No harvesting logs")
   end
 
-  it "should show report_monthly_published_partners page" do
-    login_as(@user)
-    visit("/admin/published_partners")
-    body.should include "New content partners for the month"
-  end
-
-  it "should get data from a form and display published partners" do
-    login_as(@user)
-    visit("/admin/published_partners", :method => :post, :params => {:year_month => @year_month})
-    body.should have_tag("form[action=/admin/published_partners]")
-    body.should include "New content partners for the month"
-    body.should include @content_parnter.user.full_name
-  end
-
-  it "should show report_partner_curated_data page" do
-    login_as(@user)
-    visit("/administrator/content_partner_report/report_partner_curated_data")
-    body.should include "Curation activity:"
-  end
-
-  it "should get data from a form and display curation activity" do
-    login_as(@user)
-    visit("/administrator/content_partner_report/report_partner_curated_data", :method => :post, :params => {:agent_id => @agent.id})
-    body.should have_tag("form[action=/administrator/content_partner_report/report_partner_curated_data]")
-    body.should include "Curation activity:"
-    body.should include @content_parnter.user.full_name
-  end
-
-  it "should get data from a form and display a month's curation activity" do
-    login_as(@user)
-    visit("/administrator/content_partner_report/report_partner_curated_data", :method => :post, :params => {:agent_id => @agent.id, :year_month => @year_month})
-    body.should have_tag("form[action=/administrator/content_partner_report/report_partner_curated_data]")
-    body.should include "Curation activity:"
-    body.should include @content_parnter.user.full_name
-  end
-
-  #TODO: report not working in master branch
-  # it "should show report_partner_objects_stats page" do
-  #   login_as(@user)
-  #   visit("/administrator/content_partner_report/report_partner_objects_stats")
-  #   body.should include "Viewing Partner:"
-  # end
-  #
-  # it "should get data from a form and display harvest events" do
-  #   login_as(@user)
-  #   visit("/administrator/content_partner_report/report_partner_objects_stats")
-  #   select @agent.full_name, :from => "agent_id"
-  #   click_button "Change"
-  #   body.should have_tag("form[action=/administrator/content_partner_report/report_partner_objects_stats]")
-  #   body.should include "Viewing Partner:"
-  #   body.should include @agent.full_name
-  #   body.should include @resource.title
-  # end
-
-  it "should link to data objects stats per harvest event" # do
-   #    login_as(@user)
-   #    visit("/administrator/content_partner_report/show_data_object_stats?harvest_id=#{@harvest_event.id}&partner_fullname=#{URI.escape(@agent.full_name)}")
-   #    body.should include "Total Data Objects:"
-   #    body.should include @agent.full_name
-   #    body.should include "#{@harvest_event.id}\n"
-   #  end
-
   it "should show table of contents breakdown page" do
     login_as(@user)
     visit("/administrator/stats/toc_breakdown")

@@ -1,27 +1,157 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Notifier do
-  describe 'reset_password' do
+
+  before(:all) do
+    unless @user = User.find_by_username('notifier_model')
+      truncate_all_tables
+      load_foundation_cache
+      @user = User.gen(:username => "notifier_model", :email => "johndoe@example.com",
+                       :given_name => "John", :family_name => "Doe")
+    end
+  end
+
+  describe 'curator_approved' do
     before(:all) do
-      @user = User.gen(:username => "johndoe", :email => "johndoe@example.com", :given_name => "John",
-                       :password_reset_token => User.generate_key)
-      @email = Notifier.create_reset_password(@user, "/users/#{@user.id}/reset_password/#{@user.password_reset_token}")
+      @curator_level = CuratorLevel.full
+      @user.update_attributes(:curator_level_id => @curator_level.id, :credentials => 'I am awesome.',
+                              :curator_scope => 'I study awesomeness.')
+      @email = Notifier.create_curator_approved(@user)
     end
 
-    it "should be set to be delivered to the email passed in" do
+    it "should be set to be delivered to the user" do
       @email.should deliver_to(@user.email)
     end
 
-    it "should be addressed by short name" do
-      @email.should have_text(/Dear John/)
+    it "should have a relevant subject" do
+      @email.should have_subject(/Encyclopedia of Life.+?#{@curator_level.label}.+?approved/i)
     end
 
-    it "should contain a link for resetting password" do
-      @email.should have_text(/users\/#{@user.id}\/reset_password\/#{@user.password_reset_token}/i)
+    it "should contain a greeting with user's name" do
+      @email.should have_text(/Dear #{@user.full_name},/)
     end
 
-    it "should have the correct subject" do
-      @email.should have_subject(/password reset/i)
+    it "should tell the user their curator level request has been approved" do
+      @email.should have_text(/#{@curator_level.label}.+?approved/)
     end
+
+    it "should contain a more information url" do
+      @email.should have_text(/http:\/\/www.eol.org\/curators/i)
+    end
+
+    it "should contain a basic signature" do
+      @email.should have_text(/The Encyclopedia of Life Team/)
+    end
+  end
+
+  describe 'content_partner_statistics_reminder' do
+    before(:all) do
+      @content_partner = ContentPartner.gen(:user => @user)
+      @content_partner.content_partner_contacts.build(:email => 'test@test.tes', :full_name => 'Test Tester')
+      @content_partner.save
+      @content_partner_contact = @content_partner.content_partner_contacts.first
+      @year = 1.month.ago.year
+      @month = 1.month.ago.month
+      @partner_summary = GoogleAnalyticsPartnerSummary.gen(:year => @year, :month => @month, :user => @user)
+      @email = Notifier.create_content_partner_statistics_reminder(@content_partner, @content_partner_contact, @month, @year)
+    end
+
+    it "should be set to be delivered to the content partner contact" do
+      @email.should deliver_to(@content_partner_contact.email)
+    end
+
+    it "should have a relevant subject" do
+      @email.should have_subject(/Encyclopedia of Life.+?#{@content_partner.full_name}.+?#{@month}.+?#{@year}/i)
+    end
+
+    it "should contain a greeting with contact's name" do
+      @email.should have_text(/Dear #{@content_partner_contact.full_name},/)
+    end
+
+    it "should tell the contact their content partner stats are available for viewing and provide link" do
+      @email.should have_text(/automated e-mail reminder from the Encyclopedia of Life/i)
+      @email.should have_text(/web usage statistics.+?#{@content_partner.full_name}.+?#{@month}.+?#{@year}/i)
+      @email.should have_text(/\/content_partners\/#{@content_partner.id}\/statistics/i)
+    end
+
+    it "should contain a signature with species pages group contact" do
+      @email.should have_text(/#{$SPECIES_PAGES_GROUP_EMAIL_ADDRESS}.+?The Encyclopedia of Life Team/im)
+    end
+  end
+
+  describe 'user_activated' do
+    before(:all) do
+      @email = Notifier.create_user_activated(@user)
+    end
+
+    it "should be set to be delivered to the user" do
+      @email.should deliver_to(@user.email)
+    end
+
+    it "should have a relevant subject" do
+      @email.should have_subject('Your Encyclopedia of Life account has been activated')
+    end
+
+    it "should contain greeting with user's name" do
+      @email.should have_text(/Dear #{@user.full_name}/)
+    end
+
+    it "should contain the user's username, profile, login and help urls" do
+      @email.should have_text(/your username is #{@user.username} and your profile URL.+?\/users\/#{@user.id}.+?http:\/\/www.eol.org\/login.+?http:\/\/www.eol.org\/help/im)
+    end
+
+    it "should contain a basic signature" do
+      @email.should have_text(/The Encyclopedia of Life Team/)
+    end
+  end
+
+  describe 'user_reset_password' do
+    before(:all) do
+      @user.update_attributes(:password_reset_token => User.generate_key)
+      @reset_password_url = "http://www.eol.org/users/#{@user.id}/reset_password/#{@user.password_reset_token}"
+      @email = Notifier.create_user_reset_password(@user, @reset_password_url)
+    end
+
+    it "should be set to be delivered to the user" do
+      @email.should deliver_to(@user.email)
+    end
+
+    it "should have a relevant subject" do
+      @email.should have_subject('Reset your Encyclopedia of Life account password')
+    end
+
+    it "should contain greeting with user's name" do
+      @email.should have_text(/Dear #{@user.full_name}/)
+    end
+
+    it "should contain a reset password url" do
+      @email.should have_text(/#{@reset_password_url}/)
+    end
+
+    it "should contain a signature with support contact" do
+      @email.should have_text(/#{$SUPPORT_EMAIL_ADDRESS}.+?The Encyclopedia of Life Team/im)
+    end
+  end
+
+  describe 'user_updated_email_preferences' do
+    before(:all) do
+      @new_user = @user
+      @new_user.email = 'changed@byuser.com'
+      @new_user.mailing_list = 1
+      @email = Notifier.create_user_updated_email_preferences(@user, @new_user, 'recipient@justatest.com')
+    end
+
+    it "should be set to be delivered to the recipient" do
+      @email.should deliver_to('recipient@justatest.com')
+    end
+
+    it "should have a relevant subject" do
+      @email.should have_subject("EOL user #{@user.full_name} changed their email address or mailing list preferences")
+    end
+
+    it "should contain the user's full name, profile url and email preferences before and after update" do
+      @email.should have_text(/#{@user.full_name}.+?\/users\/#{@user.id}.+?E-mail: #{@user.email}.+?Mailing list preference: #{@user.mailing_list}.+?E-mail: #{@new_user.email}.+?Mailing list preference: #{@new_user.mailing_list}/im)
+    end
+
   end
 end

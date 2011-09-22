@@ -1,0 +1,30 @@
+= render :partial => 'menu'
+
+#content_partners_statistics.main_container
+  %ul
+    %li
+      .copy
+        %h3= I18n.t(:admin_content_partners_notifications_statistics_reminder_header)
+        %p= I18n.t(:admin_content_partners_notifications_statistics_reminder_description)
+      - form_tag({}) do
+        = hidden_field_tag :notification, 'content_partner_statistics_reminder'
+        %fieldset.actions
+          = submit_tag I18n.t(:admin_content_partners_notifications_statistics_reminder_send_submit),
+            :confirm => I18n.t(:admin_content_partners_notifications_statistics_reminder_send_confirmation)
+      - unless @content_partners.blank?
+        .response
+          %h4= I18n.t(:admin_content_partners_notifications_sent_to_recipients_header)
+          %ul
+            - @content_partners.each do |content_partner|
+              %li
+                = content_partner.full_name
+                - if content_partner.content_partner_contacts.blank?
+                  = I18n.t(:admin_content_partners_notifications_statistics_reminder_content_partner_contacts_empty)
+                - else
+                  %ul
+                    - content_partner.content_partner_contacts.each do |content_partner_contact|
+                      %li
+                        = content_partner_contact.full_name
+                        = content_partner_contact.email
+
+

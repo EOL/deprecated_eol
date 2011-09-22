@@ -1,0 +1,41 @@
+#content_partner_resources.site_column
+  - form_for [@partner, @resource, @hierarchy],
+    :builder => ApplicationHelper::EolFormBuilder do |hierarchy_form|
+    = validation_errors_for(@hierarchy)
+
+    = hidden_field_tag :return_to, params[:return_to]
+    - en_browsable_status = en_browsable_status(@hierarchy)
+    %p{:class => en_browsable_status}
+      = I18n.t('helpers.label.hierarchy.browsable_status_with_colon')
+      = I18n.t("content_partner_resource_hierarchy_#{en_browsable_status}")
+    %fieldset
+      %dl
+        %dt
+          = hierarchy_form.label :label
+        %dd
+          = hierarchy_form.text_field :label, :maxlength => 255
+        %dt
+          = hierarchy_form.label :descriptive_label
+        %dd
+          = hierarchy_form.text_field :descriptive_label, :maxlength => 255
+        %dt
+          = hierarchy_form.label :description
+        %dd
+          = hierarchy_form.text_area :description
+    %fieldset.checkboxes
+      - hierarchy_form.label :browsable do
+        = hierarchy_form.check_box :browsable
+        = I18n.t('activerecord.attributes.hierarchy.browsable')
+        %p= I18n.t('helpers.label.hierarchy.browsable_more')
+      - hierarchy_form.label :complete do
+        = hierarchy_form.check_box :complete
+        = I18n.t('helpers.label.hierarchy.complete')
+        %p= I18n.t('helpers.label.hierarchy.complete_more')
+      - hierarchy_form.label :request_publish do
+        = hierarchy_form.check_box :request_publish
+        = I18n.t('helpers.label.hierarchy.request_publish')
+        %p= I18n.t('helpers.label.hierarchy.request_publish_more')
+    %fieldset.actions
+      = hierarchy_form.submit I18n.t('helpers.submit.hierarchy.update')
+      = link_to I18n.t(:cancel), params[:return_to]
+

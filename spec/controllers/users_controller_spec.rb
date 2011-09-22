@@ -132,11 +132,27 @@ describe UsersController do
   end
 
   describe 'GET verify' do
-    it 'should verify user or return error'
-    it 'should send activated account notification' do
+    it 'should not activate already active user' do
+      active_user = User.gen(:active => true, :validation_code => User.generate_key)
+      Notifier.should_not_receive(:deliver_user_activated)
+      Notifier.should_not_receive(:deliver_user_verification)
+      get :verify, { :username => active_user.username, :validation_code => active_user.validation_code }
+      response.redirected_to.should == login_path
+    end
+    it 'should activate inactive user with valid verification code' do
+      user = User.gen(:active => false, :validation_code => User.generate_key)
+      Notifier.should_receive(:deliver_user_activated).once.with(user)
+      get :verify, { :username => user.username, :validation_code => user.validation_code }
+      user.reload
+      user.active.should be_true
+      response.redirected_to.should == activated_user_path(user)
+    end
+    it 'should not activate user with invalid verification code' do
       inactive_user = User.gen(:active => false, :validation_code => User.generate_key)
-      Notifier.should_receive(:deliver_account_activated).once.with(inactive_user, root_url)
-      get :verify, { :username => inactive_user.username, :validation_code => inactive_user.validation_code }
+      Notifier.should_not_receive(:deliver_user_activated)
+      Notifier.should_receive(:deliver_user_verification).once.with(inactive_user, verify_user_url(inactive_user.username, inactive_user.validation_code))
+      get :verify, { :username => inactive_user.username, :validation_code => 'invalidverificationcode123' }
+      response.redirected_to.should == pending_user_path(inactive_user)
     end
   end
 
@@ -251,7 +267,7 @@ describe UsersController do
       user1 = User.gen(:email => 'johndoe@example.com')
       user2 = User.gen(:email => 'johndoe@example.com')
       user3 = User.gen(:email => 'johndoe@example.com')
-      Notifier.should_receive(:deliver_reset_password).with(user1, /users\/#{user1.id}\/reset_password\/[a-z0-9]*$/i)
+      Notifier.should_receive(:deliver_user_reset_password).with(user1, /users\/#{user1.id}\/reset_password\/[a-z0-9]*$/i)
       post :forgot_password, :user => {:username_or_email => user1.username}
       assigns[:users].size.should == 1
       assigns[:users][0].id.should == user1.id
@@ -260,6 +276,26 @@ describe UsersController do
   end
 
   describe 'GET reset_password' do
-
+    it 'should log in users with valid reset password token' do
+      user = User.gen(:password_reset_token => User.generate_key, :password_reset_token_expires_at => 24.hours.from_now)
+      get :reset_password, :user_id => user.id, :password_reset_token => user.password_reset_token
+      user.reload
+      user.password_reset_token.should be_nil
+      user.password_reset_token_expires_at.should be_nil
+      session[:user_id].should == user.id
+      response.redirected_to.should == edit_user_path(user)
+    end
+    it 'should not log in users with invalid reset password token' do
+      user = User.gen(:password_reset_token => User.generate_key, :password_reset_token_expires_at => 24.hours.from_now)
+      get :reset_password, :user_id => user.id, :password_reset_token => 'invalidtoken123'
+      session[:user].should_not == user
+      response.redirected_to.should == forgot_password_users_path
+    end
+    it 'should not log in users with expired reset password token' do
+      user = User.gen(:password_reset_token => User.generate_key, :password_reset_token_expires_at => 24.hours.ago)
+      get :reset_password, :user_id => user.id, :password_reset_token => 'invalidtoken123'
+      session[:user].should_not == user
+      response.redirected_to.should == forgot_password_users_path
+    end
   end
 end

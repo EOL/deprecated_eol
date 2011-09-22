@@ -18,37 +18,6 @@ describe ContentPartner do
     HarvestEventsHierarchyEntry.gen(:harvest_event => event, :hierarchy_entry => @contains_he)
   end
 
-  it 'should NOT be ready for agreement without contacts' do
-    user = User.gen(:given_name => 'Project')
-    content_partner = ContentPartner.gen(:user => user, :partner_complete_step => Time.now, :ipr_accept => 1,
-                              :attribution_accept => 1, :roles_accept => 1)
-    content_partner.terms_agreed_to?.should be_true
-    content_partner.ready_for_agreement?.should_not be_true
-  end
-
-  it "should be ready for agreement when they enter enough info" do
-    user = User.gen(:given_name => 'Project')
-    content_partner = ContentPartner.gen(:user => user, :partner_complete_step => Time.now, :ipr_accept => 1,
-                              :attribution_accept => 1, :roles_accept => 1)
-    content_partner.content_partner_contacts << ContentPartnerContact.gen(:content_partner => content_partner)
-    content_partner.terms_agreed_to?.should be_true
-
-    # TODO - these need separate testing... (except agent_contacts.any?, which is a rubyism)
-    content_partner.content_partner_contacts.any?.should be_true
-    content_partner.partner_complete_step?.should be_true
-    content_partner.terms_agreed_to?.should be_true
-
-    content_partner.ready_for_agreement?.should be_true
-  end
-
-  it "should not be ready for agreement before all info is entered and agreements are made" do
-    user = User.gen(:given_name => 'Project')
-    content_partner = ContentPartner.gen(:user => user, :partner_complete_step => 0, :ipr_accept => 0,
-                              :attribution_accept => 1, :roles_accept => 1)
-    content_partner.terms_agreed_to?.should_not be_true
-    content_partner.ready_for_agreement?.should_not be_true
-  end
-
   it 'should get all data_objects that came from an agents last harvest' do
     agent = Agent.gen()
     user = User.gen(:agent => agent)

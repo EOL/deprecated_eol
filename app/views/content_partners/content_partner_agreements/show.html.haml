@@ -1,4 +1,7 @@
+= content_for :page_actions do
+  %li= link_to I18n.t(:content_partner_overview_link_back_to), @partner
+
 #content_partner_show.site_column
   .main_content
     .copy
-      = @partner.agreement.body
+      = @agreement.body

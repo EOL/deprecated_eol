@@ -1,0 +1,13 @@
+- form_for [@partner, @agreement] do |form|
+  %fieldset
+    = @agreement.body
+    = form.hidden_field :body, :value => @agreement.body
+    = form.hidden_field :created_at, :value => @agreement.created_at
+    %dl
+      %dt
+        = form.label :signed_by
+      %dd
+        = form.text_field :signed_by, { :maxlength => 255 }
+  %fieldset.actions
+    = form.submit I18n.t('helpers.submit.content_partner_agreement.agree'), :name => :commit_agree_to_terms
+    = link_to I18n.t(:content_partner_agreement_cancel_sign_agreement_link), @partner

@@ -1,0 +1,10 @@
+%dl
+  %dt
+    = form.label :body
+  %dd
+    = form.text_area :body
+  %dt
+    = form.label :mou_url
+    %p= I18n.t('helpers.label.content_partner_agreement.mou_url_more', :upload_content_url => url_for(:controller => 'administrator/content_upload', :action => 'index'))
+  %dd
+    = form.text_field :mou_url, { :maxlength => 255 }

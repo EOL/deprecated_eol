@@ -1,0 +1,6 @@
+%h3= I18n.t(:content_partner_managed_by_header)
+%ul
+  %li
+    = link_to image_tag(@partner.user.logo_url), @partner.user
+    %h4= link_to @partner.user.full_name, @partner.user
+    %p= @partner.user.tag_line

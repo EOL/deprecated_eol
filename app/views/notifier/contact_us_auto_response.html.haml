@@ -1,7 +1,5 @@
-= I18n.t(:dear_user_with_comma, :user => @contact.name)
-= ""
-= I18n.t("thank_you_for_contacting_the_eol")
-= ""
-= I18n.t("we_appreciate_your_feedback")
-= ""
-= I18n.t(:activate_email_footer)
+= I18n.t(:greeting_dear_name_with_comma, :name => @contact.name, :scope => :notifier)
+:plain
+= t('.message')
+:plain
+= I18n.t(:signature_basic, :scope => :notifier)

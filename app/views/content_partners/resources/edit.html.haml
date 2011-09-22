@@ -5,4 +5,4 @@
     = render :partial => 'resource_fieldset', :locals => { :resource_form => resource_form }
     %fieldset.actions
       = resource_form.submit I18n.t('helpers.submit.resource.update')
-      = link_to I18n.t(:cancel), content_partner_resources_path(@partner)
+      = link_to I18n.t(:cancel), content_partner_resource_path(@partner, @resource)

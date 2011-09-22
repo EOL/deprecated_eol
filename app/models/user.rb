@@ -404,7 +404,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def revoke_curator
     unless curator_level_id == nil
       self.update_attributes(:curator_level_id => nil)
-      Notifier.deliver_curator_unapproved(self) if $PRODUCTION_MODE
     end
     self.update_attributes(:curator_verdict_by => nil,
                            :curator_verdict_at => nil,

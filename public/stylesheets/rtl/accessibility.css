@@ -264,7 +264,9 @@ form#switch_hierarchy_entry fieldset {
   #content.cms_page ul.object_list li img {
     max-width: 68px; }
   #content.cms_page ul.object_list li h4 {
-    margin-bottom: 0.5em; }
+    margin-bottom: 0.5em;
+    direction: ltr;
+    text-align: right; }
     #content.cms_page ul.object_list li h4 a {
       color: #195184;
       text-decoration: underline; }
@@ -310,7 +312,8 @@ form#switch_hierarchy_entry fieldset {
 
 /*content partners overrides/additions */
 .cms_page #content_partners #sidebar input[type="text"] {
-  width: 118px; }
+  width: 118px;
+  direction: rtl; }
 
 #new_content_partner_agreement dl {
   clear: both; }
@@ -662,6 +665,7 @@ body > #header .section .session.join {
  * so we can't re-use HR SASS as it is - we need to refactor markup and SASS so we can share SASS or create mixin.
  */
 #classification_browser {
+  direction: ltr;
   border: 1px solid #d7dadc;
   overflow-x: auto;
   padding: 10px 15px;
@@ -672,7 +676,7 @@ body > #header .section .session.join {
     #classification_browser > ul li {
       white-space: nowrap; }
       #classification_browser > ul li ul {
-        margin-right: 10px; }
+        margin-left: 10px; }
 
 #classification_browser .open, .classifications .open {
   font-weight: bold; }
@@ -761,8 +765,11 @@ body > #header .section .session.join {
 #taxon_literature h3, #taxon_community h3, #taxon_resources h3 {
   font-size: 2em; }
 
-#taxon_resources table.standard tbody > tr > td > a > img {
-  max-width: 90px; }
+#taxon_resources table.standard {
+  direction: ltr;
+  text-align: left; }
+  #taxon_resources table.standard tbody > tr > td > a > img {
+    max-width: 90px; }
 #taxon_resources #taxon_detail > #main > h3 {
   padding: 0 0 20px 20px;
   font-size: 2em; }
@@ -1194,3 +1201,35 @@ body#prelaunch p.status {
 
 body#prelaunch #footer ul.social_media {
   margin-top: 20px; }
+
+.scientific_name {
+  direction: ltr;
+  text-align: right; }
+
+table.synonyms, table.common_names, table.edit_common_names, table.related_names {
+  direction: ltr;
+  text-align: left; }
+  table.synonyms select, table.common_names select, table.edit_common_names select, table.related_names select {
+    direction: rtl; }
+
+#classifications_summary ul li ul {
+  direction: ltr; }
+  #classifications_summary ul li ul li.show_tree_count {
+    direction: rtl;
+    text-align: left; }
+    #classifications_summary ul li ul li.show_tree_count a.show_tree {
+      display: inline; }
+  #classifications_summary ul li ul li a.show_tree {
+    direction: rtl;
+    text-align: left;
+    display: block; }
+
+input#user_email,
+input#user_username,
+input#session_username_or_email,
+input#user_username_or_email,
+input[type="password"] {
+  direction: ltr; }
+
+#taxon_literature table, #taxon_literature ul.ref_list {
+  direction: ltr; }

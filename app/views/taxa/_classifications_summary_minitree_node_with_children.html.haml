@@ -8,7 +8,7 @@
       - if he_children.length == 4
         %li= render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => he_children[3] })
       - if he_children.length > 4
-        %li
+        %li.show_tree_count
           = I18n.t(:more_children_with_count, :count => he_children.length - 3)
           = link_to(I18n.t(:show_full_tree), taxon_hierarchy_entry_overview_path(@taxon_concept, hierarchy_entry), :class => 'show_tree', :data_url => taxon_hierarchy_entry_tree_path(@taxon_concept, hierarchy_entry))
       - else

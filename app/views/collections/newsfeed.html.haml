@@ -18,8 +18,5 @@
     = render :partial => 'comments/new', :locals => {:parent => @collection}
     .newsfeed_heading
       %h3= I18n.t(:newsfeed)
-    - if @collection.focus?
-      - log = @collection.community.activity_log(:page => @page)
-    - else
-      - log = @collection.activity_log(:page => @page)
+    - log = @collection.activity_log(:page => @page)
     = render :partial => 'activity_logs/index', :locals => {:log => log }

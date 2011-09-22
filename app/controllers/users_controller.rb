@@ -293,7 +293,7 @@ private
   end
 
   def user_updated_email_preferences?(user_before_update, user_after_update)
-    old_user.mailing_list != new_user.mailing_list || old_user.email != new_user.email
+    user_before_update.mailing_list != user_after_update.mailing_list || user_before_update.email != user_after_update.email
   end
 
   def send_preferences_updated_email(user_before_update, user_after_update)

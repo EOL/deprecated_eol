@@ -151,9 +151,9 @@ Rails::Initializer.run do |config|
   $IGNORED_EXCEPTIONS = ["CGI::Session::CookieStore::TamperedWithCookie","taxa id not supplied","static page without id"] # array of exceptions to ignore when logging or notifying
 
   # EMAIL NOTIFIER CONFIGURATION
-  $SPECIES_PAGES_GROUP_EMAIL_ADDRESS = "affiliate@eol.org"
-  $SUPPORT_EMAIL_ADDRESS = "support@eol.org"
-  $ERROR_EMAIL_ADDRESS = "error@eol.org"
+  $SPECIES_PAGES_GROUP_EMAIL_ADDRESS = "from@example.com"
+  $SUPPORT_EMAIL_ADDRESS = "from@example.com"
+  $ERROR_EMAIL_ADDRESS = "from@example.com"
   $STATISTICS_EMAIL_FROM_ADDRESS = "from@example.com"
   $MEDIA_INQUIRY_CONTACT_SUBJECT_ID = 1 # this should match the ContactSubject table with the ID of the media inquiry row (used on the special Media Contact page)
   $CONTRIBUTE_INQUIRY_CONTACT_SUBJECT_IDS = "13,14" # this should match the ContactSubject table with the IDs of the request to curate or contribute rows as a string in comma delimuted format  (used on the Contact us page to show an extra field)

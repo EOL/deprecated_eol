@@ -549,7 +549,7 @@ form div {
     background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white);
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1));
     cursor: pointer;
-    padding: 3px 0 0 10px;
+    padding: 3px 10px;
     font-size: 0.92em; }
     .heading form.filter input[type="submit"]:hover {
       background-color: #e6eef4;
@@ -571,7 +571,7 @@ form div {
   border: 1px solid #93a4b0;
   border-width: 0 1px; }
   .main_container .heading {
-    padding: 6px 10px 5px 10px;
+    padding: 6px 10px 13px 10px;
     border-bottom: 1px solid #ccd399;
     background: #f1f4dc; }
     .main_container .heading h3, .main_container .heading label {
@@ -736,8 +736,7 @@ table.standard {
     table.standard thead tr th {
       background: #eff2f4;
       padding: 5px 20px;
-      font-weight: bold;
-      text-align: right; }
+      font-weight: bold; }
   table.standard tbody tr {
     border: 1px solid #cad3db; }
     table.standard tbody tr td {
@@ -1058,7 +1057,7 @@ form.select_content_partner {
     background-image: -moz-linear-gradient(100% 100% 90deg, #d7dde1, white);
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#d7dde1));
     cursor: pointer;
-    padding: 3px 0 0 10px;
+    padding: 3px 10px;
     font-size: 0.92em; }
     form.select_content_partner input[type="submit"]:hover {
       background-color: #e6eef4;
@@ -1960,7 +1959,7 @@ body > #header {
           #taxon + #sidebar .classifications > ul > li h4 a {
             font-weight: bold; }
         #taxon + #sidebar .classifications > ul > li ul {
-          margin-right: 10px; }
+          margin-left: 10px; }
     #taxon + #sidebar .updates ul {
       border-bottom: 1px solid #d7dadc; }
     #taxon + #sidebar .updates form.comment {
@@ -2195,18 +2194,21 @@ body > #header {
   #permalink #sidebar h3 {
     padding: 0 10px 3px 10px;
     font-size: 1.16em; }
-  #permalink #sidebar ul.review_status p {
-    float: left;
-    padding: 1px 0 0 2px;
-    font-size: 0.75em;
-    text-transform: uppercase;
-    color: white; }
-    #permalink #sidebar ul.review_status p.trusted {
-      border: 1px solid #6b7910;
-      background: #849513; }
-    #permalink #sidebar ul.review_status p.unreviewed {
-      border: 1px solid #677682;
-      background: #8695a1; }
+  #permalink #sidebar ul.review_status {
+    direction: ltr;
+    text-align: right; }
+    #permalink #sidebar ul.review_status p {
+      float: left;
+      padding: 1px 0 0 2px;
+      font-size: 0.75em;
+      text-transform: uppercase;
+      color: white; }
+      #permalink #sidebar ul.review_status p.trusted {
+        border: 1px solid #6b7910;
+        background: #849513; }
+      #permalink #sidebar ul.review_status p.unreviewed {
+        border: 1px solid #677682;
+        background: #8695a1; }
 #permalink .article.source p {
   font-size: 0.92em;
   line-height: 150%; }
@@ -2222,7 +2224,9 @@ body > #header {
 #permalink form.review_status legend {
   padding: 0 0 5px 0;
   font-size: 1.16em;
-  font-weight: bold; }
+  font-weight: bold;
+  direction: ltr;
+  text-align: right; }
 #permalink form.review_status p {
   padding: 0 0 10px 0;
   font-size: 0.92em; }
@@ -2273,7 +2277,8 @@ body > #header {
       background-color: white;
       filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
       background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
-      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
+      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
+      direction: ltr; }
     #permalink_add_association > form input[type="submit"] {
       padding-right: 20px;
       padding-left: 20px;
@@ -2330,7 +2335,7 @@ body > #header {
 
 #worklist .filters {
   overflow: hidden;
-  padding: 15px 0 0 40px;
+  padding: 15px 40px;
   margin: 0 0 20px 0;
   border-bottom: 1px solid #ccd399;
   background: #f1f4dc; }
@@ -2507,7 +2512,9 @@ body > #header {
   #worklist #task form.review_status legend {
     padding: 0 0 5px 0;
     font-size: 1.16em;
-    font-weight: bold; }
+    font-weight: bold;
+    direction: ltr;
+    text-align: right; }
   #worklist #task form.review_status select {
     margin: 0 0 5px 0; }
   #worklist #task form.review_status p {

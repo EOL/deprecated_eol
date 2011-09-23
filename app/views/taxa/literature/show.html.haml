@@ -10,6 +10,6 @@
           .empty
             %p= I18n.t(:literature_empty)
         - else
-          %ul
+          %ul.ref_list
             - @references.each do |r|
               %li= r.full_reference

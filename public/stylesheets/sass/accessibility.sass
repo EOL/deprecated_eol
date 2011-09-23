@@ -3,6 +3,9 @@
 .assistive, #header .assistive
   +screenreader_accessible
 
+=ie7-hack($property, $ie7-value)
+  *#{$property}: #{$ie7-value}
+
 /**
  * Changes required for HR sass files:
  *   - replace /images/<image name> with /images/v2/<image name>
@@ -780,6 +783,12 @@ body
           margin-bottom: 0
       dt, dd, fieldset, input[type="submit"]
         display: inline-block
+        height: 2em
+        zoom: 1
+        +ie7-hack('display', 'inline')
+      fieldset
+        height: 3em
+        margin: 5px
       dl
         margin-left: 20px
         dt

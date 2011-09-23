@@ -687,6 +687,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     editable_collections = collections.reject {|c| c.watch_collection? }
     editable_collections += members.managers.map {|member| member.community.collection }
     editable_collections = [watch_collection] + editable_collections.sort_by(&:name)
+    editable_collections.compact
   end
 
   def ignored_data_object?(data_object)

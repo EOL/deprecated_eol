@@ -671,9 +671,9 @@ private
       if params[:controller] == "taxa/overviews" && params[:taxon_id]
         redirect_to mobile_taxon_path(params[:taxon_id])
       elsif params[:controller] == "taxa/details" && params[:taxon_id]
-        redirect_to details_mobile_taxon_path(params[:taxon_id])
+        redirect_to mobile_taxon_details_path(params[:taxon_id])
       elsif params[:controller] == "taxa/media" && params[:taxon_id]
-        redirect_to media_mobile_taxon_path(params[:taxon_id])
+        redirect_to mobile_taxon_media_path(params[:taxon_id])
       else
         redirect_to mobile_contents_path
       end

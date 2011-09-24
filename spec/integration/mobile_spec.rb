@@ -62,13 +62,13 @@ if $ENABLE_MOBILE
     it 'should translate url and redirect to mobile taxon details' do
       headers = {"User-Agent" => "iPhone"}
       request_via_redirect(:get, "/pages/#{@taxon_concept.id}/details", {}, headers)
-      request.fullpath.should == details_mobile_taxon_path(@taxon_concept.id)
+      request.fullpath.should == mobile_taxon_details_path(@taxon_concept.id)
     end
 
     it 'should translate url and redirect to mobile taxon media' do
       headers = {"User-Agent" => "iPhone"}
       request_via_redirect(:get, "/pages/#{@taxon_concept.id}/media", {}, headers)
-      request.fullpath.should == media_mobile_taxon_path(@taxon_concept.id)
+      request.fullpath.should == mobile_taxon_media_path(@taxon_concept.id)
     end
 
 

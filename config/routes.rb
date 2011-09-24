@@ -200,7 +200,10 @@ ActionController::Routing::Routes.draw do |map|
   map.mobile 'mobile', :controller => 'mobile/contents'
   map.namespace :mobile do |mobile|
     mobile.resources :contents, :collection => {:enable => [:post, :get], :disable => [:post, :get]}
-    mobile.resources :taxa, :member => {:details => :get, :media => :get}
+    mobile.resources :taxa, :as => :pages do |taxa|
+      taxa.resources :details, :only => [:index], :controller => "taxa/details"		
+      taxa.resources :media, :only => [:index], :controller => "taxa/media"
+    end
   #  mobile.search 'search/:id', :controller => 'search', :action => 'index' # this looks for mobile/search controller but I'm using the main search controller instead
   end
   map.mobile_search 'mobile/search/:id', :controller => 'search', :action => 'index'

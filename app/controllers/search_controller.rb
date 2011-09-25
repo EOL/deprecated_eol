@@ -40,7 +40,7 @@ class SearchController < ApplicationController
         if @all_results.length == 1 && @all_results.total_entries == 1
           redirect_to mobile_taxon_path(@all_results.first["resource_id"])
         else
-          render :template => 'mobile/search/index', :layout => "#{RAILS_ROOT}/app/views/mobile/layouts/main_mobile.html.haml"
+          render :template => 'mobile/search/index', :layout => "v2/mobile/application"
         end
       elsif params[:show_all].blank? && @all_results.length == 1 && @all_results.total_entries == 1
         redirect_to_page(@all_results.first, :total_results => 1, :params => params)

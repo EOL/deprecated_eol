@@ -96,8 +96,29 @@ nl:
       full_messages: 
         format: "%{attribute} %{message}"
       messages: 
+        accepted: moet aanvaard worden
+        blank: mag niet leeg blijven
+        confirmation: komt niet overeen met de bevestiging
+        empty: mag niet leeg blijven
+        equal_to: moet gelijk zijn aan %{count}
+        even: moet even getal zijn
+        exclusion: is gereserveerd
+        greater_than: moet groter zijn dan %{count}
+        greater_than_or_equal_to: moet groter dan of gelijk zijn aan %{count}
+        inaccessible: is niet toegankelijk
+        inclusion: wordt niet opgenomen in de lijst
+        invalid: is ongeldig
+        less_than: moet kleiner zijn dan %{count}
+        less_than_or_equal_to: moet kleiner of gelijk zijn aan %{count}
+        not_a_number: is geen getal
+        not_an_integer: moet een geheel getal zijn
+        odd: moet oneven getal zijn
         record_invalid: "Validatie is mislukt: %{errors}"
         taken: bestaat al
+        too_long: is te lang (maximum is %{count} tekens)
+        too_short: is te kort (minimum is %{count} tekens)
+        wrong_length: heeft de verkeerde lengte (moet %{count} tekens zijn)
+        wrong_type: is van het verkeerde type
       models: 
         resource: 
           attributes: 
@@ -178,6 +199,8 @@ nl:
   admin_content_page_parent_option_root: Geen bovenliggende pagina
   admin_content_page_root: Bovenste niveau
   admin_content_page_sort_order_updated: De volgorde van pagina's is gewijzigd.
+  admin_content_page_update_successful_notice: De pagina <a href="#%{anchor}"><em>%{page_name}</em></a> is bijgewerkt.
+  admin_content_page_update_unsuccessful_error: Er is een fout opgetreden. De pagina kon niet worden bijgewerkt.
   admin_content_pages_empty: Geen inhoudspagina's gevonden.
   admin_content_pages_link: Content management
   admin_content_pages_page_title: "Beheer: contentbeheer"
@@ -191,6 +214,7 @@ nl:
   admin_notes_not_visible_to_user: "Opmerkingen voor beheerders (niet zichtbaar voor gebruikers):"
   admin_page_title: "Beheer: Overzicht"
   admin_translated_content_page_create_successful_notice: Vertaling is toegevoegd aan <a href="#%{anchor}"><em>%{page_name}</em></a>
+  admin_translated_content_page_create_unsuccessful_error: Er is een fout opgetreden. De vertaling kon niet worden toegevoegd.
   admin_translated_content_page_edit_tip: Titel en inhoud zijn %{required_icon} verplicht.
   admin_translated_content_page_new_header: Kies en taal en voeg inhoud toe
   admin_translated_content_page_new_link: Vertaling toevoegen
@@ -198,11 +222,19 @@ nl:
   admin_translated_content_page_new_tip: Taal, titel en inhoud zijn %{required_icon} vereist.
   admin_translated_content_page_update_unsuccessful_error: Er is een fout opgetreden. De vertaling kon niet worden bijgewerkt.
   agent: Agent
+  all_articles: Alle artikelen
   all_changes: Alle wijzigingen
+  all_collections: Alle verzamelingen
+  all_communities: Alle gemeenschappen
+  all_images: Alle afbeeldingen
   all_information: Alle gegevens
   all_items: Alle items
   all_pages: Alle pagina's
+  all_people: Alle mensen
+  all_sounds: Alle geluiden
+  all_taxa: Alle taxa
   all_title: Alle
+  all_videos: Alle video's
   already_a_member_question: Al lid?
   already_member_of_community: U bent al lid van deze gemeenschap.
   alternate_classification: Alternatieve classificatie
@@ -239,6 +271,9 @@ nl:
   auto_email_notifications_were_sent_to_colon: "Er zijn automatische e-mails verzonden naar:"
   average_rating_value_of_total: "Gemiddelde waardering: %{rating} van %{total}"
   back_to_profile: Terug naar het profiel
+  belongs_in_count_communities: 
+    one: Hoort bij één gemeenschap
+    other: Hoort bij %{count} gemeenschappen
   bi_monthly: Tweemaandelijks
   biodiversity_heritage_library: Biodiversity Heritage Library
   biomedical_terms: Biomedische termen
@@ -248,8 +283,9 @@ nl:
   cancel: Annuleren
   cannot_be_associated_with_both_a_user_and_a_community: Kan niet gekoppeld zijn aan een gebruiker en een gemeenschap
   cannot_be_empty: mag niet leeg zijn.
-  cannot_create_collection_item_from_class_error: Ik kan geen verzamelingsitem aanmaken vanuit een %{klass}
+  cannot_create_collection_item_from_class_error: Het is niet mogelijk een verzamelingsitem aan te maken van klasse %{klass}
   cannot_find_member: Kan geen lid vinden met dit nummer.
+  cannot_index_collection_item_type_error: Het is niet mogelijk een verzamelingsitem van het type %{type} te indexeren
   change: Wijzigen
   change_rating_to_1_of_5: Waardering naar 1 van 5 wijzigen
   change_rating_to_2_of_5: Waardering wijzigen naar 2 van 5
@@ -264,7 +300,6 @@ nl:
   classifications_summary_header_with_count: 
     one: Gevonden in één goedgekeurde classificatie
     other: Gevonden in %{count} classificaties
-  close_this_window_to_return_to_edit_window: Sluit dit venster om terug te keren naar het bewerkingsvenster
   cms_available_in_languages: "Deze pagina is beschikbaar in:"
   cms_missing_content_title: Ontbrekende inhoud
   collect_item: Item in verzameling opnemen
@@ -278,6 +313,7 @@ nl:
   collection_not_destroyed_error: De verzameling is niet verwijderd.
   collection_not_found_error: Die verzameling kon niet gevonden worden.
   collection_updated_notice: De verzameling <em>%{collection_name}</em> is bijgewerkt.
+  collection_was_removed_by_owner: Deze verzameling is verwijderd door de eigenaar.
   collections: Verzamelingen
   collections_lowercase: verzamelingen
   collections_summary_empty: Deze pagina is nog geen onderdeel van een verzameling.
@@ -320,6 +356,9 @@ nl:
     other: "%{count} bijdragen"
   community_empty_notice: Deze gemeenschap heeft geen leden.
   community_focus: Gemeenschapsfocus
+  community_focus_items_with_count: 
+    one: "%{count} item"
+    other: "%{count} items"
   community_managers_with_count: 
     one: Eén gemeenschapsmanager
     other: "%{count} gemeenschapsmanagers"
@@ -330,7 +369,6 @@ nl:
   community_removed_by_owner: Deze gemeenschap is verwijderd door de eigenaar.
   confirm_leave: Weet u zeker dat u deze gemeenschap wilt verlaten?
   confirm_password_colon: "Wachtwoord bevestigen:"
-  contact_for_any_comments: Neem contact op met eli@eol.org voor eventuele opmerkingen.
   contact_us_functions: "\"Neem contact met ons op\"-functies"
   contact_us_link: Contact opnemen
   content_has_been_updated: De inhoud is bijgewerkt
@@ -353,6 +391,8 @@ nl:
   content_partner_contact_new_edit_form_tip: Voornaam, achternaam en e-mailadres zijn %{required_icon} verplicht.
   content_partner_contact_new_link: Een nieuw contactpersoon toevoegen
   content_partner_contact_new_page_subheader: Een contactpersoon toevoegen
+  content_partner_contact_update_successful_notice: De contactpersoon is aangepast.
+  content_partner_contact_update_unsuccessful_error: Er is een fout opgetreden. De contactpersoon is niet bijgewerkt.
   content_partner_contacts_header: Contactpersonen
   content_partner_contacts_page_title: Contactpersonen contentpartner - %{name}
   content_partner_contacts_with_count: 
@@ -497,12 +537,14 @@ nl:
   curator_level: Curatorniveau
   curator_level_application_pending_notice: Bedankt voor uw aanmelding als curator. We sturen u een e-mail als wij uw aanmelding hebben beoordeeld.
   curator_level_full_curator: Volledig curator
+  curator_level_full_pending_notice: Dank uw wel voor uw aanmelding als <em>volledig curator</em>. We stellen u op de hoogte als we uw aanmelding hebben beoordeeld.
   curator_level_master_curator: Meestercurator
   curator_level_master_pending_notice: Dank uw wel voor uw aanmelding als <em>meestercurator</em>. We stellen u op de hoogte als we uw aanmelding hebben beoordeeld.
   curator_level_with_indefinite_article_assistant_curator: een <strong>assistentcurator</strong>
   curator_level_with_indefinite_article_full_curator: een <strong>volwaardig curator</strong>
   curator_level_with_indefinite_article_master_curator: een <strong>meestercurator</strong>
   curator_profile: curatorprofiel
+  curator_question: Curator?
   curator_scope_colon: "Curatorscope:"
   curator_status_changed_by: Curatorstatus is gewijzigd door %{user} op %{date}
   curator_title: Curator
@@ -533,6 +575,7 @@ nl:
   dato_new_edit_user_text_fieldset_content_header: Artikelinhoud
   dato_new_edit_user_text_fieldset_information_header: Artikelgegevens
   dato_new_edit_user_text_form_tip: Uw pagina wordt gemarkeerd als "niet-beoordeeld" totdat een curator ernaar kijkt. Het tekstveld is verplicht %{required_icon}.
+  dato_new_text_for_taxon_page_title: Een artikel toevoegen aan <i>%{taxon}</i>
   dear_contact_full_name: Beste %{contact_full_name},
   dear_user_with_comma: Beste %{user},
   default: Standaard
@@ -579,29 +622,6 @@ nl:
   error_404_page_title: Niet gevonden
   error_500_page_title: Interne serverfout
   error_page_title: Oeps.
-  errors: 
-    messages: 
-      accepted: moet worden geaccepteerd
-      blank: mag niet leeg blijven
-      confirmation: komt niet overeen met de bevestiging
-      empty: mag niet leeg zijn
-      equal_to: moet gelijk zijn aan %{count}
-      even: moet even zijn
-      exclusion: is gereserveerd
-      greater_than: moet groter zijn dan %{count}
-      greater_than_or_equal_to: moet groter of gelijk zijn aan %{count}
-      inaccessible: is niet toegankelijk
-      inclusion: is niet opgenomen in de lijst
-      invalid: is ongeldig
-      less_than: moet lager zijn dan %{count}
-      less_than_or_equal_to: moet kleiner of gelijk zijn aan %{count}
-      not_a_number: is geen getal
-      not_an_integer: moet een geheel getal zijn
-      odd: moet oneven zijn
-      too_long: is te lang (maximaal % {count} tekens)
-      too_short: is te kort (minimaal % {count} tekens)
-      wrong_length: heeft de verkeerde lengte (moet %{count} tekens hebben)
-      wrong_type: is van het verkeerde type
   esc_key_hides_this_message: (typ ESC om dit bericht te verbergen)
   example_colon: "Voorbeeld:"
   explore: Verkennen
@@ -613,7 +633,7 @@ nl:
   filter_by_status_all_option: alle statussen
   filter_by_status_inappropriate_option: ongepast
   filter_by_status_trusted_option: vertrouwd
-  filter_by_status_unknown_option: Niet-beoordeeld
+  filter_by_status_unreviewed_option: niet-beoordeeld
   filter_by_status_untrusted_option: niet-vertrouwd
   filter_by_type: Op type filteren
   filter_by_type_all_option: alle typen
@@ -902,12 +922,9 @@ nl:
   newsfeed: Nieuwsfeed
   none: geen
   not_evaluated: Niet beoordeeld
-  object_type_collection_option: Verzameling
-  object_type_community_option: Gemeenschap
   object_type_image_option: Afbeelding
   object_type_sound_option: Geluid
   object_type_text_option: Tekst
-  object_type_user_option: Gebruiker
   object_type_video_option: Video
   object_visibility_invisible_option: Verborgen
   object_visibility_visible_option: Zichtbaar

@@ -1,0 +1,150 @@
+# Messages for French (Français)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Bobcorrigan
+# Author: Hashar
+# Author: Od1n
+fr: 
+  translated_activities-name-activity_id-50: non fiable
+  translated_activities-name-activity_id-58: fiable
+  translated_agent_roles-label-agent_role_id-1: Animateur
+  translated_agent_roles-label-agent_role_id-10: Projet
+  translated_agent_roles-label-agent_role_id-11: Éditeur
+  translated_agent_roles-label-agent_role_id-13: Source
+  translated_agent_roles-label-agent_role_id-15: Point de contact
+  translated_agent_roles-label-agent_role_id-16: Contributeur
+  translated_agent_roles-label-agent_role_id-2: Auteur
+  translated_agent_roles-label-agent_role_id-3: Assembleur
+  translated_agent_roles-label-agent_role_id-4: Ordonnateur
+  translated_agent_roles-label-agent_role_id-5: Créateur
+  translated_agent_roles-label-agent_role_id-6: Directeur
+  translated_agent_roles-label-agent_role_id-7: Éditeur
+  translated_agent_roles-label-agent_role_id-8: Illustrateur
+  translated_agent_roles-label-agent_role_id-9: Photographe
+  translated_audiences-label-audience_id-1: Experts
+  translated_audiences-label-audience_id-2: Grand public
+  translated_audiences-label-audience_id-3: Enfants
+  translated_collection_types-label-collection_type_id-1: Taxonomie
+  translated_collection_types-label-collection_type_id-10: Sons
+  translated_collection_types-label-collection_type_id-11: Liens
+  translated_collection_types-label-collection_type_id-12: Bibliographie
+  translated_collection_types-label-collection_type_id-13: Taxonomie
+  translated_collection_types-label-collection_type_id-14: Codes barres moléculaires
+  translated_collection_types-label-collection_type_id-15: Description
+  translated_collection_types-label-collection_type_id-16: Images
+  translated_collection_types-label-collection_type_id-17: Répartition
+  translated_collection_types-label-collection_type_id-22: Sons
+  translated_collection_types-label-collection_type_id-23: Liens
+  translated_collection_types-label-collection_type_id-3: Description
+  translated_collection_types-label-collection_type_id-4: Images
+  translated_collection_types-label-collection_type_id-6: État de conservation
+  translated_collection_types-label-collection_type_id-8: Données moléculaires
+  translated_collection_types-label-collection_type_id-9: Nomenclature
+  translated_contact_roles-label-contact_role_id-1: Contact Principale
+  translated_contact_roles-label-contact_role_id-2: Contact administratif
+  translated_contact_roles-label-contact_role_id-3: Contact Technique
+  translated_contact_subjects-title-contact_subject_id-10: Contenu
+  translated_contact_subjects-title-contact_subject_id-12: Autres
+  translated_contact_subjects-title-contact_subject_id-2: Contributions
+  translated_contact_subjects-title-contact_subject_id-6: Recherches bioinformatique
+  translated_contact_subjects-title-contact_subject_id-7: Recherche biologique
+  translated_content_partner_statuses-label-content_partner_status_id-1: En attente
+  translated_content_partner_statuses-label-content_partner_status_id-2: Actif
+  translated_content_partner_statuses-label-content_partner_status_id-3: Archivé
+  translated_content_partner_statuses-label-content_partner_status_id-4: Inactif
+  translated_content_tables-label-content_table_id-1: Détails
+  translated_data_types-label-data_type_id-10: Carte
+  translated_data_types-label-data_type_id-3: Texte
+  translated_data_types-label-data_type_id-4: Vidéo
+  translated_data_types-label-data_type_id-6: IUCN
+  translated_data_types-label-data_type_id-8: YouTube
+  translated_licenses-description-license_id-1: Aucun droits réservés
+  translated_licenses-description-license_id-2: © Tous droits réservés
+  translated_licenses-description-license_id-29: Tous droits réservés
+  translated_licenses-description-license_id-3: Tous droits réservés
+  translated_licenses-description-license_id-30: Tous droits réservés
+  translated_licenses-description-license_id-31: Tous droits réservés
+  translated_licenses-description-license_id-32: Tous droits réservés
+  translated_licenses-description-license_id-33: Tous droits réservés
+  translated_licenses-description-license_id-34: Domaine public
+  translated_licenses-description-license_id-35: Domaine public
+  translated_licenses-description-license_id-36: Tous droits réservés
+  translated_licenses-description-license_id-37: Tous droits réservés
+  translated_licenses-description-license_id-38: Tous droits réservés
+  translated_licenses-description-license_id-39: Domaine public
+  translated_licenses-description-license_id-4: Tous droits réservés
+  translated_licenses-description-license_id-42: Tous droits réservés
+  translated_licenses-description-license_id-43: Licence inapplicable
+  translated_licenses-description-license_id-5: Tous droits réservés
+  translated_licenses-description-license_id-6: Tous droits réservés
+  translated_licenses-description-license_id-7: Tous droits réservés
+  translated_licenses-description-license_id-8: Tous droits réservés
+  translated_licenses-description-license_id-9: Tous droits réservés
+  translated_ranks-label-rank_id-335: espèces
+  translated_ranks-label-rank_id-99: famille
+  translated_resource_statuses-label-resource_status_id-1: Téléchargement
+  translated_resource_statuses-label-resource_status_id-10: Publié
+  translated_resource_statuses-label-resource_status_id-11: Publier en attente
+  translated_resource_statuses-label-resource_status_id-12: Annuler la publication en attente
+  translated_resource_statuses-label-resource_status_id-13: Récolte de force
+  translated_resource_statuses-label-resource_status_id-2: Téléchargées
+  translated_resource_statuses-label-resource_status_id-3: Échec du téléversement
+  translated_resource_statuses-label-resource_status_id-4: Transféré à Content Server
+  translated_resource_statuses-label-resource_status_id-5: Validé
+  translated_resource_statuses-label-resource_status_id-6: Validation a échoué
+  translated_resource_statuses-label-resource_status_id-7: En cours de traitement
+  translated_resource_statuses-label-resource_status_id-8: Transformés
+  translated_resource_statuses-label-resource_status_id-9: Traitement Échec
+  translated_sort_styles-name-sort_style_id-3: Alphabétique
+  translated_sort_styles-name-sort_style_id-4: Inverse alphabétique
+  translated_sort_styles-name-sort_style_id-6: Évaluation
+  translated_statuses-label-status_id-3: Inchangé
+  translated_synonym_relations-label-synonym_relation_id-1: synonyme
+  translated_synonym_relations-label-synonym_relation_id-15: téléomorphe
+  translated_synonym_relations-label-synonym_relation_id-28: nomen oblitum
+  translated_synonym_relations-label-synonym_relation_id-3: acronyme
+  translated_synonym_relations-label-synonym_relation_id-30: indisponible, reliquat dans la base de données
+  translated_synonym_relations-label-synonym_relation_id-31: remplacement superflu
+  translated_synonym_relations-label-synonym_relation_id-38: indisponible, supprimé par décision
+  translated_synonym_relations-label-synonym_relation_id-40: indisponibles, autre raison
+  translated_synonym_relations-label-synonym_relation_id-41: indisponible, nomen nudum
+  translated_synonym_relations-label-synonym_relation_id-42: nomen dubium
+  translated_synonym_relations-label-synonym_relation_id-48: nom indisponible
+  translated_synonym_relations-label-synonym_relation_id-49: nom valide
+  translated_synonym_relations-label-synonym_relation_id-50: valide
+  translated_synonym_relations-label-synonym_relation_id-59: synonyme (nomenclatural = homotypique)
+  translated_synonym_relations-label-synonym_relation_id-60: synonyme (facultatif = hétérotypique)
+  translated_synonym_relations-label-synonym_relation_id-63: non accepté
+  translated_table_of_contents-label-table_of_contents_id-14: IUCN
+  translated_table_of_contents-label-table_of_contents_id-17: Références bibliographiques
+  translated_table_of_contents-label-table_of_contents_id-194: Taille
+  translated_table_of_contents-label-table_of_contents_id-2: Bref résumé
+  translated_table_of_contents-label-table_of_contents_id-221: Risques
+  translated_table_of_contents-label-table_of_contents_id-225: Sur le Web
+  translated_table_of_contents-label-table_of_contents_id-227: Rechercher sur le Web
+  translated_table_of_contents-label-table_of_contents_id-244: Bibliographies
+  translated_table_of_contents-label-table_of_contents_id-267: Morphologie
+  translated_table_of_contents-label-table_of_contents_id-278: Bibliographie
+  translated_table_of_contents-label-table_of_contents_id-289: Évolution
+  translated_table_of_contents-label-table_of_contents_id-3: Description physique
+  translated_table_of_contents-label-table_of_contents_id-300: Wikipédia
+  translated_table_of_contents-label-table_of_contents_id-303: Noms et taxonomie
+  translated_table_of_contents-label-table_of_contents_id-305: Synonymes
+  translated_table_of_contents-label-table_of_contents_id-316: Comportement
+  translated_table_of_contents-label-table_of_contents_id-320: Reproduction
+  translated_table_of_contents-label-table_of_contents_id-327: Physiologie
+  translated_table_of_contents-label-table_of_contents_id-332: Génome
+  translated_table_of_contents-label-table_of_contents_id-333: Biologie Moléculaire
+  translated_table_of_contents-label-table_of_contents_id-335: Législation
+  translated_table_of_contents-label-table_of_contents_id-336: Notes
+  translated_table_of_contents-label-table_of_contents_id-337: Pédagogie
+  translated_table_of_contents-label-table_of_contents_id-338: Liens Pédagogiques
+  translated_table_of_contents-label-table_of_contents_id-339: Ressources Pédagogiques
+  translated_table_of_contents-label-table_of_contents_id-34: Commentaires
+  translated_table_of_contents-label-table_of_contents_id-4: Écologie
+  translated_untrust_reasons-label-untrust_reason_id-1: mal identifié
+  translated_vetted-label-vetted_id-0: Inconnu
+  translated_vetted-label-vetted_id-4: Non fiable
+  translated_vetted-label-vetted_id-5: Fiable
+  translated_visibilities-label-visibility_id-0: Invisible
+  translated_visibilities-label-visibility_id-1: Visible

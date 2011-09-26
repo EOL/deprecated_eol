@@ -10,6 +10,8 @@
 # Author: Seb35
 # Author: Zcqsc06
 fr: 
+  0_1_or_2: 0, 1 ou 2
+  0_or_1: 0 ou 1
   about_eol: À propos de l’EOL
   account_information: Informations sur le compte
   account_registered_but_not_ready_try_later: Votre compte est enregistré mais vous ne pouvez pas encore y accéder. Veuillez réessayer dans cinq minutes.
@@ -81,8 +83,28 @@ fr:
       full_messages: 
         format: "%{attribute} %{message}"
       messages: 
+        accepted: doit être accepté
+        blank: ne peut être laissé vide
+        confirmation: ne correspond pas à la confirmation
+        empty: ne peut pas être vide
+        equal_to: doit être égale à %{count}
+        even: doit être pair
+        exclusion: est protégé
+        greater_than: doit être supérieur à %{count}
+        greater_than_or_equal_to: doit être supérieur ou égal à %{count}
+        inaccessible: est inaccessible
+        inclusion: ne fait pas partie de la liste
+        invalid: est invalide
+        less_than: doit être inférieure à %{count}
+        less_than_or_equal_to: doit être inférieur ou égal à %{count}
+        not_a_number: n’est pas un nombre
+        not_an_integer: doit être un nombre entier
+        odd: doit être impair
         record_invalid: "La validation a échoué : %{errors}"
         taken: est déjà utilisé
+        too_long: est trop long (%{count} caractères maximum)
+        too_short: est trop court (%{count} caractères minimum)
+        wrong_length: n'a pas la longueur requise (il faut %{count} caractères)
       models: 
         resource: 
           attributes: 
@@ -143,12 +165,12 @@ fr:
   admin_content_page_new_link: Créer une nouvelle page.
   admin_content_page_root: Racine
   admin_content_page_sort_order_updated: L'ordre des pages a été modifié.
-  admin_content_page_update_successful_notice: La page <em>%{page_name}</em> a été mise à jour.
+  admin_content_page_update_successful_notice: La page <a href="#%{anchor}"><em>%{page_name}</em></a> a été mise à jour.
   admin_content_page_update_unsuccessful_error: Une erreur s'est produite. La page n'a pas pu être mise à jour.
   admin_content_pages_empty: Aucune page de contenu n'a été trouvée.
   admin_content_pages_index_information: La liste suivante comprend toutes les pages statiques actuellement disponibles sur le site d'EOL. Chaque page comporte une ou plusieurs traductions. Lorsque vous créez une nouvelle page, il vous est demandé d'ajouter une traduction. Les traductions publiées sont publiquement accessibles.
   admin_content_pages_link: Gestion du contenu
-  admin_content_pages_page_title: "Administration: Gestion du contenu"
+  admin_content_pages_page_title: "Administration : Gestion du contenu"
   admin_content_partner_notification_link: Notification mensuelle
   admin_information: Voici la nouvelle console d'administration d'EOL v2. Nous sommes entrain de transférer les fonctions de la version v1. Si une section que vous cherchez ne s'y trouve pas, rendez vous sur la <a href="/administrator">Console d'Administration v1</a>.
   admin_link: Console d'Administration
@@ -165,12 +187,16 @@ fr:
   admin_translated_content_page_new_tip: La langue, le titre et le corps du message sont %{required_icon} requis.
   admin_translated_content_page_update_successful_notice: La traduction en %{language} de <a href="#%{anchor}"><em>%{page_name}</em></a> a été mise à jour.
   admin_translated_content_page_update_unsuccessful_error: Une erreur s'est produite. La traduction n'a pas pu être mise à jour.
+  all_articles: Tous les articles
   all_changes: Toutes les modifications
+  all_collections: Toutes les collections
+  all_communities: Toutes les communautés
+  all_images: Toutes les images
   all_information: Toutes les informations
   all_items: Tous les éléments
   all_pages: Toutes les pages
+  all_taxa: Tous les taxons
   all_title: Tout
-  all_user_submitted_texts_on_the_website: Tous les textes publiés sur le site par les utilisateurs sont affichés ci-dessous, triés par ordre chronologique inverse.
   already_a_member_question: Déjà membre ?
   already_member_of_community: Vous êtes déjà un membre de cette communauté.
   alternate_classification: Classement alternatif
@@ -219,8 +245,6 @@ fr:
   citation: Citation
   classification_tree_header: Classification
   classifications_empty: Ce taxon ne fait pas partie des classifications consultables sur EOL.
-  click_on_a_user_to_view_the_users_detailed_profile: Cliquez sur un utilisateur pour afficher son profil détaillé. Cliquez sur les espèces pour afficher la page contenant le texte. (Utilisez le bouton « Précédent » de votre navigateur pour revenir ici.)
-  close_this_window_to_return_to_edit_window: FERMER CETTE FENÊTRE POUR REVENIR À LA FENÊTRE D'ÉDITION
   cms_available_in_languages: "Cette page est disponible en :"
   cms_missing_content_message: Désolé, cette page n'est pas disponible pour cette langue.
   cms_missing_content_title: Contenu manquant
@@ -288,7 +312,6 @@ fr:
   community_tab_communities_description: Les communautés sont des groupes d'utilisateurs d'EOL qui se réunissent autour d'un objectif commun, qu'il s'agisse de protéger les oiseaux limicoles ou de partager leur passion pour les primates. Les collections permettent aussi aux personnes qui ont les mêmes centres d'intérêt d'entrer en contact et de communiquer à travers le site EOL ou en dehors de celui-ci.
   confirm_leave: Êtes-vous sûr de vouloir quitter cette communauté ?
   confirm_password_colon: "Confirmez le mot de passe:"
-  contact_for_any_comments: Pour tout commentaire, contactez eli@eol.org .
   contact_us_link: Nous contacter
   content_has_been_updated: Le contenu a été mis à jour.
   content_partner_about_header: À propos de %{partner_name}
@@ -329,6 +352,8 @@ fr:
   create_a_collection: Créer une collection
   create_a_community: Créer une communauté
   create_account: créer un compte
+  create_collection_button: Créer une collection
+  create_community: Créer une communauté
   created: Créé
   curation_privileges_page_title: Devenir un conservateur
   curator_colon: "Conservateur :"
@@ -349,9 +374,10 @@ fr:
   detail: Détails
   details_title: Détails
   development_version_name: EOL v2 Beta
+  did_you_mean: "Vouliez-vous dire : %{suggestions} ?"
   donate: Faire un don
   donation_amount_other_label: Autre
-  donation_error_only_numbers: Veuillez entrer une quantité en utilisant uniquement des chiffres.
+  donation_error_only_numbers: Veuillez entrer un montant en utilisant uniquement des chiffres.
   edit: Modifier
   edit_community: Modifier la communauté
   edit_downcase: modifier
@@ -364,24 +390,12 @@ fr:
   eol_api: API EOL
   eol_colon: "EOL :"
   eol_news: Actualités EOL
-  errors: 
-    messages: 
-      accepted: doit être accepté
-      blank: ne peut être laissé vide
-      empty: ne peut pas être laissé vide
-      even: doit être pair
-      exclusion: est réservé
-      inaccessible: est inaccessible
-      inclusion: ne fait pas partie de la liste
-      invalid: est invalide
-      not_a_number: n'est pas un nombre
-      not_an_integer: doit être un entier
-      odd: doit être impair
-      wrong_type: est de type incorrect
+  eol_pages: Pages
   esc_key_hides_this_message: (la touche ÉCHAP masque ce message)
   example_colon: "Exemple :"
   explore: à découvrir
   external_link_header: Lien externe
+  external_link_icon_alt_text: Lien externe.
   facebook: Facebook
   family_name_colon: "Nom de famille :"
   filter_by_status: Filtrer par statut
@@ -405,6 +419,10 @@ fr:
   forgot_password_form_choose_username_legend: Choisir un compte
   forgot_password_form_header: Réinitialiser le mot de passe
   forgot_password_form_username_or_email_blank_error: Veuillez entrer votre nom d'utilisateur et email pour réinitialiser votre mot de passe.
+  frequency_daily: Quotidien
+  frequency_monthly: Mensuel
+  frequency_never: Jamais
+  frequency_weekly: Hebdomadaire
   global_access_tagline: Accès global à la connaissance sur la vie sur Terre.
   global_navigation: Navigation globale
   go: Aller
@@ -431,6 +449,8 @@ fr:
         agreed_with_terms: J’accepte les <a href="%{terms_url}">conditions d’utilisation</a>
         bio: À propos de moi
         curator_level: Vous êtes actuellement %{curator_level_with_indefinite_article}.
+        entered_password: Mot de passe <small>(4 à 16 caractères)</small>
+        generate_api_key: Demander un clé API
         mailing_list_yes: Oui
         user_identities: Je suis
     select: 
@@ -458,6 +478,7 @@ fr:
       update: Mettre à jour %{model}
       user: 
         generate_api_key: Générer une clé
+  hierarchies: hiérarchies
   hierarchies_title: Hiérarchies
   hierarchy: Hiérarchie
   home: Accueil
@@ -475,7 +496,10 @@ fr:
   just_pages_with_pictures_and_text: Seulement des pages avec les images et le texte
   language: "Langue :"
   languages: Langues
+  learn_about_collections: Comment puis-je en créer une ?
+  learn_about_communities: Comment puis-je participer ?
   learn_about_content_partners: En savoir plus sur nos partenaires de contenu
+  learn_about_contributing: Comment puis-je contribuer ?
   learn_more_link: (%{learn_more})
   leave_a_comment: Laisser un commentaire
   leave_community_button: Quitter cette communauté
@@ -528,11 +552,8 @@ fr:
   new_collection: Nouvelle collection
   not_evaluated: Non évalué
   object: Objet
-  object_type_collection_option: Collection
-  object_type_community_option: Communauté
   object_type_image_option: Image
   object_type_text_option: Texte
-  object_type_user_option: Utilisateur
   object_type_video_option: Vidéo
   object_visibility_visible_option: Visible
   option_please_select: Veuillez sélectionner
@@ -609,6 +630,7 @@ fr:
   taxon: taxon
   terms_agreement_form_header: Conditions d’utilisation
   terms_agreement_form_submit: J'accepte
+  text: texte
   text_capital: Texte
   text_summary_more_link: Lire l'entrée complète
   thank_you: Merci
@@ -637,12 +659,18 @@ fr:
   users_form_account_header: Votre compte
   using_the_site: Utilisation du site
   value: Valeur
+  value_default: (par défaut)
+  value_empty: (vide)
+  values: Valeurs
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Voir seulement les pages avec au moins une image ou un morceau de texte
   visible_title: Visible
   wants_colon: "Veut :"
   watch_list: Liste de suivi
   what_is_eol: Qu'est-ce que l’EOL ?
   what_is_this_question: Qu’est-ce que c’est ?
+  will_paginate: 
+    next_label: Suivant &#8594;
+    previous_label: "&#8592; Précédent"
   year: Année
   year_equals: Année =
   yes_answer: Oui
@@ -660,3 +688,4 @@ fr:
   your_preferences_have_been_updated: Vos préférences ont été mises à jour.
   your_rating: Votre note
   your_rating_colon: "Votre note :"
+  your_watch_collection: votre liste de suivi

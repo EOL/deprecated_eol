@@ -14,13 +14,9 @@
         .meta.attribution
           = render :partial => 'data_objects/attribution_minimal', :locals => { :data_object => dato, :supplier => true }
         %p.flag{:class => vetted_id_class(dato_vetted_id)}= dato_vetted_label == Vetted.unknown.label ? I18n.t(:unreviewed) : dato_vetted_label
-        = render :partial => 'data_objects/rating', :locals => { :data_object => dato }
+        = render :partial => 'data_objects/rating', :locals => { :data_object => dato, :hide_user_rating => true }
         %div.actions
-          = render :partial => 'shared/add_to_my_collection', :locals => { :item => dato, :my_collection => @watch_collection }
-          = link_to I18n.t(:leave_a_comment), '#new_comment', :class => 'button comment'
-        = render :partial => 'comments/new', :locals => { :parent => dato, :cancel => true }
-        - if dato.comments.length > 0
-          %p= link_to I18n.t(:see_all_comments_with_count_for_text, :count => dato.comments.length), data_object_path(dato)
+          %p= link_to I18n.t(:comment_or_rate_on_this_article), data_object_path(dato)
 
   - else
     .article

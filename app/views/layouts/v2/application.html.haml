@@ -8,8 +8,13 @@
       - head_title =  I18n.t(:encyclopedia_of_life)
       - if @head_title ||= @page_title
         - head_title = "EOL: #{@head_title} - #{head_title}"
-      - elsif (@taxon_concept && tc_title = @taxon_concept.title && ! tc_title.blank?)
-        - head_title = "EOL: #{tc_title} - #{head_title}"
+      - if @taxon_concept
+        - if @selected_hierarchy_entry && tc_title = @taxon_concept.quick_scientific_name(:italicized, @selected_hierarchy_entry.hierarchy)
+          - unless tc_title.blank?
+            - head_title = "EOL: #{tc_title} - #{head_title}"
+        - elsif tc_title = @taxon_concept.title_canonical()
+          - unless tc_title.blank?
+            - head_title = "EOL: #{tc_title} - #{head_title}"
       - elsif (@community && !@community.name.blank?)
         - head_title = I18n.t(:head_title_community, :name => @community.name)
       - elsif (@collection && !@collection.name.blank?)

@@ -13,7 +13,6 @@ class ApiController < ApplicationController
     params[:videos] ||= 1
     params[:text] ||= 1
     params[:vetted] ||= nil
-    params[:version] ||= "0.1"
     params[:common_names] ||= false
     params[:common_names] = false if params[:common_names] == '0'
     params[:synonyms] ||= false
@@ -332,8 +331,10 @@ class ApiController < ApplicationController
     end
   end
   
+  # this method wil ensure the version provided is valid, and set the default version to the latest API version
   def check_version
     return if params[:controller] == 'api/docs'
+    params[:version] ||= '1.0'
     if ['ping','pages','data_objects','hierarchy_entries','search','synonyms','provider_hierarchies','search_by_provider'].include? action_name
       unless ['0.4','1.0'].include? params[:version]
         render(:partial => 'error.xml.builder', :locals => {:error => "Unknown version #{params[:version]}"})

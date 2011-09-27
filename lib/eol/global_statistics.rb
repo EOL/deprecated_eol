@@ -4,27 +4,29 @@ module EOL
     # Total counts for stats on the home page
     def self.find(type)
       $CACHE.fetch(EOL::GlobalStatistics.key_for_type(type), :expires_in => $CACHE_STATS_COUNT_IN_MINUTES.minutes) do
+        count = 0
         case type
           when "taxon_concepts"
-            TaxonConcept.has_content.count
+            count = TaxonConcept.has_content.count
           when "images"
-            count = EOL::GlobalStatistics.solr_count('image')
+            count = EOL::GlobalStatistics.solr_count('Image')
             count = DataObject.count(:conditions => "data_type_id=#{DataType.image.id} and published=1") if
               count == 0
           when "users" then
-            count = EOL::GlobalStatistics.solr_count('user')
+            count = EOL::GlobalStatistics.solr_count('User')
             count = User.count(:conditions => "active=1") if count == 0
           when "collections"
-            count = EOL::GlobalStatistics.solr_count('collection')
+            count = EOL::GlobalStatistics.solr_count('Collection')
             count = Collection.count(:conditions => 'special_collection_id IS NULL OR user_id IS NULL') if count == 0
           when "communities"
-            count = EOL::GlobalStatistics.solr_count('community')
+            count = EOL::GlobalStatistics.solr_count('Community')
             count = Community.count(:conditions => "published = 1") if count == 0
           when "content_partners" then
-            ContentPartner.count(:conditions => "show_on_partner_page = 1")
+            count = ContentPartner.count(:conditions => "show_on_partner_page = 1")
           else
             raise EOL::Exceptions::ObjectNotFound
         end
+        count
       end
     end
 

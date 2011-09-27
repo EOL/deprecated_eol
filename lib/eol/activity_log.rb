@@ -44,7 +44,7 @@ module EOL
     end
 
     def self.global_activities(options = {})
-      EOL::Solr::ActivityLog.search_with_pagination("*:*", options.merge({ :group_field => 'user_id' }))
+      EOL::Solr::ActivityLog.global_activities(options)
     end
 
     # TODO - it would make more sense to move these methods to the source models, passed in as an argument when the

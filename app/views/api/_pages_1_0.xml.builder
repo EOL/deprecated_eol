@@ -30,8 +30,9 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/1.0",
         end
       end
       
-      unless taxon_concept.curated_hierarchy_entries.blank?
-        xml.additionalInformation do
+      xml.additionalInformation do
+        xml.richness_score taxon_concept.taxon_concept_metric.richness_for_display(5) rescue 0
+        unless taxon_concept.curated_hierarchy_entries.blank?
           for entry in taxon_concept.curated_hierarchy_entries
             xml.taxon do
               xml.dc :identifier, entry.identifier unless entry.identifier.blank?

@@ -239,17 +239,22 @@ module EOL
       
       def self.get_facet_counts(query, options={})
         url =  $SOLR_SERVER + $SOLR_SITE_SEARCH_CORE + '/select/?wt=json&q=' + CGI.escape(%Q[{!lucene}])
-        # create initial query, 'exact' or 'contains'
-        if options[:exact]
-          url << CGI.escape("keyword_exact:\"#{query}\"")
+        if query == '*'
+          url << CGI.escape('*:* AND (resource_type:' + types_to_show_all.join(' OR resource_type:') + ')')
         else
-          url << CGI.escape("(keyword_exact:\"#{query}\" OR keyword:\"#{query}\")")
-        end
+          # create initial query, 'exact' or 'contains'
+          if options[:exact]
+            url << CGI.escape("keyword_exact:\"#{query}\"")
+          else
+            url << CGI.escape("(keyword_exact:\"#{query}\" OR keyword:\"#{query}\")")
+          end
       
-        # add search suggestions and weight them way higher. Suggested searches are currently always TaxonConcepts
-        search_suggestions(query, options[:exact]).each do |ss|
-          url << CGI.escape(" OR (resource_id:\"#{ss.taxon_id}\" AND resource_type:TaxonConcept)")
+          # add search suggestions and weight them way higher. Suggested searches are currently always TaxonConcepts
+          search_suggestions(query, options[:exact]).each do |ss|
+            url << CGI.escape(" OR (resource_id:\"#{ss.taxon_id}\" AND resource_type:TaxonConcept)")
+          end
         end
+        
         url << "&group=true&group.field=resource_unique_key&group.ngroups=true&facet.field=resource_type&facet=on&rows=0"
         res = open(url).read
         response = JSON.load(res)

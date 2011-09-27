@@ -162,7 +162,7 @@ private
       flash[:error] = I18n.t(:collection_not_found_error)
       return redirect_back_or_default
     end
-    unless @collection.published?
+    unless @collection.published? || @collection.resource_preview
       render :action => 'unpublished'
       return false
     end

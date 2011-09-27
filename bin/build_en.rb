@@ -89,14 +89,10 @@ list = Set.new()
   views/wikipedia_queues
 
   controllers/administrator/content_page_controller.rb
-  controllers/administrator/content_partner_report_controller.rb
   controllers/administrator/table_of_contents_controller.rb
   controllers/administrator/user_data_object_controller.rb
   controllers/admins/content_pages_controller.rb
-  controllers/admins/content_partner_reports_controller.rb
   controllers/admins/content_partners_controller.rb
-  controllers/admins/hierarchies_controller.rb
-  controllers/admins/monthly_notification_controller.rb
   controllers/admins/translated_content_pages_controller.rb
   controllers/admins_controller.rb
   controllers/admins/content_pages_controller.rb
@@ -112,6 +108,8 @@ list = Set.new()
   controllers/content_partners/content_partner_agreements_controller.rb
   controllers/content_partners/content_partner_contacts_controller.rb
   controllers/content_partners/resources_controller.rb
+  controllers/content_partners/resources/harvest_events_controller.rb
+  controllers/content_partners/resources/hierarchies_controller.rb
   controllers/content_partners/statistics_controller.rb
   controllers/content_partners_controller.rb
   controllers/data_objects_controller.rb
@@ -143,25 +141,24 @@ list = Set.new()
 
   views/admin/_navigation.html.haml
   views/administrator/comment/index.html.haml
-  views/administrator/content_partner_report/report_partner_curated_data.haml
   views/administrator/curator/_user_row.html.haml
   views/administrator/hierarchy/index.html.haml
   views/administrator/user/_form.html.haml
   views/administrator/user/index.html.haml
   views/administrator/user_data_object/index.html.haml
-  views/content_partner_account/reports/_comments_report.html.haml
-  views/content_partner_account/reports/_taxa_comments_report.html.haml
-  views/content_partner_account/reports/_user_submitted_text_report.html.haml
   views/layouts/main.html.haml
-  views/notifier/account_activated.html.haml
   views/notifier/contact_us_auto_response.html.haml
+  views/notifier/contact_us_message.html.haml
+  views/notifier/content_partner_created.html.haml
+  views/notifier/content_partner_resource_created.html.haml
+  views/notifier/content_partner_resource_force_harvest_request.html.haml
+  views/notifier/content_partner_statistics_reminder.html.haml
   views/notifier/curator_approved.html.haml
-  views/notifier/curator_unapproved.html.haml
-  views/notifier/media_contact_auto_response.html.haml
-  views/notifier/monthly_stats.html.haml
-  views/notifier/reset_password.html.haml
+  views/notifier/user_activated.html.haml
   views/notifier/user_message.html.haml
-  views/notifier/verify_user.html.haml
+  views/notifier/user_reset_password.html.haml
+  views/notifier/user_updated_email_preferences.html.haml
+  views/notifier/user_verification.html.haml
   views/shared/_add_to_my_collection.html.haml
   views/shared/_flash_messages.html.haml
   views/shared/_google_custom_search_params.html.haml
@@ -187,6 +184,7 @@ list = Set.new()
   views/taxa/_media_summary.html.haml
   views/taxa/_overview_image_taxon_link.html.haml
   views/taxa/_recognized_by.html.haml
+  views/taxa/_star_rating.html.haml
   views/taxa/_text_summary.html.haml
   views/taxa/content/_content_content_summary.html.haml
 ].compact.each do |dir|
@@ -299,10 +297,14 @@ end
   list << "task_status_#{type}_option"
 end
 
+[:unknown, :browsable, :request_publish, :not_browsable].each do |status|
+  list << "content_partner_resource_hierarchy_#{status}"
+end
+
 # IGNORE THESE (unusual because the key name is set by a variable):
 @bad_keys = ["efault_alt_text", "18n", "change_rating_to_", "your_current_rating_", "sort_by_", "license_",
   "filter_by_status_", "download_", "items_no_", "remove_all_", "move_all_", "copy_all_", "associated_with_",
-  "view_", "filter_by_type_", "names_", "all_", "curator_level_", "curator_level_with_indefinite_article_", "data_object_", "item_type_", "object_status_", "object_type_", "object_visibility_", "or_", "task_status_", "lash_i18n_name", "arams"]
+  "view_", "filter_by_type_", "names_", "all_", "curator_level_", "curator_level_with_indefinite_article_", "data_object_", "item_type_", "object_status_", "object_type_", "object_visibility_", "or_", "task_status_", "lash_i18n_name", "arams", "content_partner_resource_hierarchy_"]
 
 en_master = create_initial_file('en', list)
 create_initial_file('ar', list, en_master)

@@ -23,6 +23,7 @@ sv:
   translated_agent_roles-label-agent_role_id-15: Kontaktperson
   translated_agent_roles-label-agent_role_id-16: Bidragsgivare
   translated_agent_roles-label-agent_role_id-2: Författare
+  translated_agent_roles-label-agent_role_id-22: Översättare
   translated_agent_roles-label-agent_role_id-4: Kompositör
   translated_agent_roles-label-agent_role_id-5: Skapare
   translated_agent_roles-label-agent_role_id-6: Direktör
@@ -72,6 +73,7 @@ sv:
   translated_content_partner_statuses-label-content_partner_status_id-4: Inaktiv
   translated_content_tables-label-content_table_id-1: Detaljer
   translated_data_types-label-data_type_id-1: Bild
+  translated_data_types-label-data_type_id-10: Karta
   translated_data_types-label-data_type_id-2: Ljud
   translated_data_types-label-data_type_id-3: Text
   translated_data_types-label-data_type_id-4: Video
@@ -104,6 +106,9 @@ sv:
   translated_ranks-label-rank_id-314: avsn.
   translated_ranks-label-rank_id-317: avsnitt
   translated_ranks-label-rank_id-324: serier
+  translated_ranks-label-rank_id-332: ART
+  translated_ranks-label-rank_id-333: art.
+  translated_ranks-label-rank_id-335: arter
   translated_ranks-label-rank_id-352: underfamilj
   translated_ranks-label-rank_id-370: underklass
   translated_ranks-label-rank_id-383: underfamilj
@@ -218,9 +223,12 @@ sv:
   translated_table_of_contents-label-table_of_contents_id-344: Data
   translated_table_of_contents-label-table_of_contents_id-345: Datakällor
   translated_table_of_contents-label-table_of_contents_id-346: Biomedicinska termer
+  translated_table_of_contents-label-table_of_contents_id-347: Taxonomi
+  translated_table_of_contents-label-table_of_contents_id-348: Typinformation
   translated_table_of_contents-label-table_of_contents_id-4: Ekologi
   translated_table_of_contents-label-table_of_contents_id-5: Evolution och systematik
   translated_table_of_contents-label-table_of_contents_id-7: Referenser och mer information
+  translated_table_of_contents-label-table_of_contents_id-8: Konversation
   translated_untrust_reasons-label-untrust_reason_id-1: felidentifierad
   translated_untrust_reasons-label-untrust_reason_id-2: felaktig/vilseledande
   translated_untrust_reasons-label-untrust_reason_id-3: låg kvalitet
@@ -228,6 +236,7 @@ sv:
   translated_untrust_reasons-label-untrust_reason_id-5: Annat
   translated_user_identities-label-user_identity_id-1: en entusiast
   translated_user_identities-label-user_identity_id-2: en student
+  translated_user_identities-label-user_identity_id-5: en professionell vetenskapsman
   translated_vetted-label-vetted_id-0: Okänd
   translated_vetted-label-vetted_id-4: Opålitlig
   translated_vetted-label-vetted_id-5: Pålitlig

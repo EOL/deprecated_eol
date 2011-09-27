@@ -33,7 +33,7 @@ class CollectionsController < ApplicationController
     @collection = Collection.new
   end
 
-  def create
+  def create    
     @collection = Collection.new(params[:collection])
     if @collection.save
       flash[:notice] = I18n.t(:collection_created_with_count_notice,
@@ -42,6 +42,7 @@ class CollectionsController < ApplicationController
       if params[:source_collection_id] # We got here by creating a new collection FROM an existing collection:
         return create_collection_from_existing
       else
+        auto_collect(@collection)
         return create_collection_from_item
       end
     else
@@ -441,10 +442,12 @@ private
       return redirect_to collection_path(@collection)
     end
     if params[:for] == 'copy'
+      auto_collect(@collection)
       EOL::GlobalStatistics.increment('collections')
       CollectionActivityLog.create(:collection => @collection, :user => current_user, :activity => Activity.create)
       return copy_items_and_redirect(source, [@collection])
     elsif params[:for] == 'move'
+      auto_collect(@collection)
       EOL::GlobalStatistics.increment('collections')
       CollectionActivityLog.create(:collection => @collection, :user => current_user, :activity => Activity.create)
       return copy_items_and_redirect(source, [@collection], :move => true)
@@ -456,7 +459,7 @@ private
     end
   end
 
-  def create_collection_from_item
+  def create_collection_from_item    
     @collection.add(@item)
     EOL::GlobalStatistics.increment('collections')
     flash[:notice] = I18n.t(:collection_created_notice, :collection_name => link_to_name(@collection))

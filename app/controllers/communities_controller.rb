@@ -49,6 +49,8 @@ class CommunitiesController < ApplicationController
       upload_logo(@community) unless params[:community][:logo].blank?
       EOL::GlobalStatistics.increment('communities') if @community.published?
       log_action(:create)
+      auto_collect(@community)
+      auto_collect(@community.focus)
       redirect_to(@community, :notice => notice)
     else
       flash.now[:error] = I18n.t(:create_community_unsuccessful_error)
@@ -105,8 +107,10 @@ class CommunitiesController < ApplicationController
       redirect_to(@community, :notice => I18n.t(:already_member_of_community) )
     else
       @community.add_member(current_user)
+      
       auto_collect(@community, :annotation => I18n.t(:user_joined_community_on_date, :date => I18n.l(Date.today),
                                                      :username => current_user.full_name))
+      auto_collect(@community.focus)
       respond_to do |format|
         format.html { redirect_to(@community, :notice => I18n.t(:you_joined_community) + " #{flash[:notice]}" ) }
       end

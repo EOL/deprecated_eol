@@ -6,6 +6,8 @@ require 'erb'
 # of our primary models, and an awful lot of work occurs here.
 class DataObject < SpeciesSchemaModel
 
+  @@minimum_rating = 0.5
+
   include ModelQueryHelper
   include EOL::ActivityLoggable
 
@@ -81,6 +83,10 @@ class DataObject < SpeciesSchemaModel
       :licenses => '*' },
     :include => [:data_type, :mime_type, :language, :license, {:info_items => :toc_item},
       {:hierarchy_entries => [:name, { :hierarchy => :agent }] }, {:agents_data_objects => [ { :agent => :user }, :agent_role]}]
+
+  def self.minimum_rating
+    @@minimum_rating
+  end
 
   # this method is not just sorting by rating
   def self.sort_by_rating(data_objects, taxon_concept = nil, sort_order = [:type, :toc, :visibility, :vetted, :rating, :date])
@@ -439,12 +445,12 @@ class DataObject < SpeciesSchemaModel
   end
 
   def safe_rating
-    return self.data_rating if self.data_rating >= 1.0
+    return self.data_rating if self.data_rating >= @@minimum_rating
     logger.warn "!! WARNING: data object #{self.id} had a rating of less than 1. Breakdown during attempted fix:"
     rating = recalculate_rating(true)
-    return rating if rating >= 1.0
+    return rating if rating >= @@minimum_rating
     logger.error "** ERROR: data object #{self.id} had a *calculated* rating of less than 1. You should fix this."
-    return 1.0
+    return @@minimum_rating
   end
 
   # Add a comment to this data object

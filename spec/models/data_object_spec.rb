@@ -368,4 +368,22 @@ describe DataObject do
     @user_submitted_text.reload
     @user_submitted_text.all_associations.count.should == all_associations_count_for_udo + 1
   end
+
+  it '#safe_rating should NOT re-calculate ratings that are in the normal range.' do
+    dato = DataObject.gen(:data_rating => 1.2)
+    dato.safe_rating.should == 1.2
+  end
+
+  it '#safe_rating should re-calculate really low ratings' do
+    dato = DataObject.gen(:data_rating => 0.2)
+    dato.should_receive(:recalculate_rating).and_return(1.2)
+    dato.safe_rating.should == 1.2
+  end
+
+  it '#safe_rating should return the minimum rating if the rating is calculated as lower than the minimum rating' do
+    dato = DataObject.gen(:data_rating => 0.2)
+    dato.should_receive(:recalculate_rating).and_return(0.2)
+    dato.safe_rating.should == DataObject.minimum_rating
+  end
+
 end

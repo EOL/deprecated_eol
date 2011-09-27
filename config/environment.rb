@@ -228,7 +228,8 @@ Rails::Initializer.run do |config|
   $MAX_COLLECTION_ITEMS_TO_MANIPULATE = 1000
 
   $SPECIAL_COMMUNITY_NAME = 'EOL Curators and Admins'
-  $RICH_PAGES_COLLECTION_ID = 34
+  $RICH_PAGES_COLLECTION_ID = 34 # Please keep this around as a "reasonable default" for when lang keys are missing.
+  $RICH_LANG_PAGES_COLLECTION_IDS = {:en => 34, :es => 6496, :ar => 34}
 
   $ACTIVITIES_ON_HOME_PAGE = 6
   $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME = 10  # minutes

@@ -623,8 +623,14 @@ p.flag, span.flag {
   width: 0;
   background: transparent url("/images/v2/icon_stars.png") 0 100% repeat-x; }
 
-#worklist #task .rating h5, #worklist #task .average_rating h5 {
-  font-size: 1em; }
+#worklist #task .rating, #worklist #task .average_rating {
+  *display: inline; }
+  #worklist #task .rating h5, #worklist #task .average_rating h5 {
+    font-size: 1em; }
+#worklist #task .average_rating {
+  *width: 250px; }
+  #worklist #task .average_rating h5 {
+    *width: 135px; }
 
 /*We don't want border on EOL abbr tags in the shared join partial */
 .join abbr {
@@ -1056,6 +1062,7 @@ h1.notice {
   display: block; }
 
 .invisible {
+  *visibility: hidden;
   opacity: 0; }
 
 #worklist .filters fieldset.actions {

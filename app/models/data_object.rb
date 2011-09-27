@@ -6,6 +6,7 @@ require 'erb'
 # of our primary models, and an awful lot of work occurs here.
 class DataObject < SpeciesSchemaModel
 
+  @@maximum_rating = 5.0
   @@minimum_rating = 0.5
 
   include ModelQueryHelper
@@ -83,6 +84,10 @@ class DataObject < SpeciesSchemaModel
       :licenses => '*' },
     :include => [:data_type, :mime_type, :language, :license, {:info_items => :toc_item},
       {:hierarchy_entries => [:name, { :hierarchy => :agent }] }, {:agents_data_objects => [ { :agent => :user }, :agent_role]}]
+
+  def self.maximum_rating
+    @@maximum_rating
+  end
 
   def self.minimum_rating
     @@minimum_rating
@@ -445,12 +450,18 @@ class DataObject < SpeciesSchemaModel
   end
 
   def safe_rating
-    return self.data_rating if self.data_rating >= @@minimum_rating
-    logger.warn "!! WARNING: data object #{self.id} had a rating of less than 1. Breakdown during attempted fix:"
+    return self.data_rating if self.data_rating >= @@minimum_rating && self.data_rating <= @@maximum_rating
+    logger.warn "!! WARNING: data object #{self.id} had a data_rating of #{self.data_rating}. Attempted fix:"
     rating = recalculate_rating(true)
-    return rating if rating >= @@minimum_rating
-    logger.error "** ERROR: data object #{self.id} had a *calculated* rating of less than 1. You should fix this."
-    return @@minimum_rating
+    if rating <= @@minimum_rating
+      logger.error "** ERROR: data object #{self.id} had a *calculated* rating of #{rating}."
+      return @@minimum_rating
+    elsif rating >= @@maximum_rating
+      logger.error "** ERROR: data object #{self.id} had a *calculated* rating of #{rating}."
+      return @@maximum_rating
+    else
+      return rating
+    end
   end
 
   # Add a comment to this data object

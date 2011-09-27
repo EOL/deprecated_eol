@@ -386,4 +386,16 @@ describe DataObject do
     dato.safe_rating.should == DataObject.minimum_rating
   end
 
+  it '#safe_rating should re-calculate really high ratings' do
+    dato = DataObject.gen(:data_rating => 5.2)
+    dato.should_receive(:recalculate_rating).and_return(1.2)
+    dato.safe_rating.should == 1.2
+  end
+
+  it '#safe_rating should return the maximum rating if the rating is calculated as higher than the maximum' do
+    dato = DataObject.gen(:data_rating => 5.2)
+    dato.should_receive(:recalculate_rating).and_return(5.2)
+    dato.safe_rating.should == DataObject.maximum_rating
+  end
+
 end

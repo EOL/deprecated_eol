@@ -45,18 +45,12 @@ class ContentPartner < SpeciesSchemaModel
   def can_be_read_by?(user_wanting_access)
     public || (user_wanting_access.id == user_id || user_wanting_access.is_admin?)
   end
-  # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we go to many to many
   def can_be_updated_by?(user_wanting_access)
     user_wanting_access.id == user_id || user_wanting_access.is_admin?
   end
-  # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we go to many to many
   def can_be_created_by?(user_wanting_access)
     # NOTE: association with user object must exist for permissions to be checked as user can only have one content partner at the moment
     user && user.content_partner.nil? && (user_wanting_access.id == user.id || user_wanting_access.is_admin?)
-  end
-
-  def public
-    show_on_partner_page?
   end
 
 #  TODO: change latests published harvest event to eager load or make it work without eager loading
@@ -277,14 +271,15 @@ class ContentPartner < SpeciesSchemaModel
   # the date of the last action taken
   def last_action
     dates_to_compare = [updated_at]
+    # get last updated at from various associations, note updated_at may be nil so we add default || 0 to prevent sort_by exception
     unless resources.blank?
-      dates_to_compare << resources.sort_by{ |r| r.updated_at }[0].updated_at
+      dates_to_compare << resources.sort_by{ |r| r.updated_at || 0 }[0].updated_at
     end
     unless content_partner_contacts.blank?
-      dates_to_compare << content_partner_contacts.sort_by{ |r| r.updated_at }[0].updated_at
+      dates_to_compare << content_partner_contacts.sort_by{ |c| c.updated_at || 0 }[0].updated_at
     end
     unless content_partner_agreements.blank?
-      dates_to_compare << content_partner_agreements.sort_by{ |r| r.updated_at }[0].updated_at
+      dates_to_compare << content_partner_agreements.sort_by{ |a| a.updated_at || 0 }[0].updated_at
     end
     dates_to_compare.compact!
     return dates_to_compare.sort[0] if dates_to_compare

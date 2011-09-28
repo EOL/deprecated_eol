@@ -409,8 +409,10 @@ form dl dt {
   padding: 0 0 5px 0; }
   form dl dt label {
     font-weight: bold; }
-    form dl dt label small {
-      color: #616e7a; }
+  form dl dt small {
+    color: #616e7a; }
+  form dl dt p {
+    font-weight: normal; }
 form dl dd {
   padding: 0 0 10px 0; }
   form dl dd input[type="text"], form dl dd input[type="password"], form dl dd textarea, form dl dd select {
@@ -437,6 +439,8 @@ form label.checkbox {
   font-weight: bold; }
   form label.checkbox input {
     margin: 0 5px 0 0; }
+  form label.checkbox p {
+    font-weight: normal; }
 form label span.error {
   color: #e94c1b; }
 form fieldset.actions,
@@ -707,6 +711,8 @@ p.status {
     font-weight: bold; }
   .copy dl dd {
     margin: 0 0 10px 20px; }
+.copy form dl {
+  margin-left: 0; }
 .copy ul, .copy ol {
   margin: 0 40px 15px 40px;
   line-height: 170%; }

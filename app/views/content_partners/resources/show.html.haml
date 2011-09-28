@@ -78,6 +78,12 @@
               = I18n.t(:value_empty)
             - else
               = I18n.t("content_partner_resource_hierarchy_#{en_browsable_status}")
+              - if current_user.is_admin?
+                [
+                = link_to I18n.t(:content_partner_resource_hierarchy_edit_link),
+                  edit_content_partner_resource_hierarchy_path(@partner, @resource, hierarchy, :return_to => current_url)
+                ]
+
           %dt
             = I18n.t('helpers.label.resource.refresh_period_hours')
           %dd

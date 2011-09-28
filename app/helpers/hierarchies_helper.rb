@@ -3,7 +3,7 @@ module HierarchiesHelper
   def en_browsable_status(hierarchy)
     if hierarchy.blank?
       'unknown'
-    elsif !hierarchy.browsable.zero?
+    elsif !hierarchy.browsable.nil? && !hierarchy.browsable.zero?
       'browsable'
     elsif hierarchy.request_publish
       'request_publish'

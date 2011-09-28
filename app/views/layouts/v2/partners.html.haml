@@ -6,6 +6,9 @@
         %h1= h @partner.name
         - if @page_subheader.blank?
           %p
+            - unless @partner.oldest_published_harvest_events.blank?
+              = I18n.t(:content_partner_oldest_published_harvest_event_time_ago,
+                :time_passed => time_ago_in_words(@partner.oldest_published_harvest_events.first.published_at))
             - unless @partner.latest_published_harvest_events.blank?
               = I18n.t(:content_partner_latest_published_harvest_event_time_ago,
                 :time_passed => time_ago_in_words(@partner.latest_published_harvest_events.first.published_at))

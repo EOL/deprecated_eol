@@ -938,7 +938,7 @@ table.standard {
     height: 13px;
     background: transparent url("/images/v2/icon_stars.png") 0 0 repeat-x; }
     .average_rating .rating p {
-      height: 13px;
+      height: 12px;
       font-size: 0;
       margin: 0;
       text-indent: -8685px;

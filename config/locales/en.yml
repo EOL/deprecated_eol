@@ -3290,6 +3290,7 @@ en:
   transfer_schema_upload: "Transfer Schema Upload"
   translations_submit: "View translation"
   trigger_search_term_entered_by: "trigger search term entered by the user"
+  truncated_comment_omission: "... <a href='%{link}'>more</a>"
   trusted: "Trusted"
   trusted_images: "Trusted images"
   trusted_text_objects: "Trusted articles"
@@ -3713,3 +3714,4 @@ en:
   content_partner_empty: "No content partner found."
   logo_header: "Logo"
   external_link_header: "External Link"
+  comment_or_rate_on_this_article: "Comment on or rate this article"

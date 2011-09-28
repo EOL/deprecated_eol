@@ -74,7 +74,6 @@ describe 'Users' do
       body.should have_tag("h3", :text => "Activity")
       body.should have_tag("h3", :text => "Curator qualifications")
       body.should have_tag("a[href=" + user_activity_path(user, :filter => "data_object_curation") + "]", :text => user.total_data_objects_curated)
-      body.should have_tag("a[href=" + user_activity_path(user, :filter => "curated_taxa") + "]", :text => user.total_species_curated)      
       body.should have_tag("a[href=" + user_activity_path(user, :filter => "added_data_objects") + "]", :text => user_submitted_text_count)
       #TODO - maybe generate activity logs to have real values for data_object_curation and curated_taxa
     end
@@ -87,13 +86,12 @@ describe 'Users' do
       body.should have_tag "form[action=]" do
         with_tag "select[name=filter]"
       end
-      body.should have_tag("option:nth-child(1)", :text => "all")
+      body.should have_tag("option:nth-child(1)", :text => "All")
       body.should have_tag("option:nth-child(2)", :text => "Comments")
       body.should have_tag("option:nth-child(3)", :text => "Objects curated")
       body.should have_tag("option:nth-child(4)", :text => "Articles added")
       body.should have_tag("option:nth-child(5)", :text => "Collections")
       body.should have_tag("option:nth-child(6)", :text => "Communities")
-      body.should have_tag("option:nth-child(7)", :text => "Taxa curated")
     end
     it "should get data from a form and display accordingly" do
       visit(user_activity_path(@user, :filter => "comments"))
@@ -106,8 +104,6 @@ describe 'Users' do
       body.should have_tag("option[value=collections][selected=selected]")
       visit(user_activity_path(@user, :filter => "communities"))
       body.should have_tag("option[value=communities][selected=selected]")
-      visit(user_activity_path(@user, :filter => "curated_taxa"))
-      body.should have_tag("option[value=curated_taxa][selected=selected]")
     end
   end
 

@@ -37,6 +37,11 @@ class ContentController < ApplicationController
       @explore_taxa = @explore_taxa.dup
       @explore_taxa.shuffle!
     end
+    @rich_pages_path = if $RICH_LANG_PAGES_COLLECTION_IDS && $RICH_LANG_PAGES_COLLECTION_IDS.has_key?(I18n.locale)
+                         collection_path($RICH_LANG_PAGES_COLLECTION_IDS[I18n.locale])
+                       else
+                         collection_path($RICH_PAGES_COLLECTION_ID)
+                       end
   end
 
   def replace_single_explore_taxa

@@ -33,9 +33,7 @@
         %dl.activity
           %dt= I18n.t(:user_activity_stats_objects_curated)
           %dd= link_to @user.total_data_objects_curated, user_activity_path(@user, :filter => "data_object_curation")
-          -# %dt= I18n.t(:user_activity_stats_comments_moderated)
-          -# %dd= @user.total_comments_curated
           %dt= I18n.t(:user_activity_stats_taxa_curated)
-          %dd= link_to @user.total_species_curated, user_activity_path(@user, :filter => "curated_taxa")
+          %dd= @user.total_species_curated
           %dt= I18n.t(:user_activity_stats_articles_added)
           %dd= link_to @user_submitted_text_count, user_activity_path(@user, :filter => "added_data_objects")

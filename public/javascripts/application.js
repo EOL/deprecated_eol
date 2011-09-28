@@ -57,8 +57,8 @@ $(function() {
 
     function toggleImg(idx) {
       var $image = $ss.find(".image:eq(" + idx + ")");
-      var $a = $image.find("> a");
-      var $img = $image.find("img");
+      var $a = $image.find("> a").first();
+      var $img = $a.find("img");
       $img.css("paddingTop", ($a.height() / 2 - $img.data("height") / 2) + "px");
       $ss.find(".images").css("height", $image.height());
     }

@@ -646,7 +646,6 @@ p.flag, span.flag
     ul
       display: inline
   .average_rating
-    float: left
     padding: 2px 40px 0 0
     margin: 0 0 20px 0
     h5
@@ -671,8 +670,14 @@ p.flag, span.flag
 #worklist
   #task
     .rating, .average_rating
+      +ie7-hack('display', 'inline')
       h5
         font-size: 1em
+    .average_rating
+      +ie7-hack('width', '250px')
+      h5
+        +ie7-hack('width', '135px')
+
 /** We don't want border on EOL abbr tags in the shared join partial **/
 .join
   abbr
@@ -1116,6 +1121,7 @@ h1.notice
   margin: 0 auto
   display: block
 .invisible
+  +ie7-hack('visibility', 'hidden')
   opacity: 0
 #worklist .filters fieldset
   &.actions

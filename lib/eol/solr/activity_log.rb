@@ -41,6 +41,51 @@ module EOL
         results
       end
       
+      def self.global_activities(options = {})
+        options[:page]        ||= 1
+        options[:per_page]    = 100
+        options[:group_field] = 'activity_log_unique_key'
+        
+        found_user_ids = {}
+        docs_to_return = []
+        
+        # we might get less than 6 non-watch list activities grouped by user, so continue paging through
+        # activity logs until we have the result set we want, or until there are no more results
+        while docs_to_return.length < 6
+          response = solr_search('*:*', options)
+          total_results = response['grouped'][options[:group_field]]['ngroups']
+          break if total_results == 0
+          results = []
+          response['grouped'][options[:group_field]]['groups'].each do |g|
+            results << g['doclist']['docs'][0]
+          end
+          
+          # looking up the collections of CollectionActivities so we can remove activities on watch collections
+          EOL::Solr.add_standard_instance_to_docs!(CollectionActivityLog,
+            results.select{ |d| d['activity_log_type'] == 'CollectionActivityLog' }, 'activity_log_id',
+            :includes => [ :collection ],
+            :selects => { :collection_activity_logs => [:id, :collection_id], :collections => [:special_collection_id, :user_id] })
+          results.delete_if{ |d| d['instance'] && d['instance'].collection && d['instance'].collection.watch_collection? }
+          
+          # creating a list unique by user
+          results.each do |r|
+            unless found_user_ids[r['user_id']]
+              docs_to_return << r
+              found_user_ids[r['user_id']] = true
+            end
+            break if found_user_ids.length >= 6
+          end
+          # if we get less than 100 results there are no more pages to check
+          options[:page] += 1
+          break if total_results < 100
+        end
+        
+        # adding in instances of log models
+        add_resource_instances!(docs_to_return)
+        
+        docs_to_return
+      end
+      
       def self.add_resource_instances!(docs)
         EOL::Solr.add_standard_instance_to_docs!(Comment,
           docs.select{ |d| d['activity_log_type'] == 'Comment' }, 'activity_log_id',

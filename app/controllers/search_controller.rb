@@ -20,6 +20,7 @@ class SearchController < ApplicationController
     end
 
     if @querystring == '*' || @querystring == '%'
+      @wildcard_search = true
       if params[:type].size != 1 || !EOL::Solr::SiteSearch.types_to_show_all.include?(params[:type].first)
         bad_query = true
       end

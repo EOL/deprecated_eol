@@ -14,8 +14,9 @@ class ContentCronTasksController < ApplicationController
   end
 
   def submit_flickr_comments
+    params[:hours] ||= 24
     @flickr_api = FlickrApi.new(:api_key => FLICKR_API_KEY, :secret => FLICKR_SECRET, :auth_token => FLICKR_TOKEN)
-    comments = RecentContentCollector::flickr_comments(24)
+    comments = RecentContentCollector::flickr_comments(params[:hours])
     comments.each do |c|
       text = render_to_string(:template => "/content_cron_tasks/flickr_comment", :locals => {:comment => c})
       if text
@@ -26,8 +27,9 @@ class ContentCronTasksController < ApplicationController
   end
 
   def submit_flickr_curator_actions
+    params[:hours] ||= 24
     @flickr_api = FlickrApi.new(:api_key => FLICKR_API_KEY, :secret => FLICKR_SECRET, :auth_token => FLICKR_TOKEN)
-    curator_activity_logs = RecentContentCollector::flickr_curator_actions(24)
+    curator_activity_logs = RecentContentCollector::flickr_curator_actions(params[:hours])
     curator_activity_logs.each do |ah|
       text = render_to_string(:template => "/content_cron_tasks/flickr_curator_action", :locals =>
                               {:curator_activity_log => ah})

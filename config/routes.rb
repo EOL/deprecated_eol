@@ -185,13 +185,13 @@ ActionController::Routing::Routes.draw do |map|
   # not sure why this didn't work in some places - but this is for documentation
   map.connect 'api/docs/:action', :controller => 'api/docs'
   # ping is a bit of an exception - it doesn't get versioned and takes no ID
-  map.connect 'api/:action', :controller => 'api', :version => '0.4'
-  map.connect 'api/:action.:format', :controller => 'api', :version => '0.4'
+  map.connect 'api/:action', :controller => 'api'
+  map.connect 'api/:action.:format', :controller => 'api'
   map.connect 'api/:action/:version', :controller => 'api', :version => /[0-1]\.[0-9]/
   map.connect 'api/:action/:version.:format', :controller => 'api', :version => /[0-1]\.[0-9]/
-  # if version is left out we'll default to the older 0.4
-  map.connect 'api/:action/:id', :controller => 'api', :version => '0.4'
-  map.connect 'api/:action/:id.:format', :controller => 'api', :version => '0.4'
+  # if version is left out we'll set the default to the latest version in the controller
+  map.connect 'api/:action/:id', :controller => 'api'
+  map.connect 'api/:action/:id.:format', :controller => 'api'
   # looks for version, ID and format
   map.connect 'api/:action/:version/:id', :controller => 'api', :version => /[0-1]\.[0-9]/
   map.connect 'api/:action/:version/:id.:format', :controller => 'api', :version => /[0-1]\.[0-9]/

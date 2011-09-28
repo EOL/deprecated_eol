@@ -11,6 +11,7 @@
 - user_rating ||= 0
 - minimal ||= false
 - assistive_or_nil = minimal ? 'assistive' : nil
+- hide_user_rating ||= false
 .ratings
   .average_rating
     %h5{:class => assistive_or_nil}
@@ -20,14 +21,15 @@
     .rating
       %p{:style => "width: #{average_rating * 20}%"}<
         = I18n.t("average_rating_value_of_total", :rating => average_rating, :total => total)
-  .rating
-    %h5{:class => assistive_or_nil}= I18n.t(:your_rating)
-    %ul
-      %li{:class => "current_rating_#{user_rating}"}<
-        = I18n.t("your_current_rating_#{user_rating}_of_#{total}")
-      - total.times do |i|
-        - rating = i + 1
-        %li
-          - link_url = params[:force_return_to] ? params[:force_return_to] : current_url(false)
-          = link_to I18n.t("change_rating_to_#{i + 1}_of_#{total}"),
-            rate_data_object_path(data_object, :stars => rating, :return_to => link_url, :minimal => minimal.to_s), :class => "star_#{rating}"
+  - unless hide_user_rating
+    .rating
+      %h5{:class => assistive_or_nil}= I18n.t(:your_rating)
+      %ul
+        %li{:class => "current_rating_#{user_rating}"}<
+          = I18n.t("your_current_rating_#{user_rating}_of_#{total}")
+        - total.times do |i|
+          - rating = i + 1
+          %li
+            - link_url = params[:force_return_to] ? params[:force_return_to] : current_url(false)
+            = link_to I18n.t("change_rating_to_#{i + 1}_of_#{total}"),
+              rate_data_object_path(data_object, :stars => rating, :return_to => link_url, :minimal => minimal.to_s), :class => "star_#{rating}"

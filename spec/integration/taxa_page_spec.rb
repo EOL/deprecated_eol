@@ -72,19 +72,9 @@ describe 'Taxa page' do
       end
     end
 
-    it 'should allow logged in user to rate a text object' do
-      visit logout_url
-      login_as @testy[:curator]
-      visit taxon_details_path(@taxon_concept)
-      click_link('Change rating to 3 of 5')
-      current_url.should match /#{taxon_details_path(@taxon_concept)}/
-      body.should include('Rating was added ')
-    end
-
     it 'should show actions for text objects' do
       body.should have_tag('div.actions') do # note this should be a div.actions and not the p.actions defined in HR markup
-        with_tag('a.collect')
-        with_tag('a.comment')
+        with_tag('p', :text => I18n.t(:comment_or_rate_on_this_article))
       end
     end
 
@@ -401,20 +391,6 @@ describe 'Taxa page' do
     it_should_behave_like 'taxon name - taxon_concept page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon details tab'
-    it 'should allow logged in user to comment on a text object' do
-      visit logout_url
-      login_as @user
-      visit taxon_details_path(@taxon_concept)
-      comment = "Test comment by a logged in user."
-      body.should have_tag(".comment", :text => "Leave a comment")
-      click_link "Leave a comment"
-      body.should have_tag(".comment #comment_body")
-      fill_in 'comment_body', :with => comment
-      body.should have_tag(".comment .actions input", :val => "Post Comment")
-      click_button "Post Comment"
-      current_url.should match /#{taxon_details_path(@taxon_concept)}/
-      body.should include('Comment successfully added')
-    end
   end
 
   # details tab - hierarchy_entry
@@ -427,20 +403,6 @@ describe 'Taxa page' do
     it_should_behave_like 'taxon name - hierarchy_entry page'
     it_should_behave_like 'taxon pages with all expected data'
     it_should_behave_like 'taxon details tab'
-    it 'should allow logged in user to comment on a text object' do
-      visit logout_url
-      login_as @user
-      visit taxon_hierarchy_entry_details_path(@taxon_concept, @hierarchy_entry)
-      comment = "Test comment by a logged in user."
-      body.should have_tag(".comment", :text => "Leave a comment")
-      click_link "Leave a comment"
-      body.should have_tag(".comment #comment_body")
-      fill_in 'comment_body', :with => comment
-      body.should have_tag(".comment .actions input", :val => "Post Comment")
-      click_button "Post Comment"
-      current_url.should match /#{taxon_hierarchy_entry_details_path(@taxon_concept, @hierarchy_entry)}/
-      body.should include('Comment successfully added')
-    end
   end
 
   # names tab - taxon_concept

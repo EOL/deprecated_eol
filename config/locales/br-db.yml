@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Fulup
+# Author: Y-M D
 br: 
   translated_activities-name-activity_id-19: profil
   translated_activities-name-activity_id-50: diasur
@@ -22,7 +23,9 @@ br:
   translated_agent_roles-label-agent_role_id-12: Sonenroller
   translated_agent_roles-label-agent_role_id-13: Mammenn
   translated_agent_roles-label-agent_role_id-14: Mammenn an diaz roadennoù
+  translated_agent_roles-label-agent_role_id-16: Kenlabourerien
   translated_agent_roles-label-agent_role_id-2: Aozer
+  translated_agent_roles-label-agent_role_id-21: pourvezer
   translated_agent_roles-label-agent_role_id-22: Troer
   translated_agent_roles-label-agent_role_id-23: Adlenner skiantel
   translated_agent_roles-label-agent_role_id-24: Adlenner yezh
@@ -76,6 +79,7 @@ br:
   translated_contact_subjects-title-contact_subject_id-20: Skoazell evit ar re a zegas danvez
   translated_contact_subjects-title-contact_subject_id-21: Kas ur postel da Cynthia Parr er strollad Pajennoù Spesadoù
   translated_contact_subjects-title-contact_subject_id-22: Barregezhioù pleg-mor Mec'hiko
+  translated_contact_subjects-title-contact_subject_id-23: Kas ur gemennadenn da Eli Agbayani
   translated_contact_subjects-title-contact_subject_id-3: Deskiñ ha Kelenn
   translated_contact_subjects-title-contact_subject_id-5: Rummatadur
   translated_contact_subjects-title-contact_subject_id-6: Enklask bevstlennegel

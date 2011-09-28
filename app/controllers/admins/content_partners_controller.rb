@@ -31,7 +31,7 @@ class Admins::ContentPartnersController < AdminsController
       conditions_replacements[:resource_status_id] = @resource_status_id
     end
     unless @vetted.blank?
-      conditions << " AND content_partners.vetted = :vetted"
+      conditions << " AND resources.vetted = :vetted"
       conditions_replacements[:vetted] = @vetted
       @vetted = @vetted.to_i
     end

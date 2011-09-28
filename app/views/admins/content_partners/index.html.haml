@@ -23,7 +23,7 @@
             = select_tag :content_partner_status_id,
               option_please_select + options_from_collection_for_select(@partner_statuses, :id, :label, @partner_status_id.to_i)
           %dt
-            = label_tag :vetted, I18n.t('activerecord.attributes.content_partner.vetted')
+            = label_tag :vetted, I18n.t('activerecord.attributes.resource.vetted')
           %dd
             = select_tag :vetted, options_for_select(@vetted_options, @vetted)
       %fieldset.actions
@@ -127,7 +127,7 @@
 
                   .settings
                     - form_for [partner, resource], :builder => ApplicationHelper::EolFormBuilder do |f|
-                      = f.hidden_field :return_to, :value => current_url
+                      = hidden_field_tag :return_to, current_url
                       - f.label :refresh_period_hours, :class => 'select' do
                         = I18n.t('helpers.label.resource.refresh_period_hours')
                         = f.select :refresh_period_hours, options_for_select(@import_frequencies, resource.refresh_period_hours)
@@ -138,7 +138,7 @@
                         = f.check_box :auto_publish
                         = I18n.t('activerecord.attributes.resource.auto_publish')
                       %fieldset.actions
-                        = f.submit I18n.t('helpers.submit.resource.update_settings')
+                        = f.submit I18n.t('helpers.submit.resource.update_settings'), :name => :commit_update_settings_only
                   %dl.notes
                     %dt
                       = I18n.t('activerecord.attributes.resource.hierarchy')

@@ -1750,8 +1750,8 @@ es:
   search_term_reports: "buscar informes"
   see_all_media_link: "Ver todos los medios"
   see_all_updates_with_count_html:
-    one: "Ver la <span class=\"assistive\">%{count} actualización para esta página.</span>"
-    other: "Ver todas las <span class=\"assistive\">%{count} actualizaciones para esta página.</span>"
+    one: "Ver todas <span class=\"assistive\">%{count} actualización para esta página.</span>"
+    other: "Ver todas <span class=\"assistive\">las %{count} actualizaciones para esta página.</span>"
   see_notes: "ver notas"
   species_profile_model: "Modelo de Perfil de Especies (SPM)"
   start_quote: "\""

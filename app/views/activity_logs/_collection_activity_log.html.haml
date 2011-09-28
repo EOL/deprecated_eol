@@ -2,20 +2,24 @@
   :posters_name => h(item.user.full_name))), user_path(item.user), :class => 'avatar'
 .details
   %p
+  - if item.collection.nil?
+    = "[ERROR: missing collection #{item.class.name}:#{item.id}]"
+  - elsif item.collection_item.nil?
+    = I18n.t(:activity_user_added_unknown_item_to_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)))
+  - elsif item.collection_item.object.nil?
+    = I18n.t(:activity_user_added_unknown_item_to_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)))
+  - else
     - name_with_link =  link_to h(item.user.full_name), user_path(item.user)
     - case item.activity_id
     - when Activity.create.id
       = I18n.t(:activity_user_created_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)))
     - when ((Activity.collect.id && item.collection) ? Activity.collect.id : 'nonsense')
-      - if item.collection_item.nil? || item.collection_item.object.nil?
-        = I18n.t(:activity_user_added_unknown_item_to_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)))
-      - else
         = I18n.t(:activity_user_added_item_to_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)), :item => link_to(item.collection_item.object.summary_name, link_to_item(item.collection_item.object)))
     - when Activity.remove.id
       = I18n.t(:activity_user_removed_item_from_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)), :item =>  link_to(item.collection_item.object.summary_name, link_to_item(item.collection_item.object)))
     - when Activity.remove_all.id
       = I18n.t(:activity_user_removed_all_items_from_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)))
-    - else
-      = I18n.t(:activity_user_modified_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)))
+      - else
+        = I18n.t(:activity_user_modified_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)))
   %p.meta= I18n.t(:time_ago, :time_passed => time_ago_in_words(item.created_at))
 

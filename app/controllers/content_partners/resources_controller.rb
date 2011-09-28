@@ -61,10 +61,14 @@ class ContentPartners::ResourcesController < ContentPartnersController
       @resource = @partner.resources.find(params[:id])
     end
     access_denied unless current_user.can_update?(@resource)
-    choose_url_or_file
-    @existing_dataset_file_size = @resource.dataset_file_size
-    # we need to check the accesspoint URL before saving the updated resource
-    upload_required = (@resource.accesspoint_url != params[:resource][:accesspoint_url] || !params[:resource][:dataset].blank?)
+    if params[:commit_update_settings_only]
+      upload_required = false
+    else
+      choose_url_or_file
+      @existing_dataset_file_size = @resource.dataset_file_size
+      # we need to check the accesspoint URL before saving the updated resource
+      upload_required = (@resource.accesspoint_url != params[:resource][:accesspoint_url] || !params[:resource][:dataset].blank?)
+    end
     if @resource.update_attributes(params[:resource])
       if upload_required
         @resource.upload_resource_to_content_master!(request.port.to_s)
@@ -74,7 +78,8 @@ class ContentPartners::ResourcesController < ContentPartnersController
       end
       flash[:notice] = I18n.t(:content_partner_resource_update_successful_notice,
                               :resource_status => @resource.status_label)
-      redirect_to content_partner_resources_path(@partner)
+      store_location(params[:return_to]) unless params[:return_to].blank?
+      redirect_back_or_default content_partner_resource_path(@partner, @resource)
     else
       set_resource_options
       flash.now[:error] = I18n.t(:content_partner_resource_update_unsuccessful_error)

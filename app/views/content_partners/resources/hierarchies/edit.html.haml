@@ -8,6 +8,10 @@
     %p{:class => en_browsable_status}
       = I18n.t('helpers.label.hierarchy.browsable_status_with_colon')
       = I18n.t("content_partner_resource_hierarchy_#{en_browsable_status}")
+
+    %p.help_text
+      = @hierarchy.complete ? I18n.t(:content_partner_resource_hierarchy_complete_true) : I18n.t(:content_partner_resource_hierarchy_complete_false)
+
     %fieldset
       %dl
         %dt
@@ -27,10 +31,6 @@
         = hierarchy_form.check_box :browsable
         = I18n.t('activerecord.attributes.hierarchy.browsable')
         %p= I18n.t('helpers.label.hierarchy.browsable_more')
-      - hierarchy_form.label :complete do
-        = hierarchy_form.check_box :complete
-        = I18n.t('helpers.label.hierarchy.complete')
-        %p= I18n.t('helpers.label.hierarchy.complete_more')
       - hierarchy_form.label :request_publish do
         = hierarchy_form.check_box :request_publish
         = I18n.t('helpers.label.hierarchy.request_publish')

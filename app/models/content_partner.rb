@@ -291,22 +291,6 @@ class ContentPartner < SpeciesSchemaModel
     current_agreements[0]
   end
 
-#  FIXME: http://jira.eol.org/browse/WEB-2993 Fix or remove - vetted_id no longer on dato. SPG don't want to set vetted at content partner level anyway.
-#  # vet or unvet entire content partner (0 = unknown, 1 = vet)
-#  def set_vetted_status(vetted)
-#    set_to_state = EOLConvert.to_boolean(vetted) ? Vetted.trusted.id : Vetted.unknown.id
-#    connection.execute("
-#      UPDATE resources r
-#      JOIN harvest_events he ON (r.id = he.resource_id)
-#      JOIN data_objects_harvest_events dohe ON (he.id = dohe.harvest_event_id)
-#      JOIN data_objects do ON (dohe.data_object_id = do.id)
-#      SET do.vetted_id = #{set_to_state}
-#      WHERE r.content_partner_id = #{self.id}
-#      AND do.curated = 0
-#      AND do.vetted_id != #{set_to_state}")
-#    self.vetted = vetted
-#  end
-
   # override the logo_url column in the database to construct the path on the content server
   def logo_url(size = 'large')
     if logo_cache_url.blank?

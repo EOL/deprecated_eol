@@ -45,13 +45,19 @@
       = partner_form.label :logo
     %dd.logo
       %p= I18n.t('helpers.label.content_partner.logo_current')
-      %br/
       = image_tag @partner.logo_url
       %p= I18n.t('helpers.label.content_partner.logo_new')
-      %br/
       = partner_form.file_field :logo
-    - if current_user.is_admin?
-      %dt
-        = partner_form.label :admin_notes
-      %dd
-        = partner_form.text_area :admin_notes
+  - if current_user.is_admin?
+    %fieldset
+      %h4= I18n.t(:content_partner_administration_settings_header)
+      %p= I18n.t(:content_partner_administration_settings_introduction)
+      %dl
+        %dt
+          = partner_form.label :admin_notes
+        %dd
+          = partner_form.text_area :admin_notes
+      - partner_form.label :public, :class => 'checkbox' do
+        = partner_form.check_box :public
+        = I18n.t('activerecord.attributes.content_partner.public')
+        %p= I18n.t('helpers.label.content_partner.public_more')

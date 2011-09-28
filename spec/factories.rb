@@ -446,13 +446,11 @@ end
 
 Factory.define :content_partner do |cp|
   cp.full_name                           { Factory.next(:string) }
-  cp.auto_publish                        false
   cp.association                         :user
   cp.description                         'Our Testing Content Partner'
   cp.description_of_data                 'Civil Protection!'
   cp.created_at                          { 5.days.ago }
-  cp.show_on_partner_page                true
-  cp.vetted                              false
+  cp.public                              true
   cp.content_partner_status              { ContentPartnerStatus.find_by_translated(:label, 'Active') ||
                                            ContentPartnerStatus.gen_if_not_exists(:label => 'Active') }
 end

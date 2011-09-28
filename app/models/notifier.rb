@@ -109,18 +109,20 @@ class Notifier < ActionMailer::Base
     body          :partner => partner, :resource => resource, :user => user
   end
 
-  def content_partner_resource_published(partner, resource, user)
-    subject       I18n.t(:subject, :scope => [:notifier, :content_partner_resource_published])
+  def content_partner_resource_force_harvest_request(partner, resource, user)
+    subject       I18n.t(:subject, :partner_full_name => partner.full_name, :resource_title => resource.title,
+                         :user_full_name => user.full_name, :scope => [:notifier, :content_partner_resource_force_harvest_request])
     recipients    $SPECIES_PAGES_GROUP_EMAIL_ADDRESS
     from          $SUPPORT_EMAIL_ADDRESS
     body          :partner => partner, :resource => resource, :user => user
   end
 
-  def content_partner_resource_force_harvest_request(partner, resource, user)
-    subject       I18n.t(:subject, :scope => [:notifier, :content_partner_resource_force_harvest_request])
+  def content_partner_resource_hierarchy_publish_request(partner, resource, hierarchy, user)
+    subject       I18n.t(:subject, :partner_full_name => partner.full_name, :resource_title => resource.title,
+                         :user_full_name => user.full_name, :scope => [:notifier, :content_partner_resource_hierarchy_publish_request])
     recipients    $SPECIES_PAGES_GROUP_EMAIL_ADDRESS
     from          $SUPPORT_EMAIL_ADDRESS
-    body          :partner => partner, :resource => resource, :user => user
+    body          :partner => partner, :resource => resource, :hierarchy => hierarchy, :user => user
   end
 
 end

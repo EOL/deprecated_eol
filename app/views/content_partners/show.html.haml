@@ -22,7 +22,8 @@
         .empty
           %p= I18n.t(:content_partner_notes_empty)
       - else
-        %p= @partner.notes
+        .copy
+          %p= @partner.notes
 
     - if current_user.is_admin?
       %h3= I18n.t(:content_partner_administration_notes_header)
@@ -30,7 +31,8 @@
         .empty
           %p= I18n.t(:content_partner_administration_notes_empty)
       - else
-        %p= @partner.admin_notes
+        .copy
+          %p= @partner.admin_notes
   .main_container.copy
     %h3= I18n.t(:content_partner_about_header, :partner_name => @partner.name)
     %p= sanitize @partner.description.balance_tags

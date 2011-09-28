@@ -49,9 +49,7 @@
             %p
               = partner.content_partner_status.label rescue I18n.t(:content_partner_status_empty)
               &bull;
-              = partner.vetted.zero? ? I18n.t(:content_partner_vetted_false) : I18n.t(:content_partner_vetted_true)
-              &bull;
-              = partner.auto_publish ? I18n.t(:content_partner_auto_publish_true) : I18n.t(:content_partner_auto_publish_false)
+              = partner.public ? I18n.t(:content_partner_public_true) : I18n.t(:content_partner_public_false)
               - if partner.has_unpublished_content?
                 &bull;
                 = I18n.t(:content_partner_has_unpublished_content_true)

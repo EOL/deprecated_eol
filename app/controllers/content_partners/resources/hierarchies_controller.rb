@@ -35,7 +35,7 @@ class ContentPartners::Resources::HierarchiesController < ContentPartners::Resou
 
   end
 
-  # POST /content_partners/:content_partner_id/resources/:resource_id/hierarchies/:id
+  # POST /content_partners/:content_partner_id/resources/:resource_id/hierarchies/:id/request_publish
   def request_publish
     @hierarchy = Hierarchy.find(params[:id], :include => { :resource => :content_partner } )
     @partner = @hierarchy.resource.content_partner
@@ -45,6 +45,7 @@ class ContentPartners::Resources::HierarchiesController < ContentPartners::Resou
     if @hierarchy.request_to_publish_can_be_made? && @hierarchy.update_attributes(:request_publish => true)
       Hierarchy.delete_cached('id', @hierarchy.id)
       flash[:notice] = I18n.t(:content_partner_resource_hierarchy_update_successful_notice)
+      Notifier.deliver_content_partner_resource_hierarchy_publish_request(@partner, @resource, @hierarchy, current_user)
     else
       flash[:error] = I18n.t(:content_partner_resource_hierarchy_update_unsuccessful_error)
     end

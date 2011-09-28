@@ -34,14 +34,13 @@
                 %h4= link_to h(partner.name), partner
                 %p.meta
                   - unless partner.created_at.blank?
-                    = "#{I18n.t(:content_partner_registered_time_ago,
-                      :time_passed => time_ago_in_words(partner.created_at))};"
+                    = I18n.t(:content_partner_registered_time_ago, :time_passed => time_ago_in_words(partner.created_at))
                   - unless partner.oldest_published_harvest_events.blank?
-                    = "#{I18n.t(:content_partner_oldest_published_harvest_event_time_ago,
-                      :time_passed => time_ago_in_words(partner.latest_published_harvest_events.first.published_at))};"
+                    = I18n.t(:content_partner_oldest_published_harvest_event_time_ago,
+                      :time_passed => time_ago_in_words(partner.latest_published_harvest_events.first.published_at))
                   - unless partner.latest_published_harvest_events.blank?
-                    = "#{I18n.t(:content_partner_latest_published_harvest_event_time_ago,
-                      :time_passed => time_ago_in_words(partner.latest_published_harvest_events.first.published_at))};"
+                    = I18n.t(:content_partner_latest_published_harvest_event_time_ago,
+                      :time_passed => time_ago_in_words(partner.latest_published_harvest_events.first.published_at))
                   - unless partner.homepage.blank?
                     %br/
                     = link_to I18n.t(:content_partner_homepage_link), h(partner.homepage)

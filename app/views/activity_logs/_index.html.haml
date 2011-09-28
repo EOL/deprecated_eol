@@ -1,3 +1,4 @@
+- truncate_comments ||= false
 - hide_pagination ||= false
 - if log.blank?
   .empty
@@ -14,7 +15,7 @@
         - when "CuratorActivityLog"
           = render :partial => 'activity_logs/curator_activity_log', :locals => {:item => item}
         - when "Comment"
-          = render :partial => 'activity_logs/comment', :locals => {:item => item}
+          = render :partial => 'activity_logs/comment', :locals => {:item => item, :truncate_comments => truncate_comments}
         - when "UsersDataObject"
           = render :partial => 'activity_logs/users_data_object_log', :locals => {:item => item}
         - when "CollectionActivityLog"

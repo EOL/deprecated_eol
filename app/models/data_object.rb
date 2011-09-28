@@ -691,7 +691,7 @@ class DataObject < SpeciesSchemaModel
 
   def sound_url
     if !object_cache_url.blank? && !object_url.blank?
-      filename_extension = File.extname(object_url)
+      filename_extension = File.extname(object_url).downcase
       return ContentServer.cache_path(object_cache_url) + filename_extension
     elsif mime_type.label('en') == 'audio/mpeg'
       return has_object_cache_url? ? ContentServer.cache_path(object_cache_url) + '.mp3' : ''

@@ -86,7 +86,7 @@ describe 'Users' do
       body.should have_tag "form[action=]" do
         with_tag "select[name=filter]"
       end
-      body.should have_tag("option:nth-child(1)", :text => "all")
+      body.should have_tag("option:nth-child(1)", :text => "All")
       body.should have_tag("option:nth-child(2)", :text => "Comments")
       body.should have_tag("option:nth-child(3)", :text => "Objects curated")
       body.should have_tag("option:nth-child(4)", :text => "Articles added")

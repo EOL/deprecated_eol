@@ -47,6 +47,11 @@ class Resource < SpeciesSchemaModel
   end
   validate :url_or_dataset_not_both
 
+  # Temporary method for release 2011.09.14 to handle missing migrations.
+  def updated_at
+    nil
+  end
+
   # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we move to many to many
   def can_be_created_by?(user)
     content_partner.user_id == user.id || user.is_admin?

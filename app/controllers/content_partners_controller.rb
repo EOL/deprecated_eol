@@ -24,7 +24,7 @@ class ContentPartnersController < ApplicationController
               content_partners.logo_content_type, content_partners.logo_file_size, content_partners.created_at,
               resources.id, resources.collection_id, resources.resource_status_id,
               resource_statuses.*, harvest_events.*'
-    conditions = "content_partners.public = 1 AND content_partners.full_name LIKE :name"
+    conditions = "content_partners.show_on_partner_page = 1 AND content_partners.full_name LIKE :name"
     conditions_replacements = {}
     conditions_replacements[:name] = "%#{@name}%"
     @partners = ContentPartner.paginate(

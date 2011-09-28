@@ -41,6 +41,10 @@ class ContentPartner < SpeciesSchemaModel
   validates_attachment_size :logo, :in => 0..$LOGO_UPLOAD_MAX_SIZE,
     :if => self.column_names.include?('logo_file_name')
 
+  # Temporary method for release 2011.09.14 to handle missing migrations.
+  def public
+    show_on_partner_page
+  end
 
   def can_be_read_by?(user_wanting_access)
     public || (user_wanting_access.id == user_id || user_wanting_access.is_admin?)

@@ -74,7 +74,7 @@ describe 'Taxa page' do
 
     it 'should show actions for text objects' do
       body.should have_tag('div.actions') do # note this should be a div.actions and not the p.actions defined in HR markup
-        with_tag('p', :text => I18n.t(:comment_or_rate_on_this_article))
+        with_tag('p')
       end
     end
 

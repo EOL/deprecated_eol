@@ -2,8 +2,10 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 def build_secondary_iucn_hierarchy_and_resource
   Agent.iucn.user ||= User.gen(:agent => Agent.iucn)
-  Agent.iucn.user.content_partner ||= ContentPartner.gen(:user => Agent.iucn.user)
-  another_iucn_resource  = Resource.gen(:title  => 'Another IUCN', :content_partner => Agent.iucn.user.content_partner)
+  if Agent.iucn.user.content_partner.blank?
+    Agent.iucn.user.content_partners << ContentPartner.gen(:user => Agent.iucn.user)
+  end
+  another_iucn_resource  = Resource.gen(:title  => 'Another IUCN', :content_partner => Agent.iucn.user.content_partners.first)
   another_iucn_hierarchy = Hierarchy.gen(:label => 'Another IUCN')
   return [another_iucn_hierarchy, another_iucn_resource]
 end

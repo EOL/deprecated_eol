@@ -2,7 +2,7 @@ class Users::CollectionsController < UsersController
 
   def index
     @user = User.find(params[:user_id])
-    @featured_collections = @user.all_collections
+    @featured_collections = @user.all_collections(current_user == @user)
     if params[:sort_by] && params[:sort_by].to_sym == :oldest
       @featured_collections = @featured_collections.sort_by(&:created_at)
     else

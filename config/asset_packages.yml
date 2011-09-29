@@ -1,28 +1,13 @@
---- 
-javascripts: 
+---
+javascripts:
 - base-cached:
-  - jquery.tools.min
-  - eol
-  - search
-  - application 
+  - application
 
 - taxa-page-cached:
-  - jquery.refparser
   - rating
-  - media_center
-  - popup
   - navigation
-  - swfobject
-  - wiki_ogg_player
 
-- jquery-extras-cached:
-  - jquery-autocomplete
-  - tagging
-
-stylesheets: 
-- base-cached: 
-  - reset-min
-  - main
-  - popup
-  - taxa_comments
-  - tags
+stylesheets:
+- base-cached:
+  - application
+  - accessibility

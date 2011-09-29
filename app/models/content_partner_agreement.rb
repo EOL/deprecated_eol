@@ -14,7 +14,8 @@ class ContentPartnerAgreement < SpeciesSchemaModel
   end
   # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we move to many to many
   def can_be_read_by?(user_wanting_access)
-    (is_accepted? && is_current && content_partner.public) || (content_partner.user_id == user_wanting_access.id || user_wanting_access.is_admin?)
+    # (is_accepted? && is_current && content_partner.public) || commenting this out to temporarily restrict access due to privacy issues regarding contact info in agreements
+    (content_partner.user_id == user_wanting_access.id || user_wanting_access.is_admin?)
   end
   # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we move to many to many
   def can_be_updated_by?(user_wanting_access)

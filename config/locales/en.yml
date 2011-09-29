@@ -2834,9 +2834,9 @@ en:
   see_all_collections_with_count_html:
     one: "See the <span class=\"assistive\">%{count} collection in which this page appears.</span>"
     other: "See all <span class=\"assistive\">%{count} collections in which this page appears.</span>"
-  see_all_comments_with_count_for_text:
-    one: "see %{count} comment for this article"
-    other: "see all %{count} comments for this article"
+  see_all_comments_with_count_for_text_or_rate:
+    one: "see %{count} comment for this article or rate it"
+    other: "see all %{count} comments for this article or rate it"
   see_all_communities_with_count_html:
     one: "See the <span class=\"assistive\">%{count} community that features this page.</span>"
     other: "See all <span class=\"assistive\">%{count} communities that feature this page.</span>"

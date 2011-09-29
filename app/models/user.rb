@@ -30,15 +30,16 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   has_many :collection_items, :as => :object
   has_many :containing_collections, :through => :collection_items, :source => :collection
   has_many :collections, :conditions => 'collections.published = 1'
+  has_many :collections_including_unpublished, :class_name => Collection.to_s
   has_many :communities, :through => :members
   has_many :google_analytics_partner_summaries
   has_many :google_analytics_partner_taxa
-  has_many :resources, :through => :content_partner
+  has_many :resources, :through => :content_partners
   has_many :users_user_identities
   has_many :user_identities, :through => :users_user_identities
   has_many :worklist_ignored_data_objects
 
-  has_one :content_partner
+  has_many :content_partners
   has_one :user_info
   belongs_to :default_hierarchy, :class_name => Hierarchy.to_s, :foreign_key => :default_hierarchy_id
   has_one :existing_watch_collection, :class_name => 'Collection', :conditions => 'special_collection_id = #{SpecialCollection.watch.id}'
@@ -495,7 +496,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def is_content_partner?
-    content_partner ? true : false
+    content_partners.blank? ? false : true
   end
 
   def is_pending_curator?
@@ -683,8 +684,13 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   # user has access to through communities
   #
   # NOTE - this will ALWAYS put the watch collection first.
-  def all_collections
-    editable_collections = collections.reject {|c| c.watch_collection? }
+  def all_collections(logged_in_as_user = false)
+    editable_collections = collections_including_unpublished.reject {|c| c.watch_collection? }
+    if logged_in_as_user
+      editable_collections.delete_if{ |c| !c.published? && !c.is_resource_collection? }
+    else
+      editable_collections.delete_if{ |c| !c.published? }
+    end
     editable_collections += members.managers.map {|member| member.community.collection }
     editable_collections = [watch_collection] + editable_collections.sort_by(&:name)
     editable_collections.compact

@@ -30,11 +30,6 @@
                 %li
                   - in_parter_steps = (params[:controller] == 'content_partner_account' && ['licensing', 'attribution', 'roles', 'transfer_overview', 'transfer_upload'].include?(params[:action]))
                   = link_to I18n.t("partnering_steps"), { :controller => 'content_partner_account', :action => 'licensing' }, :class => "#{in_parter_steps ? 'active' : ''} nested toc_item"
-                - if current_user.content_partner && current_user.content_partner.ready_for_agreement?
-                  %li
-                    = link_to I18n.t("your_agreement"), { :controller => 'content_partner_account', :action => "agreement"}, :class => 'nested toc_item', :target=>"_new"
-                  %li
-                    = link_to I18n.t("manage_resources"), resources_url, :class => "#{params[:controller] == 'resources' ? 'active' : ''} nested toc_item"
         #right-pane
           #main_area
             = eol_lang_error_messages_for :user

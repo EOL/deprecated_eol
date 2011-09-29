@@ -245,10 +245,12 @@ load_old_foundation_data
 # TODO - I am neglecting to set up agent content partners, curators, contacts, provided data types, or agreements.  For now.
 agent_col = Agent.catalogue_of_life
 agent_col.user ||= User.gen
-agent_col.user.content_partner ||= ContentPartner.gen :full_name => "Catalogue of Life"
+if agent_col.user.content_partner.blank?
+  agent_col.user.content_partners << ContentPartner.gen :full_name => "Catalogue of Life"
+end
 resource = Resource.gen(:title => 'Bootstrapper', :resource_status => ResourceStatus.published,
   :hierarchy => Hierarchy.find_by_label('Species 2000 & ITIS Catalogue of Life: Annual Checklist 2010'),
-  :content_partner => agent_col.user.content_partner)
+  :content_partner => agent_col.user.content_partners.first)
 event    = HarvestEvent.gen(:resource => resource)
 
 gbif_agent = Agent.gen(:full_name => "Global Biodiversity Information Facility (GBIF)")
@@ -490,8 +492,10 @@ r = Rank.gen_if_not_exists(:label => 'superkingdom', :rank_group_id => 0)
 
 ### Adding another hierarchy to test switching from one to another
 Agent.ncbi.user ||= User.gen(:agent => Agent.ncbi)
-Agent.ncbi.user.content_partner ||= ContentPartner.gen(:user => Agent.ncbi.user, :full_name => "NCBI")
-ContentPartnerContact.gen(:content_partner => Agent.ncbi.user.content_partner, :contact_role => ContactRole.primary)
+if Agent.ncbi.user.content_partners.blank?
+  Agent.ncbi.user.content_partners << ContentPartner.gen(:user => Agent.ncbi.user, :full_name => "NCBI")
+end
+ContentPartnerContact.gen(:content_partner => Agent.ncbi.user.content_partners.first, :contact_role => ContactRole.primary)
 
 eukaryota = build_taxon_concept(:rank => 'superkingdom',
                                 :canonical_form => 'Eukaryota',

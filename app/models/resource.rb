@@ -79,14 +79,14 @@ class Resource < SpeciesSchemaModel
   # trying to change it to memcache got error after reload a page
   def self.iucn
     cached('iucn') do
-      Agent.iucn.user.content_partner.resources.last
+      Agent.iucn.user.content_partners.first.resources.last
     end
   end
 
   def self.ligercat
     cached('ligercat') do
       unless Agent.boa.user.blank?
-        Agent.boa.user.content_partner.resources[0]
+        Agent.boa.user.content_partners.first.resources[0]
       else
         content_partner = ContentPartner.boa
         return nil unless content_partner && content_partner.resources && content_partner.resources.first

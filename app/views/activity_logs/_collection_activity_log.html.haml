@@ -14,10 +14,7 @@
     - when Activity.create.id
       = I18n.t(:activity_user_created_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)))
     - when ((Activity.collect.id && item.collection) ? Activity.collect.id : 'nonsense')
-      - if item.collection_item.nil? || item.collection_item.object.nil?
-        = I18n.t(:activity_user_added_unknown_item_to_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)))
-      - else
-        = I18n.t(:activity_user_added_item_to_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)), :item => link_to(item.collection_item.object.summary_name, link_to_item(item.collection_item.object)))
+      = I18n.t(:activity_user_added_item_to_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)), :item => link_to(item.collection_item.object.summary_name, link_to_item(item.collection_item.object)))
     - when Activity.remove.id
       = I18n.t(:activity_user_removed_item_from_collection, :user => name_with_link, :collection => link_to(item.collection.summary_name, collection_path(item.collection)), :item =>  link_to(item.collection_item.object.summary_name, link_to_item(item.collection_item.object)))
     - when Activity.remove_all.id

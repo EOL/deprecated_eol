@@ -194,4 +194,80 @@ describe "Collections and collecting:" do
 
 end
 
+
+
+describe "Preview Collections" do
+  before(:all) do
+    unless User.find_by_username('collections_scenario')
+      truncate_all_tables
+      load_scenario_with_caching(:collections)
+    end
+    Capybara.reset_sessions!
+    @test_data = EOL::TestInfo.load('collections')
+    @collectable_collection = Collection.gen
+    @collection = @test_data[:collection]
+    @collection_owner = @test_data[:user]
+    @user = nil
+    @under_privileged_user = User.gen
+    @anon_user = User.gen(:password => 'password')
+    @taxon = @test_data[:taxon_concept_1]
+    @collection.add(@taxon)
+    builder = EOL::Solr::CollectionItemsCoreRebuilder.new()
+    builder.begin_rebuild
+  end
+  
+  it 'should show collections on the taxon page' do
+    visit taxon_path(@taxon)
+    body.should have_tag('#collections_summary') do
+      with_tag('h3', :text => "Present in 1 collection")
+    end
+  end
+  
+  it 'should not show preview collections on the taxon page' do
+    @collection.update_attribute(:published, false)
+    visit taxon_path(@taxon)
+    body.should have_tag('#collections_summary') do
+      with_tag('h3', :text => "Present in 0 collections")
+    end
+    @collection.update_attribute(:published, true)
+  end
+  
+  it 'should not show preview collections on the user profile page to normal users' do
+    visit user_collections_path(@collection.user)
+    body.should have_tag('li.active') do
+      with_tag('a', :text => "3 collections")
+    end
+    body.should have_tag('h3', :text => "2 collections")
+  end
+  
+  it 'should not show preview collections on the user profile page to normal users' do
+    @collection.update_attribute(:published, false)
+    visit user_collections_path(@collection.user)
+    body.should have_tag('li.active') do
+      with_tag('a', :text => "2 collections")
+    end
+    body.should have_tag('div.heading') do
+      with_tag('h3', :text => "1 collection")
+    end
+    @collection.update_attribute(:published, true)
+  end
+  
+  it 'should show resource preview collections on the user profile page to the owner' do
+    @collection.update_attribute(:published, false)
+    @resource = Resource.gen
+    @resource.preview_collection = @collection
+    @resource.save
+    login_as @collection.user
+    visit user_collections_path(@collection.user)
+    body.should have_tag('li.active') do
+      with_tag('a', :text => "3 collections")
+    end
+    body.should have_tag('div.heading') do
+      with_tag('h3', :text => "2 collections")
+    end
+    visit('/logout')
+    @collection.update_attribute(:published, true)
+  end
+end
+
 #TODO: test connection with Solr: filter, sort, total results, paging, etc

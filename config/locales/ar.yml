@@ -1607,9 +1607,9 @@ ar:
   see_all_collections_with_count_html:
     one: "عرض  <span class=\"assistive\">%{count} مجموعة التي تظهر بها هذه الصفحة.</span>"
     other: "عرض <span class=\"assistive\">%{count} جميع المجموعات التي تظهر بها الصفحة.</span>"
-  see_all_comments_with_count_for_text:
-    one: "عرض %{count} تعليق على هذا المقال"
-    other: "عرض %{count} تعليق على  هذا المقال"
+  see_all_comments_with_count_for_text_or_rate:
+    one: "عرض %{count} تعليق على هذا المقال أو قم بتقييمه"
+    other: "عرض %{count} تعليق على  هذا المقال أو قم بتقييمه"
   see_all_communities_with_count_html:
     one: "عرض <span class=\"assistive\">%{count} مجتمع الذى يعرض به الصفحة.</span>"
     other: "عرض <span class=\"assistive\">%{count} جميع المجموعات التي تعرض بها الصفحة.</span>"

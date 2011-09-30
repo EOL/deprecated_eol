@@ -13,6 +13,8 @@
     - where = community_path(item.parent)
   - when 'Collection'
     - where = collection_path(item.parent)
+  - when 'User'
+    - where = user_path(item.parent)
   %p
     - if where
       = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => link_to(item.parent.summary_name, where))

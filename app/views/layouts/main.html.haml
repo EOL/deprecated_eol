@@ -35,7 +35,11 @@
 
     %link{ :href => "/favicon.ico", :rel => "shortcut icon", :type => "image/x-icon" }
     %link{ :href => "/opensearchdescription.xml", :title => "Encyclopedia of Life", :rel => "search", :type => "application/opensearchdescription+xml" }
-    = stylesheet_link_merged 'base-cached'
+    = stylesheet_link_tag 'reset-min'
+    = stylesheet_link_tag 'main'
+    = stylesheet_link_tag 'popup'
+    = stylesheet_link_tag 'taxa_comments'
+    = stylesheet_link_tag 'tags'
     = eol_lang_main_stylesheet 'buttons', :media => "all"
     = stylesheet_link_tag 'star_rating'
     = stylesheet_link_tag 'wikipedia'

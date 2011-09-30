@@ -49,6 +49,7 @@ private
         cookies[:user_auth_token] = { :value => user.remember_token , :expires => user.remember_token_expires_at }
       end
     end
+    session.delete(:recently_visited_collections)
     expire_user_specific_caches
   end
 

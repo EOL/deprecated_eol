@@ -14,6 +14,7 @@
     - if @collection.communities.count > 0
       .collection_contributors
         = render :partial => 'collections/endorsed_by', :locals => { :collection => @collection }
+    = render :partial => 'collections/recently_visited'
   #collections.main_container
     .empty
       %p= I18n.t(:collection_is_empty)
@@ -43,6 +44,7 @@
       - if @collection.communities.count > 0
         .collection_contributors
           = render :partial => 'collections/endorsed_by', :locals => { :collection => @collection }
+      = render :partial => 'collections/recently_visited'
     #collections.main_container
       - if @filter == 'newsfeed'
         .article.list.updates

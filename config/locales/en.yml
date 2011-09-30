@@ -2696,6 +2696,7 @@ en:
   recently_harvested_resources__: "Recently harvested resources (last 20)"
   recently_published_resources__: "Recently published resources (last 20)"
   recent_updates: "Latest updates"
+  recently_visited: "Recently visited"
   recipients: "Recipients"
   recognized_by_as_a_rank: '%{recognized_by} as a %{taxon_rank}'
   recognized_by_from_source_as_a_rank: '%{recognized_by} in %{source} as a %{taxon_rank}'

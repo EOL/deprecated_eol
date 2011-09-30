@@ -333,6 +333,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def recently_visited_collections(collection_id = nil)
+    session[:recently_visited_collections] = [] if session[:recently_visited_collections].nil?
+    unless collection_id.nil?
+      session[:recently_visited_collections].delete_if{ |rvc| rvc == collection_id || rvc == nil }
+      session[:recently_visited_collections] << collection_id
+      session[:recently_visited_collections].shift if session[:recently_visited_collections].length > 6
+    end
+    return session[:recently_visited_collections]
+  end
+
   # For the duration of the request, change some of the values on this User.
   #
   # NOTE: if you want to change a User's settings for more than one request, use alter_current_user

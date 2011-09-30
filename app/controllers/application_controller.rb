@@ -81,7 +81,7 @@ class ApplicationController < ActionController::Base
         format.html { render :layout => 'v2/errors', :template => "content/error" }
         format.js { @retry = false; render :layout => false, :template => "content/error" }
       end
-      raise e # This lets New Relic handle the actual exception.  ...may cause some dupe logs in devel, though
+      raise e if $PRODUCTION_MODE # This lets New Relic handle the actual exception.
     end
   end
 

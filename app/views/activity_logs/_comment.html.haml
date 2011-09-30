@@ -3,27 +3,43 @@
   :posters_name => h(item.user.full_name))), user_path(item.user), :class => 'avatar'
 .details
   - name_with_link = link_to h(item.user.full_name), user_path(item.user)
-  - where = nil
+  - parent_link = nil
+  - parent_newsfeed = nil
   - case item.parent_type
   - when 'TaxonConcept'
-    - where = taxon_overview_path(item.parent)
+    - parent_link = taxon_overview_path(item.parent)
   - when 'DataObject'
-    - where = data_object_path(item.parent)
+    - parent_link = data_object_path(item.parent)
   - when 'Community'
-    - where = community_path(item.parent)
+    - parent_link = community_path(item.parent)
   - when 'Collection'
-    - where = collection_path(item.parent)
+    - parent_link = collection_path(item.parent)
   - when 'User'
-    - where = user_path(item.parent)
+    - parent_link = user_path(item.parent)
   %p
-    - if where
-      = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => link_to(item.parent.summary_name, where))
+    - if parent_link
+      = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => link_to(item.parent.summary_name, parent_link))
     - else
       = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => item.parent.summary_name)
   %blockquote{:cite => h(item.user.full_name)}
     %p
       - if truncate_comments && item.body.length > 140
-        = sanitize(truncate(item.body, :length => 140, :omission => I18n.t(:truncated_comment_omission, :link => where)).balance_tags)
+        - parent_newsfeed = nil
+        - case item.parent_type
+        - when 'TaxonConcept'
+          - parent_newsfeed = taxon_updates_path(item.parent)
+        - when 'DataObject'
+          - parent_newsfeed = data_object_path(item.parent)
+        - when 'Community'
+          - parent_newsfeed = community_newsfeed_path(item.parent)
+        - when 'Collection'
+          - parent_newsfeed = filtered_collection_path(item.parent, 'newsfeed')
+        - when 'User'
+          - parent_newsfeed = user_newsfeed_path(item.parent)
+        - if parent_newsfeed
+          = sanitize(truncate(item.body, :length => 140, :omission => I18n.t(:truncated_comment_omission, :link => parent_newsfeed)).balance_tags)
+        - else
+          = sanitize(truncate(item.body, :length => 140, :omission => I18n.t(:truncated_comment_omission_linkless)).balance_tags)
       - else
         = sanitize item.body.balance_tags
   %p.meta= I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))

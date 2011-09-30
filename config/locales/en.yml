@@ -3293,6 +3293,7 @@ en:
   translations_submit: "View translation"
   trigger_search_term_entered_by: "trigger search term entered by the user"
   truncated_comment_omission: "... <a href='%{link}'>more</a>"
+  truncated_comment_omission_linkless: "..."
   trusted: "Trusted"
   trusted_images: "Trusted images"
   trusted_text_objects: "Trusted articles"

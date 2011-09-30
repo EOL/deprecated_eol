@@ -20,7 +20,7 @@
       = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => item.parent.summary_name)
   %blockquote{:cite => h(item.user.full_name)}
     %p
-      - if item.body.length > 140
+      - if truncate_comments && item.body.length > 140
         = sanitize(truncate(item.body, :length => 140, :omission => I18n.t(:truncated_comment_omission, :link => where)).balance_tags)
       - else
         = sanitize item.body.balance_tags

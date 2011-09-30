@@ -1,5 +1,5 @@
 = I18n.t(:greeting_dear_name_with_comma, :name => @user.full_name, :scope => :notifier)
 :plain
-= t('.message', :username => @user.username, :profile_url => user_url(@user, :host => $IP_ADDRESS_OF_SERVER))
+= t('.message', :username => @user.username, :profile_url => user_url(@user, :host => $SITE_DOMAIN_OR_IP))
 :plain
 = I18n.t(:signature_basic, :scope => :notifier)

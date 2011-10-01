@@ -3462,6 +3462,7 @@ en:
     one: "%{count} video"
     other: "%{count} videos"
   video: "Video"
+  video_description_not_available_in_language: "Description not available in %{language}"
   video_from: "video from"
   video_of: "Video of"
   video_alt_text: "This %{vetted_status} video is of %{taxon_name}"

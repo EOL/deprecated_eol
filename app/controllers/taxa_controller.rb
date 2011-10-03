@@ -57,38 +57,9 @@ class TaxaController < ApplicationController
     end
   end
 
-  # page that will allows a non-logged in user to change content settings
+  # This method in V1 was used to allow a non-logged in user to change content settings, but now redirects to homepage.
   def settings
-
-    store_location(params[:return_to]) if !params[:return_to].nil? # store the page we came from so we can return there if it's passed in the URL
-
-    # grab logged in user
-    @user = current_user
-
-    # if the user is logged in, they should be at the profile page
-    if logged_in?
-      if params[:from_taxa_page].blank?
-        return redirect_to(profile_url)
-      else
-        @user.update_attributes(params[:user])
-        params[:from_taxa_page]
-      end
-    end
-
-    unless request.post? # first time on page, get current settings
-      # set expertise to a string so it will be picked up in web page controls
-      @user.expertise = current_user.expertise.to_s
-      @page_title = I18n.t(:your_preferences)
-      render(:layout => 'v2/basic')
-      return
-    end
-    alter_current_user do |u|
-      u.update_attributes(params[:user])
-    end
-    @user = current_user
-    flash[:notice] =  I18n.t(:your_preferences_have_been_updated)  if params[:from_taxa_page].blank?
-    store_location(EOLWebService.uri_remove_param(return_to_url, 'vetted')) if valid_return_to_url
-    redirect_back_or_default
+    redirect_to :root
   end
 
   ################

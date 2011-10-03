@@ -176,6 +176,7 @@ en:
         homepage: "Project URL"
         id: "ID"
         notes: "Project notes"
+        public: "Public"
         resources: "Resources"
         user_id: "Managed by"
         vetted: "Vetted"
@@ -366,7 +367,6 @@ en:
         parent_content_page_id: "Parent"
         parent_content_page_id_more: "Optionally select a parent under which this page should be nested."
       content_partner:
-        admin_notes: "Administration notes <small>(only visible to EOL administrators)</small>"
         created_at: "Registered"
         current_agreement: "Current agreement"
         display_name: "Display name <small>(optional)</small>"
@@ -374,11 +374,12 @@ en:
         description_of_data: "Description of data <small>(private)</small>"
         description_of_data_more: "Please provide us with a description of the type of information you have, how many items are available, what organisms they relate to, and whether they have been assembled or checked by qualified experts or by a knowledgeable community."
         last_action: "Last action"
+        latest_published_harvest_event: "Last published"
         logo_current: "Current logo:"
         logo_new: "Upload a new logo:"
         notes: "Project notes <small>(private)</small>"
         oldest_published_harvest_event: "First published"
-        latest_published_harvest_event: "Last published"
+        public_more: "Public content partner profiles are visible to everyone and partner information is included in content partner listings. Uncheck to exclude content partner details from listings and restrict profile access to the user who created the content partner and to EOL administrators."
         user_id: "Content partner details managed by"
       content_partner_agreement:
         mou_url: "Agreement file URL <small>(optional alternative)</small>"
@@ -505,6 +506,9 @@ en:
     content_partner_resource_force_harvest_request:
       subject: "EOL user %{user_full_name} requested a force harvest for resource %{resource_title} belonging to content partner %{partner_full_name}"
       message: "This is an automated EOL system notification for the Species Pages Group. User %{user_full_name} requested a force harvest for resource %{resource_title} belonging to content partner %{partner_full_name}, details follow:\n\nUser: %{user_full_name}\nE-mail: %{user_email}\nProfile URL: %{user_profile_url}\n\nPartner: %{partner_full_name}\nPartner Resources URL: %{partner_resources_url}\n\nResource: %{resource_title}\nResource URL: %{resource_url}\nUpdated: %{resource_updated_at_date}\nStatus: %{resource_status}"
+    content_partner_resource_hierarchy_publish_request:
+      subject: "EOL user %{user_full_name} requested a hierarchy promotion for resource %{resource_title} belonging to content partner %{partner_full_name}"
+      message: "This is an automated EOL system notification for the Species Pages Group. User %{user_full_name} requested that a hierarchy associated with resource %{resource_title}, belonging to content partner %{partner_full_name}, be promoted (published) to a browsable hierarchy on EOL, details follow:\n\nUser: %{user_full_name}\nE-mail: %{user_email}\nProfile URL: %{user_profile_url}\n\nPartner: %{partner_full_name}\nPartner Resources URL: %{partner_resources_url}\n\nResource: %{resource_title}\nResource URL: %{resource_url}\nEdit hierarchy URL: %{hierarchy_edit_url}\n"
     content_partner_statistics_reminder:
       subject: "Encyclopedia of Life usage statistics reminder for %{partner_full_name}, %{month} %{year}"
       message: "This is an automated e-mail reminder from the Encyclopedia of Life. Web usage statistics for data supplied to EOL by %{partner_full_name} for %{month} %{year} are now available at %{partner_statistics_url}."
@@ -657,7 +661,6 @@ en:
   admin_translated_content_page_update_successful_notice: "%{language} translation for <a href=\"#%{anchor}\"><em>%{page_name}</em></a> has been updated."
   admin_translated_content_page_update_unsuccessful_error: "Sorry, an error occurred, the translation could not be updated."
   agent: Agent
-  all: all
   all_apis_return_by_default_an_xml_response: "All APIs return by default an XML response. The API methods may be called without a format extension to get the XML response, and adding an XML extension will give an identical response:"
   all_articles: "All articles"
   all_changes: "All changes"
@@ -796,6 +799,7 @@ en:
   comment_new_posters_image_advisory_info: "Your profile picture and name will appear next to your comment in listings."
   comment_new_posters_image_alt: "Your profile picture, if you have provided one."
   comment_not_added_error: "Sorry, an error occurred, comment could not be added."
+  comment_or_rate_on_this_article: "Comment on or rate this article"
   comment_show_posters_image_alt: "Profile picture of %{posters_name} who added this comment."
   comments: Comments
   comments_and_tags: "Comments and Tags"
@@ -850,6 +854,8 @@ en:
   content_partner_admin_index_link_back_to: "go back to managing partners"
   content_partner_administration_notes_empty: "There are no administration notes."
   content_partner_administration_notes_header: "Administration notes"
+  content_partner_administration_settings_header: "Administration settings"
+  content_partner_administration_settings_introduction: "The following administrative fields are only visible and editable by EOL administrators."
   content_partner_agreement_cancel_edit_agreement_link: Cancel
   content_partner_agreement_cancel_new_agreement_link: Cancel
   content_partner_agreement_cancel_sign_agreement_link: Cancel
@@ -860,8 +866,6 @@ en:
   content_partner_agreement_subheader: "Content Partner Agreement"
   content_partner_agreement_update_successful_notice: "Content partner terms agreement successfully updated."
   content_partner_agreement_update_unsuccessful_error: "Sorry, an error occurred, the content partner terms agreement was not updated."
-  content_partner_auto_publish_false: "Manual publish"
-  content_partner_auto_publish_true: "Auto publish"
   content_partner_collections_empty: "Content partner collections list data that the partner has provided through their resources. No published collections were found at this time."
   content_partner_column_header_partner: Partner
   content_partner_contact_create_successful_notice: "Contact has been added."
@@ -892,7 +896,7 @@ en:
   content_partner_filter_option_vetted_yes: "Yes"
   content_partner_has_unpublished_content_true: "Unpublished content"
   content_partner_homepage_link: "Visit partner Web site"
-  content_partner_latest_published_harvest_event_time_ago: "Last published %{time_passed} ago"
+  content_partner_latest_published_harvest_event_time_ago: "Last updated %{time_passed} ago;"
   content_partner_logo_alt_text: "Logo for content partner %{partner_name}"
   content_partner_managed_by_header: "Managed by"
   content_partner_new_edit_form_profile_header: "Content partner profile information"
@@ -901,12 +905,14 @@ en:
   content_partner_new_page_subheader: "Add a new content partner"
   content_partner_notes_empty: "There aren't any additional notes for this project."
   content_partner_notes_header: "Project notes"
-  content_partner_oldest_published_harvest_event_time_ago: "First published %{time_passed} ago"
+  content_partner_oldest_published_harvest_event_time_ago: "First published on EOL %{time_passed} ago;"
   content_partner_overview_agreement_header: "Partner agreement"
   content_partner_overview_agreement_link: "View current agreement"
   content_partner_overview_link: "Partner Overview"
   content_partner_overview_link_back_to: "go back to partner overview"
-  content_partner_registered_time_ago: "Registered %{time_passed} ago"
+  content_partner_public_false: Private
+  content_partner_public_true: Public
+  content_partner_registered_time_ago: "Registered %{time_passed} ago;"
   content_partner_resource_about_header: "About resource"
   content_partner_resource_auto_publish_false: "No"
   content_partner_resource_auto_publish_true: "Yes"
@@ -930,6 +936,8 @@ en:
   content_partner_resource_harvest_events_for_resource_subheader: "Harvest events for resource %{resource_title}"
   content_partner_resource_harvest_events_see_all_link: "See all <span class=\"assistive\">harvest events</span>"
   content_partner_resource_hierarchy_browsable: Browsable
+  content_partner_resource_hierarchy_complete_false: "This hierarchy is not set as curated. Matching entries may be treated as one concept."
+  content_partner_resource_hierarchy_complete_true: "This hierarchy is set as <strong>curated</strong>. A curated hierarchy assumes that every entry is intended to be unique, i.e. matching name strings will be treated as homonyms."
   content_partner_resource_hierarchy_confirm_request_publish: "Are you sure you want to put in a request to promote your hierarchy to be browsable on EOL?"
   content_partner_resource_hierarchy_edit_link: Edit
   content_partner_resource_hierarchy_edit_subheader: "Edit hierarchy for resource <em>%{resource_title}</em>"
@@ -981,8 +989,6 @@ en:
   content_partner_status_empty: "Unknown status"
   content_partner_update_successful_notice: "Partner details successfully updated."
   content_partner_update_unsuccessful_error: "Sorry, an error occurred, partner details were not updated."
-  content_partner_vetted_false: Unreviewed
-  content_partner_vetted_true: Vetted
   content_partners: "Content Partners"
   content_partners_empty: "No content partners found."
   content_partners_page_description: "Encyclopedia of Life content partners have large amounts of information about biodiversity in their own websites or databases that they also share via EOL pages. We greatly appreciate their critical contributions to the EOL mission and encourage you to learn more about them. Learn more about <a href=\"%{more_url}\">becoming a content partner.</a>"
@@ -1596,6 +1602,7 @@ en:
   recaptcha: "Type in the two words you see below"
   recaptcha_incorrect_error_with_anchor: "The <a href=\"#%{recaptcha_anchor}\">reCaptcha characters</a> did not match, please try again."
   recent_updates: "Latest updates"
+  recently_visited: "Recently visited collections"
   recognized_by: "Recognized by"
   recognized_by_as_a_rank: "%{recognized_by} as a %{taxon_rank}"
   recognized_by_from_source_as_a_rank: "%{recognized_by} in %{source} as a %{taxon_rank}"
@@ -1665,9 +1672,9 @@ en:
   see_all_collections_with_count_html:
     one: "See the <span class=\"assistive\">%{count} collection in which this page appears.</span>"
     other: "See all <span class=\"assistive\">%{count} collections in which this page appears.</span>"
-  see_all_comments_with_count_for_text:
-    one: "see %{count} comment for this article"
-    other: "see all %{count} comments for this article"
+  see_all_comments_with_count_for_text_or_rate:
+    one: "see %{count} comment for this article or rate it"
+    other: "see all %{count} comments for this article or rate it"
   see_all_communities_with_count_html:
     one: "See the <span class=\"assistive\">%{count} community that features this page.</span>"
     other: "See all <span class=\"assistive\">%{count} communities that feature this page.</span>"
@@ -1814,6 +1821,8 @@ en:
   translation_deleted: "Translation has been deleted"
   translation_saved: "Translation has been saved"
   translations_submit: "View translation"
+  truncated_comment_omission: "... <a href='%{link}'>more</a>"
+  truncated_comment_omission_linkless: "..."
   trusted: Trusted
   trusted_images: "Trusted images"
   trusted_text_objects: "Trusted articles"
@@ -1849,7 +1858,6 @@ en:
   user_activation_failed_user_not_found_error: "Sorry, an error occurred, the account you are trying to verify could not be found. Please ensure the verficiation link you use matches the one provided in the activation email you received after registering."
   user_activation_successful_notice: "Welcome, and thanks for joining the Encyclopedia Of Life team. Your account with username <em>%{username}</em> is now active, please login."
   user_activity_stats_articles_added: "Articles added"
-  user_activity_stats_comments_moderated: "Comments moderated"
   user_activity_stats_header: Activity
   user_activity_stats_objects_curated: "Objects curated"
   user_activity_stats_taxa_curated: "Taxa curated"
@@ -1890,6 +1898,7 @@ en:
   values: Values
   version_1_0_uses_fields_from_the_latest_version: "version 1.0 uses fields from the latest version of the %{link} schema"
   vetted: Vetted
+  video_description_not_available_in_language: "Description not available in %{language}"
   view: View
   view_added_text: "view added text"
   view_article_source: "View article source"
@@ -1944,7 +1953,6 @@ en:
   your_current_rating_4_of_5: "Your current rating: 4 of 5"
   your_current_rating_5_of_5: "Your current rating: 5 of 5"
   your_preferences: "Your Preferences"
-  your_preferences_have_been_updated: "Your preferences have been updated."
   your_rating: "Your rating"
   your_rating_colon: "Your Rating:"
   your_watch_collection: "your watch list"

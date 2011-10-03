@@ -105,6 +105,7 @@ list = Set.new()
   controllers/communities/collections_controller.rb
   controllers/communities_controller.rb
   controllers/content_controller.rb
+  controllers/content_cron_tasks_controller.rb
   controllers/content_partners/content_partner_agreements_controller.rb
   controllers/content_partners/content_partner_contacts_controller.rb
   controllers/content_partners/resources_controller.rb
@@ -152,6 +153,7 @@ list = Set.new()
   views/notifier/content_partner_created.html.haml
   views/notifier/content_partner_resource_created.html.haml
   views/notifier/content_partner_resource_force_harvest_request.html.haml
+  views/notifier/content_partner_resource_hierarchy_publish_request.html.haml
   views/notifier/content_partner_statistics_reminder.html.haml
   views/notifier/curator_approved.html.haml
   views/notifier/user_activated.html.haml

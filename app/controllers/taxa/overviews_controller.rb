@@ -18,6 +18,7 @@ class Taxa::OverviewsController < TaxaController
       :hierarchies_content => [ :content_level, :image, :text, :child_image, :map, :youtube, :flash ],
       :vetted => :view_order,
       :data_objects => [ :id, :data_type_id, :data_subtype_id, :published, :guid, :data_rating, :language_id ],
+      :users_data_objects => '*',
       :table_of_contents => '*',
       :data_objects_hierarchy_entries => '*',
       :curated_data_objects_hierarchy_entries => '*',

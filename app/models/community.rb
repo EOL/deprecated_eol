@@ -2,16 +2,14 @@ class Community < ActiveRecord::Base
 
   include EOL::ActivityLoggable
 
-  has_one :collection #TODO - didn't work? , :as => :focus
-
+  has_many :collections, :through => :collections_communities
   has_many :members
-  has_many :collection_items, :as => :object
+  has_many :collection_items, :as => :object # THIS IS COLLECTION ITEMS POINTING AT THIS COLLECTION!
+  has_many :collected_items, :through => :collections, :class_name => 'CollectionItem'
   has_many :containing_collections, :through => :collection_items, :source => :collection
   has_many :comments, :as => :parent
 
   named_scope :published, :conditions => 'published = 1'
-
-  accepts_nested_attributes_for :collection
 
   # These are for will_paginate:
   cattr_reader :per_page
@@ -36,7 +34,7 @@ class Community < ActiveRecord::Base
 
   index_with_solr :keywords => [ :name ], :fulltexts => [ :description ]
 
-  alias :focus :collection
+  alias :focuses :collections
   alias_attribute :summary_name, :name
 
   # Don't get dizzy.  This is all of the collections this community has collected.  This is the same thing as
@@ -46,8 +44,8 @@ class Community < ActiveRecord::Base
   # NOTE that this returns the collection_item, NOT the collection it points to!  This is so you can get the
   # annotation along with it.
   def collections
-    return [] unless self.collection && self.collection.collection_items
-    self.collection.collection_items.collections
+    return [] unless self.collections && !self.collections.blank?
+    self.collected_items.collections
   end
 
   # TODO - test
@@ -95,13 +93,6 @@ class Community < ActiveRecord::Base
     }.compact.sort.uniq.map {|uid|
       Member.find_by_community_id_and_user_id(id, uid)
     }.compact[0..3]
-  end
-
-  # This is a convenience method, nothing more:  TODO - do we even need this anymore?
-  def attatch_focus
-    unless collection
-      Collection.create(:name => I18n.t(:default_focus_collection_name_from_community, :name => self.name), :special_collection_id => SpecialCollection.focus.id, :community_id => self.id, :user_id => nil)
-    end
   end
 
 end

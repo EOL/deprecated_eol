@@ -2,33 +2,28 @@ class Collection < ActiveRecord::Base
 
   include EOL::ActivityLoggable
 
-  belongs_to :user
-  belongs_to :community # These are focus lists
+  belongs_to :user # This is the OWNER.  Use #users rather than #user... this basically only gets set once.
   belongs_to :sort_style
 
   has_many :collection_items
+  has_many :communities, :through => :collections_communities
+  has_many :users, :through => :collections_users
   accepts_nested_attributes_for :collection_items
   has_many :others_collection_items, :class_name => CollectionItem.to_s, :as => :object
   has_many :containing_collections, :through => :others_collection_items, :source => :collection
 
   has_many :comments, :as => :parent
   # NOTE - You MUST use single-quotes here, lest the #{id} be interpolated at compile time. USE SINGLE QUOTES.
-  # this will return the communities which have collected this collection. Those communities 'feature' this collection
-  has_many :communities,
-    :finder_sql => 'SELECT cm.* FROM communities cm, collections c, collection_items ci ' +
-      'WHERE ci.object_type = "Collection" AND ci.object_id = #{id} ' +
-      'AND ci.collection_id = c.id AND c.community_id = cm.id AND cm.published = 1'
+  has_many :featuring_communities,
+    :finder_sql => 'SELECT cm.* FROM communities cm, collections c, collection_items ci, collections_communities cc ' +
+      'WHERE ci.object_type = "Collection" AND ci.object_id = #{id} AND c.id = cc.collection_id ' +
+      'AND cc.community_id = cm.id AND ci.collection_id = c.id AND c.community_id = cm.id AND cm.published = 1'
 
   has_one :resource
   has_one :resource_preview, :class_name => Resource.to_s, :foreign_key => :preview_collection_id
 
-  named_scope :focus, :conditions => 'community_id IS NOT NULL'
-  named_scope :nonfocus, :conditions => 'community_id IS NULL'
-
   validates_presence_of :name
-
   validates_uniqueness_of :name, :scope => [:user_id]
-  validates_uniqueness_of :community_id, :if => Proc.new {|l| ! l.community_id.blank? }
 
   before_update :set_relevance_if_collection_items_changed
 
@@ -91,17 +86,21 @@ class Collection < ActiveRecord::Base
     if user_id
       return user.id == user_id # Owned by this user?
     else
-      return user.member_of(community) && user.member_of(community).manager?
+      communities.each do |community|
+        return true if user.member_of(community) && user.member_of(community).manager?
+      end
     end
+    return false
   end
 
   def is_resource_collection?
     return true if resource || resource_preview
   end
 
-  def is_focus_list?
-    community_id
+  def focus?
+    communities.count > 0 # Assuming #count is faster than not.
   end
+  alias :is_focus_list? :focus?
 
   # NOTE - DO NOT (!) use this method in bulk... take advantage of the accepts_nested_attributes_for if you want to
   # add more than two things... because this runs an expensive calculation at the end.
@@ -147,8 +146,7 @@ class Collection < ActiveRecord::Base
   end
 
   def maintained_by
-    return user if !user_id.blank?
-    return community if !community_id.blank?
+    (users + communities).compact
   end
 
   def has_item? item
@@ -176,10 +174,6 @@ class Collection < ActiveRecord::Base
     special? && user_id
   end
 
-  def focus?
-    community_id
-  end
-
   def set_relevance
     update_attributes(:relevance => calculate_relevance)
   end
@@ -199,7 +193,7 @@ private
   end
 
   def calculate_feature_relevance
-    features = containing_collections.focus.count
+    features = containing_collections.select {|c| c.focus? }.count
     times_featured_score = case features
                            when 0
                              0
@@ -208,7 +202,7 @@ private
                            else
                              50
                            end
-    collected = containing_collections.nonfocus.count
+    collected = containing_collections.reject {|c| c.focus? }.count
     times_collected_score = case collected
                             when 0
                               0
@@ -258,13 +252,6 @@ private
     return 0 if score <= 0
     return 100 if score >= 100
     return score.to_i
-  end
-
-  def validate
-    errors.add(:user_id, I18n.t(:must_be_associated_with_either_a_user_or_a_community) ) if
-      self.community_id.nil? && self.user_id.nil?
-    errors.add(:user_id, I18n.t(:cannot_be_associated_with_both_a_user_and_a_community) ) if
-      ((! self.community_id.nil?) && (! self.user_id.nil?))
   end
 
   def set_relevance_if_collection_items_changed

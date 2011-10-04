@@ -3,7 +3,7 @@
 #sidebar
   .collection_contributors
     = render :partial => 'collections/managed_by', :locals => { :collection => @collection }
-  - if @collection.communities.count > 0
+  - if @collection.featuring_communities.count > 0
     .collection_contributors
       = render :partial => 'collections/endorsed_by', :locals => { :collection => @collection }
 #collections.main_container

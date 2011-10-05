@@ -59,6 +59,8 @@
       %table.results_table{ :cellspacing => "0" }
         %tr
           %th
+            =I18n.t("id")
+          %th
             =I18n.t("username")
           %th
             =I18n.t("email")
@@ -68,9 +70,13 @@
             =I18n.t("created_at")
           %th
             =I18n.t("curator_question")
+          %th
+            =I18n.t("delete_allcaps")
         - for user in @users
           - column_class=cycle('odd','even')
           %tr
+            %td{ :class => column_class }
+              = h user.id
             %td{ :class => column_class }
               = link_to(user.username,:action=>'edit',:id=>user.id)
             %td{ :class => column_class }
@@ -83,6 +89,8 @@
               = I18n.t(:curator_level_master_curator) + ": " + user.master_curator?.to_s if user.master_curator?
               = I18n.t(:curator_level_full_curator) + ": " + user.full_curator?.to_s if user.full_curator?
               = I18n.t(:curator_level_assistant_curator) + ": " + user.assistant_curator?.to_s if user.assistant_curator?
+            %td{ :class => column_class }
+              = link_to(I18n.t("delete_firstcap"), {:action=>'destroy', :id=>user.id}, :confirm => I18n.t("are_you_sure___this_action_can"), :method => :delete) unless user.is_curator?
       %br
       = will_paginate @users
     - else

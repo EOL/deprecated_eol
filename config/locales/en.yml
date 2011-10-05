@@ -3721,3 +3721,5 @@ en:
   logo_header: "Logo"
   external_link_header: "External Link"
   comment_or_rate_on_this_article: "Comment on or rate this article"
+  admin_user_delete_successful_notice: "User has been deleted"
+  admin_spam_delete: "Delete Spam"

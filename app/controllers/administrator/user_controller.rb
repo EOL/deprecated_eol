@@ -155,6 +155,7 @@ class Administrator::UserController  < AdminController
     (redirect_to referred_url ;return) unless request.method == :delete
     user = User.find(params[:id])
     user.destroy
+    flash[:notice] = I18n.t("admin_user_delete_successful_notice")
     redirect_to referred_url
   end
 

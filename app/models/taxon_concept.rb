@@ -275,6 +275,7 @@ class TaxonConcept < SpeciesSchemaModel
       :users_data_objects_ratings ]
     add_select = {
       :users_data_objects_ratings => '*',
+      :data_objects_hierarchy_entries => '*',
       :refs => '*',
       :ref_identifiers => '*',
       :ref_identifier_types => '*',

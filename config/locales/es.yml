@@ -552,7 +552,7 @@ es:
   application_version_advisory_information: Versión de la aplicación
   are_you_sure: ¿Está usted seguro?
   article_from: artículo de
-  article_more_about: Apredé mas información sobre este artículo
+  article_more_about: Aprender más información sobre este artículo
   assistive_details_header: Detalles
   assistive_literature_header: Literatura
   assistive_maps_header: Mapas
@@ -595,12 +595,12 @@ es:
   change_rating_to_5_of_5: Cambia la calificación a 2 de 5
   choose_collection_header: Elija colección
   citation: Citación
-  citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Encyclopedia of Life, disponible en <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Consultado 15 Jan 2009.
+  citation_example: "Fisher, Brian. \"Pogonomyrmex anergismus Cole, 1954.\" Encyclopedia of Life, disponible en <a href=\"http://eol.org/pages/460427\" target=\"_blank\">http://eol.org/pages/460427</a>. Consultado 15 Jan 2009."
   classification_tree_header: Clasificación
   classifications_empty: Esta taxon no está en ninguna clasificación que se puede examinar en EOL.
   classifications_summary_header_with_count:
-    one: "Encontrado en %{count} clasificación "
-    other: Encontrado en %{count} classifications
+    one: "Encontrado en %{count} clasificacion"
+    other: Encontrado en %{count} classificationes
   click_on_a_user_to_view_the_users_detailed_profile: Haga clic en un usuario para ver el perfil del usuario detallada, haga clic en las especies para ver la página donde existe el texto (utilice el botón Atrás del navegador para regresar aquí).
   close_this_window_to_return_to_edit_window: CIERRE ESTA VENTANA PARA VOLVER A LA VENTANA EDITAR
   cms_available_in_languages: "Esta página está disponible en:"
@@ -627,7 +627,7 @@ es:
   collections_summary_empty: Este taxón no está en ninguna colección todavía.
   collections_summary_header_with_count:
     one: "Presente en %{count} colección "
-    other: Presente en %{count} colecciónes
+    other: Presente en %{count} colecciones
   comment: Comentario
   comment_added_notice: Comentario agregado correctamente.
   comment_body_label: Tu comentario
@@ -857,7 +857,7 @@ es:
   curators_summary_header_with_count:
     one: Revisado por %{count} curador
     other: Revisados por %{count} curadores
-  curators_summary_learn_more_link: Aprenda a curar
+  curators_summary_learn_more_link: Aprender a curar
   curators_with_count:
     one: "%{count} Curador"
     other: "%{count} Curadores"
@@ -1330,17 +1330,17 @@ es:
   search_results: Resultados de la búsqueda
   search_the_site: Buscar en el sitio
   see_all_classifications_with_count_html:
-    one: Ver <span class="assistive">%{count} clasificación aprobada en la que aparece este taxón.</span>
-    other: Ver las <span class="assistive">%{count} clasificaciones aprobadas en las que aparece este taxón.</span>
+    one: Ver todas <span class="assistive">%{count} clasificación aprobada en la que aparece este taxón.</span>
+    other: Ver todas <span class="assistive">%{count} clasificaciones aprobadas en las que aparece este taxón.</span>
   see_all_collections_with_count_html:
-    one: Ver <span class="assistive">%{count} colección en la que aparece este taxón.</span>
-    other: Ver las <span class="assistive">%{count} colecciones en las que aparece este taxón.</span>
+    one: Ver todas <span class="assistive">%{count} colección en la que aparece este taxón.</span>
+    other: Ver todas <span class="assistive">%{count} colecciones en las que aparece este taxón.</span>
   see_all_comments_with_count_for_text:
-    one: ver %{count} comentario para este artículo
-    other: ver todos losl %{count} comentarios para este artículo
+    one: ver todos %{count} comentario para este artículo
+    other: ver todos los %{count} comentarios para este artículo
   see_all_communities_with_count_html:
-    one: Ver la <span class="assistive">%{count} comunidad que tiene como foco este taxón.</span>
-    other: Ver las <span class="assistive">%{count} comunidades que tienen como foco este taxón.</span>
+    one: Ver todas <span class="assistive">%{count} comunidad que tiene como foco este taxón.</span>
+    other: Ver todas <span class="assistive">%{count} comunidades que tienen como foco este taxón.</span>
   see_all_of_your_collections: Ver todas sus colecciones
   select_colon: Seleccionar
   select_topic: Por favor, seleccione un área temática

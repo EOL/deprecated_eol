@@ -23,7 +23,7 @@ ActionController::Routing::Routes.draw do |map|
                               :collection => { :choose_collect_target => :get, :collect_item => :post }
   map.resources :collection_items, :except => [:index, :show, :new, :destroy]
   #used in collections show page, when user clicks on left tabs
-  map.connect 'collections/:id/:filter', :controller => 'collections', :action => 'show'
+  map.filtered_collection 'collections/:id/:filter', :controller => 'collections', :action => 'show'
 
   # content partners and their nested resources
   map.resources :content_partners do |content_partner|

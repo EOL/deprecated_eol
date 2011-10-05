@@ -281,7 +281,7 @@ class DataObject < SpeciesSchemaModel
       :object_url => '',
       :thumbnail_url => '',
       :object_title => ERB::Util.h(all_params[:data_object][:object_title]), # No HTML allowed
-      :description => all_params[:data_object][:description].allow_some_html,
+      :description => Sanitize.clean(all_params[:data_object][:description].balance_tags, Sanitize::Config::RELAXED), #.allow_some_html,
       :language_id => all_params[:data_object][:language_id],
       :license_id => all_params[:data_object][:license_id],
       :rights_holder => ERB::Util.h(all_params[:data_object][:rights_holder]), # No HTML allowed
@@ -354,7 +354,7 @@ class DataObject < SpeciesSchemaModel
       :object_url => '',
       :thumbnail_url => '',
       :object_title => ERB::Util.h(all_params[:data_object][:object_title]), # No HTML allowed
-      :description => all_params[:data_object][:description].allow_some_html,
+      :description => Sanitize.clean(all_params[:data_object][:description].balance_tags, Sanitize::Config::RELAXED), #.allow_some_html,
       :language_id => all_params[:data_object][:language_id],
       :license_id => all_params[:data_object][:license_id],
       :rights_holder => rights_holder, # No HTML allowed

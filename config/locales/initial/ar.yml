@@ -481,6 +481,9 @@ ar:
     content_partner_resource_force_harvest_request:
       subject: "EOL user %{user_full_name} requested a force harvest for resource %{resource_title} belonging to content partner %{partner_full_name}"
       message: "This is an automated EOL system notification for the Species Pages Group. User %{user_full_name} requested a force harvest for resource %{resource_title} belonging to content partner %{partner_full_name}, details follow:\n\nUser: %{user_full_name}\nE-mail: %{user_email}\nProfile URL: %{user_profile_url}\n\nPartner: %{partner_full_name}\nPartner Resources URL: %{partner_resources_url}\n\nResource: %{resource_title}\nResource URL: %{resource_url}\nUpdated: %{resource_updated_at_date}\nStatus: %{resource_status}"
+    content_partner_resource_hierarchy_publish_request:
+      subject: "EOL user %{user_full_name} requested a hierarchy promotion for resource %{resource_title} belonging to content partner %{partner_full_name}"
+      message: "This is an automated EOL system notification for the Species Pages Group. User %{user_full_name} requested that a hierarchy associated with resource %{resource_title}, belonging to content partner %{partner_full_name}, be promoted (published) to a browsable hierarchy on EOL, details follow:\n\nUser: %{user_full_name}\nE-mail: %{user_email}\nProfile URL: %{user_profile_url}\n\nPartner: %{partner_full_name}\nPartner Resources URL: %{partner_resources_url}\n\nResource: %{resource_title}\nResource URL: %{resource_url}\nEdit hierarchy URL: %{hierarchy_edit_url}\n"
     content_partner_statistics_reminder:
       subject: "Encyclopedia of Life usage statistics reminder for %{partner_full_name}, %{month} %{year}"
       message: "This is an automated e-mail reminder from the Encyclopedia of Life. Web usage statistics for data supplied to EOL by %{partner_full_name} for %{month} %{year} are now available at %{partner_statistics_url}."
@@ -633,7 +636,6 @@ ar:
   admin_translated_content_page_update_successful_notice: "تم تحديث الترجمة %{language} الخاصة بـ <a href=\"#%{anchor}\"><em>%{page_name}</em></a> "
   admin_translated_content_page_update_unsuccessful_error: "عفوًا، حدث خطأ، تعذر تحديث الترجمة."
   agent: وكيل
-  all: all
   all_apis_return_by_default_an_xml_response: "تقدم جميع واجهات برمجة التطبيقات استجابة بصيغة لغة الترميز القابلة للامتداد (إكس إم إل)، يمكن تنفيذ طرق واجهة برمجة التطبيقات بدون إضافة امتداد يحدد الصيغة لعرض استجابة بصيغة لغة الترميز القابلة للامتداد (إكس إم إل)، وسوف يؤدي إضافة امتداد لغة الترميز القابلة للامتداد (.XML) إلى استجابة مماثلة:"
   all_articles: "جميع المقالات"
   all_changes: "جميع التغييرات"
@@ -772,6 +774,7 @@ ar:
   comment_new_posters_image_advisory_info: "سوف تظهر صورتك الشخصية وأسمك بجانب تعليقك في القوائم."
   comment_new_posters_image_alt: "صورتك الشخصية، إذا كنت قد أضفت واحدة."
   comment_not_added_error: "عفوًا، حدث خطأ، تعذر إضافة التعليق."
+  comment_or_rate_on_this_article: "أضف تعليق أو قيم هذا المقال"
   comment_show_posters_image_alt: "الصورة الشخصية لـ%{posters_name} الذي أضاف ذلك التعليق."
   comments: Comments
   comments_and_tags: "التعليقات والعلامات"
@@ -826,6 +829,8 @@ ar:
   content_partner_admin_index_link_back_to: "go back to managing partners"
   content_partner_administration_notes_empty: "لا يوجد ملاحظات من الإدارة"
   content_partner_administration_notes_header: "ملاحظات الإدارة"
+  content_partner_administration_settings_header: "Administration settings"
+  content_partner_administration_settings_introduction: "The following administrative fields are only visible and editable by EOL administrators."
   content_partner_agreement_cancel_edit_agreement_link: Cancel
   content_partner_agreement_cancel_new_agreement_link: Cancel
   content_partner_agreement_cancel_sign_agreement_link: Cancel
@@ -836,8 +841,6 @@ ar:
   content_partner_agreement_subheader: "اتفاقية شركاء المحتوى"
   content_partner_agreement_update_successful_notice: "Content partner terms agreement successfully updated."
   content_partner_agreement_update_unsuccessful_error: "Sorry, an error occurred, the content partner terms agreement was not updated."
-  content_partner_auto_publish_false: "Manual publish"
-  content_partner_auto_publish_true: "Auto publish"
   content_partner_collections_empty: "تضم مجموعات شريك المحتوى البيانات التي قدمها الشريك عبر مصادره. لا يوجد مجموعات منشورة في الوقت الحالي."
   content_partner_column_header_partner: شريك
   content_partner_contact_create_successful_notice: "تم إضافة جهة الاتصال."
@@ -877,11 +880,13 @@ ar:
   content_partner_new_page_subheader: "أضف شريك محتوى جديد"
   content_partner_notes_empty: "لا يوجد ملاحظات إضافية لذلك المشروع"
   content_partner_notes_header: "ملاحظات المشروع"
-  content_partner_oldest_published_harvest_event_time_ago: "First published %{time_passed} ago"
+  content_partner_oldest_published_harvest_event_time_ago: "First published on EOL %{time_passed} ago;"
   content_partner_overview_agreement_header: "اتفاقية الشريك"
   content_partner_overview_agreement_link: "عرض الاتفاق الحالي"
   content_partner_overview_link: "نظرة عامة عن الشريك"
   content_partner_overview_link_back_to: "الرجوع إلى نظرة عامة عن الشريك"
+  content_partner_public_false: Private
+  content_partner_public_true: Public
   content_partner_registered_time_ago: "تم التسجيل منذ  %{time_passed} "
   content_partner_resource_about_header: "عن المصدر"
   content_partner_resource_auto_publish_false: "No"
@@ -906,6 +911,8 @@ ar:
   content_partner_resource_harvest_events_for_resource_subheader: "Harvest events for resource %{resource_title}"
   content_partner_resource_harvest_events_see_all_link: "See all <span class=\"assistive\">harvest events</span>"
   content_partner_resource_hierarchy_browsable: Browsable
+  content_partner_resource_hierarchy_complete_false: "This hierarchy is not set as curated. Matching entries may be treated as one concept."
+  content_partner_resource_hierarchy_complete_true: "This hierarchy is set as <strong>curated</strong>. A curated hierarchy assumes that every entry is intended to be unique, i.e. matching name strings will be treated as homonyms."
   content_partner_resource_hierarchy_confirm_request_publish: "Are you sure you want to put in a request to promote your hierarchy to be browsable on EOL?"
   content_partner_resource_hierarchy_edit_link: Edit
   content_partner_resource_hierarchy_edit_subheader: "Edit hierarchy for resource <em>%{resource_title}</em>"
@@ -957,8 +964,6 @@ ar:
   content_partner_status_empty: "Unknown status"
   content_partner_update_successful_notice: "تم تحديث معلومات الشريك بنجاح."
   content_partner_update_unsuccessful_error: "عفوًا، حدث خطأ، تعذر تحديث معلومات الشريك."
-  content_partner_vetted_false: Unreviewed
-  content_partner_vetted_true: Vetted
   content_partners: "شركاء المحتوى"
   content_partners_empty: "لم يتم العثور على شركاء محتوى."
   content_partners_page_description: "يمتلك شركاء محتوى موسوعة الحياة كميات هائلة من المعلومات حول التنوع الحيوي في المواقع الإلكترونية وقواعد البيانات الخاصة بهم والتي يشاركونها عبر صفحات موسوعة الحياة. نحن نقدر إسهاماتهم الهامة في تحقيق مهمة موسوعة الحياة ونشجعك على التعرف على المزيد عنهم. تعرف على المزيد عن <a href=\"%{more_url}\">التحول إلى أحد شركاء المحتوى.</a>"
@@ -1572,6 +1577,7 @@ ar:
   recaptcha: "أكتب الكلمتين التاليتين اللتين تراهما فى الصورة أدناه"
   recaptcha_incorrect_error_with_anchor: "لم تتطابق رموز نظام <a href=\"#%{recaptcha_anchor}\">ريكابتشا</a>، يرجى المحاولة مرة أخرى."
   recent_updates: "آخر التحديثات"
+  recently_visited: "Recently visited collections"
   recognized_by: "معترف بها بواسطة"
   recognized_by_as_a_rank: "%{recognized_by} على أنها  %{taxon_rank}"
   recognized_by_from_source_as_a_rank: "%{recognized_by} فى  %{source} على أنها %{taxon_rank}"
@@ -1641,9 +1647,9 @@ ar:
   see_all_collections_with_count_html:
     one: "عرض  <span class=\"assistive\">%{count} مجموعة التي تظهر بها هذه الصفحة.</span>"
     other: "عرض <span class=\"assistive\">%{count} جميع المجموعات التي تظهر بها الصفحة.</span>"
-  see_all_comments_with_count_for_text:
-    one: "عرض %{count} تعليق على هذا المقال"
-    other: "عرض %{count} تعليق على  هذا المقال"
+  see_all_comments_with_count_for_text_or_rate:
+    one: "عرض %{count} تعليق على هذا المقال أو قم بتقييمه"
+    other: "عرض %{count} تعليق على  هذا المقال أو قم بتقييمه"
   see_all_communities_with_count_html:
     one: "عرض <span class=\"assistive\">%{count} مجتمع الذى يعرض به الصفحة.</span>"
     other: "عرض <span class=\"assistive\">%{count} جميع المجموعات التي تعرض بها الصفحة.</span>"
@@ -1790,6 +1796,8 @@ ar:
   translation_deleted: "تم حذف الترجمة"
   translation_saved: "تم حفظ الترجمة"
   translations_submit: "عرض الترجمة"
+  truncated_comment_omission: "... <a href='%{link}'>more</a>"
+  truncated_comment_omission_linkless: "..."
   trusted: "موثوق به"
   trusted_images: "صور موثوق بها"
   trusted_text_objects: "مقاﻻت موثوق بها"
@@ -1825,7 +1833,6 @@ ar:
   user_activation_failed_user_not_found_error: "عفوًا، حدث خطأ، لم نتمكن من إيجاد الحساب الذي تحاول التحقق منه. يرجى التأكد من أن رابط التحقق المستخدم يطابق ذلك المتواجد في رسالة التفعيل التي تلقيتها عقب التسجيل."
   user_activation_successful_notice: "مرحبا بك، وشكرًا لإنضمامك لفريق موسوعة الحياة. تم تفعيل حسابك بإسم المستخدم <em>%{username}</em> ، يرجى تسجيل الدخول."
   user_activity_stats_articles_added: "المقالات المضافة"
-  user_activity_stats_comments_moderated: "التعليقات المعدلة"
   user_activity_stats_header: نشاط
   user_activity_stats_objects_curated: "المواضيع التي تم الإشراف عليها"
   user_activity_stats_taxa_curated: "الأصناف المقيمة"
@@ -1866,6 +1873,7 @@ ar:
   values: قيم
   version_1_0_uses_fields_from_the_latest_version: "تستخدم النسخة رقم 1.0 خانات من أحدث نسخة من مخطط %{link} "
   vetted: "تم تقييمه"
+  video_description_not_available_in_language: "Description not available in %{language}"
   view: عرض
   view_added_text: "عرض النص المضاف"
   view_article_source: "عرض مصدر المقال"
@@ -1920,7 +1928,6 @@ ar:
   your_current_rating_4_of_5: "تقييمك الحالي 4 من 5"
   your_current_rating_5_of_5: "تقييمك الحالي 5 من 5"
   your_preferences: تفضيلاتك
-  your_preferences_have_been_updated: "تم تحديث تفضيلاتك"
   your_rating: تقييمك
   your_rating_colon: "تقييمك:"
   your_watch_collection: "قائمة المشاهدة الخاصة بك"

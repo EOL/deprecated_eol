@@ -49,6 +49,10 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   before_save :instantly_approve_curator_level, :if => :curator_level_can_be_instantly_approved?
   after_save :update_watch_collection_name
   after_save :clear_cached_user
+  
+  before_destroy :destroy_comments
+  # TODO: before_destroy :destroy_data_objects
+
 
   accepts_nested_attributes_for :user_info
 
@@ -784,5 +788,22 @@ private
   # Callback after_save
   def clear_cached_user
     $CACHE.delete("users/#{self.id}") if $CACHE
+  end
+  
+  def destroy_comments
+    # remove comments from solr first
+    begin
+      solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_ACTIVITY_LOGS_CORE)
+    rescue Errno::ECONNREFUSED => e
+      puts "** WARNING: Solr connection failed."
+      return nil
+    end
+    solr_connection.delete_by_query("user_id:#{self.id}")
+    
+    # remove comments from database
+    comments = Comment.find_all_by_user_id(self.id)
+    comments.each do |comment|
+      comment.destroy
+    end
   end
 end

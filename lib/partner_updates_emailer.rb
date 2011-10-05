@@ -3,32 +3,34 @@
 module PartnerUpdatesEmailer
 
   def self.send_email_updates
-    # checking everythingin the last (email_reports_frequency_hours - 1 hour) because the script
+    # checking everything in the last (email_reports_frequency_hours - 1 hour) because the script
     # will run for a few minutes and if we check at the same time each day with a strict
     # email_reports_frequency_hours we'll miss people every other day as they will have been updated
-    # 23.9 hours ago, not 24 horus ago for example
-    agent_contacts_ready = AgentContact.find(:all, :conditions => "last_report_email IS NULL OR DATE_ADD(last_report_email, INTERVAL email_reports_frequency_hours - 1 HOUR) <= UTC_TIMESTAMP()", :include => [{:agent => :content_partner}])
+    # 23.9 hours ago, not 24 hours ago for example
+
+    # TODO: Send email to content partner owner - what do we do if owner email is same as contact email?
+    content_partner_contacts_ready = ContentPartnerContact.find(:all, :conditions => "last_report_email IS NULL OR DATE_ADD(last_report_email, INTERVAL email_reports_frequency_hours - 1 HOUR) <= UTC_TIMESTAMP()", :include => [{:content_partner => :user}])
     users_ready = User.find(:all, :joins => :users_data_objects, :conditions => "last_report_email IS NULL OR DATE_ADD(last_report_email, INTERVAL email_reports_frequency_hours - 1 HOUR) <= UTC_TIMESTAMP()", :group => 'users.id', :readonly => false)
 
-    agent_contact_frequencies = agent_contacts_ready.collect{|p| p.email_reports_frequency_hours}
-    user_frequencies = users_ready.collect{|p| p.email_reports_frequency_hours}
+    content_partner_contact_frequencies = content_partner_contacts_ready.collect{|c| c.email_reports_frequency_hours}
+    user_frequencies = users_ready.collect{|c| c.email_reports_frequency_hours}
 
-    all_frequencies = agent_contact_frequencies | user_frequencies
+    all_frequencies = content_partner_contact_frequencies | user_frequencies
 
     for frequency_hours in all_frequencies
       all_activity = self.all_activity_since_hour(frequency_hours)
-      self.send_emails_to_partners(all_activity[:partner_activity], agent_contacts_ready, frequency_hours)
+      self.send_emails_to_partners(all_activity[:partner_activity], content_partner_contacts_ready, frequency_hours)
       self.send_emails_to_users(all_activity[:user_activity], users_ready, frequency_hours)
     end
   end
 
-  def self.send_emails_to_partners(partner_activity, agent_contacts, frequency_hours)
+  def self.send_emails_to_partners(partner_activity, content_partner_contacts, frequency_hours)
     partner_activity.each do |partner_id, activity|
-      agents_for_this_partner = agent_contacts.select{|ac| !ac.agent.content_partner.nil? && ac.email_reports_frequency_hours == frequency_hours && ac.agent.content_partner.id == partner_id}
-      for agent in agents_for_this_partner
-        Notifier.deliver_comments_and_actions_to_partner_or_user(agent, activity)
-        agent.last_report_email = Time.now
-        agent.save!
+      contacts_for_this_partner = content_partner_contacts.select{|cpc| !cpc.content_partner.nil? && cpc.email_reports_frequency_hours == frequency_hours && cpc.content_partner.id == partner_id}
+      for contact in contacts_for_this_partner
+        Notifier.deliver_activity_on_content_partner_content(contact.content_partner, contact, activity)
+#        contact.last_report_email = Time.now
+#        contact.save!
       end
     end
   end
@@ -37,9 +39,9 @@ module PartnerUpdatesEmailer
     user_activity.each do |user_id, activity|
       user_to_update = users.select{|u| u.email_reports_frequency_hours == frequency_hours && u.id == user_id}
       for user in user_to_update
-        Notifier.deliver_comments_and_actions_to_partner_or_user(user, activity)
-        user.last_report_email = Time.now
-        user.save!
+        Notifier.deliver_activity_on_user_content(user, activity)
+#        user.last_report_email = Time.now
+#        user.save!
       end
     end
   end
@@ -85,7 +87,7 @@ module PartnerUpdatesEmailer
       SELECT id
       FROM #{CuratorActivityLog.full_table_name}
       WHERE DATE_ADD(created_at, INTERVAL #{number_of_hours} HOUR) >= UTC_TIMESTAMP()
-      AND activity_id IN (#{Activity.trusted.id}, #{Activity.untrusted.id}, #{Activity.inappropriate.id})")
+      AND activity_id IN (#{Activity.trusted.id},#{Activity.untrusted.id},#{Activity.inappropriate.id})")
 
     partner_actions = {}
     user_actions = {}
@@ -93,21 +95,20 @@ module PartnerUpdatesEmailer
     unless all_action_ids.empty?
       # Curator Actions on objects submitted by Content Partners
       result = CuratorActivityLog.find_by_sql("
-        SELECT ah.*, u.username curator_username, cp.id content_partner_id
-        FROM #{CuratorActivityLog.full_table_name} ah
-        JOIN #{User.full_table_name} u ON (ah.user_id=u.id)
+        SELECT cal.*, u.username curator_username, cp.id content_partner_id
+        FROM #{CuratorActivityLog.full_table_name} cal
+        JOIN #{User.full_table_name} u ON (cal.user_id=u.id)
         LEFT JOIN (
           #{DataObject.full_table_name} do
           JOIN #{DataObjectsHierarchyEntry.full_table_name} dohe ON (do.id=dohe.data_object_id)
           JOIN #{HierarchyEntry.full_table_name} he ON (dohe.hierarchy_entry_id = he.id)
           JOIN #{Resource.full_table_name} r ON (he.hierarchy_id = r.hierarchy_id)
-          JOIN #{AgentsResource.full_table_name} ar ON (r.id = ar.resource_id)
-          JOIN #{ContentPartner.full_table_name} cp ON (ar.agent_id = cp.agent_id)
-        ) ON (ah.object_id=dohe.data_object_id)
-        WHERE ah.id IN (#{all_action_ids.join(',')})
-        AND ah.changeable_object_type_id = #{ChangeableObjectType.data_object.id}
+          JOIN #{ContentPartner.full_table_name} cp ON (r.content_partner_id = cp.id)
+        ) ON (cal.object_id=dohe.data_object_id)
+        WHERE cal.id IN (#{all_action_ids.join(',')})
+        AND cal.changeable_object_type_id IN (#{ChangeableObjectType.data_object.id},#{ChangeableObjectType.data_objects_hierarchy_entry.id},#{ChangeableObjectType.curated_data_objects_hierarchy_entry.id})
         AND cp.id IS NOT NULL
-        GROUP BY cp.id, ah.id")
+        GROUP BY cp.id, cal.id")
       result.each do |r|
         partner_id = r['content_partner_id'].to_i
         partner_actions[partner_id] ||= []
@@ -116,17 +117,17 @@ module PartnerUpdatesEmailer
 
       # Curator Actions on text submitted by Users
       result = CuratorActivityLog.find_by_sql("
-        SELECT ah.*, u.username curator_username, u.id user_id FROM #{CuratorActivityLog.full_table_name} ah
-        JOIN #{User.full_table_name} uc ON (ah.user_id=uc.id)
+        SELECT cal.*, u.username curator_username, u.id user_id FROM #{CuratorActivityLog.full_table_name} cal
+        JOIN #{User.full_table_name} uc ON (cal.user_id=uc.id)
         LEFT JOIN (
           #{DataObject.full_table_name} do
           JOIN #{UsersDataObject.full_table_name} udo ON (do.id=udo.data_object_id)
           JOIN #{User.full_table_name} u ON (udo.user_id = u.id)
-        ) ON (ah.object_id=udo.data_object_id)
-        WHERE ah.id IN (#{all_action_ids.join(',')})
-        AND ah.changeable_object_type_id = #{ChangeableObjectType.data_object.id}
+        ) ON (cal.object_id=udo.data_object_id)
+        WHERE cal.id IN (#{all_action_ids.join(',')})
+        AND cal.changeable_object_type_id  IN (#{ChangeableObjectType.users_data_object.id},#{ChangeableObjectType.data_object.id},#{ChangeableObjectType.data_objects_hierarchy_entry.id},#{ChangeableObjectType.curated_data_objects_hierarchy_entry.id})
         AND u.id IS NOT NULL
-        GROUP BY u.id, ah.id")
+        GROUP BY u.id, cal.id")
       result.each do |r|
         user_id = r['user_id'].to_i
         user_actions[user_id] ||= []
@@ -152,8 +153,7 @@ module PartnerUpdatesEmailer
           #{DataObjectsHierarchyEntry.full_table_name} dohe
           JOIN #{HierarchyEntry.full_table_name} he ON (dohe.hierarchy_entry_id = he.id)
           JOIN #{Resource.full_table_name} r ON (he.hierarchy_id = r.hierarchy_id)
-          JOIN #{AgentsResource.full_table_name} ar ON (r.id = ar.resource_id)
-          JOIN #{ContentPartner.full_table_name} cp ON (ar.agent_id = cp.agent_id)
+          JOIN #{ContentPartner.full_table_name} cp ON (r.content_partner_id = cp.id)
         ) ON (c.parent_id=dohe.data_object_id)
         WHERE c.id IN (#{all_comment_ids.join(',')})
         AND u.username != 'potsonna'
@@ -173,8 +173,7 @@ module PartnerUpdatesEmailer
         LEFT JOIN (
           #{HierarchyEntry.full_table_name} he
           JOIN #{Resource.full_table_name} r ON (he.hierarchy_id = r.hierarchy_id)
-          JOIN #{AgentsResource.full_table_name} ar ON (r.id = ar.resource_id)
-          JOIN #{ContentPartner.full_table_name} cp ON (ar.agent_id = cp.agent_id)
+          JOIN #{ContentPartner.full_table_name} cp ON (r.content_partner_id = cp.id)
         ) ON (c.parent_id=he.taxon_concept_id)
         WHERE c.id IN (#{all_comment_ids.join(',')})
         AND u.username != 'potsonna'

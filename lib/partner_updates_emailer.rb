@@ -29,8 +29,8 @@ module PartnerUpdatesEmailer
       contacts_for_this_partner = content_partner_contacts.select{|cpc| !cpc.content_partner.nil? && cpc.email_reports_frequency_hours == frequency_hours && cpc.content_partner.id == partner_id}
       for contact in contacts_for_this_partner
         Notifier.deliver_activity_on_content_partner_content(contact.content_partner, contact, activity)
-#        contact.last_report_email = Time.now
-#        contact.save!
+        contact.last_report_email = Time.now
+        contact.save!
       end
     end
   end
@@ -40,8 +40,8 @@ module PartnerUpdatesEmailer
       user_to_update = users.select{|u| u.email_reports_frequency_hours == frequency_hours && u.id == user_id}
       for user in user_to_update
         Notifier.deliver_activity_on_user_content(user, activity)
-#        user.last_report_email = Time.now
-#        user.save!
+        user.last_report_email = Time.now
+        user.save!
       end
     end
   end

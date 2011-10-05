@@ -2,7 +2,7 @@
   = I18n.t(:activity_log_empty, :scope => :notifier)
 - else
   - actions.each do |action|
-    - users_name = h action.user.full_name
+    - users_name = h strip_tags(action.user.full_name)
     - users_url = user_url(action.user, :host => $SITE_DOMAIN_OR_IP)
     - action_date = format_date_time(action.created_at)
     - # We check to make sure the action.data_object association is 'real' i.e. curator_activity_logs.object_id == data_objects.id
@@ -18,7 +18,7 @@
       - when Activity.inappropriate.id
         - en_activity_name = 'inappropriate'
       - unless en_activity_name.nil?
-        - object_name = h action.data_object.summary_name
+        - object_name = h strip_tags(action.data_object.summary_name)
         - object_url = data_object_url(action.data_object, :host => $SITE_DOMAIN_OR_IP)
         - taxon_name = nil
         - if en_activity_name == 'trusted' || en_activity_name == 'untrusted'
@@ -33,12 +33,10 @@
             - # For legacy trust/untrust actions on data_object I don't think we have an associated hierarchy entry, for new actions the COT should be data_objects_hierarchy_entry
             - taxon_name = nil
           - when ChangeableObjectType.data_objects_hierarchy_entry.id
-            - hierarchy_entry = action.data_object.data_objects_hierarchy_entry.hierarchy_entry rescue nil
-            - taxon_name = hierarchy_entry.name.string rescue nil
+            - taxon_name = action.hierarchy_entry.name.string rescue nil
             - taxon_url = taxon_hierarchy_entry_url(hierarchy_entry.taxon_concept, hierarchy_entry, :host => $SITE_DOMAIN_OR_IP) rescue ''
           - when ChangeableObjectType.curated_data_objects_hierarchy_entry.id
-            - hierarchy_entry = action.data_object.curated_data_objects_hierarchy_entry.hierarchy_entry rescue nil
-            - taxon_name = hierarchy_entry.name.string rescue nil
+            - taxon_name = action.hierarchy_entry.name.string rescue nil
             - taxon_url = taxon_hierarchy_entry_url(hierarchy_entry.taxon_concept, hierarchy_entry, :host => $SITE_DOMAIN_OR_IP) rescue ''
         - if taxon_name.nil?
           = I18n.t("activity_user_marked_data_object_as_#{en_activity_name}_on_date", :users_name => users_name, :users_url => users_url,
@@ -46,6 +44,6 @@
             :scope => :notifier)
         - else
           = I18n.t("activity_user_marked_data_object_as_#{en_activity_name}_for_taxon_on_date", :users_name => users_name, :users_url => users_url,
-            :object_name => object_name, :object_url => object_url, :taxon_name => taxon_name, :taxon_url => taxon_url,
+            :object_name => object_name, :object_url => object_url, :taxon_name => strip_tags(taxon_name), :taxon_url => taxon_url,
             :action_date => action_date, :scope => :notifier)
 

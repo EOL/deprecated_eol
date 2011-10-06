@@ -300,7 +300,7 @@ class ApiController < ApplicationController
     params[:format] ||= 'xml'
     @page = params[:page].to_i || 1
     @page = 1 if @page < 1
-    @per_page = params[:per_page].to_i
+    @per_page = params[:per_page].to_i || 50
     @filter = nil
     unless params[:filter].blank? || params[:filter].class != String
       @filter = params[:filter].singularize.split(' ').join('_').camelize
@@ -313,7 +313,7 @@ class ApiController < ApplicationController
         @sort_by = ss
       end
       @facet_counts = EOL::Solr::CollectionItems.get_facet_counts(@collection.id)
-      @collection_results = @collection.items_from_solr(:facet_type => @filter, :page => params[:page], :sort_by => @sort_by)
+      @collection_results = @collection.items_from_solr(:facet_type => @filter, :page => params[:page], :per_page => @per_page, :sort_by => @sort_by)
       @collection_items = @collection_results.map { |i| i['instance'] }
       raise if @collection.blank?
     rescue

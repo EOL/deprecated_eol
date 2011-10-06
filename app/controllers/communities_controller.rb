@@ -50,7 +50,9 @@ class CommunitiesController < ApplicationController
       EOL::GlobalStatistics.increment('communities') if @community.published?
       log_action(:create)
       auto_collect(@community)
-      auto_collect(@community.focus)
+      @community.collections.each do |focus|
+        auto_collect(focus)
+      end
       redirect_to(@community, :notice => notice)
     else
       flash.now[:error] = I18n.t(:create_community_unsuccessful_error)
@@ -110,7 +112,9 @@ class CommunitiesController < ApplicationController
 
       auto_collect(@community, :annotation => I18n.t(:user_joined_community_on_date, :date => I18n.l(Date.today),
                                                      :username => current_user.full_name))
-      auto_collect(@community.focus)
+      @community.collections.each do |focus|
+        auto_collect(focus)
+      end
       respond_to do |format|
         format.html { redirect_to(@community, :notice => I18n.t(:you_joined_community) + " #{flash[:notice]}" ) }
       end
@@ -134,7 +138,7 @@ private
     @community = Community.find(params[:community_id] || params[:id])
     # It's okay (perfectly) if this gets overridden elsewhere:
     flash.now[:notice] = I18n.t(:this_community_was_deleted) unless @community.published?
-    @community_collections = @community.collections || [] # NOTE these are collection_items, really.
+    @community_collections = @community.featured_collections || [] # NOTE these are collection_items, really.
     @members = @community.members # Because we pull in partials from the members controller.
     @current_member = current_user.member_of(@community)
   end

@@ -2,10 +2,10 @@
   .copy
     .collection_list
       %h3= I18n.t(:community_focus)
-      - if @community.focus.nil?
+      - if @community.collections.blank?
         %p= I18n.t(:this_community_has_no_focus_list)
       - else
-        %p= I18n.t(:focus_collection_edit_link, :collection => link_to(@community.collection.name, collection_path(@community.collection)))
+        %p= I18n.t(:focus_collection_edit)
     .collection_list
       %h3= I18n.t(:endorsed_collections)
       %p= I18n.t(:manager_endorse_collections_suggestion)

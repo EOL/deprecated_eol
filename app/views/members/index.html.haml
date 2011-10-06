@@ -1,12 +1,13 @@
 #sidebar
   .collection_list
     %h3= I18n.t(:community_focus)
-    - if @community.focus.nil?
+    - if @community.collections.blank?
       .empty
         %p= I18n.t(:this_community_has_no_focus_list)
     - else
       %ul
-        = render :partial => 'collections/collection_summary', :locals => {:collection => @community.focus, :minimal => true}
+        - @community.collections.each do |focus|
+          = render :partial => 'collections/collection_summary', :locals => {:collection => focus, :minimal => true}
   .collection_list
     %h3= I18n.t(:endorsed_collections)
     - if @community_collections.empty?

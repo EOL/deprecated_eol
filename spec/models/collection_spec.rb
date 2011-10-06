@@ -165,11 +165,11 @@ describe Collection do
 
   it 'should know when it is a focus list' do
     @test_data[:collection].is_focus_list?.should_not be_true
-    @test_data[:community].focus.is_focus_list?.should be_true
+    @test_data[:community].collections.first.is_focus_list?.should be_true
   end
 
   it 'should know when it is a focus collection' do
-    focus = Community.gen.collection
+    focus = Community.gen.collections.first
     focus.focus?.should be_true
     nonfocus = Collection.gen(:user => User.gen, :community => nil)
     nonfocus.focus?.should_not be_true

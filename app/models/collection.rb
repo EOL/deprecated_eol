@@ -22,6 +22,8 @@ class Collection < ActiveRecord::Base
   has_one :resource
   has_one :resource_preview, :class_name => Resource.to_s, :foreign_key => :preview_collection_id
 
+  named_scope :published, :conditions => {:published => 1}
+
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => [:user_id]
 

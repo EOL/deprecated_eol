@@ -1435,7 +1435,7 @@ en:
   flash_notice_redirected_from_search_html_more_results: "You've arrived here by searching for <em>%{search_string}</em>. <a href=\"%{more_results_url}\">Click here to see other search results.</a>"
   flash_video: "Flash video"
   flickr: "Flickr"
-  focus_collection_edit_link: "You may edit this community's focus directly at the %{collection} page."
+  focus_collection_edit: "You may edit this community's collections directly at each collection's edit page."
   focus_list_newsfeed: "Focus List Newsfeed"
   forgot_password: "Forgot password"
   forgot_password_form_cancel: "Cancel"

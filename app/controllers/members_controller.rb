@@ -60,7 +60,7 @@ private
       render :template => '/communities/show'
       return false
     end
-    @community_collections = @community.collections # NOTE these are really collection_items.
+    @community_collections = @community.featured_collections # NOTE these are really collection_items.
     @current_member = current_user.member_of(@community)
   end
 

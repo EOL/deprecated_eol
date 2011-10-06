@@ -40,7 +40,7 @@ describe EOL::ActivityLog do
     # This proves that any activity logged on the focus list of the community is something that shows up in the
     # community feed itself (rather than having to look at the focus list directly).  For example, if someone adds
     # something to the community's focus list, we expect to see that in the activity log of the community itself.
-    CollectionActivityLog.gen(:collection => community.focus, :created_at => 3.seconds.ago)
+    CollectionActivityLog.gen(:collection => community.collections.first, :created_at => 3.seconds.ago)
     CommunityActivityLog.gen(:community => community, :created_at => 2.seconds.ago)
     community.activity_log.length.should == 3
     community.activity_log[2]['instance'].class.should == Comment

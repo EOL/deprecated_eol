@@ -15,7 +15,7 @@
           .details
             %h4= link_to community.name, community_url(community)
             %p
-              = I18n.t(:other_community_items_with_count, :count => community.focus.collection_items.count)
+              = I18n.t(:other_community_items_with_count, :count => community.collections.map {|c| c.collection_items}.flatten.compact.count)
               = I18n.t(:punctuation_comma)
               = I18n.t(:members_with_count, :count => community.members.count)
   - else

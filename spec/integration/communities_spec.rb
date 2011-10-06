@@ -49,9 +49,11 @@ describe "Communities" do
 #          end
 #        end
 
-      it 'should show the collection the community is focused upon' do
+      it 'should show the collections the community is focused upon' do
         body.should have_tag('#sidebar') do
-          with_tag("a[href=#{collection_path(@test_data[:community].focus.id)}]", :text => /#{@test_data[:community].focus.name}/)
+          @test_data[:community].collections.each do |focus|
+            with_tag("a[href=#{collection_path(focus.id)}]", :text => /#{focus.name}/)
+          end
         end
       end
     end

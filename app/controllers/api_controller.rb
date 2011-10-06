@@ -300,7 +300,7 @@ class ApiController < ApplicationController
     params[:format] ||= 'xml'
     @page = params[:page].to_i || 1
     @page = 1 if @page < 1
-    @per_page = params[:per_page].to_i
+    @per_page = params[:per_page].to_i || 50
     @filter = nil
     unless params[:filter].blank? || params[:filter].class != String
       @filter = params[:filter].singularize.split(' ').join('_').camelize

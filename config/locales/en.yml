@@ -2765,6 +2765,7 @@ en:
   return: "return"
   return_all_common_names_for_this_taxon: "return all common names for this taxon"
   return_all_synonyms_for_this_taxon: "return all synonyms for this taxon"
+  returns_all_metadata_about_a_particular_collection: "returns all metadata about a particular collection and the items it contains indexed by EOL"
   returns_all_metadata_about_a_particular_data_object: "returns all metadata about a particular data object (text, image or video) indexed by EOL"
   returns_either_a_positive_or_negative_response: "returns either a positive response (indicating APIs are functional), or returns a negative response or nothing at all (indicating APIs are not functional at that time)."
   return_to_the_home_page: "Return to the home page"

@@ -8,8 +8,8 @@ class ContentPartners::ResourcesController < ContentPartnersController
   def index
     @partner = ContentPartner.find(params[:content_partner_id],
                  :include => [ { :resources => :resource_status }, :content_partner_agreements, :content_partner_contacts])
-    access_denied unless current_user.can_update?(@partner)
-    redirect_if_terms_not_accepted unless current_user.is_admin?
+    return access_denied unless current_user.can_update?(@partner)
+    return if !current_user.is_admin? && redirect_if_terms_not_accepted
     @resources = @partner.resources
     @partner_contacts = @partner.content_partner_contacts.select{|cpc| cpc.can_be_read_by?(current_user)}
     @new_partner_contact = @partner.content_partner_contacts.build

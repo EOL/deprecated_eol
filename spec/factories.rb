@@ -455,6 +455,11 @@ Factory.define :content_partner do |cp|
                                            ContentPartnerStatus.gen_if_not_exists(:label => 'Active') }
 end
 
+Factory.define :content_partner_agreement do |cpa|
+  cpa.is_current          true
+  cpa.body                'The agreement body.'
+end
+
 Factory.define :content_upload do |cu|
   cu.association :user
   cu.link_name { Factory.next(:string).gsub(/\W/, '_') }

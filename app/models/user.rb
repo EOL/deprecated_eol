@@ -49,7 +49,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   before_save :instantly_approve_curator_level, :if => :curator_level_can_be_instantly_approved?
   after_save :update_watch_collection_name
   after_save :clear_cached_user
-  
+
   before_destroy :destroy_comments
   # TODO: before_destroy :destroy_data_objects
 
@@ -516,7 +516,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def can_view_collection?(collection)
-    return true if collection.published? || collection.user == self
+    return true if collection.published? || collection.user == self || self.is_admin?
     false
   end
 
@@ -789,7 +789,7 @@ private
   def clear_cached_user
     $CACHE.delete("users/#{self.id}") if $CACHE
   end
-  
+
   def destroy_comments
     # remove comments from solr first
     begin
@@ -799,7 +799,7 @@ private
       return nil
     end
     solr_connection.delete_by_query("user_id:#{self.id}")
-    
+
     # remove comments from database
     comments = Comment.find_all_by_user_id(self.id)
     comments.each do |comment|

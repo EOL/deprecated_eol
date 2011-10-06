@@ -215,14 +215,14 @@ describe "Preview Collections" do
     builder = EOL::Solr::CollectionItemsCoreRebuilder.new()
     builder.begin_rebuild
   end
-  
+
   it 'should show collections on the taxon page' do
     visit taxon_path(@taxon)
     body.should have_tag('#collections_summary') do
       with_tag('h3', :text => "Present in 1 collection")
     end
   end
-  
+
   it 'should not show preview collections on the taxon page' do
     @collection.update_attribute(:published, false)
     visit taxon_path(@taxon)
@@ -231,16 +231,13 @@ describe "Preview Collections" do
     end
     @collection.update_attribute(:published, true)
   end
-  
+
   it 'should not show preview collections on the user profile page to normal users' do
     visit user_collections_path(@collection.user)
     body.should have_tag('li.active') do
       with_tag('a', :text => "3 collections")
     end
     body.should have_tag('h3', :text => "2 collections")
-  end
-  
-  it 'should not show preview collections on the user profile page to normal users' do
     @collection.update_attribute(:published, false)
     visit user_collections_path(@collection.user)
     body.should have_tag('li.active') do
@@ -251,7 +248,7 @@ describe "Preview Collections" do
     end
     @collection.update_attribute(:published, true)
   end
-  
+
   it 'should show resource preview collections on the user profile page to the owner' do
     @collection.update_attribute(:published, false)
     @resource = Resource.gen
@@ -267,6 +264,27 @@ describe "Preview Collections" do
     end
     visit('/logout')
     @collection.update_attribute(:published, true)
+  end
+
+  it 'should allow EOL administrators to view unpublished collections' do
+    @collection.update_attribute(:published, false)
+    @collection.reload
+    if @collection.resource_preview.nil?
+      @resource = Resource.gen
+      @resource.preview_collection = @collection
+      @resource.save
+      @collection.reload
+    end
+    visit('/logout')
+    visit collection_path(@collection)
+    current_url.should_not == collection_url(@collection)
+    body.should_not have_tag('h1', /#{@collection.name}/)
+    admin = User.gen(:admin => true)
+    login_as admin
+    visit collection_path(@collection)
+    body.should have_tag('h1', /#{@collection.name}/)
+    body.should have_tag('ul.object_list li', /#{@collection.collection_items.first.object.best_title}/)
+    @collection.update_attribute(:published)
   end
 end
 

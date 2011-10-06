@@ -282,7 +282,6 @@ describe "Preview Collections" do
     admin = User.gen(:admin => true)
     login_as admin
     visit collection_path(@collection)
-    debugger
     body.should have_tag('h1', /#{@collection.name}/)
     body.should have_tag('ul.object_list li', /#{@collection.collection_items.first.object.best_title}/)
     @collection.update_attribute(:published, true)

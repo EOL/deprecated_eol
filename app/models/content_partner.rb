@@ -53,60 +53,6 @@ class ContentPartner < SpeciesSchemaModel
     user && user.content_partners.blank? && (user_wanting_access.id == user.id || user_wanting_access.is_admin?)
   end
 
-#  TODO: change latests published harvest event to eager load or make it work without eager loading
-#  def concepts_for_gallery(page, per_page)
-#    page = page - 1
-#
-#    return nil if resources.nil?
-#    harvest_event_ids = resources.collect{|r| r.latest_published_harvest_event.id || nil }
-#    return nil if harvest_event_ids.empty?
-#
-#    all_hierarchy_entry_ids = connection.select_values(%Q{
-#        SELECT hierarchy_entry_id
-#        FROM harvest_events_hierarchy_entries hehe
-#        WHERE hehe.harvest_event_id IN (#{harvest_event_ids.join(',')})}).uniq.reverse
-#    total_taxa_count = all_hierarchy_entry_ids.length
-#
-#    start_index = page*per_page
-#    end_index = start_index + per_page
-#    sorted_hierarchy_entries = connection.execute("
-#        SELECT he.id hierarchy_entry_id, he.source_url, n.string scientific_name
-#        FROM hierarchy_entries he
-#        JOIN names n on (he.name_id=n.id)
-#        WHERE he.id IN (#{all_hierarchy_entry_ids[start_index...end_index].join(',')})").all_hashes
-#
-#    start_index = page * per_page
-#    end_index = start_index + per_page
-#
-#    all_concepts = []
-#    for i in 0...total_taxa_count
-#      all_concepts[i] = {}
-#      if i >= start_index && i < end_index
-#
-#        entry = sorted_hierarchy_entries[i-start_index]
-#        name_and_image = connection.execute("SELECT he.taxon_concept_id, n.string, do.object_cache_url
-#          FROM hierarchy_entries he
-#          JOIN names n ON (he.name_id=n.id)
-#          LEFT JOIN (
-#            top_images ti
-#            JOIN data_objects do ON (ti.data_object_id=do.id AND ti.view_order=1)
-#          ) ON (he.id=ti.hierarchy_entry_id)
-#          WHERE he.id=#{entry['hierarchy_entry_id']} LIMIT 1").all_hashes
-#
-#        all_concepts[i]['id'] = name_and_image[0]['taxon_concept_id']
-#        all_concepts[i]['name_string'] = entry['scientific_name']
-#        all_concepts[i]['partner_source_url'] = entry['source_url']
-#        if name_and_image[0] && !name_and_image[0]['object_cache_url'].nil?
-#          all_concepts[i]['image_src'] = DataObject.image_cache_path(name_and_image[0]['object_cache_url'], :medium)
-#        else
-#          all_concepts[i]['image_src'] = '/images/eol_logo_gray.gif'
-#        end
-#      end
-#    end
-#
-#    all_concepts
-#  end
-
   # has this partner submitted data_objects which are currently published
   def has_published_resources?
     has_resources = SpeciesSchemaModel.connection.execute(%Q{
@@ -116,78 +62,6 @@ class ContentPartner < SpeciesSchemaModel
         WHERE r.content_partner_id=#{id} AND he.published_at IS NOT NULL LIMIT 1}).all_hashes
     return !has_resources.empty?
   end
-
-#  TODO: change latests published harvest event to eager load or make it work without eager loading
-#  def data_objects_curator_activity_log
-#    latest_published_harvest_event_ids = []
-#    resources.each do |r|
-#      if he = r.latest_published_harvest_event
-#        latest_published_harvest_event_ids << he.id
-#      end
-#    end
-#    return [] if latest_published_harvest_event_ids.empty?
-#
-#    objects_history = CuratorActivityLog.find_by_sql(%Q{
-#      SELECT ah.*, do.data_type_id, dt.label data_object_type_label, 'data_object' history_type
-#      FROM #{DataObjectsHarvestEvent.full_table_name} dohe
-#      JOIN #{DataObject.full_table_name} do ON (dohe.data_object_id=do.id)
-#      JOIN #{DataType.full_table_name} dt ON (do.data_type_id=dt.id)
-#      JOIN #{CuratorActivityLog.full_table_name} ah ON (do.id=ah.object_id)
-#      WHERE dohe.harvest_event_id IN (#{latest_published_harvest_event_ids.join(',')})
-#      AND ah.changeable_object_type_id=#{ChangeableObjectType.find_by_ch_object_type('data_object').id}
-#    }).uniq
-#
-#    objects_history.sort! do |a,b|
-#      b.created_at <=> a.created_at
-#    end
-#  end
-
-#  TODO: change latests published harvest event to eager load or make it work without eager loading
-#  def comments_curator_activity_log
-#    latest_published_harvest_event_ids = []
-#    resources.each do |r|
-#      if he = r.latest_published_harvest_event
-#        latest_published_harvest_event_ids << he.id
-#      end
-#    end
-#    return [] if latest_published_harvest_event_ids.empty?
-#    comments_history = CuratorActivityLog.find_by_sql(%Q{
-#      SELECT ah.*, do.data_type_id, dt.label data_object_type_label, c.body comment_body, 'comment' history_type
-#      FROM #{DataObjectsHarvestEvent.full_table_name} dohe
-#      JOIN #{DataObject.full_table_name} do ON (dohe.data_object_id=do.id)
-#      JOIN #{DataType.full_table_name} dt ON (do.data_type_id=dt.id)
-#      JOIN #{Comment.full_table_name} c ON (do.id=c.parent_id)
-#      JOIN #{CuratorActivityLog.full_table_name} ah ON (c.id=ah.object_id)
-#      WHERE dohe.harvest_event_id IN (#{latest_published_harvest_event_ids.join(',')})
-#      AND ah.changeable_object_type_id=#{ChangeableObjectType.find_by_ch_object_type('comment').id}
-#      AND c.parent_type = 'DataObject'
-#    }).uniq
-#    comments_history.sort! do |a,b|
-#      b.created_at <=> a.created_at
-#    end
-#  end
-
-#  TODO: change latests published harvest event to eager load or make it work without eager loading
-#  def taxa_comments
-#    latest_published_harvest_event_ids = []
-#    resources.each do |r|
-#      if he = r.latest_published_harvest_event
-#        latest_published_harvest_event_ids << he.id
-#      end
-#    end
-#    return [] if latest_published_harvest_event_ids.empty?
-#    comments_history = Comment.find_by_sql(%Q{
-#      SELECT c.*
-#      From #{HarvestEventsHierarchyEntry.full_table_name} hehe
-#      Join #{HierarchyEntry.full_table_name} he ON hehe.hierarchy_entry_id = he.id
-#      Join #{Comment.full_table_name} c ON he.taxon_concept_id = c.parent_id
-#      WHERE hehe.harvest_event_id IN (#{latest_published_harvest_event_ids.join(',')})
-#      AND c.parent_type = 'TaxonConcept'
-#    }).uniq
-#    comments_history.sort! do |a,b|
-#      b.created_at <=> a.created_at
-#    end
-#  end
 
   def self.with_published_data
     published_partner_ids = connection.select_values("SELECT r.content_partner_id

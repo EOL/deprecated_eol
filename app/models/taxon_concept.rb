@@ -245,7 +245,6 @@ class TaxonConcept < SpeciesSchemaModel
 
     return nil if text_objects.empty? || text_objects.nil?
     toc_items = [toc_items] unless toc_items.is_a?(Array)
-    text_objects = DataObject.sort_by_rating(text_objects, self)
 
     datos_to_load = []
     toc_items.each do |toc_item|
@@ -291,7 +290,7 @@ class TaxonConcept < SpeciesSchemaModel
       DataObject.preload_associations(objects, :users_data_objects_ratings, :conditions => "users_data_objects_ratings.user_id=#{options[:user].id}")
     end
 
-    objects
+    DataObject.sort_by_rating(objects, self)
 
   end
 

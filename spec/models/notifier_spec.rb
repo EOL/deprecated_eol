@@ -79,61 +79,68 @@ describe Notifier do
     end
   end
 
-#  TODO: Having trouble getting the all_activity method to find the acivity added in the spec
-#  describe 'activity_on_content_partner_content' do
-#    before(:all) do
-#      @curator = User.gen(:curator_level => CuratorLevel.full_curator, :credentials => 'Blah', :curator_scope => 'More blah')
-#      if @user.content_partners.blank?
-#        @content_partner = ContentPartner.gen(:user => @user)
-#        @content_partner.save
-#      else
-#        @content_partner = @user.content_partners.first
-#      end
-#      if @content_partner.content_partner_contacts.blank?
-#        @content_partner.content_partner_contacts.build(:email => 'test@test.tes', :full_name => 'Test Tester')
-#      end
-#      @content_partner_contact = @content_partner.content_partner_contacts.first
-#      @hierarchy = Hierarchy.gen
-#      @taxon_concept = TaxonConcept.gen
-#      @hierarchy_entry = HierarchyEntry.gen(:taxon_concept => @taxon_concept, :hierarchy => @hierarchy)
-#      @resource = Resource.gen(:content_partner => @content_partner, :hierarchy => @hierarchy)
-#      @harvest_event = HarvestEvent.gen(:resource => @resource, :published_at => nil)
-#      @data_object = DataObject.gen(:object_title => 'Content partner provided text object')
-#      DataObjectsHierarchyEntry.gen(:hierarchy_entry => @hierarchy_entry, :data_object => @data_object)
-#      # Using ChangeableObjectType.data_objects_hierarchy_entry and object_id is DataObject.id because thats
-#      # what the log_action method in DataObject controller is doing... but its a little weird
-#      @trusted_action = CuratorActivityLog.gen(:changeable_object_type_id => ChangeableObjectType.data_objects_hierarchy_entry.id,
-#                                               :activity_id => Activity.trusted.id, :user => @curator, :object_id => @data_object.id)
-#      @comment_on_dato = Comment.gen(:user => @curator, :body => 'Comment on dato.', :parent_type => 'DataObject',
-#                                     :parent_id => @data_object)
-#      @comment_on_page = Comment.gen(:user => @curator, :body => 'Comment on page.', :parent_type => 'TaxonConcept',
-#                                     :parent_id => @taxon_concept)
-#      all_activity = PartnerUpdatesEmailer.all_activity_since_hour(1)
-#      @email = Notifier.create_activity_on_content_partner_content(@content_partner, @content_partner_contact, @activity)
+  describe 'activity_on_content_partner_content' do
+    before(:all) do
+      @curator = User.gen(:curator_level => CuratorLevel.full_curator, :credentials => 'Blah', :curator_scope => 'More blah')
+      if @user.content_partners.blank?
+        @content_partner = ContentPartner.gen(:user => @user)
+      else
+        @content_partner = @user.content_partners.first
+      end
+      if @content_partner.content_partner_contacts.blank?
+        @content_partner_contact = ContentPartnerContact.gen(:content_partner => @content_partner)
+      else
+        @content_partner_contact = @content_partner.content_partner_contacts.first
+      end
+      @hierarchy = Hierarchy.gen
+      @taxon_concept = TaxonConcept.gen
+      @hierarchy_entry = HierarchyEntry.gen(:taxon_concept => @taxon_concept, :hierarchy => @hierarchy)
+      @resource = Resource.gen(:content_partner => @content_partner, :hierarchy => @hierarchy)
+      @harvest_event = HarvestEvent.gen(:resource => @resource, :published_at => nil)
+      @data_object = DataObject.gen(:object_title => 'Content partner provided text object')
+      DataObjectsHierarchyEntry.gen(:hierarchy_entry => @hierarchy_entry, :data_object => @data_object)
+      # Using ChangeableObjectType.data_objects_hierarchy_entry and object_id is DataObject.id because thats
+      # what the log_action method in DataObject controller is doing... but its a little weird
+      @trusted_action = CuratorActivityLog.gen(:changeable_object_type_id => ChangeableObjectType.data_objects_hierarchy_entry.id,
+                                               :activity_id => Activity.trusted.id, :user => @curator, :object_id => @data_object.id,
+                                               :hierarchy_entry_id => @hierarchy_entry.id, :created_at => Time.now)
+      @comment_on_dato = Comment.gen(:user => @curator, :body => 'Comment on dato.', :parent_type => 'DataObject',
+                                     :parent_id => @data_object, :created_at => Time.now)
+      @comment_on_page = Comment.gen(:user => @curator, :body => 'Comment on page.', :parent_type => 'TaxonConcept',
+                                     :parent_id => @taxon_concept, :created_at => Time.now)
+      all_activity = PartnerUpdatesEmailer.all_activity_since_hour(1)
+      @activity = all_activity[:partner_activity][@content_partner.id]
+      @email = Notifier.create_activity_on_content_partner_content(@content_partner, @content_partner_contact, @activity)
+    end
+
+    it "should be set to be delivered to the content partner contact" do
+      @email.should deliver_to(@content_partner_contact.email)
+    end
+
+    it "should have a relevant subject" do
+      @email.should have_subject(/Encyclopedia of Life.+?#{@content_partner.full_name}/i)
+    end
+
+    it "should contain a greeting with contact's name" do
+      @email.should include_text("Dear #{@content_partner_contact.full_name},")
+    end
+
+    it "should list recent curator actions on content provided by the content partner" do
+      @email.should have_text(/Curatorial actions.*?#{@curator.full_name} \(.*?users\/#{@curator.id}\) marked as #{@trusted_action.activity.name}.*?#{@data_object.summary_name} \(.*?data_objects\/#{@data_object.id}\) for #{@hierarchy_entry.name.string} \(.*?entries\/#{@hierarchy_entry.id}\).*?#{Time.now.year}/im)
+    end
+
+    it "should list recent comments on content provided by the content partner" # do
+#      @email.should have_text(/Comments on data objects.*?#{@curator.full_name} commented on #{@data_object.summary_name}.*?#{@comment_on_dato.body}/mi)
 #    end
-#
-#    it "should be set to be delivered to the content partner contact" do
-#      @email.should deliver_to(@content_partner_contact.email)
+
+    it "should list recent comments on pages containing content provided by the content partner" # do
+#      @email.should have_text(/Comments on pages.*?#{@curator.full_name} commented on #{@taxon_concept.summary_name}.*?#{@comment_on_page.body}/mi)
 #    end
-#
-#    it "should have a relevant subject" do
-#      @email.should have_subject(/Encyclopedia of Life.+?#{@content_partner.full_name}/i)
-#    end
-#
-#    it "should contain a greeting with contact's name" do
-#      @email.should have_text(/Dear #{@content_partner_contact.full_name},/)
-#    end
-#
-#    it "should list recent curator actions on content provided by the content partner"
-#
-#    it "should list recent comments on content provided by the content partner"
-#
-#    it "should list recent comments on pages containing content provided by the content partner"
-#
-#    it "should contain a signature with species pages group contact" do
-#      @email.should have_text(/#{$SPECIES_PAGES_GROUP_EMAIL_ADDRESS}.+?The Encyclopedia of Life Team/im)
-#    end
-#  end
+
+    it "should contain a signature with species pages group contact" do
+      @email.should have_text(/#{$SPECIES_PAGES_GROUP_EMAIL_ADDRESS}.+?The Encyclopedia of Life Team/im)
+    end
+  end
 
 
   describe 'user_activated' do

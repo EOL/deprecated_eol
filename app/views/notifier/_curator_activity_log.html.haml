@@ -34,10 +34,10 @@
             - taxon_name = nil
           - when ChangeableObjectType.data_objects_hierarchy_entry.id
             - taxon_name = action.hierarchy_entry.name.string rescue nil
-            - taxon_url = taxon_hierarchy_entry_url(hierarchy_entry.taxon_concept, hierarchy_entry, :host => $SITE_DOMAIN_OR_IP) rescue ''
+            - taxon_url = taxon_hierarchy_entry_url(action.hierarchy_entry.taxon_concept, action.hierarchy_entry, :host => $SITE_DOMAIN_OR_IP) rescue ''
           - when ChangeableObjectType.curated_data_objects_hierarchy_entry.id
             - taxon_name = action.hierarchy_entry.name.string rescue nil
-            - taxon_url = taxon_hierarchy_entry_url(hierarchy_entry.taxon_concept, hierarchy_entry, :host => $SITE_DOMAIN_OR_IP) rescue ''
+            - taxon_url = taxon_hierarchy_entry_url(action.hierarchy_entry.taxon_concept, action.hierarchy_entry, :host => $SITE_DOMAIN_OR_IP) rescue ''
         - if taxon_name.nil?
           = I18n.t("activity_user_marked_data_object_as_#{en_activity_name}_on_date", :users_name => users_name, :users_url => users_url,
             :object_name => object_name, :object_url => object_url, :action_date => action_date,

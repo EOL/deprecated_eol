@@ -1778,7 +1778,7 @@ ar:
   this_is_a_flat_list_of_10_million_strings: "تلك قائمة مسطحة تضم 10 مليون تسلسل - غير مسموح لك بتصفحها"
   this_is_a_focus_collection_for_community: "ذلك هو محور اهتمام %{community}."
   this_method_takes_an_integer_or_string: "تقبل تلك الطريقة عددًا صحيحًا أو تسلسلاً يمثل المعرف المميز لأصنوفة من قاعدة بيانات أحد مقدمي المحتوى، ومعرف_تسلسل هرمي يمثل مقدمه وتعرض معرف صفحة موسوعة الحياة لتلك الأصنوفة. على سبيل المثال، يمكنني أن أكتشف، باستخدام واجهة برمجة تطبيقات  %{link_provider} أن معرف_التسلسل الهرمي بموسوعة الحياة هو  %{itis_id}. ويمكنني بعد ذلك البحث في موسوعة الحياة عن الرقم التسلسلي التصنيفي بنظام المعلومات التصنيفية المتكامل وهو 180542، <i>Ursus maritimus</i>، عن طريق طلب  %{link_url}"
-  threat_status_header_colon: "حالة التهديد وفقًا للاتحاد العالمي للحفاظ على الطبيعة (IUCN)"
+  threat_status_header_colon: "حالة التهديد وفقًا للاتحاد العالمي للحفاظ على الطبيعة <abbr title=\"International Union for Conservation of Nature\">IUCN</abbr>"
   time_ago: "منذ %{time_passed}"
   title: "عنوان "
   to: إلى

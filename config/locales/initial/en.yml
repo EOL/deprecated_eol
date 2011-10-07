@@ -1802,7 +1802,7 @@ en:
   this_is_a_flat_list_of_10_million_strings: "This is a flat list of 10 million strings - not going to let you browse it"
   this_is_a_focus_collection_for_community: "This is the focus of %{community}."
   this_method_takes_an_integer_or_string: "This method takes an integer or string which is the unique identifier for a taxon from some provider's database, and a hierarchy_id which represents the provider and returns the EOL page ID for that taxon. For example using the %{link_provider} API, I can find out that the EOL hierarchy_id for the Integrated Taxonomic Information System (ITIS) is %{itis_id}. I can then search EOL for the ITIS Taxonomic Serial Number (TSN) of 180542,<i>Ursus maritimus</i>, by calling %{link_url}"
-  threat_status_header_colon: "IUCN threat status:"
+  threat_status_header_colon: "<abbr title=\"International Union for Conservation of Nature\">IUCN</abbr> threat status:"
   time_ago: "%{time_passed} ago"
   title: Title
   to: to

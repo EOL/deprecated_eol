@@ -145,7 +145,7 @@ class Hierarchy < SpeciesSchemaModel
   end
 
   def request_to_publish_can_be_made?
-    browsable.zero? && !request_publish
+    (self.browsable.blank? || self.browsable.zero?) && !request_publish
   end
 
 private

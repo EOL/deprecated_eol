@@ -619,6 +619,9 @@ ar:
   articles_in_other_languages_with_count:
     one: "المقالات عن تلك الصفحة متاحة بـلغة واحدة أخرى:"
     other: "المقالات عن تلك الصفحة متاحة بـ%{count} لغة أخرى:"
+  articles_with_count:
+    one: "%{count} مقالة"
+    other: "%{count} مقالات"
   assistive_details_header: "التفاصيل"
   assistive_literature_header: "المواد المطبوعة"
   assistive_maps_header: "الخرائط"
@@ -1701,6 +1704,9 @@ ar:
   tasks_with_count:
     one: "تم إيجاد %{count} مهمة"
     other: "تم إيجاد %{count} مهمة"
+  taxa_with_count:
+    one: "%{count} أصنوفة"
+    other: "%{count} الأصناف"
   taxon: "أصنوفة"
   taxon_biomedical_terms_link: "مصطلحات بيولوجية طبية"
   taxon_details_empty: "لم تتم إضافة أي معلومات إلى تلك الصفحة إلى الأن."

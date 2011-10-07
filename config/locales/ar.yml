@@ -1209,6 +1209,9 @@ ar:
   image_is_no_longer_available: "الصورة غير متاحة حاليًا"
   image_not_found: "لا توجد صورة"
   image_objects_will_contain_two_mediaurl_elements: "سوف تضم العناصر من الصور عنصرين من العناوين الإلكترونية للوسائط - الأول هو العنوان الإلكتروني للصورة بالموقع الإلكتروني الخاص بمقدمها، والثاني هو العنوان الإلكتروني الخاص بالنسخة المؤقتة للوسائط الموجودة بخادم موسوعة الحياة. إذا  كان حجم الصورة الأصلية يتعدى 460 ميجا بكسل من حيث العرض أو 345 من حيث الطول، سوف يكون قد تم تغيير حجم نسخة الصورة بموسوعة الحياة (مع  الاحتفاظ  نسبة الابعاد)  ."
+  images_with_count:
+    one: "%{count} صورة"
+    other: "%{count} صور"
   images: "الصور"
   import_once: "ضف مرة واحدة"
   in_collection: "في المجموعة"
@@ -1662,6 +1665,9 @@ ar:
   sort_by_year_ascending: "العنوان تنازليا"
   sort_by_year_descending: "العام تنازليًا"
   sort_collection_by_label: "رتب المجموعة وفقًا لـ"
+  sounds_with_count:
+    one: "%{count} صوت"
+    other: "%{count} أصوات"
   source_and_additional_information: "المصدر والمزيد من المعلومات"
   source_information_header: "معلومات المصدر"
   source_url: "رابط المصدر"
@@ -1849,6 +1855,10 @@ ar:
   values: "قيم"
   version_1_0_uses_fields_from_the_latest_version: "تستخدم النسخة رقم 1.0 خانات من أحدث نسخة من مخطط %{link} "
   vetted: "تم تقييمه"
+  video_description_not_available_in_language: "%{language} الوصف غير متوفر"
+  videos_with_count:
+    one: "%{count} الفيديو"
+    other: "%{count} الفيديو"
   view: "عرض"
   view_added_text: "عرض النص المضاف"
   view_article_source: "عرض مصدر المقال"
@@ -1928,8 +1938,8 @@ ar:
   education: "تعليم"
   learn_more: "تعلم المزيد"
   people_with_count:
-    one: "شخص واحد"
-    other: "%{count} شخص"
+    one: "%{count} شخص"
+    other: "%{count} شخصا"
   image_rating: "تقييم الصورة"
   sound_rating: "تقييم الصوت"
   video_rating: "تقييم الفيديو"

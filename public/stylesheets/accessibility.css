@@ -662,8 +662,10 @@ body > #header .section .session.join {
   font-size: 1.16em;
   margin: 20px 0;
   color: #394651; }
-  #iucn_status h3, #iucn_status p {
-    display: inline; }
+  #iucn_status h3, #iucn_status p, #iucn_status abbr {
+    display: inline-block; }
+  #iucn_status abbr {
+    border: none; }
   #iucn_status a {
     color: #195184; }
   #iucn_status.positive {

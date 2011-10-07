@@ -635,7 +635,7 @@ p.flag, span.flag
       font-size: 0.83em
     ul
       display: inline
-  .average_rating 
+  .average_rating
     padding: 2px 0 0 40px
     margin: 0 0 20px 0
     h5
@@ -702,8 +702,12 @@ body
   font-size: 1.16em
   margin-bottom: 20px
   color: #394651
-  h3, p
-    display: inline
+  h3, p, abbr
+    display: inline-block
+  p, abbr
+    direction: ltr
+  abbr
+    border: none
   a
     color: #195184
   &.positive
@@ -1271,7 +1275,7 @@ body#prelaunch #footer ul.social_media
 //solve ltr direction alignments issues
 .scientific_name
   +direction-alignment
-table 
+table
   &.synonyms, &.common_names, &.edit_common_names, &.related_names
     +direction-alignment(ltr, left)
     select
@@ -1282,26 +1286,26 @@ table
       ul
         direction: ltr
         li
-          &.show_tree_count            
+          &.show_tree_count
             +direction-alignment(rtl,left)
             a.show_tree
               display: inline
           a.show_tree
             +direction-alignment(rtl,left)
             display: block
-            
-input#user_email, 
+
+input#user_email,
 input#user_username,
-input#session_username_or_email, 
-input#user_username_or_email, 
+input#session_username_or_email,
+input#user_username_or_email,
 input[type="password"]
   direction: ltr
 
 #taxon_literature
   table, ul.ref_list
     direction: ltr
- 
-    
+
+
 
 
 

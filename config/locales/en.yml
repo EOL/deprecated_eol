@@ -3250,7 +3250,7 @@ en:
   this_var_type_downcase_object_: "This %{var_type_downcase} object is"
   this_will_be_used_to_link_to_y: "This will be used to link to your project from the website."
   this_year: "this year"
-  threat_status_header_colon: "IUCN threat status:"
+  threat_status_header_colon: "<abbr title=\"International Union for Conservation of Nature\">IUCN</abbr> threat status:"
   thumbnail_page__: "thumbnail page:"
   time_ago: "%{time_passed} ago"
   tinyurl: "TinyURL"

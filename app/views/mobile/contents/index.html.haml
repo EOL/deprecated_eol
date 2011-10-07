@@ -1,5 +1,5 @@
 %div{"data-role"=>"header", "data-position"=>"fixed", "data-theme"=>"a"}
-  =link_to image_tag("/images/mobile/logo_simple.png", :height => '24'), mobile_contents_path(), "data-ajax" => "false"
+  =link_to image_tag("/images/mobile/logo_simple.png", :height => '24'), mobile_contents_path, "data-ajax" => "false"
   %h1=t "mobile.contents.home"
 
 %div{"data-role"=>"content"}
@@ -13,7 +13,6 @@
     -@explore_taxa.map do |t|
       - if thumb = t.data_object.thumb_or_object('130_130')
         %li
-          -# =link_to mobile_taxon_path(t.taxon_concept_id) do      --DOES NOT WORK, THE SCRIPT LOOPS AND FREEZES--
           %a{:href => mobile_taxon_path(t.taxon_concept_id)}
             = image_tag(thumb, :alt => t.taxon_concept.title_canonical, :class => "listview_thumb")
             %h3= t.taxon_concept.title_canonical

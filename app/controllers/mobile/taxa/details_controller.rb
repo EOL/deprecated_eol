@@ -1,13 +1,5 @@
 class Mobile::Taxa::DetailsController < Mobile::TaxaController
-  
-  include SharedTaxaController
-  
-  before_filter :instantiate_taxon_concept
-  
-  #before_filter :redirect_if_superceded, :redirect_if_invalid
-  #before_filter :add_page_view_log_entry, :update_user_content_level 
- 
-  
+
   def index
     includes = [
       { :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] },
@@ -39,20 +31,20 @@ class Mobile::Taxa::DetailsController < Mobile::TaxaController
     @details = @taxon_concept.details_for_toc_items(ContentTable.details.toc_items, :language => current_user.language_abbr)
 
     toc_items_to_show = @details.blank? ? [] : @details.collect{|d| d[:toc_item]}
-    
+
     # toc_items to exclude in Details tab
     temp = []
-    # Education: 
+    # Education:
     temp = temp | ["Education", "Education Links", "Education Resources", "High School Lab Series"]
-    # Physical Description: 
+    # Physical Description:
     temp = temp | ["Morphology", "Size", "Diagnostic Description", "Look Alikes", "Development", "Identification Resources"]
-    # Molecular Biology and Genetics: 
+    # Molecular Biology and Genetics:
     temp = temp | ["Genetics", "Nucleotide Sequences", "Barcode", "Genome", "Molecular Biology"]
-    # References and More Information: 
+    # References and More Information:
     temp = temp | ["Content Partners", "Literature References", "Bibliographies", "Bibliography", "Commentary", "On the Web", "Biodiversity Heritage Library", "Comments", "Search the Web", "Education Resources", "Biomedical Terms"]
-    # Names and Taxonomy: 
+    # Names and Taxonomy:
     temp = temp | ["Related Names", "Synonyms", "Common Names"]
-    # Page Statistics: 
+    # Page Statistics:
     temp = temp | ["Content Summary"]
     # exclude selected toc_items
     toc_items_to_show.delete_if {|ti| temp.include?(ti.label)}
@@ -67,6 +59,6 @@ class Mobile::Taxa::DetailsController < Mobile::TaxaController
     @assistive_section_header = I18n.t(:assistive_details_header)
 
     current_user.log_activity(:viewed_taxon_concept_details, :taxon_concept_id => @taxon_concept.id)
-  end  
-  
+  end
+
 end

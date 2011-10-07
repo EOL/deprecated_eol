@@ -1,12 +1,13 @@
 class Mobile::TaxaController < Mobile::MobileController
-  
+
+  # TODO: methods in lib/shared_taxa_controller.rb are duplicates of app/controllers/taxa_controller.rb this needs tidying up and core developers need to be on board with this approach to maintain.
   include SharedTaxaController
-  
+
   before_filter :instantiate_taxon_concept
-  
+
   #before_filter :redirect_if_superceded, :redirect_if_invalid
   #before_filter :add_page_view_log_entry, :update_user_content_level
-  
+
   def show
     includes = [
       { :published_hierarchy_entries => [ { :name => :ranked_canonical_form } , :hierarchy, :hierarchies_content, :vetted ] },
@@ -49,7 +50,7 @@ class Mobile::TaxaController < Mobile::MobileController
     @assistive_section_header = I18n.t(:assistive_overview_header)
 
     current_user.log_activity(:viewed_taxon_concept_overview, :taxon_concept_id => @taxon_concept.id)
-  end   
-  
+  end
+
 end
 

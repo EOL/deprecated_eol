@@ -1,6 +1,6 @@
 %div{"data-role"=>"header"}
-  =link_to "Overview", mobile_taxon_path(@taxon_concept.id), "data-icon"=>"grid", "data-direction"=>"reverse"
-  %h1=t "mobile.taxa.taxon_media"
+  =link_to t("mobile.taxa.overview"), mobile_taxon_path(@taxon_concept.id), "data-icon"=>"grid", "data-direction"=>"reverse"
+  %h1= t("mobile.taxa.taxon_media")
 
 %div{"data-role"=>"content"}
   %h3=@taxon_concept.title unless @taxon_concept.title.blank?
@@ -20,7 +20,7 @@
       - if m.sound_url && m.mime_type
         %audio{:controls => true, :loop => false, :autoplay => false, :preload => 'metadata'}
           %source{:type => en_mime_type, :src => m.sound_url}
-    
+
   %h3=t "mobile.taxa.videos"
   #video_gallery
     -@media.select {|m| m.video?}.map do |m|
@@ -40,4 +40,4 @@
   $(document).ready(function() {
     $('#image_gallery a').touchGallery();
   });
-  
+

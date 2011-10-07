@@ -1,12 +1,5 @@
 class Mobile::Taxa::MediaController < Mobile::TaxaController
-  
-  include SharedTaxaController
-  
-  before_filter :instantiate_taxon_concept
-  
-  #before_filter :redirect_if_superceded, :redirect_if_invalid
-  #before_filter :add_page_view_log_entry, :update_user_content_level  
-  
+
   def index
     includes = [
       { :published_hierarchy_entries => [ :name , :hierarchy, :hierarchies_content, :vetted ] },
@@ -54,6 +47,6 @@ class Mobile::Taxa::MediaController < Mobile::TaxaController
 
     current_user.log_activity(:viewed_taxon_concept_media, :taxon_concept_id => @taxon_concept.id)
   end
-  
+
 end
 

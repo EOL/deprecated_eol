@@ -1861,7 +1861,7 @@ ar:
   values: "قيم"
   version_1_0_uses_fields_from_the_latest_version: "تستخدم النسخة رقم 1.0 خانات من أحدث نسخة من مخطط %{link} "
   vetted: "تم تقييمه"
-  video_description_not_available_in_language: "%{language} الوصف غير متوفر باللغة "
+  video_description_not_available_in_language: " الوصف غير متوفر باللغة %{language}"
   videos_with_count:
     one: "%{count} فيديو"
     other: "%{count} فيديو"

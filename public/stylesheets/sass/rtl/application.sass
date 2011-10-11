@@ -29,8 +29,10 @@ form
       padding: 0 0 5px 0
       label
         font-weight: bold
-        small
-          color: #616e7a
+      small
+        color: #616e7a
+      p
+        font-weight: normal
     dd
       padding: 0 0 10px 0
       input[type="text"], input[type="password"], textarea, select
@@ -51,6 +53,8 @@ form
       font-weight: bold
       input
         margin: 0 0 0 5px
+      p
+        font-weight: normal
     span.error
       color: #e94c1b
   fieldset.actions,
@@ -237,6 +241,16 @@ p.status
   p
     margin: 0 0 15px 0
     line-height: 170%
+  dl
+    margin: 0 40px 15px 40px
+    line-height: 170%
+    dt
+      font-weight: bold
+    dd
+      margin: 0 0 10px 20px
+  form
+    dl
+      margin-left: 0
   ul, ol
     margin: 0 40px 15px 40px
     line-height: 170%
@@ -250,7 +264,7 @@ p.status
     border: 1px solid #cad3db
     margin: 0 -20px 25px -20px
     padding: 15px 20px 0 20px
-  p, ul, ol, blockquote
+  p, ul, ol, dl, blockquote
     & + h2,
     & + h3,
     & + h4
@@ -268,7 +282,7 @@ table.standard
         background: #eff2f4
         padding: 5px 20px
         font-weight: bold
-
+        
   tbody
     tr
       border: 1px solid #cad3db
@@ -1071,6 +1085,17 @@ body
           & + p
             a
               font-weight: bold
+    dl
+      margin: 0 0 5px 0
+      overflow: hidden
+      line-height: 140%
+      dt
+        clear: both
+        float: right
+        padding-left: 0.5em
+        font-weight: bold
+        &.actions
+          float: none
   .main_container
     border: none
     padding: 0
@@ -1092,6 +1117,18 @@ body
                 & + a
                   margin: 0
 
+  p
+    &.resource_status
+      border: 1px solid #cad3db
+      background: #f1f4f7
+      padding: 20px
+      margin: 0 0 10px
+      font-size: 1.66em
+      font-weight: bold
+      text-align: center
+      &.upload_failed, &.processing_failed, &.validation_failed
+        background: #ffeae6
+        border-color: #f2d2cc
 #content_partner_resources
   width: 600px
   fieldset

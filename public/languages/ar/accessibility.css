@@ -79,6 +79,17 @@ body.home > #header {
     padding: 5px 0 0 0;
     overflow: hidden; }
 
+form.edit_hierarchy p.browsable, form.edit_hierarchy p.not_browsable, form.edit_hierarchy p.request_publish {
+  background: #f3f7fa;
+  border: 1px solid #cad3db;
+  font-size: 1.33em;
+  font-weight: bold;
+  padding: 10px;
+  margin-bottom: 30px;
+  text-align: center; }
+form.edit_hierarchy p.request_publish {
+  border-color: #c7d471;
+  background: #edf6b2; }
 form fieldset.dataset legend.required {
   font-weight: bold;
   background: url("/images/v2/icon_required.png") right 45% no-repeat;
@@ -119,6 +130,10 @@ form fieldset.radio {
     display: block;
     clear: both;
     line-height: 1.2em; }
+form fieldset.checkboxes label {
+  font-weight: bold; }
+  form fieldset.checkboxes label p {
+    font-weight: normal; }
 form label.errors, form span.errors {
   color: #e84226; }
 form span.errors {
@@ -315,11 +330,11 @@ form#switch_hierarchy_entry fieldset {
   width: 118px;
   direction: rtl; }
 
-#new_content_partner_agreement dl {
+#new_content_partner_agreement dl, form.edit_content_partner_agreement dl {
   clear: both; }
-  #new_content_partner_agreement dl dd {
+  #new_content_partner_agreement dl dd, form.edit_content_partner_agreement dl dd {
     margin: 0 0 10px 0; }
-    #new_content_partner_agreement dl dd input[type="text"] {
+    #new_content_partner_agreement dl dd input[type="text"], form.edit_content_partner_agreement dl dd input[type="text"] {
       width: 308px;
       height: 22px;
       padding: 2px 5px;
@@ -329,6 +344,17 @@ form#switch_hierarchy_entry fieldset {
       filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
       background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
       background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
+    #new_content_partner_agreement dl dd textarea, form.edit_content_partner_agreement dl dd textarea {
+      width: 700px;
+      height: 22px;
+      padding: 2px 5px;
+      font: normal 1em Helvetica, Arial, sans-serif;
+      border: 1px solid #cad3db;
+      background-color: white;
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+      background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
+      height: 400px; }
 
 #content_partner_show .empty {
   font-size: 1em; }
@@ -357,13 +383,13 @@ form#switch_hierarchy_entry fieldset {
   float: right;
   width: 299px;
   margin-left: 20px; }
-  #content_partner_show #resources_show .section.half dl {
-    line-height: 140%;
-    margin: 0 0 40px 0; }
-    #content_partner_show #resources_show .section.half dl dt {
-      font-weight: bold; }
-    #content_partner_show #resources_show .section.half dl dd {
-      margin: 0 20px 5px 0; }
+#content_partner_show #resources_show .section dl {
+  line-height: 140%;
+  margin: 0 0 40px 0; }
+  #content_partner_show #resources_show .section dl dt {
+    font-weight: bold; }
+  #content_partner_show #resources_show .section dl dd {
+    margin: 0 20px 5px 0; }
 
 #content_partner_edit.site_column, #content_partner_new.site_column {
   width: 640px; }
@@ -374,6 +400,10 @@ ul.content_partner_contacts li {
 #content_partner_statistics .main_container {
   border: none;
   padding: 0; }
+#content_partner_statistics .header {
+  border-top: 1px solid #cad3db;
+  padding-top: 1em;
+  margin-top: 40px; }
 #content_partner_statistics .heading {
   text-align: center; }
   #content_partner_statistics .heading fieldset, #content_partner_statistics .heading input[type="submit"] {
@@ -381,6 +411,10 @@ ul.content_partner_contacts li {
     margin: 0; }
 #content_partner_statistics table {
   margin-top: 20px; }
+  #content_partner_statistics table caption {
+    line-height: 170%;
+    font-size: 1.08em;
+    font-weight: bold; }
 
 /*warning messages - check HR commits for updates to this */
 p.status.error {
@@ -600,8 +634,14 @@ p.flag, span.flag {
   width: 0;
   background: transparent url("/images/v2/icon_stars.png") right 100% repeat-x; }
 
-#worklist #task .rating h5, #worklist #task .average_rating h5 {
-  font-size: 1em; }
+#worklist #task .rating, #worklist #task .average_rating {
+  *display: inline; }
+  #worklist #task .rating h5, #worklist #task .average_rating h5 {
+    font-size: 1em; }
+#worklist #task .average_rating {
+  *width: 250px; }
+  #worklist #task .average_rating h5 {
+    *width: 135px; }
 
 /*We don't want border on EOL abbr tags in the shared join partial */
 .join abbr {
@@ -703,7 +743,13 @@ body > #header .section .session.join {
     #taxon_names form#new_name .copy h3 {
       margin-bottom: 0; }
   #taxon_names form#new_name dt, #taxon_names form#new_name dd, #taxon_names form#new_name fieldset, #taxon_names form#new_name input[type="submit"] {
-    display: inline-block; }
+    display: inline-block;
+    height: 2em;
+    zoom: 1;
+    *display: inline; }
+  #taxon_names form#new_name fieldset {
+    height: 3em;
+    margin: 5px; }
   #taxon_names form#new_name dl {
     margin-right: 20px; }
     #taxon_names form#new_name dl dt {
@@ -1037,6 +1083,7 @@ h1.notice {
   display: block; }
 
 .invisible {
+  *visibility: hidden;
   opacity: 0; }
 
 #worklist .filters fieldset.actions {

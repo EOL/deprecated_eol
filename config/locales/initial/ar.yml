@@ -461,49 +461,6 @@ ar:
   faker:
     lorem:
       words: "[alias, consequatur, aut, perferendis, sit, voluptatem, accusantium, doloremque, aperiam, eaque, ipsa, quae, ab, illo, inventore, veritatis, et, quasi, architecto, beatae, vitae, dicta, sunt, explicabo, aspernatur, aut, odit, aut, fugit, sed, quia, consequuntur, magni, dolores, eos, qui, ratione, voluptatem, sequi, nesciunt, neque, dolorem, ipsum, quia, dolor, sit, amet, consectetur, adipisci, velit, sed, quia, non, numquam, eius, modi, tempora, incidunt, ut, labore, et, dolore, magnam, aliquam, quaerat, voluptatem, ut, enim, ad, minima, veniam, quis, nostrum, exercitationem, ullam, corporis, nemo, enim, ipsam, voluptatem, quia, voluptas, sit, suscipit, laboriosam, nisi, ut, aliquid, ex, ea, commodi, consequatur, quis, autem, vel, eum, iure, reprehenderit, qui, in, ea, voluptate, velit, esse, quam, nihil, molestiae, et, iusto, odio, dignissimos, ducimus, qui, blanditiis, praesentium, laudantium, totam, rem, voluptatum, deleniti, atque, corrupti, quos, dolores, et, quas, molestias, excepturi, sint, occaecati, cupiditate, non, provident, sed, ut, perspiciatis, unde, omnis, iste, natus, error, similique, sunt, in, culpa, qui, officia, deserunt, mollitia, animi, id, est, laborum, et, dolorum, fuga, et, harum, quidem, rerum, facilis, est, et, expedita, distinctio, nam, libero, tempore, cum, soluta, nobis, est, eligendi, optio, cumque, nihil, impedit, quo, porro, quisquam, est, qui, minus, id, quod, maxime, placeat, facere, possimus, omnis, voluptas, assumenda, est, omnis, dolor, repellendus, temporibus, autem, quibusdam, et, aut, consequatur, vel, illum, qui, dolorem, eum, fugiat, quo, voluptas, nulla, pariatur, at, vero, eos, et, accusamus, officiis, debitis, aut, rerum, necessitatibus, saepe, eveniet, ut, et, voluptates, repudiandae, sint, et, molestiae, non, recusandae, itaque, earum, rerum, hic, tenetur, a, sapiente, delectus, ut, aut, reiciendis, voluptatibus, maiores, doloribus, asperiores, repellat]"
-  notifier:
-    greeting_dear_name_with_comma: "Dear %{name},"
-    signature_basic: "The Encyclopedia of Life Team"
-    signature_with_support_contact: "If you experience any problems, please contact us at %{support_email}.\n\nThe Encyclopedia of Life Team"
-    signature_with_species_pages_group_contact: "If you have any questions, please contact us at %{species_pages_group_email}.\n\nThe Encyclopedia of Life Team"
-    contact_us_message:
-      subject: "A message to EOL: %{title}"
-      message: "The following message was submitted to EOL via the Contact Us form:\nFrom: %{from_name}\nE-mail: %{from_email}\nSubject: %{subject}\nTaxon group: %{taxon_group}\n\n%{message}"
-    contact_us_auto_response:
-      subject: "Thanks for contacting the Encyclopedia of Life"
-      message: "Thank you for contacting the Encyclopedia of Life project. Your comments have been sent to the appropriate group.\n\nWe appreciate your feedback."
-    content_partner_created:
-      subject: "EOL user %{user_full_name} created content partner %{partner_full_name}"
-      message: "This is an automated EOL system notification for the Species Pages Group. User %{user_full_name} created content partner %{partner_full_name}, details follow:\n\nUser: %{user_full_name}\nE-mail: %{user_email}\nProfile URL: %{user_profile_url}\n\nPartner: %{partner_full_name}\nPartner Profile URL: %{partner_profile_url}\nCreated: %{partner_created_at_date}"
-    content_partner_resource_created:
-      subject: "EOL user %{user_full_name} added new resource %{resource_title} to content partner %{partner_full_name}"
-      message: "This is an automated EOL system notification for the Species Pages Group. User %{user_full_name} added a new resource %{resource_title} to content partner %{partner_full_name}, details follow:\n\nUser: %{user_full_name}\nE-mail: %{user_email}\nProfile URL: %{user_profile_url}\n\nPartner: %{partner_full_name}\nPartner Resources URL: %{partner_resources_url}\n\nResource: %{resource_title}\nResource URL: %{resource_url}\nCreated: %{resource_created_at_date}\nStatus: %{resource_status}"
-    content_partner_resource_force_harvest_request:
-      subject: "EOL user %{user_full_name} requested a force harvest for resource %{resource_title} belonging to content partner %{partner_full_name}"
-      message: "This is an automated EOL system notification for the Species Pages Group. User %{user_full_name} requested a force harvest for resource %{resource_title} belonging to content partner %{partner_full_name}, details follow:\n\nUser: %{user_full_name}\nE-mail: %{user_email}\nProfile URL: %{user_profile_url}\n\nPartner: %{partner_full_name}\nPartner Resources URL: %{partner_resources_url}\n\nResource: %{resource_title}\nResource URL: %{resource_url}\nUpdated: %{resource_updated_at_date}\nStatus: %{resource_status}"
-    content_partner_resource_hierarchy_publish_request:
-      subject: "EOL user %{user_full_name} requested a hierarchy promotion for resource %{resource_title} belonging to content partner %{partner_full_name}"
-      message: "This is an automated EOL system notification for the Species Pages Group. User %{user_full_name} requested that a hierarchy associated with resource %{resource_title}, belonging to content partner %{partner_full_name}, be promoted (published) to a browsable hierarchy on EOL, details follow:\n\nUser: %{user_full_name}\nE-mail: %{user_email}\nProfile URL: %{user_profile_url}\n\nPartner: %{partner_full_name}\nPartner Resources URL: %{partner_resources_url}\n\nResource: %{resource_title}\nResource URL: %{resource_url}\nEdit hierarchy URL: %{hierarchy_edit_url}\n"
-    content_partner_statistics_reminder:
-      subject: "Encyclopedia of Life usage statistics reminder for %{partner_full_name}, %{month} %{year}"
-      message: "This is an automated e-mail reminder from the Encyclopedia of Life. Web usage statistics for data supplied to EOL by %{partner_full_name} for %{month} %{year} are now available at %{partner_statistics_url}."
-    curator_approved:
-      subject: "Your request for Encyclopedia of Life curator privilege %{curator_level} has been approved"
-      message: "Thank you for requesting curator privilege %{curator_level}. Your request has been approved.\n\nFor more information on curation and what functions are available to you, visit http://www.eol.org/curators."
-    user_activated:
-      subject: "Your Encyclopedia of Life account has been activated"
-      message: "Welcome to the Encyclopedia of Life (EOL) and thank you for registering! Please note your username is %{username} and your profile URL is %{profile_url}. You can log in to your account at http://www.eol.org/login.\n\nTo learn more about how to use EOL, including how to create EOL Collections, participate in EOL Communities and contribute content, please visit our help pages at http://www.eol.org/help."
-    user_message:
-      subject: "A message from the Encyclopedia of Life"
-    user_updated_email_preferences:
-      subject: "EOL user %{user_full_name} changed their email address or mailing list preferences"
-      message: "This is an automated EOL system notification. User %{user_full_name} (%{user_profile_url}) updated their email address or mailing list preferences.\n\nPrevious preferences:\nE-mail: %{previous_email}\nMailing list preference: %{previous_mailing_list_preference}\n\nUpdated to:\nE-mail: %{updated_email}\nMailing list preference: %{updated_mailing_list_preference}\nUpdated: %{updated_at}"
-    user_reset_password:
-      subject: "Reset your Encyclopedia of Life account password"
-      message: "The Encyclopedia of Life (www.eol.org) received a request to reset your password. If you did not make this request, please ignore this email.\n\nThe following link will provide you with a one-time opportunity to reset your password:\n\n%{password_reset_url}\n\nFollow this link ('click' on it or copy and paste the entire link into your Web browser's address bar and load it) to access the page where you can enter a new password. Please note that if the link has expired you will be asked to enter your username or email address again to receive a new reset password email message and link."
-    user_verification:
-      subject: "Please verify your request for an Encyclopedia of Life account"
-      message: "Thanks for registering with the Encyclopedia of Life. The following link will verify that you wish to complete your registration:\n\n%{verification_url}\n\nFollow this link ('click' on it or copy and paste the entire link into your Web browser's address bar and load it) to activate your account. Once your account has been activated you will receive a confirmation email message."
   0_1_or_2: "0، 1 أو 2"
   0_or_1: "0، أو 1"
   a_pipe_delimited_list_of_licenses: "أنبوب تجزئة تنفيذ المعلومات | قائمة محددة من الرخص أو \"الكل\" لضم العناصر تحت أية رخصة. تعادل الرخص التي يتم اختصارها \"cc-\" الكل."
@@ -623,6 +580,7 @@ ar:
   admin_link: "نظرة عامة"
   admin_notes_not_visible_to_user: "ملاحظات المشرف (غير ظاهرة للمستخدم):"
   admin_page_title: "الإدارة: نبذة عامة."
+  admin_spam_delete: "Delete Spam"
   admin_translated_content_page_create_successful_notice: "تمت إضافة الترجمة إلى  <a href=\"#%{anchor}\"><em>%{page_name}</em></a>"
   admin_translated_content_page_create_unsuccessful_error: "عفوًا، حدث خطأ، تعذر إضافة الترجمة."
   admin_translated_content_page_delete_confirmation: "هل أنت متأكد من رغبتك في حذف النسخة %{language} لصفحة \"%{page_name}\". لا يمكن إلغاء الحذف."
@@ -635,6 +593,7 @@ ar:
   admin_translated_content_page_new_tip: "يجب إضافة %{required_icon} اللغة، والعنوان، والنص."
   admin_translated_content_page_update_successful_notice: "تم تحديث الترجمة %{language} الخاصة بـ <a href=\"#%{anchor}\"><em>%{page_name}</em></a> "
   admin_translated_content_page_update_unsuccessful_error: "عفوًا، حدث خطأ، تعذر تحديث الترجمة."
+  admin_user_delete_successful_notice: "User has been deleted"
   agent: وكيل
   all_apis_return_by_default_an_xml_response: "تقدم جميع واجهات برمجة التطبيقات استجابة بصيغة لغة الترميز القابلة للامتداد (إكس إم إل)، يمكن تنفيذ طرق واجهة برمجة التطبيقات بدون إضافة امتداد يحدد الصيغة لعرض استجابة بصيغة لغة الترميز القابلة للامتداد (إكس إم إل)، وسوف يؤدي إضافة امتداد لغة الترميز القابلة للامتداد (.XML) إلى استجابة مماثلة:"
   all_articles: "جميع المقالات"
@@ -661,6 +620,7 @@ ar:
   api_docs_collections_description: "عند إدخال معرف مجموعة ما، سوف تعرض واجهة برمجة التطبيقات جميع البيانات الفوقية المتعلقة بالمجموعة والعناصر التي تتضمنها. يمكن تصفية قائمة العناصر وفقًا للنوع، وترتيبها وفقًا للسمات المذكورة أعلاه."
   application_version_advisory_information: "نسخة التطبيق"
   are_you_sure: "هل أنت متأكد؟"
+  are_you_sure_this_action_cannot_be_undone: "Are you sure?  This action cannot be undone."
   article_from: "مقال من"
   article_more_about: "تعرف على المزيد عن هذا المقال"
   articles_in_languages_with_count:
@@ -669,6 +629,9 @@ ar:
   articles_in_other_languages_with_count:
     one: "المقالات عن تلك الصفحة متاحة بـلغة واحدة أخرى:"
     other: "المقالات عن تلك الصفحة متاحة بـ%{count} لغة أخرى:"
+  articles_with_count:
+    one: "%{count} مقالة"
+    other: "%{count} مقالات"
   assistive_details_header: التفاصيل
   assistive_literature_header: "المواد المطبوعة"
   assistive_maps_header: الخرائط
@@ -785,6 +748,7 @@ ar:
   common_names_with_count:
     one: "%{count} اسم شائع"
     other: "%{count} اسم شائع"
+  common_user_activity_page_title: "Common User Activity"
   communities: المجتمعات
   communities_index_empty: "لا يوجد مجتمعات نشطة."
   communities_index_header: "مجتمعات نشطة"
@@ -1085,6 +1049,7 @@ ar:
   default_watch_collection_name: "قائمة مشاهدة %{username}"
   delete: حذف
   delete_community: "حذف ذلك المجتمع"
+  delete_firstcap: Delete
   description: الوصف
   description_of: شرح
   destination_inappropriate_for_logged_in_users: "تم تسجيل الدخول"
@@ -1132,10 +1097,10 @@ ar:
   edit_search_suggestions: "تعديل مقترحات البحث"
   edit_table_of_contents: "تعديل الفهرس"
   edit_tag_suggestions: "تعديل مقتراحات العلامات"
+  edit_username: "Edit %{username}"
   edit_web_users: "تعديل مستخدمي شبكة الإنترنت"
   email: "البريد الإلكتروني"
   email_colon: "البريد الإلكتروني:"
-  email_subject_summary_of_recent_comments_and_curator_actions_for_your_eol_content: "ملخص التعليقات الأخيرة وإجراءات المشرفون تجاه المحتوى الخاص بك بموسوعة الحياة."
   encyclopedia_of_life: "موسوعة الحياة"
   endorsed_by: "معروضة من قبل"
   endorsed_collections: "المجموعات المعروضة"
@@ -1257,6 +1222,9 @@ ar:
   image_not_found: "لا توجد صورة"
   image_objects_will_contain_two_mediaurl_elements: "سوف تضم العناصر من الصور عنصرين من العناوين الإلكترونية للوسائط - الأول هو العنوان الإلكتروني للصورة بالموقع الإلكتروني الخاص بمقدمها، والثاني هو العنوان الإلكتروني الخاص بالنسخة المؤقتة للوسائط الموجودة بخادم موسوعة الحياة. إذا  كان حجم الصورة الأصلية يتعدى 460 ميجا بكسل من حيث العرض أو 345 من حيث الطول، سوف يكون قد تم تغيير حجم نسخة الصورة بموسوعة الحياة (مع  الاحتفاظ  نسبة الابعاد)  ."
   images: الصور
+  images_with_count:
+    one: "%{count} صورة"
+    other: "%{count} صورة"
   import_once: "ضف مرة واحدة"
   in_collection: "في المجموعة"
   in_this_data_type: "في ذلك %{data_type}:"
@@ -1444,6 +1412,7 @@ ar:
   names_synonyms_empty: "لم يتم ربط أي مرادفات بتلك الإصنوفة إلى الأن."
   never: أبدًا
   new_collection: "مجموعة جديدة"
+  new_user: "New User"
   news_items: "مواضيع جديدة"
   newsfeed: تحديثات
   newsfeed_help_for_collection: "تجمع تحديثات أخبار مجموعة موسوعة الحياة تلك تحديثات مرتبطة بالعناصر التي تنتمي إليها، بما في ذلك نشاطات مالكها وتعليقات مستخدمو موسوعة الحياة الأخرون. "
@@ -1535,6 +1504,10 @@ ar:
   parameters: معاملات
   partner_page: "صفحة الشريك"
   password_colon: "كلمة السر"
+  password_must_be_4to16_characters: "Password length must be between 4 and 16 characters."
+  people_with_count:
+    one: "%{count} شخص"
+    other: "%{count} شخص"
   percentage_of_children_with_images: "% نسبة النسل الذي يضم صور"
   percentage_of_children_with_text: "% نسبة النسل الذي يضم نص"
   percentage_of_descendants_with_images: "نسبة السلالات التي تضم صور"
@@ -1613,6 +1586,7 @@ ar:
   return_all_synonyms_for_this_taxon: "عرض جميع مرادفات تلك الأصنوفة"
   return_common_names_for_the_page_taxon: "عرض جميع الاسماء الشائعة لأصنوفة تلك الصفحة"
   return_content_by_vettedness: "إذا كان التقييم = 1 سوف يتم عرض المحتوى الموثوق به فحسب. إذا كان التقييم = 2 سوف يتم عرض المحتوى الموثوق به وغير المراجع فحسب (لن يتم عرض المحتوى غير الموثوق به). الوضع الافتراضي هو عرض المحتوى بأكمله."
+  returns_all_metadata_about_a_particular_collection: "returns all metadata about a particular collection and the items it contains indexed by EOL"
   returns_all_metadata_about_a_particular_data_object: "يعرض جميع البيانات الفوقية عن عنصر بيانات محدد (نص، أو صورة، أو مقطع فيديو) مفهرس من قبل موسوعة الحياة."
   returns_either_a_positive_or_negative_response: "يعرض استجابة إيجابية (تشير إلى أن واجهات برمجة التطبيقات تعمل بكفأة)، أو يعرض  استجابة سلبية أو لا شيء على الإطلاق (تشير إلى أن واجهات برمجة التطبيقات لا تعمل بكفأة في ذلك الوقت)"
   revisions: المراجعات
@@ -1700,6 +1674,9 @@ ar:
   sort_by_year_ascending: "العنوان تنازليا"
   sort_by_year_descending: "العام تنازليًا"
   sort_collection_by_label: "رتب المجموعة وفقًا لـ"
+  sounds_with_count:
+    one: "%{count} صوت"
+    other: "%{count} صوت"
   source_and_additional_information: "المصدر والمزيد من المعلومات"
   source_information_header: "معلومات المصدر"
   source_url: "رابط المصدر"
@@ -1731,6 +1708,9 @@ ar:
   tasks_with_count:
     one: "تم إيجاد %{count} مهمة"
     other: "تم إيجاد %{count} مهمة"
+  taxa_with_count:
+    one: "%{count} أصنوفة"
+    other: "%{count} أصنوفة"
   taxon: أصنوفة
   taxon_biomedical_terms_link: "مصطلحات بيولوجية طبية"
   taxon_details_empty: "لم تتم إضافة أي معلومات إلى تلك الصفحة إلى الأن."
@@ -1773,6 +1753,8 @@ ar:
   the_following_bibliography: "تم تكوين قائمة المراجع التالية عن طريق جمع كل المراجع المقدمة من شركاء المحتوى، ويمكن أن يكون هنالك تكرار بالقائمة."
   the_id_of_provider_hierarchy_you_are_searching: "معرف التسلسل الهرمي الخاص بمقدم المحتوى والذي تبحث فيه. تحقق من %{link} لإيجاد معرفات صالحة."
   the_json_response_for_this_method: "تعرض الاستجابة بصيغة جسون لتلك الطريقة معلومات أكثر من الاستجابة بصيغة إكس إم إل، حيث تضم العديد من الإحصائيات عن تلك النقطة وسلالاتها التصنيفية. على سبيل المثال لا الحصر، يتم عرض خانة \"السلالات_الإجمالية\" والتي توضح عدد النقاط التي تنحدر من تلك النقطة وفقًا لذلك التسلسل الهرمي؛ يضم \"إجمالي_النص_الموثوق به \" إجمالي عدد عناصر بيانات النص المرتبطة بتلك الصفحة أو أي من الصفحات المنحدرة منها."
+  the_new_user_was_created: "The new user was created."
+  the_user_was_updated: "The user was updated."
   the_xml_search_response_implements: "تطبق استجاب البحث بصيغة إكس إم إل صيغة استجابة أوبن سيرش باستخدام صيغة أتوم 1.0. استعرض %{link} للتعرف على المواصفات الكاملة لأوبن سيرش."
   there_are_currently_no_members_in_this_community: "لا يوجد حاليًا أي أعضاء بهذا المجتمع"
   there_is_no_singular_eol: "لا تعتمد موسوعة الحياة تسلسلاً هرميًّا تصنيفيًّا واحدًا. عوضًا عن ذلك، تفهرس موسوعة الحياة العديد من التسلسلات الهرمية وتعقد مقارنة بينهم لتحديد النقاط التي تشير إلى ذات الأصناف. وتمثل عناصر الأصنوفة تلك النقاط بالتسلسل الهرمي، ولذلك فإنه من المرجح وجود العديد منها لصفحة موسوعة الحياة. للمزيد من المعلومات، يمكن الرجوع إلى التوثيق في واجهة برمجة تطبيقات %{link}."
@@ -1832,6 +1814,7 @@ ar:
   user_activation_failed_resent_validation_email_error: "عفوًا، حدث خطأ، لم يتم التحقق من حسابك. عادة ما يحدث ذلك عندما لا يتم التعرف على رابط التحقق المدخل. تم إرسال تعليمات التفعيل إلى البريد الإلكتروني الذي قمت بالتسجيل عن طريقه، يرجى التأكد من أن رابط التحقق المستخدم يطابق ذلك المذكور في رسالة التفعيل."
   user_activation_failed_user_not_found_error: "عفوًا، حدث خطأ، لم نتمكن من إيجاد الحساب الذي تحاول التحقق منه. يرجى التأكد من أن رابط التحقق المستخدم يطابق ذلك المتواجد في رسالة التفعيل التي تلقيتها عقب التسجيل."
   user_activation_successful_notice: "مرحبا بك، وشكرًا لإنضمامك لفريق موسوعة الحياة. تم تفعيل حسابك بإسم المستخدم <em>%{username}</em> ، يرجى تسجيل الدخول."
+  user_activity_page_title: "User Activity"
   user_activity_stats_articles_added: "المقالات المضافة"
   user_activity_stats_header: نشاط
   user_activity_stats_objects_curated: "المواضيع التي تم الإشراف عليها"
@@ -1873,7 +1856,10 @@ ar:
   values: قيم
   version_1_0_uses_fields_from_the_latest_version: "تستخدم النسخة رقم 1.0 خانات من أحدث نسخة من مخطط %{link} "
   vetted: "تم تقييمه"
-  video_description_not_available_in_language: "Description not available in %{language}"
+  video_description_not_available_in_language: " الوصف غير متوفر باللغة %{language}"
+  videos_with_count:
+    one: "%{count} فيديو"
+    other: "%{count} فيديو"
   view: عرض
   view_added_text: "عرض النص المضاف"
   view_article_source: "عرض مصدر المقال"
@@ -1917,6 +1903,7 @@ ar:
   you_are_not_authorized_to_perform_this_action: "أنت غير مخول لتنفيذ تلك الخطوة"
   you_are_viewing_this_rank_as_classified_by: "تشاهد تلك %{rank} وفقًا لتصنيف:"
   you_can_identify_yourself_to_eol: "يمكنك تعريف هويتك بموسوعة الحياة عن طريق إضافة مفتاح بواجهة برمجة التطبيقات في طلباتك (قم بتسجيل الدخول وإنشاء مفتاح في صفحة التفضيلات الخاصة بك):"
+  you_have_been_logged_in_as_username: "You have been logged in as %{username}"
   you_have_been_logged_out: "تم تسجيل الخروج."
   you_joined_community: "لقد انضممت للمجتمع بنجاح."
   you_left_community: "لقد غادرت المجتمع بنجاح."

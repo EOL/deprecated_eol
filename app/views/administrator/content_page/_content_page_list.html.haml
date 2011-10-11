@@ -17,7 +17,7 @@
   #add_language
     = link_to I18n.t("add_language"), :action=>'add_language', :id=>content_page.id
   #delete
-    = link_to I18n.t("delete_firstcap"), {:action=>'destroy', :id=>content_page.id}, :confirm => I18n.t("are_you_sure___this_action_can"), :method => :delete
+    = link_to I18n.t("delete_firstcap"), {:action=>'destroy', :id=>content_page.id}, :confirm => I18n.t("are_you_sure_this_action_cannot_be_undone"), :method => :delete
 
 %li
   = link_to content_page.page_name, :action => 'update_page', :id=>content_page.id

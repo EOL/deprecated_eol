@@ -90,7 +90,7 @@
               = I18n.t(:curator_level_full_curator) + ": " + user.full_curator?.to_s if user.full_curator?
               = I18n.t(:curator_level_assistant_curator) + ": " + user.assistant_curator?.to_s if user.assistant_curator?
             %td{ :class => column_class }
-              = link_to(I18n.t("delete_firstcap"), {:action=>'destroy', :id=>user.id}, :confirm => I18n.t("are_you_sure___this_action_can"), :method => :delete) unless user.is_curator?
+              = link_to(I18n.t("delete_firstcap"), {:action=>'destroy', :id=>user.id}, :confirm => I18n.t("are_you_sure_this_action_cannot_be_undone"), :method => :delete) unless user.is_curator?
       %br
       = will_paginate @users
     - else

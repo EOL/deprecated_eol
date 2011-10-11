@@ -71,7 +71,9 @@ list = Set.new()
   views/content_partners
   views/data_objects
   views/members
+  views/mobile
   views/navigation
+  views/notifier
   views/search
   views/sessions
   views/taxa/communities
@@ -90,6 +92,7 @@ list = Set.new()
 
   controllers/administrator/content_page_controller.rb
   controllers/administrator/table_of_contents_controller.rb
+  controllers/administrator/user_controller.rb
   controllers/administrator/user_data_object_controller.rb
   controllers/admins/content_pages_controller.rb
   controllers/admins/content_partners_controller.rb
@@ -118,6 +121,11 @@ list = Set.new()
   controllers/feeds_controller.rb
   controllers/hierarchy_entries_controller.rb
   controllers/members_controller.rb
+  controllers/mobile/contents_controller.rb
+  controllers/mobile/mobile_controller.rb
+  controllers/mobile/taxa/details_controller.rb
+  controllers/mobile/taxa/media_controller.rb
+  controllers/mobile/taxa_controller.rb
   controllers/search_controller.rb
   controllers/sessions_controller.rb
   controllers/taxa/communities_controller.rb
@@ -148,19 +156,6 @@ list = Set.new()
   views/administrator/user/index.html.haml
   views/administrator/user_data_object/index.html.haml
   views/layouts/main.html.haml
-  views/notifier/contact_us_auto_response.html.haml
-  views/notifier/contact_us_message.html.haml
-  views/notifier/content_partner_created.html.haml
-  views/notifier/content_partner_resource_created.html.haml
-  views/notifier/content_partner_resource_force_harvest_request.html.haml
-  views/notifier/content_partner_resource_hierarchy_publish_request.html.haml
-  views/notifier/content_partner_statistics_reminder.html.haml
-  views/notifier/curator_approved.html.haml
-  views/notifier/user_activated.html.haml
-  views/notifier/user_message.html.haml
-  views/notifier/user_reset_password.html.haml
-  views/notifier/user_updated_email_preferences.html.haml
-  views/notifier/user_verification.html.haml
   views/shared/_add_to_my_collection.html.haml
   views/shared/_flash_messages.html.haml
   views/shared/_google_custom_search_params.html.haml
@@ -266,6 +261,10 @@ end
   list << "all_#{type}"
 end
 
+[:articles, :collections, :communities, :images, :people, :sounds, :taxa, :videos].each do |type|
+  list << "#{type}_with_count"
+end
+
 [:assistant_curator, :full_curator, :master_curator].each do |type|
   list << "curator_level_#{type}"
   list << "curator_level_with_indefinite_article_#{type}"
@@ -306,7 +305,9 @@ end
 # IGNORE THESE (unusual because the key name is set by a variable):
 @bad_keys = ["efault_alt_text", "18n", "change_rating_to_", "your_current_rating_", "sort_by_", "license_",
   "filter_by_status_", "download_", "items_no_", "remove_all_", "move_all_", "copy_all_", "associated_with_",
-  "view_", "filter_by_type_", "names_", "all_", "curator_level_", "curator_level_with_indefinite_article_", "data_object_", "item_type_", "object_status_", "object_type_", "object_visibility_", "or_", "task_status_", "lash_i18n_name", "arams", "content_partner_resource_hierarchy_"]
+  "view_", "filter_by_type_", "names_", "all_", "curator_level_", "curator_level_with_indefinite_article_", 
+  "data_object_", "item_type_", "object_status_", "object_type_", "object_visibility_", "or_", "task_status_", 
+  "lash_i18n_name", "arams", "content_partner_resource_hierarchy_", "activity_user_marked_data_object_as_"]
 
 en_master = create_initial_file('en', list)
 create_initial_file('ar', list, en_master)

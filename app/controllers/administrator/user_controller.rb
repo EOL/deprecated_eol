@@ -87,7 +87,7 @@ class Administrator::UserController  < AdminController
   def edit
     store_location(referred_url) if request.get?
     @user = User.find(params[:id])
-    @page_title = I18n.t("edit_var__user_username", :var__user_username => @user.username)
+    @page_title = I18n.t("edit_username", :username => @user.username)
   end
 
   def new
@@ -196,7 +196,7 @@ class Administrator::UserController  < AdminController
       if !user.blank?
         reset_session
         set_current_user(user)
-        flash[:notice] = I18n.t("you_have_been_logged_in_as_var", :var_user_username => user.username)
+        flash[:notice] = I18n.t("you_have_been_logged_in_as_username", :username => user.username)
         redirect_to root_url
       end
       return

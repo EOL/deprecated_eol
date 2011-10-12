@@ -1632,7 +1632,7 @@ en:
   recaptcha: "Type in the two words you see below"
   recaptcha_incorrect_error_with_anchor: "The <a href=\"#%{recaptcha_anchor}\">reCaptcha characters</a> did not match, please try again."
   recent_updates: "Latest updates"
-  recently_visited: "Recently visited collections"
+  recently_visited: "Recently visited"
   recognized_by: "Recognized by"
   recognized_by_as_a_rank: "%{recognized_by} as a %{taxon_rank}"
   recognized_by_from_source_as_a_rank: "%{recognized_by} in %{source} as a %{taxon_rank}"

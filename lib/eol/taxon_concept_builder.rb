@@ -189,7 +189,7 @@ module EOL
       # Array with three empty hashes (default #), which we will populate with defaults:
       comments = @comments || [{}, {}]
       comments.each do |comment|
-        comment[:body]  ||= "This is a witty comment on the #{@canon} taxon concept. Any resemblance to comments real" +
+        comment[:body]  ||= "This is a witty comment on the #{@canon} taxon concept. Any resemblance to comments real " +
                             'or imagined is coincidental.'
         comment[:user] ||= User.count == 0 ? User.gen : User.all.rand
         Comment.gen(:parent => @tc, :parent_type => 'taxon_concept', :body => comment[:body], :user => comment[:user])

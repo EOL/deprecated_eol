@@ -5,6 +5,8 @@ class CollectionItemsController < ApplicationController
 
   # POST /collection_items
   def create
+    # TODO: this will remove the duplicate Global Site Message when collecting things. How can we better trap these cases?
+    flash.now[:error] = nil
     @notices = []
     @errors = []
     # Sooo... we could get our data in a lot of different ways.

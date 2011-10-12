@@ -2,7 +2,9 @@ class SanitizeText < ActiveRecord::Migration
   def self.up
     # sanitize data objects
     puts "Sanitize data objects"
-    DataObject.all.each do |data_object|
+    data_objects = UsersDataObject.find(:all, :include => :data_object).collect{|udo| udo.data_object}.uniq
+    
+    data_objects.each do |data_object|
       data_object.description = Sanitize.clean(data_object.description.balance_tags, Sanitize::Config::RELAXED)
       data_object.object_title = Sanitize.clean(data_object.object_title.balance_tags, Sanitize::Config::RELAXED)
       data_object.save

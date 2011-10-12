@@ -245,18 +245,18 @@ load_old_foundation_data
 # TODO - I am neglecting to set up agent content partners, curators, contacts, provided data types, or agreements.  For now.
 agent_col = Agent.catalogue_of_life
 agent_col.user ||= User.gen
-if agent_col.user.content_partner.blank?
-  agent_col.user.content_partners << ContentPartner.gen :full_name => "Catalogue of Life"
+if agent_col.user.content_partners.blank?
+  agent_col.user.content_partners << ContentPartner.gen(:full_name => "Catalogue of Life")
 end
 resource = Resource.gen(:title => 'Bootstrapper', :resource_status => ResourceStatus.published,
   :hierarchy => Hierarchy.find_by_label('Species 2000 & ITIS Catalogue of Life: Annual Checklist 2010'),
-  :content_partner => agent_col.user.content_partners.first)
+  :content_partner => agent_col.user.content_partners.first, :vetted => true)
 event    = HarvestEvent.gen(:resource => resource)
 
 gbif_agent = Agent.gen(:full_name => "Global Biodiversity Information Facility (GBIF)")
 #gbif_agent = Agent.find_by_full_name('Global Biodiversity Information Facility (GBIF)');
 gbif_agent.user ||= User.gen
-gbif_cp    = ContentPartner.gen :vetted => true, :user => gbif_agent.user, :full_name => "Global Biodiversity Information Facility (GBIF)"
+gbif_cp    = ContentPartner.gen :user => gbif_agent.user, :full_name => "Global Biodiversity Information Facility (GBIF)"
 ContentPartnerContact.gen(:content_partner => gbif_cp, :contact_role => ContactRole.primary)
 gbif_hierarchy = Hierarchy.gen(:agent => gbif_agent, :label => "GBIF Nub Taxonomy")
 
@@ -412,9 +412,7 @@ cp_user = User.gen(:username => 'testcp', :password => 'testcp', :given_name => 
 cp_user.build_watch_collection
 cp = ContentPartner.gen(:user => cp_user,
                         :full_name => 'Partner name',
-                        :description => 'description of the partner',
-                        :auto_publish => false,
-                        :vetted => true)
+                        :description => 'description of the partner')
 ac = ContentPartnerContact.gen(:content_partner => cp, :contact_role => ContactRole.primary)
 
 
@@ -425,9 +423,9 @@ name   = Name.gen(:canonical_form => tc.canonical_form_object)#, :string => n = 
                   # :italicized     => "<i>#{n}</i> #{Factory.next(:attribution)}")
 agent2 = Agent.gen
 agent2.user ||= User.gen(:agent => agent2, :username => 'test_cp')
-cp     = ContentPartner.gen :vetted => true, :user => agent2.user, :full_name => 'Test ContenPartner'
+cp     = ContentPartner.gen :user => agent2.user, :full_name => 'Test ContenPartner'
 cont   = ContentPartnerContact.gen :content_partner => cp, :contact_role => ContactRole.primary
-r2     = Resource.gen(:title => 'Test ContentPartner import', :resource_status => ResourceStatus.processed, :content_partner => cp)
+r2     = Resource.gen(:title => 'Test ContentPartner import', :vetted => true, :resource_status => ResourceStatus.processed, :content_partner => cp)
 ev2    = HarvestEvent.gen(:resource => r2)
 hier   = Hierarchy.gen :agent => agent2
 he     = build_hierarchy_entry 0, tc, name, :hierarchy => hier

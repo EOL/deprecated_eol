@@ -107,6 +107,13 @@ module EOL
             :user ],
           :selects => { :data_objects => '*', :taxon_concepts => [ :id ],
             :hierarchy_entries => '*', :users => '*' })
+        
+        # remove the activity log (and possibly mess with results per page and pagination)
+        # if the referenced object doesn't exist
+        docs.delete_if do |d|
+          d['instance'].blank? ||
+          (d['activity_log_type'] == 'UsersDataObject' && d['instance'].data_object.blank?)
+        end
       end
       
       def self.solr_search(query, options = {})

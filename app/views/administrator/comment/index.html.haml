@@ -31,6 +31,10 @@
               = link_to (comment.user.full_name,:controller=>'/administrator/user',:action=>'edit',:id=>comment.user_id)
             %td{ :class => column_class }
               = h truncate(comment.body, :length => 100)
+              - if !comment.visible_at
+                %br
+                %i
+                  = "--" + I18n.t("hidden_comment")  + "--"
             %td{ :class => column_class }
               = truncate(comment.parent_name.gsub!(/(<[^>]*>)|\n|\t/s) {" "}, :length => 50)
               %br
@@ -44,7 +48,11 @@
             %td{ :class => column_class }
               = link_to I18n.t("edit").downcase,:action=>'edit',:id=>comment.id
               %br
-              = link_to I18n.t("delete").downcase, {:action=>'destroy',:id=>comment.id}, :confirm => I18n.t("this_cannot_be_undone_are_you_sure"), :method => :delete
+              - if comment.visible_at
+                = link_to I18n.t("hide").downcase, {:action=>'hide',:id=>comment.id}
+              - else
+                = link_to I18n.t("show").downcase, {:action=>'show',:id=>comment.id}
+              
       %br
       = will_paginate @comments
     - else

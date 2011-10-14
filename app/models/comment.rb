@@ -162,11 +162,23 @@ class Comment < ActiveRecord::Base
   def show(by)
     self.vetted_by = by if by
     self.update_attributes(:visible_at => Time.now) unless visible_at
+
+    # re-index comment in solr
+    log_activity_in_solr
   end
 
   def hide(by)
     self.vetted_by = by if by
     self.update_attributes(:visible_at => nil)
+
+    # remove comment from solr
+    begin
+      solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_ACTIVITY_LOGS_CORE)
+    rescue Errno::ECONNREFUSED => e
+      puts "** WARNING: Solr connection failed."
+      return nil
+    end
+    solr_connection.delete_by_query("activity_log_unique_key:Comment_#{id}")
   end
 
   # aliases to satisfy curation

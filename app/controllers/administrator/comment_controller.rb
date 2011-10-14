@@ -49,6 +49,20 @@ class Administrator::CommentController  < AdminController
 
   end
 
+  def hide
+    @comment = Comment.find(params[:id])
+    @comment.hide(current_user)
+    clear_cached_homepage_activity_logs
+    redirect_to referred_url
+  end
+
+  def show
+    @comment = Comment.find(params[:id])
+    @comment.show(current_user)
+    clear_cached_homepage_activity_logs
+    redirect_to referred_url
+  end
+
 private
 
   def set_layout_variables

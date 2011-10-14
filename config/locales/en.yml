@@ -1912,6 +1912,7 @@ en:
   help: "Help"
   here: "here"
   hidden: "Hidden"
+  hidden_comment: "hidden comment"
   hide_for_all_except_curators: "Hide for all except curators"
   hide: "hide"
   hide__other__slice: "Hide 'Other' Slice"

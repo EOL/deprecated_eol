@@ -580,6 +580,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # clear the cached activity logs on homepage
+  def clear_cached_homepage_activity_logs
+    $CACHE.delete('homepage/activity_logs_expiration') if $CACHE
+  end
 
 private
 

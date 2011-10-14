@@ -3,8 +3,8 @@
   - # How many, if any of these options do we need?
   - visible ||= true
   - invisible ||= current_user.is_admin? || current_user.is_curator? ? true : false
-  - preview ||= false
-  - entries = data_object.all_associations.collect{|e| e if (visible && Visibility.visible == e.visibility) || (invisible && Visibility.invisible == e.visibility) || (preview && Visibility.preview == e.visibility)}
+  - preview ||= true
+  - entries = data_object.all_associations(:with_unpublished => true).collect{|e| e if (visible && Visibility.visible == e.visibility) || (invisible && Visibility.invisible == e.visibility) || (preview && Visibility.preview == e.visibility)}
   - if entries.compact.blank?
     %p= I18n.t(:data_object_not_associated_with_any_hierarchies)
   - else

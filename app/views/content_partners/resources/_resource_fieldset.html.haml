@@ -79,5 +79,5 @@
           = resource_form.check_box :auto_publish
           = I18n.t('activerecord.attributes.resource.auto_publish')
         - resource_form.label :vetted do
-          = resource_form.check_box :vetted
+          = resource_form.check_box :vetted, { :disabled => @resource.vetted? }
           = I18n.t('activerecord.attributes.resource.vetted')

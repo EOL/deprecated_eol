@@ -4,7 +4,8 @@
       %h3= I18n.t(:users_content_partners_header)
     .copy
       %p= I18n.t(:users_content_partners_information, :more_url => cms_page_path('partners'))
-      %h3= I18n.t(:users_content_partners_with_count, :count => @partners.size) unless @partners.blank?
+      - unless @partners.blank?
+        %h3= I18n.t(:users_content_partners_with_count, :count => @partners.size)
     - if !@new_partner.nil?
       - form_for [@user, @new_partner], :url => new_content_partner_path do |form|
         = form.hidden_field :user_id

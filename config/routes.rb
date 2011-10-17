@@ -34,8 +34,7 @@ ActionController::Routing::Routes.draw do |map|
                                                          :except => [:index, :destroy],
                                                          :namespace => "content_partners/"
     content_partner.resources :resources, :member => {:force_harvest => [:get, :post],
-                                                      :publish => [:post],
-                                                      :unpublish => [:post]},
+                                                      :publish => [:post]},
                                           :namespace => "content_partners/" do |resource|
       resource.resources :harvest_events, :only => [:index], :namespace => "content_partners/resources/"
       resource.resources :hierarchies, :only => [:edit, :update], :member => { :request_publish => :post },
@@ -201,13 +200,14 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :mobile do |mobile|
     mobile.resources :contents, :collection => {:enable => [:post, :get], :disable => [:post, :get]}
     mobile.resources :taxa, :as => :pages do |taxa|
-      taxa.resources :details, :only => [:index], :controller => "taxa/details"		
+      taxa.resources :details, :only => [:index], :controller => "taxa/details"
       taxa.resources :media, :only => [:index], :controller => "taxa/media"
     end
   #  mobile.search 'search/:id', :controller => 'search', :action => 'index' # this looks for mobile/search controller but I'm using the main search controller instead
   end
   map.mobile_search 'mobile/search/:id', :controller => 'search', :action => 'index'
 
+  ## Content pages including CMS and other miscellaneous pages
   map.with_options :controller => 'content', :action => 'show', :conditions => { :method => :get } do |content_page|
     content_page.help         '/help',             :id => 'help'
     content_page.about        '/about',            :id => 'about'
@@ -227,13 +227,12 @@ ActionController::Routing::Routes.draw do |map|
     content_page.connect '/content/page/2012fellowsonlineapp', :id => '2012_fellows_online_app'
   end
   map.connect '/content/page/:id', :controller => 'content', :action => 'show'
-
-  # TODO - remove this sometime in 2012.  It was a V1 link, and should no longer be a problem by then:
+  # TODO - remove /content/news named route sometime in 2012.  It was a V1 link, and should no longer be a problem by then:
   map.connect '/content/news', :controller => 'content', :action => 'show', :id => 'news'
-
   map.donate '/donate', :controller => 'content', :action => 'donate'
   map.language '/language', :controller => 'content', :action => 'language'
 
+  ## Curator tool to request import of wikipedia pages
   map.resources :wikipedia_queues, :as => :wikipedia_imports, :only => [:new, :create]
 
   ##### ALL ROUTES BELOW SHOULD PROBABLY ALWAYS BE AT THE BOTTOM SO THEY ARE RUN LAST ####

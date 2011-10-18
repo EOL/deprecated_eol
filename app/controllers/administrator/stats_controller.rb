@@ -16,7 +16,7 @@ class Administrator::StatsController < AdminController
   end
 
   def SPM_objects_count
-    @page_title = I18n.t("species_profile_model___data_o")
+    @page_title = I18n.t("species_profile_model_dato_count_title")
     @arr_SPM = InfoItem.get_schema_value
     @rec = PageStatsTaxon.latest
     if(@rec["data_objects_count_per_category"] != "[DATA MISSING]" and @rec["data_objects_count_per_category"] != nil) then
@@ -27,7 +27,7 @@ class Administrator::StatsController < AdminController
   end
 
   def SPM_partners_count
-    @page_title = I18n.t("species_profile_model___conten")
+    @page_title = I18n.t("species_profile_model_cp_count_title")
     @arr_SPM = InfoItem.get_schema_value
     @rec = PageStatsTaxon.latest
     if(@rec["content_partners_count_per_category"] != "[DATA MISSING]" and @rec["content_partners_count_per_category"] != nil) then
@@ -38,7 +38,7 @@ class Administrator::StatsController < AdminController
   end
 
   def toc_breakdown
-    @page_title = I18n.t("table_of_contents_breakdown_")
+    @page_title = I18n.t("table_of_contents_breakdown_title")
     @all_toc_items = TocItem.find(:all, :include => [ :parent, :info_items ], :order => 'view_order')
   end
 

@@ -1087,6 +1087,7 @@ ar:
   edit_collection_details: "تعديل شرح المجموعة"
   edit_collection_details_header: "تعديل شرح المجموعة"
   edit_collection_head_title: "تعديل %{collection_name}"
+  edit_comment: "Edit Comment"
   edit_community: "تعديل مجتمع"
   edit_contact_us_topics: "تعديل موضوعات الاتصال بنا"
   edit_downcase: تعديل
@@ -1206,6 +1207,8 @@ ar:
   hello_user: "مرحبا  %{user}"
   help: المساعدة
   hidden: مخفي
+  hidden_comment: "hidden comment"
+  hide: hide
   hierarchies: "التسلسلات الهرمية"
   hierarchies_description: "لا تعتمد موسوعة الحياة تسلسل هرمي تصنيفي واحد في إنشاء الصفحات. عوضًا عن ذلك، تفهرس موسوعة الحياة العديد من التسلسلات الهرمية وتعقد مقارنة بينهم. تعرض واجهة برمجة التطبيقات تلك البيانات الفوقية عن أحد التسلسلات الهرمية مثل اسم مقدمها والعنوان الإلكتروني للمصدر، كما تعرض جميع الأصناف التي تمثل الأصناف الرئيسية للشجرة التصنيفية."
   hierarchies_entries_description: "لا تعتمد موسوعة الحياة تسلسلاً هرميًّا تصنيفيًّا واحدًا في إنشاء الصفحات. عوضًا عن ذلك، تفهرس موسوعة الحياة العديد من التسلسلات الهرمية وتعقد مقارنة بينهم. ونتيجة لذلك، يمكن أن ترتبط أي من صفحات موسوعة الحياة بعدة نقاط في تسلسلات هرمية متنوعة. تتيح واجهة برمجة التطبيقات الوصول إلى تسلسل هرمي واحد والعلاقات بداخله. يرجى العودة إلى التوثيق بواجهة برمجة التطبيقات في الصفحات للمزيد من المعلومات حول الوصول إلى تسلسلات هرمية أخرى تماثل صفحة محددة بموسوعة الحياة. تضم خانة معرف مفهوم الأصنوفة معرف صفحة موسوعة الحياة والذي يمكن استخدامه في واجهة برمجة تطبيقات الصفحات."
@@ -1321,6 +1324,7 @@ ar:
   literature_header: المراجع
   literature_references: "مراجع المطبوعات"
   location: الموقع
+  location_colon: "Location:"
   login: "تسجيل الدخول"
   login_header: "سجل دخولك لحسابك <abbr title=\"Encyclopedia of Life\">بموسوعة الحياة</abbr>"
   login_or_create_account: "تسجيل الدخول أو إنشاء حساب"
@@ -1550,7 +1554,7 @@ ar:
   recaptcha: "أكتب الكلمتين التاليتين اللتين تراهما فى الصورة أدناه"
   recaptcha_incorrect_error_with_anchor: "لم تتطابق رموز نظام <a href=\"#%{recaptcha_anchor}\">ريكابتشا</a>، يرجى المحاولة مرة أخرى."
   recent_updates: "آخر التحديثات"
-  recently_visited: "Recently visited collections"
+  recently_visited: "Recently visited"
   recognized_by: "معترف بها بواسطة"
   recognized_by_as_a_rank: "%{recognized_by} على أنها  %{taxon_rank}"
   recognized_by_from_source_as_a_rank: "%{recognized_by} فى  %{source} على أنها %{taxon_rank}"
@@ -1684,6 +1688,8 @@ ar:
   species: أنواع
   species_curated: "الأنواع التي تم الإشراف عليها"
   species_profile_model: "نموذج صفحة معلومات الأنواع"
+  species_profile_model_cp_count_title: "Species Profile Model - Content Partners Count"
+  species_profile_model_dato_count_title: "Species Profile Model - Data Objects Count"
   spm_category_objects_count: "فئة التخطيط الإحصائي المتكرر - عدد الموضوعات"
   spm_category_partner_count: "فئة التخطيط الإحصائي المتكرر - عدد المشاركين"
   stat: إحصائية
@@ -1700,6 +1706,7 @@ ar:
   table_column_header_actions: خطوات
   table_of_contents: المحتويات
   table_of_contents_breakdown: "تفصيل الفهرس"
+  table_of_contents_breakdown_title: "Table of Contents Breakdown"
   target_blank_advisory_information: "إذا اتبعت الرابط التالي سوف يتم فتح الصفحة في نافذة جديدة"
   task_status: "حالة المهمة"
   task_status_active_option: نشط
@@ -1734,7 +1741,6 @@ ar:
   taxon_recognized_by_header: "معترف بها بواسطة"
   taxonomic_summary_of_content: "الملخص التصنيفي للمحتوى"
   technical_functions: "الوظائف التقنية"
-  terms_agreement_beta_intro: "شكرًا لمساهمتك في النسخة الثانية من الموقع الإلكتروني لموسوعة الحياة. قبل المتابعة، يرجى الموافقة على ما يلي:"
   terms_agreement_form_fallback: "يرجى استعراض والموافقة على <a href=\"%{terms_url}\">شروط الاستخدام</a> قبيل الدخول غلى حسابك."
   terms_agreement_form_header: "شروط وأحكام الاستخدام"
   terms_agreement_form_submit: أوافق
@@ -1749,6 +1755,7 @@ ar:
   thank_you_for_your_generous_support: "شكرًا لدعمكم الكريم"
   thanks_for_donation: "شكرًا لدعم موسوعة الحياة. تم إرسال بياناتك وسوف يتم معالجتها."
   the_amount_entered_was: "القيمة المدخلة: %{number} دولار أمريكي"
+  the_comment_was_successfully_u: "The comment was successfully updated."
   the_darwin_core_taxon_elements: "تضم عناصر الأصناف بأرشيف داروين كور (أرشيف داروين كور: أصنوفة) تحت بند معلومات إضافية معرفات لنقاط في التسلسلات الهرمية المفهرسة بواسطة موسوعة الحياة، حيث تضم معرف يمثل الهوية المميزة للأصنوفة <i>في قاعدة بيانات مقدم المحتوى</i>."
   the_following_bibliography: "تم تكوين قائمة المراجع التالية عن طريق جمع كل المراجع المقدمة من شركاء المحتوى، ويمكن أن يكون هنالك تكرار بالقائمة."
   the_id_of_provider_hierarchy_you_are_searching: "معرف التسلسل الهرمي الخاص بمقدم المحتوى والذي تبحث فيه. تحقق من %{link} لإيجاد معرفات صالحة."
@@ -1759,7 +1766,6 @@ ar:
   there_are_currently_no_members_in_this_community: "لا يوجد حاليًا أي أعضاء بهذا المجتمع"
   there_is_no_singular_eol: "لا تعتمد موسوعة الحياة تسلسلاً هرميًّا تصنيفيًّا واحدًا. عوضًا عن ذلك، تفهرس موسوعة الحياة العديد من التسلسلات الهرمية وتعقد مقارنة بينهم لتحديد النقاط التي تشير إلى ذات الأصناف. وتمثل عناصر الأصنوفة تلك النقاط بالتسلسل الهرمي، ولذلك فإنه من المرجح وجود العديد منها لصفحة موسوعة الحياة. للمزيد من المعلومات، يمكن الرجوع إلى التوثيق في واجهة برمجة تطبيقات %{link}."
   there_was_an_error_posting_your_text: "حدث خطأ خلال إضافة النص"
-  this_cannot_be_undone_are_you_sure: "لا يمكن إلغاء تلك الخطوة؛ هل انت متأكد؟"
   this_community_has_no_endorsed_collections: "لم يقدم هذا المجتمع أي مجموعات."
   this_community_has_no_focus_list: "لا توجد قائمة اهتمامات لهذا المجتمع"
   this_community_was_deleted: "تم حذف المجتمع بواسطة المالك."
@@ -1821,6 +1827,7 @@ ar:
   user_activity_stats_taxa_curated: "الأصناف المقيمة"
   user_already_active_notice: "تم تفعيل حسابك، يرجى تسجيل الدخول."
   user_commented_on_something_colon: "<strong>%{user}</strong> علق على %{what}:"
+  user_comments: "User Comments"
   user_index_intro: "فيما يلي جميع مستخدمي الويب المسجلين في النظام مرتبين عكسيًا وفقًا لتاريخ التسجيل. لاحظ أن تواريخ تسجيل المستخدمين في الفترة ما قبل النسخة الثانية من موسوعة الحياة (5 يناير،2009) غير متاحة. انقر على اسم المستخدم لتعديل ذلك المستخدم."
   user_joined_community_on_date: "%{username} انضم إلى ذلك المجتمع في %{date}."
   user_left_comment_on_date: "%{username} أضاف تعليق في %{date}."
@@ -1856,7 +1863,7 @@ ar:
   values: قيم
   version_1_0_uses_fields_from_the_latest_version: "تستخدم النسخة رقم 1.0 خانات من أحدث نسخة من مخطط %{link} "
   vetted: "تم تقييمه"
-  video_description_not_available_in_language: " الوصف غير متوفر باللغة %{language}"
+  video_title_not_available_in_language: "Title not available in %{language}"
   videos_with_count:
     one: "%{count} فيديو"
     other: "%{count} فيديو"

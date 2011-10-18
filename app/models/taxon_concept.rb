@@ -1314,16 +1314,18 @@ class TaxonConcept < SpeciesSchemaModel
     cache_key = "media_count_#{self.id}"
     cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
     vetted_types = ['trusted', 'unreviewed']
+    visibility_types = ['visible']
     if user && user.is_curator?
       cache_key += "_curator"
       vetted_types << 'untrusted'
+      visibility_types << 'invisible'
     end
     @media_count ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
       best_images = EOL::Solr::DataObjects.search_with_pagination(self.id, {
         :per_page => 1,
         :data_type_ids => DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids,
         :vetted_types => vetted_types,
-        :visibility_types => 'visible',
+        :visibility_types => visibility_types,
         :ignore_maps => true,
         :ignore_translations => true,
         :filter_hierarchy_entry => selected_hierarchy_entry,

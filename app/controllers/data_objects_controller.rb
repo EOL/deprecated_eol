@@ -251,6 +251,7 @@ class DataObjectsController < ApplicationController
                      }
         curate_association(current_user, phe, all_params)
       end
+      @data_object.reload # This reload is necessary. Please do not remove.
       @data_object.update_solr_index
     rescue => e
       flash[:error] = e.message

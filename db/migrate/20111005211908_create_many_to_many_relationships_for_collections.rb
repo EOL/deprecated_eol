@@ -8,15 +8,12 @@ class CreateManyToManyRelationshipsForCollections < ActiveRecord::Migration
       t.integer :collection_id
       t.integer :user_id
     end
-    Collection.each do |col|
-      if col[:community_id]
-        Collection.connection.execute("INSERT INTO collections_communities (collection_id, community_id)
-                                         VALUES (#{col.id}, #{col[:community_id]})"
-      elsif col[:user_id]
-        Collection.connection.execute("INSERT INTO collections_users (collection_id, user_id)
-                                         VALUES (#{col.id}, #{col[:user_id]})"
-      end
-    end
+    Collection.connection.execute("INSERT INTO collections_communities (collection_id, community_id)
+                                   SELECT col.id, col.community_id
+                                     FROM collections col WHERE col.community_id IS NOT NULL")
+    Collection.connection.execute("INSERT INTO collections_users (collection_id, user_id)
+                                   SELECT col.id, col.user_id FROM collections col
+                                     WHERE col.user_id IS NOT NULL AND col.community_id IS NULL")
     remove_column :collections, :community_id
     remove_column :collections, :user_id
   end

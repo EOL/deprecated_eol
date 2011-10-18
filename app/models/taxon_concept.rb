@@ -1360,14 +1360,15 @@ class TaxonConcept < SpeciesSchemaModel
     @best_image = nil
   end
 
-  def images_from_solr(limit = 4, selected_hierarchy_entry = nil)
+  def images_from_solr(limit = 4, selected_hierarchy_entry = nil, ignore_translations = false)
     @images_from_solr ||=  EOL::Solr::DataObjects.search_with_pagination(self.id, {
       :per_page => limit,
       :sort_by => 'status',
       :data_type_ids => DataType.image_type_ids,
       :vetted_types => ['trusted', 'unreviewed'],
       :visibility_types => 'visible',
-      :filter_hierarchy_entry => selected_hierarchy_entry
+      :filter_hierarchy_entry => selected_hierarchy_entry,
+      :ignore_translations => ignore_translations
     })
   end
 

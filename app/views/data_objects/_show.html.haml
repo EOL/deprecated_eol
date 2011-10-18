@@ -7,11 +7,13 @@
     = render :partial => "/data_objects/data_object_#{en_type}", :locals => { :size => '580_360' }
   - unless @data_object.is_text? # NOTE - text description was already shown above so we don't want to show it again.
     = render :partial => '/data_objects/description.html.haml', :locals => { :data_object => @data_object }
-  .article.list.updates
-    .header
-      %h3= I18n.t(:recent_updates)
-    = render :partial => '/activity_logs/index', :locals => { :log => @data_object.activity_log(:page => @page || nil) }
-    = render :partial => '/comments/new', :locals => {:parent => @data_object}
+  - unless for_worklist
+    - # For worklist we show updates below associations form not here.
+    .article.list.updates
+      .header
+        %h3= I18n.t(:recent_updates)
+      = render :partial => '/activity_logs/index', :locals => { :log => @data_object.activity_log(:page => @page || nil) }
+      = render :partial => '/comments/new', :locals => {:parent => @data_object}
 #sidebar
   = render :partial => '/data_objects/rating', :locals => { :data_object => @data_object, :en_type => en_type }
   .article.source
@@ -24,6 +26,13 @@
       - en_mime_type = @data_object.mime_type ? @data_object.mime_type.label('en') : DataType.sound.simple_type
       %p= link_to I18n.t("download_#{en_mime_type.sub(/\//, '_')}"), @data_object.sound_url, { :title => I18n.t("download_#{en_mime_type.sub(/\//, '_')}_assistive") }
   = render :partial => '/data_objects/list_associations', :locals => { :data_object => @data_object, :en_type => en_type, :for_worklist => for_worklist }
+  - if for_worklist
+    - # For worklist we show updates here below the associations form, not above.
+    .article.list.updates
+      .header
+        %h3= I18n.t(:recent_updates)
+      = render :partial => '/activity_logs/index', :locals => { :log => @data_object.activity_log(:page => @page || nil) }
+      = render :partial => '/comments/new', :locals => {:parent => @data_object}
   - unless @revisions.blank?
     = render :partial => '/data_objects/revisions', :locals => { :data_object => @data_object, :revisions => @revisions }
   - unless @translations.blank?

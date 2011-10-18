@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   before_filter :preview_lockdown if $PREVIEW_LOCKDOWN
-  before_filter :global_warning if $GLOBAL_WARNING
+  before_filter :global_warning
   before_filter :check_if_mobile if $ENABLE_MOBILE
 
   prepend_before_filter :redirect_to_http_if_https
@@ -41,7 +41,13 @@ class ApplicationController < ActionController::Base
   # like.  And, yes, if there's a "real" error, they won't see the message because flash[:error] will be
   # over-written.  But so it goes.  This is the final countdown.
   def global_warning
-    flash[:error] ||= $GLOBAL_WARNING # Global warning is not a myth.
+    # using SiteConfigutation over an environment constant DOES require a query for EVERY REQUEST
+    # but the table is tiny (<5 rows right now) and the coloumn is indexed. But it also gives us the flexibility
+    # to display or remove a message within seconds which I think is worth it
+    parameter = SiteConfigurationOption.find_by_parameter('global_site_warning')
+    if parameter && parameter.value
+      flash.now[:error] = parameter.value
+    end
   end
 
   def preview_lockdown
@@ -574,6 +580,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # clear the cached activity logs on homepage
+  def clear_cached_homepage_activity_logs
+    $CACHE.delete('homepage/activity_logs_expiration') if $CACHE
+  end
 
 private
 

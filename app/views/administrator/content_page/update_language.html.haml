@@ -36,4 +36,4 @@
   |
   = f.submit
   | 
-  = link_to I18n.t("delete_firstcap"), {:action=>'delete_translation',:id=>@page.id, :language_id=>@page.current_translation_language.id}, :confirm => I18n.t("are_you_sure___this_action_can"), :method => :delete_translation
+  = link_to I18n.t("delete_firstcap"), {:action=>'delete_translation',:id=>@page.id, :language_id=>@page.current_translation_language.id}, :confirm => I18n.t("are_you_sure_this_action_cannot_be_undone"), :method => :delete_translation

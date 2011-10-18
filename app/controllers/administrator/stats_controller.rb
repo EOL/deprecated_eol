@@ -6,13 +6,10 @@ class Administrator::StatsController < AdminController
 
   def index
     @reports_list = [["--select--",""],
-                  ["Latest Species Page Counts","http://services.eol.org/species_stat/display.php"],
                   ["EOL Web Usage Statistics","http://services.eol.org/eol_php_code/applications/google_stats/index.php"],
-                  ["EOL Data Objects by Partner","http://services.eol.org/eol_php_code/applications/partner_stat/index.php"],
                   ["EOL Names Stat","http://services.eol.org/names_stat/"],
                   ["EOL Transfer Schema XML Validator","http://services.eol.org/validator/"],
                   ["UBio-FindIT for URL lists","http://services.eol.org/urls_lookup/"],
-                  ["EOL Resource Monitoring - RSS Feeds","http://services.eol.org/RSS_resource_monitor/"]
                   ]
     @report_url = params[:report_url] || @reports_list[1][1]
     @google_stat_year_list = get_google_stat_year_list

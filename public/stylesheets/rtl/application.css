@@ -419,8 +419,10 @@ form dl dt {
   padding: 0 0 5px 0; }
   form dl dt label {
     font-weight: bold; }
-    form dl dt label small {
-      color: #616e7a; }
+  form dl dt small {
+    color: #616e7a; }
+  form dl dt p {
+    font-weight: normal; }
 form dl dd {
   padding: 0 0 10px 0; }
   form dl dd input[type="text"], form dl dd input[type="password"], form dl dd textarea, form dl dd select {
@@ -447,6 +449,8 @@ form label.checkbox {
   font-weight: bold; }
   form label.checkbox input {
     margin: 0 0 0 5px; }
+  form label.checkbox p {
+    font-weight: normal; }
 form label span.error {
   color: #e94c1b; }
 form fieldset.actions,
@@ -710,6 +714,15 @@ p.status {
 .copy p {
   margin: 0 0 15px 0;
   line-height: 170%; }
+.copy dl {
+  margin: 0 40px 15px 40px;
+  line-height: 170%; }
+  .copy dl dt {
+    font-weight: bold; }
+  .copy dl dd {
+    margin: 0 0 10px 20px; }
+.copy form dl {
+  margin-left: 0; }
 .copy ul, .copy ol {
   margin: 0 40px 15px 40px;
   line-height: 170%; }
@@ -723,7 +736,7 @@ p.status {
   border: 1px solid #cad3db;
   margin: 0 -20px 25px -20px;
   padding: 15px 20px 0 20px; }
-.copy p + h2, .copy p + h3, .copy p + h4, .copy ul + h2, .copy ul + h3, .copy ul + h4, .copy ol + h2, .copy ol + h3, .copy ol + h4, .copy blockquote + h2, .copy blockquote + h3, .copy blockquote + h4 {
+.copy p + h2, .copy p + h3, .copy p + h4, .copy ul + h2, .copy ul + h3, .copy ul + h4, .copy ol + h2, .copy ol + h3, .copy ol + h4, .copy dl + h2, .copy dl + h3, .copy dl + h4, .copy blockquote + h2, .copy blockquote + h3, .copy blockquote + h4 {
   padding-top: 20px; }
 
 table.standard {
@@ -1670,6 +1683,17 @@ body > #header {
       line-height: 140%; }
       #content_partner_show #sidebar ul li p + p a {
         font-weight: bold; }
+  #content_partner_show #sidebar dl {
+    margin: 0 0 5px 0;
+    overflow: hidden;
+    line-height: 140%; }
+    #content_partner_show #sidebar dl dt {
+      clear: both;
+      float: right;
+      padding-left: 0.5em;
+      font-weight: bold; }
+      #content_partner_show #sidebar dl dt.actions {
+        float: none; }
 #content_partner_show .main_container {
   border: none;
   padding: 0; }
@@ -1686,6 +1710,17 @@ body > #header {
           margin: 0 0 0 5px; }
           #content_partner_show .main_container table.standard tbody tr td.actions a + a {
             margin: 0; }
+#content_partner_show p.resource_status {
+  border: 1px solid #cad3db;
+  background: #f1f4f7;
+  padding: 20px;
+  margin: 0 0 10px;
+  font-size: 1.66em;
+  font-weight: bold;
+  text-align: center; }
+  #content_partner_show p.resource_status.upload_failed, #content_partner_show p.resource_status.processing_failed, #content_partner_show p.resource_status.validation_failed {
+    background: #ffeae6;
+    border-color: #f2d2cc; }
 
 #content_partner_resources {
   width: 600px; }

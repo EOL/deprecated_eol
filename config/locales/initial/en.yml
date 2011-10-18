@@ -487,10 +487,24 @@ en:
     lorem:
       words: [alias, consequatur, aut, perferendis, sit, voluptatem, accusantium, doloremque, aperiam, eaque, ipsa, quae, ab, illo, inventore, veritatis, et, quasi, architecto, beatae, vitae, dicta, sunt, explicabo, aspernatur, aut, odit, aut, fugit, sed, quia, consequuntur, magni, dolores, eos, qui, ratione, voluptatem, sequi, nesciunt, neque, dolorem, ipsum, quia, dolor, sit, amet, consectetur, adipisci, velit, sed, quia, non, numquam, eius, modi, tempora, incidunt, ut, labore, et, dolore, magnam, aliquam, quaerat, voluptatem, ut, enim, ad, minima, veniam, quis, nostrum, exercitationem, ullam, corporis, nemo, enim, ipsam, voluptatem, quia, voluptas, sit, suscipit, laboriosam, nisi, ut, aliquid, ex, ea, commodi, consequatur, quis, autem, vel, eum, iure, reprehenderit, qui, in, ea, voluptate, velit, esse, quam, nihil, molestiae, et, iusto, odio, dignissimos, ducimus, qui, blanditiis, praesentium, laudantium, totam, rem, voluptatum, deleniti, atque, corrupti, quos, dolores, et, quas, molestias, excepturi, sint, occaecati, cupiditate, non, provident, sed, ut, perspiciatis, unde, omnis, iste, natus, error, similique, sunt, in, culpa, qui, officia, deserunt, mollitia, animi, id, est, laborum, et, dolorum, fuga, et, harum, quidem, rerum, facilis, est, et, expedita, distinctio, nam, libero, tempore, cum, soluta, nobis, est, eligendi, optio, cumque, nihil, impedit, quo, porro, quisquam, est, qui, minus, id, quod, maxime, placeat, facere, possimus, omnis, voluptas, assumenda, est, omnis, dolor, repellendus, temporibus, autem, quibusdam, et, aut, consequatur, vel, illum, qui, dolorem, eum, fugiat, quo, voluptas, nulla, pariatur, at, vero, eos, et, accusamus, officiis, debitis, aut, rerum, necessitatibus, saepe, eveniet, ut, et, voluptates, repudiandae, sint, et, molestiae, non, recusandae, itaque, earum, rerum, hic, tenetur, a, sapiente, delectus, ut, aut, reiciendis, voluptatibus, maiores, doloribus, asperiores, repellat]
   notifier:
+    activity_log_empty: "No recent actions by curators."
+    activity_user_marked_data_object_as_trusted_on_date: "%{users_name} (%{users_url}) marked as trusted:\n%{object_name} (%{object_url})\n%{action_date}.\n"
+    activity_user_marked_data_object_as_trusted_for_taxon_on_date: "%{users_name} (%{users_url}) marked as trusted:\n%{object_name} (%{object_url}) for %{taxon_name} (%{taxon_url})\n%{action_date}.\n"
+    activity_user_marked_data_object_as_untrusted_on_date: "%{users_name} (%{users_url}) marked as untrusted:\n%{object_name} (%{object_url})\n%{action_date}.\n"
+    activity_user_marked_data_object_as_untrusted_for_taxon_on_date: "%{users_name} (%{users_url}) marked as untrusted:\n%{object_name} (%{object_url}) for %{taxon_name} (%{taxon_url})\n%{action_date}.\n"
+    activity_user_marked_data_object_as_inappropriate_on_date: "%{users_name} (%{users_url}) marked as inappropriate:\n%{object_name} (%{object_url})\n%{action_date}.\n"
+    comments_empty: "No recent comments."
     greeting_dear_name_with_comma: "Dear %{name},"
     signature_basic: "The Encyclopedia of Life Team"
     signature_with_support_contact: "If you experience any problems, please contact us at %{support_email}.\n\nThe Encyclopedia of Life Team"
     signature_with_species_pages_group_contact: "If you have any questions, please contact us at %{species_pages_group_email}.\n\nThe Encyclopedia of Life Team"
+    user_commented_on_something_date_body: "%{users_name} (%{users_url}) commented on:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}\n"
+    activity_on_content_partner_content:
+      subject: "Summary of recent activity on content provided to the Encyclopedia of Life by content partner %{partner_full_name}"
+      message: "This is an automated e-mail from the Encyclopedia of Life (EOL) summarising recent comments and curatorial actions on content provided to EOL by content partner %{partner_full_name} (%{partner_profile_url}). You are receiving this summary because you are listed as a contact for %{partner_full_name}.\n\nCuratorial actions:\n%{curator_activity_log}\n\nComments on data objects:\n%{data_object_comments}\n\nComments on pages with which your data is associated:\n%{page_comments}\n\n"
+    activity_on_user_content:
+      subject: "Summary of recent activity on content you have added to the Encyclopedia of Life"
+      message: "This is an automated e-mail from the Encyclopedia of Life (EOL) summarising recent comments and curatorial actions on content you have added to EOL through your member account with username %{members_username}.\n\nCuratorial actions:\n%{curator_activity_log}\n\nComments on data objects:\n%{data_object_comments}\n\nComments on pages with which your data is associated:\n%{page_comments}\n\n"
     contact_us_message:
       subject: "A message to EOL: %{title}"
       message: "The following message was submitted to EOL via the Contact Us form:\nFrom: %{from_name}\nE-mail: %{from_email}\nSubject: %{subject}\nTaxon group: %{taxon_group}\n\n%{message}"
@@ -648,6 +662,7 @@ en:
   admin_link: Overview
   admin_notes_not_visible_to_user: "Admin notes (not visible to user):"
   admin_page_title: "Administration: Overview"
+  admin_spam_delete: "Delete Spam"
   admin_translated_content_page_create_successful_notice: "Translation has been added to <a href=\"#%{anchor}\"><em>%{page_name}</em></a>"
   admin_translated_content_page_create_unsuccessful_error: "Sorry, an error occurred, the translation could not be added."
   admin_translated_content_page_delete_confirmation: "Are you sure you want to delete the %{language} version of \"%{page_name}\". Delete action cannot be undone."
@@ -660,6 +675,7 @@ en:
   admin_translated_content_page_new_tip: "Language, title and body are %{required_icon} required."
   admin_translated_content_page_update_successful_notice: "%{language} translation for <a href=\"#%{anchor}\"><em>%{page_name}</em></a> has been updated."
   admin_translated_content_page_update_unsuccessful_error: "Sorry, an error occurred, the translation could not be updated."
+  admin_user_delete_successful_notice: "User has been deleted"
   agent: Agent
   all_apis_return_by_default_an_xml_response: "All APIs return by default an XML response. The API methods may be called without a format extension to get the XML response, and adding an XML extension will give an identical response:"
   all_articles: "All articles"
@@ -686,6 +702,7 @@ en:
   api_docs_collections_description: "Given the identifier for a collection this API will return all metadata about the collection and the items it contains. The item list can be filtered by item type, and sorted on the above listed attributes."
   application_version_advisory_information: "Application version"
   are_you_sure: "Are you sure?"
+  are_you_sure_this_action_cannot_be_undone: "Are you sure?  This action cannot be undone."
   article_from: "article from"
   article_more_about: "Learn more about this article"
   articles_in_languages_with_count:
@@ -694,6 +711,9 @@ en:
   articles_in_other_languages_with_count:
     one: "Articles on this page are available in %{count} other language:"
     other: "Articles on this page are available in %{count} other languages:"
+  articles_with_count:
+    one: "%{count} article"
+    other: "%{count} articles"
   assistive_details_header: Details
   assistive_literature_header: Literature
   assistive_maps_header: Maps
@@ -810,6 +830,7 @@ en:
   common_names_with_count:
     one: "%{count} common name"
     other: "%{count} common names"
+  common_user_activity_page_title: "Common User Activity"
   communities: Communities
   communities_index_empty: "There are no active communities."
   communities_index_header: "Active communities"
@@ -1110,6 +1131,7 @@ en:
   default_watch_collection_name: "%{username}'s Watch List"
   delete: delete
   delete_community: "Delete this community"
+  delete_firstcap: Delete
   description: Description
   description_of: "Description of"
   destination_inappropriate_for_logged_in_users: "You are logged in."
@@ -1157,10 +1179,10 @@ en:
   edit_search_suggestions: "edit search suggestions"
   edit_table_of_contents: "edit table of contents"
   edit_tag_suggestions: "edit tag suggestions"
+  edit_username: "Edit %{username}"
   edit_web_users: "edit web users"
   email: Email
   email_colon: "Email:"
-  email_subject_summary_of_recent_comments_and_curator_actions_for_your_eol_content: "Summary of recent comments & curator actions for your Encyclopedia of Life content"
   encyclopedia_of_life: "Encyclopedia of Life"
   endorsed_by: "Featured by"
   endorsed_collections: "Featured collections"
@@ -1282,6 +1304,9 @@ en:
   image_not_found: "Image not found"
   image_objects_will_contain_two_mediaurl_elements: "Image objects will contain two mediaURL elements - the first being the URL of the image on the provider's website, and the second is the URL of the cached version of the media hosted on an EOL server. The EOL version of the image will have been resized (perserving the aspect ration) if the original image is larger than 460 pixels wide or 345 pixels in height."
   images: Images
+  images_with_count:
+    one: "%{count} image"
+    other: "%{count} images"
   import_once: "Import once"
   in_collection: "in collection"
   in_this_data_type: "in this %{data_type}:"
@@ -1469,6 +1494,7 @@ en:
   names_synonyms_empty: "No synonyms have been associated with this taxon yet."
   never: Never
   new_collection: "New collection"
+  new_user: "New User"
   news_items: "News Items"
   newsfeed: Newsfeed
   newsfeed_help_for_collection: "The Newsfeed for this EOL Collection gathers updates associated with the items belonging to it, including the activities of its owner and comments from other EOL users."
@@ -1560,6 +1586,10 @@ en:
   parameters: Parameters
   partner_page: "partner page"
   password_colon: "Password:"
+  password_must_be_4to16_characters: "Password length must be between 4 and 16 characters."
+  people_with_count:
+    one: "%{count} person"
+    other: "%{count} people"
   percentage_of_children_with_images: "% of children with images"
   percentage_of_children_with_text: "% of children with text"
   percentage_of_descendants_with_images: "percentage of descendants with images"
@@ -1602,7 +1632,7 @@ en:
   recaptcha: "Type in the two words you see below"
   recaptcha_incorrect_error_with_anchor: "The <a href=\"#%{recaptcha_anchor}\">reCaptcha characters</a> did not match, please try again."
   recent_updates: "Latest updates"
-  recently_visited: "Recently visited collections"
+  recently_visited: "Recently visited"
   recognized_by: "Recognized by"
   recognized_by_as_a_rank: "%{recognized_by} as a %{taxon_rank}"
   recognized_by_from_source_as_a_rank: "%{recognized_by} in %{source} as a %{taxon_rank}"
@@ -1638,6 +1668,7 @@ en:
   return_all_synonyms_for_this_taxon: "return all synonyms for this taxon"
   return_common_names_for_the_page_taxon: "return all common names for the page's taxon"
   return_content_by_vettedness: "if vetted = 1 then only trusted content will be returned. If vetted = 2 then only trusted and unreviewed content will be returned (untrusted content will not be returned). The default is to return all content"
+  returns_all_metadata_about_a_particular_collection: "returns all metadata about a particular collection and the items it contains indexed by EOL"
   returns_all_metadata_about_a_particular_data_object: "returns all metadata about a particular data object (text, image or video) indexed by EOL"
   returns_either_a_positive_or_negative_response: "returns either a positive response (indicating APIs are functional), or returns a negative response or nothing at all (indicating APIs are not functional at that time)."
   revisions: Revisions
@@ -1725,6 +1756,9 @@ en:
   sort_by_year_ascending: "Year Ascending"
   sort_by_year_descending: "Year Descending"
   sort_collection_by_label: "Sort collection by"
+  sounds_with_count:
+    one: "%{count} sound"
+    other: "%{count} sounds"
   source_and_additional_information: "Source and Additional Information"
   source_information_header: "Source information"
   source_url: "Source URL"
@@ -1756,6 +1790,9 @@ en:
   tasks_with_count:
     one: "%{count} task found"
     other: "%{count} tasks found"
+  taxa_with_count:
+    one: "%{count} taxon"
+    other: "%{count} taxa"
   taxon: taxon
   taxon_biomedical_terms_link: "Biomedical terms"
   taxon_details_empty: "No one has contributed any details to this page yet."
@@ -1798,6 +1835,8 @@ en:
   the_following_bibliography: "The following bibliography has been generated by bringing together all references provided by our content partners. There may be duplication."
   the_id_of_provider_hierarchy_you_are_searching: "the ID of the provider's hierarchy you are searching within. Check %{link} for valid IDs"
   the_json_response_for_this_method: "The JSON response for this method returns more information than the XML response. The JSON response includes several statistics about this node and its taxonomic descendants. For example there is a returned field \"total_descendants\" which list the number of nodes which are descendants of the given node according to this hierarchy; \"total_trusted_text\" includes the total number of unique text data objects linked to this page or any of its descendants."
+  the_new_user_was_created: "The new user was created."
+  the_user_was_updated: "The user was updated."
   the_xml_search_response_implements: "The XML search response implements the OpenSearch response format using Atom 1.0. See %{link} for the full OpenSearch specification"
   there_are_currently_no_members_in_this_community: "There are currently no members in this community."
   there_is_no_singular_eol: "There is no singular EOL taxonomic hierarchy, rather EOL indexes many hierarchies and compares them to figure out which nodes are referring to the same taxa. These taxon elements represent these hierarchy nodes, which is why there are potentially several of them for a given EOL page. Refer to the documentation on the %{link} API for more information."
@@ -1857,6 +1896,7 @@ en:
   user_activation_failed_resent_validation_email_error: "Sorry, an error occurred, your account could not be verified. This usually occurs when the verficiation link you entered or selected is not recognized. Activation instructions have been resent to the email address you registered with, please ensure the verficiation link you use matches the one provided in the activation email."
   user_activation_failed_user_not_found_error: "Sorry, an error occurred, the account you are trying to verify could not be found. Please ensure the verficiation link you use matches the one provided in the activation email you received after registering."
   user_activation_successful_notice: "Welcome, and thanks for joining the Encyclopedia Of Life team. Your account with username <em>%{username}</em> is now active, please login."
+  user_activity_page_title: "User Activity"
   user_activity_stats_articles_added: "Articles added"
   user_activity_stats_header: Activity
   user_activity_stats_objects_curated: "Objects curated"
@@ -1899,6 +1939,9 @@ en:
   version_1_0_uses_fields_from_the_latest_version: "version 1.0 uses fields from the latest version of the %{link} schema"
   vetted: Vetted
   video_description_not_available_in_language: "Description not available in %{language}"
+  videos_with_count:
+    one: "%{count} video"
+    other: "%{count} videos"
   view: View
   view_added_text: "view added text"
   view_article_source: "View article source"
@@ -1942,6 +1985,7 @@ en:
   you_are_not_authorized_to_perform_this_action: "You are not authorized to perform this action."
   you_are_viewing_this_rank_as_classified_by: "You are viewing this %{rank} as classified by: "
   you_can_identify_yourself_to_eol: "You can identify yourself to EOL by adding your API key to your requests (login and generate your key in your preference page):"
+  you_have_been_logged_in_as_username: "You have been logged in as %{username}"
   you_have_been_logged_out: "You have been logged out."
   you_joined_community: "You have successfully joined this community."
   you_left_community: "You have successfully left this community."

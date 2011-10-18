@@ -1033,9 +1033,17 @@ class DataObject < SpeciesSchemaModel
     curated_hierarchy_entries.select{ |he| he.published == 1 }
   end
 
-  # This method adds users data object entry in the list of published entries to retrieve all associations
-  def all_associations
-    (published_entries + [users_data_object]).compact
+  def unpublished_entries
+    curated_hierarchy_entries.select{ |he| he.published != 1 }
+  end
+
+  # This method adds users data object entry in the list of entries to retrieve all associations
+  def all_associations(options = {:with_unpublished => false})
+    unless options[:with_unpublished]
+      (published_entries + [users_data_object]).compact
+    else
+      (published_entries + unpublished_entries + [users_data_object]).compact
+    end
   end
 
   def first_concept_name

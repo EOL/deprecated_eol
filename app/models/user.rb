@@ -52,6 +52,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   before_destroy :destroy_comments
   # TODO: before_destroy :destroy_data_objects
+   
 
 
   accepts_nested_attributes_for :user_info
@@ -704,6 +705,41 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     return false unless data_object
     return WorklistIgnoredDataObject.find_by_user_id_and_data_object_id(self.id, data_object.id)
   end
+  
+  def is_hidden?
+    hidden == 1
+  end
+  
+  def hide_comments
+    # hide comments
+    # remove comments from solr first
+    begin
+      solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_ACTIVITY_LOGS_CORE)
+    rescue Errno::ECONNREFUSED => e
+      puts "** WARNING: Solr connection failed."
+      return nil
+    end
+    solr_connection.delete_by_query("user_id:#{self.id}")
+    
+    # TODO: remove comments from cache
+
+    # remove comments from database
+    comments = Comment.find_all_by_user_id(self.id)
+    comments.each do |comment|
+      comment.hidden = 1
+      comment.save      
+    end
+  end
+  
+  def unhide_comments
+    # remove comments from database
+    comments = Comment.find_all_by_user_id(self.id)
+    comments.each do |comment|
+      comment.hidden = 0
+      comment.save      
+      comment.log_activity_in_solr
+    end
+  end
 
 private
 
@@ -721,7 +757,7 @@ private
     self.active        = true
     self.flash_enabled = true
   end
-
+    
   def reload_if_stale
     return false if new_record? or changed? or frozen?
     self.reload
@@ -744,6 +780,8 @@ private
       return true # encryption not required but we don't want to halt the process
     end
   end
+  
+  # 
 
   # validation condition for required curator attributes
   def curator_attributes_required?
@@ -806,4 +844,6 @@ private
       comment.destroy
     end
   end
+  
+  
 end

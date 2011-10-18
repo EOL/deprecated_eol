@@ -158,6 +158,24 @@ class Administrator::UserController  < AdminController
     flash[:notice] = I18n.t("admin_user_delete_successful_notice")
     redirect_to referred_url
   end
+  
+  def hide
+    user = User.find(params[:id])
+    user.hidden = 1
+    user.save
+    user.hide_comments
+    flash[:notice] = I18n.t("admin_user_hide_successful_notice")
+    redirect_to referred_url
+  end
+  
+  def unhide
+    user = User.find(params[:id])
+    user.hidden = 0
+    user.save
+    user.unhide_comments
+    flash[:notice] = I18n.t("admin_user_hide_successful_notice")
+    redirect_to referred_url
+  end
 
   # TODO - why are these here and not in curator?
   def grant_curator

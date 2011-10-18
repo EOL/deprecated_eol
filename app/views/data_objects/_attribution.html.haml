@@ -5,6 +5,7 @@
   = render :partial => 'data_objects/rights_statement', :locals => { :data_object => data_object }
   = render :partial => 'data_objects/rights_holder', :locals => { :data_object => data_object }
   = render :partial => 'data_objects/supplier', :locals => { :data_object => data_object }
+  = render :partial => 'data_objects/location', :locals => { :data_object => data_object }
   = render :partial => 'data_objects/agents', :locals => { :data_object => data_object }
   - unless data_object.bibliographic_citation.blank?
     %p= data_object.bibliographic_citation

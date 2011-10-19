@@ -734,7 +734,14 @@ class DataObject < SpeciesSchemaModel
   end
 
   def update_solr_index
-    EOL::Solr::DataObjects.reindex_single_object(self)
+    if published==1
+      # Not hidden, so index this DO in Solr
+      EOL::Solr::DataObjects.reindex_single_object(self)
+    else
+      # hidden, so delete it from solr
+      solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
+      solr_connection.delete_by_id(id)
+    end
   end
 
 

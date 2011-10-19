@@ -164,6 +164,7 @@ class Administrator::UserController  < AdminController
     user.hidden = 1
     user.save
     user.hide_comments
+    user.hide_data_objects
     flash[:notice] = I18n.t("admin_user_hide_successful_notice")
     redirect_to referred_url
   end
@@ -173,6 +174,7 @@ class Administrator::UserController  < AdminController
     user.hidden = 0
     user.save
     user.unhide_comments
+    user.unhide_data_objects
     flash[:notice] = I18n.t("admin_user_hide_successful_notice")
     redirect_to referred_url
   end

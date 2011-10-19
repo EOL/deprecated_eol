@@ -12,6 +12,9 @@ class UsersController < ApplicationController
   # GET /users/:id
   def show
     @user = User.find(params[:id])
+    if @user.is_hidden?
+      flash[:notice] = I18n.t(:user_hidden_message)
+    end
     @user_submitted_text_count = UsersDataObject.count(:conditions => ['user_id = ?',params[:id]])
   end
 

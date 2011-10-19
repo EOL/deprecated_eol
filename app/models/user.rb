@@ -713,31 +713,55 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def hide_comments
     # hide comments
     # remove comments from solr first
-    begin
-      solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_ACTIVITY_LOGS_CORE)
-    rescue Errno::ECONNREFUSED => e
-      puts "** WARNING: Solr connection failed."
-      return nil
-    end
-    solr_connection.delete_by_query("user_id:#{self.id}")
-    
-    # TODO: remove comments from cache
-
+    # begin
+    #   solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_ACTIVITY_LOGS_CORE)
+    # rescue Errno::ECONNREFUSED => e
+    #   puts "** WARNING: Solr connection failed."
+    #   return nil
+    # end
+    # solr_connection.delete_by_query("user_id:#{self.id}")
+            
     # remove comments from database
     comments = Comment.find_all_by_user_id(self.id)
     comments.each do |comment|
-      comment.hidden = 1
-      comment.save      
+      #comment.hidden = 1
+      #comment.save
+      comment.hide(current_user)      
     end
+    
+    # clear home page cached comments
+    #clear_cached_homepage_activity_logs
   end
   
   def unhide_comments
-    # remove comments from database
     comments = Comment.find_all_by_user_id(self.id)
     comments.each do |comment|
-      comment.hidden = 0
-      comment.save      
-      comment.log_activity_in_solr
+      #comment.hidden = 0
+      #comment.save      
+      #comment.log_activity_in_solr
+      comment.hide(current_user)
+    end
+    
+    # clear home page cached comments
+    # clear_cached_homepage_activity_logs
+    
+  end
+  
+  def hide_data_objects
+    data_objects = UsersDataObject.find_all_by_user_id(self.id, :include => :data_object).collect{|udo| udo.data_object}.uniq
+    data_objects.each do |data_object|
+      data_object.published = 0
+      data_object.save
+      data_object.update_solr_index
+    end
+  end
+  
+  def unhide_data_objects
+    data_objects = UsersDataObject.find_all_by_user_id(self.id, :include => :data_object).collect{|udo| udo.data_object}.uniq
+    data_objects.each do |data_object|
+      data_object.published = 1
+      data_object.save
+      data_object.update_solr_index
     end
   end
 

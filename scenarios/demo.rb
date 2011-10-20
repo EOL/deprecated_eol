@@ -345,3 +345,8 @@ $INDEX_RECORDS_IN_SOLR_ON_SAVE = original_index_records_on_save_value
 puts "Adding data_object translations relationships"
 DataObjectTranslation.create(:data_object => DataObject.find_by_description(summary[1][:text]),:language => DataObject.find_by_description(summary[1][:text]).language, :original_data_object => DataObject.find_by_description(summary[0][:text]))
 DataObjectTranslation.create(:data_object => DataObject.find_by_description(summary[2][:text]),:language => DataObject.find_by_description(summary[2][:text]).language, :original_data_object => DataObject.find_by_description(summary[0][:text]))
+DataObjectTranslation.create(:data_object => DataObject.find_by_object_cache_url(200905130150563), :language => DataObject.find_by_description(summary[1][:text]).language, :original_data_object => DataObject.find_by_object_cache_url(200908250179632))
+data_object = DataObject.find_by_object_cache_url(200905130150563)
+data_object.location = "Alexandria"
+data_object.language_id = DataObject.find_by_description(summary[1][:text]).language.id
+data_object.save

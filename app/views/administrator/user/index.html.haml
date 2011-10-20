@@ -73,7 +73,7 @@
           %th
             =I18n.t("hidden")
           %th
-            =I18n.t("hide") + "/" + I18n.t("unhide")
+            =I18n.t("hide") + "/" + I18n.t("show")
         - for user in @users
           - column_class=cycle('odd','even')
           %tr
@@ -95,9 +95,9 @@
               = user.is_hidden? ? I18n.t("yes_answer") : I18n.t("_no_")
             %td{ :class => column_class }
               = #link_to(I18n.t("delete_firstcap"), {:action=>'destroy', :id=>user.id}, :confirm => I18n.t("are_you_sure_this_action_cannot_be_undone"), :method => :delete) unless user.is_curator?
-              - unless user.is_curator?
+              - if !user.is_curator? and !user.is_content_partner?
                 = link_to(I18n.t("hide"), {:action=>'hide', :id=>user.id}, :method => :hide) unless user.is_hidden?
-                = link_to(I18n.t("unhide"), {:action=>'unhide', :id=>user.id}, :method => :unhide) if user.is_hidden?
+                = link_to(I18n.t("show"), {:action=>'unhide', :id=>user.id}, :method => :unhide) if user.is_hidden?
       %br
       = will_paginate @users
     - else

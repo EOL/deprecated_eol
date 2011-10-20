@@ -15,12 +15,18 @@
   - when 'Collection'
     - parent_link = collection_path(item.parent)
   - when 'User'
-    - parent_link = user_path(item.parent)
+    -# We placed a filter here to trap the error if user is deleted.
+    - unless item.parent.nil?
+      - parent_link = user_path(item.parent)
   %p
     - if parent_link
       = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => link_to(item.parent.summary_name, parent_link))
     - else
-      = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => item.parent.summary_name)
+      - unless item.parent.nil?
+        = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => item.parent.summary_name)
+      - else
+        = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => I18n.t(:record_not_found))
+      
   %blockquote{:cite => h(item.user.full_name)}
     %p
       - if truncate_comments && item.body.length > 140

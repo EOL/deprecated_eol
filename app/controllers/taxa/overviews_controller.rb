@@ -30,7 +30,7 @@ class Taxa::OverviewsController < TaxaController
     @browsable_hierarchy_entries.compact!
     @hierarchies = @browsable_hierarchy_entries.collect{|he| he.hierarchy }.uniq
     toc_items = [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution]
-    options = {:limit => 1, :language => current_user.language_abbr}
+    options = {:limit => 0, :language => current_user.language_abbr}
     @summary_text = @taxon_concept.text_objects_for_toc_items(toc_items, options)
     if @summary_text
       @summary_text.sort!{|x,y| x.toc_items[0].view_order <=> y.toc_items[0].view_order}

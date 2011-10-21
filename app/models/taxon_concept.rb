@@ -216,9 +216,20 @@ class TaxonConcept < SpeciesSchemaModel
   def text(options={})
     options[:user] ||= current_user
     text_datos = data_objects.select{ |d| d.is_text? }
-
     text_user_objects = users_data_objects.select{ |udo| udo.data_object && udo.data_object.is_text? && udo.data_object.published && udo.visibility == Visibility.visible }.collect{ |udo| udo.data_object}
-    combined_objects = text_datos | text_user_objects  # get the union of the two sets
+
+    # Get text_user_objects from superceded taxa
+    text_user_objects_superceded = []
+    if self.superceded_taxon_concepts
+      taxa_udo = self.superceded_taxon_concepts.collect{ |tc| tc.users_data_objects}.select{|arr| !arr.empty?}
+      taxa_udo.each do |taxon_udo|
+        if taxon_udo
+          text_user_objects_superceded |= taxon_udo.select{ |udo| udo.data_object && udo.data_object.is_text? && udo.data_object.published && udo.visibility == Visibility.visible }.collect{ |udo| udo.data_object}
+        end
+      end
+    end
+    
+    combined_objects = text_datos | text_user_objects | text_user_objects_superceded
 
     # if this is a content partner, we preload associations to prevent
     # a bunch of queries later on in DataObject.filter_list_for_user

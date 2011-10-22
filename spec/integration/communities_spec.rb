@@ -36,7 +36,7 @@ describe "Communities" do
       before(:all) { visit community_path(@test_data[:community]) }
       subject { body }
       it 'should show the community name and description' do
-        should have_tag('h1', /.*?#{@test_data[:community].name}/)
+        should have_tag('h1', /#{@test_data[:community].name}/)
         should have_tag('#page_heading', /#{@test_data[:community].description}/)
       end
 

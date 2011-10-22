@@ -1,10 +1,10 @@
 class CreateManyToManyRelationshipsForCollections < ActiveRecord::Migration
   def self.up
-    create_table :collections_communities do |t|
+    create_table :collections_communities, :id => false do |t|
       t.integer :collection_id
       t.integer :community_id
     end
-    create_table :collections_users do |t|
+    create_table :collections_users, :id => false do |t|
       t.integer :collection_id
       t.integer :user_id
     end

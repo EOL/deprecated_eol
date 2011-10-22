@@ -17,7 +17,7 @@ module EOL
             count = User.count(:conditions => "active=1") if count == 0
           when "collections"
             count = EOL::GlobalStatistics.solr_count('Collection')
-            count = Collection.count(:conditions => 'special_collection_id IS NULL OR user_id IS NULL') if count == 0
+            count = Collection.count(:conditions => 'special_collection_id IS NULL') if count == 0
           when "communities"
             count = EOL::GlobalStatistics.solr_count('Community')
             count = Community.count(:conditions => "published = 1") if count == 0

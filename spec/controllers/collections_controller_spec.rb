@@ -8,7 +8,7 @@ describe CollectionsController do
       truncate_all_tables
       load_scenario_with_caching(:collections)
     end
-    @test_data = EOL::TestInfo.load('collections')
+    @test_data  = EOL::TestInfo.load('collections')
     @collection = @test_data[:collection]
     builder = EOL::Solr::CollectionItemsCoreRebuilder.new()
     builder.begin_rebuild
@@ -24,7 +24,7 @@ describe CollectionsController do
 
     end
     it "Updates the description" do
-      session[:user] = @collection.user
+      session[:user] = @test_data[:user]
       getter = lambda{
         post :update, :id => @collection.id, :commit_edit_collection => 'Submit',  :collection => {:description => "New Description"}
         @collection.reload

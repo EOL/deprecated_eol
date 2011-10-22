@@ -56,7 +56,7 @@ results[:collection] = Collection.gen(:name => 'Panda parade')
 sleep(1)
 results[:community] = Community.gen(:name => 'Panda bears of Woods Hole Community', :description => 'we are panda bears, and we live in Woods Hole')
 # I don't want this collection name as I only want one entry for Panda in all filter categories
-c = results[:community].collection
+c = results[:community].collections.first
 c.name = "Focus list for this test community"
 c.save
 

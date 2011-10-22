@@ -593,12 +593,12 @@ describe TaxonConcept do
     member1 = Member.gen(:community => community2, :user => user1)
     member2 = Member.gen(:community => community2, :user => user2)
     member3 = Member.gen(:community => community1, :user => user3)
-    collection1 = community1.collection
-    collection2 = community2.collection
+    collection1 = community1.collections.first
+    collection2 = community2.collections.first
     tc = TaxonConcept.gen
     coll_item1 = CollectionItem.gen(:object_type => "TaxonConcept", :object_id => tc.id, :collection => collection1)
     coll_item2 = CollectionItem.gen(:object_type => "TaxonConcept", :object_id => tc.id, :collection => collection2)
-    tc.collection_items[1].collection.community = community2
+    tc.collection_items[1].collection.communities.include?(community2).should be_true
     tc.top_communities[0].name.should == community2.name
     tc.top_communities[1].name.should == community1.name
   end

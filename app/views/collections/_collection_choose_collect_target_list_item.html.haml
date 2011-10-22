@@ -1,11 +1,13 @@
 %li{:class => has_item ? 'collected' : nil}
   = check_box_tag 'collection_id[]', collection.id, has_item, :disabled => has_item
   = label_tag('collection_name', h(truncate(collection.name, :length => 64)))
-  - if collection.community_id || has_item || collection.id == current_user.watch_collection.id
+  - if collection.communities || has_item || collection.id == current_user.watch_collection.id
     %span
-      - if collection.community_id
-        •
-        = I18n.t(:from_community, :community => link_to(truncate(collection.community.name, :length => 64), community_path(collection.community)))
+      - if collection.communities
+        - #TODO - what do we do here if a collection belongs to multiple communities?!
+        - collection.communities.each do |community|
+          •
+          = I18n.t(:from_community, :community => link_to(truncate(community.name, :length => 64), community_path(community)))
       - if collection.id == current_user.watch_collection.id
         •
         = I18n.t(:your_watch_collection)

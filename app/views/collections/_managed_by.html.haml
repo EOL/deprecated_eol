@@ -1,10 +1,11 @@
 %h3= I18n.t(:managed_by)
 %ul
   %li
-    - if collection.community
-      = link_to image_tag(collection.community.logo_url, :alt => ''), collection.community
-      %h4= link_to collection.community.name, collection.community
-    - elsif collection.user
-      = link_to image_tag(collection.user.logo_url(:small), :alt => ''), collection.user
-      %h4= link_to collection.user.full_name, collection.user
-      %p= collection.user.tag_line
+    - collection.maintained_by.each do |thing|
+      - if thing.is_a? Community
+        = link_to image_tag(thing.logo_url, :alt => ''), thing
+        %h4= link_to thing.name, thing
+      - elsif thing.is_a? User
+        = link_to image_tag(thing.logo_url(:small), :alt => ''), thing
+        %h4= link_to thing.full_name, thing
+        %p= thing.tag_line

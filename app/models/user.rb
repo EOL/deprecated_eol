@@ -29,8 +29,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   has_many :users_data_objects
   has_many :collection_items, :as => :object
   has_many :containing_collections, :through => :collection_items, :source => :collection
-  has_many :collections, :conditions => 'collections.published = 1'
-  has_many :collections_including_unpublished, :class_name => Collection.to_s
+  has_and_belongs_to_many :collections, :conditions => 'collections.published = 1'
+  has_and_belongs_to_many :collections_including_unpublished, :class_name => Collection.to_s
   has_many :communities, :through => :members
   has_many :google_analytics_partner_summaries
   has_many :google_analytics_partner_taxa
@@ -42,7 +42,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   has_many :content_partners
   has_one :user_info
   belongs_to :default_hierarchy, :class_name => Hierarchy.to_s, :foreign_key => :default_hierarchy_id
-  has_one :existing_watch_collection, :class_name => 'Collection', :conditions => 'special_collection_id = #{SpecialCollection.watch.id}'
 
   before_save :check_credentials
   before_save :encrypt_password
@@ -280,10 +279,12 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   # Checks to see if one already exists (DO NOT use #watch_collection to do this, recursive!), and builds one if not:
   def build_watch_collection
-    c = Collection.count(:conditions => {:special_collection_id => SpecialCollection.watch.id, :user_id => self.id})
+    c = Collection.count_by_sql("SELECT COUNT(*) FROM collections c JOIN collections_users cu ON (c.id = cu.collection_id) WHERE cu.user_id = #{self.id} AND c.special_collection_id = #{SpecialCollection.watch.id}")
     if c == 0
-      Collection.create(:name => I18n.t(:default_watch_collection_name, :username => self.full_name.titleize), :special_collection_id => SpecialCollection.watch.id, :user_id => self.id)
+      collections << collection = Collection.create(:name => I18n.t(:default_watch_collection_name, :username => self.full_name.titleize), :special_collection_id => SpecialCollection.watch.id)
+      return collection
     end
+    return nil # Didn't build one.
   end
 
   def password
@@ -441,7 +442,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def watch_collection
-    collection = Collection.find_by_user_id_and_special_collection_id(self.id, SpecialCollection.watch.id)
+    collection = Collection.find_by_sql("SELECT c.* FROM collections c JOIN collections_users cu ON (c.id = cu.collection_id) WHERE cu.user_id = #{self.id} AND c.special_collection_id = #{SpecialCollection.watch.id} LIMIT 1").first
     collection ||= build_watch_collection
     collection
   end
@@ -499,10 +500,12 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def can_edit_collection?(collection)
-    return true if collection.user == self # Her collection
-    return false if collection.user        # Not her collection, not a community collection.
-    return false unless member = member_of(collection.community) # Not a community she's even in.
-    return true if collection.community && member.manager? # She's a manager
+    return true if collection.users.include?(self) # Her collection
+    collection.communities.each do |community|
+      if member = member_of(community) # Not a community she's even in.
+        return true if community && member.manager? # She's a manager
+      end
+    end
     false # She's not a manager
   end
 
@@ -769,7 +772,7 @@ private
 
   # Callback after_save
   def update_watch_collection_name
-    collection = self.existing_watch_collection rescue nil
+    collection = self.watch_collection rescue nil
     unless collection.blank?
       collection.name = I18n.t(:default_watch_collection_name, :username => self.full_name.titleize)
       collection.save!

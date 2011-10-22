@@ -217,7 +217,7 @@ class Comment < ActiveRecord::Base
     return {} if self.parent.nil?
     # activity feed of user making comment
     logs_affected['User'] = [ self.user_id ]
-    watch_collection_id = self.user.existing_watch_collection.id rescue nil
+    watch_collection_id = self.user.watch_collection.id rescue nil
     # watch collection of user making comment
     logs_affected['Collection'] = [ watch_collection_id ] if watch_collection_id
     if self.parent_type == 'User'

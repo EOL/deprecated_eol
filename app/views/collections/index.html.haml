@@ -2,21 +2,6 @@
 %table
   %tr
     %th=I18n.t("name")
-    %th=I18n.t("community")
-    %th=I18n.t("user")
-    -# FIXME: missing method %th=I18n.t("public")
-    -# FIXME: missing method this is on collection_items not collection %th=I18n.t("object_type")
-    -# FIXME: missing method this is on collection_items not collection %th=I18n.t("object")
   - @collections.each do |collection|
     %tr
-      %td= h collection.name
-      %td= h collection.community_id
-      %td= h collection.user_id
-      -# FIXME: missing method %td= h collection.public
-      -# FIXME: missing method this is on collection_items not collection %td= h collection.object_type
-      -# FIXME: missing method this is on collection_items not collection %td= h collection.object_id
-      %td= link_to I18n.t("show"), collection
-      %td= link_to I18n.t("edit"), edit_collection_path(collection)
-      %td= link_to I18n.t("destroy"), collection, :confirm => I18n.t("are_you_sure"), :method => :delete
-%br/
-= link_to I18n.t("new_collection"), new_collection_path
+      %td= link_to h(collection.name), collection

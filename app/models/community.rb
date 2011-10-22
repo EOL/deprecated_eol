@@ -2,10 +2,13 @@ class Community < ActiveRecord::Base
 
   include EOL::ActivityLoggable
 
-  has_many :collections, :through => :collections_communities
+  has_and_belongs_to_many :collections
+
   has_many :members
   has_many :collection_items, :as => :object # THIS IS COLLECTION ITEMS POINTING AT THIS COLLECTION!
-  has_many :collected_items, :through => :collections, :class_name => 'CollectionItem'
+  has_many :collected_items, :class_name => 'CollectionItem',
+           :finder_sql => 'SELECT ci.* FROM collection_items ci JOIN collections c ON (ci.collection_id = c.id) ' +
+             'JOIN collections_communities cc ON (cc.collection_id = c.id) WHERE cc.community_id = #{self.id}'
   has_many :containing_collections, :through => :collection_items, :source => :collection
   has_many :comments, :as => :parent
 
@@ -45,7 +48,7 @@ class Community < ActiveRecord::Base
   # annotation along with it.
   def featured_collections
     return [] unless self.collections && !self.collections.blank?
-    self.collected_items.collections
+    collected_items.collections
   end
 
   # TODO - test

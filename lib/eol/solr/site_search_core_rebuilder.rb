@@ -13,11 +13,11 @@ module EOL
         @solr_api.delete_all_documents
         @solr_api.optimize
       end
-      
+
       def optimize
         @solr_api.optimize
       end
-      
+
       def begin_rebuild(do_optimize = false)
         reindex_model(Community)
         reindex_model(Collection)
@@ -26,7 +26,7 @@ module EOL
         reindex_model(TaxonConcept)
         optimize if do_optimize
       end
-      
+
       def reindex_model(klass)
         @solr_api.delete_by_query('resource_type:' + klass.class_name)
         start = klass.minimum('id')
@@ -60,7 +60,7 @@ module EOL
           i += limit
         end
       end
-      
+
       def lookup_communities(start, limit)
         max = start + limit
         communities = Community.find(:all, :conditions => "id BETWEEN #{start} AND #{max}", :select => 'id, name, description, created_at, updated_at, published')
@@ -68,15 +68,16 @@ module EOL
           @objects_to_send += c.keywords_to_send_to_solr_index
         end
       end
-      
+
       def lookup_collections(start, limit)
         max = start + limit
-        collections = Collection.find(:all, :conditions => "id BETWEEN #{start} AND #{max}", :select => 'id, community_id, name, description, created_at, updated_at, special_collection_id, user_id, published')
+        # TODO - this should include the users and collections, I think.
+        collections = Collection.find(:all, :conditions => "id BETWEEN #{start} AND #{max}", :select => 'id, name, description, created_at, updated_at, special_collection_id, published')
         collections.each do |c|
           @objects_to_send += c.keywords_to_send_to_solr_index
         end
       end
-      
+
       def lookup_data_objects(start, limit)
         max = start + limit
         # TODO - Modify this to return only visible data objects
@@ -85,7 +86,7 @@ module EOL
           @objects_to_send += d.keywords_to_send_to_solr_index
         end
       end
-      
+
       def lookup_users(start, limit)
         max = start + limit
         users = User.find(:all, :conditions => "id BETWEEN #{start} AND #{max} AND active=1", :select => 'id, username, given_name, family_name, curator_level_id, created_at, updated_at')
@@ -93,11 +94,11 @@ module EOL
           @objects_to_send += u.keywords_to_send_to_solr_index
         end
       end
-      
+
       def lookup_taxon_concepts(start, limit)
         # max = start + limit
         # taxon_concept_ids_array = TaxonConcept.connection.select_values("SELECT tc.id, tc.vetted_id, tcn.preferred, tcn.vern, tcn.language_id, tcn.source_hierarchy_entry_id, n.string FROM taxon_concepts tc LEFT JOIN (taxon_concept_names tcn JOIN names n ON  (tcn.name_id=n.id)) ON (tc.id=tcn.taxon_concept_id) WHERE tc.supercedure_id=0 AND tc.published=1 AND tc.id  BETWEEN #{start} AND #{max}")
-        # 
+        #
         # # ,
         # #   :include => [
         # #     :flattened_ancestors,
@@ -109,8 +110,8 @@ module EOL
         # # taxon_concepts.each do |t|
         # #   @objects_to_send += t.keywords_to_send_to_solr_index
         # # end
-        # 
-        # 
+        #
+        #
         # return
         max = start + limit
         taxon_concepts = TaxonConcept.find(:all, :conditions => "id BETWEEN #{start} AND #{max} AND published=1 AND supercedure_id=0",
@@ -121,10 +122,10 @@ module EOL
         taxon_concepts.each do |t|
           @objects_to_send += t.keywords_to_send_to_solr_index
         end
-        
+
       end
-      
-      
+
+
     end
   end
 end

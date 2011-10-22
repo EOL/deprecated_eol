@@ -1238,7 +1238,8 @@ class TaxonConcept < SpeciesSchemaModel
   def communities
     @communities ||= Community.find_by_sql("
       SELECT c.* FROM communities c
-        JOIN collections cl ON (cl.community_id = c.id)
+        JOIN collections_communities cc ON (cc.community_id = c.id)
+        JOIN collections cl ON (cc.collection_id = cl.id)
         JOIN collection_items ci ON (ci.collection_id = cl.id)
       WHERE ci.object_id = #{id} AND object_type = 'TaxonConcept' AND c.published = 1
     ")

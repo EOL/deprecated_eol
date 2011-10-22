@@ -40,7 +40,7 @@ class CommunitiesController < ApplicationController
     end
     @community = Community.new(params[:community])
     if @community.save
-      @collection.update_attributes(:user_id => nil, :community_id => @community.id)
+      @collection.communities << @community
       @community.initialize_as_created_by(current_user)
       invitees = params[:invite_list] ? params[:invite_list].values : params[:invitations].split(/[,\s]/).grep(/\w/)
       sent_to = send_invitations(invitees)

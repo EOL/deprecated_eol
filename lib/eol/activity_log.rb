@@ -70,14 +70,15 @@ module EOL
 
     def self.user_news_activities(source, options = {})
       query = "(feed_type_affected:UserNews AND feed_type_primary_key:#{source.id})"
-      if source.existing_watch_collection
-        query += " OR (feed_type_affected:Collection AND feed_type_primary_key:#{source.existing_watch_collection.id} NOT user_id:#{source.id})"
+      if source.watch_collection
+        query += " OR (feed_type_affected:Collection AND feed_type_primary_key:#{source.watch_collection.id} NOT user_id:#{source.id})"
       end
       results = EOL::Solr::ActivityLog.search_with_pagination(query, options)
     end
 
     def self.community_activities(source, options = {})
-      results = EOL::Solr::ActivityLog.search_with_pagination("(feed_type_affected:Community AND feed_type_primary_key:#{source.id}) OR (feed_type_affected:Collection AND feed_type_primary_key:#{source.focus.id})", options)
+      focuses_clause = source.focuses.map {|f| "feed_type_primary_key:#{f.id}" }.join(' OR ');
+      results = EOL::Solr::ActivityLog.search_with_pagination("(feed_type_affected:Community AND feed_type_primary_key:#{source.id}) OR (feed_type_affected:Collection AND (#{focuses_clause}))", options)
     end
 
     def self.collection_activities(source, options = {})

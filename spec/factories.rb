@@ -362,7 +362,6 @@ Factory.define :collection do |c|
   c.published             true
   c.special_collection_id nil
   c.association           :sort_style
-  c.association           :user
 end
 
 Factory.define :collection_activity_log do |cal|
@@ -403,7 +402,7 @@ Factory.define :community do |c|
   c.name        { (Faker::Lorem.words << Factory.next(:string)).join(' ').titleize }
   c.description { Faker::Lorem.paragraph }
   c.published   true
-  c.after_create { |com| Factory(:collection, :community => com, :user => nil) }
+  c.after_create { |com| com.collections << Factory(:collection) }
 end
 
 Factory.define :community_activity_log do |cal|

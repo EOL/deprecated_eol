@@ -48,48 +48,12 @@ describe Collection do
       Collection.delete_all
     end
 
-    it 'should be valid when only a community ID is specified' do
-      c = Collection.new(:name => 'whatever', :community_id => @test_data[:community].id)
-      c.valid?.should be_true
-    end
-
-    it 'should be valid when only a user ID is specified' do
-      c = Collection.new(:name => 'whatever', :user_id => @test_data[:user].id)
-      c.valid?.should be_true
-    end
-
-    it 'should be INVALID when a user AND a community are specified' do
-      c = Collection.new(:name => 'whatever', :user_id => @test_data[:user].id, :community_id => @test_data[:community].id)
-      c.valid?.should_not be_true
-    end
-
-    it 'should be INVALID when neither a user nor a community are specified' do
-      c = Collection.new(:name => 'whatever')
-      c.valid?.should_not be_true
-    end
-
-    it 'should be INVALID when the name is identical within the scope of a user' do
-      Collection.gen(:name => 'A name', :user_id => @test_data[:user].id)
-      c = Collection.new(:name => 'A name', :user_id => @test_data[:user].id)
-      c.valid?.should_not be_true
-    end
-
     it 'should be valid when the same name is used by another user' do
-      Collection.gen(:name => 'Another name', :user_id => @another_user.id)
-      c = Collection.new(:name => 'Another name', :user_id => @test_data[:user].id)
+      c = Collection.gen(:name => 'Another name')
+      c.users = [@another_user]
+      c = Collection.new(:name => 'Another name')
+      c.users = [@test_data[:user]]
       c.valid?.should be_true
-    end
-
-    it 'should be INVALID when the name is identical within the scope of ALL communities' do
-      Collection.gen(:name => 'Something new', :community_id => @another_community.id, :user_id => nil)
-      c = Collection.new(:name => 'Something new', :community_id => @test_data[:community].id)
-      c.valid?.should_not be_true
-    end
-
-    it 'should be INVALID when a community already has a collection' do
-      Collection.gen(:name => 'ka-POW!', :community_id => @test_data[:community].id, :user_id => nil)
-      c = Collection.new(:name => 'Entirely different', :community_id => @test_data[:community].id)
-      c.valid?.should_not be_true
     end
 
   end
@@ -134,15 +98,16 @@ describe Collection do
     before(:all) do
       @owner = User.gen
       @someone_else = User.gen
-      @users_collection = Collection.gen(:user => @owner)
+      @users_collection = Collection.gen
+      @users_collection.users = [@owner]
       @community = Community.gen
       @community.initialize_as_created_by(@owner)
       @community.add_member(@someone_else)
       @community_collection = Collection.create(
-        :community_id => @community.id,
         :name => 'Nothing Else Matters',
         :published => false,
         :special_collection_id => nil)
+      @community.collections = [@community_collection]
     end
 
     it 'should be editable by the owner' do
@@ -171,13 +136,14 @@ describe Collection do
   it 'should know when it is a focus collection' do
     focus = Community.gen.collections.first
     focus.focus?.should be_true
-    nonfocus = Collection.gen(:user => User.gen, :community => nil)
+    nonfocus = Collection.gen
     nonfocus.focus?.should_not be_true
   end
 
   it 'should be able to add/modify/remove description' do
     description = "Valid description"
-    collection = Collection.gen(:name => 'A name', :description => description, :user_id => @test_data[:user].id)
+    collection = Collection.gen(:name => 'A name', :description => description)
+    collection.users = [@test_data[:user]]
     collection.description.should == description
     collection.description = "modified #{description}"
     collection.description.should == "modified #{description}"

@@ -33,8 +33,8 @@ communities[:feed_body_2] = "Something Else"
 communities[:feed_body_3] = "Something More"
 communities[:tc1] = build_taxon_concept
 communities[:tc2] = build_taxon_concept
-communities[:community].focus.add(communities[:tc1])
-communities[:community].focus.add(communities[:tc2])
+communities[:community].focuses.first.add(communities[:tc1])
+communities[:community].focuses.first.add(communities[:tc2])
 
 # Empty community, no feeds
 communities[:empty_community] = Community.gen

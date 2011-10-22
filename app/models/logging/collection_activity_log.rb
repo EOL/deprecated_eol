@@ -6,9 +6,9 @@ class CollectionActivityLog < LoggingModel
   belongs_to :collection_item # ONLY if it affected one
   belongs_to :user # Who took the action
   belongs_to :activity # What happened
-  
+
   after_create :log_activity_in_solr
-  
+
   def log_activity_in_solr
     keyword = self.collection_item.object_type rescue nil
     base_index_hash = {
@@ -20,13 +20,15 @@ class CollectionActivityLog < LoggingModel
       'date_created' => self.created_at.solr_timestamp }
     EOL::Solr::ActivityLog.index_activities(base_index_hash, activity_logs_affected)
   end
-  
+
   def activity_logs_affected
     logs_affected = {}
     # activity feed of user making comment
     logs_affected['User'] = [ self.user_id ]
     logs_affected['Collection'] = [ self.collection_id ]
-    logs_affected['Community'] = [ self.collection.community_id ] if self.collection && self.collection.community_id
+    if self.collection && ! self.collection.communities.blank?
+      logs_affected['Community'] = [ self.collection.communities ]
+    end
     # news feed of collections which contain the thing commented on
     Collection.which_contain(self.collection).each do |c|
       logs_affected['Collection'] ||= []

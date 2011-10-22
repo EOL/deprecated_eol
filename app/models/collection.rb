@@ -6,26 +6,35 @@ class Collection < ActiveRecord::Base
   belongs_to :sort_style
 
   has_many :collection_items
-  has_many :communities, :through => :collections_communities
-  has_many :users, :through => :collections_users
   accepts_nested_attributes_for :collection_items
   has_many :others_collection_items, :class_name => CollectionItem.to_s, :as => :object
   has_many :containing_collections, :through => :others_collection_items, :source => :collection
 
   has_many :comments, :as => :parent
   # NOTE - You MUST use single-quotes here, lest the #{id} be interpolated at compile time. USE SINGLE QUOTES.
-  has_many :featuring_communities,
-    :finder_sql => 'SELECT cm.* FROM communities cm, collections c, collection_items ci, collections_communities cc ' +
-      'WHERE ci.object_type = "Collection" AND ci.object_id = #{id} AND c.id = cc.collection_id ' +
-      'AND cc.community_id = cm.id AND ci.collection_id = c.id AND c.community_id = cm.id AND cm.published = 1'
+  has_many :featuring_communities, :class_name => Community.to_s,
+    :finder_sql => 'SELECT cm.* FROM communities cm ' +
+      'JOIN collections_communities cc ON (cm.id = cc.community_id) ' +
+      'JOIN collections c ON (cc.collection_id = c.id) ' +
+      'JOIN collection_items ci ON (ci.collection_id = c.id) ' +
+      'WHERE ci.object_type = "Collection" AND ci.object_id = #{id} AND cm.published = 1'
 
   has_one :resource
   has_one :resource_preview, :class_name => Resource.to_s, :foreign_key => :preview_collection_id
 
+  has_and_belongs_to_many :communities
+  has_and_belongs_to_many :users
+
   named_scope :published, :conditions => {:published => 1}
 
   validates_presence_of :name
-  validates_uniqueness_of :name, :scope => [:user_id]
+  # JRice removed the requirement for the uniqueness of the name. Why? Imagine user#1 creates a collection named "foo".
+  # She then gives user#2 acess to "foo".  user#2 already has a collection called "foo", but this collection is never
+  # saved, so there is no error thrown (and if there were, what would it say?).  User#2 then tries to add an icon to
+  # the new "foo", but it fails because the name of the collection is already taken in the scope of all of its users.
+  # ...What would the message say, and why would she care? I don't see any of these messages as clear... or helpful.
+  # ...more trouble than it's worth, and the restriction is fairly arbitrary anyway: it's just there for the clarity
+  # of the user.  Now the user needs to manage this by themselves.
 
   before_update :set_relevance_if_collection_items_changed
 
@@ -84,13 +93,12 @@ class Collection < ActiveRecord::Base
     special_collection_id
   end
 
-  def editable_by?(user)
-    if user_id
-      return user.id == user_id # Owned by this user?
-    else
-      communities.each do |community|
-        return true if user.member_of(community) && user.member_of(community).manager?
-      end
+  def editable_by?(whom)
+    users.each do |user|
+      return whom.id == user.id
+    end
+    communities.each do |community|
+      return true if whom.member_of(community) && whom.member_of(community).manager?
     end
     return false
   end
@@ -173,7 +181,7 @@ class Collection < ActiveRecord::Base
   end
 
   def watch_collection?
-    special? && user_id
+    special_collection_id && special_collection_id == SpecialCollection.watch.id
   end
 
   def set_relevance

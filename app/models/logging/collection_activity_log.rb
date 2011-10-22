@@ -24,8 +24,8 @@ class CollectionActivityLog < LoggingModel
   def activity_logs_affected
     logs_affected = {}
     # activity feed of user making comment
-    logs_affected['User'] = [ self.user_id ]
-    logs_affected['Collection'] = [ self.collection_id ]
+    logs_affected['User'] = [ self.users.map {|u| u.id} ]
+    logs_affected['Collection'] = [ self.collections.map {|c| c.id} ]
     if self.collection && ! self.collection.communities.blank?
       logs_affected['Community'] = [ self.collection.communities ]
     end

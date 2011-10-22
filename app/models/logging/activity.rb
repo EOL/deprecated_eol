@@ -35,6 +35,7 @@ class Activity < LazyLoggingModel
     Activity.find_or_create('add_common_name')
     Activity.find_or_create('remove_common_name')
     # Collection:
+    Activity.find_or_create('add_editor')
     Activity.find_or_create('create')
     Activity.find_or_create('collect')
     Activity.find_or_create('remove')

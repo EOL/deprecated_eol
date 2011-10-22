@@ -8,14 +8,15 @@
 # NOTE - we use these commit_* button names because we don't want to parse the I18n of the button name (hard).
 class CollectionsController < ApplicationController
 
-  before_filter :modal, :only => [:choose_collect_target]
-  before_filter :find_collection, :except => [:new, :create, :choose_collect_target]
+  before_filter :modal, :only => [:choose_editor_target, :choose_collect_target]
+  before_filter :find_collection, :except => [:new, :create, :choose_editor_target, :choose_collect_target]
   before_filter :user_able_to_edit_collection, :only => [:edit, :destroy] # authentication of update in the method
   before_filter :user_able_to_view_collection, :only => [:show]
   before_filter :find_parent, :only => [:show]
-  before_filter :find_parent_for_current_user_only, :except => [:show, :collect, :watch, :choose_collect_target]
+  before_filter :find_parent_for_current_user_only,
+    :except => [:show, :collect, :watch, :choose_editor_target, :choose_collect_target]
   before_filter :build_collection_items_with_sorting_and_filtering, :only => [:show, :update]
-  before_filter :load_item, :only => [:choose_collect_target, :create]
+  before_filter :load_item, :only => [:choose_editor_target, :choose_collect_target, :create]
 
   layout 'v2/collections'
 
@@ -47,6 +48,7 @@ class CollectionsController < ApplicationController
   def create
     @collection = Collection.new(params[:collection])
     if @collection.save
+      @collection.users = [current_user]
       flash[:notice] = I18n.t(:collection_created_with_count_notice,
                               :collection_name => link_to_name(@collection),
                               :count => @collection.collection_items.count)
@@ -129,10 +131,23 @@ class CollectionsController < ApplicationController
     @page_title = I18n.t(:choose_collection_header)
   end
 
+  def choose_editor_target
+    return must_be_logged_in unless logged_in?
+    @item = @user = User.find(params[:user_id]) # @item is for views, makes life easier.
+    @collections = current_user.all_collections.delete_if{ |c| c.is_resource_collection? || c.watch_collection? }
+    raise EOL::Exceptions::NoCollectionsApply if @collections.blank?
+    @page_title = I18n.t(:make_user_an_editor_title, :user => @user.full_name)
+    respond_to do |format|
+      format.html {  render :partial => 'choose_editor_target', :layout => 'v2/users' }
+      format.js { render :partial => 'choose_editor_target' }
+    end
+  end
+
+
   def choose_collect_target
     return must_be_logged_in unless logged_in?
     @collections = current_user.all_collections.delete_if{ |c| c.is_resource_collection? }
-    return EOL::Exceptions::ObjectNotFound unless @item
+    raise EOL::Exceptions::ObjectNotFound unless @item
     @page_title = I18n.t(:collect_item) + " - " + @item.summary_name
     respond_to do |format|
       format.html do

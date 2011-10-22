@@ -8,6 +8,7 @@ module EOL
     class InvalidCollectionItemType < StandardError; end
     class MaxCollectionItemsExceeded < StandardError; end
     class MustBeLoggedIn < StandardError; end
+    class NoCollectionsApply < StandardError; end
     class ObjectNotFound < StandardError; end
     class OnlyUsersCanCreateCommunitiesFromCollections < StandardError; end
     class Pending < StandardError; end

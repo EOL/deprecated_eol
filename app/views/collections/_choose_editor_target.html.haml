@@ -1,0 +1,15 @@
+#choose_collections
+  %h2= @page_title # NOTE this is redundant and should likely be changed.
+  - @collections ||= []
+  -# Note the reject simply disallows you from collecting a collection in itself:
+  - unless @collections.empty?
+    - form_tag(make_editor_user_path(@user), :method => :put) do |f|
+      %fieldset
+        %ul
+          - @collections.each do |collection|
+            = render :partial => 'collection_choose_collect_target_list_item', :locals => { :collection => collection, :has_item => @user.can_edit_collection?(collection) }
+      %fieldset.actions
+        = link_to(I18n.t(:see_all_of_your_collections), user_collections_path(current_user), :class => 'other_actions close_and_go')
+        = submit_tag(I18n.t(:make_an_editor))
+        - if @item
+          = link_to(I18n.t(:go_back), link_to_item(@item), :class => 'close')

@@ -20,7 +20,9 @@ ActionController::Routing::Routes.draw do |map|
     end
 
   map.resources :collections, :member => { :choose => :get },
-                              :collection => { :choose_collect_target => :get, :collect_item => :post }
+                              :collection => { :choose_collect_target => :get,
+                                               :choose_editor_target => :get,
+                                               :collect_item => :post }
   map.resources :collection_items, :except => [:index, :show, :new, :destroy]
   #used in collections show page, when user clicks on left tabs
   map.filtered_collection 'collections/:id/:filter', :controller => 'collections', :action => 'show'
@@ -65,7 +67,7 @@ ActionController::Routing::Routes.draw do |map|
   # users
   map.resources :users, :path_names => { :new => :register },
                 :member => { :terms_agreement => [ :get, :post ], :pending => :get, :activated => :get,
-                             :curation_privileges => [ :get ] },
+                             :curation_privileges => [ :get ], :make_editor => :put },
                 :collection => { :forgot_password => :get, :usernames => :get } do |user|
     user.resource :newsfeed, :only => [:show], :controller => "users/newsfeeds"
     user.resource :activity, :only => [:show], :controller => "users/activities"

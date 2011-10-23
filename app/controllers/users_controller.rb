@@ -52,18 +52,30 @@ class UsersController < ApplicationController
 
   def make_editor
     @user = User.find(params[:id])
-    messages = []
+    @notices = []
+    @errors = []
     params[:collection_id].each do |id|
       collection = Collection.find(id)
       if collection && current_user.can_edit_collection?(collection)
         collection.users << @user
         # NOTE this is dangerous!  If I go and add EVERYONE to my
         # collection as an editor, I'm essentially spamming them:
-        user.watch_collection.add(collection)
+        @user.watch_collection.add(collection)
         CollectionActivityLog.create(:collection => collection, :user => @user,
                                      :activity => Activity.add_editor)
-        messages << I18n.t(:user_was_added_as_editor_of_collection,
+        @notices << I18n.t(:user_was_added_as_editor_of_collection,
                            :collection => self.class.helpers.link_to(collection.name, collection_path(collection)))
+      else
+        @errors << I18n.t(:error_couldnt_find_collection_by_id, :id => id)
+      end
+    end
+    flash.now[:errors] = @errors.to_sentence unless @errors.empty?
+    flash[:notice] = @notices.to_sentence unless @notices.empty?
+    respond_to do |format|
+      format.html { redirect_to @user }
+      format.js do
+        convert_flash_messages_for_ajax
+        render :partial => 'shared/flash_messages', :layout => false # JS will handle rendering these.
       end
     end
   end

@@ -25,6 +25,8 @@ class CollectionItemsController < ApplicationController
     else # ...or this is just a simple single collect:
       create_collection_item(params[:collection_item])
     end
+    flash.now[:errors] = @errors.to_sentence unless @errors.empty?
+    flash[:notice] = @notices.to_sentence unless @notices.empty?
 
     respond_to do |format|
       format.html { redirect_to @collection_item.object }
@@ -39,8 +41,6 @@ class CollectionItemsController < ApplicationController
             render :text => @errors.to_sentence
           end
         else
-          flash.now[:errors] = @errors.to_sentence unless @errors.empty?
-          flash[:notice] = @notices.to_sentence unless @notices.empty?
           convert_flash_messages_for_ajax
           render :partial => 'shared/flash_messages', :layout => false # JS will handle rendering these.
         end

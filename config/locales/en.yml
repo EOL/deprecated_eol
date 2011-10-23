@@ -1374,6 +1374,7 @@ en:
   error_500_description: "We're sorry, we have encountered a problem. If the problem persists, please send email to <a href=\"mailto:%{email_address}?subject=%{error}\">%{email_address}</a>"
   error_default_description: "We're sorry, we have encountered a problem. If the problem persists, please send email to <a href=\"mailto:%{email_address}?subject=%{error}\">%{email_address}</a>"
   error_default_page_title: "Oops."
+  error_couldnt_find_collection_by_id: "Couldn't find a collection with id %{id} that you have access to."
   error_homepage_or_search_option: "You can either return to the <a href=\"/\">homepage</a> or use our search tool:"
   esc_key_hides_this_message: "(esc key hides this message)"
   every_method_can_also_return_json_response: "Every method can also return a JSON response by adding a .json extension"

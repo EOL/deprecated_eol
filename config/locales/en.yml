@@ -1592,8 +1592,6 @@ en:
   done_already: "Done already"
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: "Don't show unknown registered dates (V1 users, all prior to Jan 5, 2009)"
   download_full_information: "<a href='/files/pdfs/docs/EOL_Attribution.pdf'>Download full information</a> on how attribution will be shown on data objects"
-  download_audio_mpeg_assistive: "Access sound file in Moving Picture Experts Group (MPEG) format. This link will navigate directly to the sound file."
-  download_audio_mpeg: "Download MPEG"
   download_the_eol_transfer_sche: "Download the EOL Transfer Schema Documentation"
   download_the_eol_transfer_sche_: "Download the EOL Transfer Schema Glossary"
   do_you_want_to_be_a_curator: "Do you want to be a curator"

@@ -2,13 +2,13 @@
 - if image = item.exemplar_or_best_image_from_solr
   - if thumb = image.thumb_or_object('88_88')
     = link_to image_tag(thumb), taxon_overview_path(item)
-%span.icon{:title => I18n.t(:item_type_taxon_assistive)}
+= link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_taxon_assistive)}), taxon_overview_path(item)
 - if item.entry and item.entry.respond_to?(:preferred_classification_summary)
-  %small= item.entry.preferred_classification_summary
+  %small= link_to item.entry.preferred_classification_summary, taxon_overview_path(item)
 %h4= link_to h(truncate(item.title_canonical, :length => 64)), taxon_overview_path(item)
 - subtitle = item.preferred_common_name_in_language(current_user.language)
 - unless subtitle.blank?
-  = subtitle.firstcap
+  = link_to subtitle.firstcap, taxon_overview_path(item)
 - # we need the search result object, and the best match can't be in the title or subtitle
 - if search_result || @querystring # This was a search result... perhaps we should be more intelligent about this.
   - querystring = @querystring.blank? ? "" : @querystring.downcase
@@ -21,5 +21,5 @@
     - unless subtitle.blank?
       %br
     %strong
-      = search_result['keyword_type'].titleize + ": "
+      = search_result['keyword_type'].titleize
     = search_result['best_keyword_match'].firstcap

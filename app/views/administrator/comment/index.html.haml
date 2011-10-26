@@ -28,7 +28,8 @@
           - column_class=cycle('odd','even')
           %tr
             %td{ :class => column_class }
-              = link_to (comment.user.full_name,:controller=>'/administrator/user',:action=>'edit',:id=>comment.user_id)
+              - if comment.user
+                = link_to (comment.user.full_name,:controller=>'/administrator/user',:action=>'edit',:id=>comment.user_id)
             %td{ :class => column_class }
               = h truncate(comment.body, :length => 100)
               - if !comment.visible_at

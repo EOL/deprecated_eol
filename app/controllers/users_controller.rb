@@ -82,16 +82,23 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET named route /users/:username/verify/:validation_code users come here from the activation email they receive after registering
+  # GET named route /users/:user_id/verify/:validation_code users come here from the activation email they receive after registering
   def verify
-    username = params[:username] || ''
+    user_id = params[:user_id] || 0
     User.with_master do
-      @user = User.find_by_username(User.username_from_verify_url(username))
+      # we need to first check for usernames as some people may have received the validation
+      # link with the username before we changed the links to use user IDs on 10.26.2011
+      @user = User.find_by_username(User.username_from_verify_url(user_id))
+      # we couldn't find the user by username (we're searching for usernames matching the user_id parameter)
+      # OR we did find a user, but it had a different validation code, so look it up by ID
+      if user_id.is_numeric? && (!@user || (@user.validation_code && !params[:validation_code].blank? && @user.validation_code != params[:validation_code]))
+        @user = User.find(user_id.to_i)
+      end
     end
     if @user && @user.active
       flash[:notice] = I18n.t(:user_already_active_notice)
       redirect_to login_path
-    elsif @user && @user.validation_code == params[:validation_code] && ! params[:validation_code].blank?
+    elsif @user && @user.validation_code == params[:validation_code] && !params[:validation_code].blank?
       @user.activate
       Notifier.deliver_user_activated(@user)
       redirect_to activated_user_path(@user)
@@ -253,7 +260,7 @@ private
   end
 
   def send_verification_email
-    Notifier.deliver_user_verification(@user, verify_user_url(@user.verify_username, @user.validation_code))
+    Notifier.deliver_user_verification(@user, verify_user_url(@user.id, @user.validation_code))
   end
 
   def generate_api_key

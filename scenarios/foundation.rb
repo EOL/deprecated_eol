@@ -181,7 +181,7 @@ iucn_agent = Agent.iucn
 raise "IUCN is nil" if iucn_agent.nil?
 raise "IUCN Resource is nil" if iucn_resource.nil?
 
-# This is out of ourder, of course, because it depends on the IUCN resource.
+# This is out of order, of course, because it depends on the IUCN resource.
 HarvestEvent.gen_if_not_exists(:resource_id => iucn_resource.id)
 
 overview = TocItem.gen_if_not_exists(:label => 'Overview', :view_order => 1)

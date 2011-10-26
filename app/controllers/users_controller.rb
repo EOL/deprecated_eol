@@ -132,8 +132,6 @@ class UsersController < ApplicationController
       end
       redirect_back_or_default(user_path(current_user))
     else
-      # FIXME: is this the right content for terms agreement and the right call for it?
-      # FIXME: this seems flakey, do we have unique machine names for content rather than page name?
       page = ContentPage.find_by_page_name('terms_of_use')
       unless page.nil?
         @terms = TranslatedContentPage.find_by_content_page_id_and_language_id_and_active_translation(page, @user.language_id, 1)

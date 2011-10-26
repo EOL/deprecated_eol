@@ -131,11 +131,11 @@ class ContentPartner < SpeciesSchemaModel
   end
 
   def has_unpublished_content?
-    result=false
     self.resources.each do |resource|
-      result=(resource.resource_status==ResourceStatus.published)
+      # true if resource not yet harvested or latest harvest event not yet published
+      return true if resource.latest_harvest_event.nil? || resource.latest_harvest_event.published_at.nil?
     end
-    return !result
+    return false # false if no resources (has no content) or if all resources have latest harvest events and they are published
   end
 
   def primary_contact

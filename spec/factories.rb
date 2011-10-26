@@ -602,6 +602,7 @@ Factory.define :harvest_event do |he|
   he.began_at     { 5.hours.ago }
   he.completed_at { 4.hours.ago }
   he.published_at { 3.hours.ago }
+  he.publish      false
 end
 
 Factory.define :harvest_events_hierarchy_entry do |hehe|
@@ -819,7 +820,7 @@ Factory.define :resource do |r|
                                         :description => 'Some rights reserved',
                                         :source_url => 'http://creativecommons.org/licenses/by/3.0/',
                                         :logo_url => '/images/licenses/cc_by_small.png') }
-  r.resource_status { ResourceStatus.find_by_translated(:label, 'Published') || ResourceStatus.gen_if_not_exists(:label => 'Published') }
+  r.resource_status { ResourceStatus.processed || ResourceStatus.gen_if_not_exists(:label => 'Processed') }
   r.accesspoint_url 'http://services.eol.org/eol_php_code/tests/fixtures/files/test_resource.xml' # Won't work without a real, live URL for an XML file
   r.refresh_period_hours 0
   r.resource_created_at 48.hours.ago

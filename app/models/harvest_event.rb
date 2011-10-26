@@ -8,6 +8,8 @@ class HarvestEvent < SpeciesSchemaModel
 
   before_destroy :remove_related_data_objects
 
+  validates_inclusion_of :publish, :in => [false], :unless => :publish_is_allowed?
+
   def self.last_published
     last_published=HarvestEvent.find(:all,:conditions=>"published_at != 'null'",:limit=>1,:order=>'published_at desc')
     return (last_published.blank? ? nil : last_published[0])
@@ -21,7 +23,7 @@ class HarvestEvent < SpeciesSchemaModel
     rset = self.find_by_sql [query]
     arr=[]
     for fld in rset
-	    arr << fld["data_object_id"]
+      arr << fld["data_object_id"]
     end
     return arr
   end
@@ -83,6 +85,10 @@ class HarvestEvent < SpeciesSchemaModel
         :hierarchy_entries => [ :published, :visibility_id, :taxon_concept_id ],
         :names => :string })
     curator_activity_logs.sort_by{ |ah| Invert(ah.id) }
+  end
+
+  def publish_is_allowed?
+    self.published_at.blank? && !self.completed_at.blank? && self == self.resource.latest_harvest_event
   end
 
 protected

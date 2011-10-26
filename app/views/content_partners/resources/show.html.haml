@@ -37,6 +37,25 @@
             - else
               = link_to @resource.dwc_archive_url.sub(/^.*\//, ''), @resource.dwc_archive_url
 
+          %dt
+            = I18n.t('activerecord.attributes.resource.hierarchy')
+          %dd
+            - hierarchy = @resource.dwc_hierarchy.blank? ? @resource.hierarchy : @resource.dwc_hierarchy
+            - en_browsable_status = en_browsable_status(hierarchy)
+            - if hierarchy.blank?
+              = I18n.t(:value_empty)
+            - else
+              = I18n.t("content_partner_resource_hierarchy_#{en_browsable_status}")
+              - if current_user.is_admin?
+                [
+                = link_to I18n.t(:content_partner_resource_hierarchy_edit_link),
+                  edit_content_partner_resource_hierarchy_path(@partner, @resource, hierarchy, :return_to => current_url)
+                ]
+              - if hierarchy.request_to_publish_can_be_made?
+                = button_to I18n.t('helpers.submit.hierarchy.request_publish'),
+                  request_publish_content_partner_resource_hierarchy_path(@partner, @resource, hierarchy),
+                  :confirm => I18n.t(:content_partner_resource_hierarchy_confirm_request_publish, :hierarchy_label => h(hierarchy.label))
+
           %dt= I18n.t('activerecord.attributes.resource.language_id')
           %dd
             - if @resource.language.nil?
@@ -62,28 +81,24 @@
     .section.half
       .article
         .header
-          %h3= I18n.t(:content_partner_resource_status_and_settings_header)
+          %h3= I18n.t(:content_partner_resource_processing_header)
         - en_resource_status = @resource.resource_status.label('en').downcase.gsub(' ','_') rescue 'unknown'
         %dl
           %dt
-            = I18n.t('activerecord.attributes.resource.resource_status_id')
-          %dd
+            = I18n.t('helpers.label.resource.resource_status_id')
+          %dd{ :class => en_resource_status }
             = @resource.status_label
-          %dt
-            = I18n.t('activerecord.attributes.resource.hierarchy')
-          %dd
-            - hierarchy = @resource.dwc_hierarchy.blank? ? @resource.hierarchy : @resource.dwc_hierarchy
-            - en_browsable_status = en_browsable_status(hierarchy)
-            - if hierarchy.blank?
-              = I18n.t(:value_empty)
-            - else
-              = I18n.t("content_partner_resource_hierarchy_#{en_browsable_status}")
-              - if current_user.is_admin?
-                [
-                = link_to I18n.t(:content_partner_resource_hierarchy_edit_link),
-                  edit_content_partner_resource_hierarchy_path(@partner, @resource, hierarchy, :return_to => current_url)
-                ]
-
+            - if @resource.status_can_be_changed_to?(ResourceStatus.force_harvest)
+              = button_to I18n.t('helpers.submit.resource.force_harvest'), force_harvest_content_partner_resource_path(@partner, @resource),
+                :confirm => I18n.t(:content_partner_resource_confirm_force_harvest, :resource_title => h(@resource.title))
+          - if current_user.is_admin?
+            %dt
+              = I18n.t('activerecord.attributes.resource.notes')
+            %dd
+              - if @resource.notes.blank?
+                = I18n.t(:value_empty)
+              - else
+                = @resource.notes.truncate(100000)
           %dt
             = I18n.t('helpers.label.resource.refresh_period_hours')
           %dd
@@ -103,26 +118,7 @@
                 = I18n.t(:content_partner_resource_vetted_true)
               - else
                 = I18n.t(:content_partner_resource_vetted_false)
-          %dt.actions
-            = I18n.t(:content_partner_resource_resource_status_actions_header)
-          %dd
-            - actions_empty = I18n.t(:content_partner_resource_resource_status_actions_empty)
-            - if current_user.is_admin? && @resource.status_can_be_changed_to?(ResourceStatus.publish_pending)
-              - actions_empty = nil
-              = button_to I18n.t('helpers.submit.resource.publish'), publish_content_partner_resource_path(@partner, @resource),
-                :confirm => I18n.t(:content_partner_resource_confirm_publish, :resource_title => h(@resource.title))
-            - if @resource.status_can_be_changed_to?(ResourceStatus.force_harvest)
-              - actions_empty = nil
-              = button_to I18n.t('helpers.submit.resource.force_harvest'), force_harvest_content_partner_resource_path(@partner, @resource),
-                :confirm => I18n.t(:content_partner_resource_confirm_force_harvest, :resource_title => h(@resource.title))
-            - if ! hierarchy.blank? && hierarchy.request_to_publish_can_be_made?
-              - actions_empty = nil
-              = button_to I18n.t('helpers.submit.hierarchy.request_publish'),
-                request_publish_content_partner_resource_hierarchy_path(@partner, @resource, hierarchy),
-                :confirm => I18n.t(:content_partner_resource_hierarchy_confirm_request_publish, :hierarchy_label => h(hierarchy.label))
 
-            - unless actions_empty.blank?
-              = actions_empty
 
     .section.half
       .article
@@ -132,44 +128,43 @@
             = link_to I18n.t(:content_partner_resource_harvest_events_see_all_link), content_partner_resource_harvest_events_path(@partner, @resource)
         %dl
           %dt
-            = I18n.t('helpers.label.resource.oldest_published_harvest_event')
-          %dd
-            - if @resource.oldest_published_harvest_event.blank?
-              = I18n.t(:value_empty)
-            - else
-              = format_date_time(@resource.oldest_published_harvest_event.published_at)
-          %dt
-            = I18n.t('helpers.label.resource.latest_published_harvest_event')
-          %dd
-            - if @resource.latest_published_harvest_event.blank?
-              = I18n.t(:value_empty)
-            - else
-              = format_date_time(@resource.latest_published_harvest_event.published_at)
-              - unless @resource.collection.blank?
-                %br/
-                = link_to I18n.t(:content_partner_resource_collection_show_link), @resource.collection
-          %dt
             = I18n.t('helpers.label.resource.latest_harvest_event')
           %dd
             - if @resource.latest_harvest_event.blank?
               = I18n.t(:value_empty)
             - else
               = I18n.t('helpers.label.harvest_event.began_at')
-              = format_date_time(@resource.latest_harvest_event.began_at) || I18n.t(:value_empty)
+              = format_date_time(@resource.latest_harvest_event.began_at, :format => :medium) || I18n.t(:value_empty)
               %br/
               = I18n.t('helpers.label.harvest_event.completed_at')
-              = format_date_time(@resource.latest_harvest_event.completed_at) || I18n.t(:value_empty)
+              = format_date_time(@resource.latest_harvest_event.completed_at, :format => :medium) || I18n.t(:value_empty)
               %br/
               = I18n.t('helpers.label.harvest_event.published_at')
-              = format_date_time(@resource.latest_harvest_event.published_at) || I18n.t(:value_empty)
+              = format_date_time(@resource.latest_harvest_event.published_at, :format => :medium) || I18n.t(:value_empty)
               - unless @resource.preview_collection.blank?
                 %br/
                 = link_to I18n.t(:content_partner_resource_preview_collection_show_link), @resource.preview_collection
-          - if current_user.is_admin?
-            %dt
-              = I18n.t('activerecord.attributes.resource.notes')
-            %dd
-              - if @resource.notes.blank?
-                = I18n.t(:value_empty)
-              - else
-                = @resource.notes.truncate(100000)
+              - if current_user.is_admin? && !@resource.latest_harvest_event.publish? && @resource.latest_harvest_event.publish_is_allowed?
+                - form_for [@partner, @resource, @resource.latest_harvest_event] do |f|
+                  = hidden_field_tag 'return_to', current_url
+                  = f.hidden_field :publish, :value => :true
+                  %fieldset.actions
+                    = f.submit I18n.t('helpers.submit.harvest_event.publish'), :name => :commit_publish_harvest_event,
+                      :confirm => I18n.t(:content_partner_resource_harvest_event_confirm_publish, :completed_at => format_date_time(@resource.latest_harvest_event.completed_at), :resource_title => h(@resource.title))
+          %dt
+            = I18n.t('helpers.label.resource.latest_published_harvest_event')
+          %dd
+            - if @resource.latest_published_harvest_event.blank?
+              = I18n.t(:value_empty)
+            - else
+              = format_date_time(@resource.latest_published_harvest_event.published_at, :format => :medium )
+              - unless @resource.collection.blank?
+                %br/
+                = link_to I18n.t(:content_partner_resource_collection_show_link), @resource.collection
+          %dt
+            = I18n.t('helpers.label.resource.oldest_published_harvest_event')
+          %dd
+            - if @resource.oldest_published_harvest_event.blank?
+              = I18n.t(:value_empty)
+            - else
+              = format_date_time(@resource.oldest_published_harvest_event.published_at, :format => :medium)

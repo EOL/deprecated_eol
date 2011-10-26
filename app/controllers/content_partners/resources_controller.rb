@@ -124,31 +124,6 @@ class ContentPartners::ResourcesController < ContentPartnersController
     redirect_back_or_default content_partner_resources_path(@partner)
   end
 
-  # POST /content_partners/:content_partner_id/resources/:id/publish
-  def publish
-    access_denied unless current_user.is_admin?
-    ContentPartner.with_master do
-      @partner = ContentPartner.find(params[:content_partner_id], :include => {:resources => :resource_status })
-      @resource = @partner.resources.find(params[:id])
-    end
-    if @resource.resource_status == ResourceStatus.processed
-      @resource.resource_status = ResourceStatus.publish_pending
-      if @resource.save
-        flash[:notice] = I18n.t(:content_partner_resource_status_update_successful_notice,
-                                :resource_status => @resource.status_label, :resource_title => @resource.title)
-      else
-        flash[:error] = I18n.t(:content_partner_resource_status_update_unsuccessful_error,
-                               :resource_status => @resource.status_label, :resource_title => @resource.title)
-      end
-    else
-      flash[:error] = I18n.t(:content_partner_resource_status_update_illegal_transition_error,
-                             :resource_title => @resource.title, :current_resource_status => @resource.status_label,
-                             :requested_resource_status => Resource.publish_pending.label)
-    end
-    store_location request.referer unless request.referer.blank?
-    redirect_back_or_default content_partner_resources_path(@partner)
-  end
-
 private
 
   def redirect_if_terms_not_accepted

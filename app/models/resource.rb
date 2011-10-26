@@ -99,31 +99,33 @@ class Resource < SpeciesSchemaModel
     (resource_status.nil?) ?  I18n.t(:content_partner_resource_resource_status_new) : resource_status.label
   end
 
+  # TODO: We probably don't need this - and not sure its being used correctly anyway. It's being called
+  # by taxa controller accessible_page? method which I don't think is needed anymore, some code clean up
+  # probably needed in taxa controller.
   def latest_unpublished_harvest_event
-    HarvestEvent.find(:first, :conditions => ["published_at IS NULL AND completed_at IS NOT NULL AND resource_id = ?", id],
-                              :limit => 1,
-                              :order => 'completed_at desc')
+    return @latest_unpublished_harvest if defined? @latest_unpublished_harvest # avoid running query twice if result was nil
+    @latest_unpublished_harvest = HarvestEvent.find(:first,
+        :conditions => ["published_at IS NULL AND completed_at IS NOT NULL AND resource_id = ?", id],
+        :limit => 1, :order => 'completed_at desc')
   end
 
   def latest_published_harvest_event
-   @latest_harvest ||= HarvestEvent.find(:first, :conditions => ["published_at IS NOT NULL AND completed_at IS NOT NULL AND resource_id = ?", id],
-                             :limit => 1,
-                             :order => 'published_at desc')
+    return @latest_published_harvest if defined? @latest_published_harvest # avoid running query twice if result was nil
+    @latest_published_harvest = HarvestEvent.find(:first,
+       :conditions => ["published_at IS NOT NULL AND completed_at IS NOT NULL AND resource_id = ?", id],
+       :limit => 1, :order => 'published_at desc')
   end
 
   def oldest_published_harvest_event
-    HarvestEvent.find(:first,
+    return @oldest_published_harvest if defined? @oldest_published_harvest # avoid running query twice if result was nil
+    @oldest_published_harvest = HarvestEvent.find(:first,
         :conditions => ["published_at IS NOT NULL AND completed_at IS NOT NULL AND resource_id = ?", id],
         :limit => 1, :order => 'published_at')
   end
 
   def latest_harvest_event
-    HarvestEvent.find(:first, :limit => 1, :order => 'id desc', :conditions => ["resource_id = ?", id])
-  end
-
-  def all_harvest_events
-    HarvestEvent.find(:first, :conditions => ["resource_id = ?", id],
-                              :order => 'completed_at desc')
+    return @latest_harvest if defined? @latest_harvest # avoid running query twice if result was nil
+    @latest_harvest = HarvestEvent.find(:first, :limit => 1, :order => 'id DESC', :conditions => ["resource_id = ?", id])
   end
 
 #  # vet or unvet entire resource (0 = unknown, 1 = vet)

@@ -33,10 +33,9 @@ ActionController::Routing::Routes.draw do |map|
     content_partner.resources :content_partner_agreements, :as => :agreements,
                                                          :except => [:index, :destroy],
                                                          :namespace => "content_partners/"
-    content_partner.resources :resources, :member => {:force_harvest => [:get, :post],
-                                                      :publish => [:post]},
+    content_partner.resources :resources, :member => {:force_harvest => [:get, :post]},
                                           :namespace => "content_partners/" do |resource|
-      resource.resources :harvest_events, :only => [:index], :namespace => "content_partners/resources/"
+      resource.resources :harvest_events, :only => [:index, :update], :namespace => "content_partners/resources/"
       resource.resources :hierarchies, :only => [:edit, :update], :member => { :request_publish => :post },
                                        :namespace => "content_partners/resources/"
     end

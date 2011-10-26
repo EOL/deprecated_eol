@@ -293,18 +293,22 @@ en:
       full_messages:
         format: "%{attribute} %{message}"
       models:
+        harvest_event:
+          attributes:
+            publish:
+              inclusion: "is only allowed for the latest harvest event and only if that event is not already published"
         resource:
           attributes:
             accesspoint_url:
               blank: "can't be blank, unless you upload a resource file instead"
               inaccessible: "is inaccessible, the URL must be publicly accessible"
-              invalid: "is invalid, it should point to a XML, XML.GZIP or XML.GZ file."
+              invalid: "is invalid, it should point to a XML, XML.GZIP or XML.GZ file"
             dataset:
               blank: "can't be blank unless you provide a dataset URL instead"
               wrong_type: "is the wrong type, it should be a GZIP, TAR or XML file"
             dwc_archive_url:
               inaccessible: "is inaccessible, the URL must be publicly accessible"
-              invalid: "is invalid, it should point to a TAR.GZIP, TAR.GZ or TGZ file."
+              invalid: "is invalid, it should point to a TAR.GZIP, TAR.GZ or TGZ file"
   helpers:
     select:
       prompt: "Please select"
@@ -332,6 +336,8 @@ en:
         create: "Add article"
         create_text: "Add article"
         update: "Save article"
+      harvest_event:
+        publish: "Publish"
       hierarchy:
         update: "Update hierarchy"
         request_publish: "Request to promote hierarchy"
@@ -342,7 +348,6 @@ en:
         create: "Add resource"
         update: "Update resource"
         update_settings: "Update settings"
-        publish: "Publish"
         force_harvest: "Request force harvest"
       session:
         create: "Sign in"
@@ -404,6 +409,7 @@ en:
       harvest_event:
         began_at: "Started"
         completed_at: "Completed"
+        publish_more: "Flags harvest event for publication, content will not be made public immediately."
         published_at: "Published"
         published_status: "Status"
       hierarchy:
@@ -1222,7 +1228,6 @@ en:
   content_partner_resource_collections_header: "Collections"
   content_partner_resource_collection_header: "Published collection"
   content_partner_resource_collection_show_link: "View published collection"
-  content_partner_resource_confirm_publish: "Are you sure you want to publish resource %{resource_title}?"
   content_partner_resource_confirm_force_harvest: "Are you sure you want to force the harvest of resource %{resource_title}?"
   content_partner_resource_create_successful_notice: "Content partner resource details successfully added. Current status of resource data: %{resource_status}."
   content_partner_resource_create_unsuccessful_error: "Sorry, an error occurred, the resource was not added."
@@ -1232,12 +1237,16 @@ en:
   content_partner_resource_edit_subheader: "Edit resource"
   content_partner_resource_edit_with_type_link: "Edit resource"
   content_partner_resource_force_harvest_link: "Force harvest"
+  content_partner_resource_harvest_event_confirm_publish: "Are you sure you want to publish harvest event %{completed_at} for resource %{resource_title}?"
   content_partner_resource_harvest_event_current_published: "Currently published"
-  content_partner_resource_harvest_event_previously_published: "Previously published"
   content_partner_resource_harvest_event_not_published: "Not published"
+  content_partner_resource_harvest_event_previously_published: "Previously published"
+  content_partner_resource_harvest_event_publish_pending: "Publish pending"
   content_partner_resource_harvest_events_empty: "No harvest events were found."
   content_partner_resource_harvest_events_for_resource_subheader: "Harvest events for resource %{resource_title}"
   content_partner_resource_harvest_events_see_all_link: "See all <span class=\"assistive\">harvest events</span>"
+  content_partner_resource_harvest_event_update_successful_notice: "Harvest event for %{resource_title} successfully updated."
+  content_partner_resource_harvest_event_update_unsuccessful_error: "Sorry, an error occurred, the harvest event for %{resource_title} was not updated."
   content_partner_resource_hierarchy_browsable: "Browsable"
   content_partner_resource_hierarchy_complete_true: "This hierarchy is set as <strong>curated</strong>. A curated hierarchy assumes that every entry is intended to be unique, i.e. matching name strings will be treated as homonyms."
   content_partner_resource_hierarchy_complete_false: "This hierarchy is not set as curated. Matching entries may be treated as one concept."
@@ -1255,12 +1264,10 @@ en:
   content_partner_resource_new_subheader: "Add a new resource"
   content_partner_resource_preview_collection_header: "Preview collection"
   content_partner_resource_preview_collection_show_link: "View preview collection"
+  content_partner_resource_processing_header: "Processing status & settings"
   content_partner_resource_resource_status_new: "Created"
-  content_partner_resource_resource_status_actions_header: "Available actions"
-  content_partner_resource_resource_status_actions_empty: "Resource status cannot be modified at this time."
   content_partner_resource_show_link_back_to: "go back to resource"
   content_partner_resource_show_subheader: "Details for resource <em>%{resource_title}</em>"
-  content_partner_resource_status_and_settings_header: "Status and settings"
   content_partner_resource_status_update_illegal_transition_error: "Sorry, the current status of resource %{resource_title} is %{current_resource_status} and cannot be changed to %{requested_resource_status}."
   content_partner_resource_status_update_successful_notice: "Status of resource %{resource_title} successfully updated to %{resource_status}."
   content_partner_resource_status_update_unsuccessful_error: "Sorry, an error occurred, status of resource %{resource_title} could not be updated to %{resource_status}."

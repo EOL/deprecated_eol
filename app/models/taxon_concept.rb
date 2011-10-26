@@ -175,6 +175,19 @@ class TaxonConcept < SpeciesSchemaModel
   end
   alias :top_acting_curators :top_curators # deprecated.  TODO - remove entirely.
 
+  def data_object_curators
+    curators = connection.select_values("
+      SELECT cal.user_id
+      FROM #{CuratorActivityLog.database_name}.curator_activity_logs cal
+        JOIN #{LoggingModel.database_name}.activities acts ON (cal.activity_id = acts.id)
+        JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (cal.object_id = dotc.data_object_id)
+      WHERE dotc.taxon_concept_id=#{self.id}
+      AND cal.changeable_object_type_id IN(#{ChangeableObjectType.data_object_scope.join(",")})
+      AND acts.id IN (#{Activity.raw_curator_action_ids.join(",")})
+      ORDER BY cal.updated_at DESC").uniq
+    User.find(curators)
+  end
+
   # The International Union for Conservation of Nature keeps a status for most known species, representing how endangered that
   # species is.  This will default to "unknown" for species that are not being tracked.
   def iucn_conservation_status

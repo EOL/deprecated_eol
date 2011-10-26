@@ -458,10 +458,22 @@ private
   def log_action(object, method, opts)
     object_id = object.data_object_id if object.class.name == "DataObjectsHierarchyEntry" || object.class.name == "CuratedDataObjectsHierarchyEntry" || object.class.name == "UsersDataObject"
     object_id = object.id if object_id.blank?
-    he = object.hierarchy_entry if object.class.name == "DataObjectsHierarchyEntry" || object.class.name == "CuratedDataObjectsHierarchyEntry"
+
+    if object.class.name == "DataObjectsHierarchyEntry" || object.class.name == "CuratedDataObjectsHierarchyEntry"
+      he = object.hierarchy_entry
+    elsif object.class.name == "HierarchyEntry"
+      he = object
+    end
+
+    if method == :add_association || method == :remove_association
+      changeable_object_type = ChangeableObjectType.send("CuratedDataObjectsHierarchyEntry".underscore.to_sym)
+    else
+      changeable_object_type = ChangeableObjectType.send(object.class.name.underscore.to_sym)
+    end
+
     CuratorActivityLog.create(
       :user => current_user,
-      :changeable_object_type => ChangeableObjectType.send(object.class.name.underscore.to_sym),
+      :changeable_object_type => changeable_object_type,
       :object_id => object_id,
       :activity => Activity.send(method),
       :data_object => @data_object,

@@ -542,8 +542,7 @@ en:
       message: "The Encyclopedia of Life (www.eol.org) received a request to reset your password. If you did not make this request, please ignore this email.\n\nThe following link will provide you with a one-time opportunity to reset your password:\n\n%{password_reset_url}\n\nFollow this link ('click' on it or copy and paste the entire link into your Web browser's address bar and load it) to access the page where you can enter a new password. Please note that if the link has expired you will be asked to enter your username or email address again to receive a new reset password email message and link."
     user_verification:
       subject: "Please verify your request for an Encyclopedia of Life account"
-      message: "Thanks for registering with the Encyclopedia of Life. The following link will verify that you wish to complete your registration:\n\n%{verification_url}\n\nFollow this link ('click' on it or copy and paste the entire link into your Web browser's address bar and load it) to activate your account. Once your account has been activated you will receive a confirmation email message."
-  0_1_or_2: "0, 1 or 2"
+      message: "Thanks for registering with the Encyclopedia of Life. The following link will verify that you wish to complete your registration:\n\n%{verification_url}\n\nFollow this link ('click' on it or copy and paste the entire link into your Web browser's address bar and load it) to activate your account. Once your account has been activated you will receive a confirmation email message."  0_1_or_2: "0, 1 or 2"
   0_or_1: "0 or 1"
   a_pipe_delimited_list_of_licenses: "a pipe | delimited list of licenses or 'all' to get objects under any license. Licenses abbreviated cc- are all"
   a_pipe_delimited_list_of_spm_info_item_subject_names: "a pipe | delimited list of SPM Info Item subject names or 'all' to get text in any subject"
@@ -1159,7 +1158,6 @@ en:
   donation_sponsorship_infrastructure_title: "Core Infrastructure"
   donation_sponsorship_preamble: "If you would like to learn more about specific programs available for sponsorship, or would like to make a recurring gift, please contact the Encyclopedia of Life Secretariat by <a href=\"mailto:%{email_address}\">email</a>  or by phone at (202) 633-8730. Opportunities for targeted giving include:"
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: "Don't show unknown registered dates (V1 users, all prior to Jan 5, 2009)"
-  download_audio_mpeg: "Download MPEG"
   dublin_core: "Dublin Core"
   duplicate_items_were_ignored: "Duplicate items were ignored."
   e_g_search_for_the_eol_page: "(e.g. search for the EOL page ID for the ITIS TSN 180542:"
@@ -1169,6 +1167,7 @@ en:
   edit_collection_details: "Edit collection details"
   edit_collection_details_header: "Edit collection details"
   edit_collection_head_title: "Edit: %{collection_name}"
+  edit_comment: "Edit Comment"
   edit_community: "Edit community"
   edit_contact_us_topics: "edit contact us topics"
   edit_downcase: edit
@@ -1288,6 +1287,8 @@ en:
   hello_user: "Hello %{user}"
   help: Help
   hidden: Hidden
+  hidden_comment: "hidden comment"
+  hide: hide
   hierarchies: hierarchies
   hierarchies_description: "The Encyclopedia of Life does not have a singular taxonomic hierarchy upon which it creates its pages. Rather EOL indexes many hierarchies and compares them against each other. This API list metadata about a hierarchy such as the provider name and source URL, as well as lists all the taxa which are the root taxa of the taxonomic tree"
   hierarchies_entries_description: "The Encyclopedia of Life does not have a singular taxonomic hierarchy upon which it creates its pages. Rather EOL indexes many hierarchies and compares them against each other. As a result any EOL page may relate to several nodes from various hierarchies. This API gives access to a single hierarchy and its internal relationships. Refer to the documentation on the pages API for information on accessing other hierarchies which correspond to a particular EOL page. The taxonConceptID field contains the EOL page identifier which can be used in the pages API."
@@ -1403,6 +1404,7 @@ en:
   literature_header: References
   literature_references: "Literature references"
   location: Location
+  location_colon: "Location:"
   login: login
   login_header: "Sign in to your <abbr title=\"Encyclopedia of Life\">EOL</abbr> account"
   login_or_create_account: "Login or Create Account"
@@ -1636,6 +1638,7 @@ en:
   recognized_by: "Recognized by"
   recognized_by_as_a_rank: "%{recognized_by} as a %{taxon_rank}"
   recognized_by_from_source_as_a_rank: "%{recognized_by} in %{source} as a %{taxon_rank}"
+  record_not_found: "[record not found]"
   related_names_with_count:
     one: "%{count} related name"
     other: "%{count} related names"
@@ -1766,6 +1769,8 @@ en:
   species: Species
   species_curated: "Species Curated"
   species_profile_model: "Species Profile Model"
+  species_profile_model_cp_count_title: "Species Profile Model - Content Partners Count"
+  species_profile_model_dato_count_title: "Species Profile Model - Data Objects Count"
   spm_category_objects_count: "SPM category - objects count"
   spm_category_partner_count: "SPM category - partner count"
   stat: Stat
@@ -1782,6 +1787,7 @@ en:
   table_column_header_actions: Actions
   table_of_contents: "Table of Contents"
   table_of_contents_breakdown: "table of contents breakdown"
+  table_of_contents_breakdown_title: "Table of Contents Breakdown"
   target_blank_advisory_information: "If you follow this link the destination page will open in a new browser window."
   task_status: "Task status"
   task_status_active_option: Active
@@ -1816,7 +1822,6 @@ en:
   taxon_recognized_by_header: "Recognized by"
   taxonomic_summary_of_content: "taxonomic summary of content"
   technical_functions: "Technical Functions"
-  terms_agreement_beta_intro: "Thank you for participating in the EOL Version 2 Beta. Before proceeding we need you to agree to the following:"
   terms_agreement_form_fallback: "Please review and agree to the <a href=\"%{terms_url}\">terms of use</a> before accessing your account."
   terms_agreement_form_header: "Terms Of use"
   terms_agreement_form_submit: "I agree"
@@ -1831,6 +1836,7 @@ en:
   thank_you_for_your_generous_support: "Thank you for your generous support"
   thanks_for_donation: "Thank you for supporting the Encyclopedia of Life.  Your information has been submitted and will be processed."
   the_amount_entered_was: "The amount entered was : US %{number}"
+  the_comment_was_successfully_u: "The comment was successfully updated."
   the_darwin_core_taxon_elements: "The Darwin Core Taxon elements (dwct:Taxon) under additionalInformation include identifiers for nodes in hierarchies which EOL indexes. They contain a dc:identifier which is the unique ID for the taxon <i>in the provider's database.</i>"
   the_following_bibliography: "The following bibliography has been generated by bringing together all references provided by our content partners. There may be duplication."
   the_id_of_provider_hierarchy_you_are_searching: "the ID of the provider's hierarchy you are searching within. Check %{link} for valid IDs"
@@ -1841,7 +1847,6 @@ en:
   there_are_currently_no_members_in_this_community: "There are currently no members in this community."
   there_is_no_singular_eol: "There is no singular EOL taxonomic hierarchy, rather EOL indexes many hierarchies and compares them to figure out which nodes are referring to the same taxa. These taxon elements represent these hierarchy nodes, which is why there are potentially several of them for a given EOL page. Refer to the documentation on the %{link} API for more information."
   there_was_an_error_posting_your_text: "There was an error posting your text."
-  this_cannot_be_undone_are_you_sure: "This cannot be undone; are you sure?"
   this_community_has_no_endorsed_collections: "This community has not featured any collections."
   this_community_has_no_focus_list: "This community has no focus list."
   this_community_was_deleted: "This community was deleted by its owner."
@@ -1903,6 +1908,7 @@ en:
   user_activity_stats_taxa_curated: "Taxa curated"
   user_already_active_notice: "Your account is already active, please login."
   user_commented_on_something_colon: "<strong>%{user}</strong> commented on %{what}:"
+  user_comments: "User Comments"
   user_index_intro: "All web users registered in the system are shown below,  sorted inversely by time registered.  Note that the registration dates for users prior to EOL V2 (Jan 5, 2009) are not available.  Click on a username to edit that user."
   user_joined_community_on_date: "%{username} joined this community on %{date}."
   user_left_comment_on_date: "%{username} left a comment on %{date}."
@@ -1938,7 +1944,7 @@ en:
   values: Values
   version_1_0_uses_fields_from_the_latest_version: "version 1.0 uses fields from the latest version of the %{link} schema"
   vetted: Vetted
-  video_description_not_available_in_language: "Description not available in %{language}"
+  video_title_not_available_in_language: "Title not available in %{language}"
   videos_with_count:
     one: "%{count} video"
     other: "%{count} videos"

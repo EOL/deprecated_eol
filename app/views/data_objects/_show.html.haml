@@ -22,9 +22,6 @@
     = render :partial => '/data_objects/attribution', :locals => { :supplier => true }
     - if @data_object.is_image?
       %p= link_to I18n.t(:view_full_size_image), @data_object.thumb_or_object(:orig)
-    - if @data_object.is_sound?
-      - en_mime_type = @data_object.mime_type ? @data_object.mime_type.label('en') : DataType.sound.simple_type
-      %p= link_to I18n.t("download_#{en_mime_type.sub(/\//, '_')}"), @data_object.sound_url, { :title => I18n.t("download_#{en_mime_type.sub(/\//, '_')}_assistive") }
   = render :partial => '/data_objects/list_associations', :locals => { :data_object => @data_object, :en_type => en_type, :for_worklist => for_worklist }
   - if for_worklist
     - # For worklist we show updates here below the associations form, not above.

@@ -20,7 +20,6 @@ ar:
       - الخميس
       - الجمعة
       - السبت
-
     month_names:
       - ~
       - يناير
@@ -58,16 +57,13 @@ ar:
       default: "%a %b %d %H:%M:%S %Z %Y"
       short: "%d %b %H:%M"
       long: "%B %d, %Y %H:%M"
-      only_second: "%S"
     am: 'صباحا'
     pm: 'مساءا'
   support:
     array:
-      sentence_connector: "و"
       words_connector: ", "
       two_words_connector: " و "
       last_word_connector: ", و "
-      skip_last_comma: false
     select:
       prompt: "يرجى الاختيار"
   number:
@@ -102,7 +98,7 @@ ar:
         format: "%n %u"
         units:
           byte:
-            one:   "Byte"
+            one: "Byte"
             other: "Bytes"
           kb: "KB"
           mb: "MB"
@@ -160,30 +156,6 @@ ar:
       hour:   "ساعة"
       minute: "دقيقة"
       second: "ثانية"
-  errors:
-    format: "%{attribute} %{message}"
-    messages: &errors_messages
-      inclusion: "ليس خيارا مقبولا"
-      exclusion: "محجوز"
-      invalid: "غير معرف أو محدد"
-      confirmation: "لا تتوافق مع التأكيد"
-      accepted: "يجب أن تقبل"
-      empty: "فارغ، يرجى ملء الحقل"
-      blank: "فارغ، يرجى ملء الحقل"
-      too_long: "أطول من اللازم (الحد الأقصى هو %{count})"
-      too_short: "أقصر من اللازم (الحد الأدنى هو %{count})"
-      wrong_length: "بطول غير مناسب (يجب أن يكون %{count})"
-      not_an_integer: "يجب أن يكون صحيحا"
-      not_a_number: "ليس رقما"
-      greater_than: "يجب أن يكون أكبر من %{count}"
-      greater_than_or_equal_to: "يجب أن يكون أكبر من أو يساوي %{count}"
-      equal_to: "يجب أن يساوي %{count}"
-      less_than: "يجب ان يكون أقل من %{count}"
-      less_than_or_equal_to: "يجب أن يكون أقل من أو يساوي"
-      odd: "يجب ان يكون عدد فردي"
-      even: "يجب أن يكون عدد زوجي"
-      inaccessible: "يتعذر الوصول إليه"
-      wrong_type: "صيغة خاطئة"
   activerecord:
     models:
       user: "حساب"
@@ -194,6 +166,7 @@ ar:
         active: "نشر"
       content_partner:
         acronym: "اختصار المشروع"
+        auto_publish: "نشر - آلي"
         admin_notes: "ملاحظات الإدارة"
         content_partner_status: "وضع المشروع"
         created_at: "أنشئ في"
@@ -201,10 +174,14 @@ ar:
         display_name: "الاسم الظاهر"
         full_name: "اسم المشروع"
         homepage: "العنوان الإلكتروني للمشروع"
+        id: "الهوية"
         notes: "ملاحظات المشروع"
+        public: "عام"
+        resources: "المراجع"
         user_id: "يديرها"
         vetted: "تم تقييمه"
       content_partner_agreement:
+        created_at: "تم إنشائه في"
         signed_by: "وقع بواسطة "
         signed_on_date: "وقعت في تاريخ"
       data_object:
@@ -214,20 +191,34 @@ ar:
         rights_holder: "صاحب حقوق الملكية"
         rights_statement: "إقرار الحقوق"
         source_url: "رابط المصدر"
+      harvest_event:
+        resource: "مورد"
+      hierarchy:
+        browsable: "يمكن تصفحه"
+        complete: "كامل"
+        description: "الوصف"
+        descriptive_label: "تصنيف وصفي"
+        label: "صنف"
+        request_publish: "طلب النشر"
       name:
         string: "الاسم"
       resource:
         accesspoint_url: "عنوان إلكتروني لمجموعة بيانات"
+        auto_publish: "نشر - آلي"
         bibliographic_citation: "الإقتباس الببليوغرافي"
         dataset: "ملف مجموعة البيانات"
         description: "وصف المصدر"
         dwc_archive_url: "العنوان الإلكتروني لأرشيف داروين كور"
+        harvest_events: "عمليات تجميع البيانات "
+        hierarchy: "تسلسل هرمي"
         language_id: "اللغة الافتراضية"
         license_id: "الرخصة الافتراضية"
+        notes: "جاري التعامل مع الملاحظات"
         resource_status_id: "حالة المصدر"
         rights_holder: "مالك الحقوق الافتراضي"
         rights_statement: "إقرار الحقوق الافتراضي"
         title: "إسم المصدر"
+        vetted: "تم تقييمه"
       translated_content_page:
         active_translation: "نشر"
         left_content: "التنقل"
@@ -329,8 +320,10 @@ ar:
       content_partner:
         create: "إنشاء شريك محتوى"
         update: "حفظ معلومات شريك المحتوى"
-      content_partner_agreements:
-        create: "الموافقة على شروط شريك المحتوى"
+      content_partner_agreement:
+        create: "إنشاء اتفاقية جديدة"
+        update: "تحديث الاتفاقية"
+        agree: "الموافقة على شروط شريك المحتوى"
       content_partner_contact:
         create: "إضافة جهة اتصال"
         update: "تحديث جهة اتصال"
@@ -339,12 +332,18 @@ ar:
         create: "أضف مقال"
         create_text: "أضف مقال"
         update: "حفظ المقال"
+      hierarchy:
+        update: "تحديث التسلسل الهرمي"
+        request_publish: "طلب تطوير التسلسل الهرمي"
       name:
         create: "أضف أسم"
         update: "تحديث أسم"
       resource:
         create: "إضافة مصدر"
         update: "تحديث المصدر"
+        update_settings: "تحديث الإعدادات"
+        publish: "نشر"
+        force_harvest: "طلب التجميع الإجباري للبيانات"
       session:
         create: "تسجيل الدخول"
       translated_content_page:
@@ -368,15 +367,23 @@ ar:
         parent_content_page_id: "رئيسي"
         parent_content_page_id_more: "يمكنك اختيار صفحة رئيسية لتتبعها تلك الصفحة."
       content_partner:
-        admin_notes: "ملاحظات الإدارة  <small>(ظاهرة للمشرفين فقط)</small>  "
-        display_name: "الأسم الظاهر <small>(اختياري)</small> "
+        created_at: "مسجل"
+        current_agreement: "الاتفاقية الحالية"
+        display_name: "الاسم الظاهر <small>(اختياري)</small> "
         display_name_more: "يرجى إضافة إسم بديل ظاهر للعامة عوضًا عن <em> إسم المشروع</em>."
         description_of_data: "وصف البيانات  <small>( خاصة)</small>"
         description_of_data_more: "يرجى تقديم وصف لنوع المعلومات التي تمتلكها، وعدد العناصر المتاحة، وما هي الكائنات الحية المرتبطة بها، وما إذا كان تم جمعها أو فحصها من قبل خبراء مؤهلون أو مجتمع معترف به."
+        last_action: "آخر خطوة"
+        latest_published_harvest_event: "آخر ما نشر"
         logo_current: "الشعار الحالي:"
         logo_new: "تحميل شعار جديد:"
         notes: "ملاحظات المشروع  <small>(خاصة)</small> "
+        oldest_published_harvest_event: "أول ما نشر"
+        public_more: "تظهر صفحات شركاء المحتوى العام  للجميع كما يتم إضافة المعلومات الخاصة بهم في قوائم شركاء المحتوى. قم بإزالة العلامة لاستبعاد بيانات شركاء المحتوى من القوائم واقصر إمكانية مشاهدة الصفحات الخاصة بهم على كل من المستخدم الذي أنشأ شريك المحتوى ومشرفي موسوعة الحياة."
         user_id: "يتم إدارة معلومات شريك المحتوى بواسطة"
+      content_partner_agreement:
+        mou_url: "العنوان الإلكتروني لملف الاتفاقية <small>(بديل اختياري)</small>"
+        mou_url_more: "يمكنك إدخال عنوان إلكتروني للملف الذي يضم الاتفاقية مع هذا الشريك وسوف يطغى هذا الملف على أي نص لاتفاقيات أخرى. إذا كنت ترغب في حفظ الملف (ملف من نوع PDF، على سبيل المثال) في خوادم محتوى موسوعة الحياة، يجب أن تقوم أولاً <a href=\"%{upload_content_url}\">بتحميل الملف</a> للحصول على العنوان الإلكتروني."
       data_object:
         bibliographic_citation: "الإقتباس الببليوغرافي"
         description: "النص <small>(some HTML markup is allowed)</small>"
@@ -394,15 +401,33 @@ ar:
         unique_page_views: "عدد مشاهدات الصفحة المميزة <small>(عدد زائري الصفحة)</small> "
         page_views: "عدد مشاهدات الصفحة <small>(عدد مرات زيارة الصفحة)</small> "
         time_on_page: "إجمالي مدة زيارة الصفحات  <small>(ساعات)</small>"
+      harvest_event:
+        began_at: "بدأ "
+        completed_at: "انتهى"
+        published_at: "نشر"
+        published_status: "وضع"
+      hierarchy:
+        browsable_more: "ضع علامة على خاصية قابلية التصفح لتعزيز هذا التسلسل الهرمي بحيث يصبح أحد التسلسلات الهرمية الرئيسية القابلة للتصفح بموسوعة الحياة."
+        browsable_status_with_colon: "حالة قابلية التصفح:"
+        complete: "تم تقييمه"
+        complete_more: "يفترض التسلسل الهرمي المختار فردية كل مدخل، أي أنه سوف يتم التعامل مع التسلسلات ذات الاسماء المتطابقة كجناس.  <strong> تحذير:  لا تغير هذه الخاصية إلا إذا كنت متأكد من حالة الجناس في التسلسل الهرمي، حيث أن هذا من شأنه تعريض سلامة البيانات إلى الخطر. </strong>"
+        request_publish: "تم طلب النشر"
+        request_publish_more: "يشير إلى ما إذا كان هناك طلب معلق لتطوير هذا التسلسل الهرمي ليصبح أحد التسلسلات الهرمية الرئيسية القابلة للتصفح بموسوعة الحياة."
       resource:
+        administration_settings: "إعدادات الإدارة <small> (ظاهرة إلى مشرفي موسوعة الحياة فقط)<small>"
+        accesspoint_url: "العنوان الإلكتروني لمجموعة البيانات <small>(XML, XML.GZIP or XML.GZ only)</small>"
+        accesspoint_url_existing_remove: "يتم تحميل ذلك المصدر حاليًا من العنوان الإلكتروني الذي ينتهي بـ <em>%{accesspoint_url}</em>. قم بتحميل ملف إذا كنت ترغب في حذف العنوان الإلكتروني الحالي وتحميل المصدر من ملف عوضًا عن ذلك (لا ينصح بذلك)"
         dataset: "مجموعة بيانات"
         dataset_existing_replace: "يرتبط ملف <em>%{file_name}</em> بذلك المصدر حاليًا. حمل ملف جديد لاستبدال ملف <em>%{file_name}</em> الحالي."
         dataset_existing_remove: "يرتبط ملف <em>%{file_name}</em> بذلك المصدر حاليًا. أدخل عنوان إلكتروني إذا كنت ترغب في استبدال ملف <em>%{file_name}</em> الحالي وتحميل المصدر من عنوان إلكتروني عوضًا عن ذلك (ينصح بذلك)."
-        accesspoint_url: "العنوان الإلكتروني لمجموعة البيانات <small>(XML, XML.GZIP or XML.GZ only)</small>"
-        accesspoint_url_existing_remove: "يتم تحميل ذلك المصدر حاليًا من العنوان الإلكتروني الذي ينتهي بـ <em>%{accesspoint_url}</em>. قم بتحميل ملف إذا كنت ترغب في حذف العنوان الإلكتروني الحالي وتحميل المصدر من ملف عوضًا عن ذلك (لا ينصح بذلك)"
         dwc_archive_url: "إذا كان أرشيف داروين كور مرتبط بذلك المصدر، أدخل العنوان الإلكتروني هنا <small>(TAR.GZIP, TAR.GZ أو TGZ فقط)</small>:"
+        hierarchy: "تسلسل هرمي"
+        oldest_published_harvest_event: "أول ما نشر"
+        latest_published_harvest_event: "آخر ما نشر"
+        latest_harvest_event: "آخر تجميع للبيانات"
         refresh_period_hours: "تردد"
         resource_status_id: "وضع"
+        resource_status: "وضع"
         resource_url_or_file: "بيانات المصدر <small>( أختر إدخال عنوان إلكتروني أو تحميل ملف)</small>."
         resource_url_or_file_url: "حمل المصدر من عنوان إلكتروني"
         resource_url_or_file_upload: "حمل ملف المصدر"
@@ -461,7 +486,63 @@ ar:
   faker:
     lorem:
       words: "[alias, consequatur, aut, perferendis, sit, voluptatem, accusantium, doloremque, aperiam, eaque, ipsa, quae, ab, illo, inventore, veritatis, et, quasi, architecto, beatae, vitae, dicta, sunt, explicabo, aspernatur, aut, odit, aut, fugit, sed, quia, consequuntur, magni, dolores, eos, qui, ratione, voluptatem, sequi, nesciunt, neque, dolorem, ipsum, quia, dolor, sit, amet, consectetur, adipisci, velit, sed, quia, non, numquam, eius, modi, tempora, incidunt, ut, labore, et, dolore, magnam, aliquam, quaerat, voluptatem, ut, enim, ad, minima, veniam, quis, nostrum, exercitationem, ullam, corporis, nemo, enim, ipsam, voluptatem, quia, voluptas, sit, suscipit, laboriosam, nisi, ut, aliquid, ex, ea, commodi, consequatur, quis, autem, vel, eum, iure, reprehenderit, qui, in, ea, voluptate, velit, esse, quam, nihil, molestiae, et, iusto, odio, dignissimos, ducimus, qui, blanditiis, praesentium, laudantium, totam, rem, voluptatum, deleniti, atque, corrupti, quos, dolores, et, quas, molestias, excepturi, sint, occaecati, cupiditate, non, provident, sed, ut, perspiciatis, unde, omnis, iste, natus, error, similique, sunt, in, culpa, qui, officia, deserunt, mollitia, animi, id, est, laborum, et, dolorum, fuga, et, harum, quidem, rerum, facilis, est, et, expedita, distinctio, nam, libero, tempore, cum, soluta, nobis, est, eligendi, optio, cumque, nihil, impedit, quo, porro, quisquam, est, qui, minus, id, quod, maxime, placeat, facere, possimus, omnis, voluptas, assumenda, est, omnis, dolor, repellendus, temporibus, autem, quibusdam, et, aut, consequatur, vel, illum, qui, dolorem, eum, fugiat, quo, voluptas, nulla, pariatur, at, vero, eos, et, accusamus, officiis, debitis, aut, rerum, necessitatibus, saepe, eveniet, ut, et, voluptates, repudiandae, sint, et, molestiae, non, recusandae, itaque, earum, rerum, hic, tenetur, a, sapiente, delectus, ut, aut, reiciendis, voluptatibus, maiores, doloribus, asperiores, repellat]"
-  0_1_or_2: "0، 1 أو 2"
+  notifier:
+    activity_log_empty: "No recent actions by curators."
+    activity_user_marked_data_object_as_trusted_on_date: "%{users_name} (%{users_url})  صنف كموثوق به:\n%{object_name} (%{object_url})\n%{action_date}.\n"
+    activity_user_marked_data_object_as_trusted_for_taxon_on_date: "%{users_name} (%{users_url})  صنف كموثوق به:\n%{object_name} (%{object_url}) ل  %{taxon_name} (%{taxon_url})\n%{action_date}.\n"
+    activity_user_marked_data_object_as_untrusted_on_date: "%{users_name} (%{users_url})  صنف كغير موثوق به:\n%{object_name} (%{object_url})\n%{action_date}.\n"
+    activity_user_marked_data_object_as_untrusted_for_taxon_on_date: "%{users_name} (%{users_url}) صنف كغير موثوق به:\n%{object_name} (%{object_url}) for %{taxon_name} (%{taxon_url})\n%{action_date}.\n"
+    activity_user_marked_data_object_as_inappropriate_on_date: "%{users_name} (%{users_url})  صنف كغير ﻻئق:\n%{object_name} (%{object_url})\n%{action_date}.\n"
+    comments_empty: "No recent comments."
+    greeting_dear_name_with_comma: "عزيزي  %{name}،"
+    signature_basic: "فريق عمل موسوعة الحياة"
+    signature_with_support_contact: "إذا واجهت أية مشكلات، يرجى الإتصال بنا في %{support_email}.\n\nفريق عمل موسوعة الحياة"
+    signature_with_species_pages_group_contact: "في حال وجود أي أسئلة، يرجى الاتصال بنا عن طريق البريد الإلكتروني: \n%{species_pages_group_email}.\n\nفريق عمل موسوعة الحياة"
+    user_commented_on_something_date_body: "%{users_name} (%{users_url})  علق على:\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}\n"
+    activity_on_content_partner_content:
+      subject: "Summary of recent activity on content provided to the Encyclopedia of Life by content partner %{partner_full_name}"
+      message: "This is an automated e-mail from the Encyclopedia of Life (EOL) summarising recent comments and curatorial actions on content provided to EOL by content partner %{partner_full_name} (%{partner_profile_url}). You are receiving this summary because you are listed as a contact for %{partner_full_name}.\n\nCuratorial actions:\n%{curator_activity_log}\n\nComments on data objects:\n%{data_object_comments}\n\nComments on pages with which your data is associated:\n%{page_comments}\n\n"
+    activity_on_user_content:
+      subject: "Summary of recent activity on content you have added to the Encyclopedia of Life"
+      message: "This is an automated e-mail from the Encyclopedia of Life (EOL) summarising recent comments and curatorial actions on content you have added to EOL through your member account with username %{members_username}.\n\nCuratorial actions:\n%{curator_activity_log}\n\nComments on data objects:\n%{data_object_comments}\n\nComments on pages with which your data is associated:\n%{page_comments}\n\n"
+    contact_us_message:
+      subject: "رسالة إلى موسوعة الحياة:  %{title}"
+      message: "تم إرسال الرسالة التالية إلى موسوعة الحياة عبر نموذج الاتصال بنا من:\nمن: %{from_name}\nعنوان البريد الإلكتروني:  %{from_email}\nالموضوع:  %{subject}\nمجموعة الأصنوفة:  %{taxon_group}\n\n%{message}"
+    contact_us_auto_response:
+      subject: "شكرًا للتواصل مع موسوعة الحياة"
+      message: "شكرًا لتواصلك مع مشروع موسوعة الحياة. تم إرسال تعليقاتك إلى المجموعة \nالمختصة.\n\nنقدر أرائك وتعليقاتك."
+    content_partner_created:
+      subject: "قام مستخدم موسوعة الحياة {user_full_name} بإنشاء شريك المحتوى  %{partner_full_name}"
+      message: "هذا إشعار آلي من نظام موسوعة الحياة إلى فريق عمل صفحات الأنواع؛ قام المستخدم {user_full_name} بإنشاء شريك المحتوى %{partner_full_name}، والتفاصيل فيما يلي: \n\nاسم المستخدم: %{user_full_name}\nعنوان البريد الإلكتروني: %{user_email}\nعنوان الصفحة الشخصية: %{user_profile_url}\n\nاسم الشريك:  %{partner_full_name}\nعنوان صفحة الشريك:  %{partner_profile_url}\nتم إنشاؤه في: %{partner_created_at_date}"
+    content_partner_resource_created:
+      subject: "قام مستخدم موسوعة الحياة {user_full_name} بإضافة مورد جديد %{resource_title} إلى شريك المحتوى  %{partner_full_name}"
+      message: "هذا إشعار آلي من نظام موسوعة الحياة إلى فريق عمل صفحات الأنواع؛ قام مستخدم موسوعة الحياة {user_full_name} بإضافة مورد جديد %{resource_title} إلى شريك المحتوى  %{partner_full_name}، والتفاصيل فيما يلي: \n\nاسم المستخدم: %{user_full_name}\nعنوان البريد الإلكتروني: %{user_email}\nعنوان الصفحة الشخصية: %{user_profile_url}\n\nاسم الشريك:  %{partner_full_name}\nعنوان موارد الشريك:  %{partner_resources_url}\n\nالمورد:  %{resource_title}\nعنوان المورد:  %{resource_url}\nتم إنشاؤه في: %{partner_created_at_date}\nالحالة: %{resource_status}"
+    content_partner_resource_force_harvest_request:
+      subject: "قام مستخدم موسوعة الحياة %{user_full_name} بطلب جمع إجباري لمورد %{resource_title} التابع لشريك المحتوى %{partner_full_name}"
+      message: "هذا إشعار آلي من نظام موسوعة الحياة إلى فريق عمل صفحات الأنواع؛ قام مستخدم موسوعة الحياة %{user_full_name} بطلب جمع إجباري لمورد %{resource_title} التابع لشريك المحتوى %{partner_full_name}، والتفاصيل فيما يلي: \n\nاسم المستخدم: %{user_full_name}\nالبريد الإلكتروني: %{user_email}\nعنوان الصفحة الشخصية: %{user_profile_url}\n\nاسم الشريك:  %{partner_full_name}\nعنوان موارد الشريك:  %{partner_resources_url}\n\nالمورد:  %{resource_title}\nعنوان المورد:  %{resource_url}\nتم تحديثه في: %{partner_created_at_date}\nالحالة: %{resource_status}"
+    content_partner_resource_hierarchy_publish_request:
+      subject: " قام مستخدم موسوعة الحياة %{user_full_name} بطلب ترقية التسلسل الهرمي الخاص بمورد %{resource_title} التابع لشريك المحتوى %{partner_full_name}"
+      message: "هذا إشعار آلي من نظام موسوعة الحياة إلى فريق عمل صفحات الأنواع. قام مستخدم موسوعة الحياة %{user_full_name} بطلب ترقية (نشر) تسلسل الهرمي مرتبط بمورد %{resource_title} التابع لشريك المحتوى %{partner_full_name} ليصبح تسلسل هرمي قابل للتصفح بموسوعة الحياة، والتفاصيل فيما يلي: \n\nاسم المستخدم: %{user_full_name}\nعنوان البريد الإلكتروني: %{user_email}\nعنوان الصفحة الشخصية: %{user_profile_url}\n\nاسم الشريك:  %{partner_full_name}\nعنوان موارد الشريك:  %{partner_resources_url}\n\nالمورد:  %{resource_title}\nعنوان المورد:  %{resource_url}\nتعديل التسلسل الهرمي: %{partner_created_at_date}\nتعديل العنوان الإلكتروني الخاص بالتسلسل الهرمي: %{hierarchy_edit_url}"
+    content_partner_statistics_reminder:
+      subject: "تذكير بإحصائيات استخدام موسوعة الحياة الخاصة بـ%{partner_full_name}، %{month} %{year}"
+      message: "رسالة تذكير آلية من موسوعة الحياة. إن إحصائيات استخدام الويب الخاصة بالبيانات المقدمة إلى موسوعة الحياة من {partner_full_name} لشهر %{month} للعام %{year} متاحة الآن في {partner_statistics_url}.\n "
+    curator_approved:
+      subject: "تم الموافقة على طلبك للحصول على امتيازات الإشراف %{curator_level} "
+      message: "شكرًا لطلب امتيازات الإشراف %{curator_level}. تم الموافقة على طلبك.\n\nللمزيد من المعلومات حول الإشراف والوظائف المتاحة لك، يرجى زيارة .http://www.eol.org/curators"
+    user_activated:
+      subject: "تم تفعيل حسابك بموسوعة الحياة"
+      message: "مرحبًا بك في موسوعة الحياة وشكرًا للتسجيل بالموقع! يرجى الانتباه إلى أن اسم المستخدم الخاص بك هو %{username}، وعنوان صفحتك الشخصية هو %{profile_url}. يمكنك تسجيل الدخول بحسابك في http://www.eol.org/login.\n\nلمعرفة المزيد عن كيفية استخدام موسوعة الحياة بما في ذلك كيفية إنشاء المجموعات بموسوعة الحياة، والمشاركة في مجتمعات موسوعة الحياة، وإضافة محتوى، يرجى زيارة صفحات المساعدة http://www.eol.org/help.\n"
+    user_message:
+      subject: "رسالة من موسوعة الحياة"
+    user_updated_email_preferences:
+      subject: "قام مستخدم موسوعة الحياة %{user\n_full_name} بتغيير العنوان الإلكتروني أو تفضيلات قائمة المراسلة"
+      message: "هذا إشعار آلي من نظام موسوعة الحياة. قام مستخدم موسوعة الحياة %{user\n_full_name} بتغيير العنوان الإلكتروني أو تفضيلات قائمة المراسلة.\n\nالتفضيلات السابقة:\nعنوان البريد الإلكتروني: %{previous_email}\nتفضيلات قائمة المراسلات: %{previous_mailing_list_preference}\n\nتم التحديث إلى:\nعنوان البريد الإلكتروني: %{updated_email}\nتفضيلات قائمة المراسلات: %{updated_mailing_list_preference}\nتم التحديث: %{updated_at}"
+    user_reset_password:
+      subject: "إعادة ضبط كلمة السر الخاصة بحسابك بموسوعة الحياة"
+      message: "تلقت موسوعة الحياة (www.eol.org) طلب لإعادة ضبط كلمة السر الخاصة بك. إذا كنت لم تقم بتقديم ذلك الطلب، يرجى تجاهل هذه الرسالة.\n\nسوف يقدم لك الرابط التالي فرصة واحدة لإعادة ضبط كلمة السر:\n\n%{password_reset_url}\n\nأتبع ذلك الرابط (\"أنقر\" على الرابط أو أنسخه وألصقه في شريط العناوين بالمتصفح وقم بتحميله) لتصل إلى الصفحة حيث يمكنك أن تدخل كلمة سر جديدة. يرجى الانتباه إلى أنه في حال انتهاء مدة صلاحية الرابط، سوف يطلب منك إدخال اسم المستخدم أو البريد الإلكتروني مرة أخرى لتتلقى رسالة أخرى لإعادة ضبط كلمة السر تتضمن رابط جديد.  "
+    user_verification:
+      subject: "يرجى تأكيد طلب إنشاء حساب بموسوعة الحياة"
+      message: "شكرًا للتسجيل بموسوعة الحياة. سوف يؤكد الرابط التالي رغبتك في إتمام عملية التسجيل:\n\n%{verification_url}\n\nأتبع ذلك الرابط (\"أنقر\" على الرابط أو أنسخه وألصقه في شريط العناوين بالمتصفح وقم بتحميله) لتفعيل حسابك. حالما يتم تفعيل حسابك، سوف تتلقى رسالة تأكيد عبر البريد الإلكتروني."  0_1_or_2: "0، 1 أو 2"
   0_or_1: "0، أو 1"
   a_pipe_delimited_list_of_licenses: "أنبوب تجزئة تنفيذ المعلومات | قائمة محددة من الرخص أو \"الكل\" لضم العناصر تحت أية رخصة. تعادل الرخص التي يتم اختصارها \"cc-\" الكل."
   a_pipe_delimited_list_of_spm_info_item_subject_names: "أنبوب تجزئة تنفيذ المعلومات | قائمة محددة من اسماء موضوعات عناصر البيانات أو \"الكل\" لإيجاد نص في أي موضوع."
@@ -557,24 +638,24 @@ ar:
   admin_content_pages_index_information: "تضم القائمة التالية جميع الصفحات الثابتة المتاحة حاليًا بالموقع الإلكتروني لموسوعة الحياة. هنالك ترجمة أو أكثر لكل صفحة. عندما تقوم بإنشاء صفحة جديدة، سوف يطلب منك إضافة ترجمة. يتم إتاحة الترجمات المنشورة إلى العامة."
   admin_content_pages_link: "إدارة المحتوى"
   admin_content_pages_page_title: "الإدارة: إدارة المحتوى"
-  admin_content_partners_index_header: "Content partners"
+  admin_content_partners_index_header: "شركاء المحتوى"
   admin_content_partners_link: "شركاء المحتوى"
-  admin_content_partners_notifications_link: Notifications
-  admin_content_partners_notifications_page_title: "Administration: Content Partner Notifications"
-  admin_content_partners_notifications_sent_to_recipients_header: "Notifications were sent to:"
-  admin_content_partners_notifications_statistics_reminder_description: "Sends an email to all content partner contacts informing them that they can now check last month's Web usage statistics for their data in EOL. Note: manually triggering this email notification is a temporary solution and should be removed once an automated solution is in place."
-  admin_content_partners_notifications_statistics_reminder_header: "Web usage statistics reminder"
-  admin_content_partners_notifications_statistics_reminder_send_confirmation: "Are you sure you want to send the Web usage statistics reminder email to all content partners?"
-  admin_content_partners_notifications_statistics_reminder_send_submit: "Send reminder"
+  admin_content_partners_notifications_link: إشعارات
+  admin_content_partners_notifications_page_title: "الإدارة: إشعارات شركاء المحتوى"
+  admin_content_partners_notifications_sent_to_recipients_header: "تم إرسال الإشعارات إلى:"
+  admin_content_partners_notifications_statistics_reminder_description: "يرسل رسالة بريد إلكتروني إلى جميع شركاء المحتوى لإخطارهم بإمكانية الاطلاع على احصائيات استخدام الويب الخاصة ببياناتهم بموسوعة الحياة للشهر السابق. ملاحظة: إن ارسال ذلك الإخطار بصورة يدوية هو حل مؤقت ويجب أن يتم إيقافه حالما يتم إضافة حل أتوماتيكي."
+  admin_content_partners_notifications_statistics_reminder_header: "تذكير بإحصائيات استخدام موسوعة الحياة "
+  admin_content_partners_notifications_statistics_reminder_send_confirmation: "هل أنت متأكد من رغبتك في إرسال رسالة تذكير بإحصائيات استخدام موسوعة الحياة إلى جميع شركاء المحتوى؟\n"
+  admin_content_partners_notifications_statistics_reminder_send_submit: "إرسال التذكير"
   admin_content_partners_page_title: "الإدارة: إدارة شركاء المحتوى"
-  admin_content_partners_statistics_date_from_label: From
-  admin_content_partners_statistics_date_to_label: To
-  admin_content_partners_statistics_first_published_caption: "Content partners with resources first published between %{date_from} and %{date_to}."
-  admin_content_partners_statistics_first_published_download_csv_submit: "Download as CSV"
-  admin_content_partners_statistics_first_published_empty: "No content partner resources were first published between %{date_from} and %{date_to}."
-  admin_content_partners_statistics_first_published_header: "Resources first published"
-  admin_content_partners_statistics_link: Statistics
-  admin_content_partners_statistics_page_title: "Administration: Content Partner Statistics"
+  admin_content_partners_statistics_date_from_label: من
+  admin_content_partners_statistics_date_to_label: إلى
+  admin_content_partners_statistics_first_published_caption: "شركاء المحتوى أصحاب الموارد التي نشرت لأول مرة في الفترة ما بين %{date_from} و%{date_to}."
+  admin_content_partners_statistics_first_published_download_csv_submit: "تحميل بصيغة (CSV)"
+  admin_content_partners_statistics_first_published_empty: "لا توجد موارد تابعة لشركاء المحتوى تم نشرها لأول مرة في الفترة ما بين  %{date_from} و%{date_to}."
+  admin_content_partners_statistics_first_published_header: "موارد نشرت لأول مرة "
+  admin_content_partners_statistics_link: الإحصائيات
+  admin_content_partners_statistics_page_title: "الإدارة: إحصائيات شركاء المحتوى"
   admin_home: "الصفحة الرئيسية للمشرفين"
   admin_information: "هذه هي واجهة التحكم الجديدة في النسخة الثانية من موقع موسوعة الحياة.  نمر حاليًا بمرحلة نقل الإدارة من النسخة الأولى. إذا كان قسم الإدارة الذي تبحث عنه غير مدرج بالقائمة التالية، يرجى زيارة  <a href=\"/administrator\">واجهة التحكم للنسخة اﻷولى لموقع موسوعة الحياة</a>."
   admin_link: "نظرة عامة"
@@ -593,7 +674,7 @@ ar:
   admin_translated_content_page_new_tip: "يجب إضافة %{required_icon} اللغة، والعنوان، والنص."
   admin_translated_content_page_update_successful_notice: "تم تحديث الترجمة %{language} الخاصة بـ <a href=\"#%{anchor}\"><em>%{page_name}</em></a> "
   admin_translated_content_page_update_unsuccessful_error: "عفوًا، حدث خطأ، تعذر تحديث الترجمة."
-  admin_user_delete_successful_notice: "User has been deleted"
+  admin_user_delete_successful_notice: "تم حذف المستخدم"
   agent: وكيل
   all_apis_return_by_default_an_xml_response: "تقدم جميع واجهات برمجة التطبيقات استجابة بصيغة لغة الترميز القابلة للامتداد (إكس إم إل)، يمكن تنفيذ طرق واجهة برمجة التطبيقات بدون إضافة امتداد يحدد الصيغة لعرض استجابة بصيغة لغة الترميز القابلة للامتداد (إكس إم إل)، وسوف يؤدي إضافة امتداد لغة الترميز القابلة للامتداد (.XML) إلى استجابة مماثلة:"
   all_articles: "جميع المقالات"
@@ -620,7 +701,7 @@ ar:
   api_docs_collections_description: "عند إدخال معرف مجموعة ما، سوف تعرض واجهة برمجة التطبيقات جميع البيانات الفوقية المتعلقة بالمجموعة والعناصر التي تتضمنها. يمكن تصفية قائمة العناصر وفقًا للنوع، وترتيبها وفقًا للسمات المذكورة أعلاه."
   application_version_advisory_information: "نسخة التطبيق"
   are_you_sure: "هل أنت متأكد؟"
-  are_you_sure_this_action_cannot_be_undone: "Are you sure?  This action cannot be undone."
+  are_you_sure_this_action_cannot_be_undone: "Are you sure? This action cannot be undone."
   article_from: "مقال من"
   article_more_about: "تعرف على المزيد عن هذا المقال"
   articles_in_languages_with_count:
@@ -631,7 +712,7 @@ ar:
     other: "المقالات عن تلك الصفحة متاحة بـ%{count} لغة أخرى:"
   articles_with_count:
     one: "%{count} مقالة"
-    other: "%{count} مقالات"
+    other: "%{count} مقالة"
   assistive_details_header: التفاصيل
   assistive_literature_header: "المواد المطبوعة"
   assistive_maps_header: الخرائط
@@ -668,7 +749,7 @@ ar:
   bi_monthly: "نصف شهريًّا"
   biodiversity_heritage_library: "مكتبة تراث التنوع البيولوجي"
   biomedical_terms: "مصطلحات بيولوجية طبية"
-  biomedical_terms_clouds_provided_by: "غيوم مقدمة بواسطة المختبر البيولوجي البحري  <a href=\"%{supplier_url}\">Biology of Aging project</a>"
+  biomedical_terms_clouds_provided_by: "غيوم مقدمة بواسطة   <a href=\"%{supplier_url}\">المختبر البيولوجي البحري</a>"
   biomedical_terms_introduction: "تم اشتقاق تلك المصطلحات عن طريق البحث في قاعدة بيانات المواد الطبية الحيوية، <a href=\"%{pubmed_url}\"> باب ميد</a>، عن الاسم <em>%{scientific_name}</em>. يتم تحليل البيانات بواسطة أداة <a href=\"%{ligercat_url}\"> ليجر كات</a>  ، والتي تقوم ببناء الغيمة من <a href=\"%{mesh_url}\">عناوين الموضوعات الطبية(MESH)</a>  ذات الصلة. ويشير الحجم النسبي لكل مصطلح إلى عدد مرات ظهوره في نتائج بحث باب ميد. أنقر على المصطلح للوصول إلى غيمة ليجر كات الكاملة، بالإضافة إلى إمكانات بحث باب ميد."
   biomedical_terms_provided_by: "مصطلحات مقدمة بواسطة  <a href=\"%{supplier_url}\">باب ميد PubMed</a>."
   browsable: "يمكن تصفحه"
@@ -677,11 +758,11 @@ ar:
   cancel: إلغاء
   cannot_be_associated_with_both_a_user_and_a_community: "لا يمكن أن يكون مرتبطًا بمستخدم ومجتمع"
   cannot_be_empty: "لا يمكن أن يكون خاليًا"
-  cannot_create_collection_item_from_class_error: "لا استطيع أن أكون عنصر مجموعة من  %{klass}"
+  cannot_create_collection_item_from_class_error: "لا يمكن إنشاء عنصر من %{klass}"
   cannot_create_community_from_watch_collection_error: "لا يمكنك إنشاء مجتمع من قائمة المشاهدة."
   cannot_expand_children: "تعذر تمديد النسل"
   cannot_find_member: "لم يتم العثور على مستخدم بذلك التعريف."
-  cannot_index_collection_item_type_error: "لا أستطيع أن أفهرس عنصر مجموعة من %{type}"
+  cannot_index_collection_item_type_error: "لا يمكن فهرسة عنصر بمجموعة عن طريق %{type}"
   change: تغيير
   change_rating_to_1_of_5: "عدل التقييم إلى 1 من 5"
   change_rating_to_2_of_5: "عدل التقييم إلى 2 من 5"
@@ -737,9 +818,9 @@ ar:
   comment_new_posters_image_advisory_info: "سوف تظهر صورتك الشخصية وأسمك بجانب تعليقك في القوائم."
   comment_new_posters_image_alt: "صورتك الشخصية، إذا كنت قد أضفت واحدة."
   comment_not_added_error: "عفوًا، حدث خطأ، تعذر إضافة التعليق."
-  comment_or_rate_on_this_article: "أضف تعليق أو قيم هذا المقال"
+  comment_or_rate_on_this_article: "التعليق على هذه المقالة أو تقييمها"
   comment_show_posters_image_alt: "الصورة الشخصية لـ%{posters_name} الذي أضاف ذلك التعليق."
-  comments: Comments
+  comments: التعليقات
   comments_and_tags: "التعليقات والعلامات"
   comments_moderated: "التعليقات المعدلة"
   comments_with_count:
@@ -790,21 +871,21 @@ ar:
   contact_us_link: "اتصل بنا"
   content_has_been_updated: "تم تحديث المحتوى."
   content_partner_about_header: "عن  %{partner_name}"
-  content_partner_admin_index_link_back_to: "go back to managing partners"
+  content_partner_admin_index_link_back_to: "الرجوع إلى صفحة إدارة الشركاء "
   content_partner_administration_notes_empty: "لا يوجد ملاحظات من الإدارة"
   content_partner_administration_notes_header: "ملاحظات الإدارة"
-  content_partner_administration_settings_header: "Administration settings"
-  content_partner_administration_settings_introduction: "The following administrative fields are only visible and editable by EOL administrators."
-  content_partner_agreement_cancel_edit_agreement_link: Cancel
-  content_partner_agreement_cancel_new_agreement_link: Cancel
-  content_partner_agreement_cancel_sign_agreement_link: Cancel
-  content_partner_agreement_create_successful_notice: "لقد وافقت على شروط شريك المحتوى، يمكنك الأن إضافة مصادر البيانات."
-  content_partner_agreement_create_unsuccessful_error: "عفوًا، حدث خطأ، يبدوا أن هنالك مشكلة في شروط شريك المحتوى. يرجى المحاولة مرة أخرى، في حال استمرار المشكلة، يرجى إبلاغ موسوعة الحياة."
-  content_partner_agreement_signed_successful_notice: "You have successfully agreed to the content partner terms, you may now add data resources."
-  content_partner_agreement_signed_unsuccessful_error: "Sorry, an error occurred, there appears to be a technical problem with content partner agreements. Please try again, if the problem persists please notify EOL."
+  content_partner_administration_settings_header: "إعدادات الإدارة "
+  content_partner_administration_settings_introduction: "تظهر الخانات الإدارية التالية إلى مشرفي موسوعة ويمكن تعديلها من قبلهم فقط."
+  content_partner_agreement_cancel_edit_agreement_link: إلغاء
+  content_partner_agreement_cancel_new_agreement_link: إلغاء
+  content_partner_agreement_cancel_sign_agreement_link: إلغاء
+  content_partner_agreement_create_successful_notice: "تم إنشاء  اتفاقية الشروط الخاصة بشريك المحتوى بنجاح."
+  content_partner_agreement_create_unsuccessful_error: "عفوًا، حدث خطأ، وتعذر إنشاء اتفاقية الشروط الخاصة بشريك المحتوى ."
+  content_partner_agreement_signed_successful_notice: "لقد وافقت على شروط شريك المحتوى، يمكنك الأن إضافة مصادر البيانات."
+  content_partner_agreement_signed_unsuccessful_error: "عفوًا، حدث خطأ، يبدوا أن هنالك مشكلة في شروط شريك المحتوى. يرجى المحاولة مرة أخرى، في حال استمرار المشكلة، يرجى إبلاغ موسوعة الحياة."
   content_partner_agreement_subheader: "اتفاقية شركاء المحتوى"
-  content_partner_agreement_update_successful_notice: "Content partner terms agreement successfully updated."
-  content_partner_agreement_update_unsuccessful_error: "Sorry, an error occurred, the content partner terms agreement was not updated."
+  content_partner_agreement_update_successful_notice: "تم تحديث الاتفاقية الخاصة بشريك المحتوى بنجاح."
+  content_partner_agreement_update_unsuccessful_error: "عفوًا، حدث خطأ، وتعذر تحديث اتفاقية الشروط الخاصة بشريك المحتوى."
   content_partner_collections_empty: "تضم مجموعات شريك المحتوى البيانات التي قدمها الشريك عبر مصادره. لا يوجد مجموعات منشورة في الوقت الحالي."
   content_partner_column_header_partner: شريك
   content_partner_contact_create_successful_notice: "تم إضافة جهة الاتصال."
@@ -822,12 +903,12 @@ ar:
   content_partner_contacts_header: "جهات الاتصال"
   content_partner_create_successful_notice: "تم إنشاء شريك المحتوى بنجاح"
   content_partner_create_unsuccessful_error: "عفوًا، حدث خطأ، تعذر إنشاء شريك المحتوى."
-  content_partner_current_agreement_create_link: "Create new"
-  content_partner_current_agreement_edit_link: Edit
-  content_partner_current_agreement_empty: "No agreement"
-  content_partner_current_agreement_not_accepted: "Not yet accepted"
-  content_partner_current_agreement_signed_on_with_date: "Signed on %{date}"
-  content_partner_current_agreement_view_link: View
+  content_partner_current_agreement_create_link: "إنشاء رابط جديد"
+  content_partner_current_agreement_edit_link: تعديل
+  content_partner_current_agreement_empty: "لا يوجد اتفاقية"
+  content_partner_current_agreement_not_accepted: "لم يتم الموافقة عليها حتى الأن"
+  content_partner_current_agreement_signed_on_with_date: "وقعت في %{date}"
+  content_partner_current_agreement_view_link: عرض
   content_partner_data_description_empty: "لم يتم إضافة وصف للبيانات المقدمة."
   content_partner_data_description_header: "وصف البيانات"
   content_partner_edit_link: "تعديل شريك المحتوى"
@@ -835,7 +916,7 @@ ar:
   content_partner_filter_option_vetted_yes: نعم
   content_partner_has_unpublished_content_true: "محتوى غير منشور"
   content_partner_homepage_link: "زيارة موقع الشريك"
-  content_partner_latest_published_harvest_event_time_ago: "تم الجمع منذ  %{time_passed} "
+  content_partner_latest_published_harvest_event_time_ago: "أخر تحديث منذ  %{time_passed}؛"
   content_partner_logo_alt_text: "شعار شريك المحتوى %{partner_name}"
   content_partner_managed_by_header: يديرها
   content_partner_new_edit_form_profile_header: "معلومات شريك المحتوى"
@@ -844,69 +925,71 @@ ar:
   content_partner_new_page_subheader: "أضف شريك محتوى جديد"
   content_partner_notes_empty: "لا يوجد ملاحظات إضافية لذلك المشروع"
   content_partner_notes_header: "ملاحظات المشروع"
-  content_partner_oldest_published_harvest_event_time_ago: "First published on EOL %{time_passed} ago;"
+  content_partner_oldest_published_harvest_event_time_ago: "نشر لأول مرة بموسوعة الحياة منذ %{time_passed}"
   content_partner_overview_agreement_header: "اتفاقية الشريك"
   content_partner_overview_agreement_link: "عرض الاتفاق الحالي"
   content_partner_overview_link: "نظرة عامة عن الشريك"
   content_partner_overview_link_back_to: "الرجوع إلى نظرة عامة عن الشريك"
-  content_partner_public_false: Private
-  content_partner_public_true: Public
-  content_partner_registered_time_ago: "تم التسجيل منذ  %{time_passed} "
+  content_partner_public_false: خاص
+  content_partner_public_true: عام
+  content_partner_registered_time_ago: "تم التسجيل منذ %{time_passed}؛"
   content_partner_resource_about_header: "عن المصدر"
-  content_partner_resource_auto_publish_false: "No"
-  content_partner_resource_auto_publish_true: "Yes"
+  content_partner_resource_auto_publish_false: لا
+  content_partner_resource_auto_publish_true: نعم
   content_partner_resource_collection_empty: "لم يتم إنشاء مجموعة لذلك المصدر."
   content_partner_resource_collection_header: "المجموعة المنشورة"
-  content_partner_resource_collection_show_link: "View published collection"
+  content_partner_resource_collection_show_link: "عرض المجموعة المنشورة"
   content_partner_resource_collections_header: المجموعات
-  content_partner_resource_confirm_force_harvest: "Are you sure you want to force the harvest of resource %{resource_title}?"
-  content_partner_resource_confirm_publish: "Are you sure you want to publish resource %{resource_title}?"
+  content_partner_resource_confirm_force_harvest: "هل أنت متأكد من رغبتك في تنفيذ جمع مورد %{resource_title} إجباريًا؟"
+  content_partner_resource_confirm_publish: "هل أنت متأكد من رغبتك في نشر  المورد %{resource_title}؟"
   content_partner_resource_create_successful_notice: "تم إضافة معلومات مصدر شريك المحتوى بنجاح. الحالة الحالية لبيانات المصدر:  %{resource_status}."
   content_partner_resource_create_unsuccessful_error: "عفوًا، حدث خطأ، تعذر إضافة المصدر"
   content_partner_resource_dataset_details_header: "مجموعة بيانات"
   content_partner_resource_description_empty: "لم يتم إضافة وصف لذلك المصدر."
-  content_partner_resource_edit_link: "تعديل المصدر"
+  content_partner_resource_edit_link: تعديل
   content_partner_resource_edit_subheader: "تعديل المصدر"
-  content_partner_resource_edit_with_type_link: "Edit resource"
-  content_partner_resource_harvest_event_current_published: "Currently published"
-  content_partner_resource_harvest_event_not_published: "Not published"
-  content_partner_resource_harvest_event_previously_published: "Previously published"
-  content_partner_resource_harvest_events_empty: "No harvest events were found."
-  content_partner_resource_harvest_events_for_resource_subheader: "Harvest events for resource %{resource_title}"
-  content_partner_resource_harvest_events_see_all_link: "See all <span class=\"assistive\">harvest events</span>"
-  content_partner_resource_hierarchy_browsable: Browsable
-  content_partner_resource_hierarchy_complete_false: "This hierarchy is not set as curated. Matching entries may be treated as one concept."
-  content_partner_resource_hierarchy_complete_true: "This hierarchy is set as <strong>curated</strong>. A curated hierarchy assumes that every entry is intended to be unique, i.e. matching name strings will be treated as homonyms."
-  content_partner_resource_hierarchy_confirm_request_publish: "Are you sure you want to put in a request to promote your hierarchy to be browsable on EOL?"
-  content_partner_resource_hierarchy_edit_link: Edit
-  content_partner_resource_hierarchy_edit_subheader: "Edit hierarchy for resource <em>%{resource_title}</em>"
-  content_partner_resource_hierarchy_not_browsable: "Not browsable"
-  content_partner_resource_hierarchy_request_publish: "Request pending"
-  content_partner_resource_hierarchy_unknown: Unknown
-  content_partner_resource_hierarchy_update_successful_notice: "Hierarchy successfully updated."
-  content_partner_resource_hierarchy_update_unsuccessful_error: "Sorry, an error occurred, the heirarchy was not updated."
+  content_partner_resource_edit_with_type_link: "تعديل المصدر"
+  content_partner_resource_harvest_event_current_published: "منشور حاليًا"
+  content_partner_resource_harvest_event_not_published: "لم يتم نشره"
+  content_partner_resource_harvest_event_previously_published: "تم نشره في السابق"
+  content_partner_resource_harvest_events_empty: "لم يتم العثور على عمليات جمع."
+  content_partner_resource_harvest_events_for_resource_subheader: "عمليات جمع المورد %{resource_title}"
+  content_partner_resource_harvest_events_see_all_link: "عرض <span class=\"assistive\">عمليات الجمع</span>"
+  content_partner_resource_hierarchy_browsable: "يمكن تصفحه"
+  content_partner_resource_hierarchy_complete_false: |-
+      لم يتم تصنيف التسلسل الهرمي كمقيَّم. يمكن
+      التعامل مع المداخل المتطابقة باعتبارها مفهوم واحد.
+  content_partner_resource_hierarchy_complete_true: "تم تصنيف التسلسل الهرمي  <strong>كمقيم</strong>. ويعزز التسلسل الهرمي المقيم من فرضية تميز كل مدخل، أي أنه سوف يتم التعامل مع التسلسلات ذات الاسماء المتطابقة كجناس. "
+  content_partner_resource_hierarchy_confirm_request_publish: "هل أنت متأكد من رغبتك في تقديم طلب لترقية التسلسل الهرمي الخاص بك ليصبح قابل للتصفح بموسوعة الحياة؟"
+  content_partner_resource_hierarchy_edit_link: تعديل
+  content_partner_resource_hierarchy_edit_subheader: "تعديل التسلسل الهرمي للمورد <em>%{resource_title}</em>"
+  content_partner_resource_hierarchy_not_browsable: "لا يمكن تصفحه"
+  content_partner_resource_hierarchy_request_publish: "الطلب معلق"
+  content_partner_resource_hierarchy_unknown: "غير معروف"
+  content_partner_resource_hierarchy_update_successful_notice: "تم تحديث التسلسل الهرمي بنجاح"
+  content_partner_resource_hierarchy_update_unsuccessful_error: "عفوًا، حدث خطأ، وتعذر تحديث التسلسل الهرمي"
   content_partner_resource_licensing_details_header: "الحقوق؛ النسب"
   content_partner_resource_new_edit_form_tip: "أدخل بيانات مصدر البيانات الخاص بك. تأكد من توفير اسم المصدر وأدخل العنوان الإلكتروني العام لملف البيانات الخاص بك أو قم بتحميله بصيغة (GZIP)، أو (TAR)، أو (XML). إذا أضفت رابط، يمكنك أن تحدد أيضًا عدد المرات التي ترغب أن تقوم موسوعة الحياة من خلالها بجمع البيانات الخاصة بك. يرجى التأكد من أن البيانات متضمنة في ملف بصيغة يمكن لموسوعة الحياة نقلها.  <a href=\"%{more_url}\">Learn more about supported data formats</a>. تعرف على المزيد من صيغ البيانات المدعومة."
   content_partner_resource_new_link: "أضف مصدر جديد"
   content_partner_resource_new_subheader: "أضف مصدر جديد"
   content_partner_resource_preview_collection_header: "عرض المجموعة"
-  content_partner_resource_preview_collection_show_link: "View preview collection"
-  content_partner_resource_resource_status_actions_empty: "Resource status cannot be modified at this time."
-  content_partner_resource_resource_status_actions_header: "Available actions"
+  content_partner_resource_preview_collection_show_link: "استعراض مجموعة العرض"
+  content_partner_resource_resource_status_actions_empty: "لا يمكن تعديل وضع المورد في الوقت الحالي."
+  content_partner_resource_resource_status_actions_header: "الخطوات المتاحة"
   content_partner_resource_resource_status_new: "أنشئ في"
-  content_partner_resource_show_link_back_to: "go back to resource"
+  content_partner_resource_show_link_back_to: "الرجوع إلى المورد"
   content_partner_resource_show_subheader: "معلومات المصدر <em>%{resource_title}</em>"
-  content_partner_resource_status_and_settings_header: "Status and settings"
-  content_partner_resource_status_update_illegal_transition_error: "Sorry, the current status of resource %{resource_title} is %{current_resource_status} and cannot be changed to %{requested_resource_status}."
-  content_partner_resource_status_update_successful_notice: "Status of resource %{resource_title} successfully updated to %{resource_status}."
-  content_partner_resource_status_update_unsuccessful_error: "Sorry, an error occurred, status of resource %{resource_title} could not be updated to %{resource_status}."
+  content_partner_resource_status_and_settings_header: "الوضع والإعدادات"
+  content_partner_resource_status_update_illegal_transition_error: "عفوًا، الوضع الحالي للمورد %{resource_title} هو %{current_resource_status} ولا يمكن تغييره إلى %{requested_resource_status}."
+  content_partner_resource_status_update_successful_notice: "تم تحديث وضع المورد %{resource_title} إلى %{resource_status}."
+  content_partner_resource_status_update_unsuccessful_error: "عفوًا، حدث خطأ، تعذر تحديث وضع المورد %{resource_title} إلى %{resource_status}."
   content_partner_resource_update_successful_notice: "تم تحديث معلومات مصدر شريك المحتوى بنجاح. الوضع الحالي لبيانات المصدر:  %{resource_status}."
   content_partner_resource_update_unsuccessful_error: "عفوًا، حدث خطأ، تعذر تحديث تفاصيل المصدر."
   content_partner_resource_upload_unsuccessful_error: "عفوًا، حدث خطأ، تم تحديث بيانات المصدر ولكن تعذر تحميل المصدر: %{resource_status}."
   content_partner_resource_url_or_dataset_not_both_error: "العنوان الإلكتروني لمجموعة البيانات أو ملف لكل مصدر، وليس كلاهما. يرجى تحديد ما إذا كنت ترغب في إضافة عنوان إلكتروني أو تحميل ملف لذلك المصدر. يمكن إضافة مصادر أخرى لاحقًا."
-  content_partner_resource_vetted_false: "No"
-  content_partner_resource_vetted_true: "Yes"
-  content_partner_resource_view_link: View
+  content_partner_resource_vetted_false: لا
+  content_partner_resource_vetted_true: نعم
+  content_partner_resource_view_link: عرض
   content_partner_resources_header: المراجع
   content_partner_resources_information: "تتكون المصادر من مجموعات من البيانات المتاحة ليتم جمعها من قبل موسوعة الحياة. يتم دمج البيانات المجمعة في قاعدة بيانات موسوعة الحياة ويتم تقديمها للعامة عبر الموقع الإلكتروني وواجهة برمجة التطبيقات الخاصة بموسوعة الحياة.  يمكن أن يتم تحميل ملفات المصادر مباشرة إلى موقوع موسوعة الحياة، أو إذا كان المصدر متاح بخادم ويب عام، يمكن لموسوعة الحياة استخلاص البيانات أتوماتيكيًا بصورة منتظمة يمكنك تحديدها. يجب أن يكون كل ملف مصدر بصيغة <a href=\"%{eol_transfer_schema_url}\">EOL Transfer Schema</a> مخطط نقل موسوعة الحياة."
   content_partner_resources_link: "المصادر؛ جهات الاتصال"
@@ -921,11 +1004,11 @@ ar:
   content_partner_statistics_column_header_total_count: "جميع الصفحات"
   content_partner_statistics_empty: "لم يتم العثور على إحصائيات لـ %{month_name} %{year}."
   content_partner_statistics_link: "إحصائيات الاستخدام"
-  content_partner_statistics_month_label: Month
+  content_partner_statistics_month_label: الشهر
   content_partner_statistics_summary_caption: "ملخص إحصائيات الاستخدام لصفحات الأصناف التي تضم محتوى مقدم بواسطة %{partner_name} بشكل نسبي إلى إجمالي استخدام موقع موسوعة الحياة."
   content_partner_statistics_taxa_page_caption: "إحصائيات الاستخدام المفصلة لصفحات الأصنوفة  التي تضم محتوى مقدم من  %{partner_name}."
-  content_partner_statistics_year_label: Year
-  content_partner_status_empty: "Unknown status"
+  content_partner_statistics_year_label: عام
+  content_partner_status_empty: "وضع غير معروف"
   content_partner_update_successful_notice: "تم تحديث معلومات الشريك بنجاح."
   content_partner_update_unsuccessful_error: "عفوًا، حدث خطأ، تعذر تحديث معلومات الشريك."
   content_partners: "شركاء المحتوى"
@@ -950,8 +1033,8 @@ ar:
     one: "تم نسخ %{count} عنصر من %{name}."
     other: "تم نسخ %{count} عنصر من %{name}."
   copied_items_to_collections_with_count_notice:
-    one: "Copied %{count} item to collections: %{names}"
-    other: "Copied %{count} items to collections: %{names}"
+    one: "تم نسخ %{count} عنصر واحد إلى المجموعات: %{names}"
+    other: "تم نسخ %{count} عناصر إلى المجموعات:  %{names}"
   copy: نسخ
   copy_all_articles_button: "نسخ جميع المقالات"
   copy_all_collections_button: "نسخ جيع المجموعات"
@@ -1049,7 +1132,7 @@ ar:
   default_watch_collection_name: "قائمة مشاهدة %{username}"
   delete: حذف
   delete_community: "حذف ذلك المجتمع"
-  delete_firstcap: Delete
+  delete_firstcap: حذف
   description: الوصف
   description_of: شرح
   destination_inappropriate_for_logged_in_users: "تم تسجيل الدخول"
@@ -1087,6 +1170,7 @@ ar:
   edit_collection_details: "تعديل شرح المجموعة"
   edit_collection_details_header: "تعديل شرح المجموعة"
   edit_collection_head_title: "تعديل %{collection_name}"
+  edit_comment: "تحرير التعليق"
   edit_community: "تعديل مجتمع"
   edit_contact_us_topics: "تعديل موضوعات الاتصال بنا"
   edit_downcase: تعديل
@@ -1097,7 +1181,7 @@ ar:
   edit_search_suggestions: "تعديل مقترحات البحث"
   edit_table_of_contents: "تعديل الفهرس"
   edit_tag_suggestions: "تعديل مقتراحات العلامات"
-  edit_username: "Edit %{username}"
+  edit_username: "تعديل %{username}"
   edit_web_users: "تعديل مستخدمي شبكة الإنترنت"
   email: "البريد الإلكتروني"
   email_colon: "البريد الإلكتروني:"
@@ -1206,6 +1290,8 @@ ar:
   hello_user: "مرحبا  %{user}"
   help: المساعدة
   hidden: مخفي
+  hidden_comment: "hidden comment"
+  hide: hide
   hierarchies: "التسلسلات الهرمية"
   hierarchies_description: "لا تعتمد موسوعة الحياة تسلسل هرمي تصنيفي واحد في إنشاء الصفحات. عوضًا عن ذلك، تفهرس موسوعة الحياة العديد من التسلسلات الهرمية وتعقد مقارنة بينهم. تعرض واجهة برمجة التطبيقات تلك البيانات الفوقية عن أحد التسلسلات الهرمية مثل اسم مقدمها والعنوان الإلكتروني للمصدر، كما تعرض جميع الأصناف التي تمثل الأصناف الرئيسية للشجرة التصنيفية."
   hierarchies_entries_description: "لا تعتمد موسوعة الحياة تسلسلاً هرميًّا تصنيفيًّا واحدًا في إنشاء الصفحات. عوضًا عن ذلك، تفهرس موسوعة الحياة العديد من التسلسلات الهرمية وتعقد مقارنة بينهم. ونتيجة لذلك، يمكن أن ترتبط أي من صفحات موسوعة الحياة بعدة نقاط في تسلسلات هرمية متنوعة. تتيح واجهة برمجة التطبيقات الوصول إلى تسلسل هرمي واحد والعلاقات بداخله. يرجى العودة إلى التوثيق بواجهة برمجة التطبيقات في الصفحات للمزيد من المعلومات حول الوصول إلى تسلسلات هرمية أخرى تماثل صفحة محددة بموسوعة الحياة. تضم خانة معرف مفهوم الأصنوفة معرف صفحة موسوعة الحياة والذي يمكن استخدامه في واجهة برمجة تطبيقات الصفحات."
@@ -1234,7 +1320,7 @@ ar:
   information_for_any_audience: "معلومات لعامة الجمهور"
   information_intended_for_beginners: "معلومات للمبتدئين"
   information_intended_for_experts: "معلومات للخبراء"
-  insufficient_privileges_to_add_common_names: "Sorry, you do not have sufficient privileges to add common names."
+  insufficient_privileges_to_add_common_names: "عفوًا، لا تتمتع بالامتيازات الكافية لإضافة اسماء شائعة."
   insufficient_privileges_to_curate_names: "عفوًا، لا تتمتع بالامتيازات اللازمة لتقييم الأسماء."
   invite_members_help_text: "أضف بعض مستخدمي موسوعة الحياة هنا وسوف يتلقوا دعوة إلى مجتمعك الجديد!"
   invite_members_label: "أرسل دعوة إلى الأعضاء"
@@ -1262,7 +1348,7 @@ ar:
     other: "%{count} عنصر؛"
   iucn_red_list_status_advisory_information: "سوف يحولك ذلك الرابط إلى موقع الاتحاد العالمي للحفاظ على الطبيعة (IUCN)، حيث يمكنك أن تجد المزيد من المعلومات عن القائمة الحمراء للأنواع المهددة بالأنقراض."
   join_community_button: "انضم لهذا المجتمع"
-  join_eol_button_html: "انضم إلى <abbr title=\"Encyclopedia of Life\">موسوعة الحياة</abbr> الآن."
+  join_eol_button_html: "انضم إلى <abbr title=\"Encyclopedia of Life\">موسوعة الحياة</abbr> الأن."
   join_eol_community_html: "كن جزءًا من مجتمع <abbr title=\"Encyclopedia of Life\">موسوعة الحياة</abbr>!"
   joined_time_ago: "انضم منذ %{time_passed}"
   json_response: "استجابة بصيغة JSON"
@@ -1321,6 +1407,7 @@ ar:
   literature_header: المراجع
   literature_references: "مراجع المطبوعات"
   location: الموقع
+  location_colon: "المكان:"
   login: "تسجيل الدخول"
   login_header: "سجل دخولك لحسابك <abbr title=\"Encyclopedia of Life\">بموسوعة الحياة</abbr>"
   login_or_create_account: "تسجيل الدخول أو إنشاء حساب"
@@ -1382,12 +1469,12 @@ ar:
     one: "تم نقل %{count} عنصر من %{name}"
     other: "تم نقل %{count} عنصر من %{name}"
   moved_items_to_collections_with_count_notice:
-    one: "Moved %{count} item to collections: %{names}"
-    other: "Moved %{count} items to collections: %{names}"
+    one: "تم نقل %{count} عنصر  إلى المجموعات: %{names}"
+    other: "تم نقل %{count} عناصر إلى المجموعات:  %{names}"
   must_be_associated_with_either_a_user_or_a_community: "يجب أن يكون مرتبط بمستخدم أو بمجتمع"
   must_be_less_than_128_characters_long: "يجب أن يكون أقل من 128 حرف ورقم"
   must_be_logged_in: "يجب تسجيل الدخول لتنفيذ هذه الخطوة"
-  must_provide_search_term_error: "You must enter a search term."
+  must_provide_search_term_error: "يجب أن يتم إدخال مصطلح بحث."
   my_activity: نشاطي
   my_info: "معلومات عني"
   name: الاسم
@@ -1397,7 +1484,7 @@ ar:
   name_preferred_taxonomically_for_source_help_tip: "توضح %{icon} الاسم  المفضل لكل مصدر."
   name_preferred_taxonomically_for_source_yes: المفضل
   names: أسماء
-  names_children_column_header: الأبناء
+  names_children_column_header: الأطفال
   names_common_empty: "لا توجد اسماء شائعة مرتبطة بتلك الأصنوفة حتى الأن."
   names_common_list_by_language_assistive_header: "الاسماء الشائعة معروضة وفقًا للغة"
   names_curation_column_header: الإشراف
@@ -1412,7 +1499,7 @@ ar:
   names_synonyms_empty: "لم يتم ربط أي مرادفات بتلك الإصنوفة إلى الأن."
   never: أبدًا
   new_collection: "مجموعة جديدة"
-  new_user: "New User"
+  new_user: "مستخدم جديد"
   news_items: "مواضيع جديدة"
   newsfeed: تحديثات
   newsfeed_help_for_collection: "تجمع تحديثات أخبار مجموعة موسوعة الحياة تلك تحديثات مرتبطة بالعناصر التي تنتمي إليها، بما في ذلك نشاطات مالكها وتعليقات مستخدمو موسوعة الحياة الأخرون. "
@@ -1434,7 +1521,7 @@ ar:
   not_yet_implemented_error: "عفوًا، لم يتم تطبيق تلك الخاصية بعد."
   notes: ملاحظات
   nucleotide_sequences: "تسلسلات النيوكليوتيدات"
-  nucleotide_sequences_ncbi_database: "تضم قاعدة بيانات  <a  href=\"%{ncbi_taxonomy_link}\"> المركز الوطني لمعلومات التكنولوجيا الحيوية NCBI Taxonomy </a>  اسماء جميع الكائنات الحية الممثلة في قواعد البيانات الوراثية عن طريق تسلسل نيوكليوتيدات أو بروتينات واحد على الأقل."
+  nucleotide_sequences_ncbi_database: "تضم قاعدة بيانات  <a href=\"%{ncbi_taxonomy_link}\"> المركز الوطني لمعلومات التكنولوجيا الحيوية NCBI Taxonomy </a>  اسماء جميع الكائنات الحية الممثلة في قواعد البيانات الوراثية عن طريق تسلسل نيوكليوتيدات أو بروتينات واحد على الأقل."
   nucleotide_sequences_ncbi_mission: "تتمثل مهمة  <a href=\"%{ncbi_link}\"> المركز الوطني لمعلومات التكنولوجيا الحيوية NCBI Taxonomy </a>   في تطوير تكنولوجيا معلومات جديدة للمساعدة على فهم العمليات الجزيئية والوراثية الأساسية والتي تتحكم في الصحة والمرض."
   nucleotide_sequences_proteins_link: "عرض تسلسلات البروتينات والنوكليوتيدات في المركزالقومي للمعلومات التكنولوجية الحيوية"
   number_of_taxa_at_this_entry: " عدد الأصناف في ذلك المدخل"
@@ -1489,8 +1576,8 @@ ar:
   pages_method_description: "يقبل معرف صفحة بموسوعة الحياة ويعرض الاسم  العلمي لتلك الصفحة، كما يعرض اختياريًا  معلومات عن الأسماء الشائعة، والوسائط (نصوص، وصور، ومقاطع فيديو)، ومراجع للتسلسلات الهرمية التي تقر بالأصنوفة الموضحة في"
   pages_title: المراجع
   pages_with_count:
-    one: "%{count} صفحة"
-    other: "%{count} صفحة"
+    one: "%{count}"
+    other: "%{count}"
   pages_with_pictures_and_text: "الصفحات التي تضم صور ونص"
   pages_with_pictures_or_text: "الصفحات التي تضم صور أو نص"
   pagination_next: التالي
@@ -1504,7 +1591,7 @@ ar:
   parameters: معاملات
   partner_page: "صفحة الشريك"
   password_colon: "كلمة السر"
-  password_must_be_4to16_characters: "Password length must be between 4 and 16 characters."
+  password_must_be_4to16_characters: "طول كلمة المرور يجب أن يكون بين 4 و 16 حرفا."
   people_with_count:
     one: "%{count} شخص"
     other: "%{count} شخص"
@@ -1550,10 +1637,11 @@ ar:
   recaptcha: "أكتب الكلمتين التاليتين اللتين تراهما فى الصورة أدناه"
   recaptcha_incorrect_error_with_anchor: "لم تتطابق رموز نظام <a href=\"#%{recaptcha_anchor}\">ريكابتشا</a>، يرجى المحاولة مرة أخرى."
   recent_updates: "آخر التحديثات"
-  recently_visited: "Recently visited collections"
+  recently_visited: "Recently visited"
   recognized_by: "معترف بها بواسطة"
   recognized_by_as_a_rank: "%{recognized_by} على أنها  %{taxon_rank}"
   recognized_by_from_source_as_a_rank: "%{recognized_by} فى  %{source} على أنها %{taxon_rank}"
+  record_not_found: "[record not found]"
   related_names_with_count:
     one: "%{count} أسم ذا صلة"
     other: "%{count} أسم ذا صلة"
@@ -1622,8 +1710,8 @@ ar:
     one: "عرض  <span class=\"assistive\">%{count} مجموعة التي تظهر بها هذه الصفحة.</span>"
     other: "عرض <span class=\"assistive\">%{count} جميع المجموعات التي تظهر بها الصفحة.</span>"
   see_all_comments_with_count_for_text_or_rate:
-    one: "عرض %{count} تعليق على هذا المقال أو قم بتقييمه"
-    other: "عرض %{count} تعليق على  هذا المقال أو قم بتقييمه"
+    one: "اعرض %{count} تعليق على هذا المقال أو قم بتقييمه"
+    other: "اعرض %{count} تعليق على هذا المقال أو قم بتقييمه"
   see_all_communities_with_count_html:
     one: "عرض <span class=\"assistive\">%{count} مجتمع الذى يعرض به الصفحة.</span>"
     other: "عرض <span class=\"assistive\">%{count} جميع المجموعات التي تعرض بها الصفحة.</span>"
@@ -1684,6 +1772,8 @@ ar:
   species: أنواع
   species_curated: "الأنواع التي تم الإشراف عليها"
   species_profile_model: "نموذج صفحة معلومات الأنواع"
+  species_profile_model_cp_count_title: "Species Profile Model - Content Partners Count"
+  species_profile_model_dato_count_title: "Species Profile Model - Data Objects Count"
   spm_category_objects_count: "فئة التخطيط الإحصائي المتكرر - عدد الموضوعات"
   spm_category_partner_count: "فئة التخطيط الإحصائي المتكرر - عدد المشاركين"
   stat: إحصائية
@@ -1700,6 +1790,7 @@ ar:
   table_column_header_actions: خطوات
   table_of_contents: المحتويات
   table_of_contents_breakdown: "تفصيل الفهرس"
+  table_of_contents_breakdown_title: "Table of Contents Breakdown"
   target_blank_advisory_information: "إذا اتبعت الرابط التالي سوف يتم فتح الصفحة في نافذة جديدة"
   task_status: "حالة المهمة"
   task_status_active_option: نشط
@@ -1734,7 +1825,6 @@ ar:
   taxon_recognized_by_header: "معترف بها بواسطة"
   taxonomic_summary_of_content: "الملخص التصنيفي للمحتوى"
   technical_functions: "الوظائف التقنية"
-  terms_agreement_beta_intro: "شكرًا لمساهمتك في النسخة الثانية من الموقع الإلكتروني لموسوعة الحياة. قبل المتابعة، يرجى الموافقة على ما يلي:"
   terms_agreement_form_fallback: "يرجى استعراض والموافقة على <a href=\"%{terms_url}\">شروط الاستخدام</a> قبيل الدخول غلى حسابك."
   terms_agreement_form_header: "شروط وأحكام الاستخدام"
   terms_agreement_form_submit: أوافق
@@ -1749,24 +1839,24 @@ ar:
   thank_you_for_your_generous_support: "شكرًا لدعمكم الكريم"
   thanks_for_donation: "شكرًا لدعم موسوعة الحياة. تم إرسال بياناتك وسوف يتم معالجتها."
   the_amount_entered_was: "القيمة المدخلة: %{number} دولار أمريكي"
+  the_comment_was_successfully_u: "The comment was successfully updated."
   the_darwin_core_taxon_elements: "تضم عناصر الأصناف بأرشيف داروين كور (أرشيف داروين كور: أصنوفة) تحت بند معلومات إضافية معرفات لنقاط في التسلسلات الهرمية المفهرسة بواسطة موسوعة الحياة، حيث تضم معرف يمثل الهوية المميزة للأصنوفة <i>في قاعدة بيانات مقدم المحتوى</i>."
   the_following_bibliography: "تم تكوين قائمة المراجع التالية عن طريق جمع كل المراجع المقدمة من شركاء المحتوى، ويمكن أن يكون هنالك تكرار بالقائمة."
   the_id_of_provider_hierarchy_you_are_searching: "معرف التسلسل الهرمي الخاص بمقدم المحتوى والذي تبحث فيه. تحقق من %{link} لإيجاد معرفات صالحة."
   the_json_response_for_this_method: "تعرض الاستجابة بصيغة جسون لتلك الطريقة معلومات أكثر من الاستجابة بصيغة إكس إم إل، حيث تضم العديد من الإحصائيات عن تلك النقطة وسلالاتها التصنيفية. على سبيل المثال لا الحصر، يتم عرض خانة \"السلالات_الإجمالية\" والتي توضح عدد النقاط التي تنحدر من تلك النقطة وفقًا لذلك التسلسل الهرمي؛ يضم \"إجمالي_النص_الموثوق به \" إجمالي عدد عناصر بيانات النص المرتبطة بتلك الصفحة أو أي من الصفحات المنحدرة منها."
-  the_new_user_was_created: "The new user was created."
-  the_user_was_updated: "The user was updated."
+  the_new_user_was_created: "تم إنشاء المستخدم الجديد."
+  the_user_was_updated: "تم تحديث المستخدم."
   the_xml_search_response_implements: "تطبق استجاب البحث بصيغة إكس إم إل صيغة استجابة أوبن سيرش باستخدام صيغة أتوم 1.0. استعرض %{link} للتعرف على المواصفات الكاملة لأوبن سيرش."
   there_are_currently_no_members_in_this_community: "لا يوجد حاليًا أي أعضاء بهذا المجتمع"
   there_is_no_singular_eol: "لا تعتمد موسوعة الحياة تسلسلاً هرميًّا تصنيفيًّا واحدًا. عوضًا عن ذلك، تفهرس موسوعة الحياة العديد من التسلسلات الهرمية وتعقد مقارنة بينهم لتحديد النقاط التي تشير إلى ذات الأصناف. وتمثل عناصر الأصنوفة تلك النقاط بالتسلسل الهرمي، ولذلك فإنه من المرجح وجود العديد منها لصفحة موسوعة الحياة. للمزيد من المعلومات، يمكن الرجوع إلى التوثيق في واجهة برمجة تطبيقات %{link}."
   there_was_an_error_posting_your_text: "حدث خطأ خلال إضافة النص"
-  this_cannot_be_undone_are_you_sure: "لا يمكن إلغاء تلك الخطوة؛ هل انت متأكد؟"
   this_community_has_no_endorsed_collections: "لم يقدم هذا المجتمع أي مجموعات."
   this_community_has_no_focus_list: "لا توجد قائمة اهتمامات لهذا المجتمع"
   this_community_was_deleted: "تم حذف المجتمع بواسطة المالك."
   this_is_a_flat_list_of_10_million_strings: "تلك قائمة مسطحة تضم 10 مليون تسلسل - غير مسموح لك بتصفحها"
   this_is_a_focus_collection_for_community: "ذلك هو محور اهتمام %{community}."
-  this_method_takes_an_integer_or_string: "تقبل تلك الطريقة عددًا صحيحًا أو تسلسلاً يمثل المعرف المميز لأصنوفة من قاعدة بيانات أحد مقدمي المحتوى، ومعرف_تسلسل هرمي يمثل مقدمه وتعرض معرف صفحة موسوعة الحياة لتلك الأصنوفة. على سبيل المثال، يمكنني أن أكتشف، باستخدام واجهة برمجة تطبيقات  %{link_provider} أن معرف_التسلسل الهرمي بموسوعة الحياة هو  %{itis_id}. ويمكنني بعد ذلك البحث في موسوعة الحياة عن الرقم التسلسلي التصنيفي بنظام المعلومات التصنيفية المتكامل وهو 180542، <i>Ursus maritimus</i>، عن طريق طلب  %{link_url}"
-  threat_status_header_colon: "حالة التهديد وفقًا للاتحاد العالمي للحفاظ على الطبيعة <abbr title=\"International Union for Conservation of Nature\">IUCN</abbr>"
+  this_method_takes_an_integer_or_string: "This method takes an integer or string which is the unique identifier for a taxon from some provider's database, and a hierarchy_id which represents the provider and returns the EOL page ID for that taxon. For example using the %{link_provider} API, I can find out that the EOL hierarchy_id for the Integrated Taxonomic Information System (ITIS) is %{itis_id}. I can then search EOL for the ITIS Taxonomic Serial Number (TSN) of 180542,<i>Ursus maritimus</i>, by calling %{link_url}"
+  threat_status_header_colon: "حالة التهديد وفقا للاتحاد العالمى للحفاظ على الطبيعة  <abbr title=\"International Union for Conservation of Nature\">(IUCN)</abbr>:"
   time_ago: "منذ %{time_passed}"
   title: "عنوان "
   to: إلى
@@ -1778,7 +1868,7 @@ ar:
   translation_deleted: "تم حذف الترجمة"
   translation_saved: "تم حفظ الترجمة"
   translations_submit: "عرض الترجمة"
-  truncated_comment_omission: "... <a href='%{link}'>more</a>"
+  truncated_comment_omission: "... <a href='%{link}'>المزيد</a>"
   truncated_comment_omission_linkless: "..."
   trusted: "موثوق به"
   trusted_images: "صور موثوق بها"
@@ -1786,7 +1876,7 @@ ar:
   tumblr: "منصة تدوين تمبلر"
   twitter: "موقع تويتر"
   type: النوع
-  unable_to_copy_items_to_collection_error: "عفوًا، لم أتمكن من نسخ عناصر المجموعة فى %{name}."
+  unable_to_copy_items_to_collection_error: "عفوًا، تعذر نسخ عناصر المجموعة إلى %{name}."
   unable_to_invite_users_to_community_error: "تعذر إرسال الدعوات إلى  %{users}."
   unknown: "غير معروف"
   unpublished: "لم يتم نشره"
@@ -1814,13 +1904,14 @@ ar:
   user_activation_failed_resent_validation_email_error: "عفوًا، حدث خطأ، لم يتم التحقق من حسابك. عادة ما يحدث ذلك عندما لا يتم التعرف على رابط التحقق المدخل. تم إرسال تعليمات التفعيل إلى البريد الإلكتروني الذي قمت بالتسجيل عن طريقه، يرجى التأكد من أن رابط التحقق المستخدم يطابق ذلك المذكور في رسالة التفعيل."
   user_activation_failed_user_not_found_error: "عفوًا، حدث خطأ، لم نتمكن من إيجاد الحساب الذي تحاول التحقق منه. يرجى التأكد من أن رابط التحقق المستخدم يطابق ذلك المتواجد في رسالة التفعيل التي تلقيتها عقب التسجيل."
   user_activation_successful_notice: "مرحبا بك، وشكرًا لإنضمامك لفريق موسوعة الحياة. تم تفعيل حسابك بإسم المستخدم <em>%{username}</em> ، يرجى تسجيل الدخول."
-  user_activity_page_title: "User Activity"
+  user_activity_page_title: "نشاط المستخدم"
   user_activity_stats_articles_added: "المقالات المضافة"
   user_activity_stats_header: نشاط
   user_activity_stats_objects_curated: "المواضيع التي تم الإشراف عليها"
   user_activity_stats_taxa_curated: "الأصناف المقيمة"
   user_already_active_notice: "تم تفعيل حسابك، يرجى تسجيل الدخول."
   user_commented_on_something_colon: "<strong>%{user}</strong> علق على %{what}:"
+  user_comments: "User Comments"
   user_index_intro: "فيما يلي جميع مستخدمي الويب المسجلين في النظام مرتبين عكسيًا وفقًا لتاريخ التسجيل. لاحظ أن تواريخ تسجيل المستخدمين في الفترة ما قبل النسخة الثانية من موسوعة الحياة (5 يناير،2009) غير متاحة. انقر على اسم المستخدم لتعديل ذلك المستخدم."
   user_joined_community_on_date: "%{username} انضم إلى ذلك المجتمع في %{date}."
   user_left_comment_on_date: "%{username} أضاف تعليق في %{date}."
@@ -1856,7 +1947,7 @@ ar:
   values: قيم
   version_1_0_uses_fields_from_the_latest_version: "تستخدم النسخة رقم 1.0 خانات من أحدث نسخة من مخطط %{link} "
   vetted: "تم تقييمه"
-  video_description_not_available_in_language: " الوصف غير متوفر باللغة %{language}"
+  video_title_not_available_in_language: "العنوان غير متاح باللغة %{language}"
   videos_with_count:
     one: "%{count} فيديو"
     other: "%{count} فيديو"
@@ -1899,11 +1990,11 @@ ar:
   xml_response: "استجابة بصيغة إكس إم إل"
   year: عام
   yes_answer: نعم
-  you_are_an_admin_so_i_will_show_you_that_the_error_was: "أنت مشرف؛ لذلك سأطلعك على المشكلات، وهي:"
+  you_are_an_admin_so_i_will_show_you_that_the_error_was: "أنت مشرف، لذا يسمح لك بمشاهدة رسالة الخطأ:"
   you_are_not_authorized_to_perform_this_action: "أنت غير مخول لتنفيذ تلك الخطوة"
   you_are_viewing_this_rank_as_classified_by: "تشاهد تلك %{rank} وفقًا لتصنيف:"
   you_can_identify_yourself_to_eol: "يمكنك تعريف هويتك بموسوعة الحياة عن طريق إضافة مفتاح بواجهة برمجة التطبيقات في طلباتك (قم بتسجيل الدخول وإنشاء مفتاح في صفحة التفضيلات الخاصة بك):"
-  you_have_been_logged_in_as_username: "You have been logged in as %{username}"
+  you_have_been_logged_in_as_username: "لقد تم تسجيل دخولك باسم %{username}"
   you_have_been_logged_out: "تم تسجيل الخروج."
   you_joined_community: "لقد انضممت للمجتمع بنجاح."
   you_left_community: "لقد غادرت المجتمع بنجاح."

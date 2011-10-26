@@ -136,13 +136,13 @@ describe UsersController do
       active_user = User.gen(:active => true, :validation_code => User.generate_key)
       Notifier.should_not_receive(:deliver_user_activated)
       Notifier.should_not_receive(:deliver_user_verification)
-      get :verify, { :username => active_user.username, :validation_code => active_user.validation_code }
+      get :verify, { :user_id => active_user.id, :validation_code => active_user.validation_code }
       response.redirected_to.should == login_path
     end
     it 'should activate inactive user with valid verification code' do
       user = User.gen(:active => false, :validation_code => User.generate_key)
       Notifier.should_receive(:deliver_user_activated).once.with(user)
-      get :verify, { :username => user.username, :validation_code => user.validation_code }
+      get :verify, { :user_id => user.id, :validation_code => user.validation_code }
       user.reload
       user.active.should be_true
       response.redirected_to.should == activated_user_path(user)
@@ -150,8 +150,8 @@ describe UsersController do
     it 'should not activate user with invalid verification code' do
       inactive_user = User.gen(:active => false, :validation_code => User.generate_key)
       Notifier.should_not_receive(:deliver_user_activated)
-      Notifier.should_receive(:deliver_user_verification).once.with(inactive_user, verify_user_url(inactive_user.username, inactive_user.validation_code))
-      get :verify, { :username => inactive_user.username, :validation_code => 'invalidverificationcode123' }
+      Notifier.should_receive(:deliver_user_verification).once.with(inactive_user, verify_user_url(inactive_user.id, inactive_user.validation_code))
+      get :verify, { :user_id => inactive_user.id, :validation_code => 'invalidverificationcode123' }
       response.redirected_to.should == pending_user_path(inactive_user)
     end
   end

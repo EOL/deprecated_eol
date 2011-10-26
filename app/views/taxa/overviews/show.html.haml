@@ -7,10 +7,10 @@
 #sidebar
   - if @selected_hierarchy_entry
     = render(:partial => 'taxa/classification_tree')
-    = render(:partial => 'taxa/curators_summary', :locals => {:curators => @taxon_concept.top_acting_curators})
+    = render(:partial => 'taxa/curators_summary', :locals => {:curators => @taxon_concept.data_object_curators})
   - else
     = render(:partial => 'taxa/classifications_summary')
-    = render(:partial => 'taxa/curators_summary', :locals => {:curators => @taxon_concept.top_acting_curators})
+    = render(:partial => 'taxa/curators_summary', :locals => {:curators => @taxon_concept.data_object_curators})
     .article.list.updates
       - log = @taxon_concept.activity_log(:per_page => 5)
       .header

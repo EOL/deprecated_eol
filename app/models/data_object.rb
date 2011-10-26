@@ -1033,9 +1033,17 @@ class DataObject < SpeciesSchemaModel
     curated_hierarchy_entries.select{ |he| he.published == 1 }
   end
 
-  # This method adds users data object entry in the list of published entries to retrieve all associations
-  def all_associations
-    (published_entries + [users_data_object]).compact
+  def unpublished_entries
+    curated_hierarchy_entries.select{ |he| he.published != 1 }
+  end
+
+  # This method adds users data object entry in the list of entries to retrieve all associations
+  def all_associations(options = {:with_unpublished => false})
+    unless options[:with_unpublished]
+      (published_entries + [users_data_object]).compact
+    else
+      (published_entries + unpublished_entries + [users_data_object]).compact
+    end
   end
 
   def first_concept_name
@@ -1087,6 +1095,7 @@ class DataObject < SpeciesSchemaModel
       TopImage.find_or_create_by_hierarchy_entry_id_and_data_object_id(hierarchy_entry.id, self.id, :view_order => 1)
       TopConceptImage.find_or_create_by_taxon_concept_id_and_data_object_id(hierarchy_entry.taxon_concept.id, self.id, :view_order => 1)
     end
+    DataObjectsTaxonConcept.find_or_create_by_taxon_concept_id_and_data_object_id(hierarchy_entry.taxon_concept.id, self.id)
   end
 
   def remove_curated_association(user, hierarchy_entry)
@@ -1100,6 +1109,8 @@ class DataObject < SpeciesSchemaModel
       ti_exists = TopImage.find_by_hierarchy_entry_id_and_data_object_id(hierarchy_entry.id, self.id)
       ti_exists.destroy unless ti_exists.nil?
     end
+    dotc_exists = DataObjectsTaxonConcept.find_by_taxon_concept_id_and_data_object_id(hierarchy_entry.taxon_concept.id, self.id)
+    dotc_exists.destroy unless dotc_exists.nil?
   end
 
   def translated_from

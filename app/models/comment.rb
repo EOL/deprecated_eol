@@ -102,10 +102,10 @@ class Comment < ActiveRecord::Base
   # the description or name of the parent item (i.e. the name of the species or description of the object)
   def parent_name
     return case self.parent_type
-      when 'TaxonConcept' then parent.entry.name.string
-      when 'DataObject'   then parent.description
-      when 'Community'    then parent.name
-      when 'Collection'   then parent.name
+      when 'TaxonConcept' then parent.nil? ? self.parent_type : parent.entry.name.string
+      when 'DataObject'   then parent.nil? ? self.parent_type : parent.description
+      when 'Community'    then parent.nil? ? self.parent_type : parent.name
+      when 'Collection'   then parent.nil? ? self.parent_type : parent.name
       else self.parent_type
       end
   end

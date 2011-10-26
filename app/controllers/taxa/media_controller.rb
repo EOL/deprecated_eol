@@ -30,8 +30,12 @@ class Taxa::MediaController < TaxaController
     if @status == ['all']
       if current_user.is_curator?
         search_statuses = ['trusted', 'unreviewed', 'untrusted']
+        visibility_statuses = ['visible', 'invisible']
+        filter_by = ''
       else
         search_statuses = ['trusted', 'unreviewed']
+        visibility_statuses = ['visible']
+        filter_by = 'visible'
       end
     else
       search_statuses = @status
@@ -43,10 +47,10 @@ class Taxa::MediaController < TaxaController
       :sort_by => @sort_by,
       :data_type_ids => data_type_ids,
       :vetted_types => search_statuses,
-      :visibility_types => 'visible',
+      :visibility_types => visibility_statuses,
       :ignore_maps => true,
       :ignore_translations => true,
-      :filter => 'visible',
+      :filter => filter_by,
       :filter_hierarchy_entry => @selected_hierarchy_entry
     })
     DataObject.preload_associations(@media, [:users_data_object, { :data_objects_hierarchy_entries => :hierarchy_entry },

@@ -175,6 +175,19 @@ class TaxonConcept < SpeciesSchemaModel
   end
   alias :top_acting_curators :top_curators # deprecated.  TODO - remove entirely.
 
+  def data_object_curators
+    curators = connection.select_values("
+      SELECT cal.user_id
+      FROM #{CuratorActivityLog.database_name}.curator_activity_logs cal
+        JOIN #{LoggingModel.database_name}.activities acts ON (cal.activity_id = acts.id)
+        JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (cal.object_id = dotc.data_object_id)
+      WHERE dotc.taxon_concept_id=#{self.id}
+      AND cal.changeable_object_type_id IN(#{ChangeableObjectType.data_object_scope.join(",")})
+      AND acts.id IN (#{Activity.raw_curator_action_ids.join(",")})
+      ORDER BY cal.updated_at DESC").uniq
+    User.find(curators)
+  end
+
   # The International Union for Conservation of Nature keeps a status for most known species, representing how endangered that
   # species is.  This will default to "unknown" for species that are not being tracked.
   def iucn_conservation_status
@@ -216,9 +229,20 @@ class TaxonConcept < SpeciesSchemaModel
   def text(options={})
     options[:user] ||= current_user
     text_datos = data_objects.select{ |d| d.is_text? }
-
     text_user_objects = users_data_objects.select{ |udo| udo.data_object && udo.data_object.is_text? && udo.data_object.published && udo.visibility == Visibility.visible }.collect{ |udo| udo.data_object}
-    combined_objects = text_datos | text_user_objects  # get the union of the two sets
+
+    # Get text_user_objects from superceded taxa
+    text_user_objects_superceded = []
+    if self.superceded_taxon_concepts
+      taxa_udo = self.superceded_taxon_concepts.collect{ |tc| tc.users_data_objects}.select{|arr| !arr.empty?}
+      taxa_udo.each do |taxon_udo|
+        if taxon_udo
+          text_user_objects_superceded |= taxon_udo.select{ |udo| udo.data_object && udo.data_object.is_text? && udo.data_object.published && udo.visibility == Visibility.visible }.collect{ |udo| udo.data_object}
+        end
+      end
+    end
+    
+    combined_objects = text_datos | text_user_objects | text_user_objects_superceded
 
     # if this is a content partner, we preload associations to prevent
     # a bunch of queries later on in DataObject.filter_list_for_user
@@ -1314,16 +1338,18 @@ class TaxonConcept < SpeciesSchemaModel
     cache_key = "media_count_#{self.id}"
     cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
     vetted_types = ['trusted', 'unreviewed']
+    visibility_types = ['visible']
     if user && user.is_curator?
       cache_key += "_curator"
       vetted_types << 'untrusted'
+      visibility_types << 'invisible'
     end
     @media_count ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
       best_images = EOL::Solr::DataObjects.search_with_pagination(self.id, {
         :per_page => 1,
         :data_type_ids => DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids,
         :vetted_types => vetted_types,
-        :visibility_types => 'visible',
+        :visibility_types => visibility_types,
         :ignore_maps => true,
         :ignore_translations => true,
         :filter_hierarchy_entry => selected_hierarchy_entry,
@@ -1358,14 +1384,15 @@ class TaxonConcept < SpeciesSchemaModel
     @best_image = nil
   end
 
-  def images_from_solr(limit = 4, selected_hierarchy_entry = nil)
+  def images_from_solr(limit = 4, selected_hierarchy_entry = nil, ignore_translations = false)
     @images_from_solr ||=  EOL::Solr::DataObjects.search_with_pagination(self.id, {
       :per_page => limit,
       :sort_by => 'status',
       :data_type_ids => DataType.image_type_ids,
       :vetted_types => ['trusted', 'unreviewed'],
       :visibility_types => 'visible',
-      :filter_hierarchy_entry => selected_hierarchy_entry
+      :filter_hierarchy_entry => selected_hierarchy_entry,
+      :ignore_translations => ignore_translations
     })
   end
 

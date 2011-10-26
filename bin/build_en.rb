@@ -90,7 +90,9 @@ list = Set.new()
   views/users
   views/wikipedia_queues
 
+  controllers/administrator/comment_controller.rb
   controllers/administrator/content_page_controller.rb
+  controllers/administrator/stats_controller.rb
   controllers/administrator/table_of_contents_controller.rb
   controllers/administrator/user_controller.rb
   controllers/administrator/user_data_object_controller.rb

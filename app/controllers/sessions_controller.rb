@@ -13,16 +13,11 @@ class SessionsController < ApplicationController
   def create
     success, user = User.authenticate(params[:session][:username_or_email], params[:session][:password])
     if success && user.is_a?(User) # authentication successful
-      if user.is_hidden?
-        flash[:error] = I18n.t(:login_hidden_user_message, :given_name => user.given_name)
-        redirect_to root_url(:protocol => "http")
-      else
-        log_in user
-        unless params[:session][:return_to].blank? || params[:session][:return_to] == root_url
-          store_location(params[:session][:return_to])
-        end
-        redirect_back_or_default(user_newsfeed_path(current_user))
+      log_in user
+      unless params[:session][:return_to].blank? || params[:session][:return_to] == root_url
+        store_location(params[:session][:return_to])
       end
+      redirect_back_or_default(user_newsfeed_path(current_user))
     else # authentication unsuccessful
       if user.blank? && User.active_on_master?(params[:session][:username_or_email])
         flash[:notice] = I18n.t(:account_registered_but_not_ready_try_later)

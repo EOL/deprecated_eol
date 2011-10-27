@@ -3742,8 +3742,4 @@ en:
   external_link_header: "External Link"
   comment_or_rate_on_this_article: "Comment on or rate this article"
   admin_user_delete_successful_notice: "User has been deleted"
-  admin_user_hide_successful_notice: "User has been hidden"
-  admin_user_unhide_successful_notice: "User has been unhidden"
   admin_spam_delete: "Delete Spam"
-  login_hidden_user_message: "The account %{given_name} is no longer active"
-  user_hidden_message: "This user is no longer active"

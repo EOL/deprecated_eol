@@ -52,7 +52,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   before_destroy :destroy_comments
   # TODO: before_destroy :destroy_data_objects
-   
 
 
   accepts_nested_attributes_for :user_info
@@ -696,47 +695,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     return false unless data_object
     return WorklistIgnoredDataObject.find_by_user_id_and_data_object_id(self.id, data_object.id)
   end
-  
-  def is_hidden?
-    hidden == 1
-  end
-  
-  def hide_comments(current_user)
-                
-    # remove comments from database
-    comments = Comment.find_all_by_user_id(self.id)
-    comments.each do |comment|
-      comment.hide(current_user)      
-    end
-    
-  end
-  
-  def unhide_comments(current_user)
-    comments = Comment.find_all_by_user_id(self.id)
-    comments.each do |comment|
-      comment.hide(current_user)
-    end
-    
-  end
-  
-  def hide_data_objects
-    data_objects = UsersDataObject.find_all_by_user_id(self.id, :include => :data_object).collect{|udo| udo.data_object}.uniq
-    data_objects.each do |data_object|
-      puts data_object.id
-      data_object.published = 0
-      data_object.save
-      data_object.update_solr_index
-    end    
-  end
-  
-  def unhide_data_objects
-    data_objects = UsersDataObject.find_all_by_user_id(self.id, :include => :data_object).collect{|udo| udo.data_object}.uniq
-    data_objects.each do |data_object|
-      data_object.published = 1
-      data_object.save
-      data_object.update_solr_index
-    end
-  end
 
 private
 
@@ -754,7 +712,7 @@ private
     self.active        = true
     self.flash_enabled = true
   end
-    
+
   def reload_if_stale
     return false if new_record? or changed? or frozen?
     self.reload
@@ -777,8 +735,6 @@ private
       return true # encryption not required but we don't want to halt the process
     end
   end
-  
-  # 
 
   # validation condition for required curator attributes
   def curator_attributes_required?
@@ -841,6 +797,4 @@ private
       comment.destroy
     end
   end
-  
-  
 end

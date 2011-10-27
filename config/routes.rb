@@ -19,7 +19,7 @@ ActionController::Routing::Routes.draw do |map|
       community.resources :members, :member => {'grant_manager' => :get, 'revoke_manager' => :get}
     end
 
-  map.resources :collections, :member => { :choose => :get },
+  map.resources :collections, :member => { :choose => :get, :revoke_editor => :get },
                               :collection => { :choose_collect_target => :get,
                                                :choose_editor_target => :get,
                                                :collect_item => :post }
@@ -67,7 +67,7 @@ ActionController::Routing::Routes.draw do |map|
   # users
   map.resources :users, :path_names => { :new => :register },
                 :member => { :terms_agreement => [ :get, :post ], :pending => :get, :activated => :get,
-                             :curation_privileges => [ :get ], :make_editor => :put },
+                             :curation_privileges => [ :get ], :make_editor => :put, :revoke_editor => :get },
                 :collection => { :forgot_password => :get, :usernames => :get } do |user|
     user.resource :newsfeed, :only => [:show], :controller => "users/newsfeeds"
     user.resource :activity, :only => [:show], :controller => "users/activities"

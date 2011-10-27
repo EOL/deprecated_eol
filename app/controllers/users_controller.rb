@@ -56,7 +56,9 @@ class UsersController < ApplicationController
     @errors = []
     params[:collection_id].each do |id|
       collection = Collection.find(id)
-      if collection && current_user.can_edit_collection?(collection)
+      if collection.watch_collection?
+        @errors << I18n.t(:error_watch_collections_cannot_be_shared)
+      elsif collection && current_user.can_edit_collection?(collection)
         collection.users << @user
         # NOTE this is dangerous!  If I go and add EVERYONE to my
         # collection as an editor, I'm essentially spamming them:
@@ -78,6 +80,14 @@ class UsersController < ApplicationController
         render :partial => 'shared/flash_messages', :layout => false # JS will handle rendering these.
       end
     end
+  end
+
+  def revoke_editor
+    @user = User.find(params[:id])
+    collection = Collection.find(params[:collection_id])
+    raise EOL::Exceptions::ObjectNotFound unless collection
+    raise EOL::Exceptions::SecurityViolation if collection.watch_collection?
+    @user.collections.delete_if {|c| c.id == collection.id }
   end
 
   # GET /users/register

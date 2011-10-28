@@ -145,18 +145,20 @@ class ContentPartner < SpeciesSchemaModel
   # the date of the last action taken
   def last_action
     dates_to_compare = [updated_at]
-    # get last updated at from various associations, note updated_at may be nil so we add default || 0 to prevent sort_by exception
     unless resources.blank?
-      dates_to_compare << resources.sort_by{ |r| r.updated_at || 0 }[0].updated_at
+      dates_to_compare + resources.collect{|r| r.updated_at}
+      dates_to_compare + resources.collect{|r| r.created_at}
     end
     unless content_partner_contacts.blank?
-      dates_to_compare << content_partner_contacts.sort_by{ |c| c.updated_at || 0 }[0].updated_at
+      dates_to_compare + content_partner_contacts.collect{|c| c.updated_at}
+      dates_to_compare + content_partner_contacts.collect{|c| c.created_at}
     end
     unless content_partner_agreements.blank?
-      dates_to_compare << content_partner_agreements.sort_by{ |a| a.updated_at || 0 }[0].updated_at
+      dates_to_compare + content_partner_agreements.collect{|a| a.updated_at}
+      dates_to_compare + content_partner_agreements.collect{|a| a.created_at}
     end
     dates_to_compare.compact!
-    return dates_to_compare.sort[0] if dates_to_compare
+    dates_to_compare.blank? ? nil : dates_to_compare.sort.last
   end
 
   def agreement

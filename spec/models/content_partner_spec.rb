@@ -79,4 +79,15 @@ describe ContentPartner do
     cp.has_unpublished_content?.should be_true
   end
 
+  it "should know the date of the last action taken" do
+    cp = ContentPartner.gen(:user => @user)
+    ContentPartnerAgreement.gen(:content_partner_id => cp.id, :created_at => 4.hours.ago, :updated_at => 4.hours.ago)
+    ContentPartnerContact.gen(:content_partner_id => cp.id, :created_at => 3.hours.ago, :updated_at => 3.hours.ago)
+    Resource.gen(:content_partner_id => cp.id, :created_at => 2.hours.ago, :updated_at => nil)
+    last_action = Time.now
+    Resource.gen(:content_partner_id => cp.id, :created_at => 1.hour.ago, :updated_at => last_action)
+    cp.reload
+    cp.last_action.utc.strftime("%Y-%m-%d %H:%M:%S").should == last_action.utc.strftime("%Y-%m-%d %H:%M:%S")
+  end
+
 end

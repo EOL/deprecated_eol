@@ -243,12 +243,35 @@ form#switch_hierarchy_entry fieldset {
 #content.cms_page a.pdf {
   background: url("/images/v2/icon_pdf.png") right top no-repeat;
   padding: 0 20px 3px 0; }
+#content.cms_page ul.grid {
+  margin: 0 auto 40px;
+  width: 598px;
+  line-height: 100%; }
+  #content.cms_page ul.grid li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: inline-block;
+    width: 116px; }
+    #content.cms_page ul.grid li img {
+      max-width: 100px;
+      border: none;
+      padding: 0;
+      margin: 8px;
+      float: none; }
+  #content.cms_page ul.grid.four li {
+    width: 146px; }
+    #content.cms_page ul.grid.four li img {
+      margin: 10px;
+      max-width: 125px; }
 #content.cms_page ul.march {
   width: 100%;
   margin: 0 0 40px;
   padding: 0;
   clear: both;
-  overflow: hidden; }
+  overflow: hidden;
+  line-height: 100%;
+  height: 98px; }
   #content.cms_page ul.march li {
     margin: 0;
     padding: 0;

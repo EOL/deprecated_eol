@@ -421,6 +421,9 @@ body > #footer {
   #content_page_new form div input[type="submit"].delete, #content_page_edit form div input[type="submit"].delete {
     margin-top: 30px; }
 
+#sidebar .filters form dd select {
+  width: 120px; }
+
 #content_partners.main_container > ul > li {
   line-height: 140%;
   padding-bottom: 10px;

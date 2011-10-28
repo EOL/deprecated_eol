@@ -13,6 +13,10 @@
           %dd
             = text_field_tag :name, @name
           %dt
+            = label_tag :published, I18n.t(:content_partner_filter_published)
+          %dd
+            = select_tag :published, options_for_select(@published_options, @published)
+          %dt
             = label_tag :resource_status_id, I18n.t('activerecord.attributes.resource.resource_status_id')
           %dd
             = select_tag :resource_status_id,

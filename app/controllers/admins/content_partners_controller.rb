@@ -9,6 +9,7 @@ class Admins::ContentPartnersController < AdminsController
     @resource_status_id = params[:resource_status_id]
     @partner_status_id = params[:content_partner_status_id]
     @vetted = params[:vetted]
+    @published = params[:published].blank? ? '' : params[:published].to_i
     @sort_by = params[:sort_by] || 'partner'
 
     order = case @sort_by
@@ -19,27 +20,56 @@ class Admins::ContentPartnersController < AdminsController
     end
     include = [ { :resources => [ :resource_status, :hierarchy, :dwc_hierarchy ] },
                 :content_partner_status, :content_partner_contacts ]
-    conditions = "content_partners.full_name LIKE :name"
+    conditions = []
     conditions_replacements = {}
-    conditions_replacements[:name] = "%#{@name}%"
+    unless @name.blank?
+      conditions << "content_partners.full_name LIKE :name"
+      conditions_replacements[:name] = "%#{@name}%"
+    end
     unless @partner_status_id.blank?
-      conditions << " AND content_partners.content_partner_status_id = :partner_status_id"
+      conditions << "content_partners.content_partner_status_id = :partner_status_id"
       conditions_replacements[:partner_status_id] = @partner_status_id
     end
     unless @resource_status_id.blank?
-      conditions << " AND resources.resource_status_id = :resource_status_id"
+      conditions << "resources.resource_status_id = :resource_status_id"
       conditions_replacements[:resource_status_id] = @resource_status_id
     end
     unless @vetted.blank?
-      conditions << " AND resources.vetted = :vetted"
+      conditions << "resources.vetted = :vetted"
       conditions_replacements[:vetted] = @vetted
       @vetted = @vetted.to_i
+    end
+    resource_ids = case @published
+    when 0 # never been harvested
+      HarvestEvent.all(:select => 'resource_id').collect{|e| e.resource_id}.uniq
+    when 1 # never been published
+      HarvestEvent.all(:select => 'resource_id', :conditions => 'published_at IS NOT null').collect{|e| e.resource_id}.uniq
+    when 2 # latest harvest not published
+      HarvestEvent.find(HarvestEvent.latest_ids).collect{|e| e.resource_id if e.published_at.nil?}.compact
+    when 3 # latest harvest pending publish
+      HarvestEvent.find(HarvestEvent.latest_ids).collect{|e| e.resource_id if e.published_at.nil? && e.publish == true}.compact
+    when 4 # latest harvest published
+      HarvestEvent.find(HarvestEvent.latest_ids).collect{|e| e.resource_id if ! e.published_at.nil?}.compact
+    else
+      nil
+    end
+    unless resource_ids.nil?
+      if @published == 0 || @published == 1 # not harvested or not harvested but not published
+        # resource_ids contain resources that have been harvested or harvested and published
+        conditions << "(resources.id NOT IN (:resource_ids) OR resources.id IS NULL)"
+      else
+        conditions << "resources.id IN (:resource_ids)"
+      end
+      conditions_replacements[:resource_ids] = resource_ids
+    end
+    if @published == 5
+      conditions << "resources.id IS NULL"
     end
     @partners = ContentPartner.paginate(
                   :page => params[:page],
                   :per_page => 40,
                   :include => include,
-                  :conditions => [ conditions, conditions_replacements],
+                  :conditions => [ conditions.join(' AND '), conditions_replacements],
                   :order => order)
     set_filter_options
     set_sort_options
@@ -64,7 +94,7 @@ class Admins::ContentPartnersController < AdminsController
       @content_partners.each do |content_partner|
         content_partner.content_partner_contacts.each do |contact|
           Notifier.deliver_content_partner_statistics_reminder(content_partner, contact,
-                                                                  Date::MONTHNAMES[last_month.month], last_month.year)
+            Date::MONTHNAMES[last_month.month], last_month.year)
         end
       end
     end
@@ -129,9 +159,16 @@ private
   def set_filter_options
     @resource_statuses = @partners.collect{|p| p.resources.collect{|r| r.resource_status}}.flatten.uniq.compact
     @partner_statuses  = @partners.collect{|p| p.content_partner_status}.flatten.uniq.compact
-    @vetted_options    = [[I18n.t(:option_please_select), ""],
-                          [I18n.t(:content_partner_filter_option_vetted_yes), 1],
-                          [I18n.t(:content_partner_filter_option_vetted_no), 0]]
+    @vetted_options    = [ [I18n.t(:option_please_select), ""],
+                           [I18n.t(:content_partner_filter_option_vetted_yes), 1],
+                           [I18n.t(:content_partner_filter_option_vetted_no), 0]]
+    @published_options = [ [I18n.t(:option_please_select), ""],
+                           [I18n.t(:content_partner_filter_option_published_never_harvested), 0],
+                           [I18n.t(:content_partner_filter_option_published_never_published), 1],
+                           [I18n.t(:content_partner_filter_option_published_latest_harvest_not_published), 2],
+                           [I18n.t(:content_partner_filter_option_published_latest_harvest_pending_publish), 3],
+                           [I18n.t(:content_partner_filter_option_published_latest_harvest_published), 4],
+                           [I18n.t(:content_partner_filter_option_published_no_resources), 5] ]
   end
 
   def set_sort_options

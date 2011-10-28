@@ -10,6 +10,11 @@ class HarvestEvent < SpeciesSchemaModel
 
   validates_inclusion_of :publish, :in => [false], :unless => :publish_is_allowed?
 
+  # harvest event ids for the last harvest event of every resource
+  def self.latest_ids
+    @latest_ids ||= HarvestEvent.maximum('id', :group => :resource_id).values
+  end
+
   def self.last_published
     last_published=HarvestEvent.find(:all,:conditions=>"published_at != 'null'",:limit=>1,:order=>'published_at desc')
     return (last_published.blank? ? nil : last_published[0])

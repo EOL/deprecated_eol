@@ -38,7 +38,7 @@ summary[1] =  {:text => '<p>والمعروف باسم غاريقون تطير أ
      مع الخياشيم البيضاء والبثور البيضاء على غطائها الملونة بنسب مختلفة ومتزايدة عادة في مجموعات قرب الصنوبريات
    أو الأخشاب في جميع أنحاء نصف الكرة الشمالي </ P> وتطير غاريقون اسم يأتي من استخدامه كعنصر تحكم عن الذباب المزعج. كانت الممارسة القديمة لقطع من تمرغ
    الفطر في الصحن من الحليب لاجتذاب الذباب. فإن الذباب شرب الحليب الملوث، وتصبح حالة سكر، و
-   تطير في الجدران لموتهم. </ P>', :lang => 'ar'} 
+   تطير في الجدران لموتهم. </ P>', :lang => 'ar'}
 summary[2] =  {:text => '<p> Communément appelé la volée ou amanite tue-mouche Amanita, Amanita muscaria est un basidiomycète mycorhiziens
      champignon qui contient plusieurs toxiques, de composés psychoactifs. Amanita muscaria est le typique "champignon" champignon,
      portant des branchies blanches et les verrues blanches sur son capuchon de couleur variable et croissante généralement en grappes à proximité de conifères
@@ -91,16 +91,16 @@ species = [
     :common => 'Fly Agaric',
     :imgs => [201008242207638, 201101141341094, 201101141330049, 201101141305714],
     :summary => summary,
-    :education => 'Learn how three fiery, painful stings during an early morning swim in Hawaii changed the 
-    life of researcher Angel Yanagihara. Once the young biochemist had recovered from her box jelly encounter, 
-    Carybdea alata had her full attention. Now she works to unlock the secrets of venom of these beautiful, 
-    and sometimes dangerous, angels of the sea. Listen to the box jellyfish podcast on the EOL Learning + 
-    Education website, where you can also meet featured scientist Angel Yanagihara, view amazing jellyfish images, 
+    :education => 'Learn how three fiery, painful stings during an early morning swim in Hawaii changed the
+    life of researcher Angel Yanagihara. Once the young biochemist had recovered from her box jelly encounter,
+    Carybdea alata had her full attention. Now she works to unlock the secrets of venom of these beautiful,
+    and sometimes dangerous, angels of the sea. Listen to the box jellyfish podcast on the EOL Learning +
+    Education website, where you can also meet featured scientist Angel Yanagihara, view amazing jellyfish images,
     and find relevant educational activities.',
-    :identification_resources => 'Recent cases highlight the issue of the similarity of A. phalloides to the 
-    edible paddy straw mushroom, Volvariella volvacea, with east- and southeast-Asian immigrants in Australia 
-    and the west coast of the United States falling victim. In an episode in Oregon, four members of a Korean 
-    family required liver transplants (Benjamin 1995). Of the seven people poisoned in the Canberra region between 
+    :identification_resources => 'Recent cases highlight the issue of the similarity of A. phalloides to the
+    edible paddy straw mushroom, Volvariella volvacea, with east- and southeast-Asian immigrants in Australia
+    and the west coast of the United States falling victim. In an episode in Oregon, four members of a Korean
+    family required liver transplants (Benjamin 1995). Of the seven people poisoned in the Canberra region between
     1988 and 1998, three were from Laos (Trimm et al. 1999). This misidentification is a leading cause of mushroom
      poisoning in the United States.',
     :rank => 'species'},
@@ -197,26 +197,26 @@ species.each_with_index do |info, which|
     tocs = []
     if info.has_key? :summary
       info[:summary].each do |sum|
-        tocs << { :toc_item => overv, 
-                  :description => sum[:text]? sum[:text] : 'Just a placeholder text for the description of this species', 
+        tocs << { :toc_item => overv,
+                  :description => sum[:text]? sum[:text] : 'Just a placeholder text for the description of this species',
                   :language => sum[:lang]? Language.from_iso(sum[:lang]) : Language.english }
       end
-      
+
     else
-      tocs << { :toc_item => overv, 
-                :description => 'Just a placeholder text for the description of this species', 
+      tocs << { :toc_item => overv,
+                :description => 'Just a placeholder text for the description of this species',
                 :language => Language.english }
     end
     if info.has_key? :identification_resources
       tocs << { :toc_item => idres,
                 :description => info[:identification_resources],
                 :language => Language.english }
-    end     
+    end
     if info.has_key? :education
       tocs << { :toc_item => edu,
                 :description => info[:education],
                 :language => Language.english }
-    end        
+    end
     imgs = []
     if info.has_key? :imgs
       info[:imgs].each do |i|
@@ -305,7 +305,7 @@ taxa.each do |tc|
 
   summary_text = tc.text_objects_for_toc_items(summart_text_toc_items, { :limit => 1 })
   endorsed_collection.add summary_text.first unless summary_text.blank?
-  
+
   Comment.gen(:parent => tc, :body => "Could we add some images of this in its natural habitat?", :user => loud_user)
   Comment.gen(:parent => tc, :body => "Beautiful!", :user => happy_user)
   Comment.gen(:parent => tc, :body => "There are serious concerns about this species becoming endangered", :user =>
@@ -345,9 +345,8 @@ $INDEX_RECORDS_IN_SOLR_ON_SAVE = original_index_records_on_save_value
 puts "Adding data_object translations relationships"
 DataObjectTranslation.create(:data_object => DataObject.find_by_description(summary[1][:text]),:language => DataObject.find_by_description(summary[1][:text]).language, :original_data_object => DataObject.find_by_description(summary[0][:text]))
 DataObjectTranslation.create(:data_object => DataObject.find_by_description(summary[2][:text]),:language => DataObject.find_by_description(summary[2][:text]).language, :original_data_object => DataObject.find_by_description(summary[0][:text]))
-
-puts "Adding image data_object translation relationship"
-DataObjectTranslation.create(:data_object => DataObject.find_by_id(285),:language_id => 3, :original_data_object => DataObject.find_by_id(284))
-data_object = DataObject.find_by_id(285)
-data_object.update_attribute(:language_id, 3) 
-data_object.update_attribute(:location, 'Alexandria')
+DataObjectTranslation.create(:data_object => DataObject.find_by_object_cache_url(200905130150563), :language => DataObject.find_by_description(summary[1][:text]).language, :original_data_object => DataObject.find_by_object_cache_url(200908250179632))
+data_object = DataObject.find_by_object_cache_url(200905130150563)
+data_object.location = "Alexandria"
+data_object.language_id = DataObject.find_by_description(summary[1][:text]).language.id
+data_object.save

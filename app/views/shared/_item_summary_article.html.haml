@@ -5,12 +5,12 @@
 -# text-heavy collections and search results.  That said, there is one caveat:
 -# if the dato gets more associations, it will not show them.  TODO - attempt to set up an observer to handle those.
 - cache "article/summary/#{I18n.locale}/#{item.id}" do
-  %span.icon{:title => I18n.t(:item_type_article_assistive)}
+  = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_article_assistive)}), data_object_path(item)
   %h4= link_to h(truncate(item.best_title, :length => 64)), data_object_path(item)
   - if he = item.first_hierarchy_entry
     - secondary_title = I18n.t(:description_of) + ' ' + he.name.canonical_form.string
   - if item.published_entries.length > 1
     - secondary_title += ' ' + I18n.t(:and) + ' ' + I18n.t(:other_taxa_with_count, :count => item.published_entries.length - 1)
-  = secondary_title
+  = link_to secondary_title, data_object_path(item)
   %br
   = item.description_teaser

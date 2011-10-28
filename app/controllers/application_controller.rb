@@ -66,6 +66,8 @@ class ApplicationController < ActionController::Base
 
   def rescue_action(e)
     case e
+    when ActionController::UnknownAction, ActionController::RoutingError
+      render_404
     when EOL::Exceptions::MustBeLoggedIn
       must_be_logged_in
     when EOL::Exceptions::SecurityViolation

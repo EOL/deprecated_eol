@@ -3,7 +3,7 @@
   = link_to image_tag(thumb), data_object_path(item)
 = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t("item_type_#{en_type}_assistive")}), data_object_path(item)
 %h4= link_to h(truncate(item.best_title, :length => 64)), data_object_path(item)
-- if he = item.first_hierarchy_entry
+- if he = item.first_hierarchy_entry(:include_preview_entries => true)
   - secondary_title = I18n.t("#{en_type}_of") + ' ' + he.name.canonical_form.string
 - if item.published_entries.length > 1
   - secondary_title += ' ' + I18n.t(:and) + ' ' + I18n.t(:other_taxa_with_count, :count => item.published_entries.length - 1)

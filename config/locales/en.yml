@@ -2086,6 +2086,7 @@ en:
   join_eol_community_html: "Become part of the <abbr title=\"Encyclopedia of Life\">EOL</abbr> community!"
   join_eol_button_html: "Join <abbr title=\"Encyclopedia of Life\">EOL</abbr> now"
   __joined: "\" joined"
+  joined_mailing_list: "Only those who have joined the mailing list."
   joined_time_ago: "Joined %{time_passed} ago"
   json_response: "JSON Response"
   jump_to_: "Jump To:"

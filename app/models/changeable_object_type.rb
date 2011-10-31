@@ -35,7 +35,7 @@ class ChangeableObjectType < ActiveRecord::Base
   end
 
   def self.users_data_object
-    cached_find(:ch_object_type, 'users_data_object')
+    cached_find(:ch_object_type, 'users_submitted_text') || cached_find(:ch_object_type, 'users_data_object')
   end
 
   def self.hierarchy_entry

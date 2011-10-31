@@ -20,11 +20,11 @@ module EOL
 
       def self.add_resource_instances!(docs)
         EOL::Solr.add_standard_instance_to_docs!(DataObject, docs, 'data_object_id',
-          :includes => [ :hierarchy_entries ],
+          :includes => [ :hierarchy_entries, :toc_items ],
           :selects => { :data_objects => '*', :hierarchy_entries => '*' })
       end
-
-      def self.solr_search(taxon_concept_id, options = {})
+      
+      def self.prepare_search_url(taxon_concept_id, options = {})
         url =  $SOLR_SERVER + $SOLR_DATA_OBJECTS_CORE + '/select/?wt=json&q=' + CGI.escape("{!lucene}published:1 AND ancestor_id:#{taxon_concept_id}")
         if options[:filter_hierarchy_entry] && options[:filter_hierarchy_entry].class == HierarchyEntry
           field_suffix = "ancestor_he_id"
@@ -61,6 +61,10 @@ module EOL
         elsif options[:filter] == 'visible'
           url << CGI.escape(" AND visible_ancestor_id:#{taxon_concept_id}")
         end
+        
+        if options[:resource_id] && options[:resource_id] != 'all'
+          url << CGI.escape(" AND resource_id:#{options[:resource_id]}")
+        end
 
         if options[:ignore_maps]
           url << CGI.escape(" NOT data_subtype_id:#{DataType.map.id}")
@@ -82,6 +86,16 @@ module EOL
         end
         # we only need a couple fields
         url << "&fl=data_object_id,guid"
+        
+        if options[:facet_by_resource]
+          url << '&facet.field=resource_id&facet.mincount=1&facet.limit=300&facet=on'
+        end
+        url
+      end
+      
+      def self.solr_search(taxon_concept_id, options = {})
+        url = prepare_search_url(taxon_concept_id, options)
+        
         # add paging
         limit  = options[:per_page] ? options[:per_page].to_i : 10
         page = options[:page] ? options[:page].to_i : 1
@@ -137,6 +151,33 @@ module EOL
         facets.delete("youtube")
         facets.delete("flash")
         facets.delete("gbif image")
+        facets
+      end
+      
+      def self.load_resource_facets(taxon_concept_id, options = {})
+        url = prepare_search_url(taxon_concept_id, options.merge(:resource_id => nil))
+        url << '&rows=0'
+        res = open(url).read
+        response = JSON.load res
+        
+        facets = []
+        f = response['facet_counts']['facet_fields']['resource_id']
+        f.each_with_index do |rt, index|
+          next if index % 2 == 1 # if its odd, skip this. Solr has a strange way of returning the facets in JSON
+          facets << { :resource_id => rt.to_i, :count => f[index+1].to_i }
+        end
+        
+        # lookup associated resource instances
+        if ids = facets.collect{ |f| f[:resource_id] }.compact
+          resources = Resource.find_all_by_id(ids)
+          facets.each do |f|
+            if r = resources.detect{ |r| r.id == f[:resource_id] }
+              f[:resource] = r
+            end
+          end
+        end
+        facets.delete_if{ |f| f[:resource].blank? }
+        # facets << { :resource => nil, :all => true, :count => response['response']['numFound'] }
         facets
       end
       

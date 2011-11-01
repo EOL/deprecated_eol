@@ -2,6 +2,7 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 
 def do_index
   get :index, :user_id => @collections[:user].id.to_i
+  response.should be_success # No sense in continuing otherwise.
 end
 
 describe Users::CollectionsController do
@@ -20,6 +21,7 @@ describe Users::CollectionsController do
     end
 
     it "should instantiate and sort user collections" do
+      do_index
       assigns[:featured_collections].should be_a(Array)
       assigns[:featured_collections].first.should be_a(Collection)
       assigns[:featured_collections].first.id.should == @collections[:collection].id

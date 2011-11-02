@@ -1,0 +1,27 @@
+#choose_communities
+  %h2= I18n.t(:add_collection_to_a_new_community, :collection => h(@collection.summary_name))
+  - form_for Community.new do |community_form|
+    = hidden_field_tag :collection_id, @collection.id
+    %fieldset.new_community
+      = community_form.label :name, I18n.t(:community_name_label), {:class => 'assistive'}
+      = community_form.text_field :name
+      = submit_tag I18n.t(:create_community_button), :class => 'button'
+  - @communities ||= []
+  - unless @communities.empty?
+    - form_for(Community.new) do |f|
+      %h2= I18n.t(:or_add_it_to_an_existing_community)
+      %fieldset
+        %ul
+          - @communities.each do |community|
+            - has_rights = @collection.maintained_by.include?(community)
+            %li{:class => has_rights ? 'collected' : nil}
+              = check_box_tag 'community_id[]', community.id, has_rights, :disabled => has_rights
+              = label_tag('community_name', h(truncate(community.name, :length => 64)))
+              - if has_rights
+                %span
+                  •
+                  = link_to(I18n.t(:in_community), community_url(community), :class => 'close_and_go')
+      %fieldset.actions
+        = link_to(I18n.t(:see_all_of_your_communities), user_communities_path(current_user), :class => 'other_actions close_and_go')
+        = submit_tag(I18n.t(:add_collection_to_community))
+        = link_to(I18n.t(:go_back), collection_path(@collection), :class => 'close')

@@ -4,10 +4,10 @@
   /
     = "relevance #{@collection.relevance}"
   - if editable
-    - unless @collection.special? || @collection.communities.count > 0 # You cannot create a community from either special collection type!
-      %li= link_to I18n.t(:create_community), new_community_path(:collection_id => @collection), :class => 'button'
+    - unless @collection.special?
+      %li= link_to I18n.t(:add_to_a_community), new_community_path(:collection_id => @collection), :class => 'button'
     %li= link_to I18n.t(:edit_collection_details), edit_collection_path(@collection), :class => 'button'
-- if @collection_items.blank?
+- if @collection_items.blank? && @filter != 'editors'
   #sidebar
     .collection_contributors
       = render :partial => 'collections/managed_by', :locals => { :collection => @collection }
@@ -27,7 +27,7 @@
     #tabs_sidebar
       = render :partial => 'collections/filter_by_item_type'
     #sidebar
-      - if logged_in?
+      - if logged_in? && @filter != 'editors'
         .filters
           %h4= I18n.t(:actions)
           %fieldset.actions
@@ -39,8 +39,6 @@
               = submit_tag I18n.t(:remove), :name => 'commit_remove'
             - else
               = submit_tag I18n.t(:copy), :name => 'commit_copy'
-      .collection_contributors
-        = render :partial => 'collections/managed_by', :locals => { :collection => @collection }
       - if @collection.featuring_communities.count > 0
         .collection_contributors
           = render :partial => 'collections/endorsed_by', :locals => { :collection => @collection }
@@ -53,6 +51,8 @@
           .heading
             %h3= I18n.t(:newsfeed)
           = render :partial => 'activity_logs/index', :locals => {:log => @collection.activity_log}
+      - elsif @filter == 'editors'
+        = render :partial => 'collections/editors_full', :locals => { :collection => @collection }
       - else
         .heading
           %fieldset

@@ -2929,13 +2929,13 @@ ul.spotlite-matches {
   padding: 20px;
   background: white;
   z-index: 999; }
-  #modal #choose_collections h2 {
+  #modal #choose_collections h2, #modal #choose_communities h2 {
     font-size: 1.33em;
     margin: 0 0 10px 0; }
-  #modal #choose_collections fieldset.new_collection {
+  #modal #choose_collections fieldset.new_collection, #modal #choose_communities fieldset.new_collection {
     overflow: hidden;
     margin: 0 0 20px 0; }
-    #modal #choose_collections fieldset.new_collection input[type="text"] {
+    #modal #choose_collections fieldset.new_collection input[type="text"], #modal #choose_communities fieldset.new_collection input[type="text"] {
       float: left;
       width: 210px;
       height: 22px;
@@ -2947,26 +2947,26 @@ ul.spotlite-matches {
       background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
       background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
       margin: 0 10px 0 0; }
-  #modal #choose_collections input[type="submit"] {
+  #modal #choose_collections input[type="submit"], #modal #choose_communities input[type="submit"] {
     padding-left: 20px;
     padding-right: 20px;
     font-size: 1.08em;
     padding: 5px 10px 6px 10px; }
-  #modal #choose_collections ul {
+  #modal #choose_collections ul, #modal #choose_communities ul {
     border: 1px solid #cad3db;
     height: 230px;
     overflow-y: scroll;
     margin: 0 0 20px 0; }
-    #modal #choose_collections ul li {
+    #modal #choose_collections ul li, #modal #choose_communities ul li {
       font-weight: bold;
       padding: 5px 10px; }
-      #modal #choose_collections ul li.collected {
+      #modal #choose_collections ul li.collected, #modal #choose_communities ul li.collected {
         background: #f4f4f4; }
-      #modal #choose_collections ul li input[type="checkbox"] {
+      #modal #choose_collections ul li input[type="checkbox"], #modal #choose_communities ul li input[type="checkbox"] {
         margin: 0 5px 0 0; }
-      #modal #choose_collections ul li a, #modal #choose_collections ul li span {
+      #modal #choose_collections ul li a, #modal #choose_collections ul li span, #modal #choose_communities ul li a, #modal #choose_communities ul li span {
         font-size: 0.95em; }
-      #modal #choose_collections ul li + li {
+      #modal #choose_collections ul li + li, #modal #choose_communities ul li + li {
         border-top: 1px solid #cad3db; }
 
 #modal_layer {

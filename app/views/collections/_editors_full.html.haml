@@ -1,0 +1,28 @@
+-# This is a "full view" version of the "managed_by" partial which used to appear in the sidebar (but shouldn't anymore).
+- communities = @collection.maintained_by.select {|c| c.is_a? Community }
+- users = @collection.maintained_by.select {|c| c.is_a? User }
+.heading
+  %h3= I18n.t(:communities_that_can_edit_this_collection)
+%ul.object_list
+  - communities.sort_by {|t| t.name }.each do |community|
+    %li{:class => 'community'}
+      = link_to image_tag(community.logo_url(:small)), community_path(community)
+      = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_community_assistive)}), community_path(community)
+      %h4= link_to h(truncate(community.name, :length => 64)), community_path(community)
+      = I18n.t(:members_with_count_semi_colon, :count => community.members.count)
+      = I18n.t(:collections_with_count, :count => community.collections.count)
+      - if current_user.can_edit_collection?(@collection) && @collection.maintained_by.count > 1
+        %br
+        = link_to(I18n.t(:remove), revoke_editor_collection_path(@collection, :community_id => community.id), :confirm => I18n.t(:are_you_sure))
+.heading
+  %h3= I18n.t(:users_that_can_edit_this_collection)
+%ul.object_list
+  - users.sort_by {|t| t.full_name }.each do |user|
+    %li{:class => 'person'}
+      = link_to image_tag(user.logo_url(:small)), user_path(user)
+      = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_person_assistive)}), user_path(user)
+      %h4= link_to h(truncate(user.full_name, :length => 64)), user_path(user)
+      = link_to [ h(user.username), sanitize(user.tag_line).balance_tags ].compact.join('<br/>'), user_path(user)
+      - if current_user.can_edit_collection?(@collection) && user.id != current_user.id
+        %br
+        = link_to(I18n.t(:remove), revoke_editor_user_path(user, :collection_id => @collection.id), :confirm => I18n.t(:are_you_sure))

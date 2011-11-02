@@ -3,7 +3,7 @@ class CommunitiesController < ApplicationController
   layout 'v2/communities'
 
   before_filter :allow_login_then_submit, :only => [:join]
-  before_filter :load_community_and_dependent_vars, :except => [:index, :new, :create]
+  before_filter :load_community_and_dependent_vars, :except => [:index, :new, :create, :choose]
   before_filter :load_collection, :only => [:new, :create]
   before_filter :must_be_logged_in, :except => [:index, :show]
   before_filter :restrict_edit, :only => [:edit, :update, :delete]
@@ -129,6 +129,17 @@ class CommunitiesController < ApplicationController
         format.html { redirect_to(@community, :notice => I18n.t(:could_not_find_user)) }
       end
       format.html { redirect_to(@community, :notice => I18n.t(:you_left_community) ) }
+    end
+  end
+
+  def choose
+    return must_be_logged_in unless logged_in?
+    @collection = Collection.find(params[:collection_id])
+    @communities = current_user.members.managers.map {|m| m.community }
+    @page_title = I18n.t(:add_a_collection_to_a_community, :collection => @collection.name)
+    respond_to do |format|
+      format.html { render :partial => 'choose', :layout => 'v2/collections' }
+      format.js   { render :partial => 'choose' }
     end
   end
 

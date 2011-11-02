@@ -689,8 +689,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     else
       editable_collections.delete_if{ |c| !c.published? }
     end
-    editable_collections += members.managers.map {|member| member.community && member.community.collection }.compact
-    editable_collections = [watch_collection] + editable_collections.sort_by(&:name)
+    editable_collections += members.managers.map {|m| m.community && m.community.collections }.flatten.compact
+    editable_collections = [watch_collection] + editable_collections.sort_by(&:name).uniq
     editable_collections.compact
   end
 

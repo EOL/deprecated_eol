@@ -1140,13 +1140,13 @@ a.other_actions {
   float: right;
   margin-top: 1em; }
 
-.site_column > #choose_collections h2 {
+.site_column > #choose_collections h2, .site_column > #choose_communities h2 {
   font-size: 1.33em;
-  margin: 0 0 10px 0; }
-.site_column > #choose_collections fieldset.new_collection {
+  margin: 15px 0 10px 0; }
+.site_column > #choose_collections fieldset.new_collection, .site_column > #choose_communities fieldset.new_collection {
   overflow: hidden;
   margin: 0 0 20px 0; }
-  .site_column > #choose_collections fieldset.new_collection input[type="text"] {
+  .site_column > #choose_collections fieldset.new_collection input[type="text"], .site_column > #choose_communities fieldset.new_collection input[type="text"] {
     float: left;
     width: 210px;
     height: 22px;
@@ -1158,28 +1158,28 @@ a.other_actions {
     background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
     margin: 0 10px 0 0; }
-.site_column > #choose_collections input[type="submit"] {
+.site_column > #choose_collections input[type="submit"], .site_column > #choose_communities input[type="submit"] {
   padding-left: 20px;
   padding-right: 20px;
   font-size: 1.08em;
   padding: 5px 10px 6px 10px; }
-.site_column > #choose_collections ul {
+.site_column > #choose_collections ul, .site_column > #choose_communities ul {
   border: 1px solid #cad3db;
   height: 230px;
   overflow-y: scroll;
   margin: 0 0 20px 0; }
-  .site_column > #choose_collections ul li {
+  .site_column > #choose_collections ul li, .site_column > #choose_communities ul li {
     font-weight: bold;
     padding: 5px 10px; }
-    .site_column > #choose_collections ul li.collected {
+    .site_column > #choose_collections ul li.collected, .site_column > #choose_communities ul li.collected {
       background: #f4f4f4; }
-    .site_column > #choose_collections ul li input[type="checkbox"] {
+    .site_column > #choose_collections ul li input[type="checkbox"], .site_column > #choose_communities ul li input[type="checkbox"] {
       margin: 0 5px 0 0; }
-    .site_column > #choose_collections ul li a {
+    .site_column > #choose_collections ul li a, .site_column > #choose_communities ul li a {
       font-size: 0.95em; }
-    .site_column > #choose_collections ul li span {
+    .site_column > #choose_collections ul li span, .site_column > #choose_communities ul li span {
       font-size: 0.95em; }
-    .site_column > #choose_collections ul li + li {
+    .site_column > #choose_collections ul li + li, .site_column > #choose_communities ul li + li {
       border-top: 1px solid #cad3db; }
 
 #search_results ul.object_list li {

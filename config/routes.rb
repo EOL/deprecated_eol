@@ -11,7 +11,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :feed_items
   # Communities nested resources
   # TODO - these member methods want to be :put. Capybara, however, always uses :get, so in the interests of simple tests:
-  map.resources :communities, :except => [:index],
+  map.resources :communities, :except => [:index], :collection => { :choose => :get },
     :member => { 'join' => :get, 'leave' => :get, 'delete' => :get } do |community|
       community.resource :newsfeed, :only => [:show], :namespace => "communities/"
       community.resources :collections, :namespace => "communities/"

@@ -542,7 +542,8 @@ en:
       message: "The Encyclopedia of Life (www.eol.org) received a request to reset your password. If you did not make this request, please ignore this email.\n\nThe following link will provide you with a one-time opportunity to reset your password:\n\n%{password_reset_url}\n\nFollow this link ('click' on it or copy and paste the entire link into your Web browser's address bar and load it) to access the page where you can enter a new password. Please note that if the link has expired you will be asked to enter your username or email address again to receive a new reset password email message and link."
     user_verification:
       subject: "Please verify your request for an Encyclopedia of Life account"
-      message: "Thanks for registering with the Encyclopedia of Life. The following link will verify that you wish to complete your registration:\n\n%{verification_url}\n\nFollow this link ('click' on it or copy and paste the entire link into your Web browser's address bar and load it) to activate your account. Once your account has been activated you will receive a confirmation email message."  0_1_or_2: "0, 1 or 2"
+      message: "Thanks for registering with the Encyclopedia of Life. The following link will verify that you wish to complete your registration:\n\n%{verification_url}\n\nFollow this link ('click' on it or copy and paste the entire link into your Web browser's address bar and load it) to activate your account. Once your account has been activated you will receive a confirmation email message."
+  0_1_or_2: "0, 1 or 2"
   0_or_1: "0 or 1"
   a_pipe_delimited_list_of_licenses: "a pipe | delimited list of licenses or 'all' to get objects under any license. Licenses abbreviated cc- are all"
   a_pipe_delimited_list_of_spm_info_item_subject_names: "a pipe | delimited list of SPM Info Item subject names or 'all' to get text in any subject"

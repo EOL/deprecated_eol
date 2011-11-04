@@ -1694,7 +1694,7 @@ en:
   search_field_label: "Search EOL"
   search_for_comments_containing_the_text: "Search for comments containing the text:"
   search_for_users_containing_this_in_their_username_name_or_email_address: "Search for users containing this in their username, name or email address."
-  search_input_advisory_information: "Enter a common name or a scientific name of a living creature you would like to know more about. You can also search for EOL members, collections and communities. "
+  search_input_advisory_information: "Enter a common name or a scientific name of a living creature you would like to know more about. You can also search for EOL members, collections and communities."
   search_lowercase: search
   search_method_description: "given a value for a specific element (e.g. scientific name=Homo sapiens), returns a paginated list of the EOL pages containing the search term"
   search_placeholder: "Search EOL ..."
@@ -1990,7 +1990,7 @@ en:
   yes_answer: "Yes"
   you_are_an_admin_so_i_will_show_you_that_the_error_was: "You are an admin. You are allowed to see the error message:"
   you_are_not_authorized_to_perform_this_action: "You are not authorized to perform this action."
-  you_are_viewing_this_rank_as_classified_by: "You are viewing this %{rank} as classified by: "
+  you_are_viewing_this_rank_as_classified_by: "You are viewing this %{rank} as classified by:"
   you_can_identify_yourself_to_eol: "You can identify yourself to EOL by adding your API key to your requests (login and generate your key in your preference page):"
   you_have_been_logged_in_as_username: "You have been logged in as %{username}"
   you_have_been_logged_out: "You have been logged out."

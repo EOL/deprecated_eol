@@ -1,0 +1,170 @@
+# Messages for Italian (Italiano)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Beta16
+# Author: Rippitippi
+it: 
+  translated_agent_roles-label-agent_role_id-16: Collaboratore
+  translated_agent_roles-label-agent_role_id-2: Autore
+  translated_agent_roles-label-agent_role_id-6: Direttore
+  translated_audiences-label-audience_id-1: Utenti esperti
+  translated_collection_types-label-collection_type_id-1: Tassonomia
+  translated_collection_types-label-collection_type_id-10: Suoni
+  translated_collection_types-label-collection_type_id-11: Collegamenti
+  translated_collection_types-label-collection_type_id-13: Tassonomia
+  translated_collection_types-label-collection_type_id-15: Descrizione
+  translated_collection_types-label-collection_type_id-16: Immagini
+  translated_collection_types-label-collection_type_id-17: Distribuzione
+  translated_collection_types-label-collection_type_id-18: Stato di conservazione
+  translated_collection_types-label-collection_type_id-21: Nomenclatura
+  translated_collection_types-label-collection_type_id-22: Suoni
+  translated_collection_types-label-collection_type_id-23: Collegamenti
+  translated_collection_types-label-collection_type_id-3: Descrizione
+  translated_collection_types-label-collection_type_id-4: Immagini
+  translated_collection_types-label-collection_type_id-5: Distribuzione
+  translated_collection_types-label-collection_type_id-6: Stato di conservazione
+  translated_collection_types-label-collection_type_id-8: Dati molecolari
+  translated_collection_types-label-collection_type_id-9: Nomenclatura
+  translated_contact_subjects-title-contact_subject_id-7: Ricerca biologica
+  translated_content_partner_statuses-label-content_partner_status_id-1: In attesa
+  translated_content_partner_statuses-label-content_partner_status_id-2: Attivo
+  translated_content_partner_statuses-label-content_partner_status_id-4: Inattivo
+  translated_content_tables-label-content_table_id-1: Dettagli
+  translated_licenses-description-license_id-34: Pubblico dominio
+  translated_licenses-description-license_id-35: Pubblico dominio
+  translated_licenses-description-license_id-36: Alcuni diritti riservati
+  translated_licenses-description-license_id-37: Alcuni diritti riservati
+  translated_licenses-description-license_id-38: Alcuni diritti riservati
+  translated_licenses-description-license_id-39: Pubblico dominio
+  translated_licenses-description-license_id-42: Alcuni diritti riservati
+  translated_licenses-description-license_id-43: Licenza non applicabile
+  translated_ranks-label-rank_id-112: Gen
+  translated_ranks-label-rank_id-113: Gen.
+  translated_ranks-label-rank_id-118: Genere
+  translated_ranks-label-rank_id-169: Infraordine
+  translated_ranks-label-rank_id-175: Infraspecie
+  translated_ranks-label-rank_id-183: Regno
+  translated_ranks-label-rank_id-266: Ordine
+  translated_ranks-label-rank_id-280: Phylum
+  translated_ranks-label-rank_id-332: SP
+  translated_ranks-label-rank_id-333: sp.
+  translated_ranks-label-rank_id-335: Specie
+  translated_ranks-label-rank_id-352: Sottofamiglia
+  translated_ranks-label-rank_id-370: Sottoclasse
+  translated_ranks-label-rank_id-383: Sottofamiglia
+  translated_ranks-label-rank_id-390: Sottogenere
+  translated_ranks-label-rank_id-391: Sottogen.
+  translated_ranks-label-rank_id-394: sottogenere
+  translated_ranks-label-rank_id-396: sottodominio
+  translated_ranks-label-rank_id-399: sottordine
+  translated_ranks-label-rank_id-401: subphylum
+  translated_ranks-label-rank_id-415: sottospecie
+  translated_ranks-label-rank_id-422: sottotribù
+  translated_ranks-label-rank_id-463: superfamiglia
+  translated_ranks-label-rank_id-472: superphylum
+  translated_ranks-label-rank_id-494: tribù
+  translated_ranks-label-rank_id-503: non classificato
+  translated_ranks-label-rank_id-51: Classe
+  translated_ranks-label-rank_id-512: var
+  translated_ranks-label-rank_id-513: var.
+  translated_ranks-label-rank_id-74: Divisione
+  translated_ranks-label-rank_id-85: f
+  translated_ranks-label-rank_id-86: f.
+  translated_ranks-label-rank_id-91: fam
+  translated_ranks-label-rank_id-92: fam.
+  translated_ranks-label-rank_id-99: Famiglia
+  translated_resource_statuses-label-resource_status_id-1: Caricamento
+  translated_resource_statuses-label-resource_status_id-10: Pubblicato
+  translated_resource_statuses-label-resource_status_id-11: Pubblicazione in sospeso
+  translated_resource_statuses-label-resource_status_id-2: Caricato
+  translated_resource_statuses-label-resource_status_id-3: Caricamento non riuscito
+  translated_resource_statuses-label-resource_status_id-5: Convalidato
+  translated_resource_statuses-label-resource_status_id-6: Convalida non riuscita
+  translated_synonym_relations-label-synonym_relation_id-1: sinonimo
+  translated_synonym_relations-label-synonym_relation_id-2: nome comune
+  translated_synonym_relations-label-synonym_relation_id-21: altro, vedi commenti
+  translated_synonym_relations-label-synonym_relation_id-50: valido
+  translated_synonym_relations-label-synonym_relation_id-51: accettato
+  translated_synonym_relations-label-synonym_relation_id-63: non accettato
+  translated_table_of_contents-label-table_of_contents_id-1: Panoramica
+  translated_table_of_contents-label-table_of_contents_id-13: Nomi comuni
+  translated_table_of_contents-label-table_of_contents_id-14: IUCN
+  translated_table_of_contents-label-table_of_contents_id-17: Riferimenti bibliografici
+  translated_table_of_contents-label-table_of_contents_id-194: Dimensione
+  translated_table_of_contents-label-table_of_contents_id-2: Breve riassunto
+  translated_table_of_contents-label-table_of_contents_id-218: Distribuzione
+  translated_table_of_contents-label-table_of_contents_id-221: Rischi
+  translated_table_of_contents-label-table_of_contents_id-225: Sul web
+  translated_table_of_contents-label-table_of_contents_id-226: Fornitori di contenuti
+  translated_table_of_contents-label-table_of_contents_id-227: Cerca nel web
+  translated_table_of_contents-label-table_of_contents_id-24: Commenti
+  translated_table_of_contents-label-table_of_contents_id-242: Ecologia generale
+  translated_table_of_contents-label-table_of_contents_id-244: Bibliografie
+  translated_table_of_contents-label-table_of_contents_id-251: Benefici
+  translated_table_of_contents-label-table_of_contents_id-267: Morfologia
+  translated_table_of_contents-label-table_of_contents_id-278: Bibliografia
+  translated_table_of_contents-label-table_of_contents_id-285: Associazioni
+  translated_table_of_contents-label-table_of_contents_id-286: Stato di conservazione
+  translated_table_of_contents-label-table_of_contents_id-289: Evoluzione
+  translated_table_of_contents-label-table_of_contents_id-292: Guarda anche
+  translated_table_of_contents-label-table_of_contents_id-293: Descrizione
+  translated_table_of_contents-label-table_of_contents_id-296: Gestione
+  translated_table_of_contents-label-table_of_contents_id-299: Educazione
+  translated_table_of_contents-label-table_of_contents_id-3: Descrizione fisica
+  translated_table_of_contents-label-table_of_contents_id-300: Wikipedia
+  translated_table_of_contents-label-table_of_contents_id-303: Nomi e Tassonomia
+  translated_table_of_contents-label-table_of_contents_id-304: Nomi correlati
+  translated_table_of_contents-label-table_of_contents_id-305: Sinonimi
+  translated_table_of_contents-label-table_of_contents_id-306: Statistiche relative alle pagine
+  translated_table_of_contents-label-table_of_contents_id-307: Riassunto dei contenuti
+  translated_table_of_contents-label-table_of_contents_id-308: Descrizione completa
+  translated_table_of_contents-label-table_of_contents_id-309: Distribuzione
+  translated_table_of_contents-label-table_of_contents_id-310: Sviluppo
+  translated_table_of_contents-label-table_of_contents_id-312: Migrazione
+  translated_table_of_contents-label-table_of_contents_id-313: Malattie e parassiti
+  translated_table_of_contents-label-table_of_contents_id-315: Vita e comportamento
+  translated_table_of_contents-label-table_of_contents_id-316: Comportamento
+  translated_table_of_contents-label-table_of_contents_id-317: Ciclicità
+  translated_table_of_contents-label-table_of_contents_id-318: Ciclo di Vita
+  translated_table_of_contents-label-table_of_contents_id-319: Aspettativa di vita
+  translated_table_of_contents-label-table_of_contents_id-320: Riproduzione
+  translated_table_of_contents-label-table_of_contents_id-321: Crescita
+  translated_table_of_contents-label-table_of_contents_id-322: Storia fossile
+  translated_table_of_contents-label-table_of_contents_id-323: Sistematica o Filogenetica
+  translated_table_of_contents-label-table_of_contents_id-324: Adattamenti funzionali
+  translated_table_of_contents-label-table_of_contents_id-325: Fisiologia e biologia cellulare
+  translated_table_of_contents-label-table_of_contents_id-326: Biologia molecolare e genetica
+  translated_table_of_contents-label-table_of_contents_id-327: Fisiologia
+  translated_table_of_contents-label-table_of_contents_id-328: Biologia cellulare
+  translated_table_of_contents-label-table_of_contents_id-329: Genetica
+  translated_table_of_contents-label-table_of_contents_id-33: Tendenze
+  translated_table_of_contents-label-table_of_contents_id-330: Sequenze nucleotidiche
+  translated_table_of_contents-label-table_of_contents_id-331: Codice a barre
+  translated_table_of_contents-label-table_of_contents_id-332: Genoma
+  translated_table_of_contents-label-table_of_contents_id-333: Biologia molecolare
+  translated_table_of_contents-label-table_of_contents_id-334: Minacce
+  translated_table_of_contents-label-table_of_contents_id-335: Legislazione
+  translated_table_of_contents-label-table_of_contents_id-336: Note
+  translated_table_of_contents-label-table_of_contents_id-337: Educazione
+  translated_table_of_contents-label-table_of_contents_id-339: Risorse di formazione
+  translated_table_of_contents-label-table_of_contents_id-34: Commenti
+  translated_table_of_contents-label-table_of_contents_id-344: Dati
+  translated_table_of_contents-label-table_of_contents_id-345: Fonti
+  translated_table_of_contents-label-table_of_contents_id-346: Termini biomedici
+  translated_table_of_contents-label-table_of_contents_id-347: Tassonomia
+  translated_table_of_contents-label-table_of_contents_id-4: Ecologia
+  translated_table_of_contents-label-table_of_contents_id-41: Habitat
+  translated_table_of_contents-label-table_of_contents_id-5: Evoluzione e sistematica
+  translated_table_of_contents-label-table_of_contents_id-6: Rilevanza per gli esseri umani e gli ecosistemi
+  translated_table_of_contents-label-table_of_contents_id-7: Riferimenti e ulteriori informazioni
+  translated_table_of_contents-label-table_of_contents_id-8: Conservazione
+  translated_user_identities-label-user_identity_id-1: un appassionato
+  translated_user_identities-label-user_identity_id-2: uno studente
+  translated_user_identities-label-user_identity_id-3: un insegnante
+  translated_vetted-label-vetted_id-0: Sconosciuto
+  translated_vetted-label-vetted_id-4: Non attendibile
+  translated_vetted-label-vetted_id-5: Attendibile
+  translated_vetted-label-vetted_id-6: Inappropriato
+  translated_visibilities-label-visibility_id-0: Invisibile
+  translated_visibilities-label-visibility_id-1: Visibile
+  translated_visibilities-label-visibility_id-2: Anteprima

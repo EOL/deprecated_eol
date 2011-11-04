@@ -1,6 +1,7 @@
 # Messages for Swedish (Svenska)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: McDutchie
 # Author: WikiPhoenix
 sv: 
   translated_activities-name-activity_id-19: profil
@@ -48,6 +49,7 @@ sv:
   translated_collection_types-label-collection_type_id-24: Litteratur
   translated_collection_types-label-collection_type_id-3: Beskrivning
   translated_collection_types-label-collection_type_id-4: Bilder
+  translated_collection_types-label-collection_type_id-5: Erkännande
   translated_collection_types-label-collection_type_id-7: Namninformation
   translated_collection_types-label-collection_type_id-8: Molekylär data
   translated_contact_roles-label-contact_role_id-1: Primär kontakt
@@ -63,11 +65,13 @@ sv:
   translated_contact_subjects-title-contact_subject_id-18: Bli en innehållspartner
   translated_contact_subjects-title-contact_subject_id-2: Bidrag
   translated_contact_subjects-title-contact_subject_id-21: Skicka ett meddelande till Cynthia Parr vid gruppen för specialsidor
+  translated_contact_subjects-title-contact_subject_id-23: Skicka ett meddelande till Eli Agbayani
   translated_contact_subjects-title-contact_subject_id-3: Lärande och utbildning
   translated_contact_subjects-title-contact_subject_id-4: Kurera sidor
   translated_contact_subjects-title-contact_subject_id-5: Klassificering
   translated_contact_subjects-title-contact_subject_id-7: Biologisk forskning
   translated_contact_subjects-title-contact_subject_id-8: Växtbiologi
+  translated_content_partner_statuses-label-content_partner_status_id-1: Väntande
   translated_content_partner_statuses-label-content_partner_status_id-2: Aktiv
   translated_content_partner_statuses-label-content_partner_status_id-3: Arkiverad
   translated_content_partner_statuses-label-content_partner_status_id-4: Inaktiv
@@ -96,6 +100,7 @@ sv:
   translated_licenses-description-license_id-39: Allmän egendom
   translated_licenses-description-license_id-4: Vissa rättigheter reserverade
   translated_licenses-description-license_id-42: Vissa rättigheter reserverade
+  translated_licenses-description-license_id-43: Licens är inte tillämplig
   translated_licenses-description-license_id-5: Vissa rättigheter reserverade
   translated_licenses-description-license_id-6: Vissa rättigheter reserverade
   translated_licenses-description-license_id-7: Vissa rättigheter reserverade
@@ -163,6 +168,7 @@ sv:
   translated_synonym_relations-label-synonym_relation_id-50: giltig
   translated_synonym_relations-label-synonym_relation_id-51: accepterat
   translated_synonym_relations-label-synonym_relation_id-53: opublicerat namn
+  translated_synonym_relations-label-synonym_relation_id-56: felaktig stavning
   translated_synonym_relations-label-synonym_relation_id-57: stavningsalternativ
   translated_synonym_relations-label-synonym_relation_id-63: inte accepterad
   translated_table_of_contents-label-table_of_contents_id-1: Översikt
@@ -182,6 +188,7 @@ sv:
   translated_table_of_contents-label-table_of_contents_id-267: Morfologi
   translated_table_of_contents-label-table_of_contents_id-278: Bibliografi
   translated_table_of_contents-label-table_of_contents_id-289: Evolution
+  translated_table_of_contents-label-table_of_contents_id-292: Dubbelgångare
   translated_table_of_contents-label-table_of_contents_id-293: Diagnostisk beskrivning
   translated_table_of_contents-label-table_of_contents_id-296: Hantering
   translated_table_of_contents-label-table_of_contents_id-299: Utbildning
@@ -232,7 +239,7 @@ sv:
   translated_untrust_reasons-label-untrust_reason_id-1: felidentifierad
   translated_untrust_reasons-label-untrust_reason_id-2: felaktig/vilseledande
   translated_untrust_reasons-label-untrust_reason_id-3: låg kvalitet
-  translated_untrust_reasons-label-untrust_reason_id-4: duplicera
+  translated_untrust_reasons-label-untrust_reason_id-4: duplikat
   translated_untrust_reasons-label-untrust_reason_id-5: Annat
   translated_user_identities-label-user_identity_id-1: en entusiast
   translated_user_identities-label-user_identity_id-2: en student

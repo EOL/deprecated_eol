@@ -1,0 +1,975 @@
+# Messages for Czech (Česky)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Jachym
+cs: 
+  0_1_or_2: 0, 1 nebo 2
+  0_or_1: 0 nebo 1
+  a_taxon: taxon
+  about_eol: O EOL
+  account_information: Informace o účtu
+  account_registered_but_not_ready_try_later: Váš účet je registrován, ale ještě není připraven. Vyčkejte prosím a zkuste to za 5 minut.
+  action: Činnost
+  action_not_available_error: Bohužel tato operace není k dispozici.
+  actions: Činnosti
+  active_colon: "Aktivní:"
+  activerecord: 
+    attributes: 
+      collection: 
+        description: Popis sbírky
+        logo: Obrázek primární sbírky
+        name: Název sbírky
+        sort_style_id: Výchozí směr řazení
+      community: 
+        description: Popis komunity
+        logo: Nahrát logo
+        name: Jméno komunity
+      content_page: 
+        active: Publikováno
+        page_name: Jedinečný název
+      content_partner: 
+        acronym: Zkratka projektu
+        admin_notes: Poznámky k administraci
+        content_partner_status: Stav projektu
+        created_at: Vytvořeno
+        description: Popis projektu
+        display_name: Zobrazovaný název
+        full_name: Název projektu
+        homepage: URL projektu
+        notes: Poznámky k projektu
+        user_id: Spravovuje
+      content_partner_agreement: 
+        signed_by: Podepsal
+        signed_on_date: Podepsáno dne
+      data_object: 
+        bibliographic_citation: Bibliografická citace
+        description: Popis
+        object_title: Nadpis
+        rights_holder: Držitel práv
+        source_url: Zdrojová URL
+      name: 
+        string: Název
+      resource: 
+        accesspoint_url: URL Datasetu
+        bibliographic_citation: Bibliografická citace
+        dataset: Soubor dat
+        description: Popis zdroje
+        dwc_archive_url: URL Darwin Core archivu
+        language_id: Výchozí jazyk
+        license_id: Výchozí licence
+        resource_status_id: Stav zdrojů
+        rights_holder: Výchozí držitel práv
+        title: Název zdroje
+      translated_content_page: 
+        active_translation: Publikováno
+        left_content: Navigace
+        main_content: Obsah
+        meta_description: Popis metadat
+        meta_keywords: Klíčová slova metadat
+        title: Nadpis
+      user: 
+        agreed_with_terms: Souhlas o podmínkách používání
+        api_key: API klíč
+        bio: Životopis
+        email: Emailová adresa
+        entered_password: Heslo
+        entered_password_confirmation: Heslo znovu (pro ověření)
+        family_name: Příjmení
+        full_name: Celé jméno
+        given_name: Jméno
+        language_abbr: Preferovaný jazyk
+        username: Uživatelské jméno
+    errors: 
+      format: "%{attribute} %{message}"
+      full_messages: 
+        format: "%{attribute} %{message}"
+      messages: 
+        accepted: musí být přijato
+        blank: nesmí být prázdné
+        confirmation: nesouhlasí kontrola
+        empty: nesmí být prázdné
+        equal_to: musí se rovnat %{count}
+        even: musí být sudé číslo
+        exclusion: je rezervováno
+        greater_than: 
+          one: musí být více než %{count}
+          other: musí být více než %{count}
+        greater_than_or_equal_to: musí být větší nebo rovno %{count}
+        inaccessible: je nepřístupné
+        inclusion: není zahrnuto v seznamu
+        invalid: je neplatné
+        less_than: 
+          one: musí být méně než %{count}
+          other: musí být méně než %{count}
+        less_than_or_equal_to: musí být menší než nebo rovno % {count}
+        not_a_number: není číslo
+        not_an_integer: musí být celé číslo
+        odd: musí být liché číslo
+        record_invalid: "Schválení se nezdařilo: %{errors}"
+        taken: už je obsazené
+        too_long: 
+          one: je příliš dlouhá (maximálně %{count} znaků)
+          other: je příliš dlouhá (maximálně %{count} znaků)
+        too_short: 
+          one: je příliš krátká (minimálně %{count} znaků)
+          other: je příliš krátká (minimálně %{count} znaků)
+        wrong_length: nesprávná délka (mělo by obsahovat %{count} znaků)
+        wrong_type: je špatného typu
+      models: 
+        resource: 
+          attributes: 
+            accesspoint_url: 
+              inaccessible: je nedostupné, URL musí být veřejně dostupná
+              invalid: je neplatné, mělo by odkazovat na soubor XML, XML.GZIP nebo XML.GZ
+            dataset: 
+              blank: nemůže být prádné pokud neposkytnete místo toho URL datasetu
+      template: 
+        body: "Následující pole neprošla kontrolou:"
+        header: 
+          one: "%{count} chyba při schvalování"
+          other: "%{count} chyb při schvalování found"
+    models: 
+      user: účet
+  activity: Činnost
+  activity_log_empty: Nikdo ještě neposkytl aktualizace.
+  activity_log_empty_learn_more_link: Informace jak přispět
+  activity_user_added_association: <strong>%{user}</strong> přidal(a) asociaci k "%{object_name}".
+  activity_user_added_common_name: <strong>%{user}</strong> přidal(a) běžný název k "%{name}".k neznámému objektu.
+  activity_user_added_common_name_to_taxon: <strong>%{user}</strong> přidal(a) běžný název "%{name}" k "%{taxon}".
+  activity_user_added_item_to_collection: <strong>%{user}</strong> přidal/a "%{item}" do sbírky "%{collection}".
+  activity_user_deleted_community: <strong>%{user}</strong> smazal/a komunitu "%{community}".
+  activity_user_hid_data_object: <strong>%{user}</strong> označil/a "%{object_name}" jako skrytý
+  activity_user_hid_unknown_object: <strong>%{user}</strong> označil/a neznámý objekt jako skrytý.
+  activity_user_joined_community: <strong>%{user}</strong> se přidal/a ke komunitě "%{community}".
+  activity_user_marked_content_as_inappropriate: <strong>%{user}</strong> označil/a obsah jako nevhodný.
+  activity_user_modified_collection: <strong>%{user}</strong> změnil/a sbírku "%{collection}".
+  activity_user_modified_community: <strong>%{user}</strong> změnil/a komunitu "%{community}".
+  activity_user_rated_data_object: <strong>%{user}</strong> ohodnotil/a "%{object_name}".
+  activity_user_rated_unknown_object: <strong>%{user}</strong> ohodnotil/a neznámý objekt.
+  activity_user_removed_all_items_from_collection: <strong>%{user}</strong> smazal/a všechny položky ze sbírky "%{collection}".
+  activity_user_removed_association: <strong>%{user}</strong> odstranil/a asociaci k "%{object_name}".
+  activity_user_removed_item_from_collection: <strong>%{user}</strong> odstranil/a "%{item}" ze sbírky "%{collection}".
+  activity_user_removed_named_association: <strong>%{user}</strong> odstranil/a asociaci mezi "%{object_name}" a "%{name}".
+  activity_user_removed_unknown_association: <strong>%{user}</strong> odstranil/a asociaci k neznámému objektu.
+  activity_user_removed_unknown_name: <strong>%{user}</strong> odstranil/a neznámý běžný název z neznámého objektu.
+  activity_user_removed_unknown_name_to_taxon: <strong>%{user}</strong> odstranil/a neznámý běžný název z "%{taxon}".
+  activity_user_showed_data_object: <strong>%{user}</strong> označil/a "%{object_name}" jako viditelný.
+  activity_user_showed_unknown_object: <strong>%{user}</strong> označil/a neznámý objekt jako viditelný.
+  activity_user_trusted_data_object: <strong>%{user}</strong> označil/a "%{object_name}" jako důveryhodný.
+  activity_user_trusted_unknown_object: <strong>%{user}</strong> označil/a neznámý objekt jako důvěryhodný.
+  activity_user_unreviewed_data_object: <strong>%{user}</strong> označil/a "%{object_name}" jako nezkontrolovaný.
+  activity_user_unreviewed_unknown_object: <strong>%{user}</strong> označil/a neznámý objekt jako nezkontrolovaný.
+  activity_user_untrusted_data_object: <strong>%{user}</strong> označil/a "%{object_name}" jako nedůvěryhodný.
+  activity_user_untrusted_unknown_object: <strong>%{user}</strong> označil/a neznámý objekt jako nedůvěryhodný.
+  activity_user_updated_text: <strong>%{user}</strong> aktualizoval/a "%{object_name}" text na "%{taxon_concept}".
+  add_a_comment_colon: "Přidat komentář:"
+  add_a_new_common_name: Přidat nový běžný název
+  add_a_new_user: Přidat nového uživatele
+  add_a_taxon_association_label: Přidat asociaci taxonu
+  add_article_to_page_link_button: Přidat článek k této stránce
+  add_association_submit_button: přidat asociaci
+  add_brief_summary_to_page_link_button: Přidat k této stránce stručný souhrn
+  add_language: Přidat jazyk
+  add_new_association_link: Přidat novou asociaci
+  add_page: Přidat stránku
+  add_to_my_collection_button: Přidat do sbírky
+  admin: správce
+  admin_content_page_active: Publikováno
+  admin_content_page_child_new_link: Vytvořit dceřinou stránku
+  admin_content_page_create_successful_notice: Stránka <a href="#<span class=" notranslate"=""> %{anchor} "><em> %{page_name}</em> </a> byla úspěšně vytvořena.
+  admin_content_page_new_header: Vytvořit novou stránku obsahu
+  admin_content_page_new_link: Vytvořit novou stránku
+  admin_content_page_not_active: Nepublikováno
+  admin_content_page_root: Kořen
+  admin_content_pages_empty: Nebyly nalezeny žádné stránky obsahu.
+  admin_content_pages_link: Správa obsahu
+  admin_content_pages_page_title: "Administrace: Správa obsahu"
+  admin_home: Domovská stránka administrace
+  admin_link: Přehled
+  admin_notes_not_visible_to_user: "Správcovské poznámky (není viditelné pro uživatele):"
+  admin_page_title: "Administrace: Přehled"
+  admin_translated_content_page_create_unsuccessful_error: Omlouváme se, došlo k chybě a překlad nebyl přidán.
+  admin_translated_content_page_delete_confirmation: Opravdu chcete smazat %{language} verzi "%{page_name}". Tato operace nelze vrátit zpět.
+  admin_translated_content_page_delete_successful_notice: "%{language} překlad stránky <em>%{page_name}</em> byl smazán."
+  admin_translated_content_page_edit_subheader: Upravit %{language} překlad pro <em>%{page_name}</em>
+  admin_translated_content_page_edit_tip: Nadpis a obsah jsou  %{required_icon} povinné.
+  admin_translated_content_page_new_header: Zvolit jazyk a přidat obsah
+  admin_translated_content_page_new_link: Přidat překlad
+  admin_translated_content_page_update_unsuccessful_error: Omlouváme se, došlo k chybě a překlad nebyl aktualizován.
+  all_articles: Všechny články
+  all_changes: Všechny změny
+  all_collections: Všechny sbírky
+  all_communities: Všechny komunity
+  all_images: Všechny obrázky
+  all_information: Všechny informace
+  all_items: Všechny objekty
+  all_pages: Všechny stránky
+  all_people: Všichni lidé
+  all_sounds: Všechny zvuky
+  all_taxa: Všechny taxy
+  all_title: Vše
+  all_videos: Všechna videa
+  already_a_member_question: Už jste členem?
+  already_member_of_community: Už jste členem této komunity.
+  alternate_classification: Alternativní klasifikace
+  and: a
+  and_between_form_items: a
+  any_integer: jakékoliv celé číslo
+  application_version_advisory_information: Verze aplikace
+  are_you_sure: Jste si jistý/á?
+  article_from: článek z
+  article_more_about: Více informací o tomto článku
+  assistive_details_header: Podrobnosti
+  assistive_literature_header: Literatura
+  assistive_maps_header: Mapy
+  assistive_media_header: Media
+  assistive_names_common_header: Běžné názvy
+  assistive_names_related_header: Příbuzné názvy
+  assistive_names_synonyms_header: Synonyma
+  assistive_overview_header: Přehled
+  assistive_taxon_community_header: Kominita
+  assistive_updates_header: Aktualizace
+  associated_submit_button: připojené
+  associated_with_article_header: Asociace s
+  associated_with_header: Asociace s
+  associated_with_image_header: Na tomto obrázku
+  associated_with_sound_header: Asociace s
+  associated_with_video_header: V tomto videu
+  associations_more_link: více <span class="assistive">asociací taxonu</span>
+  audio_mute: ztlumit
+  audio_pause: pozastavit
+  audio_play: přehrát
+  audio_stop: zastavit
+  audio_unmute: zapnout zvuk
+  average_rating_value_of_total: "Průměrné hodnocení: %{rating} z %{total}"
+  back_to_profile: Zpět na profil
+  bi_monthly: Obměsíc
+  biomedical_terms: Biomedicínské pojmy
+  browsable: Procházitelné
+  build_communities: Vytvořit komunity
+  cancel: Storno
+  cannot_be_empty: nemůže být prázdné.
+  cannot_create_community_from_watch_collection_error: Nemůžete vytvářet komunitu ze sledovaných.
+  cannot_find_member: Nepodařilo se najít člena s tímto id.
+  change: Změnit
+  change_rating_to_1_of_5: Změnit hodnocení na 1 z 5
+  change_rating_to_2_of_5: Změnit hodnocení na 2 z 5
+  change_rating_to_3_of_5: Změnit hodnocení na 3 z 5
+  change_rating_to_4_of_5: Změnit hodnocení na 4 z 5
+  change_rating_to_5_of_5: Změnit hodnocení na 5 z 5
+  choose_collection_header: Vyberte sbírku
+  citation: Citace
+  citing_link: Citování
+  classification_tree_header: Klasifikace
+  cms_available_in_languages: "Tato stránka je k dispozici na:"
+  cms_missing_content_message: Omlouváme se, tato stránka není v tomto jazyce dostupná.
+  cms_missing_content_title: Chybí obsah
+  collection_image: Obrázek sbírky
+  collection_item_annotation_label: Anotace položky sbírky
+  collection_name_label: Název sbírky
+  collection_newsfeed: Kanál novinek sbírky
+  collection_not_created_error: Omlouváme se, došlo k chybě, sbírka <em>%{collection_name}</em> nebyla vytvořena.
+  collection_not_destroyed_error: Omlouváme se, sbírka nebyla smazána.
+  collection_not_found_error: Omlouváme se, tato sbírka nebyla nalezena.
+  collection_was_removed_by_owner: Sbírka byla odstraněna jejím vlastníkem.
+  collections: Sbírky
+  collections_lowercase: sbírky
+  collections_summary_empty: Tato stránka ještě není v žádné sbírce.
+  collections_summary_header_with_count: 
+    one: V %{count} sbírce
+    other: V %{count} sbírkách
+  collections_with_count: 
+    one: "%{count} sbírka"
+    other: "%{count} sbírek"
+  comment: Komentář
+  comment_added_notice: Komentář přidán.
+  comment_body_label: Váš komentář
+  comment_created_at: Vytvořeno
+  comment_new_posters_image_advisory_info: Váš profilový obrázek a jméno se objeví vedle seznamu vašich komentářů.
+  comment_new_posters_image_alt: Váš profilový obrázek, pokud jste nějaký poskytli.
+  comment_not_added_error: Omlouváme se, došlo k chybě a komentář se nepodařilo vložit.
+  comments: Komentáře
+  comments_and_tags: Komentáře a označení
+  comments_moderated: Upravené komentáře
+  communities: Komunity
+  communities_index_empty: Žádné aktivní komunity.
+  communities_index_header: Aktivní komunity
+  community: Komunita
+  community_activity: Činnost komunity
+  community_contributions_with_count: 
+    one: "%{count} Příspěvek"
+    other: "%{count} Příspěvků"
+  community_empty_notice: Tato komunita nemá žáné členy.
+  community_focus_items_with_count: 
+    one: "%{count} položka"
+    other: "%{count} položek"
+  community_invitation_comment: Chtěl bych vás pozvat do komunity "%{community}".
+  community_newsfeed: Kanál novinek komunity
+  community_removed_by_owner: Tato sbírka byla odstraněna jejím vlastníkem.
+  confirm_leave: Opravdu chcete opustit tuto komunitu?
+  confirm_password_colon: Potvrzení hesla
+  contact_us_link: Kontaktujte nás
+  content_has_been_updated: Kontakt byl aktualizován.
+  content_partner_about_header: O %{partner_name}
+  content_partner_administration_notes_empty: Žádné administrační poznámky.
+  content_partner_administration_notes_header: Poznámky k administraci
+  content_partner_contact_create_successful_notice: Kontakt byl přidán.
+  content_partner_contact_delete_successful_notice: Kontakt byl smazán.
+  content_partner_contact_edit_link: Upravit kontakt
+  content_partner_contact_edit_page_subheader: Upravit kontakt
+  content_partner_contact_new_edit_form_tip: Jméno, příjmení a email jsou %{required_icon} povinné.
+  content_partner_contact_new_link: Přidat nový kontakt
+  content_partner_contact_new_page_subheader: Přidat kontakt
+  content_partner_contact_update_successful_notice: Kontakt úspěšně aktualizován.
+  content_partner_contact_update_unsuccessful_error: Omlouváme se, došlo k chybě a kontakt nebyl aktualizován.
+  content_partner_contacts_header: Kontakty
+  content_partner_data_description_empty: Nikdo ještě nenapsal popis poskytnutých dat.
+  content_partner_data_description_header: Popis dat
+  content_partner_filter_option_vetted_no: Ne
+  content_partner_filter_option_vetted_yes: Ano
+  content_partner_has_unpublished_content_true: Nepublikovaný obsah
+  content_partner_managed_by_header: Spravuje
+  content_partner_notes_header: Poznámky k projektu
+  content_partner_overview_agreement_link: Zobrazit stávající dohodu
+  content_partner_resource_about_header: O zdroji
+  content_partner_resource_collection_header: Publikovaná sbírka
+  content_partner_resource_collections_header: Sbírky
+  content_partner_resource_dataset_details_header: Dataset
+  content_partner_resource_edit_link: Upravit zdroj
+  content_partner_resource_edit_subheader: Upravit zdroj
+  content_partner_resource_new_link: Přidat nový zdroj
+  content_partner_resource_new_subheader: Přidat nový zdroj
+  content_partner_resource_preview_collection_header: Náhled sbírky
+  content_partner_resource_resource_status_new: Vytvořeno
+  content_partner_resources_header: Zdroje
+  content_partner_statistics_column_header_taxa_page_page_views: Zobrazení stránky
+  content_partner_statistics_column_header_taxa_page_time_on_page_seconds: Čas na stránce (sekundy)
+  content_partner_statistics_column_header_taxa_page_unique_page_views: Jedinečná zobrazení stránky
+  content_partner_statistics_column_header_total_count: Všechny stránky
+  content_partner_statistics_link: Statistiky používání
+  content_summary_table_count_column_header: Počet
+  content_summary_table_type_status_column_header: Typ a stav obsahu
+  content_summary_table_type_trusted_images_row: Počet důvěryhodných obrázků
+  content_summary_table_type_trusted_text_row: Počet důvěryhodných textů
+  content_summary_table_type_unreviewed_images_row: Počet nezkontrolovaných obrázků
+  content_summary_table_type_unreviewed_text_row: Počet nezkontrolovaných textů
+  copy: Kopírovat
+  copy_all_articles_button: kopírovat všechny články
+  copy_all_collections_button: kopírovat všechny sbírky
+  copy_all_communities_button: kopírovat všechny komunity
+  copy_all_images_button: kopírovat všechny obrázky
+  copy_all_items_button: kopírovat celou sbírku
+  copy_all_people_button: kopírovat všechny lidi
+  copy_all_sounds_button: kopírovat všechny zvuky
+  copy_all_taxa_button: kopírovat všechny taxy
+  copy_all_videos_button: kopírovat všechna videa
+  copy_of_name: Kopie %{name}
+  create_a_collection: Vytvořit sbírku
+  create_a_community: Vytvořit komunitu
+  create_account: vytvořit účet
+  create_collection_button: Vytvořit sbírku
+  create_community: Vytvořit komunitu
+  create_community_about_heading: O vytváření komunity
+  created: Vytvořeno
+  created_at: Vytvořeno
+  created_colon: "Vytvořeno:"
+  created_community: Komunita byla úspěšně vytvořena.
+  curated_association_update_button: Uložit změny
+  curation_comment: Komentáře správce
+  curation_privileges_page_title: Staňte se kurátorem
+  curation_reason_placeholder: další podrobnosti (volitelné)
+  curator_colon: "Kurátor:"
+  curator_level_assistant_curator: Kurátor - asistent
+  curator_level_full_curator: Kurátor
+  curator_level_master_curator: Hlavní kurátor
+  curator_question: Kurátor?
+  curators: Kurátoři
+  curators_with_count: 
+    one: "%{count} Kurátor"
+    other: "%{count} Kurátorů"
+  current_language: "Jazyk: %{iso_code}"
+  currently_in_eol: V současnosti v Encyclopedia of Life
+  daily: Denně
+  darwin_core: Darwin Core
+  dashboard: Nástěnka
+  data_object_ignore: ignorovat tento objekt
+  data_object_undo_ignore: Odstranit ze seznamu ignorovaných
+  data_objects: data_objects
+  dato_create_cancel: Storno
+  dato_edit_cancel: Storno
+  dato_edit_text_link_button: Upravit tento článek
+  dato_edit_text_title: Upravit článek
+  dato_new_edit_user_text_fieldset_content_header: Obsah článku
+  dato_new_edit_user_text_fieldset_information_header: Informace o článku
+  dato_new_text_for_taxon_page_title: Přidat článek k <i>%{taxon}</i>
+  dato_update_user_text_error: Omlouváme se, došlo k chybě a článek nebyl aktualizován.
+  default: Výchozí
+  default_watch_collection_name: Seznam sledovaných uživatele %{username}
+  delete: smazat
+  delete_community: Smazat tuto komunitu
+  description: Popis
+  description_of: Popis
+  destination_inappropriate_for_logged_in_users: Jste přihlášeni.
+  destroy: Zničit
+  detail: Podrobnosti
+  details_title: Podrobnosti
+  development_version_name: EOL V2 Beta
+  did_you_mean: "Nemysleli jste: %{suggestions} ?"
+  disabled_for_now: V SOUČASNOSTI DEAKTIVOVÁNO
+  donate: Darovat
+  donation_amount_legend: Zvolte sumu kterou chcete darovat
+  donation_amount_other_label: Ostatní
+  donation_confirmation: Potvrzení darování
+  donation_error_no_amount: Vyberte prosím darovanou sumu.
+  donation_error_only_numbers: Zadejte prosím sumu pouze pomocí číslic.
+  donation_sponsorship_infrastructure_title: Základní infrastruktura
+  dublin_core: Dublin Core
+  duplicate_items_were_ignored: Duplicitní položky byly ignorovány.
+  edit: Upravit
+  edit_annotation: upravit anotaci
+  edit_collection_details: Upravit podrobnosti o sbírce
+  edit_collection_details_header: Upravit podrobnosti o sbírce
+  edit_collection_head_title: "Upravit: %{collection_name}"
+  edit_community: Upravit komunitu
+  edit_contact_us_topics: Upravit témata kontaktování
+  edit_downcase: upravit
+  edit_eol_glossary: upravit EOL rejstřík
+  edit_my_profile: Upravit profil
+  edit_news_items: upravit položky novinek
+  edit_page_contents: upravit obsah stránky
+  edit_search_suggestions: upravit návrhy hledání
+  edit_table_of_contents: upravit obsah
+  edit_tag_suggestions: upravit návrhy označení
+  edit_web_users: upravit internetové uživatele
+  email: Email
+  email_colon: "Email:"
+  encyclopedia_of_life: Encyklopedie života
+  endorsed_by: Použito na
+  endorsed_collections: Vybrané sbírky
+  enter: vstup
+  eol_api: EOL API
+  eol_api_collections: "EOL API: Sbírky"
+  eol_api_data_objects: "EOL API: Datové objekty"
+  eol_api_hierarchies: "EOL API:  Hierarchie"
+  eol_api_hierarchy_entries: "EOL API:  Položky hierarchie"
+  eol_api_pages: "EOL API:  Stránky"
+  eol_api_ping: "EOL API: Ping"
+  eol_api_search: "EOL API:  Vyhledávání"
+  eol_api_search_by_provider: "EOL API:  Vyhledávání dle poskytovatele"
+  eol_colon: "EOL:"
+  eol_glossary: EOL rejstřík
+  eol_news: EOL Novinky
+  eol_pages: Stránky
+  error_404_description: Omlouváme se, nepodařilo se nalézt stránku na této URL.
+  error_404_page_title: Nenalezeno
+  error_500_page_title: Interní chyba serveru
+  error_page_title: Ouha.
+  example_colon: "Příklad:"
+  expand_all_children: Rozbalit všechny podřazené
+  explore: Prozkoumat
+  explore_what_we_know_about_taxon: Objevte co je na EOL o %{taxon}.
+  export_this_list_as_csv: Exportovat tento seznam jako CSV
+  external_link_header: Externí odkaz
+  external_link_icon_alt_text: Externí odkaz.
+  facebook: Facebook
+  feedback: Ohlasy
+  filter_button: Filtr
+  filter_by_status: Filtr dle stavu
+  filter_by_status_all_option: Všechny stavy
+  filter_by_status_inappropriate_option: Nevhodné
+  filter_by_status_trusted_option: Důvěryhodné
+  filter_by_status_unreviewed_option: Nezkontrolované
+  filter_by_status_untrusted_option: Nedůvěryhodné
+  filter_by_type: Filtrovat podle typu
+  filter_by_type_all_option: Všechny typy
+  filter_by_type_collection_option: Sbírky
+  filter_by_type_community_option: Komunity
+  filter_by_type_image_option: Obrázky
+  filter_by_type_sound_option: Zvuky
+  filter_by_type_taxon_concept_option: Taxy
+  filter_by_type_text_option: Články
+  filter_by_type_user_option: Lidé
+  filter_by_type_video_option: Videa
+  filter_media: filtrovat media
+  filtered_information: Filtrované informace
+  find_taxa_submit_button: najít taxu
+  flickr: Flickr
+  forgot_password: Zapomenuté heslo
+  forgot_password_form_cancel: Storno
+  forgot_password_form_choose_username_legend: Vyberte účet
+  forgot_password_form_header: Obnovit heslo
+  frequency_daily: Denně
+  frequency_monthly: Měsíčně
+  frequency_never: Nikdy
+  frequency_weekly: Týdně
+  from_community: ze sbírky %{community}
+  global_navigation: Globální navigace
+  go: Přejít
+  go_back: zpět
+  google_analytics_google_account_and_access_required: Google Analytics (vyžaduje Google účet a přístup)
+  grant_full_curator_link: Grant
+  has_already_been_taken: již je obsazené.
+  has_colon: "Má:"
+  head_title_collection: "Sbírka: %{name}"
+  head_title_community: "Komunita: %{name}"
+  hello_user: Vítej %{user}
+  help: Nápověda
+  helpers: 
+    label: 
+      content_page: 
+        active: Publikováno
+      content_partner: 
+        logo_current: "Aktuální logo:"
+        logo_new: "Nahrát nové logo:"
+        notes: Poznámky k projektu <small>(soukromé)</small>
+      data_object: 
+        description: Text <small>(část kódu HTML je povolena)</small>
+        license_id: Licence
+        object_title: Nadpis
+        refs: Reference <small>(pište každou referenci na nový řádek)</small>
+        rights_holder: Držitel práv
+        rights_statement: Informace o právech
+        source_url: URL na původní datový objekt
+        toc_item: Podkapitola
+      google_analytics_partner_summaries: 
+        page_views: Zobrazení stránky <small>(počet návštěv stránek)</small>
+        taxa_pages: Stránek <small>(počet stránek)</small>
+        taxa_pages_viewed: Zobrazených stránek <small>(počet stránek zobrazených návštěvníky)</small>
+        time_on_page: Celkový čas na stránkách <small>(hodiny)</small>
+        unique_page_views: Jedinečných zobrazení stránky <small>(počet návštěvníků, kteří si stránku zobrazili)</small>
+      resource: 
+        accesspoint_url: URL Datasetu <small>(pouze XML, XML.GZIP nebo XML.GZ)</small>
+        dataset: Dataset
+        refresh_period_hours: Frekvence
+        resource_status_id: Stav
+        resource_url_or_file_upload: Nahrát soubor zdroje
+        resource_url_or_file_url: Nahrát zdroj z URL
+        title: Název zdroje
+      session: 
+        password: Heslo
+        username_or_email: Uživatelské jméno nebo email
+      translated_content_page: 
+        active_translation: Publikováno
+        language_id: Jazyk
+      user: 
+        bio: O mně
+        curation_application: Stát se kurátorem
+        email_reports_frequency_hours: Jak často chcete dostávat emailové oznámení o aktivitě u vašich příspěvků?
+        entered_password: Heslo <small>(4-16 znaků)</small>
+        logo: Nahrát novou fotku
+        mailing_list: Chci dostávat informace o aktualizacích emailem?
+        mailing_list_yes: Ano
+        new_password: Nové heslo <small>(4-16 znaků)</small>
+        new_password_confirmation: Nové heslo <small>(pro potvrzení)</small>
+        user_identities: Jsem
+        username: Uživatelské jméno <small>(4 - 32 znaků)</small>
+        username_or_email: Uživatelské jméno nebo email
+    select: 
+      prompt: Vyberte prosím
+    submit: 
+      content_page: 
+        create: Vytvořit stránku
+        edit: Upravit
+        preview: Náhled
+        update: Aktualizovat stránku
+      content_partner_contact: 
+        create: Přidat kontakt
+        destroy: Smazat kontakt
+      create: Vytvořit %{model}
+      data_object: 
+        create: Přidat článek
+        create_text: Přidat článek
+        update: Uložit článek
+      name: 
+        create: Přidat název
+        update: Aktualizovat název
+      resource: 
+        create: Přidat zdroj
+        update: Aktualizovat zdroj
+      session: 
+        create: Přihlásit se
+      submit: Uložit %{model}
+      translated_content_page: 
+        create: Přidat překlad
+        update: Uložit změny v překladu
+      update: Aktualizovat %{model}
+      user: 
+        create: Vytvořit účet
+        curation_application: Aplikovat nyní
+        curation_privileges: Odeslat žádost
+        forgot_password: Odeslat email
+        generate_api_key: Generovat klíč
+        update: Uložit profilové informace
+      wikipedia_queue: 
+        create: Odeslat žádost
+  hidden: Skryté
+  hierarchies: hierarchie
+  hierarchy: Hierarchie
+  hierarchy_entries: hierarchy_entries
+  home: Domů
+  id: ID
+  image_is_no_longer_available: Obrázek už není k dispozici
+  image_not_found: Obrázek nebyl nalezen
+  images: Obrázky
+  import_once: Importovat jednou
+  in_collection: ve sbírce
+  in_this_data_type: "v tomto %{data_type}:"
+  inappropriate: Nevhodné
+  indexed: Indexované
+  information_for_any_audience: Informace pro kohokoliv
+  information_intended_for_beginners: Informace určená pro začátečníky
+  information_intended_for_experts: Informace určená pro pokročilé
+  invite_members_label: Pozvat členy
+  item_not_added_already_in_collection: Tato položka už byla přidána do sbírky.
+  item_type_article_assistive: Tato položka je článek
+  item_type_collection_assistive: Tato položka je sbírka
+  item_type_community_assistive: Tato položka je komunita
+  item_type_image_assistive: Tato položka je obrázek
+  item_type_person_assistive: Tato položka je osoba
+  item_type_sound_assistive: Tato položka je zvuk
+  item_type_taxon_assistive: Tato položka je taxon
+  item_type_video_assistive: Tato položka je video
+  join_community_button: Přidat se k této komunitě
+  language: "Jazyk:"
+  languages: Jazyky
+  learn_about_collections: Jak můžu vytvořit nový?
+  learn_about_communities: Jak se můžu zapojit?
+  learn_about_content_partners: Jak se jím můžu stát?
+  learn_about_contributing: Jak můžu přispět?
+  learn_about_eol: Jak používat EOL?
+  learn_about_joining: Jak se můžu připojit?
+  learn_more_about_communities_link: Více informací o komunitách
+  learn_more_link: (%{learn_more})
+  learn_more_lowercase: více informací
+  leave_a_comment: Přidat komentář
+  leave_community_button: Opustit tuto komunitu
+  license: Licence
+  license_all_rights_reserved: Všechna práva vyhrazena
+  license_not_applicable: Licence není použitelná
+  license_public_domain: Veřejná doména
+  listing_collections: Seznam sbírek
+  literature: Literatura
+  literature_empty: Nebyla nalezena žádná reference.
+  literature_header: Reference
+  literature_references: Reference v literatuře
+  location: Umístění
+  login: přihlášení
+  login_or_create_account: Přihlásit se nebo vytvořit účet
+  login_required_button: Vyžadováno přihlášení
+  logo_header: Logo
+  logout: Odhlásit
+  maintained_by: spravuje
+  managed_by: Spravuje
+  manager_parens: (manažer)
+  media: Média
+  media_list_empty_contribute_instructions: Informace jak přidat média na EOL.
+  media_list_empty_search: Žádná média neodpovídají vašemu hledání.
+  member_of: člen
+  method: Metoda
+  methods: Metody
+  moderator_colon: "Moderátor:"
+  monthly: Měsíčně
+  move: Přesunout
+  move_all_articles_button: přesunout všechny články
+  move_all_collections_button: přesunout všechny sbírky
+  move_all_communities_button: přesunout všechny komunity
+  move_all_images_button: přesunout všechny obrázky
+  move_all_items_button: přesunout celou sbírku
+  move_all_people_button: přesunout všechny osoby
+  move_all_sounds_button: přesunout všechny zvuky
+  move_all_taxa_button: přesunout všechny taxony
+  move_all_videos_button: přesunout všechna videa
+  move_down: Přesunout níže
+  move_up: Přesunout výše
+  must_be_logged_in: Pro tuto činnost musíte být přihlášeni.
+  my_activity: Moje činnost
+  my_info: Informace o mně
+  name: Název
+  name_preferred_for_language_yes: Preferované
+  name_preferred_taxonomically_for_source_yes: Preferované
+  names: Názvy
+  names_children_column_header: Podřazené
+  names_common_list_by_language_assistive_header: Běžné názvy podle jazyků
+  names_name_column_header: Název
+  names_sources_column_header: Zdroje
+  names_status_column_header: Stav
+  never: Nikdy
+  new_collection: Nová sbírka
+  news_items: Položky novinek
+  newsfeed: Kanál novinek
+  no_record_found_matching_your_criteria: Žádný záznam odpovídající vašim kriteriím.
+  no_tasks_found: Žádné úkoly
+  none: žádné
+  not_applicable: není použitelné
+  notes: Poznámky
+  nucleotide_sequences: Nukleotidové sekvence
+  number_of_taxa_at_this_entry: "# taxonů u této položky"
+  object: Objekt
+  object_status: Stav objektu
+  object_status_all_option: Vše
+  object_status_trusted_option: Důvěryhodné
+  object_status_unreviewed_option: Nezkontrolované
+  object_status_untrusted_option: Nedůvěryhodné
+  object_type: Typ objektu
+  object_type_all_option: Vše
+  object_type_image_option: Obrázek
+  object_type_sound_option: Zvuk
+  object_type_text_option: Text
+  object_type_video_option: Video
+  object_visibility: Viditelnost objektu
+  object_visibility_all_option: Vše
+  object_visibility_invisible_option: Skryté
+  object_visibility_visible_option: Viditelné
+  objects_curated: Objekty zkontrolované kurátorem
+  option_please_select: Vyberte prosím
+  or_add_it_to_an_existing_collection: nebo to přidejte k existující sbírce
+  or_copy_them_to_existing_collection: nebo zkopírujte do již existující sbírky
+  or_email_education: Nebo pošlete svůj návrh na %{link}.
+  other_collection_items_with_count: 
+    one: "%{count} jiná položka"
+    other: "%{count} jiných položek"
+  other_community_items_with_count: 
+    one: "%{count} jiná položka"
+    other: "%{count} jiných položek"
+  other_taxa_with_count: 
+    one: "%{count} jiný taxon"
+    other: "%{count} jiných taxonů"
+  other_us_dollars_amount: "Jiné: US$"
+  overall_colon: "Celkové:"
+  overview: Přehled
+  page_statistics: Statistiky stránky
+  page_statistics_and_tools: statistiky a nástroje stránky
+  pages_admin_section_link: Administrátoři
+  pages_curator_section_link: Kurátoři
+  pages_lowercase: stránky
+  pages_title: Reference
+  pages_with_pictures_and_text: Stránky s obrázky a textem
+  pages_with_pictures_or_text: Stránky s obrázky nebo textem
+  pagination_next: Další
+  pagination_next_with_count: 
+    one: viz další%{count}
+    other: viz dalších %{count}
+  pagination_previous: Předchozí
+  parameters: Parametry
+  password_colon: Heslo
+  personal_space: Osobní prostor
+  please_wait: Čekejte prosím...
+  post_comment: Přidat komentář
+  preferences: Možnosti
+  press_room: Novinářská sekce
+  proceed_to_checkout_page: Pokračovat na stránku platby
+  profile: Profil
+  profile_colon: Profil
+  profile_newsfeed: Můj kanál novinek
+  public: Veřejné
+  public_domain: veřejná doména
+  published: Publikované
+  punctuation_comma: ","
+  punctuation_semi_colon: ;
+  quarterly: Čtvrtletně
+  rated_by_count_people: 
+    one: od %{count} osoby
+    other: od %{count} osob
+  rating_added_notice: Hodnocení úspěšně přidáno.
+  recent_updates: Poslední aktualizace
+  remove: Odstranit
+  remove_all_articles_button: odstranit všechny články
+  remove_all_collections_button: odstranit všechny sbírky
+  remove_all_communities_button: odstranit všechny komunity
+  remove_all_images_button: odstranit všechny obrázky
+  remove_all_items_button: odstranit celou sbírku
+  remove_all_people_button: odstranit všechny lidi
+  remove_all_sounds_button: odstranit všechny zvuky
+  remove_all_taxa_button: odstranit všechny taxy
+  remove_all_videos_button: odstranit všechna videa
+  required_form_element: Vyžadováno
+  return: návrat
+  revisions: Revize
+  rights: Práva
+  rights_holder: Držitel práv
+  rights_statement: Informace o právech
+  roles: Role
+  save: Uložit
+  save_annotation_submit_button: Uložit anotace
+  save_curated_association_submit_button: Uložit asociace
+  scientific_name: Vědecký název
+  search: Vyhledávání
+  search_by_provider: seach_by_provider
+  search_by_term_page_title: "Vyhledávání: %{term}"
+  search_field_label: Vyhledávat v EOL
+  search_for_comments_containing_the_text: "Hledat komentáře obsahující text:"
+  search_for_users_containing_this_in_their_username_name_or_email_address: Hledat uživatele jejichž jméno, uživatelské jméno nebo emailová adresa toto obsahuje.
+  search_lowercase: hledat
+  search_placeholder: Prohledat EOL ...
+  search_results: Výsledky vyhledávání
+  search_term_reports: zpráva o hledání výrazu
+  search_the_site: Vyhledávat na stránce
+  see_all_media_link: Zobrazit všechna média
+  see_all_of_your_collections: Zobrazit všechny mé sbírky
+  see_notes: zobrazit poznámky
+  select_colon: "Vyberte:"
+  select_topic: Vyberte prosím okruh témat
+  selected_items: Vybrané objekty
+  selected_language_advisory_information: Toto je aktuálně zvolený jazyk.
+  send_email_colon: "Odeslat email:"
+  sent_invitations_to_users: Pozvánky byly odeslány uživatelům %{users}.
+  set_as_exemplar: Nastavit jako šablonu
+  show: Zobrazit
+  show_data_from_all_content_partners: Odebrat filtr klasifikace
+  show_full_tree: zobrazit celý strom...
+  show_status_message: Zobrazit text stavu
+  show_tasks: zobrazit úkoly
+  show_warning_message: Zobrazit varovné zprávy
+  sign_in: Přihlásit se
+  sign_in_remember_me_disallowed_for_admins_notice: Z bezpečnostních důvodů nemůžou správci využívat funkce trvalého přihlášení.
+  sign_in_successful_notice: Úspěšně přihlášeno.
+  sign_in_unsuccessful_error: Přihlášení se nezdařilo. Neplatné uživatelské jméno, emailová adresa nebo heslo.
+  sign_out: Odhlásit
+  site_cms: CMS Stránky
+  site_information: Informace o stránce
+  site_language: Jazyk stránky
+  skip_to_content: Přeskočit na obsah
+  skip_to_navigation: Přeskočit na navigaci
+  skip_to_table_of_contents: Přeskočit na obsah
+  sort_by: Seřadit podle
+  sort_by_button: Seřadit
+  sort_by_label: Seřadit podle
+  sort_by_newest_option: Nejnovější
+  sort_by_oldest_option: Nejstarší
+  sort_by_rating_option: Hodnocení
+  sort_by_status_option: Stav
+  sort_by_title_ascending: Název vzestupně
+  sort_by_title_descending: Název sestupně
+  sort_by_year_ascending: Rok vzestupně
+  sort_by_year_descending: Rok sestupně
+  sort_collection_by_label: Seřadit sbírku podle
+  source_and_additional_information: Zdroj a další informace
+  source_information_header: Zdrojové informace
+  source_url: URL zdroje
+  special_collections_cannot_be_destroyed: Tato sbírka je speciální a nemůže být zničena.
+  species: Druh
+  species_profile_model: Profilový model druhu
+  stat: Statistiky
+  statistics: Statistiky
+  subject: předmět
+  submit: Odeslat
+  supplier: Dodavatel
+  supplier_colon: "Dodavatel:"
+  switch_language_advisory_information: Změnit jazyk stránky na %{language_label}
+  table_of_contents: Obsah
+  task_status_active_option: Aktivní
+  task_status_ignored_option: Ignorovaný
+  taxon: taxon
+  taxon_biomedical_terms_link: Biomedicínské termíny
+  taxon_details_empty: Nikdo k této stránce ještě nic nenapsal.
+  taxon_education_empty: Nikdo ještě k této stránce neposkytl žádné vzdělávací zdroje.
+  taxon_education_header: Zdroje ke vzdělávání
+  taxon_education_link: Zdroje ke vzdělávání
+  taxon_id: Taxon ID
+  taxon_nucleotide_sequences_link: Nukleotidové sekvence
+  technical_functions: Technické funkce
+  terms_agreement_form_header: Podmínky používání
+  terms_agreement_form_submit: Souhlasím
+  test: Test.
+  text: text
+  text_capital: Text
+  text_summary_empty: Nikdo k této stránce ještě nenapsal stručný souhrn.
+  text_summary_empty_header: Stručný souhrn
+  text_summary_more_link: Číst celou položku
+  thank_you: Děkujeme
+  thank_you_for_your_generous_support: Děkujeme za Vaši podporu
+  threat_status_header_colon: "IUCN stav ohrožení:"
+  time_ago: před %{time_passed}
+  title: Nadpis
+  to: pro
+  to_process_your_donation_please_proceed: Pro vyřízení Vašeho příspěvku prosím pokračujte
+  toc: Obsah
+  total_items_with_count: 
+    one: "%{count} item"
+    other: "%{count} total items"
+  translation_deleted: Překlad byl smazán
+  translation_saved: Překlad byl uložen
+  translations_submit: Zobrazit překlad
+  trusted: Důvěryhodné
+  trusted_images: Důvěryhodné obrázky
+  trusted_text_objects: Důvěryhodné články
+  tumblr: Tumblr
+  twitter: Twitter
+  type: Typ
+  unable_to_copy_items_to_collection_error: Omlouváme se, nepodařilo se zkopírovat položky sbírky do %{name}.
+  unable_to_invite_users_to_community_error: Pozvánky uživatelům %{users} se nepodařilo odeslat.
+  unknown: Neznámé
+  unpublished: Nepublikováno
+  unreviewed: Nerecenzováno
+  unreviewed_images: Nezkontrolované obrázky
+  unreviewed_text_objects: Nezkontrolované články
+  untrusted: Nedůvěryhodné
+  update_collection_submit_button: Aktualizovat podrobnosti o sbírce
+  update_language: Aktualizovat jazyk
+  update_page: Aktualizovat stránku
+  update_user_successful_notice: Účet úspěšně aktualizován.
+  updated: Aktualizováno
+  updated_colon: "Aktualizováno:"
+  updated_community: Komunita byla úspěšně aktualizována
+  updated_member: Člen byl úspěšně aktualizován.
+  updates: Aktualizace
+  upload_content: nahrát obsah
+  us_dolars_75: US $75
+  us_dollars_100: US $100
+  us_dollars_35: US $35
+  us_dollars_50: US $50
+  user: Uživatel
+  user_activity_stats_articles_added: Přidané články
+  user_activity_stats_header: Činnost
+  user_says_colon: "%{users_name} říká:"
+  user_submitted_text_titlecase: Text vložený uživateli
+  username: Uživatelské jméno
+  username_colon: Uživatelské jméno
+  username_taken: "%{name} již existuje"
+  users_about_me_header: O mně
+  users_form_account_header: Váš účet
+  users_my_info_header: Informace o mně
+  value: Hodnota
+  value_default: (výchozí)
+  value_empty: (prázdné)
+  values: Hodnoty
+  view: Zobrazení
+  view_added_text: zobrazit přidaný text
+  view_article_source: Zobrazit zdroj článku
+  view_curators: zobrazit kurátory
+  view_error_log: zobrazit chybové hlášení
+  view_full_size_image: Zobrazit obrázek v plné velikosti
+  view_image_source: Zobrazit zdroj obrázku
+  view_in_classification: zobrazit v klasifikaci
+  view_only_pages_with_at_least_a_picture_or_piece_of_text: Zobrazit pouze stránky, které obsahují obrázek nebo alespoň nějaký text
+  view_translation_source_link: Zobrazit zdroj překladu
+  view_user_activity: zobrazit uživatelovu činnost
+  view_user_comments: zobrazit komentáře uživatele
+  visible_title: Viditelný
+  wants_colon: "Chci:"
+  watch_list: Sledované
+  watch_list_newsfeed: Kanál novinek sledovaných
+  web_users: Internetový uživatelé
+  weekly: Týdně
+  what_is_eol: Co je EOL?
+  what_is_this_question: Co to znamená?
+  will_paginate: 
+    next_label: Další &#8594;
+    previous_label: "&#8592; Předchozí"
+  xml_response: XML odpověď
+  year: Rok
+  yes_answer: Ano
+  you_have_been_logged_out: Byli jste odhlášeni
+  you_joined_community: Úspěšně jste vstoupili do této komunity.
+  you_left_community: Úspěšně jste opustili tuto komunitu.
+  you_removed_the_member_from_the_community: Úspěšně jste odstranili tohoto člena z komunity
+  your_current_rating_0_of_5: "Vaše současné hodnocení: 0 z 5"
+  your_current_rating_1_of_5: "Vaše současné hodnocení: 1 z 5"
+  your_current_rating_2_of_5: "Vaše současné hodnocení: 2 z 5"
+  your_current_rating_3_of_5: "Vaše současné hodnocení: 3 z 5"
+  your_current_rating_4_of_5: "Vaše současné hodnocení: 4 z 5"
+  your_current_rating_5_of_5: "Vaše současné hodnocení: 5 z 5"
+  your_preferences: Vaše nastavení
+  your_rating: Vaše hodnocení
+  your_rating_colon: "Vaše hodnocení:"
+  your_watch_collection: vaše sledované

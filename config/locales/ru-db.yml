@@ -1,6 +1,7 @@
 # Messages for Russian (Русский)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Adata80
 # Author: Lvova
 # Author: Meddoc13
 ru: 
@@ -9,12 +10,15 @@ ru:
   translated_activities-name-activity_id-53: скрыть
   translated_activities-name-activity_id-54: обновить
   translated_activities-name-activity_id-56: удалить
+  translated_activities-name-activity_id-63: сбор
   translated_activities-name-activity_id-64: убрать
+  translated_agent_roles-label-agent_role_id-1: Аниматор
   translated_agent_roles-label-agent_role_id-10: Проект
   translated_agent_roles-label-agent_role_id-13: Источник
   translated_agent_roles-label-agent_role_id-15: Контактное лицо
   translated_agent_roles-label-agent_role_id-2: Автор
   translated_agent_roles-label-agent_role_id-4: Композитор
+  translated_agent_roles-label-agent_role_id-6: Директор
   translated_agent_roles-label-agent_role_id-7: Редактор
   translated_agent_roles-label-agent_role_id-8: Иллюстратор
   translated_agent_roles-label-agent_role_id-9: Фотограф
@@ -27,6 +31,7 @@ ru:
   translated_collection_types-label-collection_type_id-16: Изображения
   translated_collection_types-label-collection_type_id-18: Природоохранный статус
   translated_collection_types-label-collection_type_id-21: Номенклатура
+  translated_collection_types-label-collection_type_id-22: Звуки
   translated_collection_types-label-collection_type_id-23: Ссылки
   translated_collection_types-label-collection_type_id-24: Литература
   translated_collection_types-label-collection_type_id-3: Описание

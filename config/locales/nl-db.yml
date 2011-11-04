@@ -1,6 +1,7 @@
 # Messages for Dutch (Nederlands)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: McDutchie
 # Author: Patio
 # Author: SPQRobin
 # Author: Siebrand
@@ -90,7 +91,7 @@ nl:
   translated_contact_subjects-title-contact_subject_id-6: Bioinformatica-onderzoek
   translated_contact_subjects-title-contact_subject_id-7: Biologisch onderzoek
   translated_contact_subjects-title-contact_subject_id-8: Plantenbiologie
-  translated_contact_subjects-title-contact_subject_id-9: Literature and Biodiversity Heritage Library
+  translated_contact_subjects-title-contact_subject_id-9: Literatuur en Biodiversity Heritage Library
   translated_content_partner_statuses-label-content_partner_status_id-1: In behandeling
   translated_content_partner_statuses-label-content_partner_status_id-2: Actief
   translated_content_partner_statuses-label-content_partner_status_id-3: Gearchiveerd
@@ -105,7 +106,7 @@ nl:
   translated_data_types-label-data_type_id-6: IUCN
   translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
-  translated_licenses-description-license_id-1: Alle rechten voorbehouden
+  translated_licenses-description-license_id-1: Geen rechten voorbehouden
   translated_licenses-description-license_id-2: © Alle rechten voorbehouden
   translated_licenses-description-license_id-29: Sommige rechten voorbehouden
   translated_licenses-description-license_id-3: Sommige rechten voorbehouden
@@ -218,12 +219,12 @@ nl:
   translated_synonym_relations-label-synonym_relation_id-2: genome naam
   translated_synonym_relations-label-synonym_relation_id-20: database-artefact
   translated_synonym_relations-label-synonym_relation_id-21: anders, zie de opmerkingen
-  translated_synonym_relations-label-synonym_relation_id-22: orthografische variant (spelfout)
+  translated_synonym_relations-label-synonym_relation_id-22: spellingsvariant (spelfout)
   translated_synonym_relations-label-synonym_relation_id-23: verkeerd toegepast
   translated_synonym_relations-label-synonym_relation_id-24: afgewezen naam
   translated_synonym_relations-label-synonym_relation_id-25: homoniem (onwettig)
   translated_synonym_relations-label-synonym_relation_id-26: pro parte
-  translated_synonym_relations-label-synonym_relation_id-27: overbodig hernoemen (onwettig)
+  translated_synonym_relations-label-synonym_relation_id-27: overbodig hernoemen (ongeoorloofd)
   translated_synonym_relations-label-synonym_relation_id-28: nomen oblitum
   translated_synonym_relations-label-synonym_relation_id-29: junior synoniem
   translated_synonym_relations-label-synonym_relation_id-3: acroniem
@@ -244,8 +245,8 @@ nl:
   translated_synonym_relations-label-synonym_relation_id-43: foutief gepubliceerd, anders
   translated_synonym_relations-label-synonym_relation_id-44: foutief gepubliceerd, nomen nudum
   translated_synonym_relations-label-synonym_relation_id-45: basioniem
-  translated_synonym_relations-label-synonym_relation_id-46: heterotypische synoniem
-  translated_synonym_relations-label-synonym_relation_id-47: homotypische synoniem
+  translated_synonym_relations-label-synonym_relation_id-46: heterotypisch synoniem
+  translated_synonym_relations-label-synonym_relation_id-47: homotypisch synoniem
   translated_synonym_relations-label-synonym_relation_id-48: naam niet beschikbaar
   translated_synonym_relations-label-synonym_relation_id-49: geldige naam
   translated_synonym_relations-label-synonym_relation_id-5: blastnaam

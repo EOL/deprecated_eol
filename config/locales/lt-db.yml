@@ -1,6 +1,7 @@
 # Messages for Lithuanian (Lietuvių)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Cyklopas
 # Author: Eitvys200
 # Author: Ignas693
 lt: 
@@ -18,6 +19,7 @@ lt:
   translated_agent_roles-label-agent_role_id-1: Animatorius
   translated_agent_roles-label-agent_role_id-10: Projektas
   translated_agent_roles-label-agent_role_id-11: Leidėjas
+  translated_agent_roles-label-agent_role_id-12: Pranešėjas
   translated_agent_roles-label-agent_role_id-13: Šaltinis
   translated_agent_roles-label-agent_role_id-14: Šaltinis duomenų bazė
   translated_agent_roles-label-agent_role_id-15: Kontaktinis Asmuo
@@ -50,6 +52,7 @@ lt:
   translated_contact_subjects-title-contact_subject_id-14: Prašymas įkelti paveikslėlius
   translated_contact_subjects-title-contact_subject_id-5: Klasifikacija
   translated_contact_subjects-title-contact_subject_id-7: Biologiniai tyrimai
+  translated_content_partner_statuses-label-content_partner_status_id-1: Laukiama
   translated_content_partner_statuses-label-content_partner_status_id-2: Aktyvus
   translated_content_partner_statuses-label-content_partner_status_id-3: Suarchyvuota
   translated_content_partner_statuses-label-content_partner_status_id-4: Neaktyvus
@@ -95,6 +98,7 @@ lt:
   translated_ranks-label-rank_id-494: gentis
   translated_ranks-label-rank_id-503: nereitinguotas
   translated_ranks-label-rank_id-51: klasė
+  translated_ranks-label-rank_id-74: skyrius
   translated_ranks-label-rank_id-99: šeima
   translated_resource_statuses-label-resource_status_id-1: Įkeliama
   translated_resource_statuses-label-resource_status_id-2: Įkelta
@@ -105,6 +109,10 @@ lt:
   translated_resource_statuses-label-resource_status_id-7: Tvarkomi
   translated_sort_styles-name-sort_style_id-2: Seniausi
   translated_sort_styles-name-sort_style_id-3: Abėcėlės tvarka
+  translated_synonym_relations-label-synonym_relation_id-12: apima
+  translated_synonym_relations-label-synonym_relation_id-14: su rašybos klaidomis
+  translated_synonym_relations-label-synonym_relation_id-23: klaidingai taikė
+  translated_synonym_relations-label-synonym_relation_id-52: institucija
   translated_table_of_contents-label-table_of_contents_id-1: Peržiūra
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-17: Literatūros šaltiniai
@@ -137,9 +145,11 @@ lt:
   translated_untrust_reasons-label-untrust_reason_id-3: žemos kokybės
   translated_untrust_reasons-label-untrust_reason_id-4: Pasikartojantis
   translated_untrust_reasons-label-untrust_reason_id-5: Kita
+  translated_user_identities-label-user_identity_id-2: studentas
   translated_vetted-label-vetted_id-0: Nežinomas
   translated_vetted-label-vetted_id-4: Nepatikimas
   translated_vetted-label-vetted_id-5: Patikimas
+  translated_vetted-label-vetted_id-6: Netinkamas
   translated_visibilities-label-visibility_id-0: Nematomas
   translated_visibilities-label-visibility_id-1: Matomas
   translated_visibilities-label-visibility_id-2: Peržiūra

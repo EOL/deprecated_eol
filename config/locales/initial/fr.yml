@@ -3,25 +3,35 @@
 # Export driver: syck-pecl
 # Author: Coyau
 # Author: Crochet.david
+# Author: Gomoko
 # Author: Hashar
 # Author: Jean-Frédéric
 # Author: Ljubinka
+# Author: McDutchie
 # Author: Od1n
 # Author: Seb35
 # Author: Zcqsc06
 fr: 
   0_1_or_2: 0, 1 ou 2
   0_or_1: 0 ou 1
+  a_pipe_delimited_list_of_licenses: une liste de licences séparées par des traits | ou 'all' pour obtenir les objets sous n'importe quelle licence. Les licences abrégées avec cc- sont toutes
+  a_pipe_delimited_list_of_spm_info_item_subject_names: une liste de noms de sujet d'Élément d'Information SPM délimitée par des traits | ou 'all' pour obtenir le texte de n'importe quel sujet
+  a_taxon: un taxon
+  a_total_of_comment_were_found_matching_your_criteria: 
+    one: "un total de %{count} commentaires a été trouvé correspondant à vos critères. "
+    other: Un total de %{count} commentaires trouvées correspondant à vos critères.
   about_eol: À propos de l’EOL
   account_information: Informations sur le compte
   account_registered_but_not_ready_try_later: Votre compte est enregistré mais vous ne pouvez pas encore y accéder. Veuillez réessayer dans cinq minutes.
   action: Action
   action_not_available_error: Désolé, cette action n’est pas disponible.
   actions: Actions
+  active_colon: "Actif :"
   activerecord: 
     attributes: 
       collection: 
         description: Description de la collection
+        logo: Image de la collection principale
         name: Nom de la collection
         sort_style_id: Clé de tri par défaut.
       community: 
@@ -33,13 +43,17 @@ fr:
         page_name: Nom unique
         sort_order: Ordre de tri
       content_partner: 
+        acronym: Abréviation du projet
+        admin_notes: Notes d'administration
         content_partner_status: État du projet
         created_at: Créé
         description: Description du projet
+        display_name: Nom affiché
         full_name: Nom du projet
         homepage: URL du projet
         notes: Notes du projet
         user_id: Géré par
+        vetted: Approuvé
       content_partner_agreement: 
         signed_by: Signé par
         signed_on_date: Signé le
@@ -53,16 +67,21 @@ fr:
       name: 
         string: Nom
       resource: 
+        accesspoint_url: URL de Dataset
         bibliographic_citation: Citation bibliographique
+        dataset: Fichier de Dataset
         description: Description de la ressource
+        dwc_archive_url: URL de l'archive principale de Darwin
         language_id: Langue par défaut
         license_id: Licence par défaut
         resource_status_id: État des ressources
         rights_holder: Détenteur des droits par défaut
+        rights_statement: Déclaration des droits par défaut
         title: Nom de la ressource
       translated_content_page: 
         active_translation: Publiée
         left_content: Navigation
+        main_content: Corps
         meta_description: Description des métadonnées
         meta_keywords: Mots-clefs des métadonnées
         title: Titre
@@ -70,6 +89,8 @@ fr:
         agreed_with_terms: Termes de la Convention d'utilisation
         api_key: Clé API
         bio: Bio
+        credentials: Certificats
+        curator_scope: Portée de curation
         email: Adresse électronique
         entered_password: Mot de passe
         entered_password_confirmation: Répéter le mot de passe <small>(pour confirmation)</small>
@@ -77,9 +98,11 @@ fr:
         full_name: Nom complet
         given_name: Prénom
         language_abbr: Langue préférée
+        requested_curator_level_id: Niveau souhaité de curation
         tag_line: Slogan
         username: Nom d’utilisateur
     errors: 
+      format: "%{attribute} %{message}"
       full_messages: 
         format: "%{attribute} %{message}"
       messages: 
@@ -90,21 +113,30 @@ fr:
         equal_to: doit être égale à %{count}
         even: doit être pair
         exclusion: est protégé
-        greater_than: doit être supérieur à %{count}
+        greater_than: 
+          one: doit être supérieur à %{count}
+          other: doivent être supérieurs à %{count}
         greater_than_or_equal_to: doit être supérieur ou égal à %{count}
         inaccessible: est inaccessible
         inclusion: ne fait pas partie de la liste
         invalid: est invalide
-        less_than: doit être inférieure à %{count}
+        less_than: 
+          one: doit être inférieur à %{count}
+          other: doit être inférieur à %{count}
         less_than_or_equal_to: doit être inférieur ou égal à %{count}
         not_a_number: n’est pas un nombre
         not_an_integer: doit être un nombre entier
         odd: doit être impair
         record_invalid: "La validation a échoué : %{errors}"
         taken: est déjà utilisé
-        too_long: est trop long (%{count} caractères maximum)
-        too_short: est trop court (%{count} caractères minimum)
+        too_long: 
+          one: est trop long (%{count} caractères maximum)
+          other: est trop long (%{count} caractères maximum)
+        too_short: 
+          one: est trop court (%{count} caractères minimum)
+          other: est trop court (%{count} caractères minimum)
         wrong_length: n'a pas la longueur requise (il faut %{count} caractères)
+        wrong_type: est le mauvais type
       models: 
         resource: 
           attributes: 
@@ -113,23 +145,38 @@ fr:
               inaccessible: est inaccessible, l'URL doit être accessible au public
               invalid: est invalide. Doit pointer vers un fichier XML, XML.GZIP ou XML.GZ.
             dataset: 
+              blank: ne peut pas être vide, sauf si vous fournissez une URL de dataset à la place
               wrong_type: n'a pas le format requis. Doit être un fichier GZIP, TAR ou XML.
             dwc_archive_url: 
+              inaccessible: est inaccessible, l'URL doit être en publiquement accessible
               invalid: est invalide. Doit pointer vers un fichier GZIP, TAR ou XML.
       template: 
         body: "Les champs suivants n'ont pas été validés :"
+        header: 
+          one: "%{count} erreur de validation trouvée"
+          other: "%{count} erreurs de validation trouvées"
     models: 
       user: compte
   activity: Activité
   activity_log_empty: Personne n'a encore fourni les mises à jour.
   activity_log_empty_learn_more_link: Apprenez comment contribuer
+  activity_user_added_association: <strong>%{user}</strong> ajouté en lien avec "%{object_name}".
+  activity_user_added_common_name: <strong>%{user}</strong> a ajouté le nom courant "%{name}" à un objet inconnu.
+  activity_user_added_common_name_to_taxon: <strong>%{user}</strong> a ajouté le nom courant "%{name}" à "%{taxon}".
+  activity_user_added_community_manager: <strong>%{user}</strong> a fait %{manager} un gestionnaire de la communauté "%{community}".
   activity_user_added_item_to_collection: <strong>%{user}</strong> a ajouté "%{item}" à la collection "%{collection}".
+  activity_user_added_named_association: <strong>%{user}</strong> a ajouté une association entre "%{object_name}" et "%{name}".
+  activity_user_added_unknown_association: <strong>%{user}</strong> a ajouté une association vers un objet inconnu.
   activity_user_added_unknown_item_to_collection: <strong>%{user}</strong> a ajouté un élément inconnu à la collection "%{collection}".
+  activity_user_added_unknown_name: <strong>%{user}</strong> a ajouté un nom courant inconnu à un objet inconnu.
+  activity_user_added_unknown_name_to_taxon: <strong>%{user}</strong> a ajouté un nom courant à "%{taxon}".
   activity_user_changed_community_description: <strong>%{user}</strong> a mis à jour la description de la communauté "%{community}".
   activity_user_changed_community_icon: <strong>%{user}</strong> a changé le logo de la communauté "%{community}".
   activity_user_changed_community_name: <strong>%{user}</strong> a changé le nom de la communauté "%{community}".
   activity_user_created_collection: <strong>%{user}</strong> a créé la collection "%{collection}".
   activity_user_created_community: <strong>%{user}</strong> a créé la communauté "%{community}".
+  activity_user_created_text: <strong>%{user}</strong> a ajouté du texte à "%{object_name}" sur "%{taxon_concept}".
+  activity_user_curated_an_unknown_object: <strong>%{user}</strong> a corrigé un objet inconnu.
   activity_user_deleted_community: <strong>%{user}</strong> a supprimé la communauté "%{community}".
   activity_user_hid_data_object: <strong>%{user}</strong> a caché %{object_name}.
   activity_user_hid_unknown_object: <strong>%{user}</strong> a caché un objet inconnu.
@@ -139,28 +186,44 @@ fr:
   activity_user_modified_community: <strong>%{user}</strong> a modifié la communauté "%{community}".
   activity_user_rated_data_object: <strong>%{user}</strong> a évalué "%{object_name}".
   activity_user_rated_unknown_object: <strong>%{user}</strong> a évalué un élément inconnu.
+  activity_user_removed_all_items_from_collection: <strong>%{user}</strong> a supprimé tous les éléments de la collection "%{collection}".
+  activity_user_removed_association: <strong>%{user}</strong> a supprimé une association de "%{object_name}".
   activity_user_removed_item_from_collection: <strong>%{user}</strong> a retiré "%{item}" de la collection "%{collection}".
+  activity_user_removed_named_association: <strong>%{user}</strong> a supprimé une association entre "%{object_name}" et "%{name}".
+  activity_user_removed_unknown_association: <strong>%{user}</strong> a supprimé une association vers un objet inconnu.
+  activity_user_removed_unknown_name: <strong>%{user}</strong> a retiré un nom fréquent inconnu un objet inconnu.
+  activity_user_removed_unknown_name_to_taxon: <strong>%{user}</strong> a retiré un nom fréquent inconnu d'un objet inconnu "%{taxon}".
+  activity_user_showed_data_object: <strong>%{user}</strong> a marqué "%{object_name}" comme visible.
+  activity_user_showed_unknown_object: <strong>%{user}</strong> a marqué un objet inconnu comme visible.
   activity_user_trusted_data_object: <strong>%{user}</strong> a marqué "%{object_name}" comme vérifié.
   activity_user_trusted_unknown_object: <strong>%{user}</strong> a marqué un élément inconnu comme vérifié.
   activity_user_unreviewed_data_object: <strong>%{user}</strong> a signalé "%{object_name}" comme non vérifié.
   activity_user_unreviewed_unknown_object: <strong>%{user}</strong> a signalé un élément inconnu comme non vérifié.
   activity_user_untrusted_data_object: <strong>%{user}</strong> a signalé "%{object_name}" comme douteux.
   activity_user_untrusted_unknown_object: <strong>%{user}</strong> a signalé un élément inconnu comme douteux.
+  activity_user_updated_text: <strong>%{user}</strong> a mis à jour le texte "%{object_name}" sur "%{taxon_concept}".
   add_a_comment_colon: "Ajouter un commentaire :"
   add_a_new_common_name: Ajouter un nouveau nom commun
+  add_a_new_user: Ajouter un nouvel utilisateur
+  add_a_taxon_association_label: Ajouter une association de taxon
   add_article_to_page_link_button: Ajouter un article à cette page
+  add_association_submit_button: ajouter l’association
   add_brief_summary_to_page_link_button: Ajouter un résumé à cette page
+  add_education_resources_to_page_link_button: Ajouter des ressources éducatives à cette page
+  add_identification_resources_to_page_link_button: Ajouter des ressources d’identification à cette page
   add_item_to_new_collection: Ajouter "%{item}" à une nouvelle collection
   add_language: Ajouter une langue
   add_new_association_link: Ajouter une nouvelle association
   add_page: Ajouter une page
   add_to_my_collection_button: Ajouter à ma collection
   admin: administrateur
+  admin_content_page_active: Publié
   admin_content_page_child_new_link: Créer une sous-page
   admin_content_page_create_successful_notice: La page <a href="#%{anchor}"><em>%{page_name}</em></a> a été créée avec succès.
   admin_content_page_create_unsuccessful_error: Une erreur s'est produite. La page n'a pas été créée.
   admin_content_page_delete_confirmation: Êtes-vous sûr de vouloir supprimer "%{page_name}" et toutes ses traductions ? La suppression est irréversible.
   admin_content_page_delete_successful_notice: La page %{page_name} et les traductions associées ont été supprimées.
+  admin_content_page_edit_header: Mettre à jour des informations de base pour <em>%{page_name}</em>
   admin_content_page_new_header: Créer une nouvelle page de contenu.
   admin_content_page_new_link: Créer une nouvelle page.
   admin_content_page_root: Racine
@@ -171,7 +234,6 @@ fr:
   admin_content_pages_index_information: La liste suivante comprend toutes les pages statiques actuellement disponibles sur le site d'EOL. Chaque page comporte une ou plusieurs traductions. Lorsque vous créez une nouvelle page, il vous est demandé d'ajouter une traduction. Les traductions publiées sont publiquement accessibles.
   admin_content_pages_link: Gestion du contenu
   admin_content_pages_page_title: "Administration : Gestion du contenu"
-  admin_content_partner_notification_link: Notification mensuelle
   admin_information: Voici la nouvelle console d'administration d'EOL v2. Nous sommes entrain de transférer les fonctions de la version v1. Si une section que vous cherchez ne s'y trouve pas, rendez vous sur la <a href="/administrator">Console d'Administration v1</a>.
   admin_link: Console d'Administration
   admin_page_title: Console d'Administration
@@ -197,6 +259,7 @@ fr:
   all_pages: Toutes les pages
   all_taxa: Tous les taxons
   all_title: Tout
+  all_videos: Toutes les vidéos
   already_a_member_question: Déjà membre ?
   already_member_of_community: Vous êtes déjà un membre de cette communauté.
   alternate_classification: Classement alternatif
@@ -219,15 +282,15 @@ fr:
   associated_with_image_header: Sur cette image
   associated_with_sound_header: Associé à
   associated_with_video_header: Dans cette vidéo
-  attribute: Attribuer
+  audio_mute: muet
+  audio_pause: pause
+  audio_unmute: non muet
   authoritative_information: Information de référence
-  auto_email_notifications_were_sent_to_colon: "Les notifications ont été envoyées à l'adresse :"
   average_rating_value_of_total: "Note moyenne : %{rating} sur %{total}"
   back_to_profile: Retour au profil
   bi_monthly: Bimensuel
   biodiversity_heritage_library: Biodiversity Heritage Library
   browsable: Naviguable
-  browse_hierarchy: parcourir la hiérarchie
   build_communities: Créer des communautés
   cancel: Annuler
   cannot_be_associated_with_both_a_user_and_a_community: Ne peux être associé à la fois à un utilisateur et une communauté
@@ -318,7 +381,6 @@ fr:
   content_partner_agreement_create_successful_notice: Vous avez accepté les conditions du partenaire de contenu. Vous pouvez maintenant ajouter des données.
   content_partner_agreement_create_unsuccessful_error: Une erreur s'est produite. L'accord avec le partenaire de contenu semble avoir un problème technique. Veuillez réessayer. Si le problème persiste, veuillez le signaler à EOL.
   content_partner_column_header_partner: Partenaire
-  content_partner_column_header_status: Statut
   content_partner_contact_create_successful_notice: Le contact a été ajouté.
   content_partner_contact_new_link: Ajouter un nouveau contact
   content_partner_contact_new_page_subheader: Ajouter un contact
@@ -326,14 +388,10 @@ fr:
   content_partner_data_description_header: Description des données
   content_partner_filter_option_vetted_no: Non
   content_partner_filter_option_vetted_yes: Oui
-  content_partner_has_unpublished_content_false: Pas de contenu non publié
   content_partner_has_unpublished_content_true: Contenu non publié
   content_partner_managed_by_header: Géré par
   content_partner_resource_collections_header: Collections
   content_partner_resources_header: Ressources
-  content_partner_resources_with_count: 
-    one: "%{count} ressource"
-    other: "%{count} ressources"
   content_partner_statistics_column_header_total_count: Toutes les pages
   content_partner_statistics_link: Statistiques d’utilisation
   content_partners: Partenaires de contenus
@@ -357,7 +415,6 @@ fr:
   created: Créé
   curation_privileges_page_title: Devenir un conservateur
   curator_colon: "Conservateur :"
-  curator_title: Conservateur
   current_language: "Langue : %{iso_code}"
   daily: Quotidien
   dashboard: Tableau de bord
@@ -382,7 +439,6 @@ fr:
   edit_community: Modifier la communauté
   edit_downcase: modifier
   edit_my_profile: Modifier mon profil
-  email_subject_account_activated: Votre compte Encyclopedia of Live a été activé
   encyclopedia_of_life: Encyclopédie de la vie
   endorsed_collections_with_count: 
     one: "%{count} collection approuvée"
@@ -413,7 +469,6 @@ fr:
   filter_by_type_video_option: Vidéos
   filtered_information: Informations filtrées
   flickr: Flickr
-  for_the_month_of_colon: "Pour le mois de :"
   forgot_password_form_cancel: Annuler
   forgot_password_form_choose_username_instructions: Il y a plusieurs comptes associés à l'email <em>%{email}</em>, merci de choisir le compte pour lequel vous souhaitez réinitialiser le mot de passe.
   forgot_password_form_choose_username_legend: Choisir un compte
@@ -432,27 +487,99 @@ fr:
   help: Assistance
   helpers: 
     label: 
+      content_page: 
+        active: Publié
+        active_more: Les pages publiées seront visibles publiquement. Décochez <em>published</em> si vous voulez éviter que n'importe quel utilisateur puisse voir les versions de cette page dans n'importe quelle langue.
+        page_name: Nom unique <small>(caractères alphanumériques Latin en base ISO en minuscules et soulignés uniquement)</small>
+        page_name_more: Entrez un identifiant unique, auto-descriptif, significatif et persistant pour cette page. Le nom que vous entrez ici sera utilisé pour générer l'URL de cette page, c.à.d. que le nom unique <em>terms_of_use</em est converti dans l'URL <em>http://www.eol.org/info/terms_of_use</em>.
+        parent_content_page_id: Parent
+        parent_content_page_id_more: Sélectionnez éventuellement un parent sous lequel cette page sera imbriquée.
       content_partner: 
+        description_of_data: Description de la donnée <small>(privée)</small>
+        description_of_data_more: Merci de nous fournir une description du type d'information que vous avez, combien d'éléments sont disponibles, à quels organismes ils se rapportent, et s'ils ont été assemblés ou vérifiés par des experts qualifiés ou par une communauté compétente.
+        display_name: Nom affiché <small>(optionnel)</small>
+        display_name_more: Fournir un nom alternatif visible publiquement à utiliser à la place de votre <em>Nom de projet</em>.
         logo_current: "Logo actuel :"
+        logo_new: "Charger un nouveau logo:"
+        notes: Notes du projet <small>(privées)</small>
+        user_id: Détails du partenaire de contenu géré par
       data_object: 
+        bibliographic_citation: Citation bibliographique
+        description: Texte <small>(certaines balises HTML sont autorisées)</small>
         license_id: Licence
+        license_id_more: Lire la <a href="%{policy_url}">Politique de licence EOL</a>
         object_title: Titre
+        refs: Références <small>(mettre chaque référence sur une nouvelle ligne)</small>
         rights_holder: Détenteur des droits
+        rights_statement: Déclaration des droits
+        source_url: URL vers l'objet de données d'origine
+        toc_item: Sous-chapitre
+      google_analytics_partner_summaries: 
+        page_views: Pages vues <small>(nombre de visites des pages)</small>
+        taxa_pages: Pages <small>(nombre de pages)</small>
+        taxa_pages_viewed: Pages vues <small>(nombre de pages vues par les visiteurs)</small>
+        time_on_page: Temps total passé sur les pages <small>(heures)</small>
+        unique_page_views: Pages vues uniques <small>(nombre de visiteurs ayant vu les pages)</small>
       resource: 
+        accesspoint_url: URL du dataset <small>(XML, XML.GZIP ou XML.GZ seulement)</small>
+        accesspoint_url_existing_remove: Cette ressource est actuellement en cours de chargement depuis l'URL terminant <em>%{accesspoint_url}</em>. Chargez un fichier si vous voulez supprimer l'URL existante et charger la ressource depuis un fichier à la place (non recommandé).
+        dataset: Dataset
+        dataset_existing_remove: Le fichier <em>%{file_name}</em> est actuellement associé à cette ressource. Entrez une URL si vous voulez remplacer le fichier <em>%{file_name}</em> existant et charger la ressource depuis l'URL à la place (recommandé).
+        dataset_existing_replace: Le fichier <em>%{file_name}</em> est actuellement associé avec cette ressource. Charger un nouveau fichier pour remplacer le fichier <em>%{file_name}</em> existant.
+        dwc_archive_url: "S'il y a une archive principale Darwin associée avec cette ressource, entrez son URL ici <small>(TAR.GZIP, TAR.GZ ou TGZ uniquement)</small>:"
         refresh_period_hours: Fréquence
         resource_status_id: Statut
+        resource_url_or_file: Données de ressource <small>(choisissez entre entrer une URL ou charger un fichier)</small>
+        resource_url_or_file_upload: Envoyer un fichier de ressources
+        resource_url_or_file_url: Charger une ressource depuis l'URL
+        title: Nom de la ressource
       session: 
         password: Mot de passe
+        remember_me: Rester connecté pendant 2 semaines
+        username_or_email: Nom d'utilisateur ou adresse de courriel
       translated_content_page: 
+        active_translation: Publié
+        active_translation_more: Les traductions publiées seront visibles publiquement, sauf si la page elle-même n'est pas publiée. Décochez <em>published</em> si vous voulez éviter que n'importe quel utilisateur voie cette version de la page.
         language_id: Langue
+        left_content_more: Ajoutez éventuellement une liste non ordonnée de liens pour inclure une colonne de navigation dans la page. Les liens vers une ancre doivent être ajoutés manuellement en sélectionnant <em>Source</em> et en modifiant l'attribut HTML <em>href</em> des liens. Par exemple, pour faire un lien vers une ancre appelée <em>licensing_policy</em> dans la zone de contenu <em>Body</em>, l'attribut <em>href</em> de l'élément de lien de votre liste devra avoir la valeur "#licensing_policy"
+        main_content_more: "Saisissez le contenu de la page principale dans la zone principale. Utilisez la liste déroulante <em>Format</em> pour choisir les éléments de sémantique de texte appropriés, par exemple choisissez <em>Heading 2</em> pour un titre de second niveau. Note: le titre de la page est le titre de premier niveau, donc démarrez vos titres dans la zone principale avec <em>Heading 2</em>."
+        meta_description_more: Fournissez une courte description résumant les concepts clés du contenu de la page. Cette description est quelquefois utilisée par les moteurs de recherche du web à la fois pour vérifier la pertinence et pour lister les résultats du moteur de recherche.
+        meta_keywords_more: Entrez une liste de mots et de courtes phrases séparés par des virgules qui reflètent le mieux le contenu de la page. Ces mots et phrases-clés sont parfois utilisés par les moteurs de recherche du web pour garantir la pertinence de la page vis-à-vis des critères de la recherche.
+        title_more: Le titre de ce contenu apparaîtra dans la zone d'entête de la page. Le titre doit inclure les mots-clés les plus appropriés au contenu.
       user: 
         agreed_with_terms: J’accepte les <a href="%{terms_url}">conditions d’utilisation</a>
+        api_key_more: Lisez davantage à propos de <a href="%{api_docs_url}">ajouter une clé à vos appels à l'API</a>.
         bio: À propos de moi
+        credentials: Certificats
+        credentials_more: "Merci d'indiquer au moins un certificat spécifique pour cette liste:"
+        credentials_more_academic: Statut de faculté, personnel ou étudiant diplômé relativement à un département universitaire ou un collège.
+        credentials_more_author: Paternité d'une publication relue par un pair (fournir la référence).
+        credentials_more_professional: Membre d'une société professionnelle.
+        credentials_more_referral: Renvoi depuis le conservateur actuel.
+        credentials_more_successful_assistant_curator: Histoire d'un succès en tant que conservateur adjoint.
+        curation_application: Devenir conservateur
+        curation_application_more: Si vous désirez modifier vos privilèges de conservateur, envoyez simplement une application et nous réviserons votre éligibilité.
         curator_level: Vous êtes actuellement %{curator_level_with_indefinite_article}.
+        curator_scope: Portée de la conservation
+        curator_scope_more: "Veuillez indiquer le domaine de votre expertise. Par exemple: \"Rongeurs de Bornéo\", \"Interactions tri-trophiques\", ou \"Problèmes de conservation du poisson\". Cela ne limitera pas votre possibilité de superviser, mais informera la communauté EOL."
+        email_reports_frequency_hours: A quelle fréquence désirez vous recevoir des alertes email sur l'activité sur vos contributions?
         entered_password: Mot de passe <small>(4 à 16 caractères)</small>
         generate_api_key: Demander un clé API
+        generate_api_key_more: Si l'utilisation  de l'API EOL vous intéresse, vous pouvez générer une clé d'API pour identifier votre application. En savoir plus sur <a href="%{api_docs_url}">l'ajout d'une clé à vos appels d'API</a>.
+        logo: Charger une nouvelle photo
+        mailing_list: Je veux recevoir les bulletins d'information par email?
         mailing_list_yes: Oui
+        new_password: Nouveau mot de passe <small>(4-16 caractères)</small>
+        new_password_confirmation: Nouveau mot de passe <small>(à confirmer)</small>
+        requested_curator_level: Votre demande pour devenir %{curator_level_with_indefinite_article} est en attente.
+        requested_curator_level_id_more: Choisissez <em>Conservateur adjoint</em> si vous n'avez pas encore de certificats. Choisissez <em>Conservateur</em> si vous êtes un chercheur professionnel ou un étudiant diplômé avec des certificats. Choisissez <em>Conservateur en chef</em> si vous êtes un conservateur EOL expérimenté et voulez obtenir davantage de responsabilités.
+        tag_line: "Slogan ou titre <small>exemple: « Passionné d'oiseaux »</small>"
         user_identities: Je suis
+        username: Nom d'utilisateur <small>(4 à 32 caractères)</small>
+        username_or_email: Nom d'utilisateur ou adresse email
+      wikipedia_queue: 
+        revision_url: Révision URL <small>(par exemple http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
+        revision_url_more: En entrant un URL de révision Wikipedia vous demandez à ce que EOL ingère cette révision comme approuvée. Il remplacera la version actuelle de cet article dans EOL si il en existe déjà un.
     select: 
       prompt: Veuillez sélectionner
     submit: 
@@ -460,12 +587,14 @@ fr:
         create: Créer la page
         edit: Modifier
         preview: Aperçu
+        update: Mettre à jour la page
       content_partner: 
         create: Créer un partenaire de contenu
         update: Enregistrer les informations du partenaires
       content_partner_contact: 
         create: Ajouter un contact
         destroy: Supprimer contact
+        update: Contact de mise à jour
       create: Créer %{model}
       data_object: 
         create: Ajouter l'article
@@ -474,18 +603,35 @@ fr:
       name: 
         create: Ajouter le nom
         update: Mettre à jour le nom
+      resource: 
+        create: Ajouter une ressource
+        update: Mettre à jour la ressource
+      session: 
+        create: Connexion
       submit: Enregistrer %{model}
+      translated_content_page: 
+        create: Ajouter la traduction
+        update: Enregistrer les modifications apportées à la traduction
       update: Mettre à jour %{model}
       user: 
+        create: Créer un compte
+        curation_application: Appliquer maintenant
+        curation_privileges: Soumettre la demande
+        forgot_password: Envoyer un courriel
         generate_api_key: Générer une clé
+        update: Enregistrer les informations de profil
+      wikipedia_queue: 
+        create: Soumettre la demande
   hierarchies: hiérarchies
-  hierarchies_title: Hiérarchies
   hierarchy: Hiérarchie
   home: Accueil
   home_page_link_advisory_information: Ce lien vous mènera à la page d'accueil du site de l'Encyclopédie de la vie
   image_is_no_longer_available: L’image n’est plus disponible
   image_not_found: Image introuvable
   images: Images
+  images_with_count: 
+    one: "%{count} image"
+    other: "%{count} images"
   in_collection: dans la collection
   invite_members_label: Inviter des membres
   item_type_article_assistive: Cet objet est un article
@@ -525,7 +671,6 @@ fr:
   methods: Méthodes
   minimal_page: Page minimale
   moderator_colon: "Modérateur :"
-  month_equals: Mois =
   most_active_members: Membres les plus actifs
   move: Déplacer
   move_all_articles_button: déplacer tous les articles
@@ -571,6 +716,9 @@ fr:
   pagination_previous: Précédent
   parameters: Paramètres
   password_colon: "Mot de passe :"
+  people_with_count: 
+    one: "%{count} personne"
+    other: "%{count} personnes"
   permalink: Lien permanent
   personal_space: Espace personnel
   preferences: Préférences
@@ -608,6 +756,7 @@ fr:
   sign_in_unsuccessful_error: Échec de la connexion. Nom d'utilisateur, adresse de courriel ou votre mot de passe n'est pas valide.
   sign_out: Déconnexion
   site_information: Informations sur le site
+  site_language: Langue du site
   skip_to_content: Saut au contenu
   sort_by: Trier par
   sort_by_button: Trier
@@ -618,6 +767,9 @@ fr:
   sort_by_status_option: Statut
   sort_by_title_descending: Titre décroissant
   sort_by_year_descending: Année décroissante
+  sounds_with_count: 
+    one: "%{count} son"
+    other: "%{count} sons"
   source_url: URL source
   species: Espèces
   statistics: Statistiques
@@ -627,6 +779,12 @@ fr:
   synonym: Synonyme
   table_column_header_actions: Actions
   table_of_contents: Table des matières
+  tasks_with_count: 
+    one: "%{count} tâche trouvée"
+    other: "%{count} tâches trouvées"
+  taxa_with_count: 
+    one: "%{count} taxon"
+    other: "%{count} taxons"
   taxon: taxon
   terms_agreement_form_header: Conditions d’utilisation
   terms_agreement_form_submit: J'accepte
@@ -662,6 +820,9 @@ fr:
   value_default: (par défaut)
   value_empty: (vide)
   values: Valeurs
+  videos_with_count: 
+    one: "%{count} vidéo"
+    other: "%{count} vidéos"
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Voir seulement les pages avec au moins une image ou un morceau de texte
   visible_title: Visible
   wants_colon: "Veut :"
@@ -670,9 +831,9 @@ fr:
   what_is_this_question: Qu’est-ce que c’est ?
   will_paginate: 
     next_label: Suivant &#8594;
+    page_gap: "&hellip;"
     previous_label: "&#8592; Précédent"
   year: Année
-  year_equals: Année =
   yes_answer: Oui
   you_are_an_admin_so_i_will_show_you_that_the_error_was: "Vous êtes un administrateur. Je vous montre donc que l'erreur était :"
   you_are_not_authorized_to_perform_this_action: Vous n'êtes pas autorisé à effectuer cette action.
@@ -685,7 +846,6 @@ fr:
   your_current_rating_4_of_5: "Votre note actuelle : 4 sur 5"
   your_current_rating_5_of_5: "Votre note actuelle : 5 sur 5"
   your_preferences: Vos préférences
-  your_preferences_have_been_updated: Vos préférences ont été mises à jour.
   your_rating: Votre note
   your_rating_colon: "Votre note :"
   your_watch_collection: votre liste de suivi

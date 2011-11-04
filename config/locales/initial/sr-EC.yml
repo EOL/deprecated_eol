@@ -7,7 +7,6 @@ sr-EC:
   0_or_1: 0 или 1
   a_pipe_delimited_list_of_licenses: Списак лиценци које су раздвојене усправном цртом | или „all“ да добавите објекте под свим лиценцама. Све лиценце су скраћене са cc-
   a_pipe_delimited_list_of_spm_info_item_subject_names: Списак назива предмета SPM ставки одвојени усправном цртом | или „all“ да добавите текст из сваког предмета
-  a_request_to_reset_your_password_has_been_made: Захтев за обнављање лозинке је послат.
   a_taxon: таксон
   a_total_of_comment_were_found_matching_your_criteria: 
     one: Пронађен је укупно %{count} коментар који одговара критеријуму.
@@ -18,10 +17,6 @@ sr-EC:
   action: Радња
   action_not_available_error: Нажалост, та радња није доступна.
   actions: Радње
-  activate_email_enjoy_exploring: Уживајте у истраживању разноврсности живог света.
-  activate_email_footer: – Енциклопедија живота
-  activate_email_intro: Драги/а %{full_name} (%{username}),
-  activate_email_welcome: Добро дошли у Енциклопедију живота и хвала вам на упису! Више информација о томе како да користите нашу енциклопедију можете наћи на страницама за помоћ (%{url}help).
   active_colon: "Активни:"
   activerecord: 
     attributes: 
@@ -110,15 +105,15 @@ sr-EC:
         even: мора бити паран број
         exclusion: је резервисано
         greater_than: 
-          one: мора бити веће од %{count}}
-          other: мора бити веће од %{count}}
+          one: мора бити веће од %{count}
+          other: мора бити веће од %{count}
         greater_than_or_equal_to: мора бити веће или једнако са %{count}
         inaccessible: је неприступачно
         inclusion: се не налази на списку
         invalid: је неисправно
         less_than: 
-          one: мора бити мање од %{count}}
-          other: мора бити мање од %{count}}
+          one: мора бити мање од %{count}
+          other: мора бити мање од %{count}
         less_than_or_equal_to: мора бити мање или једнако са %{count}
         not_a_number: није број
         not_an_integer: мора бити цео број
@@ -212,7 +207,6 @@ sr-EC:
   add_new_association_link: Додај нову везу
   add_page: Додај страницу
   add_to_my_collection_button: Додај у збирку
-  added_to_the_comment: додато на %{comment}
   admin: администратор
   admin_content_page_active: Објављено
   admin_content_page_child_new_link: Направи подређену страницу
@@ -235,11 +229,8 @@ sr-EC:
   admin_content_pages_index_information: Следећи списак садржи све статичне странице које су тренутно доступне на сајту EOL. Свака страница има један или више превода. Када направите нову страницу, бићете упитани да додате превод. Објављени преводи су јавно доступни.
   admin_content_pages_link: Управљање садржајем
   admin_content_pages_page_title: "Администрација: Управљање садржајем"
-  admin_content_partner_notification_link: Месечно обавештавање
-  admin_content_partners_hierarchies_link: Хијерархије партнера за садржај
   admin_content_partners_link: Партнери за садржај
   admin_content_partners_page_title: "Администрација: Управљање партнерима за садржај"
-  admin_content_partners_published_link: Партнери објављени за месец дана
   admin_home: почетна администрације
   admin_information: Ово је нова административна конзола за друго издање EOL-а. Тренутно преносимо административне могућности из првог издања. Ако се административни одељак који тражите не налази на списку, посетите <a href="/administrator">администраторску конзолу првог издања</a>.
   admin_link: Преглед
@@ -258,7 +249,6 @@ sr-EC:
   admin_translated_content_page_update_successful_notice: Превод %{language} странице <a href="#%{anchor}"><em>%{page_name}</em></a> је ажуриран.
   admin_translated_content_page_update_unsuccessful_error: Нажалост, дошло је до грешке. Не могу да ажурирам превод.
   agent: Агент
-  all: све
   all_apis_return_by_default_an_xml_response: "Сви АПИ-ји по подразумеваном дају XML одговор. Методе АПИ-ја могу се позвати без наставка за формат да би се добио XML одговор, а ако наставак ипак додате, добићете исти одговор:"
   all_articles: Сви чланци
   all_changes: Све измене
@@ -309,7 +299,6 @@ sr-EC:
   associated_with_sound_header: Повезано са
   associated_with_video_header: На овом видео снимку
   associations_more_link: више <span class="assistive">таксонских веза</span>
-  attribute: Заслуга
   audio_current_time_assistive: Ако сте омогућили јаваскрипт, ово ће вам показати тренутни положај звучног снимка у минутима и секундама.
   audio_duration_assistive: Ако сте омогућили јаваскрипт, ово ће вам показати трајање звучног снимка у минутима и секундама. Прорачун трајања може потрајати, зависно од величине датотеке.
   audio_mute: искљ. звук
@@ -321,7 +310,6 @@ sr-EC:
   audio_stop_assistive: Ако сте омогућили јаваскрипт, ова веза ће вам допустити да зауставите суседни звучни снимак. У супротном, занемарите поменуту везу.
   audio_unmute: укљ. звук
   authoritative_information: меродавни подаци
-  auto_email_notifications_were_sent_to_colon: "Е-обавештења су послата на:"
   average_rating_value_of_total: "Просечна оцена: %{rating} од %{total}"
   back_to_profile: Назад на профил
   belongs_in_count_communities: 
@@ -334,7 +322,6 @@ sr-EC:
   biomedical_terms_introduction: Ови услови су изведени претрагом назива <em>%{scientific_name}</em> у бази биомедицинске литературе, <a href="%{pubmed_url}">Пабмед (PubMed)</a>.Резултати су анализирани с алатком <a href="%{ligercat_url}">Лајгеркат (LigerCat)</a> која саставља облак од најрелевантнијих <a href="%{mesh_url}">Медицинских предметних одредница (MESH)</a>. Релативна величина за сваки појам означава колико пута се појављује у резултатима претраге на Пабмеду. Кликните на појам да приступите целом облаку Лајгерката.
   biomedical_terms_provided_by: Услове пружа <a href="%{supplier_url}">Пабмед (PubMed)</a>.
   browsable: Прегледљиво
-  browse_hierarchy: прегледај хијерархију
   browsing_branch_colon: "Прегледање гране:"
   build_communities: Изградња заједнице
   cancel: Откажи
@@ -351,8 +338,6 @@ sr-EC:
   change_rating_to_3_of_5: Промени оцену на 3 од 5
   change_rating_to_4_of_5: Промени оцену на 4 од 5
   change_rating_to_5_of_5: Промени оцену на 5 од 5
-  changed_to_act: промењено на „%{act}“
-  check_this_to_browse_eol_by_the_hierarchy: ако је ова кућица означена, корисници ће моћи да прегледају EOL с хијерархијом
   choose_collection_header: Одабир збирке
   citation: Навођење
   citation_example: Брајан Фишер. „Pogonomyrmex anergismus Cole, 1954.“ Енциклопедија живота, доступно на <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Проверено 15. јануара 2009.
@@ -398,7 +383,6 @@ sr-EC:
   comment: Коментар
   comment_added_notice: Коментар је додат.
   comment_body_label: Ваш коментар
-  comment_colon: "Коментар:"
   comment_created_at: Написао/ла
   comment_new_posters_image_advisory_info: Ваша слика на профилу и име ће бити приказани поред вашег коментара у списковима.
   comment_new_posters_image_alt: Ваша слика на профилу (ако сте је поставили).
@@ -450,23 +434,17 @@ sr-EC:
   confirm_delete_community: Желите ли да обришете ову заједницу? Преостали чланови ће још моћи да је гледају. Довод новости ће бити одржаван, али сама заједница неће бити приказана у претрази и на страницама таксона, нити ће се моћи уређивати.
   confirm_leave: Желите ли да напустите ову заједницу?
   confirm_password_colon: "Потврда лозинке:"
-  contact_for_any_comments: Коментаре шаљите на eli@eol.org.
   contact_us_functions: Контакт
   contact_us_link: Контакт
   content_has_been_updated: Садржај је ажуриран.
-  content_partner: Партнер за садржај
   content_partner_about_header: О партнеру %{partner_name}
   content_partner_administration_notes_empty: Нема административних белешки.
   content_partner_administration_notes_header: Административне белешке
   content_partner_agreement_create_successful_notice: Прихватили сте услове партнера за садржај. Сада можете додати ресурсе података.
   content_partner_agreement_create_unsuccessful_error: Нажалост, дошло је до грешке. Изгледа да постоји технички проблем с условима партнера за садржај. Покушајте поново. Ако проблем и даље постоји, обавестите EOL.
   content_partner_agreement_subheader: Уговор партнера за садржај
-  content_partner_agreement_was_updated: Уговор партнера за садржај је ажуриран.
   content_partner_collections_empty: Збирка партнера за садржај наводи податке које је партнер обезбедио преко својих ресурса. За сада нема објављених збирки.
   content_partner_column_header_partner: Партнер
-  content_partner_column_header_registered: Уписан/на
-  content_partner_column_header_status: Статус
-  content_partner_comment_log_activity: додато у %{type} на %{link} од %{user} пре %{date}
   content_partner_contact_create_successful_notice: Контакт је додат.
   content_partner_contact_create_unsuccessful_error: Нажалост, дошло је до грешке. Не могу да додам контакт.
   content_partner_contact_delete_successful_notice: Контакт је обрисан.
@@ -480,23 +458,14 @@ sr-EC:
   content_partner_contact_update_successful_notice: Контакт је ажуриран.
   content_partner_contact_update_unsuccessful_error: Нажалост, дошло је до грешке. Не могу да ажурирам контакт.
   content_partner_contacts_header: Контакти
-  content_partner_contacts_page_title: Контакти партнера за садржај – %{name}
-  content_partner_contacts_with_count: 
-    one: "%{count} контакт"
-    other: "%{count} контакта"
   content_partner_create_successful_notice: Партнер за садржај је направљен.
   content_partner_create_unsuccessful_error: Нажалост, дошло је до грешке. Не могу да направим партнера за садржај.
-  content_partner_curated_data: кустосирани подаци партнера за садржај
   content_partner_data_description_empty: Нико није додао опис унетог податка.
   content_partner_data_description_header: Опис података
-  content_partner_detail: Детаљи о партнеру за садржај
-  content_partner_details: детаљи о партнеру за садржај
   content_partner_edit_link: Уреди партнера за садржај
   content_partner_filter_option_vetted_no: Не
   content_partner_filter_option_vetted_yes: Да
-  content_partner_has_unpublished_content_false: Нема необјављеног садржаја
   content_partner_has_unpublished_content_true: Необјављени садржај
-  content_partner_hierarchies: хијерархије партнера за садржај
   content_partner_homepage_link: Посетите страницу партнера
   content_partner_latest_published_harvest_event_time_ago: Последње преузимање је било пре %{time_passed}
   content_partner_logo_alt_text: Логотип партнера за садржај %{partner_name}
@@ -507,7 +476,6 @@ sr-EC:
   content_partner_new_page_subheader: Додавање новог партнера за садржај
   content_partner_notes_empty: Нема додатних белешки за овај пројекат.
   content_partner_notes_header: Белешке пројекта
-  content_partner_objects_stats: статистике објеката партнера за садржај
   content_partner_overview_agreement_header: Уговор с партнером
   content_partner_overview_agreement_link: Погледај текући уговор
   content_partner_overview_link: Преглед партнера
@@ -523,7 +491,6 @@ sr-EC:
   content_partner_resource_description_empty: Овај ресурс нема опис.
   content_partner_resource_edit_link: Уреди ресурс
   content_partner_resource_edit_subheader: Уређивање ресурса
-  content_partner_resource_force_harvest_link: Приморај преузимање
   content_partner_resource_licensing_details_header: Права и навођење
   content_partner_resource_new_edit_form_tip: Унесите податке о вашим ресурсима. Морате навести назив ресурса и јавну адресу или отпремити датотеку у формату GZIP, TAR или XML. Ако наведете адресу, можете одредити и колико често желите да EOL преузима ваше податке. Не заборавите да датотека мора бити у формату који се може увести у EOL. <a href="%{more_url}">Сазнајте више о подржаним форматима</a>.
   content_partner_resource_new_link: Додај нови ресурс
@@ -540,12 +507,6 @@ sr-EC:
   content_partner_resources_link: Ресурси и контакти
   content_partner_resources_link_back_to: назад на ресурсе и контакте
   content_partner_resources_policy_information: Пре него што додате податке о ресурсима, прочитајте уговор о условима коришћења и прихватите га.
-  content_partner_resources_unpublished_with_count: 
-    one: "%{count} необјављен"
-    other: "%{count} необјављена"
-  content_partner_resources_with_count: 
-    one: "%{count} ресурс"
-    other: "%{count} ресурса"
   content_partner_statistics_column_header_provider_count: Странице са садржајем партнера
   content_partner_statistics_column_header_provider_proportion: Учешће партнера
   content_partner_statistics_column_header_statistic: Статистика за месец %{month_name}, %{year}.
@@ -557,12 +518,8 @@ sr-EC:
   content_partner_statistics_link: Статистике коришћења
   content_partner_statistics_summary_caption: Кратак преглед статистика коришћења за странице таксона, са садржајем који пружа %{partner_name} у односу на укупну употребу сајта EOL.
   content_partner_statistics_taxa_page_caption: Детаљне статистике коришћења за странице таксона са садржајем који пружа %{partner_name}.
-  content_partner_terms_agreed_to_false: Уговор на чекању
-  content_partner_terms_agreed_to_true: Прихваћено
-  content_partner_unvetted: Непрегледано
   content_partner_update_successful_notice: Детаљи о партнеру су ажурирани.
   content_partner_update_unsuccessful_error: Нажалост, дошло је до грешке. Не могу да ажурирам детаље о партнеру.
-  content_partner_vetted: Проверено
   content_partners: Партнери за садржај
   content_partners_empty: Не могу да пронађем партнере за садржај.
   content_partners_page_description: Партнери за садржај Енциклопедије живота имају велики број података о биолошкој разноврсности на својим сајтовима или базама података које деле и на страницама EOL-а. Веома ценимо њихов значајан допринос и препоручујемо вам да сазнате више о њима. Сазнајте <a href="%{more_url}">како да постанете партнер за садржај.</a>
@@ -582,11 +539,11 @@ sr-EC:
   content_summary_table_type_unreviewed_images_row: Број непрегледаних слика
   content_summary_table_type_unreviewed_text_row: Број непрегледаних текстуалних ставки
   copied_items_from_collection_with_count_notice: 
-    one: Умножена је %{count} ставка из %{name}}.
-    other: Умножене су %{count} ставке из %{name}}.
+    one: Умножена је %{count} ставка из %{name}.
+    other: Умножене су %{count} ставке из %{name}.
   copied_items_to_collections_with_count_notice: 
-    one: "Умножена је %{count} ставка у збирке: %{names}}"
-    other: "Умножене су %{count} ставке у збирке: %{names}}"
+    one: "Умножена је %{count} ставка у збирке: %{names}"
+    other: "Умножене су %{count} ставке у збирке: %{names}"
   copy: Умножи
   copy_all_articles_button: умножи све чланке
   copy_all_collections_button: умножи све збирке
@@ -622,9 +579,7 @@ sr-EC:
   created_community: Заједница је направљена.
   creative_commons: Кријејтив комонс
   credentials: Уверења
-  curated: Кустосирани
   curated_association_update_button: Сачувај измене
-  curation_activity_colon: "Активност кустоса:"
   curation_comment: Коментар кустоса
   curation_privileges_page_description: "Изаберите жељени ниво кустосирања: помоћник кустоса, кустос или виши кустос. Пријаве за кустоса и вишег кустоса морају садржати вашу област знања и уверења. Обавестићемо вас путем е-поште када прегледамо ваше податке. Пријаве за помоћника кустоса се не прегледају и одмах ће бити прихваћене. Сазнајте <a href=\"%{curators_url}\">како да постанете кустос</a>."
   curation_privileges_page_title: Постаните кустос
@@ -641,12 +596,10 @@ sr-EC:
   curator_level_with_indefinite_article_assistant_curator: <strong>помоћник кустоса</strong>
   curator_level_with_indefinite_article_full_curator: <strong>кустос</strong>
   curator_level_with_indefinite_article_master_curator: <strong>виши кустос</strong>
-  curator_privileges_removed_notifier_email: Обавештавамо вас да вам је одузето право да будете кустос
   curator_profile: профил кустоса
   curator_question: Кустос?
   curator_scope_colon: "Опсег кустоса:"
   curator_status_changed_by: Статус кустоса је измењен од %{user} датума %{date}
-  curator_title: Кустос
   curators: Кустоси
   curators_empty: Наши кустоси још нису предузели ништа поводом ове странице.
   curators_summary_header_with_count: 
@@ -660,7 +613,6 @@ sr-EC:
   currently_in_eol: Тренутно на Енциклопедији живота
   daily: Дневно
   darwin_core: Дарвиново језгро
-  dash_encyclopedia_of_life: – Енциклопедија живота
   dashboard: Управљачка табла
   data_object_api_description: Када наведете назнаку за објекат података, овај АПИ ће пријавити све метаподатке о објекту које је послао партнер за садржај. Партнер се наводи у првом елементу агента и има улогу „партнера“.
   data_object_ignore: занемари ову ставку
@@ -684,8 +636,6 @@ sr-EC:
   dato_new_text_page_description: Хвала вам што доприносите EOL-у. Чланак ће бити додат на ваш списак надгледања тако да можете пратити сваки разговор који је у вези с њим, као и да проверите његов статус.
   dato_update_user_text_error: Нажалост, дошло је до грешке. Не могу да ажурирам чланак.
   dato_update_users_text_not_owner_exception: Не могу да ажурирам текст DataObject. Текући корисник није власник
-  dear_contact_full_name: Драги/а %{contact_full_name},
-  dear_user_with_comma: Драги/а %{user},
   default: Подразумевано
   default_focus_collection_name_from_community: Приврженост %{name}
   default_watch_collection_name: Збирка корисника %{username}
@@ -693,7 +643,6 @@ sr-EC:
   delete_community: Обриши ову заједницу
   description: Опис
   description_of: Опис
-  descriptive_label: Описни текст
   destination_inappropriate_for_logged_in_users: Пријављени сте.
   destroy: Уништи
   detail: Детаљи
@@ -719,7 +668,6 @@ sr-EC:
   donation_sponsorship_infrastructure_title: Основна инфраструктура
   donation_sponsorship_preamble: "Ако желите да сазнате више о одређеним програмима који требају покровитеља или желите да дате новчани прилог, обратите се Секретаријату Енциклопедије живота <a href=\"mailto:%{email_address}\">преко е-поште</a> или телефоном: (202) 633-8730. Ови прилози се користе за:"
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Не приказуј непознате уписане кориснике (кориснике првог издања, пре 5. јануара 2009.)
-  download_audio_mpeg: Преузми MPEG
   dublin_core: Даблинско језгро
   duplicate_items_were_ignored: Дуплиране ставке су занемарене.
   e_g_search_for_the_eol_page: "(нпр. претражите страницу EOL-а с назнаком ITIS TSN 180542:"
@@ -731,10 +679,8 @@ sr-EC:
   edit_collection_head_title: "Уређивање: %{collection_name}"
   edit_community: Уреди заједницу
   edit_contact_us_topics: уреди теме о контактирању
-  edit_content_partner_agreement: Уреди уговор партнера за садржај
   edit_downcase: уреди
   edit_eol_glossary: уреди речник EOL-а
-  edit_hierarchy: уреди хијерархију
   edit_my_profile: Уреди мој профил
   edit_news_items: уреди новости
   edit_page_contents: уреди садржај страница
@@ -744,20 +690,7 @@ sr-EC:
   edit_web_users: уреди кориснике
   email: Е-адреса
   email_colon: "Е-адреса:"
-  email_subject_a_message_from_the_eol: Порука од Енциклопедије живота
-  email_subject_account_activated: Ваш налог на Енциклопедији живота је активиран
-  email_subject_eol_contact_us_with_subject: "EOL контакт: %{subject}"
-  email_subject_eol_monthly_stats_notification: EOL – обавештавање о месечним статистикама
-  email_subject_eol_user_changed_their_mail_settings: Корисник EOL-а је променио своју дописну листу или е-адресу
-  email_subject_partner_ready_for_agreement: Партнер за садржај на EOL-у је спреман за уговор
-  email_subject_reset_password: Захтев за обнављање лозинке
-  email_subject_summary_of_recent_comments_and_curator_actions_for_your_eol_content: Кратак преглед скорашњих коментара и радњи кустоса за садржај Енциклопедије живота
-  email_subject_thanks_for_contacting_the_eol: Хвала вам што сте се обратили Енциклопедији живота
-  email_subject_verify_user: Активирање налога Енциклопедије живота
-  email_subject_your_request_tobe_a_curator_is_approved: Ваша пријава за кустоса на Енциклопедији живота је одобрена
-  email_subject_your_request_tobe_a_curator_is_disapproved: Права да будете кустос на Енциклопедији живота су уклоњена
   encyclopedia_of_life: Енциклопедија живота
-  end_quote: “
   endorsed_by: Истакнуто од
   endorsed_collections: Истакнуте збирке
   endorsed_collections_with_count: 
@@ -799,14 +732,14 @@ sr-EC:
   family_name_colon: "Презиме:"
   feedback: Мишљења
   fill_in_a_message_below_to_send_email_to_user: "Попуните доленаведену поруку да пошаљете поруку овом кориснику. Порука ће бити послата када поднесете образац:"
-  filter_button: Сврстај
-  filter_by_status: Сврстај по статусу
+  filter_button: Филтрирај
+  filter_by_status: Филтрирај по статусу
   filter_by_status_all_option: Сви статуси
   filter_by_status_inappropriate_option: Неприкладно
   filter_by_status_trusted_option: Поверљиво
   filter_by_status_unreviewed_option: непрегледано
   filter_by_status_untrusted_option: Неповерљиво
-  filter_by_type: Сврстај по врсти
+  filter_by_type: Филтрирај по врсти
   filter_by_type_all_option: Све врсте
   filter_by_type_collection_option: Збирке
   filter_by_type_community_option: Заједнице
@@ -817,17 +750,15 @@ sr-EC:
   filter_by_type_text_option: Чланци
   filter_by_type_user_option: Људи
   filter_by_type_video_option: Видео снимци
-  filter_media: сврстај датотеке
+  filter_media: филтрирај датотеке
   filtered_information: Сврстани подаци
   find_taxa_submit_button: пронађи таксоне
-  first_time_published_content_partners_list_for_the_month: Ово је списак партнера за садржај који су за месец дана објављени први пут.
   flash_notice_redirected_from_search_html: Стигли сте овде тражењем <em>%{search_string}</em>. <a href="%{more_results_url}">Кликните овде да се вратите на страницу за претрагу.</a>
   flash_notice_redirected_from_search_html_more_results: Стигли сте овде тражењем <em>%{search_string}</em>. <a href="%{more_results_url}">Кликните овде да погледате друге резултате.</a>
   flickr: Фликр
   focus_collection_edit_link: Теме заједнице можете непосредно изменити на страници %{collection}.
   focus_list_newsfeed: Довод тематског списка
   for_example_for_the_taxon_element_for_a_node: На пример, за таксонски елемент чвора у хијерархији ITIS, dc:identifier ће бити ITIS TSN. Елемент dwct:taxonID садржи <i>EOL назнаку</i> која се користи у АПИ-ју %{link}.
-  for_the_month_of_colon: "За месец:"
   forgot_password: Заборавили сте лозинку?
   forgot_password_cannot_find_user_from_username_or_email_error: Нажалост, нема корисничких налога с наведеним корисничким именом или е-адресом <em>%{username_or_email}</em>.
   forgot_password_form_cancel: Откажи
@@ -873,7 +804,6 @@ sr-EC:
         parent_content_page_id: Надређена
         parent_content_page_id_more: Можете изабрати надређену страницу под којом желите да се налази ова страница.
       content_partner: 
-        admin_notes: Административне белешке <small>(видљиво само за администраторе EOL-а)</small>
         description_of_data: Опис података <small>(приватно)</small>
         description_of_data_more: Наведите с којом врстом података располажете, колико ставки имате и на које организме се односе. Исто тако наведите и да ли су оне прикупљене или проверене од стране стручног лица или заједнице.
         display_name: Име приказа <small>(необавезно)</small>
@@ -970,8 +900,6 @@ sr-EC:
       content_partner: 
         create: Направи партнера за садржај
         update: Сачувај податке о партнеру за садржај
-      content_partner_agreements: 
-        create: Прихвати услове партнера за садржај
       content_partner_contact: 
         create: Додај контакт
         destroy: Обриши контакт
@@ -1007,26 +935,22 @@ sr-EC:
   hierarchies: хијерархије
   hierarchies_description: Енциклопедија живота нема јединствену таксономску хијерархију према којој прави странице, већ пописује разне хијерархије и међусобно их упоређује. Овај АПИ наводи метаподатке о хијерархији као што су назив добављача и изворна адреса, и приказује све таксоне који су основа таксономског стабла
   hierarchies_entries_description: Енциклопедија живота нема једну таксономску хијерархију према којој прави странице, већ пописује разне хијерархије и међусобно их упоређује. Као резултат, једна страница се може односити на неколико чворова из разних хијерархија. Овај АПИ омогућава приступ до јединствене хијерархије и њених унутрашњих веза. Погледајте документацију о АПИ-ју за више информација о томе како да приступите другим хијерархијама које припадају одређеној страници на EOL-у. Поље taxonConceptID садржи назнаку странице која се може користити у АПИ-ју.
-  hierarchies_title: Хијерархије
   hierarchy: Хијерархија
   hierarchy_entries: хијерархијски_уноси
   hierarchy_entry_switch_missing_id_error: Нажалост, не могу да пронађем страницу за хијерархијске уносе јер недостаје назнака.
   hierarchy_roots_colon: "Основе хијерархије:"
-  hierarchy_selector_drop_down_list_label: Ово је натпис који ће бити приказан у падајућем менију за одабир хијерархије
-  hierarchy_updated: Хијерархија је ажурирана
   home: Почетна
   home_page_link_advisory_information: Ова веза одвешће вас до почетне странице Енциклопедије живота
   id: Назнака (ИБ)
   if_checked_and_user_is_saved: Ако је означено и корисник је сачуван, онда се сва уверења, опсег, одобрења и изабране кладе уклањају и корисник престаје да буде кустос. Доле можете написати белешку у којој дајете образложење за то. Подаци се не шаљу кориснику.
-  if_the_above_url_does_not_work: Ако горенаведена адреса не ради, умножите је и убаците у прегледач.
   if_the_details_parameter_is_not_set: Ако параметар за детаље није постављен, онда ће само објекат података, врста података, а у случају чланака, натпис бити приказан. Врста података ће бити вредност из речника ресурса (%{linka}), а текст натписа вредност из онтологије ставки (%{linkb}).
-  if_you_continue_to_have_problem_then_contact_us: Ако и даље будете имали потешкоћа, обратите нам се.
-  if_you_did_make_this_request_click_link_below: "Ако сте направили овај захтев, само кликните на везу испод:"
-  if_you_did_not_make_this_request_ignore_email: Ако нисте направили овај захтев, само занемарите ову поруку.
   image_is_no_longer_available: Слика више није доступна
   image_not_found: Не могу да пронађем слику
   image_objects_will_contain_two_mediaurl_elements: Објекти слика ће садржати два елемента mediaURL. Први је адреса слике на сајту добављача, а други је адреса привремено меморисаног издања датотеке коју покреће сервер EOL-а. Наше издање слике ће бити смањено (размера ће бити очувана) ако је изворна слика већа од 460 × 345 пиксела.
   images: Слике
+  images_with_count: 
+    one: "%{count} слика"
+    other: "%{count} слике"
   import_once: Увези једном
   in_collection: у збирку
   in_this_data_type: "у %{data_type}:"
@@ -1070,7 +994,6 @@ sr-EC:
   json_response: JSON одговор
   jsonp_by_adding_a_callback_parameter: … и JSONP додавањем параметра за повратни позив
   just_pages_with_pictures_and_text: Само странице са сликама и текстом
-  label: Натпис
   language: "Језик:"
   language_selector_advisory_information: Ово је списак расположивих језика на сајту. Изаберите језик који желите да бисте изменили текући.
   language_with_count: "%{language} (%{count})"
@@ -1163,11 +1086,7 @@ sr-EC:
   methods: Начини
   minimal_page: Најмања страница
   moderator_colon: "Уредник:"
-  month_equals: Месец =
   monthly: Месечно
-  monthly_email_notification_description: Ово ће послати е-поруку свим партнерима за садржај с текстом да сада могу проверити колика је била употреба њихових података последњег месеца.
-  monthly_notification: месечно обавештавање
-  monthly_published_partners: партнери објављени за месец дана
   more_children_with_count: 
     one: "%{count} више…"
     other: "%{count} више…"
@@ -1186,11 +1105,11 @@ sr-EC:
   move_down: Помери надоле
   move_up: Помери нагоре
   moved_items_from_collection_with_count_notice: 
-    one: Премештена је %{count} ставка из %{name}}.
-    other: Премештене су %{count} ставке из %{name}}.
+    one: Премештена је %{count} ставка из %{name}.
+    other: Премештене су %{count} ставке из %{name}.
   moved_items_to_collections_with_count_notice: 
-    one: "Премештена је %{count} ставка у збирке: %{names}}"
-    other: "Премештене су %{count} ставке у збирке: %{names}}"
+    one: "Премештена је %{count} ставка у збирке: %{names}"
+    other: "Премештене су %{count} ставке у збирке: %{names}"
   must_be_associated_with_either_a_user_or_a_community: Мора бити повезано с корисником или заједницом
   must_be_less_than_128_characters_long: не више од 128 знакова.
   must_be_logged_in: Морате бити пријављени да бисте извршили ову радњу.
@@ -1218,7 +1137,6 @@ sr-EC:
   names_synonyms_empty: Овај таксон засад нема повезаних синонима.
   never: Никад
   new_collection: Нова збирка
-  new_content_partners_for_the_month: Нови партнер за садржај за овај месец
   news_items: Новости
   newsfeed: Довод новости
   newsfeed_help_for_collection: Довод новости за ову збирку скупља актуелности које су повезане са ставкама, укључујући и с активностима његовог власника и коментара од осталих корисника EOL-а.
@@ -1238,7 +1156,6 @@ sr-EC:
   not_evaluated: Неоцењено
   not_recognized_by_available_hierarchies: Није препознато од стране ниједне расположиве класификације
   not_yet_implemented_error: Нажалост, та могућност још није уграђена.
-  note_about_homonym_problems: "Напомена: измените ову особину само ако сте сигурни – дештриклирање може проузроковати озбиљне проблеме с хомонимима"
   notes: Белешке
   nucleotide_sequences: Нуклеотидне секвенце
   nucleotide_sequences_ncbi_database: База <a href="%{ncbi_taxonomy_link}">таксономије NCBI-ја</a> садржи називе свих организама који су заступљени у генетској бази с најмање једном нуклеотидном или протеинском секвенцом.
@@ -1267,7 +1184,6 @@ sr-EC:
   object_visibility_invisible_option: Сакривено
   object_visibility_visible_option: Видљиво
   objects_curated: Кустосирани објекат
-  on_taxon_by_user_date_ago: у „%{taxon}“ од %{user} пре %{date}
   only_show_authoritative_conten: "Приказуј само стручно-проверени садржај:"
   option_please_select: Изаберите
   or_add_it_to_an_existing_collection: или је додајте у постојећу збирку
@@ -1303,15 +1219,18 @@ sr-EC:
   pages_with_pictures_or_text: Странице са сликама и текстом
   pagination_next: Следеће
   pagination_next_with_count: 
-    one: следећи}
-    other: следећа %{count}}
+    one: следећи
+    other: следећа %{count}
   pagination_previous: Претходно
   pagination_previous_with_count: 
-    one: претходни}
-    other: претходна %{count}}
+    one: претходни
+    other: претходна %{count}
   parameters: Параметри
   partner_page: страница партнера
   password_colon: "Лозинка:"
+  people_with_count: 
+    one: "%{count} особа"
+    other: "%{count} особе"
   percentage_of_children_with_images: Постотак подтаксона са сликама
   percentage_of_children_with_text: Постотак подтаксона с текстом
   percentage_of_descendants_with_images: постотак подтаксона са сликама
@@ -1339,9 +1258,7 @@ sr-EC:
   provider_hierarchies_method_description: Ова метода ће приказати наводе за све хијерархије које пружају партнери за садржај EOL-а. Одговор ће имати натпис хијерархије и јединствену назнаку која представља ту хијерархију EOL-а
   public: Јавно
   public_domain: јавно власништво
-  publish_requested: Објави захтевано
   published: Објављено
-  published_content_partners: Објављени партнери
   punctuation_comma: ","
   punctuation_semi_colon: ;
   quarterly: Тромесечно
@@ -1424,9 +1341,6 @@ sr-EC:
   see_all_collections_with_count_html: 
     one: Погледајте <span class="assistive">%{count} збирку у којој се појављује ова страница.</span>
     other: Погледајте <span class="assistive">%{count} збирке у којима се појављује ова страница.</span>
-  see_all_comments_with_count_for_text: 
-    one: погледајте %{count} коментар на овај чланак
-    other: погледајте %{count} коментара на овај чланак
   see_all_communities_with_count_html: 
     one: Погледајте <span class="assistive">%{count} заједницу која садржи ову страницу</span>.
     other: Погледајте <span class="assistive">%{count} заједнице које садрже ову страницу</span>.
@@ -1444,8 +1358,6 @@ sr-EC:
   selected_items: Изабране ставке
   selected_language_advisory_information: Тренутно је изабран овај језик.
   send_email_colon: "Пошаљите е-поруку:"
-  send_email_notification_to_all: Пошаљите е-обавештење свим партнерима за садржај о доступности последњих месечних статистика
-  send_emails_now: Пошаљи поруке сада
   sent_invitations_to_users: Позивнице су послате на %{users}.
   set_as_exemplar: Постави као пример
   show: Прикажи
@@ -1479,6 +1391,9 @@ sr-EC:
   sort_by_year_ascending: Растућа година
   sort_by_year_descending: Опадајућа година
   sort_collection_by_label: Поређај збирку по
+  sounds_with_count: 
+    one: "%{count} звук"
+    other: "%{count} звука"
   source_and_additional_information: Извор и додатни подаци
   source_information_header: Подаци о извору
   source_url: Изворна адреса
@@ -1488,7 +1403,6 @@ sr-EC:
   species_profile_model: Модел за профил врста
   spm_category_objects_count: SPM категорија – број објеката
   spm_category_partner_count: SPM категорија – број партнера
-  start_quote: „
   stat: Статистика
   statistics: Статистике
   subject: предмет
@@ -1511,6 +1425,9 @@ sr-EC:
   tasks_with_count: 
     one: Пронађен је %{count} задатак
     other: Пронађена су %{count} задатка
+  taxa_with_count: 
+    one: "%{count} таксон"
+    other: "%{count} таксона"
   taxon: таксон
   taxon_biomedical_terms_link: Биомедицински услови
   taxon_details_empty: Још нико ништа није допринео овој страници.
@@ -1534,7 +1451,6 @@ sr-EC:
   taxon_recognized_by_header: Препознао/ла
   taxonomic_summary_of_content: таксономски преглед садржаја
   technical_functions: Техничке могућности
-  terms_agreement_beta_intro: "Хвала вам на учествовању у другом издању EOL-а. Пре него што наставите, морате прихватити следеће:"
   terms_agreement_form_fallback: Прочитајте и прихватите <a href="%{terms_url}">услове коришћења</a> пре него што приступите налогу.
   terms_agreement_form_header: Услови коришћења
   terms_agreement_form_submit: Прихватам
@@ -1542,39 +1458,27 @@ sr-EC:
   test: Проба.
   text: текст
   text_capital: Текст
-  text_description_was_added: На %{toc} је додат текстуални опис %{text} на „%{link}“ од %{user} пре %{date}
   text_summary_empty: Још нико није написао кратак преглед овог таксона.
   text_summary_empty_header: Кратак преглед
   text_summary_more_link: Прочитај цео унос
   thank_you: Хвала
-  thank_you_for_contacting_the_eol: Хвала вам што сте се обратили Енциклопедији живота. Ваши коментари су послати одговарајућој групи.
-  thank_you_for_requesting_curator_privileges: Хвала вам што сте захтевали овлашћења кустоса.
   thank_you_for_your_generous_support: Хвала вам на подршци
-  thank_you_sentence: Хвала вам.
-  thanks_for_contacting_the_eol: Хвала вам што сте се обратили Енциклопедији живота. Ваши контактни подаци су прослеђени одсеку за медије.
   thanks_for_donation: Хвала вам на подршци Енциклопедије живота. Ваши подаци су послати и убрзо ће бити обрађени.
-  thanks_for_registering_with_eol: Хвала вам на отварању налога на Енциклопедији живота. Кликните на везу испод да потврдите упис. Ако ваша е-пошта не подржава следеће везе, умножите целу адресу у прегледач и кликните на „врати“.
   the_amount_entered_was: "Унети износ: US %{number}"
   the_darwin_core_taxon_elements: Таксонски елементи Дарвиновог језгра (dwct:Taxon) који се налазе под „additionalInformation“ садрже назнаке за чворове у хијерархијама које пописује EOL. Они садрже dc:identifier који је јединствена назнака таксона <i>у бази добављача.</i>
   the_following_bibliography: Следећа библиографија је створена сабирањем свих навода добијених од партнера за садржај. Може се јавити дупликат.
   the_id_of_provider_hierarchy_you_are_searching: назнака добављачке хијерархије коју тражите. Проверите %{link} за исправне назнаке
   the_json_response_for_this_method: JSON одговор за ову методу приказује више података него XML одговор. JSON одговор садржи неколико статистика о овом чвору и његовим подчворовима. На пример, поље „total_descendants“ приказује број чворова који су подчворови датог чвора зависно од ове хијерархије; „total_trusted_text“ садржи укупан број јединствених текстуалних објеката података који су повезани с овом страницом или њеним подстраницама.
-  the_list_represents_the_curation_activity: Списак представља кустоске активности за објекте података (<b>%{link}</b>).
   the_xml_search_response_implements: Претрага с XML одговором уграђује формат за одговоре Опенсерч користећи Атом 1.0. Детаљан технички опис за Опенсерч можете наћи на вези %{link}
   there_are_currently_no_members_in_this_community: Заједница тренутно нема чланова.
   there_is_no_singular_eol: EOL нема једну јединствену таксономску хијерархију, већ пописује разне хијерархије и међусобно их упоређује да би препознао који чворови се односе на исте таксоне. Ови таксонски елементи представљају хијерархијске чворове, и зато се може јавити неколико од њих на једној страници. Више информација можете наћи у документацији АПИ-ја на %{link}.
   there_was_an_error_posting_your_text: Дошло је до грешке при постављању текста.
-  this_cannot_be_undone_are_you_sure: Ова радња је неповратна. Јесте ли сигурни?
   this_community_has_no_endorsed_collections: Ова заједница нема истакнуту ниједну збирку.
   this_community_has_no_focus_list: Ова заједница нема тематски списак приоритета.
   this_community_was_deleted: Ова заједница је обрисана од стране свог власника.
   this_is_a_flat_list_of_10_million_strings: Ово је раван списак десет милиона ниски – не можете га прегледати
   this_is_a_focus_collection_for_community: Ова збирка је посвећена „%{community}“.
-  this_is_an_automated_e_mail_notification: Ово је аутоматско е-обавештење.
-  this_is_the_label_that_will_be_used_for_attribution: Ово је натпис који ће се користити за одавање заслуга
-  this_is_the_link_to_your_web_stats: "Ово је веза до ваших статистика:"
   this_method_takes_an_integer_or_string: Ова метода узима цео број или ниску која је јединствена назнака таксона из базе једног добављача, као и hierarchy_id који представља добављача и приказује назнаку странице на EOL-у тог таксона. На пример, користећи АПИ %{link_provider}, можете сазнати да је hierarchy_id за Интегрисани таксономски систем информација (ITIS) %{itis_id}. Потом можете претражити EOL за таксономски серијски број на ITIS-у (TSN) 180542,<i>Ursus maritimus</i>, позивајући %{link_url}
-  this_report_is_also_available_via_feeds: Овај извештај је доступан и преко довода
   threat_status_header_colon: "Статус угрожености (IUCN):"
   time_ago: пре %{time_passed}
   title: Наслов
@@ -1601,7 +1505,6 @@ sr-EC:
   unreviewed_images: Непрегледане слике
   unreviewed_text_objects: Непрегледани чланци
   untrusted: Неповерљиво
-  update: Ажурирај
   update_collection_submit_button: Ажурирај детаље о збирци
   update_language: Ажурирај језик
   update_page: Ажурирај страницу
@@ -1623,7 +1526,6 @@ sr-EC:
   user_activation_failed_user_not_found_error: Нажалост, дошло је до грешке. Не могу да пронађем налог који желите да проверим. Проверите да ли се потврдна веза поклапа с оном из е-поруке коју сте примили након уписа.
   user_activation_successful_notice: Добро дошли. Хвала вам што сте се придружили тиму Енциклопедије живота. Ваш налог с корисничким именом <em>%{username}</em> је сада активан. Молимо вас да се пријавите.
   user_activity_stats_articles_added: Додати чланци
-  user_activity_stats_comments_moderated: Проверени коментари
   user_activity_stats_header: Активности
   user_activity_stats_objects_curated: Кустосирани објекти
   user_activity_stats_taxa_curated: Кустосирани таксони
@@ -1664,6 +1566,9 @@ sr-EC:
   values: Вредности
   version_1_0_uses_fields_from_the_latest_version: прво издање користи поља из последњег издања шеме %{link}
   vetted: Проверено
+  videos_with_count: 
+    one: "%{count} видео снимак"
+    other: "%{count} видео снимка"
   view: Преглед
   view_added_text: погледај додати текст
   view_article_source: Погледај извор чланка
@@ -1678,12 +1583,10 @@ sr-EC:
   view_translation_source_link: Погледај извор превода
   view_user_activity: погледај корисничке активности
   view_user_comments: погледај корисничке коментаре
-  viewing_partner_colon: "Преглед партнера:"
   visible_title: Видљиво
   wants_colon: "Захтева:"
   watch_list: Списак надгледања
   watch_list_newsfeed: Довод списка надгледања
-  we_appreciate_your_feedback: Ценимо ваше мишљење.
   web_users: Интернет корисници
   weekly: Недељно
   welcome_and_you_were_logged_out: Добро дошли на нови EOL! Дошло је до проблема с вашим налогом, па смо вас одјавили. Ваши стари подаци за пријаву би требало да раде следећи пут. Извињавамо се.
@@ -1708,13 +1611,11 @@ sr-EC:
   worklist: Радни списак
   xml_response: XML одговор
   year: Година
-  year_equals: Година =
   yes_answer: Да
   you_are_an_admin_so_i_will_show_you_that_the_error_was: "Администратор сте. Дозвољено вам је да видите грешку:"
   you_are_not_authorized_to_perform_this_action: Немате овлашћења да извршите ову радњу.
   you_are_viewing_this_rank_as_classified_by: "Гледате овај %{rank} према класификацији:"
   you_can_identify_yourself_to_eol: "Бићете препознати од стране EOL-а ако додате АПИ кључ на своје захтеве (пријава и стварање кључа су у поставкама):"
-  you_can_now_check_last_month_s_web_usage: Сада можете проверити колико је било коришћење ваших података претходног месеца.
   you_have_been_logged_out: Одјављени сте.
   you_joined_community: Придружили сте се заједници.
   you_left_community: Напустили сте ову заједницу.
@@ -1726,8 +1627,6 @@ sr-EC:
   your_current_rating_4_of_5: "Ваша текућа оцена: 4 од 5"
   your_current_rating_5_of_5: "Ваша текућа оцена: 5 од 5"
   your_preferences: Поставке
-  your_preferences_have_been_updated: Ваше поставке су ажуриране.
   your_rating: Ваша оцена
   your_rating_colon: "Ваша оцена:"
-  your_request_has_been_approved: Ваш захтев је одобрен и сада ћете моћи да користите кустоске могућности за одобреног таксона и свих његових подтаксона. Више информација о кустосирању и доступним могућностима можете наћи на http://www.eol.org/curators
   your_watch_collection: ваш списак надгледања

@@ -143,6 +143,33 @@ class CommunitiesController < ApplicationController
     end
   end
 
+  def make_editor
+    @notices = []
+    @errors = []
+    params[:collection_id].each do |id|
+      collection = Collection.find(id)
+      if collection.watch_collection?
+        @errors << I18n.t(:error_watch_collections_cannot_be_shared)
+      elsif collection && current_user.can_edit_collection?(collection)
+        collection.communities << @community
+        log_action(:add_collection)
+        @notices << I18n.t(:collection_was_added_to_community,
+                           :collection => link_to_collection(collection))
+      else
+        @errors << I18n.t(:error_couldnt_find_collection_by_id, :id => id)
+      end
+    end
+    flash.now[:errors] = @errors.to_sentence unless @errors.empty?
+    flash[:notice] = @notices.to_sentence unless @notices.empty?
+    respond_to do |format|
+      format.html { redirect_to @community }
+      format.js do
+        convert_flash_messages_for_ajax
+        render :partial => 'shared/flash_messages', :layout => false # JS will handle rendering these.
+      end
+    end
+  end
+
 private
 
   def load_community_and_dependent_vars
@@ -198,6 +225,10 @@ private
 
   def link_to_user(who)
     self.class.helpers.link_to(who.username, user_path(who))
+  end
+
+  def link_to_collection(collection)
+   self.class.helpers.link_to(collection.name, collection_path(collection))
   end
 
   def link_to_name(community)

@@ -75,6 +75,12 @@ class Community < ActiveRecord::Base
     self.reload
   end
 
+  # Careful!  This doesn't mean a given USER can edit the collection, just that managers of this community can.
+  # This is required because of the duck typing in app/views/collections/_choose_editor_target.html.haml
+  def can_edit_collection?(collection)
+    collection.communities.include?(self) # Her collection
+  end
+
   def has_member?(user)
     members.map {|m| m.user_id}.include?(user.id)
   end

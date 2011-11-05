@@ -3,11 +3,14 @@
   - @collections ||= []
   -# Note the reject simply disallows you from collecting a collection in itself:
   - unless @collections.empty?
-    - form_tag(make_editor_user_path(@user), :method => :put) do |f|
+    - path = nil
+    - path = make_editor_user_path(@user) if @user
+    - path = make_editor_community_path(@community) if @community
+    - form_tag(path, :method => :put) do |f|
       %fieldset
         %ul
           - @collections.each do |collection|
-            = render :partial => 'collection_choose_collect_target_list_item', :locals => { :collection => collection, :has_item => @user.can_edit_collection?(collection) }
+            = render :partial => 'collections_list_item', :locals => { :collection => collection, :has_item => @item.can_edit_collection?(collection), :hide_has_item => true }
       %fieldset.actions
         = link_to(I18n.t(:see_all_of_your_collections), user_collections_path(current_user), :class => 'other_actions close_and_go')
         = submit_tag(I18n.t(:make_an_editor))

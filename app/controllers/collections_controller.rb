@@ -133,7 +133,9 @@ class CollectionsController < ApplicationController
 
   def choose_editor_target
     return must_be_logged_in unless logged_in?
-    @item = @user = User.find(params[:user_id]) # @item is for views, makes life easier.
+    @user = User.find(params[:user_id]) rescue nil
+    @community = Community.find(params[:community_id]) rescue nil
+    @item = @user || @community # @item is for views, makes life easier.
     @collections = current_user.all_collections.delete_if{ |c| c.is_resource_collection? || c.watch_collection? }
     raise EOL::Exceptions::NoCollectionsApply if @collections.blank?
     @page_title = I18n.t(:make_user_an_editor_title, :user => @user.full_name)

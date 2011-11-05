@@ -13,9 +13,6 @@
           %ul
             %li= render :partial => 'shared/add_to_my_collection', :locals => { :item => @community }
             - if @current_member
-              - if @current_member.manager? && controller.action_name != 'edit'
-                %li
-                  = link_to I18n.t(:edit_community), edit_community_path(@community.id), :class => "button"
               %li
                 - if @current_member.manager? && @community.members.managers.count <= 1
                   = link_to I18n.t(:delete_community), delete_community_path(@community.id, :return_to => communities_path), :class => "button confirm", :data_confirm => I18n.t(:confirm_delete_community)
@@ -24,6 +21,9 @@
             - else
               %li
                 = link_to I18n.t(:join_community_button), join_community_path(@community, :return_to => community_path(@community)), :class => "button"
+            - if @current_member && @current_member.manager? && controller.action_name != 'edit'
+              %li= link_to I18n.t(:edit_community), edit_community_path(@community.id), :class => "button"
+              %li= link_to I18n.t(:share_a_collection), choose_editor_target_collections_path(:community_id => @community.id), :class => "button"
       - else
         .hgroup
           %h1= @page_title || I18n.t(:communities)

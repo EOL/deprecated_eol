@@ -1,16 +1,18 @@
+- hide_has_item ||= false
 %li{:class => has_item ? 'collected' : nil}
   = check_box_tag 'collection_id[]', collection.id, has_item, :disabled => has_item
   = label_tag('collection_name', h(truncate(collection.name, :length => 64)))
   - if collection.communities || has_item || collection.id == current_user.watch_collection.id
     %span
-      - if collection.communities
-        - #TODO - what do we do here if a collection belongs to multiple communities?!
-        - collection.communities.each do |community|
+      - if collection.communities.count == 1
           •
           = I18n.t(:from_community, :community => link_to(truncate(community.name, :length => 64), community_path(community)))
+      - elsif collection.communities.count > 1
+        •
+        = I18n.t(:from_communities, :communities => collection.communities.map {|community| link_to(truncate(community.name, :length => 64), community_path(community)) }.to_sentence )
       - if collection.id == current_user.watch_collection.id
         •
         = I18n.t(:your_watch_collection)
-      - if has_item
+      - if has_item && ! hide_has_item
         •
         = link_to(I18n.t(:in_collection), collection_url(collection), :class => 'close_and_go')

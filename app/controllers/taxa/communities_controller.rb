@@ -15,7 +15,7 @@ class Taxa::CommunitiesController < TaxaController
   end
 
   def curators
-    @curators = @taxon_concept.acting_curators
+    @curators = @taxon_concept.data_object_curators
     @assistive_section_header = I18n.t(:assistive_taxon_community_header)
     current_user.log_activity(:viewed_taxon_concept_community_curators, :taxon_concept_id => @taxon_concept.id)
   end

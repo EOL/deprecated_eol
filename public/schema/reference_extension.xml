@@ -75,4 +75,7 @@
               namespace="http://www.eol.org/schema/reference#"
               qualName="http://www.eol.org/schema/reference#issn"/>
 
+    <property name="taxonID"
+              namespace="http://rs.tdwg.org/dwc/terms/"
+              qualName="http://rs.tdwg.org/dwc/terms/relatedResourceID"/>
 </extension>

@@ -37,7 +37,7 @@
       %td{:class => column_class, :width => '70px'}
         = link_to I18n.t("edit_downcase"), :action => I18n.t("edit_downcase"), :id => glossary_term.id
         |
-        = link_to I18n.t(:delete), {:action => 'destroy',:id => glossary_term.id}, :confirm => I18n.t("are_you_sure_you_want_to_perma"), :method => :delete
+        = link_to I18n.t(:delete), {:action => 'destroy',:id => glossary_term.id}, :confirm => I18n.t(:are_you_sure), :method => :delete
   - if @glossary_terms.empty?
     %tr
       %td{:colspan => 5, :align => 'center', :class => 'odd'}
@@ -54,7 +54,7 @@
 %hr.thin
 %a{:name => 'add_a_term'}
 %h1
-  =I18n.t("add_a_new_term_")
+  =I18n.t("add_a_new_term")
 - form_for :glossary_term, :url => {:action=>'create'} do |f|
   = f.label :label, I18n.t("term")
   = f.text_field :term, :size=>20

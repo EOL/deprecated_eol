@@ -381,54 +381,6 @@ module ApplicationHelper
     text
   end
 
-  # render a version of the classification that allows you to choose a particular clade
-  #
-  # Usage:
-  #   clade_selector
-  #   clade_selector 'name-of-input-field-that-will-be-created'
-  #   clade_selector 'name-of-input-field-that-will-be-created', :some_options => 'go here'
-  #   clade_selector :some_options => 'go here'
-  #
-  # Options:
-  #   value:            a HierarchyEntry or HierarchyEntry ID (currently selected)
-  #   id:               ID of the outer-most HTML element of the clade selector (default: 'clade-selector')
-  #   visible:          true/false - whether or not to show the clade selector by default (default: false)
-  #   toggle:           true/false - whether or not to show the links to toggle the visibility (default: true)
-  #   hierarchy:        the actual Hierarchy to use
-  #   name:             the name of the input field to use (default: whatever you pass as field-name, or 'selected-clade-id')
-  #   debug:            true/false - shows the hidden input field as a text field, if true
-  #   show_clear:       true/false - whether or not to show the '[clear]' option to clear the selection
-  #
-  def clade_selector field_name = 'selected-clade-id', options = {}
-    if field_name.is_a?Hash
-      options = field_name
-      field_name = 'selected-clade-id' # If you change this default id, please also change it in navigation.js; sorry!
-    end
-    options = {
-      :value => nil,
-      :id => 'clade-selector',
-      :visible => false,
-      :toggle => true,
-      :hierarchy => Hierarchy.default,
-      :name => field_name,
-      :show_text => 'show clade browser',
-      :hide_text => 'hide clade browser',
-      :debug => false,
-      :show_clear => true,
-      :selectable_clade_level => 0
-    }.merge(options || {})
-
-    options[:is_debug] = options[:debug]
-    options.delete :debug
-    options.delete :value if options[:value].to_s.strip.length == 0 or options[:value].to_i == 0 # essentially, nil has been passed along
-    options[:value] = (options[:value].is_a?HierarchyEntry) ? options[:value] : HierarchyEntry.find(options[:value]) if options[:value]
-    options[:value] = (params.include?:clade_to_expand and params[:clade_to_expand].to_i > 0) ? HierarchyEntry.find(params[:clade_to_expand]) : options[:value]
-    options[:hierarchy] = Hierarchy.last unless options[:hierarchy] or options[:value]
-    options[:show_text], options[:hide_text] = options[:text], options[:text] if options[:text]
-
-    render :partial => 'shared/clade_selector', :locals => options
-  end
-
   # for creating a group of image buttons
   #
   # Usage:

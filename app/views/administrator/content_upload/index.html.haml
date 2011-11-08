@@ -2,12 +2,12 @@
   =I18n.t("you_may_upload_static_files_fo")
   =I18n.t("note_that_it_may_take_a_few_mi")
 %br
-= link_to(I18n.t("_add_a_new_file_"), :action => 'new')
+= link_to(I18n.t("add_a_new_file_brackets"), :action => 'new')
 %br
 #content
   %form
     - if @content_uploads.blank?
-      = I18n.t(:no_uploaded_content_is_available) 
+      = I18n.t(:no_uploaded_content_is_available)
     - else
       = will_paginate @content_uploads
       %table.results_table{ :cellspacing => "0" }

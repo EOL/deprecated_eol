@@ -40,7 +40,7 @@
           =I18n.t("hierarchy")
     %tbody
       - count = 0
-      - for harvest_event in @harvest_events 
+      - for harvest_event in @harvest_events
         - column_class = cycle('odd','even')
         - count += 1
         %tr
@@ -60,10 +60,8 @@
                 =I18n.t("currently_published")
               - else
                 =I18n.t("previously_published")
-              =# link_to I18n.t("rollback"), resource_harvest_event_url(@resource, harvest_event), :method => :put, :confirm => I18n.t("are_you_sure_you_want_to_rever")
             - else
               =I18n.t("unpublished")
-            =# current_user.is_admin? ? link_to(I18n.t("publish"), resource_harvest_event_url(@resource, harvest_event), :method => :put, :confirm => I18n.t("are_you_sure_you_want_to_publi")) : "n/a"
           %td{ :class => column_class }
             - if count == 1 && h = harvest_event.resource.hierarchy
               - if current_user.is_admin?

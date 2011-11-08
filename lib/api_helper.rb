@@ -153,7 +153,7 @@ module ApiHelper
         synonym_hash = {}
         synonym_hash['parentNameUsageID'] = @hierarchy_entry.id
         synonym_hash['scientificName'] = synonym.name.string.firstcap
-        synonym_hash['taxonomicStatus'] = synonym.synonym_relation.label unless synonym.synonym_relation.blank?
+        synonym_hash['taxonomicStatus'] = synonym.synonym_relation.label rescue ''
         return_hash['synonyms'] << synonym_hash
       end
     end
@@ -244,7 +244,9 @@ module ApiHelper
         'object_id' => ci.object_id,
         'title' => ci.name,
         'created' => ci.created_at,
-        'updated' => ci.updated_at
+        'updated' => ci.updated_at,
+        'annotation' => ci.annotation,
+        'sort_field' => ci.sort_field
       }
       case ci.object_type
       when 'TaxonConcept'

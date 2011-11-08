@@ -82,6 +82,7 @@ class CollectionsController < ApplicationController
     return remove_and_redirect if params[:commit_remove]
     return chosen if params[:scope] # Note that updating the collection params doesn't specify a scope.
     return annotate if params[:commit_annotation]
+    return annotate if params[:commit_sort_field]
     if @collection.update_attributes(params[:collection])
       upload_logo(@collection) unless params[:collection][:logo].blank?
       flash[:notice] = I18n.t(:collection_updated_notice, :collection_name => @collection.name) if
@@ -449,7 +450,8 @@ private
   end
 
   def set_sort_options
-    @sort_options = [SortStyle.newest, SortStyle.oldest, SortStyle.alphabetical, SortStyle.reverse_alphabetical, SortStyle.richness, SortStyle.rating]
+    @sort_options = [SortStyle.newest, SortStyle.oldest, SortStyle.alphabetical, SortStyle.reverse_alphabetical,
+                     SortStyle.richness, SortStyle.rating, SortStyle.sort_field]
   end
 
   def set_view_as_options

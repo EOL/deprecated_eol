@@ -16,3 +16,5 @@
       -# TODO: .annotation  ...don't want to muck things up yet, though.
       %p= collection_item.annotation
     -# TODO = sort order?
+    - unless collection_item.sort_field.blank?
+      %p= I18n.t(:sort_field) + collection_item.sort_field

@@ -24,7 +24,7 @@
               = link_to I18n.t("content_partner_profile_menu"), { :controller => 'content_partner_account', :action => 'dashboard' }, :class => "#{(params[:controller] == 'content_partner_account' && params[:action] == 'dashboard') ? 'active' : ''} toc_item"
               - if params[:controller] == 'content_partner_account' || params[:controller] == 'resources'
                 %li
-                  = link_to I18n.t("partner_information_"), { :controller => 'content_partner_account', :action => 'profile' }, :class => "#{(params[:controller] == 'content_partner_account' && params[:action] == 'profile') ? 'active' : ''} nested toc_item"
+                  = link_to I18n.t(:partner_information).upcase, { :controller => 'content_partner_account', :action => 'profile' }, :class => "#{(params[:controller] == 'content_partner_account' && params[:action] == 'profile') ? 'active' : ''} nested toc_item"
                 %li
                   = link_to I18n.t("contact_information_"), { :controller => 'content_partner_account', :action => 'contacts' }, :class => "#{(params[:controller] == 'content_partner_account' && ['contacts', 'add_contact'].include?(params[:action])) ? 'active' : ''} nested toc_item"
                 %li

@@ -2,7 +2,7 @@
 - form_tag({:action=>'index'}, :method=>'get') do
   =I18n.t("please_note_that_some_of_these")
   %br
-  =I18n.t("select_a_tool_and_click__go__")
+  =I18n.t(:select_tool_and_go)
   = select_tag(:report_url, options_for_select(@reports_list,@report_url))
   = submit_tag I18n.t("go")
 .divider

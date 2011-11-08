@@ -1,4 +1,4 @@
-= link_to I18n.t("_go_back_"),:back
+= link_to I18n.t(:go_back),:back
 #surveys
   %table.results_table{ :cellspacing => "0" }
     %tr
@@ -13,7 +13,7 @@
         = @yes_surveys_count
     %tr
       %td.even
-        =I18n.t("_no_")
+        =I18n.t(:no)
       %td.even
         = @no_surveys_count
     %tr
@@ -44,7 +44,7 @@
         %th
           =I18n.t("taxon_id")
         %th
-          =I18n.t(:date_word)
+          =I18n.t(:date)
       - for survey in @surveys
         - column_class=cycle('odd','even')
         %tr

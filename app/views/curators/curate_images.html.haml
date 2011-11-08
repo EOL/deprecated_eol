@@ -8,7 +8,7 @@
   - name =  I18n.t("_for_var__name", :var__name => @name)
   - msg = I18n.t("you_are_curating_images_var_na", :var_name => name)
 - if @images_to_curate.blank?
-  - status = @status.blank? ? "" : ((@status == 'all') ? "" : (@status == 'Unknown') ? I18n.t("unreviewed_") : "#{@status}")
+  - status = @status.blank? ? "" : ((@status == 'all') ? "" : (@status == 'Unknown') ? I18n.t(:unreviewed) : "#{@status}")
   - content_partner = @content_partner ? "#{@content_partner.user.full_name} " : ""
   %hr.thin
   =I18n.t("there_is_no_var_statusvar_ctnt", :var_status => status, :var_content_partner => content_partner, :var_name => name)

@@ -3,13 +3,13 @@
 %br
 #contact_us_topics
   - unless @translated_contact_subjects.nil?
-    =I18n.t("the_following_topic_areas_are_")
+    =I18n.t(:topics_avilable_to_contact_us_info)
     %br
     %br
     %table.results_table{ :cellspacing => "0" }
       %tr
         %th
-          =I18n.t("topic_area_")
+          =I18n.t(:topic_area)
         %th
           =I18n.t("recipients")
         %th
@@ -26,4 +26,4 @@
           %td{ :class => column_class }
             = h tcs.contact_subject.active
           %td{ :class => column_class }
-            = link_to I18n.t("_edit_"), :action => 'edit', :id => tcs.contact_subject_id
+            = link_to I18n.t(:edit), :action => 'edit', :id => tcs.contact_subject_id

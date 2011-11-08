@@ -1,6 +1,6 @@
 #logs
   %form#page-form{ :method => "post" }
-    =I18n.t("filter_by_day_")
+    =I18n.t(:filter_by_day)
     - default_select = (@date == 'all') ? 'all' : @date.strftime("%d-%b-%Y")
     = select_tag :date, options_for_select([['--all--', 'all']] + @distinct_dates, default_select), {:onchange=>"javascript:$('#page-form').submit();"}
   %br
@@ -9,7 +9,7 @@
     %strong
       =I18n.t("all_harvesting_logs")
   - elsif !@date.blank?
-    =I18n.t("showing_processes_from_")
+    =I18n.t(:showing_procs_from)
     %strong
       = @date.strftime("%A, %B %d")
   %br

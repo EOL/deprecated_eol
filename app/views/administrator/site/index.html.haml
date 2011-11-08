@@ -33,7 +33,7 @@
       =I18n.t("main_")
       = @config.database_configuration[ENV["RAILS_ENV"]]["database"] + ' @ ' + @config.database_configuration[ENV["RAILS_ENV"]]["host"]
       %br
-      =I18n.t("data_")
+      =I18n.t(:data)
       = @config.database_configuration[ENV["RAILS_ENV"]+'_data']["database"] + ' @ ' + @config.database_configuration[ENV["RAILS_ENV"]+'_data']["host"]
       %br
       =I18n.t("logging_")
@@ -46,7 +46,7 @@
         = @config.database_configuration['master_database']["database"] + ' @ ' + @config.database_configuration['master_database']["host"]
         %br
       - unless @config.database_configuration['master_data_database'].nil?
-        =I18n.t("data_master_")
+        =I18n.t(:data_master)
         = @config.database_configuration['master_data_database']["database"] + ' @ ' + @config.database_configuration['master_data_database']["host"]
         %br
   %tr
@@ -92,7 +92,7 @@
         = link_to_remote I18n.t(:clear_all_non_species_pages), :url=>{:controller=>'/administrator/site', :action=>'expire_all'}, :update=>'cache_clear_time'
         %br
         %span#taxon_id_clear_time
-        =I18n.t("taxon_id_")
+        =I18n.t(:taxon_id)
         = text_field_tag :taxon_id, '', {:size=>8}
         = link_to_remote I18n.t(:clear_species_page), :url=>{:controller=>'/administrator/site', :action=>'expire'}, :update=>'taxon_id_clear_time', :with => "'taxon_id=' + $('taxon_id').value"
         %br

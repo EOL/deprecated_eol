@@ -1,15 +1,15 @@
 = eol_lang_error_messages_for :contact_subject
 %br
-=I18n.t("edit_the_topic_area_and_email_")
+=I18n.t(:edit_the_topic_area_intro)
 %strong
-  =I18n.t("topic_area__")
-=I18n.t("_shown_to_the_user_")
+  =I18n.t(:topic_area)
+=I18n.t(:shown_to_the_user_parens)
 %br
 = f.text_field :title,{:size=>'70',:maxlength=>'250'}
 %br
 %br
 %strong
-  =I18n.t("email_recipients_")
+  =I18n.t(:email_recipients)
 =I18n.t("_separate_multiple_email_addre")
 = f.text_field :recipients,{:size=>'70',:maxlength=>'150'}
 %br

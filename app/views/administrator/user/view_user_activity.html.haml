@@ -1,11 +1,11 @@
-=I18n.t("user_activity_report___select_")
+=I18n.t(:user_activity_report_intro)
 = link_to I18n.t("_view_list_of_most_common_acti"), {:controller => 'administrator/user', :action => 'view_common_activities'}, {:class=>'toc_item active'}
 #comments
   - form_tag({:action=>'view_user_activity'},:method=>'get') do
     %table
       %tr
         %td
-          =I18n.t("user_")
+          =I18n.t(:user)
         %td
           %select{ :name => "user_id" }
             %option
@@ -16,7 +16,7 @@
                 = h(user.family_name) + ", " + h(user.given_name)
       %tr
         %td
-          =I18n.t("activity_")
+          =I18n.t(:activity)
         %td
           %select{ :name => "activity_id" }
             %option
@@ -38,7 +38,7 @@
           %th
             =I18n.t("detail")
           %th
-            =I18n.t(:date_word)
+            =I18n.t(:date)
         -#- for activity in @activities
         - @activities.each do |activity|
           - column_class=cycle('odd','even')
@@ -90,13 +90,13 @@
                 - if(!activity.value.nil?)
                   - toc = TocItem.find(activity.value) rescue nil
                   - if(!toc.nil?)
-                    = "#{I18n.t(:toc__)}" + toc.label
+                    = "#{I18n.t(:toc)}" + toc.label
                     - if(toc.parent_id > 0)
                       - toc2 = TocItem.find(toc.parent_id) rescue nil
                       - if(!toc2.nil?)
                         = " -- " + toc2.label
                   - else
-                    =I18n.t("toc__no_longer_available")
+                    =I18n.t("toc_no_longer_available")
 
               - if(value_as_hierarchy_entry_id.include? activity.activity_id)
                 - if(!activity.value.nil?)
@@ -112,27 +112,27 @@
 
               - if(value_as_news_items_id.include? activity.activity_id)
                 - if(!activity.value.nil?)
-                  = link_to(I18n.t("news_item"),:controller => '/content/news', :action => activity.value)
+                  = link_to(I18n.t(:news_item),:controller => '/content/news', :action => activity.value)
 
               - if(value_as_species_curated_user_id.include? activity.activity_id)
                 - if(!activity.value.nil?)
                   - user = User.find(activity.value)
-                  = link_to(I18n.t("curated_species_of_", :name => user.given_name + " " + user.family_name) ,:controller => '/account/show_species_curated', :action => activity.value)
+                  = link_to(I18n.t(:curated_species_of, :name => user.given_name + " " + user.family_name) ,:controller => '/account/show_species_curated', :action => activity.value)
 
               - if(value_as_objects_curated_by_user_id.include? activity.activity_id)
                 - if(!activity.value.nil?)
                   - user = User.find(activity.value)
-                  = link_to(I18n.t("curated_objects_of_", :name => user.given_name + " " + user.family_name) ,:controller => '/account/show_objects_curated', :action => activity.value)
+                  = link_to(I18n.t(:curated_objects_of, :name => user.given_name + " " + user.family_name) ,:controller => '/account/show_objects_curated', :action => activity.value)
 
               - if(value_as_species_comments_moderated_by_user_id.include? activity.activity_id)
                 - if(!activity.value.nil?)
                   - user = User.find(activity.value)
-                  = link_to(I18n.t("curated_objects_of_", :name =>user.given_name + " " + user.family_name) ,:controller => '/account/show_comments_moderated', :action => activity.value)
+                  = link_to(I18n.t(:curated_objects_of, :name =>user.given_name + " " + user.family_name) ,:controller => '/account/show_comments_moderated', :action => activity.value)
 
               - if(value_as_user_id.include? activity.activity_id)
                 - if(!activity.value.nil?)
                   - user = User.find(activity.value)
-                  = link_to(I18n.t("curator_profile_of_", :name => user.given_name + " " + user.family_name) ,:controller => '/account/show', :action => activity.value)
+                  = link_to(I18n.t(:curator_profile_of, :name => user.given_name + " " + user.family_name) ,:controller => '/account/show', :action => activity.value)
 
             %td{ :class => column_class }
               = h format_date_time(activity.created_at,:format=>'short_no_tz')

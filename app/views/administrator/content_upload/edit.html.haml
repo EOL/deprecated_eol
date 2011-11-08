@@ -5,48 +5,48 @@
     %tr
       %td
         %strong
-          =I18n.t("file_id_")
+          =I18n.t(:file_id)
       %td
         = @content_upload.id
     = render :partial => 'form', :locals => {:f=>f}
     %tr
       %td
         %strong
-          =I18n.t("friendly_url_")
+          =I18n.t(:friendly_url)
         %br
-        =I18n.t("_for_pdfs___docs_")
+        =I18n.t(:for_pdfs_and_docs_parens)
       %td
-        = link_to(I18n.t("http___var_request_domainvar__", :var_request_domain => request.domain, :var__content_upload_attachment_url => @content_upload.attachment_url),@content_upload.attachment_url)
+        = link_to(I18n.t(:content_upload_url, :domain => request.domain, :upload_attachment => @content_upload.attachment_url), @content_upload.attachment_url)
     %tr
       %td
         %strong
-          =I18n.t("content_server_full_url_")
+          =I18n.t(:content_server_full_url)
         %br
-        =I18n.t("_for_images_to_reference_")
+        =I18n.t(:for_images_to_reference_parens)
       %td
         = link_to(@content_upload.content_server_url,@content_upload.content_server_url)
     %tr
       %td
         %strong
-          =I18n.t("content_type_")
+          =I18n.t(:content_type)
       %td
         = @content_upload.attachment_content_type
     %tr
       %td
         %strong
-          =I18n.t("file_size_")
+          =I18n.t(:file_size)
       %td
         = "#{(@content_upload.attachment_file_size / 1024.0).round} kb" unless @content_upload.attachment_file_size.blank?
     %tr
       %td
         %strong
-          =I18n.t("uploaded_by_")
+          =I18n.t(:uploaded_by)
       %td
         = "#{@content_upload.user.full_name} (#{@content_upload.user.username})"
     %tr
       %td
         %strong
-          =I18n.t("date_uploaded_")
+          =I18n.t(:date_uploaded)
       %td
         = @content_upload.created_at
   %br

@@ -3,13 +3,13 @@
   %tr
     %td
       %strong
-        =I18n.t("type_")
+        =I18n.t(:type)
     %td
       = @comment.parent_type_name
   %tr
     %td
       %strong
-        =I18n.t("description_")
+        =I18n.t(:description)
     %td
       = link_to (truncate(@comment.parent_name),@comment.parent_url)
   - if @comment.image_comment?
@@ -28,7 +28,7 @@
   %tr
     %td
       %strong
-        =I18n.t("created_at__")
+        =I18n.t(:created_at)
     %td
       = @comment.created_at
 %br

@@ -1,6 +1,6 @@
-= link_to I18n.t("_cancel_"),:back
+= link_to I18n.t(:cancel),:back
 %br
-=I18n.t("to_send_this_user_an_email__en")
+=I18n.t(:to_send_email_enter_text)
 %br
 - form_tag({:action=>'send_message'},:method=>'post') do
   %table
@@ -13,13 +13,13 @@
     %tr
       %td
         %strong
-          =I18n.t("email_colon")
+          =I18n.t(:email_colon)
       %td
         = text_field_tag :email,@email
     %tr
       %td
         %strong
-          =I18n.t("message_")
+          =I18n.t(:message_colon)
       %td
         = text_area_tag :message,@message,:cols=>'60',:rows=>'20'
-  = submit_tag I18n.t("send")
+  = submit_tag I18n.t(:send)

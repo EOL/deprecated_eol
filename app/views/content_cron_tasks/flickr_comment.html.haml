@@ -5,4 +5,4 @@
 - else
   - linked_name = comment.user.full_name
 - data_object_link = url_for(:controller => :data_objects, :action => comment.parent_id, :only_path => false, :host => 'eol.org')
-= linked_name + I18n.t("_commented_on_your_image_on_th", :var_data_object_link => data_object_link, :var_comment_body => comment.body)
+= linked_name + I18n.t(:commented_on_your_image, :var_data_object_link => data_object_link, :var_comment_body => comment.body)

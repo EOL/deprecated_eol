@@ -147,6 +147,8 @@ module EOL
           url << '&sort=richness_score+desc'
         elsif options[:sort_by] == SortStyle.rating
           url << '&sort=data_rating+desc'
+        elsif options[:sort_by] == SortStyle.sort_field
+          url << '&sort=sort_field+asc'
         end
 
         # add paging

@@ -9,3 +9,5 @@
 - else
   = I18n.t(:item_details_missing)
 %p= collection_item.annotation
+- unless collection_item.sort_field.blank?
+  %p= I18n.t(:sort_field) + collection_item.sort_field

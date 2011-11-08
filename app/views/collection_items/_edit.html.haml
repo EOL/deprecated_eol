@@ -20,6 +20,13 @@
   -# it until we can handle I18n in JS.
   %p
     = collection_item.annotation
+  %p
+    .collection_item_sort_field_form
+      - parent_form.fields_for :collection_items, collection_item do |item_form|
+        %fieldset
+          = item_form.label :sort_field, I18n.t(:sort_field)
+          = item_form.text_field :sort_field
+          = submit_tag I18n.t(:update)
   %p.edit
     = link_to(I18n.t(:edit_annotation), '#') # Really, we don't want this to go anywhere, since the form is right
     -# ...below, for non-JS users. This is sub-optimal for non-JS users, but see note above.

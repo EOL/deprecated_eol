@@ -71,6 +71,7 @@ class CollectionItem < ActiveRecord::Base
     params['added_by_user_id'] = self.added_by_user_id || 0
     params['date_created'] = self.created_at.solr_timestamp rescue nil
     params['date_modified'] = self.updated_at.solr_timestamp rescue nil
+    params['sort_field'] = self.sort_field
 
     case self.object.class.name
     when "TaxonConcept"

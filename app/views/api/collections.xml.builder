@@ -29,6 +29,8 @@ xml.response do
           xml.title ci.name
           xml.created ci.created_at
           xml.updated ci.updated_at
+          xml.annotation ci.annotation
+          xml.sort_field ci.sort_field
           
           case ci.object_type
           when 'TaxonConcept'

@@ -2474,6 +2474,7 @@ en:
   sort_items_label: "Sort items by"
   sort_order_: "Sort Order:"
   sort_by: "Sort by"
+  sort_field: "Sort Field: "
   sound_alt_text: "This %{vetted_status} audio recording is of %{taxon_name}"
   sound_file: "Sound File"
   sound_from: "sound from"

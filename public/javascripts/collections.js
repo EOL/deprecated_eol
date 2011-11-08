@@ -21,6 +21,21 @@ EOL.init_collection_item_behaviours = function($collection) {
     });
     return(false);
   });
+  
+  $li.find(".collection_item_sort_field_form input[type='submit']").click(function() {
+    var $node = $(this).closest("li");
+    EOL.ajax_submit($(this), {
+      update: $node,
+      data: "_method=put&commit_sort_field=true&" +
+      $(this).closest(".collection_item_sort_field_form").find("input, text").serialize(),
+      complete: function() {
+        $node.find(".collection_item_form").closest(".collection_item_form").hide().prev().show().prev().show();
+        $node.each(EOL.init_collection_item_behaviours);
+      }
+    });
+    return(false);
+  });
+  
   $li.find(".collection_item_form a").click(function() {
     $(this).closest(".collection_item_form").hide().prev().show().prev().show();
     return(false);

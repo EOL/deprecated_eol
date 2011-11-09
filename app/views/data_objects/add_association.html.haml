@@ -1,4 +1,3 @@
-- en_type ||= en_type(@data_object)
 - unless @all_results.blank?
   .header
     - start_number = (@all_results.current_page - 1) * @all_results.per_page + 1
@@ -21,4 +20,4 @@
     :previous_label => I18n.t(:pagination_previous_with_count, :count => @all_results.per_page), |
     :next_label => I18n.t(:pagination_next_with_count, :count => @all_results.per_page), |
     :page_links=>false
-  
+

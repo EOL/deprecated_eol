@@ -160,18 +160,30 @@ describe DataObject do
    UsersDataObjectsRating.count.should eql(1)
  end
 
- it 'ratings should update existing rating' do
-   UsersDataObjectsRating.delete_all
-   d = DataObject.gen
-   u = User.gen
-   d.rate(u,1)
-   d.rate(u,5)
-   d.data_rating.should eql(5.0)
-   UsersDataObjectsRating.count.should eql(1)
-   r = UsersDataObjectsRating.find_by_user_id_and_data_object_guid(u.id, d.guid)
-   r.rating.should eql(5)
- end
+  it 'ratings should update existing rating' do
+    UsersDataObjectsRating.delete_all
+    d = DataObject.gen
+    u = User.gen
+    d.rate(u,1)
+    d.rate(u,5)
+    d.data_rating.should eql(5.0)
+    UsersDataObjectsRating.count.should eql(1)
+    r = UsersDataObjectsRating.find_by_user_id_and_data_object_guid(u.id, d.guid)
+    r.rating.should eql(5)
+  end
 
+  it 'should know if it is an image map and not a map map' do
+    map_dato = DataObject.gen(:data_type => DataType.map)
+    image_dato = @taxon_concept.images.last
+    image_map_dato = DataObject.gen(:data_type => DataType.image, :data_subtype => DataType.map)
+    map_dato.map?.should be_true
+    map_dato.image_map?.should be_false
+    image_dato.image_map?.should be_false
+    image_dato.image?.should be_true
+    image_map_dato.image_map?.should be_true
+    image_map_dato.image?.should be_true
+    image_map_dato.map?.should be_false
+  end
 
   it 'should return true if this is an image' do
     @dato = DataObject.gen(:data_type_id => DataType.image_type_ids.first)

@@ -7,13 +7,15 @@
       - status_indicator = 'Ignored' if @task_status == 'ignored'
       - status_indicator = 'Saved' if @task_status == 'curated'
       - li_class = status_indicator ? status_indicator.downcase : nil
+      - # FIXME: Why is en_type css class name listed twice, in both #{task_class} and in #{en_type}?
       %li{:class => "#{task_class} #{li_class} #{en_type}"}
         %span.icon
         - if status_indicator.blank?
           %span.indicator.invisible
         - else
+          - # TODO: should status_indicator be I18nized?
           %span.indicator= status_indicator
-        - if ['image', 'video', 'sound'].include?(en_type)
+        - if ['image_map', 'image', 'video', 'sound'].include?(en_type)
           = render :partial => "media_data_object.html.haml", :locals => { :item => data_object, :en_type => en_type }
         - else
           = render :partial => "#{en_type}_data_object.html.haml", :locals => { :item => data_object }

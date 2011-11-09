@@ -5,7 +5,9 @@
       %h2.assistive= I18n.t(:global_navigation)
     %ul.nav
       %li
-        = link_to I18n.t(:help), help_url
+        = link_to I18n.t(:discover_link), discover_path
+      %li
+        = link_to I18n.t(:help), help_path
       %li
         = link_to I18n.t(:what_is_eol), about_path
       %li

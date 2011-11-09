@@ -1257,6 +1257,7 @@ en:
   details_title: "Details"
   did_you_mean: "Did you mean: %{suggestions} ?"
   disabled_for_now: "DISABLED FOR NOW"
+  discover_link: "Discover"
   displaying_numerical_range: "Displaying %{start_number} &mdash; %{end_number} of %{total}"
   donate: "Donate"
   donation_amount_legend: "Choose the amount you would like to donate"

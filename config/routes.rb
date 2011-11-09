@@ -210,6 +210,7 @@ ActionController::Routing::Routes.draw do |map|
     content_page.help         '/help',             :id => 'help'
     content_page.about        '/about',            :id => 'about'
     content_page.news         '/news',             :id => 'news'
+    content_page.discover     '/discover',         :id => 'explore_biodiversity'
     content_page.contact      '/contact',          :id => 'contact'
     content_page.terms_of_use '/terms_of_use',     :id => 'terms_of_use'
     content_page.citing       '/citing',           :id => 'citing'

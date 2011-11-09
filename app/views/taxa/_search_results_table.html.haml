@@ -2,9 +2,7 @@
   .search_results{ :id => title.downcase.gsub(" ", "_")}
     %h3.search_result_subtitle= "#{title}"
     %p
-      =I18n.t("results_var_results_offset___1", :var_results_offset___1 => results.offset + 1, :var_results_offset____results_per_page__results_total_entries__min => results.offset + [results.per_page, results.total_entries].min)
-      =I18n.t("var_results_total_entries_for", :var_results_total_entries => results.total_entries)
-      %em= @querystring
+      =I18n.t(:results_offset, :from => results.offset + 1, :to => results.offset + [results.per_page, results.total_entries].min, :total => results.total_entries, :for => @querystring)
     %table.results_table{ :cellspacing => "0", :summary => title, :style => "width:100%;" }
       %tr
         %th{ :style => "width:152px;" }= I18n.t(:image)

@@ -28,7 +28,7 @@ class Administrator::GlossaryController < AdminController
       flash[:error] = I18n.t("term_cannot_be_left_blank")
       redirect_to :action => 'index'
     elsif GlossaryTerm.find_by_term(params[:glossary_term][:term])
-      flash[:error] = I18n.t("_is_already_defined", :var_term => params[:glossary_term][:term] )
+      flash[:error] = I18n.t(:term_is_already_def_error, :term => params[:glossary_term][:term] )
       redirect_to :action => 'index'
     else
       GlossaryTerm.create(params[:glossary_term])

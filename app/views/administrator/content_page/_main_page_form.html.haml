@@ -20,15 +20,15 @@
 %tr
   %td
     %strong
-      =I18n.t("page_name_")
+      =I18n.t(:page_name)
   %td
     = f.text_field :page_name, {:size=>'50',:maxlength=>'100'}
     %br
-    =I18n.t("used_for_urls___should_be_uniq")
+    =I18n.t(:used_for_urls_note)
 %tr
   %td
     %strong
       =I18n.t(:published)
   %td
     = f.check_box :active
-    =I18n.t("__must_be_checked_in_order_to_")
+    =I18n.t(:must_be_checked_in_to_view)

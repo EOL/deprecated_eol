@@ -6,7 +6,7 @@
   %tr
     %td
       %strong
-        =I18n.t("search_term_")
+        =I18n.t(:search_term)
       %br
       =I18n.t("trigger_search_term_entered_by")
     %td
@@ -15,7 +15,7 @@
     %tr
       %td
         %strong
-          =I18n.t("page_linked_to_")
+          =I18n.t(:page_linked_to)
         %br
         =I18n.t("the_suggested_page_to_direct_users_to_link")
       %td
@@ -35,7 +35,7 @@
   %tr
     %td
       %strong
-        =I18n.t("content_notes__not_shown_to_us")
+        =I18n.t(:content_notes_not_shown_to_us)
     %td
       = f.text_field :content_notes,{:size=>'50',:maxlength=>'250'}
   %tr
@@ -44,7 +44,7 @@
         =I18n.t(:sort_order)
     %td
       = f.text_field :sort_order,{:size=>'3',:maxlength=>'3'}
-      =I18n.t("_only_if_multiple_suggestions_")
+      =I18n.t(:only_multi_search_suggestions)
   %tr
     %td
       %strong
@@ -58,7 +58,7 @@
         =I18n.t("active_colon")
     %td
       = f.check_box :active
-      =I18n.t("__must_be_checked_to_show_to_u")
+      =I18n.t(:must_be_checked_in_to_show)
 %br
 %br
 = cancel_button_goes_back(return_to_url)

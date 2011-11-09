@@ -4,16 +4,11 @@
       = h @user.given_name
       &nbsp;
       = h @user.family_name
-    %p
-      = @user.curator_scope
-    %p
-      "
-      = h @user.username
-      =I18n.t("__joined")
-      = format_date(@user.created_at)
+    %p= @user.curator_scope
+    %p= I18n.t(:user_joined_when, :user => h(@user.username), :when => format_date(@user.created_at))
   #activity
     %h3
-      =I18n.t("activity")
+      =I18n.t(:activity)
     %p
     %table
       %thead

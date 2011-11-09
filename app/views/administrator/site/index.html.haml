@@ -30,19 +30,19 @@
     %td.even
       =I18n.t("rails_databases")
     %td.even
-      =I18n.t("main_")
+      =I18n.t(:main_colon)
       = @config.database_configuration[ENV["RAILS_ENV"]]["database"] + ' @ ' + @config.database_configuration[ENV["RAILS_ENV"]]["host"]
       %br
       =I18n.t(:data)
       = @config.database_configuration[ENV["RAILS_ENV"]+'_data']["database"] + ' @ ' + @config.database_configuration[ENV["RAILS_ENV"]+'_data']["host"]
       %br
-      =I18n.t("logging_")
+      =I18n.t(:logging)
       = @config.database_configuration[ENV["RAILS_ENV"]+'_logging']["database"] + ' @ ' + @config.database_configuration[ENV["RAILS_ENV"]+'_logging']["host"]
       %br
       - unless @config.database_configuration['master_database'].nil?
         =I18n.t("this_does_not_necessarily_mean", :env => ENV["RAILS_ENV"])
         %br
-        =I18n.t("main_master_")
+        =I18n.t(:main_master_colon)
         = @config.database_configuration['master_database']["database"] + ' @ ' + @config.database_configuration['master_database']["host"]
         %br
       - unless @config.database_configuration['master_data_database'].nil?

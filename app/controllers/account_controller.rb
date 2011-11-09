@@ -1,3 +1,0 @@
-class AccountController < ApplicationController
-
-end

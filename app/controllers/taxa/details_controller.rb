@@ -1,6 +1,6 @@
 class Taxa::DetailsController < TaxaController
 
-  before_filter :instantiate_taxon_concept, :redirect_if_superceded, :redirect_if_invalid
+  before_filter :instantiate_taxon_concept, :redirect_if_superceded
   before_filter :add_page_view_log_entry, :update_user_content_level
 
   # GET /pages/:taxon_id/details
@@ -34,7 +34,7 @@ class Taxa::DetailsController < TaxaController
     @taxon_concept.current_user = current_user
     @details = @taxon_concept.details_for_toc_items(ContentTable.details.toc_items)
     @details.delete_if{ |d| d[:data_objects].blank? }
-    
+
     @details_count_by_language = {}
     @details.each do |det|
       unless TocItem.exclude_from_details.include?(det[:toc_item])
@@ -53,15 +53,15 @@ class Taxa::DetailsController < TaxaController
     @details_count_by_language.delete_if{ |k,v| k.blank? || k == current_user.language }
     # some sections may be empty now that other languages have been removed
     @details.delete_if{ |d| d[:data_objects].blank? }
-    
+
     toc_items_to_show = @details.blank? ? [] : @details.collect{|d| d[:toc_item]}
     exclude = TocItem.exclude_from_details
     toc_items_to_show.delete_if {|ti| exclude.include?(ti.label) }
     TocItem.preload_associations(toc_items_to_show, :info_items)
     @toc = TocBuilder.new.toc_for_toc_items(toc_items_to_show)
     @exemplar_image = @taxon_concept.exemplar_or_best_image_from_solr(@selected_hierarchy_entry)
-    
-    
+
+
     @assistive_section_header = I18n.t(:assistive_details_header)
     current_user.log_activity(:viewed_taxon_concept_details, :taxon_concept_id => @taxon_concept.id)
   end

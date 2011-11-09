@@ -268,17 +268,23 @@ describe "Preview Collections" do
 
   it 'should allow EOL administrators to view unpublished collections' do
     @collection.update_attribute(:published, false)
-    @collection.reload
     if @collection.resource_preview.blank?
       @resource = Resource.gen
       @resource.preview_collection = @collection
       @resource.save
-      @collection.reload
     end
-    visit('/logout')
+    @collection.reload
+    visit logout_path
     visit collection_path(@collection)
-    current_url.should_not == collection_url(@collection)
-    body.should_not have_tag('h1', /#{@collection.name}/)
+    current_path.should == login_path
+    body.should include('You must be logged in to perform this action')
+    user = User.gen(:admin => false)
+    login_as user
+    referrer = current_path
+    visit collection_path(@collection)
+    current_path.should == referrer
+    body.should include('You are not authorized')
+    visit logout_path
     admin = User.gen(:admin => true)
     login_as admin
     visit collection_path(@collection)

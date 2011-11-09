@@ -1,11 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-def users_access_should_be_denied(template = nil)
-  response.rendered[:template].should_not == template unless template.nil?
-  response.should be_redirect
-  response.redirected_to.should == root_url
-end
-
 describe UsersController do
 
   before(:all) do
@@ -45,11 +39,9 @@ describe UsersController do
 
   describe 'GET edit' do
     it 'should render edit only if editing self' do
-      get :edit, { :id => @user.id }
-      users_access_should_be_denied('users/edit.html.haml')
+      expect{ get :edit, { :id => @user.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
       user = User.gen
-      get :edit, { :id => user.id }, { :user => @user, :user_id => @user.id }
-      users_access_should_be_denied('users/edit.html.haml')
+      expect{ get :edit, { :id => user.id }, { :user => @user, :user_id => @user.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
       get :edit, { :id => @user.id }, { :user => @user, :user_id => @user.id }
       assigns[:user].should == @user
       response.rendered[:template].should == 'users/edit.html.haml'
@@ -61,8 +53,7 @@ describe UsersController do
 
     it 'should update and render show only if updating self' do
       hashed_password = User.find(@user).hashed_password
-      put :update, { :id => @user.id, :user => { :id => @user.id, :entered_password => 'newpassword', :entered_password_confirmation => 'newpassword' } }
-      users_access_should_be_denied('users/edit.html.haml')
+      expect{ put :update, { :id => @user.id, :user => { :id => @user.id, :entered_password => 'newpassword', :entered_password_confirmation => 'newpassword' } } }.should raise_error(EOL::Exceptions::SecurityViolation)
       User.find(@user).hashed_password.should == hashed_password
       put :update, { :id => @user.id, :user => { :id => @user.id, :entered_password => 'newpassword', :entered_password_confirmation => 'newpassword' } },
                    { :user => @user, :user_id => @user.id }
@@ -119,11 +110,9 @@ describe UsersController do
 
   describe 'GET curation_privileges' do
     it 'should render curation privileges only if applying for self' do
-      get :curation_privileges, { :id => @user.id }
-      users_access_should_be_denied('users/curation_privileges.html.haml')
+      expect{ get :curation_privileges, { :id => @user.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
       user = User.gen
-      get :curation_privileges, { :id => user.id }, { :user => @user, :user_id => @user.id }
-      users_access_should_be_denied('users/curation_privileges.html.haml')
+      expect{ get :curation_privileges, { :id => user.id }, { :user => @user, :user_id => @user.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
       get :curation_privileges, { :id => @user.id }, { :user => @user, :user_id => @user.id }
       assigns[:user].should == @user
       response.rendered[:template].should == 'users/curation_privileges.html.haml'
@@ -201,12 +190,8 @@ describe UsersController do
 
     it 'should not allow users to render terms for another user' do
       User.find(@disagreeable_user).agreed_with_terms.should be_false
-      get :terms_agreement, { :id => @disagreeable_user.id } # anonymous user trying to access user terms
-      response.redirected_to.should == root_url
-      response.rendered[:template].should_not == 'users/terms_agreement.html.haml'
-      get :terms_agreement, { :id => @disagreeable_user.id }, { :user => @user, :user_id => @user.id }
-      response.redirected_to.should == root_url
-      response.rendered[:template].should_not == 'users/terms_agreement.html.haml'
+      expect{ get :terms_agreement, { :id => @disagreeable_user.id } }.should raise_error(EOL::Exceptions::SecurityViolation) # anonymous user trying to access user terms
+      expect{ get :terms_agreement, { :id => @disagreeable_user.id }, { :user => @user, :user_id => @user.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
     end
   end
 
@@ -225,12 +210,10 @@ describe UsersController do
 
     it 'should not allow users to agree to terms for another user' do
       User.find(@disagreeable_user).agreed_with_terms.should be_false
-      post :terms_agreement, { :id => @disagreeable_user.id }
+      expect{ post :terms_agreement, { :id => @disagreeable_user.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
       User.find(@disagreeable_user).agreed_with_terms.should be_false
-      response.redirected_to.should == root_url
-      post :terms_agreement, { :id => @disagreeable_user.id }, { :user => @user, :user_id => @user.id }
+      expect{ post :terms_agreement, { :id => @disagreeable_user.id }, { :user => @user, :user_id => @user.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
       User.find(@disagreeable_user).agreed_with_terms.should be_false
-      response.redirected_to.should == root_url
     end
   end
 

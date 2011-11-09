@@ -1,7 +1,0 @@
-%p= I18n.t(:error_404_description)
-- if @message and current_user.is_admin?
-  %p= I18n.t(:you_are_an_admin_so_i_will_show_you_that_the_error_was)
-  %code= @message
-
-%p= I18n.t(:error_homepage_or_search_option)
-= render :partial => "/layouts/v2/search"

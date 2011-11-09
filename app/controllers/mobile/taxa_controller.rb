@@ -5,7 +5,7 @@ class Mobile::TaxaController < Mobile::MobileController
 
   before_filter :instantiate_taxon_concept
 
-  #before_filter :redirect_if_superceded, :redirect_if_invalid
+  #before_filter :redirect_if_superceded
   #before_filter :add_page_view_log_entry, :update_user_content_level
 
   def show

@@ -16,10 +16,12 @@ describe CollectionsController do
 
   describe "#update" do
     it "Unauthorized users cannot update the description" do
-      post :update, :id => @collection.id, :commit_edit_collection => 'Submit',  :collection => {:description => "New Description"}
-      @collection.reload
-      response.should be_redirect
-      response.redirected_to.should == root_url
+      expect{ post :update, :id => @collection.id, :commit_edit_collection => 'Submit',
+                            :collection => {:description => "New Description"} }.should raise_error(EOL::Exceptions::MustBeLoggedIn)
+      user = User.gen
+      expect{ post :update, { :id => @collection.id, :commit_edit_collection => 'Submit', :collection => {:description => "New Description"} },
+                            { :user => user, :user_id => user.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
+
     end
     it "Updates the description" do
       session[:user] = @collection.user
@@ -29,7 +31,7 @@ describe CollectionsController do
       }
       getter.should change(@collection, :description)
     end
-    
+
   end
 
 end

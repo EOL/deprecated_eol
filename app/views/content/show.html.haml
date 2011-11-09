@@ -1,14 +1,14 @@
 #content.cms_page
   .site_column
     - if @translated_content.nil?
-      = I18n.t(:cms_missing_content_message)
-      %br/
-      - unless @translated_pages.nil?
-        = I18n.t(:cms_available_in_languages)
-        %ul
-          - for translated_page in @translated_pages
-            %li
-              = link_to translated_page.language.label, cms_page_path(@page_id, :language => translated_page.language.iso_code)
+      .article.copy
+        %p= I18n.t(:cms_missing_content_message, :selected_language => "#{@selected_language.source_form} #{@selected_language.iso_code.upcase}")
+        - unless @translated_pages.nil?
+          = I18n.t(:cms_available_in_languages)
+          %ul
+            - for translated_page in @translated_pages
+              %li
+                = link_to translated_page.language.source_form, cms_page_path(@page_id, :language => translated_page.language.iso_code)
     - else
       - unless @translated_content.left_content.blank?
         .nav

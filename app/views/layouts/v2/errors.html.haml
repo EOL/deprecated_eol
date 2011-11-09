@@ -4,12 +4,12 @@
     %title
       = I18n.t(:encyclopedia_of_life)
     %meta{ :charset => "utf-8" }
-    = stylesheet_link_tag "not_found", "accessibility"
+    = stylesheet_link_tag "errors", "accessibility"
     = javascript_include_tag "jquery-1.6.1.min", "rails", "application"
     = yield :head
 
-  %body#not_found
+  %body
+    - @page_title ||= controller.instance_variable_get("@page_title")
     #content
-      %h1
-        = @page_title
+      %h1= @page_title
       = yield

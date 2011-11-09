@@ -24,12 +24,7 @@ class FeedsController < ApplicationController
     taxon_concept_id = params[:id] || nil
     options[:type] ||= :all
     options[:title] ||= 'Latest Images, Text and Comments'
-    begin
-      taxon_concept = TaxonConcept.find(taxon_concept_id)
-    rescue
-      render_404
-      return false
-    end
+    taxon_concept = TaxonConcept.find(taxon_concept_id)
 
     feed_link = url_for(:controller => :taxa, :action => :show, :id => taxon_concept.id)
     options[:title] += " for #{taxon_concept.quick_scientific_name(:normal)}"

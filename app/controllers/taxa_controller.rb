@@ -5,38 +5,12 @@ class TaxaController < ApplicationController
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN   # if we happen to be on an SSL page, go back to http
   after_filter :set_meta_description_and_keys
 
-  # this is cheating because of mixing taxon and taxon concept use of the controller
-  def index
-    # you need to be a content partner OR ADMIN and logged in to get here
-    if !current_user.is_content_partner? && !current_user.is_admin?
-      return redirect_to(root_url)
-    end
-
-    if params[:harvest_event_id] && params[:harvest_event_id].to_i > 0
-      page = params[:page] || 1
-      @harvest_event = HarvestEvent.find(params[:harvest_event_id])
-      @taxa_contributed = @harvest_event.taxa_contributed(params[:harvest_event_id]).all_hashes.uniq.paginate(:page => page)
-      @page_title = $ADMIN_CONSOLE_TITLE if current_user.is_admin?
-      @navigation_partial = '/admin/navigation'
-      render :html => 'content_partner', :layout => current_user.is_admin? ? 'left_menu' : 'content_partner'
-    else
-      redirect_to(:action=>:show, :id => params[:id])
-    end
-  end
-
   def show
     if this_request_is_really_a_search
       do_the_search
       return
     end
-    taxon_id = params[:id] if params[:id]
-    return redirect_to taxon_overview_path(taxon_id)
-  end
-
-  # a permanent redirect to the new taxon_concept page
-  def taxa
-    headers["Status"] = "301 Moved Permanently"
-    redirect_to(params.merge(:controller => 'taxa', :action => 'show', :id => HierarchyEntry.find(params[:id]).taxon_concept_id))
+    return redirect_to taxon_overview_path(params[:id])
   end
 
   # If you want this to redirect to search, call (do_the_search && return if this_request_is_really_a_search) before this.
@@ -45,21 +19,12 @@ class TaxaController < ApplicationController
     tc_id = params[:taxon_concept_id].to_i
     tc_id = params[:taxon_id].to_i if tc_id == 0
     tc_id = params[:id].to_i if tc_id == 0
-    redirect_to_missing_page_on_error do
-      TaxonConcept.find(tc_id)
-    end
-  end
-
-  def taxon_concept_invalid?(tc)
-    redirect_to_missing_page_on_error do
-      raise "TaxonConcept not found" if tc.nil?
-      raise "Page not accessible" unless accessible_page?(tc)
-    end
+    TaxonConcept.find(tc_id)
   end
 
   # This method in V1 was used to allow a non-logged in user to change content settings, but now redirects to homepage.
   def settings
-    redirect_to :root
+    redirect_to :root, :status => :moved_permanently
   end
 
   ################
@@ -107,7 +72,6 @@ class TaxaController < ApplicationController
 
   def images
     taxon_concept = find_taxon_concept
-    return if taxon_concept_invalid?(taxon_concept)
     includes = { :top_concept_images => :data_object }
     selects = { :taxon_concepts => :supercedure_id,
       :data_objects => [ :id, :data_type_id, :data_subtype_id, :published, :guid, :data_rating ] }
@@ -125,13 +89,11 @@ class TaxaController < ApplicationController
 
   def maps
     @taxon_concept = find_taxon_concept
-    return if taxon_concept_invalid?(@taxon_concept)
     render :partial => "maps"
   end
 
   def videos
     @taxon_concept = find_taxon_concept
-    return if taxon_concept_invalid?(@taxon_concept)
     @taxon_concept.current_user = current_user
     @video_collection = videos_to_show
     render :layout => false
@@ -167,7 +129,6 @@ class TaxaController < ApplicationController
   # TODO - This needs to add a CuratorActivityLog.
   def update_common_names
     tc = find_taxon_concept
-    return if taxon_concept_invalid?(tc)
     if current_user.is_curator?
       if !params[:preferred_name_id].nil?
         name = Name.find(params[:preferred_name_id])
@@ -284,8 +245,14 @@ class TaxaController < ApplicationController
 private
   def instantiate_taxon_concept
     @taxon_concept = find_taxon_concept
+    unless accessible_page?(@taxon_concept)
+      if logged_in?
+        raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have access to TaxonConcept with id=#{@taxon_concept.id}"
+      else
+        raise EOL::Exceptions::MustBeLoggedIn, "Non-authenticated user does not have access to TaxonConcept with ID=#{@taxon_concept.id}"
+      end
+    end
     @taxon_concept.current_user = current_user if @taxon_concept
-    # TODO: is this the best name for this?
     @selected_hierarchy_entry_id = params[:hierarchy_entry_id]
     if @selected_hierarchy_entry_id
       @selected_hierarchy_entry = HierarchyEntry.find_by_id(@selected_hierarchy_entry_id) rescue nil
@@ -306,13 +273,6 @@ private
       data_objects.unshift(exemplar_image)
     end
     data_objects
-  end
-
-  def redirect_if_invalid
-    redirect_to_missing_page_on_error do
-      raise "TaxonConcept not found" if @taxon_concept.nil?
-      raise "Page not accessible" unless accessible_page?(@taxon_concept)
-    end
   end
 
   def redirect_if_superceded

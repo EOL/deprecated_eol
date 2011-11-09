@@ -1,1 +1,4 @@
-= render :partial => 'content/error', :locals => {:provide_try_again_link => @retry }
+- @status_code ||= controller.instance_variable_get("@status_code")
+- error = "EOL Error: #{@status_code} #{current_url}" rescue "EOL Error"
+#message
+  = render :partial => 'content/error', :locals => { :status_code => @status_code, :error => error }

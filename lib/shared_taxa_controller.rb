@@ -10,9 +10,7 @@ module SharedTaxaController
     tc_id = params[:id].to_i
     tc_id = params[:taxon_id].to_i if tc_id == 0
     tc_id = params[:taxon_concept_id].to_i if tc_id == 0
-    redirect_to_missing_page_on_error do
-      TaxonConcept.find(tc_id)
-    end
+    TaxonConcept.find(tc_id)
   end
 
 
@@ -37,28 +35,8 @@ module SharedTaxaController
   end
 
   # from taxa_controller
-  def redirect_if_invalid
-    redirect_to_missing_page_on_error do
-      raise "TaxonConcept not found" if @taxon_concept.nil?
-      raise "Page not accessible" unless accessible_page?(@taxon_concept)
-    end
-  end
-
-  # from taxa_controller
   def update_user_content_level
     current_user.content_level = params[:content_level] if ['1','2','3','4'].include?(params[:content_level])
-  end
-
-  # from taxa_controller
-  # to rewrite for mobile
-  def redirect_to_missing_page_on_error(&block)
-    begin
-      yield
-    rescue => e
-      @message = e.message
-      render(:layout => 'main', :template => "content/missing", :status => 404)
-      return false
-    end
   end
 
   # from taxa/overviews_controller

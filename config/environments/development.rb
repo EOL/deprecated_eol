@@ -10,8 +10,12 @@ require "ruby-debug"
 # Log error messages when you accidentally call methods on nil.
 config.whiny_nils = true
 
-# Show full error reports and disable caching
-config.action_controller.consider_all_requests_local = true
+# Set which IP addresses generate local requests (versus public). Local requests get the default Rails error messages.
+# Modify $LOCAL_REQUEST_ADDRESSES values to toggle between public and local error views when using a local IP.
+$LOCAL_REQUEST_ADDRESSES = [] # ['127.0.0.1', '::1'].freeze
+config.action_controller.consider_all_requests_local = false # overrides $LOCAL_REQUEST_ADDRESSES when set to true.
+
+# Disable caching
 config.cache_classes                                 = false
 config.action_view.debug_rjs                         = false
 

@@ -2,7 +2,7 @@ class Taxa::WorklistController < TaxaController
 
   before_filter :check_authentication
   before_filter :restrict_to_curators
-  before_filter :instantiate_taxon_concept, :redirect_if_superceded, :redirect_if_invalid
+  before_filter :instantiate_taxon_concept, :redirect_if_superceded
   before_filter :add_page_view_log_entry, :update_user_content_level
 
   def show
@@ -20,14 +20,13 @@ class Taxa::WorklistController < TaxaController
     @object_visibility = 'all' unless ['all', 'visible', 'invisible'].include?(@object_visibility)
     @task_status = 'active' unless ['active', 'curated', 'ignored'].include?(@task_status)
     @resource_id = 'all' unless @resource_id == 'all' || @resource_id.is_numeric?
-    
     data_type_ids = nil
     if params[:object_type] == 'video'
       data_type_ids = DataType.video_type_ids
     elsif data_type = DataType.cached_find_translated(:label, params[:object_type], 'en')
       data_type_ids = [data_type.id]
     end
-    
+
     search_vetted_types = [ @object_status ]
     if search_vetted_types == ['all']
       search_vetted_types = ['trusted', 'unreviewed', 'untrusted']
@@ -56,7 +55,7 @@ class Taxa::WorklistController < TaxaController
       params[:worklist_return_to] = taxon_worklist_data_object_path(@taxon_concept, @current_data_object)
       params[:force_return_to] = taxon_worklist_data_object_path(@taxon_concept, @current_data_object)
     end
-    
+
     unless params[:ajax].blank?
       params.delete(:ajax)
       render(:partial => 'main_content')

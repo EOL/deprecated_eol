@@ -499,19 +499,26 @@ describe 'Taxa page' do
 
   context 'when taxon supercedes another concept' do
     it 'should use supercedure to find taxon if user visits the other concept' do
-      #visit("/pages/#{@testy[:superceded_taxon_concept].id}")
-      #current_path.should match /\/pages\/#{@testy[:id]}/
+      visit("/pages/#{@testy[:superceded_taxon_concept].id}")
+      current_path.should match /\/pages\/#{@testy[:id]}/
       visit("/pages/#{@testy[:superceded_taxon_concept].id}/details")
       current_path.should match /\/pages\/#{@testy[:id]}\/details/
     end
   end
 
   context 'when taxon is unpublished' do
-    it 'should show unauthorised user a missing content error message' do
-      visit("/pages/#{@testy[:unpublished_taxon_concept].id}")
-      body.should have_tag('h1', /^Not found/)
-      visit("/pages/#{@testy[:unpublished_taxon_concept].id}/details")
-      body.should have_tag('h1', /^Not found/)
+    it 'should show anonymous user the login page' do
+      visit logout_path
+      visit taxon_path(@testy[:unpublished_taxon_concept].id)
+      current_path.should == '/login'
+      body.should include('You must be logged in to perform this action')
+    end
+    it 'should show logged in unauthorised user access denied' do
+      login_as @user
+      referrer = current_url
+      visit taxon_details_path(@testy[:unpublished_taxon_concept].id)
+      current_url.should == referrer
+      body.should include('You are not authorized to perform this action')
     end
   end
 
@@ -535,7 +542,7 @@ describe 'Taxa page' do
       visit logout_url
       login_as @user
       visit taxon_updates_path(@taxon_concept)
-      
+
     end
     it 'should allow logged in users to post comment' do
       visit logout_url

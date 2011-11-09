@@ -27,9 +27,7 @@ describe Admins::ContentPartnersController do
     it 'should only allow access to EOL administrators' do
       get :index
       response.redirected_to.should == login_url
-      get :index, nil, { :user => @non_admin, :user_id => @non_admin.id }
-      response.redirected_to.should == root_url
-      flash[:error] =~ /not authorized/
+      expect{ get :index, nil, { :user => @non_admin, :user_id => @non_admin.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
     end
     it 'should instantiate content partners with default sort by partner name' do
       get :index, nil, { :user => @admin, :user_id => @admin.id }
@@ -74,9 +72,7 @@ describe Admins::ContentPartnersController do
     it 'should only allow access to EOL administrators' do
       get :notifications
       response.redirected_to.should == login_url
-      get :notifications, nil, { :user => @non_admin, :user_id => @non_admin.id }
-      response.redirected_to.should == root_url
-      flash[:error] =~ /not authorized/
+      expect{ get :notifications, nil, { :user => @non_admin, :user_id => @non_admin.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
     end
     it 'should render notifications view' do
       get :notifications, nil, { :user => @admin, :user_id => @admin.id }
@@ -88,9 +84,8 @@ describe Admins::ContentPartnersController do
     it 'should only allow access to EOL administrators' do
       post :notifications, { :notification => 'content_partner_statistics_reminder' }
       response.redirected_to.should == login_url
-      post :notifications, { :notification => 'content_partner_statistics_reminder' }, { :user => @non_admin, :user_id => @non_admin.id }
-      response.redirected_to.should == root_url
-      flash[:error] =~ /not authorized/
+      expect{ post :notifications, { :notification => 'content_partner_statistics_reminder' },
+                                   { :user => @non_admin, :user_id => @non_admin.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
     end
     it "should send statistics reminder notification" do
       contact = ContentPartnerContact.first(:include => { :content_partner => :user })
@@ -105,9 +100,7 @@ describe Admins::ContentPartnersController do
     it 'should only allow access to EOL administrators' do
       get :statistics
       response.redirected_to.should == login_url
-      get :statistics, nil, { :user => @non_admin, :user_id => @non_admin.id }
-      response.redirected_to.should == root_url
-      flash[:error] =~ /not authorized/
+      expect{ get :statistics, nil, { :user => @non_admin, :user_id => @non_admin.id } }.should raise_error(EOL::Exceptions::SecurityViolation)
     end
     it 'should render statistics view' do
       get :statistics, nil, { :user => @admin, :user_id => @admin.id }

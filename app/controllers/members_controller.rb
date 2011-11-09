@@ -55,14 +55,7 @@ class MembersController < ApplicationController
 private
 
   def load_community_and_current_member
-    begin
-      @community = Community.find(params[:community_id])
-    rescue => e
-      @page_title = I18n.t(:error_404_page_title)
-      @message = e.message
-      render(:layout => 'v2/errors', :template => "content/missing", :status => 404)
-      return false
-    end
+    @community = Community.find(params[:community_id])
     unless @community.published?
       render :template => '/communities/show'
       return false

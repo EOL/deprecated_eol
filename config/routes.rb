@@ -83,7 +83,7 @@ ActionController::Routing::Routes.draw do |map|
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
 
   # Taxa nested resources with pages as alias
-  map.resources :taxa, :as => :pages do |taxa|
+  map.resources :taxa, :only => [:show], :as => :pages do |taxa|
     taxa.resources :hierarchy_entries, :as => :entries, :only => [:show], :member => { :switch => [:put] } do |entries|
       entries.resource :tree, :only => [:show], :controller => "taxa/trees"
       entries.resource :overview, :only => [:show], :controller => "taxa/overviews"
@@ -198,7 +198,7 @@ ActionController::Routing::Routes.draw do |map|
   map.mobile 'mobile', :controller => 'mobile/contents'
   map.namespace :mobile do |mobile|
     mobile.resources :contents, :collection => {:enable => [:post, :get], :disable => [:post, :get]}
-    mobile.resources :taxa, :as => :pages do |taxa|
+    mobile.resources :taxa, :only => [:show], :as => :pages do |taxa|
       taxa.resources :details, :only => [:index], :controller => "taxa/details"
       taxa.resources :media, :only => [:index], :controller => "taxa/media"
     end

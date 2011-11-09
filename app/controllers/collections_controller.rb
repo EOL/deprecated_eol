@@ -44,7 +44,7 @@ class CollectionsController < ApplicationController
     @collection = Collection.new
   end
 
-  def create    
+  def create
     @collection = Collection.new(params[:collection])
     if @collection.save
       flash[:notice] = I18n.t(:collection_created_with_count_notice,
@@ -432,14 +432,22 @@ private
 
   def user_able_to_view_collection
     unless @collection && current_user.can_view_collection?(@collection)
-      access_denied
+      if logged_in?
+        raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have read access to Collection with ID=#{@collection.id}"
+      else
+        raise EOL::Exceptions::MustBeLoggedIn, "Non-authenticated user does not have read access to Collection with id=#{@collection.id}"
+      end
       return true
     end
   end
 
   def user_able_to_edit_collection
     unless @collection && current_user.can_edit_collection?(@collection)
-      access_denied
+      if logged_in?
+        raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have edit access to Collection with ID=#{@collection.id}"
+      else
+        raise EOL::Exceptions::MustBeLoggedIn, "Non-authenticated user does not have edit access to Collection with id=#{@collection.id}"
+      end
       return true
     end
   end
@@ -470,7 +478,7 @@ private
     end
   end
 
-  def create_collection_from_item    
+  def create_collection_from_item
     @collection.add(@item)
     EOL::GlobalStatistics.increment('collections')
     flash[:notice] = I18n.t(:collection_created_notice, :collection_name => link_to_name(@collection))

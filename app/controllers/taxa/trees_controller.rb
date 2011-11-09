@@ -1,5 +1,5 @@
 class Taxa::TreesController < TaxaController
-  before_filter :instantiate_taxon_concept, :redirect_if_superceded, :redirect_if_invalid
+  before_filter :instantiate_taxon_concept, :redirect_if_superceded
 
   def show
     @include_common_names = false

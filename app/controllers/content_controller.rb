@@ -4,7 +4,7 @@ class ContentController < ApplicationController
 
   caches_page :tc_api
 
-  layout :choose_layout
+  layout 'v2/basic'
 
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN
   before_filter :check_user_agreed_with_terms, :except => [:show]
@@ -110,35 +110,45 @@ class ContentController < ApplicationController
   def show
     # get the id parameter, which can be either a page ID # or a page name
     @page_id = params[:id] || params[:crumbs].last
-    @selected_language = params[:language] ? Language.from_iso(params[:language]) : nil
-    raise "static page without id" if @page_id.blank?
 
     # Temporarily having to deal with some legacy V1 URLs (see routes file - should not be needed after October 10 2011)
     # but we don't want the user to see or bookmark them so:
     redirect_to cms_page_path(@page_id) if current_url.match(/^\/content\/page\//)
 
     if @page_id.is_int?
-      @content = ContentPage.find(@page_id, :include => :parent)
+      @content = ContentPage.find(@page_id, :include => [:parent, :translations])
     else # assume it's a page name
-      @content = ContentPage.find_by_page_name(@page_id)
-      @content ||= ContentPage.find_by_page_name(@page_id.gsub('_', ' ')) # will become obsolete once validation on page_name is in place
+      @content = ContentPage.find_by_page_name(@page_id, :include => [:parent, :translations])
+      @content ||= ContentPage.find_by_page_name(@page_id.gsub('_', ' '), :include => [:parent, :translations]) # will become obsolete once validation on page_name is in place
+      raise ActiveRecord::RecordNotFound, "Couldn't find ContentPage with page_name=#{@page_id}" if @content.nil?
     end
 
-    return render_404 if @content.nil? || !current_user.can_read?(@content)
-
-    @navigation_tree_breadcrumbs = ContentPage.get_navigation_tree_with_links(@content.id)
-    current_language = @selected_language || Language.from_iso(current_user.language_abbr)
-    @translated_content = TranslatedContentPage.find_by_content_page_id_and_language_id(@content.id, current_language.id)
-    @translated_content = nil unless current_user.can_read?(@translated_content)
-    if @translated_content.nil?
-      @translated_pages = TranslatedContentPage.find_all_by_content_page_id(@content.id)
-      @translated_pages.reject!{|tp| !current_user.can_read?(tp)}
-      return render_404 if @translated_pages.blank?
-      @page_title = I18n.t(:cms_missing_content_title)
-    else
-      @page_title = @translated_content.title
+    if ! @content.nil? && ! current_user.can_read?(@content) && ! logged_in?
+      raise EOL::Exceptions::MustBeLoggedIn, "Non-authenticated user does not have read access to ContentPage with ID=#{@content.id}"
+    elsif ! current_user.can_read?(@content)
+      raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have read access to ContentPage with ID=#{@content.id}"
+    else # page exists so now we look for actual content i.e. a translated page
+      if @content.translations.blank?
+        raise ActiveRecord::RecordNotFound, "Couldn't find TranslatedContentPage with content_page_id=#{@content.id}"
+      else
+        translations_available_to_user = @content.translations.select{|t| current_user.can_read?(t)}.compact
+        if translations_available_to_user.blank?
+          if logged_in?
+            raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have read access to any TranslatedContentPage with content_page_id=#{@content.id}"
+          else
+            raise EOL::Exceptions::MustBeLoggedIn, "Non-authenticated user does not have read access to any TranslatedContentPage with content_page_id=#{@content.id}"
+          end
+        else
+          # try and render preferred language translation, otherwise links to other available translations will be shown
+          @selected_language = params[:language] ? Language.from_iso(params[:language]) : Language.from_iso(current_user.language_abbr)
+          @translated_pages = translations_available_to_user
+          @translated_content = translations_available_to_user.select{|t| t.language_id == @selected_language.id}.compact.first
+          @page_title = @translated_content.nil? ? I18n.t(:cms_missing_content_title) : @translated_content.title
+          @navigation_tree_breadcrumbs = ContentPage.get_navigation_tree_with_links(@content.id)
+          current_user.log_activity(:viewed_content_page_id, :value => @page_id)
+        end
+      end
     end
-    current_user.log_activity(:viewed_content_page_id, :value => @page_id)
   end
 
   # convenience method to reference the uploaded content from the CMS (usually a PDF file or an image used in the static pages)
@@ -179,15 +189,6 @@ class ContentController < ApplicationController
 
   def boom
     raise "This is an exception." # I18n not req'd
-  end
-
-  # error page
-  def error
-    @page_title = begin
-                    I18n.t(:error_page_title)
-                  rescue
-                    'ERROR'
-                  end
   end
 
   def language
@@ -306,14 +307,4 @@ class ContentController < ApplicationController
     @page_title = I18n.t("eol_glossary")
   end
 
-private
-
-  def choose_layout
-    case action_name
-    when 'error'
-      'v2/errors'
-    else
-      'v2/basic'
-    end
-  end
 end

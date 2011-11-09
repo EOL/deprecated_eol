@@ -2,17 +2,17 @@ require 'uri'
 ContentPage # TODO - figure out why this fails to autoload.  Look at http://kballcodes.com/2009/09/05/rails-memcached-a-better-solution-to-the-undefined-classmodule-problem/
 
 class ApplicationController < ActionController::Base
+
+  # Map custom exceptions to default response codes
+  ActionController::Base.rescue_responses.update(
+    'EOL::Exceptions::MustBeLoggedIn'             => :unauthorized,
+    'EOL::Exceptions::SecurityViolation'          => :forbidden,
+    'EOL::Exceptions::Pending'                    => :not_implemented
+  )
+
   filter_parameter_logging :password
   include ContentPartnerAuthenticationModule # TODO -seriously?!?  You want all that cruft available to ALL controllers?!
   include ImageManipulation
-
-  if $EXCEPTION_NOTIFY || $ERROR_LOGGING
-    include ExceptionNotifiable
-    # Uncomment this line if you want to test exception notification and db error logging even on localhost calls.
-    # You'll probably also need to set config.action_controller.consider_all_requests_local = false in your
-    # environment file:
-    #local_addresses.clear
-  end
 
   # If recaptcha is not enabled, then override the method to always return true
   unless $ENABLE_RECAPTCHA
@@ -64,35 +64,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def rescue_action(e)
-    case e
-    when ActionController::UnknownAction, ActionController::RoutingError
-      render_404
-    when EOL::Exceptions::MustBeLoggedIn
-      must_be_logged_in
-    when EOL::Exceptions::SecurityViolation
-      access_denied
-    when EOL::Exceptions::Pending
-      not_yet_implemented
-    else
-      # NOTE - Solr connection was failing often enough that I thought it warranted special handling.
-      @@solr_error_re ||= /^Connection refused/  # Remember REs cause mem leaks if in-line
-      if e.message =~ @@solr_error_re
-        logger.error "****\n**** ERROR: Solr connection refused.\n****"
-        @solr_connection_refused = true
-      else
-        resolve_common_session_errors
-        log_error_cleanly(e)
-      end
-      @page_title = I18n.t(:error_page_title)
-      respond_to do |format|
-        format.html { render :layout => 'v2/errors', :template => "content/error" }
-        format.js { @retry = false; render :layout => false, :template => "content/error" }
-      end
-      raise e if $PRODUCTION_MODE # This lets New Relic handle the actual exception.
-    end
-  end
-
   def allow_login_then_submit
     unless logged_in?
       # TODO: Can we delete the submitted data if the user doesn't login or signup?
@@ -127,35 +98,6 @@ class ApplicationController < ActionController::Base
     include ApplicationHelper
     include ActionView::Helpers::SanitizeHelper
   end
-
-  # override exception notifiable default methods to redirect to our special error pages instead of the usual 404
-  # and 500 and to do error logging
-  def render_404
-    @page_title = I18n.t(:error_404_page_title)
-    respond_to do |type|
-      type.html { render :layout => 'v2/errors', :template => "content/missing", :status => 404} # status may be redundant
-      type.all  { render :nothing => true }
-    end
-  end
-
-  def render_500(exception = nil)
-    if $ERROR_LOGGING && !$IGNORED_EXCEPTIONS.include?(exception.to_s)
-       ErrorLog.create(
-         :url => request.url,
-         :ip_address => request.remote_ip,
-         :user_agent => request.user_agent,
-         :user_id => current_user.id,
-         :exception_name => exception.to_s,
-         :backtrace => "Application Server: " + $IP_ADDRESS_OF_SERVER + "\r\n" + exception.backtrace.to_s
-         )
-    end
-    @page_title = I18n.t(:error_500_page_title)
-    respond_to do |type|
-     type.html { render :layout => 'v2/errors', :template => "content/error"}
-     type.all  { render :nothing => true }
-    end
-  end
-  ## end override of exception notifiable default methods
 
   # this method determines if the main taxa page is allowed to be cached or not
   def allow_page_to_be_cached?
@@ -470,10 +412,10 @@ class ApplicationController < ActionController::Base
   # A user is not authorized for the particular controller/action:
   def access_denied
     unless logged_in?
-      return redirect_to root_url
+      return redirect_to root_url, :status => 401
     end
     store_location(request.referer) unless session[:return_to] || request.referer.blank?
-    flash_and_redirect_back(I18n.t(:you_are_not_authorized_to_perform_this_action))
+    flash_and_redirect_back(I18n.t(:you_are_not_authorized_to_perform_this_action), 403)
   end
 
   def not_yet_implemented
@@ -481,11 +423,11 @@ class ApplicationController < ActionController::Base
     redirect_to request.referer ? :back : :default
   end
 
-  def flash_and_redirect_back(msg)
+  def flash_and_redirect_back(msg, status_code)
     flash[:error] = msg
     respond_to do |format|
       format.html { redirect_back_or_default }
-      format.js { render :text => warning }
+      format.js { render :text => warning, :status => status_code }
     end
   end
 
@@ -513,17 +455,6 @@ class ApplicationController < ActionController::Base
     if logged_in? && ! current_user.agreed_with_terms
       store_location
       redirect_to terms_agreement_user_path(current_user)
-    end
-  end
-
-  def redirect_to_missing_page_on_error(&block)
-    begin
-      yield
-    rescue => e
-      @page_title = I18n.t(:error_404_page_title)
-      @message = e.message
-      render(:layout => 'v2/errors', :template => "content/missing", :status => 404)
-      return false
     end
   end
 
@@ -585,6 +516,72 @@ class ApplicationController < ActionController::Base
   # clear the cached activity logs on homepage
   def clear_cached_homepage_activity_logs
     $CACHE.delete('homepage/activity_logs_expiration') if $CACHE
+  end
+
+protected
+
+  # Overrides ActionController::Rescue local_request? to allow custom configuration of which IP addresses
+  # are considered to be local requests (versus public) and therefore get full error messages. Modify
+  # $LOCAL_REQUEST_ADDRESSES values to toggle between public and local error views when using a local IP.
+  def local_request?
+    return false unless $LOCAL_REQUEST_ADDRESSES.is_a? Array
+    $LOCAL_REQUEST_ADDRESSES.any?{ |local_ip| request.remote_addr == local_ip && request.remote_ip == local_ip }
+  end
+
+  # Overrides ActionController::Rescue rescue_action_in_public to render custom views instead of static HTML pages
+  # public/404.html and public/500.html. Static pages are still used if exception prevents reaching controller
+  # e.g. see ActionController::Failsafe which catches e.g. MySQL exceptions such as database unknown
+  def rescue_action_in_public(exception)
+
+    resolve_common_session_errors
+
+    # exceptions in views are wrapped by ActionView::TemplateError and will return 500 response
+    # if we use the original_exception we may get a more meaningful response code e.g. 404 for ActiveRecord::RecordNotFound
+    if exception.is_a?(ActionView::TemplateError) && defined?(exception.original_exception)
+      response_code = response_code_for_rescue(exception.original_exception)
+    else
+      response_code = response_code_for_rescue(exception)
+    end
+    render_exception_response(exception, response_code)
+
+    # Log to database
+    if $ERROR_LOGGING && !$IGNORED_EXCEPTIONS.include?(exception.to_s)
+      ErrorLog.create(
+        :url => request.url,
+        :ip_address => request.remote_ip,
+        :user_agent => request.user_agent,
+        :user_id => current_user.id,
+        :exception_name => exception.to_s,
+        :backtrace => "Application Server: " + $IP_ADDRESS_OF_SERVER + "\r\n" + exception.backtrace.to_s
+      )
+    end
+    raise exception if $PRODUCTION_MODE # This lets New Relic handle the actual exception TODO: how do we test this?
+  end
+
+  # custom method to render an appropriate response to an exception
+  def render_exception_response(exception, response_code)
+    case response_code
+    when :unauthorized
+      logged_in? ? access_denied : must_be_logged_in
+    when :forbidden
+      access_denied
+    when :not_implemented
+      not_yet_implemented
+    else
+      status = interpret_status(response_code) # defaults to "500 Unknown Status" if response_code is not recognized
+      status_code = status[0,3]
+      respond_to do |format|
+        format.html do
+          @page_title = I18n.t("error_#{status_code}_page_title", :default => [:error__page_title, "Error."])
+          @status_code = status_code
+          render :layout => 'v2/errors', :template => 'content/error', :status => status_code
+        end
+        format.js do
+          render :layout => false, :template => 'content/error', :status => status_code
+        end
+        format.all { render :text => status, :status => status_code }
+      end
+    end
   end
 
 private
@@ -717,29 +714,6 @@ private
   end
   helper_method :mobile_disabled_by_session?
 
-
-  def log_error_cleanly(e)
-    logs = []
-    logs << "*" * 76
-    logs << "** #{Time.now.strftime('%Y-%m-%d %H:%M:%S')}"
-    logs << "** EXCEPTION: (#{e.class.name}) #{e.message}"
-    lines_shown = 0
-    index = 0
-    e.backtrace.map {|t| t.gsub(/#{RAILS_ROOT}/, '.')}.each do |trace|
-      if trace =~ /\.?\/(usr|vendor).*:/
-        logs << "       (#{trace})"
-      else
-        logs << "   #{trace}"
-        lines_shown += 1
-      end
-      index += 1
-      break if lines_shown > 12
-    end
-    logs << "   [...#{e.backtrace.length - index} more lines omitted]" if lines_shown > 12
-    logs << "\n\n"
-    logger.error logs.join("\n")
-  end
-
   def resolve_common_session_errors
     begin
       if session[:language]
@@ -762,7 +736,7 @@ private
       flash[:notice] = begin
                          I18n.t(:welcome_and_you_were_logged_out)
                        rescue
-                         "There was a seious problem with your session and you have been logged out. Sorry."
+                         "There was a serious problem with your session and you have been logged out. Sorry."
                        end
     end
   end

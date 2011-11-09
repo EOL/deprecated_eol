@@ -107,7 +107,7 @@ class CommunitiesController < ApplicationController
       redirect_to(@community, :notice => I18n.t(:already_member_of_community) )
     else
       @community.add_member(current_user)
-      
+
       auto_collect(@community, :annotation => I18n.t(:user_joined_community_on_date, :date => I18n.l(Date.today),
                                                      :username => current_user.full_name))
       auto_collect(@community.focus)
@@ -131,14 +131,7 @@ class CommunitiesController < ApplicationController
 private
 
   def load_community_and_dependent_vars
-    begin
-      @community = Community.find(params[:community_id] || params[:id])
-    rescue => e
-      @page_title = I18n.t(:error_404_page_title)
-      @message = e.message
-      render :layout => 'v2/errors', :template => "content/missing", :status => 404
-      return false
-    end
+    @community = Community.find(params[:community_id] || params[:id])
     # It's okay (perfectly) if this gets overridden elsewhere:
     flash.now[:notice] = I18n.t(:this_community_was_deleted) unless @community.published?
     @community_collections = @community.collections || [] # NOTE these are collection_items, really.

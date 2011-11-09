@@ -633,6 +633,18 @@ class DataObject < SpeciesSchemaModel
   end
   alias is_video? video?
 
+  # NOTE: does not include image maps @see is_image_map? is used by en_type(object) in ApplicationHelper
+  def map?
+    return DataType.map_type_ids.include?(data_type_id)
+  end
+  alias is_map? map?
+
+  # NOTE: Specifically for image maps
+  def image_map?
+    self.is_image? && DataType.map_type_ids.include?(data_subtype_id)
+  end
+  alias is_image_map? image_map?
+
   def iucn?
     return data_type_id == DataType.iucn.id
   end

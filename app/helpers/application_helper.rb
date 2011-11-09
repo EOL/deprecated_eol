@@ -103,11 +103,13 @@ module ApplicationHelper
     end
   end
 
-  # Used in V2 to provide a stable English type label for CSS and I18n keys
+  # Used to provide a stable English type label for CSS and I18n keys
   def en_type(object)
     if object.class == CollectionItem
       en_type(object.object)
     elsif object.class == DataObject
+      return 'image_map' if object.is_image_map? # NOTE: this must appear before is_image? here
+      return 'map' if object.is_map?
       return 'image' if object.is_image?
       return 'video' if object.is_video?
       return 'sound' if object.is_sound?
@@ -135,7 +137,7 @@ module ApplicationHelper
       data_object_vetted = data_object.vetted_by_taxon_concept(taxon_concept, :find_best => true) unless taxon_concept.nil?
       data_object_vetted_label = (data_object_vetted.blank? || data_object_vetted.label.blank?) ? "" : data_object_vetted.label
       alt = I18n.t("#{en_type}_alt_text", :vetted_status => data_object_vetted_label.downcase,
-                 :taxon_name => taxon_name) if alt.blank?
+                 :taxon_name => taxon_name) if alt.blank? && ! en_type.blank?
     else
       alt = data_object.description_teaser
     end

@@ -572,7 +572,7 @@ protected
       status_code = status[0,3]
       respond_to do |format|
         format.html do
-          @page_title = I18n.t("error_#{status_code}_page_title", :default => [:error__page_title, "Error."])
+          @page_title = I18n.t("error_#{status_code}_page_title", :default => [:error_default_page_title, "Error."])
           @status_code = status_code
           render :layout => 'v2/errors', :template => 'content/error', :status => status_code
         end

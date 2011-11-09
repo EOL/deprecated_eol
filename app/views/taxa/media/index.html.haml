@@ -32,8 +32,12 @@
           - en_type = en_type(item)
           %li{:class => "#{index.modulo(4) == 0 ? 'first' : nil} #{en_type}".strip}
             .figure
-              = render :partial => "data_objects/data_object_#{en_type}",
-                :locals => { :data_object => item, :thumbnail => true, :size => '260_190' }
+              - if en_type == 'image_map' # dato is image map and so uses image partial
+                = render :partial => "data_objects/data_object_image",
+                  :locals => { :data_object => item, :thumbnail => true, :size => '260_190' }
+              - else
+                = render :partial => "data_objects/data_object_#{en_type}",
+                  :locals => { :data_object => item, :thumbnail => true, :size => '260_190' }
               - if item.data_type_id == DataType.image.id && current_user.min_curator_level?(:assistant)
                 .overlay
                 - form_for :taxon_concept_exemplar_image, :url => set_as_exemplar_taxon_media_path(@taxon_concept),

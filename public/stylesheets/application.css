@@ -2461,6 +2461,9 @@ body > #header {
   overflow: hidden;
   padding: 19px;
   border: 1px solid #93a4b0; }
+  #worklist #task #sidebar h3 {
+    padding: 0 10px 3px 10px;
+    font-size: 1.16em; }
   #worklist #task .media {
     margin: 0 0 20px 0; }
   #worklist #task .ratings {

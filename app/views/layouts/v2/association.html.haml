@@ -7,13 +7,12 @@
   #content
     .site_column#permalink_add_association
       %ul.object_list
-        %li.image
-          - en_type = en_type(@data_object)
+        - en_type = en_type(@data_object)
+        %li{:class => en_type}
           - if thumb = @data_object.thumb_or_object('88_88')
             = link_to image_tag (thumb , :alt => alternative_text(@data_object, en_type)), data_object_path(@data_object)
-          %span.icon{:title => I18n.t("item_type_#{en_type}_assistive")}
+          %span.icon{:title => en_type.blank? ? nil : I18n.t("item_type_#{en_type}_assistive")}
           %h4= link_to @data_object.best_title, data_object_path(@data_object)
-          = alternative_text(@data_object, en_type)
       - form_tag({:controller => 'data_objects', :action => 'add_association'}, :method => 'get') do
         %fieldset
           = label_tag 'add_association', I18n.t(:add_a_taxon_association_label)

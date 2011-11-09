@@ -4,8 +4,11 @@
   %div{:class => @data_object.is_text? ? 'article copy' : 'media'}
     - if @data_object.is_text? && ! @data_object.object_title.blank?
       %h2= @data_object.object_title
-    = render :partial => "/data_objects/data_object_#{en_type}", :locals => { :size => '580_360' }
-  - unless @data_object.is_text? # NOTE - text description was already shown above so we don't want to show it again.
+    - if en_type == 'image_map' # dato is an image map and so uses image partial
+      = render :partial => "/data_objects/data_object_image", :locals => { :size => '580_360' }
+    - else
+      = render :partial => "/data_objects/data_object_#{en_type}", :locals => { :size => '580_360' }
+  - unless @data_object.is_text? # NOTE - text description was already shown in partial above so we don't want to show it again.
     = render :partial => '/data_objects/description.html.haml', :locals => { :data_object => @data_object }
   - unless for_worklist
     - # For worklist we show updates below associations form not here.
@@ -15,14 +18,13 @@
       = render :partial => '/activity_logs/index', :locals => { :log => @data_object.activity_log(:page => @page || nil) }
       = render :partial => '/comments/new', :locals => {:parent => @data_object}
 #sidebar
-  = render :partial => '/data_objects/rating', :locals => { :data_object => @data_object, :en_type => en_type }
+  = render :partial => '/data_objects/list_associations', :locals => { :data_object => @data_object, :en_type => en_type, :for_worklist => for_worklist }
   .article.source
     .header
       %h3= I18n.t(:source_information_header)
     = render :partial => '/data_objects/attribution', :locals => { :supplier => true }
     - if @data_object.is_image?
       %p= link_to I18n.t(:view_full_size_image), @data_object.thumb_or_object(:orig)
-  = render :partial => '/data_objects/list_associations', :locals => { :data_object => @data_object, :en_type => en_type, :for_worklist => for_worklist }
   - if for_worklist
     - # For worklist we show updates here below the associations form, not above.
     .article.list.updates
@@ -42,3 +44,4 @@
             %li= tr.language.source_form
           - else
             %li= link_to tr.language.source_form, set_language_url(:language => tr.language.iso_639_1)+"&return_to=/data_objects/#{tr.id}"
+  = render :partial => '/data_objects/rating', :locals => { :data_object => @data_object, :en_type => en_type }

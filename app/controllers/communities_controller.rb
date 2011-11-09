@@ -42,8 +42,7 @@ class CommunitiesController < ApplicationController
     if @community.save
       @collection.communities << @community
       @community.initialize_as_created_by(current_user)
-      invitees = params[:invite_list] ? params[:invite_list].values : params[:invitations].split(/[,\s]/).grep(/\w/)
-      sent_to = send_invitations(invitees)
+      sent_to = send_invitations(find_invitees)
       notice = I18n.t(:created_community)
       notice += " #{I18n.t(:sent_invitations_to_users, :users => sent_to.to_sentence)}" unless sent_to.empty?
       upload_logo(@community) unless params[:community][:logo].blank?
@@ -66,8 +65,7 @@ class CommunitiesController < ApplicationController
     #TODO = icon_change
     respond_to do |format|
       if @community.update_attributes(params[:community])
-        invitees = params[:invite_list] ? params[:invite_list].values : params[:invitations].split(/[,\s]/).grep(/\w/)
-        sent_to = send_invitations(invitees)
+        sent_to = send_invitations(find_invitees)
         notice = sent_to.empty? ? nil : I18n.t(:sent_invitations_to_users, :users => sent_to.to_sentence)
         upload_logo(@community) unless params[:community][:logo].blank?
         log_action(:change_name) if name_change
@@ -152,7 +150,7 @@ class CommunitiesController < ApplicationController
         @errors << I18n.t(:error_watch_collections_cannot_be_shared)
       elsif collection && current_user.can_edit_collection?(collection)
         collection.communities << @community
-        log_action(:add_collection)
+        log_action(:add_collection, :collection_id => collection.id)
         @notices << I18n.t(:collection_was_added_to_community,
                            :collection => link_to_collection(collection))
       else
@@ -200,6 +198,16 @@ private
     CommunityActivityLog.create(
       {:community => @community, :user => current_user, :activity => Activity.send(act)}.merge(opts)
     )
+  end
+
+  def find_invitees
+    if params[:invite_list]
+      params[:invite_list].values
+    elsif params[:invitations]
+      params[:invitations].split(/[,\s]/).grep(/\w/)
+    else
+      []
+    end
   end
 
   def send_invitations(usernames)

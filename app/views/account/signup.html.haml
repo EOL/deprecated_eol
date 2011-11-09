@@ -66,15 +66,7 @@
             = I18n.t(:do_you_want_to_receive_eol_notifications_by_email)
           = f.check_box :mailing_list
           =  I18n.t(:yes_answer)
-          - if $ALLOW_CURATOR_SELF_REG
-            %label{ :title => I18n.t(:do_you_want_to_be_a_curator) , :for => "curator_request" }
-              = I18n.t(:do_you_want_to_be_a_curator)
-            = f.check_box :curator_request, { :id => "curator_request" }
-            =  I18n.t(:yes_answer)
-            %br
-            %br
-            #curator_request_options{ :style => "display:none;" }
-              = render(:partial => '/curator_account/curator_form', :locals=>{ :f => f })
+
           - if $ENABLE_RECAPTCHA
             :javascript
               var RecaptchaOptions = { theme : 'clean'};

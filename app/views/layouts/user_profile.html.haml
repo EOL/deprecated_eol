@@ -19,8 +19,6 @@
             %li
               = link_to I18n.t("site_settings_menu"), { :controller => 'account', :action => 'site_settings' }, :class => "#{params[:action] == 'site_settings' ? 'active' : ''} toc_item"
             %li
-              = link_to I18n.t("curator_profile_menu"), { :controller => 'curator_account', :action => 'profile' }, :class => "#{(params[:controller] == 'curator_account' && params[:action] == 'profile') ? 'active' : ''} toc_item"
-            %li
               = link_to I18n.t("content_partner_profile_menu"), { :controller => 'content_partner_account', :action => 'dashboard' }, :class => "#{(params[:controller] == 'content_partner_account' && params[:action] == 'dashboard') ? 'active' : ''} toc_item"
               - if params[:controller] == 'content_partner_account' || params[:controller] == 'resources'
                 %li

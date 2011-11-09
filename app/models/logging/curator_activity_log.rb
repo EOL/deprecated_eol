@@ -116,7 +116,8 @@ class CuratorActivityLog < LoggingModel
     loggable_activities = {
       ChangeableObjectType.data_object.id => [ Activity.show.id, Activity.trusted.id, Activity.unreviewed.id, Activity.untrusted.id ],
       ChangeableObjectType.data_objects_hierarchy_entry.id => [ Activity.show.id, Activity.trusted.id, Activity.unreviewed.id, Activity.untrusted.id ],
-      ChangeableObjectType.synonym.id => [ Activity.add_common_name.id ]
+      ChangeableObjectType.synonym.id => [ Activity.add_common_name.id ],
+      ChangeableObjectType.users_data_object.id => [ Activity.show.id, Activity.trusted.id, Activity.unreviewed.id, Activity.untrusted.id ]
     }
     return unless self.activity
     return unless loggable_activities[self.changeable_object_type_id]
@@ -149,7 +150,7 @@ class CuratorActivityLog < LoggingModel
       end
 
     # action on a data object
-    elsif [ ChangeableObjectType.data_object.id, ChangeableObjectType.data_objects_hierarchy_entry.id].include?(self.changeable_object_type_id)
+    elsif [ ChangeableObjectType.data_object.id, ChangeableObjectType.data_objects_hierarchy_entry.id, ChangeableObjectType.users_data_object.id].include?(self.changeable_object_type_id)
       logs_affected['DataObject'] = [ self.object_id ]
       self.data_object.curated_hierarchy_entries.each do |he|
         logs_affected['TaxonConcept'] ||= []

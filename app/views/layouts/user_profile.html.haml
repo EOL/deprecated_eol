@@ -24,9 +24,9 @@
               = link_to I18n.t("content_partner_profile_menu"), { :controller => 'content_partner_account', :action => 'dashboard' }, :class => "#{(params[:controller] == 'content_partner_account' && params[:action] == 'dashboard') ? 'active' : ''} toc_item"
               - if params[:controller] == 'content_partner_account' || params[:controller] == 'resources'
                 %li
-                  = link_to I18n.t("partner_information_"), { :controller => 'content_partner_account', :action => 'profile' }, :class => "#{(params[:controller] == 'content_partner_account' && params[:action] == 'profile') ? 'active' : ''} nested toc_item"
+                  = link_to I18n.t(:partner_information).upcase, { :controller => 'content_partner_account', :action => 'profile' }, :class => "#{(params[:controller] == 'content_partner_account' && params[:action] == 'profile') ? 'active' : ''} nested toc_item"
                 %li
-                  = link_to I18n.t("contact_information_"), { :controller => 'content_partner_account', :action => 'contacts' }, :class => "#{(params[:controller] == 'content_partner_account' && ['contacts', 'add_contact'].include?(params[:action])) ? 'active' : ''} nested toc_item"
+                  = link_to I18n.t(:contact_information).upcase, { :controller => 'content_partner_account', :action => 'contacts' }, :class => "#{(params[:controller] == 'content_partner_account' && ['contacts', 'add_contact'].include?(params[:action])) ? 'active' : ''} nested toc_item"
                 %li
                   - in_parter_steps = (params[:controller] == 'content_partner_account' && ['licensing', 'attribution', 'roles', 'transfer_overview', 'transfer_upload'].include?(params[:action]))
                   = link_to I18n.t("partnering_steps"), { :controller => 'content_partner_account', :action => 'licensing' }, :class => "#{in_parter_steps ? 'active' : ''} nested toc_item"

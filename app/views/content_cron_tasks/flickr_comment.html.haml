@@ -1,8 +1,8 @@
 - # I'm using more variables here because I don't want HAML to add newlines anywhere
 - if comment.from_curator?
-  - profile_link = url_for(:controller => :account, :action => :show, :id => comment.user.id, :only_path => false)
+  - profile_link = user_url(comment.user, :host => 'eol.org')
   - linked_name = "<a href='#{profile_link}'>#{comment.user.full_name}</a>"
 - else
   - linked_name = comment.user.full_name
-- data_object_link = url_for(:controller => :data_objects, :action => comment.parent_id, :only_path => false)
-= linked_name + I18n.t("_commented_on_your_image_on_th", :var_data_object_link => data_object_link, :var_comment_body => comment.body)
+- data_object_link = url_for(:controller => :data_objects, :action => comment.parent_id, :only_path => false, :host => 'eol.org')
+= linked_name + I18n.t(:commented_on_your_image, :var_data_object_link => data_object_link, :var_comment_body => comment.body)

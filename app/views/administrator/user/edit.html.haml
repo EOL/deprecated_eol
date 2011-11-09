@@ -1,7 +1,7 @@
-=I18n.t("edit_the_user_details_below___")
+=I18n.t(:edit_user_details_instructions)
 %br
 - if @user != current_user
-  = link_to I18n.t("_login_to_the_website_as_var__", :var__user_username => @user.username),{:action=>'login_as_user', :id=>params[:id]}, :confirm => I18n.t("are_you_sure_you_want_to_log_i")
+  = link_to I18n.t(:login_to_the_website_as, :username => @user.username),{:action=>'login_as_user', :id=>params[:id]}, :confirm => I18n.t(:admin_login_confirmation)
 = eol_lang_error_messages_for :user if request.post?
 - form_for :user,@user,:url => {:action=>'update',:id=>params[:id]},:html=>{:id=>'page_form'} do |f|
   = render :partial => 'form', :locals => {:f=>f}

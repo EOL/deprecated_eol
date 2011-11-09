@@ -1,6 +1,6 @@
 #errors
   %form#page-form{ :method => "post", :action => "/administrator/error_log/index" }
-    =I18n.t("filter_by_day_")
+    =I18n.t(:filter_by_day)
     - default_select = (@date == 'all') ? 'all' : @date.strftime("%d-%b-%Y")
     = select_tag :date, options_for_select([['--select--', nil], ['--all--', 'all']] + @distinct_dates, default_select), {:onchange=>"javascript:$('#page-form').submit();"}
   %br
@@ -26,7 +26,7 @@
         %th
           =I18n.t("user_agent")
         %th
-          =I18n.t(:date_word)
+          =I18n.t(:date)
       - for error in @errors
         - column_class=cycle('odd','even')
         %tr

@@ -1,3 +1,4 @@
+-# I'm not sure what this view is for, but it's using RAW names (no need for I18n), so I'm leaving it as plain text:
 .container
   #control_panel
     #merge_concepts.control_subpanel
@@ -6,21 +7,21 @@
       =I18n.t("split_into_new_concept")
   %br
   #left_panel.lookup_panel
-    =I18n.t("taxonconceptid_")
+    Taxon Concept ID
     %input#tc1{:type => 'text', :size => 30}
     %input{:type => 'button', :value => 'Lookup TC'}
     %br
-    =I18n.t("hierarachyentryid_")
+    Hierarchy Entry ID
     %input#he1{:type => 'text', :size => 30}
     %input{:type => 'button', :value => 'Lookup HE'}
     %hr
     .entries
   #right_panel.lookup_panel
-    =I18n.t("taxonconceptid_")
+    Taxon Concept ID
     %input#tc2{:type => 'text', :size => 30}
     %input{:type => 'button', :value => 'Lookup TC'}
     %br
-    =I18n.t("hierarachyentryid_")
+    Hierarchy Entry ID
     %input#he2{:type => 'text', :size => 30}
     %input{:type => 'button', :value => 'Lookup HE'}
     %hr

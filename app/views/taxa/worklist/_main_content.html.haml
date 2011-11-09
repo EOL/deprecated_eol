@@ -38,6 +38,17 @@
           - sort_options = {}
           - [:newest, :oldest, :rating].each{|opt| sort_options[I18n.t("sort_by_#{opt}_option")] = opt }
           = select_tag :sort_by, options_for_select(sort_options, @sort_by.to_sym)
+      %dl
+        %dt
+          %label{:for => 'resource_id'}= I18n.t(:resource)
+        %dd
+          - sort_options = [[ I18n.t('object_type_all_option'), nil ]]
+          - @resource_counts.each do |rc|
+            - option_label = rc[:resource].title
+            - option_label = option_label[0...29] + "..." if option_label.length > 30
+            - option_label += " (" + rc[:count].to_s + ")"
+            - sort_options << [ option_label, rc[:resource].id.to_s ]
+          = select_tag :resource_id, options_for_select(sort_options, @resource_id)
     %fieldset.actions
       %input(type="submit" value="#{I18n.t(:show_tasks)}")
       %label

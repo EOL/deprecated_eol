@@ -6,6 +6,8 @@ class Administrator::UserController  < AdminController
 
   before_filter :restrict_to_admins
 
+  require 'csv'
+
   def index
 
     @page_title = I18n.t("web_users")
@@ -15,6 +17,7 @@ class Administrator::UserController  < AdminController
     @start_date = params[:start_date] || "2008-02-28"
     @end_date = params[:end_date] || Date.today.to_s(:db)
     @blank_dates = EOLConvert.to_boolean(params[:blank_dates])
+    @joined_mailing_list = EOLConvert.to_boolean(params[:joined_mailing_list])
     export = params[:export]
 
     begin
@@ -26,8 +29,11 @@ class Administrator::UserController  < AdminController
     end
 
     blank_date_condition = ' OR (created_at is null)' unless @blank_dates
+    joined_mailing_list_condition = ' AND (mailing_list = 1)' unless !@joined_mailing_list
 
-    condition = "((created_at>=? AND created_at<=?) #{blank_date_condition}) AND (id=? OR email like ? OR username like ? OR given_name like ? OR identity_url like ? OR family_name like ? OR username like ?)"
+    condition = "( ( (created_at>=? AND created_at<=?) #{blank_date_condition}) #{joined_mailing_list_condition} ) 
+    AND (id=? OR email like ? OR username like ? OR given_name like ? OR identity_url like ? OR family_name like ? OR username like ?)
+    #{joined_mailing_list_condition} "
 
     if export
       @users = User.find(:all,

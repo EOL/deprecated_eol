@@ -799,8 +799,11 @@ body > #header .section .session.join {
  * to remove some HR styles from nested p. Check latest HR and remove the table styles here if possible.
  * if we keep this we should DRY it out - same for whole file actually */
 #taxon_detail #main .article .copy, #taxon_detail #main .article .references {
-  margin: 0 0 15px 0;
+  margin: 0 40px 15px 40px;
   line-height: 170%; }
+  #taxon_detail #main .article .copy li, #taxon_detail #main .article .references li {
+    margin: 0 0 10px 0;
+    list-style-type: disc; }
 
 #text_summary.article .copy {
   margin: 0 0 15px 0;

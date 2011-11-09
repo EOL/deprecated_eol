@@ -169,7 +169,6 @@ ActionController::Routing::Routes.draw do |map|
   # map.connect 'administrator/reports/:report', :controller => 'administrator/reports', :action => 'catch_all',
   #                                              :requirements => { :report => /.*/ }
   map.connect 'administrator/curator', :controller => 'administrator/curator', :action => 'index'
-  map.resources :public_tags, :controller => 'administrator/tag_suggestion'
   map.resources :search_logs, :controller => 'administrator/search_logs'
 
   # TODO = make this resourceful, dammit - are these now obsolete?

@@ -19,7 +19,7 @@ pt:
   translated_agent_roles-label-agent_role_id-1: Animador
   translated_agent_roles-label-agent_role_id-10: Projecto
   translated_agent_roles-label-agent_role_id-11: Editora
-  translated_agent_roles-label-agent_role_id-12: Gravadora
+  translated_agent_roles-label-agent_role_id-12: Gravador
   translated_agent_roles-label-agent_role_id-13: Fonte
   translated_agent_roles-label-agent_role_id-14: Banco de dados de origem
   translated_agent_roles-label-agent_role_id-15: Contacto
@@ -76,14 +76,14 @@ pt:
   translated_contact_subjects-title-contact_subject_id-16: Feedback geral do projecto
   translated_contact_subjects-title-contact_subject_id-17: Fazer uma contribuição financeira
   translated_contact_subjects-title-contact_subject_id-18: Tornar-se um Parceiro de Conteúdo
-  translated_contact_subjects-title-contact_subject_id-19: Comentários ao Grupo de Páginas de Espécies
+  translated_contact_subjects-title-contact_subject_id-19: Comentários para o Grupo de Páginas de Espécies
   translated_contact_subjects-title-contact_subject_id-2: Contribuições
   translated_contact_subjects-title-contact_subject_id-20: Suporte ao Parceiro de Conteúdo
   translated_contact_subjects-title-contact_subject_id-21: Enviar uma mensagem para Cynthia Parr no grupo de páginas de espécies
   translated_contact_subjects-title-contact_subject_id-22: Recursos do Golfo do México
   translated_contact_subjects-title-contact_subject_id-23: Enviar uma mensagem para Eli Agbayani
   translated_contact_subjects-title-contact_subject_id-3: Aprendizagem e Educação
-  translated_contact_subjects-title-contact_subject_id-4: Curação de Páginas
+  translated_contact_subjects-title-contact_subject_id-4: Curadoria de Páginas
   translated_contact_subjects-title-contact_subject_id-5: Classificação
   translated_contact_subjects-title-contact_subject_id-6: Pesquisa bioinformática
   translated_contact_subjects-title-contact_subject_id-7: Pesquisa biológica
@@ -181,7 +181,7 @@ pt:
   translated_resource_statuses-label-resource_status_id-10: Publicado
   translated_resource_statuses-label-resource_status_id-11: Publicar pendente
   translated_resource_statuses-label-resource_status_id-12: Anular a publicação pendente
-  translated_resource_statuses-label-resource_status_id-13: Force Colheita
+  translated_resource_statuses-label-resource_status_id-13: Forçar Colheita
   translated_resource_statuses-label-resource_status_id-2: Upload terminado
   translated_resource_statuses-label-resource_status_id-3: O Upload Falhou
   translated_resource_statuses-label-resource_status_id-4: Movido para o servidor de conteúdo
@@ -206,7 +206,7 @@ pt:
   translated_synonym_relations-label-synonym_relation_id-10: sinónimo genbank
   translated_synonym_relations-label-synonym_relation_id-11: em-parte
   translated_synonym_relations-label-synonym_relation_id-12: inclui
-  translated_synonym_relations-label-synonym_relation_id-13: termo impróprio
+  translated_synonym_relations-label-synonym_relation_id-13: nome impróprio
   translated_synonym_relations-label-synonym_relation_id-14: erro ortográfico
   translated_synonym_relations-label-synonym_relation_id-15: teleomorfo
   translated_synonym_relations-label-synonym_relation_id-16: sinónimo ambíguo
@@ -246,7 +246,7 @@ pt:
   translated_synonym_relations-label-synonym_relation_id-47: sinónimo homotípico
   translated_synonym_relations-label-synonym_relation_id-48: nome indisponível
   translated_synonym_relations-label-synonym_relation_id-49: nome válido
-  translated_synonym_relations-label-synonym_relation_id-5: " nome blast"
+  translated_synonym_relations-label-synonym_relation_id-5: nome blast
   translated_synonym_relations-label-synonym_relation_id-50: válido
   translated_synonym_relations-label-synonym_relation_id-51: aceite
   translated_synonym_relations-label-synonym_relation_id-52: autoridade
@@ -285,7 +285,7 @@ pt:
   translated_table_of_contents-label-table_of_contents_id-285: Associações
   translated_table_of_contents-label-table_of_contents_id-286: Estado de conservação
   translated_table_of_contents-label-table_of_contents_id-289: Evolução
-  translated_table_of_contents-label-table_of_contents_id-292: " Mímicos"
+  translated_table_of_contents-label-table_of_contents_id-292: Mímicos
   translated_table_of_contents-label-table_of_contents_id-293: Descrição diagnóstica
   translated_table_of_contents-label-table_of_contents_id-296: Gestão
   translated_table_of_contents-label-table_of_contents_id-297: Estratégia trófica

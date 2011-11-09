@@ -9,7 +9,7 @@
     - when Activity.delete.id
       = I18n.t(:activity_user_deleted_community, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community)))
     - when Activity.add_member.id
-      = I18n.t(:activity_user_joined_community, :user => h(item.member.user.full_name), :community => link_to(item.community.summary_name, community_path(item.community)))
+      = I18n.t(:activity_user_joined_community, :user => item.member.nil? ? '' : h(item.member.user.full_name), :community => link_to(item.community.summary_name, community_path(item.community)))
     - when Activity.change_description.id
       = I18n.t(:activity_user_changed_community_description, :user => name_with_link, :community => link_to(item.community.summary_name, community_path(item.community)))
     - when Activity.change_name.id

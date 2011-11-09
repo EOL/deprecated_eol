@@ -12,13 +12,14 @@ class Taxa::WorklistController < TaxaController
     @object_status = params[:object_status] ||= 'unreviewed'
     @object_visibility = params[:object_visibility] ||= 'visible'
     @task_status = params[:task_status] ||= 'active'
+    @resource_id = params[:resource_id] ||= 'all'
     # checking approved values
     @sort_by = 'newest' unless ['newest', 'oldest', 'rating'].include?(@sort_by)
     @object_type = 'all' unless ['all', 'text', 'image', 'video', 'sound'].include?(@object_type)
     @object_status = 'all' unless ['all', 'trusted', 'unreviewed', 'untrusted'].include?(@object_status)
     @object_visibility = 'all' unless ['all', 'visible', 'invisible'].include?(@object_visibility)
     @task_status = 'active' unless ['active', 'curated', 'ignored'].include?(@task_status)
-
+    @resource_id = 'all' unless @resource_id == 'all' || @resource_id.is_numeric?
     data_type_ids = nil
     if params[:object_type] == 'video'
       data_type_ids = DataType.video_type_ids
@@ -30,7 +31,7 @@ class Taxa::WorklistController < TaxaController
     if search_vetted_types == ['all']
       search_vetted_types = ['trusted', 'unreviewed', 'untrusted']
     end
-    @data_objects = EOL::Solr::DataObjects.search_with_pagination(@taxon_concept.id, {
+    search_options = {
       :page => @page,
       :per_page => 16,
       :sort_by => @sort_by,
@@ -38,9 +39,13 @@ class Taxa::WorklistController < TaxaController
       :vetted_types => search_vetted_types,
       :visibility_types => [ @object_visibility ],
       :user => current_user,
-      :filter => @task_status
-    })
-
+      :filter => @task_status,
+      :resource_id => @resource_id,
+      :facet_by_resource => true
+    }
+    @data_objects = EOL::Solr::DataObjects.search_with_pagination(@taxon_concept.id, search_options)
+    @resource_counts = EOL::Solr::DataObjects.load_resource_facets(@taxon_concept.id, search_options).sort_by{ |c| c[:resource].title.downcase }
+    
     @current_data_object = @data_objects.detect{ |ct| ct.id == params[:current].to_i } unless params[:current].blank?
     @current_data_object = @data_objects.first if @current_data_object.blank?
     params[:current] = @current_data_object.id if @current_data_object

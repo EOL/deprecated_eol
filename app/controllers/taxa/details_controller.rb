@@ -40,6 +40,7 @@ class Taxa::DetailsController < TaxaController
       unless TocItem.exclude_from_details.include?(det[:toc_item])
         if det[:data_objects]
           det[:data_objects].each do |d|
+            d.language ||= current_user.language
             @details_count_by_language[d.language] ||= 0
             @details_count_by_language[d.language] += 1
             det[:data_objects].delete(d) unless d.language_id == current_user.language_id
@@ -49,7 +50,7 @@ class Taxa::DetailsController < TaxaController
         end
       end
     end
-    @details_count_by_language.delete_if{ |k,v| k == current_user.language }
+    @details_count_by_language.delete_if{ |k,v| k.blank? || k == current_user.language }
     # some sections may be empty now that other languages have been removed
     @details.delete_if{ |d| d[:data_objects].blank? }
 

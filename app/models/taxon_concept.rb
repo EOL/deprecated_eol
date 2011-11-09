@@ -1361,6 +1361,7 @@ class TaxonConcept < SpeciesSchemaModel
     cache_key = "best_image_#{self.id}"
     cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
     TaxonConceptExemplarImage
+    TocItem
     @best_image ||= $CACHE.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
       if self.taxon_concept_exemplar_image
         self.taxon_concept_exemplar_image.data_object
@@ -1371,6 +1372,7 @@ class TaxonConcept < SpeciesSchemaModel
           :data_type_ids => DataType.image_type_ids,
           :vetted_types => ['trusted', 'unreviewed'],
           :visibility_types => 'visible',
+          :ignore_maps => true,
           :filter_hierarchy_entry => selected_hierarchy_entry
         })
         (best_images.empty?) ? 'none' : best_images.first
@@ -1391,6 +1393,7 @@ class TaxonConcept < SpeciesSchemaModel
       :data_type_ids => DataType.image_type_ids,
       :vetted_types => ['trusted', 'unreviewed'],
       :visibility_types => 'visible',
+      :ignore_maps => true,
       :filter_hierarchy_entry => selected_hierarchy_entry,
       :ignore_translations => ignore_translations
     })

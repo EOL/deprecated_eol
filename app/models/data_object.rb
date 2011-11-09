@@ -1054,9 +1054,14 @@ class DataObject < SpeciesSchemaModel
     first_hierarchy_entry.taxon_concept rescue nil
   end
 
-  def first_hierarchy_entry
+  def first_hierarchy_entry(options={})
     sorted_entries = HierarchyEntry.sort_by_vetted(published_entries)
-    sorted_entries[0] rescue nil
+    best_first_entry = sorted_entries[0] rescue nil
+    if best_first_entry.nil? && options[:include_preview_entries]
+      sorted_entries = HierarchyEntry.sort_by_vetted(curated_hierarchy_entries)
+      best_first_entry = sorted_entries[0] rescue nil
+    end
+    best_first_entry
   end
 
   def best_title

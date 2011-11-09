@@ -166,7 +166,7 @@ es:
       second: "Segundos"
   errors:
     format: "%{attribute} %{message}"
-    messages: &errors_messages
+    messages:
       inclusion: "no está incluido en la lista"
       exclusion: "está reservado"
       invalid: "no es válido"

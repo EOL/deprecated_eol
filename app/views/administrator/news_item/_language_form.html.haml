@@ -1,10 +1,10 @@
 %tr
   %td
     %strong
-      =I18n.t("published_")
+      =I18n.t(:published)
   %td
     = f.check_box :translated_active_translation
-    =I18n.t("__must_be_checked_in_order_to_")  
+    =I18n.t("__must_be_checked_in_order_to_")
 %tr
   %td{ :valign => "top" }
     %strong
@@ -16,7 +16,7 @@
 %tr
   %td{ :valign => "top" }
     %strong
-      =I18n.t("body_")
+      =I18n.t(:body)
     %br
     %span#body_remaining_length
   %td

@@ -19,7 +19,7 @@
   %tr
     %td
       %strong
-        =I18n.t("created_by_")
+        =I18n.t(:created_by)
     %td
       = @news_item.user.username + " (" + @news_item.user.given_name + ")"
 - else

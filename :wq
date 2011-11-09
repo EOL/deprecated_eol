@@ -23,7 +23,7 @@
   %tr
     %td
       %strong
-        =I18n.t(:suggested_result_page_id)
+        =I18n.t("suggested_result_page_id_")
     %td
       = f.text_field :taxon_id, {:size=>'10',:maxlength=>'70'}
   %tr

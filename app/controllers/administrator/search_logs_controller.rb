@@ -9,7 +9,7 @@ class Administrator::SearchLogsController < AdminController
   before_filter :restrict_to_admins
 
   def index
-    @page_title = I18n.t("search_term_reports_")
+    @page_title = I18n.t(:search_term_reports_title)
     @search_string = params[:search_string]
     @order         = params[:order] || "frequency"
     @reverse       = params[:reverse]

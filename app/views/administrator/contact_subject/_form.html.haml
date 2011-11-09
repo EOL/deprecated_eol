@@ -10,12 +10,12 @@
 %br
 %strong
   =I18n.t(:email_recipients)
-=I18n.t("_separate_multiple_email_addre")
+=I18n.t(:sep_emails_with_commas_note)
 = f.text_field :recipients,{:size=>'70',:maxlength=>'150'}
 %br
 %br
 %strong
-  =I18n.t("active_colon")
+  =I18n.t(:active_colon)
 = f.check_box :active
 %br
 %br

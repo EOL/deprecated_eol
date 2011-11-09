@@ -35,7 +35,7 @@ class Administrator::SearchSuggestionController < AdminController
   def create
     @search_suggestion = SearchSuggestion.new(params[:search_suggestion])
     if @search_suggestion.save
-      flash[:notice] = I18n.t("the_search_suggestion_was_succ")
+      flash[:notice] = I18n.t(:search_suggestion_created)
       redirect_back_or_default(url_for(:action => 'index'))
     else
       render :action => "new"
@@ -45,7 +45,7 @@ class Administrator::SearchSuggestionController < AdminController
   def update
     @search_suggestion = SearchSuggestion.find(params[:id])
     if @search_suggestion.update_attributes(params[:search_suggestion])
-      flash[:notice] = I18n.t("the_search_suggestion_was_succ_")
+      flash[:notice] = I18n.t(:search_suggestion_updated)
       redirect_back_or_default(url_for(:action => 'index'))
     else
       render :action => "edit"

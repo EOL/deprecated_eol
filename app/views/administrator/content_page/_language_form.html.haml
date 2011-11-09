@@ -4,11 +4,11 @@
       =I18n.t(:published)
   %td
     = f.check_box :translated_active_translation
-    =I18n.t("__must_be_checked_in_order_to_")
+    =I18n.t(:must_be_checked_in_to_view)
 %tr
   %td
     %strong
-      =I18n.t("title_")
+      =I18n.t(:title)
   %td
     = f.text_field :translated_title, {:size=>'50',:maxlength=>'100'}
     %br
@@ -28,19 +28,19 @@
 %tr
   %td{:colspan => 2}
     %strong
-      =I18n.t("left_content_area_")
+      =I18n.t(:left_content_area)
 %tr
   %td{:colspan => 2}
     = fckeditor_textarea(:page, :translated_left_content, :toolbarSet => 'Simple', :width => '100%', :height => '400px')
     %br
-    =I18n.t("_html_format__only_enter_if_yo")
+    =I18n.t(:html_format_with_left_col)
 %tr
   %td{:colspan => 2}
     %strong
-      =I18n.t("main_content_area_")
+      =I18n.t(:main_content_area)
 %tr
   %td{:colspan => 2}
     = fckeditor_textarea(:page, :translated_main_content, :toolbarSet => 'Simple', :width => '100%', :height => '400px')
     %br
-    =I18n.t("_html_format_")
+    =I18n.t(:html_format)
 

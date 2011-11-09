@@ -1,4 +1,4 @@
-=I18n.t("list_of_activity_combinations_")
+=I18n.t(:list_of_activity_combinations)
 - if(@activity)
   = "for activity "
   %b
@@ -6,12 +6,12 @@
 = "."
 
 %br
-= " n=" + @activities.length.to_s 
+= " n=" + @activities.length.to_s
 = "&nbsp;&nbsp;&nbsp; {" + @time_elapsed + "}"
 -#= '%.2f' % @time_elapsed
 
 #comments
-    
+
   - if @activities.nil? == false && @activities.size > 0
     %table.results_table{ :cellspacing => "0" }
       %tr
@@ -21,8 +21,8 @@
           =I18n.t("count")
       - @activities.each do |name,count|
         - column_class=cycle('odd','even')
-        %tr{ :valign => "top" }            
-          %td{ :class => column_class }            
+        %tr{ :valign => "top" }
+          %td{ :class => column_class }
             - if(@activity)
               = name.gsub(@activity.name,"<b>" + @activity.name + "</b>")
             - else

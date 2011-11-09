@@ -46,7 +46,7 @@ class Administrator::NewsItemController < AdminController
       translated_news_item.language_id = params[:news_item][:current_translation_language]
       translated_news_item.active_translation = params[:news_item][:translated_active_translation]
       translated_news_item.save
-      flash[:notice] = I18n.t("the_news_item_was_successfully")
+      flash[:notice] = I18n.t(:the_news_item_created)
       expire_cache('Home')
       redirect_back_or_default(url_for(:action=>'index'))
     else
@@ -57,7 +57,7 @@ class Administrator::NewsItemController < AdminController
   def update
     @news_item = NewsItem.find(params[:id])
     if @news_item.update_attributes(params[:news_item])
-      flash[:notice] = I18n.t("the_news_item_was_successfully_")
+      flash[:notice] = I18n.t(:the_news_item_updated)
       expire_cache('Home')
       redirect_back_or_default(url_for(:action=>'index'))
     else

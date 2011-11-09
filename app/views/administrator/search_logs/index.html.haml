@@ -1,31 +1,31 @@
 %p
-  =  I18n.t(:search_log_report_intro) 
+  =  I18n.t(:search_log_report_intro)
 #content_page
   %br
-  = I18n.t(:total_searches) 
+  = I18n.t(:total_searches)
   = @search_totals.num_searches
-  | 
-  = I18n.t(:total_distinct_searches) 
+  |
+  = I18n.t(:total_distinct_searches)
   = @search_totals.distinct_searches
   %br
   - form_tag({:action => 'index'}, :method => 'get', :id => 'form1') do
     %div{:style => 'padding:4pt 2em;'}
-      = I18n.t(:search_for_terms_containing) 
+      = I18n.t(:search_for_terms_containing)
       = text_field_tag(:search_string, @search_string)
     %div{:style => 'padding:4pt 2em;'}
-      = I18n.t(:results_per_page) 
+      = I18n.t(:results_per_page)
       = select_tag(:per_page, options_for_select([['10', 10], ['30', '30'], ['50', '50'], ['100', '100'], ['200', '200']], params[:per_page] || "30"), :onchange => "javascript:$('#form1').submit();")
     %div{:style => 'padding:4pt 2em;'}
       = check_box_tag :reverse, "true", @reverse, {:onclick =>"javascript:$('#form1').submit();"}
-      = I18n.t(:inverse_sort) 
+      = I18n.t(:inverse_sort)
     %div{:style => 'padding:4pt 2em;'}
       = check_box_tag :averages, "true", @averages, {:onclick =>"javascript:$('#form1').submit();"}
-      = I18n.t(:calculate_averages_slow) 
+      = I18n.t(:calculate_averages_slow)
     .buttons{:style => 'margin:1em 6em;'}
       = submit_tag I18n.t("update")
     = hidden_field_tag :order, @order
     = will_paginate @search_report
-    
+
     %table.results_table
       %tr
         %th
@@ -42,7 +42,7 @@
           %th
             = link_to I18n.t("common_name_avg"), {:order => 'common_name_avg'}
           %th
-            = link_to I18n.t("sci__name_avg"), {:order => 'scientific_name_avg'}
+            = link_to I18n.t(:sci_name_avg_table_head), {:order => 'scientific_name_avg'}
       - @search_report.each do |row|
         - column_class=cycle('odd', 'even')
         %tr

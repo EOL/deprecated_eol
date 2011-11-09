@@ -4,11 +4,11 @@
       =I18n.t(:published)
   %td
     = f.check_box :translated_active_translation
-    =I18n.t("__must_be_checked_in_order_to_")
+    =I18n.t(:must_be_checked_in_to_view)
 %tr
   %td{ :valign => "top" }
     %strong
-      =I18n.t("title_")
+      =I18n.t(:title)
     %br
     %span#title_remaining_length
   %td

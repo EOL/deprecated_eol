@@ -1235,7 +1235,7 @@ en:
   data_object_ignore: "ignore this item"
   data_object_undo_ignore: "remove from ignore list"
   data_usage_reports: "Data Usage Reports"
-  date: "Date"
+  date_caps: "Date"
   date_uploaded: "Date uploaded"
   dato_create_cancel: "Cancel"
   dato_edit_cancel: "Cancel"

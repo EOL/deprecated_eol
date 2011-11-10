@@ -1,7 +1,0 @@
-- form_tag do
-  = hidden_field_tag :hierarchy_entry_id, params[:hierarchy_entry_id]
-  = select_tag :content_partner_id, options_for_select([['All sources', nil]] + @published_resources, params[:content_partner_id].to_i)
-  - selected = params[:vetted_id] == 'all' ? 'all' : params[:vetted_id].to_i
-  - options = [['All states', 'all']] + Vetted.all.collect{|v| [ (v.label == 'Unknown') ? 'Unreviewed' : v.label, v.id ] }
-  = select_tag :vetted_id, options_for_select(options, selected)
-  = submit_tag I18n.t("submit")

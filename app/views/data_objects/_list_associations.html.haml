@@ -13,6 +13,7 @@
       = render :partial => 'data_objects/associations_index', :locals => { :data_object => data_object }
   - else
     = render :partial => 'data_objects/associations_index', :locals => { :data_object => data_object }
+    %p= I18n.t("this_#{en_type}_cannot_be_curated_because_unpublished")
 
   - if for_worklist
     = render :partial => 'data_objects/ignore', :locals => { :data_object => @data_object }

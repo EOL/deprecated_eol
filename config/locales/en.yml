@@ -549,6 +549,12 @@ en:
     user_verification:
       subject: "Please verify your request for an Encyclopedia of Life account"
       message: "Thanks for registering with the Encyclopedia of Life. The following link will verify that you wish to complete your registration:\n\n%{verification_url}\n\nFollow this link ('click' on it or copy and paste the entire link into your Web browser's address bar and load it) to activate your account. Once your account has been activated you will receive a confirmation email message."
+  this_article_cannot_be_curated_because_unpublished: "This article cannot be curated because it is unpublished."
+  this_image_cannot_be_curated_because_unpublished: "This image cannot be curated because it is unpublished."
+  this_image_map_cannot_be_curated_because_unpublished: "This map cannot be curated because it is unpublished."
+  this_map_cannot_be_curated_because_unpublished: "This map cannot be curated because it is unpublished."
+  this_video_cannot_be_curated_because_unpublished: "This video cannot be curated because it is unpublished."
+  this_sound_cannot_be_curated_because_unpublished: "This sound cannot be curated because it is unpublished."
   sound_alt_text: "This %{vetted_status} audio recording is of %{taxon_name}"
   image_alt_text: "This %{vetted_status} image is of %{taxon_name}"
   map_alt_text: "This %{vetted_status} map is of %{taxon_name}"
@@ -886,6 +892,7 @@ en:
   collection_not_created_error: "Sorry, an error occurred, the collection <em>%{collection_name}</em> could not be created."
   collection_not_destroyed_error: "Sorry, the collection was not deleted."
   collection_not_found_error: Sorry, that collection could not be found.
+  collection_created_notice: "Collection <em>%{collection_name}</em> successfully created."
   collection_updated_notice: "Collection <em>%{collection_name}</em> successfully updated."
   collection_was_removed_by_owner: "This collection was removed by its owner."
   collections: "Collections"

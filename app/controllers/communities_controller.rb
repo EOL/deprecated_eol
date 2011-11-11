@@ -141,6 +141,23 @@ class CommunitiesController < ApplicationController
     end
   end
 
+  def revoke_editor
+    collection = Collection.find(params[:collection_id])
+    raise EOL::Exceptions::SecurityViolation if collection.watch_collection?
+    raise EOL::Exceptions::SecurityViolation if @community.collections.count <= 1
+    @community.collections.delete(collection)
+    flash[:notice] = I18n.t(:community_no_longer_has_manager_access_to_collection,
+                            :community => link_to_name(@community),
+                            :collection => link_to_collection(collection))
+    respond_to do |format|
+      format.html { redirect_to collection }
+      format.js do
+        convert_flash_messages_for_ajax
+        render :partial => 'shared/flash_messages', :layout => false # JS will handle rendering these.
+      end
+    end
+  end
+
   # One community and many collections were selected...
   def make_editor
     @notices = []

@@ -961,6 +961,7 @@ en:
   community_members: "Community members"
   community_name_label: "Community name"
   community_newsfeed: "Community Newsfeed"
+  community_no_longer_has_manager_access_to_collection: "\"%{community}\" no longer has manager access to \"%{collection}\"."
   community_not_destroyed_error: "Sorry, there was a problem and the community was not deleted."
   community_tab_collections_description: 'Collections are created by EOL users to bring together species, multimedia, articles, or even members that have something in common, such as geography, ecology, or a personal meaning.  Communities can "feature" collections that are of particular interest and value to them.'
   community_tab_communities_description: "Communities are groups of EOL members who come together to share their interests and expertise. EOL communities are organized around one or more EOL collections, and offer members a way to focus on topics of common concern. More information on EOL communities, including instructions for creating your own, is available on the <a href='/info/communities'>help page</a>."
@@ -2259,6 +2260,7 @@ en:
   the_xml_search_response_implements: "The XML search response implements the OpenSearch response format using Atom 1.0. See %{link} for the full OpenSearch specification"
   this_area_shows_all_submission: "This area shows all submissions entered via the contact us or media contact pages.  To view entries, select the topic below or %{link}"
   this_cannot_be_undone_are_you_sure: "This cannot be undone; are you sure?"
+  this_collection_has_no_managers: "This collection has no managers."
   this_community_has_no_endorsed_collections: "This community has not featured any collections."
   this_community_has_no_focus_list: "This community has no focus list."
   this_community_was_deleted: "This community was deleted by its owner."

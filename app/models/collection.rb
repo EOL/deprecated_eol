@@ -22,7 +22,7 @@ class Collection < ActiveRecord::Base
   has_one :resource
   has_one :resource_preview, :class_name => Resource.to_s, :foreign_key => :preview_collection_id
 
-  has_and_belongs_to_many :communities
+  has_and_belongs_to_many :communities, :uniq => true
   has_and_belongs_to_many :users
 
   named_scope :published, :conditions => {:published => 1}

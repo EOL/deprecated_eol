@@ -87,7 +87,7 @@ class UsersController < ApplicationController
     collection = Collection.find(params[:collection_id])
     raise EOL::Exceptions::ObjectNotFound unless collection
     raise EOL::Exceptions::SecurityViolation if collection.watch_collection?
-    @user.collections.delete_if {|c| c.id == collection.id }
+    @user.collections.delete(collection)
     flash[:notice] = I18n.t(:user_no_longer_has_manager_access_to_collection, :user => @user.username,
                             :collection => collection.name)
     respond_to do |format|

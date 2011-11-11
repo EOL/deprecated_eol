@@ -31,6 +31,6 @@
               = link_to hh(best_scientific_name), found_url(:id => result['id']), :method=>:post
             = result['scientific_shown_as']
             - unless result['recognized_by'].blank?
-              %span.recognized_by= I18n.t(:taxon_recognized_by, :var_recognized_by => result["recognized_by"])
+              %span.recognized_by= I18n.t(:taxon_recognized_by, :whom => result["recognized_by"])
     = will_paginate(results)
   %br

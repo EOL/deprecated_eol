@@ -6,10 +6,7 @@
   %ul.object_list
     - @community.collections.each do |focus|
       = render :partial => 'collections/collection_summary', :locals => { :collection => focus }
-  - if @community_collections.blank?
-    .heading
-      %h3= I18n.t(:endorsed_collections_with_count, :count => 0)
-  - else
+  - unless @community_collections.blank?
     .heading
       %h3= I18n.t(:endorsed_collections_with_count, :count => @community_collections.size)
       = render :partial => 'shared/sort_by_date_form'

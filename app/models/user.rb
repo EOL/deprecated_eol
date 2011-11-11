@@ -499,12 +499,17 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     !requested_curator_level.nil? && !requested_curator_level.id.zero?
   end
 
+  def can_manage_community?(community)
+    if member = member_of(community) # Not a community she's even in.
+      return true if community && member.manager? # She's a manager
+    end
+    return false
+  end
+
   def can_edit_collection?(collection)
     return true if collection.users.include?(self) # Her collection
     collection.communities.each do |community|
-      if member = member_of(community) # Not a community she's even in.
-        return true if community && member.manager? # She's a manager
-      end
+      return true if can_manage_community?(community)
     end
     false # She's not a manager
   end

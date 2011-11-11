@@ -3,7 +3,7 @@ class CommunitiesController < ApplicationController
   layout 'v2/communities'
 
   before_filter :allow_login_then_submit, :only => [:join]
-  before_filter :load_community_and_dependent_vars, :except => [:index, :new, :create, :choose]
+  before_filter :load_community_and_dependent_vars, :except => [:index, :new, :create, :choose, :make_editor]
   before_filter :load_collection, :only => [:new, :create]
   before_filter :must_be_logged_in, :except => [:index, :show]
   before_filter :restrict_edit, :only => [:edit, :update, :delete]
@@ -133,7 +133,7 @@ class CommunitiesController < ApplicationController
   def choose
     return must_be_logged_in unless logged_in?
     @collection = Collection.find(params[:collection_id])
-    @communities = current_user.members.managers.map {|m| m.community }
+    @communities = current_user.members.managers.map {|m| m.community }.compact
     @page_title = I18n.t(:add_a_collection_to_a_community, :collection => @collection.name)
     respond_to do |format|
       format.html { render :partial => 'choose', :layout => 'v2/collections' }
@@ -144,23 +144,26 @@ class CommunitiesController < ApplicationController
   def make_editor
     @notices = []
     @errors = []
-    params[:collection_id].each do |id|
-      collection = Collection.find(id)
-      if collection.watch_collection?
-        @errors << I18n.t(:error_watch_collections_cannot_be_shared)
-      elsif collection && current_user.can_edit_collection?(collection)
-        collection.communities << @community
-        log_action(:add_collection, :collection_id => collection.id)
-        @notices << I18n.t(:collection_was_added_to_community,
-                           :collection => link_to_collection(collection))
-      else
-        @errors << I18n.t(:error_couldnt_find_collection_by_id, :id => id)
+    collection = Collection.find(params[:collection_id])
+    if collection.watch_collection?
+      @errors << I18n.t(:error_watch_collections_cannot_be_shared)
+    else
+      params[:community_id].each do |id|
+        community = Community.find(id)
+        if community && current_user.can_manage_community?(community)
+          collection.communities << community
+          log_action(:add_collection, :community => community, :collection_id => collection.id)
+          @notices << I18n.t(:community_can_now_manage_this_collection,
+                             :community => link_to_name(community))
+        else
+          @errors << I18n.t(:error_couldnt_find_community_by_id, :id => id)
+        end
       end
     end
     flash.now[:errors] = @errors.to_sentence unless @errors.empty?
     flash[:notice] = @notices.to_sentence unless @notices.empty?
     respond_to do |format|
-      format.html { redirect_to @community }
+      format.html { redirect_to collection }
       format.js do
         convert_flash_messages_for_ajax
         render :partial => 'shared/flash_messages', :layout => false # JS will handle rendering these.
@@ -195,8 +198,9 @@ private
   end
 
   def log_action(act, opts = {})
+    community = @community || opts.delete(community)
     CommunityActivityLog.create(
-      {:community => @community, :user => current_user, :activity => Activity.send(act)}.merge(opts)
+      {:community => community, :user => current_user, :activity => Activity.send(act)}.merge(opts)
     )
   end
 
@@ -233,10 +237,6 @@ private
 
   def link_to_user(who)
     self.class.helpers.link_to(who.username, user_path(who))
-  end
-
-  def link_to_collection(collection)
-   self.class.helpers.link_to(collection.name, collection_path(collection))
   end
 
   def link_to_name(community)

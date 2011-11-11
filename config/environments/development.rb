@@ -42,7 +42,7 @@ $PARENT_CLASS_MUST_USE_MASTER = ActiveRecord::Base
 
 $LOG_USER_ACTIVITY = true
 
-$EXCEPTION_NOTIFY=true # set to false to not be notified of exceptions via email
+$EXCEPTION_NOTIFY=false # set to false to not be notified of exceptions via email
 $ERROR_LOGGING=true # set to true to record uncaught application errors in sql database file
 
 $ENABLE_ANALYTICS=false

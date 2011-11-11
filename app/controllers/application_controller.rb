@@ -555,7 +555,8 @@ protected
         :backtrace => "Application Server: " + $IP_ADDRESS_OF_SERVER + "\r\n" + exception.backtrace.to_s
       )
     end
-    raise exception if $PRODUCTION_MODE # This lets New Relic handle the actual exception TODO: how do we test this?
+    # Notify New Relic about exception
+    NewRelic::Agent.notice_error(exception) if $PRODUCTION_MODE
   end
 
   # custom method to render an appropriate response to an exception

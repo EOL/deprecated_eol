@@ -3,7 +3,7 @@ class CommunitiesController < ApplicationController
   layout 'v2/communities'
 
   before_filter :allow_login_then_submit, :only => [:join]
-  before_filter :load_community_and_dependent_vars, :except => [:index, :new, :create, :choose, :make_editor]
+  before_filter :load_community_and_dependent_vars, :except => [:index, :new, :create, :choose, :make_editors]
   before_filter :load_collection, :only => [:new, :create]
   before_filter :must_be_logged_in, :except => [:index, :show]
   before_filter :restrict_edit, :only => [:edit, :update, :delete]
@@ -141,7 +141,36 @@ class CommunitiesController < ApplicationController
     end
   end
 
+  # One community and many collections were selected...
   def make_editor
+    @notices = []
+    @errors = []
+    params[:collection_id].each do |id|
+      collection = Collection.find(id)
+      if collection.watch_collection?
+        @errors << I18n.t(:error_watch_collections_cannot_be_shared)
+      elsif collection && current_user.can_edit_collection?(collection)
+        collection.communities << @community
+        log_action(:add_collection, :collection_id => collection.id)
+        @notices << I18n.t(:collection_was_added_to_community,
+                           :collection => link_to_collection(collection))
+      else
+        @errors << I18n.t(:error_couldnt_find_collection_by_id, :id => id)
+      end
+    end
+    flash.now[:errors] = @errors.to_sentence unless @errors.empty?
+    flash[:notice] = @notices.to_sentence unless @notices.empty?
+    respond_to do |format|
+      format.html { redirect_to @community }
+      format.js do
+        convert_flash_messages_for_ajax
+        render :partial => 'shared/flash_messages', :layout => false # JS will handle rendering these.
+      end
+    end
+  end
+
+  # One collection and many communities were selected...
+  def make_editors
     @notices = []
     @errors = []
     collection = Collection.find(params[:collection_id])
@@ -241,6 +270,10 @@ private
 
   def link_to_name(community)
     self.class.helpers.link_to(community.name, community_path(community))
+  end
+
+  def link_to_collection(collection)
+   self.class.helpers.link_to(collection.name, collection_path(collection))
   end
 
 end

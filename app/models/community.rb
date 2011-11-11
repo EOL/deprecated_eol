@@ -2,7 +2,7 @@ class Community < ActiveRecord::Base
 
   include EOL::ActivityLoggable
 
-  has_and_belongs_to_many :collections
+  has_and_belongs_to_many :collections, :uniq => true
 
   has_many :members
   has_many :collection_items, :as => :object # THIS IS COLLECTION ITEMS POINTING AT THIS COLLECTION!

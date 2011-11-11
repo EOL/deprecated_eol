@@ -94,13 +94,7 @@ class Collection < ActiveRecord::Base
   end
 
   def editable_by?(whom)
-    users.each do |user|
-      return whom.id == user.id
-    end
-    communities.each do |community|
-      return true if whom.member_of(community) && whom.member_of(community).manager?
-    end
-    return false
+    whom.can_edit_collection?(self)
   end
 
   def is_resource_collection?

@@ -324,6 +324,8 @@ class DataObject < SpeciesSchemaModel
       current_or_new_vetted = Vetted.unknown
     end
 
+    DataObjectsTaxonConcept.find_or_create_by_taxon_concept_id_and_data_object_id(taxon_concept.id, new_dato.id)
+
     udo = UsersDataObject.create(:user => user, :data_object => new_dato, :taxon_concept => taxon_concept,
                                  :visibility => no_current_but_new_visibility, :vetted => current_or_new_vetted)
     new_dato.users_data_object = udo
@@ -381,6 +383,8 @@ class DataObject < SpeciesSchemaModel
 
     dato.save
     return dato if dato.nil? || dato.errors.any?
+
+    DataObjectsTaxonConcept.find_or_create_by_taxon_concept_id_and_data_object_id(taxon_concept.id, dato.id)
 
     default_vetted_status = user.min_curator_level?(:full) || user.is_admin? ? Vetted.trusted : Vetted.unknown
     udo = UsersDataObject.create(:user => user, :data_object => dato, :taxon_concept => taxon_concept, :visibility => Visibility.visible, :vetted => default_vetted_status)

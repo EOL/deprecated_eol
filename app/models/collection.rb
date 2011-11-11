@@ -185,6 +185,7 @@ class Collection < ActiveRecord::Base
   end
 
   def set_relevance
+    # TODO - this occasionally seems to make Paperclip quite grumpy, but only in tests.  Hmmmn.
     update_attributes(:relevance => calculate_relevance)
   end
 

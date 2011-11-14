@@ -329,6 +329,7 @@ class DataObject < SpeciesSchemaModel
     udo = UsersDataObject.create(:user => user, :data_object => new_dato, :taxon_concept => taxon_concept,
                                  :visibility => no_current_but_new_visibility, :vetted => current_or_new_vetted)
     new_dato.users_data_object = udo
+    new_dato.update_solr_index
     new_dato
   end
 
@@ -388,6 +389,7 @@ class DataObject < SpeciesSchemaModel
 
     default_vetted_status = user.min_curator_level?(:full) || user.is_admin? ? Vetted.trusted : Vetted.unknown
     udo = UsersDataObject.create(:user => user, :data_object => dato, :taxon_concept => taxon_concept, :visibility => Visibility.visible, :vetted => default_vetted_status)
+    dato.update_solr_index
     dato
   end
 

@@ -959,6 +959,9 @@ en:
     one: "%{count} Community Manager"
     other: "%{count} Community Managers"
   community_members: "Community members"
+  community_members_with_count:
+    one: "%{count} Community Member"
+    other: "%{count} Community Members"
   community_name_label: "Community name"
   community_newsfeed: "Community Newsfeed"
   community_no_longer_has_manager_access_to_collection: "\"%{community}\" no longer has manager access to \"%{collection}\"."

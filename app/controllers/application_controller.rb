@@ -21,7 +21,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  before_filter :preview_lockdown if $PREVIEW_LOCKDOWN
   before_filter :global_warning
   before_filter :check_if_mobile if $ENABLE_MOBILE
 
@@ -47,12 +46,6 @@ class ApplicationController < ActionController::Base
     parameter = SiteConfigurationOption.find_by_parameter('global_site_warning')
     if parameter && parameter.value
       flash.now[:error] = parameter.value
-    end
-  end
-
-  def preview_lockdown
-    if $PREVIEW_LOCKDOWN == true || session[:preview] != $PREVIEW_LOCKDOWN
-      return redirect_to preview_url unless params[:controller] == 'content' && params[:action] == 'preview'
     end
   end
 

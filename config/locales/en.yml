@@ -949,6 +949,9 @@ en:
     one: "%{count} Community Manager"
     other: "%{count} Community Managers"
   community_members: "Community members"
+  community_members_with_count:
+    one: "%{count} Community Member"
+    other: "%{count} Community Members"
   community_newsfeed: "Community Newsfeed"
   community_not_destroyed_error: "Sorry, there was a problem and the community was not deleted."
   community_tab_collections_description: 'Collections are created by EOL users to bring together species, multimedia, articles, or even members that have something in common, such as geography, ecology, or a personal meaning.  Communities can "feature" collections that are of particular interest and value to them.'

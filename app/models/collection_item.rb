@@ -74,6 +74,10 @@ class CollectionItem < ActiveRecord::Base
 
     case self.object.class.name
     when "TaxonConcept"
+      unless self.object.entry && self.object.entry.name && self.object.entry.name.canonical_form
+        raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_index_collection_item_type_error,
+                                                                    :type => 'Missing Hierarchy Entry'))
+      end
       params['title'] = self.object.entry.name.canonical_form.string
     when "User"
       params['title'] = self.object.username

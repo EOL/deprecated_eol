@@ -41,9 +41,13 @@ module EOL
         collection_items = CollectionItem.find(:all, :conditions => "id BETWEEN #{start} AND #{max}")
         preload_concepts_and_objects!(collection_items)
         collection_items.each do |i|
-          hash = i.solr_index_hash
-          hash.delete('collection_item_id')
-          @objects_to_send[i.id] = hash
+          begin
+            hash = i.solr_index_hash
+            hash.delete('collection_item_id')
+            @objects_to_send[i.id] = hash
+          rescue EOL::Exceptions::InvalidCollectionItemType => e
+            puts "** #{e.message}"
+          end
         end
       end
 

@@ -48,21 +48,6 @@ class ContentController < ApplicationController
     render :text => I18n.t(:please_refresh)
   end
 
-  def preview
-    @home_page = true
-    return redirect_to root_path unless $PREVIEW_LOCKDOWN
-    if request.post?
-      if params[:preview] == $PREVIEW_LOCKDOWN
-        session[:preview] = params[:preview]
-        return redirect_to root_path
-      else
-        flash.now[:error] = "Incorrect password."
-        return render :layout => false
-      end
-    end
-    render :layout => false
-  end
-
   def mediarss
     taxon_concept_id = params[:id] || 0
     taxon_concept = TaxonConcept.find(taxon_concept_id) rescue nil

@@ -2007,6 +2007,8 @@ en:
   search_for_users_containing_this_in_their_username_name_or_email_address: "Search for users containing this in their username, name or email address."
   search_log_report_intro: "This area shows the most common user search terms, the number of times that search has been executed and some information about the number of results returned for that search term.  Click on the columns to sort by that column.  Click on a search term to see information about which result users clicked on (if any) after searching."
   search_method_description: "given a value for a specific element (e.g. scientific name=Homo sapiens), returns a paginated list of the EOL pages containing the search term"
+  search_next_label: "Next"
+  search_previous_label: "Previous"
   search_input_advisory_information: "Enter a common name or a scientific name of a living creature you would like to know more about. You can also search for EOL members, collections and communities. "
   search_results: "Search Results"
   search_lowercase: "search"

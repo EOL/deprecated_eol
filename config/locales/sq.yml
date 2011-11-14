@@ -2,7 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Vinie007
-sq: 
+sq:
   account_information: Account Information
   account_registered_but_not_ready_try_later: Llogaria juaj është e regjistruar, por nuk është gati për ju për të hyrë. Ju lutemi provoni përsëri në pesë minuta.
   add_to_my_collection_button: Shto ne mbledhjen e mia
@@ -13,15 +13,15 @@ sq:
   cannot_be_associated_with_both_a_user_and_a_community: Mund të mos jetë i lidhur me dy user një dhe një komunitet
   cannot_be_empty: nuk mund të jetë bosh.
   citation: Citim
-  classifications_summary_header_with_count: 
+  classifications_summary_header_with_count:
     one: Part of %{count} approved classification
     other: Part of %{count} approved classifications
   collections: Koleksioni
-  collections_summary_header_with_count: 
+  collections_summary_header_with_count:
     one: Present in %{count} collection
     other: Present in %{count} collections
   common_names_advisory_information: emrat e përbashkët lidhur me këtë takson.
-  common_names_with_count: 
+  common_names_with_count:
     one: "%{count} common name"
     other: "%{count} common names"
   communities: Komuniteteve
@@ -33,7 +33,7 @@ sq:
   create_a_collection: Krijo një koleksion
   create_a_community: Krijo një komunitet
   curators_of_taxon_page_title: Kuratorë të% {takson}
-  curators_summary_header_with_count: 
+  curators_summary_header_with_count:
     one: "%{count} Curator"
     other: "%{count} Curators"
   currently_in_eol: Aktualisht në Encyclopedia of Life
@@ -73,14 +73,14 @@ sq:
   license: Liçenca
   login_or_create_account: Hyni ose hapni një llogari
   manage_community: Ndrsho komunitetin
-  maps_with_count: 
+  maps_with_count:
     one: "%{count} Map"
     other: "%{count} Maps"
   media: Media
-  media_with_count: 
+  media_with_count:
     one: "%{count} Media"
     other: "%{count} Media"
-  members_with_count: 
+  members_with_count:
     one: "%{count} contributor"
     other: "%{count} contributors"
   minimal_page: Faqe minimale
@@ -89,7 +89,7 @@ sq:
   must_be_logged_in: Ju duhet të keni hyrë brenda për të kryer këtë veprim.
   newsfeed: Lajme
   not_evaluated: Nuk eshte akoma e vlerësuar
-  other_collection_items_with_count: 
+  other_collection_items_with_count:
     one: "%{count} other item"
     other: "%{count} other items"
   overview: Vështrim i Përgjithshëm
@@ -98,8 +98,8 @@ sq:
   post_comment: Postoje kommentin
   preferred_common_name_advisory_information: Ky është emri i preferuar i përbashkët për këtë takson.
   profile: Profili
-  profile_image_alt_text_curator: Profile picture for curator %{user_given_name} %{user_family_name}
-  profile_image_alt_text_member: Profile picture for member %{user_given_name} %{user_family_name}
+  profile_image_alt_text_curator: Profile picture for curator %{user_full_name}
+  profile_image_alt_text_member: Profile picture for member %{user_full_name}
   recent_updates: mo te rejat
   remove_membership: Hiq anëtarësimit
   rights: Të drejtave të
@@ -109,10 +109,10 @@ sq:
   search_input_advisory_information: Enter emra të përbashkët ose shkencor të organizmave të gjallë që do të donit të dini më shumë rreth, për shembull, të përpiqen të hyjnë domate.
   search_placeholder: EOL kerko ...
   search_the_site: Kerko ne Uebsite
-  see_all_classifications_with_count_html: 
+  see_all_classifications_with_count_html:
     one: See the <span class="assistive">%{count} approved classification in which this taxon appears.</span>
     other: See all <span class="assistive">%{count} approved classifications in which this taxon appears.</span>
-  see_all_collections_with_count_html: 
+  see_all_collections_with_count_html:
     one: See the <span class="assistive">%{count} collection in which this taxon appears.</span>
     other: See all <span class="assistive">%{count} collections in which this taxon appears.</span>
   see_all_media_link: Shihni të gjitha mediat
@@ -131,12 +131,12 @@ sq:
   there_are_currently_no_members_in_this_community: Aktualisht nuk ka anëtarë në këtë komunitet.
   this_community_has_no_focus_list: Ky komunitet ka asnjë listë fokus.
   threat_status_header_colon: "status Threat:"
-  total_items_with_count: 
+  total_items_with_count:
     one: "%{count} item"
     other: "%{count} total items"
   try_your_request_again: Provoni përsëri kërkesën tuaj
   unknown: I panjohur
-  updates_with_count: 
+  updates_with_count:
     one: "%{count} Update"
     other: "%{count} Updates"
   user_system_down: Ne kërkojmë ndjesë, por regjistrimin e përdoruesit sistemi nuk është aktualisht në dispozicion. Ju lutem provoni përsëri më vonë.

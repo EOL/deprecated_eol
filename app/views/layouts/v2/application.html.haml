@@ -47,7 +47,7 @@
     = eol_lang_main_stylesheet 'accessibility', :media => "all"
     /[if IE 7]
       = eol_lang_main_stylesheet 'ie7', :media => "all"
-    = javascript_include_tag "jquery-1.6.1.min", "rails", "application", "jquery.cycle.all.min", "jquery.modal.js"
+    = javascript_include_merged :application
 
     = csrf_meta_tag # Recommended by https://github.com/rails/jquery-ujs
 

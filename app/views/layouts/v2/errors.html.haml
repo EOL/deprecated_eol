@@ -5,7 +5,7 @@
       = I18n.t(:encyclopedia_of_life)
     %meta{ :charset => "utf-8" }
     = stylesheet_link_tag "errors", "accessibility"
-    = javascript_include_tag "jquery-1.6.1.min", "rails", "application"
+    = javascript_include_merged 'errors'
     = yield :head
 
   %body

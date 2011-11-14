@@ -1,5 +1,5 @@
 = content_for :head do
-  = javascript_include_tag "jplayer/js/jquery.jplayer.min", "permalink"
+  = javascript_include_meged 'data-object-show'
   %link{:href=>"/javascripts/jplayer/skin/jplayer.blue.monday.css", :rel=>"stylesheet", :type=>"text/css"}
 
 - en_type ||= en_type(@data_object)

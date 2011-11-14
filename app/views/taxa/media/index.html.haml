@@ -1,7 +1,7 @@
 = content_for :head do
-  = javascript_include_tag "exemplar_image.js"
+  = javascript_include_merged 'taxa-media'
 = content_for :footer do
-  = javascript_include_tag "jplayer/js/jquery.jplayer.min", "media_list.js"
+  = javascript_include_merged 'taxa-media-footer'
 
 #media_list
   #sidebar.filters

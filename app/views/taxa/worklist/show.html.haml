@@ -1,5 +1,5 @@
 = content_for :head do
-  = javascript_include_tag "taxonomy", "permalink", "worklist", "jplayer/js/jquery.jplayer.min"
+  = javascript_include_merged 'worklist'
   %link{:href=>"/javascripts/jplayer/skin/jplayer.blue.monday.css", :rel=>"stylesheet", :type=>"text/css"}
 #content
   #worklist.site_column

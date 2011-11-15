@@ -1,5 +1,6 @@
 class Taxa::LiteratureController < TaxaController
   before_filter :instantiate_taxon_concept
+  before_filter :add_page_view_log_entry, :update_user_content_level
   
   def show
     references

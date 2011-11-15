@@ -4,7 +4,7 @@
     %title
       = I18n.t(:encyclopedia_of_life)
     %meta{ :charset => "utf-8" }
-    = stylesheet_link_tag "errors", "accessibility"
+    = stylesheet_include_i18n_merged 'errors'
     = javascript_include_merged 'errors'
     = yield :head
 

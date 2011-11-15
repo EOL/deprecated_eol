@@ -1,31 +1,31 @@
-= stylesheet_link_tag 'calendar'
-=  I18n.t(:user_index_intro) 
+= stylesheet_include_i18n_merged 'calendar'
+=  I18n.t(:user_index_intro)
 #users
   - form_tag({:action=>'index'},:method=>'get') do
     %table{:width => "100%"}
       %tr{:valign => 'top'}
         %td{:width => "30%"}
-          = I18n.t(:search_for_users_containing_this_in_their_username_name_or_email_address) 
+          = I18n.t(:search_for_users_containing_this_in_their_username_name_or_email_address)
         %td
           = text_field_tag(:user_search_string,@user_search_string)
       %tr{:valign => 'top'}
         %td
-          = I18n.t(:who_registered_from) 
+          = I18n.t(:who_registered_from)
         %td
           %input{:type => 'date', :value => @start_date, :name => "start_date"}
       %tr{:valign => 'top'}
         %td
-          = I18n.t(:to) 
+          = I18n.t(:to)
         %td
           %input{:type => 'date', :value => @end_date, :name => "end_date"}
       %tr{:valign => 'top'}
         %td
-          = I18n.t(:dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009) 
+          = I18n.t(:dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009)
         %td
           = check_box_tag 'blank_dates', '1', @blank_dates
       %tr{:valign => 'top'}
         %td
-          = I18n.t(:joined_mailing_list) 
+          = I18n.t(:joined_mailing_list)
         %td
           = check_box_tag 'joined_mailing_list', '1', @joined_mailing_list
       %tr{:valign => 'top'}
@@ -33,7 +33,7 @@
           &nbsp;
         %td
           = submit_tag I18n.t("search")
-    -# Those input types of 'date' only work on HTML5-capable browsers, so we use jQuery Tools to fill in the gaps.  
+    -# Those input types of 'date' only work on HTML5-capable browsers, so we use jQuery Tools to fill in the gaps.
     :javascript
       $(document).ready(function() {
         $(":date").dateinput({format: 'yyyy/mm/dd', max: +1});

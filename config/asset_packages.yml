@@ -110,6 +110,32 @@ javascripts:
   - jplayer/js/jquery.jplayer.min
 
 stylesheets:
-- base-cached:
+- application:
   - application
   - accessibility
+- home:
+  - home
+  - accessibility
+- ie7:
+  - ie7
+- errors:
+  - errors
+  - accessibility
+- v1:
+  - reset-min
+  - main
+  - popup
+  - taxa_comments
+  - tags
+  - star_rating
+  - wikipedia
+- buttons:
+  - buttons
+- api:
+  - api
+- content-preview:
+  - home
+  - accessibility
+- mobile:
+  - jquery.mobile-1.0b1.min
+  - mobile

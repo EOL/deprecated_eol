@@ -41,12 +41,11 @@
     %link{ :href => "/opensearchdescription.xml", :title => I18n.t("encyclopedia_of_life"), :rel => "search", :type => "application/opensearchdescription+xml" }
 
     - if @home_page
-      = eol_lang_main_stylesheet 'home', :media => "all"
+      = stylesheet_include_i18n_merged 'home', :media => "all"
     - else
-      = eol_lang_main_stylesheet 'application', :media => "all"
-    = eol_lang_main_stylesheet 'accessibility', :media => "all"
+      = stylesheet_include_i18n_merged 'application', :media => "all"
     /[if IE 7]
-      = eol_lang_main_stylesheet 'ie7', :media => "all"
+      = stylesheet_include_i18n_merged 'ie7', :media => "all"
     = javascript_include_merged :application
 
     = csrf_meta_tag # Recommended by https://github.com/rails/jquery-ujs

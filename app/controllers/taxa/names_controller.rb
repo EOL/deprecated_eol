@@ -1,6 +1,7 @@
 class Taxa::NamesController < TaxaController
 
   before_filter :instantiate_taxon_concept
+  before_filter :add_page_view_log_entry, :update_user_content_level
   before_filter :set_vet_options, :only => [:common_names, :vet_common_name]
   before_filter :authentication_for_names, :only => [ :create, :update ]
   before_filter :preload_core_relationships_for_names, :only => [ :index, :common_names, :synonyms ]

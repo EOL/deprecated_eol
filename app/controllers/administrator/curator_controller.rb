@@ -23,7 +23,7 @@ class Administrator::CuratorController < AdminController
     conditions = [condition, search_string_parameter, search_string_parameter, search_string_parameter,
       search_string_parameter, search_string_parameter, search_string_parameter]
 
-    @users = User.paginate(:conditions => conditions, :order => 'curator_approved ASC, created_at DESC',:page => params[:page])
+    @users = User.paginate(:conditions => conditions, :include => :curator_level, :order => 'curator_approved ASC, created_at DESC',:page => params[:page])
     @user_count = User.count(:conditions => conditions)
   end
 

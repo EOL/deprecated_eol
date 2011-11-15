@@ -134,7 +134,6 @@ ActionController::Routing::Routes.draw do |map|
 
 
   # Named routes (are some of these obsolete?)
-  map.settings 'settings', :controller => 'taxa', :action => 'settings'
   map.taxon_concept 'pages/:id', :controller => 'taxa', :action => 'show'
   map.set_language 'set_language', :controller => 'application', :action => 'set_language'
 
@@ -219,21 +218,24 @@ ActionController::Routing::Routes.draw do |map|
     content_page.terms_of_use '/terms_of_use',     :id => 'terms_of_use'
     content_page.citing       '/citing',           :id => 'citing'
     content_page.privacy      '/privacy',          :id => 'privacy'
-    content_page.podcast      '/podcast',          :id => 'podcast'
     content_page.curators     '/curators/*ignore', :id => 'curators'
     content_page.cms_page     '/info/:id'
     content_page.cms_crumbs   '/info/*crumbs'
-    # /content/page/... are legacy V1 URLs being redirected temporarily to V2 (see also content#show for redirect action)
-    # and should be removed some time after October 10 2011 see http://jira.eol.org/browse/WEB-2868
-    content_page.connect '/content/page/fellows', :id => 'fellows'
-    content_page.connect '/content/page/2012eolfellowsapplication', :id => '2012_eol_fellows_application'
-    content_page.connect '/content/page/2012fellowsonlineapp', :id => '2012_fellows_online_app'
   end
-  map.connect '/content/page/:id', :controller => 'content', :action => 'show'
-  # TODO - remove /content/news named route sometime in 2012.  It was a V1 link, and should no longer be a problem by then:
-  map.connect '/content/news', :controller => 'content', :action => 'show', :id => 'news'
   map.donate '/donate', :controller => 'content', :action => 'donate'
   map.language '/language', :controller => 'content', :action => 'language'
+
+  ## Permanent redirects.
+  map.with_options :controller => 'redirects', :action => 'show', :conditions => { :method => :get } do |redirect|
+    redirect.connect '/podcast', :url => 'http://education.eol.org/podcast'
+    # TODO - remove /content/* named routes once search engines have reindexed the site and legacy URLs are not in use.
+    redirect.connect '/content/exemplar', :conditional_redirect_id  => 'exemplar'
+    redirect.connect '/content/news', :cms_page_id => 'news'
+    redirect.connect '/content/page/2012eolfellowsapplication', :cms_page_id => '2012_eol_fellows_application'
+    redirect.connect '/content/page/2012fellowsonlineapp',  :cms_page_id => '2012_fellows_online_app'
+    redirect.connect '/content/page/:cms_page_id'
+    redirect.connect '/settings'
+  end
 
   ## Curator tool to request import of wikipedia pages
   map.resources :wikipedia_queues, :as => :wikipedia_imports, :only => [:new, :create]

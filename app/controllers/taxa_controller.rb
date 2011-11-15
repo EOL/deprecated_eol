@@ -22,11 +22,6 @@ class TaxaController < ApplicationController
     TaxonConcept.find(tc_id)
   end
 
-  # This method in V1 was used to allow a non-logged in user to change content settings, but now redirects to homepage.
-  def settings
-    redirect_to :root, :status => :moved_permanently
-  end
-
   ################
   # AJAX CALLS
   ################

@@ -111,10 +111,6 @@ class ContentController < ApplicationController
     # get the id parameter, which can be either a page ID # or a page name
     @page_id = params[:id] || params[:crumbs].last
 
-    # Temporarily having to deal with some legacy V1 URLs (see routes file - should not be needed after October 10 2011)
-    # but we don't want the user to see or bookmark them so:
-    redirect_to cms_page_path(@page_id) if current_url.match(/^\/content\/page\//)
-
     if @page_id.is_int?
       @content = ContentPage.find(@page_id, :include => [:parent, :translations])
     else # assume it's a page name

@@ -43,6 +43,16 @@
         body { behavior: url(/javascripts/csshover.htc); }
     = yield :head
 
+    - if $GOOGLE_ANALYTICS_ID && $ENABLE_ANALYTICS != false # Weird, but in this case nil is okay: only false is bad.
+      :javascript
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', '#{$GOOGLE_ANALYTICS_ID}']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
   %body{ :id => "#{h controller.controller_name}-page" }
     %ul.hide
       %li
@@ -198,9 +208,3 @@
         overlay = trigger.overlay();
         overlay.load();
         window.setTimeout(function() {overlay.close();}, 2000)
-    - if $ENABLE_ANALYTICS || true
-      :javascript
-        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-      :javascript
-        try { var pageTracker = _gat._getTracker("#{$GOOGLE_ANALYTICS_ID}"); pageTracker._trackPageview(); } catch(err) {}

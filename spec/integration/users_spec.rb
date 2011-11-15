@@ -73,7 +73,7 @@ describe 'Users' do
       visit(user_path(user))
       body.should have_tag("h3", :text => "Activity")
       body.should have_tag("h3", :text => "Curator qualifications")
-      body.should have_tag("a[href=" + user_activity_path(user, :filter => "data_object_curation") + "]", :text => user.total_data_objects_curated)
+      body.should have_tag("a[href=" + user_activity_path(user, :filter => "data_object_curation") + "]", :text => User.total_objects_curated_by_action_and_user(nil, user.id))
       body.should have_tag("a[href=" + user_activity_path(user, :filter => "added_data_objects") + "]", :text => user_submitted_text_count)
       #TODO - maybe generate activity logs to have real values for data_object_curation and curated_taxa
     end

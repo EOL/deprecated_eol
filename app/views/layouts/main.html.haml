@@ -85,8 +85,6 @@
               %a{ :href => root_url, :title => I18n.t(:home)  }
                 = I18n.t(:home)
             %li
-              = link_to( I18n.t(:preferences) , settings_url, {:title =>  I18n.t(:preferences) , :class => 'return_to'})
-            %li
               %a.dropdown{ :title => "#{ I18n.t(:language) }: #{I18n.locale}" }
                 = I18n.t(:language)
                 \:

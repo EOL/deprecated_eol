@@ -53,6 +53,17 @@
 
     = yield :head
 
+    - if $GOOGLE_ANALYTICS_ID && $ENABLE_ANALYTICS != false # Weird, but in this case nil is okay: only false is bad.
+      :javascript
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', '#{$GOOGLE_ANALYTICS_ID}']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
   %body{:class => @home_page ? 'home' : nil}
     %ul#controls.assistive
       %li= link_to I18n.t(:skip_to_content), '#main'
@@ -119,14 +130,3 @@
           %li= link_to I18n.t(:flickr), $EOL_FLICKR_ACCOUNT, :class => "flickr"
 
       = yield :footer
-
-    - if $GOOGLE_ANALYTICS_ID && $ENABLE_ANALYTICS != false # Weird, but in this case nil is okay: only false is bad.
-      :javascript
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', '#{$GOOGLE_ANALYTICS_ID}']);
-        _gaq.push(['_trackPageview']);
-        (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();

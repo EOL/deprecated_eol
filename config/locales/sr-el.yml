@@ -2,7 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Rancher
-sr-el: 
+sr-el:
   account_information: Podaci o nalogu
   account_registered_but_not_ready_try_later: Vaš nalog je otvoren, ali još uvek nije spreman. Pokušajte ponovo za nekoliko minuta.
   add_to_my_collection_button: Dodaj u moju zbirku
@@ -17,15 +17,15 @@ sr-el:
   cannot_be_associated_with_both_a_user_and_a_community: Ne može biti povezano i sa korisnikom i sa zajednicom
   cannot_be_empty: ne može biti prazno.
   citation: Citat
-  classifications_summary_header_with_count: 
+  classifications_summary_header_with_count:
     one: Deo %{count} odobrene klasifikacije
     other: Deo %{count} odobrene klasifikacije
   collections: Zbirke
-  collections_summary_header_with_count: 
+  collections_summary_header_with_count:
     one: Dostupno u %{count} zbirci
     other: Dostupno u %{count} zbirke
   common_names_advisory_information: Obični nazivi povezani s ovim taksonom.
-  common_names_with_count: 
+  common_names_with_count:
     one: "%{count} običan naziv"
     other: "%{count} obična naziva"
   communities: Zajednice
@@ -47,7 +47,7 @@ sr-el:
   create_a_collection: Napravi zbirku
   create_a_community: Napravi zajednicu
   curators_of_taxon_page_title: Kustos za %{taxon}
-  curators_summary_header_with_count: 
+  curators_summary_header_with_count:
     one: "%{count} kustos"
     other: "%{count} kustosa"
   currently_in_eol: Trenutno na Enciklopediji života
@@ -59,7 +59,7 @@ sr-el:
   edit_my_profile: Uredi moj profil
   encyclopedia_of_life: Enciklopedija života
   endorsed_collections: Usvojene zbirke
-  endorsed_collections_with_count: 
+  endorsed_collections_with_count:
     one: "%{count} odobrena zbirka"
     other: "%{count} odobrene zbirke"
   eol_news: Vesti
@@ -100,14 +100,14 @@ sr-el:
   location: Lokacija
   login_or_create_account: Prijavite se ili otvorite nalog
   manage_community: Upravljanje zajednicom
-  maps_with_count: 
+  maps_with_count:
     one: "%{count} mapa"
     other: "%{count} mape"
   media: Datoteke
-  media_with_count: 
+  media_with_count:
     one: "%{count} datoteka"
     other: "%{count} datoteke"
-  members_with_count: 
+  members_with_count:
     one: "%{count} član"
     other: "%{count} člana"
   minimal_page: Najmanja stranica
@@ -119,7 +119,7 @@ sr-el:
   my_info: Moji podaci
   newsfeed: Novosti
   not_evaluated: Neocenjeno
-  other_collection_items_with_count: 
+  other_collection_items_with_count:
     one: "%{count} druga stavka"
     other: "%{count} druge stavke"
   overview: Pregled
@@ -128,9 +128,9 @@ sr-el:
   post_comment: Postavi komentar
   preferred_common_name_advisory_information: Ovo je poželjni običan naziv za ovaj takson.
   profile: Profil
-  profile_image_alt_text_curator: Slika profila kustosa %{user_given_name} %{user_family_name}
-  profile_image_alt_text_member: Slika profila člana %{user_given_name} %{user_family_name}
-  rated_by_count_people: 
+  profile_image_alt_text_curator: Slika profila kustosa %{user_full_name}
+  profile_image_alt_text_member: Slika profila člana %{user_full_name}
+  rated_by_count_people:
     one: od %{count} osobe
     other: od %{count} osobe
   recent_updates: Skorašnja ažuriranja
@@ -144,13 +144,13 @@ sr-el:
   search_input_advisory_information: Unesite obične ili naučne nazive živih organizama o kojima želite da saznate.
   search_placeholder: Pretraži…
   search_the_site: Pretražite sajt
-  see_all_classifications_with_count_html: 
+  see_all_classifications_with_count_html:
     one: Pogledajte <span class="assistive">%{count} odobrenu klasifikaciju u kojoj se pojavljuje ovaj takson.</span>
     other: Pogledajte <span class="assistive">%{count} odobrene klasifikacije u kojima se pojavljuje ovaj takson.</span>
-  see_all_collections_with_count_html: 
+  see_all_collections_with_count_html:
     one: Pogledajte <span class="assistive">%{count} zbirku u kojoj se pojavljuje takson.</span>
     other: Pogledajte <span class="assistive">%{count} zbirke u kojima se pojavljuje takson.</span>
-  see_all_comments_with_count_for_text: 
+  see_all_comments_with_count_for_text:
     one: pogledajte %{count} komentar na ovaj članak
     other: pogledajte %{count} komentara na ovaj članak
   see_all_media_link: Pogledajte sve datoteke
@@ -174,7 +174,7 @@ sr-el:
   this_community_has_no_focus_list: Ova zajednica nema spisak prioriteta.
   threat_status_header_colon: "IUCN stanje pretnje:"
   time_ago: pre %{time_passed}
-  total_items_with_count: 
+  total_items_with_count:
     one: "%{count} stavka"
     other: "%{count} stavke"
   trusted: Poverljivo
@@ -182,7 +182,7 @@ sr-el:
   twitter: Tviter
   unknown: Nepoznato
   unreviewed: Nepregledano
-  updates_with_count: 
+  updates_with_count:
     one: "%{count} ažuriranje"
     other: "%{count} ažuriranja"
   user_system_down: Žao nam je, otvaranje naloga trenutno nije moguće. Pokušajte kasnije.

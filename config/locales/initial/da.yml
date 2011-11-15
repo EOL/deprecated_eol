@@ -2,7 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Peter Alberti
-da: 
+da:
   0_1_or_2: 0, 1 eller 2
   0_or_1: 0 eller 1
   about_eol: Om EOL
@@ -12,22 +12,22 @@ da:
   action_not_available_error: Beklager, men den handling er ikke tilgængelig.
   actions: Handlinger
   active_colon: "Aktiv:"
-  activerecord: 
-    attributes: 
-      collection: 
+  activerecord:
+    attributes:
+      collection:
         description: Beskrivelse af samling
         logo: Primært billede for samlingen
         name: Samlingens navn
         sort_style_id: Standard sorteringsretning
-      community: 
+      community:
         description: Beskrivelse af samling
         logo: Læg et logo op
         name: Fællesskabets navn
-      content_page: 
+      content_page:
         active: Offentliggjort
         page_name: Unikt navn
         sort_order: Sorteringsrækkefølge
-      content_partner: 
+      content_partner:
         acronym: Projektforkortelse
         admin_notes: Administrationsnoter
         content_partner_status: Projektstatus
@@ -39,19 +39,19 @@ da:
         notes: Projektnoter
         user_id: Forvaltes af
         vetted: Gransket
-      content_partner_agreement: 
+      content_partner_agreement:
         signed_by: Underskrevet af
         signed_on_date: Underskrevet på dato
-      data_object: 
+      data_object:
         bibliographic_citation: Bibliografisk citat
         description: Beskrivelse
         object_title: Titel
         rights_holder: Rettighedsindehaver
         rights_statement: Rettighedserklæring
         source_url: Kilde-URL
-      name: 
+      name:
         string: Navn
-      resource: 
+      resource:
         accesspoint_url: URL til datasæt
         bibliographic_citation: Bibliografisk citat
         dataset: Datasætfil
@@ -62,13 +62,13 @@ da:
         rights_holder: Standard rettighedsindehaver
         rights_statement: Standard rettighedserklæring
         title: Ressourcenavn
-      translated_content_page: 
+      translated_content_page:
         active_translation: Offentliggjort
         left_content: Navigation
         meta_description: Metadata-beskrivelse
         meta_keywords: Metadata-nøgleord
         title: Titel
-      user: 
+      user:
         api_key: API-nøgle
         email: Email-adresse
         entered_password: Kodeord
@@ -78,8 +78,8 @@ da:
         given_name: Fornavn
         language_abbr: Foretrukkent sprog
         username: Brugernavn
-    errors: 
-      messages: 
+    errors:
+      messages:
         accepted: skal accepteres
         blank: kan ikke være tom
         confirmation: stemmer ikke overens med bekræftelsen
@@ -87,14 +87,14 @@ da:
         equal_to: skal være lig med %{count}
         even: skal være lige
         exclusion: er reserveret
-        greater_than: 
+        greater_than:
           one: skal være større end %{count}
           other: skal være større end %{count}
         greater_than_or_equal_to: skal være større end eller lig med %{count}
         inaccessible: er utilgængelig
         inclusion: er ikke med på listen
         invalid: er ugyldig
-        less_than: 
+        less_than:
           one: skal være mindre end %{count}
           other: skal være mindre end %{count}
         less_than_or_equal_to: skal være mindre end eller lig med %{count}
@@ -103,32 +103,32 @@ da:
         odd: skal være ulige
         record_invalid: "Validering mislykkedes: %{errors}"
         taken: er allerede blevet taget
-        too_long: 
+        too_long:
           one: er for lang (maksimum er %{count} tegn)
           other: er for lang (maksimum er %{count} tegn)
-        too_short: 
+        too_short:
           one: er for kort (minimum er %{count} tegn)
           other: er for kort (minimum er %{count} tegn)
         wrong_length: har forkert længde (skulle være %{count} tegn)
         wrong_type: er af en forkert type
-      models: 
-        resource: 
-          attributes: 
-            accesspoint_url: 
+      models:
+        resource:
+          attributes:
+            accesspoint_url:
               blank: kan ikke være tom, medmindre du i stedet for lægger en ressourcefil op
               inaccessible: er ikke tilgængelig. URL'en skal være offentligt tilgængelig
               invalid: er ugyldig. Den burde pege på en XML, XML.GZIP eller en XML.GZ-fil.
-            dataset: 
+            dataset:
               wrong_type: er den forkerte type. Det burde være en GZIP, TAR eller XML-fil
-            dwc_archive_url: 
+            dwc_archive_url:
               inaccessible: er ikke tilgængelig. URL'en skal være offentligt tilgængelig
               invalid: er ugyldig. Den burde pege på en TAR.GZIP, TAR.GZ eller TGZ-fil.
-      template: 
+      template:
         body: "De følgende felter kunne ikke valideres:"
-        header: 
+        header:
           one: "%{count} valideringsfejl fundet"
           other: "%{count} valideringsfejl fundet"
-    models: 
+    models:
       user: konto
   activity: Aktivitet
   activity_log_empty_learn_more_link: Lær hvordan du kan bidrage
@@ -186,7 +186,7 @@ da:
   are_you_sure: Er du sikker?
   article_from: artikel fra
   article_more_about: Lær mere om denne artikel
-  articles_in_languages_with_count: 
+  articles_in_languages_with_count:
     one: "Artikler på denne side er tilgængelige i %{count} sprog:"
     other: "Artikler på denne side er tilgængelige i %{count} sprog:"
   assistive_details_header: Detaljer
@@ -210,7 +210,7 @@ da:
   audio_unmute: lyd til
   authoritative_information: autoritative oplysninger
   average_rating_value_of_total: "Gennemsnitlig bedømmelse: %{rating} ud af %{total}"
-  belongs_in_count_communities: 
+  belongs_in_count_communities:
     one: Tilhører %{count} Fællesskab
     other: Tilhører %{count} Fællesskaber
   bi_monthly: To gange om måneden
@@ -241,31 +241,31 @@ da:
   collection_not_found_error: Beklager, men den samling blev ikke fundet.
   collections: Samlinger
   collections_lowercase: samlinger
-  collections_summary_header_with_count: 
+  collections_summary_header_with_count:
     one: Til stede i %{count} samling
     other: Til stede i %{count} samlinger
-  collections_with_count: 
+  collections_with_count:
     one: "%{count} Samling"
     other: "%{count} Samlinger"
   comment: Kommentar
   comment_body_label: Din kommentar
   comment_created_at: Oprettet den
   comments: Kommentarer
-  common_names_with_count: 
+  common_names_with_count:
     one: "%{count} almindeligt navn"
     other: "%{count} almindelige navne"
   communities: Fællesskaber
   communities_index_empty: Der er ingen aktive fællesskaber.
   communities_index_header: Aktive fællesskaber
-  communities_summary_header_with_count: 
+  communities_summary_header_with_count:
     one: Tilhører %{count} fællesskab
     other: Tilhører %{count} fællesskaber
-  communities_with_count: 
+  communities_with_count:
     one: "%{count} Fællesskab"
     other: "%{count} Fællesskaber"
   community: Fællesskab
   community_activity: Fællesskabets aktiviteter
-  community_contributions_with_count: 
+  community_contributions_with_count:
     one: "%{count} Bidrag"
     other: "%{count} Bidrag"
   community_empty_notice: Dette fællesskab har ingen medlemmer.
@@ -320,7 +320,7 @@ da:
   curator_profile: kuratorprofil
   curator_question: Kurator?
   curators: Kuratorer
-  curators_summary_header_with_count: 
+  curators_summary_header_with_count:
     one: "%{count} kurator"
     other: "%{count} kuratorer"
   currently_in_eol: Lige nu i Encyclopedia of Life
@@ -384,17 +384,17 @@ da:
   has_already_been_taken: er allerede blevet taget.
   hello_user: Hej %{user}
   help: Hjælp
-  helpers: 
-    label: 
-      content_page: 
+  helpers:
+    label:
+      content_page:
         active: Offentliggjort
-      content_partner: 
+      content_partner:
         description_of_data: Beskrivelse af data <small>(privat)</small>
         display_name: Visningsnavn <small>(valgfrit)</small>
         logo_current: "Nuværende logo:"
         logo_new: "Læg et nyt logo op:"
         notes: Projektnoter <small>(privat)</small>
-      data_object: 
+      data_object:
         description: Tekst <small>(nogle HTML-koder er tilladte)</small>
         license_id: Licens
         license_id_more: Læs <a href="%{policy_url}">EOLs licenspolitik</a>
@@ -403,12 +403,12 @@ da:
         rights_statement: Rettighedserklæring
         source_url: URL-adresse til det oprindelige dataobjekt
         toc_item: Underkapitel
-      google_analytics_partner_summaries: 
+      google_analytics_partner_summaries:
         page_views: Sidevisninger <small>(antallet af sidebesøg)</small>
         taxa_pages: Sider <small>(antal sider)</small>
         time_on_page: Samlet tidsforbrug på siderne <small>(timer)</small>
         unique_page_views: Unikke sidevisninger <small>(antallet af besøgende, som ser på siderne)</small>
-      resource: 
+      resource:
         dataset: Datasæt
         refresh_period_hours: Hyppighed
         resource_status_id: Status
@@ -416,15 +416,15 @@ da:
         resource_url_or_file_upload: Læg ressourcefil op
         resource_url_or_file_url: Indlæs ressource fra URL
         title: Ressourcenavn
-      session: 
+      session:
         password: Adgangskode
         remember_me: Behold mig logget ind i 2 uger
         username_or_email: Brugernavn eller email-adresse
-      translated_content_page: 
+      translated_content_page:
         active_translation: Offentliggjort
         active_translation_more: Offentliggjorte oversættelser vil være offentligt synlige, medmindre selve siden ikke er blevet udgivet. Fjern markeringen <em>offentliggjort</em>, hvis du vil forhindre, at almindelige brugere får vist denne version af siden.
         language_id: Sprog
-      user: 
+      user:
         agreed_with_terms: Jeg accepterer <a href="%{terms_url}">brugsbetingelserne</a>
         bio: Om mig
         credentials_more_referral: Henvisning fra nuværende kurator.
@@ -438,49 +438,49 @@ da:
         user_identities: Jeg er
         username: Brugernavn <small>(4 - 32 tegn)</small>
         username_or_email: Brugernavn eller email-adresse
-      wikipedia_queue: 
+      wikipedia_queue:
         revision_url: URL-adresse til den specifikke version <small>(f. eks. http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
-    select: 
+    select:
       prompt: Vælg venligst
-    submit: 
-      content_page: 
+    submit:
+      content_page:
         create: Opret side
         edit: Redigér
         preview: Forhåndsvisning
         update: Opdater side
-      content_partner: 
+      content_partner:
         create: Opret indholdspartner
         update: Gem oplysninger om indholdssamarbejdspartner
-      content_partner_contact: 
+      content_partner_contact:
         create: Tilføj kontakt
         destroy: Slet kontakt
         update: Opdater kontakt
       create: Opret %{model}
-      data_object: 
+      data_object:
         create: Tilføj artikel
         create_text: Tilføj artikel
         update: Gem artikel
-      name: 
+      name:
         create: Tilføj navn
         update: Opdater navn
-      resource: 
+      resource:
         create: Tilføj ressource
         update: Opdater ressource
-      session: 
+      session:
         create: Log ind
       submit: Gem %{model}
-      translated_content_page: 
+      translated_content_page:
         create: Tilføj oversættelse
         update: Gem ændringer i oversættelse
       update: Opdater %{model}
-      user: 
+      user:
         create: Opret konto
         curation_application: Ansøg nu
         curation_privileges: Indsend anmodning
         forgot_password: Send email
         generate_api_key: Dan en nøgle
         update: Gem profiloplysninger
-      wikipedia_queue: 
+      wikipedia_queue:
         create: Indsend anmodning
   hierarchy: Hierarki
   home: Hjem
@@ -489,7 +489,7 @@ da:
   image_is_no_longer_available: Billedet er ikke længere tilgængeligt
   image_not_found: Billede ikke fundet
   images: Billeder
-  images_with_count: 
+  images_with_count:
     one: "%{count} billede"
     other: "%{count} billeder"
   in_collection: i samling
@@ -539,19 +539,19 @@ da:
   logo_header: Logo
   logout: Log af
   maintained_by: vedligeholdes af
-  maps_with_count: 
+  maps_with_count:
     one: "%{count} Kort"
     other: "%{count} Kort"
   media: Medier
   media_summary_empty_contribute_instructions: Lær hvordan du kan bidrage med billeder til EOL.
-  media_with_count: 
+  media_with_count:
     one: "%{count} Medie"
     other: "%{count} Medier"
   member_of: medlem af
-  members_with_count: 
+  members_with_count:
     one: "%{count} medlem"
     other: "%{count} medlemmer"
-  members_with_count_semi_colon: 
+  members_with_count_semi_colon:
     one: "%{count} medlem;"
     other: "%{count} medlemmer;"
   method: Metode
@@ -588,7 +588,7 @@ da:
   pagination_next: Næste
   pagination_previous: Forrige
   parameters: Parametre
-  people_with_count: 
+  people_with_count:
     one: "%{count} person"
     other: "%{count} personer"
   personal_space: Personligt område
@@ -597,11 +597,11 @@ da:
   preferred_common_name_advisory_information: Dette er det foretrukne almindelige navn for denne taksonomiske gruppe.
   press_room: Presserum
   profile: Profil
-  profile_image_alt_text_member: Profilbillede for medlemmet %{user_given_name} %{user_family_name}
+  profile_image_alt_text_member: Profilbillede for medlemmet %{user_full_name}
   public_domain: offentlig ejendom
   punctuation_comma: ","
   quarterly: Kvartalsvis
-  rated_by_count_people: 
+  rated_by_count_people:
     one: fra %{count} person
     other: fra %{count} personer
   recent_updates: Seneste opdateringer
@@ -636,14 +636,14 @@ da:
   sort_by_newest_option: Nyeste
   sort_by_oldest_option: Ældste
   sort_by_rating_option: Bedømmelse
-  sounds_with_count: 
+  sounds_with_count:
     one: "%{count} Lyd"
     other: "%{count} Lyde"
   source_url: Kilde-URL
   supplier: Leverandør
   switch_language_advisory_information: Ændr hjemmesidens sprog til %{language_label}
   table_of_contents: Indholdsfortegnelse
-  taxa_with_count: 
+  taxa_with_count:
     one: "%{count} taksonomisk gruppe"
     other: "%{count} taksonomiske grupper"
   taxon: taksonomisk gruppe
@@ -661,20 +661,20 @@ da:
   username_colon: "Brugernavn:"
   users_about_me_header: Om mig
   users_form_account_header: Din konto
-  users_member_of_count_communities: 
+  users_member_of_count_communities:
     one: Medlem af %{count} fællesskab
     other: Medlem af %{count} fællesskaber
   using_the_site: Brug af hjemmesiden
   value: Værdi
   value_empty: (tom)
   values: Værdier
-  videos_with_count: 
+  videos_with_count:
     one: "%{count} video"
     other: "%{count} videoer"
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Vis kun sider med mindst et billede eller tekststykke
   what_is_eol: Hvad er EOL?
   what_is_this_question: Hvad er dette?
-  will_paginate: 
+  will_paginate:
     next_label: Næste &#8594;
     page_gap: "&hellip;"
     previous_label: "&#8592; Forrige"

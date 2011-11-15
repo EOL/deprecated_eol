@@ -4,7 +4,7 @@
 # Author: Beta16
 # Author: Ribez
 # Author: Rippitippi
-it: 
+it:
   account_information: Informazioni sull'account
   account_registered_but_not_ready_try_later: La tua registrazione è avvenuta correttamente ma il sistema non è pronto per l'accesso. Riprova tra cinque minuti.
   add_to_my_collection_button: Aggiungi alla mia collezione
@@ -20,11 +20,11 @@ it:
   cannot_be_empty: non può essere vuoto.
   citation: Citazione
   collections: Collezioni
-  collections_summary_header_with_count: 
+  collections_summary_header_with_count:
     one: Presente in %{count} collezione
     other: Presente in %{count} collezioni
   common_names_advisory_information: Nomi comuni associati a questo taxon.
-  common_names_with_count: 
+  common_names_with_count:
     one: "%{count} nome comune"
     other: "%{count} nomi comuni"
   communities: Comunità
@@ -39,7 +39,7 @@ it:
   create_a_collection: Crea una raccolta
   create_a_community: Crea una comunità
   curators_of_taxon_page_title: Curatori di %{taxon}
-  curators_summary_header_with_count: 
+  curators_summary_header_with_count:
     one: "%{count} Curatore"
     other: "%{count} Curatori"
   currently_in_eol: Attualmente nell'Enciclopedia della vita
@@ -86,10 +86,10 @@ it:
   location: Località
   login_or_create_account: Entra o Registrati
   manage_community: Gestisci comunità
-  maps_with_count: 
+  maps_with_count:
     one: "%{count} Mappa"
     other: "%{count} Mappe"
-  members_with_count: 
+  members_with_count:
     one: "%{count} membro"
     other: "%{count} membri"
   minimal_page: Visualizzazione minima
@@ -100,7 +100,7 @@ it:
   my_activity: La mia attività
   my_info: I miei dati
   not_evaluated: Non valutato
-  other_collection_items_with_count: 
+  other_collection_items_with_count:
     one: "%{count} altro elemento"
     other: "%{count} altri elementi"
   overview: Panoramica
@@ -109,8 +109,8 @@ it:
   post_comment: Lascia un commento
   preferred_common_name_advisory_information: Questo è il nome comune preferito per questo taxon.
   profile: Profilo
-  profile_image_alt_text_curator: Foto del curatore %{user_given_name} %{user_family_name}
-  rated_by_count_people: 
+  profile_image_alt_text_curator: Foto del curatore %{user_full_name}
+  rated_by_count_people:
     one: da %{count} persona
     other: da %{count} persone
   recent_updates: Aggiornamenti recenti
@@ -142,7 +142,7 @@ it:
   text_summary_more_link: Leggi tutto
   there_are_currently_no_members_in_this_community: Attualmente non sono presenti membri in questa comunità.
   time_ago: "%{time_passed} fa"
-  total_items_with_count: 
+  total_items_with_count:
     one: "%{count} elemento"
     other: "%{count} elementi"
   trusted: Attendibile

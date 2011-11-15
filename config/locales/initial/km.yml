@@ -2,7 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: គីមស៊្រុន
-km: 
+km:
   account_information: ព័ត៌មានពីគណនី
   account_registered_but_not_ready_try_later: គណនីរបស់អ្នកបានចុះឈ្មោះរួចហើយ ប៉ុន្តែមិនទាន់អាចអោយអ្នកចូលមើលបាននៅឡើយទេ។ សូមសាកល្បងម្ដងទៀតនៅ៥នាទីក្រោយ។
   add_to_my_collection_button: បន្ថែមទៅក្នុងកំរងប្រមួលផ្ដុំរបស់ខ្ញុំ
@@ -93,8 +93,8 @@ km:
   pages_with_pictures_or_text: ទំព័រដែលមានរូបភាពឬអត្ថបទ
   post_comment: បញ្ចេញមតិ
   profile: ប្រវត្តិរូប
-  profile_image_alt_text_curator: រូបភាពក្នុងប្រវត្តិរួបសំរាប់អ្នកប្រមែប្រមួលឈ្មោះ %{user_given_name} %{user_family_name}
-  profile_image_alt_text_member: រូបភាពក្នុងប្រវត្តិរូបរបស់សមាជិកឈ្មោះ %{user_given_name} %{user_family_name}
+  profile_image_alt_text_curator: រូបភាពក្នុងប្រវត្តិរួបសំរាប់អ្នកប្រមែប្រមួលឈ្មោះ %{user_full_name}
+  profile_image_alt_text_member: រូបភាពក្នុងប្រវត្តិរូបរបស់សមាជិកឈ្មោះ %{user_full_name}
   rated_by_count_people: ពីមនុស្សចំនួន %{count} នាក់
   recent_updates: ការបន្ទាន់សម័យថ្មីៗ
   remove_membership: ដកសមាជិកភាព

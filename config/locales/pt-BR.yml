@@ -2,7 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Alcali
-pt-BR: 
+pt-BR:
   account_information: Informações sobre a conta
   account_registered_but_not_ready_try_later: Sua conta está registrada, mas não está pronto para acessar. Por favor, tente novamente em cinco minutos.
   add_to_my_collection_button: Adicionar à minha coleção
@@ -13,15 +13,15 @@ pt-BR:
   cannot_be_associated_with_both_a_user_and_a_community: Não pode ser associado com o usuário e uma comunidade
   cannot_be_empty: não pode estar vazio.
   citation: Citação
-  classifications_summary_header_with_count: 
+  classifications_summary_header_with_count:
     one: Parte de %{count} teve a classificação aprovada
     other: Partes de %{count} teve classificações aprovadas
   collections: Coleções
-  collections_summary_header_with_count: 
+  collections_summary_header_with_count:
     one: presente em %{count} coleção
     other: presente em %{count} coleções
   common_names_advisory_information: Nomes comuns associados a este taxon.
-  common_names_with_count: 
+  common_names_with_count:
     one: "%{count} nome comum"
     other: "%{count} nomes comuns"
   communities: Comunidades
@@ -33,7 +33,7 @@ pt-BR:
   create_a_collection: Criar uma coleção
   create_a_community: Criar uma Comunidade
   curators_of_taxon_page_title: Curadores de %{taxon}
-  curators_summary_header_with_count: 
+  curators_summary_header_with_count:
     one: "%{count} Curador"
     other: "%{count} Curadores"
   currently_in_eol: Atualmente na Enciclopédia da Vida
@@ -73,14 +73,14 @@ pt-BR:
   license: Licença
   login_or_create_account: Entrar ou criar uma conta
   manage_community: Gerenciar Comunidade
-  maps_with_count: 
+  maps_with_count:
     one: "%{count} Mapa"
     other: "%{count} Mapas"
   media: Mídia
-  media_with_count: 
+  media_with_count:
     one: "%{count} Mídia"
     other: "%{count} Mídias"
-  members_with_count: 
+  members_with_count:
     other: um=%{count} colaborador
   minimal_page: Menor página
   must_be_associated_with_either_a_user_or_a_community: Deve estar associado a um usuário ou a uma comunidade
@@ -88,7 +88,7 @@ pt-BR:
   must_be_logged_in: Você deve estar logado para realizar esta ação.
   newsfeed: Feed de notícias
   not_evaluated: Não avaliado
-  other_collection_items_with_count: 
+  other_collection_items_with_count:
     one: "%{count} outro item"
     other: "%{count} outros itens"
   overview: Visão geral
@@ -97,8 +97,8 @@ pt-BR:
   post_comment: Postar comentário
   preferred_common_name_advisory_information: Este é o nome comum preferido para essa taxa
   profile: Perfil
-  profile_image_alt_text_curator: Foto do perfil do curador %{user_given_name} %{user_family_name}
-  profile_image_alt_text_member: Foto do perfil do membro %{user_given_name} {user_family_name}
+  profile_image_alt_text_curator: Foto do perfil do curador %{user_full_name}
+  profile_image_alt_text_member: Foto do perfil do membro %{user_full_name}
   recent_updates: Atualizações recentes
   remove_membership: Remover a associação
   rights: Direitos
@@ -108,10 +108,10 @@ pt-BR:
   search_input_advisory_information: Digite os nomes comuns e científicos de organismos vivos que você gostaria de saber mais sobre, por exemplo, tente digitar tomate.
   search_placeholder: Pesquisa EOL...
   search_the_site: Busca no site
-  see_all_classifications_with_count_html: 
+  see_all_classifications_with_count_html:
     one: Ver <span class="assistive">%{count} aprovada classificação na qual esta taxa aparece.</span>
     other: Ver todas <span class="assistive">%{count} aprovadas classificações em que esta taxa aparece.</span>
-  see_all_collections_with_count_html: 
+  see_all_collections_with_count_html:
     one: Veja <span class="assistive">%{count} coleção em que esta taxa aparece.</span>
     other: Veja todos <span class="assistive">%{count} Coleções em que esta taxa aparece.</span>
   see_all_media_link: Veja todas as mídias
@@ -130,12 +130,12 @@ pt-BR:
   there_are_currently_no_members_in_this_community: No momento não há membros nesta comunidade.
   this_community_has_no_focus_list: Esta Comunidade não tem nenhuma lista de foco.
   threat_status_header_colon: "Categorias de ameaça:"
-  total_items_with_count: 
+  total_items_with_count:
     one: "%{count} item"
     other: "%{count} total de itens"
   try_your_request_again: Tente novamente
   unknown: Desconhecido
-  updates_with_count: 
+  updates_with_count:
     one: "%{count} Atualização"
     other: "%{count} Atualizações"
   user_system_down: Pedimos desculpas, mas o sistema de registro de usuário não está disponível. Por favor, tente novamente mais tarde.

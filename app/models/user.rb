@@ -294,60 +294,92 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   # TODO
   # NOTE - this is currently ONLY used in an exported (CSV) report for admins... so... LOW priority.
   # get the total objects curated for a particular curator activity type
-  def total_objects_curated_by_action(action)
-    curator_activity_id = Activity.send action # approve may not work... looking into it TODO
-    if !curator_activity_id.nil?
-      # TODO
-      raise "Unimplemented"
-    else
-      return 0
+  def self.total_objects_curated_by_action_and_user(action_id = nil, user_id = nil, changeable_object_type_ids = nil)
+    action_id ||= Activity.raw_curator_action_ids
+    changeable_object_type_ids ||= ChangeableObjectType.data_object_scope
+    query = "SELECT cal.user_id, COUNT(DISTINCT cal.object_id) as count
+      FROM #{CuratorActivityLog.full_table_name} cal
+      JOIN #{Activity.full_table_name} acts ON (cal.activity_id = acts.id) WHERE "
+    if user_id.class == Fixnum
+      query += "cal.user_id = #{user_id} AND "
+    elsif user_id.class == Array
+      query += "cal.user_id IN (#{user_id.join(',')}) AND "
     end
+    if action_id.class == Fixnum
+      query += "acts.id = #{action_id} AND "
+    elsif action_id.class == Array
+      query += "acts.id IN (#{action_id.join(',')}) AND "
+    end
+    query += " cal.changeable_object_type_id IN (#{changeable_object_type_ids.join(",")}) GROUP BY cal.user_id"
+    results = User.connection.execute(query).all_hashes
+    return_hash = {}
+    results.each do |r|
+      return_hash[r['user_id'].to_i] = r['count'].to_i
+    end
+    if user_id.class == Fixnum
+      return return_hash[user_id] || 0
+    end
+    return_hash
   end
 
-  def total_data_objects_curated
-    connection.select_values("
-      SELECT cal.object_id
-      FROM #{CuratorActivityLog.database_name}.curator_activity_logs cal
-        JOIN #{LoggingModel.database_name}.activities acts ON (cal.activity_id = acts.id)
-      WHERE cal.user_id=#{id}
-        AND cal.changeable_object_type_id IN(#{ChangeableObjectType.data_object_scope.join(",")})
-        AND acts.id IN (#{Activity.raw_curator_action_ids.join(",")})
-      ").uniq.length
-  end
-
-  def taxon_concept_ids_curated
-    connection.select_values("
-      SELECT dotc.taxon_concept_id
-      FROM #{CuratorActivityLog.database_name}.curator_activity_logs cal
-        JOIN #{LoggingModel.database_name}.activities acts ON (cal.activity_id = acts.id)
-        JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (cal.object_id = dotc.data_object_id)
-      WHERE cal.user_id=#{id}
-        AND cal.changeable_object_type_id IN(#{ChangeableObjectType.data_object_scope.join(",")})
-        AND acts.id!=#{Activity.rate.id}
-      ORDER BY cal.updated_at DESC").uniq
+  def self.taxon_concept_ids_curated(user_id = nil)
+    query = "SELECT DISTINCT cal.user_id, dotc.taxon_concept_id
+      FROM #{CuratorActivityLog.full_table_name} cal
+      JOIN #{Activity.full_table_name} acts ON (cal.activity_id = acts.id)
+      JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (cal.object_id = dotc.data_object_id) WHERE "
+    if user_id.class == Fixnum
+      query += "cal.user_id = #{user_id} AND "
+    elsif user_id.class == Array
+      query += "cal.user_id IN (#{user_id.join(',')}) AND "
+    end
+    query += " cal.changeable_object_type_id IN (#{ChangeableObjectType.data_object_scope.join(",")})
+      AND acts.id != #{Activity.rate.id}
+      ORDER BY cal.updated_at DESC"
+    results = User.connection.execute(query).all_hashes
+    return_hash = {}
+    results.each do |r|
+      return_hash[r['user_id'].to_i] ||= []
+      return_hash[r['user_id'].to_i] << r['taxon_concept_id'].to_i
+    end
+    if user_id.class == Fixnum
+      return return_hash[user_id] || []
+    end
+    return_hash
   end
 
   def total_species_curated
-    taxon_concept_ids_curated.length
+    User.taxon_concept_ids_curated(self.id).length
   end
 
   # Not sure yet its status in V2, commented temporarily
-  # # TODO - test
-  # def comment_curation_actions
-  #   connection.select_values("
-  #     SELECT cal.object_id
-  #     FROM #{CuratorActivityLog.database_name}.curator_activity_logs cal
-  #       JOIN #{LoggingModel.database_name}.activities acts ON (cal.activity_id = acts.id)
-  #     WHERE cal.user_id=#{id}
-  #       AND cal.changeable_object_type_id = #{ChangeableObjectType.comment.id}
-  #       AND acts.id != #{Activity.create.id}
-  #     ").uniq
-  # end
-  #
-  # # TODO - test
-  # def total_comments_curated
-  #   comment_curation_actions.length
-  # end
+  # TODO - test
+  def self.comment_curation_actions(user_id = nil)
+    query = "SELECT DISTINCT cal.user_id, cal.object_id
+      FROM #{CuratorActivityLog.full_table_name} cal
+      JOIN #{Activity.full_table_name} acts ON (cal.activity_id = acts.id) WHERE "
+    if user_id.class == Fixnum
+      query += "cal.user_id = #{user_id} AND "
+    elsif user_id.class == Array
+      query += "cal.user_id IN (#{user_id.join(',')}) AND "
+    end
+    query += " cal.changeable_object_type_id = #{ChangeableObjectType.comment.id}
+      AND acts.id != #{Activity.create.id}"
+    results = User.connection.execute(query).all_hashes
+    return_hash = {}
+    results.each do |r|
+      return_hash[r['user_id'].to_i] ||= []
+      return_hash[r['user_id'].to_i] << r['object_id'].to_i
+    end
+    if user_id.class == Fixnum
+      return return_hash[user_id] || []
+    end
+    return_hash
+  end
+  
+  # TODO - test
+  def total_comments_curated
+    User.comment_curation_actions(self.id).length
+  end
 
   # TODO - test all of these taggy things.  And move this to a module, I think.
   def data_object_tags_for data_object
@@ -543,6 +575,31 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def all_submitted_datos
     UsersDataObject.find(:all, :conditions => "user_id = #{self[:id]}").map {|udo| DataObject.find(udo.data_object_id) }
   end
+  
+  def self.count_submitted_datos(user_id = nil)
+    count_user_rows(UsersDataObject, user_id)
+  end
+  
+  def self.count_user_rows(klass, user_id = nil)
+    query = "SELECT user_id, COUNT(*) as count FROM #{klass.full_table_name} "
+    if user_id.class == Fixnum
+      query += "WHERE user_id = #{user_id} "
+    elsif user_id.class == Array
+      query += "WHERE user_id IN (#{user_id.join(',')}) "
+    end
+    query += "GROUP BY user_id"
+    results = User.connection.execute(query).all_hashes rescue {}
+    return_hash = {}
+    results.each do |r|
+      return_hash[r['user_id'].to_i] = r['count'].to_i
+    end
+    if user_id.class == Fixnum
+      return return_hash[user_id] || 0
+    end
+    return_hash
+  end
+  
+  
 
   # Returns an array of descriptions from all of the data objects submitted by this user.  NOT USED ANYWHERE.  This
   # is a convenience method for developers to use.

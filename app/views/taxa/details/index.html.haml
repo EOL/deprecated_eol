@@ -1,6 +1,3 @@
-= content_for :head do
-  = javascript_include_tag "taxonomy"
-
 - roots = @toc.collect{|t| t unless t.is_child?}.compact
 #taxon_detail
   - if roots.empty?

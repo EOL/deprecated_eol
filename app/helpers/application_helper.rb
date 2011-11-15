@@ -210,7 +210,7 @@ module ApplicationHelper
 
   # Link to a single stylesheet by first looking for a language version (stylesheet-<language>.css) or defaulting
   # to the provided stylesheet if the language version is not found.
-  def eol_lang_main_stylesheet(stylesheet, options = {})
+  def stylesheet_include_i18n_merged(stylesheet, options = {})
     current_language = I18n.locale
     language_stylesheet = "/languages/#{current_language}/#{stylesheet}.css"
 
@@ -220,7 +220,7 @@ module ApplicationHelper
 
     # Make sure stylesheets are cached by language if we're caching
     options.merge!(:cache => "all-#{current_language}") if options[:cache]
-    stylesheet_link_tag(*[stylesheet, options])
+    stylesheet_link_merged(*[stylesheet, options])
   end
 
   # Version of error_messages_for that displays translated error messages

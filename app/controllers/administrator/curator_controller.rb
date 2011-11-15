@@ -6,6 +6,8 @@ class Administrator::CuratorController < AdminController
 
   before_filter :restrict_to_admins
 
+  require 'csv'
+  
   def index
     @page_title = I18n.t("curators")
     @user_search_string = params[:user_search_string] || ''
@@ -26,21 +28,38 @@ class Administrator::CuratorController < AdminController
   end
 
   def export
-    @users = User.find(:all, :conditions => ['credentials != "" OR curator_scope!= ""'])
-      report = StringIO.new
-      CSV::Writer.generate(report, ',') do |title|
-          title << ['Id', 'Username', 'Name', 'Email', 'Credentials', 'Scope', 'Approved', 'Registered Date', 'Objects Curated', 'Comments Moderated',
-                    'Species Curated', 'Objects Shown', 'Objects Hidden', 'Objects Marked as Inappropriate', 'Text Data Objects Submitted']
-          @users.each do |u|
-            title << [u.id, u.username, u.full_name, u.email, u.credentials.gsub(/\r\n/,'; '), u.curator_scope.gsub(/\r\n/,'; '), u.curator_approved,
-                      u.created_at, u.total_data_objects_curated, u.total_comments_curated, u.total_species_curated, u.total_objects_curated_by_action('show'),
-                      u.total_objects_curated_by_action('hide'), u.total_objects_curated_by_action('inappropriate'),
-                      UsersDataObject.count(:conditions => ['user_id = ?', u.id])]
-          end
-       end
-       report.rewind
-       send_data(report.read, :type=>'text/csv; charset=iso-8859-1; header=present', :filename => 'EOL_curators_report_' + Time.now.strftime("%m_%d_%Y-%I%M%p") + '.csv',
-        :disposition =>'attachment', :encoding => 'utf8')
+    user_curated_objects_counts = User.total_objects_curated_by_action_and_user(Activity.raw_curator_action_ids)
+    user_curated_taxa_counts = User.taxon_concept_ids_curated
+    user_comment_curations = User.comment_curation_actions
+    user_show_counts = User.total_objects_curated_by_action_and_user(Activity.show.id)
+    user_hide_counts = User.total_objects_curated_by_action_and_user(Activity.hide.id)
+    user_inappropriate_counts = User.total_objects_curated_by_action_and_user(Activity.inappropriate.id)
+    user_submitted_counts = User.count_submitted_datos
+    user_wikipedia_counts = User.count_user_rows(WikipediaQueue)
+    user_association_counts = User.total_objects_curated_by_action_and_user(Activity.add_association.id, nil,
+      [ChangeableObjectType.hierarchy_entry.id, ChangeableObjectType.curated_data_objects_hierarchy_entry.id])
+    
+    @users = User.find(:all, :include => :curator_level, :conditions => ['curator_level_id > 0'])
+    report = StringIO.new
+    CSV::Writer.generate(report, '	') do |title|
+        title << ['Id', 'Username', 'Name', 'Email', 'Credentials', 'Scope', 'Approved', 'Curator Level', 'Registered Date', 'Objects Curated',
+                  'Comments Moderated', 'Species Curated', 'Objects Shown', 'Objects Hidden', 'Objects Marked as Inappropriate',
+                  'Text Data Objects Submitted', 'Associations Added', 'Wikipedia Articles Nominated']
+        @users.each do |u|
+          comments_curated = user_comment_curations[u.id].length rescue 0
+          taxa_curated = user_curated_taxa_counts[u.id].length rescue 0
+          user_credentials = u.credentials.gsub(/[\r\n\t]/,'; ')[0...5000]
+          user_scope = u.curator_scope.gsub(/[\r\n\t]/,'; ')[0...5000]
+          title << [u.id, u.username, u.full_name, u.email, user_credentials, user_scope, u.curator_approved, u.curator_level.label,
+                    u.created_at, user_curated_objects_counts[u.id] || 0, comments_curated, taxa_curated, user_show_counts[u.id] || 0,
+                    user_hide_counts[u.id] || 0, user_inappropriate_counts[u.id] || 0, user_submitted_counts[u.id] || 0,
+                    user_association_counts[u.id] || 0, user_wikipedia_counts[u.id] || 0 ]
+        end
+     end
+     report.rewind
+     send_data(report.read, :type=>'text/tab-separated-values; charset=utf-8; header=present',
+       :filename => 'EOL_curators_report_' + Time.now.strftime("%m_%d_%Y-%I%M%p") + '.txt',
+       :disposition =>'attachment', :encoding => 'utf8')
   end
 
 private

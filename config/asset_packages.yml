@@ -1,13 +1,141 @@
+# Please NOTE that the admin JS package is missing, since we're going to re-do the UI for it entirely... someday.
+# NOTE concept-manager is a little weird, since it's in V1 layout still. It should be revisited.
 ---
 javascripts:
-- base-cached:
+- application:
+  - jquery-1.6.1.min
+  - rails
   - application
-
-- taxa-page-cached:
-  - rating
+  - jquery.cycle.all.min
+  - jquery.modal
+- errors:
+  - jquery-1.6.1.min
+  - rails
+  - application
+- data-object-curation:
+  - jquery-1.6.1.min
+  - rails
+  - application
+  - jquery.cycle.all.min
+  - jquery.modal
+  - curation
+- new-text:
+  - jquery-1.6.1.min
+  - rails
+  - application
+  - jquery.cycle.all.min
+  - jquery.modal
+  - curation
+  - new-text
+- data-object-show:
+  - jquery-1.6.1.min
+  - rails
+  - application
+  - jquery.cycle.all.min
+  - jquery.modal
+  - jplayer/js/jquery.jplayer.min
+  - permalink
+- concept-manager:
+  - jquery
+  - jquery_ui
+  - concept_manager
+- collections:
+  - jquery-1.6.1.min
+  - rails
+  - application
+  - jquery.cycle.all.min
+  - jquery.modal
+  - collections
+- communities:
+  - jquery-1.6.1.min
+  - rails
+  - application
+  - jquery.cycle.all.min
+  - jquery.modal
+  - communities
+- mobile:
+  - jquery-1.6.1.min
+  - jquery.mobile-1.0b1.min
+  - mobile
+  - touch-gallery/activity-indicator
+  - touch-gallery/transform
+  - touch-gallery/touch-gallery
+- new-community:
+  - jquery-1.6.1.min
+  - rails
+  - application
+  - jquery.cycle.all.min
+  - jquery.modal
+  - communities
+  - jquery.spotlite
+- taxa-navigation:
+  - jquery-1.6.1.min
+  - rails
+  - application
+  - jquery.cycle.all.min
+  - jquery.modal
   - navigation
+- maps:
+  - jquery-1.6.1.min
+  - rails
+  - application
+  - jquery.cycle.all.min
+  - jquery.modal
+  - swfobject
+- taxa-media:
+  - jquery-1.6.1.min
+  - rails
+  - application
+  - jquery.cycle.all.min
+  - jquery.modal
+  - exemplar_image
+- taxa-media-footer:
+  - jplayer/js/jquery.jplayer.min
+  - media_list
+- common-names:
+  - jquery-1.6.1.min
+  - rails
+  - application
+  - jquery.cycle.all.min
+  - jquery.modal
+  - common-names
+- worklist:
+  - jquery-1.6.1.min
+  - rails
+  - application
+  - jquery.cycle.all.min
+  - jquery.modal
+  - permalink
+  - worklist
+  - jplayer/js/jquery.jplayer.min
 
 stylesheets:
-- base-cached:
+- application:
   - application
   - accessibility
+- home:
+  - home
+  - accessibility
+- ie7:
+  - ie7
+- errors:
+  - errors
+  - accessibility
+- v1:
+  - reset-min
+  - main
+  - popup
+  - taxa_comments
+  - tags
+  - star_rating
+  - wikipedia
+- buttons:
+  - buttons
+- api:
+  - api
+- content-preview:
+  - home
+  - accessibility
+- mobile:
+  - jquery.mobile-1.0b1.min
+  - mobile

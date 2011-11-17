@@ -10,6 +10,8 @@ class RedirectsController < ApplicationController
       redirect_to cms_page_path(params[:cms_page_id]), :status => :moved_permanently and return
     elsif params[:taxon_id]
       redirect_to taxon_overview_path(params[:taxon_id]), :status => :moved_permanently and return
+    elsif params[:user_id]
+      redirect_to user_path(params[:user_id]), :status => :moved_permanently and return
     elsif params[:conditional_redirect_id] == 'exemplars'
       collection_ids = {
         :en => 34,

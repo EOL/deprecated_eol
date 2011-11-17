@@ -19,6 +19,11 @@ describe RedirectsController do
       response.redirected_to.should == taxon_overview_path(1)
       response.status.should == '301 Moved Permanently'
     end
+    it 'should permanently redirect to user profile when user id parameter is provided' do
+      get :show, :user_id => '1'
+      response.redirected_to.should == user_path(1)
+      response.status.should == '301 Moved Permanently'
+    end
   end
 
 end

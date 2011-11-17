@@ -1228,3 +1228,9 @@ body#prelaunch p.status {
 
 body#prelaunch #footer ul.social_media {
   margin-top: 20px; }
+
+.feed .reply {
+  float: right;
+  font-size: 0.75em;
+  font-weight: bold;
+  text-transform: uppercase; }

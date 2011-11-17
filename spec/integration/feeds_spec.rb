@@ -110,6 +110,20 @@ describe 'Feeds' do
     end
   end
 
+  it 'should allow replies to comments' do
+    @community = Community.gen
+    CuratorLevel.create_defaults # need to gen users.
+    @user = User.gen
+    xpect 'should, when logged in, have a reply button with each post'
+    login_as @user
+    visit community_path(@community)
+    page.body.should have_tag('ul.feed li p a', :text => I18n.t(:reply))
+    # JavaScript: xpect 'should, after clicking on the reply button, add an @User Name link to the beginning of the reply field'
+    xpect 'should, once a comment is posted as a reply, link to the source comment'
+    xpect 'should, once a source is clicked, load the comment in proper context'
+    visit logout_url
+  end
+
 end
 
 

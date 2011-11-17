@@ -2,6 +2,7 @@
 - parent ||= @parent
 - rows ||= 3
 - cols ||= 60
+%a{:name => 'new_comment'}
 - form_for Comment.new, :html => { :class => 'comment' } do |f|
   = f.hidden_field :parent_type, :value => parent.class.name
   = f.hidden_field :parent_id, :value => parent.id

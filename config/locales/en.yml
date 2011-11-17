@@ -1986,6 +1986,7 @@ en:
   remove_data_object_association: "Remove association"
   remove_membership: "Remove membership"
   remove: "Remove"
+  reply: "Reply"
   revoke_full_curator_link: "Revoke"
   revoke_manager_link: "Revoke manager role"
   removed_count_items_from_collection_notice:

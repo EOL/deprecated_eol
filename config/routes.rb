@@ -227,11 +227,13 @@ ActionController::Routing::Routes.draw do |map|
     redirect.connect '/pages/:taxon_id/curators'
     # TODO - remove /content/* named routes once search engines have reindexed the site and legacy URLs are not in use.
     redirect.connect '/content/exemplars', :conditional_redirect_id  => 'exemplars'
-    redirect.connect '/content/news', :cms_page_id => 'news'
+    redirect.connect '/content/news/*ignore', :cms_page_id => 'news'
     redirect.connect '/content/page/2012eolfellowsapplication', :cms_page_id => '2012_eol_fellows_application'
     redirect.connect '/content/page/2012fellowsonlineapp',  :cms_page_id => '2012_fellows_online_app'
+    redirect.connect '/content/page/curator_central', :cms_page_id => 'curators'
     redirect.connect '/content/page/:cms_page_id'
     redirect.connect '/settings'
+    redirect.connect '/account/show/:user_id'
   end
 
   ## Curator tool to request import of wikipedia pages

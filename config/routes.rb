@@ -224,8 +224,9 @@ ActionController::Routing::Routes.draw do |map|
   ## Permanent redirects.
   map.with_options :controller => 'redirects', :action => 'show', :conditions => { :method => :get } do |redirect|
     redirect.connect '/podcast', :url => 'http://education.eol.org/podcast'
+    redirect.connect '/pages/:taxon_id/curators'
     # TODO - remove /content/* named routes once search engines have reindexed the site and legacy URLs are not in use.
-    redirect.connect '/content/exemplar', :conditional_redirect_id  => 'exemplar'
+    redirect.connect '/content/exemplars', :conditional_redirect_id  => 'exemplars'
     redirect.connect '/content/news', :cms_page_id => 'news'
     redirect.connect '/content/page/2012eolfellowsapplication', :cms_page_id => '2012_eol_fellows_application'
     redirect.connect '/content/page/2012fellowsonlineapp',  :cms_page_id => '2012_fellows_online_app'

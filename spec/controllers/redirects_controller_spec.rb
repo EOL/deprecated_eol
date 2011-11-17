@@ -14,6 +14,11 @@ describe RedirectsController do
       response.redirected_to.should == cms_page_path('news')
       response.status.should == '301 Moved Permanently'
     end
+    it 'should permanently redirect to taxon page when taxon id parameter is provided' do
+      get :show, :taxon_id => '1'
+      response.redirected_to.should == taxon_overview_path(1)
+      response.status.should == '301 Moved Permanently'
+    end
   end
 
 end

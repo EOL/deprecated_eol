@@ -25,6 +25,7 @@
     = render :partial => '/data_objects/attribution', :locals => { :supplier => true }
     - if @data_object.is_image?
       %p= link_to I18n.t(:view_full_size_image), @data_object.thumb_or_object(:orig)
+  = render :partial => '/data_objects/rating', :locals => { :data_object => @data_object, :en_type => en_type }
   - if for_worklist
     - # For worklist we show updates here below the associations form, not above.
     .article.list.updates
@@ -44,4 +45,3 @@
             %li= tr.language.source_form
           - else
             %li= link_to tr.language.source_form, set_language_url(:language => tr.language.iso_639_1)+"&return_to=/data_objects/#{tr.id}"
-  = render :partial => '/data_objects/rating', :locals => { :data_object => @data_object, :en_type => en_type }

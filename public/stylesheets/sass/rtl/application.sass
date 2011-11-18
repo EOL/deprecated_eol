@@ -121,7 +121,7 @@ form.comment
     padding: 0 0 10px 0
   img
     float: right
-    margin: 0 0 0 10px 
+    margin: 0 0 0 10px
     border: 1px solid #394651
   textarea
     float: right
@@ -282,7 +282,7 @@ table.standard
         background: #eff2f4
         padding: 5px 20px
         font-weight: bold
-        
+
   tbody
     tr
       border: 1px solid #cad3db
@@ -334,7 +334,7 @@ table.standard
         padding: 5px 0 0 0
         overflow: hidden
   &.updates
-    blockquote
+    blockquote, p
       line-height: 140%
     p
       padding: 0 0 4px 0
@@ -471,8 +471,7 @@ table.standard
     background: #f3f7fa url("/images/v2/icon_sound_tabs.png") 50% 50% no-repeat
 
 ul.object_list
-  + .header
-    border-bottom: 0
+  + .footer
     border-top: 1px solid #394651
     padding-top: 12px
   li
@@ -574,7 +573,7 @@ body
         z-index: 1
         img
           float: left
-          margin: 0 10px 0 0 
+          margin: 0 10px 0 0
           border: 1px solid #cad3db
         .details, .sign_in
           overflow: hidden
@@ -637,7 +636,7 @@ body
   .hgroup
     float: right
     width: 670px
-    padding: 10px 10px 20px 0  
+    padding: 10px 10px 20px 0
   &.with_nav
     .site_column
       overflow: visible
@@ -651,7 +650,7 @@ body
       clear: both
       padding-top: 5px
     ul.breadcrumbs
-      margin: 0 10px 0 0 
+      margin: 0 10px 0 0
       li
         float: right
         font-size: .92em
@@ -674,7 +673,7 @@ body
     font-weight: normal
     color: #5f6c76
     small
-      padding: 0 10px 0 0 
+      padding: 0 10px 0 0
       font-size: .6em
   p
     font-size: 1.08em
@@ -778,17 +777,17 @@ body
   width: 200px
   padding: 20px 0 0 0
   h3
-    margin: 0 10px 10px 0 
+    margin: 0 10px 10px 0
     font-size: 14px
   form
-    padding: 0 10px 0 0 
+    padding: 0 10px 0 0
     dt
       padding-right: 5px
 
 #sidebar
   float: left
   width: 180px
-  padding: 0 20px 0 0 
+  padding: 0 20px 0 0
   h3
     padding: 0 0 10px 0
     font-size: 1.33em
@@ -869,7 +868,7 @@ body
         label
           font-weight: bold
     fieldset.actions
-      padding: 0 10px 0 0 
+      padding: 0 10px 0 0
       input
         margin-top: 10px
     &.small
@@ -933,6 +932,60 @@ body
           margin: 0 0 20px 0
         input[type="submit"]
           margin: 0 0 0 5px
+  ul.collection_gallery
+    li
+      float: right
+      width: 88px
+      margin: 0 14px 20px 0
+      position: relative
+      padding: 0
+      img
+        position: absolute
+        right: 0
+        top: 0
+        +max_dimensions($logo_size_standout, $logo_size_standout)
+        z-index: 2
+      h4
+        margin-top: 90px
+        a
+          text-decoration: none
+          color: #394651
+      span.icon
+        position: absolute
+        right: 0
+        top: 0
+        padding: 0
+        width: 86px
+        height: 86px
+        border: 1px solid #cad3db
+        margin: 0
+        display: block
+        z-index: 1
+      &.first
+        margin-right: 0
+        clear: both
+      .checkbox
+        position: absolute
+        border: 1px solid #cad3db
+        top: 0
+        right: 0
+        padding: 8px
+        margin: 0
+        background: #fff
+        z-index: 3
+  ul.collection_names
+    padding-bottom: 12px
+    li
+      border-bottom: 1px solid #cad3db
+      overflow: hidden
+      padding: 5px 10px
+      .checkbox
+        float: left
+        margin: 0
+      h4
+        small
+          font-weight: bold
+          color: #5F6C76
 
 #collections_edit
   width: 500px
@@ -1166,6 +1219,8 @@ body
 
 #community
   padding: 20px
+  ul.feed + .pagination
+    margin-top: 20px
   .heading
     overflow: hidden
     border-width: 0
@@ -1195,7 +1250,7 @@ body
   .copy
     width: 300px
     float: left
-    margin: 0 40px 0 0 
+    margin: 0 40px 0 0
   form
     float: left
     width: 600px
@@ -1334,7 +1389,7 @@ body
         right: 0
         margin-top: -8px
         + .copy
-          padding: 0 90px 0 0 
+          padding: 0 90px 0 0
     p.all
       float: left
       padding: 5px 0 0 0
@@ -1360,7 +1415,7 @@ body
         margin: 0 0 0 10px
         &:after
           content: '•'
-          margin: 0 10px 0 0 
+          margin: 0 10px 0 0
         &.last
           &:after
             content: ''
@@ -1399,13 +1454,13 @@ body
         border-bottom: 1px solid #d7dadc
       form.comment
         padding: 20px 10px 0 10px
-        margin: 0 -10px 0 0 
+        margin: 0 -10px 0 0
         img
           border: 1px solid #394651
         textarea
           width: 240px
         fieldset.actions
-          padding: 0 60px 0 0 
+          padding: 0 60px 0 0
           input[type="submit"]
             padding: 6px 15px
 
@@ -1426,7 +1481,7 @@ body
       text-transform: uppercase
       color: #667309
     ul
-      padding: 0 10px 0 0 
+      padding: 0 10px 0 0
       li
         padding: 0 0 8px 0
         font-weight: bold
@@ -1650,7 +1705,7 @@ body
       margin: 0 0 10px 0
       border-bottom: 1px solid #d7dadc
       &.actions
-        padding: 10px 10px 0 0 
+        padding: 10px 10px 0 0
         border: none
     legend
       padding: 0 0 5px 0
@@ -1706,15 +1761,12 @@ body
       border-bottom: 1px solid #394651
       h3
         font-size: 1.33em
-      a
+      .pagination
+        width: 100%
         position: absolute
-        left: 10px
-        top: 15px
-        z-index: 1
-        font-weight: bold
-        &.prev
-          left: auto
-          right: 10px
+        top: 10px
+        left: 0
+        margin: 0
     > ul
       > li
         overflow: hidden
@@ -1956,12 +2008,8 @@ body
       border-bottom: 1px solid #394651
       h3
         font-size: 1.33em
-      a
-        position: absolute
-        left: 0
-        top: 15px
-        z-index: 1
-        font-weight: bold
+      .pagination
+        margin: 0
   ul.media
     > li
       float: right
@@ -2052,7 +2100,10 @@ body
       &.first
         clear: both
         padding-right: 0
-
+    + .footer
+      border-top: 1px solid #394651
+      padding-top: 12px
+      clear: both
 #search_results
   #main
     width: 700px
@@ -2064,15 +2115,12 @@ body
       border-bottom: 1px solid #394651
       h3
         font-size: 1.33em
-      a
+      .pagination
+        width: 100%
         position: absolute
-        left: 10px
-        top: 15px
-        z-index: 1
-        font-weight: bold
-        &.prev
-          left: auto
-          right: 10px
+        top: 10px
+        left: 0
+        margin: 0
 
 #collections_endorse
   width: 700px
@@ -2254,7 +2302,7 @@ body
     &.profile,
     &.account
       width: 320px
-      input[type="text"],      
+      input[type="text"],
       input[type="password"]
         width: 288px
       input[type="file"]
@@ -2318,13 +2366,17 @@ ul.spotlite-matches
     h2
       font-size: 1.33em
       margin: 0 0 10px 0
-    fieldset.new_collection
-      overflow: hidden
-      margin: 0 0 20px 0
-      input[type="text"]
-        float: right
+    fieldset
+      &.new_community
+        input[type="text"]
         +input(210px)
-        margin: 0 0 0 10px
+      &.new_collection
+        overflow: hidden
+        margin: 0 0 20px 0
+        input[type="text"]
+          float: right
+          +input(210px)
+          margin: 0 0 0 10px
     input[type="submit"]
       padding-right: 20px
       padding-left: 20px

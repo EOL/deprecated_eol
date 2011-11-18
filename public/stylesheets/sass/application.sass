@@ -1212,6 +1212,8 @@ body
 
 #community
   padding: 20px
+  ul.feed + .pagination
+    margin-top: 20px
   .heading
     overflow: hidden
     border-width: 0
@@ -1998,12 +2000,8 @@ body
       border-bottom: 1px solid #394651
       h3
         font-size: 1.33em
-      a
-        position: absolute
-        right: 0
-        top: 15px
-        z-index: 1
-        font-weight: bold
+      .pagination
+        margin: 0
   ul.media
     > li
       float: left
@@ -2094,7 +2092,10 @@ body
       &.first
         clear: both
         padding-left: 0
-
+    + .footer
+      border-top: 1px solid #394651
+      padding-top: 12px
+      clear: both
 #search_results
   #main
     width: 700px

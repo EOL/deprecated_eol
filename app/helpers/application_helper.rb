@@ -219,7 +219,7 @@ module ApplicationHelper
       raise "** UNKNOWN STYLESHEET LOADED: #{stylesheet}" unless @stylesheet_packages.has_key?(stylesheet.to_s)
       code = ''
       @stylesheet_packages[stylesheet.to_s].each do |file|
-        language_stylesheet = "/languages/#{I18n.locale}/#{stylesheet}.css"
+        language_stylesheet = "/languages/#{I18n.locale}/#{file}.css"
         if File.exists?(File.join(RAILS_ROOT, "public", language_stylesheet))
           code += stylesheet_link_tag(language_stylesheet, options)
         end

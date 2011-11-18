@@ -78,7 +78,9 @@ module EOL
 
     def self.community_activities(source, options = {})
       focuses_clause = source.focuses.map {|f| "feed_type_primary_key:#{f.id}" }.join(' OR ');
-      results = EOL::Solr::ActivityLog.search_with_pagination("(feed_type_affected:Community AND feed_type_primary_key:#{source.id}) OR (feed_type_affected:Collection AND (#{focuses_clause}))", options)
+      focuses_clause.blank? ?
+        EOL::Solr::ActivityLog.search_with_pagination("(feed_type_affected:Community AND feed_type_primary_key:#{source.id})", options) :
+        EOL::Solr::ActivityLog.search_with_pagination("(feed_type_affected:Community AND feed_type_primary_key:#{source.id}) OR (feed_type_affected:Collection AND (#{focuses_clause}))", options)
     end
 
     def self.collection_activities(source, options = {})

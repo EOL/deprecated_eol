@@ -241,9 +241,9 @@ $(function() {
   // When you select all items, hide the checkboxes (and vice-versa) on collection items:
   $('form.edit_collection #scope').change(function() {
     if ($('form.edit_collection #scope').val() == 'all_items') {
-      $('.object_list :checkbox').parent().hide();
+      $('#collection_items :checkbox').parent().hide();
     } else {
-      $('.object_list :checkbox').parent().show();
+      $('#collection_items :checkbox').parent().show();
     }
   });
 

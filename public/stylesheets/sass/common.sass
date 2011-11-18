@@ -269,10 +269,13 @@ body
       color: #28323a
 
 .pagination
+  clear: both
   text-align: right
   font-weight: bold
   margin: 0 0 10px 0
   span, a
+    &.gap
+      border: none
     &.prev_page
       float: left
     &.prev_page,
@@ -292,7 +295,7 @@ body
   span, a
     margin: 0 4px 0 0
     line-height: 180%
-    padding: 0 4px
+    padding: 2px 5px 0
     border: 1px solid #cad3db
     color: #394651
     &.current

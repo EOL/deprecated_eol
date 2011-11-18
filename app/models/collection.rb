@@ -4,6 +4,7 @@ class Collection < ActiveRecord::Base
 
   belongs_to :user # This is the OWNER.  Use #users rather than #user... this basically only gets set once.
   belongs_to :sort_style
+  belongs_to :view_style
 
   has_many :collection_items
   accepts_nested_attributes_for :collection_items
@@ -155,6 +156,10 @@ class Collection < ActiveRecord::Base
 
   def has_item? item
     collection_items.any?{|ci| ci.object_type == item.class.name && ci.object_id == item.id}
+  end
+
+  def default_view_style
+    view_style ? view_style : ViewStyle.annotations
   end
 
   def default_sort_style

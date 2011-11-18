@@ -190,6 +190,14 @@ describe Collection do
     col.relevance.should == 2
   end
 
+  it 'should know what its default view style is' do
+    collection = Collection.gen
+    collection.default_view_style.should == ViewStyle.annotations
+    collection.update_attributes(:view_style => ViewStyle.image_gallery)
+    collection.reload
+    collection.default_view_style.should == ViewStyle.image_gallery
+  end
+
   it 'has other unimplemented tests but I will not make them all pending, see the spec file'
   # should know when it is "special" TODO - do we need this anymore?  I don't think so...
   # should know when it is a resource collection.

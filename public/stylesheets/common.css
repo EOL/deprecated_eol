@@ -300,9 +300,12 @@ body > #footer {
       color: #28323a; }
 
 .pagination {
+  clear: both;
   text-align: right;
   font-weight: bold;
   margin: 0 0 10px 0; }
+  .pagination span.gap, .pagination a.gap {
+    border: none; }
   .pagination span.prev_page, .pagination a.prev_page {
     float: left; }
   .pagination span.prev_page, .pagination span.next_page, .pagination a.prev_page, .pagination a.next_page {
@@ -316,7 +319,7 @@ body > #footer {
   .pagination span, .pagination a {
     margin: 0 4px 0 0;
     line-height: 180%;
-    padding: 0 4px;
+    padding: 2px 5px 0;
     border: 1px solid #cad3db;
     color: #394651; }
     .pagination span.current, .pagination a.current {

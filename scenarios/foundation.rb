@@ -45,6 +45,7 @@ ContactRole.gen_if_not_exists(:label => 'Technical Contact')
 # Cannot create users without special collection:
 SpecialCollection.create_all
 SortStyle.create_defaults # Need this to make communities.
+ViewStyle.create_defaults # Used by collections views
 
 CuratorLevel.create_defaults
 UserIdentity.create_defaults

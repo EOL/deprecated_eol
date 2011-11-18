@@ -4,13 +4,19 @@
 -# routines.  ...So we're going to try this out for articles for a while... it should speed up some of the common
 -# text-heavy collections and search results.  That said, there is one caveat:
 -# if the dato gets more associations, it will not show them.  TODO - attempt to set up an observer to handle those.
-- cache "article/summary/#{I18n.locale}/#{item.id}" do
-  = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_article_assistive)}), data_object_path(item)
-  %h4= link_to h(truncate(item.best_title, :length => 64)), data_object_path(item)
-  - if he = item.first_hierarchy_entry(:include_preview_entries => true)
-    - secondary_title = I18n.t(:description_of) + ' ' + he.name.canonical_form.string
-  - if item.published_entries.length > 1
-    - secondary_title += ' ' + I18n.t(:and) + ' ' + I18n.t(:other_taxa_with_count, :count => item.published_entries.length - 1)
-  = link_to secondary_title, data_object_path(item)
-  %br
-  = item.description_teaser
+- view_style ||= 'default'
+- cache "article/summary/#{view_style}/#{I18n.locale}/#{item.id}" do
+  - unless view_style == 'names_only'
+    = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_article_assistive)}), data_object_path(item)
+  %h4
+    = link_to h(truncate(item.best_title, :length => 64)), data_object_path(item)
+    - if view_style == 'names_only'
+      %small= I18n.t(:item_type_article)
+  - unless ['image_gallery','names_only'].include?(view_style)
+    - if he = item.first_hierarchy_entry(:include_preview_entries => true)
+      - secondary_title = I18n.t(:description_of) + ' ' + he.name.canonical_form.string
+    - if item.published_entries.length > 1
+      - secondary_title += ' ' + I18n.t(:and) + ' ' + I18n.t(:other_taxa_with_count, :count => item.published_entries.length - 1)
+    = link_to secondary_title, data_object_path(item)
+    %br
+    = item.description_teaser

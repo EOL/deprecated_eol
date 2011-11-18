@@ -56,6 +56,11 @@ describe "Collections and collecting:" do
       visit collection_path(@collection)
       body.should have_tag('#sort_by')
     end
+
+    it "should be able to change the view of a collection" do
+      visit collection_path(@collection)
+      body.should have_tag('#view_as')
+    end
   end
 
   shared_examples_for 'collecting all users' do

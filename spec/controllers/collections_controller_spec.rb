@@ -14,6 +14,23 @@ describe CollectionsController do
     builder.begin_rebuild
   end
 
+  describe 'GET show' do
+    it 'should set view as options and currently selected view' do
+      get :show, :id => @collection.id
+      assigns[:view_as].should == @collection.default_view_style
+      assigns[:view_as_options].should == [ViewStyle.names_only, ViewStyle.image_gallery, ViewStyle.annotations]
+      get :show, :id => @collection.id, :view_as => ViewStyle.image_gallery.id
+      assigns[:view_as].should == ViewStyle.image_gallery
+    end
+  end
+
+  describe 'GET edit' do
+    it 'should set view as options' do
+      get :edit, { :id => @collection.id }, { :user_id => @collection.users.first.id, :user => @collection.users.first }
+      assigns[:view_as_options].should == [ViewStyle.names_only, ViewStyle.image_gallery, ViewStyle.annotations]
+    end
+  end
+
   describe "#update" do
     it "Unauthorized users cannot update the description" do
       expect{ post :update, :id => @collection.id, :commit_edit_collection => 'Submit',

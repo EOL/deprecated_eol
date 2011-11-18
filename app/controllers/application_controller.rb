@@ -7,7 +7,8 @@ class ApplicationController < ActionController::Base
   ActionController::Base.rescue_responses.update(
     'EOL::Exceptions::MustBeLoggedIn'             => :unauthorized,
     'EOL::Exceptions::SecurityViolation'          => :forbidden,
-    'EOL::Exceptions::Pending'                    => :not_implemented
+    'EOL::Exceptions::Pending'                    => :not_implemented,
+    'OpenURI::HTTPError'                          => :bad_request
   )
 
   filter_parameter_logging :password

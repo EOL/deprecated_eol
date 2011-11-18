@@ -334,7 +334,7 @@ table.standard
         padding: 5px 0 0 0
         overflow: hidden
   &.updates
-    blockquote
+    blockquote, p
       line-height: 140%
     p
       padding: 0 0 4px 0
@@ -469,8 +469,7 @@ table.standard
     background: #f3f7fa url("/images/v2/icon_sound_tabs.png") 50% 50% no-repeat
 
 ul.object_list
-  + .header
-    border-bottom: 0
+  + .footer
     border-top: 1px solid #394651
     padding-top: 12px
   li
@@ -929,6 +928,60 @@ body
           margin: 0 0 20px 0
         input[type="submit"]
           margin: 0 5px 0 0
+  ul.collection_gallery
+    li
+      float: left
+      width: 88px
+      margin: 0 0 20px 14px
+      position: relative
+      padding: 0
+      img
+        position: absolute
+        left: 0
+        top: 0
+        +max_dimensions($logo_size_standout, $logo_size_standout)
+        z-index: 2
+      h4
+        margin-top: 90px
+        a
+          text-decoration: none
+          color: #394651
+      span.icon
+        position: absolute
+        left: 0
+        top: 0
+        padding: 0
+        width: 86px
+        height: 86px
+        border: 1px solid #cad3db
+        margin: 0
+        display: block
+        z-index: 1
+      &.first
+        margin-left: 0
+        clear: both
+      .checkbox
+        position: absolute
+        border: 1px solid #cad3db
+        top: 0
+        left: 0
+        padding: 8px
+        margin: 0
+        background: #fff
+        z-index: 3
+  ul.collection_names
+    padding-bottom: 12px
+    li
+      border-bottom: 1px solid #cad3db
+      overflow: hidden
+      padding: 5px 10px
+      .checkbox
+        float: right
+        margin: 0
+      h4
+        small
+          font-weight: bold
+          color: #5F6C76
 
 #collections_edit
   width: 500px
@@ -1694,15 +1747,12 @@ body
       border-bottom: 1px solid #394651
       h3
         font-size: 1.33em
-      a
+      .pagination
+        width: 100%
         position: absolute
-        right: 10px
-        top: 15px
-        z-index: 1
-        font-weight: bold
-        &.prev
-          right: auto
-          left: 10px
+        top: 10px
+        left: 0
+        margin: 0
     > ul
       > li
         overflow: hidden
@@ -2056,15 +2106,12 @@ body
       border-bottom: 1px solid #394651
       h3
         font-size: 1.33em
-      a
+      .pagination
+        width: 100%
         position: absolute
-        right: 10px
-        top: 15px
-        z-index: 1
-        font-weight: bold
-        &.prev
-          right: auto
-          left: 10px
+        top: 10px
+        left: 0
+        margin: 0
 
 #collections_endorse
   width: 700px
@@ -2309,13 +2356,17 @@ ul.spotlite-matches
     h2
       font-size: 1.33em
       margin: 0 0 10px 0
-    fieldset.new_collection
-      overflow: hidden
-      margin: 0 0 20px 0
-      input[type="text"]
-        float: left
+    fieldset
+      &.new_community
+        input[type="text"]
         +input(210px)
-        margin: 0 10px 0 0
+      &.new_collection
+        overflow: hidden
+        margin: 0 0 20px 0
+        input[type="text"]
+          float: left
+          +input(210px)
+          margin: 0 10px 0 0
     input[type="submit"]
       padding-left: 20px
       padding-right: 20px

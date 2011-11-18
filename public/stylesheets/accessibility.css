@@ -179,51 +179,10 @@ form#switch_hierarchy_entry fieldset {
   width: 320px;
   overflow: auto; }
 
-/*will_paginate styling */
-.pagination {
-  text-align: right; }
-  .pagination a {
-    text-decoration: none;
-    font-weight: bold; }
-  .pagination a, .pagination span.current {
-    display: inline-block;
-    padding: 0 3px; }
-  .pagination .prev_page {
-    float: left; }
-  .pagination .next_page {
-    margin-left: 10px; }
-  .pagination .disabled {
-    color: #616e7a; }
-
-#taxon_literature .pagination {
-  margin-bottom: 15px; }
-
-#main .footer {
-  clear: both;
-  border-top: 1px solid black;
-  padding: 10px 0;
-  margin: 20px 0 0 0; }
-
-#main .header, .cms_page .header {
-  text-align: center; }
-  #main .header .pagination, .cms_page .header .pagination {
-    position: relative;
-    top: 5px;
-    left: 0;
-    width: 100%; }
-    #main .header .pagination a, .cms_page .header .pagination a {
-      position: relative !important;
-      top: 0 !important;
-      left: 0 !important; }
-
 /*cms page styles */
 #content.cms_page .header {
-  border-bottom: 1px solid #cad3db;
-  padding-bottom: 1em;
-  margin-bottom: 30px; }
-#content.cms_page .footer {
-  border-top: 1px solid #cad3db;
-  padding-top: 1em; }
+  border-bottom: 1px solid #394651;
+  text-align: center; }
 #content.cms_page table {
   border-collapse: collapse;
   width: 100%;
@@ -1054,9 +1013,6 @@ table.standard td.nowrap {
   float: left;
   margin-right: 2em !important; }
 
-.article .pagination {
-  margin-top: 1em; }
-
 #page_heading .page_actions li + li {
   margin: 10px 0; }
 
@@ -1143,6 +1099,16 @@ a.other_actions {
 .site_column > #choose_collections h2, .site_column > #choose_communities h2 {
   font-size: 1.33em;
   margin: 15px 0 10px 0; }
+.site_column > #choose_collections fieldset.new_community input[type="text"], .site_column > #choose_communities fieldset.new_community input[type="text"] {
+  width: 210px;
+  height: 22px;
+  padding: 2px 5px;
+  font: normal 1em Helvetica, Arial, sans-serif;
+  border: 1px solid #cad3db;
+  background-color: white;
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
+  background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
 .site_column > #choose_collections fieldset.new_collection, .site_column > #choose_communities fieldset.new_collection {
   overflow: hidden;
   margin: 0 0 20px 0; }

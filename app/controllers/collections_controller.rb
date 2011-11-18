@@ -73,6 +73,7 @@ class CollectionsController < ApplicationController
 
   def update
     return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect) if params[:commit_sort]
+    return redirect_to params.merge!(:action => 'show').except(*unnecessary_keys_for_redirect) if params[:commit_view_as]
     return redirect_to_choose(:copy) if params[:commit_copy]
     return chosen if params[:scope] && params[:for] == 'copy'
     # copy is the only update action allowed for non-owners
@@ -200,6 +201,8 @@ private
 
   # When you're going to show a bunch of collection items and provide sorting and filtering capabilities:
   def build_collection_items_with_sorting_and_filtering
+    set_view_as_options
+    @view_as = ViewStyle.find(params[:view_as].blank? ? @collection.default_view_style : params[:view_as])
     set_sort_options
     @sort_by = SortStyle.find(params[:sort_by].blank? ? @collection.default_sort_style : params[:sort_by])
     @filter = params[:filter]
@@ -218,7 +221,7 @@ private
   # When we bounce around, not all params are required; this is the list to remove:
   # NOTE - to use this as an parameter, you need to de-reference the array with a splat (*).
   def unnecessary_keys_for_redirect
-    [:_method, :commit_sort, :commit_select_all, :commit_copy, :commit, :collection,
+    [:_method, :commit_sort, :commit_view_as, :commit_select_all, :commit_copy, :commit, :collection,
      :commit_move, :commit_remove, :commit_edit_collection, :commit_collect]
   end
 
@@ -438,6 +441,7 @@ private
 
   def set_edit_vars
     set_sort_options
+    set_view_as_options
     @site_column_id = 'collections_edit'
     @site_column_class = 'copy' # TODO - why?! (This was a HR thing.)
     @editing = true # TODO - there's a more elegant way to handle the difference in the layout...
@@ -446,6 +450,10 @@ private
 
   def set_sort_options
     @sort_options = [SortStyle.newest, SortStyle.oldest, SortStyle.alphabetical, SortStyle.reverse_alphabetical, SortStyle.richness, SortStyle.rating]
+  end
+
+  def set_view_as_options
+    @view_as_options = [ViewStyle.names_only, ViewStyle.image_gallery, ViewStyle.annotations]
   end
 
   def user_able_to_view_collection

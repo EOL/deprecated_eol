@@ -60,13 +60,17 @@
             = select_tag :sort_by, options_for_select(@sort_options.map {|so| [so.name, so.id]}, @sort_by.id)
           %fieldset.actions
             = submit_tag I18n.t(:sort_by_button), :name => 'commit_sort'
+          %fieldset
+            = label_tag :view_as, I18n.t(:view_as_label)
+            = select_tag :view_as, options_from_collection_for_select(@view_as_options, :id, :name, @view_as.id)
+          %fieldset.actions
+            = submit_tag I18n.t(:view_as_button), :name => 'commit_view_as'
         = will_paginate @collection_results, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next), :inner_window => 2, :outer_window => 2
-        %ul.object_list
-          - @collection_items.each do |item|
-            - item_type = en_type(item)
-            %li{:class => item_type}
-              - if editable && !@collection.is_resource_collection?
-                = render :partial => 'collection_items/edit', :locals => { :collection_item => item, :item_type => item_type, :parent_form => f}
-              - else
-                = render :partial => 'collection_items/show', :locals => { :collection_item => item, :item_type => item_type }
+        - case @view_as
+        - when ViewStyle.image_gallery
+          = render :partial => 'collections/show_image_gallery_style'
+        - when ViewStyle.names_only
+          = render :partial => 'collections/show_names_only_style'
+        - else
+          = render :partial => 'collections/show_annotations_style', :locals => { :editable => editable, :parent_form => f }
         = will_paginate @collection_results, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next), :inner_window => 2, :outer_window => 2

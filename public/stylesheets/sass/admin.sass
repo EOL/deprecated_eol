@@ -91,11 +91,20 @@
   .filters
     form
       dd
+        input[type="text"]
+          width: 118px
         select
           width: 120px
 #content_partners
   &.main_container
+    .header
+      border-bottom: 1px solid #394651
+      text-align: center
+      h2
+        margin: 0 0 15px 0
+        font-size: 1.33em
     > ul
+      margin-top: 20px
       > li
         line-height: 140%
         padding-bottom: 10px
@@ -154,6 +163,9 @@
       .settings
         float: right
         width: 200px
+      + .footer
+        border-top: 1px solid #394651
+        padding-top: 12px
 #content_partners_statistics
   .heading
     text-align: center

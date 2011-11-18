@@ -1,25 +1,32 @@
+- view_style ||= 'default'
 - search_result = nil unless defined?(search_result)
-- if image = item.exemplar_or_best_image_from_solr
-  - if thumb = image.thumb_or_object('88_88')
-    = link_to image_tag(thumb), taxon_overview_path(item)
-= link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_taxon_assistive)}), taxon_overview_path(item)
-- if item.entry and item.entry.respond_to?(:preferred_classification_summary)
-  %small= link_to item.entry.preferred_classification_summary, taxon_overview_path(item)
-%h4= link_to h(truncate(item.title_canonical, :length => 64)), taxon_overview_path(item)
-- subtitle = item.preferred_common_name_in_language(current_user.language)
-- unless subtitle.blank?
-  = link_to subtitle.firstcap, taxon_overview_path(item)
-- # we need the search result object, and the best match can't be in the title or subtitle
-- if search_result || @querystring # This was a search result... perhaps we should be more intelligent about this.
-  - querystring = @querystring.blank? ? "" : @querystring.downcase
-  - best_keyword_match = search_result['best_keyword_match'].blank? ? "" : search_result['best_keyword_match'].downcase
-  - unless search_result.nil? || |
-    item.title_canonical.downcase.match(Regexp.escape(querystring)) || |
-    item.title_canonical.downcase.match(Regexp.escape(best_keyword_match)) || |
-    (subtitle && subtitle.downcase.match(Regexp.escape(querystring))) || |
-    (subtitle && subtitle.downcase.match(Regexp.escape(best_keyword_match))) |
-    - unless subtitle.blank?
-      %br
-    %strong
-      = search_result['keyword_type'].titleize + ": "
-    = search_result['best_keyword_match'].firstcap
+- unless view_style == 'names_only'
+  - if image = item.exemplar_or_best_image_from_solr
+    - if thumb = image.thumb_or_object('88_88')
+      = link_to image_tag(thumb), taxon_overview_path(item)
+  = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_taxon_assistive)}), taxon_overview_path(item)
+- unless ['image_gallery','names_only'].include?(view_style)
+  - if item.entry and item.entry.respond_to?(:preferred_classification_summary)
+    %small= link_to item.entry.preferred_classification_summary, taxon_overview_path(item)
+%h4
+  = link_to h(truncate(item.title_canonical, :length => 64)), taxon_overview_path(item)
+  - if view_style == 'names_only'
+    %small= I18n.t(:item_type_taxon)
+- unless ['image_gallery','names_only'].include?(view_style)
+  - subtitle = item.preferred_common_name_in_language(current_user.language)
+  - unless subtitle.blank?
+    = link_to subtitle.firstcap, taxon_overview_path(item)
+  - # we need the search result object, and the best match can't be in the title or subtitle
+  - if search_result || @querystring # This was a search result... perhaps we should be more intelligent about this.
+    - querystring = @querystring.blank? ? "" : @querystring.downcase
+    - best_keyword_match = search_result['best_keyword_match'].blank? ? "" : search_result['best_keyword_match'].downcase
+    - unless search_result.nil? || |
+      item.title_canonical.downcase.match(Regexp.escape(querystring)) || |
+      item.title_canonical.downcase.match(Regexp.escape(best_keyword_match)) || |
+      (subtitle && subtitle.downcase.match(Regexp.escape(querystring))) || |
+      (subtitle && subtitle.downcase.match(Regexp.escape(best_keyword_match))) |
+      - unless subtitle.blank?
+        %br
+      %strong
+        = search_result['keyword_type'].titleize + ": "
+      = search_result['best_keyword_match'].firstcap

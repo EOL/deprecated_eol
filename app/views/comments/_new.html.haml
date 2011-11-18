@@ -6,6 +6,8 @@
 - form_for Comment.new, :html => { :class => 'comment' } do |f|
   = f.hidden_field :parent_type, :value => parent.class.name
   = f.hidden_field :parent_id, :value => parent.id
+  = f.hidden_field :reply_to_type, :value => nil
+  = f.hidden_field :reply_to_id, :value => nil
   - if params[:worklist_return_to]
     = hidden_field_tag :worklist_return_to, params[:force_return_to] || current_url
     = hidden_field_tag :return_to, params[:worklist_return_to]

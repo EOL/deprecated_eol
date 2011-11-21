@@ -120,12 +120,12 @@ form fieldset#errors {
     display: block;
     float: none;
     margin-bottom: 5px; }
-form fieldset.radio {
+form fieldset.radio, form fieldset.checkboxes {
   margin: 20px 0; }
-  form fieldset.radio legend {
+  form fieldset.radio legend, form fieldset.checkboxes legend {
     font-weight: bold;
     padding-bottom: 10px; }
-  form fieldset.radio label {
+  form fieldset.radio label, form fieldset.checkboxes label {
     margin: 10px;
     display: block;
     clear: both;
@@ -202,12 +202,35 @@ form#switch_hierarchy_entry fieldset {
 #content.cms_page a.pdf {
   background: url("/images/v2/icon_pdf.png") right top no-repeat;
   padding: 0 0 3px 20px; }
+#content.cms_page ul.grid {
+  margin: 0 auto 40px;
+  width: 598px;
+  line-height: 100%; }
+  #content.cms_page ul.grid li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: inline-block;
+    width: 116px; }
+    #content.cms_page ul.grid li img {
+      max-width: 100px;
+      border: none;
+      padding: 0;
+      margin: 8px;
+      float: none; }
+  #content.cms_page ul.grid.four li {
+    width: 146px; }
+    #content.cms_page ul.grid.four li img {
+      margin: 10px;
+      max-width: 125px; }
 #content.cms_page ul.march {
   width: 100%;
   margin: 0 0 40px;
   padding: 0;
   clear: both;
-  overflow: hidden; }
+  overflow: hidden;
+  line-height: 100%;
+  height: 98px; }
   #content.cms_page ul.march li {
     margin: 0;
     padding: 0;
@@ -317,13 +340,6 @@ form#switch_hierarchy_entry fieldset {
 
 #content_partner_show .empty {
   font-size: 1em; }
-#content_partner_show .agreement dl {
-  margin: 0 40px 15px 40px;
-  line-height: 170%; }
-  #content_partner_show .agreement dl dt {
-    font-weight: bold; }
-  #content_partner_show .agreement dl dd {
-    margin: 0 0 10px 0; }
 #content_partner_show .agreement address {
   display: block;
   width: 40%;
@@ -333,9 +349,8 @@ form#switch_hierarchy_entry fieldset {
   #content_partner_show .agreement address.eol {
     float: left; }
 #content_partner_show dl.agreement {
+  margin: 0 0 15px 0;
   line-height: 140%; }
-  #content_partner_show dl.agreement dt {
-    font-weight: bold; }
   #content_partner_show dl.agreement dd {
     margin: 0 20px 5px 0; }
 #content_partner_show #resources_show .section.half {
@@ -752,6 +767,9 @@ body > #header .section .session.join {
 #taxon_detail #main .article .copy, #taxon_detail #main .article .references {
   margin: 0 0 15px 0;
   line-height: 170%; }
+  #taxon_detail #main .article .copy li, #taxon_detail #main .article .references li {
+    margin: 0 0 10px 0;
+    list-style-type: disc; }
 
 #text_summary.article .copy {
   margin: 0 0 15px 0;
@@ -1090,10 +1108,10 @@ a.other_actions {
   float: left;
   margin-top: 1em; }
 
-.site_column > #choose_collections h2 {
+.site_column > #choose_collections h2, .site_column > #choose_communities h2 {
   font-size: 1.33em;
   margin: 0 0 10px 0; }
-.site_column > #choose_collections fieldset.new_community input[type="text"] {
+.site_column > #choose_collections fieldset.new_community input[type="text"], .site_column > #choose_communities fieldset.new_community input[type="text"] {
   width: 210px;
   height: 22px;
   padding: 2px 5px;
@@ -1103,10 +1121,10 @@ a.other_actions {
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f0f4f7, endColorstr=white);
   background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white)); }
-.site_column > #choose_collections fieldset.new_collection {
+.site_column > #choose_collections fieldset.new_collection, .site_column > #choose_communities fieldset.new_collection {
   overflow: hidden;
   margin: 0 0 20px 0; }
-  .site_column > #choose_collections fieldset.new_collection input[type="text"] {
+  .site_column > #choose_collections fieldset.new_collection input[type="text"], .site_column > #choose_communities fieldset.new_collection input[type="text"] {
     float: right;
     width: 210px;
     height: 22px;
@@ -1118,28 +1136,28 @@ a.other_actions {
     background-image: -moz-linear-gradient(100% 100% 90deg, white, #f0f4f7);
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f0f4f7), to(white));
     margin: 0 0 0 10px; }
-.site_column > #choose_collections input[type="submit"] {
+.site_column > #choose_collections input[type="submit"], .site_column > #choose_communities input[type="submit"] {
   padding-right: 20px;
   padding-left: 20px;
   font-size: 1.08em;
   padding: 5px 10px 6px 10px; }
-.site_column > #choose_collections ul {
+.site_column > #choose_collections ul, .site_column > #choose_communities ul {
   border: 1px solid #cad3db;
   height: 230px;
   overflow-y: scroll;
   margin: 0 0 20px 0; }
-  .site_column > #choose_collections ul li {
+  .site_column > #choose_collections ul li, .site_column > #choose_communities ul li {
     font-weight: bold;
     padding: 5px 10px; }
-    .site_column > #choose_collections ul li.collected {
+    .site_column > #choose_collections ul li.collected, .site_column > #choose_communities ul li.collected {
       background: #f4f4f4; }
-    .site_column > #choose_collections ul li input[type="checkbox"] {
+    .site_column > #choose_collections ul li input[type="checkbox"], .site_column > #choose_communities ul li input[type="checkbox"] {
       margin: 0 0 0 5px; }
-    .site_column > #choose_collections ul li a {
+    .site_column > #choose_collections ul li a, .site_column > #choose_communities ul li a {
       font-size: 0.95em; }
-    .site_column > #choose_collections ul li span {
+    .site_column > #choose_collections ul li span, .site_column > #choose_communities ul li span {
       font-size: 0.95em; }
-    .site_column > #choose_collections ul li + li {
+    .site_column > #choose_collections ul li + li, .site_column > #choose_communities ul li + li {
       border-top: 1px solid #cad3db; }
 
 #search_results ul.object_list li {
@@ -1175,11 +1193,16 @@ a.other_actions {
   line-height: 100%;
   font-weight: normal; }
 
-ul li.newsfeed {
-  margin-bottom: 20px !important; }
-  ul li.newsfeed a {
-    padding: 7px 10px 6px !important;
-    font-size: 12px !important; }
+ul li.newsfeed a {
+  padding: 7px 10px 6px !important;
+  font-size: 12px !important; }
+
+ul li.total {
+  margin-top: 20px; }
+
+ul li.editors a {
+  padding: 7px 10px 6px !important;
+  font-size: 12px !important; }
 
 div.newsfeed_heading {
   padding: 6px 10px 5px;

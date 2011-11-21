@@ -1727,9 +1727,6 @@ body > #header {
   width: 240px;
   padding-right: 40px;
   padding-bottom: 20px; }
-  #content_partner_show #sidebar h3 {
-    padding: 0;
-    margin: 0 0 15px 0; }
   #content_partner_show #sidebar ul li {
     margin: 0 0 20px 0; }
     #content_partner_show #sidebar ul li h4 b {
@@ -2547,6 +2544,9 @@ body > #header {
   overflow: hidden;
   padding: 19px;
   border: 1px solid #93a4b0; }
+  #worklist #task #sidebar h3 {
+    padding: 0 10px 3px 10px;
+    font-size: 1.16em; }
   #worklist #task .media {
     margin: 0 0 20px 0; }
   #worklist #task .ratings {

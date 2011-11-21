@@ -111,16 +111,28 @@ describe 'Feeds' do
   end
 
   it 'should allow replies to comments' do
-    @community = Community.gen
+    community = Community.gen
     CuratorLevel.create_defaults # need to gen users.
-    @user = User.gen
-    xpect 'should, when logged in, have a reply button with each post'
-    login_as @user
-    visit community_path(@community)
-    page.body.should have_tag('ul.feed li p a', :text => I18n.t(:reply))
+    Activity.create_defaults # needed for log items.
+    user = User.gen
+    login_as user
+    log = CommunityActivityLog.gen(:community => community, :user => user, :activity => Activity.create)
+    xpect 'NOT on the homepage'
+    visit root_url
+    page.body.should_not have_tag('a', :text => I18n.t(:reply))
+    xpect 'including a "reply" button with each post'
+    visit community_path(community)
+    page.body.should have_tag('ul.feed') do
+      with_tag('a', :text => I18n.t(:reply))
+    end
     # JavaScript: xpect 'should, after clicking on the reply button, add an @User Name link to the beginning of the reply field'
-    xpect 'should, once a comment is posted as a reply, link to the source comment'
-    xpect 'should, once a source is clicked, load the comment in proper context'
+    xpect 'linking to the source comment'
+    Comment.gen(:reply_to => log, :parent => community, :user => user, :body => "@foo: yo.") # Needs the @something:
+    visit community_path(community)
+    puts page.body
+    debugger
+    page.body.should have_tag('blockquote p a', :href => /CommunityActivityLog-#{log.id}$/)
+    xpect 'load the comment in proper context'
     visit logout_url
   end
 

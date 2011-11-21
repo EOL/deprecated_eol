@@ -1,5 +1,6 @@
 - truncate_comments ||= false
 - hide_pagination ||= false
+- supress_reply ||= false
 - if log.blank?
   .empty
     -if @filter.blank?
@@ -24,8 +25,9 @@
         - when "CommunityActivityLog"
           = render :partial => 'activity_logs/community_activity_log', :locals => {:item => item}
         - else
-          %p= "I am not sure what to do with a #{item.class.name} yet."
-        %p.reply= link_to(I18n.t(:reply), '#new_comment')
+          - raise "Unknown activity log type: #{item.class.name}"
+        - unless supress_reply || ! item.user
+          %p.reply= link_to(I18n.t(:reply), '#new_comment', :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)
   - unless hide_pagination
     = will_paginate log, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
       :inner_window => 2, :outer_window => 2

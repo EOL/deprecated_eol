@@ -4,7 +4,7 @@
 # Author: EugeneZelenko
 # Author: Kghbln
 # Author: Siebrand
-qqq: 
+qqq:
   a_pipe_delimited_list_of_licenses: "{{doc-important|The \"{{!}}\" character and \"all\" should not be translated. \"all\" is an API command.}}"
   a_pipe_delimited_list_of_spm_info_item_subject_names: The 'all' should not be translated, it is a command used in the API.
   actions: "{{Identical|Action}}"
@@ -24,9 +24,9 @@ qqq:
   donate: "{{Identical|Donate}}"
   filter_button: Button text
   help: "{{Identical|Help}}"
-  helpers: 
-    submit: 
-      user: 
+  helpers:
+    submit:
+      user:
         curation_application: "\"Apply\" as in \"apply for a curator job\"."
   home: "{{Identical|Home}}"
   license: "{{Identical|License}}"
@@ -52,3 +52,10 @@ qqq:
   toc: TOC =  table of contents
   wants_colon: This is a column header indicating the level of curation ability that a user wants ('full' and 'master' are the possible values in the table.  This does not need to be incredibly clear--it is only seen by admins. Please keep it as short as possible.
   what_is_this_question: "{{Identical|What is this}}"
+  never: "This is in regards to the frequency at which the user will receive email.  Thus, this case, it means 'never, ever', not 'never been'."
+  a_pipe_delimited_list_of_licenses: "The 'all' should not be translated, it is a command used in the API."
+  a_pipe_delimited_list_of_spm_info_item_subject_names: "The 'all' should not be translated, it is a command used in the API."
+  faker:
+    lorem:
+      words: No need to translate this set of words, obviously.
+  replying_to_x: "This is for use by JavaScript, and thus the 'X' is replaced AT RUNTIME, and so the character 'X' (literally--do not use your language's version of 'X', but exactly that character: 'X') must appear in your translation. The result will be something like 'Replying to Jeremy' after replacement."

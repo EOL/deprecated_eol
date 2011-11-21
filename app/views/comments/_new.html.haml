@@ -20,6 +20,6 @@
     = f.label :body, I18n.t(:comment_body_label), :class => 'assistive'
     = f.text_area :body, :rows => rows, :cols => cols
   %fieldset.actions
-    = submit_tag I18n.t(:post_comment)
+    = submit_tag(I18n.t(:post_comment), :'data-reply' => I18n.t(:leave_reply), :'data-replying-to-x' => I18n.t(:replying_to_x))
     - if defined?(cancel) && cancel
       = link_to I18n.t(:cancel), current_url, :class => 'cancel'

@@ -135,7 +135,7 @@ form
         display: block
         float: none
         margin-bottom: 5px
-    &.radio
+    &.radio, &.checkboxes
       margin: 20px 0
       legend
         font-weight: bold
@@ -229,12 +229,36 @@ form#switch_hierarchy_entry
       background: url('/images/v2/icon_pdf.png') right top no-repeat
       padding: 0 0 3px 20px
   ul
+    &.grid
+      margin: 0 auto 40px
+      width: 598px
+      line-height: 100%
+      li
+        margin: 0
+        padding: 0
+        list-style-type: none
+        display: inline-block
+        width: 116px
+        img
+          max-width: 100px
+          border: none
+          padding: 0
+          margin: 8px
+          float: none
+      &.four
+        li
+          width: 146px
+          img
+            margin: 10px
+            max-width: 125px
     &.march
       width: 100%
       margin: 0 0 40px
       padding: 0
       clear: both
       overflow: hidden
+      line-height: 100%
+      height: 98px
       li
         margin: 0
         padding: 0
@@ -335,13 +359,6 @@ form#switch_hierarchy_entry
   .empty
     font-size: 1em
   .agreement
-    dl
-      margin: 0 40px 15px 40px
-      line-height: 170%
-      dt
-        font-weight: bold
-      dd
-        margin: 0 0 10px 0
     address
       display: block
       width: 40%
@@ -351,9 +368,8 @@ form#switch_hierarchy_entry
       &.eol
         float: left
   dl.agreement
+    margin: 0 0 15px 0
     line-height: 140%
-    dt
-      font-weight: bold
     dd
       margin: 0 20px 5px 0
   #resources_show
@@ -808,6 +824,9 @@ body
       .copy, .references
         margin: 0 0 15px 0
         line-height: 170%
+        li
+          margin: 0 0 10px 0
+          list-style-type: disc
 #text_summary.article
   .copy
     margin: 0 0 15px 0
@@ -1147,7 +1166,7 @@ a.other_actions
   float: left
   margin-top: 1em
 // "Modal" static page (this is a copy/paste, sigh):
-.site_column > #choose_collections
+.site_column > #choose_collections, .site_column > #choose_communities
   h2
     font-size: 1.33em
     margin: 0 0 10px 0
@@ -1217,11 +1236,16 @@ a.other_actions
   line-height: 100%
   font-weight: normal
 
-ul li.newsfeed
-  margin-bottom: 20px !important
-  a
-    padding: 7px 10px 6px !important
-    font-size: 12px !important
+ul li.newsfeed a
+  padding: 7px 10px 6px !important
+  font-size: 12px !important
+
+ul li.total
+  margin-top: 20px
+
+ul li.editors a
+  padding: 7px 10px 6px !important
+  font-size: 12px !important
 
 div.newsfeed_heading
   padding: 6px 10px 5px

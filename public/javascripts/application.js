@@ -10,7 +10,22 @@ $.ajaxSetup({accepts: {
   xml: "application/xml, text/xml"
 }});
 
+EOL.reply_to = function(el) {
+  string = $(el.target).data('reply-to');
+  var $submit = $('#new_comment :submit');
+  $submit.data('post', $submit.val()).val($submit.data('reply'));
+  $('#new_comment p.reply-to').remove();
+  $submit.before('<p class="reply-to">'+$submit.data('replying-to-x').replace('X', string)+'</p>');
+  var $tarea = $('#new_comment textarea');
+  $tarea.val('@'+string+': '+$tarea.val().replace(/^@[^:]+: */, ''));
+  $('#new_comment input#comment_reply_to_type').val($(el.target).data('reply-to-type'));
+  $('#new_comment input#comment_reply_to_id').val($(el.target).data('reply-to-id'));
+  $tarea.focus();
+};
+
 $(function() {
+
+  $('p.reply a').click(EOL.reply_to);
 
   $(".heading form.filter, form.select_submit").find(".actions").hide().find(":submit").end().end().find("select")
     .change(function() {

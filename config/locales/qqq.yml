@@ -27,3 +27,4 @@ qqq:
   faker:
     lorem:
       words: No need to translate this set of words, obviously.
+  replying_to_x: "This is for use by JavaScript, and thus the 'X' is replaced AT RUNTIME, and so the character 'X' (literally--do not use your language's version of 'X', but exactly that character: 'X') must appear in your translation. The result will be something like 'Replying to Jeremy' after replacement."

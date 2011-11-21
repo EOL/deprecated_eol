@@ -1268,3 +1268,9 @@ body#prelaunch #footer ul.social_media {
   font-size: 0.75em;
   font-weight: bold;
   text-transform: uppercase; }
+
+#new_comment p.reply-to {
+  float: right;
+  color: #195184;
+  font-weight: bold;
+  text-transform: uppercase; }

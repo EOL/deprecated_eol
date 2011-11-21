@@ -58,6 +58,9 @@ stylesheets:
 - application:
   - application
   - accessibility
+- admin:
+  - application
+  - accessibility
 - home:
   - home
   - accessibility

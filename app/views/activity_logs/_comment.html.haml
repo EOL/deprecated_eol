@@ -47,9 +47,9 @@
         - else
           = sanitize(truncate(item.body, :length => 140, :omission => I18n.t(:truncated_comment_omission_linkless)).balance_tags)
       - else
-        - at_re = /@([^:]+):/ # recall in-line REs cause memory leaks.
-        - if item.reply_to && item.body =~ at_re
-          = sanitize item.body.balance_tags.sub(at_re, '@' + link_to($1, "##{item.reply_to_type}-#{item.reply_to_id}") + ':')
+        - if item.reply?
+          - at_re = /@([^:]+):/
+          = sanitize item.body.balance_tags.sub(at_re, '@' + link_to("\\1", "##{item.reply_to_type}-#{item.reply_to_id}") + ':')
         - else
           = sanitize item.body.balance_tags
   %p.meta= I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))

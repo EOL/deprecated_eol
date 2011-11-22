@@ -129,8 +129,6 @@ describe 'Feeds' do
     xpect 'linking to the source comment'
     Comment.gen(:reply_to => log, :parent => community, :user => user, :body => "@foo: yo.") # Needs the @something:
     visit community_path(community)
-    puts page.body
-    debugger
     page.body.should have_tag('blockquote p a', :href => /CommunityActivityLog-#{log.id}$/)
     xpect 'load the comment in proper context'
     visit logout_url

@@ -10,6 +10,11 @@ $.ajaxSetup({accepts: {
   xml: "application/xml, text/xml"
 }});
 
+EOL.highlight_comment = function(el) {
+  $('li').removeClass('highlight');
+  el.closest('li').toggleClass('highlight');
+};
+
 EOL.reply_to = function(el) {
   string = $(el.target).data('reply-to');
   var $submit = $('#new_comment :submit');
@@ -26,6 +31,20 @@ EOL.reply_to = function(el) {
 $(function() {
 
   $('p.reply a').click(EOL.reply_to);
+
+  $('ul.feed blockquote p a[href^=#]').click(function() {
+    var href = $(this).attr('href');
+    var target = $('a[name='+href.replace('#', '')+']');
+    if (target.size() == 0) {
+      window.location = '/activity_logs/find/'+href.replace(/[^0-9]/g, '')+'?type='+href.replace(/^#(.*)-.*$/, '\$1');
+    } else {
+      EOL.highlight_comment(target);
+    }
+  });
+
+  if(location.hash != "") {
+    EOL.highlight_comment($('a[name='+location.hash.replace(/#/, '').replace(/\?.*$/, '')+']'));
+  }
 
   $(".heading form.filter, form.select_submit").find(".actions").hide().find(":submit").end().end().find("select")
     .change(function() {

@@ -139,3 +139,5 @@ stylesheets:
 - mobile:
   - jquery.mobile-1.0b1.min
   - mobile
+- admin:
+  - admin

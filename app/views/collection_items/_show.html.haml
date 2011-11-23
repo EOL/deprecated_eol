@@ -1,8 +1,9 @@
 - view_style ||= 'default'
 - item_type ||= en_type(collection_item)
 - if logged_in?
-  .checkbox
-    = check_box_tag "collection_items[]", collection_item.id, @selected_collection_items.include?(collection_item.id.to_s), :id => "collection_item_#{collection_item.id}"
+  - if collection_item
+    .checkbox
+      = check_box_tag "collection_items[]", collection_item.id, @selected_collection_items.include?(collection_item.id.to_s), :id => "collection_item_#{collection_item.id}"
 - if ['image_map', 'image', 'video', 'sound'].include?(item_type)
   = render :partial => "shared/item_summary_media.html.haml", :locals => {:item => collection_item.object, :en_type => item_type, :view_style => view_style}
 - elsif ! item_type.blank?
@@ -10,4 +11,5 @@
 - else
   = I18n.t(:item_details_missing)
 - unless ['image_gallery','names_only'].include?(view_style)
-  %p= collection_item.annotation
+  - if collection_item
+    %p= collection_item.annotation

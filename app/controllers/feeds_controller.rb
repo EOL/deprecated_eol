@@ -13,8 +13,8 @@ class FeedsController < ApplicationController
       comment = Comment.find(params[:id])
       parent  = comment.parent
       # Obnoxiously, taxon concepts only have 10 comments per page and must be handled exceptionally to the default
-      # of 30:
-      page = find_index(parent, 'Comment', params[:id], comment.parent_type == 'TaxonConcept' ? 10 : 30)
+      # of 20:
+      page = find_index(parent, 'Comment', params[:id], comment.parent_type == 'TaxonConcept' ? 10 : 20)
       case comment.parent_type
       when 'TaxonConcept'
         redirect_to add_hash_to_path(taxon_updates_path(parent, :page => page), 'Comment', params[:id])
@@ -37,25 +37,25 @@ class FeedsController < ApplicationController
         redirect_to add_hash_to_path(taxon_updates_path(cal.taxon_concept, :page => page), 'CuratorActivityLog', params[:id])
       else # Dato:
         source = cal.data_object
-        page = find_index(source, 'CuratorActivityLog', params[:id], 30)
+        page = find_index(source, 'CuratorActivityLog', params[:id], 20)
         redirect_to add_hash_to_path(data_object_path(source, :page => page), 'CuratorActivityLog', params[:id])
       end
     when "CommunityActivityLog"
       cal = CommunityActivityLog.find(params[:id])
       source = cal.community
-      page = find_index(source, 'CommunityActivityLog', params[:id], 30)
+      page = find_index(source, 'CommunityActivityLog', params[:id], 20)
       redirect_to add_hash_to_path(community_path(source, :page => page), 'CommunityActivityLog', params[:id])
     when "CollectionActivityLog"
       cal = CollectionActivityLog.find(params[:id])
       source = cal.collection
-      page = find_index(source, 'CollectionActivityLog', params[:id], 30)
+      page = find_index(source, 'CollectionActivityLog', params[:id], 20)
       redirect_to add_hash_to_path(collection_path(source, :page => page), 'CollectionActivityLog', params[:id])
     when "UsersDataObject"
       # This one is somewhat questionable: do we want to go to the user's page or to the taxon concpet page where it
       # was added?  Or to the data object itself?  I suppose that last one makes the most sense, soooo:
       udo = UsersDataObject.find(params[:id])
       source = udo.data_object
-      page = find_index(source, 'UsersDataObject', params[:id], 30)
+      page = find_index(source, 'UsersDataObject', params[:id], 20)
       redirect_to add_hash_to_path(data_object_path(source, :page => page), 'UsersDataObject', params[:id])
     else
       raise "Unknown activity log type: #{params[:type]}"
@@ -210,13 +210,13 @@ private
   def find_index(source, type, id, per_page)
     # Just check the first page, first:
     log = source.activity_log(:per_page => per_page, :page => 1)
-    return 1 if log.select {|i| i['activity_log_type'] == type && i['activity_log_id'] == id}
+    return 1 unless log.select {|i| i['activity_log_type'] == type && i['activity_log_id'] == id.to_i}.blank?
     # Not there, keep going:
     page = 1
     while page < 100
       log = source.activity_log(:per_page => 100, :page => page)
-      if i = log.find_index {|i| i['activity_log_type'] == type && i['activity_log_id'] == id}
-        return ((page - 1) * 100 + i) / per_page
+      if i = log.find_index {|i| i['activity_log_type'] == type && i['activity_log_id'] == id.to_i}
+        return (((page - 1) * 100 + i + 1) / per_page.to_f).ceil
       end
       page += 1
     end
@@ -224,6 +224,6 @@ private
   end
 
   def add_hash_to_path(path, type, id)
-    path.sub(/\?/, "##{type}-#{id}?")
+    path += "##{type}-#{id}"
   end
 end

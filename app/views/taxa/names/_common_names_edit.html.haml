@@ -5,6 +5,7 @@
 - names_by_language.each do |language_names_pair|
   - language = language_names_pair[0]
   - names = language_names_pair[1]
+  - next if names.blank?
   - form_tag "/pages/#{@taxon_concept.id}/names/common_names/update", :method => :put, :class => 'update_common_names' do
     = hidden_field_tag "trusted_name_clicked_on", "false"
     = hidden_field_tag "trusted_synonym_clicked_on", "false"

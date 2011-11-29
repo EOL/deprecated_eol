@@ -27,6 +27,7 @@ module EOL
         params = {}
         params[:name_id] = tcn.name.id
         params[:name_string] = tcn.name.string
+        tcn.language = Language.unknown if tcn.language == Language.common_name
         params[:iso_639_1] = tcn.language.iso_639_1 rescue nil
 
         # We can bring this back when we have language label translations for all approved languages:
@@ -111,7 +112,12 @@ module EOL
     end
 
     def trusted_by_agent?
-      not @sources.map {|a| a.user }.compact.blank?
+      @sources.each do |a|
+        if a.user && a.full_name != 'uBio'
+          return true
+        end
+      end
+      false
     end
 
     def trusted?
@@ -136,7 +142,7 @@ module EOL
     end
 
     def agent_names
-      names = @sources.map {|a| a.user ? a.user.full_name : a.full_name }.compact.uniq.sort.join(', ')
+      names = @sources.map {|a| a.user ? a.user.full_name(:ignore_empty_family_name => true) : a.full_name }.compact.uniq.sort.join(', ')
       names = "Unknown" if names.blank?
       names
     end
@@ -149,14 +155,14 @@ module EOL
     # Sort by language label first, then by name, then by source.
     def <=>(other)
       if self.language_label == other.language_label
-        self.name_string <=> other.name_string
+        self.name_string.downcase <=> other.name_string.downcase
       else
         self.language_label.to_s <=> other.language_label.to_s
       end
     end
 
     def ===(other)
-      self.name_string == other.name_string && self.language_label == other.language_label && self.vetted_id == other.vetted_id
+      self.name_string.downcase == other.name_string.downcase && self.language_label == other.language_label && self.vetted_id == other.vetted_id
     end
 
 private

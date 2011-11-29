@@ -13,7 +13,6 @@
       = f.text_area :annotation, :rows => 2, :cols => 60
       = submit_tag I18n.t(:save_annotation_submit_button)
 - else
-  -# TODO - remove this.  I didn't want to muck with the CSS, but needed to break up the form from the item contents:
   %p
   -# TODO - We don't want these two paragraphs to show up for users with accessibility issues... but we can't avoid
   -# it until we can handle I18n in JS.

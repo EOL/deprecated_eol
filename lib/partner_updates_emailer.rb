@@ -18,6 +18,7 @@ module PartnerUpdatesEmailer
     all_frequencies = content_partner_contact_frequencies | user_frequencies
 
     for frequency_hours in all_frequencies
+      next if frequency_hours == 0
       all_activity = self.all_activity_since_hour(frequency_hours)
       self.send_emails_to_partners(all_activity[:partner_activity], content_partner_contacts_ready, frequency_hours)
       self.send_emails_to_users(all_activity[:user_activity], users_ready, frequency_hours)
@@ -190,7 +191,7 @@ module PartnerUpdatesEmailer
 
       # Comments left on text submitted by Users
       result = Comment.find_by_sql("
-        SELECT c.*, uc.username commenter_username, u.id user_id FROM #{Comment.full_table_name} c
+        SELECT c.*, uc.username commenter_username, u.id receiving_user_id FROM #{Comment.full_table_name} c
         JOIN #{User.full_table_name} uc ON (c.user_id=uc.id)
         LEFT JOIN (
           #{UsersDataObject.full_table_name} udo
@@ -202,14 +203,14 @@ module PartnerUpdatesEmailer
         AND u.id IS NOT NULL
         GROUP BY u.id, c.id")
       result.each do |r|
-        user_id = r['user_id'].to_i
+        user_id = r['receiving_user_id'].to_i
         user_comments[:objects][user_id] ||= []
         user_comments[:objects][user_id] << r
       end
 
       # Comments left on pages with text submitted by Users
       result = Comment.find_by_sql("
-        SELECT c.*, uc.username commenter_username, u.id user_id FROM #{Comment.full_table_name} c
+        SELECT c.*, uc.username commenter_username, u.id receiving_user_id FROM #{Comment.full_table_name} c
         JOIN #{User.full_table_name} uc ON (c.user_id=uc.id)
         LEFT JOIN (
           #{UsersDataObject.full_table_name} udo
@@ -221,7 +222,7 @@ module PartnerUpdatesEmailer
         AND u.id IS NOT NULL
         GROUP BY u.id, c.id")
       result.each do |r|
-        user_id = r['user_id'].to_i
+        user_id = r['receiving_user_id'].to_i
         user_comments[:pages][user_id] ||= []
         user_comments[:pages][user_id] << r
       end

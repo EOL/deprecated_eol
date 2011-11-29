@@ -78,6 +78,10 @@ class Language < SpeciesSchemaModel
   def self.unknown
     @@unknown_language ||= cached_find_translated(:label, "Unknown")
   end
+  
+  def self.common_name
+    cached_find_translated(:label, "Common name")
+  end
 
   # this is only to be used, and should only work, in the test environment
   def self.create_english

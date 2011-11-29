@@ -83,7 +83,9 @@ module EOL
         ids = docs.map{ |d| d['object_id'] }
         instances = TaxonConcept.core_relationships(:include => includes, :select => selects).find_all_by_id(ids)
         docs.each do |d|
-          d['instance'].object = instances.detect{ |i| i.id == d['object_id'].to_i }
+          if d['instance']
+            d['instance'].object = instances.detect{ |i| i.id == d['object_id'].to_i }
+          end
         end
       end
 
@@ -101,7 +103,9 @@ module EOL
         instances = DataObject.core_relationships(:include => includes, :select => selects).find_all_by_id(ids)
         docs.each do |d|
           if i = instances.detect{ |i| i.id == d['object_id'].to_i }
-            d['instance'].object = i
+            if d['instance'] 
+              d['instance'].object = i
+            end
           end
         end
       end

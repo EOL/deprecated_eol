@@ -236,10 +236,13 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   # Please use consistent format for naming Users across the site.  At the moment, this means using #full_name unless
   # you KNOW you have an exception.
-  def full_name
+  def full_name(options={})
     if is_curator? # MUST show their name:
       return [given_name, family_name].join(' ').strip
     else # Other users show their full name when available, otherwise their username:
+      if options[:ignore_empty_family_name]
+        return [given_name, family_name].join(' ').strip unless given_name.blank? && family_name.blank?
+      end
       return username if given_name.blank? || family_name.blank?
       return [given_name, family_name].join(' ').strip
     end

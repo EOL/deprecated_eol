@@ -9,7 +9,7 @@ describe 'Taxa worklist' do
     @taxon_concept = @data[:taxon_concept]
     Capybara.reset_sessions!
     CuratorLevel.create_defaults
-    @curator = build_curator(@taxon_concept)
+    @curator = build_curator(@taxon_concept) # build_curator generates a full curator by default.
     @user = User.gen()
     SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE).delete_all_documents
     @taxon_concept.images.last.data_objects_hierarchy_entries.first.update_attribute(:visibility_id, Visibility.invisible.id)
@@ -35,12 +35,16 @@ describe 'Taxa worklist' do
     truncate_all_tables
   end
   
-  it 'should available only for curators' do
+  it 'should available only for full and master curators' do
     @default_body.should have_tag("#worklist")
     visit('/logout')
     visit taxon_worklist_path(@taxon_concept)
     body.should_not have_tag("#worklist")
     login_as(@user)
+    visit taxon_worklist_path(@taxon_concept)
+    body.should_not have_tag("#worklist")
+    assistant_curator = build_curator(@taxon_concept, :level=>:assistant)
+    login_as(assistant_curator)
     visit taxon_worklist_path(@taxon_concept)
     body.should_not have_tag("#worklist")
     login_as(@curator)

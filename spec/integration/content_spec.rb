@@ -33,7 +33,7 @@ describe 'MediaRSS Feed' do
       xml_response.xpath("//channel/item[guid='#{tci.data_object.guid}'][last()]/permalink").inner_text.should ==
         data_object_url(tci.data_object.id)
       xml_response.xpath("//channel/item[guid='#{tci.data_object.guid}'][last()]/media:thumbnail/@url").inner_text.should ==
-        DataObject.image_cache_path(tci.data_object['object_cache_url'], :medium)
+        DataObject.image_cache_path(tci.data_object['object_cache_url'], '98_68')
       xml_response.xpath("//channel/item[guid='#{tci.data_object.guid}'][last()]/media:content/@url").inner_text.should ==
         DataObject.image_cache_path(tci.data_object['object_cache_url'], :orig)
     end

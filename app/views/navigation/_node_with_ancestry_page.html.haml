@@ -26,8 +26,7 @@
                 - name_string = @include_common_names ? child.common_name_in_language(current_user.language).firstcap : child.italicized_name.firstcap
                 = link_to(name_string, taxon_hierarchy_entry_overview_path(child.taxon_concept_id, child.id))
                 - unless (@in_hierarchy && child.id == @hierarchy_entry.id) || child.number_of_descendants == 0
-                  %a.expand{ :href => "JavaScript:displayNode(#{child.id}, 0, #{@selected_hierarchy_entry.id})" }
-                    +
+                  = link_to('+', taxon_hierarchy_entry_overview_path(child.taxon_concept, child), :class => 'show_tree', :data_url => taxon_hierarchy_entry_tree_path(child.taxon_concept, child))
 - else
   - ancestor = ancestors.shift
   %li

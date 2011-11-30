@@ -952,7 +952,7 @@ en:
     other: "%{count} Contributions"
   community_destroyed: "You have deleted this community. It will no longer show up on taxon pages or in searches."
   community_empty_notice: "This community has no members."
-  community_focus: "Community focus"
+  community_focus: "Managed collections"
   community_focus_items_with_count:
     one: "%{count} item"
     other: "%{count} items"
@@ -1151,8 +1151,8 @@ en:
   content_partners_page_title: "Content Partners"
   content_partners_page_description: "Encyclopedia of Life content partners have large amounts of information about biodiversity in their own websites or databases that they also share via EOL pages. We greatly appreciate their critical contributions to the EOL mission and encourage you to learn more about them. Learn more about <a href=\"%{more_url}\">becoming a content partner.</a>"
   content_partners_with_count:
-    one: "%{count} Content partner"
-    other: "%{count} Content partners"
+    one: "%{count} content partner"
+    other: "%{count} content partners"
   content_server_full_url: "Content Server Full URL"
   content_servers: "Content Servers"
   content_setting_colon: "Content Setting:"
@@ -1690,7 +1690,7 @@ en:
   maintained_by: "maintained by"
   major_heading: "Major heading"
   make_an_editor: "make a manager"
-  make_user_an_editor_title: "Make %{user} a manager of one of your collections"
+  make_user_an_editor_title: "Allow %{user} to manage the following collections"
   manage_your_profile: "Manage Your Profile"
   managed_by: "Managed by"
   manager_endorse_collections_suggestion: "To feature a collection on this community's page, add the featured collection to the community's focus."

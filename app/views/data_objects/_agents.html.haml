@@ -2,4 +2,5 @@
 - unless data_object.blank?
   - data_object.agents_data_objects.each do |ado|
     - role_label = (ado.agent_role && ado.agent_role.label) ? ado.agent_role.label + ': ' : ''
-    %p= "#{role_label}#{ado.agent.full_name}"
+    - if ado.agent
+      %p= "#{role_label}#{ado.agent.full_name}"

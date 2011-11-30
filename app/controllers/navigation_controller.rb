@@ -20,12 +20,10 @@ class NavigationController < ApplicationController
   
   # AJAX call to set default taxonomic browser in session and save to profile
   def set_default_taxonomic_browser
-    
-        browser=params[:browser] || $DEFAULT_TAXONOMIC_BROWSER
-        current_user.default_taxonomic_browser=browser
-        current_user.save if logged_in?
-        render :nothing=>true
-        
+    browser = params[:browser] || $DEFAULT_TAXONOMIC_BROWSER
+    current_user.default_taxonomic_browser=browser
+    current_user.save if logged_in?
+    render :nothing=>true
   end
   
   def browse

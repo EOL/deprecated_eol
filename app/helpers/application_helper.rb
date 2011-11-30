@@ -212,7 +212,7 @@ module ApplicationHelper
   # NOTE - Styles will only be cached for English. Sorry; impractical to maintain copies of all cached files for
   # every language.
   def stylesheet_include_i18n_merged(stylesheet, options = {})
-    if I18n.locale.to_s == 'en' # Annoying that I have to check this, but c'est la vie. (See what I did there?)
+    if I18n.locale.to_s != 'ar' # Annoying that I have to check this, but c'est la vie. (See what I did there?)
       return stylesheet_link_merged(*[stylesheet, options])
     else
       read_stylesheet_packages unless @stylesheet_packages

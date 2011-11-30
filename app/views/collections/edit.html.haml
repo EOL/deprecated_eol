@@ -22,10 +22,10 @@
         = f.label :sort_style_id
       %dd
         = f.select :sort_style_id, @sort_options.map {|so| [so.name, so.id]}
-      -# %dt
-      -#   = f.label :view_style_id
-      -# %dd
-      -#   = f.select :view_style_id, options_from_collection_for_select(@view_as_options, :id, :name, @collection.view_style_id)
+      %dt
+        = f.label :view_style_id
+      %dd
+        = f.select :view_style_id, options_from_collection_for_select(@view_as_options, :id, :name, @collection.view_style_id)
       %dt
         = f.label :logo
       %dd

@@ -12,4 +12,7 @@
   = I18n.t(:item_details_missing)
 - unless ['image_gallery','names_only'].include?(view_style)
   - if collection_item
-    %p= collection_item.annotation
+    - if collection_item.annotation
+      -# TODO: .annotation  ...don't want to muck things up yet, though.
+      %p= collection_item.annotation
+    -# TODO = sort order?

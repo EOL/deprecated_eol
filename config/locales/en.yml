@@ -1693,6 +1693,9 @@ en:
   make_user_an_editor_title: "Allow %{user} to manage the following collections"
   manage_your_profile: "Manage Your Profile"
   managed_by: "Managed by"
+  managed_collections_with_count:
+    one: "%{count} Managed Collection"
+    other: "%{count} Managed Collections"
   manager_endorse_collections_suggestion: "To feature a collection on this community's page, add the featured collection to the community's focus."
   manager_parens: "(manager)"
   map_from: "map from"

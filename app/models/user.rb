@@ -763,6 +763,43 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     return false unless data_object
     return WorklistIgnoredDataObject.find_by_user_id_and_data_object_id(self.id, data_object.id)
   end
+  
+  def is_hidden?
+    hidden == 1
+  end
+  
+  def hide_comments(current_user)
+    # remove comments from database
+    comments = Comment.find_all_by_user_id(self.id)
+    comments.each do |comment|
+      comment.hide(current_user)      
+    end    
+  end
+  
+  def unhide_comments(current_user)
+    comments = Comment.find_all_by_user_id(self.id)
+    comments.each do |comment|
+      comment.show(current_user)
+    end
+  end
+
+  def hide_data_objects
+    data_objects = UsersDataObject.find_all_by_user_id(self.id, :include => :data_object).collect{|udo| udo.data_object}.uniq
+    data_objects.each do |data_object|
+      data_object.published = 0
+      data_object.save
+      data_object.update_solr_index
+    end
+  end
+  
+  def unhide_data_objects
+    data_objects = UsersDataObject.find_all_by_user_id(self.id, :include => :data_object).collect{|udo| udo.data_object}.uniq
+    data_objects.each do |data_object|
+      data_object.published = 1
+      data_object.save
+      data_object.update_solr_index
+    end
+  end
 
 private
 

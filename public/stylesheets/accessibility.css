@@ -1228,3 +1228,18 @@ body#prelaunch p.status {
 
 body#prelaunch #footer ul.social_media {
   margin-top: 20px; }
+
+.feed .reply {
+  float: right;
+  font-size: 0.75em;
+  font-weight: bold;
+  text-transform: uppercase; }
+
+#new_comment p.reply-to {
+  float: right;
+  color: #195184;
+  font-weight: bold;
+  text-transform: uppercase; }
+
+.highlight {
+  background-color: #f1f4dc; }

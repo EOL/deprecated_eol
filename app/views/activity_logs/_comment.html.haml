@@ -26,7 +26,7 @@
         = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => item.parent.summary_name)
       - else
         = I18n.t(:user_commented_on_something_colon, :user => name_with_link, :what => I18n.t(:record_not_found))
-      
+
   %blockquote{:cite => h(item.user.full_name)}
     %p
       - if truncate_comments && item.body.length > 140
@@ -47,6 +47,10 @@
         - else
           = sanitize(truncate(item.body, :length => 140, :omission => I18n.t(:truncated_comment_omission_linkless)).balance_tags)
       - else
-        = sanitize item.body.balance_tags
+        - if item.reply?
+          - at_re = /@([^:]+):/
+          = sanitize item.body.balance_tags.sub(at_re, '@' + link_to("\\1", "##{item.reply_to_type}-#{item.reply_to_id}") + ':')
+        - else
+          = sanitize item.body.balance_tags
   %p.meta= I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))
 

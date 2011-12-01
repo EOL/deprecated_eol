@@ -14,6 +14,7 @@ class Comment < ActiveRecord::Base
 
   belongs_to :user # always always posted by a user.
   belongs_to :parent, :polymorphic => true
+  belongs_to :reply_to, :polymorphic => true
   has_one :curator_activity_log # Because you can post a comment along with activity, and we want the two to have a
   # relationship in the DB, so we can report on it to content partners.
 
@@ -246,6 +247,12 @@ class Comment < ActiveRecord::Base
       end
     end
     logs_affected
+  end
+
+  # A reply is only counted as a reply if it has an "@username:" somewhere in it.
+  def reply?
+    at_re = /@([^:]+):/ # Recall that in-line REs can cause memory leaks.
+    reply_to_id && body =~ at_re
   end
 
 private

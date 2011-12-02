@@ -2,6 +2,8 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Jachym
+# Author: Paxt
+# Author: Utar
 cs: 
   0_1_or_2: 0, 1 nebo 2
   0_or_1: 0 nebo 1
@@ -36,7 +38,10 @@ cs:
         display_name: Zobrazovaný název
         full_name: Název projektu
         homepage: URL projektu
+        id: ID
         notes: Poznámky k projektu
+        public: Veřejné
+        resources: Zdroje
         user_id: Spravovuje
       content_partner_agreement: 
         signed_by: Podepsal
@@ -47,6 +52,8 @@ cs:
         object_title: Nadpis
         rights_holder: Držitel práv
         source_url: Zdrojová URL
+      harvest_event: 
+        resource: Zdroj
       name: 
         string: Název
       resource: 
@@ -101,7 +108,7 @@ cs:
         less_than: 
           one: musí být méně než %{count}
           other: musí být méně než %{count}
-        less_than_or_equal_to: musí být menší než nebo rovno % {count}
+        less_than_or_equal_to: musí být menší než nebo rovno % {počet}
         not_a_number: není číslo
         not_an_integer: musí být celé číslo
         odd: musí být liché číslo
@@ -196,6 +203,7 @@ cs:
   admin_translated_content_page_new_header: Zvolit jazyk a přidat obsah
   admin_translated_content_page_new_link: Přidat překlad
   admin_translated_content_page_update_unsuccessful_error: Omlouváme se, došlo k chybě a překlad nebyl aktualizován.
+  all: vše
   all_articles: Všechny články
   all_changes: Všechny změny
   all_collections: Všechny sbírky
@@ -236,6 +244,7 @@ cs:
   associated_with_sound_header: Asociace s
   associated_with_video_header: V tomto videu
   associations_more_link: více <span class="assistive">asociací taxonu</span>
+  attribute: Vlastnost
   audio_mute: ztlumit
   audio_pause: pozastavit
   audio_play: přehrát
@@ -246,6 +255,7 @@ cs:
   bi_monthly: Obměsíc
   biomedical_terms: Biomedicínské pojmy
   browsable: Procházitelné
+  browse_hierarchy: procházet hierarchii
   build_communities: Vytvořit komunity
   cancel: Storno
   cannot_be_empty: nemůže být prázdné.
@@ -327,6 +337,7 @@ cs:
   content_partner_data_description_header: Popis dat
   content_partner_filter_option_vetted_no: Ne
   content_partner_filter_option_vetted_yes: Ano
+  content_partner_has_unpublished_content_false: Žádný nepublikovaný obsah
   content_partner_has_unpublished_content_true: Nepublikovaný obsah
   content_partner_managed_by_header: Spravuje
   content_partner_notes_header: Poznámky k projektu
@@ -354,15 +365,6 @@ cs:
   content_summary_table_type_unreviewed_images_row: Počet nezkontrolovaných obrázků
   content_summary_table_type_unreviewed_text_row: Počet nezkontrolovaných textů
   copy: Kopírovat
-  copy_all_articles_button: kopírovat všechny články
-  copy_all_collections_button: kopírovat všechny sbírky
-  copy_all_communities_button: kopírovat všechny komunity
-  copy_all_images_button: kopírovat všechny obrázky
-  copy_all_items_button: kopírovat celou sbírku
-  copy_all_people_button: kopírovat všechny lidi
-  copy_all_sounds_button: kopírovat všechny zvuky
-  copy_all_taxa_button: kopírovat všechny taxy
-  copy_all_videos_button: kopírovat všechna videa
   copy_of_name: Kopie %{name}
   create_a_collection: Vytvořit sbírku
   create_a_community: Vytvořit komunitu
@@ -374,6 +376,7 @@ cs:
   created_at: Vytvořeno
   created_colon: "Vytvořeno:"
   created_community: Komunita byla úspěšně vytvořena.
+  curated: Spravováno
   curated_association_update_button: Uložit změny
   curation_comment: Komentáře správce
   curation_privileges_page_title: Staňte se kurátorem
@@ -409,6 +412,7 @@ cs:
   delete_community: Smazat tuto komunitu
   description: Popis
   description_of: Popis
+  descriptive_label: Popisek
   destination_inappropriate_for_logged_in_users: Jste přihlášeni.
   destroy: Zničit
   detail: Podrobnosti
@@ -432,8 +436,8 @@ cs:
   edit_collection_head_title: "Upravit: %{collection_name}"
   edit_community: Upravit komunitu
   edit_contact_us_topics: Upravit témata kontaktování
-  edit_downcase: upravit
   edit_eol_glossary: upravit EOL rejstřík
+  edit_hierarchy: upravit hierarchii
   edit_my_profile: Upravit profil
   edit_news_items: upravit položky novinek
   edit_page_contents: upravit obsah stránky
@@ -463,7 +467,6 @@ cs:
   error_404_description: Omlouváme se, nepodařilo se nalézt stránku na této URL.
   error_404_page_title: Nenalezeno
   error_500_page_title: Interní chyba serveru
-  error_page_title: Ouha.
   example_colon: "Příklad:"
   expand_all_children: Rozbalit všechny podřazené
   explore: Prozkoumat
@@ -537,6 +540,10 @@ cs:
         taxa_pages_viewed: Zobrazených stránek <small>(počet stránek zobrazených návštěvníky)</small>
         time_on_page: Celkový čas na stránkách <small>(hodiny)</small>
         unique_page_views: Jedinečných zobrazení stránky <small>(počet návštěvníků, kteří si stránku zobrazili)</small>
+      harvest_event: 
+        began_at: Zahájeno
+        completed_at: Dokončeno
+        published_at: Zveřejněno
       resource: 
         accesspoint_url: URL Datasetu <small>(pouze XML, XML.GZIP nebo XML.GZ)</small>
         dataset: Dataset
@@ -604,8 +611,10 @@ cs:
         create: Odeslat žádost
   hidden: Skryté
   hierarchies: hierarchie
+  hierarchies_title: Hierarchie
   hierarchy: Hierarchie
   hierarchy_entries: hierarchy_entries
+  hierarchy_updated: Hierarchie aktualizována
   home: Domů
   id: ID
   image_is_no_longer_available: Obrázek už není k dispozici
@@ -630,6 +639,7 @@ cs:
   item_type_taxon_assistive: Tato položka je taxon
   item_type_video_assistive: Tato položka je video
   join_community_button: Přidat se k této komunitě
+  label: Popisek
   language: "Jazyk:"
   languages: Jazyky
   learn_about_collections: Jak můžu vytvořit nový?
@@ -670,15 +680,6 @@ cs:
   moderator_colon: "Moderátor:"
   monthly: Měsíčně
   move: Přesunout
-  move_all_articles_button: přesunout všechny články
-  move_all_collections_button: přesunout všechny sbírky
-  move_all_communities_button: přesunout všechny komunity
-  move_all_images_button: přesunout všechny obrázky
-  move_all_items_button: přesunout celou sbírku
-  move_all_people_button: přesunout všechny osoby
-  move_all_sounds_button: přesunout všechny zvuky
-  move_all_taxa_button: přesunout všechny taxony
-  move_all_videos_button: přesunout všechna videa
   move_down: Přesunout níže
   move_up: Přesunout výše
   must_be_logged_in: Pro tuto činnost musíte být přihlášeni.
@@ -688,7 +689,6 @@ cs:
   name_preferred_for_language_yes: Preferované
   name_preferred_taxonomically_for_source_yes: Preferované
   names: Názvy
-  names_children_column_header: Podřazené
   names_common_list_by_language_assistive_header: Běžné názvy podle jazyků
   names_name_column_header: Název
   names_sources_column_header: Zdroje
@@ -735,7 +735,6 @@ cs:
     one: "%{count} jiný taxon"
     other: "%{count} jiných taxonů"
   other_us_dollars_amount: "Jiné: US$"
-  overall_colon: "Celkové:"
   overview: Přehled
   page_statistics: Statistiky stránky
   page_statistics_and_tools: statistiky a nástroje stránky
@@ -763,6 +762,7 @@ cs:
   profile_newsfeed: Můj kanál novinek
   public: Veřejné
   public_domain: veřejná doména
+  publish_requested: Požádáno o publikování
   published: Publikované
   punctuation_comma: ","
   punctuation_semi_colon: ;
@@ -773,22 +773,12 @@ cs:
   rating_added_notice: Hodnocení úspěšně přidáno.
   recent_updates: Poslední aktualizace
   remove: Odstranit
-  remove_all_articles_button: odstranit všechny články
-  remove_all_collections_button: odstranit všechny sbírky
-  remove_all_communities_button: odstranit všechny komunity
-  remove_all_images_button: odstranit všechny obrázky
-  remove_all_items_button: odstranit celou sbírku
-  remove_all_people_button: odstranit všechny lidi
-  remove_all_sounds_button: odstranit všechny zvuky
-  remove_all_taxa_button: odstranit všechny taxy
-  remove_all_videos_button: odstranit všechna videa
   required_form_element: Vyžadováno
   return: návrat
   revisions: Revize
   rights: Práva
   rights_holder: Držitel práv
   rights_statement: Informace o právech
-  roles: Role
   save: Uložit
   save_annotation_submit_button: Uložit anotace
   save_curated_association_submit_button: Uložit asociace
@@ -904,6 +894,7 @@ cs:
   unreviewed_images: Nezkontrolované obrázky
   unreviewed_text_objects: Nezkontrolované články
   untrusted: Nedůvěryhodné
+  update: Aktualizovat
   update_collection_submit_button: Aktualizovat podrobnosti o sbírce
   update_language: Aktualizovat jazyk
   update_page: Aktualizovat stránku
@@ -971,5 +962,4 @@ cs:
   your_current_rating_5_of_5: "Vaše současné hodnocení: 5 z 5"
   your_preferences: Vaše nastavení
   your_rating: Vaše hodnocení
-  your_rating_colon: "Vaše hodnocení:"
   your_watch_collection: vaše sledované

@@ -71,7 +71,7 @@ sr-el:
   translated_contact_subjects-title-contact_subject_id-11: Tehnički problemi (poteškoće sa sajtom, alatka za pretragu ili korisnički nalozi)
   translated_contact_subjects-title-contact_subject_id-12: Drugo
   translated_contact_subjects-title-contact_subject_id-13: Podrška za kustose
-  translated_contact_subjects-title-contact_subject_id-14: Zahtevaj otpremanje slika
+  translated_contact_subjects-title-contact_subject_id-14: Zahtevanje za otpremanje slika
   translated_contact_subjects-title-contact_subject_id-15: Pravljenje ispravke (slike, pravopis i gramatika, podaci)
   translated_contact_subjects-title-contact_subject_id-16: Opšte mišljenje o projektu
   translated_contact_subjects-title-contact_subject_id-17: Dobrovoljan novčani prilog
@@ -194,8 +194,8 @@ sr-el:
   translated_service_types-label-service_type_id-2: Drugo
   translated_sort_styles-name-sort_style_id-1: Nedavno dodato
   translated_sort_styles-name-sort_style_id-2: Najstarije
-  translated_sort_styles-name-sort_style_id-3: Abecedno
-  translated_sort_styles-name-sort_style_id-4: Abecedno (obrnuto)
+  translated_sort_styles-name-sort_style_id-3: Azbučno
+  translated_sort_styles-name-sort_style_id-4: Azbučno (obrnuto)
   translated_sort_styles-name-sort_style_id-5: Sadržajnost
   translated_sort_styles-name-sort_style_id-6: Ocena
   translated_statuses-label-status_id-1: Ubačeno
@@ -321,7 +321,7 @@ sr-el:
   translated_table_of_contents-label-table_of_contents_id-329: Genetika
   translated_table_of_contents-label-table_of_contents_id-33: Trendovi
   translated_table_of_contents-label-table_of_contents_id-330: Nukleotidne sekvence
-  translated_table_of_contents-label-table_of_contents_id-331: Bar kôd
+  translated_table_of_contents-label-table_of_contents_id-331: Bar-kod
   translated_table_of_contents-label-table_of_contents_id-332: Genom
   translated_table_of_contents-label-table_of_contents_id-333: Molekularna biologija
   translated_table_of_contents-label-table_of_contents_id-334: Pretnje

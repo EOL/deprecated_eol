@@ -3,6 +3,7 @@
 # Export driver: syck-pecl
 # Author: Coyau
 # Author: Crochet.david
+# Author: DavidL
 # Author: Gomoko
 # Author: Hashar
 # Author: Jean-Frédéric
@@ -10,6 +11,7 @@
 # Author: McDutchie
 # Author: Od1n
 # Author: Seb35
+# Author: Verdy p
 # Author: Zcqsc06
 fr: 
   0_1_or_2: 0, 1 ou 2
@@ -45,16 +47,21 @@ fr:
       content_partner: 
         acronym: Abréviation du projet
         admin_notes: Notes d'administration
+        auto_publish: Auto-publier
         content_partner_status: État du projet
         created_at: Créé
         description: Description du projet
         display_name: Nom affiché
         full_name: Nom du projet
         homepage: URL du projet
+        id: ID
         notes: Notes du projet
+        public: Public
+        resources: Ressources
         user_id: Géré par
         vetted: Approuvé
       content_partner_agreement: 
+        created_at: Créé à
         signed_by: Signé par
         signed_on_date: Signé le
       data_object: 
@@ -64,20 +71,34 @@ fr:
         rights_holder: Détenteur des droits
         rights_statement: Déclaration de droits
         source_url: URL source
+      harvest_event: 
+        resource: Ressource
+      hierarchy: 
+        browsable: Navigable
+        complete: Compléter
+        description: Description
+        descriptive_label: Étiquette descriptive
+        label: Étiquette
+        request_publish: Demander une publication
       name: 
         string: Nom
       resource: 
         accesspoint_url: URL de Dataset
+        auto_publish: Auto-publier
         bibliographic_citation: Citation bibliographique
         dataset: Fichier de Dataset
         description: Description de la ressource
         dwc_archive_url: URL de l'archive principale de Darwin
+        harvest_events: Récolter les événements
+        hierarchy: Hiérarchie
         language_id: Langue par défaut
         license_id: Licence par défaut
+        notes: Notes de traitement
         resource_status_id: État des ressources
         rights_holder: Détenteur des droits par défaut
         rights_statement: Déclaration des droits par défaut
         title: Nom de la ressource
+        vetted: Approuvé
       translated_content_page: 
         active_translation: Publiée
         left_content: Navigation
@@ -138,6 +159,10 @@ fr:
         wrong_length: n'a pas la longueur requise (il faut %{count} caractères)
         wrong_type: est le mauvais type
       models: 
+        harvest_event: 
+          attributes: 
+            publish: 
+              inclusion: est seulement autorisé pour la dernière récolte, et seulement si cet évènement n'est pas encore publié
         resource: 
           attributes: 
             accesspoint_url: 
@@ -282,6 +307,7 @@ fr:
   associated_with_image_header: Sur cette image
   associated_with_sound_header: Associé à
   associated_with_video_header: Dans cette vidéo
+  attribute: Attribuer
   audio_mute: muet
   audio_pause: pause
   audio_unmute: non muet
@@ -291,6 +317,7 @@ fr:
   bi_monthly: Bimensuel
   biodiversity_heritage_library: Biodiversity Heritage Library
   browsable: Naviguable
+  browse_hierarchy: parcourir la hiérarchie
   build_communities: Créer des communautés
   cancel: Annuler
   cannot_be_associated_with_both_a_user_and_a_community: Ne peux être associé à la fois à un utilisateur et une communauté
@@ -298,7 +325,7 @@ fr:
   cannot_create_collection_item_from_class_error: Je ne peux pas créer un élément d'une collection à partir de %{klass}
   cannot_find_member: Impossible de trouver un membre avec cet identifiant.
   cannot_index_collection_item_type_error: Je ne peux pas indexer un élément d'une collection à partir d'un %{type}
-  change: Modifier
+  change: Changer
   change_rating_to_1_of_5: Changer la note à 1 sur 5
   change_rating_to_2_of_5: Changer la note à 2 sur 5
   change_rating_to_3_of_5: Changer la note à 3 sur 5
@@ -366,9 +393,7 @@ fr:
   community_destroyed: La communauté a été supprimée.
   community_empty_notice: Cette communauté n'a aucun membre.
   community_invitation_comment: Je t'invite à rejoindre "%{community}".
-  community_members_with_count: 
-    one: "%{count} membre de la communauté"
-    other: "%{count} membres de la communauté"
+  community_members: Membres de la communauté
   community_not_destroyed_error: La communauté n'a pas pu être supprimée.
   community_removed_by_owner: Cette communauté a été retirée par son propriétaire.
   community_tab_collections_description: Les collections sont créées par les utilisateurs d'EOL pour mettre en évidence les relations entres espèces, qu'il s'agisse de relations géographiques, écologiques ou personnelles. Les communautés peuvent « mettre en lumière » des collections particulièrement intéressantes et enrichissantes.
@@ -388,6 +413,7 @@ fr:
   content_partner_data_description_header: Description des données
   content_partner_filter_option_vetted_no: Non
   content_partner_filter_option_vetted_yes: Oui
+  content_partner_has_unpublished_content_false: Pas de contenu non publié
   content_partner_has_unpublished_content_true: Contenu non publié
   content_partner_managed_by_header: Géré par
   content_partner_resource_collections_header: Collections
@@ -398,13 +424,6 @@ fr:
   content_summary_table_count_column_header: Nombre
   content_summary_table_type_descendants_row: Nombre de descendants
   copy: Copier
-  copy_all_articles_button: copier tous les articles
-  copy_all_collections_button: copier toutes les collections
-  copy_all_communities_button: copier toutes les communautés
-  copy_all_images_button: copier toutes les images
-  copy_all_sounds_button: copier tous les sons
-  copy_all_taxa_button: copier tous les taxons
-  copy_all_videos_button: copier toutes les vidéos
   copy_of_name: Copie de %{name}
   could_not_find_user: Impossible de trouver un membre pour cet utilisateur.
   create_a_collection: Créer une collection
@@ -437,7 +456,6 @@ fr:
   donation_error_only_numbers: Veuillez entrer un montant en utilisant uniquement des chiffres.
   edit: Modifier
   edit_community: Modifier la communauté
-  edit_downcase: modifier
   edit_my_profile: Modifier mon profil
   encyclopedia_of_life: Encyclopédie de la vie
   endorsed_collections_with_count: 
@@ -495,14 +513,23 @@ fr:
         parent_content_page_id: Parent
         parent_content_page_id_more: Sélectionnez éventuellement un parent sous lequel cette page sera imbriquée.
       content_partner: 
+        created_at: Enregistré
+        current_agreement: Accord actuel
         description_of_data: Description de la donnée <small>(privée)</small>
         description_of_data_more: Merci de nous fournir une description du type d'information que vous avez, combien d'éléments sont disponibles, à quels organismes ils se rapportent, et s'ils ont été assemblés ou vérifiés par des experts qualifiés ou par une communauté compétente.
         display_name: Nom affiché <small>(optionnel)</small>
         display_name_more: Fournir un nom alternatif visible publiquement à utiliser à la place de votre <em>Nom de projet</em>.
+        last_action: Dernière action
+        latest_published_harvest_event: Dernière publication
         logo_current: "Logo actuel :"
         logo_new: "Charger un nouveau logo:"
         notes: Notes du projet <small>(privées)</small>
+        oldest_published_harvest_event: Publié en premier
+        public_more: Les profiles des partenaires de contenu public sont visibles à tout le monde et l'information sur les partenaires est incluse dans la liste des partenaires de contenu. Décochez la case pour exclure les détails sur les partenaires de contenu des listes et restreindre l'accès au profile à l'utilisateur ayant créé le partenaire de contenu et aux administrateurs de EOL.
         user_id: Détails du partenaire de contenu géré par
+      content_partner_agreement: 
+        mou_url: URL du fichier d'accord <small>(alternative facultative)</small>
+        mou_url_more: Entrez éventuellement une URL vers le fichier contenant l'accord de ce partenaire. Ce fichier remplace tout autre texte d'accord. Si vous désirez enregistrer le fichier (par exemple un fichier PDF) sur les serveurs de contenu d'EOL, veuillez d'abord <a href="%{upload_content_url}">télécharger le fichier</a> pour obtenir l'URL.
       data_object: 
         bibliographic_citation: Citation bibliographique
         description: Texte <small>(certaines balises HTML sont autorisées)</small>
@@ -520,14 +547,31 @@ fr:
         taxa_pages_viewed: Pages vues <small>(nombre de pages vues par les visiteurs)</small>
         time_on_page: Temps total passé sur les pages <small>(heures)</small>
         unique_page_views: Pages vues uniques <small>(nombre de visiteurs ayant vu les pages)</small>
+      harvest_event: 
+        began_at: Démarré
+        completed_at: Terminé
+        published_at: Publié
+        published_status: État
+      hierarchy: 
+        browsable_more: Vérifiez la navigabilité pour promouvoir cette hiérarchie pour devenir l'une des hiérarchies navigables primaires sur EOL.
+        browsable_status_with_colon: "Statut de navigabilité:"
+        complete: Nettoyé
+        complete_more: "Une hiérarchie nettoyée suppose que chaque entrée est destinée à être unique, c'est-à-dire que les chaînes de nom correspondantes seront traitées comme des homonymes. <strong>ATTENTION: Ne modifiez pas cet attribut, sauf si vous êtes certain de l'état des homonymes dans la hiérarchie; le faire pourrait compromettre l'intégrité des données.</strong>"
+        request_publish: Publication requise
+        request_publish_more: Indique si une demande de promotion est en attente, pour que cette hiérarchie devienne l'une des principales sur EOL
       resource: 
         accesspoint_url: URL du dataset <small>(XML, XML.GZIP ou XML.GZ seulement)</small>
         accesspoint_url_existing_remove: Cette ressource est actuellement en cours de chargement depuis l'URL terminant <em>%{accesspoint_url}</em>. Chargez un fichier si vous voulez supprimer l'URL existante et charger la ressource depuis un fichier à la place (non recommandé).
+        administration_settings: Paramètres d'administration <small>(visibles seulement par les administrateurs d'EOL)</small>
         dataset: Dataset
         dataset_existing_remove: Le fichier <em>%{file_name}</em> est actuellement associé à cette ressource. Entrez une URL si vous voulez remplacer le fichier <em>%{file_name}</em> existant et charger la ressource depuis l'URL à la place (recommandé).
         dataset_existing_replace: Le fichier <em>%{file_name}</em> est actuellement associé avec cette ressource. Charger un nouveau fichier pour remplacer le fichier <em>%{file_name}</em> existant.
         dwc_archive_url: "S'il y a une archive principale Darwin associée avec cette ressource, entrez son URL ici <small>(TAR.GZIP, TAR.GZ ou TGZ uniquement)</small>:"
+        hierarchy: Hiérarchie
+        latest_published_harvest_event: Dernière publication
+        oldest_published_harvest_event: Première publication
         refresh_period_hours: Fréquence
+        resource_status: Statut
         resource_status_id: Statut
         resource_url_or_file: Données de ressource <small>(choisissez entre entrer une URL ou charger un fichier)</small>
         resource_url_or_file_upload: Envoyer un fichier de ressources
@@ -591,6 +635,10 @@ fr:
       content_partner: 
         create: Créer un partenaire de contenu
         update: Enregistrer les informations du partenaires
+      content_partner_agreement: 
+        agree: En accord avec les conditions du partenaire de contenu
+        create: Créer un nouvel accord
+        update: Accord de mise à jour
       content_partner_contact: 
         create: Ajouter un contact
         destroy: Supprimer contact
@@ -600,12 +648,19 @@ fr:
         create: Ajouter l'article
         create_text: Ajouter l'article
         update: Enregistrez article
+      harvest_event: 
+        publish: Publier
+      hierarchy: 
+        request_publish: Demander de promouvoir la hiérarchie
+        update: Mettre à jour la hiérarchie
       name: 
         create: Ajouter le nom
         update: Mettre à jour le nom
       resource: 
         create: Ajouter une ressource
+        force_harvest: Demander de forcer la récolte
         update: Mettre à jour la ressource
+        update_settings: Paramètres de mise à jour
       session: 
         create: Connexion
       submit: Enregistrer %{model}
@@ -623,6 +678,7 @@ fr:
       wikipedia_queue: 
         create: Soumettre la demande
   hierarchies: hiérarchies
+  hierarchies_title: Hiérarchies
   hierarchy: Hiérarchie
   home: Accueil
   home_page_link_advisory_information: Ce lien vous mènera à la page d'accueil du site de l'Encyclopédie de la vie
@@ -673,14 +729,6 @@ fr:
   moderator_colon: "Modérateur :"
   most_active_members: Membres les plus actifs
   move: Déplacer
-  move_all_articles_button: déplacer tous les articles
-  move_all_collections_button: déplacer toutes les collections
-  move_all_communities_button: déplacer toutes les communautés
-  move_all_images_button: déplacer toutes les images
-  move_all_people_button: déplacer toutes les personnes
-  move_all_sounds_button: déplacer tous les sons
-  move_all_taxa_button: déplacer tous les taxons
-  move_all_videos_button: déplacer toutes les vidéos
   must_be_associated_with_either_a_user_or_a_community: Doit être associé à un utilisateur ou une communauté
   must_be_less_than_128_characters_long: doit être inférieur à 128 caractères.
   my_activity: Mon activité
@@ -688,17 +736,37 @@ fr:
   name: Nom
   name_preferred_for_language_yes: Préféré
   names: Noms
-  names_children_column_header: Enfants
   names_name_column_header: Nom
-  names_parents_column_header: Parents
   names_sources_column_header: Sources
   names_status_column_header: Statut
   never: Jamais
   new_collection: Nouvelle collection
   not_evaluated: Non évalué
+  notifier: 
+    activity_log_empty: Pas d'actions récentes par les conservateurs.
+    activity_on_content_partner_content: 
+      message: "Ceci est un courrier automatique envoyé par l'Encyclopedia of Life (EOL). Il résume les commentaires récents et les actions de conservation sur le contenu fourni à EOL par le partenaire %{partner_full_name} (%{partner_profile_url}). Vous recevez ce message car vous êtes inscrit comme contact pour %{partner_full_name}.\n\nActions de conservation :\n%{curator_activity_log}\n\nCommentaires sur les données :\n%{data_object_comments}\n\nCommentaires sur les pages avec lesquelles vos données sont associées :\n%{page_comments}"
+      subject: Résumé de l'activité récente sur le contenu fourni à l'Encyclopedia of Life par le partenaire %{partner_full_name}
+    activity_on_user_content: 
+      message: "Ceci est un courrier automatique de l'Encyclopedia of Life (EOL). Il résume les commentaires récents et les actions de conservation sur le contenu que vous avez ajouté à l'EOL depuis votre compte utilisateur %{members_username}.\n\nActions de conservation :\n%{curator_activity_log}\n\nCommentaires sur les données :\n%{data_object_comments}\n\nCommentaires sur les pages avec lesquelles vos données sont associées :\n%{page_comments}"
+      subject: Résumé des activités récentes sur le contenu que vous avez ajouté à l'Encyclopedia of Life
+    comments_empty: Aucun commentaire récent.
+    contact_us_auto_response: 
+      message: "Merci d'avoir contacté le projet Encyclopedia of Life. Vos commentaires ont été envoyés au groupe concerné.\n\nNous vous remercions de vos commentaires."
+      subject: Merci d'avoir contacté l'Encyclopedia of Life
+    contact_us_message: 
+      message: "Le message suivant a été soumis à EOL par le formulaire de contact :\nDe : %{from_name}\nCourrier : %{from_email}\nSujet : %{subject}\nGroupe de taxons : %{taxon_group}\n\n%{message}"
+      subject: "Un message à EOL : %{title}"
+    greeting_dear_name_with_comma: Cher/chère %{name},
+    signature_basic: L'équipe de l'Encyclopedia of Life
+    signature_with_species_pages_group_contact: "Si vous avez des questions, vous pouvez nous contacter à l'adresse %{species_pages_group_email}.\n\nL'équipe de l'Encyclopedia of Life"
+    signature_with_support_contact: "Si vous rencontrez des problèmes, vous pouvez nous contacter à l'adresse %{support_email}.\n\nL'équipe de l'Encyclopedia of Life"
   object: Objet
+  object_type_collection_option: Collection
+  object_type_community_option: Communauté
   object_type_image_option: Image
   object_type_text_option: Texte
+  object_type_user_option: Utilisateur
   object_type_video_option: Vidéo
   object_visibility_visible_option: Visible
   option_please_select: Veuillez sélectionner
@@ -735,7 +803,6 @@ fr:
   resources: Ressources
   rights: Droits
   rights_holder: Détenteur des droits
-  roles: Rôles
   save: Publier
   save_annotation_submit_button: Publier la note
   save_curated_association_submit_button: Publier l'association
@@ -782,6 +849,7 @@ fr:
   tasks_with_count: 
     one: "%{count} tâche trouvée"
     other: "%{count} tâches trouvées"
+  taxa: Taxons
   taxa_with_count: 
     one: "%{count} taxon"
     other: "%{count} taxons"
@@ -791,6 +859,9 @@ fr:
   text: texte
   text_capital: Texte
   text_summary_more_link: Lire l'entrée complète
+  text_with_count: 
+    one: "%{count} article"
+    other: "%{count} articles"
   thank_you: Merci
   the_amount_entered_was: "Le montant indiqué était : %{number} $US"
   there_are_currently_no_members_in_this_community: Il n'y a actuellement aucun membre dans cette communauté.
@@ -809,6 +880,7 @@ fr:
   us_dollars_35: 35 US$
   us_dollars_50: 50 US$
   user: Utilisateur
+  user_comment: Commentaire d'utilisateur
   user_system_down: Nous sommes désolés, mais le système d’enregistrement des utilisateurs n’est pas disponible actuellement.  Veuillez réessayer plus tard.
   username: Nom d'utilisateur
   username_colon: "Nom d’utilisateur :"
@@ -847,5 +919,4 @@ fr:
   your_current_rating_5_of_5: "Votre note actuelle : 5 sur 5"
   your_preferences: Vos préférences
   your_rating: Votre note
-  your_rating_colon: "Votre note :"
   your_watch_collection: votre liste de suivi

@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Adata80
+# Author: Eleferen
 # Author: Lvova
 # Author: Meddoc13
 ru: 
@@ -113,6 +114,7 @@ ru:
   translated_synonym_relations-label-synonym_relation_id-6: эквивалентное название
   translated_synonym_relations-label-synonym_relation_id-63: не принято
   translated_table_of_contents-label-table_of_contents_id-1: Обзор
+  translated_table_of_contents-label-table_of_contents_id-13: Общие названия
   translated_table_of_contents-label-table_of_contents_id-14: МСОП
   translated_table_of_contents-label-table_of_contents_id-17: Ссылки на литературу
   translated_table_of_contents-label-table_of_contents_id-194: Размер
@@ -163,8 +165,13 @@ ru:
   translated_table_of_contents-label-table_of_contents_id-5: Эволюция и систематика
   translated_table_of_contents-label-table_of_contents_id-6: Значимость для людей и экосистем
   translated_table_of_contents-label-table_of_contents_id-7: Ссылки и дополнительная информация
+  translated_table_of_contents-label-table_of_contents_id-8: Консервация
   translated_untrust_reasons-label-untrust_reason_id-3: низкое качество
   translated_untrust_reasons-label-untrust_reason_id-4: дубликат
+  translated_vetted-label-vetted_id-0: Неизвестно
+  translated_vetted-label-vetted_id-4: Ненадёжный
+  translated_vetted-label-vetted_id-5: Надёжный
+  translated_vetted-label-vetted_id-6: Неподходящий
   translated_visibilities-label-visibility_id-0: Невидимый
   translated_visibilities-label-visibility_id-1: Видимый
   translated_visibilities-label-visibility_id-2: Предпросмотр

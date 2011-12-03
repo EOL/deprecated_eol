@@ -317,6 +317,7 @@ ar:
   are_you_sure_this_action_cannot_be_undone: Are you sure? This action cannot be undone.
   article_from: مقال من
   article_more_about: تعرف على المزيد عن هذا المقال
+  article_rating: تقييم المقال
   articles_in_languages_with_count: 
     one: "المقالات عن تلك الصفحة متاحة بلغة واحدة:"
     other: "المقالات عن تلك الصفحة متاحة بـ%{count} لغة:"
@@ -573,7 +574,7 @@ ar:
   content_partner_resource_harvest_events_for_resource_subheader: عمليات جمع المورد %{resource_title}
   content_partner_resource_harvest_events_see_all_link: عرض <span class="assistive">عمليات الجمع</span>
   content_partner_resource_hierarchy_browsable: يمكن تصفحه
-  content_partner_resource_hierarchy_complete_false: "لم يتم تصنيف التسلسل الهرمي كمقيَّم. يمكن\nالتعامل مع المداخل المتطابقة باعتبارها مفهوم واحد."
+  content_partner_resource_hierarchy_complete_false: "لم يتم تصنيف التسلسل الهرمي كمقيَّم. يمكن \nالتعامل مع المداخل المتطابقة باعتبارها مفهوم واحد."
   content_partner_resource_hierarchy_complete_true: تم تصنيف التسلسل الهرمي  <strong>كمقيم</strong>. ويعزز التسلسل الهرمي المقيم من فرضية تميز كل مدخل، أي أنه سوف يتم التعامل مع التسلسلات ذات الاسماء المتطابقة كجناس.
   content_partner_resource_hierarchy_confirm_request_publish: هل أنت متأكد من رغبتك في تقديم طلب لترقية التسلسل الهرمي الخاص بك ليصبح قابل للتصفح بموسوعة الحياة؟
   content_partner_resource_hierarchy_edit_link: تعديل
@@ -833,15 +834,27 @@ ar:
   filter_by_status_untrusted_option: غير موثوق به
   filter_by_type: تصفية نتائج البحث طبقا ل
   filter_by_type_all_option: جميع الأنواع
+  filter_by_type_all_option_with_count: 
+    one: كل اﻷنواع (%{count})
+    other: كل اﻷنواع (%{count})
   filter_by_type_collection_option: المجموعات
   filter_by_type_community_option: المجتمعات
   filter_by_type_image_option: الصور
+  filter_by_type_image_option_with_count: 
+    one: الصور (%{count})
+    other: الصور (%{count})
   filter_by_type_photosynth_option: تطبيق فوتوسينث
   filter_by_type_sound_option: الأصوات
+  filter_by_type_sound_option_with_count: 
+    one: الصوتيات (%{count})
+    other: الصوتيات (%{count})
   filter_by_type_taxon_concept_option: الأصنوفات
   filter_by_type_text_option: المقالات
   filter_by_type_user_option: الأشخاص
   filter_by_type_video_option: مقاطع الفيديو
+  filter_by_type_video_option_with_count: 
+    one: الفيديوهات (%{count})
+    other: الفيديوهات (%{count})
   filter_media: تصفية الوسائط
   filtered_information: المعلومات المصفاه
   find_taxa_submit_button: البحث عن أصنوفة
@@ -1079,6 +1092,7 @@ ar:
   image_is_no_longer_available: الصورة غير متاحة حاليًا
   image_not_found: لا توجد صورة
   image_objects_will_contain_two_mediaurl_elements: سوف تضم العناصر من الصور عنصرين من العناوين الإلكترونية للوسائط - الأول هو العنوان الإلكتروني للصورة بالموقع الإلكتروني الخاص بمقدمها، والثاني هو العنوان الإلكتروني الخاص بالنسخة المؤقتة للوسائط الموجودة بخادم موسوعة الحياة. إذا  كان حجم الصورة الأصلية يتعدى 460 ميجا بكسل من حيث العرض أو 345 من حيث الطول، سوف يكون قد تم تغيير حجم نسخة الصورة بموسوعة الحياة (مع  الاحتفاظ  نسبة الابعاد)  .
+  image_rating: تقييم الصورة
   images: الصور
   images_with_count: 
     one: "%{count} صورة"
@@ -1574,6 +1588,7 @@ ar:
   sort_by_year_ascending: العنوان تنازليا
   sort_by_year_descending: العام تنازليًا
   sort_collection_by_label: رتب المجموعة وفقًا لـ
+  sound_rating: تقييم الصوت
   sounds_with_count: 
     one: "%{count} صوت"
     other: "%{count} صوت"
@@ -1764,6 +1779,7 @@ ar:
   values: قيم
   version_1_0_uses_fields_from_the_latest_version: تستخدم النسخة رقم 1.0 خانات من أحدث نسخة من مخطط %{link}
   vetted: تم تقييمه
+  video_rating: تقييم الفيديو
   video_title_not_available_in_language: العنوان غير متاح باللغة %{language}
   videos_with_count: 
     one: "%{count} فيديو"
